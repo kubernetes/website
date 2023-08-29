@@ -75,7 +75,7 @@ description: |-
         <div class="row">
             <div class="col-md-8">
                 <h2>Nodes</h2>
-                <p>A Pod always runs on a <b>Node</b>. A Node is a worker machine in Kubernetes and may be either a virtual or a physical machine, depending on the cluster. Each Node is managed by the control plane. A Node can have multiple pods, and the Kubernetes control plane automatically handles scheduling the pods across the Nodes in the cluster. The control plane's automatic scheduling takes into account the available resources on each Node.</p>
+                <p>A Pod always runs on a <b>Node</b>. A Node is a worker machine in Kubernetes and may be either a virtual or a physical machine, depending on the cluster. Each Node is managed by the control plane. A Node can have multiple Pods, and the Kubernetes control plane automatically handles scheduling the Pods across the Nodes in the cluster. The control plane's automatic scheduling takes into account the available resources on each Node.</p>
 
                 <p>Every Kubernetes Node runs at least:</p>
                 <ul>
@@ -86,7 +86,7 @@ description: |-
             </div>
             <div class="col-md-4">
                 <div class="content__box content__box_fill">
-                    <p><i> Containers should only be scheduled together in a single Pod if they are tightly coupled and need to share resources such as disk. </i></p>
+                    <p><i>Containers should only be scheduled together in a single Pod if they are tightly coupled and need to share resources such as disk.</i></p>
                 </div>
             </div>
         </div>
@@ -113,8 +113,8 @@ description: |-
                 <ul>
                     <li><tt><b>kubectl get</b></tt> - list resources</li>
                     <li><tt><b>kubectl describe</b></tt> - show detailed information about a resource</li>
-                    <li><tt><b>kubectl logs</b></tt> - print the logs from a container in a pod</li>
-                    <li><tt><b>kubectl exec</b></tt> - execute a command on a container in a pod</li>
+                    <li><tt><b>kubectl logs</b></tt> - print the logs from a container in a Pod</li>
+                    <li><tt><b>kubectl exec</b></tt> - execute a command on a container in a Pod</li>
                 </ul>
 
                 <p>You can use these commands to see when applications were deployed, what their current statuses are, where they are running and what their configurations are.</p>
@@ -124,7 +124,7 @@ description: |-
             </div>
             <div class="col-md-4">
                 <div class="content__box content__box_fill">
-                    <p><i> A node is a worker machine in Kubernetes and may be a VM or physical machine, depending on the cluster. Multiple Pods can run on one Node. </i></p>
+                    <p><i>A node is a worker machine in Kubernetes and may be a VM or physical machine, depending on the cluster. Multiple Pods can run on one Node.</i></p>
                 </div>
             </div>
         </div>
@@ -134,10 +134,10 @@ description: |-
                 <h3>Check application configuration</h3>
                 <p>Let's verify that the application we deployed in the previous scenario is running. We'll use the <code>kubectl get</code> command and look for existing Pods:</p>
                 <p><b><code>kubectl get pods</code></b></p>
-                <p>If no pods are running, please wait a couple of seconds and list the Pods again. You can continue once you see one Pod running.</p>
+                <p>If no Pods are running, please wait a couple of seconds and list the Pods again. You can continue once you see one Pod running.</p>
                 <p>Next, to view what containers are inside that Pod and what images are used to build those containers we run the <code>kubectl describe pods</code> command:</p>
                 <p><b><code>kubectl describe pods</code></b></p>
-                <p>We see here details about the Pod’s container: IP address, the ports used and a list of events related to the lifecycle of the Pod.</p>
+                <p>We see here details about the Pod’s container: IP address, the ports used and a list of events related to the <a href="/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase">lifecycle of the Pod</a>.</p>
                 <p>The output of the <tt>describe</tt> subcommand is extensive and covers some concepts that we didn’t explain yet, but don’t worry, they will become familiar by the end of this bootcamp.</p>
                 <p><em><strong>Note:</strong> the <tt>describe</tt> subcommand can be used to get detailed information about most of the Kubernetes primitives, including Nodes, Pods, and Deployments. The describe output is designed to be human readable, not to be scripted against.</em></p>
             </div>
@@ -149,7 +149,7 @@ description: |-
                 <p>Recall that Pods are running in an isolated, private network - so we need to proxy access
                 to them so we can debug and interact with them. To do this, we'll use the <code>kubectl proxy</code> command to run a proxy in a <strong>second terminal</strong>. Open a new terminal window, and in that new terminal, run:</p>
                 <p><code><b>kubectl proxy</b></code></p>
-                <p>Now again, we'll get the Pod name and query that pod directly through the proxy.
+                <p>Now again, we'll get the Pod name and query that Pod directly through the proxy.
                 To get the Pod name and store it in the <tt>POD_NAME</tt> environment variable:</p>
                 <p><code><b>export POD_NAME="$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')"</b></code><br />
                 <code><b>echo Name of the Pod: $POD_NAME</b></code></p>
@@ -164,7 +164,7 @@ description: |-
                 <h3>View the container logs</h3>
                 <p>Anything that the application would normally send to standard output becomes logs for the container within the Pod. We can retrieve these logs using the <code>kubectl logs</code> command:</p>
                 <p><code><b>kubectl logs "$POD_NAME"</b></code></p>
-                <p><em><strong>Note:</strong> We don't need to specify the container name, because we only have one container inside the pod.</em></p>
+                <p><em><strong>Note:</strong> We don't need to specify the container name, because we only have one container inside the Pod.</em></p>
            </div>
         </div>
 
@@ -172,7 +172,7 @@ description: |-
             <div class="col-md-12">
                 <h3>Executing command on the container</h3>
                 <p>We can execute commands directly on the container once the Pod is up and running.
-                For this, we use the <code>exec</code> subcommand and use the name of the Pod as a parameter. Let’s list the environment variables:</p>
+                For this, we use the <code>exec</code> subcommand and use the name of the Pod as a parameter. Let’s list the environment variables in our container:</p>
                 <p><code><b>kubectl exec "$POD_NAME" -- env</b></code></p>
                 <p>Again, it's worth mentioning that the name of the container itself can be omitted since we only have a single container in the Pod.</p>
                 <p>Next let’s start a bash session in the Pod’s container:</p>
@@ -181,7 +181,7 @@ description: |-
                 <p><code><b>cat server.js</b></code></p>
                 <p>You can check that the application is up by running a <tt>curl</tt> command:</p>
                 <p><code><b>curl http://localhost:8080</b></code></p>
-                <p><em><strong>Note:</strong> here we used <tt>localhost</tt> because we executed the command inside the NodeJS Pod. If you cannot connect to localhost:8080, check to make sure you have run the <code>kubectl exec</code> command and are launching the command from within the Pod</em></p>
+                <p><em><strong>Note:</strong> here we used <tt>localhost</tt> because we executed the command inside the NodeJS Pod. If you cannot connect to localhost:8080, check to make sure you have run the <code>kubectl exec</code> command and are launching the <code>curl</code> command from within the Pod.</em></p>
                 <p>To close your container connection, type <code><b>exit</b></code>.</p>
            </div>
         </div>

@@ -84,7 +84,7 @@ description: |-
             </div>
             <div class="col-md-4">
                 <div class="content__box content__box_fill">
-                    <p><i> Applications need to be packaged into one of the supported container formats in order to be deployed on Kubernetes </i></p>
+                    <p><i>Applications need to be packaged into one of the supported container formats in order to be deployed on Kubernetes.</i></p>
                 </div>
             </div>
         </div>
@@ -114,24 +114,24 @@ description: |-
             <div class="col-md-12">
                 <a id="deploy-an-app"></a>
                 <h3>Deploy an app</h3>
-                <p>Let’s deploy our first app on Kubernetes with the <code>kubectl create deployment</code> command. We need to provide the deployment name and app image location (include the full repository url for images hosted outside Docker Hub).</p>
+                <p>Let’s deploy our first app on Kubernetes with the <code>kubectl create deployment</code> command. We need to provide the Deployment name and app image location (include the full repository url for images hosted outside Docker Hub).</p>
                 <p><b><code>kubectl create deployment kubernetes-bootcamp --image=gcr.io/google-samples/kubernetes-bootcamp:v1</code></b></p>
-                <p>Great! You just deployed your first application by creating a deployment. This performed a few things for you:</p>
+                <p>Great! You just deployed your first application by creating a Deployment. This performed a few things for you:</p>
                 <ul>
                 <li>searched for a suitable node where an instance of the application could be run (we have only 1 available node)</li>
                 <li>scheduled the application to run on that Node</li>
                 <li>configured the cluster to reschedule the instance on a new Node when needed</li>
                 </ul>
-                <p>To list your deployments use the <code>kubectl get deployments</code> command:</p>
+                <p>To list your Deployments use the <code>kubectl get deployments</code> command:</p>
                 <p><b><code>kubectl get deployments</code></b></p>
-                <p>We see that there is 1 deployment running a single instance of your app. The instance is running inside a container on your node.</p>
+                <p>We see that there is 1 Deployment running a single instance of your app. The instance is running inside a container on your node.</p>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <h3>View the app</h3>
                 <p>Pods that are running inside Kubernetes are running on a private, isolated network.
-                By default they are visible from other pods and services within the same Kubernetes cluster, but not outside that network.
+                By default they are visible from other Pods and Services within the same Kubernetes cluster, but not outside that network.
                 When we use <code>kubectl</code>, we're interacting through an API endpoint to communicate with our application.</p>
                 <p>We will cover other options on how to expose your application outside the Kubernetes cluster later, in <a href="/docs/tutorials/kubernetes-basics/expose/">Module 4</a>.</p>
                 <p>The <code>kubectl proxy</code> command can create a proxy that will forward communications into the cluster-wide, private network. The proxy can be terminated by pressing control-C and won't show any output while its running.</p>
@@ -141,7 +141,7 @@ description: |-
                 <p>You can see all those APIs hosted through the proxy endpoint. For example, we can query the version directly through the API using the <code>curl</code> command:</p>
                 <p><b><code>curl http://localhost:8001/version</code></b></p>
                 <div class="alert alert-info note callout" role="alert"><strong>Note:</strong> If port 8001 is not accessible, ensure that the <code>kubectl proxy</code> that you started above is running in the second terminal.</div>
-                <p>The API server will automatically create an endpoint for each pod, based on the pod name, that is also accessible through the proxy.</p>
+                <p>The API server will automatically create an endpoint for each Pod, based on the Pod name, that is also accessible through the proxy.</p>
                 <p>First we need to get the Pod name, and we'll store in the environment variable <tt>POD_NAME</tt>:</p>
                 <p><b><code>export POD_NAME=$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')</code></b><br />
                    <b><code>echo Name of the Pod: $POD_NAME</code></b></p>

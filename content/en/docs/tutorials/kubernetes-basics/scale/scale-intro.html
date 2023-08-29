@@ -27,7 +27,7 @@ description: |-
             <div class="col-md-8">
        <h3>Scaling an application</h3>
 
-            <p>Previously we created a <a href="/docs/concepts/workloads/controllers/deployment/"> Deployment</a>, and then exposed it publicly via a <a href="/docs/concepts/services-networking/service/">Service</a>. The Deployment created only one Pod for running our application.  When traffic increases, we will need to scale the application to keep up with user demand.</p>
+            <p>Previously we created a <a href="/docs/concepts/workloads/controllers/deployment/">Deployment</a>, and then exposed it publicly via a <a href="/docs/concepts/services-networking/service/">Service</a>. The Deployment created only one Pod for running our application. When traffic increases, we will need to scale the application to keep up with user demand.</p>
             <p>If you haven't worked through the earlier sections, start from <a href="/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/">Using minikube to create a cluster</a>.</p>
 
             <p><em>Scaling</em> is accomplished by changing the number of replicas in a Deployment</p>
@@ -41,7 +41,7 @@ description: |-
                     </ul>
                 </div>
                 <div class="content__box content__box_fill">
-                    <p><i> You can create from the start a Deployment with multiple instances using the --replicas parameter for the kubectl create deployment command </i></p>
+                    <p><i>You can create from the start a Deployment with multiple instances using the --replicas parameter for the kubectl create deployment command.</i></p>
                 </div>
             </div>
         </div>
@@ -103,7 +103,7 @@ description: |-
 
         <div class="row">
             <div class="col-md-8">
-                <p> Once you have multiple instances of an application running, you would be able to do Rolling updates without downtime. We'll cover that in the next section of the tutorial. Now, let's go to the terminal and scale our application.</p>
+                <p>Once you have multiple instances of an application running, you would be able to do Rolling updates without downtime. We'll cover that in the next section of the tutorial. Now, let's go to the terminal and scale our application.</p>
             </div>
         </div>
 
@@ -133,13 +133,13 @@ description: |-
                <li><em>DESIRED</em> displays the desired number of replicas of the application, which you define when you create the Deployment. This is the desired state.</li>
                <li><em>CURRENT</em> displays how many replicas are currently running.</li>
                </ul>
-               <p>Next, let’s scale the Deployment to 4 replicas. We’ll use the <code>kubectl scale</code> command, followed by the Deployment type, name and desired number of instances:</p>
+               <p>Next, let’s scale the Deployment to 4 replicas. We’ll use the <code>kubectl scale</code> command, followed by the object type (Deployment), name and desired number of instances:</p>
                <p><code><b>kubectl scale deployments/kubernetes-bootcamp --replicas=4</b></code></p>
                <p>To list your Deployments once again, use <code>get deployments</code>:</p>
                <p><code><b>kubectl get deployments</b></code></p>
                <p>The change was applied, and we have 4 instances of the application available. Next, let’s check if the number of Pods changed:</p>
                <p><code><b>kubectl get pods -o wide</b></code></p>
-               <p>There are 4 Pods now, with different IP addresses. The change was registered in the Deployment events log. To check that, use the describe subcommand:</p>
+               <p>There are 4 Pods now, with different IP addresses. The change was registered in the Deployment events log. To check that, use the <tt>describe</tt> subcommand:</p>
                <p><code><b>kubectl describe deployments/kubernetes-bootcamp</b></code></p>
                <p>You can also view in the output of this command that there are 4 replicas now.</p>
             </div>
@@ -148,7 +148,7 @@ description: |-
         <div class="row">
             <div class="col-md-12">
                <h3>Load Balancing</h3>
-               <p>Let's check that the Service is load-balancing the traffic. To find out the exposed IP and Port we can use the describe service as we learned in the previous part of the tutorial:</p>
+               <p>Let's check that the Service is load-balancing the traffic. To find out the exposed IP and Port we can use the <tt>describe service</tt> subcommand as we learned in <a href="/docs/tutorials/kubernetes-basics/expose/expose-intro/">the previous part</a> of the tutorial:</p>
                <p><code><b>kubectl describe services/kubernetes-bootcamp</b></code></p>
                <p>Create an environment variable called <tt>NODE_PORT</tt> that has a value as the Node port:</p>
                <p><code><b>export NODE_PORT="$(kubectl get services/kubernetes-bootcamp -o go-template='{{(index .spec.ports 0).nodePort}}')"</b></code><br />
