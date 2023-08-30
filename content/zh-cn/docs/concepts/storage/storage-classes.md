@@ -395,7 +395,7 @@ parameters:
 volumeBindingMode: WaitForFirstConsumer
 allowedTopologies:
 - matchLabelExpressions:
-  - key: failure-domain.beta.kubernetes.io/zone
+  - key: topology.kubernetes.io/zone
     values:
     - us-central-1a
     - us-central-1b
@@ -761,6 +761,15 @@ which you try out for persistent volume management inside Kubernetes for vSphere
 Kubernetes for vSphere 中尝试进行持久卷管理。
 
 ### Ceph RBD  {#ceph-rbd}
+
+{{< note >}}
+{{< feature-state state="deprecated" for_k8s_version="v1.28" >}}
+<!--
+This internal provisioner of Ceph RBD is deprecated. Please use
+[CephFS RBD CSI driver](https://github.com/ceph/ceph-csi).
+-->
+Ceph RBD 的内部驱动程序已被弃用。请使用 [CephFS RBD CSI驱动程序](https://github.com/ceph/ceph-csi)。
+{{< /note >}}
 
 ```yaml
 apiVersion: storage.k8s.io/v1
