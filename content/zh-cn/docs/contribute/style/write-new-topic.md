@@ -231,7 +231,7 @@ the topic. In your topic file, use the `codenew` shortcode:
 其中 `<LANG>` 是该主题的语言。在主题文件中使用 `codenew` 短代码：
 
 ```none
-{{</* codenew file="<RELPATH>/my-example-yaml>" */>}}
+{{%/* codenew file="<RELPATH>/my-example-yaml>" */%}}
 ```
 
 <!--
@@ -245,18 +245,8 @@ file located at `/content/en/examples/pods/storage/gce-volume.yaml`.
 文件。
 
 ```none
-{{</* codenew file="pods/storage/gce-volume.yaml" */>}}
+{{%/* codenew file="pods/storage/gce-volume.yaml" */%}}
 ```
-
-<!--
-To show raw Hugo shortcodes as in the above example and prevent Hugo
-from interpreting them, use C-style comments directly after the `<` and before
-the `>` characters. View the code for this page for an example.
--->
-{{< note >}}
-要展示上述示例中的原始 Hugo 短代码并避免 Hugo 对其进行解释，
-请直接在 `<` 字符之后和 `>` 字符之前使用 C 样式注释。请查看此页面的代码。
-{{< /note >}}
 
 <!--
 ## Showing how to create an API object from a configuration file

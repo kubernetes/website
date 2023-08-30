@@ -3,7 +3,6 @@ title: kubeadm init
 content_type: concept
 weight: 20
 ---
-
 <!--
 reviewers:
 - luxas
@@ -133,7 +132,7 @@ following steps:
    Please note that although the DNS server is deployed, it will not be scheduled until CNI is installed.
 -->
 8. 通过 API 服务器安装一个 DNS 服务器 (CoreDNS) 和 kube-proxy 附加组件。
-   在 Kubernetes 版本 1.11 和更高版本中，CoreDNS 是默认的 DNS 服务器。
+   在 Kubernetes v1.11 和更高版本中，CoreDNS 是默认的 DNS 服务器。
    请注意，尽管已部署 DNS 服务器，但直到安装 CNI 时才调度它。
 
    {{< warning >}}
@@ -148,7 +147,6 @@ following steps:
 
 Kubeadm allows you to create a control-plane node in phases using the `kubeadm init phase` command.
 -->
-
 ### 在 kubeadm 中使用 init 阶段 {#init-phases}
 
 Kubeadm 允许你使用 `kubeadm init phase` 命令分阶段创建控制平面节点。
@@ -228,7 +226,7 @@ Alternatively, you can use the `skipPhases` field under `InitConfiguration`.
 <!--
 The config file is still considered beta and may change in future versions.
 -->
-配置文件的功能仍然处于 beta 状态并且在将来的版本中可能会改变。
+配置文件的功能仍然处于 Beta 状态并且在将来的版本中可能会改变。
 {{< /caution >}}
 
 <!--
@@ -299,6 +297,15 @@ List of feature gates:
 -->
 特性门控的列表：
 
+<!--
+{{< table caption="kubeadm feature gates" >}}
+Feature | Default | Alpha | Beta | GA
+:-------|:--------|:------|:-----|:----
+`PublicKeysECDSA` | `false` | 1.19 | - | -
+`RootlessControlPlane` | `false` | 1.22 | - | -
+`UnversionedKubeletConfigMap` | `true` | 1.22 | 1.23 | 1.25
+{{< /table >}}
+-->
 {{< table caption="kubeadm 特性门控" >}}
 特性 | 默认值 | Alpha | Beta | GA
 :-------|:--------|:------|:-----|:----
@@ -327,8 +334,8 @@ switch between the RSA and ECDSA algorithms on the fly or during upgrades.
 -->
 `PublicKeysECDSA`
 : 可用于创建集群时使用 ECDSA 证书而不是默认 RSA 算法。
-支持用 `kubeadm certs renew` 更新现有 ECDSA 证书，
-但你不能在集群运行期间或升级期间切换 RSA 和 ECDSA 算法。
+  支持用 `kubeadm certs renew` 更新现有 ECDSA 证书，
+  但你不能在集群运行期间或升级期间切换 RSA 和 ECDSA 算法。
 
 <!--
 `RootlessControlPlane`
@@ -339,9 +346,9 @@ you upgrade to a newer version of Kubernetes.
 -->
 `RootlessControlPlane`
 : 设置此标志来配置 kubeadm 所部署的控制平面组件中的静态 Pod 容器
-`kube-apiserver`、`kube-controller-manager`、`kube-scheduler` 和 `etcd` 以非 root 用户身份运行。
-如果未设置该标志，则这些组件以 root 身份运行。
-你可以在升级到更新版本的 Kubernetes 之前更改此特性门控的值。
+  `kube-apiserver`、`kube-controller-manager`、`kube-scheduler` 和 `etcd` 以非 root 用户身份运行。
+  如果未设置该标志，则这些组件以 root 身份运行。
+  你可以在升级到更新版本的 Kubernetes 之前更改此特性门控的值。
 
 <!--
 `UnversionedKubeletConfigMap`
@@ -356,14 +363,74 @@ if that does not succeed, kubeadm falls back to using the legacy (versioned) nam
 -->
 `UnversionedKubeletConfigMap`
 : 此标志控制 kubeadm 存储 kubelet 配置数据的 {{<glossary_tooltip text="ConfigMap" term_id="configmap" >}} 的名称。
-在未指定此标志或设置为 `true` 的情况下，此 ConfigMap 被命名为 `kubelet-config`。
-如果将此标志设置为 `false`，则此 ConfigMap 的名称会包括 Kubernetes 的主要版本和次要版本（例如：`kubelet-config-{{< skew currentVersion >}}`）。
-Kubeadm 会确保用于读写 ConfigMap 的 RBAC 规则适合你设置的值。
-当 kubeadm 写入此 ConfigMap 时（在 `kubeadm init` 或 `kubeadm upgrade apply` 期间），
-kubeadm 根据 `UnversionedKubeletConfigMap` 的设置值来执行操作。
-当读取此 ConfigMap 时（在 `kubeadm join`、`kubeadm reset`、`kubeadm upgrade ...` 期间），
-kubeadm 尝试首先使用无版本（后缀）的 ConfigMap 名称；
-如果不成功，kubeadm 将回退到使用该 ConfigMap 的旧（带版本号的）名称。
+  在未指定此标志或设置为 `true` 的情况下，此 ConfigMap 被命名为 `kubelet-config`。
+  如果将此标志设置为 `false`，则此 ConfigMap 的名称会包括 Kubernetes 的主要版本和次要版本
+  （例如：`kubelet-config-{{< skew currentVersion >}}`）。
+  kubeadm 会确保用于读写 ConfigMap 的 RBAC 规则适合你设置的值。
+  当 kubeadm 写入此 ConfigMap 时（在 `kubeadm init` 或 `kubeadm upgrade apply` 期间），
+  kubeadm 根据 `UnversionedKubeletConfigMap` 的设置值来执行操作。
+  当读取此 ConfigMap 时（在 `kubeadm join`、`kubeadm reset`、`kubeadm upgrade ...` 期间），
+  kubeadm 尝试首先使用无版本（后缀）的 ConfigMap 名称；
+  如果不成功，kubeadm 将回退到使用该 ConfigMap 的旧（带版本号的）名称。
+
+<!--
+List of deprecated feature gates:
+-->
+已弃用特性门控的列表：
+
+<!--
+{{< table caption="kubeadm deprecated feature gates" >}}
+Feature | Default 
+:-------|:--------
+`UpgradeAddonsBeforeControlPlane` | `false`
+{{< /table >}}
+-->
+{{< table caption="kubeadm 弃用的特性门控" >}}
+特性     | 默认值 
+:-------|:--------
+`UpgradeAddonsBeforeControlPlane` | `false`
+{{< /table >}}
+
+<!--
+Feature gate descriptions:
+-->
+特性门控描述：
+
+<!--
+`UpgradeAddonsBeforeControlPlane`
+: This is as a **disabled** feature gate that was introduced for Kubernetes v1.28,
+in order to allow reactivating a legacy and deprecated behavior during cluster upgrade.
+For kubeadm versions prior to v1.28, kubeadm upgrades cluster addons
+(including CoreDNS and kube-proxy) immediately during `kubeadm upgrade apply`,
+regardless of whether there are other control plane instances that have not been upgraded.
+This may cause compatibility problems. Since v1.28, kubeadm defaults to a mode that
+always checks whether all the control plane instances have been upgraded before starting
+to upgrade the addons. This behavior is applied to both `kubeadm upgrade apply` and
+`kubeadm upgrade node`. kubeadm determines whether a control plane instance
+has been upgraded by checking whether the image of the kube-apiserver Pod has
+been upgraded. You must perform control plane instances upgrade sequentially or
+at least ensure that the last control plane instance upgrade is not started until
+all the other control plane instances have been upgraded completely, and the addons
+upgrade will be performed after the last control plane instance is upgraded.
+The deprecated `UpgradeAddonsBeforeControlPlane` feature gate gives you a chance
+to keep the old upgrade behavior. You should not need this old behavior; if you do,
+you should consider changing your cluster or upgrade processes, as this
+feature gate will be removed in a future release.
+-->
+`UpgradeAddonsBeforeControlPlane`
+: 这是一个在 Kubernetes v1.28 中引入的默认禁用的特性门控，
+  目的是在集群升级期间允许重新激活旧版且已弃用的行为。对于早于 v1.28 的 kubeadm 版本，
+  在 `kubeadm upgrade apply` 期间会立即升级集群插件（包括 CoreDNS 和 kube-proxy），
+  而不管是否有其他未升级的控制平面实例。这可能导致兼容性问题。从 v1.28 开始，
+  kubeadm 默认采用的模式是在开始升级插件之前始终检查是否所有控制平面实例都已完成升级。
+  此行为适用于 `kubeadm upgrade apply` 和 `kubeadm upgrade node`。
+  kubeadm 通过检查 kube-apiserver Pod 的镜像来确定控制平面实例是否已升级。
+  你必须按顺序执行控制平面实例的升级，
+  或者至少确保在所有其他控制平面实例完全升级之前不启动最后一个控制平面实例的升级，
+  并且在最后一个控制平面实例升级完成后再执行插件的升级。
+  这个弃用的 `UpgradeAddonsBeforeControlPlane` 特性门控使你有机会保留旧的升级行为。
+  你不应该需要这种旧的行为；如果确实需要，请考虑更改集群或升级流程，
+  因为此特性门控将在未来的版本中被移除。
 
 <!--
 ### Adding kube-proxy parameters {#kube-proxy}

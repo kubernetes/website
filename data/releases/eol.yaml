@@ -1,4 +1,9 @@
 branches:
+  - release: "1.24"
+    finalPatchRelease: "1.24.17"
+    endOfLifeDate: 2023-07-28
+    note: >-
+      1.24.17 was released in August 2023 (after the EOL date) to fix CVE-2023-3676 and CVE-2023-3955
   - release: "1.23"
     finalPatchRelease: "1.23.17"
     endOfLifeDate: 2023-02-28
