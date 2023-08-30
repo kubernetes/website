@@ -373,7 +373,7 @@ The `DATA` column shows the number of data items stored in the Secret.
 In this case, `0` means you have created an empty Secret.
 -->
 `DATA` 列显示 Secret 中保存的数据条目个数。
-在这个例子种，`0` 意味着你刚刚创建了一个空的 Secret。
+在这个例子中，`0` 意味着你刚刚创建了一个空的 Secret。
 
 <!--
 ### Service account token Secrets
