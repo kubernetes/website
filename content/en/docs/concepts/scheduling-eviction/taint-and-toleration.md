@@ -90,14 +90,13 @@ The above example used `effect` of `NoSchedule`. Alternatively, you can use `eff
 The allowed values for the `effect` field are:
 
 `NoExecute`
-: This affects pods that are already running on the node as follows
-    * pods that do not tolerate the taint are evicted immediately
-    * pods that tolerate the taint without specifying `tolerationSeconds` in
-   their toleration specification remain bound forever
-    * pods that tolerate the taint with a specified `tolerationSeconds` remain
-  * pods that tolerate the taint with a specified `tolerationSeconds` remain
-   bound for the specified amount of time. After that time elapses, the node
-   lifecycle controller (within the control plane) evicts the Pod from the node.
+: This affects pods that are already running on the node as follows:
+  * Pods that do not tolerate the taint are evicted immediately
+  * Pods that tolerate the taint without specifying `tolerationSeconds` in
+    their toleration specification remain bound forever
+  * Pods that tolerate the taint with a specified `tolerationSeconds` remain
+    bound for the specified amount of time. After that time elapses, the node
+    lifecycle controller evicts the Pods from the node.
    
 `NoSchedule`
 : No new pods with this will be scheduled on the tainted node unless they have the matching toleration. Pods that are currently running on the node are **not** evicted.
