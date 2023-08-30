@@ -99,11 +99,13 @@ The allowed values for the `effect` field are:
     lifecycle controller evicts the Pods from the node.
    
 `NoSchedule`
-: No new pods with this will be scheduled on the tainted node unless they have the matching toleration. Pods that are currently running on the node are **not** evicted.
+: No new Pods will be scheduled on the tainted node unless they have a matching
+  toleration. Pods currently running on the node are **not** evicted.
 
 `PreferNoSchedule`
-: `PreferNoSchedule` is a "preference" or "soft" version of `NoSchedule`. The control plane will *try* to avoid placing a
-pod that does not tolerate the taint on the node, but it is not required. 
+: `PreferNoSchedule` is a "preference" or "soft" version of `NoSchedule`.
+  The control plane will *try* to avoid placing a Pod that does not tolerate
+  the taint on the node, but it is not guaranteed. 
 
 You can put multiple taints on the same node and multiple tolerations on the same pod.
 The way Kubernetes processes multiple taints and tolerations is like a filter: start
@@ -230,7 +232,9 @@ are true. The following taints are built in:
     this node, the kubelet removes this taint.
 
 In case a node is to be drained, the node controller or the kubelet adds relevant taints
-with `NoExecute` effect. This effect is added by default for the  `node.kubernetes.io/not-ready` and `node.kubernetes.io/unreachable` taints. If the fault condition returns to normal the kubelet or node
+with `NoExecute` effect. This effect is added by default for the
+`node.kubernetes.io/not-ready` and `node.kubernetes.io/unreachable` taints.
+If the fault condition returns to normal, the kubelet or node
 controller can remove the relevant taint(s).
 
 In some cases when the node is unreachable, the API server is unable to communicate
