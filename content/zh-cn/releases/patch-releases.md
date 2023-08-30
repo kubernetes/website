@@ -149,7 +149,6 @@ releases may also occur in between these.
 <!--
 | Monthly Patch Release | Cherry Pick Deadline | Target date |
 | --------------------- | -------------------- | ----------- |
-| August 2023           | 2023-08-04           | 2023-08-09  |
 | September 2023        | 2023-09-08           | 2023-09-13  |
 | October 2023          | 2023-10-13           | 2023-10-18  |
 | November 2023         | N/A                  | N/A         |
@@ -157,7 +156,6 @@ releases may also occur in between these.
 -->
 | 月度补丁发布   | Cherry Pick 截止日期 | 目标日期     |
 |--------------|---------------------|------------|
-| 2023 年 8 月  | 2023-08-04         | 2023-08-09  |
 | 2023 年 9 月  | 2023-09-08         | 2023-09-13  |
 | 2023 年 10 月 | 2023-10-13         | 2023-10-18  |
 | 2023 年 11 月 | N/A                | N/A         |
@@ -188,14 +186,3 @@ These releases are no longer supported.
 不再支持这些版本。
 
 {{< eol-releases >}}
-
-<!--
-[cherry-picks]: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/cherry-picks.md
-[release-managers]: /releases/release-managers
-[release process description]: /releases/release
-[yearly-support]: https://git.k8s.io/enhancements/keps/sig-release/1498-kubernetes-yearly-support-period/README.md
--->
-[精选提交]：https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/cherry-picks.md
-[发布管理员]：/zh-cn/releases/release-managers
-[发布流程介绍]：/zh-cn/releases/release
-[年度支持]：https://git.k8s.io/enhancements/keps/sig-release/1498-kubernetes-yearly-support-period/README.md
