@@ -1,18 +1,7 @@
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
 <!-- 
 Renew the certificate embedded in the kubeconfig file for the admin to use and for kubeadm itself 
 -->
-续订 kubeconfig 文件中嵌入的证书，供管理员 和 kubeadm 自身使用。
+续订 kubeconfig 文件中嵌入的证书，供管理员和 kubeadm 自身使用。
 
 <!--
 ### Synopsis
@@ -22,7 +11,7 @@ Renew the certificate embedded in the kubeconfig file for the admin to use and f
 <!--
 Renew the certificate embedded in the kubeconfig file for the admin to use and for kubeadm itself.
 -->
-续订 kubeconfig 文件中嵌入的证书，供管理员 和 kubeadm 自身使用。
+续订 kubeconfig 文件中嵌入的证书，供管理员和 kubeadm 自身使用。
 
 <!--
 Renewals run unconditionally, regardless of certificate expiration date; extra attributes such as SANs will be based on the existing file/certificates, there is no need to resupply them.
@@ -47,7 +36,6 @@ kubeadm certs renew admin.conf [flags]
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -59,7 +47,9 @@ kubeadm certs renew admin.conf [flags]
 
 <tr>
 <td colspan="2">
-<!-- --cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki" -->
+<!--
+--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"
+-->
 --cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/pki"
 </td>
 </tr>
@@ -77,8 +67,10 @@ kubeadm certs renew admin.conf [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!-- <p>Path to a kubeadm configuration file.</p> -->
-<p>kubeadm 配置文件的路径。</p>
+<!--
+<p>Path to a kubeadm configuration file.</p>
+-->
+<p>到 kubeadm 配置文件的路径。</p>
 </td>
 </tr>
 
@@ -87,8 +79,10 @@ kubeadm certs renew admin.conf [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!-- <p>help for admin.conf</p> -->
-<p>admin.conf 子操作的帮助命令</p>
+<!--
+<p>help for admin.conf</p>
+-->
+<p>admin.conf 操作的帮助命令。</p>
 </td>
 </tr>
 
@@ -97,7 +91,9 @@ kubeadm certs renew admin.conf [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!-- <p>The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</p>  -->
+<!--
+<p>The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</p>
+-->
 <p>与集群通信时使用的 kubeconfig 文件。
 如果未设置该参数，则可以在一组标准位置中搜索现有的 kubeconfig 文件。</p>
 </td>
@@ -111,7 +107,7 @@ kubeadm certs renew admin.conf [flags]
 <!--
 Use the Kubernetes certificate API to renew certificates
 -->
-使用 Kubernetes 证书 API 续订证书
+使用 Kubernetes 证书 API 续订证书。
 </td>
 </tr>
 
@@ -144,4 +140,3 @@ Use the Kubernetes certificate API to renew certificates
 
 </tbody>
 </table>
-
