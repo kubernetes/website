@@ -3,6 +3,7 @@ layout: blog
 title: "Kubernetes Legacy Package Repositories Will Be Frozen On September 13, 2023"
 date: 2023-08-31T15:30:00-07:00
 slug: legacy-package-repository-deprecation
+evergreen: true
 ---
 
 **Authors**: Bob Killen (Google), Chris Short (AWS), Jeremy Rickard (Microsoft), Marko Mudrinić (Kubermatic), Tim Bannister (The Scale Factory)
