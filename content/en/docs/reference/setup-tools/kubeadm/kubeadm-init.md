@@ -159,6 +159,7 @@ Feature | Default | Alpha | Beta | GA
 :-------|:--------|:------|:-----|:----
 `PublicKeysECDSA` | `false` | 1.19 | - | -
 `RootlessControlPlane` | `false` | 1.22 | - | -
+`EtcdLearnerMode` | `false` | 1.27 | - | -
 {{< /table >}}
 
 {{< note >}}
@@ -177,6 +178,10 @@ switch between the RSA and ECDSA algorithms on the fly or during upgrades.
 for `kube-apiserver`, `kube-controller-manager`, `kube-scheduler` and `etcd` to run as non-root users.
 If the flag is not set, those components run as root. You can change the value of this feature gate before
 you upgrade to a newer version of Kubernetes.
+
+`EtcdLearnerMode`
+: With this feature gate enabled, when joining a new control plane node, a new etcd member will be created
+as a learner and promoted to a voting member only after the etcd data are fully aligned.
 
 List of deprecated feature gates:
 
