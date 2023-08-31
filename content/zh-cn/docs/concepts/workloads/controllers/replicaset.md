@@ -64,13 +64,13 @@ ReplicaSet 是通过一组字段来定义的，包括一个用来识别可获得
 进而实现其存在价值。当 ReplicaSet 需要创建新的 Pod 时，会使用所提供的 Pod 模板。
 
 <!--
-A ReplicaSet is linked to its Pods via the Pods' [metadata.ownerReferences](/docs/concepts/architecture/garbage-collection/#owners-and-dependents)
+A ReplicaSet is linked to its Pods via the Pods' [metadata.ownerReferences](/docs/concepts/architecture/garbage-collection/#owners-dependents)
 field, which specifies what resource the current object is owned by. All Pods acquired by a ReplicaSet have their owning
 ReplicaSet's identifying information within their ownerReferences field. It's through this link that the ReplicaSet
 knows of the state of the Pods it is maintaining and plans accordingly.
 -->
 ReplicaSet 通过 Pod 上的
-[metadata.ownerReferences](/zh-cn/docs/concepts/architecture/garbage-collection/#owners-and-dependents)
+[metadata.ownerReferences](/zh-cn/docs/concepts/architecture/garbage-collection/#owners-dependents)
 字段连接到附属 Pod，该字段给出当前对象的属主资源。
 ReplicaSet 所获得的 Pod 都在其 ownerReferences 字段中包含了属主 ReplicaSet
 的标识信息。正是通过这一连接，ReplicaSet 知道它所维护的 Pod 集合的状态，
