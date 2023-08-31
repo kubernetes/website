@@ -123,17 +123,42 @@ When you complete your content, the documentation person assigned to your featur
 To ensure technical accuracy, the content may also require a technical review from corresponding SIG(s).
 Use their suggestions to get the content to a release ready state.
 
+If your feature needs documentation and the first draft
+content is not received, the feature may be removed from the milestone.
+
+#### Feature gates {#ready-for-review-feature-gates}
+
 If your feature is an Alpha or Beta feature and is behind a feature gate,
 make sure you add it to [Alpha/Beta Feature gates](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features)
-table as part of your pull request. With new feature gates, a description of
-the feature gate is also required. If your feature is GA'ed or deprecated,
-make sure to move it from the
+table as part of your pull request. With net new feature gates, a separate
+description of the feature gate is also required; create a new Markdown file
+inside `content/en/docs/reference/command-line-tools-reference/feature-gates/`
+(use other files as a template).
+
+{{< note >}}
+Make sure to add a
+[`feature-gate-description` shortcode](/docs/contribute/style/hugo-shortcodes/#feature-gate-description)
+into the feature gates page. The list is sorted alphabetically.
+{{< /note >}}
+
+When you change a feature gate to disabled-by-default to enabled-by-default,
+you may also need to change other documentation (not just the list of
+feature gates). Watch out for language such as ”The `exampleSetting` field
+is a beta field and disabled by default. You can enable it by enabling the
+`ProcessExampleThings` feature gate.”
+
+If your feature is GA'ed or deprecated, make sure to move it from the
 [Feature gates for Alpha/Feature](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) table
 to [Feature gates for graduated or deprecated features](/docs/reference/command-line-tools-reference/feature-gates-removed/#feature-gates-that-are-removed)
 table with Alpha and Beta history intact.
 
-If your feature needs documentation and the first draft
-content is not received, the feature may be removed from the milestone.
+Eventually, Kubernetes will stop including the feature gate at all.
+In that case, you move it from [Feature gates for graduated or deprecated features](/docs/reference/command-line-tools-reference/feature-gates-removed/#feature-gates-that-are-removed)
+and into a separate page, [Feature Gates (removed)](/docs/reference/command-line-tools-reference/feature-gates-removed/).
+
+Also make sure to move the relevant list entry and
+[`feature-gate-description` shortcode](/docs/contribute/style/hugo-shortcodes/#feature-gate-description) into the
+removed feature gates page. The lists are sorted alphabetically.
 
 ### All PRs reviewed and ready to merge
 
