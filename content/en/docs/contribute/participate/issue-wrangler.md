@@ -6,7 +6,7 @@ weight: 20
 
 <!-- overview -->
 
-In order to reduce the burden on the [PR Wrangler](/docs/contribute/participate/pr-wranglers),and formal approvers, and reviewers, members of SIG Docs take week long shifts [triaging and categorising issues](/docs/contribute/review/for-approvers.md/#triage-and-categorize-issues) for the repository.
+Alongside the [PR Wrangler](/docs/contribute/participate/pr-wranglers),and formal approvers, and reviewers, members of SIG Docs take week long shifts [triaging and categorising issues](/docs/contribute/review/for-approvers.md/#triage-and-categorize-issues) for the repository.
 
 <!-- body -->
 
@@ -58,6 +58,9 @@ Each day in a week-long shift as Issue Wrangler:
 
 # to accept triaging for an issue
 /triage accepted
+
+# closing an issue we won't be working on and haven't fixed yet
+/close not-planned
 ```
 
 ### When to close Issues
