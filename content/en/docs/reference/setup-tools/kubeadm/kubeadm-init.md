@@ -205,9 +205,10 @@ feature gate will be removed in a future release.
 List of removed feature gates:
 
 {{< table caption="kubeadm removed feature gates" >}}
-Feature | Default | Alpha | Beta | GA | Removed
-:-------|:--------|:------|:-----|:---|:-------
-`UnversionedKubeletConfigMap` | `true` | 1.22 | 1.23 | 1.25 | 1.26
+Feature | Alpha | Beta | GA | Removed
+:-------|:------|:-----|:---|:-------
+`UnversionedKubeletConfigMap` | 1.22 | 1.23 | 1.25 | 1.26
+`IPv6DualStack` | 1.16 | 1.21 | 1.23 | 1.24
 {{< /table >}}
 
 Feature gate descriptions:
@@ -221,6 +222,10 @@ that ConfigMap are appropriate for the value you set. When kubeadm writes this C
 or `kubeadm upgrade apply`), kubeadm respects the value of `UnversionedKubeletConfigMap`. When reading that ConfigMap
 (during `kubeadm join`, `kubeadm reset`, `kubeadm upgrade ...`), kubeadm attempts to use unversioned ConfigMap name first;
 if that does not succeed, kubeadm falls back to using the legacy (versioned) name for that ConfigMap.
+
+`IPv6DualStack`
+: This flag helps to configure components dual stack when the feature is in progress. For more details on Kubernetes
+dual-stack support see [Dual-stack support with kubeadm](/docs/setup/production-environment/tools/kubeadm/dual-stack-support/).
 
 ### Adding kube-proxy parameters {#kube-proxy}
 
