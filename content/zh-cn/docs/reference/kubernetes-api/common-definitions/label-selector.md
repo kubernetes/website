@@ -52,13 +52,10 @@ A label selector is a label query over a set of resources. The result of matchLa
  
     <!-- 
        - **matchExpressions.key** (string), required
-       *Patch strategy: merge on key `key`* 
        key is the label key that the selector applies to.
     -->
 
   - **matchExpressions.key** (string)， 必填
-
-    *补丁策略：按照键 `key` 合并*    
     
     `key` 是选择器应用的标签键。
   
