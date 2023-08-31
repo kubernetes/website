@@ -1,13 +1,13 @@
 ---
 layout: blog
 title: "Kubernetes Legacy Package Repositories Will Be Frozen On September 13, 2023"
-date: 2023-09-01
+date: 2023-08-31T16:30:00-07:00
 slug: legacy-package-repository-deprecation
 ---
 
 **Authors**: Bob Killen (Google), Chris Short (AWS), Jeremy Rickard (Microsoft), Marko Mudrinić (Kubermatic), Tim Bannister (The Scale Factory)
 
-On August 15, 2023, the Kubernetes project announced the general availability of the community-owned package repositories for Debian and RPM packages available at `pkgs.k8s.io`. The new package repositories are replacement for the legacy Google-hosted package repositories: `apt.kubernetes.io` and `yum.kubernetes.io`. The [announcement blog post for `pkgs.k8s.io](/blog/2023/08/15/pkgs-k8s-io-introduction/) highlighted that we will stop publishing packages to the legacy repositories in the future.
+On August 15, 2023, the Kubernetes project announced the general availability of the community-owned package repositories for Debian and RPM packages available at `pkgs.k8s.io`. The new package repositories are replacement for the legacy Google-hosted package repositories: `apt.kubernetes.io` and `yum.kubernetes.io`. The [announcement blog post for `pkgs.k8s.io`](/blog/2023/08/15/pkgs-k8s-io-introduction/) highlighted that we will stop publishing packages to the legacy repositories in the future.
 
 Today, we're formally deprecating the legacy package repositories (`apt.kubernetes.io` and `yum.kubernetes.io`), and we're announcing our plans to freeze the contents of the repositories  as of **September 13, 2023**.
 
