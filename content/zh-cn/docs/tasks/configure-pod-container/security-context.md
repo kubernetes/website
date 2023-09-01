@@ -108,7 +108,7 @@ Here is a configuration file for a Pod that has a `securityContext` and an `empt
 对象。你为 Pod 所设置的安全性配置会应用到 Pod 中所有 Container 上。
 下面是一个 Pod 的配置文件，该 Pod 定义了 `securityContext` 和一个 `emptyDir` 卷：
 
-{{< codenew file="pods/security/security-context.yaml" >}}
+{{% code file="pods/security/security-context.yaml" %}}
 
 <!--
 In the configuration file, the `runAsUser` field specifies that for any Containers in
@@ -371,7 +371,7 @@ Pod 层面设置的内容发生重叠时，会重写 Pod 层面的设置。Conta
 下面是一个 Pod 的配置文件，其中包含一个 Container。Pod 和 Container 都有
 `securityContext` 字段：
 
-{{< codenew file="pods/security/security-context-2.yaml" >}}
+{{% code file="pods/security/security-context-2.yaml" %}}
 
 <!--
 Create the Pod:
@@ -454,7 +454,7 @@ Here is configuration file that does not add or remove any Container capabilitie
 首先，看一下不包含 `capabilities` 字段时候会发生什么。
 下面是一个配置文件，其中没有添加或移除容器的权能：
 
-{{< codenew file="pods/security/security-context-3.yaml" >}}
+{{% code file="pods/security/security-context-3.yaml" %}}
 
 <!--
 Create the Pod:
@@ -546,7 +546,7 @@ adds the `CAP_NET_ADMIN` and `CAP_SYS_TIME` capabilities:
 下面是一个 Pod 的配置，其中运行一个容器。配置为容器添加 `CAP_NET_ADMIN` 和
 `CAP_SYS_TIME` 权能：
 
-{{< codenew file="pods/security/security-context-4.yaml" >}}
+{{% code file="pods/security/security-context-4.yaml" %}}
 
 <!--
 Create the Pod:
@@ -710,7 +710,7 @@ To assign SELinux labels, the SELinux security module must be loaded on the host
 -->
 ### 高效重打 SELinux 卷标签
 
-{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
 <!--
 By default, the container runtime recursively assigns SELinux label to all
@@ -727,10 +727,11 @@ To benefit from this speedup, all these conditions must be met:
 要使用这项加速功能，必须满足下列条件：
 
 <!--
-* Alpha feature gates `ReadWriteOncePod` and `SELinuxMountReadWriteOncePod` must
-  be enabled.
+* The [feature gates](/docs/reference/command-line-tools-reference/feature-gates/) `ReadWriteOncePod`
+  and `SELinuxMountReadWriteOncePod` must be enabled.
 -->
-* 必须启用 Alpha 特性门控 `ReadWriteOncePod` 和 `SELinuxMountReadWriteOncePod`。
+* 必须启用 `ReadWriteOncePod` 和 `SELinuxMountReadWriteOncePod`
+  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 
 <!--
 * Pod must use PersistentVolumeClaim with `accessModes: ["ReadWriteOncePod"]`.
@@ -750,11 +751,18 @@ To benefit from this speedup, all these conditions must be met:
   * If you use a volume backed by a CSI driver, that CSI driver must announce that it
     supports mounting with `-o context` by setting `spec.seLinuxMount: true` in
     its CSIDriver instance.
+
+* The corresponding PersistentVolume must be either:
+  * A volume that uses the legacy in-tree `iscsi`, `rbd` or `fc` volume type.
+  * Or a volume that uses a {{< glossary_tooltip text="CSI" term_id="csi" >}} driver.
+    The CSI driver must announce that it supports mounting with `-o context` by setting
+    `spec.seLinuxMount: true` in its CSIDriver instance.
 -->
-* 对应的 PersistentVolume 必须是使用 {< glossary_tooltip text="CSI" term_id="csi" >}}
-  驱动程序的卷，或者是传统的 `iscsi` 卷类型的卷。
-  * 如果使用基于 CSI 驱动程序的卷，CSI 驱动程序必须能够通过在 CSIDriver
-    实例中设置 `spec.seLinuxMount: true` 以支持 `-o context` 挂载。
+* 对应的 PersistentVolume 必须是：
+  * 使用传统树内（In-Tree） `iscsi`、`rbd` 或 `fs` 卷类型的卷。
+  * 或者是使用 {< glossary_tooltip text="CSI" term_id="csi" >}} 驱动程序的卷
+    CSI 驱动程序必须能够通过在 CSIDriver 实例中设置 `spec.seLinuxMount: true`
+    以支持 `-o context` 挂载。
 
 <!--
 For any other volume types, SELinux relabelling happens another way: the container
@@ -767,19 +775,18 @@ The more files and directories in the volume, the longer that relabelling takes.
 卷中的文件和目录越多，重打标签需要耗费的时间就越长。
 
 {{< note >}}
+<!-- remove after Kubernetes v1.30 is released -->
 <!--
-In Kubernetes 1.25, the kubelet loses track of volume labels after restart. In
-other words, then kubelet may refuse to start Pods with errors similar to  "conflicting
-SELinux labels of volume", while there are no conflicting labels in Pods. Make sure
-nodes are
-[fully drained](https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/)
-before restarting kubelet.
+If you are running Kubernetes v1.25, refer to the v1.25 version of this task page:
+[Configure a Security Context for a Pod or Container](https://v1-25.docs.kubernetes.io/docs/tasks/configure-pod-container/security-context/) (v1.25).  
+There is an important note in that documentation about a situation where the kubelet
+can lose track of volume labels after restart. This deficiency has been fixed
+in Kubernetes 1.26.
 -->
-在 Kubernetes 1.25 中，kubelet 在重启后会丢失对卷标签的追踪记录。
-换言之，kubelet 可能会拒绝启动 Pod，原因类似于 “conflicting
-SELinux labels of volume”，
-但实际上 Pod 中并没有冲突的标签。在重启 kubelet
-之前确保节点已被[完全腾空](/zh-cn/docs/tasks/administer-cluster/safely-drain-node/)。
+如果你的 Kubernetes 版本是 v1.25，请参阅此任务页面的 v1.25 版本：
+[为 Pod 或 Container 配置安全上下文](https://v1-25.docs.kubernetes.io/docs/tasks/configure-pod-container/security-context/)（v1.25）。
+该文档中有一个重要的说明：kubelet 在重启后会丢失对卷标签的追踪记录。
+这个缺陷已经在 Kubernetes 1.26 中修复。
 {{< /note >}}
 
 <!--
@@ -846,7 +853,7 @@ kubectl delete pod security-context-demo-4
 <!--
 * [PodSecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritycontext-v1-core)
 * [SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)
-* [Tuning Docker with the newest security enhancements](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)
+* [CRI Plugin Config Guide](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)
 * [Security Contexts design document](https://git.k8s.io/design-proposals-archive/auth/security_context.md)
 * [Ownership Management design document](https://git.k8s.io/design-proposals-archive/storage/volume-ownership-management.md)
 * [PodSecurity Admission](/docs/concepts/security/pod-security-admission/)
@@ -858,11 +865,10 @@ kubectl delete pod security-context-demo-4
 -->
 * [PodSecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritycontext-v1-core) API 定义
 * [SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core) API 定义
-* [使用最新的安全性增强来调优 Docker（英文）](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)
+* [CRI 插件配置指南](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)
 * [安全上下文的设计文档（英文）](https://github.com/kubernetes/design-proposals-archive/blob/main/auth/security_context.md)
 * [属主管理的设计文档（英文）](https://github.com/kubernetes/design-proposals-archive/blob/main/storage/volume-ownership-management.md)
 * [Pod 安全性准入](/zh-cn/docs/concepts/security/pod-security-admission/)
 * [AllowPrivilegeEscalation 的设计文档（英文）](https://github.com/kubernetes/design-proposals-archive/blob/main/auth/no-new-privs.md)
 * 关于在 Linux 系统中的安全机制的更多信息，可参阅
   [Linux 内核安全性能力概述](https://www.linux.com/learn/overview-linux-kernel-security-features)（注意：部分信息已过时）。
-

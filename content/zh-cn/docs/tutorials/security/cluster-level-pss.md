@@ -102,7 +102,7 @@ that are most appropriate for your configuration, do the following:
 
    ```
    Creating cluster "psa-wo-cluster-pss" ...
-   ✓ Ensuring node image (kindest/node:v{{< skew currentVersion >}}.0) 🖼
+   ✓ Ensuring node image (kindest/node:v{{< skew currentPatchVersion >}}) 🖼
    ✓ Preparing nodes 📦
    ✓ Writing configuration 📜
    ✓ Starting control-plane 🕹️
@@ -398,7 +398,7 @@ following:
 
    ```
    Creating cluster "psa-with-cluster-pss" ...
-    ✓ Ensuring node image (kindest/node:v{{< skew currentVersion >}}.0) 🖼
+    ✓ Ensuring node image (kindest/node:v{{< skew currentPatchVersion >}}) 🖼
     ✓ Preparing nodes 📦
     ✓ Writing configuration 📜
     ✓ Starting control-plane 🕹️

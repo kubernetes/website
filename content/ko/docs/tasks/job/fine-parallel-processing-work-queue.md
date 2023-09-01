@@ -171,6 +171,7 @@ gcloud docker -- push gcr.io/<project>/job-wq-2
 따라서, 잡 완료 횟수를 1로 설정했다. 잡 컨트롤러는 다른 파드도 완료될 때까지
 기다린다.
 
+
 ## 잡 실행
 
 이제 잡을 실행한다.
@@ -207,9 +208,18 @@ Events:
   FirstSeen    LastSeen    Count    From            SubobjectPath    Type        Reason            Message
   ---------    --------    -----    ----            -------------    --------    ------            -------
   33s          33s         1        {job-controller }                Normal      SuccessfulCreate  Created pod: job-wq-2-lglf8
+```
 
+아래와 같이 시간 제한(timeout)을 설정하고, 잡이 성공할 때까지 기다린다.
+```shell
+# 조건명은 대소문자를 구분하지 않는다.
+kubectl wait --for=condition=complete --timeout=300s job/job-wq-2
+```
 
+```shell
 kubectl logs pods/job-wq-2-7r7b2
+```
+```
 Worker with sessionID: bbd72d0a-9e5c-4dd6-abf6-416cc267991f
 Initial queue state: empty=False
 Working on banana
@@ -217,7 +227,7 @@ Working on date
 Working on lemon
 ```
 
-보시다시피, 사용자의 파드 중 하나가 여러 작업 단위에서 작업했다.
+보다시피, 파드 중 하나가 여러 작업 항목을 처리했다.
 
 <!-- discussion -->
 

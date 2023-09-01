@@ -26,18 +26,18 @@ implementing identity-based security policies.
 Service accounts exist as ServiceAccount objects in the API server. Service
 accounts have the following properties:
 
-*  **Namespaced:** Each service account is bound to a Kubernetes
-   {{<glossary_tooltip text="namespace" term_id="namespace">}}. Every namespace
-   gets a [`default` ServiceAccount](#default-service-accounts) upon creation.
+* **Namespaced:** Each service account is bound to a Kubernetes
+  {{<glossary_tooltip text="namespace" term_id="namespace">}}. Every namespace
+  gets a [`default` ServiceAccount](#default-service-accounts) upon creation.
 
-*  **Lightweight:** Service accounts exist in the cluster and are
-   defined in the Kubernetes API. You can quickly create service accounts to
-   enable specific tasks.
+* **Lightweight:** Service accounts exist in the cluster and are
+  defined in the Kubernetes API. You can quickly create service accounts to
+  enable specific tasks.
 
-*  **Portable:** A configuration bundle for a complex containerized workload
-   might include service account definitions for the system's components. The
-   lightweight nature of service accounts and the namespaced identities make
-   the configurations portable.
+* **Portable:** A configuration bundle for a complex containerized workload
+  might include service account definitions for the system's components. The
+  lightweight nature of service accounts and the namespaced identities make
+  the configurations portable.
 
 Service accounts are different from user accounts, which are authenticated
 human users in the cluster. By default, user accounts don't exist in the Kubernetes
@@ -78,10 +78,10 @@ the following scenarios:
 
 * Your Pods need to communicate with the Kubernetes API server, for example in
   situations such as the following:
-  *  Providing read-only access to sensitive information stored in Secrets.
-  *  Granting [cross-namespace access](#cross-namespace), such as allowing a
-     Pod in namespace `example` to read, list, and watch for Lease objects in
-     the `kube-node-lease` namespace.
+  * Providing read-only access to sensitive information stored in Secrets.
+  * Granting [cross-namespace access](#cross-namespace), such as allowing a
+    Pod in namespace `example` to read, list, and watch for Lease objects in
+    the `kube-node-lease` namespace.
 * Your Pods need to communicate with an external service. For example, a
   workload Pod requires an identity for a commercially available cloud API,
   and the commercial provider allows configuring a suitable trust relationship.
@@ -92,7 +92,6 @@ the following scenarios:
   ServiceAccount identity of different Pods to group those Pods into different
   contexts.
 
-
 ## How to use service accounts {#how-to-use}
 
 To use a Kubernetes service account, you do the following:
@@ -101,7 +100,7 @@ To use a Kubernetes service account, you do the following:
    client like `kubectl` or a manifest that defines the object.
 1. Grant permissions to the ServiceAccount object using an authorization
    mechanism such as
-   [RBAC](https://kubernetes.io/docs/reference/access-authn-authz/rbac/).
+   [RBAC](/docs/reference/access-authn-authz/rbac/).
 1. Assign the ServiceAccount object to Pods during Pod creation.
    
    If you're using the identity from an external service,
@@ -147,7 +146,7 @@ API and mounts the token as a
 
 By default, Kubernetes provides the Pod
 with the credentials for an assigned ServiceAccount, whether that is the
-`default` ServiceAccount or a custom ServiceAccount that you specify. 
+`default` ServiceAccount or a custom ServiceAccount that you specify.
 
 To prevent Kubernetes from automatically injecting
 credentials for a specified ServiceAccount or the `default` ServiceAccount, set the
@@ -210,11 +209,11 @@ acting as a ServiceAccount tries to communicate with the Kubernetes API server,
 the client includes an `Authorization: Bearer <token>` header with the HTTP
 request. The API server checks the validity of that bearer token as follows:
 
-1. Check the token signature.
-1. Check whether the token has expired.
-1. Check whether object references in the token claims are currently valid.
-1. Check whether the token is currently valid.
-1. Check the audience claims.
+1. Checks the token signature.
+1. Checks whether the token has expired.
+1. Checks whether object references in the token claims are currently valid.
+1. Checks whether the token is currently valid.
+1. Checks the audience claims.
 
 The TokenRequest API produces _bound tokens_ for a ServiceAccount. This
 binding is linked to the lifetime of the client, such as a Pod, that is acting
@@ -257,15 +256,15 @@ used in your application and nowhere else.
   [Webhook Token Authentication](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)
   to validate bearer tokens using your own validation service.
 * Provide your own identities to Pods.
-    * [Use the SPIFFE CSI driver plugin to provide SPIFFE SVIDs as X.509 certificate pairs to Pods](https://cert-manager.io/docs/projects/csi-driver-spiffe/).
+  * [Use the SPIFFE CSI driver plugin to provide SPIFFE SVIDs as X.509 certificate pairs to Pods](https://cert-manager.io/docs/projects/csi-driver-spiffe/).
     {{% thirdparty-content single="true" %}}
-    * [Use a service mesh such as Istio to provide certificates to Pods](https://istio.io/latest/docs/tasks/security/cert-management/plugin-ca-cert/).
+  * [Use a service mesh such as Istio to provide certificates to Pods](https://istio.io/latest/docs/tasks/security/cert-management/plugin-ca-cert/).
 * Authenticate from outside the cluster to the API server without using service account tokens:
-    * [Configure the API server to accept OpenID Connect (OIDC) tokens from your identity provider](/docs/reference/access-authn-authz/authentication/#openid-connect-tokens).
-    * Use service accounts or user accounts created using an external Identity
-      and Access Management (IAM) service, such as from a cloud provider, to
-      authenticate to your cluster.
-    * [Use the CertificateSigningRequest API with client certificates](/docs/tasks/tls/managing-tls-in-a-cluster/).
+  * [Configure the API server to accept OpenID Connect (OIDC) tokens from your identity provider](/docs/reference/access-authn-authz/authentication/#openid-connect-tokens).
+  * Use service accounts or user accounts created using an external Identity
+    and Access Management (IAM) service, such as from a cloud provider, to
+    authenticate to your cluster.
+  * [Use the CertificateSigningRequest API with client certificates](/docs/tasks/tls/managing-tls-in-a-cluster/).
 * [Configure the kubelet to retrieve credentials from an image registry](/docs/tasks/administer-cluster/kubelet-credential-provider/).
 * Use a Device Plugin to access a virtual Trusted Platform Module (TPM), which
   then allows authentication using a private key.

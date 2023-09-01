@@ -1,7 +1,7 @@
 ---
 title: 쿠버네티스에서 프락시(Proxy)
 content_type: concept
-weight: 90
+weight: 100
 ---
 
 <!-- overview -->

@@ -23,7 +23,7 @@ Neste exercício, você cria um Pod que executa dois contêineres. Os dois cont�
 compartilham um volume que eles podem usar para se comunicar. Aqui está o arquivo de configuração
 para o Pod:
 
-{{< codenew file="pods/two-container-pod.yaml" >}}
+{{% codenew file="pods/two-container-pod.yaml" %}}
 
 No arquivo de configuração, você pode ver que o Pod tem um shared-data chamado
 `shared-data`.

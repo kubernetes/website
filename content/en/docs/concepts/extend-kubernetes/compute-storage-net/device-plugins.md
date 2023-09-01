@@ -147,6 +147,23 @@ The general workflow of a device plugin includes the following steps:
    runtime configurations for accessing the allocated devices. The kubelet passes this information
    to the container runtime.
 
+   An `AllocateResponse` contains zero or more `ContainerAllocateResponse` objects. In these, the
+   device plugin defines modifications that must be made to a container's definition to provide
+   access to the device. These modifications include:
+
+   * [Annotations](/docs/concepts/overview/working-with-objects/annotations/)
+   * device nodes
+   * environment variables
+   * mounts
+   * fully-qualified CDI device names
+
+   {{< note >}}
+   The processing of the fully-qualified CDI device names by the Device Manager requires
+   that the `DevicePluginCDIDevices` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+   is enabled for the kubelet and the kube-apiserver. This was added as an alpha feature in Kubernetes
+   v1.28.
+   {{< /note >}}
+
 ### Handling kubelet restarts
 
 A device plugin is expected to detect kubelet restarts and re-register itself with the new
@@ -195,7 +212,7 @@ of the device allocations during the upgrade.
 
 ## Monitoring device plugin resources
 
-{{< feature-state for_k8s_version="v1.15" state="beta" >}}
+{{< feature-state for_k8s_version="v1.28" state="stable" >}}
 
 In order to monitor resources provided by device plugins, monitoring agents need to be able to
 discover the set of devices that are in-use on the node and obtain metadata to describe which
@@ -213,6 +230,7 @@ for these devices:
 service PodResourcesLister {
     rpc List(ListPodResourcesRequest) returns (ListPodResourcesResponse) {}
     rpc GetAllocatableResources(AllocatableResourcesRequest) returns (AllocatableResourcesResponse) {}
+    rpc Get(GetPodResourcesRequest) returns (GetPodResourcesResponse) {}
 }
 ```
 
@@ -222,6 +240,14 @@ The `List` endpoint provides information on resources of running pods, with deta
 id of exclusively allocated CPUs, device id as it was reported by device plugins and id of
 the NUMA node where these devices are allocated. Also, for NUMA-based machines, it contains the
 information about memory and hugepages reserved for a container.
+
+Starting from Kubernetes v1.27, the `List` endpoint can provide information on resources
+of running pods allocated in `ResourceClaims` by the `DynamicResourceAllocation` API. To enable
+this feature `kubelet` must be started with the following flags:
+
+```
+--feature-gates=DynamicResourceAllocation=true,KubeletPodResourcesDynamiceResources=true
+```
 
 ```gRPC
 // ListPodResourcesResponse is the response returned by List function
@@ -242,6 +268,7 @@ message ContainerResources {
     repeated ContainerDevices devices = 2;
     repeated int64 cpu_ids = 3;
     repeated ContainerMemory memory = 4;
+    repeated DynamicResource dynamic_resources = 5;
 }
 
 // ContainerMemory contains information about memory and hugepages assigned to a container
@@ -267,6 +294,28 @@ message ContainerDevices {
     repeated string device_ids = 2;
     TopologyInfo topology = 3;
 }
+
+// DynamicResource contains information about the devices assigned to a container by Dynamic Resource Allocation
+message DynamicResource {
+    string class_name = 1;
+    string claim_name = 2;
+    string claim_namespace = 3;
+    repeated ClaimResource claim_resources = 4;
+}
+
+// ClaimResource contains per-plugin resource information
+message ClaimResource {
+    repeated CDIDevice cdi_devices = 1 [(gogoproto.customname) = "CDIDevices"];
+}
+
+// CDIDevice specifies a CDI device information
+message CDIDevice {
+    // Fully qualified CDI device name
+    // for example: vendor.com/gpu=gpudevice1
+    // see more details in the CDI specification:
+    // https://github.com/container-orchestrated-devices/container-device-interface/blob/main/SPEC.md
+    string name = 1;
+}
 ```
 {{< note >}}
 cpu_ids in the `ContainerResources` in the `List` endpoint correspond to exclusive CPUs allocated
@@ -280,7 +329,7 @@ below:
 
 ### `GetAllocatableResources` gRPC endpoint {#grpc-endpoint-getallocatableresources}
 
-{{< feature-state state="beta" for_k8s_version="v1.23" >}}
+{{< feature-state state="stable" for_k8s_version="v1.28" >}}
 
 GetAllocatableResources provides information on resources initially available on the worker node.
 It provides more information than kubelet exports to APIServer.
@@ -306,16 +355,6 @@ message AllocatableResourcesResponse {
 }
 ```
 
-Starting from Kubernetes v1.23, the `GetAllocatableResources` is enabled by default.
-You can disable it by turning off the `KubeletPodResourcesGetAllocatable`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
-
-Preceding Kubernetes v1.23, to enable this feature `kubelet` must be started with the following flag:
-
-```
---feature-gates=KubeletPodResourcesGetAllocatable=true
-```
-
 `ContainerDevices` do expose the topology information declaring to which NUMA cells the device is
 affine. The NUMA cells are identified using a opaque integer ID, which value is consistent to
 what device plugins report
@@ -329,13 +368,59 @@ DaemonSet, `/var/lib/kubelet/pod-resources` must be mounted as a
 {{< glossary_tooltip term_id="volume" >}} in the device monitoring agent's
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 
+{{< note >}}
+
+When accessing the `/var/lib/kubelet/pod-resources/kubelet.sock` from DaemonSet
+or any other app deployed as a container on the host, which is mounting socket as
+a volume, it is a good practice to mount directory `/var/lib/kubelet/pod-resources/`
+instead of the `/var/lib/kubelet/pod-resources/kubelet.sock`. This will ensure
+that after kubelet restart, container will be able to re-connect to this socket.
+
+Container mounts are managed by inode referencing the socket or directory,
+depending on what was mounted. When kubelet restarts, socket is deleted
+and a new socket is created, while directory stays untouched.
+So the original inode for the socket become unusable. Inode to directory
+will continue working.
+
+{{< /note >}}
+
 Support for the `PodResourcesLister service` requires `KubeletPodResources`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
 It is enabled by default starting with Kubernetes 1.15 and is v1 since Kubernetes 1.20.
 
+### `Get` gRPC endpoint {#grpc-endpoint-get}
+
+{{< feature-state state="alpha" for_k8s_version="v1.27" >}}
+
+The `Get` endpoint provides information on resources of a running Pod. It exposes information
+similar to those described in the `List` endpoint. The `Get` endpoint requires `PodName`
+and `PodNamespace` of the running Pod.
+
+```gRPC
+// GetPodResourcesRequest contains information about the pod
+message GetPodResourcesRequest {
+    string pod_name = 1;
+    string pod_namespace = 2;
+}
+```
+
+To enable this feature, you must start your kubelet services with the following flag:
+
+```
+--feature-gates=KubeletPodResourcesGet=true
+```
+
+The `Get` endpoint can provide Pod information related to dynamic resources
+allocated by the dynamic resource allocation API. To enable this feature, you must
+ensure your kubelet services are started with the following flags:
+
+```
+--feature-gates=KubeletPodResourcesGet=true,DynamicResourceAllocation=true,KubeletPodResourcesDynamiceResources=true
+```
+
 ## Device plugin integration with the Topology Manager
 
-{{< feature-state for_k8s_version="v1.18" state="beta" >}}
+{{< feature-state for_k8s_version="v1.27" state="stable" >}}
 
 The Topology Manager is a Kubelet component that allows resources to be co-ordinated in a Topology
 aligned manner. In order to do this, the Device Plugin API was extended to include a

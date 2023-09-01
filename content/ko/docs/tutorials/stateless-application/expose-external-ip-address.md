@@ -174,5 +174,5 @@ kubectl delete deployment hello-world
 
 ## {{% heading "whatsnext" %}}
 
-[애플리케이션과 서비스 연결하기](/ko/docs/concepts/services-networking/connect-applications-service/)에 대해
+[애플리케이션과 서비스 연결하기](/ko/docs/tutorials/services/connect-applications-service/)에 대해
 더 배워 본다.

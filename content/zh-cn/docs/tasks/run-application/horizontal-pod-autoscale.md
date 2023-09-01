@@ -493,7 +493,7 @@ pod usage is still within acceptable limits.
 -->
 ### 容器资源指标   {#container-resource-metrics}
 
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
 <!--
 The HorizontalPodAutoscaler API also supports a container metric source where the HPA can track the
@@ -726,6 +726,7 @@ behavior:
 
 <!--
 `periodSeconds` indicates the length of time in the past for which the policy must hold true.
+The maximum value that you can set for `periodSeconds` is 1800 (half an hour).
 The first policy _(Pods)_ allows at most 4 replicas to be scaled down in one minute. The second policy
 _(Percent)_ allows at most 10% of the current replicas to be scaled down in one minute.
 
@@ -739,6 +740,7 @@ of current replicas. When the number of replicas falls below 40 the first policy
 and 4 replicas will be reduced at a time.
 -->
 `periodSeconds` 表示在过去的多长时间内要求策略值为真。
+你可以设置 `periodSeconds` 的最大值为 1800（半小时）。
 第一个策略（Pods）允许在一分钟内最多缩容 4 个副本。第二个策略（Percent）
 允许在一分钟内最多缩容当前副本个数的百分之十。
 
@@ -837,13 +839,13 @@ for scaling down which allows a 100% of the currently running replicas to be rem
 means the scaling target can be scaled down to the minimum allowed replicas.
 For scaling up there is no stabilization window. When the metrics indicate that the target should be
 scaled up the target is scaled up immediately. There are 2 policies where 4 pods or a 100% of the currently
-running replicas will be added every 15 seconds till the HPA reaches its steady state.
+running replicas may at most be added every 15 seconds till the HPA reaches its steady state.
 -->
 用于缩小稳定窗口的时间为 **300** 秒（或是 `--horizontal-pod-autoscaler-downscale-stabilization`
 参数设定值）。
 只有一种缩容的策略，允许 100% 删除当前运行的副本，这意味着扩缩目标可以缩小到允许的最小副本数。
 对于扩容，没有稳定窗口。当指标显示目标应该扩容时，目标会立即扩容。
-这里有两种策略，每 15 秒添加 4 个 Pod 或 100% 当前运行的副本数，直到 HPA 达到稳定状态。
+这里有两种策略，每 15 秒最多添加 4 个 Pod 或 100% 当前运行的副本数，直到 HPA 达到稳定状态。
 
 <!--
 ### Example: change downscale stabilization window

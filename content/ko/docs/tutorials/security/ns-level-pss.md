@@ -155,7 +155,7 @@ namespace/example created
 
 ## 정리하기
 
-`kind delete cluster -name psa-ns-level` 명령을 실행하여 생성했던 클러스터를 삭제한다.
+`kind delete cluster --name psa-ns-level` 명령을 실행하여 생성했던 클러스터를 삭제한다.
 
 ## {{% heading "whatsnext" %}}
 
@@ -169,6 +169,6 @@ namespace/example created
      `restricted` 파드 시큐리티 스탠다드는 `warn` 및 `audit` 모드로 적용
   4. 해당 파드 시큐리티 스탠다드가 적용된 상태에서 새로운 파드를 생성
 
-- [파드 시큐리티 어드미션](/docs/concepts/security/pod-security-admission/)
+- [파드 시큐리티 어드미션](/ko/docs/concepts/security/pod-security-admission/)
 - [파드 시큐리티 스탠다드](/ko/docs/concepts/security/pod-security-standards/)
 - [파드 시큐리티 스탠다드를 클러스터 수준에 적용하기](/ko/docs/tutorials/security/cluster-level-pss/)

@@ -57,7 +57,7 @@ Prow 根据文件路径自动添加语言标签。感谢 SIG Docs 贡献者 [Jun
 ```
 
 
-<!-- These repo labels let reviewers filter for PRs and issues by language. For example, you can now filter the k/website dashboard for [PRs with Chinese content](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Aopen+is%3Apr+label%3Alanguage%2Fzh).   -->
+<!-- These repo labels let reviewers filter for PRs and issues by language. For example, you can now filter the kubernetes/website dashboard for [PRs with Chinese content](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Aopen+is%3Apr+label%3Alanguage%2Fzh).   -->
 这些存储库标签允许审阅者按语言过滤 PR 和 issue。例如，您现在可以过滤 kubernetes/website 面板中[具有中文内容的 PR](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Aopen+is%3Apr+label%3Alanguage%2Fzh)。
 
 <!-- ### Team review  -->

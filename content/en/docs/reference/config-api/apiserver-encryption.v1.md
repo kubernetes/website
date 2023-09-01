@@ -18,7 +18,45 @@ auto_generated: true
     
 
 
-<p>EncryptionConfiguration stores the complete configuration for encryption providers.</p>
+<p>EncryptionConfiguration stores the complete configuration for encryption providers.
+It also allows the use of wildcards to specify the resources that should be encrypted.
+Use '<em>.<!-- raw HTML omitted -->' to encrypt all resources within a group or '</em>.<em>' to encrypt all resources.
+'</em>.' can be used to encrypt all resource in the core group.  '<em>.</em>' will encrypt all
+resources, even custom resources that are added after API server start.
+Use of wildcards that overlap within the same resource list or across multiple
+entries are not allowed since part of the configuration would be ineffective.
+Resource lists are processed in order, with earlier lists taking precedence.</p>
+<p>Example:</p>
+<pre><code>kind: EncryptionConfiguration
+apiVersion: apiserver.config.k8s.io/v1
+resources:
+- resources:
+  - events
+  providers:
+  - identity: {}  # do not encrypt events even though *.* is specified below
+- resources:
+  - secrets
+  - configmaps
+  - pandas.awesome.bears.example
+  providers:
+  - aescbc:
+      keys:
+      - name: key1
+        secret: c2VjcmV0IGlzIHNlY3VyZQ==
+- resources:
+  - '*.apps'
+  providers:
+  - aescbc:
+      keys:
+      - name: key2
+        secret: c2VjcmV0IGlzIHNlY3VyZSwgb3IgaXMgaXQ/Cg==
+- resources:
+  - '*.*'
+  providers:
+  - aescbc:
+      keys:
+      - name: key3
+        secret: c2VjcmV0IGlzIHNlY3VyZSwgSSB0aGluaw==</code></pre>
 
 
 <table class="table">
@@ -114,7 +152,7 @@ Each key has to be 32 bytes long for AES-CBC and 16, 24 or 32 bytes for AES-GCM.
 </td>
 <td>
    <p>cachesize is the maximum number of secrets which are cached in memory. The default value is 1000.
-Set to a negative value to disable caching.</p>
+Set to a negative value to disable caching. This field is only allowed for KMS v1 providers.</p>
 </td>
 </tr>
 <tr><td><code>endpoint</code> <B>[Required]</B><br/>
@@ -243,7 +281,11 @@ Set to a negative value to disable caching.</p>
 <code>[]string</code>
 </td>
 <td>
-   <p>resources is a list of kubernetes resources which have to be encrypted.</p>
+   <p>resources is a list of kubernetes resources which have to be encrypted. The resource names are derived from <code>resource</code> or <code>resource.group</code> of the group/version/resource.
+eg: pandas.awesome.bears.example is a custom resource with 'group': awesome.bears.example, 'resource': pandas.
+Use '<em>.</em>' to encrypt all resources and '<em>.<!-- raw HTML omitted -->' to encrypt all resources in a specific group.
+eg: '</em>.awesome.bears.example' will encrypt all resources in the group 'awesome.bears.example'.
+eg: '*.' will encrypt all resources in the core group (such as pods, configmaps, etc).</p>
 </td>
 </tr>
 <tr><td><code>providers</code> <B>[Required]</B><br/>
@@ -251,7 +293,7 @@ Set to a negative value to disable caching.</p>
 </td>
 <td>
    <p>providers is a list of transformers to be used for reading and writing the resources to disk.
-eg: aesgcm, aescbc, secretbox, identity.</p>
+eg: aesgcm, aescbc, secretbox, identity, kms.</p>
 </td>
 </tr>
 </tbody>

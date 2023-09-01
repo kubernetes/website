@@ -7,7 +7,6 @@ weight: 10
 reviewers:
 - erictune
 - lavalamp
-- ericchiang
 - deads2k
 - liggitt
 title: Authenticating
@@ -1997,7 +1996,7 @@ The following `ExecCredential` manifest describes a cluster information sample.
 -->
 ## 为客户端提供的对身份验证信息的 API 访问   {#self-subject-review}
 
-{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
 <!--
 If your cluster has the API enabled, you can use the `SelfSubjectReview` API to find out how your Kubernetes cluster maps your authentication information to identify you as a client. This works whether you are authenticating as a user (typically representing a real person) or as a ServiceAccount.
@@ -2016,12 +2015,12 @@ Kubernetes API 服务器收到请求后，将使用用户属性填充 status 字
 请求示例（主体将是 `SelfSubjectReview`）：
 
 ```
-POST /apis/authentication.k8s.io/v1alpha1/selfsubjectreviews
+POST /apis/authentication.k8s.io/v1beta1/selfsubjectreviews
 ```
 
 ```json
 {
-  "apiVersion": "authentication.k8s.io/v1alpha1",
+  "apiVersion": "authentication.k8s.io/v1beta1",
   "kind": "SelfSubjectReview"
 }
 ```
@@ -2033,7 +2032,7 @@ Response example:
 
 ```json
 {
-  "apiVersion": "authentication.k8s.io/v1alpha1",
+  "apiVersion": "authentication.k8s.io/v1beta1",
   "kind": "SelfSubjectReview",
   "status": {
     "userInfo": {
@@ -2053,11 +2052,11 @@ Response example:
 ```
 
 <!--
-For convenience, the `kubectl alpha auth whoami` command is present. Executing this command will produce the following output (yet different user attributes will be shown):
+For convenience, the `kubectl auth whoami` command is present. Executing this command will produce the following output (yet different user attributes will be shown):
 
 * Simple output example
 -->
-为了方便，Kubernetes 提供了 `kubectl alpha auth whoami` 命令。
+为了方便，Kubernetes 提供了 `kubectl auth whoami` 命令。
 执行此命令将产生以下输出（但将显示不同的用户属性）：
 
 * 简单的输出示例
@@ -2173,16 +2172,16 @@ By default, all authenticated users can create `SelfSubjectReview` objects when 
 You can only make `SelfSubjectReview` requests if:
 * the `APISelfSubjectReview`
   [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  is enabled for your cluster
-* the API server for your cluster has the `authentication.k8s.io/v1alpha1`
+  is enabled for your cluster (enabled by default after reaching Beta)
+* the API server for your cluster has the `authentication.k8s.io/v1alpha1` or `authentication.k8s.io/v1beta1`
   {{< glossary_tooltip term_id="api-group" text="API group" >}}
   enabled.
 -->
 你只能在以下情况下进行 `SelfSubjectReview` 请求：
 
-* 集群启用了 `APISelfSubjectReview`
+* 集群启用了 `APISelfSubjectReview` (Beta 版本默认启用)
   [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-* 集群的 API 服务器已启用 `authentication.k8s.io/v1alpha1`
+* 集群的 API 服务器已启用 `authentication.k8s.io/v1alpha1` 或者 `authentication.k8s.io/v1beta1`
   {{< glossary_tooltip term_id="api-group" text="API 组" >}}。。
 {{< /note >}}
 

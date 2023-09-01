@@ -893,14 +893,14 @@ in different overlays. Here are two overlays using the same base.
 ```shell
 mkdir dev
 cat <<EOF > dev/kustomization.yaml
-bases:
+resources:
 - ../base
 namePrefix: dev-
 EOF
 
 mkdir prod
 cat <<EOF > prod/kustomization.yaml
-bases:
+resources:
 - ../base
 namePrefix: prod-
 EOF
@@ -1011,4 +1011,3 @@ deployment.apps "dev-my-nginx" deleted
 * [Kubectl Book](https://kubectl.docs.kubernetes.io)
 * [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl-commands/)
 * [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
-

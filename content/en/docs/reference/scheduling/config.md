@@ -20,8 +20,7 @@ by implementing one or more of these extension points.
 
 You can specify scheduling profiles by running `kube-scheduler --config <filename>`,
 using the
-KubeSchedulerConfiguration ([v1beta3](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
-or [v1](/docs/reference/config-api/kube-scheduler-config.v1/))
+KubeSchedulerConfiguration [v1](/docs/reference/config-api/kube-scheduler-config.v1/)
 struct.
 
 A minimal configuration looks as follows:
@@ -35,9 +34,10 @@ clientConnection:
 
   {{< note >}}
   KubeSchedulerConfiguration [v1beta2](/docs/reference/config-api/kube-scheduler-config.v1beta2/)
-  is deprecated in v1.25 and will be removed in v1.26. Please migrate KubeSchedulerConfiguration to
-  [v1beta3](/docs/reference/config-api/kube-scheduler-config.v1beta3/) or [v1](/docs/reference/config-api/kube-scheduler-config.v1/)
-  before upgrading Kubernetes to v1.25.
+  is deprecated in v1.25 and will be removed in v1.28. 
+  KubeSchedulerConfiguration [v1beta3](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
+  is deprecated in v1.26 and will be removed in v1.29.
+  Please migrate KubeSchedulerConfiguration to [v1](/docs/reference/config-api/kube-scheduler-config.v1/).
   {{< /note >}}
 ## Profiles
 

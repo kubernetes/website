@@ -37,6 +37,41 @@ that run in the Pod. To set environment variables, include the `env` or
 创建 Pod 时，可以为其下的容器设置环境变量。通过配置文件的 `env` 或者 `envFrom` 字段来设置环境变量。
 
 <!--
+The `env` and `envFrom` fields have different effects.
+
+`env`
+: allows you to set environment variables for a container, specifying a value directly for each variable that you name.
+-->
+`env` 和 `envFrom` 字段具有不同的效果。
+
+`env`
+：可以为容器设置环境变量，直接为你所给的每个变量指定一个值。
+
+<!--
+`envFrom`
+: allows you to set environment variables for a container by referencing either a ConfigMap or a Secret.
+ When you use `envFrom`, all the key-value pairs in the referenced ConfigMap or Secret
+ are set as environment variables for the container.
+ You can also specify a common prefix string.
+-->
+`envFrom`
+：你可以通过引用 ConfigMap 或 Secret 来设置容器的环境变量。
+使用 `envFrom` 时，引用的 ConfigMap 或 Secret 中的所有键值对都被设置为容器的环境变量。
+你也可以指定一个通用的前缀字符串。
+
+<!--
+You can read more about [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/#configure-all-key-value-pairs-in-a-configmap-as-container-environment-variables)
+and [Secret](/docs/tasks/inject-data-application/distribute-credentials-secure/#configure-all-key-value-pairs-in-a-secret-as-container-environment-variables).
+
+This page explains how to use `env`.
+-->
+你可以阅读有关 [ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/#configure-all-key-value-pairs-in-a-configmap-as-container-environment-variables)
+和 [Secret](/zh-cn/docs/tasks/inject-data-application/distribute-credentials-secure/#configure-all-key-value-pairs-in-a-secret-as-container-environment-variables)
+的更多信息。
+
+本页介绍如何使用 `env`。
+
+<!--
 In this exercise, you create a Pod that runs one container. The configuration
 file for the Pod defines an environment variable with name `DEMO_GREETING` and
 value `"Hello from the environment"`. Here is the configuration manifest for the
@@ -120,21 +155,23 @@ the list. Similarly, avoid circular references.
 <!--
 ## Using environment variables inside of your config
 
-Environment variables that you define in a Pod's configuration can be used
-elsewhere in the configuration, for example in commands and arguments that
-you set for the Pod's containers.
+Environment variables that you define in a Pod's configuration under 
+`.spec.containers[*].env[*]` can be used elsewhere in the configuration, for 
+example in commands and arguments that you set for the Pod's containers.
 In the example configuration below, the `GREETING`, `HONORIFIC`, and
 `NAME` environment variables are set to `Warm greetings to`, `The Most
-Honorable`, and `Kubernetes`, respectively. Those environment variables
-are then used in the CLI arguments passed to the `env-print-demo`
-container.
+Honorable`, and `Kubernetes`, respectively. The environment variable 
+`MESSAGE` combines the set of all these environment variables and then uses it 
+as a CLI argument passed to the `env-print-demo` container.
 -->
 ## 在配置中使用环境变量   {#using-env-var-inside-of-your-config}
 
-你在 Pod 的配置中定义的环境变量可以在配置的其他地方使用，
-例如可用在为 Pod 的容器设置的命令和参数中。
+你在 Pod 的配置中定义的、位于 `.spec.containers[*].env[*]` 下的环境变量
+可以在配置的其他地方使用，例如可用在为 Pod 的容器设置的命令和参数中。
 在下面的示例配置中，环境变量 `GREETING`、`HONORIFIC` 和 `NAME` 分别设置为 `Warm greetings to`、
-`The Most Honorable` 和 `Kubernetes`。然后这些环境变量在传递给容器 `env-print-demo` 的 CLI 参数中使用。
+`The Most Honorable` 和 `Kubernetes`。
+环境变量 `MESSAGE` 将所有这些环境变量的集合组合起来，
+然后再传递给容器 `env-print-demo` 的 CLI 参数中使用。
 
 ```yaml
 apiVersion: v1

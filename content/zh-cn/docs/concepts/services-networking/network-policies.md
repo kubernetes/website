@@ -309,7 +309,7 @@ This policy contains a single `from` element allowing connections from Pods with
 `role=client` in namespaces with the label `user=alice`. But the following policy is different:
 -->
 此策略在 `from` 数组中仅包含一个元素，只允许来自标有 `role=client` 的 Pod
-且该 Pod 所在的名字空间中标有 `user=alice` 的连接。但是 **这项** 策略：
+且该 Pod 所在的名字空间中标有 `user=alice` 的连接。但是**这项**策略：
 
 ```yaml
   ...
@@ -330,7 +330,7 @@ Namespace with the label `role=client`, *or* from any Pod in any namespace with 
 `user=alice`.
 -->
 它在 `from` 数组中包含两个元素，允许来自本地名字空间中标有 `role=client` 的
-Pod 的连接，**或** 来自任何名字空间中标有 `user=alice` 的任何 Pod 的连接。
+Pod 的连接，**或**来自任何名字空间中标有 `user=alice` 的任何 Pod 的连接。
 
 <!--
 When in doubt, use `kubectl describe` to see how Kubernetes has interpreted the policy.
@@ -388,7 +388,7 @@ in that namespace.
 You can create a "default" ingress isolation policy for a namespace by creating a NetworkPolicy
 that selects all pods but does not allow any ingress traffic to those pods.
 -->
-你可以通过创建选择所有容器但不允许任何进入这些容器的入站流量的 NetworkPolicy
+你可以通过创建选择所有 Pod 但不允许任何进入这些 Pod 的入站流量的 NetworkPolicy
 来为名字空间创建 “default” 隔离策略。
 
 {{< codenew file="service/networking/network-policy-default-deny-ingress.yaml" >}}
@@ -560,6 +560,58 @@ NetworkPolicy 规约中使用 `endPort` 字段。
 如果你的[网络插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)不支持
 `endPort` 字段，而你指定了一个包含 `endPort` 字段的 NetworkPolicy，
 策略只对单个 `port` 字段生效。
+{{< /note >}}
+
+<!--
+## Targeting multiple namespaces by label
+
+In this scenario, your `Egress` NetworkPolicy targets more than one namespace using their
+label names. For this to work, you need to label the target namespaces. For example:
+-->
+## 按标签选择多个命名空间   {#targeting-multiple-namespaces-by-label}
+
+在这种情况下，你的 `Egress` NetworkPolicy 使用名字空间的标签名称来将多个名字空间作为其目标。
+为此，你需要为目标名字空间设置标签。例如：
+
+```shell
+ kubectl label namespace frontend namespace=frontend
+ kubectl label namespace backend namespace=backend
+```
+
+<!--
+Add the labels under `namespaceSelector` in your NetworkPolicy document. For example:
+-->
+在 NetworkPolicy 文档中的 namespaceSelector 下添加标签。例如：
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-namespaces
+spec:
+  podSelector:
+    matchLabels:
+      app: myapp
+  policyTypes:
+  - Egress
+  egress:
+   - to:
+     - namespaceSelector:
+       matchExpressions:
+       - key: namespace
+         operator: In
+         values: ["frontend", "backend"]
+```
+
+{{< note >}}
+<!--
+It is not possible to directly specify the name of the namespaces in a NetworkPolicy.
+You must use a `namespaceSelector` with `matchLabels` or `matchExpressions` to select the
+namespaces based on their labels.
+-->
+你不可以在 NetworkPolicy 中直接指定命名空间的名称。
+你必须使用带有 `matchLabels` 或 `matchExpressions` 的 `namespaceSelector`
+来根据标签选择命名空间。
 {{< /note >}}
 
 <!--

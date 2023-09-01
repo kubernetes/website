@@ -42,7 +42,7 @@ Here is the configuration file for the Pod:
 -->
 下面是对应 Pod 的配置文件：
 
-{{< codenew file="pods/lifecycle-events.yaml" >}}
+{{% code file="pods/lifecycle-events.yaml" %}}
 
 <!--
 In the configuration file, you can see that the postStart command writes a `message`
@@ -161,4 +161,3 @@ preStop 的事件处理逻辑不会被触发。有关这个限制，
 * [Lifecycle](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#lifecycle-v1-core)
 * [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
 * 参阅 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core) 中关于 `terminationGracePeriodSeconds` 的部分
-

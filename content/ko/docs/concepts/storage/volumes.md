@@ -172,7 +172,7 @@ EBS 볼륨이 파티션된 경우, 선택적 필드인 `partition: "<partition n
 
 #### azureFile CSI 마이그레이션
 
-{{< feature-state for_k8s_version="v1.21" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 `azureFile` 의 `CSIMigration` 기능이 활성화된 경우, 기존 트리 내 플러그인에서
 `file.csi.azure.com` 컨테이너 스토리지 인터페이스(CSI)
@@ -335,12 +335,20 @@ spec:
 * 웹 서버 컨테이너가 데이터를 처리하는 동안 컨텐츠 매니저
   컨테이너가 가져오는 파일을 보관
 
-환경에 따라, `emptyDir` 볼륨은 디스크, SSD 또는 네트워크 스토리지와
-같이 노드를 지원하는 모든 매체에 저장된다. 그러나, `emptyDir.medium` 필드를
-`"Memory"`로 설정하면, 쿠버네티스에 tmpfs(RAM 기반 파일시스템)를 마운트하도록 할 수 있다.
-tmpfs는 매우 빠르지만, 디스크와 다르게 노드 재부팅시 tmpfs가 지워지고,
-작성하는 모든 파일이 컨테이너 메모리
-제한에 포함된다.
+`emptyDir.medium` 필드는 `emptyDir` 볼륨이 저장되는 곳을 제어한다.
+기본 `emptyDir` 볼륨은 환경에 따라
+디스크, SSD 또는 네트워크 스토리지와 같이 노드를 지원하는 모든 매체에 저장된다.
+`emptyDir.medium` 필드를 `"Memory"`로 설정하면, 쿠버네티스는 tmpfs(RAM 기반 파일시스템)를 대신
+마운트한다. tmpfs는 매우 빠르지만, 디스크와 다르게
+노드 재부팅시 tmpfs는 마운트 해제되고, 작성하는 모든 파일이
+컨테이너 메모리 제한에 포함된다.
+
+
+`emptyDir` 볼륨의 용량을 제한하는 기본 medium을 위해,
+크기 제한을 명시할 수 있다. 스토리지는 [노드 임시
+스토리지](/ko/docs/concepts/configuration/manage-resources-containers/#로컬-임시-스토리지에-대한-요청-및-제한-설정)로부터 할당된다.
+만약 해당 공간이 다른 소스(예를 들어, 로그 파일이나 이미지 오버레이)에 의해
+채워져있다면, `emptyDir`는 지정된 제한 이전에 용량을 다 쓰게 될 수 있다.
 
 {{< note >}}
 `SizeMemoryBackedVolumes` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화된 경우,
@@ -364,7 +372,8 @@ spec:
       name: cache-volume
   volumes:
   - name: cache-volume
-    emptyDir: {}
+    emptyDir:
+      sizeLimit: 500Mi
 ```
 
 ### fc (파이버 채널) {#fc}
@@ -533,24 +542,15 @@ spec:
       repository: "git@somewhere:me/my-git-repository.git"
       revision: "22f1d8406d464b0c0874075539c1f2e96c253775"
 ```
+### glusterfs (제거됨) {#glusterfs}
 
-### glusterfs (사용 중단됨)
+<!-- maintenance note: OK to remove all mention of glusterfs once the v1.25 release of
+Kubernetes has gone out of support -->
+-
+쿠버네티스 {{< skew currentVersion >}} 는 `glusterfs` 볼륨 타입을 포함하지 않는다.
 
-{{< feature-state for_k8s_version="v1.25" state="deprecated" >}}
-
-`glusterfs`  볼륨을 사용하면 [Glusterfs](https://www.gluster.org) (오픈
-소스 네트워크 파일시스템) 볼륨을 파드에 마운트할 수 있다. 파드를
-제거할 때 지워지는 `emptyDir` 와는 다르게 `glusterfs`
-볼륨의 내용은 유지되고, 볼륨은 마운트 해제만 된다. 이 의미는
-glusterfs 볼륨에 데이터를 미리 채울 수 있으며, 파드 간에 데이터를
-공유할 수 있다. GlusterFS는 여러 작성자가 동시에
-마운트할 수 있다.
-
-{{< note >}}
-사용하려면 먼저 GlusterFS를 설치하고 실행해야 한다.
-{{< /note >}}
-
-더 자세한 내용은 [GlusterFS 예시](https://github.com/kubernetes/examples/tree/master/volumes/glusterfs)를 본다.
+GlusterFS 인-트리 스토리지 드라이버는 쿠버네티스 1.25에서 사용 중단되었고
+v1.26 릴리즈에서 완전히 제거되었다.
 
 ### hostPath {#hostpath}
 
@@ -762,11 +762,33 @@ local [스토리지클래스(StorageClas)](/ko/docs/concepts/storage/storage-cla
 파드 간에 데이터를 공유할 수 있다는 뜻이다. NFS는 여러 작성자가
 동시에 마운트할 수 있다.
 
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-pd
+spec:
+  containers:
+  - image: registry.k8s.io/test-webserver
+    name: test-container
+    volumeMounts:
+    - mountPath: /my-nfs-data
+      name: test-volume
+  volumes:
+  - name: test-volume
+    nfs:
+      server: my-nfs-server.example.com
+      path: /my-nfs-volume
+      readOnly: true
+```
+
 {{< note >}}
 사용하려면 먼저 NFS 서버를 실행하고 공유를 내보내야 한다.
+
+또한 파드 스펙에 NFS 마운트 옵션을 명시할 수 없음을 기억하라. 마운트 옵션을 서버에서 설정하거나, [/etc/nfsmount.conf](https://man7.org/linux/man-pages/man5/nfsmount.conf.5.html)를 사용해야 한다. 마운트 옵션을 설정할 수 있게 허용하는 퍼시스턴트볼륨을 통해 NFS 볼륨을 마운트할 수도 있다.
 {{< /note >}}
 
-더 자세한 내용은 [NFS 예시](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs)를 본다.
+퍼시스턴트볼륨을 사용하여 NFS 볼륨을 마운트하는 예제는 [NFS 예시](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs)를 본다.
 
 ### persistentVolumeClaim {#persistentvolumeclaim}
 
@@ -921,20 +943,17 @@ tmpfs(RAM 기반 파일시스템)로 지원되기 때문에 비 휘발성 스토
 
 #### vSphere CSI 마이그레이션 {#vsphere-csi-migration}
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
-`vsphereVolume` 용 `CSIMigrationvSphere` 기능은 쿠버네티스 v1.25부터 기본적으로 활성화되어 있다.
-인-트리 `vspherevolume`의 모든 플러그인 작업은 `CSIMigrationvSphere` 기능 게이트가 비활성화된 경우를 제외하고 `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}}로 리다이렉트된다.
-
+쿠버네티스 {{< skew currentVersion >}}에서, 인-트리 `vsphereVolume` 타입을 위한 모든 작업은
+`csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} 드라이버로 리다이렉트된다.
 
 [vSphere CSI 드라이버](https://github.com/kubernetes-sigs/vsphere-csi-driver)가
-클러스터에 설치되어 있어야 한다. 인-트리 `vsphereVolume` 마이그레이션에 대한 추가 조언은 VMware의 문서 페이지 
+클러스터에 설치되어 있어야 한다. 인-트리 `vsphereVolume` 마이그레이션에 대한 추가 조언은 VMware의 문서 페이지
 [인-트리 vSphere 볼륨을 vSphere 컨테이너 스토리지 플러그인으로 마이그레이션하기](https://docs.vmware.com/en/VMware-vSphere-Container-Storage-Plug-in/2.0/vmware-vsphere-csp-getting-started/GUID-968D421F-D464-4E22-8127-6CB9FF54423F.html)를 참고한다.
+vSphere CSI 드라이버가 설치되어있지 않다면 볼륨 작업은 인-트리 `vsphereVolume` 타입으로 생성된 PV에서 수행될 수 없다.
 
-쿠버네티스 v1.25 현재, 7.0u2 이하의 vSphere는
-(사용 중단된) 인-트리 vSphere 스토리지 드라이버가 지원되지 않는다.
-사용 중단된 드라이버를 계속 사용하거나, 교체된 CSI 드라이버로
-마이그레이션하기 위해서는 vSphere 7.0u2 이상을 사용해야 한다.
+vSphere CSI 드라이버로 마이그레이션하기 위해서는 vSphere 7.0u2 이상을 사용해야 한다.
 
 v{{< skew currentVersion >}} 외의 쿠버네티스 버전을 사용 중인 경우, 
 해당 쿠버네티스 버전의 문서를 참고한다. 
@@ -1062,7 +1081,7 @@ spec:
 
 이전에는 모든 볼륨 플러그인이 "인-트리(in-tree)"에 있었다. "인-트리" 플러그인은 쿠버네티스 핵심 바이너리와
 함께 빌드, 링크, 컴파일 및 배포되었다. 즉, 쿠버네티스(볼륨 플러그인)에
-새로운 스토리지 시스템을 추가하려면 쿠버네티스 핵심 코드 리포지토리의 코드 확인이 필요했음을 의미한다.
+새로운 스토리지 시스템을 추가하려면 쿠버네티스 핵심 코드 리포지터리의 코드 확인이 필요했음을 의미한다.
 
 CSI와 FlexVolume을 통해 쿠버네티스 코드 베이스와는
 독립적으로 볼륨 플러그인을 개발하고, 쿠버네티스 클러스터의 확장으로 배포(설치)
@@ -1220,7 +1239,7 @@ CSI 드라이버로 전환할 때 기존 스토리지 클래스, 퍼시스턴트
 * [`gcePersistentDisk`](#gcepersistentdisk)
 * [`vsphereVolume`](#vspherevolume)
 
-### flexVolume (사용 중단됨) {#flexvolume-deprecated}
+### flexVolume (사용 중단됨)   {#flexvolume}
 
 {{< feature-state for_k8s_version="v1.23" state="deprecated" >}}
 

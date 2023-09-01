@@ -21,7 +21,7 @@ manualmente através `easyrsa`, `openssl` ou `cfssl`.
 
 1.  Baixe, descompacte e inicialize a versão corrigida do easyrsa3.
 
-        curl -LO https://storage.googleapis.com/kubernetes-release/easy-rsa/easy-rsa.tar.gz
+        curl -LO https://dl.k8s.io/easy-rsa/easy-rsa.tar.gz
         tar xzf easy-rsa.tar.gz
         cd easy-rsa-master/easyrsa3
         ./easyrsa init-pki

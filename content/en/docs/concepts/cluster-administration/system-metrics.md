@@ -37,7 +37,7 @@ kind of time series database.
 
 Note that {{< glossary_tooltip term_id="kubelet" text="kubelet" >}} also exposes metrics in
 `/metrics/cadvisor`, `/metrics/resource` and `/metrics/probes` endpoints. Those metrics do not
-have same lifecycle.
+have the same lifecycle.
 
 If your cluster uses {{< glossary_tooltip term_id="rbac" text="RBAC" >}}, reading metrics requires
 authorization via a user, group or ServiceAccount with a ClusterRole that allows accessing

@@ -32,10 +32,10 @@ Existem os seguintes métodos para instalar o kubectl no Linux:
    {{< note >}}
 Para fazer o download de uma versão específica, substitua a parte `$(curl -L -s https://dl.k8s.io/release/stable.txt)` do comando pela versão específica.
 
-Por exemplo, para fazer download da versão {{< param "fullversion" >}} no Linux, digite:
+Por exemplo, para fazer download da versão {{< skew currentPatchVersion >}} no Linux, digite:
 
    ```bash
-   curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
+   curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/amd64/kubectl
    ```
    {{< /note >}}
 
@@ -61,7 +61,7 @@ Por exemplo, para fazer download da versão {{< param "fullversion" >}} no Linux
 
    Se a verificação falhar, o `sha256` exibirá o status diferente de zero e a saída será semelhante a:
 
-   ```bash
+   ```console
    kubectl: FAILED
    sha256sum: WARNING: 1 computed checksum did NOT match
    ```
@@ -120,7 +120,7 @@ Por exemplo, para fazer download da versão {{< param "fullversion" >}} no Linux
 2. Faça download da chave de assinatura pública do Google Cloud:
 
    ```shell
-   sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
    ```
 
 3. Adicione o repositório `apt` do Kubernetes:
@@ -150,7 +150,7 @@ name=Kubernetes
 baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
 enabled=1
 gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
 sudo yum install -y kubectl
 ```
@@ -232,7 +232,7 @@ Abaixo estão os procedimentos para configurar o autocompletar para Bash, Fish e
 
    Se a verificação falhar, o `sha256` exibirá o status diferente de zero e a saída será semelhante a:
 
-   ```bash
+   ```console
    kubectl-convert: FAILED
    sha256sum: WARNING: 1 computed checksum did NOT match
    ```

@@ -22,11 +22,11 @@ This repository contains the assets required to build the [Kubernetes website an
 <!--
 ## Using this repository
 
-You can run the website locally using Hugo (Extended version), or you can run it in a container runtime. We strongly recommend using the container runtime, as it gives deployment consistency with the live website.
+You can run the website locally using [Hugo (Extended version)](https://gohugo.io/), or you can run it in a container runtime. We strongly recommend using the container runtime, as it gives deployment consistency with the live website.
 -->
 ## 使用这个仓库
 
-可以使用 Hugo（扩展版）在本地运行网站，也可以在容器中运行它。强烈建议使用容器，因为这样可以和在线网站的部署保持一致。
+可以使用 [Hugo（扩展版）](https://gohugo.io/)在本地运行网站，也可以在容器中运行它。强烈建议使用容器，因为这样可以和在线网站的部署保持一致。
 
 <!--
 ## Prerequisites
@@ -120,13 +120,13 @@ Open up your browser to <http://localhost:1313> to view the website. As you make
 <!--
 ## Running the website locally using Hugo
 
-Make sure to install the Hugo extended version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L10) file.
+Make sure to install the Hugo extended version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L11) file.
 
 To build and test the site locally, run:
 -->
 ## 在本地使用 Hugo 来运行网站
 
-请确保安装的是 [`netlify.toml`](netlify.toml#L10) 文件中环境变量 `HUGO_VERSION` 所指定的
+请确保安装的是 [`netlify.toml`](netlify.toml#L11) 文件中环境变量 `HUGO_VERSION` 所指定的
 Hugo Extended 版本。
 
 若要在本地构造和测试网站，请运行：
@@ -150,11 +150,11 @@ This will start the local Hugo server on port 1313. Open up your browser to <htt
 ## 构建 API 参考页面
 
 <!--
-The API reference pages located in `content/en/docs/reference/kubernetes-api` are built from the Swagger specification, using <https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs>.
+The API reference pages located in `content/en/docs/reference/kubernetes-api` are built from the Swagger specification, also known as OpenAPI specification, using <https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs>.
 
 To update the reference pages for a new Kubernetes release follow these steps:
 -->
-位于 `content/en/docs/reference/kubernetes-api` 的 API 参考页面是根据 Swagger 规范构建的，使用 <https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs>。
+位于 `content/en/docs/reference/kubernetes-api` 的 API 参考页面是使用 <https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs> 根据 Swagger 规范（也称为 OpenAPI 规范）构建的。
 
 要更新 Kubernetes 新版本的参考页面，请执行以下步骤：
 

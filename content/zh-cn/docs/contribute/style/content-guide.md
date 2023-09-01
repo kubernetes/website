@@ -71,17 +71,21 @@ Kubernetes 网站（包括其文档）源代码位于
 <!--
 ### Third party content
 
-Kubernetes documentation includes applied examples of projects in the Kubernetes project&mdash;projects that live in the [kubernetes](https://github.com/kubernetes) and
+Kubernetes documentation includes applied examples of projects in the Kubernetes
+project&mdash;projects that live in the [kubernetes](https://github.com/kubernetes) and
 [kubernetes-sigs](https://github.com/kubernetes-sigs) GitHub organizations.
 
 Links to active content in the Kubernetes project are always allowed.
 
 Kubernetes requires some third party content to function. Examples include container runtimes (containerd, CRI-O, Docker),
-[networking policy](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) (CNI plugins), [Ingress controllers](/docs/concepts/services-networking/ingress-controllers/), and [logging](/docs/concepts/cluster-administration/logging/).
+[networking policy](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) (CNI plugins),
+[Ingress controllers](/docs/concepts/services-networking/ingress-controllers/),
+and [logging](/docs/concepts/cluster-administration/logging/).
 
-Docs can link to third-party open source software (OSS) outside the Kubernetes project only if it's necessary for Kubernetes to function.
+Docs can link to third-party open source software (OSS) outside the Kubernetes
+project only if it's necessary for Kubernetes to function.
 -->
-### 第三方内容 {#third-party-content}
+### 第三方内容    {#third-party-content}
 
 Kubernetes 文档包含 Kubernetes 项目下的多个项目的应用示例。
 这里的 Kubernetes 项目指的是 [Kubernetes](https://github.com/kubernetes) 和

@@ -12,7 +12,11 @@ content_type: task
 {{% thirdparty-content %}}
 
 <!--
-Kubernetes applications usually consist of multiple, separate services, each running in its own container. Developing and debugging these services on a remote Kubernetes cluster can be cumbersome, requiring you to [get a shell on a running container](/docs/tasks/debug/debug-application/get-shell-running-container/) in order to run debugging tools.
+Kubernetes applications usually consist of multiple, separate services,
+each running in its own container. Developing and debugging these services
+on a remote Kubernetes cluster can be cumbersome, requiring you to
+[get a shell on a running container](/docs/tasks/debug/debug-application/get-shell-running-container/)
+in order to run debugging tools.
 -->
 Kubernetes 应用程序通常由多个独立的服务组成，每个服务都在自己的容器中运行。
 在远端的 Kubernetes 集群上开发和调试这些服务可能很麻烦，
@@ -20,14 +24,19 @@ Kubernetes 应用程序通常由多个独立的服务组成，每个服务都在
 以运行调试工具。
 
 <!--
-`telepresence` is a tool to ease the process of developing and debugging services locally while proxying the service to a remote Kubernetes cluster. Using `telepresence` allows you to use custom tools, such as a debugger and IDE, for a local service and provides the service full access to ConfigMap, secrets, and the services running on the remote cluster.
+`telepresence` is a tool to ease the process of developing and debugging
+services locally while proxying the service to a remote Kubernetes cluster.
+Using `telepresence` allows you to use custom tools, such as a debugger and
+IDE, for a local service and provides the service full access to ConfigMap,
+secrets, and the services running on the remote cluster.
 -->
 `telepresence` 是一个工具，用于简化本地开发和调试服务的过程，同时可以将服务代理到远程 Kubernetes 集群。
 `telepresence` 允许你使用自定义工具（例如调试器和 IDE）调试本地服务，
 并能够让此服务完全访问 ConfigMap、Secret 和远程集群上运行的服务。
 
 <!--
-This document describes using `telepresence` to develop and debug services running on a remote cluster locally.
+This document describes using `telepresence` to develop and debug services
+running on a remote cluster locally.
 -->
 本文档描述如何在本地使用 `telepresence` 开发和调试远程集群上运行的服务。
 
@@ -47,7 +56,8 @@ This document describes using `telepresence` to develop and debug services runni
 <!--
 ## Connecting your local machine to a remote Kubernetes cluster
  
-After installing `telepresence`, run `telepresence connect` to launch its Daemon and connect your local workstation to the cluster.
+After installing `telepresence`, run `telepresence connect` to launch
+its Daemon and connect your local workstation to the cluster.
 -->
 ## 从本机连接到远程 Kubernetes 集群  {#connecting-your-local-machine-to-a-remote-cluster}
 
@@ -70,7 +80,11 @@ You can curl services using the Kubernetes syntax e.g. `curl -ik https://kuberne
 <!--
 ## Developing or debugging an existing service
 
-When developing an application on Kubernetes, you typically program or debug a single service. The service might require access to other services for testing and debugging. One option is to use the continuous deployment pipeline, but even the fastest deployment pipeline introduces a delay in the program or debug cycle.
+When developing an application on Kubernetes, you typically program
+or debug a single service. The service might require access to other
+services for testing and debugging. One option is to use the continuous
+deployment pipeline, but even the fastest deployment pipeline introduces
+a delay in the program or debug cycle.
 -->
 ## 开发和调试现有的服务  {#developing-or-debugging-an-existing-service}
 
@@ -79,8 +93,9 @@ When developing an application on Kubernetes, you typically program or debug a s
 一种选择是使用连续部署流水线，但即使最快的部署流水线也会在程序或调试周期中引入延迟。
 
 <!--
-Use the `telepresence intercept $SERVICE_NAME --port $LOCAL_PORT:$REMOTE_PORT` command to create an "intercept" for rerouting remote service traffic.
- 
+Use the `telepresence intercept $SERVICE_NAME --port $LOCAL_PORT:$REMOTE_PORT`
+command to create an "intercept" for rerouting remote service traffic.
+
 Where:
 
 -   `$SERVICE_NAME`  is the name of your local service
@@ -97,7 +112,11 @@ Where:
 - `$REMOTE_PORT` 是服务在集群中侦听的端口
 
 <!--
-Running this command tells Telepresence to send remote traffic to your local service instead of the service in the remote Kubernetes cluster. Make edits to your service source code locally, save, and see the corresponding changes when accessing your remote application take effect immediately. You can also run your local service using a debugger or any other local development tool.
+Running this command tells Telepresence to send remote traffic to your
+local service instead of the service in the remote Kubernetes cluster.
+Make edits to your service source code locally, save, and see the corresponding
+changes when accessing your remote application take effect immediately.
+You can also run your local service using a debugger or any other local development tool.
 -->
 运行此命令会告诉 Telepresence 将远程流量发送到本地服务，而不是远程 Kubernetes 集群中的服务中。
 在本地编辑保存服务源代码，并在访问远程应用时查看相应变更会立即生效。
@@ -106,7 +125,14 @@ Running this command tells Telepresence to send remote traffic to your local ser
 <!--
 ## How does Telepresence work?
 
-Telepresence installs a traffic-agent sidecar next to your existing application's container running in the remote cluster. It then captures all traffic requests going into the Pod, and instead of forwarding this to the application in the remote cluster, it routes all traffic (when you create a [global intercept](https://www.getambassador.io/docs/telepresence/latest/concepts/intercepts/#global-intercept)) or a subset of the traffic (when you create a [personal intercept](https://www.getambassador.io/docs/telepresence/latest/concepts/intercepts/#personal-intercept)) to your local development environment.
+Telepresence installs a traffic-agent sidecar next to your existing
+application's container running in the remote cluster. It then captures
+all traffic requests going into the Pod, and instead of forwarding this
+to the application in the remote cluster, it routes all traffic (when you
+create a [global intercept](https://www.getambassador.io/docs/telepresence/latest/concepts/intercepts/#global-intercept)
+or a subset of the traffic (when you create a
+[personal intercept](https://www.getambassador.io/docs/telepresence/latest/concepts/intercepts/#personal-intercept))
+to your local development environment.
 -->
 ## Telepresence 是如何工作的？  {#how-does-telepresence-work}
 
@@ -119,7 +145,9 @@ Telepresence 会在远程集群中运行的现有应用程序容器旁边安装�
 ## {{% heading "whatsnext" %}}
 
 <!--
-If you're interested in a hands-on tutorial, check out [this tutorial](https://cloud.google.com/community/tutorials/developing-services-with-k8s) that walks through locally developing the Guestbook application on Google Kubernetes Engine.
+If you're interested in a hands-on tutorial, check out
+[this tutorial](https://cloud.google.com/community/tutorials/developing-services-with-k8s)
+that walks through locally developing the Guestbook application on Google Kubernetes Engine.
 -->
 如果你对实践教程感兴趣，
 请查看[本教程](https://cloud.google.com/community/tutorials/developing-services-with-k8s)，

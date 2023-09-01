@@ -47,6 +47,7 @@ debug the exact same code locally if needed.
 
 这让你可以获取在云中运行的容器镜像，并且如果有需要的话，在本地调试完全相同的代码。
 
+{{< note >}}
 <!--
 A ConfigMap is not designed to hold large chunks of data. The data stored in a
 ConfigMap cannot exceed 1 MiB. If you need to store settings that are
@@ -56,7 +57,7 @@ separate database or file service.
 ConfigMap 在设计上不是用来保存大量数据的。在 ConfigMap 中保存的数据不可超过
 1 MiB。如果你需要保存超出此尺寸限制的数据，你可能希望考虑挂载存储卷
 或者使用独立的数据库或者文件服务。
-
+{{< /note >}}
 <!--
 ## ConfigMap object
 
@@ -189,7 +190,7 @@ Here's an example Pod that uses values from `game-demo` to configure a Pod:
 
 下面是一个 Pod 的示例，它通过使用 `game-demo` 中的值来配置一个 Pod：
 
-{{< codenew file="configmap/configure-pod.yaml" >}}
+{{% code file="configmap/configure-pod.yaml" %}}
 
 <!--
 A ConfigMap doesn't differentiate between single line property values and
@@ -320,7 +321,7 @@ ConfigMap，你只需要设置一个 `spec.volumes` 块。
 When a ConfigMap currently consumed in a volume is updated, projected keys are eventually updated as well.
 The kubelet checks whether the mounted ConfigMap is fresh on every periodic sync.
 However, the kubelet uses its local cache for getting the current value of the ConfigMap.
-The type of the cache is configurable using the `ConfigMapAndSecretChangeDetectionStrategy` field in
+The type of the cache is configurable using the `configMapAndSecretChangeDetectionStrategy` field in
 the [KubeletConfiguration struct](/docs/reference/config-api/kubelet-config.v1beta1/).
 -->
 #### 被挂载的 ConfigMap 内容会被自动更新
@@ -330,7 +331,7 @@ kubelet 组件会在每次周期性同步时检查所挂载的 ConfigMap 是否�
 不过，kubelet 使用的是其本地的高速缓存来获得 ConfigMap 的当前值。
 高速缓存的类型可以通过
 [KubeletConfiguration 结构](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/).
-的 `ConfigMapAndSecretChangeDetectionStrategy` 字段来配置。
+的 `configMapAndSecretChangeDetectionStrategy` 字段来配置。
 
 <!--
 A ConfigMap can be either propagated by watch (default), ttl-based, or by redirecting
@@ -388,13 +389,9 @@ ConfigMap 的数据有以下好处：
   这是因为系统会关闭对已标记为不可变更的 ConfigMap 的监视操作。
 
 <!--
-This feature is controlled by the `ImmutableEphemeralVolumes`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 You can create an immutable ConfigMap by setting the `immutable` field to `true`.
 For example:
 -->
-此功能特性由 `ImmutableEphemeralVolumes`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来控制。
 你可以通过将 `immutable` 字段设置为 `true` 创建不可变更的 ConfigMap。
 例如：
 

@@ -60,7 +60,7 @@ kubectl create namespace mem-example
 В этом упражнении создаётся Pod, содержащий один контейнер.
 Зададим контейнеру запрос памяти в 100 Мб и её ограничение в 200 Мб. Конфигурационный файл для Pod'а:
 
-{{< codenew file="pods/resource/memory-request-limit.yaml" >}}
+{{% codenew file="pods/resource/memory-request-limit.yaml" %}}
 
 Раздел `args` конфигурационного файла содержит аргументы для контейнера в момент старта.
 Аргументы `"--vm-bytes", "150M"` указывают контейнеру попытаться занять 150 Мб памяти.
@@ -129,7 +129,7 @@ kubectl delete pod memory-demo --namespace=mem-example
 Ниже представлен конфигурационный файл для Pod'a с одним контейнером, имеющим 50 Мб
 на запрос памяти и 100 Мб лимита памяти:
 
-{{< codenew file="pods/resource/memory-request-limit-2.yaml" >}}
+{{% codenew file="pods/resource/memory-request-limit-2.yaml" %}}
 
 В разделе `args` можно увидеть, что контейнер будет пытаться занять
 250 Мб - и это значительно превышает лимит в 100 Мб.
@@ -239,7 +239,7 @@ kubectl delete pod memory-demo-2 --namespace=mem-example
 в кластере. Ниже представлен конфигурационный файл для Pod'a с одним контейнером,
 имеющим запрос памяти в 1000 Гб (что наверняка превышает ёмкость любой имеющейся ноды):
 
-{{< codenew file="pods/resource/memory-request-limit-3.yaml" >}}
+{{% codenew file="pods/resource/memory-request-limit-3.yaml" %}}
 
 Создадим Pod:
 

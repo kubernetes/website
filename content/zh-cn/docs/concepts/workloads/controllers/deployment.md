@@ -4,8 +4,11 @@ feature:
   title: 自动化上线和回滚
   description: >
     Kubernetes 会分步骤地将针对应用或其配置的更改上线，同时监视应用程序运行状况以确保你不会同时终止所有实例。如果出现问题，Kubernetes 会为你回滚所作更改。你应该充分利用不断成长的部署方案生态系统。
+description: >-
+  Deployment 用于管理运行一个应用负载的一组 Pod，通常适用于不保持状态的负载。
 content_type: concept
 weight: 10
+hide_summary: true # 在章节索引中单独列出
 ---
 <!--
 reviewers:
@@ -15,9 +18,11 @@ feature:
   title: Automated rollouts and rollbacks
   description: >
     Kubernetes progressively rolls out changes to your application or its configuration, while monitoring application health to ensure it doesn't kill all your instances at the same time. If something goes wrong, Kubernetes will rollback the change for you. Take advantage of a growing ecosystem of deployment solutions.
-
+description: >-
+  A Deployment manages a set of Pods to run an application workload, usually one that doesn't maintain state.
 content_type: concept
 weight: 10
+hide_summary: true # Listed separately in section index
 -->
 
 <!-- overview -->
@@ -82,15 +87,11 @@ The following are typical use cases for Deployments:
 * [清理较旧的不再需要的 ReplicaSet](#clean-up-policy) 。
 
 <!--
-## Creating a Deployment
-
 The following is an example of a Deployment. It creates a ReplicaSet to bring up three `nginx` Pods:
 -->
-## 创建 Deployment  {#creating-a-deployment}
-
 下面是一个 Deployment 示例。其中创建了一个 ReplicaSet，负责启动三个 `nginx` Pod：
 
-{{< codenew file="controllers/nginx-deployment.yaml" >}}
+{{% code file="controllers/nginx-deployment.yaml" %}}
 
 <!--
 In this example:
@@ -274,9 +275,9 @@ Follow the steps given below to create the above Deployment:
 
    ```
    NAME                                READY     STATUS    RESTARTS   AGE       LABELS
-   nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
-   nginx-deployment-75675f5897-kzszj   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
-   nginx-deployment-75675f5897-qqcnn   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
+   nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=75675f5897
+   nginx-deployment-75675f5897-kzszj   1/1       Running   0          18s       app=nginx,pod-template-hash=75675f5897
+   nginx-deployment-75675f5897-qqcnn   1/1       Running   0          18s       app=nginx,pod-template-hash=75675f5897
    ```
 
    <!--
@@ -359,6 +360,14 @@ Follow the steps given below to update your Deployment:
    ```shell
    kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1
    ```
+   
+   <!--
+   where `deployment/nginx-deployment` indicates the Deployment,
+   `nginx` indicates the Container the update will take place and
+   `nginx:1.16.1` indicates the new image and its tag.
+   -->
+   在这里，`deployment/nginx-deployment` 表明 Deployment 的名称，`nginx` 表明需要进行更新的容器，
+   而 `nginx:1.16.1` 则表示镜像的新版本以及它的标签。
 
    <!--
    The output is similar to:
@@ -2221,19 +2230,17 @@ Deployment 在创建时是默认不会处于暂停状态。
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Learn about [Pods](/docs/concepts/workloads/pods).
-* [Run a Stateless Application Using a Deployment](/docs/tasks/run-application/run-stateless-application-deployment/).
-* `Deployment` is a top-level resource in the Kubernetes REST API.
-  Read the {{< api-reference page="workload-resources/deployment-v1" >}}
-  object definition to understand the API for deployments.
+* Learn more about [Pods](/docs/concepts/workloads/pods).
+* [Run a stateless application using a Deployment](/docs/tasks/run-application/run-stateless-application-deployment/).
+* Read the {{< api-reference page="workload-resources/deployment-v1" >}} to understand the Deployment API.
 * Read about [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) and how
   you can use it to manage application availability during disruptions.
+* Use kubectl to [create a Deployment](/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/).
 -->
-* 了解 [Pod](/zh-cn/docs/concepts/workloads/pods)。
+* 进一步了解 [Pod](/zh-cn/docs/concepts/workloads/pods)。
 * [使用 Deployment 运行一个无状态应用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)。
-* `Deployment` 是 Kubernetes REST API 中的一个顶层资源。
-  阅读 {{< api-reference page="workload-resources/deployment-v1" >}}
-  对象定义，以了解 Deployment 的 API 细节。
+* 阅读 {{< api-reference page="workload-resources/deployment-v1" >}}，
+  以了解 Deployment API 的细节。
 * 阅读 [PodDisruptionBudget](/zh-cn/docs/concepts/workloads/pods/disruptions/)
   了解如何使用它来在可能出现干扰的情况下管理应用的可用性。
-
+* 使用 kubectl 来[创建一个 Deployment](/zh-cn/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/)。

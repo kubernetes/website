@@ -26,6 +26,11 @@ In Kubernetes, there are two ways to expose Pod and container fields to a runnin
 
 Together, these two ways of exposing Pod and container fields are called the
 downward API.
+
+As Services are the primary mode of communication between containerized applications managed by Kubernetes, 
+it is helpful to be able to discover them at runtime. 
+
+Read more about accessing Services [here](/docs/tutorials/services/connect-applications-service/#accessing-the-service).
 -->
 在 Kubernetes 中有两种方式可以将 Pod 和容器字段呈现给运行中的容器：
 
@@ -33,6 +38,11 @@ downward API.
 * [卷文件](/zh-cn/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)
 
 这两种呈现 Pod 和容器字段的方式统称为 downward API。
+
+Service 是 Kubernetes 管理的容器化应用之间的主要通信模式，因此在运行时能发现这些 Service 是很有帮助的。
+
+在[这里](/zh-cn/docs/tutorials/services/connect-applications-service/#accessing-the-service)
+阅读更多关于访问 Service 的信息。
 
 ## {{% heading "prerequisites" %}}
 

@@ -302,7 +302,7 @@ example program:
 我们将用 `amqp-consume` 实用程序从队列中读取消息并运行实际的程序。
 这里给出一个非常简单的示例程序：
 
-{{< codenew language="python" file="application/job/rabbitmq/worker.py" >}}
+{{% code language="python" file="application/job/rabbitmq/worker.py" %}}
 
 <!--
 Give the script execution permission:
@@ -371,7 +371,7 @@ image to match the name you used, and call it `./job.yaml`.
 
 这里给出一个 Job 定义 YAML 文件。你将需要拷贝一份 Job 并编辑该镜像以匹配你使用的名称，保存为 `./job.yaml`。
 
-{{< codenew file="application/job/rabbitmq/job.yaml" >}}
+{{% code file="application/job/rabbitmq/job.yaml" %}}
 
 <!--
 In this example, each pod works on one item from the queue and then exits.

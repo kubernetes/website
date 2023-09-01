@@ -74,11 +74,10 @@ GPUs are only supposed to be specified in the `limits` section, which means:
   must be equal.
 * You cannot specify GPU `requests` without specifying `limits`.
 -->
-- GPU 只能在 `limits` 部分指定，这意味着：
-  * 你可以指定 GPU 的 `limits` 而不指定其 `requests`，因为 Kubernetes 将默认使用限制
-    值作为请求值。
-  * 你可以同时指定 `limits` 和 `requests`，不过这两个值必须相等。
-  * 你不可以仅指定 `requests` 而不指定 `limits`。
+GPU 只能在 `limits` 部分指定，这意味着：
+* 你可以指定 GPU 的 `limits` 而不指定其 `requests`，因为 Kubernetes 将默认使用限制值作为请求值。
+* 你可以同时指定 `limits` 和 `requests`，不过这两个值必须相等。
+* 你不可以仅指定 `requests` 而不指定 `limits`。
 
 <!--
 Here's an example manifest for a Pod that requests a GPU:

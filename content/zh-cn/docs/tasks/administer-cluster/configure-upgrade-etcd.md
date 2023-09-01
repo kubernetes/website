@@ -44,7 +44,7 @@ weight: 270
   clusters. Therefore, run etcd clusters on dedicated machines or isolated
   environments for [guaranteed resource requirements](https://etcd.io/docs/current/op-guide/hardware/).
 
-* The minimum recommended version of etcd to run in production is `3.2.10+`.
+* The minimum recommended etcd versions to run in production are `3.4.22+` and `3.5.6+`.
 -->
 ## 先决条件    {#prerequisites}
 
@@ -62,7 +62,7 @@ weight: 270
   因此，请在专用机器或隔离环境上运行 etcd 集群，
   以满足[所需资源需求](https://etcd.io/docs/current/op-guide/hardware/)。
 
-* 在生产中运行的 etcd 的最低推荐版本是 `3.2.10+`。
+* 在生产环境中运行的 etcd 最低推荐版本为 `3.4.22+` 和 `3.5.6+`。
 
 <!--
 ## Resource requirements
@@ -702,3 +702,26 @@ Before you start an upgrade, please back up your etcd cluster first.
 在开始升级之前，请先备份你的 etcd 集群。
 {{< /note >}}
 
+<!--
+## Maintaining etcd clusters
+
+For more details on etcd maintenance, please refer to the [etcd maintenance](https://etcd.io/docs/latest/op-guide/maintenance/) documentation.
+-->
+## 维护 etcd 集群    {#maintaining-etcd-clusters}
+
+有关 etcd 维护的更多详细信息，请参阅 [etcd 维护](https://etcd.io/docs/latest/op-guide/maintenance/)文档。
+
+{{% thirdparty-content single="true" %}}
+
+{{< note >}}
+<!--
+Defragmentation is an expensive operation, so it should be executed as infrequent
+as possible. On the other hand, it's also necessary to make sure any etcd member
+will not run out of the storage quota. The Kubernetes project recommends that when
+you perform defragmentation, you use a tool such as [etcd-defrag](https://github.com/ahrtr/etcd-defrag).
+-->
+碎片整理是一种昂贵的操作，因此应尽可能少地执行此操作。
+另一方面，也有必要确保任何 etcd 成员都不会用尽存储配额。
+Kubernetes 项目建议在执行碎片整理时，
+使用诸如 [etcd-defrag](https://github.com/ahrtr/etcd-defrag) 之类的工具。
+{{< /note >}}

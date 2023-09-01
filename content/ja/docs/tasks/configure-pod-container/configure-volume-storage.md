@@ -1,7 +1,7 @@
 ---
 title: ストレージにボリュームを使用するPodを構成する
 content_type: task
-weight: 50
+weight: 80
 ---
 
 <!-- overview -->

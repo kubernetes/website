@@ -17,7 +17,7 @@ methods for adding custom resources and how to choose between them.
 ## Custom resources
 
 A *resource* is an endpoint in the [Kubernetes API](/docs/concepts/overview/kubernetes-api/) that
-stores a collection of [API objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/)
+stores a collection of {{< glossary_tooltip text="API objects" term_id="object" >}}
 of a certain kind; for example, the built-in *pods* resource contains a collection of Pod objects.
 
 A *custom resource* is an extension of the Kubernetes API that is not necessarily available in a default
@@ -209,7 +209,7 @@ Aggregated APIs offer more advanced API features and customization of other feat
 
 | Feature | Description | CRDs | Aggregated API |
 | ------- | ----------- | ---- | -------------- |
-| Validation | Help users prevent errors and allow you to evolve your API independently of your clients. These features are most useful when there are many clients who can't all update at the same time. | Yes.  Most validation can be specified in the CRD using [OpenAPI v3.0 validation](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation).  Any other validations supported by addition of a [Validating Webhook](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook-alpha-in-1-8-beta-in-1-9). | Yes, arbitrary validation checks |
+| Validation | Help users prevent errors and allow you to evolve your API independently of your clients. These features are most useful when there are many clients who can't all update at the same time. | Yes.  Most validation can be specified in the CRD using [OpenAPI v3.0 validation](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation). [CRDValidationRatcheting](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-ratcheting) feature gate allows failing validations specified using OpenAPI also can be ignored if the failing part of the resource was unchanged.  Any other validations supported by addition of a [Validating Webhook](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook-alpha-in-1-8-beta-in-1-9). | Yes, arbitrary validation checks |
 | Defaulting | See above | Yes, either via [OpenAPI v3.0 validation](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#defaulting) `default` keyword (GA in 1.17), or via a [Mutating Webhook](/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook) (though this will not be run when reading from etcd for old objects). | Yes |
 | Multi-versioning | Allows serving the same object through two API versions. Can help ease API changes like renaming fields. Less important if you control your client versions. | [Yes](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning) | Yes |
 | Custom Storage | If you need storage with a different performance mode (for example, a time-series database instead of key-value store) or isolation for security (for example, encryption of sensitive information, etc.) | No | Yes |

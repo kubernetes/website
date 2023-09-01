@@ -73,10 +73,9 @@ You can run the `dashboard` command again to create another proxy to access the 
 {{% /tab %}}
 {{% tab name="URL copy and paste" %}}
 
-If you don't want minikube to open a web browser fr you, run the dashboard command with the
-`--url` flag. `minikube` outputs a URL that you can open in the browser you prefer:
+If you don't want minikube to open a web browser for you, run the dashboard command with the
+`--url` flag. `minikube` outputs a URL that you can open in the browser you prefer.
 
-```
 Open a **new** terminal, and run:
 ```shell
 # Start a new terminal, and leave this running.
@@ -305,6 +304,7 @@ If you want to use minikube again to learn more about Kubernetes, you don't need
 ## {{% heading "whatsnext" %}}
 
 
+* Tutorial to _[deploy your first app on Kubernetes with kubectl](/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/)_.
 * Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
 * Learn more about [Deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/).
 * Learn more about [Service objects](/docs/concepts/services-networking/service/).

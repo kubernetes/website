@@ -2,7 +2,6 @@
 reviewers:
 - femrtnz
 - jcjesus
-- hugopfeffer
 title: Imagens
 content_type: concept
 weight: 10

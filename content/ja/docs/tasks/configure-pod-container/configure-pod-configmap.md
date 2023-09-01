@@ -1,7 +1,7 @@
 ---
 title: Podを構成してConfigMapを使用する
 content_type: task
-weight: 150
+weight: 190
 card:
   name: tasks
   weight: 50

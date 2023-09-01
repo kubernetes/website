@@ -2,7 +2,7 @@
 title: Pod内のコンテナ間でプロセス名前空間を共有する
 min-kubernetes-server-version: v1.10
 content_type: task
-weight: 160
+weight: 200
 ---
 
 <!-- overview -->

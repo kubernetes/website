@@ -29,15 +29,13 @@ weight: 3
 <!-- 
 MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and may change the object.
 -->
-
 MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接受或拒绝对象请求，并且可能变更对象。
 
 <hr>
 
-- **apiVersion**: admissionregistration.k8s.io/v1
+- **apiVersion**：admissionregistration.k8s.io/v1
 
-- **kind**: MutatingWebhookConfiguration
-
+- **kind**：MutatingWebhookConfiguration
 <!-- 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
@@ -220,7 +218,8 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
   - **webhooks.sideEffects** (string), 必需
 
-    sideEffects 说明此 Webhook 是否有副作用。可接受的值为：None、NoneOnDryRun（通过 v1beta1 创建的 Webhook 也可以指定 Some 或 Unknown）。
+    sideEffects 说明此 Webhook 是否有副作用。可接受的值为：None、NoneOnDryRun
+    （通过 v1beta1 创建的 Webhook 也可以指定 Some 或 Unknown）。
     具有副作用的 Webhook 必须实现协调系统，因为请求可能会被准入链中的未来步骤拒绝，因此需要能够撤消副作用。
     如果请求与带有 sideEffects == Unknown 或 Some 的 Webhook 匹配，则带有 dryRun 属性的请求将被自动拒绝。
 
@@ -233,6 +232,115 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
   - **webhooks.failurePolicy** (string)
 
     failurePolicy 定义如何处理来自准入端点的无法识别的错误 - 允许的值是 Ignore 或 Fail。默认为 Fail。
+
+  <!--
+  - **webhooks.matchConditions** ([]MatchCondition)
+
+    *Patch strategy: merge on key `name`*
+   
+    *Map: unique values on key name will be kept during a merge*
+  -->
+  
+  - **webhooks.matchConditions** ([]MatchCondition)
+
+    **补丁策略：根据 `name` 键执行合并操作**
+
+    **映射：键 `name` 的唯一值将在合并过程中保留**
+
+    <!--
+    MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+    -->
+    
+    matchConditions 是将请求发送到此 webhook 之前必须满足的条件列表。
+    匹配条件过滤已经被 rules、namespaceSelector、objectSelector 匹配的请求。
+    matchConditions 取值为空列表时匹配所有请求。最多允许 64 个匹配条件。
+  
+    <!--
+    The exact matching logic is (in order):
+      1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
+      2. If ALL matchConditions evaluate to TRUE, the webhook is called.
+      3. If any matchCondition evaluates to an error (but none are FALSE):
+        - If failurePolicy=Fail, reject the request
+        - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
+    -->
+    
+    精确匹配逻辑是（按顺序）:
+    1. 如果任一 matchCondition 的计算结果为 FALSE，则跳过该 webhook。
+    2. 如果所有 matchConditions 的计算结果为 TRUE，则调用该 webhook。
+    3. 如果任一 matchCondition 的计算结果为错误（但都不是 FALSE）：
+       - 如果 failurePolicy=Fail，拒绝该请求；
+       - 如果 failurePolicy=Ignore，忽略错误并跳过该 webhook。
+
+    <!--
+    This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+  
+    <a name="MatchCondition"></a>
+    *MatchCondition represents a condition which must by fulfilled for a request to be sent to a webhook.*
+    -->
+    
+    这是一个 Alpha 功能特性，由 AdmissionWebhookMatchConditions 特性门控管理。
+
+    <a name="MatchCondition"></a>
+    **MatchCondition 表示将请求发送到 Webhook 之前必须满足的条件。**
+
+    <!--
+    - **webhooks.matchConditions.expression** (string), required
+
+      Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+    -->
+    
+    - **webhooks.matchConditions.expression** (string), 必需
+
+      expression 表示将由 CEL 求值的表达式。求值结果必须是 bool 值。CEL 表达式可以访问
+      以 CEL 变量的形式给出的 AdmissionRequest 和 Authorizer 的内容：
+  
+      <!--
+      'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+      -->
+      
+      - 'object' - 来自传入请求的对象。对于 DELETE 请求，该值为 null。
+      - 'oldObject' - 现有对象。对于 CREATE 请求，该值为 null。
+      - 'request' - 准入请求的属性(/pkg/apis/admission/types.go#AdmissionRequest)。
+      - 'authorizer' - CEL 授权者。可用于对请求的主体（用户或服务账号）执行授权检查。
+
+        <!--
+        See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+        -->
+        
+        参阅： https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+
+      <!--
+      'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+        request resource.
+      Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/
+  
+      Required.
+      -->
+      
+      - 'authorizer.requestResource' - CEL ResourceCheck 从"授权方"构建并配置请求资源。
+  
+      CEL 文档： https://kubernetes.io/zh-cn/docs/reference/using-api/cel/
+
+      此字段为必需字段。
+
+      <!--
+      - **webhooks.matchConditions.name** (string), required
+
+        Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')   
+
+        Required.
+      -->
+      
+      - **webhooks.matchConditions.name** (string), 必需
+
+        name 是此匹配条件的标识符，用于 MatchConditions 的策略性合并，
+        以及提供用于日志目的的标识符。一个好的 name 应该是对相关表达式的描述。
+        name 必须是由字母数字字符 `-`、`_` 或 `.` 组成的限定名称，
+        并且必须以字母、数字字符开头和结尾（例如 `MyName`、`my.name` 或 `123-abc`，
+        用于验证 name 的正则表达式是 `([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]`）。
+        带有可选的 DNS 子域前缀和 `/`（例如 `example.com/MyName`）
+
+        此字段为必需字段。
 
   <!-- 
   - **webhooks.matchPolicy** (string)
@@ -391,7 +499,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
     - **webhooks.rules.apiGroups** ([]string)
 
-      *Atomic: 将在合并期间被替换*
+      **Atomic: 将在合并期间被替换**
       
       apiGroups 是资源所属的 API 组列表。`*` 是所有组。
       如果存在 `*`，则列表的长度必须为 1。必需。
@@ -406,7 +514,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
     - **webhooks.rules.apiVersions** ([]string)
 
-      *Atomic: 将在合并期间被替换*
+      **Atomic: 将在合并期间被替换**
 
       apiVersions 是资源所属的 API 版本列表。`*` 是所有版本。
       如果存在 `*`，则列表的长度必须为 1。必需。
@@ -421,7 +529,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
     - **webhooks.rules.operations** ([]string)
 
-      *Atomic: 将在合并期间被替换*
+      **Atomic: 将在合并期间被替换**
 
       operations 是准入 Webhook 所关心的操作 —— CREATE、UPDATE、DELETE、CONNECT
       或用来指代所有已知操作以及将来可能添加的准入操作的 `*`。
@@ -443,7 +551,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
     - **webhooks.rules.resources** ([]string)
 
-      *Atomic: 将在合并期间被替换*
+      **Atomic: 将在合并期间被替换**
 
       resources 是此规则适用的资源列表。
 
@@ -504,7 +612,8 @@ MutatingWebhookConfigurationList 是 MutatingWebhookConfiguration 的列表。
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  标准的对象元数据，更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds。
+  标准的对象元数据，更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 <!-- 
 - **items** ([]<a href="{{< ref "../extend-resources/mutating-webhook-configuration-v1#MutatingWebhookConfiguration" >}}">MutatingWebhookConfiguration</a>), required
@@ -543,7 +652,7 @@ GET /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations/{name}
 -->
 #### 参数
 
-- **name** (**路径参数**): string, 必需
+- **name**（**路径参数**）：string, 必需
 
   MutatingWebhookConfiguration 的名称。
 
@@ -554,7 +663,7 @@ GET /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations/{name}
  
 -->
 
-- **pretty** (**查询参数**): string
+- **pretty**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -587,7 +696,7 @@ GET /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations
 -->
 #### 参数
 
-- **allowWatchBookmarks** (**查询参数**): boolean
+- **allowWatchBookmarks**（**查询参数**）：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
@@ -597,7 +706,7 @@ GET /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a> 
 -->
 
-- **continue** (**查询参数**): string
+- **continue**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
@@ -607,7 +716,7 @@ GET /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a> 
 -->
 
-- **fieldSelector** (**查询参数**): string
+- **fieldSelector**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
@@ -617,7 +726,7 @@ GET /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a> 
 -->
 
-- **fieldSelector** (**查询参数**): string
+- **fieldSelector**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
@@ -627,7 +736,7 @@ GET /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a> 
 -->
 
-- **limit** (**查询参数**): integer
+- **limit**（**查询参数**）：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
@@ -637,7 +746,7 @@ GET /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a> 
 -->
 
-- **pretty** (**查询参数**): string
+- **pretty**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -647,7 +756,7 @@ GET /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a> 
 -->
 
-- **resourceVersion** (**查询参数**): string
+- **resourceVersion**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
@@ -657,9 +766,18 @@ GET /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a> 
 -->
 
-- **resourceVersionMatch** (**查询参数**): string
+- **resourceVersionMatch**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+<!--
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+-->
+- **sendInitialEvents**（**查询参数**）：boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 <!-- 
 - **timeoutSeconds** (*in query*): integer
@@ -667,7 +785,7 @@ GET /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a> 
 -->
 
-- **timeoutSeconds** (**查询参数**): integer
+- **timeoutSeconds**（**查询参数**）：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
@@ -677,7 +795,7 @@ GET /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a> 
 -->
 
-- **watch** (**查询参数**): boolean
+- **watch**（**查询参数**）：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
@@ -717,7 +835,7 @@ POST /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a> 
 -->
 
-- **dryRun** (**查询参数**): string
+- **dryRun**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
@@ -727,7 +845,7 @@ POST /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a> 
 -->
 
-- **fieldManager** (**查询参数**): string
+- **fieldManager**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
@@ -737,7 +855,7 @@ POST /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a> 
 -->
 
-- **fieldValidation** (**查询参数**): string
+- **fieldValidation**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
@@ -747,7 +865,7 @@ POST /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a> 
 -->
 
-- **pretty** (**查询参数**): string
+- **pretty**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -784,7 +902,7 @@ PUT /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations/{name}
 -->
 #### 参数
 
-- **name** (**路径参数**): string, 必需
+- **name**（**路径参数**）：string, 必需
 
   MutatingWebhookConfiguration 的名称。
 
@@ -800,7 +918,7 @@ PUT /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations/{name}
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a> 
 -->
 
-- **dryRun** (**查询参数**): string
+- **dryRun**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
@@ -810,7 +928,7 @@ PUT /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a> 
 -->
 
-- **fieldManager** (**查询参数**): string
+- **fieldManager**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
@@ -820,7 +938,7 @@ PUT /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 -->
 
-- **fieldValidation** (**查询参数**): string
+- **fieldValidation**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
@@ -830,7 +948,7 @@ PUT /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations/{name}
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 
-- **pretty** (**查询参数**): string
+- **pretty**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -865,7 +983,7 @@ PATCH /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations/{name}
 -->
 #### 参数
 
-- **name** (**路径参数**): string, 必需
+- **name**（**路径参数**）：string, 必需
 
   MutatingWebhookConfiguration 的名称。
 
@@ -881,7 +999,7 @@ PATCH /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations/{name}
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a> 
 -->
 
-- **dryRun** (**查询参数**): string
+- **dryRun**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
@@ -891,7 +1009,7 @@ PATCH /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 -->
 
-- **fieldManager** (**查询参数**): string
+- **fieldManager**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
@@ -901,7 +1019,7 @@ PATCH /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a> 
 -->
 
-- **fieldValidation** (**查询参数**): string
+- **fieldValidation**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
@@ -911,7 +1029,7 @@ PATCH /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations/{name}
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a> 
 -->
 
-- **force** (**查询参数**): boolean
+- **force**（**查询参数**）：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
@@ -921,7 +1039,7 @@ PATCH /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations/{name}
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a> 
 -->
 
-- **pretty** (**查询参数**): string
+- **pretty**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -956,7 +1074,7 @@ DELETE /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations/{name
 -->
 #### 参数
 
-- **name** (**路径参数**): string, 必需
+- **name**（**路径参数**）：string, 必需
 
   MutatingWebhookConfiguration 的名称。
 
@@ -968,7 +1086,7 @@ DELETE /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations/{name
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a> 
 -->
 
-- **dryRun** (**查询参数**): string
+- **dryRun**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
@@ -978,7 +1096,7 @@ DELETE /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations/{name
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a> 
 -->
 
-- **gracePeriodSeconds** (**查询参数**): integer
+- **gracePeriodSeconds**（**查询参数**）：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
@@ -988,7 +1106,7 @@ DELETE /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations/{name
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a> 
 -->
 
-- **pretty** (**查询参数**): string
+- **pretty**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -998,7 +1116,7 @@ DELETE /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations/{name
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a> 
 -->
 
-- **propagationPolicy** (**查询参数**): string
+- **propagationPolicy**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
@@ -1037,7 +1155,7 @@ DELETE /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a> 
 -->
 
-- **continue** (**查询参数**): string
+- **continue**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
@@ -1047,7 +1165,7 @@ DELETE /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a> 
 -->
 
-- **dryRun** (**查询参数**): string
+- **dryRun**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
@@ -1057,7 +1175,7 @@ DELETE /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a> 
 -->
 
-- **fieldSelector** (**查询参数**): string
+- **fieldSelector**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
@@ -1067,7 +1185,7 @@ DELETE /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a> 
 -->
 
-- **gracePeriodSeconds** (**查询参数**): integer
+- **gracePeriodSeconds**（**查询参数**）：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
@@ -1077,7 +1195,7 @@ DELETE /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a> 
 -->
 
-- **labelSelector** (**查询参数**): string
+- **labelSelector**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
@@ -1087,7 +1205,7 @@ DELETE /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a> 
 -->
 
-- **limit** (**查询参数**): integer
+- **limit**（**查询参数**）：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
@@ -1097,7 +1215,7 @@ DELETE /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a> 
 -->
 
-- **pretty** (**查询参数**): string
+- **pretty**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -1107,7 +1225,7 @@ DELETE /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a> 
 -->
 
-- **propagationPolicy** (**查询参数**): string
+- **propagationPolicy**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
@@ -1117,7 +1235,7 @@ DELETE /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a> 
 -->
 
-- **resourceVersion** (**查询参数**): string
+- **resourceVersion**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
@@ -1127,9 +1245,18 @@ DELETE /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a> 
 -->
 
-- **resourceVersionMatch** (**查询参数**): string
+- **resourceVersionMatch**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+<!--
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+-->
+- **sendInitialEvents**（**查询参数**）：boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 <!-- 
 - **timeoutSeconds** (*in query*): integer
@@ -1137,7 +1264,7 @@ DELETE /apis/admissionregistration.k8s.io/v1/mutatingwebhookconfigurations
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a> 
 -->
 
-- **timeoutSeconds** (**查询参数**): integer
+- **timeoutSeconds**（**查询参数**）：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 

@@ -269,7 +269,7 @@ Ce comportement est configuré sur un PodSpec utilisant un type de ProjectedVolu
 [ServiceAccountToken](/docs/concepts/storage/volumes/#projected). Pour fournir un
 Pod avec un token avec une audience de "vault" et une durée de validité de deux heures, vous devriez configurer ce qui suit dans votre PodSpec :
 
-{{< codenew file="pods/pod-projected-svc-token.yaml" >}}
+{{% codenew file="pods/pod-projected-svc-token.yaml" %}}
 
 Créez le Pod
 

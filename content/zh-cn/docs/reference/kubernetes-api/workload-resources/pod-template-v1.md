@@ -247,6 +247,15 @@ GET /api/v1/namespaces/{namespace}/podtemplates
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 <!--
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+-->
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+<!--
 - **timeoutSeconds** (*in query*): integer
 -->
 - **timeoutSeconds** （**查询参数**）：integer
@@ -340,6 +349,15 @@ GET /api/v1/podtemplates
 - **resourceVersionMatch** （**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+<!--
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+-->
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer
@@ -760,6 +778,15 @@ DELETE /api/v1/namespaces/{namespace}/podtemplates
 - **resourceVersionMatch** （**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+<!--
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+-->
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer

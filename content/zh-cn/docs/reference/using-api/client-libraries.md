@@ -17,8 +17,7 @@ weight: 30
 This page contains an overview of the client libraries for using the Kubernetes
 API from various programming languages.
 -->
-本页面包含基于各种编程语言使用 Kubernetes API 的客户端库概述。
-
+本页面概要介绍了基于各种编程语言使用 Kubernetes API 的客户端库。
 
 <!-- body -->
 <!--
@@ -51,7 +50,8 @@ format to read the credentials and the API Server address.
 The following client libraries are officially maintained by
 [Kubernetes SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery).
 -->
-以下客户端库由 [Kubernetes SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery) 正式维护。
+以下客户端库由 [Kubernetes SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery)
+正式维护。
 
 <!--
 | Language   | Client Library | Sample Programs |

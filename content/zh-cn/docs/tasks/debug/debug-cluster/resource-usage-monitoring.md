@@ -25,9 +25,9 @@ This information allows you to evaluate your application's performance and
 where bottlenecks can be removed to improve overall performance.
 -->
 要扩展应用程序并提供可靠的服务，你需要了解应用程序在部署时的行为。
-你可以通过检测容器检查 Kubernetes 集群中的应用程序性能，
-[Pod](/zh-cn/docs/concepts/workloads/pods)、
-[服务](/zh-cn/docs/concepts/services-networking/service/)和整个集群的特征。
+你可以通过检测容器、[Pod](/zh-cn/docs/concepts/workloads/pods)、
+[Service](/zh-cn/docs/concepts/services-networking/service/)
+和整个集群的特征来检查 Kubernetes 集群中应用程序的性能。
 Kubernetes 在每个级别上提供有关应用程序资源使用情况的详细信息。
 此信息使你可以评估应用程序的性能，以及在何处可以消除瓶颈以提高整体性能。
 
@@ -50,7 +50,7 @@ cluster components such as the
 controller, as well as the `kubectl top` utility.
 These  metrics are collected by the lightweight, short-term, in-memory 
 [metrics-server](https://github.com/kubernetes-sigs/metrics-server) and
- are exposed via the `metrics.k8s.io` API. 
+are exposed via the `metrics.k8s.io` API. 
 -->
 ## 资源度量管道  {#resource-metrics-pipeline}
 
@@ -58,8 +58,8 @@ These  metrics are collected by the lightweight, short-term, in-memory
 [Horizontal Pod Autoscaler](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/)
 控制器以及 `kubectl top` 实用程序相关的有限度量。
 这些指标是由轻量级的、短期、内存存储的
-[metrics-server](https://github.com/kubernetes-sigs/metrics-server) 收集的，
-通过 `metrics.k8s.io` 公开。
+[metrics-server](https://github.com/kubernetes-sigs/metrics-server) 收集，
+并通过 `metrics.k8s.io` 公开。
 
 <!--
 metrics-server discovers all nodes on the cluster and 
@@ -78,10 +78,10 @@ resource usage statistics through the metrics-server Resource Metrics API.
 This API is served at `/metrics/resource/v1beta1` on the kubelet's authenticated and 
 read-only ports. 
 -->
-度量服务器发现集群中的所有节点，并且查询每个节点的
+metrics-server 发现集群中的所有节点，并且查询每个节点的
 [kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/)
 以获取 CPU 和内存使用情况。
-Kubelet 充当 Kubernetes 主节点与节点之间的桥梁，管理机器上运行的 Pod 和容器。
+kubelet 充当 Kubernetes 主节点与节点之间的桥梁，管理机器上运行的 Pod 和容器。
 kubelet 将每个 Pod 转换为其组成的容器，并通过容器运行时接口从容器运行时获取各个容器使用情况统计信息。
 如果某个容器运行时使用 Linux cgroups 和名字空间来实现容器。
 并且这一容器运行时不发布资源用量统计信息，
@@ -107,6 +107,40 @@ Kubernetes 还可以根据集群的当前状态，使用 Pod 水平自动扩缩�
 通过自动调用扩展或调整集群来响应这些度量。
 监控管道从 kubelet 获取度量值，然后通过适配器将它们公开给 Kubernetes，
 方法是实现 `custom.metrics.k8s.io` 或 `external.metrics.k8s.io` API。
+
+<!--
+Kubernetes is designed to work with [OpenMetrics](https://openmetrics.io/), 
+which is one of the
+[CNCF Observability and Analysis - Monitoring Projects](https://landscape.cncf.io/card-mode?category=monitoring&project=graduated,incubating,member,no&grouping=category&sort=stars),
+built upon and carefully extending [Prometheus exposition format](https://prometheus.io/docs/instrumenting/exposition_formats/)
+in almost 100% backwards-compatible ways.
+-->
+Kubernetes 在设计上保证能够与 [OpenMetrics](https://openmetrics.io/) 一同使用，
+OpenMetrics 是 
+[CNCF 可观测性和分析 - 监控项目](https://landscape.cncf.io/card-mode?category=monitoring&project=graduated,incubating,member,no&grouping=category&sort=stars)之一，
+它构建于 [Prometheus 暴露格式](https://prometheus.io/docs/instrumenting/exposition_formats/)之上，
+并对其进行了扩展，这些扩展几乎 100% 向后兼容。
+
+<!--
+If you glance over at the
+[CNCF Landscape](https://landscape.cncf.io/card-mode?category=monitoring&project=graduated,incubating,member,no&grouping=category&sort=stars), 
+you can see a number of monitoring projects that can work with Kubernetes by _scraping_
+metric data and using that to help you observe your cluster. It is up to you to select the tool
+or tools that suit your needs. The CNCF landscape for observability and analytics includes a
+mix of open-source software, paid-for software-as-a-service, and other commercial products.
+-->
+如果你浏览 [CNCF Landscape](https://landscape.cncf.io/card-mode?category=monitoring&project=graduated,incubating,member,no&grouping=category&sort=stars)，
+你可以看到许多监控项目，它们可以用在 Kubernetes 上，**抓取**指标数据并利用这些数据来观测你的集群，
+选择哪种工具或哪些工具可以满足你的需求，这完全取决于你自己。 
+CNCF 的可观测性和分析景观包括了各种开源软件、付费的软件即服务（SaaS）以及其他混合商业产品。
+
+<!--
+When you design and implement a full metrics pipeline you can make that monitoring data
+available back to Kubernetes. For example, a HorizontalPodAutoscaler can use the processed
+metrics to work out how many Pods to run for a component of your workload.
+-->
+当你设计和实现一个完整的指标监控数据管道时，你可以将监控数据反馈给 Kubernetes。
+例如，HorizontalPodAutoscaler 可以使用处理过的指标数据来计算出你的工作负载组件运行了多少个 Pod。
 
 <!--
 Integration of a full metrics pipeline into your Kubernetes implementation is outside

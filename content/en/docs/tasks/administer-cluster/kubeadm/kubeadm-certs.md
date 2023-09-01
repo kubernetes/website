@@ -53,13 +53,13 @@ setting up a cluster to use an external CA.
 
 You can use the `check-expiration` subcommand to check when certificates expire:
 
-```
+```shell
 kubeadm certs check-expiration
 ```
 
 The output is similar to this:
 
-```
+```console
 CERTIFICATE                EXPIRES                  RESIDUAL TIME   CERTIFICATE AUTHORITY   EXTERNALLY MANAGED
 admin.conf                 Dec 30, 2020 23:36 UTC   364d                                    no
 apiserver                  Dec 30, 2020 23:36 UTC   364d            ca                      no
@@ -136,7 +136,7 @@ command. In that case, you should explicitly set `--certificate-renewal=true`.
 
 ## Manual certificate renewal
 
-You can renew your certificates manually at any time with the `kubeadm certs renew` command.
+You can renew your certificates manually at any time with the `kubeadm certs renew` command, with the appropriate command line options.
 
 This command performs the renewal using CA (or front-proxy-CA) certificate and key stored in `/etc/kubernetes/pki`.
 
@@ -160,15 +160,20 @@ Name, Organization, SAN, etc.) instead of the `kubeadm-config` ConfigMap. It is 
 to keep them both in sync.
 {{< /note >}}
 
-`kubeadm certs renew` provides the following options:
+`kubeadm certs renew` can renew any specific certificate or, with the subcommand `all`, it can renew all of them, as shown below:
 
-- The Kubernetes certificates normally reach their expiration date after one year.
+```shell
+kubeadm certs renew all
+```
 
-- `--csr-only` can be used to renew certificates with an external CA by generating certificate
-  signing requests (without actually renewing certificates in place); see next paragraph for more
-  information.
+{{< note >}}
+Clusters built with kubeadm often copy the `admin.conf` certificate into `$HOME/.kube/config`, as instructed in [Creating a cluster with kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/). On such a system, to update the contents of `$HOME/.kube/config` after renewing the `admin.conf` you must run the following commands:
 
-- It's also possible to renew a single certificate instead of all.
+```shell
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+```
+{{< /note >}}
 
 ## Renew certificates with the Kubernetes certificates API
 
@@ -268,7 +273,7 @@ serverTLSBootstrap: true
 If you have already created the cluster you must adapt it by doing the following:
  - Find and edit the `kubelet-config-{{< skew currentVersion >}}` ConfigMap in the `kube-system` namespace.
 In that ConfigMap, the `kubelet` key has a
-[KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+[KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/)
 document as its value. Edit the KubeletConfiguration document to set `serverTLSBootstrap: true`.
 - On each node, add the `serverTLSBootstrap: true` field in `/var/lib/kubelet/config.yaml`
 and restart the kubelet with `systemctl restart kubelet`
@@ -284,6 +289,8 @@ These CSRs can be viewed using:
 
 ```shell
 kubectl get csr
+```
+```console
 NAME        AGE     SIGNERNAME                        REQUESTOR                      CONDITION
 csr-9wvgt   112s    kubernetes.io/kubelet-serving     system:node:worker-1           Pending
 csr-lz97v   1m58s   kubernetes.io/kubelet-serving     system:node:control-plane-1    Pending

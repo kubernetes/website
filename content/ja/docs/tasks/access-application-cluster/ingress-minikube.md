@@ -1,7 +1,7 @@
 ---
 title: Minikube上でNGINX Ingressコントローラーを使用してIngressをセットアップする
 content_type: task
-weight: 100
+weight: 110
 ---
 
 <!-- overview -->

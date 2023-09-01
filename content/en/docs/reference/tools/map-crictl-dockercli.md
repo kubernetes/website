@@ -6,10 +6,6 @@ weight: 10
 
 {{% thirdparty-content %}}
 
-{{<note>}}
-This page is deprecated and will be removed in Kubernetes 1.27.
-{{</note>}}
-
 `crictl` is a command-line interface for {{<glossary_tooltip term_id="cri" text="CRI">}}-compatible container runtimes.
 You can use it to inspect and debug container runtimes and applications on a
 Kubernetes node. `crictl` and its source are hosted in the

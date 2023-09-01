@@ -75,7 +75,7 @@ different purposes:
 - [CSI ephemeral volumes](#csi-ephemeral-volumes):
   similar to the previous volume kinds, but provided by special
   [CSI drivers](https://github.com/container-storage-interface/spec/blob/master/spec.md)
-  which specifically [support this feature](https://kubernetes-csi.github.io/docs/drivers.html)
+  which specifically [support this feature](https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html)
 - [generic ephemeral volumes](#generic-ephemeral-volumes), which
   can be provided by all storage drivers that also support persistent volumes
 -->
@@ -87,7 +87,7 @@ Kubernetes 为了不同的用途，支持几种不同类型的临时卷：
   [secret](/zh-cn/docs/concepts/storage/volumes/#secret)：
   将不同类型的 Kubernetes 数据注入到 Pod 中
 - [CSI 临时卷](/zh-cn/docs/concepts/storage/volumes/#csi-ephemeral-volumes)：
-  类似于前面的卷类型，但由专门[支持此特性](https://kubernetes-csi.github.io/docs/drivers.html)
+  类似于前面的卷类型，但由专门[支持此特性](https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html)
   的指定
   [CSI 驱动程序](https://github.com/container-storage-interface/spec/blob/master/spec.md)提供
 - [通用临时卷](#generic-ephemeral-volumes)：
@@ -136,12 +136,12 @@ is managed by kubelet, or injecting different data.
 
 <!--
 CSI ephemeral volumes are only supported by a subset of CSI drivers.
-The Kubernetes CSI [Drivers list](https://kubernetes-csi.github.io/docs/drivers.html)
+The Kubernetes CSI [Drivers list](https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html)
 shows which drivers support ephemeral volumes.
 -->
 {{< note >}}
 只有一部分 CSI 驱动程序支持 CSI 临时卷。Kubernetes CSI
-[驱动程序列表](https://kubernetes-csi.github.io/docs/drivers.html)
+[驱动程序列表](https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html)
 显示了支持临时卷的驱动程序。
 {{< /note >}}
 
@@ -375,7 +375,7 @@ PVC 对象还保持着卷的当前状态。
 
 <!--
 Naming of the automatically created PVCs is deterministic: the name is
-a combination of Pod name and volume name, with a hyphen (`-`) in the
+a combination of the Pod name and volume name, with a hyphen (`-`) in the
 middle. In the example above, the PVC name will be
 `my-app-scratch-volume`.  This deterministic naming makes it easier to
 interact with the PVC because one does not have to search for it once
@@ -421,18 +421,14 @@ same namespace, so that these conflicts can't occur.
 ### 安全 {#security}
 
 <!--
-Enabling the GenericEphemeralVolume feature allows users to create
-PVCs indirectly if they can create Pods, even if they do not have
-permission to create PVCs directly. Cluster administrators must be
-aware of this. If this does not fit their security model, they should
-use an [admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)
-that rejects objects like Pods that have a generic ephemeral volume.
+Using generic ephemeral volumes allows users to create PVCs indirectly
+if they can create Pods, even if they do not have permission to create PVCs directly.
+Cluster administrators must be aware of this. If this does not fit their security model,
+they should use an [admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)
 -->
-启用 GenericEphemeralVolume 特性会有一些副作用，用户能创建 Pod 就能间接地创建 PVC，
-即使他们没有权限直接创建 PVC。
-集群管理员必须意识到这一点。
-如果这不符合他们的安全模型，他们应该使用[准入 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)
-拒绝包含通用临时卷的对象，例如 Pod。
+只要用户有权限创建 Pod，就可以使用通用的临时卷间接地创建持久卷申领（PVCs），
+即使他们没有权限直接创建 PVCs。集群管理员必须注意这一点。如果这与他们的安全模型相悖，
+他们应该使用[准入 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)。
 
 <!--
 The normal [namespace quota for PVCs](/docs/concepts/policy/resource-quotas/#storage-resource-quota)

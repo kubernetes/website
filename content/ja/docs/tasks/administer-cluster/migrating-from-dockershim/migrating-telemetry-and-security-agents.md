@@ -1,7 +1,7 @@
 ---
 title: dockershimからテレメトリーやセキュリティエージェントを移行する
 content_type: task
-weight: 70
+weight: 60
 ---
 
 <!-- overview -->

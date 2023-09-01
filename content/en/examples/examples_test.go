@@ -34,6 +34,9 @@ import (
 	"k8s.io/apimachinery/pkg/util/yaml"
 	"k8s.io/kubernetes/pkg/api/legacyscheme"
 
+	"k8s.io/kubernetes/pkg/apis/admissionregistration"
+	admreg_validation "k8s.io/kubernetes/pkg/apis/admissionregistration/validation"
+
 	"k8s.io/kubernetes/pkg/apis/apps"
 	apps_validation "k8s.io/kubernetes/pkg/apis/apps/validation"
 
@@ -65,6 +68,7 @@ import (
 	"k8s.io/kubernetes/pkg/registry/batch/job"
 
 	// initialize install packages
+	_ "k8s.io/kubernetes/pkg/apis/admissionregistration/install"
 	_ "k8s.io/kubernetes/pkg/apis/apps/install"
 	_ "k8s.io/kubernetes/pkg/apis/autoscaling/install"
 	_ "k8s.io/kubernetes/pkg/apis/batch/install"
@@ -102,6 +106,7 @@ func (g TestGroup) Codec() runtime.Codec {
 func initGroups() {
 	Groups = make(map[string]TestGroup)
 	groupNames := []string{
+		admissionregistration.GroupName,
 		api.GroupName,
 		apps.GroupName,
 		autoscaling.GroupName,
@@ -152,10 +157,8 @@ func getCodecForObject(obj runtime.Object) (runtime.Codec, error) {
 
 func validateObject(obj runtime.Object) (errors field.ErrorList) {
 	podValidationOptions := validation.PodValidationOptions{
-		AllowDownwardAPIHugePages:       true,
 		AllowInvalidPodDeletionCost:     false,
 		AllowIndivisibleHugePagesValues: true,
-		AllowExpandedDNSConfig:          true,
 	}
 	netValidationOptions := networking_validation.NetworkPolicyValidationOptions{
 		AllowInvalidLabelValueInSelector: false,
@@ -170,6 +173,10 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 	// Enable CustomPodDNS for testing
 	// feature.DefaultFeatureGate.Set("CustomPodDNS=true")
 	switch t := obj.(type) {
+	case *admissionregistration.ValidatingWebhookConfiguration:
+		errors = admreg_validation.ValidateValidatingWebhookConfiguration(t)
+	case *admissionregistration.ValidatingAdmissionPolicy:
+		errors = admreg_validation.ValidateValidatingAdmissionPolicy(t)
 	case *api.ConfigMap:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
@@ -390,7 +397,11 @@ func TestExampleObjectSchemas(t *testing.T) {
 	// Please help maintain the alphabeta order in the map
 	cases := map[string]map[string][]runtime.Object{
 		"access": {
-			"endpoints-aggregated": {&rbac.ClusterRole{}},
+			"deployment-replicas-policy":                   {&admissionregistration.ValidatingAdmissionPolicy{}},
+			"endpoints-aggregated":                         {&rbac.ClusterRole{}},
+			"image-matches-namespace-environment.policy":   {&admissionregistration.ValidatingAdmissionPolicy{}},
+			"validating-admission-policy-audit-annotation": {&admissionregistration.ValidatingAdmissionPolicy{}},
+			"validating-admission-policy-match-conditions": {&admissionregistration.ValidatingAdmissionPolicy{}},
 		},
 		"access/certificate-signing-request": {
 			"clusterrole-approve": {&rbac.ClusterRole{}},
@@ -466,6 +477,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"deployment-patch":      {&apps.Deployment{}},
 			"deployment-retainkeys": {&apps.Deployment{}},
 			"deployment-scale":      {&apps.Deployment{}},
+			"deployment-sidecar":    {&apps.Deployment{}},
 			"deployment-update":     {&apps.Deployment{}},
 			"nginx-app":             {&api.Service{}, &apps.Deployment{}},
 			"nginx-with-request":    {&apps.Deployment{}},
@@ -491,6 +503,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 		},
 		"application/job": {
 			"cronjob":         {&batch.CronJob{}},
+			"job-sidecar":     {&batch.Job{}},
 			"job-tmpl":        {&batch.Job{}},
 			"indexed-job":     {&batch.Job{}},
 			"indexed-job-vol": {&batch.Job{}},
@@ -544,20 +557,23 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"configure-pod":       {&api.Pod{}},
 		},
 		"controllers": {
-			"daemonset":                      {&apps.DaemonSet{}},
-			"fluentd-daemonset":              {&apps.DaemonSet{}},
-			"fluentd-daemonset-update":       {&apps.DaemonSet{}},
-			"frontend":                       {&apps.ReplicaSet{}},
-			"hpa-rs":                         {&autoscaling.HorizontalPodAutoscaler{}},
-			"job":                            {&batch.Job{}},
-			"job-pod-failure-policy-example": {&batch.Job{}},
-			"job-pod-failure-policy-failjob": {&batch.Job{}},
-			"job-pod-failure-policy-ignore":  {&batch.Job{}},
-			"replicaset":                     {&apps.ReplicaSet{}},
-			"replication":                    {&api.ReplicationController{}},
-			"replication-nginx-1.14.2":       {&api.ReplicationController{}},
-			"replication-nginx-1.16.1":       {&api.ReplicationController{}},
-			"nginx-deployment":               {&apps.Deployment{}},
+			"daemonset":                           {&apps.DaemonSet{}},
+			"daemonset-label-selector":            {&apps.DaemonSet{}},
+			"fluentd-daemonset":                   {&apps.DaemonSet{}},
+			"fluentd-daemonset-update":            {&apps.DaemonSet{}},
+			"frontend":                            {&apps.ReplicaSet{}},
+			"hpa-rs":                              {&autoscaling.HorizontalPodAutoscaler{}},
+			"job":                                 {&batch.Job{}},
+			"job-backoff-limit-per-index-example": {&batch.Job{}},
+			"job-pod-failure-policy-config-issue": {&batch.Job{}},
+			"job-pod-failure-policy-example":      {&batch.Job{}},
+			"job-pod-failure-policy-failjob":      {&batch.Job{}},
+			"job-pod-failure-policy-ignore":       {&batch.Job{}},
+			"replicaset":                          {&apps.ReplicaSet{}},
+			"replication":                         {&api.ReplicationController{}},
+			"replication-nginx-1.14.2":            {&api.ReplicationController{}},
+			"replication-nginx-1.16.1":            {&api.ReplicationController{}},
+			"nginx-deployment":                    {&apps.Deployment{}},
 		},
 		"debug": {
 			"counter-pod":                     {&api.Pod{}},
@@ -627,6 +643,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"qos-pod-2": {&api.Pod{}},
 			"qos-pod-3": {&api.Pod{}},
 			"qos-pod-4": {&api.Pod{}},
+			"qos-pod-5": {&api.Pod{}},
 		},
 		"pods/resource": {
 			"cpu-request-limit":       {&api.Pod{}},
@@ -678,13 +695,16 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"mysecretname": {&api.Secret{}},
 		},
 		"security": {
+			"example-baseline-pod":   {&api.Pod{}},
 			"podsecurity-baseline":   {&api.Namespace{}},
 			"podsecurity-privileged": {&api.Namespace{}},
 			"podsecurity-restricted": {&api.Namespace{}},
 		},
 		"service": {
-			"nginx-service":         {&api.Service{}},
-			"load-balancer-example": {&apps.Deployment{}},
+			"nginx-service":                      {&api.Service{}},
+			"load-balancer-example":              {&apps.Deployment{}},
+			"pod-with-graceful-termination":      {&apps.Deployment{}},
+			"explore-graceful-termination-nginx": {&api.Service{}},
 		},
 		"service/access": {
 			"backend-deployment":  {&apps.Deployment{}},

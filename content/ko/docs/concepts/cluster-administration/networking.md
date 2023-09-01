@@ -15,7 +15,7 @@ weight: 50
    {{< glossary_tooltip text="파드" term_id="pod" >}}와 `localhost` 통신으로 해결된다.
 2. 파드 간 통신: 이 문제가 이 문서의 주요 초점이다.
 3. 파드와 서비스 간 통신: 이 문제는 [서비스](/ko/docs/concepts/services-networking/service/)에서 다룬다.
-4. 외부와 서비스 간 통신: 이 문제는 [서비스](/ko/docs/concepts/services-networking/service/)에서 다룬다.
+4. 외부와 서비스 간 통신: 이 문제도 서비스에서 다룬다.
 
 <!-- body -->
 

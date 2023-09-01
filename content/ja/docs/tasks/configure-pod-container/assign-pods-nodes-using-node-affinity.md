@@ -2,7 +2,7 @@
 title: Node Affinityを利用してPodをノードに割り当てる
 min-kubernetes-server-version: v1.10
 content_type: task
-weight: 120
+weight: 160
 ---
 
 <!-- overview -->

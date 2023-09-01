@@ -132,7 +132,7 @@ kubeadmは`kubelet`や`kubectl`をインストールまたは管理**しない**
 2. Google Cloudの公開鍵をダウンロードします:
 
    ```shell
-   sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   curl -fsSL https://dl.k8s.io/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
    ```
 
 3. Kubernetesの`apt`リポジトリを追加します:
@@ -207,7 +207,7 @@ RELEASE="$(curl -sSL https://dl.k8s.io/release/stable.txt)"
 ARCH="amd64"
 mkdir -p /opt/bin
 cd /opt/bin
-curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/${ARCH}/{kubeadm,kubelet,kubectl}
+curl -L --remote-name-all https://dl.k8s.io/release/${RELEASE}/bin/linux/${ARCH}/{kubeadm,kubelet,kubectl}
 chmod +x {kubeadm,kubelet,kubectl}
 
 curl -sSL "https://raw.githubusercontent.com/kubernetes/kubernetes/${RELEASE}/build/debs/kubelet.service" | sed "s:/usr/bin:/opt/bin:g" > /etc/systemd/system/kubelet.service

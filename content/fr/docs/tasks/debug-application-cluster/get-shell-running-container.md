@@ -24,7 +24,7 @@ Dans cet exercice, vous allez créer un pod contenant un conteneur.
 Le conteneur exécute une image nginx.
 Voici le fichier de configuration du Pod:
 
-{{< codenew file="application/shell-demo.yaml" >}}
+{{% codenew file="application/shell-demo.yaml" %}}
 
 Créez le Pod:
 

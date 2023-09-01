@@ -119,7 +119,7 @@ flowchart LR
     direction TB
     S[ ] -.-
     G[Révisez les PRs des<br>autres membres de K8s] -->
-    A[Vérifiez la liste de problèmes<br>de K8s/website pour <br>des bon premiers PRs] --> B[Soumettez une PR!!]
+    A[Vérifiez la liste de problèmes<br>de kubernetes/website pour <br>des bon premiers PRs] --> B[Soumettez une PR!!]
     end
     subgraph first[Suggested Prep]
     direction TB

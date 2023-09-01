@@ -1,8 +1,12 @@
 ---
 title: 인그레스 컨트롤러
-# reviewers:
+description: >-
+  클러스터 내의 [인그레스](/ko/docs/concepts/services-networking/ingress/)가 작동하려면,
+  인그레스 컨트롤러가 실행되고 있어야 한다.
+  적어도 하나의 인그레스 컨트롤러를 선택하고 이를 클러스터 내에 설치한다.
+  이 페이지는 배포할 수 있는 일반적인 인그레스 컨트롤러를 나열한다.
 content_type: concept
-weight: 40
+weight: 50
 ---
 
 <!-- overview -->
@@ -59,12 +63,11 @@ weight: 40
 
 ## 여러 인그레스 컨트롤러 사용
 
-하나의 클러스터 내에 [여러 개의 인그레스 컨트롤러](https://git.k8s.io/ingress-nginx/docs/user-guide/multiple-ingress.md#multiple-ingress-controllers)를 배포할 수 있다.
-인그레스를 생성할 때,  클러스터 내에 둘 이상의 인그레스 컨트롤러가 존재하는 경우
-어떤 인그레스 컨트롤러를 사용해야 하는지 표시해주는 적절한 [`ingress.class`](https://git.k8s.io/ingress-gce/docs/faq/README.md#how-do-i-run-multiple-ingress-controllers-in-the-same-cluster)
-어노테이션을 각각의 인그레스에 달아야 한다.
+하나의 클러스터 내에 [인그레스 클래스](/ko/docs/concepts/services-networking/ingress/#ingress-class)를 이용하여 여러 개의 인그레스 컨트롤러를 배포할 수 있다.
+`.metadata.name` 필드를 확인해둔다. 인그레스를 생성할 때 인그레스 오브젝트([IngressSpec v1 참고](/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec))의 `ingressClassName` 필드에 해당 이름을 명시해야 한다. `ingressClassName`은 이전 [어노테이션 방식](/ko/docs/concepts/services-networking/ingress/#사용중단-deprecated-어노테이션)의 대체 수단이다.
 
-만약 클래스를 정의하지 않으면, 클라우드 제공자는 기본 인그레스 컨트롤러를 사용할 수 있다.
+인그레스에 대한 인그레스 클래스를 설정하지 않았고, 클러스터에 기본으로 설정된 인그레스 클래스가 정확히 하나만 존재하는 경우, 쿠버네티스는 클러스터의 기본 인그레스 클래스를 인그레스에 [적용](/ko/docs/concepts/services-networking/ingress/#default-ingress-class)한다.
+인그레스 클래스에 [`ingressclass.kubernetes.io/is-default-class` 어노테이션](/ko/docs/reference/labels-annotations-taints/#ingressclass-kubernetes-io-is-default-class)을 문자열 값 `"true"`로 설정하여, 해당 인그레스 클래스를 기본으로 설정할 수 있다.
 
 이상적으로는 모든 인그레스 컨트롤러가 이 사양을 충족해야 하지만,
 다양한 인그레스 컨트롤러는 약간 다르게 작동한다.

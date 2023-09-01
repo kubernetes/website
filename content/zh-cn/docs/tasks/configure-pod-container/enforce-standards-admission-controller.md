@@ -95,6 +95,14 @@ plugins:
       namespaces: []
 ```
 
+
+{{< note >}}
+<!--
+The above manifest needs to be specified via the `--admission-control-config-file` to kube-apiserver.
+-->
+上面的清单需要通过 `——admission-control-config-file` 指定到 kube-apiserver。
+{{< /note >}}
+
 {{< note >}}
 <!--
 The above manifest needs to be specified via the `--admission-control-config-file` to kube-apiserver.

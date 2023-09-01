@@ -15,7 +15,7 @@ weight: 150
 
 <!-- overview -->
 
-{{< feature-state state="beta" for_k8s_version="v1.18" >}}
+{{< feature-state state="stable" for_k8s_version="v1.27" >}}
 
 An increasing number of systems leverage a combination of CPUs and hardware accelerators to
 support latency-critical execution and high-throughput parallel computation. These include
@@ -28,7 +28,7 @@ disjoint set of components.
 
 _Topology Manager_ is a Kubelet component that aims to coordinate the set of components that are
 responsible for these optimizations.
- 
+
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
@@ -59,12 +59,6 @@ The selected hint is stored as part of the Topology Manager. Depending on the po
 the pod can be accepted or rejected from the node based on the selected hint.
 The hint is then stored in the Topology Manager for use by the *Hint Providers* when making the
 resource allocation decisions.
-
-### Enable the Topology Manager feature
-
-Support for the Topology Manager requires `TopologyManager`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
-It is enabled by default starting with Kubernetes 1.18.
 
 ## Topology Manager Scopes and Policies
 
@@ -180,7 +174,7 @@ each Hint Provider to discover their resource availability. Using this informati
 Manager stores the preferred NUMA Node affinity for that container. If the affinity is not
 preferred, Topology Manager will store this and admit the pod to the node anyway.
 
-The *Hint Providers* can then use this information when making the 
+The *Hint Providers* can then use this information when making the
 resource allocation decision.
 
 ### restricted policy {#policy-restricted}
@@ -196,7 +190,7 @@ reschedule the pod. It is recommended to use a ReplicaSet or Deployment to trigg
 the pod. An external control loop could be also implemented to trigger a redeployment of pods that
 have the `Topology Affinity` error.
 
-If the pod is admitted, the *Hint Providers* can then use this information when making the 
+If the pod is admitted, the *Hint Providers* can then use this information when making the
 resource allocation decision.
 
 ### single-numa-node policy {#policy-single-numa-node}
@@ -217,14 +211,18 @@ that have the `Topology Affinity` error.
 ### Topology manager policy options
 
 Support for the Topology Manager policy options requires `TopologyManagerPolicyOptions`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled
+(it is enabled by default).
 
 You can toggle groups of options on and off based upon their maturity level using the following feature gates:
-* `TopologyManagerPolicyBetaOptions` default disabled. Enable to show beta-level options. Currently there are no beta-level options.
-* `TopologyManagerPolicyAlphaOptions` default disabled. Enable to show alpha-level options. You will still have to enable each option using the `TopologyManagerPolicyOptions` kubelet option.
+* `TopologyManagerPolicyBetaOptions` default enabled. Enable to show beta-level options.
+* `TopologyManagerPolicyAlphaOptions` default disabled. Enable to show alpha-level options.
+
+You will still have to enable each option using the `TopologyManagerPolicyOptions` kubelet option.
 
 The following policy options exists:
-* `prefer-closest-numa-nodes` (alpha, invisible by default, `TopologyManagerPolicyOptions` and `TopologyManagerPolicyAlphaOptions` feature gates have to be enabled)(1.26 or higher)
+* `prefer-closest-numa-nodes` (beta, visible by default; `TopologyManagerPolicyOptions` and `TopologyManagerPolicyBetaOptions` feature gates have to be enabled).
+The `prefer-closest-numa-nodes` policy option is beta in Kubernetes {{< skew currentVersion >}}.
 
 If the `prefer-closest-numa-nodes` policy option is specified, the `best-effort` and `restricted`
 policies will favor sets of NUMA nodes with shorter distance between them when making admission decisions.
@@ -324,7 +322,7 @@ spec:
 This pod runs in the `BestEffort` QoS class because there are no CPU and memory requests.
 
 The Topology Manager would consider the above pods. The Topology Manager would consult the Hint
-Providers, which are CPU and Device Manager to get topology hints for the pods. 
+Providers, which are CPU and Device Manager to get topology hints for the pods.
 
 In the case of the `Guaranteed` pod with integer CPU request, the `static` CPU Manager policy
 would return topology hints relating to the exclusive CPU and the Device Manager would send back
@@ -343,7 +341,7 @@ of the requested devices.
 
 Using this information the Topology Manager calculates the optimal hint for the pod and stores
 this information, which will be used by the Hint Providers when they are making their resource
-assignments. 
+assignments.
 
 ### Known Limitations
 

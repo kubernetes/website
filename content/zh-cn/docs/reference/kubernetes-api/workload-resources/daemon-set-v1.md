@@ -96,13 +96,14 @@ DaemonSetSpec 是守护进程集的规约。
 <!--
 - **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>), required
 
-  An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+  An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
 -->
 - **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>), 必需
 
   描述将要创建的 Pod 的对象。DaemonSet 将在与模板的节点选择器匹配的每个节点上
- （如果未指定节点选择器，则在每个节点上）准确创建此 Pod 的副本。
-  更多信息： https://kubernetes.io/zh-cn/concepts/workloads/controllers/replicationcontroller#pod-template
+ （如果未指定节点选择器，则在每个节点上）准确创建此 Pod 的副本。`template.spec.restartPolicy`
+  唯一被允许配置的值是 "Always"。更多信息：
+  https://kubernetes.io/zh-cn/concepts/workloads/controllers/replicationcontroller#pod-template
 
 <!--
 - **minReadySeconds** (int32)
@@ -633,6 +634,10 @@ GET /apis/apps/v1/namespaces/{namespace}/daemonsets
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 -->
 
 - **resourceVersion** (**查询参数**): string
@@ -643,6 +648,9 @@ GET /apis/apps/v1/namespaces/{namespace}/daemonsets
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 <!--
 - **timeoutSeconds** (*in query*): integer
 
@@ -753,6 +761,10 @@ GET /apis/apps/v1/daemonsets
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 -->
 
 - **resourceVersion** (**查询参数**): string
@@ -763,6 +775,9 @@ GET /apis/apps/v1/daemonsets
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 <!--
 - **timeoutSeconds** (*in query*): integer
 
@@ -1466,6 +1481,10 @@ DELETE /apis/apps/v1/namespaces/{namespace}/daemonsets
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 -->
 
 - **resourceVersion** (**查询参数**): string
@@ -1476,6 +1495,9 @@ DELETE /apis/apps/v1/namespaces/{namespace}/daemonsets
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 <!--
 - **timeoutSeconds** (*in query*): integer
 

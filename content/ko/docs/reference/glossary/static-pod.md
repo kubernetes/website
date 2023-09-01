@@ -16,3 +16,5 @@ tags:
  <!--more-->
  
 API 서버가 관찰하지 않는다.
+
+스태틱 파드는 {{< glossary_tooltip text="임시 컨테이너" term_id="ephemeral-container" >}}를 지원하지 않는다.

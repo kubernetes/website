@@ -4,14 +4,16 @@
 # - 44past4
 title: 시스템 로그
 content_type: concept
-weight: 60
+weight: 80
 ---
 
 <!-- overview -->
 
 시스템 컴포넌트 로그는 클러스터에서 발생하는 이벤트를 기록하며, 이는 디버깅에 아주 유용하다.
 더 많거나 적은 세부 정보를 표시하도록 다양하게 로그를 설정할 수 있다.
-로그는 컴포넌트 내에서 오류를 표시하는 것 처럼 간단하거나, 이벤트의 단계적 추적(예: HTTP 엑세스 로그, 파드의 상태 변경, 컨트롤러 작업 또는 스케줄러의 결정)을 표시하는 것처럼 세밀할 수 있다.
+로그는 컴포넌트 내에서 오류를 표시하는 것 처럼 간단하거나, 
+이벤트의 단계적 추적(예: HTTP 엑세스 로그, 파드의 상태 변경, 컨트롤러 작업 또는 스케줄러의 결정)을 
+표시하는 것처럼 세밀할 수 있다.
 
 <!-- body -->
 
@@ -39,14 +41,13 @@ klog 설정에 대한 더 많은 정보는, [커맨드라인 툴](/ko/docs/refer
 - `--skip-log-headers`
 - `--stderrthreshold`
 
-출력은 출력 형식에 관계없이 항상 표준 에러(stderr)에 기록될 것이다. 
-출력 리다이렉션은 쿠버네티스 컴포넌트를 호출하는 컴포넌트가 담당할 것으로 기대된다. 
-이는 POSIX 셸 또는 systemd와 같은 도구일 수 
-있다.
+출력은 출력 형식에 관계없이 항상 표준 에러(stderr)에 기록될 것이다. 출력 리다이렉션은
+쿠버네티스 컴포넌트를 호출하는 컴포넌트가 담당할 것으로 기대된다. 이는 POSIX
+셸 또는 systemd와 같은 도구일 수 있다.
 
-배포판과 무관한(distroless) 컨테이너 또는 윈도우 시스템 서비스와 같은 몇몇 경우에서, 
-위의 옵션은 사용할 수 없다. 
-그런 경우 출력을 리다이렉트하기 위해 
+배포판과 무관한(distroless) 컨테이너 또는 윈도우 시스템 서비스와 같은 몇몇 경우에서, 위의 옵션은
+사용할 수 없다. 그런 경우
+출력을 리다이렉트하기 위해 
 [`kube-log-runner`](https://github.com/kubernetes/kubernetes/blob/d2a8a81639fcff8d1221b900f66d28361a170654/staging/src/k8s.io/component-base/logs/kube-log-runner/README.md) 
 바이너리를 쿠버네티스 컴포넌트의 래퍼(wrapper)로 사용할 수 있다. 
 미리 빌드된 바이너리가 몇몇 쿠버네티스 베이스 이미지에 기본 이름 `/go-runner` 와 
@@ -63,31 +64,34 @@ klog 설정에 대한 더 많은 정보는, [커맨드라인 툴](/ko/docs/refer
 
 ### Klog 출력
 
-klog 네이티브 형식 예 : 
+klog 네이티브 형식 예 :
+ 
 ```
 I1025 00:15:15.525108       1 httplog.go:79] GET /api/v1/namespaces/kube-system/pods/metrics-server-v0.3.1-57c75779f-9p8wg: (1.512ms) 200 [pod_nanny/v0.0.0 (linux/amd64) kubernetes/$Format 10.56.1.19:51756]
 ```
 
 메시지 문자열은 줄바꿈을 포함하고 있을 수도 있다.
+
 ```
 I1025 00:15:15.525108       1 example.go:79] This is a message
 which has a line break.
 ```
-
 
 ### 구조화된 로깅
 
 {{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
 {{< warning >}}
-구조화된 로그메시지로 마이그레이션은 진행중인 작업이다. 이 버전에서는 모든 로그 메시지가 구조화되지 않는다. 로그 파일을 파싱할 때, 구조화되지 않은 로그 메시지도 처리해야 한다.
+구조화된 로그메시지로 마이그레이션은 진행중인 작업이다. 이 버전에서는 모든 로그 메시지가 구조화되지 않는다.
+로그 파일을 파싱할 때, 구조화되지 않은 로그 메시지도 처리해야 한다.
 
 로그 형식 및 값 직렬화는 변경될 수 있다.
 {{< /warning>}}
 
-구조화된 로깅은 로그 메시지에 통일된 구조를 적용하여 정보를 쉽게 추출하고,
-로그를 보다 쉽고 저렴하게 저장하고 처리하는 작업이다.
-새로운 메시지 형식은 이전 버전과 호환되며 기본적으로 활성화 된다.
+구조화된 로깅은 로그 메시지에 유니폼 구조를 적용하여
+정보를 쉽게 추출하고, 로그를 보다 쉽고 저렴하게 저장하고 처리하는 작업이다.
+로그 메세지를 생성하는 코드는 기존의 구조화되지 않은 klog 출력을 사용 또는
+구조화된 로깅을 사용할지 여부를 결정합니다.
 
 구조화된 로그 메시지의 기본 형식은 텍스트이며, 
 기존 klog와 하위 호환되는 형식이다.
@@ -105,6 +109,7 @@ I1025 00:15:15.525108       1 controller_utils.go:116] "Pod status updated" pod=
 문자열은 따옴표로 감싸진다. 다른 값들은 
 [`%+v`](https://pkg.go.dev/fmt#hdr-Printing)로 포맷팅되며, 이로 인해 
 [데이터에 따라](https://github.com/kubernetes/kubernetes/issues/106428) 로그 메시지가 다음 줄로 이어질 수 있다.
+
 ```
 I1025 00:15:15.525108       1 example.go:116] "Example" data="This is text with a line break\nand \"quotation marks\"." someInt=1 someFloat=0.1 someStruct={StringField: First line,
 second line.}
@@ -164,15 +169,18 @@ I0404 18:03:31.171962  452150 logger.go:95] "another runtime" duration="1m0s"
 {{< feature-state for_k8s_version="v1.19" state="alpha" >}}
 
 {{<warning >}}
-JSON 출력은 많은 표준 klog 플래그를 지원하지 않는다. 지원하지 않는 klog 플래그 목록은, [커맨드라인 툴](/ko/docs/reference/command-line-tools-reference/)을 참고한다.
+JSON 출력은 많은 표준 klog 플래그를 지원하지 않는다. 지원하지 않는 klog 플래그 목록은,
+[커맨드라인 툴](/ko/docs/reference/command-line-tools-reference/)을 참고한다.
 
-모든 로그가 JSON 형식으로 작성되는 것은 아니다(예: 프로세스 시작 중). 로그를 파싱하려는 경우 JSON 형식이 아닌 로그 행을 처리할 수 있는지 확인해야 한다.
+모든 로그가 JSON 형식으로 작성되는 것은 아니다(예: 프로세스 시작 중).
+로그를 파싱하려는 경우 JSON 형식이 아닌 로그 행을 처리할 수 있는지 확인해야 한다.
 
 필드 이름과 JSON 직렬화는 변경될 수 있다.
 {{< /warning >}}
 
 `--logging-format=json` 플래그는 로그 형식을 klog 기본 형식에서 JSON 형식으로 변경한다.
 JSON 로그 형식 예시(보기좋게 출력된 형태)는 다음과 같다.
+
 ```json
 {
    "ts": 1580306777.04728,
@@ -186,14 +194,15 @@ JSON 로그 형식 예시(보기좋게 출력된 형태)는 다음과 같다.
 }
 ```
 
-특별한 의미가 있는 키: 
+특별한 의미가 있는 키:
+
 * `ts` - Unix 시간의 타임스탬프 (필수, 부동 소수점)
 * `v` - 자세한 정도 (필수, 정수, 기본 값 0)
 * `err` - 오류 문자열 (선택 사항, 문자열)
 * `msg` - 메시지 (필수, 문자열)
 
-
 현재  JSON 형식을 지원하는 컴포넌트 목록:
+
 * {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}
 * {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}}
 * {{< glossary_tooltip term_id="kube-scheduler" text="kube-scheduler" >}}
@@ -201,8 +210,9 @@ JSON 로그 형식 예시(보기좋게 출력된 형태)는 다음과 같다.
 
 ### 로그 상세 레벨(verbosity)
 
-`-v` 플래그로 로그 상세 레벨(verbosity)을 제어한다. 값을 늘리면 기록된 이벤트 수가 증가한다. 값을 줄이면 기록된 이벤트 수가 줄어든다.
-로그 상세 레벨(verbosity)를 높이면 점점 덜 심각한 이벤트가 기록된다. 로그 상세 레벨(verbosity)을 0으로 설정하면 중요한 이벤트만 기록된다.
+`-v` 플래그로 로그 상세 레벨(verbosity)을 제어한다. 값을 늘리면 기록된 이벤트 수가 증가한다.
+값을 줄이면 기록된 이벤트 수가 줄어든다. 로그 상세 레벨(verbosity)를 높이면
+점점 덜 심각한 이벤트가 기록된다. 로그 상세 레벨(verbosity)을 0으로 설정하면 중요한 이벤트만 기록된다.
 
 ### 로그 위치
 

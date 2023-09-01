@@ -66,7 +66,7 @@ DaemonSetSpec is the specification of a daemon set.
 
 - **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>), required
 
-  An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+  An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
 
 - **minReadySeconds** (int32)
 
@@ -82,8 +82,6 @@ DaemonSetSpec is the specification of a daemon set.
   - **updateStrategy.type** (string)
 
     Type of daemon set update. Can be "RollingUpdate" or "OnDelete". Default is RollingUpdate.
-    
-    
 
   - **updateStrategy.rollingUpdate** (RollingUpdateDaemonSet)
 
@@ -347,6 +345,11 @@ GET /apis/apps/v1/namespaces/{namespace}/daemonsets
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -413,6 +416,11 @@ GET /apis/apps/v1/daemonsets
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -838,6 +846,11 @@ DELETE /apis/apps/v1/namespaces/{namespace}/daemonsets
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer

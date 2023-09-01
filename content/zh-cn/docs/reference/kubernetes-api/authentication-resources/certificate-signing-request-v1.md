@@ -53,8 +53,8 @@ Kubelets 使用 CertificateSigningRequest API 来获取：
 This API can be used to request client certificates to authenticate to kube-apiserver (with the "kubernetes.io/kube-apiserver-client" signerName), 
 or to obtain certificates from custom non-Kubernetes signers.
 -->
-此 API 可用于请求客户端证书以向 kube-apiserver 进行身份验证（使用 “kubernetes.io/kube-apiserver-client” 签名者名称），
-或从自定义非 Kubernetes 签名者那里获取证书。
+此 API 可用于请求客户端证书以向 kube-apiserver 进行身份验证（使用 “kubernetes.io/kube-apiserver-client”
+签名者名称），或从自定义非 Kubernetes 签名者那里获取证书。
 
 <!--
 <hr>
@@ -758,6 +758,10 @@ GET /apis/certificates.k8s.io/v1/certificatesigningrequests
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 -->
 - **pretty** (**查询参数**): string
 
@@ -770,6 +774,10 @@ GET /apis/certificates.k8s.io/v1/certificatesigningrequests
 - **resourceVersionMatch** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer
@@ -1553,6 +1561,10 @@ DELETE /apis/certificates.k8s.io/v1/certificatesigningrequests
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -1568,6 +1580,10 @@ DELETE /apis/certificates.k8s.io/v1/certificatesigningrequests
 - **resourceVersionMatch** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 

@@ -1,7 +1,7 @@
 ---
 title: kube-controller-manager Configuration (v1alpha1)
 content_type: tool-reference
-package: controllermanager.config.k8s.io/v1alpha1
+package: kubecontrollermanager.config.k8s.io/v1alpha1
 auto_generated: true
 ---
 
@@ -11,184 +11,7 @@ auto_generated: true
 
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 - [CloudControllerManagerConfiguration](#cloudcontrollermanager-config-k8s-io-v1alpha1-CloudControllerManagerConfiguration)
-  
-    
-
-## `ControllerLeaderConfiguration`     {#controllermanager-config-k8s-io-v1alpha1-ControllerLeaderConfiguration}
-    
-
-**Appears in:**
-
 - [LeaderMigrationConfiguration](#controllermanager-config-k8s-io-v1alpha1-LeaderMigrationConfiguration)
-
-
-<p>ControllerLeaderConfiguration provides the configuration for a migrating leader lock.</p>
-
-
-<table class="table">
-<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
-<tbody>
-    
-  
-<tr><td><code>name</code> <B>[Required]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <p>Name is the name of the controller being migrated
-E.g. service-controller, route-controller, cloud-node-controller, etc</p>
-</td>
-</tr>
-<tr><td><code>component</code> <B>[Required]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <p>Component is the name of the component in which the controller should be running.
-E.g. kube-controller-manager, cloud-controller-manager, etc
-Or '*' meaning the controller can be run under any component that participates in the migration</p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `GenericControllerManagerConfiguration`     {#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration}
-    
-
-**Appears in:**
-
-- [CloudControllerManagerConfiguration](#cloudcontrollermanager-config-k8s-io-v1alpha1-CloudControllerManagerConfiguration)
-
-- [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
-
-
-<p>GenericControllerManagerConfiguration holds configuration for a generic controller-manager.</p>
-
-
-<table class="table">
-<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
-<tbody>
-    
-  
-<tr><td><code>Port</code> <B>[Required]</B><br/>
-<code>int32</code>
-</td>
-<td>
-   <p>port is the port that the controller-manager's http service runs on.</p>
-</td>
-</tr>
-<tr><td><code>Address</code> <B>[Required]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <p>address is the IP address to serve on (set to 0.0.0.0 for all interfaces).</p>
-</td>
-</tr>
-<tr><td><code>MinResyncPeriod</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
-</td>
-<td>
-   <p>minResyncPeriod is the resync period in reflectors; will be random between
-minResyncPeriod and 2*minResyncPeriod.</p>
-</td>
-</tr>
-<tr><td><code>ClientConnection</code> <B>[Required]</B><br/>
-<a href="#ClientConnectionConfiguration"><code>ClientConnectionConfiguration</code></a>
-</td>
-<td>
-   <p>ClientConnection specifies the kubeconfig file and client connection
-settings for the proxy server to use when communicating with the apiserver.</p>
-</td>
-</tr>
-<tr><td><code>ControllerStartInterval</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
-</td>
-<td>
-   <p>How long to wait between starting controller managers</p>
-</td>
-</tr>
-<tr><td><code>LeaderElection</code> <B>[Required]</B><br/>
-<a href="#LeaderElectionConfiguration"><code>LeaderElectionConfiguration</code></a>
-</td>
-<td>
-   <p>leaderElection defines the configuration of leader election client.</p>
-</td>
-</tr>
-<tr><td><code>Controllers</code> <B>[Required]</B><br/>
-<code>[]string</code>
-</td>
-<td>
-   <p>Controllers is the list of controllers to enable or disable
-'*' means &quot;all enabled by default controllers&quot;
-'foo' means &quot;enable 'foo'&quot;
-'-foo' means &quot;disable 'foo'&quot;
-first item for a particular name wins</p>
-</td>
-</tr>
-<tr><td><code>Debugging</code> <B>[Required]</B><br/>
-<a href="#DebuggingConfiguration"><code>DebuggingConfiguration</code></a>
-</td>
-<td>
-   <p>DebuggingConfiguration holds configuration for Debugging related features.</p>
-</td>
-</tr>
-<tr><td><code>LeaderMigrationEnabled</code> <B>[Required]</B><br/>
-<code>bool</code>
-</td>
-<td>
-   <p>LeaderMigrationEnabled indicates whether Leader Migration should be enabled for the controller manager.</p>
-</td>
-</tr>
-<tr><td><code>LeaderMigration</code> <B>[Required]</B><br/>
-<a href="#controllermanager-config-k8s-io-v1alpha1-LeaderMigrationConfiguration"><code>LeaderMigrationConfiguration</code></a>
-</td>
-<td>
-   <p>LeaderMigration holds the configuration for Leader Migration.</p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `LeaderMigrationConfiguration`     {#controllermanager-config-k8s-io-v1alpha1-LeaderMigrationConfiguration}
-    
-
-**Appears in:**
-
-- [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
-
-
-<p>LeaderMigrationConfiguration provides versioned configuration for all migrating leader locks.</p>
-
-
-<table class="table">
-<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
-<tbody>
-    
-  
-<tr><td><code>leaderName</code> <B>[Required]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <p>LeaderName is the name of the leader election resource that protects the migration
-E.g. 1-20-KCM-to-1-21-CCM</p>
-</td>
-</tr>
-<tr><td><code>resourceLock</code> <B>[Required]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <p>ResourceLock indicates the resource object type that will be used to lock
-Should be &quot;leases&quot; or &quot;endpoints&quot;</p>
-</td>
-</tr>
-<tr><td><code>controllerLeaders</code> <B>[Required]</B><br/>
-<a href="#controllermanager-config-k8s-io-v1alpha1-ControllerLeaderConfiguration"><code>[]ControllerLeaderConfiguration</code></a>
-</td>
-<td>
-   <p>ControllerLeaders contains a list of migrating leader lock configurations</p>
-</td>
-</tr>
-</tbody>
-</table>
-  
   
     
 
@@ -331,13 +154,18 @@ GarbageCollectorController related features.</p>
    <p>CronJobControllerConfiguration holds configuration for CronJobController related features.</p>
 </td>
 </tr>
+<tr><td><code>LegacySATokenCleaner</code> <B>[Required]</B><br/>
+<a href="#kubecontrollermanager-config-k8s-io-v1alpha1-LegacySATokenCleanerConfiguration"><code>LegacySATokenCleanerConfiguration</code></a>
+</td>
+<td>
+   <p>LegacySATokenCleanerConfiguration holds configuration for LegacySATokenCleaner related features.</p>
+</td>
+</tr>
 <tr><td><code>NamespaceController</code> <B>[Required]</B><br/>
 <a href="#kubecontrollermanager-config-k8s-io-v1alpha1-NamespaceControllerConfiguration"><code>NamespaceControllerConfiguration</code></a>
 </td>
 <td>
    <p>NamespaceControllerConfiguration holds configuration for NamespaceController
-related features.
-NamespaceControllerConfiguration holds configuration for NamespaceController
 related features.</p>
 </td>
 </tr>
@@ -418,6 +246,14 @@ related features.</p>
 <td>
    <p>TTLAfterFinishedControllerConfiguration holds configuration for
 TTLAfterFinishedController related features.</p>
+</td>
+</tr>
+<tr><td><code>ValidatingAdmissionPolicyStatusController</code> <B>[Required]</B><br/>
+<a href="#kubecontrollermanager-config-k8s-io-v1alpha1-ValidatingAdmissionPolicyStatusControllerConfiguration"><code>ValidatingAdmissionPolicyStatusControllerConfiguration</code></a>
+</td>
+<td>
+   <p>ValidatingAdmissionPolicyStatusControllerConfiguration holds configuration for
+ValidatingAdmissionPolicyStatusController related features.</p>
 </td>
 </tr>
 </tbody>
@@ -1010,6 +846,33 @@ but more CPU (and network) load.</p>
 </tbody>
 </table>
 
+## `LegacySATokenCleanerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-LegacySATokenCleanerConfiguration}
+    
+
+**Appears in:**
+
+- [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
+
+
+<p>LegacySATokenCleanerConfiguration contains elements describing LegacySATokenCleaner</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>CleanUpPeriod</code> <B>[Required]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <p>CleanUpPeriod is the period of time since the last usage of an
+auto-generated service account token before it can be deleted.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
 ## `NamespaceControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-NamespaceControllerConfiguration}
     
 
@@ -1115,14 +978,6 @@ allowed to sync concurrently.</p>
 <tbody>
     
   
-<tr><td><code>EnableTaintManager</code> <B>[Required]</B><br/>
-<code>bool</code>
-</td>
-<td>
-   <p>If set to true enables NoExecute Taints and will evict all not-tolerating
-Pod running on Nodes tainted with this kind of Taints.</p>
-</td>
-</tr>
 <tr><td><code>NodeEvictionRate</code> <B>[Required]</B><br/>
 <code>float32</code>
 </td>
@@ -1216,7 +1071,7 @@ and persistent volume claims.</p>
 <code>[]string</code>
 </td>
 <td>
-   <p>VolumeHostCIDRDenylist is a list of CIDRs that should not be reachable by the
+   <p>DEPRECATED: VolumeHostCIDRDenylist is a list of CIDRs that should not be reachable by the
 controller from plugins.</p>
 </td>
 </tr>
@@ -1224,7 +1079,7 @@ controller from plugins.</p>
 <code>bool</code>
 </td>
 <td>
-   <p>VolumeHostAllowLocalLoopback indicates if local loopback hosts (127.0.0.1, etc)
+   <p>DEPRECATED: VolumeHostAllowLocalLoopback indicates if local loopback hosts (127.0.0.1, etc)
 should be allowed from plugins.</p>
 </td>
 </tr>
@@ -1527,6 +1382,35 @@ allowed to sync concurrently.</p>
 </tbody>
 </table>
 
+## `ValidatingAdmissionPolicyStatusControllerConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-ValidatingAdmissionPolicyStatusControllerConfiguration}
+    
+
+**Appears in:**
+
+- [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
+
+
+<p>ValidatingAdmissionPolicyStatusControllerConfiguration contains elements describing ValidatingAdmissionPolicyStatusController.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>ConcurrentPolicySyncs</code> <B>[Required]</B><br/>
+<code>int32</code>
+</td>
+<td>
+   <p>ConcurrentPolicySyncs is the number of policy objects that are
+allowed to sync concurrently. Larger number = quicker type checking,
+but more CPU (and network) load.
+The default value is 5.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
 ## `VolumeConfiguration`     {#kubecontrollermanager-config-k8s-io-v1alpha1-VolumeConfiguration}
     
 
@@ -1586,6 +1470,33 @@ volume plugin should search for additional third party volume plugins</p>
   
     
 
+## `NodeControllerConfiguration`     {#NodeControllerConfiguration}
+    
+
+**Appears in:**
+
+- [CloudControllerManagerConfiguration](#cloudcontrollermanager-config-k8s-io-v1alpha1-CloudControllerManagerConfiguration)
+
+
+<p>NodeControllerConfiguration contains elements describing NodeController.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>ConcurrentNodeSyncs</code> <B>[Required]</B><br/>
+<code>int32</code>
+</td>
+<td>
+   <p>ConcurrentNodeSyncs is the number of workers
+concurrently synchronizing nodes</p>
+</td>
+</tr>
+</tbody>
+</table>
+
 ## `ServiceControllerConfiguration`     {#ServiceControllerConfiguration}
     
 
@@ -1622,6 +1533,8 @@ management, but more CPU (and network) load.</p>
     
 
 
+<p>CloudControllerManagerConfiguration contains elements describing cloud-controller manager.</p>
+
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1646,6 +1559,14 @@ management, but more CPU (and network) load.</p>
 both in cloud controller manager and kube-controller manager.</p>
 </td>
 </tr>
+<tr><td><code>NodeController</code> <B>[Required]</B><br/>
+<a href="#NodeControllerConfiguration"><code>NodeControllerConfiguration</code></a>
+</td>
+<td>
+   <p>NodeController holds configuration for node controller
+related features.</p>
+</td>
+</tr>
 <tr><td><code>ServiceController</code> <B>[Required]</B><br/>
 <a href="#ServiceControllerConfiguration"><code>ServiceControllerConfiguration</code></a>
 </td>
@@ -1659,6 +1580,13 @@ related features.</p>
 </td>
 <td>
    <p>NodeStatusUpdateFrequency is the frequency at which the controller updates nodes' status</p>
+</td>
+</tr>
+<tr><td><code>Webhook</code> <B>[Required]</B><br/>
+<a href="#cloudcontrollermanager-config-k8s-io-v1alpha1-WebhookConfiguration"><code>WebhookConfiguration</code></a>
+</td>
+<td>
+   <p>Webhook is the configuration for cloud-controller-manager hosted webhooks</p>
 </td>
 </tr>
 </tbody>
@@ -1804,6 +1732,218 @@ to be configured on the cloud provider.</p>
    <p>nodeSyncPeriod is the period for syncing nodes from cloudprovider. Longer
 periods will result in fewer calls to cloud provider, but may delay addition
 of new nodes to cluster.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `WebhookConfiguration`     {#cloudcontrollermanager-config-k8s-io-v1alpha1-WebhookConfiguration}
+    
+
+**Appears in:**
+
+- [CloudControllerManagerConfiguration](#cloudcontrollermanager-config-k8s-io-v1alpha1-CloudControllerManagerConfiguration)
+
+
+<p>WebhookConfiguration contains configuration related to
+cloud-controller-manager hosted webhooks</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>Webhooks</code> <B>[Required]</B><br/>
+<code>[]string</code>
+</td>
+<td>
+   <p>Webhooks is the list of webhooks to enable or disable
+'*' means &quot;all enabled by default webhooks&quot;
+'foo' means &quot;enable 'foo'&quot;
+'-foo' means &quot;disable 'foo'&quot;
+first item for a particular name wins</p>
+</td>
+</tr>
+</tbody>
+</table>
+  
+  
+    
+
+## `LeaderMigrationConfiguration`     {#controllermanager-config-k8s-io-v1alpha1-LeaderMigrationConfiguration}
+    
+
+**Appears in:**
+
+- [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
+
+
+<p>LeaderMigrationConfiguration provides versioned configuration for all migrating leader locks.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+<tr><td><code>apiVersion</code><br/>string</td><td><code>controllermanager.config.k8s.io/v1alpha1</code></td></tr>
+<tr><td><code>kind</code><br/>string</td><td><code>LeaderMigrationConfiguration</code></td></tr>
+    
+  
+<tr><td><code>leaderName</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>LeaderName is the name of the leader election resource that protects the migration
+E.g. 1-20-KCM-to-1-21-CCM</p>
+</td>
+</tr>
+<tr><td><code>resourceLock</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>ResourceLock indicates the resource object type that will be used to lock
+Should be &quot;leases&quot; or &quot;endpoints&quot;</p>
+</td>
+</tr>
+<tr><td><code>controllerLeaders</code> <B>[Required]</B><br/>
+<a href="#controllermanager-config-k8s-io-v1alpha1-ControllerLeaderConfiguration"><code>[]ControllerLeaderConfiguration</code></a>
+</td>
+<td>
+   <p>ControllerLeaders contains a list of migrating leader lock configurations</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `ControllerLeaderConfiguration`     {#controllermanager-config-k8s-io-v1alpha1-ControllerLeaderConfiguration}
+    
+
+**Appears in:**
+
+- [LeaderMigrationConfiguration](#controllermanager-config-k8s-io-v1alpha1-LeaderMigrationConfiguration)
+
+
+<p>ControllerLeaderConfiguration provides the configuration for a migrating leader lock.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>name</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>Name is the name of the controller being migrated
+E.g. service-controller, route-controller, cloud-node-controller, etc</p>
+</td>
+</tr>
+<tr><td><code>component</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>Component is the name of the component in which the controller should be running.
+E.g. kube-controller-manager, cloud-controller-manager, etc
+Or '*' meaning the controller can be run under any component that participates in the migration</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `GenericControllerManagerConfiguration`     {#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration}
+    
+
+**Appears in:**
+
+- [CloudControllerManagerConfiguration](#cloudcontrollermanager-config-k8s-io-v1alpha1-CloudControllerManagerConfiguration)
+
+- [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
+
+
+<p>GenericControllerManagerConfiguration holds configuration for a generic controller-manager.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>Port</code> <B>[Required]</B><br/>
+<code>int32</code>
+</td>
+<td>
+   <p>port is the port that the controller-manager's http service runs on.</p>
+</td>
+</tr>
+<tr><td><code>Address</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>address is the IP address to serve on (set to 0.0.0.0 for all interfaces).</p>
+</td>
+</tr>
+<tr><td><code>MinResyncPeriod</code> <B>[Required]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <p>minResyncPeriod is the resync period in reflectors; will be random between
+minResyncPeriod and 2*minResyncPeriod.</p>
+</td>
+</tr>
+<tr><td><code>ClientConnection</code> <B>[Required]</B><br/>
+<a href="#ClientConnectionConfiguration"><code>ClientConnectionConfiguration</code></a>
+</td>
+<td>
+   <p>ClientConnection specifies the kubeconfig file and client connection
+settings for the proxy server to use when communicating with the apiserver.</p>
+</td>
+</tr>
+<tr><td><code>ControllerStartInterval</code> <B>[Required]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <p>How long to wait between starting controller managers</p>
+</td>
+</tr>
+<tr><td><code>LeaderElection</code> <B>[Required]</B><br/>
+<a href="#LeaderElectionConfiguration"><code>LeaderElectionConfiguration</code></a>
+</td>
+<td>
+   <p>leaderElection defines the configuration of leader election client.</p>
+</td>
+</tr>
+<tr><td><code>Controllers</code> <B>[Required]</B><br/>
+<code>[]string</code>
+</td>
+<td>
+   <p>Controllers is the list of controllers to enable or disable
+'*' means &quot;all enabled by default controllers&quot;
+'foo' means &quot;enable 'foo'&quot;
+'-foo' means &quot;disable 'foo'&quot;
+first item for a particular name wins</p>
+</td>
+</tr>
+<tr><td><code>Debugging</code> <B>[Required]</B><br/>
+<a href="#DebuggingConfiguration"><code>DebuggingConfiguration</code></a>
+</td>
+<td>
+   <p>DebuggingConfiguration holds configuration for Debugging related features.</p>
+</td>
+</tr>
+<tr><td><code>LeaderMigrationEnabled</code> <B>[Required]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   <p>LeaderMigrationEnabled indicates whether Leader Migration should be enabled for the controller manager.</p>
+</td>
+</tr>
+<tr><td><code>LeaderMigration</code> <B>[Required]</B><br/>
+<a href="#controllermanager-config-k8s-io-v1alpha1-LeaderMigrationConfiguration"><code>LeaderMigrationConfiguration</code></a>
+</td>
+<td>
+   <p>LeaderMigration holds the configuration for Leader Migration.</p>
 </td>
 </tr>
 </tbody>

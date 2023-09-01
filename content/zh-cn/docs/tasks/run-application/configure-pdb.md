@@ -39,7 +39,7 @@ nodes.
 - 你是 Kubernetes 集群中某应用的所有者，该应用有高可用要求。
 - 你应了解如何部署[无状态应用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)
   和/或[有状态应用](/zh-cn/docs/tasks/run-application/run-replicated-stateful-application/)。
-- 你应当已经阅读过关于 [Pod 干扰](/zh-cn/docs/concepts/workloads/pods/disruptions/) 的文档。
+- 你应当已经阅读过关于 [Pod 干扰](/zh-cn/docs/concepts/workloads/pods/disruptions/)的文档。
 - 用户应当与集群所有者或服务提供者确认其遵从 Pod 干扰预算（Pod Disruption Budgets）的规则。
 
 <!-- steps -->
@@ -54,7 +54,7 @@ nodes.
 -->
 ## 用 PodDisruptionBudget 来保护应用   {#protecting-app-with-pdb}
 
-1. 确定想要使用 PodDisruptionBudget (PDB) 来保护的应用。
+1. 确定想要使用 PodDisruptionBudget（PDB）来保护的应用。
 1. 考虑应用对干扰的反应。
 1. 以 YAML 文件形式定义 PDB。
 1. 通过 YAML 文件创建 PDB 对象。
@@ -95,10 +95,10 @@ is enabled.
 <!--
 You can also use PDBs with pods which are not controlled by one of the above
 controllers, or arbitrary groups of pods, but there are some restrictions,
-described in [Arbitrary Controllers and Selectors](#arbitrary-controllers-and-selectors).
+described in [Arbitrary workloads and arbitrary selectors](#arbitrary-controllers-and-selectors).
 -->
 用户也可以用 PDB 来保护不受上述控制器控制的 Pod，或任意的 Pod 集合，但是正如
-[任意控制器和选择算符](#arbitrary-controllers-and-selectors)中描述的，这里存在一些限制。
+[任意工作负载和任意选择算符](#arbitrary-controllers-and-selectors)中描述的，这里存在一些限制。
 
 <!--
 ## Think about how your application reacts to disruptions
@@ -146,7 +146,7 @@ due to a voluntary disruption.
       (允许同时出现更多的干扰)。
 - 可重新启动的批处理任务：
   - 关注：自发干扰的情况下，需要确保任务完成。
-    - 可能的解决方案：不创建 PDB。 任务控制器会创建一个替换 Pod。
+    - 可能的解决方案：不创建 PDB。任务控制器会创建一个替换 Pod。
 
 <!--
 ### Rounding logic when specifying percentages
@@ -221,8 +221,8 @@ PodDisruptionBudgets. For policy/v1beta1 an empty selector matches zero pods, wh
 for policy/v1 an empty selector matches every pod in the namespace.
 -->
 `policy/v1beta1` 和 `policy/v1` API 中 PodDisruptionBudget 的空选择算符的行为
-略有不同。在 `policy/v1beta1` 中，空的选择算符不会匹配任何 Pods，而
-`policy/v1` 中，空的选择算符会匹配名字空间中所有 Pods。
+略有不同。在 `policy/v1beta1` 中，空的选择算符不会匹配任何 Pod，而
+`policy/v1` 中，空的选择算符会匹配名字空间中所有 Pod。
 {{< /note >}}
 
 <!--
@@ -235,7 +235,7 @@ is the `scale` of the controller managing the pods being selected by the
 用户在同一个 `PodDisruptionBudget` 中只能够指定 `maxUnavailable` 和 `minAvailable` 中的一个。
 `maxUnavailable` 只能够用于控制存在相应控制器的 Pod 的驱逐（即不受控制器控制的 Pod 不在
 `maxUnavailable` 控制范围内）。在下面的示例中，
-“所需副本” 指的是相应控制器的 `scale`，控制器对 `PodDisruptionBudget` 所选择的 Pod 进行管理。
+“所需副本”指的是相应控制器的 `scale`，控制器对 `PodDisruptionBudget` 所选择的 Pod 进行管理。
 
 <!--
 Example 1: With a `minAvailable` of 5, evictions are allowed as long as they leave behind
@@ -311,14 +311,14 @@ Example PDB Using minAvailable:
 -->
 使用 minAvailable 的 PDB 示例：
 
-{{< codenew file="policy/zookeeper-pod-disruption-budget-minavailable.yaml" >}}
+{{% code file="policy/zookeeper-pod-disruption-budget-minavailable.yaml" %}}
 
 <!--
 Example PDB Using maxUnavailable:
 -->
 使用 maxUnavailable 的 PDB 示例：
 
-{{< codenew file="policy/zookeeper-pod-disruption-budget-maxunavailable.yaml" >}}
+{{% code file="policy/zookeeper-pod-disruption-budget-maxunavailable.yaml" %}}
 
 <!--
 For example, if the above `zk-pdb` object selects the pods of a StatefulSet of size 3, both
@@ -368,7 +368,7 @@ zk-pdb   2               N/A               0                     7s
 <!--
 If there are matching pods (say, 3), then you would see something like this:
 -->
-假设有匹配的 Pod (比如说 3 个), 那么用户会看到类似下面的信息：
+假设有匹配的 Pod（比如说 3 个），那么用户会看到类似下面的信息：
 
 ```shell
 kubectl get poddisruptionbudgets
@@ -429,18 +429,18 @@ These pods are tracked via `.status.currentHealthy` field in the PDB status.
 -->
 ## 不健康的 Pod 驱逐策略   {#unhealthy-pod-eviction-policy}
 
-{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.26" state="beta" >}}
 
 {{< note >}}
 <!--
-In order to use this behavior, you must enable the `PDBUnhealthyPodEvictionPolicy`
+This feature is enabled by default. You can disable it by disabling the `PDBUnhealthyPodEvictionPolicy`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/).
 -->
-为了使用此行为，你必须在
-[API 服务器](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)上启用
+此特性默认启用，你可以通过在
+[API 服务器](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)上禁用
 `PDBUnhealthyPodEvictionPolicy`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来禁用它。
 {{< /note >}}
 
 <!--
@@ -477,7 +477,7 @@ Policies:
   （`.status.currentHealthy` 至少等于 `.status.desiredHealthy`）时才能被驱逐。
 
 : 此策略确保已受干扰的应用程序所运行的 Pod 会尽可能成为健康。
-  这对排空节点有负面影响，可能会因 PDB 守护的应用程序行为错误而阻止排空。
+  这对腾空节点有负面影响，可能会因 PDB 守护的应用程序行为错误而阻止腾空。
   更具体地说，这些应用程序的 Pod 处于 `CrashLoopBackOff` 状态
   （由于漏洞或错误配置）或其 Pod 只是未能报告 `Ready` 状况。
 
@@ -505,41 +505,50 @@ Policies:
 <!--
 Pods in `Pending`, `Succeeded` or `Failed` phase are always considered for eviction.
 -->
-处于`Pending`、`Succeeded` 或 `Failed` 阶段的 Pod 总是被考虑驱逐。
+处于 `Pending`、`Succeeded` 或 `Failed` 阶段的 Pod 总是被考虑驱逐。
 {{< /note >}}
 
 <!--
-## Arbitrary Controllers and Selectors
+## Arbitrary workloads and arbitrary selectors {#arbitrary-controllers-and-selectors}
 
 You can skip this section if you only use PDBs with the built-in
-application controllers (Deployment, ReplicationController, ReplicaSet, and StatefulSet),
-with the PDB selector matching the controller's selector.
+workload resources (Deployment, ReplicaSet, StatefulSet and ReplicationController)
+or with {{< glossary_tooltip term_id="CustomResourceDefinition" text="custom resources" >}}
+that implement a `scale` [subresource](/docs/concepts/extend-kubernetes/api-extension/custom-resources/#advanced-features-and-flexibility),
+and where the PDB selector exactly matches the selector of the Pod's owning resource.
 -->
-## 任意控制器和选择算符   {#arbitrary-controllers-and-selectors}
+## 任意工作负载和任意选择算符   {#arbitrary-controllers-and-selectors}
 
-如果你只使用与内置的应用控制器（Deployment、ReplicationController、ReplicaSet 和 StatefulSet）
-对应的 PDB，也就是 PDB 的选择算符与 控制器的选择算符相匹配，那么可以跳过这一节。
+如果你只针对内置的工作负载资源（Deployment、ReplicaSet、StatefulSet 和 ReplicationController）
+或在实现了 `scale` [子资源](/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/#advanced-features-and-flexibility)
+的{{< glossary_tooltip term_id="CustomResourceDefinition" text="自定义资源" >}}使用 PDB，
+并且 PDB 选择算符与 Pod 所属资源的选择算符完全匹配，那么可以跳过这一节。
 
 <!--
-You can use a PDB with pods controlled by another type of controller, by an
+You can use a PDB with pods controlled by another resource, by an
 "operator", or bare pods, but with these restrictions:
 -->
-你可以使用这样的 PDB：它对应的 Pod 可能由其他类型的控制器控制，可能由 "operator" 控制，
-也可能为“裸的（不受控制器控制）” Pod，但该类 PDB 存在以下限制：
+你可以针对由其他资源、某个 "operator" 控制的或者“裸的（不受控制器控制）” Pod
+使用 PDB，但存在以下限制：
 
 <!--
 - only `.spec.minAvailable` can be used, not `.spec.maxUnavailable`.
 - only an integer value can be used with `.spec.minAvailable`, not a percentage.
 -->
-- 只能够使用 `.spec.minAvailable` ，而不能够使用 `.spec.maxUnavailable。`
+- 只能够使用 `.spec.minAvailable`，而不能够使用 `.spec.maxUnavailable。`
 - 只能够使用整数作为 `.spec.minAvailable` 的值，而不能使用百分比。
 
 <!--
-You can use a selector which selects a subset or superset of the pods belonging to a built-in
-controller. The eviction API will disallow eviction of any pod covered by multiple PDBs,
+It is not possible to use other availability configurations,
+because Kubernetes cannot derive a total number of pods without a supported owning resource.
+
+You can use a selector which selects a subset or superset of the pods belonging to a
+workload resource. The eviction API will disallow eviction of any pod covered by multiple PDBs,
 so most users will want to avoid overlapping selectors. One reasonable use of overlapping
 PDBs is when pods are being transitioned from one PDB to another.
 -->
-你可以令选择算符选择一个内置控制器所控制 Pod 的子集或父集。
+你无法使用其他的可用性配置，因为如果没有被支持的属主资源，Kubernetes 无法推导出 Pod 的总数。
+
+你可以使用能够选择属于工作负载资源的 Pod 的子集或超集的选择算符。
 驱逐 API 将不允许驱逐被多个 PDB 覆盖的任何 Pod，因此大多数用户都希望避免重叠的选择算符。
-重叠 PDB 的一种合理用途是当 Pod 从一个 PDB 过渡到另一个 PDB 时再使用。
+重叠 PDB 的一种合理用途是将 Pod 从一个 PDB 转交到另一个 PDB 的场合。

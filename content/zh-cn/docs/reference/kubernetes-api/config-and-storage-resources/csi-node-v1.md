@@ -41,14 +41,15 @@ CSINode 包含指向相应节点对象的 OwnerReference。
 
 <!--
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
-  metadata.name must be the Kubernetes node name.
+
+  Standard object's metadata. metadata.name must be the Kubernetes node name.
 
 - **spec** (<a href="{{< ref "../config-and-storage-resources/csi-node-v1#CSINodeSpec" >}}">CSINodeSpec</a>), required
   spec is the specification of CSINode
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  metadata.name 必须是 Kubernetes 节点的名称。
+  标准的对象元数据。metadata.name 必须是 Kubernetes 节点的名称。
 
 - **spec** (<a href="{{< ref "../config-and-storage-resources/csi-node-v1#CSINodeSpec" >}}">CSINodeSpec</a>)，必需
 
@@ -66,7 +67,7 @@ CSINodeSpec 包含一个节点上安装的所有 CSI 驱动规约有关的信息
 - **drivers** ([]CSINodeDriver), required
 
   *Patch strategy: merge on key `name`*
-  
+
   drivers is a list of information of all CSI Drivers existing on a node. If all drivers in the list are uninstalled, this can become empty.
 
   <a name="CSINodeDriver"></a>
@@ -74,25 +75,26 @@ CSINodeSpec 包含一个节点上安装的所有 CSI 驱动规约有关的信息
 
   - **drivers.name** (string), required
 
-    This is the name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI GetPluginName() call for that driver.
+    name represents the name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI GetPluginName() call for that driver.
 -->
 - **drivers** ([]CSINodeDriver)，必需
 
   **补丁策略：按照键 `name` 合并**
-  
+
   drivers 是节点上存在的所有 CSI 驱动的信息列表。如果列表中的所有驱动均被卸载，则此字段可以为空。
-  
+
   <a name="CSINodeDriver"></a>
   **CSINodeDriver 包含一个节点上安装的一个 CSI 驱动规约有关的信息。**
-  
+
   - **drivers.name** (string)，必需
 
-    这是该对象引用的 CSI 驱动的名称。此字段值必须是针对该驱动由 CSI GetPluginName() 调用返回的相同名称。
+    name 表示该对象引用的 CSI 驱动的名称。此字段值必须是针对该驱动由 CSI GetPluginName() 调用返回的相同名称。
 
-<!--
+  <!--
   - **drivers.nodeID** (string), required
     nodeID of the node from the driver point of view. This field enables Kubernetes to communicate with storage systems that do not share the same nomenclature for nodes. For example, Kubernetes may refer to a given node as "node1", but the storage system may refer to the same node as "nodeA". When Kubernetes issues a command to the storage system to attach a volume to a specific node, it can use this field to refer to the node name using the ID that the storage system will understand, e.g. "nodeA" instead of "node1". This field is required.
--->  
+  -->
+
   - **drivers.nodeID** (string)，必需
 
     从驱动角度来看，这是节点的 nodeID。
@@ -102,23 +104,28 @@ CSINodeSpec 包含一个节点上安装的所有 CSI 驱动规约有关的信息
     它可以藉此字段使用存储系统所理解的 ID 引用节点名称，例如使用 “nodeA” 而不是 “node1”。
     此字段是必需的。
 
-<!--
+  <!--
   - **drivers.allocatable** (VolumeNodeResources)
+
     allocatable represents the volume resources of a node that are available for scheduling. This field is beta.
 
     <a name="VolumeNodeResources"></a>
     *VolumeNodeResources is a set of resource limits for scheduling of volumes.*
+  -->
 
-    - **drivers.allocatable.count** (int32)
-      Maximum number of unique volumes managed by the CSI driver that can be used on a node. A volume that is both attached and mounted on a node is considered to be used once, not twice. The same rule applies for a unique volume that is shared among multiple pods on the same node. If this field is not specified, then the supported number of volumes on this node is unbounded.
--->  
   - **drivers.allocatable** (VolumeNodeResources)
 
     allocatable 表示一个节点上可供调度的卷资源。此字段处于 beta 阶段。
-    
+
     <a name="VolumeNodeResources"></a>
+
     **VolumeNodeResources 是调度卷时所用的一组资源限制。**
-    
+    <!--
+    - **drivers.allocatable.count** (int32)
+
+      count indicates the maximum number of unique volumes managed by the CSI driver that can be used on a node. A volume that is both attached and mounted on a node is considered to be used once, not twice. The same rule applies for a unique volume that is shared among multiple pods on the same node. If this field is not specified, then the supported number of volumes on this node is unbounded.
+    -->
+
     - **drivers.allocatable.count** (int32)
 
       这是一个节点上可使用的、由 CSI 驱动管理的独立卷个数的上限。
@@ -126,11 +133,12 @@ CSINodeSpec 包含一个节点上安装的所有 CSI 驱动规约有关的信息
       相同的规则适用于同一个节点上多个 Pod 之间共享的同一个卷。
       如果未指定此字段，则该节点上支持的卷数量是无限的。
 
-<!--
+  <!--
   - **drivers.topologyKeys** ([]string)
 
     topologyKeys is the list of keys supported by the driver. When a driver is initialized on a cluster, it provides a set of topology keys that it understands (e.g. "company.com/zone", "company.com/region"). When a driver is initialized on a node, it provides the same topology keys along with values. Kubelet will expose these topology keys as labels on its own node object. When Kubernetes does topology aware provisioning, it can use this list to determine which labels it should retrieve from the node object and pass back to the driver. It is possible for different nodes to use different topology keys. This can be empty if driver does not support topology.
--->  
+  -->
+
   - **drivers.topologyKeys** ([]string)
 
     topologyKeys 是驱动支持的键的列表。
@@ -181,6 +189,7 @@ CSINodeList 是 CSINode 对象的集合。
 <hr>
 
 ### `get` 读取指定的 CSINode
+
 #### HTTP 请求
 
 GET /apis/storage.k8s.io/v1/csinodes/{name}
@@ -263,6 +272,10 @@ GET /apis/storage.k8s.io/v1/csinodes
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
 - **timeoutSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -297,6 +310,7 @@ POST /apis/storage.k8s.io/v1/csinodes
 - **pretty** (*in query*): string
 -->
 #### 参数
+
 - **body**: <a href="{{< ref "../config-and-storage-resources/csi-node-v1#CSINode" >}}">CSINode</a>，必需
 
 - **dryRun** (**查询参数**): string
@@ -332,6 +346,7 @@ POST /apis/storage.k8s.io/v1/csinodes
 #### HTTP Request
 -->
 ### `update` 替换指定的 CSINode
+
 #### HTTP 请求
 
 PUT /apis/storage.k8s.io/v1/csinodes/{name}
@@ -347,6 +362,7 @@ PUT /apis/storage.k8s.io/v1/csinodes/{name}
 - **pretty** (*in query*): string
 -->
 #### 参数
+
 - **name** (**路径参数**): string，必需
 
   CSINode 的名称
@@ -373,6 +389,7 @@ PUT /apis/storage.k8s.io/v1/csinodes/{name}
 #### Response
 -->
 #### 响应
+
 200 (<a href="{{< ref "../config-and-storage-resources/csi-node-v1#CSINode" >}}">CSINode</a>): OK
 
 201 (<a href="{{< ref "../config-and-storage-resources/csi-node-v1#CSINode" >}}">CSINode</a>): Created
@@ -384,6 +401,7 @@ PUT /apis/storage.k8s.io/v1/csinodes/{name}
 #### HTTP Request
 -->
 ### `patch` 部分更新指定的 CSINode
+
 #### HTTP 请求
 
 PATCH /apis/storage.k8s.io/v1/csinodes/{name}
@@ -400,6 +418,7 @@ PATCH /apis/storage.k8s.io/v1/csinodes/{name}
 - **pretty** (*in query*): string
 -->
 #### 参数
+
 - **name** (**路径参数**): string，必需
 
   CSINode 的名称
@@ -430,6 +449,7 @@ PATCH /apis/storage.k8s.io/v1/csinodes/{name}
 #### Response
 -->
 #### 响应
+
 200 (<a href="{{< ref "../config-and-storage-resources/csi-node-v1#CSINode" >}}">CSINode</a>): OK
 
 201 (<a href="{{< ref "../config-and-storage-resources/csi-node-v1#CSINode" >}}">CSINode</a>): Created
@@ -441,7 +461,9 @@ PATCH /apis/storage.k8s.io/v1/csinodes/{name}
 #### HTTP Request
 -->
 ### `delete` 删除 CSINode
+
 #### HTTP 请求
+
 DELETE /apis/storage.k8s.io/v1/csinodes/{name}
 
 <!--
@@ -481,6 +503,7 @@ DELETE /apis/storage.k8s.io/v1/csinodes/{name}
 #### Response
 -->
 #### 响应
+
 200 (<a href="{{< ref "../config-and-storage-resources/csi-node-v1#CSINode" >}}">CSINode</a>): OK
 
 202 (<a href="{{< ref "../config-and-storage-resources/csi-node-v1#CSINode" >}}">CSINode</a>): Accepted
@@ -492,7 +515,9 @@ DELETE /apis/storage.k8s.io/v1/csinodes/{name}
 #### HTTP Request
 -->
 ### `deletecollection` 删除 CSINode 的集合
+
 #### HTTP 请求
+
 DELETE /apis/storage.k8s.io/v1/csinodes
 
 <!--
@@ -511,6 +536,7 @@ DELETE /apis/storage.k8s.io/v1/csinodes
 - **timeoutSeconds** (*in query*): integer
 -->
 #### 参数
+
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
 - **continue** (**查询参数**): string
@@ -553,6 +579,10 @@ DELETE /apis/storage.k8s.io/v1/csinodes
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
 - **timeoutSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -561,6 +591,7 @@ DELETE /apis/storage.k8s.io/v1/csinodes
 #### Response
 -->
 #### 响应
+
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
 401: Unauthorized

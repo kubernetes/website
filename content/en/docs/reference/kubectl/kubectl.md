@@ -361,6 +361,22 @@ kubectl [flags]
 </td>
 </tr>
 
+<tr>
+<td colspan="2">KUBECTL_ENABLE_CMD_SHADOW</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">When set to true, external plugins can be used as subcommands for builtin commands if subcommand does not exist. In alpha stage, this feature can only be used for create command(e.g. kubectl create networkpolicy). 
+</td>
+</tr>
+
+<tr>
+<td colspan="2">KUBECTL_INTERACTIVE_DELETE</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">When set to true, the --interactive flag in the kubectl delete command will be activated, allowing users to preview and confirm resources before proceeding to delete by passing this flag.
+</td>
+</tr>
+
 </tbody>
 </table>
 

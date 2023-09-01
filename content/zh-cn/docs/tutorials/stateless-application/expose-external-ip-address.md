@@ -28,11 +28,11 @@ external IP address.
 * Configure `kubectl` to communicate with your Kubernetes API server. For instructions, see the
   documentation for your cloud provider.
 -->
- * 安装 [kubectl](/zh-cn/docs/tasks/tools/)。
- * 使用 Google Kubernetes Engine 或 Amazon Web Services 等云供应商创建 Kubernetes 集群。
-   本教程创建了一个[外部负载均衡器](/zh-cn/docs/tasks/access-application-cluster/create-external-load-balancer/)，
-   需要云供应商。
- * 配置 `kubectl` 与 Kubernetes API 服务器通信。有关说明，请参阅云供应商文档。
+* 安装 [kubectl](/zh-cn/docs/tasks/tools/)。
+* 使用 Google Kubernetes Engine 或 Amazon Web Services 等云供应商创建 Kubernetes 集群。
+  本教程创建了一个[外部负载均衡器](/zh-cn/docs/tasks/access-application-cluster/create-external-load-balancer/)，
+  需要云供应商。
+* 配置 `kubectl` 与 Kubernetes API 服务器通信。有关说明，请参阅云供应商文档。
 
 ## {{% heading "objectives" %}}
 
@@ -77,7 +77,7 @@ external IP address.
    {{< glossary_tooltip text="Deployment" term_id="deployment" >}}
    对象和一个关联的
    {{< glossary_tooltip term_id="replica-set" text="ReplicaSet" >}} 对象。
-   ReplicaSet 有五个 {{< glossary_tooltip text="Pods" term_id="pod" >}}，
+   ReplicaSet 有五个 {{< glossary_tooltip text="Pod" term_id="pod" >}}，
    每个都运行 Hello World 应用程序。
 
 <!--
@@ -182,7 +182,7 @@ external IP address.
    is 8080 and the `NodePort` is 32377.
    -->
 
-   记下服务公开的外部 IP 地址（`LoadBalancer Ingress`)。
+   记下服务公开的外部 IP 地址（`LoadBalancer Ingress`）。
    在本例中，外部 IP 地址是 104.198.205.71。还要注意 `Port` 和 `NodePort` 的值。
    在本例中，`Port` 是 8080，`NodePort` 是 32377。
 
@@ -276,4 +276,3 @@ Learn more about
 [connecting applications with services](/docs/tutorials/services/connect-applications-service/).
 -->
 进一步了解[使用 Service 连接到应用](/zh-cn/docs/tutorials/services/connect-applications-service/)。
-

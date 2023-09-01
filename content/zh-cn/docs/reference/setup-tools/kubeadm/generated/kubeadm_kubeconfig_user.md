@@ -29,10 +29,22 @@ kubeadm alpha kubeconfig user [flags]
 <!--
 ### Examples
 
+<!--
+# Output a kubeconfig file for an additional user named foo
+-->
 ```
-  # Output a kubeconfig file for an additional user named foo using a kubeadm config file bar
+  # 为一个名为 foo 的其他用户输出 kubeconfig 文件
+  kubeadm kubeconfig user --client-name=foo
+```
+
+<!--
+# Output a kubeconfig file for an additional user named foo using a kubeadm config file bar
+-->
+```
+  # 使用 kubeadm 配置文件 bar 为另一个名为 foo 的用户输出 kubeconfig 文件
   kubeadm alpha kubeconfig user --client-name=foo --config=bar
 ```
+
 -->
 ### 示例
 

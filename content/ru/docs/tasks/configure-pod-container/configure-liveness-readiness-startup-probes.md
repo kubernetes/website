@@ -47,7 +47,7 @@ Kubernetes предоставляет liveness пробы, чтобы обнар
 
 В этом упражнении вы создадите Pod, который запускает контейнер, основанный на образе `registry.k8s.io/busybox`. Конфигурационный файл для Pod'а:
 
-{{< codenew file="pods/probe/exec-liveness.yaml" >}}
+{{% codenew file="pods/probe/exec-liveness.yaml" %}}
 
 В конфигурационном файле вы можете видеть, что Pod состоит из одного `Container`.
 Поле `periodSeconds` определяет, что kubelet должен производить liveness
@@ -126,7 +126,7 @@ liveness-exec   1/1       Running   1          1m
 
 Другой вид liveness пробы использует запрос HTTP GET. Ниже представлен файл конфигурации для Pod, который запускает контейнер, основанный на образе `registry.k8s.io/liveness`.
 
-{{< codenew file="pods/probe/http-liveness.yaml" >}}
+{{% codenew file="pods/probe/http-liveness.yaml" %}}
 
 В конфигурационном файле вы можете видеть Pod с одним контейнером.
 Поле `periodSeconds` определяет, что kubelet должен производить liveness
@@ -182,7 +182,7 @@ HTTP liveness проба использует этот прокси.
 kubelet будет пытаться открыть сокет к вашему контейнеру на определённый порт.
 Если он сможет установить соединение, контейнер будет считаться здоровым, если нет, будет считаться заваленным.
 
-{{< codenew file="pods/probe/tcp-liveness-readiness.yaml" >}}
+{{% codenew file="pods/probe/tcp-liveness-readiness.yaml" %}}
 
 Как вы можете видеть, конфигурация TCP проверок довольно похожа на HTTP проверки.
 Этот пример использует обе - readiness и liveness пробы. Kubelet будет отправлять первую readiness пробу через 5 секунд после старта контейнера. Он будет пытаться соединиться с `goproxy` контейнером на порт 8080. Если проба успешна, Pod

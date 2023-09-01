@@ -5,4 +5,4 @@ cluster, you can create one by using
 or you can use one of these Kubernetes playgrounds:
 
 * [Killercoda](https://killercoda.com/playgrounds/scenario/kubernetes)
-* [Play with Kubernetes](http://labs.play-with-k8s.com/)
+* [Play with Kubernetes](https://labs.play-with-k8s.com/)

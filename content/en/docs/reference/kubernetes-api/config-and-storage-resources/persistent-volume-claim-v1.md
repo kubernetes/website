@@ -77,13 +77,13 @@ PersistentVolumeClaimSpec describes the common attributes of storage devices and
 
   - **resources.claims** ([]ResourceClaim)
 
-    *Set: unique values will be kept during a merge*
+    *Map: unique values on key name will be kept during a merge*
     
     Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
     
     This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
     
-    This field is immutable.
+    This field is immutable. It can only be set for containers.
 
     <a name="ResourceClaim"></a>
     *ResourceClaim references one entry in PodSpec.ResourceClaims.*
@@ -98,7 +98,7 @@ PersistentVolumeClaimSpec describes the common attributes of storage devices and
 
   - **resources.requests** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+    Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 
 - **volumeName** (string)
 
@@ -163,9 +163,52 @@ PersistentVolumeClaimStatus is the current status of a persistent volume claim.
 
   accessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
 
+- **allocatedResourceStatuses** (map[string]string)
+
+  allocatedResourceStatuses stores status of resource being resized for the given PVC. Key names follow standard Kubernetes label syntax. Valid values are either:
+  	* Un-prefixed keys:
+  		- storage - the capacity of the volume.
+  	* Custom resources must use implementation-defined prefixed names such as "example.com/my-custom-resource"
+  Apart from above values - keys that are unprefixed or have kubernetes.io prefix are considered reserved and hence may not be used.
+  
+  ClaimResourceStatus can be in any of following states:
+  	- ControllerResizeInProgress:
+  		State set when resize controller starts resizing the volume in control-plane.
+  	- ControllerResizeFailed:
+  		State set when resize has failed in resize controller with a terminal error.
+  	- NodeResizePending:
+  		State set when resize controller has finished resizing the volume but further resizing of
+  		volume is needed on the node.
+  	- NodeResizeInProgress:
+  		State set when kubelet starts resizing the volume.
+  	- NodeResizeFailed:
+  		State set when resizing has failed in kubelet with a terminal error. Transient errors don't set
+  		NodeResizeFailed.
+  For example: if expanding a PVC for more capacity - this field can be one of the following states:
+  	- pvc.status.allocatedResourceStatus['storage'] = "ControllerResizeInProgress"
+       - pvc.status.allocatedResourceStatus['storage'] = "ControllerResizeFailed"
+       - pvc.status.allocatedResourceStatus['storage'] = "NodeResizePending"
+       - pvc.status.allocatedResourceStatus['storage'] = "NodeResizeInProgress"
+       - pvc.status.allocatedResourceStatus['storage'] = "NodeResizeFailed"
+  When this field is not set, it means that no resize operation is in progress for the given PVC.
+  
+  A controller that receives PVC update with previously unknown resourceName or ClaimResourceStatus should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
+  
+  This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+
 - **allocatedResources** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-  allocatedResources is the storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+  allocatedResources tracks the resources allocated to a PVC including its capacity. Key names follow standard Kubernetes label syntax. Valid values are either:
+  	* Un-prefixed keys:
+  		- storage - the capacity of the volume.
+  	* Custom resources must use implementation-defined prefixed names such as "example.com/my-custom-resource"
+  Apart from above values - keys that are unprefixed or have kubernetes.io prefix are considered reserved and hence may not be used.
+  
+  Capacity reported here may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity.
+  
+  A controller that receives PVC update with previously unknown resourceName should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
+  
+  This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
 
 - **capacity** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
@@ -178,7 +221,7 @@ PersistentVolumeClaimStatus is the current status of a persistent volume claim.
   conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
 
   <a name="PersistentVolumeClaimCondition"></a>
-  *PersistentVolumeClaimCondition contails details about state of pvc*
+  *PersistentVolumeClaimCondition contains details about state of pvc*
 
   - **conditions.status** (string), required
 
@@ -211,12 +254,6 @@ PersistentVolumeClaimStatus is the current status of a persistent volume claim.
 - **phase** (string)
 
   phase represents the current phase of PersistentVolumeClaim.
-  
-  
-
-- **resizeStatus** (string)
-
-  resizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
 
 
 
@@ -377,6 +414,11 @@ GET /api/v1/namespaces/{namespace}/persistentvolumeclaims
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -443,6 +485,11 @@ GET /api/v1/persistentvolumeclaims
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -868,6 +915,11 @@ DELETE /api/v1/namespaces/{namespace}/persistentvolumeclaims
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer

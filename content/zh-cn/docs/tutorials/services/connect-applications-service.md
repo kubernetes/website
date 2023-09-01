@@ -55,7 +55,7 @@ Create an nginx Pod, and note that it has a container port specification:
 我们在之前的示例中已经做过，然而让我们以网络连接的视角再重做一遍。
 创建一个 Nginx Pod，注意其中包含一个容器端口的规约：
 
-{{< codenew file="service/networking/run-my-nginx.yaml" >}}
+{{< code file="service/networking/run-my-nginx.yaml" >}}
 
 <!--
 This makes it accessible from any node in your cluster. Check the nodes the Pod is running on:
@@ -149,7 +149,7 @@ This is equivalent to `kubectl apply -f` the following yaml:
 -->
 这等价于使用 `kubectl create -f` 命令及如下的 yaml 文件创建：
 
-{{< codenew file="service/networking/nginx-svc.yaml" >}}
+{{< code file="service/networking/nginx-svc.yaml" >}}
 
 <!--
 This specification will create a Service which targets TCP port 80 on any Pod
@@ -229,33 +229,33 @@ my-nginx-7vzhx   IPv4          80      10.244.2.5,10.244.3.4   21s
 You should now be able to curl the nginx Service on `<CLUSTER-IP>:<PORT>` from
 any node in your cluster. Note that the Service IP is completely virtual, it
 never hits the wire. If you're curious about how this works you can read more
-about the [service proxy](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies).
+about the [service proxy](/docs/reference/networking/virtual-ips/).
 -->
 现在，你应该能够从集群中任意节点上使用 curl 命令向 `<CLUSTER-IP>:<PORT>` 发送请求以访问 Nginx Service。
 注意 Service IP 完全是虚拟的，它从来没有走过网络，如果对它如何工作的原理感到好奇，
-可以进一步阅读[服务代理](/zh-cn/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)的内容。
+可以进一步阅读[服务代理](/zh-cn/docs/reference/networking/virtual-ips/)的内容。
 
 <!--
 ## Accessing the Service
 
 Kubernetes supports 2 primary modes of finding a Service - environment variables
 and DNS. The former works out of the box while the latter requires the
-[CoreDNS cluster addon](https://releases.k8s.io/{{< param "fullversion" >}}/cluster/addons/dns/coredns).
+[CoreDNS cluster addon](https://releases.k8s.io/v{{< skew currentPatchVersion >}}/cluster/addons/dns/coredns).
 -->
 ## 访问 Service   {#accessing-the-service}
 
 Kubernetes 支持两种查找服务的主要模式：环境变量和 DNS。前者开箱即用，而后者则需要
-[CoreDNS 集群插件](https://releases.k8s.io/{{< param "fullversion" >}}/cluster/addons/dns/coredns)。
+[CoreDNS 集群插件](https://releases.k8s.io/v{{< skew currentPatchVersion >}}/cluster/addons/dns/coredns)。
 
 {{< note >}}
 <!--
 If the service environment variables are not desired (because possible clashing
 with expected program ones, too many variables to process, only using DNS, etc)
 you can disable this mode by setting the `enableServiceLinks` flag to `false` on
-the [pod spec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core).
+the [pod spec](/docs/reference/generated/kubernetes-api/v{{< skew latestVersion >}}/#pod-v1-core).
 -->
 如果不需要服务环境变量（因为可能与预期的程序冲突，可能要处理的变量太多，或者仅使用DNS等），则可以通过在
-[pod spec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
+[pod spec](/docs/reference/generated/kubernetes-api/v{{< skew latestVersion >}}/#pod-v1-core)
 上将 `enableServiceLinks` 标志设置为 `false` 来禁用此模式。
 {{< /note >}}
 
@@ -360,7 +360,7 @@ IP 分配名称的 DNS 服务器。 这里我们使用 CoreDNS 集群插件（�
 让我们运行另一个 curl 应用来进行测试：
 
 ```shell
-kubectl run curl --image=radial/busyboxplus:curl -i --tty
+kubectl run curl --image=radial/busyboxplus:curl -i --tty --rm
 ```
 ```
 Waiting for pod default/curl-131556218-9fnch to be running, status is Pending, pod ready: false
@@ -449,6 +449,15 @@ Following are the manual steps to follow in case you run into problems running m
 -->
 以下是你在运行 make 时遇到问题时要遵循的手动步骤（例如，在 Windows 上）：
 
+<!--
+```shell
+# Create a public private key pair
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /d/tmp/nginx.key -out /d/tmp/nginx.crt -subj "/CN=my-nginx/O=my-nginx"
+# Convert the keys to base64 encoding
+cat /d/tmp/nginx.crt | base64
+cat /d/tmp/nginx.key | base64
+```
+-->
 ```shell
 # 创建公钥和相对应的私钥
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /d/tmp/nginx.key -out /d/tmp/nginx.crt -subj "/CN=my-nginx/O=my-nginx"
@@ -461,7 +470,7 @@ cat /d/tmp/nginx.key | base64
 Use the output from the previous commands to create a yaml file as follows.
 The base64 encoded value should all be on a single line.
 -->
-使用前面命令的输出来创建 yaml 文件，如下所示。 base64 编码的值应全部放在一行上。
+如下所示，使用上述命令的输出来创建 yaml 文件。base64 编码的值应全部放在一行上。
 
 ```yaml
 apiVersion: "v1"
@@ -495,7 +504,7 @@ in the secret, and the Service, to expose both ports (80 and 443):
 -->
 现在修改 Nginx 副本以启动一个使用 Secret 中的证书的 HTTPS 服务器以及相应的用于暴露其端口（80 和 443）的 Service：
 
-{{< codenew file="service/networking/nginx-secure-app.yaml" >}}
+{{< code file="service/networking/nginx-secure-app.yaml" >}}
 
 <!--
 Noteworthy points about the nginx-secure-app manifest:
@@ -548,7 +557,7 @@ for simplicity, the pod only needs nginx.crt to access the Service):
 通过创建 Service，我们连接了在证书中的 CName 与在 Service 查询时被 Pod 使用的实际 DNS 名字。
 让我们从一个 Pod 来测试（为了方便，这里使用同一个 Secret，Pod 仅需要使用 nginx.crt 去访问 Service）：
 
-{{< codenew file="service/networking/curlpod.yaml" >}}
+{{< code file="service/networking/curlpod.yaml" >}}
 
 ```shell
 kubectl apply -f ./curlpod.yaml

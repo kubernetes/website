@@ -1,7 +1,7 @@
 ---
 title: 拡張リソースをコンテナに割り当てる
 content_type: task
-weight: 40
+weight: 70
 ---
 
 <!-- overview -->

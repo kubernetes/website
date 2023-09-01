@@ -38,7 +38,7 @@ weight: 270
   clusters. Therefore, run etcd clusters on dedicated machines or isolated
   environments for [guaranteed resource requirements](https://etcd.io/docs/current/op-guide/hardware/).
 
-* The minimum recommended version of etcd to run in production is `3.2.10+`.
+* The minimum recommended etcd versions to run in production are `3.4.22+` and `3.5.6+`.
 
 ## Resource requirements
 
@@ -393,4 +393,17 @@ For more details on etcd upgrade, please refer to the [etcd upgrades](https://et
 
 {{< note >}}
 Before you start an upgrade, please back up your etcd cluster first.
+{{< /note >}}
+
+## Maintaining etcd clusters
+
+For more details on etcd maintenance, please refer to the [etcd maintenance](https://etcd.io/docs/latest/op-guide/maintenance/) documentation.
+
+{{% thirdparty-content single="true" %}}
+
+{{< note >}}
+Defragmentation is an expensive operation, so it should be executed as infrequent
+as possible. On the other hand, it's also necessary to make sure any etcd member
+will not run out of the storage quota. The Kubernetes project recommends that when
+you perform defragmentation, you use a tool such as [etcd-defrag](https://github.com/ahrtr/etcd-defrag).
 {{< /note >}}

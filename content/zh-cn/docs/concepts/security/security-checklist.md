@@ -281,41 +281,34 @@ Memory limit superior to request can expose the whole node to OOM issues.
 <!--
 ### Enabling Seccomp
 
-Seccomp can improve the security of your workloads by reducing the Linux kernel
-syscall attack surface available inside containers. The seccomp filter mode
-leverages BPF to create an allow or deny list of specific syscalls, named
-profiles. Those seccomp profiles can be enabled on individual workloads,
-[a security tutorial is available](/docs/tutorials/security/seccomp/). In
-addition, the [Kubernetes Security Profiles Operator](https://github.com/kubernetes-sigs/security-profiles-operator)
-is a project to facilitate the management and use of seccomp in clusters.
+Seccomp stands for secure computing mode and has been a feature of the Linux kernel since version 2.6.12.
+It can be used to sandbox the privileges of a process, restricting the calls it is able to make
+from userspace into the kernel. Kubernetes lets you automatically apply seccomp profiles loaded onto
+a node to your Pods and containers.
+
+Seccomp can improve the security of your workloads by reducing the Linux kernel syscall attack
+surface available inside containers. The seccomp filter mode leverages BPF to create an allow or
+deny list of specific syscalls, named profiles.
+
+Since Kubernetes 1.27, you can enable the use of `RuntimeDefault` as the default seccomp profile
+for all workloads. A [security tutorial](/docs/tutorials/security/seccomp/) is available on this
+topic. In addition, the
+[Kubernetes Security Profiles Operator](https://github.com/kubernetes-sigs/security-profiles-operator)
+is a project that facilitates the management and use of seccomp in clusters.
 -->
 ### 启用 Seccomp {#enabling-seccomp}
 
-<!-- 按照英文原文翻译比较啰嗦，本小段是英文原文结合 Seccomp 简洁翻译的 -->
+Seccomp 代表安全计算模式（Secure computing mode），这是一个自 Linux 内核版本 2.6.12 被加入的特性。
+它可以将进程的特权沙箱化，来限制从用户空间发起的对内核的调用。
+Kubernetes 允许你将加载到节点上的 Seccomp 配置文件自动应用于你的 Pod 和容器。
+
 Seccomp 通过减少容器内对 Linux 内核的系统调用（System Call）以缩小攻击面，从而提高工作负载的安全性。
-Seccomp 过滤器模式借助 BPF 创建了配置文件（Profile），文件中设置对具体系统调用的允许或拒绝，
-可以针对单个工作负载上启用这类 Seccomp 配置文件。你可以阅读相应的[安全教程](/zh-cn/docs/tutorials/security/seccomp/)。
+Seccomp 过滤器模式借助 BPF 创建具体系统调用的允许清单或拒绝清单，名为配置文件（Profile）。
+
+从 Kubernetes 1.27 开始，你可以将 `RuntimeDefault` 设置为工作负载的默认 Seccomp 配置。
+你可以阅读相应的[安全教程](/zh-cn/docs/tutorials/security/seccomp/)。
 此外，[Kubernetes Security Profiles Operator](https://github.com/kubernetes-sigs/security-profiles-operator)
 是一个方便在集群中管理和使用 Seccomp 的项目。
-
-<!--
-For historical context, please note that Docker has been using
-[a default seccomp profile](https://docs.docker.com/engine/security/seccomp/)
-to only allow a restricted set of syscalls since 2016 from
-[Docker Engine 1.10](https://www.docker.com/blog/docker-engine-1-10-security/),
-but Kubernetes is still not confining workloads by default. The default seccomp
-profile can be found [in containerd](https://github.com/containerd/containerd/blob/main/contrib/seccomp/seccomp_default.go)
-as well. Fortunately, [Seccomp Default](/blog/2021/08/25/seccomp-default/), a
-new alpha feature to use a default seccomp profile for all workloads can now be
-enabled and tested.
--->
-从历史背景看，请注意 Docker 自 2016 年以来一直使用[默认的 Seccomp 配置文件](https://docs.docker.com/engine/security/seccomp/)，
-仅允许来自 [Docker Engine 1.10](https://www.docker.com/blog/docker-engine-1-10-security/) 的很小的一组系统调用，
-但是，在默认情况下 Kubernetes 仍不限制工作负载。
-默认的 Seccomp 配置文件也可以在
-[containerd](https://github.com/containerd/containerd/blob/main/contrib/seccomp/seccomp_default.go) 中找到。
-幸运的是，[Seccomp Default](/blog/2021/08/25/seccomp-default/) 可将默认的 Seccomp 配置文件用于所有工作负载，
-这是一项新的 Alpha 功能，现在可以启用和测试了。
 
 {{< note >}}
 <!--
@@ -353,7 +346,8 @@ AppArmor 配置文件是通过注解的方式，以容器为粒度强制执行�
 AppArmor is only available on Linux nodes, and enabled in
 [some Linux distributions](https://gitlab.com/apparmor/apparmor/-/wikis/home#distributions-and-ports).
 -->
-AppArmor 仅在 Linux 节点上可用，在[一些 Linux 发行版](https://gitlab.com/apparmor/apparmor/-/wikis/home#distributions-and-ports)中已启用。
+AppArmor 仅在 Linux 节点上可用，
+在[一些 Linux 发行版](https://gitlab.com/apparmor/apparmor/-/wikis/home#distributions-and-ports)中已启用。
 {{< /note >}}
 
 #### SELinux
@@ -374,8 +368,46 @@ SELinux 标签可以[通过 `securityContext` 节](/zh-cn/docs/tasks/configure-p
 SELinux is only available on Linux nodes, and enabled in
 [some Linux distributions](https://en.wikipedia.org/wiki/Security-Enhanced_Linux#Implementations).
 -->
-SELinux 仅在 Linux 节点上可用，在[一些 Linux 发行版](https://en.wikipedia.org/wiki/Security-Enhanced_Linux#Implementations)中已启用。
+SELinux 仅在 Linux 节点上可用，
+在[一些 Linux 发行版](https://en.wikipedia.org/wiki/Security-Enhanced_Linux#Implementations)中已启用。
 {{< /note >}}
+
+<!--
+## Logs and auditing
+
+- [ ] Audit logs, if enabled, are protected from general access.
+- [ ] The `/logs` API is disabled (you are running kube-apiserver with
+  `--enable-logs-handler=false`).
+-->
+## 日志和审计   {#logs-and-auditing}
+
+- [ ] 审计日志（如果启用）将受到保护以防止常规访问。
+- [ ] `/logs` API 被禁用（你所运行的 kube-apiserver 设置了 `--enable-logs-handler=false`）。
+
+  <!--
+  Kubernetes includes a `/logs` API endpoint, enabled by default,
+  that lets users request the contents of the API server's `/var/log` directory over HTTP. Accessing
+  that endpoint requires authentication.
+  -->
+  Kubernetes 包含一个 `/logs` API 端点，默认启用。
+  这个端点允许用户通过 HTTP 来请求 API 服务器的 `/var/log` 目录的内容。
+  访问此端点需要身份验证。
+
+<!--
+Allowing broad access to Kubernetes logs can make security information
+available to a potential attacker.
+
+As a good practice, set up a separate means to collect and aggregate
+control plane logs, and do not use the `/logs` API endpoint.
+Alternatively, if you run your control plane with the `/logs` API endpoint
+and limit the content of `/var/log` (within the host or container where the API server is running) to
+Kubernetes API server logs only.
+-->
+允许大范围访问 Kubernetes 日志可能会令安全信息被潜在的攻击者利用。
+
+一个好的做法是设置一个单独的方式来收集和聚合控制平面日志，
+并且不要使用 `/logs` API 端点。另一个使用场景是你运行控制平面时启用了 `/logs` API 端点并
+（在运行 API 服务器的主机或容器内）将 `/var/log` 的内容限制为仅保存 Kubernetes API 服务器日志。
 
 <!--
 ## Pod placement
@@ -414,8 +446,8 @@ admission controller.
 -->
 [节点选择器（Node Selector）](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/)
 : 作为 Pod 规约的一部分来设置的键值对，指定 Pod 可部署到哪些节点。
-通过 [PodNodeSelector](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#podnodeselector)
-准入控制器可以在名字空间和集群级别强制实施节点选择。
+  通过 [PodNodeSelector](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#podnodeselector)
+  准入控制器可以在名字空间和集群级别强制实施节点选择。
 
 <!--
 [PodTolerationRestriction](/docs/reference/access-authn-authz/admission-controllers/#podtolerationrestriction)
@@ -427,8 +459,8 @@ tolerations.
 -->
 [PodTolerationRestriction](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#podtolerationrestriction)
 : [容忍度](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)准入控制器，
-允许管理员设置在名字空间内允许使用的容忍度。
-名字空间中的 Pod 只能使用名字空间对象的注解键上所指定的容忍度，这些键提供默认和允许的容忍度集合。
+  允许管理员设置在名字空间内允许使用的容忍度。
+  名字空间中的 Pod 只能使用名字空间对象的注解键上所指定的容忍度，这些键提供默认和允许的容忍度集合。
 
 <!--
 [RuntimeClass](/docs/concepts/containers/runtime-class/)
@@ -439,7 +471,7 @@ overhead.
 -->
 [RuntimeClass](/zh-cn/docs/concepts/containers/runtime-class/)
 : RuntimeClass 是一个用于选择容器运行时配置的特性，容器运行时配置用于运行 Pod 中的容器，
-并以性能开销为代价提供或多或少的主机隔离能力。
+  并以性能开销为代价提供或多或少的主机隔离能力。
 
 ## Secrets {#secrets}
 
@@ -482,7 +514,7 @@ permission mechanism on files.
 需要 Secret 的 Pod 应该通过卷自动挂载这些信息，
 最好使用 [`emptyDir.medium` 选项](/zh-cn/docs/concepts/storage/volumes/#emptydir)存储在内存中。
 该机制还可以用于从第三方存储中注入 Secret 作为卷，如 [Secret Store CSI 驱动](https://secrets-store-csi-driver.sigs.k8s.io/)。
-与通过 RBAC 来允许 Pod 服务帐户访问 Secret 相比，应该优先使用上述机制。这种机制允许将 Secret 作为环境变量或文件添加到 Pod 中。
+与通过 RBAC 来允许 Pod 服务账号访问 Secret 相比，应该优先使用上述机制。这种机制允许将 Secret 作为环境变量或文件添加到 Pod 中。
 请注意，与带访问权限控制的文件相比，由于日志的崩溃转储，以及 Linux 的环境变量的非机密性，环境变量方法可能更容易发生泄漏。
 
 <!--
@@ -493,13 +525,11 @@ or specifically for a pod. For Kubernetes v1.22 and above, use
 [Bound Service Accounts](/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume)
 for time-bound service account credentials.
 -->
-不应该将服务账号令牌挂载到不需要它们的 Pod 中。
-这可以通过在服务帐号内将
+不应该将服务账号令牌挂载到不需要它们的 Pod 中。这可以通过在服务账号内将
 [`automountServiceAccountToken`](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#use-the-default-service-account-to-access-the-api-server)
-设置为 `false` 来完成整个名字空间范围的配置，
-或者也可以单独在 Pod 层面定制。
+设置为 `false` 来完成整个名字空间范围的配置，或者也可以单独在 Pod 层面定制。
 对于 Kubernetes v1.22 及更高版本，
-请使用[绑定服务账号](/zh-cn/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume)作为有时间限制的服务帐号凭证。
+请使用[绑定服务账号](/zh-cn/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume)作为有时间限制的服务账号凭证。
 
 <!--
 ## Images
@@ -696,7 +726,8 @@ availability state and recommended to improve your security posture:
 -->
 [`DenyServiceExternalIPs`](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#denyserviceexternalips)
 : 拒绝使用 `Service.spec.externalIPs` 字段，已有的 Service 不受影响，新增或者变更时不允许使用。
-这是 [CVE-2020-8554：中间人使用 LoadBalancer 或 ExternalIP](https://github.com/kubernetes/kubernetes/issues/97076) 的缓解措施。
+  这是 [CVE-2020-8554：中间人使用 LoadBalancer 或 ExternalIP](https://github.com/kubernetes/kubernetes/issues/97076)
+  的缓解措施。
 
 <!--
 [`NodeRestriction`](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)
@@ -708,8 +739,8 @@ placement to the controlled node.
 -->
 [`NodeRestriction`](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#noderestriction)
 : 将 kubelet 的权限限制为只能修改其拥有的 Pod API 资源或代表其自身的节点 API 资源。
-此插件还可以防止 kubelet 使用 `node-restriction.kubernetes.io/` 注解，
-攻击者可以使用该注解来访问 kubelet 的凭证，从而影响所控制的节点上的 Pod 布局。
+  此插件还可以防止 kubelet 使用 `node-restriction.kubernetes.io/` 注解，
+  攻击者可以使用该注解来访问 kubelet 的凭证，从而影响所控制的节点上的 Pod 布局。
 
 <!--
 The third group includes plugins that are not enabled by default but could be
@@ -737,6 +768,8 @@ has permissions to use the image.
 
 - [RBAC Good Practices](/docs/concepts/security/rbac-good-practices/) for
   further information on authorization.
+- [Securing a Cluster](/docs/tasks/administer-cluster/securing-a-cluster/) for
+  information on protecting a cluster from accidental or malicious access.
 - [Cluster Multi-tenancy guide](/docs/concepts/security/multi-tenancy/) for
   configuration options recommendations and best practices on multi-tenancy.
 - [Blog post "A Closer Look at NSA/CISA Kubernetes Hardening Guidance"](/blog/2021/10/05/nsa-cisa-kubernetes-hardening-guidance/#building-secure-container-images)
@@ -745,6 +778,7 @@ has permissions to use the image.
 ## 接下来  {#what-is-next}
 
 - [RBAC 良好实践](/zh-cn/docs/concepts/security/rbac-good-practices/)提供有关授权的更多信息。
+- [保护集群](/zh-cn/docs/tasks/administer-cluster/securing-a-cluster/)提供如何保护集群免受意外或恶意访问的信息。
 - [集群多租户指南](/zh-cn/docs/concepts/security/multi-tenancy/)提供有关多租户的配置选项建议和最佳实践。
 - [博文“深入了解 NSA/CISA Kubernetes 强化指南”](/blog/2021/10/05/nsa-cisa-kubernetes-hardening-guidance/#building-secure-container-images)为强化
   Kubernetes 集群提供补充资源。
