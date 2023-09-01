@@ -419,4 +419,5 @@ labels to delete multiple resources with one command.
 * Complete the [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) Interactive Tutorials
 * Use Kubernetes to create a blog using [Persistent Volumes for MySQL and Wordpress](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)
 * Read more about [connecting applications with services](/docs/tutorials/services/connect-applications-service/)
-* Read more about [Managing Resources](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)
+* Read more about [using labels effectively](/docs/concepts/overview/working-with-objects/labels/#using-labels-effectively)
+
