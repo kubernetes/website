@@ -254,22 +254,9 @@ To wrap up, let's look at what happens if we try to specify a profile that hasn'
 
 
 ```shell
-kubectl create -f /dev/stdin <<EOF
-apiVersion: v1
-kind: Pod
-metadata:
-  name: hello-apparmor-2
-  annotations:
-    container.apparmor.security.beta.kubernetes.io/hello: localhost/k8s-apparmor-example-allow-write
-spec:
-  containers:
-  - name: hello
-    image: busybox:1.28
-    command: [ "sh", "-c", "echo 'Hello AppArmor!' && sleep 1h" ]
-EOF
+{{% code language="yaml" file="shortcodes/hello-apparmor-2.yaml" %}}
 ```
 ``` shell
-
 pod/hello-apparmor-2 created
 ```
 
