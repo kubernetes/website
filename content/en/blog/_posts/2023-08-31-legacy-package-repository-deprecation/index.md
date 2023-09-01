@@ -57,9 +57,10 @@ Kubernetes project, please check the installer tool's communication channels for
 information about what steps you need to take, and eventually if needed, follow up
 with maintainers to let them know about this change.
 
-The following diagram shows who's affected by this change in a visual form:
+The following diagram shows who's affected by this change in a visual form
+(click on diagram for the larger version):
 
-{{< figure src="/blog/2023/08/31/legacy-package-repository-deprecation/flow.svg" alt="Visual explanation of who's affected by the legacy repositories being deprecated and frozen. Textual explanation is available above this diagram." >}}
+{{< figure src="/blog/2023/08/31/legacy-package-repository-deprecation/flow.svg" alt="Visual explanation of who's affected by the legacy repositories being deprecated and frozen. Textual explanation is available above this diagram." class="diagram-small" link="/blog/2023/08/31/legacy-package-repository-deprecation/flow.svg" >}}
 
 ## How does this affect me as a Kubernetes distributor?
 
