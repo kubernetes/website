@@ -31,7 +31,7 @@ for more details about this change.**
   and instructions.
 - The legacy Google-hosted repositories are **deprecated as of August 31, 2023**,
   and will be **frozen approximately as of September 13, 2023**. The freeze will happen
-  immediately following the patch releases that are scheduled for September, 2023.
+  immediately following the patch releases that are scheduled for September 2023.
   Freezing the legacy repositories means that we will publish packages for the Kubernetes
   project only to the community-owned repositories as of the September 13, 2023 cut-off point.
   Check out [the deprecation announcement](/blog/2023/08/31/legacy-package-repository-deprecation/)
