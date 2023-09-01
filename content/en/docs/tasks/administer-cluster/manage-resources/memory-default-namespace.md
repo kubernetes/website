@@ -58,7 +58,7 @@ request and a default memory limit.
 Create the LimitRange in the default-mem-example namespace:
 
 ```shell
-kubectl apply -f https://k8s.io/examples/admin/resource/memory-defaults.yaml --namespace=default-mem-example
+kubectl apply -f https://k8s.io/examples/admin/resource/memory-defaults.yaml
 ```
 
 Now if you create a Pod in the default-mem-example namespace, and any container
@@ -75,7 +75,7 @@ does not specify a memory request and limit.
 Create the Pod.
 
 ```shell
-kubectl apply -f https://k8s.io/examples/admin/resource/memory-defaults-pod.yaml --namespace=default-mem-example
+kubectl apply -f https://k8s.io/examples/admin/resource/memory-defaults-pod.yaml
 ```
 
 View detailed information about the Pod:
@@ -116,7 +116,7 @@ Create the Pod:
 
 
 ```shell
-kubectl apply -f https://k8s.io/examples/admin/resource/memory-defaults-pod-2.yaml --namespace=default-mem-example
+kubectl apply -f https://k8s.io/examples/admin/resource/memory-defaults-pod-2.yaml
 ```
 
 View detailed information about the Pod:
@@ -146,7 +146,7 @@ specifies a memory request, but not a limit:
 Create the Pod:
 
 ```shell
-kubectl apply -f https://k8s.io/examples/admin/resource/memory-defaults-pod-3.yaml --namespace=default-mem-example
+kubectl apply -f https://k8s.io/examples/admin/resource/memory-defaults-pod-3.yaml
 ```
 
 View the Pod's specification:
