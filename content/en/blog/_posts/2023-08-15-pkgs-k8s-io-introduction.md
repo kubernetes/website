@@ -23,7 +23,7 @@ and will be frozen starting with September 13, 2023.
 Check out [the deprecation announcement](/blog/2023/08/31/legacy-package-repository-deprecation/)
 for more details about this change.**
 
-## What you need to know about the new package repositories?
+## What you need to know about the new package repositories? (Updated on August 31, 2023)
 
 - This is an **opt-in change**; you're required to manually migrate from the
   Google-hosted repository to the Kubernetes community-owned repositories.
