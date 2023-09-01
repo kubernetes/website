@@ -253,9 +253,9 @@ To wrap up, let's look at what happens if we try to specify a profile that hasn'
 
 
 
-```shell
+
 {{% code language="yaml" file="shortcodes/hello-apparmor-2.yaml" %}}
-```
+
 ``` shell
 pod/hello-apparmor-2 created
 ```
