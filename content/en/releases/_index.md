@@ -3,6 +3,7 @@ linktitle: Release History
 title: Releases
 type: docs
 layout: release-info
+notoc: true
 ---
 
 
