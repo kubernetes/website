@@ -87,7 +87,7 @@ voluntarias esperadas, sí es que las hay. Ciertas opciones de configuración, c
 en las especificaciones de su Pod pueden también causar interrupciones voluntarias (o involuntarias).
 
 
-## Presupuesto de Interrupción de pods
+## Presupuesto de Interrupción de Pods
 
 {{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
