@@ -11,7 +11,7 @@ weight: 60
 <!-- overview -->
 Esta guía es para los dueños de aplicaciones que quieren crear
 aplicaciones con alta disponibilidad y que necesitan entender
-qué tipos de interrupciones pueden suceder en los pods.
+qué tipos de interrupciones pueden suceder en los Pods.
 
 También es para los administradores de clústeres que quieren aplicar acciones
 automatizadas en sus clústeres, como actualizar o autoescalar los clústeres.
