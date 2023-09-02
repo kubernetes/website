@@ -59,7 +59,7 @@ para determinar si alguna de estas interrupciones voluntarias está habilitada e
 Si ninguna se encuentra habilitada, puede omitir la creación del presupuesto de Interrupción de Pods.
 
 {{< caution >}}
-No todas las interrupciones voluntarias son consideradas por el presupuesto de interrupción de pods. Por ejemplo,
+No todas las interrupciones voluntarias son consideradas por el presupuesto de interrupción de Pods. Por ejemplo,
 borrar un Deployment o pods que evitan el uso del presupuesto.
 {{< /caution >}}
 
