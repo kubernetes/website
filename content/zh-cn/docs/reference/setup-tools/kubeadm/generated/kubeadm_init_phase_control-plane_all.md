@@ -1,7 +1,7 @@
 <!--
 Generate all static Pod manifest files
 -->
-生成所有静态 Pod 清单文件
+生成所有静态 Pod 清单文件。
 
 <!--
 ### Synopsis
@@ -11,7 +11,7 @@ Generate all static Pod manifest files
 <!--
 Generate all static Pod manifest files
 -->
-生成所有的静态 Pod 清单文件
+生成所有的静态 Pod 清单文件。
 
 ```
 kubeadm init phase control-plane all [flags]
@@ -90,7 +90,7 @@ A set of extra flags to pass to the API Server or override default ones in form 
 -->
 <p>
 形式为 &lt;flagname&gt;=&lt;value&gt; 的一组额外参数，用来传递给 API 服务器，
-或者覆盖其默认配置值
+或者覆盖其默认配置值。
 </p>
 </td>
 </tr>
@@ -152,7 +152,7 @@ A set of extra flags to pass to the Controller Manager or override default ones 
 -->
 <p>
 一组形式为 &lt;flagname&gt;=&lt;value&gt; 的额外参数，用来传递给控制管理器（Controller Manager）
-或覆盖其默认设置值
+或覆盖其默认设置值。
 </p>
 </td>
 </tr>
@@ -175,13 +175,18 @@ Don't apply any changes; just output what would be done.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of key=value pairs that describe feature gates for various features. Options are:<br/>EtcdLearnerMode=true|false (ALPHA - default=false)<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)
+A set of key=value pairs that describe feature gates for various features. Options are:<br/>
+EtcdLearnerMode=true|false (ALPHA - default=false)<br/>
+PublicKeysECDSA=true|false (ALPHA - default=false)<br/>
+RootlessControlPlane=true|false (ALPHA - default=false)<br/>
+UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - default=false)
 -->
 <p>
-一组用来描述各种特性门控的键值（key=value）对。选项是：
-<br/>EtcdLearnerMode=true|false (ALPHA - 默认值=false)
-<br/>PublicKeysECDSA=true|false (ALPHA - 默认值=false)
-<br/>RootlessControlPlane=true|false (ALPHA - 默认值=false)
+一组用来描述各种特性门控的键值（key=value）对。选项是：<br/>
+EtcdLearnerMode=true|false (ALPHA - 默认值=false)<br/>
+PublicKeysECDSA=true|false (ALPHA - 默认值=false)<br/>
+RootlessControlPlane=true|false (ALPHA - 默认值=false)<br/>
+UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - 默认值=false)
 </p>
 </td>
 </tr>
@@ -195,7 +200,7 @@ A set of key=value pairs that describe feature gates for various features. Optio
 help for all
 -->
 <p>
-all 操作的帮助命令
+all 操作的帮助命令。
 </p>
 </td>
 </tr>
@@ -214,7 +219,7 @@ all 操作的帮助命令
 Choose a container registry to pull control plane images from
 -->
 <p>
-选择用于拉取控制平面镜像的容器仓库
+选择用于拉取控制平面镜像的容器仓库。
 </p>
 </td>
 </tr>
@@ -283,9 +288,7 @@ A set of extra flags to pass to the Scheduler or override default ones in form o
 -->
 <p>
 一组形式为 &lt;flagname&gt;=&lt;value&gt; 的额外参数，用来传递给调度器（Scheduler）
-或覆盖其默认设置值
-
-传递给调度器（scheduler）一组额外的参数或者以 &lt;flagname&gt;=&lt;value&gt; 形式覆盖其默认值。
+或覆盖其默认设置值。
 <p>
 </td>
 </tr>
@@ -340,4 +343,3 @@ Use alternative range of IP address for service VIPs.
 
 </tbody>
 </table>
-

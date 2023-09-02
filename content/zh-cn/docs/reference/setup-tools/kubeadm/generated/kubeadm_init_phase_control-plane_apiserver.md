@@ -1,7 +1,7 @@
 <!--
 Generates the kube-apiserver static Pod manifest
 -->
-生成 kube-apiserver 静态 Pod 清单
+生成 kube-apiserver 静态 Pod 清单。
 
 <!-- 
 ### Synopsis 
@@ -11,7 +11,7 @@ Generates the kube-apiserver static Pod manifest
 <!-- 
 Generates the kube-apiserver static Pod manifest 
 -->
-生成 kube-apiserver 静态 Pod 清单
+生成 kube-apiserver 静态 Pod 清单。
 
 ```
 kubeadm init phase control-plane apiserver [flags]
@@ -71,8 +71,8 @@ Port for the API Server to bind to.
 A set of extra flags to pass to the API Server or override default ones in form of &lt;flagname&gt;=&lt;value&gt;
 -->
 <p>
-一组 &lt;flagname&gt;=&lt;value&gt; 形式的额外参数，用来传递给 API 服务器
-或者覆盖其默认参数配置
+一组 &lt;flagname&gt;=&lt;value&gt; 形式的额外参数，用来传递给 API
+服务器或者覆盖其默认参数配置。
 </p>
 </td>
 </tr>
@@ -143,13 +143,18 @@ Don't apply any changes; just output what would be done.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of key=value pairs that describe feature gates for various features. Options are:<br/>EtcdLearnerMode=true|false (ALPHA - default=false)<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)
+A set of key=value pairs that describe feature gates for various features. Options are:<br/>
+EtcdLearnerMode=true|false (ALPHA - default=false)<br/>
+PublicKeysECDSA=true|false (ALPHA - default=false)<br/>
+RootlessControlPlane=true|false (ALPHA - default=false)<br/>
+UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - default=false)
 -->
 <p>
-一组键值对，用于描述各种功能特性的特性门控。选项是：
-<br/>EtcdLearnerMode=true|false (ALPHA - 默认值=false)
-<br/>PublicKeysECDSA=true|false (ALPHA - 默认值=false)
-<br/>RootlessControlPlane=true|false (ALPHA - 默认值=false)
+一组键值对，用于描述各种功能特性的特性门控。选项是：<br/>
+EtcdLearnerMode=true|false (ALPHA - 默认值=false)<br/>
+PublicKeysECDSA=true|false (ALPHA - 默认值=false)<br/>
+RootlessControlPlane=true|false (ALPHA - 默认值=false)<br/>
+UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - 默认值=false)
 </p>
 </td>
 </tr>
@@ -163,7 +168,7 @@ A set of key=value pairs that describe feature gates for various features. Optio
 help for apiserver
 -->
 <p>
-apiserver 操作的帮助命令
+apiserver 操作的帮助命令。
 </p>
 </td>
 </tr>
@@ -182,7 +187,7 @@ apiserver 操作的帮助命令
 Choose a container registry to pull control plane images from
 -->
 <p>
-选择要从中拉取控制平面镜像的容器仓库
+选择要从中拉取控制平面镜像的容器仓库。
 </p>
 </td>
 </tr>
@@ -201,7 +206,7 @@ Choose a container registry to pull control plane images from
 Choose a specific Kubernetes version for the control plane.
 -->
 <p>
-为控制平面选择特定的 Kubernetes 版本
+为控制平面选择特定的 Kubernetes 版本。
 </p>
 </td>
 </tr>
@@ -249,11 +254,9 @@ Use alternative range of IP address for service VIPs.
 </tbody>
 </table>
 
-
 <!-- 
 ### Options inherited from parent commands 
 -->
-
 ### 继承于父命令的选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -279,4 +282,3 @@ Use alternative range of IP address for service VIPs.
 
 </tbody>
 </table>
-
