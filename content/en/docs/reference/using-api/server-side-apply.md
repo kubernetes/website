@@ -311,7 +311,7 @@ you can set these markers when you define the custom resource.
 | `//+structType` | `x-kubernetes-map-type` | `atomic`/`granular` | Applicable to structs; otherwise same usage and OpenAPI annotation as `//+mapType`.|
 
 If `listType` is missing, the API server interprets a
-`patchMergeStrategy=merge` marker as a `listType=map` and the
+`patchStrategy=merge` marker as a `listType=map` and the
 corresponding `patchMergeKey` marker as a `listMapKey`.
 
 The `atomic` list type is recursive.
