@@ -18,17 +18,33 @@ This blog post contains information about these new package repositories,
 what does it mean to you as an end user, and how to migrate to the new
 repositories.
 
-## What you need to know about the new package repositories?
+**Update (August 31, 2023): the legacy Google-hosted repositories are deprecated
+and will be frozen starting with September 13, 2023.
+Check out [the deprecation announcement](/blog/2023/08/31/legacy-package-repository-deprecation/)
+for more details about this change.**
+
+## What you need to know about the new package repositories? (Updated on August 31, 2023)
 
 - This is an **opt-in change**; you're required to manually migrate from the
   Google-hosted repository to the Kubernetes community-owned repositories.
   See [how to migrate](#how-to-migrate) later in this announcement for migration information
   and instructions.
-- Access to the Google-hosted repository will remain intact for the foreseeable
-  future. However, the Kubernetes project plans to stop publishing packages to
-  the Google-hosted repository in the future. The project strongly recommends
-  migrating to the Kubernetes package repositories going forward.
-- The Kubernetes package repositories contain packages beginning with those
+- The legacy Google-hosted repositories are **deprecated as of August 31, 2023**,
+  and will be **frozen approximately as of September 13, 2023**. The freeze will happen
+  immediately following the patch releases that are scheduled for September 2023.
+  Freezing the legacy repositories means that we will publish packages for the Kubernetes
+  project only to the community-owned repositories as of the September 13, 2023 cut-off point.
+  Check out [the deprecation announcement](/blog/2023/08/31/legacy-package-repository-deprecation/)
+  for more details about this change.
+- The existing packages in the legacy repositories will be available for the foreseeable future.
+  However, the Kubernetes project can't provide any guarantees on how long is that going to be.
+  The deprecated legacy repositories, and their contents, might be removed at any time in the future
+  and without a further notice period.
+- Given that no new releases will be published to the legacy repositories after
+  the September 13, 2023 cut-off point, you will not be able to upgrade to any patch or minor
+  release made from that date onwards if you don't migrate to the new Kubernetes package repositories.
+  That said, we recommend migrating to the new Kubernetes package repositories **as soon as possible**.
+- The new Kubernetes package repositories contain packages beginning with those
   Kubernetes versions that were still under support when the community took
   over the package builds. This means that anything before v1.24.0 will only be
   available in the Google-hosted repository.
