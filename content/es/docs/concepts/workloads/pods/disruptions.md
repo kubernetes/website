@@ -20,7 +20,7 @@ automatizadas en sus clústeres, como actualizar o autoescalar los clústeres.
 
 ## Interrupciones voluntarias e involuntarias
 
-Los pods no desaparecen hasta que algo (una persona o un controlador) los destruye
+Los Pods no desaparecen hasta que algo (una persona o un controlador) los destruye
 o hay problemas de hardware o software que son inevitables.
 
 Nosotros llamamos a esos casos inevitables *interrupciones involuntarias* de
