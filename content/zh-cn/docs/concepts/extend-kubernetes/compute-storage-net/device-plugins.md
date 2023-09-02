@@ -266,13 +266,13 @@ The general workflow of a device plugin includes the following steps:
    这些修改包括：
 
    <!--
-   * annotations
+   * [Annotations](/docs/concepts/overview/working-with-objects/annotations/)
    * device nodes
    * environment variables
    * mounts
    * fully-qualified CDI device names
    -->
-   * 注解
+   * [注解](/zh-cn/docs/concepts/overview/working-with-objects/annotations/)
    * 设备节点
    * 环境变量
    * 挂载点
@@ -281,11 +281,14 @@ The general workflow of a device plugin includes the following steps:
    {{< note >}}
    <!--
    The processing of the fully-qualified CDI device names by the Device Manager requires
-   the `DevicePluginCDIDevices` feature gate to be enabled. This was added as an alpha feature in
+   that the `DevicePluginCDIDevices` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+   is enabled for the kubelet and the kube-apiserver. This was added as an alpha feature in Kubernetes
    v1.28.
    -->
-   设备管理器处理完全限定的 CDI 设备名称时需要启用 `DevicePluginCDIDevices` 特性门控。
-   这是在 v1.28 版本中作为 Alpha 特性添加的。
+   设备管理器处理完全限定的 CDI 设备名称时，
+   需要为 kubelet 和 kube-apiserver 启用 `DevicePluginCDIDevices`
+   [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
+   这在 Kubernetes v1.28 版本中作为 Alpha 特性被加入。
    {{< /note >}}
 
 <!--
