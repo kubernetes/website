@@ -56,7 +56,7 @@ tareas automatizadas del administrador del clúster o por el proveedor del clús
 
 Consulte al administrador de su clúster, a su proveedor de la nube o a la documentación de su distribución
 para determinar si alguna de estas interrupciones voluntarias está habilitada en su clúster.
-Si ninguna se encuentra habilitada, puede omitir la creación del presupuesto de Interrupción de pods.
+Si ninguna se encuentra habilitada, puede omitir la creación del presupuesto de Interrupción de Pods.
 
 {{< caution >}}
 No todas las interrupciones voluntarias son consideradas por el presupuesto de interrupción de pods. Por ejemplo,
