@@ -349,7 +349,7 @@ If all of the above match, then selection is random.
 Using the [`controller.kubernetes.io/pod-deletion-cost`](/docs/reference/labels-annotations-taints/#pod-deletion-cost)
 annotation, users can set a preference regarding which pods to remove first when downscaling a ReplicaSet.
 
-The annotation should be set on the pod, the range is [-2147483647, 2147483647]. It represents the cost of
+The annotation should be set on the pod, the range is [-2147483648, 2147483647]. It represents the cost of
 deleting a pod compared to other pods belonging to the same ReplicaSet. Pods with lower deletion
 cost are preferred to be deleted before pods with higher deletion cost.
 
