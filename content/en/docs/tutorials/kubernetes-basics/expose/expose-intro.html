@@ -109,12 +109,13 @@ description: |-
 				<p>We have now a running Service called kubernetes-bootcamp. Here we see that the Service received a unique cluster-IP, an internal port and an external-IP (the IP of the Node).</p>
 				<p>To find out what port was opened externally (for the <tt>type: NodePort</tt> Service) we’ll run the <code>describe service</code> subcommand:</p>
 				<p><code><b>kubectl describe services/kubernetes-bootcamp</b></code></p>
-				<p>Create an environment variable called <tt>NODE_PORT</tt> that has the value of the Node port assigned:</p>
-				<p><code><b>export NODE_PORT="$(kubectl get services/kubernetes-bootcamp -o go-template='{{(index .spec.ports 0).nodePort}}')"</b></code><br />
-				<code><b>echo "NODE_PORT=$NODE_PORT"</b></code></p>
+				<p>Create an environment variable called <tt>NODE_IP</tt> that has the value of the Node's IP address and Node port assigned:</p>
+				<p><code><b>export NODE_IP="$(minikube ip)":"$(kubectl get services/kubernetes-bootcamp -o go-template='{{(index .spec.ports 0).nodePort}}')"</b></code><br />
+				<code><b>echo "NODE_IP=$NODE_IP"</b></code></p>
 				<p>Now we can test that the app is exposed outside of the cluster using <code>curl</code>, the IP address of the Node and the externally exposed port:</p>
-				<p><code><b>curl http://"$(minikube ip):$NODE_PORT"</b></code></p>
+				<p><code><b>curl http://"$NODE_IP"</b></code></p>
 				<p>And we get a response from the server. The Service is exposed.</p>
+				{{< note >}}Here is a detailed guide for [accessing apps](https://minikube.sigs.k8s.io/docs/handbook/accessing) running inside the minikube.{{< /note >}}
 			</div>
 		</div>
 
@@ -149,7 +150,7 @@ description: |-
 				<p>Confirm that the Service is gone:</p>
 				<p><code><b>kubectl get services</b></code></p>
 				<p>This confirms that our Service was removed. To confirm that route is not exposed anymore you can <tt>curl</tt> the previously exposed IP and port:</p>
-				<p><code><b>curl http://"$(minikube ip):$NODE_PORT"</b></code></p>
+				<p><code><b>curl http://"$NODE_IP"</b></code></p>
 				<p>This proves that the application is not reachable anymore from outside of the cluster.
 				You can confirm that the app is still running with a <tt>curl</tt> from inside the pod:</p>
 				<p><code><b>kubectl exec -ti $POD_NAME -- curl http://localhost:8080</b></code></p>
