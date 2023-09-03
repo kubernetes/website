@@ -95,9 +95,9 @@ following steps:
    token via `--token`, as described in the
    [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) docs.
 -->
-6. 生成令牌，将来其他节点可使用该令牌向控制平面注册自己。
-   如 [kubeadm token](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-token/) 文档所述，
-   用户可以选择通过 `--token` 提供令牌。
+6. 生成令牌，将来其他节点可使用该令牌向控制平面注册自己。如
+   [kubeadm token](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-token/)
+   文档所述，用户可以选择通过 `--token` 提供令牌。
 
 <!--
 1. Makes all the necessary configurations for allowing node joining with the
@@ -152,7 +152,8 @@ Kubeadm allows you to create a control-plane node in phases using the `kubeadm i
 Kubeadm 允许你使用 `kubeadm init phase` 命令分阶段创建控制平面节点。
 
 <!--
-To view the ordered list of phases and sub-phases you can call `kubeadm init -help`. The list will be located at the top of the help screen and each phase will have a description next to it.
+To view the ordered list of phases and sub-phases you can call `kubeadm init -help`. 
+The list will be located at the top of the help screen and each phase will have a description next to it.
 Note that by calling `kubeadm init` all of the phases and sub-phases will be executed in this exact order.
 -->
 要查看阶段和子阶段的有序列表，可以调用 `kubeadm init --help`。
@@ -255,8 +256,8 @@ For more information on the fields and usage of the configuration you can naviga
 可以使用 [kubeadm config print](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-config/)
 命令打印出默认配置。
 
-如果你的配置没有使用最新版本，
-**推荐**使用 [kubeadm config migrate](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-config/)
+如果你的配置没有使用最新版本，**推荐**使用
+[kubeadm config migrate](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-config/)
 命令进行迁移。
 
 关于配置的字段和用法的更多信息，你可以访问 [API 参考页面](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)。
@@ -282,7 +283,8 @@ using `--config`.
 -->
 你可以使用 `--feature-gates` 标志来为 `kubeadm init` 设置特性门控，
 或者你可以在用 `--config`
-传递[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/#kubeadm-k8s-io-v1beta3-ClusterConfiguration)时添加条目到 `featureGates` 字段中。
+传递[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/#kubeadm-k8s-io-v1beta3-ClusterConfiguration)时添加条目到
+`featureGates` 字段中。
 
 <!--
 Passing [feature gates for core Kubernetes components](/docs/reference/command-line-tools-reference/feature-gates)
@@ -303,7 +305,7 @@ Feature | Default | Alpha | Beta | GA
 :-------|:--------|:------|:-----|:----
 `PublicKeysECDSA` | `false` | 1.19 | - | -
 `RootlessControlPlane` | `false` | 1.22 | - | -
-`UnversionedKubeletConfigMap` | `true` | 1.22 | 1.23 | 1.25
+`EtcdLearnerMode` | `false` | 1.27 | - | -
 {{< /table >}}
 -->
 {{< table caption="kubeadm 特性门控" >}}
@@ -311,7 +313,7 @@ Feature | Default | Alpha | Beta | GA
 :-------|:--------|:------|:-----|:----
 `PublicKeysECDSA` | `false` | 1.19 | - | -
 `RootlessControlPlane` | `false` | 1.22 | - | -
-`UnversionedKubeletConfigMap` | `true` | 1.22 | 1.23 | 1.25
+`EtcdLearnerMode` | `false` | 1.27 | - | -
 {{< /table >}}
 
 {{< note >}}
@@ -346,32 +348,18 @@ you upgrade to a newer version of Kubernetes.
 -->
 `RootlessControlPlane`
 : 设置此标志来配置 kubeadm 所部署的控制平面组件中的静态 Pod 容器
-  `kube-apiserver`、`kube-controller-manager`、`kube-scheduler` 和 `etcd` 以非 root 用户身份运行。
-  如果未设置该标志，则这些组件以 root 身份运行。
+  `kube-apiserver`、`kube-controller-manager`、`kube-scheduler` 和 `etcd`
+  以非 root 用户身份运行。如果未设置该标志，则这些组件以 root 身份运行。
   你可以在升级到更新版本的 Kubernetes 之前更改此特性门控的值。
 
 <!--
-`UnversionedKubeletConfigMap`
-: This flag controls the name of the {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} where kubeadm stores
-kubelet configuration data. With this flag not specified or set to `true`, the ConfigMap is named `kubelet-config`.
-If you set this flag to `false`, the name of the ConfigMap includes the major and minor version for Kubernetes
-(for example: `kubelet-config-{{< skew currentVersion >}}`). Kubeadm ensures that RBAC rules for reading and writing
-that ConfigMap are appropriate for the value you set. When kubeadm writes this ConfigMap (during `kubeadm init`
-or `kubeadm upgrade apply`), kubeadm respects the value of `UnversionedKubeletConfigMap`. When reading that ConfigMap
-(during `kubeadm join`, `kubeadm reset`, `kubeadm upgrade ...`), kubeadm attempts to use unversioned ConfigMap name first;
-if that does not succeed, kubeadm falls back to using the legacy (versioned) name for that ConfigMap.
+`EtcdLearnerMode`
+: With this feature gate enabled, when joining a new control plane node, a new etcd member will be created
+as a learner and promoted to a voting member only after the etcd data are fully aligned.
 -->
-`UnversionedKubeletConfigMap`
-: 此标志控制 kubeadm 存储 kubelet 配置数据的 {{<glossary_tooltip text="ConfigMap" term_id="configmap" >}} 的名称。
-  在未指定此标志或设置为 `true` 的情况下，此 ConfigMap 被命名为 `kubelet-config`。
-  如果将此标志设置为 `false`，则此 ConfigMap 的名称会包括 Kubernetes 的主要版本和次要版本
-  （例如：`kubelet-config-{{< skew currentVersion >}}`）。
-  kubeadm 会确保用于读写 ConfigMap 的 RBAC 规则适合你设置的值。
-  当 kubeadm 写入此 ConfigMap 时（在 `kubeadm init` 或 `kubeadm upgrade apply` 期间），
-  kubeadm 根据 `UnversionedKubeletConfigMap` 的设置值来执行操作。
-  当读取此 ConfigMap 时（在 `kubeadm join`、`kubeadm reset`、`kubeadm upgrade ...` 期间），
-  kubeadm 尝试首先使用无版本（后缀）的 ConfigMap 名称；
-  如果不成功，kubeadm 将回退到使用该 ConfigMap 的旧（带版本号的）名称。
+`EtcdLearnerMode`
+: 启用此特性门控后，当加入新的控制平面节点时，将创建一个新的 etcd
+  成员作为学习者（learner），并仅在 etcd 数据完全对齐后进级为投票成员（voting member）。
 
 <!--
 List of deprecated feature gates:
@@ -418,7 +406,7 @@ you should consider changing your cluster or upgrade processes, as this
 feature gate will be removed in a future release.
 -->
 `UpgradeAddonsBeforeControlPlane`
-: 这是一个在 Kubernetes v1.28 中引入的默认禁用的特性门控，
+: 这是一个在 Kubernetes v1.28 中引入的默认**禁用**的特性门控，
   目的是在集群升级期间允许重新激活旧版且已弃用的行为。对于早于 v1.28 的 kubeadm 版本，
   在 `kubeadm upgrade apply` 期间会立即升级集群插件（包括 CoreDNS 和 kube-proxy），
   而不管是否有其他未升级的控制平面实例。这可能导致兼容性问题。从 v1.28 开始，
@@ -431,6 +419,58 @@ feature gate will be removed in a future release.
   这个弃用的 `UpgradeAddonsBeforeControlPlane` 特性门控使你有机会保留旧的升级行为。
   你不应该需要这种旧的行为；如果确实需要，请考虑更改集群或升级流程，
   因为此特性门控将在未来的版本中被移除。
+
+<!--
+List of removed feature gates:
+-->
+已移除的特性门控列表：
+
+<!--
+{{< table caption="kubeadm removed feature gates" >}}
+Feature | Alpha | Beta | GA | Removed
+:-------|:------|:-----|:---|:-------
+`UnversionedKubeletConfigMap` | 1.22 | 1.23 | 1.25 | 1.26
+`IPv6DualStack` | 1.16 | 1.21 | 1.23 | 1.24
+{{< /table >}}
+-->
+{{< table caption="kubeadm 已移除的特性门控" >}}
+特性 | Alpha | Beta | GA | 移除
+:-------|:------|:-----|:---|:-------
+`UnversionedKubeletConfigMap` | 1.22 | 1.23 | 1.25 | 1.26
+`IPv6DualStack` | 1.16 | 1.21 | 1.23 | 1.24
+{{< /table >}}
+
+<!--
+`UnversionedKubeletConfigMap`
+: This flag controls the name of the {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} where kubeadm stores
+kubelet configuration data. With this flag not specified or set to `true`, the ConfigMap is named `kubelet-config`.
+If you set this flag to `false`, the name of the ConfigMap includes the major and minor version for Kubernetes
+(for example: `kubelet-config-{{< skew currentVersion >}}`). Kubeadm ensures that RBAC rules for reading and writing
+that ConfigMap are appropriate for the value you set. When kubeadm writes this ConfigMap (during `kubeadm init`
+or `kubeadm upgrade apply`), kubeadm respects the value of `UnversionedKubeletConfigMap`. When reading that ConfigMap
+(during `kubeadm join`, `kubeadm reset`, `kubeadm upgrade ...`), kubeadm attempts to use unversioned ConfigMap name first;
+if that does not succeed, kubeadm falls back to using the legacy (versioned) name for that ConfigMap.
+-->
+`UnversionedKubeletConfigMap`
+: 此标志控制 kubeadm 存储 kubelet 配置数据的 {{<glossary_tooltip text="ConfigMap" term_id="configmap" >}} 的名称。
+  在未指定此标志或设置为 `true` 的情况下，此 ConfigMap 被命名为 `kubelet-config`。
+  如果将此标志设置为 `false`，则此 ConfigMap 的名称会包括 Kubernetes 的主要版本和次要版本
+  （例如：`kubelet-config-{{< skew currentVersion >}}`）。
+  kubeadm 会确保用于读写 ConfigMap 的 RBAC 规则适合你设置的值。
+  当 kubeadm 写入此 ConfigMap 时（在 `kubeadm init` 或 `kubeadm upgrade apply` 期间），
+  kubeadm 根据 `UnversionedKubeletConfigMap` 的设置值来执行操作。
+  当读取此 ConfigMap 时（在执行 `kubeadm join`、`kubeadm reset`、`kubeadm upgrade` 等操作期间），
+  kubeadm 尝试首先使用无版本（后缀）的 ConfigMap 名称；
+  如果不成功，kubeadm 将回退到使用该 ConfigMap 的旧（带版本号的）名称。
+
+<!--
+`IPv6DualStack`
+: This flag helps to configure components dual stack when the feature is in progress. For more details on Kubernetes
+dual-stack support see [Dual-stack support with kubeadm](/docs/setup/production-environment/tools/kubeadm/dual-stack-support/).
+-->
+`IPv6DualStack`
+: 当前此特性正在推进时，此标志有助于配置组件的 IP 双栈。有关 Kubernetes
+  双栈支持的更多详细信息，请参阅 [kubeadm 的双栈支持](/zh-cn/docs/setup/production-environment/tools/kubeadm/dual-stack-support/)。
 
 <!--
 ### Adding kube-proxy parameters {#kube-proxy}
@@ -594,7 +634,8 @@ kubeadm init phase upload-certs --upload-certs --config=SOME_YAML_FILE
 ```
 {{< note >}}
 <!--
-A predefined `certificateKey` can be provided in `InitConfiguration` when passing the [configuration file](https://kubernetes.io/docs/reference/config-api/kubeadm-config.v1beta3/) with `--config`.
+A predefined `certificateKey` can be provided in `InitConfiguration` when passing the
+[configuration file](https://kubernetes.io/docs/reference/config-api/kubeadm-config.v1beta3/) with `--config`.
 -->
 在使用 `--config`
 传递[配置文件](https://kubernetes.io/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)时，
