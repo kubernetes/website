@@ -32,13 +32,12 @@ clientConnection:
   kubeconfig: /etc/srv/kubernetes/kube-scheduler/kubeconfig
 ```
 
-  {{< note >}}
-  KubeSchedulerConfiguration [v1beta2](/docs/reference/config-api/kube-scheduler-config.v1beta2/)
-  is deprecated in v1.25 and will be removed in v1.28. 
-  KubeSchedulerConfiguration [v1beta3](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
-  is deprecated in v1.26 and will be removed in v1.29.
-  Please migrate KubeSchedulerConfiguration to [v1](/docs/reference/config-api/kube-scheduler-config.v1/).
-  {{< /note >}}
+{{< note >}}
+KubeSchedulerConfiguration [v1beta3](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
+is deprecated in v1.26 and will be removed in v1.29.
+Please migrate KubeSchedulerConfiguration to [v1](/docs/reference/config-api/kube-scheduler-config.v1/).
+{{< /note >}}
+
 ## Profiles
 
 A scheduling Profile allows you to configure the different stages of scheduling
