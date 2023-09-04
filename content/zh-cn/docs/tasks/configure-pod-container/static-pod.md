@@ -46,8 +46,7 @@ Pod 名称将把以连字符开头的节点主机名作为后缀。
 <!--
 If you are running clustered Kubernetes and are using static
 Pods to run a Pod on every node, you should probably be using a
-{{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}
-instead.
+{{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}} instead.
 -->
 如果你在运行一个 Kubernetes 集群，并且在每个节点上都运行一个静态 Pod，
 就可能需要考虑使用 {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}
@@ -92,7 +91,9 @@ Instructions for other distributions or Kubernetes installations may vary.
 <!--
 ## Create a static pod {#static-pod-creation}
 
-You can configure a static Pod with either a [file system hosted configuration file](/docs/tasks/configure-pod-container/static-pod/#configuration-files) or a [web hosted configuration file](/docs/tasks/configure-pod-container/static-pod/#pods-created-via-http).
+You can configure a static Pod with either a
+[file system hosted configuration file](/docs/tasks/configure-pod-container/static-pod/#configuration-files)
+or a [web hosted configuration file](/docs/tasks/configure-pod-container/static-pod/#pods-created-via-http).
 -->
 ## 创建静态 Pod {#static-pod-creation}
 
@@ -102,7 +103,8 @@ You can configure a static Pod with either a [file system hosted configuration f
 <!--
 ### Filesystem-hosted static Pod manifest {#configuration-files}
 
-Manifests are standard Pod definitions in JSON or YAML format in a specific directory. Use the `staticPodPath: <the directory>` field in the
+Manifests are standard Pod definitions in JSON or YAML format in a specific directory.
+Use the `staticPodPath: <the directory>` field in the
 [kubelet configuration file](/docs/reference/config-api/kubelet-config.v1beta1/),
 which periodically scans the directory and creates/deletes static Pods as YAML/JSON files appear/disappear there.
 Note that the kubelet will ignore files starting with dots when scanning the specified directory.
@@ -129,11 +131,15 @@ For example, this is how to start a simple web server as a static Pod:
    ```
 
 <!--
-2. Choose a directory, say `/etc/kubernetes/manifests` and place a web server Pod definition there, for example `/etc/kubernetes/manifests/static-web.yaml`:
+1. Choose a directory, say `/etc/kubernetes/manifests` and place a web server
+   Pod definition there, for example `/etc/kubernetes/manifests/static-web.yaml`:
 -->
 2. 选择一个目录，比如在 `/etc/kubernetes/manifests` 目录来保存 Web 服务 Pod 的定义文件，例如
    `/etc/kubernetes/manifests/static-web.yaml`：
 
+   <!--
+   # Run this command on the node where kubelet is running
+   -->
    ```shell
    # 在 kubelet 运行的节点上执行以下命令
    mkdir -p /etc/kubernetes/manifests/
@@ -156,7 +162,9 @@ For example, this is how to start a simple web server as a static Pod:
    ```
 
 <!--
-3. Configure your kubelet on the node to use this directory by running it with `--pod-manifest-path=/etc/kubernetes/manifests/` argument. On Fedora edit `/etc/kubernetes/kubelet` to include this line:
+1. Configure your kubelet on the node to use this directory by running it with
+   `--pod-manifest-path=/etc/kubernetes/manifests/` argument.
+   On Fedora, edit `/etc/kubernetes/kubelet` to include this line:
 -->
 3. 配置这个节点上的 kubelet，使用这个参数执行 `--pod-manifest-path=/etc/kubelet.d/`。
    在 Fedora 上编辑 `/etc/kubernetes/kubelet` 以包含下面这行：
@@ -173,7 +181,7 @@ For example, this is how to start a simple web server as a static Pod:
    `staticPodPath: <目录>`字段。
 
 <!--
-4. Restart the kubelet. On Fedora, you would run:
+1. Restart the kubelet. On Fedora, you would run:
 
    ```shell
    # Run this command on the node where the kubelet is running
@@ -230,22 +238,24 @@ JSON/YAML 格式的 Pod 定义文件。
    ```
 
 <!--
-2. Configure the kubelet on your selected node to use this web manifest by running it with `--manifest-url=<manifest-url>`. On Fedora, edit `/etc/kubernetes/kubelet` to include this line:
+1. Configure the kubelet on your selected node to use this web manifest by
+   running it with `--manifest-url=<manifest-url>`.
+   On Fedora, edit `/etc/kubernetes/kubelet` to include this line:
 -->
 2. 通过在选择的节点上使用 `--manifest-url=<manifest-url>` 配置运行 kubelet。
    在 Fedora 添加下面这行到 `/etc/kubernetes/kubelet`：
 
-   ```
+   ```shell
    KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --manifest-url=<manifest-url>"
    ```
 
 <!--
-3. Restart the kubelet. On Fedora, you would run:
+1. Restart the kubelet. On Fedora, you would run:
 
-    ```shell
-    # Run this command on the node where the kubelet is running
-    systemctl restart kubelet
-    ```
+   ```shell
+   # Run this command on the node where the kubelet is running
+   systemctl restart kubelet
+   ```
 -->
 3. 重启 kubelet。在 Fedora 上，你将运行如下命令：
 
@@ -314,7 +324,8 @@ static-web   1/1     Running   0               2m
 
 {{< note >}}
 <!--
-Make sure the kubelet has permission to create the mirror Pod in the API server. If not, the creation request is rejected by the API server.
+Make sure the kubelet has permission to create the mirror Pod in the API server.
+If not, the creation request is rejected by the API server.
 -->
 要确保 kubelet 在 API 服务上有创建镜像 Pod 的权限。如果没有，创建请求会被 API 服务拒绝。
 {{< /note >}}
@@ -385,6 +396,11 @@ CONTAINER       IMAGE                                 CREATED           STATE   
 
 <!--
 Once you identify the right container, you can get the logs for that container with `crictl`:
+
+```shell
+# Run these commands on the node where the container is running
+crictl logs <container_id>
+```
 -->
 一旦你找到合适的容器，你就可以使用 `crictl` 获取该容器的日志。
 
@@ -400,7 +416,8 @@ crictl logs <container_id>
 ```
 
 <!--
-To find more about how to debug using `crictl`, please visit [_Debugging Kubernetes nodes with crictl_](https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/)
+To find more about how to debug using `crictl`, please visit
+[_Debugging Kubernetes nodes with crictl_](/docs/tasks/debug/debug-cluster/crictl/).
 -->
 若要找到如何使用 `crictl` 进行调试的更多信息，
 请访问[使用 crictl 对 Kubernetes 节点进行调试](/zh-cn/docs/tasks/debug/debug-cluster/crictl/)。
@@ -408,7 +425,9 @@ To find more about how to debug using `crictl`, please visit [_Debugging Kuberne
 <!--
 ## Dynamic addition and removal of static pods
 
-The running kubelet periodically scans the configured directory (`/etc/kubernetes/manifests` in our example) for changes and adds/removes Pods as files appear/disappear in this directory.
+The running kubelet periodically scans the configured directory
+(`/etc/kubernetes/manifests` in our example) for changes and
+adds/removes Pods as files appear/disappear in this directory.
 -->
 ## 动态增加和删除静态 Pod  {#dynamic-addition-and-removal-of-static-pods}
 
