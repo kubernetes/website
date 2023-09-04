@@ -87,7 +87,7 @@ If a Pod and its volume meet **all** of the following conditions, Kubernetes wil
 
    Without Kubernetes knowing at least the SELinux `level`, the container runtime will assign a random one _after_ the volumes are mounted. The container runtime will still relabel the volumes recursively in that case.
 -->
-3. Pod 必须在其 [Pod 安全上下文](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)中至少分配
+3. Pod 必须在其 [Pod 安全上下文](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)中至少设置
    `seLinuxOptions.level`，或者所有 Pod 容器必须在[安全上下文](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context-1)中对其进行设置。
    否则 Kubernetes 将从操作系统默认值（通常是 `system_u`、`system_r` 和 `container_t`）中读取默认的 `user`、`role` 和 `type`。
 
@@ -101,15 +101,16 @@ If a Pod and its volume meet **all** of the following conditions, Kubernetes wil
 
    If running two Pods with two different SELinux contexts and using different `subPaths` of the same volume is necessary in your deployments, please comment in the [KEP](https://github.com/kubernetes/enhancements/issues/1710) issue (or upvote any existing comment - it's best not to duplicate). Such pods may not run when the feature is extended to cover all volume access modes.
 -->
-4. 该卷必须是[访问模式](/zh-cn/docs/concepts/storage/persistent-volumes/#access-modes) `ReadWriteOncePod` 的持久卷。
+4. 存储卷必须是[访问模式](/zh-cn/docs/concepts/storage/persistent-volumes/#access-modes) 
+   为 `ReadWriteOncePod` 的持久卷。
 
-   这是最初实施的限制。如上所述，两个 Pod 可以具有不同的 SELinux 标签，但仍然使用相同的卷，
-   只要它们使用不同的 `subPath` 即可。当使用 SELinux 标签的**已挂载**卷时，此用例是不可能实现的，
-   因为整个卷已挂载，并且大多数文件系统不支持使用多个 SELinux 标签多次挂载单个卷。
+   这是最初的实现的限制。如上所述，两个 Pod 可以具有不同的 SELinux 标签，但仍然使用相同的卷，
+   只要它们使用不同的 `subPath` 即可。对于**已挂载的**带有 SELinux 标签的卷，此场景是无法支持的，
+   因为整个卷已挂载，并且大多数文件系统不支持使用不同的 SELinux 标签多次挂载同一个卷。
 
-   如果在部署中需要使用两个不同的 SELinux 上下文运行两个 Pod 并使用同一卷的不同 `subPath`，
+   如果在你的环境中需要使用两个不同的 SELinux 上下文运行两个 Pod 并使用同一卷的不同 `subPath`，
    请在 [KEP](https://github.com/kubernetes/enhancements/issues/1710) 问题中发表评论（或对任何现有评论进行投票 - 最好不要重复）。
-   当功能扩展到覆盖所有卷访问模式时，此类 Pod 可能无法运行。
+   当此特性扩展到覆盖所有卷访问模式时，这类 Pod 可能无法运行。
 
 <!--
 1. The volume plugin or the CSI driver responsible for the volume supports mounting with SELinux mount options.
@@ -138,18 +139,21 @@ If a Pod and its volume meet **all** of the following conditions, Kubernetes wil
 When all aforementioned conditions are met, kubelet will pass `-o context=<SELinux label>` mount option to the volume plugin or CSI driver. CSI driver vendors must ensure that this mount option is supported by their CSI driver and, if necessary, the CSI driver appends other mount options that are needed for `-o context` to work.
 -->
 当满足所有上述条件时，kubelet 会将 `-o context=<SELinux label>` 挂载选项传递给卷插件或 CSI 驱动程序。
-CSI 驱动程序供应商必须确保其 CSI 驱动程序支持此安装选项，并且如有必要，CSI 驱动程序会附加 `-o context` 工作所需的其他安装选项。
+CSI 驱动程序提供者必须确保其 CSI 驱动程序支持此安装选项，并且如有必要，CSI 驱动程序要附加
+`-o context` 所需的其他安装选项。
 
 <!--
 For example, NFS may need `-o context=<SELinux label>,nosharecache`, so each volume mounted from the same NFS server can have a different SELinux label value. Similarly, CIFS may need `-o context=<SELinux label>,nosharesock`.
 -->
-例如，NFS 可能需要 `-o context=<SELinux label>,nosharecache`，因此从同一 NFS 服务器挂载的每个卷可以具有不同的 SELinux 标签值。
+例如，NFS 可能需要 `-o context=<SELinux label>,nosharecache`，这样来自同一
+NFS 服务器的多个卷被挂载时可以具有不同的 SELinux 标签值。
 类似地，CIFS 可能需要 `-o context=<SELinux label>,nosharesock`。
 
 <!--
 It's up to the CSI driver vendor to test their CSI driver in a SELinux enabled environment before setting `seLinuxMount: true` in the CSIDriver instance.
 -->
-在 CSIDriver 实例中设置 `seLinuxMount: true` 之前，CSI 驱动程序供应商需要在启用 SELinux 的环境中测试其 CSI 驱动程序。
+在 CSIDriver 实例中设置 `seLinuxMount: true` 之前，CSI 驱动程序提供者需要在启用 SELinux
+的环境中测试其 CSI 驱动程序。
 
 <!--
 ## How can I learn more?
@@ -159,7 +163,7 @@ It's up to the CSI driver vendor to test their CSI driver in a SELinux enabled e
 <!--
 SELinux in containers: see excellent [visual SELinux guide](https://opensource.com/business/13/11/selinux-policy-guide) by Daniel J Walsh. Note that the guide is older than Kubernetes, it describes *Multi-Category Security* (MCS) mode using virtual machines as an example, however, a similar concept is used for containers.
 -->
-容器中的 SELinux：请参阅 Daniel J Walsh 撰写的优秀 [可视化 SELinux 指南（英文）](https://opensource.com/business/13/11/selinux-policy-guide)。
+容器中的 SELinux：请参阅 Daniel J Walsh 撰写的[可视化 SELinux 指南（英文）](https://opensource.com/business/13/11/selinux-policy-guide)。
 请注意，该指南早于 Kubernetes，它以虚拟机为例描述了**多类别安全**（MCS）模式，但是，类似的概念也适用于容器。
 
 <!--
