@@ -943,6 +943,9 @@ kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-env-var-valu
 That pod produces the following output from the `test-container` container:
 -->
 此 Pod 在 `test-container` 容器中产生以下输出:
+```shell
+kubectl logs dapi-test-pod
+```
 
 ```
 very charm
