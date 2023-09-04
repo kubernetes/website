@@ -83,7 +83,8 @@ For a reference to old feature gates that are removed, please refer to
 | `CSINodeExpandSecret` | `true` | Beta | 1.27 | |
 | `CSIVolumeHealth` | `false` | Alpha | 1.21 | |
 | `CloudControllerManagerWebhook` | false | Alpha | 1.27 | |
-| `CloudDualStackNodeIPs` | false | Alpha | 1.27 | |
+| `CloudDualStackNodeIPs` | false | Alpha | 1.27 | 1.28 |
+| `CloudDualStackNodeIPs` | true | Beta | 1.29 | |
 | `ClusterTrustBundle` | false | Alpha | 1.27 | |
 | `ComponentSLIs` | `false` | Alpha | 1.26 | 1.26 |
 | `ComponentSLIs` | `true` | Beta | 1.27 | |
