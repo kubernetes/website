@@ -122,15 +122,17 @@ resources:
 
 Each `resources` array item is a separate config and contains a complete configuration. The
 `resources.resources` field is an array of Kubernetes resource names (`resource` or `resource.group`)
-that should be encrypted like Secrets, ConfigMaps, or other resources. 
+that should be encrypted like Secrets, ConfigMaps, or other resources.
 
-If custom resources are added to `EncryptionConfiguration` and the cluster version is 1.26 or newer, 
-any newly created custom resources mentioned in the `EncryptionConfiguration` will be encrypted. 
+If custom resources are added to `EncryptionConfiguration` and the cluster version is 1.26 or newer,
+any newly created custom resources mentioned in the `EncryptionConfiguration` will be encrypted.
 Any custom resources that existed in etcd prior to that version and configuration will be unencrypted
 until they are next written to storage. This is the same behavior as built-in resources.
 See the [Ensure all secrets are encrypted](#ensure-all-secrets-are-encrypted) section.
 
 The `providers` array is an ordered list of the possible encryption providers to use for the APIs that you listed.
+Each provider supports multiple keys - the keys are tried in order for decryption, and if the provider
+is the first provider, the first key is used for encryption.
 
 Only one provider type may be specified per entry (`identity` or `aescbc` may be provided,
 but not both in the same item).
@@ -142,7 +144,7 @@ is returned which prevents clients from accessing that resource.
 `EncryptionConfiguration` supports the use of wildcards to specify the resources that should be encrypted.
 Use '`*.<group>`' to encrypt all resources within a group (for eg '`*.apps`' in above example) or '`*.*`'
 to encrypt all resources. '`*.`' can be used to encrypt all resource in the core group. '`*.*`' will
-encrypt all resources, even custom resources that are added after API server start. 
+encrypt all resources, even custom resources that are added after API server start.
 
 {{< note >}} Use of wildcards that overlap within the same resource list or across multiple entries are not allowed
 since part of the configuration would be ineffective. The `resources` list's processing order and precedence
@@ -303,7 +305,16 @@ retrieve the plaintext values, providing a higher level of security than locally
 
 ## Encrypting your data
 
-Create a new encryption config file:
+## Write an encryption configuration file
+
+{{< caution >}}
+The encryption configuration file may contain keys that can decrypt content in etcd.
+If the configuration file contains any key material, you must properly
+restrict permissions on all your control plane hosts so only the user
+who runs the kube-apiserver can read this configuration.
+{{< /caution >}}
+
+Create a new encryption configuration file. The contents should be similar to:
 
 ```yaml
 ---
