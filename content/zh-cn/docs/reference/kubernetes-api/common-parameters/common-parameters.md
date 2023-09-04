@@ -224,7 +224,7 @@ resourceVersionMatch 字段决定如何将 resourceVersion 应用于列表调用
 
 ## sendInitialEvents {#sendInitialEvents}
 
-<!-
+<!--
 `sendInitialEvents=true` may be set together with `watch=true`. In that case,
 the watch stream will begin with synthetic events to produce the current state of objects in the collection. 
 Once all such events have been sent, a synthetic "Bookmark" event  will be sent.

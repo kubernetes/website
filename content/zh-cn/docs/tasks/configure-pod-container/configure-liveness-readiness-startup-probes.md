@@ -102,7 +102,7 @@ Kubernetes 提供了存活探针来发现并处理这种情况。
 在本练习中，你会创建一个 Pod，其中运行一个基于 `registry.k8s.io/busybox` 镜像的容器。
 下面是这个 Pod 的配置文件。
 
-{{< codenew file="pods/probe/exec-liveness.yaml" >}}
+{{% code file="pods/probe/exec-liveness.yaml" %}}
 
 <!--
 In the configuration file, you can see that the Pod has a single `Container`.
@@ -229,7 +229,7 @@ file for a Pod that runs a container based on the `registry.k8s.io/liveness` ima
 另外一种类型的存活探测方式是使用 HTTP GET 请求。
 下面是一个 Pod 的配置文件，其中运行一个基于 `registry.k8s.io/liveness` 镜像的容器。
 
-{{< codenew file="pods/probe/http-liveness.yaml" >}}
+{{% code file="pods/probe/http-liveness.yaml" %}}
 
 <!--
 In the configuration file, you can see that the Pod has a single container.
@@ -325,7 +325,7 @@ can't it is considered a failure.
 使用这种配置时，kubelet 会尝试在指定端口和容器建立套接字链接。
 如果能建立连接，这个容器就被看作是健康的，如果不能则这个容器就被看作是有问题的。
 
-{{< codenew file="pods/probe/tcp-liveness-readiness.yaml" >}}
+{{% code file="pods/probe/tcp-liveness-readiness.yaml" %}}
 
 <!--
 As you can see, configuration for a TCP check is quite similar to an HTTP check.
@@ -371,7 +371,7 @@ kubectl describe pod goproxy
 -->
 ## 定义 gRPC 存活探针
 
-{{< feature-state for_k8s_version="v1.24" state="beta" >}}
+{{< feature-state for_k8s_version="v1.27" state="stable" >}}
 
 <!--
 If your application implements the
@@ -393,7 +393,7 @@ kubelet 可以配置为使用该协议来执行应用存活性检查。
 
 下面是一个示例清单：
 
-{{< codenew file="pods/probe/grpc-liveness.yaml" >}}
+{{% code file="pods/probe/grpc-liveness.yaml" %}}
 
 <!--
 To use a gRPC probe, `port` must be configured. If you want to distinguish probes of different types
@@ -852,7 +852,7 @@ to resolve it.
 -->
 ### 探针层面的 `terminationGracePeriodSeconds`
 
-{{< feature-state for_k8s_version="v1.27" state="stable" >}}
+{{< feature-state for_k8s_version="v1.28" state="stable" >}}
 
 <!--
 Prior to release 1.21, the Pod-level `terminationGracePeriodSeconds` was used
@@ -868,7 +868,7 @@ was set.
 
 <!--
 In 1.25 and above, users can specify a probe-level `terminationGracePeriodSeconds`
-as part of the probe specification. When both a pod- and probe-level 
+as part of the probe specification. When both a pod- and probe-level
 `terminationGracePeriodSeconds` are set, the kubelet will use the probe-level value.
 -->
 在 1.25 及以上版本中，用户可以指定一个探针层面的 `terminationGracePeriodSeconds`
@@ -880,13 +880,13 @@ as part of the probe specification. When both a pod- and probe-level
 Beginning in Kubernetes 1.25, the `ProbeTerminationGracePeriod` feature is enabled
 by default. For users choosing to disable this feature, please note the following:
 
-* The `ProbeTerminationGracePeriod` feature gate is only available on the API Server. 
+* The `ProbeTerminationGracePeriod` feature gate is only available on the API Server.
   The kubelet always honors the probe-level `terminationGracePeriodSeconds` field if
   it is present on a Pod.
 -->
 {{< note >}}
 从 Kubernetes 1.25 开始，默认启用 `ProbeTerminationGracePeriod` 特性。
-选择禁用此特性的用户，请注意以下事项:
+选择禁用此特性的用户，请注意以下事项：
 
 * `ProbeTerminationGracePeriod` 特性门控只能用在 API 服务器上。
   kubelet 始终优先选用探针级别 `terminationGracePeriodSeconds` 字段
@@ -914,7 +914,7 @@ by default. For users choosing to disable this feature, please note the followin
 <!--
 For example:
 -->
-例如:
+例如：
 
 ```yaml
 spec:

@@ -138,7 +138,7 @@ Here is a sample Job manifest that uses `Indexed` completion mode:
 
 这是一个使用 `Indexed` 完成模式的示例 Job 清单：
 
-{{< codenew language="yaml" file="application/job/indexed-job.yaml" >}}
+{{% code language="yaml" file="application/job/indexed-job.yaml" %}}
 
 <!-- 
 In the example above, you use the builtin `JOB_COMPLETION_INDEX` environment
@@ -169,7 +169,7 @@ like shown in the following example:
 [使用 Downward API 将注解值作为卷文件传递](/zh-cn/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/#store-pod-fields)，
 如下例所示：
 
-{{< codenew language="yaml" file="application/job/indexed-job-vol.yaml" >}}
+{{% code language="yaml" file="application/job/indexed-job-vol.yaml" %}}
 
 <!-- 
 ## Running the Job

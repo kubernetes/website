@@ -57,7 +57,7 @@ liveness probes to detect and remedy such situations.
 In this exercise, you create a Pod that runs a container based on the
 `registry.k8s.io/busybox` image. Here is the configuration file for the Pod:
 
-{{< codenew file="pods/probe/exec-liveness.yaml" >}}
+{{% code file="pods/probe/exec-liveness.yaml" %}}
 
 In the configuration file, you can see that the Pod has a single `Container`.
 The `periodSeconds` field specifies that the kubelet should perform a liveness
@@ -142,7 +142,7 @@ liveness-exec   1/1       Running   1          1m
 Another kind of liveness probe uses an HTTP GET request. Here is the configuration
 file for a Pod that runs a container based on the `registry.k8s.io/liveness` image.
 
-{{< codenew file="pods/probe/http-liveness.yaml" >}}
+{{% code file="pods/probe/http-liveness.yaml" %}}
 
 In the configuration file, you can see that the Pod has a single container.
 The `periodSeconds` field specifies that the kubelet should perform a liveness
@@ -203,7 +203,7 @@ kubelet will attempt to open a socket to your container on the specified port.
 If it can establish a connection, the container is considered healthy, if it
 can't it is considered a failure.
 
-{{< codenew file="pods/probe/tcp-liveness-readiness.yaml" >}}
+{{% code file="pods/probe/tcp-liveness-readiness.yaml" %}}
 
 As you can see, configuration for a TCP check is quite similar to an HTTP check.
 This example uses both readiness and liveness probes. The kubelet will send the
@@ -232,7 +232,7 @@ kubectl describe pod goproxy
 
 ## Define a gRPC liveness probe
 
-{{< feature-state for_k8s_version="v1.24" state="beta" >}}
+{{< feature-state for_k8s_version="v1.27" state="stable" >}}
 
 If your application implements the
 [gRPC Health Checking Protocol](https://github.com/grpc/grpc/blob/master/doc/health-checking.md),
@@ -241,7 +241,7 @@ Similarly you can configure readiness and startup probes.
 
 Here is an example manifest:
 
-{{< codenew file="pods/probe/grpc-liveness.yaml" >}}
+{{% code file="pods/probe/grpc-liveness.yaml" %}}
 
 To use a gRPC probe, `port` must be configured. If you want to distinguish probes of different types
 and probes for different features you can use the `service` field.
@@ -285,7 +285,7 @@ When migrating from grpc-health-probe to built-in probes, remember the following
   `127.0.0.1`. Be sure to configure your gRPC endpoint to listen on the Pod's IP address.
 - Built-in probes do not support any authentication parameters (like `-tls`).
 - There are no error codes for built-in probes. All errors are considered as probe failures.
-- If `ExecProbeTimeout` feature gate is set to `false`, grpc-health-probe does **not** 
+- If `ExecProbeTimeout` feature gate is set to `false`, grpc-health-probe does **not**
   respect the `timeoutSeconds` setting (which defaults to 1s), while built-in probe would fail on timeout.
 
 ## Use a named port
@@ -516,7 +516,7 @@ to resolve it.
 
 ### Probe-level `terminationGracePeriodSeconds`
 
-{{< feature-state for_k8s_version="v1.27" state="stable" >}}
+{{< feature-state for_k8s_version="v1.28" state="stable" >}}
 
 Prior to release 1.21, the Pod-level `terminationGracePeriodSeconds` was used
 for terminating a container that failed its liveness or startup probe. This
@@ -525,15 +525,15 @@ unusually long time to restart when a Pod-level `terminationGracePeriodSeconds`
 was set.
 
 In 1.25 and above, users can specify a probe-level `terminationGracePeriodSeconds`
-as part of the probe specification. When both a pod- and probe-level 
+as part of the probe specification. When both a pod- and probe-level
 `terminationGracePeriodSeconds` are set, the kubelet will use the probe-level value.
 
 {{< note >}}
 Beginning in Kubernetes 1.25, the `ProbeTerminationGracePeriod` feature is enabled
 by default. For users choosing to disable this feature, please note the following:
 
-* The `ProbeTerminationGracePeriod` feature gate is only available on the API Server. 
-  The kubelet always honors the probe-level `terminationGracePeriodSeconds` field if 
+* The `ProbeTerminationGracePeriod` feature gate is only available on the API Server.
+  The kubelet always honors the probe-level `terminationGracePeriodSeconds` field if
   it is present on a Pod.
 
 * If you have existing Pods where the `terminationGracePeriodSeconds` field is set and

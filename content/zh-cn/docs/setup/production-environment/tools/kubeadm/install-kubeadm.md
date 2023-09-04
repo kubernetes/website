@@ -288,7 +288,7 @@ For more information on version skews, see:
 2. 下载 Google Cloud 公开签名秘钥：
 
    ```shell
-   curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
+   curl -fsSL https://dl.k8s.io/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
    ```
 
 <!--

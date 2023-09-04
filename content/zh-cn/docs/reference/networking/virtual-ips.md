@@ -195,7 +195,7 @@ having traffic sent via kube-proxy to a Pod that's known to have failed.
 <!--
 {{< figure src="/images/docs/services-iptables-overview.svg" title="Virtual IP mechanism for Services, using iptables mode" class="diagram-medium" >}}
 -->
-{{< figure src="/images/docs/services-iptables-overview.svg" title="iptables 模式下 Service 的虚拟 IP 机制" class="diagram-medium" >}}
+{{< figure src="/zh-cn/docs/images/services-iptables-overview.svg" title="iptables 模式下 Service 的虚拟 IP 机制" class="diagram-medium" >}}
 
 <!--
 #### Example {#packet-processing-iptables}
@@ -255,7 +255,7 @@ kube-proxy [configuration file](/docs/reference/config-api/kube-proxy-config.v1a
 -->
 #### 优化 iptables 模式性能  {#optimizing-iptables-mode-performance}
 
-在大型集群（有数万个 Pod 和 Service）中，当 Service（或其 EndpointSlices）发生变化时
+在大型集群（有数万个 Pod 和 Service）中，当 Service（或其 EndpointSlice）发生变化时
 iptables 模式的 kube-proxy 在更新内核中的规则时可能要用较长时间。
 你可以通过（`kube-proxy --config <path>` 指定的）kube-proxy
 [配置文件](/zh-cn/docs/reference/config-api/kube-proxy-config.v1alpha1/)的
@@ -269,44 +269,6 @@ iptables:
   syncPeriod: 30s
 ...
 ```
-
-<!--
-##### Performance optimization for `iptables` mode {#minimize-iptables-restore}
--->
-##### 对 `iptables` 模式的性能优化 {#minimize-iptables-restore}
-
-{{< feature-state for_k8s_version="v1.27" state="beta" >}}
-
-<!--
-In Kubernetes {{< skew currentVersion >}} the kube-proxy defaults to a minimal approach
-to `iptables-restore` operations, only making updates where Services or EndpointSlices have
-actually changed. This is a performance optimization.
-The original implementation updated all the rules for all Services on every sync; this
-sometimes led to performance issues (update lag) in large clusters.
--->
-在 Kubernetes {{< skew currentVersion >}} 中，kube-proxy 默认采用最小方式进行 `iptables-restore` 操作，
-仅在 Service 或 EndpointSlice 实际发生变化的地方进行更新。这是一个性能优化。
-最初的实现在每次同步时都会更新所有服务的所有规则；这有时会导致大型集群出现性能问题（更新延迟）。
-
-<!--
-If you are not running kube-proxy from Kubernetes {{< skew currentVersion >}}, check
-the behavior and associated advice for the version that you are actually running.
--->
-如果你运行的不是 Kubernetes {{< skew currentVersion >}} 版本的 kube-proxy，
-请检查你实际运行的版本的行为和相关建议。
-
-<!--
-If you were previously overriding `minSyncPeriod`, you should try
-removing that override and letting kube-proxy use the default value
-(`1s`) or at least a smaller value than you were using before upgrading.
-You can select the legacy behavior by disabling the `MinimizeIPTablesRestore`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-(you should not need to).
--->
-如果你之前覆盖了 `minSyncPeriod`，你应该尝试删除该覆盖并让 kube-proxy 使用默认值（`1s`）或至少比升级前使用的值小。
-你可以通过禁用 `MinimizeIPTablesRestore`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来选择执行旧的行为
-（你应该不需要）。
 
 ##### `minSyncPeriod`
 
@@ -360,6 +322,39 @@ indicates an average time much larger than 1 second, then bumping up
 在大型集群中，可能需要将其设置为更大的值。
 （特别是，如果 kube-proxy 的 `sync_proxy_rules_duration_seconds` 指标表明平均时间远大于 1 秒，
 那么提高 `minSyncPeriod` 可能会使更新更有效率。）
+
+<!--
+##### Updating legacy `minSyncPeriod` configuration {#minimize-iptables-restore}
+-->
+##### 更新原有的 `minSyncPeriod` 配置   {#minimize-iptables-restore}
+
+<!--
+Older versions of kube-proxy updated all the rules for all Services on
+every sync; this led to performance issues (update lag) in large
+clusters, and the recommended solution was to set a larger
+`minSyncPeriod`. Since Kubernetes v1.28, the iptables mode of
+kube-proxy uses a more minimal approach, only making updates where
+Services or EndpointSlices have actually changed.
+-->
+旧版本的 kube-proxy 在每次同步时为所有 Service 更新规则；
+这在大型集群中会造成性能问题（更新延迟），建议的解决方案是设置较大的 `minSyncPeriod`。
+自 Kubernetes v1.28 开始，kube-proxy 的 iptables 模式采用了更精简的方法，
+只有在 Service 或 EndpointSlice 实际发生变化时才会进行更新。
+
+<!--
+If you were previously overriding `minSyncPeriod`, you should try
+removing that override and letting kube-proxy use the default value
+(`1s`) or at least a smaller value than you were using before upgrading.
+-->
+如果你之前覆盖了 `minSyncPeriod`，你应该尝试删除该覆盖并让 kube-proxy
+使用默认值（`1s`）或至少比升级前使用的值小。
+
+<!--
+If you are not running kube-proxy from Kubernetes {{< skew currentVersion >}}, check
+the behavior and associated advice for the version that you are actually running.
+-->
+如果你运行的不是 Kubernetes {{< skew currentVersion >}} 版本的 kube-proxy，
+请检查你实际运行的版本的行为和相关建议。
 
 ##### `syncPeriod`
 
@@ -462,7 +457,7 @@ falls back to running in iptables proxy mode.
 <!--
 {{< figure src="/images/docs/services-ipvs-overview.svg" title="Virtual IP address mechanism for Services, using IPVS mode" class="diagram-medium" >}}
 -->
-{{< figure src="/images/docs/services-ipvs-overview.svg" title="IPVS 模式下 Service 的虚拟 IP 地址机制" class="diagram-medium" >}}
+{{< figure src="/zh-cn/docs/images/services-ipvs-overview.svg" title="IPVS 模式下 Service 的虚拟 IP 地址机制" class="diagram-medium" >}}
 
 <!--
 ### `kernelspace` proxy mode {#proxy-mode-kernelspace}
@@ -795,7 +790,7 @@ relevant Service.
 -->
 ### 流向正终止的端点的流量  {#traffic-to-terminating-endpoints}
 
-{{< feature-state for_k8s_version="v1.26" state="beta" >}}
+{{< feature-state for_k8s_version="v1.28" state="stable" >}}
 
 <!--
 If the `ProxyTerminatingEndpoints`

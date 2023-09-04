@@ -120,13 +120,13 @@ Open up your browser to <http://localhost:1313> to view the website. As you make
 <!--
 ## Running the website locally using Hugo
 
-Make sure to install the Hugo extended version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L10) file.
+Make sure to install the Hugo extended version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L11) file.
 
 To build and test the site locally, run:
 -->
 ## 在本地使用 Hugo 来运行网站
 
-请确保安装的是 [`netlify.toml`](netlify.toml#L10) 文件中环境变量 `HUGO_VERSION` 所指定的
+请确保安装的是 [`netlify.toml`](netlify.toml#L11) 文件中环境变量 `HUGO_VERSION` 所指定的
 Hugo Extended 版本。
 
 若要在本地构造和测试网站，请运行：

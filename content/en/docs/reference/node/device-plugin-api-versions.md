@@ -1,7 +1,7 @@
 ---
 content_type: "reference"
 title: Kubelet Device Manager API Versions
-weight: 10
+weight: 50
 ---
 
 This page provides details of version compatibility between the Kubernetes

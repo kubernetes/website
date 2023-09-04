@@ -13,10 +13,46 @@ weight: 210
 -->
 
 <!-- overview -->
+
 <!--
-This page shows how to enable and configure encryption of secret data at rest.
+All of the APIs in Kubernetes that let you write persistent API resource data support
+at-rest encryption. For example, you can enable at-rest encryption for
+{{< glossary_tooltip text="Secrets" term_id="secret" >}}.
+This at-rest encryption is additional to any system-level encryption for the
+etcd cluster or for the filesystem(s) on hosts where you are running the
+kube-apiserver.
+
+This page shows how to enable and configure encryption of API data at rest.
 -->
-本文展示如何启用和配置静态 Secret 数据的加密。
+Kubernetes 中允许允许用户编辑的持久 API 资源数据的所有 API 都支持静态加密。
+例如，你可以启用静态加密 {{< glossary_tooltip text="Secret" term_id="secret" >}}。
+此静态加密是对 etcd 集群或运行 kube-apiserver 的主机上的文件系统的任何系统级加密的补充。
+
+本页展示如何启用和配置静态 API 数据加密。
+
+{{< note >}}
+<!--
+This task covers encryption for resource data stored using the
+{{< glossary_tooltip text="Kubernetes API" term_id="kubernetes-api" >}}. For example, you can
+encrypt Secret objects, including the key-value data they contain.
+-->
+此任务涵盖使用 {{< glossary_tooltip text="Kubernetes API" term_id="kubernetes-api" >}}
+存储的资源数据的加密。
+例如，你可以加密 Secret 对象，包括它们包含的键值数据。
+<!--
+If you want to encrypt data in filesystems that are mounted into containers, you instead need
+to either:
+
+- use a storage integration that provides encrypted
+  {{< glossary_tooltip text="volumes" term_id="volume" >}}
+- encrypt the data within your own application
+-->
+如果要加密安装到容器中的文件系统中的数据，则需要：
+
+- 使用提供加密 {{< glossary_tooltip text="volumes" term_id="volume" >}} 的存储集成
+- 在你自己的应用程序中加密数据
+
+{{< /note >}}
 
 ## {{% heading "prerequisites" %}}
 
@@ -313,7 +349,7 @@ Kubernetes 静态数据加密的 Provider
   </td>
   </tr>
   <tr>
-  <th rowspan="2" scope="row"><tt>kms</tt> v1</th>
+  <th rowspan="2" scope="row"><tt>kms</tt> v1 <em><!--(deprecated since Kubernetes v1.28)-->（自 Kubernetes 1.28 起弃用）</em></th>
   <td>
   <!-- Uses envelope encryption scheme with DEK per resource. -->
   针对每个资源使用不同的 DEK 来完成信封加密。
@@ -357,15 +393,22 @@ Kubernetes 静态数据加密的 Provider
     Data is encrypted by data encryption keys (DEKs) using AES-GCM; DEKs
     are encrypted by key encryption keys (KEKs) according to configuration
     in Key Management Service (KMS).
-    A new DEK is generated at API server startup, and is then reused for
-    encryption. The DEK is rotated whenever the KEK is rotated.
+    Kubernetes defaults to generating a new DEK at API server startup, which is then
+    reused for object encryption.
+    If you enable the <tt>KMSv2KDF</tt>
+    <a href="/docs/reference/command-line-tools-reference/feature-gates/">feature gate</a>,
+    Kubernetes instead generates a new DEK per encryption from a secret seed.
+    Whichever approach you configure, the DEK or seed is also rotated whenever the KEK is rotated.<br/>
     A good choice if using a third party tool for key management.
     Available in beta from Kubernetes v1.27.
     -->
     通过数据加密密钥（DEK）使用 AES-GCM 加密数据；
     DEK 根据 Key Management Service（KMS）中的配置通过密钥加密密钥（Key Encryption Keys，KEK）加密。
-    API 服务器启动时会生成一个新的 DEK，并重复使用它进行加密。
-    每当轮换 KEK 时，DEK 也会轮换。
+    Kubernetes 默认在 API 服务器启动时生成一个新的 DEK，
+    然后重复使用该密钥进行资源加密。然而，如果你使用 KMS v2 并且启用了 `KMSv2KDF`
+    [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
+    则 Kubernetes 将转为基于秘密的种子数为每次加密生成一个新的 DEK。
+    无论你配置哪种方法，每当 KEK 轮换时，DEK 或种子也会轮换。
     如果使用第三方工具进行密钥管理，会是一个不错的选择。
     从 `v1.27` 开始，该功能处于 Beta 阶段。
     <br />
@@ -445,7 +488,7 @@ Create a new encryption config file:
 <!--
 # See the following text for more details about the secret value
 # this fallback allows reading unencrypted secrets;
-# for example, during initial migratoin
+# for example, during initial migration
 -->
 ```yaml
 ---

@@ -36,7 +36,7 @@ weight: 10
 
 Puedes correr una aplicación creando un `deployment` de Kubernetes, y puedes describir el `deployment` en un fichero YAML. Por ejemplo, el siguiente fichero YAML describe un `deployment` que corre la imágen Docker nginx:1.7.9:
 
-{{< codenew file="application/deployment.yaml" >}}
+{{% codenew file="application/deployment.yaml" %}}
 
 
 1. Crea un `deployment` basado en el fichero YAML:
@@ -98,7 +98,7 @@ Puedes correr una aplicación creando un `deployment` de Kubernetes, y puedes de
 Puedes actualizar el `deployment` aplicando un nuevo fichero YAML. El siguiente fichero YAML
 especifica que el `deployment` debería ser actualizado para usar nginx 1.8.
 
-{{< codenew file="application/deployment-update.yaml" >}}
+{{% codenew file="application/deployment-update.yaml" %}}
 
 1. Aplica el nuevo fichero YAML:
 
@@ -113,7 +113,7 @@ especifica que el `deployment` debería ser actualizado para usar nginx 1.8.
 Puedes aumentar el número de pods en tu `deployment` aplicando un nuevo fichero YAML.
 El siguiente fichero YAML especifica un total de 4 `replicas`, lo que significa que el `deployment` debería tener cuatro pods:
 
-{{< codenew file="application/deployment-scale.yaml" >}}
+{{% codenew file="application/deployment-scale.yaml" %}}
 
 1. Aplica el nuevo fichero YAML:
 

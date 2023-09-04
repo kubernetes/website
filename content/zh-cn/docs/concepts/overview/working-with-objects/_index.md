@@ -157,7 +157,7 @@ Here's an example `.yaml` file that shows the required fields and object spec fo
 -->
 这里有一个 `.yaml` 示例文件，展示了 Kubernetes Deployment 的必需字段和对象 `spec`：
 
-{{< codenew file="application/deployment.yaml" >}}
+{{< code file="application/deployment.yaml" >}}
 
 <!--
 One way to create a Deployment using a `.yaml` file like the one above is to use the
@@ -234,6 +234,14 @@ detail the structure of that `.status` field, and its content for each different
 该模板描述了 StatefulSet 控制器为了满足 StatefulSet 规约而要创建的 Pod。
 不同类型的对象可以有不同的 `.status` 信息。API 参考页面给出了 `.status` 字段的详细结构，
 以及针对不同类型 API 对象的具体内容。
+
+{{< note >}}
+<!--
+See [Configuration Best Practices](/docs/concepts/configuration/overview/) for additional
+information on writing YAML configuration files.
+-->
+请查看[配置最佳实践](/zh-cn/docs/concepts/configuration/overview/)来获取有关编写 YAML 配置文件的更多信息。
+{{< /note >}}
 
 <!--
 ## Server side field validation

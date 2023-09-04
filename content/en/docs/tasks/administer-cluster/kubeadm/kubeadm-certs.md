@@ -167,7 +167,10 @@ kubeadm certs renew all
 ```
 
 {{< note >}}
-Clusters built with kubeadm often copy the `admin.conf` certificate into `$HOME/.kube/config`, as instructed in [Creating a cluster with kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/). On such a system, to update the contents of `$HOME/.kube/config` after renewing the `admin.conf` you must run the following commands:
+Clusters built with kubeadm often copy the `admin.conf` certificate into
+`$HOME/.kube/config`, as instructed in [Creating a cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
+On such a system, to update the contents of `$HOME/.kube/config`
+after renewing the `admin.conf`, you must run the following commands:
 
 ```shell
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config

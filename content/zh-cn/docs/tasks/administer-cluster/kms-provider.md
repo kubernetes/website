@@ -15,14 +15,16 @@ weight: 370
 
 <!--
 This page shows how to configure a Key Management Service (KMS) provider and plugin to enable secret data encryption.
-Currently there are two KMS API versions. New integrations that only need to support Kubernetes v1.27+ 
-should use KMS v2 as it offers significantly better performance characteristics than v1
-(note the `Caution` sections below for specific cases when KMS v2 must not be used.)
+In Kubernetes {{< skew currentVersion >}} there are two versions of KMS at-rest encryption.
+You should use KMS v2 if feasible because KMS v1 is deprecated (since Kubernetes v1.28).
+However, you should also read and observe the **Caution** notices in this page that highlight specific
+cases when you must not use KMS v2.  KMS v2 offers significantly better performance characteristics than KMS v1.
 -->
 本页展示了如何配置密钥管理服务（Key Management Service，KMS）驱动和插件以启用 Secret 数据加密。
-目前有两个 KMS API 版本。如果是只需要支持 Kubernetes v1.27+ 的新场景，应使用 KMS v2，
-因为 KMS v2 相比 KMS v1 具有显著更佳的性能特征。
-（请注意，下文的“注意”部分说明了不得使用 KMS v2 的特殊场景。）
+在 Kubernetes {{< skew currentVersion >}} 中，存在两个版本的 KMS 静态加密方式。
+如果可行的话，建议使用 KMS v2，因为（自 Kubernetes v1.28 起）KMS v1 已经被弃用。
+然而，在某些特殊情况下没办法使用 KMS v2，你应阅读和关注本页中强调的 **注意** 事项。
+KMS v2 提供了比 KMS v1 明显更好的性能特征。
 
 ## {{% heading "prerequisites" %}}
 
@@ -30,24 +32,29 @@ should use KMS v2 as it offers significantly better performance characteristics 
 
 <!--
 The version of Kubernetes that you need depends on which KMS API version
-you have selected.
+you have selected.  Kubernetes recommends using KMS v2.
 
-- If you selected KMS API v1, any supported Kubernetes version will work fine.
 - If you selected KMS API v2, you should use Kubernetes v{{< skew currentVersion >}}
   (if you are running a different version of Kubernetes that also supports the v2 KMS
   API, switch to the documentation for that version of Kubernetes).
+- If you selected KMS API v1 to support clusters prior to version v1.27
+  or if you have a legacy KMS plugin that only supports KMS v1, 
+  any supported Kubernetes version will work.  This API is deprecated as of Kubernetes v1.28.
+  Kubernetes does not recommend the use of this API.
 -->
-你所需要的 Kubernetes 版本取决于你已选择的 KMS API 版本。
+你所需要的 Kubernetes 版本取决于你已选择的 KMS API 版本。Kubernetes 推荐使用 KMS v2。
 
-- 如果你选择了 KMS API v1，所有受支持的 Kubernetes 版本都可以正常工作。
 - 如果你选择了 KMS API v2，则应使用 Kubernetes v{{< skew currentVersion >}}
   （如果你正在运行也支持 KMS API v2 的其他 Kubernetes 版本，需查阅该 Kubernetes 版本的文档）。
+- 如果你选择了 KMS API v1 来支持早于 v1.27 版本的集群，或者你有一个仅支持 KMS v1 的旧版 KMS 插件，
+  那么任何受支持的 Kubernetes 版本都可以良好工作。此 API 自 Kubernetes v1.28 起被弃用。
+  Kubernetes 不推荐使用此 API。
 
 {{< version-check >}}
 
 ### KMS v1
 
-{{< feature-state for_k8s_version="v1.12" state="beta" >}}
+{{< feature-state for_k8s_version="v1.28" state="deprecated" >}}
 
 <!--
 * Kubernetes version 1.10.0 or later is required
@@ -64,11 +71,19 @@ you have selected.
 <!--
 * For version 1.25 and 1.26, enabling the feature via kube-apiserver feature gate is required.
 Set `--feature-gates=KMSv2=true` to configure a KMS v2 provider.
+ For environments where all API servers are running version 1.28 or later, and you do not require the ability
+ to downgrade to Kubernetes v1.27, you can enable the `KMSv2KDF` feature gate (a beta feature) for more
+ robust data encryption key generation. The Kubernetes project recommends enabling KMS v2 KDF if those
+ preconditions are met.
 
 * Your cluster must use etcd v3 or later
 -->
 * 对于 Kubernetes 1.25 和 1.26 版本，需要通过 kube-apiserver 特性门控启用此特性。
   设置 `--feature-gates=KMSv2=true` 以配置 KMS v2 驱动。
+  对于所有 API 服务器正在运行 1.28 或更高的版本并且你不需要降级到 Kubernetes v1.27 的环境，
+  你可以启用 `KMSv2KDF` 特性门控（Beta 特性）以生成更稳健的数据加密密钥。
+  如果这些前提条件均已满足，则 Kubernetes 项目建议启用 KMS v2
+  密钥派生函数（Key Derivation Function, KDF）。
 
 * 你的集群必须使用 etcd v3 或更高版本。
 
@@ -80,6 +95,15 @@ enabled will result in data loss.
 -->
 KMS v2 API 和实现在 v1.25 的 Alpha 版本和 v1.27 的 Beta 版本之间以不兼容的方式进行了更改。
 如果尝试从启用了 Alpha 特性的旧版本进行升级将导致数据丢失。
+
+---
+
+<!--
+Running mixed API server versions with some servers at v1.27, and others at v1.28 _with the
+`KMSv2KDF` feature gate enabled_  is **not supported** - and is likely to result in data loss.
+-->
+不支持在启用 `KMSv2KDF` 特性门控的情况下运行一些服务器为 v1.27 而另一些服务器为 v1.28 的混合 API 服务器版本，
+这可能导致数据丢失。
 {{< /caution >}}
 
 <!-- steps -->
@@ -88,31 +112,58 @@ KMS v2 API 和实现在 v1.25 的 Alpha 版本和 v1.27 的 Beta 版本之间以
 The KMS encryption provider uses an envelope encryption scheme to encrypt data in etcd.
 The data is encrypted using a data encryption key (DEK).
 The DEKs are encrypted with a key encryption key (KEK) that is stored and managed in a remote KMS.
+
 With KMS v1, a new DEK is generated for each encryption.
-With KMS v2, a new DEK is generated on server startup and when the KMS plugin informs the API server
-that a KEK rotation has occurred (see `Understanding key_id and Key Rotation` section below).
+-->
+KMS 加密驱动使用封套加密模型来加密 etcd 中的数据。数据使用数据加密密钥（DEK）加密。
+这些 DEK 经一个密钥加密密钥（KEK）加密后在一个远端的 KMS 中存储和管理。
+
+对于 KMS v1，每次加密将生成新的 DEK。
+
+<!--
+With KMS v2, there are two ways for the API server to generate a DEK.
+Kubernetes defaults to generating a new DEK at API server startup, which is then reused
+for resource encryption. However, if you use KMS v2 _and_ enable the `KMSv2KDF`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/), then
+Kubernetes instead generates a new DEK **per encryption**: the API server uses a
+_key derivation function_ to generate single use data encryption keys from a secret seed
+combined with some random data.
+Whichever approach you configure, the DEK or seed is also rotated whenever the KEK is rotated
+(see `Understanding key_id and Key Rotation` section below for more details).
+-->
+对于 KMS v2，API 服务器生成 DEK 有两种方式。
+Kubernetes 默认在 API 服务器启动时生成一个新的 DEK（数据加密密钥），
+然后重复使用该密钥进行资源加密。然而，如果你使用 KMS v2 并且启用了 `KMSv2KDF`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
+则 Kubernetes 将转为为每次加密生成一个新的 DEK：API 服务器使用**密钥派生函数**根据
+秘密的种子数结合一些随机数据生成一次性的数据加密密钥。
+无论你配置哪种方法，DEK 或种子也会在 KEK 轮换时进行轮换
+（有关更多详细信息，请参阅下面的“了解 key_id 和密钥轮换”章节）。
+
+<!--
 The KMS provider uses gRPC to communicate with a specific KMS plugin over a UNIX domain socket.
 The KMS plugin, which is implemented as a gRPC server and deployed on the same host(s)
 as the Kubernetes control plane, is responsible for all communication with the remote KMS.
 -->
-KMS 加密驱动使用封套加密模型来加密 etcd 中的数据。数据使用数据加密密钥（DEK）加密。
-这些 DEK 经一个密钥加密密钥（KEK）加密后在一个远端的 KMS 中存储和管理。
-对于 KMS v1，每次加密将生成新的 DEK。对于 KMS v2，在服务器启动和 KMS 插件通知 API
-服务器已出现 KEK 轮换时生成新的 DEK。（参见以下“了解 key_id 和密钥轮换”章节）。
 KMS 驱动使用 gRPC 通过 UNIX 域套接字与一个特定的 KMS 插件通信。
 这个 KMS 插件作为一个 gRPC 服务器被部署在 Kubernetes 控制平面的相同主机上，负责与远端 KMS 的通信。
 
 {{< caution >}}
 <!--
-If you are running virtual machine (VM) based nodes that leverage VM state store with this feature, you must not use KMS v2.
+If you are running virtual machine (VM) based nodes that leverage VM state store with this feature,
+using KMS v2 is **insecure** and an information security risk unless you also explicitly enable
+the `KMSv2KDF`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 
 With KMS v2, the API server uses AES-GCM with a 12 byte nonce (8 byte atomic counter and 4 bytes random data) for encryption. 
 The following issues could occur if the VM is saved and restored:
 -->
-如果你正在运行基于虚拟机 (VM) 的节点并利用此特性使用 VM 状态存储，则不得使用 KMS v2。
+如果你正在运行基于虚机的节点并使用虚机状态存储支持本特性，则使用 KMS v2 是**不安全的**，
+且存在信息安全风险，除非你还显式启用了 `KMSv2KDF`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 
 使用 KMS v2 时，API 服务器使用带有 12 字节随机数（8 字节原子计数器和 4 字节随机数据）
-的 AES-GCM 进行加密。如果保存并恢复 VM，则可能会出现以下问题：
+的 AES-GCM 进行加密。如果保存并恢复虚机，则可能会出现以下问题：
 
 <!--
 1. The counter value may be lost or corrupted if the VM is saved in an inconsistent state or restored improperly. 
@@ -121,15 +172,28 @@ The following issues could occur if the VM is saved and restored:
 2. If the VM is restored to a previous state, the counter value may be set back to its previous value, 
    resulting in the same nonce being used again.
 -->
-1. 如果 VM 在不一致的状态下保存或恢复不当，则可能会丢失或损坏计数器值。
+1. 如果虚机在不一致的状态下保存或恢复不当，则可能会丢失或损坏计数器值。
    这可能导致相同的计数器值被用了两次，从而造成两个不同的消息使用相同的随机数。
-2. 如果将 VM 还原到先前的状态，则计数器值可能会被设置回其先前的值，导致再次使用相同的随机数。
+2. 如果将虚机还原到先前的状态，则计数器值可能会被设置回其先前的值，导致再次使用相同的随机数。
 
 <!--
 Although both of these cases are partially mitigated by the 4 byte random nonce, this can compromise 
 the security of the encryption.
 -->
 尽管这两种情况都通过 4 字节随机数进行了部分缓解，但这可能会损害加密的安全性。
+
+<!--
+If you have enabled the `KMSv2KDF`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) _and_ are using KMS v2
+(not KMS v1), the API server generates single use data encryption keys from a secret seed.
+This eliminates the need for a counter based nonce while avoiding nonce collision concerns.
+It also removes any specific concerns with using KMS v2 and VM state store.
+-->
+如果你已启用了 `KMSv2KDF`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
+并且正在使用 KMS v2（而不是 KMS v1），API 服务器会根据秘密的种子数生成一次性的数据加密密钥。
+这就不再需要使用基于计数器的随机数 (nonce)，同时避免了随机数冲突问题。
+这样还消除了使用 KMS v2 和虚机状态存储的特定问题。
 {{< /caution >}}
 
 <!--
@@ -194,12 +258,12 @@ See [Understanding the encryption at rest configuration.](/docs/tasks/administer
 
 To implement a KMS plugin, you can develop a new plugin gRPC server or enable a KMS plugin
 already provided by your cloud provider.
-You then integrate the plugin with the remote KMS and deploy it on the Kubernetes master.
+You then integrate the plugin with the remote KMS and deploy it on the Kubernetes control plane.
 -->
 ## 实现 KMS 插件   {#implementing-a-kms-plugin}
 
 为实现一个 KMS 插件，你可以开发一个新的插件 gRPC 服务器或启用一个由你的云服务驱动提供的 KMS 插件。
-你可以将这个插件与远程 KMS 集成，并把它部署到 Kubernetes 的主服务器上。
+你可以将这个插件与远程 KMS 集成，并把它部署到 Kubernetes 控制平面上。
 
 <!--
 ### Enabling the KMS supported by your cloud provider 
@@ -433,9 +497,10 @@ Then use the functions and data structures in the stub file to develop the serve
 
   {{< caution >}}  
   <!--
-  Because you don't control the number of writes performed with the DEK, we recommend rotating the KEK at least every 90 days.
+  Because you don't control the number of writes performed with the DEK, 
+  the Kubernetes project recommends rotating the KEK at least every 90 days.
   -->
-  因为你未控制使用 DEK 执行的写入次数，所以建议至少每 90 天轮换一次 KEK。
+  因为你未控制使用 DEK 执行的写入次数，所以 Kubernetes 项目建议至少每 90 天轮换一次 KEK。
   {{< /caution >}}
 
 <!--
@@ -479,11 +544,11 @@ KMS 插件可以用额外的元数据对密文进行编码，这些元数据是�
 <!--
 ### Deploying the KMS plugin
 
-Ensure that the KMS plugin runs on the same host(s) as the Kubernetes master(s).
+Ensure that the KMS plugin runs on the same host(s) as the Kubernetes API server(s).
 -->
 ### 部署 KMS 插件   {#deploying-the-kms-plugin}
 
-确保 KMS 插件与 Kubernetes 主服务器运行在同一主机上。
+确保 KMS 插件与 Kubernetes API 服务器运行在同一主机上。
 
 <!--
 ## Encrypting your data with the KMS provider

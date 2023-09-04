@@ -104,7 +104,7 @@ For example: to resolve `foo.local`, `bar.local` to `127.0.0.1` and `foo.remote`
 将 `foo.remote`、 `bar.remote` 解析为 `10.1.2.3`，你可以在
 `.spec.hostAliases` 下为 Pod 配置 HostAliases。
 
-{{< codenew file="service/networking/hostaliases-pod.yaml" >}}
+{{% code file="service/networking/hostaliases-pod.yaml" %}}
 
 <!--
 You can start a Pod with that configuration by running:
@@ -195,4 +195,3 @@ those changes are lost when the container exits.
 
 如果你对 hosts 文件做了手工修改，这些修改都会在容器退出时丢失。
 {{< /caution >}}
-

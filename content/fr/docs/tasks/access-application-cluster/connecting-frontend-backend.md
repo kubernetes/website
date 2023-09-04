@@ -33,7 +33,7 @@ Si votre environnement ne prend pas en charge cette fonction, vous pouvez utilis
 Le backend est un simple microservice de salutations.
 Voici le fichier de configuration pour le Deployment backend :
 
-{{< codenew file="service/access/backend-deployment.yaml" >}}
+{{% codenew file="service/access/backend-deployment.yaml" %}}
 
 Créez le Deployment backend :
 
@@ -91,7 +91,7 @@ Un Service utilise des {{< glossary_tooltip text="sélecteurs" term_id="selector
 
 Tout d'abord, explorez le fichier de configuration du Service :
 
-{{< codenew file="service/access/backend-service.yaml" >}}
+{{% codenew file="service/access/backend-service.yaml" %}}
 
 Dans le fichier de configuration, vous pouvez voir que le Service, 
 nommé `hello`, achemine le trafic vers les Pods ayant les labels `app: hello` et `tier: backend`.
@@ -120,16 +120,16 @@ Les Pods du frontend Deployment exécutent une image nginx
 configurée pour acheminer les requêtes vers le Service backend `hello`. 
 Voici le fichier de configuration nginx :
 
-{{< codenew file="service/access/frontend-nginx.conf" >}}
+{{% codenew file="service/access/frontend-nginx.conf" %}}
 
 Comme pour le backend, le frontend dispose d'un Deployment et d'un Service. 
 Une différence importante à noter entre les services backend et frontend est que 
 le Service frontend est configuré avec un `type: LoadBalancer`, ce qui signifie que le Service utilise 
 un équilibreur de charge provisionné par votre fournisseur de cloud et sera accessible depuis l'extérieur du cluster.
 
-{{< codenew file="service/access/frontend-service.yaml" >}}
+{{% codenew file="service/access/frontend-service.yaml" %}}
 
-{{< codenew file="service/access/frontend-deployment.yaml" >}}
+{{% codenew file="service/access/frontend-deployment.yaml" %}}
 
 Créez le Deployment et le Service frontend :
 

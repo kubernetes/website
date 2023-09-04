@@ -164,7 +164,7 @@ through which the Pod has or has not passed. Kubelet manages the following
 PodConditions:
 
 * `PodScheduled`: the Pod has been scheduled to a node.
-* `PodHasNetwork`: (alpha feature; must be [enabled explicitly](#pod-has-network)) the
+* `PodReadyToStartContainers`: (alpha feature; must be [enabled explicitly](#pod-has-network)) the
   Pod sandbox has been successfully created and networking configured.
 * `ContainersReady`: all containers in the Pod are ready.
 * `Initialized`: all [init containers](/docs/concepts/workloads/pods/init-containers/)
@@ -244,15 +244,19 @@ When a Pod's containers are Ready but at least one custom condition is missing o
 
 {{< feature-state for_k8s_version="v1.25" state="alpha" >}}
 
+{{< note >}}
+This condition was renamed from PodHasNetwork to PodReadyToStartContainers.
+{{< /note >}}
+
 After a Pod gets scheduled on a node, it needs to be admitted by the Kubelet and
 have any volumes mounted. Once these phases are complete, the Kubelet works with
 a container runtime (using {{< glossary_tooltip term_id="cri" >}}) to set up a
-runtime sandbox and configure networking for the Pod. If the `PodHasNetworkCondition`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled,
-Kubelet reports whether a Pod has reached this initialization milestone through
-the `PodHasNetwork` condition in the `status.conditions` field of a Pod.
+runtime sandbox and configure networking for the Pod. If the
+`PodReadyToStartContainersCondition` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled,
+Kubelet reports whether a pod has reached this initialization milestone through
+the `PodReadyToStartContainers` condition in the `status.conditions` field of a Pod.
 
-The `PodHasNetwork` condition is set to `False` by the Kubelet when it detects a
+The `PodReadyToStartContainers` condition is set to `False` by the Kubelet when it detects a
 Pod does not have a runtime sandbox with networking configured. This occurs in
 the following scenarios:
 
@@ -264,10 +268,10 @@ the following scenarios:
     sandbox virtual machine rebooting, which then requires creating a new sandbox and
     fresh container network configuration.
 
-The `PodHasNetwork` condition is set to `True` by the kubelet after the
+The `PodReadyToStartContainers` condition is set to `True` by the kubelet after the
 successful completion of sandbox creation and network configuration for the Pod
 by the runtime plugin. The kubelet can start pulling container images and create
-containers after `PodHasNetwork` condition has been set to `True`.
+containers after `PodReadyToStartContainers` condition has been set to `True`.
 
 For a Pod with init containers, the kubelet sets the `Initialized` condition to
 `True` after the init containers have successfully completed (which happens
@@ -431,13 +435,12 @@ before the Pod is allowed to be forcefully killed. With that forceful shutdown t
 place, the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} attempts graceful
 shutdown.
 
-Typically, the container runtime sends a TERM signal to the main process in each
-container. Many container runtimes respect the `STOPSIGNAL` value defined in the container
-image and send this instead of TERM.
-Once the grace period has expired, the KILL signal is sent to any remaining processes, and the Pod
-is then deleted from the {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}.
-If the kubelet or the container runtime's management service is restarted while waiting for
-processes to terminate, the cluster retries from the start including the full original grace period.
+Typically, with this graceful termination of the pod, kubelet makes requests to the container runtime to attempt to stop the containers in the pod by first sending a TERM (aka. SIGTERM) signal, with a grace period timeout, to the main process in each container. The requests to stop the containers are processed by the container runtime asynchronously. There is no guarantee to the order of processing for these requests. Many container runtimes respect the `STOPSIGNAL` value defined in the container image and, if different, send the container image configured STOPSIGNAL instead of TERM.
+Once the grace period has expired, the KILL signal is sent to any remaining
+processes, and the Pod is then deleted from the
+{{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}. If the kubelet or the
+container runtime's management service is restarted while waiting for processes to terminate, the
+cluster retries from the start including the full original grace period.
 
 An example flow:
 

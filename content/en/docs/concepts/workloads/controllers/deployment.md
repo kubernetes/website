@@ -40,13 +40,9 @@ The following are typical use cases for Deployments:
 
 ## Creating a Deployment
 
-Before creating a Deployment define an 
-[environment variable](/docs/tasks/inject-data-application/define-environment-variable-container/#define-an-environment-variable-for-a-container)
-for a container. 
-
 The following is an example of a Deployment. It creates a ReplicaSet to bring up three `nginx` Pods:
 
-{{< codenew file="controllers/nginx-deployment.yaml" >}}
+{{% code file="controllers/nginx-deployment.yaml" %}}
 
 In this example:
 
@@ -409,7 +405,9 @@ rolled back.
 * Press Ctrl-C to stop the above rollout status watch. For more information on stuck rollouts,
 [read more here](#deployment-status).
 
-* You see that the number of old replicas (`nginx-deployment-1564180365` and `nginx-deployment-2035384211`) is 2, and new replicas (nginx-deployment-3066724191) is 1.
+* You see that the number of old replicas (adding the replica count from
+  `nginx-deployment-1564180365` and `nginx-deployment-2035384211`) is 3, and the number of
+  new replicas (from `nginx-deployment-3066724191`) is 1.
 
   ```shell
   kubectl get rs

@@ -504,7 +504,7 @@ Agora que você aprendeu a definir ConfigMaps, você pode avançar na próxima s
 
 2. Atribua o valor `special.how` definido no ConfigMap para a variável de ambiente `SPECIAL_LEVEL_KEY` na especificação do pod.
 
-   {{< codenew file="pods/pod-single-configmap-env-variable.yaml" >}}
+   {{% codenew file="pods/pod-single-configmap-env-variable.yaml" %}}
 
    Crie o Pod:
 
@@ -518,7 +518,7 @@ Agora que você aprendeu a definir ConfigMaps, você pode avançar na próxima s
 
 * Como no exemplo anterior, crie primeiro o ConfigMap.
 
-  {{< codenew file="configmap/configmaps.yaml" >}}
+  {{% codenew file="configmap/configmaps.yaml" %}}
 
   Crie o ConfigMap:
 
@@ -528,7 +528,7 @@ Agora que você aprendeu a definir ConfigMaps, você pode avançar na próxima s
 
 * Defina as variáveis de ambiente na especificação do Pod.
 
-  {{< codenew file="pods/pod-multiple-configmap-env-variable.yaml" >}}
+  {{% codenew file="pods/pod-multiple-configmap-env-variable.yaml" %}}
 
   Crie o Pod:
 
@@ -546,7 +546,7 @@ Esta funcionalidade está disponível em Kubernetes v1.6 e posterior.
 
 * Criando um ConfigMap contendo vários pares de chave-valor.
 
-  {{< codenew file="configmap/configmap-multikeys.yaml" >}}
+  {{% codenew file="configmap/configmap-multikeys.yaml" %}}
 
   Crie o ConfigMap:
 
@@ -556,7 +556,7 @@ Esta funcionalidade está disponível em Kubernetes v1.6 e posterior.
 
 * Use `envFrom` para definir todos os dados do ConfigMap como variáveis de ambiente do contêiner. A chave do ConfigMap torna-se o nome da variável de ambiente no Pod.
 
-  {{< codenew file="pods/pod-configmap-envFrom.yaml" >}}
+  {{% codenew file="pods/pod-configmap-envFrom.yaml" %}}
 
   Crie o Pod:
 
@@ -573,7 +573,7 @@ Você pode usar variáveis de ambiente definidas no ConfigMap no `command` e `ar
 
 Por exemplo, a seguinte especificação de Pod
 
-{{< codenew file="pods/pod-configmap-env-var-valueFrom.yaml" >}}
+{{% codenew file="pods/pod-configmap-env-var-valueFrom.yaml" %}}
 
 criado pela execução
 
@@ -593,7 +593,7 @@ Conforme explicado [Criando um ConfigMap a partir de arquivos](#create-configmap
 
 Os exemplos nesta seção se referem a um ConfigMap de nome' special-config, mostrado abaixo.
 
-{{< codenew file="configmap/configmap-multikeys.yaml" >}}
+{{% codenew file="configmap/configmap-multikeys.yaml" %}}
 
 Crie o ConfigMap:
 
@@ -607,7 +607,7 @@ Adicione o nome do ConfigMap debaixo da seção `volumes` das especificações d
 Isso adiciona os dados do ConfigMap ao diretório especificado como `volumeMounts.mountPath` (nesse caso, `/etc/config`).
 A seção `command` lista arquivos do diretório com nomes que correspondem às chaves no ConfigMap.
 
-{{< codenew file="pods/pod-configmap-volume.yaml" >}}
+{{% codenew file="pods/pod-configmap-volume.yaml" %}}
 
 Crie o Pod:
 
@@ -635,7 +635,7 @@ Os dados de texto são expostos como arquivos, usando a codificação de caracte
 Use o campo `path` para especificar o caminho de arquivo desejado para ítens específicos do ConfigMap.
 Nesse caso, o item `SPECIAL_LEVEL` será montado no volume `config-volume` em `/etc/config/keys`.
 
-{{< codenew file="pods/pod-configmap-volume-specific-key.yaml" >}}
+{{% codenew file="pods/pod-configmap-volume-specific-key.yaml" %}}
 
 Crie o Pod:
 

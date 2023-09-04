@@ -174,3 +174,23 @@ announcements:
     k8s.gcr.io image registry is gradually being redirected to registry.k8s.io (since Monday March 20th).<br>
     All images available in k8s.gcr.io are available at registry.k8s.io.</br>
     Please read our [announcement](/blog/2023/03/10/image-registry-redirect/) for more details.
+
+- name: Freezing the legacy package repositories - Before
+  startTime: 2023-09-01T00:00:00
+  endTime: 2023-09-13T19:59:59
+  style: "background: #d95e00"
+  title: Changes to the location of Linux packages for Kubernetes
+  message: |
+    The legacy Linux package repositories (`apt.kubernetes.io` and `yum.kubernetes.io`)<br/>
+    have been deprecated and will be frozen starting from September 13, 2023.<br/>
+    Please read our [announcement](/blog/2023/08/31/legacy-package-repository-deprecation/) for more details.
+
+- name: Freezing the legacy package repositories - After
+  startTime: 2023-09-13T20:00:00
+  endTime: 2023-10-01T00:00:00
+  style: "background: #d95e00"
+  title: Changes to the location of Linux packages for Kubernetes
+  message: |
+    The legacy Linux package repositories (`apt.kubernetes.io` and `yum.kubernetes.io`)<br/>
+    have been frozen starting from September 13, 2023.<br/>
+    Please read our [announcement](/blog/2023/08/31/legacy-package-repository-deprecation/) for more details.
