@@ -384,10 +384,6 @@ will continue working.
 
 {{< /note >}}
 
-Support for the `PodResourcesLister service` requires `KubeletPodResources`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
-It is enabled by default starting with Kubernetes 1.15 and is v1 since Kubernetes 1.20.
-
 ### `Get` gRPC endpoint {#grpc-endpoint-get}
 
 {{< feature-state state="alpha" for_k8s_version="v1.27" >}}
