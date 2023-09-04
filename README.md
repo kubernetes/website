@@ -61,13 +61,15 @@ Make sure to install the Hugo extended version specified by the `HUGO_VERSION` e
 To build and test the site locally, run:
 
 ```bash
-# Install dependencies, for Linux and MacOS
-npm ci
+# For Linux, MacOS etc.
+
+npm ci # Install dependencies
 make serve
 ```
-```bash
-# Install dependencies, for Windows
-npm ci
+```powershell
+# Windows (PowerShell)
+
+npm ci # Install dependencies
 hugo.exe server --buildFuture --environment development
 ```
 
