@@ -120,7 +120,8 @@ To set the network location of a kube-apiserver that peers will use to proxy req
 `--peer-advertise-ip` and `--peer-advertise-port` command line arguments to kube-apiserver or specify
 these fields in the API server configuration file.
 If these flags are unspecified, peers will use the value from either `--advertise-address` or
-`--bind-address` command line argument to the kube-apiserver. If those too, are unset, the host's default interface is used.
+`--bind-address` command line argument to the kube-apiserver.
+If those too, are unset, the host's default interface is used.
 -->
 ### 对等 API 服务器连接的配置   {#config-for-peer-apiserver-connectivity}
 
@@ -160,7 +161,8 @@ loads a special filter that does the following:
 ### How it works under the hood
 
 When an API Server receives a resource request, it first checks which API servers can
-serve the requested resource. This check happens using the internal `StorageVersion` API.
+serve the requested resource. This check happens using the internal
+[`StorageVersion` API](/docs/reference/generated/kubernetes-api/v{{< skew currentVersion >}}/#storageversioncondition-v1alpha1-internal-apiserver-k8s-io).
 
 * If the resource is known to the API server that received the request
   (for example, `GET /api/v1/pods/some-pod`), the request is handled locally.
@@ -168,7 +170,9 @@ serve the requested resource. This check happens using the internal `StorageVers
 ### 内部工作原理   {#how-it-works-under-the-hood}
 
 当 API 服务器收到一个资源请求时，它首先检查哪些 API 服务器可以提供所请求的资源。
-这个检查是使用内部的 `StorageVersion` API 进行的。
+这个检查是使用内部的
+[`StorageVersion` API](/zh-cn/docs/reference/generated/kubernetes-api/v{{< skew currentVersion >}}/#storageversioncondition-v1alpha1-internal-apiserver-k8s-io)
+进行的。
 
 * 如果资源被收到请求（例如 `GET /api/v1/pods/some-pod`）的 API 服务器所了解，则请求会在本地处理。
 
@@ -190,20 +194,24 @@ serve the requested resource. This check happens using the internal `StorageVers
   (`api/v1/batch` in this case) using the information in the fetched `StorageVersion` object.
   The _handling API server_ then proxies the request to one of the matching peer kube-apiservers
   that are aware of the requested resource.
+
   * If there is no peer known for that API group / version / resource, the handling API server
     passes the request to its own handler chain which should eventually return a 404 ("Not Found") response.
+
   * If the handling API server has identified and selected a peer API server, but that peer fails
     to respond (for reasons such as network connectivity issues, or a data race between the request
     being received and a controller registering the peer's info into the control plane), then the handling
-    API server responds with a 503 (“Service Unavailable”) error.
+    API server responds with a 503 ("Service Unavailable") error.
 -->
 * 如果找到了对应所请求资源（例如 `GET /batch/v1/jobs`）的合法的内部 `StorageVersion` 对象，
   并且正在处理请求的 API 服务器（**处理中的 API 服务器**）禁用了 `batch` API，
-  则**正处理的 API 服务器** 使用已获取的 `StorageVersion` 对象中的信息，
+  则**正处理的 API 服务器**使用已获取的 `StorageVersion` 对象中的信息，
   获取提供相关 API 组/版本/资源（在此情况下为 `api/v1/batch`）的对等 API 服务器。
   **处理中的 API 服务器**随后将请求代理到能够理解所请求资源且匹配的对等 kube-apiserver 之一。
+
   * 如果没有对等方了解所给的 API 组/版本/资源，则处理请求的 API 服务器将请求传递给自己的处理程序链，
     最终应返回 404（"Not Found"）响应。
+
   * 如果处理请求的 API 服务器已经识别并选择了一个对等 API 服务器，但该对等方无法响应
     （原因可能是网络连接问题或正接收的请求与向控制平面注册对等信息的控制器之间存在数据竞争等），
     则处理请求的 API 服务器会以 503（"Service Unavailable"）错误进行响应。
