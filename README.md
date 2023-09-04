@@ -61,9 +61,14 @@ Make sure to install the Hugo extended version specified by the `HUGO_VERSION` e
 To build and test the site locally, run:
 
 ```bash
-# install dependencies
+# Install dependencies, for Linux and MacOS
 npm ci
 make serve
+```
+```bash
+# Install dependencies, for Windows
+npm ci
+hugo.exe server --buildFuture --environment development
 ```
 
 This will start the local Hugo server on port 1313. Open up your browser to <http://localhost:1313> to view the website. As you make changes to the source files, Hugo updates the website and forces a browser refresh.
