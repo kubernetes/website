@@ -2533,7 +2533,7 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 <tr class="metric"><td class="metric_name">pod_security_errors_total</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="counter">Counter</td>
-<td class="metric_description">Number of errors preventing normal evaluation. Non-fatal errors may result in the latest restricted profile being used for evaluation.</td>
+<td class="metric_description">Number of errors preventing normal evaluation. Non-fatal errors may result in the latest restricted profile being used for enforcement.</td>
 <td class="metric_labels_varying"><div class="metric_label">fatal</div><div class="metric_label">request_operation</div><div class="metric_label">resource</div><div class="metric_label">subresource</div></td>
 <td class="metric_labels_constant"></td>
 <td class="metric_deprecated_version"></td></tr>
