@@ -1,29 +1,17 @@
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
 <!-- 
 Generate all certificates 
 -->
-生成所有证书
+生成所有证书。
 
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
 Generate all certificates
 -->
-生成所有证书
+生成所有证书。
 
 ```
 kubeadm init phase certs all [flags]
@@ -32,7 +20,6 @@ kubeadm init phase certs all [flags]
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -129,7 +116,7 @@ Don't apply any changes; just output what would be done.
 <!--
 <p>help for all</p>
 -->
-<p>all 操作的帮助命令</p>
+<p>all 操作的帮助命令。</p>
 </td>
 </tr>
 
@@ -190,7 +177,6 @@ Don't apply any changes; just output what would be done.
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 继承于父命令的选项
 
    <table style="width: 100%; table-layout: fixed;">
