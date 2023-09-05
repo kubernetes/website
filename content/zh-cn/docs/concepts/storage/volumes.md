@@ -458,11 +458,11 @@ overlays), the `emptyDir` may run out of capacity before this limit.
 <!--
 If the `SizeMemoryBackedVolumes` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled,
 you can specify a size for memory backed volumes.  If no size is specified, memory
-backed volumes are sized to 50% of the memory on a Linux host.
+backed volumes are sized to node allocatable memory.
 -->
 当启用 `SizeMemoryBackedVolumes` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)时，
 你可以为基于内存提供的卷指定大小。
-如果未指定大小，则基于内存的卷的大小为 Linux 主机上内存的 50%。
+如果未指定大小，则基于内存的卷的大小为节点可分配内存。
 {{< /note>}}
 
 <!--
