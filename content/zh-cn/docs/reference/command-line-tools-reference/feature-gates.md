@@ -1009,7 +1009,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   该 API 增强了[资源分配报告](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources)
   包含有关可分配资源的信息，使客户端能够正确跟踪节点上的可用计算资源。
 <!--
-- `KubeletPodResourcesDynamiceResources`: Extend the kubelet's pod resources gRPC endpoint to
+- `KubeletPodResourcesDynamicResources`: Extend the kubelet's pod resources gRPC endpoint to
   to include resources allocated in `ResourceClaims` via `DynamicResourceAllocation` API.
   See [resource allocation reporting](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources) for more details.
   with informations about the allocatable resources, enabling clients to properly
@@ -1026,7 +1026,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `LegacyServiceAccountTokenTracking`: Track usage of Secret-based
   [service account tokens](/docs/concepts/security/service-accounts/#get-a-token).
 -->
-- `KubeletPodResourcesDynamiceResources`：扩展 kubelet 的 pod 资源 gRPC 端点以包括通过 `DynamicResourceAllocation` API 在 `ResourceClaims` 中分配的资源。
+- `KubeletPodResourcesDynamicResources`：扩展 kubelet 的 pod 资源 gRPC 端点以包括通过 `DynamicResourceAllocation` API 在 `ResourceClaims` 中分配的资源。
    有关详细信息，请参阅[资源分配报告](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources)。
 - `KubeletTracing`：新增在 Kubelet 中对分布式追踪的支持。
   启用时，kubelet CRI 接口和经身份验证的 http 服务器被插桩以生成 OpenTelemetry 追踪 span。

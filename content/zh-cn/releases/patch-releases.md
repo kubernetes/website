@@ -162,12 +162,12 @@ releases may also occur in between these.
 | 2023 年 12 月 | 2023-12-01         | 2023-12-06  |
 
 <!--
-**Note:** Due to overlap with KubeCon NA 2023 and lack of availability of
-Release Managers and Google Build Admins, it has been decided to skip patch
-releases in November. Instead, we'll have patch releases early in December.
+**Note:** Due to overlap with KubeCon NA 2023 and the resulting lack of
+availability of Release Managers, it has been decided to skip patch releases
+in November. Instead, we'll have patch releases early in December.
 -->
-**注意：**由于与 KubeCon NA 2023 时间冲突以及缺少可用的 Release Manager 和
-Google Build Admin，我们决定在 11 月跳过补丁版本发布。而是在 12 月初发布补丁版本。
+**注意：**由于与 KubeCon NA 2023 时间冲突以及由此导致的缺少 Release Manager，
+我们决定在 11 月跳过补丁版本发布。而是在 12 月初发布补丁版本。
 
 <!--
 ## Detailed Release History for Active Branches

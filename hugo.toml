@@ -147,7 +147,7 @@ deprecated = false
 currentUrl = "https://kubernetes.io/docs/home/"
 nextUrl = "https://kubernetes-io-vnext-staging.netlify.com/"
 
-# See codenew shortcode
+# See code_sample shortcode
 githubWebsiteRaw = "raw.githubusercontent.com/kubernetes/website"
 
 # GitHub repository link for editing a page and opening issues.

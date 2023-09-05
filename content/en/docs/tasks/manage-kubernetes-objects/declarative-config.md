@@ -71,7 +71,7 @@ Add the `-R` flag to recursively process directories.
 
 Here's an example of an object configuration file:
 
-{{% code file="application/simple_deployment.yaml" %}}
+{{% code_sample file="application/simple_deployment.yaml" %}}
 
 Run `kubectl diff` to print the object that will be created:
 
@@ -163,7 +163,7 @@ Add the `-R` flag to recursively process directories.
 
 Here's an example configuration file:
 
-{{% code file="application/simple_deployment.yaml" %}}
+{{% code_sample file="application/simple_deployment.yaml" %}}
 
 Create the object using `kubectl apply`:
 
@@ -281,7 +281,7 @@ spec:
 Update the `simple_deployment.yaml` configuration file to change the image from
 `nginx:1.14.2` to `nginx:1.16.1`, and delete the `minReadySeconds` field:
 
-{{% code file="application/update_deployment.yaml" %}}
+{{% code_sample file="application/update_deployment.yaml" %}}
 
 Apply the changes made to the configuration file:
 
@@ -513,7 +513,7 @@ to calculate which fields should be deleted or set:
 
 Here's an example. Suppose this is the configuration file for a Deployment object:
 
-{{% code file="application/update_deployment.yaml" %}}
+{{% code_sample file="application/update_deployment.yaml" %}}
 
 Also, suppose this is the live configuration for the same Deployment object:
 
@@ -809,7 +809,7 @@ not specified when the object is created.
 
 Here's a configuration file for a Deployment. The file does not specify `strategy`:
 
-{{% code file="application/simple_deployment.yaml" %}}
+{{% code_sample file="application/simple_deployment.yaml" %}}
 
 Create the object using `kubectl apply`:
 

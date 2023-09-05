@@ -8,7 +8,7 @@ description: >-
 
 ## Metrics (v1.29)
 
-<!-- (auto-generated 2023 Sep 02) -->
+<!-- (auto-generated 2023 Sep 06) -->
 <!-- (auto-generated v1.29) -->
 This page details the metrics that different Kubernetes components export. You can query the metrics endpoint for these 
 components using an HTTP scrape, and fetch the current metrics data in Prometheus format.

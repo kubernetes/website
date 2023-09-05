@@ -42,7 +42,7 @@ file for the Pod defines an environment variable with name `DEMO_GREETING` and
 value `"Hello from the environment"`. Here is the configuration manifest for the
 Pod:
 
-{{% code file="pods/inject/envars.yaml" %}}
+{{% code_sample file="pods/inject/envars.yaml" %}}
 
 1. Create a Pod based on that manifest:
 

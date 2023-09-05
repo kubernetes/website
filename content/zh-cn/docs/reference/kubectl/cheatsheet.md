@@ -3,8 +3,8 @@ title: kubectl 备忘单
 content_type: concept
 weight: 10
 card:
-  name: reference
-  weight: 30
+  name: tasks
+  weight: 10
 ---
 <!--
 title: kubectl Cheat Sheet
@@ -15,8 +15,8 @@ reviewers:
 content_type: concept
 weight: 10 # highlight it
 card:
-  name: reference
-  weight: 30
+  name: tasks
+  weight: 10
 -->
 
 <!-- overview -->
@@ -886,6 +886,8 @@ Output format | Description
 --------------| -----------
 `-o=custom-columns=<spec>` | Print a table using a comma separated list of custom columns
 `-o=custom-columns-file=<filename>` | Print a table using the custom columns template in the `<filename>` file
+`-o=go-template=<template>`     | Print the fields defined in a [golang template](https://pkg.go.dev/text/template)
+`-o=go-template-file=<filename>` | Print the fields defined by the [golang template](https://pkg.go.dev/text/template) in the `<filename>` file
 `-o=json`     | Output a JSON formatted API object
 `-o=jsonpath=<template>` | Print the fields defined in a [jsonpath](/docs/reference/kubectl/jsonpath) expression
 `-o=jsonpath-file=<filename>` | Print the fields defined by the [jsonpath](/docs/reference/kubectl/jsonpath) expression in the `<filename>` file
@@ -897,6 +899,8 @@ Output format | Description
 --------------| -----------
 `-o=custom-columns=<spec>` | 使用逗号分隔的自定义列来打印表格
 `-o=custom-columns-file=<filename>` | 使用 `<filename>` 文件中的自定义列模板打印表格
+`-o=go-template=<template>`     | 打印在 [golang 模板](https://pkg.go.dev/text/template)中定义的字段。
+`-o=go-template-file=<filename>` | 打印在 `<filename>` 文件中由 [golang 模板](https://pkg.go.dev/text/template)定义的字段。
 `-o=json`     | 输出 JSON 格式的 API 对象
 `-o=jsonpath=<template>` | 打印 [jsonpath](/zh-cn/docs/reference/kubectl/jsonpath) 表达式中定义的字段
 `-o=jsonpath-file=<filename>` | 打印在 `<filename>` 文件中定义的 [jsonpath](/zh-cn/docs/reference/kubectl/jsonpath) 表达式所指定的字段。

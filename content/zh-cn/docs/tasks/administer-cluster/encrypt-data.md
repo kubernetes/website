@@ -39,6 +39,7 @@ encrypt Secret objects, including the key-value data they contain.
 此任务涵盖使用 {{< glossary_tooltip text="Kubernetes API" term_id="kubernetes-api" >}}
 存储的资源数据的加密。
 例如，你可以加密 Secret 对象，包括它们包含的键值数据。
+
 <!--
 If you want to encrypt data in filesystems that are mounted into containers, you instead need
 to either:
@@ -274,7 +275,7 @@ read that resource will fail until it is deleted or a valid decryption key is pr
 任何尝试读取资源的调用将会失败，直到它被删除或提供有效的解密密钥。
 {{< /caution >}}
 
-### Providers
+### Provider
 
 <!--
 The following table describes each available provider:
@@ -283,7 +284,9 @@ The following table describes each available provider:
 
 <table class="complex-layout">
 <caption style="display: none;">
-<!-- Providers for Kubernetes encryption at rest -->
+<!--
+Providers for Kubernetes encryption at rest
+-->
 Kubernetes 静态数据加密的 Provider
 </caption>
 <thead>
@@ -306,8 +309,10 @@ Kubernetes 静态数据加密的 Provider
   </tr>
   <tr>
   <td colspan="4">
-  <!-- Resources written as-is without encryption. When set as the first provider, the resource will be decrypted as new values are written. Existing encrypted resources are <strong>not</strong> automatically overwritten with the plaintext data.
-   The <tt>identity</tt> provider is the default if you do not specify otherwise. -->
+  <!--
+  Resources written as-is without encryption. When set as the first provider, the resource will be decrypted as new values are written. Existing encrypted resources are <strong>not</strong> automatically overwritten with the plaintext data.
+  The <tt>identity</tt> provider is the default if you do not specify otherwise.
+  -->
   不加密写入的资源。当设置为第一个 provider 时，已加密的资源将在新值写入时被解密。
   </td>
   </tr>
@@ -316,7 +321,9 @@ Kubernetes 静态数据加密的 Provider
   <tr>
   <th rowspan="2" scope="row"><tt>aescbc</tt></th>
   <td>
-  <!-- AES-CBC with <a href="https://datatracker.ietf.org/doc/html/rfc2315">PKCS#7</a> padding -->
+  <!--
+  AES-CBC with <a href="https://datatracker.ietf.org/doc/html/rfc2315">PKCS#7</a> padding
+  -->
   带有 <a href="https://datatracker.ietf.org/doc/html/rfc2315">PKCS#7</a> 填充的 AES-CBC
   </td>
   <td><!-- Weak -->弱</td>
@@ -325,18 +332,24 @@ Kubernetes 静态数据加密的 Provider
   </tr>
   <tr>
   <td colspan="4">
-  <!-- Not recommended due to CBC's vulnerability to padding oracle attacks. Key material accessible from control plane host. -->
+  <!--
+  Not recommended due to CBC's vulnerability to padding oracle attacks. Key material accessible from control plane host.
+  -->
   由于 CBC 容易受到密文填塞攻击（Padding Oracle Attack），不推荐使用。密钥材料可从控制面主机访问。
   </td>
   </tr>
   <tr>
   <th rowspan="2" scope="row"><tt>aesgcm</tt></th>
   <td>
-  <!-- AES-GCM with random nonce -->
+  <!--
+  AES-GCM with random nonce
+  -->
   带有随机数的 AES-GCM
   </td>
   <td>
-  <!-- Must be rotated every 200,000 writes -->
+  <!--
+  Must be rotated every 200,000 writes
+  -->
   每写入 200k 次后必须轮换
   </td>
   <td><!-- Fastest -->最快</td>
@@ -344,14 +357,18 @@ Kubernetes 静态数据加密的 Provider
   </tr>
   <tr>
   <td colspan="4">
-  <!-- Not recommended for use except when an automated key rotation scheme is implemented. Key material accessible from control plane host. -->
+  <!--
+  Not recommended for use except when an automated key rotation scheme is implemented. Key material accessible from control plane host.
+  -->
   不建议使用，除非实施了自动密钥轮换方案。密钥材料可从控制面主机访问。
   </td>
   </tr>
   <tr>
-  <th rowspan="2" scope="row"><tt>kms</tt> v1</th>
+  <th rowspan="2" scope="row"><tt>kms</tt> v1 <em><!--(deprecated since Kubernetes v1.28)-->（自 Kubernetes 1.28 起弃用）</em></th>
   <td>
-  <!-- Uses envelope encryption scheme with DEK per resource. -->
+  <!--
+  Uses envelope encryption scheme with DEK per resource.
+  -->
   针对每个资源使用不同的 DEK 来完成信封加密。
   </td>
   <td><!-- Strongest -->最强</td>
@@ -380,7 +397,9 @@ Kubernetes 静态数据加密的 Provider
   <tr>
   <th rowspan="2" scope="row"><tt>kms</tt> v2 <em>(beta)</em></th>
   <td>
-  <!-- Uses envelope encryption scheme with DEK per API server. -->
+  <!--
+  Uses envelope encryption scheme with DEK per API server.
+  -->
   针对每个 API 服务器使用不同的 DEK 来完成信封加密。
   </td>
   <td><!-- Strongest -->最强</td>
@@ -393,15 +412,22 @@ Kubernetes 静态数据加密的 Provider
     Data is encrypted by data encryption keys (DEKs) using AES-GCM; DEKs
     are encrypted by key encryption keys (KEKs) according to configuration
     in Key Management Service (KMS).
-    A new DEK is generated at API server startup, and is then reused for
-    encryption. The DEK is rotated whenever the KEK is rotated.
+    Kubernetes defaults to generating a new DEK at API server startup, which is then
+    reused for object encryption.
+    If you enable the <tt>KMSv2KDF</tt>
+    <a href="/docs/reference/command-line-tools-reference/feature-gates/">feature gate</a>,
+    Kubernetes instead generates a new DEK per encryption from a secret seed.
+    Whichever approach you configure, the DEK or seed is also rotated whenever the KEK is rotated.<br/>
     A good choice if using a third party tool for key management.
     Available in beta from Kubernetes v1.27.
     -->
     通过数据加密密钥（DEK）使用 AES-GCM 加密数据；
     DEK 根据 Key Management Service（KMS）中的配置通过密钥加密密钥（Key Encryption Keys，KEK）加密。
-    API 服务器启动时会生成一个新的 DEK，并重复使用它进行加密。
-    每当轮换 KEK 时，DEK 也会轮换。
+    Kubernetes 默认在 API 服务器启动时生成一个新的 DEK，
+    然后重复使用该密钥进行资源加密。然而，如果你使用 KMS v2 并且启用了 `KMSv2KDF`
+    [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
+    则 Kubernetes 将转为基于秘密的种子数为每次加密生成一个新的 DEK。
+    无论你配置哪种方法，每当 KEK 轮换时，DEK 或种子也会轮换。
     如果使用第三方工具进行密钥管理，会是一个不错的选择。
     从 `v1.27` 开始，该功能处于 Beta 阶段。
     <br />
@@ -433,7 +459,7 @@ Kubernetes 静态数据加密的 Provider
 Each provider supports multiple keys - the keys are tried in order for decryption, and if the provider
 is the first provider, the first key is used for encryption.
 -->
-每个 provider 都支持多个密钥 - 在解密时会按顺序使用密钥，如果是第一个 provider，则第一个密钥用于加密。
+每个 Provider 都支持多个密钥 - 在解密时会按顺序使用密钥，如果是第一个 Provider，则第一个密钥用于加密。
 
 {{< caution >}}
 <!--
@@ -481,7 +507,7 @@ Create a new encryption config file:
 <!--
 # See the following text for more details about the secret value
 # this fallback allows reading unencrypted secrets;
-# for example, during initial migratoin
+# for example, during initial migration
 -->
 ```yaml
 ---
@@ -567,7 +593,7 @@ To create a new Secret, perform the following steps:
        ...
        - name: enc                           # 增加这一行
          mountPath: /etc/kubernetes/enc      # 增加这一行
-         readonly: true                      # 增加这一行
+         readOnly: true                      # 增加这一行
        ...
      volumes:
      ...
@@ -593,31 +619,54 @@ permissions on your control-plane nodes so only the user who runs the `kube-apis
 {{< /caution >}}
 
 <!--
-## Verifying that data is encrypted
+### Reconfigure other control plane hosts {#api-server-config-update-more}
 
-Data is encrypted when written to etcd. After restarting your `kube-apiserver`, any newly created or
-updated Secret or other resource types configured in `EncryptionConfiguration` should be encrypted
-when stored. To check this, you can use the `etcdctl` command line
+If you have multiple API servers in your cluster, you should deploy the
+changes in turn to each API server.
+
+Make sure that you use the **same** encryption configuration on each
+control plane host.
+-->
+### 重新配置其他控制平面主机   {#api-server-config-update-more}
+
+如果你的集群中有多个 API 服务器，应轮流将更改部署到每个 API 服务器。
+
+确保在每个控制平面主机上使用**相同的**加密配置。
+
+<!--
+### Verify that newly written data is encrypted {#verifying-that-data-is-encrypted}
+
+Data is encrypted when written to etcd. After restarting your `kube-apiserver`, any newly
+created or updated Secret (or other resource kinds configured in `EncryptionConfiguration`)
+should be encrypted when stored.
+
+To check this, you can use the `etcdctl` command line
 program to retrieve the contents of your secret data.
 
-1. Create a new Secret called `secret1` in the `default` namespace:
+This example shows how to check this for encrypting the Secret API.
 -->
-## 验证数据已被加密   {#verifying-that-data-is-encryped}
+### 验证数据已被加密   {#verifying-that-data-is-encryped}
 
 数据在写入 etcd 时会被加密。重新启动你的 `kube-apiserver` 后，任何新创建或更新的 Secret
-或在 `EncryptionConfiguration` 中配置的其他资源类型都应在存储时被加密。
+或在 `EncryptionConfiguration` 中配置的其他资源类别都应在存储时被加密。
+
 如果想要检查，你可以使用 `etcdctl` 命令行程序来检索你的 Secret 数据内容。
 
-1. 创建一个新的 secret，名称为 `secret1`，命名空间为 `default`：
+以下示例演示了如何对加密 Secret API 进行检查。
+
+<!--
+1. Create a new Secret called `secret1` in the `default` namespace:
+-->
+1. 创建一个新的 Secret，名称为 `secret1`，命名空间为 `default`：
 
    ```shell
    kubectl create secret generic secret1 -n default --from-literal=mykey=mydata
    ```
 
 <!--
-1. Using the `etcdctl` command line, read that Secret out of etcd:
+1. Using the `etcdctl` command line tool, read that Secret out of etcd:
 -->
-2. 使用 `etcdctl` 命令行，从 etcd 中读取 Secret：
+2. 使用 `etcdctl` 命令行工具，从 etcd 中读取 Secret：
 
    ```
    ETCDCTL_API=3 etcdctl get /registry/secrets/default/secret1 [...] | hexdump -C
@@ -679,38 +728,61 @@ program to retrieve the contents of your secret data.
    ```
 
    <!--
-   The output should contain `mykey: bXlkYXRh`, with contents of `mydata` encoded, check
+   The output should contain `mykey: bXlkYXRh`, with contents of `mydata` encoded using base64;
+   read
    [decoding a Secret](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#decoding-secret)
-   to completely decode the Secret.
+   to learn how to completely decode the Secret.
    -->
-   其输出应该包含 `mykey: bXlkYXRh`，`mydata` 的内容是被加密过的，
+   其输出应该包含 `mykey: bXlkYXRh`，其中 `mydata` 的内容使用 base64 进行加密，
    请参阅[解密 Secret](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-kubectl/#decoding-secret)
    了解如何完全解码 Secret 内容。
 
 <!--
-## Ensure all Secrets are encrypted
+### Ensure all relevant data are encrypted {#ensure-all-secrets-are-encrypted}
 
-Since Secrets are encrypted on write, performing an update on a Secret will encrypt that content.
+It's often not enough to make sure that new objects get encrypted: you also want that
+encryption to apply to the objects that are already stored.
+
+For this example, you have configured your cluster so that Secrets are encrypted on write.
+Performing a replace operation for each Secret will encrypt that content at rest,
+where the objects are unchanged.
+
+You can make this change across all Secrets in your cluster:
 -->
-## 确保所有 Secret 都被加密   {#ensure-all-secrets-are-encrypted}
+### 确保所有相关数据都被加密   {#ensure-all-secrets-are-encrypted}
 
-由于 Secret 是在写入时被加密，因此对 Secret 执行更新也会加密该内容。
+仅仅确保新对象被加密通常是不够的：你还希望对已经存储的对象进行加密。
 
+例如，你已经配置了集群，使得 Secret 在写入时进行加密。
+为每个 Secret 执行替换操作将加密那些对象保持不变的静态内容。
+
+你可以在集群中的所有 Secret 上进行此项变更：
+
+<!--
+# Run this as an administrator that can read and write all Secrets
+-->
 ```shell
+# 以能够读写所有 Secret 的管理员身份运行此命令
 kubectl get secrets --all-namespaces -o json | kubectl replace -f -
 ```
 
 <!--
-The command above reads all Secrets and then updates them to apply server side encryption.
+The command above reads all Secrets and then updates them with the same data, in order to
+apply server side encryption.
 -->
-上面的命令读取所有 Secret，然后使用服务端加密来更新其内容。
+上面的命令读取所有 Secret，然后使用相同的数据更新这些 Secret，以便应用服务端加密。
 
 {{< note >}}
 <!--
 If an error occurs due to a conflicting write, retry the command.
-For larger clusters, you may wish to subdivide the secrets by namespace or script an update.
+It is safe to run that command more than once.
+
+For larger clusters, you may wish to subdivide the Secrets by namespace,
+or script an update.
 -->
 如果由于冲突写入而发生错误，请重试该命令。
+多次运行此命令是安全的。
+
 对于较大的集群，你可能希望通过命名空间或更新脚本来对 Secret 进行划分。
 {{< /note >}}
 

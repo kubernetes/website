@@ -83,9 +83,9 @@ releases may also occur in between these.
 | November 2023         | N/A                  | N/A         |
 | December 2023         | 2023-12-01           | 2023-12-06  |
 
-**Note:** Due to overlap with KubeCon NA 2023 and lack of availability of
-Release Managers and Google Build Admins, it has been decided to skip patch
-releases in November. Instead, we'll have patch releases early in December.
+**Note:** Due to overlap with KubeCon NA 2023 and the resulting lack of
+availability of Release Managers, it has been decided to skip patch releases
+in November. Instead, we'll have patch releases early in December.
 
 ## Detailed Release History for Active Branches
 

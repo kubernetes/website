@@ -368,7 +368,7 @@ To create a new Secret, perform the following steps:
        ...
        - name: enc                           # add this line
          mountPath: /etc/kubernetes/enc      # add this line
-         readonly: true                      # add this line
+         readOnly: true                      # add this line
        ...
      volumes:
      ...
@@ -386,12 +386,24 @@ Your config file contains keys that can decrypt the contents in etcd, so you mus
 permissions on your control-plane nodes so only the user who runs the `kube-apiserver` can read it.
 {{< /caution >}}
 
-## Verifying that data is encrypted
+### Reconfigure other control plane hosts {#api-server-config-update-more}
 
-Data is encrypted when written to etcd. After restarting your `kube-apiserver`, any newly created or
-updated Secret or other resource types configured in `EncryptionConfiguration` should be encrypted
-when stored. To check this, you can use the `etcdctl` command line
+If you have multiple API servers in your cluster, you should deploy the
+changes in turn to each API server.
+
+Make sure that you use the **same** encryption configuration on each
+control plane host.
+
+### Verify that newly written data is encrypted {#verifying-that-data-is-encrypted}
+
+Data is encrypted when written to etcd. After restarting your `kube-apiserver`, any newly
+created or updated Secret (or other resource kinds configured in `EncryptionConfiguration`)
+should be encrypted when stored.
+
+To check this, you can use the `etcdctl` command line
 program to retrieve the contents of your secret data.
+
+This example shows how to check this for encrypting the Secret API.
 
 1. Create a new Secret called `secret1` in the `default` namespace:
 
@@ -399,7 +411,7 @@ program to retrieve the contents of your secret data.
    kubectl create secret generic secret1 -n default --from-literal=mykey=mydata
    ```
 
-1. Using the `etcdctl` command line, read that Secret out of etcd:
+1. Using the `etcdctl` command line tool, read that Secret out of etcd:
 
    ```
    ETCDCTL_API=3 etcdctl get /registry/secrets/default/secret1 [...] | hexdump -C
@@ -444,23 +456,36 @@ program to retrieve the contents of your secret data.
    kubectl get secret secret1 -n default -o yaml
    ```
 
-   The output should contain `mykey: bXlkYXRh`, with contents of `mydata` encoded, check
+   The output should contain `mykey: bXlkYXRh`, with contents of `mydata` encoded using base64;
+   read
    [decoding a Secret](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#decoding-secret)
-   to completely decode the Secret.
+   to learn how to completely decode the Secret.
 
-## Ensure all Secrets are encrypted
+### Ensure all relevant data are encrypted {#ensure-all-secrets-are-encrypted}
 
-Since Secrets are encrypted on write, performing an update on a Secret will encrypt that content.
+It's often not enough to make sure that new objects get encrypted: you also want that
+encryption to apply to the objects that are already stored.
+
+For this example, you have configured your cluster so that Secrets are encrypted on write.
+Performing a replace operation for each Secret will encrypt that content at rest,
+where the objects are unchanged.
+
+You can make this change across all Secrets in your cluster:
 
 ```shell
+# Run this as an administrator that can read and write all Secrets
 kubectl get secrets --all-namespaces -o json | kubectl replace -f -
 ```
 
-The command above reads all Secrets and then updates them to apply server side encryption.
+The command above reads all Secrets and then updates them with the same data, in order to
+apply server side encryption.
 
 {{< note >}}
 If an error occurs due to a conflicting write, retry the command.
-For larger clusters, you may wish to subdivide the secrets by namespace or script an update.
+It is safe to run that command more than once.
+
+For larger clusters, you may wish to subdivide the Secrets by namespace,
+or script an update.
 {{< /note >}}
 
 ## Rotating a decryption key

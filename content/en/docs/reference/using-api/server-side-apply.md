@@ -311,7 +311,7 @@ you can set these markers when you define the custom resource.
 | `//+structType` | `x-kubernetes-map-type` | `atomic`/`granular` | Applicable to structs; otherwise same usage and OpenAPI annotation as `//+mapType`.|
 
 If `listType` is missing, the API server interprets a
-`patchMergeStrategy=merge` marker as a `listType=map` and the
+`patchStrategy=merge` marker as a `listType=map` and the
 corresponding `patchMergeKey` marker as a `listMapKey`.
 
 The `atomic` list type is recursive.
@@ -409,7 +409,7 @@ resource and its accompanying controller.
 
 Say a user has defined Deployment with `replicas` set to the desired value:
 
-{{% code file="application/ssa/nginx-deployment.yaml" %}}
+{{% code_sample file="application/ssa/nginx-deployment.yaml" %}}
 
 And the user has created the Deployment using Server-Side Apply, like so:
 
@@ -476,7 +476,7 @@ process than it sometimes does.
 
 At this point the user may remove the `replicas` field from their manifest:
 
-{{% code file="application/ssa/nginx-deployment-no-replicas.yaml" %}}
+{{% code_sample file="application/ssa/nginx-deployment-no-replicas.yaml" %}}
 
 Note that whenever the HPA controller sets the `replicas` field to a new value,
 the temporary field manager will no longer own any fields and will be

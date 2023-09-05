@@ -126,7 +126,7 @@ The following manifest defines an Ingress that sends traffic to your Service via
 
 1. Create `example-ingress.yaml` from the following file:
 
-   {{% code file="service/networking/example-ingress.yaml" %}}
+   {{% code_sample file="service/networking/example-ingress.yaml" %}}
 
 1. Create the Ingress object by running the following command:
 

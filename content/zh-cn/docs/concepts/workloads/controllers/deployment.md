@@ -744,10 +744,12 @@ Deployment 被触发上线时，系统就会创建 Deployment 的新的修订版
 * 按 Ctrl-C 停止上述上线状态观测。有关上线停滞的详细信息，[参考这里](#deployment-status)。
 
 <!--
-* You see that the number of old replicas (`nginx-deployment-1564180365` and `nginx-deployment-2035384211`) is 2, and new replicas (nginx-deployment-3066724191) is 1.
+* You see that the number of old replicas (adding the replica count from
+  `nginx-deployment-1564180365` and `nginx-deployment-2035384211`) is 3, and the number of
+  new replicas (from `nginx-deployment-3066724191`) is 1.
 -->
-* 你可以看到旧的副本有两个（`nginx-deployment-1564180365` 和 `nginx-deployment-2035384211`），
-  新的副本有 1 个（`nginx-deployment-3066724191`）：
+* 你可以看到旧的副本（算上来自 `nginx-deployment-1564180365` 和 `nginx-deployment-2035384211` 的副本）有 3 个，
+  新的副本（来自 `nginx-deployment-3066724191`）有 1 个：
 
   ```shell
   kubectl get rs
