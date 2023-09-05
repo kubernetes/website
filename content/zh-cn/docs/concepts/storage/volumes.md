@@ -1707,7 +1707,7 @@ A `csi` volume can be used in a Pod in three different ways:
 
 `csi` 卷可以在 Pod 中以三种方式使用：
 
-* 通过 PersistentVolumeClaim(#persistentvolumeclaim) 对象引用
+* 通过 [PersistentVolumeClaim](#persistentvolumeclaim) 对象引用
 * 使用[一般性的临时卷](/zh-cn/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volumes)
 * 使用 [CSI 临时卷](/zh-cn/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes)，
   前提是驱动支持这种用法
