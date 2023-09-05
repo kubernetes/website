@@ -78,7 +78,7 @@ To allow creating a CertificateSigningRequest and retrieving any CertificateSign
 
 For example:
 
-{{% code file="access/certificate-signing-request/clusterrole-create.yaml" %}}
+{{% code_sample file="access/certificate-signing-request/clusterrole-create.yaml" %}}
 
 To allow approving a CertificateSigningRequest:
 
@@ -88,7 +88,7 @@ To allow approving a CertificateSigningRequest:
 
 For example:
 
-{{% code file="access/certificate-signing-request/clusterrole-approve.yaml" %}}
+{{% code_sample file="access/certificate-signing-request/clusterrole-approve.yaml" %}}
 
 To allow signing a CertificateSigningRequest:
 
@@ -96,7 +96,7 @@ To allow signing a CertificateSigningRequest:
 * Verbs: `update`, group: `certificates.k8s.io`, resource: `certificatesigningrequests/status`
 * Verbs: `sign`, group: `certificates.k8s.io`, resource: `signers`, resourceName: `<signerNameDomain>/<signerNamePath>` or `<signerNameDomain>/*`
 
-{{% code file="access/certificate-signing-request/clusterrole-sign.yaml" %}}
+{{% code_sample file="access/certificate-signing-request/clusterrole-sign.yaml" %}}
 
 
 ## Signers

@@ -56,7 +56,7 @@ use a Deployment instead, and define your application in the spec section.
 
 ## Example
 
-{{% code file="controllers/frontend.yaml" %}}
+{{% code_sample file="controllers/frontend.yaml" %}}
 
 Saving this manifest into `frontend.yaml` and submitting it to a Kubernetes cluster will
 create the defined ReplicaSet and the Pods that it manages.
@@ -166,7 +166,7 @@ to owning Pods specified by its template-- it can acquire other Pods in the mann
 
 Take the previous frontend ReplicaSet example, and the Pods specified in the following manifest:
 
-{{% code file="pods/pod-rs.yaml" %}}
+{{% code_sample file="pods/pod-rs.yaml" %}}
 
 As those Pods do not have a Controller (or any object) as their owner reference and match the selector of the frontend
 ReplicaSet, they will immediately be acquired by it.
@@ -381,7 +381,7 @@ A ReplicaSet can also be a target for
 a ReplicaSet can be auto-scaled by an HPA. Here is an example HPA targeting
 the ReplicaSet we created in the previous example.
 
-{{% code file="controllers/hpa-rs.yaml" %}}
+{{% code_sample file="controllers/hpa-rs.yaml" %}}
 
 Saving this manifest into `hpa-rs.yaml` and submitting it to a Kubernetes cluster should
 create the defined HPA that autoscales the target ReplicaSet depending on the CPU usage

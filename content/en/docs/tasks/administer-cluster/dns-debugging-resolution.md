@@ -24,7 +24,7 @@ kube-dns.
 
 ### Create a simple Pod to use as a test environment
 
-{{% code file="admin/dns/dnsutils.yaml" %}}
+{{% code_sample file="admin/dns/dnsutils.yaml" %}}
 
 {{< note >}}
 This example creates a pod in the `default` namespace. DNS name resolution for 

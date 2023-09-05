@@ -284,7 +284,7 @@ graph BT
 If you want an incoming Pod to be evenly spread with existing Pods across zones, you
 can use a manifest similar to:
 
-{{% code file="pods/topology-spread-constraints/one-constraint.yaml" %}}
+{{% code_sample file="pods/topology-spread-constraints/one-constraint.yaml" %}}
 
 From that manifest, `topologyKey: zone` implies the even distribution will only be applied
 to nodes that are labelled `zone: <any value>` (nodes that don't have a `zone` label
@@ -377,7 +377,7 @@ graph BT
 You can combine two topology spread constraints to control the spread of Pods both
 by node and by zone:
 
-{{% code file="pods/topology-spread-constraints/two-constraints.yaml" %}}
+{{% code_sample file="pods/topology-spread-constraints/two-constraints.yaml" %}}
 
 In this case, to match the first constraint, the incoming Pod can only be placed onto
 nodes in zone `B`; while in terms of the second constraint, the incoming Pod can only be
@@ -466,7 +466,7 @@ and you know that zone `C` must be excluded. In this case, you can compose a man
 as below, so that Pod `mypod` will be placed into zone `B` instead of zone `C`.
 Similarly, Kubernetes also respects `spec.nodeSelector`.
 
-{{% code file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" %}}
+{{% code_sample file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" %}}
 
 ## Implicit conventions
 

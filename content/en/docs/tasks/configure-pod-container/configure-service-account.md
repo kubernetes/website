@@ -403,7 +403,7 @@ You can configure this behavior for the `spec` of a Pod using a
 To provide a Pod with a token with an audience of `vault` and a validity duration
 of two hours, you could define a Pod manifest that is similar to:
 
-{{% code file="pods/pod-projected-svc-token.yaml" %}}
+{{% code_sample file="pods/pod-projected-svc-token.yaml" %}}
 
 Create the Pod:
 

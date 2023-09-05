@@ -64,7 +64,7 @@ tolerations:
 
 Here's an example of a pod that uses tolerations:
 
-{{% code file="pods/pod-with-toleration.yaml" %}}
+{{% code_sample file="pods/pod-with-toleration.yaml" %}}
 
 The default value for `operator` is `Equal`.
 

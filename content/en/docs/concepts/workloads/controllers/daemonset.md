@@ -38,7 +38,7 @@ different flags and/or different memory and cpu requests for different hardware 
 You can describe a DaemonSet in a YAML file. For example, the `daemonset.yaml` file below
 describes a DaemonSet that runs the fluentd-elasticsearch Docker image:
 
-{{% code file="controllers/daemonset.yaml" %}}
+{{% code_sample file="controllers/daemonset.yaml" %}}
 
 Create a DaemonSet based on the YAML file:
 
