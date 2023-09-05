@@ -65,40 +65,40 @@ cards:
   description: "查看常见任务以及如何使用简单步骤执行它们。"
   button: "查看任务"
   button_path: "/zh-cn/docs/tasks"
-# - name: training
-#   title: "Training"
-#   description: "Get certified in Kubernetes and make your cloud native projects successful!"
-#   button: "View training"
-#   button_path: "/training"
 # - name: reference
 #   title: Look up reference information
 #   description: Browse terminology, command line syntax, API resource types, and setup tool documentation.
 #   button: View Reference
 #   button_path: /docs/reference
-- name: training
-  title: "培训"
-  description: "通过 Kubernetes 认证，助你的云原生项目成功！"
-  button: "查看培训"
-  button_path: "/zh-cn/training"
 - name: reference
   title: 查阅参考信息 
   description: 浏览术语、命令行语法、API 资源类型和安装工具文档。
   button: 查看参考
   button_path: /zh-cn/docs/reference
+# - name: training
+#   title: "Training"
+#   description: "Get certified in Kubernetes and make your cloud native projects successful!"
+#   button: "View training"
+#   button_path: "/training"
 # - name: contribute
-#   title: Contribute to the docs
+#   title: Contribute to the Kubernetes
 #   description: Anyone can contribute, whether you’re new to the project or you’ve been around a long time.
-#   button: Contribute to the docs
+#   button: Find out how to help
 #   button_path: /docs/contribute
 # - name: release-notes
 #   title: K8s Release Notes
 #   description: If you are installing Kubernetes or upgrading to the newest version, refer to the current release notes.
 #   button: "Download Kubernetes"
 #   button_path: "/zh-cn/docs/setup/release/notes"
+- name: training
+  title: "培训"
+  description: "通过 Kubernetes 认证，助你的云原生项目成功！"
+  button: "查看培训"
+  button_path: "/zh-cn/training"
 - name: contribute
-  title: 为文档作贡献
+  title: 为 Kubernetes 作贡献
   description: 任何人，无论对该项目熟悉与否，都能贡献自己的力量。
-  button: 为文档作贡献
+  button: 了解如何提供帮助
   button_path: /zh-cn/docs/contribute
 - name: Download
   title: 下载 Kubernetes

@@ -1,29 +1,16 @@
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
 <!-- 
 Run join pre-flight checks 
 -->
-运行 join 命令前检查
+运行 join 命令前检查。
 
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
 Run pre-flight checks for kubeadm join.
 -->
-
 运行 kubeadm join 命令添加节点前检查。
 
 ```
@@ -34,7 +21,6 @@ kubeadm join phase preflight [api-server-endpoint] [flags]
 ### Examples
 # Run join pre-flight checks using a config file.
 -->
-
 ### 示例
 
 ```
@@ -45,7 +31,6 @@ kubeadm join phase preflight --config kubeadm-config.yaml
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -92,7 +77,7 @@ kubeadm join phase preflight --config kubeadm-config.yaml
 <!--
 <p>Use this key to decrypt the certificate secrets uploaded by init.</p>
 -->
-<p>使用此密钥可以解密由 `init` 操作上传的证书 secret。</p>
+<p>使用此密钥可以解密由 `init` 操作上传的证书 Secret。</p>
 </td>
 </tr>
 
@@ -116,7 +101,7 @@ kubeadm join phase preflight --config kubeadm-config.yaml
 <!--
 <p>Create a new control plane instance on this node</p>
 -->
-<p>在此节点上创建一个新的控制平面实例</p>
+<p>在此节点上创建一个新的控制平面实例。</p>
 </td>
 </tr>
 
@@ -128,7 +113,8 @@ kubeadm join phase preflight --config kubeadm-config.yaml
 <!--
 <p>Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this value; use this option only if you have more than one CRI installed or if you have non-standard CRI socket.</p>
 -->
-<p>提供给 CRI 套接字建立连接的路径。如果为空，则 kubeadm 将尝试自动检测该值；仅当安装了多个 CRI 或具有非标准 CRI 套接字时，才使用此选项。</p>
+<p>提供给 CRI 套接字建立连接的路径。如果为空，则 kubeadm 将尝试自动检测该值；
+仅当安装了多个 CRI 或存在非标准的 CRI 套接字时，才使用此选项。</p>
 </td>
 </tr>
 
@@ -200,7 +186,7 @@ kubeadm join phase preflight --config kubeadm-config.yaml
 <!--
 <p>help for preflight</p>
 -->
-<p>preflight 操作的帮助命令</p>
+<p>preflight 操作的帮助命令。</p>
 </td>
 </tr>
 
@@ -258,7 +244,6 @@ kubeadm join phase preflight --config kubeadm-config.yaml
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 从父命令继承的选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -282,4 +267,3 @@ kubeadm join phase preflight --config kubeadm-config.yaml
 
 </tbody>
 </table>
-

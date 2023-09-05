@@ -260,8 +260,9 @@ When a StatefulSet controller creates a Pod for the StatefulSet, it sets this la
 The value of the label is the ordinal index of the pod being created.
 
 See [Pod Index Label](/docs/concepts/workloads/controllers/statefulset/#pod-index-label)
-in the StatefulSet topic for more details. Note the [PodIndexLabel](content/en/docs/reference/command-line-tools-reference/feature-gates.md) feature gate must be enabled
-for this label to be added to pods.
+in the StatefulSet topic for more details.
+Note the [PodIndexLabel](/docs/reference/command-line-tools-reference/feature-gates/)
+feature gate must be enabled for this label to be added to pods.
 
 ### cluster-autoscaler.kubernetes.io/safe-to-evict
 
@@ -1100,8 +1101,9 @@ Used on: Pod
 The Job controller in the kube-controller-manager sets this as a label and annotation for Pods
 created with Indexed [completion mode](/docs/concepts/workloads/controllers/job/#completion-mode).
 
-Note the [PodIndexLabel](content/en/docs/reference/command-line-tools-reference/feature-gates.md) feature gate must be enabled
-for this to be added as a pod **label**, otherwise it will just be an annotation.
+Note the [PodIndexLabel](/docs/reference/command-line-tools-reference/feature-gates/)
+feature gate must be enabled for this to be added as a pod **label**,
+otherwise it will just be an annotation.
 
 ### batch.kubernetes.io/cronjob-scheduled-timestamp
 

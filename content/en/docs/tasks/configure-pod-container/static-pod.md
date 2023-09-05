@@ -27,8 +27,7 @@ The Pod names will be suffixed with the node hostname with a leading hyphen.
 {{< note >}}
 If you are running clustered Kubernetes and are using static
 Pods to run a Pod on every node, you should probably be using a
-{{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}
-instead.
+{{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}} instead.
 {{< /note >}}
 
 {{< note >}}
@@ -54,11 +53,14 @@ Instructions for other distributions or Kubernetes installations may vary.
 
 ## Create a static pod {#static-pod-creation}
 
-You can configure a static Pod with either a [file system hosted configuration file](/docs/tasks/configure-pod-container/static-pod/#configuration-files) or a [web hosted configuration file](/docs/tasks/configure-pod-container/static-pod/#pods-created-via-http).
+You can configure a static Pod with either a
+[file system hosted configuration file](/docs/tasks/configure-pod-container/static-pod/#configuration-files)
+or a [web hosted configuration file](/docs/tasks/configure-pod-container/static-pod/#pods-created-via-http).
 
 ### Filesystem-hosted static Pod manifest {#configuration-files}
 
-Manifests are standard Pod definitions in JSON or YAML format in a specific directory. Use the `staticPodPath: <the directory>` field in the
+Manifests are standard Pod definitions in JSON or YAML format in a specific directory.
+Use the `staticPodPath: <the directory>` field in the
 [kubelet configuration file](/docs/reference/config-api/kubelet-config.v1beta1/),
 which periodically scans the directory and creates/deletes static Pods as YAML/JSON files appear/disappear there.
 Note that the kubelet will ignore files starting with dots when scanning the specified directory.
@@ -71,38 +73,42 @@ For example, this is how to start a simple web server as a static Pod:
     ssh my-node1
     ```
 
-2. Choose a directory, say `/etc/kubernetes/manifests` and place a web server Pod definition there, for example `/etc/kubernetes/manifests/static-web.yaml`:
+1. Choose a directory, say `/etc/kubernetes/manifests` and place a web server
+   Pod definition there, for example `/etc/kubernetes/manifests/static-web.yaml`:
 
-    ```shell
-    # Run this command on the node where kubelet is running
-    mkdir -p /etc/kubernetes/manifests/
-    cat <<EOF >/etc/kubernetes/manifests/static-web.yaml
-    apiVersion: v1
-    kind: Pod
-    metadata:
-      name: static-web
-      labels:
-        role: myrole
-    spec:
-      containers:
-        - name: web
-          image: nginx
-          ports:
-            - name: web
-              containerPort: 80
-              protocol: TCP
-    EOF
-    ```
+   ```shell
+   # Run this command on the node where kubelet is running
+   mkdir -p /etc/kubernetes/manifests/
+   cat <<EOF >/etc/kubernetes/manifests/static-web.yaml
+   apiVersion: v1
+   kind: Pod
+   metadata:
+     name: static-web
+     labels:
+       role: myrole
+   spec:
+     containers:
+       - name: web
+         image: nginx
+         ports:
+           - name: web
+             containerPort: 80
+             protocol: TCP
+   EOF
+   ```
 
-3. Configure your kubelet on the node to use this directory by running it with `--pod-manifest-path=/etc/kubernetes/manifests/` argument. On Fedora edit `/etc/kubernetes/kubelet` to include this line:
+1. Configure your kubelet on the node to use this directory by running it with
+   `--pod-manifest-path=/etc/kubernetes/manifests/` argument.
+   On Fedora, edit `/etc/kubernetes/kubelet` to include this line:
 
    ```
    KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubernetes/manifests/"
    ```
+
    or add the `staticPodPath: <the directory>` field in the
    [kubelet configuration file](/docs/reference/config-api/kubelet-config.v1beta1/).
 
-4. Restart the kubelet. On Fedora, you would run:
+1. Restart the kubelet. On Fedora, you would run:
 
    ```shell
    # Run this command on the node where the kubelet is running
@@ -138,18 +144,20 @@ To use this approach:
               protocol: TCP
     ```
 
-2. Configure the kubelet on your selected node to use this web manifest by running it with `--manifest-url=<manifest-url>`. On Fedora, edit `/etc/kubernetes/kubelet` to include this line:
+1. Configure the kubelet on your selected node to use this web manifest by
+   running it with `--manifest-url=<manifest-url>`.
+   On Fedora, edit `/etc/kubernetes/kubelet` to include this line:
 
-    ```
-    KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --manifest-url=<manifest-url>"
-    ```
+   ```shell
+   KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --manifest-url=<manifest-url>"
+   ```
 
-3. Restart the kubelet. On Fedora, you would run:
+1. Restart the kubelet. On Fedora, you would run:
 
-    ```shell
-    # Run this command on the node where the kubelet is running
-    systemctl restart kubelet
-    ```
+   ```shell
+   # Run this command on the node where the kubelet is running
+   systemctl restart kubelet
+   ```
 
 ## Observe static pod behavior {#behavior-of-static-pods}
 
@@ -186,7 +194,8 @@ static-web   1/1     Running   0               2m
 ```
 
 {{< note >}}
-Make sure the kubelet has permission to create the mirror Pod in the API server. If not, the creation request is rejected by the API server.
+Make sure the kubelet has permission to create the mirror Pod in the API server.
+If not, the creation request is rejected by the API server.
 {{< /note >}}
 
 {{< glossary_tooltip term_id="label" text="Labels" >}} from the static Pod are
@@ -221,6 +230,7 @@ crictl stop 129fd7d382018 # replace with the ID of your container
 sleep 20
 crictl ps
 ```
+
 ```console
 CONTAINER       IMAGE                                 CREATED           STATE      NAME    ATTEMPT    POD ID
 89db4553e1eeb   docker.io/library/nginx@sha256:...    19 seconds ago    Running    web     1          34533c6729106
@@ -231,16 +241,21 @@ Once you identify the right container, you can get the logs for that container w
 # Run these commands on the node where the container is running
 crictl logs <container_id>
 ```
+
 ```console
 10.240.0.48 - - [16/Nov/2022:12:45:49 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.47.0" "-"
 10.240.0.48 - - [16/Nov/2022:12:45:50 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.47.0" "-"
 10.240.0.48 - - [16/Nove/2022:12:45:51 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.47.0" "-"
 ```
-To find more about how to debug using `crictl`, please visit [_Debugging Kubernetes nodes with crictl_](https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/)
+
+To find more about how to debug using `crictl`, please visit
+[_Debugging Kubernetes nodes with crictl_](/docs/tasks/debug/debug-cluster/crictl/).
 
 ## Dynamic addition and removal of static pods
 
-The running kubelet periodically scans the configured directory (`/etc/kubernetes/manifests` in our example) for changes and adds/removes Pods as files appear/disappear in this directory.
+The running kubelet periodically scans the configured directory
+(`/etc/kubernetes/manifests` in our example) for changes and
+adds/removes Pods as files appear/disappear in this directory.
 
 ```shell
 # This assumes you are using filesystem-hosted static Pod configuration

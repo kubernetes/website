@@ -441,6 +441,8 @@ When using this type of Secret, the `tls.key` and the `tls.crt` key must be prov
 in the `data` (or `stringData`) field of the Secret configuration, although the API
 server doesn't actually validate the values for each key.
 
+As an alternative to using `stringData`, you can use the `data` field to provide the base64 encoded certificate and private key. Refer to [Constraints on Secret names and data](#restriction-names-data) for more on this.
+
 The following YAML contains an example config for a TLS Secret:
 
 ```yaml
@@ -449,11 +451,13 @@ kind: Secret
 metadata:
   name: secret-tls
 type: kubernetes.io/tls
-data:
+stringData:
   # the data is abbreviated in this example
   tls.crt: |
+    --------BEGIN CERTIFICATE-----
     MIIC2DCCAcCgAwIBAgIBATANBgkqh ...
   tls.key: |
+    -----BEGIN RSA PRIVATE KEY-----
     MIIEpgIBAAKCAQEA7yn3bRHQ5FHMQ ...
 ```
 
@@ -471,21 +475,8 @@ kubectl create secret tls my-tls-secret \
   --key=path/to/key/file
 ```
 
-The public/private key pair must exist before hand. The public key certificate
-for `--cert` must be DER format as per
-[Section 5.1 of RFC 7468](https://datatracker.ietf.org/doc/html/rfc7468#section-5.1),
-and must match the given private key for `--key` (PKCS #8 in DER format;
-[Section 11 of RFC 7468](https://datatracker.ietf.org/doc/html/rfc7468#section-11)).
-
-{{< note >}}
-A kubernetes.io/tls Secret stores the Base64-encoded DER data for keys and
-certificates. If you're familiar with PEM format for private keys and for certificates,
-the base64 data are the same as that format except that you omit
-the initial and the last lines that are used in PEM.
-
-For example, for a certificate, you do **not** include `--------BEGIN CERTIFICATE-----`
-and `-------END CERTIFICATE----`.
-{{< /note >}}
+The public/private key pair must exist before hand. The public key certificate for `--cert` must be .PEM encoded
+and must match the given private key for `--key`.
 
 ### Bootstrap token Secrets
 
