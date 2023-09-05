@@ -77,7 +77,7 @@ request.
 
 Here's an example `.yaml` file that shows the required fields and object spec for a Kubernetes Deployment:
 
-{{% code file="application/deployment.yaml" %}}
+{{% code_sample file="application/deployment.yaml" %}}
 
 One way to create a Deployment using a `.yaml` file like the one above is to use the
 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply) command

@@ -64,7 +64,7 @@ Kubernetes cluster.
 This manifest describes a Pod that has a `requiredDuringSchedulingIgnoredDuringExecution` node affinity,`disktype: ssd`. 
 This means that the pod will get scheduled only on a node that has a `disktype=ssd` label. 
 
-{{% code file="pods/pod-nginx-required-affinity.yaml" %}}
+{{% code_sample file="pods/pod-nginx-required-affinity.yaml" %}}
 
 1. Apply the manifest to create a Pod that is scheduled onto your
    chosen node:
@@ -91,7 +91,7 @@ This means that the pod will get scheduled only on a node that has a `disktype=s
 This manifest describes a Pod that has a `preferredDuringSchedulingIgnoredDuringExecution` node affinity,`disktype: ssd`. 
 This means that the pod will prefer a node that has a `disktype=ssd` label. 
 
-{{% code file="pods/pod-nginx-preferred-affinity.yaml" %}}
+{{% code_sample file="pods/pod-nginx-preferred-affinity.yaml" %}}
 
 1. Apply the manifest to create a Pod that is scheduled onto your
    chosen node:

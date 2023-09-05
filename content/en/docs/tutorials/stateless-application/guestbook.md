@@ -46,7 +46,7 @@ The guestbook application uses Redis to store its data.
 
 The manifest file, included below, specifies a Deployment controller that runs a single replica Redis Pod.
 
-{{% code file="application/guestbook/redis-leader-deployment.yaml" %}}
+{{% code_sample file="application/guestbook/redis-leader-deployment.yaml" %}}
 
 1. Launch a terminal window in the directory you downloaded the manifest files.
 1. Apply the Redis Deployment from the `redis-leader-deployment.yaml` file:
@@ -86,7 +86,7 @@ You need to apply a [Service](/docs/concepts/services-networking/service/) to
 proxy the traffic to the Redis Pod. A Service defines a policy to access the
 Pods.
 
-{{% code file="application/guestbook/redis-leader-service.yaml" %}}
+{{% code_sample file="application/guestbook/redis-leader-service.yaml" %}}
 
 1. Apply the Redis Service from the following `redis-leader-service.yaml` file:
 
@@ -124,7 +124,7 @@ traffic to the Redis Pod.
 Although the Redis leader is a single Pod, you can make it highly available
 and meet traffic demands by adding a few Redis followers, or replicas.
 
-{{% code file="application/guestbook/redis-follower-deployment.yaml" %}}
+{{% code_sample file="application/guestbook/redis-follower-deployment.yaml" %}}
 
 1. Apply the Redis Deployment from the following `redis-follower-deployment.yaml` file:
 
@@ -158,7 +158,7 @@ The guestbook application needs to communicate with the Redis followers to
 read data. To make the Redis followers discoverable, you must set up another
 [Service](/docs/concepts/services-networking/service/).
 
-{{% code file="application/guestbook/redis-follower-service.yaml" %}}
+{{% code_sample file="application/guestbook/redis-follower-service.yaml" %}}
 
 1. Apply the Redis Service from the following `redis-follower-service.yaml` file:
 
@@ -205,7 +205,7 @@ jQuery-Ajax-based UX.
 
 ### Creating the Guestbook Frontend Deployment
 
-{{% code file="application/guestbook/frontend-deployment.yaml" %}}
+{{% code_sample file="application/guestbook/frontend-deployment.yaml" %}}
 
 1. Apply the frontend Deployment from the `frontend-deployment.yaml` file:
 
@@ -253,7 +253,7 @@ support external load balancers. If your cloud provider supports load
 balancers and you want to use it, uncomment `type: LoadBalancer`.
 {{< /note >}}
 
-{{% code file="application/guestbook/frontend-service.yaml" %}}
+{{% code_sample file="application/guestbook/frontend-service.yaml" %}}
 
 1. Apply the frontend Service from the `frontend-service.yaml` file:
 

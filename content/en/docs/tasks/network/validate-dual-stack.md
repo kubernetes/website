@@ -106,7 +106,7 @@ fe00::2    ip6-allrouters
 
 Create the following Service that does not explicitly define `.spec.ipFamilyPolicy`. Kubernetes will assign a cluster IP for the Service from the first configured `service-cluster-ip-range` and set the `.spec.ipFamilyPolicy` to `SingleStack`.
 
-{{% code file="service/networking/dual-stack-default-svc.yaml" %}}
+{{% code_sample file="service/networking/dual-stack-default-svc.yaml" %}}
 
 Use `kubectl` to view the YAML for the Service.
 
@@ -143,7 +143,7 @@ status:
 
 Create the following Service that explicitly defines `IPv6` as the first array element in `.spec.ipFamilies`. Kubernetes will assign a cluster IP for the Service from the IPv6 range configured `service-cluster-ip-range` and set the `.spec.ipFamilyPolicy` to `SingleStack`.
 
-{{% code file="service/networking/dual-stack-ipfamilies-ipv6.yaml" %}}
+{{% code_sample file="service/networking/dual-stack-ipfamilies-ipv6.yaml" %}}
 
 Use `kubectl` to view the YAML for the Service.
 
@@ -181,7 +181,7 @@ status:
 
 Create the following Service that explicitly defines `PreferDualStack` in `.spec.ipFamilyPolicy`. Kubernetes will assign both IPv4 and IPv6 addresses (as this cluster has dual-stack enabled) and select the `.spec.ClusterIP` from the list of `.spec.ClusterIPs` based on the address family of the first element in the `.spec.ipFamilies` array.
 
-{{% code file="service/networking/dual-stack-preferred-svc.yaml" %}}
+{{% code_sample file="service/networking/dual-stack-preferred-svc.yaml" %}}
 
 {{< note >}}
 The `kubectl get svc` command will only show the primary IP in the `CLUSTER-IP` field.
@@ -222,7 +222,7 @@ Events:            <none>
 
 If the cloud provider supports the provisioning of IPv6 enabled external load balancers, create the following Service with `PreferDualStack` in `.spec.ipFamilyPolicy`, `IPv6` as the first element of the `.spec.ipFamilies` array and the `type` field set to `LoadBalancer`.
 
-{{% code file="service/networking/dual-stack-prefer-ipv6-lb-svc.yaml" %}}
+{{% code_sample file="service/networking/dual-stack-prefer-ipv6-lb-svc.yaml" %}}
 
 Check the Service:
 

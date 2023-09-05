@@ -57,7 +57,7 @@ liveness probes to detect and remedy such situations.
 In this exercise, you create a Pod that runs a container based on the
 `registry.k8s.io/busybox` image. Here is the configuration file for the Pod:
 
-{{% code file="pods/probe/exec-liveness.yaml" %}}
+{{% code_sample file="pods/probe/exec-liveness.yaml" %}}
 
 In the configuration file, you can see that the Pod has a single `Container`.
 The `periodSeconds` field specifies that the kubelet should perform a liveness
@@ -142,7 +142,7 @@ liveness-exec   1/1       Running   1          1m
 Another kind of liveness probe uses an HTTP GET request. Here is the configuration
 file for a Pod that runs a container based on the `registry.k8s.io/liveness` image.
 
-{{% code file="pods/probe/http-liveness.yaml" %}}
+{{% code_sample file="pods/probe/http-liveness.yaml" %}}
 
 In the configuration file, you can see that the Pod has a single container.
 The `periodSeconds` field specifies that the kubelet should perform a liveness
@@ -203,7 +203,7 @@ kubelet will attempt to open a socket to your container on the specified port.
 If it can establish a connection, the container is considered healthy, if it
 can't it is considered a failure.
 
-{{% code file="pods/probe/tcp-liveness-readiness.yaml" %}}
+{{% code_sample file="pods/probe/tcp-liveness-readiness.yaml" %}}
 
 As you can see, configuration for a TCP check is quite similar to an HTTP check.
 This example uses both readiness and liveness probes. The kubelet will send the
@@ -241,7 +241,7 @@ Similarly you can configure readiness and startup probes.
 
 Here is an example manifest:
 
-{{% code file="pods/probe/grpc-liveness.yaml" %}}
+{{% code_sample file="pods/probe/grpc-liveness.yaml" %}}
 
 To use a gRPC probe, `port` must be configured. If you want to distinguish probes of different types
 and probes for different features you can use the `service` field.

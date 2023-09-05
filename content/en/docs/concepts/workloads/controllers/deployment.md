@@ -42,7 +42,7 @@ The following are typical use cases for Deployments:
 
 The following is an example of a Deployment. It creates a ReplicaSet to bring up three `nginx` Pods:
 
-{{% code file="controllers/nginx-deployment.yaml" %}}
+{{% code_sample file="controllers/nginx-deployment.yaml" %}}
 
 In this example:
 

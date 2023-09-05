@@ -80,7 +80,7 @@ A policy with no (0) rules is treated as illegal.
 
 Below is an example audit policy file:
 
-{{% code file="audit/audit-policy.yaml" %}}
+{{% code_sample file="audit/audit-policy.yaml" %}}
 
 You can use a minimal audit policy file to log all requests at the `Metadata` level:
 
