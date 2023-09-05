@@ -5,6 +5,7 @@ weight: 110
 no_list: true
 card:
   name: reference
+  title: kubectl 命令行工具
   weight: 20
 ---
 <!--
@@ -14,6 +15,7 @@ weight: 110
 no_list: true
 card:
   name: reference
+  title: kubectl command line tool
   weight: 20
 -->
 <!-- overview -->
