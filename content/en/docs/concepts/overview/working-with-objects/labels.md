@@ -231,7 +231,7 @@ kubectl get pods -l 'environment in (production, qa)'
 or restricting negative matching via _notin_ operator:
 
 ```shell
-kubectl get pods -l 'environment,environment notin (frontend)'
+kubectl get pods -l 'environment,tier notin (frontend)'
 ```
 
 ### Set references in API objects
