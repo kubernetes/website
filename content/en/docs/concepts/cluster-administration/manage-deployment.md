@@ -10,9 +10,6 @@ weight: 40
 
 You've deployed your application and exposed it via a service. Now what? Kubernetes provides a
 number of tools to help you manage your application deployment, including scaling and updating.
-Among the features that we will discuss in more depth are
-[configuration files](/docs/concepts/configuration/overview/) and
-[labels](/docs/concepts/overview/working-with-objects/labels/).
 
 <!-- body -->
 
@@ -176,70 +173,9 @@ persistentvolumeclaim/my-pvc created
 If you're interested in learning more about `kubectl`, go ahead and read
 [Command line tool (kubectl)](/docs/reference/kubectl/).
 
-## Using labels effectively
-
-The examples we've used so far apply at most a single label to any resource. There are many
-scenarios where multiple labels should be used to distinguish sets from one another.
-
-For instance, different applications would use different values for the `app` label, but a
-multi-tier application, such as the [guestbook example](https://github.com/kubernetes/examples/tree/master/guestbook/),
-would additionally need to distinguish each tier. The frontend could carry the following labels:
-
-```yaml
-labels:
-   app: guestbook
-   tier: frontend
-```
-
-while the Redis master and slave would have different `tier` labels, and perhaps even an
-additional `role` label:
-
-```yaml
-labels:
-   app: guestbook
-   tier: backend
-   role: master
-```
-
-and
-
-```yaml
-labels:
-   app: guestbook
-   tier: backend
-   role: slave
-```
-
-The labels allow us to slice and dice our resources along any dimension specified by a label:
-
-```shell
-kubectl apply -f examples/guestbook/all-in-one/guestbook-all-in-one.yaml
-kubectl get pods -Lapp -Ltier -Lrole
-```
-
-```none
-NAME                           READY     STATUS    RESTARTS   AGE       APP         TIER       ROLE
-guestbook-fe-4nlpb             1/1       Running   0          1m        guestbook   frontend   <none>
-guestbook-fe-ght6d             1/1       Running   0          1m        guestbook   frontend   <none>
-guestbook-fe-jpy62             1/1       Running   0          1m        guestbook   frontend   <none>
-guestbook-redis-master-5pg3b   1/1       Running   0          1m        guestbook   backend    master
-guestbook-redis-slave-2q2yf    1/1       Running   0          1m        guestbook   backend    slave
-guestbook-redis-slave-qgazl    1/1       Running   0          1m        guestbook   backend    slave
-my-nginx-divi2                 1/1       Running   0          29m       nginx       <none>     <none>
-my-nginx-o0ef1                 1/1       Running   0          29m       nginx       <none>     <none>
-```
-
-```shell
-kubectl get pods -lapp=guestbook,role=slave
-```
-
-```none
-NAME                          READY     STATUS    RESTARTS   AGE
-guestbook-redis-slave-2q2yf   1/1       Running   0          3m
-guestbook-redis-slave-qgazl   1/1       Running   0          3m
-```
-
 ## Canary deployments
+
+<!--TODO: make a task out of this for canary deployment, ref #42786-->
 
 Another scenario where multiple labels are needed is to distinguish deployments of different
 releases or configurations of the same component. It is common practice to deploy a *canary* of a
@@ -295,42 +231,6 @@ the canary one.
 
 For a more concrete example, check the
 [tutorial of deploying Ghost](https://github.com/kelseyhightower/talks/tree/master/kubecon-eu-2016/demo#deploy-a-canary).
-
-## Updating labels
-
-Sometimes existing pods and other resources need to be relabeled before creating new resources.
-This can be done with `kubectl label`.
-For example, if you want to label all your nginx pods as frontend tier, run:
-
-```shell
-kubectl label pods -l app=nginx tier=fe
-```
-
-```none
-pod/my-nginx-2035384211-j5fhi labeled
-pod/my-nginx-2035384211-u2c7e labeled
-pod/my-nginx-2035384211-u3t6x labeled
-```
-
-This first filters all pods with the label "app=nginx", and then labels them with the "tier=fe".
-To see the pods you labeled, run:
-
-```shell
-kubectl get pods -l app=nginx -L tier
-```
-
-```none
-NAME                        READY     STATUS    RESTARTS   AGE       TIER
-my-nginx-2035384211-j5fhi   1/1       Running   0          23m       fe
-my-nginx-2035384211-u2c7e   1/1       Running   0          23m       fe
-my-nginx-2035384211-u3t6x   1/1       Running   0          23m       fe
-```
-
-This outputs all "app=nginx" pods, with an additional label column of pods' tier (specified with
-`-L` or `--label-columns`).
-
-For more information, please see [labels](/docs/concepts/overview/working-with-objects/labels/)
-and [kubectl label](/docs/reference/generated/kubectl/kubectl-commands/#label).
 
 ## Updating annotations
 
