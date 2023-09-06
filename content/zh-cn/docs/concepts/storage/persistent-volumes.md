@@ -1515,7 +1515,7 @@ is turned on.
 PVC 申领不必一定要请求某个类。如果 PVC 的 `storageClassName` 属性值设置为 `""`，
 则被视为要请求的是没有设置存储类的 PV 卷，因此这一 PVC 申领只能绑定到未设置存储类的
 PV 卷（未设置注解或者注解值为 `""` 的 PersistentVolume（PV）对象在系统中不会被删除，
-因为这样做可能会引起数据丢失。未设置 `storageClassName` 的 PVC 与此大不相同，
+因为这样做可能会引起数据丢失）。未设置 `storageClassName` 的 PVC 与此大不相同，
 也会被集群作不同处理。具体筛查方式取决于
 [`DefaultStorageClass` 准入控制器插件](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)
 是否被启用。
