@@ -367,7 +367,7 @@ main {
       flex-direction: column;
       flex-wrap: wrap;
       gap: .75em;
-      padding:.75em 0 .75em .75em;
+      padding:.75em .75em .75em .75em;
   
       .metric_name{
         font-size: large;
@@ -396,6 +396,7 @@ main {
                 font-family: monospace;
                 border: 1px solid rgb(230 , 230 , 230);
                 border-radius: 5%;
+                margin-bottom: .35em;
           }
         }
   
