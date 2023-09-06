@@ -454,7 +454,7 @@ this feature `kubelet` must be started with the following flags:
 要启用此特性，必须使用以下标志启动 `kubelet`：
 
 ```
---feature-gates=DynamicResourceAllocation=true,KubeletPodResourcesDynamiceResources=true
+--feature-gates=DynamicResourceAllocation=true,KubeletPodResourcesDynamicResources=true
 ```
 
 <!--
@@ -774,7 +774,7 @@ ensure your kubelet services are started with the following flags:
 要启用此特性，你必须确保使用以下标志启动 kubelet 服务：
 
 ```
---feature-gates=KubeletPodResourcesGet=true,DynamicResourceAllocation=true,KubeletPodResourcesDynamiceResources=true
+--feature-gates=KubeletPodResourcesGet=true,DynamicResourceAllocation=true,KubeletPodResourcesDynamicResources=true
 ```
 
 <!--
