@@ -147,9 +147,9 @@ The following methods exist for installing kubectl on Linux:
    echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
    ```
 
-   {{< note >}}
-   To upgrade kubectl to another minor release, you'll need to bump the version in `/etc/apt/sources.list.d/kubernetes.list` before running `apt-get update` and `apt-get upgrade`. This procedure is described in more detail in [Changing The Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
-   {{< /note >}}
+{{< note >}}
+To upgrade kubectl to another minor release, you'll need to bump the version in `/etc/apt/sources.list.d/kubernetes.list` before running `apt-get update` and `apt-get upgrade`. This procedure is described in more detail in [Changing The Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
+{{< /note >}}
 
 4. Update `apt` package index, then install kubectl:
 
@@ -170,27 +170,27 @@ In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not 
    different than {{< param "version" >}}, replace {{< param "version" >}} with
    the desired minor version in the command below.
 
-```bash
-# This overwrites any existing configuration in /etc/yum.repos.d/kubernetes.repo
-cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
-[kubernetes]
-name=Kubernetes
-baseurl=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/
-enabled=1
-gpgcheck=1
-gpgkey=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/repodata/repomd.xml.key
-EOF
-```
+   ```bash
+   # This overwrites any existing configuration in /etc/yum.repos.d/kubernetes.repo
+   cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
+   [kubernetes]
+   name=Kubernetes
+   baseurl=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/
+   enabled=1
+   gpgcheck=1
+   gpgkey=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/repodata/repomd.xml.key
+   EOF
+   ```
 
 {{< note >}}
 To upgrade kubectl to another minor release, you'll need to bump the version in `/etc/yum.repos.d/kubernetes.repo` before running `yum update`. This procedure is described in more detail in [Changing The Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
 {{< /note >}}
 
-1. Install kubectl using `yum`:
+2. Install kubectl using `yum`:
 
-```bash
-sudo yum install -y kubectl
-```
+   ```bash
+   sudo yum install -y kubectl
+   ```
 
 {{% /tab %}}
 {{< /tabs >}}
