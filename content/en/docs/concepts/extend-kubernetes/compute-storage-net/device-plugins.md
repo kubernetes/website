@@ -246,7 +246,7 @@ of running pods allocated in `ResourceClaims` by the `DynamicResourceAllocation`
 this feature `kubelet` must be started with the following flags:
 
 ```
---feature-gates=DynamicResourceAllocation=true,KubeletPodResourcesDynamiceResources=true
+--feature-gates=DynamicResourceAllocation=true,KubeletPodResourcesDynamicResources=true
 ```
 
 ```gRPC
@@ -411,7 +411,7 @@ allocated by the dynamic resource allocation API. To enable this feature, you mu
 ensure your kubelet services are started with the following flags:
 
 ```
---feature-gates=KubeletPodResourcesGet=true,DynamicResourceAllocation=true,KubeletPodResourcesDynamiceResources=true
+--feature-gates=KubeletPodResourcesGet=true,DynamicResourceAllocation=true,KubeletPodResourcesDynamicResources=true
 ```
 
 ## Device plugin integration with the Topology Manager
