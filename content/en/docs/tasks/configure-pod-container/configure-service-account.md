@@ -47,7 +47,7 @@ kubectl get pods/<podname> -o yaml
 ```
 
 In the output, you see a field `spec.serviceAccountName`.
-Kubernetes [automatically](/docs/concepts/overview/working-with-objects/object-management/)
+Kubernetes automatically
 sets that value if you don't specify it when you create a Pod.
 
 An application running inside a Pod can access the Kubernetes API using
