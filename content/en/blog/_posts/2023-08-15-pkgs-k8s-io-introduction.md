@@ -18,12 +18,14 @@ This blog post contains information about these new package repositories,
 what does it mean to you as an end user, and how to migrate to the new
 repositories.
 
-**Update (August 31, 2023): the legacy Google-hosted repositories are deprecated
-and will be frozen starting with September 13, 2023.
+**ℹ️  Update (August 31, 2023):** the _**legacy Google-hosted repositories are deprecated
+and will be frozen starting with September 13, 2023.**_
 Check out [the deprecation announcement](/blog/2023/08/31/legacy-package-repository-deprecation/)
-for more details about this change.**
+for more details about this change.
 
-## What you need to know about the new package repositories? (Updated on August 31, 2023)
+## What you need to know about the new package repositories?
+
+_(updated on August 31, 2023)_
 
 - This is an **opt-in change**; you're required to manually migrate from the
   Google-hosted repository to the Kubernetes community-owned repositories.
@@ -34,7 +36,7 @@ for more details about this change.**
   immediately following the patch releases that are scheduled for September 2023.
   Freezing the legacy repositories means that we will publish packages for the Kubernetes
   project only to the community-owned repositories as of the September 13, 2023 cut-off point.
-  Check out [the deprecation announcement](/blog/2023/08/31/legacy-package-repository-deprecation/)
+  Check out the [deprecation announcement](/blog/2023/08/31/legacy-package-repository-deprecation/)
   for more details about this change.
 - The existing packages in the legacy repositories will be available for the foreseeable future.
   However, the Kubernetes project can't provide any guarantees on how long is that going to be.
