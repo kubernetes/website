@@ -1,18 +1,7 @@
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
 <!-- 
 Renew all available certificates 
 -->
-续订所有可用证书
+续订所有可用证书。
 
 <!--
 ### Synopsis
@@ -77,7 +66,7 @@ kubeadm certs renew all [flags]
 <!--
 <p>help for all</p>
 -->
-<p>all 操作的帮助命令</p>
+<p>all 操作的帮助命令。</p>
 </td>
 </tr>
 
@@ -107,7 +96,7 @@ kubeadm certs renew all [flags]
 <!--
 Use the Kubernetes certificate API to renew certificates
 -->
-使用 Kubernetes 证书 API 续订证书
+使用 Kubernetes 证书 API 续订证书。
 </td>
 </tr>
 
@@ -140,4 +129,3 @@ Use the Kubernetes certificate API to renew certificates
 
 </tbody>
 </table>
-
