@@ -122,15 +122,17 @@ resources:
 
 Each `resources` array item is a separate config and contains a complete configuration. The
 `resources.resources` field is an array of Kubernetes resource names (`resource` or `resource.group`)
-that should be encrypted like Secrets, ConfigMaps, or other resources. 
+that should be encrypted like Secrets, ConfigMaps, or other resources.
 
-If custom resources are added to `EncryptionConfiguration` and the cluster version is 1.26 or newer, 
-any newly created custom resources mentioned in the `EncryptionConfiguration` will be encrypted. 
+If custom resources are added to `EncryptionConfiguration` and the cluster version is 1.26 or newer,
+any newly created custom resources mentioned in the `EncryptionConfiguration` will be encrypted.
 Any custom resources that existed in etcd prior to that version and configuration will be unencrypted
 until they are next written to storage. This is the same behavior as built-in resources.
 See the [Ensure all secrets are encrypted](#ensure-all-secrets-are-encrypted) section.
 
 The `providers` array is an ordered list of the possible encryption providers to use for the APIs that you listed.
+Each provider supports multiple keys - the keys are tried in order for decryption, and if the provider
+is the first provider, the first key is used for encryption.
 
 Only one provider type may be specified per entry (`identity` or `aescbc` may be provided,
 but not both in the same item).
@@ -142,7 +144,7 @@ is returned which prevents clients from accessing that resource.
 `EncryptionConfiguration` supports the use of wildcards to specify the resources that should be encrypted.
 Use '`*.<group>`' to encrypt all resources within a group (for eg '`*.apps`' in above example) or '`*.*`'
 to encrypt all resources. '`*.`' can be used to encrypt all resource in the core group. '`*.*`' will
-encrypt all resources, even custom resources that are added after API server start. 
+encrypt all resources, even custom resources that are added after API server start.
 
 {{< note >}} Use of wildcards that overlap within the same resource list or across multiple entries are not allowed
 since part of the configuration would be ineffective. The `resources` list's processing order and precedence
@@ -171,9 +173,12 @@ the only recourse is to delete that key from the underlying etcd directly. Calls
 read that resource will fail until it is deleted or a valid decryption key is provided.
 {{< /caution >}}
 
-### Providers
+### Available providers {#providers}
 
-The following table describes each available provider:
+Before you configure encryption-at-rest for data in your cluster's Kubernetes API, you
+need to select which provider(s) you will use.
+
+The following table describes each available provider.
 
 <!-- localization note: if it makes sense to adapt this table to work for your localization,
      please do that. Each sentence in the English original should have a direct equivalent in the adapted
@@ -279,31 +284,43 @@ The following table describes each available provider:
 </tbody>
 </table>
 
-Each provider supports multiple keys - the keys are tried in order for decryption, and if the provider
-is the first provider, the first key is used for encryption.
+The `identity` provider is the default if you do not specify otherwise. **The `identity` provider does not
+encrypt stored data and provides _no_ additional confidentiality protection.**
 
+### Key storage
 
-{{< caution >}}
-Storing the raw encryption key in the EncryptionConfig only moderately improves your security
-posture, compared to no encryption.  Please use `kms` provider for additional security.
-{{< /caution >}}
-
-By default, the `identity` provider is used to protect secret data in etcd, which provides no
-encryption. `EncryptionConfiguration` was introduced to encrypt secret data locally, with a locally
-managed key.
+#### Local key storage
 
 Encrypting secret data with a locally managed key protects against an etcd compromise, but it fails to
 protect against a host compromise. Since the encryption keys are stored on the host in the
 EncryptionConfiguration YAML file, a skilled attacker can access that file and extract the encryption
 keys.
 
-Envelope encryption creates dependence on a separate key, not stored in Kubernetes. In this case,
-an attacker would need to compromise etcd, the `kubeapi-server`, and the third-party KMS provider to
-retrieve the plaintext values, providing a higher level of security than locally stored encryption keys.
+#### Managed (KMS) key storage {#kms-key-storage}
 
-## Encrypting your data
+The KMS provider uses _envelope encryption_: Kubernetes encrypts resources using a data key, and then
+encrypts that data key using the managed encryption service. Kubernetes generates a unique data key for
+each resource. The API server stores an encrypted version of the data key in etcd alongside the ciphertext;
+when reading the resource, the API server calls the managed encryption service and provides both the
+ciphertext and the (encrypted) data key.
+Within the managed encryption service, the provider use a _key encryption key_ to decipher the data key,
+deciphers the data key, and finally recovers the plain text. Communication between the control plane
+and the KMS requires in-transit protection, such as TLS.
 
-Create a new encryption config file:
+Using envelope encryption creates dependence on the key encryption key, which is not stored in Kubernetes.
+In the KMS case, an attacker who intends to get unauthorised access to the plaintext
+values would need to compromise etcd **and** the third-party KMS provider.
+
+## Write an encryption configuration file
+
+{{< caution >}}
+The encryption configuration file may contain keys that can decrypt content in etcd.
+If the configuration file contains any key material, you must properly
+restrict permissions on all your control plane hosts so only the user
+who runs the kube-apiserver can read this configuration.
+{{< /caution >}}
+
+Create a new encryption configuration file. The contents should be similar to:
 
 ```yaml
 ---
