@@ -1082,14 +1082,14 @@ PodSpec 是对 Pod 的描述。
     <!--
     - **securityContext.seccompProfile.localhostProfile** (string)
 
-      localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
+      localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must be set if type is "Localhost". Must NOT be set for any other type.
     -->
 
     - **securityContext.seccompProfile.localhostProfile** (string)
 
       localhostProfile 指示应使用在节点上的文件中定义的配置文件。该配置文件必须在节点上预先配置才能工作。
       必须是相对于 kubelet 配置的 seccomp 配置文件位置的下降路径。
-      仅当 type 为 `"Localhost"` 时才必须设置。
+      仅当 type 为 `"Localhost"` 时才必须设置。不得为任何其他类别设置此字段。
 
   <!--
   - **securityContext.seLinuxOptions** (SELinuxOptions)
@@ -1223,14 +1223,12 @@ PodSpec 是对 Pod 的描述。
     <!--
     - **securityContext.windowsOptions.hostProcess** (boolean)
 
-      HostProcess determines if a container should be run as a 'Host Process' container. This field is alpha-level and will only be honored by components that enable the WindowsHostProcessContainers feature flag. Setting this field without the feature flag will result in errors when validating the Pod. All of a Pod's containers must have the same effective HostProcess value (it is not allowed to have a mix of HostProcess containers and non-HostProcess containers).  In addition, if HostProcess is true then HostNetwork must also be set to true.
+      HostProcess determines if a container should be run as a 'Host Process' container. All of a Pod's containers must have the same effective HostProcess value (it is not allowed to have a mix of HostProcess containers and non-HostProcess containers). In addition, if HostProcess is true then HostNetwork must also be set to true.
     -->
 
     - **securityContext.windowsOptions.hostProcess** (boolean)
 
       hostProcess 确定容器是否应作为"主机进程"容器运行。
-      此字段是 Alpha 级别的，只有启用 WindowsHostProcessContainers 特性门控的组件才会理解此字段。
-      在不启用该功能门控的前提下设置了此字段，将导致验证 Pod 时发生错误。
       一个 Pod 的所有容器必须具有相同的有效 hostProcess 值（不允许混合设置了 hostProcess
       的容器和未设置 hostProcess 容器）。
       此外，如果 hostProcess 为 true，则 hostNetwork 也必须设置为 true。
@@ -1347,14 +1345,13 @@ PodSpec 是对 Pod 的描述。
       resourceClaimTemplateName 是与此 Pod 位于同一命名空间中的 `ResourceClaimTemplate` 对象的名称。
 
       <!--
-      The template will be used to create a new ResourceClaim, which will be bound to this pod. When this pod is deleted, the ResourceClaim will also be deleted. The name of the ResourceClaim will be \<pod name>-\<resource name>, where \<resource name> is the PodResourceClaim.Name. Pod validation will reject the pod if the concatenated name is not valid for a ResourceClaim (e.g. too long).
+      The template will be used to create a new ResourceClaim, which will be bound to this pod. When this pod is deleted, the ResourceClaim will also be deleted. The pod name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in pod.status.resourceClaimStatuses.
       -->
     
       该模板将用于创建一个新的 ResourceClaim，新的 ResourceClaim 将被绑定到此 Pod。
-      删除此 Pod 时，ResourceClaim 也将被删除。ResourceClaim 
-      的名称将为 \<Pod 名称>-\<资源名称>，其中 \<资源名称>
-      是 PodResourceClaim.name。如果串接起来的名称对于 ResourceClaim
-      无效（例如太长），Pod 的验证机制将拒绝该 Pod。
+      删除此 Pod 时，ResourceClaim 也将被删除。
+      Pod 名称和资源名称，连同生成的组件，将用于为 ResourceClaim 形成唯一名称，
+      该名称将记录在 pod.status.resourceClaimStatuses 中。
 
       <!--
       An existing ResourceClaim with that name that is not owned by the pod will not be used for the pod to avoid using an unrelated resource by mistake. Scheduling and pod startup are then blocked until the unrelated ResourceClaim is removed.
@@ -2213,6 +2210,22 @@ A single application container that you want to run within a pod.
   https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/pod-lifecycle#container-probes
 
 <!--
+- **restartPolicy** (string)
+
+  RestartPolicy defines the restart behavior of individual containers in a pod. This field may only be set for init containers, and the only allowed value is "Always". For non-init containers or when this field is not specified, the restart behavior is defined by the Pod's restart policy and the container type. Setting the RestartPolicy as "Always" for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy "Always" will be shut down. This lifecycle differs from normal init containers and is often referred to as a "sidecar" container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
+-->
+- **restartPolicy** (string)
+
+  restartPolicy 定义 Pod 中各个容器的重新启动行为。
+  该字段仅适用于 Init 容器，唯一允许的值是 "Always"。
+  对于非 Init 容器或未指定此字段的情况，重新启动行为由 Pod 的重启策略和容器类型来定义。
+  将 restartPolicy 设置为 "Always" 会产生以下效果：该 Init 容器将在退出后持续重新启动，直到所有常规容器终止。
+  一旦所有常规容器已完成，所有具有 restartPolicy 为 "Always" 的 Init 容器将被关闭。
+  这种生命期与正常的 Init 容器不同，通常被称为 "sidecar" 容器。
+  虽然此 Init 容器仍然在 Init 容器序列中启动，但它在进入下一个 Init 容器之前并不等待容器完成。
+  相反，在此 Init 容器被启动后或在任意 startupProbe 已成功完成后下一个 Init 容器将立即启动。
+
+<!--
 ### Security Context
 -->
 ### 安全上下文
@@ -2389,7 +2402,7 @@ A single application container that you want to run within a pod.
     <!--
     - **securityContext.seccompProfile.localhostProfile** (string)
 
-      localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
+      localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must be set if type is "Localhost". Must NOT be set for any other type.
     -->
 
     - **securityContext.seccompProfile.localhostProfile** (string)
@@ -2397,7 +2410,7 @@ A single application container that you want to run within a pod.
       localhostProfile 指示应使用的在节点上的文件，文件中定义了配置文件。
       该配置文件必须在节点上先行配置才能使用。
       必须是相对于 kubelet 所配置的 seccomp 配置文件位置下的下级路径。
-      仅当 type 为 "Localhost" 时才必须设置。
+      仅当 type 为 "Localhost" 时才必须设置。不得为任何其他类别设置此字段。
 
   <!--
   - **securityContext.seLinuxOptions** (SELinuxOptions)
@@ -2487,14 +2500,12 @@ A single application container that you want to run within a pod.
     <!--
     - **securityContext.windowsOptions.hostProcess** （boolean）
 
-      HostProcess determines if a container should be run as a 'Host Process' container. This field is alpha-level and will only be honored by components that enable the WindowsHostProcessContainers feature flag. Setting this field without the feature flag will result in errors when validating the Pod. All of a Pod's containers must have the same effective HostProcess value (it is not allowed to have a mix of HostProcess containers and non-HostProcess containers).  In addition, if HostProcess is true then HostNetwork must also be set to true.
+      HostProcess determines if a container should be run as a 'Host Process' container. All of a Pod's containers must have the same effective HostProcess value (it is not allowed to have a mix of HostProcess containers and non-HostProcess containers).  In addition, if HostProcess is true then HostNetwork must also be set to true.
     -->
 
     - **securityContext.windowsOptions.hostProcess** （boolean）
 
       hostProcess 确定容器是否应作为 "主机进程" 容器运行。
-      此字段是 Alpha 级别的，只有启用 WindowsHostProcessContainers 特性门控的组件才会处理。
-      设置此字段而不启用特性门控是，在验证 Pod 时将发生错误。
       一个 Pod 的所有容器必须具有相同的有效 hostProcess 值（不允许混合设置了 hostProcess 容器和未设置 hostProcess 的容器）。
       此外，如果 hostProcess 为 true，则 hostNetwork 也必须设置为 true。
 
@@ -3106,6 +3117,15 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
   表示将使用容器日志输出的最后一块。日志输出限制为 2048 字节或 80 行，以较小者为准。
   默认为 `File`。无法更新。
 
+<!--
+- **restartPolicy** (string)
+
+  Restart policy for the container to manage the restart behavior of each container within a pod. This may only be set for init containers. You cannot set this field on ephemeral containers.
+-->
+- **restartPolicy** (string)
+
+  这是针对容器的重启策略，用于管理 Pod 内每个容器的重启行为。
+  此字段仅适用于 Init 容器，在临时容器上无法设置此字段。
 
 <!--
 ### Debugging
@@ -3325,7 +3345,7 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
     <!--
     - **securityContext.seccompProfile.localhostProfile** (string)
 
-      localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
+      localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must be set if type is "Localhost". Must NOT be set for any other type.
     -->
      
     - **securityContext.seccompProfile.localhostProfile** （string）
@@ -3333,7 +3353,7 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
       localhostProfile 指示应使用在节点上的文件中定义的配置文件。
       该配置文件必须在节点上预先配置才能工作。
       必须是相对于 kubelet 配置的 seccomp 配置文件位置下的子路径。
-      仅当 type 为 "Localhost" 时才必须设置。
+      仅当 type 为 "Localhost" 时才必须设置。不得为任何其他类别设置此字段。
 
   <!--
   - **securityContext.seLinuxOptions** (SELinuxOptions)
@@ -3428,14 +3448,12 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
     <!--
     - **securityContext.windowsOptions.hostProcess** (boolean)
 
-      HostProcess determines if a container should be run as a 'Host Process' container. This field is alpha-level and will only be honored by components that enable the WindowsHostProcessContainers feature flag. Setting this field without the feature flag will result in errors when validating the Pod. All of a Pod's containers must have the same effective HostProcess value (it is not allowed to have a mix of HostProcess containers and non-HostProcess containers).  In addition, if HostProcess is true then HostNetwork must also be set to true.
+      HostProcess determines if a container should be run as a 'Host Process' container. All of a Pod's containers must have the same effective HostProcess value (it is not allowed to have a mix of HostProcess containers and non-HostProcess containers).  In addition, if HostProcess is true then HostNetwork must also be set to true.
     -->
 
     - **securityContext.windowsOptions.hostProcess** （boolean）
 
-      hostProcess 确定容器是否应作为 "主机进程" 容器运行。此字段是 Alpha 级别的，只有启用了
-      WindowsHostProcessContainers 特性门控的组件才会处理此字段。
-      设置此字段而未启用特性门控的话，在验证 Pod 时将引发错误。
+      hostProcess 确定容器是否应作为 "主机进程" 容器运行。
       一个 Pod 的所有容器必须具有相同的有效 hostProcess 值
       （不允许混合设置了 hostProcess 的容器和未设置 hostProcess 的容器）。
       此外，如果 hostProcess 为 true，则 hostNetwork 也必须设置为 true。
@@ -3774,7 +3792,7 @@ LifecycleHandler 定义了应在生命周期挂钩中执行的特定操作。
     <!--
     - **httpGet.httpHeaders.name** (string), required
 
-      The header field name
+      The header field name. This will be canonicalized upon output, so case-variant names will be understood as the same header.
 
     - **httpGet.httpHeaders.value** (string), required
 
@@ -3784,6 +3802,7 @@ LifecycleHandler 定义了应在生命周期挂钩中执行的特定操作。
     - **httpGet.httpHeaders.name** (string)，必需
 
       HTTP 头部字段名称。
+      在输出时，它将被规范化处理，因此大小写变体的名称会被视为相同的头。
 
     - **httpGet.httpHeaders.value** (string)，必需
 
@@ -4438,7 +4457,7 @@ Probe describes a health check to be performed against a container to determine 
     <!--
     - **httpGet.httpHeaders.name** (string), required
 
-      The header field name
+      The header field name. This will be canonicalized upon output, so case-variant names will be understood as the same header.
 
     - **httpGet.httpHeaders.value** (string), required
 
@@ -4448,6 +4467,7 @@ Probe describes a health check to be performed against a container to determine 
     - **httpGet.httpHeaders.name** (string)，必需
 
       HTTP 头部域名称。
+      在输出时，它将被规范化处理，因此大小写变体的名称会被视为相同的头。
 
     - **httpGet.httpHeaders.value** (string)，必需
 
@@ -4640,12 +4660,48 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
 <!--
 - **hostIP** (string)
 
-  IP address of the host to which the pod is assigned. Empty if not yet scheduled.
+  hostIP holds the IP address of the host to which the pod is assigned. Empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns mean that HostIP will not be updated even if there is a node is assigned to pod
 -->
 - **hostIP** (string)
 
-  Pod 被调度到的主机的 IP 地址。如果尚未被调度，则为字段为空。
+  hostIP 存储分配给 Pod 的主机的 IP 地址。如果 Pod 尚未启动，则为空。
+  Pod 可以被调度到 kubelet 有问题的节点上，这意味着即使有节点被分配给 Pod，hostIP 也不会被更新。
 
+<!--
+- **hostIPs** ([]HostIP)
+
+  *Patch strategy: merge on key `ip`*
+  
+  *Atomic: will be replaced during a merge*
+  
+  hostIPs holds the IP addresses allocated to the host. If this field is specified, the first entry must match the hostIP field. This list is empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns means that HostIPs will not be updated even if there is a node is assigned to this pod.
+-->
+- **hostIPs** ([]HostIP)
+
+  **补丁策略：基于 `ip` 键合并**
+
+  **原子性：将在合并期间被替换**
+
+  hostIPs 存储分配给主机的 IP 地址列表。如果此字段被指定，则第一个条目必须与 hostIP 字段匹配。
+  如果 Pod 尚未启动，则此列表为空。Pod 可以被调度到 kubelet 有问题的节点上，
+  这意味着即使有节点被分配给此 Pod，HostIPs 也不会被更新。
+
+  <!--
+  <a name="HostIP"></a>
+  *HostIP represents a single IP address allocated to the host.*
+
+  - **hostIPs.ip** (string)
+
+    IP is the IP address assigned to the host
+  -->
+
+  <a name="HostIP"></a>
+  **HostIP 表示分配给主机的单个 IP 地址。**
+
+  - **hostIPs.ip** (string)
+
+    ip 是分配给主机的 IP 地址。
+  
 <!--
 - **startTime** (Time)
 
@@ -4701,7 +4757,7 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
 
 - **podIP** (string)
 
-  IP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.
+  podIP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.
 -->
 - **message** (string)
 
@@ -4711,10 +4767,9 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
 
    一条简短的驼峰式命名的消息，指示有关 Pod 为何处于此状态的详细信息。例如 'Evicted'。
 
-
 - **podIP** （string）
 
-   分配给 Pod 的 IP 地址。至少在集群内可路由。如果尚未分配则为空。
+   分配给 Pod 的 podIP 地址。至少在集群内可路由。如果尚未分配则为空。
 
 <!--
 - **podIPs** ([]PodIP)
@@ -4724,9 +4779,7 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
   podIPs holds the IP addresses allocated to the pod. If this field is specified, the 0th entry must match the podIP field. Pods may be allocated at most 1 value for each of IPv4 and IPv6. This list is empty if no IPs have been allocated yet.
 
   <a name="PodIP"></a>
-  *IP address information for entries in the (plural) PodIPs field. Each entry includes:
-  
-  	IP: An IP address allocated to the pod. Routable at least within the cluster.*
+  *PodIP represents a single IP address allocated to the pod.*
 -->
 - **podIPs** （[]PodIP）
 
@@ -4736,19 +4789,17 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
   Pod 最多可以为 IPv4 和 IPv6 各分配 1 个值。如果尚未分配 IP，则此列表为空。
 
   <a name="PodIP"></a>
-  podIPs 字段中每个条目的 IP 地址信息。每个条目都包含：
-
-    `ip` 字段：给出分配给 Pod 的 IP 地址。该 IP 地址至少在集群内可路由。
+  **podIP 表示分配给 Pod 的单个 IP 地址。**
 
   <!--
   - **podIPs.ip** (string)
 
-    ip is an IP address (IPv4 or IPv6) assigned to the pod
+    IP is the IP address assigned to the pod
   -->
 
   - **podIP.ip** （string）
 
-     ip 是分配给 Pod 的 IP 地址（IPv4 或 IPv6）。
+    ip 是分配给 Pod 的 IP 地址。
 
 <!--
 - **conditions** ([]PodCondition)
@@ -4895,6 +4946,52 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
 
   <a name="ContainerStatus"></a>
   **ContainerStatus 包含此容器当前状态的详细信息。**
+
+<!--
+- **resourceClaimStatuses** ([]PodResourceClaimStatus)
+
+  *Patch strategies: retainKeys, merge on key `name`*
+  
+  *Map: unique values on key name will be kept during a merge*
+  
+  Status of resource claims.
+-->
+- **resourceClaimStatuses** ([]PodResourceClaimStatus)
+
+  **补丁策略：retainKeys，基于键 `name` 合并**
+
+  **映射：键 `name` 的唯一值将在合并过程中保留**
+
+  资源申领的状态。
+
+  <!--
+  <a name="PodResourceClaimStatus"></a>
+  *PodResourceClaimStatus is stored in the PodStatus for each PodResourceClaim which references a ResourceClaimTemplate. It stores the generated name for the corresponding ResourceClaim.*
+  -->
+
+  <a name="PodResourceClaimStatus"></a>
+  **对于每个引用 ResourceClaimTemplate 的 PodResourceClaim，PodResourceClaimStatus 被存储在
+  PodStatus 中。它存储为对应 ResourceClaim 生成的名称。**
+
+  <!--
+  - **resourceClaimStatuses.name** (string), required
+
+    Name uniquely identifies this resource claim inside the pod. This must match the name of an entry in pod.spec.resourceClaims, which implies that the string must be a DNS_LABEL.
+
+  - **resourceClaimStatuses.resourceClaimName** (string)
+
+    ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod. It this is unset, then generating a ResourceClaim was not necessary. The pod.spec.resourceClaims entry can be ignored in this case.
+  -->
+
+  - **resourceClaimStatuses.name** (string), required
+
+    Name 在 Pod 中唯一地标识此资源申领。
+    此名称必须与 pod.spec.resourceClaims 中的条目名称匹配，这意味着字符串必须是 DNS_LABEL。
+
+  - **resourceClaimStatuses.resourceClaimName** (string)
+
+    resourceClaimName 是为 Pod 在其名字空间中生成的 ResourceClaim 的名称。
+    如果此项未被设置，则不需要生成 ResourceClaim。在这种情况下，可以忽略 pod.spec.resourceClaims 这个条目。
 
 <!--
 - **resize** (string)
