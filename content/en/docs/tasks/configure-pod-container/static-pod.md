@@ -189,8 +189,8 @@ You can see the mirror Pod on the API server:
 kubectl get pods
 ```
 ```
-NAME         READY   STATUS    RESTARTS        AGE
-static-web   1/1     Running   0               2m
+NAME                  READY   STATUS    RESTARTS        AGE
+static-web-my-node1   1/1     Running   0               2m
 ```
 
 {{< note >}}
@@ -206,18 +206,18 @@ If you try to use `kubectl` to delete the mirror Pod from the API server,
 the kubelet _doesn't_ remove the static Pod:
 
 ```shell
-kubectl delete pod static-web
+kubectl delete pod static-web-my-node1
 ```
 ```
-pod "static-web" deleted
+pod "static-web-my-node1" deleted
 ```
 You can see that the Pod is still running:
 ```shell
 kubectl get pods
 ```
 ```
-NAME         READY   STATUS    RESTARTS   AGE
-static-web   1/1     Running   0          4s
+NAME                  READY   STATUS    RESTARTS   AGE
+static-web-my-node1   1/1     Running   0          4s
 ```
 
 Back on your node where the kubelet is running, you can try to stop the container manually.
