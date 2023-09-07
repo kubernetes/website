@@ -95,7 +95,9 @@ kubectl run ephemeral-demo --image=k8s.gcr.io/pause:3.1 --restart=Never
 kubectl debug -it ephemeral-demo --image=busybox:1.28
 ```
 
-Once you gain access to a Shell, you can perform management operations in it.
+Once you're running a shell inside the ephemeral container, you can try some troubleshooting.
+You can do debug operations even if the main container doesn't include a shell (for example: 
+the `pause` container image doesn't include a shell binary)
 The following example manifest contains a Pod where an ephemeral container
 for debugging is included.
 
