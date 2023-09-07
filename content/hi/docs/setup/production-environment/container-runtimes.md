@@ -138,7 +138,7 @@ sudo sysctl --system
    containerd config default | sudo tee /etc/containerd/config.toml
    ```
 
-3. कंटेनरडी को पुनरारंभ करें:
+3. कंटेनरडी को पुन: आरंभ करें:
 
    ```shell
    sudo systemctl restart containerd
@@ -189,7 +189,7 @@ sudo sysctl --system
   [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
     SystemdCgroup = true
 ```
-यदि आप इस परिवर्तन को लागू करते हैं,तो सुनिश्चित करें कि आप फिर से कंटेनरडी को पुनरारंभ करें: 
+यदि आप इस परिवर्तन को लागू करते हैं,तो सुनिश्चित करें कि आप फिर से कंटेनरडी को पुन: आरंभ करें: 
 ```shell
 sudo systemctl restart containerd
 ```
