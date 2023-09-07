@@ -238,8 +238,8 @@ Ephemeral containers cannot be defined in a Pod when it is created
 and it can neither be added with an update. We need some other
 method to create these specific ephemeral containers.
 
-Ephemeral containers are created using a special ephemeralcontainers 
-handler in the API rather than by adding them directly to pod.spec,
+You create an ephemeral container using a special `ephemeralcontainers`
+subresource of the Pod API (rather than by adding them directly to the `.spec` of a Pod),
 so it's not possible to add an ephemeral container using kubectl edit.
 
 The simplest method to add an ephemeral container with a security 
