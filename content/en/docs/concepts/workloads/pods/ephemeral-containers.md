@@ -76,7 +76,7 @@ you can view processes in other containers.
 
 * Learn how to [debug pods using ephemeral containers](/docs/tasks/debug/debug-application/debug-running-pod/#ephemeral-container).
 
-### Kubernetes Ephemeral Container Security
+## Kubernetes Ephemeral Container Security
 Attempting to debug a Pod and realizing that you can't install curl due to 
 security settings has to be a meme at this point. Good security practices 
 are always nice but it often comes at the cost of usability. 
@@ -130,7 +130,7 @@ It is recommended to carefully review the policies and keep the tool up-to-date
 with the latest security measures.
 
 
-## OPA Gatekeeper
+### OPA Gatekeeper
 
 OPA Gatekeeper does not require any code changes as all of its policies are 
 written in rego. It's sub project Gateekper Library does however have to be 
@@ -144,7 +144,7 @@ The good news is that this is a pretty easy fix, the bad news is
 that it requires end users to update the policies pulled from the library.
 
 
-## Pod Security Policies
+### Pod Security Policies
 
 Pod Security Policies used to be the default policy tool for Kubernetes,
 and a lot of projects have rules based on Pod Security Policies (PSP).
@@ -179,7 +179,7 @@ spec:
 
 ```
 
-## RBAC
+### RBAC
 
 Disallowing ephemeral containers with RBAC could be an option if
 the feature is not needed and it is not possible to disable the
