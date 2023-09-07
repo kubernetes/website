@@ -1,5 +1,5 @@
 ---
-title: "示例：使用 Redis 部署 PHP 留言板应用程序"
+title: "示例：使用 Redis 部署 PHP 留言板应用"
 content_type: tutorial
 weight: 20
 card:
@@ -9,7 +9,6 @@ card:
 min-kubernetes-server-version: v1.14
 source: https://cloud.google.com/kubernetes-engine/docs/tutorials/guestbook
 ---
-
 <!--
 title: "Example: Deploying PHP Guestbook application with Redis"
 reviewers:
@@ -34,7 +33,7 @@ ready)_, multi-tier web application using Kubernetes and
 components:
 -->
 本教程向你展示如何使用 Kubernetes 和 [Docker](https://www.docker.com/)
-构建和部署一个简单的 **(非面向生产的)** 多层 Web 应用程序。本例由以下组件组成：
+构建和部署一个简单的 **(非面向生产的)** 多层 Web 应用。本例由以下组件组成：
 
 <!--
 * A single-instance [Redis](https://www.redis.io/) to store guestbook entries
@@ -73,7 +72,7 @@ components:
 <!--
 The guestbook application uses Redis to store its data.
 -->
-留言板应用程序使用 Redis 存储数据。
+留言板应用使用 Redis 存储数据。
 
 <!--
 ### Creating the Redis Deployment
@@ -85,7 +84,7 @@ The manifest file, included below, specifies a Deployment controller that runs a
 -->
 下面包含的清单文件指定了一个 Deployment 控制器，该控制器运行一个 Redis Pod 副本。
 
-{{< code file="application/guestbook/redis-leader-deployment.yaml" >}}
+{{% code_sample file="application/guestbook/redis-leader-deployment.yaml" %}}
 
 <!--
 1. Launch a terminal window in the directory you downloaded the manifest files.
@@ -142,16 +141,16 @@ You need to apply a [Service](/docs/concepts/services-networking/service/) to
 proxy the traffic to the Redis Pod. A Service defines a policy to access the
 Pods.
 -->
-留言板应用程序需要往 Redis 中写数据。因此，需要创建
+留言板应用需要往 Redis 中写数据。因此，需要创建
 [Service](/zh-cn/docs/concepts/services-networking/service/) 来转发 Redis Pod
 的流量。Service 定义了访问 Pod 的策略。
 
-{{< code file="application/guestbook/redis-leader-service.yaml" >}}
+{{% code_sample file="application/guestbook/redis-leader-service.yaml" %}}
 
 <!--
 1. Apply the Redis Service from the following `redis-leader-service.yaml` file:
 -->
-1. 使用下面的 `redis-leader-service.yaml` 文件创建 Redis的服务：
+1. 使用下面的 `redis-leader-service.yaml` 文件创建 Redis 的服务：
 
    <!---
    for local testing of the content via relative file path
@@ -188,8 +187,8 @@ This manifest file creates a Service named `redis-leader` with a set of labels
 that match the labels previously defined, so the Service routes network
 traffic to the Redis Pod.
 -->
-这个清单文件创建了一个名为 `redis-leader` 的 Service，其中包含一组
-与前面定义的标签匹配的标签，因此服务将网络流量路由到 Redis Pod 上。
+这个清单文件创建了一个名为 `redis-leader` 的 Service，
+其中包含一组与前面定义的标签匹配的标签，因此服务将网络流量路由到 Redis Pod 上。
 {{< /note >}}
 
 <!--
@@ -203,7 +202,7 @@ and meet traffic demands by adding a few Redis followers, or replicas.
 尽管 Redis 领导者只有一个 Pod，你可以通过添加若干 Redis 跟随者来将其配置为高可用状态，
 以满足流量需求。
 
-{{< code file="application/guestbook/redis-follower-deployment.yaml" >}}
+{{% code_sample file="application/guestbook/redis-follower-deployment.yaml" %}}
 
 <!--
 1. Apply the Redis Deployment from the following `redis-follower-deployment.yaml` file:
@@ -253,7 +252,7 @@ Guestbook 应用需要与 Redis 跟随者通信以读取数据。
 为了让 Redis 跟随者可被发现，你必须创建另一个
 [Service](/zh-cn/docs/concepts/services-networking/service/)。
 
-{{< code file="application/guestbook/redis-follower-service.yaml" >}}
+{{% code_sample file="application/guestbook/redis-follower-service.yaml" %}}
 
 <!--
 1. Apply the Redis Service from the following `redis-follower-service.yaml` file:
@@ -301,7 +300,6 @@ traffic to the Redis Pod.
 Redis Pod 之上。
 {{< /note >}}
 
-
 <!--
 ## Set up and Expose the Guestbook Frontend
 -->
@@ -321,8 +319,8 @@ jQuery-Ajax-based UX.
 接下来可以启动 Guestbook 的 Web 服务器了。
 与 Redis 跟随者类似，前端也是使用 Kubernetes Deployment 来部署的。
 
-Guestbook 应用使用 PHP 前端。该前端被配置成与后端的 Redis 跟随者或者
-领导者服务通信，具体选择哪个服务取决于请求是读操作还是写操作。
+Guestbook 应用使用 PHP 前端。该前端被配置成与后端的 Redis
+跟随者或者领导者服务通信，具体选择哪个服务取决于请求是读操作还是写操作。
 前端对外暴露一个 JSON 接口，并提供基于 jQuery-Ajax 的用户体验。
 
 <!--
@@ -330,7 +328,7 @@ Guestbook 应用使用 PHP 前端。该前端被配置成与后端的 Redis 跟�
 -->
 ### 创建 Guestbook 前端 Deployment   {#creating-the-guestbook-frontend-deployment}
 
-{{< code file="application/guestbook/frontend-deployment.yaml" >}}
+{{% code_sample file="application/guestbook/frontend-deployment.yaml" %}}
 
 <!--
 1. Apply the frontend Deployment from the `frontend-deployment.yaml` file:
@@ -401,12 +399,12 @@ Some cloud providers, like Google Compute Engine or Google Kubernetes Engine,
 support external load balancers. If your cloud provider supports load
 balancers and you want to use it, uncomment `type: LoadBalancer`.
 -->
-一些云提供商，如 Google Compute Engine 或 Google Kubernetes Engine，
-支持外部负载均衡器。如果你的云提供商支持负载均衡器，并且你希望使用它，
+Google Compute Engine 或 Google Kubernetes Engine
+这些云平台支持外部负载均衡器。如果你的云平台支持负载均衡器，并且你希望使用它，
 只需取消注释 `type: LoadBalancer`。
 {{< /note >}}
 
-{{< code file="application/guestbook/frontend-service.yaml" >}}
+{{% code_sample file="application/guestbook/frontend-service.yaml" %}}
 
 <!--
 1. Apply the frontend Service from the `frontend-service.yaml` file:
@@ -655,10 +653,10 @@ labels to delete multiple resources with one command.
 * Complete the [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) Interactive Tutorials
 * Use Kubernetes to create a blog using [Persistent Volumes for MySQL and Wordpress](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)
 * Read more about [connecting applications with services](/docs/tutorials/services/connect-applications-service/)
-* Read more about [Managing Resources](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)
+* Read more about [using labels effectively](/docs/concepts/overview/working-with-objects/labels/#using-labels-effectively)
 -->
 * 完成 [Kubernetes 基础](/zh-cn/docs/tutorials/kubernetes-basics/) 交互式教程
 * 使用 Kubernetes 创建一个博客，使用
   [MySQL 和 Wordpress 的持久卷](/zh-cn/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)
 * 进一步阅读[使用 Service 连接到应用](/zh-cn/docs/tutorials/services/connect-applications-service/)
-* 进一步阅读[管理资源](/zh-cn/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)
+* 进一步阅读[有效使用标签](/zh-cn/docs/concepts/overview/working-with-objects/labels/#using-labels-effectively)
