@@ -153,7 +153,7 @@ Swap configuration on a node is exposed to a cluster admin via the
 As a cluster administrator, you can specify the node's behaviour in the
 presence of swap memory by setting `memorySwap.swapBehavior`.
 
-The kubelet [employs the CRI](https://kubernetes.io/docs/concepts/architecture/cri/)
+The kubelet [employs the CRI](/docs/concepts/architecture/cri/)
 (container runtime interface) API to direct the CRI to
 configure specific cgroup v2 parameters (such as `memory.swap.max`) in a manner that will
 enable the desired swap configuration for a container. The CRI is then responsible to
