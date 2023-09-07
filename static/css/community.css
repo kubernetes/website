@@ -205,6 +205,8 @@ body.cid-community a.community-cta-button {
   text-align: center;
 }
 
+body.cid-community a.community-cta-button:hover { background-color: #2357b0; }
+
 body.cid-community a.community-cta-button > span.community-cta {
   color: inherit;
   background: transparent;
