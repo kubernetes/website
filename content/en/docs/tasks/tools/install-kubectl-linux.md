@@ -200,17 +200,16 @@ sudo yum install -y kubectl
    different than {{< param "version" >}}, replace {{< param "version" >}} with
    the desired minor version in the command below.
 
-```bash
-# This overwrites any existing configuration in /etc/zypp/repos.d/kubernetes.repo
-cat <<EOF | sudo tee /etc/zypp/repos.d/kubernetes.repo
-[kubernetes]
-name=Kubernetes
-baseurl=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/
-enabled=1
-gpgcheck=1
-gpgkey=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/repodata/repomd.xml.key
-EOF
-```
+   ```bash
+   # This overwrites any existing configuration in /etc/zypp/repos.d/kubernetes.repo
+   cat <<EOF | sudo tee /etc/zypp/repos.d/kubernetes.repo
+   [kubernetes]
+   name=Kubernetes
+   baseurl=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/
+   enabled=1
+   gpgcheck=1
+   gpgkey=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/repodata/repomd.xml.key
+   EOF
 
    {{< note >}}
    To upgrade kubectl to another minor release, you'll need to bump the version in `/etc/zypp/repos.d/kubernetes.repo`
