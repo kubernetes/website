@@ -240,7 +240,7 @@ method to create these specific ephemeral containers.
 
 You create an ephemeral container using a special `ephemeralcontainers`
 subresource of the Pod API (rather than by adding them directly to the `.spec` of a Pod),
-so it's not possible to add an ephemeral container using kubectl edit.
+so it's not possible to add (or remove) an ephemeral container using `kubectl edit`.
 
 The simplest method to add an ephemeral container with a security 
 context to a Pod is to use the Go client. A couple of lines of 
