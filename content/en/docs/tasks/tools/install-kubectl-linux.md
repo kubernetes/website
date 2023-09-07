@@ -218,9 +218,8 @@ To upgrade kubectl to another minor release, you'll need to bump the version in 
 
 1. Install kubectl using `zypper`:
 
-```bash
-sudo zypper install -y kubectl
-```
+   ```bash
+   sudo zypper install -y kubectl
 
 {{% /tab %}}
 {{< /tabs >}}
