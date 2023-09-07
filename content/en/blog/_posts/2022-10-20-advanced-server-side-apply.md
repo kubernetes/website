@@ -77,7 +77,7 @@ section](#ci-cd-systems), though!)
 #### Controllers that use either a GET-modify-PUT sequence or a PATCH {#get-modify-put-patch-controllers}
 
 This kind of controller GETs an object (possibly from a
-[**watch**](https://kubernetes.io/docs/reference/using-api/api-concepts/#efficient-detection-of-changes)),
+[**watch**](/docs/reference/using-api/api-concepts/#efficient-detection-of-changes)),
 modifies it, and then PUTs it back to write its changes. Sometimes it constructs
 a custom PATCH, but the semantics are the same. Most existing controllers
 (especially those in-tree) work like this.

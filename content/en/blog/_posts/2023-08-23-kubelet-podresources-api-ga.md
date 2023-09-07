@@ -5,8 +5,7 @@ date: 2023-08-23
 slug: kubelet-podresources-api-GA
 ---
 
-**Author:**
-Francesco Romani (Red Hat)
+**Author:** Francesco Romani (Red Hat)
 
 The podresources API is an API served by the kubelet locally on the node, which exposes the compute resources exclusively
 allocated to containers. With the release of Kubernetes 1.28, that API is now Generally Available.
@@ -14,10 +13,10 @@ allocated to containers. With the release of Kubernetes 1.28, that API is now Ge
 ## What problem does it solve?
 
 The kubelet can allocate exclusive resources to containers, like
-[CPUs, granting exclusive access to full cores](https://kubernetes.io/docs/tasks/administer-cluster/cpu-management-policies/)
-or [memory, either regions or hugepages](https://kubernetes.io/docs/tasks/administer-cluster/memory-manager/).
+[CPUs, granting exclusive access to full cores](/docs/tasks/administer-cluster/cpu-management-policies/)
+or [memory, either regions or hugepages](/docs/tasks/administer-cluster/memory-manager/).
 Workloads which require high performance, or low latency (or both) leverage these features.
-The kubelet also can assign [devices to containers](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/).
+The kubelet also can assign [devices to containers](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/).
 Collectively, these features which enable exclusive assignments are known as "resource managers".
 
 Without an API like podresources, the only possible option to learn about resource assignment was to read the state files the
@@ -28,7 +27,7 @@ moving to podresources API or to other supported APIs.
 
 ## Overview of the API
 
-The podresources API was [initially proposed to enable device monitoring](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources).
+The podresources API was [initially proposed to enable device monitoring](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources).
 In order to enable monitoring agents, a key prerequisite is to enable introspection of device assignment, which is performed by the kubelet.
 Serving this purpose was the initial goal of the API. The first iteration of the API only had a single function implemented, `List`,
 to  return information about the assignment of devices to containers.

@@ -17,7 +17,7 @@ give application owners greater flexibility in managing disruptions.
 
 ## What problems does this solve?
 
-API-initiated eviction of pods respects PodDisruptionBudgets (PDBs). This means that a requested [voluntary disruption](https://kubernetes.io/docs/concepts/scheduling-eviction/#pod-disruption)
+API-initiated eviction of pods respects PodDisruptionBudgets (PDBs). This means that a requested [voluntary disruption](/docs/concepts/scheduling-eviction/#pod-disruption)
 via an eviction to a Pod, should not disrupt a guarded application and `.status.currentHealthy` of a PDB should not fall
 below `.status.desiredHealthy`. Running pods that are [Unhealthy](/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod)
 do not count towards the PDB status, but eviction of these is only possible in case the application
