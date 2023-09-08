@@ -25,13 +25,32 @@
 
 <!--for the splitter-->
 <script>
-  eleNav = document.getElementById("sidebarnav");
+  let splitInstance = null;
+
+  function enableSplitter(mediaQuery) {
+    if (mediaQuery.matches) {
+      if (!splitInstance) {
+        splitInstance = Split(["#sidebarnav", "#maindoc"], {
+          sizes: [20, 80],
+          minSize: 100,
+        });
+      }
+    } else {
+      if (splitInstance) {
+        splitInstance.destroy();
+        splitInstance = null;
+      }
+    }
+  }
+
+  const screenWidthMediaQuery = window.matchMedia("(min-width: 768px)");
+
+  const eleNav = document.getElementById("sidebarnav");
   if (eleNav !== null) {
-    Split(["#sidebarnav", "#maindoc"], {
-        sizes: [20, 80],
-        minSize: 100,
-    });
+    enableSplitter(screenWidthMediaQuery);
+    screenWidthMediaQuery.addListener(enableSplitter);
   }
 </script>
+
 
 {{ partial "hooks/body-end.html" . }}
