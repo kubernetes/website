@@ -8,6 +8,10 @@ theme = ["docsy"]
 contentDir = "content/en"
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = false
+
+# Adopt a global timezone
+timeZone = "UTC"
+
 enableRobotsTXT = true
 disableBrowserError = true
 
