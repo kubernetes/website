@@ -35,8 +35,7 @@ Setiap StorageClass (kelas penyimpanan) memiliki _field-field_ mendasar seperti
 Nama yang digunakan oleh suatu StorageClass sifatnya penting, karena
 ini merupakan cara yang digunakan oleh pengguna untuk meminta
 penyimpanan dengan kelas tertentu. Administrator dapat menentukan
-nama dan parameter lain dari suatu kelas ketika membuat suatu objek `StorageClass`,
-dan objek yang sudah dibuat tidak dapat diubah lagi definisinya.
+nama dan parameter lain dari suatu kelas ketika membuat suatu objek `StorageClass`.
 
 Administrator dapat memberikan spesifikasi StorageClass _default_ bagi
 PVC yang tidak membutuhkan kelas tertentu untuk dapat melakukan mekanisme _bind_:
