@@ -849,6 +849,10 @@ The CronTab "my-new-cron-object" is invalid:
 * spec: Invalid value: map[string]interface {}{"maxReplicas":10, "minReplicas":0, "replicas":20}: failed rule: self.replicas <= self.maxReplicas
 ```
 
+{{< note >}}
+You can quickly test CEL expressions in [CEL Playground](https://playcel.undistro.io).
+{{< /note >}}
+
 Validation rules are compiled when CRDs are created/updated.
 The request of CRDs create/update will fail if compilation of validation rules fail.
 Compilation process includes type checking as well.
