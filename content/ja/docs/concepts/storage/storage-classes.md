@@ -18,7 +18,7 @@ StorageClassは、管理者が提供するストレージの「クラス」を�
 
 各StorageClassには、クラスに属するPersistentVolumeを動的にプロビジョニングする必要がある場合に使用されるフィールド`provisioner`、`parameters`、および`reclaimPolicy`が含まれています。
 
-StorageClassオブジェクトの名前は重要であり、ユーザーが特定のクラスを要求する方法です。管理者は、最初にStorageClassオブジェクトを作成するときにクラスの名前とその他のパラメーターを設定します。
+StorageClassオブジェクトの名前は重要であり、ユーザーが特定のクラスを要求する方法です。管理者は、最初にStorageClassオブジェクトを作成するときにクラスの名前とその他のパラメーターを設定します。オブジェクトは、作成後に更新することはできません。
 
 管理者は、バインドする特定のクラスを要求しないPVCに対してのみ、デフォルトのStorageClassを指定できます。詳細については、[PersistentVolumeClaimセクション](/ja/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)を参照してください。
 

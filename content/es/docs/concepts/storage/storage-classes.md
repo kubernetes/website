@@ -31,7 +31,8 @@ la clase debe aprovisionarse dinámicamente.
 
 El nombre de un objeto StorageClass es significativo y es la forma en que los usuarios pueden
 solicitar una clase en particular. Los administradores establecen el nombre y otros parámetros
-de una clase al crear objetos StorageClass por primera vez.
+de una clase al crear objetos StorageClass por primera vez, y los objetos no pueden
+actualizarse una vez creados.
 
 Los administradores pueden especificar una StorageClass predeterminada solo para los PVC que no
 solicite cualquier clase en particular a la que vincularse: vea la
