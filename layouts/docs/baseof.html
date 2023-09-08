@@ -16,7 +16,7 @@
     </header>
     <div class="container-fluid td-outer">
       <div class="td-main">
-        <div class="row flex">
+        <div class="row flex-column flex-md-row">
           <div id="sidebarnav" class="split td-sidebar d-print-none">
             {{ partial "sidebar.html" . }}
           </div>
@@ -51,7 +51,7 @@
                 {{ partial "disqus-comment.html" . }}
               {{ end }}
             </main>
-            <div class="d-none d-xl-block td-toc d-print-none">
+            <div class="d-none d-xl-block td-toc d-print-none col-xl-4">
               {{ partial "toc.html" . }}
             </div>
           </div> <!--end of main-content-->
