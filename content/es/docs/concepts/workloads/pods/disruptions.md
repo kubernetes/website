@@ -95,7 +95,7 @@ Kubernetes ofrece carácteristicas para ayudar a ejecutar aplicaciones con alta 
 introduce interrupciones voluntarias frecuentes.
 
 Como dueño de la aplicación, usted puede crear un presupuesto de interrupción de pods (PDB por sus siglas en inglés) para cada aplicación.
-Un PDB limita el numero de pods de una aplicación replicada, que estan caídos de manera simultánea por
+Un PDB limita el numero de Pods de una aplicación replicada, que estan caídos de manera simultánea por
 interrupciones voluntarias. Por ejemplo, una aplicación basada en quórum puede
 asegurarse que el número de réplicas corriendo nunca es menor al
 número necesitado para obtener el quórum. Una web de tipo front end puede querer
