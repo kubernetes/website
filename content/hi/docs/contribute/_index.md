@@ -115,7 +115,7 @@ flowchart LR
     direction TB
     S[ ] -.-
     G[दूसरे K8s मेम्बर्स के<br>PRs की समीक्षा करें] -->
-    A[अपने पहले इशू (गुफ फर्स्ट इशू)<br>के लिए kubernetes/website<br>की इशू सूची पर जाएं] --> B[PR ओपन करें!!]
+    A[अपने पहले इशू (योर फर्स्ट इशू)<br>के लिए kubernetes/website<br>की इशू सूची पर जाएं] --> B[PR ओपन करें!!]
     end
     subgraph first[सूचित तैयारी]
     direction TB
