@@ -67,6 +67,10 @@ The following is an example of a ValidatingAdmissionPolicy.
 to validate the request. If an expression evaluates to false, the validation check is enforced
 according to the `spec.failurePolicy` field.
 
+{{< note >}}
+You can quickly test CEL expressions in [CEL Playground](https://playcel.undistro.io).
+{{< /note >}}
+
 To configure a validating admission policy for use in a cluster, a binding is required.
 The following is an example of a ValidatingAdmissionPolicyBinding.:
 
