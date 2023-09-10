@@ -38,7 +38,7 @@ A _Deployment_ provides declarative updates for {{< glossary_tooltip text="Pods"
 <!--
 You describe a _desired state_ in a Deployment, and the Deployment {{< glossary_tooltip term_id="controller" >}} changes the actual state to the desired state at a controlled rate. You can define Deployments to create new ReplicaSets, or to remove existing Deployments and adopt all their resources with new Deployments.
 -->
-你负责描述 Deployment 中的 **目标状态**，而 Deployment {{< glossary_tooltip term_id="controller" >}}
+你负责描述 Deployment 中的**目标状态**，而 Deployment {{< glossary_tooltip term_id="controller" >}}
 以受控速率更改实际状态，
 使其变为期望状态。你可以定义 Deployment 以创建新的 ReplicaSet，或删除现有 Deployment，
 并通过新的 Deployment 收养其资源。
@@ -47,7 +47,7 @@ You describe a _desired state_ in a Deployment, and the Deployment {{< glossary_
 <!--
 Do not manage ReplicaSets owned by a Deployment. Consider opening an issue in the main Kubernetes repository if your use case is not covered below.
 -->
-不要管理 Deployment 所拥有的 ReplicaSet 。
+不要管理 Deployment 所拥有的 ReplicaSet。
 如果存在下面未覆盖的使用场景，请考虑在 Kubernetes 仓库中提出 Issue。
 {{< /note >}}
 
@@ -91,7 +91,7 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
 -->
 下面是一个 Deployment 示例。其中创建了一个 ReplicaSet，负责启动三个 `nginx` Pod：
 
-{{% code file="controllers/nginx-deployment.yaml" %}}
+{{% code_sample file="controllers/nginx-deployment.yaml" %}}
 
 <!--
 In this example:
@@ -2199,7 +2199,10 @@ Deployment 的修订历史记录存储在它所控制的 ReplicaSets 中。
 
 <!--
 `.spec.revisionHistoryLimit` is an optional field that specifies the number of old ReplicaSets to retain
-to allow rollback. These old ReplicaSets consume resources in `etcd` and crowd the output of `kubectl get rs`. The configuration of each Deployment revision is stored in its ReplicaSets; therefore, once an old ReplicaSet is deleted, you lose the ability to rollback to that revision of Deployment. By default, 10 old ReplicaSets will be kept, however its ideal value depends on the frequency and stability of new Deployments.
+to allow rollback. These old ReplicaSets consume resources in `etcd` and crowd the output of `kubectl get rs`.
+The configuration of each Deployment revision is stored in its ReplicaSets; therefore, once an old ReplicaSet is deleted,
+you lose the ability to rollback to that revision of Deployment. By default, 10 old ReplicaSets will be kept,
+however its ideal value depends on the frequency and stability of new Deployments.
 -->
 `.spec.revisionHistoryLimit` 是一个可选字段，用来设定出于回滚目的所要保留的旧 ReplicaSet 数量。
 这些旧 ReplicaSet 会消耗 etcd 中的资源，并占用 `kubectl get rs` 的输出。

@@ -73,7 +73,7 @@ It takes around 10s to complete.
 下面是一个 Job 配置示例。它负责计算 π 到小数点后 2000 位，并将结果打印出来。
 此计算大约需要 10 秒钟完成。
 
-{{% code file="controllers/job.yaml" %}}
+{{% code_sample file="controllers/job.yaml" %}}
 
 <!--
 You can run the example with this command:
@@ -712,7 +712,7 @@ Here is an example manifest for a Job that defines a `backoffLimitPerIndex`:
 -->
 以下是定义 `backoffLimitPerIndex` 的 Job 示例清单：
 
-{{< codenew file="/controllers/job-backoff-limit-per-index-example.yaml" >}}
+{{% code_sample file="/controllers/job-backoff-limit-per-index-example.yaml" %}}
 
 <!--
 In the example above, the Job controller allows for one restart for each
@@ -829,7 +829,7 @@ Here is a manifest for a Job that defines a `podFailurePolicy`:
 -->
 下面是一个定义了 `podFailurePolicy` 的 Job 的清单：
 
-{{% code file="/controllers/job-pod-failure-policy-example.yaml" %}}
+{{% code_sample file="/controllers/job-pod-failure-policy-example.yaml" %}}
 
 <!--
 In the example above, the first rule of the Pod failure policy specifies that

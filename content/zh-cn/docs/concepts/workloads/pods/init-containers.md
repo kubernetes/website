@@ -551,7 +551,7 @@ Here's an example of a Deployment with two containers, one of which is a sidecar
 
 以下是一个具有两个容器的 Deployment 示例，其中一个是边车：
 
-{{% codenew language="yaml" file="application/deployment-sidecar.yaml" %}}
+{{% code_sample language="yaml" file="application/deployment-sidecar.yaml" %}}
 
 <!--
 This feature is also useful for running Jobs with sidecars, as the sidecar
@@ -564,7 +564,7 @@ Here's an example of a Job with two containers, one of which is a sidecar:
 
 以下是一个具有两个容器的 Job 示例，其中一个是边车：
 
-{{% codenew language="yaml" file="application/job/job-sidecar.yaml" %}}
+{{% code_sample language="yaml" file="application/job/job-sidecar.yaml" %}}
 
 <!--
 #### Resource sharing within containers
