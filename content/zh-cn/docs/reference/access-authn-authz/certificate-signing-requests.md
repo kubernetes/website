@@ -151,7 +151,7 @@ For example:
 
 例如：
 
-{{< codenew file="access/certificate-signing-request/clusterrole-create.yaml" >}}
+{{< code_sample file="access/certificate-signing-request/clusterrole-create.yaml" >}}
 
 <!--
 To allow approving a CertificateSigningRequest:
@@ -177,7 +177,7 @@ For example:
 
 例如：
 
-{{< codenew file="access/certificate-signing-request/clusterrole-approve.yaml" >}}
+{{< code_sample file="access/certificate-signing-request/clusterrole-approve.yaml" >}}
 
 <!--
 To allow signing a CertificateSigningRequest:
@@ -199,7 +199,7 @@ To allow signing a CertificateSigningRequest:
   resource（资源）：`signers`，
   resourceName：`<signerNameDomain>/<signerNamePath>` 或 `<signerNameDomain>/*`
 
-{{< codenew file="access/certificate-signing-request/clusterrole-sign.yaml" >}}
+{{< code_sample file="access/certificate-signing-request/clusterrole-sign.yaml" >}}
 
 <!--
 ## Signers
