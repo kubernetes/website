@@ -269,8 +269,51 @@ For more information on version skews, see:
 * Kubernetes [版本与版本间的偏差策略](/zh-cn/releases/version-skew-policy/)
 * kubeadm 特定的[版本偏差策略](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
 
+{{< note >}}
+<!--
+Kubernetes has two different package repositories starting from August 2023.
+The Google-hosted repository is deprecated and it's being replaced with the
+Kubernetes (community-owned) package repositories. The Kubernetes project strongly
+recommends using the Kubernetes community-owned package repositories, because the
+project plans to stop publishing packages to the Google-hosted repository in the future.
+-->
+自2023年8月起，Kubernetes 有两个不同的软件包仓库。
+Google 托管的仓库已被弃用，并正在被 Kubernetes（由社区拥有）软件包仓库替代。
+Kubernetes 项目强烈建议使用 Kubernetes 社区拥有的软件包仓库，
+因为该项目计划将来停止向 Google 托管的仓库发布软件包。
+
+
+<!--
+There are some important considerations for the Kubernetes package repositories:
+-->
+对于 Kubernetes 软件包仓库，有一些重要的考虑事项：
+<!--
+- The Kubernetes package repositories contain packages beginning with those
+  Kubernetes versions that were still under support when the community took
+  over the package builds. This means that anything before v1.24.0 will only be
+  available in the Google-hosted repository.
+- There's a dedicated package repository for each Kubernetes minor version.
+  When upgrading to a different minor release, you must bear in mind that
+  the package repository details also change.
+-->
+- Kubernetes 软件包仓库包含从社区接管软件包构建时仍在支持范围内的 Kubernetes 版本开始的软件包。
+  这意味着v1.24.0之前的版本只在 Google 托管的仓库中提供。
+- 每个 Kubernetes 次要版本都有一个专用的软件包仓库。
+  当升级到不同的次要版本时，必须记住软件包仓库的详细信息也会发生变化。
+{{< /note >}}
+
 {{< tabs name="k8s_install" >}}
 {{% tab name="基于 Debian 的发行版" %}}
+
+<!--
+### Kubernetes package repositories {#dpkg-k8s-package-repo}
+-->
+### Kubernetes 软件包仓库 {#dpkg-k8s-package-repo}
+
+<!--
+These instructions are for Kubernetes {{< skew currentVersion >}}.
+-->
+这些说明适用于 Kubernetes {{< skew currentVersion >}}.
 
 <!--
 1. Update the `apt` package index and install packages needed to use the Kubernetes `apt` repository:
@@ -279,16 +322,17 @@ For more information on version skews, see:
 
    ```shell
    sudo apt-get update
+   # apt-transport-https 可能是一个虚拟包（dummy package）；如果是的话，你可以跳过安装这个包
    sudo apt-get install -y apt-transport-https ca-certificates curl
    ```
 
 <!--
-2. Download the Google Cloud public signing key:
+2. Download the public signing key for the Kubernetes package repositories. The same signing key is used for all repositories so you can disregard the version in the URL:
 -->
-2. 下载 Google Cloud 公开签名秘钥：
+2. 下载用于 Kubernetes 软件包仓库的公共签名密钥。所有仓库都使用相同的签名密钥，因此你可以忽略URL中的版本：
 
    ```shell
-   curl -fsSL https://dl.k8s.io/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
+   curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    ```
 
 <!--
@@ -297,7 +341,8 @@ For more information on version skews, see:
 3. 添加 Kubernetes `apt` 仓库：
 
    ```shell
-   echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   # 此操作会覆盖 /etc/apt/sources.list.d/kubernetes.list 中现存的所有配置。
+   echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
    ```
 
 <!--
@@ -310,6 +355,7 @@ For more information on version skews, see:
    sudo apt-get install -y kubelet kubeadm kubectl
    sudo apt-mark hold kubelet kubeadm kubectl
    ```
+
 {{< note >}}
 <!--
 In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default.
@@ -319,55 +365,193 @@ You can create this directory if you need to, making it world-readable but write
 如有需要，你可以创建此目录，并将其设置为对所有人可读，但仅对管理员可写。
 {{< /note >}}
 
+<!--
+### Google-hosted package repository (deprecated) {#dpkg-google-package-repo}
+-->
+### Google 托管的软件包仓库（已弃用） {#dpkg-google-package-repo}
+
+<!-- 
+These instructions are for Kubernetes {{< skew currentVersion >}}.
+-->
+这些说明适用于 Kubernetes {{< skew currentVersion >}}.
+
+<!--
+1. Update the `apt` package index and install packages needed to use the Kubernetes `apt` repository:
+-->
+1. 更新 `apt` 软件包索引并安装使用 Kubernetes `apt` 仓库所需的软件包:
+
+   ```shell
+   sudo apt-get update
+   # apt-transport-https 可能是一个虚拟包（dummy package）；如果是的话，你可以跳过安装这个包
+   sudo apt-get install -y apt-transport-https ca-certificates curl
+   ```
+
+<!--
+2. Download the Google Cloud public signing key:
+-->
+2. 下载 Google Cloud 公共签名密钥:
+
+   ```shell
+   curl -fsSL https://dl.k8s.io/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
+   ```
+
+<!--
+Add the Google-hosted `apt` repository:
+-->
+3. 添加 Google 托管的 `apt` 仓库:
+
+   ```shell
+   # 此操作会覆盖 /etc/apt/sources.list.d/kubernetes.list 中现存的所有配置
+   echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   ```
+
+<!--
+4. Update the `apt` package index, install kubelet, kubeadm and kubectl, and pin their version:
+-->
+4. 更新 `apt` 软件包索引，安装 kubelet、kubeadm 和 kubectl，并锁定它们的版本:
+
+   ```shell
+   sudo apt-get update
+   sudo apt-get install -y kubelet kubeadm kubectl
+   sudo apt-mark hold kubelet kubeadm kubectl
+   ```
+
+{{< note >}}
+<!--
+In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default;
+you can create it by running `sudo mkdir -m 755 /etc/apt/keyrings`
+-->
+在 Debian 12 和 Ubuntu 22.04 之前的早期版本中，默认情况下不存在 `/etc/apt/keyrings` 目录；
+你可以通过运行 `sudo mkdir -m 755 /etc/apt/keyrings` 来创建它。
+{{< /note >}}
+
 {{% /tab %}}
 
 {{% tab name="基于 Red Hat 的发行版" %}}
 
-```bash
-cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
-[kubernetes]
-name=Kubernetes
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
-enabled=1
-gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
-exclude=kubelet kubeadm kubectl
-EOF
+<!--
+1. Set SELinux to `permissive` mode:
+-->
+1. 将 SELinux 设置为 `permissive` 模式:
 
-# 将 SELinux 设置为 permissive 模式（相当于将其禁用）
-sudo setenforce 0
-sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+   ```shell
+   # 将 SELinux 设置为 permissive 模式（相当于将其禁用）
+   sudo setenforce 0
+   sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+   ```
 
-sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
-
-sudo systemctl enable --now kubelet
-```
+{{< caution >}}
+<!-- 
+- Setting SELinux in permissive mode by running `setenforce 0` and `sed ...`
+  effectively disables it. This is required to allow containers to access the host
+  filesystem; for example, some cluster network plugins require that. You have to
+  do this until SELinux support is improved in the kubelet.
+- You can leave SELinux enabled if you know how to configure it but it may require
+  settings that are not supported by kubeadm.
+-->
+- 通过运行命令 `setenforce 0` 和 `sed ...` 将 SELinux 设置为 permissive 模式相当于将其禁用。
+  这是允许容器访问主机文件系统所必需的，例如，某些容器网络插件需要这一能力。
+  你必须这么做，直到 kubelet 改进其对 SELinux 的支持。
+- 如果你知道如何配置 SELinux 则可以将其保持启用状态，但可能需要设定部分 kubeadm 不支持的配置。
+{{< /caution >}}
 
 <!--
-  **Notes:**
-
-  - Setting SELinux in permissive mode by running `setenforce 0` and `sed ...` effectively disables it.
-    This is required to allow containers to access the host filesystem, which is needed by pod networks for example.
-    You have to do this until SELinux support is improved in the kubelet.
-
-  - You can leave SELinux enabled if you know how to configure it but it may require settings that are not supported by kubeadm.
-
-  - If the `baseurl` fails because your Red Hat-based distribution cannot interpret `basearch`, replace `\$basearch` with your computer's architecture.
-  Type `uname -m` to see that value.
-  For example, the `baseurl` URL for `x86_64` could be: `https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64`.
+### Kubernetes package repositories {#rpm-k8s-package-repo}
 -->
-**请注意：**
+### Kubernetes 软件包仓库 {#rpm-k8s-package-repo}
 
-- 通过运行命令 `setenforce 0` 和 `sed ...` 将 SELinux 设置为 permissive 模式可以有效地将其禁用。
-  这是允许容器访问主机文件系统所必需的，而这些操作是为了例如 Pod 网络工作正常。
+<!--
+These instructions are for Kubernetes {{< skew currentVersion >}}.
+-->
+这些说明适用于 Kubernetes {{< skew currentVersion >}}.
 
-  你必须这么做，直到 kubelet 做出对 SELinux 的支持进行升级为止。
+<!--
+2. Add the Kubernetes `yum` repository. The `exclude` parameter in the
+   repository definition ensures that the packages related to Kubernetes are
+   not upgraded upon running `yum update` as there's a special procedure that
+   must be followed for upgrading Kubernetes.
+-->
+2. 添加 Kubernetes 的 `yum` 仓库。在仓库定义中的 `exclude` 参数确保了与
+   Kubernetes 相关的软件包在运行 `yum update` 时不会升级，因为升级
+   Kubernetes 需要遵循特定的过程。
 
-- 如果你知道如何配置 SELinux 则可以将其保持启用状态，但可能需要设定 kubeadm 不支持的部分配置
+   ```shell
+   # 此操作会覆盖 /etc/yum.repos.d/kubernetes.repo 中现存的所有配置
+   cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
+   [kubernetes]
+   name=Kubernetes
+   baseurl=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/
+   enabled=1
+   gpgcheck=1
+   gpgkey=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/repodata/repomd.xml.key
+   exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
+   EOF
+   ```
 
-- 如果由于该 Red Hat 的发行版无法解析 `basearch` 导致获取 `baseurl` 失败，请将 `\$basearch` 替换为你计算机的架构。
-  输入 `uname -m` 以查看该值。
-  例如，`x86_64` 的 `baseurl` URL 可以是：`https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64`。
+<!--
+3. Install kubelet, kubeadm and kubectl, and enable kubelet to ensure it's automatically started on startup:
+-->
+3. 安装 kubelet、kubeadm 和 kubectl，并启用 kubelet 以确保它在启动时自动启动:
+
+   ```shell
+   sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+   sudo systemctl enable --now kubelet
+   ```
+
+<!--
+### Google-hosted package repository (deprecated) {#rpm-google-package-repo}
+-->
+### Google 托管的软件包仓库（已弃用） {#rpm-google-package-repo}
+
+<!--
+These instructions are for Kubernetes {{< skew currentVersion >}}.
+-->
+这些说明适用于 Kubernetes {{< skew currentVersion >}}.
+
+<!--
+2. Add the Kubernetes `yum` repository. The `exclude` parameter in the
+   repository definition ensures that the packages related to Kubernetes are
+   not upgraded upon running `yum update` as there's a special procedure that
+   must be followed for upgrading Kubernetes.
+-->
+2. 添加 Google 托管的 `yum` 仓库。
+   仓库定义中的 `exclude` 参数确保了与 Kubernetes 相关的软件包在运行 
+   `yum update` 时不会升级，因为升级 Kubernetes 需要遵循特定的过程。"
+
+   ```shell
+   # 此操作会覆盖 /etc/yum.repos.d/kubernetes.repo 中现存的所有配置
+   cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
+   [kubernetes]
+   name=Kubernetes
+   baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
+   enabled=1
+   gpgcheck=1
+   gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+   exclude=kubelet kubeadm kubectl
+   EOF
+   ```
+
+<!--
+3. Install kubelet, kubeadm and kubectl, and enable kubelet to ensure it's automatically started on startup:
+-->
+3. 安装 kubelet、kubeadm 和 kubectl，并启用 kubelet 以确保它在启动时自动启动:
+
+   ```shell
+   sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+   sudo systemctl enable --now kubelet
+   ```
+
+{{< note >}}
+<!--
+If the `baseurl` fails because your RPM-based distribution cannot interpret `$basearch`, replace `\$basearch` with your computer's architecture.
+Type `uname -m` to see that value.
+For example, the `baseurl` URL for `x86_64` could be: `https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64`.
+-->
+如果 `baseurl` 因为你的基于 RPM 的 Linux 发行版无法解释 `$basearch` 而失败，
+你需要将 `\$basearch` 替换为你的计算机的体系结构。
+输入 `uname -m` 命令来查看该值。
+例如，对于 `x86_64` 架构，`baseurl` URL 可能是：`https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64`。
+{{< /note >}}
 
 {{% /tab %}}
 {{% tab name="无包管理器的情况" %}}
@@ -409,7 +593,7 @@ Install crictl (required for kubeadm / Kubelet Container Runtime Interface (CRI)
 安装 crictl（kubeadm/kubelet 容器运行时接口（CRI）所需）
 
 ```bash
-CRICTL_VERSION="v1.27.0"
+CRICTL_VERSION="v1.28.0"
 ARCH="amd64"
 curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
 ```
