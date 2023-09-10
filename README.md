@@ -5,7 +5,7 @@
 This repository contains the assets required to build the [Kubernetes website and documentation](https://kubernetes.io/). We're glad that you want to contribute!
 
 - [Contributing to the docs](#contributing-to-the-docs)
-- [Localization ReadMes](#localization-readmemds)
+- [Localized READMEs](#localized-readmemds)
 
 ## Using this repository
 
@@ -182,7 +182,7 @@ If you need help at any point when contributing, the [New Contributor Ambassador
 | -------------------------- | -------------------------- | -------------------------- |
 | Arsh Sharma                | @arsh                      | @RinkiyaKeDad              |
 
-## Localization `README.md`'s
+## Localized `README.md`'s
 
 | Language                   | Language                   |
 | -------------------------- | -------------------------- |
