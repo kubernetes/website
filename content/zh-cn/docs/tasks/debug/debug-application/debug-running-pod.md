@@ -43,7 +43,7 @@ For this example we'll use a Deployment to create two pods, similar to the earli
 -->
 与之前的例子类似，我们使用一个 Deployment 来创建两个 Pod。
 
-{{< codenew file="application/nginx-with-request.yaml" >}}
+{{% code_sample file="application/nginx-with-request.yaml" %}}
 
 <!--
 Create deployment by running following command:
