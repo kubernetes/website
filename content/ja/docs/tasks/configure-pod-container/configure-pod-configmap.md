@@ -534,6 +534,9 @@ kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-env-var-valu
 ```
 
 `test-container`コンテナで以下の出力結果を表示します:
+```shell
+kubectl logs dapi-test-pod
+```
 
 ```shell
 very charm
