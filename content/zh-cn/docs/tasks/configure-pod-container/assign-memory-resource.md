@@ -105,7 +105,7 @@ for the Pod:
 容器将会请求 100 MiB 内存，并且内存会被限制在 200 MiB 以内。
 这是 Pod 的配置文件：
 
-{{% code file="pods/resource/memory-request-limit.yaml" %}}
+{{% code_sample file="pods/resource/memory-request-limit.yaml" %}}
 
 <!--
 The `args` section in the configuration file provides arguments for the Container when it starts.
@@ -212,7 +212,7 @@ memory request of 50 MiB and a memory limit of 100 MiB:
 在本练习中，你将创建一个 Pod，尝试分配超出其限制的内存。
 这是一个 Pod 的配置文件，其拥有一个容器，该容器的内存请求为 50 MiB，内存限制为 100 MiB：
 
-{{% code file="pods/resource/memory-request-limit-2.yaml" %}}
+{{% code_sample file="pods/resource/memory-request-limit-2.yaml" %}}
 
 <!--
 In the `args` section of the configuration file, you can see that the Container
@@ -338,7 +338,7 @@ Warning OOMKilling Memory cgroup out of memory: Kill process 4481 (stress) score
 <!--
 Delete your Pod:
 -->
-删除 Pod:
+删除 Pod：
 
 ```shell
 kubectl delete pod memory-demo-2 --namespace=mem-example
@@ -372,7 +372,7 @@ Pod 的调度基于请求。只有当节点拥有足够满足 Pod 内存请求�
 在本练习中，你将创建一个 Pod，其内存请求超过了你集群中的任意一个节点所拥有的内存。
 这是该 Pod 的配置文件，其拥有一个请求 1000 GiB 内存的容器，这应该超过了你集群中任何节点的容量。
 
-{{% code file="pods/resource/memory-request-limit-3.yaml" %}}
+{{% code_sample file="pods/resource/memory-request-limit-3.yaml" %}}
 
 <!--
 Create the Pod:
