@@ -148,7 +148,7 @@ Below is an example audit policy file:
 
 以下是一个审计策略文件的示例：
 
-{{< codenew file="audit/audit-policy.yaml" >}}
+{{% code_sample file="audit/audit-policy.yaml" %}}
 
 <!--
 You can use a minimal audit policy file to log all requests at the `Metadata` level:
