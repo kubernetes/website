@@ -2303,7 +2303,7 @@ you can create the following ClusterRole:
 
 如果你希望在新集群的聚合角色里保留此访问权限，你可以创建下面的 ClusterRole：
 
-{{< codenew file="access/endpoints-aggregated.yaml" >}}
+{{< code_sample file="access/endpoints-aggregated.yaml" >}}
 
 <!--
 ## Upgrading from ABAC
