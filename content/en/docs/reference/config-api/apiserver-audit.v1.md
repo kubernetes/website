@@ -325,9 +325,9 @@ The empty string represents the core API group.</p>
 <p>For example:
 'pods' matches pods.
 'pods/log' matches the log subresource of pods.
-'<em>' matches all resources and their subresources.
-'pods/</em>' matches all subresources of pods.
-'*/scale' matches all scale subresources.</p>
+'&ast;' matches all resources and their subresources.
+'pods/&ast;' matches all subresources of pods.
+'&ast;/scale' matches all scale subresources.</p>
 <p>If wildcard is present, the validation rule will ensure resources do not
 overlap with each other.</p>
 <p>An empty list implies all resources and subresources in this API groups apply.</p>
@@ -501,10 +501,10 @@ An empty list implies every namespace.</p>
 </td>
 <td>
    <p>NonResourceURLs is a set of URL paths that should be audited.
-<em>s are allowed, but only as the full, final step in the path.
+&ast;s are allowed, but only as the full, final step in the path.
 Examples:
 &quot;/metrics&quot; - Log requests for apiserver metrics
-&quot;/healthz</em>&quot; - Log all health checks</p>
+&quot;/healthz&ast;&quot; - Log all health checks</p>
 </td>
 </tr>
 <tr><td><code>omitStages</code><br/>
