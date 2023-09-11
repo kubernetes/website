@@ -129,7 +129,7 @@ signature of the memory contents, which can be sent to the VM's owner as an atte
 the initial guest memory was not manipulated.
 
 The second generation of SEV, known as
-Encrypted State
+[Encrypted State](https://www.amd.com/content/dam/amd/en/documents/epyc-business-docs/white-papers/Protecting-VM-Register-State-with-SEV-ES.pdf)
 or SEV-ES, provides additional protection from the hypervisor by encrypting all
 CPU register contents when a context switch occurs.
 
