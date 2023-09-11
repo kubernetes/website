@@ -1,7 +1,7 @@
 ---
 title: 공유 볼륨을 이용하여 동일한 파드의 컨테이너 간에 통신하기
 content_type: task
-weight: 110
+weight: 120
 ---
 
 <!-- overview -->

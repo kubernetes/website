@@ -98,7 +98,7 @@ weight: 60
 
    결과는 아래와 같다.
 
-   ```shell
+   ```none
    NAME                           READY   STATUS    ...  IP           NODE
    hello-world-2895499144-bsbk5   1/1     Running   ...  10.200.1.4   worker1
    hello-world-2895499144-m1pwt   1/1     Running   ...  10.200.2.5   worker2
@@ -127,7 +127,7 @@ weight: 60
    `<node-port>`는 서비스의 노드포트 값이다.
    성공적인 요청에 대한 응답은 hello 메시지이다.
 
-   ```shell
+   ```none
    Hello Kubernetes!
    ```
 

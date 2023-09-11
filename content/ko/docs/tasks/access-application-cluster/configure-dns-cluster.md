@@ -1,6 +1,6 @@
 ---
 title: 클러스터의 DNS 구성하기
-weight: 120
+weight: 130
 content_type: concept
 ---
 
