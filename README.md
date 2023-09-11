@@ -182,7 +182,7 @@ If you need help at any point when contributing, the [New Contributor Ambassador
 | -------------------------- | -------------------------- | -------------------------- |
 | Arsh Sharma                | @arsh                      | @RinkiyaKeDad              |
 
-## Localized `README.md`'s
+## Localized READMEs
 
 | Language                   | Language                   |
 | -------------------------- | -------------------------- |
