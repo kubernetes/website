@@ -29,8 +29,7 @@ If the load decreases, and the number of Pods is above the configured minimum,
 the HorizontalPodAutoscaler instructs the workload resource (the Deployment, StatefulSet,
 or other similar resource) to scale back down.
 
-Horizontal pod autoscaling does not apply to objects that can't be scaled (for example:
-a {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}.)
+Horizontal pod autoscaling does not apply to objects that can't be scaled (e.g. a {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}).
 
 The HorizontalPodAutoscaler is implemented as a Kubernetes API resource and a
 {{< glossary_tooltip text="controller" term_id="controller" >}}.
@@ -40,7 +39,7 @@ The horizontal pod autoscaling controller, running within the Kubernetes
 desired scale of its target (for example, a Deployment) to match observed metrics such as average
 CPU utilization, average memory utilization, or any other custom metric you specify.
 
-There is [walkthrough example](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/) of using
+There is a [walkthrough example](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/) of using
 horizontal pod autoscaling.
 
 <!-- body -->
