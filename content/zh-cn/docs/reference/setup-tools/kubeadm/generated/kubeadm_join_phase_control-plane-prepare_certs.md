@@ -1,30 +1,17 @@
 <!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
-
-<!--
 Generate the certificates for the new control plane components
 -->
-为新的控制平面组件生成证书
+为新的控制平面组件生成证书。
 
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
 Generate the certificates for the new control plane components
 -->
-为新的控制平面组件生成证书
+为新的控制平面组件生成证书。
 
 ```
 kubeadm join phase control-plane-prepare certs [api-server-endpoint] [flags]
@@ -79,7 +66,7 @@ kubeadm 配置文件的路径。
 Create a new control plane instance on this node
 -->
 <p>
-在此节点上创建一个新的控制平面实例
+在此节点上创建一个新的控制平面实例。
 </p>
 </td>
 </tr>
@@ -163,7 +150,7 @@ Don't apply any changes; just output what would be done.
 help for certs
 -->
 <p>
-certs 操作的帮助命令
+certs 操作的帮助命令。
 </p>
 </td>
 </tr>
