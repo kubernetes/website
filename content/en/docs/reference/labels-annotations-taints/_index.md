@@ -1790,6 +1790,26 @@ uses this annotation.
 See [annotations](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/service/annotations/)
 in the AWS load balancer controller documentation.
 
+### service.beta.kubernetes.io/aws-load-balancer-security-groups (deprecated) {#service-beta-kubernetes-io-aws-load-balancer-security-groups}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-security-groups: "sg-53fae93f,sg-8725gr62r"`
+
+Used on: Service
+
+The AWS load balancer controller uses this annotation to specify a comma seperated list
+of security groups you want to attach to an AWS load balancer. Both name and ID of security
+are supported where name matches a `Name` tag, not the `groupName` attribute.
+
+When this annotation is added to a Service, the load-balancer controller attaches the security groups
+referenced by the annotation to the load balancer. If you omit this annotation, the AWS load balancer
+controller automatically creates a new security group and attaches it to the load balancer.
+
+{{< note >}}
+Kubernetes v1.27 and later do not directly set or read this annotation. However, the AWS
+load balancer controller (part of the Kubernetes project) does still use the
+`service.beta.kubernetes.io/aws-load-balancer-security-groups` annotation.
+{{< /note >}}
+
 ### service.beta.kubernetes.io/load-balancer-source-ranges (deprecated) {#service-beta-kubernetes-io-load-balancer-source-ranges}
 
 Example: `service.beta.kubernetes.io/load-balancer-source-ranges: "192.0.2.0/25"`
