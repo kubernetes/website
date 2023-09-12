@@ -166,7 +166,7 @@ Consider the following manifest for a Pod that has one Container.
 
 考虑以下包含一个容器的 Pod 的清单。
 
-{{% code file="pods/qos/qos-pod-5.yaml" %}}
+{{% code_sample file="pods/qos/qos-pod-5.yaml" %}}
 
 <!--
 Create the pod in the `qos-example` namespace:

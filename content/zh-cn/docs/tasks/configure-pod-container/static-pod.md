@@ -318,8 +318,8 @@ kubectl get pods
 ```
 
 ```
-NAME         READY   STATUS    RESTARTS        AGE
-static-web   1/1     Running   0               2m
+NAME                  READY   STATUS    RESTARTS        AGE
+static-web-my-node1   1/1     Running   0               2m
 ```
 
 {{< note >}}
@@ -345,11 +345,11 @@ the kubelet _doesn't_ remove the static Pod:
 如果你用 `kubectl` 从 API 服务上删除镜像 Pod，kubelet **不会**移除静态 Pod：
 
 ```shell
-kubectl delete pod static-web
+kubectl delete pod static-web-my-node1
 ```
 
 ```
-pod "static-web" deleted
+pod "static-web-my-node1" deleted
 ```
 
 <!--
@@ -362,8 +362,8 @@ kubectl get pods
 ```
 
 ```
-NAME         READY   STATUS    RESTARTS   AGE
-static-web   1/1     Running   0          4s
+NAME                  READY   STATUS    RESTARTS   AGE
+static-web-my-node1   1/1     Running   0          4s
 ```
 
 <!--
