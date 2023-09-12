@@ -10,13 +10,13 @@ weight: 21 # just after persistent volumes
 
 <!-- overview -->
 
-Este documento describe los _projected volumes_ en Kubernetes. Necesita estar familiarizado con [volumes](/docs/concepts/storage/volumes/).
+Este documento describe los _volúmenes proyectados_ en Kubernetes. Necesita estar familiarizado con [volumes](/docs/concepts/storage/volumes/).
 
 <!-- body -->
 
 ## Introducción
 
-Un volumen `projected` asigna varias fuentes de volúmenes existentes al mismo directorio.
+Un volumen `proyectado` asigna varias fuentes de volúmenes existentes al mismo directorio.
 
 Actualmente se pueden proyectar los siguientes tipos de fuentes de volumen:
 
@@ -26,7 +26,7 @@ Actualmente se pueden proyectar los siguientes tipos de fuentes de volumen:
 - [`serviceAccountToken`](#serviceaccounttoken)
 
 Se requiere que todas las fuentes estén en el mismo espacio de nombres que el Pod. Para más detalles,
-vea [all-in-one volume](https://git.k8s.io/design-proposals-archive/node/all-in-one-volume.md) documento de diseño.
+vea el documento de diseño [all-in-one volume](https://git.k8s.io/design-proposals-archive/node/all-in-one-volume.md).
 
 ### Configuración de ejemplo con un secreto, una downwardAPI, y una configMap {#example-configuration-secret-downwardapi-configmap}
 
@@ -39,9 +39,9 @@ vea [all-in-one volume](https://git.k8s.io/design-proposals-archive/node/all-in-
 Cada fuente de volumen proyectada aparece en la especificación bajo `sources`. Los parámetros son casi los mismos con dos excepciones:
 
 - Para los secretos, el campo `secretName` se ha cambiado a `name` para que sea coherente con el nombre de ConfigMap.
-- El `defaultMode` solo se puede especificar en el nivel proyectado y no para cada fuente de volumen. However, Sin embargo, como se ilustra arriba, puede configurar explícitamente el `mode` para cada proyección individual.
+- El `defaultMode` solo se puede especificar en el nivel proyectado y no para cada fuente de volumen. Sin embargo, como se ilustra arriba, puede configurar explícitamente el `mode` para cada proyección individual.
 
-## volúmenes proyectados de serviceAccountToken {#serviceaccounttoken}
+## Volúmenes proyectados de serviceAccountToken {#serviceaccounttoken}
 
 Puede inyectar el token para la [service account](/docs/reference/access-authn-authz/authentication/#service-account-tokens) actual
 en un Pod en una ruta especificada. Por ejemplo:
@@ -64,7 +64,7 @@ no recibirá actualizaciones para esas fuentes de volumen.
 
 ## Interacciones SecurityContext
 
-La [proposal](https://git.k8s.io/enhancements/keps/sig-storage/2451-service-account-token-volumes#proposal) para el manejo de permisos de archivos en la mejora del volumen de cuentas de servicio proyectadas introdujo los archivos proyectados que tienen los permisos de propietario correctos establecidos.
+La [propuesta](https://git.k8s.io/enhancements/keps/sig-storage/2451-service-account-token-volumes#proposal) para el manejo de permisos de archivos en la mejora del volumen de cuentas de servicio proyectadas introdujo los archivos proyectados que tienen los permisos de propietario correctos establecidos.
 
 ### Linux
 
@@ -74,13 +74,13 @@ los archivos proyectados tienen la conjunto de propiedad correcto, incluida la p
 
 Cuando todos los contenedores en un pod tienen el mismo `runAsUser` configurado en su
 [`PodSecurityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)
-or container
+o el contenedor
 [`SecurityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context-1),
 entonces el kubelet garantiza que el contenido del volumen `serviceAccountToken` sea propiedad de ese usuario y que el archivo token tenga su modo de permiso establecido en `0600`.
 
 {{< note >}}
 {{< glossary_tooltip text="Ephemeral containers" term_id="ephemeral-container" >}}
-agregado a un pod después de su creación _not_ cambia los permisos de volumen que se establecieron cuando se creó el pod.
+agregado a un pod después de su creación _no_ cambia los permisos de volumen que se establecieron cuando se creó el pod.
 
 Si los permisos de volumen `serviceAccountToken` de un Pod se establecieron en `0600` porque todos los demás contenedores en el Pod tienen el mismo `runAsUser`, los contenedores efímeros deben usar el mismo `runAsUser` para poder leer el token.
 {{< /note >}}
@@ -109,7 +109,5 @@ Esto implica que todos los usuarios administradores como `ContainerAdministrator
 {{< note >}}
 En general, se desaconseja otorgar acceso al contenedor al host, ya que puede abrir la puerta a posibles vulnerabilidades de seguridad.
 
-Creating a Windows Pod with `RunAsUser` in it's `SecurityContext` will result in
-the Pod being stuck at `ContainerCreating` forever. So it is advised to not use
-the Linux only `RunAsUser` option with Windows Pods.
+Crear un Pod de Windows con `RunAsUser` en su `SecurityContext` dará como resultado que el Pod quede atascado en `ContainerCreating` para siempre. Por lo tanto, se recomienda no utilizar la opción `RunAsUser` exclusiva de Linux con Windows Pods.
 {{< /note >}}
