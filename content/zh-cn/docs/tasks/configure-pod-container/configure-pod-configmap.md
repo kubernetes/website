@@ -788,7 +788,7 @@ section, and learn how to use these objects with Pods.
 -->
 2. 将 ConfigMap 中定义的 `special.how` 赋值给 Pod 规约中的 `SPECIAL_LEVEL_KEY` 环境变量。
 
-   {{% code file="pods/pod-single-configmap-env-variable.yaml" %}}
+   {{% code_sample file="pods/pod-single-configmap-env-variable.yaml" %}}
 
    <!--
    Create the Pod:
@@ -816,7 +816,7 @@ Here is the manifest you will use:
 与前面的示例一样，首先创建 ConfigMap。
 这是你将使用的清单：
 
-{{% code file="configmap/configmaps.yaml" %}}
+{{% code_sample file="configmap/configmaps.yaml" %}}
 
 <!--
 * Create the ConfigMap:
@@ -832,7 +832,7 @@ Here is the manifest you will use:
 -->
 * 在 Pod 规约中定义环境变量。
 
-  {{% code file="pods/pod-multiple-configmap-env-variable.yaml" %}}
+  {{% code_sample file="pods/pod-multiple-configmap-env-variable.yaml" %}}
 
   <!--
   Create the Pod:
@@ -867,7 +867,7 @@ Here is the manifest you will use:
 -->
 * 创建一个包含多个键值对的 ConfigMap。
 
-  {{% code file="configmap/configmap-multikeys.yaml" %}}
+  {{% code_sample file="configmap/configmap-multikeys.yaml" %}}
 
   <!--
   Create the ConfigMap:
@@ -885,7 +885,7 @@ Here is the manifest you will use:
 * 使用 `envFrom` 将所有 ConfigMap 的数据定义为容器环境变量，ConfigMap
   中的键成为 Pod 中的环境变量名称。
 
-  {{% code file="pods/pod-configmap-envFrom.yaml" %}}
+  {{% code_sample file="pods/pod-configmap-envFrom.yaml" %}}
 
   <!--
   Create the Pod:
@@ -928,7 +928,7 @@ For example, the following Pod manifest:
 -->
 例如，以下 Pod 清单：
 
-{{% code file="pods/pod-configmap-env-var-valueFrom.yaml" %}}
+{{% code_sample file="pods/pod-configmap-env-var-valueFrom.yaml" %}}
 
 <!--
 Create that Pod, by running:
@@ -978,7 +978,7 @@ The examples in this section refer to a ConfigMap named `special-config`:
 -->
 本节中的示例引用了一个名为 `special-config` 的 ConfigMap：
 
-{{% code file="configmap/configmap-multikeys.yaml" %}}
+{{% code_sample file="configmap/configmap-multikeys.yaml" %}}
 
 <!--
 Create the ConfigMap:
@@ -1004,7 +1004,7 @@ keys in ConfigMap.
 （在本例中为 `/etc/config`）。
 `command` 部分列出了名称与 ConfigMap 中的键匹配的目录文件。
 
-{{% code file="pods/pod-configmap-volume.yaml" %}}
+{{% code_sample file="pods/pod-configmap-volume.yaml" %}}
 
 <!--
 Create the Pod:
@@ -1063,7 +1063,7 @@ In this case, the `SPECIAL_LEVEL` item will be mounted in the `config-volume` vo
 在这里，ConfigMap 中键 `SPECIAL_LEVEL` 的内容将挂载在 `config-volume`
 卷中 `/etc/config/keys` 文件中。
 
-{{% code file="pods/pod-configmap-volume-specific-key.yaml" %}}
+{{% code_sample file="pods/pod-configmap-volume-specific-key.yaml" %}}
 
 <!--
 Create the Pod:
