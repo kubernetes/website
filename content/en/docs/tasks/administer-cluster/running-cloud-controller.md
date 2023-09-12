@@ -53,6 +53,12 @@ Successfully running cloud-controller-manager requires some changes to your clus
   kubelet is aware that it must be initialized by the cloud controller manager
   before it is scheduled any work.
 
+  {{< note >}}
+  `--cloud-provider` flag usage varries according to the user. If the user has
+  external CCMs(not the internal cloud controller loops in the Kubernetes Controller
+  Manager), then set `--cloud-provider=external`, otherwise not required.
+  {{< /note >}}
+
 Keep in mind that setting up your cluster to use cloud controller manager will
 change your cluster behaviour in a few ways:
 
