@@ -313,7 +313,7 @@ Here is a manifest for an example Pod that needs access to your Docker credentia
 
 下面是一个 Pod 配置清单示例，该示例中 Pod 需要访问你的 Docker 凭据 `regcred`：
 
-{{% code file="pods/private-reg-pod.yaml" %}}
+{{% code_sample file="pods/private-reg-pod.yaml" %}}
 
 <!-- 
 Download the above file onto your computer:
