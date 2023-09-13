@@ -35,7 +35,7 @@ secretGenerator:
   - password=1f2d1e2e67df
 {{< /tab >}}
 {{% tab name="Files" %}}
-1.  Store the credentials in files. The filenames will be the keys of the secret:
+1.  Store the credentials in files. The filenames are the keys of the secret:
 
     ```shell
     echo -n 'admin' > ./username.txt
