@@ -182,3 +182,49 @@ Here are some helpful resources to get started with `policy-controller`:
 
 - [安装](https://github.com/sigstore/helm-charts/tree/main/charts/policy-controller)
 - [配置选项](https://github.com/sigstore/policy-controller/tree/main/config)
+
+<!--
+## Verify the Software Bill Of Materials
+
+You can verify the Kubernetes Software Bill of Materials (SBOM) by using the
+sigstore certificate and signature, or the corresponding SHA files:
+-->
+## 验证软件物料清单   {#verify-the-software-bill-of-materials}
+
+你可以使用 sigstore 证书和签名或相应的 SHA 文件来验证 Kubernetes 软件物料清单（SBOM）：
+
+<!--
+# Retrieve the latest available Kubernetes release version
+
+# Verify the SHA512 sum
+
+# Verify the SHA256 sum
+
+# Retrieve sigstore signature and certificate
+
+# Verify the sigstore signature
+-->
+
+```shell
+# 检索最新可用的 Kubernetes 发行版本
+VERSION=$(curl -Ls https://dl.k8s.io/release/stable.txt)
+
+# 验证 SHA512 sum
+curl -Ls "https://sbom.k8s.io/$VERSION/release" -o "$VERSION.spdx"
+echo "$(curl -Ls "https://sbom.k8s.io/$VERSION/release.sha512") $VERSION.spdx" | sha512sum --check
+
+# 验证 SHA256 sum
+echo "$(curl -Ls "https://sbom.k8s.io/$VERSION/release.sha256") $VERSION.spdx" | sha256sum --check
+
+# 检索 sigstore 签名和证书
+curl -Ls "https://sbom.k8s.io/$VERSION/release.sig" -o "$VERSION.spdx.sig"
+curl -Ls "https://sbom.k8s.io/$VERSION/release.cert" -o "$VERSION.spdx.cert"
+
+# 验证 sigstore 签名
+cosign verify-blob \
+    --certificate "$VERSION.spdx.cert" \
+    --signature "$VERSION.spdx.sig" \
+    --certificate-identity krel-staging@k8s-releng-prod.iam.gserviceaccount.com \
+    --certificate-oidc-issuer https://accounts.google.com \
+    "$VERSION.spdx"
+```
