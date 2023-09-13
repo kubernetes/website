@@ -1047,14 +1047,14 @@ Containers configured in this manner will not have access to swap memory.
 Swap is supported only with **cgroup v2**, cgroup v1 is not supported. 
 
 For more information, and to assist with testing and provide feedback, please
-see the blog-post about [Kubernetes 1.28: NodeSwap graduates to Beta1](/blog/2023/07/18/swap-beta1-1.28-2023/),
+see the blog-post about [Kubernetes 1.28: NodeSwap graduates to Beta1](/blog/2023/08/24/swap-linux-beta/),
 [KEP-2400](https://github.com/kubernetes/enhancements/issues/4128) and its
 [design proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2400-node-swap/README.md).
 -->
 只有 **cgroup v2** 支持交换空间，cgroup v1 不支持。
 
 如需了解更多信息、协助测试和提交反馈，请参阅关于
-[Kubernetes 1.28：NodeSwap 进阶至 Beta1](/zh-cn/blog/2023/07/18/swap-beta1-1.28-2023/) 的博客文章、
+[Kubernetes 1.28：NodeSwap 进阶至 Beta1](/zh-cn/blog/2023/08/24/swap-linux-beta/) 的博客文章、
 [KEP-2400](https://github.com/kubernetes/enhancements/issues/4128)
 及其[设计提案](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2400-node-swap/README.md)。
 
