@@ -831,7 +831,7 @@ that originate from outside your cluster.
 则可以配置规则，阻止所有来自集群外部的健康检查请求。
 {{< /caution >}}
 
-{{% code file="priority-and-fairness/health-for-strangers.yaml" %}}
+{{% code_sample file="priority-and-fairness/health-for-strangers.yaml" %}}
 
 <!--
 ## Diagnostics
@@ -1383,6 +1383,217 @@ APF 将以下两个头添加到每个 HTTP 响应消息中。
 
 - `X-Kubernetes-PF-FlowSchema-UID` 保存相应请求被分类到的 FlowSchema 对象的 UID。
 - `X-Kubernetes-PF-PriorityLevel-UID` 保存与该 FlowSchema 关联的 PriorityLevelConfiguration 对象的 UID。
+
+<!--
+## Good practices for using API Priority and Fairness
+
+When a given priority level exceeds its permitted concurrency, requests can
+experience increased latency or be dropped with an HTTP 429 (Too Many Requests)
+error. To prevent these side effects of APF, you can modify your workload or
+tweak your APF settings to ensure there are sufficient seats available to serve
+your requests.
+-->
+## 使用 API 优先级和公平性的最佳实践   {#good-practices-for-using-api-priority-and-fairness}
+
+当某个给定的优先级级别超过其所被允许的并发数时，请求可能会遇到延迟增加，
+或以错误 HTTP 429 (Too Many Requests) 的形式被拒绝。
+为了避免这些 APF 的副作用，你可以修改你的工作负载或调整你的 APF 设置，确保有足够的席位来处理请求。
+
+<!--
+To detect whether requests are being rejected due to APF, check the following
+metrics:
+
+- apiserver_flowcontrol_rejected_requests_total: the total number of requests
+  rejected per FlowSchema and PriorityLevelConfiguration.
+- apiserver_flowcontrol_current_inqueue_requests: the current number of requests
+  queued per FlowSchema and PriorityLevelConfiguration.
+- apiserver_flowcontrol_request_wait_duration_seconds: the latency added to
+  requests waiting in queues.
+- apiserver_flowcontrol_priority_level_seat_utilization: the seat utilization
+  per PriorityLevelConfiguration.
+-->
+要检测请求是否由于 APF 而被拒绝，可以检查以下指标：
+
+- apiserver_flowcontrol_rejected_requests_total：
+  每个 FlowSchema 和 PriorityLevelConfiguration 拒绝的请求总数。
+- apiserver_flowcontrol_current_inqueue_requests：
+  每个 FlowSchema 和 PriorityLevelConfiguration 中排队的当前请求数。
+- apiserver_flowcontrol_request_wait_duration_seconds：请求在队列中等待的延迟时间。
+- apiserver_flowcontrol_priority_level_seat_utilization：
+  每个 PriorityLevelConfiguration 的席位利用率。
+
+<!--
+### Workload modifications {#good-practice-workload-modifications}
+
+To prevent requests from queuing and adding latency or being dropped due to APF,
+you can optimize your requests by:
+-->
+### 工作负载修改 {#good-practice-workload-modifications}
+
+为了避免由于 APF 导致请求排队、延迟增加或被拒绝，你可以通过以下方式优化请求：
+
+<!--
+- Reducing the rate at which requests are executed. A fewer number of requests
+  over a fixed period will result in a fewer number of seats being needed at a
+  given time.
+-->
+- 减少请求执行的速率。在固定时间段内减少请求数量将导致在某一给定时间点需要的席位数更少。
+
+<!--
+- Avoid issuing a large number of expensive requests concurrently. Requests can
+  be optimized to use fewer seats or have lower latency so that these requests
+  hold those seats for a shorter duration. List requests can occupy more than 1
+  seat depending on the number of objects fetched during the request. Restricting
+  the number of objects retrieved in a list request, for example by using
+  pagination, will use less total seats over a shorter period. Furthermore,
+  replacing list requests with watch requests will require lower total concurrency
+  shares as watch requests only occupy 1 seat during its initial burst of
+  notifications. If using streaming lists in versions 1.27 and later, watch
+  requests will occupy the same number of seats as a list request for its initial
+  burst of notifications because the entire state of the collection has to be
+  streamed. Note that in both cases, a watch request will not hold any seats after
+  this initial phase.
+-->
+- 避免同时发出大量消耗较多席位的请求。请求可以被优化为使用更少的席位或降低延迟，
+  使这些请求占用席位的时间变短。列表请求根据请求期间获取的对象数量可能会占用多个席位。
+  例如通过使用分页等方式限制列表请求中取回的对象数量，可以在更短时间内使用更少的总席位数。
+  此外，将列表请求替换为监视请求将需要更低的总并发份额，因为监视请求仅在初始的通知突发阶段占用 1 个席位。
+  如果在 1.27 及更高版本中使用流式列表，因为集合的整个状态必须以流式传输，
+  所以监视请求在其初始的通知突发阶段将占用与列表请求相同数量的席位。
+  请注意，在这两种情况下，监视请求在此初始阶段之后将不再保留任何席位。
+
+<!--
+Keep in mind that queuing or rejected requests from APF could be induced by
+either an increase in the number of requests or an increase in latency for
+existing requests. For example, if requests that normally take 1s to execute
+start taking 60s, it is possible that APF will start rejecting requests because
+requests are occupying seats for a longer duration than normal due to this
+increase in latency. If APF starts rejecting requests across multiple priority
+levels without a significant change in workload, it is possible there is an
+underlying issue with control plane performance rather than the workload or APF
+settings.
+-->
+请注意，由于请求数量增加或现有请求的延迟增加，APF 可能会导致请求排队或被拒绝。
+例如，如果通常需要 1 秒执行的请求开始需要 60 秒，由于延迟增加，
+请求所占用的席位时间可能超过了正常情况下的时长，APF 将开始拒绝请求。
+如果在没有工作负载显著变化的情况下，APF 开始在多个优先级级别上拒绝请求，
+则可能存在控制平面性能的潜在问题，而不是工作负载或 APF 设置的问题。
+
+<!--
+### Priority and fairness settings {#good-practice-apf-settings}
+
+You can also modify the default FlowSchema and PriorityLevelConfiguration
+objects or create new objects of these types to better accommodate your
+workload.
+
+APF settings can be modified to:
+
+- Give more seats to high priority requests.
+- Isolate non-essential or expensive requests that would starve a concurrency
+  level if it was shared with other flows.
+-->
+### 优先级和公平性设置   {#good-practice-apf-settings}
+
+你还可以修改默认的 FlowSchema 和 PriorityLevelConfiguration 对象，
+或创建新的对象来更好地容纳你的工作负载。
+
+APF 设置可以被修改以实现下述目标：
+
+- 给予高优先级请求更多的席位。
+- 隔离那些非必要或开销大的请求，因为如果与其他流共享，这些请求可能会耗尽所有并发级别。
+
+<!--
+#### Give more seats to high priority requests
+-->
+#### 给予高优先级请求更多的席位
+
+<!--
+1. If possible, the number of seats available across all priority levels for a
+   particular `kube-apiserver` can be increased by increasing the values for the
+   `max-requests-inflight` and `max-mutating-requests-inflight` flags. Alternatively,
+   horizontally scaling the number of `kube-apiserver` instances will increase the
+   total concurrency per priority level across the cluster assuming there is
+   sufficient load balancing of requests.
+-->
+1. 如果有可能，你可以通过提高 `max-requests-inflight` 和 `max-mutating-requests-inflight`
+   参数的值为特定 `kube-apiserver` 提高所有优先级级别均可用的席位数量。另外，
+   如果在请求的负载均衡足够好的情况下，水平扩缩 `kube-apiserver` 实例的数量将提高集群中每个优先级级别的总并发数。
+
+<!--
+1. You can create a new FlowSchema which references a PriorityLevelConfiguration
+   with a larger concurrency level. This new PriorityLevelConfiguration could be an
+   existing level or a new level with its own set of nominal concurrency shares.
+   For example, a new FlowSchema could be introduced to change the
+   PriorityLevelConfiguration for your requests from global-default to workload-low
+   to increase the number of seats available to your user. Creating a new
+   PriorityLevelConfiguration will reduce the number of seats designated for
+   existing levels. Recall that editing a default FlowSchema or
+   PriorityLevelConfiguration will require setting the
+   `apf.kubernetes.io/autoupdate-spec` annotation to false.
+-->
+2. 你可以创建一个新的 FlowSchema，在其中引用并发级别更高的 PriorityLevelConfiguration。
+   这个新的 PriorityLevelConfiguration 可以是现有的级别，也可以是具有自己一组额定并发份额的新级别。
+   例如，你可以引入一个新的 FlowSchema 来将请求的 PriorityLevelConfiguration
+   从全局默认值更改为工作负载较低的级别，以增加用户可用的席位数。
+   创建一个新的 PriorityLevelConfiguration 将减少为现有级别指定的席位数。
+   请注意，编辑默认的 FlowSchema 或 PriorityLevelConfiguration 需要将
+   `apf.kubernetes.io/autoupdate-spec` 注解设置为 false。
+
+<!--
+1. You can also increase the NominalConcurrencyShares for the
+   PriorityLevelConfiguration which is serving your high priority requests.
+   Alternatively, for versions 1.26 and later, you can increase the LendablePercent
+   for competing priority levels so that the given priority level has a higher pool
+   of seats it can borrow.
+-->
+3. 你还可以为服务于高优先级请求的 PriorityLevelConfiguration 提高 NominalConcurrencyShares。
+   此外在 1.26 及更高版本中，你可以为有竞争的优先级级别提高 LendablePercent，以便给定优先级级别可以借用更多的席位。
+
+<!--
+#### Isolate non-essential requests from starving other flows
+
+For request isolation, you can create a FlowSchema whose subject matches the
+user making these requests or create a FlowSchema that matches what the request
+is (corresponding to the resourceRules). Next, you can map this FlowSchema to a
+PriorityLevelConfiguration with a low share of seats.
+-->
+#### 隔离非关键请求以免饿死其他流
+
+为了进行请求隔离，你可以创建一个 FlowSchema，使其主体与发起这些请求的用户匹配，
+或者创建一个与请求内容匹配（对应 resourceRules）的 FlowSchema。
+接下来，你可以将该 FlowSchema 映射到一个具有较低席位份额的 PriorityLevelConfiguration。
+
+<!--
+For example, suppose list event requests from Pods running in the default namespace
+are using 10 seats each and execute for 1 minute. To prevent these expensive
+requests from impacting requests from other Pods using the existing service-accounts
+FlowSchema, you can apply the following FlowSchema to isolate these list calls
+from other requests.
+
+Example FlowSchema object to isolate list event requests:
+-->
+例如，假设来自 default 名字空间中运行的 Pod 的每个事件列表请求使用 10 个席位，并且执行时间为 1 分钟。
+为了防止这些开销大的请求影响使用现有服务账号 FlowSchema 的其他 Pod 的请求，你可以应用以下
+FlowSchema 将这些列表调用与其他请求隔离开来。
+
+用于隔离列表事件请求的 FlowSchema 对象示例：
+
+{{% code_sample file="priority-and-fairness/list-events-default-service-account.yaml" %}}
+
+<!--
+- This FlowSchema captures all list event calls made by the default service
+  account in the default namespace. The matching precedence 8000 is lower than the
+  value of 9000 used by the existing service-accounts FlowSchema so these list
+  event calls will match list-events-default-service-account rather than
+  service-accounts.
+- The catch-all PriorityLevelConfiguration is used to isolate these requests.
+  The catch-all priority level has a very small concurrency share and does not
+  queue requests.
+-->
+- 这个 FlowSchema 用于抓取 default 名字空间中默认服务账号所发起的所有事件列表调用。
+  匹配优先级为 8000，低于现有服务账号 FlowSchema 所用的 9000，因此这些列表事件调用将匹配到
+  list-events-default-service-account 而不是服务账号。
+- 通用 PriorityLevelConfiguration 用于隔离这些请求。通用优先级级别具有非常小的并发份额，并且不对请求进行排队。
 
 ## {{% heading "whatsnext" %}}
 
