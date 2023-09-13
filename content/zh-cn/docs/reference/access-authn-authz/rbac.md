@@ -64,7 +64,7 @@ using tools such as `kubectl`, just like any other Kubernetes object.
 
 RBAC API 声明了四种 Kubernetes 对象：**Role**、**ClusterRole**、**RoleBinding** 和
 **ClusterRoleBinding**。你可以像使用其他 Kubernetes 对象一样，
-通过类似 `kubectl` 这类工具描述或修补 RBAC 
+通过类似 `kubectl` 这类工具描述或修补 RBAC
 {{< glossary_tooltip text="对象" term_id="object" >}}。
 
 {{< caution >}}
@@ -567,7 +567,7 @@ Here is an example that allows access to perform any current and future action o
 all current and future resources in the `example.com` API group.
 This is similar to the built-in `cluster-admin` role.
 -->
-你可愈使用通配符 `*` 可以批量引用所有的 `resources`、`apiGroups` 和 `verbs` 对象， 无需逐一引用。
+你可以使用通配符 `*` 批量引用所有的 `resources`、`apiGroups` 和 `verbs` 对象，无需逐一引用。
 对于 `nonResourceURLs`，你可以将通配符 `*` 作为后缀实现全局通配，
 对于 `resourceNames`，空集表示没有任何限制。
 下面的示例对 `example.com` API 组中所有当前和未来资源执行所有动作。
