@@ -1,18 +1,7 @@
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
 <!-- 
 Renew the certificate embedded in the kubeconfig file for the scheduler manager to use 
 -->
-续订 kubeconfig 文件中嵌入的证书，以供调度管理器使用
+续订 kubeconfig 文件中嵌入的证书，以供调度管理器使用。
 
 <!--
 ### Synopsis
@@ -33,7 +22,7 @@ Renewals run unconditionally, regardless of certificate expiration date; extra a
 Renewal by default tries to use the certificate authority in the local PKI managed by kubeadm; as alternative it is possible to use K8s certificate API for certificate renewal, or as a last option, to generate a CSR request.
 -->
 默认情况下，续订会尝试使用在 kubeadm 所管理的本地 PKI 中的证书颁发机构；作为替代方案，
-也可以使用 K8s 证书 API 进行证书续订；亦或者，作为最后一种选择，生成 CSR 请求。
+也可以使用 K8s certificate API 进行证书续订；亦或者，作为最后一种选择，生成 CSR 请求。
 
 <!--
 After renewal, in order to make changes effective, is is required to restart control-plane components and eventually re-distribute the renewed certificate in case the file is used elsewhere.
@@ -93,7 +82,7 @@ kubeadm certs renew scheduler.conf [flags]
 <!--
 <p>help for scheduler.conf</p>
 -->
-<p>scheduler.conf 操作的帮助命令</p>
+<p>scheduler.conf 操作的帮助命令。</p>
 </td>
 </tr>
 
@@ -144,4 +133,3 @@ kubeadm certs renew scheduler.conf [flags]
 
 </tbody>
 </table>
-
