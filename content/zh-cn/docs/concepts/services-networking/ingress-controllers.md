@@ -53,16 +53,12 @@ Kubernetes 作为一个项目，目前支持和维护
 
 <!--
 * [AKS Application Gateway Ingress Controller](https://docs.microsoft.com/azure/application-gateway/tutorial-ingress-controller-add-on-existing?toc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Faks%2Ftoc.json&bc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Fbread%2Ftoc.json) is an ingress controller that configures the [Azure Application Gateway](https://docs.microsoft.com/azure/application-gateway/overview).
-* [Ambassador](https://www.getambassador.io/) API Gateway is an [Envoy](https://www.envoyproxy.io)-based ingress
-  controller.
 * [Apache APISIX ingress controller](https://github.com/apache/apisix-ingress-controller) is an [Apache APISIX](https://github.com/apache/apisix)-based ingress controller.
 * [Avi Kubernetes Operator](https://github.com/vmware/load-balancer-and-ingress-services-for-kubernetes) provides L4-L7 load-balancing using [VMware NSX Advanced Load Balancer](https://avinetworks.com/).
 -->
 * [AKS 应用程序网关 Ingress 控制器](https://docs.microsoft.com/zh-cn/azure/application-gateway/tutorial-ingress-controller-add-on-existing?toc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Faks%2Ftoc.json&bc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Fbread%2Ftoc.json)
   是一个配置 [Azure 应用程序网关](https://docs.microsoft.com/zh-cn/azure/application-gateway/overview)
   的 Ingress 控制器。
-* [Ambassador](https://www.getambassador.io/) API 网关是一个基于
-  [Envoy](https://www.envoyproxy.io) 的 Ingress 控制器。
 * [Apache APISIX Ingress 控制器](https://github.com/apache/apisix-ingress-controller)
   是一个基于 [Apache APISIX 网关](https://github.com/apache/apisix) 的 Ingress 控制器。
 * [Avi Kubernetes Operator](https://github.com/vmware/load-balancer-and-ingress-services-for-kubernetes)
@@ -74,6 +70,8 @@ Kubernetes 作为一个项目，目前支持和维护
 * The [Citrix ingress controller](https://github.com/citrix/citrix-k8s-ingress-controller#readme) works with
   Citrix Application Delivery Controller.
 * [Contour](https://projectcontour.io/) is an [Envoy](https://www.envoyproxy.io/) based ingress controller.
+* [Emissary-Ingress](https://www.getambassador.io/products/api-gateway) API Gateway is an [Envoy](https://www.envoyproxy.io)-based ingress
+  controller.
 * [EnRoute](https://getenroute.io/) is an [Envoy](https://www.envoyproxy.io) based API gateway that can run as an ingress controller.
 * [Easegress IngressController](https://github.com/megaease/easegress/blob/main/doc/reference/ingresscontroller.md) is an [Easegress](https://megaease.com/easegress/) based API gateway that can run as an ingress controller.
 -->
@@ -85,6 +83,8 @@ Kubernetes 作为一个项目，目前支持和维护
   可以用来与 Citrix Application Delivery Controller 一起使用。
 * [Contour](https://projectcontour.io/) 是一个基于 [Envoy](https://www.envoyproxy.io/)
   的 Ingress 控制器。
+* [Emissary-Ingress](https://www.getambassador.io/products/api-gateway) API 网关是一个基于 
+  [Envoy](https://www.envoyproxy.io/) 的入口控制器。
 * [EnRoute](https://getenroute.io/) 是一个基于 [Envoy](https://www.envoyproxy.io)
   的 API 网关，可以用作 Ingress 控制器。
 * [Easegress IngressController](https://github.com/megaease/easegress/blob/main/doc/reference/ingresscontroller.md)
