@@ -96,7 +96,7 @@ Once all the workload pods that are linked to the out-of-service node are moved 
 a new running node, and the shutdown node has been recovered, you should remove that
 taint on the affected node after the node is recovered.
 -->
-**注意：**在应用 out-of-service 污点之前，你必须验证节点是否已经处于关闭或断电状态（而不是在重新启动中）。
+**注意：** 在应用 out-of-service 污点之前，你必须验证节点是否已经处于关闭或断电状态（而不是在重新启动中）。
 
 与 out-of-service 节点有关联的所有工作负载的 Pod 都被移动到新的运行节点，
 并且所关闭的节点已恢复之后，你应该删除受影响节点上的污点。
@@ -178,7 +178,7 @@ implementation, and review of this feature and helped move it from alpha, beta, 
 * Jing Xu ([jingxu97](https://github.com/jingxu97))
 * Xing Yang ([xing-yang](https://github.com/xing-yang))
 
-<!
+<!--
 This feature is a collaboration between SIG Storage and SIG Node.
 For those interested in getting involved with the design and development of any
 part of the Kubernetes Storage system, join the Kubernetes Storage Special
