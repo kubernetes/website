@@ -1,7 +1,6 @@
 ---
 title: Flow control
-weight: 120
-no_list: true
+weight: 130
 ---
 
 <!-- overview -->
@@ -33,12 +32,12 @@ PriorityLevelConfigurations.
 
 ## Debug endpoints
 
-When you enable the API Priority and Fairness feature, the `kube-apiserver`
+With the `APIPriorityAndFairness` feature enabled, the `kube-apiserver`
 serves the following additional paths at its HTTP(S) ports.
 
 You need to ensure you have permissions to access these endpoints.
 You don't have to do anything if you are using admin.
-Permissions can be granted if needed following [this doc](https://kubernetes.io/docs/reference/access-authn-authz/rbac/)
+Permissions can be granted if needed following the [RBAC](/docs/reference/access-authn-authz/rbac/) doc
 to access `/debug/api_priority_and_fairness/` by specifying `nonResourceURLs`.
 
 - `/debug/api_priority_and_fairness/dump_priority_levels` - a listing of
@@ -149,14 +148,14 @@ to access `/debug/api_priority_and_fairness/` by specifying `nonResourceURLs`.
 ## Debug logging
 
 At `-v=3` or more verbosity, the API server outputs an httplog line for every
-request in the APIServer log, and it includes the following attributes.
+request in the API server log, and it includes the following attributes.
 
 - `apf_fs`: the name of the flow schema to which the request was classified.
 - `apf_pl`: the name of the priority level for that flow schema.
 - `apf_iseats`: the number of seats determined for the initial
   (normal) stage of execution of the request.
 - `apf_fseats`: the number of seats determined for the final stage of
-  execution (accounting for the associated WATCH notifications) of the
+  execution (accounting for the associated `watch` notifications) of the
   request.
 - `apf_additionalLatency`: the duration of the final stage of
   execution of the request.
@@ -168,7 +167,7 @@ of how APF handled the request, primarily for debugging purposes.
 
 APF adds the following two headers to each HTTP response message.
 They won't appear in the audit log. They can be viewed from the client side.
-For client using klog, use verbosity `-v=8` or higher to view these headers.
+For client using `klog`, use verbosity `-v=8` or higher to view these headers.
 
 - `X-Kubernetes-PF-FlowSchema-UID` holds the UID of the FlowSchema
   object to which the corresponding request was classified.
