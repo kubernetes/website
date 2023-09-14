@@ -561,14 +561,6 @@ Downgrading works because kubectl Server-Side Apply keeps the
 `last-applied-configuration` annotation up-to-date if you use
 `kubectl apply`.
 
-This behavior applies to Server-Side Apply with the `kubectl` field manager.
-As an exception, you can opt-out of this behavior by specifying a different,
-non-default field manager, as seen in the following example. The default field
-manager for kubectl server-side apply is `kubectl`.
-
-```shell
-kubectl apply --server-side --field-manager=my-manager [--dry-run=server]
-```
 
 ## API implementation
 
