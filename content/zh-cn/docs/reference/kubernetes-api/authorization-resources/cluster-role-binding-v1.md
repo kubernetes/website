@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ClusterRoleBinding 引用 ClusterRole，但不包含它。"
 title: "ClusterRoleBinding"
-weight: 7
+weight: 6
 auto_generated: false
 ---
 <!-- 
@@ -18,7 +18,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ClusterRoleBinding references a ClusterRole, but not contain it."
 title: "ClusterRoleBinding"
-weight: 7
+weight: 6
 auto_generated: true
 ---
 -->
@@ -56,7 +56,7 @@ ClusterRoleBinding 引用 ClusterRole，但不包含它。
   标准对象的元数据。
 <!-- 
 - **roleRef** (RoleRef), required
-  RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+  RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
   <a name="RoleRef"></a>
   *RoleRef contains information that points to the role being used*
   - **roleRef.apiGroup** (string), required
@@ -69,7 +69,7 @@ ClusterRoleBinding 引用 ClusterRole，但不包含它。
 - **roleRef** (RoleRef)，必需
 
   RoleRef 只能引用全局命名空间中的 ClusterRole。
-  如果无法解析 RoleRef，则 Authorizer 必定返回一个错误。
+  如果无法解析 RoleRef，则 Authorizer 必定返回一个错误。这个字段是不可变的。
   
   <a name="RoleRef"></a>
   **RoleRef 包含指向正被使用的角色的信息。**
