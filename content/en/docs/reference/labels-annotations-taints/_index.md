@@ -1726,6 +1726,11 @@ Example: `service.beta.kubernetes.io/aws-load-balancer-manage-backend-security-g
 
 Used on: Service
 
+The cloud controller manager integration with AWS elastic load balancing configures
+a load balancer based on this annotation. It determines if the controller should enable 
+automatic setup of the instance/ENI security group to permit access to the ports used 
+for both  traffic and healthcheck.
+
 The [AWS load balancer controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/)
 uses this annotation.
 See [annotations](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/service/annotations/)
