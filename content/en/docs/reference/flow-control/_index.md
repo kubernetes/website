@@ -1,20 +1,17 @@
 ---
-title: Troubleshooting APIServer flow control issues
-content_type: task
+title: Flow control
+weight: 120
+no_list: true
 ---
 
 <!-- overview -->
 
 API Priority and Fairness controls the behavior of the Kubernetes API server in
 an overload situation. You can find more information about it in the
-[concept doc](/docs/concepts/cluster-administration/flow-control.md)
+[API Priority and Fairness](/docs/concepts/cluster-administration/flow-control/)
+documentation.
 
-## {{% heading "prerequisites" %}}
-
-* Kubernetes cluster is installed
-* `kubectl` is configured to communicate with the cluster
-
-<!-- steps -->
+<!-- body -->
 
 ## Diagnostics
 
@@ -22,8 +19,9 @@ Every HTTP response from an API server with the priority and fairness feature
 enabled has two extra headers: `X-Kubernetes-PF-FlowSchema-UID` and
 `X-Kubernetes-PF-PriorityLevel-UID`, noting the flow schema that matched the request
 and the priority level to which it was assigned, respectively. The API objects'
-names are not included in these headers in case the requesting user does not
-have permission to view them, so when debugging you can use a command like
+names are not included in these headers (to avoid revealing details in case the
+requesting user does not have permission to view them). When debugging, you
+can use a command such as:
 
 ```shell
 kubectl get flowschemas -o custom-columns="uid:{metadata.uid},name:{metadata.name}"
@@ -38,6 +36,11 @@ PriorityLevelConfigurations.
 When you enable the API Priority and Fairness feature, the `kube-apiserver`
 serves the following additional paths at its HTTP(S) ports.
 
+You need to ensure you have permissions to access these endpoints.
+You don't have to do anything if you are using admin.
+Permissions can be granted if needed following [this doc](https://kubernetes.io/docs/reference/access-authn-authz/rbac/)
+to access `/debug/api_priority_and_fairness/` by specifying `nonResourceURLs`.
+
 - `/debug/api_priority_and_fairness/dump_priority_levels` - a listing of
   all the priority levels and the current state of each.  You can fetch like this:
 
@@ -45,7 +48,7 @@ serves the following additional paths at its HTTP(S) ports.
   kubectl get --raw /debug/api_priority_and_fairness/dump_priority_levels
   ```
 
-  The output is similar to this:
+  The output will be in CSV and similar to this:
 
   ```none
   PriorityLevelName, ActiveQueues, IsIdle, IsQuiescing, WaitingRequests, ExecutingRequests, DispatchedRequests, RejectedRequests, TimedoutRequests, CancelledRequests
@@ -69,7 +72,7 @@ serves the following additional paths at its HTTP(S) ports.
   kubectl get --raw /debug/api_priority_and_fairness/dump_queues
   ```
 
-  The output is similar to this:
+  The output will be in CSV and similar to this:
 
   ```none
   PriorityLevelName, Index,  PendingRequests, ExecutingRequests, SeatsInUse, NextDispatchR,   InitialSeatsSum, MaxSeatsSum, TotalWorkSum
@@ -104,7 +107,7 @@ serves the following additional paths at its HTTP(S) ports.
   kubectl get --raw /debug/api_priority_and_fairness/dump_requests
   ```
 
-  The output is similar to this:
+  The output will be in CSV and similar to this:
 
   ```none
   PriorityLevelName, FlowSchemaName,   QueueIndex, RequestIndexInQueue, FlowDistingsher,                        ArriveTime,                     InitialSeats, FinalSeats, AdditionalLatency, StartTime
@@ -119,7 +122,7 @@ serves the following additional paths at its HTTP(S) ports.
   kubectl get --raw '/debug/api_priority_and_fairness/dump_requests?includeRequestDetails=1'
   ```
 
-  The output is similar to this:
+  The output will be in CSV and similar to this:
 
   ```none
   PriorityLevelName, FlowSchemaName,   QueueIndex, RequestIndexInQueue, FlowDistingsher,                        ArriveTime,                     InitialSeats, FinalSeats, AdditionalLatency, StartTime,                      UserName,                               Verb,   APIPath,                                   Namespace,   Name,   APIVersion, Resource,   SubResource
@@ -145,8 +148,8 @@ serves the following additional paths at its HTTP(S) ports.
 
 ## Debug logging
 
-At `-v=3` or more verbose the server outputs an httplog line for every
-request, and it includes the following attributes.
+At `-v=3` or more verbosity, the API server outputs an httplog line for every
+request in the APIServer log, and it includes the following attributes.
 
 - `apf_fs`: the name of the flow schema to which the request was classified.
 - `apf_pl`: the name of the priority level for that flow schema.
@@ -164,6 +167,8 @@ of how APF handled the request, primarily for debugging purposes.
 ## Response headers
 
 APF adds the following two headers to each HTTP response message.
+They won't appear in the audit log. They can be viewed from the client side.
+For client using klog, use verbosity `-v=8` or higher to view these headers.
 
 - `X-Kubernetes-PF-FlowSchema-UID` holds the UID of the FlowSchema
   object to which the corresponding request was classified.
@@ -174,5 +179,3 @@ APF adds the following two headers to each HTTP response message.
 
 For background information on design details for API priority and fairness, see
 the [enhancement proposal](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1040-priority-and-fairness).
-You can make suggestions and feature requests via [SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery) 
-or the feature's [slack channel](https://kubernetes.slack.com/messages/api-priority-and-fairness).
