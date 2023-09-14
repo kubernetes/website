@@ -30,7 +30,7 @@ etcd cluster of three members that can be used by kubeadm during cluster creatio
   document assumes these default ports. However, they are configurable through
   the kubeadm config file.
 - Each host must have systemd and a bash compatible shell installed.
-- Each host must have a container runtime, kubelet, and [kubeadm installed](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
+- Each host must have a [container runtime, kubelet, and kubeadm installed](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
 - Each host should have access to the Kubernetes container image registry (`registry.k8s.io`) or list/pull the required etcd image using
   `kubeadm config images list/pull`. This guide will set up etcd instances as
   [static pods](/docs/tasks/configure-pod-container/static-pod/) managed by a kubelet.
