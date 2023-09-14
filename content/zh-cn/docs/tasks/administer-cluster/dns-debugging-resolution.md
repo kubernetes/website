@@ -40,7 +40,7 @@ kube-dns.
 <!--
 ### Create a simple Pod to use as a test environment
 
-{{% code file="admin/dns/dnsutils.yaml" %}}
+{{% code_sample file="admin/dns/dnsutils.yaml" %}}
 
 {{< note >}}
 This example creates a pod in the `default` namespace. DNS name resolution for 
@@ -276,7 +276,7 @@ The service name is `kube-dns` for both CoreDNS and kube-dns deployments.
 -->
 
 {{< note >}}
-不管是 CoreDNS 还是 kube-dns，这个服务的名字都会是 `kube-dns` 。
+不管是 CoreDNS 还是 kube-dns，这个服务的名字都会是 `kube-dns`。
 {{< /note >}}
 
 <!--
@@ -411,6 +411,7 @@ CoreDNS 必须能够列出 {{< glossary_tooltip text="service" term_id="service"
 {{< glossary_tooltip text="endpoint" term_id="endpoint" >}} 相关的资源来正确解析服务名称。
 
 示例错误消息：
+
 ```
 2022-03-18T07:12:15.699431183Z [INFO] 10.96.144.227:52299 - 3686 "A IN serverproxy.contoso.net.cluster.local. udp 52 false 512" SERVFAIL qr,aa,rd 145 0.000091221s
 ```
@@ -428,6 +429,7 @@ kubectl describe clusterrole system:coredns -n kube-system
 Expected output:
 -->
 预期输出：
+
 ```
 PolicyRule:
   Resources                        Non-Resource URLs  Resource Names  Verbs
@@ -482,6 +484,7 @@ This query is limited to the pod's namespace:
 如果 Pod 和服务的名字空间不相同，则 DNS 查询必须指定服务所在的名字空间。
 
 该查询仅限于 Pod 所在的名字空间：
+
 ```shell
 kubectl exec -i -t dnsutils -- nslookup <service-name>
 ```
@@ -490,6 +493,7 @@ kubectl exec -i -t dnsutils -- nslookup <service-name>
 This query specifies the namespace:
 -->
 指定名字空间的查询：
+
 ```shell
 kubectl exec -i -t dnsutils -- nslookup <service-name>.<namespace>
 ```
