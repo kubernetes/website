@@ -105,27 +105,38 @@ can easily manage a canary deployment for your system.
 
 Kubernetes provides you with:
 
-* **Service discovery and load balancing**
+* **Service discovery and load balancing:**
   Kubernetes can expose a container using the DNS name or using their own IP address.
   If traffic to a container is high, Kubernetes is able to load balance and distribute
   the network traffic so that the deployment is stable.
-* **Storage orchestration**
+* **Storage orchestration:**
   Kubernetes allows you to automatically mount a storage system of your choice, such as
   local storages, public cloud providers, and more.
-* **Automated rollouts and rollbacks**
+* **Automated rollouts and rollbacks:**
   You can describe the desired state for your deployed containers using Kubernetes,
   and it can change the actual state to the desired state at a controlled rate.
   For example, you can automate Kubernetes to create new containers for your
   deployment, remove existing containers and adopt all their resources to the new container.
-* **Automatic bin packing**
+* **Scheduling flexibility and auto-scalability:**
+  Kubernetes provides you with the flexiblity to schedule the containers
+  without writing manual scripts for getting metrices, tracing metrics,
+  and supports different environments such as development, production, testing and staging.
+  Moreover, Kubernetes facilitates seamless scaling by automatically replicating pods across nodes
+  or environments to meet your specific needs.
+* **Monitoring:**
+  With Kubernetes, monitoring a large number of container becomes hassle-free.
+  In the event of a container or pod failure, Kubernetes promptly self-heals or replaces them,
+  notifying you about their health status by communicating with the API server.
+  This eliminates the requirement of writing numerous manual scripts.
+* **Automatic bin packing:**
   You provide Kubernetes with a cluster of nodes that it can use to run containerized tasks.
   You tell Kubernetes how much CPU and memory (RAM) each container needs. Kubernetes can fit
   containers onto your nodes to make the best use of your resources.
-* **Self-healing**
+* **Self-healing:**
   Kubernetes restarts containers that fail, replaces containers, kills containers that don't
   respond to your user-defined health check, and doesn't advertise them to clients until they
   are ready to serve.
-* **Secret and configuration management**
+* **Secret and configuration management:**
   Kubernetes lets you store and manage sensitive information, such as passwords, OAuth tokens,
   and SSH keys. You can deploy and update secrets and application configuration without
   rebuilding your container images, and without exposing secrets in your stack configuration.
