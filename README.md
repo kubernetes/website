@@ -58,13 +58,18 @@ Open up your browser to <http://localhost:1313> to view the website. As you make
 
 Make sure to install the Hugo extended version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L11) file.
 
-To build and test the site locally, run:
+To install dependencies, deploy and test the site locally, run:
 
-```bash
-# install dependencies
-npm ci
-make serve
-```
+- For macOS and Linux
+  ```bash
+  npm ci
+  make serve
+  ```
+- For Windows (PowerShell)
+  ```powershell
+  npm ci
+  hugo.exe server --buildFuture --environment development
+  ```
 
 This will start the local Hugo server on port 1313. Open up your browser to <http://localhost:1313> to view the website. As you make changes to the source files, Hugo updates the website and forces a browser refresh.
 
