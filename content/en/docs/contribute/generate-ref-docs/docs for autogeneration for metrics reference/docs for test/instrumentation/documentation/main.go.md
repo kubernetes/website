@@ -1,5 +1,4 @@
 
-
 ## Kubernetes Metrics Documentation Generator
 
 This code is a Go program that generates documentation for Kubernetes metrics exported by various components. The generated documentation is in Markdown format and provides details about the metrics, their stability levels, types, descriptions, labels, and other relevant information.
