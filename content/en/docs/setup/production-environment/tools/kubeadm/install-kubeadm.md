@@ -396,8 +396,8 @@ kubeadm to tell it what to do.
 ## Configuring a cgroup driver
 
 Both the container runtime and the kubelet have a property called
-["cgroup driver"](/docs/setup/production-environment/container-runtimes/#cgroup-drivers), which is important for the management 
-of cgroups on Linux machines.
+["cgroup driver"](/docs/setup/production-environment/container-runtimes/#cgroup-drivers), which is important
+for the management of cgroups on Linux machines.
 
 {{< warning >}}
 Matching the container runtime and kubelet cgroup drivers is required or otherwise the kubelet process will fail.
