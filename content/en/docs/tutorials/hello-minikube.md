@@ -145,11 +145,6 @@ recommended way to manage the creation and scaling of Pods.
 1. View application logs for a container in a pod.
    
    ```shell
-   # Return a snapshot of the logs from pod <pod-name>.
-   kubectl logs <pod-name>
-   ```
-
-   ```shell
    kubectl logs hello-node-5f76cf6ccf-br9b5
    ```
 
