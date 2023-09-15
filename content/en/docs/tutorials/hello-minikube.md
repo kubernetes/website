@@ -142,6 +142,20 @@ recommended way to manage the creation and scaling of Pods.
     kubectl config view
     ```
 
+1. View application logs for a container in a pod.
+   
+   ```shell
+   kubectl logs hello-node-5f76cf6ccf-br9b5
+   ```
+
+   The output is similar to:
+
+   ```
+   I0911 09:19:26.677397       1 log.go:195] Started HTTP server on port 8080
+   I0911 09:19:26.677586       1 log.go:195] Started UDP server on port  8081
+   ```
+
+
 {{< note >}}
 For more information about `kubectl` commands, see the [kubectl overview](/docs/reference/kubectl/).
 {{< /note >}}
