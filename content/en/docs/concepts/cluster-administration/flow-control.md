@@ -777,7 +777,7 @@ Example FlowSchema object to isolate list event requests:
 
 ## {{% heading "whatsnext" %}}
 
-- You can visit flow control [reference doc](/docs/reference/flow-control/) to learn more about troubleshooting.
+- You can visit flow control [reference doc](/docs/reference/debug-cluster/flow-control/) to learn more about troubleshooting.
 - For background information on design details for API priority and fairness, see
 the [enhancement proposal](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1040-priority-and-fairness).
 - You can make suggestions and feature requests via [SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery)
