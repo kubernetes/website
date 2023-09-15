@@ -315,7 +315,7 @@ In such cases, it can be tricky to set up liveness probe parameters without
 compromising the fast response to deadlocks that motivated such a probe.
 The trick is to set up a startup probe with the same command, HTTP or TCP
 check, with a `failureThreshold * periodSeconds` long enough to cover the
-worse case startup time.
+worst case startup time.
 
 So, the previous example would become:
 
