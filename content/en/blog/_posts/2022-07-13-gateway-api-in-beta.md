@@ -41,7 +41,7 @@ gateways and service meshes and guides are available to start exploring quickly.
 ### Getting started
 
 Gateway API is an official Kubernetes API like
-[Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/).
+[Ingress](/docs/concepts/services-networking/ingress/).
 Gateway API represents a superset of Ingress functionality, enabling more
 advanced concepts. Similar to Ingress, there is no default implementation of
 Gateway API built into Kubernetes. Instead, there are many different

@@ -88,7 +88,7 @@ read [non-graceful node shutdown](/docs/concepts/architecture/nodes/#non-gracefu
 ## Improvements to CustomResourceDefinition validation rules 
 
 The [Common Expression Language (CEL)](https://github.com/google/cel-go) can be used to validate
-[custom resources](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/). The primary goal is to allow the majority of the validation use cases that might once have needed you, as a CustomResourceDefinition (CRD) author, to design and implement a webhook. Instead, and as a beta feature, you can add _validation expressions_ directly into the schema of a CRD.
+[custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/). The primary goal is to allow the majority of the validation use cases that might once have needed you, as a CustomResourceDefinition (CRD) author, to design and implement a webhook. Instead, and as a beta feature, you can add _validation expressions_ directly into the schema of a CRD.
     
 CRDs need direct support for non-trivial validation. While admission webhooks do support CRDs validation, they significantly complicate the development and operability of CRDs.
 
@@ -263,7 +263,7 @@ The complete details of the Kubernetes v1.28 release are available in our [relea
 
 ## Availability
 
-Kubernetes v1.28 is available for download on [GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.28.0). To get started with Kubernetes, you can run local Kubernetes clusters using [minikube](https://minikube.sigs.k8s.io/docs/), [kind](https://kind.sigs.k8s.io/), etc. You can also easily install v1.28 using [kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
+Kubernetes v1.28 is available for download on [GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.28.0). To get started with Kubernetes, you can run local Kubernetes clusters using [minikube](https://minikube.sigs.k8s.io/docs/), [kind](https://kind.sigs.k8s.io/), etc. You can also easily install v1.28 using [kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
  
 ## Release Team
 
