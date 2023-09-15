@@ -56,8 +56,6 @@ For a reference to old feature gates that are removed, please refer to
 
 | Feature | Default | Stage | Since | Until |
 |---------|---------|-------|-------|-------|
-| `APIListChunking` | `false` | Alpha | 1.8 | 1.8 |
-| `APIListChunking` | `true` | Beta | 1.9 | |
 | `APIPriorityAndFairness` | `false` | Alpha | 1.18 | 1.19 |
 | `APIPriorityAndFairness` | `true` | Beta | 1.20 | |
 | `APIResponseCompression` | `false` | Alpha | 1.7 | 1.15 |
@@ -225,6 +223,9 @@ For a reference to old feature gates that are removed, please refer to
 
 | Feature | Default | Stage | Since | Until |
 |---------|---------|-------|-------|-------|
+| `APIListChunking` | `false` | Alpha | 1.8 | 1.8 |
+| `APIListChunking` | `true` | Beta | 1.9 | 1.28 |
+| `APIListChunking` | `true` | GA | 1.29 | - |
 | `APISelfSubjectReview` | `false` | Alpha | 1.26 | 1.26 |
 | `APISelfSubjectReview` | `true` | Beta | 1.27 | 1.27 |
 | `APISelfSubjectReview` | `true` | GA | 1.28 | - |
