@@ -834,35 +834,6 @@ that originate from outside your cluster.
 {{% code_sample file="priority-and-fairness/health-for-strangers.yaml" %}}
 
 <!--
-## Diagnostics
-
-Every HTTP response from an API server with the priority and fairness feature
-enabled has two extra headers: `X-Kubernetes-PF-FlowSchema-UID` and
-`X-Kubernetes-PF-PriorityLevel-UID`, noting the flow schema that matched the request
-and the priority level to which it was assigned, respectively. The API objects'
-names are not included in these headers in case the requesting user does not
-have permission to view them, so when debugging you can use a command like
--->
-## 问题诊断    {#diagnostics}
-
-启用了 APF 的 API 服务器，它每个 HTTP 响应都有两个额外的 HTTP 头：
-`X-Kubernetes-PF-FlowSchema-UID` 和 `X-Kubernetes-PF-PriorityLevel-UID`，
-注意与请求匹配的 FlowSchema 和已分配的优先级。
-如果请求用户没有查看这些对象的权限，则这些 HTTP 头中将不包含 API 对象的名称，
-因此在调试时，你可以使用类似如下的命令：
-
-```shell
-kubectl get flowschemas -o custom-columns="uid:{metadata.uid},name:{metadata.name}"
-kubectl get prioritylevelconfigurations -o custom-columns="uid:{metadata.uid},name:{metadata.name}"
-```
-
-<!--
-to get a mapping of UIDs to names for both FlowSchemas and
-PriorityLevelConfigurations.
--->
-来获取 UID 到 FlowSchema 的名称和 UID 到 PriorityLevelConfiguration 的名称的映射。
-
-<!--
 ## Observability
 
 ### Metrics
@@ -1223,168 +1194,6 @@ poorly-behaved workloads that may be harming system health.
   由标签 `flow_schema` 和 `priority_level` 进一步区分。
 
 <!--
-### Debug endpoints
-
-When you enable the API Priority and Fairness feature, the `kube-apiserver`
-serves the following additional paths at its HTTP(S) ports.
--->
-### 调试端点    {#debug-endpoints}
-
-启用 APF 特性后，kube-apiserver 会在其 HTTP/HTTPS 端口提供以下路径：
-
-<!--
-- `/debug/api_priority_and_fairness/dump_priority_levels` - a listing of
-  all the priority levels and the current state of each.  You can fetch like this:
--->
-- `/debug/api_priority_and_fairness/dump_priority_levels` ——
-  所有优先级及其当前状态的列表。你可以这样获取：
-
-  ```shell
-  kubectl get --raw /debug/api_priority_and_fairness/dump_priority_levels
-  ```
-
-  <!--
-  The output is similar to this:
-  -->
-  输出类似于：
-
-  ```none
-  PriorityLevelName, ActiveQueues, IsIdle, IsQuiescing, WaitingRequests, ExecutingRequests, DispatchedRequests, RejectedRequests, TimedoutRequests, CancelledRequests
-  catch-all,         0,            true,   false,       0,               0,                 1,                  0,                0,                0
-  exempt,            <none>,       <none>, <none>,      <none>,          <none>,            <none>,             <none>,           <none>,           <none>
-  global-default,    0,            true,   false,       0,               0,                 46,                 0,                0,                0
-  leader-election,   0,            true,   false,       0,               0,                 4,                  0,                0,                0
-  node-high,         0,            true,   false,       0,               0,                 34,                 0,                0,                0
-  system,            0,            true,   false,       0,               0,                 48,                 0,                0,                0
-  workload-high,     0,            true,   false,       0,               0,                 500,                0,                0,                0
-  workload-low,      0,            true,   false,       0,               0,                 0,                  0,                0,                0
-  ```
-
-<!--
-- `/debug/api_priority_and_fairness/dump_queues` - a listing of all the
-  queues and their current state.  You can fetch like this:
--->
-- `/debug/api_priority_and_fairness/dump_queues` —— 所有队列及其当前状态的列表。
-  你可以这样获取：
-
-  ```shell
-  kubectl get --raw /debug/api_priority_and_fairness/dump_queues
-  ```
-
-  <!--
-  The output is similar to this:
-  -->
-  输出类似于：
-
-  ```none
-  PriorityLevelName, Index,  PendingRequests, ExecutingRequests, VirtualStart,
-  workload-high,     0,      0,               0,                 0.0000,
-  workload-high,     1,      0,               0,                 0.0000,
-  workload-high,     2,      0,               0,                 0.0000,
-  ...
-  leader-election,   14,     0,               0,                 0.0000,
-  leader-election,   15,     0,               0,                 0.0000,
-  ```
-
-<!--
-- `/debug/api_priority_and_fairness/dump_requests` - a listing of all the requests
-  that are currently waiting in a queue.  You can fetch like this:
--->
-- `/debug/api_priority_and_fairness/dump_requests` —— 当前正在队列中等待的所有请求的列表。
-  你可以这样获取：
-
-  ```shell
-  kubectl get --raw /debug/api_priority_and_fairness/dump_requests
-  ```
-
-  <!--
-  The output is similar to this:
-  -->
-  输出类似于：
-
-  ```none
-  PriorityLevelName, FlowSchemaName, QueueIndex, RequestIndexInQueue, FlowDistingsher,       ArriveTime,
-  exempt,            <none>,         <none>,     <none>,              <none>,                <none>,
-  system,            system-nodes,   12,         0,                   system:node:127.0.0.1, 2020-07-23T15:26:57.179170694Z,
-  ```
-
-  <!--
-  In addition to the queued requests, the output includes one phantom line
-  for each priority level that is exempt from limitation.
-  -->
-  针对每个优先级别，输出中还包含一条虚拟记录，对应豁免限制。
-
-  <!--
-  You can get a more detailed listing with a command like this:
-  -->
-  你可以使用以下命令获得更详细的清单：
-
-  ```shell
-  kubectl get --raw '/debug/api_priority_and_fairness/dump_requests?includeRequestDetails=1'
-  ```
-
-  <!--
-  The output is similar to this:
-  -->
-  输出类似于：
-
-  ```none
-  PriorityLevelName, FlowSchemaName, QueueIndex, RequestIndexInQueue, FlowDistingsher,       ArriveTime,                     UserName,              Verb,   APIPath,                                                     Namespace, Name,   APIVersion, Resource, SubResource,
-  system,            system-nodes,   12,         0,                   system:node:127.0.0.1, 2020-07-23T15:31:03.583823404Z, system:node:127.0.0.1, create, /api/v1/namespaces/scaletest/configmaps,
-  system,            system-nodes,   12,         1,                   system:node:127.0.0.1, 2020-07-23T15:31:03.594555947Z, system:node:127.0.0.1, create, /api/v1/namespaces/scaletest/configmaps,
-  ```
-
-<!--
-### Debug logging
-
-At `-v=3` or more verbose the server outputs an httplog line for every
-request, and it includes the following attributes.
--->
-### 调试日志生成行为  {#debug-logging}
-
-在 `-v=3` 或更详细的情况下，服务器会为每个请求输出一行 httplog，它包括以下属性。
-
-<!--
-- `apf_fs`: the name of the flow schema to which the request was classified.
-- `apf_pl`: the name of the priority level for that flow schema.
-- `apf_iseats`: the number of seats determined for the initial
-  (normal) stage of execution of the request.
-- `apf_fseats`: the number of seats determined for the final stage of
-  execution (accounting for the associated WATCH notifications) of the
-  request.
-- `apf_additionalLatency`: the duration of the final stage of
-  execution of the request.
--->
-- `apf_fs`：请求被分类到的 FlowSchema 的名称。
-- `apf_pl`：该 FlowSchema 的优先级名称。
-- `apf_iseats`：为请求执行的初始（正常）阶段确定的席位数量。
-- `apf_fseats`：为请求的最后执行阶段（考虑关联的 WATCH 通知）确定的席位数量。
-- `apf_additionalLatency`：请求执行最后阶段的持续时间。
-
-<!--
-At higher levels of verbosity there will be log lines exposing details
-of how APF handled the request, primarily for debugging purposes.
--->
-在更高级别的精细度下，将有日志行揭示 APF 如何处理请求的详细信息，主要用于调试目的。
-
-<!--
-### Response headers
-
-APF adds the following two headers to each HTTP response message.
-
-- `X-Kubernetes-PF-FlowSchema-UID` holds the UID of the FlowSchema
-  object to which the corresponding request was classified.
-- `X-Kubernetes-PF-PriorityLevel-UID` holds the UID of the
-  PriorityLevelConfiguration object associated with that FlowSchema.
--->
-### 响应头  {#response-headers}
-
-APF 将以下两个头添加到每个 HTTP 响应消息中。
-
-- `X-Kubernetes-PF-FlowSchema-UID` 保存相应请求被分类到的 FlowSchema 对象的 UID。
-- `X-Kubernetes-PF-PriorityLevel-UID` 保存与该 FlowSchema 关联的 PriorityLevelConfiguration 对象的 UID。
-
-<!--
 ## Good practices for using API Priority and Fairness
 
 When a given priority level exceeds its permitted concurrency, requests can
@@ -1598,12 +1407,14 @@ FlowSchema 将这些列表调用与其他请求隔离开来。
 ## {{% heading "whatsnext" %}}
 
 <!--
-For background information on design details for API priority and fairness, see
+- You can visit flow control [reference doc](/docs/reference/flow-control/) to learn more about troubleshooting.
+- For background information on design details for API priority and fairness, see
 the [enhancement proposal](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1040-priority-and-fairness).
-You can make suggestions and feature requests via [SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery) 
+- You can make suggestions and feature requests via [SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery)
 or the feature's [slack channel](https://kubernetes.slack.com/messages/api-priority-and-fairness).
 -->
-有关 API 优先级和公平性的设计细节的背景信息，
-请参阅[增强提案](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1040-priority-and-fairness)。
-你可以通过 [SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery/)
-或特性的 [Slack 频道](https://kubernetes.slack.com/messages/api-priority-and-fairness/)提出建议和特性请求。
+- 你可以查阅流控[参考文档](/zh-cn/docs/reference/flow-control/)了解有关故障排查的更多信息。
+- 有关 API 优先级和公平性的设计细节的背景信息，
+  请参阅[增强提案](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1040-priority-and-fairness)。
+- 你可以通过 [SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery/)
+  或特性的 [Slack 频道](https://kubernetes.slack.com/messages/api-priority-and-fairness/)提出建议和特性请求。
