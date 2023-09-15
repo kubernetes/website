@@ -1,5 +1,6 @@
 {{ if .Get "image" }}
-<div class="quote banner {{ if $.Page.Params.use_gradient_overlay }}overlay{{ end }}" style="background-image: url({{ .Get "image" }})">
+<div class="quote banner {{ if $.Page.Params.use_gradient_overlay }}overlay{{ end }}" style="background-image: url({{ .Get "image" }});background-position: center;
+  background-size: cover;">
 {{ else }}
 <div class="quote banner">
 {{ end }}
