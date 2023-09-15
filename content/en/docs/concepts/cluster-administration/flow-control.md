@@ -472,23 +472,6 @@ that originate from outside your cluster.
 
 {{% code_sample file="priority-and-fairness/health-for-strangers.yaml" %}}
 
-## Diagnostics
-
-Every HTTP response from an API server with the priority and fairness feature
-enabled has two extra headers: `X-Kubernetes-PF-FlowSchema-UID` and
-`X-Kubernetes-PF-PriorityLevel-UID`, noting the flow schema that matched the request
-and the priority level to which it was assigned, respectively. The API objects'
-names are not included in these headers in case the requesting user does not
-have permission to view them, so when debugging you can use a command like
-
-```shell
-kubectl get flowschemas -o custom-columns="uid:{metadata.uid},name:{metadata.name}"
-kubectl get prioritylevelconfigurations -o custom-columns="uid:{metadata.uid},name:{metadata.name}"
-```
-
-to get a mapping of UIDs to names for both FlowSchemas and
-PriorityLevelConfigurations.
-
 ## Observability
 
 ### Metrics
@@ -678,110 +661,6 @@ poorly-behaved workloads that may be harming system health.
   to a request being dispatched but did not, due to lack of available
   concurrency, broken down by `flow_schema` and `priority_level`.
 
-### Debug endpoints
-
-When you enable the API Priority and Fairness feature, the `kube-apiserver`
-serves the following additional paths at its HTTP(S) ports.
-
-- `/debug/api_priority_and_fairness/dump_priority_levels` - a listing of
-  all the priority levels and the current state of each.  You can fetch like this:
-
-  ```shell
-  kubectl get --raw /debug/api_priority_and_fairness/dump_priority_levels
-  ```
-
-  The output is similar to this:
-
-  ```none
-  PriorityLevelName, ActiveQueues, IsIdle, IsQuiescing, WaitingRequests, ExecutingRequests, DispatchedRequests, RejectedRequests, TimedoutRequests, CancelledRequests
-  catch-all,         0,            true,   false,       0,               0,                 1,                  0,                0,                0
-  exempt,            <none>,       <none>, <none>,      <none>,          <none>,            <none>,             <none>,           <none>,           <none>
-  global-default,    0,            true,   false,       0,               0,                 46,                 0,                0,                0
-  leader-election,   0,            true,   false,       0,               0,                 4,                  0,                0,                0
-  node-high,         0,            true,   false,       0,               0,                 34,                 0,                0,                0
-  system,            0,            true,   false,       0,               0,                 48,                 0,                0,                0
-  workload-high,     0,            true,   false,       0,               0,                 500,                0,                0,                0
-  workload-low,      0,            true,   false,       0,               0,                 0,                  0,                0,                0
-  ```
-
-- `/debug/api_priority_and_fairness/dump_queues` - a listing of all the
-  queues and their current state.  You can fetch like this:
-
-  ```shell
-  kubectl get --raw /debug/api_priority_and_fairness/dump_queues
-  ```
-
-  The output is similar to this:
-
-  ```none
-  PriorityLevelName, Index,  PendingRequests, ExecutingRequests, VirtualStart,
-  workload-high,     0,      0,               0,                 0.0000,
-  workload-high,     1,      0,               0,                 0.0000,
-  workload-high,     2,      0,               0,                 0.0000,
-  ...
-  leader-election,   14,     0,               0,                 0.0000,
-  leader-election,   15,     0,               0,                 0.0000,
-  ```
-
-- `/debug/api_priority_and_fairness/dump_requests` - a listing of all the requests
-  that are currently waiting in a queue.  You can fetch like this:
-
-  ```shell
-  kubectl get --raw /debug/api_priority_and_fairness/dump_requests
-  ```
-
-  The output is similar to this:
-
-  ```none
-  PriorityLevelName, FlowSchemaName, QueueIndex, RequestIndexInQueue, FlowDistingsher,       ArriveTime,
-  exempt,            <none>,         <none>,     <none>,              <none>,                <none>,
-  system,            system-nodes,   12,         0,                   system:node:127.0.0.1, 2020-07-23T15:26:57.179170694Z,
-  ```
-  
-  In addition to the queued requests, the output includes one phantom line
-  for each priority level that is exempt from limitation.
-
-  You can get a more detailed listing with a command like this:
-
-  ```shell
-  kubectl get --raw '/debug/api_priority_and_fairness/dump_requests?includeRequestDetails=1'
-  ```
-
-  The output is similar to this:
-
-  ```none
-  PriorityLevelName, FlowSchemaName, QueueIndex, RequestIndexInQueue, FlowDistingsher,       ArriveTime,                     UserName,              Verb,   APIPath,                                                     Namespace, Name,   APIVersion, Resource, SubResource,
-  system,            system-nodes,   12,         0,                   system:node:127.0.0.1, 2020-07-23T15:31:03.583823404Z, system:node:127.0.0.1, create, /api/v1/namespaces/scaletest/configmaps,
-  system,            system-nodes,   12,         1,                   system:node:127.0.0.1, 2020-07-23T15:31:03.594555947Z, system:node:127.0.0.1, create, /api/v1/namespaces/scaletest/configmaps,
-  ```
-
-### Debug logging
-
-At `-v=3` or more verbose the server outputs an httplog line for every
-request, and it includes the following attributes.
-
-- `apf_fs`: the name of the flow schema to which the request was classified.
-- `apf_pl`: the name of the priority level for that flow schema.
-- `apf_iseats`: the number of seats determined for the initial
-  (normal) stage of execution of the request.
-- `apf_fseats`: the number of seats determined for the final stage of
-  execution (accounting for the associated WATCH notifications) of the
-  request.
-- `apf_additionalLatency`: the duration of the final stage of
-  execution of the request.
-
-At higher levels of verbosity there will be log lines exposing details
-of how APF handled the request, primarily for debugging purposes.
-
-### Response headers
-
-APF adds the following two headers to each HTTP response message.
-
-- `X-Kubernetes-PF-FlowSchema-UID` holds the UID of the FlowSchema
-  object to which the corresponding request was classified.
-- `X-Kubernetes-PF-PriorityLevel-UID` holds the UID of the
-  PriorityLevelConfiguration object associated with that FlowSchema.
-
 ## Good practices for using API Priority and Fairness
 
 When a given priority level exceeds its permitted concurrency, requests can
@@ -898,7 +777,8 @@ Example FlowSchema object to isolate list event requests:
 
 ## {{% heading "whatsnext" %}}
 
-For background information on design details for API priority and fairness, see
+- You can visit flow control [reference doc](/docs/reference/flow-control/) to learn more about troubleshooting.
+- For background information on design details for API priority and fairness, see
 the [enhancement proposal](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1040-priority-and-fairness).
-You can make suggestions and feature requests via [SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery)
+- You can make suggestions and feature requests via [SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery)
 or the feature's [slack channel](https://kubernetes.slack.com/messages/api-priority-and-fairness).
