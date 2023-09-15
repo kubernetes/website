@@ -272,7 +272,9 @@ body.cid-community .video .videocta {
   line-height: 1.25em;
   clear: both;
 }
-
+body.cid-community .video .videocta:hover {
+  color: #0e58a7;
+}
 body.cid-community .video iframe {
   min-width: 95%;
   height: auto;
@@ -409,7 +411,9 @@ body.cid-community #cncf-code-of-conduct h2:after {
   }
   body.cid-community .video .videocta {
     padding-bottom: 0.5em;
+    
   }
+  
 }
 
 @media only screen and (min-width: 1024px) {
