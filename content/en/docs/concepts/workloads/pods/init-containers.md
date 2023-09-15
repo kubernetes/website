@@ -46,7 +46,7 @@ field).
 Init containers support all the fields and features of app containers,
 including resource limits, [volumes](/docs/concepts/storage/volumes/), and security settings. However, the
 resource requests and limits for an init container are handled differently,
-as documented in [Resources](#resources).
+as documented in [Resource sharing within containers](#resource-sharing-within-containers).
 
 Also, init containers do not support `lifecycle`, `livenessProbe`, `readinessProbe`, or
 `startupProbe` because they must run to completion before the Pod can be ready.
