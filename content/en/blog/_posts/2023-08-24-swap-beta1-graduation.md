@@ -50,7 +50,7 @@ The available configuration options for `swapBehavior` are:
 - `UnlimitedSwap` (default): Kubernetes workloads can use as much swap memory as they
   request, up to the system limit.
 - `LimitedSwap`: The utilization of swap memory by Kubernetes workloads is subject to limitations.
-Only Pods of [Burstable](docs/concepts/workloads/pods/pod-qos/#burstable) QoS are permitted to employ swap.
+Only Pods of [Burstable](/docs/concepts/workloads/pods/pod-qos/#burstable) QoS are permitted to employ swap.
 
 If configuration for `memorySwap` is not specified and the feature gate is
 enabled, by default the kubelet will apply the same behaviour as the
