@@ -539,13 +539,13 @@ Older versions of Kubernetes also supported the following in-tree PersistentVolu
   (**not available** in v1.26)
 * `photonPersistentDisk` - Photon controller persistent disk.
   (**not available** starting v1.15)
-* [`scaleIO`](/docs/concepts/storage/volumes/#scaleio) - ScaleIO volume
+* `scaleIO` - ScaleIO volume.
   (**not available** starting v1.21)
-* [`flocker`](/docs/concepts/storage/volumes/#flocker) - Flocker storage
+* `flocker` - Flocker storage.
   (**not available** starting v1.25)
-* [`quobyte`](/docs/concepts/storage/volumes/#quobyte) - Quobyte volume
+* `quobyte` - Quobyte volume.
   (**not available** starting v1.25)
-* [`storageos`](/docs/concepts/storage/volumes/#storageos) - StorageOS volume
+* `storageos` - StorageOS volume.
   (**not available** starting v1.25)
 
 ## Persistent Volumes
