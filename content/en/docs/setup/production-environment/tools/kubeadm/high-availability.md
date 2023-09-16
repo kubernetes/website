@@ -218,9 +218,8 @@ option. Your cluster requirements may need a different configuration.
      kubeadm certs certificate-key
      ```
 
-   {{< note >}}
    The `kubeadm-certs` Secret and decryption key expire after two hours.
-   {{< /note >}}
+   
    {{< note >}}
    The certificate key is a hex encoded string that is an AES key of size 32 bytes.
    {{< /note >}}
