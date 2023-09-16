@@ -25,7 +25,7 @@ body.cid-community .community-section h2:after {
   height: 1px;
   position: relative;
   vertical-align: middle;
-  width: 35%;
+  width: 32%;
 }
 
 body.cid-community .community-section h2:before {
@@ -394,7 +394,39 @@ body.cid-community #cncf-code-of-conduct h2:after {
   body.cid-community a.community-cta-button {
     font-size: 1.5rem;
   }
+
+  body.cid-community .community-section h2:before,
+body.cid-community .community-section h2:after {
+  background-color: #aaaaaa;
+  content: "";
+  display: inline-block;
+  height: 1px;
+  position: relative;
+  vertical-align: middle;
+  width: 35%;
 }
+
+
+}
+
+@media only screen and (max-width: 440px) {
+
+  body.cid-community .community-section h2:before,
+body.cid-community .community-section h2:after {
+  background-color: #aaaaaa;
+  content: "";
+  display: inline-block;
+  height: 1px;
+  position: relative;
+  vertical-align: middle;
+  width: 7%;
+}
+}
+
+
+
+
+
 
 @media only screen and (max-width: 1024px) {
   body.cid-community #gallery img.community-gallery-desktop {
