@@ -517,16 +517,15 @@ spec:
 
 #### Reserve Nodeport Ranges to avoid collisions when port assigning 
 
-{{< feature-state for_k8s_version="v1.28" state="beta" >}}
+{{< feature-state for_k8s_version="v1.29" state="stable" >}}
 
 The policy for assigning ports to NodePort services applies to both the auto-assignment and
 the manual assignment scenarios. When a user wants to create a NodePort service that
 uses a specific port, the target port may conflict with another port that has already been assigned.
-In this case, you can enable the feature gate `ServiceNodePortStaticSubrange`, which allows you
-to use a different port allocation strategy for NodePort Services. The port range for NodePort services
-is divided into two bands. Dynamic port assignment uses the upper band by default, and it may use
-the lower band once the upper band has been exhausted. Users can then allocate from the lower band
-with a lower risk of port collision.
+
+To avoid this problem, the port range for NodePort services is divided into two bands.
+Dynamic port assignment uses the upper band by default, and it may use the lower band once the 
+upper band has been exhausted. Users can then allocate from the lower band with a lower risk of port collision.
 
 
 #### Custom IP address configuration for `type: NodePort` Services {#service-nodeport-custom-listen-address}
