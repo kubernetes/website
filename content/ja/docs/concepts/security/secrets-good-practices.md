@@ -1,7 +1,7 @@
 ---
 title: Kubernetes Secretの適切な使用方法
 description: >
-  クラスタ管理者とアプリケーション開発者向けの適切なSecret管理の原則と実践方法。
+  クラスター管理者とアプリケーション開発者向けの適切なSecret管理の原則と実践方法。
 content_type: concept
 weight: 70
 ---
