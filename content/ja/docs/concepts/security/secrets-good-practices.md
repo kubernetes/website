@@ -6,7 +6,7 @@ content_type: concept
 weight: 70
 ---
 
-<!-- 概要 -->
+<!-- overview -->
 
 {{<glossary_definition prepend="Kubernetesでは、Secretは次のようなオブジェクトです。"
 term_id="secret" length="all">}}
