@@ -55,7 +55,7 @@ Kubernetesでは、{{< glossary_tooltip text="Service" term_id="service" >}}は�
 
 以下のServiceは、Cassandra Podとクラスター内のクライアント間のDNSルックアップに使われます:
 
-{{< codenew file="application/cassandra/cassandra-service.yaml" >}}
+{{% codenew file="application/cassandra/cassandra-service.yaml" %}}
 
 `cassandra-service.yaml`ファイルから、Cassandra StatefulSetのすべてのメンバーをトラッキングするServiceを作成します。
 
@@ -91,7 +91,7 @@ cassandra   ClusterIP   None         <none>        9042/TCP   45s
 クラウドを使用している場合、StatefulSetを更新してください。
 {{< /note >}}
 
-{{< codenew file="application/cassandra/cassandra-statefulset.yaml" >}}
+{{% codenew file="application/cassandra/cassandra-statefulset.yaml" %}}
 
 `cassandra-statefulset.yaml`ファイルから、CassandraのStatefulSetを作成します:
 
