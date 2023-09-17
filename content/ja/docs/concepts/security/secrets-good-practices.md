@@ -8,8 +8,7 @@ weight: 70
 
 <!-- overview -->
 
-{{<glossary_definition prepend="Kubernetesでは、Secretは次のようなオブジェクトです。"
-term_id="secret" length="all">}}
+{{<glossary_definition prepend="Kubernetesでは、Secretは次のようなオブジェクトです。" term_id="secret" length="all">}}
 
 以下の適切な使用方法は、クラスタ管理者とアプリケーション開発者の両方を対象としています。
 これらのガイドラインに従って、Secretオブジェクト内の機密情報のセキュリティを向上させ、
