@@ -82,7 +82,7 @@ body > #wrapper {
     background-color: whitesmoke;
     border-right: 2px solid slategrey;
     overflow-x: auto;
-    padding-top: 60px;
+    padding-top: 30px;
 }
 
 #sidebar-wrapper a {
@@ -226,4 +226,31 @@ body > #wrapper {
 
 .side-nav a {
     color: black;
+}
+
+#navigation .nav-level-1,
+#navigation .nav-level-2 {
+    margin-bottom: 1rem;
+}
+
+#navigation .nav-level-1 > ul {
+    margin-top: 1rem;
+}
+
+/* hide operations by default, reveal them via JS */
+#navigation li.nav-level-2 ul {
+    display: none;
+}
+
+/* do not indent resources */
+#navigation .nav-level-1 > ul,
+#navigation .nav-level-1 > ul > li {
+    margin-left: 0;
+}
+
+/* make section links / operation categories bold */
+#navigation .nav-level-1 > a,
+#navigation .nav-level-3 > a {
+    font-weight: bold;
+    font-family: monospace;
 }

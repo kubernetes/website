@@ -1,196 +1,106 @@
-$(document).ready(function() {
+jQuery(function($) {
+  // tocItems are headings in the main content area that have a representation in the TOC
+  // (not all headings are present in the TOC).
+  let tocItems = $('#page-content-wrapper .toc-item');
 
-    /**
-     * TODO: Refactor with intent toward pure functions. Mutation of state can lead to bugs and difficult debugging.
-     */
+  function getCurrentlyVisibleSection(scrollPosition) {
+    // Walk the list from the bottom up and check;
+    // each TOC item is the immediate child of a <div> that
+    // carries the TOC item's ID.
+    for (let i = tocItems.length - 1; i >= 0; --i) {
+      let item = $(tocItems.get(i));
+      let offsetTop = item.offset().top - 50;
 
-    var toc = navData.toc;
-    var flatToc = navData.flatToc.reverse();
-
-    function collectNodes(tocMap) {
-        var tocNodes = {};
-        tocMap.map(function(node, index) {
-            var sectionNode = $('#' + node.section);
-            var tocSubsections = {};
-            tocItem = {section: sectionNode};
-            var subsectionNodes;
-            if (node.subsections) {
-                subsectionNodes = (collectNodes(node.subsections));
-                tocItem.subsections = subsectionNodes;
-            }
-            tocNodes[node.section] = tocItem;
-        });
-        return tocNodes;
-    }
-    var tocItems = collectNodes(toc);
-
-    function collectNodesFlat(tocMap, obj) {
-        var collect = obj || {};
-        tocMap.map(function(node, index) {
-            var sectionNode = $('#' + node.section);
-            tocItem = {section: sectionNode};
-            if (node.subsections) {
-                subsectionNodes = (collectNodesFlat(node.subsections, collect));
-            }
-            collect[node.section] = sectionNode;
-        });
-        return collect;
-    }
-    var tocFlat = collectNodesFlat(toc);
-
-    var prevSectionToken;
-    var prevSubsectionToken;
-    var activeTokensObj = {};
-
-    function scrollActions(scrollPosition) {
-        var activeSection = checkNodePositions(toc, tocFlat, scrollPosition);
-        var activeSubSection,
-            prevL1Nav,
-            currL1Nav,
-            prevL2Nav,
-            currL2Nav;
-
-        // No active section - return existing activeTokensObj (may be empty)
-        if (!activeSection) {
-            return activeTokensObj;
-        }
-
-        /**
-         * This block deals with L1Nav sections
-         */
-
-        // If no previous token, set previous to current active and show L1Nav
-        if (!prevSectionToken) {
-            prevSectionToken = activeSection.token;
-            currL1Nav = getNavNode(activeSection.token);
-            currL1Nav.show('fast');
-        } 
-        // If active is not the same as previous, hide previous L1Nav and show current L1Nav; set previous to current
-        else if (activeSection.token !== prevSectionToken) {
-            prevL1Nav = getNavNode(prevSectionToken);
-            currL1Nav = getNavNode(activeSection.token);
-            prevL1Nav.hide('fast');
-            currL1Nav.show('fast');
-            prevSectionToken = activeSection.token;
-        }
-
-        /**
-         * This block deals with L2Nav subsections
-         */
-
-        // If there is a subsections array and it has a non-zero length, set active subsection
-        if (activeSection.subsections && activeSection.subsections.length !== 0) {
-            activeSubSection = checkNodePositions(activeSection.subsections, tocFlat, scrollPosition);
-            if (activeSubSection) {
-                if (!prevSubsectionToken) {
-                    prevSubsectionToken = activeSubSection.token;
-                    currL2Nav = getNavNode(activeSubSection.token);
-                    currL2Nav.show('fast');
-                } else if (activeSubSection.token !== prevSubsectionToken) {
-                    prevL2Nav = getNavNode(prevSubsectionToken);
-                    currL2Nav = getNavNode(activeSubSection.token);
-                    prevL2Nav.hide('fast');
-                    currL2Nav.show('fast');
-                    prevSubsectionToken = activeSubSection.token;
-                }
-            } else {
-                prevL2Nav = getNavNode(prevSubsectionToken);
-                prevL2Nav.hide('fast');
-                prevSubsectionToken = null;
-            }
-        }
-        activeTokensObj.L1 = prevSectionToken;
-        activeTokensObj.L2 = prevSubsectionToken;
-        return activeTokensObj;
+      if (scrollPosition >= offsetTop) {
+        return item.parent().attr('id');
+      }
     }
 
-    /**
-     * Checks for active elements by scroll position
-     */
+    return null;
+  }
 
-    var prevElemToken;
-    var activeElemToken;
+  function updateNavigationState(visibleSection) {
+    let selectedLink = $('#navigation a.selected');
+    let selectedSection = selectedLink.length === 0 ? null : selectedLink.attr('href').replace(/#/, '');
 
-    function checkActiveElement(items, scrollPosition) {
-        var offset = 50;
-        var offsetScroll = scrollPosition + offset;
-        var visibleNode;
-        for (var i = 0; i < items.length; i++) {
-            var token = items[i];
-            var node = getHeadingNode(token);
-            if (offsetScroll >= node.offset().top) {
-                activeElemToken = token;
-            }
-        }
-        if (!prevElemToken) {
-            getNavElemNode(activeElemToken).addClass('selected');
-            prevElemToken = activeElemToken;
-            return;
-        }
-        if (activeElemToken !== prevElemToken) {
-            getNavElemNode(prevElemToken).removeClass('selected');
-            getNavElemNode(activeElemToken).addClass('selected');
-            prevElemToken = activeElemToken;
-        }
-        return activeElemToken;
+    // nothing to do :)
+    if (visibleSection === selectedSection) {
+      return;
     }
 
-    function getHeadingNode(token) {
-        return $('#' + token);
+    // un-select whatever was previously selected
+    if (selectedLink.length > 0) {
+      selectedLink.removeClass('selected');
     }
 
-    function getNavNode(token) {
-        return $('#' + token + '-nav');
+    if (visibleSection !== null) {
+      // show the leaf node in the navigation for the activeSection, plus
+      // all nodes that lead to it (in a->b->c->d, if c is active, show
+      // b and c because a is always shown already).
+      let activeSectionLink = '#' + visibleSection;
+      let link = $('#navigation a[href="' + activeSectionLink + '"]');
+      let listItem = link.parent();
+
+      link.addClass('selected');
+
+      while (listItem.data('level') > 1) {
+        let ul = listItem.parent();
+        ul.show('fast');
+        listItem = ul.parent();
+      }
+
+      // expand the currently selected item, i.e. do not just show the
+      // parent path, but also the immediate child <ul>
+      link.parent().children('ul').show('fast');
     }
 
-    function getNavElemNode(token) {
-        return $('#sidebar-wrapper > ul a[href="#' + token + '"]');
-    }
+    // collapse all sub tree that are not required to show the currently
+    // selected section (i.e. has no .selected in its children, is not
+    // the direct descendant of the currently selected item (which we
+    // just expanded) and is not the top level).
+    $('#navigation ul:visible').each(function() {
+      let list = $(this);
+      if (list.find('.selected').length > 0) {
+        return;
+      }
 
-    function checkNodePositions(nodes, flatNodeMap, scrollPosition) {
-        var activeNode;
-        for (var i = 0; i < nodes.length; i++) {
-            var item = nodes[i];
-            var node = flatNodeMap[item.section];
-            var nodeTop = node.offset().top - 50;
-            if (scrollPosition >= nodeTop) {
-                activeNode = {token: item.section, node: node};
+      let listItem = list.parent();
+      if (listItem.data('level') <= 1) {
+        return;
+      }
 
-                if (item.subsections) {
-                    activeNode.subsections = item.subsections;
-                }
-                break;
-            }
-        }
-        return activeNode;
-    }
+      let link = listItem.children('a');
+      if (link.hasClass('selected')) {
+        return;
+      }
 
-    function scrollToNav(token) {
-        setTimeout(function() {
-            var scrollPosition = $(window).scrollTop();
-            var activeSectionTokens = scrollActions(scrollPosition);
-            var activeElemToken = checkActiveElement(flatToc, scrollPosition);
-            var navNode = $('#sidebar-wrapper > ul a[href="#' + token + '"]');
-            $('#sidebar-wrapper').scrollTo(navNode, {duration: 'fast', axis: 'y'});
-        }, 200);
-    }
-
-    $(window).on('hashchange', function(event) {
-        var scrollPosition = $(window).scrollTop();
-        var activeSectionTokens = scrollActions(scrollPosition);
-        var activeElemToken = checkActiveElement(flatToc, scrollPosition);
-        var scrollToken = activeSectionTokens.L2 ? activeSectionTokens.L2 : activeSectionTokens.L1;
-        scrollToNav(scrollToken);
-        var token = location.hash.slice(1);
+      list.hide('fast');
     });
+  }
 
-    var scrollPosition = $(window).scrollTop();
-    scrollActions(scrollPosition);
-    checkActiveElement(flatToc, scrollPosition);
-    // TODO: prevent scroll on sidebar from propagating to window
-    $(window).on('scroll', function(event) {
-        var scrollPosition = $(window).scrollTop();
-        var activeSectionTokens = scrollActions(scrollPosition);
-        var activeElemToken = checkActiveElement(flatToc, scrollPosition);
-    });
+  let navScrollTimeout;
+  function scrollToNav(currentSection) {
+    // debounce to prevent too many scrolls in the sidebar
+    if (navScrollTimeout) {
+      clearTimeout(navScrollTimeout);
+    }
+
+    navScrollTimeout = setTimeout(function() {
+      let navNode = $('#navigation a[href="#' + currentSection + '"]');
+      $('#sidebar-wrapper').scrollTo(navNode, {duration: 'fast', axis: 'y', over: {top: -1}});
+    }, 200);
+  }
+
+  function repaint() {
+    let scrollPosition = $(window).scrollTop();
+    let currentSection = getCurrentlyVisibleSection(scrollPosition);
+    updateNavigationState(currentSection);
+    scrollToNav(currentSection);
+  }
+
+  // update navigation whenever scrolling happens
+  $(window).on('scroll', repaint);
+
+  // perform an initial update on the navigation
+  repaint();
 });
