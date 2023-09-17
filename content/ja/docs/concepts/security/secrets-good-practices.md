@@ -23,7 +23,7 @@ weight: 70
 
 デフォルトでは、Secretオブジェクトは{{<glossary_tooltip term_id="etcd" text="etcd">}}内で暗号化されていない状態で保存されます。
 `etcd`内のSecretデータを暗号化するように構成する必要があります。
-手順については、[データの安全な暗号化](/docs/tasks/administer-cluster/encrypt-data/)を参照してください。
+手順については、[機密データ保存時の暗号化](/docs/tasks/administer-cluster/encrypt-data/)を参照してください。
 
 ### Secretへの最小特権アクセスを構成する {#least-privilege-secrets}
 
