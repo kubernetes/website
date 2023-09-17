@@ -1,256 +1,324 @@
 /*
-Kubernetes colors
+Kubernetes colors (assets/scss/_skin.scss)
 
-kubernetes blue - rgb(50, 109, 230)
-dark blue - rgb(51, 113, 227)
-dark grey - rgb(48, 48, 48)
-light grey - rgb(161, 160, 158)
+$blue: #3371e3;
+$light-grey: #f7f7f7;
+$dark-grey: #303030;
+$medium-grey: #4c4c4c;
 */
 
-/* User agent CSS overrides */
-#sidebar-wrapper ul, #sidebar-wrapper li {
-    margin-left: 10px;
-    padding-left: 0;
-}
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i&display=swap");
 
-.body-content hr {
-    margin: 2em 0;
-    border-top: 2px solid dimgrey;
-    border-bottom: 2px solid antiquewhite;
+body {
+  font-family: "open sans", -apple-system, BlinkMacSystemFont, "segoe ui", Roboto, "helvetica neue", Arial, sans-serif, "apple color emoji", "segoe ui emoji", "segoe ui symbol";
 }
-
-.body-content table {
-    margin-bottom: 1em;
-    overflow: auto;
-}
-
-.body-content table th, .body-content table td {
-    text-align: left;
-    vertical-align: top;
-    line-height: 1.5;
-}
-
-.body-content table th {
-    padding: 15px 20px;
-    border-bottom: 1px solid lightsteelblue;
-    vertical-align: bottom;
-}
-
-.body-content table td {
-    padding: 10px;
-}
-
-.body-content table tr:last-child {
-    border-bottom: 1px solid lightsteelblue;
-}
-
-.body-content table tr:nth-child(odd) > td {
-    background-color: WhiteSmoke;
-}
-
-.body-content table tr:nth-child(even) > td {
-    background-color: Gainsboro;
-}
-
-.body-content dt {
-    font-weight: bold;
-}
-
-.body-content dd {
-    margin-left: 15px;
-}
-
-.body-content p, .body-content li, .body-content dt, .body-content dd {
-    line-height: 1.6;
-    margin-top: 0;
-}
-
-/* Brodoc CSS */
 
 body > #wrapper {
-    display: block;
-    padding-bottom: 500px;
+  padding-bottom: 2rem;
 }
 
-#sidebar-wrapper {
-    display: block;
-    height: 100%;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: whitesmoke;
-    border-right: 2px solid slategrey;
-    overflow-x: auto;
-    padding-top: 30px;
+a {
+  color: #3371e3;
 }
 
-#sidebar-wrapper a {
-    text-decoration: none;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    padding: 0 5px;
+a:hover {
+  color: #0f306e;
+  text-decoration: none;
 }
 
-#sidebar-wrapper ul {
-    list-style: none;
+.toc-item {
+  padding-top: 1.2rem;
 }
 
-#sidebar-wrapper a.selected {
-    font-style: bold;
-    color: whitesmoke;
-    border: 1px solid rgb(161, 160, 158);
-    background-color: rgb(51, 113, 227);
-    border-radius: 5px;
+h1 {
+  border-bottom: 3px solid #303030;
 }
 
-#sidebar-wrapper .strong-nav {
-    font-family: monospace;
-    font-weight: bold;
+h2 {
+  border-bottom: 2px solid #303030;
 }
 
-#sidebar-wrapper .nav-level-1.strong-nav {
-    margin-top: 25px;
+h3.toc-item {
+  border-bottom: 1px solid #303030;
 }
 
-#sidebar-wrapper .copyright {
-    padding-left: 10px;
-    padding-top: 50px;
-    padding-bottom: 50px;
-    text-decoration: underline;
+h1, h2, h3, h4 {
+  margin-bottom: 1rem;
+}
+
+code {
+  color: #b44;
+  word-wrap: break-word;
+}
+
+.alert > ul:last-child {
+  margin-bottom: 0;
 }
 
 #page-content-wrapper {
-    padding-top: 60px;
+  padding-top: 2rem;
 }
 
-#page-content-wrapper table tr td:first-child {
-    white-space: pre;
+.body-content table {
+  margin-bottom: 1em;
+  overflow: auto;
 }
 
-.body-content h1, .body-content h2 {
-    clear: both;
-    border-bottom: 3px solid lightslategrey;
-    padding-top: 20px;
+.body-content table th, .body-content table td {
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.5;
 }
 
-.body-content > h3, .body-content > h4, .body-content > h5, .body-content > h6, .body-content > p, .body-content > aside, .body-content > ul > li, .body-content > ul > li {
-    padding-top: 20px;
+.body-content table th {
+  padding: 15px 20px;
+  border-bottom: 1px solid #dee2e6;
+  vertical-align: bottom;
 }
 
-.body-content table tr td:not(:first-child) {
-    overflow-wrap: break-word;
-    word-wrap: break-word;
+.body-content table td {
+  padding: 10px;
 }
 
-.body-content table tr td a {
-    word-break: break-word;
+.body-content table tr:last-child {
+  border-bottom: 1px solid #dee2e6;
 }
 
-.body-content p code {
-    text-overflow: ellipsis;
-    color: #802060;
-    display: inline-block;
-    font-size: smaller;
-    word-break: break-word;
+.body-content table tr:nth-child(odd) > td {
+  background-color: rgba(0,0,0,5%);
 }
 
-.body-content blockquote {
-    border-left: 0;
-    border-radius: 5px;
+.body-content dt {
+  font-weight: bold;
 }
 
-.body-content pre.code-block {
-    margin-top: 5px;
-    margin-bottom: 5px;
+.body-content dd {
+  margin-left: 15px;
 }
 
-.body-content blockquote p, .body-content pre {
-    color: black;
-    font-size: 13px;
+#sidebar-wrapper {
+  display: block;
+  height: 100%;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgba(51, 113, 227, 3%);
+  border-right: 1px solid #dee2e6;
+  overflow-x: hidden;
+  padding-top: .5rem;
 }
 
-.body-content blockquote.code-block {
-    background: Wheat;
+#navigation {
+  padding-left: 0;
 }
 
-.body-content pre.code-block code {
-  word-wrap: normal;
+#navigation a {
+  color: #222;
   white-space: pre;
+  line-height: 1.5rem;
+
+  /* room to make the .selected style look better */
+  padding: 0 .2rem;
 }
 
-.body-content code {
-  color: Brown !important;
+#navigation a:hover {
+  color: #3371e3;
+  text-decoration: none;
 }
 
-.code-block {
-    display: none;
-    width: 60%;
-    float: left;
-    clear: right;
+#navigation li {
+  list-style-type: none;
 }
 
-.code-block.active {
-    display: initial;
+/* make group and version less prominent */
+#navigation .gvk .v,
+#navigation .gvk .g {
+  font-size: 90%;
+  opacity: 0.6;
 }
 
-#code-tabs-wrapper {
-    width: 55%;
-    height: 60px;
-    /* position: fixed; */
-    top: 0;
-    right: 0;
+/* reduce indentation for other levels a bit */
+#navigation ul {
+  padding-left: 0.7rem;
 }
 
-#code-tabs-wrapper .code-tab-list {
-    float: right;
-    margin-top: 0;
-    padding: 0 10px;
+#navigation .level-1,
+#navigation .level-2 {
+  padding-top: .5rem;
 }
 
-#code-tabs-wrapper .code-tab {
-    color: white;
-    /* display: inline-block; */
-    padding: 0 30px;
-    background: rgb(48, 48, 48);
-    border: 1px solid rgb(161, 160, 158);
-    border-radius: 5px;
+/* mark the first TOC layer */
+#navigation .level-1 > a {
+  font-weight: 700;
 }
 
-#code-tabs-wrapper .tab-selected {
-    background: rgb(51, 113, 227);
-    font-style: bold;
-    border-radius: 5px;
-}
-
-.side-nav a {
-    color: black;
-}
-
-#navigation .nav-level-1,
-#navigation .nav-level-2 {
-    margin-bottom: 1rem;
-}
-
-#navigation .nav-level-1 > ul {
-    margin-top: 1rem;
+/* at the opposite end, make links thinner */
+#navigation .level-4 > a {
+  font-weight: 300;
 }
 
 /* hide operations by default, reveal them via JS */
-#navigation li.nav-level-2 ul {
-    display: none;
+#navigation li.level-2 ul {
+  display: none;
 }
 
-/* do not indent resources */
-#navigation .nav-level-1 > ul,
-#navigation .nav-level-1 > ul > li {
-    margin-left: 0;
+/* always hide definitions for brevity sake */
+#navigation #definitions-nav {
+  display: none !important;
 }
 
-/* make section links / operation categories bold */
-#navigation .nav-level-1 > a,
-#navigation .nav-level-3 > a {
-    font-weight: bold;
-    font-family: monospace;
+/* highlight selected nodes */
+#sidebar-wrapper a.selected {
+  font-weight: 700;
+  color: #dee2e6;
+  border: 1px solid rgb(161, 160, 158);
+  background-color: rgb(51, 113, 227);
+  border-radius: .4rem;
+}
+
+.samples-container > div {
+  padding-top: 1rem;
+}
+
+.samples-container .panel-heading {
+  font-style: italic;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid rgba(0,0,0,.125);
+  tab-size: 4;
+  padding: .9rem;
+}
+
+/* button for toggling light/dark mode */
+.btn.switch-theme {
+  /* button is only useful with JavaScript enabled, so the button is hidden by default */
+  display: none;
+}
+
+/* handle dark mode theming */
+@media (prefers-color-scheme: dark) {
+	body.theme-auto {
+    background: #343a40;
+    color: #f7f7f7;
+  }
+
+  body.theme-auto a {
+    color: #6c9ffd;
+  }
+
+  body.theme-auto a:hover {
+    color: #6c9ffd;
+    text-decoration: underline;
+  }
+
+  body.theme-auto a.btn {
+    color: #f7f7f7;
+    text-decoration: none;
+  }
+
+  body.theme-auto h1,
+  body.theme-auto h2,
+  body.theme-auto h3.toc-item {
+    border-color: #f7f7f7;
+  }
+
+  body.theme-auto code {
+    color: #c97300;
+  }
+
+  body.theme-auto .body-content table tr:nth-child(odd) > td {
+    background-color: rgba(0,0,0,15%);
+  }
+
+  body.theme-auto #sidebar-wrapper {
+    background-color: #25292e;
+    border-color: #2b2b2b;
+  }
+
+  body.theme-auto #navigation a,
+  body.theme-auto #navigation a.selected:hover {
+    color: #f7f7f7;
+  }
+
+  body.theme-auto #navigation a.selected {
+    border-color: #2b2b2b;
+  }
+
+  body.theme-auto #navigation a:hover {
+    color: #3371e3;
+  }
+
+  body.theme-auto pre {
+    background-color: #25292e;
+    border-color: rgba(0,0,0,.125);
+  }
+
+  body.theme-auto .alert a {
+    color: #3371e3;
+  }
+}
+
+/* same rules (except theme-auto becomes theme-dark), but for enforced dark mode */
+body.theme-dark {
+  background: #343a40;
+  color: #f7f7f7;
+}
+
+body.theme-dark a {
+  color: #6c9ffd;
+}
+
+body.theme-dark a:hover {
+  color: #6c9ffd;
+  text-decoration: underline;
+}
+
+body.theme-dark a.btn {
+  color: #f7f7f7;
+  text-decoration: none;
+}
+
+body.theme-dark h1,
+body.theme-dark h2,
+body.theme-dark h3.toc-item {
+  border-color: #f7f7f7;
+}
+
+body.theme-dark code {
+  color: #c97300;
+}
+
+body.theme-dark .body-content table tr:nth-child(odd) > td {
+  background-color: rgba(0,0,0,15%);
+}
+
+body.theme-dark #sidebar-wrapper {
+  background-color: #25292e;
+  border-color: #2b2b2b;
+}
+
+body.theme-dark #navigation a,
+body.theme-dark #navigation a.selected:hover {
+  color: #f7f7f7;
+}
+
+body.theme-dark #navigation a.selected {
+  border-color: #2b2b2b;
+}
+
+body.theme-dark #navigation a:hover {
+  color: #3371e3;
+}
+
+body.theme-dark pre {
+  background-color: #25292e;
+  border-color: rgba(0,0,0,.125);
+}
+
+body.theme-dark .alert a {
+  color: #3371e3;
 }
