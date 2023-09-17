@@ -58,8 +58,7 @@ Secretを使用するPodを作成できるユーザーは、そのSecretの値�
 外部のSecretストアプロバイダーを使用して機密データをクラスターの外部に保存し、その情報にアクセスするようにPodを構成できます。
 [Kubernetes Secrets Store CSI Driver](https://secrets-store-csi-driver.sigs.k8s.io/)は、kubeletが外部ストアからSecretを取得し、データにアクセスすることを許可された特定のPodにSecretをボリュームとしてマウントするDaemonSetです。
 
-サポートされているプロバイダの一覧については、
-[Secret Store CSI Driverのプロバイダ](https://secrets-store-csi-driver.sigs.k8s.io/concepts.html#provider-for-the-secrets-store-csi-driver)を参照してください。
+サポートされているプロバイダーの一覧については、[Secret Store CSI Driverのプロバイダー](https://secrets-store-csi-driver.sigs.k8s.io/concepts.html#provider-for-the-secrets-store-csi-driver)を参照してください。
 
 ## 開発者
 
