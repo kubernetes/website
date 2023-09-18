@@ -37,22 +37,48 @@ Kubernetes ist Open Source und bietet Dir die Freiheit, die Infrastruktur vor Or
 
 {{< blocks/section id="video" background-image="kub_video_banner_homepage" >}}
 <div class="light-text">
-<h2>Die Herausforderungen bei der Migration von über 150 Microservices auf Kubernetes</h2>
-        <p>Von Sarah Wells, technische Direktorin für Betrieb und Zuverlässigkeit, Financial Times</p>
-        <button id="desktopShowVideoButton" onclick="kub.showVideo()">Video ansehen</button>
-        <br>
-        <br>
-        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/" button id="desktopKCButton">Besuche die KubeCon Europe vom 18. bis 21. April 2023</a>
-        <br>
-        <br>
-        <br>
-        <br>
-        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/" button id="desktopKCButton">Besuche die KubeCon North America vom 6. bis 9. November 2023</a>
+    <h2>Die Herausforderungen bei der Migration von über 150 Microservices auf Kubernetes</h2>
+    <p>Von Sarah Wells, technische Direktorin für Betrieb und Zuverlässigkeit, Financial Times</p>
+    <button id="showVideoButton" onclick="kub.showVideo()">Video ansehen</button>
+    <br>
+    <br>
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/" id="kcButton">Besuche die KubeCon Europe vom 18. bis 21. April 2023</a>
+    <br>
+    <br>
+    <br>
+    <br>
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/" id="kcButton">Besuche die KubeCon North America vom 6. bis 9. November 2023</a>
 </div>
+
 <div id="videoPlayer">
-    <iframe data-url="https://www.youtube.com/embed/H06qrNmGqyE?autoplay=1" frameborder="0" allowfullscreen></iframe>
+    <iframe id="videoIframe" frameborder="0" allowfullscreen></iframe>
     <button id="closeButton"></button>
 </div>
+
+<style>
+    /* Add CSS for responsive design */
+    @media screen and (max-width: 600px) {
+        #showVideoButton {
+            display: block; /* Show the button on mobile devices */
+        }
+        #kcButton {
+            display: block; /* Show the KubeCon links on mobile devices */
+        }
+        #videoPlayer {
+            display: none; /* Hide the video player on mobile devices by default */
+        }
+    }
+</style>
+
+<script>
+    function showVideo() {
+        var videoIframe = document.getElementById("videoIframe");
+        var videoPlayer = document.getElementById("videoPlayer");
+        videoIframe.src = videoIframe.getAttribute("data-url");
+        videoPlayer.style.display = "block"; // Show the video player
+    }
+</script>
+
 {{< /blocks/section >}}
 
 {{< blocks/kubernetes-features >}}
