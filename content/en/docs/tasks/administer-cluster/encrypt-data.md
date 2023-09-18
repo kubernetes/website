@@ -521,32 +521,6 @@ the presence of a highly-available deployment where multiple `kube-apiserver` pr
 
 When running a single `kube-apiserver` instance, step 2 may be skipped.
 
-## Decrypting all data
-
-To disable encryption at rest, place the `identity` provider as the first entry in the config
-and restart all `kube-apiserver` processes. 
-
-```yaml
----
-apiVersion: apiserver.config.k8s.io/v1
-kind: EncryptionConfiguration
-resources:
-  - resources:
-      - secrets
-    providers:
-      - identity: {}
-      - aescbc:
-          keys:
-            - name: key1
-              secret: <BASE 64 ENCODED SECRET>
-```
-
-Then run the following command to force decrypt all Secrets:
-
-```shell
-kubectl get secrets --all-namespaces -o json | kubectl replace -f -
-```
-
 ## Configure automatic reloading
 
 You can configure automatic reloading of encryption provider configuration.
@@ -562,4 +536,6 @@ To allow automatic reloading, configure the API server to run with:
 
 ## {{% heading "whatsnext" %}}
 
+* Read about [decrypting data that are already stored at rest](/docs/tasks/administer-cluster/decrypt-data/)
 * Learn more about the [EncryptionConfiguration configuration API (v1)](/docs/reference/config-api/apiserver-encryption.v1/).
+
