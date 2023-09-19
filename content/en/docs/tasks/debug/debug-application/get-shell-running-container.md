@@ -119,7 +119,7 @@ In an ordinary command window, not your shell, list the environment
 variables in the running container:
 
 ```shell
-kubectl exec shell-demo env
+kubectl exec shell-demo -- env
 ```
 
 Experiment with running other commands. Here are some examples:
