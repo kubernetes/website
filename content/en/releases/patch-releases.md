@@ -78,7 +78,6 @@ releases may also occur in between these.
 
 | Monthly Patch Release | Cherry Pick Deadline | Target date |
 | --------------------- | -------------------- | ----------- |
-| September 2023        | 2023-09-08           | 2023-09-13  |
 | October 2023          | 2023-10-13           | 2023-10-18  |
 | November 2023         | N/A                  | N/A         |
 | December 2023         | 2023-12-01           | 2023-12-06  |
