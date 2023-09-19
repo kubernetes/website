@@ -1,15 +1,4 @@
 <!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
-<!--
 Run cleanup node.
 -->
 执行 cleanup node（清理节点）操作。
@@ -17,7 +6,6 @@ Run cleanup node.
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
@@ -71,7 +59,7 @@ The path to the directory where the certificates are stored. If specified, clean
 Cleanup the &quot;/etc/kubernetes/tmp&quot; directory
 -->
 <p>
-清理 &quot;/etc/kubernetes/tmp&quot; 目录
+清理 &quot;/etc/kubernetes/tmp&quot; 目录。
 </p>
 </td>
 </tr>
@@ -85,7 +73,7 @@ Cleanup the &quot;/etc/kubernetes/tmp&quot; directory
 Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this value; use this option only if you have more than one CRI installed or if you have non-standard CRI socket.
 -->
 <p>
-要连接的 CRI 套接字的路径。如果为空，则 kubeadm 将尝试自动检测此值；仅当安装了多个 CRI 或具有非标准 CRI 插槽时，才使用此选项。
+要连接的 CRI 套接字的路径。如果为空，则 kubeadm 将尝试自动检测此值；仅当安装了多个 CRI 或具有非标准 CRI 套接字时，才使用此选项。
 </p>
 </td>
 </tr>
@@ -115,7 +103,7 @@ Don't apply any changes; just output what would be done.
 help for cleanup-node
 -->
 <p>
-cleanup-node 操作的帮助命令
+cleanup-node 操作的帮助命令。
 </p>
 </td>
 </tr>
