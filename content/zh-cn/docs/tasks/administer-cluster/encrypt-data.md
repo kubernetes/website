@@ -179,15 +179,17 @@ resources:
 <!--
 Each `resources` array item is a separate config and contains a complete configuration. The
 `resources.resources` field is an array of Kubernetes resource names (`resource` or `resource.group`)
-that should be encrypted like Secrets, ConfigMaps, or other resources. 
+that should be encrypted like Secrets, ConfigMaps, or other resources.
 
-If custom resources are added to `EncryptionConfiguration` and the cluster version is 1.26 or newer, 
-any newly created custom resources mentioned in the `EncryptionConfiguration` will be encrypted. 
+If custom resources are added to `EncryptionConfiguration` and the cluster version is 1.26 or newer,
+any newly created custom resources mentioned in the `EncryptionConfiguration` will be encrypted.
 Any custom resources that existed in etcd prior to that version and configuration will be unencrypted
 until they are next written to storage. This is the same behavior as built-in resources.
 See the [Ensure all secrets are encrypted](#ensure-all-secrets-are-encrypted) section.
 
 The `providers` array is an ordered list of the possible encryption providers to use for the APIs that you listed.
+Each provider supports multiple keys - the keys are tried in order for decryption, and if the provider
+is the first provider, the first key is used for encryption.
 -->
 每个 `resources` 数组项目是一个单独的完整的配置。
 `resources.resources` 字段是应加密的 Kubernetes 资源（例如 Secret、ConfigMap 或其他资源）名称
@@ -198,7 +200,9 @@ The `providers` array is an ordered list of the possible encryption providers to
 在该版本之前存在于 etcd 中的任何自定义资源和配置不会被加密，直到它们被下一次写入到存储为止。
 这与内置资源的行为相同。请参阅[确保所有 Secret 都已加密](#ensure-all-secrets-are-encrypted)一节。
 
-`providers` 数组是可能的加密 provider 的有序列表，用于你所列出的 API。
+`providers` 数组是可能的加密提供程序的有序列表，用于你所列出的 API。
+每个提供程序支持多个密钥 - 解密时会按顺序尝试这些密钥，
+如果这是第一个提供程序，其第一个密钥将被用于加密。
 
 <!--
 Only one provider type may be specified per entry (`identity` or `aescbc` may be provided,
@@ -208,10 +212,10 @@ resources from storage, each provider that matches the stored data attempts in o
 data. If no provider can read the stored data due to a mismatch in format or secret key, an error
 is returned which prevents clients from accessing that resource.
 -->
-每个条目只能指定一个 provider 类型（可以是 `identity` 或 `aescbc`，但不能在同一个项目中同时指定二者）。
-列表中的第一个 provider 用于加密写入存储的资源。
-当从存储器读取资源时，与存储的数据匹配的所有 provider 将按顺序尝试解密数据。
-如果由于格式或密钥不匹配而导致没有 provider 能够读取存储的数据，则会返回一个错误，以防止客户端访问该资源。
+每个条目只能指定一个提供程序类型（可以是 `identity` 或 `aescbc`，但不能在同一个项目中同时指定二者）。
+列表中的第一个提供程序用于加密写入存储的资源。
+当从存储器读取资源时，与存储的数据匹配的所有提供程序将按顺序尝试解密数据。
+如果由于格式或密钥不匹配而导致没有提供程序能够读取存储的数据，则会返回一个错误，以防止客户端访问该资源。
 
 <!--
 `EncryptionConfiguration` supports the use of wildcards to specify the resources that should be encrypted.
@@ -244,7 +248,7 @@ The new item should look like this:
 如果启用了通配符，但想要针对特定资源退出加密，则可以通过添加带有资源名称的新 `resources` 数组项，
 后跟附带 `identity` 提供商的 `providers` 数组项。例如，如果启用了 “`*.*`”，
 但想要排除对 `events` 资源的加密，则应向 `resources` 数组添加一个新项（以 `events` 为资源名称），
-后跟包含 `identity` 的 providers 数组。新项应如下所示：
+后跟包含 `identity` 的提供程序数组。新项应如下所示：
 
 ```yaml
 - resources:
@@ -275,19 +279,26 @@ read that resource will fail until it is deleted or a valid decryption key is pr
 任何尝试读取资源的调用将会失败，直到它被删除或提供有效的解密密钥。
 {{< /caution >}}
 
-### Provider
-
 <!--
-The following table describes each available provider:
+### Available providers {#providers}
+
+Before you configure encryption-at-rest for data in your cluster's Kubernetes API, you
+need to select which provider(s) you will use.
+
+The following table describes each available provider.
 -->
-下表描述了每个可用的 Provider：
+### 可用的提供程序   {#providers}
+
+在为集群的 Kubernetes API 数据配置静态加密之前，你需要选择要使用的提供程序。
+
+下表描述了每个可用的提供程序：
 
 <table class="complex-layout">
 <caption style="display: none;">
 <!--
 Providers for Kubernetes encryption at rest
 -->
-Kubernetes 静态数据加密的 Provider
+Kubernetes 静态数据加密的提供程序
 </caption>
 <thead>
   <tr>
@@ -313,7 +324,7 @@ Kubernetes 静态数据加密的 Provider
   Resources written as-is without encryption. When set as the first provider, the resource will be decrypted as new values are written. Existing encrypted resources are <strong>not</strong> automatically overwritten with the plaintext data.
   The <tt>identity</tt> provider is the default if you do not specify otherwise.
   -->
-  不加密写入的资源。当设置为第一个 provider 时，已加密的资源将在新值写入时被解密。
+  不加密写入的资源。当设置为第一个提供程序时，已加密的资源将在新值写入时被解密。
   </td>
   </tr>
 </tbody>
@@ -391,7 +402,7 @@ Kubernetes 静态数据加密的 Provider
     <!--
     Read how to <a href="/docs/tasks/administer-cluster/kms-provider#configuring-the-kms-provider-kms-v1">configure the KMS V1 provider</a>.
     -->
-    阅读如何<a href="/zh-cn/docs/tasks/administer-cluster/kms-provider#configuring-the-kms-provider-kms-v1">配置 KMS V1 Provider</a>
+    阅读如何<a href="/zh-cn/docs/tasks/administer-cluster/kms-provider#configuring-the-kms-provider-kms-v1">配置 KMS V1 提供程序</a>
     </td>
   </tr>
   <tr>
@@ -434,7 +445,7 @@ Kubernetes 静态数据加密的 Provider
     <!--
     Read how to <a href="/docs/tasks/administer-cluster/kms-provider#configuring-the-kms-provider-kms-v2">configure the KMS V2 provider</a>.
     -->
-    阅读如何<a href="/zh-cn/docs/tasks/administer-cluster/kms-provider#configuring-the-kms-provider-kms-v2">配置 KMS V2 Provider</a>。
+    阅读如何<a href="/zh-cn/docs/tasks/administer-cluster/kms-provider#configuring-the-kms-provider-kms-v2">配置 KMS V2 提供程序</a>。
     </td>
   </tr>
   <tr>
@@ -456,53 +467,78 @@ Kubernetes 静态数据加密的 Provider
 </table>
 
 <!--
-Each provider supports multiple keys - the keys are tried in order for decryption, and if the provider
-is the first provider, the first key is used for encryption.
+The `identity` provider is the default if you do not specify otherwise. **The `identity` provider does not
+encrypt stored data and provides _no_ additional confidentiality protection.**
 -->
-每个 Provider 都支持多个密钥 - 在解密时会按顺序使用密钥，如果是第一个 Provider，则第一个密钥用于加密。
-
-{{< caution >}}
-<!--
-Storing the raw encryption key in the EncryptionConfig only moderately improves your security
-posture, compared to no encryption.  Please use `kms` provider for additional security.
--->
-在 EncryptionConfig 中保存原始的加密密钥与不加密相比只会略微地提升安全级别。
-请使用 `kms` 驱动以获得更强的安全性。
-{{< /caution >}}
+如果你没有另外指定，`identity` 提供程序将作为默认选项。
+**`identity` 提供程序不会加密存储的数据，并且提供无附加的机密保护。**
 
 <!--
-By default, the `identity` provider is used to protect secret data in etcd, which provides no
-encryption. `EncryptionConfiguration` was introduced to encrypt secret data locally, with a locally
-managed key.
+### Key storage
+
+#### Local key storage
 
 Encrypting secret data with a locally managed key protects against an etcd compromise, but it fails to
 protect against a host compromise. Since the encryption keys are stored on the host in the
 EncryptionConfiguration YAML file, a skilled attacker can access that file and extract the encryption
 keys.
-
-Envelope encryption creates dependence on a separate key, not stored in Kubernetes. In this case,
-an attacker would need to compromise etcd, the `kubeapi-server`, and the third-party KMS provider to
-retrieve the plaintext values, providing a higher level of security than locally stored encryption keys.
 -->
-默认情况下，`identity` 驱动被用来对 etcd 中的 Secret 数据提供保护，而这个驱动不提供加密能力。
-`EncryptionConfiguration` 的引入是为了能够使用本地管理的密钥来在本地加密 Secret 数据。
+### 密钥存储   {#key-storage}
 
-使用本地管理的密钥来加密 Secret 数据能够保护数据免受 etcd 破坏的影响，不过无法针对主机被侵入提供防护。
-这是因为加密的密钥保存在主机上的 EncryptionConfig YAML 文件中，
-有经验的入侵者仍能访问该文件并从中提取出加密密钥。
+#### 本地密钥存储    {#local-key-storage}
 
-封套加密（Envelope Encryption）引入了对独立密钥的依赖，而这个密钥并不保存在 Kubernetes 中。
-在这种情况下，入侵者需要攻破 etcd、kube-apiserver 和第三方的 KMS
-驱动才能获得明文数据，因而这种方案提供了比本地保存加密密钥更高的安全级别。
+使用本地管理的密钥对 Secret 数据进行加密可以防止 etcd 受到威胁，但无法防范主机受到威胁的情况。
+由于加密密钥被存储在主机上的 EncryptionConfiguration YAML 文件中，有经验的攻击者可以访问该文件并提取加密密钥。
 
 <!--
-## Encrypting your data
+#### Managed (KMS) key storage {#kms-key-storage}
 
-Create a new encryption config file:
+The KMS provider uses _envelope encryption_: Kubernetes encrypts resources using a data key, and then
+encrypts that data key using the managed encryption service. Kubernetes generates a unique data key for
+each resource. The API server stores an encrypted version of the data key in etcd alongside the ciphertext;
+when reading the resource, the API server calls the managed encryption service and provides both the
+ciphertext and the (encrypted) data key.
+Within the managed encryption service, the provider use a _key encryption key_ to decipher the data key,
+deciphers the data key, and finally recovers the plain text. Communication between the control plane
+and the KMS requires in-transit protection, such as TLS.
 -->
-## 加密你的数据   {#encrypting-you-data}
+#### 托管的（KMS）密钥存储   {#kms-key-storage}
 
-创建一个新的加密配置文件：
+KMS 提供程序使用**封套加密**：Kubernetes 使用一个数据密钥来加密资源，然后使用托管的加密服务来加密该数据密钥。
+Kubernetes 为每个资源生成唯一的数据密钥。API 服务器将数据密钥的加密版本与密文一起存储在 etcd 中；
+API 服务器在读取资源时，调用托管的加密服务并提供密文和（加密的）数据密钥。
+在托管的加密服务中，提供程序使用**密钥加密密钥**来解密数据密钥，解密数据密钥后恢复为明文。
+在控制平面和 KMS 之间的通信需要在传输过程中提供 TLS 这类保护。
+
+<!--
+Using envelope encryption creates dependence on the key encryption key, which is not stored in Kubernetes.
+In the KMS case, an attacker who intends to get unauthorised access to the plaintext
+values would need to compromise etcd **and** the third-party KMS provider.
+-->
+使用封套加密会依赖于密钥加密密钥，此密钥不存储在 Kubernetes 中。
+就 KMS 而言，如果攻击者意图未经授权地访问明文值，则需要同时入侵 etcd **和** 第三方 KMS 提供程序。
+
+<!--
+## Write an encryption configuration file
+-->
+## 编辑加密配置文件   {#write-an-encryption-configuration-file}
+
+{{< caution >}}
+<!--
+The encryption configuration file may contain keys that can decrypt content in etcd.
+If the configuration file contains any key material, you must properly
+restrict permissions on all your control plane hosts so only the user
+who runs the kube-apiserver can read this configuration.
+-->
+加密配置文件可能包含可以解密 etcd 中内容的密钥。
+如果此配置文件包含任何密钥信息，你必须在所有控制平面主机上合理限制权限，
+以便只有运行 kube-apiserver 的用户可以读取此配置。
+{{< /caution >}}
+
+<!--
+Create a new encryption configuration file. The contents should be similar to:
+-->
+创建一个新的加密配置文件。其内容应类似于：
 
 <!--
 # See the following text for more details about the secret value
@@ -808,7 +844,7 @@ When running a single `kube-apiserver` instance, step 2 may be skipped.
 在不发生停机的情况下更改 Secret 需要多步操作，特别是在有多个 `kube-apiserver`
 进程正在运行的高可用环境中。
 
-1. 生成一个新密钥并将其添加为所有服务器上当前 provider 的第二个密钥条目
+1. 生成一个新密钥并将其添加为所有服务器上当前提供程序的第二个密钥条目
 1. 重新启动所有 `kube-apiserver` 进程以确保每台服务器都可以使用新密钥进行解密
 1. 将新密钥设置为 `keys` 数组中的第一个条目，以便在配置中使用其进行加密
 1. 重新启动所有 `kube-apiserver` 进程以确保每个服务器现在都使用新密钥进行加密
@@ -826,7 +862,7 @@ and restart all `kube-apiserver` processes.
 -->
 ## 解密所有数据    {#decrypting-all-data}
 
-要禁用静态加密，请将 `identity` provider
+要禁用静态加密，请将 `identity` 提供程序
 作为配置中的第一个条目并重新启动所有 `kube-apiserver` 进程。
 
 ```yaml
@@ -883,6 +919,8 @@ To allow automatic reloading, configure the API server to run with:
 ## {{% heading "whatsnext" %}}
 
 <!--
+* Read about [decrypting data that are already stored at rest](/docs/tasks/administer-cluster/decrypt-data/)
 * Learn more about the [EncryptionConfiguration configuration API (v1)](/docs/reference/config-api/apiserver-encryption.v1/).
 -->
-进一步学习 [EncryptionConfiguration 配置 API (v1)](/zh-cn/docs/reference/config-api/apiserver-encryption.v1/)。
+* 进一步学习[解密已静态加密的数据](/zh-cn/docs/tasks/administer-cluster/decrypt-data/)。
+* 进一步学习 [EncryptionConfiguration 配置 API (v1)](/zh-cn/docs/reference/config-api/apiserver-encryption.v1/)。
