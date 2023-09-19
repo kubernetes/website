@@ -55,7 +55,7 @@ Successfully running cloud-controller-manager requires some changes to your clus
 
   {{< note >}}
   The `--cloud-provider` flag is used differently for `kubelet`, `kube-apiserver` and
-  `kube-controller-manager` depending on the user. If the user has an external CCMs
+  `kube-controller-manager` depending on the user. If the user has an external CCM
   (not the internal cloud controller loops in the Kubernetes Controller Manager), then
   `--cloud-provider=external` must be specified. Otherwise, it should not be specified.
   {{< /note >}}
