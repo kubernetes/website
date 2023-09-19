@@ -11,10 +11,11 @@ The [`kubeadm`](/docs/reference/setup-tools/kubeadm/) tool now supports etcd lea
 allows you to enhance the resilience and stability
 of your Kubernetes clusters by leveraging the [learner mode](https://etcd.io/docs/v3.4/learning/design-learner/#appendix-learner-implementation-in-v34) 
 feature introduced in etcd version 3.4.
-This guide will walk you through using etcd learner mode with kubeadm.
+This guide will walk you through using etcd learner mode with kubeadm. By default, kubeadm runs
+a local etcd instance on each control plane node.
 
 In v1.27, kubeadm introduced a new feature gate `EtcdLearnerMode`. With this feature gate enabled,
-when joining a new control plane node, a new etcd member will be created as a learner and 
+when joining a new control plane node, a new etcd member will be created as a learner and
 promoted to a voting member only after the etcd data are fully aligned.
 
 ## What are the advantages of using etcd learner mode?
@@ -69,11 +70,31 @@ The kubeadm tool deploys a single-node Kubernetes cluster with etcd set to use l
 Before joining a control-plane node to the new Kubernetes cluster, ensure that the existing control plane nodes
 and all etcd members are healthy.
 
+Check the cluster health with `etcdctl`. If `etcdctl` isn't available, you can run this tool inside a container image.
+You would do that directly with your container runtime using a tool such as `crictl run` and not through Kubernetes
+
+Here is an example on a client command that uses secure communication to check the cluster health of the etcd cluster:
+
+```shell
+ETCDCTL_API=3 etcdctl --endpoints 127.0.0.1:2379 \
+  --cert=/etc/kubernetes/pki/etcd/server.crt \
+  --key=/etc/kubernetes/pki/etcd/server.key \
+  --cacert=/etc/kubernetes/pki/etcd/ca.crt \
+   member list
+...
+dc543c4d307fadb9, started, node1, https://10.6.177.40:2380, https://10.6.177.40:2379, false
+```
+
+To check if the Kubernetes control plane is healthy, run `kubectl get node -l node-role.kubernetes.io/control-plane=`
+and check if the nodes are ready.
+
+Note: It is recommended to have an odd number of members in a etcd cluster.
+
 Before joining a worker node to the new Kubernetes cluster, ensure that the control plane nodes are healthy.
 
 ## What's next
 
-- The feature gate `EtcdLearnerMode` is alpha in v1.27 and will we expect it to graduate beta in the next
+- The feature gate `EtcdLearnerMode` is alpha in v1.27 and we expect it to graduate to beta in the next
   minor release of Kubernetes  (v1.29).
 - etcd has an open issue that may make the process more automatic: 
   [Support auto-promoting a learner member to a voting member](https://github.com/etcd-io/etcd/issues/15107).
