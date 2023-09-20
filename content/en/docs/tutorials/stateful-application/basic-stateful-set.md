@@ -27,14 +27,25 @@ following Kubernetes concepts:
 * [Headless Services](/docs/concepts/services-networking/service/#headless-services)
 * [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)
 * [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/)
-* [StatefulSets](/docs/concepts/workloads/controllers/statefulset/)
 * The [kubectl](/docs/reference/kubectl/kubectl/) command line tool
+
+{{% include "task-tutorial-prereqs.md" %}}
+You should configure `kubectl` to use a context that uses the `default`
+namespace.
+If you are using an existing cluster, make sure that it's OK to use that
+cluster's default namespace to practice. Ideally, practice in a cluster
+that doesn't run any real workloads.
+
+It's also useful to read the concept page about [StatefulSets](/docs/concepts/workloads/controllers/statefulset/).
 
 {{< note >}}
 This tutorial assumes that your cluster is configured to dynamically provision
-PersistentVolumes. If your cluster is not configured to do so, you
+PersistentVolumes. You'll also need to have a [default StorageClass](/docs/concepts/storage/storage-classes/#default-storageclass).
+If your cluster is not configured to provision storage dynamically, you
 will have to manually provision two 1 GiB volumes prior to starting this
-tutorial.
+tutorial and
+set up your cluster so that those PersistentVolumes map to the
+PersistentVolumeClaim templates that the StatefulSet defines.
 {{< /note >}}
 
 ## {{% heading "objectives" %}}
