@@ -278,21 +278,15 @@ for information on referencing ServiceAccount credentials from within Pods.
 If you are creating a Secret to store credentials for accessing a container image registry,
 you must use one of the following `type` values for that Secret:
 
-- `kubernetes.io/dockercfg`
-- `kubernetes.io/dockerconfigjson`
-
-The `kubernetes.io/dockercfg` type is reserved to store a serialized
-`~/.dockercfg` which is the legacy format for configuring Docker command line.
-When using this Secret type, you have to ensure the Secret `data` field
-contains a `.dockercfg` key whose value is content of a `~/.dockercfg` file
-encoded in the base64 format.
-
-The `kubernetes.io/dockerconfigjson` type is designed for storing a serialized
-JSON that follows the same format rules as the `~/.docker/config.json` file
-which is a new format for `~/.dockercfg`.
-When using this Secret type, the `data` field of the Secret object must
-contain a `.dockerconfigjson` key, in which the content for the
-`~/.docker/config.json` file is provided as a base64 encoded string.
+- `kubernetes.io/dockercfg`: store a serialized `~/.dockercfg` which is the
+  legacy format for configuring Docker command line. The Secret
+  `data` field contains a `.dockercfg` key whose value is the content of a
+  base64 encoded `~/.dockercfg` file.
+- `kubernetes.io/dockerconfigjson`: store a serialized JSON that follows the
+  same format rules as the `~/.docker/config.json` file, which is a new format
+  for `~/.dockercfg`. The Secret `data` field must contain a
+  `.dockerconfigjson` key for which the value is the content of a base64
+  encoded `~/.docker/config.json` file.
 
 Below is an example for a `kubernetes.io/dockercfg` type of Secret:
 
@@ -312,7 +306,7 @@ If you do not want to perform the base64 encoding, you can choose to use the
 `stringData` field instead.
 {{< /note >}}
 
-When you create these types of Secrets using a manifest, the API
+When you create Docker config Secrets using a manifest, the API
 server checks whether the expected key exists in the `data` field, and
 it verifies if the value provided can be parsed as a valid JSON. The API
 server doesn't validate if the JSON actually is a Docker config file.
@@ -328,15 +322,16 @@ kubectl create secret docker-registry secret-tiger-docker \
   --docker-server=my-registry.example:5000
 ```
 
-That command creates a Secret of type `kubernetes.io/dockerconfigjson`.
-If you dump the `.data.dockerconfigjson` field from that new Secret and then
-decode it from base64:
+This command creates a Secret of type `kubernetes.io/dockerconfigjson`.
+
+Retrieve the `.data.dockerconfigjson` field from that new Secret and decode the
+data:
 
 ```shell
 kubectl get secret secret-tiger-docker -o jsonpath='{.data.*}' | base64 -d
 ```
 
-then the output is equivalent to this JSON document (which is also a valid
+The output is equivalent to the following JSON document (which is also a valid
 Docker configuration file):
 
 ```json
