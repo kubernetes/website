@@ -188,10 +188,10 @@ by a `/`. For example: `cloud-hosting.example.net/cloud-api-credentials`.
 
 ### Opaque Secrets
 
-`Opaque` is the default Secret type if omitted from a Secret configuration file.
-When you create a Secret using `kubectl`, you will use the `generic`
-subcommand to indicate an `Opaque` Secret type. For example, the following
-command creates an empty Secret of type `Opaque`:
+`Opaque` is the default Secret type if you don't explicitly specify a type in
+a Secret manifest. When you create a Secret using `kubectl`, you must use the
+`generic` subcommand to indicate an `Opaque` Secret type. For example, the
+following command creates an empty Secret of type `Opaque`:
 
 ```shell
 kubectl create secret generic empty-secret
@@ -212,30 +212,25 @@ In this case, `0` means you have created an empty Secret.
 
 A `kubernetes.io/service-account-token` type of Secret is used to store a
 token credential that identifies a
-{{< glossary_tooltip text="ServiceAccount" term_id="service-account" >}}.
+{{< glossary_tooltip text="ServiceAccount" term_id="service-account" >}}. This
+is a legacy mechanism that provides long-lived ServiceAccount credentials to
+Pods.
 
-{{< note >}}
-Versions of Kubernetes before v1.22 automatically created credentials for
-accessing the Kubernetes API. This older mechanism was based on creating token
-Secrets that could then be mounted into running Pods.
-In more recent versions, including Kubernetes v{{< skew currentVersion >}}, API
-credentials are obtained directly by using the
-[TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
-API, and are mounted into Pods using a
-[projected volume](/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume).
-The tokens obtained using this method have bounded lifetimes, and are
-automatically invalidated when the Pod they are mounted into is deleted.
+In Kubernetes v1.22 and later, the recommended approach is to obtain a
+short-lived, automatically rotating ServiceAccount token by using the
+[`TokenRequest`](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
+API instead. You can get these short-lived tokens using the following methods:
 
-You can still
-[manually create](/docs/tasks/configure-pod-container/configure-service-account/#manually-create-a-service-account-api-token)
-a ServiceAccount token Secret; for example, if you need a token that never
-expires. However, using the
-[TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
-subresource to obtain a token to access the API is recommended instead.
-You can use the
-[`kubectl create token`](/docs/reference/generated/kubectl/kubectl-commands#-em-token-em-)
-command to obtain a token from the `TokenRequest` API.
-{{< /note >}}
+* Call the `TokenRequest` API either directly or by using an API client like
+  `kubectl`. For example, you can use the
+  [`kubectl create token`](/docs/reference/generated/kubectl/kubectl-commands#-em-token-em-)
+  command.
+* Request a mounted token in a
+  [projected volume](/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume)
+  in your Pod manifest. Kubernetes creates the token and mounts it in the Pod.
+  The token is automatically invalidated when the Pod that it's mounted in is
+  deleted. For details, see
+  [Launch a Pod using service account token projection](/docs/tasks/configure-pod-container/configure-service-account/#launch-a-pod-using-service-account-token-projection).
 
 {{< note >}}
 You should only create a ServiceAccount token Secret
