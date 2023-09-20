@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Bootstrap an Air Gapped Cluster With Kubeadm"
-date: 2023-09-15
+date: 2023-10-12
 slug: bootstrap-an-air-gapped-cluster-with-kubeadm
 ---
 
