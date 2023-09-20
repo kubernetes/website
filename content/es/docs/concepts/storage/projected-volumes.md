@@ -28,7 +28,7 @@ Actualmente se pueden proyectar los siguientes tipos de fuentes de volumen:
 Se requiere que todas las fuentes estén en el mismo espacio de nombres que el Pod. Para más detalles,
 vea el documento de diseño [all-in-one volume](https://git.k8s.io/design-proposals-archive/node/all-in-one-volume.md).
 
-### Configuración de ejemplo con un secreto, una downwardAPI, y una configMap {#example-configuration-secret-downwardapi-configmap}
+### Configuración de ejemplo con un secreto, una downwardAPI y una configMap {#example-configuration-secret-downwardapi-configmap}
 
 {{% code_sample file="pods/storage/projected-secret-downwardapi-configmap.yaml" %}}
 
