@@ -145,7 +145,7 @@ kubeadm 所提供的默认值在必要时也会保证其在多个组件之间是
 
 <!--
 <p>Users are always allowed to override default values, with the only exception of a small subset of setting with
-relevance for security (e.g. enforce authorization-mode Node and RBAC on api server)</p>
+relevance for security (e.g. enforce authorization-mode Node and RBAC on api server).</p>
 <p>If the user provides a configuration types that is not expected for the action you are performing, kubeadm will
 ignore those types and print a warning.</p>
 -->
@@ -1409,7 +1409,7 @@ HostPathMount contains elements describing volumes that are mounted from the hos
 </td>
 </tr>
 <tr><td><code>pathType</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
 </td>
 <td>
    <!--
@@ -1700,14 +1700,14 @@ Defaults to the hostname of the node if not provided.
 <td>
    <!--
    <code>criSocket</code> is used to retrieve container runtime info.
-This information will be annotated to the Node API object, for later re-use
+This information will be annotated to the Node API object, for later re-use.
    -->
    <p><code>criSocket</code> 用来读取容器运行时的信息。
 此信息会被以注解的方式添加到 Node API 对象至上，用于后续用途。</p>
 </td>
 </tr>
 <tr><td><code>taints</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    <!--
@@ -1750,14 +1750,19 @@ command line except without leading dash(es).
 <td>
    <!--
    <code>ignorePreflightErrors</code> provides a list of pre-flight errors to be ignored when
-the current node is registered.
+the current node is registered, e.g.
+  <code>IsPrevilegedUser,Swap</code>.
+  Value <code>all</code> ignores errors from all checks.
    -->
-   <p><code>ignorePreflightErrors</code> 提供一组在当前节点被注册时可以
-忽略掉的预检错误。</p>
+   <p>
+      <code>ignorePreflightErrors</code> 提供一组在当前节点被注册时可以忽略掉的预检错误。
+      例如：<code>IsPrevilegedUser,Swap</code>。
+      取值 <code>all</code> 忽略所有检查的错误。
+   </p>
 </td>
 </tr>
 <tr><td><code>imagePullPolicy</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
 </td>
 <td>
    <!--
@@ -1881,7 +1886,7 @@ for, so other administrators can know its purpose.
 </td>
 </tr>
 <tr><td><code>expires</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#time-v1-meta"><code>meta/v1.Time</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
    <!--
