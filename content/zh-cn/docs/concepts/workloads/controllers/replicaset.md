@@ -602,11 +602,11 @@ annotation, users can set a preference regarding which pods to remove first when
 注解，用户可以对 ReplicaSet 缩容时要先删除哪些 Pod 设置偏好。
 
 <!--
-The annotation should be set on the pod, the range is [-2147483647, 2147483647]. It represents the cost of
+The annotation should be set on the pod, the range is [-2147483648, 2147483647]. It represents the cost of
 deleting a pod compared to other pods belonging to the same ReplicaSet. Pods with lower deletion
 cost are preferred to be deleted before pods with higher deletion cost. 
 -->
-此注解要设置到 Pod 上，取值范围为 [-2147483647, 2147483647]。
+此注解要设置到 Pod 上，取值范围为 [-2147483648, 2147483647]。
 所代表的是删除同一 ReplicaSet 中其他 Pod 相比较而言的开销。
 删除开销较小的 Pod 比删除开销较高的 Pod 更容易被删除。
 
