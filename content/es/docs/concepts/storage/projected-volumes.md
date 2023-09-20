@@ -10,7 +10,7 @@ weight: 21 # just after persistent volumes
 
 <!-- overview -->
 
-Este documento describe los _volúmenes proyectados_ en Kubernetes. Necesita estar familiarizado con [volumes](/docs/concepts/storage/volumes/).
+Este documento describe los _volúmenes proyectados_ en Kubernetes. Necesita estar familiarizado con [volúmenes](/es/docs/concepts/storage/volumes/).
 
 <!-- body -->
 
