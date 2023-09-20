@@ -727,7 +727,7 @@ use this behavior, which then applies to all CustomResourceDefinitions in your
 cluster.
 
 Provided you enabled the feature gate, Kubernetes implements _validation racheting_
-for CustomResourceDefinitions. The API server is willing accept updates to resources that
+for CustomResourceDefinitions. The API server is willing to accept updates to resources that
 are not valid after the update, provided that each part of the resource that failed to validate
 was not changed by the update operation. In other words, any invalid part of the resource
 that remains invalid must have already been wrong.
@@ -737,7 +737,7 @@ This feature allows authors of CRDs to confidently add new validations to the
 OpenAPIV3 schema under certain conditions. Users can update to the new schema
 safely without bumping the version of the object or breaking workflows.
 
-While most validations placed in the OpenAPIV3 schema of a CRD are support
+While most validations placed in the OpenAPIV3 schema of a CRD support
 ratcheting, there are a few exceptions. The following OpenAPIV3 schema 
 validations are not supported by ratcheting under the implementation in Kubernetes
 {{< skew currentVersion >}} and if violated will continue to throw an error as normally:
