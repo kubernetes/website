@@ -324,7 +324,7 @@ Depending on how you installed `kubectl`, use one of the following methods.
 {{< tabs name="other_kubectl_uninstall" >}}
 
 {{% tab name="curl" %}}
-If you installed kubectl using curl, you can uninstall it by executing the following commands:
+If you installed kubectl using `curl`, you can uninstall it by executing the following commands:
 
 ```shell
 sudo rm "$(which kubectl)"
@@ -333,7 +333,7 @@ sudo rm "$(which kubectl)"
 {{% /tab %}}
 
 {{% tab name="apt-get" %}}
-If you installed kubectl using apt , you can uninstall it by executing the following commands:
+If you installed kubectl using `apt` , you can uninstall it by executing the following commands:
 
 ```shell
 sudo apt remove kubectl
@@ -342,7 +342,7 @@ sudo apt remove kubectl
 {{% /tab %}}
 
 {{% tab name="yum" %}}
-If you installed kubectl using yum, you can uninstall it by executing the following command:
+If you installed kubectl using `yum`, you can uninstall it by executing the following command:
 
 ```shell
 yum remove kubectl
@@ -351,7 +351,7 @@ yum remove kubectl
 {{% /tab %}}
 
 {{% tab name="Homebrew" %}}
-If you installed kubectl using Homebrew, you can uninstall it by executing the following command:
+If you installed kubectl using `Homebrew`, you can uninstall it by executing the following command:
 
 ```shell
 sudo brew uninstall kubectl
@@ -361,7 +361,7 @@ sudo brew uninstall kubectl
 
 
 {{% tab name="Snap" %}}
-If you installed kubectl using snap, then you can uninstall it by executing the following command:
+If you installed kubectl using `snap`, then you can uninstall it by executing the following command:
 
 ```shell
 snap remove kubectl
