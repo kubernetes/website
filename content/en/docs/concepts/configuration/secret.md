@@ -363,9 +363,9 @@ Secret must contain one of the following two keys:
 - `username`: the user name for authentication
 - `password`: the password or token for authentication
 
-Both values for the above two keys are base64 encoded strings. You can, of
-course, provide the clear text content using the `stringData` for Secret
-creation.
+Both values for the above two keys are base64 encoded strings. You can
+alternatively provide the clear text content using the `stringData` field in the
+Secret manifest.
 
 The following manifest is an example of a basic authentication Secret:
 
@@ -409,12 +409,12 @@ data:
     MIIEpQIBAAKCAQEAulqb/Y ...
 ```
 
-The SSH authentication Secret type is provided only for user's convenience.
-You could instead create an `Opaque` type Secret for credentials used for SSH authentication.
+The SSH authentication Secret type is provided only for convenience.
+You can create an `Opaque` type for credentials used for SSH authentication.
 However, using the defined and public Secret type (`kubernetes.io/ssh-auth`) helps other
 people to understand the purpose of your Secret, and sets a convention for what key names
 to expect.
-and the API server does verify if the required keys are provided in a Secret configuration.
+The Kubernetes API verifies that the required keys are set for a Secret of this type.
 
 {{< caution >}}
 SSH private keys do not establish trusted communication between an SSH client and
@@ -424,10 +424,10 @@ mitigate "man in the middle" attacks, such as a `known_hosts` file added to a Co
 
 ### TLS Secrets
 
-Kubernetes provides a builtin Secret type `kubernetes.io/tls` for storing
+The `kubernetes.io/tls` Secret type is for storing
 a certificate and its associated key that are typically used for TLS.
 
-One common use for TLS secrets is to configure encryption in transit for
+One common use for TLS Secrets is to configure encryption in transit for
 an [Ingress](/docs/concepts/services-networking/ingress/), but you can also use it
 with other resources or directly in your workload.
 When using this type of Secret, the `tls.key` and the `tls.crt` key must be provided
@@ -462,8 +462,7 @@ However, using the defined and public Secret type (`kubernetes.io/ssh-auth`)
 helps ensure the consistency of Secret format in your project. The API server
 verifies if the required keys are set for a Secret of this type.
 
-When creating a TLS Secret using `kubectl`, you can use the `tls` subcommand
-as shown in the following example:
+To create a TLS Secret using `kubectl`, use the `tls` subcommand:
 
 ```shell
 kubectl create secret tls my-tls-secret \
@@ -476,8 +475,7 @@ and must match the given private key for `--key`.
 
 ### Bootstrap token Secrets
 
-A bootstrap token Secret can be created by explicitly specifying the Secret
-`type` to `bootstrap.kubernetes.io/token`. This type of Secret is designed for
+The `bootstrap.kubernetes.io/token` Secret type is for
 tokens used during the node bootstrap process. It stores tokens used to sign
 well-known ConfigMaps.
 
@@ -504,7 +502,7 @@ data:
   usage-bootstrap-signing: dHJ1ZQ==
 ```
 
-A bootstrap type Secret has the following keys specified under `data`:
+A bootstrap token Secret has the following keys specified under `data`:
 
 - `token-id`: A random 6 character string as the token identifier. Required.
 - `token-secret`: A random 16 character string as the actual token secret. Required.
