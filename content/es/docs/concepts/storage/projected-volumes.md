@@ -1,7 +1,7 @@
 ---
 reviewers:
   - ramrodo
-  - raelga
+  - krol3
   - electrocucaracha
 title: Volúmenes proyectados
 content_type: concept
