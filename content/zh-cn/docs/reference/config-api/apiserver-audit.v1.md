@@ -497,9 +497,9 @@ Resources is a list of resources this rule applies to.
 <p>For example:
 'pods' matches pods.
 'pods/log' matches the log subresource of pods.
-'<em>' matches all resources and their subresources.
-'pods/</em>' matches all subresources of pods.
-'*/scale' matches all scale subresources.</p>
+'&ast;' matches all resources and their subresources.
+'pods/&ast;' matches all subresources of pods.
+'&ast;/scale' matches all scale subresources.</p>
 -->
   <p>例如：</p>
   <ul>
@@ -767,10 +767,10 @@ PolicyRule 包含一个映射，基于元数据将请求映射到某审计级别
 <td>
    <!--
    NonResourceURLs is a set of URL paths that should be audited.
-   <em>s are allowed, but only as the full, final step in the path.
+   &ast;s are allowed, but only as the full, final step in the path.
    Examples:
    &quot;/metrics&quot; - Log requests for apiserver metrics
-   &quot;/healthz</em>&quot; - Log all health checks</p>
+   &quot;/healthz&ast;&quot; - Log all health checks</p>
    -->
 
    <p>
