@@ -545,14 +545,14 @@ Linux 的 libc（又名 glibc）默认将 DNS `nameserver` 记录限制为 3，
 你也可以使用 kubelet 的 `--resolv-conf` 标志来解决这个问题。
 
 <!--
-If you are using Alpine version 3.3 or earlier as your base image, DNS may not
-work properly due to a known issue with Alpine.
-Kubernetes [issue 30215](https://github.com/kubernetes/kubernetes/issues/30215)
-details more information on this.
+If you are using Alpine version 3.17 or earlier as your base image, DNS may not
+work properly due to a design issue with Alpine. 
+Until musl version 1.24 didn't include TCP fallback to the DNS stub resolver meaning any DNS call above 512 bytes would fail.
+Please upgrade your images to Alpine version 3.18 or above.
 -->
-如果你使用 Alpine 3.3 或更早版本作为你的基础镜像，DNS 可能会由于 Alpine 中
-一个已知的问题导致无法正常工作。
-请查看[这里](https://github.com/kubernetes/kubernetes/issues/30215)获取更多信息。
+如果你使用 Alpine 3.17 或更早版本作为你的基础镜像，DNS 可能会由于 Alpine 的设计问题而无法工作。
+在 musl 1.24 版本之前，DNS 存根解析器都没有包括 TCP 回退，
+这意味着任何超过 512 字节的 DNS 调用都会失败。请将你的镜像升级到 Alpine 3.18 或更高版本。
 
 ## {{% heading "whatsnext" %}}
 
