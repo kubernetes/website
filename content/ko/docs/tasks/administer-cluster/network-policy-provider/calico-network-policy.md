@@ -3,7 +3,7 @@
 # - caseydavenport
 title: 네트워크 폴리시로 캘리코(Calico) 사용하기
 content_type: task
-weight: 10
+weight: 20
 ---
 
 <!-- overview -->
@@ -43,7 +43,7 @@ weight: 10
 ## kubeadm으로 지역 캘리코 클러스터 생성하기 {#creating-a-local-calico-cluster-with-kubeadm}
 
 Kubeadm을 이용해서 15분 이내에 지역 단일 호스트 캘리코 클러스터를 생성하려면,
-[캘리코 빠른 시작](https://docs.projectcalico.org/latest/getting-started/kubernetes/)을 참고한다.
+[캘리코 빠른 시작](https://projectcalico.docs.tigera.io/getting-started/kubernetes/)을 참고한다.
 
 
 
