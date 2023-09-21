@@ -1,5 +1,5 @@
 ---
-title: Kubernetes External Metrics (v1beta1)
+title: Kubernetes 外部指标 (v1beta1)
 content_type: tool-reference
 package: external.metrics.k8s.io/v1beta1
 ---
