@@ -105,7 +105,7 @@ Here's an example of a pod that uses tolerations:
 -->
 这里是一个使用了容忍度的 Pod：
 
-{{< codenew file="pods/pod-with-toleration.yaml" >}}
+{{% code_sample file="pods/pod-with-toleration.yaml" %}}
 
 <!--
 The default value for `operator` is `Equal`.
