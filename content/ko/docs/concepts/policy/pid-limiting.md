@@ -73,13 +73,6 @@ PID 제한은 [컴퓨팅 리소스](/ko/docs/concepts/configuration/manage-resou
 시스템 전체와 Kubernetes 시스템 데몬에 각각 예약됨을 
 선언한다.
 
-{{< note >}}
-쿠버네티스 1.20 버전 이전에서 노드 단위로 
-PID 리소스 제한을 예약하려면 'SupportNodePidsLimit' 
-[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 작동하도록 
-설정해야 한다.
-{{< /note >}}
-
 ## 파드 PID 제한
 
 쿠버네티스를 사용하면 파드에서 실행되는 프로세스 수를 제한할 수 있다.
@@ -88,12 +81,6 @@ PID 리소스 제한을 예약하려면 'SupportNodePidsLimit'
 제한을 구성하려면 kubelet에 커맨드라인 매개변수 `--pod-max-pids`를 
 지정하거나, kubelet [구성 파일](/docs/tasks/administer-cluster/kubelet-config-file/)에서 
 `PodPidsLimit`을 설정하면 된다.
-
-{{< note >}}
-쿠버네티스 1.20 버전 이전에서 파드에 대한 PID 리소스를 제한하려면
-[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/) 'SupportPodPidsLimit'이 
-작동하도록 설정해야 한다.
-{{< /note >}}
 
 ## PID 기반 축출(eviction)
 
