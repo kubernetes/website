@@ -122,10 +122,20 @@ kube-controller-manager와 마찬가지로 cloud-controller-manager는 논리적
 [클러스터-레벨 로깅](/ko/docs/concepts/cluster-administration/logging/) 메커니즘은
 검색/열람 인터페이스와 함께 중앙 로그 저장소에 컨테이너 로그를 저장하는 책임을 진다.
 
+### 네트워크 플러그인
+
+[네트워크 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)은 
+컨테이너 네트워크 인터페이스(Container Network Interface, CNI) 스펙을 구현한 소프트웨어 구성 요소이다. 
+네트워크 플러그인은 파드에 IP주소를 할당하고 클러스터 내의 다른 파드와 통신할 수 있도록 해 준다.
+
 
 ## {{% heading "whatsnext" %}}
 
-* [노드](/ko/docs/concepts/architecture/nodes/)에 대해 더 배우기
-* [컨트롤러](/ko/docs/concepts/architecture/controller/)에 대해 더 배우기
-* [kube-scheduler](/ko/docs/concepts/scheduling-eviction/kube-scheduler/)에 대해 더 배우기
-* etcd의 공식 [문서](https://etcd.io/docs/) 읽기
+다음에 대해 더 살펴본다.
+   * [노드](/ko/docs/concepts/architecture/nodes/) 및 [노드와 컨트롤 플레인 간의 통신](/ko/docs/concepts/architecture/control-plane-node-communication/).
+   * 쿠버네티스 [컨트롤러](/ko/docs/concepts/architecture/controller/).
+   * 쿠버네티스 기본 스케줄러인 [kube-scheduler](/ko/docs/concepts/scheduling-eviction/kube-scheduler/).
+   * etcd의 공식 [문서](https://etcd.io/docs/).
+   * 쿠버네티스의 몇 가지 [컨테이너 런타임](/ko/docs/setup/production-environment/container-runtimes/).
+   * [cloud-controller-manager](/docs/concepts/architecture/cloud-controller/)를 사용하여 클라우드 공급자와 연동하기.
+   * [kubectl](/docs/reference/generated/kubectl/kubectl-commands) 명령.

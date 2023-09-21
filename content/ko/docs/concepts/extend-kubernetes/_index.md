@@ -1,6 +1,6 @@
 ---
 title: 쿠버네티스 확장
-weight: 110
+weight: 999 # 이 섹션이 맨 마지막에 와야 한다
 description: 쿠버네티스 클러스터의 동작을 변경하는 다양한 방법
 # reviewers:
 # - erictune
@@ -282,6 +282,20 @@ FlexVolume 스토리지에 의존하는 파드를 실행하는 경우 kubelet은
 
 [네트워크 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)을 통해
 쿠버네티스는 다양한 네트워크 토폴로지 및 기술을 활용할 수 있게 된다.
+
+### kubelet 이미지 자격 증명 공급자 플러그인
+
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
+kubelet 이미지 자격 증명 공급자는 kubelet이 이미지 레지스트리 자격 증명을 동적으로 가져올 수 있게 하는 플러그인이다. 
+이후, 자격 증명은 구성과 일치하는 컨테이너 이미지 레지스트리에서 
+이미지를 풀링할 때 사용된다.
+
+이러한 플러그인은 외부 서비스와 통신하거나 로컬 파일을 사용하여 자격 증명을 가져올 수 있다. 
+이러한 방법으로, kubelet은 각 레지스트리에 대한 자격 증명을 정적으로 갖고 있지 않아도 되며, 
+다양한 인증 방법 및 프로토콜을 지원할 수 있다.
+
+플러그인의 구성에 대한 상세 사항은 
+[kubelet 이미지 자격 증명 공급자 구성하기](/ko/docs/tasks/administer-cluster/kubelet-credential-provider/)를 참고한다.
 
 ### 스케줄링 익스텐션
 

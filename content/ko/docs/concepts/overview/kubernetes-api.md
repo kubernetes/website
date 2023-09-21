@@ -82,13 +82,9 @@ IDL(인터페이스 정의 언어) 파일을 참고한다.
 
 ### OpenAPI V3
 
-{{< feature-state state="beta"  for_k8s_version="v1.24" >}}
+{{< feature-state state="stable"  for_k8s_version="v1.27" >}}
 
-쿠버네티스 {{< param "version" >}} 버전은 OpenAPI v3 API 발행(publishing)에 대한 베타 지원을 제공한다. 
-이는 베타 기능이며 기본적으로 활성화되어 있다.
-kube-apiserver 구성 요소에 
-`OpenAPIV3` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 비활성화하여 
-이 베타 기능을 비활성화할 수 있다.
+쿠버네티스는 쿠버네티스 API에 대한 설명을 OpenAPI v3로 발행(publishing)한다.
 
 `/openapi/v3` 디스커버리 엔드포인트는 사용 가능한 모든 
 그룹/버전의 목록을 제공한다. 이 엔드포인트는 JSON 만을 반환한다.
@@ -153,10 +149,36 @@ kube-apiserver 구성 요소에
   </tbody>
 </table>
 
+OpenAPI V3 가져오기의 Golang 구현은 `k8s.io/client-go/openapi3` 패키지를 확인한다.
+
 ## 지속성
 
 쿠버네티스는 오브젝트의 직렬화된 상태를
 {{< glossary_tooltip term_id="etcd" >}}에 기록하여 저장한다.
+
+## API 디스커버리
+
+클러스터에서 지원하는 모든 그룹 버전의 목록이 
+`/api` 및 `/apis` 엔드포인트에 발행된다. 
+또한 각 그룹 버전은 지원하는 리소스 목록을 `/apis/<group>/<version>`(예: 
+`/apis/rbac.authorization.k8s.io/v1alpha1`)에 노출한다. 
+kubectl은 클러스터가 지원하는 리소스 목록을 가져오는 데에 
+이러한 엔드포인트를 사용한다.
+
+### 합산(aggregated) 디스커버리
+
+{{< feature-state state="beta"  for_k8s_version="v1.27" >}}
+
+쿠버네티스는 클러스터가 지원하는 리소스 정보를 각 그룹 버전별 API로 발행하는 것 대신 
+2개의 엔드포인트(`/api` 및 `/apis`)로 발행하는 
+합산 디스커버리를 베타 수준으로 지원한다. 
+이러한 엔드포인트를 사용하면 일반적인 쿠버네티스 클러스터에 대한 디스커버리 시 
+전송되는 요청의 수를 대폭 줄일 수 있다. 
+이러한 요청은 각 엔드포인트에 요청을 보낼 때 
+Accept 헤더에 다음과 같이 합산 디스커버리임을 나타내면 된다.
+`Accept: application/json;v=v2beta1;g=apidiscovery.k8s.io;as=APIGroupDiscoveryList`.
+
+이 엔드포인트는 ETag 및 protobuf 인코딩도 지원한다.
 
 ## API 그룹과 버전 규칙
 

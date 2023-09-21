@@ -17,7 +17,7 @@ weight: 10
 ## 커스텀 리소스
 
 *리소스* 는 [쿠버네티스 API](/ko/docs/concepts/overview/kubernetes-api/)에서 특정 종류의
-[API 오브젝트](/ko/docs/concepts/overview/working-with-objects/kubernetes-objects/) 모음을 저장하는 엔드포인트이다. 
+{{< glossary_tooltip text="API 오브젝트" term_id="object" >}} 모음을 저장하는 엔드포인트이다. 
 예를 들어 빌트인 *파드* 리소스에는 파드 오브젝트 모음이 포함되어 있다.
 
 *커스텀 리소스* 는 쿠버네티스 API의 익스텐션으로, 기본 쿠버네티스 설치에서 반드시
