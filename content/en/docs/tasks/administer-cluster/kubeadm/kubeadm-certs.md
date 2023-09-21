@@ -329,7 +329,8 @@ CSRs requesting serving certificates for any IP or domain name.
 During cluster creation, kubeadm signs the certificate in the `admin.conf` to have
 `Subject: O = system:masters, CN = kubernetes-admin`.
 [`system:masters`](/docs/reference/access-authn-authz/rbac/#user-facing-roles)
-is a break-glass, super user group that bypasses the authorization layer (e.g. RBAC).
+is a break-glass, super user group that bypasses the authorization layer (for example,
+[RBAC](/docs/reference/access-authn-authz/authorization/rbac/)).
 Sharing the `admin.conf` with additional users is **not recommended**!
 
 Instead, you can use the [`kubeadm kubeconfig user`](/docs/reference/setup-tools/kubeadm/kubeadm-kubeconfig)
