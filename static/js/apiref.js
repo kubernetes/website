@@ -104,3 +104,20 @@ jQuery(function($) {
   // perform an initial update on the navigation
   repaint();
 });
+
+/* handle dark/light mode */
+jQuery(function($) {
+  let button = $('.switch-theme');
+  button.show();
+
+  button.on('click', function() {
+    $('body').toggleClass('theme-dark');
+  });
+
+  // enable dark mode if desired by the user agent
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    $('body').toggleClass('theme-dark');
+  }
+
+  $('body').toggleClass('theme-auto');
+});
