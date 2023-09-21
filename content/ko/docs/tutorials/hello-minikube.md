@@ -15,14 +15,8 @@ card:
 
 <!-- overview -->
 
-이 튜토리얼에서는 Minikube와 Katacoda를 이용하여
-쿠버네티스에서 샘플 애플리케이션을 어떻게 실행하는지 살펴본다.
-Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
-
-{{< note >}}
-로컬에서 Minikube를 설치했다면 이 튜토리얼도 따라 할 수 있다.
-설치 안내는 [minikube 시작](https://minikube.sigs.k8s.io/docs/start/)을 참고한다.
-{{< /note >}}
+이 튜토리얼에서는 Minikube를 이용하여 쿠버네티스에서 샘플 애플리케이션을 어떻게 실행하는지 살펴본다.
+이 튜토리얼은 NGINX를 사용하여 모든 요청에 응답하는 컨테이너 이미지를 제공한다.
 
 ## {{% heading "objectives" %}}
 
@@ -33,31 +27,34 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 ## {{% heading "prerequisites" %}}
 
 
-이 튜토리얼은 NGINX를 사용해서 모든 요청에 응답하는 컨테이너 이미지를 제공한다.
+이 튜토리얼에서는 이미 `minikube`를 설치했다고 가정한다.
+설치 지침은 [minikube 시작](https://minikube.sigs.k8s.io/docs/start/)을 참고하자.
 
+`kubectl`도 설치해야 한다.
+설치 지침은 [도구 설치](/ko/docs/tasks/tools/#kubectl)를 참고하자.
 
 
 <!-- lessoncontent -->
 
 ## minikube 클러스터 만들기
 
-1. **Launch Terminal** 을 클릭
+```shell
+minikube start
+```
 
-    {{< kat-button >}}
+## 대시보드 열기
 
-{{< note >}}
-    minikube를 로컬에 설치했다면 `minikube start`를 실행한다. `minikube dashboard` 명령을 실행하기 전에, 새 터미널을 열고, 그 터미널에서 `minikube dashboard` 명령을 실행한 후, 원래의 터미널로 돌아온다.
-{{< /note >}}
+쿠버네티스 대시보드를 열어보자. 두 가지 다른 방법으로 할 수 있다.
 
-2. 브라우저에서 쿠버네티스 대시보드를 열어보자.
+{{< tabs name="dashboard" >}}
+{{% tab name="브라우저 실행" %}}
+**새로운** 터미널을 열고, 다음을 실행한다.
+```shell
+# 새 터미널을 시작하고, 실행 상태로 둔다.
+minikube dashboard
+```
 
-    ```shell
-    minikube dashboard
-    ```
-
-3. Katacoda 환경에서는: 터미널 패널의 상단에서 플러스를 클릭하고, 이어서 **Select port to view on Host 1** 을 클릭
-
-4. Katacoda 환경에서는: 30000 을 입력하고 **Display Port** 를 클릭.
+이제, `minikube start`를 실행한 터미널로 다시 전환하자.
 
 {{< note >}}
 `minikube dashboard` 명령을 내리면 대시보드 애드온과 프록시가 활성화되고 해당 프록시로 접속하는 기본 웹 브라우저 창이 열린다.
@@ -73,13 +70,22 @@ root 환경에서 명령어를 실행하고 있다면, [URL을 이용하여 대�
 `dashboard` 명령을 다시 실행하여 대시보드에 접근하기 위한 다른 프록시를 생성할 수 있다.
 {{< /note >}}
 
-## URL을 이용하여 대시보드 접속하기 {#open-dashboard-with-url}
+{{% /tab %}}
+{{% tab name="URL 복사 및 붙여넣기" %}}
 
-자동으로 웹 브라우저가 열리는 것을 원치 않는다면, `--url` 플래그와 함께 다음과 같은 명령어를 실행하여 대시보드 접속 URL을 출력할 수 있다.
+Minikube가 웹 브라우저를 열지 않도록 하려면, 다음과 같이 대시보드에 
+`--url` 플래그 명령을 실행하자. `minikube`는 원하는 브라우저에서 열 수 있는 URL을 출력한다.
 
+**새로운** 터미널을 열고, 다음을 실행한다.
 ```shell
+# 새 터미널을 시작하고, 실행 상태로 둔다.
 minikube dashboard --url
 ```
+
+이제, `minikube start`를 실행한 터미널로 다시 전환하자.
+
+{{% /tab %}}
+{{< /tabs >}}
 
 ## 디플로이먼트 만들기
 
@@ -91,9 +97,10 @@ minikube dashboard --url
 파드의 생성 및 스케일링을 관리하는 방법으로 디플로이먼트를 권장한다.
 
 1. `kubectl create` 명령어를 실행하여 파드를 관리할 디플로이먼트를 만든다. 이
-파드는 제공된 Docker 이미지를 기반으로 한 컨테이너를 실행한다.
+    파드는 제공된 Docker 이미지를 기반으로 한 컨테이너를 실행한다.
 
     ```shell
+    # 웹 서버가 포함된 테스트 컨테이너 이미지 실행
     kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.39 -- /agnhost netexec --http-port=8080
     ```
 
@@ -155,7 +162,7 @@ minikube dashboard --url
     `--type=LoadBalancer`플래그는 클러스터 밖의 서비스로 노출하기
     원한다는 뜻이다.
 
-    `registry.k8s.io/echoserver` 이미지 내의 애플리케이션 코드는 TCP 포트 8080에서만 수신한다. `kubectl expose`를
+    테스트 이미지 내의 애플리케이션 코드는 TCP 포트 8080에서만 수신한다. `kubectl expose`를
     사용하여 다른 포트를 노출한 경우, 클라이언트는 다른 포트에 연결할 수 없다.
 
 2. 생성한 서비스 살펴보기
@@ -182,10 +189,6 @@ minikube dashboard --url
     ```shell
     minikube service hello-node
     ```
-
-4. Katacoda 환경에서만: 플러스를 클릭한 후에 **Select port to view on Host 1** 를 클릭.
-
-5. Katacoda 환경에서만: 서비스 출력에서 `8080`의 반대편에 표시되는 5자리 포트 번호를 기록 한다. 이 포트 번호는 무작위로 생성되며, 사용자마다 다를 수 있다. 포트 번호 텍스트 상자에 포트 번호를 입력한 다음, 포트 표시를 클릭한다. 이전 예시를 사용해서 `30369` 를 입력한다.
 
     이렇게 하면 당신의 앱을 서비스하는 브라우저 윈도우를 띄우고 애플리케이션의 응답을 볼 수 있다.
 
@@ -233,7 +236,7 @@ minikube 툴은 활성화하거나 비활성화할 수 있고 로컬 쿠버네�
     The 'metrics-server' addon is enabled
     ```
 
-3. 생성한 파드와 서비스를 확인한다.
+3. 해당 애드온을 설치하여 생성한 파드와 서비스를 확인한다.
 
     ```shell
     kubectl get pod,svc -n kube-system
@@ -283,9 +286,10 @@ kubectl delete service hello-node
 kubectl delete deployment hello-node
 ```
 
-필요하면 Minikube 가상 머신(VM)을 정지한다.
+Minikube 클러스터를 정지한다.
 
 ```shell
+# 선택사항
 minikube stop
 ```
 
@@ -295,7 +299,7 @@ minikube stop
 minikube delete
 ```
 
-
+쿠버네티스에 대해 자세히 알아보기 위해 minikube를 다시 사용하려면, 삭제할 필요가 없다.
 
 ## {{% heading "whatsnext" %}}
 
