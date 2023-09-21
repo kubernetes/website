@@ -404,7 +404,7 @@ $Env:KUBECONFIG=$ENV:KUBECONFIG_SAVED
 동시에 두 개 이상의 클러스터를 관리하는 경우 훨씬 더 어려울 수 있다.
 
 선택되어 있는 쿠버네티스 컨텍스트의 사용자 이름 등에 대한,
-주체 속성을 확인하기 위한 'kubectl' 알파 하위 명령 `kubectl alpha auth whoami`이 있다. 
+주체 속성을 확인하기 위한 'kubectl' 하위 명령 `kubectl auth whoami`이 있다.
 
 더 자세한 내용은 [클라이언트의 인증 정보에 대한 API 액세스](/docs/reference/access-authn-authz/authentication/#self-subject-review)
 를 확인한다.

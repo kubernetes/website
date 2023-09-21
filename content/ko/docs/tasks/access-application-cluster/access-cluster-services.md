@@ -1,6 +1,7 @@
 ---
 title: 클러스터에서 실행되는 서비스에 접근
 content_type: task
+weight: 140
 ---
 
 <!-- overview -->
