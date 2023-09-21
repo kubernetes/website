@@ -2,6 +2,10 @@
 title: "다음 단계는 무엇인가?"
 description: "kubectl을 설치한 다음 해야 하는 것에 대해 설명한다."
 headless: true
+_build:
+  list: never
+  render: never
+  publishResources: false
 ---
 
 * [Minikube 설치](https://minikube.sigs.k8s.io/docs/start/)
