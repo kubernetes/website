@@ -8,7 +8,7 @@ weight: 50
 card:
   name: contribute
   weight: 50
-  title: Localizng the docs
+  title: Localizing the docs
 ---
 
 <!-- overview -->
