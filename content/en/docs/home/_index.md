@@ -46,16 +46,16 @@ cards:
   description: Browse terminology, command line syntax, API resource types, and setup tool documentation.
   button: View Reference
   button_path: /docs/reference
-- name: training
-  title: "Training"
-  description: "Get certified in Kubernetes and make your cloud native projects successful!"
-  button: "View training"
-  button_path: "/training"
 - name: contribute
   title: Contribute to Kubernetes
   description: Anyone can contribute, whether you're new to the project or you've been around a long time.
   button: Find out how to help
   button_path: /docs/contribute
+- name: training
+  title: "Training"
+  description: "Get certified in Kubernetes and make your cloud native projects successful!"
+  button: "View training"
+  button_path: "/training"
 - name: Download
   title: Download Kubernetes
   description: Install Kubernetes or upgrade to the newest version.
