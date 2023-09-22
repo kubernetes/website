@@ -140,7 +140,7 @@ To configure the integer ordinal assigned to each Pod in a StatefulSet, see
 
 Pods in a StatefulSet have a unique ordinal index and a stable network identity.
 
-### Examining the Pod's Ordinal Index
+### Examining the Pod's ordinal index
 
 Get the StatefulSet's Pods:
 
@@ -160,7 +160,7 @@ StatefulSet {{< glossary_tooltip term_id="controller" text="controller">}}.
 The Pods' names take the form `<statefulset name>-<ordinal index>`.
 Since the `web` StatefulSet has two replicas, it creates two Pods, `web-0` and `web-1`.
 
-### Using Stable Network Identities
+### Using stable network identities
 
 Each Pod has a stable hostname based on its ordinal index. Use
 [`kubectl exec`](/docs/reference/generated/kubectl/kubectl-commands/#exec) to execute the
@@ -286,6 +286,7 @@ but the IP addresses associated with the Pods may have changed. In the cluster
 used for this tutorial, they have. This is why it is important not to configure
 other applications to connect to Pods in a StatefulSet by IP address.
 
+#### Discovery for specific Pods in a StatefulSet
 
 If you need to find and connect to the active members of a StatefulSet, you
 should query the CNAME of the headless Service
@@ -300,7 +301,7 @@ liveness and readiness, you can use the SRV records of the Pods (
 application will be able to discover the Pods' addresses when they transition
 to Running and Ready.
 
-### Writing to Stable Storage
+### Writing to stable storage
 
 Get the PersistentVolumeClaims for `web-0` and `web-1`:
 
@@ -406,7 +407,7 @@ This is accomplished by updating the `replicas` field. You can use either
 [`kubectl scale`](/docs/reference/generated/kubectl/kubectl-commands/#scale) or
 [`kubectl patch`](/docs/reference/generated/kubectl/kubectl-commands/#patch) to scale a StatefulSet.
 
-### Scaling Up
+### Scaling up
 
 In one terminal window, watch the Pods in the StatefulSet:
 
@@ -493,7 +494,7 @@ web-3     1/1       Terminating   0         42s
 web-3     1/1       Terminating   0         42s
 ```
 
-### Ordered Pod Termination
+### Ordered Pod termination
 
 The controller deleted one Pod at a time, in reverse order with respect to its
 ordinal index, and it waited for each to be completely shutdown before
@@ -528,7 +529,7 @@ StatefulSet. There are two valid update strategies, `RollingUpdate` and
 
 `RollingUpdate` update strategy is the default for StatefulSets.
 
-### Rolling Update
+### RollingUpdate {#rolling-update}
 
 The `RollingUpdate` update strategy will update all Pods in a StatefulSet, in
 reverse ordinal order, while respecting the StatefulSet guarantees.
@@ -624,7 +625,7 @@ You can also use `kubectl rollout status sts/<name>` to view
 the status of a rolling update to a StatefulSet
 {{< /note >}}
 
-#### Staging an Update
+#### Staging an update
 
 You can stage an update to a StatefulSet by using the `partition` parameter of
 the `RollingUpdate` update strategy. A staged update will keep all of the Pods
@@ -685,7 +686,7 @@ restored the Pod with its original container. This is because the
 ordinal of the Pod is less than the `partition` specified by the
 `updateStrategy`.
 
-#### Rolling Out a Canary
+#### Rolling out a canary
 
 You can roll out a canary to test a modification by decrementing the `partition`
 you specified [above](#staging-an-update).
@@ -771,7 +772,7 @@ StatefulSet's `.spec.template` is updated. If a Pod that has an ordinal less
 than the partition is deleted or otherwise terminated, it will be restored to
 its original configuration.
 
-#### Phased Roll Outs
+#### Phased roll outs
 
 You can perform a phased roll out (e.g. a linear, geometric, or exponential
 roll out) using a partitioned rolling update in a similar manner to how you
@@ -826,7 +827,7 @@ registry.k8s.io/nginx-slim:0.7
 By moving the `partition` to `0`, you allowed the StatefulSet to
 continue the update process.
 
-### On Delete
+### OnDelete {#on-delete}
 
 The `OnDelete` update strategy implements the legacy (1.6 and prior) behavior,
 When you select this update strategy, the StatefulSet controller will not
@@ -841,7 +842,7 @@ StatefulSet supports both Non-Cascading and Cascading deletion. In a
 Non-Cascading Delete, the StatefulSet's Pods are not deleted when the StatefulSet is deleted. In a Cascading Delete, both the StatefulSet and its Pods are
 deleted.
 
-### Non-Cascading Delete
+### Non-cascading delete
 
 In one terminal window, watch the Pods in the StatefulSet.
 
@@ -962,7 +963,7 @@ because the StatefulSet never deletes the PersistentVolumes associated with a
 Pod. When you recreated the StatefulSet and it relaunched `web-0`, its original
 PersistentVolume was remounted.
 
-### Cascading Delete
+### Cascading delete
 
 In one terminal window, watch the Pods in the StatefulSet.
 
@@ -1070,20 +1071,20 @@ kubectl delete statefulset web
 statefulset "web" deleted
 ```
 
-## Pod Management Policy
+## Pod management policy
 
 For some distributed systems, the StatefulSet ordering guarantees are
 unnecessary and/or undesirable. These systems require only uniqueness and
 identity. To address this, in Kubernetes 1.7, we introduced
 `.spec.podManagementPolicy` to the StatefulSet API Object.
 
-### OrderedReady Pod Management
+### OrderedReady Pod management
 
 `OrderedReady` pod management is the default for StatefulSets. It tells the
 StatefulSet controller to respect the ordering guarantees demonstrated
 above.
 
-### Parallel Pod Management
+### Parallel Pod management
 
 `Parallel` pod management tells the StatefulSet controller to launch or
 terminate all Pods in parallel, and not to wait for Pods to become Running
