@@ -123,7 +123,7 @@ Create a Service to track all Cassandra StatefulSet members from the `cassandra-
 
 以下 Service 用于在 Cassandra Pod 和集群中的客户端之间进行 DNS 查找：
 
-{{< codenew file="application/cassandra/cassandra-service.yaml" >}}
+{{% code_sample file="application/cassandra/cassandra-service.yaml" %}}
 
 创建一个 Service 来跟踪 `cassandra-service.yaml` 文件中的所有 Cassandra StatefulSet：
 
@@ -181,7 +181,7 @@ Please update the following StatefulSet for the cloud you are working with.
 请为正在使用的云更新以下 StatefulSet。
 {{< /note >}}
 
-{{< codenew file="application/cassandra/cassandra-statefulset.yaml" >}}
+{{% code_sample file="application/cassandra/cassandra-statefulset.yaml" %}}
 
 <!--
 Create the Cassandra StatefulSet from the `cassandra-statefulset.yaml` file:
@@ -438,6 +438,6 @@ By using environment variables you can change values that are inserted into `cas
 * See more custom [Seed Provider Configurations](https://git.k8s.io/examples/cassandra/java/README.md)
 -->
 * 了解如何[扩缩 StatefulSet](/docs/tasks/run-application/scale-stateful-set/)。
-* 了解有关 [*KubernetesSeedProvider*](https://github.com/kubernetes/examples/blob/master/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java) 的更多信息
+* 了解有关 [**KubernetesSeedProvider**](https://github.com/kubernetes/examples/blob/master/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java) 的更多信息
 * 查看更多自定义 [Seed Provider Configurations](https://git.k8s.io/examples/cassandra/java/README.md)
 
