@@ -196,6 +196,29 @@ of time (which helps ensure the fidelity of logs and audit records).
 For a high assurance environment, deploy cryptographic protections to ensure that
 logs are both tamper-proof and confidential.
 
+## Cloud provider security
+
+{{% thirdparty-content vendor="true" %}}
+
+If you are running a Kubernetes cluster on your own hardware or a different cloud provider,
+consult your documentation for security best practices.
+Here are links to some of the popular cloud providers' security documentation:
+
+{{< table caption="Cloud provider security" >}}
+
+IaaS Provider        | Link |
+-------------------- | ------------ |
+Alibaba Cloud | https://www.alibabacloud.com/trust-center |
+Amazon Web Services | https://aws.amazon.com/security |
+Google Cloud Platform | https://cloud.google.com/security |
+Huawei Cloud | https://www.huaweicloud.com/intl/en-us/securecenter/overallsafety |
+IBM Cloud | https://www.ibm.com/cloud/security |
+Microsoft Azure | https://docs.microsoft.com/en-us/azure/security/azure-security |
+Oracle Cloud Infrastructure | https://www.oracle.com/security |
+VMware vSphere | https://www.vmware.com/security/hardening-guides |
+
+{{< /table >}}
+
 ## Policies
 
 You can define security policies using Kubernetes-native mechanisms,
