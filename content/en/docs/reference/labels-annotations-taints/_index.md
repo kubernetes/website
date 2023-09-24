@@ -299,14 +299,16 @@ This annotation is part of the Kubernetes Resource Model (KRM) Functions Specifi
 which is used by Kustomize and similar third-party tools.
 For example, Kustomize removes objects with this annotation from its final build output.
 
-### container.apparmor.security.beta.kubernetes.io
+### container.apparmor.security.beta.kubernetes.io/* (beta) {#container-apparmor-security-beta-kubernetes-io}
 Type: Annotation
 
 Example: `container.apparmor.security.beta.kubernetes.io/my-container: my-custom-profile`
 
-Used on: pods
+Used on: Pods
 
-The `container.apparmor.security.beta.kubernetes.io/my-container annotation` allows you to specify the AppArmor security profile for a container within a Kubernetes pod. AppArmor is a Linux kernel security module that restricts the capabilities and access rights of processes within a container, enhancing the security of your workloads.
+This annotation allows you to specify the AppArmor security profile for a container within a
+Kubernetes pod. AppArmor is a Linux kernel security module that restricts the capabilities
+and access rights of processes within a container, enhancing the security of your workloads. Just look for the [apparmor](https://kubernetes.io/docs/tutorials/security/apparmor/) for more details.
 
 By setting this annotation, you can define a custom AppArmor profile for a container, which dictates the set of rules and restrictions that the containerized process must adhere to. This helps enforce security policies and isolation for your containers.
 
