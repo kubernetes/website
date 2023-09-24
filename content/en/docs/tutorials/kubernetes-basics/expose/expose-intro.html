@@ -114,6 +114,14 @@ description: |-
 				<code><b>echo "NODE_PORT=$NODE_PORT"</b></code></p>
 				<p>Now we can test that the app is exposed outside of the cluster using <code>curl</code>, the IP address of the Node and the externally exposed port:</p>
 				<p><code><b>curl http://"$(minikube ip):$NODE_PORT"</b></code></p>
+        {{< note >}}<p>If Docker is the container runtime, a minikube tunnel is needed. This is because Docker Desktop does not support ports. <br>
+				<p>In a separate terminal window, execute:<br>
+				<code><b>$ minikube service kubernetes-bootcamp --url</b></code></p>
+				<p>The output looks like this:
+				<pre><b>http://127.0.0.1:51082<br>!  Because you are using a Docker driver on darwin, the terminal needs to be open to run it.</b></pre></p>
+				<p>Then use the given URL to access the app:<br>
+				<code><b>$ curl 127.0.0.1:51082</b></code></p>
+				{{< /note >}}
 				<p>And we get a response from the server. The Service is exposed.</p>
 			</div>
 		</div>
