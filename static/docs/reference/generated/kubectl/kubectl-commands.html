@@ -1503,7 +1503,8 @@ inspect them.</p>
   nodes to pull images on your behalf, they must have the credentials.  You can provide this information
   by creating a dockercfg secret and attaching it to your service account.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ kubectl create docker-registry NAME --docker-username=user --docker-password=password --docker-email=email [--docker-server=string] [--from-file=[key=]source] [--dry-run=server|client|none]</code></p>
+<p><code>$ kubectl create secret docker-registry NAME --docker-username=user --docker-password=password --docker-email=email [--docker-server=string] [--from-file=[key=]source] [--dry-run=server|client|none]
+</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
