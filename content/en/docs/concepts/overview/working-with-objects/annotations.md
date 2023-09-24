@@ -17,7 +17,8 @@ objects. Labels can be used to select objects and to find
 collections of objects that satisfy certain conditions. In contrast, annotations
 are not used to identify and select objects. The metadata
 in an annotation can be small or large, structured or unstructured, and can
-include characters not permitted by labels.
+include characters not permitted by labels. It is also possible to use labels with 
+annotations to attach metadata to Kubernetes objects
 
 Annotations, like labels, are key/value maps:
 
