@@ -39,8 +39,8 @@ Note: The password is defined in the config yaml, and this is insecure. See
 [Kubernetes Secrets](/docs/concepts/configuration/secret/)
 for a secure solution.
 
-{{% code file="application/mysql/mysql-deployment.yaml" %}}
-{{% code file="application/mysql/mysql-pv.yaml" %}}
+{{% code_sample file="application/mysql/mysql-deployment.yaml" %}}
+{{% code_sample file="application/mysql/mysql-pv.yaml" %}}
 
 1. Deploy the PV and PVC of the YAML file:
 

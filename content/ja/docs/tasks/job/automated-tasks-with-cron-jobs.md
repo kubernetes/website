@@ -27,7 +27,7 @@ CronJobには制限と特性があります。たとえば、特定の状況下�
 
 CronJobには設定ファイルが必要です。次の例のCronJobの`.spec`は、現在の時刻とhelloというメッセージを1分ごとに表示します。
 
-{{< codenew file="application/job/cronjob.yaml" >}}
+{{% codenew file="application/job/cronjob.yaml" %}}
 
 次のコマンドで例のCronJobを実行します。
 

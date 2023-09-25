@@ -149,7 +149,6 @@ releases may also occur in between these.
 <!--
 | Monthly Patch Release | Cherry Pick Deadline | Target date |
 | --------------------- | -------------------- | ----------- |
-| August 2023           | 2023-08-04           | 2023-08-09  |
 | September 2023        | 2023-09-08           | 2023-09-13  |
 | October 2023          | 2023-10-13           | 2023-10-18  |
 | November 2023         | N/A                  | N/A         |
@@ -157,19 +156,18 @@ releases may also occur in between these.
 -->
 | 月度补丁发布   | Cherry Pick 截止日期 | 目标日期     |
 |--------------|---------------------|------------|
-| 2023 年 8 月  | 2023-08-04         | 2023-08-09  |
 | 2023 年 9 月  | 2023-09-08         | 2023-09-13  |
 | 2023 年 10 月 | 2023-10-13         | 2023-10-18  |
 | 2023 年 11 月 | N/A                | N/A         |
 | 2023 年 12 月 | 2023-12-01         | 2023-12-06  |
 
 <!--
-**Note:** Due to overlap with KubeCon NA 2023 and lack of availability of
-Release Managers and Google Build Admins, it has been decided to skip patch
-releases in November. Instead, we'll have patch releases early in December.
+**Note:** Due to overlap with KubeCon NA 2023 and the resulting lack of
+availability of Release Managers, it has been decided to skip patch releases
+in November. Instead, we'll have patch releases early in December.
 -->
-**注意：**由于与 KubeCon NA 2023 时间冲突以及缺少可用的 Release Manager 和
-Google Build Admin，我们决定在 11 月跳过补丁版本发布。而是在 12 月初发布补丁版本。
+**注意：**由于与 KubeCon NA 2023 时间冲突以及由此导致的缺少 Release Manager，
+我们决定在 11 月跳过补丁版本发布。而是在 12 月初发布补丁版本。
 
 <!--
 ## Detailed Release History for Active Branches
@@ -188,14 +186,3 @@ These releases are no longer supported.
 不再支持这些版本。
 
 {{< eol-releases >}}
-
-<!--
-[cherry-picks]: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/cherry-picks.md
-[release-managers]: /releases/release-managers
-[release process description]: /releases/release
-[yearly-support]: https://git.k8s.io/enhancements/keps/sig-release/1498-kubernetes-yearly-support-period/README.md
--->
-[精选提交]：https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/cherry-picks.md
-[发布管理员]：/zh-cn/releases/release-managers
-[发布流程介绍]：/zh-cn/releases/release
-[年度支持]：https://git.k8s.io/enhancements/keps/sig-release/1498-kubernetes-yearly-support-period/README.md

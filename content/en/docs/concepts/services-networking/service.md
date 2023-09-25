@@ -246,7 +246,8 @@ ports:
     port: 9376
 endpoints:
   - addresses:
-      - "10.4.5.6" # the IP addresses in this list can appear in any order
+      - "10.4.5.6"
+  - addresses:
       - "10.1.2.3"
 ```
 

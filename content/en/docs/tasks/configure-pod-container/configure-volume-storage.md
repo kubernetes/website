@@ -28,7 +28,7 @@ Volume of type
 that lasts for the life of the Pod, even if the Container terminates and
 restarts. Here is the configuration file for the Pod:
 
-{{% code file="pods/storage/redis.yaml" %}}
+{{% code_sample file="pods/storage/redis.yaml" %}}
 
 1. Create the Pod:
 

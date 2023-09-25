@@ -93,4 +93,5 @@ spec:
 
 ## {{% heading "whatsnext" %}}
 
-Learn more about [Labels and Selectors](/docs/concepts/overview/working-with-objects/labels/).
+- Learn more about [Labels and Selectors](/docs/concepts/overview/working-with-objects/labels/).
+- Find [Well-known labels, Annotations and Taints](/docs/reference/labels-annotations-taints/)

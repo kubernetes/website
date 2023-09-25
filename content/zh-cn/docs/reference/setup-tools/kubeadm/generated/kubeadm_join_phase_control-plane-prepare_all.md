@@ -1,31 +1,17 @@
 <!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
-
-<!--
 Prepare the machine for serving a control plane
 -->
-准备为控制平面服务的机器
+准备为控制平面服务的机器。
 
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
 Prepare the machine for serving a control plane
 -->
-
-准备为控制平面服务的机器
+准备为控制平面服务的机器。
 
 ```
 kubeadm join phase control-plane-prepare all [api-server-endpoint] [flags]
@@ -34,7 +20,6 @@ kubeadm join phase control-plane-prepare all [api-server-endpoint] [flags]
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -86,7 +71,7 @@ If the node should host a new control plane instance, the port for the API Serve
 Use this key to decrypt the certificate secrets uploaded by init.
 -->
 <p>
-使用此密钥解密由 init 上传的证书 secrets。
+使用此密钥解密由 init 上传的证书 Secret。
 </p>
 </td>
 </tr>
@@ -114,7 +99,7 @@ kubeadm 配置文件的路径。
 Create a new control plane instance on this node
 -->
 <p>
-在此节点上创建一个新的控制平面实例
+在此节点上创建一个新的控制平面实例。
 </p>
 </td>
 </tr>
@@ -197,7 +182,7 @@ Don't apply any changes; just output what would be done.
 <!--
 help for all
 -->
-all 操作的帮助命令
+all 操作的帮助命令。
 </td>
 </tr>
 
@@ -264,7 +249,6 @@ Use this token for both discovery-token and tls-bootstrap-token when those value
 
 </tbody>
 </table>
-
 
 <!--
 ### Options inherited from parent commands

@@ -178,6 +178,12 @@ body.cid-training .button {
   text-align: center;
 }
 
+body.cid-training .button:hover {
+  background-color: #2357b0; 
+}
+
+
+
 body.cid-training h5 {
   font-size: 16px;
   font-weight: 500;

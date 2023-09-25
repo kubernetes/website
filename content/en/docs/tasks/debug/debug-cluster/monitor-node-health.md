@@ -42,7 +42,7 @@ to detect customized node problems. For example:
 
 1. Create a Node Problem Detector configuration similar to `node-problem-detector.yaml`:
 
-   {{% code file="debug/node-problem-detector.yaml" %}}
+   {{% code_sample file="debug/node-problem-detector.yaml" %}}
 
    {{< note >}}
    You should verify that the system log directory is right for your operating system distribution.
@@ -80,7 +80,7 @@ to overwrite the configuration:
 
 1. Change the `node-problem-detector.yaml` to use the `ConfigMap`:
 
-   {{% code file="debug/node-problem-detector-configmap.yaml" %}}
+   {{% code_sample file="debug/node-problem-detector-configmap.yaml" %}}
 
 1. Recreate the Node Problem Detector with the new configuration file:
 

@@ -4,7 +4,10 @@ content_type: concept
 weight: 10
 card:
   name: contribute
-  weight: 20
+  weight: 15
+  anchors:
+  - anchor: "#opening-an-issue"
+    title: 提出内容改进建议
 ---
 <!--
 title: Suggesting content improvements
@@ -12,13 +15,18 @@ content_type: concept
 weight: 10
 card:
   name: contribute
-  weight: 20
+  weight: 15
+  anchors:
+  - anchor: "#opening-an-issue"
+    title: Suggest content improvements
 -->
 
 <!-- overview -->
 
 <!--
-If you notice an issue with Kubernetes documentation or have an idea for new content, then open an issue. All you need is a [GitHub account](https://github.com/join) and a web browser.
+If you notice an issue with Kubernetes documentation or have an idea for new content,
+then open an issue. All you need is a [GitHub account](https://github.com/join) and
+a web browser.
 
 In most cases, new work on Kubernetes documentation begins with an issue in GitHub. Kubernetes contributors
 then review, categorize and tag issues as needed. Next, you or another member
@@ -115,4 +123,3 @@ fellow contributors. For example, "The docs are terrible" is not
   例如：`Introduced by #987654`。
 - 遵从[行为准则](/zh-cn/community/code-of-conduct/)。尊重同行贡献者。
   例如，"The docs are terrible" 就是无用且无礼的反馈。
-

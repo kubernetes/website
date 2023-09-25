@@ -30,11 +30,11 @@ see the [all-in-one volume](https://git.k8s.io/design-proposals-archive/node/all
 
 ### Example configuration with a secret, a downwardAPI, and a configMap {#example-configuration-secret-downwardapi-configmap}
 
-{{% code file="pods/storage/projected-secret-downwardapi-configmap.yaml" %}}
+{{% code_sample file="pods/storage/projected-secret-downwardapi-configmap.yaml" %}}
 
 ### Example configuration: secrets with a non-default permission mode set {#example-configuration-secrets-nondefault-permission-mode}
 
-{{% code file="pods/storage/projected-secrets-nondefault-permission-mode.yaml" %}}
+{{% code_sample file="pods/storage/projected-secrets-nondefault-permission-mode.yaml" %}}
 
 Each projected volume source is listed in the spec under `sources`. The
 parameters are nearly the same with two exceptions:
@@ -49,7 +49,7 @@ parameters are nearly the same with two exceptions:
 You can inject the token for the current [service account](/docs/reference/access-authn-authz/authentication/#service-account-tokens)
 into a Pod at a specified path. For example:
 
-{{% code file="pods/storage/projected-service-account-token.yaml" %}}
+{{% code_sample file="pods/storage/projected-service-account-token.yaml" %}}
 
 The example Pod has a projected volume containing the injected service account
 token. Containers in this Pod can use that token to access the Kubernetes API

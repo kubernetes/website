@@ -50,7 +50,10 @@ Kubernetes concepts.
 - [kubectl CLI](/zh-cn/docs/reference/kubectl/kubectl/)
 
 <!--
-You must have a cluster with at least four nodes, and each node requires at least 2 CPUs and 4 GiB of memory. In this tutorial you will cordon and drain the cluster's nodes. **This means that the cluster will terminate and evict all Pods on its nodes, and the nodes will temporarily become unschedulable.** You should use a dedicated cluster for this tutorial, or you should ensure that the disruption you cause will not interfere with other tenants.
+You must have a cluster with at least four nodes, and each node requires at least 2 CPUs and 4 GiB of memory.
+In this tutorial you will cordon and drain the cluster's nodes. **This means that the cluster will terminate
+and evict all Pods on its nodes, and the nodes will temporarily become unschedulable.** You should use a dedicated
+cluster for this tutorial, or you should ensure that the disruption you cause will not interfere with other tenants.
 -->
 你需要一个至少包含四个节点的集群，每个节点至少 2 个 CPU 和 4 GiB 内存。
 在本教程中你将会隔离（Cordon）和腾空（Drain ）集群的节点。
@@ -109,7 +112,11 @@ ZooKeeper 通过
 一致性协议在 ensemble 的所有服务器之间复制一个状态机来确保这个特性。
 
 <!--
-The ensemble uses the Zab protocol to elect a leader, and the ensemble cannot write data until that election is complete. Once complete, the ensemble uses Zab to ensure that it replicates all writes to a quorum before it acknowledges and makes them visible to clients. Without respect to weighted quorums, a quorum is a majority component of the ensemble containing the current leader. For instance, if the ensemble has three servers, a component that contains the leader and one other server constitutes a quorum. If the ensemble can not achieve a quorum, the ensemble cannot write data.
+The ensemble uses the Zab protocol to elect a leader, and the ensemble cannot write data until that election is complete.
+Once complete, the ensemble uses Zab to ensure that it replicates all writes to a quorum before it acknowledges and makes
+them visible to clients. Without respect to weighted quorums, a quorum is a majority component of the ensemble containing
+the current leader. For instance, if the ensemble has three servers, a component that contains the leader and one other
+server constitutes a quorum. If the ensemble can not achieve a quorum, the ensemble cannot write data.
 -->
 Ensemble 使用 Zab 协议选举一个领导者，在选举出领导者前不能写入数据。
 一旦选举出了领导者，ensemble 使用 Zab 保证所有写入被复制到一个 quorum，
@@ -144,7 +151,7 @@ and a [StatefulSet](/docs/concepts/workloads/controllers/statefulset/).
 一个 [PodDisruptionBudget](/zh-cn/docs/concepts/workloads/pods/disruptions/#specifying-a-poddisruptionbudget)
 和一个 [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/)。
 
-{{< codenew file="application/zookeeper/zookeeper.yaml" >}}
+{{% code_sample file="application/zookeeper/zookeeper.yaml" %}}
 
 <!--
 Open a terminal, and use the
@@ -219,7 +226,9 @@ StatefulSet 控制器创建 3 个 Pod，每个 Pod 包含一个
 <!--
 ### Facilitating Leader Election
 
-Because there is no terminating algorithm for electing a leader in an anonymous network, Zab requires explicit membership configuration to perform leader election. Each server in the ensemble needs to have a unique identifier, all servers need to know the global set of identifiers, and each identifier needs to be associated with a network address.
+Because there is no terminating algorithm for electing a leader in an anonymous network, Zab requires
+explicit membership configuration to perform leader election. Each server in the ensemble needs to have
+a unique identifier, all servers need to know the global set of identifiers, and each identifier needs to be associated with a network address.
 
 Use [`kubectl exec`](/docs/reference/generated/kubectl/kubectl-commands/#exec) to get the hostnames
 of the Pods in the `zk` StatefulSet.
@@ -239,8 +248,10 @@ for i in 0 1 2; do kubectl exec zk-$i -- hostname; done
 ```
 
 <!--
-The StatefulSet controller provides each Pod with a unique hostname based on its ordinal index. The hostnames take the form of `<statefulset name>-<ordinal index>`. Because the `replicas` field of the `zk` StatefulSet is set to `3`, the Set's controller creates three Pods with their hostnames set to `zk-0`, `zk-1`, and
-`zk-2`.
+The StatefulSet controller provides each Pod with a unique hostname based on its ordinal index.
+The hostnames take the form of `<statefulset name>-<ordinal index>`. Because the `replicas`
+field of the `zk` StatefulSet is set to `3`, the Set's controller creates three Pods with their
+hostnames set to `zk-0`, `zk-1`, and `zk-2`.
 -->
 StatefulSet 控制器基于每个 Pod 的序号索引为它们各自提供一个唯一的主机名。
 主机名采用 `<statefulset 名称>-<序数索引>` 的形式。
@@ -303,7 +314,9 @@ zk-2.zk-hs.default.svc.cluster.local
 ```
 
 <!--
-The A records in [Kubernetes DNS](/docs/concepts/services-networking/dns-pod-service/) resolve the FQDNs to the Pods' IP addresses. If Kubernetes reschedules the Pods, it will update the A records with the Pods' new IP addresses, but the A records names will not change.
+The A records in [Kubernetes DNS](/docs/concepts/services-networking/dns-pod-service/) resolve
+the FQDNs to the Pods' IP addresses. If Kubernetes reschedules the Pods, it will update the
+A records with the Pods' new IP addresses, but the A records names will not change.
 
 ZooKeeper stores its application configuration in a file named `zoo.cfg`. Use `kubectl exec` to view the contents of the `zoo.cfg` file in the `zk-0` Pod.
 -->
@@ -349,7 +362,10 @@ server.3=zk-2.zk-hs.default.svc.cluster.local:2888:3888
 <!--
 ### Achieving consensus
 
-Consensus protocols require that the identifiers of each participant be unique. No two participants in the Zab protocol should claim the same unique identifier. This is necessary to allow the processes in the system to agree on which processes have committed which data. If two Pods are launched with the same ordinal, two ZooKeeper servers would both identify themselves as the same server.
+Consensus protocols require that the identifiers of each participant be unique. No two participants
+in the Zab protocol should claim the same unique identifier. This is necessary to allow the processes
+in the system to agree on which processes have committed which data. If two Pods are launched with
+the same ordinal, two ZooKeeper servers would both identify themselves as the same server.
 -->
 ### 达成共识   {#achieving-consensus}
 
@@ -412,7 +428,9 @@ server.3=zk-2.zk-hs.default.svc.cluster.local:2888:3888
 ```
 
 <!--
-When the servers use the Zab protocol to attempt to commit a value, they will either achieve consensus and commit the value (if leader election has succeeded and at least two of the Pods are Running and Ready), or they will fail to do so (if either of the conditions are not met). No state will arise where one server acknowledges a write on behalf of another.
+When the servers use the Zab protocol to attempt to commit a value, they will either achieve consensus and commit the
+value (if leader election has succeeded and at least two of the Pods are Running and Ready), or they will fail to
+do so (if either of the conditions are not met). No state will arise where one server acknowledges a write on behalf of another.
 -->
 当服务器使用 Zab 协议尝试提交一个值的时候，它们会达成一致并成功提交这个值
 （如果领导者选举成功并且至少有两个 Pod 处于 Running 和 Ready 状态），
@@ -734,7 +752,8 @@ kubectl get sts zk -o yaml
 ```
 
 <!--
-The command used to start the ZooKeeper servers passed the configuration as command line parameter. You can also use environment variables to pass configuration to the ensemble.
+The command used to start the ZooKeeper servers passed the configuration as command line parameter.
+You can also use environment variables to pass configuration to the ensemble.
 -->
 用于启动 ZooKeeper 服务器的命令将这些配置作为命令行参数传给了 ensemble。
 你也可以通过环境变量来传入这些配置。
@@ -889,7 +908,8 @@ F S UID        PID  PPID  C PRI  NI ADDR SZ WCHAN  STIME TTY          TIME CMD
 ```
 
 <!--
-By default, when the Pod's PersistentVolumes is mounted to the ZooKeeper server's data directory, it is only accessible by the root user. This configuration prevents the ZooKeeper process from writing to its WAL and storing its snapshots.
+By default, when the Pod's PersistentVolumes is mounted to the ZooKeeper server's data directory,
+it is only accessible by the root user. This configuration prevents the ZooKeeper process from writing to its WAL and storing its snapshots.
 
 Use the command below to get the file permissions of the ZooKeeper data directory on the `zk-0` Pod.
 -->
@@ -903,7 +923,8 @@ kubectl exec -ti zk-0 -- ls -ld /var/lib/zookeeper/data
 ```
 
 <!--
-Because the `fsGroup` field of the `securityContext` object is set to 1000, the ownership of the Pods' PersistentVolumes is set to the zookeeper group, and the ZooKeeper process is able to read and write its data.
+Because the `fsGroup` field of the `securityContext` object is set to 1000, the ownership of the Pods'
+PersistentVolumes is set to the zookeeper group, and the ZooKeeper process is able to read and write its data.
 -->
 由于 `securityContext` 对象的 `fsGroup` 字段设置为 1000，
 Pod 的 PersistentVolume 的所有权属于 zookeeper 用户组，
@@ -1698,4 +1719,3 @@ You should always allocate additional capacity for critical services so that the
 * 使用 `kubectl uncordon` 解除你集群中所有节点的隔离。
 * 你需要删除在本教程中使用的 PersistentVolume 的持久存储介质。
   请遵循必须的步骤，基于你的环境、存储配置和制备方法，保证回收所有的存储。
-

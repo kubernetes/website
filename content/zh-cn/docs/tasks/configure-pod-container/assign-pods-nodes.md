@@ -100,7 +100,7 @@ a `disktype=ssd` label.
 此 Pod 配置文件描述了一个拥有节点选择器 `disktype: ssd` 的 Pod。这表明该 Pod
 将被调度到有 `disktype=ssd` 标签的节点。
 
-{{% codenew file="pods/pod-nginx.yaml" %}}
+{{% code_sample file="pods/pod-nginx.yaml" %}}
 
 <!--
 1. Use the configuration file to create a pod that will get scheduled on your
@@ -140,7 +140,7 @@ You can also schedule a pod to one specific node via setting `nodeName`.
 
 你也可以通过设置 `nodeName` 将某个 Pod 调度到特定的节点。
 
-{{% codenew file="pods/pod-nginx-specific-node.yaml" %}}
+{{% code_sample file="pods/pod-nginx-specific-node.yaml" %}}
 
 <!--
 Use the configuration file to create a pod that will get scheduled on `foo-node` only.
@@ -155,4 +155,3 @@ Use the configuration file to create a pod that will get scheduled on `foo-node`
 -->
 * 进一步了解[标签和选择算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/)
 * 进一步了解[节点](/zh-cn/docs/concepts/architecture/nodes/)
-

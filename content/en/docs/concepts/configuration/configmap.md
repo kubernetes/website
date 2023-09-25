@@ -29,10 +29,12 @@ that exposes the database component to your cluster.
 This lets you fetch a container image running in the cloud and
 debug the exact same code locally if needed.
 
+{{< note >}}
 A ConfigMap is not designed to hold large chunks of data. The data stored in a
 ConfigMap cannot exceed 1 MiB. If you need to store settings that are
 larger than this limit, you may want to consider mounting a volume or use a
 separate database or file service.
+{{< /note >}}
 
 ## ConfigMap object
 
@@ -111,7 +113,7 @@ technique also lets you access a ConfigMap in a different namespace.
 
 Here's an example Pod that uses values from `game-demo` to configure a Pod:
 
-{{% code file="configmap/configure-pod.yaml" %}}
+{{% code_sample file="configmap/configure-pod.yaml" %}}
 
 A ConfigMap doesn't differentiate between single line property values and
 multi-line file-like values.

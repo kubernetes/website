@@ -56,7 +56,7 @@ cannot define resources so these restrictions do not apply.
 Here is a manifest for a Pod that has one Container. The Container has a memory limit and a
 memory request, both equal to 200 MiB. The Container has a CPU limit and a CPU request, both equal to 700 milliCPU:
 
-{{% code file="pods/qos/qos-pod.yaml" %}}
+{{% code_sample file="pods/qos/qos-pod.yaml" %}}
 
 Create the Pod:
 
@@ -116,7 +116,7 @@ A Pod is given a QoS class of `Burstable` if:
 Here is a manifest for a Pod that has one Container. The Container has a memory limit of 200 MiB
 and a memory request of 100 MiB.
 
-{{% code file="pods/qos/qos-pod-2.yaml" %}}
+{{% code_sample file="pods/qos/qos-pod-2.yaml" %}}
 
 Create the Pod:
 
@@ -165,7 +165,7 @@ have any memory or CPU limits or requests.
 Here is a manifest for a Pod that has one Container. The Container has no memory or CPU
 limits or requests:
 
-{{% code file="pods/qos/qos-pod-3.yaml" %}}
+{{% code_sample file="pods/qos/qos-pod-3.yaml" %}}
 
 Create the Pod:
 
@@ -205,7 +205,7 @@ kubectl delete pod qos-demo-3 --namespace=qos-example
 Here is a manifest for a Pod that has two Containers. One container specifies a memory
 request of 200 MiB. The other Container does not specify any requests or limits.
 
-{{% code file="pods/qos/qos-pod-4.yaml" %}}
+{{% code_sample file="pods/qos/qos-pod-4.yaml" %}}
 
 Notice that this Pod meets the criteria for QoS class `Burstable`. That is, it does not meet the
 criteria for QoS class `Guaranteed`, and one of its Containers has a memory request.

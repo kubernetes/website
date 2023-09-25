@@ -68,7 +68,7 @@ In Kubernetes, a {{< glossary_tooltip text="Service" term_id="service" >}} descr
 
 The following Service is used for DNS lookups between Cassandra Pods and clients within your cluster:
 
-{{% code file="application/cassandra/cassandra-service.yaml" %}}
+{{% code_sample file="application/cassandra/cassandra-service.yaml" %}}
 
 Create a Service to track all Cassandra StatefulSet members from the `cassandra-service.yaml` file:
 
@@ -105,7 +105,7 @@ This example uses the default provisioner for Minikube.
 Please update the following StatefulSet for the cloud you are working with.
 {{< /note >}}
 
-{{% code file="application/cassandra/cassandra-statefulset.yaml" %}}
+{{% code_sample file="application/cassandra/cassandra-statefulset.yaml" %}}
 
 Create the Cassandra StatefulSet from the `cassandra-statefulset.yaml` file:
 

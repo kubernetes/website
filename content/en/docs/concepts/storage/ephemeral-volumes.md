@@ -192,7 +192,7 @@ spec:
 ### Lifecycle and PersistentVolumeClaim
 
 The key design idea is that the
-[parameters for a volume claim](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ephemeralvolumesource-v1alpha1-core)
+[parameters for a volume claim](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ephemeralvolumesource-v1-core)
 are allowed inside a volume source of the Pod. Labels, annotations and
 the whole set of fields for a PersistentVolumeClaim are supported. When such a Pod gets
 created, the ephemeral volume controller then creates an actual PersistentVolumeClaim
@@ -224,7 +224,7 @@ volume.
 ### PersistentVolumeClaim naming
 
 Naming of the automatically created PVCs is deterministic: the name is
-a combination of Pod name and volume name, with a hyphen (`-`) in the
+a combination of the Pod name and volume name, with a hyphen (`-`) in the
 middle. In the example above, the PVC name will be
 `my-app-scratch-volume`.  This deterministic naming makes it easier to
 interact with the PVC because one does not have to search for it once

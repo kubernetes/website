@@ -346,7 +346,7 @@ An *Alpha* feature means:
 
 A *Beta* feature means:
 
-* Enabled by default.
+* Usually enabled by default. Beta API groups are [disabled by default](https://github.com/kubernetes/enhancements/tree/master/keps/sig-architecture/3136-beta-apis-off-by-default).
 * The feature is well tested. Enabling the feature is considered safe.
 * Support for the overall feature will not be dropped, though details may change.
 * The schema and/or semantics of objects may change in incompatible ways in a
@@ -586,7 +586,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `KubeletPodResourcesGetAllocatable`: Enable the kubelet's pod resources
   `GetAllocatableResources` functionality. This API augments the
   [resource allocation reporting](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources)
-- `KubeletPodResourcesDynamiceResources`: Extend the kubelet's pod resources gRPC endpoint to
+- `KubeletPodResourcesDynamicResources`: Extend the kubelet's pod resources gRPC endpoint to
   to include resources allocated in `ResourceClaims` via `DynamicResourceAllocation` API.
   See [resource allocation reporting](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources) for more details.
   with informations about the allocatable resources, enabling clients to properly

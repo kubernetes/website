@@ -322,6 +322,7 @@ spec:
   containers:
     - name: test
       image: busybox:1.28
+      command: ['sh', '-c', 'echo "The app is running!" && tail -f /dev/null']
       volumeMounts:
         - name: config-vol
           mountPath: /etc/config
@@ -458,11 +459,11 @@ overlays), the `emptyDir` may run out of capacity before this limit.
 <!--
 If the `SizeMemoryBackedVolumes` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled,
 you can specify a size for memory backed volumes.  If no size is specified, memory
-backed volumes are sized to 50% of the memory on a Linux host.
+backed volumes are sized to node allocatable memory.
 -->
 当启用 `SizeMemoryBackedVolumes` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)时，
 你可以为基于内存提供的卷指定大小。
-如果未指定大小，则基于内存的卷的大小为 Linux 主机上内存的 50%。
+如果未指定大小，内存提供的卷的大小根据节点可分配内存进行调整。
 {{< /note>}}
 
 <!--
@@ -1236,7 +1237,7 @@ The `CSIMigration` feature for Portworx has been added but disabled by default i
 It has been beta now since v1.25 but it is still turned off by default.
 It redirects all plugin operations from the existing in-tree plugin to the
 `pxd.portworx.com` Container Storage Interface (CSI) Driver.
-[Portworx CSI Driver](https://docs.portworx.com/portworx-install-with-kubernetes/storage-operations/csi/)
+[Portworx CSI Driver](https://docs.portworx.com/portworx-enterprise/operations/operate-kubernetes/storage-operations/csi)
 must be installed on the cluster.
 To enable the feature, set `CSIMigrationPortworx=true` in kube-controller-manager and kubelet.
 -->
@@ -1244,7 +1245,7 @@ To enable the feature, set `CSIMigrationPortworx=true` in kube-controller-manage
 自 v1.25 以来它已进入 Beta 阶段，但默认仍关闭。
 它将所有插件操作不再指向树内插件（In-Tree Plugin），转而指向
 `pxd.portworx.com` 容器存储接口（Container Storage Interface，CSI）驱动。
-[Portworx CSI 驱动程序](https://docs.portworx.com/portworx-install-with-kubernetes/storage-operations/csi/)必须安装在集群上。
+[Portworx CSI 驱动程序](https://docs.portworx.com/portworx-enterprise/operations/operate-kubernetes/storage-operations/csi)必须安装在集群上。
 要启用此特性，需在 kube-controller-manager 和 kubelet 中设置 `CSIMigrationPortworx=true`。
 
 <!--
@@ -1707,7 +1708,7 @@ A `csi` volume can be used in a Pod in three different ways:
 
 `csi` 卷可以在 Pod 中以三种方式使用：
 
-* 通过 PersistentVolumeClaim(#persistentvolumeclaim) 对象引用
+* 通过 [PersistentVolumeClaim](#persistentvolumeclaim) 对象引用
 * 使用[一般性的临时卷](/zh-cn/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volumes)
 * 使用 [CSI 临时卷](/zh-cn/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes)，
   前提是驱动支持这种用法

@@ -92,7 +92,7 @@ projects in repositories maintained by cloud vendors or by SIGs.
 For providers already in Kubernetes core, you can run the in-tree cloud controller
 manager as a DaemonSet in your cluster, use the following as a guideline:
 
-{{% code file="admin/cloud/ccm-example.yaml" %}}
+{{% code_sample file="admin/cloud/ccm-example.yaml" %}}
 
 ## Limitations
 

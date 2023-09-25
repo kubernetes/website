@@ -126,7 +126,7 @@ to `false`. For example:
 -->
 为一个 Pod 启用用户名字空间需要设置 `.spec` 的 `hostUsers` 字段为 `false`. 例如:
 
-{{% code file="pods/user-namespaces-stateless.yaml" %}}
+{{% code_sample file="pods/user-namespaces-stateless.yaml" %}}
 
 <!--
 1. Create the pod on your cluster:

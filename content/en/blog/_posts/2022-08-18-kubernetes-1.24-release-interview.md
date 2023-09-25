@@ -169,7 +169,7 @@ JAMES LAVERACK: Not really. The cornerstone of a Kubernetes organization is the 
 
 **CRAIG BOX: Let's talk about some of the new features in 1.24. We have been hearing for many releases now about the impending doom which is the removal of Dockershim. [It is gone in 1.24](https://github.com/kubernetes/enhancements/issues/2221). Do we worry?**
 
-JAMES LAVERACK: I don't think we worry. This is something that the community has been preparing for for a long time. [We've](https://kubernetes.io/blog/2022/01/07/kubernetes-is-moving-on-from-dockershim/) [published](https://kubernetes.io/blog/2022/02/17/dockershim-faq/) a [lot](https://kubernetes.io/blog/2021/11/12/are-you-ready-for-dockershim-removal/) of [documentation](https://kubernetes.io/blog/2022/03/31/ready-for-dockershim-removal/) [about](https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/) [how](https://kubernetes.io/blog/2022/05/03/dockershim-historical-context/) you need to approach this. The honest truth is that most users, most application developers in Kubernetes, will simply not notice a difference or have to worry about it.
+JAMES LAVERACK: I don't think we worry. This is something that the community has been preparing for for a long time. [We've](/blog/2022/01/07/kubernetes-is-moving-on-from-dockershim/) [published](/blog/2022/02/17/dockershim-faq/) a [lot](/blog/2021/11/12/are-you-ready-for-dockershim-removal/) of [documentation](/blog/2022/03/31/ready-for-dockershim-removal/) [about](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/) [how](/blog/2022/05/03/dockershim-historical-context/) you need to approach this. The honest truth is that most users, most application developers in Kubernetes, will simply not notice a difference or have to worry about it.
 
 It's only really platform teams that administer Kubernetes clusters and people in very specific circumstances that are using Docker directly, not through the Kubernetes API, that are going to experience any issue at all.
 
@@ -203,7 +203,7 @@ JAMES LAVERACK: This is really about encouraging the use of stable APIs. There w
 
 JAMES LAVERACK: That's correct. There's no breaking changes in beta APIs other than the ones we've documented this release. It's only new things.
 
-**CRAIG BOX: Now in this release, [the artifacts are signed](https://github.com/kubernetes/enhancements/issues/3031) using Cosign signatures, and there is [experimental support for verification of those signatures](https://kubernetes.io/docs/tasks/administer-cluster/verify-signed-artifacts/). What needed to happen to make that process possible?**
+**CRAIG BOX: Now in this release, [the artifacts are signed](https://github.com/kubernetes/enhancements/issues/3031) using Cosign signatures, and there is [experimental support for verification of those signatures](/docs/tasks/administer-cluster/verify-signed-artifacts/). What needed to happen to make that process possible?**
 
 JAMES LAVERACK: This was a huge process from the other half of SIG Release. SIG Release has the release team, but it also has the release engineering team that handles the mechanics of actually pushing releases out. They have spent, and one of my friends over there, Adolfo, has spent a lot of time trying to bring us in line with [SLSA](https://slsa.dev/) compliance. I believe we're [looking now at Level 3 compliance](https://github.com/kubernetes/enhancements/issues/3027).
 
@@ -251,7 +251,7 @@ With Kubernetes 1.24, we're enabling a beta feature that allows them to use gRPC
 
 **CRAIG BOX: Are there any other enhancements that are particularly notable or relevant perhaps to the work you've been doing?**
 
-JAMES LAVERACK: There's a really interesting one from SIG Network which is about [avoiding collisions in IP allocations to services](https://kubernetes.io/blog/2022/05/03/kubernetes-1-24-release-announcement/#avoiding-collisions-in-ip-allocation-to-services). In existing versions of Kubernetes, you can allocate a service to have a particular internal cluster IP, or you can leave it blank and it will generate its own IP.
+JAMES LAVERACK: There's a really interesting one from SIG Network which is about [avoiding collisions in IP allocations to services](/blog/2022/05/03/kubernetes-1-24-release-announcement/#avoiding-collisions-in-ip-allocation-to-services). In existing versions of Kubernetes, you can allocate a service to have a particular internal cluster IP, or you can leave it blank and it will generate its own IP.
 
 In Kubernetes 1.24, there's an opt-in feature, which allows you to specify a pool for dynamic IPs to be generated from. This means that you can statically allocate an IP to a service and know that IP can not be accidentally dynamically allocated. This is a problem I've actually had in my local Kubernetes cluster, where I use static IP addresses for a bunch of port forwarding rules. I've always worried that during server start-up, they're going to get dynamically allocated to one of the other services. Now, with 1.24, and this feature, I won't have to worry about it more.
 
@@ -267,7 +267,7 @@ JAMES LAVERACK: That is a very deep question I don't think we have time for.
 
 JAMES LAVERACK: [LAUGHING]
 
-**CRAIG BOX: [The theme for Kubernetes 1.24 is Stargazer](https://kubernetes.io/blog/2022/05/03/kubernetes-1-24-release-announcement/#release-theme-and-logo). How did you pick that as the theme?**
+**CRAIG BOX: [The theme for Kubernetes 1.24 is Stargazer](/blog/2022/05/03/kubernetes-1-24-release-announcement/#release-theme-and-logo). How did you pick that as the theme?**
 
 JAMES LAVERACK: Every release lead gets to pick their theme, pretty much by themselves. When I started, I asked Rey, the previous release lead, how he picked his theme, because he picked the Next Frontier for Kubernetes 1.23. And he told me that he'd actually picked it before the release even started, which meant for the first couple of weeks and months of the release, I was really worried about it, because I hadn't picked one yet, and I wasn't sure what to pick.
 
