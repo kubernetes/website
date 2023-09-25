@@ -322,6 +322,7 @@ spec:
   containers:
     - name: test
       image: busybox:1.28
+      command: ['sh', '-c', 'echo "The app is running!" && tail -f /dev/null']
       volumeMounts:
         - name: config-vol
           mountPath: /etc/config
@@ -1236,7 +1237,7 @@ The `CSIMigration` feature for Portworx has been added but disabled by default i
 It has been beta now since v1.25 but it is still turned off by default.
 It redirects all plugin operations from the existing in-tree plugin to the
 `pxd.portworx.com` Container Storage Interface (CSI) Driver.
-[Portworx CSI Driver](https://docs.portworx.com/portworx-install-with-kubernetes/storage-operations/csi/)
+[Portworx CSI Driver](https://docs.portworx.com/portworx-enterprise/operations/operate-kubernetes/storage-operations/csi)
 must be installed on the cluster.
 To enable the feature, set `CSIMigrationPortworx=true` in kube-controller-manager and kubelet.
 -->
@@ -1244,7 +1245,7 @@ To enable the feature, set `CSIMigrationPortworx=true` in kube-controller-manage
 自 v1.25 以来它已进入 Beta 阶段，但默认仍关闭。
 它将所有插件操作不再指向树内插件（In-Tree Plugin），转而指向
 `pxd.portworx.com` 容器存储接口（Container Storage Interface，CSI）驱动。
-[Portworx CSI 驱动程序](https://docs.portworx.com/portworx-install-with-kubernetes/storage-operations/csi/)必须安装在集群上。
+[Portworx CSI 驱动程序](https://docs.portworx.com/portworx-enterprise/operations/operate-kubernetes/storage-operations/csi)必须安装在集群上。
 要启用此特性，需在 kube-controller-manager 和 kubelet 中设置 `CSIMigrationPortworx=true`。
 
 <!--
