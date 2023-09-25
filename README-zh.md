@@ -130,12 +130,22 @@ To build and test the site locally, run:
 Hugo Extended 版本。
 
 若要在本地构造和测试网站，请运行：
-
-```bash
-# 安装依赖
-npm ci
-make serve
-```
+<!--
+- For macOS and Linux
+-->
+- 对于 macOS 和 Linux
+  ```bash
+  npm ci
+  make serve
+  ```
+<!--
+- For Windows (PowerShell)
+-->
+- 对于 Windows (PowerShell)
+  ```powershell
+  npm ci
+  hugo.exe server --buildFuture --environment development
+  ```
 
 <!--
 This will start the local Hugo server on port 1313. Open up your browser to <http://localhost:1313> to view the website. As you make changes to the source files, Hugo updates the website and forces a browser refresh.
