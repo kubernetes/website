@@ -803,7 +803,7 @@ Para desativar o carregamento do plugin de armazenamento `vsphereVolume` pelo ge
 
 {{< feature-state for_k8s_version="v1.25" state="beta" >}}
 
-O recurso `CSIMigration` para Portworx foi adicionado, mas desativado por padrão no Kubernetes 1.23 visto que está no estado alfa. Ele redireciona todas as operações de plugin do tipo in-tree para o Driver de Cointainer Storage Interface (CSI) `pxd.portworx.com`. [O driver CSI Portworx](https://docs.portworx.com/portworx-install-with-kubernetes/storage-operations/csi/) deve ser instalado no cluster. Para ativar o recurso, defina `CSIMigrationPortworx=true` no kube-controller-manager e no kubelet.
+O recurso `CSIMigration` para Portworx foi adicionado, mas desativado por padrão no Kubernetes 1.23 visto que está no estado alfa. Ele redireciona todas as operações de plugin do tipo in-tree para o Driver de Cointainer Storage Interface (CSI) `pxd.portworx.com`. [O driver CSI Portworx](https://docs.portworx.com/portworx-enterprise/operations/operate-kubernetes/storage-operations/csi) deve ser instalado no cluster. Para ativar o recurso, defina `CSIMigrationPortworx=true` no kube-controller-manager e no kubelet.
 
 ## Utilizando subPath {#using-subpath}
 
