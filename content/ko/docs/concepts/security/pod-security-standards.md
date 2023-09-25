@@ -57,7 +57,7 @@ weight: 10
 		<tr>
 			<td style="white-space: nowrap">호스트 프로세스</td>
 			<td>
-				<p>윈도우 파드는 <a href="/docs/tasks/configure-pod-container/create-hostprocess-pod">호스트 프로세스 컨테이너</a>를 실행할 권한을 제공하며, 이는 윈도우 노드에 대한 특권 접근을 가능하게 한다. 기본 정책에서의 호스트에 대한 특권 접근은 허용되지 않는다. {{< feature-state for_k8s_version="v1.23" state="beta" >}}</p>
+				<p>윈도우 파드는 <a href="/docs/tasks/configure-pod-container/create-hostprocess-pod">호스트 프로세스 컨테이너</a>를 실행할 권한을 제공하며, 이는 윈도우 노드에 대한 특권 접근을 가능하게 한다. 기본 정책에서의 호스트에 대한 특권 접근은 허용되지 않는다. {{< feature-state for_k8s_version="v1.26" state="stable" >}}</p>
 				<p><strong>제한된 필드</strong></p>
 				<ul>
 					<li><code>spec.securityContext.windowsOptions.hostProcess</code></li>
@@ -152,7 +152,7 @@ weight: 10
 		<tr>
 			<td style="white-space: nowrap">호스트 포트</td>
 			<td>
-				<p>호스트 포트는 허용되지 않아야 하며, 또는 적어도 알려진 목록 범위내로 제한되어야 한다.</p>
+				<p>호스트 포트는 전부 금지되거나(추천), 또는 적어도 알려진 목록 범위내로 제한되어야 한다.</p>
 				<p><strong>제한된 필드</strong></p>
 				<ul>
 					<li><code>spec.containers[*].ports[*].hostPort</code></li>
@@ -162,7 +162,7 @@ weight: 10
 				<p><strong>허용된 값</strong></p>
 				<ul>
 					<li>Undefined/nil</li>
-					<li>Known list</li>
+					<li>(빌트인 <a href="/ko/docs/concepts/security/pod-security-admission/">파드 시큐리티 어드미션 컨트롤러</a>가 지원하지 않는) Known list</li>
 					<li><code>0</code></li>
 				</ul>
 			</td>
@@ -326,7 +326,7 @@ weight: 10
 		<tr>
 			<td style="white-space: nowrap">권한 상승(v1.8+)</td>
 			<td>
-				<p>권한 상승(예를 들어, set-user-ID 또는 set-group-ID 파일 모드를 통한)은 허용되지 않아야 한다. <em>v1.25+에서는 <a href="#policies-specific-to-linux">리눅스 전용 정책이다.</a><code>(spec.os.name != windows)</code></em></p>
+				<p>권한 상승(예를 들어, set-user-ID 또는 set-group-ID 파일 모드를 통한)은 허용되지 않아야 한다. <em>v1.25+에서는 <a href="#os-specific-policy-controls">리눅스 전용 정책이다.</a><code>(spec.os.name != windows)</code></em></p>
 				<p><strong>제한된 필드</strong></p>
 				<ul>
 					<li><code>spec.containers[*].securityContext.allowPrivilegeEscalation</code></li>
@@ -381,7 +381,7 @@ weight: 10
 		<tr>
   			<td style="white-space: nowrap">Seccomp(v1.19+)</td>
   			<td>
-  				<p>Seccomp 프로필은 다음과 같은 값으로 설정되어야 한다.<code>Unconfined</code> 프로필 및 프로필의 <em>absence</em>는 금지되어 있다. <em>v1.25+에서는 <a href="#policies-specific-to-linux">리눅스 전용 정책이다.</a><code>(spec.os.name != windows)</code></em></p>
+  				<p>Seccomp 프로필은 다음과 같은 값으로 설정되어야 한다.<code>Unconfined</code> 프로필 및 프로필의 <em>absence</em>는 금지되어 있다. <em>v1.25+에서는 <a href="#os-specific-policy-controls">리눅스 전용 정책이다.</a><code>(spec.os.name != windows)</code></em></p>
   				<p><strong>제한된 필드</strong></p>
 				<ul>
 					<li><code>spec.securityContext.seccompProfile.type</code></li>
@@ -407,7 +407,7 @@ weight: 10
 			<td>
 				<p>
 					컨테이너는 <code>ALL</code> 능력을 내려놓아야 하며, 
-					<code>NET_BIND_SERVICE</code> 능력을 다시 추가하기 위한 목적일 때만 허용되어야 한다. <em>v1.25+에서는 <a href="#policies-specific-to-linux">리눅스 전용 정책이다.</a><code>(spec.os.name != windows)</code></em>
+					<code>NET_BIND_SERVICE</code> 능력을 다시 추가하기 위한 목적일 때만 허용되어야 한다. <em>v1.25+에서는 <a href="#os-specific-policy-controls">리눅스 전용 정책이다.</a><code>(spec.os.name != windows)</code></em>
 				</p>
 				<p><strong>제한된 필드</strong></p>
 				<ul>

@@ -131,4 +131,7 @@ pod-security.kubernetes.io/<MODE>-version: <VERSION>
 - [파드 시큐리티 스탠다드 적용하기](/ko/docs/setup/best-practices/enforcing-pod-security-standards)
 - [기본 제공 어드미션 컨트롤러를 구성하여 파드 시큐리티 스탠다드 적용하기](/docs/tasks/configure-pod-container/enforce-standards-admission-controller)
 - [네임스페이스 레이블로 파드 시큐리티 스탠다드 적용하기](/docs/tasks/configure-pod-container/enforce-standards-namespace-labels)
-- [파드시큐리티폴리시(PodSecurityPolicy)에서 내장 파드시큐리티어드미션컨트롤러(PodSecurity Admission Controller)로 마이그레이션](/docs/tasks/configure-pod-container/migrate-from-psp)
+
+이전 버전의 쿠버네티스를 사용하고 있으며, 파드시큐리티폴리시를 포함하고 있지 않은 쿠버네티스 버전으로 업그레이드하고 싶다면, 
+[파드시큐리티폴리시(PodSecurityPolicy)에서 내장 파드시큐리티어드미션컨트롤러(PodSecurity Admission Controller)로 마이그레이션](/docs/tasks/configure-pod-container/migrate-from-psp)을 
+참고한다.
