@@ -5,7 +5,7 @@ api_metadata:
   kind: "SubjectAccessReview"
 content_type: "api_reference"
 description: "SubjectAccessReview checks whether or not a user or group can perform an action."
-title: "SubjectAccessReview"
+title: * "SubjectAccessReview"
 weight: 4
 auto_generated: true
 ---

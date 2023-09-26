@@ -4,7 +4,7 @@ reviewers:
 - saad-ali
 - thockin
 - msau42
-title: Storage Classes
+title: * Storage Classes
 content_type: concept
 weight: 40
 ---

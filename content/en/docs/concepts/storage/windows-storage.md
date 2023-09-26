@@ -6,7 +6,7 @@ reviewers:
 - jsturtevant
 - marosset
 - aravindhp
-title: Windows Storage
+title: * Windows Storage
 content_type: concept
 weight: 110
 ---

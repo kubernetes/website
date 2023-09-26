@@ -5,7 +5,7 @@ api_metadata:
   kind: "SelfSubjectRulesReview"
 content_type: "api_reference"
 description: "SelfSubjectRulesReview enumerates the set of actions the current user can perform within a namespace."
-title: "SelfSubjectRulesReview"
+title: * "SelfSubjectRulesReview"
 weight: 3
 auto_generated: true
 ---

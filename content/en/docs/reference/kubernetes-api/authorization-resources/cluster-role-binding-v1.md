@@ -5,7 +5,7 @@ api_metadata:
   kind: "ClusterRoleBinding"
 content_type: "api_reference"
 description: "ClusterRoleBinding references a ClusterRole, but not contain it."
-title: "ClusterRoleBinding"
+title: * "ClusterRoleBinding"
 weight: 6
 auto_generated: true
 ---

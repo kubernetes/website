@@ -5,7 +5,7 @@ api_metadata:
   kind: "LocalSubjectAccessReview"
 content_type: "api_reference"
 description: "LocalSubjectAccessReview checks whether or not a user or group can perform an action in a given namespace."
-title: "LocalSubjectAccessReview"
+title: * "LocalSubjectAccessReview"
 weight: 1
 auto_generated: true
 ---

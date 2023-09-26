@@ -3,7 +3,7 @@ reviewers:
 - marosset
 - jsturtevant
 - zshihang
-title: Projected Volumes
+title: * Projected Volumes
 content_type: concept
 weight: 21 # just after persistent volumes
 ---

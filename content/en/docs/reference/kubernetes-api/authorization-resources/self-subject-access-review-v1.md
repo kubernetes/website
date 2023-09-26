@@ -5,7 +5,7 @@ api_metadata:
   kind: "SelfSubjectAccessReview"
 content_type: "api_reference"
 description: "SelfSubjectAccessReview checks whether or the current user can perform an action."
-title: "SelfSubjectAccessReview"
+title: * "SelfSubjectAccessReview"
 weight: 2
 auto_generated: true
 ---

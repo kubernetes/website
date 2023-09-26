@@ -5,7 +5,7 @@ reviewers:
 - msau42
 - xing-yang
 - pohly
-title: Storage Capacity
+title: * Storage Capacity
 content_type: concept
 weight: 80
 ---

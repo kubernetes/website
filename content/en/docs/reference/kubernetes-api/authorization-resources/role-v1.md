@@ -5,7 +5,7 @@ api_metadata:
   kind: "Role"
 content_type: "api_reference"
 description: "Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding."
-title: "Role"
+title: * "Role"
 weight: 7
 auto_generated: true
 ---

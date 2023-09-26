@@ -5,7 +5,7 @@ reviewers:
 - thockin
 - msau42
 - xing-yang
-title: Persistent Volumes
+title: * Persistent Volumes
 feature:
   title: Storage orchestration
   description: >
