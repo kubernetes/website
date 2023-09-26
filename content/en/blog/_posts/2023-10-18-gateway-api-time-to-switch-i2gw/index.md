@@ -1,0 +1,97 @@
+---
+layout: blog
+title: "TBD"
+date: 2023-10-18T10:00:00-08:00
+slug: <What is it?>
+---
+
+***Authors:*** Lior Lieberman (Google), Kobi Levi (independent)
+
+In the ever-evolving world of Kubernetes, networking plays a pivotal role. As more applications are deployed in Kubernetes clusters, effectively exposing these services to clients outside the cluster becomes a critical concern. If you've been working with Kubernetes, you're likely familiar with the Ingress API, which has been the go-to solution for managing external access to services. 
+
+The Ingress API provides a way to route external traffic to your applications within the cluster, making it an indispensable tool for many Kubernetes users. However, Ingress has its limitations, and as applications become more complex and the demands on your Kubernetes clusters increase, these limitations can become bottlenecks.
+
+Some of the limitations are;
+
+- **Insufficient common denominator** - by attempting to establish a common denominator for various HTTP proxies, Ingress can only accommodate fundamental HTTP routing, forcing more features of contemporary proxies like traffic splitting, header matching and sticky sessions into provider-specific, non-transferable annotations.
+- **Inadequate permission model** - Ingress spec configures both infrastructure and application configuration in one object. With Ingress, the cluster operator and application developer operate on the same Ingress object without being aware of each other’s roles. This creates an insufficient role-based access control and has high potential for setup errors. 
+- **Lack of protocol diversity** - Ingress primarily focuses on HTTP(S) routing and does not provide native support for other protocols, such as TCP, UDP and GRPc. This limitation makes it less suitable for handling non-HTTP workloads.
+
+To overcome this, the Gateway API, ingress’ successor, is designed to provide a more flexible, extensible, and powerful way to manage external traffic to your services. It's not just a replacement for Ingress; it's a leap forward in Kubernetes networking.
+
+## Introducing Gateway API
+Gateway API, with its official General Availability (GA) planned for late October, provides a standard Kubernetes API for ingress traffic control. It offers extended functionality, improved customization, and greater flexibility. By focusing on modular and expressive API resources, Gateway API makes it possible to describe a wider array of routing configurations and models.
+
+The transition from Ingress API to Gateway API in Kubernetes is driven by advantages and advanced functionalities that the Gateway API offers, with its foundation built on four core principles: a role-oriented approach, portability, expressiveness and extensibility.
+
+### A Role-Oriented Approach
+
+The Gateway API employs a role-oriented approach that aligns with the conventional roles within organizations involved in configuring Kubernetes service networking. This approach enables infrastructure engineers, cluster operators, and application developers to collectively address different aspects of the Gateway API.
+
+For instance, infrastructure engineers play a pivotal role in deploying GatewayClasses, cluster-scoped resources that act as templates to explicitly define behavior for Gateways derived from them, laying the groundwork for robust service networking.
+
+<!-- TODO(liorlieberman) -->
+<!-- Subsequently, cluster operators utilize these GatewayClasses to deploy gateways, brief whats gateways> -->
+
+<!-- Lastly, application developers … -->
+
+![The resources of the Gateway API](gateway-api-resources.png)
+
+### Portability
+Gateway API is designed to be more portable across different implementations, clusters and environments. It helps reduce Ingress' reliance on non-portable, provider-specific annotations, making your configurations more consistent and easier to manage across multiple clusters.
+
+### Expressiveness
+The Gateway API sets Kuberentes standard support of a wide range of features, such as header-based matching, traffic splitting, weight-based routing, request mirroring and more. With Ingress, these features need custom provider-specific annotations.
+
+### Extensibility
+Gateway API allows for custom resources to be linked at various layers of the API. This makes granular customization possible at the appropriate places within the API structure.
+
+## Getting Started
+
+### Gateway API Quick Start
+
+<!-- TODO(liorlieberman) - either put it here or provide links to reference on how to install and deploy a service exposed with a Gateway and HTTPRoute. -->
+
+### Migrating from Ingress to Gateway API using Ingress2Gateway
+Migrating from Ingress to the Gateway API may seem intimidating, but luckily Kubernetes SIG-Network provides a tool to simplify the process. Ingress2Gateway assists in the migration by converting your existing Ingress resources into Gateway API resources. To get started with ingress2gateway, you need to first install the tool.
+
+```
+go install github.com/kubernetes-sigs/ingress2gateway@latest
+```
+This will install ingress2gateway to  $(go env GOPATH)/bin/ingress2gateway
+
+<!-- TODO(liorlieberman) -->
+To install it using a different way refer to <link>.
+
+Once the tool is installed, you can use it to convert the ingress resources in your cluster to GatewayAPI resources.
+
+```
+ingress2gateway print
+```
+
+This above command will:
+
+1. Read your Kube config file to extract the cluster credentials and the current active namespace.
+1. Search for ingresses and provider-specific resources in that namespace.
+1. Convert them to Gateway-API resources (Currently only Gateways and HTTPRoutes).
+For other options refer run the tool with `-h` or refer to https://github.com/kubernetes-sigs/ingress2gateway#options
+
+Review the converted Gateway API resources, validate them, and then apply them to your cluster.
+
+## Wrapping up
+Achieving reliable, scalable and extensible networking has always been a challenging objective.
+The Gateway API is designed to improve the current Kubernetes networking standards like ingress and/or implementation specific annotations and CRDs.
+By focusing on modular and expressive API resources, and a role-oriented approach, the Gateway API makes it possible to describe a wider array of routing configurations and models while improving security and ensuring smooth collaboration across different teams (infrastructure and application teams).
+
+It is a Kubernetes standard API, consistent across different platforms and implementations and most importantly it is future proof. The Gateway API is considered the Ingress’ successor, it has a sub team under SIG-Network that actively work on it and manage the ecosystem and it is likely to receive more updates and community support.
+
+To ease the migration process, you should definitely check Ingress2gateway. This tool will help you convert your ingresses to Gateway API resources. It has recently added support for extending it with provider-specific logic, meaning it can also translate implementations specific CRDs or ingress annotations to the relevant Gateway API configurations. 
+
+
+### Try it out and get involved
+There are many resources to check out to learn more.
+
+<!-- TODO(liorlieberman) -->
+<!-- - Ingress2gateway readme link
+- <Gateway api usage links>
+- <gateway API implementations support> -->
