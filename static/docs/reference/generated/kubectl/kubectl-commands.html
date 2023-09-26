@@ -1834,7 +1834,7 @@ inspect them.</p>
 </code></pre>
 <p>Create a ClusterIP service with the specified name.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ kubectl create clusterip NAME [--tcp=&lt;port&gt;:&lt;targetPort&gt;] [--dry-run=server|client|none]</code></p>
+<p><code>$ kubectl create service clusterip NAME [--tcp=&lt;port&gt;:&lt;targetPort&gt;] [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -1918,7 +1918,7 @@ inspect them.</p>
 <p>Create an ExternalName service with the specified name.</p>
 <p> ExternalName service references to an external DNS address instead of only pods, which will allow application authors to reference services that exist off platform, on other clusters, or locally.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ kubectl create externalname NAME --external-name external.name [--dry-run=server|client|none]</code></p>
+<p><code>$ kubectl create service externalname NAME --external-name external.name [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
