@@ -185,8 +185,8 @@ Set the current context:
 kubectl config --kubeconfig=config-demo use-context dev-frontend
 ```
 
-Now whenever you enter a `kubectl` command, the action will apply to the cluster,
-and namespace listed in the `dev-frontend` context. And the command will use
+Now whenever you enter a `kubectl` command, the action will apply to the cluster 
+and namespace listed in the `dev-frontend` context, and the command will use
 the credentials of the user listed in the `dev-frontend` context.
 
 To see only the configuration information associated with
