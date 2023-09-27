@@ -9,7 +9,7 @@ slug: kubeadm-use-etcd-learner-mode
 
 The [`kubeadm`](/docs/reference/setup-tools/kubeadm/) tool now supports etcd learner mode, which
 allows you to enhance the resilience and stability
-of your Kubernetes clusters by leveraging the [learner mode](https://etcd.io/docs/v3.4/learning/design-learner/#appendix-learner-implementation-in-v34) 
+of your Kubernetes clusters by leveraging the [learner mode](https://etcd.io/docs/v3.4/learning/design-learner/#appendix-learner-implementation-in-v34)
 feature introduced in etcd version 3.4.
 This guide will walk you through using etcd learner mode with kubeadm. By default, kubeadm runs
 a local etcd instance on each control plane node.
@@ -23,19 +23,19 @@ promoted to a voting member only after the etcd data are fully aligned.
 etcd learner mode offers several compelling reasons to consider its adoption
 in Kubernetes clusters:
 
- 1. **Enhanced Resilience**: etcd learner nodes are non-voting members that catch up with
-    the leader's logs before becoming fully operational. This prevents new cluster members
-    from disrupting the quorum or causing leader elections, making the cluster more resilient
-    during membership changes.
- 2. **Reduced Cluster Unavailability**: Traditional approaches to adding new members often
-    result in cluster unavailability periods, especially in slow infrastructure or misconfigurations.
-    etcd learner mode minimizes such disruptions.
- 3. **Simplified Maintenance**: Learner nodes provide a safer and reversible way to add or replace
-    cluster members. This reduces the risk of accidental cluster outages due to misconfigurations or
-    missteps during member additions.
- 4. **Improved Network Tolerance**: In scenarios involving network partitions, learner mode allows
-    for more graceful handling. Depending on the partition a new member lands, it can seamlessly
-    integrate with the existing cluster without causing disruptions.
+1. **Enhanced Resilience**: etcd learner nodes are non-voting members that catch up with
+   the leader's logs before becoming fully operational. This prevents new cluster members
+   from disrupting the quorum or causing leader elections, making the cluster more resilient
+   during membership changes.
+1. **Reduced Cluster Unavailability**: Traditional approaches to adding new members often
+   result in cluster unavailability periods, especially in slow infrastructure or misconfigurations.
+   etcd learner mode minimizes such disruptions.
+1. **Simplified Maintenance**: Learner nodes provide a safer and reversible way to add or replace
+   cluster members. This reduces the risk of accidental cluster outages due to misconfigurations or
+   missteps during member additions.
+1. **Improved Network Tolerance**: In scenarios involving network partitions, learner mode allows
+   for more graceful handling. Depending on the partition a new member lands, it can seamlessly
+   integrate with the existing cluster without causing disruptions.
 
 In summary, the etcd learner mode improves the reliability and manageability of Kubernetes clusters
 during member additions and changes, making it a valuable feature for cluster operators.
@@ -80,7 +80,7 @@ ETCDCTL_API=3 etcdctl --endpoints 127.0.0.1:2379 \
   --cert=/etc/kubernetes/pki/etcd/server.crt \
   --key=/etc/kubernetes/pki/etcd/server.key \
   --cacert=/etc/kubernetes/pki/etcd/ca.crt \
-   member list
+  member list
 ...
 dc543c4d307fadb9, started, node1, https://10.6.177.40:2380, https://10.6.177.40:2379, false
 ```
@@ -88,20 +88,24 @@ dc543c4d307fadb9, started, node1, https://10.6.177.40:2380, https://10.6.177.40:
 To check if the Kubernetes control plane is healthy, run `kubectl get node -l node-role.kubernetes.io/control-plane=`
 and check if the nodes are ready.
 
-Note: It is recommended to have an odd number of members in a etcd cluster.
+{{< note >}}
+It is recommended to have an odd number of members in an etcd cluster.
+{{< /note >}}
 
 Before joining a worker node to the new Kubernetes cluster, ensure that the control plane nodes are healthy.
 
 ## What's next
 
 - The feature gate `EtcdLearnerMode` is alpha in v1.27 and we expect it to graduate to beta in the next
-  minor release of Kubernetes  (v1.29).
-- etcd has an open issue that may make the process more automatic: 
+  minor release of Kubernetes (v1.29).
+- etcd has an open issue that may make the process more automatic:
   [Support auto-promoting a learner member to a voting member](https://github.com/etcd-io/etcd/issues/15107).
-- Learn more about the kubeadm [configuration format](/docs/reference/config-api/kubeadm-config.v1beta3/) here.
+- Learn more about the kubeadm [configuration format](/docs/reference/config-api/kubeadm-config.v1beta3/).
 
 ## Feedback
 
 Was this guide helpful? If you have any feedback or encounter any issues, please let us know.
 Your feedback is always welcome! Join the bi-weekly [SIG Cluster Lifecycle meeting](https://docs.google.com/document/d/1Gmc7LyCIL_148a9Tft7pdhdee0NBHdOfHS1SAF0duI4/edit)
-or weekly [kubeadm office hours](https://docs.google.com/document/d/130_kiXjG7graFNSnIAgtMS1G8zPDwpkshgfRYS0nggo/edit). Or reach us via [Slack](https://slack.k8s.io/) (channel **#kubeadm**), or the [SIG's mailing list](https://groups.google.com/g/kubernetes-sig-cluster-lifecycle).
+or weekly [kubeadm office hours](https://docs.google.com/document/d/130_kiXjG7graFNSnIAgtMS1G8zPDwpkshgfRYS0nggo/edit).
+Or reach us via [Slack](https://slack.k8s.io/) (channel **#kubeadm**), or the
+[SIG's mailing list](https://groups.google.com/g/kubernetes-sig-cluster-lifecycle).
