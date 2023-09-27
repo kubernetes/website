@@ -42,6 +42,15 @@ complete -o default -F __start_kubectl k
 source <(kubectl completion zsh)  # set up autocomplete in zsh into the current shell
 echo '[[ $commands[kubectl] ]] && source <(kubectl completion zsh)' >> ~/.zshrc # add autocomplete permanently to your zsh shell
 ```
+
+### FISH
+
+Require kubectl version 1.23 or above.
+
+```bash
+echo 'kubectl completion fish | source' >> ~/.config/fish/config.fish  # add kubectl autocompletion permanently to your fish shell 
+```
+
 ### A note on `--all-namespaces`
 
 Appending `--all-namespaces` happens frequently enough that you should be aware of the shorthand for `--all-namespaces`:
