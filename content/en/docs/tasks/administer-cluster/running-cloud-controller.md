@@ -54,7 +54,7 @@ Successfully running cloud-controller-manager requires some changes to your clus
 Keep in mind that setting up your cluster to use cloud controller manager will
 change your cluster behaviour in a few ways:
 
-* Components that specifying `--cloud-provider=external` will add a taint
+* Components that specify `--cloud-provider=external` will add a taint
  `node.cloudprovider.kubernetes.io/uninitialized` with an effect `NoSchedule`
  during initialization. This marks the node as needing a second initialization
  from an external controller before it can be scheduled work. Note that in the
