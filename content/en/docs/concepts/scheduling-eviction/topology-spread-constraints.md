@@ -525,13 +525,6 @@ profiles:
               whenUnsatisfiable: ScheduleAnyway
           defaultingType: List
 ```
-
-{{< note >}}
-The [`SelectorSpread` plugin](/docs/reference/scheduling/config/#scheduling-plugins)
-is disabled by default. The Kubernetes project recommends using `PodTopologySpread`
-to achieve similar behavior.
-{{< /note >}}
-
 ### Built-in default constraints {#internal-default-constraints}
 
 {{< feature-state for_k8s_version="v1.24" state="stable" >}}
