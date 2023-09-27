@@ -7,9 +7,11 @@ slug: <What is it?>
 
 ***Authors:*** Lior Lieberman (Google), Kobi Levi (independent)
 
-In the ever-evolving world of Kubernetes, networking plays a pivotal role. As more applications are deployed in Kubernetes clusters, effectively exposing these services to clients outside the cluster becomes a critical concern. If you've been working with Kubernetes, you're likely familiar with the Ingress API, which has been the go-to solution for managing external access to services. 
+In the ever-evolving world of Kubernetes networking plays a pivotal role. As more applications are deployed in Kubernetes clusters, effective exposure of these services to clients outside the cluster becomes a critical concern. If you've been working with Kubernetes, you're likely familiar with the [Ingress API], which has been the go-to solution for managing external access to services.
 
-The Ingress API provides a way to route external traffic to your applications within the cluster, making it an indispensable tool for many Kubernetes users. However, Ingress has its limitations, and as applications become more complex and the demands on your Kubernetes clusters increase, these limitations can become bottlenecks.
+[Ingress API]:https://kubernetes.io/docs/concepts/services-networking/ingress/
+
+The Ingress API provides a way to route external traffic to your applications within the cluster, making it an indispensable tool for many Kubernetes users. Ingress has its limitations however, and as applications become more complex and the demands on your Kubernetes clusters increase, these limitations can become bottlenecks.
 
 Some of the limitations are;
 
@@ -85,7 +87,7 @@ By focusing on modular and expressive API resources, and a role-oriented approac
 
 It is a Kubernetes standard API, consistent across different platforms and implementations and most importantly it is future proof. The Gateway API is considered the Ingress’ successor, it has a sub team under SIG-Network that actively work on it and manage the ecosystem and it is likely to receive more updates and community support.
 
-To ease the migration process, you should definitely check Ingress2gateway. This tool will help you convert your ingresses to Gateway API resources. It has recently added support for extending it with provider-specific logic, meaning it can also translate implementations specific CRDs or ingress annotations to the relevant Gateway API configurations. 
+Ingress2gateway helps to ease the migration process for you, converting your existing Ingress resources to Gateway API resources. To make migrations _even easier_ Ingress2gateway has recently added extensions to enable converting from provider-specific solutions, enabling it to translate implementations specific CRDs or Ingress annotations to the relevant Gateway API configurations. 
 
 
 ### Try it out and get involved
