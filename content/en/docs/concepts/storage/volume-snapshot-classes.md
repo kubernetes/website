@@ -74,10 +74,10 @@ used for provisioning VolumeSnapshots. This field must be specified.
 
 ### DeletionPolicy
 
-Volume snapshot classes have a deletionPolicy. It enables you to configure what
-happens to a VolumeSnapshotContent when the VolumeSnapshot object it is bound to
-is to be deleted. The deletionPolicy of a volume snapshot class can either be
-`Retain` or `Delete`. This field must be specified.
+Volume snapshot classes have a [deletionPolicy](/docs/concepts/storage/volume-snapshots/#delete).
+It enables you to configure what happens to a VolumeSnapshotContent when the VolumeSnapshot
+object it is bound to is to be deleted. The deletionPolicy of a volume snapshot class can
+either be `Retain` or `Delete`. This field must be specified.
 
 If the deletionPolicy is `Delete`, then the underlying storage snapshot will be
 deleted along with the VolumeSnapshotContent object. If the deletionPolicy is `Retain`,

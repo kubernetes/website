@@ -265,7 +265,7 @@ updates that Secret with that generated token data.
 
 Here is a sample manifest for such a Secret:
 
-{{% code file="secret/serviceaccount/mysecretname.yaml" %}}
+{{% code_sample file="secret/serviceaccount/mysecretname.yaml" %}}
 
 To create a Secret based on this example, run:
 

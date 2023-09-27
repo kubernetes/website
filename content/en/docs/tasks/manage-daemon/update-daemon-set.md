@@ -46,7 +46,7 @@ You may want to set
 
 This YAML file specifies a DaemonSet with an update strategy as 'RollingUpdate'
 
-{{% code file="controllers/fluentd-daemonset.yaml" %}}
+{{% code_sample file="controllers/fluentd-daemonset.yaml" %}}
 
 After verifying the update strategy of the DaemonSet manifest, create the DaemonSet:
 
@@ -92,7 +92,7 @@ manifest accordingly.
 Any updates to a `RollingUpdate` DaemonSet `.spec.template` will trigger a rolling
 update. Let's update the DaemonSet by applying a new YAML file. This can be done with several different `kubectl` commands.
 
-{{% code file="controllers/fluentd-daemonset-update.yaml" %}}
+{{% code_sample file="controllers/fluentd-daemonset-update.yaml" %}}
 
 #### Declarative commands
 

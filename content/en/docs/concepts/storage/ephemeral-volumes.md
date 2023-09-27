@@ -192,7 +192,7 @@ spec:
 ### Lifecycle and PersistentVolumeClaim
 
 The key design idea is that the
-[parameters for a volume claim](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ephemeralvolumesource-v1alpha1-core)
+[parameters for a volume claim](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ephemeralvolumesource-v1-core)
 are allowed inside a volume source of the Pod. Labels, annotations and
 the whole set of fields for a PersistentVolumeClaim are supported. When such a Pod gets
 created, the ephemeral volume controller then creates an actual PersistentVolumeClaim
@@ -224,7 +224,7 @@ volume.
 ### PersistentVolumeClaim naming
 
 Naming of the automatically created PVCs is deterministic: the name is
-a combination of Pod name and volume name, with a hyphen (`-`) in the
+a combination of the Pod name and volume name, with a hyphen (`-`) in the
 middle. In the example above, the PVC name will be
 `my-app-scratch-volume`.  This deterministic naming makes it easier to
 interact with the PVC because one does not have to search for it once
@@ -248,11 +248,10 @@ same namespace, so that these conflicts can't occur.
 
 ### Security
 
-Enabling the GenericEphemeralVolume feature allows users to create
-PVCs indirectly if they can create Pods, even if they do not have
-permission to create PVCs directly. Cluster administrators must be
-aware of this. If this does not fit their security model, they should
-use an [admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)
+Using generic ephemeral volumes allows users to create PVCs indirectly
+if they can create Pods, even if they do not have permission to create PVCs directly.
+Cluster administrators must be aware of this. If this does not fit their security model,
+they should use an [admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)
 that rejects objects like Pods that have a generic ephemeral volume.
 
 The normal [namespace quota for PVCs](/docs/concepts/policy/resource-quotas/#storage-resource-quota)

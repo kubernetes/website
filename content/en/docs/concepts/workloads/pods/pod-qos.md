@@ -7,7 +7,7 @@ weight: 85
 <!-- overview -->
 
 This page introduces _Quality of Service (QoS) classes_ in Kubernetes, and explains
-how Kubernetes assigns a QoS class to each Pods as a consequence of the resource
+how Kubernetes assigns a QoS class to each Pod as a consequence of the resource
 constraints that you specify for the containers in that Pod. Kubernetes relies on this
 classification to make decisions about which Pods to evict when there are not enough
 available resources on a Node.

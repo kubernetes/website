@@ -1,42 +1,27 @@
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
 <!-- 
 Generate the certificate the apiserver uses to access etcd 
 -->
-生成 apiserver 用来访问 etcd 的证书
+生成 apiserver 用来访问 etcd 的证书。
 
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
 Generate the certificate the apiserver uses to access etcd, and save them into apiserver-etcd-client.crt and apiserver-etcd-client.key files.
 -->
-
 生成 apiserver 用于访问 etcd 的证书，并将其保存到 apiserver-etcd-client.crt 和 apiserver-etcd-client.key 文件中。
 
 <!--
 If both files already exist, kubeadm skips the generation step and existing files will be used.
 -->
-
 如果两个文件都已存在，则 kubeadm 将跳过生成步骤，使用现有文件。
 
 <!--
 Alpha Disclaimer: this command is currently alpha.
 -->
-
-Alpha 免责声明：此命令当前为 Alpha 功能。
+Alpha 免责声明：此命令目前处于 Alpha 阶段。
 
 ```
 kubeadm init phase certs apiserver-etcd-client [flags]
@@ -45,7 +30,6 @@ kubeadm init phase certs apiserver-etcd-client [flags]
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -104,7 +88,7 @@ kubeadm init phase certs apiserver-etcd-client [flags]
 <!-- 
 <p>help for apiserver-etcd-client</p>
 -->
-<p>apiserver-etcd-client 操作的帮助命令</p>
+<p>apiserver-etcd-client 操作的帮助命令。</p>
 </td>
 </tr>
 
@@ -129,7 +113,6 @@ kubeadm init phase certs apiserver-etcd-client [flags]
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 继承于父命令的选项
 
    <table style="width: 100%; table-layout: fixed;">

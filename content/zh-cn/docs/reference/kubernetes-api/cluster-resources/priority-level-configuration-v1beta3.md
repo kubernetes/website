@@ -87,6 +87,56 @@ PriorityLevelConfigurationSpec 指定一个优先级的配置。
   取值为 `"Limited"` 意味着 (a) 此优先级的请求遵从这些限制且
   (b) 服务器某些受限的容量仅可用于此优先级。必需。
 
+- **exempt** (ExemptPriorityLevelConfiguration)
+
+  <!--
+  `exempt` specifies how requests are handled for an exempt priority level. This field MUST be empty if `type` is `"Limited"`. This field MAY be non-empty if `type` is `"Exempt"`. If empty and `type` is `"Exempt"` then the default values for `ExemptPriorityLevelConfiguration` apply.
+  -->
+  
+  `exempt` 指定了对于豁免优先级的请求如何处理。
+  如果 `type` 取值为 `"Limited"`，则此字段必须为空。
+  如果 `type` 取值为 `"Exempt"`，则此字段可以非空。
+  如果为空且 `type` 取值为 `"Exempt"`，则应用 `ExemptPriorityLevelConfiguration` 的默认值。
+
+  <!--
+  <a name="ExemptPriorityLevelConfiguration"></a>
+  *ExemptPriorityLevelConfiguration describes the configurable aspects of the handling of exempt requests. In the mandatory exempt configuration object the values in the fields here can be modified by authorized users, unlike the rest of the `spec`.*
+  -->
+
+  <a name="ExemptPriorityLevelConfiguration"></a>
+  **ExemptPriorityLevelConfiguration 描述豁免请求处理的可配置方面。
+  在强制豁免配置对象中，与 `spec` 中的其余部分不同，此处字段的取值可以被授权用户修改。**
+
+  - **exempt.lendablePercent** (int32)
+
+    <!--
+    `lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels.  This value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level's LendableConcurrencyLimit (LendableCL), is defined as follows.
+    -->
+
+    `lendablePercent` 规定该级别的 NominalCL 可被其他优先级租借的百分比。
+    此字段的值必须在 0 到 100 之间，包括 0 和 100，默认为 0。
+    其他级别可以从该级别借用的席位数被称为此级别的 LendableConcurrencyLimit（LendableCL），定义如下。
+    
+    LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
+
+  - **exempt.nominalConcurrencyShares** (int32)
+
+    <!--
+    `nominalConcurrencyShares` (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level. This is the number of execution seats nominally reserved for this priority level. This DOES NOT limit the dispatching from this priority level but affects the other priority levels through the borrowing mechanism. The server's concurrency limit (ServerCL) is divided among all the priority levels in proportion to their NCS values:
+    -->
+
+    `nominalConcurrencyShares`（NCS）也被用来计算该级别的 NominalConcurrencyLimit（NominalCL）。
+    字段值是为该优先级保留的执行席位的数量。这一设置不限制此优先级别的调度行为，
+    但会通过借用机制影响其他优先级。服务器的并发限制（ServerCL）会按照各个优先级的 NCS 值按比例分配：
+    
+    NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[priority level k] NCS(k)
+    
+    <!--
+    Bigger numbers mean a larger nominal concurrency limit, at the expense of every other priority level. This field has a default value of zero.
+    -->
+
+    较大的数字意味着更大的标称并发限制，且将影响其他优先级。此字段的默认值为零。
+  
 <!--
 - **limited** (LimitedPriorityLevelConfiguration)
 
@@ -94,8 +144,8 @@ PriorityLevelConfigurationSpec 指定一个优先级的配置。
 
   <a name="LimitedPriorityLevelConfiguration"></a>
   *LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
-   * How are requests for this priority level limited?
-   * What should be done with requests that exceed the limit?*
+    - How are requests for this priority level limited?
+    - What should be done with requests that exceed the limit?*
 -->
 - **limited** (LimitedPriorityLevelConfiguration)
   
@@ -104,8 +154,9 @@ PriorityLevelConfigurationSpec 指定一个优先级的配置。
   
   <a name="LimitedPriorityLevelConfiguration"></a>
   LimitedPriorityLevelConfiguration 指定如何处理需要被限制的请求。它解决两个问题：
-  * 如何限制此优先级的请求？
-  * 应如何处理超出此限制的请求？
+
+  - 如何限制此优先级的请求？
+  - 应如何处理超出此限制的请求？
   
   <!--
   - **limited.borrowingLimitPercent** (int32)
@@ -119,7 +170,7 @@ PriorityLevelConfigurationSpec 指定一个优先级的配置。
   
   - **limited.borrowingLimitPercent** (int32)
    
-    `borrowingLimitPercent` 配置如果存在，则可用来限制此优先级级别可以从其他优先级级别中租借多少资源。
+    `borrowingLimitPercent` 配置如果存在，则可用来限制此优先级可以从其他优先级中租借多少资源。
     该限制被称为该级别的 BorrowingConcurrencyLimit（BorrowingCL），它限制了该级别可以同时租借的资源总数。
     该字段保存了该限制与该级别标称并发限制之比。当此字段非空时，必须为正整数，并按以下方式计算限制值：
 
@@ -137,7 +188,7 @@ PriorityLevelConfigurationSpec 指定一个优先级的配置。
   
   - **limited.lendablePercent** (int32)
 
-    `lendablePercent` 规定了 NominalCL 可被其他优先级级别租借资源数百分比。
+    `lendablePercent` 规定了 NominalCL 可被其他优先级租借资源数百分比。
     此字段的值必须在 0 到 100 之间，包括 0 和 100，默认为 0。
     其他级别可以从该级别借用的资源数被称为此级别的 LendableConcurrencyLimit（LendableCL），定义如下。
 
@@ -229,21 +280,21 @@ PriorityLevelConfigurationSpec 指定一个优先级的配置。
 
     `nominalConcurrencyShares` (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level. This is the number of execution seats available at this priority level. This is used both for requests dispatched from this priority level as well as requests dispatched from other priority levels borrowing seats from this level. The server's concurrency limit (ServerCL) is divided among the Limited priority levels in proportion to their NCS values:
     
-    NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[limited priority level k] NCS(k)
+    NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[priority level k] NCS(k)
     
-    Bigger numbers mean a larger nominal concurrency limit, at the expense of every other Limited priority level. This field has a default value of 30.
+    Bigger numbers mean a larger nominal concurrency limit, at the expense of every other priority level. This field has a default value of 30.
   -->
 
   - **limited.nominalConcurrencyShares** (int32)
 
-    `nominalConcurrencyShares`（NCS）用于计算该优先级级别的标称并发限制（NominalCL）。
-     NCS 表示可以在此优先级级别同时运行的席位数量上限，包括来自本优先级级别的请求，
-     以及从此优先级级别租借席位的其他级别的请求。
-     服务器的并发度限制（ServerCL）根据 NCS 值按比例分别给各 Limited 优先级级别：
+    `nominalConcurrencyShares`（NCS）用于计算该优先级的标称并发限制（NominalCL）。
+    NCS 表示可以在此优先级同时运行的席位数量上限，包括来自本优先级的请求，
+    以及从此优先级租借席位的其他级别的请求。
+    服务器的并发度限制（ServerCL）根据 NCS 值按比例分别给各 Limited 优先级：
 
-     NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[limited priority level k] NCS(k)
+    NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[priority level k] NCS(k)
 
-     较大的数字意味着更大的标称并发限制（NominalCL），但是这将牺牲其他 Limited 优先级级别的资源。该字段的默认值为 30。
+    较大的数字意味着更大的标称并发限制，但是这将牺牲其他优先级的资源。该字段的默认值为 30。
 
 ## PriorityLevelConfigurationStatus {#PriorityLevelConfigurationStatus}
 
@@ -381,11 +432,11 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name
 -->
 #### 参数
 
-- **name** (**路径参数**): string，必需
+- **name**（**路径参数**）：string，必需
   
-  PriorityLevelConfiguration 的名称
+  PriorityLevelConfiguration 的名称。
 
-- **pretty** (**查询参数**): string
+- **pretty**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -416,11 +467,11 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name
 -->
 #### 参数
 
-- **name** (**路径参数**): string，必需
+- **name**（**路径参数**）：string，必需
   
-  PriorityLevelConfiguration 的名称
+  PriorityLevelConfiguration 的名称。
 
-- **pretty** (**查询参数**): string
+- **pretty**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -459,47 +510,47 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations
 -->
 #### 参数
 
-- **allowWatchBookmarks** (**查询参数**): boolean
+- **allowWatchBookmarks**（**查询参数**）：boolean
   
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
-- **continue** (**查询参数**): string
+- **continue**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
-- **fieldSelector** (**查询参数**): string
+- **fieldSelector**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-- **labelSelector** (**查询参数**): string
+- **labelSelector**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
-- **limit** (**查询参数**): integer
+- **limit**（**查询参数**）：integer
   
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-- **pretty** (**查询参数**): string
+- **pretty**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-- **resourceVersion** (**查询参数**): string
+- **resourceVersion**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-- **resourceVersionMatch** (**查询参数**): string
+- **resourceVersionMatch**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-- **sendInitialEvents** (**查询参数**): boolean
+- **sendInitialEvents**（**查询参数**）：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
-- **timeoutSeconds** (**查询参数**): integer
+- **timeoutSeconds**（**查询参数**）：integer
   
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
-- **watch** (**查询参数**): boolean
+- **watch**（**查询参数**）：boolean
   
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
@@ -534,19 +585,19 @@ POST /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations
 
 - **body**: <a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>，必需
 
-- **dryRun** (**查询参数**): string
+- **dryRun**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **fieldManager** (**查询参数**): string
+- **fieldManager**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-- **fieldValidation** (**查询参数**): string
+- **fieldValidation**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-- **pretty** (**查询参数**): string
+- **pretty**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -585,25 +636,25 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name
 -->
 #### 参数
 
-- **name** (**路径参数**): string，必需
+- **name**（**路径参数**）：string，必需
   
-  PriorityLevelConfiguration 的名称
+  PriorityLevelConfiguration 的名称。
 
 - **body**: <a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>，必需
 
-- **dryRun** (**查询参数**): string
+- **dryRun**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **fieldManager** (**查询参数**): string
+- **fieldManager**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-- **fieldValidation** (**查询参数**): string
+- **fieldValidation**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-- **pretty** (**查询参数**): string
+- **pretty**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -640,25 +691,25 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name
 -->
 #### 参数
 
-- **name** (**路径参数**): string，必需
+- **name**（**路径参数**）：string，必需
   
-  PriorityLevelConfiguration 的名称
+  PriorityLevelConfiguration 的名称。
 
 - **body**: <a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>，必需
 
-- **dryRun** (**查询参数**): string
+- **dryRun**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **fieldManager** (**查询参数**): string
+- **fieldManager**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-- **fieldValidation** (**查询参数**): string
+- **fieldValidation**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-- **pretty** (**查询参数**): string
+- **pretty**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -696,29 +747,29 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{na
 -->
 #### 参数
 
-- **name** (**路径参数**): string，必需
+- **name**（**路径参数**）：string，必需
   
-  PriorityLevelConfiguration 的名称
+  PriorityLevelConfiguration 的名称。
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
 
-- **dryRun** (**查询参数**): string
+- **dryRun**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **fieldManager** (**查询参数**): string
+- **fieldManager**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-- **fieldValidation** (**查询参数**): string
+- **fieldValidation**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-- **force** (**查询参数**): boolean
+- **force**（**查询参数**）：boolean
   
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
-- **pretty** (**查询参数**): string
+- **pretty**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -756,29 +807,29 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{na
 -->
 #### 参数
 
-- **name** (**路径参数**): string，必需
+- **name**（**路径参数**）：string，必需
   
-  PriorityLevelConfiguration 的名称
+  PriorityLevelConfiguration 的名称。
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
 
-- **dryRun** (**查询参数**): string
+- **dryRun**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **fieldManager** (**查询参数**): string
+- **fieldManager**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
-- **fieldValidation** (**查询参数**): string
+- **fieldValidation**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-- **force** (**查询参数**): boolean
+- **force**（**查询参数**）：boolean
   
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
-- **pretty** (**查询参数**): string
+- **pretty**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -815,25 +866,25 @@ DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{n
 -->
 #### 参数
 
-- **name** (**路径参数**): string，必需
+- **name**（**路径参数**）：string，必需
   
-  PriorityLevelConfiguration 的名称
+  PriorityLevelConfiguration 的名称。
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-- **dryRun** (**查询参数**): string
+- **dryRun**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **gracePeriodSeconds** (**查询参数**): integer
+- **gracePeriodSeconds**（**查询参数**）：integer
   
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
-- **pretty** (**查询参数**): string
+- **pretty**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-- **propagationPolicy** (**查询参数**): string
+- **propagationPolicy**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
@@ -878,51 +929,51 @@ DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-- **continue** (**查询参数**): string
+- **continue**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
-- **dryRun** (**查询参数**): string
+- **dryRun**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
-- **fieldSelector** (**查询参数**): string
+- **fieldSelector**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-- **gracePeriodSeconds** (**查询参数**): integer
+- **gracePeriodSeconds**（**查询参数**）：integer
   
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
-- **labelSelector** (**查询参数**): string
+- **labelSelector**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
-- **limit** (**查询参数**): integer
+- **limit**（**查询参数**）：integer
   
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-- **pretty** (**查询参数**): string
+- **pretty**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-- **propagationPolicy** (**查询参数**): string
+- **propagationPolicy**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
-- **resourceVersion** (**查询参数**): string
+- **resourceVersion**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-- **resourceVersionMatch** (**查询参数**): string
+- **resourceVersionMatch**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-- **sendInitialEvents** (**查询参数**): boolean
+- **sendInitialEvents**（**查询参数**）：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
-- **timeoutSeconds** (**查询参数**): integer
+- **timeoutSeconds**（**查询参数**）：integer
   
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 

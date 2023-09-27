@@ -246,7 +246,8 @@ ports:
     port: 9376
 endpoints:
   - addresses:
-      - "10.4.5.6" # the IP addresses in this list can appear in any order
+      - "10.4.5.6"
+  - addresses:
       - "10.1.2.3"
 ```
 
@@ -517,7 +518,7 @@ spec:
 
 #### Reserve Nodeport Ranges to avoid collisions when port assigning 
 
-{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.28" state="beta" >}}
 
 The policy for assigning ports to NodePort services applies to both the auto-assignment and
 the manual assignment scenarios. When a user wants to create a NodePort service that

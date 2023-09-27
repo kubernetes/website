@@ -42,7 +42,7 @@ kubectl create namespace quota-mem-cpu-example
 
 Here is a manifest for an example ResourceQuota:
 
-{{% code file="admin/resource/quota-mem-cpu.yaml" %}}
+{{% code_sample file="admin/resource/quota-mem-cpu.yaml" %}}
 
 Create the ResourceQuota:
 
@@ -71,7 +71,7 @@ to learn what Kubernetes means by “1 CPU”.
 
 Here is a manifest for an example Pod:
 
-{{% code file="admin/resource/quota-mem-cpu-pod.yaml" %}}
+{{% code_sample file="admin/resource/quota-mem-cpu-pod.yaml" %}}
 
 
 Create the Pod:
@@ -121,7 +121,7 @@ kubectl get resourcequota mem-cpu-demo --namespace=quota-mem-cpu-example -o json
 
 Here is a manifest for a second Pod:
 
-{{% code file="admin/resource/quota-mem-cpu-pod-2.yaml" %}}
+{{% code_sample file="admin/resource/quota-mem-cpu-pod-2.yaml" %}}
 
 In the manifest, you can see that the Pod has a memory request of 700 MiB.
 Notice that the sum of the used memory request and this new memory

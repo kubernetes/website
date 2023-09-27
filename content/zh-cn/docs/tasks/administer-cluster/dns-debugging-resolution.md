@@ -40,7 +40,7 @@ kube-dns.
 <!--
 ### Create a simple Pod to use as a test environment
 
-{{< codenew file="admin/dns/dnsutils.yaml" >}}
+{{% code_sample file="admin/dns/dnsutils.yaml" %}}
 
 {{< note >}}
 This example creates a pod in the `default` namespace. DNS name resolution for 
@@ -276,7 +276,7 @@ The service name is `kube-dns` for both CoreDNS and kube-dns deployments.
 -->
 
 {{< note >}}
-不管是 CoreDNS 还是 kube-dns，这个服务的名字都会是 `kube-dns` 。
+不管是 CoreDNS 还是 kube-dns，这个服务的名字都会是 `kube-dns`。
 {{< /note >}}
 
 <!--
@@ -411,6 +411,7 @@ CoreDNS 必须能够列出 {{< glossary_tooltip text="service" term_id="service"
 {{< glossary_tooltip text="endpoint" term_id="endpoint" >}} 相关的资源来正确解析服务名称。
 
 示例错误消息：
+
 ```
 2022-03-18T07:12:15.699431183Z [INFO] 10.96.144.227:52299 - 3686 "A IN serverproxy.contoso.net.cluster.local. udp 52 false 512" SERVFAIL qr,aa,rd 145 0.000091221s
 ```
@@ -428,6 +429,7 @@ kubectl describe clusterrole system:coredns -n kube-system
 Expected output:
 -->
 预期输出：
+
 ```
 PolicyRule:
   Resources                        Non-Resource URLs  Resource Names  Verbs
@@ -482,6 +484,7 @@ This query is limited to the pod's namespace:
 如果 Pod 和服务的名字空间不相同，则 DNS 查询必须指定服务所在的名字空间。
 
 该查询仅限于 Pod 所在的名字空间：
+
 ```shell
 kubectl exec -i -t dnsutils -- nslookup <service-name>
 ```
@@ -490,6 +493,7 @@ kubectl exec -i -t dnsutils -- nslookup <service-name>
 This query specifies the namespace:
 -->
 指定名字空间的查询：
+
 ```shell
 kubectl exec -i -t dnsutils -- nslookup <service-name>.<namespace>
 ```
@@ -541,14 +545,14 @@ Linux 的 libc（又名 glibc）默认将 DNS `nameserver` 记录限制为 3，
 你也可以使用 kubelet 的 `--resolv-conf` 标志来解决这个问题。
 
 <!--
-If you are using Alpine version 3.3 or earlier as your base image, DNS may not
-work properly due to a known issue with Alpine.
-Kubernetes [issue 30215](https://github.com/kubernetes/kubernetes/issues/30215)
-details more information on this.
+If you are using Alpine version 3.17 or earlier as your base image, DNS may not
+work properly due to a design issue with Alpine. 
+Until musl version 1.24 didn't include TCP fallback to the DNS stub resolver meaning any DNS call above 512 bytes would fail.
+Please upgrade your images to Alpine version 3.18 or above.
 -->
-如果你使用 Alpine 3.3 或更早版本作为你的基础镜像，DNS 可能会由于 Alpine 中
-一个已知的问题导致无法正常工作。
-请查看[这里](https://github.com/kubernetes/kubernetes/issues/30215)获取更多信息。
+如果你使用 Alpine 3.17 或更早版本作为你的基础镜像，DNS 可能会由于 Alpine 的设计问题而无法工作。
+在 musl 1.24 版本之前，DNS 存根解析器都没有包括 TCP 回退，
+这意味着任何超过 512 字节的 DNS 调用都会失败。请将你的镜像升级到 Alpine 3.18 或更高版本。
 
 ## {{% heading "whatsnext" %}}
 
@@ -558,4 +562,3 @@ details more information on this.
 -->
 - 参阅[自动扩缩集群中的 DNS 服务](/zh-cn/docs/tasks/administer-cluster/dns-horizontal-autoscaling/).
 - 阅读 [Pod 与 Service 的 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/)
-

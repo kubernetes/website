@@ -120,14 +120,10 @@ The following in-tree plugins support persistent storage on Windows nodes:
 以下树内（In-Tree）插件支持 Windows 节点上的持久存储：
 
 <!--
-* [`awsElasticBlockStore`](/docs/concepts/storage/volumes/#awselasticblockstore)
-* [`azureDisk`](/docs/concepts/storage/volumes/#azuredisk)
 * [`azureFile`](/docs/concepts/storage/volumes/#azurefile)
 * [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk)
 * [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume)
 -->
-* [`awsElasticBlockStore`](/zh-cn/docs/concepts/storage/volumes/#awselasticblockstore)
-* [`azureDisk`](/zh-cn/docs/concepts/storage/volumes/#azuredisk)
 * [`azureFile`](/zh-cn/docs/concepts/storage/volumes/#azurefile)
 * [`gcePersistentDisk`](/zh-cn/docs/concepts/storage/volumes/#gcepersistentdisk)
 * [`vsphereVolume`](/zh-cn/docs/concepts/storage/volumes/#vspherevolume)

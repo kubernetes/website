@@ -1,12 +1,12 @@
 ---
 content_type: "reference"
 title: Kubelet 设备管理器 API 版本
-weight: 10
+weight: 50
 ---
 <!--
 content_type: "reference"
 title: Kubelet Device Manager API Versions
-weight: 10
+weight: 50
 -->
 
 <!--

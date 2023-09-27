@@ -349,17 +349,64 @@ footer {
 }
 
 main {
-  .td-content table code,
-  .td-content>table td {
-    word-break: break-word;
+
+/* SCSS Related to the Metrics list */
+
+  div.metric:nth-of-type(odd) { // Look & Feel , Aesthetics
+    background-color: $light-grey;
   }
 
-  table.no-word-break td,
-  table.no-word-break code {
-    word-break: normal;
+  div.metrics {
+
+    .metric {
+      div:empty{
+        display: none;
+      }
+
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      gap: .75em;
+      padding:.75em .75em .75em .75em;
+  
+      .metric_name{
+        font-size: large;
+        font-weight: bold;
+        word-break: break-word;
+      }
+  
+      label{
+        font-weight: bold;
+        margin-right: .5em;
+      }
+      ul {
+        li:empty{
+          display: none;
+        }
+        display: flex;
+        flex-direction: column;
+        gap: .75em;
+        flex-wrap: wrap;
+        li.metric_labels_varying{
+          span{
+                display: inline-block;
+                background-color: rgb(240, 239, 239);
+                padding: 0 0.5em;
+                margin-right: .35em;
+                font-family: monospace;
+                border: 1px solid rgb(230 , 230 , 230);
+                border-radius: 5%;
+                margin-bottom: .35em;
+          }
+        }
+  
+      }
+      
+    }
+
+
   }
 }
-
 
 // blockquotes and callouts
 

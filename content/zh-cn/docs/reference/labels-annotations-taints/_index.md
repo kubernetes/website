@@ -3,12 +3,24 @@ title: 众所周知的标签、注解和污点
 content_type: concept
 weight: 40
 no_list: true
+card:
+  name: reference
+  weight: 30
+  anchors:
+  - anchor: "#labels-annotations-and-taints-used-on-api-objects"
+    title: 标签、注解和污点
 ---
 <!--
 title: Well-Known Labels, Annotations and Taints
 content_type: concept
 weight: 40
 no_list: true
+card:
+  name: reference
+  weight: 30
+  anchors:
+  - anchor: "#labels-annotations-and-taints-used-on-api-objects"
+    title: Labels, annotations and taints
 -->
 
 <!-- overview -->
@@ -25,7 +37,36 @@ Kubernetes 将所有标签和注解保留在 `kubernetes.io` 和 `k8s.io `名字
 
 <!--
 ## Labels, annotations and taints used on API objects
+-->
+## API 对象上使用的标签、注解和污点   {#labels-annotations-and-taints-used-on-api-objects}
 
+### apf.kubernetes.io/autoupdate-spec
+
+<!--
+Type: Annotation
+
+Example: `apf.kubernetes.io/autoupdate-spec: "true"`
+
+Used on: [`FlowSchema` and `PriorityLevelConfiguration` Objects](/concepts/cluster-administration/flow-control/#defaults)
+
+If this annotation is set to true on a FlowSchema or PriorityLevelConfiguration, the `spec` for that object
+is managed by the kube-apiserver. If the API server does not recognize an APF object, and you annotate it
+for automatic update, the API server deletes the entire object. Otherwise, the API server does not manage the
+object spec.
+For more details, read  [Maintenance of the Mandatory and Suggested Configuration Objects](/docs/concepts/cluster-administration/flow-control/#maintenance-of-the-mandatory-and-suggested-configuration-objects).
+-->
+类别：注解
+
+例子：`apf.kubernetes.io/autoupdate-spec: "true"`
+
+用于：[`FlowSchema` 和 `PriorityLevelConfiguration` 对象](/zh-cn/concepts/cluster-administration/flow-control/#defaults)
+
+如果在 FlowSchema 或 PriorityLevelConfiguration 上将此注解设置为 true，
+那么该对象的 `spec` 将由 kube-apiserver 进行管理。如果 API 服务器不识别 APF 对象，
+并且你对其添加了自动更新的注解，则 API 服务器将删除整个对象。否则，API 服务器不管理对象规约。
+更多细节参阅[维护强制性和建议的配置对象](/zh-cn/docs/concepts/cluster-administration/flow-control/#maintenance-of-the-mandatory-and-suggested-configuration-objects)
+
+<!--
 ### app.kubernetes.io/component
 
 Type: Label
@@ -38,8 +79,6 @@ The component within the application architecture.
 
 One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
 -->
-## API 对象上使用的标签、注解和污点   {#labels-annotations-and-taints-used-on-api-objects}
-
 ### app.kubernetes.io/component {#app-kubernetes-io-component}
 
 类别：标签
@@ -83,7 +122,7 @@ Starting from v1.9, this label is deprecated.
 <!--
 ### app.kubernetes.io/instance
 
-Type: Label 
+Type: Label
 
 Example: `app.kubernetes.io/instance: "mysql-abcxzy"`
 
@@ -449,6 +488,36 @@ The value must be in the format `<toolname>/<semver>`.
 工具应该拒绝改变属于其他工具 ApplySets。
 该值必须采用 `<toolname>/<semver>` 格式。
 
+### apps.kubernetes.io/pod-index (beta) {#apps-kubernetes.io-pod-index}
+
+<!--
+Type: Label
+
+Example: `apps.kubernetes.io/pod-index: "0"`
+
+Used on: Pod
+
+When a StatefulSet controller creates a Pod for the StatefulSet, it sets this label on that Pod. 
+The value of the label is the ordinal index of the pod being created.
+
+See [Pod Index Label](/docs/concepts/workloads/controllers/statefulset/#pod-index-label)
+in the StatefulSet topic for more details. Note the [PodIndexLabel](content/en/docs/reference/command-line-tools-reference/feature-gates.md) feature gate must be enabled
+for this label to be added to pods.
+-->
+类别：标签
+
+例子：`apps.kubernetes.io/pod-index: "0"`
+
+用于：Pod
+
+当 StatefulSet 控制器为 StatefulSet 创建 Pod 时，该控制器会在 Pod 上设置这个标签。
+标签的值是正在创建的 Pod 的序号索引。
+
+更多细节参阅 StatefulSet 主题中的
+[Pod 索引标签](/zh-cn/docs/concepts/workloads/controllers/statefulset/#pod-index-label)。
+请注意，[PodIndexLabel](/zh-cn/docs/reference/command-line-tools-reference/feature-gates.md) 特性门控必须被启用，
+才能将此标签添加到 Pod 上。
+
 <!--
 ### cluster-autoscaler.kubernetes.io/safe-to-evict
 
@@ -765,7 +834,7 @@ This label can have one of three values: `Reconcile`, `EnsureExists`, or `Ignore
 - `Ignore`: Addon resources will be ignored. This mode is useful for add-ons that are not
   compatible with the add-on manager or that are managed by another controller.
 
-For more details, see [Addon-manager](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/addon-manager/README.md)
+For more details, see [Addon-manager](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/addon-manager/README.md).
 -->
 ### addonmanager.kubernetes.io/mode
 
@@ -785,7 +854,7 @@ For more details, see [Addon-manager](https://github.com/kubernetes/kubernetes/b
 - `Ignore`：插件资源将被忽略。此模式对于与外接插件管理器不兼容或由其他控制器管理的插件程序非常有用。
 
 有关详细信息，请参见
-[Addon-manager](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/addon-manager/README.md)
+[Addon-manager](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/addon-manager/README.md)。
 
 <!--
 ### beta.kubernetes.io/arch (deprecated)
@@ -1469,7 +1538,7 @@ Kubernetes makes a few assumptions about the structure of zones and regions:
 
 1. regions and zones are hierarchical: zones are strict subsets of regions and
    no zone can be in 2 regions
-2) zone names are unique across regions; for example region "africa-east-1" might be comprised
+2. zone names are unique across regions; for example region "africa-east-1" might be comprised
    of zones "africa-east-1a" and "africa-east-1b"
 -->
 Kubernetes 对 Zone 和 Region 的结构做了一些假设：
@@ -1540,7 +1609,7 @@ Example: `volume.beta.kubernetes.io/storage-provisioner: "k8s.io/minikube-hostpa
 Used on: PersistentVolumeClaim
 
 This annotation has been deprecated since v1.23.
-See [volume.kubernetes.io/storage-provisioner](#volume-kubernetes-io-storage-provisioner)
+See [volume.kubernetes.io/storage-provisioner](#volume-kubernetes-io-storage-provisioner).
 -->
 ### volume.beta.kubernetes.io/storage-provisioner (已弃用) {#volume-beta-kubernetes-io-storage-provisioner}
 
@@ -1581,7 +1650,7 @@ This annotation has been deprecated. Instead, set the
 [`storageClassName` field](/docs/concepts/storage/persistent-volumes/#class)
 for the PersistentVolumeClaim or PersistentVolume.
 -->
-此注解可以为 PersistentVolume (PV) 或 PersistentVolumeClaim (PVC) 指定
+此注解可以为 PersistentVolume（PV）或 PersistentVolumeClaim（PVC）指定
 [StorageClass](/zh-cn/docs/concepts/storage/storage-classes/)。
 当 `storageClassName` 属性和 `volume.beta.kubernetes.io/storage-class` 注解均被指定时，
 注解 `volume.beta.kubernetes.io/storage-class` 将优先于 `storageClassName` 属性。
@@ -1722,6 +1791,45 @@ The control plane adds this label to an Endpoints object when the owning Service
 用于：Service
 
 当拥有的 Service 是无头类型时，控制平面将此标签添加到 Endpoints 对象。
+
+<!--
+### service.kubernetes.io/topology-aware-hints (deprecated) {#servicekubernetesiotopology-aware-hints}
+
+Example: `service.kubernetes.io/topology-aware-hints: "Auto"`
+
+Used on: Service
+-->
+### service.kubernetes.io/topology-aware-hints（已弃用） {#servicekubernetesiotopology-aware-hints}
+
+例子：`service.kubernetes.io/topology-aware-hints: "Auto"`
+
+用于：Service
+
+<!--
+This annotation was used for enabling _topology aware hints_ on Services. Topology aware
+hints have since been renamed: the concept is now called
+[topology aware routing](/docs/concepts/services-networking/topology-aware-routing/).
+Setting the annotation to `Auto`, on a Service, configured the Kubernetes control plane to
+add topology hints on EndpointSlices associated with that Service. You can also explicitly
+set the annotation to `Disabled`.
+
+If you are running a version of Kubernetes older than {{< skew currentVersion >}},
+check the documentation for that Kubernetes version to see how topology aware routing
+works in that release.
+
+There are no other valid values for this annotation. If you don't want topology aware hints
+for a Service, don't add this annotation.
+-->
+此注解曾用于在 Service 中启用**拓扑感知提示（topology aware hints）**。
+然而，拓扑感知提示已经做了更名操作，
+此概念现在名为[拓扑感知路由（topology aware routing）](/zh-cn/docs/concepts/services-networking/topology-aware-routing/)。
+在 Service 上将该注解设置为 `Auto` 会配置 Kubernetes 控制平面，
+以将拓扑提示添加到该 Service 关联的 EndpointSlice 上。你也可以显式地将该注解设置为 `Disabled`。
+
+如果你使用的是早于 {{< skew currentVersion >}} 的 Kubernetes 版本，
+请查阅该版本对应的文档，了解其拓扑感知路由的工作方式。
+
+此注解没有其他有效值。如果你不希望为 Service 启用拓扑感知提示，不要添加此注解。
 
 <!--
 ### kubernetes.io/service-name {#kubernetesioservice-name}
@@ -1997,7 +2105,7 @@ resource without a class specified will be assigned this default class.
 资源将被设置为此默认类。
 
 <!--
-### alpha.kubernetes.io/provided-node-ip
+### alpha.kubernetes.io/provided-node-ip (alpha) {#alpha-kubernetes-io-provided-node-ip}
 
 Type: Annotation
 
@@ -2012,7 +2120,7 @@ and legacy in-tree cloud providers), it sets this annotation on the Node to deno
 set from the command line flag (`--node-ip`). This IP is verified with the cloud provider as valid
 by the cloud-controller-manager.
 -->
-### alpha.kubernetes.io/provided-node-ip {#alpha-kubernetes-io-provided-node-ip}
+### alpha.kubernetes.io/provided-node-ip (alpha) {#alpha-kubernetes-io-provided-node-ip}
 
 类别：注解
 
@@ -2029,18 +2137,18 @@ kubelet 会在 Node 上设置此注解以表示从命令行标志（`--node-ip`�
 <!--
 ### batch.kubernetes.io/job-completion-index
 
-Type: Annotation
+Type: Annotation, Label
 
 Example: `batch.kubernetes.io/job-completion-index: "3"`
 
 Used on: Pod
 
-The Job controller in the kube-controller-manager sets this annotation for Pods
+The Job controller in the kube-controller-manager sets this as a label and annotation for Pods
 created with Indexed [completion mode](/docs/concepts/workloads/controllers/job/#completion-mode).
 -->
 ### batch.kubernetes.io/job-completion-index {#batch-kubernetes-io-job-completion-index}
 
-类别：注解
+类别：注解、标签
 
 例子：`batch.kubernetes.io/job-completion-index: "3"`
 
@@ -2048,7 +2156,38 @@ created with Indexed [completion mode](/docs/concepts/workloads/controllers/job/
 
 kube-controller-manager 中的 Job 控制器为使用 Indexed
 [完成模式](/zh-cn/docs/concepts/workloads/controllers/job/#completion-mode)创建的 Pod
-设置此注解。
+设置此标签和注解。
+
+<!--
+Note the [PodIndexLabel](content/en/docs/reference/command-line-tools-reference/feature-gates.md) feature gate must be enabled
+for this to be added as a pod **label**, otherwise it will just be an annotation.
+-->
+请注意，[PodIndexLabel](/zh-cn/docs/reference/command-line-tools-reference/feature-gates.md) 特性门控必须被启用，
+才能将其添加为 Pod 的**标签**，否则它只会用作注解。
+
+### batch.kubernetes.io/cronjob-scheduled-timestamp
+
+<!--
+Type: Annotation
+
+Example: `batch.kubernetes.io/cronjob-scheduled-timestamp: "2016-05-19T03:00:00-07:00"`
+
+Used on: Jobs and Pods controlled by CronJobs
+
+This annotation is used to record the original (expected) creation timestamp for a Job,
+when that Job is part of a CronJob.
+The control plane sets the value to that timestamp in RFC3339 format. If the Job belongs to a CronJob
+with a timezone specified, then the timestamp is in that timezone. Otherwise, the timestamp is in controller-manager's local time.
+-->
+类别：注解
+
+例子：`batch.kubernetes.io/cronjob-scheduled-timestamp: "2016-05-19T03:00:00-07:00"`
+
+用于：CronJob 所控制的 Job 和 Pod
+
+此注解在 Job 是 CronJob 的一部分时用于记录 Job 的原始（预期）创建时间戳。
+控制平面会将该值设置为 RFC3339 格式的时间戳。如果 Job 属于设置了时区的 CronJob，
+则时间戳以该时区为基准。否则，时间戳以 controller-manager 的本地时间为准。
 
 <!--
 ### kubectl.kubernetes.io/default-container
@@ -2094,13 +2233,40 @@ container.
 <!--
 This annotation is deprecated. You should use the
 [`kubectl.kubernetes.io/default-container`](#kubectl-kubernetes-io-default-container)
-annotation instead.
-Kubernetes versions 1.25 and newer ignore this annotation.
+annotation instead. Kubernetes versions 1.25 and newer ignore this annotation.
 -->
 此注解已被弃用。取而代之的是使用
 [`kubectl.kubernetes.io/default-container`](#kubectl-kubernetes-io-default-container) 注解。
 Kubernetes v1.25 及更高版本将忽略此注解。
 {{< /note >}}
+
+### kubectl.kubernetes.io/last-applied-configuration
+
+<!--
+Type: Annotation
+
+Example: _see following snippet_
+-->
+类别：注解
+
+例子：**参见以下代码片段**
+
+```yaml
+    kubectl.kubernetes.io/last-applied-configuration: >
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"example","namespace":"default"},"spec":{"selector":{"matchLabels":{"app.kubernetes.io/name":foo}},"template":{"metadata":{"labels":{"app.kubernetes.io/name":"foo"}},"spec":{"containers":[{"image":"container-registry.example/foo-bar:1.42","name":"foo-bar","ports":[{"containerPort":42}]}]}}}}
+```
+
+<!--
+Used on: all objects
+
+The kubectl command line tool uses this annotation as a legacy mechanism
+to track changes. That mechanism has been superseded by
+[Server-side apply](/docs/reference/using-api/server-side-apply/).
+-->
+用于：所有对象
+
+kubectl 命令行工具使用此注解作为一种旧的机制来跟踪变更。
+该机制已被[服务器端应用](/zh-cn/docs/reference/using-api/server-side-apply/)取代。
 
 <!--
 ### endpoints.kubernetes.io/over-capacity
@@ -2143,11 +2309,8 @@ Example: `batch.kubernetes.io/job-tracking: ""`
 
 Used on: Jobs
 
-The presence of this annotation on a Job indicates that the control plane is
+The presence of this annotation on a Job used to indicate that the control plane is
 [tracking the Job status using finalizers](/docs/concepts/workloads/controllers/job/#job-tracking-with-finalizers).
-The control plane uses this annotation to safely transition to tracking Jobs
-using finalizers, while the feature is in development.
-You should **not** manually add or remove this annotation.
 -->
 ### batch.kubernetes.io/job-tracking (已弃用) {#batch-kubernetes-io-job-tracking}
 
@@ -2158,18 +2321,13 @@ You should **not** manually add or remove this annotation.
 用于：Job
 
 Job 上存在此注解表明控制平面正在[使用 Finalizer 追踪 Job](/zh-cn/docs/concepts/workloads/controllers/job/#job-tracking-with-finalizers)。
-控制平面使用此注解来安全地转换为使用 Finalizer 追踪 Job，而此特性正在开发中。
-你 **不** 可以手动添加或删除此注解。
 
-{{< note >}}
 <!--
-Starting from Kubernetes 1.26, this annotation is deprecated.
-Kubernetes 1.27 and newer will ignore this annotation and always track Jobs
-using finalizers.
+Adding or removing this annotation no longer has an effect (Kubernetes v1.27 and later)
+All Jobs are tracked with finalizers.
 -->
-从 Kubernetes 1.26 开始，该注解被弃用。
-Kubernetes 1.27 及以上版本将忽略此注解，并始终使用 Finalizer 追踪 Job。
-{{< /note >}}
+添加或删除此注解不再有效（Kubernetes v1.27 及更高版本），
+所有 Job 均通过 Finalizer 进行追踪。
 
 <!--
 ### job-name (deprecated) {#job-name}
@@ -2605,7 +2763,7 @@ Type: Label
 
 Example: `feature.node.kubernetes.io/network-sriov.capable: "true"`
 
-Used on: Node 
+Used on: Node
 
 These labels are used by the Node Feature Discovery (NFD) component to advertise
 features on a node. All built-in labels use the `feature.node.kubernetes.io` label
@@ -3975,7 +4133,7 @@ ignores that node while calculating Topology Aware Hints.
 
 类别：标签
 
-用于： 节点
+用于：节点
 
 用来指示该节点用于运行控制平面组件的标记标签。Kubeadm 工具将此标签应用于其管理的控制平面节点。
 其他集群管理工具通常也会设置此污点。

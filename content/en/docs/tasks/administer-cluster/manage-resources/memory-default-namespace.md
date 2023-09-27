@@ -53,7 +53,7 @@ Here's a manifest for an example {{< glossary_tooltip text="LimitRange" term_id=
 The manifest specifies a default memory
 request and a default memory limit.
 
-{{% code file="admin/resource/memory-defaults.yaml" %}}
+{{% code_sample file="admin/resource/memory-defaults.yaml" %}}
 
 Create the LimitRange in the default-mem-example namespace:
 
@@ -70,7 +70,7 @@ applies default values: a memory request of 256MiB and a memory limit of 512MiB.
 Here's an example manifest for a Pod that has one container. The container
 does not specify a memory request and limit.
 
-{{% code file="admin/resource/memory-defaults-pod.yaml" %}}
+{{% code_sample file="admin/resource/memory-defaults-pod.yaml" %}}
 
 Create the Pod.
 
@@ -110,7 +110,7 @@ kubectl delete pod default-mem-demo --namespace=default-mem-example
 Here's a manifest for a Pod that has one container. The container
 specifies a memory limit, but not a request:
 
-{{% code file="admin/resource/memory-defaults-pod-2.yaml" %}}
+{{% code_sample file="admin/resource/memory-defaults-pod-2.yaml" %}}
 
 Create the Pod:
 
@@ -141,7 +141,7 @@ resources:
 Here's a manifest for a Pod that has one container. The container
 specifies a memory request, but not a limit:
 
-{{% code file="admin/resource/memory-defaults-pod-3.yaml" %}}
+{{% code_sample file="admin/resource/memory-defaults-pod-3.yaml" %}}
 
 Create the Pod:
 

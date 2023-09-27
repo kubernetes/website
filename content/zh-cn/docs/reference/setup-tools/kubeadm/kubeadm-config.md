@@ -49,9 +49,13 @@ For more information on using the kubeadm configuration API navigate to
 <!-- 
 You can use `kubeadm config migrate` to convert your old configuration files that contain a deprecated
 API version to a newer, supported API version. 
+
+`kubeadm config validate` can be used for validating a configuration file.
 -->
 你可以使用 `kubeadm config migrate` 来转换旧配置文件，
 把其中已弃用的 API 版本更新为受支持的 API 版本。
+
+`kubeadm config validate` 可用于验证配置文件。
 
 <!-- 
 `kubeadm config images list` and `kubeadm config images pull` can be used to list and pull the images
@@ -71,6 +75,9 @@ that kubeadm requires.
 
 ## kubeadm config migrate {#cmd-config-migrate}
 {{< include "generated/kubeadm_config_migrate.md" >}}
+
+## kubeadm config validate {#cmd-config-validate}
+{{< include "generated/kubeadm_config_validate.md" >}}
 
 ## kubeadm config images list {#cmd-config-images-list}
 {{< include "generated/kubeadm_config_images_list.md" >}}

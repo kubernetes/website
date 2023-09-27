@@ -32,16 +32,17 @@ aliases:
     - annajung
     - bradtopol
     - divya-mohan0209
+    - katcosgrove # RT 1.29 Docs Lead
     - kbhawkey
     - natalisucks
     - nate-double-u
     - onlydole
     - reylejano
-    - Rishit-dagli # 1.28 Release Team Docs Lead
     - sftim
     - tengqm
   sig-docs-en-reviews: # PR reviews for English content
     - bradtopol
+    - dipesh-rawat    
     - divya-mohan0209
     - kbhawkey
     - mehabhalodiya

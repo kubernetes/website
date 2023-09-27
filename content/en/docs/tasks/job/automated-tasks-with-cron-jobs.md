@@ -22,7 +22,7 @@ This page shows how to run automated tasks using Kubernetes {{< glossary_tooltip
 Cron jobs require a config file.
 Here is a manifest for a CronJob that runs a simple demonstration task every minute:
 
-{{% code file="application/job/cronjob.yaml" %}}
+{{% code_sample file="application/job/cronjob.yaml" %}}
 
 Run the example CronJob by using this command:
 

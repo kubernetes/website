@@ -311,14 +311,14 @@ Example PDB Using minAvailable:
 -->
 使用 minAvailable 的 PDB 示例：
 
-{{% codenew file="policy/zookeeper-pod-disruption-budget-minavailable.yaml" %}}
+{{% code file="policy/zookeeper-pod-disruption-budget-minavailable.yaml" %}}
 
 <!--
 Example PDB Using maxUnavailable:
 -->
 使用 maxUnavailable 的 PDB 示例：
 
-{{% codenew file="policy/zookeeper-pod-disruption-budget-maxunavailable.yaml" %}}
+{{% code file="policy/zookeeper-pod-disruption-budget-maxunavailable.yaml" %}}
 
 <!--
 For example, if the above `zk-pdb` object selects the pods of a StatefulSet of size 3, both

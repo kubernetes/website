@@ -87,7 +87,6 @@ operator to use or manage a cluster.
 * [kubelet credential providers (v1alpha1)](/docs/reference/config-api/kubelet-credentialprovider.v1alpha1/),
   [kubelet credential providers (v1beta1)](/docs/reference/config-api/kubelet-credentialprovider.v1beta1/) and
   [kubelet credential providers (v1)](/docs/reference/config-api/kubelet-credentialprovider.v1/)
-* [kube-scheduler configuration (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/),
   [kube-scheduler configuration (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/) and
   [kube-scheduler configuration (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
 * [kube-controller-manager configuration (v1alpha1)](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/)
@@ -101,6 +100,16 @@ operator to use or manage a cluster.
 ## Config API for kubeadm
 
 * [v1beta3](/docs/reference/config-api/kubeadm-config.v1beta3/)
+* [v1beta4](/docs/reference/config-api/kubeadm-config.v1beta4/)
+
+## External APIs
+
+These are the APIs defined by the Kubernetes project, but are not implemented
+by the core project:
+
+* [Metrics API (v1beta1)](/docs/reference/external-api/metrics.v1beta1/)
+* [Custom Metrics API (v1beta2)](/docs/reference/external-api/custom-metrics.v1beta2)
+* [External Metrics API (v1beta1)](/docs/reference/external-api/external-metrics.v1beta1)
 
 ## Design Docs
 

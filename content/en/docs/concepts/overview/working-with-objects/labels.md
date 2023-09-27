@@ -297,11 +297,110 @@ One use case for selecting over labels is to constrain the set of nodes onto whi
 a pod can schedule. See the documentation on
 [node selection](/docs/concepts/scheduling-eviction/assign-pod-node/) for more information.
 
+## Using labels effectively
+
+You can apply a single label to any resources, but this is not always the
+best practice. There are many scenarios where multiple labels should be used to
+distinguish resource sets from one another.
+
+For instance, different applications would use different values for the `app` label, but a
+multi-tier application, such as the [guestbook example](https://github.com/kubernetes/examples/tree/master/guestbook/),
+would additionally need to distinguish each tier. The frontend could carry the following labels:
+
+```yaml
+labels:
+  app: guestbook
+  tier: frontend
+```
+
+while the Redis master and replica would have different `tier` labels, and perhaps even an
+additional `role` label:
+
+```yaml
+labels:
+  app: guestbook
+  tier: backend
+  role: master
+```
+
+and
+
+```yaml
+labels:
+  app: guestbook
+  tier: backend
+  role: replica
+```
+
+The labels allow for slicing and dicing the resources along any dimension specified by a label:
+
+```shell
+kubectl apply -f examples/guestbook/all-in-one/guestbook-all-in-one.yaml
+kubectl get pods -Lapp -Ltier -Lrole
+```
+
+```none
+NAME                           READY  STATUS    RESTARTS   AGE   APP         TIER       ROLE
+guestbook-fe-4nlpb             1/1    Running   0          1m    guestbook   frontend   <none>
+guestbook-fe-ght6d             1/1    Running   0          1m    guestbook   frontend   <none>
+guestbook-fe-jpy62             1/1    Running   0          1m    guestbook   frontend   <none>
+guestbook-redis-master-5pg3b   1/1    Running   0          1m    guestbook   backend    master
+guestbook-redis-replica-2q2yf  1/1    Running   0          1m    guestbook   backend    replica
+guestbook-redis-replica-qgazl  1/1    Running   0          1m    guestbook   backend    replica
+my-nginx-divi2                 1/1    Running   0          29m   nginx       <none>     <none>
+my-nginx-o0ef1                 1/1    Running   0          29m   nginx       <none>     <none>
+```
+
+```shell
+kubectl get pods -lapp=guestbook,role=replica
+```
+
+```none
+NAME                           READY  STATUS   RESTARTS  AGE
+guestbook-redis-replica-2q2yf  1/1    Running  0         3m
+guestbook-redis-replica-qgazl  1/1    Running  0         3m
+```
+
+## Updating labels
+
+Sometimes you may want to relabel existing pods and other resources before creating
+new resources. This can be done with `kubectl label`.
+For example, if you want to label all your NGINX Pods as frontend tier, run:
+
+```shell
+kubectl label pods -l app=nginx tier=fe
+```
+
+```none
+pod/my-nginx-2035384211-j5fhi labeled
+pod/my-nginx-2035384211-u2c7e labeled
+pod/my-nginx-2035384211-u3t6x labeled
+```
+
+This first filters all pods with the label "app=nginx", and then labels them with the "tier=fe".
+To see the pods you labeled, run:
+
+```shell
+kubectl get pods -l app=nginx -L tier
+```
+
+```none
+NAME                        READY     STATUS    RESTARTS   AGE       TIER
+my-nginx-2035384211-j5fhi   1/1       Running   0          23m       fe
+my-nginx-2035384211-u2c7e   1/1       Running   0          23m       fe
+my-nginx-2035384211-u3t6x   1/1       Running   0          23m       fe
+```
+
+This outputs all "app=nginx" pods, with an additional label column of pods' tier
+(specified with `-L` or `--label-columns`).
+
+For more information, please see [kubectl label](/docs/reference/generated/kubectl/kubectl-commands/#label).
+
 ## {{% heading "whatsnext" %}}
 
 - Learn how to [add a label to a node](/docs/tasks/configure-pod-container/assign-pods-nodes/#add-a-label-to-a-node)
 - Find [Well-known labels, Annotations and Taints](/docs/reference/labels-annotations-taints/)
 - See [Recommended labels](/docs/concepts/overview/working-with-objects/common-labels/)
 - [Enforce Pod Security Standards with Namespace Labels](/docs/tasks/configure-pod-container/enforce-standards-namespace-labels/)
-- [Use Labels effectively](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively) to manage deployments.
 - Read a blog on [Writing a Controller for Pod Labels](/blog/2021/06/21/writing-a-controller-for-pod-labels/)
+

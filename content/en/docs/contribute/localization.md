@@ -401,7 +401,7 @@ have the exact font used in the original SVG.
 5. **Reviewing and testing**: After making the necessary translations and
 converting text to curves, save and review the updated SVG image to ensure
 the text is properly displayed and aligned. Check
-[Preview your changes locally](https://kubernetes.io/docs/contribute/new-content/open-a-pr/#preview-locally).
+[Preview your changes locally](/docs/contribute/new-content/open-a-pr/#preview-locally).
 
 ### Source files
 

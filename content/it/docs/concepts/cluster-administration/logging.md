@@ -28,7 +28,7 @@ emette i dati sul flusso di output standard. Utilizza questa dimostrazione
 una [specifica pod](/esempi/debug/counter-pod.yaml) con
 un contenitore che scrive del testo sullo standard output una volta al secondo.
 
-{{< codenew file="debug/counter-pod.yaml" >}}
+{{% codenew file="debug/counter-pod.yaml" %}}
 
 Per eseguire questo pod, utilizzare il seguente comando:
 
@@ -160,7 +160,7 @@ Considera il seguente esempio. Un pod esegue un singolo contenitore e il conteni
 scrive su due file di registro diversi, utilizzando due formati diversi. Ecco un
 file di configurazione per il pod:
 
-{{< codenew file="admin/logging/two-files-counter-pod.yaml" >}}
+{{% codenew file="admin/logging/two-files-counter-pod.yaml" %}}
 
 Sarebbe un disastro avere voci di registro di diversi formati nello stesso registro
 stream, anche se si è riusciti a reindirizzare entrambi i componenti al flusso `stdout` di
@@ -170,7 +170,7 @@ i registri al proprio flusso `stdout`.
 
 Ecco un file di configurazione per un pod con due contenitori sidecar:
 
-{{< codenew file="admin/logging/two-files-counter-pod-streaming-sidecar.yaml" >}}
+{{% codenew file="admin/logging/two-files-counter-pod-streaming-sidecar.yaml" %}}
 
 Ora quando si esegue questo pod, è possibile accedere separatamente a ciascun flusso di log
 eseguendo i seguenti comandi:
@@ -229,7 +229,7 @@ che utilizza fluentd come agente di registrazione. Qui ci sono due file di confi
 puoi usare per implementare questo approccio. Il primo file contiene
 a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) per configurare fluentd.
 
-{{< codenew file="admin/logging/fluentd-sidecar-config.yaml" >}}
+{{% codenew file="admin/logging/fluentd-sidecar-config.yaml" %}}
 
 {{< note >}}
 La configurazione di fluentd esula dallo scopo di questo articolo. Per
@@ -240,7 +240,7 @@ informazioni sulla configurazione di fluentd, vedere il
 Il secondo file descrive un pod con un contenitore sidecar in esecuzione fluentd.
 Il pod monta un volume dove fluentd può raccogliere i suoi dati di configurazione.
 
-{{< codenew file="admin/logging/two-files-counter-pod-agent-sidecar.yaml" >}}
+{{% codenew file="admin/logging/two-files-counter-pod-agent-sidecar.yaml" %}}
 
 Dopo un po 'di tempo è possibile trovare i messaggi di registro nell'interfaccia Stackdriver.
 
