@@ -28,7 +28,7 @@ The transition from Ingress API to Gateway API in Kubernetes is driven by advant
 
 ### A Role-Oriented Approach
 
-The Gateway API employs a role-oriented approach that aligns with the conventional roles within organizations involved in configuring Kubernetes service networking. This approach enables infrastructure engineers, cluster operators, and application developers to collectively address different aspects of the Gateway API.
+Gateway API employs a role-oriented approach that aligns with the conventional roles within organizations involved in configuring Kubernetes service networking. This approach enables infrastructure engineers, cluster operators, and application developers to collectively address different aspects of the Gateway API.
 
 For instance, infrastructure engineers play a pivotal role in deploying GatewayClasses, cluster-scoped resources that act as templates to explicitly define behavior for Gateways derived from them, laying the groundwork for robust service networking.
 
@@ -37,7 +37,7 @@ For instance, infrastructure engineers play a pivotal role in deploying GatewayC
 
 <!-- Lastly, application developers … -->
 
-![The resources of the Gateway API](gateway-api-resources.png)
+![The resources of Gateway API](gateway-api-resources.png)
 
 ### Portability
 Gateway API is designed to be more portable across different implementations, clusters and environments. It helps reduce Ingress' reliance on non-portable, provider-specific annotations, making your configurations more consistent and easier to manage across multiple clusters.
