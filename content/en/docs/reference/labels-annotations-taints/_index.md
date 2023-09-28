@@ -309,7 +309,7 @@ Example: `container.apparmor.security.beta.kubernetes.io/my-container: my-custom
 Used on: Pods
 
 This annotation allows you to specify the AppArmor security profile for a container within a
-Kubernetes pod. AppArmor is a Linux kernel security module that restricts the capabilities
+Kubernetes pod. 
 For details, see the [AppArmor](https://kubernetes.io/docs/tutorials/security/apparmor/)  tutorial to restrict a container's access to resources.
 
 By setting this annotation, you can define a custom AppArmor profile for a container,
