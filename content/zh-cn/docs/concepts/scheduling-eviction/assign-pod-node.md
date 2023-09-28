@@ -231,7 +231,7 @@ For example, consider the following Pod spec:
 你可以使用 Pod 规约中的 `.spec.affinity.nodeAffinity` 字段来设置节点亲和性。
 例如，考虑下面的 Pod 规约：
 
-{{% code file="pods/pod-with-node-affinity.yaml" %}}
+{{% code_sample file="pods/pod-with-node-affinity.yaml" %}}
 
 <!--
 In this example, the following rules apply:
@@ -331,7 +331,7 @@ For example, consider the following Pod spec:
 
 例如，考虑下面的 Pod 规约：
 
-{{% code file="pods/pod-with-affinity-anti-affinity.yaml" %}}
+{{% code_sample file="pods/pod-with-affinity-anti-affinity.yaml" %}}
 
 <!--
 If there are two possible nodes that match the
@@ -526,6 +526,24 @@ spec.
 对于 Pod 间反亲和性，可以使用 Pod 规约中的 `.affinity.podAntiAffinity` 字段。
 
 <!--
+#### Scheduling a group of pods with inter-pod affinity to themselves
+
+If the current Pod being scheduled is the first in a series that have affinity to themselves,
+it is allowed to be scheduled if it passes all other affinity checks. This is determined by
+verifying that no other pod in the cluster matches the namespace and selector of this pod,
+that the pod matches its own terms, and the chosen node matches all requested topologies.
+This ensures that there will not be a deadlock even if all the pods have inter-pod affinity
+specified.
+-->
+#### 调度一组具有 Pod 间亲和性的 Pod   {#scheduling-a-group-of-pods-with-inter-pod-affinity-to-themselves}
+
+如果当前正被调度的 Pod 在具有自我亲和性的 Pod 序列中排在第一个，
+那么只要它满足其他所有的亲和性规则，它就可以被成功调度。
+这是通过以下方式确定的：确保集群中没有其他 Pod 与此 Pod 的命名空间和标签选择器匹配；
+该 Pod 满足其自身定义的条件，并且选定的节点满足所指定的所有拓扑要求。
+这确保即使所有的 Pod 都配置了 Pod 间亲和性，也不会出现调度死锁的情况。
+
+<!--
 #### Pod affinity example {#an-example-of-a-pod-that-uses-pod-affinity}
 
 Consider the following Pod spec:
@@ -534,7 +552,7 @@ Consider the following Pod spec:
 
 考虑下面的 Pod 规约：
 
-{{% code file="pods/pod-with-pod-affinity.yaml" %}}
+{{% code_sample file="pods/pod-with-pod-affinity.yaml" %}}
 
 <!--
 This example defines one Pod affinity rule and one Pod anti-affinity rule. The
