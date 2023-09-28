@@ -254,12 +254,14 @@ StatefulSet Pod 具有唯一的标识，该标识包括顺序标识、稳定的�
 
 For a StatefulSet with N [replicas](#replicas), each Pod in the StatefulSet
 will be assigned an integer ordinal, that is unique over the Set. By default,
-pods will be assigned ordinals from 0 up through N-1.
+pods will be assigned ordinals from 0 up through N-1. The StatefulSet controller
+will also add a pod label with this index: `apps.kubernetes.io/pod-index`.
 -->
 ### 有序索引   {#ordinal-index}
 
 对于具有 N 个[副本](#replicas)的 StatefulSet，该 StatefulSet 中的每个 Pod 将被分配一个整数序号，
 该序号在此 StatefulSet 上是唯一的。默认情况下，这些 Pod 将被从 0 到 N-1 的序号。
+StatefulSet 控制器还会为这个索引添加一个 pod 标签：apps.kubernetes.io/pod-index。
 
 <!--
 ### Start ordinal
@@ -376,7 +378,7 @@ Cluster Domain will be set to `cluster.local` unless
 
 For each VolumeClaimTemplate entry defined in a StatefulSet, each Pod receives one
 PersistentVolumeClaim. In the nginx example above, each Pod receives a single PersistentVolume
-with a StorageClass of `my-storage-class` and 1 Gib of provisioned storage. If no StorageClass
+with a StorageClass of `my-storage-class` and 1 GiB of provisioned storage. If no StorageClass
 is specified, then the default StorageClass will be used. When a Pod is (re)scheduled
 onto a node, its `volumeMounts` mount the PersistentVolumes associated with its
 PersistentVolume Claims. Note that, the PersistentVolumes associated with the
@@ -387,7 +389,7 @@ This must be done manually.
 
 对于 StatefulSet 中定义的每个 VolumeClaimTemplate，每个 Pod 接收到一个 PersistentVolumeClaim。
 在上面的 nginx 示例中，每个 Pod 将会得到基于 StorageClass `my-storage-class` 制备的
-1 Gib 的 PersistentVolume。
+1 GiB 的 PersistentVolume。
 如果没有声明 StorageClass，就会使用默认的 StorageClass。
 当一个 Pod 被调度（重新调度）到节点上时，它的 `volumeMounts` 会挂载与其
 PersistentVolumeClaims 相关联的 PersistentVolume。
@@ -407,6 +409,24 @@ the StatefulSet.
 当 StatefulSet {{<glossary_tooltip text="控制器" term_id="controller">}}创建 Pod 时，
 它会添加一个标签 `statefulset.kubernetes.io/pod-name`，该标签值设置为 Pod 名称。
 这个标签允许你给 StatefulSet 中的特定 Pod 绑定一个 Service。
+
+<!--
+### Pod index label
+
+{{< feature-state for_k8s_version="v1.28" state="beta" >}}
+
+When the StatefulSet {{<glossary_tooltip text="controller" term_id="controller">}} creates a Pod,
+the new Pod is labelled with `apps.kubernetes.io/pod-index`. The value of this label is the ordinal index of
+the Pod. This label allows you to route traffic to a particular pod index, filter logs/metrics
+using the pod index label, and more. Note the feature gate `PodIndexLabel` must be enabled for this
+feature, and it is enabled by default.
+-->
+### Pod 索引标签   {#pod-index-label}
+
+当 StatefulSet {{<glossary_tooltip text="控制器" term_id="controller">}}创建一个 Pod 时，
+新的 Pod 会被标记为 apps.kubernetes.io/pod-index。这个标签的值是 Pod 的序数索引。
+通过这个标签，您可以将流量路由到特定的 pod 索引，使用 pod 索引标签过滤日志/指标等。请注意，要使用此功能，必须启用
+PodIndexLabel 功能门，而且它默认是启用的。
 
 <!--
 ## Deployment and Scaling Guarantees
