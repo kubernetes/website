@@ -163,6 +163,8 @@ spec:
 ## {{% heading "whatsnext" %}}
 
 <!--
-Learn more about [Labels and Selectors](/docs/concepts/overview/working-with-objects/labels/).
+- Learn more about [Labels and Selectors](/docs/concepts/overview/working-with-objects/labels/).
+- Find [Well-known labels, Annotations and Taints](/docs/reference/labels-annotations-taints/)
 -->
-进一步了解[标签和选择算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/)。
+- 进一步了解[标签和选择算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/)。
+- 查找[众所周知的标签、注解和污点](/zh-cn/docs/reference/labels-annotations-taints/)。
