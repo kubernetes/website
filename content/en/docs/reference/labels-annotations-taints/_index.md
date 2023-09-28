@@ -740,6 +740,16 @@ dynamically provisioned/deleted by its corresponding CSI driver through the `CSI
 When this annotation is set, the Kubernetes components will "stand-down" and the
 `external-provisioner` will act on the objects.
 
+### policy.kubernetes.io/engine
+
+Type: Label
+
+Example: `policy.kubernetes.io/engine: "true"`
+
+Used On: FlowSchema and PriorityLevelConfiguration Objcts
+
+This label  is used to manage the behavior of the kube-apiserver for specific Kubernetes objects, namely FlowSchema and PriorityLevelConfiguration. When set to "true" on a FlowSchema or PriorityLevelConfiguration object, it signifies that the kube-apiserver will take over the management of the object's specification.
+
 ### statefulset.kubernetes.io/pod-name {#statefulsetkubernetesiopod-name}
 
 Type: Label
