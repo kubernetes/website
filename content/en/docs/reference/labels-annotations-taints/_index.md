@@ -310,7 +310,7 @@ Used on: Pods
 
 This annotation allows you to specify the AppArmor security profile for a container within a
 Kubernetes pod. AppArmor is a Linux kernel security module that restricts the capabilities
-and access rights of processes within a container, enhancing the security of your workloads. Just look for the [apparmor](https://kubernetes.io/docs/tutorials/security/apparmor/) for more details.
+For details, see the [AppArmor](https://kubernetes.io/docs/tutorials/security/apparmor/)  tutorial to restrict a container's access to resources.
 
 By setting this annotation, you can define a custom AppArmor profile for a container, which dictates the set of rules and restrictions that the containerized process must adhere to. This helps enforce security policies and isolation for your containers.
 
