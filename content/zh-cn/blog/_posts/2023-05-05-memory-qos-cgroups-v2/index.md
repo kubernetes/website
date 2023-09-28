@@ -178,31 +178,42 @@ MemoryQoS 机制使用 cgroups v2 的内存控制器来保证 Kubernetes 中的�
 {{< figure src="/blog/2023/05/05/qos-memory-resources/memory-qos-cal.svg" title="内存 QoS 级别" alt="内存 QoS 级别" >}}
 
 <!--
-`memory.max` is mapped to `limits.memory` specified in the Pod spec. The kubelet and the container runtime configure the limit in the respective cgroup. The kernel enforces the limit to prevent the container from using more than the configured resource limit. If a process in a container tries to consume more than the specified limit, kernel terminates a process(es) with an out of memory Out of Memory (OOM) error.
+`memory.max` is mapped to `limits.memory` specified in the Pod spec. The kubelet and
+the container runtime configure the limit in the respective cgroup. The kernel
+enforces the limit to prevent the container from using more than the configured
+resource limit. If a process in a container tries to consume more than the
+specified limit, kernel terminates a process(es) with an Out of Memory (OOM) error.
 -->
 `memory.max` 映射到 Pod 规约中指定的 `limits.memory`。
 kubelet 和容器运行时在对应的 cgroup 中配置限制值。内核强制执行限制机制以防止容器用量超过所配置的资源限制。
 如果容器中的进程尝试消耗的资源超过所设置的限制值，内核将终止进程并报告内存不足（OOM）错误。
 
-<!--
-{{< figure src="/blog/2023/05/05/qos-memory-resources/container-memory-max.svg" title="memory.max maps to limits.memory" alt="memory.max maps to limits.memory" >}}
--->
-{{< figure src="/blog/2023/05/05/qos-memory-resources/container-memory-max.svg" title="memory.max 映射到 limit.memory" alt="memory.max 映射到 limit.memory" >}}
+```formula
+memory.max = pod.spec.containers[i].resources.limits[memory]
+```
 
 <!--
-`memory.min` is mapped to `requests.memory`, which results in reservation of memory resources that should never be reclaimed by the kernel. This is how Memory QoS ensures the availability of memory for Kubernetes pods. If there's no unprotected reclaimable memory available, the OOM killer is invoked to make more memory available.
+`memory.min` is mapped to `requests.memory`, which results in reservation of memory resources
+that should never be reclaimed by the kernel. This is how Memory QoS ensures the availability of
+memory for Kubernetes pods. If there's no unprotected reclaimable memory available, the OOM
+killer is invoked to make more memory available.
 -->
 `memory.min` 被映射到 `requests.memory`，这会导致内存资源被预留而永远不会被内核回收。
 这就是 MemoryQoS 机制确保 Kubernetes Pod 内存可用性的方式。
 如果没有不受保护的、可回收的内存，则内核会调用 OOM 杀手以提供更多可用内存。
 
-<!--
-{{< figure src="/blog/2023/05/05/qos-memory-resources/container-memory-min.svg" title="memory.min maps to requests.memory" alt="memory.min maps to requests.memory" >}}
--->
-{{< figure src="/blog/2023/05/05/qos-memory-resources/container-memory-min.svg" title="memory.min 映射到 requests.memory" alt="memory.min 映射到 requests.memory" >}}
+```formula
+memory.min = pod.spec.containers[i].resources.requests[memory]
+```
 
 <!--
-For memory protection, in addition to the original way of limiting memory usage, Memory QoS throttles workload approaching its memory limit, ensuring that the system is not overwhelmed by sporadic increases in memory usage. A new field, `memoryThrottlingFactor`, is available in the KubeletConfiguration when you enable MemoryQoS feature. It is set to 0.9 by default. `memory.high` is mapped to throttling limit calculated by using `memoryThrottlingFactor`, `requests.memory` and `limits.memory` as in the formula below, and rounding down the value to the nearest page size:
+For memory protection, in addition to the original way of limiting memory usage, Memory QoS
+throttles workload approaching its memory limit, ensuring that the system is not overwhelmed
+by sporadic increases in memory usage. A new field, `memoryThrottlingFactor`, is available in
+the KubeletConfiguration when you enable MemoryQoS feature. It is set to 0.9 by default.
+`memory.high` is mapped to throttling limit calculated by using `memoryThrottlingFactor`,
+`requests.memory` and `limits.memory` as in the formula below, and rounding down the
+value to the nearest page size:
 -->
 对于内存保护，除了原来的限制内存用量的方式之外，MemoryQoS 机制还会对用量接近其内存限制的工作负载进行抑制，
 确保系统不会因内存使用的零星增加而不堪重负。当你启用 MemoryQoS 特性时，
@@ -210,15 +221,17 @@ KubeletConfiguration 中将提供一个新字段 `memoryThrottlingFactor`。默�
 `memory.high` 被映射到通过 `memoryThrottlingFactor`、`requests.memory` 和 `limits.memory`
 计算得出的抑制上限，计算方法如下式所示，所得的值向下舍入到最接近的页面大小：
 
-<!--
-{{< figure src="/blog/2023/05/05/qos-memory-resources/container-memory-high.svg" title="memory.high formula" alt="memory.high formula" >}}
--->
-{{< figure src="/blog/2023/05/05/qos-memory-resources/container-memory-high.svg" title="memory.high 公式" alt="memory.high 公式" >}}
+```formula
+memory.high = pod.spec.containers[i].resources.requests[memory] + MemoryThrottlingFactor *
+{(pod.spec.containers[i].resources.limits[memory] or NodeAllocatableMemory) - pod.spec.containers[i].resources.requests[memory]}
+```
 
+{{< note >}}
 <!--
-**Note**: If a container has no memory limits specified, `limits.memory` is substituted for node allocatable memory.
+If a container has no memory limits specified, `limits.memory` is substituted for node allocatable memory.
 -->
-**注意**：如果容器没有指定内存限制，则 `limits.memory` 将被替换为节点可分配内存的值。
+如果容器没有指定内存限制，则 `limits.memory` 将被替换为节点可分配内存的值。
+{{< /note >}}
 
 <!--
 **Summary:**
@@ -283,11 +296,14 @@ KubeletConfiguration 中将提供一个新字段 `memoryThrottlingFactor`。默�
    </tr>
 </table>
 
+{{< note >}}
 <!--
-**Note** `memory.high` is set only on container level cgroups while `memory.min` is set on container, pod, and node level cgroups.
+`memory.high` is set only on container level cgroups while `memory.min` is set on
+container, pod, and node level cgroups.
 -->
-**注意**：`memory.high` 仅可在容器级别的 cgroups 上设置，
+`memory.high` 仅可在容器级别的 cgroups 上设置，
 而 `memory.min` 则可在容器、Pod 和节点级别的 cgroups 上设置。
+{{< /note >}}
 
 <!--
 ### `memory.min` calculations for cgroups heirarchy
@@ -295,53 +311,53 @@ KubeletConfiguration 中将提供一个新字段 `memoryThrottlingFactor`。默�
 ### 针对 cgroup 层次结构的 `memory.min` 计算 {#memory-min-calculations-for-cgroups-heirarchy}
 
 <!--
-When container memory requests are made, kubelet passes `memory.min` to the back-end CRI runtime (such as containerd or CRI-O) via the `Unified` field in CRI during container creation. The `memory.min` in container level cgroups will be set to:
+When container memory requests are made, kubelet passes `memory.min` to the back-end 
+CRI runtime (such as containerd or CRI-O) via the `Unified` field in CRI during 
+container creation. For every i<sup>th</sup> container in a pod, the `memory.min`
+in container level cgroups will be set to: 
 -->
 当发出容器内存请求时，kubelet 在创建容器期间通过 CRI 中的 `Unified` 字段将 `memory.min`
 传递给后端 CRI 运行时（例如 containerd 或 CRI-O）。容器级别 cgroup 中的 `memory.min` 将设置为：
 
-$memory.min =  pod.spec.containers[i].resources.requests[memory]$
-<!--
-<sub>for every i<sup>th</sup> container in a pod</sub>
--->
-<sub>对于 Pod 中每个 i<sup>th</sup> 容器</sub>
-<br>
-<br>
-<!--
-Since the `memory.min` interface requires that the ancestor cgroups directories are all set, the pod and node cgroups directories need to be set correctly. 
--->
-由于 `memory.min` 接口要求祖先 cgroups 目录全部被设置，
-因此需要正确设置 Pod 和节点的 cgroups 目录。
+```formula
+memory.min =  pod.spec.containers[i].resources.requests[memory]
+```
 
 <!--
-`memory.min` in pod level cgroup:
--->
-Pod 级别 cgroup 中的 `memory.min`：
+Since the `memory.min` interface requires that the ancestor cgroups directories are all
+set, the pod and node cgroups directories need to be set correctly.
 
-$memory.min = \sum_{i=0}^{no. of pods}pod.spec.containers[i].resources.requests[memory]$
-<!--
-<sub>for every i<sup>th</sup> container in a pod</sub>
+For every i<sup>th</sup> container in a pod, `memory.min` in pod level cgroup:
 -->
-<sub>对于 Pod 中每个 i<sup>th</sup> 容器</sub>
-<br>
-<br>
-<!--
-`memory.min` in node level cgroup:
--->
-节点级别 cgroup 中的 `memory.min`：
+由于 `memory.min` 接口要求祖先 cgroup 目录全部被设置，
+因此需要正确设置 Pod 和节点的 cgroup 目录。
 
-$memory.min = \sum_{i}^{no. of nodes}\sum_{j}^{no. of pods}pod[i].spec.containers[j].resources.requests[memory]$
+对于 Pod 中第 i 个容器，Pod 级别 cgroup 中的 `memory.min` 为：
+
+```formula
+memory.min = \sum_{i=0}^{no. of pods}pod.spec.containers[i].resources.requests[memory]
+```
+
 <!--
-<sub>for every j<sup>th</sup> container in every i<sup>th</sup> pod on a node</sub>
+For every j<sup>th</sup> container in every i<sup>th</sup> pod on a node, `memory.min` in node level cgroup:
+
+```formula
+memory.min = \sum_{i}^{no. of nodes}\sum_{j}^{no. of pods}pod[i].spec.containers[j].resources.requests[memory]
+```
 -->
-<sub>对于节点中每个 i<sup>th</sup> Pod 中的每个 j<sup>th</sup> 容器</sub>
-<br>
-<br>
+对于节点上第 i 个 Pod 中的第 j 个容器，节点级别 cgroup 中的 `memory.min` 为：
+
+```formula
+memory.min = \sum_{i}^{节点数}\sum_{j}^{Pod 数}pod[i].spec.containers[j].resources.requests[memory]
+```
+
 <!--
-Kubelet will manage the cgroups hierarchy of the pod level and node level cgroups directly using the libcontainer library (from the runc project), while container cgroups limits are managed by the container runtime.
+Kubelet will manage the cgroups hierarchy of the pod level and node level cgroups
+directly using the libcontainer library (from the runc project), while container
+cgroups limits are managed by the container runtime.
 -->
 Kubelet 将直接使用 libcontainer 库（来自 runc 项目）管理 Pod 级别和节点级别
-cgroups 的层次结构，而容器 cgroups 限制由容器运行时管理。
+cgroup 的层次结构，而容器 cgroup 限制由容器运行时管理。
 
 <!--
 ### Support for Pod QoS classes
@@ -356,14 +372,18 @@ Based on user feedback for the Alpha feature in Kubernetes v1.22, some users wou
 服务质量（QoS）对 Pod 类设置 memory.high。以下是按 QoS 类设置 memory.high 的几种情况：
 
 <!--
-1. **Guaranteed pods** by their QoS definition require memory requests=memory limits and are not overcommitted. Hence MemoryQoS feature is disabled on those pods by not setting memory.high. This ensures that Guaranteed pods can fully use their memory requests up to their set limit, and not hit any throttling.
+1. **Guaranteed pods** by their QoS definition require memory requests=memory limits and are
+   not overcommitted. Hence MemoryQoS feature is disabled on those pods by not setting
+   memory.high. This ensures that Guaranteed pods can fully use their memory requests up
+   to their set limit, and not hit any throttling.
 -->
 1. **Guaranteed Pods**：根据其 QoS 定义，要求 Pod 的内存请求等于其内存限制，并且不允许超配。
    因此，通过不设置 memory.high，MemoryQoS 特性会针对这些 Pod 被禁用。
    这样做可以确保 **Guaranteed Pod** 充分利用其内存请求，也就是其内存限制，并且不会被抑制。
 
 <!--
-2. **Burstable pods** by their QoS definition require at least one container in the Pod with CPU or memory request or limit set.
+1. **Burstable pods** by their QoS definition require at least one container in the Pod with
+   CPU or memory request or limit set.
 -->
 2. **Burstable Pod**：根据其 QoS 定义，要求 Pod 中至少有一个容器具有 CPU 或内存请求或限制设置。
 
@@ -372,20 +392,20 @@ Based on user feedback for the Alpha feature in Kubernetes v1.22, some users wou
    -->
    * 当 requests.memory 和 limits.memory 都被设置时，公式按原样使用：
 
-     <!--
-     {{< figure src="/blog/2023/05/05/qos-memory-resources/container-memory-high-limit.svg" title="memory.high when requests and limits are set" alt="memory.high when requests and limits are set" >}}
-     -->
-     {{< figure src="/blog/2023/05/05/qos-memory-resources/container-memory-high-limit.svg" title="当请求和限制被设置时的 memory.high" alt="当请求和限制被设置时的 memory.high" >}}
+     ```formula
+     memory.high = pod.spec.containers[i].resources.requests[memory] + MemoryThrottlingFactor *
+     {(pod.spec.containers[i].resources.limits[memory]) - pod.spec.containers[i].resources.requests[memory]}
+     ```
 
    <!--
    * When requests.memory is set and limits.memory is not set, limits.memory is substituted for node allocatable memory in the formula:
    -->
    * 当设置了 requests.memory 但未设置 limits.memory 时，公式中的 limits.memory 替换为节点可分配内存：
 
-     <!--
-     {{< figure src="/blog/2023/05/05/qos-memory-resources/container-memory-high-no-limits.svg" title="memory.high when requests and limits are not set" alt="memory.high when requests and limits are not set" >}}
-     -->
-     {{< figure src="/blog/2023/05/05/qos-memory-resources/container-memory-high-no-limits.svg" title="当请求和限制未被设置时的 memory.high" alt="当请求和限制未被设置时的 memory.high" >}}
+     ```formula
+     memory.high = pod.spec.containers[i].resources.requests[memory] + MemoryThrottlingFactor *
+     {(NodeAllocatableMemory) - pod.spec.containers[i].resources.requests[memory]}
+     ```
 
 <!--
 3. **BestEffort** by their QoS definition do not require any memory or CPU limits or requests. For this case, kubernetes sets requests.memory = 0 and substitute limits.memory for node allocatable memory in the formula:
@@ -393,10 +413,9 @@ Based on user feedback for the Alpha feature in Kubernetes v1.22, some users wou
 3. **BestEffort Pods**：根据其 QoS 定义，不需要设置内存或 CPU 限制或请求。对于这种情况，
    kubernetes 设置 requests.memory = 0 并将公式中的 limits.memory 替换为节点可分配内存：
 
-   <!--
-   {{< figure src="/blog/2023/05/05/qos-memory-resources/container-memory-high-best-effort.svg" title="memory.high for BestEffort Pod" alt="memory.high for BestEffort Pod" >}}
-   -->
-   {{< figure src="/blog/2023/05/05/qos-memory-resources/container-memory-high-best-effort.svg" title="BestEffort Pod 的 memory.high" alt="BestEffort Pod 的 memory.high" >}}
+   ```formula
+   memory.high = MemoryThrottlingFactor * NodeAllocatableMemory
+   ```
 
 <!--
 **Summary**: Only Pods in Burstable and BestEffort QoS classes will set `memory.high`. Guaranteed QoS pods do not set `memory.high` as their memory is guaranteed.
@@ -415,8 +434,12 @@ The prerequisites for enabling Memory QoS feature on your Linux node are:
 在 Linux 节点上启用 MemoryQoS 特性的先决条件是：
 
 <!--
-1. Verify the [requirements](/docs/concepts/architecture/cgroups/#requirements) related to [Kubernetes support for cgroups v2](/docs/concepts/architecture/cgroups) are met.
-2. Ensure CRI Runtime supports Memory QoS. At the time of writing, only containerd and CRI-O provide support compatible with Memory QoS (alpha). This was implemented in the following PRs:
+1. Verify the [requirements](/docs/concepts/architecture/cgroups/#requirements)
+   related to [Kubernetes support for cgroups v2](/docs/concepts/architecture/cgroups)
+   are met.
+1. Ensure CRI Runtime supports Memory QoS. At the time of writing, only containerd
+   and CRI-O provide support compatible with Memory QoS (alpha). This was implemented
+   in the following PRs:
    * Containerd: [Feature: containerd-cri support LinuxContainerResources.Unified #5627](https://github.com/containerd/containerd/pull/5627).
    * CRI-O: [implement kube alpha features for 1.22 #5207](https://github.com/cri-o/cri-o/pull/5207).
 -->
@@ -425,11 +448,12 @@ The prerequisites for enabling Memory QoS feature on your Linux node are:
 
 2. 确保 CRI 运行时支持内存 QoS。在撰写本文时，
    只有 Containerd 和 CRI-O 提供与内存 QoS（alpha）兼容的支持。是在以下 PR 中实现的：
-    * Containerd：[Feature: containerd-cri support LinuxContainerResources.Unified #5627](https://github.com/containerd/containerd/pull/5627)。
-    * CRI-O：[implement kube alpha features for 1.22 #5207](https://github.com/cri-o/cri-o/pull/5207)。
+   * containerd：[Feature: containerd-cri support LinuxContainerResources.Unified #5627](https://github.com/containerd/containerd/pull/5627)。
+   * CRI-O：[implement kube alpha features for 1.22 #5207](https://github.com/cri-o/cri-o/pull/5207)。
 
 <!--
-Memory QoS remains an alpha feature for Kubernetes v1.27. You can enable the feature by setting `MemoryQoS=true` in the kubelet configuration file:
+Memory QoS remains an alpha feature for Kubernetes v1.27. You can enable the feature by setting
+`MemoryQoS=true` in the kubelet configuration file:
 -->
 MemoryQoS 在 Kubernetes v1.27 中仍然是 Alpha 特性。
 你可以通过在 kubelet 配置文件中设置 `MemoryQoS=true` 来启用该特性：
@@ -447,7 +471,8 @@ featureGates:
 ## 我如何参与？ {#how-do-i-get-involved}
 
 <!--
-Huge thank you to all the contributors who helped with the design, implementation, and review of this feature:
+Huge thank you to all the contributors who helped with the design, implementation,
+and review of this feature:
 -->
 非常感谢所有帮助设计、实施和审查此功能的贡献者：
 
