@@ -118,7 +118,7 @@ minikube service example-service --url
 ## Preserving the client source IP
 
 By default, the source IP seen in the target container is *not the original
-source IP* of the client. To enable preservation of the client IP, the following
+source IP* of the client. To enable the preservation of the client IP, the following
 fields can be configured in the `.spec` of the Service:
 
 * `.spec.externalTrafficPolicy` - denotes if this Service desires to route
@@ -161,20 +161,20 @@ spec:
 Load balancing services from some cloud providers do not let you configure different weights for each target.
 
 With each target weighted equally in terms of sending traffic to Nodes, external
-traffic is not equally load balanced across different Pods. The external load balancer
+traffic is not equally load-balanced across different Pods. The external load balancer
 is unaware of the number of Pods on each node that are used as a target.
 
 Where `NumServicePods <<  _NumNodes` or `NumServicePods >> NumNodes`, a fairly close-to-equal
 distribution will be seen, even without weights.
 
-Internal pod to pod traffic should behave similar to ClusterIP services, with equal probability across all pods.
+Internal pod-to-pod traffic should behave similarly to ClusterIP services, with equal probability across all pods.
 
 ## Garbage collecting load balancers
 
 {{< feature-state for_k8s_version="v1.17" state="stable" >}}
 
-In usual case, the correlating load balancer resources in cloud provider should
-be cleaned up soon after a LoadBalancer type Service is deleted. But it is known
+Usually, the correlating load balancer resources in the cloud provider should
+be cleaned up soon after a LoadBalancer type Service is deleted. However, it is known
 that there are various corner cases where cloud resources are orphaned after the
 associated Service is deleted. Finalizer Protection for Service LoadBalancers was
 introduced to prevent this from happening. By using finalizers, a Service resource
