@@ -103,14 +103,14 @@ For example, you define a `LimitRange` with this manifest:
 
 例如，你使用如下清单定义一个 `LimitRange`：
 
-{{% code file="concepts/policy/limit-range/problematic-limit-range.yaml" %}}
+{{% code_sample file="concepts/policy/limit-range/problematic-limit-range.yaml" %}}
 
 <!--
 along with a Pod that declares a CPU resource request of `700m`, but not a limit:
 -->
 以及一个声明 CPU 资源请求为 `700m` 但未声明限制值的 Pod：
 
-{{% code file="concepts/policy/limit-range/example-conflict-with-limitrange-cpu.yaml" %}}
+{{% code_sample file="concepts/policy/limit-range/example-conflict-with-limitrange-cpu.yaml" %}}
 
 <!--
 then that Pod will not be scheduled, failing with an error similar to:
@@ -126,7 +126,7 @@ If you set both `request` and `limit`, then that new Pod will be scheduled succe
 -->
 如果你同时设置了 `request` 和 `limit`，那么即使使用相同的 `LimitRange`，新 Pod 也会被成功调度：
 
-{{% code file="concepts/policy/limit-range/example-no-conflict-with-limitrange-cpu.yaml" %}}
+{{% code_sample file="concepts/policy/limit-range/example-no-conflict-with-limitrange-cpu.yaml" %}}
 
 <!--
 ## Example resource constraints
