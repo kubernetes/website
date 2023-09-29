@@ -25,7 +25,7 @@ check the documentation for that version.
 
 Install the following on your workstation:
 
-- [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
+- [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
 - [kubectl](/docs/tasks/tools/)
 
 This tutorial demonstrates what you can configure for a Kubernetes cluster that you fully
@@ -252,7 +252,7 @@ following:
    ```
 
    {{<note>}}
-   If you use Docker Desktop with KinD on macOS, you can
+   If you use Docker Desktop with *kind* on macOS, you can
    add `/tmp` as a Shared Directory under the menu item
    **Preferences > Resources > File Sharing**.
    {{</note>}}
