@@ -1083,7 +1083,7 @@ Example: `alpha.kubernetes.io/provided-node-ip: "10.0.0.1"`
 
 Used on: Node
 
-The kubelet can set this annotation on a Node to denote its configured IPv4 address.
+The kubelet can set this annotation on a Node to denote its configured IPv4 and/or IPv6 address.
 
 When kubelet is started with the `--cloud-provider` flag set to any value (includes both external
 and legacy in-tree cloud providers), it sets this annotation on the Node to denote an IP address
