@@ -4,7 +4,7 @@ id: kubeadm
 date: 2018-04-12
 full_link: /ja/docs/reference/setup-tools/kubeadm/
 short_description: >
-  Kubernetesを迅速にインストールし、安全なクラスタをセットアップするためのツール。
+  Kubernetesを迅速にインストールし、安全なクラスターをセットアップするためのツール。
 
 aka: 
 tags:
