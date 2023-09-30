@@ -468,7 +468,7 @@ can use a manifest similar to:
 -->
 如果你希望新来的 Pod 均匀分布在现有的可用区域，则可以按如下设置其清单：
 
-{{% code file="pods/topology-spread-constraints/one-constraint.yaml" %}}
+{{% code_sample file="pods/topology-spread-constraints/one-constraint.yaml" %}}
 
 <!--
 From that manifest, `topologyKey: zone` implies the even distribution will only be applied
@@ -589,7 +589,7 @@ by node and by zone:
 -->
 可以组合使用 2 个拓扑分布约束来控制 Pod 在节点和可用区两个维度上的分布：
 
-{{% code file="pods/topology-spread-constraints/two-constraints.yaml" %}}
+{{% code_sample file="pods/topology-spread-constraints/two-constraints.yaml" %}}
 
 <!--
 In this case, to match the first constraint, the incoming Pod can only be placed onto
@@ -714,7 +714,7 @@ Similarly, Kubernetes also respects `spec.nodeSelector`.
 以便将 Pod `mypod` 放置在可用区 `B` 上，而不是可用区 `C` 上。
 同样，Kubernetes 也会一样处理 `spec.nodeSelector`。
 
-{{% code file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" %}}
+{{% code_sample file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" %}}
 
 <!--
 ## Implicit conventions
@@ -810,16 +810,6 @@ profiles:
               whenUnsatisfiable: ScheduleAnyway
           defaultingType: List
 ```
-
-{{< note >}}
-<!--
-The [`SelectorSpread` plugin](/docs/reference/scheduling/config/#scheduling-plugins)
-is disabled by default. The Kubernetes project recommends using `PodTopologySpread`
-to achieve similar behavior.
--->
-默认配置下，[`SelectorSpread` 插件](/zh-cn/docs/reference/scheduling/config/#scheduling-plugins)是被禁用的。
-Kubernetes 项目建议使用 `PodTopologySpread` 以执行类似行为。
-{{< /note >}}
 
 <!--
 ### Built-in default constraints {#internal-default-constraints}
