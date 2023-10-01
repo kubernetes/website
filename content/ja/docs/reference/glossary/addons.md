@@ -13,4 +13,4 @@ tags:
   Kubernetesの機能を拡張するリソース。
 
 <!--more-->
-[Installing addons](/ja/docs/concepts/cluster-administration/addons/)では、クラスターのアドオン使用について詳しく説明し、いくつかの人気のあるアドオンを列挙します。
+[アドオンのインストール](/ja/docs/concepts/cluster-administration/addons/)では、クラスターのアドオン使用について詳しく説明し、いくつかの人気のあるアドオンを列挙します。
