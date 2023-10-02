@@ -394,7 +394,7 @@ read-modify-write and/or patch are the following:
   to be specified.
 
 It is strongly recommended for controllers to always force conflicts on objects that
-the own and manage, since they might not be able to resolve or act on these conflicts.
+they own and manage, since they might not be able to resolve or act on these conflicts.
 
 ## Transferring ownership
 
