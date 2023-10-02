@@ -731,7 +731,7 @@ Type: Label
 
 Example: `policy.kubernetes.io/engine: "true"`
 
-Used On: FlowSchema and PriorityLevelConfiguration Objcts
+Used on: FlowSchema and PriorityLevelConfiguration
 
 This label is used to manage the behavior of the API Server for specific Kubernetes objects,
 namely FlowSchema and PriorityLevelConfiguration. 
