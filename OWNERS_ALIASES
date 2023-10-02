@@ -42,7 +42,7 @@ aliases:
     - tengqm
   sig-docs-en-reviews: # PR reviews for English content
     - bradtopol
-    - dipesh-rawat    
+    - dipesh-rawat
     - divya-mohan0209
     - kbhawkey
     - mehabhalodiya
@@ -209,13 +209,13 @@ aliases:
     - Potapy4
   # authoritative source: git.k8s.io/community/OWNERS_ALIASES
   committee-steering: # provide PR approvals for announcements
-    - cblecker
-    - cpanato
     - bentheelder
     - justaugustus
     - mrbobbytables
+    - pacoxu
     - palnabarun
-    - tpepper
+    - pohly
+    - soltysh
   # authoritative source: https://git.k8s.io/sig-release/OWNERS_ALIASES
   sig-release-leads:
     - cpanato # SIG Technical Lead
