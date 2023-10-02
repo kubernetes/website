@@ -1,6 +1,4 @@
 ---
-reviewers:
-# Should be added by an experienced contributor
 title: "Troubleshooting kubectl"
 content_type: task
 weight: 10
@@ -10,20 +8,20 @@ weight: 10
 
 This documentation is about investigating and diagnosing
 {{<glossary_tooltip text="kubectl" term_id="kubectl">}} related issues.
-If you are unable to access `kubectl` or unable to connect to your cluster using
-`kubectl`, this document describes several common scenarios and potential solutions
-to identify and address the likely cause.
+If you encounter issues accessing `kubectl` or connecting to your cluster, this
+document outlines various common scenarios and potential solutions to help
+identify and address the likely cause.
 
 <!-- body -->
 
 ## {{% heading "prerequisites" %}}
 
 * You need to have a Kubernetes cluster.
-* You also need to have `kubcectl` installed.
+* You also need to have `kubectl` installed - see [install tools](/docs/tasks/tools/#kubectl)
 
 ## Verify kubectl setup
 
-Make sure you've installed and configured `kubectl` correctly on your local machine.
+Make sure you have installed and configured `kubectl` correctly on your local machine.
 Check the `kubectl` version to ensure it is up-to-date and compatible with your cluster.
 
 Check kubectl version:
@@ -34,7 +32,7 @@ kubectl version
 
 You'll see a similar output:
 
-```shell
+```console
 Client Version: version.Info{Major:"1", Minor:"27", GitVersion:"v1.27.4",GitCommit:"fa3d7990104d7c1f16943a67f11b154b71f6a132", GitTreeState:"clean",BuildDate:"2023-07-19T12:20:54Z", GoVersion:"go1.20.6", Compiler:"gc", Platform:"linux/amd64"}
 Kustomize Version: v5.0.1
 Server Version: version.Info{Major:"1", Minor:"27", GitVersion:"v1.27.3",GitCommit:"25b4e43193bcda6c7328a6d147b1fb73a33f1598", GitTreeState:"clean",BuildDate:"2023-06-14T09:47:40Z", GoVersion:"go1.20.5", Compiler:"gc", Platform:"linux/amd64"}
@@ -44,28 +42,42 @@ Server Version: version.Info{Major:"1", Minor:"27", GitVersion:"v1.27.3",GitComm
 If you see `Unable to connect to the server: dial tcp <server-ip>:8443: i/o timeout`,
 instead of `Server Version`, you need to troubleshoot kubectl connectivity with your cluster.
 
-If you've installed the `kubectl` but your shell gives the `command not found` error
-make sure that the `$PATH` environment variable is correctly configured and you've
-installed the kubectl by following the [official documentation for installing kubectl](/docs/tasks/tools/#kubectl).
+Make sure you have installed the kubectl by following the
+[official documentation for installing kubectl](/docs/tasks/tools/#kubectl), and you have
+properly configured the `$PATH` environment variable.
 
 ## Check kubeconfig
 
-The `kubectl` requires a `kubeconfig` file to connect with a Kubernetes cluster. The
-`kubeconfig` file is located under the `~/.kube/config` directory. Make sure that you've
-a valid `kubeconfig` file. If you don't have a `kubeconfig` file, you can create and
-configure it via `kubectl config` command. If you've deployed your Kubernetes cluster on
-a cloud platform and lost your `kubeconfig` file, you can re-generate it using your
-cloud provider's tools. Refer the cloud provider's documentation for re-generating
-the `kubeconfig` file.
+The `kubectl` requires a `kubeconfig` file to connect to a Kubernetes cluster. The
+`kubeconfig` file is usually located under the `~/.kube/config` directory. Make sure
+that you have a valid `kubeconfig` file. If you don't have a `kubeconfig` file, you can
+obtain it from your Kubernetes administrator, or you can copy it from your Kubernetes
+control plane's `/etc/kubernetes/admin.conf` directory. If you have deployed your
+Kubernetes cluster on a cloud platform and lost your `kubeconfig` file, you can
+re-generate it using your cloud provider's tools. Refer the cloud provider's
+documentation for re-generating a `kubeconfig` file.
 
 Check if the `$KUBECONFIG` environment variable is configured correctly. You can set
-`$KUBECONFIG`environment variable to specify the directory of a `kubeconfig` file.
+`$KUBECONFIG`environment variable or use the `--kubeconfig` parameter with the kubectl
+to specify the directory of a `kubeconfig` file.
 
-If you're authenticating to a Kubernetes cluster via an authentication token,
-validate the `$KUBERNETES_SERVER` and`$KUBERNETES_TOKEN` environment variables.
+## Check VPN connectivity
 
-Make sure that you are using the valid user credentials. And you have the permission to
-access the resource that you've requested.
+If you are using a Virtual Private Network (VPN) to access your Kubernetes cluster,
+make sure that your VPN connection is active and stable. Sometimes, VPN disconnections
+can lead to connection issues with the cluster. Reconnect to the VPN and try accessing
+the cluster again.
+
+## Authentication and authorization
+
+If you are using the token based authentication and the kubectl is returning an error
+regarding the authentication token or authentication server address, validate the
+Kubernetes authentication token and the authentication server address are configured
+properly.
+
+If kubectl is returning an error regarding the authorization, make sure that you are
+using the valid user credentials. And you have the permission to access the resource
+that you have requested.
 
 ## Verify contexts
 
@@ -84,45 +96,50 @@ Switch to the appropriate context:
 kubectl config use-context <context-name>
 ```
 
-## Check VPN connectivity
-
-If you are using a Virtual Private Network (VPN) to access your Kubernetes cluster,
-make sure that your VPN connection is active and stable. Sometimes, VPN disconnections
-can lead to connection issues with the cluster. Reconnect to the VPN and try accessing
-the cluster again.
-
 ## API server and load balancer
 
 The {{<glossary_tooltip text="kube-apiserver" term_id="kube-apiserver">}} server is the
-central component of a Kubernetes cluster. If the API server or the load balancer it uses
-is not reachable or not responding, you won't be able to interact with the cluster.
+central component of a Kubernetes cluster. If the API server or the load balancer that
+runs in front of your API servers is not reachable or not responding, you won't be able
+to interact with the cluster.
 
 Check the if the API server's host is reachable by using `ping` command. Check cluster's
-network connectivity and firewall. Or if your are using a cloud provider for deploying
-the cluster, check your cloud provider's `health check status` for the API server.
+network connectivity and firewall. If your are using a cloud provider for deploying
+the cluster, check your cloud provider's health check status for the cluster's
+API server.
 
 Verify the status of the load balancer (if used) to ensure it is healthy and forwarding
 traffic to the API server.
 
 ## TLS problems
 
-Transport Layer Security (TLS) is used to secure communication with the Kubernetes
-API server. TLS problems can occur due to various reasons, such as certificate expiry or
-chain of trust validity.
+The Kubernetes API server only serves HTTPS requests by default. In that case TLS problems
+may occur due to various reasons, such as certificate expiry or chain of trust validity.
 
-You can find the directory of TLS certificate in the `~/.kube/config`. The
-`certificate-authority` attribute contains the CA certificate and the `client-certificate`
-attribute contains the client certificate.
+You can find the TLS certificate in the kubeconfig file, located in the `~/.kube/config`
+directory. The `certificate-authority` attribute contains the CA certificate and the
+`client-certificate` attribute contains the client certificate.
 
 Verify the expiry of these certificates:
 
 ```shell
-openssl x509 -in /path/to/client-certificate.crt -noout -dates
+openssl x509 -noout -dates -in $(kubectl config view --minify --output 'jsonpath={.clusters[0].cluster.certificate-authority}')
+```
+
+output:
+```console
+notBefore=Sep  2 08:34:12 2023 GMT
+notAfter=Aug 31 08:34:12 2033 GMT
 ```
 
 ```shell
-openssl x509 -in /path/to/ca-certificate.crt -noout -dates
+openssl x509 -noout -dates -in $(kubectl config view --minify --output 'jsonpath={.users[0].user.client-certificate}')
+```
 
+output:
+```console
+notBefore=Sep  2 08:34:12 2023 GMT
+notAfter=Sep  2 08:34:12 2026 GMT
 ```
 
 ## Verify kubectl helpers
@@ -137,5 +154,5 @@ Check kubectl configuration for authentication details:
 kubectl config view
 ```
 
-If you previously used a helper tool (e.g., kubectl-oidc-login), ensure that it is still
+If you previously used a helper tool (for example, `kubectl-oidc-login`), ensure that it is still
 installed and configured correctly.
