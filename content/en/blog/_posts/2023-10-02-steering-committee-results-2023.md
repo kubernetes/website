@@ -55,6 +55,8 @@ This governing body, like all of Kubernetes, is open to all. You can follow alon
 
 You can see what the Steering Committee meetings are all about by watching past meetings on the [YouTube Playlist](https://www.youtube.com/playlist?list=PL69nYSiGNLP1yP1B_nd9-drjoxp0Q14qM).
 
+If you want to meet some of the newly elected Steering Committee members, join us for the Steering AMA at the [Kubernetes Contributor Summit in Chicago](https://k8s.dev/summit).
+
 ---
 
 _This post was written by the [Contributor Comms Subproject](https://github.com/kubernetes/community/tree/master/communication/contributor-comms). If you want to write stories about the Kubernetes community, learn more about us._
