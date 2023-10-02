@@ -263,25 +263,10 @@ capability that you can't grant with the securityContext. This is useful for
 containers that want to use operating system administrative capabilities such
 as manipulating the network stack or accessing hardware devices.
 
-<<<<<<< Updated upstream
-### Windows privileged containers {#windows-privileged-containers}
-
-{{< feature-state for_k8s_version="1.26" state="stable" >}}
-
-In Windows, you can create a
-[Windows HostProcess pod](/docs/tasks/configure-pod-container/create-hostprocess-pod)
-by setting the `windowsOptions.hostProcess` flag on the security context of the
-pod spec. All containers in these pods must run as Windows HostProcess
-containers. HostProcess pods run directly on the host and can also be used to
-perform administrative tasks as is done with Linux privileged containers. In
-order to use this feature, the WindowsHostProcessContainers feature gate must be
-enabled.
-=======
 In Kubernetes version 1.26 and later, you can also run Windows containers in a
 similarly privileged mode by setting the `windowsOptions.hostProcess` flag on
 the security context of the Pod spec. For details and instructions, see
 [Create a Windows HostProcess Pod](/docs/tasks/configure-pod-container/create-hostprocess-pod/).
->>>>>>> Stashed changes
 
 ## Recommendations and best practices {#recommendations-best-practices}
 
