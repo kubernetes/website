@@ -733,9 +733,10 @@ Example: `policy.kubernetes.io/engine: "true"`
 
 Used On: FlowSchema and PriorityLevelConfiguration Objcts
 
-This label  is used to manage the behavior of the API Server for specific Kubernetes objects, namely "FlowSchema and PriorityLevelConfiguration". 
-
-When set to "true" on a "FlowSchema or PriorityLevelConfiguration" object, it signifies that the API Server will take over the management of the object's specification.
+This label is used to manage the behavior of the API Server for specific Kubernetes objects,
+namely FlowSchema and PriorityLevelConfiguration. 
+When the label value is set to "true", it signifies that the API Server will take over
+the management of the object's specification.
 
 ### statefulset.kubernetes.io/pod-name {#statefulsetkubernetesiopod-name}
 
