@@ -104,7 +104,7 @@ using the following manifest:
 为了演示 HorizontalPodAutoscaler，你将首先启动一个 Deployment 用 `hpa-example` 镜像运行一个容器，
 然后使用以下清单文件将其暴露为一个 {{< glossary_tooltip term_id="service">}}：
 
-{{% code file="application/php-apache.yaml" %}}
+{{% code_sample file="application/php-apache.yaml" %}}
 
 <!--
 To do so, run the following command:
@@ -775,7 +775,7 @@ can use the following manifest to create it declaratively:
 -->
 除了使用 `kubectl autoscale` 命令，也可以使用以下清单以声明方式创建 HorizontalPodAutoscaler：
 
-{{% code file="application/hpa/php-apache.yaml" %}}
+{{% code_sample file="application/hpa/php-apache.yaml" %}}
 
 <!--
 Then, create the autoscaler by executing the following command:
