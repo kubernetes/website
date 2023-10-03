@@ -19,6 +19,7 @@ auto_generated: true
 - [VolumeBindingArgs](#kubescheduler-config-k8s-io-v1-VolumeBindingArgs)
   
     
+    
 
 ## `ClientConnectionConfiguration`     {#ClientConnectionConfiguration}
     
@@ -119,9 +120,9 @@ enableProfiling is true.</p>
 
 **Appears in:**
 
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
-
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
 
 
 <p>LeaderElectionConfiguration defines the configuration of leader election
@@ -200,7 +201,6 @@ during leader election cycles.</p>
 </tbody>
 </table>
   
-    
 
 ## `DefaultPreemptionArgs`     {#kubescheduler-config-k8s-io-v1-DefaultPreemptionArgs}
     
