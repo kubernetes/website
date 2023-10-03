@@ -207,7 +207,7 @@ can't it is considered a failure.
 
 As you can see, configuration for a TCP check is quite similar to an HTTP check.
 This example uses both readiness and liveness probes. The kubelet will send the
-first readiness probe 5 seconds after the container starts. This will attempt to
+first readiness probe 15 seconds after the container starts. This will attempt to
 connect to the `goproxy` container on port 8080. If the probe succeeds, the Pod
 will be marked as ready. The kubelet will continue to run this check every 10
 seconds.
@@ -393,8 +393,9 @@ liveness and readiness checks:
 
 * `initialDelaySeconds`: Number of seconds after the container has started before startup,
   liveness or readiness probes are initiated. If a startup  probe is defined, liveness and
-  readiness probe delays do not begin until the startup probe has succeeded.
-  Defaults to 0 seconds. Minimum value is 0.
+  readiness probe delays do not begin until the startup probe has succeeded. If the value of
+  `periodSeconds` is greater than `initialDelaySeconds` then the `initialDelaySeconds` would be
+  ignored. Defaults to 0 seconds. Minimum value is 0.
 * `periodSeconds`: How often (in seconds) to perform the probe. Default to 10 seconds.
   The minimum value is 1.
 * `timeoutSeconds`: Number of seconds after which the probe times out.
