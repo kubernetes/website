@@ -77,6 +77,18 @@ source <(kubectl completion zsh)  # 在 zsh 中设置当前 shell 的自动补�
 echo '[[ $commands[kubectl] ]] && source <(kubectl completion zsh)' >> ~/.zshrc # 在你的 zsh shell 中永久地添加自动补全
 ```
 
+### FISH
+
+<!--
+Require kubectl version 1.23 or above.
+-->
+
+需要 kubectl 版本 1.23 或更高版本。
+
+```bash
++echo 'kubectl completion fish | source' >> ~/.config/fish/config.fish  # 将 kubectl 自动补全永久添加到你的 Fish shell 中
+```
+
 <!--
 ### A note on `--all-namespaces`
 -->
