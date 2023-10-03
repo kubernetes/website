@@ -12,7 +12,6 @@ auto_generated: true
 - [CredentialProviderRequest](#credentialprovider-kubelet-k8s-io-v1beta1-CredentialProviderRequest)
 - [CredentialProviderResponse](#credentialprovider-kubelet-k8s-io-v1beta1-CredentialProviderResponse)
   
-    
 
 ## `CredentialProviderRequest`     {#credentialprovider-kubelet-k8s-io-v1beta1-CredentialProviderRequest}
     
@@ -110,7 +109,7 @@ stopping after the first successfully authenticated pull.</p>
 <li>123456789.dkr.ecr.us-east-1.amazonaws.com</li>
 <li>&ast;.azurecr.io</li>
 <li>gcr.io</li>
-<li>&ast;.&ast;registry.io</li>
+<li>&ast;.&ast;.registry.io</li>
 <li>registry.io:8080/path</li>
 </ul>
 </td>
