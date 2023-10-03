@@ -310,7 +310,8 @@ Used on: Pods
 
 This annotation allows you to specify the AppArmor security profile for a container within a
 Kubernetes pod. 
-For details, see the [AppArmor](https://kubernetes.io/docs/tutorials/security/apparmor/)  tutorial to restrict a container's access to resources.
+To learn more, see the [AppArmor](/docs/tutorials/security/apparmor/) tutorial.
+The tutorial illustrates using AppArmor to restrict a container's abilities and access.
 
 By setting this annotation, you can define a custom AppArmor profile for a container,
 which dictates the set of rules and restrictions that the containerized process must
