@@ -1049,7 +1049,7 @@ Node affinity and [nodeSelector](/reference/labels-annotations-taints/_index.md#
 of your Pod to specific nodes in the cluster, based on node labels.
 
 For more details, see [node affinity](/docs/concepts/storage/persistent-volumes/#node-affinity)
-in the documentation about PersistentVolumes.
+.
 
 ### batch.kubernetes.io/job-completion-index
 
