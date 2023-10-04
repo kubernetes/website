@@ -37,7 +37,7 @@ For instance, infrastructure engineers play a pivotal role in deploying GatewayC
 
 <!-- Lastly, application developers … -->
 
-![The resources of Gateway API](gateway-api-resources.png)
+![The resources of Gateway API](gateway-api-resources.svg)
 
 ### Portability
 Gateway API is designed to be more portable across different implementations, clusters and environments. It helps reduce Ingress' reliance on non-portable, provider-specific annotations, making your configurations more consistent and easier to manage across multiple clusters.
@@ -53,6 +53,16 @@ Gateway API allows for custom resources to be linked at various layers of the AP
 ### Gateway API Quick Start
 
 <!-- TODO(liorlieberman) - either put it here or provide links to reference on how to install and deploy a service exposed with a Gateway and HTTPRoute. -->
+The first thing you will need is a Kubernetes cluster. You can set up a new cluster using [KinD](https://kind.sigs.k8s.io/) with the following command:
+```bash
+kind create cluster --name introducing-i2gw
+```
+When you create a service of type LoadBalancer in a Kubernetes cluster, typically, cloud providers (like AWS, GCP, Azure) automatically provision a cloud load balancer and allocate a public IP address for it. However, since KinD runs locally, there's no cloud provider available to automatically provision an external IP for such services.
+
+This is where MetalLB comes in. MetalLB provides a network load-balancer implementation for Kubernetes clusters that do not have external load-balancers available, like KinD.
+You'll need to [install](https://metallb.universe.tf/installation/) it in order to continue with this guide.
+
+Now you should have a working environment to start experimenting with Gateway-API. There are many great guides you can follow at https://gateway-api.sigs.k8s.io/guides/.
 
 ### Migrating from Ingress to Gateway API using Ingress2Gateway
 Migrating from Ingress to the Gateway API may seem intimidating, but luckily Kubernetes SIG-Network provides a tool to simplify the process. Ingress2Gateway assists in the migration by converting your existing Ingress resources into Gateway API resources. To get started with ingress2gateway, you need to first install the tool.
