@@ -430,7 +430,7 @@ other = """&#128711; This item links to a third party project or product that is
 other = """<p>Items on this page refer to third party products or projects that provide functionality required by Kubernetes. The Kubernetes project authors aren't responsible for those third-party products or projects. See the <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF website guidelines</a> for more details.</p><p>You should read the <a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a> before proposing a change that adds an extra third-party link.</p>"""
 
 [ui_search_placeholder]
-other = "Search"
+other = "Search this site"
 
 [version_check_mustbe]
 other = "Your Kubernetes server must be version "
