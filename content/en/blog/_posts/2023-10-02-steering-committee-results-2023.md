@@ -3,6 +3,7 @@ layout: blog
 title: "Announcing the 2023 Steering Committee Election Results"
 date: 2023-10-02
 slug: steering-committee-results-2023
+canonicalUrl: https://www.kubernetes.dev/blog/2023/10/02/steering-committee-results-2023/
 ---
 
 **Author**: Kaslin Fields
