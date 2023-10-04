@@ -32,7 +32,7 @@ In the same way as the Kubernetes community, CRI-O provides `deb` and `rpm`
 packages as part of a dedicated subproject in OBS, called
 [`isv:kubernetes:addons:cri-o`](https://build.opensuse.org/project/show/isv:kubernetes:addons:cri-o).
 This project acts as an umbrella and provides `stable` (for CRI-O tags) as well as
-`prerelease` (for CRI-O `releaes-1.y` and `main` branches) package builds.
+`prerelease` (for CRI-O `release-1.y` and `main` branches) package builds.
 
 **Stable Releases:**
 
@@ -160,24 +160,24 @@ if another stream package is used.
 Bootstrapping [a cluster using `kubeadm`](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
 can be done by running `kubeadm init` command, which automatically detects that
 CRI-O is running in the background. There are also `Vagrantfile` examples
-available for [Fedora 38](https://github.com/cri-o/packaging/blob/main/test/rpm/Vagrantfile)
-as well as [Ubuntu 22.04](https://github.com/cri-o/packaging/blob/main/test/deb/Vagrantfile)
+available for [Fedora 38](https://github.com/cri-o/packaging/blob/91df5f7/test/rpm/Vagrantfile)
+as well as [Ubuntu 22.04](https://github.com/cri-o/packaging/blob/91df5f7/test/deb/Vagrantfile)
 for testing the packages together with `kubeadm`.
 
 ## How it works under the hood
 
 Everything related to these packages lives in the new
 [CRI-O packaging repository](https://github.com/cri-o/packaging).
-It contains a [daily reconciliation](https://github.com/crio/packaging/actions/workflows/schedule.yml)
+It contains a [daily reconciliation](https://github.com/cri-o/packaging/blob/91df5f7/.github/workflows/schedule.yml)
 GitHub action workflow, for all supported release branches as well as tags of
 CRI-O. A [test pipeline](https://github.com/cri-o/packaging/actions/workflows/obs.yml)
 in the OBS workflow ensures that the packages can be correctly installed and
 used before being published. All of the staging and publishing of the
-packages is done with the help of the [Kubernetes Release Toolbox (krel)](https://github.com/kubernetes/release/blob/master/docs/krel/README.md),
+packages is done with the help of the [Kubernetes Release Toolbox (krel)](https://github.com/kubernetes/release/blob/1f85912/docs/krel/README.md),
 which is also used for the official Kubernetes `deb` and `rpm` packages.
 
 The package build inputs will undergo daily reconciliation and will be supplied by
-CRI-O's [static binary bundles](https://console.cloud.google.com/storage/browser/cri-o/artifacts).
+CRI-O's static binary bundles.
 These bundles are built and signed for each commit in the CRI-O CI,
 and contain everything CRI-O requires to run on a certain architecture.
 The static builds are reproducible, powered by [nixpkgs](https://github.com/NixOS/nixpkgs)
