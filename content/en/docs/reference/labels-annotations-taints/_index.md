@@ -1046,7 +1046,6 @@ rules for PersistentVolumes (PV) in Kubernetes. Volume _[node affinity](/docs/co
 scheduling of Pods that use the corresponding PersistentVolume so that the Pods can only bound to
 appropriate nodes in your cluster, based on the {{<glossary_tooltip text="labels" term_id="label">}}
 that are set on those nodes.
-.
 
 ### batch.kubernetes.io/job-completion-index
 
