@@ -60,10 +60,9 @@ Migrating from Ingress to the Gateway API may seem intimidating, but luckily Kub
 ```
 go install github.com/kubernetes-sigs/ingress2gateway@latest
 ```
-This will install ingress2gateway to  $(go env GOPATH)/bin/ingress2gateway
+This will install ingress2gateway to $(go env GOPATH)/bin/ingress2gateway.
 
-<!-- TODO(liorlieberman) -->
-To install it using a different way refer to <link>.
+Alternatively, you can build it from source using https://github.com/kubernetes-sigs/ingress2gateway#build-from-source.
 
 Once the tool is installed, you can use it to convert the ingress resources in your cluster to GatewayAPI resources.
 
@@ -91,9 +90,7 @@ Ingress2gateway helps to ease the migration process for you, converting your exi
 
 
 ### Try it out and get involved
-There are many resources to check out to learn more.
-
-<!-- TODO(liorlieberman) -->
-<!-- - Ingress2gateway readme link
-- <Gateway api usage links>
-- <gateway API implementations support> -->
+There are many resources to check out to learn more:
+- Ingress2Gateway readme - https://github.com/kubernetes-sigs/ingress2gateway#ingress-to-gateway
+- Gateway API Getting Started - https://gateway-api.sigs.k8s.io/guides/
+- Gateway API Implementations - https://gateway-api.sigs.k8s.io/implementations/#gateways
