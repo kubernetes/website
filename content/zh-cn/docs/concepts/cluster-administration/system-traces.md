@@ -215,12 +215,19 @@ span will be sent to the exporter.
 <!--
 The kubelet in Kubernetes v{{< skew currentVersion >}} collects spans from
 the garbage collection, pod synchronization routine as well as every gRPC
-method. Connected container runtimes like CRI-O and containerd can link the
-traces to their exported spans to provide additional context of information.
+method. The kubelet propagates trace context with gRPC requests so that
+container runtimes with trace instrumentation, such as CRI-O and containerd,
+can associate their exported spans with the trace context from the kubelet.
+The resulting traces will have parent-child links between kubelet and
+container runtime spans, providing helpful context when debugging node
+issues.
 -->
-Kubernetes v{{< skew currentVersion >}} 中的 kubelet 从垃圾回收、Pod
-同步例程以及每个 gRPC 方法中收集 span。CRI-O 和 containerd
-这类关联的容器运行时可以将链路链接到其导出的 span，以提供更多上下文信息。
+Kubernetes v{{< skew currentVersion >}} 中的 kubelet 收集与垃圾回收、Pod
+同步例程以及每个 gRPC 方法相关的 Span。
+kubelet 借助 gRPC 来传播跟踪上下文，以便 CRI-O 和 containerd
+这类带有跟踪插桩的容器运行时可以在其导出的 Span 与 kubelet
+所提供的跟踪上下文之间建立关联。所得到的跟踪数据会包含 kubelet
+与容器运行时 Span 之间的父子链接关系，从而为调试节点问题提供有用的上下文信息。
 
 <!--
 Please note that exporting spans always comes with a small performance overhead
