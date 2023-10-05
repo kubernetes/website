@@ -32,10 +32,16 @@ Gateway API employs a role-oriented approach that aligns with the conventional r
 
 For instance, infrastructure engineers play a pivotal role in deploying GatewayClasses, cluster-scoped resources that act as templates to explicitly define behavior for Gateways derived from them, laying the groundwork for robust service networking.
 
-<!-- TODO(liorlieberman) -->
-<!-- Subsequently, cluster operators utilize these GatewayClasses to deploy gateways, brief whats gateways> -->
+Subsequently, cluster operators utilize these GatewayClasses to deploy gateways.
+A Gateway in Kubernetes' Gateway-API defines how external traffic can be directed to Services within the cluster, essentially bridging non-Kubernetes sources to Kubernetes-aware destinations.
+It represents a request for a load balancer configuration aligned with a GatewayClass’ specification.
+The Gateway spec may not be exhaustive as some details can be supplied by the GatewayClass controller, ensuring portability.
+Additionally, a Gateway can be linked to multiple Route references to channel specific traffic subsets to designated services.
 
-<!-- Lastly, application developers … -->
+Lastly, application developers configure route resources (such as HTTPRoutes), to manage configuration (e.g. timeouts, request matching/filter) and Service composition (e.g. path routing to backends)
+Route resources define protocol-specific rules for mapping requests from a Gateway to Kubernetes Services.
+HTTPRoute is for multiplexing HTTP or terminated HTTPS connections.
+It's intended for use in cases where you want to inspect the HTTP stream and use HTTP request data for either routing or modification, for example using HTTP Headers for routing, or modifying them in-flight.
 
 ![The resources of Gateway API](gateway-api-resources.svg)
 
@@ -52,7 +58,6 @@ Gateway API allows for custom resources to be linked at various layers of the AP
 
 ### Gateway API Quick Start
 
-<!-- TODO(liorlieberman) - either put it here or provide links to reference on how to install and deploy a service exposed with a Gateway and HTTPRoute. -->
 The first thing you will need is a Kubernetes cluster. You can set up a new cluster using [KinD](https://kind.sigs.k8s.io/) with the following command:
 ```bash
 kind create cluster --name introducing-i2gw
