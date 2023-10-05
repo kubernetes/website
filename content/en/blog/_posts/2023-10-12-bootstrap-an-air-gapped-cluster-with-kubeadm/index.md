@@ -22,7 +22,7 @@ A real air-gapped network can take some effort to set up, so for this post, I wi
 
 ### Local topology
 
-This VM will have its network connectivity disabled but in a way that doesn't shut down the VM's virtual NIC. Instead, its network will be downed by injecting a default route to a dummy interface, making anything internet-hosted unreachable. However, the VM still has a connected route to the bridge interface on the host, which means that network connectivity to the host is still working. This posture means that data can be transferred from the host/laptop to the VM via scp, even with the default route on the VM black-holing all traffic that isn't destined for the local bridge subnet. This type of transfer is analogous to carrying data across the air gap and will be used throughout this post.
+This VM will have its network connectivity disabled but in a way that doesn't shut down the VM's virtual NIC. Instead, its network will be downed by injecting a default route to a dummy interface, making anything internet-hosted unreachable. However, the VM still has a connected route to the bridge interface on the host, which means that network connectivity to the host is still working. This posture means that data can be transferred from the host/laptop to the VM via `scp`, even with the default route on the VM black-holing all traffic that isn't destined for the local bridge subnet. This type of transfer is analogous to carrying data across the air gap and will be used throughout this post.
 
 Other details about the lab setup:
 
@@ -612,7 +612,7 @@ export ZARF_VERSION=v0.28.3
 curl -LO "https://github.com/defenseunicorns/zarf/releases/download/${ZARF_VERSION}/zarf_${ZARF_VERSION}_Linux_${K8s_ARCH}"
 ```
 Zarf needs to bootstrap itself into a Kubernetes cluster through the use of an init package. That also needs to be transported across the air gap so let's download it onto the host/laptop:
-```bash 
+```bash
 curl -LO "https://github.com/defenseunicorns/zarf/releases/download/${ZARF_VERSION}/zarf-init-${K8s_ARCH}-${ZARF_VERSION}.tar.zst"
 ```
 The way that Zarf is declarative is through the use of a zarf.yaml file. Here is the zarf.yaml file that will be used for this Podinfo installation. Write it to whatever directory you you have write access to on your host/laptop; your home directory is fine:
