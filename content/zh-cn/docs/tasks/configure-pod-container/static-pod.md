@@ -477,7 +477,7 @@ f427638871c35   docker.io/library/nginx@sha256:...    19 seconds ago    Running 
 -->
 * [为控制面组件生成静态 Pod 清单](/zh-cn/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifests-for-control-plane-components)
 * [为本地 etcd 生成静态 Pod 清单](/zh-cn/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifest-for-local-etcd)
-* [使用 `crictl` 对 Kubernetes 节点进行调试](/docs/tasks/debug/debug-cluster/crictl/)
+* [使用 `crictl` 对 Kubernetes 节点进行调试](/zh-cn/docs/tasks/debug/debug-cluster/crictl/)
 * 更多细节请参阅 [`crictl`](https://github.com/kubernetes-sigs/cri-tools)
 * [从 `docker` CLI 命令映射到 `crictl`](/zh-cn/docs/reference/tools/map-crictl-dockercli/)
 * [将 etcd 实例设置为由 kubelet 管理的静态 Pod](/zh-cn/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)

@@ -451,5 +451,6 @@ By default truncate is disabled in both `webhook` and `log`, a cluster administr
 -->
 * 进一步了解 [Mutating webhook 审计注解](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#mutating-webhook-auditing-annotations)。
 * 通过阅读审计配置参考，进一步了解
-  [`Event`](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)
-  和 [`Policy`](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy) 资源的信息。
+  [`Event`](/zh-cn/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)
+  和 [`Policy`](/zh-cn/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy) 资源的信息。
+

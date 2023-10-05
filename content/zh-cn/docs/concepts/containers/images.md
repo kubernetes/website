@@ -505,7 +505,7 @@ See [Configure a kubelet image credential provider](/docs/tasks/administer-clust
 你可以配置 kubelet，以调用插件可执行文件的方式来动态获取容器镜像的仓库凭据。
 这是为私有仓库获取凭据最稳健和最通用的方法，但也需要 kubelet 级别的配置才能启用。
 
-有关更多细节请参见[配置 kubelet 镜像凭据提供程序](/docs/tasks/administer-cluster/kubelet-credential-provider/)。
+有关更多细节请参见[配置 kubelet 镜像凭据提供程序](/zh-cn/docs/tasks/administer-cluster/kubelet-credential-provider/)。
 
 <!--
 ### Interpretation of config.json {#config-json}

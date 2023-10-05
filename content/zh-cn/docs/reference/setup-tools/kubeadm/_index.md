@@ -4,9 +4,20 @@ weight: 10
 no_list: true
 content_type: concept
 card:
-  name: reference
-  weight: 40
+  title: kubeadm 命令参考
+  name: setup
+  weight: 80
 ---
+<!--
+title: "Kubeadm"
+weight: 10
+no_list: true
+content_type: concept
+card:
+  title: kubeadm command reference
+  name: setup
+  weight: 80
+-->
 
 <img src="/images/kubeadm-stacked-color.png" align="right" width="150px">
 
@@ -71,7 +82,7 @@ To install kubeadm, see the [installation guide](/docs/setup/production-environm
   用于恢复通过 `kubeadm init` 或者 `kubeadm join` 命令对节点进行的任何变更
 * [kubeadm certs](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-certs)
   用于管理 Kubernetes 证书
-* [kubeadm kubeconfig](/docs/reference/setup-tools/kubeadm/kubeadm-kubeconfig)
+* [kubeadm kubeconfig](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-kubeconfig)
   用于管理 kubeconfig 文件
 * [kubeadm version](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-version)
   用于打印 kubeadm 的版本信息
