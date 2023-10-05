@@ -62,7 +62,7 @@ They join continuing members:
 
 * **Benjamin Elder ([@bentheelder](https://github.com/bentheelder)), Google**
 * **Bob Killen ([@mrbobbytables](https://github.com/mrbobbytables)), Google**
-* **Nabarun Pal ([@palnabarun](https://github.com/palnabarun), VMware**
+* **Nabarun Pal ([@palnabarun](https://github.com/palnabarun)), VMware**
 
 <!--
 Stephen Augustus is a returning Steering Committee Member.
@@ -128,4 +128,3 @@ If you want to write stories about the Kubernetes community, learn more about us
 -->
 **这篇文章是由[贡献者通信子项目](https://github.com/kubernetes/community/tree/master/communication/contributor-comms)撰写的。
 如果你想撰写有关 Kubernetes 社区的故事，请了解有关我们的更多信息。**
-
