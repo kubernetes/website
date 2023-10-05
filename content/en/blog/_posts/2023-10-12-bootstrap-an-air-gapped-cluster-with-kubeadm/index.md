@@ -35,7 +35,7 @@ While this single VM lab is a simplified example, the below diagram more approxi
 
 {{< figure src="example_production_topology.svg" alt="Example production topology which shows 3 control plane Kubernetes nodes and 'n' worker nodes along with a Docker registry in an air-gapped environment.  Additionally shows two workstations, one on each side of the air gap and an IT admin which physically carries the artifacts across." >}}
 
-Note, there is still intentional isolation between the envirnment and the internet.  There are also some things that are not shown in order to keep the diagram simple, for example malware scanning on the secure side of the air gap.
+Note, there is still intentional isolation between the environment and the internet.  There are also some things that are not shown in order to keep the diagram simple, for example malware scanning on the secure side of the air gap.
 
 Back to the single VM lab environment.
 
