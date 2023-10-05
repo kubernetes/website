@@ -555,4 +555,4 @@ kubectl delete namespace mem-example
 * [为命名空间配置内存和 CPU 配额](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 * [配置命名空间下 Pod 总数](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 * [配置 API 对象配额](/zh-cn/docs/tasks/administer-cluster/quota-api-object/)
-* [调整分配给容器的 CPU 和内存资源的大小](/docs/tasks/configure-pod-container/resize-container-resources/)
+* [调整分配给容器的 CPU 和内存资源的大小](/zh-cn/docs/tasks/configure-pod-container/resize-container-resources/)
