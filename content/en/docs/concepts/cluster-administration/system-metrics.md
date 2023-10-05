@@ -21,7 +21,7 @@ This format is structured plain text, designed so that people and machines can b
 ## Metrics in Kubernetes
 
 In most cases metrics are available on `/metrics` endpoint of the HTTP server. For components that
-doesn't expose endpoint by default it can be enabled using `--bind-address` flag.
+don't expose endpoint by default, it can be enabled using `--bind-address` flag.
 
 Examples of those components:
 
