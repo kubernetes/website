@@ -313,8 +313,7 @@ Kubernetes pod.
 To learn more, see the [AppArmor](/docs/tutorials/security/apparmor/) tutorial.
 The tutorial illustrates using AppArmor to restrict a container's abilities and access.
 
-By setting this annotation, you can define a custom AppArmor profile for a container,
-which dictates the set of rules and restrictions that the containerized process must
+The profile specified dictates the set of rules and restrictions that the containerized process must
 adhere to. This helps enforce security policies and isolation for your containers.
 
 ### internal.config.kubernetes.io/* (reserved prefix) {#internal.config.kubernetes.io-reserved-wildcard}
