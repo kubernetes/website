@@ -1,5 +1,5 @@
 ---
-title: API-
+title: API-ने निष्कासन शुरू किया
 id: api-eviction
 date: 2021-04-27
 full_link: /docs/concepts/scheduling-eviction/api-eviction/
