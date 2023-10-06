@@ -12,7 +12,10 @@ SIG Usability, which is featured in this Spotlight blog, has been deprecated and
 As a result, the links and information provided in this blog post may no longer be valid or relevant.
 Should there be renewed interest and increased participation in the future, the SIG may be revived.
 However, as of August 2023 the SIG is inactive per the Kubernetes community policy.
-We encourage you to explore other [SIGs](https://github.com/kubernetes/community/blob/master/sig-list.md#special-interest-groups) and resources available on the Kubernetes website to stay up-to-date with the latest developments and enhancements in Kubernetes.
+The Kubernetes project encourages you to explore other
+[SIGs](https://github.com/kubernetes/community/blob/master/sig-list.md#special-interest-groups)
+and resources available on the Kubernetes website to stay up-to-date with the latest developments
+and enhancements in Kubernetes.
 {{< /note >}}
 
 ## Introduction
