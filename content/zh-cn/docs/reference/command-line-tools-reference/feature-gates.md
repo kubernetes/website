@@ -97,7 +97,7 @@ For a reference to old feature gates that are removed, please refer to
 -->
 ### Alpha 和 Beta 状态的特性门控  {#feature-gates-for-alpha-or-beta-features}
 
-{{< table caption="处于 Alpha 或 Beta 状态的特性门控" >}}
+{{< table caption="处于 Alpha 或 Beta 状态的特性门控" sortable="true" >}}
 
 <!--
 | Feature | Default | Stage | Since | Until |
@@ -275,7 +275,7 @@ For a reference to old feature gates that are removed, please refer to
 -->
 ### 已毕业和已废弃的特性门控  {#feature-gates-for-graduated-or-deprecated-features}
 
-{{< table caption="已毕业或不推荐使用的特性门控" >}}
+{{< table caption="已毕业或不推荐使用的特性门控" sortable="true" >}}
 
 <!--
 | Feature | Default | Stage | Since | Until |
@@ -421,7 +421,7 @@ A *Beta* feature means:
 **Beta** 特性代表：
 
 <!--
-* Enabled by default.
+* Usually enabled by default. Beta API groups are [disabled by default](https://github.com/kubernetes/enhancements/tree/master/keps/sig-architecture/3136-beta-apis-off-by-default).
 * The feature is well tested. Enabling the feature is considered safe.
 * Support for the overall feature will not be dropped, though details may change.
 * The schema and/or semantics of objects may change in incompatible ways in a
@@ -433,7 +433,7 @@ A *Beta* feature means:
   incompatible changes in subsequent releases. If you have multiple clusters
   that can be upgraded independently, you may be able to relax this restriction.
 -->
-* 默认启用。
+* 通常默认启用。Beta API 组[默认是被禁用的](https://github.com/kubernetes/enhancements/tree/master/keps/sig-architecture/3136-beta-apis-off-by-default)。
 * 该特性已经经过良好测试。启用该特性是安全的。
 * 尽管详细信息可能会更改，但不会放弃对整体特性的支持。
 * 对象的架构或语义可能会在随后的 Beta 或稳定版本中以不兼容的方式更改。
@@ -720,8 +720,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `DevicePluginCDIDevices`: Enable support to CDI device IDs in the
   [Device Plugin](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/) API.
 -->
-- `DevicePluginCDIDevices`: Enable support to CDI device IDs in the
-  [Device Plugin](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/) API.
 - `DefaultHostNetworkHostPortsInPodTemplates`：更改何时分配 `PodSpec.containers[*].ports[*].hostPort` 的默认值。
   默认仅在 Pod 中设置默认值。启用此特性意味着即使在嵌套的 PodSpec（例如 Deployment 中）中也会分配默认值，
   这是以前的默认行为。
@@ -962,7 +960,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `KMSv2`：启用 KMS v2 API 以实现静态加密。
   详情参见[使用 KMS 驱动进行数据加密](/zh-cn/docs/tasks/administer-cluster/kms-provider)。
 - `KMSv2KDF`：启用 KMS v2 以生成一次性数据加密密钥。
-  详情参见[使用 KMS 提供程序进行数据加密](/docs/tasks/administer-cluster/kms-provider)。
+  详情参见[使用 KMS 提供程序进行数据加密](/zh-cn/docs/tasks/administer-cluster/kms-provider)。
   如果 `KMSv2` 特性门控在你的集群未被启用 ，则 `KMSv2KDF` 特性门控的值不会产生任何影响。
 - `KubeProxyDrainingTerminatingNodes`：为 `externalTrafficPolicy: Cluster` 服务实现正终止节点的连接排空。
 <!--
@@ -1332,7 +1330,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   This feature gate will never graduate to stable.
 -->
 - `TopologyAwareHints`： 在 EndpointSlices 中启用基于拓扑提示的拓扑感知路由。
-  更多详细信息可参见[拓扑感知提示](/zh-cn/docs/concepts/services-networking/topology-aware-hints/)。
+  更多详细信息可参见[拓扑感知路由](/zh-cn/docs/concepts/services-networking/topology-aware-routing/)。
 - `TopologyManager`：启用一种机制来协调 Kubernetes 不同组件的细粒度硬件资源分配。
   详见[控制节点上的拓扑管理策略](/zh-cn/docs/tasks/administer-cluster/topology-manager/)。
 - `TopologyManagerPolicyAlphaOptions`：允许微调拓扑管理器策略的实验性的、Alpha 质量的选项。
@@ -1351,7 +1349,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 -->
 - `TopologyManagerPolicyOptions`：允许微调拓扑管理器策略。
 - `UnknownVersionInteroperabilityProxy`：存在多个不同版本的 kube-apiserver 时将资源请求代理到正确的对等 kube-apiserver。
-  详细信息请参阅[混合版本代理](/docs/concepts/architecture/mixed-version-proxy/)。
+  详细信息请参阅[混合版本代理](/zh-cn/docs/concepts/architecture/mixed-version-proxy/)。
 - `UserNamespacesSupport`：为 Pod 启用用户名字空间支持。
   在 Kubernetes v1.28 之前，此特性门控被命名为 `UserNamespacesStatelessPodsSupport`。
 <!--

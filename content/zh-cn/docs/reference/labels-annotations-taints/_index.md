@@ -501,8 +501,9 @@ When a StatefulSet controller creates a Pod for the StatefulSet, it sets this la
 The value of the label is the ordinal index of the pod being created.
 
 See [Pod Index Label](/docs/concepts/workloads/controllers/statefulset/#pod-index-label)
-in the StatefulSet topic for more details. Note the [PodIndexLabel](content/en/docs/reference/command-line-tools-reference/feature-gates.md) feature gate must be enabled
-for this label to be added to pods.
+in the StatefulSet topic for more details.
+Note the [PodIndexLabel](/docs/reference/command-line-tools-reference/feature-gates/)
+feature gate must be enabled for this label to be added to pods.
 -->
 类别：标签
 
@@ -515,8 +516,8 @@ for this label to be added to pods.
 
 更多细节参阅 StatefulSet 主题中的
 [Pod 索引标签](/zh-cn/docs/concepts/workloads/controllers/statefulset/#pod-index-label)。
-请注意，[PodIndexLabel](/zh-cn/docs/reference/command-line-tools-reference/feature-gates.md) 特性门控必须被启用，
-才能将此标签添加到 Pod 上。
+请注意，[PodIndexLabel](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
+特性门控必须被启用，才能将此标签添加到 Pod 上。
 
 <!--
 ### cluster-autoscaler.kubernetes.io/safe-to-evict
@@ -2113,7 +2114,7 @@ Example: `alpha.kubernetes.io/provided-node-ip: "10.0.0.1"`
 
 Used on: Node
 
-The kubelet can set this annotation on a Node to denote its configured IPv4 address.
+The kubelet can set this annotation on a Node to denote its configured IPv4 and/or IPv6 address.
 
 When kubelet is started with the `--cloud-provider` flag set to any value (includes both external
 and legacy in-tree cloud providers), it sets this annotation on the Node to denote an IP address
@@ -2128,7 +2129,7 @@ by the cloud-controller-manager.
 
 用于：Node
 
-kubelet 可以在 Node 上设置此注解来表示其配置的 IPv4 地址。
+kubelet 可以在 Node 上设置此注解来表示其配置的 IPv4 与/或 IPv6 地址。
 
 如果 kubelet 被启动时 `--cloud-provider` 标志设置为任一云驱动（包括外部云驱动和传统树内云驱动）
 kubelet 会在 Node 上设置此注解以表示从命令行标志（`--node-ip`）设置的 IP 地址。
@@ -2159,11 +2160,12 @@ kube-controller-manager 中的 Job 控制器为使用 Indexed
 设置此标签和注解。
 
 <!--
-Note the [PodIndexLabel](content/en/docs/reference/command-line-tools-reference/feature-gates.md) feature gate must be enabled
-for this to be added as a pod **label**, otherwise it will just be an annotation.
+Note the [PodIndexLabel](/docs/reference/command-line-tools-reference/feature-gates/)
+feature gate must be enabled for this to be added as a pod **label**,
+otherwise it will just be an annotation.
 -->
-请注意，[PodIndexLabel](/zh-cn/docs/reference/command-line-tools-reference/feature-gates.md) 特性门控必须被启用，
-才能将其添加为 Pod 的**标签**，否则它只会用作注解。
+请注意，[PodIndexLabel](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
+特性门控必须被启用，才能将其添加为 Pod 的**标签**，否则它只会用作注解。
 
 ### batch.kubernetes.io/cronjob-scheduled-timestamp
 
