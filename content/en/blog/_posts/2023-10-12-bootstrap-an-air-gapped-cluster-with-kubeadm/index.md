@@ -144,7 +144,7 @@ reboot
 
 On the laptop/host machine, download all of the artifacts enumerated in the previous section.  Since the air gapped VM is running Fedora 37, all of the dependencies shown in this part are for Fedora 37.  Note, this procedure will only work on AArch64 or AMD64 CPU architectures as they are the most popular and widely available..  You can execute this procedure anywhere you have write permissions; your home directory is a perfectly suitable choice.
 
-Note, operating system packages for the Kubernetes artifacts that need to be carried across can now be found at [pkgs.k8s.io](https://kubernetes.io/blog/2023/08/15/pkgs-k8s-io-introduction/). This blog post will use a combination of Fedora repositories and GitHub in order to download all of the required artifacts. When you’re doing this on your own cluster, you should decide whether to use the official Kubernetes packages, or the official packages from your operating system distribution - both are valid choices.
+Note, operating system packages for the Kubernetes artifacts that need to be carried across can now be found at [pkgs.k8s.io](/blog/2023/08/15/pkgs-k8s-io-introduction/). This blog post will use a combination of Fedora repositories and GitHub in order to download all of the required artifacts. When you’re doing this on your own cluster, you should decide whether to use the official Kubernetes packages, or the official packages from your operating system distribution - both are valid choices.
 
 
 
