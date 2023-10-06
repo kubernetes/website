@@ -109,7 +109,7 @@ This means that the pod will get scheduled only on a node that has a `disktype=s
 下面清单描述了一个 Pod，它有一个节点亲和性配置 `requiredDuringSchedulingIgnoredDuringExecution`，`disktype=ssd`。
 这意味着 pod 只会被调度到具有 `disktype=ssd` 标签的节点上。
 
-{{% code file="pods/pod-nginx-required-affinity.yaml" %}}
+{{% code_sample file="pods/pod-nginx-required-affinity.yaml" %}}
 
 <!--
 1. Apply the manifest to create a Pod that is scheduled onto your
@@ -152,7 +152,7 @@ This means that the pod will prefer a node that has a `disktype=ssd` label.
 本清单描述了一个 Pod，它有一个节点亲和性设置 `preferredDuringSchedulingIgnoredDuringExecution`，`disktype: ssd`。
 这意味着 Pod 将首选具有 `disktype=ssd` 标签的节点。
 
-{{% code file="pods/pod-nginx-preferred-affinity.yaml" %}}
+{{% code_sample file="pods/pod-nginx-preferred-affinity.yaml" %}}
 
 <!--
 1. Apply the manifest to create a Pod that is scheduled onto your

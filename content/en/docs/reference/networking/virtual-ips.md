@@ -207,8 +207,7 @@ _This proxy mode is only available on Linux nodes._
 In `ipvs` mode, kube-proxy watches Kubernetes Services and EndpointSlices,
 calls `netlink` interface to create IPVS rules accordingly and synchronizes
 IPVS rules with Kubernetes Services and EndpointSlices periodically.
-This control loop ensures that IPVS status matches the desired
-state.
+This control loop ensures that IPVS status matches the desired state.
 When accessing a Service, IPVS directs traffic to one of the backend Pods.
 
 The IPVS proxy mode is based on netfilter hook function that is similar to
@@ -222,12 +221,41 @@ higher throughput of network traffic.
 IPVS provides more options for balancing traffic to backend Pods;
 these are:
 
-* `rr`: round-robin
-* `lc`: least connection (smallest number of open connections)
-* `dh`: destination hashing
-* `sh`: source hashing
-* `sed`: shortest expected delay
-* `nq`: never queue
+* `rr` (Round Robin): Traffic is equally distributed amongst the backing servers.
+
+* `wrr` (Weighted Round Robin): Traffic is routed to the backing servers based on
+  the weights of the servers. Servers with higher weights receive new connections
+  and get more requests than servers with lower weights.
+
+* `lc` (Least Connection): More traffic is assigned to servers with fewer active connections.
+
+* `wlc` (Weighted Least Connection): More traffic is routed to servers with fewer connections
+  relative to their weights, that is, connections divided by weight.
+
+* `lblc` (Locality based Least Connection): Traffic for the same IP address is sent to the
+  same backing server if the server is not overloaded and available; otherwise the traffic
+  is sent to servers with fewer connections, and keep it for future assignment.
+
+* `lblcr` (Locality Based Least Connection with Replication): Traffic for the same IP
+  address is sent to the server with least connections. If all the backing servers are
+  overloaded, it picks up one with fewer connections and add it to the target set.
+  If the target set has not changed for the specified time, the most loaded server
+  is removed from the set, in order to avoid high degree of replication.
+
+* `sh` (Source Hashing): Traffic is sent to a backing server by looking up a statically
+  assigned hash table based on the source IP addresses.
+
+* `dh` (Destination Hashing): Traffic is sent to a backing server by looking up a
+  statically assigned hash table based on their destination addresses.
+
+* `sed` (Shortest Expected Delay): Traffic forwarded to a backing server with the shortest
+  expected delay. The expected delay is `(C + 1) / U` if sent to a server, where `C` is
+  the number of connections on the server and `U` is the fixed service rate (weight) of
+  the server.
+
+* `nq` (Never Queue): Traffic is sent to an idle server if there is one, instead of
+  waiting for a fast one; if all servers are busy, the algorithm falls back to the `sed`
+  behavior.
 
 {{< note >}}
 To run kube-proxy in IPVS mode, you must make IPVS available on

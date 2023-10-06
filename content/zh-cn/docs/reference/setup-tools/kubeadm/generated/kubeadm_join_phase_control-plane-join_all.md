@@ -1,29 +1,17 @@
 <!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
-<!--
 Join a machine as a control plane instance
 -->
-添加作为控制平面实例的机器
+添加作为控制平面实例的机器。
 
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
 Join a machine as a control plane instance
 -->
-添加作为控制平面实例的机器
+添加作为控制平面实例的机器。
 
 ```
 kubeadm join phase control-plane-join all [flags]
@@ -78,7 +66,7 @@ kubeadm 配置文件的路径。
 Create a new control plane instance on this node
 -->
 <p>
-在此节点上创建一个新的控制平面实例
+在此节点上创建一个新的控制平面实例。
 </p>
 </td>
 </tr>
@@ -106,7 +94,7 @@ Don't apply any changes; just output what would be done.
 help for all
 -->
 <p>
-all 操作的帮助命令      
+all 操作的帮助命令。
 </p>
 </td>
 </tr>
@@ -148,7 +136,6 @@ Path to a directory that contains files named &quot;target[suffix][+patchtype].e
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 从父命令继承的选项
 
    <table style="width: 100%; table-layout: fixed;">

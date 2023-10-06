@@ -435,13 +435,12 @@ before the Pod is allowed to be forcefully killed. With that forceful shutdown t
 place, the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} attempts graceful
 shutdown.
 
-Typically, the container runtime sends a TERM signal to the main process in each
-container. Many container runtimes respect the `STOPSIGNAL` value defined in the container
-image and send this instead of TERM.
-Once the grace period has expired, the KILL signal is sent to any remaining processes, and the Pod
-is then deleted from the {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}.
-If the kubelet or the container runtime's management service is restarted while waiting for
-processes to terminate, the cluster retries from the start including the full original grace period.
+Typically, with this graceful termination of the pod, kubelet makes requests to the container runtime to attempt to stop the containers in the pod by first sending a TERM (aka. SIGTERM) signal, with a grace period timeout, to the main process in each container. The requests to stop the containers are processed by the container runtime asynchronously. There is no guarantee to the order of processing for these requests. Many container runtimes respect the `STOPSIGNAL` value defined in the container image and, if different, send the container image configured STOPSIGNAL instead of TERM.
+Once the grace period has expired, the KILL signal is sent to any remaining
+processes, and the Pod is then deleted from the
+{{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}. If the kubelet or the
+container runtime's management service is restarted while waiting for processes to terminate, the
+cluster retries from the start including the full original grace period.
 
 An example flow:
 

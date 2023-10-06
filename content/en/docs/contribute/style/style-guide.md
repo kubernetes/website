@@ -457,6 +457,15 @@ be two newlines. Second-level headings follow the first-level (or the title) wit
 any preceding paragraphs or texts. A two line spacing helps visualize the overall
 structure of content in a code editor better.
 
+Manually wrap paragraphs in the Markdown source when appropriate. Since the git
+tool and the GitHub website generate file diffs on a line-by-line basis,
+manually wrapping long lines helps the reviewers to easily find out the changes
+made in a PR and provide feedback. It also helps the downstream localization
+teams where people track the upstream changes on a per-line basis.  Line
+wrapping can happen at the end of a sentence or a punctuation character, for
+example. One exception to this is that a Markdown link or a shortcode is
+expected to be in a single line.
+
 ### Headings and titles {#headings}
 
 People accessing this documentation may use a screen reader or other assistive technology (AT).

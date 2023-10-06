@@ -167,7 +167,10 @@ kubeadm certs renew all
 ```
 
 {{< note >}}
-Clusters built with kubeadm often copy the `admin.conf` certificate into `$HOME/.kube/config`, as instructed in [Creating a cluster with kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/). On such a system, to update the contents of `$HOME/.kube/config` after renewing the `admin.conf` you must run the following commands:
+Clusters built with kubeadm often copy the `admin.conf` certificate into
+`$HOME/.kube/config`, as instructed in [Creating a cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
+On such a system, to update the contents of `$HOME/.kube/config`
+after renewing the `admin.conf`, you must run the following commands:
 
 ```shell
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
@@ -326,7 +329,8 @@ CSRs requesting serving certificates for any IP or domain name.
 During cluster creation, kubeadm signs the certificate in the `admin.conf` to have
 `Subject: O = system:masters, CN = kubernetes-admin`.
 [`system:masters`](/docs/reference/access-authn-authz/rbac/#user-facing-roles)
-is a break-glass, super user group that bypasses the authorization layer (e.g. RBAC).
+is a break-glass, super user group that bypasses the authorization layer (for example,
+[RBAC](/docs/reference/access-authn-authz/rbac/)).
 Sharing the `admin.conf` with additional users is **not recommended**!
 
 Instead, you can use the [`kubeadm kubeconfig user`](/docs/reference/setup-tools/kubeadm/kubeadm-kubeconfig)

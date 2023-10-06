@@ -27,7 +27,7 @@ the general
 In this exercise, you create a Pod that runs one container.
 The manifest for that Pod specifies a command that runs when the container starts:
 
-{{% code file="debug/termination.yaml" %}}
+{{% code_sample file="debug/termination.yaml" %}}
 
 1. Create a Pod based on the YAML configuration file:
 

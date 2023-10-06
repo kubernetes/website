@@ -34,7 +34,7 @@ it should create to meet the number of replicas criteria. A ReplicaSet then fulf
 and deleting Pods as needed to reach the desired number. When a ReplicaSet needs to create new Pods, it uses its Pod
 template.
 
-A ReplicaSet is linked to its Pods via the Pods' [metadata.ownerReferences](/docs/concepts/architecture/garbage-collection/#owners-and-dependents)
+A ReplicaSet is linked to its Pods via the Pods' [metadata.ownerReferences](/docs/concepts/architecture/garbage-collection/#owners-dependents)
 field, which specifies what resource the current object is owned by. All Pods acquired by a ReplicaSet have their owning
 ReplicaSet's identifying information within their ownerReferences field. It's through this link that the ReplicaSet
 knows of the state of the Pods it is maintaining and plans accordingly.
@@ -56,7 +56,7 @@ use a Deployment instead, and define your application in the spec section.
 
 ## Example
 
-{{% code file="controllers/frontend.yaml" %}}
+{{% code_sample file="controllers/frontend.yaml" %}}
 
 Saving this manifest into `frontend.yaml` and submitting it to a Kubernetes cluster will
 create the defined ReplicaSet and the Pods that it manages.
@@ -166,7 +166,7 @@ to owning Pods specified by its template-- it can acquire other Pods in the mann
 
 Take the previous frontend ReplicaSet example, and the Pods specified in the following manifest:
 
-{{% code file="pods/pod-rs.yaml" %}}
+{{% code_sample file="pods/pod-rs.yaml" %}}
 
 As those Pods do not have a Controller (or any object) as their owner reference and match the selector of the frontend
 ReplicaSet, they will immediately be acquired by it.
@@ -349,7 +349,7 @@ If all of the above match, then selection is random.
 Using the [`controller.kubernetes.io/pod-deletion-cost`](/docs/reference/labels-annotations-taints/#pod-deletion-cost)
 annotation, users can set a preference regarding which pods to remove first when downscaling a ReplicaSet.
 
-The annotation should be set on the pod, the range is [-2147483647, 2147483647]. It represents the cost of
+The annotation should be set on the pod, the range is [-2147483648, 2147483647]. It represents the cost of
 deleting a pod compared to other pods belonging to the same ReplicaSet. Pods with lower deletion
 cost are preferred to be deleted before pods with higher deletion cost.
 
@@ -381,7 +381,7 @@ A ReplicaSet can also be a target for
 a ReplicaSet can be auto-scaled by an HPA. Here is an example HPA targeting
 the ReplicaSet we created in the previous example.
 
-{{% code file="controllers/hpa-rs.yaml" %}}
+{{% code_sample file="controllers/hpa-rs.yaml" %}}
 
 Saving this manifest into `hpa-rs.yaml` and submitting it to a Kubernetes cluster should
 create the defined HPA that autoscales the target ReplicaSet depending on the CPU usage

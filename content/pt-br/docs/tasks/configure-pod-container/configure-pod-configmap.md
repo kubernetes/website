@@ -582,6 +582,9 @@ kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-env-var-valu
 ```
 
 produz a seguinte saída no contêiner `test-container`:
+```shell
+kubectl logs dapi-test-pod
+```
 
 ```
 very charm

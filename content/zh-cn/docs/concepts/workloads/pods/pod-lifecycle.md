@@ -327,7 +327,7 @@ Kubelet 管理以下 PodCondition：
 
 <!--
 * `PodScheduled`: the Pod has been scheduled to a node.
-* `PodHasNetwork`: (alpha feature; must be [enabled explicitly](#pod-has-network)) the
+* `PodReadyToStartContainers`: (alpha feature; must be [enabled explicitly](#pod-has-network)) the
   Pod sandbox has been successfully created and networking configured.
 * `ContainersReady`: all containers in the Pod are ready.
 * `Initialized`: all [init containers](/docs/concepts/workloads/pods/init-containers/)
@@ -336,7 +336,7 @@ Kubelet 管理以下 PodCondition：
   balancing pools of all matching Services.
 -->
 * `PodScheduled`：Pod 已经被调度到某节点；
-* `PodHasNetwork`：Pod 沙箱被成功创建并且配置了网络（Alpha 特性，必须被[显式启用](#pod-has-network)）；
+* `PodReadyToStartContainers`：Pod 沙箱被成功创建并且配置了网络（Alpha 特性，必须被[显式启用](#pod-has-network)）；
 * `ContainersReady`：Pod 中所有容器都已就绪；
 * `Initialized`：所有的 [Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)都已成功完成；
 * `Ready`：Pod 可以为请求提供服务，并且应该被添加到对应服务的负载均衡池中。
@@ -462,29 +462,36 @@ When a Pod's containers are Ready but at least one custom condition is missing o
 
 {{< feature-state for_k8s_version="v1.25" state="alpha" >}}
 
+{{< note >}}
+<!--
+This condition was renamed from PodHasNetwork to PodReadyToStartContainers.
+-->
+这种状况已从 PodHasNetwork 重命名为 PodReadyToStartContainers。
+{{< /note >}}
+
 <!--
 After a Pod gets scheduled on a node, it needs to be admitted by the Kubelet and
 have any volumes mounted. Once these phases are complete, the Kubelet works with
 a container runtime (using {{< glossary_tooltip term_id="cri" >}}) to set up a
-runtime sandbox and configure networking for the Pod. If the `PodHasNetworkCondition`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled,
-Kubelet reports whether a Pod has reached this initialization milestone through
-the `PodHasNetwork` condition in the `status.conditions` field of a Pod.
+runtime sandbox and configure networking for the Pod. If the
+`PodReadyToStartContainersCondition` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled,
+Kubelet reports whether a pod has reached this initialization milestone through
+the `PodReadyToStartContainers` condition in the `status.conditions` field of a Pod.
 -->
 在 Pod 被调度到某节点后，它需要被 Kubelet 接受并且挂载所需的卷。
 一旦这些阶段完成，Kubelet 将与容器运行时（使用{{< glossary_tooltip term_id="cri" >}}）
-一起为 Pod 生成运行时沙箱并配置网络。如果启用了
-`PodHasNetworkCondition` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-kubelet 会通过 Pod 的 `status.conditions` 字段中的 `PodHasNetwork` 状况来报告
+一起为 Pod 生成运行时沙箱并配置网络。如果启用了 `PodReadyToStartContainersCondition` 
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
+kubelet 会通过 Pod 的 `status.conditions` 字段中的 `PodReadyToStartContainers` 状况来报告
 Pod 是否达到了初始化里程碑。
 
 <!--
-The `PodHasNetwork` condition is set to `False` by the Kubelet when it detects a
+The `PodReadyToStartContainers` condition is set to `False` by the Kubelet when it detects a
 Pod does not have a runtime sandbox with networking configured. This occurs in
 the following scenarios:
 -->
-当 kubelet 检测到 Pod 不具备配置了网络的运行时沙箱时，`PodHasNetwork` 状况将被设置为 `False`。
-以下场景中将会发生这种状况：
+当 kubelet 检测到 Pod 不具备配置了网络的运行时沙箱时，`PodReadyToStartContainers`
+状况将被设置为 `False`。以下场景中将会发生这种状况：
 
 <!--
 - Early in the lifecycle of the Pod, when the kubelet has not yet begun to set up a sandbox for
@@ -501,14 +508,14 @@ the following scenarios:
   * 对于使用虚拟机进行隔离的容器运行时，Pod 沙箱虚拟机重启时，需要创建一个新的沙箱和全新的容器网络配置。
 
 <!--
-The `PodHasNetwork` condition is set to `True` by the kubelet after the
+The `PodReadyToStartContainers` condition is set to `True` by the kubelet after the
 successful completion of sandbox creation and network configuration for the Pod
 by the runtime plugin. The kubelet can start pulling container images and create
-containers after `PodHasNetwork` condition has been set to `True`.
+containers after `PodReadyToStartContainers` condition has been set to `True`.
 -->
 在运行时插件成功完成 Pod 的沙箱创建和网络配置后，
-kubelet 会将 `PodHasNetwork` 状况设置为 `True`。
-当 `PodHasNetwork` 状况设置为 `True` 后，
+kubelet 会将 `PodReadyToStartContainers` 状况设置为 `True`。
+当 `PodReadyToStartContainers` 状况设置为 `True` 后，
 Kubelet 可以开始拉取容器镜像和创建容器。
 
 <!--
@@ -831,16 +838,18 @@ shutdown.
 Pod。
 
 <!--
-Typically, the container runtime sends a TERM signal to the main process in each
-container. Many container runtimes respect the `STOPSIGNAL` value defined in the container
-image and send this instead of TERM.
-Once the grace period has expired, the KILL signal is sent to any remaining processes, and the Pod
-is then deleted from the {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}.
-If the kubelet or the container runtime's management service is restarted while waiting for
-processes to terminate, the cluster retries from the start including the full original grace period.
+Typically, with this graceful termination of the pod, kubelet makes requests to the container runtime to attempt to stop the containers in the pod by first sending a TERM (aka. SIGTERM) signal, with a grace period timeout, to the main process in each container. The requests to stop the containers are processed by the container runtime asynchronously. There is no guarantee to the order of processing for these requests. Many container runtimes respect the `STOPSIGNAL` value defined in the container image and, if different, send the container image configured STOPSIGNAL instead of TERM.
+Once the grace period has expired, the KILL signal is sent to any remaining
+processes, and the Pod is then deleted from the
+{{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}. If the kubelet or the
+container runtime's management service is restarted while waiting for processes to terminate, the
+cluster retries from the start including the full original grace period.
 -->
-通常情况下，容器运行时会发送一个 TERM 信号到每个容器中的主进程。
-很多容器运行时都能够注意到容器镜像中 `STOPSIGNAL` 的值，并发送该信号而不是 TERM。
+通常 Pod 体面终止的过程为：kubelet 先发送一个带有体面超时限期的 TERM（又名 SIGTERM）
+信号到每个容器中的主进程，将请求发送到容器运行时来尝试停止 Pod 中的容器。
+停止容器的这些请求由容器运行时以异步方式处理。
+这些请求的处理顺序无法被保证。许多容器运行时遵循容器镜像内定义的 `STOPSIGNAL` 值，
+如果不同，则发送容器镜像中配置的 STOPSIGNAL，而不是 TERM 信号。
 一旦超出了体面终止限期，容器运行时会向所有剩余进程发送 KILL 信号，之后
 Pod 就会被从 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}上移除。
 如果 `kubelet` 或者容器运行时的管理服务在等待进程终止期间被重启，
