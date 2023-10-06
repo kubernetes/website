@@ -96,6 +96,7 @@ For a reference to old feature gates that are removed, please refer to
 | `DevicePluginCDIDevices` | `false` | Alpha | 1.28 | |
 | `DisableCloudProviders` | `false` | Alpha | 1.22 | |
 | `DisableKubeletCloudCredentialProviders` | `false` | Alpha | 1.23 | |
+| `DisableNodeKubeProxyVersion` | `false` | Alpha | 1.29 | |
 | `DynamicResourceAllocation` | `false` | Alpha | 1.26 | |
 | `ElasticIndexedJob` | `true` | Beta` | 1.27 | |
 | `EventedPLEG` | `false` | Alpha | 1.26 | 1.26 |
@@ -467,6 +468,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   component flag.
 - `DisableKubeletCloudCredentialProviders`: Disable the in-tree functionality in kubelet
   to authenticate to a cloud provider container registry for image pull credentials.
+- `DisableNodeKubeProxyVersion`: Disable setting the `kubeProxyVersion` field of the Node.
 - `DynamicResourceAllocation`: Enables support for resources with custom parameters and a lifecycle
   that is independent of a Pod.
 - `ElasticIndexedJob`: Enables Indexed Jobs to be scaled up or down by mutating both
