@@ -174,6 +174,7 @@ spec:
   containers:
     - name: test
       image: busybox:1.28
+      command: ['sh', '-c', 'echo "The app is running!" && tail -f /dev/null']
       volumeMounts:
         - name: config-vol
           mountPath: /etc/config
@@ -258,7 +259,7 @@ overlays), the `emptyDir` may run out of capacity before this limit.
 {{< note >}}
 If the `SizeMemoryBackedVolumes` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled,
 you can specify a size for memory backed volumes.  If no size is specified, memory
-backed volumes are sized to 50% of the memory on a Linux host.
+backed volumes are sized to node allocatable memory.
 {{< /note>}}
 
 #### emptyDir configuration example
@@ -758,7 +759,7 @@ The `CSIMigration` feature for Portworx has been added but disabled by default i
 It has been beta now since v1.25 but it is still turned off by default.
 It redirects all plugin operations from the existing in-tree plugin to the
 `pxd.portworx.com` Container Storage Interface (CSI) Driver.
-[Portworx CSI Driver](https://docs.portworx.com/portworx-install-with-kubernetes/storage-operations/csi/)
+[Portworx CSI Driver](https://docs.portworx.com/portworx-enterprise/operations/operate-kubernetes/storage-operations/csi)
 must be installed on the cluster.
 To enable the feature, set `CSIMigrationPortworx=true` in kube-controller-manager and kubelet.
 

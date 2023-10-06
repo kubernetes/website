@@ -48,7 +48,7 @@ Podにセキュリティ設定を行うには、Podの設定に`securityContext`
 `securityContext`フィールドは[PodSecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritycontext-v1-core)オブジェクトが入ります。
 Podに設定したセキュリティ設定はPod内の全てのコンテナに適用されます。こちらは`securityContext`と`emptyDir`ボリュームを持ったPodの設定ファイルです。
 
-{{< codenew file="pods/security/security-context.yaml" >}}
+{{% codenew file="pods/security/security-context.yaml" %}}
 
 設定ファイルの中の`runAsUser`フィールドは、Pod内のコンテナに対して全てのプロセスをユーザーID 1000で実行するように指定します。
 `runAsGroup`フィールドはPod内のコンテナに対して全てのプロセスをプライマリーグループID 3000で実行するように指定します。このフィールドが省略されたときは、コンテナのプライマリーグループIDはroot(0)になります。`runAsGroup`が指定されている場合、作成されたファイルもユーザー1000とグループ3000の所有物になります。
@@ -185,7 +185,7 @@ securityContext:
 
 こちらは一つのコンテナを持つPodの設定ファイルです。Podもコンテナも`securityContext`フィールドを含んでいます。
 
-{{< codenew file="pods/security/security-context-2.yaml" >}}
+{{% codenew file="pods/security/security-context-2.yaml" %}}
 
 Podを作成します。
 
@@ -234,7 +234,7 @@ exit
 まず、`capabilities`フィールドを含まない場合どうなるかを見てみましょう。
 こちらはコンテナに対してケーパビリティを渡していない設定ファイルです。
 
-{{< codenew file="pods/security/security-context-3.yaml" >}}
+{{% codenew file="pods/security/security-context-3.yaml" %}}
 
 Podを作成します。
 
@@ -295,7 +295,7 @@ exit
 こちらは1つのコンテナを実行するPodの設定ファイルです。
 `CAP_NET_ADMIN`と`CAP_SYS_TIME`ケーパビリティを設定に追加しました。
 
-{{< codenew file="pods/security/security-context-4.yaml" >}}
+{{% codenew file="pods/security/security-context-4.yaml" %}}
 
 Podを作成します。
 

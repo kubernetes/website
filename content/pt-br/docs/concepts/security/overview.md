@@ -137,7 +137,7 @@ Acesso só através de TLS | Se seu código precisar se comunicar por TCP, execu
 Limitando intervalos de porta de comunicação | Essa recomendação pode ser um pouco autoexplicativa, mas, sempre que possível, você só deve expor as portas em seu serviço que são absolutamente essenciais para a comunicação ou coleta de métricas. |
 Segurança na Dependência de Terceiros | É uma boa prática verificar regularmente as bibliotecas de terceiros de sua aplicação em busca de vulnerabilidades de segurança. Cada linguagem de programação possui uma ferramenta para realizar essa verificação automaticamente. |
 Análise de Código Estático | A maioria das linguagens fornece uma maneira para analisar um extrato do código referente a quaisquer práticas de codificação potencialmente inseguras. Sempre que possível, você deve automatizar verificações usando ferramentas que podem verificar as bases de código em busca de erros de segurança comuns. Algumas das ferramentas podem ser encontradas em [OWASP Source Code Analysis Tools](https://owasp.org/www-community/Source_Code_Analysis_Tools). |
-Ataques de sondagem dinâmica | Existem algumas ferramentas automatizadas que você pode executar contra seu serviço para tentar alguns dos ataques mais conhecidos. Isso inclui injeção de SQL, CSRF e XSS. Uma das ferramentas de análise dinâmica mais populares é o [OWASP Zed Attack proxy](https://owasp.org/www-project-zap/). |
+Ataques de sondagem dinâmica | Existem algumas ferramentas automatizadas que você pode executar contra seu serviço para tentar alguns dos ataques mais conhecidos. Isso inclui injeção de SQL, CSRF e XSS. Uma das ferramentas de análise dinâmica mais populares é o [OWASP Zed Attack proxy](https://www.zaproxy.org/). |
 
 {{< /table >}}
 

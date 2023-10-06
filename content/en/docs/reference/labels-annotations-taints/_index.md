@@ -3,6 +3,12 @@ title: Well-Known Labels, Annotations and Taints
 content_type: concept
 weight: 40
 no_list: true
+card:
+  name: reference
+  weight: 30
+  anchors:
+  - anchor: "#labels-annotations-and-taints-used-on-api-objects"
+    title: Labels, annotations and taints
 ---
 
 <!-- overview -->
@@ -14,6 +20,21 @@ This document serves both as a reference to the values and as a coordination poi
 <!-- body -->
 
 ## Labels, annotations and taints used on API objects
+
+
+### apf.kubernetes.io/autoupdate-spec
+
+Type: Annotation
+
+Example: `apf.kubernetes.io/autoupdate-spec: "true"`
+
+Used on: [`FlowSchema` and `PriorityLevelConfiguration` Objects](/docs/concepts/cluster-administration/flow-control/#defaults)
+
+If this annotation is set to true on a FlowSchema or PriorityLevelConfiguration, the `spec` for that object
+is managed by the kube-apiserver. If the API server does not recognize an APF object, and you annotate it
+for automatic update, the API server deletes the entire object. Otherwise, the API server does not manage the
+object spec.
+For more details, read  [Maintenance of the Mandatory and Suggested Configuration Objects](/docs/concepts/cluster-administration/flow-control/#maintenance-of-the-mandatory-and-suggested-configuration-objects).
 
 ### app.kubernetes.io/component
 
@@ -239,8 +260,9 @@ When a StatefulSet controller creates a Pod for the StatefulSet, it sets this la
 The value of the label is the ordinal index of the pod being created.
 
 See [Pod Index Label](/docs/concepts/workloads/controllers/statefulset/#pod-index-label)
-in the StatefulSet topic for more details. Note the [PodIndexLabel](content/en/docs/reference/command-line-tools-reference/feature-gates.md) feature gate must be enabled
-for this label to be added to pods.
+in the StatefulSet topic for more details.
+Note the [PodIndexLabel](/docs/reference/command-line-tools-reference/feature-gates/)
+feature gate must be enabled for this label to be added to pods.
 
 ### cluster-autoscaler.kubernetes.io/safe-to-evict
 
@@ -1061,7 +1083,7 @@ Example: `alpha.kubernetes.io/provided-node-ip: "10.0.0.1"`
 
 Used on: Node
 
-The kubelet can set this annotation on a Node to denote its configured IPv4 address.
+The kubelet can set this annotation on a Node to denote its configured IPv4 and/or IPv6 address.
 
 When kubelet is started with the `--cloud-provider` flag set to any value (includes both external
 and legacy in-tree cloud providers), it sets this annotation on the Node to denote an IP address
@@ -1079,8 +1101,9 @@ Used on: Pod
 The Job controller in the kube-controller-manager sets this as a label and annotation for Pods
 created with Indexed [completion mode](/docs/concepts/workloads/controllers/job/#completion-mode).
 
-Note the [PodIndexLabel](content/en/docs/reference/command-line-tools-reference/feature-gates.md) feature gate must be enabled
-for this to be added as a pod **label**, otherwise it will just be an annotation.
+Note the [PodIndexLabel](/docs/reference/command-line-tools-reference/feature-gates/)
+feature gate must be enabled for this to be added as a pod **label**,
+otherwise it will just be an annotation.
 
 ### batch.kubernetes.io/cronjob-scheduled-timestamp
 
@@ -1120,6 +1143,22 @@ This annotation is deprecated. You should use the
 [`kubectl.kubernetes.io/default-container`](#kubectl-kubernetes-io-default-container)
 annotation instead. Kubernetes versions 1.25 and newer ignore this annotation.
 {{< /note >}}
+
+### kubectl.kubernetes.io/last-applied-configuration
+
+Type: Annotation
+
+Example: _see following snippet_
+```yaml
+    kubectl.kubernetes.io/last-applied-configuration: >
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"example","namespace":"default"},"spec":{"selector":{"matchLabels":{"app.kubernetes.io/name":foo}},"template":{"metadata":{"labels":{"app.kubernetes.io/name":"foo"}},"spec":{"containers":[{"image":"container-registry.example/foo-bar:1.42","name":"foo-bar","ports":[{"containerPort":42}]}]}}}}
+```
+
+Used on: all objects
+
+The kubectl command line tool uses this annotation as a legacy mechanism
+to track changes. That mechanism has been superseded by
+[Server-side apply](/docs/reference/using-api/server-side-apply/).
 
 ### endpoints.kubernetes.io/over-capacity
 

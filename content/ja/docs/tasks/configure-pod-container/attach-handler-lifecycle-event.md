@@ -27,7 +27,7 @@ weight: 180
 
 これがPodの設定ファイルです:
 
-{{< codenew file="pods/lifecycle-events.yaml" >}}
+{{% codenew file="pods/lifecycle-events.yaml" %}}
 
 設定ファイルでは、postStartコマンドが`message`ファイルをコンテナの`/usr/share`ディレクトリに書き込むことがわかります。preStopコマンドはnginxを適切にシャットダウンします。これは、障害のためにコンテナが終了している場合に役立ちます。
 

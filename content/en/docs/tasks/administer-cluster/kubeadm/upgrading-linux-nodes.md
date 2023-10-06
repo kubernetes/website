@@ -41,7 +41,7 @@ apt-mark hold kubeadm
 {{% /tab %}}
 {{% tab name="CentOS, RHEL or Fedora" %}}
 ```shell
-# replace x in {{< skew currentVersion >}}.x- with the latest patch version
+# replace x in {{< skew currentVersion >}}.x-* with the latest patch version
 yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
 ```
 {{% /tab %}}

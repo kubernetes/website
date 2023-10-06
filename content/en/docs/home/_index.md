@@ -6,7 +6,7 @@ noedit: true
 cid: docsHome
 layout: docsportal_home
 class: gridPage gridPageHome
-linkTitle: "Home"
+linkTitle: "Documentation"
 main_menu: true
 weight: 10
 hide_feedback: true
@@ -41,21 +41,21 @@ cards:
   description: "Look up common tasks and how to perform them using a short sequence of steps."
   button: "View Tasks"
   button_path: "/docs/tasks"
-- name: training
-  title: "Training"
-  description: "Get certified in Kubernetes and make your cloud native projects successful!"
-  button: "View training"
-  button_path: "/training"
 - name: reference
   title: Look up reference information
   description: Browse terminology, command line syntax, API resource types, and setup tool documentation.
   button: View Reference
   button_path: /docs/reference
 - name: contribute
-  title: Contribute to the docs
+  title: Contribute to Kubernetes
   description: Anyone can contribute, whether you're new to the project or you've been around a long time.
-  button: Contribute to the docs
+  button: Find out how to help
   button_path: /docs/contribute
+- name: training
+  title: "Training"
+  description: "Get certified in Kubernetes and make your cloud native projects successful!"
+  button: "View training"
+  button_path: "/training"
 - name: Download
   title: Download Kubernetes
   description: Install Kubernetes or upgrade to the newest version.

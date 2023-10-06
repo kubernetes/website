@@ -134,7 +134,7 @@ with `.slice` appended.
 {{< feature-state for_k8s_version="v1.17" state="stable" >}}
 
 **Kubelet Flag**: `--reserved-cpus=0-3`
-**KubeletConfiguration Flag**: `reservedSystemCpus: 0-3`
+**KubeletConfiguration Flag**: `reservedSystemCPUs: 0-3`
 
 `reserved-cpus` is meant to define an explicit CPU set for OS system daemons and
 kubernetes system daemons. `reserved-cpus` is for systems that do not intend to

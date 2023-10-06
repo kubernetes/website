@@ -83,7 +83,7 @@ reference for a full definition of the resource.
 
 An example NetworkPolicy might look like this:
 
-{{% code file="service/networking/networkpolicy.yaml" %}}
+{{% code_sample file="service/networking/networkpolicy.yaml" %}}
 
 {{< note >}}
 POSTing this to the API server for your cluster will have no effect unless your chosen networking
@@ -212,7 +212,7 @@ in that namespace.
 You can create a "default" ingress isolation policy for a namespace by creating a NetworkPolicy
 that selects all pods but does not allow any ingress traffic to those pods.
 
-{{% code file="service/networking/network-policy-default-deny-ingress.yaml" %}}
+{{% code_sample file="service/networking/network-policy-default-deny-ingress.yaml" %}}
 
 This ensures that even pods that aren't selected by any other NetworkPolicy will still be isolated
 for ingress. This policy does not affect isolation for egress from any pod.
@@ -222,7 +222,7 @@ for ingress. This policy does not affect isolation for egress from any pod.
 If you want to allow all incoming connections to all pods in a namespace, you can create a policy
 that explicitly allows that.
 
-{{% code file="service/networking/network-policy-allow-all-ingress.yaml" %}}
+{{% code_sample file="service/networking/network-policy-allow-all-ingress.yaml" %}}
 
 With this policy in place, no additional policy or policies can cause any incoming connection to
 those pods to be denied.  This policy has no effect on isolation for egress from any pod.
@@ -232,7 +232,7 @@ those pods to be denied.  This policy has no effect on isolation for egress from
 You can create a "default" egress isolation policy for a namespace by creating a NetworkPolicy
 that selects all pods but does not allow any egress traffic from those pods.
 
-{{% code file="service/networking/network-policy-default-deny-egress.yaml" %}}
+{{% code_sample file="service/networking/network-policy-default-deny-egress.yaml" %}}
 
 This ensures that even pods that aren't selected by any other NetworkPolicy will not be allowed
 egress traffic. This policy does not change the ingress isolation behavior of any pod.
@@ -242,7 +242,7 @@ egress traffic. This policy does not change the ingress isolation behavior of an
 If you want to allow all connections from all pods in a namespace, you can create a policy that
 explicitly allows all outgoing connections from pods in that namespace.
 
-{{% code file="service/networking/network-policy-allow-all-egress.yaml" %}}
+{{% code_sample file="service/networking/network-policy-allow-all-egress.yaml" %}}
 
 With this policy in place, no additional policy or policies can cause any outgoing connection from
 those pods to be denied.  This policy has no effect on isolation for ingress to any pod.
@@ -252,7 +252,7 @@ those pods to be denied.  This policy has no effect on isolation for ingress to 
 You can create a "default" policy for a namespace which prevents all ingress AND egress traffic by
 creating the following NetworkPolicy in that namespace.
 
-{{% code file="service/networking/network-policy-default-deny-all.yaml" %}}
+{{% code_sample file="service/networking/network-policy-default-deny-all.yaml" %}}
 
 This ensures that even pods that aren't selected by any other NetworkPolicy will not be allowed
 ingress or egress traffic.
@@ -280,7 +280,7 @@ When writing a NetworkPolicy, you can target a range of ports instead of a singl
 
 This is achievable with the usage of the `endPort` field, as the following example:
 
-{{% code file="service/networking/networkpolicy-multiport-egress.yaml" %}}
+{{% code_sample file="service/networking/networkpolicy-multiport-egress.yaml" %}}
 
 The above rule allows any Pod with label `role=db` on the namespace `default` to communicate 
 with any IP within the range `10.0.0.0/24` over TCP, provided that the target 

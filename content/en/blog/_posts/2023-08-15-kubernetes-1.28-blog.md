@@ -26,19 +26,37 @@ Much like a garden, our release has ever-changing growth, challenges and opportu
 # What's New (Major Themes)
 
 ## Changes to supported skew between control plane and node versions
-This enables testing and expanding the supported skew between core node and control plane components by one version from n-2 to n-3, so that node components (kubelet and kube-proxy) for the oldest supported minor version work with control plane components (kube-apiserver, kube-scheduler, kube-controller-manager, cloud-controller-manager) for the newest supported minor version.
 
-This is valuable for end users as control plane upgrade will be a little faster than node upgrade, which are almost always going to be the longer with running workloads.
+Kubernetes v1.28 expands the supported skew between core node and control plane
+components by one minor version, from _n-2_ to _n-3_, so that node components
+(kubelet and kube-proxy) for the oldest supported minor version work with
+control plane components (kube-apiserver, kube-scheduler, kube-controller-manager,
+cloud-controller-manager) for the newest supported minor version.
 
-The Kubernetes yearly support period already makes annual upgrades possible. Users can upgrade to the latest patch versions to pick up security fixes and do 3 sequential minor version upgrades once a year to "catch up" to the latest supported minor version.
+Some cluster operators avoid node maintenance and especially changes to node
+behavior, because nodes are where the workloads run. For minor version upgrades
+to a kubelet, the supported process includes draining that node, and hence
+disruption to any Pods that had been executing there. For Kubernetes end users
+with very long running workloads, and where Pods should stay running wherever
+possible, reducing the time lost to node maintenance is a benefit.
 
-However, since the tested/supported skew between nodes and control planes is currently limited to 2 versions, a 3-version upgrade would have to update nodes twice to stay within the supported skew.
+The Kubernetes yearly support period already made annual upgrades possible. Users can
+upgrade to the latest patch versions to pick up security fixes and do 3 sequential
+minor version upgrades once a year to "catch up" to the latest supported minor version.
+
+Previously, to stay within the supported skew, a cluster operator planning an annual
+upgrade would have needed to upgrade their nodes twice (perhaps only hours apart). Now,
+with Kubernetes v1.28, you have the option of making a minor version upgrade to
+nodes just once in each calendar year and still staying within upstream support.
+
+If you'd like to stay current and upgrade your clusters more often, that's
+fine and is still completely supported.
 
 ## Generally available: recovery from non-graceful node shutdown
     
-If a node shuts down down unexpectedly or ends up in a non-recoverable state (perhaps due to hardware failure or unresponsive OS), Kubernetes allows you to clean up afterwards and allow stateful workloads to restart on a different node. For Kubernetes v1.28, that's now a stable feature.
+If a node shuts down unexpectedly or ends up in a non-recoverable state (perhaps due to hardware failure or unresponsive OS), Kubernetes allows you to clean up afterward and allow stateful workloads to restart on a different node. For Kubernetes v1.28, that's now a stable feature.
 
-This allows stateful workloads to failover to a different node successfully after the original node is shut down or in a non-recoverable state, such as the hardware failure or broken OS.
+This allows stateful workloads to fail over to a different node successfully after the original node is shut down or in a non-recoverable state, such as the hardware failure or broken OS.
     
 Versions of Kubernetes earlier than v1.20 lacked handling for node shutdown on Linux, the kubelet integrates with systemd
 and implements graceful node shutdown (beta, and enabled by default). However, even an intentional
@@ -70,9 +88,11 @@ read [non-graceful node shutdown](/docs/concepts/architecture/nodes/#non-gracefu
 ## Improvements to CustomResourceDefinition validation rules 
 
 The [Common Expression Language (CEL)](https://github.com/google/cel-go) can be used to validate
-[custom resources](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/). The primary goal is to allow the majority of the validation use cases that might once have needed you, as a CustomResourceDefinition (CRD) author, to design and implement a webhook. Instead, and as a beta feature, you can add _validation expressions_ directly into the schema of a CRD.
+[custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/). The primary goal is to allow the majority of the validation use cases that might once have needed you, as a CustomResourceDefinition (CRD) author, to design and implement a webhook. Instead, and as a beta feature, you can add _validation expressions_ directly into the schema of a CRD.
     
 CRDs need direct support for non-trivial validation. While admission webhooks do support CRDs validation, they significantly complicate the development and operability of CRDs.
+
+In 1.28, two optional fields `reason` and `fieldPath` were added to allow user to specify the failure reason and fieldPath when validation failed.
 
 For more information, read [validation rules](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-rules) in the CRD documentation.
 
@@ -84,7 +104,7 @@ This builds on the capabilities of the CRD Validation Rules feature that graduat
     
 This will lower the infrastructure barrier to enforcing customizable policies as well as providing primitives that help the community establish and adhere to the best practices of both K8s and its extensions.
 
-To use [ValidatingAdmissionPolicies](/docs/reference/access-authn-authz/validating-admission-policy/), you need to enable the `admissionregistration.k8s.io/v1beta1` API group in your cluster's control plane.
+To use [ValidatingAdmissionPolicies](/docs/reference/access-authn-authz/validating-admission-policy/), you need to enable both the `admissionregistration.k8s.io/v1beta1` API group and the `ValidatingAdmissionPolicy` feature gate in your cluster's control plane.
 
 ## Match conditions for admission webhooks
     
@@ -134,21 +154,23 @@ CDI provides a standardized way of injecting complex devices into a container (i
 ## API awareness of sidecar containers (alpha) {#sidecar-init-containers}
 
 Kubernetes 1.28 introduces an alpha `restartPolicy` field for [init containers](https://github.com/kubernetes/website/blob/main/content/en/docs/concepts/workloads/pods/init-containers.md),
-and uses that to indicate when an init container is also a _sidecar container_. The will start init containers with `restartPolicy: Always` in the order they are defined, along with other init containers. Instead of waiting for that sidecar container to complete before starting the main container(s) for the Pod, the kubelet only waits for
-the sidecar init container to have started.
+and uses that to indicate when an init container is also a _sidecar container_.
+The kubelet will start init containers with `restartPolicy: Always` in the order
+they are defined, along with other init containers.
+Instead of waiting for that sidecar container to complete before starting the main
+container(s) for the Pod, the kubelet only waits for the sidecar init container to have started.
 
-The condition for startup completion will be that the startup probe succeeded (or if no startup probe is defined) and postStart handler is completed. This condition is represented with the field Started of ContainerStatus type. See the section "Pod startup completed condition" for considerations on picking this signal.
+The kubelet will consider the startup for the sidecar container as being completed
+if the startup probe succeeds and the postStart handler is completed.
+This condition is represented with the field Started of ContainerStatus type.
+If you do not define a startup probe, the kubelet will consider the container
+startup to be completed immediately after the postStart handler completion.
 
 For init containers, you can either omit the `restartPolicy` field, or set it to `Always`. Omitting the field
 means that you want a true init container that runs to completion before application startup.
 
 Sidecar containers do not block Pod completion: if all regular containers are complete, sidecar
 containers in that Pod will be terminated.
-
-For sidecar containers, the restart behavior is more complex than for init containers. In a Pod with
-`restartPolicy` set to `Never`, a sidecar container that fails during Pod startup will **not** be restarted
-and the whole Pod is treated as having failed. If the Pod's `restartPolicy` is `Always` or `OnFailure`,
-a sidecar that fails to start will be retried.
 
 Once the sidecar container has started (process running, `postStart` was successful, and
 any configured startup probe is passing), and then there's a failure, that sidecar container will be
@@ -163,7 +185,7 @@ To learn more, read [API for sidecar containers](/docs/concepts/workloads/pods/i
 Kubernetes automatically sets a `storageClassName` for a PersistentVolumeClaim (PVC) if you don't provide
 a value. The control plane also sets a StorageClass for any existing PVC that doesn't have a `storageClassName`
 defined.
-Previous versions of Kubernetes also had this behavior; for Kubernetes v1.28 is is automatic and always
+Previous versions of Kubernetes also had this behavior; for Kubernetes v1.28 it is automatic and always
 active; the feature has graduated to stable (general availability).
 
 To learn more, read about [StorageClass](/docs/concepts/storage/storage-classes/) in the Kubernetes 
@@ -199,18 +221,12 @@ For instance, if indexed jobs were used as the basis for a suite of long-running
 
     
 For more information, read [Handling Pod and container failures](/docs/concepts/workloads/controllers/job/#handling-pod-and-container-failures) in the Kubernetes documentation.
-   
-## CRI container and pod statistics without cAdvisor
 
-This encompasses two related pieces of work (changes to the kubelet's `/metrics/cadvisor` endpoint and improvements to the replacement _summary_ API).
+<hr />
+<a id="cri-container-and-pod-statistics-without-cadvisor" />
 
-There are two main APIs that consumers use to gather stats about running containers and pods: summary API and `/metrics/cadvisor`. The Kubelet is responsible for implementing the summary API, and cadvisor is responsible for fulfilling `/metrics/cadvisor`.
-
-This enhances CRI implementations to be able to fulfill all the stats needs of Kubernetes. At a high level, there are two pieces of this:
-
-- It enhances the CRI API with enough metrics to supplement the pod and container fields in the summary API directly from CRI.
-    
-- It enhances the CRI implementations to broadcast the required metrics to fulfill the pod and container fields in the `/metrics/cadvisor` endpoint.
+**Correction**: the feature CRI container and pod statistics without cAdvisor has been removed as it did not make the release.
+The original release announcement stated that Kubernetes 1.28 included the new feature.
 
 ## Feature graduations and deprecations in Kubernetes v1.28
 ### Graduations to stable
@@ -247,7 +263,7 @@ The complete details of the Kubernetes v1.28 release are available in our [relea
 
 ## Availability
 
-Kubernetes v1.28 is available for download on [GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.28.0). To get started with Kubernetes, you can run local Kubernetes clusters using [minikube](https://minikube.sigs.k8s.io/docs/), [kind](https://kind.sigs.k8s.io/), etc. You can also easily install v1.28 using [kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
+Kubernetes v1.28 is available for download on [GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.28.0). To get started with Kubernetes, you can run local Kubernetes clusters using [minikube](https://minikube.sigs.k8s.io/docs/), [kind](https://kind.sigs.k8s.io/), etc. You can also easily install v1.28 using [kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
  
 ## Release Team
 
@@ -270,7 +286,7 @@ In the v1.28 release cycle, which [ran for 14 weeks](https://github.com/kubernet
 
 ## Upcoming Release Webinar
 
-Join members of the Kubernetes v1.28 release team on Friday, September 14, 2023, at 10 a.m. PDT to learn about the major features of this release, as well as deprecations and removals to help plan for upgrades. For more information and registration, visit the [event page](https://community.cncf.io/events/details/cncf-cncf-online-programs-presents-cncf-live-webinar-kubernetes-v128-release/) on the CNCF Online Programs site.
+Join members of the Kubernetes v1.28 release team on Wednesday, September 6th, 2023, at 9 A.M. PDT to learn about the major features of this release, as well as deprecations and removals to help plan for upgrades. For more information and registration, visit the [event page](https://community.cncf.io/events/details/cncf-cncf-online-programs-presents-cncf-live-webinar-kubernetes-128-release/) on the CNCF Online Programs site.
 
 ## Get Involved
 

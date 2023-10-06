@@ -81,7 +81,8 @@ Kubernetes implements horizontal pod autoscaling as a control loop that runs int
 Once during each period, the controller manager queries the resource utilization against the
 metrics specified in each HorizontalPodAutoscaler definition. The controller manager
 finds the target resource defined by the `scaleTargetRef`,
-then selects the pods based on the target resource's `.spec.selector` labels, and obtains the metrics from either the resource metrics API (for per-pod resource metrics),
+then selects the pods based on the target resource's `.spec.selector` labels,
+and obtains the metrics from either the resource metrics API (for per-pod resource metrics),
 or the custom metrics API (for all other metrics).
 
 - For per-pod resource metrics (like CPU), the controller fetches the metrics
@@ -164,10 +165,12 @@ cannot exactly determine the first time a pod becomes ready when
 determining whether to set aside certain CPU metrics. Instead, it
 considers a Pod "not yet ready" if it's unready and transitioned to
 ready within a short, configurable window of time since it started.
-This value is configured with the `--horizontal-pod-autoscaler-initial-readiness-delay` flag, and its default is 30
-seconds. Once a pod has become ready, it considers any transition to
+This value is configured with the `--horizontal-pod-autoscaler-initial-readiness-delay`
+flag, and its default is 30 seconds.
+Once a pod has become ready, it considers any transition to
 ready to be the first if it occurred within a longer, configurable time
-since it started. This value is configured with the `--horizontal-pod-autoscaler-cpu-initialization-period` flag, and its
+since it started. This value is configured with the
+`--horizontal-pod-autoscaler-cpu-initialization-period` flag, and its
 default is 5 minutes.
 
 The `currentMetricValue / desiredMetricValue` base scale ratio is then
@@ -205,7 +208,8 @@ the current value.
 
 Finally, right before HPA scales the target, the scale recommendation is recorded. The
 controller considers all recommendations within a configurable window choosing the
-highest recommendation from within that window. This value can be configured using the `--horizontal-pod-autoscaler-downscale-stabilization` flag, which defaults to 5 minutes.
+highest recommendation from within that window. This value can be configured using the
+`--horizontal-pod-autoscaler-downscale-stabilization` flag, which defaults to 5 minutes.
 This means that scaledowns will occur gradually, smoothing out the impact of rapidly
 fluctuating metric values.
 
@@ -341,27 +345,31 @@ overall maximum that you configured).
 
 ## Support for metrics APIs
 
-By default, the HorizontalPodAutoscaler controller retrieves metrics from a series of APIs. In order for it to access these
-APIs, cluster administrators must ensure that:
+By default, the HorizontalPodAutoscaler controller retrieves metrics from a series of APIs.
+In order for it to access these APIs, cluster administrators must ensure that:
 
 - The [API aggregation layer](/docs/tasks/extend-kubernetes/configure-aggregation-layer/) is enabled.
 
 - The corresponding APIs are registered:
 
-  - For resource metrics, this is the `metrics.k8s.io` API, generally provided by [metrics-server](https://github.com/kubernetes-sigs/metrics-server).
+  - For resource metrics, this is the `metrics.k8s.io` [API](/docs/reference/external-api/metrics.v1beta1/),
+    generally provided by [metrics-server](https://github.com/kubernetes-sigs/metrics-server).
     It can be launched as a cluster add-on.
 
-  - For custom metrics, this is the `custom.metrics.k8s.io` API. It's provided by "adapter" API servers provided by metrics solution vendors.
+  - For custom metrics, this is the `custom.metrics.k8s.io` [API](/docs/reference/external-api/custom-metrics.v1beta2/).
+    It's provided by "adapter" API servers provided by metrics solution vendors.
     Check with your metrics pipeline to see if there is a Kubernetes metrics adapter available.
 
-  - For external metrics, this is the `external.metrics.k8s.io` API. It may be provided by the custom metrics adapters provided above.
+  - For external metrics, this is the `external.metrics.k8s.io` [API](/docs/reference/external-api/external-metrics.v1beta1/).
+    It may be provided by the custom metrics adapters provided above.
 
 For more information on these different metrics paths and how they differ please see the relevant design proposals for
 [the HPA V2](https://git.k8s.io/design-proposals-archive/autoscaling/hpa-v2.md),
 [custom.metrics.k8s.io](https://git.k8s.io/design-proposals-archive/instrumentation/custom-metrics-api.md)
 and [external.metrics.k8s.io](https://git.k8s.io/design-proposals-archive/instrumentation/external-metrics-api.md).
 
-For examples of how to use them see [the walkthrough for using custom metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics)
+For examples of how to use them see
+[the walkthrough for using custom metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics)
 and [the walkthrough for using external metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-metrics-not-related-to-kubernetes-objects).
 
 ## Configurable scaling behavior

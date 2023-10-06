@@ -131,7 +131,7 @@ The configuration is located under the `data.kubelet` key.
 To reflect the change on kubeadm nodes you must do the following:
 - Log in to a kubeadm node
 - Run `kubeadm upgrade node phase kubelet-config` to download the latest `kubelet-config`
-ConfigMap contents into the local file `/var/lib/kubelet/config.conf`
+ConfigMap contents into the local file `/var/lib/kubelet/config.yaml`
 - Edit the file `/var/lib/kubelet/kubeadm-flags.env` to apply additional configuration with
 flags
 - Restart the kubelet service with `systemctl restart kubelet`
@@ -142,10 +142,10 @@ Do these changes one node at a time to allow workloads to be rescheduled properl
 
 {{< note >}}
 During `kubeadm upgrade`, kubeadm downloads the `KubeletConfiguration` from the
-`kubelet-config` ConfigMap and overwrite the contents of `/var/lib/kubelet/config.conf`.
+`kubelet-config` ConfigMap and overwrite the contents of `/var/lib/kubelet/config.yaml`.
 This means that node local configuration must be applied either by flags in
 `/var/lib/kubelet/kubeadm-flags.env` or by manually updating the contents of
-`/var/lib/kubelet/config.conf` after `kubeadm upgrade`, and then restarting the kubelet.
+`/var/lib/kubelet/config.yaml` after `kubeadm upgrade`, and then restarting the kubelet.
 {{< /note >}}
 
 ### Applying kube-proxy configuration changes
@@ -264,14 +264,14 @@ the set of node specific patches must be updated accordingly.
 
 #### Persisting kubelet reconfiguration
 
-Any changes to the `KubeletConfiguration` stored in `/var/lib/kubelet/config.conf` will be overwritten on
+Any changes to the `KubeletConfiguration` stored in `/var/lib/kubelet/config.yaml` will be overwritten on
 `kubeadm upgrade` by downloading the contents of the cluster wide `kubelet-config` ConfigMap.
-To persist kubelet node specific configuration either the file `/var/lib/kubelet/config.conf`
+To persist kubelet node specific configuration either the file `/var/lib/kubelet/config.yaml`
 has to be updated manually post-upgrade or the file `/var/lib/kubelet/kubeadm-flags.env` can include flags.
 The kubelet flags override the associated `KubeletConfiguration` options, but note that
 some of the flags are deprecated.
 
-A kubelet restart will be required after changing `/var/lib/kubelet/config.conf` or
+A kubelet restart will be required after changing `/var/lib/kubelet/config.yaml` or
 `/var/lib/kubelet/kubeadm-flags.env`.
 
 ## {{% heading "whatsnext" %}}
