@@ -150,11 +150,22 @@ the `Terminated` state.
 The `spec` of a Pod has a `restartPolicy` field with possible values Always, OnFailure,
 and Never. The default value is Always.
 
-The `restartPolicy` applies to all containers in the Pod. `restartPolicy` only
-refers to restarts of the containers by the kubelet on the same node. After containers
-in a Pod exit, the kubelet restarts them with an exponential back-off delay (10s, 20s,
-40s, …), that is capped at five minutes. Once a container has executed for 10 minutes
-without any problems, the kubelet resets the restart backoff timer for that container.
+The `restartPolicy` for a Pod applies to {{< glossary_tooltip text="app containers" term_id="app-container" >}}
+in the Pod and to regular [init containers](/docs/concepts/workloads/pods/init-containers/).
+[Sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/)
+ignore the Pod-level `restartPolicy` field: in Kubernetes, a sidecar is defined as an
+entry inside `initContainers` that has its container-level `restartPolicy` set to `Always`.
+For init containers that exit with an error, the kubelet restarts the init container if
+the Pod level `restartPolicy` is either `OnFailure` or `Always`.
+
+When the kubelet is handling container restarts according to the configured restart
+policy, that only applies to restarts that make replacement containers inside the
+same Pod and running on the same node. After containers in a Pod exit, the kubelet
+restarts them with an exponential back-off delay (10s, 20s,40s, …), that is capped at
+five minutes. Once a container has executed for 10 minutes without any problems, the
+kubelet resets the restart backoff timer for that container.
+[Sidecar containers and Pod lifecycle](/docs/concepts/workloads/pods/sidecar-containers/#sidecar-containers-and-pod-lifecycle)
+explains the behaviour of `init containers` when specify `restartpolicy` field on it.
 
 ## Pod conditions
 
@@ -581,6 +592,8 @@ for more details.
   [configuring Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
 
 * Learn more about [container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/).
+
+* Learn more about [sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/).
 
 * For detailed information about Pod and container status in the API, see
   the API reference documentation covering
