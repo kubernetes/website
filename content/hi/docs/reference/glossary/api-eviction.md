@@ -2,7 +2,7 @@
 title: एपीआई द्वारा आरंभित निष्कासन (API-Initiated Eviction)
 id: api-eviction
 date: 2021-04-27
-full_link: /docs/concepts/scheduling-eviction/api-eviction/
+full_link: /hi/docs/concepts/scheduling-eviction/api-eviction/
 short_description: >
   API-eviction निष्कासन वह प्रक्रिया है जिसके द्वारा आप एक बनाने के लिए निष्कासन API का उपयोग करते हैं
 aka:
