@@ -1,29 +1,16 @@
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
 <!-- 
 Generate all kubeconfig files necessary to establish the control plane and the admin kubeconfig file 
 -->
-生成所有建立控制平面和管理员（admin）所需的 kubeconfig 文件
+生成所有建立控制平面和管理员（admin）所需的 kubeconfig 文件。
 
 <!-- 
 ### Synopsis
 -->
-
 ### 概要
 
 <!-- 
 This command is not meant to be run on its own. See list of available subcommands. 
 -->
-
 此命令并非设计用来单独运行。请阅读可用子命令列表。
 
 ```
@@ -33,7 +20,6 @@ kubeadm init phase kubeconfig [flags]
 <!-- 
 ### Options 
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -61,7 +47,6 @@ kubeadm init phase kubeconfig [flags]
 <!-- 
 ### Options inherited from parent commands 
 -->
-
 ### 从父命令继承的选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -85,4 +70,3 @@ kubeadm init phase kubeconfig [flags]
 
 </tbody>
 </table>
-
