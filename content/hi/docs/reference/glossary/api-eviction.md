@@ -10,7 +10,6 @@ tags:
 - operation
 ---
 'API-Initiated Eviction' निष्कासन की वह प्रक्रिया है, जिसके द्वारा आप एक `Eviction` ऑब्जेक्ट बनाने के लिए [Eviction API](/hi/docs/reference/generated/kubernetes-api/{{<param "version">}}/#create-eviction-pod-v1-core) (निष्कासन एपीआई) का उपयोग करते हैं, जो graceful pod termination को ट्रिगर करती है।
-एक `एविक्शन` ऑब्जेक्ट बनाने के लिए जो सुंदर पॉड समाप्ति को ट्रिगर करता है।
 
 <!--more-->
 आप सीधे eviction API को कॉल करके बेदखली का अनुरोध कर सकते हैं
