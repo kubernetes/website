@@ -28,7 +28,7 @@ release branches newer than `release-1.28`.
 
 ## How to use the new packages
 
-In the same way as the Kubernetes community, CRI-O provides `deb` and `rpm`
+In the same way as the Kubernetes community, CRI-O provides Debian and RPM
 packages as part of a dedicated subproject in OBS, called
 [`isv:kubernetes:addons:cri-o`](https://build.opensuse.org/project/show/isv:kubernetes:addons:cri-o).
 This project acts as an umbrella and provides `stable` (for CRI-O tags) as well as
@@ -57,101 +57,101 @@ For example, If an end-user would like to install the latest available version
 of the CRI-O `main` branch, then they can add the repository in the same way as
 they do for Kubernetes.
 
-### `rpm` Based Distributions
+### RPM-based distributions
 
-For `rpm` based distributions, you can run the following commands as a `root` user
+For RPM-based distributions, you can run the following commands as a `root` user
 to install CRI-O together with Kubernetes:
 
-#### Add the Kubernetes repo
+1. Add the Kubernetes repo.
 
-```bash
-cat <<EOF | tee /etc/yum.repos.d/kubernetes.repo
-[kubernetes]
-name=Kubernetes
-baseurl=https://pkgs.k8s.io/core:/stable:/v1.28/rpm/
-enabled=1
-gpgcheck=1
-gpgkey=https://pkgs.k8s.io/core:/stable:/v1.28/rpm/repodata/repomd.xml.key
-EOF
-```
+   ```bash
+   cat <<EOF | tee /etc/yum.repos.d/kubernetes.repo
+   [kubernetes]
+   name=Kubernetes
+   baseurl=https://pkgs.k8s.io/core:/stable:/v1.28/rpm/
+   enabled=1
+   gpgcheck=1
+   gpgkey=https://pkgs.k8s.io/core:/stable:/v1.28/rpm/repodata/repomd.xml.key
+   EOF
+   ```
 
-#### Add the CRI-O repo
+1. Add the CRI-O repo.
 
-```bash
-cat <<EOF | tee /etc/yum.repos.d/cri-o.repo
-[cri-o]
-name=CRI-O
-baseurl=https://pkgs.k8s.io/addons:/cri-o:/prerelease:/main/rpm/
-enabled=1
-gpgcheck=1
-gpgkey=https://pkgs.k8s.io/addons:/cri-o:/prerelease:/main/rpm/repodata/repomd.xml.key
-EOF
-```
+   ```bash
+   cat <<EOF | tee /etc/yum.repos.d/cri-o.repo
+   [cri-o]
+   name=CRI-O
+   baseurl=https://pkgs.k8s.io/addons:/cri-o:/prerelease:/main/rpm/
+   enabled=1
+   gpgcheck=1
+   gpgkey=https://pkgs.k8s.io/addons:/cri-o:/prerelease:/main/rpm/repodata/repomd.xml.key
+   EOF
+   ```
 
-#### Install official package dependencies
+1. Install official package dependencies.
 
-```bash
-dnf install -y \
-    conntrack \
-    container-selinux \
-    ebtables \
-    ethtool \
-    iptables \
-    socat
-```
+   ```bash
+   dnf install -y \
+       conntrack \
+       container-selinux \
+       ebtables \
+       ethtool \
+       iptables \
+       socat
+   ```
 
-#### Install the packages from the added repos
+1. Install the packages from the added repos.
 
-```bash
-dnf install -y --repo cri-o --repo kubernetes \
-    cri-o \
-    kubeadm \
-    kubectl \
-    kubelet
-```
+   ```bash
+   dnf install -y --repo cri-o --repo kubernetes \
+       cri-o \
+       kubeadm \
+       kubectl \
+       kubelet
+   ```
 
-### `deb` Based Distributions
+### Debian-based distributions
 
-For `deb` based distributions, you can run the following commands as a `root`
+For Debian-based distributions, you can run the following commands as a `root`
 user:
 
-#### Install dependencies for adding the repositories
+1. Install dependencies for adding the repositories.
 
-```bash
-apt-get update
-apt-get install -y software-properties-common curl
-```
+   ```bash
+   apt-get update
+   apt-get install -y software-properties-common curl
+   ```
 
-#### Add the Kubernetes repository
+1. Add the Kubernetes repository.
 
-```bash
-curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key |
-    gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /" |
-    tee /etc/apt/sources.list.d/kubernetes.list
-```
+   ```bash
+   curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key |
+       gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+   echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /" |
+       tee /etc/apt/sources.list.d/kubernetes.list
+   ```
 
-#### Add the CRI-O repository
+1. Add the CRI-O repository.
 
-```bash
-curl -fsSL https://pkgs.k8s.io/addons:/cri-o:/prerelease:/main/deb/Release.key |
-    gpg --dearmor -o /etc/apt/keyrings/cri-o-apt-keyring.gpg
-echo "deb [signed-by=/etc/apt/keyrings/cri-o-apt-keyring.gpg] https://pkgs.k8s.io/addons:/cri-o:/prerelease:/main/deb/ /" |
-    tee /etc/apt/sources.list.d/cri-o.list
-```
+   ```bash
+   curl -fsSL https://pkgs.k8s.io/addons:/cri-o:/prerelease:/main/deb/Release.key |
+       gpg --dearmor -o /etc/apt/keyrings/cri-o-apt-keyring.gpg
+   echo "deb [signed-by=/etc/apt/keyrings/cri-o-apt-keyring.gpg] https://pkgs.k8s.io/addons:/cri-o:/prerelease:/main/deb/ /" |
+       tee /etc/apt/sources.list.d/cri-o.list
+   ```
 
-#### Install the packages
+1. Install the packages.
 
-```bash
-apt-get update
-apt-get install -y cri-o kubelet kubeadm kubectl
-```
+   ```bash
+   apt-get update
+   apt-get install -y cri-o kubelet kubeadm kubectl
+   ```
 
-#### Start CRI-O
+1. Start CRI-O.
 
-```bash
-systemctl start crio.service
-```
+   ```bash
+   systemctl start crio.service
+   ```
 
 The Project's `prerelease:/main` prefix at the CRI-O's package path, can be replaced with
 `stable:/v1.28`, `stable:/v1.29`, `prerelease:/v1.28` or `prerelease:/v1.29`
@@ -174,7 +174,7 @@ CRI-O. A [test pipeline](https://github.com/cri-o/packaging/actions/workflows/ob
 in the OBS workflow ensures that the packages can be correctly installed and
 used before being published. All of the staging and publishing of the
 packages is done with the help of the [Kubernetes Release Toolbox (krel)](https://github.com/kubernetes/release/blob/1f85912/docs/krel/README.md),
-which is also used for the official Kubernetes `deb` and `rpm` packages.
+which is also used for the official Kubernetes Debian and RPM packages.
 
 The package build inputs will undergo daily reconciliation and will be supplied by
 CRI-O's static binary bundles.
