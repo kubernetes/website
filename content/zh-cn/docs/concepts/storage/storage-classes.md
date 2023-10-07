@@ -57,12 +57,10 @@ class needs to be dynamically provisioned.
 <!--
 The name of a StorageClass object is significant, and is how users can
 request a particular class. Administrators set the name and other parameters
-of a class when first creating StorageClass objects, and the objects cannot
-be updated once they are created.
+of a class when first creating StorageClass objects.
 -->
 StorageClass 对象的命名很重要，用户使用这个命名来请求生成一个特定的类。
-当创建 StorageClass 对象时，管理员设置 StorageClass 对象的命名和其他参数，
-一旦创建了对象就不能再对其更新。
+当创建 StorageClass 对象时，管理员设置 StorageClass 对象的命名和其他参数。
 
 <!--
 Administrators can specify a default StorageClass only for PVCs that don't
