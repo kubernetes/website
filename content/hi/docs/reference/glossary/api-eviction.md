@@ -4,7 +4,7 @@ id: api-eviction
 date: 2021-04-27
 full_link: /hi/docs/concepts/scheduling-eviction/api-eviction/
 short_description: >
-  API-eviction निष्कासन वह प्रक्रिया है जिसके द्वारा आप एक बनाने के लिए निष्कासन API का उपयोग करते हैं
+  'API-Initiated Eviction' निष्कासन की वह प्रक्रिया है, जिसके द्वारा आप एक Eviction ऑब्जेक्ट बनाने के लिए Eviction API का उपयोग करते हैं, जो graceful pod termination को ट्रिगर करती है।
 aka:
 tags:
 - operation
