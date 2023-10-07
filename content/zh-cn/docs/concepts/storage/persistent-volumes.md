@@ -925,13 +925,13 @@ Older versions of Kubernetes also supported the following in-tree PersistentVolu
   (**not available** in v1.26)
 * `photonPersistentDisk` - Photon controller persistent disk.
   (**not available** starting v1.15)
-* [`scaleIO`](/docs/concepts/storage/volumes/#scaleio) - ScaleIO volume
+* `scaleIO` - ScaleIO volume
   (**not available** starting v1.21)
-* [`flocker`](/docs/concepts/storage/volumes/#flocker) - Flocker storage
+* `flocker` - Flocker storage
   (**not available** starting v1.25)
-* [`quobyte`](/docs/concepts/storage/volumes/#quobyte) - Quobyte volume
+* `quobyte` - Quobyte volume
   (**not available** starting v1.25)
-* [`storageos`](/docs/concepts/storage/volumes/#storageos) - StorageOS volume
+* `storageos` - StorageOS volume
   (**not available** starting v1.25)
 -->
 旧版本的 Kubernetes 仍支持这些“树内（In-Tree）”持久卷类型：
@@ -943,13 +943,10 @@ Older versions of Kubernetes also supported the following in-tree PersistentVolu
 * [`cinder`](/zh-cn/docs/concepts/storage/volumes/#cinder) - Cinder (OpenStack block storage)
   （v1.27 开始**不可用**）
 * `photonPersistentDisk` - Photon 控制器持久化盘。（从 v1.15 版本开始将**不可用**）
-* [`scaleIO`](/zh-cn/docs/concepts/storage/volumes/#scaleio) - ScaleIO 卷（v1.21 之后**不可用**）
-* [`flocker`](/zh-cn/docs/concepts/storage/volumes/#flocker) - Flocker 存储
-  （v1.25 之后**不可用**）
-* [`quobyte`](/zh-cn/docs/concepts/storage/volumes/#quobyte) - Quobyte 卷
-  （v1.25 之后**不可用**）
-* [`storageos`](/zh-cn/docs/concepts/storage/volumes/#storageos) - StorageOS 卷
-  （v1.25 之后**不可用**）
+* `scaleIO` - ScaleIO 卷（v1.21 之后**不可用**）
+* `flocker` - Flocker 存储 （v1.25 之后**不可用**）
+* `quobyte` - Quobyte 卷 （v1.25 之后**不可用**）
+* `storageos` - StorageOS 卷 （v1.25 之后**不可用**）
 
 <!--
 ## Persistent Volumes
