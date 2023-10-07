@@ -605,7 +605,7 @@ request:
 
   # dryRun 表示 API 请求正在以 `dryrun` 模式运行，并且将不会保留。
   # 带有副作用的 Webhook 应该避免在 dryRun 为 true 时激活这些副作用。
-  # 有关更多详细信息，请参见 http://k8s.io/docs/reference/using-api/api-concepts/#make-a-dry-run-request
+  # 有关更多详细信息，请参见 http://k8s.io/zh-cn/docs/reference/using-api/api-concepts/#make-a-dry-run-request
   dryRun: False
 ```
 
@@ -1173,7 +1173,7 @@ webhook to be called.
 如果你需要细粒度地过滤请求，你可以为 Webhook 定义**匹配条件**。
 如果你发现匹配规则、`objectSelectors` 和 `namespaceSelectors` 仍然不能提供你想要的何时进行 HTTP
 调用的过滤条件，那么添加这些条件会很有用。
-匹配条件是 [CEL 表达式](/docs/reference/using-api/cel/)。
+匹配条件是 [CEL 表达式](/zh-cn/docs/reference/using-api/cel/)。
 所有匹配条件都必须为 true 才能调用 Webhook。
 
 <!--

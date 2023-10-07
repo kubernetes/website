@@ -34,12 +34,21 @@ To learn about the Kubernetes networking model, see [here](/docs/concepts/servic
 
 ## How to implement the Kubernetes network model
 
-The network model is implemented by the container runtime on each node. The most common container runtimes use [Container Network Interface](https://github.com/containernetworking/cni) (CNI) plugins to manage their network and security capabilities. Many different CNI plugins exist from many different vendors. Some of these provide only basic features of adding and removing network interfaces, while others provide more sophisticated solutions, such as integration with other container orchestration systems, running multiple CNI plugins, advanced IPAM features etc.
+The network model is implemented by the container runtime on each node. The most common container
+runtimes use [Container Network Interface](https://github.com/containernetworking/cni) (CNI)
+plugins to manage their network and security capabilities. Many different CNI plugins exist from
+many different vendors. Some of these provide only basic features of adding and removing network
+interfaces, while others provide more sophisticated solutions, such as integration with other
+container orchestration systems, running multiple CNI plugins, advanced IPAM features etc.
 
-See [this page](/docs/concepts/cluster-administration/addons/#networking-and-network-policy) for a non-exhaustive list of networking addons supported by Kubernetes.
+See [this page](/docs/concepts/cluster-administration/addons/#networking-and-network-policy)
+for a non-exhaustive list of networking addons supported by Kubernetes.
 
 ## {{% heading "whatsnext" %}}
 
-The early design of the networking model and its rationale, and some future
-plans are described in more detail in the
+The early design of the networking model and its rationale are described in more detail in the
 [networking design document](https://git.k8s.io/design-proposals-archive/network/networking.md).
+For future plans and some on-going efforts that aim to improve Kubernetes networking, please
+refer to the SIG-Network
+[KEPs](https://github.com/kubernetes/enhancements/tree/master/keps/sig-network).
+

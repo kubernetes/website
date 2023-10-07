@@ -770,7 +770,7 @@ Use the command below to get the logging configuration from one of Pods in the `
 ### 配置日志   {#configuring-logging}
 
 `zkGenConfig.sh` 脚本产生的一个文件控制了 ZooKeeper 的日志行为。
-ZooKeeper 使用了 [Log4j](http://logging.apache.org/log4j/2.x/)
+ZooKeeper 使用了 [Log4j](https://logging.apache.org/log4j/2.x/)
 并默认使用基于文件大小和时间的滚动文件追加器作为日志配置。
 
 从 `zk` StatefulSet 的一个 Pod 中获取日志配置。

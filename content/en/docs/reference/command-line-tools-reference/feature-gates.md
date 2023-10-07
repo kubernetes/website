@@ -52,7 +52,7 @@ For a reference to old feature gates that are removed, please refer to
 
 ### Feature gates for Alpha or Beta features
 
-{{< table caption="Feature gates for features in Alpha or Beta states" >}}
+{{< table caption="Feature gates for features in Alpha or Beta states" sortable="true" >}}
 
 | Feature | Default | Stage | Since | Until |
 |---------|---------|-------|-------|-------|
@@ -224,7 +224,7 @@ For a reference to old feature gates that are removed, please refer to
 
 ### Feature gates for graduated or deprecated features
 
-{{< table caption="Feature Gates for Graduated or Deprecated Features" >}}
+{{< table caption="Feature Gates for Graduated or Deprecated Features" sortable="true">}}
 
 | Feature | Default | Stage | Since | Until |
 |---------|---------|-------|-------|-------|

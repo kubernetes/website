@@ -4,7 +4,7 @@ id: event
 date: 2022-01-16
 full_link: /zh-cn/docs/reference/kubernetes-api/cluster-resources/event-v1/
 short_description: >
-   对集群中某处所发生事件的报告。通常用来表述系统中某种状态变更。
+  事件（Event）是描述系统中某些状态变化的 Kubernetes 对象。 
 aka: 
 tags:
 - core-object
@@ -16,7 +16,7 @@ id: event
 date: 2022-01-16
 full_link: /docs/reference/kubernetes-api/cluster-resources/event-v1/
 short_description: >
-   A report of an event somewhere in the cluster. It generally denotes some state change in the system.
+   Events are Kubernetes objects that describe some state change in the system.
 aka: 
 tags:
 - core-object
@@ -24,11 +24,9 @@ tags:
 -->
 
 <!--
-Each Event is a report of an event somewhere in the {{< glossary_tooltip text="cluster" term_id="cluster" >}}. 
-It generally denotes some state change in the system.
+Event is a Kubernetes object that describes state change/notable occurrences in the system.
 -->
-每个 Event 是{{< glossary_tooltip text="集群" term_id="cluster" >}}中某处所发生事件的报告。
-它通常用来表述系统中的某种状态变更。
+事件（Event）是描述系统状态变化以及需要注意的事情的 Kubernetes 对象。
 
 <!--more-->
 
@@ -50,5 +48,6 @@ Events should be treated as informative, best-effort, supplemental data.
 In Kubernetes, [auditing](/docs/tasks/debug/debug-cluster/audit/) generates a different kind of
 Event record (API group `audit.k8s.io`).
 -->
-在 Kubernetes 中，[审计](/zh-cn/docs/tasks/debug/debug-cluster/audit/)
-机制会生成一种不同类别的 Event 记录（API 组为 `audit.k8s.io`）。
+在 Kubernetes 中，
+[审计](/zh-cn/docs/tasks/debug/debug-cluster/audit/)机制会生成一种不同类别的
+Event 记录（API 组为 `audit.k8s.io`）。

@@ -1,42 +1,27 @@
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
 <!-- 
 Generate the self-signed CA to provision identities for front proxy 
 -->
-生成自签名 CA 来提供前端代理的身份
+生成自签名 CA 来提供前端代理的身份。
 
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
 Generate the self-signed CA to provision identities for front proxy, and save them into front-proxy-ca.cert and front-proxy-ca.key files.
 -->
-
 生成自签名 CA 来提供前端代理的身份，并将其保存到 front-proxy-ca.cert 和 front-proxy-ca.key 文件中。
 
 <!--
 If both files already exist, kubeadm skips the generation step and existing files will be used.
 -->
-
 如果两个文件都已存在，kubeadm 将跳过生成步骤并将使用现有文件。
 
 <!--
 Alpha Disclaimer: this command is currently alpha.
 -->
-
-Alpha 免责声明：此命令目前是 alpha 阶段。
+Alpha 免责声明：此命令目前是 Alpha 阶段。
 
 ```
 kubeadm init phase certs front-proxy-ca [flags]
@@ -45,7 +30,6 @@ kubeadm init phase certs front-proxy-ca [flags]
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -106,7 +90,7 @@ Don't apply any changes; just output what would be done.
 <!--
 <p>help for front-proxy-ca</p>
 -->
-<p>front-proxy-ca 操作的帮助命令</p>
+<p>front-proxy-ca 操作的帮助命令。</p>
 </td>
 </tr>
 
@@ -133,7 +117,6 @@ Don't apply any changes; just output what would be done.
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 从父命令继承的选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -157,4 +140,3 @@ Don't apply any changes; just output what would be done.
 
 </tbody>
 </table>
-
