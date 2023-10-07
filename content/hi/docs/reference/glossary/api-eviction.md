@@ -21,6 +21,6 @@ API-initiated eviction वह प्रक्रिया है जिसके
 API-initiated evictions आपके कॉन्फ़िगर किए गए [`पॉडडिस्रप्शनबजट`](/docs/tasks/run-application/configure-pdb/) का सम्मान करते हैं
 और [`terminationGracePeriodSeconds`](/docs/concepts/workloads/pods/pod-lifecycle#pod-टर्मिनेशन)।
 
-API-initiated eviction [नोड-दबाव-निष्कासन](/docs/concepts/scheduling-eviction/node-pressure-eviction/) के समान नहीं है।
+'एपीआई द्वारा आरंभित निष्कासन', [नोड के दबाव द्वारा निष्कासन](/hi/docs/concepts/scheduling-eviction/node-pressure-eviction/) के समान नहीं है।
 
 * अधिक जानकारी के लिए [एपीआई-आरंभित निष्कासन](/docs/concepts/scheduling-eviction/api-eviction/) देखें।
