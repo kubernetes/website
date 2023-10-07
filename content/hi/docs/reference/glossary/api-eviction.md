@@ -17,8 +17,8 @@ Kube-apiserver के क्लाइंट का उपयोग करना,
 जब एक `Eviction` ऑब्जेक्ट बनाया जाता है, तो API सर्वर पॉड को समाप्त कर देता है।
 
 
-API-initiated evictions आपके कॉन्फ़िगर किए गए [`पॉडडिस्रप्शनबजट`](/docs/tasks/run-application/configure-pdb/) का सम्मान करते हैं
-और [`terminationGracePeriodSeconds`](/docs/concepts/workloads/pods/pod-lifecycle#pod-टर्मिनेशन)।
+API-initiated evictions आपके कॉन्फ़िगर किए गए [`PodDisruptionBudgets`](/hi/docs/tasks/run-application/configure-pdb/) का सम्मान करते हैं
+और [`terminationGracePeriodSeconds`](/hi/docs/concepts/workloads/pods/pod-lifecycle#pod-termination)।
 
 'एपीआई द्वारा आरंभित निष्कासन', [नोड के दबाव द्वारा निष्कासन](/hi/docs/concepts/scheduling-eviction/node-pressure-eviction/) के समान नहीं है।
 
