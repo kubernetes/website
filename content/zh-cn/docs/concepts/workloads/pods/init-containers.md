@@ -87,7 +87,7 @@ Init 容器的状态在 `status.initContainerStatuses` 字段中以容器状态�
 Init containers support all the fields and features of app containers,
 including resource limits, [volumes](/docs/concepts/storage/volumes/), and security settings. However, the
 resource requests and limits for an init container are handled differently,
-as documented in [Resources](#resources).
+as documented in [Resource sharing within containers](#resource-sharing-within-containers).
 
 Also, init containers do not support `lifecycle`, `livenessProbe`, `readinessProbe`, or
 `startupProbe` because they must run to completion before the Pod can be ready.
@@ -101,7 +101,8 @@ the application containers for the Pod and runs them as usual.
 
 Init 容器支持应用容器的全部字段和特性，包括资源限制、
 [数据卷](/zh-cn/docs/concepts/storage/volumes/)和安全设置。
-然而，Init 容器对资源请求和限制的处理稍有不同，在下面[资源](#resources)节有说明。
+然而，Init 容器对资源请求和限制的处理稍有不同，
+在下面[容器内的资源共享](#resource-sharing-within-containers)节有说明。
 
 同时 Init 容器不支持 `lifecycle`、`livenessProbe`、`readinessProbe` 和 `startupProbe`，
 因为它们必须在 Pod 就绪之前运行完成。

@@ -3,7 +3,7 @@ layout: blog
 title: "Spotlight on SIG CLI"
 date: 2023-07-20
 slug: sig-cli-spotlight-2023
-canonicalUrl: https://www.kubernetes.dev/blog/2023/07/13/sig-cli-spotlight-2023/
+canonicalUrl: https://www.kubernetes.dev/blog/2023/07/20/sig-cli-spotlight-2023/
 ---
 
 **Author**: Arpit Agrawal

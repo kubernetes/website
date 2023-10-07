@@ -97,8 +97,11 @@ your cluster. Those fields are:
   nodes match the node selector.
 
   {{< note >}}
-  The `minDomains` field is a beta field and disabled by default in 1.25. You can enable it by enabling the
-  `MinDomainsInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+  The `MinDomainsInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  enables `minDomains` for pod topology spread. Starting from v1.28,
+  the `MinDomainsInPodTopologySpread` gate 
+  is enabled by default. In older Kubernetes clusters it might be explicitly
+  disabled or the field might not be available.
   {{< /note >}}
 
   - The value of `minDomains` must be greater than 0, when specified.
@@ -525,13 +528,6 @@ profiles:
               whenUnsatisfiable: ScheduleAnyway
           defaultingType: List
 ```
-
-{{< note >}}
-The [`SelectorSpread` plugin](/docs/reference/scheduling/config/#scheduling-plugins)
-is disabled by default. The Kubernetes project recommends using `PodTopologySpread`
-to achieve similar behavior.
-{{< /note >}}
-
 ### Built-in default constraints {#internal-default-constraints}
 
 {{< feature-state for_k8s_version="v1.24" state="stable" >}}

@@ -28,7 +28,7 @@ Type: Annotation
 
 Example: `apf.kubernetes.io/autoupdate-spec: "true"`
 
-Used on: [`FlowSchema` and `PriorityLevelConfiguration` Objects](/concepts/cluster-administration/flow-control/#defaults)
+Used on: [`FlowSchema` and `PriorityLevelConfiguration` Objects](/docs/concepts/cluster-administration/flow-control/#defaults)
 
 If this annotation is set to true on a FlowSchema or PriorityLevelConfiguration, the `spec` for that object
 is managed by the kube-apiserver. If the API server does not recognize an APF object, and you annotate it
@@ -1083,7 +1083,7 @@ Example: `alpha.kubernetes.io/provided-node-ip: "10.0.0.1"`
 
 Used on: Node
 
-The kubelet can set this annotation on a Node to denote its configured IPv4 address.
+The kubelet can set this annotation on a Node to denote its configured IPv4 and/or IPv6 address.
 
 When kubelet is started with the `--cloud-provider` flag set to any value (includes both external
 and legacy in-tree cloud providers), it sets this annotation on the Node to denote an IP address

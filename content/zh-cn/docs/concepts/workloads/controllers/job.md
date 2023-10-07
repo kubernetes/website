@@ -890,7 +890,7 @@ These are some requirements and semantics of the API:
   are ignored. When no rule matches the Pod failure, the default
   handling applies.
 - you may want to restrict a rule to a specific container by specifying its name
-  in`spec.podFailurePolicy.rules[*].containerName`. When not specified the rule
+  in`spec.podFailurePolicy.rules[*].onExitCodes.containerName`. When not specified the rule
   applies to all containers. When specified, it should match one the container
   or `initContainer` names in the Pod template.
 - you may specify the action taken when a Pod failure policy is matched by
@@ -910,9 +910,9 @@ These are some requirements and semantics of the API:
 - 在 `spec.podFailurePolicy.rules` 中设定的 Pod 失效策略规则将按序评估。
   一旦某个规则与 Pod 失效策略匹配，其余规则将被忽略。
   当没有规则匹配 Pod 失效策略时，将会采用默认的处理方式。
-- 你可能希望在 `spec.podFailurePolicy.rules[*].containerName`
-  中通过指定的名称将规则限制到特定容器。
-  如果不设置，规则将适用于所有容器。
+- 你可能希望在 `spec.podFailurePolicy.rules[*].onExitCodes.containerName`
+  中通过指定的名称限制只能针对特定容器应用对应的规则。
+  如果不设置此属性，规则将适用于所有容器。
   如果指定了容器名称，它应该匹配 Pod 模板中的一个普通容器或一个初始容器（Init Container）。
 - 你可以在 `spec.podFailurePolicy.rules[*].action` 指定当 Pod 失效策略发生匹配时要采取的操作。
   可能的值为：
@@ -1155,17 +1155,13 @@ consume.
 <!--
 ## Job patterns
 
-The Job object can be used to support reliable parallel execution of Pods. The Job object is not
-designed to support closely-communicating parallel processes, as commonly found in scientific
-computing. It does support parallel processing of a set of independent but related *work items*.
-These might be emails to be sent, frames to be rendered, files to be transcoded, ranges of keys in a
-NoSQL database to scan, and so on.
+The Job object can be used to process a set of independent but related *work items*.
+These might be emails to be sent, frames to be rendered, files to be transcoded,
+ranges of keys in a NoSQL database to scan, and so on.
 -->
 ## Job 模式  {#job-patterns}
 
-Job 对象可以用来支持多个 Pod 的可靠的并发执行。
-Job 对象不是设计用来支持相互通信的并行进程的，后者一般在科学计算中应用较多。
-Job 的确能够支持对一组相互独立而又有所关联的**工作条目**的并行处理。
+Job 对象可以用来处理一组相互独立而又彼此关联的“工作条目”。
 这类工作条目可能是要发送的电子邮件、要渲染的视频帧、要编解码的文件、NoSQL
 数据库中要扫描的主键范围等等。
 
@@ -1182,25 +1178,35 @@ The tradeoffs are:
 并行计算的模式有好多种，每种都有自己的强项和弱点。这里要权衡的因素有：
 
 <!--
-- One Job object for each work item, vs. a single Job object for all work items. The latter is
-  better for large numbers of work items. The former creates some overhead for the user and for the
-  system to manage large numbers of Job objects.
-- Number of pods created equals number of work items, vs. each Pod can process multiple work items.
-  The former typically requires less modification to existing code and containers. The latter
-  is better for large numbers of work items, for similar reasons to the previous bullet.
+- One Job object for each work item, vs. a single Job object for all work items.
+  One Job per work item creates some overhead for the user and for the system to manage
+  large numbers of Job objects.
+  A single Job for all work items is better for large numbers of items. 
+- Number of Pods created equals number of work items, versus each Pod can process multiple work items.
+  When the number of Pods equals the number of work items, the Pods typically
+  requires less modification to existing code and containers. Having each Pod
+  process multiple work items is better for large numbers of items.
+-->
+- 每个工作条目对应一个 Job 或者所有工作条目对应同一 Job 对象。
+  为每个工作条目创建一个 Job 的做法会给用户带来一些额外的负担，系统需要管理大量的 Job 对象。
+  用一个 Job 对象来完成所有工作条目的做法更适合处理大量工作条目的场景。
+- 创建数目与工作条目相等的 Pod 或者令每个 Pod 可以处理多个工作条目。
+  当 Pod 个数与工作条目数目相等时，通常不需要在 Pod 中对现有代码和容器做较大改动；
+  让每个 Pod 能够处理多个工作条目的做法更适合于工作条目数量较大的场合。
+<!--
 - Several approaches use a work queue. This requires running a queue service,
   and modifications to the existing program or container to make it use the work queue.
   Other approaches are easier to adapt to an existing containerised application.
+- When the Job is associated with a
+  [headless Service](/docs/concepts/services-networking/service/#headless-services),
+  you can enable the Pods within a Job to communicate with each other to
+  collaborate in a computation.
 -->
-- 每个工作条目对应一个 Job 或者所有工作条目对应同一 Job 对象。
-  后者更适合处理大量工作条目的场景；
-  前者会给用户带来一些额外的负担，而且需要系统管理大量的 Job 对象。
-- 创建与工作条目相等的 Pod 或者令每个 Pod 可以处理多个工作条目。
-  前者通常不需要对现有代码和容器做较大改动；
-  后者则更适合工作条目数量较大的场合，原因同上。
 - 有几种技术都会用到工作队列。这意味着需要运行一个队列服务，
   并修改现有程序或容器使之能够利用该工作队列。
   与之比较，其他方案在修改现有容器化应用以适应需求方面可能更容易一些。
+- 当 Job 与某个[无头 Service](/zh-cn/docs/concepts/services-networking/service/#headless-services)
+  之间存在关联时，你可以让 Job 中的 Pod 之间能够相互通信，从而协作完成计算。
 
 <!--
 The tradeoffs are summarized here, with columns 2 to 4 corresponding to the above tradeoffs.
@@ -1211,8 +1217,8 @@ The pattern names are also links to examples and more detailed description.
 | [Queue with Pod Per Work Item]                  |         ✓         |                             |      sometimes      |
 | [Queue with Variable Pod Count]                 |         ✓         |             ✓               |                     |
 | [Indexed Job with Static Work Assignment]       |         ✓         |                             |          ✓          |
-| [Job Template Expansion]                        |                   |                             |          ✓          |
 | [Job with Pod-to-Pod Communication]             |         ✓         |         sometimes           |      sometimes      |
+| [Job Template Expansion]                        |                   |                             |          ✓          |
 -->
 下面是对这些权衡的汇总，第 2 到 4 列对应上面的权衡比较。
 模式的名称对应了相关示例和更详细描述的链接。
@@ -1222,8 +1228,8 @@ The pattern names are also links to examples and more detailed description.
 | [每工作条目一 Pod 的队列](/zh-cn/docs/tasks/job/coarse-parallel-processing-work-queue/) | ✓ | | 有时 |
 | [Pod 数量可变的队列](/zh-cn/docs/tasks/job/fine-parallel-processing-work-queue/) | ✓ | ✓ |  |
 | [静态任务分派的带索引的 Job](/zh-cn/docs/tasks/job/indexed-parallel-processing-static) | ✓ |  | ✓ |
-| [Job 模板扩展](/zh-cn/docs/tasks/job/parallel-processing-expansion/)  |  |  | ✓ |
 | [带 Pod 间通信的 Job](/zh-cn/docs/tasks/job/job-with-pod-to-pod-communication/)  | ✓ | 有时 | 有时 |
+| [Job 模板扩展](/zh-cn/docs/tasks/job/parallel-processing-expansion/)  |  |  | ✓ |
 
 <!--
 When you specify completions with `.spec.completions`, each Pod created by the Job controller
@@ -1250,16 +1256,16 @@ Here, `W` is the number of work items.
 | [Queue with Pod Per Work Item]                  |          W          |        any           |
 | [Queue with Variable Pod Count]                 |         null        |        any           |
 | [Indexed Job with Static Work Assignment]       |          W          |        any           |
-| [Job Template Expansion]                        |          1          |     should be 1      |
 | [Job with Pod-to-Pod Communication]             |          W          |         W            |
+| [Job Template Expansion]                        |          1          |     should be 1      |
 -->
 | 模式  | `.spec.completions` |  `.spec.parallelism` |
 | ----- |:-------------------:|:--------------------:|
 | [每工作条目一 Pod 的队列](/zh-cn/docs/tasks/job/coarse-parallel-processing-work-queue/) | W | 任意值 |
 | [Pod 个数可变的队列](/zh-cn/docs/tasks/job/fine-parallel-processing-work-queue/) | 1 | 任意值 |
 | [静态任务分派的带索引的 Job](/zh-cn/docs/tasks/job/indexed-parallel-processing-static) | W |  | 任意值 |
-| [Job 模板扩展](/zh-cn/docs/tasks/job/parallel-processing-expansion/) | 1 | 应该为 1 |
 | [带 Pod 间通信的 Job](/zh-cn/docs/tasks/job/job-with-pod-to-pod-communication/) | W | W |
+| [Job 模板扩展](/zh-cn/docs/tasks/job/parallel-processing-expansion/) | 1 | 应该为 1 |
 
 <!--
 ## Advanced usage

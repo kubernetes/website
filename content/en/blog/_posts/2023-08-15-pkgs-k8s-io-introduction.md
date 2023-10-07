@@ -134,7 +134,7 @@ There are three significant differences that you should be aware of:
     packages as the Google-hosted repository
   - Kubernetes repositories for v1.28 and onwards are going to have published
     only versions that are used by that Kubernetes minor release
-    - Speaking of v1.28, only kubernetes-cni 1.2.0 and cri-tols v1.28 are going
+    - Speaking of v1.28, only kubernetes-cni 1.2.0 and cri-tools v1.28 are going
       to be available in the repository for Kubernetes v1.28
     - Similar for v1.29, we only plan on publishing cri-tools v1.29 and
       whatever kubernetes-cni version is going to be used by Kubernetes v1.29

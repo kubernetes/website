@@ -29,7 +29,7 @@ Node-pressure eviction is not the same as
 当这些资源中的一个或者多个达到特定的消耗水平，
 kubelet 可以主动地使节点上一个或者多个 Pod 失效，以回收资源防止饥饿。
 
-在节点压力驱逐期间，kubelet 将所选 Pod 的[阶段](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)
+在节点压力驱逐期间，kubelet 将所选 Pod 的[阶段](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)
 设置为 `Failed`。这将终止 Pod。
 
 节点压力驱逐不同于 [API 发起的驱逐](/zh-cn/docs/concepts/scheduling-eviction/api-eviction/)。
@@ -390,7 +390,7 @@ kubelet 根据下表将驱逐信号映射为节点状况：
 | `DiskPressure`   | `nodefs.available`、`nodefs.inodesFree`、`imagefs.available` 或 `imagefs.inodesFree` | 节点的根文件系统或镜像文件系统上的可用磁盘空间和 inode 已满足驱逐条件 |
 | `PIDPressure`    | `pid.available` | (Linux) 节点上的可用进程标识符已低于驱逐条件 |
 
-控制平面还将这些节点状况[映射]((/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-nodes-by-condition))为其污点。
+控制平面还将这些节点状况[映射](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-nodes-by-condition)为其污点。
 
 kubelet 根据配置的 `--node-status-update-frequency` 更新节点条件，默认为 `10s`。
 

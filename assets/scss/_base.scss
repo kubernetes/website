@@ -552,6 +552,12 @@ section#cncf {
     padding: 20px 10px 20px 10px;
   }
 
+  #desktopKCButton:hover{
+    background-color: #ffffff;
+    color: #3371e3;
+    transition: 150ms;
+  }
+
   #desktopShowVideoButton {
     position: relative;
     font-size: 24px;
@@ -571,6 +577,15 @@ section#cncf {
       border-width: 10px 0 10px 20px;
       border-color: transparent transparent transparent $blue;
     }
+
+    &:hover::before {
+      border-color: transparent transparent transparent $dark-grey;
+    }
+  }
+
+  #desktopShowVideoButton:hover{
+    color: $dark-grey;
+    transition: 150ms;
   }
 
   #mobileShowVideoButton {

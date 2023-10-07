@@ -46,17 +46,15 @@ integration, it should not be too different from the requirements when running
 
 Successfully running cloud-controller-manager requires some changes to your cluster configuration.
 
-* `kube-apiserver` and `kube-controller-manager` MUST NOT specify the `--cloud-provider`
-  flag. This ensures that it does not run any cloud specific loops that would be run by
-  cloud controller manager. In the future, this flag will be deprecated and removed.
-* `kubelet` must run with `--cloud-provider=external`. This is to ensure that the
-  kubelet is aware that it must be initialized by the cloud controller manager
-  before it is scheduled any work.
+* `kubelet`, `kube-apiserver`, and `kube-controller-manager` must be set according to the
+  user's usage of external CCM. If the user has an external CCM (not the internal cloud
+  controller loops in the Kubernetes Controller Manager), then `--cloud-provider=external`
+  must be specified. Otherwise, it should not be specified.
 
 Keep in mind that setting up your cluster to use cloud controller manager will
 change your cluster behaviour in a few ways:
 
-* kubelets specifying `--cloud-provider=external` will add a taint
+* Components that specify `--cloud-provider=external` will add a taint
  `node.cloudprovider.kubernetes.io/uninitialized` with an effect `NoSchedule`
  during initialization. This marks the node as needing a second initialization
  from an external controller before it can be scheduled work. Note that in the
