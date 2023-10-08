@@ -20,9 +20,9 @@ Un volumen `proyectado` asigna varias fuentes de volúmenes existentes al mismo 
 
 Actualmente se pueden proyectar los siguientes tipos de fuentes de volumen:
 
-- [`secret`](/docs/concepts/storage/volumes/#secret)
-- [`downwardAPI`](/docs/concepts/storage/volumes/#downwardapi)
-- [`configMap`](/docs/concepts/storage/volumes/#configmap)
+- [`secret`](/es/docs/concepts/storage/volumes/#secret)
+- [`downwardAPI`](/es/docs/concepts/storage/volumes/#downwardapi)
+- [`configMap`](/es/docs/concepts/storage/volumes/#configmap)
 - [`serviceAccountToken`](#serviceaccounttoken)
 
 Se requiere que todas las fuentes estén en el mismo espacio de nombres que el Pod. Para más detalles,
