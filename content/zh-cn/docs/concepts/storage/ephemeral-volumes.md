@@ -311,7 +311,7 @@ spec:
 
 <!--
 The key design idea is that the
-[parameters for a volume claim](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ephemeralvolumesource-v1alpha1-core)
+[parameters for a volume claim](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ephemeralvolumesource-v1-core)
 are allowed inside a volume source of the Pod. Labels, annotations and
 the whole set of fields for a PersistentVolumeClaim are supported. When such a Pod gets
 created, the ephemeral volume controller then creates an actual PersistentVolumeClaim
@@ -319,11 +319,10 @@ object in the same namespace as the Pod and ensures that the PersistentVolumeCla
 gets deleted when the Pod gets deleted.
 -->
 关键的设计思想是在 Pod 的卷来源中允许使用
-[卷申领的参数](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ephemeralvolumesource-v1alpha1-core)。
+[卷申领的参数](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ephemeralvolumesource-v1-core)。
 PersistentVolumeClaim 的标签、注解和整套字段集均被支持。
-创建这样一个 Pod 后，
-临时卷控制器在 Pod 所属的命名空间中创建一个实际的 PersistentVolumeClaim 对象，
-并确保删除 Pod 时，同步删除 PersistentVolumeClaim。
+创建这样一个 Pod 后，临时卷控制器在 Pod 所属的命名空间中创建一个实际的
+PersistentVolumeClaim 对象，并确保删除 Pod 时，同步删除 PersistentVolumeClaim。
 
 <!--
 That triggers volume binding and/or provisioning, either immediately if
@@ -336,8 +335,7 @@ access to the volume once it is available.
 -->
 如上设置将触发卷的绑定与/或制备，相应动作或者在
 {{< glossary_tooltip text="StorageClass" term_id="storage-class" >}}
-使用即时卷绑定时立即执行，
-或者当 Pod 被暂时性调度到某节点时执行 (`WaitForFirstConsumer` 卷绑定模式)。
+使用即时卷绑定时立即执行，或者当 Pod 被暂时性调度到某节点时执行 (`WaitForFirstConsumer` 卷绑定模式)。
 对于通用的临时卷，建议采用后者，这样调度器就可以自由地为 Pod 选择合适的节点。
 对于即时绑定，调度器则必须选出一个节点，使得在卷可用时，能立即访问该卷。
 
@@ -355,8 +353,8 @@ and in this case you need to ensure that volume clean up happens separately.
 拥有通用临时存储的 Pod 是提供临时存储 (ephemeral storage) 的 PersistentVolumeClaim 的所有者。
 当 Pod 被删除时，Kubernetes 垃圾收集器会删除 PVC，
 然后 PVC 通常会触发卷的删除，因为存储类的默认回收策略是删除卷。
-你可以使用带有 `retain` 回收策略的 StorageClass 创建准临时 (quasi-ephemeral) 本地存储：
-该存储比 Pod 寿命长，在这种情况下，你需要确保单独进行卷清理。
+你可以使用带有 `retain` 回收策略的 StorageClass 创建准临时 (Quasi-Ephemeral) 本地存储：
+该存储比 Pod 寿命长，所以在这种情况下，你需要确保单独进行卷清理。
 
 <!--
 While these PVCs exist, they can be used like any other PVC. In
@@ -382,7 +380,7 @@ interact with the PVC because one does not have to search for it once
 the Pod name and volume name are known.
 -->
 自动创建的 PVC 采取确定性的命名机制：名称是 Pod 名称和卷名称的组合，中间由连字符(`-`)连接。
-在上面的示例中，PVC 将命名为 `my-app-scratch-volume` 。
+在上面的示例中，PVC 将被命名为 `my-app-scratch-volume` 。
 这种确定性的命名机制使得与 PVC 交互变得更容易，因为一旦知道 Pod 名称和卷名，就不必搜索它。
 
 <!--
@@ -391,10 +389,10 @@ Pods (a Pod "pod-a" with volume "scratch" and another Pod with name
 "pod" and volume "a-scratch" both end up with the same PVC name
 "pod-a-scratch") and between Pods and manually created PVCs.
 -->
-这种命名机制也引入了潜在的冲突，
-不同的 Pod 之间（名为 “Pod-a” 的 Pod 挂载名为 "scratch" 的卷，
-和名为 "pod" 的 Pod 挂载名为 “a-scratch” 的卷，这两者均会生成名为
-"pod-a-scratch" 的 PVC），或者在 Pod 和手工创建的 PVC 之间可能出现冲突。
+这种命名机制也引入了潜在的冲突，不同的 Pod 之间（名为 “Pod-a” 的
+Pod 挂载名为 "scratch" 的卷，和名为 "pod" 的 Pod 挂载名为 “a-scratch” 的卷，
+这两者均会生成名为 "pod-a-scratch" 的 PVC），或者在 Pod 和手工创建的
+PVC 之间可能出现冲突。
 
 <!--
 Such conflicts are detected: a PVC is only used for an ephemeral
@@ -403,15 +401,15 @@ ownership relationship. An existing PVC is not overwritten or
 modified. But this does not resolve the conflict because without the
 right PVC, the Pod cannot start.
 -->
-以下冲突会被检测到：如果 PVC 是为 Pod 创建的，那么它只用于临时卷。
+这类冲突会被检测到：如果 PVC 是为 Pod 创建的，那么它只用于临时卷。
 此检测基于所有权关系。现有的 PVC 不会被覆盖或修改。
 但这并不能解决冲突，因为如果没有正确的 PVC，Pod 就无法启动。
 
+{{< caution >}}
 <!--
 Take care when naming Pods and volumes inside the
 same namespace, so that these conflicts can't occur.
 -->
-{{< caution >}}
 当同一个命名空间中命名 Pod 和卷时，要小心，以防止发生此类冲突。
 {{< /caution >}}
 
@@ -461,7 +459,7 @@ See [local ephemeral storage](/docs/concepts/configuration/manage-resources-cont
 
 - 有关设计的更多信息，参阅
   [Ephemeral Inline CSI volumes KEP](https://github.com/kubernetes/enhancements/blob/ad6021b3d61a49040a3f835e12c8bb5424db2bbb/keps/sig-storage/20190122-csi-inline-volumes.md)。
-- 本特性下一步开发的更多信息，参阅
+- 关于本特性下一步开发的更多信息，参阅
   [enhancement tracking issue #596](https://github.com/kubernetes/enhancements/issues/596)。
 
 <!--
