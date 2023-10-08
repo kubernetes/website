@@ -1,6 +1,5 @@
 ---
 title: 配置 kubelet 镜像凭据提供程序
-description: 配置 kubelet 的镜像凭据提供程序插件
 content_type: task
 min-kubernetes-server-version: v1.26
 weight: 120
@@ -11,7 +10,6 @@ title: Configure a kubelet image credential provider
 reviewers:
 - liggitt
 - cheftako
-description: Configure the kubelet's image credential provider plugin
 content_type: task
 min-kubernetes-server-version: v1.26
 weight: 120
