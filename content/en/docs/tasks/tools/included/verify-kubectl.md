@@ -8,12 +8,15 @@ _build:
   publishResources: false
 ---
 
-In order for kubectl to find and access a Kubernetes cluster, it needs a
-[kubeconfig file](/docs/concepts/configuration/organize-cluster-access-kubeconfig/),
-which is created automatically when you create a cluster using
-[kube-up.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/kube-up.sh)
-or successfully deploy a Minikube cluster.
-By default, kubectl configuration is located at `~/.kube/config`.
+For kubectl to find and access a Kubernetes cluster, it needs a
+[kubeconfig file](/docs/concepts/configuration/organize-cluster-access-kubeconfig/).
+By default, the `kubeconfig` file is located at the `~/.kube/config` directory. If you
+don't have a `kubeconfig` file, you can copy it from your Kubernetes control plane's
+`/etc/kubernetes/admin.conf` directory. Or if you have deployed your Kubernetes cluster
+on a cloud platform, you can generate it using your cloud provider's tools. Refer to
+the cloud provider's documentation for generating the `kubeconfig` file. Minikube and
+kind automatically generates the `kubeconfig` file under the `~/.kube/config` directory.
+For setting up a Kubernetes cluster refer to the[getting started](/docs/setup) page.
 
 Check that kubectl is properly configured by getting the cluster state:
 
