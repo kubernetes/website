@@ -35,8 +35,10 @@ specific Pods:
 ## Node labels {#built-in-node-labels}
 
 Like many other Kubernetes objects, nodes have
-[labels](/docs/concepts/overview/working-with-objects/labels/). You can [attach labels manually](/docs/tasks/configure-pod-container/assign-pods-nodes/#add-a-label-to-a-node).
-Kubernetes also populates a [standard set of labels](/docs/reference/node/node-labels/) on all nodes in a cluster.
+[labels](/docs/concepts/overview/working-with-objects/labels/). You can
+[attach labels manually](/docs/tasks/configure-pod-container/assign-pods-nodes/#add-a-label-to-a-node).
+Kubernetes also populates a [standard set of labels](/docs/reference/node/node-labels/)
+on all nodes in a cluster.
 
 {{<note>}}
 The value of these labels is cloud provider specific and is not guaranteed to be reliable.
@@ -295,7 +297,8 @@ Pod affinity rule uses the "hard"
 uses the "soft" `preferredDuringSchedulingIgnoredDuringExecution`.
 
 The affinity rule specifies that the scheduler is allowed to place the example Pod 
-on a node only if that node belongs to a specific [zone](/docs/concepts/scheduling-eviction/topology-spread-constraints/topology-spread-constraints/) where other Pods have been labeled with `security=S1`. 
+on a node only if that node belongs to a specific [zone](/docs/concepts/scheduling-eviction/topology-spread-constraints/topology-spread-constraints/)
+where other Pods have been labeled with `security=S1`. 
 For instance, if we have a cluster with a designated zone, let's call it "Zone V," 
 consisting of nodes labeled with `topology.kubernetes.io/zone=V`, the scheduler can 
 assign the Pod to any node within Zone V, as long as there is at least one Pod within 
@@ -303,7 +306,8 @@ Zone V already labeled with `security=S1`. Conversely, if there are no Pods with
 labels in Zone V, the scheduler will not assign the example Pod to any node in that zone.
 
 The anti-affinity rule specifies that the scheduler should try to avoid scheduling the Pod 
-on a node if that node belongs to a specific [zone](/docs/concepts/scheduling-eviction/topology-spread-constraints/topology-spread-constraints/) where other Pods have been labeled with `security=S2`. 
+on a node if that node belongs to a specific [zone](/docs/concepts/scheduling-eviction/topology-spread-constraints/topology-spread-constraints/)
+where other Pods have been labeled with `security=S2`. 
 For instance, if we have a cluster with a designated zone, let's call it "Zone R," 
 consisting of nodes labeled with `topology.kubernetes.io/zone=R`, the scheduler should avoid 
 assigning the Pod to any node within Zone R, as long as there is at least one Pod within 
@@ -322,7 +326,8 @@ to learn more about how these work.
 In principle, the `topologyKey` can be any allowed label key with the following
 exceptions for performance and security reasons:
 
-- For Pod affinity and anti-affinity, an empty `topologyKey` field is not allowed in both `requiredDuringSchedulingIgnoredDuringExecution`
+- For Pod affinity and anti-affinity, an empty `topologyKey` field is not allowed in both
+  `requiredDuringSchedulingIgnoredDuringExecution`
   and `preferredDuringSchedulingIgnoredDuringExecution`.
 - For `requiredDuringSchedulingIgnoredDuringExecution` Pod anti-affinity rules,
   the admission controller `LimitPodHardAntiAffinityTopology` limits
