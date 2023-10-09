@@ -1480,7 +1480,6 @@ consumers of the objects are supposed to use the label for
 filtering features designated for a certain node.
 
 {{< note >}}
-These annotations only applies to nodes where NFD is running.
 These Node Feature Discovery (NFD) labels or annotations only apply to 
 the nodes where NFD is running. To learn more about NFD and 
 its components go to its official [documentation](https://kubernetes-sigs.github.io/node-feature-discovery/stable/get-started/).
