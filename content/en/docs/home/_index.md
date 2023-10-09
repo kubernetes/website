@@ -62,8 +62,8 @@ cards:
     button: "Download Kubernetes"
     button_path: "/releases/download"
   - name: about
-    title: About the docs
+    title: About the documentation
     description: This website contains documentation for the current and previous 4 versions of Kubernetes.
-    button: "Available document versions"
+    button: "See available versions"
     button_path: "/docs/home/supported-doc-versions/"
 ---
