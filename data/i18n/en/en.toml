@@ -265,7 +265,7 @@ other = "Workload"
 other = "suggest an improvement"
 
 [layouts_docs_partials_feedback_issue]
-other = "Open an issue in the GitHub repo if you want to "
+other = """Open an issue in the [GitHub Repository](https://www.github.com/kubernetes/website/) if you want to """
 
 [layouts_docs_partials_feedback_or]
 other = "or"
