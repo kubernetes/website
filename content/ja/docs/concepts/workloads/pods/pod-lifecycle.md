@@ -92,7 +92,7 @@ Podの`spec`には、Always、OnFailure、またはNeverのいずれかの値を
 PodにはPodStatusがあります。それにはPodが成功したかどうかの情報を持つ[PodCondition](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podcondition-v1-core)の配列が含まれています。kubeletは、下記のPodConditionを管理します:
 
 * `PodScheduled`: PodがNodeにスケジュールされました。
-* `PodHasNetwork`: (アルファ版機能; [明示的に有効](#pod-has-network)にしなければならない) Podサンドボックスが正常に成功され、ネットワークの設定が完了しました。
+* `PodHasNetwork`: (アルファ版機能; [明示的に有効](#pod-has-network)にしなければならない) Podサンドボックスが正常に作成され、ネットワークの設定が完了しました。
 * `ContainersReady`: Pod内のすべてのコンテナが準備できた状態です。
 * `Initialized`: すべての[Initコンテナ](/ja/docs/concepts/workloads/pods/init-containers)が正常に終了しました。
 * `Ready`: Podはリクエストを処理でき、一致するすべてのサービスの負荷分散プールに追加されます。
