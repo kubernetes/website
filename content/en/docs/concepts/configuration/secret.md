@@ -380,6 +380,10 @@ stringData:
   password: t0p-Secret # required field for kubernetes.io/basic-auth
 ```
 
+{{< note >}}
+The `stringData` field for a Secret does not work well with server-side apply.
+{{< /note >}}
+
 The basic authentication Secret type is provided only for convenience.
 You can create an `Opaque` type for credentials used for basic authentication.
 However, using the defined and public Secret type (`kubernetes.io/basic-auth`) helps other
@@ -538,6 +542,10 @@ stringData:
   # and it can be used for signing
   usage-bootstrap-signing: "true"
 ```
+
+{{< note >}}
+The `stringData` field for a Secret does not work well with server-side apply.
+{{< /note >}}
 
 ## Working with Secrets
 
