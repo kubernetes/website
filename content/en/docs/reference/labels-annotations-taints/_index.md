@@ -940,6 +940,17 @@ works in that release.
 There are no other valid values for this annotation. If you don't want topology aware hints
 for a Service, don't add this annotation.
 
+### service.kubernetes.io/topology-mode
+
+Type: Annotation
+
+Example: `service.kubernetes.io/topology-mode: "single"`
+
+Used on: Service
+
+This annotation provides a way to define how services handle network topology, allowing cluster administrators to configure services according to their specific requirements.
+Ensure that your Kubernetes version supports the `service.kubernetes.io/topology-mode` annotation, as it might be available in specific versions or configurations.
+
 ### kubernetes.io/service-name {#kubernetesioservice-name}
 
 Type: Label
