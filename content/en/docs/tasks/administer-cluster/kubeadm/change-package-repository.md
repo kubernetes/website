@@ -67,6 +67,32 @@ exclude=kubelet kubeadm kubectl
 Otherwise, it's strongly recommended to migrate to the Kubernetes package repositories.
 
 {{% /tab %}}
+
+{{% tab name="openSUSE or SLES" %}}
+
+Print the contents of the file that defines the Kubernetes `zypper` repository:
+
+```shell
+# On your system, this configuration file could have a different name
+cat /etc/zypp/repos.d/kubernetes.repo
+```
+
+If you see a `baseurl` similar to the `baseurl` in the output below:
+
+```
+[kubernetes]
+name=Kubernetes
+baseurl=https://pkgs.k8s.io/core:/stable:/v{{< skew currentVersionAddMinor -1 "." >}}/rpm/
+enabled=1
+gpgcheck=1
+gpgkey=https://pkgs.k8s.io/core:/stable:/v{{< skew currentVersionAddMinor -1 "." >}}/rpm/repodata/repomd.xml.key
+exclude=kubelet kubeadm kubectl
+```
+
+**You're using the Kubernetes package repositories and this guide applies to you.**
+Otherwise, it's strongly recommended to migrate to the Kubernetes package repositories.
+
+{{% /tab %}}
 {{< /tabs >}}
 
 {{< note >}}
