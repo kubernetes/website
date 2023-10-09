@@ -47,8 +47,7 @@ different purposes:
   [secret](/docs/concepts/storage/volumes/#secret): inject different
   kinds of Kubernetes data into a Pod
 - [CSI ephemeral volumes](#csi-ephemeral-volumes):
-  similar to the previous volume kinds, but provided by special
-  [CSI drivers](https://github.com/container-storage-interface/spec/blob/master/spec.md)
+  similar to the previous volume kinds, but provided by special {{< glossary_tooltip text="CSI" term_id="csi" >}} drivers
   which specifically [support this feature](https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html)
 - [generic ephemeral volumes](#generic-ephemeral-volumes), which
   can be provided by all storage drivers that also support persistent volumes
