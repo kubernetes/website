@@ -84,7 +84,7 @@ is the [rewrite-target annotation](https://github.com/kubernetes/ingress-nginx/b
 Different [Ingress controllers](/docs/concepts/services-networking/ingress-controllers) support different annotations.
 Review the documentation for your choice of Ingress controller to learn which annotations are supported.
 
-The [Ingress spec](/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec)
+The Ingress [spec](/docs/concepts/overview/working-with-objects/#object-spec-and-status)
 has all the information needed to configure a load balancer or proxy server. Most importantly, it
 contains a list of rules matched against all incoming requests. Ingress resource only supports rules
 for directing HTTP(S) traffic.
