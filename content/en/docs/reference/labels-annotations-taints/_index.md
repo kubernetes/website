@@ -299,6 +299,23 @@ This annotation is part of the Kubernetes Resource Model (KRM) Functions Specifi
 which is used by Kustomize and similar third-party tools.
 For example, Kustomize removes objects with this annotation from its final build output.
 
+
+### container.apparmor.security.beta.kubernetes.io/* (beta) {#container-apparmor-security-beta-kubernetes-io}
+
+Type: Annotation
+
+Example: `container.apparmor.security.beta.kubernetes.io/my-container: my-custom-profile`
+
+Used on: Pods
+
+This annotation allows you to specify the AppArmor security profile for a container within a
+Kubernetes pod. 
+To learn more, see the [AppArmor](/docs/tutorials/security/apparmor/) tutorial.
+The tutorial illustrates using AppArmor to restrict a container's abilities and access.
+
+The profile specified dictates the set of rules and restrictions that the containerized process must
+adhere to. This helps enforce security policies and isolation for your containers.
+
 ### internal.config.kubernetes.io/* (reserved prefix) {#internal.config.kubernetes.io-reserved-wildcard}
 
 Type: Annotation
