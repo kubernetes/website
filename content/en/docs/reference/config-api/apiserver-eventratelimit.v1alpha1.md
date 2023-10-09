@@ -11,7 +11,6 @@ auto_generated: true
 
 - [Configuration](#eventratelimit-admission-k8s-io-v1alpha1-Configuration)
   
-    
 
 ## `Configuration`     {#eventratelimit-admission-k8s-io-v1alpha1-Configuration}
     

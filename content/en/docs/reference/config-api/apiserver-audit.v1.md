@@ -14,7 +14,6 @@ auto_generated: true
 - [Policy](#audit-k8s-io-v1-Policy)
 - [PolicyList](#audit-k8s-io-v1-PolicyList)
   
-    
 
 ## `Event`     {#audit-k8s-io-v1-Event}
     
