@@ -382,7 +382,7 @@ from failed Jobs is not lost inadvertently.
 
 ### Backoff limit per index {#backoff-limit-per-index}
 
-{{< feature-state for_k8s_version="v1.28" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.29" state="beta" >}}
 
 {{< note >}}
 You can only configure the backoff limit per index for an [Indexed](#completion-mode) Job, if you
