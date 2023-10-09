@@ -58,7 +58,7 @@ Congratulations to the elected committee members whose two year terms begin imme
 <!--
 They join continuing members:
 -->
-他们将与一下连任成员一起工作：
+他们将与以下连任成员一起工作：
 
 * **Benjamin Elder ([@bentheelder](https://github.com/bentheelder)), Google**
 * **Bob Killen ([@mrbobbytables](https://github.com/mrbobbytables)), Google**
