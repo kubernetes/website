@@ -957,6 +957,22 @@ works in that release.
 There are no other valid values for this annotation. If you don't want topology aware hints
 for a Service, don't add this annotation.
 
+### service.kubernetes.io/topology-mode
+
+Type: Annotation
+
+Example: `service.kubernetes.io/topology-mode: Auto`
+
+Used on: Service
+
+This annotation provides a way to define how Services handle network topology;
+for example, you can configure a Service so that Kubernetes prefers keeping traffic between
+a client and server within a single topology zone.
+In some cases this can help reduce costs or improve network performance.
+
+See [Topology Aware Routing](/docs/concepts/services-networking/topology-aware-routing/)
+for more details.
+
 ### kubernetes.io/service-name {#kubernetesioservice-name}
 
 Type: Label
