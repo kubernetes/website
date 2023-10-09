@@ -11,7 +11,6 @@ auto_generated: true
 
 - [CredentialProviderConfig](#kubelet-config-k8s-io-v1-CredentialProviderConfig)
   
-    
 
 ## `CredentialProviderConfig`     {#kubelet-config-k8s-io-v1-CredentialProviderConfig}
     
@@ -82,7 +81,7 @@ and URL path.</p>
 <p>Each entry in matchImages is a pattern which can optionally contain a port and a path.
 Globs can be used in the domain, but not in the port or the path. Globs are supported
 as subdomains like '&ast;.k8s.io' or 'k8s.&ast;.io', and top-level-domains such as 'k8s.&ast;'.
-Matching partial subdomains like 'app&ast;.k8s.io' is also supported. Each glob can only match
+Matching partial subdomains like 'app</em>.k8s.io' is also supported. Each glob can only match
 a single subdomain segment, so &ast;.io does not match &ast;.k8s.io.</p>
 <p>A match exists between an image and a matchImage when all of the below are true:</p>
 <ul>
