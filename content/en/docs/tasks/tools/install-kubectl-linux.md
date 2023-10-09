@@ -193,6 +193,36 @@ To upgrade kubectl to another minor release, you'll need to bump the version in 
    ```
 
 {{% /tab %}}
+
+{{% tab name="SUSE-based distributions" %}}
+
+1. Add the Kubernetes `zypper` repository. If you want to use Kubernetes version
+   different than {{< param "version" >}}, replace {{< param "version" >}} with
+   the desired minor version in the command below.
+
+   ```bash
+   # This overwrites any existing configuration in /etc/zypp/repos.d/kubernetes.repo
+   cat <<EOF | sudo tee /etc/zypp/repos.d/kubernetes.repo
+   [kubernetes]
+   name=Kubernetes
+   baseurl=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/
+   enabled=1
+   gpgcheck=1
+   gpgkey=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/repodata/repomd.xml.key
+   EOF
+
+   {{< note >}}
+   To upgrade kubectl to another minor release, you'll need to bump the version in `/etc/zypp/repos.d/kubernetes.repo`
+   before running `zypper update`. This procedure is described in more detail in
+   [Changing The Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
+   {{< /note >}}
+
+1. Install kubectl using `zypper`:
+
+   ```bash
+   sudo zypper install -y kubectl
+
+{{% /tab %}}
 {{< /tabs >}}
 
 ### Install using other package management
