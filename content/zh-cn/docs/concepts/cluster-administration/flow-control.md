@@ -1407,13 +1407,13 @@ FlowSchema 将这些列表调用与其他请求隔离开来。
 ## {{% heading "whatsnext" %}}
 
 <!--
-- You can visit flow control [reference doc](/docs/reference/flow-control/) to learn more about troubleshooting.
+- You can visit flow control [reference doc](/docs/reference/debug-cluster/flow-control/) to learn more about troubleshooting.
 - For background information on design details for API priority and fairness, see
 the [enhancement proposal](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1040-priority-and-fairness).
 - You can make suggestions and feature requests via [SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery)
 or the feature's [slack channel](https://kubernetes.slack.com/messages/api-priority-and-fairness).
 -->
-- 你可以查阅流控[参考文档](/zh-cn/docs/reference/flow-control/)了解有关故障排查的更多信息。
+- 你可以查阅流控[参考文档](/zh-cn/docs/reference/debug-cluster/flow-control/)了解有关故障排查的更多信息。
 - 有关 API 优先级和公平性的设计细节的背景信息，
   请参阅[增强提案](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1040-priority-and-fairness)。
 - 你可以通过 [SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery/)

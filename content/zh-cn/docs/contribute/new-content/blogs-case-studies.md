@@ -100,7 +100,7 @@ To submit a blog post, follow these steps:
 -->
 要提交博文，你可以遵从以下步骤：
 
-1. 如果你还未签署 CLA，请先[签署 CLA](https://kubernetes.io/docs/contribute/start/#sign-the-cla)。
+1. 如果你还未签署 CLA，请先[签署 CLA](/zh-cn/docs/contribute/start/#sign-the-cla)。
 2. 查阅[网站仓库](https://github.com/kubernetes/website/tree/master/content/en/blog/_posts)中现有博文的 Markdown 格式。
 3. 在你所选的文本编辑器中撰写你的博文。
 4. 在第 2 步的同一链接上，点击 **Create new file** 按钮。

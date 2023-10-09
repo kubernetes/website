@@ -21,6 +21,17 @@ weight: 270
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
+<!--
+You need to have a Kubernetes cluster, and the kubectl command-line tool must
+be configured to communicate with your cluster. It is recommended to run this
+task on a cluster with at least two nodes that are not acting as control plane
+nodes . If you do not already have a cluster, you can create one by using
+[minikube](https://minikube.sigs.k8s.io/docs/tutorials/multi_node/).
+-->
+你需要有一个 Kubernetes 集群，并且必须配置 kubectl 命令行工具以与你的集群通信。
+建议在至少有两个不充当控制平面的节点上运行此任务。如果你还没有集群，
+你可以使用 [minikube](https://minikube.sigs.k8s.io/docs/tutorials/multi_node/) 创建一个。
+
 <!-- steps -->
 
 <!--

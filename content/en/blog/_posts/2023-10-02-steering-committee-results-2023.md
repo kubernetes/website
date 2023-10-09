@@ -3,6 +3,7 @@ layout: blog
 title: "Announcing the 2023 Steering Committee Election Results"
 date: 2023-10-02
 slug: steering-committee-results-2023
+canonicalUrl: https://www.kubernetes.dev/blog/2023/10/02/steering-committee-results-2023/
 ---
 
 **Author**: Kaslin Fields
@@ -26,7 +27,7 @@ They join continuing members:
 
 * **Benjamin Elder ([@bentheelder](https://github.com/bentheelder)), Google**
 * **Bob Killen ([@mrbobbytables](https://github.com/mrbobbytables)), Google**
-* **Nabarun Pal ([@palnabarun](https://github.com/palnabarun), VMware**
+* **Nabarun Pal ([@palnabarun](https://github.com/palnabarun)), VMware**
 
 Stephen Augustus is a returning Steering Committee Member.
 
@@ -38,14 +39,11 @@ Thank you and congratulations on a successful election to this round’s electio
 * Davanum Srinavas ([@dims](https://github.com/dims))
 * Kaslin Fields ([@kaslin](https://github.com/kaslin))
 
-
 Thanks to the Emeritus Steering Committee Members. Your service is appreciated by the community:
-
 
 * Christoph Blecker ([@cblecker](https://github.com/cblecker))
 * Carlos Tadeu Panato Jr. ([@cpanato](https://github.com/cpanato))
 * Tim Pepper ([@tpepper](https://github.com/tpepper))
-
 
 And thank you to all the candidates who came forward to run for election.
 
