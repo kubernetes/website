@@ -1466,10 +1466,23 @@ This annotation records a comma-separated list of
 managed by [Node Feature Discovery](https://kubernetes-sigs.github.io/node-feature-discovery/) (NFD).
 NFD uses this for an internal mechanism. You should not edit this annotation yourself.
 
+### nfd.node.kubernetes.io/node-name
+
+Type: Label
+
+Example: `nfd.node.kubernetes.io/node-name: node-1`
+
+Used on: Nodes
+
+It specifies which node the NodeFeature object is targeting.
+Creators of NodeFeature objects must set this label and 
+consumers of the objects are supposed to use the label for 
+filtering features designated for a certain node.
+
 {{< note >}}
-These annotations only applies to nodes where NFD is running.
-To learn more about NFD and its components go to its official
-[documentation](https://kubernetes-sigs.github.io/node-feature-discovery/stable/get-started/).
+These Node Feature Discovery (NFD) labels or annotations only apply to 
+the nodes where NFD is running. To learn more about NFD and 
+its components go to its official [documentation](https://kubernetes-sigs.github.io/node-feature-discovery/stable/get-started/).
 {{< /note >}}
 
 ### service.beta.kubernetes.io/aws-load-balancer-access-log-emit-interval (beta) {#service-beta-kubernetes-io-aws-load-balancer-access-log-emit-interval}
