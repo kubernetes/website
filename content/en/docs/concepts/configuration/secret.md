@@ -388,7 +388,7 @@ stringData:
 ```
 
 {{< note >}}
-`stringData` for a Secret does not work well with server-side apply
+The `stringData` field for a Secret does not work well with server-side apply.
 {{< /note >}}
 
 The basic authentication Secret type is provided only for convenience.
@@ -550,7 +550,7 @@ stringData:
 ```
 
 {{< note >}}
-`stringData` for a Secret does not work well with server-side apply
+The `stringData` field for a Secret does not work well with server-side apply.
 {{< /note >}}
 
 ## Working with Secrets
