@@ -944,7 +944,7 @@ for a Service, don't add this annotation.
 
 Type: Annotation
 
-Example: `service.kubernetes.io/topology-mode: "single"`
+Example: `service.kubernetes.io/topology-mode: Auto`
 
 Used on: Service
 
