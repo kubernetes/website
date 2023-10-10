@@ -1,1 +1,2 @@
-../data/i18n/fr/fr.toml
+[paths]
+translation_file = "../data/i18n/fr/fr.toml"
