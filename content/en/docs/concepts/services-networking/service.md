@@ -437,8 +437,10 @@ The available `type` values and their behaviors are:
   No proxying of any kind is set up.
 
 The `type` field in the Service API is designed as nested functionality - each level
-adds to the previous.  This is not strictly required on all cloud providers, but
-the Kubernetes API design for Service requires it anyway.
+adds to the previous. However there is an exception to this nested design. You can
+define a `LoadBalancer` Service by
+[disabling the load balancer `NodePort` allocation.](/docs/concepts/services-networking/service/#load-balancer-nodeport-allocation)
+
 
 ### `type: ClusterIP` {#type-clusterip}
 
