@@ -411,7 +411,7 @@ as possible. On the other hand, it's also necessary to make sure any etcd member
 will not run out of the storage quota. The Kubernetes project recommends that when
 you perform defragmentation, you use a tool such as [etcd-defrag](https://github.com/ahrtr/etcd-defrag).
 
-It can also be useful to run the defragmentation tool as a Kubernetes CronJob, 
-[as documented here](https://github.com/ahrtr/etcd-defrag/blob/main/doc/etcd-defrag-cronjob.yaml)
-, to make sure that defragmentation happens regularly.
+You can also run the defragmentation tool as a Kubernetes CronJob, to make sure that
+defragmentation happens regularly. See [`etcd-defrag-job.yaml`](https://github.com/ahrtr/etcd-defrag/blob/main/doc/etcd-defrag-cronjob.yaml)
+for details. 
 {{< /note >}}
