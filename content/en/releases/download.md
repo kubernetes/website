@@ -43,6 +43,7 @@ You can fetch that list using:
 ```shell
 curl -Ls "https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/stable.txt)/release" | grep "SPDXID: SPDXRef-Package-registry.k8s.io" |  grep -v sha256 | cut -d- -f3- | sed 's/-/\//' | sed 's/-v1/:v1/'
 ```
+
 For Kubernetes v{{< skew currentVersion >}}, the only kind of code artifact that
 you can verify integrity for is a container image, using the experimental
 signing support.
@@ -50,11 +51,10 @@ signing support.
 To manually verify signed container images of Kubernetes core components, refer to
 [Verify Signed Container Images](/docs/tasks/administer-cluster/verify-signed-artifacts).
 
-
-
 ## Binaries
 
-Find links to download Kubernetes components (and their checksums) in the [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG) files.
+Find links to download Kubernetes components (and their checksums) in the
+[CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG) files.
 
 Alternately, use [downloadkubernetes.com](https://www.downloadkubernetes.com/) to filter by version and architecture.
 
