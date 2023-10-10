@@ -55,7 +55,7 @@ Create an nginx Pod, and note that it has a container port specification:
 我们在之前的示例中已经做过，然而让我们以网络连接的视角再重做一遍。
 创建一个 Nginx Pod，注意其中包含一个容器端口的规约：
 
-{{< code file="service/networking/run-my-nginx.yaml" >}}
+{{% code_sample file="service/networking/run-my-nginx.yaml" %}}
 
 <!--
 This makes it accessible from any node in your cluster. Check the nodes the Pod is running on:
@@ -66,6 +66,7 @@ This makes it accessible from any node in your cluster. Check the nodes the Pod 
 kubectl apply -f ./run-my-nginx.yaml
 kubectl get pods -l run=my-nginx -o wide
 ```
+
 ```
 NAME                        READY     STATUS    RESTARTS   AGE       IP            NODE
 my-nginx-3800858182-jr4a2   1/1       Running   0          13s       10.244.3.4    kubernetes-minion-905m
@@ -90,7 +91,7 @@ to make queries against both IPs. Note that the containers are *not* using port 
 the node, nor are there any special NAT rules to route traffic to the pod. This means
 you can run multiple nginx pods on the same node all using the same `containerPort`,
 and access them from any other pod or node in your cluster using the assigned IP
-address for the Service. If you want to arrange for a specific port on the host
+address for the pod. If you want to arrange for a specific port on the host
 Node to be forwarded to backing Pods, you can - but the networking model should
 mean that you do not need to do so.
 
@@ -100,18 +101,19 @@ if you're curious.
 -->
 你应该能够通过 ssh 登录到集群中的任何一个节点上，并使用诸如 `curl` 之类的工具向这两个 IP 地址发出查询请求。
 需要注意的是，容器 **不会** 使用该节点上的 80 端口，也不会使用任何特定的 NAT 规则去路由流量到 Pod 上。
-这意味着可以在同一个节点上运行多个 Nginx Pod，使用相同的 `containerPort`，并且可以从集群中任何其他的
-Pod 或节点上使用 IP 的方式访问到它们。
+这意味着你可以使用相同的 `containerPort` 在同一个节点上运行多个 Nginx Pod，
+并且可以从集群中任何其他的 Pod 或节点上使用为 Pod 分配的 IP 地址访问到它们。
 如果你想的话，你依然可以将宿主节点的某个端口的流量转发到 Pod 中，但是出于网络模型的原因，你不必这么做。
 
-如果对此好奇，请参考 [Kubernetes 网络模型](/zh-cn/docs/concepts/cluster-administration/networking/#the-kubernetes-network-model)。
+如果对此好奇，请参考
+[Kubernetes 网络模型](/zh-cn/docs/concepts/cluster-administration/networking/#the-kubernetes-network-model)。
 
 <!--
 ## Creating a Service
 
 So we have pods running nginx in a flat, cluster wide, address space. In theory,
 you could talk to these pods directly, but what happens when a node dies? The pods
-die with it, and the Deployment will create new ones, with different IPs. This is
+die with it, and the ReplicaSet inside the Deployment will create new ones, with different IPs. This is
 the problem a Service solves.
 
 A Kubernetes Service is an abstraction which defines a logical set of Pods running
@@ -127,7 +129,7 @@ You can create a Service for your 2 nginx replicas with `kubectl expose`:
 
 我们有一组在一个扁平的、集群范围的地址空间中运行 Nginx 服务的 Pod。
 理论上，你可以直接连接到这些 Pod，但如果某个节点死掉了会发生什么呢？
-Pod 会终止，Deployment 将创建新的 Pod，且使用不同的 IP。这正是 Service 要解决的问题。
+Pod 会终止，Deployment 内的 ReplicaSet 将创建新的 Pod，且使用不同的 IP。这正是 Service 要解决的问题。
 
 Kubernetes Service 是集群中提供相同功能的一组 Pod 的抽象表达。
 当每个 Service 创建时，会被分配一个唯一的 IP 地址（也称为 clusterIP）。
@@ -140,6 +142,7 @@ Service 中的某些 Pod 上。
 ```shell
 kubectl expose deployment/my-nginx
 ```
+
 ```
 service/my-nginx exposed
 ```
@@ -149,7 +152,7 @@ This is equivalent to `kubectl apply -f` the following yaml:
 -->
 这等价于使用 `kubectl create -f` 命令及如下的 yaml 文件创建：
 
-{{< code file="service/networking/nginx-svc.yaml" >}}
+{{% code_sample file="service/networking/nginx-svc.yaml" %}}
 
 <!--
 This specification will create a Service which targets TCP port 80 on any Pod
@@ -171,6 +174,7 @@ API 对象以了解 Service 所能接受的字段列表。
 ```shell
 kubectl get svc my-nginx
 ```
+
 ```
 NAME       TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
 my-nginx   ClusterIP   10.0.162.149   <none>        80/TCP    21s
@@ -200,6 +204,7 @@ Service Selector 将持续评估，结果被 POST
 ```shell
 kubectl describe svc my-nginx
 ```
+
 ```
 Name:                my-nginx
 Namespace:           default
@@ -217,9 +222,11 @@ Endpoints:           10.244.2.5:80,10.244.3.4:80
 Session Affinity:    None
 Events:              <none>
 ```
+
 ```shell
 kubectl get endpointslices -l kubernetes.io/service-name=my-nginx
 ```
+
 ```
 NAME             ADDRESSTYPE   PORTS   ENDPOINTS               AGE
 my-nginx-7vzhx   IPv4          80      10.244.2.5,10.244.3.4   21s
@@ -275,6 +282,7 @@ the environment of your running nginx Pods (your Pod name will be different):
 ```shell
 kubectl exec my-nginx-3800858182-jr4a2 -- printenv | grep SERVICE
 ```
+
 ```
 KUBERNETES_SERVICE_HOST=10.0.0.1
 KUBERNETES_SERVICE_PORT=443
@@ -286,7 +294,7 @@ Note there's no mention of your Service. This is because you created the replica
 before the Service. Another disadvantage of doing this is that the scheduler might
 put both Pods on the same machine, which will take your entire Service down if
 it dies. We can do this the right way by killing the 2 Pods and waiting for the
-Deployment to recreate them. This time around the Service exists *before* the
+Deployment to recreate them. This time the Service exists *before* the
 replicas. This will give you scheduler-level Service spreading of your Pods
 (provided all your nodes have equal capacity), as well as the right environment
 variables:
@@ -299,9 +307,9 @@ variables:
 
 ```shell
 kubectl scale deployment my-nginx --replicas=0; kubectl scale deployment my-nginx --replicas=2;
-
 kubectl get pods -l run=my-nginx -o wide
 ```
+
 ```
 NAME                        READY     STATUS    RESTARTS   AGE     IP            NODE
 my-nginx-3800858182-e9ihh   1/1       Running   0          5s      10.244.2.7    kubernetes-minion-ljyd
@@ -316,6 +324,7 @@ You may notice that the pods have different names, since they are killed and rec
 ```shell
 kubectl exec my-nginx-3800858182-e9ihh -- printenv | grep SERVICE
 ```
+
 ```
 KUBERNETES_SERVICE_PORT=443
 MY_NGINX_SERVICE_HOST=10.0.162.149
@@ -336,6 +345,7 @@ Kubernetes 提供了一个自动为其它 Service 分配 DNS 名字的 DNS 插�
 ```shell
 kubectl get services kube-dns --namespace=kube-system
 ```
+
 ```
 NAME       TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)         AGE
 kube-dns   ClusterIP   10.0.0.10    <none>        53/UDP,53/TCP   8m
@@ -362,6 +372,7 @@ IP 分配名称的 DNS 服务器。 这里我们使用 CoreDNS 集群插件（�
 ```shell
 kubectl run curl --image=radial/busyboxplus:curl -i --tty --rm
 ```
+
 ```
 Waiting for pod default/curl-131556218-9fnch to be running, status is Pending, pod ready: false
 Hit enter for command prompt
@@ -414,12 +425,15 @@ then follow the manual steps later. In short:
 make keys KEY=/tmp/nginx.key CERT=/tmp/nginx.crt
 kubectl create secret tls nginxsecret --key /tmp/nginx.key --cert /tmp/nginx.crt
 ```
+
 ```
 secret/nginxsecret created
 ```
+
 ```shell
 kubectl get secrets
 ```
+
 ```
 NAME                  TYPE                                  DATA      AGE
 nginxsecret           kubernetes.io/tls                     2         1m
@@ -433,15 +447,74 @@ And also the configmap:
 ```shell
 kubectl create configmap nginxconfigmap --from-file=default.conf
 ```
+
+<!--
+You can find an example for `default.conf` in
+[the Kubernetes examples project repo](https://github.com/kubernetes/examples/tree/bc9ca4ca32bb28762ef216386934bef20f1f9930/staging/https-nginx/).
+-->
+你可以在
+[Kubernetes examples 项目代码仓库](https://github.com/kubernetes/examples/tree/bc9ca4ca32bb28762ef216386934bef20f1f9930/staging/https-nginx/)中找到
+`default.conf` 示例。
+
 ```
 configmap/nginxconfigmap created
 ```
+
 ```shell
 kubectl get configmaps
 ```
+
 ```
 NAME             DATA   AGE
 nginxconfigmap   1      114s
+```
+
+<!--
+You can view the details of the `nginxconfigmap` ConfigMap using the following command:
+-->
+你可以使用以下命令来查看 `nginxconfigmap` ConfigMap 的细节：
+
+```shell
+kubectl describe configmap  nginxconfigmap
+```
+
+<!--
+The output is similar to:
+-->
+输出类似于：
+
+```console
+Name:         nginxconfigmap
+Namespace:    default
+Labels:       <none>
+Annotations:  <none>
+
+Data
+====
+default.conf:
+----
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server ipv6only=on;
+
+        listen 443 ssl;
+
+        root /usr/share/nginx/html;
+        index index.html;
+
+        server_name localhost;
+        ssl_certificate /etc/nginx/ssl/tls.crt;
+        ssl_certificate_key /etc/nginx/ssl/tls.key;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+}
+
+BinaryData
+====
+
+Events:  <none>
 ```
 
 <!--
@@ -493,6 +566,7 @@ Now create the secrets using the file:
 kubectl apply -f nginxsecrets.yaml
 kubectl get secrets
 ```
+
 ```
 NAME                  TYPE                                  DATA      AGE
 nginxsecret           kubernetes.io/tls                     2         1m
@@ -504,7 +578,7 @@ in the secret, and the Service, to expose both ports (80 and 443):
 -->
 现在修改 Nginx 副本以启动一个使用 Secret 中的证书的 HTTPS 服务器以及相应的用于暴露其端口（80 和 443）的 Service：
 
-{{< code file="service/networking/nginx-secure-app.yaml" >}}
+{{% code_sample file="service/networking/nginx-secure-app.yaml" %}}
 
 <!--
 Noteworthy points about the nginx-secure-app manifest:
@@ -557,16 +631,18 @@ for simplicity, the pod only needs nginx.crt to access the Service):
 通过创建 Service，我们连接了在证书中的 CName 与在 Service 查询时被 Pod 使用的实际 DNS 名字。
 让我们从一个 Pod 来测试（为了方便，这里使用同一个 Secret，Pod 仅需要使用 nginx.crt 去访问 Service）：
 
-{{< code file="service/networking/curlpod.yaml" >}}
+{{% code_sample file="service/networking/curlpod.yaml" %}}
 
 ```shell
 kubectl apply -f ./curlpod.yaml
 kubectl get pods -l app=curlpod
 ```
+
 ```
 NAME                               READY     STATUS    RESTARTS   AGE
 curl-deployment-1515033274-1410r   1/1       Running   0          1m
 ```
+
 ```shell
 kubectl exec curl-deployment-1515033274-1410r -- curl https://my-nginx --cacert /etc/nginx/ssl/tls.crt
 ...
@@ -643,10 +719,12 @@ Change the `Type` of `my-nginx` Service from `NodePort` to `LoadBalancer`:
 kubectl edit svc my-nginx
 kubectl get svc my-nginx
 ```
+
 ```
 NAME       TYPE           CLUSTER-IP     EXTERNAL-IP        PORT(S)               AGE
 my-nginx   LoadBalancer   10.0.162.149   xx.xxx.xxx.xxx     8080:30163/TCP        21s
 ```
+
 ```
 curl https://<EXTERNAL-IP> -k
 ...
