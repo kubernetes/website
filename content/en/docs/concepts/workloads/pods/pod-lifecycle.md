@@ -152,7 +152,8 @@ and Never. The default value is Always.
 
 The `restartPolicy` applies to all containers in the Pod. `restartPolicy` only
 refers to restarts of the containers by the kubelet on the same node. After containers
-in a Pod exit, the kubelet restarts them with an exponential back-off delay (0s, 10s, 20s, 40s, ...), that is capped at five minutes. Once a container has executed for 10 minutes
+in a Pod exit, the kubelet restarts them with an exponential back-off delay (0s, 10s, 20s, 40s, ...),
+that is capped at five minutes. Once a container has executed for 10 minutes
 without any problems, the kubelet resets the restart backoff timer for that container.
 
 ## Pod conditions
@@ -254,12 +255,14 @@ the `PodHasNetwork` condition in the `status.conditions` field of a Pod.
 The `PodHasNetwork` condition is set to `False` by the Kubelet when it detects a
 Pod does not have a runtime sandbox with networking configured. This occurs in
 the following scenarios:
-* Early in the lifecycle of the Pod, when the kubelet has not yet begun to set up a sandbox for the Pod using the container runtime.
+* Early in the lifecycle of the Pod, when the kubelet has not yet begun to set up
+  a sandbox for the Pod using the container runtime.
 * Later in the lifecycle of the Pod, when the Pod sandbox has been destroyed due
   to either:
   * the node rebooting, without the Pod getting evicted
   * for container runtimes that use virtual machines for isolation, the Pod
-    sandbox virtual machine rebooting, which then requires creating a new sandbox and fresh container network configuration.
+    sandbox virtual machine rebooting, which then requires creating a new sandbox
+    and fresh container network configuration.
 
 The `PodHasNetwork` condition is set to `True` by the kubelet after the
 successful completion of sandbox creation and network configuration for the Pod
@@ -276,7 +279,8 @@ condition to `True` before sandbox creation and network configuration starts.
 
 {{< feature-state for_k8s_version="v1.26" state="alpha" >}}
 
-See [Pod Scheduling Readiness](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/) for more information.
+See [Pod Scheduling Readiness](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)
+for more information.
 
 ## Container probes
 
@@ -315,9 +319,14 @@ Each probe must define exactly one of these four mechanisms:
   the port is open. If the remote system (the container) closes
   the connection immediately after it opens, this counts as healthy.
 
-{{< caution >}} Unlike the other mechanisms, `exec` probe's implementation involves the creation/forking of multiple processes each time when executed.
-As a result, in case of the clusters having higher pod densities, lower intervals of `initialDelaySeconds`, `periodSeconds`, configuring any probe with exec mechanism might introduce an overhead on the cpu usage of the node.
-In such scenarios, consider using the alternative probe mechanisms to avoid the overhead.{{< /caution >}}
+{{< caution >}}
+Unlike the other mechanisms, `exec` probe's implementation involves the creation/forking
+of multiple processes each time when executed.
+As a result, in case of the clusters having higher pod densities, lower intervals of
+`initialDelaySeconds`, `periodSeconds`, configuring any probe with exec mechanism might
+introduce an overhead on the cpu usage of the node.
+In such scenarios, consider using the alternative probe mechanisms to avoid the overhead.
+{{< /caution >}}
 
 ### Probe outcome
 
@@ -471,7 +480,9 @@ An example flow:
       The containers in the Pod receive the TERM signal at different times and in an arbitrary
       order. If the order of shutdowns matters, consider using a `preStop` hook to synchronize.
       {{< /note >}}
-1. At the same time as the kubelet is starting graceful shutdown of the Pod, the control plane evaluates whether to remove that shutting-down Pod from EndpointSlice (and Endpoints) objects, where those objects represent
+1. At the same time as the kubelet is starting graceful shutdown of the Pod, the control plane
+   evaluates whether to remove that shutting-down Pod from EndpointSlice (and Endpoints) objects,
+   where those objects represent
    a {{< glossary_tooltip term_id="service" text="Service" >}} with a configured
    {{< glossary_tooltip text="selector" term_id="selector" >}}.
    {{< glossary_tooltip text="ReplicaSets" term_id="replica-set" >}} and other workload resources
@@ -531,7 +542,8 @@ name. On the node, Pods that are set to terminate immediately will still be give
 a small grace period before being force killed.
 
 {{< caution >}}
-Immediate deletion does not wait for confirmation that the running resource has been terminated. The resource may continue to run on the cluster indefinitely.
+Immediate deletion does not wait for confirmation that the running resource has been terminated.
+The resource may continue to run on the cluster indefinitely.
 {{< /caution >}}
 
 If you need to force-delete Pods that are part of a StatefulSet, refer to the task
@@ -544,7 +556,8 @@ For failed Pods, the API objects remain in the cluster's API until a human or
 {{< glossary_tooltip term_id="controller" text="controller" >}} process
 explicitly removes them.
 
-The Pod garbage collector (PodGC), which is a controller in the control plane, cleans up terminated Pods (with a phase of `Succeeded` or
+The Pod garbage collector (PodGC), which is a controller in the control plane,
+cleans up terminated Pods (with a phase of `Succeeded` or
 `Failed`), when the number of Pods exceeds the configured threshold
 (determined by `terminated-pod-gc-threshold` in the kube-controller-manager).
 This avoids a resource leak as Pods are created and terminated over time.
@@ -552,7 +565,9 @@ This avoids a resource leak as Pods are created and terminated over time.
 Additionally, PodGC cleans up any Pods which satisfy any of the following conditions:
 1. are orphan pods - bound to a node which no longer exists,
 2. are unscheduled terminating pods,
-3. are terminating pods, bound to a non-ready node tainted with [`node.kubernetes.io/out-of-service`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-out-of-service), when the `NodeOutOfServiceVolumeDetach` feature gate is enabled.
+3. are terminating pods, bound to a non-ready node tainted with
+   [`node.kubernetes.io/out-of-service`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-out-of-service),
+   when the `NodeOutOfServiceVolumeDetach` feature gate is enabled.
 
 When the `PodDisruptionConditions` feature gate is enabled, along with
 cleaning up the pods, PodGC will also mark them as failed if they are in a non-terminal
