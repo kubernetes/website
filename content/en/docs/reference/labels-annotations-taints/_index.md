@@ -1041,11 +1041,12 @@ Example: `volume.alpha.kubernetes.io/node-affinity: "{}"`
 
 Used on: PersistentVolume
 
-The `volume.alpha.kubernetes.io/node-affinity` annotation was used to specify experimental node affinity
-rules for PersistentVolumes (PV) in Kubernetes. Volume _[node affinity](/docs/concepts/storage/persistent-volumes/#node-affinity)_ allows you to restrict the
-scheduling of Pods that use the corresponding PersistentVolume so that the Pods can only bound to
-appropriate nodes in your cluster, based on the {{<glossary_tooltip text="labels" term_id="label">}}
-that are set on those nodes.
+The `volume.alpha.kubernetes.io/node-affinity` annotation was used to specify 
+experimental node affinity rules for PersistentVolumes (PV) in Kubernetes.
+Volume _[node affinity](/docs/concepts/storage/persistent-volumes/#node-affinity)_
+allows you to restrict the scheduling of Pods that use the corresponding PersistentVolume
+so that the Pods can only bound to appropriate nodes in your cluster, based on
+the {{<glossary_tooltip text="labels" term_id="label">}} that are set on those Nodes.
 
 ### batch.kubernetes.io/job-completion-index
 
