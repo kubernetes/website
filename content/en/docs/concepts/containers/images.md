@@ -265,36 +265,24 @@ See [Configure a kubelet image credential provider](/docs/tasks/administer-clust
 The interpretation of `config.json` varies between the original Docker
 implementation and the Kubernetes interpretation. In Docker, the `auths` keys
 can only specify root URLs, whereas Kubernetes allows glob URLs as well as
-prefix-matched paths. This means that a `config.json` like this is valid:
+prefix-matched paths. The only limitation is that glob patterns (`*`) have to
+include the dot (`.`) for each subdomain. The amount of matched subdomains has
+to be equal to the amount of glob patterns (`*.`), for example:
+
+- `*.kubernetes.io` will *not* match `kubernetes.io`, but `abc.kubernetes.io`
+- `*.*.kubernetes.io` will *not* match `abc.kubernetes.io`, but `abc.def.kubernetes.io`
+- `prefix.*.io` will match `prefix.kubernetes.io`
+- `*-good.kubernetes.io` will match `prefix-good.kubernetes.io`
+
+This means that a `config.json` like this is valid:
 
 ```json
 {
     "auths": {
-        "*my-registry.io/images": {
-            "auth": "…"
-        }
+        "my-registry.io/images": { "auth": "…" },
+        "*.my-registry.io/images": { "auth": "…" }
     }
 }
-```
-
-The root URL (`*my-registry.io`) is matched by using the following syntax:
-
-```
-pattern:
-    { term }
-
-term:
-    '*'         matches any sequence of non-Separator characters
-    '?'         matches any single non-Separator character
-    '[' [ '^' ] { character-range } ']'
-                character class (must be non-empty)
-    c           matches character c (c != '*', '?', '\\', '[')
-    '\\' c      matches character c
-
-character-range:
-    c           matches character c (c != '\\', '-', ']')
-    '\\' c      matches character c
-    lo '-' hi   matches character c for lo <= c <= hi
 ```
 
 Image pull operations would now pass the credentials to the CRI container
@@ -305,10 +293,14 @@ would match successfully:
 - `my-registry.io/images/my-image`
 - `my-registry.io/images/another-image`
 - `sub.my-registry.io/images/my-image`
+
+But not:
+
 - `a.sub.my-registry.io/images/my-image`
+- `a.b.sub.my-registry.io/images/my-image`
 
 The kubelet performs image pulls sequentially for every found credential. This
-means, that multiple entries in `config.json` are possible, too:
+means, that multiple entries in `config.json` for different paths are possible, too:
 
 ```json
 {
