@@ -172,3 +172,7 @@ metadata:
 
 ## {{% heading "whatsnext" %}}
 
+- Learn more about [Cluster Networking](/docs/concepts/cluster-administration/networking/)
+- Learn more about [Network Policies](/docs/concepts/services-networking/network-policies/)
+- Learn about the [Troubleshooting CNI plugin-related errors](/docs/tasks/administer-cluster/migrating-from-dockershim/troubleshooting-cni-plugin-related-errors/)
+
