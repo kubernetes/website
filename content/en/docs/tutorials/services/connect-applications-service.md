@@ -294,7 +294,7 @@ kubectl create configmap nginxconfigmap --from-file=default.conf
 ```
 
 You can find an example for `default.conf` in
-[https://github.com/kubernetes/examples/tree/master/staging/https-nginx/](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/).
+[the Kubernetes examples project repo](https://github.com/kubernetes/examples/tree/bc9ca4ca32bb28762ef216386934bef20f1f9930/staging/https-nginx/).
 
 ```
 configmap/nginxconfigmap created
