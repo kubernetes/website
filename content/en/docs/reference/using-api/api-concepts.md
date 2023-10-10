@@ -34,7 +34,7 @@ API concepts:
 
 * A *resource type* is the name used in the URL (`pods`, `namespaces`, `services`)
 * All resource types have a concrete representation (their object schema) which is called a *kind*
-* A list of instances of a resource is known as a *collection*
+* A list of instances of a resource type is known as a *collection*
 * A single instance of a resource type is called a *resource*, and also usually represents an *object*
 * For some resource types, the API includes one or more *sub-resources*, which are represented as URI paths below the resource
 
