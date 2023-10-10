@@ -153,7 +153,7 @@ El valor de Cluster Domain se pondrá a `cluster.local` a menos que
 
 Kubernetes crea un [PersistentVolume](/docs/concepts/storage/persistent-volumes/) para cada
 VolumeClaimTemplate. En el ejemplo de nginx de arriba, cada Pod recibirá un único PersistentVolume
-con una StorageClass igual a `my-storage-class` y 1 Gib de almacenamiento provisionado. Si no se indica ninguna StorageClass,
+con una StorageClass igual a `my-storage-class` y 1 GiB de almacenamiento provisionado. Si no se indica ninguna StorageClass,
 entonces se usa la StorageClass por defecto. Cuando un Pod se (re)programa
 en un nodo, sus `volumeMounts` montan los PersistentVolumes asociados con sus
 PersistentVolume Claims. Nótese que los PersistentVolumes asociados con los
