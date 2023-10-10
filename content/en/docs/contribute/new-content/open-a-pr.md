@@ -359,7 +359,9 @@ Alternately, install and use the `hugo` command on your computer:
 
 ### Open a pull request from your fork to kubernetes/website {#open-a-pr}
 
-Figure 3 shows the steps to open a PR from your fork to the kubernetes/website. The details follow.
+Figure 3 shows the steps to open a PR from your fork to the [kubernetes/website](https://github.com/kubernetes/website). The details follow.
+
+Please, note that contributors can mention `kubernetes/website` as `k/website`.
 
 <!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
 <!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
@@ -387,7 +389,7 @@ class 1,2,3,4,5,6,7,8 grey
 class first,second white
 {{</ mermaid >}}
 
-Figure 3. Steps to open a PR from your fork to the kubernetes/website.
+Figure 3. Steps to open a PR from your fork to the [kubernetes/website](https://github.com/kubernetes/website).
 
 1. In a web browser, go to the [`kubernetes/website`](https://github.com/kubernetes/website/) repository.
 1. Select **New Pull Request**.
