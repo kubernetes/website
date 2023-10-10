@@ -734,11 +734,12 @@ will exit with an error.
 
 - [KubeProxyConfiguration](#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConfiguration)
 
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
 
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
 
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
 
 - [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
 
@@ -814,11 +815,11 @@ default value of 'application/json'. This field will control all connections to 
 -->
 **出现在：**
 
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
-
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
 
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
 
 - [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
 
@@ -847,11 +848,11 @@ enableProfiling enables profiling via web interface host:port/debug/pprof/
 </td>
 <td>
 <!--
-enableContentionProfiling enables lock contention profiling, if
+enableContentionProfiling enables lock c
 enableProfiling is true.
 -->
    <p><code>enableContentionProfiling</code> 字段在 <code>enableProfiling</code>
-   为 true 时允许执行锁竞争分析。</p>
+   为 true 时启用阻塞分析。</p>
 </td>
 </tr>
 </tbody>

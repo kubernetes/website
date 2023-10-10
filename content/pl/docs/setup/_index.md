@@ -22,7 +22,7 @@ Instalując Kubernetesa, przy wyborze platformy kieruj się: łatwością w utrz
 Możesz [pobrać Kubernetesa](/releases/download/), aby zainstalować klaster
 na lokalnym komputerze, w chmurze czy w prywatnym centrum obliczeniowym.
 
-Niektóre [komponenty Kubernetesa](/docs/concepts/overview/components/), na przykład `kube-apiserver` czy `kube-proxy` mogą być
+Niektóre [komponenty Kubernetesa](/docs/concepts/overview/components/), na przykład `{{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}} czy {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}} mogą być
 uruchamiane jako [kontenery](/releases/download/#container-images) wewnątrz samego klastra.
 
 **Zalecamy** uruchamianie komponentów Kubernetesa jako kontenery zawsze,
@@ -58,9 +58,6 @@ jest [kubeadm](/docs/setup/production-environment/tools/kubeadm/).
 - Pobierz i [zainstaluj narzędzia](/docs/tasks/tools/), w tym `kubectl`
 - Wybierz [środowisko uruchomieniowe dla kontenerów](/docs/setup/production-environment/container-runtimes/) w nowym klastrze
 - Naucz się [najlepszych praktyk](/docs/setup/best-practices/) przy konfigurowaniu klastra
-
-Na stronie [Partnerów Kubernetesa](https://kubernetes.io/partners/#conformance) znajdziesz listę dostawców posiadających
-[certyfikację Kubernetes](https://github.com/cncf/k8s-conformance/#certified-kubernetes).
 
 Kubernetes zaprojektowano w ten sposób, że {{< glossary_tooltip term_id="control-plane" text="warstwa sterowania" >}}
 wymaga do działania systemu Linux. W ramach klastra aplikacje mogą być uruchamiane na systemie Linux i innych,

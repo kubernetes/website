@@ -4,8 +4,12 @@ description: 设置监控和日志记录以对集群进行故障排除或调试�
 weight: 40
 content_type: concept
 no_list: true
+card:
+  name: tasks
+  weight: 999
+  title: 寻求帮助
 ---
-<!-- 
+<!--
 title: "Monitoring, Logging, and Debugging"
 description: Set up monitoring and logging to troubleshoot a cluster, or debug a containerized application.
 weight: 40
@@ -14,6 +18,10 @@ reviewers:
 - davidopp
 content_type: concept
 no_list: true
+card:
+  name: tasks
+  weight: 999
+  title: Getting help
 -->
 
 <!-- overview -->
@@ -249,4 +257,3 @@ problem, such as:
 * Kubernetes 版本：`kubectl version`
 * 云平台、OS 发行版、网络配置和 Docker 版本
 * 重现问题的步骤
-

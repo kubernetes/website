@@ -26,6 +26,9 @@ TARGET_WORDS="${TARGET_WORDS} アーキテクチャー:アーキテクチャ"
 TARGET_WORDS="${TARGET_WORDS} コントローラ[^ー]:コントローラー"
 TARGET_WORDS="${TARGET_WORDS} オペレータ[^ー]:オペレーター"
 TARGET_WORDS="${TARGET_WORDS} パラメータ[^ー]:パラメーター"
+TARGET_WORDS="${TARGET_WORDS} レイヤ[^ー]:レイヤー"
+TARGET_WORDS="${TARGET_WORDS} クラスタ[^ーリ]:クラスター" # 例外的にクラスタリングはクラスターリングにしない
+TARGET_WORDS="${TARGET_WORDS} バイナリー:バイナリ"
 
 INVALID_CONTAINED=""
 

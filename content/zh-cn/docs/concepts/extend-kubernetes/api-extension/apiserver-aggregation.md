@@ -64,8 +64,8 @@ the extension API server (also written as "extension-apiserver") is typically pa
 more {{< glossary_tooltip text="controllers" term_id="controller" >}}. The apiserver-builder
 library provides a skeleton for both extension API servers and the associated controller(s).
 -->
-APIService 的最常见实现方式是在集群中某 Pod 内运行 **扩展 API 服务器**。
-如果你在使用扩展 API 服务器来管理集群中的资源，该扩展 API 服务器（也被写成“extension-apiserver”）
+APIService 的最常见实现方式是在集群中某 Pod 内运行**扩展 API 服务器（Extension API Server）**。
+如果你在使用扩展 API 服务器来管理集群中的资源，该扩展 API 服务器（也被写成 "extension-apiserver"）
 一般需要和一个或多个{{< glossary_tooltip text="控制器" term_id="controller" >}}一起使用。
 apiserver-builder 库同时提供构造扩展 API 服务器和控制器框架代码。
 
@@ -80,7 +80,7 @@ let you meet it.
 -->
 ### 响应延迟  {#response-latency}
 
-扩展 API 服务器与 kube-apiserver 之间需要存在低延迟的网络连接。
+扩展 API 服务器（Extension API Server）与 kube-apiserver 之间需要存在低延迟的网络连接。
 发现请求需要在五秒钟或更短的时间内完成到 kube-apiserver 的往返。
 
 如果你的扩展 API 服务器无法满足这一延迟要求，应考虑如何更改配置以满足需要。
@@ -95,7 +95,7 @@ let you meet it.
 Alternatively: learn how to
 [extend the Kubernetes API using Custom Resource Definitions](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/).
 -->
-* 阅读[配置聚合层](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/) 文档，
+* 阅读[配置聚合层](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/)文档，
   了解如何在自己的环境中启用聚合器。
 * 接下来，了解[安装扩展 API 服务器](/zh-cn/docs/tasks/extend-kubernetes/setup-extension-api-server/)，
   开始使用聚合层。

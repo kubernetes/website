@@ -61,7 +61,7 @@ Por exemplo, para fazer download da versão {{< skew currentPatchVersion >}} no 
 
    Se a verificação falhar, o `sha256` exibirá o status diferente de zero e a saída será semelhante a:
 
-   ```bash
+   ```console
    kubectl: FAILED
    sha256sum: WARNING: 1 computed checksum did NOT match
    ```
@@ -150,7 +150,7 @@ name=Kubernetes
 baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
 enabled=1
 gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
 sudo yum install -y kubectl
 ```
@@ -232,7 +232,7 @@ Abaixo estão os procedimentos para configurar o autocompletar para Bash, Fish e
 
    Se a verificação falhar, o `sha256` exibirá o status diferente de zero e a saída será semelhante a:
 
-   ```bash
+   ```console
    kubectl-convert: FAILED
    sha256sum: WARNING: 1 computed checksum did NOT match
    ```

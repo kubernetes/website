@@ -48,7 +48,7 @@ whenever this particular rule is not satisfied.
 
 For more details about the capabilities and limitations of Validation Rules using
 CEL, please refer to
-[validation rules](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-rules).
+[validation rules](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-rules).
 The [CEL specification](https://github.com/google/cel-spec) is also a good
 reference for information specifically related to the language.
 
@@ -651,5 +651,5 @@ For native types, the same behavior can be achieved using kube-openapi’s marke
 
 Usage of CEL within Kubernetes Validation Rules is so much more powerful than
 what has been shown in this article. For more information please check out
-[validation rules](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-rules)
+[validation rules](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-rules)
 in the Kubernetes documentation and [CRD Validation Rules Beta](https://kubernetes.io/blog/2022/09/23/crd-validation-rules-beta/) blog post.

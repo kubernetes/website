@@ -139,14 +139,47 @@ When a Secret is generated, the Secret name is created by hashing
 the Secret data and appending the hash value to the name. This ensures that
 a new Secret is generated each time the data is modified.
 
-To verify that the Secret was created and to decode the Secret data, refer to
-[Managing Secrets using kubectl](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#verify-the-secret).
+To verify that the Secret was created and to decode the Secret data,
 -->
 生成 Secret 时，Secret 的名称最终是由 `name` 字段和数据的哈希值拼接而成。
 这将保证每次修改数据时生成一个新的 Secret。
 
 要验证 Secret 是否已创建并解码 Secret 数据，
-请参阅[使用 kubectl 管理 Secret](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-kubectl/#verify-the-secret)。
+
+```shell
+kubectl get -k <directory-path> -o jsonpath='{.data}' 
+```
+
+<!--
+The output is similar to:
+-->
+输出类似于：
+
+```
+{ "password": "UyFCXCpkJHpEc2I9", "username": "YWRtaW4=" }
+````
+
+```
+echo 'UyFCXCpkJHpEc2I9' | base64 --decode
+```
+
+<!--
+The output is similar to:
+-->
+输出类似于：
+
+```
+S!B\*d$zDsb=
+```
+
+<!--
+For more information, refer to
+[Managing Secrets using kubectl](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#verify-the-secret) and
+[Declarative Management of Kubernetes Objects Using Kustomize](/docs/tasks/manage-kubernetes-objects/kustomization/).
+-->
+更多信息参阅
+[使用 kubectl 管理 Secret](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-kubectl/#verify-the-secret)和
+[使用 Kustomize 对 Kubernetes 对象进行声明式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/kustomization/)
 
 <!--
 ## Edit a Secret {#edit-secret}

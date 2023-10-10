@@ -3,6 +3,7 @@ title: 스케줄링 정책
 content_type: concept
 sitemap:
   priority: 0.2 # Scheduling priorities are deprecated
+weight: 30
 ---
 
 <!-- overview -->

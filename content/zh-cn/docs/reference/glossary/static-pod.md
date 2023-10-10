@@ -25,18 +25,16 @@ tags:
 -->
 
 <!--
-A {{< glossary_tooltip text="pod" term_id="pod" >}} managed directly by the kubelet
+A {{< glossary_tooltip text="pod" term_id="pod" >}} managed directly by the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}
  daemon on a specific node,
--->
-由特定节点上的 kubelet 守护进程直接管理的 {{< glossary_tooltip text="Pod" term_id="pod" >}}，
-<!--more-->
-
-<!--
 without the API server observing it.
 -->
+由特定节点上的 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} 守护进程直接管理的
+{{< glossary_tooltip text="Pod" term_id="pod" >}}。
 API 服务器不了解它的存在。
 
 <!--
 Static Pods do not support {{< glossary_tooltip text="ephemeral containers" term_id="ephemeral-container" >}}.
 -->
 静态 Pod 不支持{{< glossary_tooltip text="临时容器" term_id="ephemeral-container" >}}。
+

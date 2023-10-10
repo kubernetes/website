@@ -117,7 +117,7 @@ no_list: true
   또는 추가 보안 및 가용성을 위해 별도의 시스템에서 실행될 수 있다. 
   etcd는 클러스터 구성 데이터를 저장하므로 
   필요한 경우 해당 데이터베이스를 복구할 수 있도록 etcd 데이터베이스를 정기적으로 백업해야 한다.
-  [etcd FAQ](https://etcd.io/docs/v3.4/faq/)에서 etcd 구성 및 사용 상세를 확인한다.
+  [etcd FAQ](https://etcd.io/docs/v3.5/faq/)에서 etcd 구성 및 사용 상세를 확인한다.
   [쿠버네티스를 위한 etcd 클러스터 운영하기](/docs/tasks/administer-cluster/configure-upgrade-etcd/)와 
   [kubeadm을 이용하여 고가용성 etcd 생성하기](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)에서 
   상세 사항을 확인한다.
@@ -271,7 +271,7 @@ etcd 백업 계획을 세우려면
   제한을 상속할 수도 있다.
 - *DNS 요청에 대한 대비*: 워크로드가 대규모로 확장될 것으로 예상된다면, 
   DNS 서비스도 확장할 준비가 되어 있어야 한다. 
-  [클러스터의 DNS 서비스 오토스케일링](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)을 확인한다.
+  [클러스터의 DNS 서비스 오토스케일링](/ko/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)을 확인한다.
 - *추가적인 서비스 어카운트 생성*: 사용자 계정은 *클러스터*에서 사용자가 무엇을 할 수 있는지 결정하는 반면에, 
   서비스 어카운트는 특정 네임스페이스 내의 파드 접근 권한을 결정한다. 
   기본적으로, 파드는 자신의 네임스페이스의 기본 서비스 어카운트을 이용한다.
@@ -303,6 +303,6 @@ etcd 백업 계획을 세우려면
   [인가](/ko/docs/reference/access-authn-authz/authorization/) 방식을 선택하여 
   사용자 관리 방법을 구성한다.
 - [자원 제한](/ko/docs/tasks/administer-cluster/manage-resources/), 
-  [DNS 오토스케일링](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/), 
+  [DNS 오토스케일링](/ko/docs/tasks/administer-cluster/dns-horizontal-autoscaling/), 
   [서비스 어카운트](/ko/docs/reference/access-authn-authz/service-accounts-admin/)를 설정하여 
   애플리케이션 워크로드의 실행에 대비한다.

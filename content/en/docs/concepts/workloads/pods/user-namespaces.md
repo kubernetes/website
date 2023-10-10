@@ -46,19 +46,22 @@ tmpfs, Secrets use a tmpfs, etc.)
 Some popular filesystems that support idmap mounts in Linux 6.3 are: btrfs,
 ext4, xfs, fat, tmpfs, overlayfs.
 
-<!-- When merging this with the dev-1.27 branch conflicts will arise. The text
-as it is in the dev-1.27 branch should be used. -->
 In addition, support is needed in the 
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
-to use this feature with Kubernetes stateless pods:
+to use this feature with Kubernetes pods:
 
 * CRI-O: version 1.25 (and later) supports user namespaces for containers.
 
-Please note that containerd v1.7 supports user namespaces for containers,
-compatible with Kubernetes {{< skew currentPatchVersion >}}. It should not be used
-with Kubernetes 1.27 (and later).
+containerd v1.7 is not compatible with the userns support in Kubernetes v1.27 to v{{< skew latestVersion >}}.
+Kubernetes v1.25 and v1.26 used an earlier implementation that **is** compatible with containerd v1.7,
+in terms of userns support.
+If you are using a version of Kubernetes other than {{< skew currentVersion >}},
+check the documentation for that version of Kubernetes for the most relevant information.
+If there is a newer release of containerd than v1.7 available for use, also check the containerd
+documentation for compatibility information.
 
-Support for this in [cri-dockerd is not planned][CRI-dockerd-issue] yet.
+You can see the status of user namespaces support in cri-dockerd tracked in an [issue][CRI-dockerd-issue]
+on GitHub.
 
 [CRI-dockerd-issue]: https://github.com/Mirantis/cri-dockerd/issues/74
 
@@ -72,7 +75,7 @@ A pod can opt-in to use user namespaces by setting the `pod.spec.hostUsers` fiel
 to `false`.
 
 The kubelet will pick host UIDs/GIDs a pod is mapped to, and will do so in a way
-to guarantee that no two stateless pods on the same node use the same mapping.
+to guarantee that no two pods on the same node use the same mapping.
 
 The `runAsUser`, `runAsGroup`, `fsGroup`, etc. fields in the `pod.spec` always
 refer to the user inside the container.
@@ -89,7 +92,7 @@ Most applications that need to run as root but don't access other host
 namespaces or resources, should continue to run fine without any changes needed
 if user namespaces is activated.
 
-## Understanding user namespaces for stateless pods
+## Understanding user namespaces for pods {#pods-and-userns}
 
 Several container runtimes with their default configuration (like Docker Engine,
 containerd, CRI-O) use Linux namespaces for isolation. Other technologies exist
@@ -158,15 +161,6 @@ allowed to set any of:
  * `hostNetwork: true`
  * `hostIPC: true`
  * `hostPID: true`
-
-The pod is allowed to use no volumes at all or, if using volumes, only these
-volume types are allowed:
-
- * configmap
- * secret
- * projected
- * downwardAPI
- * emptyDir
 
 ## {{% heading "whatsnext" %}}
 

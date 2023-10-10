@@ -152,7 +152,7 @@ container.apparmor.security.beta.kubernetes.io/<container_name>: <profile_ref>
 kubectl get events | grep Created
 ```
 ```
-22s        22s         1         hello-apparmor     Pod       spec.containers{hello}   Normal    Created     {kubelet e2e-test-stclair-node-pool-31nt}   Created container with docker id 269a53b202d3; Security:[seccomp=unconfined apparmor=k8s-apparmor-example-deny-write]apparmor=k8s-apparmor-example-deny-write]
+22s        22s         1         hello-apparmor     Pod       spec.containers{hello}   Normal    Created     {kubelet e2e-test-stclair-node-pool-31nt}   Created container with docker id 269a53b202d3; Security:[seccomp=unconfined apparmor=k8s-apparmor-example-deny-write]
 ```
 
 컨테이너의 루트 프로세스가 올바른 프로파일로 실행되는지는 proc attr을 확인하여 직접 검증할 수 있다.

@@ -1,7 +1,7 @@
 ---
 title: 턴키 클라우드 솔루션
 content_type: concept
-weight: 30
+weight: 40
 ---
 <!-- overview -->
 

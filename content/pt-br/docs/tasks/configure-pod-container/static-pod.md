@@ -2,8 +2,6 @@
 title: Criando Pods Estáticos
 weight: 170
 content_type: task
-reviewers:
-- jsafrane
 ---
 
 <!-- overview -->

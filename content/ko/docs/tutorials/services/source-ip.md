@@ -2,6 +2,7 @@
 title: 소스 IP 주소 이용하기
 content_type: tutorial
 min-kubernetes-server-version: v1.5
+weight: 40
 ---
 
 <!-- overview -->
@@ -415,5 +416,5 @@ kubectl delete deployment source-ip-app
 
 ## {{% heading "whatsnext" %}}
 
-* [서비스를 통한 애플리케이션 연결하기](/ko/docs/concepts/services-networking/connect-applications-service/)를 더 자세히 본다.
+* [서비스를 통한 애플리케이션 연결하기](/ko/docs/tutorials/services/connect-applications-service/)를 더 자세히 본다.
 * [외부 로드밸런서 생성](/ko/docs/tasks/access-application-cluster/create-external-load-balancer/) 방법을 본다.

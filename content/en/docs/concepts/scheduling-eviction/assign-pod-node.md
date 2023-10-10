@@ -36,8 +36,7 @@ specific Pods:
 
 Like many other Kubernetes objects, nodes have
 [labels](/docs/concepts/overview/working-with-objects/labels/). You can [attach labels manually](/docs/tasks/configure-pod-container/assign-pods-nodes/#add-a-label-to-a-node).
-Kubernetes also populates a standard set of labels on all nodes in a cluster. See [Well-Known Labels, Annotations and Taints](/docs/reference/labels-annotations-taints/)
-for a list of common node labels.
+Kubernetes also populates a [standard set of labels](/docs/reference/node/node-labels/) on all nodes in a cluster.
 
 {{<note>}}
 The value of these labels is cloud provider specific and is not guaranteed to be reliable.
@@ -122,7 +121,7 @@ your Pod spec.
 
 For example, consider the following Pod spec:
 
-{{< codenew file="pods/pod-with-node-affinity.yaml" >}}
+{{% code_sample file="pods/pod-with-node-affinity.yaml" %}}
 
 In this example, the following rules apply:
 
@@ -172,7 +171,7 @@ scheduling decision for the Pod.
 
 For example, consider the following Pod spec:
 
-{{< codenew file="pods/pod-with-affinity-anti-affinity.yaml" >}}
+{{% code_sample file="pods/pod-with-affinity-anti-affinity.yaml" %}}
 
 If there are two possible nodes that match the
 `preferredDuringSchedulingIgnoredDuringExecution` rule, one with the
@@ -284,11 +283,20 @@ To use inter-pod affinity, use the `affinity.podAffinity` field in the Pod spec.
 For inter-pod anti-affinity, use the `affinity.podAntiAffinity` field in the Pod
 spec.
 
+#### Scheduling a group of pods with inter-pod affinity to themselves
+
+If the current Pod being scheduled is the first in a series that have affinity to themselves,
+it is allowed to be scheduled if it passes all other affinity checks. This is determined by
+verifying that no other pod in the cluster matches the namespace and selector of this pod,
+that the pod matches its own terms, and the chosen node matches all requested topologies.
+This ensures that there will not be a deadlock even if all the pods have inter-pod affinity
+specified.
+
 #### Pod affinity example {#an-example-of-a-pod-that-uses-pod-affinity}
 
 Consider the following Pod spec:
 
-{{< codenew file="pods/pod-with-pod-affinity.yaml" >}}
+{{% code_sample file="pods/pod-with-pod-affinity.yaml" %}}
 
 This example defines one Pod affinity rule and one Pod anti-affinity rule. The
 Pod affinity rule uses the "hard"
@@ -513,8 +521,8 @@ The following operators can only be used with `nodeAffinity`.
 
 |    Operator    |    Behaviour    |
 | :------------: | :-------------: |
-| `Gt` | The supplied value will be parsed as an integer, and that integer is less than or equal to the integer that results from parsing the value of a label named by this selector | 
-| `Lt` | The supplied value will be parsed as an integer, and that integer is greater than or equal to the integer that results from parsing the value of a label named by this selector | 
+| `Gt` | The supplied value will be parsed as an integer, and that integer is less than the integer that results from parsing the value of a label named by this selector | 
+| `Lt` | The supplied value will be parsed as an integer, and that integer is greater than the integer that results from parsing the value of a label named by this selector | 
 
 
 {{<note>}}

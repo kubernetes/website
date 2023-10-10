@@ -323,8 +323,8 @@ Some Kubernetes resources define an additional runtime cost budget that bounds
 the execution of multiple expressions. If the sum total of the cost of
 expressions exceed the budget, execution of the expressions will be halted, and
 an error will result. For example the validation of a custom resource has a
-_per-validation_ runtime cost budget for all [Validation
-Rules](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-rules)
+_per-validation_ runtime cost budget for all
+[Validation Rules](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-rules)
 evaluated to validate the custom resource.
 
 ### Estimated cost limits

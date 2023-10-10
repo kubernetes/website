@@ -268,13 +268,13 @@ Kubernetes 控制平面和每个节点上的 kube-proxy 在使用拓扑感知提
 ## 限制 {#constraints}
 
 <!--
-* Topology Aware Hints are not used when either `externalTrafficPolicy` or
-  `internalTrafficPolicy` is set to `Local` on a Service. It is possible to use
-  both features in the same cluster on different Services, just not on the same
-  Service.
+* Topology Aware Hints are not used when `internalTrafficPolicy` is set to `Local`
+  on a Service. It is possible to use both features in the same cluster on different
+  Services, just not on the same Service.
 -->
-* 当 Service 的 `externalTrafficPolicy` 或 `internalTrafficPolicy` 设置值为 `Local` 时，
-  系统将不使用拓扑感知提示信息。你可以在同一集群中的不同服务上使用这两个特性，但不能在同一个服务上这么做。
+* 当 Service 的 `internalTrafficPolicy` 值设置为 `Local` 时，
+  系统将不使用拓扑感知提示信息。你可以在同一集群中的不同 Service 上使用这两个特性，
+  但不能在同一个 Service 上这么做。
 
 <!--
 * This approach will not work well for Services that have a large proportion of

@@ -65,7 +65,7 @@ TCP/UDP 스트림 포워딩이나 백-엔드 집합에 걸쳐서 라운드-로�
   * [kube-scheduler 프로파일](/ko/docs/reference/scheduling/config/#여러-프로파일)
 
 * 컨트롤 플레인과 워커 노드에서 꼭 열어야 하는
-  [포트와 프로토콜](/ko/docs/reference/ports-and-protocols/) 리스트
+  [포트와 프로토콜](/ko/docs/reference/networking/ports-and-protocols/) 리스트
 
 ## API 설정
 
@@ -82,8 +82,9 @@ TCP/UDP 스트림 포워딩이나 백-엔드 집합에 걸쳐서 라운드-로�
   [kubelet 환경설정 (v1beta1)](/docs/reference/config-api/kubelet-config.v1beta1/)
 * [kubelet 자격증명 제공자 (v1alpha1)](/docs/reference/config-api/kubelet-credentialprovider.v1alpha1/)
 * [kubelet 자격증명 제공자 (v1beta1)](/docs/reference/config-api/kubelet-credentialprovider.v1beta1/)
-* [kube-scheduler 환경설정 (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/) 및
-  [kube-scheduler 환경설정 (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
+* [kube-scheduler 환경설정 (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/),
+  [kube-scheduler 환경설정 (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/) and
+  [kube-scheduler 환경설정 (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
 * [kube-proxy 환경설정 (v1alpha1)](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 * [`audit.k8s.io/v1` API](/docs/reference/config-api/apiserver-audit.v1/)
 * [클라이언트 인증 API (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/) 및

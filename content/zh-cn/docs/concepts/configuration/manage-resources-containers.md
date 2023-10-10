@@ -452,23 +452,43 @@ kubelet 可以为使用本地临时存储的 Pods 提供这种存储空间，允
 The kubelet also uses this kind of storage to hold
 [node-level container logs](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level),
 container images, and the writable layers of running containers.
-
-If a node fails, the data in its ephemeral storage can be lost.
-Your applications cannot expect any performance SLAs (disk IOPS for example)
-from local ephemeral storage.
-
-Kubernetes lets you track, reserve and limit the amount
-of ephemeral local storage a Pod can consume.
 -->
-
 kubelet 也使用此类存储来保存[节点层面的容器日志](/zh-cn/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)、
 容器镜像文件以及运行中容器的可写入层。
 
 {{< caution >}}
+<!--
+If a node fails, the data in its ephemeral storage can be lost.
+Your applications cannot expect any performance SLAs (disk IOPS for example)
+from local ephemeral storage.
+-->
 如果节点失效，存储在临时性存储中的数据会丢失。
 你的应用不能对本地临时性存储的性能 SLA（例如磁盘 IOPS）作任何假定。
 {{< /caution >}}
 
+{{< note >}}
+<!--
+To make the resource quota work on ephemeral-storage, two things need to be done:
+
+* An admin sets the resource quota for ephemeral-storage in a namespace.
+* A user needs to specify limits for the ephemeral-storage resource in the Pod spec.
+
+If the user doesn't specify the ephemeral-storage resource limit in the Pod spec,
+the resource quota is not enforced on ephemeral-storage.
+-->
+为了使临时性存储的资源配额生效，需要完成以下两个步骤：
+
+* 管理员在命名空间中设置临时性存储的资源配额。
+* 用户需要在 Pod spec 中指定临时性存储资源的限制。
+
+如果用户在 Pod spec 中未指定临时性存储资源的限制，
+则临时性存储的资源配额不会生效。
+{{< /note >}}
+
+<!--
+Kubernetes lets you track, reserve and limit the amount
+of ephemeral local storage a Pod can consume.
+-->
 Kubernetes 允许你跟踪、预留和限制 Pod
 可消耗的临时性本地存储数量。
 

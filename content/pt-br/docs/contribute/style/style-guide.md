@@ -429,31 +429,6 @@ A saída é:
 Cuidado.
 {{< /warning >}}
 
-### Ambiente de teste embutido do Katacoda
-
-Este botão permite aos usuários executar o Minikube dentro dos seus navegadores
-utilizando o terminal do Katacoda. Ele diminui a barreira de entrada permitindo
-que as pessoas utilizem o Minikube com um único clique ao invés de precisar
-fazer todo o processo de instalação e configuração das ferramentas Minikube e
-Kubectl na máquina local.
-
-O ambiente de teste embutido está configurado para executar `minikube start` e
-permite aos usuários completar tutoriais na mesma janela que a documentação.
-
-{{< caution >}}
-Esta sessão é limitada a 15 minutos.
-{{< /caution >}}
-
-Por exemplo:
-
-```
-{{</* kat-button */>}}
-```
-
-The output is:
-
-{{< kat-button >}}
-
 ## Problemas comuns com _shortcodes_ {#common-shortcode-issues}
 
 ### Listas ordenadas

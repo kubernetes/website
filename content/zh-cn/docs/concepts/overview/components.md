@@ -83,21 +83,24 @@ for an example control plane setup that runs across multiple machines.
 {{< glossary_definition term_id="kube-controller-manager" length="all" >}}
 
 <!--
-Some types of these controllers are:
+There are many different types of controllers. Some examples of them are:
 
   * Node controller: Responsible for noticing and responding when nodes go down.
   * Job controller: Watches for Job objects that represent one-off tasks, then creates
     Pods to run those tasks to completion.
   * EndpointSlice controller: Populates EndpointSlice objects (to provide a link between Services and Pods).
   * ServiceAccount controller: Create default ServiceAccounts for new namespaces.
+
+The above is not an exhaustive list.
 -->
-这些控制器包括：
+有许多不同类型的控制器。以下是一些例子：
 
 * 节点控制器（Node Controller）：负责在节点出现故障时进行通知和响应
 * 任务控制器（Job Controller）：监测代表一次性任务的 Job 对象，然后创建 Pods 来运行这些任务直至完成
 * 端点分片控制器（EndpointSlice controller）：填充端点分片（EndpointSlice）对象（以提供 Service 和 Pod 之间的链接）。
 * 服务账号控制器（ServiceAccount controller）：为新的命名空间创建默认的服务账号（ServiceAccount）。
 
+以上并不是一个详尽的列表。
 <!--
 ### cloud-controller-manager
 
@@ -232,6 +235,18 @@ saving container logs to a central log store with search/browsing interface.
 
 [集群层面日志](/zh-cn/docs/concepts/cluster-administration/logging/)机制负责将容器的日志数据保存到一个集中的日志存储中，
 这种集中日志存储提供搜索和浏览接口。
+
+<!--
+### Network Plugins
+
+[Network plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins) are software
+components that implement the container network interface (CNI) specification. They are responsible for
+allocating IP addresses to pods and enabling them to communicate with each other within the cluster.
+-->
+### 网络插件   {#network-plugins}
+
+[网络插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins)
+是实现容器网络接口（CNI）规范的软件组件。它们负责为 Pod 分配 IP 地址，并使这些 Pod 能在集群内部相互通信。
 
 ## {{% heading "whatsnext" %}}
 

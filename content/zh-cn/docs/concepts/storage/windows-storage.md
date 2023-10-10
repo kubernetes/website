@@ -95,10 +95,10 @@ persist data.
 
 <!--
 Volume management components are shipped as Kubernetes volume
-[plugin](/docs/concepts/storage/volumes/#types-of-volumes).
+[plugin](/docs/concepts/storage/volumes/#volume-types).
 The following broad classes of Kubernetes volume plugins are supported on Windows:
 -->
-卷管理组件作为 Kubernetes 卷[插件](/zh-cn/docs/concepts/storage/volumes/#types-of-volumes)发布。
+卷管理组件作为 Kubernetes 卷[插件](/zh-cn/docs/concepts/storage/volumes/#volume-types)发布。
 Windows 支持以下类型的 Kubernetes 卷插件：
 
 <!--
@@ -120,14 +120,10 @@ The following in-tree plugins support persistent storage on Windows nodes:
 以下树内（In-Tree）插件支持 Windows 节点上的持久存储：
 
 <!--
-* [`awsElasticBlockStore`](/docs/concepts/storage/volumes/#awselasticblockstore)
-* [`azureDisk`](/docs/concepts/storage/volumes/#azuredisk)
 * [`azureFile`](/docs/concepts/storage/volumes/#azurefile)
 * [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk)
 * [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume)
 -->
-* [`awsElasticBlockStore`](/zh-cn/docs/concepts/storage/volumes/#awselasticblockstore)
-* [`azureDisk`](/zh-cn/docs/concepts/storage/volumes/#azuredisk)
 * [`azureFile`](/zh-cn/docs/concepts/storage/volumes/#azurefile)
 * [`gcePersistentDisk`](/zh-cn/docs/concepts/storage/volumes/#gcepersistentdisk)
 * [`vsphereVolume`](/zh-cn/docs/concepts/storage/volumes/#vspherevolume)

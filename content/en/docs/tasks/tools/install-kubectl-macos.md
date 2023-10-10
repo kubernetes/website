@@ -4,10 +4,6 @@ reviewers:
 title: Install and Set Up kubectl on macOS
 content_type: task
 weight: 10
-card:
-  name: tasks
-  weight: 20
-  title: Install kubectl on macOS
 ---
 
 ## {{% heading "prerequisites" %}}
@@ -89,7 +85,7 @@ The following methods exist for installing kubectl on macOS:
 
    If the check fails, `shasum` exits with nonzero status and prints output similar to:
 
-   ```bash
+   ```console
    kubectl: FAILED
    shasum: WARNING: 1 computed checksum did NOT match
    ```
@@ -120,18 +116,6 @@ The following methods exist for installing kubectl on macOS:
    ```bash
    kubectl version --client
    ```
-   
-   {{< note >}}
-   The above command will generate a warning:
-
-   ```
-   WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.
-   ```
-
-   You can ignore this warning. You are only checking the version of `kubectl` that you
-   have installed.
-   
-   {{< /note >}}
    
    Or use this for detailed view of version:
 
@@ -247,7 +231,7 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
 
    If the check fails, `shasum` exits with nonzero status and prints output similar to:
 
-   ```bash
+   ```console
    kubectl-convert: FAILED
    shasum: WARNING: 1 computed checksum did NOT match
    ```
@@ -287,6 +271,35 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
    rm kubectl-convert kubectl-convert.sha256
    ```
 
+### Uninstall kubectl on macOS
+
+Depending on how you installed `kubectl`, use one of the following methods.
+
+### Uninstall kubectl using the command-line
+
+1.  Locate the `kubectl` binary on your system:
+
+    ```bash
+    which kubectl
+    ```
+
+1.  Remove the `kubectl` binary:
+
+    ```bash
+    sudo rm <path>
+    ```
+    Replace `<path>` with the path to the `kubectl` binary from the previous step. For example, `sudo rm /usr/local/bin/kubectl`.
+
+### Uninstall kubectl using homebrew
+
+If you installed `kubectl` using Homebrew, run the following command:
+
+```bash
+brew remove kubectl
+```
+  
 ## {{% heading "whatsnext" %}}
 
 {{< include "included/kubectl-whats-next.md" >}}
+
+

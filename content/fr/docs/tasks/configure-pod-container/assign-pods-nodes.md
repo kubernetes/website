@@ -62,7 +62,7 @@ Cette page montre comment assigner un Pod à un nœud particulier dans un cluste
 
 Le fichier de configuration de pod décrit un pod qui possède un selector de nœud de type `disktype:ssd`. Cela signifie que le pod sera planifié sur un nœud ayant le label `disktype=ssd`.
 
-{{< codenew file="pods/pod-nginx.yaml" >}}
+{{% codenew file="pods/pod-nginx.yaml" %}}
 
 1. Utilisez le fichier de configuration pour créer un pod qui sera ordonnancé sur votre nœud choisi :
 
@@ -86,7 +86,7 @@ Le fichier de configuration de pod décrit un pod qui possède un selector de n�
 
 Vous pouvez également ordonnancer un pod sur un nœud spécifique via le paramètre `nodeName`.
 
-{{< codenew file="pods/pod-nginx-specific-node.yaml" >}}
+{{% codenew file="pods/pod-nginx-specific-node.yaml" %}}
 
 Utilisez le fichier de configuration pour créer un pod qui sera ordonnancé sur `foo-node` uniquement.
 

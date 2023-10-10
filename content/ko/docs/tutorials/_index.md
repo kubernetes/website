@@ -49,6 +49,7 @@ content_type: concept
 
 ## 서비스
 
+* [서비스들로 애플리케이션에 접속하기](/ko/docs/tutorials/services/connect-applications-service/)
 * [소스 IP 주소 이용하기](/ko/docs/tutorials/services/source-ip/)
 
 ## 보안

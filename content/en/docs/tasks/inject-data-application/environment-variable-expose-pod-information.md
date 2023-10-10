@@ -18,6 +18,11 @@ In Kubernetes, there are two ways to expose Pod and container fields to a runnin
 Together, these two ways of exposing Pod and container fields are called the
 downward API.
 
+As Services are the primary mode of communication between containerized applications managed by Kubernetes, 
+it is helpful to be able to discover them at runtime. 
+
+Read more about accessing Services [here](/docs/tutorials/services/connect-applications-service/#accessing-the-service).
+
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}}
@@ -29,7 +34,7 @@ downward API.
 In this part of exercise, you create a Pod that has one container, and you
 project Pod-level fields into the running container as environment variables.
 
-{{< codenew file="pods/inject/dapi-envars-pod.yaml" >}}
+{{% code_sample file="pods/inject/dapi-envars-pod.yaml" %}}
 
 In that manifest, you can see five environment variables. The `env`
 field is an array of
@@ -114,7 +119,7 @@ rather than from the Pod overall.
 
 Here is a manifest for another Pod that again has just one container:
 
-{{< codenew file="pods/inject/dapi-envars-container.yaml" >}}
+{{% code_sample file="pods/inject/dapi-envars-container.yaml" %}}
 
 In this manifest, you can see four environment variables. The `env`
 field is an array of

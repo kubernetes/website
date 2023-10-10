@@ -422,7 +422,7 @@ For example:
     1. Preheat oven to 350˚F
 
     1. Prepare the batter, and pour into springform pan.
-       `{{</* note */>}}Grease the pan for best results.{{</* /note */>}}`
+       {{</* note */>}}Grease the pan for best results.{{</* /note */>}}
 
     1. Bake for 20-25 minutes or until set.
 
@@ -456,6 +456,15 @@ code blocks, and others. The exception is second-level headings, where it should
 be two newlines. Second-level headings follow the first-level (or the title) without
 any preceding paragraphs or texts. A two line spacing helps visualize the overall
 structure of content in a code editor better.
+
+Manually wrap paragraphs in the Markdown source when appropriate. Since the git
+tool and the GitHub website generate file diffs on a line-by-line basis,
+manually wrapping long lines helps the reviewers to easily find out the changes
+made in a PR and provide feedback. It also helps the downstream localization
+teams where people track the upstream changes on a per-line basis.  Line
+wrapping can happen at the end of a sentence or a punctuation character, for
+example. One exception to this is that a Markdown link or a shortcode is
+expected to be in a single line.
 
 ### Headings and titles {#headings}
 
@@ -650,6 +659,12 @@ Run the container ... | Simply run the container ...
 You can remove ... | You can easily remove ...
 These steps ... | These simple steps ...
 {{< /table >}}
+
+### EditorConfig file
+The Kubernetes project maintains an EditorConfig file that sets common style preferences in text editors
+such as VS Code. You can use this file if you want to ensure that your contributions are consistent with
+the rest of the project. To view the file, refer to
+[`.editorconfig`](https://github.com/kubernetes/website/blob/main/.editorconfig) in the repository root.
 
 ## {{% heading "whatsnext" %}}
 

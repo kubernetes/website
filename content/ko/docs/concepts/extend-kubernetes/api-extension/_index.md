@@ -1,4 +1,4 @@
 ---
 title: 쿠버네티스 API 확장하기
-weight: 20
+weight: 30
 ---

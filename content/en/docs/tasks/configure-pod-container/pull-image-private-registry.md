@@ -38,7 +38,8 @@ docker login
 When prompted, enter your Docker ID, and then the credential you want to use (access token,
 or the password for your Docker ID).
 
-The login process creates or updates a `config.json` file that holds an authorization token. Review [how Kubernetes interprets this file](/docs/concepts/containers/images#config-json). 
+The login process creates or updates a `config.json` file that holds an authorization token.
+Review [how Kubernetes interprets this file](/docs/concepts/containers/images#config-json). 
 
 View the `config.json` file:
 
@@ -60,7 +61,8 @@ The output contains a section similar to this:
 
 {{< note >}}
 If you use a Docker credentials store, you won't see that `auth` entry but a `credsStore` entry with the name of the store as value.
-In that case, you can create a secret directly. See [Create a Secret by providing credentials on the command line](#create-a-secret-by-providing-credentials-on-the-command-line).
+In that case, you can create a secret directly.
+See [Create a Secret by providing credentials on the command line](#create-a-secret-by-providing-credentials-on-the-command-line).
 {{< /note >}}
 
 ## Create a Secret based on existing credentials {#registry-secret-existing-credentials}
@@ -185,7 +187,7 @@ You have successfully set your Docker credentials as a Secret called `regcred` i
 
 Here is a manifest for an example Pod that needs access to your Docker credentials in `regcred`:
 
-{{< codenew file="pods/private-reg-pod.yaml" >}}
+{{% code_sample file="pods/private-reg-pod.yaml" %}}
 
 Download the above file onto your computer:
 
@@ -208,6 +210,32 @@ Create a Pod that uses your Secret, and verify that the Pod is running:
 ```shell
 kubectl apply -f my-private-reg-pod.yaml
 kubectl get pod private-reg
+```
+
+{{< note >}}
+To use image pull secrets for a Pod (or a Deployment, or other object that
+has a pod template that you are using), you need to make sure that the appropriate
+Secret does exist in the right namespace. The namespace to use is the same
+namespace where you defined the Pod.
+{{< /note >}}
+
+Also, in case the Pod fails to start with the status `ImagePullBackOff`, view the Pod events:
+
+```shell
+kubectl describe pod private-reg
+```
+
+If you then see an event with the reason set to `FailedToRetrieveImagePullSecret`,
+Kubernetes can't find a Secret with name (`regcred`, in this example).
+If you specify that a Pod needs image pull credentials, the kubelet checks that it can
+access that Secret before attempting to pull the image.
+
+Make sure that the Secret you have specified exists, and that its name is spelled properly.
+```shell
+Events:
+  ...  Reason                           ...  Message
+       ------                                -------
+  ...  FailedToRetrieveImagePullSecret  ...  Unable to retrieve some image pull secrets (<regcred>); attempting to pull the image may not succeed.
 ```
 
 ## {{% heading "whatsnext" %}}

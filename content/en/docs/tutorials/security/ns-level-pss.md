@@ -8,11 +8,10 @@ weight: 20
 This tutorial applies only for new clusters.
 {{% /alert %}}
 
-Pod Security admission (PSA) is enabled by default in v1.23 and later, as it
-[graduated to beta](/blog/2021/12/09/pod-security-admission-beta/). Pod Security Admission
-is an admission controller that applies 
+Pod Security Admission is an admission controller that applies 
 [Pod Security Standards](/docs/concepts/security/pod-security-standards/) 
-when pods are created. In this tutorial, you will enforce the `baseline` Pod Security Standard,
+when pods are created.  It is a feature GA'ed in v1.25.
+In this tutorial, you will enforce the `baseline` Pod Security Standard,
 one namespace at a time.
 
 You can also apply Pod Security Standards to multiple namespaces at once at the cluster

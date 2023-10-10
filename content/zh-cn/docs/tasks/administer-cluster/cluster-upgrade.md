@@ -116,6 +116,15 @@ kubelet, or upgrade the kubelet on that node and bring the node back into servic
 然后使用一个运行了 kubelet {{< skew currentVersion >}} 版本的新节点替换它；
 或者升级此节点的 kubelet，并使节点恢复服务。
 
+{{< caution >}}
+<!--
+Draining nodes before upgrading kubelet ensures that pods are re-admitted and containers are
+re-created, which may be necessary to resolve some security issues or other important bugs.
+-->
+在升级 kubelet 之前先进行节点排空，这样可以确保 Pod 被重新准入并且容器被重新创建。
+这一步骤对于解决某些安全问题或其他关键错误是非常必要的。
+{{</ caution >}}
+
 <!--
 ### Other deployments {#upgrade-other}
 

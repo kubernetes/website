@@ -545,7 +545,7 @@ Kubernetes 使用 pause 容器以允许工作容器崩溃或重启，而不会�
 
 <!--
 Kubernetes maintains a multi-architecture image that includes support for Windows.
-For Kubernetes v{{< skew currentVersion >}} the recommended pause image is `registry.k8s.io/pause:3.6`.
+For Kubernetes v{{< skew currentPatchVersion >}} the recommended pause image is `registry.k8s.io/pause:3.6`.
 The [source code](https://github.com/kubernetes/kubernetes/tree/master/build/pause)
 is available on GitHub.
 
@@ -558,7 +558,7 @@ deploying to a production or production-like environment that requires signed
 binaries.
 -->
 Kubernetes 维护一个多体系结构的镜像，包括对 Windows 的支持。
-对于 Kubernetes v{{< skew currentVersion >}}，推荐的 pause 镜像为 `registry.k8s.io/pause:3.6`。
+对于 Kubernetes v{{< skew currentPatchVersion >}}，推荐的 pause 镜像为 `registry.k8s.io/pause:3.6`。
 可在 GitHub 上获得[源代码](https://github.com/kubernetes/kubernetes/tree/master/build/pause)。
 
 Microsoft 维护一个不同的多体系结构镜像，支持 Linux 和 Windows amd64，

@@ -27,8 +27,8 @@ You can set up an HA cluster:
 - With stacked control plane nodes, where etcd nodes are colocated with control plane nodes
 - With external etcd nodes, where etcd runs on separate nodes from the control plane
 -->
- - 使用堆叠（stacked）控制平面节点，其中 etcd 节点与控制平面节点共存
- - 使用外部 etcd 节点，其中 etcd 在与控制平面不同的节点上运行
+- 使用堆叠（stacked）控制平面节点，其中 etcd 节点与控制平面节点共存
+- 使用外部 etcd 节点，其中 etcd 在与控制平面不同的节点上运行
 
 <!--
 You should carefully consider the advantages and disadvantages of each topology before setting up an HA cluster.
@@ -103,7 +103,7 @@ on control plane nodes when using `kubeadm init` and `kubeadm join --control-pla
 <!--
 ![Stacked etcd topology](/images/kubeadm/kubeadm-ha-topology-stacked-etcd.svg)
 -->
-![堆叠的 etcd 拓扑](/images/kubeadm/kubeadm-ha-topology-stacked-etcd.svg)
+![堆叠的 etcd 拓扑](/zh-cn/docs/images/kubeadm-ha-topology-stacked-etcd.svg)
 
 <!--
 ## External etcd topology
@@ -142,7 +142,7 @@ A minimum of three hosts for control plane nodes and three hosts for etcd nodes 
 <!--
 ![External etcd topology](/images/kubeadm/kubeadm-ha-topology-external-etcd.svg)
 -->
-![外部 etcd 拓扑](/images/kubeadm/kubeadm-ha-topology-external-etcd.svg)
+![外部 etcd 拓扑](/zh-cn/docs/images/kubeadm-ha-topology-external-etcd.svg)
 
 ## {{% heading "whatsnext" %}}
 
@@ -150,5 +150,3 @@ A minimum of three hosts for control plane nodes and three hosts for etcd nodes 
 - [Set up a highly available cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/)
 -->
 - [使用 kubeadm 设置高可用集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/)
-
-

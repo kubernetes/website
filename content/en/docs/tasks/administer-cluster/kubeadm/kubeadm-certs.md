@@ -136,7 +136,7 @@ command. In that case, you should explicitly set `--certificate-renewal=true`.
 
 ## Manual certificate renewal
 
-You can renew your certificates manually at any time with the `kubeadm certs renew` command.
+You can renew your certificates manually at any time with the `kubeadm certs renew` command, with the appropriate command line options.
 
 This command performs the renewal using CA (or front-proxy-CA) certificate and key stored in `/etc/kubernetes/pki`.
 
@@ -160,15 +160,23 @@ Name, Organization, SAN, etc.) instead of the `kubeadm-config` ConfigMap. It is 
 to keep them both in sync.
 {{< /note >}}
 
-`kubeadm certs renew` provides the following options:
+`kubeadm certs renew` can renew any specific certificate or, with the subcommand `all`, it can renew all of them, as shown below:
 
-- The Kubernetes certificates normally reach their expiration date after one year.
+```shell
+kubeadm certs renew all
+```
 
-- `--csr-only` can be used to renew certificates with an external CA by generating certificate
-  signing requests (without actually renewing certificates in place); see next paragraph for more
-  information.
+{{< note >}}
+Clusters built with kubeadm often copy the `admin.conf` certificate into
+`$HOME/.kube/config`, as instructed in [Creating a cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
+On such a system, to update the contents of `$HOME/.kube/config`
+after renewing the `admin.conf`, you must run the following commands:
 
-- It's also possible to renew a single certificate instead of all.
+```shell
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+```
+{{< /note >}}
 
 ## Renew certificates with the Kubernetes certificates API
 
@@ -321,7 +329,8 @@ CSRs requesting serving certificates for any IP or domain name.
 During cluster creation, kubeadm signs the certificate in the `admin.conf` to have
 `Subject: O = system:masters, CN = kubernetes-admin`.
 [`system:masters`](/docs/reference/access-authn-authz/rbac/#user-facing-roles)
-is a break-glass, super user group that bypasses the authorization layer (e.g. RBAC).
+is a break-glass, super user group that bypasses the authorization layer (for example,
+[RBAC](/docs/reference/access-authn-authz/rbac/)).
 Sharing the `admin.conf` with additional users is **not recommended**!
 
 Instead, you can use the [`kubeadm kubeconfig user`](/docs/reference/setup-tools/kubeadm/kubeadm-kubeconfig)

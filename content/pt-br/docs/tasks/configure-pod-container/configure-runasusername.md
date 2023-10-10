@@ -35,7 +35,7 @@ se aplicam a todos os contêineres do Pod, inclusive os de inicialização.
 Veja abaixo um arquivo de configuração para um Pod do Windows que possui o campo 
 `runAsUserName` definido:
 
-{{< codenew file="windows/run-as-username-pod.yaml" >}}
+{{% codenew file="windows/run-as-username-pod.yaml" %}}
 
 Crie o Pod:
 
@@ -82,7 +82,7 @@ no nível do Pod.
 Aqui está o arquivo de configuração para um pod que possui um contêiner, 
 e o campo `runAsUserName` está definido no nível do Pod e no nível do contêiner:
 
-{{< codenew file="windows/run-as-username-container.yaml" >}}
+{{% codenew file="windows/run-as-username-container.yaml" %}}
 
 Crie o Pod:
 

@@ -179,5 +179,4 @@ CRI-compatible adapter like [`cri-dockerd`](https://github.com/Mirantis/cri-dock
 [迁移到不同的运行时](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/change-runtime-containerd/)
 找到更多信息。或者，如果你想在 Kubernetes v1.24 及以后的版本仍使用 Docker Engine，
 可以安装 CRI 兼容的适配器实现，如 [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd)。
-[`cri-dockerd`](https://github.com/Mirantis/cri-dockerd)。
 

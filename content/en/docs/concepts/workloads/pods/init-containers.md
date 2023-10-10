@@ -44,9 +44,9 @@ field).
 ### Differences from regular containers
 
 Init containers support all the fields and features of app containers,
-including resource limits, volumes, and security settings. However, the
+including resource limits, [volumes](/docs/concepts/storage/volumes/), and security settings. However, the
 resource requests and limits for an init container are handled differently,
-as documented in [Resources](#resources).
+as documented in [Resource sharing within containers](#resource-sharing-within-containers).
 
 Also, init containers do not support `lifecycle`, `livenessProbe`, `readinessProbe`, or
 `startupProbe` because they must run to completion before the Pod can be ready.
@@ -83,7 +83,7 @@ Here are some ideas for how to use init containers:
 * Wait for a {{< glossary_tooltip text="Service" term_id="service">}} to
   be created, using a shell one-line command like:
   ```shell
-  for i in {1..100}; do sleep 1; if dig myservice; then exit 0; fi; done; exit 1
+  for i in {1..100}; do sleep 1; if nslookup myservice; then exit 0; fi; done; exit 1
   ```
 
 * Register this Pod with a remote server from the downward API with a command like:
@@ -196,7 +196,7 @@ kubectl logs myapp-pod -c init-myservice # Inspect the first init container
 kubectl logs myapp-pod -c init-mydb      # Inspect the second init container
 ```
 
-At this point, those init containers will be waiting to discover Services named
+At this point, those init containers will be waiting to discover {{< glossary_tooltip text="Services" term_id="service" >}} named
 `mydb` and `myservice`.
 
 Here's a configuration you can use to make those Services appear:
@@ -289,7 +289,49 @@ The Pod which is already running correctly would be killed by `activeDeadlineSec
 The name of each app and init container in a Pod must be unique; a
 validation error is thrown for any container sharing a name with another.
 
-### Resources
+#### API for sidecar containers
+
+{{< feature-state for_k8s_version="v1.28" state="alpha" >}}
+
+Starting with Kubernetes 1.28 in alpha, a feature gate named `SidecarContainers`
+allows you to specify a `restartPolicy` for init containers which is independent of
+the Pod and other init containers. Container [probes](/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe)
+can also be added to control their lifecycle.
+
+If an init container is created with its `restartPolicy` set to `Always`, it will
+start and remain running during the entire life of the Pod, which is useful for
+running supporting services separated from the main application containers.
+
+If a `readinessProbe` is specified for this init container, its result will be used
+to determine the `ready` state of the Pod.
+
+Since these containers are defined as init containers, they benefit from the same
+ordering and sequential guarantees as other init containers, allowing them to
+be mixed with other init containers into complex Pod initialization flows.
+
+Compared to regular init containers, sidecar-style init containers continue to
+run and the next init container can begin starting once the kubelet has set
+the `started` container status for the sidecar-style init container to true.
+That status either becomes true because there is a process running in the
+container and no startup probe defined, or
+as a result of its `startupProbe` succeeding.
+
+This feature can be used to implement the sidecar container pattern in a more
+robust way, as the kubelet always restarts a sidecar container if it fails.
+
+Here's an example of a Deployment with two containers, one of which is a sidecar:
+
+{{% code_sample language="yaml" file="application/deployment-sidecar.yaml" %}}
+
+This feature is also useful for running Jobs with sidecars, as the sidecar
+container will not prevent the Job from completing after the main container
+has finished.
+
+Here's an example of a Job with two containers, one of which is a sidecar:
+
+{{% code_sample language="yaml" file="application/job/job-sidecar.yaml" %}}
+
+#### Resource sharing within containers
 
 Given the ordering and execution for init containers, the following rules
 for resource usage apply:
@@ -322,7 +364,7 @@ reasons:
   have to be done by someone with root access to nodes.
 * All containers in a Pod are terminated while `restartPolicy` is set to Always,
   forcing a restart, and the init container completion record has been lost due
-  to garbage collection.
+  to {{< glossary_tooltip text="garbage collection" term_id="garbage-collection" >}}.
 
 The Pod will not be restarted when the init container image is changed, or the
 init container completion record has been lost due to garbage collection. This
@@ -333,4 +375,5 @@ Kubernetes, consult the documentation for the version you are using.
 
 * Read about [creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)
 * Learn how to [debug init containers](/docs/tasks/debug/debug-application/debug-init-containers/)
-
+* Read about an overview of [kubelet](/docs/reference/command-line-tools-reference/kubelet/) and [kubectl](/docs/reference/kubectl/)
+* Learn about the [types of probes](/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe): liveness, readiness, startup probe.

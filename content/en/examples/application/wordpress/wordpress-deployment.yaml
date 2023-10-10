@@ -45,7 +45,7 @@ spec:
         tier: frontend
     spec:
       containers:
-      - image: wordpress:4.8-apache
+      - image: wordpress:6.2.1-apache
         name: wordpress
         env:
         - name: WORDPRESS_DB_HOST
@@ -55,6 +55,8 @@ spec:
             secretKeyRef:
               name: mysql-pass
               key: password
+        - name: WORDPRESS_DB_USER
+          value: wordpress
         ports:
         - containerPort: 80
           name: wordpress
