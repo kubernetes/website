@@ -242,7 +242,7 @@ and are assigned to the groups `system:serviceaccounts` and `system:serviceaccou
 
 {{< warning >}}
 Because service account tokens can also be stored in Secret API objects, any user with
-write access to Secrets can request a token, and any user with read access to those 
+write access to Secrets can request a token, and any user with read access to those
 Secrets can authenticate as the service account. Be cautious when granting permissions
 to service accounts and read or write capabilities for Secrets.
 {{< /warning >}}
@@ -293,8 +293,9 @@ sequenceDiagram
 1. Your identity provider will provide you with an `access_token`, `id_token` and a `refresh_token`
 1. When using `kubectl`, use your `id_token` with the `--token` flag or add it directly to your `kubeconfig`
 1. `kubectl` sends your `id_token` in a header called Authorization to the API server
-1. The API server will make sure the JWT signature is valid by checking against the certificate named in the configuration
+1. The API server will make sure the JWT signature is valid
 1. Check to make sure the `id_token` hasn't expired
+    1. Perform claim and/or user validation if CEL expressions are configured with `AuthenticationConfiguration`.
 1. Make sure the user is authorized
 1. Once authorized the API server returns a response to `kubectl`
 1. `kubectl` provides feedback to the user
@@ -312,6 +313,8 @@ very scalable solution for authentication. It does offer a few challenges:
 
 #### Configuring the API Server
 
+##### Using flags
+
 To enable the plugin, configure the following flags on the API server:
 
 | Parameter | Description | Example | Required |
@@ -325,6 +328,106 @@ To enable the plugin, configure the following flags on the API server:
 | `--oidc-required-claim` | A key=value pair that describes a required claim in the ID Token. If set, the claim is verified to be present in the ID Token with a matching value. Repeat this flag to specify multiple claims. | `claim=value` | No |
 | `--oidc-ca-file` | The path to the certificate for the CA that signed your identity provider's web certificate.  Defaults to the host's root CAs. | `/etc/kubernetes/ssl/kc-ca.pem` | No |
 | `--oidc-signing-algs` | The signing algorithms accepted. Default is "RS256". | `RS512` | No |
+
+##### Using Authentication Configuration
+
+{{< feature-state for_k8s_version="v1.29" state="alpha" >}}
+
+The API server can be configured to use a JWT authenticator via the `--authentication-config` flag. This flag takes a path to a file containing the `AuthenticationConfiguration`. An example configuration is provided below.
+To use this config, the `StructuredAuthenticationConfiguration` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+has to be enabled.
+
+Note: When the feature is enabled, setting both `--authentication-config` and any of the `--oidc-*` flags will result in an error. If you want to use the feature, you have to remove the `--oidc-*` flags and use the configuration file instead.
+
+```yaml
+---
+#
+# CAUTION: this is an example configuration.
+#          Do not use this for your own cluster!
+#
+apiVersion: apiserver.config.k8s.io/v1alpha1
+kind: AuthenticationConfiguration
+# list of authenticators to authenticate Kubernetes users using JWT compliant tokens.
+jwt:
+- issuer:
+    url: https://example.com # Same as --oidc-issuer-url.
+    audiences:
+    - my-app # Same as --oidc-client-id.
+  # rules applied to validate token claims to authenticate users.
+  claimValidationRules:
+    # Same as --oidc-required-claim key=value.
+  - claim: hd
+    requiredValue: example.com
+    # Instead of claim and requiredValue, you can use expression to validate the claim.
+    # expression is a CEL expression that evaluates to a boolean.
+  - expression: 'claims.hd == "example.com"'
+    # Message customizes the error message seen in the API server logs when the validation fails.
+    message: the hd claim must be set to example.com
+  - expression: 'claims.exp - claims.nbf <= 86400'
+    message: total token lifetime must not exceed 24 hours
+  claimMappings:
+    # username represents an option for the username attribute.
+    # This is the only required attribute.
+    username:
+      # Same as --oidc-username-claim. Mutually exclusive with username.expression.
+      claim: "sub"
+      # Same as --oidc-username-prefix. Mutually exclusive with username.expression.
+      # if username.claim is set, username.prefix is required.
+      # Explicitly set it to "" if no prefix is desired.
+      prefix: ""
+      # Mutually exclusive with username.claim and username.prefix.
+      # expression is a CEL expression that evaluates to a string.
+      expression: 'claims.username + ":external-user"'
+    # groups represents an option for the groups attribute.
+    groups:
+      # Same as --oidc-groups-claim. Mutually exclusive with groups.expression.
+      claim: "sub"
+      # Same as --oidc-groups-prefix. Mutually exclusive with groups.expression.
+      # if groups.claim is set, groups.prefix is required.
+      # Explicitly set it to "" if no prefix is desired.
+      prefix: ""
+      # Mutually exclusive with groups.claim and groups.prefix.
+      # expression is a CEL expression that evaluates to a string or a list of strings.
+      expression: 'claims.roles.split(",")'
+    # uid represents an option for the uid attribute.
+    uid:
+      # Mutually exclusive with uid.expression.
+      claim: 'sub'
+      # Mutually exclusive with uid.claim
+      # expression is a CEL expression that evaluates to a string.
+      expression: 'claims.sub'
+    # extra attributes to be added to the UserInfo object. Keys must be domain-prefix path and must be unique.
+    extra:
+    - key: 'example.com/tenant'
+      # valueExpression is a CEL expression that evaluates to a string or a list of strings.
+      valueExpression: 'claims.tenant'
+  # validation rules applied to the final user object.
+  userValidationRules:
+    # expression is a CEL expression that evaluates to a boolean.
+  - expression: "!user.username.startsWith('system:')"
+    # Message customizes the error message seen in the API server logs when the validation fails.
+    message: 'username cannot used reserved system: prefix'
+  - expression: "user.groups.all(group, !group.startsWith('system:'))"
+    message: 'groups cannot used reserved system: prefix'
+```
+
+* Claim validation rule expression
+
+  `jwt.claimValidationRules[i].expression` represents the expression which will be evaluated by CEL.
+  CEL expressions have access to the contents of the token payload, organized into `claims` CEL variable.
+  `claims` is a map of claim names (as strings) to claim values (of any type).
+* User validation rule expression
+
+  `jwt.userValidationRules[i].expression` represents the expression which will be evaluated by CEL.
+  CEL expressions have access to the contents of `userInfo`, organized into `user` CEL variable.
+* Claim mapping expression
+
+  `jwt.claimMappings.username.expression`, `jwt.claimMappings.groups.expression`, `jwt.claimMappings.uid.expression`
+  `jwt.claimMappings.extra[i].valueExpression` represents the expression which will be evaluated by CEL.
+  CEL expressions have access to the contents of the token payload, organized into `claims` CEL variable.
+  `claims` is a map of claim names (as strings) to claim values (of any type).
+
+  To learn more, see the [Documentation on CEL](/docs/reference/using-api/cel/)
 
 Importantly, the API server is not an OAuth2 client, rather it can only be
 configured to trust a single issuer. This allows the use of public providers,
@@ -432,7 +535,7 @@ Webhook authentication is a hook for verifying bearer tokens.
 
 * `--authentication-token-webhook-config-file` a configuration file describing how to access the remote webhook service.
 * `--authentication-token-webhook-cache-ttl` how long to cache authentication decisions. Defaults to two minutes.
-* `--authentication-token-webhook-version` determines whether to use `authentication.k8s.io/v1beta1` or `authentication.k8s.io/v1` 
+* `--authentication-token-webhook-version` determines whether to use `authentication.k8s.io/v1beta1` or `authentication.k8s.io/v1`
   `TokenReview` objects to send/receive information from the webhook. Defaults to `v1beta1`.
 
 The configuration file uses the [kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
@@ -489,9 +592,9 @@ To opt into receiving `authentication.k8s.io/v1` token reviews, the API server m
   "spec": {
     # Opaque bearer token sent to the API server
     "token": "014fbff9a07c...",
-   
+
     # Optional list of the audience identifiers for the server the token was presented to.
-    # Audience-aware token authenticators (for example, OIDC token authenticators) 
+    # Audience-aware token authenticators (for example, OIDC token authenticators)
     # should verify the token was intended for at least one of the audiences in this list,
     # and return the intersection of this list and the valid audiences for the token in the response status.
     # This ensures the token is valid to authenticate to the server it was presented to.
@@ -509,9 +612,9 @@ To opt into receiving `authentication.k8s.io/v1` token reviews, the API server m
   "spec": {
     # Opaque bearer token sent to the API server
     "token": "014fbff9a07c...",
-   
+
     # Optional list of the audience identifiers for the server the token was presented to.
-    # Audience-aware token authenticators (for example, OIDC token authenticators) 
+    # Audience-aware token authenticators (for example, OIDC token authenticators)
     # should verify the token was intended for at least one of the audiences in this list,
     # and return the intersection of this list and the valid audiences for the token in the response status.
     # This ensures the token is valid to authenticate to the server it was presented to.
@@ -870,7 +973,7 @@ rules:
 {{< note >}}
 Impersonating a user or group allows you to perform any action as if you were that user or group;
 for that reason, impersonation is not namespace scoped.
-If you want to allow impersonation using Kubernetes RBAC, 
+If you want to allow impersonation using Kubernetes RBAC,
 this requires using a `ClusterRole` and a `ClusterRoleBinding`,
 not a `Role` and `RoleBinding`.
 {{< /note >}}
@@ -1374,7 +1477,7 @@ status:
 {{% /tab %}}
 {{< /tabs >}}
 
-This feature is extremely useful when a complicated authentication flow is used in a Kubernetes cluster, 
+This feature is extremely useful when a complicated authentication flow is used in a Kubernetes cluster,
 for example, if you use [webhook token authentication](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)
 or [authenticating proxy](/docs/reference/access-authn-authz/authentication/#authenticating-proxy).
 
@@ -1386,7 +1489,7 @@ you see the user details and properties for the user that was impersonated.
 {{< /note >}}
 
 By default, all authenticated users can create `SelfSubjectReview` objects when the `APISelfSubjectReview`
-feature is enabled. It is allowed by the `system:basic-user` cluster role. 
+feature is enabled. It is allowed by the `system:basic-user` cluster role.
 
 {{< note >}}
 You can only make `SelfSubjectReview` requests if:
