@@ -54,9 +54,9 @@ The upgrade workflow at high level is the following:
 
 ## Changing the package repository
 
-If you're using the Kubernetes community-owned repositories, you need to change
-the package repository to one that contains packages for your desired Kubernetes
-minor version. This is explained in [Changing the Kubernetes package repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/)
+If you're using the community-owned package repositories (`pkgs.k8s.io`), you need to 
+enable the package repository for the desired Kubernetes minor release. This is explained in
+[Changing the Kubernetes package repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/)
 document.
 
 ## Determine which version to upgrade to
