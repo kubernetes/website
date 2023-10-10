@@ -1736,7 +1736,7 @@ inspect them.</p>
 <p>Create a TLS secret from the given public/private key pair.</p>
 <p> The public/private key pair must exist beforehand. The public key certificate must be .PEM encoded and match the given private key.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ kubectl create tls NAME --cert=path/to/cert/file --key=path/to/key/file [--dry-run=server|client|none]</code></p>
+<p><code>$ kubectl create secret tls NAME --cert=path/to/cert/file --key=path/to/key/file [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
