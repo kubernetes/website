@@ -1209,6 +1209,27 @@ has been truncated to 1000.
 
 If the number of backend endpoints falls below 1000, the control plane removes this annotation.
 
+### control-plane.alpha.kubernetes.io/leader (deprecated) {#control-plane-alpha-kubernetes-io-leader}
+
+Type: Annotation
+
+Example: `control-plane.alpha.kubernetes.io/leader={"holderIdentity":"controller-0","leaseDurationSeconds":15,"acquireTime":"2023-01-19T13:12:57Z","renewTime":"2023-01-19T13:13:54Z","leaderTransitions":1}`
+
+Used on: Endpoints
+
+The {{< glossary_tooltip text="control plane" term_id="control-plane" >}} previously set annotation on
+an [Endpoints](/docs/concepts/services-networking/service/#endpoints) object. This annotation provided
+the following detail:
+
+- Who is the current leader.
+- The time when the current leadership was acquired.
+- The duration of the lease (of the leadership) in seconds.
+- The time the current lease (the current leadership) should be renewed.
+- The number of leadership transitions that happened in the past.
+
+Kubernetes now uses [Leases](/docs/concepts/architecture/leases/) to
+manage leader assignment for the Kubernetes control plane.
+
 ### batch.kubernetes.io/job-tracking (deprecated) {#batch-kubernetes-io-job-tracking}
 
 Type: Annotation
