@@ -120,9 +120,6 @@ For a reference to old feature gates that are removed, please refer to
 | `JobPodFailurePolicy` | `true` | Beta | 1.26 | |
 | `JobPodReplacementPolicy` | `false` | Alpha | 1.28 | 1.28 |
 | `JobPodReplacementPolicy` | `true` | Beta | 1.29 | |
-| `KMSv2` | `false` | Alpha | 1.25 | 1.26 |
-| `KMSv2` | `true` | Beta | 1.27 | |
-| `KMSv2KDF` | `false` | Beta | 1.28 | |
 | `KubeProxyDrainingTerminatingNodes` | `false` | Alpha | 1.28 | |
 | `KubeletCgroupDriverFromCRI` | `false` | Alpha | 1.28 | |
 | `KubeletInUserNamespace` | `false` | Alpha | 1.22 | |
@@ -274,7 +271,13 @@ For a reference to old feature gates that are removed, please refer to
 | `JobTrackingWithFinalizers` | `false` | Beta | 1.23 | 1.24 |
 | `JobTrackingWithFinalizers` | `true` | Beta | 1.25 | 1.25 |
 | `JobTrackingWithFinalizers` | `true` | GA | 1.26 | |
-| `KMSv1` | `true` | Deprecated | 1.28 | |
+| `KMSv1` | `true` | Deprecated | 1.28 | 1.29 |
+| `KMSv1` | `false` | Deprecated | 1.29 | |
+| `KMSv2` | `false` | Alpha | 1.25 | 1.26 |
+| `KMSv2` | `true` | Beta | 1.27 | 1.28 |
+| `KMSv2` | `true` | GA | 1.29 | |
+| `KMSv2KDF` | `false` | Beta | 1.28 | 1.29 |
+| `KMSv2KDF` | `true` | GA | 1.29 | |
 | `KubeletPodResources` | `false` | Alpha | 1.13 | 1.14 |
 | `KubeletPodResources` | `true` | Beta | 1.15 | 1.27 |
 | `KubeletPodResources` | `true` | GA | 1.28 | |
