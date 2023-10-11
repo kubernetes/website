@@ -495,6 +495,144 @@ a pod can schedule. See the documentation on
 通过标签进行选择的一个用例是确定节点集，方便 Pod 调度。
 有关更多信息，请参阅[选择节点](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/)文档。
 
+<!--
+## Using labels effectively
+
+The examples we've used so far apply at most a single label to any resource. There are many
+scenarios where multiple labels should be used to distinguish sets from one another.
+-->
+## 有效地使用标签  {#using-labels-effectively}
+
+到目前为止我们使用的示例中的资源最多使用了一个标签。
+在许多情况下，应使用多个标签来区分不同集合。
+
+<!--
+For instance, different applications would use different values for the `app` label, but a
+multi-tier application, such as the [guestbook example](https://github.com/kubernetes/examples/tree/master/guestbook/),
+would additionally need to distinguish each tier. The frontend could carry the following labels:
+-->
+例如，不同的应用可能会为 `app` 标签设置不同的值。
+但是，类似 [guestbook 示例](https://github.com/kubernetes/examples/tree/master/guestbook/)
+这样的多层应用，还需要区分每一层。前端可能会带有以下标签：
+
+```yaml
+labels:
+  app: guestbook
+  tier: frontend
+```
+
+<!--
+while the Redis master and replica would have different `tier` labels, and perhaps even an
+additional `role` label:
+-->
+Redis 的主从节点会有不同的 `tier` 标签，甚至还有一个额外的 `role` 标签：
+
+```yaml
+labels:
+  app: guestbook
+  tier: backend
+  role: master
+```
+
+<!--
+and
+-->
+以及
+
+```yaml
+labels:
+  app: guestbook
+  tier: backend
+  role: replica
+```
+
+<!--
+The labels allow us to slice and dice our resources along any dimension specified by a label:
+-->
+标签使得我们能够按照所指定的任何维度对我们的资源进行切片和切块：
+
+```shell
+kubectl apply -f examples/guestbook/all-in-one/guestbook-all-in-one.yaml
+kubectl get pods -Lapp -Ltier -Lrole
+```
+
+```none
+NAME                           READY  STATUS    RESTARTS   AGE   APP         TIER       ROLE
+guestbook-fe-4nlpb             1/1    Running   0          1m    guestbook   frontend   <none>
+guestbook-fe-ght6d             1/1    Running   0          1m    guestbook   frontend   <none>
+guestbook-fe-jpy62             1/1    Running   0          1m    guestbook   frontend   <none>
+guestbook-redis-master-5pg3b   1/1    Running   0          1m    guestbook   backend    master
+guestbook-redis-replica-2q2yf  1/1    Running   0          1m    guestbook   backend    replica
+guestbook-redis-replica-qgazl  1/1    Running   0          1m    guestbook   backend    replica
+my-nginx-divi2                 1/1    Running   0          29m   nginx       <none>     <none>
+my-nginx-o0ef1                 1/1    Running   0          29m   nginx       <none>     <none>
+```
+
+```shell
+kubectl get pods -lapp=guestbook,role=replica
+```
+
+```none
+NAME                           READY  STATUS   RESTARTS  AGE
+guestbook-redis-replica-2q2yf  1/1    Running  0         3m
+guestbook-redis-replica-qgazl  1/1    Running  0         3m
+```
+
+<!--
+## Updating labels
+
+Sometimes existing pods and other resources need to be relabeled before creating new resources.
+This can be done with `kubectl label`.
+For example, if you want to label all your nginx pods as frontend tier, run:
+-->
+## 更新标签  {#updating-labels}
+
+有时需要要在创建新资源之前对现有的 Pod 和其它资源重新打标签。
+这可以用 `kubectl label` 完成。
+例如，如果想要将所有 NGINX Pod 标记为前端层，运行：
+
+```shell
+kubectl label pods -l app=nginx tier=fe
+```
+
+```none
+pod/my-nginx-2035384211-j5fhi labeled
+pod/my-nginx-2035384211-u2c7e labeled
+pod/my-nginx-2035384211-u3t6x labeled
+```
+
+<!--
+This first filters all pods with the label "app=nginx", and then labels them with the "tier=fe".
+To see the pods you labeled, run:
+-->
+首先用标签 "app=nginx" 过滤所有的 Pod，然后用 "tier=fe" 标记它们。
+想要查看你刚设置了标签的 Pod，请运行：
+
+```shell
+kubectl get pods -l app=nginx -L tier
+```
+
+```none
+NAME                        READY     STATUS    RESTARTS   AGE       TIER
+my-nginx-2035384211-j5fhi   1/1       Running   0          23m       fe
+my-nginx-2035384211-u2c7e   1/1       Running   0          23m       fe
+my-nginx-2035384211-u3t6x   1/1       Running   0          23m       fe
+```
+
+<!--
+This outputs all "app=nginx" pods, with an additional label column of pods' tier (specified with
+`-L` or `--label-columns`).
+
+For more information, please see [labels](/docs/concepts/overview/working-with-objects/labels/)
+and [kubectl label](/docs/reference/generated/kubectl/kubectl-commands/#label).
+-->
+此命令将输出所有 "app=nginx" 的 Pod，并有一个额外的描述 Pod 所在分层的标签列
+（用参数 `-L` 或者 `--label-columns` 标明）。
+
+想要了解更多信息，请参考[标签](/zh-cn/docs/concepts/overview/working-with-objects/labels/)和
+[`kubectl label`](/docs/reference/generated/kubectl/kubectl-commands/#label)
+命令文档。
+
 ## {{% heading "whatsnext" %}}
 
 <!--
@@ -502,12 +640,10 @@ a pod can schedule. See the documentation on
 - Find [Well-known labels, Annotations and Taints](/docs/reference/labels-annotations-taints/)
 - See [Recommended labels](/docs/concepts/overview/working-with-objects/common-labels/)
 - [Enforce Pod Security Standards with Namespace Labels](/docs/tasks/configure-pod-container/enforce-standards-namespace-labels/)
-- [Use Labels effectively](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively) to manage deployments.
 - Read a blog on [Writing a Controller for Pod Labels](/blog/2021/06/21/writing-a-controller-for-pod-labels/)
 -->
 - 学习如何[给节点添加标签](/zh-cn/docs/tasks/configure-pod-container/assign-pods-nodes/#add-a-label-to-a-node)
 - 查阅[众所周知的标签、注解和污点](/zh-cn/docs/reference/labels-annotations-taints/)
 - 参见[推荐使用的标签](/zh-cn/docs/concepts/overview/working-with-objects/common-labels/)
 - [使用名字空间标签来实施 Pod 安全性标准](/zh-cn/docs/tasks/configure-pod-container/enforce-standards-namespace-labels/)
-- [有效使用标签](/zh-cn/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)管理 Deployment。
 - 阅读[为 Pod 标签编写控制器](/blog/2021/06/21/writing-a-controller-for-pod-labels/)的博文

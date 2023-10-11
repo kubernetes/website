@@ -147,7 +147,7 @@ Create a file named `dns-horizontal-autoscaler.yaml` with this content:
 
 创建文件 `dns-horizontal-autoscaler.yaml`，内容如下所示：
 
-{{% code file="admin/dns/dns-horizontal-autoscaler.yaml" %}}
+{{% code_sample file="admin/dns/dns-horizontal-autoscaler.yaml" %}}
 
 <!--
 In the file, replace `<SCALE_TARGET>` with your scale target.
@@ -397,7 +397,7 @@ patterns: *linear* and *ladder*.
 -->
 * 扩缩参数是可以被修改的，而且不需要重建或重启 autoscaler Pod。
 
-* autoscaler 提供了一个控制器接口来支持两种控制模式：*linear* 和 *ladder*。
+* autoscaler 提供了一个控制器接口来支持两种控制模式：**linear** 和 **ladder**。
 
 ## {{% heading "whatsnext" %}}
 
@@ -407,5 +407,5 @@ patterns: *linear* and *ladder*.
 [implementation of cluster-proportional-autoscaler](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler).
 
 -->
-* 阅读[为关键插件 Pod 提供的调度保障](/zh-cn/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/)
-* 进一步了解 [cluster-proportional-autoscaler 实现](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler)
+* 阅读[为关键插件 Pod 提供的调度保障](/zh-cn/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/)。
+* 进一步了解 [cluster-proportional-autoscaler 实现](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler)。

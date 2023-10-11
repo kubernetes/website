@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "Role 是一个按命名空间划分的 PolicyRule 逻辑分组，可以被 RoleBinding 作为一个单元引用。"
 title: "Role"
-weight: 8
+weight: 7
 ---
 <!--
 api_metadata:
@@ -16,7 +16,7 @@ api_metadata:
 content_type: "api_reference"
 description: "Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding."
 title: "Role"
-weight: 8
+weight: 7
 auto_generated: true
 -->
 

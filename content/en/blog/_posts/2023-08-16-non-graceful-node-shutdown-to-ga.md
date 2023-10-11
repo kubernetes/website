@@ -3,7 +3,6 @@ layout: blog
 title: "Kubernetes 1.28: Non-Graceful Node Shutdown Moves to GA"
 date: 2023-08-16T10:00:00-08:00
 slug: kubernetes-1-28-non-graceful-node-shutdown-GA
-draft: true
 ---
 
 **Authors:** Xing Yang (VMware) and Ashutosh Kumar (Elastic)
@@ -80,7 +79,7 @@ that are shutdown/failed and automatically failover workloads to another node.
 ## How can I learn more?
 
 Check out additional documentation on this feature
-[here](https://kubernetes.io/docs/concepts/architecture/nodes/#non-graceful-node-shutdown).
+[here](/docs/concepts/architecture/nodes/#non-graceful-node-shutdown).
 
 ## How to get involved?
 

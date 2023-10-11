@@ -1,23 +1,11 @@
 <!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
-<!--
 Delete bootstrap tokens on the server
 -->
-删除服务器上的引导令牌
+删除服务器上的引导令牌。
 
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
@@ -26,7 +14,6 @@ This command will delete a list of bootstrap tokens for you.
 The [token-value] is the full Token of the form "[a-z0-9]{6}.[a-z0-9]{16}" or the
 Token ID of the form "[a-z0-9]{6}" to delete.
 -->
-
 这个命令将为你删除指定的引导令牌列表。
 
 `[token-value]` 是要删除的 "[a-z0-9]{6}.[a-z0-9]{16}" 形式的完整令牌或者是 "[a-z0-9]{6}" 形式的令牌 ID。
@@ -38,7 +25,6 @@ kubeadm token delete [token-value] ...
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -57,7 +43,7 @@ kubeadm token delete [token-value] ...
 help for delete
 -->
 <p>
-delete 操作的帮助命令
+delete 操作的帮助命令。
 </p>
 </td>
 </tr>
@@ -68,7 +54,6 @@ delete 操作的帮助命令
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 从父命令继承的选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -87,7 +72,7 @@ delete 操作的帮助命令
 Whether to enable dry-run mode or not
 -->
 <p>
-是否启用 `dry-run` 运行模式
+是否启用 `dry-run` 运行模式。
 </p>
 </td>
 </tr>
@@ -106,7 +91,7 @@ Whether to enable dry-run mode or not
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
 <p>
-用于和集群通信的 KubeConfig 文件。如果它没有被设置，那么 kubeadm 将会搜索一个已经存在于标准路径的 KubeConfig 文件。
+用于和集群通信的 kubeconfig 文件。如果它没有被设置，那么 kubeadm 将会搜索一个已经存在于标准路径的 kubeconfig 文件。
 </p>
 </td>
 </tr>

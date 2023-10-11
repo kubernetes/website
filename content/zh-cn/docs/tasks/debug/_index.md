@@ -4,6 +4,10 @@ description: 设置监控和日志记录以对集群进行故障排除或调试�
 weight: 40
 content_type: concept
 no_list: true
+card:
+  name: tasks
+  weight: 999
+  title: 寻求帮助
 ---
 <!--
 title: "Monitoring, Logging, and Debugging"
@@ -14,6 +18,10 @@ reviewers:
 - davidopp
 content_type: concept
 no_list: true
+card:
+  name: tasks
+  weight: 999
+  title: Getting help
 -->
 
 <!-- overview -->

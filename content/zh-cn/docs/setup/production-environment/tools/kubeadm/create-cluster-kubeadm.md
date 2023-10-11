@@ -136,16 +136,16 @@ For detailed instructions and other prerequisites, see [Installing kubeadm](/doc
 
 {{< note >}}
 <!--
-If you have already installed kubeadm, run
-`apt-get update && apt-get upgrade` or
-`yum update` to get the latest version of kubeadm.
+If you have already installed kubeadm, see the first two steps of the
+[Upgrading Linux nodes](/docs/tasks/administer-cluster/kubeadm/upgrading-linux-nodes) document for instructions on how to upgrade kubeadm.
 
 When you upgrade, the kubelet restarts every few seconds as it waits in a crashloop for
 kubeadm to tell it what to do. This crashloop is expected and normal.
 After you initialize your control-plane, the kubelet runs normally.
 -->
-如果你已经安装了kubeadm，执行 `apt-get update && apt-get upgrade` 或 `yum update`
-以获取 kubeadm 的最新版本。
+如果你已经安装了 kubeadm，
+请查看[升级 Linux 节点](/zh-cn/docs/tasks/administer-cluster/kubeadm/upgrading-linux-nodes)文档的前两步，
+了解如何升级 kubeadm 的说明。
 
 升级时，kubelet 每隔几秒钟重新启动一次，
 在 crashloop 状态中等待 kubeadm 发布指令。crashloop 状态是正常现象。

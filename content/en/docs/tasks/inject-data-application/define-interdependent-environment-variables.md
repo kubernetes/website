@@ -26,7 +26,7 @@ In this exercise, you create a Pod that runs one container. The configuration
 file for the Pod defines a dependent environment variable with common usage defined. Here is the configuration manifest for the
 Pod:
 
-{{% code file="pods/inject/dependent-envars.yaml" %}}
+{{% code_sample file="pods/inject/dependent-envars.yaml" %}}
 
 1. Create a Pod based on that manifest:
 

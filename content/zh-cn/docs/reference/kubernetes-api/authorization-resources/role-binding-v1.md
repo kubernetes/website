@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "RoleBinding 引用一个角色，但不包含它。"
 title: "RoleBinding"
-weight: 9
+weight: 8
 auto_generated: false
 ---
 <!--
@@ -18,7 +18,7 @@ api_metadata:
 content_type: "api_reference"
 description: "RoleBinding references a role, but does not contain it."
 title: "RoleBinding"
-weight: 9
+weight: 8
 auto_generated: true
 ---
 -->
@@ -47,7 +47,7 @@ RoleBinding 通过 Subjects 和所在的命名空间信息添加主体信息。
 
 - **roleRef** (RoleRef), required
 
-  RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+  RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
 
   <a name="RoleRef"></a>
   *RoleRef contains information that points to the role being used*
@@ -57,7 +57,7 @@ RoleBinding 通过 Subjects 和所在的命名空间信息添加主体信息。
 - **roleRef** (RoleRef)，必需
   
   roleRef 可以引用当前命名空间中的 Role 或全局命名空间中的 ClusterRole。
-  如果无法解析 roleRef，则 Authorizer 必定返回一个错误。
+  如果无法解析 roleRef，则 Authorizer 必定返回一个错误。这个字段是不可变的。
   
   <a name="RoleRef"></a>
   **roleRef 包含指向正被使用的角色的信息。**

@@ -186,7 +186,7 @@ We will use the `amqp-consume` utility to read the message
 from the queue and run our actual program.  Here is a very simple
 example program:
 
-{{% code language="python" file="application/job/rabbitmq/worker.py" %}}
+{{% code_sample language="python" file="application/job/rabbitmq/worker.py" %}}
 
 Give the script execution permission:
 
@@ -230,7 +230,7 @@ Here is a job definition.  You'll need to make a copy of the Job and edit the
 image to match the name you used, and call it `./job.yaml`.
 
 
-{{% code file="application/job/rabbitmq/job.yaml" %}}
+{{% code_sample file="application/job/rabbitmq/job.yaml" %}}
 
 In this example, each pod works on one item from the queue and then exits.
 So, the completion count of the Job corresponds to the number of work items

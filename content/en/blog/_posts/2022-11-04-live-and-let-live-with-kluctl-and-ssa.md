@@ -189,7 +189,7 @@ set of annotations to control conflict resolution for CI/CD-related tooling.
 
 On the other side, non CI/CD-related controllers should ensure that they don't
 cause unnecessary conflicts when modifying objects. As of
-[the server-side apply documentation](https://kubernetes.io/docs/reference/using-api/server-side-apply/#using-server-side-apply-in-a-controller),
+[the server-side apply documentation](/docs/reference/using-api/server-side-apply/#using-server-side-apply-in-a-controller),
 it is strongly recommended for controllers to always perform force-applying. When
 following this recommendation, controllers should really make sure that only
 fields related to the controller are included in the applied object.

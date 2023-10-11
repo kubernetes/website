@@ -39,7 +39,7 @@ Kubernetesはこのような状況を検知し、回復するためのLiveness P
 この演習では、`registry.k8s.io/busybox`イメージのコンテナを起動するPodを作成します。
 Podの構成ファイルは次の通りです。
 
-{{< codenew file="pods/probe/exec-liveness.yaml" >}}
+{{% codenew file="pods/probe/exec-liveness.yaml" %}}
 
 この構成ファイルでは、Podは一つの`Container`を起動します。
 `periodSeconds`フィールドは、kubeletがLiveness Probeを5秒おきに行うように指定しています。
@@ -119,7 +119,7 @@ liveness-exec   1/1       Running   1          1m
 別の種類のLiveness Probeでは、HTTP GETリクエストを使用します。
 次の構成ファイルは、`registry.k8s.io/liveness`イメージを使用したコンテナを起動するPodを作成します。
 
-{{< codenew file="pods/probe/http-liveness.yaml" >}}
+{{% codenew file="pods/probe/http-liveness.yaml" %}}
 
 この構成ファイルでは、Podは一つの`Container`を起動します。
 `periodSeconds`フィールドは、kubeletがLiveness Probeを3秒おきに行うように指定しています。
@@ -175,7 +175,7 @@ v1.13より後のリリースにおいては、ローカルHTTPプロキシ環�
 この構成においては、kubeletは指定したコンテナのソケットを開くことを試みます。
 コネクションが確立できる場合はコンテナを正常とみなし、失敗する場合は異常とみなします。
 
-{{< codenew file="pods/probe/tcp-liveness-readiness.yaml" >}}
+{{% codenew file="pods/probe/tcp-liveness-readiness.yaml" %}}
 
 見ての通り、TCPによるチェックの構成はHTTPによるチェックと非常に似ています。
 この例では、Readiness ProbeとLiveness Probeを両方使用しています。

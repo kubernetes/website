@@ -29,7 +29,7 @@ The Windows security context options that you specify for a Pod apply to all Con
 
 Here is a configuration file for a Windows Pod that has the `runAsUserName` field set:
 
-{{% code file="windows/run-as-username-pod.yaml" %}}
+{{% code_sample file="windows/run-as-username-pod.yaml" %}}
 
 Create the Pod:
 
@@ -69,7 +69,7 @@ The Windows security context options that you specify for a Container apply only
 
 Here is the configuration file for a Pod that has one Container, and the `runAsUserName` field is set at the Pod level and the Container level:
 
-{{% code file="windows/run-as-username-container.yaml" %}}
+{{% code_sample file="windows/run-as-username-container.yaml" %}}
 
 Create the Pod:
 

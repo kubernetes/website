@@ -74,7 +74,7 @@ a [Service](/docs/concepts/services-networking/service/),
 a [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/#pod-disruption-budgets),
 and a [StatefulSet](/docs/concepts/workloads/controllers/statefulset/).
 
-{{% code file="application/zookeeper/zookeeper.yaml" %}}
+{{% code_sample file="application/zookeeper/zookeeper.yaml" %}}
 
 Open a terminal, and use the
 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply) command to create the

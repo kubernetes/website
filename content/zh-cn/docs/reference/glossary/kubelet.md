@@ -33,8 +33,12 @@ tags:
 <!--more-->
 
 <!--
-The kubelet takes a set of PodSpecs that are provided through various mechanisms and ensures that the containers described in those PodSpecs are running and healthy. The kubelet doesn't manage containers which were not created by Kubernetes.
+The [kubelet](/docs/reference/command-line-tools-reference/kubelet/) takes a set of PodSpecs that 
+are provided through various mechanisms and ensures that the containers described in those 
+PodSpecs are running and healthy. The kubelet doesn't manage containers which were not created by 
+Kubernetes.
 -->
-kubelet 接收一组通过各类机制提供给它的 PodSpecs，
-确保这些 PodSpecs 中描述的容器处于运行状态且健康。
+[kubelet](/docs/reference/command-line-tools-reference/kubelet/)
+接收一组通过各类机制提供给它的 PodSpec，确保这些 PodSpec 中描述的容器处于运行状态且健康。
 kubelet 不会管理不是由 Kubernetes 创建的容器。
+

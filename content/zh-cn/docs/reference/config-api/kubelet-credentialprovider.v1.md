@@ -132,9 +132,9 @@ auth 是一个映射，包含传递给 kubelet 的身份验证信息。
 <!--
 Each key in the map is a pattern which can optionally contain a port and a path.
 Globs can be used in the domain, but not in the port or the path. Globs are supported
-as subdomains like <code>&ast;.k8s.io</code> or <code>k8s.&ast;.io</code>, and top-level-domains such as <code>k8s.&ast;</code>.
-Matching partial subdomains like <code>app&ast;.k8s.io</code> is also supported. Each glob can only match
-a single subdomain segment, so <code>&ast;.io</code> does not match <code>&ast;.k8s.io</code>.</p>
+as subdomains like '&ast;.k8s.io' or 'k8s.&ast;.io', and top-level-domains such as 'k8s.&ast;'.
+Matching partial subdomains like 'app&ast;.k8s.io' is also supported. Each glob can only match
+a single subdomain segment, so &ast;.io does not match &ast;.k8s.io.</p>
 -->
 <p>
 映射中的每个主键都可以包含端口和路径。

@@ -68,7 +68,7 @@ Examine the contents of the Redis pod manifest and note the following:
 This has the net effect of exposing the data in `data.redis-config` from the `example-redis-config`
 ConfigMap above as `/redis-master/redis.conf` inside the Pod.
 
-{{% code file="pods/config/redis-pod.yaml" %}}
+{{% code_sample file="pods/config/redis-pod.yaml" %}}
 
 Examine the created objects:
 
@@ -139,7 +139,7 @@ Which should also yield its default value of `noeviction`:
 
 Now let's add some configuration values to the `example-redis-config` ConfigMap:
 
-{{% code file="pods/config/example-redis-config.yaml" %}}
+{{% code_sample file="pods/config/example-redis-config.yaml" %}}
 
 Apply the updated ConfigMap:
 

@@ -74,7 +74,7 @@ Here's a manifest for an example {{< glossary_tooltip text="LimitRange" term_id=
 
 以下为 {{< glossary_tooltip text="LimitRange" term_id="limitrange" >}} 的示例清单：
 
-{{% code file="admin/resource/cpu-constraints.yaml" %}}
+{{% code_sample file="admin/resource/cpu-constraints.yaml" %}}
 
 <!--
 Create the LimitRange:
@@ -142,8 +142,8 @@ or GPUs as well. However, when both `default` and `defaultRequest` are specified
 on these resources, the two values must be the same.
 -->
 {{< note >}}
-当创建 LimitRange 对象时，你也可以声明大页面和 GPU 的限制。
-当这些资源同时声明了 'default' 和 'defaultRequest' 参数时，两个参数值必须相同。
+当创建 `LimitRange` 对象时，你也可以声明大页面和 GPU 的限制。
+当这些资源同时声明了 `default` 和 `defaultRequest` 参数时，两个参数值必须相同。
 {{< /note >}}
 
 <!--
@@ -155,7 +155,7 @@ minimum and maximum CPU constraints imposed by the LimitRange for this namespace
 该容器声明了 CPU 请求 500 millicpu 和 CPU 限制 800 millicpu。
 这些参数满足了 LimitRange 对象为此名字空间规定的 CPU 最小和最大限制。
 
-{{% code file="admin/resource/cpu-constraints-pod.yaml" %}}
+{{% code_sample file="admin/resource/cpu-constraints-pod.yaml" %}}
 
 <!--
 Create the Pod:
@@ -219,7 +219,7 @@ CPU request of 500 millicpu and a cpu limit of 1.5 cpu.
 这里给出了包含一个容器的 Pod 清单。容器声明了 500 millicpu 的 CPU 
 请求和 1.5 CPU 的 CPU 限制。
 
-{{% code file="admin/resource/cpu-constraints-pod-2.yaml" %}}
+{{% code_sample file="admin/resource/cpu-constraints-pod-2.yaml" %}}
 
 <!--
 Attempt to create the Pod:
@@ -252,7 +252,7 @@ CPU request of 100 millicpu and a CPU limit of 800 millicpu.
 
 以下为某个只有一个容器的 Pod 的清单。该容器声明了 CPU 请求 100 millicpu 和 CPU 限制 800 millicpu。
 
-{{% code file="admin/resource/cpu-constraints-pod-3.yaml" %}}
+{{% code_sample file="admin/resource/cpu-constraints-pod-3.yaml" %}}
 
 <!--
 Attempt to create the Pod:
@@ -286,7 +286,7 @@ specify a CPU request, nor does it specify a CPU limit.
 
 以下为一个只有一个容器的 Pod 的清单。该容器没有声明 CPU 请求，也没有声明 CPU 限制。
 
-{{% code file="admin/resource/cpu-constraints-pod-4.yaml" %}}
+{{% code_sample file="admin/resource/cpu-constraints-pod-4.yaml" %}}
 
 <!--
 Create the Pod:

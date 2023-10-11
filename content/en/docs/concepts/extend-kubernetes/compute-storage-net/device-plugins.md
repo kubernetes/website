@@ -10,9 +10,8 @@ weight: 20
 <!-- overview -->
 {{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
-Kubernetes provides a [device plugin framework](https://git.k8s.io/design-proposals-archive/resource-management/device-plugin.md)
-that you can use to advertise system hardware resources to the
-{{< glossary_tooltip term_id="kubelet" >}}.
+Kubernetes provides a device plugin framework that you can use to advertise system hardware
+resources to the {{< glossary_tooltip term_id="kubelet" >}}.
 
 Instead of customizing the code for Kubernetes itself, vendors can implement a
 device plugin that you deploy either manually or as a {{< glossary_tooltip term_id="daemonset" >}}.
@@ -151,7 +150,7 @@ The general workflow of a device plugin includes the following steps:
    device plugin defines modifications that must be made to a container's definition to provide
    access to the device. These modifications include:
 
-   * annotations
+   * [Annotations](/docs/concepts/overview/working-with-objects/annotations/)
    * device nodes
    * environment variables
    * mounts
@@ -159,7 +158,8 @@ The general workflow of a device plugin includes the following steps:
 
    {{< note >}}
    The processing of the fully-qualified CDI device names by the Device Manager requires
-   the `DevicePluginCDIDevices` feature gate to be enabled. This was added as an alpha feature in
+   that the `DevicePluginCDIDevices` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+   is enabled for the kubelet and the kube-apiserver. This was added as an alpha feature in Kubernetes
    v1.28.
    {{< /note >}}
 
@@ -245,7 +245,7 @@ of running pods allocated in `ResourceClaims` by the `DynamicResourceAllocation`
 this feature `kubelet` must be started with the following flags:
 
 ```
---feature-gates=DynamicResourceAllocation=true,KubeletPodResourcesDynamiceResources=true
+--feature-gates=DynamicResourceAllocation=true,KubeletPodResourcesDynamicResources=true
 ```
 
 ```gRPC
@@ -383,10 +383,6 @@ will continue working.
 
 {{< /note >}}
 
-Support for the `PodResourcesLister service` requires `KubeletPodResources`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
-It is enabled by default starting with Kubernetes 1.15 and is v1 since Kubernetes 1.20.
-
 ### `Get` gRPC endpoint {#grpc-endpoint-get}
 
 {{< feature-state state="alpha" for_k8s_version="v1.27" >}}
@@ -414,7 +410,7 @@ allocated by the dynamic resource allocation API. To enable this feature, you mu
 ensure your kubelet services are started with the following flags:
 
 ```
---feature-gates=KubeletPodResourcesGet=true,DynamicResourceAllocation=true,KubeletPodResourcesDynamiceResources=true
+--feature-gates=KubeletPodResourcesGet=true,DynamicResourceAllocation=true,KubeletPodResourcesDynamicResources=true
 ```
 
 ## Device plugin integration with the Topology Manager
@@ -459,6 +455,7 @@ pluginapi.Device{ID: "25102017", Health: pluginapi.Healthy, Topology:&pluginapi.
 Here are some examples of device plugin implementations:
 
 * The [AMD GPU device plugin](https://github.com/RadeonOpenCompute/k8s-device-plugin)
+* The [generic device plugin](https://github.com/squat/generic-device-plugin) for generic Linux devices and USB devices
 * The [Intel device plugins](https://github.com/intel/intel-device-plugins-for-kubernetes) for
   Intel GPU, FPGA, QAT, VPU, SGX, DSA, DLB and IAA devices
 * The [KubeVirt device plugins](https://github.com/kubevirt/kubernetes-device-plugins) for

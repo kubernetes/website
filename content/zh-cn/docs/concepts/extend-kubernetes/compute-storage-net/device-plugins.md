@@ -18,9 +18,8 @@ weight: 20
 {{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 <!--
-Kubernetes provides a [device plugin framework](https://git.k8s.io/design-proposals-archive/resource-management/device-plugin.md)
-that you can use to advertise system hardware resources to the
-{{< glossary_tooltip term_id="kubelet" >}}.
+Kubernetes provides a device plugin framework that you can use to advertise system hardware
+resources to the {{< glossary_tooltip term_id="kubelet" >}}.
 
 Instead of customizing the code for Kubernetes itself, vendors can implement a
 device plugin that you deploy either manually or as a {{< glossary_tooltip term_id="daemonset" >}}.
@@ -28,9 +27,8 @@ The targeted devices include GPUs, high-performance NICs, FPGAs, InfiniBand adap
 and other similar computing resources that may require vendor specific initialization
 and setup.
 -->
-Kubernetes 提供了一个
-[设备插件框架](https://git.k8s.io/design-proposals-archive/resource-management/device-plugin.md)，
-你可以用它来将系统硬件资源发布到 {{< glossary_tooltip term_id="kubelet" >}}。
+Kubernetes 提供了一个设备插件框架，你可以用它来将系统硬件资源发布到
+{{< glossary_tooltip term_id="kubelet" >}}。
 
 供应商可以实现设备插件，由你手动部署或作为 {{< glossary_tooltip term_id="daemonset" >}}
 来部署，而不必定制 Kubernetes 本身的代码。目标设备包括 GPU、高性能 NIC、FPGA、
@@ -256,6 +254,41 @@ The general workflow of a device plugin includes the following steps:
    如果操作成功，则设备插件将返回 `AllocateResponse`，其中包含用于访问被分配的设备容器运行时的配置。
    kubelet 将此信息传递到容器运行时。
 
+   <!--
+   An `AllocateResponse` contains zero or more `ContainerAllocateResponse` objects. In these, the
+   device plugin defines modifications that must be made to a container's definition to provide
+   access to the device. These modifications include:
+   -->
+   `AllocateResponse` 包含零个或多个 `ContainerAllocateResponse` 对象。
+   设备插件在这些对象中给出为了访问设备而必须对容器定义所进行的修改。
+   这些修改包括：
+
+   <!--
+   * [Annotations](/docs/concepts/overview/working-with-objects/annotations/)
+   * device nodes
+   * environment variables
+   * mounts
+   * fully-qualified CDI device names
+   -->
+   * [注解](/zh-cn/docs/concepts/overview/working-with-objects/annotations/)
+   * 设备节点
+   * 环境变量
+   * 挂载点
+   * 完全限定的 CDI 设备名称
+
+   {{< note >}}
+   <!--
+   The processing of the fully-qualified CDI device names by the Device Manager requires
+   that the `DevicePluginCDIDevices` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+   is enabled for the kubelet and the kube-apiserver. This was added as an alpha feature in Kubernetes
+   v1.28.
+   -->
+   设备管理器处理完全限定的 CDI 设备名称时，
+   需要为 kubelet 和 kube-apiserver 启用 `DevicePluginCDIDevices`
+   [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
+   这在 Kubernetes v1.28 版本中作为 Alpha 特性被加入。
+   {{< /note >}}
+
 <!--
 ### Handling kubelet restarts
 
@@ -352,7 +385,7 @@ of the device allocations during the upgrade.
 -->
 ## 监控设备插件资源   {#monitoring-device-plugin-resources}
 
-{{< feature-state for_k8s_version="v1.15" state="beta" >}}
+{{< feature-state for_k8s_version="v1.28" state="stable" >}}
 
 <!--
 In order to monitor resources provided by device plugins, monitoring agents need to be able to
@@ -419,7 +452,7 @@ this feature `kubelet` must be started with the following flags:
 要启用此特性，必须使用以下标志启动 `kubelet`：
 
 ```
---feature-gates=DynamicResourceAllocation=true,KubeletPodResourcesDynamiceResources=true
+--feature-gates=DynamicResourceAllocation=true,KubeletPodResourcesDynamicResources=true
 ```
 
 <!--
@@ -584,7 +617,7 @@ below:
 -->
 ### `GetAllocatableResources` gRPC 端点 {#grpc-endpoint-getallocatableresources}
 
-{{< feature-state state="beta" for_k8s_version="v1.23" >}}
+{{< feature-state state="stable" for_k8s_version="v1.28" >}}
 
 <!--
 GetAllocatableResources provides information on resources initially available on the worker node.
@@ -621,23 +654,6 @@ message AllocatableResourcesResponse {
     repeated int64 cpu_ids = 2;
     repeated ContainerMemory memory = 3;
 }
-```
-
-<!--
-Starting from Kubernetes v1.23, the `GetAllocatableResources` is enabled by default.
-You can disable it by turning off the `KubeletPodResourcesGetAllocatable`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
-
-Preceding Kubernetes v1.23, to enable this feature `kubelet` must be started with the following flag:
--->
-从 Kubernetes v1.23 开始，`GetAllocatableResources` 被默认启用。
-你可以通过关闭 `KubeletPodResourcesGetAllocatable`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来禁用。
-
-在 Kubernetes v1.23 之前，要启用这一功能，`kubelet` 必须用以下标志启动：
-
-```
---feature-gates=KubeletPodResourcesGetAllocatable=true
 ```
 
 <!--
@@ -698,15 +714,6 @@ will continue working.
 {{< /note >}}
 
 <!--
-Support for the `PodResourcesLister service` requires `KubeletPodResources`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
-It is enabled by default starting with Kubernetes 1.15 and is v1 since Kubernetes 1.20.
--->
-对 “PodResourcesLister 服务”的支持要求启用 `KubeletPodResources`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
-从 Kubernetes 1.15 开始默认启用，自从 Kubernetes 1.20 开始为 v1。
-
-<!--
 ### `Get` gRPC endpoint {#grpc-endpoint-get}
 -->
 ### `Get` gRPC 端点   {#grpc-endpoint-get}
@@ -756,7 +763,7 @@ ensure your kubelet services are started with the following flags:
 要启用此特性，你必须确保使用以下标志启动 kubelet 服务：
 
 ```
---feature-gates=KubeletPodResourcesGet=true,DynamicResourceAllocation=true,KubeletPodResourcesDynamiceResources=true
+--feature-gates=KubeletPodResourcesGet=true,DynamicResourceAllocation=true,KubeletPodResourcesDynamicResources=true
 ```
 
 <!--
@@ -824,6 +831,7 @@ pluginapi.Device{ID: "25102017", Health: pluginapi.Healthy, Topology:&pluginapi.
 Here are some examples of device plugin implementations:
 
 * The [AMD GPU device plugin](https://github.com/RadeonOpenCompute/k8s-device-plugin)
+* The [generic device plugin](https://github.com/squat/generic-device-plugin) for generic Linux devices and USB devices
 * The [Intel device plugins](https://github.com/intel/intel-device-plugins-for-kubernetes) for
   Intel GPU, FPGA, QAT, VPU, SGX, DSA, DLB and IAA devices
 * The [KubeVirt device plugins](https://github.com/kubevirt/kubernetes-device-plugins) for
@@ -838,6 +846,7 @@ Here are some examples of device plugin implementations:
 下面是一些设备插件实现的示例：
 
 * [AMD GPU 设备插件](https://github.com/RadeonOpenCompute/k8s-device-plugin)
+* 适用于通用 Linux 设备和 USB 设备的[通用设备插件](https://github.com/squat/generic-device-plugin)
 * [Intel 设备插件](https://github.com/intel/intel-device-plugins-for-kubernetes)支持
   Intel GPU、FPGA、QAT、VPU、SGX、DSA、DLB 和 IAA 设备
 * [KubeVirt 设备插件](https://github.com/kubevirt/kubernetes-device-plugins) 用于硬件辅助的虚拟化

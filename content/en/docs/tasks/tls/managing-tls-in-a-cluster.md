@@ -236,7 +236,7 @@ This produces a certificate authority key file (`ca-key.pem`) and certificate (`
 
 ### Issue a certificate
 
-{{% code file="tls/server-signing-config.json" %}}
+{{% code_sample file="tls/server-signing-config.json" %}}
 
 Use a `server-signing-config.json` signing configuration and the certificate authority key file 
 and certificate to sign the certificate request:

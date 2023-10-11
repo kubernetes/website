@@ -41,7 +41,7 @@ weight: 70
 バックエンドは、単純な挨拶マイクロサービスです。
 バックエンドのDeploymentの構成ファイルは次のとおりです:
 
-{{< codenew file="service/access/hello.yaml" >}}
+{{% codenew file="service/access/hello.yaml" %}}
 
 バックエンドのDeploymentを作成します:
 
@@ -100,7 +100,7 @@ Serviceは{{< glossary_tooltip text="セレクター" term_id="selector" >}}を�
 
 まず、Service構成ファイルを調べます:
 
-{{< codenew file="service/access/hello-service.yaml" >}}
+{{% codenew file="service/access/hello-service.yaml" %}}
 
 設定ファイルで、Serviceが`app：hello`および`tier：backend`というラベルを持つPodにトラフィックをルーティングしていることがわかります。
 
@@ -121,12 +121,12 @@ DNS名は`hello`です。これは、前のサービス設定ファイルの`nam
 フロントエンドDeploymentのPodは、helloバックエンドServiceを見つけるように構成されたnginxイメージを実行します。
 これはnginx設定ファイルです:
 
-{{< codenew file="service/access/frontend.conf" >}}
+{{% codenew file="service/access/frontend.conf" %}}
 
 バックエンドと同様に、フロントエンドにはDeploymentとServiceがあります。
 Serviceの設定には`type：LoadBalancer`があります。これは、Serviceがクラウドプロバイダーのデフォルトのロードバランサーを使用することを意味します。
 
-{{< codenew file="service/access/frontend.yaml" >}}
+{{% codenew file="service/access/frontend.yaml" %}}
 
 フロントエンドのDeploymentとServiceを作成します:
 
