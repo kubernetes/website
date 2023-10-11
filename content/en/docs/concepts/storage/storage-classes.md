@@ -166,6 +166,11 @@ anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-
 and [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration).
 
 The following plugins support `WaitForFirstConsumer` with pre-created PersistentVolume binding:
+<<<<<<< HEAD
+=======
+
+- [GCEPersistentDisk](#gce-pd)
+>>>>>>> Fixed the typo in the storage classes docs
 - [Local](#local)
 
 [CSI volumes](/docs/concepts/storage/volumes/#csi) are also supported with dynamic provisioning
