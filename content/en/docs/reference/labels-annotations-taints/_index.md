@@ -266,12 +266,7 @@ For example, Kustomize removes objects with this annotation from its final build
 
 Type: Annotation
 
-Example: `config.kubernetes.io/depends-on:`
-
-```yaml
-  annotations:
-    config.kubernetes.io/depends-on: "/namespaces/default/Pod/pod-a,/namespaces/default/Pod/pod-c"
-```
+Example: `config.kubernetes.io/depends-on:"/namespaces/default/Pod/pod-a,/namespaces/default/Pod/pod-c"`
 
 Used on: All objects
 
