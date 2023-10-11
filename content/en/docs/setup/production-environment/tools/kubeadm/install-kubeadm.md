@@ -15,9 +15,7 @@ This page shows how to install the `kubeadm` toolbox.
 For information on how to create a cluster with kubeadm once you have performed this installation process,
 see the [Creating a cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) page.
 
-
 ## {{% heading "prerequisites" %}}
-
 
 * A compatible Linux host. The Kubernetes project provides generic instructions for Linux distributions
   based on Debian and Red Hat, and those distributions without a package manager.
@@ -59,6 +57,7 @@ If you have more than one network adapter, and your Kubernetes components are no
 route, we recommend you add IP route(s) so Kubernetes cluster addresses go via the appropriate adapter.
 
 ## Check required ports
+
 These [required ports](/docs/reference/networking/ports-and-protocols/)
 need to be open in order for Kubernetes components to communicate with each other.
 You can use tools like netcat to check if a port is open. For example:
@@ -131,7 +130,7 @@ You will install these packages on all of your machines:
 * `kubeadm`: the command to bootstrap the cluster.
 
 * `kubelet`: the component that runs on all of the machines in your cluster
-    and does things like starting pods and containers.
+  and does things like starting pods and containers.
 
 * `kubectl`: the command line util to talk to your cluster.
 
@@ -159,7 +158,7 @@ For more information on version skews, see:
 {{< note >}}
 Kubernetes has [new package repositories hosted at `pkgs.k8s.io`](/blog/2023/08/15/pkgs-k8s-io-introduction/)
 starting from August 2023. The legacy package repositories (`apt.kubernetes.io` and `yum.kubernetes.io`)
-have been frozen starting from September 13, 2023. Please read our 
+have been frozen starting from September 13, 2023. Please read our
 [deprecation and freezing announcement](/blog/2023/08/31/legacy-package-repository-deprecation/)
 for more details.
 {{< /note >}}
@@ -177,7 +176,8 @@ These instructions are for Kubernetes {{< skew currentVersion >}}.
    sudo apt-get install -y apt-transport-https ca-certificates curl
    ```
 
-2. Download the public signing key for the Kubernetes package repositories. The same signing key is used for all repositories so you can disregard the version in the URL:
+2. Download the public signing key for the Kubernetes package repositories.
+   The same signing key is used for all repositories so you can disregard the version in the URL:
 
    ```shell
    curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
@@ -208,47 +208,47 @@ you can create it by running `sudo mkdir -m 755 /etc/apt/keyrings`
 
 1. Set SELinux to `permissive` mode:
 
-These instructions are for Kubernetes {{< skew currentVersion >}}.
+   These instructions are for Kubernetes {{< skew currentVersion >}}.
 
-```shell
-# Set SELinux in permissive mode (effectively disabling it)
-sudo setenforce 0
-sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
-```
+   ```shell
+   # Set SELinux in permissive mode (effectively disabling it)
+   sudo setenforce 0
+   sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+   ```
 
-{{< caution >}}
-- Setting SELinux in permissive mode by running `setenforce 0` and `sed ...`
-  effectively disables it. This is required to allow containers to access the host
-  filesystem; for example, some cluster network plugins require that. You have to
-  do this until SELinux support is improved in the kubelet.
-- You can leave SELinux enabled if you know how to configure it but it may require
-  settings that are not supported by kubeadm.
-{{< /caution >}}
+   {{< caution >}}
+   - Setting SELinux in permissive mode by running `setenforce 0` and `sed ...`
+     effectively disables it. This is required to allow containers to access the host
+     filesystem; for example, some cluster network plugins require that. You have to
+     do this until SELinux support is improved in the kubelet.
+   - You can leave SELinux enabled if you know how to configure it but it may require
+     settings that are not supported by kubeadm.
+   {{< /caution >}}
 
 2. Add the Kubernetes `yum` repository. The `exclude` parameter in the
    repository definition ensures that the packages related to Kubernetes are
    not upgraded upon running `yum update` as there's a special procedure that
    must be followed for upgrading Kubernetes.
 
-```shell
-# This overwrites any existing configuration in /etc/yum.repos.d/kubernetes.repo
-cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
-[kubernetes]
-name=Kubernetes
-baseurl=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/
-enabled=1
-gpgcheck=1
-gpgkey=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/repodata/repomd.xml.key
-exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
-EOF
-```
+   ```shell
+   # This overwrites any existing configuration in /etc/yum.repos.d/kubernetes.repo
+   cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
+   [kubernetes]
+   name=Kubernetes
+   baseurl=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/
+   enabled=1
+   gpgcheck=1
+   gpgkey=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/repodata/repomd.xml.key
+   exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
+   EOF
+   ```
 
 3. Install kubelet, kubeadm and kubectl, and enable kubelet to ensure it's automatically started on startup:
 
-```shell
-sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
-sudo systemctl enable --now kubelet
-```
+   ```shell
+   sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+   sudo systemctl enable --now kubelet
+   ```
 
 {{% /tab %}}
 {{% tab name="Without a package manager" %}}
@@ -262,7 +262,7 @@ sudo mkdir -p "$DEST"
 curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_PLUGINS_VERSION}/cni-plugins-linux-${ARCH}-${CNI_PLUGINS_VERSION}.tgz" | sudo tar -C "$DEST" -xz
 ```
 
-Define the directory to download command files
+Define the directory to download command files:
 
 {{< note >}}
 The `DOWNLOAD_DIR` variable must be set to a writable directory.
@@ -274,7 +274,7 @@ DOWNLOAD_DIR="/usr/local/bin"
 sudo mkdir -p "$DOWNLOAD_DIR"
 ```
 
-Install crictl (required for kubeadm / Kubelet Container Runtime Interface (CRI))
+Install crictl (required for kubeadm / Kubelet Container Runtime Interface (CRI)):
 
 ```bash
 CRICTL_VERSION="v1.28.0"
@@ -298,7 +298,8 @@ curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSIO
 ```
 
 {{< note >}}
-Please refer to the note in the [Before you begin](#before-you-begin) section for Linux distributions that do not include `glibc` by default.
+Please refer to the note in the [Before you begin](#before-you-begin) section for Linux distributions
+that do not include `glibc` by default.
 {{< /note >}}
 
 Install `kubectl` by following the instructions on [Install Tools page](/docs/tasks/tools/#kubectl).
@@ -312,11 +313,11 @@ systemctl enable --now kubelet
 {{< note >}}
 The Flatcar Container Linux distribution mounts the `/usr` directory as a read-only filesystem.
 Before bootstrapping your cluster, you need to take additional steps to configure a writable directory.
-See the [Kubeadm Troubleshooting guide](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#usr-mounted-read-only/) to learn how to set up a writable directory.
+See the [Kubeadm Troubleshooting guide](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#usr-mounted-read-only/)
+to learn how to set up a writable directory.
 {{< /note >}}
 {{% /tab %}}
 {{< /tabs >}}
-
 
 The kubelet is now restarting every few seconds, as it waits in a crashloop for
 kubeadm to tell it what to do.
@@ -335,7 +336,8 @@ See [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configu
 
 ## Troubleshooting
 
-If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
+If you are running into difficulties with kubeadm, please consult our
+[troubleshooting docs](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
 
 ## {{% heading "whatsnext" %}}
 
