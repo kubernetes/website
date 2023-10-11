@@ -241,7 +241,7 @@ kubectl get pods --all-namespaces -o jsonpath='{range .items[*].status.initConta
 kubectl get events --sort-by=.metadata.creationTimestamp
 
 # List all warning events
-kubectl events --types=Warning
+kubectl get events --field-selector type=Warning
 
 # Compares the current state of the cluster against the state that the cluster would be in if the manifest was applied.
 kubectl diff -f ./my-manifest.yaml
