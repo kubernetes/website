@@ -216,14 +216,14 @@ you can create it by running `sudo mkdir -m 755 /etc/apt/keyrings`
    sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
    ```
 
-   {{< caution >}}
-   - Setting SELinux in permissive mode by running `setenforce 0` and `sed ...`
-     effectively disables it. This is required to allow containers to access the host
-     filesystem; for example, some cluster network plugins require that. You have to
-     do this until SELinux support is improved in the kubelet.
-   - You can leave SELinux enabled if you know how to configure it but it may require
-     settings that are not supported by kubeadm.
-   {{< /caution >}}
+{{< caution >}}
+- Setting SELinux in permissive mode by running `setenforce 0` and `sed ...`
+  effectively disables it. This is required to allow containers to access the host
+  filesystem; for example, some cluster network plugins require that. You have to
+  do this until SELinux support is improved in the kubelet.
+- You can leave SELinux enabled if you know how to configure it but it may require
+  settings that are not supported by kubeadm.
+{{< /caution >}}
 
 2. Add the Kubernetes `yum` repository. The `exclude` parameter in the
    repository definition ensures that the packages related to Kubernetes are
