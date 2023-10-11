@@ -771,15 +771,7 @@ validations are not supported by ratcheting under the implementation in Kubernet
 
 ### Validation rules
 
-{{< feature-state state="beta" for_k8s_version="v1.25" >}}
-
-
-Validation rules are in beta since 1.25 and the `CustomResourceValidationExpressions`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled by default to
-validate custom resource based on _validation rules_. You can disable this feature by explicitly
-setting the `CustomResourceValidationExpressions` feature gate to `false`, for the
-[kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/) component. This
-feature is only available if the schema is a [structural schema](#specifying-a-structural-schema).
+{{< feature-state state="stable" for_k8s_version="v1.29" >}}
 
 Validation rules use the [Common Expression Language (CEL)](https://github.com/google/cel-spec)
 to validate custom resource values. Validation rules are included in
