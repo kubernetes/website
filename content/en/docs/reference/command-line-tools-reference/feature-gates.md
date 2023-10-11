@@ -89,8 +89,6 @@ For a reference to old feature gates that are removed, please refer to
 | `CronJobsScheduledAnnotation` | `true` | Beta | 1.28 | |
 | `CrossNamespaceVolumeDataSource` | `false` | Alpha| 1.26 | |
 | `CustomCPUCFSQuotaPeriod` | `false` | Alpha | 1.12 | |
-| `CustomResourceValidationExpressions` | `false` | Alpha | 1.23 | 1.24 |
-| `CustomResourceValidationExpressions` | `true` | Beta | 1.25 | |
 | `DevicePluginCDIDevices` | `false` | Alpha | 1.28 | |
 | `DisableCloudProviders` | `false` | Alpha | 1.22 | |
 | `DisableKubeletCloudCredentialProviders` | `false` | Alpha | 1.23 | |
@@ -249,6 +247,9 @@ For a reference to old feature gates that are removed, please refer to
 | `ComponentSLIs` | `true` | Beta | 1.27 | 1.28|
 | `ComponentSLIs` | `true` | GA | 1.29 | - |
 | `ConsistentHTTPGetHandlers` | `true` | GA | 1.25 | - |
+| `CustomResourceValidationExpressions` | `false` | Alpha | 1.23 | 1.24 |
+| `CustomResourceValidationExpressions` | `true`  | Beta  | 1.25 | 1.28 |
+| `CustomResourceValidationExpressions` | `true`  | GA | 1.29 | - |
 | `DaemonSetUpdateSurge` | `false` | Alpha | 1.21 | 1.21 |
 | `DaemonSetUpdateSurge` | `true` | Beta | 1.22 | 1.24 |
 | `DaemonSetUpdateSurge` | `true` | GA | 1.25 | |
