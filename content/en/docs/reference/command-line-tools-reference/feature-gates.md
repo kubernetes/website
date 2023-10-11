@@ -702,7 +702,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   for a Pod directly with the correct SELinux label instead of changing each file on the volumes
   recursively. The initial implementation focused on ReadWriteOncePod volumes.
 - `SchedulerQueueingHints`: Enables [the scheduler's _queueing hints_ enhancement](https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/4247-queueinghint/README.md),
-  which benefits to reduce the useless requeueing.
+  which benefits to reduce the useless requeueing. This feature is an internal one that most users don't need to care about. The QueueingHint feature changes the critical path of scheduling a lot and this feature gate is a safety net to go away from QueueingHint when we find some issues in it.
 - `SeccompDefault`: Enables the use of `RuntimeDefault` as the default seccomp profile
   for all workloads.
   The seccomp profile is specified in the `securityContext` of a Pod and/or a Container.
