@@ -56,10 +56,10 @@ The following methods exist for installing kubectl on Linux:
 
    {{< tabs name="download_binary_linux" >}}
    {{< tab name="x86-64" codelang="bash" >}}
-   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
    {{< /tab >}}
    {{< tab name="ARM64" codelang="bash" >}}
-   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl"
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl"
    {{< /tab >}}
    {{< /tabs >}}
 
@@ -100,10 +100,10 @@ The following methods exist for installing kubectl on Linux:
 
    {{< tabs name="download_checksum_linux" >}} 
    {{< tab name="x86-64" codelang="bash" >}}
-   curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
    {{< /tab >}}
    {{< tab name="ARM64" codelang="bash" >}}
-   curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl.sha256"
+curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl.sha256"
    {{< /tab >}}
    {{< /tabs >}}
 
@@ -415,10 +415,10 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
 
    {{< tabs name="download_convert_binary_linux" >}}
    {{< tab name="x86-64" codelang="bash" >}}
-   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert"
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert"
    {{< /tab >}}
    {{< tab name="ARM64" codelang="bash" >}}
-   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl-convert"
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl-convert"
    {{< /tab >}}
    {{< /tabs >}}
 
@@ -433,10 +433,10 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
 
    {{< tabs name="download_convert_checksum_linux" >}}
    {{< tab name="x86-64" codelang="bash" >}}
-   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert.sha256"
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert.sha256"
    {{< /tab >}}
    {{< tab name="ARM64" codelang="bash" >}}
-   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl-convert.sha256"
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl-convert.sha256"
    {{< /tab >}}
    {{< /tabs >}}
 
