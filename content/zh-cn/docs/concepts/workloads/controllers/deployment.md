@@ -2154,9 +2154,9 @@ Here are some Rolling Update Deployment examples that use the `maxUnavailable` a
 以下是一些使用 `maxUnavailable` 和 `maxSurge` 的滚动更新 Deployment 的示例：
 
 {{< tabs name="tab_with_md" >}}
-{{% tab name="Max Unavailable" %}}
+{{% tab name="最大不可用" %}}
 
- ```yaml
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -2182,12 +2182,12 @@ spec:
     type: RollingUpdate
     rollingUpdate:
       maxUnavailable: 1
- ```
+```
 
 {{% /tab %}}
-{{% tab name="Max Surge" %}}
+{{% tab name="最大峰值" %}}
 
- ```yaml
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -2213,12 +2213,12 @@ spec:
     type: RollingUpdate
     rollingUpdate:
       maxSurge: 1
- ```
+```
 
 {{% /tab %}}
-{{% tab name="Hybrid" %}}
+{{% tab name="两项混合" %}}
 
- ```yaml
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -2245,7 +2245,7 @@ spec:
     rollingUpdate:
       maxSurge: 1
       maxUnavailable: 1
- ```
+```
 
 {{% /tab %}}
 {{< /tabs >}}
@@ -2261,7 +2261,7 @@ retrying the Deployment. This defaults to 600. In the future, once automatic rol
 controller will roll back a Deployment as soon as it observes such a condition.
 -->
 ### 进度期限秒数    {#progress-deadline-seconds}
- 
+
 `.spec.progressDeadlineSeconds` 是一个可选字段，用于指定系统在报告 Deployment
 [进展失败](#failed-deployment) 之前等待 Deployment 取得进展的秒数。
 这类报告会在资源状态中体现为 `type: Progressing`、`status: False`、
