@@ -48,7 +48,7 @@ RUN chmod a+rx index.php
 まず最初に、イメージを動かすDeploymentを起動し、Serviceとして公開しましょう。
 下記の設定を使います。
 
-{{< codenew file="application/php-apache.yaml" >}}
+{{% codenew file="application/php-apache.yaml" %}}
 
 以下のコマンドを実行してください。
 
@@ -390,7 +390,7 @@ Events:
 
 `kubectl autoscale`コマンドを使って命令的にHorizontalPodAutoscalerを作るかわりに、下記のファイルを使って宣言的に作成することができます。
 
-{{< codenew file="application/hpa/php-apache.yaml" >}}
+{{% codenew file="application/hpa/php-apache.yaml" %}}
 
 下記のコマンドを実行してAutoscalerを作成します。
 

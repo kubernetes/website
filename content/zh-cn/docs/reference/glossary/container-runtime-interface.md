@@ -24,9 +24,9 @@ tags:
 -->
 
 <!--
-The main protocol for the communication between the kubelet and Container Runtime.
+The main protocol for the communication between the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} and Container Runtime.
 -->
-kubelet 和容器运行时之间通信的主要协议。
+{{< glossary_tooltip text="kubelet" term_id="kubelet" >}} 和容器运行时之间通信的主要协议。
 
 <!--more-->
 

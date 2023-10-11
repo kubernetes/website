@@ -9,7 +9,7 @@ title: Persistent Volumes
 feature:
   title: Storage orchestration
   description: >
-    Automatically mount the storage system of your choice, whether from local storage, a public cloud provider such as <a href="https://aws.amazon.com/products/storage/">AWS</a> or <a href="https://cloud.google.com/storage/">GCP</a>, or a network storage system such as NFS, iSCSI, Ceph, Cinder.
+    Automatically mount the storage system of your choice, whether from local storage, a public cloud provider, or a network storage system such as iSCSI or NFS.
 content_type: concept
 weight: 20
 ---
@@ -539,13 +539,13 @@ Older versions of Kubernetes also supported the following in-tree PersistentVolu
   (**not available** in v1.26)
 * `photonPersistentDisk` - Photon controller persistent disk.
   (**not available** starting v1.15)
-* [`scaleIO`](/docs/concepts/storage/volumes/#scaleio) - ScaleIO volume
+* `scaleIO` - ScaleIO volume.
   (**not available** starting v1.21)
-* [`flocker`](/docs/concepts/storage/volumes/#flocker) - Flocker storage
+* `flocker` - Flocker storage.
   (**not available** starting v1.25)
-* [`quobyte`](/docs/concepts/storage/volumes/#quobyte) - Quobyte volume
+* `quobyte` - Quobyte volume.
   (**not available** starting v1.25)
-* [`storageos`](/docs/concepts/storage/volumes/#storageos) - StorageOS volume
+* `storageos` - StorageOS volume.
   (**not available** starting v1.25)
 
 ## Persistent Volumes
@@ -637,7 +637,7 @@ The access modes are:
  `ReadWriteOncePod`
 : {{< feature-state for_k8s_version="v1.27" state="beta" >}}
   the volume can be mounted as read-write by a single Pod. Use ReadWriteOncePod
-  access mode if you want to ensure that only one pod across whole cluster can
+  access mode if you want to ensure that only one pod across the whole cluster can
   read that PVC or write to it. This is only supported for CSI volumes and
   Kubernetes version 1.22+.
 
@@ -748,27 +748,34 @@ API reference has more details on this field.
 
 ### Phase
 
-A volume will be in one of the following phases:
+A PersistentVolume will be in one of the following phases:
 
-* Available -- a free resource that is not yet bound to a claim
-* Bound -- the volume is bound to a claim
-* Released -- the claim has been deleted, but the resource is not yet reclaimed by the cluster
-* Failed -- the volume has failed its automatic reclamation
+`Available`
+: a free resource that is not yet bound to a claim
 
-The CLI will show the name of the PVC bound to the PV.
+`Bound`
+: the volume is bound to a claim
+
+`Released`
+: the claim has been deleted, but the associated storage resource is not yet reclaimed by the cluster
+
+`Failed`
+: the volume has failed its (automated) reclamation
+
+You can see the name of the PVC bound to the PV using `kubectl describe persistentvolume <name>`.
 
 #### Phase transition timestamp
 
 {{< feature-state for_k8s_version="v1.28" state="alpha" >}}
 
-Persistent volume status contains `lastPhaseTransitionTime` field which holds
-a timestamp of when the volume last transitioned its phase. For newly created
-volumes the phase is set to "Pending" and `lastPhaseTransitionTime` is set to
-current time.
+The `.status` field for a PersistentVolume can include an alpha `lastPhaseTransitionTime` field. This field records
+the timestamp of when the volume last transitioned its phase. For newly created
+volumes the phase is set to `Pending` and `lastPhaseTransitionTime` is set to
+the current time.
 
 {{< note >}}
 You need to enable the `PersistentVolumeLastPhaseTransitionTime` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-to see `lastPhaseTransitionTime` field.
+to use or see the `lastPhaseTransitionTime` field.
 {{< /note >}}
 
 ## PersistentVolumeClaims
@@ -850,9 +857,9 @@ is turned on.
   PVs of that default. Specifying a default StorageClass is done by setting the
   annotation `storageclass.kubernetes.io/is-default-class` equal to `true` in
   a StorageClass object. If the administrator does not specify a default, the
-  cluster responds to PVC creation as if the admission plugin were turned off. If
-  more than one default is specified, the admission plugin forbids the creation of
-  all PVCs.
+  cluster responds to PVC creation as if the admission plugin were turned off. If more than one
+  default StorageClass is specified, the newest default is used when the
+  PVC is dynamically provisioned.
 * If the admission plugin is turned off, there is no notion of a default
   StorageClass. All PVCs that have `storageClassName` set to `""` can be
   bound only to PVs that have `storageClassName` also set to `""`.
@@ -1123,7 +1130,7 @@ Kubernetes supports cross namespace volume data sources.
 To use cross namespace volume data sources, you must enable the `AnyVolumeDataSource`
 and `CrossNamespaceVolumeDataSource`
 [feature gates](/docs/reference/command-line-tools-reference/feature-gates/) for
-the kube-apiserver, kube-controller-manager.
+the kube-apiserver and kube-controller-manager.
 Also, you must enable the `CrossNamespaceVolumeDataSource` feature gate for the csi-provisioner.
 
 Enabling the `CrossNamespaceVolumeDataSource` feature gate allows you to specify

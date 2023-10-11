@@ -38,7 +38,7 @@ Here is the configuration file for the Pod:
 
 下面是 Pod 的配置文件：
 
-{{% code file="pods/init-containers.yaml" %}}
+{{% code_sample file="pods/init-containers.yaml" %}}
 
 <!--
 In the configuration file, you can see that the Pod has a Volume that the init

@@ -248,6 +248,8 @@ Endpoints 是实现实际服务的端点的集合。举例:
      
       * Kubernetes-defined prefixed names:
         * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+        * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
+        * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
      
       * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
       -->
@@ -256,6 +258,8 @@ Endpoints 是实现实际服务的端点的集合。举例:
       
       * Kubernetes 定义的前缀名称
         * 'kubernetes.io/h2c' - HTTP/2 明文，如 https://www.rfc-editor.org/rfc/rfc7540 中所述
+        * 'kubernetes.io/ws'  - WebSocket 明文，如 https://www.rfc-editor.org/rfc/rfc6455 中所述
+        * 'kubernetes.io/wss' - WebSocket TLS 传输方式，如 https://www.rfc-editor.org/rfc/rfc6455 中所述
     
       * 其他协议应使用实现定义的前缀名称，如 mycompany.com/my-custom-protocol。
 

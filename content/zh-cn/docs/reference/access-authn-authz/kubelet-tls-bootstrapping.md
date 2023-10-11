@@ -411,7 +411,7 @@ To do this, you only need to create a `ClusterRoleBinding` that binds the `syste
 -->
 ### 授权 kubelet 创建 CSR    {#authorize-kubelet-to-create-csr}
 
-现在启动引导节点被 **身份认证** 为 `system:bootstrapping` 组的成员，
+现在启动引导节点被 **身份认证** 为 `system:bootstrappers` 组的成员，
 它需要被 **授权** 创建证书签名请求（CSR）并在证书被签名之后将其取回。
 幸运的是，Kubernetes 提供了一个 `ClusterRole`，其中精确地封装了这些许可，
 `system:node-bootstrapper`。

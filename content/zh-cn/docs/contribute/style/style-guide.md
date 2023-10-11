@@ -553,7 +553,7 @@ To specify the Kubernetes version for a task or tutorial page, include
 [任务模板](/zh-cn/docs/contribute/style/page-content-types/#task)
 或[教程模板](/zh-cn/docs/contribute/style/page-content-types/#tutorial)
 的 `prerequisites` 小节定义 Kubernetes 版本。
-页面保存之后，`prerequisites` 小节会显示为 **开始之前**。
+页面保存之后，`prerequisites` 小节会显示为**开始之前**。
 
 如果要为任务或教程页面指定 Kubernetes 版本，可以在文件的前言部分包含
 `min-kubernetes-server-version` 信息。
@@ -700,7 +700,7 @@ The output is:
 
 使用短代码 `{{</* note */>}}` 来突出显示某种提示或者有助于读者的信息。
 
-例如:
+例如：
 
 ```
 {{</* note */>}}
@@ -714,7 +714,7 @@ The output is:
 <!--
 You can _still_ use Markdown inside these callouts.
 -->
-在这类短代码中仍然 _可以_ 使用 Markdown 语法。
+在这类短代码中仍然**可以**使用 Markdown 语法。
 {{< /note >}}
 
 <!--
@@ -1234,8 +1234,7 @@ This page teaches you how to use pods. | In this page, we are going to learn abo
 
 ### 避免使用“我们”
 
-在句子中使用“我们”会让人感到困惑，因为读者可能不知道这里的
-“我们”指的是谁。
+在句子中使用“我们”会让人感到困惑，因为读者可能不知道这里的“我们”指的是谁。
 
 {{< table caption = "要避免的模式" >}}
 可以 | 不可以
@@ -1283,7 +1282,7 @@ is the [Deprecated API migration guide](/docs/reference/using-api/deprecation-gu
 ### 避免关于将来的陈述
 
 要避免对将来作出承诺或暗示。如果你需要讨论的是 Alpha 功能特性，
-可以将相关文字放在一个单独的标题下，标示为 Alpha 版本信息。
+可以将相关文字放在一个单独的标题下，标识为 Alpha 版本信息。
 
 此规则的一个例外是对未来版本中计划移除的已废弃功能选项的文档。
 此类文档的例子之一是[已弃用 API 迁移指南](/zh-cn/docs/reference/using-api/deprecation-guide/)。
@@ -1340,6 +1339,20 @@ These steps ... | These simple steps ...
 你可以移除... | 你可以很容易地移除...
 这些步骤... | 这些简单的步骤...
 {{< /table >}}
+
+<!--
+### EditorConfig file
+The Kubernetes project maintains an EditorConfig file that sets common style preferences in text editors
+such as VS Code. You can use this file if you want to ensure that your contributions are consistent with
+the rest of the project. To view the file, refer to
+[`.editorconfig`](https://github.com/kubernetes/website/blob/main/.editorconfig) in the repository root.
+-->
+### 编辑器配置文件
+
+Kubernetes 项目维护一个 EditorConfig 文件，用于设置文本编辑器（例如 VS Code）中的常见样式首选项。
+如果你想确保你的贡献与项目的其余部分样式保持一致，则可以使用此文件。
+要查看该文件，请参阅项目仓库根目录的
+[`.editorconfig`](https://github.com/kubernetes/website/blob/main/.editorconfig)。
 
 ## {{% heading "whatsnext" %}}
 

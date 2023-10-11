@@ -1,6 +1,11 @@
 {{ $hasCaption := isset .Params "caption" }}
 {{ $caption    := .Get "caption" }}
+{{ $sortable   := .Get "sortable" }} 
 {{ $captionEl  := printf "<table><caption style=\"display: none;\">%s</caption>" $caption }}
 {{ $table      := .Inner | markdownify }}
 {{ $html       := cond $hasCaption ($table | replaceRE "<table>" $captionEl) $table | safeHTML }}
+<!-- Check if 'sortable' is true, and if so, add the 'sortable-table' class -->
+{{ if $sortable }}
+    {{ $html = replaceRE "<table>" "<table class=\"sortable-table\">" $html | safeHTML }}
+{{ end }}
 {{ $html }}

@@ -58,7 +58,7 @@ kubectl create namespace cpu-example
 
 この練習では、一つのコンテナをもつPodを作成します。コンテナに0.5 CPUの要求と1 CPUの制限を与えます。Podの設定ファイルは次のようになります:
 
-{{< codenew file="pods/resource/cpu-request-limit.yaml" >}}
+{{% codenew file="pods/resource/cpu-request-limit.yaml" %}}
 
 設定ファイルの`args`セクションでは、コンテナ起動時の引数を与えます。`-cpus "2"`という引数では、コンテナに2 CPUを割り当てます。
 
@@ -136,7 +136,7 @@ Podのスケジューリングはリソースの要求量に基づいていま�
 
 この練習では、クラスター内のノードのキャパシティを超える大きさのCPU要求を与えたPodを作成します。以下に100 CPUの要求を与えた一つのコンテナを持つ、Podの設定ファイルを示します。これは、クラスター内のノードのキャパシティを超える可能性があります。
 
-{{< codenew file="pods/resource/cpu-request-limit-2.yaml" >}}
+{{% codenew file="pods/resource/cpu-request-limit-2.yaml" %}}
 
 Podを作成してください:
 

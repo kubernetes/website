@@ -3,6 +3,12 @@ title: "Install Tools"
 description: Set up Kubernetes tools on your computer.
 weight: 10
 no_list: true
+card:
+  name: tasks
+  weight: 20
+  anchors:
+  - anchor: "#kubectl"
+    title: Install kubectl
 ---
 
 ## kubectl

@@ -7,8 +7,8 @@ reviewers:
 content_type: concept
 weight: 10 # highlight it
 card:
-  name: reference
-  weight: 30
+  name: tasks
+  weight: 10
 ---
 
 <!-- overview -->
@@ -42,6 +42,15 @@ complete -o default -F __start_kubectl k
 source <(kubectl completion zsh)  # set up autocomplete in zsh into the current shell
 echo '[[ $commands[kubectl] ]] && source <(kubectl completion zsh)' >> ~/.zshrc # add autocomplete permanently to your zsh shell
 ```
+
+### FISH
+
+Require kubectl version 1.23 or above.
+
+```bash
+echo 'kubectl completion fish | source' >> ~/.config/fish/config.fish  # add kubectl autocompletion permanently to your fish shell 
+```
+
 ### A note on `--all-namespaces`
 
 Appending `--all-namespaces` happens frequently enough that you should be aware of the shorthand for `--all-namespaces`:
@@ -431,6 +440,8 @@ Output format | Description
 --------------| -----------
 `-o=custom-columns=<spec>` | Print a table using a comma separated list of custom columns
 `-o=custom-columns-file=<filename>` | Print a table using the custom columns template in the `<filename>` file
+`-o=go-template=<template>`     | Print the fields defined in a [golang template](https://pkg.go.dev/text/template)
+`-o=go-template-file=<filename>` | Print the fields defined by the [golang template](https://pkg.go.dev/text/template) in the `<filename>` file
 `-o=json`     | Output a JSON formatted API object
 `-o=jsonpath=<template>` | Print the fields defined in a [jsonpath](/docs/reference/kubectl/jsonpath) expression
 `-o=jsonpath-file=<filename>` | Print the fields defined by the [jsonpath](/docs/reference/kubectl/jsonpath) expression in the `<filename>` file

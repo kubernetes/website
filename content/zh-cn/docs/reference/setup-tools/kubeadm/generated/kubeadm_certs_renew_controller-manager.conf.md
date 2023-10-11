@@ -1,14 +1,3 @@
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
 <!-- 
 Renew the certificate embedded in the kubeconfig file for the controller manager to use 
 -->
@@ -93,7 +82,7 @@ kubeadm alpha renew controller-manager.conf [flags]
 <!--
 <p>help for controller-manager.conf</p>
 -->
-<p>controller-manager.conf 操作的帮助命令</p>
+<p>controller-manager.conf 操作的帮助命令。</p>
 </td>
 </tr>
 
@@ -123,7 +112,7 @@ kubeadm alpha renew controller-manager.conf [flags]
 <!--
 Use the Kubernetes certificate API to renew certificates
 -->
-使用 Kubernetes 证书 API 续订证书
+使用 Kubernetes 证书 API 续订证书。
 </td>
 </tr>
 
@@ -156,4 +145,3 @@ Use the Kubernetes certificate API to renew certificates
 
 </tbody>
 </table>
-

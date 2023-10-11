@@ -31,7 +31,7 @@ This tutorial uses a simple nginx web server to demonstrate the concept.
 We did this in a previous example, but let's do it once again and focus on the networking perspective.
 Create an nginx Pod, and note that it has a container port specification:
 
-{{% code file="service/networking/run-my-nginx.yaml" %}}
+{{% code_sample file="service/networking/run-my-nginx.yaml" %}}
 
 This makes it accessible from any node in your cluster. Check the nodes the Pod is running on:
 
@@ -92,7 +92,7 @@ service/my-nginx exposed
 
 This is equivalent to `kubectl apply -f` the following yaml:
 
-{{% code file="service/networking/nginx-svc.yaml" %}}
+{{% code_sample file="service/networking/nginx-svc.yaml" %}}
 
 This specification will create a Service which targets TCP port 80 on any Pod
 with the `run: my-nginx` label, and expose it on an abstracted Service port
@@ -340,7 +340,7 @@ nginxsecret           kubernetes.io/tls                     2         1m
 Now modify your nginx replicas to start an https server using the certificate
 in the secret, and the Service, to expose both ports (80 and 443):
 
-{{% code file="service/networking/nginx-secure-app.yaml" %}}
+{{% code_sample file="service/networking/nginx-secure-app.yaml" %}}
 
 Noteworthy points about the nginx-secure-app manifest:
 
@@ -376,7 +376,7 @@ linked the CName used in the certificate with the actual DNS name used by pods
 during Service lookup. Let's test this from a pod (the same secret is being reused
 for simplicity, the pod only needs nginx.crt to access the Service):
 
-{{% code file="service/networking/curlpod.yaml" %}}
+{{% code_sample file="service/networking/curlpod.yaml" %}}
 
 ```shell
 kubectl apply -f ./curlpod.yaml

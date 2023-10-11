@@ -311,14 +311,14 @@ Example PDB Using minAvailable:
 -->
 使用 minAvailable 的 PDB 示例：
 
-{{% code file="policy/zookeeper-pod-disruption-budget-minavailable.yaml" %}}
+{{% code_sample file="policy/zookeeper-pod-disruption-budget-minavailable.yaml" %}}
 
 <!--
 Example PDB Using maxUnavailable:
 -->
 使用 maxUnavailable 的 PDB 示例：
 
-{{% code file="policy/zookeeper-pod-disruption-budget-maxunavailable.yaml" %}}
+{{% code_sample file="policy/zookeeper-pod-disruption-budget-maxunavailable.yaml" %}}
 
 <!--
 For example, if the above `zk-pdb` object selects the pods of a StatefulSet of size 3, both
@@ -535,7 +535,7 @@ You can use a PDB with pods controlled by another resource, by an
 - only `.spec.minAvailable` can be used, not `.spec.maxUnavailable`.
 - only an integer value can be used with `.spec.minAvailable`, not a percentage.
 -->
-- 只能够使用 `.spec.minAvailable`，而不能够使用 `.spec.maxUnavailable。`
+- 只能够使用 `.spec.minAvailable`，而不能够使用 `.spec.maxUnavailable`。
 - 只能够使用整数作为 `.spec.minAvailable` 的值，而不能使用百分比。
 
 <!--

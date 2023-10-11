@@ -10,6 +10,9 @@ weight: 20
 card:
   name: concepts
   weight: 10
+  anchors:
+  - anchor: "#why-you-need-kubernetes-and-what-can-it-do"
+    title: Why Kubernetes?
 no_list: true
 ---
 

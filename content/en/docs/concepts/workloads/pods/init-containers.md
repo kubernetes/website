@@ -46,7 +46,7 @@ field).
 Init containers support all the fields and features of app containers,
 including resource limits, [volumes](/docs/concepts/storage/volumes/), and security settings. However, the
 resource requests and limits for an init container are handled differently,
-as documented in [Resources](#resources).
+as documented in [Resource sharing within containers](#resource-sharing-within-containers).
 
 Also, init containers do not support `lifecycle`, `livenessProbe`, `readinessProbe`, or
 `startupProbe` because they must run to completion before the Pod can be ready.
@@ -321,7 +321,7 @@ robust way, as the kubelet always restarts a sidecar container if it fails.
 
 Here's an example of a Deployment with two containers, one of which is a sidecar:
 
-{{% codenew language="yaml" file="application/deployment-sidecar.yaml" %}}
+{{% code_sample language="yaml" file="application/deployment-sidecar.yaml" %}}
 
 This feature is also useful for running Jobs with sidecars, as the sidecar
 container will not prevent the Job from completing after the main container
@@ -329,7 +329,7 @@ has finished.
 
 Here's an example of a Job with two containers, one of which is a sidecar:
 
-{{% codenew language="yaml" file="application/job/job-sidecar.yaml" %}}
+{{% code_sample language="yaml" file="application/job/job-sidecar.yaml" %}}
 
 #### Resource sharing within containers
 
@@ -377,4 +377,3 @@ Kubernetes, consult the documentation for the version you are using.
 * Learn how to [debug init containers](/docs/tasks/debug/debug-application/debug-init-containers/)
 * Read about an overview of [kubelet](/docs/reference/command-line-tools-reference/kubelet/) and [kubectl](/docs/reference/kubectl/)
 * Learn about the [types of probes](/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe): liveness, readiness, startup probe.
-* 

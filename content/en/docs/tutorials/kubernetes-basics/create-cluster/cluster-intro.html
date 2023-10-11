@@ -86,7 +86,7 @@ description: |-
 
         <div class="row">
             <div class="col-md-8">
-                <p>When you deploy applications on Kubernetes, you tell the control plane to start the application containers. The control plane schedules the containers to run on the cluster's nodes. <b>The nodes communicate with the control plane using the <a href="/docs/concepts/overview/kubernetes-api/">Kubernetes API</a></b>, which the control plane exposes. End users can also use the Kubernetes API directly to interact with the cluster.</p>
+                <p>When you deploy applications on Kubernetes, you tell the control plane to start the application containers. The control plane schedules the containers to run on the cluster's nodes. <b>Node-level components, such as the kubelet, communicate with the control plane using the <a href="/docs/concepts/overview/kubernetes-api/">Kubernetes API</a></b>, which the control plane exposes. End users can also use the Kubernetes API directly to interact with the cluster.</p>
 
                 <p>A Kubernetes cluster can be deployed on either physical or virtual machines. To get started with Kubernetes development, you can use Minikube. Minikube is a lightweight Kubernetes implementation that creates a VM on your local machine and deploys a simple cluster containing only one node. Minikube is available for Linux, macOS, and Windows systems. The Minikube CLI provides basic bootstrapping operations for working with your cluster, including start, stop, status, and delete.</p>
 

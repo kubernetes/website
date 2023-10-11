@@ -24,7 +24,7 @@ Kubernetesは各Podにそれぞれ固有のクラスタープライベートなI
 これは前出の例でも行いましたが、もう一度やってみて、ネットワークからの観点に着目してみましょう。
 nginx Podを作成し、コンテナのポート指定も記載します:
 
-{{< codenew file="service/networking/run-my-nginx.yaml" >}}
+{{% codenew file="service/networking/run-my-nginx.yaml" %}}
 
 この設定で、あなたのクラスターにはどのノードからもアクセス可能になります。Podを実行中のノードを確認してみましょう:
 
@@ -79,7 +79,7 @@ service/my-nginx exposed
 
 これは`kubectl apply -f`を以下のyamlに対して実行するのと同じです:
 
-{{< codenew file="service/networking/nginx-svc.yaml" >}}
+{{% codenew file="service/networking/nginx-svc.yaml" %}}
 
 この指定は、`run: my-nginx`ラベルの付いた任意のPod上のTCPポート80を宛先とし、それを抽象化されたServiceポート(`targetPort`はコンテナがトラフィックを許可するポート、`port`は抽象化されたServiceポートで、ほかのPodがServiceにアクセスするのに使う任意のポートです)で公開するServiceを作成します。
 Service定義内でサポートされているフィールドのリストを見るには、[Service](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core) APIオブジェクトを参照してください。
@@ -303,7 +303,7 @@ nginxsecret           kubernetes.io/tls                     2         1m
 
 Secretにある証明書を使ってhttpsサーバーを開始するために、nginxレプリカを変更します。また、Serviceは(80および443の)両方のポートを公開するようにします:
 
-{{< codenew file="service/networking/nginx-secure-app.yaml" >}}
+{{% codenew file="service/networking/nginx-secure-app.yaml" %}}
 
 nginx-secure-appマニフェストの注目すべきポイント:
 
@@ -335,7 +335,7 @@ node $ curl -k https://10.244.3.5
 Serviceを作成することで、証明書で使われているCNameと、PodがServiceルックアップ時に使う実際のDNS名とがリンクされます。
 Podからこれをテストしてみましょう(単純化のため同じSecretが再利用されるので、ServiceにアクセスするのにPodが必要なのはnginx.crtだけです):
 
-{{< codenew file="service/networking/curlpod.yaml" >}}
+{{% codenew file="service/networking/curlpod.yaml" %}}
 
 ```shell
 kubectl apply -f ./curlpod.yaml

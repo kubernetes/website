@@ -3,17 +3,28 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the
+To update the reference content, please follow the 
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-PLACEHOLDER
+
+Read a file containing the kubeadm configuration API and report any validation problems
 
 ### Synopsis
 
-PLACEHOLDER
+
+
+This command lets you validate a kubeadm configuration API file and report any warnings and errors.
+If there are no errors the exit status will be zero, otherwise it will be non-zero.
+Any unmarshaling problems such as unknown API fields will trigger errors. Unknown API versions and
+fields with invalid values will also trigger errors. Any other errors or warnings may be reported
+depending on contents of the input file.
+
+In this version of kubeadm, the following API versions are supported:
+- kubeadm.k8s.io/v1beta3
+
 
 ```
 kubeadm config validate [flags]
@@ -29,17 +40,24 @@ kubeadm config validate [flags]
 <tbody>
 
 <tr>
-<td colspan="2">-h, --help</td>
+<td colspan="2">--allow-experimental-api</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for validate</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Allow validation of experimental, unreleased APIs.</p></td>
 </tr>
 
 <tr>
 <td colspan="2">--config string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>PLACEHOLDER</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a kubeadm configuration file.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">-h, --help</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for validate</p></td>
 </tr>
 
 </tbody>

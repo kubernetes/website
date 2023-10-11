@@ -687,7 +687,7 @@ plugins:
 
 Then, create a resource quota object in the `kube-system` namespace:
 
-{{% code file="policy/priority-class-resourcequota.yaml" %}}
+{{% code_sample file="policy/priority-class-resourcequota.yaml" %}}
 
 ```shell
 kubectl apply -f https://k8s.io/examples/policy/priority-class-resourcequota.yaml -n kube-system
