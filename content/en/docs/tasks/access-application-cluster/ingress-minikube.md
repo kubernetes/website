@@ -156,8 +156,7 @@ The following manifest defines an Ingress that sends traffic to your Service via
    NAME              CLASS    HOSTS              ADDRESS        PORTS   AGE
    example-ingress   <none>   hello-world.info   172.17.0.15    80      38s
    ```
-
-
+   
 1. Verify that the Ingress controller is directing traffic:
 
    ```shell
@@ -171,7 +170,10 @@ The following manifest defines an Ingress that sends traffic to your Service via
    Version: 1.0.0
    Hostname: web-55b8c6998d-8k564
    ```
-
+   {{< note >}}
+   If you don't see the above result, Run `minikube tunnel` ( Keep the window open. After you enter the password there will be no more messages, and the cursor just blinks)
+   {{< /note >}}
+   
    You can also visit `hello-world.info` from your browser.
 
    * **Optionally**
