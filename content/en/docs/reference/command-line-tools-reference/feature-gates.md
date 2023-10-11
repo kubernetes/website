@@ -703,10 +703,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
   recursively. The initial implementation focused on ReadWriteOncePod volumes.
 - `SchedulerQueueingHints`: Enables [the scheduler's _queueing hints_ enhancement](https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/4247-queueinghint/README.md),
   which benefits to reduce the useless requeueing.
-  This feature is an internal one that most users don't need to care about.
-  The SchedulerQueueingHints feature changes the critical path of scheduling a lot
-  and this feature gate is a safety net to go away from SchedulerQueueingHints
-  when we find some issues in it.
+  The scheduler retries scheduling pods if something changes in the cluster that could make the pod scheduled.
+  Queueing hints are internal signals that allow the scheduler to filter the changes in the cluster
+  that are relevant to the unscheduled pod, based on previous scheduling attempts.  
 - `SeccompDefault`: Enables the use of `RuntimeDefault` as the default seccomp profile
   for all workloads.
   The seccomp profile is specified in the `securityContext` of a Pod and/or a Container.
