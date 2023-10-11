@@ -66,6 +66,25 @@ footer {
     font-weight: 400;
   }
 
+  #quickstartButton{
+    display: inline-block;
+    border-radius: 6px;
+    padding: 15px;
+    line-height: 1.3rem;
+    color: white;
+    background-color: $blue;
+    text-decoration: none;
+    font-size: 1rem;
+  }
+
+  #quickstartButton:hover {
+    border: 1px solid $blue;
+    border-radius: 6px;
+    background-color: transparent;
+    color: white;
+    transition: 0.35s ease-in-out;
+  }
+
   .button {
     display: inline-block;
     border-radius: 6px;
@@ -76,7 +95,6 @@ footer {
     text-decoration: none;
     font-size: 1rem;
     border: 0px;
-
   }
 
   .button:hover {
