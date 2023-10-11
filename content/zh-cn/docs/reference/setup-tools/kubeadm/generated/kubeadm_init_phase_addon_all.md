@@ -1,30 +1,17 @@
 <!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
-<!--
 Install all the addons
 -->
-安装所有插件
+安装所有插件。
 
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
 Install all the addons
 -->
-
-安装所有插件（addon）
+安装所有插件（addon）。
 
 ```
 kubeadm init phase addon all [flags]
@@ -33,7 +20,6 @@ kubeadm init phase addon all [flags]
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -124,12 +110,17 @@ Don't apply any changes; just output what would be done.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of key=value pairs that describe feature gates for various features. Options are:<br/>EtcdLearnerMode=true|false (ALPHA - default=false)<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)
+A set of key=value pairs that describe feature gates for various features. Options are:<br/>
+EtcdLearnerMode=true|false (ALPHA - default=false)<br/>
+PublicKeysECDSA=true|false (ALPHA - default=false)<br/>
+RootlessControlPlane=true|false (ALPHA - default=false)<br/>
+UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - default=false)
 -->
-一组键值对（key=value），描述了各种特征。选项包括：
-<br/>EtcdLearnerMode=true|false (ALPHA - 默认值=false)
-<br/>PublicKeysECDSA=true|false (ALPHA - 默认值=false)
-<br/>RootlessControlPlane=true|false (ALPHA - 默认值=false)
+一组键值对（key=value），描述了各种特征。选项包括：<br/>
+EtcdLearnerMode=true|false (ALPHA - 默认值=false)<br/>
+PublicKeysECDSA=true|false (ALPHA - 默认值=false)<br/>
+RootlessControlPlane=true|false (ALPHA - 默认值=false)<br/>
+UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - 默认值=false)
 </td>
 </tr>
 
@@ -142,7 +133,7 @@ A set of key=value pairs that describe feature gates for various features. Optio
 help for all
 -->
 <p>
-all 操作的帮助命令
+all 操作的帮助命令。
 </p>
 </td>
 </tr>
@@ -161,7 +152,7 @@ all 操作的帮助命令
 Choose a container registry to pull control plane images from
 -->
 <p>
-选择用于拉取控制平面镜像的容器仓库
+选择用于拉取控制平面镜像的容器仓库。
 </p>
 </td>
 </tr>
@@ -260,7 +251,6 @@ Use alternative domain for services, e.g. &quot;myorg.internal&quot;.
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 继承于父命令的选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -286,4 +276,3 @@ Use alternative domain for services, e.g. &quot;myorg.internal&quot;.
 
 </tbody>
 </table>
-

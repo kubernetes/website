@@ -32,16 +32,17 @@ aliases:
     - annajung
     - bradtopol
     - divya-mohan0209
+    - katcosgrove # RT 1.29 Docs Lead
     - kbhawkey
     - natalisucks
     - nate-double-u
     - onlydole
     - reylejano
-    - Rishit-dagli # 1.28 Release Team Docs Lead
     - sftim
     - tengqm
   sig-docs-en-reviews: # PR reviews for English content
     - bradtopol
+    - dipesh-rawat
     - divya-mohan0209
     - kbhawkey
     - mehabhalodiya
@@ -53,6 +54,7 @@ aliases:
     - sftim
     - shannonxtreme
     - tengqm
+    - windsonsea
   sig-docs-es-owners: # Admins for Spanish content
     - 92nqb
     - krol3
@@ -146,6 +148,7 @@ aliases:
     - tengqm
     - windsonsea
     - xichengliudui
+    - ydFu
   sig-docs-zh-reviews: # PR reviews for Chinese content
     - asa3311
     - chenrui333
@@ -207,13 +210,13 @@ aliases:
     - Potapy4
   # authoritative source: git.k8s.io/community/OWNERS_ALIASES
   committee-steering: # provide PR approvals for announcements
-    - cblecker
-    - cpanato
     - bentheelder
     - justaugustus
     - mrbobbytables
+    - pacoxu
     - palnabarun
-    - tpepper
+    - pohly
+    - soltysh
   # authoritative source: https://git.k8s.io/sig-release/OWNERS_ALIASES
   sig-release-leads:
     - cpanato # SIG Technical Lead
@@ -237,3 +240,17 @@ aliases:
     - jimangel # Release Manager Associate
     - jrsapi # Release Manager Associate
     - salaxander # Release Manager Associate
+# authoritative source: https://github.com/kubernetes/committee-security-response/blob/main/OWNERS_ALIASES
+  committee-security-response:
+    - cjcullen
+    - cji
+    - enj
+    - joelsmith
+    - micahhausler
+    - ritazh
+    - SaranBalaji90
+    - tabbysable
+# authoritative source: https://github.com/kubernetes/sig-security/blob/main/OWNERS_ALIASES
+  sig-security-leads:
+    - IanColdwater
+    - tabbysable

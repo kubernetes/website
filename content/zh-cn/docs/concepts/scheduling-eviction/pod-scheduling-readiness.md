@@ -57,7 +57,7 @@ To mark a Pod not-ready for scheduling, you can create it with one or more sched
 
 要将 Pod 标记为未准备好进行调度，你可以在创建 Pod 时附带一个或多个调度门控，如下所示：
 
-{{< codenew file="pods/pod-with-scheduling-gates.yaml" >}}
+{{% code_sample file="pods/pod-with-scheduling-gates.yaml" %}}
 
 <!--
 After the Pod's creation, you can check its state using:
@@ -102,7 +102,7 @@ by re-applying a modified manifest:
 -->
 要通知调度程序此 Pod 已准备好进行调度，你可以通过重新应用修改后的清单来完全删除其 `schedulingGates`：
 
-{{< codenew file="pods/pod-without-scheduling-gates.yaml" >}}
+{{% code_sample file="pods/pod-without-scheduling-gates.yaml" %}}
 
 <!--
 You can check if the `schedulingGates` is cleared by running:

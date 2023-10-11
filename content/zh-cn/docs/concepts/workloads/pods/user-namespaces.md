@@ -80,33 +80,40 @@ ext4, xfs, fat, tmpfs, overlayfs.
 Linux 6.3 中支持 idmap 挂载的一些比较流行的文件系统是：btrfs、ext4、xfs、fat、
 tmpfs、overlayfs。
 
-<!-- When merging this with the dev-1.27 branch conflicts will arise. The text
-as it is in the dev-1.27 branch should be used. -->
 <!--
 In addition, support is needed in the
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
-to use this feature with Kubernetes stateless pods:
+to use this feature with Kubernetes pods:
 
 * CRI-O: version 1.25 (and later) supports user namespaces for containers.
-
-Please note that containerd v1.7 supports user namespaces for containers,
-compatible with Kubernetes {{< skew currentPatchVersion >}}. It should not be used
-with Kubernetes 1.27 (and later).
-
-Support for this in [cri-dockerd is not planned][CRI-dockerd-issue] yet.
 -->
 
 此外，需要在{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}提供支持，
-才能在 Kubernetes 无状态 Pod 中使用这一功能：
+才能在 Kubernetes Pod 中使用这一功能：
 
 * CRI-O：1.25（及更高）版本支持配置容器的用户命名空间。
 
-请注意，containerd v1.7 支持配置容器的用户命名空间，与 Kubernetes {{< skew currentPatchVersion >}}
-兼容。它不应与 Kubernetes 1.27（及更高）版本一起使用。
+<!--
+containerd v1.7 is not compatible with the userns support in Kubernetes v1.27 to v{{< skew latestVersion >}}.
+Kubernetes v1.25 and v1.26 used an earlier implementation that **is** compatible with containerd v1.7,
+in terms of userns support.
+If you are using a version of Kubernetes other than {{< skew currentVersion >}},
+check the documentation for that version of Kubernetes for the most relevant information.
+If there is a newer release of containerd than v1.7 available for use, also check the containerd
+documentation for compatibility information.
 
-目前 [cri-dockerd 没有计划][CRI-dockerd-issue]支持此功能。
+You can see the status of user namespaces support in cri-dockerd tracked in an [issue][CRI-dockerd-issue]
+on GitHub.
+-->
+containerd v1.7 与 Kubernetes v1.27 至 v{{< skew currentVersion >}}
+版本中的用户命名空间不兼容。
+Kubernetes v1.25 和 v1.26 使用了早期的实现，在用户命名空间方面与 containerd v1.7 兼容。
+如果你使用的 Kubernetes 版本不是 {{< skew currentVersion >}}，请查看该版本 Kubernetes
+的文档以获取更准确的信息。
+如果有比 v1.7 更新的 containerd 版本可供使用，请检查 containerd 文档以获取兼容性信息。
 
-[CRI-dockerd-issue]: https://github.com/Mirantis/cri-dockerd/issues/74
+你可以在 GitHub 上的 [issue][CRI-dockerd-issue] 中查看 cri-dockerd
+中用户命名空间支持的状态。
 
 <!--
 ## Introduction
@@ -128,7 +135,7 @@ to `false`.
 
 <!--
 The kubelet will pick host UIDs/GIDs a pod is mapped to, and will do so in a way
-to guarantee that no two stateless pods on the same node use the same mapping.
+to guarantee that no two pods on the same node use the same mapping.
 
 The `runAsUser`, `runAsGroup`, `fsGroup`, etc. fields in the `pod.spec` always
 refer to the user inside the container.
@@ -137,7 +144,7 @@ The valid UIDs/GIDs when this feature is enabled is the range 0-65535. This
 applies to files and processes (`runAsUser`, `runAsGroup`, etc.).
 -->
 kubelet 将挑选 Pod 所映射的主机 UID/GID，
-并将以保证同一节点上没有两个无状态 Pod 使用相同的映射的方式进行。
+并以此保证同一节点上没有两个 Pod 使用相同的方式进行映射。
 
 `pod.spec` 中的 `runAsUser`、`runAsGroup`、`fsGroup` 等字段总是指的是容器内的用户。
 启用该功能时，有效的 UID/GID 在 0-65535 范围内。这以限制适用于文件和进程（`runAsUser`、`runAsGroup` 等）。
@@ -160,9 +167,9 @@ if user namespaces is activated.
 在用户命名空间被启用时，应该可以继续正常运行，不需要做任何改变。
 
 <!--
-## Understanding user namespaces for stateless pods
+## Understanding user namespaces for pods {#pods-and-userns}
 -->
-## 了解无状态 Pod 的用户命名空间 {#understanding-user-namespaces-for-stateless-pods}
+## 了解 Pod 的用户命名空间 {#pods-and-userns}
 
 <!--
 Several container runtimes with their default configuration (like Docker Engine,
@@ -292,25 +299,6 @@ allowed to set any of:
 * `hostNetwork: true`
 * `hostIPC: true`
 * `hostPID: true`
-
-<!--
-The pod is allowed to use no volumes at all or, if using volumes, only these
-volume types are allowed:
-
- * configmap
- * secret
- * projected
- * downwardAPI
- * emptyDir
--->
-
-Pod 完全不使用卷是被允许的；如果使用卷，只允许使用以下卷类型：
-
-* configmap
-* secret
-* projected
-* downwardAPI
-* emptyDir
 
 ## {{% heading "whatsnext" %}}
 

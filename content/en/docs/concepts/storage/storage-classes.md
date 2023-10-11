@@ -34,8 +34,7 @@ class needs to be dynamically provisioned.
 
 The name of a StorageClass object is significant, and is how users can
 request a particular class. Administrators set the name and other parameters
-of a class when first creating StorageClass objects, and the objects cannot
-be updated once they are created.
+of a class when first creating StorageClass objects.
 
 Administrators can specify a default StorageClass only for PVCs that don't
 request any particular class to bind to: see the
@@ -75,11 +74,8 @@ for provisioning PVs. This field must be specified.
 
 | Volume Plugin        | Internal Provisioner |            Config Example             |
 | :------------------- | :------------------: | :-----------------------------------: |
-| AWSElasticBlockStore |       &#x2713;       |          [AWS EBS](#aws-ebs)          |
 | AzureFile            |       &#x2713;       |       [Azure File](#azure-file)       |
-| AzureDisk            |       &#x2713;       |       [Azure Disk](#azure-disk)       |
 | CephFS               |          -           |                   -                   |
-| Cinder               |       &#x2713;       | [OpenStack Cinder](#openstack-cinder) |
 | FC                   |          -           |                   -                   |
 | FlexVolume           |          -           |                   -                   |
 | GCEPersistentDisk    |       &#x2713;       |           [GCE PD](#gce-pd)           |
@@ -130,11 +126,8 @@ StorageClass has the field `allowVolumeExpansion` set to true.
 | Volume type          | Required Kubernetes version |
 | :------------------- | :-------------------------- |
 | gcePersistentDisk    | 1.11                        |
-| awsElasticBlockStore | 1.11                        |
-| Cinder               | 1.11                        |
 | rbd                  | 1.11                        |
 | Azure File           | 1.11                        |
-| Azure Disk           | 1.11                        |
 | Portworx             | 1.11                        |
 | FlexVolume           | 1.13                        |
 | CSI                  | 1.14 (alpha), 1.16 (beta)   |
@@ -178,9 +171,7 @@ and [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-tolera
 
 The following plugins support `WaitForFirstConsumer` with dynamic provisioning:
 
-- [AWSElasticBlockStore](#aws-ebs)
 - [GCEPersistentDisk](#gce-pd)
-- [AzureDisk](#azure-disk)
 
 The following plugins support `WaitForFirstConsumer` with pre-created PersistentVolume binding:
 
@@ -243,7 +234,7 @@ parameters:
 volumeBindingMode: WaitForFirstConsumer
 allowedTopologies:
 - matchLabelExpressions:
-  - key: failure-domain.beta.kubernetes.io/zone
+  - key: topology.kubernetes.io/zone
     values:
     - us-central-1a
     - us-central-1b
@@ -377,27 +368,6 @@ Here are some examples:
 - [NFS Ganesha server and external provisioner](https://github.com/kubernetes-sigs/nfs-ganesha-server-and-external-provisioner)
 - [NFS subdir external provisioner](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner)
 
-### OpenStack Cinder
-
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: gold
-provisioner: kubernetes.io/cinder
-parameters:
-  availability: nova
-```
-
-- `availability`: Availability Zone. If not specified, volumes are generally
-  round-robin-ed across all active zones where Kubernetes cluster has a node.
-
-{{< note >}}
-{{< feature-state state="deprecated" for_k8s_version="v1.11" >}}
-This internal provisioner of OpenStack is deprecated. Please use
-[the external cloud provider for OpenStack](https://github.com/kubernetes/cloud-provider-openstack).
-{{< /note >}}
-
 ### vSphere
 
 There are two types of provisioners for vSphere storage classes:
@@ -488,6 +458,11 @@ There are few
 which you try out for persistent volume management inside Kubernetes for vSphere.
 
 ### Ceph RBD
+{{< note >}}
+{{< feature-state state="deprecated" for_k8s_version="v1.28" >}}
+This internal provisioner of Ceph RBD is deprecated. Please use
+[CephFS RBD CSI driver](https://github.com/ceph/ceph-csi).
+{{< /note >}}
 
 ```yaml
 apiVersion: storage.k8s.io/v1

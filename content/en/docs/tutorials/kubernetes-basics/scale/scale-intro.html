@@ -31,7 +31,7 @@ description: |-
             <p>If you haven't worked through the earlier sections, start from <a href="/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/">Using minikube to create a cluster</a>.</p>
 
             <p><em>Scaling</em> is accomplished by changing the number of replicas in a Deployment</p>
-
+            <p> <b> NOTE </b> If you are trying this after <a href="/docs/tutorials/kubernetes-basics/expose/expose-intro/">the previous section </a>, you may need to start from <a href="/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/">creating a cluster</a> as the services may have been deleted </p>
             </div>
             <div class="col-md-4">
                 <div class="content__box content__box_lined">
@@ -103,14 +103,14 @@ description: |-
 
         <div class="row">
             <div class="col-md-8">
-                <p> Once you have multiple instances of an application running, you would be able to do Rolling updates without downtime. We'll cover that in the next section of the tutorial. Now, let's go to the online terminal and scale our application.</p>
+                <p> Once you have multiple instances of an application running, you would be able to do Rolling updates without downtime. We'll cover that in the next section of the tutorial. Now, let's go to the terminal and scale our application.</p>
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-12">
-               <h3>Scaling a deployment</h3>
-               <p>To list your deployments use the <code>get deployments</code> subcommand:
+               <h3>Scaling a Deployment</h3>
+               <p>To list your Deployments use the <code>get deployments</code> subcommand:
                <code><b>kubectl get deployments</b></code></p>
                <p>The output should be similar to:</p>
                <pre>
@@ -133,7 +133,7 @@ description: |-
                <li><em>DESIRED</em> displays the desired number of replicas of the application, which you define when you create the Deployment. This is the desired state.</li>
                <li><em>CURRENT</em> displays how many replicas are currently running.</li>
                </ul>
-               <p>Next, let’s scale the Deployment to 4 replicas. We’ll use the <code>kubectl scale</code> command, followed by the deployment type, name and desired number of instances:</p>
+               <p>Next, let’s scale the Deployment to 4 replicas. We’ll use the <code>kubectl scale</code> command, followed by the Deployment type, name and desired number of instances:</p>
                <p><code><b>kubectl scale deployments/kubernetes-bootcamp --replicas=4</b></code></p>
                <p>To list your Deployments once again, use <code>get deployments</code>:</p>
                <p><code><b>kubectl get deployments</b></code></p>

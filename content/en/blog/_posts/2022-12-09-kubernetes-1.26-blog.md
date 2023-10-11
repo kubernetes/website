@@ -124,7 +124,7 @@ Introduced in Kubernetes v1.24, [this
 feature](https://github.com/kubernetes/enhancements/issues/3031) constitutes a significant milestone
 in improving the security of the Kubernetes release process. All release artifacts are signed
 keyless using [cosign](https://github.com/sigstore/cosign/), and both binary artifacts and images
-[can be verified](https://kubernetes.io/docs/tasks/administer-cluster/verify-signed-artifacts/).
+[can be verified](/docs/tasks/administer-cluster/verify-signed-artifacts/).
 
 ### Support for Windows privileged containers graduates to stable
 
@@ -223,8 +223,8 @@ This release includes a total of eleven enhancements promoted to Stable:
 Kubernetes with this release.
     
 * [CRI `v1alpha2` API is removed](https://github.com/kubernetes/kubernetes/pull/110618)
-* [Removal of the `v1beta1` flow control API group](https://kubernetes.io/docs/reference/using-api/deprecation-guide/#flowcontrol-resources-v126)
-* [Removal of the `v2beta2` HorizontalPodAutoscaler API](https://kubernetes.io/docs/reference/using-api/deprecation-guide/#horizontalpodautoscaler-v126)
+* [Removal of the `v1beta1` flow control API group](/docs/reference/using-api/deprecation-guide/#flowcontrol-resources-v126)
+* [Removal of the `v2beta2` HorizontalPodAutoscaler API](/docs/reference/using-api/deprecation-guide/#horizontalpodautoscaler-v126)
 * [GlusterFS plugin removed from available in-tree drivers](https://github.com/kubernetes/enhancements/issues/3446)
 * [Removal of legacy command line arguments relating to logging](https://github.com/kubernetes/kubernetes/pull/112120)
 * [Removal of `kube-proxy` userspace modes](https://github.com/kubernetes/kubernetes/pull/112133)

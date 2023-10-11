@@ -90,10 +90,8 @@ installation instructions. The list does not try to be exhaustive.
 
 * [Dashboard](https://github.com/kubernetes/dashboard#kubernetes-dashboard)
   is a dashboard web interface for Kubernetes.
-* [Weave Scope](https://www.weave.works/documentation/scope-latest-installing/#k8s)
-  is a tool for graphically visualizing your containers, pods, services etc.
-  Use it in conjunction with a [Weave Cloud account](https://cloud.weave.works/)
-  or host the UI yourself.
+* [Weave Scope](https://www.weave.works/documentation/scope-latest-installing/#k8s) is a
+  tool for visualizing your containers, Pods, Services and more.
 
 ## Infrastructure
 

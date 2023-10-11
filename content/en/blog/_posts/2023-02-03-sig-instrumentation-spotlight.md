@@ -92,7 +92,7 @@ we can see that there are a relevant number of metrics, logs, and tracing
 [KEPs](https://www.k8s.dev/resources/keps/) in the pipeline. Would you like to
 point out important things for last release (maybe alpha & stable milestone candidates?)
 
-**Han (HK)**: We can now generate [documentation](https://kubernetes.io/docs/reference/instrumentation/metrics/)
+**Han (HK)**: We can now generate [documentation](/docs/reference/instrumentation/metrics/)
 for every single metric in the main Kubernetes code base! We have a pretty fancy
 static analysis pipeline that enables this functionality. We’ve also added feature
 metrics so that you can look at your metrics to determine which features are enabled

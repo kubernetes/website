@@ -1,25 +1,12 @@
 <!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
-
-<!--
 Generate the certificate for serving etcd
 -->
-生成用于提供 etcd 服务的证书
+生成用于提供 etcd 服务的证书。
 
 <!-- 
 ### Synopsis
 -->
 ### 概要
-
 
 <!--
 Generate the certificate for serving etcd, and save them into etcd/server.crt and etcd/server.key files.
@@ -39,7 +26,7 @@ If both files already exist, kubeadm skips the generation step and existing file
 <!--
 Alpha Disclaimer: this command is currently alpha.
 -->
-Alpha 免责声明：此命令当前为 alpha 功能。
+Alpha 免责声明：此命令当前为 Alpha 功能。
 
 ```
 kubeadm init phase certs etcd-server [flags]
@@ -106,7 +93,7 @@ kubeadm init phase certs etcd-server [flags]
 <!--
 <p>help for etcd-server</p>
 -->
-<p>etcd-server 操作的帮助命令<p>
+<p>etcd-server 操作的帮助命令。<p>
 </td>
 </tr>
 
@@ -129,8 +116,6 @@ kubeadm init phase certs etcd-server [flags]
 
 </tbody>
 </table>
-
-
 
 <!--
 ### Options inherited from parent commands
@@ -158,4 +143,3 @@ kubeadm init phase certs etcd-server [flags]
 
 </tbody>
 </table>
-

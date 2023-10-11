@@ -17,14 +17,14 @@ weight: 65
 {{< feature-state for_k8s_version="v1.27" state="alpha" >}}
 
 <!-- 
-Dynamic resource allocation is a new API for requesting and sharing resources
+Dynamic resource allocation is an API for requesting and sharing resources
 between pods and containers inside a pod. It is a generalization of the
 persistent volumes API for generic resources. Third-party resource drivers are
 responsible for tracking and allocating resources. Different kinds of
 resources support arbitrary parameters for defining requirements and
 initialization.
 -->
-动态资源分配是一个用于在 Pod 之间和 Pod 内部容器之间请求和共享资源的新 API。
+动态资源分配是一个用于在 Pod 之间和 Pod 内部容器之间请求和共享资源的 API。
 它是对为通用资源所提供的持久卷 API 的泛化。第三方资源驱动程序负责跟踪和分配资源。
 不同类型的资源支持用任意参数进行定义和初始化。
 
@@ -49,10 +49,10 @@ Kubernetes v{{< skew currentVersion >}} 包含用于动态资源分配的集群�
 ## API {#api}
 <!-- 
 The `resource.k8s.io/v1alpha2` {{< glossary_tooltip text="API group"
-term_id="api-group" >}} provides four new types:
+term_id="api-group" >}} provides four types:
 -->
 `resource.k8s.io/v1alpha2`
-{{< glossary_tooltip text="API 组" term_id="api-group" >}}提供四种新类型：
+{{< glossary_tooltip text="API 组" term_id="api-group" >}}提供四种类型：
 
 <!-- 
 ResourceClass
@@ -106,14 +106,14 @@ ResourceClass 和 ResourceClaim 的参数存储在单独的对象中，
 term_id="CustomResourceDefinition" text="CRD" >}} 所定义的类型。
 
 <!-- 
-The `core/v1` `PodSpec` defines ResourceClaims that are needed for a Pod in a new
+The `core/v1` `PodSpec` defines ResourceClaims that are needed for a Pod in a
 `resourceClaims` field. Entries in that list reference either a ResourceClaim
 or a ResourceClaimTemplate. When referencing a ResourceClaim, all Pods using
 this PodSpec (for example, inside a Deployment or StatefulSet) share the same
 ResourceClaim instance. When referencing a ResourceClaimTemplate, each Pod gets
 its own instance.
 -->
-`core/v1` 的 `PodSpec` 在新的 `resourceClaims` 字段中定义 Pod 所需的 ResourceClaim。
+`core/v1` 的 `PodSpec` 在 `resourceClaims` 字段中定义 Pod 所需的 ResourceClaim。
 该列表中的条目引用 ResourceClaim 或 ResourceClaimTemplate。
 当引用 ResourceClaim 时，使用此 PodSpec 的所有 Pod
 （例如 Deployment 或 StatefulSet 中的 Pod）共享相同的 ResourceClaim 实例。
@@ -265,23 +265,58 @@ running Pods. For more information on the gRPC endpoints, see the
 kubelet 提供了一个 gRPC 服务，以便发现正在运行的 Pod 的动态资源。
 有关 gRPC 端点的更多信息，请参阅[资源分配报告](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources)。
 
-<!-- 
-## Limitations
--->
-## 限制 {#limitations}
+<!--
+## Pre-scheduled Pods
 
-<!-- 
-The scheduler plugin must be involved in scheduling Pods which use
-ResourceClaims. Bypassing the scheduler by setting the `nodeName` field leads
-to Pods that the kubelet refuses to start because the ResourceClaims are not
-reserved or not even allocated. It may be possible to [remove this
-limitation](https://github.com/kubernetes/kubernetes/issues/114005) in the
-future.
+When you - or another API client - create a Pod with `spec.nodeName` already set, the scheduler gets bypassed.
+If some ResourceClaim needed by that Pod does not exist yet, is not allocated
+or not reserved for the Pod, then the kubelet will fail to run the Pod and
+re-check periodically because those requirements might still get fulfilled
+later.
 -->
-调度器插件必须参与调度那些使用 ResourceClaim 的 Pod。
-通过设置 `nodeName` 字段绕过调度器会导致 kubelet 拒绝启动 Pod，
-因为 ResourceClaim 没有被保留或甚至根本没有被分配。
-未来可能[去除该限制](https://github.com/kubernetes/kubernetes/issues/114005)。
+## 预调度的 Pod
+
+当你（或别的 API 客户端）创建设置了 `spec.nodeName` 的 Pod 时，调度器将被绕过。
+如果 Pod 所需的某个 ResourceClaim 尚不存在、未被分配或未为该 Pod 保留，那么 kubelet
+将无法运行该 Pod，并会定期重新检查，因为这些要求可能在以后得到满足。
+
+<!--
+Such a situation can also arise when support for dynamic resource allocation
+was not enabled in the scheduler at the time when the Pod got scheduled
+(version skew, configuration, feature gate, etc.). kube-controller-manager
+detects this and tries to make the Pod runnable by triggering allocation and/or
+reserving the required ResourceClaims.
+-->
+这种情况也可能发生在 Pod 被调度时调度器中未启用动态资源分配支持的时候（原因可能是版本偏差、配置、特性门控等）。
+kube-controller-manager 能够检测到这一点，并尝试通过触发分配和/或预留所需的 ResourceClaim 来使 Pod 可运行。
+
+<!--
+However, it is better to avoid this because a Pod that is assigned to a node
+blocks normal resources (RAM, CPU) that then cannot be used for other Pods
+while the Pod is stuck. To make a Pod run on a specific node while still going
+through the normal scheduling flow, create the Pod with a node selector that
+exactly matches the desired node:
+-->
+然而，最好避免这种情况，因为分配给节点的 Pod 会锁住一些正常的资源（RAM、CPU），
+而这些资源在 Pod 被卡住时无法用于其他 Pod。为了让一个 Pod 在特定节点上运行，
+同时仍然通过正常的调度流程进行，请在创建 Pod 时使用与期望的节点精确匹配的节点选择算符：
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-cats
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: name-of-the-intended-node
+  ...
+```
+
+<!--
+You may also be able to mutate the incoming Pod, at admission time, to unset
+the `.spec.nodeName` field and to use a node selector instead.
+-->
+你还可以在准入时变更传入的 Pod，取消设置 `.spec.nodeName` 字段，并改为使用节点选择算符。
 
 <!-- 
 ## Enabling dynamic resource allocation

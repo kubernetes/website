@@ -57,7 +57,7 @@ kubectl create namespace mem-example
 
 この練習では、一つのコンテナをもつPodを作成します。コンテナに100MiBのメモリー要求と200MiBのメモリー制限を与えます。Podの設定ファイルは次のようになります:
 
-{{< codenew file="pods/resource/memory-request-limit.yaml" >}}
+{{% codenew file="pods/resource/memory-request-limit.yaml" %}}
 
 設定ファイルの`args`セクションでは、コンテナ起動時の引数を与えます。`"--vm-bytes", "150M"`という引数では、コンテナに150MiBのメモリーを割り当てます。
 
@@ -116,7 +116,7 @@ kubectl delete pod memory-demo --namespace=mem-example
 
 この練習では、制限を超えてメモリーを確保しようとするPodを作成します。以下に50MiBのメモリー要求と100MiBのメモリー制限を与えたコンテナを持つ、Podの設定ファイルを示します:
 
-{{< codenew file="pods/resource/memory-request-limit-2.yaml" >}}
+{{% codenew file="pods/resource/memory-request-limit-2.yaml" %}}
 
 設定ファイルの`args`セクションでは、コンテナに250MiBのメモリーを割り当てており、これは100MiBの制限を十分に超えています。
 
@@ -216,7 +216,7 @@ Podのスケジューリングは要求に基づいています。Podはノー�
 
 この練習では、クラスター内のノードのキャパシティを超える大きさのメモリー要求を与えたPodを作成します。以下に1000GiBのメモリー要求を与えた一つのコンテナを持つ、Podの設定ファイルを示します。これは、クラスター内のノードのキャパシティを超える可能性があります。
 
-{{< codenew file="pods/resource/memory-request-limit-3.yaml" >}}
+{{% codenew file="pods/resource/memory-request-limit-3.yaml" %}}
 
 Podを作成してください:
 

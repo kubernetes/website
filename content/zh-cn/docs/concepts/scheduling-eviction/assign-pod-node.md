@@ -60,15 +60,13 @@ specific Pods:
 
 Like many other Kubernetes objects, nodes have
 [labels](/docs/concepts/overview/working-with-objects/labels/). You can [attach labels manually](/docs/tasks/configure-pod-container/assign-pods-nodes/#add-a-label-to-a-node).
-Kubernetes also populates a standard set of labels on all nodes in a cluster. See [Well-Known Labels, Annotations and Taints](/docs/reference/labels-annotations-taints/)
-for a list of common node labels.
+Kubernetes also populates a [standard set of labels](/docs/reference/node/node-labels/) on all nodes in a cluster.
 -->
 ## 节点标签     {#built-in-node-labels}
 
 与很多其他 Kubernetes 对象类似，节点也有[标签](/zh-cn/docs/concepts/overview/working-with-objects/labels/)。
 你可以[手动地添加标签](/zh-cn/docs/tasks/configure-pod-container/assign-pods-nodes/#add-a-label-to-a-node)。
-Kubernetes 也会为集群中所有节点添加一些标准的标签。
-参见[常用的标签、注解和污点](/zh-cn/docs/reference/labels-annotations-taints/)以了解常见的节点标签。
+Kubernetes 也会为集群中所有节点添加一些[标准的标签](/zh-cn/docs/reference/node/node-labels/)。
 
 {{< note >}}
 <!--
@@ -233,7 +231,7 @@ For example, consider the following Pod spec:
 你可以使用 Pod 规约中的 `.spec.affinity.nodeAffinity` 字段来设置节点亲和性。
 例如，考虑下面的 Pod 规约：
 
-{{< codenew file="pods/pod-with-node-affinity.yaml" >}}
+{{% code_sample file="pods/pod-with-node-affinity.yaml" %}}
 
 <!--
 In this example, the following rules apply:
@@ -333,7 +331,7 @@ For example, consider the following Pod spec:
 
 例如，考虑下面的 Pod 规约：
 
-{{< codenew file="pods/pod-with-affinity-anti-affinity.yaml" >}}
+{{% code_sample file="pods/pod-with-affinity-anti-affinity.yaml" %}}
 
 <!--
 If there are two possible nodes that match the
@@ -528,6 +526,24 @@ spec.
 对于 Pod 间反亲和性，可以使用 Pod 规约中的 `.affinity.podAntiAffinity` 字段。
 
 <!--
+#### Scheduling a group of pods with inter-pod affinity to themselves
+
+If the current Pod being scheduled is the first in a series that have affinity to themselves,
+it is allowed to be scheduled if it passes all other affinity checks. This is determined by
+verifying that no other pod in the cluster matches the namespace and selector of this pod,
+that the pod matches its own terms, and the chosen node matches all requested topologies.
+This ensures that there will not be a deadlock even if all the pods have inter-pod affinity
+specified.
+-->
+#### 调度一组具有 Pod 间亲和性的 Pod   {#scheduling-a-group-of-pods-with-inter-pod-affinity-to-themselves}
+
+如果当前正被调度的 Pod 在具有自我亲和性的 Pod 序列中排在第一个，
+那么只要它满足其他所有的亲和性规则，它就可以被成功调度。
+这是通过以下方式确定的：确保集群中没有其他 Pod 与此 Pod 的命名空间和标签选择器匹配；
+该 Pod 满足其自身定义的条件，并且选定的节点满足所指定的所有拓扑要求。
+这确保即使所有的 Pod 都配置了 Pod 间亲和性，也不会出现调度死锁的情况。
+
+<!--
 #### Pod affinity example {#an-example-of-a-pod-that-uses-pod-affinity}
 
 Consider the following Pod spec:
@@ -536,7 +552,7 @@ Consider the following Pod spec:
 
 考虑下面的 Pod 规约：
 
-{{< codenew file="pods/pod-with-pod-affinity.yaml" >}}
+{{% code_sample file="pods/pod-with-pod-affinity.yaml" %}}
 
 <!--
 This example defines one Pod affinity rule and one Pod anti-affinity rule. The
@@ -913,13 +929,13 @@ The following operators can only be used with `nodeAffinity`.
 <!--
 |    Operator    |    Behaviour    |
 | :------------: | :-------------: |
-| `Gt` | The supplied value will be parsed as an integer, and that integer is less than or equal to the integer that results from parsing the value of a label named by this selector | 
-| `Lt` | The supplied value will be parsed as an integer, and that integer is greater than or equal to the integer that results from parsing the value of a label named by this selector |
+| `Gt` | The supplied value will be parsed as an integer, and that integer is less than the integer that results from parsing the value of a label named by this selector | 
+| `Lt` | The supplied value will be parsed as an integer, and that integer is greater than the integer that results from parsing the value of a label named by this selector |
 -->
 | 操作符 | 行为 |
 | :------------: | :-------------: |
-| `Gt` | 提供的值将被解析为整数，并且该整数小于等于通过解析此选择算符命名的标签的值所得到的整数 | 
-| `Lt` | 提供的值将被解析为整数，并且该整数大于等于通过解析此选择算符命名的标签的值所得到的整数 | 
+| `Gt` | 提供的值将被解析为整数，并且该整数小于通过解析此选择算符命名的标签的值所得到的整数 | 
+| `Lt` | 提供的值将被解析为整数，并且该整数大于通过解析此选择算符命名的标签的值所得到的整数 | 
 
 {{<note>}}
 <!--

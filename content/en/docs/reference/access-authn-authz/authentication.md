@@ -312,7 +312,7 @@ To enable the plugin, configure the following flags on the API server:
 
 | Parameter | Description | Example | Required |
 | --------- | ----------- | ------- | ------- |
-| `--oidc-issuer-url` | URL of the provider which allows the API server to discover public signing keys. Only URLs which use the `https://` scheme are accepted.  This is typically the provider's discovery URL without a path, for example "https://accounts.google.com" or "https://login.salesforce.com".  This URL should point to the level below .well-known/openid-configuration | If the discovery URL is `https://accounts.google.com/.well-known/openid-configuration`, the value should be `https://accounts.google.com` | Yes |
+| `--oidc-issuer-url` | URL of the provider that allows the API server to discover public signing keys. Only URLs that use the `https://` scheme are accepted.  This is typically the provider's discovery URL, changed to have an empty path | If the issuer's OIDC discovery URL is `https://accounts.provider.example/.well-known/openid-configuration`, the value should be `https://accounts.provider.example` | Yes |
 | `--oidc-client-id` |  A client id that all tokens must be issued for. | kubernetes | Yes |
 | `--oidc-username-claim` | JWT claim to use as the user name. By default `sub`, which is expected to be a unique identifier of the end user. Admins can choose other claims, such as `email` or `name`, depending on their provider. However, claims other than `email` will be prefixed with the issuer URL to prevent naming clashes with other plugins. | sub | No |
 | `--oidc-username-prefix` | Prefix prepended to username claims to prevent clashes with existing names (such as `system:` users). For example, the value `oidc:` will create usernames like `oidc:jane.doe`. If this flag isn't provided and `--oidc-username-claim` is a value other than `email` the prefix defaults to `( Issuer URL )#` where `( Issuer URL )` is the value of `--oidc-issuer-url`. The value `-` can be used to disable all prefixing. | `oidc:` | No |
@@ -1220,7 +1220,7 @@ The following `ExecCredential` manifest describes a cluster information sample.
 
 ## API access to authentication information for a client {#self-subject-review}
 
-{{< feature-state for_k8s_version="v1.27" state="beta" >}}
+{{< feature-state for_k8s_version="v1.28" state="stable" >}}
 
 If your cluster has the API enabled, you can use the `SelfSubjectReview` API to find out how your Kubernetes cluster maps your authentication
 information to identify you as a client. This works whether you are authenticating as a user (typically representing
@@ -1230,11 +1230,11 @@ a real person) or as a ServiceAccount.
 
 Request example (the body would be a `SelfSubjectReview`):
 ```
-POST /apis/authentication.k8s.io/v1beta1/selfsubjectreviews
+POST /apis/authentication.k8s.io/v1/selfsubjectreviews
 ```
 ```json
 {
-  "apiVersion": "authentication.k8s.io/v1beta1",
+  "apiVersion": "authentication.k8s.io/v1",
   "kind": "SelfSubjectReview"
 }
 ```
@@ -1242,7 +1242,7 @@ Response example:
 
 ```json
 {
-  "apiVersion": "authentication.k8s.io/v1beta1",
+  "apiVersion": "authentication.k8s.io/v1",
   "kind": "SelfSubjectReview",
   "status": {
     "userInfo": {
@@ -1285,7 +1285,7 @@ By providing the output flag, it is also possible to print the JSON or YAML repr
 {{% tab name="JSON" %}}
 ```json
 {
-  "apiVersion": "authentication.k8s.io/v1alpha1",
+  "apiVersion": "authentication.k8s.io/v1",
   "kind": "SelfSubjectReview",
   "status": {
     "userInfo": {
@@ -1314,7 +1314,7 @@ By providing the output flag, it is also possible to print the JSON or YAML repr
 
 {{% tab name="YAML" %}}
 ```yaml
-apiVersion: authentication.k8s.io/v1alpha1
+apiVersion: authentication.k8s.io/v1
 kind: SelfSubjectReview
 status:
   userInfo:
@@ -1351,8 +1351,10 @@ By default, all authenticated users can create `SelfSubjectReview` objects when 
 You can only make `SelfSubjectReview` requests if:
 * the `APISelfSubjectReview`
   [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  is enabled for your cluster (enabled by default after reaching Beta)
-* the API server for your cluster has the `authentication.k8s.io/v1alpha1` or `authentication.k8s.io/v1beta1`
+  is enabled for your cluster (not needed for Kubernetes {{< skew currentVersion >}}, but older
+  Kubernetes versions might not offer this feature gate, or might default it to be off)
+* (if you are running a version of Kubernetes older than v1.28) the API server for your
+  cluster has the `authentication.k8s.io/v1alpha1` or `authentication.k8s.io/v1beta1`
   {{< glossary_tooltip term_id="api-group" text="API group" >}}
   enabled.
 {{< /note >}}

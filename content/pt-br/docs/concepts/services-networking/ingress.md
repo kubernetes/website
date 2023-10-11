@@ -59,7 +59,7 @@ Certifique-se de revisar a documentação do seu controlador Ingress para entend
 
 Um exemplo mínimo do recurso Ingress:
 
-{{< codenew file="service/networking/minimal-ingress.yaml" >}}
+{{% codenew file="service/networking/minimal-ingress.yaml" %}}
 
 Um Ingress precisa dos campos `apiVersion`, `kind`, `metadata` e `spec`. 
 O nome de um objeto Ingress deve ser um nome de [subdomínio DNS válido](/pt-br/docs/concepts/overview/working-with-objects/names#dns-subdomain-names). 
@@ -105,7 +105,7 @@ Um `Resource` backend é um ObjectRef para outro recurso Kubernetes dentro do me
 Um `Resource` é uma configuração mutuamente exclusiva com o serviço, e a validação irá falhar se ambos forem especificados. 
 Um uso comum para um `Resource` backend é inserir dados em um backend de armazenamento de objetos com ativos estáticos.
 
-{{< codenew file="service/networking/ingress-resource-backend.yaml" >}}
+{{% codenew file="service/networking/ingress-resource-backend.yaml" %}}
 
 Depois de criar o Ingress acima, você pode visualizá-lo com o seguinte comando:
 
@@ -181,14 +181,14 @@ As correspondências curinga exigem que o cabeçalho do `host` HTTP seja igual a
 | `*.foo.com` | `baz.bar.foo.com` | Sem correspondência, o curinga cobre apenas um único rótulo DNS |
 | `*.foo.com` | `foo.com`         | Sem correspondência, o curinga cobre apenas um único rótulo DNS |
 
-{{< codenew file="service/networking/ingress-wildcard-host.yaml" >}}
+{{% codenew file="service/networking/ingress-wildcard-host.yaml" %}}
 
 ## Classe Ingress
 
 Os Ingress podem ser implementados por diferentes controladores, muitas vezes com diferentes configurações. 
 Cada Ingress deve especificar uma classe, uma referência a um recurso IngressClass que contém uma configuração adicional, incluindo o nome do controlador que deve implementar a classe.
 
-{{< codenew file="service/networking/external-lb.yaml" >}}
+{{% codenew file="service/networking/external-lb.yaml" %}}
 
 O campo `.spec.parameters` de uma classe Ingress permite que você faça referência a outro recurso que fornece a configuração relacionada a essa classe Ingress.
 
@@ -285,7 +285,7 @@ Existem alguns controladores Ingress que funcionam sem a definição de uma `Ing
 Por exemplo, o controlador Ingress-NGINX pode ser configurado com uma [flag](https://kubernetes.github.io/ingress-nginx/#what-is-the-flag-watch-ingress-without-class) `--watch-ingress-without-class`. 
 No entanto, é [recomendável](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do) especificar a `IngressClass` padrão:
 
-{{< codenew file="service/networking/default-ingressclass.yaml" >}}
+{{% codenew file="service/networking/default-ingressclass.yaml" %}}
 
 ## Tipos de Ingress
 
@@ -294,7 +294,7 @@ No entanto, é [recomendável](https://kubernetes.github.io/ingress-nginx/#i-hav
 No Kubernetes existem conceitos que permitem expor um único serviço (veja [alternativas](#alternatives)). 
 Você também pode fazer isso com um Ingress especificando um *backend padrão* sem regras.
 
-{{< codenew file="service/networking/test-ingress.yaml" >}}
+{{% codenew file="service/networking/test-ingress.yaml" %}}
 
 Se você criá-lo usando `kubectl apply -f`, você deve ser capaz de visualizar o estado do Ingress que você adicionou:
 
@@ -324,7 +324,7 @@ Por exemplo, uma configuração como:
 
 exigiria um Ingress como:
 
-{{< codenew file="service/networking/simple-fanout-example.yaml" >}}
+{{% codenew file="service/networking/simple-fanout-example.yaml" %}}
 
 Quando você cria o Ingress com `kubectl apply -f`:
 
@@ -364,13 +364,13 @@ Os hosts virtuais baseados em nomes suportam o roteamento de tráfego HTTP para 
 
 O Ingress a seguir diz ao balanceador de carga de apoio para rotear solicitações com base no [Host header](https://tools.ietf.org/html/rfc7230#section-5.4).
 
-{{< codenew file="service/networking/name-virtual-host-ingress.yaml" >}}
+{{% codenew file="service/networking/name-virtual-host-ingress.yaml" %}}
 
 Se você criar um recurso de Ingress sem nenhum host definido nas regras, qualquer tráfego da web para o endereço IP do seu controlador de Ingress pode ser correspondido sem que seja necessário um host virtual baseado em nome.
 
 Por exemplo, o Ingress a seguir roteia o tráfego solicitado para `first.bar.com` para `service1`, `second.bar.com` para `service2` e qualquer tráfego cujo cabeçalho de host de solicitação não corresponda a `first.bar.com` e `second.bar.com` para `service3`.
 
-{{< codenew file="service/networking/name-virtual-host-ingress-no-third-host.yaml" >}}
+{{% codenew file="service/networking/name-virtual-host-ingress-no-third-host.yaml" %}}
 
 ### TLS
 
@@ -402,7 +402,7 @@ Tenha em mente que o TLS não funcionará na regra padrão porque os certificado
 Portanto, os hosts na seção `tls` precisam corresponder explicitamente ao `host` na seção `rules`.
 {{< /note >}}
 
-{{< codenew file="service/networking/tls-example-ingress.yaml" >}}
+{{% codenew file="service/networking/tls-example-ingress.yaml" %}}
 
 {{< note >}}
 Há uma lacuna entre os recursos TLS suportados por vários controladores Ingress. 

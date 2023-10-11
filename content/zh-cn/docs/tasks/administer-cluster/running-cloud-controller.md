@@ -83,17 +83,14 @@ Successfully running cloud-controller-manager requires some changes to your clus
 你需要对集群配置做适当的修改以成功地运行云管理控制器：
 
 <!--
-* `kube-apiserver` and `kube-controller-manager` MUST NOT specify the `--cloud-provider`
-  flag. This ensures that it does not run any cloud specific loops that would be run by
-  cloud controller manager. In the future, this flag will be deprecated and removed.
-* `kubelet` must run with `--cloud-provider=external`. This is to ensure that the
-  kubelet is aware that it must be initialized by the cloud controller manager
-  before it is scheduled any work.
+* `kubelet`, `kube-apiserver`, and `kube-controller-manager` must be set according to the
+  user's usage of external CCM. If the user has an external CCM (not the internal cloud
+  controller loops in the Kubernetes Controller Manager), then `--cloud-provider=external`
+  must be specified. Otherwise, it should not be specified.
 -->
-* 一定不要为 `kube-apiserver` 和 `kube-controller-manager` 指定 `--cloud-provider` 标志。
-  这将保证它们不会运行任何云服务专用循环逻辑，这将会由云管理控制器运行。未来这个标记将被废弃并去除。
-* `kubelet` 必须使用 `--cloud-provider=external` 运行。
-  这是为了保证让 kubelet 知道在执行任何任务前，它必须被云管理控制器初始化。
+* `kubelet`、`kube-apiserver` 和 `kube-controller-manager` 必须根据用户对外部 CCM 的使用进行设置。
+  如果用户有一个外部的 CCM（不是 Kubernetes 控制器管理器中的内部云控制器回路），
+  那么必须添加 `--cloud-provider=external` 参数。否则，不应添加此参数。
 
 <!--
 Keep in mind that setting up your cluster to use cloud controller manager will
@@ -102,7 +99,7 @@ change your cluster behaviour in a few ways:
 请记住，设置集群使用云管理控制器将用多种方式更改集群行为：
 
 <!--
-* kubelets specifying `--cloud-provider=external` will add a taint
+* Components that specify `--cloud-provider=external` will add a taint
   `node.cloudprovider.kubernetes.io/uninitialized` with an effect `NoSchedule`
   during initialization. This marks the node as needing a second initialization
   from an external controller before it can be scheduled work. Note that in the
@@ -111,7 +108,7 @@ change your cluster behaviour in a few ways:
   require cloud specific information about nodes such as their region or type
   (high cpu, gpu, high memory, spot instance, etc).
 -->
-* 指定了 `--cloud-provider=external` 的 kubelet 将被添加一个 `node.cloudprovider.kubernetes.io/uninitialized`
+* 指定了 `--cloud-provider=external` 的组件将被添加一个 `node.cloudprovider.kubernetes.io/uninitialized`
   的污点，导致其在初始化过程中不可调度（`NoSchedule`）。
   这将标记该节点在能够正常调度前，需要外部的控制器进行二次初始化。
   请注意，如果云管理控制器不可用，集群中的新节点会一直处于不可调度的状态。
@@ -176,7 +173,7 @@ manager as a Daemonset in your cluster, use the following as a guideline:
 -->
 对于已经存在于 Kubernetes 内核中的提供商，你可以在集群中将 in-tree 云管理控制器作为守护进程运行。请使用如下指南：
 
-{{< codenew file="admin/cloud/ccm-example.yaml" >}}
+{{% code_sample file="admin/cloud/ccm-example.yaml" %}}
 
 <!--
 ## Limitations
@@ -264,4 +261,3 @@ the [Developing Cloud Controller Manager](/docs/tasks/administer-cluster/develop
 要构建和开发你自己的云管理控制器，请阅读
 [开发云管理控制器](/zh-cn/docs/tasks/administer-cluster/developing-cloud-controller-manager/)
 文档。
-

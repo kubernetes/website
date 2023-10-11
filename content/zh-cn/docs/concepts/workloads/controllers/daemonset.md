@@ -1,7 +1,10 @@
 ---
 title: DaemonSet
+description: >-
+  DaemonSet 定义了提供节点本地设施的 Pod。这些设施可能对于集群的运行至关重要，例如网络辅助工具，或者作为 add-on 的一部分。
 content_type: concept
 weight: 40
+hide_summary: true # 在章节索引中单独列出
 ---
 
 <!--
@@ -12,8 +15,11 @@ reviewers:
 - janetkuo
 - kow3ns
 title: DaemonSet
+description: >-
+ A DaemonSet defines Pods that provide node-local facilities. These might be fundamental to the operation of your cluster, such as a networking helper tool, or be part of an add-on.
 content_type: concept
 weight: 40
+hide_summary: true # Listed separately in section index
 --->
 
 <!-- overview -->
@@ -67,7 +73,7 @@ describes a DaemonSet that runs the fluentd-elasticsearch Docker image:
 你可以在 YAML 文件中描述 DaemonSet。
 例如，下面的 daemonset.yaml 文件描述了一个运行 fluentd-elasticsearch Docker 镜像的 DaemonSet：
 
-{{< codenew file="controllers/daemonset.yaml" >}}
+{{% code_sample file="controllers/daemonset.yaml" %}}
 
 <!--
 Create a DaemonSet based on the YAML file:
@@ -472,7 +478,9 @@ number of replicas and rolling out updates are more important than controlling e
 the Pod runs on.  Use a DaemonSet when it is important that a copy of a Pod always run on
 all or certain hosts, if the DaemonSet provides node-level functionality that allows other Pods to run correctly on that particular node.
 
-For example, [network plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) often include a component that runs as a DaemonSet. The DaemonSet component makes sure that the node where it's running has working cluster networking.
+For example, [network plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
+often include a component that runs as a DaemonSet. The DaemonSet component makes sure
+that the node where it's running has working cluster networking.
 -->
 ### Deployment
 

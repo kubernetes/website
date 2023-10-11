@@ -246,7 +246,8 @@ ports:
     port: 9376
 endpoints:
   - addresses:
-      - "10.4.5.6" # the IP addresses in this list can appear in any order
+      - "10.4.5.6"
+  - addresses:
       - "10.1.2.3"
 ```
 
@@ -436,8 +437,10 @@ The available `type` values and their behaviors are:
   No proxying of any kind is set up.
 
 The `type` field in the Service API is designed as nested functionality - each level
-adds to the previous.  This is not strictly required on all cloud providers, but
-the Kubernetes API design for Service requires it anyway.
+adds to the previous. However there is an exception to this nested design. You can
+define a `LoadBalancer` Service by
+[disabling the load balancer `NodePort` allocation.](/docs/concepts/services-networking/service/#load-balancer-nodeport-allocation)
+
 
 ### `type: ClusterIP` {#type-clusterip}
 
@@ -517,7 +520,7 @@ spec:
 
 #### Reserve Nodeport Ranges to avoid collisions when port assigning 
 
-{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.28" state="beta" >}}
 
 The policy for assigning ports to NodePort services applies to both the auto-assignment and
 the manual assignment scenarios. When a user wants to create a NodePort service that

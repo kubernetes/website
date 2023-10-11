@@ -25,6 +25,256 @@ auto_generated: true
 - [VolumeBindingArgs](#kubescheduler-config-k8s-io-v1-VolumeBindingArgs)
   
 
+## `ClientConnectionConfiguration`     {#ClientConnectionConfiguration}
+
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
+
+<!--
+ClientConnectionConfiguration contains details for constructing a client.
+-->
+<p>ClientConnectionConfiguration 中包含用来构造客户端所需的细节。</p>
+
+<table class="table">
+<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
+<tbody>
+
+<tr><td><code>kubeconfig</code> <B><!--[Required]-->[必需]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <!--
+   kubeconfig is the path to a KubeConfig file.
+   -->
+   <p><code>kubeconfig</code> 字段为指向 KubeConfig 文件的路径。</p>
+</td>
+</tr>
+<tr><td><code>acceptContentTypes</code> <B><!--[Required]-->[必需]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <!--
+   acceptContentTypes defines the Accept header sent by clients when connecting to a server, overriding the
+default value of 'application/json'. This field will control all connections to the server used by a particular
+client.
+   -->
+   <p>
+   <code>acceptContentTypes</code> 定义的是客户端与服务器建立连接时要发送的 Accept 头部，
+   这里的设置值会覆盖默认值 "application/json"。此字段会影响某特定客户端与服务器的所有连接。
+   </p>
+</td>
+</tr>
+<tr><td><code>contentType</code> <B><!--[Required]-->[必需]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <!--
+   contentType is the content type used when sending data to the server from this client.
+   -->
+   <p>
+   <code>contentType</code> 包含的是此客户端向服务器发送数据时使用的内容类型（Content Type）。
+   </p>
+</td>
+</tr>
+<tr><td><code>qps</code> <B><!--[Required]-->[必需]</B><br/>
+<code>float32</code>
+</td>
+<td>
+   <!--
+   qps controls the number of queries per second allowed for this connection.
+   -->
+   <p><code>qps</code> 控制此连接允许的每秒查询次数。</p>
+</td>
+</tr>
+<tr><td><code>burst</code> <B><!--[Required]-->[必需]</B><br/>
+<code>int32</code>
+</td>
+<td>
+   <!--
+   burst allows extra queries to accumulate when a client is exceeding its rate.
+   -->
+   <p><code>burst</code> 允许在客户端超出其速率限制时可以累积的额外查询个数。</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `DebuggingConfiguration`     {#DebuggingConfiguration}
+
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
+
+<!--
+DebuggingConfiguration holds configuration for Debugging related features.
+-->
+<p>DebuggingConfiguration 包含与调试功能相关的配置。</p>
+
+<table class="table">
+<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
+<tbody>
+
+<tr><td><code>enableProfiling</code> <B><!--[Required]-->[必需]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   <!--
+   enableProfiling enables profiling via web interface host:port/debug/pprof/
+   -->
+   <p><code>enableProfiling</code> 字段允许通过 Web 接口 host:port/debug/pprof/ 执行性能分析。</p>
+</td>
+</tr>
+<tr><td><code>enableContentionProfiling</code> <B><!--[Required]-->[必需]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   <!--
+   enableContentionProfiling enables block profiling, if
+enableProfiling is true.
+   -->
+   <p><code>enableContentionProfiling</code> 字段在 
+   <code>enableProfiling</code> 为 true 时启用阻塞分析。</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `LeaderElectionConfiguration`     {#LeaderElectionConfiguration}
+
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
+
+<!--
+LeaderElectionConfiguration defines the configuration of leader election
+clients for components that can run with leader election enabled.
+-->
+<p>
+LeaderElectionConfiguration 为能够支持领导者选举的组件定义其领导者选举客户端的配置。
+</p>
+
+<table class="table">
+<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
+<tbody>
+
+<tr><td><code>leaderElect</code> <B><!--[Required]-->[必需]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   <!--
+   leaderElect enables a leader election client to gain leadership
+before executing the main loop. Enable this when running replicated
+components for high availability.
+   -->
+   <p>
+   <code>leaderElect</code> 允许领导者选举客户端在进入主循环执行之前先获得领导者角色。
+   运行多副本组件时启用此功能有助于提高可用性。
+   </p>
+</td>
+</tr>
+<tr><td><code>leaseDuration</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <!--
+   leaseDuration is the duration that non-leader candidates will wait
+after observing a leadership renewal until attempting to acquire
+leadership of a led but unrenewed leader slot. This is effectively the
+maximum duration that a leader can be stopped before it is replaced
+by another candidate. This is only applicable if leader election is
+enabled.
+   -->
+   <p>
+   <code>leaseDuration</code> 是非领导角色候选者在观察到需要领导席位更新时要等待的时间；
+   只有经过所设置时长才可以尝试去获得一个仍处于领导状态但需要被刷新的席位。
+   这里的设置值本质上意味着某个领导者在被另一个候选者替换掉之前可以停止运行的最长时长。
+   只有当启用了领导者选举时此字段有意义。
+   </p>
+</td>
+</tr>
+<tr><td><code>renewDeadline</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <!--
+   renewDeadline is the interval between attempts by the acting master to
+renew a leadership slot before it stops leading. This must be less
+than or equal to the lease duration. This is only applicable if leader
+election is enabled.
+   -->
+   <p>
+   <code>renewDeadline</code> 设置的是当前领导者在停止扮演领导角色之前需要刷新领导状态的时间间隔。
+   此值必须小于或等于租约期限的长度。只有到启用了领导者选举时此字段才有意义。
+   </p>
+</td>
+</tr>
+<tr><td><code>retryPeriod</code> <B>[Required<!--[Required]-->[必需]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <!--
+   retryPeriod is the duration the clients should wait between attempting
+acquisition and renewal of a leadership. This is only applicable if
+leader election is enabled.
+   -->
+   <p>
+   <code>retryPeriod</code> 是客户端在连续两次尝试获得或者刷新领导状态之间需要等待的时长。
+   只有当启用了领导者选举时此字段才有意义。
+   </p>
+</td>
+</tr>
+<tr><td><code>resourceLock</code> <B><!--[Required]-->[必需]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <!--
+   resourceLock indicates the resource object type that will be used to lock
+during leader election cycles.
+   -->
+   <p><code>resourceLock</code> 字段给出在领导者选举期间要作为锁来使用的资源对象类型。</p>
+</td>
+</tr>
+<tr><td><code>resourceName</code> <B><!--[Required]-->[必需]</B><br/>
+<code>string</code>
+</td>
+<td>
+  <!--
+   resourceName indicates the name of resource object that will be used to lock
+during leader election cycles.
+   -->
+   <p><code>resourceName</code> 字段给出在领导者选举期间要作为锁来使用的资源对象名称。</p>
+</td>
+</tr>
+<tr><td><code>resourceNamespace</code> <B><!--[Required]-->[必需]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <!--
+   resourceName indicates the namespace of resource object that will be used to lock
+during leader election cycles.
+   -->
+   <p><code>resourceNamespace</code> 字段给出在领导者选举期间要作为锁来使用的资源对象所在名字空间。</p>
+</td>
+</tr>
+</tbody>
+</table>
+
 ## `DefaultPreemptionArgs`     {#kubescheduler-config-k8s-io-v1-DefaultPreemptionArgs}
     
 <!--
@@ -262,6 +512,24 @@ with the extender. These extenders are shared by all scheduler profiles.
    所有调度器模仿会共享此扩展模块列表。</p>
 </td>
 </tr>
+<tr><td><code>delayCacheUntilActive</code> <B>[Required]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   <p>
+   <!--
+   DelayCacheUntilActive specifies when to start caching. If this is true and leader election is enabled,
+   the scheduler will wait to fill informer caches until it is the leader. Doing so will have slower
+   failover with the benefit of lower memory overhead while waiting to become leader.
+   Defaults to false.
+   -->
+   DelayCacheUntilActive 指定何时开始缓存。如果字段设置为 true 并且启用了领导者选举，
+   则调度程序将等待填充通知者缓存，直到它成为领导者，这样做会减慢故障转移速度，
+   并在等待成为领导者时降低内存开销。
+   默认为 false。
+   </p>
+</td>
+</tr>
 </tbody>
 </table>
 
@@ -280,7 +548,7 @@ NodeAffinityArgs holds arguments to configure the NodeAffinity plugin.
 <tr><td><code>kind</code><br/>string</td><td><code>NodeAffinityArgs</code></td></tr>
   
 <tr><td><code>addedAffinity</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
 </td>
 <td>
    <!--
@@ -401,7 +669,7 @@ PodTopologySpreadArgs holds arguments used to configure the PodTopologySpread pl
 <tr><td><code>kind</code><br/>string</td><td><code>PodTopologySpreadArgs</code></td></tr>
 
 <tr><td><code>defaultConstraints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
 </td>
 <td>
    <!--
@@ -1470,262 +1738,6 @@ UtilizationShapePoint represents single point of priority function shape.
    Score assigned to given utilization (y axis). Valid values are 0 to 10.
    -->
    <p><code>score</code> 分配给指定利用率的分值（y 轴）。合法值为 0 到 10。</p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `ClientConnectionConfiguration`     {#ClientConnectionConfiguration}
-
-<!--
-**Appears in:**
--->
-**出现在：**
-
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
-
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
-
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
-
-<!--
-ClientConnectionConfiguration contains details for constructing a client.
--->
-<p>ClientConnectionConfiguration 中包含用来构造客户端所需的细节。</p>
-
-<table class="table">
-<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
-<tbody>
-
-<tr><td><code>kubeconfig</code> <B><!--[Required]-->[必需]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <!--
-   kubeconfig is the path to a KubeConfig file.
-   -->
-   <p><code>kubeconfig</code> 字段为指向 KubeConfig 文件的路径。</p>
-</td>
-</tr>
-<tr><td><code>acceptContentTypes</code> <B><!--[Required]-->[必需]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <!--
-   acceptContentTypes defines the Accept header sent by clients when connecting to a server, overriding the
-default value of 'application/json'. This field will control all connections to the server used by a particular
-client.
-   -->
-   <p>
-   <code>acceptContentTypes</code> 定义的是客户端与服务器建立连接时要发送的 Accept 头部，
-   这里的设置值会覆盖默认值 "application/json"。此字段会影响某特定客户端与服务器的所有连接。
-   </p>
-</td>
-</tr>
-<tr><td><code>contentType</code> <B><!--[Required]-->[必需]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <!--
-   contentType is the content type used when sending data to the server from this client.
-   -->
-   <p>
-   <code>contentType</code> 包含的是此客户端向服务器发送数据时使用的内容类型（Content Type）。
-   </p>
-</td>
-</tr>
-<tr><td><code>qps</code> <B><!--[Required]-->[必需]</B><br/>
-<code>float32</code>
-</td>
-<td>
-   <!--
-   qps controls the number of queries per second allowed for this connection.
-   -->
-   <p><code>qps</code> 控制此连接允许的每秒查询次数。</p>
-</td>
-</tr>
-<tr><td><code>burst</code> <B><!--[Required]-->[必需]</B><br/>
-<code>int32</code>
-</td>
-<td>
-   <!--
-   burst allows extra queries to accumulate when a client is exceeding its rate.
-   -->
-   <p><code>burst</code> 允许在客户端超出其速率限制时可以累积的额外查询个数。</p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `DebuggingConfiguration`     {#DebuggingConfiguration}
-
-<!--
-**Appears in:**
--->
-**出现在：**
-
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
-
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
-
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
-
-<!--
-DebuggingConfiguration holds configuration for Debugging related features.
--->
-<p>DebuggingConfiguration 保存与调试功能相关的配置。</p>
-
-<table class="table">
-<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
-<tbody>
-
-<tr><td><code>enableProfiling</code> <B><!--[Required]-->[必需]</B><br/>
-<code>bool</code>
-</td>
-<td>
-   <!--
-   enableProfiling enables profiling via web interface host:port/debug/pprof/
-   -->
-   <p><code>enableProfiling</code> 字段允许通过 Web 接口 host:port/debug/pprof/ 执行性能分析。</p>
-</td>
-</tr>
-<tr><td><code>enableContentionProfiling</code> <B><!--[Required]-->[必需]</B><br/>
-<code>bool</code>
-</td>
-<td>
-   <!--
-   enableContentionProfiling enables block profiling, if
-enableProfiling is true.
-   -->
-   <p><code>enableContentionProfiling</code> 字段在 
-   <code>enableProfiling</code> 为 true 时启用阻塞分析。</p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `LeaderElectionConfiguration`     {#LeaderElectionConfiguration}
-
-<!--
-**Appears in:**
--->
-**出现在：**
-
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
-
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
-
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
-
-<!--
-LeaderElectionConfiguration defines the configuration of leader election
-clients for components that can run with leader election enabled.
--->
-<p>
-LeaderElectionConfiguration 为能够支持领导者选举的组件定义其领导者选举客户端的配置。
-</p>
-
-<table class="table">
-<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
-<tbody>
-
-<tr><td><code>leaderElect</code> <B><!--[Required]-->[必需]</B><br/>
-<code>bool</code>
-</td>
-<td>
-   <!--
-   leaderElect enables a leader election client to gain leadership
-before executing the main loop. Enable this when running replicated
-components for high availability.
-   -->
-   <p>
-   <code>leaderElect</code> 允许领导者选举客户端在进入主循环执行之前先获得领导者角色。
-   运行多副本组件时启用此功能有助于提高可用性。
-   </p>
-</td>
-</tr>
-<tr><td><code>leaseDuration</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
-</td>
-<td>
-   <!--
-   leaseDuration is the duration that non-leader candidates will wait
-after observing a leadership renewal until attempting to acquire
-leadership of a led but unrenewed leader slot. This is effectively the
-maximum duration that a leader can be stopped before it is replaced
-by another candidate. This is only applicable if leader election is
-enabled.
-   -->
-   <p>
-   <code>leaseDuration</code> 是非领导角色候选者在观察到需要领导席位更新时要等待的时间；
-   只有经过所设置时长才可以尝试去获得一个仍处于领导状态但需要被刷新的席位。
-   这里的设置值本质上意味着某个领导者在被另一个候选者替换掉之前可以停止运行的最长时长。
-   只有当启用了领导者选举时此字段有意义。
-   </p>
-</td>
-</tr>
-<tr><td><code>renewDeadline</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
-</td>
-<td>
-   <!--
-   renewDeadline is the interval between attempts by the acting master to
-renew a leadership slot before it stops leading. This must be less
-than or equal to the lease duration. This is only applicable if leader
-election is enabled.
-   -->
-   <p>
-   <code>renewDeadline</code> 设置的是当前领导者在停止扮演领导角色之前需要刷新领导状态的时间间隔。
-   此值必须小于或等于租约期限的长度。只有到启用了领导者选举时此字段才有意义。
-   </p>
-</td>
-</tr>
-<tr><td><code>retryPeriod</code> <B>[Required<!--[Required]-->[必需]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
-</td>
-<td>
-   <!--
-   retryPeriod is the duration the clients should wait between attempting
-acquisition and renewal of a leadership. This is only applicable if
-leader election is enabled.
-   -->
-   <p>
-   <code>retryPeriod</code> 是客户端在连续两次尝试获得或者刷新领导状态之间需要等待的时长。
-   只有当启用了领导者选举时此字段才有意义。
-   </p>
-</td>
-</tr>
-<tr><td><code>resourceLock</code> <B><!--[Required]-->[必需]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <!--
-   resourceLock indicates the resource object type that will be used to lock
-during leader election cycles.
-   -->
-   <p><code>resourceLock</code> 字段给出在领导者选举期间要作为锁来使用的资源对象类型。</p>
-</td>
-</tr>
-<tr><td><code>resourceName</code> <B><!--[Required]-->[必需]</B><br/>
-<code>string</code>
-</td>
-<td>
-  <!--
-   resourceName indicates the name of resource object that will be used to lock
-during leader election cycles.
-   -->
-   <p><code>resourceName</code> 字段给出在领导者选举期间要作为锁来使用的资源对象名称。</p>
-</td>
-</tr>
-<tr><td><code>resourceNamespace</code> <B><!--[Required]-->[必需]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <!--
-   resourceName indicates the namespace of resource object that will be used to lock
-during leader election cycles.
-   -->
-   <p><code>resourceNamespace</code> 字段给出在领导者选举期间要作为锁来使用的资源对象所在名字空间。</p>
 </td>
 </tr>
 </tbody>
