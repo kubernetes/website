@@ -12,7 +12,7 @@
   - [PyYAML](https://pyyaml.org/) v5.1.2
   - [make](https://www.gnu.org/software/make/)
   - [gcc compiler/linker](https://gcc.gnu.org/)
-  - [Docker](https://docs.docker.com/engine/installation/) (Required only for `kubectl` command reference, also kubernetes moving on from dockershim read [here](https://kubernetes.io/blog/2022/01/07/kubernetes-is-moving-on-from-dockershim/))
+  - [Docker](https://docs.docker.com/engine/installation/) (Required only for `kubectl` command reference)
 
 - Your `PATH` environment variable must include the required build tools, such as the `Go` binary and `python`.
 
