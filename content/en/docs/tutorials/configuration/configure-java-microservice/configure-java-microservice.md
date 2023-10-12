@@ -57,7 +57,7 @@ Follow these steps:
 
 3. Write the following content into the `myapp-configmap.yaml` file:
 
-    {{% code file="myapp-configmap.yaml" %}}
+    ```yaml
         apiVersion: v1
         kind: ConfigMap
         metadata:
@@ -71,7 +71,7 @@ Follow these steps:
         data:
           app.name: MyApp
           api.endpoint: https://api.example.com   
-    {{% /code %}}
+    ```
 
 **Note:**  The `https://api.example.com` in `api.endpoint` is just a placeholder for the 
 example. Replace it with the actual endpoint URL for your application.
@@ -110,7 +110,7 @@ Here's how you can proceed:
 
 3. Write the following content into the `myapp-secret.yaml` file:
 
-    {{% code file="myapp-secret.yaml" %}}
+    ```yaml
     apiVersion: v1
     kind: Secret
     metadata:
@@ -119,8 +119,7 @@ Here's how you can proceed:
     data:
       db.password: <base64-encoded-password>
       api.key: <base64-encoded-api-key>
-    {{% /code %}}
-
+    ```
 **Note:** Base64 encoding is not a secure way to store secrets, as it provides minimal 
 security. In production environments, consider more secure methods such as using 
 Kubernetes Secrets with encryption or a secret management system.
@@ -155,13 +154,13 @@ Here's how you can achieve this:
 
 3. Add the following lines within the `<dependencies>` section:
 
-    {{% code %}}
+    ```xml
     <dependency>
         <groupId>org.eclipse.microprofile.config</groupId>
         <artifactId>microprofile-config-api</artifactId>
         <version>3.1</version>
     </dependency>
-    {{% /code %}}
+    ```
 
 With the MicroProfile Config dependency in place, your microservice is now equipped to 
 dynamically access its configuration data based on the property names defined in your 
@@ -180,17 +179,16 @@ Here's how to proceed:
 
 2. In the beginning section of your Java file, make sure to import the necessary classes:
 
-    {{% code %}}
+    ```java
     import org.eclipse.microprofile.config.inject.ConfigProperty;
     import javax.inject.Inject;
-    {{% /code %}}
+    ```
 
 3. Inside the Java class, create fields and annotate them with `@ConfigProperty` to 
    represent the configuration properties you intend to inject. For instance:
 
-    {{% code %}}
+    ```java
     import org.eclipse.microprofile.config.inject.ConfigProperty;
-
     import javax.enterprise.context.ApplicationScoped;
     import javax.inject.Inject;
 
@@ -204,7 +202,7 @@ Here's how to proceed:
         String apiEndpoint;
         // ... your code ...
     }
-    {{% /code %}}
+    ```
 
    By using the `@ConfigProperty` annotation, you're signaling to MicroProfile Config to 
    inject the corresponding configuration values into these fields. This enables your 
