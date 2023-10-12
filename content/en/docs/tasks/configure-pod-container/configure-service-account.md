@@ -262,6 +262,11 @@ Secret somewhere that your terminal / computer screen could be seen by an onlook
 When you delete a ServiceAccount that has an associated Secret, the Kubernetes
 control plane automatically cleans up the long-lived token from that Secret.
 
+{{< note >}}
+Manually created Secret API objects do not appear in the service account API object's
+`.secrets` field. That field is only populated with auto-generated secrets.
+{{< /note >}}
+
 ## Add ImagePullSecrets to a service account
 
 First, [create an imagePullSecret](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
