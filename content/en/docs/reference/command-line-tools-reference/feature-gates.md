@@ -129,6 +129,7 @@ For a reference to old feature gates that are removed, please refer to
 | `KMSv2KDF` | `false` | Beta | 1.28 | |
 | `KubeProxyDrainingTerminatingNodes` | `false` | Alpha | 1.28 | |
 | `KubeletCgroupDriverFromCRI` | `false` | Alpha | 1.28 | |
+| `KubeletEnsureSecretPulledImages` | `false` | Alpha | 1.29 | |
 | `KubeletInUserNamespace` | `false` | Alpha | 1.22 | |
 | `KubeletPodResourcesDynamicResources` | `false` | Alpha | 1.27 | |
 | `KubeletPodResourcesGet` | `false` | Alpha | 1.27 | |
@@ -584,6 +585,12 @@ Each feature gate is designed for enabling/disabling a specific feature:
   the `cgroupDriver` configuration setting.
   See [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver)
   for more details.
+- `KubeletEnsureSecretPulledImages`: add support in kubelet for the `pullIfNotPresent`
+  image pull policy, for ensuring images pulled with pod `imagePullSecrets` are re-authenticated
+  for other pods that do not have the same `imagePullSecret`/auths used to successfully pull
+  the images in the first place.
+  This policy change will have no affect on the pull always image pull policy or for images
+  that are preloaded.
 - `KubeletInUserNamespace`: Enables support for running kubelet in a
   {{<glossary_tooltip text="user namespace" term_id="userns">}}.
    See [Running Kubernetes Node Components as a Non-root User](/docs/tasks/administer-cluster/kubelet-in-userns/).
