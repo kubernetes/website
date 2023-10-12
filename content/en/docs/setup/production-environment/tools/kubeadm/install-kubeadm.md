@@ -15,6 +15,14 @@ This page shows how to install the `kubeadm` toolbox.
 For information on how to create a cluster with kubeadm once you have performed this installation process,
 see the [Creating a cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) page.
 
+This installation guide is for Kubernetes {{< skew currentVersion >}}. If you want to use a different
+Kubernetes version, please refer to the following pages instead:
+
+- [Installing kubeadm for Kubernetes {{< skew currentVersionAddMinor -1 "." >}}](https://v{{< skew currentVersionAddMinor -1 "-" >}}.docs.kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
+- [Installing kubeadm for Kubernetes {{< skew currentVersionAddMinor -2 "." >}}](https://v{{< skew currentVersionAddMinor -2 "-" >}}.docs.kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
+- [Installing kubeadm for Kubernetes {{< skew currentVersionAddMinor -3 "." >}}](https://v{{< skew currentVersionAddMinor -3 "-" >}}.docs.kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
+- [Installing kubeadm for Kubernetes {{< skew currentVersionAddMinor -4 "." >}}](https://v{{< skew currentVersionAddMinor -4 "-" >}}.docs.kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
+
 ## {{% heading "prerequisites" %}}
 
 * A compatible Linux host. The Kubernetes project provides generic instructions for Linux distributions
@@ -163,6 +171,13 @@ have been frozen starting from September 13, 2023. Please read our
 for more details.
 {{< /note >}}
 
+{{< note >}}
+There's a dedicated package repository for each Kubernetes minor version. If you want to install
+a minor version other than {{< skew currentVersion >}}, please see the installation guide for
+your desired minor version. The official Kubernetes package repositories provide downloads for
+Kubernetes versions starting with v1.24.0. 
+{{< /note >}}
+
 {{< tabs name="k8s_install" >}}
 {{% tab name="Debian-based distributions" %}}
 
@@ -183,7 +198,11 @@ These instructions are for Kubernetes {{< skew currentVersion >}}.
    curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    ```
 
-3. Add the appropriate Kubernetes `apt` repository:
+3. Add the appropriate Kubernetes `apt` repository. Please note that this repository have packages
+   only for Kubernetes {{< skew currentVersion >}}; for other Kubernetes minor versions, you need to
+   change the Kubernetes minor version in the URL to match your desired minor version
+   (you should also check that you are reading the documentation for the version of Kubernetes
+   that you plan to install).
 
    ```shell
    # This overwrites any existing configuration in /etc/apt/sources.list.d/kubernetes.list
@@ -216,19 +235,24 @@ you can create it by running `sudo mkdir -m 755 /etc/apt/keyrings`
    sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
    ```
 
-   {{< caution >}}
-   - Setting SELinux in permissive mode by running `setenforce 0` and `sed ...`
-     effectively disables it. This is required to allow containers to access the host
-     filesystem; for example, some cluster network plugins require that. You have to
-     do this until SELinux support is improved in the kubelet.
-   - You can leave SELinux enabled if you know how to configure it but it may require
-     settings that are not supported by kubeadm.
-   {{< /caution >}}
+{{< caution >}}
+- Setting SELinux in permissive mode by running `setenforce 0` and `sed ...`
+effectively disables it. This is required to allow containers to access the host
+filesystem; for example, some cluster network plugins require that. You have to
+do this until SELinux support is improved in the kubelet.
+- You can leave SELinux enabled if you know how to configure it but it may require
+settings that are not supported by kubeadm.
+{{< /caution >}}
 
 2. Add the Kubernetes `yum` repository. The `exclude` parameter in the
    repository definition ensures that the packages related to Kubernetes are
    not upgraded upon running `yum update` as there's a special procedure that
-   must be followed for upgrading Kubernetes.
+   must be followed for upgrading Kubernetes. Please note that this repository
+   have packages only for Kubernetes {{< skew currentVersion >}}; for other
+   Kubernetes minor versions, you need to change the Kubernetes minor version
+   in the URL to match your desired minor version (you should also check that
+   you are reading the documentation for the version of Kubernetes that you
+   plan to install).
 
    ```shell
    # This overwrites any existing configuration in /etc/yum.repos.d/kubernetes.repo
