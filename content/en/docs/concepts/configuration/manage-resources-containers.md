@@ -458,7 +458,7 @@ that file but the kubelet does not categorize the space as in use.
 {{% /tab %}}
 {{% tab name="Filesystem project quota" %}}
 
-{{< feature-state for_k8s_version="v1.15" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.29" state="beta" >}}
 
 Project quotas are an operating-system level feature for managing
 storage use on filesystems. With Kubernetes, you can enable project
@@ -486,12 +486,6 @@ whereas directory scans overlook the storage used by deleted files.
 
 If you want to use project quotas, you should:
 
-* Enable the `LocalStorageCapacityIsolationFSQuotaMonitoring=true`
-  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  using the `featureGates` field in the
-  [kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1/)
-  or the `--feature-gates` command line flag.
-
 * Ensure that the root filesystem (or optional runtime filesystem)
   has project quotas enabled. All XFS filesystems support project quotas.
   For ext4 filesystems, you need to enable the project quota tracking feature
@@ -505,6 +499,14 @@ If you want to use project quotas, you should:
 * Ensure that the root filesystem (or optional runtime filesystem) is
   mounted with project quotas enabled. For both XFS and ext4fs, the
   mount option is named `prjquota`.
+
+If you don't want to use project quotas, you should:
+
+* Disable the `LocalStorageCapacityIsolationFSQuotaMonitoring=false`
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  using the `featureGates` field in the
+  [kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1/)
+  or the `--feature-gates` command line flag.
 
 {{% /tab %}}
 {{< /tabs >}}

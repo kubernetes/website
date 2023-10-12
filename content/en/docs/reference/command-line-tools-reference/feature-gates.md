@@ -135,7 +135,8 @@ For a reference to old feature gates that are removed, please refer to
 | `KubeletTracing` | `false` | Alpha | 1.25 | 1.26 |
 | `KubeletTracing` | `true` | Beta | 1.27 | |
 | `LegacyServiceAccountTokenCleanUp` | `false` | Alpha | 1.28 | |
-| `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | - |
+| `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | 1.28 |
+| `LocalStorageCapacityIsolationFSQuotaMonitoring` | `true` | Beta | 1.29 | - |
 | `LogarithmicScaleDown` | `false` | Alpha | 1.21 | 1.21 |
 | `LogarithmicScaleDown` | `true` | Beta | 1.22 | |
 | `LoggingAlphaOptions` | `false` | Alpha | 1.24 | - |
