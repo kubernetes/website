@@ -57,22 +57,21 @@ Follow these steps:
 
 3. Write the following content into the `myapp-configmap.yaml` file:
 
-    ```yaml
-        apiVersion: v1
-        kind: ConfigMap
-        metadata:
-          name: myapp-config
-          annotations:
-            kubernetes.io/description: "ConfigMap to store application name and API endpoint"
-          labels:
-            app: myapp
-            environment: production
-          namespace: my-namespace
-        data:
-          app.name: MyApp
-          api.endpoint: https://api.example.com   
-    ```
-
+  ```yaml
+  apiVersion: v1
+  kind: ConfigMap
+  metadata:
+    name: myapp-config
+    annotations:
+      kubernetes.io/description: "ConfigMap to store application name and API endpoint"
+    labels:
+      app: myapp
+      environment: production
+    namespace: my-namespace
+  data:
+    app.name: MyApp
+    api.endpoint: https://api.example.com
+  ``` 
 **Note:**  The `https://api.example.com` in `api.endpoint` is just a placeholder for the 
 example. Replace it with the actual endpoint URL for your application.
 
