@@ -446,6 +446,140 @@ node only (e.g. the node ip).</p>
 - [InitConfiguration](#kubeadm-k8s-io-v1beta3-InitConfiguration)
 - [JoinConfiguration](#kubeadm-k8s-io-v1beta3-JoinConfiguration)
 
+## `BootstrapToken`     {#BootstrapToken}
+    
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [InitConfiguration](#kubeadm-k8s-io-v1beta3-InitConfiguration)
+
+<!--
+BootstrapToken describes one bootstrap token, stored as a Secret in the cluster
+-->
+<p>BootstrapToken 描述的是一个启动引导令牌，以 Secret 形式存储在集群中。</p>
+
+<table class="table">
+<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
+<tbody>
+  
+<tr><td><code>token</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="#BootstrapTokenString"><code>BootstrapTokenString</code></a>
+</td>
+<td>
+   <!--
+   <code>token</code> is used for establishing bidirectional trust between nodes and control-planes.
+Used for joining nodes in the cluster.
+   -->
+   <p><code>token</code> 用来在节点与控制面之间建立双向的信任关系。
+在向集群中添加节点时使用。</p>
+</td>
+</tr>
+<tr><td><code>description</code><br/>
+<code>string</code>
+</td>
+<td>
+   <!--
+   <code>description</code> sets a human-friendly message why this token exists and what it's used
+for, so other administrators can know its purpose.
+   -->
+   <p><code>description</code> 设置一个对人友好的消息，
+   说明为什么此令牌会存在以及其目标用途，这样其他管理员能够知道其目的。</p>
+</td>
+</tr>
+<tr><td><code>ttl</code><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <!--
+   <code>ttl</code> defines the time to live for this token. Defaults to <code>24h</code>.
+<code>expires</code> and <code>ttl</code> are mutually exclusive.
+   -->
+   <p><code>ttl</code> 定义此令牌的声明周期。默认为 <code>24h</code>。
+<code>expires</code> 和 <code>ttl</code> 是互斥的。</p>
+</td>
+</tr>
+<tr><td><code>expires</code><br/>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#time-v1-meta"><code>meta/v1.Time</code></a>
+</td>
+<td>
+   <!--
+   <code>expires</code> specifies the timestamp when this token expires. Defaults to being set
+dynamically at runtime based on the <code>ttl</code>. <code>expires</code> and <code>ttl</code> are mutually exclusive.
+   -->
+   <p><code>expires</code> 设置此令牌过期的时间戳。默认为在运行时基于
+<code>ttl</code> 来决定。
+<code>expires</code> 和 <code>ttl</code> 是互斥的。</p>
+</td>
+</tr>
+<tr><td><code>usages</code><br/>
+<code>[]string</code>
+</td>
+<td>
+   <!--
+   <code>usages</code> describes the ways in which this token can be used. Can by default be used
+for establishing bidirectional trust, but that can be changed here.
+   -->
+   <p><code>usages</code> 描述此令牌的可能使用方式。默认情况下，
+   令牌可用于建立双向的信任关系；不过这里可以改变默认用途。</p>
+</td>
+</tr>
+<tr><td><code>groups</code><br/>
+<code>[]string</code>
+</td>
+<td>
+   <!--
+   <code>groups</code> specifies the extra groups that this token will authenticate as when/if
+used for authentication
+   -->
+   <p><code>groups</code> 设定此令牌被用于身份认证时对应的附加用户组。</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `BootstrapTokenString`     {#BootstrapTokenString}
+    
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [BootstrapToken](#BootstrapToken)
+
+<!--
+BootstrapTokenString is a token of the format <code>abcdef.abcdef0123456789</code> that is used
+for both validation of the practically of the API server from a joining node's point
+of view and as an authentication method for the node in the bootstrap phase of
+&quot;kubeadm join&quot;. This token is and should be short-lived.
+-->
+<p>BootstrapTokenString 形式为 <code>abcdef.abcdef0123456789</code> 的一个令牌，
+用来从加入集群的节点角度验证 API 服务器的身份，或者 &quot;kubeadm join&quot;
+在节点启动引导是作为一种身份认证方法。
+此令牌的生命期是短暂的，并且应该如此。</p>
+<table class="table">
+<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
+<tbody>
+  
+<tr><td><code>-</code> <B><!--[Required]-->[必需]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <!--span class="text-muted">No description provided.</span-->
+   <span class="text-muted">无描述。</span>
+</td>
+</tr>
+<tr><td><code>-</code> <B><!--[Required]-->[必需]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <!--span class="text-muted">No description provided.</span-->
+   <span class="text-muted">无描述。</span>
+</td>
+</tr>
+</tbody>
+</table>
 
 ## `ClusterConfiguration`     {#kubeadm-k8s-io-v1beta3-ClusterConfiguration}
 
@@ -1830,139 +1964,3 @@ first alpha-numerically.
 </tr>
 </tbody>
 </table>
-
-## `BootstrapToken`     {#BootstrapToken}
-    
-<!--
-**Appears in:**
--->
-**出现在：**
-
-- [InitConfiguration](#kubeadm-k8s-io-v1beta3-InitConfiguration)
-
-<!--
-BootstrapToken describes one bootstrap token, stored as a Secret in the cluster
--->
-<p>BootstrapToken 描述的是一个启动引导令牌，以 Secret 形式存储在集群中。</p>
-
-<table class="table">
-<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
-<tbody>
-  
-<tr><td><code>token</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="#BootstrapTokenString"><code>BootstrapTokenString</code></a>
-</td>
-<td>
-   <!--
-   <code>token</code> is used for establishing bidirectional trust between nodes and control-planes.
-Used for joining nodes in the cluster.
-   -->
-   <p><code>token</code> 用来在节点与控制面之间建立双向的信任关系。
-在向集群中添加节点时使用。</p>
-</td>
-</tr>
-<tr><td><code>description</code><br/>
-<code>string</code>
-</td>
-<td>
-   <!--
-   <code>description</code> sets a human-friendly message why this token exists and what it's used
-for, so other administrators can know its purpose.
-   -->
-   <p><code>description</code> 设置一个对人友好的消息，说明为什么此令牌
-会存在以及其目标用途，这样其他管理员能够知道其目的。</p>
-</td>
-</tr>
-<tr><td><code>ttl</code><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
-</td>
-<td>
-   <!--
-   <code>ttl</code> defines the time to live for this token. Defaults to <code>24h</code>.
-<code>expires</code> and <code>ttl</code> are mutually exclusive.
-   -->
-   <p><code>ttl</code> 定义此令牌的声明周期。默认为 <code>24h</code>。
-<code>expires</code> 和 <code>ttl</code> 是互斥的。</p>
-</td>
-</tr>
-<tr><td><code>expires</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#time-v1-meta"><code>meta/v1.Time</code></a>
-</td>
-<td>
-   <!--
-   <code>expires</code> specifies the timestamp when this token expires. Defaults to being set
-dynamically at runtime based on the <code>ttl</code>. <code>expires</code> and <code>ttl</code> are mutually exclusive.
-   -->
-   <p><code>expires</code> 设置此令牌过期的时间戳。默认为在运行时基于
-<code>ttl</code> 来决定。
-<code>expires</code> 和 <code>ttl</code> 是互斥的。</p>
-</td>
-</tr>
-<tr><td><code>usages</code><br/>
-<code>[]string</code>
-</td>
-<td>
-   <!--
-   <code>usages</code> describes the ways in which this token can be used. Can by default be used
-for establishing bidirectional trust, but that can be changed here.
-   -->
-   <p><code>usages</code> 描述此令牌的可能使用方式。默认情况下，令牌可用于
-建立双向的信任关系；不过这里可以改变默认用途。</p>
-</td>
-</tr>
-<tr><td><code>groups</code><br/>
-<code>[]string</code>
-</td>
-<td>
-   <!--
-   <code>groups</code> specifies the extra groups that this token will authenticate as when/if
-used for authentication
-   -->
-   <p><code>groups</code> 设定此令牌被用于身份认证时对应的附加用户组。</p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `BootstrapTokenString`     {#BootstrapTokenString}
-    
-<!--
-**Appears in:**
--->
-**出现在：**
-
-- [BootstrapToken](#BootstrapToken)
-
-<!--
-BootstrapTokenString is a token of the format <code>abcdef.abcdef0123456789</code> that is used
-for both validation of the practically of the API server from a joining node's point
-of view and as an authentication method for the node in the bootstrap phase of
-&quot;kubeadm join&quot;. This token is and should be short-lived.
--->
-<p>BootstrapTokenString 形式为 <code>abcdef.abcdef0123456789</code> 的一个令牌，
-用来从加入集群的节点角度验证 API 服务器的身份，或者 &quot;kubeadm join&quot;
-在节点启动引导是作为一种身份认证方法。
-此令牌的生命期是短暂的，并且应该如此。</p>
-<table class="table">
-<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
-<tbody>
-  
-<tr><td><code>-</code> <B><!--[Required]-->[必需]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <!--span class="text-muted">No description provided.</span-->
-   <span class="text-muted">无描述。</span>
-</td>
-</tr>
-<tr><td><code>-</code> <B><!--[Required]-->[必需]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <!--span class="text-muted">No description provided.</span-->
-   <span class="text-muted">无描述。</span>
-</td>
-</tr>
-</tbody>
-</table>
-  
