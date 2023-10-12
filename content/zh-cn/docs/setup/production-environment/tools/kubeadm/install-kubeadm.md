@@ -40,8 +40,12 @@ see the [Creating a cluster with kubeadm](/docs/setup/production-environment/too
 * Full network connectivity between all machines in the cluster (public or private network is fine).
 * Unique hostname, MAC address, and product_uuid for every node. See [here](#verify-mac-address) for more details.
 * Certain ports are open on your machines. See [here](#check-required-ports) for more details.
-* Swap disabled. You **MUST** disable swap in order for the kubelet to work properly.
-    * For example, `sudo swapoff -a` will disable swapping temporarily. To make this change persistent across reboots, make sure swap is disabled in config files like `/etc/fstab`, `systemd.swap`, depending how it was configured on your system.
+* Swap configuration. The default behavior of a kubelet was to fail to start if swap memory was detected on a node.
+  Swap has been supported since v1.22. And since v1.28, Swap is supported for cgroup v2 only; the NodeSwap feature
+  gate of the kubelet is beta but disabled by default.
+  * You **MUST** disable swap if the kubelet is not properly configured to use swap. For example, `sudo swapoff -a`
+    will disable swapping temporarily. To make this change persistent across reboots, make sure swap is disabled in
+    config files like `/etc/fstab`, `systemd.swap`, depending how it was configured on your system.
 -->
 * 一台兼容的 Linux 主机。Kubernetes 项目为基于 Debian 和 Red Hat 的 Linux
   发行版以及一些不提供包管理器的发行版提供通用的指令。
@@ -50,11 +54,29 @@ see the [Creating a cluster with kubeadm](/docs/setup/production-environment/too
 * 集群中的所有机器的网络彼此均能相互连接（公网和内网都可以）。
 * 节点之中不可以有重复的主机名、MAC 地址或 product_uuid。请参见[这里](#verify-mac-address)了解更多详细信息。
 * 开启机器上的某些端口。请参见[这里](#check-required-ports)了解更多详细信息。
-* 禁用交换分区。为了保证 kubelet 正常工作，你**必须**禁用交换分区。
-  * 例如，`sudo swapoff -a` 将暂时禁用交换分区。要使此更改在重启后保持不变，请确保在如
+* 交换分区的配置。kubelet 的默认行为是在节点上检测到交换内存时无法启动。
+  kubelet 自 v1.22 起已开始支持交换分区。自 v1.28 起，仅针对 cgroup v2 支持交换分区；
+  kubelet 的 NodeSwap 特性门控处于 Beta 阶段，但默认被禁用。
+  * 如果 kubelet 未被正确配置使用交换分区，则你**必须**禁用交换分区。
+    例如，`sudo swapoff -a` 将暂时禁用交换分区。要使此更改在重启后保持不变，请确保在如
     `/etc/fstab`、`systemd.swap` 等配置文件中禁用交换分区，具体取决于你的系统如何配置。
 
 <!-- steps -->
+
+{{< note >}}
+<!--
+The `kubeadm` installation is done via binaries that use dynamic linking and assumes that your target system provides `glibc`.
+This is a reasonable assumption on many Linux distributions (including Debian, Ubuntu, Fedora, CentOS, etc.)
+but it is not always the case with custom and lightweight distributions which don't include `glibc` by default, such as Alpine Linux.
+The expectation is that the distribution either includes `glibc` or a [compatibility layer](https://wiki.alpinelinux.org/wiki/Running_glibc_programs)
+that provides the expected symbols.
+-->
+`kubeadm` 的安装是通过使用动态链接的二进制文件完成的，安装时假设你的目标系统提供 `glibc`。
+这个假设在许多 Linux 发行版（包括 Debian、Ubuntu、Fedora、CentOS 等）上是合理的，
+但对于不包含默认 `glibc` 的自定义和轻量级发行版（如 Alpine Linux），情况并非总是如此。
+预期的情况是，发行版要么包含 `glibc`，
+要么提供了一个[兼容层](https://wiki.alpinelinux.org/wiki/Running_glibc_programs)以提供所需的符号。
+{{< /note >}}
 
 <!--
 ## Verify the MAC address and product_uuid are unique for every node {#verify-mac-address}
@@ -214,7 +236,7 @@ You will install these packages on all of your machines:
 * `kubeadm`: the command to bootstrap the cluster.
 
 * `kubelet`: the component that runs on all of the machines in your cluster
-    and does things like starting pods and containers.
+  and does things like starting pods and containers.
 
 * `kubectl`: the command line util to talk to your cluster.
 -->
@@ -271,49 +293,25 @@ For more information on version skews, see:
 
 {{< note >}}
 <!--
-Kubernetes has two different package repositories starting from August 2023.
-The Google-hosted repository is deprecated and it's being replaced with the
-Kubernetes (community-owned) package repositories. The Kubernetes project strongly
-recommends using the Kubernetes community-owned package repositories, because the
-project plans to stop publishing packages to the Google-hosted repository in the future.
+Kubernetes has [new package repositories hosted at `pkgs.k8s.io`](/blog/2023/08/15/pkgs-k8s-io-introduction/)
+starting from August 2023. The legacy package repositories (`apt.kubernetes.io` and `yum.kubernetes.io`)
+have been frozen starting from September 13, 2023. Please read our 
+[deprecation and freezing announcement](/blog/2023/08/31/legacy-package-repository-deprecation/)
+for more details.
 -->
-自2023年8月起，Kubernetes 有两个不同的软件包仓库。
-Google 托管的仓库已被弃用，并正在被 Kubernetes（由社区拥有）软件包仓库替代。
-Kubernetes 项目强烈建议使用 Kubernetes 社区拥有的软件包仓库，
-因为该项目计划将来停止向 Google 托管的仓库发布软件包。
-
-
-<!--
-There are some important considerations for the Kubernetes package repositories:
--->
-对于 Kubernetes 软件包仓库，有一些重要的考虑事项：
-<!--
-- The Kubernetes package repositories contain packages beginning with those
-  Kubernetes versions that were still under support when the community took
-  over the package builds. This means that anything before v1.24.0 will only be
-  available in the Google-hosted repository.
-- There's a dedicated package repository for each Kubernetes minor version.
-  When upgrading to a different minor release, you must bear in mind that
-  the package repository details also change.
--->
-- Kubernetes 软件包仓库包含从社区接管软件包构建时仍在支持范围内的 Kubernetes 版本开始的软件包。
-  这意味着v1.24.0之前的版本只在 Google 托管的仓库中提供。
-- 每个 Kubernetes 次要版本都有一个专用的软件包仓库。
-  当升级到不同的次要版本时，必须记住软件包仓库的详细信息也会发生变化。
+Kubernetes 从 2023 年 8 月开始使用托管在 `pkgs.k8s.io`
+上的[新软件包仓库](/zh-cn/blog/2023/08/15/pkgs-k8s-io-introduction/)。
+自 2023 年 9 月 13 日起，老旧的软件包仓库（`apt.kubernetes.io` 和 `yum.kubernetes.io`）已被冻结。
+更多细节参阅[弃用和冻结公告](/zh-cn/blog/2023/08/31/legacy-package-repository-deprecation/)。
 {{< /note >}}
 
 {{< tabs name="k8s_install" >}}
 {{% tab name="基于 Debian 的发行版" %}}
 
 <!--
-### Kubernetes package repositories {#dpkg-k8s-package-repo}
--->
-### Kubernetes 软件包仓库 {#dpkg-k8s-package-repo}
-
-<!--
 These instructions are for Kubernetes {{< skew currentVersion >}}.
 -->
-这些说明适用于 Kubernetes {{< skew currentVersion >}}.
+以下指令适用于 Kubernetes {{< skew currentVersion >}}.
 
 <!--
 1. Update the `apt` package index and install packages needed to use the Kubernetes `apt` repository:
@@ -327,7 +325,8 @@ These instructions are for Kubernetes {{< skew currentVersion >}}.
    ```
 
 <!--
-2. Download the public signing key for the Kubernetes package repositories. The same signing key is used for all repositories so you can disregard the version in the URL:
+2. Download the public signing key for the Kubernetes package repositories.
+   The same signing key is used for all repositories so you can disregard the version in the URL:
 -->
 2. 下载用于 Kubernetes 软件包仓库的公共签名密钥。所有仓库都使用相同的签名密钥，因此你可以忽略URL中的版本：
 
@@ -358,66 +357,6 @@ These instructions are for Kubernetes {{< skew currentVersion >}}.
 
 {{< note >}}
 <!--
-In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default.
-You can create this directory if you need to, making it world-readable but writeable only by admins.
--->
-在低于 Debian 12 和 Ubuntu 22.04 的发行版本中，`/etc/apt/keyrings` 默认不存在。
-如有需要，你可以创建此目录，并将其设置为对所有人可读，但仅对管理员可写。
-{{< /note >}}
-
-<!--
-### Google-hosted package repository (deprecated) {#dpkg-google-package-repo}
--->
-### Google 托管的软件包仓库（已弃用） {#dpkg-google-package-repo}
-
-<!-- 
-These instructions are for Kubernetes {{< skew currentVersion >}}.
--->
-这些说明适用于 Kubernetes {{< skew currentVersion >}}.
-
-<!--
-1. Update the `apt` package index and install packages needed to use the Kubernetes `apt` repository:
--->
-1. 更新 `apt` 软件包索引并安装使用 Kubernetes `apt` 仓库所需的软件包:
-
-   ```shell
-   sudo apt-get update
-   # apt-transport-https 可能是一个虚拟包（dummy package）；如果是的话，你可以跳过安装这个包
-   sudo apt-get install -y apt-transport-https ca-certificates curl
-   ```
-
-<!--
-2. Download the Google Cloud public signing key:
--->
-2. 下载 Google Cloud 公共签名密钥:
-
-   ```shell
-   curl -fsSL https://dl.k8s.io/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
-   ```
-
-<!--
-Add the Google-hosted `apt` repository:
--->
-3. 添加 Google 托管的 `apt` 仓库:
-
-   ```shell
-   # 此操作会覆盖 /etc/apt/sources.list.d/kubernetes.list 中现存的所有配置
-   echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
-   ```
-
-<!--
-4. Update the `apt` package index, install kubelet, kubeadm and kubectl, and pin their version:
--->
-4. 更新 `apt` 软件包索引，安装 kubelet、kubeadm 和 kubectl，并锁定它们的版本:
-
-   ```shell
-   sudo apt-get update
-   sudo apt-get install -y kubelet kubeadm kubectl
-   sudo apt-mark hold kubelet kubeadm kubectl
-   ```
-
-{{< note >}}
-<!--
 In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default;
 you can create it by running `sudo mkdir -m 755 /etc/apt/keyrings`
 -->
@@ -431,8 +370,18 @@ you can create it by running `sudo mkdir -m 755 /etc/apt/keyrings`
 
 <!--
 1. Set SELinux to `permissive` mode:
+
+   These instructions are for Kubernetes {{< skew currentVersion >}}.
+
+   ```shell
+   # Set SELinux in permissive mode (effectively disabling it)
+   sudo setenforce 0
+   sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+   ```
 -->
 1. 将 SELinux 设置为 `permissive` 模式:
+
+   以下指令适用于 Kubernetes {{< skew currentVersion >}}。
 
    ```shell
    # 将 SELinux 设置为 permissive 模式（相当于将其禁用）
@@ -454,16 +403,6 @@ you can create it by running `sudo mkdir -m 755 /etc/apt/keyrings`
   你必须这么做，直到 kubelet 改进其对 SELinux 的支持。
 - 如果你知道如何配置 SELinux 则可以将其保持启用状态，但可能需要设定部分 kubeadm 不支持的配置。
 {{< /caution >}}
-
-<!--
-### Kubernetes package repositories {#rpm-k8s-package-repo}
--->
-### Kubernetes 软件包仓库 {#rpm-k8s-package-repo}
-
-<!--
-These instructions are for Kubernetes {{< skew currentVersion >}}.
--->
-这些说明适用于 Kubernetes {{< skew currentVersion >}}.
 
 <!--
 2. Add the Kubernetes `yum` repository. The `exclude` parameter in the
@@ -498,61 +437,6 @@ These instructions are for Kubernetes {{< skew currentVersion >}}.
    sudo systemctl enable --now kubelet
    ```
 
-<!--
-### Google-hosted package repository (deprecated) {#rpm-google-package-repo}
--->
-### Google 托管的软件包仓库（已弃用） {#rpm-google-package-repo}
-
-<!--
-These instructions are for Kubernetes {{< skew currentVersion >}}.
--->
-这些说明适用于 Kubernetes {{< skew currentVersion >}}.
-
-<!--
-2. Add the Kubernetes `yum` repository. The `exclude` parameter in the
-   repository definition ensures that the packages related to Kubernetes are
-   not upgraded upon running `yum update` as there's a special procedure that
-   must be followed for upgrading Kubernetes.
--->
-2. 添加 Google 托管的 `yum` 仓库。
-   仓库定义中的 `exclude` 参数确保了与 Kubernetes 相关的软件包在运行 
-   `yum update` 时不会升级，因为升级 Kubernetes 需要遵循特定的过程。"
-
-   ```shell
-   # 此操作会覆盖 /etc/yum.repos.d/kubernetes.repo 中现存的所有配置
-   cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
-   [kubernetes]
-   name=Kubernetes
-   baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
-   enabled=1
-   gpgcheck=1
-   gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
-   exclude=kubelet kubeadm kubectl
-   EOF
-   ```
-
-<!--
-3. Install kubelet, kubeadm and kubectl, and enable kubelet to ensure it's automatically started on startup:
--->
-3. 安装 kubelet、kubeadm 和 kubectl，并启用 kubelet 以确保它在启动时自动启动:
-
-   ```shell
-   sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
-   sudo systemctl enable --now kubelet
-   ```
-
-{{< note >}}
-<!--
-If the `baseurl` fails because your RPM-based distribution cannot interpret `$basearch`, replace `\$basearch` with your computer's architecture.
-Type `uname -m` to see that value.
-For example, the `baseurl` URL for `x86_64` could be: `https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64`.
--->
-如果 `baseurl` 因为你的基于 RPM 的 Linux 发行版无法解释 `$basearch` 而失败，
-你需要将 `\$basearch` 替换为你的计算机的体系结构。
-输入 `uname -m` 命令来查看该值。
-例如，对于 `x86_64` 架构，`baseurl` URL 可能是：`https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64`。
-{{< /note >}}
-
 {{% /tab %}}
 {{% tab name="无包管理器的情况" %}}
 <!--
@@ -569,9 +453,9 @@ curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_
 ```
 
 <!--
-Define the directory to download command files
+Define the directory to download command files:
 -->
-定义要下载命令文件的目录。
+定义要下载命令文件的目录：
 
 {{< note >}}
 <!--
@@ -588,9 +472,9 @@ sudo mkdir -p "$DOWNLOAD_DIR"
 ```
 
 <!--
-Install crictl (required for kubeadm / Kubelet Container Runtime Interface (CRI))
+Install crictl (required for kubeadm / Kubelet Container Runtime Interface (CRI)):
 -->
-安装 crictl（kubeadm/kubelet 容器运行时接口（CRI）所需）
+安装 crictl（kubeadm/kubelet 容器运行时接口（CRI）所需）：
 
 ```bash
 CRICTL_VERSION="v1.28.0"
@@ -616,6 +500,14 @@ sudo mkdir -p /etc/systemd/system/kubelet.service.d
 curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
 ```
 
+{{< note >}}
+<!--
+Please refer to the note in the [Before you begin](#before-you-begin) section for Linux distributions
+that do not include `glibc` by default.
+-->
+对于默认不包括 `glibc` 的 Linux 发行版，请参阅[开始之前](#before-you-begin)一节的注释。
+{{< /note >}}
+
 <!--
 Install `kubectl` by following the instructions on [Install Tools page](/docs/tasks/tools/#kubectl).
 Enable and start `kubelet`:
@@ -631,7 +523,8 @@ systemctl enable --now kubelet
 <!--
 The Flatcar Container Linux distribution mounts the `/usr` directory as a read-only filesystem.
 Before bootstrapping your cluster, you need to take additional steps to configure a writable directory.
-See the [Kubeadm Troubleshooting guide](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#usr-mounted-read-only/) to learn how to set up a writable directory.
+See the [Kubeadm Troubleshooting guide](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#usr-mounted-read-only/)
+to learn how to set up a writable directory.
 -->
 Flatcar Container Linux 发行版会将 `/usr/` 目录挂载为一个只读文件系统。
 在启动引导你的集群之前，你需要执行一些额外的操作来配置一个可写入的目录。
@@ -652,13 +545,13 @@ kubelet 现在每隔几秒就会重启，因为它陷入了一个等待 kubeadm 
 ## Configuring a cgroup driver
 
 Both the container runtime and the kubelet have a property called
-["cgroup driver"](/docs/setup/production-environment/container-runtimes/), which is important
+["cgroup driver"](/docs/setup/production-environment/container-runtimes/#cgroup-drivers), which is important
 for the management of cgroups on Linux machines.
 -->
 ## 配置 cgroup 驱动程序  {#configuring-a-cgroup-driver}
 
 容器运行时和 kubelet 都具有名字为
-["cgroup driver"](/zh-cn/docs/setup/production-environment/container-runtimes/)
+["cgroup driver"](/zh-cn/docs/setup/production-environment/container-runtimes/#cgroup-drivers)
 的属性，该属性对于在 Linux 机器上管理 CGroups 而言非常重要。
 
 {{< warning >}}
@@ -676,7 +569,8 @@ See [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configu
 <!--
 ## Troubleshooting
 
-If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
+If you are running into difficulties with kubeadm, please consult our
+[troubleshooting docs](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
 -->
 ## 故障排查   {#troubleshooting}
 
