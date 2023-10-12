@@ -108,15 +108,14 @@ The upgrade workflow at high level is the following:
 <!--
 ## Changing the package repository
 
-If you're using the Kubernetes community-owned repositories, you need to change
-the package repository to one that contains packages for your desired Kubernetes
-minor version. This is explained in [Changing the Kubernetes package repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/)
-document.
+If you're using the community-owned package repositories (`pkgs.k8s.io`), you need to 
+enable the package repository for the desired Kubernetes minor release. This is explained in
+[Changing the Kubernetes package repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/)
 -->
 ## 更改软件包仓库   {#changing-the-package-repository}
 
-如果你使用的是 Kubernetes 社区所属的软件包仓库，
-你需要将软件包仓库更改为一个包含所需 Kubernetes 次要版本软件包的仓库。
+如果你正在使用社区版的软件包仓库（pkgs.k8s.io），
+你需要启用所需的 Kubernetes 次要版本的软件包仓库。
 这一点在[更改 Kubernetes 软件包仓库](/zh-cn/docs/tasks/administer-cluster/kubeadm/change-package-repository/)文档中有详细说明。
 
 <!--
