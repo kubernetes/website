@@ -504,6 +504,22 @@ termination grace period _begins_. The behavior above is described when the
 feature gate `EndpointSliceTerminatingCondition` is enabled.
 {{</note>}}
 
+{{<note>}}
+Beginning with Kubernetes 1.29, if your Pod includes one or more sidecar containers
+(init containers with an Always restart policy), the kubelet will delay sending
+the TERM signal to these sidecar containers until the last main container has fully terminated.
+The sidecar containers will be terminated in the reverse order they are defined in the Pod spec.
+This ensures that sidecar containers continue serving the other containers in the Pod until they are no longer needed.
+
+Note that slow termination of a main container will also delay the termination of the sidecar containers.
+If the grace period expires before the termination process is complete, the Pod may enter emergency termination.
+In this case, all remaining containers in the Pod will be terminated simultaneously with a short grace period.
+
+Similarly, if the Pod has a preStop hook that exceeds the termination grace period, emergency termination may occur.
+In general, if you have used preStop hooks to control the termination order without sidecar containers, you can now
+remove them and allow the kubelet to manage sidecar termination automatically.
+{{</note>}}
+
 1. When the grace period expires, the kubelet triggers forcible shutdown. The container runtime sends
    `SIGKILL` to any processes still running in any container in the Pod.
    The kubelet also cleans up a hidden `pause` container if that container runtime uses one.

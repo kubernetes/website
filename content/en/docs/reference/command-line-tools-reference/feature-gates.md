@@ -187,7 +187,8 @@ For a reference to old feature gates that are removed, please refer to
 | `SELinuxMountReadWriteOncePod` | `true` | Beta | 1.28 | |
 | `SchedulerQueueingHints` | `false` | Alpha | 1.28 | |
 | `SecurityContextDeny` | `false` | Alpha | 1.27 | |
-| `SidecarContainers` | `false` | Alpha | 1.28 | |
+| `SidecarContainers` | `false` | Alpha | 1.28 | 1.28 |
+| `SidecarContainers` | `true` | Beta | 1.29 | |
 | `SizeMemoryBackedVolumes` | `false` | Alpha | 1.20 | 1.21 |
 | `SizeMemoryBackedVolumes` | `true` | Beta | 1.22 | |
 | `SkipReadOnlyValidationGCE` | `false` | Alpha | 1.28 | |
