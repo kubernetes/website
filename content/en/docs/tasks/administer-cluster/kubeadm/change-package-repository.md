@@ -19,6 +19,8 @@ package repositories (`pkgs.k8s.io`). If that's not the case, it's strongly
 recommended to migrate to the community-owned package repositories as described
 in the [official announcement](/blog/2023/08/15/pkgs-k8s-io-introduction/).
 
+{{% legacy-repos-deprecation %}}
+
 ### Verifying if the Kubernetes package repositories are used
 
 If you're unsure whether you're using the community-owned package repositories or the
