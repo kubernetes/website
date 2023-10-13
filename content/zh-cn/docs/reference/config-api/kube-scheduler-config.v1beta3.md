@@ -502,7 +502,7 @@ with the extender. These extenders are shared by all scheduler profiles.
    -->
    <p>此字段为调度器扩展模块（Extender）的列表，
    每个元素包含如何与某扩展模块通信的配置信息。
-   所有调度器模仿会共享此扩展模块列表。</p>
+   所有调度器方案会共享此扩展模块列表。</p>
 </td>
 </tr>
 </tbody>
