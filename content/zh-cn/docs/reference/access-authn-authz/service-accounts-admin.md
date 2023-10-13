@@ -244,10 +244,14 @@ to obtain short-lived API access tokens is recommended instead.
 <!--
 ## Control plane details
 
+### ServiceAccount controller
+
 A ServiceAccount controller manages the ServiceAccounts inside namespaces, and
 ensures a ServiceAccount named "default" exists in every active namespace.
 -->
 ## 控制平面细节   {#control-plane-details}
+
+### ServiceAccount 控制器   {#serviceaccount-controller} 
 
 ServiceAccount 控制器管理名字空间内的 ServiceAccount，
 并确保每个活跃的名字空间中都存在名为 `default` 的 ServiceAccount。
