@@ -666,6 +666,28 @@ The value of `spec.loadBalancerClass` must be a label-style identifier,
 with an optional prefix such as "`internal-vip`" or "`example.com/internal-vip`".
 Unprefixed names are reserved for end-users.
 
+#### Specifying IPMode of load balancer status {#load-balancer-ip-mode}
+
+{{< feature-state for_k8s_version="v1.29" state="alpha" >}}
+
+Starting as Alpha in Kubernetes 1.29, 
+a [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) 
+named `LoadBalancerIPMode` allows you to set the `.status.loadBalancer.ingress.ipMode` 
+for a Service with `type` set to `LoadBalancer`. 
+The `.status.loadBalancer.ingress.ipMode` specifies how the load-balancer IP behaves. 
+It may be specified only when the `.status.loadBalancer.ingress.ip` field is also specified.
+
+There are two possible values for `.status.loadBalancer.ingress.ipMode`: "VIP" and "Proxy". 
+The default value is "VIP" meaning that traffic is delivered to the node 
+with the destination set to the load-balancer's IP and port. 
+There are two cases when setting this to "Proxy", depending on how the load-balancer 
+from the cloud provider delivers the traffics:  
+
+- If the traffic is delivered to the node then DNATed to the pod, the destination would be set to the node's IP and node port;
+- If the traffic is delivered directly to the pod, the destination would be set to the pod's IP and port.
+
+Service implementations may use this information to adjust traffic routing.
+
 #### Internal load balancer
 
 In a mixed environment it is sometimes necessary to route traffic from Services inside the same
