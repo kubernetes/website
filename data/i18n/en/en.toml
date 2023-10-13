@@ -91,6 +91,9 @@ other = "I AM..."
 [docs_label_users]
 other = "Users"
 
+[docs_page_versions]
+other = "This %s is for Kubernetes %s. If you want to use a different Kubernetes version, please refer to the following pages instead:"
+
 [docs_version_current]
 other = "(this documentation)"
 
