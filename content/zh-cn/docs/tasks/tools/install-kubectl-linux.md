@@ -56,10 +56,10 @@ The following methods exist for installing kubectl on Linux:
 
    {{< tabs name="download_binary_linux" >}}
    {{< tab name="x86-64" codelang="bash" >}}
-   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
    {{< /tab >}}
    {{< tab name="ARM64" codelang="bash" >}}
-   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl.sha256"
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl"
    {{< /tab >}}
    {{< /tabs >}}
 
