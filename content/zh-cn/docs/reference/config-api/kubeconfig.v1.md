@@ -390,7 +390,7 @@ Cluster contains information about how to communicate with a kubernetes cluster.
   <!--
   CertificateAuthority is the path to a cert file for the certificate authority.
   -->
-   <p><code>CertificateAuthority</code> 是证书颁发机构的证书文件的路径.</p>
+   <p><code>certificate-authority</code> 是证书颁发机构的证书文件的路径。</p>
 </td>
 </tr>
 <tr><td><code>certificate-authority-data</code><br/>
