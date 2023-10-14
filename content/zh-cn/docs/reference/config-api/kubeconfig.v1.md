@@ -509,7 +509,7 @@ Context is a tuple of references to a cluster (how do I communicate with a kuber
   <!--
 Namespace is the default namespace to use on unspecified requests
   -->
-   <p><code>Namespace</code> 是在未指定请求时使用的默认命名空间.</p>
+   <p><code>namespace</code> 是在请求中未明确指定时使用的默认名字空间。</p>
 </td>
 </tr>
 <tr><td><code>extensions</code><br/>
