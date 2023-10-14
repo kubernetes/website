@@ -769,7 +769,7 @@ NamedAuthInfo relates nicknames to auth information
   <!--
   AuthInfo holds the auth information
   --->
-   <p><code>AuthInfo</code> 保存认证信息</p>
+   <p><code>user</code> 保存身份认证信息。</p>
 </td>
 </tr>
 </tbody>
