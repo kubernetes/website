@@ -698,7 +698,7 @@ credential plugin
 <code>string</code>
 </td>
 <td>
-   <span class="text-muted">环境变量名称.</span></td>
+   <p>环境变量名称。</p></td>
 </tr>
 <tr><td><code>value</code><B></br><!--[Required]-->[必需]</B>
 <code>string</code>
