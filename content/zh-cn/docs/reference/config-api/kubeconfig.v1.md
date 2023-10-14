@@ -250,7 +250,7 @@ AuthInfo contains information that describes identity information.  This is use 
   <!---
   Username is the username for basic authentication to the kubernetes cluster.
   --->
-   <p><code>Username</code> 是对<code>kubernetes</code> 集群进行基本认证的用户名.</p>
+   <p><code>username</code> 是向 Kubernetes 集群进行基本认证的用户名。</p>
 </td>
 </tr>
 <tr><td><code>password</code><br/>
