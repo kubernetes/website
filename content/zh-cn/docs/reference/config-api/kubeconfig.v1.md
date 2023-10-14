@@ -148,7 +148,7 @@ AuthInfo contains information that describes identity information.  This is use 
   <!--
   ClientCertificate is the path to a client cert file for TLS
   -->
-   <p><code>ClientCertificate</code> 是TLS客户端证书文件的路径.</p>
+   <p><code>client-certificate</code> 是 TLS 客户端证书文件的路径.</p>
 </td>
 </tr>
 <tr><td><code>client-certificate-data</code><br/>
