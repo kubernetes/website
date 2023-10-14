@@ -417,10 +417,11 @@ https_proxy environment variables. If these environment variables are not
 set, the client does not attempt to proxy requests.
   -->
   
-   <p><code>ProxyURL</code> 是代理用于此客户端的所有请求的 <code>URL</code>. <code>URL</code> 带有的 &quot;<code>http</code>&quot;, &quot;<code>https</code>&quot;, 和 &quot;<code>socks5</code>&quot; 受支持. 如果
-未提供此配置或为空字符串, 客户端
-尝试从 <code>http_proxy</code> 构建代理配置 和
-<code>https_proxy</code> 环境变量. 如果这些环境变量没有设置, 客户端不会尝试代理请求.
+   <p><code>proxy-url</code> 是代理的 URL，该代理用于此客户端的所有请求。
+   带有 &quot;http&quot;、&quot;https&quot; 和 &quot;socks5&quot; 的 URL 是被支持的。
+   如果未提供此配置或为空字符串，客户端尝试使用 <code>http_proxy</code> 和
+<code>https_proxy</code> 环境变量构建代理配置。
+   如果这些环境变量也没有设置, 客户端不会尝试代理请求。
    </p>
 
 <!--
