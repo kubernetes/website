@@ -55,8 +55,7 @@ Config holds the information needed to build connect to remote kubernetes cluste
   <!---
   Legacy field from pkg/api/types.go TypeMeta. TODO(jlowdermilk): remove this after eliminating downstream dependencies.
   -->
-   <p>来自 pkg/api/types.go 的遗留字段 TypeMeta.
-TODO(jlowdermilk): 在消除下游依赖后删除这个.</p>
+   <p>来自 pkg/api/types.go 的遗留字段 TypeMeta.</p>
 </td>
 </tr>
 <tr><td><code>preferences</code><B><!--[Required]-->[必需]</B><br/>
