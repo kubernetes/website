@@ -240,7 +240,7 @@ AuthInfo contains information that describes identity information.  This is use 
   <!--
   ImpersonateUserExtra contains additional information for impersonated user.
   --->
-   <p><code>ImpersonateUserExtra</code> 包含给模拟用户的额外信息.</p>
+   <p><code>as-user-extra</code> 包含与要冒充的用户相关的额外信息。</p>
 </td>
 </tr>
 <tr><td><code>username</code><br/>
