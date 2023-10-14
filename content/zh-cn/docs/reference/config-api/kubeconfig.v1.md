@@ -823,7 +823,7 @@ NamedCluster relates nicknames to cluster information
 <!--
 **Appears in:**
 -->
-**出现在:**
+**出现在：**
 
 - [Config](#Config)
 
