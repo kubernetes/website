@@ -906,7 +906,7 @@ NamedExtension relates nicknames to extension information.
   <!---
   Extension holds the extension information
   --->
-   <p><code>Extension</code> 保存了扩展信息.</p>
+   <p><code>extension</code> 保存扩展信息。</p>
 </td>
 </tr>
 </tbody>
