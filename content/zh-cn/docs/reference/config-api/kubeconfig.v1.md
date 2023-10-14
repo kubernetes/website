@@ -539,7 +539,7 @@ ExecConfig specifies a command to provide client credentials. The command is exe
 See the client.authentication.k8s.io API group for specifications of the exact input and output format
 -->
 
-<p><code>ExecConfig</code> 指定提供客户端凭证的命令. 这个命令被执（exec'd）
+<p><code>ExecConfig</code> 指定提供客户端凭证的命令。这个命令被执行（以 exec 方式）
 并输出结构化的标准输出 <code>(stdout)</code>，其中包含了凭据.</p>
 
 <!--
