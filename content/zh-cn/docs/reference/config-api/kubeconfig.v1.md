@@ -270,7 +270,7 @@ AuthInfo contains information that describes identity information.  This is use 
   <!---
   AuthProvider specifies a custom authentication plugin for the kubernetes cluster.
   --->
-   <p><code>AuthProvider</code> 为 <code>kubernetes</code> 集群指定自定义身份验证插件.</p>
+   <p><code>auth-provider</code> 给出用于给定 Kubernetes 集群的自定义身份验证插件。</p>
 </td>
 </tr>
 <tr><td><code>exec</code><br/>
