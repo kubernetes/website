@@ -199,7 +199,8 @@ AuthInfo contains information that describes identity information.  This is use 
   <!--
   TokenFile is a pointer to a file that contains a bearer token (as described above).  If both Token and TokenFile are present, Token takes precedence.
   -->
-   <p><code>TokenFile</code> 是指指包含有bearer代币的文件的指针 (如上所述). 如果两个<code>Token</code>和<code>Token file</code>都存在，<code>Token</code>优先.</p>
+   <p><code>tokenFile</code> 是一个指针，指向包含有持有者令牌（如上所述）的文件。
+   如果 <code>token</code> 和 <code>tokenFile</code> 都存在，<code>token</code> 优先。</p>
 </td>
 </tr>
 <tr><td><code>as</code><br/>
