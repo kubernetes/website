@@ -812,7 +812,7 @@ NamedCluster relates nicknames to cluster information
   <!--
   Cluster holds the cluster information
   -->
-   <p><code>Cluster</code> 保存了集群信息</p>
+   <p><code>cluster</code> 保存集群的信息。</p>
 </td>
 </tr>
 </tbody>
