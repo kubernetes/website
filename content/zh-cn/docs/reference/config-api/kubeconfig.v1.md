@@ -571,7 +571,7 @@ and output format
   <!--
   Arguments to pass to the command when executing it.
   -->
-   <p>执行命令时要传递的参数.</p>
+   <p><code>args</code> 是执行命令时要传递的参数。</p>
 </td>
 </tr>
 <tr><td><code>env</code><br/>
