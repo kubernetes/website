@@ -845,7 +845,7 @@ NamedContext relates nicknames to context information
   <!--
   Name is the nickname for this Context
   -->
-   <p><code>Name</code> 是该上下文的昵称</p>
+   <p><code>name</code> 是此上下文的昵称。</p>
 </td>
 </tr>
 <tr><td><code>context</code><br/><B><!--[Required]-->[必需]</B>
