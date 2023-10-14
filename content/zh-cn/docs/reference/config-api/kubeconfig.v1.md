@@ -65,7 +65,7 @@ Config holds the information needed to build connect to remote kubernetes cluste
   <!--
   Preferences holds general information to be use for cli interactions.
   -->
-   <p><code>Preferences</code>保存用于 CLI 交互的一般信息</p>
+   <p><code>preferences</code>保存用于 CLI 交互的一般信息</p>
 </td>
 </tr>
 <tr><td><code>clusters</code><B><!--[Required]-->[必需]</B><br/>
