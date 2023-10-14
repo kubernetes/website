@@ -744,7 +744,7 @@ ExecInteractiveMode is a string that describes an exec plugin's relationship wit
 <!---
 NamedAuthInfo relates nicknames to auth information
 -->
-<p>'NamedAuthInfo' - 将绰号与auth信息联系起来</p>
+<p><code>NamedAuthInfo</code> 将昵称与身份认证信息关联起来。</p>
 
 
 <table class="table">
