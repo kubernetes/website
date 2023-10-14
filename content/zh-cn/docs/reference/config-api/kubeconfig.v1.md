@@ -855,7 +855,7 @@ NamedContext relates nicknames to context information
   <!---
   Context holds the context information
   -->
-   <p><code>Context</code> 保存了上下文信息</p>
+   <p><code>context</code> 保存上下文信息。</p>
 </td>
 </tr>
 </tbody>
