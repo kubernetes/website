@@ -547,7 +547,7 @@ See the client.authentication.k8s.io API group for specifications of the exact i
 and output format
 -->
 
-<p>查看 <code>client.authentication.k8s.io API</code> 组以获取确切的输入和输出格式规范.</p>
+<p>查看 <code>client.authentication.k8s.io API</code> 组以获取确切的输入和输出格式规范。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
