@@ -379,7 +379,8 @@ Cluster contains information about how to communicate with a kubernetes cluster.
   <!---
   InsecureSkipTLSVerify skips the validity check for the server's certificate. This will make your HTTPS connections insecure.
   ---->
-   <p><code>InsecureSkipTLSVerify</code> 跳过服务器证书的有效性检查. 这将使您的 HTTPS 连接不安全.</p>
+   <p><code>insecure-skip-tls-verify</code> 跳过服务器证书的有效性检查。
+   这样做将使你的 HTTPS 连接不安全。</p>
 </td>
 </tr>
 <tr><td><code>certificate-authority</code><br/>
