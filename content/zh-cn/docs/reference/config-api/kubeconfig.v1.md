@@ -343,7 +343,7 @@ AuthProviderConfig holds the configuration for a specified auth provider.
 <!--
 Cluster contains information about how to communicate with a kubernetes cluster.
 --->
-<p>Cluster 包含有关如何与 kubernetes 集群通信的信息</p>
+<p>Cluster 包含有关如何与 Kubernetes 集群通信的信息。</p>
 
 
 <table class="table">
