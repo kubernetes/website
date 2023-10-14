@@ -473,7 +473,8 @@ compression (server-side) and decompression (client-side): https://github.com/ku
 <!--
 Context is a tuple of references to a cluster (how do I communicate with a kubernetes cluster), a user (how do I identify myself), and a namespace (what subset of resources do I want to work with)
 -->
-<p>上下文是对集群的引用元组 (如何与 <code>Kubernetes</code> 集群通信), 一个用户 (我如何识别自己), 和一个命名空间 (我想要使用哪些资源子集)</p>
+<p>Context 是一个元组，包含对集群 (我如何与某 Kubernetes 集群通信)、用户 (我如何标识自己）
+和名字空间（我想要使用哪些资源子集）的引用。</p>
 
 
 <table class="table">
