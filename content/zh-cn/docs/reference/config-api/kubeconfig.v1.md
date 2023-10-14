@@ -168,7 +168,7 @@ AuthInfo contains information that describes identity information.  This is use 
   <!--
   ClientKey is the path to a client key file for TLS
   -->
-   <p><code>ClientKey</code> 是用于 <code>TLS</code> 的客户端密钥文件的路径.</p>
+   <p><code>client-key</code> 是用于 <code>TLS</code> 的客户端密钥文件的路径。</p>
 </td>
 </tr>
 <tr><td><code>client-key-data</code><br/>
