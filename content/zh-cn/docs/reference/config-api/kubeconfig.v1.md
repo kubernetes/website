@@ -896,7 +896,7 @@ NamedExtension relates nicknames to extension information.
   <!--
   Name is the nickname for this Extension
   --->
-   <p><code>Name</code> 是该扩展的昵称.</p>
+   <p><code>name</code> 是此扩展的昵称。</p>
 </td>
 </tr>
 <tr><td><code>extension</code><!--[Required]--><B>[必需]</B><br/>
