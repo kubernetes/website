@@ -980,6 +980,37 @@ div.alert > em.javascript-required {
     background: #326de6;
 }
 
+.td-content > table.feature-gates-table tbody tr.table-item-odd {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #000000;
+}
+
+.td-content > table.feature-gates-table tbody tr.table-item-even {
+  background: #ffffff;
+  color: #000000;
+}
+
+//Feature gate spanned cells
+td.feature-gate-name, .td-content > table td.feature-gate-name {
+  vertical-align: middle;
+
+  > *:first-child {
+    display: inline-block;
+    font-family: monospace;
+    border-bottom: 1px dotted #000;
+  }
+}
+
+.td-content > table.feature-gates-table tbody + tbody tr {
+  background: #ffffff;
+  color: #222222;
+}
+
+.td-content > table.feature-gates-table tbody + tbody tr + tr {
+  background: #ffffff;
+  color: #dd0000;
+}
+
 // Adjust Bing search result page
 #bing-results-container {
     padding: 1em;
