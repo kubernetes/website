@@ -830,7 +830,7 @@ NamedCluster relates nicknames to cluster information
 <!--
 NamedContext relates nicknames to context information
 -->
-<p><code>NamedContext</code> 将昵称与上下文信息关联起来.</p>
+<p><code>NamedContext</code> 将昵称与上下文信息关联起来。</p>
 
 
 <table class="table">
