@@ -308,7 +308,7 @@ AuthInfo contains information that describes identity information.  This is use 
 <!--
 AuthProviderConfig holds the configuration for a specified auth provider.
 -->
-<p>AuthProviderConfig 保存特定认证提供商的配置.</p>
+<p>AuthProviderConfig 保存特定于某认证提供机制的配置。</p>
 
 
 <table class="table">
