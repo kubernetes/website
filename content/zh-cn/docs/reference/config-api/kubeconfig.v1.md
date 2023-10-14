@@ -429,7 +429,7 @@ socks5 proxying does not currently support spdy streaming endpoints (exec,
 attach, port forward).
 --->
 
-<p><code>socks5</code> 代理当前不支持 <code>spdy</code> 流式端点（<code>exec</code>、<code>attach</code>、<code>port-forward(端口转发)</code>).</p>
+<p><code>socks5</code> 代理当前不支持 SPDY 流式端点（<code>exec</code>、<code>attach</code>、<code>port-forward</code>）。</p>
 </td>
 </tr>
 <tr><td><code>disable-compression</code><br/>
