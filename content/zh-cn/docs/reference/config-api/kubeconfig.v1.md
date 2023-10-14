@@ -759,7 +759,7 @@ NamedAuthInfo relates nicknames to auth information
   <!--
   Name is the nickname for this AuthInfo
   --->
-   <p><code>Name</code> 是该 <code>AuthInfo</code> 的昵称</p>
+   <p><code>name</code> 是该 <code>AuthInfo</code> 的昵称。</p>
 </td>
 </tr>
 <tr><td><code>user</code><B><!--[Required]-->[必需]</B><br/>
