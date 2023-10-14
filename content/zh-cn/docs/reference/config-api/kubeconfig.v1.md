@@ -711,7 +711,10 @@ credential plugin
 
 ## `ExecInteractiveMode`     {#ExecInteractiveMode}
     
+<!--
 (Alias of `string`)
+-->
+（`string` 的别名）
 
 <!--
 **Appears in:**
