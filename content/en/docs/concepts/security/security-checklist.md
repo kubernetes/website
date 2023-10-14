@@ -311,18 +311,6 @@ Some common practices for image security include:
 - Ensuring that all dependencies used by container images are also secure and up-to-date.
 - Restricting the use of container images to trusted sources and avoiding the use of untrusted images or repositories.
 
-Reducing the size of an image can indirectly help improve image security in a few ways:
-
-- Faster transfer and processing: Smaller images can be transferred and processed more quickly than larger images. This can help reduce the risk of security breaches or attacks that may occur during image transfer or processing.
-
-- Lower storage requirements: Smaller images require less storage space than larger images. This can help reduce the risk of data breaches or theft, as there is less data to steal or compromise.
-
-- Easier backup and recovery: Smaller images are easier and faster to backup and recover than larger images. This can help ensure that images are not lost in the event of a system failure or other disaster, which can help improve image security.
-
-- Reduced exposure: Smaller images may be less attractive targets for attackers or hackers, as they may contain less valuable or sensitive information. This can help reduce the risk of attacks or breaches that may compromise image security.
-
-Overall, while reducing the size of an image may not directly improve image security, it can indirectly help improve security by reducing the risk of attacks or breaches during image transfer, processing, storage, backup, and recovery.
-
 Secure container registries are a type of cloud-based service that provides a secure and centralized location for storing and managing container images. Container are pre-packaged software components that can be used to quickly and easily deploy applications in a containerized environment.
 
 Some of the key benefits of using a secure container registry include:
