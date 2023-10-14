@@ -727,7 +727,7 @@ credential plugin
 ExecInteractiveMode is a string that describes an exec plugin's relationship with standard input.
 -->
 
-<p>ExecInteractiveMode 是一个描述 exec 插件与标准输入关系的字符串.</p>
+<p>ExecInteractiveMode 是一个描述 exec 插件与标准输入间关系的字符串。</p>
 
 
 
