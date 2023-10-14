@@ -115,7 +115,7 @@ Config holds the information needed to build connect to remote kubernetes cluste
   <!--
   Extensions holds additional information. This is useful for extenders so that reads and writes don't clobber unknown fields.
   -->
-   <p><code>Extensions</code> 保存额外信息. 这对于扩展器是有用的，这样读写不会破解未知字段.</p>
+   <p><code>extensions</code> 保存额外信息. 这对于扩展程序是有用的，目的是使读写操作不会破解未知字段.</p>
 </td>
 </tr>
 </tbody>
