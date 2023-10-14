@@ -313,7 +313,7 @@ To upgrade kubectl to another minor release, you'll need to bump the version in 
 -->
 要将 kubectl 升级到别的次要版本，你需要先升级 `/etc/yum.repos.d/kubernetes.repo`
 中的版本，再运行 `yum update` 命令。
-更详细的步骤可以在[更改 Kubernetes 软件包存储库](/zh-cn/docs/tasks/administer-cluster/kubeadm/change-package-repository/)中找到。
+更详细的步骤可以在[更改 Kubernetes 软件包仓库](/zh-cn/docs/tasks/administer-cluster/kubeadm/change-package-repository/)中找到。
 {{< /note >}}
 
 <!--
@@ -323,6 +323,56 @@ To upgrade kubectl to another minor release, you'll need to bump the version in 
 
    ```bash
    sudo yum install -y kubectl
+   ```
+
+{{% /tab %}}
+
+<!--
+{{% tab name="SUSE-based distributions" %}}
+-->
+{{% tab name="基于 SUSE 的发行版" %}}
+
+<!--
+1. Add the Kubernetes `zypper` repository. If you want to use Kubernetes version
+   different than {{< param "version" >}}, replace {{< param "version" >}} with
+   the desired minor version in the command below.
+-->
+1. 添加 Kubernetes `zypper` 仓库。如果你想使用与 {{< param "version" >}}
+   不同的 Kubernetes 版本，请在以下命令中将 {{< param "version" >}}
+   替换为所需的次要版本。
+
+   <!--
+   This overwrites any existing configuration in /etc/zypp/repos.d/kubernetes.repo
+   -->
+   ```bash
+   # 这会覆盖 /etc/zypp/repos.d/kubernetes.repo 中的任何现有配置
+   cat <<EOF | sudo tee /etc/zypp/repos.d/kubernetes.repo
+   [kubernetes]
+   name=Kubernetes
+   baseurl=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/
+   enabled=1
+   gpgcheck=1
+   gpgkey=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/repodata/repomd.xml.key
+   EOF
+
+   {{< note >}}
+   <!--
+   To upgrade kubectl to another minor release, you'll need to bump the version in `/etc/zypp/repos.d/kubernetes.repo`
+   before running `zypper update`. This procedure is described in more detail in
+   [Changing The Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
+   -->
+   要将 kubectl 升级到另一个次要版本，你需要在运行 `zypper update`
+   之前在 `/etc/zypp/repos.d/kubernetes.repo` 中升级版本。
+   [更改 Kubernetes 软件包包存储库](/zh-cn/docs/tasks/administer-cluster/kubeadm/change-package-repository/) 中更详细地描述了此过程。
+   {{< /note >}}
+
+<!--
+1. Install kubectl using `zypper`:
+-->
+1. 使用 kubectl 安装 `zypper`：
+
+   ```bash
+   sudo zypper install -y kubectl
    ```
 
 {{% /tab %}}
