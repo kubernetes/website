@@ -561,7 +561,7 @@ and output format
   <!--
   Command to execute.
   --->
-   <p>要执行的命令.</p>
+   <p>command 是要执行的命令。</p>
 </td>
 </tr>
 <tr><td><code>args</code><br/>
