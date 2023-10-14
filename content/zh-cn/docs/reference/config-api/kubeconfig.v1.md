@@ -280,7 +280,7 @@ AuthInfo contains information that describes identity information.  This is use 
   <!---
   Exec specifies a custom exec-based authentication plugin for the kubernetes cluster.
   --->
-   <p><code>Exec</code> 指定了针对 <code>kubernetes</code> 集群的自定义基于 <code>exec</code> 的身份验证插件.</p>
+   <p><code>exec</code> 指定了针对某 Kubernetes</code> 集群的自定义基于 <code>exec</code> 的身份认证插件。</p>
 </td>
 </tr>
 <tr><td><code>extensions</code><br/>
