@@ -189,7 +189,7 @@ AuthInfo contains information that describes identity information.  This is use 
   <!--
   Token is the bearer token for authentication to the kubernetes cluster
   --->
-   <p><code>Token</code> 是用于对<code>kubernetes</code>集群进行身份验证的持有者代币.</p>
+   <p><code>token</code> 是用于向 kubernetes 集群进行身份验证的持有者令牌。</p>
 </td>
 </tr>
 <tr><td><code>tokenFile</code><br/>
