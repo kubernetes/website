@@ -133,7 +133,7 @@ Config holds the information needed to build connect to remote kubernetes cluste
 <!--
 AuthInfo contains information that describes identity information.  This is use to tell the kubernetes cluster who you are.
 -->
-<p>AuthInfo 包含描述身份信息的信息. 这用来告诉 kubernetes 集群你是谁.</p>
+<p>AuthInfo 包含描述身份信息的信息. 这一信息用来告诉 kubernetes 集群你是谁.</p>
 
 
 <table class="table">
