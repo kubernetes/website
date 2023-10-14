@@ -75,7 +75,7 @@ Config holds the information needed to build connect to remote kubernetes cluste
   <!---
   Clusters is a map of referencable names to cluster configs.
   -->
-   <p><code>Clusters</code> 是可引用名称到集群配置的映射</p>
+   <p><code>clusters</code> 是从可引用名称到集群配置的映射</p>
 </td>
 </tr>
 <tr><td><code>users</code><B><!--[Required]-->[必需]</B><br/>
