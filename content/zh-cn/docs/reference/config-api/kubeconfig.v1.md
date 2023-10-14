@@ -158,7 +158,7 @@ AuthInfo contains information that describes identity information.  This is use 
   <!--
   ClientCertificateData contains PEM-encoded data from a client cert file for TLS. Overrides ClientCertificate
   -->
-   <p><code>ClientCertificateData</code> 包含PEM编码的数据 从 <code>TLS</code> 的客户端证书文件. 覆盖 <code>ClientCertificate</code></p>
+   <p><code>client-certificate-data</code> 包含用于 TLS 连接的，来自客户端证书的 PEM 编码的数据。此字段值会覆盖 <code>client-certificate</code> 内容。</p>
 </td>
 </tr>
 <tr><td><code>client-key</code><br/>
