@@ -220,7 +220,7 @@ AuthInfo contains information that describes identity information.  This is use 
   <!--
   ImpersonateUID is the uid to impersonate.
   -->
-   <p><code>ImpersonateUID</code> 就是 uid 为了冒充.</p>
+   <p><code>as-uid</code> 是要冒充的 UID。</p>
 </td>
 </tr>
 <tr><td><code>as-groups</code><br/>
