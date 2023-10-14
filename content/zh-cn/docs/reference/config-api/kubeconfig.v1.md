@@ -704,7 +704,7 @@ credential plugin
 <code>string</code>
 </td>
 <td>
-   <span class="text-muted">环境变量名称.</span></td>
+   <p>环境变量取值。</p></td>
 </tr>
 </tbody>
 </table>
