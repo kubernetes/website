@@ -260,7 +260,7 @@ AuthInfo contains information that describes identity information.  This is use 
   <!---
   Password is the password for basic authentication to the kubernetes cluster.
   --->
-   <p><code>Password</code> 是对 <code>kubernetes</code> 集群进行基本认证的密码.</p>
+   <p><code>password</code> 是向 Kubernetes 集群进行基本认证的密码。</p>
 </td>
 </tr>
 <tr><td><code>auth-provider</code><br/>
