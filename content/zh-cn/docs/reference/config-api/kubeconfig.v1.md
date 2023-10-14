@@ -442,7 +442,10 @@ to speed up requests (specifically lists) when client-server network bandwidth i
 compression (server-side) and decompression (client-side): https://github.com/kubernetes/kubernetes/issues/112296.
   -->
   
-   <p><code>DisableCompression</code> 允许客户端选择不对发往服务器的所有请求进行响应压缩. 这对于加快请求（具体是列表）非常有用，当客户端与服务器之间的网络带宽充足时, "通过节省时间进行压缩（服务器端）<code>server-side</code> 和解压缩（客户端）<code>client-side</code>：<code>https://github.com/kubernetes/kubernetes/issues/112296</code>.</p>
+   <p><code>disable-compression</code> 允许客户端选择不对发往服务器的所有请求进行响应压缩。
+   当客户端与服务器之间的网络带宽充足时，这对于加快请求（尤其是 list 操作）非常有用，
+   能够节省进行（服务器端）压缩和（客户端）解压缩的时间。参见
+   https://github.com/kubernetes/kubernetes/issues/112296。</p>
 </td>
 </tr>
 <tr><td><code>extensions</code><br/>
