@@ -881,7 +881,7 @@ NamedContext relates nicknames to context information
 <!---
 NamedExtension relates nicknames to extension information.
 -->
-<p>NamedExtension 将昵称与扩展信息关联起来</p>
+<p>NamedExtension 将昵称与扩展信息关联起来。</p>
 
 
 <table class="table">
