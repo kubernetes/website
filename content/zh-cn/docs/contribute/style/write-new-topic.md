@@ -59,7 +59,7 @@ that you write. The docs site provides templates or
 new content pages. To create a new type of page, run `hugo new` with the path to the file
 you want to create. For example:
 -->
-### 创建一个新页面{#creating-a-new-page}
+### 创建一个新页面    {#creating-a-new-page}
 
 为每个新页面选择其[内容类型](/zh-cn/docs/contribute/style/page-content-types/)。
 文档站提供了模板或 [Hugo Archetypes](https://gohugo.io/content-management/archetypes/) 来创建新的内容页面。
@@ -225,13 +225,13 @@ reusable, and you want the reader to try it out themselves.
 <!--
 When adding a new standalone sample file, such as a YAML file, place the code in
 one of the `<LANG>/examples/` subdirectories where `<LANG>` is the language for
-the topic. In your topic file, use the `codenew` shortcode:
+the topic. In your topic file, use the `code_sample` shortcode:
 -->
 添加新的独立示例文件（如 YAML 文件）时，将代码放在 `<LANG>/examples/` 的某个子目录中，
-其中 `<LANG>` 是该主题的语言。在主题文件中使用 `codenew` 短代码：
+其中 `<LANG>` 是该主题的语言。在主题文件中使用 `code_sample` 短代码：
 
 ```none
-{{%/* codenew file="<RELPATH>/my-example-yaml>" */%}}
+{{%/* code_sample file="<RELPATH>/my-example-yaml>" */%}}
 ```
 
 <!--
@@ -245,7 +245,7 @@ file located at `/content/en/examples/pods/storage/gce-volume.yaml`.
 文件。
 
 ```none
-{{%/* codenew file="pods/storage/gce-volume.yaml" */%}}
+{{%/* code_sample file="pods/storage/gce-volume.yaml" */%}}
 ```
 
 <!--
@@ -268,13 +268,13 @@ In your topic, show this command:
 kubectl create -f https://k8s.io/examples/pods/storage/gce-volume.yaml
 ```
 
+{{< note >}}
 <!--
 When adding new YAML files to the `<LANG>/examples` directory, make
 sure the file is also included into the `<LANG>/examples_test.go` file. The
 Travis CI for the Website automatically runs this test case when PRs are
 submitted to ensure all examples pass the tests.
 -->
-{{< note >}}
 将新的 YAML 文件添加到 `<LANG>/examples` 目录时，请确保该文件也在
 `<LANG>/examples_test.go` 文件中被引用。
 当提交拉取请求时，网站的 Travis CI 会自动运行此测试用例，以确保所有示例都通过测试。
@@ -284,8 +284,8 @@ submitted to ensure all examples pass the tests.
 For an example of a topic that uses this technique, see
 [Running a Single-Instance Stateful Application](/docs/tasks/run-application/run-single-instance-stateful-application/).
 -->
-有关使用此技术的主题的示例，请参见
-[运行单实例有状态的应用](/zh-cn/docs/tasks/run-application/run-single-instance-stateful-application/)。
+有关使用此技术的主题的示例，
+请参见[运行单实例有状态的应用](/zh-cn/docs/tasks/run-application/run-single-instance-stateful-application/)。
 
 <!--
 ## Adding images to a topic
@@ -302,6 +302,5 @@ Put image files in the `/images` directory. The preferred image format is SVG.
 * Learn about [using page content types](/docs/contribute/style/page-content-types/).
 * Learn about [creating a pull request](/docs/contribute/new-content/open-a-pr/).
 -->
-* 了解[使用页面内容类型](/zh-cn/docs/contribute/style/page-content-types/).
-* 了解[创建 PR](/zh-cn/docs/contribute/new-content/open-a-pr/).
-
+* 了解[使用页面内容类型](/zh-cn/docs/contribute/style/page-content-types/)。
+* 了解[创建 PR](/zh-cn/docs/contribute/new-content/open-a-pr/)。
