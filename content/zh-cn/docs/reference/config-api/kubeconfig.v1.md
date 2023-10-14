@@ -358,7 +358,7 @@ Cluster contains information about how to communicate with a kubernetes cluster.
   <!--
   Server is the address of the kubernetes cluster (https://hostname:port).
   --->
-   <p><code>Server</code> 是 <code>kubernetes</code> 集群的地址 <code>(https://hostname:port)</code>.</p>
+   <p><code>server</code> 是 Kubernetes 集群的地址（形式为 https://hostname:port）。</p>
 </td>
 </tr>
 <tr><td><code>tls-server-name</code><br/>
