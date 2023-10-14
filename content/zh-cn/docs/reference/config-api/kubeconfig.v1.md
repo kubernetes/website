@@ -610,7 +610,9 @@ to pass argument to the plugin.
   foo-cli on Mac OS systems
   -->
   
-   <p>当似乎找不到可执行文件时，将向用户显示此文本, 例如, <code>brew install foo-cli</code> 这可能是在 <code>Mac OS</code> 系统上安装 <code>foo-cli</code> 的良好提示.</p>
+   <p>当似乎找不到可执行文件时，将向用户显示此文本。
+   例如，对于在 Mac OS 系统上安装 <code>foo-cli</code> 插件而言，
+   <code>brew install foo-cli</code> 这可能是不错的 installHint。</p>
 </td>
 </tr>
 <tr><td><code>provideClusterInfo</code><B><!--[Required]-->[必需]</B><br/>
