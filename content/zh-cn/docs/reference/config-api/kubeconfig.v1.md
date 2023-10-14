@@ -932,7 +932,7 @@ NamedExtension relates nicknames to extension information.
 <code>bool</code>
 </td>
 <td>
-   <span class="text-muted">环境变量名称.</span></td>
+   <p>是否采用彩色字符编码。</p></td>
 </tr>
 <tr><td><code>extensions</code><br/>
 <a href="#NamedExtension"><code>[]NamedExtension</code></a>
