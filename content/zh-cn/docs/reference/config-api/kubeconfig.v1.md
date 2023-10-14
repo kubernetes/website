@@ -105,7 +105,7 @@ Config holds the information needed to build connect to remote kubernetes cluste
   <!---
   CurrentContext is the name of the context that you would like to use by default.
   --->
-   <p><code>CurrentContext</code> 是默认情况下你想使用的上下文的名称。</p>
+   <p><code>current-context</code> 是默认情况下你想使用的上下文的名称。</p>
 </td>
 </tr>
 <tr><td><code>extensions</code><br/>
