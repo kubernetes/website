@@ -210,7 +210,7 @@ AuthInfo contains information that describes identity information.  This is use 
   <!--
   Impersonate is the username to impersonate.  The name matches the flag.
   -->
-   <p><code>Impersonate</code> 是要模仿的用户名. 名字与国旗相匹配.</p>
+   <p><code>as</code> 是要冒充的用户名。名字与命令行标志相匹配。</p>
 </td>
 </tr>
 <tr><td><code>as-uid</code><br/>
