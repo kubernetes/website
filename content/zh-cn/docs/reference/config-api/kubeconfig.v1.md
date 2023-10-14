@@ -290,7 +290,7 @@ AuthInfo contains information that describes identity information.  This is use 
   <!---
   Extensions holds additional information. This is useful for extenders so that reads and writes don't clobber unknown fields.
   --->
-   <p><code>Extensions</code> 保存额外信息. 这对于扩展器是有用的，这样读写不会破解未知字段</p>
+   <p><code>extensions</code> 保存一些额外信息. 这些信息对于扩展程序是有用的，目的是确保读写操作不会破坏未知字段。</p>
 </td>
 </tr>
 </tbody>
