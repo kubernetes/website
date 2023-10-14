@@ -230,7 +230,7 @@ AuthInfo contains information that describes identity information.  This is use 
   <!--
   ImpersonateGroups is the groups to impersonate.
   --->
-   <p><code>ImpersonateGroups</code> 就是 要冒充的组.</p>
+   <p><code>as-groups</code> 是要冒充的用户组。</p>
 </td>
 </tr>
 <tr><td><code>as-user-extra</code><br/>
