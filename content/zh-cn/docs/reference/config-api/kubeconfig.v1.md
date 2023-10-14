@@ -499,7 +499,7 @@ Context is a tuple of references to a cluster (how do I communicate with a kuber
   <!--
   AuthInfo is the name of the authInfo for this context
   --->
-   <p><code>AuthInfo</code> 是此上下文的 authInfo 名称</p>
+   <p><code>user</code> 是此上下文的 authInfo 名称。</p>
 </td>
 </tr>
 <tr><td><code>namespace</code><br/>
