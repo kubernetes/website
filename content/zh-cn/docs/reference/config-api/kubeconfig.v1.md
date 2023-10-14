@@ -686,7 +686,7 @@ ExecEnvVar is used for setting environment variables when executing an exec-base
 credential plugin
 -->
 
-<p><code>ExecEnvVar</code> 用于在执行基于 <code>exec</code> 的凭据插件时设置环境变量.</p>
+<p><code>ExecEnvVar</code> 用于在执行基于 <code>exec</code> 的凭据插件时要设置的环境变量。</p>
 
 
 <table class="table">
