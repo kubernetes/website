@@ -584,7 +584,8 @@ are unioned with the host's environment, as well as variables client-go uses
 to pass argument to the plugin.
   --->
   
-   <p><code>Env</code> 定义了要暴露给进程的额外环境变量. 这些与主机的环境合并在一起, 以及 <code>client-go</code> 用于传递参数给插件的变量.</p>
+   <p><code>env</code> 定义了要暴露给进程的额外的环境变量。这些与主机的环境变量以及
+   <code>client-go</code> 使用的变量一起，用于传递参数给插件。</p>
 </td>
 </tr>
 <tr><td><code>apiVersion</code><B><!--[Required]-->[必需]</B><br/>
