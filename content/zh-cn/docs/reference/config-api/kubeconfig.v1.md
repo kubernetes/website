@@ -787,7 +787,7 @@ NamedAuthInfo relates nicknames to auth information
 <!--
 NamedCluster relates nicknames to cluster information
 -->
-<p>NamedCluster 将昵称与集群信息关联起来.</p>
+<p><code>NamedCluster</code> 将昵称与集群信息关联起来。</p>
 
 
 <table class="table">
