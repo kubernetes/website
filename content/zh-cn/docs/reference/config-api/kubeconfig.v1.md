@@ -597,7 +597,7 @@ to pass argument to the plugin.
   the same encoding version as the input.
   --->
   
-   <p><code>ExecInfo</code> 的首选输入版本. 返回的 <code>ExecCredentials</code> 必须使用与输入相同的编码版本.</p>
+   <p><code>ExecInfo</code> 的首选输入版本。返回的 <code>ExecCredentials</code> 必须使用与输入相同的编码版本。</p>
 </td>
 </tr>
 <tr><td><code>installHint</code><B><!--[Required]-->[必需]</B><br/>
