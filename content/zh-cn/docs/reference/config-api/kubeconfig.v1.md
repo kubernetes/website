@@ -368,7 +368,8 @@ Cluster contains information about how to communicate with a kubernetes cluster.
   <!--
   TLSServerName is used to check server certificate. If TLSServerName is empty, the hostname used to contact the server is used.
   --->
-   <p><code>TLSServerName</code> 用于检查服务器证书. 如果 <code>TLSServerName</code> 是空的，则使用用于联系服务器的主机名.</p>
+   <p><code>tls-server-name</code> 用于检查服务器证书。如果 <code>tls-server-name</code>
+   是空的，则使用用于联系服务器的主机名。</p>
 </td>
 </tr>
 <tr><td><code>insecure-skip-tls-verify</code><br/>
