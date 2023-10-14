@@ -662,8 +662,10 @@ client.authentication.k8s.io/v1beta1, then this field is optional and defaults
 to &quot;IfAvailable&quot; when unset. Otherwise, this field is required.
 -->
 
-<p>如果 <code>APIVersion</code> 是 <code>client.authentication.k8s.io/v1alpha1</code> 或 <code>client.authentication.k8s.io/v1beta1</code>, 如果 <code>APIVersion</code> 是  
- <code>client.authentication.k8s.io/v1alpha1</code> 或 <code>client.authentication.k8s.io/v1beta1</code>，则此字段是可选的，当未设置时默认为 &quot;<code>IfAvailable</code>&quot; (未设置 <code>unset</code>). 否则，此字段是必需的.</p>
+<p>如果 <code>apiVersion</code> 是 <code>client.authentication.k8s.io/v1alpha1</code>
+或 <code>client.authentication.k8s.io/v1beta1</code>, 如果 <code>APIVersion</code> 是  
+ <code>client.authentication.k8s.io/v1alpha1</code>，则此字段是可选的，且当未设置时默认为
+ &quot;IfAvailable&quot;。否则，此字段是必需的。</p>
 </td>
 </tr>
 </tbody>
