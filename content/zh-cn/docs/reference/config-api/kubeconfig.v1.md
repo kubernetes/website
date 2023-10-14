@@ -489,7 +489,7 @@ Context is a tuple of references to a cluster (how do I communicate with a kuber
   <!--
   Cluster is the name of the cluster for this context
   -->
-   <p><code>Cluster</code> 是此上下文中的集群名称</p>
+   <p><code>cluster</code> 是此上下文中的集群名称。</p>
 </td>
 </tr>
 <tr><td><code>user</code><B><!--[Required]-->[必需]</B><br/>
