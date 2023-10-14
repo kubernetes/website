@@ -802,7 +802,7 @@ NamedCluster relates nicknames to cluster information
   <!--
   Name is the nickname for this Cluster
   -->
-   <p><code>Name</code> 是该集群的昵称.</p>
+   <p><code>name</code> 是此集群的昵称。</p>
 </td>
 </tr>
 <tr><td><code>cluster</code><br/><B><!--[Required]-->[必需]</B><br/>
