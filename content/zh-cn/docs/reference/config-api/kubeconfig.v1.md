@@ -628,7 +628,11 @@ to false. Package k8s.io/client-go/tools/auth/exec provides helper methods for
 reading this environment variable
   --->
   
-   <p><code>ProvideClusterInfo</code> 决定是否提供集群信息,这些信息可能包含非常大的 <code>CA</code> 数据, 提供给这个执行插件作为 <code>KUBERNETES_EXEC_INFO</code> 环境变量的一部分. 默认情况下，它被设置为 <code>false</code>. <code>k8s.io/client-go/tools/auth/exec</code> 包提供了用于读取这个环境变量的辅助方法.</p>
+   <p><code>ProvideClusterInfo</code> 决定是否提供集群信息。
+   这些信息可能包含非常大的 CA 数据，用来作为 <code>KUBERNETES_EXEC_INFO</code>
+   环境变量的一部分，提供给这个 exec 插件。
+   默认情况下，它被设置为 <code>false</code>。
+   <code>k8s.io/client-go/tools/auth/exec</code> 包提供了用于读取这个环境变量的辅助方法。</p>
 </td>
 </tr>
 <tr><td><code>interactiveMode</code><br/>
