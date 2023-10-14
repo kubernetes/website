@@ -648,7 +648,13 @@ plugin requires standard input to function). See ExecInteractiveMode values for 
 details.
   -->
   
-   <p><code>InteractiveMode</code> 确定此插件与标准输入的关系. 有效值为 &quot;Never(从不)&quot; (这个 <code>exec</code> 插件从不使用标准输入), &quot;<code>IfAvailable</code>(如果可用)&quot; (这个 <code>exec</code> 插件希望使用标准输入，如果它是可用的), 或者 &quot;Always(始终)&quot; (这个 <code>exec</code> 插件需要标准输入以正常运行). 查看<code>ExecInteractiveMode</code> 值以了解更多详情.</p>
+   <p><code>interactiveMode</code> 确定此插件与标准输入之间的关系。有效值为：</p>
+   <ul>
+   <li>&quot;Never&quot;：这个 <code>exec</code> 插件从不使用标准输入；</li>
+   <li>&quot;IfAvailable&quot;：这个 <code>exec</code> 插件希望使用标准输入，如果可用的话；</li>
+   <li>&quot;Always&quot;：这个 <code>exec</code> 插件需要标准输入以正常运行。</li>
+   </ul>
+   <p>查看 <code>ExecInteractiveMode</code> 值以了解更多详情。</p>
 
 <!--
 If APIVersion is client.authentication.k8s.io/v1alpha1 or
