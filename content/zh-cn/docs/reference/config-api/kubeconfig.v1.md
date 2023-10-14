@@ -95,7 +95,7 @@ Config holds the information needed to build connect to remote kubernetes cluste
   <!--
   Contexts is a map of referencable names to context configs.
   -->
-   <p><code>Contexts</code> 是上下文配置的引用名称的地图.</p>
+   <p><code>contexts</code> 是从可引用名称到上下文配置的映射。</p>
 </td>
 </tr>
 <tr><td><code>current-context</code><B><!--[Required]-->[必需]</B><br/>
