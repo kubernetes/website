@@ -737,7 +737,7 @@ ExecInteractiveMode is a string that describes an exec plugin's relationship wit
 <!--
 **Appears in:**
 -->
-**出现在:**
+**出现在：**
 
 - [Config](#Config)
 
