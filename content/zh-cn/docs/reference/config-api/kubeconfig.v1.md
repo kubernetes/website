@@ -400,7 +400,8 @@ Cluster contains information about how to communicate with a kubernetes cluster.
   <!---
   CertificateAuthorityData contains PEM-encoded certificate authority certificates. Overrides CertificateAuthority
   --->
-   <p><code>CertificateAuthorityData</code> 包含 <code>PEM-encoded</code> 证书 权威 证书. 覆盖 <code>CertificateAuthority</code></p>
+   <p><code>certificate-authority-data</code> 包含 PEM 编码的证书机构证书。
+   覆盖 <code>certificate-authority</code> 的设置值。</p>
 </td>
 </tr>
 <tr><td><code>proxy-url</code><br/>
