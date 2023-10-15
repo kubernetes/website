@@ -30,7 +30,7 @@ cd website
 The Kubernetes website uses the [Docsy Hugo theme](https://github.com/google/docsy#readme). Even if you plan to run the website in a container, we strongly recommend pulling in the submodule and other development dependencies by running the following:
 
 ### Windows
-```powershell
+```command prompt
 # fetch submodule dependencies
 git submodule update --init --recursive --depth 1
 ```
@@ -62,11 +62,15 @@ To install dependencies, deploy and test the site locally, run:
 
 - For macOS and Linux
   ```bash
+  
   npm ci
   make serve
   ```
-- For Windows (PowerShell)
-  ```powershell
+- For Windows (Command Prompt)
+  
+  ```command prompt
+  rmdir /s /q i18n
+  for /f %A in ('cd') do mklink /J "%A\i18n" "%A\data\i18n" 
   npm ci
   hugo.exe server --buildFuture --environment development
   ```
