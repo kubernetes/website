@@ -30,6 +30,24 @@ see the [Creating a cluster with kubeadm](/docs/setup/production-environment/too
 有关在执行此安装过程后如何使用 kubeadm 创建集群的信息，
 请参见[使用 kubeadm 创建集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)。
 
+<!--
+This installation guide is for Kubernetes {{< skew currentVersion >}}. If you want to use a different
+Kubernetes version, please refer to the following pages instead:
+-->
+本安装指南适用于 Kubernetes {{< skew currentVersion >}}。
+如果你想使用不同版本的 Kubernetes，请参阅以下页面：
+
+<!--
+- [Installing kubeadm for Kubernetes {{< skew currentVersionAddMinor -1 "." >}}](https://v{{< skew currentVersionAddMinor -1 "-" >}}.docs.kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
+- [Installing kubeadm for Kubernetes {{< skew currentVersionAddMinor -2 "." >}}](https://v{{< skew currentVersionAddMinor -2 "-" >}}.docs.kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
+- [Installing kubeadm for Kubernetes {{< skew currentVersionAddMinor -3 "." >}}](https://v{{< skew currentVersionAddMinor -3 "-" >}}.docs.kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
+- [Installing kubeadm for Kubernetes {{< skew currentVersionAddMinor -4 "." >}}](https://v{{< skew currentVersionAddMinor -4 "-" >}}.docs.kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
+-->
+- [为 Kubernetes {{< skew currentVersionAddMinor -1 "." >}} 安装 kubeadm](https://v{{< skew currentVersionAddMinor -1 "-" >}}.docs.kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
+- [为 Kubernetes {{< skew currentVersionAddMinor -2 "." >}} 安装 kubeadm](https://v{{< skew currentVersionAddMinor -2 "-" >}}.docs.kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
+- [为 Kubernetes {{< skew currentVersionAddMinor -3 "." >}} 安装 kubeadm](https://v{{< skew currentVersionAddMinor -3 "-" >}}.docs.kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
+- [为 Kubernetes {{< skew currentVersionAddMinor -4 "." >}} 安装 kubeadm](https://v{{< skew currentVersionAddMinor -4 "-" >}}.docs.kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
+
 ## {{% heading "prerequisites" %}}
 
 <!--
@@ -305,6 +323,18 @@ Kubernetes 从 2023 年 8 月开始使用托管在 `pkgs.k8s.io`
 更多细节参阅[弃用和冻结公告](/zh-cn/blog/2023/08/31/legacy-package-repository-deprecation/)。
 {{< /note >}}
 
+{{< note >}}
+<!--
+There's a dedicated package repository for each Kubernetes minor version. If you want to install
+a minor version other than {{< skew currentVersion >}}, please see the installation guide for
+your desired minor version. The official Kubernetes package repositories provide downloads for
+Kubernetes versions starting with v1.24.0. 
+-->
+每个 Kubernetes 小版本都有一个专用的软件包仓库。
+如果你想安装 {{< skew currentVersion >}} 以外的次要版本，请参阅所需次要版本的安装指南。
+官方 Kubernetes 软件包仓库提供 Kubernetes v1.24.0 及更高版本软件包的下载。
+{{< /note >}}
+
 {{< tabs name="k8s_install" >}}
 {{% tab name="基于 Debian 的发行版" %}}
 
@@ -335,9 +365,16 @@ These instructions are for Kubernetes {{< skew currentVersion >}}.
    ```
 
 <!--
-3. Add the Kubernetes `apt` repository:
+3. Add the appropriate Kubernetes `apt` repository. Please note that this repository have packages
+   only for Kubernetes {{< skew currentVersion >}}; for other Kubernetes minor versions, you need to
+   change the Kubernetes minor version in the URL to match your desired minor version
+   (you should also check that you are reading the documentation for the version of Kubernetes
+   that you plan to install).
 -->
-3. 添加 Kubernetes `apt` 仓库：
+3. 添加 Kubernetes `apt` 仓库。
+   请注意，此仓库仅包含适用于 Kubernetes {{< skew currentVersion >}} 的软件包；
+   对于其他 Kubernetes 次要版本，则需要更改 URL 中的 Kubernetes 次要版本以匹配你所需的次要版本
+  （你还应该检查正在阅读的安装文档是否为你计划安装的 Kubernetes 版本的文档）。
 
    ```shell
    # 此操作会覆盖 /etc/apt/sources.list.d/kubernetes.list 中现存的所有配置。
@@ -379,7 +416,7 @@ you can create it by running `sudo mkdir -m 755 /etc/apt/keyrings`
    sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
    ```
 -->
-1. 将 SELinux 设置为 `permissive` 模式:
+1. 将 SELinux 设置为 `permissive` 模式：
 
    以下指令适用于 Kubernetes {{< skew currentVersion >}}。
 
@@ -408,11 +445,19 @@ you can create it by running `sudo mkdir -m 755 /etc/apt/keyrings`
 2. Add the Kubernetes `yum` repository. The `exclude` parameter in the
    repository definition ensures that the packages related to Kubernetes are
    not upgraded upon running `yum update` as there's a special procedure that
-   must be followed for upgrading Kubernetes.
+   must be followed for upgrading Kubernetes. Please note that this repository
+   have packages only for Kubernetes {{< skew currentVersion >}}; for other
+   Kubernetes minor versions, you need to change the Kubernetes minor version
+   in the URL to match your desired minor version (you should also check that
+   you are reading the documentation for the version of Kubernetes that you
+   plan to install).
 -->
 2. 添加 Kubernetes 的 `yum` 仓库。在仓库定义中的 `exclude` 参数确保了与
    Kubernetes 相关的软件包在运行 `yum update` 时不会升级，因为升级
-   Kubernetes 需要遵循特定的过程。
+   Kubernetes 需要遵循特定的过程。请注意，此仓库仅包含适用于
+   Kubernetes {{< skew currentVersion >}} 的软件包；
+   对于其他 Kubernetes 次要版本，则需要更改 URL 中的 Kubernetes 次要版本以匹配你所需的次要版本
+  （你还应该检查正在阅读的安装文档是否为你计划安装的 Kubernetes 版本的文档）。
 
    ```shell
    # 此操作会覆盖 /etc/yum.repos.d/kubernetes.repo 中现存的所有配置
@@ -494,10 +539,10 @@ cd $DOWNLOAD_DIR
 sudo curl -L --remote-name-all https://dl.k8s.io/release/${RELEASE}/bin/linux/${ARCH}/{kubeadm,kubelet}
 sudo chmod +x {kubeadm,kubelet}
 
-RELEASE_VERSION="v0.15.1"
-curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service
+RELEASE_VERSION="v0.16.2"
+curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/krel/templates/latest/kubelet/kubelet.service" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service
 sudo mkdir -p /etc/systemd/system/kubelet.service.d
-curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/krel/templates/latest/kubeadm/10-kubeadm.conf" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
 ```
 
 {{< note >}}
@@ -574,8 +619,8 @@ If you are running into difficulties with kubeadm, please consult our
 -->
 ## 故障排查   {#troubleshooting}
 
-如果你在使用 kubeadm 时遇到困难，请参阅我们的
-[故障排查文档](/zh-cn/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)。
+如果你在使用 kubeadm 时遇到困难，
+请参阅我们的[故障排查文档](/zh-cn/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)。
 
 ## {{% heading "whatsnext" %}}
 
