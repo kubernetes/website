@@ -139,6 +139,19 @@ specifies the profile to apply. The `profile_ref` can be one of:
 * `localhost/<profile_name>` to apply the profile loaded on the host with the name `<profile_name>`
 * `unconfined` to indicate that no profiles will be loaded
 
+To specify an AppArmor profile as default to run all containers in a Pod with, add an annotation
+to the Pod's metadata:
+
+```yaml
+apparmor.security.beta.kubernetes.io/defaultProfileName: <profile_ref>
+```
+
+The `profile_ref` can be one of:
+
+* `runtime/default` to apply the runtime's default profile
+* `localhost/<profile_name>` to apply the profile loaded on the host with the name `<profile_name>`
+* `unconfined` to indicate that no profiles will be loaded
+  
 See the [API Reference](#api-reference) for the full details on the annotation and profile name formats.
 
 Kubernetes AppArmor enforcement works by first checking that all the prerequisites have been
@@ -162,6 +175,10 @@ kubectl exec <pod_name> -- cat /proc/1/attr/current
 ```
 k8s-apparmor-example-deny-write (enforce)
 ```
+
+## Ephemeral containers
+
+The `container.apparmor.security.beta.kubernetes.io/*` annotations don't apply to Ephemeral containers. When an ephemeral container runs in [privileged mode](/docs/concepts/workloads/pods/#privileged-mode-for-containers), it disables AppArmor on the container. Otherwise, the ephemeral container runs with the default runtime profile.
 
 ## Example
 
@@ -390,6 +407,12 @@ Specifying the profile a container will run with:
   A separate profile can be specified for each container in the Pod.
 - **value**: a profile reference, described below
 
+Specifying the profile all containers will run with by default - unless overriden:
+
+- **key**: `apparmor.security.beta.kubernetes.io/defaultProfileName`
+  A separate specific profile can be specified for each container in the Pod.
+- **value**: a profile reference, described below
+  
 ### Profile Reference
 
 - `runtime/default`: Refers to the default runtime profile.
