@@ -171,12 +171,12 @@ Ingress 经常使用注解（Annotations）来配置一些选项，具体取决�
 查看你所选的 Ingress 控制器的文档，以了解其所支持的注解。
 
 <!-- 
-The Ingress [spec](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)
+The [Ingress spec](/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec)
 has all the information needed to configure a load balancer or proxy server. Most importantly, it
 contains a list of rules matched against all incoming requests. Ingress resource only supports rules
 for directing HTTP(S) traffic.
 -->
-Ingress [规约](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)
+[Ingress 规约](/zh-cn/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec)
 提供了配置负载均衡器或者代理服务器所需要的所有信息。
 最重要的是，其中包含对所有入站请求进行匹配的规则列表。
 Ingress 资源仅支持用于转发 HTTP(S) 流量的规则。
@@ -187,16 +187,16 @@ should be defined.
 
 There are some ingress controllers, that work without the definition of a
 default `IngressClass`. For example, the Ingress-NGINX controller can be
-configured with a [flag](https://kubernetes.github.io/ingress-nginx/#what-is-the-flag-watch-ingress-without-class)
-`--watch-ingress-without-class`. It is [recommended](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do)  though, to specify the
+configured with a [flag](https://kubernetes.github.io/ingress-nginx/user-guide/k8s-122-migration/#what-is-the-flag-watch-ingress-without-class)
+`--watch-ingress-without-class`. It is [recommended](https://kubernetes.github.io/ingress-nginx/user-guide/k8s-122-migration/#i-have-only-one-ingress-controller-in-my-cluster-what-should-i-do) though, to specify the
 default `IngressClass` as shown [below](#default-ingress-class).
 -->
 如果 `ingressClassName` 被省略，那么你应该定义一个[默认的 Ingress 类](#default-ingress-class)。
 
 有些 Ingress 控制器不需要定义默认的 `IngressClass`。比如：Ingress-NGINX
-控制器可以通过[参数](https://kubernetes.github.io/ingress-nginx/#what-is-the-flag-watch-ingress-without-class)
+控制器可以通过[参数](https://kubernetes.github.io/ingress-nginx/user-guide/k8s-122-migration/#what-is-the-flag-watch-ingress-without-class)
 `--watch-ingress-without-class` 来配置。
-不过仍然[推荐](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do)
+不过仍然[推荐](https://kubernetes.github.io/ingress-nginx/user-guide/k8s-122-migration/#i-have-only-one-ingress-controller-in-my-cluster-what-should-i-do)
 按[下文](#default-ingress-class)所示来设置默认的 `IngressClass`。
 
 <!-- 
