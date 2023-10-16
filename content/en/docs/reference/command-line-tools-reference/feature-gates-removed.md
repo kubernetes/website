@@ -120,6 +120,9 @@ In the following table:
 | `CronJobControllerV2` | `false` | Alpha | 1.20 | 1.20 |
 | `CronJobControllerV2` | `true` | Beta | 1.21 | 1.21 |
 | `CronJobControllerV2` | `true` | GA | 1.22 | 1.23 |
+| `CronJobTimeZone` | `false` | Alpha | 1.24 | 1.24 |
+| `CronJobTimeZone` | `true` | Beta | 1.25 | 1.26 |
+| `CronJobTimeZone` | `true` | GA | 1.27 | 1.28 |
 | `CustomPodDNS` | `false` | Alpha | 1.9 | 1.9 |
 | `CustomPodDNS` | `true` | Beta| 1.10 | 1.13 |
 | `CustomPodDNS` | `true` | GA | 1.14 | 1.16 |
@@ -228,6 +231,8 @@ In the following table:
 | `IngressClassNamespacedParams` | `true` | GA | 1.23 | 1.24 |
 | `Initializers` | `false` | Alpha | 1.7 | 1.13 |
 | `Initializers` | - | Deprecated | 1.14 | 1.14 |
+| `JobMutableNodeSchedulingDirectives` | `true` | Beta | 1.23 | 1.26 |
+| `JobMutableNodeSchedulingDirectives` | `true` | GA | 1.27 | 1.28 |
 | `KMSv1` | `true` | Deprecated | 1.28 | |
 | `KubeletConfigFile` | `false` | Alpha | 1.8 | 1.9 |
 | `KubeletConfigFile` | - | Deprecated | 1.10 | 1.10 |
@@ -240,6 +245,8 @@ In the following table:
 | `LegacyNodeRoleBehavior` | `false` | Alpha | 1.16 | 1.18 |
 | `LegacyNodeRoleBehavior` | `true` | Beta | 1.19 | 1.20 |
 | `LegacyNodeRoleBehavior` | `false` | GA | 1.21 | 1.22 |
+| `LegacyServiceAccountTokenNoAutoGeneration` | `true` | Beta | 1.24 | 1.25 |
+| `LegacyServiceAccountTokenNoAutoGeneration` | `true` | GA | 1.26 | 1.28 |
 | `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | 1.9 |
 | `LocalStorageCapacityIsolation` | `true` | Beta | 1.10 | 1.24 |
 | `LocalStorageCapacityIsolation` | `true` | GA | 1.25 | 1.26 |
@@ -591,16 +598,18 @@ In the following table:
   [Configure volume permission and ownership change policy for Pods](/docs/tasks/configure-pod-container/security-context/#configure-volume-permission-and-ownership-change-policy-for-pods)
   for more details.
 
-- `CronJobControllerV2`: Use an alternative implementation of the
-  {{< glossary_tooltip text="CronJob" term_id="cronjob" >}} controller. Otherwise,
-  version 1 of the same controller is selected.
-
 - `ControllerManagerLeaderMigration`: Enables Leader Migration for
   [kube-controller-manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/#initial-leader-migration-configuration) and
   [cloud-controller-manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/#deploy-cloud-controller-manager)
   which allows a cluster operator to live migrate
   controllers from the kube-controller-manager into an external controller-manager
   (e.g. the cloud-controller-manager) in an HA cluster without downtime.
+
+- `CronJobControllerV2`: Use an alternative implementation of the
+  {{< glossary_tooltip text="CronJob" term_id="cronjob" >}} controller. Otherwise,
+  version 1 of the same controller is selected.
+
+- `CronJobTimeZone`: Allow the use of the `timeZone` optional field in [CronJobs](/docs/concepts/workloads/controllers/cron-jobs/)
 
 - `CustomPodDNS`: Enable customizing the DNS settings for a Pod using its `dnsConfig` property.
   Check [Pod's DNS Config](/docs/concepts/services-networking/dns-pod-service/#pods-dns-config)
@@ -731,6 +740,9 @@ In the following table:
 - `Initializers`: Allow asynchronous coordination of object creation using the
   Initializers admission plugin.
 
+- `JobMutableNodeSchedulingDirectives`: Allows updating node scheduling directives in
+  the pod template of [Job](/docs/concepts/workloads/controllers/job).
+
 - `KubeletConfigFile`: Enable loading kubelet configuration from
   a file specified using a config file.
   See [setting kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file/)
@@ -745,6 +757,9 @@ In the following table:
 - `LegacyNodeRoleBehavior`: When disabled, legacy behavior in service load balancers and
   node disruption will ignore the `node-role.kubernetes.io/master` label in favor of the
   feature-specific labels provided by `NodeDisruptionExclusion` and `ServiceNodeExclusion`.
+
+- `LegacyServiceAccountTokenNoAutoGeneration`: Stop auto-generation of Secret-based
+  [service account tokens](/docs/concepts/security/service-accounts/#get-a-token).
 
 - `LocalStorageCapacityIsolation`: Enable the consumption of
   [local ephemeral storage](/docs/concepts/configuration/manage-resources-containers/)
