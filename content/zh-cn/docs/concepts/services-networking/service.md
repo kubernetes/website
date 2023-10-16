@@ -732,11 +732,13 @@ Kubernetes Service 类型允许指定你所需要的 Service 类型。
 
 <!--
 The `type` field in the Service API is designed as nested functionality - each level
-adds to the previous.  This is not strictly required on all cloud providers, but
-the Kubernetes API design for Service requires it anyway.
+adds to the previous. However there is an exception to this nested design. You can
+define a `LoadBalancer` Service by
+[disabling the load balancer `NodePort` allocation.](/docs/concepts/services-networking/service/#load-balancer-nodeport-allocation)
 -->
 服务 API 中的 `type` 字段被设计为层层递进的形式 - 每层都建立在前一层的基础上。
-并不是所有云平台都作如此严格要求，但 Kubernetes 的 Service API 设计要求满足这一逻辑。
+但是，这种层层递进的形式有一个例外。
+你可以在定义 `LoadBalancer` 服务时[禁止负载均衡器分配 `NodePort`](/zh-cn/docs/concepts/services-networking/service/#load-balancer-nodeport-allocation)。
 
 <!--
 ### `type: ClusterIP` {#type-clusterip}
