@@ -7,7 +7,7 @@ slug: <What is it?>
 
 ***Authors:*** Lior Lieberman (Google), Kobi Levi (independent)
 
-In the ever-evolving world of Kubernetes networking plays a pivotal role. As more applications are deployed in Kubernetes clusters, effective exposure of these services to clients outside the cluster becomes a critical concern. If you've been working with Kubernetes, you're likely familiar with the [Ingress API], which has been the go-to solution for managing external access to services.
+In the ever-evolving world of Kubernetes, networking plays a pivotal role. As more applications are deployed in Kubernetes clusters, effective exposure of these services to clients outside the cluster becomes a critical concern. If you've been working with Kubernetes, you're likely familiar with the [Ingress API], which has been the go-to solution for managing external access to services.
 
 [Ingress API]:https://kubernetes.io/docs/concepts/services-networking/ingress/
 
@@ -15,14 +15,14 @@ The Ingress API provides a way to route external traffic to your applications wi
 
 Some of the limitations are;
 
-- **Insufficient common denominator** - by attempting to establish a common denominator for various HTTP proxies, Ingress can only accommodate fundamental HTTP routing, forcing more features of contemporary proxies like traffic splitting, header matching and sticky sessions into provider-specific, non-transferable annotations.
+- **Insufficient common denominator** - by attempting to establish a common denominator for various HTTP proxies, Ingress can only accommodate basic HTTP routing, forcing more features of contemporary proxies like traffic splitting and header matching into provider-specific, non-transferable annotations.
 - **Inadequate permission model** - Ingress spec configures both infrastructure and application configuration in one object. With Ingress, the cluster operator and application developer operate on the same Ingress object without being aware of each other’s roles. This creates an insufficient role-based access control and has high potential for setup errors. 
-- **Lack of protocol diversity** - Ingress primarily focuses on HTTP(S) routing and does not provide native support for other protocols, such as TCP, UDP and GRPc. This limitation makes it less suitable for handling non-HTTP workloads.
+- **Lack of protocol diversity** - Ingress primarily focuses on HTTP(S) routing and does not provide native support for other protocols, such as TCP, UDP and gRPC. This limitation makes it less suitable for handling non-HTTP workloads.
 
-To overcome this, the Gateway API, ingress’ successor, is designed to provide a more flexible, extensible, and powerful way to manage external traffic to your services. It's not just a replacement for Ingress; it's a leap forward in Kubernetes networking.
+To overcome this, Gateway API is designed to provide a more flexible, extensible, and powerful way to manage external traffic to your services.
 
 ## Introducing Gateway API
-Gateway API, with its official General Availability (GA) planned for late October, provides a standard Kubernetes API for ingress traffic control. It offers extended functionality, improved customization, and greater flexibility. By focusing on modular and expressive API resources, Gateway API makes it possible to describe a wider array of routing configurations and models.
+Gateway API is just weeks away from a GA release. It provides a standard Kubernetes API for ingress traffic control. It offers extended functionality, improved customization, and greater flexibility. By focusing on modular and expressive API resources, Gateway API makes it possible to describe a wider array of routing configurations and models.
 
 The transition from Ingress API to Gateway API in Kubernetes is driven by advantages and advanced functionalities that the Gateway API offers, with its foundation built on four core principles: a role-oriented approach, portability, expressiveness and extensibility.
 
