@@ -263,8 +263,14 @@ When you delete a ServiceAccount that has an associated Secret, the Kubernetes
 control plane automatically cleans up the long-lived token from that Secret.
 
 {{< note >}}
-Manually created Secret API objects do not appear in the service account API object's
-`.secrets` field. That field is only populated with auto-generated secrets.
+If you view the ServiceAccount using:
+
+` kubectl get serviceaccount build-robot -o yaml`
+
+You can't see the `build-robot-secret` Secret in the ServiceAccount API objects
+[`.secrets`](/docs/reference/kubernetes-api/authentication-resources/service-account-v1/) field
+because manually created Secret API objects do not appear in the ServiceAccount API object's
+`.secrets` field. That field is only populated with auto-generated Secrets.
 {{< /note >}}
 
 ## Add ImagePullSecrets to a service account
