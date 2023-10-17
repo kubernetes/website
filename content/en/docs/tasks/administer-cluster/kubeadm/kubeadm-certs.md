@@ -16,7 +16,6 @@ to kubeadm certificate management.
 
 ## {{% heading "prerequisites" %}}
 
-
 You should be familiar with [PKI certificates and requirements in Kubernetes](/docs/setup/best-practices/certificates/).
 
 <!-- steps -->
@@ -71,6 +70,7 @@ etcd-peer                  Dec 30, 2020 23:36 UTC   364d            etcd-ca     
 etcd-server                Dec 30, 2020 23:36 UTC   364d            etcd-ca                 no
 front-proxy-client         Dec 30, 2020 23:36 UTC   364d            front-proxy-ca          no
 scheduler.conf             Dec 30, 2020 23:36 UTC   364d                                    no
+super-admin.conf           Dec 30, 2020 23:36 UTC   364d                                    no
 
 CERTIFICATE AUTHORITY   EXPIRES                  RESIDUAL TIME   EXTERNALLY MANAGED
 ca                      Dec 28, 2029 23:36 UTC   9y              no
@@ -81,6 +81,7 @@ front-proxy-ca          Dec 28, 2029 23:36 UTC   9y              no
 The command shows expiration/residual time for the client certificates in the
 `/etc/kubernetes/pki` folder and for the client certificate embedded in the kubeconfig files used
 by kubeadm (`admin.conf`, `controller-manager.conf` and `scheduler.conf`).
+If missing, `super-admin.conf` will not cause an error.
 
 Additionally, kubeadm informs the user if the certificate is externally managed; in this case, the
 user should take care of managing certificate renewal manually/using other tools.
@@ -326,14 +327,18 @@ CSRs requesting serving certificates for any IP or domain name.
 
 ## Generating kubeconfig files for additional users {#kubeconfig-additional-users}
 
-During cluster creation, kubeadm signs the certificate in the `admin.conf` to have
-`Subject: O = system:masters, CN = kubernetes-admin`.
-[`system:masters`](/docs/reference/access-authn-authz/rbac/#user-facing-roles)
-is a break-glass, super user group that bypasses the authorization layer (for example,
-[RBAC](/docs/reference/access-authn-authz/rbac/)).
-Sharing the `admin.conf` with additional users is **not recommended**!
+The kubeconfig file `admin.conf` that `kubeadm init` generates contains a certificate with
+`Subject: O = kubeadm:cluster-admins, CN = kubernetes-admin`. The group `kubeadm:cluster-admins`
+is bound to the built-in `cluster-admin` ClusterRole.
+Do not share the `admin.conf` file with anyone.
 
-Instead, you can use the [`kubeadm kubeconfig user`](/docs/reference/setup-tools/kubeadm/kubeadm-kubeconfig)
+`kubeadm init` generates another kubeconfig file `super-admin.conf` that contains a certificate with
+`Subject: O = system:masters, CN = kubernetes-super-admin`.
+`system:masters` is a break-glass, super user group that bypasses the authorization layer (for example RBAC).
+Do not share the `super-admin.conf` file with anyone. It is recommended to move the file to a safe location.
+
+Instead of sharing these files, you can use the
+[`kubeadm kubeconfig user`](/docs/reference/setup-tools/kubeadm/kubeadm-kubeconfig)
 command to generate kubeconfig files for additional users.
 The command accepts a mixture of command line flags and
 [kubeadm configuration](/docs/reference/config-api/kubeadm-config.v1beta3/) options.
@@ -368,8 +373,34 @@ for a new user `johndoe` that is part of the `appdevs` group:
 kubeadm kubeconfig user --config example.yaml --org appdevs --client-name johndoe --validity-period 24h
 ```
 
-The following example will generate a kubeconfig file with administrator credentials valid for 1 week:
+The following example binds the `cluster-admin` ClusterRole to a new group called
+`my-cluster-admins`. It then creates a new kubeconfig file for an admin called `my-admin` that
+is part of the `my-cluster-admins` group. The kubeconfig is valid for 1 week:
 
 ```shell
-kubeadm kubeconfig user --config example.yaml --client-name admin --validity-period 168h
+kubectl create clusterrolebinding my-cluster-admins-binding --clusterrole cluster-admin --group my-cluster-admins
+kubeadm kubeconfig user --config example.yaml --client-name my-admin --org my-cluster-admins --validity-period 168h
 ```
+
+Alternatively, you can create a ClusterRoleBinding for individual users. The following example
+binds the `cluster-admin` ClusterRole to the new user `my-admin` and then creates a kubeconfig
+for the user:
+
+```shell
+kubectl create clusterrolebinding my-admin-binding --clusterrole cluster-admin --user my-admin
+kubeadm kubeconfig user --config example.yaml --client-name my-admin ---validity-period 168h
+```
+
+Removing the ClusterRoleBinding for a group of users or individual users can act
+as permission revocation:
+
+```shell
+kubectl delete clusterrolebinding <name-of-clusterrolebinding>
+```
+
+{{< warning >}}
+Creating kubeconfig files for additional users that are part of the default kubeadm group
+`kubeadm:cluster-admins` or the built-in Kubernetes group `system:masters` is not recommended.
+Ideally, these groups should only be used for the users stored in `admin.conf` and `super-admin.conf` -
+`kubernetes-admin` and `kubernetes-super-admin`, respectively.
+{{< /warning >}}
