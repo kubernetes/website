@@ -8,7 +8,7 @@ It can be given a "image" parameter with a name partially matching a file in the
 {{ if  $imageName }}{{- template "shortcodes-blocks_getimage" (dict "name" $imageName "ctx" . "target" "feature-image") -}}{{ end }}
 {{- $image := $.Scratch.Get "feature-image" -}}
 <div class="main-section">
-	{{ with $image }}<div class="image-wrapper"><img src="{{ .RelPermalink }}" alt="{{ .Title }}"></div>{{ end }}
+	{{ with $image }}<div class="image-wrapper"><img src="{{ .RelPermalink }}" alt=""></div>{{ end }}
 	<div class="content">
 		{{ $.Inner }}
 	</div>

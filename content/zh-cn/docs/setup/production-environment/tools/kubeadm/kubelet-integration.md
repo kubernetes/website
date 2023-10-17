@@ -222,7 +222,8 @@ In addition to the flags used when starting the kubelet, the file also contains 
 parameters such as the cgroup driver and whether to use a different container runtime socket
 (`--cri-socket`).
 -->
-除了启动 kubelet 时所使用的标志外，该文件还包含动态参数，例如 cgroup 驱动程序以及是否使用其他容器运行时套接字（`--cri-socket`）。
+除了启动 kubelet 时所使用的标志外，该文件还包含动态参数，例如 cgroup
+驱动程序以及是否使用其他容器运行时套接字（`--cri-socket`）。
 
 <!--
 After marshalling these two files to disk, kubeadm attempts to run the following two
@@ -277,7 +278,7 @@ When the `/etc/kubernetes/kubelet.conf` file is written, the kubelet has finishe
 Kubeadm deletes the `/etc/kubernetes/bootstrap-kubelet.conf` file after completing the TLS Bootstrap.
 -->
 当 `/etc/kubernetes/kubelet.conf` 文件被写入后，kubelet 就完成了 TLS 引导过程。
-Kubeadm 在完成 TLS 引导过程后将删除 `/etc/kubernetes/bootstrap-kubelet.conf` 文件。
+kubeadm 在完成 TLS 引导过程后将删除 `/etc/kubernetes/bootstrap-kubelet.conf` 文件。
 
 <!--
 ##  The kubelet drop-in file for systemd
@@ -293,19 +294,15 @@ Note that the kubeadm CLI command never touches this drop-in file.
 
 <!--
 This configuration file installed by the `kubeadm`
-[DEB](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf) or
-[RPM package](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/rpm/kubeadm/10-kubeadm.conf) is written to
+[package](https://github.com/kubernetes/release/blob/cd53840/cmd/krel/templates/latest/kubeadm/10-kubeadm.conf) is written to
 `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` and is used by systemd.
 It augments the basic
-[`kubelet.service` for RPM](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/rpm/kubelet/kubelet.service) or
-[`kubelet.service` for DEB](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service):
+[`kubelet.service`](https://github.com/kubernetes/release/blob/cd53840/cmd/krel/templates/latest/kubelet/kubelet.service):
 -->
-通过 `kubeadm` [DEB 包](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf)
-或者 [RPM 包](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/rpm/kubeadm/10-kubeadm.conf)
-安装的配置文件被写入 `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` 并由 systemd 使用。
-它对原来的 [RPM 版本 `kubelet.service`](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/rpm/kubelet/kubelet.service)
-或者 [DEB 版本 `kubelet.service`](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service)
-作了增强：
+通过 `kubeadm` [包](https://github.com/kubernetes/release/blob/cd53840/cmd/krel/templates/latest/kubeadm/10-kubeadm.conf) 
+安装的配置文件被写入 `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf`
+并由 systemd 使用。它对原来的
+[`kubelet.service`](https://github.com/kubernetes/release/blob/cd53840/cmd/krel/templates/latest/kubelet/kubelet.service) 作了增强：
 
 {{< note >}}
 <!--
@@ -314,7 +311,7 @@ follow the guide outlined in the ([Without a package manager](/docs/setup/produc
 section.
 -->
 下面的内容只是一个例子。如果你不想使用包管理器，
-请遵循([没有包管理器](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#k8s-install-2))
+请遵循（[没有包管理器](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#k8s-install-2)）
 章节的指南。
 {{< /note >}}
 

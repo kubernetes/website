@@ -65,7 +65,7 @@ username and password:
 
 这里是一个配置文件，可以用来创建存有用户名和密码的 Secret：
 
-{{% code file="pods/inject/secret.yaml" %}}
+{{% code_sample file="pods/inject/secret.yaml" %}}
 
 <!--
 1. Create the Secret
@@ -154,7 +154,7 @@ Here is a configuration file you can use to create a Pod:
 
 这里是一个可以用来创建 Pod 的配置文件：
 
-{{% code file="pods/inject/secret-pod.yaml" %}}
+{{% code_sample file="pods/inject/secret-pod.yaml" %}}
 
 1. <!-- Create the Pod:-->
    创建 Pod：
@@ -398,7 +398,7 @@ secrets change.
 -->
 - 在 Pod 规约中，将 Secret 中定义的值 `backend-username` 赋给 `SECRET_USERNAME` 环境变量。
 
-  {{% code file="pods/inject/pod-single-secret-env-variable.yaml" %}}
+  {{% code_sample file="pods/inject/pod-single-secret-env-variable.yaml" %}}
 
 <!--
 - Create the Pod:
@@ -447,7 +447,7 @@ secrets change.
 -->
 - 在 Pod 规约中定义环境变量：
 
-  {{% code file="pods/inject/pod-multiple-secret-env-variable.yaml" %}}
+  {{% code_sample file="pods/inject/pod-multiple-secret-env-variable.yaml" %}}
 
 <!--
 - Create the Pod:
@@ -505,7 +505,7 @@ This functionality is available in Kubernetes v1.6 and later.
 - 使用 `envFrom` 来将 Secret 中的所有数据定义为环境变量。
   Secret 中的键名成为容器中的环境变量名：
 
-  {{% code file="pods/inject/pod-secret-envFrom.yaml" %}}
+  {{% code_sample file="pods/inject/pod-secret-envFrom.yaml" %}}
 
 <!--
 - Create the Pod:

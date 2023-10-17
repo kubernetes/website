@@ -31,6 +31,20 @@ upgrade the control plane nodes before upgrading your Linux Worker nodes.
 <!-- steps -->
 
 <!--
+## Changing the package repository
+
+If you're using the community-owned package repositories (`pkgs.k8s.io`), you need to 
+enable the package repository for the desired Kubernetes minor release. This is explained in
+[Changing the Kubernetes package repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/)
+document.
+-->
+## 更改软件包仓库   {#changing-the-package-repository}
+
+如果你正在使用社区自治的软件包仓库（`pkgs.k8s.io`），
+你需要启用所需的 Kubernetes 小版本的软件包仓库。
+这一点在[更改 Kubernetes 软件包仓库](/zh-cn/docs/tasks/administer-cluster/kubeadm/change-package-repository/)文档中有详细说明。
+
+<!--
 ## Upgrading worker nodes
 
 ### Upgrade kubeadm
