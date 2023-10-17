@@ -15,13 +15,7 @@ This page shows how to install the `kubeadm` toolbox.
 For information on how to create a cluster with kubeadm once you have performed this installation process,
 see the [Creating a cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) page.
 
-This installation guide is for Kubernetes {{< skew currentVersion >}}. If you want to use a different
-Kubernetes version, please refer to the following pages instead:
-
-- [Installing kubeadm for Kubernetes {{< skew currentVersionAddMinor -1 "." >}}](https://v{{< skew currentVersionAddMinor -1 "-" >}}.docs.kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
-- [Installing kubeadm for Kubernetes {{< skew currentVersionAddMinor -2 "." >}}](https://v{{< skew currentVersionAddMinor -2 "-" >}}.docs.kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
-- [Installing kubeadm for Kubernetes {{< skew currentVersionAddMinor -3 "." >}}](https://v{{< skew currentVersionAddMinor -3 "-" >}}.docs.kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
-- [Installing kubeadm for Kubernetes {{< skew currentVersionAddMinor -4 "." >}}](https://v{{< skew currentVersionAddMinor -4 "-" >}}.docs.kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
+{{< doc-versions-list "installation guide" >}}
 
 ## {{% heading "prerequisites" %}}
 
