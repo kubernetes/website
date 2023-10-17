@@ -73,8 +73,7 @@ different purposes:
   [secret](/docs/concepts/storage/volumes/#secret): inject different
   kinds of Kubernetes data into a Pod
 - [CSI ephemeral volumes](#csi-ephemeral-volumes):
-  similar to the previous volume kinds, but provided by special
-  [CSI drivers](https://github.com/container-storage-interface/spec/blob/master/spec.md)
+  similar to the previous volume kinds, but provided by special {{< glossary_tooltip text="CSI" term_id="csi" >}} drivers
   which specifically [support this feature](https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html)
 - [generic ephemeral volumes](#generic-ephemeral-volumes), which
   can be provided by all storage drivers that also support persistent volumes
@@ -86,10 +85,9 @@ Kubernetes 为了不同的用途，支持几种不同类型的临时卷：
   [downwardAPI](/zh-cn/docs/concepts/storage/volumes/#downwardapi)、
   [secret](/zh-cn/docs/concepts/storage/volumes/#secret)：
   将不同类型的 Kubernetes 数据注入到 Pod 中
-- [CSI 临时卷](/zh-cn/docs/concepts/storage/volumes/#csi-ephemeral-volumes)：
+- [CSI 临时卷](#csi-ephemeral-volumes)：
   类似于前面的卷类型，但由专门[支持此特性](https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html)
-  的指定
-  [CSI 驱动程序](https://github.com/container-storage-interface/spec/blob/master/spec.md)提供
+  的指定 {{< glossary_tooltip text="CSI" term_id="csi" >}} 驱动程序提供
 - [通用临时卷](#generic-ephemeral-volumes)：
   它可以由所有支持持久卷的存储驱动程序提供
 
