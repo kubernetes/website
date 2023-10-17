@@ -429,7 +429,8 @@ as a destination.
 
 <!--
 For an EndpointSlice that you create yourself, or in your own code,
-you should also pick a value to use for the [`endpointslice.kubernetes.io/managed-by`](/docs/reference/labels-annotations-taints/#endpointslicekubernetesiomanaged-by) label.
+you should also pick a value to use for the label
+[`endpointslice.kubernetes.io/managed-by`](/docs/reference/labels-annotations-taints/#endpointslicekubernetesiomanaged-by).
 If you create your own controller code to manage EndpointSlices, consider using a
 value similar to `"my-domain.example/name-of-controller"`. If you are using a third
 party tool, use the name of the tool in all-lowercase and change spaces and other
@@ -453,7 +454,8 @@ managed by Kubernetes' own control plane.
 #### Accessing a Service without a selector {#service-no-selector-access}
 
 Accessing a Service without a selector works the same as if it had a selector.
-In the [example](#services-without-selectors) for a Service without a selector, traffic is routed to one of the two endpoints defined in
+In the [example](#services-without-selectors) for a Service without a selector,
+traffic is routed to one of the two endpoints defined in
 the EndpointSlice manifest: a TCP connection to 10.1.2.3 or 10.4.5.6, on port 9376.
 -->
 #### 访问没有选择算符的 Service   {#service-no-selector-access}
@@ -555,8 +557,7 @@ Endpoints API。
 <!--
 In that case, Kubernetes selects at most 1000 possible backend endpoints to store
 into the Endpoints object, and sets an
-{{< glossary_tooltip text="annotation" term_id="annotation" >}} on the
-Endpoints:
+{{< glossary_tooltip text="annotation" term_id="annotation" >}} on the Endpoints:
 [`endpoints.kubernetes.io/over-capacity: truncated`](/docs/reference/labels-annotations-taints/#endpoints-kubernetes-io-over-capacity).
 The control plane also removes that annotation if the number of backend Pods drops below 1000.
 -->
@@ -585,8 +586,8 @@ The same API limit means that you cannot manually update an Endpoints to have mo
 
 <!--
 The `appProtocol` field provides a way to specify an application protocol for
-each Service port. This is used as a hint for implementations to offer richer
-behavior for protocols that they understand.
+each Service port. This is used as a hint for implementations to offer
+richer behavior for protocols that they understand.
 The value of this field is mirrored by the corresponding
 Endpoints and EndpointSlice objects.
 -->
@@ -690,7 +691,8 @@ Kubernetes Service 类型允许指定你所需要的 Service 类型。
 : Exposes the Service on a cluster-internal IP. Choosing this value
   makes the Service only reachable from within the cluster. This is the
   default that is used if you don't explicitly specify a `type` for a Service.
-  You can expose the Service to the public internet using an [Ingress](/docs/concepts/services-networking/ingress/) or a
+  You can expose the Service to the public internet using an
+  [Ingress](/docs/concepts/services-networking/ingress/) or a
   [Gateway](https://gateway-api.sigs.k8s.io/).
 
 [`NodePort`](#type-nodeport)
@@ -734,7 +736,7 @@ Kubernetes Service 类型允许指定你所需要的 Service 类型。
 The `type` field in the Service API is designed as nested functionality - each level
 adds to the previous. However there is an exception to this nested design. You can
 define a `LoadBalancer` Service by
-[disabling the load balancer `NodePort` allocation.](/docs/concepts/services-networking/service/#load-balancer-nodeport-allocation)
+[disabling the load balancer `NodePort` allocation](/docs/concepts/services-networking/service/#load-balancer-nodeport-allocation).
 -->
 服务 API 中的 `type` 字段被设计为层层递进的形式 - 每层都建立在前一层的基础上。
 但是，这种层层递进的形式有一个例外。
@@ -851,6 +853,27 @@ a NodePort value (30007, in this example):
 
 以下是 `type: NodePort` 服务的一个清单示例，其中指定了 NodePort 值（在本例中为 30007）：
 
+<!--
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  type: NodePort
+  selector:
+    app.kubernetes.io/name: MyApp
+  ports:
+    - port: 80
+      # By default and for convenience, the `targetPort` is set to
+      # the same value as the `port` field.
+      targetPort: 80
+      # Optional field
+      # By default and for convenience, the Kubernetes control plane
+      # will allocate a port from a range (default: 30000-32767)
+      nodePort: 30007
+```
+-->
 ```yaml
 apiVersion: v1
 kind: Service
@@ -904,8 +927,7 @@ control plane).
 
 If you want to specify particular IP address(es) to proxy the port, you can set the
 `--nodeport-addresses` flag for kube-proxy or the equivalent `nodePortAddresses`
-field of the
-[kube-proxy configuration file](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
+field of the [kube-proxy configuration file](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 to particular IP block(s).
 -->
 #### 为 `type: NodePort` 服务自定义 IP 地址配置  {#service-nodeport-custom-listen-address}
@@ -941,7 +963,8 @@ kube-proxy 应视将其视为所在节点的本机地址。
 <!--
 This Service is visible as `<NodeIP>:spec.ports[*].nodePort` and `.spec.clusterIP:spec.ports[*].port`.
 If the `--nodeport-addresses` flag for kube-proxy or the equivalent field
-in the kube-proxy configuration file is set, `<NodeIP>` would be a filtered node IP address (or possibly IP addresses).
+in the kube-proxy configuration file is set, `<NodeIP>` would be a filtered
+node IP address (or possibly IP addresses).
 -->
 此 Service 的可见形式为 `<NodeIP>:spec.ports[*].nodePort` 以及 `.spec.clusterIP:spec.ports[*].port`。
 如果设置了 kube-proxy 的 `--nodeport-addresses` 标志或 kube-proxy 配置文件中的等效字段，
@@ -1024,7 +1047,8 @@ set is ignored.
 <!--
 The`.spec.loadBalancerIP` field for a Service was deprecated in Kubernetes v1.24.
 
-This field was under-specified and its meaning varies across implementations. It also cannot support dual-stack networking. This field may be removed in a future API version.
+This field was under-specified and its meaning varies across implementations.
+It also cannot support dual-stack networking. This field may be removed in a future API version.
 -->
 针对 Service 的 `.spec.loadBalancerIP` 字段已在 Kubernetes v1.24 中被弃用。
 
@@ -1174,60 +1198,50 @@ Select one of the tabs.
 {{% tab name="GCP" %}}
 
 ```yaml
-[...]
 metadata:
-    name: my-service
-    annotations:
-        networking.gke.io/load-balancer-type: "Internal"
-[...]
+  name: my-service
+  annotations:
+      networking.gke.io/load-balancer-type: "Internal"
 ```
 
 {{% /tab %}}
 {{% tab name="AWS" %}}
 
 ```yaml
-[...]
 metadata:
     name: my-service
     annotations:
         service.beta.kubernetes.io/aws-load-balancer-internal: "true"
-[...]
 ```
 
 {{% /tab %}}
 {{% tab name="Azure" %}}
 
 ```yaml
-[...]
 metadata:
-    name: my-service
-    annotations:
-        service.beta.kubernetes.io/azure-load-balancer-internal: "true"
-[...]
+  name: my-service
+  annotations:
+      service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 ```
 
 {{% /tab %}}
 {{% tab name="IBM Cloud" %}}
 
 ```yaml
-[...]
 metadata:
-    name: my-service
-    annotations:
-        service.kubernetes.io/ibm-load-balancer-cloud-provider-ip-type: "private"
-[...]
+  name: my-service
+  annotations:
+      service.kubernetes.io/ibm-load-balancer-cloud-provider-ip-type: "private"
 ```
 
 {{% /tab %}}
 {{% tab name="OpenStack" %}}
 
 ```yaml
-[...]
 metadata:
-    name: my-service
-    annotations:
-        service.beta.kubernetes.io/openstack-internal-load-balancer: "true"
-[...]
+  name: my-service
+  annotations:
+    service.beta.kubernetes.io/openstack-internal-load-balancer: "true"
 ```
 
 {{% /tab %}}
@@ -1235,12 +1249,10 @@ metadata:
 {{% tab name="百度云" %}}
 
 ```yaml
-[...]
 metadata:
-    name: my-service
-    annotations:
-        service.beta.kubernetes.io/cce-load-balancer-internal-vpc: "true"
-[...]
+  name: my-service
+  annotations:
+    service.beta.kubernetes.io/cce-load-balancer-internal-vpc: "true"
 ```
 
 {{% /tab %}}
@@ -1248,11 +1260,9 @@ metadata:
 {{% tab name="腾讯云" %}}
 
 ```yaml
-[...]
 metadata:
   annotations:
     service.kubernetes.io/qcloud-loadbalancer-internal-subnetid: subnet-xxxxx
-[...]
 ```
 
 {{% /tab %}}
@@ -1260,23 +1270,19 @@ metadata:
 {{% tab name="阿里云" %}}
 
 ```yaml
-[...]
 metadata:
   annotations:
     service.beta.kubernetes.io/alibaba-cloud-loadbalancer-address-type: "intranet"
-[...]
 ```
 
 {{% /tab %}}
 {{% tab name="OCI" %}}
 
 ```yaml
-[...]
 metadata:
-    name: my-service
-    annotations:
-        service.beta.kubernetes.io/oci-load-balancer-internal: true
-[...]
+  name: my-service
+  annotations:
+      service.beta.kubernetes.io/oci-load-balancer-internal: true
 ```
 {{% /tab %}}
 {{< /tabs >}}
@@ -1310,11 +1316,14 @@ spec:
 
 {{< note >}}
 <!--
-A Service of `type: ExternalName` accepts an IPv4 address string, but treats that string as a DNS name comprised of digits,
-not as an IP address (the internet does not however allow such names in DNS). Services with external names that resemble IPv4
+A Service of `type: ExternalName` accepts an IPv4 address string,
+but treats that string as a DNS name comprised of digits,
+not as an IP address (the internet does not however allow such names in DNS).
+Services with external names that resemble IPv4
 addresses are not resolved by DNS servers.
 
-If you want to map a Service directly to a specific IP address, consider using [headless Services](#headless-services).
+If you want to map a Service directly to a specific IP address, consider using
+[headless Services](#headless-services).
 -->
 `type: ExternalName` 的服务接受 IPv4 地址字符串，但将该字符串视为由数字组成的 DNS 名称，
 而不是 IP 地址（然而，互联网不允许在 DNS 中使用此类名称）。
@@ -1443,7 +1452,8 @@ finding a Service: environment variables and DNS.
 When a Pod is run on a Node, the kubelet adds a set of environment variables
 for each active Service. It adds `{SVCNAME}_SERVICE_HOST` and `{SVCNAME}_SERVICE_PORT` variables,
 where the Service name is upper-cased and dashes are converted to underscores.
-It also supports variables (see [makeLinkVariables](https://github.com/kubernetes/kubernetes/blob/dd2d12f6dc0e654c15d5db57a5f9f6ba61192726/pkg/kubelet/envvars/envvars.go#L72))
+It also supports variables
+(see [makeLinkVariables](https://github.com/kubernetes/kubernetes/blob/dd2d12f6dc0e654c15d5db57a5f9f6ba61192726/pkg/kubelet/envvars/envvars.go#L72))
 that are compatible with Docker Engine's
 "_[legacy container links](https://docs.docker.com/network/links/)_" feature.
 
@@ -1674,7 +1684,9 @@ Service 是 Kubernetes REST API 中的顶级资源。你可以找到有关
 
 <!--
 Learn more about Services and how they fit into Kubernetes:
-* Follow the [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial.
+
+* Follow the [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/)
+  tutorial.
 * Read about [Ingress](/docs/concepts/services-networking/ingress/), which
   exposes HTTP and HTTPS routes from outside the cluster to Services within
   your cluster.
@@ -1691,6 +1703,7 @@ Learn more about Services and how they fit into Kubernetes:
 
 <!--
 For more context, read the following:
+
 * [Virtual IPs and Service Proxies](/docs/reference/networking/virtual-ips/)
 * [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/)
 * [Service API reference](/docs/reference/kubernetes-api/service-resources/service-v1/)
@@ -1704,4 +1717,3 @@ For more context, read the following:
 * [Service API 参考](/zh-cn/docs/reference/kubernetes-api/service-resources/service-v1/)
 * [EndpointSlice API 参考](/zh-cn/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/)
 * [Endpoints API 参考](/zh-cn/docs/reference/kubernetes-api/service-resources/endpoints-v1/)
-
