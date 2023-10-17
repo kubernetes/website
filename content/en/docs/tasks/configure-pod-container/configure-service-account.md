@@ -269,8 +269,7 @@ If you view the ServiceAccount using:
 
 You can't see the `build-robot-secret` Secret in the ServiceAccount API objects
 [`.secrets`](/docs/reference/kubernetes-api/authentication-resources/service-account-v1/) field
-because manually created Secret API objects do not appear in the ServiceAccount API object's
-`.secrets` field. That field is only populated with auto-generated Secrets.
+because that field is only populated with auto-generated Secrets.
 {{< /note >}}
 
 ## Add ImagePullSecrets to a service account
