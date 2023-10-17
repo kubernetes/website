@@ -2098,7 +2098,7 @@ resource without a class specified will be assigned this default class.
 
 类别：注解
 
-例子：`ingressclass.kubernetes.io/is-default-class: "true"`
+例子：`storageclass.kubernetes.io/is-default-class: "true"`
 
 用于：StorageClass
 
