@@ -118,7 +118,8 @@ For a reference to old feature gates that are removed, please refer to
 | `JobBackoffLimitPerIndex` | `true` | Beta | 1.29 | |
 | `JobPodFailurePolicy` | `false` | Alpha | 1.25 | 1.25 |
 | `JobPodFailurePolicy` | `true` | Beta | 1.26 | |
-| `JobPodReplacementPolicy` | `false` | Alpha | 1.28 | |
+| `JobPodReplacementPolicy` | `false` | Alpha | 1.28 | 1.28 |
+| `JobPodReplacementPolicy` | `true` | Beta | 1.29 | |
 | `KMSv2` | `false` | Alpha | 1.25 | 1.26 |
 | `KMSv2` | `true` | Beta | 1.27 | |
 | `KMSv2KDF` | `false` | Beta | 1.28 | |
