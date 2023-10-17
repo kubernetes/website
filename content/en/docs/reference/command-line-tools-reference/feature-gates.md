@@ -169,7 +169,8 @@ For a reference to old feature gates that are removed, please refer to
 | `PodHostIPs` | `false` | Alpha | 1.28 | |
 | `PodIndexLabel` | `true` | Beta | 1.28 | |
 | `PodLifecycleSleepAction` | `false` | Alpha | 1.29 | |
-| `PodReadyToStartContainersCondition` | `false` | Alpha | 1.28 | |
+| `PodReadyToStartContainersCondition` | `false` | Alpha | 1.28 | 1.28 |
+| `PodReadyToStartContainersCondition` | `true` | Beta | 1.29 | |
 | `PodSchedulingReadiness` | `false` | Alpha | 1.26 | 1.26 |
 | `PodSchedulingReadiness` | `true` | Beta | 1.27 | |
 | `ProcMountType` | `false` | Alpha | 1.12 | |
