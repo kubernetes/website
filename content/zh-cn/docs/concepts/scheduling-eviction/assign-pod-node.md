@@ -59,8 +59,10 @@ specific Pods:
 ## Node labels {#built-in-node-labels}
 
 Like many other Kubernetes objects, nodes have
-[labels](/docs/concepts/overview/working-with-objects/labels/). You can [attach labels manually](/docs/tasks/configure-pod-container/assign-pods-nodes/#add-a-label-to-a-node).
-Kubernetes also populates a [standard set of labels](/docs/reference/node/node-labels/) on all nodes in a cluster.
+[labels](/docs/concepts/overview/working-with-objects/labels/). You can
+[attach labels manually](/docs/tasks/configure-pod-container/assign-pods-nodes/#add-a-label-to-a-node).
+Kubernetes also populates a [standard set of labels](/docs/reference/node/node-labels/)
+on all nodes in a cluster.
 -->
 ## 节点标签     {#built-in-node-labels}
 
@@ -539,7 +541,7 @@ specified.
 
 如果当前正被调度的 Pod 在具有自我亲和性的 Pod 序列中排在第一个，
 那么只要它满足其他所有的亲和性规则，它就可以被成功调度。
-这是通过以下方式确定的：确保集群中没有其他 Pod 与此 Pod 的命名空间和标签选择器匹配；
+这是通过以下方式确定的：确保集群中没有其他 Pod 与此 Pod 的名字空间和标签选择算符匹配；
 该 Pod 满足其自身定义的条件，并且选定的节点满足所指定的所有拓扑要求。
 这确保即使所有的 Pod 都配置了 Pod 间亲和性，也不会出现调度死锁的情况。
 
@@ -565,29 +567,40 @@ uses the "soft" `preferredDuringSchedulingIgnoredDuringExecution`.
 `preferredDuringSchedulingIgnoredDuringExecution`。
 
 <!--
-The affinity rule says that the scheduler can only schedule a Pod onto a node if
-the node is in the same zone as one or more existing Pods with the label
-`security=S1`. More precisely, the scheduler must place the Pod on a node that has the
-`topology.kubernetes.io/zone=V` label, as long as there is at least one node in
-that zone that currently has one or more Pods with the Pod label `security=S1`.
+The affinity rule specifies that the scheduler is allowed to place the example Pod 
+on a node only if that node belongs to a specific [zone](/docs/concepts/scheduling-eviction/topology-spread-constraints/topology-spread-constraints/)
+where other Pods have been labeled with `security=S1`. 
+For instance, if we have a cluster with a designated zone, let's call it "Zone V," 
+consisting of nodes labeled with `topology.kubernetes.io/zone=V`, the scheduler can 
+assign the Pod to any node within Zone V, as long as there is at least one Pod within 
+Zone V already labeled with `security=S1`. Conversely, if there are no Pods with `security=S1` 
+labels in Zone V, the scheduler will not assign the example Pod to any node in that zone.
 -->
-亲和性规则表示，仅当节点和至少一个已运行且有 `security=S1` 的标签的
-Pod 处于同一区域时，才可以将该 Pod 调度到节点上。
-更确切的说，调度器必须将 Pod 调度到具有 `topology.kubernetes.io/zone=V`
-标签的节点上，并且集群中至少有一个位于该可用区的节点上运行着带有
-`security=S1` 标签的 Pod。
+亲和性规则规定，只有节点属于特定的
+[区域](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/topology-spread-constraints/)
+且该区域中的其他 Pod 已打上 `security=S1` 标签时，调度器才可以将示例 Pod 调度到此节点上。
+例如，如果我们有一个具有指定区域（称之为 "Zone V"）的集群，此区域由带有 `topology.kubernetes.io/zone=V`
+标签的节点组成，那么只要 Zone V 内已经至少有一个 Pod 打了 `security=S1` 标签，
+调度器就可以将此 Pod 调度到 Zone V 内的任何节点。相反，如果 Zone V 中没有带有 `security=S1` 标签的 Pod，
+则调度器不会将示例 Pod 调度给该区域中的任何节点。
 
 <!--
-The anti-affinity rule says that the scheduler should try to avoid scheduling
-the Pod onto a node that is in the same zone as one or more Pods with the label
-`security=S2`. More precisely, the scheduler should try to avoid placing the Pod on a node that has the
-`topology.kubernetes.io/zone=R` label if there are other nodes in the
-same zone currently running Pods with the `Security=S2` Pod label.
+The anti-affinity rule specifies that the scheduler should try to avoid scheduling the Pod 
+on a node if that node belongs to a specific [zone](/docs/concepts/scheduling-eviction/topology-spread-constraints/topology-spread-constraints/)
+where other Pods have been labeled with `security=S2`. 
+For instance, if we have a cluster with a designated zone, let's call it "Zone R," 
+consisting of nodes labeled with `topology.kubernetes.io/zone=R`, the scheduler should avoid 
+assigning the Pod to any node within Zone R, as long as there is at least one Pod within 
+Zone R already labeled with `security=S2`. Conversely, the anti-affinity rule does not impact 
+scheduling into Zone R if there are no Pods with `security=S2` labels.
 -->
-反亲和性规则表示，如果节点处于 Pod 所在的同一可用区且至少一个 Pod 具有
-`security=S2` 标签，则该 Pod 不应被调度到该节点上。
-更确切地说， 如果同一可用区中存在其他运行着带有 `security=S2` 标签的 Pod 节点，
-并且节点具有标签 `topology.kubernetes.io/zone=R`，Pod 不能被调度到该节点上。
+反亲和性规则规定，如果节点属于特定的
+[区域](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/topology-spread-constraints/)
+且该区域中的其他 Pod 已打上 `security=S2` 标签，则调度器应尝试避免将 Pod 调度到此节点上。
+例如，如果我们有一个具有指定区域（我们称之为 "Zone R"）的集群，此区域由带有 `topology.kubernetes.io/zone=R`
+标签的节点组成，只要 Zone R 内已经至少有一个 Pod 打了 `security=S2` 标签，
+调度器应避免将 Pod 分配给 Zone R 内的任何节点。相反，如果 Zone R 中没有带有 `security=S2` 标签的 Pod，
+则反亲和性规则不会影响将 Pod 调度到 Zone R。
 
 <!--
 To get yourself more familiar with the examples of Pod affinity and anti-affinity,
@@ -847,10 +860,10 @@ Some of the limitations of using `nodeName` to select nodes are:
 you need to bypass any configured schedulers. Bypassing the schedulers might lead to
 failed Pods if the assigned Nodes get oversubscribed. You can use [node affinity](#node-affinity) or a the [`nodeselector` field](#nodeselector) to assign a Pod to a specific Node without bypassing the schedulers.
 -->
-`nodeName` 旨在供自定义调度程序或需要绕过任何已配置调度程序的高级场景使用。
-如果已分配的 Node 负载过重，绕过调度程序可能会导致 Pod 失败。
+`nodeName` 旨在供自定义调度器或需要绕过任何已配置调度器的高级场景使用。
+如果已分配的 Node 负载过重，绕过调度器可能会导致 Pod 失败。
 你可以使用[节点亲和性](#node-affinity)或 [`nodeselector` 字段](#nodeselector)将
-Pod 分配给特定 Node，而无需绕过调度程序。
+Pod 分配给特定 Node，而无需绕过调度器。
 {{</ note >}}
 
 <!--
