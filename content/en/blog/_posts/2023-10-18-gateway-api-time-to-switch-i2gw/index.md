@@ -71,7 +71,7 @@ go install github.com/kubernetes-sigs/ingress2gateway@latest
 ```
 Provided you have a Go development environment installed, that command installs `ingress2gateway` to `$(go env GOPATH)/bin/ingress2gateway`.
 
-Alternatively, you can build it from source using https://github.com/kubernetes-sigs/ingress2gateway#build-from-source.
+Alternatively, you can build it from source by following [Build from source](https://github.com/kubernetes-sigs/ingress2gateway/tree/95b4a0316bac8d28d72b871a210bbc9bd6191eb7#build-from-source)
 
 3. Once the tool is installed, you can use it to convert the ingress resources in your cluster to GatewayAPI resources.
 
@@ -100,7 +100,7 @@ The Gateway API is designed to improve the current Kubernetes networking standar
 
 It is a Kubernetes standard API, consistent across different platforms and implementations and most importantly it is future proof. The Gateway API is considered the Ingress’ successor, it has a sub team under SIG Network that actively work on it and manage the ecosystem and it is likely to receive more updates and community support.
 
-Ingress2gateway helps to ease the migration process for you, converting your existing Ingress resources to Gateway API resources. To make migrations _even easier_ Ingress2gateway has recently added extensions to enable converting from provider-specific solutions, enabling it to translate implementations specific CRDs or Ingress annotations to the relevant Gateway API configurations. 
+Ingress2gateway tool helps to ease the migration process for you, converting an existing Ingress object to equivalent objects from Gateway. To make migrations even easier, Ingress2gateway has recently added extensions to enable converting from provider-specific solutions, enabling it to translate implementation-specific CRDs or Ingress annotations to the closest Gateway API equivalent.
 
 
 ### Try it out and get involved
