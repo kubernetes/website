@@ -170,6 +170,7 @@ For a reference to old feature gates that are removed, please refer to
 | `PodDisruptionConditions` | `true` | Beta | 1.26 | |
 | `PodHostIPs` | `false` | Alpha | 1.28 | |
 | `PodIndexLabel` | `true` | Beta | 1.28 | |
+| `PodLifecycleSleepAction` | `false` | Alpha | 1.29 | |
 | `PodReadyToStartContainersCondition` | `false` | Alpha | 1.28 | |
 | `PodSchedulingReadiness` | `false` | Alpha | 1.26 | 1.26 |
 | `PodSchedulingReadiness` | `true` | Beta | 1.27 | |
@@ -664,6 +665,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `PodHostIPs`: Enable the `status.hostIPs` field for pods and the {{< glossary_tooltip term_id="downward-api" text="downward API" >}}.
   The field lets you expose host IP addresses to workloads.
 - `PodIndexLabel`: Enables the Job controller and StatefulSet controller to add the pod index as a label when creating new pods. See [Job completion mode docs](/docs/concepts/workloads/controllers/job#completion-mode) and [StatefulSet pod index label docs](/docs/concepts/workloads/controllers/statefulset/#pod-index-label) for more details.
+- `PodLifecycleSleepAction`: Enables the `sleep` action in Container lifecycle hooks.
 - `PodReadyToStartContainersCondition`: Enable the kubelet to mark the [PodReadyToStartContainers](/docs/concepts/workloads/pods/pod-lifecycle/#pod-has-network)
   condition on pods. This was previously (1.25-1.27) known as `PodHasNetworkCondition`.
 - `PodSchedulingReadiness`: Enable setting `schedulingGates` field to control a Pod's [scheduling readiness](/docs/concepts/scheduling-eviction/pod-scheduling-readiness).
