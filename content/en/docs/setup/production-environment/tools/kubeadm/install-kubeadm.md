@@ -157,19 +157,12 @@ For more information on version skews, see:
 * Kubernetes [version and version-skew policy](/docs/setup/release/version-skew-policy/)
 * Kubeadm-specific [version skew policy](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
 
-{{< note >}}
-Kubernetes has [new package repositories hosted at `pkgs.k8s.io`](/blog/2023/08/15/pkgs-k8s-io-introduction/)
-starting from August 2023. The legacy package repositories (`apt.kubernetes.io` and `yum.kubernetes.io`)
-have been frozen starting from September 13, 2023. Please read our
-[deprecation and freezing announcement](/blog/2023/08/31/legacy-package-repository-deprecation/)
-for more details.
-{{< /note >}}
+{{% legacy-repos-deprecation %}}
 
 {{< note >}}
 There's a dedicated package repository for each Kubernetes minor version. If you want to install
 a minor version other than {{< skew currentVersion >}}, please see the installation guide for
-your desired minor version. The official Kubernetes package repositories provide downloads for
-Kubernetes versions starting with v1.24.0. 
+your desired minor version.
 {{< /note >}}
 
 {{< tabs name="k8s_install" >}}

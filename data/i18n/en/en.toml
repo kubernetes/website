@@ -282,6 +282,14 @@ other = "Thanks for the feedback. If you have a specific, answerable question ab
 [layouts_docs_search_fetching]
 other = "Fetching results..."
 
+[legacy_repos_message]
+other = """The legacy package repositories (`apt.kubernetes.io` and `yum.kubernetes.io`) have been
+[deprecated and frozen starting from September 13, 2023](/blog/2023/08/31/legacy-package-repository-deprecation/).
+**Using the [new package repositories hosted at `pkgs.k8s.io`](/blog/2023/08/15/pkgs-k8s-io-introduction/)
+is strongly recommended and required in order to install Kubernetes versions released after September 13, 2023.**
+The deprecated legacy repositories, and their contents, might be removed at any time in the future and without
+a further notice period. The new package repositories provide downloads for Kubernetes versions starting with v1.24.0."""
+
 [main_by]
 other = "by"
 

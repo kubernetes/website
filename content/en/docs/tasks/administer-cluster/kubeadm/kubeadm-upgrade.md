@@ -59,6 +59,8 @@ enable the package repository for the desired Kubernetes minor release. This is 
 [Changing the Kubernetes package repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/)
 document.
 
+{{% legacy-repos-deprecation %}}
+
 ## Determine which version to upgrade to
 
 Find the latest patch release for Kubernetes {{< skew currentVersion >}} using the OS package manager:
