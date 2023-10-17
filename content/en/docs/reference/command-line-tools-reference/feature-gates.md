@@ -245,9 +245,6 @@ For a reference to old feature gates that are removed, please refer to
 | `CSIMigrationvSphere` | `true` | Beta | 1.25 | 1.25 |
 | `CSIMigrationvSphere` | `true` | GA | 1.26 | - |
 | `ConsistentHTTPGetHandlers` | `true` | GA | 1.25 | - |
-| `CronJobTimeZone` | `false` | Alpha | 1.24 | 1.24 |
-| `CronJobTimeZone` | `true` | Beta | 1.25 | 1.26 |
-| `CronJobTimeZone` | `true` | GA | 1.27 | - |
 | `DaemonSetUpdateSurge` | `false` | Alpha | 1.21 | 1.21 |
 | `DaemonSetUpdateSurge` | `true` | Beta | 1.22 | 1.24 |
 | `DaemonSetUpdateSurge` | `true` | GA | 1.25 | |
@@ -273,8 +270,6 @@ For a reference to old feature gates that are removed, please refer to
 | `IPTablesOwnershipCleanup` | `true` | GA | 1.28 | |
 | `InTreePluginRBDUnregister` | `false` | Alpha | 1.23 | 1.27 |
 | `InTreePluginRBDUnregister` | `false` | Deprecated | 1.28 | |
-| `JobMutableNodeSchedulingDirectives` | `true` | Beta | 1.23 | 1.26 |
-| `JobMutableNodeSchedulingDirectives` | `true` | GA | 1.27 | |
 | `JobTrackingWithFinalizers` | `false` | Alpha | 1.22 | 1.22 |
 | `JobTrackingWithFinalizers` | `false` | Beta | 1.23 | 1.24 |
 | `JobTrackingWithFinalizers` | `true` | Beta | 1.25 | 1.25 |
@@ -286,8 +281,6 @@ For a reference to old feature gates that are removed, please refer to
 | `KubeletPodResourcesGetAllocatable` | `false` | Alpha | 1.21 | 1.22 |
 | `KubeletPodResourcesGetAllocatable` | `true` | Beta | 1.23 | 1.27 |
 | `KubeletPodResourcesGetAllocatable` | `true` | GA | 1.28 | |
-| `LegacyServiceAccountTokenNoAutoGeneration` | `true` | Beta | 1.24 | 1.25 |
-| `LegacyServiceAccountTokenNoAutoGeneration` | `true` | GA | 1.26 | |
 | `LegacyServiceAccountTokenTracking` | `false` | Alpha | 1.26 | 1.26 |
 | `LegacyServiceAccountTokenTracking` | `true` | Beta | 1.27 | 1.27 |
 | `LegacyServiceAccountTokenTracking` | `true` | GA | 1.28 | |
@@ -457,7 +450,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `CronJobsScheduledAnnotation`: Set the scheduled job time as an
   {{< glossary_tooltip text="annotation" term_id="annotation" >}} on Jobs that were created
   on behalf of a CronJob.
-- `CronJobTimeZone`: Allow the use of the `timeZone` optional field in [CronJobs](/docs/concepts/workloads/controllers/cron-jobs/)
 - `CRDValidationRatcheting`: Enable updates to custom resources to contain 
    violations of their OpenAPI schema if the offending portions of the resource
    update did not change. See [Validation Ratcheting](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-ratcheting) for more details.
@@ -550,8 +542,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
   and volume controllers.
 - `InTreePluginvSphereUnregister`: Stops registering the vSphere in-tree plugin in kubelet
   and volume controllers.
-- `JobMutableNodeSchedulingDirectives`: Allows updating node scheduling directives in
-  the pod template of [Job](/docs/concepts/workloads/controllers/job).
 - `JobBackoffLimitPerIndex`: Allows specifying the maximal number of pod
   retries per index in Indexed jobs.
 - `JobPodFailurePolicy`: Allow users to specify handling of pod failures based on container
@@ -604,8 +594,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
   When enabled, kubelet CRI interface and authenticated http servers are instrumented to generate
   OpenTelemetry trace spans.
   See [Traces for Kubernetes System Components](/docs/concepts/cluster-administration/system-traces) for more details.
-- `LegacyServiceAccountTokenNoAutoGeneration`: Stop auto-generation of Secret-based
-  [service account tokens](/docs/concepts/security/service-accounts/#get-a-token).
 - `LegacyServiceAccountTokenCleanUp`: Enable cleaning up Secret-based
   [service account tokens](/docs/concepts/security/service-accounts/#get-a-token)
   when they are not used in a specified time (default to be one year).
