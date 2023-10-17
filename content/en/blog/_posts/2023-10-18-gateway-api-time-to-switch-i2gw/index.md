@@ -9,7 +9,7 @@ slug: <What is it?>
 
 In the ever-evolving world of Kubernetes, networking plays a pivotal role. As more applications are deployed in Kubernetes clusters, effective exposure of these services to clients outside the cluster becomes a critical concern. If you've been working with Kubernetes, you're likely familiar with the [Ingress API], which has been the go-to solution for managing external access to services.
 
-[Ingress API]:https://kubernetes.io/docs/concepts/services-networking/ingress/
+[Ingress API]:/docs/concepts/services-networking/ingress/
 
 The Ingress API provides a way to route external traffic to your applications within the cluster, making it an indispensable tool for many Kubernetes users. Ingress has its limitations however, and as applications become more complex and the demands on your Kubernetes clusters increase, these limitations can become bottlenecks.
 
@@ -33,7 +33,7 @@ Gateway API employs a role-oriented approach that aligns with the conventional r
 For instance, infrastructure engineers play a pivotal role in deploying GatewayClasses, cluster-scoped resources that act as templates to explicitly define behavior for Gateways derived from them, laying the groundwork for robust service networking.
 
 Subsequently, cluster operators utilize these GatewayClasses to deploy gateways.
-A Gateway in Kubernetes' Gateway-API defines how external traffic can be directed to Services within the cluster, essentially bridging non-Kubernetes sources to Kubernetes-aware destinations.
+A Gateway in Kubernetes' Gateway API defines how external traffic can be directed to Services within the cluster, essentially bridging non-Kubernetes sources to Kubernetes-aware destinations.
 It represents a request for a load balancer configuration aligned with a GatewayClass’ specification.
 The Gateway spec may not be exhaustive as some details can be supplied by the GatewayClass controller, ensuring portability.
 Additionally, a Gateway can be linked to multiple Route references to channel specific traffic subsets to designated services.
@@ -49,10 +49,10 @@ It's intended for use in cases where you want to inspect the HTTP stream and use
 Gateway API is designed to be more portable across different implementations, clusters and environments. It helps reduce Ingress' reliance on non-portable, provider-specific annotations, making your configurations more consistent and easier to manage across multiple clusters.
 
 ### Expressiveness
-The Gateway API sets Kuberentes standard support of a wide range of features, such as header-based matching, traffic splitting, weight-based routing, request mirroring and more. With Ingress, these features need custom provider-specific annotations.
+The Gateway API provides standard, Kubernetes-backed support for a wide range of features, such as header-based matching, traffic splitting, weight-based routing, request mirroring and more. With Ingress, these features need custom provider-specific annotations.
 
 ### Extensibility
-Gateway API allows for custom resources to be linked at various layers of the API. This makes granular customization possible at the appropriate places within the API structure.
+Gateway API is designed with extensibility as a core feature. Rather than enforcing a one-size-fits-all model, it offers the flexibility to link custom resources at multiple layers within the API's framework. This layered approach to customization ensures that users can tailor configurations to their specific needs without overwhelming the main structure. By doing so, the Gateway API facilitates more granular and context-sensitive adjustments, allowing for a fine-tuned balance between standardization and adaptability. This becomes particularly valuable in complex cloud-native environments where specific use cases require nuanced configurations.
 
 ## Getting Started
 
@@ -62,12 +62,13 @@ The first thing you will need is a Kubernetes cluster. You can set up a new clus
 ```bash
 kind create cluster --name introducing-i2gw
 ```
-When you create a service of type LoadBalancer in a Kubernetes cluster, typically, cloud providers (like AWS, GCP, Azure) automatically provision a cloud load balancer and allocate a public IP address for it. However, since KinD runs locally, there's no cloud provider available to automatically provision an external IP for such services.
+When you create a Service of `type: LoadBalancer` in a Kubernetes cluster, then typically cloud providers (like AWS, Azure or GCP) automatically provision a cloud load balancer and allocate a public IP address for it. However, since KinD runs locally, there's no cloud provider available to automatically provision an external IP address for such Services.
 
-This is where MetalLB comes in. MetalLB provides a network load-balancer implementation for Kubernetes clusters that do not have external load-balancers available, like KinD.
+This is where MetalLB can come in. MetalLB provides a network load-balancer implementation for Kubernetes clusters that do not have external load-balancers available; this could be KinD or it could be your bare-metal production cluster.
 You'll need to [install](https://metallb.universe.tf/installation/) it in order to continue with this guide.
 
-Now you should have a working environment to start experimenting with Gateway-API. There are many great guides you can follow at https://gateway-api.sigs.k8s.io/guides/.
+Now you should have a working environment to start experimenting with Gateway
+API. There are many great guides you can follow starting from [Getting started with Gateway API](https://gateway-api.sigs.k8s.io/guides/#getting-started-with-gateway-api).
 
 ### Migrating from Ingress to Gateway API using Ingress2Gateway
 Migrating from Ingress to the Gateway API may seem intimidating, but luckily Kubernetes SIG-Network provides a tool to simplify the process. Ingress2Gateway assists in the migration by converting your existing Ingress resources into Gateway API resources. To get started with ingress2gateway, you need to first install the tool.
@@ -75,7 +76,7 @@ Migrating from Ingress to the Gateway API may seem intimidating, but luckily Kub
 ```
 go install github.com/kubernetes-sigs/ingress2gateway@latest
 ```
-This will install ingress2gateway to $(go env GOPATH)/bin/ingress2gateway.
+Provided you have a Go development environment installed, that command installs `ingress2gateway` to `$(go env GOPATH)/bin/ingress2gateway`.
 
 Alternatively, you can build it from source using https://github.com/kubernetes-sigs/ingress2gateway#build-from-source.
 
