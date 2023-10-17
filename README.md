@@ -61,8 +61,8 @@ Make sure to install the Hugo extended version specified by the `HUGO_VERSION` e
 To install dependencies, deploy and test the site locally, run:
 
 - For macOS and Linux
-  ```bash
   
+  ```bash
   npm ci
   make serve
   ```
