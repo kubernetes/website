@@ -189,7 +189,6 @@ List of deprecated feature gates:
 Feature | Default 
 :-------|:--------
 `UpgradeAddonsBeforeControlPlane` | `false`
-`MergeCLIArgumentsWithConfig` | `false`
 {{< /table >}}
 
 Feature gate descriptions:
@@ -207,13 +206,6 @@ other control plane instances have been upgraded completely, and the addons upgr
 instance is upgraded. The deprecated `UpgradeAddonsBeforeControlPlane` feature gate gives you a chance to keep the old upgrade
 behavior. You should not need this old behavior; if you do, you should consider changing your cluster or upgrade processes, as this
 feature gate will be removed in a future release.
-
-
-`MergeCLIArgumentsWithConfig`
-: This feature gate is introduced in Kubernetes v1.29 and defaults to `false`. Enabling this feature gate will merge the value passed
-by the `--ignore-preflight-errors` flag with the value of `ignorePreflightErrors` defined in the config file, which is the default behavior
-in v1.28 and earlier release. The default value `false` means that if the `--ignore-preflight-errors` flag is set and `ignorePreflightErrors`
-is specified in the config file, the value defined in the config file will be ignored.
 
 List of removed feature gates:
 
