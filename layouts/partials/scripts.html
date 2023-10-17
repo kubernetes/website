@@ -52,5 +52,19 @@
   }
 </script>
 
+<!--for the side menu to show up on desktop even if JavaScript is turned off-->
+<noscript>
+  <style>
+    #sidebarnav {
+      width: calc(20% - 5px);
+    }
+    #maindoc{
+      width: calc(80% - 5px);
+    }
+    #td-sidebar-menu {
+      display: block !important;
+    }
+  </style>
+</noscript>
 
 {{ partial "hooks/body-end.html" . }}
