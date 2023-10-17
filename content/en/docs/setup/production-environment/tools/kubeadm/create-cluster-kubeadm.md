@@ -76,9 +76,8 @@ Install a {{< glossary_tooltip term_id="container-runtime" text="container runti
 For detailed instructions and other prerequisites, see [Installing kubeadm](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
 
 {{< note >}}
-If you have already installed kubeadm, run
-`apt-get update && apt-get upgrade` or
-`yum update` to get the latest version of kubeadm.
+If you have already installed kubeadm, see the first two steps of the
+[Upgrading Linux nodes](/docs/tasks/administer-cluster/kubeadm/upgrading-linux-nodes) document for instructions on how to upgrade kubeadm.
 
 When you upgrade, the kubelet restarts every few seconds as it waits in a crashloop for
 kubeadm to tell it what to do. This crashloop is expected and normal.
