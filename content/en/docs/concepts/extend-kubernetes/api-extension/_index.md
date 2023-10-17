@@ -10,7 +10,8 @@ Custom resources are extensions of the Kubernetes API. Kubernetes provides two w
   schema that you specify.
   The Kubernetes control plane serves and handles the storage of your custom resource. CRDs allow you to
   create new types of resources for your cluster without writing and running a custom API server. 
-- The [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) sits behind the primary API server, which acts as a proxy.
+- The [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
+  sits behind the primary API server, which acts as a proxy.
   This arrangement is called API Aggregation(AA), which allows you to provide
   specialized implementations for your custom resources by writing and
   deploying your own API server.
