@@ -156,6 +156,10 @@ In the following table:
 | `DisableAcceleratorUsageMetrics` | `false` | Alpha | 1.19 | 1.19 |
 | `DisableAcceleratorUsageMetrics` | `true` | Beta | 1.20 | 1.24 |
 | `DisableAcceleratorUsageMetrics` | `true` | GA | 1.25 | 1.27 |
+| `DownwardAPIHugePages` | `false` | Alpha | 1.20 | 1.20 |
+| `DownwardAPIHugePages` | `false` | Beta | 1.21 | 1.21 |
+| `DownwardAPIHugePages` | `true` | Beta | 1.22 | 1.26 |
+| `DownwardAPIHugePages` | `true` | GA | 1.27 | 1.29 |
 | `DryRun` | `false` | Alpha | 1.12 | 1.12 |
 | `DryRun` | `true` | Beta | 1.13 | 1.18 |
 | `DryRun` | `true` | GA | 1.19 | 1.27 |
@@ -644,6 +648,9 @@ In the following table:
 
 - `DisableAcceleratorUsageMetrics`:
   [Disable accelerator metrics collected by the kubelet](/docs/concepts/cluster-administration/system-metrics/#disable-accelerator-metrics).
+
+- `DownwardAPIHugePages`: Enables usage of hugepages in
+  [downward API](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information).
 
 - `DryRun`: Enable server-side [dry run](/docs/reference/using-api/api-concepts/#dry-run) requests
   so that validation, merging, and mutation can be tested without committing.

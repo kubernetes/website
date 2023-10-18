@@ -250,10 +250,6 @@ For a reference to old feature gates that are removed, please refer to
 | `DaemonSetUpdateSurge` | `true` | Beta | 1.22 | 1.24 |
 | `DaemonSetUpdateSurge` | `true` | GA | 1.25 | |
 | `DefaultHostNetworkHostPortsInPodTemplates` | `false` | Deprecated | 1.28 | |
-| `DownwardAPIHugePages` | `false` | Alpha | 1.20 | 1.20 |
-| `DownwardAPIHugePages` | `false` | Beta | 1.21 | 1.21 |
-| `DownwardAPIHugePages` | `true` | Beta | 1.22 | 1.26 |
-| `DownwardAPIHugePages` | `true` | GA | 1.27 | |
 | `EfficientWatchResumption` | `false` | Alpha | 1.20 | 1.20 |
 | `EfficientWatchResumption` | `true` | Beta | 1.21 | 1.23 |
 | `EfficientWatchResumption` | `true` | GA | 1.24 | |
@@ -477,8 +473,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
   component flag.
 - `DisableKubeletCloudCredentialProviders`: Disable the in-tree functionality in kubelet
   to authenticate to a cloud provider container registry for image pull credentials.
-- `DownwardAPIHugePages`: Enables usage of hugepages in
-  [downward API](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information).
 - `DynamicResourceAllocation`: Enables support for resources with custom parameters and a lifecycle
   that is independent of a Pod.
 - `ElasticIndexedJob`: Enables Indexed Jobs to be scaled up or down by mutating both
