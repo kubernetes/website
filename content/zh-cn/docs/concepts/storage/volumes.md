@@ -431,16 +431,15 @@ The `emptyDir.medium` field controls where `emptyDir` volumes are stored. By
 default `emptyDir` volumes are stored on whatever medium that backs the node
 such as disk, SSD, or network storage, depending on your environment. If you set
 the `emptyDir.medium` field to `"Memory"`, Kubernetes mounts a tmpfs (RAM-backed
-filesystem) for you instead.  While tmpfs is very fast, be aware that unlike
-disks, tmpfs is cleared on node reboot and any files you write count against
-your container's memory limit.
+filesystem) for you instead.  While tmpfs is very fast be aware that, unlike
+disks, files you write count against the memory limit of the container that wrote them.
 -->
 `emptyDir.medium` 字段用来控制 `emptyDir` 卷的存储位置。
 默认情况下，`emptyDir` 卷存储在该节点所使用的介质上；
 此处的介质可以是磁盘、SSD 或网络存储，这取决于你的环境。
 你可以将 `emptyDir.medium` 字段设置为 `"Memory"`，
 以告诉 Kubernetes 为你挂载 tmpfs（基于 RAM 的文件系统）。
-虽然 tmpfs 速度非常快，但是要注意它与磁盘不同：tmpfs 在节点重启时会被清除，
+虽然 tmpfs 速度非常快，但是要注意它与磁盘不同，
 并且你所写入的所有文件都会计入容器的内存消耗，受容器内存限制约束。
 
 <!--

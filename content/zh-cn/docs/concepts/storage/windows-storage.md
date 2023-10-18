@@ -62,7 +62,7 @@ As a result, the following storage functionality is not supported on Windows nod
 * Block device mapping
 * Memory as the storage medium (for example, `emptyDir.medium` set to `Memory`)
 * File system features like uid/gid; per-user Linux filesystem permissions
-* Setting [secret permissions with DefaultMode](/docs/concepts/configuration/secret/#secret-files-permissions) (due to UID/GID dependency)
+* Setting [secret permissions with DefaultMode](/docs/tasks/inject-data-application/distribute-credentials-secure/#set-posix-permissions-for-secret-keys) (due to UID/GID dependency)
 * NFS based storage/volume support
 * Expanding the mounted volume (resizefs)
 -->
@@ -73,7 +73,7 @@ As a result, the following storage functionality is not supported on Windows nod
 * 块设备映射
 * 内存作为存储介质（例如 `emptyDir.medium` 设置为 `Memory`）
 * 类似 UID/GID、各用户不同的 Linux 文件系统访问许可等文件系统特性
-* 使用 [DefaultMode 设置 Secret 权限](/zh-cn/docs/concepts/configuration/secret/#secret-files-permissions)
+* 使用 [DefaultMode 设置 Secret 权限](/zh-cn/docs/tasks/inject-data-application/distribute-credentials-secure/#set-posix-permissions-for-secret-keys)
   （因为该特性依赖 UID/GID）
 * 基于 NFS 的存储和卷支持
 * 扩展已挂载卷（resizefs）
