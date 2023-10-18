@@ -314,6 +314,9 @@ In the following table:
 | `ResourceQuotaScopeSelectors` | `false` | Alpha | 1.11 | 1.11 |
 | `ResourceQuotaScopeSelectors` | `true` | Beta | 1.12 | 1.16 |
 | `ResourceQuotaScopeSelectors` | `true` | GA | 1.17 | 1.18 |
+| `RetroactiveDefaultStorageClass` | `false` | Alpha | 1.25 | 1.25 |
+| `RetroactiveDefaultStorageClass` | `true` | Beta | 1.26 | 1.27 |
+| `RetroactiveDefaultStorageClass` | `true` | GA | 1.28 | 1.28 |
 | `RootCAConfigMap` | `false` | Alpha | 1.13 | 1.19 |
 | `RootCAConfigMap` | `true` | Beta | 1.20 | 1.20 |
 | `RootCAConfigMap` | `true` | GA | 1.21 | 1.22 |
@@ -839,6 +842,8 @@ In the following table:
   nodes with same scores.
 
 - `ResourceQuotaScopeSelectors`: Enable resource quota scope selectors.
+
+- `RetroactiveDefaultStorageClass`: Allow assigning StorageClass to unbound PVCs retroactively.
 
 - `RootCAConfigMap`: Configure the `kube-controller-manager` to publish a
   {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} named `kube-root-ca.crt`
