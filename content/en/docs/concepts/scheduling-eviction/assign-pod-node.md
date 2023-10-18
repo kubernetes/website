@@ -292,6 +292,12 @@ that the pod matches its own terms, and the chosen node matches all requested to
 This ensures that there will not be a deadlock even if all the pods have inter-pod affinity
 specified.
 
+#### Match the label keys of the incoming Pod
+
+{{< feature-state for_k8s_version="v1.29" state="alpha" >}}
+
+TODO
+
 #### Pod affinity example {#an-example-of-a-pod-that-uses-pod-affinity}
 
 Consider the following Pod spec:
