@@ -135,6 +135,7 @@ For a reference to old feature gates that are removed, please refer to
 | `KubeletTracing` | `false` | Alpha | 1.25 | 1.26 |
 | `KubeletTracing` | `true` | Beta | 1.27 | |
 | `LegacyServiceAccountTokenCleanUp` | `false` | Alpha | 1.28 | |
+| `LoadBalancerIPMode` | `false` | Alpha | 1.29 | |
 | `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | - |
 | `LogarithmicScaleDown` | `false` | Alpha | 1.21 | 1.21 |
 | `LogarithmicScaleDown` | `true` | Beta | 1.22 | |
@@ -599,6 +600,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
   when they are not used in a specified time (default to be one year).
 - `LegacyServiceAccountTokenTracking`: Track usage of Secret-based
   [service account tokens](/docs/concepts/security/service-accounts/#get-a-token).
+- `LoadBalancerIPMode`: Allows setting `ipMode` for Services where `type` is set to `LoadBalancer`. 
+  See [Specifying IPMode of load balancer status](/docs/concepts/services-networking/service/#load-balancer-ip-mode) 
+  for more information.
 - `LocalStorageCapacityIsolationFSQuotaMonitoring`: When `LocalStorageCapacityIsolation`
   is enabled for
   [local ephemeral storage](/docs/concepts/configuration/manage-resources-containers/)
