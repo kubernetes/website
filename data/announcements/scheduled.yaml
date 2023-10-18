@@ -166,7 +166,7 @@ announcements:
     April 18 - April 21, 2023.
 
 - name: Kubecon 2023 NA
-  startTime: 2023-10-20T00:00:00  #Added in 
+  startTime: 2023-10-20T00:00:00  #Added in https://github.com/kubernetes/website/pull/43565
   endTime: 2023-11-09T18:00:00
   style: >-
     background: linear-gradient(90deg, rgba(55,38,93,1) 0%, rgba(85,53,125,1) 65%, rgba(33,70,139,1) 100%);
