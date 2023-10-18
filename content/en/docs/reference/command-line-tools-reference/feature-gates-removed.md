@@ -159,7 +159,7 @@ In the following table:
 | `DownwardAPIHugePages` | `false` | Alpha | 1.20 | 1.20 |
 | `DownwardAPIHugePages` | `false` | Beta | 1.21 | 1.21 |
 | `DownwardAPIHugePages` | `true` | Beta | 1.22 | 1.26 |
-| `DownwardAPIHugePages` | `true` | GA | 1.27 | 1.29 |
+| `DownwardAPIHugePages` | `true` | GA | 1.27 | 1.28 |
 | `DryRun` | `false` | Alpha | 1.12 | 1.12 |
 | `DryRun` | `true` | Beta | 1.13 | 1.18 |
 | `DryRun` | `true` | GA | 1.19 | 1.27 |
