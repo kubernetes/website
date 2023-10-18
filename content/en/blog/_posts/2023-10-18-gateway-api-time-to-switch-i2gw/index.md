@@ -17,7 +17,7 @@ In the ever-evolving world of Kubernetes, networking plays a pivotal role. As mo
 
 The Ingress API provides a way to route external traffic to your applications within the cluster, making it an indispensable tool for many Kubernetes users. Ingress has its limitations however, and as applications become more complex and the demands on your Kubernetes clusters increase, these limitations can become bottlenecks.
 
-Some of the limitations are;
+Some of the limitations are:
 
 - **Insufficient common denominator** - by attempting to establish a common denominator for various HTTP proxies, Ingress can only accommodate basic HTTP routing, forcing more features of contemporary proxies like traffic splitting and header matching into provider-specific, non-transferable annotations.
 - **Inadequate permission model** - Ingress spec configures both infrastructure and application configuration in one object. With Ingress, the cluster operator and application developer operate on the same Ingress object without being aware of each other’s roles. This creates an insufficient role-based access control and has high potential for setup errors. 
@@ -51,7 +51,7 @@ It's intended for use in cases where you want to inspect the HTTP stream and use
 ### Portability
 With more than 20 [API implementations](https://gateway-api.sigs.k8s.io/implementations/#implementations), Gateway API is designed to be more portable across different implementations, clusters and environments. It helps reduce Ingress' reliance on non-portable, provider-specific annotations, making your configurations more consistent and easier to manage across multiple clusters.
 
-<!-- It is already supported on the 5 latest Kubernetes versions and the community commit to maintain support for the most recent 5 Kubernetes minor versions. -->
+Gateway API commits to supporting the 5 latest Kubernetes minor versions. That means that Gateway API currently supports Kubernetes 1.24+.
 
 ### Expressiveness
 The Gateway API provides standard, Kubernetes-backed support for a wide range of features, such as header-based matching, traffic splitting, weight-based routing, request mirroring and more. With Ingress, these features need custom provider-specific annotations.
@@ -73,7 +73,7 @@ Provided you have a Go development environment installed, that command installs 
 
 Alternatively, you can build it from source by following [Build from source](https://github.com/kubernetes-sigs/ingress2gateway/tree/95b4a0316bac8d28d72b871a210bbc9bd6191eb7#build-from-source)
 
-3. Once the tool is installed, you can use it to convert the ingress resources in your cluster to GatewayAPI resources.
+3. Once the tool is installed, you can use it to convert the ingress resources in your cluster to Gateway API resources.
 
 ```
 ingress2gateway print
@@ -83,16 +83,16 @@ This above command will:
 
 1. Read your Kube config file to extract the cluster credentials and the current active namespace.
 1. Search for ingresses and provider-specific resources in that namespace.
-1. Convert them to Gateway-API resources (Currently only Gateways and HTTPRoutes).
+1. Convert them to Gateway API resources (Currently only Gateways and HTTPRoutes).
 For other options refer run the tool with `-h` or refer to https://github.com/kubernetes-sigs/ingress2gateway#options
 
 4. Review the converted Gateway API resources, validate them, and then apply them to your cluster.
 
-5. Update your DNS to point to the new gateway. 
+5. Update your DNS to point to the new Gateway. 
 
 Note: make sure you test the newly created gateway before shifting the shifting 100% of the traffic.
 
-6. Make sure no traffic goes through your ingress and delete it.
+6. Once you've confirmed that no more traffic is going through your Ingress configuration, you can safely delete it.
 
 ## Wrapping up
 Achieving reliable, scalable and extensible networking has always been a challenging objective.
@@ -105,6 +105,6 @@ Ingress2gateway tool helps to ease the migration process for you, converting an 
 
 ### Try it out and get involved
 There are many resources to check out and learn more:
-- Get involved with the Kubernetes project on [GitHub](https://github.com/kubernetes-sigs/ingress2gateway)
+- Get involved with the Ingress2Gateway project on [GitHub](https://github.com/kubernetes-sigs/ingress2gateway)
 - [Gateway API Getting Started](https://gateway-api.sigs.k8s.io/guides/)
 - [Gateway API Implementations](https://gateway-api.sigs.k8s.io/implementations/#gateways)
