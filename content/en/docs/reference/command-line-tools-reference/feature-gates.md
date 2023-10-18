@@ -300,9 +300,6 @@ For a reference to old feature gates that are removed, please refer to
 | `RemoveSelfLink` | `false` | Alpha | 1.16 | 1.19 |
 | `RemoveSelfLink` | `true` | Beta | 1.20 | 1.23 |
 | `RemoveSelfLink` | `true` | GA | 1.24 | |
-| `RetroactiveDefaultStorageClass` | `false` | Alpha | 1.25 | 1.25 |
-| `RetroactiveDefaultStorageClass` | `true` | Beta | 1.26 | 1.27 |
-| `RetroactiveDefaultStorageClass` | `true` | GA | 1.28 | |
 | `SeccompDefault` | `false` | Alpha | 1.22 | 1.24 |
 | `SeccompDefault` | `true` | Beta | 1.25 | 1.26 |
 | `SeccompDefault` | `true` | GA | 1.27 | - |
@@ -689,7 +686,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
   objects and collections. This field has been deprecated since the Kubernetes v1.16
   release. When this feature is enabled, the `.metadata.selfLink` field remains part of
   the Kubernetes API, but is always unset.
-- `RetroactiveDefaultStorageClass`: Allow assigning StorageClass to unbound PVCs retroactively.
 - `RotateKubeletServerCertificate`: Enable the rotation of the server TLS certificate on the kubelet.
   See [kubelet configuration](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#kubelet-configuration)
   for more details.
