@@ -393,6 +393,9 @@ In the following table:
 | `TokenRequestProjection` | `false` | Alpha | 1.11 | 1.11 |
 | `TokenRequestProjection` | `true` | Beta | 1.12 | 1.19 |
 | `TokenRequestProjection` | `true` | GA | 1.20 | 1.21 |
+| `TopologyManager` | `false` | Alpha | 1.16 | 1.17 |	
+| `TopologyManager` | `true` | Beta | 1.18 | 1.26 |	
+| `TopologyManager` | `true` | GA | 1.27 | 1.28 |
 | `UserNamespacesStatelessPodsSupport` | `false` | Alpha | 1.25 | 1.27 |
 | `ValidateProxyRedirects` | `false` | Alpha | 1.12 | 1.13 |
 | `ValidateProxyRedirects` | `true` | Beta | 1.14 | 1.21 |
@@ -919,6 +922,10 @@ In the following table:
 
 - `TokenRequestProjection`: Enable the injection of service account tokens into a Pod through a
   [`projected` volume](/docs/concepts/storage/volumes/#projected).
+
+- `TopologyManager`: Enable a mechanism to coordinate fine-grained hardware resource	
+  assignments for different components in Kubernetes. See	
+  [Control Topology Management Policies on a node](/docs/tasks/administer-cluster/topology-manager/).
 
 - `UserNamespacesStatelessPodsSupport`: Enable user namespace support for stateless Pods. This flag was renamed on newer releases to `UserNamespacesSupport`.
 
