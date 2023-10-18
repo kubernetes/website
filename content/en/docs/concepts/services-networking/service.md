@@ -34,7 +34,8 @@ expect that an individual Pod is reliable and durable).
 
 Each Pod gets its own IP address (Kubernetes expects network plugins to ensure this).
 For a given Deployment in your cluster, the set of Pods running in one moment in
-time could be different from the set of Pods running that application a moment later.
+time could be different from the set of Pods running that application a moment later
+due to scaling, resources or demand.
 
 This leads to a problem: if some set of Pods (call them "backends") provides
 functionality to other Pods (call them "frontends") inside your cluster,
