@@ -14,9 +14,9 @@ Alongside the [PR Wrangler](/docs/contribute/participate/pr-wranglers),formal ap
 
 Each day in a week-long shift the Issue Wrangler will be responsible for:
 
-- Triage and tagging incoming issues daily. See [Triage and categorize issues](https://github.com/kubernetes/website/blob/main/content/en/docs/contribute/review/for-approvers.md/#triage-and-categorize-issues) for guidelines on how SIG Docs uses metadata.
+- Triaging and tagging incoming issues daily. See [Triage and categorize issues](https://github.com/kubernetes/website/blob/main/content/en/docs/contribute/review/for-approvers.md/#triage-and-categorize-issues) for guidelines on how SIG Docs uses metadata.
 - Keeping an eye on stale & rotten issues within the kubernetes/website repository.
-- Maintenance of the [Issues board](https://github.com/orgs/kubernetes/projects/72/views/1) would be nice.
+- Maintenance of the [Issues board](https://github.com/orgs/kubernetes/projects/72/views/1).
 
 ### Requirements
 
