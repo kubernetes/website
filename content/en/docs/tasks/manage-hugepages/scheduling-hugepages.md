@@ -29,7 +29,7 @@ GRUB_CMDLINE_LINUX="hugepagesz=1G hugepages=2 hugepagesz=2M hugepages=512"
 The nodes will automatically discover and report all huge page resources as
 schedulable resources.
 
-When you describe the node, you should see something similar to the following
+When you describe the Node, you should see something similar to the following
 in the following in the `Capacity` and `Allocatable` sections:
 
 ```
@@ -49,8 +49,10 @@ Allocatable:
   pods:               ...
 ```
 
-> **NOTE:** For dynamically allocated pages (after boot), the Kubelet
-> needs to be restarted for the new allocations to be refrelected.
+{{< note >}}
+For dynamically allocated pages (after boot), the Kubelet needs to be restarted
+for the new allocations to be refrelected.
+{{< /note >}}
 
 <!-- steps -->
 
