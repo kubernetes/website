@@ -1006,7 +1006,7 @@ Learn more about Services and how they fit into Kubernetes:
 * Read about [Ingress](/docs/concepts/services-networking/ingress/), which
   exposes HTTP and HTTPS routes from outside the cluster to Services within
   your cluster.
-* Read about [Gateway](https://gateway-api.sigs.k8s.io/), an extension to
+* Read about [Gateway](/docs/concepts/services-networking/gateway/), an extension to
   Kubernetes that provides more flexibility than Ingress.
 
 For more context, read the following:
