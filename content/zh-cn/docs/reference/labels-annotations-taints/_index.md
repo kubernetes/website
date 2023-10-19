@@ -47,7 +47,7 @@ Type: Annotation
 
 Example: `apf.kubernetes.io/autoupdate-spec: "true"`
 
-Used on: [`FlowSchema` and `PriorityLevelConfiguration` Objects](/concepts/cluster-administration/flow-control/#defaults)
+Used on: [`FlowSchema` and `PriorityLevelConfiguration` Objects](/docs/concepts/cluster-administration/flow-control/#defaults)
 
 If this annotation is set to true on a FlowSchema or PriorityLevelConfiguration, the `spec` for that object
 is managed by the kube-apiserver. If the API server does not recognize an APF object, and you annotate it
@@ -59,7 +59,7 @@ For more details, read  [Maintenance of the Mandatory and Suggested Configuratio
 
 例子：`apf.kubernetes.io/autoupdate-spec: "true"`
 
-用于：[`FlowSchema` 和 `PriorityLevelConfiguration` 对象](/zh-cn/concepts/cluster-administration/flow-control/#defaults)
+用于：[`FlowSchema` 和 `PriorityLevelConfiguration` 对象](/zh-cn/docs/concepts/cluster-administration/flow-control/#defaults)
 
 如果在 FlowSchema 或 PriorityLevelConfiguration 上将此注解设置为 true，
 那么该对象的 `spec` 将由 kube-apiserver 进行管理。如果 API 服务器不识别 APF 对象，
@@ -584,6 +584,35 @@ For example, Kustomize removes objects with this annotation from its final build
 
 该注解是 Kubernetes 资源模型 (KRM) 函数规范的一部分，被 Kustomize 和其他类似的第三方工具使用。
 例如，Kustomize 会从其最终构建输出中删除带有此注解的对象。
+
+### container.apparmor.security.beta.kubernetes.io/* (beta) {#container-apparmor-security-beta-kubernetes-io}
+
+<!--
+Type: Annotation
+
+Example: `container.apparmor.security.beta.kubernetes.io/my-container: my-custom-profile`
+
+Used on: Pods
+
+This annotation allows you to specify the AppArmor security profile for a container within a
+Kubernetes pod. 
+To learn more, see the [AppArmor](/docs/tutorials/security/apparmor/) tutorial.
+The tutorial illustrates using AppArmor to restrict a container's abilities and access.
+
+The profile specified dictates the set of rules and restrictions that the containerized process must
+adhere to. This helps enforce security policies and isolation for your containers.
+-->
+类别：注解
+
+例子：`container.apparmor.security.beta.kubernetes.io/my-container: my-custom-profile`
+
+用于：Pod
+
+此注解允许你为 Kubernetes Pod 中的容器指定 AppArmor 安全配置文件。
+更多细节参阅 [AppArmor](/zh-cn/docs/tutorials/security/apparmor/) 教程。
+该教程演示了如何使用 AppArmor 限制容器的权能和访问权限。
+
+所指定的配置文件定义了容器进程必须遵守的规则集和限制集。这有助于针对容器实施安全策略和隔离措施。
 
 <!--
 ### internal.config.kubernetes.io/* (reserved prefix) {#internal.config.kubernetes.io-reserved-wildcard}
@@ -1832,6 +1861,35 @@ for a Service, don't add this annotation.
 
 此注解没有其他有效值。如果你不希望为 Service 启用拓扑感知提示，不要添加此注解。
 
+### service.kubernetes.io/topology-mode
+
+<!--
+Type: Annotation
+
+Example: `service.kubernetes.io/topology-mode: Auto`
+
+Used on: Service
+
+This annotation provides a way to define how Services handle network topology;
+for example, you can configure a Service so that Kubernetes prefers keeping traffic between
+a client and server within a single topology zone.
+In some cases this can help reduce costs or improve network performance.
+
+See [Topology Aware Routing](/docs/concepts/services-networking/topology-aware-routing/)
+for more details.
+-->
+类别：注解
+
+例子：`service.kubernetes.io/topology-mode: Auto`
+
+用于：Service
+
+此注解提供了一种定义 Service 如何处理网络拓扑的方式；
+例如，你可以配置 Service，以便 Kubernetes 更倾向于将客户端和服务器之间的流量保持在同一拓扑区域内。
+在某些情况下，这有助于降低成本或提高网络性能。
+
+更多细节参阅[拓扑感知路由](/zh-cn/docs/concepts/services-networking/topology-aware-routing/)。
+
 <!--
 ### kubernetes.io/service-name {#kubernetesioservice-name}
 
@@ -2098,7 +2156,7 @@ resource without a class specified will be assigned this default class.
 
 类别：注解
 
-例子：`ingressclass.kubernetes.io/is-default-class: "true"`
+例子：`storageclass.kubernetes.io/is-default-class: "true"`
 
 用于：StorageClass
 
@@ -2301,6 +2359,49 @@ If the number of backend endpoints falls below 1000, the control plane removes t
 此注解表示 Endpoints 对象已超出容量，并且已将 Endpoints 数截断为 1000。
 
 如果后端端点的数量低于 1000，则控制平面将移除此注解。
+
+<!--
+### control-plane.alpha.kubernetes.io/leader (deprecated) {#control-plane-alpha-kubernetes-io-leader}
+
+Type: Annotation
+
+Example: `control-plane.alpha.kubernetes.io/leader={"holderIdentity":"controller-0","leaseDurationSeconds":15,"acquireTime":"2023-01-19T13:12:57Z","renewTime":"2023-01-19T13:13:54Z","leaderTransitions":1}`
+
+Used on: Endpoints
+-->
+### control-plane.alpha.kubernetes.io/leader（已弃用） {#control-plane-alpha-kubernetes-io-leader}
+
+类别：注解
+
+例子：`control-plane.alpha.kubernetes.io/leader={"holderIdentity":"controller-0","leaseDurationSeconds":15,"acquireTime":"2023-01-19T13:12:57Z","renewTime":"2023-01-19T13:13:54Z","leaderTransitions":1}`
+
+用于：Endpoints
+
+<!--
+The {{< glossary_tooltip text="control plane" term_id="control-plane" >}} previously set annotation on
+an [Endpoints](/docs/concepts/services-networking/service/#endpoints) object. This annotation provided
+the following detail:
+
+- Who is the current leader.
+- The time when the current leadership was acquired.
+- The duration of the lease (of the leadership) in seconds.
+- The time the current lease (the current leadership) should be renewed.
+- The number of leadership transitions that happened in the past.
+
+Kubernetes now uses [Leases](/docs/concepts/architecture/leases/) to
+manage leader assignment for the Kubernetes control plane.
+-->
+{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}先前在
+[Endpoints](/zh-cn/docs/concepts/services-networking/service/#endpoints)
+对象上设置此注解。此注解提供以下细节：
+
+- 当前的领导者是谁。
+- 获取当前领导权的时间。
+- 租约（领导权）的持续时间，以秒为单位。
+- 当前租约（当前领导权）应被续约的时间。
+- 过去发生的领导权转换次数。
+
+Kubernetes 现在使用[租约](/zh-cn/docs/concepts/architecture/leases/)来管理 Kubernetes 控制平面的领导者分配。
 
 <!--
 ### batch.kubernetes.io/job-tracking (deprecated) {#batch-kubernetes-io-job-tracking}
@@ -2887,15 +2988,38 @@ NFD uses this for an internal mechanism. You should not edit this annotation you
 管理的以逗号分隔的[扩展资源](/zh-cn/docs/concepts/configuration/manage-resources-containers/#extended-resources)列表。
 NFD 将其用于内部机制。你不应该自己编辑这个注解。
 
+### nfd.node.kubernetes.io/node-name
+
+<!--
+Type: Label
+
+Example: `nfd.node.kubernetes.io/node-name: node-1`
+
+Used on: Nodes
+
+It specifies which node the NodeFeature object is targeting.
+Creators of NodeFeature objects must set this label and 
+consumers of the objects are supposed to use the label for 
+filtering features designated for a certain node.
+-->
+类别：标签
+
+例子：`nfd.node.kubernetes.io/node-name: node-1`
+
+用于：Node
+
+此标签指定哪个节点是 NodeFeature 对象的目标节点。
+NodeFeature 对象的创建者必须设置此标签，而此对象的使用者应该使用此标签过滤为某个节点指定的特性。
+
 {{< note >}}
 <!--
-These annotations only applies to nodes where NFD is running.
-To learn more about NFD and its components go to its official
-[documentation](https://kubernetes-sigs.github.io/node-feature-discovery/stable/get-started/).
+These Node Feature Discovery (NFD) labels or annotations only apply to 
+the nodes where NFD is running. To learn more about NFD and 
+its components go to its official [documentation](https://kubernetes-sigs.github.io/node-feature-discovery/stable/get-started/).
 -->
-这些注解仅适用于运行 NFD 的节点。
-要了解更多关于 NFD 及其组件的信息，请访问其官方
-[文档](https://kubernetes-sigs.github.io/node-feature-discovery/stable/get-started/).
+这些节点特性发现（Node Feature Discovery, NFD）的标签或注解仅适用于运行 NFD 的节点。
+要了解关于 NFD 及其组件的信息，请访问官方
+[文档](https://kubernetes-sigs.github.io/node-feature-discovery/stable/get-started/)。
 {{< /note >}}
 
 ### service.beta.kubernetes.io/aws-load-balancer-access-log-emit-interval (beta) {#service-beta-kubernetes-io-aws-load-balancer-access-log-emit-interval}
@@ -3458,6 +3582,45 @@ in the AWS load balancer controller documentation.
 
 [AWS 负载均衡器控制器](https://kubernetes-sigs.github.io/aws-load-balancer-controller/)使用此注解。
 参见 AWS 负载均衡器控制器文档中的[注解](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/service/annotations/)。
+
+<!--
+### service.beta.kubernetes.io/aws-load-balancer-security-groups (deprecated) {#service-beta-kubernetes-io-aws-load-balancer-security-groups}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-security-groups: "sg-53fae93f,sg-8725gr62r"`
+
+Used on: Service
+-->
+### service.beta.kubernetes.io/aws-load-balancer-security-groups（已弃用） {#service-beta-kubernetes-io-aws-load-balancer-security-groups}
+
+例子：`service.beta.kubernetes.io/aws-load-balancer-security-groups: "sg-53fae93f,sg-8725gr62r"`
+
+用于：Service
+
+<!--
+The AWS load balancer controller uses this annotation to specify a comma seperated list
+of security groups you want to attach to an AWS load balancer. Both name and ID of security
+are supported where name matches a `Name` tag, not the `groupName` attribute.
+
+When this annotation is added to a Service, the load-balancer controller attaches the security groups
+referenced by the annotation to the load balancer. If you omit this annotation, the AWS load balancer
+controller automatically creates a new security group and attaches it to the load balancer.
+-->
+AWS 负载均衡器控制器使用此注解来指定要附加到 AWS 负载均衡器的安全组的逗号分隔列表。
+安全名称和 ID 均被支持，其中名称匹配 `Name` 标记，而不是 `groupName` 属性。
+
+当将此注解添加到 Service 时，负载均衡器控制器会将注解引用的安全组附加到负载均衡器上。
+如果你省略了此注解，AWS 负载均衡器控制器会自动创建一个新的安全组并将其附加到负载均衡器上。
+
+{{< note >}}
+<!--
+Kubernetes v1.27 and later do not directly set or read this annotation. However, the AWS
+load balancer controller (part of the Kubernetes project) does still use the
+`service.beta.kubernetes.io/aws-load-balancer-security-groups` annotation.
+-->
+Kubernetes v1.27 及更高版本不直接设置或读取此注解。然而，AWS 负载均衡器控制器
+（作为 Kubernetes 项目的一部分）仍在使用
+`service.beta.kubernetes.io/aws-load-balancer-security-groups` 注解。
+{{< /note >}}
 
 ### service.beta.kubernetes.io/load-balancer-source-ranges (deprecated) {#service-beta-kubernetes-io-load-balancer-source-ranges}
 
