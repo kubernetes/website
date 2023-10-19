@@ -9,7 +9,7 @@ weight: 20
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.27" state="beta" >}}
+{{< feature-state for_k8s_version="v1.29" state="stable" >}}
 
 By default, Kubernetes {{< skew currentVersion >}} publishes Service Level Indicator (SLI) metrics 
 for each Kubernetes component binary. This metric endpoint is exposed on the serving 
