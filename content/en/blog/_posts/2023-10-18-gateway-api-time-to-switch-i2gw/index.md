@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Time to Upgrade; Migrating to Gateway API"
-date: 2023-10-19T10:00:00-08:00
+date: 2023-10-24T10:00:00-08:00
 slug: introducing-ingress2gateway
 ---
 
