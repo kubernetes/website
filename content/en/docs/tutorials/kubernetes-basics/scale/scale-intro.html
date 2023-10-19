@@ -32,7 +32,8 @@ description: |-
             <p><em>Scaling</em> is accomplished by changing the number of replicas in a Deployment</p>
             <p><b>NOTE</b> If you are trying this after <a href="/docs/tutorials/kubernetes-basics/expose/expose-intro/">the previous section </a>, then you may have deleted the service you created or the type of the node you have created is NodePort. 
             In this section, it is assumed that a service with type LoadBalancer is created for the kubernetes-bootcamp deployment.</p>
-            <p>If you have not deleted the service created in <a href="/docs/tutorials/kubernetes-basics/expose/expose-intro">the previous section</a>. Then, first delete the service and then run the following command to create a service of type LoadBalancer.</p>
+            <p>If you have not deleted the service created in <a href="/docs/tutorials/kubernetes-basics/expose/expose-intro">the previous section</a>. 
+            Then, first delete the service and then run the following command to create a service of type LoadBalancer.</p>
             <p><code><b>kubectl expose deployment/kubernetes-bootcamp --type="LoadBalancer" --port 8080</b></code></p>
             <br />
             </div>
