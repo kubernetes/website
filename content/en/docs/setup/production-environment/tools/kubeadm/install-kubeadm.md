@@ -175,7 +175,7 @@ These instructions are for Kubernetes {{< skew currentVersion >}}.
    ```shell
    sudo apt-get update
    # apt-transport-https may be a dummy package; if so, you can skip that package
-   sudo apt-get install -y apt-transport-https ca-certificates curl
+   sudo apt-get install -y apt-transport-https ca-certificates curl gpg
    ```
 
 2. Download the public signing key for the Kubernetes package repositories.
