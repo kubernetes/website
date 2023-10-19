@@ -259,9 +259,6 @@ For a reference to old feature gates that are removed, please refer to
 | `ExpandedDNSConfig` | `true` | GA | 1.28 | |
 | `ExperimentalHostUserNamespaceDefaulting` | `false` | Beta | 1.5 | 1.27 |
 | `ExperimentalHostUserNamespaceDefaulting` | `false` | Deprecated | 1.28 | |
-| `GRPCContainerProbe` | `false` | Alpha | 1.23 | 1.23 |
-| `GRPCContainerProbe` | `true` | Beta | 1.24 | 1.26 |
-| `GRPCContainerProbe` | `true` | GA | 1.27 | |
 | `IPTablesOwnershipCleanup` | `false` | Alpha | 1.25 | 1.26 |
 | `IPTablesOwnershipCleanup` | `true` | Beta | 1.27 | 1.27 |
 | `IPTablesOwnershipCleanup` | `true` | GA | 1.28 | |
@@ -506,8 +503,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
   for more details.
 - `GracefulNodeShutdownBasedOnPodPriority`: Enables the kubelet to check Pod priorities
   when shutting down a node gracefully.
-- `GRPCContainerProbe`: Enables the gRPC probe method for {Liveness,Readiness,Startup}Probe.
-  See [Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-a-grpc-liveness-probe).
 - `HonorPVReclaimPolicy`: Honor persistent volume reclaim policy when it is `Delete` irrespective of PV-PVC deletion ordering.
   For more details, check the
   [PersistentVolume deletion protection finalizer](/docs/concepts/storage/persistent-volumes/#persistentvolume-deletion-protection-finalizer)

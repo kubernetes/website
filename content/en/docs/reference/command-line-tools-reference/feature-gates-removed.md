@@ -207,6 +207,9 @@ In the following table:
 | `ExternalPolicyForExternalIP` | `true` | GA | 1.18 | 1.22 |
 | `GCERegionalPersistentDisk` | `true` | Beta | 1.10 | 1.12 |
 | `GCERegionalPersistentDisk` | `true` | GA | 1.13 | 1.16 |
+| `GRPCContainerProbe` | `false` | Alpha | 1.23 | 1.23 |
+| `GRPCContainerProbe` | `true` | Beta | 1.24 | 1.26 |
+| `GRPCContainerProbe` | `true` | GA | 1.27 | 1.28 |
 | `GenericEphemeralVolume` | `false` | Alpha | 1.19 | 1.20 |
 | `GenericEphemeralVolume` | `true` | Beta | 1.21 | 1.22 |
 | `GenericEphemeralVolume` | `true` | GA | 1.23 | 1.24 |
@@ -713,6 +716,9 @@ In the following table:
   applied to Service ExternalIPs.
 
 - `GCERegionalPersistentDisk`: Enable the regional PD feature on GCE.
+
+- `GRPCContainerProbe`: Enables the gRPC probe method for {Liveness,Readiness,Startup}Probe.
+  See [Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-a-grpc-liveness-probe).
 
 - `GenericEphemeralVolume`: Enables ephemeral, inline volumes that support all features
   of normal volumes (can be provided by third-party storage vendors, storage capacity tracking,
