@@ -239,7 +239,7 @@ account credentials, you can use the following methods:
 
 The Kubernetes project recommends that you use the TokenReview API, because
 this method invalidates tokens that are bound to API objects such as Secrets,
-ServiceAccounts, and Pods when those objects are deleted. For example, if you
+ServiceAccounts, Pods or Nodes when those objects are deleted. For example, if you
 delete the Pod that contains a projected ServiceAccount token, the cluster
 invalidates that token immediately and a TokenReview immediately fails.
 If you use OIDC validation instead, your clients continue to treat the token
