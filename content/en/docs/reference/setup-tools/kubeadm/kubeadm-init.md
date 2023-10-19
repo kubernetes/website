@@ -135,7 +135,7 @@ If your configuration is not using the latest version it is **recommended** that
 the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
 
 For more information on the fields and usage of the configuration you can navigate to our
-[API reference page](/docs/reference/config-api/kubeadm-config.v1beta4/).
+[API reference page](/docs/reference/config-api/kubeadm-config.v1beta3/).
 
 ### Using kubeadm init with feature gates {#feature-gates}
 
@@ -145,7 +145,7 @@ of the cluster. Feature gates are removed after a feature graduates to GA.
 
 To pass a feature gate you can either use the `--feature-gates` flag for
 `kubeadm init`, or you can add items into the `featureGates` field when you pass
-a [configuration file](/docs/reference/config-api/kubeadm-config.v1beta4/#kubeadm-k8s-io-v1beta4-ClusterConfiguration)
+a [configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/#kubeadm-k8s-io-v1beta3-ClusterConfiguration)
 using `--config`.
 
 Passing [feature gates for core Kubernetes components](/docs/reference/command-line-tools-reference/feature-gates)
@@ -314,7 +314,7 @@ kubeadm init phase upload-certs --upload-certs --config=SOME_YAML_FILE
 ```
 {{< note >}}
 A predefined `certificateKey` can be provided in `InitConfiguration` when passing the
-[configuration file](/docs/reference/config-api/kubeadm-config.v1beta4/) with `--config`.
+[configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/) with `--config`.
 {{< /note >}}
 
 If a predefined certificate key is not passed to `kubeadm init` and
