@@ -1222,8 +1222,6 @@ spec:
       containers:
       - name: nginx
         image: nginx:1.14.2
-        ports:
-        - containerPort: 80
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -1253,8 +1251,6 @@ spec:
       containers:
       - name: nginx
         image: nginx:1.14.2
-        ports:
-        - containerPort: 80
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -1284,8 +1280,6 @@ spec:
       containers:
       - name: nginx
         image: nginx:1.14.2
-        ports:
-        - containerPort: 80
   strategy:
     type: RollingUpdate
     rollingUpdate:
