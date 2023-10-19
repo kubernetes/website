@@ -80,7 +80,7 @@ There are two special cases:
 An empty `key` with operator `Exists` matches all keys, values and effects which means this
 will tolerate everything.
 
-An empty `effect` matches all effects with key `key1`.
+An empty `effect` matches all effects with key `key1`(the `operator` is `Equal` and the `values` are equal).
 
 {{< /note >}}
 
