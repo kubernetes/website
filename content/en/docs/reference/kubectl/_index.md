@@ -25,7 +25,8 @@ For details about each command, including all the supported flags and subcommand
 
 For installation instructions, see [Installing kubectl](/docs/tasks/tools/#kubectl);
 for a quick guide, see the [cheat sheet](/docs/reference/kubectl/cheatsheet/).
-If you're used to using the `docker` command-line tool, [`kubectl` for Docker Users](/docs/reference/kubectl/docker-cli-to-kubectl/) explains some equivalent commands for Kubernetes.
+If you're used to using the `docker` command-line tool,
+[`kubectl` for Docker Users](/docs/reference/kubectl/docker-cli-to-kubectl/) explains some equivalent commands for Kubernetes.
 
 <!-- body -->
 
@@ -39,37 +40,41 @@ kubectl [command] [TYPE] [NAME] [flags]
 
 where `command`, `TYPE`, `NAME`, and `flags` are:
 
-* `command`: Specifies the operation that you want to perform on one or more resources, 
-for example `create`, `get`, `describe`, `delete`.
+* `command`: Specifies the operation that you want to perform on one or more resources,
+  for example `create`, `get`, `describe`, `delete`.
 
 * `TYPE`: Specifies the [resource type](#resource-types). Resource types are case-insensitive and
   you can specify the singular, plural, or abbreviated forms.
   For example, the following commands produce the same output:
 
-   ```shell
-   kubectl get pod pod1
-   kubectl get pods pod1
-   kubectl get po pod1
-   ```
+  ```shell
+  kubectl get pod pod1
+  kubectl get pods pod1
+  kubectl get po pod1
+  ```
 
-* `NAME`: Specifies the name of the resource. Names are case-sensitive. If the name is omitted, details for all resources are displayed, for example `kubectl get pods`.
+* `NAME`: Specifies the name of the resource. Names are case-sensitive. If the name is omitted,
+  details for all resources are displayed, for example `kubectl get pods`.
 
-   When performing an operation on multiple resources, you can specify each resource by type and name or specify one or more files:
+  When performing an operation on multiple resources, you can specify each resource by
+  type and name or specify one or more files:
 
-   * To specify resources by type and name:
+  * To specify resources by type and name:
 
-      * To group resources if they are all the same type:  `TYPE1 name1 name2 name<#>`.<br/>
+    * To group resources if they are all the same type:  `TYPE1 name1 name2 name<#>`.<br/>
       Example: `kubectl get pod example-pod1 example-pod2`
 
-      * To specify multiple resource types individually:  `TYPE1/name1 TYPE1/name2 TYPE2/name3 TYPE<#>/name<#>`.<br/>
+    * To specify multiple resource types individually:  `TYPE1/name1 TYPE1/name2 TYPE2/name3 TYPE<#>/name<#>`.<br/>
       Example: `kubectl get pod/example-pod1 replicationcontroller/example-rc1`
 
-   * To specify resources with one or more files:  `-f file1 -f file2 -f file<#>`
+  * To specify resources with one or more files:  `-f file1 -f file2 -f file<#>`
 
-      * [Use YAML rather than JSON](/docs/concepts/configuration/overview/#general-configuration-tips) since YAML tends to be more user-friendly, especially for configuration files.<br/>
-     Example: `kubectl get -f ./pod.yaml`
+    * [Use YAML rather than JSON](/docs/concepts/configuration/overview/#general-configuration-tips)
+      since YAML tends to be more user-friendly, especially for configuration files.<br/>
+      Example: `kubectl get -f ./pod.yaml`
 
-* `flags`: Specifies optional flags. For example, you can use the `-s` or `--server` flags to specify the address and port of the Kubernetes API server.<br/>
+* `flags`: Specifies optional flags. For example, you can use the `-s` or `--server` flags
+  to specify the address and port of the Kubernetes API server.<br/>
 
 {{< caution >}}
 Flags that you specify from the command line override default values and any corresponding environment variables.
@@ -79,19 +84,29 @@ If you need help, run `kubectl help` from the terminal window.
 
 ## In-cluster authentication and namespace overrides
 
-By default `kubectl` will first determine if it is running within a pod, and thus in a cluster. It starts by checking for the `KUBERNETES_SERVICE_HOST` and `KUBERNETES_SERVICE_PORT` environment variables and the existence of a service account token file at `/var/run/secrets/kubernetes.io/serviceaccount/token`. If all three are found in-cluster authentication is assumed.
+By default `kubectl` will first determine if it is running within a pod, and thus in a cluster.
+It starts by checking for the `KUBERNETES_SERVICE_HOST` and `KUBERNETES_SERVICE_PORT` environment
+variables and the existence of a service account token file at `/var/run/secrets/kubernetes.io/serviceaccount/token`.
+If all three are found in-cluster authentication is assumed.
 
-To maintain backwards compatibility, if the `POD_NAMESPACE` environment variable is set during in-cluster authentication it will override the default namespace from the service account token. Any manifests or tools relying on namespace defaulting will be affected by this.
+To maintain backwards compatibility, if the `POD_NAMESPACE` environment variable is set
+during in-cluster authentication it will override the default namespace from the
+service account token. Any manifests or tools relying on namespace defaulting will be affected by this.
 
 **`POD_NAMESPACE` environment variable**
 
-If the `POD_NAMESPACE` environment variable is set, cli operations on namespaced resources will default to the variable value. For example, if the variable is set to `seattle`, `kubectl get pods` would return pods in the `seattle` namespace. This is because pods are a namespaced resource, and no namespace was provided in the command. Review the output of `kubectl api-resources` to determine if a resource is namespaced. 
+If the `POD_NAMESPACE` environment variable is set, cli operations on namespaced resources
+will default to the variable value. For example, if the variable is set to `seattle`,
+`kubectl get pods` would return pods in the `seattle` namespace. This is because pods are
+a namespaced resource, and no namespace was provided in the command. Review the output
+of `kubectl api-resources` to determine if a resource is namespaced.
 
-Explicit use of `--namespace <value>` overrides this behavior. 
+Explicit use of `--namespace <value>` overrides this behavior.
 
 **How kubectl handles ServiceAccount tokens**
 
 If:
+
 * there is Kubernetes service account token file mounted at
   `/var/run/secrets/kubernetes.io/serviceaccount/token`, and
 * the `KUBERNETES_SERVICE_HOST` environment variable is set, and
@@ -230,11 +245,15 @@ The following table includes a list of all the supported resource types and thei
 
 ## Output options
 
-Use the following sections for information about how you can format or sort the output of certain commands. For details about which commands support the various output options, see the [kubectl](/docs/reference/kubectl/kubectl/) reference documentation.
+Use the following sections for information about how you can format or sort the output
+of certain commands. For details about which commands support the various output options,
+see the [kubectl](/docs/reference/kubectl/kubectl/) reference documentation.
 
 ### Formatting output
 
-The default output format for all `kubectl` commands is the human readable plain-text format. To output details to your terminal window in a specific format, you can add either the `-o` or `--output` flags to a supported `kubectl` command.
+The default output format for all `kubectl` commands is the human readable plain-text format.
+To output details to your terminal window in a specific format, you can add either the `-o`
+or `--output` flags to a supported `kubectl` command.
 
 #### Syntax
 
@@ -324,7 +343,9 @@ pod-name   1m
 
 ### Sorting list objects
 
-To output objects to a sorted list in your terminal window, you can add the `--sort-by` flag to a supported `kubectl` command. Sort your objects by specifying any numeric or string field with the `--sort-by` flag. To specify a field, use a [jsonpath](/docs/reference/kubectl/jsonpath/) expression.
+To output objects to a sorted list in your terminal window, you can add the `--sort-by` flag
+to a supported `kubectl` command. Sort your objects by specifying any numeric or string field
+with the `--sort-by` flag. To specify a field, use a [jsonpath](/docs/reference/kubectl/jsonpath/) expression.
 
 #### Syntax
 
@@ -508,10 +529,12 @@ The following kubectl-compatible plugins are available:
 
 `kubectl plugin list` also warns you about plugins that are not
 executable, or that are shadowed by other plugins; for example:
+
 ```shell
 sudo chmod -x /usr/local/bin/kubectl-foo # remove execute permission
 kubectl plugin list
 ```
+
 ```
 The following kubectl-compatible plugins are available:
 
@@ -529,8 +552,10 @@ of the existing kubectl commands:
 ```shell
 cat ./kubectl-whoami
 ```
+
 The next few examples assume that you already made `kubectl-whoami` have
 the following contents:
+
 ```shell
 #!/bin/bash
 
