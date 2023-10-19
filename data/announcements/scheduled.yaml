@@ -164,7 +164,7 @@ announcements:
   message: |
     4 days of incredible opportunities to collaborate, learn + share with the entire community!<br />
     April 18 - April 21, 2023.
-    
+
 - name: Redirecting k8s.gcr.io - After
   startTime: 2023-03-27T00:00:00 # This should run after the redirect begins
   endTime: 2023-05-31T00:00:00
@@ -194,3 +194,16 @@ announcements:
     The legacy Linux package repositories (`apt.kubernetes.io` and `yum.kubernetes.io`)<br/>
     have been frozen starting from September 13, 2023.<br/>
     Please read our [announcement](/blog/2023/08/31/legacy-package-repository-deprecation/) for more details.
+
+- name: Kubecon 2023 NA
+  startTime: 2023-10-20T00:00:00  #Added in https://github.com/kubernetes/website/pull/43565
+  endTime: 2023-11-09T18:00:00
+  style: >-
+    background: linear-gradient(90deg, rgba(55,38,93,1) 0%, rgba(85,53,125,1) 65%, rgba(33,70,139,1) 100%);
+    color: #fffff;
+  title: |
+    <img src ="/images/announcements/kccnc-na-2023-white.svg" style="float: right; height: 80px;" />
+    <a href= "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/">KubeCon + CloudNativeCon NA 2023</a> <em> Chicago, Illinois + Virtual</em>.
+  message: |
+    4 days of incredible opportunities to collaborate, learn + share with the entire community!<br />
+    November 6 - November 9, 2023.
