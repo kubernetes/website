@@ -119,6 +119,8 @@ document.
 你需要启用所需的 Kubernetes 小版本的软件包仓库。
 这一点在[更改 Kubernetes 软件包仓库](/zh-cn/docs/tasks/administer-cluster/kubeadm/change-package-repository/)文档中有详细说明。
 
+{{% legacy-repos-deprecation %}}
+
 <!--
 ## Determine which version to upgrade to
 -->
