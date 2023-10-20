@@ -86,6 +86,7 @@ in-flight.
 and how they relate to each other" >}}
 
 ### Portability
+
 With more than 20 [API
 implementations](https://gateway-api.sigs.k8s.io/implementations/#implementations), Gateway API is
 designed to be more portable across different implementations, clusters and environments. It helps
@@ -96,11 +97,13 @@ Gateway API commits to supporting the 5 latest Kubernetes minor versions. That m
 API currently supports Kubernetes 1.24+.
 
 ### Expressiveness
+
 The Gateway API provides standard, Kubernetes-backed support for a wide range of features, such as
 header-based matching, traffic splitting, weight-based routing, request mirroring and more. With
 Ingress, these features need custom provider-specific annotations.
 
 ### Extensibility
+
 Gateway API is designed with extensibility as a core feature. Rather than enforcing a
 one-size-fits-all model, it offers the flexibility to link custom resources at multiple layers
 within the API's framework. This layered approach to customization ensures that users can tailor
@@ -137,7 +140,7 @@ started with Gateway API and using ingress2gateway:
    Alternatively, follow the installation guide
    [here](https://github.com/kubernetes-sigs/ingress2gateway#installation).
 
-1. Once the tool is installed, you can use it to convert the ingress resources in your cluster to
+3. Once the tool is installed, you can use it to convert the ingress resources in your cluster to
    Gateway API resources.
 
    ```
@@ -153,36 +156,49 @@ started with Gateway API and using ingress2gateway:
    options you can  run the tool with `-h`, or refer to
    [https://github.com/kubernetes-sigs/ingress2gateway#options](https://github.com/kubernetes-sigs/ingress2gateway#options).
 
-2. Review the converted Gateway API resources, validate them, and then apply them to your cluster.
+4. Review the converted Gateway API resources, validate them, and then apply them to your cluster.
 
-3. Send test requests to your Gateway to check that it is working. You could get your gateway
+5. Send test requests to your Gateway to check that it is working. You could get your gateway
    address using `kubectl get gateway <gateway-name> -n <namespace> -o
    jsonpath='{.status.addresses}{"\n"}'`.
 
-4. Update your DNS to point to the new Gateway. 
+6. Update your DNS to point to the new Gateway. 
 
-5. Once you've confirmed that no more traffic is going through your Ingress configuration, you can
+7. Once you've confirmed that no more traffic is going through your Ingress configuration, you can
    safely delete it.
 
 ## Wrapping up
+
 Achieving reliable, scalable and extensible networking has always been a challenging objective. The
 Gateway API is designed to improve the current Kubernetes networking standards like ingress and
 reduce the need for implementation specific annotations and CRDs.
 
 It is a Kubernetes standard API, consistent across different platforms and implementations and most
 importantly it is future proof. The Gateway API is considered the successor to Ingress; Gateway API
-is supported by a dedicated team under SIG Network that actively work on it and manage the
-ecosystem. It is also likely to receive more updates and community support.
+and Ingress2gateway are supported by a dedicated team under SIG Network that actively work on it and
+manage the ecosystem. It is also likely to receive more updates and community support.
 
-Ingress2gateway tool helps to ease the migration process for you, converting an existing Ingress
-object to equivalent objects from Gateway. To make migrations even easier, Ingress2gateway has
-recently added extensions to enable converting from provider-specific solutions, enabling it to
-translate implementation-specific CRDs or Ingress annotations to the closest Gateway API equivalent.
+### The Road Ahead
 
+Ingress2gateway is just getting started. We're planning to onboard more providers, introduce support
+for more types of Gateway API routes, and make sure everything syncs up smoothly with the ongoing
+development of the Gateway API.
 
-### Try it out and get involved
-There are many resources to check out and learn more:
+Excitingly, the Gateway API is also making significant strides. While v1.0 is about to launching,
+there's still a lot of work ahead. This release incorporates many new experimental features, with
+additional functionalities currently in the early stages of planning and development.
+
+If you're interested in helping to contribute, we would love to have you! Please check out the
+[community page](https://gateway-api.sigs.k8s.io/contributing/community/) which includes links to
+the Slack channel and community meetings. We look forward to seeing you!!
+
+### Useful Links
+
 - Get involved with the Ingress2Gateway project on
   [GitHub](https://github.com/kubernetes-sigs/ingress2gateway)
+- Open a new issue -
+  [Ingress2gateway](https://github.com/kubernetes-sigs/ingress2gateway/issues/new/choose), [Gateway
+  API](https://github.com/kubernetes-sigs/gateway-api/issues/new/choose).
+- Join our [discussions](https://github.com/kubernetes-sigs/gateway-api/discussions).
 - [Gateway API Getting Started](https://gateway-api.sigs.k8s.io/guides/)
 - [Gateway API Implementations](https://gateway-api.sigs.k8s.io/implementations/#gateways)
