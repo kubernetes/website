@@ -62,6 +62,33 @@ a different volume.
 
 Kubernetes supports several types of volumes.
 
+### Alta Enterprise Resiliency for Kubernetes {#InfoScale-Volume}
+
+An Infoscale Volume is a software defined storage solution running over containers. Infoscale volume can be shared between multiple pod's without NFS services using internal features to provide parallel access. a Multitenant environment can be deployed over the same kubernetes environment to ensure maximum performance and resiliency.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: redis
+  labels:
+    name: redis
+spec:
+  containers:
+    - name: redis
+      image: redis
+      imagePullPolicy: IfNotPresent
+      volumeMounts:
+        - mountPath: "/redis"
+          name: vol1
+  volumes:
+    - name: vol1
+      persistentVolumeClaim:
+        claimName: csi-infoscale-pvc
+ ```
+An Infoscale Volume can be dymamically provissioned through a csi plugin. The Infoscale volume can be used for statefullset pod's and stateless pod's as ephemeral data as well.
+
+
 ### awsElasticBlockStore (removed) {#awselasticblockstore}
 
 <!-- maintenance note: OK to remove all mention of awsElasticBlockStore once the v1.27 release of
