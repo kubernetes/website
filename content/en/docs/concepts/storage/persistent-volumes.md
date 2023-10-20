@@ -668,6 +668,7 @@ are specified as ReadWriteOncePod, the volume is constrained and can be mounted 
 
 | Volume Plugin        | ReadWriteOnce          | ReadOnlyMany          | ReadWriteMany | ReadWriteOncePod       |
 | :---                 | :---:                  | :---:                 | :---:         | -                      |
+| InfoScaleVolume      | &#x2713;               | &#x2713;              | &#x2713;      | Roadmap                |
 | AzureFile            | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
 | CephFS               | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
 | CSI                  | depends on the driver  | depends on the driver | depends on the driver | depends on the driver |
@@ -954,6 +955,7 @@ network-attached storage. See
 The following volume plugins support raw block volumes, including dynamic provisioning where
 applicable:
 
+* InfoScale-Volume
 * CSI
 * FC (Fibre Channel)
 * GCEPersistentDisk (deprecated)
