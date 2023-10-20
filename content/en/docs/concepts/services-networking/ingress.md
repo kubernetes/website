@@ -17,22 +17,6 @@ weight: 30
 
 <!-- body -->
 
-## Terminology
-
-For clarity, this guide defines the following terms:
-
-* Node: A worker machine in Kubernetes, part of a cluster.
-* Cluster: A set of Nodes that run containerized applications managed by Kubernetes.
-  For this example, and in most common Kubernetes deployments, nodes in the cluster
-  are not part of the public internet.
-* Edge router: A router that enforces the firewall policy for your cluster. This
-  could be a gateway managed by a cloud provider or a physical piece of hardware.
-* Cluster network: A set of links, logical or physical, that facilitate communication
-  within a cluster according to the Kubernetes [networking model](/docs/concepts/cluster-administration/networking/).
-* Service: A Kubernetes {{< glossary_tooltip term_id="service" >}} that identifies
-  a set of Pods using {{< glossary_tooltip text="label" term_id="label" >}} selectors.
-  Unless mentioned otherwise, Services are assumed to have virtual IPs only routable within the cluster network.
-
 ## What is Ingress?
 
 [Ingress](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1-networking-k8s-io)
