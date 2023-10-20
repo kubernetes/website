@@ -82,6 +82,7 @@ For a reference to old feature gates that are removed, please refer to
 | `CloudDualStackNodeIPs` | `false` | Alpha | 1.27 | 1.28 |
 | `CloudDualStackNodeIPs` | `true` | Beta | 1.29 | |
 | `ClusterTrustBundle` | false | Alpha | 1.27 | |
+| `ClusterTrustBundleProjection` | `false` | Alpha | 1.29 | |
 | `ComponentSLIs` | `false` | Alpha | 1.26 | 1.26 |
 | `ComponentSLIs` | `true` | Beta | 1.27 | |
 | `ConsistentListFromCache` | `false` | Alpha | 1.28 | |
@@ -441,7 +442,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `CloudDualStackNodeIPs`: Enables dual-stack `kubelet --node-ip` with external cloud providers.
   See [Configure IPv4/IPv6 dual-stack](/docs/concepts/services-networking/dual-stack/#configure-ipv4-ipv6-dual-stack)
   for more details.
-- `ClusterTrustBundle`: Enable ClusterTrustBundle objects and kubelet integration.
+- `ClusterTrustBundle`: Enable ClusterTrustBundle objects.
+- `ClusterTrustBundleProjection`: [`clusterTrustBundle` projected volume sources](/docs/concepts/storage/projected-volumes#clustertrustbundle).
 - `ComponentSLIs`: Enable the `/metrics/slis` endpoint on Kubernetes components like
   kubelet, kube-scheduler, kube-proxy, kube-controller-manager, cloud-controller-manager
   allowing you to scrape health check metrics.
