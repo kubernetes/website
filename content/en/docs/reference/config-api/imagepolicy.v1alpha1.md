@@ -11,7 +11,6 @@ auto_generated: true
 
 - [ImageReview](#imagepolicy-k8s-io-v1alpha1-ImageReview)
   
-    
 
 ## `ImageReview`     {#imagepolicy-k8s-io-v1alpha1-ImageReview}
     

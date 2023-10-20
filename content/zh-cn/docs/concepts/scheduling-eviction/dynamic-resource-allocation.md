@@ -46,7 +46,8 @@ Kubernetes v{{< skew currentVersion >}} 包含用于动态资源分配的集群�
 
 <!-- body -->
 
-## API {#api}
+## API
+
 <!-- 
 The `resource.k8s.io/v1alpha2` {{< glossary_tooltip text="API group"
 term_id="api-group" >}} provides four types:
@@ -101,9 +102,8 @@ typically using the type defined by a {{< glossary_tooltip
 term_id="CustomResourceDefinition" text="CRD" >}} that was created when
 installing a resource driver.
 -->
-ResourceClass 和 ResourceClaim 的参数存储在单独的对象中，
-通常使用安装资源驱动程序时创建的 {{< glossary_tooltip
-term_id="CustomResourceDefinition" text="CRD" >}} 所定义的类型。
+ResourceClass 和 ResourceClaim 的参数存储在单独的对象中，通常使用安装资源驱动程序时创建的
+{{< glossary_tooltip term_id="CustomResourceDefinition" text="CRD" >}} 所定义的类型。
 
 <!-- 
 The `core/v1` `PodSpec` defines ResourceClaims that are needed for a Pod in a
@@ -274,7 +274,7 @@ or not reserved for the Pod, then the kubelet will fail to run the Pod and
 re-check periodically because those requirements might still get fulfilled
 later.
 -->
-## 预调度的 Pod
+## 预调度的 Pod   {#pre-scheduled-pods}
 
 当你（或别的 API 客户端）创建设置了 `spec.nodeName` 的 Pod 时，调度器将被绕过。
 如果 Pod 所需的某个 ResourceClaim 尚不存在、未被分配或未为该 Pod 保留，那么 kubelet
@@ -335,8 +335,8 @@ kube-scheduler, kube-controller-manager and kubelet also need the feature gate.
 -->
 动态资源分配是一个 **alpha 特性**，只有在启用 `DynamicResourceAllocation`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-和 `resource.k8s.io/v1alpha1` {{< glossary_tooltip text="API 组"
-term_id="api-group" >}} 时才启用。
+和 `resource.k8s.io/v1alpha1`
+{{< glossary_tooltip text="API 组" term_id="api-group" >}} 时才启用。
 有关详细信息，参阅 `--feature-gates` 和 `--runtime-config`
 [kube-apiserver 参数](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)。
 kube-scheduler、kube-controller-manager 和 kubelet 也需要设置该特性门控。
@@ -356,6 +356,7 @@ If your cluster supports dynamic resource allocation, the response is either a
 list of ResourceClass objects or:
 -->
 如果你的集群支持动态资源分配，则响应是 ResourceClass 对象列表或：
+
 ```
 No resources found
 ```
@@ -364,6 +365,7 @@ No resources found
 If not supported, this error is printed instead:
 -->
 如果不支持，则会输出如下错误：
+
 ```
 error: the server doesn't have a resource type "resourceclasses"
 ```

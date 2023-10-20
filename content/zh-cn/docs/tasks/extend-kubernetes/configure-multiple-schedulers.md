@@ -82,13 +82,23 @@ Save the file as `Dockerfile`, build the image and push it to a registry. This e
 pushes the image to
 [Google Container Registry (GCR)](https://cloud.google.com/container-registry/).
 For more details, please read the GCR
-[documentation](https://cloud.google.com/container-registry/docs/).
+[documentation](https://cloud.google.com/container-registry/docs/). Alternatively
+you can also use the [docker hub](https://hub.docker.com/search?q=). For more details
+refer to the docker hub [documentation](https://docs.docker.com/docker-hub/repos/create/#create-a-repository).
 -->
 将文件保存为 `Dockerfile`，构建镜像并将其推送到镜像仓库。
 此示例将镜像推送到 [Google 容器镜像仓库（GCR）](https://cloud.google.com/container-registry/)。
 有关详细信息，请阅读 GCR [文档](https://cloud.google.com/container-registry/docs/)。
+或者，你也可以使用 [Docker Hub](https://hub.docker.com/search?q=)。
+有关更多详细信息，请参阅 Docker Hub
+[文档](https://docs.docker.com/docker-hub/repos/create/#create-a-repository)。
 
+<!--
+# The image name and the repository
+# used in here is just an example
+-->
 ```shell
+# 这里使用的镜像名称和仓库只是一个例子
 docker build -t gcr.io/my-gcp-project/my-kube-scheduler:1.0 .
 gcloud docker -- push gcr.io/my-gcp-project/my-kube-scheduler:1.0
 ```
@@ -326,7 +336,7 @@ scheduler in that pod spec. Let's look at three examples.
 <!--
   Verify that all three pods are running.
 -->
-  确认所有三个 pod 都在运行。
+  确认所有三个 Pod 都在运行。
 
   ```shell
   kubectl get pods
@@ -337,7 +347,7 @@ scheduler in that pod spec. Let's look at three examples.
 <!--
 ### Verifying that the pods were scheduled using the desired schedulers
 -->
-### 验证是否使用所需的调度器调度了 pod
+### 验证是否使用所需的调度器调度了 Pod
 
 <!--
 In order to make it easier to work through these examples, we did not verify that the
@@ -352,15 +362,15 @@ scheduled as well.
 为了更容易地完成这些示例，我们没有验证 Pod 实际上是使用所需的调度程序调度的。
 我们可以通过更改 Pod 的顺序和上面的部署配置提交来验证这一点。
 如果我们在提交调度器部署配置之前将所有 Pod 配置提交给 Kubernetes 集群，
-我们将看到注解了 `annotation-second-scheduler` 的 Pod 始终处于 “Pending” 状态，
+我们将看到注解了 `annotation-second-scheduler` 的 Pod 始终处于 `Pending` 状态，
 而其他两个 Pod 被调度。
 一旦我们提交调度器部署配置并且我们的新调度器开始运行，注解了
-`annotation-second-scheduler` 的 pod 就能被调度。
+`annotation-second-scheduler` 的 Pod 就能被调度。
 <!--
 Alternatively, you can look at the "Scheduled" entries in the event logs to
 verify that the pods were scheduled by the desired schedulers.
 -->
-或者，可以查看事件日志中的 “Scheduled” 条目，以验证是否由所需的调度器调度了 Pod。
+或者，可以查看事件日志中的 `Scheduled` 条目，以验证是否由所需的调度器调度了 Pod。
 
 ```shell
 kubectl get events
@@ -372,5 +382,4 @@ or a custom container image for the cluster's main scheduler by modifying its st
 on the relevant control plane nodes.
 -->
 你也可以使用[自定义调度器配置](/zh-cn/docs/reference/scheduling/config/#multiple-profiles)
-或自定义容器镜像，用于集群的主调度器，方法是在相关控制平面节点上修改其静态 pod 清单。
-
+或自定义容器镜像，用于集群的主调度器，方法是在相关控制平面节点上修改其静态 Pod 清单。

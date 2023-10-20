@@ -59,21 +59,35 @@ address: "192.168.0.8"
 port: 20250
 serializeImagePulls: false
 evictionHard:
-    memory.available:  "200Mi"
+    memory.available:  "100Mi"
+    nodefs.available:  "10%"
+    nodefs.inodesFree: "5%"
+    imagefs.available: "15%"
 ```
 
 <!--
-In the example, the kubelet is configured to serve on IP address 192.168.0.8 and port 20250, pull images in parallel,
-and evict Pods when available memory drops below 200Mi. Since only one of the four evictionHard thresholds is configured,
-other evictionHard thresholds are reset to 0 from their built-in defaults.
-All other kubelet configuration values are left at their built-in defaults, unless overridden
-by flags. Command line flags which target the same value as a config file will override that value.
+In this example, the kubelet is configured with the following settings:
 -->
-在这个示例中, kubelet 被设置为在地址 192.168.0.8 端口 20250 上提供服务，以并行方式拉取镜像，
-当可用内存低于 200Mi 时, kubelet 将会开始驱逐 Pod。
-由于仅配置了四个 evictionHard 阈值之一，因此其他 evictionHard 阈值被重置为 0，而不是使用其内置默认值。
-没有声明的其余配置项都将使用默认值，除非使用命令行参数来重载。
-命令行中的参数将会覆盖配置文件中的对应值。
+在此示例中，kubelet 配置为以下设置：
+
+<!--
+1. `address`: The kubelet will serve on IP address `192.168.0.8`.
+2. `port`: The kubelet will serve on port `20250`.
+3. `serializeImagePulls`: Image pulls will be done in parallel.
+4. `evictionHard`: The kubelet will evict Pods under one of the following conditions:
+   - When the node's available memory drops below 100MiB.
+   - When the node's main filesystem's available space is less than 10%.
+   - When the image filesystem's available space is less than 15%.
+   - When more than 95% of the node's main filesystem's inodes are in use.
+-->
+1. `address`：kubelet 将在 `192.168.0.8` IP 地址上提供服务。
+2. `port`：kubelet 将在 `20250` 端口上提供服务。
+3. `serializeImagePulls`：并行拉取镜像。
+4. `evictionHard`：kubelet 将在以下情况之一驱逐 Pod：
+   - 当节点的可用内存降至 100MiB 以下时。
+   - 当节点主文件系统的已使用 inode 超过 95%。
+   - 当镜像文件系统的可用空间小于 15% 时。
+   - 当节点主文件系统的 inode 超过 95% 正在使用时。
 
 {{< note >}}
 <!--
@@ -85,6 +99,12 @@ the threshold values respectively.
 在示例中，通过只更改 evictionHard 的一个参数的默认值，
 其他参数的默认值将不会被继承，他们会被设置为零。如果要提供自定义值，你应该分别设置所有阈值。
 {{< /note >}}
+
+<!--
+The `imagefs` is an optional filesystem that container runtimes use to store container
+images and container writable layers.
+-->
+`imagefs` 是一个可选的文件系统，容器运行时使用它来存储容器镜像和容器可写层。
 
 <!--
 ## Start a kubelet process configured via the config file

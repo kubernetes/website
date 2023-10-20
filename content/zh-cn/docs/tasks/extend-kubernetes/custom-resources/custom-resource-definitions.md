@@ -1320,21 +1320,21 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
 -->
 验证规则例子：
 
-| 规则                                                                             | 目的                                                                             |
-| ----------------                                                                 | ------------                                                                     |
-| `self.minReplicas <= self.replicas && self.replicas <= self.maxReplicas`         | 验证定义副本数的三个字段大小顺序是否正确                                             |
-| `'Available' in self.stateCounts`                                                | 验证 map 中是否存在键名为 `Available`的条目                                   |
-| `(size(self.list1) == 0) != (size(self.list2) == 0)`                             | 验证两个 list 之一是非空的，但不是二者都非空                                   |
-| <code>!('MY_KEY' in self.map1) &#124;&#124; self['MY_KEY'].matches('^[a-zA-Z]*$')</code>               | 如果某个特定的 key 在 map 中，验证 map 中这个 key 的 value |
-| `self.envars.filter(e, e.name = 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$')` | 验证一个 listMap 中主键 'name' 为 'MY_ENV' 'value' 的表项，检查其取值 'value'             |
-| `has(self.expired) && self.created + self.ttl < self.expired`    | 验证 'Expired' 日期是否晚于 'Create' 日期加上 'ttl' 持续时间                   |
-| `self.health.startsWith('ok')`                                                   | 验证 'health' 字符串字段有前缀 'ok'             |
-| `self.widgets.exists(w, w.key == 'x' && w.foo < 10)`                             | 验证 key 为 'x' 的 listMap 项的 'foo' 属性是否小于 10                             |
-| `type(self) == string ? self == '100%' : self == 1000`                           | 在 int 型和 string 型两种情况下验证 int-or-string 字段                           |
-| `self.metadata.name.startsWith(self.prefix)`                                     | 验证对象的名称是否具有另一个字段值的前缀                                         |
-| `self.set1.all(e, !(e in self.set2))`                                            | 验证两个 listSet 是否不相交                                                      |
-| `size(self.names) == size(self.details) && self.names.all(n, n in self.details)` | 验证 'details' map 是由 'names' listSet 的项目所决定的。                         |
-| `size(self.clusters.filter(c, c.name == self.primary)) == 1`                     | 验证 'primary' 属性仅在 'clusters' listMap 中出现一次且只有一次           |
+| 规则                                                                                      | 目的                                                                              |
+| ----------------                                                                         | ------------                                                                      |
+| `self.minReplicas <= self.replicas && self.replicas <= self.maxReplicas`                 | 验证定义副本数的三个字段大小顺序是否正确                                                 |
+| `'Available' in self.stateCounts`                                                        | 验证映射中是否存在键名为 `Available`的条目                                             |
+| `(size(self.list1) == 0) != (size(self.list2) == 0)`                                     | 检查两个列表之一是非空的，但不是二者都非空                                               |
+| <code>!('MY_KEY' in self.map1) &#124;&#124; self['MY_KEY'].matches('^[a-zA-Z]*$')</code> | 如果某个特定的键在映射中，验证映射中对应键的取值                                           |
+| `self.envars.filter(e, e.name = 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$')`         | 验证一个 listMap 中主键 'name' 为 'MY_ENV' 的表项的取值                                 |
+| `has(self.expired) && self.created + self.ttl < self.expired`                            | 验证 'Expired' 日期是否晚于 'Create' 日期加上 'ttl' 时长                                |
+| `self.health.startsWith('ok')`                                                           | 验证 'health' 字符串字段有前缀 'ok'                                                   |
+| `self.widgets.exists(w, w.key == 'x' && w.foo < 10)`                                     | 验证键为 'x' 的 listMap 项的 'foo' 属性是否小于 10                                     |
+| `type(self) == string ? self == '100%' : self == 1000`                                   | 在 int 型和 string 型两种情况下验证 int-or-string 字段                                 |
+| `self.metadata.name.startsWith(self.prefix)`                                             | 验证对象的名称是否以另一个字段值为前缀                                                   |
+| `self.set1.all(e, !(e in self.set2))`                                                    | 验证两个 listSet 是否不相交                                                           |
+| `size(self.names) == size(self.details) && self.names.all(n, n in self.details)`         | 验证 'details' 映射中的 'names' 来自于 listSet                                        |
+| `size(self.clusters.filter(c, c.name == self.primary)) == 1`                             | 验证 'primary' 属性在 'clusters' listMap 中出现一次且只有一次                           |
 
 参考：[CEL 中支持的求值](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#evaluation)
 

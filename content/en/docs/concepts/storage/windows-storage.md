@@ -41,7 +41,7 @@ As a result, the following storage functionality is not supported on Windows nod
 * Block device mapping
 * Memory as the storage medium (for example, `emptyDir.medium` set to `Memory`)
 * File system features like uid/gid; per-user Linux filesystem permissions
-* Setting [secret permissions with DefaultMode](/docs/concepts/configuration/secret/#secret-files-permissions) (due to UID/GID dependency)
+* Setting [secret permissions with DefaultMode](/docs/tasks/inject-data-application/distribute-credentials-secure/#set-posix-permissions-for-secret-keys) (due to UID/GID dependency)
 * NFS based storage/volume support
 * Expanding the mounted volume (resizefs)
 

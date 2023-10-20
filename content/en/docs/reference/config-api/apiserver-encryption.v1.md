@@ -12,7 +12,6 @@ auto_generated: true
 
 - [EncryptionConfiguration](#apiserver-config-k8s-io-v1-EncryptionConfiguration)
   
-    
 
 ## `EncryptionConfiguration`     {#apiserver-config-k8s-io-v1-EncryptionConfiguration}
     
@@ -20,7 +19,7 @@ auto_generated: true
 
 <p>EncryptionConfiguration stores the complete configuration for encryption providers.
 It also allows the use of wildcards to specify the resources that should be encrypted.
-Use '&ast;.&lt;group&gt;' to encrypt all resources within a group or '&ast;.&ast;' to encrypt all resources.
+Use '&ast;&lt;group&gt;o encrypt all resources within a group or '&ast;.&ast;' to encrypt all resources.
 '&ast;.' can be used to encrypt all resource in the core group.  '&ast;.&ast;' will encrypt all
 resources, even custom resources that are added after API server start.
 Use of wildcards that overlap within the same resource list or across multiple
