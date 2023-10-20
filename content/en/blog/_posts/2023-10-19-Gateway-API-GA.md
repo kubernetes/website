@@ -9,11 +9,11 @@ slug: gateway-api-ga
 
 We (the community developing [Gateway API][gwapi]) are incredibly pleased and
 proud to announce _general availability_ of Gateway API for use with Kubernetes
-clusters `v1.24` and newer!
+clusters (versions 1.24 and newer)!
 
 ## Important Highlights
 
-Gateway API brings a lot of new networking possibilities to the table in your
+Kubernetes' Gateway API brings a lot of new networking possibilities to the table in your
 Kubernetes cluster. In this post we'll cover some of the most important
 highlights.
 
@@ -21,13 +21,13 @@ For a complete list of changes for this specific release, please see our
 [v1.0.0 changelog entry][chlogv1].
 
 For a complete list of every feature for every release, or to review some of
-the releases leading up to `v1.0.0`, please see our [historical
+the releases leading up to v1.0.0, please see our [historical
 changelog][clog].
 
 ### Version 1 APIs
 
 This marks the **first stable release** of Gateway API, where we are now
-publishing the following APIs as `v1` (Version 1):
+publishing the following APIs as `v1` (version 1):
 
 - [GatewayClass][gwc]
 - [Gateway][gw]
@@ -64,10 +64,9 @@ such, this release is supported on Kubernetes clusters version `1.24` through
 ### Getting Started
 
 If you want to try Gateway API features out for yourself but don't know where
-to get started you'll want to check out one of the 20+ implementations which
-we list on our website:
-
-https://gateway-api.sigs.k8s.io/implementations/
+to get started you'll want to check out one of the 20+
+[implementations](https://gateway-api.sigs.k8s.io/implementations/) which
+we list on the Gateway API website.
 
 Gateway API itself is just an API for downstream projects to implement, so take
 some time to peruse the implementations list above and find one that seems to
@@ -94,19 +93,19 @@ If you opt-in to the [experimental channel][expch] for this release, you'll find
 that there are several experimental features available which are being
 considered for inclusion as stable in future releases:
 
-- [BackendTLSPolicy][gep1897]
+- [Backend TLS policy][gep1897]
 - [HTTPRoute Timeouts][gep1742]
 - [Gateway Infrastructure Labels][gep1762]
-- [Websockets, HTTP/2 and More!][gep1911]
-- [GWCTL, our new Gateway API CLI][gwctl]
+- Support for [Websockets, HTTP/2 and more!][gep1911]
+- [`gwctl`][gwctl], our new Gateway API command line tool
 
 We intend to have a blog post following up on this one which will cover these
 (and potentially more) experimental and upcoming features where the authors of
 the features themselves can provide a greater level of detail.
 
 In future iterations we also intend to grow the maturity and work towards
-[graduation][grad] of APIs other than `GatewayClass`, `Gateway`, and
-`HTTPRoute`, which are not yet at version 1:
+[graduation][grad] of APIs other than GatewayClass, Gateway, and
+HTTPRoute. There are several APIs that are not yet at version 1:
 
 - [GRPCRoute][grpc]
 - [TCPRoute][tcp]
@@ -115,14 +114,14 @@ In future iterations we also intend to grow the maturity and work towards
 - [ReferenceGrant][refg]
 
 [ReferenceGrant][refg] is a slightly special case as we are considering what
-to do with this resource next: we've come to understand this might be a
+to do with this: we've come to understand this might be a
 feature applicable to the greater Kubernetes community and we're trying to
 navigate potentially moving it somewhere more general to maximize benefit.
 
 For those interested in service mesh, note that we continue to work on making
 Gateway API resources available for use in service mesh contexts as part of the
-[GAMMA project][gamma]. Please see our recent blog post ["Gateway API v0.8.0:
-Introducing Service Mesh Support"][gammablog] for more details.
+[GAMMA project][gamma]. Please see our recent blog post [Gateway API v0.8.0:
+Introducing Service Mesh Support][gammablog] for more details.
 
 What you've seen here is _not exhaustive_! Gateway API is a highly active
 project, with dozens of people actively working on it. If you're hoping to see
@@ -130,7 +129,7 @@ one of the above routes graduated, or have ideas for features that we have yet
 to account for, we _strongly encourage_ you to [join us in the community][com]
 and help us build!
 
-## Kubecon North America: Chicago
+## Gateway API events at KubeCon + CloudNativeCon
 
 At [Kubecon North America (Chicago)][kna] and the adjacent
 [Contributor Summit][csum] there are several talks about or related to Gateway
@@ -157,7 +156,7 @@ give a huge shout out and thanks to them!
 Thank you so much to our [170+ contributors][contribs] who built this project
 together with us, and made our GA release possible!
 
-A special thank you to our [community members which agreed to take on an
+A special thank you to our [community members who agreed to take on an
 official role in the project][roles], explicitly providing some time for reviews
 and sharing the load of maintaining the project!
 
