@@ -8,15 +8,17 @@ slug: introducing-ingress2gateway
 ***Authors:*** Lior Lieberman (Google), Kobi Levi (independent)
 
 Today we are releasing [ingress2gateway](https://github.com/kubernetes-sigs/ingress2gateway), a tool
-that can help you migrate from Ingress to Gateway API. Gateway API is just weeks away from
-graduating to GA, if you haven't upgraded yet, now's the time to think about it!
+that can help you migrate from [Ingress](/docs/concepts/services-networking/ingress/) to [Gateway
+API](https://gateway-api.sigs.k8s.io). Gateway API is just weeks away from graduating to GA, if you
+haven't upgraded yet, now's the time to think about it!
+
 
 ## Background
 
 In the ever-evolving world of Kubernetes, networking plays a pivotal role. As more applications are
-deployed in Kubernetes clusters, effective exposure of these services to clients outside the cluster
-becomes a critical concern. If you've been working with Kubernetes, you're likely familiar with the
-[Ingress API], which has been the go-to solution for managing external access to services.
+deployed in Kubernetes clusters, effective exposure of these services to clients becomes a critical
+concern. If you've been working with Kubernetes, you're likely familiar with the [Ingress API],
+which has been the go-to solution for managing external access to services.
 
 [Ingress API]:/docs/concepts/services-networking/ingress/
 
@@ -42,7 +44,7 @@ Some of the limitations are:
 ## Gateway API
 
 To overcome this, Gateway API is designed to provide a more flexible, extensible, and powerful way
-to manage external traffic to your services.
+to manage traffic to your services.
 
 Gateway API is just weeks away from a GA release. It provides a standard Kubernetes API for ingress
 traffic control. It offers extended functionality, improved customization, and greater flexibility.
@@ -53,7 +55,7 @@ The transition from Ingress API to Gateway API in Kubernetes is driven by advant
 functionalities that the Gateway API offers, with its foundation built on four core principles: a
 role-oriented approach, portability, expressiveness and extensibility.
 
-### A Role-Oriented Approach
+### A role-oriented approach
 
 Gateway API employs a role-oriented approach that aligns with the conventional roles within
 organizations involved in configuring Kubernetes service networking. This approach enables
@@ -102,10 +104,12 @@ Ingress, these features need custom provider-specific annotations.
 Gateway API is designed with extensibility as a core feature. Rather than enforcing a
 one-size-fits-all model, it offers the flexibility to link custom resources at multiple layers
 within the API's framework. This layered approach to customization ensures that users can tailor
-configurations to their specific needs without overwhelming the main structure. By doing so, the
-Gateway API facilitates more granular and context-sensitive adjustments, allowing for a fine-tuned
-balance between standardization and adaptability. This becomes particularly valuable in complex
-cloud-native environments where specific use cases require nuanced configurations.
+configurations to their specific needs without overwhelming the main structure. By doing so, Gateway
+API facilitates more granular and context-sensitive adjustments, allowing for a fine-tuned balance
+between standardization and adaptability. This becomes particularly valuable in complex cloud-native
+environments where specific use cases require nuanced configurations. A critical difference is that
+Gateway API has a much broader base set of features and a standard pattern for extensions that can
+be more expressive than annotations were on Ingress.
 
 
 ## Upgrading to Gateway
@@ -118,54 +122,57 @@ started with Gateway API and using ingress2gateway:
 
 1. [Install a Gateway
    controller](https://gateway-api.sigs.k8s.io/guides/#installing-a-gateway-controller) OR [install
-   the Gateway API CRDs manually](https://gateway-api.sigs.k8s.io/guides/#installing-gateway-api) 
+   the Gateway API CRDs manually](https://gateway-api.sigs.k8s.io/guides/#installing-gateway-api) .
 
-2. install [ingress2gateway](https://github.com/kubernetes-sigs/ingress2gateway) If you have a Go
-development environment locally, you can install `ingress2gateway` with:
+2. Install [ingress2gateway](https://github.com/kubernetes-sigs/ingress2gateway).
+   
+   If you have a Go development environment locally, you can install `ingress2gateway` with:
 
-```
-go install github.com/kubernetes-sigs/ingress2gateway@v0.1.0
-```
+   ```
+   go install github.com/kubernetes-sigs/ingress2gateway@v0.1.0
+   ```
 
-This installs `ingress2gateway` to `$(go env GOPATH)/bin/ingress2gateway`.
+   This installs `ingress2gateway` to `$(go env GOPATH)/bin/ingress2gateway`.
 
-Alternatively, follow the installation guide
-[here](https://github.com/kubernetes-sigs/ingress2gateway#installation).
+   Alternatively, follow the installation guide
+   [here](https://github.com/kubernetes-sigs/ingress2gateway#installation).
 
-3. Once the tool is installed, you can use it to convert the ingress resources in your cluster to
+1. Once the tool is installed, you can use it to convert the ingress resources in your cluster to
    Gateway API resources.
 
-```
-ingress2gateway print
-```
+   ```
+   ingress2gateway print
+   ```
 
-This above command will:
+   This above command will:
 
-1. Read your Kube config file to extract the cluster credentials and the current active namespace.
-1. Search for ingresses and provider-specific resources in that namespace.
-1. Convert them to Gateway API resources (Currently only Gateways and HTTPRoutes). For other options
-refer run the tool with `-h` or refer to https://github.com/kubernetes-sigs/ingress2gateway#options
+   1. Load your current Kubernetes client config including the active context, namespace and
+      authentication details.
+   2. Search for ingresses and provider-specific resources in that namespace.
+   3. Convert them to Gateway API resources (Currently only Gateways and HTTPRoutes). For other
+   options you can  run the tool with `-h`, or refer to
+   [https://github.com/kubernetes-sigs/ingress2gateway#options](https://github.com/kubernetes-sigs/ingress2gateway#options).
 
-4. Review the converted Gateway API resources, validate them, and then apply them to your cluster.
+2. Review the converted Gateway API resources, validate them, and then apply them to your cluster.
 
-5. Send test requests to your Gateway to check that it is working. You could get your gateway
-   address using `k get gateway <gateway-name> -n <namespace> -o
+3. Send test requests to your Gateway to check that it is working. You could get your gateway
+   address using `kubectl get gateway <gateway-name> -n <namespace> -o
    jsonpath='{.status.addresses}{"\n"}'`.
 
-6. Update your DNS to point to the new Gateway. 
+4. Update your DNS to point to the new Gateway. 
 
-7. Once you've confirmed that no more traffic is going through your Ingress configuration, you can
+5. Once you've confirmed that no more traffic is going through your Ingress configuration, you can
    safely delete it.
 
 ## Wrapping up
 Achieving reliable, scalable and extensible networking has always been a challenging objective. The
-Gateway API is designed to improve the current Kubernetes networking standards like ingress and/or
-implementation specific annotations and CRDs.
+Gateway API is designed to improve the current Kubernetes networking standards like ingress and
+reduce the need for implementation specific annotations and CRDs.
 
 It is a Kubernetes standard API, consistent across different platforms and implementations and most
-importantly it is future proof. The Gateway API is considered the Ingress’ successor, it has a sub
-team under SIG Network that actively work on it and manage the ecosystem and it is likely to receive
-more updates and community support.
+importantly it is future proof. The Gateway API is considered the successor to Ingress; Gateway API
+is supported by a dedicated team under SIG Network that actively work on it and manage the
+ecosystem. It is also likely to receive more updates and community support.
 
 Ingress2gateway tool helps to ease the migration process for you, converting an existing Ingress
 object to equivalent objects from Gateway. To make migrations even easier, Ingress2gateway has
