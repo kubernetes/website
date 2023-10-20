@@ -46,10 +46,10 @@ Some of the limitations are:
 To overcome this, Gateway API is designed to provide a more flexible, extensible, and powerful way
 to manage traffic to your services.
 
-Gateway API is just weeks away from a GA release. It provides a standard Kubernetes API for ingress
-traffic control. It offers extended functionality, improved customization, and greater flexibility.
-By focusing on modular and expressive API resources, Gateway API makes it possible to describe a
-wider array of routing configurations and models.
+Gateway API is just weeks away from a GA (General Availability) release. It provides a standard
+Kubernetes API for ingress traffic control. It offers extended functionality, improved
+customization, and greater flexibility. By focusing on modular and expressive API resources, Gateway
+API makes it possible to describe a wider array of routing configurations and models.
 
 The transition from Ingress API to Gateway API in Kubernetes is driven by advantages and advanced
 functionalities that the Gateway API offers, with its foundation built on four core principles: a
@@ -82,8 +82,7 @@ intended for use in cases where you want to inspect the HTTP stream and use HTTP
 either routing or modification, for example using HTTP Headers for routing, or modifying them
 in-flight.
 
-{{< figure src="gateway-api-resources.svg" caption="Diagram showing the APIs that make up Gateway
-and how they relate to each other" >}}
+{{< figure src="gateway-api-resources.svg" alt="Diagram showing the APIs that make up Gateway and how they relate to each other. The APIs shown are GatewayClass, Gateway, and HTTPRoute; the Service API is also shown" caption="The APIs that make up Gateway" class="diagram-medium" >}}
 
 ### Portability
 
