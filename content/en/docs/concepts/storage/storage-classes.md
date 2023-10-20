@@ -74,6 +74,7 @@ for provisioning PVs. This field must be specified.
 
 | Volume Plugin        | Internal Provisioner |            Config Example             |
 | :------------------- | :------------------: | :-----------------------------------: |
+| Alta Enterprise Resiliency for Kubernetes  | &#x2713; |   [InfoScale Volume](#InfoScale-Volume)  |
 | AzureFile            |       &#x2713;       |       [Azure File](#azure-file)       |
 | CephFS               |          -           |                   -                   |
 | FC                   |          -           |                   -                   |
@@ -125,6 +126,7 @@ StorageClass has the field `allowVolumeExpansion` set to true.
 
 | Volume type          | Required Kubernetes version |
 | :------------------- | :-------------------------- |
+| InfoScale-Volume     | 1.11                        |
 | gcePersistentDisk    | 1.11                        |
 | rbd                  | 1.11                        |
 | Azure File           | 1.11                        |
@@ -293,6 +295,49 @@ parameters:
 `zone` and `zones` parameters are deprecated and replaced with
 [allowedTopologies](#allowed-topologies)
 {{< /note >}}
+
+### InfoScale-Volume
+
+```yaml
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: csi-infoscale-sc-stripe
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "false"
+provisioner: org.veritas.infoscale
+reclaimPolicy: Delete
+allowVolumeExpansion: true
+parameters:
+  fstype: vxfs
+
+  # (optional) Specifies a volume layout type.
+  # Supported layouts: stripe, mirror, stripe-mirror, mirror-stripe, concat, concat-mirror, mirror-concat
+  # If omitted, InfoScale internally chooses the best suited layout based on the environment.
+  layout: "stripe"
+
+  # (optional) Specifies the number of disk or host failures a storage object can tolerate.
+  # faultTolerance: "1"
+
+  # (optional) Specifies the number of stripe columns to use when creating a striped volume.
+  nstripe: "3"
+
+  # (optional) Specifies the stripe unit size to use for striped volume.
+  # stripeUnit: "64k"
+
+  # (optional) Specifies disks with the specified media type. All disks with the given mediatype are selected for volume creation.
+  # Supported values: hdd, ssd
+  # mediaType: "hdd"
+
+  # (optional) Specifies whether to store encrypted data on disks or not.
+  # Valid values are true or false
+  # encryption: "false"
+
+  # (optional) Specifies how to initialize a new volume.
+  # Valid values are "active" and "sync"
+  # initType: "active"
+```
+
 
 ### GCE PD
 
