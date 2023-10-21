@@ -61,7 +61,7 @@ kube-apiserver --authorization-mode=RBAC
   can use admission controllers to define policies to restrict the access of Secrets only to the required components.
 
 - **_Kubernetes API_** is an HTTP API used to query and modify the status of Kubernetes objects. It also facilitates communication between
-  users, various components inside cluster and external parties. Unrestricted access to this API may lead to resource modifications, data
+  users, various components inside the cluster and the external parties. Unrestricted accesses to this API may lead to resource modifications, data
   breaches or even a cluster takeover. RBAC policies with minimum verbs should be assigned to any user.
 
 ### Auditing RBAC Policies
