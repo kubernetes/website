@@ -34,6 +34,8 @@ in the [official announcement](/blog/2023/08/15/pkgs-k8s-io-introduction/).
 强烈建议按照[官方公告](/zh-cn/blog/2023/08/15/pkgs-k8s-io-introduction/)中所述，
 迁移到社区自治的软件包仓库。
 
+{{% legacy-repos-deprecation %}}
+
 <!--
 ### Verifying if the Kubernetes package repositories are used
 
