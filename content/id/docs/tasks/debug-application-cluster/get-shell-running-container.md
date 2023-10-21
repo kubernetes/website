@@ -108,7 +108,7 @@ Pada jendela (_window_) perintah biasa, bukan pada _shell_ kamu di dalam Contain
 lihatlah daftar variabel lingkungan (_environment variable_) pada Container yang sedang berjalan:
 
 ```shell
-kubectl exec shell-demo env
+kubectl exec shell-demo -- env
 ```
 
 Cobalah dengan menjalankan perintah lainnya. Berikut beberapa contohnya:
