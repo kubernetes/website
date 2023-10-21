@@ -45,7 +45,7 @@ kube-apiserver --authorization-mode=RBAC
 
 ### Resources to Restrict to prevent Privilege Escalation
 
-- **_Etcd_** is a critical component which stores state information and cluster-secrets in key-value pairs in the database. Unauthorized access
+- **_Etcd_** is a critical component which stores state information and cluster Secrets in key-value pairs in the database. Unauthorized access
   to Etcd can compromise the entire cluster. Roles for the users with only the required access to certain keys should be set.
 
 - **_Kubelet_** is a primary node agent which operates on every node. The kubelet service should be run with `--anonymous-auth=false`. The
