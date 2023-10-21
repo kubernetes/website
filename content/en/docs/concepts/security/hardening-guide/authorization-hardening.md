@@ -28,7 +28,7 @@ enabled by setting `--authorization-mode` flag to "RBAC" in the `kube-apiserver`
 kube-apiserver --authorization-mode=RBAC
 ```
 
-### Least Privilege Principal
+### Least Privilege Principle
 
 - The principal of least privilege should always be followed while designing the authorization policies. This principle states that any user or
   entity should have only the required privileges/rights to access any particular resource.
