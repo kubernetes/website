@@ -53,7 +53,7 @@ kube-apiserver --authorization-mode=RBAC
   Kubernetes admission control.
 
 - **_Kubernetes Dashboard_** is a web-based UI to interact with applications running in the cluster. Attackers with elevated access to the
-  dashboard can open a shell connection to any pod, view secrets and can also use the existing resources for cryptojacking attacks. In the
+  dashboard can open a shell connection to any pod, view Secrets and can also use the existing resources for cryptojacking attacks. In the
   cluster role, users should only be provided with the read-only permission to the dashboard and write access should be minimized at all costs.
 
 - **_Kubernetes Secret_** is an object that contains sensitive information, such as a password, token, or key, which is used in the Pod
