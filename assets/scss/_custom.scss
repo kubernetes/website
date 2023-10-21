@@ -806,28 +806,31 @@ body.td-documentation {
 @media (max-width: 768px) {
   #announcement {
     padding-top: 4rem;
-    padding-bottom: 4rem;
+    padding-bottom: 0;
+    h4{
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+
+      a {
+        font-weight: bold;
+      }
+      
+      row-gap: 1rem;
+      font-size: 1.5em;
+
+      img {
+        order: 2;
+        margin-bottom: .5rem;
+      }
+    }
+    
+    p{
+      text-align: center;
+      margin-bottom: 1rem;
+    }
     .announcement-main, aside .announcement-main {
       padding-top: calc(min(2rem,2em));
-    }
-  }
-}
-
-@media (max-width: 480px) {
-  #announcement {
-    padding-bottom: 0.5em;
-  }
-  #announcement aside {
-    h1, h2, h3, h4, h5, h6 {
-      img.event-logo {
-        margin-left: auto;
-        margin-right: auto;
-        margin-bottom: 0.75em;
-        display: block;
-        max-height: initial;
-        max-width: calc(min(calc(100vw - 2em), 240px));
-        float: initial;
-      }
     }
   }
 }

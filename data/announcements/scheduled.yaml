@@ -203,7 +203,7 @@ announcements:
     color: #fffff;
   title: |
     <img src ="/images/announcements/kccnc-na-2023-white.svg" style="float: right; height: 80px;" />
-    <a href= "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/">KubeCon + CloudNativeCon NA 2023</a> <em> Chicago, Illinois + Virtual</em>.
+    <a href= "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/">KubeCon + CloudNativeCon NA 2023</a> <em> Chicago, Illinois + Virtual</em>
   message: |
     4 days of incredible opportunities to collaborate, learn + share with the entire community!<br />
     November 6 - November 9, 2023.
