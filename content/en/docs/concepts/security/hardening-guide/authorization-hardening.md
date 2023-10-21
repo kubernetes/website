@@ -41,7 +41,7 @@ kube-apiserver --authorization-mode=RBAC
 
 - Using the `system:masters` group when assigning rights should always be avoided, since this group has hard-coded cluster-admin rights which
   cannot be revoked (it’s hardcoded in the source code). Any user having this right will always be admin. A recommendation would be that if
-  people really need cluster-admin, then just provide a binding to the cluster-admin clusterrole.
+  people really need cluster-admin, then just provide a binding to the `cluster-admin` clusterrole.
 
 ### Resources to Restrict to prevent Privilege Escalation
 
