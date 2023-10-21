@@ -30,7 +30,7 @@ kube-apiserver --authorization-mode=RBAC
 
 ### Least Privilege Principle
 
-- The principal of least privilege should always be followed while designing the authorization policies. This principle states that any user or
+- The principle of least privilege should always be followed while designing the authorization policies. This principle states that any user or
   entity should have only the required privileges/rights to access any particular resource.
 
 - Each group should only have access to the resources that they need and should not be allowed to view or alter the resources of other groups.
