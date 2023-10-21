@@ -24,7 +24,9 @@ organization. It is the most important authorization method for both developers 
 user accounts and service accounts. To check if RBAC is enabled in a cluster using kubectl, execute `kubectl api-version`. The RBAC mode can be
 enabled by setting `--authorization-mode` flag to "RBAC" in the `kube-apiserver` command line.
 
-> `kube-apiserver --authorization-mode=RBAC`
+```
+kube-apiserver --authorization-mode=RBAC
+```
 
 ### Least Privilege Principal
 
