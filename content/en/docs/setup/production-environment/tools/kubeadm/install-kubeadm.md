@@ -182,6 +182,7 @@ These instructions are for Kubernetes {{< skew currentVersion >}}.
    The same signing key is used for all repositories so you can disregard the version in the URL:
 
    ```shell
+   mkdir -p /etc/apt/keyrings
    curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    ```
 
