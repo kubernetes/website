@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Plants, process and parties: the Kubernetes 1.28 release interview"
-date: 2023-10-20
+date: 2023-10-24
 ---
 
 **Author**: Craig Box
@@ -156,7 +156,7 @@ I have two. The first one is [`kubectl delete --interactive`](https://github.com
 Right; confirmation is good!
 
 **You mentioned two there, what was the second one?**<br>
-Right; this one is close to my heart. It is a SIG Release KEP, [publishing on community infrastructure](https://github.com/kubernetes/enhancements/issues/1731). I'm not sure if you know, but as part of my branch management associate role in 1.27, I had the opportunity to cut a few releases. It takes up to 12 hours sometimes. And now, we are hoping that that process only includes release managers, so we don't have to call up the folks at Google and, you know, lengthen that process anymore.
+Right; this one is close to my heart. It is a SIG Release KEP, [publishing on community infrastructure](https://github.com/kubernetes/enhancements/issues/1731). I'm not sure if you know, but as part of my branch management associate role in 1.27, I had the opportunity to cut a few releases. It takes up to 12 hours sometimes. And now, we are hoping that the process only includes release managers, so we don't have to call up the folks at Google and, you know, lengthen that process anymore.
 
 **Is 12 hours the expected length for software of this size, or is there work in place to try and bring that down?**<br>
 There's so much work in place to bring that down. I think 12 hours is on the shorter end of it. Unfortunately, we have had a situation where we have to, you know, switch the release manager because it's just so late at night for them. 
