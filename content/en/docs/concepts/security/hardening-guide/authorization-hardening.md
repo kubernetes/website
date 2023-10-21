@@ -39,7 +39,7 @@ kube-apiserver --authorization-mode=RBAC
 - We should never use "AlwaysAllow" value in the `--authorization-mode` flag, since it basically disables all the authorization modes, limiting
   the ability to enforce the least privilege for access.
 
-- Using the _system:masters_ group for assigning rights should always be avoided, since this group has hard-coded cluster-admin rights which
+- Using the `system:masters` group when assigning rights should always be avoided, since this group has hard-coded cluster-admin rights which
   cannot be revoked (it’s hardcoded in the source code). Any user having this right will always be admin. A recommendation would be that if
   people really need cluster-admin, then just provide a binding to the cluster-admin clusterrole.
 
