@@ -22,7 +22,7 @@ attack.
 RBAC mode is enabled by default and is one method to control access to cluster resources based on the roles of individuals within an
 organization. It is the most important authorization method for both developers and admins in Kubernetes. It is used to restrict access for
 user accounts and service accounts. To check if RBAC is enabled in a cluster using kubectl, execute `kubectl api-version`. The RBAC mode can be
-enabled by setting the RBAC value with --authorizationmode flag in kube api server command.
+enabled by setting `--authorization-mode` flag to "RBAC" in the `kube-apiserver` command line.
 
 > `kube-apiserver --authorization-mode=RBAC`
 
