@@ -12,7 +12,7 @@ Authorization in Kubernetes ecosystem means specifying the privileges/permission
 authorization policy is an important step in preventing unauthorized access to the clusters or privilege escalation attacks. Kubernetes offers
 multiple ways to enforce permissions which are represented by various authorization modes and modules - Node authorization, ABAC, Webhook,
 RBAC. Using the RBAC mode is the most standard way of designing permissions for cluster users and the workloads. We can set the authorization
-mode using the `--authorization-mode` flag in kube api server. A proper Authorization design helps in reducing the blast radius of any kind of
+mode using the `--authorization-mode` flag in the API server. A proper Authorization design helps in reducing the blast radius of any kind of
 attack.
 
 <!-- body -->
