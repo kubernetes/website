@@ -58,7 +58,7 @@ kube-apiserver --authorization-mode=RBAC
 
 - **_Kubernetes Secret_** is an object that contains sensitive information, such as a password, token, or key, which is used in the Pod
   configuration or container image. Unrestricted access of Secrets to the principals which don't require them expands the attack surface. We
-  can use admission controllers to define policies to restrict the use of secrets only to the required components.
+  can use admission controllers to define policies to restrict the access of Secrets only to the required components.
 
 - **_Kubernetes API_** is an HTTP API used to query and modify the status of Kubernetes objects. It also facilitates communication between
   users, various components inside cluster and external parties. Unrestricted access to this API may lead to resource modifications, data
