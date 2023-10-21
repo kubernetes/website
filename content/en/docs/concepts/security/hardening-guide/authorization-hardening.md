@@ -64,6 +64,19 @@ kube-apiserver --authorization-mode=RBAC
   users, various components inside the cluster and the external parties. Unrestricted accesses to this API may lead to resource modifications, data
   breaches or even a cluster takeover. RBAC policies with minimum verbs should be assigned to any user.
 
+### Admission Controllers
+
+We can extend the builtin RBAC policies using the validation admission webhooks to strengthen the authorization design. There
+can be situations when we require more policy features or granularity which RBAC or network policies provide. Kubernetes admission controllers
+can help in such a scenario.
+
+A Kubernetes admission controller is a component of code that analyzes requests made to the Kubernetes API server and decides whether to
+approve them or deny them. The request gets evaluated after it has been verified and authorized by the API server before it is granted and
+implemented. This is an optional feature, which may be only be required for large scale clusters or where complex security is required. They
+can be adjustable for many different user-specific scenarios and environments. There are many open source and commercial implementations from
+which organizations can choose and enforce their specific restrictions.
+
+
 ### Auditing RBAC Policies
 
 As the application grows, the scope of the components expands and the required permissions of certain resources also changes. There is a very
@@ -74,15 +87,3 @@ in the existing RBAC policies defined in the cluster.
 - [K8s-rbac-audit](https://github.com/cyberark/kubernetes-rbac-audit)
 - [Krane](https://github.com/appvia/krane)
 - [Kubiscan](https://github.com/cyberark/KubiScan)
-
-### Admission Controllers
-
-We can extend the in built RBAC policies using the Validation Webhook of Admission Controllers to strengthen the authorization design. There
-can be situations when we require more policy features or granularity which RBAC or network policies provide. Kubernetes admission controllers
-can help in such a scenario.
-
-A Kubernetes admission controller is a component of code that analyzes requests made to the Kubernetes API server and decides whether to
-approve them or deny them. The request gets evaluated after it has been verified and authorized by the API server before it is granted and
-implemented. This is an optional feature, which may be only be required for large scale clusters or where complex security is required. They
-can be adjustable for many different user-specific scenarios and environments. There are many open source and commercial implementations from
-which organizations can choose and enforce their specific restrictions.
