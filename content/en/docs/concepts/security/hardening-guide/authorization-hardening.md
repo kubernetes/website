@@ -36,7 +36,7 @@ kube-apiserver --authorization-mode=RBAC
 - Each group should only have access to the resources that they need and should not be allowed to view or alter the resources of other groups.
   Users, user groups, and service accounts should only be able to interact with and access resources within certain namespaces.
 
-- We should never use _AlwaysAllow_ value in the authorization-mode flags, since it basically disables all the authorization modes, limiting
+- We should never use "AlwaysAllow" value in the `--authorization-mode` flag, since it basically disables all the authorization modes, limiting
   the ability to enforce the least privilege for access.
 
 - Using the _system:masters_ group for assigning rights should always be avoided, since this group has hard-coded cluster-admin rights which
