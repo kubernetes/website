@@ -78,12 +78,12 @@ Kubernetes Manifeste können in Json oder Yaml definiert werden. Die Dateierweit
 `.yml`, und `.json` können verwendet werden.
 
 ```bash
-kubectl apply -f ./my-manifest.yaml                 # Ressource(n) erstellen
-kubectl apply -f ./my1.yaml -f ./my2.yaml           # aus mehreren Dateien erstellen
-kubectl apply -f ./dir                              # Erstellen Sie Ressourcen in allen Manifestdateien in Verzeichnis
-kubectl apply -f https://example.com/manifest.yaml  # Ressource(n) aus URL erstellen
-kubectl create deployment nginx --image=nginx       # Starten Sie eine einzelne Instanz von Nginx
-kubectl explain pods,svc                            # Zeigen Sie die Dokumentation für Pod und SVC Manifeste an
+kubectl apply -f ./my-manifest.yaml            # Ressource(n) erstellen
+kubectl apply -f ./my1.yaml -f ./my2.yaml      # aus mehreren Dateien erstellen
+kubectl apply -f ./dir                         # Erstellen Sie Ressourcen in allen Manifestdateien in Verzeichnis
+kubectl apply -f https://git.io/vPieo          # Ressource(n) aus URL erstellen
+kubectl create deployment nginx --image=nginx  # Starten Sie eine einzelne Instanz von Nginx
+kubectl explain pods,svc                       # Zeigen Sie die Dokumentation für Pod und SVC Manifeste an
 
 # Erstellen Sie mehrere YAML-Objekte aus stdin
 cat <<EOF | kubectl apply -f -

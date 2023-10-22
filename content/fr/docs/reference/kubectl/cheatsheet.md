@@ -91,12 +91,12 @@ Les manifests Kubernetes peuvent être définis en YAML ou JSON. Les extensions 
 `.yml`, et `.json` peuvent être utilisés.
 
 ```bash
-kubectl apply -f ./my-manifest.yaml                 # Crée une ou plusieurs ressources
-kubectl apply -f ./my1.yaml -f ./my2.yaml           # Crée depuis plusieurs fichiers
-kubectl apply -f ./dir                              # Crée une ou plusieurs ressources depuis tous les manifests dans dir
-kubectl apply -f https://example.com/manifest.yaml  # Crée une ou plusieurs ressources depuis une url
-kubectl create deployment nginx --image=nginx       # Démarre une instance unique de nginx
-kubectl explain pods                                # Affiche la documentation pour les manifests pod
+kubectl apply -f ./my-manifest.yaml            # Crée une ou plusieurs ressources
+kubectl apply -f ./my1.yaml -f ./my2.yaml      # Crée depuis plusieurs fichiers
+kubectl apply -f ./dir                         # Crée une ou plusieurs ressources depuis tous les manifests dans dir
+kubectl apply -f https://git.io/vPieo          # Crée une ou plusieurs ressources depuis une url
+kubectl create deployment nginx --image=nginx  # Démarre une instance unique de nginx
+kubectl explain pods                           # Affiche la documentation pour les manifests pod
 
 # Crée plusieurs objets YAML depuis l'entrée standard (stdin)
 cat <<EOF | kubectl apply -f -

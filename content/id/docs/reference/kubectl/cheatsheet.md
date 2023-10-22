@@ -89,12 +89,12 @@ Manifes Kubernetes dapat didefinisikan ke dalam YAML atau JSON. Gunakan berkas d
 `.yml`, dan `.json`.
 
 ```bash
-kubectl apply -f ./my-manifest.yaml                 # membuat sumber daya
-kubectl apply -f ./my1.yaml -f ./my2.yaml           # membuat sumber daya dari beberapa berkas
-kubectl apply -f ./dir                              # membuat sumber daya dari berbagai berkas manifes yang ada di dalam direktori
-kubectl apply -f https://example.com/manifest.yaml  # membuat sumber daya dari sebuah tautan
-kubectl create deployment nginx --image=nginx       # memulai sebuah instans tunggal nginx
-kubectl explain pods                                # mendapatkan dokumentasi untuk manifes Pod
+kubectl apply -f ./my-manifest.yaml            # membuat sumber daya
+kubectl apply -f ./my1.yaml -f ./my2.yaml      # membuat sumber daya dari beberapa berkas
+kubectl apply -f ./dir                         # membuat sumber daya dari berbagai berkas manifes yang ada di dalam direktori
+kubectl apply -f https://git.io/vPieo          # membuat sumber daya dari sebuah tautan
+kubectl create deployment nginx --image=nginx  # memulai sebuah instans tunggal nginx
+kubectl explain pods                           # mendapatkan dokumentasi untuk manifes Pod
 
 # membuat beberapa objek YAML dari masukan (stdin)
 cat <<EOF | kubectl apply -f -

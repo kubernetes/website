@@ -222,7 +222,7 @@ Kubernetes 配置可以用 YAML 或 JSON 定义。可以使用的文件扩展名
 kubectl apply -f ./my-manifest.yaml            # create resource(s)
 kubectl apply -f ./my1.yaml -f ./my2.yaml      # create from multiple files
 kubectl apply -f ./dir                         # create resource(s) in all manifest files in dir
-kubectl apply -f https://example.com/manifest.yaml         # create resource(s) from url
+kubectl apply -f https://git.io/vPieo          # create resource(s) from url
 kubectl create deployment nginx --image=nginx  # start a single instance of nginx
 
 # create a Job which prints "Hello World"
@@ -274,11 +274,11 @@ EOF
 ```
 -->
 ```bash
-kubectl apply -f ./my-manifest.yaml                 # 创建资源
-kubectl apply -f ./my1.yaml -f ./my2.yaml           # 使用多个文件创建
-kubectl apply -f ./dir                              # 基于目录下的所有清单文件创建资源
-kubectl apply -f https://example.com/manifest.yaml  # 从 URL 中创建资源
-kubectl create deployment nginx --image=nginx       # 启动单实例 nginx
+kubectl apply -f ./my-manifest.yaml           # 创建资源
+kubectl apply -f ./my1.yaml -f ./my2.yaml     # 使用多个文件创建
+kubectl apply -f ./dir                        # 基于目录下的所有清单文件创建资源
+kubectl apply -f https://git.io/vPieo         # 从 URL 中创建资源
+kubectl create deployment nginx --image=nginx # 启动单实例 nginx
 
 # 创建一个打印 “Hello World” 的 Job
 kubectl create job hello --image=busybox:1.28 -- echo "Hello World" 
