@@ -318,9 +318,6 @@ For a reference to old feature gates that are removed, please refer to
 | `ServiceNodePortStaticSubrange` | `true` | GA | 1.29 | - |
 | `SkipReadOnlyValidationGCE` | `false` | Alpha | 1.28 | 1.28 |
 | `SkipReadOnlyValidationGCE` | `true` | Deprecated | 1.29 | |
-| `TopologyManager` | `false` | Alpha | 1.16 | 1.17 |
-| `TopologyManager` | `true` | Beta | 1.18 | 1.26 |
-| `TopologyManager` | `true` | GA | 1.27 | - |
 | `WatchBookmark` | `false` | Alpha | 1.15 | 1.15 |
 | `WatchBookmark` | `true` | Beta | 1.16 | 1.16 |
 | `WatchBookmark` | `true` | GA | 1.17 | - |
@@ -725,9 +722,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
   in EndpointSlices. See [Topology Aware
   Hints](/docs/concepts/services-networking/topology-aware-hints/) for more
   details.
-- `TopologyManager`: Enable a mechanism to coordinate fine-grained hardware resource
-  assignments for different components in Kubernetes. See
-  [Control Topology Management Policies on a node](/docs/tasks/administer-cluster/topology-manager/).
 - `TopologyManagerPolicyAlphaOptions`: Allow fine-tuning of topology manager policies,
   experimental, Alpha-quality options.
   This feature gate guards *a group* of topology manager options whose quality level is alpha.
