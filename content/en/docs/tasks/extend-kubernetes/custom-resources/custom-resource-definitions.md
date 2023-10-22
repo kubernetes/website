@@ -769,7 +769,7 @@ validations are not supported by ratcheting under the implementation in Kubernet
   ratcheted.
 
 
-## Validation rules
+### Validation rules
 
 {{< feature-state state="beta" for_k8s_version="v1.25" >}}
 
