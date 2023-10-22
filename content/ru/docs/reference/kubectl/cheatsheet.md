@@ -89,12 +89,12 @@ kubectl config unset users.foo                       # удалить польз
 Манифесты Kubernetes могут быть определены в YAML или JSON. Можно использовать расширение файла `.yaml`, `.yml` и `.json`
 
 ```bash
-kubectl apply -f ./my-manifest.yaml            # создать ресурсы
-kubectl apply -f ./my1.yaml -f ./my2.yaml      # создать ресурсы из нескольких файлов
-kubectl apply -f ./dir                         # создать ресурсы из всех файлов манифеста в директории
-kubectl apply -f https://git.io/vPieo          # создать ресурсы из URL-адреса
-kubectl create deployment nginx --image=nginx  # запустить один экземпляр nginx
-kubectl explain pods                           # посмотреть документацию по манифестам подов
+kubectl apply -f ./my-manifest.yaml                 # создать ресурсы
+kubectl apply -f ./my1.yaml -f ./my2.yaml           # создать ресурсы из нескольких файлов
+kubectl apply -f ./dir                              # создать ресурсы из всех файлов манифеста в директории
+kubectl apply -f https://example.com/manifest.yaml  # создать ресурсы из URL-адреса
+kubectl create deployment nginx --image=nginx       # запустить один экземпляр nginx
+kubectl explain pods                                # посмотреть документацию по манифестам подов
 
 # Создать несколько YAML-объектов из stdin
 cat <<EOF | kubectl apply -f -

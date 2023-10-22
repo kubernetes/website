@@ -88,12 +88,12 @@ Kubernetes manifests có thể được định nghĩa trong tệp json hoặc y
 `.yml`, và `.json` có thể được dùng.
 
 ```bash
-kubectl apply -f ./my-manifest.yaml            # tạo tài nguyên
-kubectl apply -f ./my1.yaml -f ./my2.yaml      # tạo từ nhiều tệp
-kubectl apply -f ./dir                         # tạo tài nguyên từ tất cả các tệp manifest trong thư mục dir
-kubectl apply -f https://git.io/vPieo          # tạo tài nguyên từ url
-kubectl create deployment nginx --image=nginx  # tạo một deployment nginx
-kubectl explain pods,svc                       # lấy thông tin pod và service manifest
+kubectl apply -f ./my-manifest.yaml                 # tạo tài nguyên
+kubectl apply -f ./my1.yaml -f ./my2.yaml           # tạo từ nhiều tệp
+kubectl apply -f ./dir                              # tạo tài nguyên từ tất cả các tệp manifest trong thư mục dir
+kubectl apply -f https://example.com/manifest.yaml  # tạo tài nguyên từ url
+kubectl create deployment nginx --image=nginx       # tạo một deployment nginx
+kubectl explain pods,svc                            # lấy thông tin pod và service manifest
 
 # Tạo nhiều đối tượng YAML từ stdin
 cat <<EOF | kubectl apply -f -

@@ -82,12 +82,12 @@ kubectl config unset users.foo    # ユーザーfooを削除します
 Kubernetesのマニフェストファイルは、JSONまたはYAMLで定義できます。ファイル拡張子として、`.yaml`や`.yml`、`.json`が使えます。
 
 ```bash
-kubectl apply -f ./my-manifest.yaml            # リソースを作成します
-kubectl apply -f ./my1.yaml -f ./my2.yaml      # 複数のファイルからリソースを作成します
-kubectl apply -f ./dir                         # dirディレクトリ内のすべてのマニフェストファイルからリソースを作成します
-kubectl apply -f https://git.io/vPieo          # urlで公開されているファイルからリソースを作成します
-kubectl create deployment nginx --image=nginx  # 単一のnginx Deploymentを作成します
-kubectl explain pods                           # Podマニフェストのドキュメントを取得します
+kubectl apply -f ./my-manifest.yaml                 # リソースを作成します
+kubectl apply -f ./my1.yaml -f ./my2.yaml           # 複数のファイルからリソースを作成します
+kubectl apply -f ./dir                              # dirディレクトリ内のすべてのマニフェストファイルからリソースを作成します
+kubectl apply -f https://example.com/manifest.yaml  # urlで公開されているファイルからリソースを作成します
+kubectl create deployment nginx --image=nginx       # 単一のnginx Deploymentを作成します
+kubectl explain pods                                # Podマニフェストのドキュメントを取得します
 
 # 標準入力から複数のYAMLオブジェクトを作成します
 

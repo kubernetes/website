@@ -97,11 +97,11 @@ Manifestos Kubernetes podem ser definidos em YAML ou JSON. As extensões de arqu
 `.yml`, e `.json` podem ser usadas.
 
 ```bash
-kubectl apply -f ./my-manifest.yaml            # cria recurso(s)
-kubectl apply -f ./my1.yaml -f ./my2.yaml      # cria a partir de vários arquivos
-kubectl apply -f ./dir                         # cria recurso(s) em todos os arquivos de manifesto no diretório
-kubectl apply -f https://git.io/vPieo          # cria recurso(s) a partir de URL
-kubectl create deployment nginx --image=nginx  # inicia uma única instância do nginx
+kubectl apply -f ./my-manifest.yaml                 # cria recurso(s)
+kubectl apply -f ./my1.yaml -f ./my2.yaml           # cria a partir de vários arquivos
+kubectl apply -f ./dir                              # cria recurso(s) em todos os arquivos de manifesto no diretório
+kubectl apply -f https://example.com/manifest.yaml  # cria recurso(s) a partir de URL
+kubectl create deployment nginx --image=nginx       # inicia uma única instância do nginx
 
 # cria um Job que exibe "Hello World"
 kubectl create job hello --image=busybox:1.28 -- echo "Hello World"

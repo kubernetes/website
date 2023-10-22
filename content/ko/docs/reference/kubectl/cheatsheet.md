@@ -100,11 +100,11 @@ alias kn='f() { [ "$1" ] && kubectl config set-context --current --namespace $1 
 , `.yml`, `.json` 이 사용된다.
 
 ```bash
-kubectl apply -f ./my-manifest.yaml            # 리소스(들) 생성
-kubectl apply -f ./my1.yaml -f ./my2.yaml      # 여러 파일로 부터 생성
-kubectl apply -f ./dir                         # dir 내 모든 매니페스트 파일에서 리소스(들) 생성
-kubectl apply -f https://git.io/vPieo          # url로부터 리소스(들) 생성
-kubectl create deployment nginx --image=nginx  # nginx 단일 인스턴스를 시작
+kubectl apply -f ./my-manifest.yaml                 # 리소스(들) 생성
+kubectl apply -f ./my1.yaml -f ./my2.yaml           # 여러 파일로 부터 생성
+kubectl apply -f ./dir                              # dir 내 모든 매니페스트 파일에서 리소스(들) 생성
+kubectl apply -f https://example.com/manifest.yaml  # url로부터 리소스(들) 생성
+kubectl create deployment nginx --image=nginx       # nginx 단일 인스턴스를 시작
 
 # "Hello World"를 출력하는 잡(Job) 생성
 kubectl create job hello --image=busybox:1.28 -- echo "Hello World"
