@@ -164,7 +164,7 @@ There's so much work in place to bring that down. I think 12 hours is on the sho
 **They've fallen asleep halfway through?**<br>
 Exactly, yeah. 6 to 12 hours, I think, is our status quo. 
 
-**The theme for this release is "[Planternetes](/blog/2023-08-15-kubernetes-1.28-blog/kubernetes-1.28.png)". That's going to need some explanation, I feel.**<br>
+**The theme for this release is "[Planternetes](/blog/2023/08/15/kubernetes-v1-28-release/#release-theme-and-logo)". That's going to need some explanation, I feel.**<br>
 Okay. I had full creative control over this. It is summer in the northern hemisphere, and I am a big house plant fanatic. It's always a little sad when I have to move cities for co-op and can't take my plants with me. 
 
 **Is that a border control thing? They don't let you take them over the border?**<br>
