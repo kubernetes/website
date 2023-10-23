@@ -202,7 +202,7 @@ dari LimitRange.
 
 Pada tahap ini, Containermu mungkin saja berjalan ataupun mungkin juga tidak berjalan. Ingat bahwa prasyarat
 untuk tugas ini adalah Node harus memiliki setidaknya 1 GiB memori. Jika tiap Node hanya memiliki
-1 GiB memori, maka tidak akan ada cukup memori untuk dialokasikan pada setiap Node untuk memenuhi permintaan 1 Gib memori. Jika ternyata kamu menggunakan Node dengan 2 GiB memori, maka kamu mungkin memiliki cukup ruang untuk memenuhi permintaan 1 GiB tersebut.
+1 GiB memori, maka tidak akan ada cukup memori untuk dialokasikan pada setiap Node untuk memenuhi permintaan 1 GiB memori. Jika ternyata kamu menggunakan Node dengan 2 GiB memori, maka kamu mungkin memiliki cukup ruang untuk memenuhi permintaan 1 GiB tersebut.
 
 Menghapus Pod:
 
