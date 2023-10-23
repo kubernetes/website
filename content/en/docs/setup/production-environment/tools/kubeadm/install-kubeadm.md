@@ -182,7 +182,8 @@ These instructions are for Kubernetes {{< skew currentVersion >}}.
    The same signing key is used for all repositories so you can disregard the version in the URL:
 
    ```shell
-   mkdir -p /etc/apt/keyrings
+   # In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default; you can create it by the following mkdir command.
+   mkdir -p -m 755 /etc/apt/keyrings
    curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    ```
 
@@ -204,11 +205,6 @@ These instructions are for Kubernetes {{< skew currentVersion >}}.
    sudo apt-get install -y kubelet kubeadm kubectl
    sudo apt-mark hold kubelet kubeadm kubectl
    ```
-
-{{< note >}}
-In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default;
-you can create it by running `sudo mkdir -m 755 /etc/apt/keyrings`
-{{< /note >}}
 
 {{% /tab %}}
 {{% tab name="Red Hat-based distributions" %}}
