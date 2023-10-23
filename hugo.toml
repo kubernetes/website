@@ -252,7 +252,7 @@ no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY
 	name = "X(Twitter)"
 	url = "https://twitter.com/kubernetesio"
 	icon = "fab fa-x-twitter"
-	desc = "Follow us on X(Twitter) to get the latest news!"
+	desc = "Follow us on X (formerly Twitter) to get the latest news!"
 
 [[params.links.user]]
 	name = "Calendar"
