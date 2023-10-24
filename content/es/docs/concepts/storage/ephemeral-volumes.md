@@ -102,7 +102,7 @@ Los volúmenes efímeros genéricos son similares a los volúmenes `emptyDir` en
 - Los volúmenes pueden tener un tamaño fijo que los Pods no pueden exceder.
 - Los volúmenes pueden tener algunos datos iniciales, dependiendo del controlador y los parámetros.
 - Se admiten operaciones típicas en los volúmenes, siempre que el controlador las soporte, incluyendo
-  [snapshotting](/docs/concepts/storage/volume-snapshots/),
+  [instantáneas](/docs/concepts/storage/volume-snapshots/),
   [clonación](/docs/concepts/storage/volume-pvc-datasource/),
   [cambiar el tamaño](/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims),
   y [seguimiento de la capacidad de almacenamiento](/docs/concepts/storage/storage-capacity/).
