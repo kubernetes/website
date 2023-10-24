@@ -375,10 +375,14 @@ option. Your cluster requirements may need a different configuration.
      ```shell
      kubeadm certs certificate-key
      ```
+   <!--
+   The certificate key is a hex encoded string that is an AES key of size 32 bytes.
+   -->
+   证书密钥是一个十六进制编码的字符串，它是一个 32 字节大小的 AES 密钥。
 
    {{< note >}}
    <!--
-   The `kubeadm-certs` Secret and decryption key expire after two hours.
+   The `kubeadm-certs` Secret and the decryption key expire after two hours.
    -->
    `kubeadm-certs` Secret 和解密密钥会在两个小时后失效。
    {{< /note >}}
