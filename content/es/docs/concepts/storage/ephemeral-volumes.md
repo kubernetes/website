@@ -18,7 +18,7 @@ Algunas aplicaciones requieren almacenamiento adicional, pero no les preocupa si
 
 Otras aplicaciones esperan que algunos datos de entrada de solo lectura estén presentes en archivos, como datos de configuración o claves secretas.
 
-_Volúmenes efímeros_ están diseñados para estos casos de uso. Debido a que los volúmenes siguen el ciclo de vida del Pod y se crean y eliminan junto con el Pod, los Pods pueden detenerse y reiniciarse sin estar limitados a la disponibilidad de algún volumen persistente.
+Los _volúmenes efímeros_ están diseñados para estos casos de uso. Debido a que los volúmenes siguen el ciclo de vida del Pod y se crean y eliminan junto con el Pod, los Pods pueden detenerse y reiniciarse sin estar limitados a la disponibilidad de algún volumen persistente.
 
 Los volúmenes efímeros se especifican _en línea_ en la especificación del Pod, lo que simplifica la implementación y gestión de aplicaciones.
 
