@@ -178,8 +178,8 @@ Ver [almacenamiento efímero local](/docs/concepts/configuration/manage-resource
 
 ### Volúmenes efímeros de CSI
 
-- Para obtener más información sobre el diseño, consulte la
-  [Volúmenes efímeros de CSI en línea KEP](https://github.com/kubernetes/enhancements/blob/ad6021b3d61a49040a3f835e12c8bb5424db2bbb/keps/sig-storage/20190122-csi-inline-volumes.md).
+- Para obtener más información sobre el diseño, consulta el
+  [KEP de Volúmenes efímeros en línea de CSI](https://github.com/kubernetes/enhancements/blob/ad6021b3d61a49040a3f835e12c8bb5424db2bbb/keps/sig-storage/20190122-csi-inline-volumes.md).
 - Para obtener más información sobre el desarrollo futuro de esta función, consulte la
   [problema de seguimiento de mejoras #596](https://github.com/kubernetes/enhancements/issues/596).
 
