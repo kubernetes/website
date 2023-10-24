@@ -82,9 +82,7 @@ intended for use in cases where you want to inspect the HTTP stream and use HTTP
 either routing or modification, for example using HTTP Headers for routing, or modifying them
 in-flight.
 
-{{< figure src="gateway-api-resources.svg" alt="Diagram showing the APIs that make up Gateway and
-how they relate to each other. The APIs shown are GatewayClass, Gateway, and HTTPRoute; the Service
-API is also shown" caption="The APIs that make up Gateway" class="diagram-medium" >}}
+{{< figure src="gateway-api-resources.svg" alt="Diagram showing the APIs that make up Gateway and how they relate to each other. The APIs shown are GatewayClass, Gateway, and HTTPRoute; the Service API is also shown" caption="The APIs that make up Gateway" class="diagram-medium" >}}
 
 ### Portability
 
@@ -181,7 +179,7 @@ manage the ecosystem. It is also likely to receive more updates and community su
 
 ### The Road Ahead
 
-Ingress2gateway is just getting started. We're planning to onboard more providers, introduce support
+ingress2gateway is just getting started. We're planning to onboard more providers, introduce support
 for more types of Gateway API routes, and make sure everything syncs up smoothly with the ongoing
 development of Gateway API.
 
