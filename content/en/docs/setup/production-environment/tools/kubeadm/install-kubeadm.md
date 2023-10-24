@@ -182,10 +182,14 @@ These instructions are for Kubernetes {{< skew currentVersion >}}.
    The same signing key is used for all repositories so you can disregard the version in the URL:
 
    ```shell
-   # In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default; you can create it by the following mkdir command.
-   mkdir -p -m 755 /etc/apt/keyrings
+   # If the folder `/etc/apt/keyrings` does not exist, it should be created before the curl command, read the note below.
+   # sudo mkdir -p -m 755 /etc/apt/keyrings
    curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    ```
+   
+{{< note >}}
+In releases older than Debian 12 and Ubuntu 22.04, folder `/etc/apt/keyrings` does not exist by default, and it should be created before the curl command.
+{{< /note >}}
 
 3. Add the appropriate Kubernetes `apt` repository. Please note that this repository have packages
    only for Kubernetes {{< skew currentVersion >}}; for other Kubernetes minor versions, you need to
