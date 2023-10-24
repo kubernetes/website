@@ -185,5 +185,5 @@ Ver [almacenamiento efímero local](/docs/concepts/configuration/manage-resource
 
 ### Volúmenes efímeros genéricos
 
-- Para obtener más información sobre el diseño, consulte la
-  [Volúmenes en línea efímeros genéricos KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/1698-generic-ephemeral-volumes/README.md).
+- Para obtener más información sobre el diseño, consulta el
+  [KEP de Volúmenes efímeros genéricos en línea](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/1698-generic-ephemeral-volumes/README.md).
