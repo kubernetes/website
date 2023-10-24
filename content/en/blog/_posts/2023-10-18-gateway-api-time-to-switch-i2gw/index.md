@@ -1,7 +1,7 @@
 ---
 layout: blog
-title: "Time to Upgrade; Migrating to Gateway API"
-date: 2023-10-24T10:00:00-08:00
+title: "Introducing ingress2gateway, Simplifying Upgrade to Gateway API"
+date: 2023-10-25T10:00:00-08:00
 slug: introducing-ingress2gateway
 ---
 
@@ -52,7 +52,7 @@ customization, and greater flexibility. By focusing on modular and expressive AP
 API makes it possible to describe a wider array of routing configurations and models.
 
 The transition from Ingress API to Gateway API in Kubernetes is driven by advantages and advanced
-functionalities that the Gateway API offers, with its foundation built on four core principles: a
+functionalities that Gateway API offers, with its foundation built on four core principles: a
 role-oriented approach, portability, expressiveness and extensibility.
 
 ### A role-oriented approach
@@ -60,7 +60,7 @@ role-oriented approach, portability, expressiveness and extensibility.
 Gateway API employs a role-oriented approach that aligns with the conventional roles within
 organizations involved in configuring Kubernetes service networking. This approach enables
 infrastructure engineers, cluster operators, and application developers to collectively address
-different aspects of the Gateway API.
+different aspects of Gateway API.
 
 For instance, infrastructure engineers play a pivotal role in deploying GatewayClasses,
 cluster-scoped resources that act as templates to explicitly define behavior for Gateways derived
@@ -82,7 +82,9 @@ intended for use in cases where you want to inspect the HTTP stream and use HTTP
 either routing or modification, for example using HTTP Headers for routing, or modifying them
 in-flight.
 
-{{< figure src="gateway-api-resources.svg" alt="Diagram showing the APIs that make up Gateway and how they relate to each other. The APIs shown are GatewayClass, Gateway, and HTTPRoute; the Service API is also shown" caption="The APIs that make up Gateway" class="diagram-medium" >}}
+{{< figure src="gateway-api-resources.svg" alt="Diagram showing the APIs that make up Gateway and
+how they relate to each other. The APIs shown are GatewayClass, Gateway, and HTTPRoute; the Service
+API is also shown" caption="The APIs that make up Gateway" class="diagram-medium" >}}
 
 ### Portability
 
@@ -97,7 +99,7 @@ API currently supports Kubernetes 1.24+.
 
 ### Expressiveness
 
-The Gateway API provides standard, Kubernetes-backed support for a wide range of features, such as
+Gateway API provides standard, Kubernetes-backed support for a wide range of features, such as
 header-based matching, traffic splitting, weight-based routing, request mirroring and more. With
 Ingress, these features need custom provider-specific annotations.
 
@@ -116,11 +118,10 @@ be more expressive than annotations were on Ingress.
 
 ## Upgrading to Gateway
 
-Migrating from Ingress to the Gateway API may seem intimidating, but luckily Kubernetes just
-released a tool to simplify the process.
-[ingress2gateway](https://github.com/kubernetes-sigs/ingress2gateway) assists in the migration by
-converting your existing Ingress resources into Gateway API resources. Here is how you can get
-started with Gateway API and using ingress2gateway:
+Migrating from Ingress to Gateway API may seem intimidating, but luckily Kubernetes just released a
+tool to simplify the process. [ingress2gateway](https://github.com/kubernetes-sigs/ingress2gateway)
+assists in the migration by converting your existing Ingress resources into Gateway API resources.
+Here is how you can get started with Gateway API and using ingress2gateway:
 
 1. [Install a Gateway
    controller](https://gateway-api.sigs.k8s.io/guides/#installing-a-gateway-controller) OR [install
@@ -173,17 +174,18 @@ Gateway API is designed to improve the current Kubernetes networking standards l
 reduce the need for implementation specific annotations and CRDs.
 
 It is a Kubernetes standard API, consistent across different platforms and implementations and most
-importantly it is future proof. The Gateway API is considered the successor to Ingress; Gateway API
-and Ingress2gateway are supported by a dedicated team under SIG Network that actively work on it and
+importantly it is future proof. Gateway API is the next generation of the Ingress API, but has a
+larger scope than that, expanding to tackle mesh and layer 4 routing as well. Gateway API and
+ingress2gateway are supported by a dedicated team under SIG Network that actively work on it and
 manage the ecosystem. It is also likely to receive more updates and community support.
 
 ### The Road Ahead
 
-Ingress2gateway is just getting started. We're planning to onboard more providers, introduce support
+ingress2gateway is just getting started. We're planning to onboard more providers, introduce support
 for more types of Gateway API routes, and make sure everything syncs up smoothly with the ongoing
-development of the Gateway API.
+development of Gateway API.
 
-Excitingly, the Gateway API is also making significant strides. While v1.0 is about to launching,
+Excitingly, Gateway API is also making significant strides. While v1.0 is about to launching,
 there's still a lot of work ahead. This release incorporates many new experimental features, with
 additional functionalities currently in the early stages of planning and development.
 
@@ -196,7 +198,7 @@ the Slack channel and community meetings. We look forward to seeing you!!
 - Get involved with the Ingress2Gateway project on
   [GitHub](https://github.com/kubernetes-sigs/ingress2gateway)
 - Open a new issue -
-  [Ingress2gateway](https://github.com/kubernetes-sigs/ingress2gateway/issues/new/choose), [Gateway
+  [ingress2gateway](https://github.com/kubernetes-sigs/ingress2gateway/issues/new/choose), [Gateway
   API](https://github.com/kubernetes-sigs/gateway-api/issues/new/choose).
 - Join our [discussions](https://github.com/kubernetes-sigs/gateway-api/discussions).
 - [Gateway API Getting Started](https://gateway-api.sigs.k8s.io/guides/)
