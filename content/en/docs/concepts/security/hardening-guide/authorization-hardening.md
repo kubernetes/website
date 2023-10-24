@@ -66,22 +66,22 @@ kube-apiserver --authorization-mode=RBAC
 
 ### Admission Controllers
 
-We can extend the builtin RBAC policies using the validation admission webhooks to strengthen the authorization design. There
+We can extend the built-in RBAC policies using the validation admission webhooks to strengthen the authorization design. There
 can be situations when we require more policy features or granularity which RBAC or network policies provide. Kubernetes admission controllers
 can help in such a scenario.
 
 A Kubernetes admission controller is a component of code that analyzes requests made to the Kubernetes API server and decides whether to
 approve them or deny them. The request gets evaluated after it has been verified and authorized by the API server before it is granted and
-implemented. This is an optional feature, which may be only be required for large scale clusters or where complex security is required. They
+implemented. This is an optional feature that may only be required for  large-scale clusters or where complex security is required. They
 can be adjustable for many different user-specific scenarios and environments. There are many open source and commercial implementations from
 which organizations can choose and enforce their specific restrictions.
 
 
 ### Auditing RBAC Policies
 
-As the application grows, the scope of the components expands and the required permissions of certain resources also changes. There is a very
-high chance that any admin or developer might unknowingly give extra permission to any of the defined roles any time. Regular reviews of the
-existing RBAC policies are required to check and prevent any such. We can use the below tools to audit and make a check for risky permissions
+As the application grows, the scope of the components expands, and the required permissions for certain resources also change. There is a very
+There is a high chance that any admin or developer might unknowingly give extra permission to any of the defined roles at any time. Regular reviews of the
+existing RBAC policies are required to check for and prevent such mistakes. We can use the below tools to audit and make a check for risky permissions
 in the existing RBAC policies defined in the cluster.
 
 - [K8s-rbac-audit](https://github.com/cyberark/kubernetes-rbac-audit)
