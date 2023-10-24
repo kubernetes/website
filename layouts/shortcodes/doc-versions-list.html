@@ -1,0 +1,20 @@
+{{ $versions := .Page.Param "versions" }}
+{{ $thisPageRelUri := .Page.RelPermalink }}
+{{ $thisPageTitle := .Page.Title }}
+{{ $thisVersionArray := split (.Page.Param "version") "." }}
+{{ $itemName := .Get 0 }}
+
+<div class="version-list">
+    <p>
+        {{ printf (T "docs_page_versions") $itemName (delimit $thisVersionArray ".") }}
+    </p>
+    <ul>
+        {{ range $index, $version := $versions }}
+            {{ if ne .version ( delimit $thisVersionArray "." ) }}
+            <li>
+                <a href="{{ .url }}{{ $thisPageRelUri }}">{{ $thisPageTitle }} (Kubernetes {{ .version }})</a>
+            </li>
+            {{ end }}
+        {{ end }}
+    </ul>
+</div>

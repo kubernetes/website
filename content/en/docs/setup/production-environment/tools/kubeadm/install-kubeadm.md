@@ -14,6 +14,7 @@ card:
 This page shows how to install the `kubeadm` toolbox.
 For information on how to create a cluster with kubeadm once you have performed this installation process, see the [Creating a cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) page.
 
+{{< doc-versions-list "installation guide" >}}
 
 ## {{% heading "prerequisites" %}}
 
@@ -143,29 +144,46 @@ For more information on version skews, see:
 * Kubernetes [version and version-skew policy](/docs/setup/release/version-skew-policy/)
 * Kubeadm-specific [version skew policy](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
 
+{{% legacy-repos-deprecation %}}
+
+{{< note >}}
+There's a dedicated package repository for each Kubernetes minor version. If you want to install
+a minor version other than {{< skew currentVersion >}}, please see the installation guide for
+your desired minor version.
+{{< /note >}}
+
 {{< tabs name="k8s_install" >}}
 {{% tab name="Debian-based distributions" %}}
+
+These instructions are for Kubernetes {{< skew currentVersion >}}.
 
 1. Update the `apt` package index and install packages needed to use the Kubernetes `apt` repository:
 
    ```shell
    sudo apt-get update
+   # apt-transport-https may be a dummy package; if so, you can skip that package
    sudo apt-get install -y apt-transport-https ca-certificates curl
    ```
 
-2. Download the Google Cloud public signing key:
+2. Download the public signing key for the Kubernetes package repositories.
+   The same signing key is used for all repositories so you can disregard the version in the URL:
 
    ```shell
-   sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    ```
 
-3. Add the Kubernetes `apt` repository:
+3. Add the appropriate Kubernetes `apt` repository. Please note that this repository have packages
+   only for Kubernetes {{< skew currentVersion >}}; for other Kubernetes minor versions, you need to
+   change the Kubernetes minor version in the URL to match your desired minor version
+   (you should also check that you are reading the documentation for the version of Kubernetes
+   that you plan to install).
 
    ```shell
-   echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   # This overwrites any existing configuration in /etc/apt/sources.list.d/kubernetes.list
+   echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
    ```
 
-4. Update `apt` package index, install kubelet, kubeadm and kubectl, and pin their version:
+4. Update the `apt` package index, install kubelet, kubeadm and kubectl, and pin their version:
 
    ```shell
    sudo apt-get update
@@ -173,39 +191,62 @@ For more information on version skews, see:
    sudo apt-mark hold kubelet kubeadm kubectl
    ```
 
+{{< note >}}
+In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default;
+you can create it by running `sudo mkdir -m 755 /etc/apt/keyrings`
+{{< /note >}}
+
 {{% /tab %}}
 {{% tab name="Red Hat-based distributions" %}}
-```bash
-cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
-[kubernetes]
-name=Kubernetes
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
-enabled=1
-gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
-exclude=kubelet kubeadm kubectl
-EOF
 
-# Set SELinux in permissive mode (effectively disabling it)
-sudo setenforce 0
-sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+1. Set SELinux to `permissive` mode:
 
-sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+   These instructions are for Kubernetes {{< skew currentVersion >}}.
 
-sudo systemctl enable --now kubelet
-```
+   ```shell
+   # Set SELinux in permissive mode (effectively disabling it)
+   sudo setenforce 0
+   sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+   ```
 
-  **Notes:**
+{{< caution >}}
+- Setting SELinux in permissive mode by running `setenforce 0` and `sed ...`
+effectively disables it. This is required to allow containers to access the host
+filesystem; for example, some cluster network plugins require that. You have to
+do this until SELinux support is improved in the kubelet.
+- You can leave SELinux enabled if you know how to configure it but it may require
+settings that are not supported by kubeadm.
+{{< /caution >}}
 
-  - Setting SELinux in permissive mode by running `setenforce 0` and `sed ...` effectively disables it.
-    This is required to allow containers to access the host filesystem, which is needed by pod networks for example.
-    You have to do this until SELinux support is improved in the kubelet.
+2. Add the Kubernetes `yum` repository. The `exclude` parameter in the
+   repository definition ensures that the packages related to Kubernetes are
+   not upgraded upon running `yum update` as there's a special procedure that
+   must be followed for upgrading Kubernetes. Please note that this repository
+   have packages only for Kubernetes {{< skew currentVersion >}}; for other
+   Kubernetes minor versions, you need to change the Kubernetes minor version
+   in the URL to match your desired minor version (you should also check that
+   you are reading the documentation for the version of Kubernetes that you
+   plan to install).
 
-  - You can leave SELinux enabled if you know how to configure it but it may require settings that are not supported by kubeadm.
+   ```shell
+   # This overwrites any existing configuration in /etc/yum.repos.d/kubernetes.repo
+   cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
+   [kubernetes]
+   name=Kubernetes
+   baseurl=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/
+   enabled=1
+   gpgcheck=1
+   gpgkey=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/repodata/repomd.xml.key
+   exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
+   EOF
+   ```
 
-  - If the `baseurl` fails because your Red Hat-based distribution cannot interpret `basearch`, replace `\$basearch` with your computer's architecture.
-  Type `uname -m` to see that value.
-  For example, the `baseurl` URL for `x86_64` could be: `https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64`.
+3. Install kubelet, kubeadm and kubectl, and enable kubelet to ensure it's automatically started on startup:
+
+   ```shell
+   sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+   sudo systemctl enable --now kubelet
+   ```
 
 {{% /tab %}}
 {{% tab name="Without a package manager" %}}
