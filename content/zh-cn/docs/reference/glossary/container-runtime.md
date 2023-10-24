@@ -26,9 +26,11 @@ tags:
 -->
 
 <!--
- The container runtime is the software that is responsible for running containers.
+A fundamental component that empowers Kubernetes to run containers effectively.
+It is responsible for managing the execution and lifecycle of containers within the Kubernetes environment.
 -->
-容器运行环境是负责运行容器的软件。
+这个基础组件使 Kubernetes 能够有效运行容器。
+它负责管理 Kubernetes 环境中容器的执行和生命周期。
 
 <!--more-->
 

@@ -24,7 +24,7 @@ dans le fichier de configuration.
 
 Dans cet exercice, vous allez créer un Pod qui exécute un container. Le fichier de configuration pour ce Pod contient une variable d'environnement s'appelant `DEMO_GREETING` et sa valeur est `"Hello from the environment"`. Voici le fichier de configuration du Pod:
 
-{{< codenew file="pods/inject/envars.yaml" >}}
+{{% codenew file="pods/inject/envars.yaml" %}}
 
 1. Créez un Pod à partir de ce fichier:
 

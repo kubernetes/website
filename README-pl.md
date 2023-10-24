@@ -43,7 +43,7 @@ make container-image
 make container-serve
 ```
 
-Jeśli widzisz błędy, prawdopodobnie kontener z Hugo nie dysponuje wystarczającymi zasobami. Aby rozwiązać ten problem, zwiększ ilość dostępnych zasobów CPU i pamięci dla Dockera na Twojej maszynie ([MacOSX](https://docs.docker.com/docker-for-mac/#resources) i [Windows](https://docs.docker.com/docker-for-windows/#resources)).
+Jeśli widzisz błędy, prawdopodobnie kontener z Hugo nie dysponuje wystarczającymi zasobami. Aby rozwiązać ten problem, zwiększ ilość dostępnych zasobów CPU i pamięci dla Dockera na Twojej maszynie ([MacOS](https://docs.docker.com/desktop/settings/mac/) i [Windows](https://docs.docker.com/desktop/settings/windows/)).
 
 Aby obejrzeć zawartość serwisu, otwórz w przeglądarce adres <http://localhost:1313>. Po każdej zmianie plików źródłowych, Hugo automatycznie aktualizuje stronę i odświeża jej widok w przeglądarce.
 

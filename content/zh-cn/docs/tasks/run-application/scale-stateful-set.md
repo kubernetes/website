@@ -184,4 +184,4 @@ Stateful 应用的集群是完全健康时才执行扩缩操作。
 <!--
 - Learn more about [deleting a StatefulSet](/docs/tasks/run-application/delete-stateful-set/).
 -->
-- 进一步了解[删除 StatefulSet](/zh-cn/docs/tasks/run-application/delete-stateful-set/)
+- 进一步了解[删除 StatefulSet](/zh-cn/docs/tasks/run-application/delete-stateful-set/)。

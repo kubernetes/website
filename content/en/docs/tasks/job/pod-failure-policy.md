@@ -39,7 +39,7 @@ software bug.
 
 First, create a Job based on the config:
 
-{{% code file="/controllers/job-pod-failure-policy-failjob.yaml" %}}
+{{% code_sample file="/controllers/job-pod-failure-policy-failjob.yaml" %}}
 
 by running:
 
@@ -85,7 +85,7 @@ node while the Pod is running on it (within 90s since the Pod is scheduled).
 
 1. Create a Job based on the config:
 
-   {{% code file="/controllers/job-pod-failure-policy-ignore.yaml" %}}
+   {{% code_sample file="/controllers/job-pod-failure-policy-ignore.yaml" %}}
 
    by running:
 
@@ -145,7 +145,7 @@ deleted pods, in the `Pending` phase, to a terminal phase
 
 1. First, create a Job based on the config:
 
-   {{% code file="/controllers/job-pod-failure-policy-config-issue.yaml" %}}
+   {{% code_sample file="/controllers/job-pod-failure-policy-config-issue.yaml" %}}
 
    by running:
 

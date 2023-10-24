@@ -1,24 +1,11 @@
 <!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
-
-<!--
 Generate a private key for signing service account tokens along with its public key
 -->
-生成用来签署服务账号令牌的私钥及其公钥
+生成用来签署服务账号令牌的私钥及其公钥。
 
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
@@ -30,7 +17,7 @@ Generate the private key for signing service account tokens along with its publi
 <!--
 Alpha Disclaimer: this command is currently alpha.
 -->
-Alpha 免责声明：此命令当前为 alpha 阶段。
+Alpha 免责声明：此命令当前为 Alpha 阶段。
 
 ```
 kubeadm init phase certs sa [flags]
@@ -39,7 +26,6 @@ kubeadm init phase certs sa [flags]
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -77,7 +63,7 @@ The path where to save and store the certificates.
 help for sa
 -->
 <p>
-sa 操作的帮助命令
+sa 操作的帮助命令。
 </p>
 </td>
 </tr>

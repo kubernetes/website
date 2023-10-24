@@ -6,7 +6,7 @@ weight: 40
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
 Pods were considered ready for scheduling once created. Kubernetes scheduler
 does its due diligence to find nodes to place all pending Pods. However, in a 
@@ -31,7 +31,7 @@ each schedulingGate can be removed in arbitrary order, but addition of a new sch
 
 To mark a Pod not-ready for scheduling, you can create it with one or more scheduling gates like this:
 
-{{% code file="pods/pod-with-scheduling-gates.yaml" %}}
+{{% code_sample file="pods/pod-with-scheduling-gates.yaml" %}}
 
 After the Pod's creation, you can check its state using:
 
@@ -61,7 +61,7 @@ The output is:
 To inform scheduler this Pod is ready for scheduling, you can remove its `schedulingGates` entirely
 by re-applying a modified manifest:
 
-{{% code file="pods/pod-without-scheduling-gates.yaml" %}}
+{{% code_sample file="pods/pod-without-scheduling-gates.yaml" %}}
 
 You can check if the `schedulingGates` is cleared by running:
 

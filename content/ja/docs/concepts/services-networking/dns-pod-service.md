@@ -193,7 +193,7 @@ PodのDNS設定は、ユーザーがPodに対してそのDNS設定上でさら�
 
 下記のファイルはカスタムDNS設定を持ったPodの例です。
 
-{{< codenew file="service/networking/custom-dns.yaml" >}}
+{{% codenew file="service/networking/custom-dns.yaml" %}}
 
 上記のPodが作成されたとき、`test`コンテナは、コンテナ内の`/etc/resolv.conf`ファイル内にある下記の内容を取得します。
 

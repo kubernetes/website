@@ -25,7 +25,7 @@ This page explains how to debug Pods running (or crashing) on a Node.
 
 For this example we'll use a Deployment to create two pods, similar to the earlier example.
 
-{{% code file="application/nginx-with-request.yaml" %}}
+{{% code_sample file="application/nginx-with-request.yaml" %}}
 
 Create deployment by running following command:
 

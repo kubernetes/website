@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job-backoff-limit-per-index-example
+spec:
+  completions: 10
+  parallelism: 3
+  completionMode: Indexed  # required for the feature
+  backoffLimitPerIndex: 1  # maximal number of failures per index
+  maxFailedIndexes: 5      # maximal number of failed indexes before terminating the Job execution
+  template:
+    spec:
+      restartPolicy: Never # required for the feature
+      containers:
+      - name: example
+        image: python
+        command:           # The jobs fails as there is at least one failed index
+                           # (all even indexes fail in here), yet all indexes
+                           # are executed as maxFailedIndexes is not exceeded.
+        - python3
+        - -c
+        - |
+          import os, sys
+          print("Hello world")
+          if int(os.environ.get("JOB_COMPLETION_INDEX")) % 2 == 0:
+            sys.exit(1)

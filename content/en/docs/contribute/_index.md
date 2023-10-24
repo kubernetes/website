@@ -158,6 +158,10 @@ Figure 2. Preparation for your first contribution.
 - Learn about [page content types](/docs/contribute/style/page-content-types/)
   and [Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/).
 
+## Getting help when contributing
+
+Making your first contribution can be overwhelming. The [New Contributor Ambassadors](https://github.com/kubernetes/website#new-contributor-ambassadors) are there to walk you through making your first few contributions. You can reach out to them in the [Kubernetes Slack](https://slack.k8s.io/) preferably in the `#sig-docs` channel. There is also the [New Contributors Meet and Greet call](https://www.kubernetes.dev/resources/calendar/) that happens on the first Tuesday of every month. You can interact with the New Contributor Ambassadors and get your queries resolved here.
+
 ## Next steps
 
 - Learn to [work from a local clone](/docs/contribute/new-content/open-a-pr/#fork-the-repo)

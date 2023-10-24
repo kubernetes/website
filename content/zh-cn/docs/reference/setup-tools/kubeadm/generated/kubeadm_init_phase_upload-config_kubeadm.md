@@ -1,36 +1,22 @@
 <!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
-
-<!--
 Upload the kubeadm ClusterConfiguration to a ConfigMap
 -->
-将 kubeadm ClusterConfiguration 上传到 ConfigMap
+将 kubeadm ClusterConfiguration 上传到 ConfigMap。
+
 <!-- 
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
 Upload the kubeadm ClusterConfiguration to a ConfigMap called kubeadm-config in the kube-system namespace. This enables correct configuration of system components and a seamless user experience when upgrading.
 -->
-
 将 kubeadm ClusterConfiguration 上传到 kube-system 命名空间中名为 kubeadm-config 的 ConfigMap 中。
 这样就可以正确配置系统组件，并在升级时提供无缝的用户体验。
 
 <!--
 Alternatively, you can use kubeadm config.
 -->
-
 另外，可以使用 kubeadm 配置。
 
 ```
@@ -40,13 +26,11 @@ kubeadm init phase upload-config kubeadm [flags]
 <!--
 ### Examples
 -->
-
 ### 示例
 
 <!--
 # upload the configuration of your cluster
 -->
-
 ```
 # 上传集群配置
 kubeadm init phase upload-config --config=myConfig.yaml
@@ -55,7 +39,6 @@ kubeadm init phase upload-config --config=myConfig.yaml
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -117,7 +100,7 @@ Don't apply any changes; just output what would be done.
 help for kubeadm
 -->
 <p>
-kubeadm 操作的帮助命令
+kubeadm 操作的帮助命令。
 </p>
 </td>
 </tr>
@@ -147,7 +130,6 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 从父命令继承的选项
 
    <table style="width: 100%; table-layout: fixed;">

@@ -31,6 +31,22 @@ upgrade the control plane nodes before upgrading your Linux Worker nodes.
 <!-- steps -->
 
 <!--
+## Changing the package repository
+
+If you're using the community-owned package repositories (`pkgs.k8s.io`), you need to 
+enable the package repository for the desired Kubernetes minor release. This is explained in
+[Changing the Kubernetes package repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/)
+document.
+-->
+## 更改软件包仓库   {#changing-the-package-repository}
+
+如果你正在使用社区自治的软件包仓库（`pkgs.k8s.io`），
+你需要启用所需的 Kubernetes 小版本的软件包仓库。
+这一点在[更改 Kubernetes 软件包仓库](/zh-cn/docs/tasks/administer-cluster/kubeadm/change-package-repository/)文档中有详细说明。
+
+{{% legacy-repos-deprecation %}}
+
+<!--
 ## Upgrading worker nodes
 
 ### Upgrade kubeadm
@@ -43,23 +59,25 @@ Upgrade kubeadm:
 
 升级 kubeadm：
 
-<!--
-# replace x in {{< skew currentVersion >}}.x-00 with the latest patch version
-# replace x in {{< skew currentVersion >}}.x-0 with the latest patch version
--->
 {{< tabs name="k8s_install_kubeadm_worker_nodes" >}}
 {{% tab name="Ubuntu、Debian 或 HypriotOS" %}}
+<!--
+# replace x in {{< skew currentVersion >}}.x-* with the latest patch version
+-->
 ```shell
-# 将 {{< skew currentVersion >}}.x-00 中的 x 替换为最新的补丁版本
+# 将 {{< skew currentVersion >}}.x-* 中的 x 替换为最新的补丁版本
 apt-mark unhold kubeadm && \
-apt-get update && apt-get install -y kubeadm={{< skew currentVersion >}}.x-00 && \
+apt-get update && apt-get install -y kubeadm='{{< skew currentVersion >}}.x-*' && \
 apt-mark hold kubeadm
 ```
 {{% /tab %}}
 {{% tab name="CentOS、RHEL 或 Fedora" %}}
+<!--
+# replace x in {{< skew currentVersion >}}.x-* with the latest patch version
+-->
 ```shell
-# 将 {{< skew currentVersion >}}.x-0 中的 x 替换为最新的补丁版本
-yum install -y kubeadm-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
+# 将 {{< skew currentVersion >}}.x-* 中的 x 替换为最新的补丁版本
+yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
 ```
 {{% /tab %}}
 {{< /tabs >}}
@@ -103,23 +121,25 @@ kubectl drain <node-to-drain> --ignore-daemonsets
 
 1. 升级 kubelet 和 kubectl:
 
-   <!--
-   # replace x in {{< skew currentVersion >}}.x-00 with the latest patch version
-   # replace x in {{< skew currentVersion >}}.x-0 with the latest patch version
-   -->
    {{< tabs name="k8s_kubelet_and_kubectl" >}}
    {{% tab name="Ubuntu、Debian 或 HypriotOS" %}}
+   <!--
+   # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
+   -->
    ```shell
-   # 将 {{< skew currentVersion >}}.x-00 中的 x 替换为最新的补丁版本
+   # 将 {{< skew currentVersion >}}.x-* 中的 x 替换为最新的补丁版本
    apt-mark unhold kubelet kubectl && \
-   apt-get update && apt-get install -y kubelet={{< skew currentVersion >}}.x-00 kubectl={{< skew currentVersion >}}.x-00 && \
+   apt-get update && apt-get install -y kubelet='{{< skew currentVersion >}}.x-*' kubectl='{{< skew currentVersion >}}.x-*' && \
    apt-mark hold kubelet kubectl
    ```
    {{% /tab %}}
    {{% tab name="CentOS、RHEL 或 Fedora" %}}
+   <!--
+   # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
+   -->
    ```shell
-   # 将 {{< skew currentVersion >}}.x-0 中的 x 替换为最新的补丁版本
-   yum install -y kubelet-{{< skew currentVersion >}}.x-0 kubectl-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
+   # 将 {{< skew currentVersion >}}.x-* 中的 x 替换为最新的补丁版本
+   yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
    ```
    {{% /tab %}}
    {{< /tabs >}}

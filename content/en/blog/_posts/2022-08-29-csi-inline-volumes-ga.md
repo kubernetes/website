@@ -13,7 +13,7 @@ CSI Inline Volumes are similar to other ephemeral volume types, such as `configM
 
 ## What's new in 1.25?
 
-There are a couple of new bug fixes related to this feature in 1.25, and the [CSIInlineVolume feature gate](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/) has been locked to `True` with the graduation to GA. There are no new API changes, so users of this feature during beta should not notice any significant changes aside from these bug fixes.
+There are a couple of new bug fixes related to this feature in 1.25, and the [CSIInlineVolume feature gate](/docs/reference/command-line-tools-reference/feature-gates/) has been locked to `True` with the graduation to GA. There are no new API changes, so users of this feature during beta should not notice any significant changes aside from these bug fixes.
 
 - [#89290 - CSI inline volumes should support fsGroup](https://github.com/kubernetes/kubernetes/issues/89290)
 - [#79980 - CSI volume reconstruction does not work for ephemeral volumes](https://github.com/kubernetes/kubernetes/issues/79980)
@@ -95,8 +95,8 @@ Cluster administrators may choose to omit (or remove) `Ephemeral` from `volumeLi
 
 For more information on this feature, see:
 
-- [Kubernetes documentation](https://kubernetes.io/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes)
+- [Kubernetes documentation](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes)
 - [CSI documentation](https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html)
 - [KEP-596](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/596-csi-inline-volumes/README.md)
-- [Beta blog post for CSI Inline Volumes](https://kubernetes.io/blog/2020/01/21/csi-ephemeral-inline-volumes/)
+- [Beta blog post for CSI Inline Volumes](/blog/2020/01/21/csi-ephemeral-inline-volumes/)
 

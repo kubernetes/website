@@ -1,18 +1,7 @@
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
 <!-- 
 Generate a kubeconfig file for the kubelet to use *only* for cluster bootstrapping purposes
 -->
-为 kubelet 生成一个 kubeconfig 文件，*仅仅*用于集群引导目的
+为 kubelet 生成一个 kubeconfig 文件，**仅仅**用于集群引导目的。
 
 <!--
 ### Synopsis
@@ -22,14 +11,12 @@ Generate a kubeconfig file for the kubelet to use *only* for cluster bootstrappi
 <!--
 Generate the kubeconfig file for the kubelet to use and save it to kubelet.conf file.
 -->
-
 生成 kubelet 要使用的 kubeconfig 文件，并将其保存到 kubelet.conf 文件。
 
 <!--
 Please note that this should *only* be used for cluster bootstrapping purposes. After your control plane is up, you should request all kubelet credentials from the CSR API.
 -->
-
-请注意，该操作目的是*仅*应用于引导集群。在控制平面启动之后，应该从 CSR API 请求所有 kubelet 凭据。
+请注意，该操作目的是**仅**用于引导集群。在控制平面启动之后，应该从 CSR API 请求所有 kubelet 凭据。
 
 ```
 kubeadm init phase kubeconfig kubelet [flags]
@@ -38,7 +25,6 @@ kubeadm init phase kubeconfig kubelet [flags]
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -138,7 +124,7 @@ kubeadm init phase kubeconfig kubelet [flags]
 <!--
 <p>help for kubelet</p>
 -->
-<p>kubelet 操作的帮助命令</p>
+<p>kubelet 操作的帮助命令。</p>
 </td>
 </tr>
 
@@ -194,7 +180,6 @@ kubeadm init phase kubeconfig kubelet [flags]
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 继承于父命令的选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -218,4 +203,3 @@ kubeadm init phase kubeconfig kubelet [flags]
 
 </tbody>
 </table>
-

@@ -80,7 +80,7 @@ for that Pod.
 You can use a [LimitRange](/docs/concepts/policy/limit-range/) to automatically set
 a default request for these resources.
 -->
-- 对于 `cpu` 和 `memory` 资源：ResourceQuota 强制该命名空间中的每个（新）Pod 为该资源设置限制。
+- 对于 `cpu` 和 `memory` 资源：ResourceQuota 强制该命名空间中的**每个**（新）Pod 为该资源设置限制。
   如果你在命名空间中为 `cpu` 和 `memory` 实施资源配额，
   你或其他客户端**必须**为你提交的每个新 Pod 指定该资源的 `requests` 或 `limits`。
   否则，控制平面可能会拒绝接纳该 Pod。
@@ -1045,7 +1045,7 @@ Then, create a resource quota object in the `kube-system` namespace:
 -->
 现在在 `kube-system` 名字空间中创建一个资源配额对象：
 
-{{< codenew file="policy/priority-class-resourcequota.yaml" >}}
+{{% code_sample file="policy/priority-class-resourcequota.yaml" %}}
 
 ```shell
 kubectl apply -f https://k8s.io/examples/policy/priority-class-resourcequota.yaml -n kube-system
@@ -1089,4 +1089,3 @@ and it is to be created in a namespace other than `kube-system`.
 - 参阅[如何使用资源配额的详细示例](/zh-cn/docs/tasks/administer-cluster/quota-api-object/)。
 - 参阅[优先级类配额支持的设计文档](https://git.k8s.io/design-proposals-archive/scheduling/pod-priority-resourcequota.md)了解更多信息。
 - 参阅 [LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765)。
-

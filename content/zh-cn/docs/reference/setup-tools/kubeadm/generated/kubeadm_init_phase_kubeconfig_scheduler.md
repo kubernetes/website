@@ -1,29 +1,16 @@
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
 <!-- 
 Generate a kubeconfig file for the scheduler to use 
 -->
-生成调度器使用的 kubeconfig 文件
+生成调度器使用的 kubeconfig 文件。
 
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
 Generate the kubeconfig file for the scheduler to use and save it to scheduler.conf file.
 -->
-
 生成调度器（scheduler）要使用的 kubeconfig 文件，并保存到 scheduler.conf 文件中。
 
 ```
@@ -33,7 +20,6 @@ kubeadm init phase kubeconfig scheduler [flags]
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -135,7 +121,7 @@ Don't apply any changes; just output what would be done.
 <!--
 <p>help for scheduler</p>
 -->
-<p>scheduler 操作的帮助命令</p>
+<p>scheduler 操作的帮助命令。</p>
 </td>
 </tr>
 
@@ -179,7 +165,6 @@ Don't apply any changes; just output what would be done.
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 继承于父命令的选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -203,4 +188,3 @@ Don't apply any changes; just output what would be done.
 
 </tbody>
 </table>
-

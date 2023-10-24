@@ -82,13 +82,23 @@ Save the file as `Dockerfile`, build the image and push it to a registry. This e
 pushes the image to
 [Google Container Registry (GCR)](https://cloud.google.com/container-registry/).
 For more details, please read the GCR
-[documentation](https://cloud.google.com/container-registry/docs/).
+[documentation](https://cloud.google.com/container-registry/docs/). Alternatively
+you can also use the [docker hub](https://hub.docker.com/search?q=). For more details
+refer to the docker hub [documentation](https://docs.docker.com/docker-hub/repos/create/#create-a-repository).
 -->
 将文件保存为 `Dockerfile`，构建镜像并将其推送到镜像仓库。
 此示例将镜像推送到 [Google 容器镜像仓库（GCR）](https://cloud.google.com/container-registry/)。
 有关详细信息，请阅读 GCR [文档](https://cloud.google.com/container-registry/docs/)。
+或者，你也可以使用 [Docker Hub](https://hub.docker.com/search?q=)。
+有关更多详细信息，请参阅 Docker Hub
+[文档](https://docs.docker.com/docker-hub/repos/create/#create-a-repository)。
 
+<!--
+# The image name and the repository
+# used in here is just an example
+-->
 ```shell
+# 这里使用的镜像名称和仓库只是一个例子
 docker build -t gcr.io/my-gcp-project/my-kube-scheduler:1.0 .
 gcloud docker -- push gcr.io/my-gcp-project/my-kube-scheduler:1.0
 ```
@@ -113,7 +123,7 @@ Deployment 管理一个 [ReplicaSet](/zh-cn/docs/concepts/workloads/controllers/
 ReplicaSet 再管理 Pod，从而使调度器能够免受一些故障的影响。
 以下是 Deployment 配置，将其保存为 `my-scheduler.yaml`：
 
-{{< codenew file="admin/sched/my-scheduler.yaml" >}}
+{{% code_sample file="admin/sched/my-scheduler.yaml" %}}
 
 <!--
 In the above manifest, you use a [KubeSchedulerConfiguration](/docs/reference/scheduling/config/)
@@ -128,24 +138,26 @@ the `kube-scheduler` during initialization with the `--config` option. The `my-s
 <!--
 In the aforementioned Scheduler Configuration, your scheduler implementation is represented via
 a [KubeSchedulerProfile](/docs/reference/config-api/kube-scheduler-config.v1beta3/#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerProfile).
+-->
+在前面提到的调度器配置中，你的调度器呈现为一个
+[KubeSchedulerProfile](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerProfile)。
+
 {{< note >}}
+<!--
 To determine if a scheduler is responsible for scheduling a specific Pod, the `spec.schedulerName` field in a
 PodTemplate or Pod manifest must match the `schedulerName` field of the `KubeSchedulerProfile`.
 All schedulers running in the cluster must have unique names.
-{{< /note >}}
 -->
-在前面提到的调度器配置中，你的调度器通过 [KubeSchedulerProfile](/docs/reference/config-api/kube-scheduler-config.v1beta3/#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerProfile) 进行实现。
-{{< note >}}
 要确定一个调度器是否可以调度特定的 Pod，PodTemplate 或 Pod 清单中的 `spec.schedulerName` 
 字段必须匹配 `KubeSchedulerProfile` 中的 `schedulerName` 字段。
-所有运行在集群中的调度器必须拥有唯一的名称。
+运行在集群中的所有调度器必须拥有唯一的名称。
 {{< /note >}}
 
 <!--
 Also, note that you create a dedicated service account `my-scheduler` and bind the ClusterRole
 `system:kube-scheduler` to it so that it can acquire the same privileges as `kube-scheduler`.
 -->
-还要注意，我们创建了一个专用服务账号 `my-scheduler` 并将集群角色 `system:kube-scheduler`
+还要注意，我们创建了一个专用的服务账号 `my-scheduler` 并将集群角色 `system:kube-scheduler`
 绑定到它，以便它可以获得与 `kube-scheduler` 相同的权限。
 
 <!--
@@ -155,8 +167,8 @@ detailed description of other command line arguments and
 [Scheduler Configuration reference](/docs/reference/config-api/kube-scheduler-config.v1beta3/) for
 detailed description of other customizable `kube-scheduler` configurations.
 -->
-请参阅 [kube-scheduler 文档](/docs/reference/command-line-tools-reference/kube-scheduler/)
-获取其他命令行参数以及 [Scheduler 配置参考](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
+请参阅 [kube-scheduler 文档](/zh-cn/docs/reference/command-line-tools-reference/kube-scheduler/)
+获取其他命令行参数以及 [Scheduler 配置参考](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/)
 获取自定义 `kube-scheduler` 配置的详细说明。
 
 <!--
@@ -236,7 +248,7 @@ Add your scheduler name to the resourceNames of the rule applied for `endpoints`
 kubectl edit clusterrole system:kube-scheduler
 ```
 
-{{< codenew file="admin/sched/clusterrole.yaml" >}}
+{{% code_sample file="admin/sched/clusterrole.yaml" %}}
 
 <!--
 ## Specify schedulers for pods
@@ -257,7 +269,7 @@ scheduler in that pod spec. Let's look at three examples.
 -->
 - Pod spec 没有任何调度器名称
 
-  {{< codenew file="admin/sched/pod1.yaml" >}}
+  {{% code_sample file="admin/sched/pod1.yaml" %}}
 
   <!--
   When no scheduler name is supplied, the pod is automatically scheduled using the
@@ -279,7 +291,7 @@ scheduler in that pod spec. Let's look at three examples.
 -->
 - Pod spec 设置为 `default-scheduler`
 
-  {{< codenew file="admin/sched/pod2.yaml" >}}
+  {{% code_sample file="admin/sched/pod2.yaml" %}}
 
   <!--
   A scheduler is specified by supplying the scheduler name as a value to `spec.schedulerName`. In this case, we supply the name of the
@@ -302,7 +314,7 @@ scheduler in that pod spec. Let's look at three examples.
 -->
 - Pod spec 设置为 `my-scheduler`
 
-  {{< codenew file="admin/sched/pod3.yaml" >}}
+  {{% code_sample file="admin/sched/pod3.yaml" %}}
 
   <!--
   In this case, we specify that this pod should be scheduled using the scheduler that we
@@ -324,7 +336,7 @@ scheduler in that pod spec. Let's look at three examples.
 <!--
   Verify that all three pods are running.
 -->
-  确认所有三个 pod 都在运行。
+  确认所有三个 Pod 都在运行。
 
   ```shell
   kubectl get pods
@@ -335,7 +347,7 @@ scheduler in that pod spec. Let's look at three examples.
 <!--
 ### Verifying that the pods were scheduled using the desired schedulers
 -->
-### 验证是否使用所需的调度器调度了 pod
+### 验证是否使用所需的调度器调度了 Pod
 
 <!--
 In order to make it easier to work through these examples, we did not verify that the
@@ -350,15 +362,15 @@ scheduled as well.
 为了更容易地完成这些示例，我们没有验证 Pod 实际上是使用所需的调度程序调度的。
 我们可以通过更改 Pod 的顺序和上面的部署配置提交来验证这一点。
 如果我们在提交调度器部署配置之前将所有 Pod 配置提交给 Kubernetes 集群，
-我们将看到注解了 `annotation-second-scheduler` 的 Pod 始终处于 “Pending” 状态，
+我们将看到注解了 `annotation-second-scheduler` 的 Pod 始终处于 `Pending` 状态，
 而其他两个 Pod 被调度。
 一旦我们提交调度器部署配置并且我们的新调度器开始运行，注解了
-`annotation-second-scheduler` 的 pod 就能被调度。
+`annotation-second-scheduler` 的 Pod 就能被调度。
 <!--
 Alternatively, you can look at the "Scheduled" entries in the event logs to
 verify that the pods were scheduled by the desired schedulers.
 -->
-或者，可以查看事件日志中的 “Scheduled” 条目，以验证是否由所需的调度器调度了 Pod。
+或者，可以查看事件日志中的 `Scheduled` 条目，以验证是否由所需的调度器调度了 Pod。
 
 ```shell
 kubectl get events
@@ -370,5 +382,4 @@ or a custom container image for the cluster's main scheduler by modifying its st
 on the relevant control plane nodes.
 -->
 你也可以使用[自定义调度器配置](/zh-cn/docs/reference/scheduling/config/#multiple-profiles)
-或自定义容器镜像，用于集群的主调度器，方法是在相关控制平面节点上修改其静态 pod 清单。
-
+或自定义容器镜像，用于集群的主调度器，方法是在相关控制平面节点上修改其静态 Pod 清单。

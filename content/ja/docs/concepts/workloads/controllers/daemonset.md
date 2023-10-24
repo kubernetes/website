@@ -28,7 +28,7 @@ DaemonSetのいくつかの典型的な使用例は以下の通りです。
 
 ユーザーはYAMLファイル内でDaemonSetの設定を記述することができます。例えば、下記の`daemonset.yaml`ファイルでは`fluentd-elasticsearch`というDockerイメージを稼働させるDaemonSetの設定を記述します。
 
-{{< codenew file="controllers/daemonset.yaml" >}}
+{{% codenew file="controllers/daemonset.yaml" %}}
 
 YAMLファイルに基づいてDaemonSetを作成します。
 

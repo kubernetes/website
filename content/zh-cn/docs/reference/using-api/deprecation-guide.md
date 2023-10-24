@@ -347,7 +347,7 @@ The **apiextensions.k8s.io/v1beta1** API version of CustomResourceDefinition is 
 **apiextensions.k8s.io/v1beta1** API 版本的 CustomResourceDefinition
 不在 v1.22 版本中继续提供。
 
-* 迁移清单和 API 客户端使用 **apiextensions/v1** API 版本，此 API 从 v1.16 版本开始可用；
+* 迁移清单和 API 客户端使用 **apiextensions.k8s.io/v1** API 版本，此 API 从 v1.16 版本开始可用；
 * 所有的已保存的对象都可以通过新的 API 来访问；
 <!--
 * Notable changes:
