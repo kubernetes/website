@@ -181,7 +181,7 @@ manage the ecosystem. It is also likely to receive more updates and community su
 
 ### The Road Ahead
 
-ingress2gateway is just getting started. We're planning to onboard more providers, introduce support
+Ingress2gateway is just getting started. We're planning to onboard more providers, introduce support
 for more types of Gateway API routes, and make sure everything syncs up smoothly with the ongoing
 development of Gateway API.
 
