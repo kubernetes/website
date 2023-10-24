@@ -30,23 +30,7 @@ see the [Creating a cluster with kubeadm](/docs/setup/production-environment/too
 有关在执行此安装过程后如何使用 kubeadm 创建集群的信息，
 请参见[使用 kubeadm 创建集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)。
 
-<!--
-This installation guide is for Kubernetes {{< skew currentVersion >}}. If you want to use a different
-Kubernetes version, please refer to the following pages instead:
--->
-本安装指南适用于 Kubernetes {{< skew currentVersion >}}。
-如果你想使用不同版本的 Kubernetes，请参阅以下页面：
-
-<!--
-- [Installing kubeadm for Kubernetes {{< skew currentVersionAddMinor -1 "." >}}](https://v{{< skew currentVersionAddMinor -1 "-" >}}.docs.kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
-- [Installing kubeadm for Kubernetes {{< skew currentVersionAddMinor -2 "." >}}](https://v{{< skew currentVersionAddMinor -2 "-" >}}.docs.kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
-- [Installing kubeadm for Kubernetes {{< skew currentVersionAddMinor -3 "." >}}](https://v{{< skew currentVersionAddMinor -3 "-" >}}.docs.kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
-- [Installing kubeadm for Kubernetes {{< skew currentVersionAddMinor -4 "." >}}](https://v{{< skew currentVersionAddMinor -4 "-" >}}.docs.kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
--->
-- [为 Kubernetes {{< skew currentVersionAddMinor -1 "." >}} 安装 kubeadm](https://v{{< skew currentVersionAddMinor -1 "-" >}}.docs.kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
-- [为 Kubernetes {{< skew currentVersionAddMinor -2 "." >}} 安装 kubeadm](https://v{{< skew currentVersionAddMinor -2 "-" >}}.docs.kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
-- [为 Kubernetes {{< skew currentVersionAddMinor -3 "." >}} 安装 kubeadm](https://v{{< skew currentVersionAddMinor -3 "-" >}}.docs.kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
-- [为 Kubernetes {{< skew currentVersionAddMinor -4 "." >}} 安装 kubeadm](https://v{{< skew currentVersionAddMinor -4 "-" >}}.docs.kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
+{{< doc-versions-list "installation guide" >}}
 
 ## {{% heading "prerequisites" %}}
 
@@ -309,30 +293,16 @@ For more information on version skews, see:
 * Kubernetes [版本与版本间的偏差策略](/zh-cn/releases/version-skew-policy/)
 * kubeadm 特定的[版本偏差策略](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
 
-{{< note >}}
-<!--
-Kubernetes has [new package repositories hosted at `pkgs.k8s.io`](/blog/2023/08/15/pkgs-k8s-io-introduction/)
-starting from August 2023. The legacy package repositories (`apt.kubernetes.io` and `yum.kubernetes.io`)
-have been frozen starting from September 13, 2023. Please read our 
-[deprecation and freezing announcement](/blog/2023/08/31/legacy-package-repository-deprecation/)
-for more details.
--->
-Kubernetes 从 2023 年 8 月开始使用托管在 `pkgs.k8s.io`
-上的[新软件包仓库](/zh-cn/blog/2023/08/15/pkgs-k8s-io-introduction/)。
-自 2023 年 9 月 13 日起，老旧的软件包仓库（`apt.kubernetes.io` 和 `yum.kubernetes.io`）已被冻结。
-更多细节参阅[弃用和冻结公告](/zh-cn/blog/2023/08/31/legacy-package-repository-deprecation/)。
-{{< /note >}}
+{{% legacy-repos-deprecation %}}
 
 {{< note >}}
 <!--
 There's a dedicated package repository for each Kubernetes minor version. If you want to install
 a minor version other than {{< skew currentVersion >}}, please see the installation guide for
-your desired minor version. The official Kubernetes package repositories provide downloads for
-Kubernetes versions starting with v1.24.0. 
+your desired minor version.
 -->
 每个 Kubernetes 小版本都有一个专用的软件包仓库。
 如果你想安装 {{< skew currentVersion >}} 以外的次要版本，请参阅所需次要版本的安装指南。
-官方 Kubernetes 软件包仓库提供 Kubernetes v1.24.0 及更高版本软件包的下载。
 {{< /note >}}
 
 {{< tabs name="k8s_install" >}}
@@ -351,7 +321,7 @@ These instructions are for Kubernetes {{< skew currentVersion >}}.
    ```shell
    sudo apt-get update
    # apt-transport-https 可能是一个虚拟包（dummy package）；如果是的话，你可以跳过安装这个包
-   sudo apt-get install -y apt-transport-https ca-certificates curl
+   sudo apt-get install -y apt-transport-https ca-certificates curl gpg
    ```
 
 <!--
