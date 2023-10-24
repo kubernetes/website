@@ -52,8 +52,8 @@ La ventaja de utilizar controladores de terceros es que pueden ofrecer funcional
 Los volúmenes efímeros CSI solo son compatibles con un subconjunto de controladores CSI.
 La [lista de controladores](https://kubernetes-csi.github.io/docs/drivers.html) CSI de Kubernetes muestra cuáles controladores admiten volúmenes efímeros.
 {{< /note >}}
-Conceptualmente, los volúmenes efímeros CSI son similares a `configMap`,
-`downwardAPI` y `secret` tipos de volumen: el almacenamiento se gestiona localmente en cada nodo y se crea junto con otros recursos locales después de que un Pod ha sido programado en un nodo. Kubernetes ya no tiene ningún concepto de reprogramación de Pods en esta etapa. La creación de volúmenes debe ser poco propensa a fallos,
+Conceptualmente, los volúmenes efímeros CSI son similares a los tipos de volumen `configMap`,
+`downwardAPI` y `secret`: el almacenamiento se gestiona localmente en cada nodo y se crea junto con otros recursos locales después de que un Pod ha sido programado en un nodo. Kubernetes ya no tiene ningún concepto de reprogramación de Pods en esta etapa. La creación de volúmenes debe ser poco propensa a fallos,
 de lo contrario, el inicio del Pod queda atascado. En particular, [la programación de Pods con conciencia de la capacidad de almacenamiento](/docs/concepts/storage/storage-capacity/) _no_ está admitida para estos volúmenes. Actualmente, tampoco están cubiertos por los límites de uso de recursos de almacenamiento de un Pod, porque eso es algo que kubelet solo puede aplicar para el almacenamiento que administra él mismo.
 
 Aquí tienes un ejemplo de manifiesto para un Pod que utiliza almacenamiento efímero CSI:
