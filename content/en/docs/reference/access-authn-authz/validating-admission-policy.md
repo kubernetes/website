@@ -380,7 +380,8 @@ the request is determined as follows:
 
 `auditAnnotations` may be used to include audit annotations in the audit event of the API request.
 
-For example, here is an admission policy with an audit annotation:
+For example, here is an admission policy with spec: `{errorPolicy: Fail}`, which 
+produces an audit annotation in case of failure:
 
 {{% code_sample file="access/validating-admission-policy-audit-annotation.yaml" %}}
 
