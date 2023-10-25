@@ -1,30 +1,17 @@
 <!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
-
-<!--
 Print the version of kubeadm
 -->
-打印 kubeadm 的版本
+打印 kubeadm 的版本。
 
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
 Print the version of kubeadm
 -->
-打印 kubeadm 的版本
+打印 kubeadm 的版本。
 
 ```
 kubeadm version [flags]
@@ -33,7 +20,6 @@ kubeadm version [flags]
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -52,7 +38,7 @@ kubeadm version [flags]
 help for version
 -->
 <p>
-version 操作的帮助命令
+version 操作的帮助命令。
 </p>
 </td>
 </tr>
@@ -66,7 +52,7 @@ version 操作的帮助命令
 Output format; available options are 'yaml', 'json' and 'short'
 -->
 <p>
-输出格式；可用的选项有 'yaml', 'json' 和 'short'
+输出格式；可用的选项有 'yaml'、'json' 和 'short'。
 </p>
 </td>
 </tr>
@@ -77,9 +63,8 @@ Output format; available options are 'yaml', 'json' and 'short'
 <!-- 
 ### Options inherited from parent commands 
 -->
-
 ### 从父命令继承的选项
- 
+
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
@@ -103,4 +88,3 @@ Output format; available options are 'yaml', 'json' and 'short'
 
 </tbody>
 </table>
-
