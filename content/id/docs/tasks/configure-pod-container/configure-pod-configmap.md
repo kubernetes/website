@@ -545,6 +545,9 @@ kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-env-var-valu
 ```
 
 menghasilkan keluaran pada kontainer `test-container` seperti berikut:
+```shell
+kubectl logs dapi-test-pod
+```
 
 ```shell
 very charm
