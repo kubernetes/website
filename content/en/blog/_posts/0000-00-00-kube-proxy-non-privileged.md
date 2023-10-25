@@ -24,10 +24,11 @@ privileged mode. Security aware users wants to [use capabilities instead](
 https://github.com/kubernetes/kubernetes/issues/112171).
 
 If `kube-proxy` is installed as a POD, the initialization requires
-"privileged" mode, mostly for setting sysctl's. However, for some time
-now `kube-proxy` doesn't alter sysctl's and other settings that
-already have the desired value. In theory this can be used to do all
-privileged configuration in an [init container](/docs/concepts/workloads/pods/init-containers/).
+"privileged" mode, mostly for setting sysctl's. However, `kube-proxy`
+only tries to set the sysctl's if they don't already have the right
+values. In theory, then, if a privileged [init container](/docs/concepts/workloads/pods/init-containers/)
+set the sysctls to the right values, then `kube-proxy` could run
+unprivileged.
 
 The problem is to know *what* to setup. Until now the only option has
 been to read the source, but with `--init-only` the setup is done
