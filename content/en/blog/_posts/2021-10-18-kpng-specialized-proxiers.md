@@ -210,7 +210,7 @@ podip=$(cat /tmp/out | jq -r '.Endpoints[]|select(.Local == true)|select(.IPs.V6
 ip6tables -t nat -A PREROUTING -d $xip/128 -j DNAT --to-destination $podip
 ```
 
-Assuming the JSON output above is stored in `/tmp/out` ([jq](https://stedolan.github.io/jq/) is an *awesome* program!).
+Assuming the JSON output above is stored in `/tmp/out` ([jq](https://jqlang.github.io/jq/) is an *awesome* program!).
 
 
 As this is an example we make it really simple for ourselves by using

@@ -48,7 +48,7 @@ Add-on 扩展了 Kubernetes 的功能。
   network policies on L3-L7 using an identity-based security model that is
   decoupled from network addressing. Cilium can act as a replacement for
   kube-proxy; it also offers additional, opt-in observability and security features.
-  Cilium is a [CNCF project at the Incubation level](https://www.cncf.io/projects/cilium/).
+  Cilium is a [CNCF project at the Graduated level](https://www.cncf.io/projects/cilium/).
 -->
 ## 联网和网络策略   {#networking-and-network-policy}
 
@@ -66,7 +66,7 @@ Add-on 扩展了 Kubernetes 的功能。
   能够以原生路由（routing）和覆盖/封装（overlay/encapsulation）模式跨越多个集群，
   并且可以使用与网络寻址分离的基于身份的安全模型在 L3 至 L7 上实施网络策略。
   Cilium 可以作为 kube-proxy 的替代品；它还提供额外的、可选的可观察性和安全功能。
-  Cilium 是一个[孵化级别的 CNCF 项目](https://www.cncf.io/projects/cilium/)。
+  Cilium 是一个[毕业级别的 CNCF 项目](https://www.cncf.io/projects/cilium/)。
 
 <!--
 * [CNI-Genie](https://github.com/cni-genie/CNI-Genie) enables Kubernetes to seamlessly

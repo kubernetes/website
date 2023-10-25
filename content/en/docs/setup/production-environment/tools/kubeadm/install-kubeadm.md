@@ -15,9 +15,9 @@ This page shows how to install the `kubeadm` toolbox.
 For information on how to create a cluster with kubeadm once you have performed this installation process,
 see the [Creating a cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) page.
 
+{{< doc-versions-list "installation guide" >}}
 
 ## {{% heading "prerequisites" %}}
-
 
 * A compatible Linux host. The Kubernetes project provides generic instructions for Linux distributions
   based on Debian and Red Hat, and those distributions without a package manager.
@@ -32,6 +32,14 @@ see the [Creating a cluster with kubeadm](/docs/setup/production-environment/too
   * You **MUST** disable swap if the kubelet is not properly configured to use swap. For example, `sudo swapoff -a`
     will disable swapping temporarily. To make this change persistent across reboots, make sure swap is disabled in
     config files like `/etc/fstab`, `systemd.swap`, depending how it was configured on your system.
+
+{{< note >}}
+The `kubeadm` installation is done via binaries that use dynamic linking and assumes that your target system provides `glibc`.
+This is a reasonable assumption on many Linux distributions (including Debian, Ubuntu, Fedora, CentOS, etc.)
+but it is not always the case with custom and lightweight distributions which don't include `glibc` by default, such as Alpine Linux.
+The expectation is that the distribution either includes `glibc` or a [compatibility layer](https://wiki.alpinelinux.org/wiki/Running_glibc_programs)
+that provides the expected symbols.
+{{< /note >}}
 
 <!-- steps -->
 
@@ -51,6 +59,7 @@ If you have more than one network adapter, and your Kubernetes components are no
 route, we recommend you add IP route(s) so Kubernetes cluster addresses go via the appropriate adapter.
 
 ## Check required ports
+
 These [required ports](/docs/reference/networking/ports-and-protocols/)
 need to be open in order for Kubernetes components to communicate with each other.
 You can use tools like netcat to check if a port is open. For example:
@@ -123,7 +132,7 @@ You will install these packages on all of your machines:
 * `kubeadm`: the command to bootstrap the cluster.
 
 * `kubelet`: the component that runs on all of the machines in your cluster
-    and does things like starting pods and containers.
+  and does things like starting pods and containers.
 
 * `kubectl`: the command line util to talk to your cluster.
 
@@ -148,30 +157,17 @@ For more information on version skews, see:
 * Kubernetes [version and version-skew policy](/docs/setup/release/version-skew-policy/)
 * Kubeadm-specific [version skew policy](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
 
+{{% legacy-repos-deprecation %}}
+
 {{< note >}}
-Kubernetes has two different package repositories starting from August 2023.
-The Google-hosted repository is deprecated and it's being replaced with the
-Kubernetes (community-owned) package repositories. The Kubernetes project strongly
-recommends using the Kubernetes community-owned package repositories, because the
-project plans to stop publishing packages to the Google-hosted repository in the future.
-
-There are some important considerations for the Kubernetes package repositories:
-
-- The Kubernetes package repositories contain packages beginning with those
-  Kubernetes versions that were still under support when the community took
-  over the package builds. This means that anything before v1.24.0 will only be
-  available in the Google-hosted repository.
-- There's a dedicated package repository for each Kubernetes minor version.
-  When upgrading to a different minor release, you must bear in mind that
-  the package repository details also change.
-
+There's a dedicated package repository for each Kubernetes minor version. If you want to install
+a minor version other than {{< skew currentVersion >}}, please see the installation guide for
+your desired minor version.
 {{< /note >}}
 
 {{< tabs name="k8s_install" >}}
 {{% tab name="Debian-based distributions" %}}
 
-### Kubernetes package repositories {#dpkg-k8s-package-repo}
-
 These instructions are for Kubernetes {{< skew currentVersion >}}.
 
 1. Update the `apt` package index and install packages needed to use the Kubernetes `apt` repository:
@@ -179,58 +175,25 @@ These instructions are for Kubernetes {{< skew currentVersion >}}.
    ```shell
    sudo apt-get update
    # apt-transport-https may be a dummy package; if so, you can skip that package
-   sudo apt-get install -y apt-transport-https ca-certificates curl
+   sudo apt-get install -y apt-transport-https ca-certificates curl gpg
    ```
 
-2. Download the public signing key for the Kubernetes package repositories. The same signing key is used for all repositories so you can disregard the version in the URL:
+2. Download the public signing key for the Kubernetes package repositories.
+   The same signing key is used for all repositories so you can disregard the version in the URL:
 
    ```shell
    curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    ```
 
-3. Add the appropriate Kubernetes `apt` repository:
+3. Add the appropriate Kubernetes `apt` repository. Please note that this repository have packages
+   only for Kubernetes {{< skew currentVersion >}}; for other Kubernetes minor versions, you need to
+   change the Kubernetes minor version in the URL to match your desired minor version
+   (you should also check that you are reading the documentation for the version of Kubernetes
+   that you plan to install).
 
    ```shell
    # This overwrites any existing configuration in /etc/apt/sources.list.d/kubernetes.list
    echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
-   ```
-
-4. Update the `apt` package index, install kubelet, kubeadm and kubectl, and pin their version:
-
-   ```shell
-   sudo apt-get update
-   sudo apt-get install -y kubelet kubeadm kubectl
-   sudo apt-mark hold kubelet kubeadm kubectl
-   ```
-
-{{< note >}}
-In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default;
-you can create it by running `sudo mkdir -m 755 /etc/apt/keyrings`
-{{< /note >}}
-
-### Google-hosted package repository (deprecated) {#dpkg-google-package-repo}
-
-These instructions are for Kubernetes {{< skew currentVersion >}}.
-
-1. Update the `apt` package index and install packages needed to use the Kubernetes `apt` repository:
-
-   ```shell
-   sudo apt-get update
-   # apt-transport-https may be a dummy package; if so, you can skip that package
-   sudo apt-get install -y apt-transport-https ca-certificates curl
-   ```
-
-2. Download the Google Cloud public signing key:
-
-   ```shell
-   curl -fsSL https://dl.k8s.io/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
-   ```
-
-3. Add the Google-hosted `apt` repository:
-
-   ```shell
-   # This overwrites any existing configuration in /etc/apt/sources.list.d/kubernetes.list
-   echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
    ```
 
 4. Update the `apt` package index, install kubelet, kubeadm and kubectl, and pin their version:
@@ -251,84 +214,52 @@ you can create it by running `sudo mkdir -m 755 /etc/apt/keyrings`
 
 1. Set SELinux to `permissive` mode:
 
-```shell
-# Set SELinux in permissive mode (effectively disabling it)
-sudo setenforce 0
-sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
-```
+   These instructions are for Kubernetes {{< skew currentVersion >}}.
+
+   ```shell
+   # Set SELinux in permissive mode (effectively disabling it)
+   sudo setenforce 0
+   sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+   ```
 
 {{< caution >}}
 - Setting SELinux in permissive mode by running `setenforce 0` and `sed ...`
-  effectively disables it. This is required to allow containers to access the host
-  filesystem; for example, some cluster network plugins require that. You have to
-  do this until SELinux support is improved in the kubelet.
+effectively disables it. This is required to allow containers to access the host
+filesystem; for example, some cluster network plugins require that. You have to
+do this until SELinux support is improved in the kubelet.
 - You can leave SELinux enabled if you know how to configure it but it may require
-  settings that are not supported by kubeadm.
+settings that are not supported by kubeadm.
 {{< /caution >}}
-
-### Kubernetes package repositories {#rpm-k8s-package-repo}
-
-These instructions are for Kubernetes {{< skew currentVersion >}}.
 
 2. Add the Kubernetes `yum` repository. The `exclude` parameter in the
    repository definition ensures that the packages related to Kubernetes are
    not upgraded upon running `yum update` as there's a special procedure that
-   must be followed for upgrading Kubernetes.
+   must be followed for upgrading Kubernetes. Please note that this repository
+   have packages only for Kubernetes {{< skew currentVersion >}}; for other
+   Kubernetes minor versions, you need to change the Kubernetes minor version
+   in the URL to match your desired minor version (you should also check that
+   you are reading the documentation for the version of Kubernetes that you
+   plan to install).
 
-```shell
-# This overwrites any existing configuration in /etc/yum.repos.d/kubernetes.repo
-cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
-[kubernetes]
-name=Kubernetes
-baseurl=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/
-enabled=1
-gpgcheck=1
-gpgkey=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/repodata/repomd.xml.key
-exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
-EOF
-```
-
-3. Install kubelet, kubeadm and kubectl, and enable kubelet to ensure it's automatically started on startup:
-
-```shell
-sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
-sudo systemctl enable --now kubelet
-```
-
-### Google-hosted package repository (deprecated) {#rpm-google-package-repo}
-
-These instructions are for Kubernetes {{< skew currentVersion >}}.
-
-2. Add the Google-hosted `yum` repository. The `exclude` parameter in the
-   repository definition ensures that the packages related to Kubernetes are
-   not upgraded upon running `yum update` as there's a special procedure that
-   must be followed for upgrading Kubernetes.
-
-```shell
-# This overwrites any existing configuration in /etc/yum.repos.d/kubernetes.repo
-cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
-[kubernetes]
-name=Kubernetes
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
-enabled=1
-gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
-exclude=kubelet kubeadm kubectl
-EOF
-```
+   ```shell
+   # This overwrites any existing configuration in /etc/yum.repos.d/kubernetes.repo
+   cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
+   [kubernetes]
+   name=Kubernetes
+   baseurl=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/
+   enabled=1
+   gpgcheck=1
+   gpgkey=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/repodata/repomd.xml.key
+   exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
+   EOF
+   ```
 
 3. Install kubelet, kubeadm and kubectl, and enable kubelet to ensure it's automatically started on startup:
 
-```shell
-sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
-sudo systemctl enable --now kubelet
-```
-
-{{< note >}}
-If the `baseurl` fails because your RPM-based distribution cannot interpret `$basearch`, replace `\$basearch` with your computer's architecture.
-Type `uname -m` to see that value.
-For example, the `baseurl` URL for `x86_64` could be: `https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64`.
-{{< /note >}}
+   ```shell
+   sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+   sudo systemctl enable --now kubelet
+   ```
 
 {{% /tab %}}
 {{% tab name="Without a package manager" %}}
@@ -342,7 +273,7 @@ sudo mkdir -p "$DEST"
 curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_PLUGINS_VERSION}/cni-plugins-linux-${ARCH}-${CNI_PLUGINS_VERSION}.tgz" | sudo tar -C "$DEST" -xz
 ```
 
-Define the directory to download command files
+Define the directory to download command files:
 
 {{< note >}}
 The `DOWNLOAD_DIR` variable must be set to a writable directory.
@@ -354,7 +285,7 @@ DOWNLOAD_DIR="/usr/local/bin"
 sudo mkdir -p "$DOWNLOAD_DIR"
 ```
 
-Install crictl (required for kubeadm / Kubelet Container Runtime Interface (CRI))
+Install crictl (required for kubeadm / Kubelet Container Runtime Interface (CRI)):
 
 ```bash
 CRICTL_VERSION="v1.28.0"
@@ -371,11 +302,16 @@ cd $DOWNLOAD_DIR
 sudo curl -L --remote-name-all https://dl.k8s.io/release/${RELEASE}/bin/linux/${ARCH}/{kubeadm,kubelet}
 sudo chmod +x {kubeadm,kubelet}
 
-RELEASE_VERSION="v0.15.1"
-curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service
+RELEASE_VERSION="v0.16.2"
+curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/krel/templates/latest/kubelet/kubelet.service" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service
 sudo mkdir -p /etc/systemd/system/kubelet.service.d
-curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/krel/templates/latest/kubeadm/10-kubeadm.conf" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
 ```
+
+{{< note >}}
+Please refer to the note in the [Before you begin](#before-you-begin) section for Linux distributions
+that do not include `glibc` by default.
+{{< /note >}}
 
 Install `kubectl` by following the instructions on [Install Tools page](/docs/tasks/tools/#kubectl).
 
@@ -388,11 +324,11 @@ systemctl enable --now kubelet
 {{< note >}}
 The Flatcar Container Linux distribution mounts the `/usr` directory as a read-only filesystem.
 Before bootstrapping your cluster, you need to take additional steps to configure a writable directory.
-See the [Kubeadm Troubleshooting guide](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#usr-mounted-read-only/) to learn how to set up a writable directory.
+See the [Kubeadm Troubleshooting guide](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#usr-mounted-read-only/)
+to learn how to set up a writable directory.
 {{< /note >}}
 {{% /tab %}}
 {{< /tabs >}}
-
 
 The kubelet is now restarting every few seconds, as it waits in a crashloop for
 kubeadm to tell it what to do.
@@ -411,7 +347,8 @@ See [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configu
 
 ## Troubleshooting
 
-If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
+If you are running into difficulties with kubeadm, please consult our
+[troubleshooting docs](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
 
 ## {{% heading "whatsnext" %}}
 

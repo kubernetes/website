@@ -176,13 +176,13 @@ for more details on recommended control group hierarchy.
 
 <!--
 Note that Kubelet **does not** create `--kube-reserved-cgroup` if it doesn't
-exist. Kubelet will fail if an invalid cgroup is specified. With `systemd`
+exist. The kubelet will fail to start if an invalid cgroup is specified. With `systemd`
 cgroup driver, you should follow a specific pattern for the name of the cgroup you
 define: the name should be the value you set for `--kube-reserved-cgroup`,
 with `.slice` appended.
 -->
 请注意，如果 `--kube-reserved-cgroup` 不存在，Kubelet 将 **不会** 创建它。
-如果指定了一个无效的 cgroup，Kubelet 将会失败。就 `systemd` cgroup 驱动而言，
+如果指定了一个无效的 cgroup，Kubelet 将会无法启动。就 `systemd` cgroup 驱动而言，
 你要为所定义的 cgroup 设置名称时要遵循特定的模式：
 所设置的名字应该是你为 `--kube-reserved-cgroup` 所给的参数值加上 `.slice` 后缀。
 
