@@ -97,5 +97,5 @@ spec:
 
 The `--init-only` flag can be used to perform privileged
 initialization in an initContainer and run the main container with
-"NET_ADMIN" capabilities only. Installers like `kubeadm` may be
+`NET_ADMIN` capabilities only. Installers like `kubeadm` may be
 altered to use this feature.
