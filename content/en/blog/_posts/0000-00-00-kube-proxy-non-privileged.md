@@ -27,7 +27,7 @@ If `kube-proxy` is installed as a POD, the initialization requires
 "privileged" mode, mostly for setting sysctl's. However, for some time
 now `kube-proxy` doesn't alter sysctl's and other settings that
 already have the desired value. In theory this can be used to do all
-privileged configuration in an initContainer.
+privileged configuration in an [init container](/docs/concepts/workloads/pods/init-containers/).
 
 The problem is to know *what* to setup. Until now the only option has
 been to read the source, but with `--init-only` the setup is done
