@@ -24,7 +24,7 @@ Kubernetes API server prior to persistence of the object, but after the request
 is authenticated and authorized.
 
 Admission controllers may be _validating_, _mutating_, or both. Mutating
-controllers may modify related objects to the requests they admit; validating controllers may not.
+controllers may modify objects related to the requests they admit; validating controllers may not.
 
 Admission controllers limit requests to create, delete, modify objects. Admission
 controllers can also block custom verbs, such as a request connect to a Pod via

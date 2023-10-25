@@ -92,7 +92,8 @@ To manually verify signed container images of Kubernetes core components, refer 
 <!--
 ## Binaries
 
-Find links to download Kubernetes components (and their checksums) in the [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG) files.
+Find links to download Kubernetes components (and their checksums) in the
+[CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG) files.
 
 Alternately, use [downloadkubernetes.com](https://www.downloadkubernetes.com/) to filter by version and architecture.
 -->

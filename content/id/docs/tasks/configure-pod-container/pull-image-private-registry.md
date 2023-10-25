@@ -176,7 +176,7 @@ Kamu telah berhasil menetapkan kredensial Docker kamu sebagai sebuah Secret yang
 
 Berikut ini adalah berkas konfigurasi untuk Pod yang memerlukan akses ke kredensial Docker kamu pada `regcred`:
 
-{{< codenew file="pods/private-reg-pod.yaml" >}}
+{{% codenew file="pods/private-reg-pod.yaml" %}}
 
 Unduh berkas diatas:
 

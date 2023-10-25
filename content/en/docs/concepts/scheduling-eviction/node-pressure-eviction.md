@@ -105,13 +105,11 @@ does not support other configurations.
 
 Some kubelet garbage collection features are deprecated in favor of eviction:
 
-| Existing Flag | New Flag | Rationale |
-| ------------- | -------- | --------- |
-| `--image-gc-high-threshold` | `--eviction-hard` or `--eviction-soft` | existing eviction signals can trigger image garbage collection |
-| `--image-gc-low-threshold` | `--eviction-minimum-reclaim` | eviction reclaims achieve the same behavior |
-| `--maximum-dead-containers` | - | deprecated once old logs are stored outside of container's context |
-| `--maximum-dead-containers-per-container` | - | deprecated once old logs are stored outside of container's context |
-| `--minimum-container-ttl-duration` | - | deprecated once old logs are stored outside of container's context |
+| Existing Flag | Rationale |
+| ------------- | --------- |
+| `--maximum-dead-containers` | deprecated once old logs are stored outside of container's context |
+| `--maximum-dead-containers-per-container` | deprecated once old logs are stored outside of container's context |
+| `--minimum-container-ttl-duration` | deprecated once old logs are stored outside of container's context |
 
 ### Eviction thresholds
 

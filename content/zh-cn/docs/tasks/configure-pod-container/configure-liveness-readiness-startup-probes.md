@@ -330,7 +330,7 @@ can't it is considered a failure.
 <!--
 As you can see, configuration for a TCP check is quite similar to an HTTP check.
 This example uses both readiness and liveness probes. The kubelet will send the
-first readiness probe 5 seconds after the container starts. This will attempt to
+first readiness probe 15 seconds after the container starts. This will attempt to
 connect to the `goproxy` container on port 8080. If the probe succeeds, the Pod
 will be marked as ready. The kubelet will continue to run this check every 10
 seconds.
@@ -344,7 +344,7 @@ will be restarted.
 To try the TCP liveness check, create a Pod:
 -->
 如你所见，TCP 检测的配置和 HTTP 检测非常相似。
-下面这个例子同时使用就绪和存活探针。kubelet 会在容器启动 5 秒后发送第一个就绪探针。
+下面这个例子同时使用就绪和存活探针。kubelet 会在容器启动 15 秒后发送第一个就绪探针。
 探针会尝试连接 `goproxy` 容器的 8080 端口。
 如果探测成功，这个 Pod 会被标记为就绪状态，kubelet 将继续每隔 10 秒运行一次探测。
 
@@ -635,8 +635,9 @@ liveness and readiness checks:
 <!--
 * `initialDelaySeconds`: Number of seconds after the container has started before startup,
   liveness or readiness probes are initiated. If a startup  probe is defined, liveness and
-  readiness probe delays do not begin until the startup probe has succeeded.
-  Defaults to 0 seconds. Minimum value is 0.
+  readiness probe delays do not begin until the startup probe has succeeded. If the value of
+  `periodSeconds` is greater than `initialDelaySeconds` then the `initialDelaySeconds` would be
+  ignored. Defaults to 0 seconds. Minimum value is 0.
 * `periodSeconds`: How often (in seconds) to perform the probe. Default to 10 seconds.
   The minimum value is 1.
 * `timeoutSeconds`: Number of seconds after which the probe times out.
@@ -647,7 +648,8 @@ liveness and readiness checks:
 -->
 * `initialDelaySeconds`：容器启动后要等待多少秒后才启动启动、存活和就绪探针。
   如果定义了启动探针，则存活探针和就绪探针的延迟将在启动探针已成功之后才开始计算。
-  默认是 0 秒，最小值是 0。
+  如果 `periodSeconds` 的值大于 `initialDelaySeconds`，则 `initialDelaySeconds`
+  将被忽略。默认是 0 秒，最小值是 0。
 * `periodSeconds`：执行探测的时间间隔（单位是秒）。默认是 10 秒。最小值是 1。
 * `timeoutSeconds`：探测的超时后等待多少秒。默认值是 1 秒。最小值是 1。
 * `successThreshold`：探针在失败后，被视为成功的最小连续成功数。默认值是 1。

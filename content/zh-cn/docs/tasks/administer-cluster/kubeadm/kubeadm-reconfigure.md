@@ -241,7 +241,7 @@ The configuration is located under the `data.kubelet` key.
 To reflect the change on kubeadm nodes you must do the following:
 - Log in to a kubeadm node
 - Run `kubeadm upgrade node phase kubelet-config` to download the latest `kubelet-config`
-ConfigMap contents into the local file `/var/lib/kubelet/config.conf`
+ConfigMap contents into the local file `/var/lib/kubelet/config.yaml`
 - Edit the file `/var/lib/kubelet/kubeadm-flags.env` to apply additional configuration with
 flags
 - Restart the kubelet service with `systemctl restart kubelet`
@@ -252,7 +252,7 @@ flags
 
 - 登录到 kubeadm 节点
 - 运行 `kubeadm upgrade node phase kubelet-config` 下载最新的
-  `kubelet-config` ConfigMap 内容到本地文件 `/var/lib/kubelet/config.conf`
+  `kubelet-config` ConfigMap 内容到本地文件 `/var/lib/kubelet/config.yaml`
 - 编辑文件 `/var/lib/kubelet/kubeadm-flags.env` 以使用标志来应用额外的配置
 - 使用 `systemctl restart kubelet` 重启 kubelet 服务
 
@@ -266,15 +266,16 @@ Do these changes one node at a time to allow workloads to be rescheduled properl
 {{< note >}}
 <!--
 During `kubeadm upgrade`, kubeadm downloads the `KubeletConfiguration` from the
-`kubelet-config` ConfigMap and overwrite the contents of `/var/lib/kubelet/config.conf`.
+`kubelet-config` ConfigMap and overwrite the contents of `/var/lib/kubelet/config.yaml`.
 This means that node local configuration must be applied either by flags in
 `/var/lib/kubelet/kubeadm-flags.env` or by manually updating the contents of
-`/var/lib/kubelet/config.conf` after `kubeadm upgrade`, and then restarting the kubelet.
+`/var/lib/kubelet/config.yaml` after `kubeadm upgrade`, and then restarting the kubelet.
 -->
 在 `kubeadm upgrade` 期间，kubeadm 从 `kubelet-config` ConfigMap
-下载 `KubeletConfiguration` 并覆盖 `/var/lib/kubelet/config.conf` 的内容。
+下载 `KubeletConfiguration` 并覆盖 `/var/lib/kubelet/config.yaml` 的内容。
 这意味着节点本地配置必须通过`/var/lib/kubelet/kubeadm-flags.env`中的标志或在
-kubeadm upgrade` 后手动更新`/var/lib/kubelet/config.conf`的内容来应用，然后重新启动 kubelet。
+kubeadm upgrade` 后手动更新 `/var/lib/kubelet/config.yaml` 的内容来应用，
+然后重新启动 kubelet。
 {{< /note >}}
 
 <!--
@@ -488,26 +489,26 @@ the set of node specific patches must be updated accordingly.
 <!--
 #### Persisting kubelet reconfiguration
 
-Any changes to the `KubeletConfiguration` stored in `/var/lib/kubelet/config.conf` will be overwritten on
+Any changes to the `KubeletConfiguration` stored in `/var/lib/kubelet/config.yaml` will be overwritten on
 `kubeadm upgrade` by downloading the contents of the cluster wide `kubelet-config` ConfigMap.
-To persist kubelet node specific configuration either the file `/var/lib/kubelet/config.conf`
+To persist kubelet node specific configuration either the file `/var/lib/kubelet/config.yaml`
 has to be updated manually post-upgrade or the file `/var/lib/kubelet/kubeadm-flags.env` can include flags.
 The kubelet flags override the associated `KubeletConfiguration` options, but note that
 some of the flags are deprecated.
 
-A kubelet restart will be required after changing `/var/lib/kubelet/config.conf` or
+A kubelet restart will be required after changing `/var/lib/kubelet/config.yaml` or
 `/var/lib/kubelet/kubeadm-flags.env`.
 -->
 #### 持久化 kubelet 重新配置
 
-对存储在 `/var/lib/kubelet/config.conf` 中的 `KubeletConfiguration` 
+对存储在 `/var/lib/kubelet/config.yaml` 中的 `KubeletConfiguration` 
 所做的任何更改都将在 `kubeadm upgrade` 时因为下载集群范围内的 `kubelet-config`
 ConfigMap 的内容而被覆盖。
-要持久保存 kubelet 节点特定的配置，文件`/var/lib/kubelet/config.conf` 
-必须在升级后手动更新，或者文件`/var/lib/kubelet/kubeadm-flags.env` 可以包含标志。
+要持久保存 kubelet 节点特定的配置，文件 `/var/lib/kubelet/config.yaml` 
+必须在升级后手动更新，或者文件 `/var/lib/kubelet/kubeadm-flags.env` 可以包含标志。
 kubelet 标志会覆盖相关的 `KubeletConfiguration` 选项，但请注意，有些标志已被弃用。
 
-更改 `/var/lib/kubelet/config.conf` 或 `/var/lib/kubelet/kubeadm-flags.env` 
+更改 `/var/lib/kubelet/config.yaml` 或 `/var/lib/kubelet/kubeadm-flags.env` 
 后需要重启 kubelet。
 
 
