@@ -82,7 +82,7 @@ intended for use in cases where you want to inspect the HTTP stream and use HTTP
 either routing or modification, for example using HTTP Headers for routing, or modifying them
 in-flight.
 
-{{< figure src="gateway-api-resources.svg" alt="Diagram showing the APIs that make up Gateway and how they relate to each other. The APIs shown are GatewayClass, Gateway, and HTTPRoute; the Service API is also shown" class="diagram-medium" >}}
+{{< figure src="gateway-api-resources.svg" alt="Diagram showing the key resources that make up Gateway API and how they relate to each other. The resources shown are GatewayClass, Gateway, and HTTPRoute; the Service API is also shown" class="diagram-medium" >}}
 
 ### Portability
 
