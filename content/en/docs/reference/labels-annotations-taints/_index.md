@@ -539,6 +539,19 @@ Used on: All Objects
 
 This annotation is used for describing specific behaviour of given object.
 
+### kubernetes.io/display-name {#display-name}
+
+Type: Annotation
+
+Example: `kubernetes.io/display-name: "Display name of K8s object."`
+
+Used on: All Objects
+
+This annotation is used for applying a human-readable name to a given object.
+Unlike an [object name](/docs/concepts/overview/working-with-objects/names/),
+the value for this annotation is mutable and does not need to comply with a DNS
+sub-domain.
+
 ### kubernetes.io/enforce-mountable-secrets {#enforce-mountable-secrets}
 
 Type: Annotation
