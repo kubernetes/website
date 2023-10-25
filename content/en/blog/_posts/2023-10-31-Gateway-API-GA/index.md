@@ -39,9 +39,9 @@ APIs for routing traffic both north-south and east-west:
 Historically, Gateway API has bundled a validating webhook as part of installing
 the API. Starting in v1.0, webhook installation is optional and only recommended
 for Kubernetes 1.24. Gateway API now includes
-[CEL](https://kubernetes.io/docs/reference/using-api/cel/) validation rules as
+[CEL](/docs/reference/using-api/cel/) validation rules as
 part of the
-[CRDs](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
+[CRDs](/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
 This new form of validation is supported in Kubernetes 1.25+, and thus the
 validating webhook is no longer required in most installations.
 
