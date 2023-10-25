@@ -41,7 +41,7 @@ Berikut adalah penggunaan yang umum pada Deployment:
 
 Berikut adalah contoh Deployment. Dia membuat ReplicaSet untuk membangkitkan tiga Pod `nginx`:
 
-{{< codenew file="controllers/nginx-deployment.yaml" >}}
+{{% codenew file="controllers/nginx-deployment.yaml" %}}
 
 Dalam contoh ini:
 
