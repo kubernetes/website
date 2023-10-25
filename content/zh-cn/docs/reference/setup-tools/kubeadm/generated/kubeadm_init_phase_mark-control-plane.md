@@ -1,30 +1,17 @@
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
 <!-- 
 Mark a node as a control-plane 
 -->
-标记节点为控制平面节点
+标记节点为控制平面节点。
 
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
 Mark a node as a control-plane
 -->
-
-标记 Node 节点为控制平面节点
+标记节点为控制平面节点。
 
 ```
 kubeadm init phase mark-control-plane [flags]
@@ -33,14 +20,18 @@ kubeadm init phase mark-control-plane [flags]
 <!--
 ### Examples
 
-# Applies control-plane label and taint to the current node, functionally equivalent to what executed by kubeadm init.
-# Applies control-plane label and taint to a specific node
+```
+  # Applies control-plane label and taint to the current node, functionally equivalent to what executed by kubeadm init.
+  kubeadm init phase mark-control-plane --config config.yaml
+  
+  # Applies control-plane label and taint to a specific node
+  kubeadm init phase mark-control-plane --node-name myNode
+```
 -->
-
 ### 示例
 
 ```
-# 将控制平面标签和污点应用于当前节点，其功能等效于 kubeadm init执行的操作。
+# 将控制平面标签和污点应用于当前节点，其功能等效于 kubeadm init 执行的操作
 kubeadm init phase mark-control-plane --config config.yaml
 
 # 将控制平面标签和污点应用于特定节点
@@ -50,7 +41,6 @@ kubeadm init phase mark-control-plane --node-name myNode
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -92,7 +82,7 @@ kubeadm init phase mark-control-plane --node-name myNode
 <!--
 <p>help for mark-control-plane</p>
 -->
-<p>mark-control-plane 操作的帮助命令</p>
+<p>mark-control-plane 操作的帮助命令。</p>
 </td>
 </tr>
 
@@ -114,7 +104,6 @@ kubeadm init phase mark-control-plane --node-name myNode
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 从父命令继承的选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -138,4 +127,3 @@ kubeadm init phase mark-control-plane --node-name myNode
 
 </tbody>
 </table>
-
