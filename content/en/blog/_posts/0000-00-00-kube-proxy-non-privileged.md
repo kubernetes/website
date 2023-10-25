@@ -31,8 +31,9 @@ set the sysctls to the right values, then `kube-proxy` could run
 unprivileged.
 
 The problem is to know *what* to setup. Until now the only option has
-been to read the source, but with `--init-only` the setup is done
-*exactly* as on a normal start, and then `kube-proxy` exits.
+been to read the source to see what changes `kube-proxy` would have
+made, but with `--init-only` you can have `kube-proxy` itself do the setup
+*exactly* as on a normal start, and then exit.
 
 
 ## Initializing kube-proxy in an init container
