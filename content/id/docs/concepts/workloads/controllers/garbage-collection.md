@@ -22,7 +22,7 @@ Kamu juga bisa menspesifikasikan hubungan antara pemilik dan dependen dengan car
 
 Berikut adalah berkas untuk sebuah ReplicaSet yang memiliki tiga Pod:
 
-{{< codenew file="controllers/replicaset.yaml" >}}
+{{% codenew file="controllers/replicaset.yaml" %}}
 
 
 Jika kamu membuat ReplicaSet tersebut dan kemudian melihat metadata Pod, kamu akan melihat kolom OwnerReferences:

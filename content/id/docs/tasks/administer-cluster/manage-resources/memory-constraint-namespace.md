@@ -40,7 +40,7 @@ kubectl create namespace constraints-mem-example
 
 Berikut berkas konfigurasi untuk sebuah LimitRange:
 
-{{< codenew file="admin/resource/memory-constraints.yaml" >}}
+{{% codenew file="admin/resource/memory-constraints.yaml" %}}
 
 Membuat LimitRange:
 
@@ -85,7 +85,7 @@ Berikut berkas konfigurasi Pod yang memiliki satu Container. Manifes Container
 menentukan permintaan memori 600 MiB dan limit memori 800 MiB. Nilai tersebut memenuhi
 batasan minimum dan maksimum memori yang ditentukan oleh LimitRange.
 
-{{< codenew file="admin/resource/memory-constraints-pod.yaml" >}}
+{{% codenew file="admin/resource/memory-constraints-pod.yaml" %}}
 
 Membuat Pod:
 
@@ -127,7 +127,7 @@ kubectl delete pod constraints-mem-demo --namespace=constraints-mem-example
 Berikut berkas konfigurasi untuk sebuah Pod yang memiliki satu Container. Container tersebut menentukan
 permintaan memori 800 MiB dan batas memori 1.5 GiB.
 
-{{< codenew file="admin/resource/memory-constraints-pod-2.yaml" >}}
+{{% codenew file="admin/resource/memory-constraints-pod-2.yaml" %}}
 
 Mencoba membuat Pod:
 
@@ -148,7 +148,7 @@ pods "constraints-mem-demo-2" is forbidden: maximum memory usage per Container i
 Berikut berkas konfigurasi untuk sebuah Pod yang memiliki satu Container. Container tersebut menentukan
 permintaan memori 100 MiB dan limit memori 800 MiB.
 
-{{< codenew file="admin/resource/memory-constraints-pod-3.yaml" >}}
+{{% codenew file="admin/resource/memory-constraints-pod-3.yaml" %}}
 
 Mencoba membuat Pod:
 
@@ -171,7 +171,7 @@ pods "constraints-mem-demo-3" is forbidden: minimum memory usage per Container i
 Berikut berkas konfigurasi untuk sebuah Pod yang memiliki satu Container. Container tersebut tidak menentukan
 permintaan memori dan juga limit memori.
 
-{{< codenew file="admin/resource/memory-constraints-pod-4.yaml" >}}
+{{% codenew file="admin/resource/memory-constraints-pod-4.yaml" %}}
 
 Mencoba membuat Pod:
 
