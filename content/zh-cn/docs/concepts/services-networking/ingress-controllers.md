@@ -60,7 +60,7 @@ Kubernetes 作为一个项目，目前支持和维护
 * [AKS 应用程序网关 Ingress 控制器](https://docs.microsoft.com/zh-cn/azure/application-gateway/tutorial-ingress-controller-add-on-existing?toc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Faks%2Ftoc.json&bc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Fbread%2Ftoc.json)
   是一个配置 [Azure 应用程序网关](https://docs.microsoft.com/zh-cn/azure/application-gateway/overview)
   的 Ingress 控制器。
-* [阿里云 MSE Ingress](https://docs.microsoft.com/azure/application-gateway/tutorial-ingress-controller-add-on-existing?toc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Faks%2Ftoc.json&bc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Fbread%2Ftoc.json)
+* [阿里云 MSE Ingress](https://www.alibabacloud.com/help/zh/mse/user-guide/overview-of-mse-ingress-gateways)
   是一个 Ingress 控制器，它负责配置[阿里云原生网关](https://www.alibabacloud.com/help/en/mse/product-overview/cloud-native-gateway-overview?spm=a2c63.p38356.0.0.20563003HJK9is)，
   也是 [Higress](https://github.com/alibaba/higress) 的商业版本。
 * [Apache APISIX Ingress 控制器](https://github.com/apache/apisix-ingress-controller)
