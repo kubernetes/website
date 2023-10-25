@@ -34,7 +34,7 @@ been to read the source, but with `--init-only` the setup is done
 *exactly* as on a normal start, and then `kube-proxy` exits.
 
 
-## Kube-proxy initialization in an initContainer
+## Initializing kube-proxy in an init container
 
 Traditionally `kube-proxy` runs in "privileged mode (manifests
 narrowed):
