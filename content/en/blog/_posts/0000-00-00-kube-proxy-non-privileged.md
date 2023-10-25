@@ -12,9 +12,9 @@ be used to perform configuration that requires privileged mode in an
 initContainer, while the main `kube-proxy` container may run with a
 stricter securityContext.
 
-Please note that `kube-proxy` can be installed in different ways. For
-installers such as `kubeadm` that install `kube-proxy` to run as a Pod, the new
-functionality can help you improve security.
+Please note that `kube-proxy` can be installed in different ways. The
+examples below assume that kube-proxy is run from a pod, but similar
+changes could be made in clusters where it is run as a system service.
 
 
 ## Background
