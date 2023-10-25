@@ -79,7 +79,7 @@ spec:
           foo: bar
 ```
 
-Las `volumeAttributes` determinan qué volumen es preparado por el controlador. Estos atributos son específicos de cada controlador y no están estandarizados. Consulta la documentación de cada controlador CSI para obtener instrucciones adicionales.
+Los `volumeAttributes` determinan qué volumen es preparado por el controlador. Estos atributos son específicos de cada controlador y no están estandarizados. Consulta la documentación de cada controlador CSI para obtener instrucciones adicionales.
 
 ### Restricciones del conductor CSI
 
