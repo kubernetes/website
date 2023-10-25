@@ -7,7 +7,7 @@ slug: kube-proxy-non-privileged
 
 **Author**: Lars Ekman
 
-This post describes how the `--init-only` flag added in K8s v1.29 can
+This post describes how the `--init-only` flag to `kube-proxy`, added in K8s v1.29, can
 be used to perform configuration that requires privileged mode in an
 initContainer, while the main `kube-proxy` container may run with a
 stricter securityContext.
