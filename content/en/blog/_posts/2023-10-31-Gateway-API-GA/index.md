@@ -7,7 +7,7 @@ slug: gateway-api-ga
 
 ***Authors:*** Shane Utt (Kong), Nick Young (Isovalent), Rob Scott (Google)
 
-We are pleased to announce the v1.0 release of [Gateway
+On behalf of Kubernetes SIG Network, we are pleased to announce the v1.0 release of [Gateway
 API](https://gateway-api.sigs.k8s.io/)! This release marks a huge milestone for
 this project. Several key APIs are graduating to GA (generally available), while
 other significant features have been added to the Experimental channel.
@@ -112,7 +112,7 @@ We've also been working towards moving
 a built-in Kubernetes API that can be used for more than just Gateway API.
 Within Gateway API, we've used this resource to safely enable cross-namespace
 references, and that concept is now being adopted by other SIGs. The new version
-of this API will be owned by SIG-Auth and will likely include at least some
+of this API will be owned by SIG Auth and will likely include at least some
 modifications as it migrates to a built-in Kubernetes API.
 
 ### Gateway API at KubeCon + CloudNativeCon
@@ -142,7 +142,7 @@ you'd like to discuss or brainstorm any related topics. To get the latest
 updates on these sessions, join the `#sig-network-gateway-api` channel on
 [Kubernetes Slack](https://slack.kubernetes.io/).
 
-## Get Involved
+## Get involved
 
 We've only barely scratched the surface of what's in flight with Gateway API.
 There are lots of opportunities to get involved and help define the future of
