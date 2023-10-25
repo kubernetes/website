@@ -724,13 +724,13 @@ When you **delete** a resource this takes place in two phases.
   "kind": "ConfigMap",
   "apiVersion": "v1",
   "metadata": {
-    "finalizers": {"url.io/neat-finalization", "other-url.io/my-finalizer"},
+    "finalizers": ["url.io/neat-finalization", "other-url.io/my-finalizer"],
     "deletionTimestamp": nil,
   }
 }
 ```
 
-When a client first sends a **delete** to request removal of a resource, the `.metadata.deletionTimestamp` is set to the current time.
+When a client first sends a **delete** to request the removal of a resource, the `.metadata.deletionTimestamp` is set to the current time.
 Once the `.metadata.deletionTimestamp` is set, external controllers that act on finalizers
 may start performing their cleanup work at any time, in any order.
 
