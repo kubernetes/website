@@ -36,8 +36,8 @@ been to read the source, but with `--init-only` the setup is done
 
 ## Initializing kube-proxy in an init container
 
-Traditionally `kube-proxy` runs in "privileged mode (manifests
-narrowed):
+Usually, cluster operators run `kube-proxy` in a privileged security context. Here's a snippet of an
+example manifest:
 
 ```yaml
 apiVersion: apps/v1
