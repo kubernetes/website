@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Non-privileged kube-proxy container"
+title: "Kubernetes 1.29: Support for Running kube-proxy in a Non-privileged Container"
 date: 0000-00-00
 slug: kube-proxy-non-privileged
 ---
