@@ -64,8 +64,8 @@ notes](https://github.com/kubernetes-sigs/gateway-api/releases/tag/v0.1.0).
 
 ## How we got here
 
-The idea of Gateway API was initially [proposed 4 years ago at KubeCon San
-Diego](https://youtu.be/Ne9UJL6irXY?si=wgtC9w8PMB5ZHil2) as the next generation
+The idea of Gateway API was initially [proposed](https://youtu.be/Ne9UJL6irXY?si=wgtC9w8PMB5ZHil2)
+4 years ago at KubeCon San Diego as the next generation
 of Ingress API. Since then, an incredible community has formed to develop what
 has likely become the most collaborative API in Kubernetes history. Over 170
 people have contributed to this API so far, and that number continues to grow.
