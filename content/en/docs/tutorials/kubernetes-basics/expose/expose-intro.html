@@ -94,7 +94,7 @@ description: |-
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				<h3>Create a new Service</h3>
+				<h3>Step 1: Creating a new Service</h3>
 				<p>Let’s verify that our application is running. We’ll use the <code>kubectl get</code> command and look for existing Pods:</p>
 				<p><code><b>kubectl get pods</b></code></p>
 				<p>If no Pods are running then it means the objects from the previous tutorials were cleaned up. In this case, go back and recreate the deployment from the <a href="/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro#deploy-an-app">Using kubectl to create a Deployment</a> tutorial.
@@ -151,7 +151,7 @@ description: |-
 
 		<div class="row">
 			<div class="col-md-12">
-				<h3>Deleting a service</h3>
+				<h3>Step 3: Deleting a service</h3>
 				<p>To delete Services you can use the <code>delete service</code> subcommand. Labels can be used also here:</p>
 				<p><code><b>kubectl delete service -l app=kubernetes-bootcamp</b></code></p>
 				<p>Confirm that the Service is gone:</p>
