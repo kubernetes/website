@@ -7,6 +7,9 @@ weight: 20
 card:
   name: concepts
   weight: 10
+  anchors:
+  - anchor: "#why-you-need-kubernetes-and-what-can-it-do"
+    title: 为什么选择 Kubernetes?
 no_list: true
 ---
 <!--
@@ -21,6 +24,9 @@ weight: 20
 card:
   name: concepts
   weight: 10
+  anchors:
+  - anchor: "#why-you-need-kubernetes-and-what-can-it-do"
+    title: Why Kubernetes?
 no_list: true
 -->
 
@@ -270,6 +276,25 @@ Kubernetes 为你提供：
 
   Kubernetes 允许你存储和管理敏感信息，例如密码、OAuth 令牌和 SSH 密钥。
   你可以在不重建容器镜像的情况下部署和更新密钥和应用程序配置，也无需在堆栈配置中暴露密钥。
+
+<!--
+* **Batch execution**
+  In addition to services, Kubernetes can manage your batch and CI workloads, replacing containers that fail, if desired.
+* **Horizontal scaling**
+  Scale your application up and down with a simple command, with a UI, or automatically based on CPU usage.
+* **IPv4/IPv6 dual-stack**
+  Allocation of IPv4 and IPv6 addresses to Pods and Services
+* **Designed for extensibility**
+  Add features to your Kubernetes cluster without changing upstream source code.
+-->
+* **批处理执行**
+  除了服务外，Kubernetes 还可以管理你的批处理和 CI（持续集成）工作负载，如有需要，可以替换失败的容器。
+* **水平扩缩**
+  使用简单的命令、用户界面或根据 CPU 使用率自动对你的应用进行扩缩。
+* **IPv4/IPv6 双栈**
+  为 Pod（容器组）和 Service（服务）分配 IPv4 和 IPv6 地址。
+* **为可扩展性设计**
+  在不改变上游源代码的情况下为你的 Kubernetes 集群添加功能。
 
 <!--
 ## What Kubernetes is not
