@@ -6,7 +6,7 @@ date: 2023-11-02
 canonicalUrl: https://www.k8s.dev/blog/2023/24/05/sig-architecture-prod-readiness-spotlight-2023/
 ---
 
-**Author**: "Frederico Muñoz (SAS Institute)"
+**Author**: Frederico Muñoz (SAS Institute)
 
 _This is the second interview of a SIG Architecture Spotlight series that will cover the different
 subprojects. In this blog, we will cover the [SIG Architecture: Production Readiness
