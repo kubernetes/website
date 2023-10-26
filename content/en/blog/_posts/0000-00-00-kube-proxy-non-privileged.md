@@ -10,7 +10,10 @@ slug: kube-proxy-non-privileged
 This post describes how the `--init-only` flag to `kube-proxy` can be
 used to run the main kube-proxy container in a stricter
 `securityContext` by performing the configuration that requires
-privileged mode in a separate [init container](/docs/concepts/workloads/pods/init-containers/).
+privileged mode in a separate [init container](
+/docs/concepts/workloads/pods/init-containers/). Since
+Windows doesn't have the equivalent of `capabilities`, this only works
+on Linux.
 
 The `kube-proxy` Pod still only meets the *privileged* [Pod Security
 Standard](https://kubernetes.io/docs/concepts/security/pod-security-standards/),but there is still an improvement because the running container doesn't
