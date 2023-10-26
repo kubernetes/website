@@ -547,7 +547,7 @@ To enable the plugin, configure the following flags on the API server:
 <!--
 | Parameter | Description | Example | Required |
 | --------- | ----------- | ------- | ------- |
-| `--oidc-issuer-url` | URL of the provider which allows the API server to discover public signing keys. Only URLs which use the `https://` scheme are accepted.  This is typically the provider's discovery URL without a path, for example "https://accounts.google.com" or "https://login.salesforce.com".  This URL should point to the level below .well-known/openid-configuration | If the discovery URL is `https://accounts.google.com/.well-known/openid-configuration`, the value should be `https://accounts.google.com` | Yes |
+| `--oidc-issuer-url` | URL of the provider that allows the API server to discover public signing keys. Only URLs that use the `https://` scheme are accepted.  This is typically the provider's discovery URL, changed to have an empty path | If the issuer's OIDC discovery URL is `https://accounts.provider.example/.well-known/openid-configuration`, the value should be `https://accounts.provider.example` | Yes |
 | `--oidc-client-id` |  A client id that all tokens must be issued for. | kubernetes | Yes |
 | `--oidc-username-claim` | JWT claim to use as the user name. By default `sub`, which is expected to be a unique identifier of the end user. Admins can choose other claims, such as `email` or `name`, depending on their provider. However, claims other than `email` will be prefixed with the issuer URL to prevent naming clashes with other plugins. | sub | No |
 | `--oidc-username-prefix` | Prefix prepended to username claims to prevent clashes with existing names (such as `system:` users). For example, the value `oidc:` will create usernames like `oidc:jane.doe`. If this flag isn't provided and `--oidc-username-claim` is a value other than `email` the prefix defaults to `( Issuer URL )#` where `( Issuer URL )` is the value of `--oidc-issuer-url`. The value `-` can be used to disable all prefixing. | `oidc:` | No |
@@ -557,10 +557,9 @@ To enable the plugin, configure the following flags on the API server:
 | `--oidc-ca-file` | The path to the certificate for the CA that signed your identity provider's web certificate.  Defaults to the host's root CAs. | `/etc/kubernetes/ssl/kc-ca.pem` | No |
 | `--oidc-signing-algs` | The signing algorithms accepted. Default is "RS256". | `RS512` | No |
 -->
-
 | 参数 | 描述 | 示例 | 必需？ |
 | --------- | ----------- | ------- | ------- |
-| `--oidc-issuer-url` | 允许 API 服务器发现公开的签名密钥的服务的 URL。只接受模式为 `https://` 的 URL。此值通常设置为服务的发现 URL，不含路径。例如："https://accounts.google.com" 或 "https://login.salesforce.com"。此 URL 应指向 .well-known/openid-configuration 下一层的路径。 | 如果发现 URL 是 `https://accounts.google.com/.well-known/openid-configuration`，则此值应为 `https://accounts.google.com` | 是 |
+| `--oidc-issuer-url` | 允许 API 服务器发现公开的签名密钥的服务的 URL。只接受模式为 `https://` 的 URL。这通常是提供商的发现 URL，只是去掉了路径部分。 | 如果发放者的 OIDC 发现 URL 是 `https://accounts.provider.example/.well-known/openid-configuration`，则此值应为 `https://accounts.provider.example` | 是 |
 | `--oidc-client-id` |  所有令牌都应发放给此客户 ID。 | kubernetes | 是 |
 | `--oidc-username-claim` | 用作用户名的 JWT 申领（JWT Claim）。默认情况下使用 `sub` 值，即最终用户的一个唯一的标识符。管理员也可以选择其他申领，例如 `email` 或者 `name`，取决于所用的身份服务。不过，除了 `email` 之外的申领都会被添加令牌发放者的 URL 作为前缀，以免与其他插件产生命名冲突。 | sub | 否 |
 | `--oidc-username-prefix` | 要添加到用户名申领之前的前缀，用来避免与现有用户名发生冲突（例如：`system:` 用户）。例如，此标志值为 `oidc:` 时将创建形如 `oidc:jane.doe` 的用户名。如果此标志未设置，且 `--oidc-username-claim` 标志值不是 `email`，则默认前缀为 `<令牌发放者的 URL>#`，其中 `<令牌发放者 URL >` 的值取自 `--oidc-issuer-url` 标志的设定。此标志值为 `-` 时，意味着禁止添加用户名前缀。 | `oidc:` | 否 |
@@ -610,10 +609,10 @@ For an identity provider to work with Kubernetes it must:
 -->
 要在 Kubernetes 环境中使用某身份服务，该服务必须：
 
-1.  支持 [OpenID connect 发现](https://openid.net/specs/openid-connect-discovery-1_0.html)；
-    但事实上并非所有服务都具备此能力
-2.  运行 TLS 协议且所使用的加密组件都未过时
-3.  拥有由 CA 签名的证书（即使 CA 不是商业 CA 或者是自签名的 CA 也可以）
+1. 支持 [OpenID connect 发现](https://openid.net/specs/openid-connect-discovery-1_0.html)；
+   但事实上并非所有服务都具备此能力
+2. 运行 TLS 协议且所使用的加密组件都未过时
+3. 拥有由 CA 签名的证书（即使 CA 不是商业 CA 或者是自签名的 CA 也可以）
 
 <!--
 A note about requirement #3 above, requiring a CA signed certificate.  If you deploy your own identity provider (as opposed to one of the cloud providers like Google or Microsoft) you MUST have your identity provider's web server certificate signed by a certificate with the `CA` flag set to `TRUE`, even if it is self signed.  This is due to GoLang's TLS client implementation being very strict to the standards around certificate validation.  If you don't have a CA handy, you can use [this script](https://github.com/dexidp/dex/blob/master/examples/k8s/gencert.sh) from the Dex team to create a simple CA and a signed certificate and key pair.
@@ -1996,7 +1995,7 @@ The following `ExecCredential` manifest describes a cluster information sample.
 -->
 ## 为客户端提供的对身份验证信息的 API 访问   {#self-subject-review}
 
-{{< feature-state for_k8s_version="v1.27" state="beta" >}}
+{{< feature-state for_k8s_version="v1.28" state="stable" >}}
 
 <!--
 If your cluster has the API enabled, you can use the `SelfSubjectReview` API to find out how your Kubernetes cluster maps your authentication information to identify you as a client. This works whether you are authenticating as a user (typically representing a real person) or as a ServiceAccount.
@@ -2015,12 +2014,12 @@ Kubernetes API 服务器收到请求后，将使用用户属性填充 status 字
 请求示例（主体将是 `SelfSubjectReview`）：
 
 ```
-POST /apis/authentication.k8s.io/v1beta1/selfsubjectreviews
+POST /apis/authentication.k8s.io/v1/selfsubjectreviews
 ```
 
 ```json
 {
-  "apiVersion": "authentication.k8s.io/v1beta1",
+  "apiVersion": "authentication.k8s.io/v1",
   "kind": "SelfSubjectReview"
 }
 ```
@@ -2032,7 +2031,7 @@ Response example:
 
 ```json
 {
-  "apiVersion": "authentication.k8s.io/v1beta1",
+  "apiVersion": "authentication.k8s.io/v1",
   "kind": "SelfSubjectReview",
   "status": {
     "userInfo": {
@@ -2090,7 +2089,7 @@ By providing the output flag, it is also possible to print the JSON or YAML repr
 {{% tab name="JSON" %}}
 ```json
 {
-  "apiVersion": "authentication.k8s.io/v1alpha1",
+  "apiVersion": "authentication.k8s.io/v1",
   "kind": "SelfSubjectReview",
   "status": {
     "userInfo": {
@@ -2119,7 +2118,7 @@ By providing the output flag, it is also possible to print the JSON or YAML repr
 
 {{% tab name="YAML" %}}
 ```yaml
-apiVersion: authentication.k8s.io/v1alpha1
+apiVersion: authentication.k8s.io/v1
 kind: SelfSubjectReview
 status:
   userInfo:
@@ -2172,17 +2171,22 @@ By default, all authenticated users can create `SelfSubjectReview` objects when 
 You can only make `SelfSubjectReview` requests if:
 * the `APISelfSubjectReview`
   [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  is enabled for your cluster (enabled by default after reaching Beta)
-* the API server for your cluster has the `authentication.k8s.io/v1alpha1` or `authentication.k8s.io/v1beta1`
+  is enabled for your cluster (not needed for Kubernetes {{< skew currentVersion >}}, but older
+  Kubernetes versions might not offer this feature gate, or might default it to be off)
+* (if you are running a version of Kubernetes older than v1.28) the API server for your
+  cluster has the `authentication.k8s.io/v1alpha1` or `authentication.k8s.io/v1beta1`
   {{< glossary_tooltip term_id="api-group" text="API group" >}}
   enabled.
 -->
 你只能在以下情况下进行 `SelfSubjectReview` 请求：
 
-* 集群启用了 `APISelfSubjectReview` (Beta 版本默认启用)
+* 集群启用了 `APISelfSubjectReview` 
   [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-* 集群的 API 服务器已启用 `authentication.k8s.io/v1alpha1` 或者 `authentication.k8s.io/v1beta1`
-  {{< glossary_tooltip term_id="api-group" text="API 组" >}}。。
+  (Kubernetes {{< skew currentVersion >}} 不需要这样做，
+  但早期 Kubernetes 版本可能未提供此特性门控或默认禁用)。
+* （如果你正在运行的 Kubernetes 版本早于 v1.28）
+  集群的 API 服务器已启用 `authentication.k8s.io/v1alpha1` 或者 `authentication.k8s.io/v1beta1`
+  {{< glossary_tooltip term_id="api-group" text="API 组" >}}。
 {{< /note >}}
 
 ## {{% heading "whatsnext" %}}
@@ -2193,4 +2197,3 @@ You can only make `SelfSubjectReview` requests if:
 -->
 * 阅读[客户端认证参考文档 (v1beta1)](/zh-cn/docs/reference/config-api/client-authentication.v1beta1/)
 * 阅读[客户端认证参考文档 (v1)](/zh-cn/docs/reference/config-api/client-authentication.v1/)
-

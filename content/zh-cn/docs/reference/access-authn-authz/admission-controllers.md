@@ -37,7 +37,7 @@ Kubernetes API server prior to persistence of the object, but after the request
 is authenticated and authorized.
 
 Admission controllers may be _validating_, _mutating_, or both. Mutating
-controllers may modify related objects to the requests they admit; validating controllers may not.
+controllers may modify objects related to the requests they admit; validating controllers may not.
 
 Admission controllers limit requests to create, delete, modify objects. Admission
 controllers can also block custom verbs, such as a request connect to a Pod via
@@ -666,9 +666,9 @@ clusters:
   - name: name-of-remote-imagepolicy-service
     cluster:
       certificate-authority: /path/to/ca.pem    # CA 用于验证远程服务
-      server: https://images.example.com/policy # 要查询的远程服务的 URL，必须是 'https'。
+      server: https://images.example.com/policy # 要查询的远程服务的 URL，必须是 'https'
 
-# users 指的是 API 服务器的 Webhook 配置。
+# users 指的是 API 服务器的 Webhook 配置
 users:
   - name: name-of-api-server
     user:
@@ -708,7 +708,7 @@ Additionally, the API Server must enable the `imagepolicy.k8s.io/v1alpha1` API e
 group (`--runtime-config=imagepolicy.k8s.io/v1alpha1=true`).
 -->
 注意，Webhook API 对象与其他 Kubernetes API 对象一样受制于相同的版本控制兼容性规则。
-实现者应该知道对 alpha 对象兼容性是相对宽松的，并检查请求的 "apiVersion" 字段，
+实现者应该知道对 alpha 对象兼容性是相对宽松的，并检查请求的 `apiVersion` 字段，
 以确保正确的反序列化。此外，API 服务器必须启用 `imagepolicy.k8s.io/v1alpha1` API 扩展组
 （`--runtime-config=imagepolicy.k8s.io/v1alpha1=true`）。
 {{< /note >}}
@@ -1127,7 +1127,7 @@ This admission controller is disabled by default.
 -->
 此准入控制器会自动将由云提供商（如 Azure 或 GCP）定义的区（region）或区域（zone）
 标签附加到 PersistentVolume 上。这有助于确保 Pod 和 PersistentVolume 位于相同的区或区域。
-如果准入控制器不支持为 PersistentVolumes 自动添加标签，那你可能需要手动添加标签，
+如果准入控制器不支持为 PersistentVolume 自动添加标签，那你可能需要手动添加标签，
 以防止 Pod 挂载其他区域的卷。PersistentVolumeLabel **已被弃用**，
 为持久卷添加标签的操作已由{{< glossary_tooltip text="云管理控制器" term_id="cloud-controller-manager" >}}接管。
 
@@ -1472,7 +1472,7 @@ article details the PodSecurityPolicy historical context and the birth of the
 `securityContext` field for Pods.
 -->
 有关此插件的更多历史背景，请参阅 Kubernetes 博客中这篇有关 PodSecurityPolicy 及其移除的文章：
-[The birth of PodSecurityPolicy](/blog/2022/08/23/podsecuritypolicy-the-historical-context/#the-birth-of-podsecuritypolicy)。
+[PodSecurityPolicy 的诞生](/zh-cn/blog/2022/08/23/podsecuritypolicy-the-historical-context/#the-birth-of-podsecuritypolicy)。
 这篇文章详细地介绍了 PodSecurityPolicy 的历史背景以及 Pod 的 `securityContext` 字段的诞生。
 
 ### ServiceAccount {#serviceaccount}

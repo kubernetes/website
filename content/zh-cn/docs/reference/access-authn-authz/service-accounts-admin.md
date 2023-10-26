@@ -129,6 +129,27 @@ Here's an example of how that looks for a launched Pod:
 
 以下示例演示如何查找已启动的 Pod：
 
+<!--
+```yaml
+...
+  - name: kube-api-access-<random-suffix>
+    projected:
+      sources:
+        - serviceAccountToken:
+            path: token # must match the path the app expects
+        - configMap:
+            items:
+              - key: ca.crt
+                path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+              - fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace
+                path: namespace
+```
+-->
 ```yaml
 ...
   - name: kube-api-access-<随机后缀>
@@ -385,9 +406,32 @@ kubelet 确保该卷包含允许容器作为正确 ServiceAccount 进行身份�
 
 以下示例演示如何查找已启动的 Pod：
 
+<!--
 ```yaml
 ...
   - name: kube-api-access-<random-suffix>
+    projected:
+      defaultMode: 420 # decimal equivalent of octal 0644
+      sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+              - key: ca.crt
+                path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+              - fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace
+                path: namespace
+```
+-->
+```yaml
+...
+  - name: kube-api-access-<随机后缀>
     projected:
       defaultMode: 420 # 这个十进制数等同于八进制 0644
       sources:
@@ -532,6 +576,12 @@ Otherwise, first find the Secret for the ServiceAccount.
 -->
 否则，先找到 ServiceAccount 所用的 Secret。
 
+<!--
+```shell
+# This assumes that you already have a namespace named 'examplens'
+kubectl -n examplens get serviceaccount/example-automated-thing -o yaml
+```
+-->
 ```shell
 # 此处假设你已有一个名为 'examplens' 的名字空间
 kubectl -n examplens get serviceaccount/example-automated-thing -o yaml

@@ -878,7 +878,7 @@ O is the group that this user will belong to. You can refer to
 
 ```shell
 openssl genrsa -out myuser.key 2048
-openssl req -new -key myuser.key -out myuser.csr
+openssl req -new -key myuser.key -out myuser.csr -subj "/CN=myuser"
 ```
 
 <!--
@@ -919,7 +919,7 @@ Some points to note:
 - `usage` 字段必须是 '`client auth`'
 - `expirationSeconds` 可以设置为更长（例如 `864000` 是十天）或者更短（例如 `3600` 是一个小时）
 - `request` 字段是 CSR 文件内容的 base64 编码值。
-  要得到该值，可以执行命令
+  要得到该值，可以执行命令：
 
   ```shell
   cat myuser.csr | base64 | tr -d "\n"
