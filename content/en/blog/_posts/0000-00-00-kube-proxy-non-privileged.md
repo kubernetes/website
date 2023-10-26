@@ -102,6 +102,6 @@ spec:
 ## Summary
 
 The `--init-only` flag can be used to perform privileged
-initialization in an initContainer and run the main container with
+initialization in an init container and run the main container with
 `NET_ADMIN` capabilities only. Installers like `kubeadm` will likely be
 altered to use this feature in the future.
