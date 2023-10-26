@@ -872,6 +872,8 @@ poorly-behaved workloads that may be harming system health.
   the request was assigned), and `reason`.  The `reason` label will be
   one of the following values:
 -->
+#### 成熟度等级 BETA    {#maturity-level-beta}
+
 * `apiserver_flowcontrol_rejected_requests_total` 是一个计数器向量，
   记录被拒绝的请求数量（自服务器启动以来累计值），
   由标签 `flow_chema`（表示与请求匹配的 FlowSchema）、`priority_level`
@@ -904,6 +906,65 @@ poorly-behaved workloads that may be harming system health.
   记录开始执行的请求数量（自服务器启动以来的累积值），
   由 `flow_schema` 和 `priority_level` 来区分。
 
+<!--
+* `apiserver_flowcontrol_current_inqueue_requests` is a gauge vector
+  holding the instantaneous number of queued (not executing) requests,
+  broken down by `priority_level` and `flow_schema`.
+-->
+* `apiserver_flowcontrol_current_inqueue_requests` 是一个表向量，
+  记录包含排队中的（未执行）请求的瞬时数量，
+  由 `priority_level` 和 `flow_schema` 区分。
+
+<!--
+* `apiserver_flowcontrol_current_executing_requests` is a gauge vector
+  holding the instantaneous number of executing (not waiting in a
+  queue) requests, broken down by `priority_level` and `flow_schema`.
+-->
+* `apiserver_flowcontrol_current_executing_requests` 是一个表向量，
+  记录包含执行中（不在队列中等待）请求的瞬时数量，
+  由 `priority_level` 和 `flow_schema` 进一步区分。
+
+<!--
+* `apiserver_flowcontrol_current_executing_seats` is a gauge vector
+  holding the instantaneous number of occupied seats, broken down by
+  `priority_level` and `flow_schema`.
+-->
+* `apiserver_flowcontrol_current_executing_seats` 是一个表向量，
+  记录包含已占位置的请求的瞬时数量，
+  由 `priority_level` 和 `flow_schema` 进一步区分。
+
+<!--
+* `apiserver_flowcontrol_request_wait_duration_seconds` is a histogram
+  vector of how long requests spent queued, broken down by the labels
+  `flow_schema`, `priority_level`, and `execute`. The `execute` label
+  indicates whether the request has started executing.
+-->
+* `apiserver_flowcontrol_request_wait_duration_seconds` 是一个直方图向量，
+  记录请求排队的时间，
+  由标签 `flow_schema`、`priority_level` 和 `execute` 进一步区分。
+  标签 `execute` 表示请求是否开始执行。
+
+  {{< note >}}
+  <!--
+  Since each FlowSchema always assigns requests to a single
+  PriorityLevelConfiguration, you can add the histograms for all the
+  FlowSchemas for one priority level to get the effective histogram for
+  requests assigned to that priority level.
+  -->
+  由于每个 FlowSchema 总会给请求分配 PriorityLevelConfiguration，
+  因此你可以为一个优先级添加所有 FlowSchema 的直方图，以获取分配给该优先级的请求的有效直方图。
+  {{< /note >}}
+
+<!--
+* `apiserver_flowcontrol_nominal_limit_seats` is a gauge vector
+  holding each priority level's nominal concurrency limit, computed
+  from the API server's total concurrency limit and the priority
+  level's configured nominal concurrency shares.
+-->
+* `apiserver_flowcontrol_nominal_limit_seats` 是一个表向量，包含每个优先级的额定并发度限制，
+  指标值根据 API 服务器的总并发度限制和各优先级所配置的额定并发度份额计算得出。
+
+#### 成熟度等级 ALPHA    {#maturity-level-alpha}
 
 <!--
 * `apiserver_current_inqueue_requests` is a gauge vector of recent
@@ -923,6 +984,15 @@ poorly-behaved workloads that may be harming system health.
   （该量保存了最后一个窗口中，正在处理的请求数量的高水位线）。
 
 <!--
+* `apiserver_current_inqueue_seats` is a gauge vector of the sum over
+  queued requests of the largest number of seats each will occupy,
+  grouped by labels named `flow_schema` and `priority_level`.
+-->
+* `apiserver_current_inqueue_seats` 是一个表向量,
+记录每个请求占用的位置最多的排队请求，
+由标签 `flow_schema` 和 `priority_level` 分组。
+
+<!--
 * `apiserver_flowcontrol_read_vs_write_current_requests` is a
   histogram vector of observations, made at the end of every
   nanosecond, of the number of requests broken down by the labels
@@ -938,24 +1008,6 @@ poorly-behaved workloads that may be harming system health.
   和 `request_kind`（取值为 `mutating` 及 `readOnly`）区分。
   每个观察到的值是一个介于 0 和 1 之间的比值，计算方式为请求数除以该请求数的对应限制
   （等待的队列长度限制和执行所用的并发限制）。
-
-<!--
-* `apiserver_flowcontrol_current_inqueue_requests` is a gauge vector
-  holding the instantaneous number of queued (not executing) requests,
-  broken down by `priority_level` and `flow_schema`.
--->
-* `apiserver_flowcontrol_current_inqueue_requests` 是一个表向量，
-  记录包含排队中的（未执行）请求的瞬时数量，
-  由 `priority_level` 和 `flow_schema` 区分。
-
-<!--
-* `apiserver_flowcontrol_current_executing_requests` is a gauge vector
-  holding the instantaneous number of executing (not waiting in a
-  queue) requests, broken down by `priority_level` and `flow_schema`.
--->
-* `apiserver_flowcontrol_current_executing_requests` 是一个表向量，
-  记录包含执行中（不在队列中等待）请求的瞬时数量，
-  由 `priority_level` 和 `flow_schema` 进一步区分。
 
 <!-- 
 * `apiserver_flowcontrol_request_concurrency_in_use` is a gauge vector
@@ -1043,15 +1095,6 @@ poorly-behaved workloads that may be harming system health.
   （它过去不作为一个独立的指标存在）。
 
 <!--
-* `apiserver_flowcontrol_nominal_limit_seats` is a gauge vector
-  holding each priority level's nominal concurrency limit, computed
-  from the API server's total concurrency limit and the priority
-  level's configured nominal concurrency shares.
--->
-* `apiserver_flowcontrol_nominal_limit_seats` 是一个表向量，包含每个优先级的额定并发度限制，
-  指标值根据 API 服务器的总并发度限制和各优先级所配置的额定并发度份额计算得出。
-
-<!--
 * `apiserver_flowcontrol_lower_limit_seats` is a gauge vector holding
   the lower bound on each priority level's dynamic concurrency limit.
 -->
@@ -1133,28 +1176,6 @@ poorly-behaved workloads that may be harming system health.
   包含每个优先级的上一次调整期间得出的动态并发限制。
 
 <!--
-* `apiserver_flowcontrol_request_wait_duration_seconds` is a histogram
-  vector of how long requests spent queued, broken down by the labels
-  `flow_schema`, `priority_level`, and `execute`. The `execute` label
-  indicates whether the request has started executing.
--->
-* `apiserver_flowcontrol_request_wait_duration_seconds` 是一个直方图向量，
-  记录请求排队的时间，
-  由标签 `flow_schema`、`priority_level` 和 `execute` 进一步区分。
-  标签 `execute` 表示请求是否开始执行。
-
-  {{< note >}}
-  <!--
-  Since each FlowSchema always assigns requests to a single
-  PriorityLevelConfiguration, you can add the histograms for all the
-  FlowSchemas for one priority level to get the effective histogram for
-  requests assigned to that priority level.
-  -->
-  由于每个 FlowSchema 总会给请求分配 PriorityLevelConfiguration，
-  因此你可以为一个优先级添加所有 FlowSchema 的直方图，以获取分配给该优先级的请求的有效直方图。
-  {{< /note >}}
-
-<!--
 * `apiserver_flowcontrol_request_execution_seconds` is a histogram
   vector of how long requests took to actually execute, broken down by
   `flow_schema` and `priority_level`.
@@ -1192,6 +1213,16 @@ poorly-behaved workloads that may be harming system health.
   是一个事件数量的计数器，这些事件在原则上可能导致请求被分派，
   但由于并发度不足而没有被分派，
   由标签 `flow_schema` 和 `priority_level` 进一步区分。
+
+<!--
+* `apiserver_flowcontrol_epoch_advance_total` is a counter vector of
+  the number of attempts to jump a priority level's progress meter
+  backward to avoid numeric overflow, grouped by `priority_level` and
+  `success`.
+-->
+* `apiserver_flowcontrol_epoch_advance_total` 是一个事件数量的计数器，
+这些事件试图向后跳转优先级的进度表以避免数字溢出，
+由`priority_level` 和 `success` 分组。
 
 <!--
 ## Good practices for using API Priority and Fairness
