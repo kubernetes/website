@@ -47,8 +47,8 @@ write "loaders" which load your BPF byte code into the Kernel) with
 [solves several security and ergonomic problems with managing BPF programs on
 Linux systems][bpfdwhy].
 
-[After the license review process, which allowed provided a blanket exception
-for the use of dual licensed eBPF in CNFN, completed recently][lrev] the project
+[After the license review process, which provided a blanket exception
+for the use of dual licensed eBPF in CNCF, completed recently][lrev] the project
 became officially Kubernetes SIGs and interest has been growing. We have several
 goals for the project which revolve around the continued development of Gateway
 API, with a specific focus on helping mature Layer 4 support (e.g. `UDPRoute`
