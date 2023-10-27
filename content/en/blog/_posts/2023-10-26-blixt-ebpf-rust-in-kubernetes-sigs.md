@@ -40,18 +40,19 @@ strong contingency of Rust knowledge (and interest) between us developing the
 project and an active interest in the burgeoning [Aya project][aya] (a Rust
 framework for developing eBPF programs). We did eventually move the
 control-plane (specifically) to [Golang][go] however, so that we could take
-advantage of the [Kubebuilder][kb] and [controller-runtime][ctrl] ecosystems. 
-Additionally, we augmented our custom program loader (in eBPF, you generally write "loaders"
-which load your BPF byte code into the Kernel) with [Bpfd][bpfd]: a project
-adjacent to us in the Rust + eBPF ecosystem which [solves several security and
-ergonomic problems with managing BPF programs on Linux systems][bpfdwhy].
+advantage of the [Kubebuilder][kb] and [controller-runtime][ctrl] ecosystems.
+Additionally, we augmented our custom program loader (in eBPF, you generally
+write "loaders" which load your BPF byte code into the Kernel) with
+[Bpfd][bpfd]: a project adjacent to us in the Rust + eBPF ecosystem which
+[solves several security and ergonomic problems with managing BPF programs on
+Linux systems][bpfdwhy].
 
-[After the license review process, which allowed provided a blanket exception for the
-use of dual licensed eBPF in CNFN, completed recently][lrev] the project became
-officially Kubernetes SIGs and interest has been growing. We have several goals
-for the project which revolve around the continued development of Gateway API,
-with a specific focus on helping mature Layer 4 support (e.g. `UDPRoute` and
-`TCPRoute`).
+[After the license review process, which allowed provided a blanket exception
+for the use of dual licensed eBPF in CNFN, completed recently][lrev] the project
+became officially Kubernetes SIGs and interest has been growing. We have several
+goals for the project which revolve around the continued development of Gateway
+API, with a specific focus on helping mature Layer 4 support (e.g. `UDPRoute`
+and `TCPRoute`).
 
 [blixt]:https://github.com/kubernetes-sigs/blixt
 [kong]:https://konghq.com
@@ -99,9 +100,9 @@ milestones and current progress.
 One thing that can't be overstated about this project is that it has been at the
 center of a lot of learning, community building and fun. We have maintained a
 policy with this project that it shall never be intended for production use
-cases, and which means development of the project is more of a sandbox and a safe
-space for people to learn and experiment. If any of this sounds interesting to you
-now is a great time to get involved!
+cases which means development of the project is more of a sandbox and a safe
+space for people to learn and experiment. If any of this sounds interesting to
+you now is a great time to get involved!
 
 [gwapi]:https://github.com/kubernetes-sigs/gateway-api
 [gwc]:https://gateway-api.sigs.k8s.io/api-types/gatewayclass/
