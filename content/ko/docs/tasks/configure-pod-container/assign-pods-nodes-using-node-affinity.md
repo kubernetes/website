@@ -2,7 +2,7 @@
 title: 노드 어피니티를 사용해 노드에 파드 할당
 min-kubernetes-server-version: v1.10
 content_type: task
-weight: 120
+weight: 160
 ---
 
 <!-- overview -->

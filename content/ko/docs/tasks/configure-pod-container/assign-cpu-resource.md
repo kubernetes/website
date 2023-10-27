@@ -275,4 +275,4 @@ kubectl delete namespace cpu-example
 
 - [API 오브젝트 할당량 구성](/docs/tasks/administer-cluster/quota-api-object/)
 
-
+- [컨테이너에 할당된 CPU 및 메모리 리소스 크기 조정](/docs/tasks/configure-pod-container/resize-container-resources/)
