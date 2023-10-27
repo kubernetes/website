@@ -420,6 +420,24 @@ control plane automatically cleans up the long-lived token from that Secret.
 当你删除一个与某 Secret 相关联的 ServiceAccount 时，Kubernetes 的控制面会自动清理该
 Secret 中长期有效的令牌。
 
+{{< note >}}
+<!--
+If you view the ServiceAccount using:
+
+` kubectl get serviceaccount build-robot -o yaml`
+
+You can't see the `build-robot-secret` Secret in the ServiceAccount API objects
+[`.secrets`](/docs/reference/kubernetes-api/authentication-resources/service-account-v1/) field
+because that field is only populated with auto-generated Secrets.
+-->
+如果你使用以下命令查看 ServiceAccount:
+
+` kubectl get serviceaccount build-robot -o yaml`
+
+在 ServiceAccount API 对象中看不到 `build-robot-secret` Secret，
+[`.secrets`](/zh-cn/docs/reference/kubernetes-api/authentication-resources/service-account-v1/) 字段，
+因为该字段只会填充自动生成的 Secret。
+{{< /note >}}
 <!--
 ## Add ImagePullSecrets to a service account
 
