@@ -248,15 +248,13 @@ the `emptyDir.medium` field to `"Memory"`, Kubernetes mounts a tmpfs (RAM-backed
 filesystem) for you instead.  While tmpfs is very fast be aware that, unlike
 disks, files you write count against the memory limit of the container that wrote them.
 
+#### sizeLimit
+The `sizeLimit` field in `emptyDir` is a [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) that allows you to specify a limit on the amount of space that an `emptyDir` volume can consume. This can be useful for avoiding situations where an `emptyDir` volume fills up the [node's ephemeral storage](/docs/concepts/configuration/manage-resources-containers/#setting-requests-and-limits-for-local-ephemeral-storage) and prevents other workloads from running.
 
-A size limit can be specified for the default medium, which limits the capacity
-of the `emptyDir` volume. The storage is allocated from [node ephemeral
-storage](/docs/concepts/configuration/manage-resources-containers/#setting-requests-and-limits-for-local-ephemeral-storage).
-If that is filled up from another source (for example, log files or image
-overlays), the `emptyDir` may run out of capacity before this limit.
+For example, you could use the `sizeLimit` field to limit the size of an `emptyDir` volume that is used to store logs or temporary data. This would prevent the data from consuming too much space and impacting the performance of your applications.
 
 {{< note >}}
-If the `SizeMemoryBackedVolumes` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled,
+If the `SizeMemoryBackedVolumes` feature gate is enabled,
 you can specify a size for memory backed volumes.  If no size is specified, memory
 backed volumes are sized to node allocatable memory.
 {{< /note>}}
