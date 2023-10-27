@@ -7,8 +7,8 @@ slug: blixt-load-balancer-rust-ebpf-gateway-api
 
 **Author:** Shane Utt (Kong), Andrew Stoycos (Red Hat)
 
-In [SIG Network][signet] we now have a load-balancer named [Blixt][blixt]. This
-project started as a fun experiment into emerging technologies and is intended
+In [SIG Network][signet] we now have a layer 4 load-balancer named [Blixt][blixt]. This
+project started as a fun experiment using emerging technologies and is intended
 to become a utility for CI and testing to help facilitate the continued
 development of [Gateway API][gwapi]. Are you interested in developing networking
 tools in [Rust][rust] and [eBPF][ebpf]? Or perhaps you're specifically
@@ -24,13 +24,13 @@ might benefit you.
 ## History
 
 [Blixt][blixt] originated at [Kong][kong] as an experiment to test
-load-balancing ingress traffic for Kubernetes clusters using eBPF as the
+load-balancing ingress traffic for Kubernetes clusters using eBPF for the
 dataplane. Around the time of Kubecon Detroit (2022) we (the [Gateway
 API][gwapi] maintainers) realized it had significant potential to help us move
 our `TCPRoute` and `UDPRoute` support forward, which had been sort of "stuck in
 alpha" at the time due to a lack of conformance tests being developed for them.
 At the same time various others in the SIG Network community developed an
-interest in the project due to the rapid growth of the eBPF technology space.
+interest in the project due to the rapid growth of eBPFs use on Kubernetes.
 Given the potential for benefit to the Kubernetes ecosystem and the growing
 interest, Kong decided it would be helpful to [donate the project to Kubernetes
 SIGs][donation] to benefit upstream Kubernetes.
@@ -40,13 +40,14 @@ strong contingency of Rust knowledge (and interest) between us developing the
 project and an active interest in the burgeoning [Aya project][aya] (a Rust
 framework for developing eBPF programs). We did eventually move the
 control-plane (specifically) to [Golang][go] however, so that we could take
-advantage of the [Kubebuilder][kb] and [controller-runtime][ctrl] ecosystems and
-we replaced our custom program loader (in eBPF, you generally write "loaders"
+advantage of the [Kubebuilder][kb] and [controller-runtime][ctrl] ecosystems. 
+Additionally, we augmented our custom program loader (in eBPF, you generally write "loaders"
 which load your BPF byte code into the Kernel) with [Bpfd][bpfd]: a project
 adjacent to us in the Rust + eBPF ecosystem which [solves several security and
 ergonomic problems with managing BPF programs on Linux systems][bpfdwhy].
 
-[After the license review process completed recently][lrev] the project became
+[After the license review process, which allowed provided a blanket exception for the
+use of dual licensed eBPF in CNFN, completed recently][lrev] the project became
 officially Kubernetes SIGs and interest has been growing. We have several goals
 for the project which revolve around the continued development of Gateway API,
 with a specific focus on helping mature Layer 4 support (e.g. `UDPRoute` and
@@ -74,6 +75,7 @@ non-production use cases include:
 - Driving conformance tests and adoption for L4 use cases.
 - Using this implementation as part of the Gateway API CI testing strategy.
 - Having the Blixt control-plane be a reference implementation.
+- Exploring issues associated with the generic use of eBPF in Kubernetes.
 
 In support of those goals we have some more specific sub-goals we're actively
 working towards:
@@ -97,10 +99,9 @@ milestones and current progress.
 One thing that can't be overstated about this project is that it has been at the
 center of a lot of learning, community building and fun. We have maintained a
 policy with this project that it shall never be intended for production use
-cases, and one of the greatest benefits of that is that development of the
-project is more of a sandbox and a safe space for people to learn and
-experiment. If any of this sounds interesting to you now is a great time to get
-involved!
+cases, and which means development of the project is more of a sandbox and a safe
+space for people to learn and experiment. If any of this sounds interesting to you
+now is a great time to get involved!
 
 [gwapi]:https://github.com/kubernetes-sigs/gateway-api
 [gwc]:https://gateway-api.sigs.k8s.io/api-types/gatewayclass/
