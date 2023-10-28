@@ -31,13 +31,13 @@ são autorizados.
 Os nós devem ser provisionados com o certificado root público para o cluster
 de tal forma que eles podem se conectar de forma segura ao apiserver junto com o cliente válido
 credenciais. Por exemplo, em uma implantação padrão do GKE, as credenciais do cliente
-fornecidos para o kubelet estão na forma de um certificado de cliente. Vejo
+fornecidos para o kubelet, estão na forma de um certificado de cliente. Vejo
 [bootstrapping TLS do kubelet](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
 para provisionamento automatizado de certificados de cliente kubelet.
 
 Os pods que desejam se conectar ao apiserver podem fazê-lo com segurança, aproveitando
-conta de serviço para que o Kubernetes injetará automaticamente o certificado raiz público
-certificado e um token de portador válido no pod quando ele é instanciado.
+conta de serviço para que o Kubernetes possa injetar, automaticamente o certificado raiz público
+e um token de portador válido no pod quando ele é instanciado.
 O serviço `kubernetes` (no namespace `default`) é configurado com um IP virtual
 endereço que é redirecionado (via kube-proxy) para o endpoint com HTTPS no
 apiserver.
@@ -73,7 +73,7 @@ fornecer o apiserver com um pacote de certificado raiz para usar e verificar o
 certificado de serviço da kubelet.
 
 Se isso não for possível, use o [SSH túnel](/docs/concepts/architecture/master-node-communication/#ssh-tunnels)
-entre o apiserver e kubelet se necessário para evitar a conexão ao longo de um
+entre o apiserver e kubelet se necessário, para evitar a conexão ao longo de uma
 rede não confiável ou pública.
 
 Finalmente, [Autenticação e/ou autorização do Kubelet](/docs/admin/kubelet-authentication-authorization/)
