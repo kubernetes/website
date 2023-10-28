@@ -899,7 +899,7 @@ spec:
 
 Portworxの`CSIMigration`機能が追加されましたが、Kubernetes 1.23ではAlpha状態であるため、デフォルトで無効になっています。
 すべてのプラグイン操作を既存のツリー内プラグインから`pxd.portworx.com`Container Storage Interface(CSI)ドライバーにリダイレクトします。
-[Portworx CSIドライバー](https://docs.portworx.com/portworx-install-with-kubernetes/storage-operations/csi/)をクラスターにインストールする必要があります。
+[Portworx CSIドライバー](https://docs.portworx.com/portworx-enterprise/operations/operate-kubernetes/storage-operations/csi)をクラスターにインストールする必要があります。
 この機能を有効にするには、kube-controller-managerとkubeletで`CSIMigrationPortworx=true`を設定します。
 
 ## subPathの使用 {#using-subpath}

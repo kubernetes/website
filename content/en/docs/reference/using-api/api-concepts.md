@@ -34,7 +34,7 @@ API concepts:
 
 * A *resource type* is the name used in the URL (`pods`, `namespaces`, `services`)
 * All resource types have a concrete representation (their object schema) which is called a *kind*
-* A list of instances of a resource is known as a *collection*
+* A list of instances of a resource type is known as a *collection*
 * A single instance of a resource type is called a *resource*, and also usually represents an *object*
 * For some resource types, the API includes one or more *sub-resources*, which are represented as URI paths below the resource
 
@@ -148,7 +148,7 @@ For example:
 
 1. List all of the pods in a given namespace.
 
-   ```console
+   ```
    GET /api/v1/namespaces/test/pods
    ---
    200 OK
@@ -204,7 +204,7 @@ to a given `resourceVersion` the client is requesting have already been sent. Th
 document representing the `BOOKMARK` event is of the type requested by the request,
 but only includes a `.metadata.resourceVersion` field. For example:
 
-```console
+```
 GET /api/v1/namespaces/test/pods?watch=1&resourceVersion=10245&allowWatchBookmarks=true
 ---
 200 OK
@@ -262,7 +262,7 @@ is 10245 and there are two pods: `foo` and `bar`. Then sending the following req
 _consistent read_ by setting empty resource version using `resourceVersion=`) could result
 in the following sequence of events:
 
-```console
+```
 GET /api/v1/namespaces/test/pods?watch=1&sendInitialEvents=true&allowWatchBookmarks=true&resourceVersion=&resourceVersionMatch=NotOlderThan
 ---
 200 OK
@@ -303,7 +303,7 @@ can be saved and the latency can be reduced.
 To verify if `APIResponseCompression` is working, you can send a **get** or **list** request to the
 API server with an `Accept-Encoding` header, and check the response size and headers. For example:
 
-```console
+```
 GET /api/v1/pods
 Accept-Encoding: gzip
 ---
@@ -354,7 +354,7 @@ of 500 pods at a time, request those chunks as follows:
 
 1. List all of the pods on a cluster, retrieving up to 500 pods each time.
 
-   ```console
+   ```
    GET /api/v1/pods?limit=500
    ---
    200 OK
@@ -375,7 +375,7 @@ of 500 pods at a time, request those chunks as follows:
 
 2. Continue the previous call, retrieving the next set of 500 pods.
 
-   ```console
+   ```
    GET /api/v1/pods?limit=500&continue=ENCODED_CONTINUE_TOKEN
    ---
    200 OK
@@ -396,7 +396,7 @@ of 500 pods at a time, request those chunks as follows:
 
 3. Continue the previous call, retrieving the last 253 pods.
 
-   ```console
+   ```
    GET /api/v1/pods?limit=500&continue=ENCODED_CONTINUE_TOKEN_2
    ---
    200 OK
@@ -540,7 +540,7 @@ type.
 
 For example, list all of the pods on a cluster in the Table format.
 
-```console
+```
 GET /api/v1/pods
 Accept: application/json;as=Table;g=meta.k8s.io;v=v1
 ---
@@ -561,7 +561,7 @@ For API resource types that do not have a custom Table definition known to the c
 plane, the API server returns a default Table response that consists of the resource's
 `name` and `creationTimestamp` fields.
 
-```console
+```
 GET /apis/crd.example.com/v1alpha1/namespaces/default/resources
 ---
 200 OK
@@ -596,7 +596,7 @@ uses the Table information and must work against all resource types, including
 extensions, you should make requests that specify multiple content types in the
 `Accept` header. For example:
 
-```console
+```
 Accept: application/json;as=Table;g=meta.k8s.io;v=v1, application/json
 ```
 
@@ -624,7 +624,7 @@ For example:
 
 1. List all of the pods on a cluster in Protobuf format.
 
-   ```console
+   ```
    GET /api/v1/pods
    Accept: application/vnd.kubernetes.protobuf
    ---
@@ -637,7 +637,7 @@ For example:
 1. Create a pod by sending Protobuf encoded data to the server, but request a response
    in JSON.
 
-   ```console
+   ```
    POST /api/v1/namespaces/test/pods
    Content-Type: application/vnd.kubernetes.protobuf
    Accept: application/json
@@ -662,7 +662,7 @@ As a client, if you might need to work with extension types you should specify m
 content types in the request `Accept` header to support fallback to JSON.
 For example:
 
-```console
+```
 Accept: application/vnd.kubernetes.protobuf, application/json
 ```
 
@@ -675,7 +675,7 @@ describes the encoding and type of the underlying object and then contains the o
 
 The wrapper format is:
 
-```console
+```
 A four byte magic number prefix:
   Bytes 0-3: "k8s\x00" [0x6b, 0x38, 0x73, 0x00]
 
@@ -893,7 +893,7 @@ effects on any request marked as dry runs.
 
 Here is an example dry-run request that uses `?dryRun=All`:
 
-```console
+```
 POST /api/v1/namespaces/test/pods?dryRun=All
 Content-Type: application/json
 Accept: application/json

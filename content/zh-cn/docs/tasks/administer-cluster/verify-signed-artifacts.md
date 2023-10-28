@@ -22,13 +22,13 @@ You will need to have the following tools installed:
 
 - `cosign` ([install guide](https://docs.sigstore.dev/cosign/installation/))
 - `curl` (often provided by your operating system)
-- `jq` ([download jq](https://stedolan.github.io/jq/download/))
+- `jq` ([download jq](https://jqlang.github.io/jq/download/))
 -->
 你需要安装以下工具：
 
 - `cosign`（[安装指南](https://docs.sigstore.dev/cosign/installation/)）
 - `curl`（通常由你的操作系统提供）
-- `jq`（[下载 jq](https://stedlan.github.io/jq/download/)）
+- `jq`（[下载 jq](https://jqlang.github.io/jq/download/)）
 
 
 <!-- 

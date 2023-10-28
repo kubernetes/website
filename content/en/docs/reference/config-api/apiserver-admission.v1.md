@@ -11,7 +11,6 @@ auto_generated: true
 
 - [AdmissionReview](#admission-k8s-io-v1-AdmissionReview)
   
-    
 
 ## `AdmissionReview`     {#admission-k8s-io-v1-AdmissionReview}
     

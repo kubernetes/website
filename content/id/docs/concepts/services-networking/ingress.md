@@ -132,7 +132,7 @@ akan diarahkan pada *backend default*.
 Terdapat konsep Kubernetes yang memungkinkan kamu untuk mengekspos sebuah Service, lihat [alternatif lain](#alternatif-lain).
 Kamu juga bisa membuat spesifikasi Ingress dengan  *backend default* yang tidak memiliki *rules*.
 
-{{< codenew file="service/networking/ingress.yaml" >}}
+{{% codenew file="service/networking/ingress.yaml" %}}
 
 Jika kamu menggunakan `kubectl apply -f` kamu dapat melihat:
 

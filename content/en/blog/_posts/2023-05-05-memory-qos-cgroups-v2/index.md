@@ -128,18 +128,14 @@ enforces the limit to prevent the container from using more than the configured
 resource limit. If a process in a container tries to consume more than the
 specified limit, kernel terminates a process(es) with an Out of Memory (OOM) error.
 
-```formula
-memory.max = pod.spec.containers[i].resources.limits[memory]
-```
+{{< figure src="/blog/2023/05/05/qos-memory-resources/container-memory-max.svg" title="memory.max maps to limits.memory" alt="memory.max maps to limits.memory" >}}
 
 `memory.min` is mapped to `requests.memory`, which results in reservation of memory resources
 that should never be reclaimed by the kernel. This is how Memory QoS ensures the availability of
 memory for Kubernetes pods. If there's no unprotected reclaimable memory available, the OOM
 killer is invoked to make more memory available.
 
-```formula
-memory.min = pod.spec.containers[i].resources.requests[memory]
-```
+{{< figure src="/blog/2023/05/05/qos-memory-resources/container-memory-min.svg" title="memory.min maps to requests.memory" alt="memory.min maps to requests.memory" >}}
 
 For memory protection, in addition to the original way of limiting memory usage, Memory QoS
 throttles workload approaching its memory limit, ensuring that the system is not overwhelmed
@@ -149,10 +145,7 @@ the KubeletConfiguration when you enable MemoryQoS feature. It is set to 0.9 by 
 `requests.memory` and `limits.memory` as in the formula below, and rounding down the
 value to the nearest page size:
 
-```formula
-memory.high = pod.spec.containers[i].resources.requests[memory] + MemoryThrottlingFactor *
-{(pod.spec.containers[i].resources.limits[memory] or NodeAllocatableMemory) - pod.spec.containers[i].resources.requests[memory]}
-```
+{{< figure src="/blog/2023/05/05/qos-memory-resources/container-memory-high.svg" title="memory.high formula" alt="memory.high formula" >}} 
 
 {{< note >}}
 If a container has no memory limits specified, `limits.memory` is substituted for node allocatable memory.
@@ -256,26 +249,18 @@ as per QOS classes:
     
    * When requests.memory and limits.memory are set, the formula is used as-is:
 
-     ```formula
-     memory.high = pod.spec.containers[i].resources.requests[memory] + MemoryThrottlingFactor *
-     {(pod.spec.containers[i].resources.limits[memory]) - pod.spec.containers[i].resources.requests[memory]}
-     ```
+     {{< figure src="/blog/2023/05/05/qos-memory-resources/container-memory-high-limit.svg" title="memory.high when requests and limits are set" alt="memory.high when requests and limits are set" >}}
 
    * When requests.memory is set and limits.memory is not set, limits.memory is substituted
      for node allocatable memory in the formula:
 
-     ```formula
-     memory.high = pod.spec.containers[i].resources.requests[memory] + MemoryThrottlingFactor *
-     {(NodeAllocatableMemory) - pod.spec.containers[i].resources.requests[memory]}
-     ```
+     {{< figure src="/blog/2023/05/05/qos-memory-resources/container-memory-high-no-limits.svg" title="memory.high when requests and limits are not set" alt="memory.high when requests and limits are not set" >}}
 
 1. **BestEffort** by their QoS definition do not require any memory or CPU limits or requests.
    For this case, kubernetes sets requests.memory = 0 and substitute limits.memory for node allocatable
    memory in the formula:
 
-   ```formula
-   memory.high = MemoryThrottlingFactor * NodeAllocatableMemory
-   ```
+   {{< figure src="/blog/2023/05/05/qos-memory-resources/container-memory-high-best-effort.svg" title="memory.high for BestEffort Pod" alt="memory.high for BestEffort Pod" >}}
 
 **Summary**: Only Pods in Burstable and BestEffort QoS classes will set `memory.high`.
 Guaranteed QoS pods do not set `memory.high` as their memory is guaranteed.

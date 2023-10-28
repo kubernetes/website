@@ -280,7 +280,7 @@ Se o Pod obedecer todos os items acima simultaneamente, a seleção é aleatóri
 Utilizando a anotação [`controller.kubernetes.io/pod-deletion-cost`](/docs/reference/labels-annotations-taints/#pod-deletion-cost),
 usuários podem definir uma preferência em relação à quais pods serão removidos primeiro caso o ReplicaSet precise escalonar para baixo.
 
-A anotação deve ser definida no pod, com uma variação de [-2147483647, 2147483647]. Isso representa o custo de deletar um pod comparado com outros pods que pertencem à esse mesmo ReplicaSet. Pods com um custo de deleção menor são eleitos para deleção antes de pods com um custo maior.
+A anotação deve ser definida no pod, com uma variação de [-2147483648, 2147483647]. Isso representa o custo de deletar um pod comparado com outros pods que pertencem à esse mesmo ReplicaSet. Pods com um custo de deleção menor são eleitos para deleção antes de pods com um custo maior.
 
 O valor implícito para essa anotação para pods que não a tem definida é 0;  valores negativos são permitidos.
 Valores inválidos serão rejeitados pelo servidor API.
