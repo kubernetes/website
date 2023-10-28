@@ -129,7 +129,8 @@ For a reference to old feature gates that are removed, please refer to
 | `KubeletPodResourcesGet` | `false` | Alpha | 1.27 | |
 | `KubeletTracing` | `false` | Alpha | 1.25 | 1.26 |
 | `KubeletTracing` | `true` | Beta | 1.27 | |
-| `LegacyServiceAccountTokenCleanUp` | `false` | Alpha | 1.28 | |
+| `LegacyServiceAccountTokenCleanUp` | `false` | Alpha | 1.28 | 1.28 |
+| `LegacyServiceAccountTokenCleanUp` | `true` | Beta | 1.29 | |
 | `LoadBalancerIPMode` | `false` | Alpha | 1.29 | |
 | `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | - |
 | `LogarithmicScaleDown` | `false` | Alpha | 1.21 | 1.21 |
@@ -603,9 +604,11 @@ Each feature gate is designed for enabling/disabling a specific feature:
   See [Traces for Kubernetes System Components](/docs/concepts/cluster-administration/system-traces) for more details.
 - `LegacyServiceAccountTokenNoAutoGeneration`: Stop auto-generation of Secret-based
   [service account tokens](/docs/concepts/security/service-accounts/#get-a-token).
-- `LegacyServiceAccountTokenCleanUp`: Enable cleaning up Secret-based
+- `LegacyServiceAccountTokenCleanUp`: Enable invalidating auto-generated Secret-based
   [service account tokens](/docs/concepts/security/service-accounts/#get-a-token)
-  when they are not used in a specified time (default to be one year).
+  when they have not been used in a specified time (defaults to one year). Clean up
+  the auto-generated Secret-based tokens if they have been invalidated for a specified time
+  (defaults to one year).
 - `LegacyServiceAccountTokenTracking`: Track usage of Secret-based
   [service account tokens](/docs/concepts/security/service-accounts/#get-a-token).
 - `LoadBalancerIPMode`: Allows setting `ipMode` for Services where `type` is set to `LoadBalancer`. 
