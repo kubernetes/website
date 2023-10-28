@@ -57,9 +57,9 @@ secretGenerator:
 {{% tab name="文件" %}}
 
 <!--
-1.  Store the credentials in files with the values encoded in base64:
+1.  Store the credentials in files. The filenames are the keys of the secret:
 -->
-1. 用 base64 编码的值存储凭据到文件中：
+1. 将凭据存储在文件中。文件名是 Secret 的 key 值：
 
    ```shell
    echo -n 'admin' > ./username.txt

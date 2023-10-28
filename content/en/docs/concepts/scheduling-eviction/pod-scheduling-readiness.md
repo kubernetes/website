@@ -6,7 +6,7 @@ weight: 40
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
 Pods were considered ready for scheduling once created. Kubernetes scheduler
 does its due diligence to find nodes to place all pending Pods. However, in a 

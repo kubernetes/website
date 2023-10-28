@@ -85,9 +85,27 @@ An empty `effect` matches all effects with key `key1`.
 {{< /note >}}
 
 The above example used `effect` of `NoSchedule`. Alternatively, you can use `effect` of `PreferNoSchedule`.
-This is a "preference" or "soft" version of `NoSchedule` -- the system will *try* to avoid placing a
-pod that does not tolerate the taint on the node, but it is not required. The third kind of `effect` is
-`NoExecute`, described later.
+
+
+The allowed values for the `effect` field are:
+
+`NoExecute`
+: This affects pods that are already running on the node as follows:
+  * Pods that do not tolerate the taint are evicted immediately
+  * Pods that tolerate the taint without specifying `tolerationSeconds` in
+    their toleration specification remain bound forever
+  * Pods that tolerate the taint with a specified `tolerationSeconds` remain
+    bound for the specified amount of time. After that time elapses, the node
+    lifecycle controller evicts the Pods from the node.
+   
+`NoSchedule`
+: No new Pods will be scheduled on the tainted node unless they have a matching
+  toleration. Pods currently running on the node are **not** evicted.
+
+`PreferNoSchedule`
+: `PreferNoSchedule` is a "preference" or "soft" version of `NoSchedule`.
+  The control plane will *try* to avoid placing a Pod that does not tolerate
+  the taint on the node, but it is not guaranteed. 
 
 You can put multiple taints on the same node and multiple tolerations on the same pod.
 The way Kubernetes processes multiple taints and tolerations is like a filter: start
@@ -194,14 +212,7 @@ when there are node problems, which is described in the next section.
 
 {{< feature-state for_k8s_version="v1.18" state="stable" >}}
 
-The `NoExecute` taint effect, mentioned above, affects pods that are already
-running on the node as follows
 
- * pods that do not tolerate the taint are evicted immediately
- * pods that tolerate the taint without specifying `tolerationSeconds` in
-   their toleration specification remain bound forever
- * pods that tolerate the taint with a specified `tolerationSeconds` remain
-   bound for the specified amount of time
 
 The node controller automatically taints a Node when certain conditions
 are true. The following taints are built in:
@@ -221,7 +232,9 @@ are true. The following taints are built in:
     this node, the kubelet removes this taint.
 
 In case a node is to be drained, the node controller or the kubelet adds relevant taints
-with `NoExecute` effect. If the fault condition returns to normal the kubelet or node
+with `NoExecute` effect. This effect is added by default for the
+`node.kubernetes.io/not-ready` and `node.kubernetes.io/unreachable` taints.
+If the fault condition returns to normal, the kubelet or node
 controller can remove the relevant taint(s).
 
 In some cases when the node is unreachable, the API server is unable to communicate

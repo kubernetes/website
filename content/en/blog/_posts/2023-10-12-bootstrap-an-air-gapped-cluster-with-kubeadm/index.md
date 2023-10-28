@@ -22,7 +22,7 @@ A real air-gapped network can take some effort to set up, so for this post, I wi
 
 ### Local topology
 
-This VM will have its network connectivity disabled but in a way that doesn't shut down the VM's virtual NIC. Instead, its network will be downed by injecting a default route to a dummy interface, making anything internet-hosted unreachable. However, the VM still has a connected route to the bridge interface on the host, which means that network connectivity to the host is still working. This posture means that data can be transferred from the host/laptop to the VM via scp, even with the default route on the VM black-holing all traffic that isn't destined for the local bridge subnet. This type of transfer is analogous to carrying data across the air gap and will be used throughout this post.
+This VM will have its network connectivity disabled but in a way that doesn't shut down the VM's virtual NIC. Instead, its network will be downed by injecting a default route to a dummy interface, making anything internet-hosted unreachable. However, the VM still has a connected route to the bridge interface on the host, which means that network connectivity to the host is still working. This posture means that data can be transferred from the host/laptop to the VM via `scp`, even with the default route on the VM black-holing all traffic that isn't destined for the local bridge subnet. This type of transfer is analogous to carrying data across the air gap and will be used throughout this post.
 
 Other details about the lab setup:
 
@@ -35,7 +35,7 @@ While this single VM lab is a simplified example, the below diagram more approxi
 
 {{< figure src="example_production_topology.svg" alt="Example production topology which shows 3 control plane Kubernetes nodes and 'n' worker nodes along with a Docker registry in an air-gapped environment.  Additionally shows two workstations, one on each side of the air gap and an IT admin which physically carries the artifacts across." >}}
 
-Note, there is still intentional isolation between the envirnment and the internet.  There are also some things that are not shown in order to keep the diagram simple, for example malware scanning on the secure side of the air gap.
+Note, there is still intentional isolation between the environment and the internet.  There are also some things that are not shown in order to keep the diagram simple, for example malware scanning on the secure side of the air gap.
 
 Back to the single VM lab environment.
 
@@ -144,7 +144,7 @@ reboot
 
 On the laptop/host machine, download all of the artifacts enumerated in the previous section.  Since the air gapped VM is running Fedora 37, all of the dependencies shown in this part are for Fedora 37.  Note, this procedure will only work on AArch64 or AMD64 CPU architectures as they are the most popular and widely available..  You can execute this procedure anywhere you have write permissions; your home directory is a perfectly suitable choice.
 
-Note, operating system packages for the Kubernetes artifacts that need to be carried across can now be found at [pkgs.k8s.io](https://kubernetes.io/blog/2023/08/15/pkgs-k8s-io-introduction/). This blog post will use a combination of Fedora repositories and GitHub in order to download all of the required artifacts. When you’re doing this on your own cluster, you should decide whether to use the official Kubernetes packages, or the official packages from your operating system distribution - both are valid choices.
+Note, operating system packages for the Kubernetes artifacts that need to be carried across can now be found at [pkgs.k8s.io](/blog/2023/08/15/pkgs-k8s-io-introduction/). This blog post will use a combination of Fedora repositories and GitHub in order to download all of the required artifacts. When you’re doing this on your own cluster, you should decide whether to use the official Kubernetes packages, or the official packages from your operating system distribution - both are valid choices.
 
 
 
@@ -612,7 +612,7 @@ export ZARF_VERSION=v0.28.3
 curl -LO "https://github.com/defenseunicorns/zarf/releases/download/${ZARF_VERSION}/zarf_${ZARF_VERSION}_Linux_${K8s_ARCH}"
 ```
 Zarf needs to bootstrap itself into a Kubernetes cluster through the use of an init package. That also needs to be transported across the air gap so let's download it onto the host/laptop:
-```bash 
+```bash
 curl -LO "https://github.com/defenseunicorns/zarf/releases/download/${ZARF_VERSION}/zarf-init-${K8s_ARCH}-${ZARF_VERSION}.tar.zst"
 ```
 The way that Zarf is declarative is through the use of a zarf.yaml file. Here is the zarf.yaml file that will be used for this Podinfo installation. Write it to whatever directory you you have write access to on your host/laptop; your home directory is fine:

@@ -11,7 +11,6 @@ auto_generated: true
 
 - [ExecCredential](#client-authentication-k8s-io-v1-ExecCredential)
   
-    
 
 ## `ExecCredential`     {#client-authentication-k8s-io-v1-ExecCredential}
     

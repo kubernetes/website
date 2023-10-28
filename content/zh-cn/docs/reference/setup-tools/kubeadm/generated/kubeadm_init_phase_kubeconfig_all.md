@@ -1,29 +1,17 @@
 <!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
-<!--
 Generate all kubeconfig files
 -->
-生成所有 kubeconfig 文件
+生成所有 kubeconfig 文件。
 
 <!-- 
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
 Generate all kubeconfig files
 -->
-生成所有 kubeconfig 文件
+生成所有 kubeconfig 文件。
 
 ```
 kubeadm init phase kubeconfig all [flags]
@@ -32,7 +20,6 @@ kubeadm init phase kubeconfig all [flags]
 <!-- 
 ### Options 
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -145,7 +132,7 @@ Don't apply any changes; just output what would be done.
 help for all
 -->
 <p>
-all 操作的帮助命令
+all 操作的帮助命令。
 </p>
 </td>
 </tr>

@@ -19,7 +19,7 @@ kubelet can proactively fail one or more pods on the node to reclaim resources
 and prevent starvation.
 
 During a node-pressure eviction, the kubelet sets the [phase](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase) for the
-selected pods to `Failed`. This terminates the Pods.
+selected pods to `Failed`, and terminates the Pod.
 
 Node-pressure eviction is not the same as
 [API-initiated eviction](/docs/concepts/scheduling-eviction/api-eviction/).
@@ -30,7 +30,7 @@ Node-pressure eviction is not the same as
 kubelet 可以主动地使节点上一个或者多个 Pod 失效，以回收资源防止饥饿。
 
 在节点压力驱逐期间，kubelet 将所选 Pod 的[阶段](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)
-设置为 `Failed`。这将终止 Pod。
+设置为 `Failed` 并终止 Pod。
 
 节点压力驱逐不同于 [API 发起的驱逐](/zh-cn/docs/concepts/scheduling-eviction/api-eviction/)。
 
@@ -55,7 +55,7 @@ The kubelet attempts to [reclaim node-level resources](#reclaim-node-resources)
 before it terminates end-user pods. For example, it removes unused container
 images when disk resources are starved.
 -->
-## 自我修复行为
+## 自我修复行为   {#self-healing-behavior}
 
 kubelet 在终止最终用户 Pod 之前会尝试[回收节点级资源](#reclaim-node-resources)。
 例如，它会在磁盘资源不足时删除未使用的容器镜像。
@@ -75,7 +75,7 @@ pods in place of the evicted pods.
 <!--
 ### Self healing for static pods
 -->
-### 静态 Pod 的自我修复
+### 静态 Pod 的自我修复   {#self-healing-for-static-pods}
 
 <!--
 If you are running a [static pod](/docs/concepts/workloads/pods/#static-pods)
@@ -237,10 +237,10 @@ Eviction thresholds have the form `[eviction-signal][operator][quantity]`, where
 
 驱逐条件的形式为 `[eviction-signal][operator][quantity]`，其中：
 
-* `eviction-signal` 是要使用的[驱逐信号](#eviction-signals)。
-* `operator` 是你想要的[关系运算符](https://en.wikipedia.org/wiki/Relational_operator#Standard_relational_operators)，
+- `eviction-signal` 是要使用的[驱逐信号](#eviction-signals)。
+- `operator` 是你想要的[关系运算符](https://en.wikipedia.org/wiki/Relational_operator#Standard_relational_operators)，
   比如 `<`（小于）。
-* `quantity` 是驱逐条件数量，例如 `1Gi`。
+- `quantity` 是驱逐条件数量，例如 `1Gi`。
   `quantity` 的值必须与 Kubernetes 使用的数量表示相匹配。
   你可以使用文字值或百分比（`%`）。
 
@@ -295,11 +295,11 @@ You can use the following flags to configure soft eviction thresholds:
 -->
 你可以使用以下标志来配置软驱逐条件：
 
-* `eviction-soft`：一组驱逐条件，如 `memory.available<1.5Gi`，
+- `eviction-soft`：一组驱逐条件，如 `memory.available<1.5Gi`，
   如果驱逐条件持续时长超过指定的宽限期，可以触发 Pod 驱逐。
-* `eviction-soft-grace-period`：一组驱逐宽限期，
+- `eviction-soft-grace-period`：一组驱逐宽限期，
   如 `memory.available=1m30s`，定义软驱逐条件在触发 Pod 驱逐之前必须保持多长时间。
-* `eviction-max-pod-grace-period`：在满足软驱逐条件而终止 Pod 时使用的最大允许宽限期（以秒为单位）。
+- `eviction-max-pod-grace-period`：在满足软驱逐条件而终止 Pod 时使用的最大允许宽限期（以秒为单位）。
 
 <!--
 #### Hard eviction thresholds {#hard-eviction-thresholds}
@@ -329,10 +329,10 @@ The kubelet has the following default hard eviction thresholds:
 -->
 kubelet 具有以下默认硬驱逐条件：
 
-* `memory.available<100Mi`
-* `nodefs.available<10%`
-* `imagefs.available<15%`
-* `nodefs.inodesFree<5%`（Linux 节点）
+- `memory.available<100Mi`
+- `nodefs.available<10%`
+- `imagefs.available<15%`
+- `nodefs.inodesFree<5%`（Linux 节点）
 
 <!--
 These default values of hard eviction thresholds will only be set if none
@@ -852,11 +852,11 @@ to estimate or measure an optimal memory limit value for that container.
 - Learn about [API-initiated Eviction](/docs/concepts/scheduling-eviction/api-eviction/)
 - Learn about [Pod Priority and Preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
 - Learn about [PodDisruptionBudgets](/docs/tasks/run-application/configure-pdb/)
-- Learn about [Q**uality of Servic**e](/docs/tasks/configure-pod-container/quality-service-pod/) (QoS)
+- Learn about [Quality of Service](/docs/tasks/configure-pod-container/quality-service-pod/) (QoS)
 - Check out the [Eviction API](/docs/reference/generated/kubernetes-api/{{<param "version">}}/#create-eviction-pod-v1-core)
 -->
-* 了解 [API 发起的驱逐](/zh-cn/docs/concepts/scheduling-eviction/api-eviction/)
-* 了解 [Pod 优先级和抢占](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)
-* 了解 [PodDisruptionBudgets](/zh-cn/docs/tasks/run-application/configure-pdb/)
-* 了解[服务质量](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/)（QoS）
-* 查看[驱逐 API](/docs/reference/generated/kubernetes-api/{{<param "version">}}/#create-eviction-pod-v1-core)
+- 了解 [API 发起的驱逐](/zh-cn/docs/concepts/scheduling-eviction/api-eviction/)
+- 了解 [Pod 优先级和抢占](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)
+- 了解 [PodDisruptionBudgets](/zh-cn/docs/tasks/run-application/configure-pdb/)
+- 了解[服务质量](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/)（QoS）
+- 查看[驱逐 API](/docs/reference/generated/kubernetes-api/{{<param "version">}}/#create-eviction-pod-v1-core)

@@ -6,21 +6,25 @@ weight: 120
 
 <!-- overview -->
 
-This page explains how to switch from one Kubernetes package repository to another
-when upgrading Kubernetes minor releases. Unlike deprecated Google-hosted
-repositories, the Kubernetes package repositories are structured in a way that
-there's a dedicated package repository for each Kubernetes minor version.
+This page explains how to enable a package repository for a new Kubernetes minor release
+for users of the community-owned package repositories hosted at `pkgs.k8s.io`.
+Unlike the legacy package repositories, the community-owned package repositories are
+structured in a way that there's a dedicated package repository for each Kubernetes
+minor version.
 
 ## {{% heading "prerequisites" %}}
 
-This document assumes that you're already using the Kubernetes community-owned
-package repositories. If that's not the case, it's strongly recommended to migrate
-to the Kubernetes package repositories.
+This document assumes that you're already using the community-owned
+package repositories (`pkgs.k8s.io`). If that's not the case, it's strongly
+recommended to migrate to the community-owned package repositories as described
+in the [official announcement](/blog/2023/08/15/pkgs-k8s-io-introduction/).
+
+{{% legacy-repos-deprecation %}}
 
 ### Verifying if the Kubernetes package repositories are used
 
-If you're unsure whether you're using the Kubernetes package repositories or the
-Google-hosted repository, take the following steps to verify:
+If you're unsure whether you're using the community-owned package repositories or the
+legacy package repositories, take the following steps to verify:
 
 {{< tabs name="k8s_install_versions" >}}
 {{% tab name="Ubuntu, Debian or HypriotOS" %}}
@@ -39,7 +43,8 @@ deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io
 ```
 
 **You're using the Kubernetes package repositories and this guide applies to you.**
-Otherwise, it's strongly recommended to migrate to the Kubernetes package repositories.
+Otherwise, it's strongly recommended to migrate to the Kubernetes package repositories
+as described in the [official announcement](/blog/2023/08/15/pkgs-k8s-io-introduction/).
 
 {{% /tab %}}
 {{% tab name="CentOS, RHEL or Fedora" %}}
@@ -64,7 +69,35 @@ exclude=kubelet kubeadm kubectl
 ```
 
 **You're using the Kubernetes package repositories and this guide applies to you.**
-Otherwise, it's strongly recommended to migrate to the Kubernetes package repositories.
+Otherwise, it's strongly recommended to migrate to the Kubernetes package repositories
+as described in the [official announcement](/blog/2023/08/15/pkgs-k8s-io-introduction/).
+
+{{% /tab %}}
+
+{{% tab name="openSUSE or SLES" %}}
+
+Print the contents of the file that defines the Kubernetes `zypper` repository:
+
+```shell
+# On your system, this configuration file could have a different name
+cat /etc/zypp/repos.d/kubernetes.repo
+```
+
+If you see a `baseurl` similar to the `baseurl` in the output below:
+
+```
+[kubernetes]
+name=Kubernetes
+baseurl=https://pkgs.k8s.io/core:/stable:/v{{< skew currentVersionAddMinor -1 "." >}}/rpm/
+enabled=1
+gpgcheck=1
+gpgkey=https://pkgs.k8s.io/core:/stable:/v{{< skew currentVersionAddMinor -1 "." >}}/rpm/repodata/repomd.xml.key
+exclude=kubelet kubeadm kubectl
+```
+
+**You're using the Kubernetes package repositories and this guide applies to you.**
+Otherwise, it's strongly recommended to migrate to the Kubernetes package repositories
+as described in the [official announcement](/blog/2023/08/15/pkgs-k8s-io-introduction/).
 
 {{% /tab %}}
 {{< /tabs >}}

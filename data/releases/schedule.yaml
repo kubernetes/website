@@ -5,12 +5,15 @@ schedules:
 - release: 1.28
   releaseDate: 2023-08-15
   next:
-    release: 1.28.3
-    cherryPickDeadline: 2023-10-13
-    targetDate: 2023-10-18
+    release: 1.28.4
+    cherryPickDeadline: 2023-12-01
+    targetDate: 2023-12-06
   maintenanceModeStartDate: 2024-08-28
   endOfLifeDate: 2024-10-28
   previousPatches:
+    - release: 1.28.3
+      cherryPickDeadline: 2023-10-13
+      targetDate: 2023-10-18
     - release: 1.28.2
       cherryPickDeadline: 2023-09-08
       targetDate: 2023-09-13      
@@ -26,10 +29,13 @@ schedules:
   maintenanceModeStartDate: 2024-04-28
   endOfLifeDate: 2024-06-28
   next:
-    release: 1.27.7
-    cherryPickDeadline: 2023-10-13
-    targetDate: 2023-10-18
+    release: 1.27.8
+    cherryPickDeadline: 2023-12-01
+    targetDate: 2023-12-06
   previousPatches:
+    - release: 1.27.7
+      cherryPickDeadline: 2023-10-13
+      targetDate: 2023-10-18
     - release: 1.27.6
       cherryPickDeadline: 2023-09-08
       targetDate: 2023-09-13
@@ -58,10 +64,13 @@ schedules:
   maintenanceModeStartDate: 2023-12-28
   endOfLifeDate: 2024-02-28
   next:
-    release: 1.26.10
-    cherryPickDeadline: 2023-10-13
-    targetDate: 2023-10-18
+    release: 1.26.11
+    cherryPickDeadline: 2023-12-01
+    targetDate: 2023-12-06
   previousPatches:
+    - release: 1.26.10
+      cherryPickDeadline: 2023-10-13
+      targetDate: 2023-10-18
     - release: 1.26.9
       cherryPickDeadline: 2023-09-08
       targetDate: 2023-09-13
@@ -103,6 +112,9 @@ schedules:
     cherryPickDeadline: 2023-10-13
     targetDate: 2023-10-18
   previousPatches:
+    - release: 1.25.15
+      cherryPickDeadline: 2023-10-13
+      targetDate: 2023-10-18
     - release: 1.25.14
       cherryPickDeadline: 2023-09-08
       targetDate: 2023-09-13

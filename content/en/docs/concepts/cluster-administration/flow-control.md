@@ -488,6 +488,8 @@ exports additional metrics. Monitoring these can help you determine whether your
 configuration is inappropriately throttling important traffic, or find
 poorly-behaved workloads that may be harming system health.
 
+#### Maturity level BETA
+
 * `apiserver_flowcontrol_rejected_requests_total` is a counter vector
   (cumulative since server start) of requests that were rejected,
   broken down by the labels `flow_schema` (indicating the one that
@@ -509,6 +511,37 @@ poorly-behaved workloads that may be harming system health.
   vector (cumulative since server start) of requests that began
   executing, broken down by `flow_schema` and `priority_level`.
 
+* `apiserver_flowcontrol_current_inqueue_requests` is a gauge vector
+  holding the instantaneous number of queued (not executing) requests,
+  broken down by `priority_level` and `flow_schema`.
+
+* `apiserver_flowcontrol_current_executing_requests` is a gauge vector
+  holding the instantaneous number of executing (not waiting in a
+  queue) requests, broken down by `priority_level` and `flow_schema`.
+
+* `apiserver_flowcontrol_current_executing_seats` is a gauge vector
+  holding the instantaneous number of occupied seats, broken down by
+  `priority_level` and `flow_schema`.
+
+* `apiserver_flowcontrol_request_wait_duration_seconds` is a histogram
+  vector of how long requests spent queued, broken down by the labels
+  `flow_schema`, `priority_level`, and `execute`. The `execute` label
+  indicates whether the request has started executing.
+
+  {{< note >}}
+  Since each FlowSchema always assigns requests to a single
+  PriorityLevelConfiguration, you can add the histograms for all the
+  FlowSchemas for one priority level to get the effective histogram for
+  requests assigned to that priority level.
+  {{< /note >}}
+
+* `apiserver_flowcontrol_nominal_limit_seats` is a gauge vector
+  holding each priority level's nominal concurrency limit, computed
+  from the API server's total concurrency limit and the priority
+  level's configured nominal concurrency shares.
+
+#### Maturity level ALPHA
+
 * `apiserver_current_inqueue_requests` is a gauge vector of recent
   high water marks of the number of queued requests, grouped by a
   label named `request_kind` whose value is `mutating` or `readOnly`.
@@ -517,6 +550,10 @@ poorly-behaved workloads that may be harming system health.
   `apiserver_current_inflight_requests` gauge vector that holds the
   last window's high water mark of number of requests actively being
   served.
+
+* `apiserver_current_inqueue_seats` is a gauge vector of the sum over
+  queued requests of the largest number of seats each will occupy,
+  grouped by labels named `flow_schema` and `priority_level`.
 
 * `apiserver_flowcontrol_read_vs_write_current_requests` is a
   histogram vector of observations, made at the end of every
@@ -527,14 +564,6 @@ poorly-behaved workloads that may be harming system health.
   the number of requests divided by the corresponding limit on the
   number of requests (queue volume limit for waiting and concurrency
   limit for executing).
-
-* `apiserver_flowcontrol_current_inqueue_requests` is a gauge vector
-  holding the instantaneous number of queued (not executing) requests,
-  broken down by `priority_level` and `flow_schema`.
-
-* `apiserver_flowcontrol_current_executing_requests` is a gauge vector
-  holding the instantaneous number of executing (not waiting in a
-  queue) requests, broken down by `priority_level` and `flow_schema`.
 
 * `apiserver_flowcontrol_request_concurrency_in_use` is a gauge vector
   holding the instantaneous number of occupied seats, broken down by
@@ -584,11 +613,6 @@ poorly-behaved workloads that may be harming system health.
   was always equal to `apiserver_flowcontrol_current_limit_seats`
   (which did not exist as a distinct metric).
 
-* `apiserver_flowcontrol_nominal_limit_seats` is a gauge vector
-  holding each priority level's nominal concurrency limit, computed
-  from the API server's total concurrency limit and the priority
-  level's configured nominal concurrency shares.
-
 * `apiserver_flowcontrol_lower_limit_seats` is a gauge vector holding
   the lower bound on each priority level's dynamic concurrency limit.
 
@@ -631,18 +655,6 @@ poorly-behaved workloads that may be harming system health.
   holding, for each priority level, the dynamic concurrency limit
   derived in the last adjustment.
 
-* `apiserver_flowcontrol_request_wait_duration_seconds` is a histogram
-  vector of how long requests spent queued, broken down by the labels
-  `flow_schema`, `priority_level`, and `execute`. The `execute` label
-  indicates whether the request has started executing.
-
-  {{< note >}}
-  Since each FlowSchema always assigns requests to a single
-  PriorityLevelConfiguration, you can add the histograms for all the
-  FlowSchemas for one priority level to get the effective histogram for
-  requests assigned to that priority level.
-  {{< /note >}}
-
 * `apiserver_flowcontrol_request_execution_seconds` is a histogram
   vector of how long requests took to actually execute, broken down by
   `flow_schema` and `priority_level`.
@@ -660,6 +672,11 @@ poorly-behaved workloads that may be harming system health.
   counter vector of the number of events that in principle could have led
   to a request being dispatched but did not, due to lack of available
   concurrency, broken down by `flow_schema` and `priority_level`.
+
+* `apiserver_flowcontrol_epoch_advance_total` is a counter vector of
+  the number of attempts to jump a priority level's progress meter
+  backward to avoid numeric overflow, grouped by `priority_level` and
+  `success`.
 
 ## Good practices for using API Priority and Fairness
 

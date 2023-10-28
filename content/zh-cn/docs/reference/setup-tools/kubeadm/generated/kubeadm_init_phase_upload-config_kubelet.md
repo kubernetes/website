@@ -1,19 +1,7 @@
 <!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
-
-<!--
 Upload the kubelet component config to a ConfigMap
 -->
-将 kubelet 组件配置上传到 ConfigMap
+将 kubelet 组件配置上传到 ConfigMap。
 
 <!--
 ### Synopsis
@@ -63,7 +51,9 @@ kubeadm init phase upload-config kubelet --config kubeadm.yaml
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!-- Path to a kubeadm configuration file.  -->
+<!--
+Path to a kubeadm configuration file.
+-->
 <p>
 到 kubeadm 配置文件的路径。
 </p>
@@ -104,9 +94,11 @@ Don't apply any changes; just output what would be done.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!-- help for kubelet -->
+<!--
+help for kubelet
+-->
 <p>
-kubelet 操作的帮助命令
+kubelet 操作的帮助命令。
 </p>
 </td>
 </tr>
@@ -145,11 +137,13 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><!--[EXPERIMENTAL] The path to the 'real' host root filesystem. -->
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+[EXPERIMENTAL] The path to the 'real' host root filesystem.
+-->
 <p>[实验] 到 '真实' 主机根文件系统的路径。</p>
 </td>
 </tr>
 
 </tbody>
 </table>
-

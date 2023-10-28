@@ -52,11 +52,13 @@ Save the file as `Dockerfile`, build the image and push it to a registry. This e
 pushes the image to
 [Google Container Registry (GCR)](https://cloud.google.com/container-registry/).
 For more details, please read the GCR
-[documentation](https://cloud.google.com/container-registry/docs/).
+[documentation](https://cloud.google.com/container-registry/docs/). Alternatively
+you can also use the [docker hub](https://hub.docker.com/search?q=). For more details
+refer to the docker hub [documentation](https://docs.docker.com/docker-hub/repos/create/#create-a-repository).
 
 ```shell
-docker build -t gcr.io/my-gcp-project/my-kube-scheduler:1.0 .
-gcloud docker -- push gcr.io/my-gcp-project/my-kube-scheduler:1.0
+docker build -t gcr.io/my-gcp-project/my-kube-scheduler:1.0 .     # The image name and the repository
+gcloud docker -- push gcr.io/my-gcp-project/my-kube-scheduler:1.0 # used in here is just an example
 ```
 
 ## Define a Kubernetes Deployment for the scheduler

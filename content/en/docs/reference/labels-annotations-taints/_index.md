@@ -299,6 +299,23 @@ This annotation is part of the Kubernetes Resource Model (KRM) Functions Specifi
 which is used by Kustomize and similar third-party tools.
 For example, Kustomize removes objects with this annotation from its final build output.
 
+
+### container.apparmor.security.beta.kubernetes.io/* (beta) {#container-apparmor-security-beta-kubernetes-io}
+
+Type: Annotation
+
+Example: `container.apparmor.security.beta.kubernetes.io/my-container: my-custom-profile`
+
+Used on: Pods
+
+This annotation allows you to specify the AppArmor security profile for a container within a
+Kubernetes pod. 
+To learn more, see the [AppArmor](/docs/tutorials/security/apparmor/) tutorial.
+The tutorial illustrates using AppArmor to restrict a container's abilities and access.
+
+The profile specified dictates the set of rules and restrictions that the containerized process must
+adhere to. This helps enforce security policies and isolation for your containers.
+
 ### internal.config.kubernetes.io/* (reserved prefix) {#internal.config.kubernetes.io-reserved-wildcard}
 
 Type: Annotation
@@ -940,6 +957,22 @@ works in that release.
 There are no other valid values for this annotation. If you don't want topology aware hints
 for a Service, don't add this annotation.
 
+### service.kubernetes.io/topology-mode
+
+Type: Annotation
+
+Example: `service.kubernetes.io/topology-mode: Auto`
+
+Used on: Service
+
+This annotation provides a way to define how Services handle network topology;
+for example, you can configure a Service so that Kubernetes prefers keeping traffic between
+a client and server within a single topology zone.
+In some cases this can help reduce costs or improve network performance.
+
+See [Topology Aware Routing](/docs/concepts/services-networking/topology-aware-routing/)
+for more details.
+
 ### kubernetes.io/service-name {#kubernetesioservice-name}
 
 Type: Label
@@ -1175,6 +1208,27 @@ The annotation indicates that the Endpoints object is over capacity and the numb
 has been truncated to 1000.
 
 If the number of backend endpoints falls below 1000, the control plane removes this annotation.
+
+### control-plane.alpha.kubernetes.io/leader (deprecated) {#control-plane-alpha-kubernetes-io-leader}
+
+Type: Annotation
+
+Example: `control-plane.alpha.kubernetes.io/leader={"holderIdentity":"controller-0","leaseDurationSeconds":15,"acquireTime":"2023-01-19T13:12:57Z","renewTime":"2023-01-19T13:13:54Z","leaderTransitions":1}`
+
+Used on: Endpoints
+
+The {{< glossary_tooltip text="control plane" term_id="control-plane" >}} previously set annotation on
+an [Endpoints](/docs/concepts/services-networking/service/#endpoints) object. This annotation provided
+the following detail:
+
+- Who is the current leader.
+- The time when the current leadership was acquired.
+- The duration of the lease (of the leadership) in seconds.
+- The time the current lease (the current leadership) should be renewed.
+- The number of leadership transitions that happened in the past.
+
+Kubernetes now uses [Leases](/docs/concepts/architecture/leases/) to
+manage leader assignment for the Kubernetes control plane.
 
 ### batch.kubernetes.io/job-tracking (deprecated) {#batch-kubernetes-io-job-tracking}
 
@@ -1466,10 +1520,23 @@ This annotation records a comma-separated list of
 managed by [Node Feature Discovery](https://kubernetes-sigs.github.io/node-feature-discovery/) (NFD).
 NFD uses this for an internal mechanism. You should not edit this annotation yourself.
 
+### nfd.node.kubernetes.io/node-name
+
+Type: Label
+
+Example: `nfd.node.kubernetes.io/node-name: node-1`
+
+Used on: Nodes
+
+It specifies which node the NodeFeature object is targeting.
+Creators of NodeFeature objects must set this label and 
+consumers of the objects are supposed to use the label for 
+filtering features designated for a certain node.
+
 {{< note >}}
-These annotations only applies to nodes where NFD is running.
-To learn more about NFD and its components go to its official
-[documentation](https://kubernetes-sigs.github.io/node-feature-discovery/stable/get-started/).
+These Node Feature Discovery (NFD) labels or annotations only apply to 
+the nodes where NFD is running. To learn more about NFD and 
+its components go to its official [documentation](https://kubernetes-sigs.github.io/node-feature-discovery/stable/get-started/).
 {{< /note >}}
 
 ### service.beta.kubernetes.io/aws-load-balancer-access-log-emit-interval (beta) {#service-beta-kubernetes-io-aws-load-balancer-access-log-emit-interval}
@@ -1789,6 +1856,26 @@ The [AWS load balancer controller](https://kubernetes-sigs.github.io/aws-load-ba
 uses this annotation.
 See [annotations](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/service/annotations/)
 in the AWS load balancer controller documentation.
+
+### service.beta.kubernetes.io/aws-load-balancer-security-groups (deprecated) {#service-beta-kubernetes-io-aws-load-balancer-security-groups}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-security-groups: "sg-53fae93f,sg-8725gr62r"`
+
+Used on: Service
+
+The AWS load balancer controller uses this annotation to specify a comma seperated list
+of security groups you want to attach to an AWS load balancer. Both name and ID of security
+are supported where name matches a `Name` tag, not the `groupName` attribute.
+
+When this annotation is added to a Service, the load-balancer controller attaches the security groups
+referenced by the annotation to the load balancer. If you omit this annotation, the AWS load balancer
+controller automatically creates a new security group and attaches it to the load balancer.
+
+{{< note >}}
+Kubernetes v1.27 and later do not directly set or read this annotation. However, the AWS
+load balancer controller (part of the Kubernetes project) does still use the
+`service.beta.kubernetes.io/aws-load-balancer-security-groups` annotation.
+{{< /note >}}
 
 ### service.beta.kubernetes.io/load-balancer-source-ranges (deprecated) {#service-beta-kubernetes-io-load-balancer-source-ranges}
 
