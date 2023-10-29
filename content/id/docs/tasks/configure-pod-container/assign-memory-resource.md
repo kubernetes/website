@@ -69,7 +69,7 @@ Dalam latihan ini, kamu akan membuat Pod yang memiliki satu Container. Container
 sebesar 100 MiB dan batasan memori sebesar 200 MiB. Berikut berkas konfigurasi
 untuk Pod:
 
-{{< codenew file="pods/resource/memory-request-limit.yaml" >}}
+{{% codenew file="pods/resource/memory-request-limit.yaml" %}}
 
 Bagian `args` dalam berkas konfigurasi memberikan argumen untuk Container pada saat dimulai.
 Argumen`"--vm-bytes", "150M"` memberi tahu Container agar mencoba mengalokasikan memori sebesar 150 MiB.
@@ -139,7 +139,7 @@ Dalam latihan ini, kamu membuat Pod yang mencoba mengalokasikan lebih banyak mem
 Berikut adalah berkas konfigurasi untuk Pod yang memiliki satu Container dengan berkas
 permintaan memori sebesar 50 MiB dan batasan memori sebesar 100 MiB:
 
-{{< codenew file="pods/resource/memory-request-limit-2.yaml" >}}
+{{% codenew file="pods/resource/memory-request-limit-2.yaml" %}}
 
 Dalam bagian `args` dari berkas konfigurasi, kamu dapat melihat bahwa Container tersebut
 akan mencoba mengalokasikan memori sebesar 250 MiB, yang jauh di atas batas yaitu 100 MiB.
@@ -250,7 +250,7 @@ kapasitas dari Node mana pun dalam klaster kamu. Berikut adalah berkas konfigura
 Container dengan permintaan memori 1000 GiB, yang kemungkinan besar melebihi kapasitas
 dari setiap Node dalam klaster kamu.
 
-{{< codenew file="pods/resource/memory-request-limit-3.yaml" >}}
+{{% codenew file="pods/resource/memory-request-limit-3.yaml" %}}
 
 Buatlah Pod:
 

@@ -23,7 +23,7 @@ This document explains how to define and manage objects using configuration file
 <!--
 Install [`kubectl`](/docs/tasks/tools/).
 -->
-安装 [`kubectl`](/zh-cn/docs/tasks/tools/) 。
+安装 [`kubectl`](/zh-cn/docs/tasks/tools/)。
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -34,7 +34,7 @@ Install [`kubectl`](/docs/tasks/tools/).
 
 The `kubectl` tool supports three kinds of object management:
 -->
-## 权衡
+## 权衡   {#trade-offs}
 
 `kubectl` 工具支持三种对象管理：
 
@@ -51,7 +51,7 @@ The `kubectl` tool supports three kinds of object management:
 See [Kubernetes Object Management](/docs/concepts/overview/working-with-objects/object-management/)
 for a discussion of the advantages and disadvantage of each kind of object management.
 -->
-参看 [Kubernetes 对象管理](/zh-cn/docs/concepts/overview/working-with-objects/object-management/)
+参见 [Kubernetes 对象管理](/zh-cn/docs/concepts/overview/working-with-objects/object-management/)
 中关于每种对象管理的优缺点的讨论。
 
 <!--
@@ -61,16 +61,20 @@ You can use `kubectl create -f` to create an object from a configuration file.
 Refer to the [kubernetes API reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 for details.
 -->
-## 如何创建对象
+## 如何创建对象   {#how-to-create-objects}
 
 你可以使用 `kubectl create -f` 从配置文件创建一个对象。
-请参考 [kubernetes API 参考](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/) 有关详细信息。
+更多细节参阅 [kubernetes API 参考](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)。
 
 * `kubectl create -f <filename|url>`
 
 <!--
 ## How to update objects
+-->
+## 如何更新对象   {#how-to-update-objects}
 
+{{< warning >}}
+<!--
 Updating objects with the `replace` command drops all
 parts of the spec not specified in the configuration file.  This
 should not be used with objects whose specs are partially managed
@@ -79,9 +83,6 @@ the `externalIPs` field is managed independently from the configuration
 file.  Independently managed fields must be copied to the configuration
 file to prevent `replace` from dropping them.
 -->
-## 如何更新对象
-
-{{< warning >}}
 使用 `replace` 命令更新对象会删除所有未在配置文件中指定的规范的某些部分。
 不应将其规范由集群部分管理的对象使用，比如类型为 `LoadBalancer` 的服务，
 其中 `externalIPs` 字段独立于配置文件进行管理。
@@ -92,7 +93,7 @@ file to prevent `replace` from dropping them.
 You can use `kubectl replace -f` to update a live object according to a
 configuration file.
 -->
-你可以使用 `kubectl replace -f` 根据配置文件更新活动对象。 
+你可以使用 `kubectl replace -f` 根据配置文件更新活动对象。
 
 * `kubectl replace -f <filename|url>`
 
@@ -102,24 +103,19 @@ configuration file.
 You can use `kubectl delete -f` to delete an object that is described in a
 configuration file.
 -->
-## 如何删除对象
+## 如何删除对象   {#how-to-delete-objects}
 
 你可以使用 `kubectl delete -f` 删除配置文件中描述的对象。
 
 * `kubectl delete -f <filename|url>`
 
+{{< note >}}
 <!--
 If configuration file has specified the `generateName` field in the `metadata`
 section instead of the `name` field, you cannot delete the object using
 `kubectl delete -f <filename|url>`.
 You will have to use other flags for deleting the object. For example:
-
-```shell
-kubectl delete <type> <name>
-kubectl delete <type> -l <label>
-```
 -->
-{{< note >}}
 如果配置文件在 `metadata` 节中设置了 `generateName` 字段而非 `name` 字段，
 你无法使用 `kubectl delete -f <filename|url>` 来删除该对象。
 你必须使用其他标志才能删除对象。例如：
@@ -136,7 +132,7 @@ kubectl delete <type> -l <label>
 You can use `kubectl get -f` to view information about an object that is
 described in a configuration file.
 -->
-## 如何查看对象
+## 如何查看对象   {#how-to-view-an-object}
 
 你可以使用 `kubectl get -f` 查看有关配置文件中描述的对象的信息。
 
@@ -146,8 +142,7 @@ described in a configuration file.
 The `-o yaml` flag specifies that the full object configuration is printed.
 Use `kubectl get -h` to see a list of options.
 -->
-`-o yaml` 标志指定打印完整的对象配置。
-使用 `kubectl get -h` 查看选项列表。
+`-o yaml` 标志指定打印完整的对象配置。使用 `kubectl get -h` 查看选项列表。
 
 <!--
 ## Limitations
@@ -160,7 +155,7 @@ is executed. This can happen if a controller, such as
 a HorizontalPodAutoscaler, makes updates directly to a live object. Here's
 an example:
 -->
-## 局限性
+## 局限性   {#limitations}
 
 当完全定义每个对象的配置并将其记录在其配置文件中时，`create`、 `replace` 和`delete` 命令会很好的工作。
 但是，当更新一个活动对象，并且更新没有合并到其配置文件中时，下一次执行 `replace` 时，更新将丢失。
@@ -191,7 +186,7 @@ Suppose you have the URL of an object configuration file. You can use
 object is created. This is particularly useful for tutorials and tasks
 that point to a configuration file that could be modified by the reader.
 -->
-## 从 URL 创建和编辑对象而不保存配置
+## 从 URL 创建和编辑对象而不保存配置   {#creating-and-editing-an-object-from-a-url-without-saving-the-configuration}
 
 假设你具有对象配置文件的 URL。
 你可以在创建对象之前使用 `kubectl create --edit` 对配置进行更改。
@@ -207,7 +202,7 @@ kubectl create -f <url> --edit
 Migrating from imperative commands to imperative object configuration involves
 several manual steps.
 -->
-## 从命令式命令迁移到命令式对象配置
+## 从命令式命令迁移到命令式对象配置   {#migrating-from-imperative-commands-to-imperative-object-configuration}
 
 从命令式命令迁移到命令式对象配置涉及几个手动步骤。
 
@@ -237,12 +232,12 @@ several manual steps.
 <!--
 ## Defining controller selectors and PodTemplate labels
 -->
-## 定义控制器选择器和 PodTemplate 标签
+## 定义控制器选择器和 PodTemplate 标签   {#defining-controller-selectors-and-podtemplate-labels}
 
+{{< warning >}}
 <!--
 Updating selectors on controllers is strongly discouraged.
 -->
-{{< warning >}}
 不建议在控制器上更新选择器。
 {{< /warning >}}
 
@@ -279,5 +274,3 @@ template:
 * [使用配置文件对 Kubernetes 对象进行声明式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/)
 * [Kubectl 命令参考](/docs/reference/generated/kubectl/kubectl-commands/)
 * [Kubernetes API 参考](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
-
-

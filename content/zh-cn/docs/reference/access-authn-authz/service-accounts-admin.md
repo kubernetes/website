@@ -569,33 +569,6 @@ kubectl -n examplens delete secret/example-automated-thing-token-zyxwv
 ```
 
 <!--
-The control plane spots that the ServiceAccount is missing its Secret,
-and creates a replacement:
--->
-控制平面发现 ServiceAccount 缺少其 Secret，并创建一个替代项：
-
-```shell
-kubectl -n examplens get serviceaccount/example-automated-thing -o yaml
-```
-
-```yaml
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  annotations:
-    kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"v1","kind":"ServiceAccount","metadata":{"annotations":{},"name":"example-automated-thing","namespace":"examplens"}}
-  creationTimestamp: "2019-07-21T07:07:07Z"
-  name: example-automated-thing
-  namespace: examplens
-  resourceVersion: "1026"
-  selfLink: /api/v1/namespaces/examplens/serviceaccounts/example-automated-thing
-  uid: f23fd170-66f2-4697-b049-e1e266b7f835
-secrets:
-  - name: example-automated-thing-token-4rdrh
-```
-
-<!--
 ## Clean up
 
 If you created a namespace `examplens` to experiment with, you can remove it:

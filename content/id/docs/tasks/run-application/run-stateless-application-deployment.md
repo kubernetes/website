@@ -38,7 +38,7 @@ Kamu dapat menjalankan aplikasi dengan membuat sebuah objek Deployment Kubernete
 dapat mendeskripsikan sebuah Deployment di dalam berkas YAML. Sebagai contohnya, berkas
 YAML berikut mendeskripsikan sebuah Deployment yang menjalankan _image_ Docker nginx:1.14.2:
 
-{{< codenew file="application/deployment.yaml" >}}
+{{% codenew file="application/deployment.yaml" %}}
 
 
 1. Buatlah sebuah Deployment berdasarkan berkas YAML:
@@ -100,7 +100,7 @@ YAML berikut mendeskripsikan sebuah Deployment yang menjalankan _image_ Docker n
 Kamu dapat mengubah Deployment dengan cara mengaplikasikan berkas YAML yang baru.
 Berkas YAML ini memberikan spesifikasi Deployment untuk menggunakan Nginx versi 1.16.1.
 
-{{< codenew file="application/deployment-update.yaml" >}}
+{{% codenew file="application/deployment-update.yaml" %}}
 
 1. Terapkan berkas YAML yang baru:
 
@@ -116,7 +116,7 @@ Kamu dapat meningkatkan jumlah Pod di dalam Deployment dengan menerapkan
 berkas YAML baru. Berkas YAML ini akan meningkatkan jumlah replika menjadi 4,
 yang nantinya memberikan spesifikasi agar Deployment memiliki 4 buah Pod.
 
-{{< codenew file="application/deployment-scale.yaml" >}}
+{{% codenew file="application/deployment-scale.yaml" %}}
 
 1. Terapkan berkas YAML:
 
