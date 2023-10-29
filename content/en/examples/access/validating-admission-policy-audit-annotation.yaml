@@ -3,14 +3,12 @@ kind: ValidatingAdmissionPolicy
 metadata:
   name: "demo-policy.example.com"
 spec:
-  failurePolicy: Fail
   matchConstraints:
     resourceRules:
     - apiGroups:   ["apps"]
       apiVersions: ["v1"]
       operations:  ["CREATE", "UPDATE"]
       resources:   ["deployments"]
-  validations:
-    - key: "high-replica-count"
-      expression: "object.spec.replicas > 50"
-      messageExpression: "'Deployment spec.replicas set to ' + string(object.spec.replicas)"
+  auditAnnotations:
+    example.com/audit-action: "validate-replica-count"
+    example.com/audit-category: "deployment-validation"
