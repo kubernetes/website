@@ -760,7 +760,7 @@ kubectl describe pods
 -->
 
 ```shell
-# 显示名为 <pod-name> 的 Pod 的详细信息。
+# 显示名为 <node-name> 的 Node 的详细信息。
 kubectl describe nodes <node-name>
 
 # 显示名为 <pod-name> 的 Pod 的详细信息。
