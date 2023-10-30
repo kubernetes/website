@@ -28,7 +28,7 @@ Issue、发布功能需求、更新文档、提交 PR 或补丁、参加会议�
 社会经济地位、部落或任何其他方面的多样性。
 
 <!--
-## Scope 
+## Scope
 
 This code of conduct applies:
 * within project and community spaces,
@@ -120,9 +120,9 @@ The following behaviors are also prohibited:
 * 由于某人报告事件或作为证人提供有关事件的信息而对其进行报复。
 
 <!--
-Project maintainers have the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct. 
+Project maintainers have the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct.
 By adopting this Code of Conduct, project maintainers commit themselves to fairly and consistently applying these principles to every aspect
-of managing a CNCF project. 
+of managing a CNCF project.
 Project maintainers who do not follow or enforce the Code of Conduct may be temporarily or permanently removed from the project team.
 -->
 项目维护者有权利和责任删除、编辑或拒绝不符合本行为准则的评论、提交、编写代码、编辑维基、提问和其它贡献。
@@ -130,13 +130,13 @@ Project maintainers who do not follow or enforce the Code of Conduct may be temp
 不遵守或不执行行为准则的项目维护者可能被永久地从项目团队中移除。
 
 <!--
-## Reporting 
+## Reporting
 
 For incidents occurring in the Kubernetes community, contact the [Kubernetes Code of Conduct Committee](https://git.k8s.io/community/committee-code-of-conduct) via <conduct@kubernetes.io>. You can expect a response within three business days.
 -->
 ## 上报
 
-对于 Kubernetes 社区中出现的事件，请发送邮件至 <conduct@kubernetes.io> 联系
+对于 Kubernetes 社区中出现的事件，请发送邮件至 [conduct@kubernetes.io](mailto:conduct@kubernetes.io) 联系
 [Kubernetes 行为准则委员会](https://git.k8s.io/community/committee-code-of-conduct)。
 预计你可以在三个工作日内收到答复。
 
@@ -145,18 +145,18 @@ For other projects, or for incidents that are project-agnostic or impact multipl
 
 For incidents ocurring at CNCF event that is produced by the Linux Foundation, please contact eventconduct@cncf.io.
 -->
-对于其他项目、或与项目无关或影响到多个 CNCF 项目的事件，请通过 <conduct@cncf.io> 联系
+对于其他项目、或与项目无关或影响到多个 CNCF 项目的事件，请通过 [conduct@cncf.io](mailto:conduct@cncf.io) 联系
 [CNCF 行为准则委员会](https://www.cncf.io/conduct/committee/)。
 你也可以联系 [CNCF 行为准则委员会](https://www.cncf.io/conduct/committee/)的任何成员提交你的报告。
 包括匿名提交报告在内有关如何提交报告的更多详细指示，
 请参阅我们的[事件解决程序](https://www.cncf.io/conduct/procedures/)。预计你可以在三个工作日内收到答复。
 
-对于 Linux 基金会举办的 CNCF 活动中所发生的事件，请联系 <eventconduct@cncf.io>。
+对于 Linux 基金会举办的 CNCF 活动中所发生的事件，请联系 [eventconduct@cncf.io](mailto:eventconduct@cncf.io)。
 
 <!--
-## Enforcement 
+## Enforcement
 
-Upon review and investigation of a reported incident, the CoC response team that has jurisdiction will determine what action is appropriate based on this Code of Conduct and its related documentation. 
+Upon review and investigation of a reported incident, the CoC response team that has jurisdiction will determine what action is appropriate based on this Code of Conduct and its related documentation.
 
 For information about which Code of Conduct incidents are handled by project leadership, which incidents are handled by the CNCF Code of Conduct Committee, and which incidents are handled by the Linux Foundation (including its events team), see our [Jurisdiction Policy](https://www.cncf.io/conduct/jurisdiction/).
 -->
