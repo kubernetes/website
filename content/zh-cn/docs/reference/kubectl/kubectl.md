@@ -500,7 +500,7 @@ kubectl [flags]
 <!--
 Path to the kubectl configuration ("kubeconfig") file. Default: "$HOME/.kube/config"
 -->
-kubectl 的配置 ("kubeconfig") 文件的路径。默认值: "$HOME/.kube/config"
+kubectl 的配置 ("kubeconfig") 文件的路径。默认值："$HOME/.kube/config"
 </td>
 </tr>
 
@@ -512,7 +512,7 @@ kubectl 的配置 ("kubeconfig") 文件的路径。默认值: "$HOME/.kube/confi
 <!--
 When set to false, turns off extra HTTP headers detailing invoked kubectl command (Kubernetes version v1.22 or later)
 -->
-设置为 false 时，将关闭额外的 HTTP 标头，不再详细说明被调用的 kubectl 命令（此变量适用于 Kubernetes v1.22 或更高版本）
+设置为 false 时，将关闭额外的 HTTP 标头，不再详细说明被调用的 kubectl 命令（此变量适用于 Kubernetes v1.22 或更高版本）。
 </td>
 </tr>
 
@@ -538,6 +538,19 @@ When set to true, external plugins can be used as subcommands for builtin comman
 -->
 当设置为 true 时，如果子命令不存在，外部插件可以用作内置命令的子命令。
 此功能处于 alpha 阶段，只能用于 create 命令（例如 kubectl create networkpolicy）。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">KUBECTL_INTERACTIVE_DELETE</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+When set to true, the --interactive flag in the kubectl delete command will be activated, allowing users to preview and confirm resources before proceeding to delete by passing this flag.
+-->
+当设置为 true 时，kubectl delete 命令的 --interactive 参数将被激活，
+用户通过传递此参数可以先预览和确认资源再删除。
 </td>
 </tr>
 
