@@ -59,7 +59,7 @@ client libraries:
   a set of back-ends.
 * [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/) -
   Scheduler that manages availability, performance, and capacity.
-  
+
   * [Scheduler Policies](/docs/reference/scheduling/policies)
   * [Scheduler Profiles](/docs/reference/scheduling/config#profiles)
 
@@ -92,7 +92,7 @@ operator to use or manage a cluster.
 * [kube-controller-manager configuration (v1alpha1)](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/)
 * [kube-proxy configuration (v1alpha1)](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 * [`audit.k8s.io/v1` API](/docs/reference/config-api/apiserver-audit.v1/)
-* [Client authentication API (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/) and 
+* [Client authentication API (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/) and
   [Client authentication API (v1)](/docs/reference/config-api/client-authentication.v1/)
 * [WebhookAdmission configuration (v1)](/docs/reference/config-api/apiserver-webhookadmission.v1/)
 * [ImagePolicy API (v1alpha1)](/docs/reference/config-api/imagepolicy.v1alpha1/)
@@ -117,3 +117,9 @@ An archive of the design docs for Kubernetes functionality. Good starting points
 [Kubernetes Architecture](https://git.k8s.io/design-proposals-archive/architecture/architecture.md) and
 [Kubernetes Design Overview](https://git.k8s.io/design-proposals-archive).
 
+## Helper libraries
+
+### Dynamic resource allocation
+
+[Resource driver controller](/docs/reference/helper-libraries/dra-driver-controller/)
+[Resource driver kubelet plugin](/docs/reference/helper-libraries/dra-driver-kubelet-plugin/)

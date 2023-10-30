@@ -42,3 +42,9 @@ fabric that links Pods together.
   Kubernetes {{< skew currentVersion >}} is compatible with {{< glossary_tooltip text="CNI" term_id="cni" >}}
   network plugins.
 
+* [Resource drivers](/docs/concepts/extend-kubernetes/compute-storage-net/resource-drivers/)
+
+  Resource drivers allow custom allocation logic for non-native cluster resources that are
+  difficult to represent with scalar values. They offload from the scheduler the burden of
+  understanding these resources and planning their usage through ResourceClaims by Pods.
+
