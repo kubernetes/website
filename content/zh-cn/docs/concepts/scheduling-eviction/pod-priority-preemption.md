@@ -298,8 +298,8 @@ scheduler will continue and tries to schedule other lower priority Pods.
 -->
 ### Pod 优先级对调度顺序的影响 {#effect-of-pod-priority-on-scheduling-order}
 
-当启用 Pod 优先级时，调度程序会按优先级对悬决 Pod 进行排序，
-并且每个悬决的 Pod 会被放置在调度队列中其他优先级较低的悬决 Pod 之前。
+当启用 Pod 优先级时，调度程序会按优先级对待定的 Pod 进行排序，
+并且每个待定的 Pod 会被放置在调度队列中其他优先级较低的悬决 Pod 之前。
 因此，如果满足调度要求，较高优先级的 Pod 可能会比具有较低优先级的 Pod 更早调度。
 如果无法调度此类 Pod，调度程序将继续并尝试调度其他较低优先级的 Pod。
 
