@@ -127,16 +127,16 @@ this field to null if no valid credentials can be returned for the requested ima
 <!--
 Each key in the map is a pattern which can optionally contain a port and a path.
 Globs can be used in the domain, but not in the port or the path. Globs are supported
-as subdomains like <code>&ast;.k8s.io</code> or <code>k8s.&ast;.io</code>, and top-level-domains such as <code>k8s.&ast;</code>.
-Matching partial subdomains like <code>app&ast;.k8s.io</code> is also supported. Each glob can only match
-a single subdomain segment, so <code>&ast;.io</code> does not match <code>&ast;.k8s.io</code>.</p>
+as subdomains like '&ast;.k8s.io' or 'k8s.&ast;.io', and top-level-domains such as 'k8s.&ast;'.
+Matching partial subdomains like 'app&ast;.k8s.io' is also supported. Each glob can only match
+a single subdomain segment, so &ast;.io does not match &ast;.k8s.io.</p>
 -->
    <p>
    映射中每个键值都是一个正则表达式，可以选择包含端口和路径。
    域名部分可以包含通配符，但在端口或路径中不能使用通配符。
-   支持通配符作为子域，如 <code>&ast;.k8s.io</code> 或 <code>k8s.&ast;.io</code>，以及顶级域，如 <code>k8s.&ast;</code>。
-   还支持匹配部分子域，如 <code>app&ast;.k8s.io</code>。每个通配符只能匹配一个子域段，
-   因此 <code>&ast;.io</code> 不匹配 <code>&ast;.k8s.io</code>。
+   支持通配符作为子域，如 '&ast;.k8s.io' 或 'k8s.&ast;.io'，以及顶级域，如 'k8s.&ast;'。
+   还支持匹配部分子域，如 'app&ast;.k8s.io'。每个通配符只能匹配一个子域段，
+   因此 &ast;.io 不匹配 &ast;.k8s.io。
    </p>
 <!--
 <p>The kubelet will match images against the key when all of the below are true:</p>
