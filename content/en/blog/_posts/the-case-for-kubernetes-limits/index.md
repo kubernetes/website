@@ -13,7 +13,7 @@ _Milan Plzik is a Site Reliability Engineer on the [Grafana Labs](http://grafana
 
 _Disclaimer: This article reflects the author's personal opinion; feel free to disagree. Also, there are a lot of subjective ideas that have not made it through any kind of rigorous testing. Use at your own risk._
 
-There’s been quite a lot of posts suggesting that not using Kubernetes resource limits might be a fairly useful thing (e.g., [here](https://home.robusta.dev/blog/stop-using-cpu-limits/) or [here](https://erickhun.com/posts/kubernetes-faster-services-no-cpu-limits/) ). The points made there are totally valid – it doesn’t make much sense to pay for compute power that will not be used due to limits, nor to artificially increase latency. This post strives to argue that limits have their legitimate use as well.
+There’s been quite a lot of posts suggesting that not using Kubernetes resource limits might be a fairly useful thing (e.g., [For the Love of God, Stop Using CPU Limits on Kubernetes](https://home.robusta.dev/blog/stop-using-cpu-limits/) or [Kubernetes: Make your services faster by removing CPU limits](https://erickhun.com/posts/kubernetes-faster-services-no-cpu-limits/) ). The points made there are totally valid – it doesn’t make much sense to pay for compute power that will not be used due to limits, nor to artificially increase latency. This post strives to argue that limits have their legitimate use as well.
 
 Let’s flip the problem upside down. Every pod in a Kubernetes cluster has inherent resource limits – the actual CPU, memory, and other resources of the machine it’s running on. If those physical limits are reached by a pod, it will experience throttling similar to what is caused by reaching Kubernetes limits.
 
