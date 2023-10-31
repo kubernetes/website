@@ -5,9 +5,91 @@ date: 2023-10-19T10:00:00-08:00
 slug: gateway-api-ga
 ---
 
-***Authors:*** John Howard (Google), ... TODO
+***Authors:*** John Howard (Google), Simone Rodigari (IBM), Candace Holman (Red Hat), Gaurav K Ghildiyal (Google), 
+Dave Protasowski (VMware)... TODO
 
 ## Backend TLS Policy
+
+`BackendTLSPolicy` is a new Gateway API type used for specifying the TLS configuration of the connection from the Gateway to backend Pods via the Service API object.
+It is specified as a Direct PolicyAttachment without defaults or overrides, applied to a Service that accesses a backend, where the BackendTLSPolicy resides in the same namespace as the Service to which it is applied.
+One can use the same BackendTLSPolicy for all the different Routes that might point to the referenced Service.
+
+While there were existing ways provided for [TLS to be configured for edge and passthrough termination](https://gateway-api.sigs.k8s.io/guides/tls/#tls-configuration), this new API object specifically addresses the configuration of TLS in order to convey HTTPS from the Gateway dataplane to the backend.
+This is referred to as "backend TLS termination" and enables the Gateway to know how to connect to a backend Pod that has its own certificate.
+
+![Termination Types](https://github.com/kubernetes-sigs/gateway-api/blob/main/geps/images/1897-TLStermtypes.png) 
+
+The specification of a BackendTLSPolicy consists of:
+- TargetRef - Defines the targeted API object of the policy.  Only Service is allowed.
+- TLS - Defines the configuration for TLS, including Hostname, CACertRefs, and WellKnownCACerts.
+- Hostname - Defines the Server Name Indication (SNI) that the Gateway uses to connect to the backend.
+- CACertRefs - Defines one or more references to objects that contain PEM-encoded TLS certificates, which are used to establish a TLS handshake between the Gateway and backend.  Either CACertRefs or WellKnownCACerts may be specified, but not both.
+- WellKnownCACerts - Specifies whether or not system CA certificates may be used in the TLS
+handshake between the Gateway and backend.  Either CACertRefs or WellKnownCACerts may be specified, but not both.
+
+### Examples
+
+#### Using System Certificates
+
+In this example, the `BackendTLSPolicy` is configured to use system certificates to connect with a TLS-encrypted upstream connection where Pods backing the `dev` Service are expected to serve a valid certificate for `dev.example.com`.
+
+```yaml
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: BackendTLSPolicy
+metadata:
+  name: tls-upstream-dev
+spec:
+  targetRef:
+    kind: Service
+    name: dev-service
+    group: ""
+  tls:
+    wellKnownCACerts: "System"
+    hostname: dev.example.com
+```
+
+#### Using Explicit CA Certificates
+
+In this example, the `BackendTLSPolicy` is configured to use certificates definedin the configuration map `auth-cert` to connect with a TLS-encrypted upstream connection where Pods backing the `auth` Service are expected to serve a valid certificate for `auth.example.com`.
+
+```yaml
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: BackendTLSPolicy
+metadata:
+  name: tls-upstream-auth
+spec:
+  targetRef:
+    kind: Service
+    name: auth-service
+    group: ""
+  tls:
+    caCertRefs:
+      - kind: ConfigMapReference
+        name: auth-cert
+        group: ""
+    hostname: auth.example.com
+```
+
+The following illustrates a BackendTLSPolicy that configures TLS for a Service serving a backend:
+
+```mermaid
+flowchart LR
+    client(["client"])
+    gateway["Gateway"]
+    style gateway fill:#02f,color:#fff
+    httproute["HTTP<BR>Route"]
+    style httproute fill:#02f,color:#fff
+    service["Service"]
+    style service fill:#02f,color:#fff
+    pod1["Pod"]
+    style pod1 fill:#02f,color:#fff
+    pod2["Pod"]
+    style pod2 fill:#02f,color:#fff
+    client -.->|HTTP <br> request| gateway
+    gateway --> httproute
+    httproute -.->|BackendTLSPolicy|service
+    service --> pod1 & pod2
+```
 
 ## HTTPRoute Timeouts
 
@@ -87,4 +169,86 @@ In the future, we are looking into more common infrastructure configurations, su
 
 ## Support for Websockets, HTTP/2 and more!
 
+Not all implementations of Gateway API support automatic protocol selection.
+In some cases protocols are disabled without an explicit opt-in. 
+
+When a Route's backend references a Kubernetes Service, application developers can specify the protocol using `ServicePort` [`appProtocol`][appProtocol] field.
+
+For example the following `store` Kubernetes Service is indicating the port `8080` supports HTTP/2 Prior Knowledge.
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: store
+spec:
+  selector:
+    app: store
+  ports:
+  - protocol: TCP
+    appProtocol: kubernetes.io/h2c
+    port: 8080
+    targetPort: 8080
+```
+
+Currently, Gateway API has conformance testing for:
+
+- `kubernetes.io/h2c` - HTTP/2 Prior Knowledge
+- `kubernetes.io/ws` - WebSocket over HTTP
+
+[appProtocol]: https://kubernetes.io/docs/concepts/services-networking/service/#application-protocol
+
 ## `gwctl`, our new Gateway API command line tool
+
+`gwctl` is a command line tool that aims to be a `kubectl` replacement for viewing Gateway API resources.
+
+The initial release of `gwctl` that comes bundled with Gateway v1.0 release includes helpful features for managing Gateway API Policies.
+Gateway API Policies serve as powerful extension mechanisms for modifying the behaviour of Gateway resources.
+One challenge with using policies is that it may be hard to discover which policies are affecting which Gateway resources.
+`gwctl` helps bridge this gap by answering questions like:
+
+* Which policies are available for use in the Kubernetes cluster?
+* Which policies are attached to a particular Gateway, HTTPRoute, etc?
+* If policies are applied to multiple resources in the Gateway resource hierarchy, what is the effective policy that is affecting a particular resource? (For example, if an HTTP request timeout policy is applied to both an HTTPRoute and its parent Gateway, what is the effective timeout for the HTTPRoute?)
+
+`gwctl` is still in the very early phases of development and hence may be a bit rough around the edges.
+
+### Try it out!
+
+```bash
+# Clone the Gateway API repository.
+git clone https://github.com/kubernetes-sigs/gateway-api.git
+# Go to the gwctl directory.
+cd gateway-api/gwctl
+# Ensure vendor depedencies.
+go mod tidy
+go mod vendor
+# Build the gwctl binary.
+go build -o bin/gwctl cmd/main.go
+# Add binary to PATH.
+export PATH=./bin:${PATH}
+# Start using!
+gwctl help
+```
+
+### Examples
+
+Here are some examples of how `gwctl` can be used:
+
+```bash
+# List all policies in the cluster. This will also give the resource they bind
+# to.
+gwctl get policies -A
+# List all available policy types.
+gwctl get policycrds
+# Describe all HTTPRoutes in namespace ns2. (Output includes effective policies)
+gwctl describe httproutes -n ns2
+# Describe a single HTTPRoute in the default namespace. (Output includes
+# effective policies)
+gwctl describe httproutes my-httproute-1
+# Describe all Gateways across all namespaces. (Output includes effective
+# policies)
+gwctl describe gateways -A
+# Describe a single GatewayClass. (Output includes effective policies)
+gwctl describe gatewayclasses foo-com-external-gateway-class
+```
