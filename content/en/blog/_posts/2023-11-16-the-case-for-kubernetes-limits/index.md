@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "The Case for Kubernetes Resource Limits: Predictability vs. Efficiency"
-date: TODO
+date: 2023-11-16
 slug: the-case-for-kubernetes-resource-limits
 ---
 
