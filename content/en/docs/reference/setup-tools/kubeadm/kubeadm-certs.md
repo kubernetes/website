@@ -34,6 +34,7 @@ For more details see [Manual certificate renewal](/docs/tasks/administer-cluster
 {{< tab name="etcd-server" include="generated/kubeadm_certs_renew_etcd-server.md" />}}
 {{< tab name="front-proxy-client" include="generated/kubeadm_certs_renew_front-proxy-client.md" />}}
 {{< tab name="scheduler.conf" include="generated/kubeadm_certs_renew_scheduler.conf.md" />}}
+{{< tab name="super-admin.conf" include="generated/kubeadm_certs_renew_super-admin.conf.md" />}}
 {{< /tabs >}}
 
 ## kubeadm certs certificate-key {#cmd-certs-certificate-key}

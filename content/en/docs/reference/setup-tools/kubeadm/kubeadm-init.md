@@ -32,8 +32,9 @@ following steps:
    arguments, lowercased if necessary.
 
 1. Writes kubeconfig files in `/etc/kubernetes/` for the kubelet, the controller-manager and the
-   scheduler to use to connect to the API server, each with its own identity, as well as an
-   additional kubeconfig file for administration named `admin.conf`.
+   scheduler to use to connect to the API server, each with its own identity. Also
+   additional kubeconfig files are written, for kubeadm as administrative entity (`admin.conf`)
+   and for a super admin user that can bypass RBAC (`super-admin.conf`).
 
 1. Generates static Pod manifests for the API server,
    controller-manager and scheduler. In case an external etcd is not provided,
@@ -186,7 +187,7 @@ as a learner and promoted to a voting member only after the etcd data are fully 
 List of deprecated feature gates:
 
 {{< table caption="kubeadm deprecated feature gates" >}}
-Feature | Default 
+Feature | Default
 :-------|:--------
 `UpgradeAddonsBeforeControlPlane` | `false`
 {{< /table >}}
@@ -291,7 +292,7 @@ for etcd and CoreDNS.
 
 #### Custom sandbox (pause) images {#custom-pause-image}
 
-To set a custom image for these you need to configure this in your 
+To set a custom image for these you need to configure this in your
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
 to use the image.
 Consult the documentation for your container runtime to find out how to change this setting;
@@ -386,8 +387,9 @@ DNS name or an address of a load balancer.
    kubeadm certs certificate-key
    ```
 
-Once the cluster is up, you can grab the admin credentials from the control-plane node
-at `/etc/kubernetes/admin.conf` and use that to talk to the cluster.
+Once the cluster is up, you can use the `/etc/kubernetes/admin.conf` file from
+a control-plane node to talk to the cluster with administrator credentials or
+[Generating kubeconfig files for additional users](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#kubeconfig-additional-users).
 
 Note that this style of bootstrap has some relaxed security guarantees because
 it does not allow the root CA hash to be validated with
