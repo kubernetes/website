@@ -2,10 +2,10 @@
 layout: blog
 title: "The Case for Kubernetes Resource Limits: Predictability vs. Efficiency"
 date: TODO
-slug: the-case-for-kubernetes-resource-limits-predictability-vs-efficiency
+slug: the-case-for-kubernetes-resource-limits
 ---
 
-**Author:** Milan Plžík
+**Author:** Milan Plžík (Grafana Labs)
 
 
 
@@ -25,8 +25,8 @@ Now, with Black Friday and Cyber Monday approaching, businesses expect a surge i
 ## Configuring the limits
 Not using limits takes a tradeoff – it opportunistically improves the performance if there are extra resources available, but lowers predictability of the performance, which might strike back in the future. There are a few approaches that can be used to increase the predictability again. Let’s pick two of them to analyze:
 
-- *Configure workload limits to be a fixed (and small) percentage more than the requests – let’s call it “fixed-fraction headroom".* This allows the use of some extra shared resources, but keeps the per-node overcommit bound and can be taken to guide worst-case estimates for the workload. Note that the bigger the limits percentage is, the bigger the variance in the performance that might happen across the workloads.
-- *Configure workloads with requests = limits.* From some point of view, this is equivalent to giving each pod its own tiny machine with constrained resources; the performance is fairly predictable. This also puts the pod into the Guaranteed QoS class, which makes it get evicted only after Best Effort and Burstable pods have been evicted by a node under resource pressure (see [here](https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/)).
+- **Configure workload limits to be a fixed (and small) percentage more than the requests** – I'll call it _fixed-fraction headroom). This allows the use of some extra shared resources, but keeps the per-node overcommit bound and can be taken to guide worst-case estimates for the workload. Note that the bigger the limits percentage is, the bigger the variance in the performance that might happen across the workloads.
+- **Configure workloads with `requests` = `limits`**. From some point of view, this is equivalent to giving each pod its own tiny machine with constrained resources; the performance is fairly predictable. This also puts the pod into the _Guaranteed_ QoS class, which makes it get evicted only after _BestEffort_ and _Burstable) pods have been evicted by a node under resource pressure (see [Quality of Service for Pods](/docs/concepts/workloads/pods/pod-qos/)).
 
 Some other cases might also be considered, but these are probably the two simplest ones to discuss.
 
