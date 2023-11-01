@@ -1,17 +1,16 @@
 ---
 layout: blog
-title: "Gateway API Improvements"
-date: 2023-10-19T10:00:00-08:00
+title: "New Experimental Features in Gateway API v1.0"
+date: 2023-11-02T10:00:00-08:00
 slug: gateway-api-ga
 ---
 
-***Authors:*** John Howard (Google), Simone Rodigari (IBM), Candace Holman (Red Hat), Gaurav K Ghildiyal (Google), 
-Dave Protasowski (VMware)... TODO
+***Authors:*** John Howard (Google), Simone Rodigari (IBM), Candace Holman (Red Hat), Gaurav K Ghildiyal (Google), Dave Protasowski (VMware)
 
 ## Backend TLS Policy
 
 `BackendTLSPolicy` is a new Gateway API type used for specifying the TLS configuration of the connection from the Gateway to backend Pods via the Service API object.
-It is specified as a Direct PolicyAttachment without defaults or overrides, applied to a Service that accesses a backend, where the BackendTLSPolicy resides in the same namespace as the Service to which it is applied.
+It is specified as a [Direct PolicyAttachment](https://gateway-api.sigs.k8s.io/geps/gep-713/#direct-policy-attachment) without defaults or overrides, applied to a Service that accesses a backend, where the BackendTLSPolicy resides in the same namespace as the Service to which it is applied.
 One can use the same BackendTLSPolicy for all the different Routes that might point to the referenced Service.
 
 While there were existing ways provided for [TLS to be configured for edge and passthrough termination](https://gateway-api.sigs.k8s.io/guides/tls/#tls-configuration), this new API object specifically addresses the configuration of TLS in order to convey HTTPS from the Gateway dataplane to the backend.
@@ -72,7 +71,7 @@ spec:
 
 The following illustrates a BackendTLSPolicy that configures TLS for a Service serving a backend:
 
-```mermaid
+{{< mermaid >}}
 flowchart LR
     client(["client"])
     gateway["Gateway"]
@@ -89,7 +88,7 @@ flowchart LR
     gateway --> httproute
     httproute -.->|BackendTLSPolicy|service
     service --> pod1 & pod2
-```
+{{</ mermaid >}}
 
 ## HTTPRoute Timeouts
 
