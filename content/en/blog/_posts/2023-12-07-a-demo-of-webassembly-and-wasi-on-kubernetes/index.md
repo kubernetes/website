@@ -684,7 +684,7 @@ kind create cluster --name wasm-demo
 Each Kubernetes node created by kind is a Docker container, you can enter that node using the `docker exec` command.
 
 ```bash
-docker exec -it  wasm-demo-control-plane bash
+docker exec -it wasm-demo-control-plane bash
 ```
 
 {{< note >}}
@@ -827,7 +827,7 @@ Once the testing is complete, you can destroy the cluster using this command.
 kind delete cluster --name kwasm-demo
 ```
 
-In this article, the `"module.wasm.image/variant": "compat"` annotation is used to indicate to the container runtime that the workload is a Wasm workload. In this [PR](https://github.com/containers/crun/pull/886), crun has introduced a new annotation: `module.wasm.image/variant: compat-smart`. 
+In this article, the `module.wasm.image/variant: compat` annotation is used to indicate to the container runtime that the workload is a Wasm workload. In this [PR](https://github.com/containers/crun/pull/886), crun has introduced a new annotation: `module.wasm.image/variant: compat-smart`. 
 
 When the `compat-smart` annotation is used, crun can intelligently determine how to start the container based on whether it is a Wasm workload or an OCI container. That makes it possible to run WASM containers with sidecars. Here is an example of a Pod YAML file with a Wasm container and a Linux container:
 
