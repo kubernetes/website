@@ -8,6 +8,7 @@ theme = ["docsy"]
 contentDir = "content/en"
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = false
+i18nDir = "./data/i18n"
 
 # Adopt a global timezone
 timeZone = "UTC"
@@ -301,7 +302,6 @@ languageName = "English"
 # Weight used for sorting.
 weight = 1
 languagedirection = "ltr"
-i18nDir = "./data/i18n"
 
 [languages.zh-cn]
 title = "Kubernetes"
