@@ -759,6 +759,8 @@ kind delete cluster --name wasm-demo
 ```
 ##### KWasm Operator
 
+_[Kwasm](https://kwasm.sh/)_ is a Kubernetes Operator that adds WebAssembly support to your Kubernetes nodes. The operator uses the _[kwasm-node-installer](https://github.com/KWasm/kwasm-node-installer)_ project to modify the underlying Kubernetes nodes.
+
 In this section, I will demostrate how to use Kwasm Operator to add Wasm support to Kubernetes nodes automatically. To enable Wasm support on a particular node, simply add the annotation `kwasm.sh/kwasm-node=true` on that node. This will trigger Kwasm to create a Job to deploy the necessary binary files needed to run Wasm on the node. Additionally, containerd's configuration will be modified accordingly.
 
 {{< figure src="07-kwasm-operator.png" alt="The diagram illustrates that when Kwasm Operator detects the annotation kwasm.sh/kwasm-node=true on a Kubernetes node, it will create a Job to enable Wasm support on that node." caption="Figure 7: Kwasm Operator" >}}
