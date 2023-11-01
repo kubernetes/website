@@ -37,11 +37,8 @@ Whether an application can be compiled to Wasm significantly depends on the prog
 
 ### Install Rust
 
- Install Rust by running the following command in your terminal.
+Please refer to the [Rust installation instruction](https://www.rust-lang.org/tools/install) to install Rust.
 
-```bash
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-```
 ### Add wasm32-wasi target for Rust
 
 As mentioned earlier, WASI is a system-level interface for WebAssembly, designed to facilitate interactions between WebAssembly and the host system in various environments. It offers a standardized method enabling WebAssembly to access system-level functionalities such as file I/O, network, and system calls.
@@ -101,6 +98,8 @@ In this article, I use _[WasmEdge](https://wasmedge.org/docs/)_, a lightweight, 
 Install WasmEdge.
 
 ```bash
+# Running scripts directly via curl | bash has security implications.  
+# Carefully examine the script content and only execute if you completely understand and trust the source.
 curl -sSf https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash
 ```
 
@@ -196,7 +195,7 @@ Build the container image.
 docker build -t docker.io/cr7258/wasm-demo-app:v1 .
 ```
 
-To make it easier to use in the following tutorials, push the image to Docker Hub. Replace the repo  with your own.
+To make it easier to use in the following demos, push the image to Docker Hub. Replace the repo with your own.
 
 ```bash
 docker push docker.io/cr7258/wasm-demo-app:v1
