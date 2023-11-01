@@ -17,7 +17,7 @@ weight: 20
 1. Скачайте, распакуйте и инициализируйте пропатченную версию `easyrsa3`.
 
    ```shell
-   curl -LO curl -LO https://dl.k8s.io/easy-rsa/easy-rsa.tar.gz
+   curl -LO https://dl.k8s.io/easy-rsa/easy-rsa.tar.gz
    tar xzf easy-rsa.tar.gz
    cd easy-rsa-master/easyrsa3
    ./easyrsa init-pki
