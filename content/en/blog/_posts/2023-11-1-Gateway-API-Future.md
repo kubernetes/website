@@ -7,6 +7,10 @@ slug: gateway-api-ga
 
 ***Authors:*** John Howard (Google), Simone Rodigari (IBM), Candace Holman (Red Hat), Gaurav K Ghildiyal (Google), Dave Protasowski (VMware)
 
+Recently, the [Gateway API](https://gateway-api.sigs.k8s.io/) [announced its v1.0 GA release](/blog/2023/10/31/gateway-api-ga/), marking a huge milestone for the project.
+
+Along with stabilizing some of the core functionality in the API, a number of exciting new *experimental* functionality has been added.
+
 ## Backend TLS Policy
 
 `BackendTLSPolicy` is a new Gateway API type used for specifying the TLS configuration of the connection from the Gateway to backend Pods via the Service API object.
