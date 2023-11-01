@@ -2,7 +2,7 @@
 layout: blog
 title: "A demo of WebAssembly and WASI on Kubernetes"
 date: 2023-11-11
-slug: webassembly-in-cloud-native
+slug: a-demo-of-webassembly-and-wasi-on-kubernetes
 ---
 
 **Author:** Seven Cheng (SAP)
