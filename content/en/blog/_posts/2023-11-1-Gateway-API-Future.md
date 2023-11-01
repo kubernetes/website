@@ -20,7 +20,7 @@ One can use the same BackendTLSPolicy for all the different Routes that might po
 While there were existing ways provided for [TLS to be configured for edge and passthrough termination](https://gateway-api.sigs.k8s.io/guides/tls/#tls-configuration), this new API object specifically addresses the configuration of TLS in order to convey HTTPS from the Gateway dataplane to the backend.
 This is referred to as "backend TLS termination" and enables the Gateway to know how to connect to a backend Pod that has its own certificate.
 
-![Termination Types](https://github.com/kubernetes-sigs/gateway-api/blob/main/geps/images/1897-TLStermtypes.png) 
+![Termination Types](https://gateway-api.sigs.k8s.io/geps/images/1897-TLStermtypes.png) 
 
 The specification of a BackendTLSPolicy consists of:
 - TargetRef - Defines the targeted API object of the policy.  Only Service is allowed.
