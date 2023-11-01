@@ -15,7 +15,7 @@ In this blog article, I will walk you through building and deploying Wasm applic
 
 WebAssembly is a universal bytecode technology that allows programs written in various languages like Go, Rust, and C/C++ to be compiled into bytecode, which can be executed directly within web browsers and servers.
 
-{{< figure src="01-webassembly-runs-on-browser-and-server.png" caption="Figure 1: WebAssembly runs on browser and server" >}}
+{{< figure src="01-webassembly-runs-on-browser-and-server.png" alt="The diagram illustrates how programs written in languages like Go, Rust and C/C++ can be compiled to WebAssembly bytecode to run efficiently across browsers and servers." caption="Figure 1: WebAssembly runs on browser and server" >}}
 
 WebAssembly is designed from the ground up to solve the performance problem of JavaScript. With WebAssembly, developers can compile code to a low-level binary format that can be executed by modern web browsers at near-native speeds.
 
@@ -180,7 +180,7 @@ Next, I will introduce how to run Wasm modules in Wasm-supported container runti
 - **Low-level Container Runtime**: This refers to OCI-compliant implementations that can receive a runnable filesystem (rootfs) and a configuration file (config.json) to execute isolated processes. Low-level container runtimes directly manage and run containers, such as runc, crun, youki, gvisor, and kata.
 - **High-level Container Runtime**: This is responsible for the transport and management of container images, unpacking the image, and passing it off to the low-level runtime to run the container. High-level container runtimes simplify container management by abstracting the complexities of low-level runtime, which allows users to manage various low-level runtimes via the same high-level runtime. Containerd and CRI-O are two popular high-level container runtimes.
 
-{{< figure src="02-high-level-and-low-level-container-runtimes.png" caption="Figure 2: High-level and low-level container runtimes" >}}
+{{< figure src="02-high-level-and-low-level-container-runtimes.png" alt="The diagram illustrates high-level runtimes like containerd and CRI-O receiving API requests from container management platforms like Kubernetes and Docker, and calling low-level runtimes conforming to OCI specification such as crun and youki, which directly manage containers." caption="Figure 2: High-level and low-level container runtimes" >}}
 
 Before running a Wasm module, build it into an image without a Linux OS. _scratch_ is the most minimal base image reserved in Docker. The Dockerfile looks like this:
 
@@ -204,7 +204,7 @@ docker push docker.io/cr7258/wasm-demo-app:v1
 
 On Docker Hub, you can notice that the size of the image created this time is only 989.89 KB (after compression), which is only a quarter of the size of the previously built `wasm-demo-app:slim` image.
 
-{{< figure src="03-wasm-module-image-vs-linux-container-image.png" caption="Figure 3: Wasm module image compared to Linux container image" >}}
+{{< figure src="03-wasm-module-image-vs-linux-container-image.png" alt="The diagram shows the size of the WebAssembly module image is a quarter of the Linux container image for the same application." caption="Figure 3: Wasm module image compared to Linux container image" >}}
 
 Next, I will individually demonstrate how to run Wasm modules through both low-level and high-level container runtimes.
 
@@ -488,7 +488,7 @@ Containerd can manage Wasm modules in two ways:
 - 1.Manages Wasm modules through container runtimes like crun and youki that support building with the Wasm runtime library. These two runtimes can also run regular Linux containers. Containerd uses `containerd-shim-runc-v2` to interface with low-level container runtimes.
 - 2.Manages Wasm modules directly through Wasm runtimes, such as WasmEdge, Wasmtime, Spin, and Slight. Containerd uses `containerd-wasm-shim(runwasi)` to interface with Wasm runtimes.
 
-{{< figure src="04-use-containerd-shim-to-manage-wasm-modules.png" caption="Figure 4: Use containerd shim to manage Wasm modules" >}}
+{{< figure src="04-use-containerd-shim-to-manage-wasm-modules.png" alt="The diagram illustrates that containerd can manage WebAssembly modules in two ways: through container runtimes that support building with the WebAssembly runtime library via the containerd-shim-runc-v2, or directly through WebAssembly runtimes like WasmEdge and Wasmtime using the containerd-wasm-shim." caption="Figure 4: Use containerd shim to manage Wasm modules" >}}
 
 ##### Containerd + Crun
 
@@ -556,7 +556,7 @@ _[Runwasi](https://github.com/containerd/runwasi)_ is a library written in Rust 
 - WasmEdge, Wasmtime and Wasmer, you can find them in the [runwasi](https://github.com/containerd/runwasi/tree/main/crates) repository.
 - Spin, Slight, Wasm Workers Server, and Lunatic, you can find them in the [containerd-wasm-shims](https://github.com/deislabs/containerd-wasm-shims) repository.
 
-{{< figure src="05-runwasi-is-the-bridge-between-containerd-and-wasm-runtime.png" caption="Figure 5: Runwasi is the bridge between containerd and a Wasm runtime" >}}
+{{< figure src="05-runwasi-is-the-bridge-between-containerd-and-wasm-runtime.png" alt="The diagram illustrates that runwasi facilitates integrating Wasm runtimes like WasmEdge, Wasmtime and Wasmer with containerd, enabling containerd to directly manage Wasm modules." caption="Figure 5: Runwasi is the bridge between containerd and a Wasm runtime" >}}
 
 In this article, I use WasmEdge containerd shim to run the Wasm modules. 
 
@@ -623,7 +623,7 @@ Docker Desktop also uses runwasi to support the Wasm module. To run Wasm modules
 - Use containerd for pulling and storing images
 - Enable Wasm
 
-{{< figure src="06-enable-wasm-support-on-docker-desktop.png" caption="Figure 6: Enable Wasm support on Docker Desktop" >}}
+{{< figure src="06-enable-wasm-support-on-docker-desktop.png" alt="The diagram shows how to enable Wasm support on Docker Desktop." caption="Figure 6: Enable Wasm support on Docker Desktop" >}}
 
 Click **Apply & restart** to apply the updates. Docker Desktop downloads and installs the following runtimes that can be used to run Wasm modules:
 - `io.containerd.slight.v1`
@@ -761,7 +761,7 @@ kind delete cluster --name wasm-demo
 
 In this section, I will demostrate how to use Kwasm Operator to add Wasm support to Kubernetes nodes automatically. To enable Wasm support on a particular node, simply add the annotation `kwasm.sh/kwasm-node=true` on that node. This will trigger Kwasm to create a Job to deploy the necessary binary files needed to run Wasm on the node. Additionally, containerd's configuration will be modified accordingly.
 
-{{< figure src="07-kwasm-operator.png" caption="Figure 7: Kwasm Operator" >}}
+{{< figure src="07-kwasm-operator.png" alt="The diagram illustrates that when Kwasm Operator detects the annotation kwasm.sh/kwasm-node=true on a Kubernetes node, it will create a Job to enable Wasm support on that node." caption="Figure 7: Kwasm Operator" >}}
 
 Create a single-node Kubernetes cluster using kind.
 
