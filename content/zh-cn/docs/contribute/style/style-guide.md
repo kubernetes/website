@@ -947,6 +947,21 @@ structure of content in a code editor better.
 两行的留白有助于在代码编辑器中查看整个内容的结构组织。
 
 <!--
+Manually wrap paragraphs in the Markdown source when appropriate. Since the git
+tool and the GitHub website generate file diffs on a line-by-line basis,
+manually wrapping long lines helps the reviewers to easily find out the changes
+made in a PR and provide feedback. It also helps the downstream localization
+teams where people track the upstream changes on a per-line basis.  Line
+wrapping can happen at the end of a sentence or a punctuation character, for
+example. One exception to this is that a Markdown link or a shortcode is
+expected to be in a single line.
+-->
+适当时在 Markdown 文档中手动换行。由于 git 工具和 GitHub
+网站是逐行生成文件差异的，手动换行可以帮助审阅者轻松找到 PR 中所做的更改并提供反馈。
+它还可以帮助下游本地化团队，使其按行跟踪上游更改。例如，换行可以发生在句子或标点符号的末尾。
+一个例外是 Markdown 链接或短代码应位于一行中。
+
+<!--
 ### Headings and titles {#headings}
 
 People accessing this documentation may use a screen reader or other assistive technology (AT).
