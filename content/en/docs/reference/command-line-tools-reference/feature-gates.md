@@ -167,7 +167,8 @@ For a reference to old feature gates that are removed, please refer to
 | `PodDeletionCost` | `true` | Beta | 1.22 | |
 | `PodDisruptionConditions` | `false` | Alpha | 1.25 | 1.25 |
 | `PodDisruptionConditions` | `true` | Beta | 1.26 | |
-| `PodHostIPs` | `false` | Alpha | 1.28 | |
+| `PodHostIPs` | `false` | Alpha | 1.28 | 1.28 |
+| `PodHostIPs` | `true` | Beta | 1.29 | |
 | `PodIndexLabel` | `true` | Beta | 1.28 | |
 | `PodLifecycleSleepAction` | `false` | Alpha | 1.29 | |
 | `PodReadyToStartContainersCondition` | `false` | Alpha | 1.28 | |
