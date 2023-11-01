@@ -5,7 +5,7 @@ weight: 50
 card:
   name: contribute
   weight: 50
-  title: 翻译文档
+  title: 本地化文档
 ---
 <!--
 title: Localizing Kubernetes documentation
@@ -17,7 +17,7 @@ weight: 50
 card:
   name: contribute
   weight: 50
-  title: Translating the docs
+  title: Localizing the docs
 -->
 
 <!-- overview -->
@@ -717,7 +717,7 @@ have the exact font used in the original SVG.
 5. **Reviewing and testing**: After making the necessary translations and
 converting text to curves, save and review the updated SVG image to ensure
 the text is properly displayed and aligned. Check
-[Preview your changes locally](https://kubernetes.io/docs/contribute/new-content/open-a-pr/#preview-locally).
+[Preview your changes locally](/docs/contribute/new-content/open-a-pr/#preview-locally).
 -->
 5. **检查和测试**：完成必要的翻译并将文本转换为曲线后，保存并检查更新后的 SVG 图片，确保文本正确显示和对齐。
    参考[在本地预览你的变更](/zh-cn/docs/contribute/new-content/open-a-pr/#preview-locally)。
@@ -755,9 +755,9 @@ The `main` branch holds content for the current release `{{< latest-version >}}`
 The release team creates a `{{< release-branch >}}` branch before the next
 release: v{{< skew nextMinorVersion >}}.
 -->
-目标版本 | 分支
------|-----
-最新版本 | [`main`](https://github.com/kubernetes/website/tree/main)
+目标版本   | 分支
+----------|-----
+最新版本   | [`main`](https://github.com/kubernetes/website/tree/main)
 上一个版本 | [`release-{{< skew prevMinorVersion >}}`](https://github.com/kubernetes/website/tree/release-{{< skew prevMinorVersion >}})
 下一个版本 | [`dev-{{< skew nextMinorVersion >}}`](https://github.com/kubernetes/website/tree/dev-{{< skew nextMinorVersion >}})
 
@@ -980,7 +980,7 @@ permissions are required.
 For more information about working from forks or directly from the repository,
 see ["fork and clone the repo"](#fork-and-clone-the-repo).
 -->
-有关基于派生或直接从仓库开展工作的更多信息，请参见 ["派生和克隆"](#fork-and-clone-the-repo)。
+有关基于派生或直接从仓库开展工作的更多信息，请参见["派生和克隆"](#fork-and-clone-the-repo)。
 
 <!--
 ## Upstream contributions
