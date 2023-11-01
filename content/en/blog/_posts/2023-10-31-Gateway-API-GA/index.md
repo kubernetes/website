@@ -60,7 +60,7 @@ follow up blog post that will cover each of these new features in detail.
 ### Everything else
 For a full list of the changes included in this release, please refer to the
 [v1.0.0 release
-notes](https://github.com/kubernetes-sigs/gateway-api/releases/tag/v0.1.0).
+notes](https://github.com/kubernetes-sigs/gateway-api/releases/tag/v1.0.0).
 
 ## How we got here
 
