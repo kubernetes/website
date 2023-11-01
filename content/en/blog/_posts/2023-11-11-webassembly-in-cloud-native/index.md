@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "WebAssembly in Cloud Native"
+title: "A demo of WebAssembly and WASI on Kubernetes"
 date: 2023-11-11
 slug: webassembly-in-cloud-native
 ---
@@ -204,7 +204,7 @@ docker push docker.io/cr7258/wasm-demo-app:v1
 
 On Docker Hub, you can notice that the size of the image created this time is only 989.89 KB (after compression), which is only a quarter of the size of the previously built `wasm-demo-app:slim` image.
 
-{{< figure src="03-wasm-module-image-vs-linux-container-image.png" caption="Figure 3: Wasm module image vs Linux container image" >}}
+{{< figure src="03-wasm-module-image-vs-linux-container-image.png" caption="Figure 3: Wasm module image compared to Linux container image" >}}
 
 Next, I will individually demonstrate how to run Wasm modules through both low-level and high-level container runtimes.
 
