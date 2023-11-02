@@ -234,7 +234,7 @@ For a reference to old feature gates that are removed, please refer to
 | `SELinuxMountReadWriteOncePod` | `false` | Alpha | 1.25 | 1.26 |
 | `SELinuxMountReadWriteOncePod` | `false` | Beta | 1.27 | 1.27 |
 | `SELinuxMountReadWriteOncePod` | `true` | Beta | 1.28 | |
-| `SchedulerQueueingHints` | `false` | Alpha | 1.28 | |
+| `SchedulerQueueingHints` | `true` | Beta | 1.28 | |
 | `SecurityContextDeny` | `false` | Alpha | 1.27 | |
 | `ServiceNodePortStaticSubrange` | `false` | Alpha | 1.27 | 1.27 |
 | `ServiceNodePortStaticSubrange` | `true` | Beta | 1.28 | |
@@ -1252,17 +1252,19 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `SELinuxMountReadWriteOncePod`: Speeds up container startup by allowing kubelet to mount volumes
   for a Pod directly with the correct SELinux label instead of changing each file on the volumes
   recursively. The initial implementation focused on ReadWriteOncePod volumes.
-- `SchedulerQueueingHints`: Enables the scheduler's _queueing hints_ enhancement,
+- `SchedulerQueueingHints`: Enables [the scheduler's _queueing hints_ enhancement](https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/4247-queueinghint/README.md),
   which benefits to reduce the useless requeueing.
-- `SeccompDefault`: Enables the use of `RuntimeDefault` as the default seccomp profile
-  for all workloads.
-  The seccomp profile is specified in the `securityContext` of a Pod and/or a Container.
+  The scheduler retries scheduling pods if something changes in the cluster that could make the pod scheduled.
+  Queueing hints are internal signals that allow the scheduler to filter the changes in the cluster
+  that are relevant to the unscheduled pod, based on previous scheduling attempts.
 -->
 - `SELinuxMountReadWriteOncePod`：通过允许 kubelet 直接用正确的 SELinux
   标签为 Pod 挂载卷而不是以递归方式更改这些卷上的每个文件来加速容器启动。最初的实现侧重 ReadWriteOncePod 卷。
-- `SchedulerQueueingHints`：启用调度器的**排队提示**增强功能，有助于减少无效的重新排队。
-- `SeccompDefault`: 允许将所有工作负载的默认  seccomp 配置文件为 `RuntimeDefault`。
-  seccomp 配置在 Pod 或者容器的 `securityContext` 字段中指定。
+- `SchedulerQueueingHints`：启用[调度器的**排队提示**增强功能](https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/4247-queueinghint/README.md)，
+  有助于减少无效的重新排队。调度器会在集群中发生可能导致 Pod 被重新调度的变化时，
+  尝试重新进行 Pod 的调度。排队提示是一些内部信号，
+  用于帮助调度器基于先前的调度尝试来筛选集群中与未调度的 Pod 相关的变化。
+
 <!--
 - `SecurityContextDeny`: This gate signals that the `SecurityContextDeny` admission controller is deprecated.
 - `ServerSideApply`: Enables the [Sever Side Apply (SSA)](/docs/reference/using-api/server-side-apply/)
