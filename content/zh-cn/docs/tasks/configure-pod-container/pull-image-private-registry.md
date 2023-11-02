@@ -66,7 +66,8 @@ docker login
 When prompted, enter your Docker ID, and then the credential you want to use (access token,
 or the password for your Docker ID).
 
-The login process creates or updates a `config.json` file that holds an authorization token. Review [how Kubernetes interprets this file](/docs/concepts/containers/images#config-json). 
+The login process creates or updates a `config.json` file that holds an authorization token.
+Review [how Kubernetes interprets this file](/docs/concepts/containers/images#config-json).
 
 View the `config.json` file:
 -->
@@ -99,7 +100,9 @@ The output contains a section similar to this:
 {{< note >}}
 <!--
 If you use a Docker credentials store, you won't see that `auth` entry but a `credsStore` entry with the name of the store as value.
-In that case, you can create a secret directly. See [Create a Secret by providing credentials on the command line](#create-a-secret-by-providing-credentials-on-the-command-line).
+In that case, you can create a secret directly. 
+See [Create a Secret by providing credentials on the command line](#create-a-secret-by-providing-credentials-on-the-command-line).
+
 -->
 如果使用 Docker 凭据仓库，则不会看到 `auth` 条目，看到的将是以仓库名称作为值的 `credsStore` 条目。
 在这种情况下，你可以直接创建一个 Secret。
@@ -353,9 +356,20 @@ kubectl get pod private-reg
 
 {{< note >}}
 <!--
-In case the Pod fails to start with the status `ImagePullBackOff`, view the Pod events:
+To use image pull secrets for a Pod (or a Deployment, or other object that
+has a pod template that you are using), you need to make sure that the appropriate
+Secret does exist in the right namespace. The namespace to use is the same
+namespace where you defined the Pod.
 -->
-如果 Pod 以状态 `ImagePullBackOff` 启动失败，查看 Pod 事件：
+要为 Pod（或 Deployment，或其他有 Pod 模板的对象）使用镜像拉取 Secret，
+你需要确保合适的 Secret 确实存在于正确的名字空间中。
+要使用的是你定义 Pod 时所用的名字空间。
+{{< /note >}}
+
+<!--
+Also, in case the Pod fails to start with the status `ImagePullBackOff`, view the Pod events:
+-->
+此外，如果 Pod 启动失败，状态为 `ImagePullBackOff`，查看 Pod 事件：
 
 ```shell
 kubectl describe pod private-reg
@@ -382,8 +396,6 @@ Events:
        ------                                -------
   ...  FailedToRetrieveImagePullSecret  ...  Unable to retrieve some image pull secrets (<regcred>); attempting to pull the image may not succeed.
 ```
-
-{{< /note >}}
 
 ## {{% heading "whatsnext" %}}
 
