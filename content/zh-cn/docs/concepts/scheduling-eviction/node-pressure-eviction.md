@@ -196,23 +196,19 @@ kubelet 会自动发现这些文件系统并忽略节点本地的其它文件系
 <!--
 Some kubelet garbage collection features are deprecated in favor of eviction:
 
-| Existing Flag | New Flag | Rationale |
-| ------------- | -------- | --------- |
-| `--image-gc-high-threshold` | `--eviction-hard` or `--eviction-soft` | existing eviction signals can trigger image garbage collection |
-| `--image-gc-low-threshold` | `--eviction-minimum-reclaim` | eviction reclaims achieve the same behavior |
-| `--maximum-dead-containers` | - | deprecated once old logs are stored outside of container's context |
-| `--maximum-dead-containers-per-container` | - | deprecated once old logs are stored outside of container's context |
-| `--minimum-container-ttl-duration` | - | deprecated once old logs are stored outside of container's context |
+| Existing Flag | Rationale |
+| ------------- | --------- |
+| `--maximum-dead-containers` | deprecated once old logs are stored outside of container's context |
+| `--maximum-dead-containers-per-container` | deprecated once old logs are stored outside of container's context |
+| `--minimum-container-ttl-duration` | deprecated once old logs are stored outside of container's context |
 -->
 一些 kubelet 垃圾收集功能已被弃用，以鼓励使用驱逐机制。
 
-| 现有标志 | 新的标志 | 原因 |
-| ------------- | -------- | --------- |
-| `--image-gc-high-threshold` | `--eviction-hard` 或 `--eviction-soft` | 现有的驱逐信号可以触发镜像垃圾收集 |
-| `--image-gc-low-threshold` | `--eviction-minimum-reclaim` | 驱逐回收具有相同的行为 |
-| `--maximum-dead-containers` | - | 一旦旧的日志存储在容器的上下文之外就会被弃用 |
-| `--maximum-dead-containers-per-container` | - | 一旦旧的日志存储在容器的上下文之外就会被弃用 |
-| `--minimum-container-ttl-duration` | - | 一旦旧的日志存储在容器的上下文之外就会被弃用 |
+| 现有标志                                   | 原因                                  |
+| ----------------------------------------- |  ----------------------------------- |
+| `--maximum-dead-containers`               | 一旦旧的日志存储在容器的上下文之外就会被弃用 |
+| `--maximum-dead-containers-per-container` | 一旦旧的日志存储在容器的上下文之外就会被弃用 |
+| `--minimum-container-ttl-duration`        | 一旦旧的日志存储在容器的上下文之外就会被弃用 |
 
 <!--
 ### Eviction thresholds
