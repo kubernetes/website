@@ -57,7 +57,7 @@ external IP address.
 -->
 1. 在集群中运行 Hello World 应用程序：
 
-   {{< codenew file="service/load-balancer-example.yaml" >}}
+   {{% code_sample file="service/load-balancer-example.yaml" %}}
 
    ```shell
    kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml

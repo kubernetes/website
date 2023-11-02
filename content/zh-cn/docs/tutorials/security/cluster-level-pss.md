@@ -45,12 +45,12 @@ Pod 安全是一个准入控制器，当新的 Pod 被创建时，它会根据 K
 <!--
 Install the following on your workstation:
 
-- [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
+- [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
 - [kubectl](/docs/tasks/tools/)
 -->
 在你的工作站中安装以下内容：
 
-- [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
+- [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
 - [kubectl](/zh-cn/docs/tasks/tools/)
 
 <!--
@@ -368,11 +368,11 @@ following:
 
    {{<note>}}
    <!--
-   If you use Docker Desktop with KinD on macOS, you can
+   If you use Docker Desktop with *kind* on macOS, you can
    add `/tmp` as a Shared Directory under the menu item
    **Preferences > Resources > File Sharing**.
    -->
-   如果你在 macOS 上使用 Docker Desktop 和 KinD，
+   如果你在 macOS 上使用 Docker Desktop 和 kind，
    你可以在菜单项 **Preferences > Resources > File Sharing**
    下添加 `/tmp` 作为共享目录。
    {{</note>}}
@@ -411,7 +411,7 @@ following:
 <!--
 1. Point kubectl to the cluster:
 -->
-6. 将 kubectl 指向集群
+6. 将 kubectl 指向集群：
 
    ```shell
    kubectl cluster-info --context kind-psa-with-cluster-pss

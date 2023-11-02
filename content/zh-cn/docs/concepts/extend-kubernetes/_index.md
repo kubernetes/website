@@ -209,7 +209,7 @@ clients that access it.
 
 <!-- image source: https://docs.google.com/drawings/d/1k2YdJgNTtNfW7_A8moIIkij-DmVgEhNrn3y2OODwqQQ/view -->
 
-{{< figure src="/docs/concepts/extend-kubernetes/extension-points.png"
+{{< figure src="/docs/concepts/extend-kubernetes/extension-points.svg"
     alt="用符号表示的七个编号的 Kubernetes 扩展点"
     class="diagram-large" caption="Kubernetes 扩展点" >}}
 
@@ -445,8 +445,8 @@ allows calling out to custom code that makes an authorization decision.
 换言之，它不会基于对象的特定字段作出不同的判决。
 
 如果内置的鉴权选项无法满足你的需要，
-你可以使用[鉴权 Webhook](/zh-cn/docs/reference/access-authn-authz/webhook/) 来调用用户提供的代码，
-执行定制的鉴权决定。
+你可以使用[鉴权 Webhook](/zh-cn/docs/reference/access-authn-authz/webhook/)
+来调用用户提供的代码，执行定制的鉴权决定。
 
 <!--
 ### Dynamic admission control
@@ -645,4 +645,3 @@ not available through the webhook integration.
 * 进一步了解[扩展 API 服务器](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
 * 进一步了解[动态准入控制](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)
 * 进一步了解 [Operator 模式](/zh-cn/docs/concepts/extend-kubernetes/operator/)
-

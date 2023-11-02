@@ -32,7 +32,6 @@ including manual cleanup based on the time a volume was last used or producing a
 
 Provided you've enabled the feature gate (see [How to use it](#how-to-use-it), the new `.status.lastPhaseTransitionTime` field of a PersistentVolume (PV)
 is updated every time that PV transitions from one phase to another.
-``
 Whether it's transitioning from `Pending` to `Bound`, `Bound` to `Released`, or any other phase transition, the `lastPhaseTransitionTime` will be recorded.
 For newly created PVs the phase will be set to `Pending` and the `lastPhaseTransitionTime` will be recorded as well.
 

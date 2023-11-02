@@ -5,6 +5,7 @@ description: >
   Kubernetes 集群由控制平面的组件和一组称为节点的机器组成。
 weight: 30
 card:
+  title: 集群组件
   name: concepts
   weight: 20
 ---
@@ -18,6 +19,7 @@ description: >
   plane and a set of machines called nodes.
 weight: 30
 card:
+  title: Components of a cluster
   name: concepts
   weight: 20
 -->
