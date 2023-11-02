@@ -203,7 +203,7 @@ AppArmor 目前处于 Beta 阶段，因此选项以注解形式设定。
 AppArmor profiles are specified *per-container*. To specify the AppArmor profile to run a Pod
 container with, add an annotation to the Pod's metadata:
 -->
-AppArmor 配置文件是按 **逐个容器** 的形式来设置的。
+AppArmor 配置文件是按**逐个容器**的形式来设置的。
 要指定用来运行 Pod 容器的 AppArmor 配置文件，请向 Pod 的 metadata 添加注解：
 
 ```yaml
@@ -329,7 +329,7 @@ Next, we'll run a simple "Hello AppArmor" pod with the deny-write profile:
 -->
 接下来，我们将运行一个带有拒绝写入配置文件的简单 “Hello AppArmor” Pod：
 
-{{< codenew file="pods/security/hello-apparmor.yaml" >}}
+{{% code_sample file="pods/security/hello-apparmor.yaml" %}}
 
 ```shell
 kubectl create -f ./hello-apparmor.yaml
