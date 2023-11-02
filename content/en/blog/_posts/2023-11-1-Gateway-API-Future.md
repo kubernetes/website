@@ -15,18 +15,17 @@ Along with stabilizing some of the core functionality in the API, a number of ex
 
 `BackendTLSPolicy` is a new Gateway API type used for specifying the TLS configuration of the connection from the Gateway to backend Pods via the Service API object.
 It is specified as a [Direct PolicyAttachment](https://gateway-api.sigs.k8s.io/geps/gep-713/#direct-policy-attachment) without defaults or overrides, applied to a Service that accesses a backend, where the BackendTLSPolicy resides in the same namespace as the Service to which it is applied.
-One can use the same BackendTLSPolicy for all the different Routes that might point to the referenced Service.
+All Gateway API Routes that point to a referenced Service should respect a configured `BackendTLSPolicy`.
 
 While there were existing ways provided for [TLS to be configured for edge and passthrough termination](https://gateway-api.sigs.k8s.io/guides/tls/#tls-configuration), this new API object specifically addresses the configuration of TLS in order to convey HTTPS from the Gateway dataplane to the backend.
 This is referred to as "backend TLS termination" and enables the Gateway to know how to connect to a backend Pod that has its own certificate.
 
 ![Termination Types](https://gateway-api.sigs.k8s.io/geps/images/1897-TLStermtypes.png) 
 
-The specification of a BackendTLSPolicy consists of:
+The specification of a `BackendTLSPolicy` consists of:
 - `targetRef` - Defines the targeted API object of the policy.  Only Service is allowed.
-- `tls` - Defines the configuration for TLS, including `hostname`, `caCertRefs`, and `wellKnownCACerts`.
+- `tls` - Defines the configuration for TLS, including `hostname`, `caCertRefs`, and `wellKnownCACerts`. Either `caCertRefs` or `wellKnownCACerts` may be specified, but not both.
 - `hostname` - Defines the Server Name Indication (SNI) that the Gateway uses to connect to the backend. The certificate served by the backend must match this SNI.
-handshake between the Gateway and backend.  Either `caCertRefs` or `wellKnownCACerts` may be specified, but not both.
 - `caCertRefs` - Defines one or more references to objects that contain PEM-encoded TLS certificates, which are used to establish a TLS handshake between the Gateway and backend.
 - `wellKnownCACerts` - Specifies whether or not system CA certificates may be used in the TLS handshake between the Gateway and backend.
 
