@@ -3,7 +3,7 @@ layout: blog
 title: "Kubernetes Contributor Summit: Behind-the-scenes"
 slug: k8s-contributor-summit-behind-the-scenes
 date: 2023-11-03
-canonicalUrl:  https://www.k8s.dev/blog/2023/11/02/k8s-contributor-summit-behind-the-scenes/
+canonicalUrl:  https://www.k8s.dev/blog/2023/11/03/k8s-contributor-summit-behind-the-scenes/
 ---
 
 **Author** : Frederico Muñoz (SAS Institute)
