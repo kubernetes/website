@@ -9,7 +9,7 @@ slug: gateway-api-ga
 
 Recently, the [Gateway API](https://gateway-api.sigs.k8s.io/) [announced its v1.0 GA release](/blog/2023/10/31/gateway-api-ga/), marking a huge milestone for the project.
 
-Along with stabilizing some of the core functionality in the API, a number of exciting new *experimental* functionality has been added.
+Along with stabilizing some of the core functionality in the API, a number of exciting new *experimental* features have been added.
 
 ## Backend TLS Policy
 
@@ -97,7 +97,7 @@ For more information, refer to the [documentation for TLS](https://gateway-api.s
 
 ## HTTPRoute Timeouts
 
-A key enhancement in Gateway API's latest release (v1.0.0) is the introduction of the `timeouts` field within HTTPRoute Rules. This feature offers a dynamic way to manage timeouts for incoming HTTP requests, adding precision and reliability to your gateway setups.
+A key enhancement in Gateway API's latest release (v1.0) is the introduction of the `timeouts` field within HTTPRoute Rules. This feature offers a dynamic way to manage timeouts for incoming HTTP requests, adding precision and reliability to your gateway setups.
 
 With Timeouts, developers can fine-tune their Gateway API's behavior in two fundamental ways:
 
@@ -148,8 +148,8 @@ For additional details and examples, refer to the [official timeouts API documen
 
 ## Gateway Infrastructure Labels
 
-While Gateway API providers a common API for different implementations, each implementation will have different resources created under-the-hood to apply users intent.
-This could be configuring cloud load balancers, creating in cluster Pods and Services, or more.
+While Gateway API providers a common API for different implementations, each implementation will have different resources created under-the-hood to apply users' intent.
+This could be configuring cloud load balancers, creating in-cluster Pods and Services, or more.
 
 While the API has always provided an extension point -- `parametersRef` in `GatewayClass` -- to customize implementation specific things, there was no common core way to express common infrastructure customizations.
 
