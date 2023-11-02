@@ -222,8 +222,6 @@ One challenge with using policies is that it may be hard to discover which polic
 * If policies are applied to multiple resources in the Gateway resource hierarchy, what is the effective policy that is affecting a particular resource? (For example, if an HTTP request timeout policy is applied to both an HTTPRoute and its parent Gateway, what is the effective timeout for the HTTPRoute?)
 
 `gwctl` is still in the very early phases of development and hence may be a bit rough around the edges.
-
-`gwctl` is still in the very early phases of development and hence may be a bit rough around the edges.
 Follow the instructions in [the repository](https://github.com/kubernetes-sigs/gateway-api/tree/main/gwctl#try-it-out) to install and try out `gwctl`.
 
 ### Examples
