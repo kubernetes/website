@@ -61,7 +61,7 @@ file for the Pod defines a command and two arguments:
 -->
 本示例中，将创建一个只包含单个容器的 Pod。在此 Pod 配置文件中设置了一个命令与两个参数：
 
-{{< codenew file="pods/commands.yaml" >}}
+{{% code_sample file="pods/commands.yaml" %}}
 
 <!--
 1. Create a Pod based on the YAML configuration file:

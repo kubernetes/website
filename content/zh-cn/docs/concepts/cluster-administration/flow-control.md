@@ -865,6 +865,11 @@ poorly-behaved workloads that may be harming system health.
 或者发现可能会损害系统健康的，行为不良的工作负载。
 
 <!--
+#### Maturity level BETA
+-->
+#### 成熟度水平 BETA
+
+<!--
 * `apiserver_flowcontrol_rejected_requests_total` is a counter vector
   (cumulative since server start) of requests that were rejected,
   broken down by the labels `flow_schema` (indicating the one that
@@ -874,8 +879,8 @@ poorly-behaved workloads that may be harming system health.
 -->
 * `apiserver_flowcontrol_rejected_requests_total` 是一个计数器向量，
   记录被拒绝的请求数量（自服务器启动以来累计值），
-  由标签 `flow_chema`（表示与请求匹配的 FlowSchema）、`priority_level`
-  （表示分配给请该求的优先级）和 `reason` 来区分。
+  可按标签 `flow_chema`（表示与请求匹配的 FlowSchema）、`priority_level`
+  （表示分配给请该求的优先级）和 `reason` 分解。
   `reason` 标签将是以下值之一：
 
   <!--
@@ -902,8 +907,55 @@ poorly-behaved workloads that may be harming system health.
 -->
 * `apiserver_flowcontrol_dispatched_requests_total` 是一个计数器向量，
   记录开始执行的请求数量（自服务器启动以来的累积值），
-  由 `flow_schema` 和 `priority_level` 来区分。
+  可按 `flow_schema` 和 `priority_level` 分解。
 
+<!--
+* `apiserver_flowcontrol_current_inqueue_requests` is a gauge vector
+  holding the instantaneous number of queued (not executing) requests,
+  broken down by `priority_level` and `flow_schema`.
+
+* `apiserver_flowcontrol_current_executing_requests` is a gauge vector
+  holding the instantaneous number of executing (not waiting in a
+  queue) requests, broken down by `priority_level` and `flow_schema`.
+-->
+* `apiserver_flowcontrol_current_inqueue_requests` 是一个测量向量，
+  记录排队中的（未执行）请求的瞬时数量，可按 `priority_level` 和 `flow_schema` 分解。
+
+* `apiserver_flowcontrol_current_executing_requests` 是一个测量向量，
+  记录执行中（不在队列中等待）请求的瞬时数量，可按 `priority_level` 和 `flow_schema` 分解。
+
+<!--
+* `apiserver_flowcontrol_current_executing_seats` is a gauge vector
+  holding the instantaneous number of occupied seats, broken down by
+  `priority_level` and `flow_schema`.
+
+* `apiserver_flowcontrol_request_wait_duration_seconds` is a histogram
+  vector of how long requests spent queued, broken down by the labels
+  `flow_schema`, `priority_level`, and `execute`. The `execute` label
+  indicates whether the request has started executing.
+-->
+* `apiserver_flowcontrol_current_executing_seats` 是一个测量向量，
+  记录了按 `priority_level` 和 `flow_schema` 细分的瞬时占用席位数量。
+
+* `apiserver_flowcontrol_request_wait_duration_seconds` 是一个直方图向量，
+  记录了按 `flow_schema`、`priority_level` 和 `execute` 标签细分的请求在队列中等待的时长。
+  `execute` 标签表示请求是否已开始执行。
+
+  {{< note >}}
+  <!--
+  Since each FlowSchema always assigns requests to a single
+  PriorityLevelConfiguration, you can add the histograms for all the
+  FlowSchemas for one priority level to get the effective histogram for
+  requests assigned to that priority level.
+  -->
+  由于每个 FlowSchema 总会给请求分配 PriorityLevelConfiguration，
+  因此你可以将一个优先级的所有 FlowSchema 的直方图相加，以得到分配给该优先级的请求的有效直方图。
+  {{< /note >}}
+
+<!--
+#### Maturity level ALPHA
+-->
+#### 成熟度水平 ALPHA
 
 <!--
 * `apiserver_current_inqueue_requests` is a gauge vector of recent
@@ -915,12 +967,21 @@ poorly-behaved workloads that may be harming system health.
   last window's high water mark of number of requests actively being
   served.
 -->
-* `apiserver_current_inqueue_requests` 是一个表向量，
+* `apiserver_current_inqueue_requests` 是一个测量向量，
   记录最近排队请求数量的高水位线，
   由标签 `request_kind` 分组，标签的值为 `mutating` 或 `readOnly`。
   这些高水位线表示在最近一秒钟内看到的最大数字。
-  它们补充说明了老的表向量 `apiserver_current_inflight_requests`
+  它们补充说明了老的测量向量 `apiserver_current_inflight_requests`
   （该量保存了最后一个窗口中，正在处理的请求数量的高水位线）。
+
+<!--
+* `apiserver_current_inqueue_seats` is a gauge vector of the sum over
+  queued requests of the largest number of seats each will occupy,
+  grouped by labels named `flow_schema` and `priority_level`.
+-->
+* `apiserver_current_inqueue_seats` 是一个测量向量，
+  记录了排队请求中每个请求将占用的最大席位数的总和，
+  按 `flow_schema` 和 `priority_level` 两个标签进行分组。
 
 <!--
 * `apiserver_flowcontrol_read_vs_write_current_requests` is a
@@ -934,28 +995,10 @@ poorly-behaved workloads that may be harming system health.
   limit for executing).
 -->
 * `apiserver_flowcontrol_read_vs_write_current_requests` 是一个直方图向量，
-  在每个纳秒结束时记录请求数量的观察值，由标签 `phase`（取值为 `waiting` 及 `executing`）
-  和 `request_kind`（取值为 `mutating` 及 `readOnly`）区分。
+  在每个纳秒结束时记录请求数量的观察值，可按标签 `phase`（取值为 `waiting` 及 `executing`）
+  和 `request_kind`（取值为 `mutating` 及 `readOnly`）分解。
   每个观察到的值是一个介于 0 和 1 之间的比值，计算方式为请求数除以该请求数的对应限制
   （等待的队列长度限制和执行所用的并发限制）。
-
-<!--
-* `apiserver_flowcontrol_current_inqueue_requests` is a gauge vector
-  holding the instantaneous number of queued (not executing) requests,
-  broken down by `priority_level` and `flow_schema`.
--->
-* `apiserver_flowcontrol_current_inqueue_requests` 是一个表向量，
-  记录包含排队中的（未执行）请求的瞬时数量，
-  由 `priority_level` 和 `flow_schema` 区分。
-
-<!--
-* `apiserver_flowcontrol_current_executing_requests` is a gauge vector
-  holding the instantaneous number of executing (not waiting in a
-  queue) requests, broken down by `priority_level` and `flow_schema`.
--->
-* `apiserver_flowcontrol_current_executing_requests` 是一个表向量，
-  记录包含执行中（不在队列中等待）请求的瞬时数量，
-  由 `priority_level` 和 `flow_schema` 进一步区分。
 
 <!-- 
 * `apiserver_flowcontrol_request_concurrency_in_use` is a gauge vector
@@ -963,7 +1006,7 @@ poorly-behaved workloads that may be harming system health.
   `priority_level` and `flow_schema`.
 -->
 * `apiserver_flowcontrol_request_concurrency_in_use` 是一个规范向量，
-  包含占用座位的瞬时数量，由 `priority_level` 和 `flow_schema` 进一步区分。
+  包含占用席位的瞬时数量，可按 `priority_level` 和 `flow_schema` 分解。
 
 <!--
 * `apiserver_flowcontrol_priority_level_request_utilization` is a
@@ -977,7 +1020,7 @@ poorly-behaved workloads that may be harming system health.
 -->
 * `apiserver_flowcontrol_priority_level_request_utilization` 是一个直方图向量，
   在每个纳秒结束时记录请求数量的观察值，
-  由标签 `phase`（取值为 `waiting` 及 `executing`）和 `priority_level` 区分。
+  可按标签 `phase`（取值为 `waiting` 及 `executing`）和 `priority_level` 分解。
   每个观察到的值是一个介于 0 和 1 之间的比值，计算方式为请求数除以该请求数的对应限制
   （等待的队列长度限制和执行所用的并发限制）。
 
@@ -996,7 +1039,7 @@ poorly-behaved workloads that may be harming system health.
   phase).
 -->
 * `apiserver_flowcontrol_priority_level_seat_utilization` 是一个直方图向量，
-  在每个纳秒结束时记录某个优先级并发度限制利用率的观察值，由标签 `priority_level` 区分。
+  在每个纳秒结束时记录某个优先级并发度限制利用率的观察值，可按标签 `priority_level` 分解。
   此利用率是一个分数：（占用的席位数）/（并发限制）。
   此指标考虑了除 WATCH 之外的所有请求的所有执行阶段（包括写入结束时的正常延迟和额外延迟，
   以覆盖相应的通知操作）；对于 WATCH 请求，只考虑传递预先存在对象通知的初始阶段。
@@ -1011,7 +1054,7 @@ poorly-behaved workloads that may be harming system health.
   Note that this produces different statistics than an unbiased survey would.
 -->
 * `apiserver_flowcontrol_request_queue_length_after_enqueue` 是一个直方图向量，
-  记录请求队列的长度，由 `priority_level` 和 `flow_schema` 进一步区分。
+  记录请求队列的长度，可按 `priority_level` 和 `flow_schema` 分解。
   每个排队中的请求都会为其直方图贡献一个样本，并在添加请求后立即上报队列的长度。
   请注意，这样产生的统计数据与无偏调查不同。
 
@@ -1043,25 +1086,16 @@ poorly-behaved workloads that may be harming system health.
   （它过去不作为一个独立的指标存在）。
 
 <!--
-* `apiserver_flowcontrol_nominal_limit_seats` is a gauge vector
-  holding each priority level's nominal concurrency limit, computed
-  from the API server's total concurrency limit and the priority
-  level's configured nominal concurrency shares.
--->
-* `apiserver_flowcontrol_nominal_limit_seats` 是一个表向量，包含每个优先级的额定并发度限制，
-  指标值根据 API 服务器的总并发度限制和各优先级所配置的额定并发度份额计算得出。
-
-<!--
 * `apiserver_flowcontrol_lower_limit_seats` is a gauge vector holding
   the lower bound on each priority level's dynamic concurrency limit.
 -->
-* `apiserver_flowcontrol_lower_limit_seats` 是一个表向量，包含每个优先级的动态并发度限制的下限。
+* `apiserver_flowcontrol_lower_limit_seats` 是一个测量向量，包含每个优先级的动态并发度限制的下限。
 
 <!--
 * `apiserver_flowcontrol_upper_limit_seats` is a gauge vector holding
   the upper bound on each priority level's dynamic concurrency limit.
 -->
-* `apiserver_flowcontrol_upper_limit_seats` 是一个表向量，包含每个优先级的动态并发度限制的上限。
+* `apiserver_flowcontrol_upper_limit_seats` 是一个测量向量，包含每个优先级的动态并发度限制的上限。
 
 <!--
 * `apiserver_flowcontrol_demand_seats` is a histogram vector counting
@@ -1081,7 +1115,7 @@ poorly-behaved workloads that may be harming system health.
   holding, for each priority level, the maximum seat demand seen
   during the last concurrency borrowing adjustment period.
 -->
-* `apiserver_flowcontrol_demand_seats_high_watermark` 是一个表向量，
+* `apiserver_flowcontrol_demand_seats_high_watermark` 是一个测量向量，
   为每个优先级包含了上一个并发度借用调整期间所观察到的最大席位需求。
 
 <!--
@@ -1089,7 +1123,7 @@ poorly-behaved workloads that may be harming system health.
   holding, for each priority level, the time-weighted average seat
   demand seen during the last concurrency borrowing adjustment period.
 -->
-* `apiserver_flowcontrol_demand_seats_average` 是一个表向量，
+* `apiserver_flowcontrol_demand_seats_average` 是一个测量向量，
   为每个优先级包含了上一个并发度借用调整期间所观察到的时间加权平均席位需求。
 
 <!--
@@ -1098,7 +1132,7 @@ poorly-behaved workloads that may be harming system health.
   standard deviation of seat demand seen during the last concurrency
   borrowing adjustment period.
 -->
-* `apiserver_flowcontrol_demand_seats_stdev` 是一个表向量，
+* `apiserver_flowcontrol_demand_seats_stdev` 是一个测量向量，
   为每个优先级包含了上一个并发度借用调整期间所观察到的席位需求的时间加权总标准偏差。
 
 <!--
@@ -1106,7 +1140,7 @@ poorly-behaved workloads that may be harming system health.
   holding, for each priority level, the smoothed enveloped seat demand
   determined at the last concurrency adjustment.
 -->
-* `apiserver_flowcontrol_demand_seats_smoothed` 是一个表向量，
+* `apiserver_flowcontrol_demand_seats_smoothed` 是一个测量向量，
   为每个优先级包含了上一个并发度调整期间确定的平滑包络席位需求。
 
 <!--
@@ -1114,14 +1148,14 @@ poorly-behaved workloads that may be harming system health.
   each priority level, the concurrency target going into the borrowing
   allocation problem.
 -->
-* `apiserver_flowcontrol_target_seats` 是一个表向量，
+* `apiserver_flowcontrol_target_seats` 是一个测量向量，
   包含每个优先级触发借用分配问题的并发度目标值。
 
 <!--
 * `apiserver_flowcontrol_seat_fair_frac` is a gauge holding the fair
   allocation fraction determined in the last borrowing adjustment.
 -->
-* `apiserver_flowcontrol_seat_fair_frac` 是一个表向量，
+* `apiserver_flowcontrol_seat_fair_frac` 是一个测量向量，
   包含了上一个借用调整期间确定的公平分配比例。
 
 <!--
@@ -1129,30 +1163,8 @@ poorly-behaved workloads that may be harming system health.
   holding, for each priority level, the dynamic concurrency limit
   derived in the last adjustment.
 -->
-* `apiserver_flowcontrol_current_limit_seats` 是一个表向量，
+* `apiserver_flowcontrol_current_limit_seats` 是一个测量向量，
   包含每个优先级的上一次调整期间得出的动态并发限制。
-
-<!--
-* `apiserver_flowcontrol_request_wait_duration_seconds` is a histogram
-  vector of how long requests spent queued, broken down by the labels
-  `flow_schema`, `priority_level`, and `execute`. The `execute` label
-  indicates whether the request has started executing.
--->
-* `apiserver_flowcontrol_request_wait_duration_seconds` 是一个直方图向量，
-  记录请求排队的时间，
-  由标签 `flow_schema`、`priority_level` 和 `execute` 进一步区分。
-  标签 `execute` 表示请求是否开始执行。
-
-  {{< note >}}
-  <!--
-  Since each FlowSchema always assigns requests to a single
-  PriorityLevelConfiguration, you can add the histograms for all the
-  FlowSchemas for one priority level to get the effective histogram for
-  requests assigned to that priority level.
-  -->
-  由于每个 FlowSchema 总会给请求分配 PriorityLevelConfiguration，
-  因此你可以为一个优先级添加所有 FlowSchema 的直方图，以获取分配给该优先级的请求的有效直方图。
-  {{< /note >}}
 
 <!--
 * `apiserver_flowcontrol_request_execution_seconds` is a histogram
@@ -1161,7 +1173,7 @@ poorly-behaved workloads that may be harming system health.
 -->
 * `apiserver_flowcontrol_request_execution_seconds` 是一个直方图向量，
   记录请求实际执行需要花费的时间，
-  由标签 `flow_schema` 和 `priority_level` 进一步区分。
+  可按标签 `flow_schema` 和 `priority_level` 分解。
 
 <!--
 * `apiserver_flowcontrol_watch_count_samples` is a histogram vector of
@@ -1170,7 +1182,7 @@ poorly-behaved workloads that may be harming system health.
 -->
 * `apiserver_flowcontrol_watch_count_samples` 是一个直方图向量，
   记录给定写的相关活动 WATCH 请求数量，
-  由标签 `flow_schema` 和 `priority_level` 进一步区分。
+  可按标签 `flow_schema` 和 `priority_level` 分解。
 
 <!--
 * `apiserver_flowcontrol_work_estimated_seats` is a histogram vector
@@ -1180,7 +1192,7 @@ poorly-behaved workloads that may be harming system health.
 -->
 * `apiserver_flowcontrol_work_estimated_seats` 是一个直方图向量，
   记录与估计席位（最初阶段和最后阶段的最多人数）相关联的请求数量，
-  由标签 `flow_schema` 和 `priority_level` 进一步区分。
+  可按标签 `flow_schema` 和 `priority_level` 分解。
 
 <!--
 * `apiserver_flowcontrol_request_dispatch_no_accommodation_total` is a
@@ -1191,7 +1203,17 @@ poorly-behaved workloads that may be harming system health.
 * `apiserver_flowcontrol_request_dispatch_no_accommodation_total`
   是一个事件数量的计数器，这些事件在原则上可能导致请求被分派，
   但由于并发度不足而没有被分派，
-  由标签 `flow_schema` 和 `priority_level` 进一步区分。
+  可按标签 `flow_schema` 和 `priority_level` 分解。
+
+<!--
+* `apiserver_flowcontrol_epoch_advance_total` is a counter vector of
+  the number of attempts to jump a priority level's progress meter
+  backward to avoid numeric overflow, grouped by `priority_level` and
+  `success`.
+-->
+* `apiserver_flowcontrol_epoch_advance_total` 是一个计数器向量，
+  记录了将优先级进度计向后跳跃以避免数值溢出的尝试次数，
+  按 `priority_level` 和 `success` 两个标签进行分组。
 
 <!--
 ## Good practices for using API Priority and Fairness

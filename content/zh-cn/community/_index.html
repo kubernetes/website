@@ -2,259 +2,241 @@
 title: 社区
 layout: basic
 cid: community
+community_styles_migrated: true
 ---
 
-<!--
-title: Community
-layout: basic
-cid: community
--->
+<img
+  id="banner"
+  srcset="/images/community/kubernetes-community-final-02.jpg 1500w, /images/community/kubernetes-community-02-mobile.jpg 900w"
+  sizes="(max-width: 900px) 900px, (max-width: 1920px) 1500px"
+  src="/images/community/kubernetes-community-final-02.jpg"
+  alt="Kubernetes 会议一览">
 
-<div class="newcommunitywrapper">
-<div class="banner1">
-  <img src="/images/community/kubernetes-community-final-02.jpg" alt="Kubernetes 会议一览" style="width:100%;padding-left:0px" class="desktop">
-  <img src="/images/community/kubernetes-community-02-mobile.jpg" alt="Kubernetes 会议一览" style="width:100%;padding-left:0px" class="mobile">
+<div class="community-section" id="introduction">
+  <!-- <p>The Kubernetes community — users, contributors, and the culture we've
+  built together — is one of the biggest reasons for the meteoric rise of
+  this open source project. Our culture and values continue to grow and change
+  as the project itself grows and changes. We all work together toward constant
+  improvement of the project and the ways we work on it.</p>
+  <p> We are the people who file issues and pull requests, attend SIG meetings,
+  Kubernetes meetups, and KubeCon, advocate for its adoption and innovation,
+  run <code>kubectl get pods</code>, and contribute in a thousand other vital
+  ways. Read on to learn how you can get involved and become part of this amazing
+  community.</p> -->
+  <p>
+    Kubernetes 社区 -- 用户、贡献者以及我们一起塑造的文化 --
+    是这个开源项目持续增长的最重要原因。我们的文化和价值观随着项目自身的成长和变化而成长着、变化着。我们一起努力地持续改进项目本身，以及我们在这个项目中的工作方式。
+  </p>
+  <p>
+    我们是登记缺陷、提出拉取请求、参加 SIG 会议、Kubernetes 聚会、KubeCon、为了技术采纳和创新四处宣讲、运行
+    <code>kubectl get pods</code>
+    并通过难以计数的其他重要方式作出贡献的一群人。如果想要了解如何参与进来并成为这一令人赞叹的社区的一员，请继续阅读。
+  </p>
 </div>
 
-<div class="intro">
-<br class="mobile">
-<!--p>The Kubernetes community -- users, contributors, and the culture we've built together -- is one of the biggest reasons for the meteoric rise of this open source project. Our culture and values continue to grow and change as the project itself grows and changes. We all work together toward constant improvement of the project and the ways we work on it.
-<br><br>We are the people who file issues and pull requests, attend SIG meetings, Kubernetes meetups, and KubeCon, advocate for its adoption and innovation, run <code>kubectl get pods</code>, and contribute in a thousand other vital ways. Read on to learn how you can get involved and become part of this amazing community.</p>
--->
-<p>
-Kubernetes 社区 -- 用户、贡献者以及我们一起塑造的文化 -- 是这个开源项目持续增长的最重要原因。
-我们的文化和价值观随着项目自身的成长和变化而成长着、变化着。
-我们一起努力地持续改进项目本身，以及我们在这个项目中的工作方式。
-<br><br>我们是登记缺陷、提出拉取请求、参加 SIG 会议、Kubernetes Meetup、KubeCon，
-为了技术采纳和创新四处宣讲、运行 <code>kubectl get pods</code>
-并通过难以计数的其他重要方式作出贡献的一群人。
-如果想要了解如何参与进来并成为这一令人赞叹的社区的一员，请继续阅读。</p>
-</div>
-
-<div class="community__navbar">
-
-<a href="https://www.kubernetes.dev/"><!--Contributor Community-->贡献者社区</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="#values"><!--Community Values-->社区价值观</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="#conduct"><!--Code of conduct-->行为规范</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="#videos"><!--Videos-->视频</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="#discuss"><!--Discussions-->讨论</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="#events"><!--Events and meetups-->活动与聚会</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="#news"><!--News-->新闻</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="/releases"><!--Releases-->发行版本</a>
-
-</div>
-<br class="mobile"><br class="mobile">
-<div class="imagecols">
-<br class="mobile">
-  <div class="imagecol">
-    <img src="/images/community/kubernetes-community-final-03.jpg" alt="Kubernetes 会议一览" style="width:100%" class="desktop">
+<div id="navigation-items">
+  <div class="community-nav-item external-link">
+    <!-- <a href="https://www.kubernetes.dev/">Contributor community</a> -->
+    <a href="https://www.kubernetes.dev/">贡献者社区</a>
   </div>
-
-  <div class="imagecol">
-    <img src="/images/community/kubernetes-community-final-04.jpg" alt="Kubernetes 会议一览" style="width:100%" class="desktop">
+  <div class="community-nav-item">
+    <!-- <a href="#values">Community values</a> -->
+    <a href="#values">社区价值观</a>
   </div>
-
-  <div class="imagecol" style="margin-right:0% important">
-    <img src="/images/community/kubernetes-community-final-05.jpg" alt="Kubernetes 会议一览" style="width:100%;margin-right:0% important" class="desktop">
+  <div class="community-nav-item">
+    <!-- <a href="#conduct">Code of conduct</a> -->
+    <a href="#conduct">行为规范</a>
   </div>
-  <img src="/images/community/kubernetes-community-04-mobile.jpg" alt="Kubernetes 会议一览" style="width:100%;margin-bottom:3%" class="mobile">
-<a name="values"></a>
+  <div class="community-nav-item">
+    <!-- <a href="#videos">Videos</a> -->
+    <a href="#videos">视频</a>
+  </div>
+  <div class="community-nav-item">
+    <!-- <a href="#discuss">Discussions</a> -->
+    <a href="#discuss">讨论</a>
+  </div>
+  <div class="community-nav-item">
+    <!-- <a href="#meetups">Meetups</a> -->
+    <a href="#meetups">聚会</a>
+  </div>
+  <div class="community-nav-item">
+    <!-- <a href="#news">News</a> -->
+    <a href="#news">新闻</a>
+  </div>
+  <div class="community-nav-item">
+    <!-- <a href="/releases">Releases</a> -->
+    <a href="/releases">发行版本</a>
+  </div>
 </div>
 
-<div><a name="values"></a></div>
-<div class="conduct">
-<div class="conducttext">
-<br class="mobile"><br class="mobile">
-<br class="tablet"><br class="tablet">
-<div class="conducttextnobutton" style="margin-bottom:2%"><h1><!--Community Values-->社区价值观</h1>
-<!--
-The Kubernetes Community values are the keystone to the ongoing success of the project.<br>
-These principles guide every aspect of the Kubernetes project.
--->
-Kubernetes 社区价值观是项目持续成功的基石。<br>
-这些原则会指导 Kubernetes 项目的方方面面。
-<br>
-<a href="/community/values/">
-<br class="mobile"><br class="mobile">
-<span class="fullbutton">
-  <!--READ MORE-->继续阅读
-  </span>
+<div class="community-section" id="gallery">
+  <img src="/images/community/kubernetes-community-final-03.jpg" alt="Kubernetes 会议一览" class="community-gallery-desktop">
+  <img src="/images/community/kubernetes-community-final-04.jpg" alt="Kubernetes 会议一览" class="community-gallery-desktop">
+  <img src="/images/community/kubernetes-community-final-05.jpg" alt="Kubernetes 会议一览" class="community-gallery-desktop">
+  <img src="/images/community/kubernetes-community-04-mobile.jpg" alt="Kubernetes 会议一览" class="community-gallery-mobile">
+</div>
+
+<div class="community-section" id="values">
+  <!-- <h2>Community Values</h2> -->
+  <h2>社区价值观</h2>
+  <!-- <p>
+    The Kubernetes Community values are the keystone to the ongoing success of the project.<br class="optional"/>
+    These principles guide every aspect of the Kubernetes project.
+  </p> -->
+  <p>
+    Kubernetes 社区价值观是项目持续成功的基石。<br class="optional"/>
+    这些原则会指导 Kubernetes 项目的方方面面。
+  </p>
+  <a href="https://www.kubernetes.dev/community/values/" class="community-cta-button">
+    <!-- <span class="community-cta">Read more</span> -->
+    <span class="community-cta">继续阅读</span>
   </a>
-  </div><a name="conduct"></a>
+</div>
+
+<div class="community-section" id="conduct">
+  <!-- <h2>Code of Conduct</h2> -->
+  <h2>行为规范</h2>
+  <!-- <p>The Kubernetes community values respect and inclusiveness, and enforces a Code of Conduct in all interactions.</p> -->
+  <p>Kubernetes 社区倡导相互尊重和包容，并要求在所有交互中遵从一种行为规范（Code of Conduct）。</p>
+  <!-- <p>If you notice a violation of the Code of Conduct at an event or meeting, in <a href="#slack">Slack</a>, or in another communication mechanism, reach out to the Kubernetes Code of Conduct Committee at <a href="mailto:conduct@kubernetes.io">conduct@kubernetes.io</a>. All reports are kept confidential. You can read <a href="https://github.com/kubernetes/community/tree/master/committee-code-of-conduct">about the committee</a> in the Kubernetes community repository on GitHub.</p> -->
+  <p>
+    如果你在某个活动或会议中、<a href="#slack">Slack</a> 上或者其他通信机制中观察到违反行为规范的情况，
+    请通过 <a href="mailto:conduct@kubernetes.io" style="color:#0662EE;font-weight:300">conduct@kubernetes.io</a>
+    联系 Kubernetes 的行为规范委员会（Kubernetes Code of Conduct Committee）。所有的违规报告都会被严格保密。你可以在 GitHub
+    上的 Kubernetes Community 仓库阅读 <a href="https://github.com/kubernetes/community/tree/master/committee-code-of-conduct">关于该委员会</a>
+    的信息。
+  </p>
+  <a href="/community/code-of-conduct/" class="community-cta-button">
+    <!-- <span class="community-cta">Read more</span> -->
+    <span class="community-cta">继续阅读</span>
+  </a>
+</div>
+
+<div id="videos" class="community-section">
+  <!-- <h2>Videos</h2> -->
+  <h2>视频</h2>
+
+  <!-- <p class="community-simple">Kubernetes is on YouTube, a lot. Subscribe for a wide range of&nbsp;topics.</p> -->
+  <p class="community-simple">Kubernetes 在 YouTube 上有自己的账户，订阅我们以了解更多不同的主题。</p>
+
+  <div class="container">
+    <div class="video youtube">
+      <iframe src="https://www.youtube.com/embed/videoseries?list=PL69nYSiGNLP3azFUvYJjGn45YbF6C-uIg" title="阅读办公会议" allow="camera 'none'; microphone 'none'; geolocation 'none'; fullscreen https://www.youtube.com/" ></iframe>
+      <a href="https://www.youtube.com/playlist?list=PL69nYSiGNLP3azFUvYJjGn45YbF6C-uIg">
+      <!-- <span class="videocta">Watch monthly office hours&nbsp;&#9654;</span> -->
+       <span class="videocta">观看阅读办公会议&nbsp;&#9654;</span>
+      </a>
+    </div>
+
+    <div class="video youtube">
+      <iframe src="https://www.youtube.com/embed/videoseries?list=PL69nYSiGNLP1pkHsbPjzAewvMgGUpkCnJ" title="社区每周例会" allow="camera 'none'; microphone 'none'; geolocation 'none'; fullscreen https://www.youtube.com/"></iframe>
+      <a href="https://www.youtube.com/playlist?list=PL69nYSiGNLP1pkHsbPjzAewvMgGUpkCnJ">
+        <!-- <span class="videocta">Watch weekly community meetings&nbsp;&#9654;</span> -->
+        <span class="videocta">观看社区每周例会&nbsp;&#9654;</span>
+      </a>
+    </div>
+
+    <div class="video youtube" id="discuss">
+      <iframe src="https://www.youtube.com/embed/videoseries?list=PL69nYSiGNLP3QpQrhZq_sLYo77BVKv09F" title="来自社区成员的演讲" allow="camera 'none'; microphone 'none'; geolocation 'none'; fullscreen https://www.youtube.com/"></iframe>
+      <a href="https://www.youtube.com/playlist?list=PL69nYSiGNLP3QpQrhZq_sLYo77BVKv09F">
+        <!-- <span class="videocta">Watch a talk from a community member&nbsp;&#9654;</span> -->
+        <span class="videocta">观看来自社区成员的演讲&nbsp;&#9654;</span>
+      </a>
+    </div>
   </div>
+</div>
+
+<div id="resources" class="community-section">
+  <h2>讨论</h2>
+
+  <!-- <p class="community-simple">We talk a lot. Find us and join the conversation on any of these&nbsp;platforms.</p> -->
+  <p class="community-simple">我们有很多演讲材料。你可以在以下任何平台上找到我们并加入讨论。</p>
+
+  <div class="container">
+    <div class="community-resource">
+      <a href="https://discuss.kubernetes.io/">
+        <img src="/images/community/discuss.png" alt="Forum">
+      </a>
+      <!-- <a href="https://discuss.kubernetes.io/">Community forums&nbsp;&#9654;</a> -->
+      <a href="https://discuss.kubernetes.io/">论坛&nbsp;&#9654;</a>
+      <!-- <p>Topic-based technical discussions that bridge docs,
+         troubleshooting, and so much&nbsp;more.</p> -->
+      <p>基于主题的技术讨论，涵盖了文档，问题排查，以及很多其他内容。</p>
+    </div>
+
+    <div id="twitter" class="community-resource">
+      <a href="https://twitter.com/kubernetesio">
+        <img src="/images/community/twitter.png" alt="Twitter">
+      </a>
+      <a href="https://twitter.com/kubernetesio">Twitter&nbsp;&#9654;</a>
+      <p><em>#kubernetesio</em></p>
+      <!-- <p>Real-time announcements of blog posts, events, news, ideas.</p> -->
+      <p>关于博客更新、活动、新闻、以及想法的实时更新。</p>
+    </div>
+
+    <div id="github" class="community-resource">
+      <a href="https://github.com/kubernetes/kubernetes">
+        <img src="/images/community/github.png" alt="GitHub">
+      </a>
+      <a href="https://github.com/kubernetes/kubernetes">GitHub&nbsp;&#9654;</a>
+      <!-- <p>All the project and issue tracking, plus of course code.</p> -->
+      <p>所有的项目和 Issue 跟踪，当然也包含代码。</p>
+    </div>
+
+    <div id="server-fault" class="community-resource">
+      <a href="https://serverfault.com/questions/tagged/kubernetes">
+        <img src="/images/community/serverfault.png" alt="Server Fault">
+      </a>
+      <a href="https://serverfault.com/questions/tagged/kubernetes">Server Fault&nbsp;&#9654;</a>
+      <!-- <p>Kubernetes-related discussion on Server Fault. Ask a question, or answer one.</p> -->
+      <p>Server Fault 上有关于 Kubernetes 的讨论。你可以提出问题，或者解答他人的问题。</p>
+    </div>
+
+    <div id="slack" class="community-resource">
+      <a href="https://kubernetes.slack.com/">
+        <img src="/images/community/slack.png" alt="Slack">
+      </a>
+      <a href="https://kubernetes.slack.com/">Slack&nbsp;&#9654;</a>
+      <!-- <p>With 170+ channels, you'll find one that fits your needs.</p> -->
+      <p>我们有超过 170 个频道，你可以找到一个适合你的频道。</p>
+      <details>
+        <!-- <summary><em>Need an invitation?</em></summary> -->
+        <summary><em>需要邀请吗？</em></summary>
+        <!-- Visit <a href="https://slack.k8s.io/">https://slack.k8s.io/</a>
+        for an invitation. -->
+        请通过访问 <a href="https://slack.k8s.io/">https://slack.k8s.io/</a>
+        来获取邀请。
+      </details>
+    </div>
   </div>
-
-
-<div class="conduct">
-<div class="conducttext">
-<br class="mobile"><br class="mobile">
-<br class="tablet"><br class="tablet">
-<div class="conducttextnobutton" style="margin-bottom:2%"><h1><!--Code of Conduct-->行为规范</h1>
-<!--
-The Kubernetes community values respect and inclusiveness, and enforces a Code of Conduct in all interactions. If you notice a violation of the Code of Conduct at an event or meeting, in Slack, or in another communication mechanism, reach out to the Kubernetes Code of Conduct Committee at <a href="mailto:conduct@kubernetes.io" style="color:#0662EE;font-weight:300">conduct@kubernetes.io</a>. All reports are kept confidential. You can read about the committee&nbsp;<a href="https://github.com/kubernetes/community/tree/master/committee-code-of-conduct" style="color:#0662EE;font-weight:300">here</a>.
--->
-Kubernetes 社区倡导相互尊重和包容，并要求在所有交互中遵从一种行为规范（Code of Conduct）。
-如果你在某个活动或会议中、Slack 上或者其他通信机制中观察到违反行为规范的情况，
-请通过 <a href="mailto:conduct@kubernetes.io" style="color:#0662EE;font-weight:300">conduct@kubernetes.io</a>
-联系 Kubernetes 的行为规范委员会（Kubernetes Code of Conduct Committee）。
-所有的违规报告都会被严格保密。你可以在
-<a href="https://github.com/kubernetes/community/tree/master/committee-code-of-conduct" style="color:#0662EE;font-weight:300">这里</a>阅读该委员会的信息。
-<br>
-<a href="https://kubernetes.io/community/code-of-conduct/">
-<br class="mobile"><br class="mobile">
-
-<span class="fullbutton">
-<!--READ MORE-->继续阅读
-</span>
-</a>
-</div><a name="videos"></a>
-</div>
 </div>
 
-<div class="videos">
-<br class="mobile"><br class="mobile">
-<br class="tablet"><br class="tablet">
-<h1 style="margin-top:0px">Videos</h1>
-
-<div style="margin-bottom:4%;font-weight:300;text-align:center;padding-left:10%;padding-right:10%"><!--We're on YouTube,
-a lot. Subscribe for a wide range of&nbsp;topics.-->我们在 YouTube 上有很多视频，你可以订阅很多不同的主题。</div>
-
-<div class="videocontainer">
-
-<div class="video">
-
-  <iframe width="100%" height="250"
-    src="https://www.youtube.com/embed/videoseries?list=PL69nYSiGNLP3azFUvYJjGn45YbF6C-uIg" title="阅读办公时间" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-
-<a href="https://www.youtube.com/playlist?list=PL69nYSiGNLP3azFUvYJjGn45YbF6C-uIg">
-<div class="videocta">
-观看阅读办公会议&nbsp;&#9654;</div>
-</a>
+<div class="community-section" id="events">
+  <div class="container">
+   <!-- <h2>Upcoming Events</h2> -->
+    <h2>未来活动</h2>
+   {{< upcoming-events >}}
+  </div>
 </div>
 
-<div class="video">
-  <iframe width="100%" height="250"
-    src="https://www.youtube.com/embed/videoseries?list=PL69nYSiGNLP1pkHsbPjzAewvMgGUpkCnJ" title="社区每周例会" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-<a href="https://www.youtube.com/playlist?list=PL69nYSiGNLP1pkHsbPjzAewvMgGUpkCnJ">
-<div class="videocta">
-观看社区每周例会&nbsp;&#9654;
-</div>
-</a>
-</div>
-
-<div class="video">
-
-<iframe width="100%" height="250"
-  src="https://www.youtube.com/embed/videoseries?list=PL69nYSiGNLP3QpQrhZq_sLYo77BVKv09F" title="来自社区成员的演讲" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-
-<a href="https://www.youtube.com/playlist?list=PL69nYSiGNLP3QpQrhZq_sLYo77BVKv09F">
-<div class="videocta">
-观看来自社区成员的演讲&nbsp;&#9654;
+<div class="community-section" id="meetups">
+  <!-- <h2>Global community</h2> -->
+  <h2>全球社区</h2>
+  <p>
+    <!-- With over 150 meetups in the world and growing, go find your local kube people. If one isn't near, take charge and create your own. -->
+    我们在全球有超过 150 个聚会，而且数量仍在增长，你可以去找到本地的 Kubernetes 人员。如果附近没有，你可以负起责来，建一个你自己的聚会。
+  </p>
+  <a href="https://www.meetup.com/topics/kubernetes/" class="community-cta-button">
+    <!-- <span class="community-cta">Find a meetup</span> -->
+    <span class="community-cta">寻找聚会</span>
+  </a>
 </div>
 
-</a>
-<a name="discuss"></a>
-</div>
-</div>
-</div>
-
-<div class="resources">
-<br class="mobile"><br class="mobile">
-<br class="tablet"><br class="tablet">
-<h1 style="padding-top:1%"><!--Discussions-->讨论</h1>
-
-<div style="font-weight:300;text-align:center"><!--We talk a lot. Find us and join the conversation on any of
-these&nbsp;platforms.-->我们有很多演讲材料。你可以在以下任何平台上找到我们并加入讨论。</div>
-
-<div class="resourcecontainer">
-
-<div class="resourcebox">
-<img src="/images/community/discuss.png" alt=Forum" style="width:80%;padding-bottom:2%">
-<a href="https://discuss.kubernetes.io/" style="color:#0662EE;display:block;margin-top:1%">
-<!--forum-->论坛&nbsp;&#9654;
-</a>
-<div class="resourceboxtext" style="font-size:12px;text-transform:none !important;font-weight:300;line-height:1.4em;color:#333333;margin-top:4%">
-<!--
-Topic-based technical discussions that bridge docs, StackOverflow, and so much&nbsp;more
--->
-基于主题的技术讨论，包括 docs、StackOverflow 以及很多其他渠道。
-</div>
-</div>
-
-<div class="resourcebox">
-<img src="/images/community/twitter.png" alt="Twitter" style="width:80%;padding-bottom:2%">
-<a href="https://twitter.com/kubernetesio" style="color:#0662EE;display:block;margin-top:1%">
-Twitter&nbsp;&#9654;
-</a>
-<div class="resourceboxtext" style="font-size:12px;text-transform:none
-  !important;font-weight:300;line-height:1.4em;color:#333333;margin-top:4%"><!--Real-time announcements of blog posts,
-  events, news, ideas -->关于博客发表、活动、新闻、想法的实时公布</div>
-</div>
-
-<div class="resourcebox">
-<img src="/images/community/github.png" alt="GitHub" style="width:80%;padding-bottom:2%">
-<a href="https://github.com/kubernetes/kubernetes" style="color:#0662EE;display:block;margin-top:1%">
-github&nbsp;&#9654;
-</a>
-<div class="resourceboxtext" style="font-size:12px;text-transform:none !important;font-weight:300;line-height:1.4em;color:#333333;margin-top:4%">
-  <!--All the project and issue tracking, plus of course code-->所有的项目和缺陷跟踪，当然也包含代码
-</div>
-</div>
-
-<div class="resourcebox">
-<img src="/images/community/stack.png" alt="Stack Overflow" style="width:80%;padding-bottom:2%">
-<a href="https://stackoverflow.com/search?q=kubernetes" style="color:#0662EE;display:block;margin-top:1%">
-StackOverflow&nbsp;&#9654;
-</a>
-<div class="resourceboxtext" style="font-size:12px;text-transform:none !important;font-weight:300;line-height:1.4em;color:#333333;margin-top:4%">
-  <!--Technical troubleshooting for any use&nbsp;case-->针对不同场景的技术问题排查
-  <a name="events"></a>
-</div>
-</div>
-
-</div>
-</div>
-<div class="events">
-  <br class="mobile"><br class="mobile">
-  <br class="tablet"><br class="tablet">
-<div class="eventcontainer">
-  <h1 style="color:white !important"><!--Upcoming Events-->未来活动</h1>
-    {{< upcoming-events >}}
-</div>
-</div>
-
-<div class="meetups">
-<div class="meetupcol">
-<div class="meetuptext">
-  <h1 style="text-align:left"><!--Global Community-->全球社区</h1>
-  <!--
-With over 150 meetups in the world and growing, go find your local kube people. If one isn't near, take charge and create your own.
-  -->
-  我们在全球有超过 150 个 Meetup，而且数量仍在增长，你可以去找到本地的 Kubernetes
-  人员。如果附近没有，你可以负起责来，建一个你自己的 Meetup。
-</div>
-<a href="https://www.meetup.com/topics/kubernetes/">
-<div class="button">
-  <!--FIND A MEETUP-->寻找 Meetup
-</div>
-</a>
-<a name="news"></a>
-</div>
-</div>
-
-<div class="news">
-<br class="mobile"><br class="mobile">
-<br class="tablet"><br class="tablet">
-<h1 style="margin-bottom:2%"><!--Recent News-->最近新闻</h1>
-
-<br>
-<div class="twittercol1">
-<a class="twitter-timeline" data-tweet-limit="1" href="https://twitter.com/kubernetesio?ref_src=twsrc%5Etfw"><!--Tweets
-by kubernetesio-->kubernetesio 账号的推特</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-</div>
-
-<br>
-<br><br><br><br>
-</div>
-
+<div class="community-section community-frame" id="news">
+  <!-- <h2>Recent News</h2> -->
+  <h2>最新新闻</h2>
+  <div class="twittercol1">
+    <!-- <a class="twitter-timeline" data-tweet-limit="1" href="https://twitter.com/kubernetesio?ref_src=twsrc%5Etfw">Tweets by kubernetesio</a> -->
+    <a class="twitter-timeline" data-tweet-limit="1" href="https://twitter.com/kubernetesio?ref_src=twsrc%5Etfw">kubernetesio 账号发布的推文</a>
+  </div>
 </div>
