@@ -35,7 +35,7 @@ The **flowcontrol.apiserver.k8s.io/v1beta2** API version of FlowSchema and Prior
 
 ### v1.27
 
-The **v1.27** release will stop serving the following deprecated API versions:
+The **v1.27** release stopped serving the following deprecated API versions:
 
 #### CSIStorageCapacity {#csistoragecapacity-v127}
 

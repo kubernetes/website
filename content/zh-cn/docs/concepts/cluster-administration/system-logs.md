@@ -28,6 +28,17 @@ scheduler decisions).
 
 <!-- body -->
 
+{{< warning >}}
+<!--
+In contrast to the command line flags described here, the *log
+output* itself does *not* fall under the Kubernetes API stability guarantees:
+individual log entries and their formatting may change from one release
+to the next!
+-->
+与此处描述的命令行标志不同，日志输出本身不属于 Kubernetes API 的稳定性保证范围：
+单个日志条目及其格式可能会在不同版本之间发生变化！
+{{< /warning >}}
+
 ## Klog
 
 <!--

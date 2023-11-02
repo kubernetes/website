@@ -123,13 +123,13 @@ into the cluster.
 
 {{< tabs name="tab_with_code" >}}
 {{< tab name="audit.json" >}}
-{{< codenew file="pods/security/seccomp/profiles/audit.json" >}}
+{{% code_sample file="pods/security/seccomp/profiles/audit.json" %}}
 {{< /tab >}}
 {{< tab name="violation.json" >}}
-{{< codenew file="pods/security/seccomp/profiles/violation.json" >}}
+{{% code_sample file="pods/security/seccomp/profiles/violation.json" %}}
 {{< /tab >}}
 {{< tab name="fine-grained.json" >}}
-{{< codenew file="pods/security/seccomp/profiles/fine-grained.json" >}}
+{{% code_sample file="pods/security/seccomp/profiles/fine-grained.json" %}}
 {{< /tab >}}
 {{< /tabs >}}
 
@@ -170,7 +170,7 @@ onto a node.
 Kind 在 Docker 中运行 Kubernetes，因此集群的每个节点都是一个容器。
 这允许将文件挂载到每个容器的文件系统中，类似于将文件加载到节点上。
 
-{{< codenew file="pods/security/seccomp/kind.yaml" >}}
+{{% code_sample file="pods/security/seccomp/kind.yaml" %}}
 
 <!-- 
 Download that example kind configuration, and save it to a file named `kind.yaml`:
@@ -298,7 +298,7 @@ for all its containers:
 -->
 这是一个 Pod 的清单，它要求其所有容器使用 `RuntimeDefault` seccomp 配置文件：
 
-{{< codenew file="pods/security/seccomp/ga/default-pod.yaml" >}}
+{{% code_sample file="pods/security/seccomp/ga/default-pod.yaml" %}}
 
 <!--
 Create that Pod:
@@ -346,7 +346,7 @@ Here's a manifest for that Pod:
 
 这是该 Pod 的清单：
 
-{{< codenew file="pods/security/seccomp/ga/audit-pod.yaml" >}}
+{{% code_sample file="pods/security/seccomp/ga/audit-pod.yaml" %}}
 
 {{< note >}}
 <!-- 
@@ -515,7 +515,7 @@ The manifest for this demonstration is:
 
 此演示的清单是：
 
-{{< codenew file="pods/security/seccomp/ga/violation-pod.yaml" >}}
+{{% code_sample file="pods/security/seccomp/ga/violation-pod.yaml" %}}
 
 <!--
 Attempt to create the Pod in the cluster:
@@ -585,7 +585,7 @@ The manifest for this example is:
 
 此示例的清单是：
 
-{{< codenew file="pods/security/seccomp/ga/fine-pod.yaml" >}}
+{{% code_sample file="pods/security/seccomp/ga/fine-pod.yaml" %}}
 
 <!--
 Create the Pod in your cluster:
