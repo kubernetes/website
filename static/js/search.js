@@ -1,5 +1,17 @@
     document.querySelector('html').classList.add('search');
 
+    document.addEventListener('DOMContentLoaded', function() {
+      let searchTerm = new URLSearchParams(window.location.search).get('q');
+      let fetchingElem = document.getElementById('bing-results-container');
+      let searchTitle = document.querySelector('.search-title');
+
+      if (!searchTerm) {
+        if (fetchingElem) fetchingElem.style.display = 'none';
+        if (searchTitle) searchTitle.style.display = 'none';
+
+      }
+    });
+
     window.renderGoogleSearchResults = () => {
         var cx = '013288817511911618469:elfqqbqldzg';
         var gcse = document.createElement('script');
@@ -33,30 +45,36 @@
     }
 
     window.renderBingSearchResults = () => {
-        var searchTerm  = window.location.search.split("=")[1].split("&")[0].replace(/%20/g,' '),
-            page        = window.location.search.split("=")[2],
-            q           = "site:kubernetes.io " + searchTerm;
+      let urlParams = new URLSearchParams(window.location.search);
+      let searchTerm = urlParams.get("q") || "";
+      let page = urlParams.get("page") || 1;
+      let q = searchTerm;
+      let results = '';
+      let offset = (page - 1) * 10;
+      let ajaxConf = {};
 
-        page = (!page) ?  1 : page.split("&")[0];
+      if (!searchTerm) return;
 
-        var results = '', pagination = '', offset = (page - 1) * 10, ajaxConf = {};
+      ajaxConf.url = 'https://kubernetes-io-search.azurewebsites.net/api/bingsearchproxy';
+      ajaxConf.data =  { q: q, offset: offset };
+      ajaxConf.type = "GET";
 
-        ajaxConf.url = 'https://api.cognitive.microsoft.com/bingcustomsearch/v7.0/search';
-        ajaxConf.data =  { q: q, offset: offset, customConfig: '320659264' };
-        ajaxConf.type = "GET";
-        ajaxConf.beforeSend = function(xhr){ xhr.setRequestHeader('Ocp-Apim-Subscription-Key', '51efd23677624e04b4abe921225ea7ec'); };
+      $.ajax(ajaxConf).done(function(res) {
+        if (res.status === 500) {
+          console.log('Server Error');
+          return;
+        }
 
-        $.ajax(ajaxConf).done(function(res) {
-            if (res.webPages == null) return; // If no result, 'webPages' is 'undefined'
-            var paginationAnchors = window.getPaginationAnchors(Math.ceil(res.webPages.totalEstimatedMatches / 10));
-            res.webPages.value.map(ob => { results += window.getResultMarkupString(ob); })
+        if (res.webPages == null) return; // If no result, 'webPages' is 'undefined'
+        var paginationAnchors = window.getPaginationAnchors(Math.ceil(res.webPages.totalEstimatedMatches / 10));
+        res.webPages.value.map(ob => { results += window.getResultMarkupString(ob); })
 
-            if($('#bing-results-container').length > 0) $('#bing-results-container').html(results);
-            if($('#bing-pagination-container').length > 0) $('#bing-pagination-container').html(paginationAnchors);
-        });
+        if($('#bing-results-container').length > 0) $('#bing-results-container').html(results);
+        if($('#bing-pagination-container').length > 0) $('#bing-pagination-container').html(paginationAnchors);
+      });
     }
 
-    //China Verification
+    // China Verification.
     var path = "path=/;"
     d = new Date()
     d.setTime(d.getTime() + (7 * 24 * 60 * 60 * 1000))

@@ -88,6 +88,7 @@ Open the Kubernetes dashboard. You can do this two different ways:
 Open a **new** terminal, and run:
 -->
 打开一个**新的**终端，然后运行：
+
 ```shell
 # 启动一个新的终端，并保持此命令运行。
 minikube dashboard
@@ -241,6 +242,25 @@ Deployment 是管理 Pod 创建和扩展的推荐方法。
    kubectl config view
    ```
 
+<!--
+1. View application logs for a container in a pod.
+-->
+1. 查看 Pod 中容器的应用程序日志。
+
+   ```shell
+   kubectl logs hello-node-5f76cf6ccf-br9b5
+   ```
+   
+   <!--
+   The output is similar to:
+   -->
+   输出类似于：
+
+   ```
+   I0911 09:19:26.677397       1 log.go:195] Started HTTP server on port 8080
+   I0911 09:19:26.677586       1 log.go:195] Started UDP server on port  8081
+   ```
+
 {{< note >}}
 <!--
 For more information about `kubectl` commands, see the [kubectl overview](/docs/reference/kubectl/).
@@ -332,7 +352,8 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 <!--
 ## Enable addons
 
-The minikube tool includes a set of built-in {{< glossary_tooltip text="addons" term_id="addons" >}} that can be enabled, disabled and opened in the local Kubernetes environment.
+The minikube tool includes a set of built-in {{< glossary_tooltip text="addons" term_id="addons" >}}
+hat can be enabled, disabled and opened in the local Kubernetes environment.
 
 1. List the currently supported addons:
 -->
@@ -487,11 +508,12 @@ If you want to use minikube again to learn more about Kubernetes, you don't need
 ## {{% heading "whatsnext" %}}
 
 <!--
+* Tutorial to _[deploy your first app on Kubernetes with kubectl](/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/)_.
 * Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
 * Learn more about [Deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/).
 * Learn more about [Service objects](/docs/concepts/services-networking/service/).
 -->
+* **[使用 kubectl 在 Kubernetes 上部署你的第一个应用程序](/zh-cn/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/)**教程。
 * 进一步了解 [Deployment 对象](/zh-cn/docs/concepts/workloads/controllers/deployment/)。
 * 进一步了解[部署应用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)。
 * 进一步了解 [Service 对象](/zh-cn/docs/concepts/services-networking/service/)。
-
