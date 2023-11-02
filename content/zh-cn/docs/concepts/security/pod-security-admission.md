@@ -246,6 +246,30 @@ current policy level:
 - 对 `.spec.activeDeadlineSeconds` 的合法更新
 - 对 `.spec.tolerations` 的合法更新
 
+<!--
+## Metrics
+
+Here are the Prometheus metrics exposed by kube-apiserver:
+-->
+## 指标   {#metrics}
+
+以下是 kube-apiserver 公开的 Prometheus 指标：
+
+<!--
+- `pod_security_errors_total`: This metric indicates the number of errors preventing normal evaluation.
+  Non-fatal errors may result in the latest restricted profile being used for enforcement.
+- `pod_security_evaluations_total`: This metric indicates the number of policy evaluations that have occurred,
+  not counting ignored or exempt requests during exporting.
+- `pod_security_exemptions_total`: This metric indicates the number of exempt requests, not counting ignored
+  or out of scope requests.
+-->
+- `pod_security_errors_total`：此指标表示妨碍正常评估的错误数量。
+  如果错误是非致命的，kube-apiserver 可能会强制实施最新的受限配置。
+- `pod_security_evaluations_total`：此指标表示已发生的策略评估的数量，
+  不包括导出期间被忽略或豁免的请求。
+- `pod_security_exemptions_total`：该指标表示豁免请求的数量，
+  不包括被忽略或超出范围的请求。
+
 ## {{% heading "whatsnext" %}}
 
 <!--
