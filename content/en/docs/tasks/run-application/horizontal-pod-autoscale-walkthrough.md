@@ -50,6 +50,12 @@ new kinds of resource that represent metric readings.
 To learn how to deploy the Metrics Server, see the
 [metrics-server documentation](https://github.com/kubernetes-sigs/metrics-server#deployment).
 
+For enabling on minikube you can enable it with 
+
+```shell
+minikube addons enable metrics-server
+```
+
 <!-- steps -->
 
 ## Run and expose php-apache server
