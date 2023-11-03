@@ -635,10 +635,10 @@ kubeadm init phase upload-certs --upload-certs --config=SOME_YAML_FILE
 {{< note >}}
 <!--
 A predefined `certificateKey` can be provided in `InitConfiguration` when passing the
-[configuration file](https://kubernetes.io/docs/reference/config-api/kubeadm-config.v1beta3/) with `--config`.
+[configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/) with `--config`.
 -->
 在使用 `--config`
-传递[配置文件](https://kubernetes.io/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)时，
+传递[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)时，
 可以在 `InitConfiguration` 中提供预定义的 `certificateKey`。
 {{< /note >}}
 
