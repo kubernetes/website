@@ -118,8 +118,6 @@ For a reference to old feature gates that are removed, please refer to
 | `JobPodFailurePolicy` | `false` | Alpha | 1.25 | 1.25 |
 | `JobPodFailurePolicy` | `true` | Beta | 1.26 | |
 | `JobPodReplacementPolicy` | `false` | Alpha | 1.28 | |
-| `JobReadyPods` | `false` | Alpha | 1.23 | 1.23 |
-| `JobReadyPods` | `true` | Beta | 1.24 | |
 | `KMSv2` | `false` | Alpha | 1.25 | 1.26 |
 | `KMSv2` | `true` | Beta | 1.27 | |
 | `KMSv2KDF` | `false` | Beta | 1.28 | |
@@ -267,6 +265,9 @@ For a reference to old feature gates that are removed, please refer to
 | `IPTablesOwnershipCleanup` | `true` | GA | 1.28 | |
 | `InTreePluginRBDUnregister` | `false` | Alpha | 1.23 | 1.27 |
 | `InTreePluginRBDUnregister` | `false` | Deprecated | 1.28 | |
+| `JobReadyPods` | `false` | Alpha | 1.23 | 1.23 |
+| `JobReadyPods` | `true` | Beta | 1.24 | 1.28 |
+| `JobReadyPods` | `true` | GA | 1.29 | |
 | `JobTrackingWithFinalizers` | `false` | Alpha | 1.22 | 1.22 |
 | `JobTrackingWithFinalizers` | `false` | Beta | 1.23 | 1.24 |
 | `JobTrackingWithFinalizers` | `true` | Beta | 1.25 | 1.25 |
