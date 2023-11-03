@@ -1,50 +1,13 @@
 ---
 title: "Services, Load Balancing, and Networking"
 weight: 60
+simple_list: true
 description: >
   Concepts and resources behind networking in Kubernetes.
 ---
 
-## The Kubernetes network model
-
-Every [`Pod`](/docs/concepts/workloads/pods/) in a cluster gets its own unique cluster-wide IP address. 
-This means you do not need to explicitly create links between `Pods` and you 
-almost never need to deal with mapping container ports to host ports.  
-This creates a clean, backwards-compatible model where `Pods` can be treated 
-much like VMs or physical hosts from the perspectives of port allocation, 
-naming, service discovery, [load balancing](/docs/concepts/services-networking/ingress/#load-balancing), 
-application configuration, and migration.
-
-Kubernetes imposes the following fundamental requirements on any networking
-implementation (barring any intentional network segmentation policies):
-
-   * pods can communicate with all other pods on any other [node](/docs/concepts/architecture/nodes/) 
-     without NAT
-   * agents on a node (e.g. system daemons, kubelet) can communicate with all
-     pods on that node
-
-Note: For those platforms that support `Pods` running in the host network (e.g.
-Linux), when pods are attached to the host network of a node they can still communicate 
-with all pods on all nodes without NAT.
-
-This model is not only less complex overall, but it is principally compatible
-with the desire for Kubernetes to enable low-friction porting of apps from VMs
-to containers.  If your job previously ran in a VM, your VM had an IP and could
-talk to other VMs in your project.  This is the same basic model.
-
-Kubernetes IP addresses exist at the `Pod` scope - containers within a `Pod`
-share their network namespaces - including their IP address and MAC address.
-This means that containers within a `Pod` can all reach each other's ports on
-`localhost`. This also means that containers within a `Pod` must coordinate port
-usage, but this is no different from processes in a VM.  This is called the
-"IP-per-pod" model.
-
-How this is implemented is a detail of the particular container runtime in use.
-
-It is possible to request ports on the `Node` itself which forward to your `Pod`
-(called host ports), but this is a very niche operation. How that forwarding is
-implemented is also a detail of the container runtime. The `Pod` itself is
-blind to the existence or non-existence of host ports.
+The [Kubernetes network model](#kubernetes-network-model) enables container networking within a pod and between pods
+on the same or different {{< glossary_tooltip text="nodes" term_id="node" >}}.
 
 Kubernetes networking addresses four concerns:
 - Containers within a Pod [use networking to communicate](/docs/concepts/services-networking/dns-pod-service/) via loopback.
@@ -52,12 +15,161 @@ Kubernetes networking addresses four concerns:
 - The [Service](/docs/concepts/services-networking/service/) API lets you
   [expose an application running in Pods](/docs/tutorials/services/connect-applications-service/)
   to be reachable from outside your cluster.
-  - [Ingress](/docs/concepts/services-networking/ingress/) provides extra functionality
-    specifically for exposing HTTP applications, websites and APIs.
+  - [Ingress](/docs/concepts/services-networking/ingress/) and [Gateway](https://gateway-api.sigs.k8s.io/) provide
+    extra functionality specifically for exposing your applications, websites and APIs, usually to clients outside
+    the cluster. Ingress and Gateway often use a load balancer to make that work reliably and at scale.
 - You can also use Services to
   [publish services only for consumption inside your cluster](/docs/concepts/services-networking/service-traffic-policy/).
 
-The [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial lets you learn about Services and Kubernetes networking with a hands-on example.
+The [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial lets you learn
+about Services and Kubernetes networking with a hands-on example.
 
-[Cluster Networking](/docs/concepts/cluster-administration/networking/) explains how to set
-up networking for your cluster, and also provides an overview of the technologies involved.
+Read on to learn more about the [Kubernetes network model](#kubernetes-network-model).
+
+## Terminology
+
+L2 bridge
+: a (virtual) [layer 2](https://en.wikipedia.org/wiki/Data_link_layer) bridge enabling inter-pod connectivity on the same host.
+
+Encapsulation
+: Ability to encapsulate layer 2 or layer 3 packets belonging to an _inner network_ with an _outer network_ header for
+  transport across the _outer network_.
+  This forms a virtual _tunnel_ where the encapsulation function is performed at tunnel ingress and de-encapsulation
+  function is performed at tunnel egress. You can think of pods on nodes as the inner network and nodes networked
+  together as the outer network. [IPIP](https://www.rfc-editor.org/rfc/rfc2003) and
+  [VXLAN](https://www.rfc-editor.org/rfc/rfc7348) are two examples of encapsulation that network plugins use to support
+  cluster networking.
+
+Network namespace
+: Form of isolation used on Linux, where different processes (such as in containers) see a different set of network
+  interfaces and configuration than the host system. The host system is represented by a root network namespace,
+  which is often what network plugins use to set up connectivity between nodes (and between Pods on those nodes).
+
+kube-proxy
+: Part of Kubernetes, `kube-proxy` is optional component that you run on each Node.
+  The kube-proxy ensures that clients can connect to [Services](/docs/concepts/services-networking/service/),
+  including to any backend Pods that make up the Service. Clients might be other  Pods, or they could be connecting from outside the cluster.
+  Some network plugins provide their own alternative to kube-proxy, which means   you don't need to install it when you use that particular plugin.
+  Part of the behavior of kube-proxy is to act as an load balancer, directing client traffic to endpoints.
+
+  In the diagram, the kube-proxy is the icon top right of each node labelled “k-proxy”.
+
+## Kubernetes network model
+
+Figure 1 depicts a cluster with a control plane, a small number of nodes (VM or physical) attached to a network, each
+with pods containing one more containers. In addition, each pod has its own IP address called a _pod IP_.
+
+{{< figure src="/docs/images/k8s-net-model-arch.svg" alt="Diagram of Kubernetes networking" class="diagram-large" caption="Figure 1. High-level example of a Kubernetes cluster, illustrating container networking." >}}
+
+The other K8s network components shown in figure consist of the following:
+
+* _Local pod networking_ - optional component that enables pod-to-pod communications in the same node. You might recognize
+this as a virtual layer 2 bridge (which is just one possible implementation).
+
+* [_Network plugins_](#network-plugins) - sets up IP addressing for pods and their containers, and allow pods to communicate
+even when the source pod and destination pod are running on different nodes. Different network plugins achieve this in
+different ways with examples including tunneling or IP routing.
+
+Processes with a pod, such as the processes within Pod 1, can communicate automatically. Kubernetes
+and the container runtime provide no special support as these processes all see a common local
+network within the container sandbox.
+
+You can also have connectivity between containers running on two or more different pods on the same node; for example
+Pod 7 communicating with Pod 1, with both Pods (and their containers) running on Node 1. The network plugin(s)
+that you deploy are responsible for the routes or other means to make sure that
+these packets arrive at the right destination.
+
+In the cross-node case, you have container communications between pods on nodes connected
+via the cluster network. In the example above, Pod 7 on Node 1 can talk to Pod 21 on Node 2.
+
+{{< note >}}
+The network model permits all pods to talk to all other pods on the cluster. However, you might implement policies in your cluster to limit what pods can talk to other pods.
+{{< /note >}}
+
+The network model describes how pods and their associated pod IPs can integrate with the larger network to support
+container networking.
+
+[comment]: <> (All diagrams.net figures are available at: https://drive.google.com/drive/folders/1MPOeuJ3wTzptutZX_6GKpLK8ljnojKE8?usp=sharing)
+
+[comment]: <> (good talk on K8 network models at https://www.cncf.io/wp-content/uploads/2020/08/CNCF_Webinar_-Kubernetes_network_models.pdf)
+
+Kubernetes IP addresses exist at the Pod scope. For example, on Linux, containers
+within a Pod share their network namespaces - including their IP address, and any
+network address from a lower layer, such as a MAC address.
+This means that containers within a Pod can all reach each other's ports on
+`localhost`. This also means that containers within a Pod must coordinate port
+usage (the same way that different processes on a physical server need to coordinate
+port use. This model, as used in Kubernetes, is called the _IP-per-pod_ model.
+
+How this is implemented is a detail of the particular container runtime in use.
+
+It is possible to request and configure ports on the node itself (named _host ports_),
+that forward to a port on your Pod; however, this is a very niche operation.
+How that forwarding is implemented is also a detail of the container runtime.
+The Pod itself is not aware of the existence or non-existence of host ports.
+
+## Network plugins
+
+[Network plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) set up IP
+addressing for Pods and their containers, and allow pods to communicate even when the source Pod and
+destination Pod are running on different nodes. Different network plugins achieve this in different ways
+with examples including tunneling or IP routing.
+
+{{< note >}}
+Network plugins are also known as _CNI_ or _CNI plugins_.
+{{< /note >}}
+
+### Requirements {#networking-requirements}
+
+Every [Pod](/docs/concepts/workloads/pods/) in your cluster gets its own unique cluster-wide IP address called a _pod IP_.
+
+If you have deployed an [IPv4/IPv6 dual stack](/docs/concepts/services-networking/dual-stack/) cluster,
+then you - or your network plugin(s) - must allocate pod IPs for IPv4 and IPv6 for each pod. This is
+performed per [_address family_](https://www.iana.org/assignments/address-family-numbers/address-family-numbers.xhtml),
+with one for IPv4 addresses and one for IPv6 addresses.
+
+Kubernetes imposes the following requirements on any networking implementation (barring any intentional network
+segmentation policies):
+
+* Containers in the same pod can communicate with each other.
+* Pods can communicate with all other Pods on the same or separate [nodes](/docs/concepts/architecture/nodes/)
+  without network address translation (NAT).
+* Agents on a node (e.g. system daemons, kubelet) can communicate with all pods on that node.
+
+## Host network
+
+Kubernetes also supports pods running in the host network. Pods attached to the host network of a node can still
+communicate with all pods on all nodes; again, without NAT.
+Pods running in the host network do not require a working network plugin. For example, many network plugin
+implementations operate as Pods, and the Pods that run the plugin are in host network mode so that they can start
+before the cluster network is ready.
+
+Traffic between nodes might go via the host network (potentially using _encapsulation_); different cluster network
+designs make different choices here.
+
+The kubelet needs to establish bidirectional communication with the API server (within the control plane),
+so there must be an IP address in the host network for the kubelet to use.
+
+## {{% heading "whatsnext" %}}
+
+### Network plugins {#whats-next-network-plugins}
+
+
+* CNI [Specification](https://www.cni.dev/docs/spec/)
+
+* CNI [Documentation](https://www.cni.dev/docs/)
+
+* [Reference plugins](https://www.cni.dev/plugins/current/#reference-plugins)
+
+* [Introduction to CNI](https://youtu.be/YjjrQiJOyME) (video)
+
+* [CNI deep dive](https://youtu.be/zChkx-AB5Xc) (video)
+
+### Cluster networking
+
+For an adminstrative perspective on networking for your cluster, read
+[Cluster Networking](/docs/concepts/cluster-administration/networking/).
+
+### More pages in this section
+
+Read the other pages in this section of the Kubernetes documentation.
