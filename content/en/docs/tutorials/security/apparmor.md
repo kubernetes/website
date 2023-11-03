@@ -1,6 +1,6 @@
 ---
 reviewers:
-- stclair
+  - stclair
 title: Restrict a Container's Access to Resources with AppArmor
 content_type: tutorial
 weight: 30
@@ -10,13 +10,12 @@ weight: 30
 
 {{< feature-state for_k8s_version="v1.4" state="beta" >}}
 
-
 AppArmor is a Linux kernel security module that supplements the standard Linux user and group based
 permissions to confine programs to a limited set of resources. AppArmor can be configured for any
 application to reduce its potential attack surface and provide greater in-depth defense. It is
 configured through profiles tuned to allow the access needed by a specific program or container,
 such as Linux capabilities, network access, file permissions, etc. Each profile can be run in either
-*enforcing* mode, which blocks access to disallowed resources, or *complain* mode, which only reports
+_enforcing_ mode, which blocks access to disallowed resources, or _warn_ mode, which only reports
 violations.
 
 AppArmor can help you to run a more secure deployment by restricting what containers are allowed to
@@ -25,21 +24,15 @@ that AppArmor is not a silver bullet and can only do so much to protect against 
 application code. It is important to provide good, restrictive profiles, and harden your
 applications and cluster from other angles as well.
 
-
-
 ## {{% heading "objectives" %}}
 
-
-* See an example of how to load a profile on a node
-* Learn how to enforce the profile on a Pod
-* Learn how to check that the profile is loaded
-* See what happens when a profile is violated
-* See what happens when a profile cannot be loaded
-
-
+- See an example of how to load a profile on a node
+- Learn how to enforce the profile on a Pod
+- Learn how to check that the profile is loaded
+- See what happens when a profile is violated
+- See what happens when a profile cannot be loaded
 
 ## {{% heading "prerequisites" %}}
-
 
 Make sure:
 
@@ -51,6 +44,7 @@ Make sure:
    ```shell
    kubectl get nodes -o=jsonpath=$'{range .items[*]}{@.metadata.name}: {@.status.nodeInfo.kubeletVersion}\n{end}'
    ```
+
    ```
    gke-test-default-pool-239f5d02-gyn2: v1.4.0
    gke-test-default-pool-239f5d02-x1kf: v1.4.0
@@ -70,11 +64,11 @@ Make sure:
    If the Kubelet contains AppArmor support (>= v1.4), it will refuse to run a Pod with AppArmor
    options if the kernel module is not enabled.
 
-  {{< note >}}
-  Ubuntu carries many AppArmor patches that have not been merged into the upstream Linux
-  kernel, including patches that add additional hooks and features. Kubernetes has only been
-  tested with the upstream version, and does not promise support for other features.
-  {{< /note >}}
+{{< note >}}
+Ubuntu carries many AppArmor patches that have not been merged into the upstream Linux
+kernel, including patches that add additional hooks and features. Kubernetes has only been
+tested with the upstream version, and does not promise support for other features.
+{{< /note >}}
 
 3. Container runtime supports AppArmor -- Currently all common Kubernetes-supported container
    runtimes should support AppArmor, like {{< glossary_tooltip term_id="docker">}},
@@ -90,6 +84,7 @@ Make sure:
    ```shell
    ssh gke-test-default-pool-239f5d02-gyn2 "sudo cat /sys/kernel/security/apparmor/profiles | sort"
    ```
+
    ```
    apparmor-test-deny-write (enforce)
    apparmor-test-audit-write (enforce)
@@ -108,13 +103,12 @@ later release):
 ```shell
 kubectl get nodes -o=jsonpath='{range .items[*]}{@.metadata.name}: {.status.conditions[?(@.reason=="KubeletReady")].message}{"\n"}{end}'
 ```
+
 ```
 gke-test-default-pool-239f5d02-gyn2: kubelet is posting ready status. AppArmor enabled
 gke-test-default-pool-239f5d02-x1kf: kubelet is posting ready status. AppArmor enabled
 gke-test-default-pool-239f5d02-xwux: kubelet is posting ready status. AppArmor enabled
 ```
-
-
 
 <!-- lessoncontent -->
 
@@ -125,7 +119,7 @@ AppArmor is currently in beta, so options are specified as annotations. Once sup
 general availability, the annotations will be replaced with first-class fields.
 {{< /note >}}
 
-AppArmor profiles are specified *per-container*. To specify the AppArmor profile to run a Pod
+AppArmor profiles are specified _per-container_. To specify the AppArmor profile to run a Pod
 container with, add an annotation to the Pod's metadata:
 
 ```yaml
@@ -135,9 +129,9 @@ container.apparmor.security.beta.kubernetes.io/<container_name>: <profile_ref>
 Where `<container_name>` is the name of the container to apply the profile to, and `<profile_ref>`
 specifies the profile to apply. The `profile_ref` can be one of:
 
-* `runtime/default` to apply the runtime's default profile
-* `localhost/<profile_name>` to apply the profile loaded on the host with the name `<profile_name>`
-* `unconfined` to indicate that no profiles will be loaded
+- `runtime/default` to apply the runtime's default profile
+- `localhost/<profile_name>` to apply the profile loaded on the host with the name `<profile_name>`
+- `unconfined` to indicate that no profiles will be loaded
 
 See the [API Reference](#api-reference) for the full details on the annotation and profile name formats.
 
@@ -150,6 +144,7 @@ To verify that the profile was applied, you can look for the AppArmor security o
 ```shell
 kubectl get events | grep Created
 ```
+
 ```
 22s        22s         1         hello-apparmor     Pod       spec.containers{hello}   Normal    Created     {kubelet e2e-test-stclair-node-pool-31nt}   Created container with docker id 269a53b202d3; Security:[seccomp=unconfined apparmor=k8s-apparmor-example-deny-write]
 ```
@@ -159,13 +154,14 @@ You can also verify directly that the container's root process is running with t
 ```shell
 kubectl exec <pod_name> -- cat /proc/1/attr/current
 ```
+
 ```
 k8s-apparmor-example-deny-write (enforce)
 ```
 
 ## Example
 
-*This example assumes you have already set up a cluster with AppArmor support.*
+_This example assumes you have already set up a cluster with AppArmor support._
 
 First, we need to load the profile we want to use onto our nodes. This profile denies all file writes:
 
@@ -221,6 +217,7 @@ profile "k8s-apparmor-example-deny-write":
 ```shell
 kubectl get events | grep hello-apparmor
 ```
+
 ```
 14s        14s         1         hello-apparmor   Pod                                Normal    Scheduled   {default-scheduler }                           Successfully assigned hello-apparmor to gke-test-default-pool-239f5d02-gyn2
 14s        14s         1         hello-apparmor   Pod       spec.containers{hello}   Normal    Pulling     {kubelet gke-test-default-pool-239f5d02-gyn2}   pulling image "busybox"
@@ -234,6 +231,7 @@ We can verify that the container is actually running with that profile by checki
 ```shell
 kubectl exec hello-apparmor -- cat /proc/1/attr/current
 ```
+
 ```
 k8s-apparmor-example-deny-write (enforce)
 ```
@@ -243,6 +241,7 @@ Finally, we can see what happens if we try to violate the profile by writing to 
 ```shell
 kubectl exec hello-apparmor -- touch /tmp/test
 ```
+
 ```
 touch: /tmp/test: Permission denied
 error: error executing remote command: command terminated with non-zero exit code: Error executing in Docker Container: 1
@@ -253,6 +252,7 @@ To wrap up, let's look at what happens if we try to specify a profile that hasn'
 ```shell
 kubectl create -f /dev/stdin <<EOF
 ```
+
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -272,6 +272,7 @@ pod/hello-apparmor-2 created
 ```shell
 kubectl describe pod hello-apparmor-2
 ```
+
 ```
 Name:          hello-apparmor-2
 Namespace:     default
@@ -331,16 +332,16 @@ Note the pod status is Pending, with a helpful error message: `Pod Cannot enforc
 Kubernetes does not currently provide any native mechanisms for loading AppArmor profiles onto
 nodes. There are lots of ways to set up the profiles though, such as:
 
-* Through a [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) that runs a Pod on each node to
+- Through a [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) that runs a Pod on each node to
   ensure the correct profiles are loaded. An example implementation can be found
   [here](https://git.k8s.io/kubernetes/test/images/apparmor-loader).
-* At node initialization time, using your node initialization scripts (e.g. Salt, Ansible, etc.) or
+- At node initialization time, using your node initialization scripts (e.g. Salt, Ansible, etc.) or
   image.
-* By copying the profiles to each node and loading them through SSH, as demonstrated in the
+- By copying the profiles to each node and loading them through SSH, as demonstrated in the
   [Example](#example).
 
 The scheduler is not aware of which profiles are loaded onto which node, so the full set of profiles
-must be loaded onto every node.  An alternative approach is to add a node label for each profile (or
+must be loaded onto every node. An alternative approach is to add a node label for each profile (or
 class of profiles) on the node, and use a
 [node selector](/docs/concepts/scheduling-eviction/assign-pod-node/) to ensure the Pod is run on a
 node with the required profile.
@@ -367,17 +368,16 @@ availability (GA).
 Getting AppArmor profiles specified correctly can be a tricky business. Fortunately there are some
 tools to help with that:
 
-* `aa-genprof` and `aa-logprof` generate profile rules by monitoring an application's activity and
+- `aa-genprof` and `aa-logprof` generate profile rules by monitoring an application's activity and
   logs, and admitting the actions it takes. Further instructions are provided by the
   [AppArmor documentation](https://gitlab.com/apparmor/apparmor/wikis/Profiling_with_tools).
-* [bane](https://github.com/jfrazelle/bane) is an AppArmor profile generator for Docker that uses a
+- [bane](https://github.com/jfrazelle/bane) is an AppArmor profile generator for Docker that uses a
   simplified profile language.
 
 To debug problems with AppArmor, you can check the system logs to see what, specifically, was
 denied. AppArmor logs verbose messages to `dmesg`, and errors can usually be found in the system
 logs or through `journalctl`. More information is provided in
 [AppArmor failures](https://gitlab.com/apparmor/apparmor/wikis/AppArmor_Failures).
-
 
 ## API Reference
 
@@ -406,8 +406,7 @@ Any other profile reference format is invalid.
 
 ## {{% heading "whatsnext" %}}
 
-
 Additional resources:
 
-* [Quick guide to the AppArmor profile language](https://gitlab.com/apparmor/apparmor/wikis/QuickProfileLanguage)
-* [AppArmor core policy reference](https://gitlab.com/apparmor/apparmor/wikis/Policy_Layout)
+- [Quick guide to the AppArmor profile language](https://gitlab.com/apparmor/apparmor/wikis/QuickProfileLanguage)
+- [AppArmor core policy reference](https://gitlab.com/apparmor/apparmor/wikis/Policy_Layout)
