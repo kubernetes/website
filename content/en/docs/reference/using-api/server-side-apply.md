@@ -319,18 +319,6 @@ The `atomic` list type is recursive.
 (In the [Go](https://go.dev/) code for Kubernetes, these markers are specified as
 comments and code authors need not repeat them as field tags).
 
-## Custom resources and Server-Side Apply
-
-By default, Server-Side Apply treats custom resources as unstructured data. All
-keys are treated the same as struct fields, and all lists are considered atomic.
-
-If the CustomResourceDefinition defines a
-[schema](/docs/reference/generated/kubernetes-api/{{< param "version" >}}#jsonschemaprops-v1-apiextensions-k8s-io)
-that contains annotations as defined in the previous [Merge Strategy](#merge-strategy)
-section, these annotations will be used when merging objects of this
-type.
-
-
 ### Compatibility across topology changes
 
 On rare occurrences, the author for a CustomResourceDefinition (CRD) or built-in
