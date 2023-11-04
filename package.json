@@ -1,7 +1,10 @@
 {
   "private": true,
   "devDependencies": {
-    "autoprefixer": "^9.8.4",
-    "postcss-cli": "^7.1.1"
+    "autoprefixer": "^10.4.16",
+    "postcss-cli": "^10.1.0"
+  },
+  "scripts": {
+    "postinstall": "cd themes/docsy && npm install"
   }
 }
