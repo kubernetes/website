@@ -222,6 +222,25 @@ This is an informational extension point. Post-bind plugins are called after a
 Pod is successfully bound. This is the end of a binding cycle, and can be used
 to clean up associated resources.
 
+### EnqueueExtension
+
+EnqueueExtension is the interface where the plugin can have control how the scheduling of Pods rejected by this plugin are retried.
+PreEnqueue, PreFilter, Filter, Reserve and Permit plugins are supposed to implement this interface.
+
+{{< feature-state for_k8s_version="v1.28" state="beta" >}}
+
+QueueingHint is a part of EnqueueExtension. 
+It's callback functions to decide if a Pod can be requeued to activeQ/backoffQ. 
+It's executed every time certain kind of events happens, 
+and when the QueueingHint finds that the event might make the Pod schedulable, 
+the scheduling queue requeues the Pod into activeQ/backoffQ so that the scheduler will retry the scheduling of the Pod.
+
+{{< note >}}
+QueueingHint is a beta-level field and enabled by default in 1.28. 
+You can disable it via the
+`SchedulerQueueingHints` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+{{< /note >}}
+
 ## Plugin API
 
 There are two steps to the plugin API. First, plugins must register and get
