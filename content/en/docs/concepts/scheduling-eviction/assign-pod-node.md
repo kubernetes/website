@@ -358,6 +358,88 @@ The affinity term is applied to namespaces selected by both `namespaceSelector` 
 Note that an empty `namespaceSelector` ({}) matches all namespaces, while a null or empty `namespaces` list and
 null `namespaceSelector` matches the namespace of the Pod where the rule is defined.
 
+#### matchLabelKeys
+
+{{< feature-state for_k8s_version="v1.29" state="alpha" >}}
+
+`matchLabelKeys` is an optional field which specifies the keys for the labels that should match with the incoming Pod's labels, when satisfying the Pod (anti)affinity.
+
+{{< note >}}
+The `matchLabelKeys` field is a alpha-level field and disabled by default in 1.29. 
+When you want to use it, you have to enable it via the
+`MatchLabelKeysInPodAffinity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+{{< /note >}}
+
+The keys are used to lookup values from the pod labels, those key-value labels are ANDed 
+with labelSelector to select the group of existing pods which will be taken into Pod (anti)affinity calculation. 
+
+One common usecase would be to use `matchLabelKeys` with `pod-template-hash` in Deployment 
+so that the rolling upgrade won't break affinity.
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: application-server
+...
+  affinity:
+    podAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+          - key: app
+            operator: In
+            values:
+            - database
+        topologyKey: topology.kubernetes.io/zone
+        # Only Pods of the same version are taken into consideration of PodAffinity calculation.
+        matchLabelKeys: 
+        - pod-template-hash
+```
+
+#### mismatchLabelKeys
+
+{{< feature-state for_k8s_version="v1.29" state="alpha" >}}
+
+mismatchLabelKeys is an optional field 
+which specifies the keys for the labels that should NOT match with the incoming Pod's labels, 
+when satisfying the Pod (anti)affinity.
+
+{{< note >}}
+The `mismatchLabelKeys` field is a alpha-level field and disabled by default in 1.29. 
+When you want to use it, you have to enable it via the
+`MatchLabelKeysInPodAffinity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+{{< /note >}}
+
+One usecase is to ensure Pods go to the domain where only Pods from the same group are scheduled in.
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    # Assume all Pods have the label of tenant.
+    tenant: tenant-a
+...
+affinity:
+  podAffinity:      
+    # ensures the pods of this tenant land on the same node pool
+    requiredDuringSchedulingIgnoredDuringExecution:
+    - matchLabelKeys:
+        - tenant
+      topologyKey: node-pool
+  podAntiAffinity:  
+    # ensures only Pods from this tenant lands on the same node pool
+    requiredDuringSchedulingIgnoredDuringExecution:
+    - mismatchLabelKeys:
+        - tenant
+      labelSelector:
+        matchExpressions:
+        - key: tenant
+          operator: Exists
+      topologyKey: node-pool
+```
+
 #### More practical use-cases
 
 Inter-pod affinity and anti-affinity can be even more useful when they are used with higher
