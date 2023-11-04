@@ -230,13 +230,14 @@ PreEnqueue, PreFilter, Filter, Reserve and Permit plugins are supposed to implem
 {{< feature-state for_k8s_version="v1.28" state="beta" >}}
 
 QueueingHint is a part of EnqueueExtension. 
-It's callback functions to decide if a Pod can be requeued to activeQ/backoffQ. 
-It's executed every time certain kind of events happens, 
+It's a callback function for deciding whether a Pod can be requeued to the active queue or backoff queue. 
+It's executed every time a certain kind of events happen,
 and when the QueueingHint finds that the event might make the Pod schedulable, 
-the scheduling queue requeues the Pod into activeQ/backoffQ so that the scheduler will retry the scheduling of the Pod.
+the Pod is put into the active queue or the backoff queue
+so that the scheduler will retry the scheduling of the Pod.
 
 {{< note >}}
-QueueingHint is a beta-level field and enabled by default in 1.28. 
+QueueingHint is a beta-level field and is enabled by default in 1.28. 
 You can disable it via the
 `SchedulerQueueingHints` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 {{< /note >}}
