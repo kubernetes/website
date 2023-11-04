@@ -166,7 +166,7 @@ In this example, the request flow for a Gateway implemented as a reverse proxy i
    and attached HTTPRoute.
 4. Optionally, the reverse proxy can perform request header and/or path matching based
    on match rules of the HTTPRoute.
-5. Optionally, the reverse proxy can modify the request; for example, to add or emove headers,
+5. Optionally, the reverse proxy can modify the request; for example, to add or remove headers,
    based on filter rules of the HTTPRoute.
 6. Lastly, the reverse proxy forwards the request to one or more backends.
 
