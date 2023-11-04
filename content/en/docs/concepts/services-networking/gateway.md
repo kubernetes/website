@@ -20,33 +20,33 @@ provisioning and advanced traffic routing.
 
 The following principles shaped the design and architecture of Gateway API:
 
-- **Role-oriented:** Gateway API kinds are modeled after organizational roles that are
+* __Role-oriented:__ Gateway API kinds are modeled after organizational roles that are
   responsible for managing Kubernetes service networking:
-  - **Infrastructure Provider:** Manages infrastructure that allows multiple isolated clusters
+  * __Infrastructure Provider:__ Manages infrastructure that allows multiple isolated clusters
     to serve multiple tenants, e.g. a cloud provider.
-  - **Cluster Operator:** Manages clusters and is typically concerned with policies, network
+  * __Cluster Operator:__ Manages clusters and is typically concerned with policies, network
     access, application permissions, etc.
-  - **Application Developer:** Manages an application running in a cluster and is typically
+  * __Application Developer:__ Manages an application running in a cluster and is typically
     concerned with application-level configuration and [Service](/docs/concepts/services-networking/service/)
     composition.
-- **Portable:** Gateway API specifications are defined as [custom resources](docs/concepts/extend-kubernetes/api-extension/custom-resources)
+* __Portable:__ Gateway API specifications are defined as [custom resources](docs/concepts/extend-kubernetes/api-extension/custom-resources)
   and are supported by many [implementations](https://gateway-api.sigs.k8s.io/implementations/).
-- **Expressive:** Gateway API kinds support functionality for common traffic routing use cases
+* __Expressive:__ Gateway API kinds support functionality for common traffic routing use cases
   such as header-based matching, traffic weighting, and others that were only possible in
   [Ingress](/docs/concepts/services-networking/ingress/) by using custom annotations.
-- **Extensible:** Gateway allows for custom resources to be linked at various layers of the API.
+* __Extensible:__ Gateway allows for custom resources to be linked at various layers of the API.
   This makes granular customization possible at the appropriate places within the API structure.
 
 ## Resource model
 
 Gateway API has three stable API kinds:
 
-- **GatewayClass:** Defines a set of gateways with common configuration and managed by a controller
+* __GatewayClass:__ Defines a set of gateways with common configuration and managed by a controller
   that implements the class.
 
-- **Gateway:** Defines an instance of traffic handling infrastructure, such as cloud load balancer.
+* __Gateway:__ Defines an instance of traffic handling infrastructure, such as cloud load balancer.
 
-- **HTTPRoute:** Defines HTTP-specific rules for mapping traffic from a Gateway listener to a
+* __HTTPRoute:__ Defines HTTP-specific rules for mapping traffic from a Gateway listener to a
   representation of backend network endpoints. These endpoints are often represented as a
   {{<glossary_tooltip text="Service" term_id="service">}}.
 
@@ -101,9 +101,9 @@ metadata:
 spec:
   gatewayClassName: example-class
   listeners:
-    - name: http
-      protocol: HTTP
-      port: 80
+  - name: http
+    protocol: HTTP
+    port: 80
 ```
 
 In this example, an instance of traffic handling infrastructure is programmed to listen for HTTP
@@ -131,17 +131,17 @@ metadata:
   name: example-httproute
 spec:
   parentRefs:
-    - name: example-gateway
+  - name: example-gateway
   hostnames:
-    - "www.example.com"
+  - "www.example.com"
   rules:
-    - matches:
-        - path:
-            type: PathPrefix
-            value: /login
-      backendRefs:
-        - name: example-svc
-          port: 8080
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /login
+    backendRefs:
+    - name: example-svc
+      port: 8080
 ```
 
 In this example, HTTP traffic from Gateway `example-gateway` with the Host: header set to `www.example.com`
@@ -166,7 +166,7 @@ In this example, the request flow for a Gateway implemented as a reverse proxy i
    and attached HTTPRoute.
 4. Optionally, the reverse proxy can perform request header and/or path matching based
    on match rules of the HTTPRoute.
-5. Optionally, the reverse proxy can modify the request; for example, to add or remove headers,
+5. Optionally, the reverse proxy can modify the request; for example, to add or emove headers,
    based on filter rules of the HTTPRoute.
 6. Lastly, the reverse proxy forwards the request to one or more backends.
 
