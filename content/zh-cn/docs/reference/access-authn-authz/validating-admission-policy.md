@@ -551,46 +551,9 @@ CEL 表达式可以访问按 CEL 变量来组织的 Admission 请求/响应的�
 <!--
 The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from
 the root of the object. No other metadata properties are accessible.
-
-Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible.
-Accessible property names are escaped according to the following rules when accessed in the
-expression:
 -->
 总是可以从对象的根访问的属性有 `apiVersion`、`kind`、`metadata.name` 和 `metadata.generateName`。
 其他元数据属性不能访问。
-
-只有符合 `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` 形式的属性名称是可访问的。
-可访问的属性名称在表达式中被访问时，根据以下规则进行转义：
-
-| 转义序列                | 属性名称等效            |
-| ----------------------- | -----------------------|
-| `__underscores__`       | `__`                  |
-| `__dot__`               | `.`                   |
-| `__dash__`              | `-`                   |
-| `__slash__`             | `/`                   |
-| `__{keyword}__`         | [CEL 保留关键字](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#syntax)       |
-
-{{< note >}}
-<!--
-A **CEL reserved** keyword only needs to be escaped if the token is an exact match
-for the reserved keyword.
-For example, `int` in the word “sprint” would not be escaped.
--->
-**CEL 保留**关键字仅在字符串与保留关键字完全匹配时才需要转义。
-例如，单词 “sprint” 中的 `int` 不需要被转义。
-{{< /note >}}
-
-<!--
-Examples on escaping:
--->
-转义示例：
-
-| 属性名      | 具有转义属性名称的规则            |
-| ----------- | --------------------------------- |
-| namespace   | `self.__namespace__ > 0`          |
-| x-prop      | `self.x__dash__prop > 0`          |
-| redact\_\_d | `self.redact__underscores__d > 0` |
-| string      | `self.startsWith('kube')`         |
 
 <!--
 Equality on arrays with list type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1].
