@@ -222,9 +222,8 @@ to learn more.
 
 ### emptyDir {#emptydir}
 
-An `emptyDir` volume is first created when a Pod is assigned to a node, and
-exists as long as that Pod is running on that node. As the name says, the
-`emptyDir` volume is initially empty. All containers in the Pod can read and write the same
+For a Pod that defines an `emptyDir` volume, the volume is created when the Pod is assigned to a node.
+As the name says, the `emptyDir` volume is initially empty. All containers in the Pod can read and write the same
 files in the `emptyDir` volume, though that volume can be mounted at the same
 or different paths in each container. When a Pod is removed from a node for
 any reason, the data in the `emptyDir` is deleted permanently.
@@ -1235,24 +1234,7 @@ in `Container.volumeMounts`. Its values are:
   (unmounted) by the containers on termination.
   {{< /warning >}}
 
-### Configuration
 
-Before mount propagation can work properly on some deployments (CoreOS,
-RedHat/Centos, Ubuntu) mount share must be configured correctly in
-Docker as shown below.
-
-Edit your Docker's `systemd` service file. Set `MountFlags` as follows:
-
-```shell
-MountFlags=shared
-```
-
-Or, remove `MountFlags=slave` if present. Then restart the Docker daemon:
-
-```shell
-sudo systemctl daemon-reload
-sudo systemctl restart docker
-```
 
 ## {{% heading "whatsnext" %}}
 
