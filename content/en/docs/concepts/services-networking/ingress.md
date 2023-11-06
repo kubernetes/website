@@ -15,6 +15,10 @@ weight: 30
 {{< feature-state for_k8s_version="v1.19" state="stable" >}}
 {{< glossary_definition term_id="ingress" length="all" >}}
 
+{{< note >}}
+Ingress is frozen. New features are being added to the [Gateway API](/docs/concepts/services-networking/gateway/).
+{{< /note >}}
+
 <!-- body -->
 
 ## Terminology

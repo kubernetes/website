@@ -843,7 +843,7 @@ uploaded in a Secret in the cluster during the <code>uploadcerts init</code> pha
 The list of phases can be obtained with the <code>kubeadm init --help</code> command.
 The flag &quot;--skip-phases&quot; takes precedence over this field.</p>
    -->
-   <p><code>skipPhases</code> 是命令执行过程中药略过的阶段（Phases）。
+   <p><code>skipPhases</code> 是命令执行过程中要略过的阶段（Phases）。
 通过执行命令 <code>kubeadm init --help</code> 可以获得阶段的列表。
 参数标志 &quot;--skip-phases&quot; 优先于此字段的设置。</p>
 </td>
