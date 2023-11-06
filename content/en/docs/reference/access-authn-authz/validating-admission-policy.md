@@ -291,33 +291,6 @@ variables as well as some other useful variables:
 The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from
 the root of the object. No other metadata properties are accessible.
 	
-Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible.
-Accessible property names are escaped according to the following rules when accessed in the
-expression:
-
-| escape sequence         | property name equivalent  |
-| ----------------------- | -----------------------|
-| `__underscores__`       | `__`                  |
-| `__dot__`               | `.`                   |
-|`__dash__`               | `-`                   |
-| `__slash__`             | `/`                   |
-| `__{keyword}__`         | [CEL RESERVED keyword](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#syntax)       |
-
-{{< note >}}
-A **CEL reserved** keyword only needs to be escaped if the token is an exact match
-for the reserved keyword.
-For example, `int` in the word “sprint” would not be escaped.
-{{< /note >}}
-
-Examples on escaping:
-
-|property name    | rule with escaped property name   |
-| ----------------|-----------------------------------|
-| namespace       | `object.__namespace__ > 0`        |
-| x-prop          | `object.x__dash__prop > 0`          |
-| redact__d       | `object.redact__underscores__d > 0` |
-| string          | `object.startsWith('kube')`         |
-	
 Equality on arrays with list type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1].
 Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
 

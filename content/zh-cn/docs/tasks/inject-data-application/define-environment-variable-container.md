@@ -80,7 +80,7 @@ Pod:
 本示例中，将创建一个只包含单个容器的 Pod。此 Pod 的配置文件中设置环境变量的名称为 `DEMO_GREETING`，
 其值为 `"Hello from the environment"`。下面是此 Pod 的配置清单：
 
-{{< codenew file="pods/inject/envars.yaml" >}}
+{{% code_sample file="pods/inject/envars.yaml" %}}
 
 <!--
 1. Create a Pod based on that manifest:

@@ -275,16 +275,16 @@ that is not currently used by an etcd process. Taking the snapshot will
 not affect the performance of the member.
 
 Below is an example for taking a snapshot of the keyspace served by
-`$ENDPOINT` to the file `snapshotdb`:
+`$ENDPOINT` to the file `snapshot.db`:
 
 ```shell
-ETCDCTL_API=3 etcdctl --endpoints $ENDPOINT snapshot save snapshotdb
+ETCDCTL_API=3 etcdctl --endpoints $ENDPOINT snapshot save snapshot.db
 ```
 
 Verify the snapshot:
 
 ```shell
-ETCDCTL_API=3 etcdctl --write-out=table snapshot status snapshotdb
+ETCDCTL_API=3 etcdctl --write-out=table snapshot status snapshot.db
 ```
 
 ```console
@@ -343,19 +343,25 @@ employed to recover the data of a failed cluster.
 Before starting the restore operation, a snapshot file must be present. It can
 either be a snapshot file from a previous backup operation, or from a remaining
 [data directory](https://etcd.io/docs/current/op-guide/configuration/#--data-dir).
+
 Here is an example:
 
 ```shell
-ETCDCTL_API=3 etcdctl --endpoints 10.2.0.9:2379 snapshot restore snapshotdb
+ETCDCTL_API=3 etcdctl --endpoints 10.2.0.9:2379 snapshot restore snapshot.db
 ```
-Another example for restoring using etcdctl options:
+
+Another example for restoring using `etcdctl` options:
+
 ```shell
-ETCDCTL_API=3 etcdctl snapshot restore --data-dir <data-dir-location> snapshotdb
+ETCDCTL_API=3 etcdctl --data-dir <data-dir-location> snapshot restore snapshot.db
 ```
-Yet another example would be to first export the environment variable
+where `<data-dir-location>` is a directory that will be created during the restore process.
+
+Yet another example would be to first export the `ETCDCTL_API` environment variable:
+
 ```shell
 export ETCDCTL_API=3
-etcdctl snapshot restore --data-dir <data-dir-location> snapshotdb
+etcdctl --data-dir <data-dir-location> snapshot restore snapshot.db
 ```
 
 For more information and examples on restoring a cluster from a snapshot file, see
@@ -410,4 +416,8 @@ Defragmentation is an expensive operation, so it should be executed as infrequen
 as possible. On the other hand, it's also necessary to make sure any etcd member
 will not run out of the storage quota. The Kubernetes project recommends that when
 you perform defragmentation, you use a tool such as [etcd-defrag](https://github.com/ahrtr/etcd-defrag).
+
+You can also run the defragmentation tool as a Kubernetes CronJob, to make sure that
+defragmentation happens regularly. See [`etcd-defrag-cronjob.yaml`](https://github.com/ahrtr/etcd-defrag/blob/main/doc/etcd-defrag-cronjob.yaml)
+for details. 
 {{< /note >}}

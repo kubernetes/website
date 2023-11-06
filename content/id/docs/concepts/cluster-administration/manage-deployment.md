@@ -17,7 +17,7 @@ Kamu telah melakukan _deploy_ pada aplikasimu dan mengeksposnya melalui sebuah _
 
 Banyak aplikasi memerlukan beberapa _resource_, seperti Deployment dan Service. Pengelolaan beberapa _resource_ dapat disederhanakan dengan mengelompokkannya dalam berkas yang sama (dengan pemisah `---` pada YAML). Contohnya:
 
-{{< codenew file="application/nginx-app.yaml" >}}
+{{% codenew file="application/nginx-app.yaml" %}}
 
 Beberapa _resource_ dapat dibuat seolah-olah satu _resource_:
 
