@@ -58,6 +58,10 @@ corresponding reclamation or reconciliation process, as a given admission
 controller does not know for sure that a given request will pass all of the
 other admission controllers.
 
+The ordering of these calls can be seen below.
+
+{{< figure src="/images/docs/admission-controllers/kube-apiserver.svg" alt="Sequence diagram for kube-apiserver handling requests during the admission phase showing mutation webhooks, followed by validatingadmissionpolicies and finally validating webhooks." class="diagram-large" >}}
+
 ## Why do I need them?
 
 Several important features of Kubernetes require an admission controller to be enabled in order
