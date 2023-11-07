@@ -1690,7 +1690,7 @@ Learn more about Services and how they fit into Kubernetes:
 * Read about [Ingress](/docs/concepts/services-networking/ingress/), which
   exposes HTTP and HTTPS routes from outside the cluster to Services within
   your cluster.
-* Read about [Gateway](https://gateway-api.sigs.k8s.io/), an extension to
+* Read about [Gateway](/docs/concepts/services-networking/gateway/), an extension to
   Kubernetes that provides more flexibility than Ingress.
 -->
 进一步学习 Service 及其在 Kubernetes 中所发挥的作用：
@@ -1698,7 +1698,7 @@ Learn more about Services and how they fit into Kubernetes:
 * 完成[使用 Service 连接到应用](/zh-cn/docs/tutorials/services/connect-applications-service/)教程。
 * 阅读 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/) 文档。Ingress
   负责将来自集群外部的 HTTP 和 HTTPS 请求路由给集群内的服务。
-* 阅读 [Gateway](https://gateway-api.sigs.k8s.io/) 文档。Gateway 作为 Kubernetes 的扩展提供比
+* 阅读 [Gateway](/zh-cn/docs/concepts/services-networking/gateway/) 文档。Gateway 作为 Kubernetes 的扩展提供比
   Ingress 更高的灵活性。
 
 <!--
