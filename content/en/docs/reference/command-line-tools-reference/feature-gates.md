@@ -114,7 +114,8 @@ For a reference to old feature gates that are removed, please refer to
 | `InTreePluginOpenStackUnregister` | `false` | Alpha | 1.21 | |
 | `InTreePluginPortworxUnregister` | `false` | Alpha | 1.23 | |
 | `InTreePluginvSphereUnregister` | `false` | Alpha | 1.21 | |
-| `JobBackoffLimitPerIndex` | `false` | Alpha | 1.28 | |
+| `JobBackoffLimitPerIndex` | `false` | Alpha | 1.28 | 1.28 |
+| `JobBackoffLimitPerIndex` | `true` | Beta | 1.29 | |
 | `JobPodFailurePolicy` | `false` | Alpha | 1.25 | 1.25 |
 | `JobPodFailurePolicy` | `true` | Beta | 1.26 | |
 | `JobPodReplacementPolicy` | `false` | Alpha | 1.28 | |
