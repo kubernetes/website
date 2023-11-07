@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Introducing sig-etcd"
+title: "Introducing SIG etcd"
 slug: introducing-sig-etcd
 date: 2023-11-07
 canonicalUrl: https://etcd.io/blog/2023/introducing-sig-etcd/
