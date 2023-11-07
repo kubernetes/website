@@ -6,7 +6,7 @@ date: 2023-11-07
 canonicalUrl: https://etcd.io/blog/2023/introducing-sig-etcd/
 ---
 
-**Author**:  "[Han Kang](https://github.com/logicalhan) (Google), [Marek Siarkowicz](https://github.com/serathius) (Google), [Frederico Muñoz](https://github.com/fsmunoz) (SAS Institute)"
+**Authors**:  Han Kang (Google), Marek Siarkowicz (Google), Frederico Muñoz (SAS Institute)
 
 Special Interest Groups (SIGs) are a fundamental part of the Kubernetes project, with a substantial share of the community activity happening within them. When the need arises, [new SIGs can be created](https://github.com/kubernetes/community/blob/master/sig-wg-lifecycle.md), and that was precisely what happened recently.
 
