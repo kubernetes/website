@@ -120,7 +120,9 @@ of the new Pod.
 
 {{< note >}}
 If it's important that the DaemonSet pod run on each node, it's often desirable
-to set the `.spec.template.spec.priorityClassName` of the DaemonSet to a [PriorityClass](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass) with a higher priority to ensure that this eviction occurs.
+to set the `.spec.template.spec.priorityClassName` of the DaemonSet to a
+[PriorityClass](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass)
+with a higher priority to ensure that this eviction occurs.
 {{< /note >}}
 
 The user can specify a different scheduler for the Pods of the DaemonSet, by
