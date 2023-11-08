@@ -14,7 +14,7 @@ Esta página proporciona una descripción general del almacenamiento específico
 
 <!-- body -->
 
-## Persistent storage {#storage}
+## Almacenamiento persistente {#storage}
 
 Windows tiene un controlador de sistema de archivos en capas para montar las capas del contenedor y crear un sistema de archivos de copia basado en NTFS. Todas las rutas de archivos en el contenedor se resuelven únicamente dentro del contexto de ese contenedor.
 
