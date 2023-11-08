@@ -47,7 +47,7 @@ Las siguientes clases amplias de complementos de volumen de Kubernetes son compa
 
 - [`FlexVolume plugins`](/docs/concepts/storage/volumes/#flexvolume)
 
-  - Tenga en cuenta que los FlexVolumes han sido descontinuados a partir de la versión 1.23.
+  - Ten en cuenta que los FlexVolumes han sido descontinuados a partir de la versión 1.23.
 
 - [`CSI Plugins`](/docs/concepts/storage/volumes/#csi)
 
