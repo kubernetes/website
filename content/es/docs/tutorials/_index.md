@@ -55,7 +55,7 @@ Antes de recorrer cada tutorial, recomendamos añadir un marcador a
 
 * [AppArmor](/docs/tutorials/clusters/apparmor/)
 
-* [seccomp](/docs/tutorials/clusters/seccomp/)
+* [Seccomp](/docs/tutorials/clusters/seccomp/)
 
 ## Servicios
 
