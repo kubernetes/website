@@ -10,7 +10,7 @@ weight: 110
 
 <!-- overview -->
 
-Esta página proporciona una descripción general del almacenamiento específica para el sistema operativo Windows.
+Esta página proporciona una descripción general del almacenamiento específico para el sistema operativo Windows.
 
 <!-- body -->
 
