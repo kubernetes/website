@@ -1125,9 +1125,9 @@ kubectl apply -f my-crontab.yaml
 crontab "my-new-cron-object" created
 ```
 <!--
-## Validation rules
+### Validation rules
 -->
-## 验证规则
+### 验证规则
 
 {{< feature-state state="beta" for_k8s_version="v1.25" >}}
 
