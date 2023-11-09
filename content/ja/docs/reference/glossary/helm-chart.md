@@ -1,5 +1,5 @@
 ---
-title: Helm Chart
+title: Helmチャート
 id: helm-chart
 date: 2018-04-12
 full_link: https://helm.sh/docs/topics/charts/
