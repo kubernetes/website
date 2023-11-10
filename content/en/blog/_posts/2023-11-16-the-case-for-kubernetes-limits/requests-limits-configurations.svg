@@ -25,7 +25,7 @@
      inkscape:document-units="mm"
      inkscape:zoom="2.0900478"
      inkscape:cx="272.24258"
-     inkscape:cy="330.85368"
+     inkscape:cy="292.57704"
      inkscape:window-width="1920"
      inkscape:window-height="1011"
      inkscape:window-x="0"
@@ -350,7 +350,7 @@
        inkscape:label="text60"><tspan
          sodipodi:role="line"
          id="tspan60"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'open sans';-inkscape-font-specification:'open sans';fill:#000000;fill-opacity:1;stroke:none;stroke-width:0;stroke-dasharray:none"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'open sans';-inkscape-font-specification:'open sans Bold';fill:#000000;fill-opacity:1;stroke:none;stroke-width:0;stroke-dasharray:none"
          x="103.7547"
          y="39.100121">Requests/limits cases</tspan></text>
   </g>
