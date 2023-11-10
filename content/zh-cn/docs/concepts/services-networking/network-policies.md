@@ -26,8 +26,8 @@ description: >-
 <!-- overview -->
 
 <!--
-If you want to control traffic flow at the IP address or port level (OSI layer 3 or 4), then you
-might consider using Kubernetes NetworkPolicies for particular applications in your cluster.
+If you want to control traffic flow at the IP address or port level for TCP, UDP, and SCTP protocols,
+then you might consider using Kubernetes NetworkPolicies for particular applications in your cluster.
 NetworkPolicies are an application-centric construct which allow you to specify how a {{<
 glossary_tooltip text="pod" term_id="pod">}} is allowed to communicate with various network
 "entities" (we use the word "entity" here to avoid overloading the more common terms such as
@@ -35,7 +35,7 @@ glossary_tooltip text="pod" term_id="pod">}} is allowed to communicate with vari
 NetworkPolicies apply to a connection with a pod on one or both ends, and are not relevant to
 other connections.
 -->
-如果你希望在 IP 地址或端口层面（OSI 第 3 层或第 4 层）控制网络流量，
+如果你希望针对 TCP、UDP 和 SCTP 协议在 IP 地址或端口层面控制网络流量，
 则你可以考虑为集群中特定应用使用 Kubernetes 网络策略（NetworkPolicy）。
 NetworkPolicy 是一种以应用为中心的结构，允许你设置如何允许
 {{< glossary_tooltip text="Pod" term_id="pod">}} 与网络上的各类网络“实体”
@@ -481,24 +481,16 @@ ingress or egress traffic.
 此策略可以确保即使没有被其他任何 NetworkPolicy 选择的 Pod 也不会被允许入站或出站流量。
 
 <!--
-## SCTP support
--->
-## SCTP 支持   {#sctp-support}
+## Network traffic filtering
 
-{{< feature-state for_k8s_version="v1.20" state="stable" >}}
-
-<!--
-As a stable feature, this is enabled by default. To disable SCTP at a cluster level, you (or your
-cluster administrator) will need to disable the `SCTPSupport`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-for the API server with `--feature-gates=SCTPSupport=false,…`.
-When the feature gate is enabled, you can set the `protocol` field of a NetworkPolicy to `SCTP`.
+NetworkPolicy is defined for [layer 4](https://en.wikipedia.org/wiki/OSI_model#Layer_4:_Transport_layer) 
+connections (TCP, UDP, and optionally SCTP). For all the other protocols, the behaviour may vary 
+across network plugins.
 -->
-作为一个稳定特性，SCTP 支持默认是被启用的。
-要在集群层面禁用 SCTP，你（或你的集群管理员）需要为 API 服务器指定
-`--feature-gates=SCTPSupport=false,...`
-来禁用 `SCTPSupport` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
-启用该特性门控后，用户可以将 NetworkPolicy 的 `protocol` 字段设置为 `SCTP`。
+## 网络流量过滤   {#network-traffic-filtering}
+
+NetworkPolicy 是为[第 4 层](https://zh.wikipedia.org/wiki/OSI%E6%A8%A1%E5%9E%8B#%E7%AC%AC4%E5%B1%A4_%E5%82%B3%E8%BC%B8%E5%B1%A4)连接
+（TCP、UDP 和可选的 SCTP）所定义的。对于所有其他协议，这种网络流量过滤的行为可能因网络插件而异。
 
 {{< note >}}
 <!--
@@ -507,6 +499,19 @@ protocol NetworkPolicies.
 -->
 你必须使用支持 SCTP 协议 NetworkPolicy 的 {{< glossary_tooltip text="CNI" term_id="cni" >}} 插件。
 {{< /note >}}
+
+<!--
+When a `deny all` network policy is defined, it is only guaranteed to deny TCP, UDP and SCTP
+connections. For other protocols, such as ARP or ICMP, the behaviour is undefined.
+The same applies to allow rules: when a specific pod is allowed as ingress source or egress destination,
+it is undefined what happens with (for example) ICMP packets. Protocols such as ICMP may be allowed by some 
+network plugins and denied by others.
+-->
+当 `deny all` 网络策略被定义时，此策略只能保证拒绝 TCP、UDP 和 SCTP 连接。
+对于 ARP 或 ICMP 这类其他协议，这种网络流量过滤行为是未定义的。
+相同的情况也适用于 allow 规则：当特定 Pod 被允许作为入口源或出口目的地时，
+对于（例如）ICMP 数据包会发生什么是未定义的。
+ICMP 这类协议可能被某些网络插件所允许，而被另一些网络插件所拒绝。
 
 <!--
 ## Targeting a range of ports
@@ -631,6 +636,158 @@ Kubernetes 控制面会在所有名字空间上设置一个不可变更的标签
 
 如果 NetworkPolicy 无法在某些对象字段中指向某名字空间，
 你可以使用标准的标签方式来指向特定名字空间。
+
+<!--
+## Pod lifecycle
+-->
+## Pod 生命周期   {#pod-lifecycle}
+
+{{< note >}}
+<!--
+The following applies to clusters with a conformant networking plugin and a conformant implementation of
+NetworkPolicy.
+-->
+以下内容适用于使用了合规网络插件和 NetworkPolicy 合规实现的集群。
+{{< /note >}}
+
+<!--
+When a new NetworkPolicy object is created, it may take some time for a network plugin
+to handle the new object. If a pod that is affected by a NetworkPolicy
+is created before the network plugin has completed NetworkPolicy handling,
+that pod may be started unprotected, and isolation rules will be applied when 
+the NetworkPolicy handling is completed.
+-->
+当新的 NetworkPolicy 对象被创建时，网络插件可能需要一些时间来处理这个新对象。
+如果受到 NetworkPolicy 影响的 Pod 在网络插件完成 NetworkPolicy 处理之前就被创建了，
+那么该 Pod 可能会最初处于无保护状态，而在 NetworkPolicy 处理完成后被应用隔离规则。
+
+<!--
+Once the NetworkPolicy is handled by a network plugin,
+
+1. All newly created pods affected by a given NetworkPolicy will be isolated before 
+they are started.
+Implementations of NetworkPolicy must ensure that filtering is effective throughout
+the Pod lifecycle, even from the very first instant that any container in that Pod is started.
+Because they are applied at Pod level, NetworkPolicies apply equally to init containers,
+sidecar containers, and regular containers.
+-->
+一旦 NetworkPolicy 被网络插件处理，
+
+1. 所有受给定 NetworkPolicy 影响的新建 Pod 都将在启动前被隔离。
+   NetworkPolicy 的实现必须确保过滤规则在整个 Pod 生命周期内是有效的，
+   这个生命周期要从该 Pod 的任何容器启动的第一刻算起。
+   因为 NetworkPolicy 在 Pod 层面被应用，所以 NetworkPolicy 同样适用于 Init 容器、边车容器和常规容器。
+
+<!--
+2. Allow rules will be applied eventually after the isolation rules (or may be applied at the same time).
+In the worst case, a newly created pod may have no network connectivity at all when it is first started, if
+isolation rules were already applied, but no allow rules were applied yet.
+
+Every created NetworkPolicy will be handled by a network plugin eventually, but there is no
+way to tell from the Kubernetes API when exactly that happens.
+-->
+2. Allow 规则最终将在隔离规则之后被应用（或者可能同时被应用）。
+   在最糟的情况下，如果隔离规则已被应用，但 allow 规则尚未被应用，
+   那么新建的 Pod 在初始启动时可能根本没有网络连接。
+
+用户所创建的每个 NetworkPolicy 最终都会被网络插件处理，但无法使用 Kubernetes API 来获知确切的处理时间。
+
+<!--
+Therefore, pods must be resilient against being started up with different network
+connectivity than expected. If you need to make sure the pod can reach certain destinations 
+before being started, you can use an [init container](/docs/concepts/workloads/pods/init-containers/)
+to wait for those destinations to be reachable before kubelet starts the app containers.
+-->
+因此，若 Pod 启动时使用非预期的网络连接，它必须保持稳定。
+如果你需要确保 Pod 在启动之前能够访问特定的目标，可以使用
+[Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)在
+kubelet 启动应用容器之前等待这些目的地变得可达。
+
+<!--
+Every NetworkPolicy will be applied to all selected pods eventually.
+Because the network plugin may implement NetworkPolicy in a distributed manner, 
+it is possible that pods may see a slightly inconsistent view of network policies
+when the pod is first created, or when pods or policies change.
+For example, a newly-created pod that is supposed to be able to reach both Pod A
+on Node 1 and Pod B on Node 2 may find that it can reach Pod A immediately,
+but cannot reach Pod B until a few seconds later.
+-->
+每个 NetworkPolicy 最终都会被应用到所选定的所有 Pod 之上。
+由于网络插件可能以分布式的方式实现 NetworkPolicy，所以当 Pod 被首次创建时或当
+Pod 或策略发生变化时，Pod 可能会看到稍微不一致的网络策略视图。
+例如，新建的 Pod 本来应能立即访问 Node 1 上的 Pod A 和 Node 2 上的 Pod B，
+但可能你会发现新建的 Pod 可以立即访问 Pod A，但要在几秒后才能访问 Pod B。
+
+<!--
+## NetworkPolicy and `hostNetwork` pods
+
+NetworkPolicy behaviour for `hostNetwork` pods is undefined, but it should be limited to 2 possibilities:
+-->
+## NetworkPolicy 和 `hostNetwork` Pod    {#networkpolicy-and-hostnetwork-pods}
+
+针对 `hostNetwork` Pod 的 NetworkPolicy 行为是未定义的，但应限制为以下两种可能：
+
+<!--
+- The network plugin can distinguish `hostNetwork` pod traffic from all other traffic
+  (including being able to distinguish traffic from different `hostNetwork` pods on
+  the same node), and will apply NetworkPolicy to `hostNetwork` pods just like it does
+  to pod-network pods.
+-->
+- 网络插件可以从所有其他流量中辨别出 `hostNetwork` Pod 流量
+  （包括能够从同一节点上的不同 `hostNetwork` Pod 中辨别流量），
+  网络插件还可以像处理 Pod 网络流量一样，对 `hostNetwork` Pod 应用 NetworkPolicy。
+
+<!--
+- The network plugin cannot properly distinguish `hostNetwork` pod traffic, 
+  and so it ignores `hostNetwork` pods when matching `podSelector` and `namespaceSelector`. 
+  Traffic to/from `hostNetwork` pods is treated the same as all other traffic to/from the node IP. 
+  (This is the most common implementation.)
+-->
+- 网络插件无法正确辨别 `hostNetwork` Pod 流量，因此在匹配 `podSelector` 和 `namespaceSelector`
+  时会忽略 `hostNetwork` Pod。流向/来自 `hostNetwork` Pod 的流量的处理方式与流向/来自节点 IP
+  的所有其他流量一样。（这是最常见的实现方式。）
+
+<!--
+This applies when
+-->
+这适用于以下情形：
+
+<!--
+1. a `hostNetwork` pod is selected by `spec.podSelector`.
+-->
+1. `hostNetwork` Pod 被 `spec.podSelector` 选中。
+   
+   ```yaml
+     ...
+     spec:
+       podSelector:
+         matchLabels:
+           role: client
+     ...
+   ```
+ 
+<!--
+2. a `hostNetwork` pod is selected by a `podSelector` or `namespaceSelector` in an `ingress` or `egress` rule.
+-->
+2. `hostNetwork` Pod 在 `ingress` 或 `egress` 规则中被 `podSelector` 或 `namespaceSelector` 选中。
+
+   ```yaml
+     ...
+     ingress:
+       - from:
+         - podSelector:
+             matchLabels:
+               role: client
+     ...
+   ```
+
+<!--
+At the same time, since `hostNetwork` pods have the same IP addresses as the nodes they reside on,
+their connections will be treated as node connections. For example, you can allow traffic
+from a `hostNetwork` Pod using an `ipBlock` rule.
+-->
+同时，由于 `hostNetwork` Pod 具有与其所在节点相同的 IP 地址，所以它们的连接将被视为节点连接。
+例如，你可以使用 `ipBlock` 规则允许来自 `hostNetwork` Pod 的流量。
 
 <!--
 ## What you can't do with network policies (at least, not yet)
