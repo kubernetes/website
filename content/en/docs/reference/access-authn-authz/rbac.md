@@ -42,7 +42,7 @@ to understand how those restrictions can prevent you making some changes.
 
 ### Role and ClusterRole
 
-An RBAC _Role_ or _ClusterRole_ contains rules that represent a set of permissions.
+A RBAC _Role_ or _ClusterRole_ contains rules that represent a set of permissions.
 Permissions are purely additive (there are no "deny" rules).
 
 A Role always sets permissions within a particular {{< glossary_tooltip text="namespace" term_id="namespace" >}};
@@ -240,7 +240,7 @@ GET /api/v1/namespaces/{namespace}/pods/{name}/log
 ```
 
 In this case, `pods` is the namespaced resource for Pod resources, and `log` is a
-subresource of `pods`. To represent this in an RBAC role, use a slash (`/`) to
+subresource of `pods`. To represent this in a RBAC role, use a slash (`/`) to
 delimit the resource and subresource. To allow a subject to read `pods` and
 also access the `log` subresource for each of those Pods, you write:
 
