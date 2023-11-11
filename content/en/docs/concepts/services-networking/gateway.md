@@ -29,7 +29,7 @@ The following principles shaped the design and architecture of Gateway API:
   * __Application Developer:__ Manages an application running in a cluster and is typically
     concerned with application-level configuration and [Service](/docs/concepts/services-networking/service/)
     composition.
-* __Portable:__ Gateway API specifications are defined as [custom resources](docs/concepts/extend-kubernetes/api-extension/custom-resources)
+* __Portable:__ Gateway API specifications are defined as [custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources)
   and are supported by many [implementations](https://gateway-api.sigs.k8s.io/implementations/).
 * __Expressive:__ Gateway API kinds support functionality for common traffic routing use cases
   such as header-based matching, traffic weighting, and others that were only possible in
