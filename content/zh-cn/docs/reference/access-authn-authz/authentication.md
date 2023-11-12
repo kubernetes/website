@@ -547,7 +547,7 @@ To enable the plugin, configure the following flags on the API server:
 <!--
 | Parameter | Description | Example | Required |
 | --------- | ----------- | ------- | ------- |
-| `--oidc-issuer-url` | URL of the provider which allows the API server to discover public signing keys. Only URLs which use the `https://` scheme are accepted.  This is typically the provider's discovery URL without a path, for example "https://accounts.google.com" or "https://login.salesforce.com".  This URL should point to the level below .well-known/openid-configuration | If the discovery URL is `https://accounts.google.com/.well-known/openid-configuration`, the value should be `https://accounts.google.com` | Yes |
+| `--oidc-issuer-url` | URL of the provider that allows the API server to discover public signing keys. Only URLs that use the `https://` scheme are accepted.  This is typically the provider's discovery URL, changed to have an empty path | If the issuer's OIDC discovery URL is `https://accounts.provider.example/.well-known/openid-configuration`, the value should be `https://accounts.google.com` | Yes |
 | `--oidc-client-id` |  A client id that all tokens must be issued for. | kubernetes | Yes |
 | `--oidc-username-claim` | JWT claim to use as the user name. By default `sub`, which is expected to be a unique identifier of the end user. Admins can choose other claims, such as `email` or `name`, depending on their provider. However, claims other than `email` will be prefixed with the issuer URL to prevent naming clashes with other plugins. | sub | No |
 | `--oidc-username-prefix` | Prefix prepended to username claims to prevent clashes with existing names (such as `system:` users). For example, the value `oidc:` will create usernames like `oidc:jane.doe`. If this flag isn't provided and `--oidc-username-claim` is a value other than `email` the prefix defaults to `( Issuer URL )#` where `( Issuer URL )` is the value of `--oidc-issuer-url`. The value `-` can be used to disable all prefixing. | `oidc:` | No |
@@ -560,7 +560,7 @@ To enable the plugin, configure the following flags on the API server:
 
 | 参数 | 描述 | 示例 | 必需？ |
 | --------- | ----------- | ------- | ------- |
-| `--oidc-issuer-url` | 允许 API 服务器发现公开的签名密钥的服务的 URL。只接受模式为 `https://` 的 URL。此值通常设置为服务的发现 URL，不含路径。例如："https://accounts.google.com" 或 "https://login.salesforce.com"。此 URL 应指向 .well-known/openid-configuration 下一层的路径。 | 如果发现 URL 是 `https://accounts.google.com/.well-known/openid-configuration`，则此值应为 `https://accounts.google.com` | 是 |
+| `--oidc-issuer-url` | 允许 API 服务器发现公开的签名密钥的服务的 URL。只接受模式为 `https://` 的 URL。此值通常设置为服务的发现 URL，已更改为空路径。 | 如果发行人的 OIDC 发现 URL 是 `https://accounts.google.com/.well-known/openid-configuration`，则此值应为 `https://accounts.google.com` | 是 |
 | `--oidc-client-id` |  所有令牌都应发放给此客户 ID。 | kubernetes | 是 |
 | `--oidc-username-claim` | 用作用户名的 JWT 申领（JWT Claim）。默认情况下使用 `sub` 值，即最终用户的一个唯一的标识符。管理员也可以选择其他申领，例如 `email` 或者 `name`，取决于所用的身份服务。不过，除了 `email` 之外的申领都会被添加令牌发放者的 URL 作为前缀，以免与其他插件产生命名冲突。 | sub | 否 |
 | `--oidc-username-prefix` | 要添加到用户名申领之前的前缀，用来避免与现有用户名发生冲突（例如：`system:` 用户）。例如，此标志值为 `oidc:` 时将创建形如 `oidc:jane.doe` 的用户名。如果此标志未设置，且 `--oidc-username-claim` 标志值不是 `email`，则默认前缀为 `<令牌发放者的 URL>#`，其中 `<令牌发放者 URL >` 的值取自 `--oidc-issuer-url` 标志的设定。此标志值为 `-` 时，意味着禁止添加用户名前缀。 | `oidc:` | 否 |
@@ -746,7 +746,7 @@ Webhook 身份认证是一种用来验证持有者令牌的回调机制。
 * `--authentication-token-webhook-cache-ttl` 用来设定身份认证决定的缓存时间。
   默认时长为 2 分钟。
 * `--authentication-token-webhook-version` 决定是使用 `authentication.k8s.io/v1beta1` 还是
-  `authenticationk8s.io/v1` 版本的 `TokenReview` 对象从 webhook 发送/接收信息。
+  `authenticationk8s.io/v1` 版本的 `TokenReview` 对象从 Webhook 发送/接收信息。
   默认为“v1beta1”。
 
 <!--
@@ -1095,7 +1095,7 @@ the risks and the mechanisms to protect the CA's usage.
 -->
 为了防范头部信息侦听，在请求中的头部字段被检视之前，
 身份认证代理需要向 API 服务器提供一份合法的客户端证书，供后者使用所给的 CA 来执行验证。
-警告：**不要** 在不同的上下文中复用 CA 证书，除非你清楚这样做的风险是什么以及应如何保护
+警告：**不要**在不同的上下文中复用 CA 证书，除非你清楚这样做的风险是什么以及应如何保护
 CA 用法的机制。
 
 * `--requestheader-client-ca-file` 必需字段，给出 PEM 编码的证书包。
@@ -1172,11 +1172,11 @@ to the impersonated user info.
 带伪装的请求首先会被身份认证识别为发出请求的用户，
 之后会切换到使用被伪装的用户的用户信息。
 
-* 用户发起 API 调用时 **同时** 提供自身的凭据和伪装头部字段信息
-* API 服务器对用户执行身份认证
-* API 服务器确认通过认证的用户具有伪装特权
-* 请求用户的信息被替换成伪装字段的值
-* 评估请求，鉴权组件针对所伪装的用户信息执行操作
+* 用户发起 API 调用时**同时**提供自身的凭据和伪装头部字段信息。
+* API 服务器对用户执行身份认证。
+* API 服务器确认通过认证的用户具有伪装特权。
+* 请求用户的信息被替换成伪装字段的值。
+* 评估请求，鉴权组件针对所伪装的用户信息执行操作。
 
 <!--
 The following HTTP headers can be used to performing an impersonation request:
@@ -1283,7 +1283,7 @@ authorization plugin, the following ClusterRole encompasses the rules needed to
 set user and group impersonation headers:
 -->
 若要伪装成某个用户、某个组、用户标识符（UID））或者设置附加字段，
-执行伪装操作的用户必须具有对所伪装的类别（“user”、“group”、“uid” 等）执行 “impersonate”
+执行伪装操作的用户必须具有对所伪装的类别（`user`、`group`、`uid` 等）执行 `impersonate`
 动词操作的能力。
 对于启用了 RBAC 鉴权插件的集群，下面的 ClusterRole 封装了设置用户和组伪装字段所需的规则：
 
@@ -1706,7 +1706,7 @@ users:
       provideClusterInfo: true
 
       # Exec 插件与标准输入 I/O 数据流之间的协议。如果协议无法满足，
-      # 则插件无法运行并会返回错误信息。合法的值包括 "Never" （Exec 插件从不使用标准输入），
+      # 则插件无法运行并会返回错误信息。合法的值包括 "Never"（Exec 插件从不使用标准输入），
       # "IfAvailable" （Exec 插件希望在可以的情况下使用标准输入），
       # 或者 "Always" （Exec 插件需要使用标准输入才能工作）。可选字段。
       # 默认值为 "IfAvailable"。
@@ -1853,7 +1853,7 @@ If specified, `clientKeyData` and `clientCertificateData` must both must be pres
 如果插件在后续调用中返回了不同的证书或密钥，`k8s.io/client-go`
 会终止其与服务器的连接，从而强制执行新的 TLS 握手过程。
 
-如果指定了这种方式，则 `clientKeyData` 和 `clientCertificateData` 字段都必需存在。
+如果指定了这种方式，则 `clientKeyData` 和 `clientCertificateData` 字段都必须存在。
 
 `clientCertificateData` 字段可能包含一些要发送给服务器的中间证书（Intermediate
 Certificates）。
@@ -1996,7 +1996,7 @@ The following `ExecCredential` manifest describes a cluster information sample.
 -->
 ## 为客户端提供的对身份验证信息的 API 访问   {#self-subject-review}
 
-{{< feature-state for_k8s_version="v1.27" state="beta" >}}
+{{< feature-state for_k8s_version="v1.28" state="stable" >}}
 
 <!--
 If your cluster has the API enabled, you can use the `SelfSubjectReview` API to find out how your Kubernetes cluster maps your authentication information to identify you as a client. This works whether you are authenticating as a user (typically representing a real person) or as a ServiceAccount.
@@ -2015,12 +2015,12 @@ Kubernetes API 服务器收到请求后，将使用用户属性填充 status 字
 请求示例（主体将是 `SelfSubjectReview`）：
 
 ```
-POST /apis/authentication.k8s.io/v1beta1/selfsubjectreviews
+POST /apis/authentication.k8s.io/v1/selfsubjectreviews
 ```
 
 ```json
 {
-  "apiVersion": "authentication.k8s.io/v1beta1",
+  "apiVersion": "authentication.k8s.io/v1",
   "kind": "SelfSubjectReview"
 }
 ```
@@ -2032,7 +2032,7 @@ Response example:
 
 ```json
 {
-  "apiVersion": "authentication.k8s.io/v1beta1",
+  "apiVersion": "authentication.k8s.io/v1",
   "kind": "SelfSubjectReview",
   "status": {
     "userInfo": {
@@ -2119,7 +2119,7 @@ By providing the output flag, it is also possible to print the JSON or YAML repr
 
 {{% tab name="YAML" %}}
 ```yaml
-apiVersion: authentication.k8s.io/v1alpha1
+apiVersion: authentication.k8s.io/v1
 kind: SelfSubjectReview
 status:
   userInfo:
@@ -2142,10 +2142,12 @@ status:
 
 <!--
 This feature is extremely useful when a complicated authentication flow is used in a Kubernetes cluster, 
-for example, if you use [webhook token authentication](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication) or [authenticating proxy](/docs/reference/access-authn-authz/authentication/#authenticating-proxy).
+for example, if you use [webhook token authentication](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)
+or [authenticating proxy](/docs/reference/access-authn-authz/authentication/#authenticating-proxy).
 -->
 在 Kubernetes 集群中使用复杂的身份验证流程时，例如如果你使用
-[Webhook 令牌身份验证](/zh-cn/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)或[身份验证代理](/zh-cn/docs/reference/access-authn-authz/authentication/#authenticating-proxy)时，
+[Webhook 令牌身份验证](/zh-cn/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)或
+[身份验证代理](/zh-cn/docs/reference/access-authn-authz/authentication/#authenticating-proxy)时，
 此特性极其有用。
 
 {{< note >}}
@@ -2162,7 +2164,8 @@ Kubernetes API 服务器在所有身份验证机制
 {{< /note >}}
 
 <!--
-By default, all authenticated users can create `SelfSubjectReview` objects when the `APISelfSubjectReview` feature is enabled. It is allowed by the `system:basic-user` cluster role.
+By default, all authenticated users can create `SelfSubjectReview` objects when the `APISelfSubjectReview` feature is enabled.
+It is allowed by the `system:basic-user` cluster role.
 -->
 默认情况下，所有经过身份验证的用户都可以在 `APISelfSubjectReview` 特性被启用时创建 `SelfSubjectReview` 对象。
 这是 `system:basic-user` 集群角色允许的操作。
@@ -2172,17 +2175,24 @@ By default, all authenticated users can create `SelfSubjectReview` objects when 
 You can only make `SelfSubjectReview` requests if:
 * the `APISelfSubjectReview`
   [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  is enabled for your cluster (enabled by default after reaching Beta)
+  is enabled for your cluster (not needed for Kubernetes {{< skew currentVersion >}}, but older
+  Kubernetes versions might not offer this feature gate, or might default it to be off)
+* (if you are running a version of Kubernetes older than v1.28) the API server for your
+  cluster has the `authentication.k8s.io/v1alpha1` or `authentication.k8s.io/v1beta1`
 * the API server for your cluster has the `authentication.k8s.io/v1alpha1` or `authentication.k8s.io/v1beta1`
   {{< glossary_tooltip term_id="api-group" text="API group" >}}
   enabled.
 -->
 你只能在以下情况下进行 `SelfSubjectReview` 请求：
 
-* 集群启用了 `APISelfSubjectReview` (Beta 版本默认启用)
+* 集群启用了 `APISelfSubjectReview`
   [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
+  （Kubernetes {{< skew currentVersion >}} 不需要，但较旧的 Kubernetes 版本可能没有此特性门控，
+  或者默认为关闭状态）。
+* （如果你运行的 Kubernetes 版本早于 v1.28 版本）集群的 API 服务器包含
+  `authentication.k8s.io/v1alpha1` 或 `authentication.k8s.io/v1beta1` API 组。
 * 集群的 API 服务器已启用 `authentication.k8s.io/v1alpha1` 或者 `authentication.k8s.io/v1beta1`
-  {{< glossary_tooltip term_id="api-group" text="API 组" >}}。。
+  {{< glossary_tooltip term_id="api-group" text="API 组" >}}。
 {{< /note >}}
 
 ## {{% heading "whatsnext" %}}
@@ -2191,6 +2201,5 @@ You can only make `SelfSubjectReview` requests if:
 * Read the [client authentication reference (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/)
 * Read the [client authentication reference (v1)](/docs/reference/config-api/client-authentication.v1/)
 -->
-* 阅读[客户端认证参考文档 (v1beta1)](/zh-cn/docs/reference/config-api/client-authentication.v1beta1/)
-* 阅读[客户端认证参考文档 (v1)](/zh-cn/docs/reference/config-api/client-authentication.v1/)
-
+* 阅读[客户端认证参考文档（v1beta1）](/zh-cn/docs/reference/config-api/client-authentication.v1beta1/)。
+* 阅读[客户端认证参考文档（v1）](/zh-cn/docs/reference/config-api/client-authentication.v1/)。
