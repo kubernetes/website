@@ -22,12 +22,12 @@ level. For instructions, refer to
 
 Install the following on your workstation:
 
-- [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
+- [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
 - [kubectl](/docs/tasks/tools/)
 
 ## Create cluster
 
-1. Create a `KinD` cluster as follows:
+1. Create a `kind` cluster as follows:
 
    ```shell
    kind create cluster --name psa-ns-level
@@ -150,7 +150,7 @@ kind delete cluster --name psa-ns-level
   [shell script](/examples/security/kind-with-namespace-level-baseline-pod-security.sh)
   to perform all the preceding steps all at once.
 
-  1. Create KinD cluster
+  1. Create kind cluster
   2. Create new namespace
   3. Apply `baseline` Pod Security Standard in `enforce` mode while applying
      `restricted` Pod Security Standard also in `warn` and `audit` mode.
