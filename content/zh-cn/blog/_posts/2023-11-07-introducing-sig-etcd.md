@@ -90,7 +90,7 @@ amongst others) in order to improve the consistency and reliability of the codeb
 SIG etcd 的成立为明确 etcd 和 Kubernetes API 机制之间的契约关系创造了一个专门的空间，
 并防止在 etcd 级别上发生违反此契约的更改。此外，etcd 将能够采用 Kubernetes 提供的 SIG
 流程（[KEP](https://www.kubernetes.dev/resources/keps/)、
-[PRR](https://github.com/kubernetes/ Community/blob/master/sig-architecture/product-readiness.md)、
+[PRR](https://github.com/kubernetes/community/blob/master/sig-architecture/production-readiness.md)、
 [分阶段特性门控](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/)以及其他流程）
 以提高代码库的一致性和可靠性，这将为 etcd 社区带来巨大的好处。
 
