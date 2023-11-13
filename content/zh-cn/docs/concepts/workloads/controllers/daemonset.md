@@ -212,8 +212,8 @@ If you do not specify either, then the DaemonSet controller will create Pods on 
 ## Daemon Pods 是如何被调度的   {#how-daemon-pods-are-scheduled}
 
 <!--
-A DaemonSet ensures that all eligible nodes run a copy of a Pod. The DaemonSet
-controller creates a Pod for each eligible node and adds the
+A DaemonSet can be used to ensure that all eligible nodes run a copy of a Pod.
+The DaemonSet controller creates a Pod for each eligible node and adds the
 `spec.affinity.nodeAffinity` field of the Pod to match the target host. After
 the Pod is created, the default scheduler typically takes over and then binds
 the Pod to the target host by setting the `.spec.nodeName` field.  If the new
@@ -222,12 +222,25 @@ the existing Pods based on the
 [priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority)
 of the new Pod.
 -->
-DaemonSet 确保所有符合条件的节点都运行该 Pod 的一个副本。
+DaemonSet 可用于确保所有符合条件的节点都运行该 Pod 的一个副本。
 DaemonSet 控制器为每个符合条件的节点创建一个 Pod，并添加 Pod 的 `spec.affinity.nodeAffinity`
 字段以匹配目标主机。Pod 被创建之后，默认的调度程序通常通过设置 `.spec.nodeName` 字段来接管 Pod 并将
 Pod 绑定到目标主机。如果新的 Pod 无法放在节点上，则默认的调度程序可能会根据新 Pod
 的[优先级](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority)抢占
 （驱逐）某些现存的 Pod。
+
+{{< note >}}
+<!--
+If it's important that the DaemonSet pod run on each node, it's often desirable
+to set the `.spec.template.spec.priorityClassName` of the DaemonSet to a
+[PriorityClass](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass)
+with a higher priority to ensure that this eviction occurs.
+-->
+当 DaemonSet 中的 Pod 必须运行在每个节点上时，通常需要将 DaemonSet
+的 `.spec.template.spec.priorityClassName` 设置为具有更高优先级的
+[PriorityClass](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass)，
+以确保可以完成驱逐。
+{{< /note >}}
 
 <!--
 The user can specify a different scheduler for the Pods of the DaemonSet, by
