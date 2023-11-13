@@ -95,6 +95,12 @@ Required certificates:
 | kube-apiserver-kubelet-client | kubernetes-ca             | system:masters | client           |                                                     |
 | front-proxy-client            | kubernetes-front-proxy-ca |                | client           |                                                     |
 
+{{< note >}}
+Instead of using the super-user group `system:masters` for `kube-apiserver-kubelet-client`
+a less privileged group can be used. kubeadm uses the `kubeadm:cluster-admins` group for
+that purpose.
+{{< /note >}}
+
 [1]: any other IP or DNS name you contact your cluster on (as used by [kubeadm](/docs/reference/setup-tools/kubeadm/)
 the load balancer stable IP and/or DNS name, `kubernetes`, `kubernetes.default`, `kubernetes.default.svc`,
 `kubernetes.default.svc.cluster`, `kubernetes.default.svc.cluster.local`)
