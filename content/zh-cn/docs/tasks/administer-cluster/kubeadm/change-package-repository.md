@@ -12,15 +12,45 @@ weight: 120
 <!-- overview -->
 
 <!--
-This page explains how to enable a package repository for a new Kubernetes minor release
+This page explains how to enable a package repository for the desired
+Kubernetes minor release upon upgrading a cluster. This is only needed
 for users of the community-owned package repositories hosted at `pkgs.k8s.io`.
-Unlike the legacy package repositories, the community-owned package repositories are
-structured in a way that there's a dedicated package repository for each Kubernetes
-minor version.
+Unlike the legacy package repositories, the community-owned package
+repositories are structured in a way that there's a dedicated package
+repository for each Kubernetes minor version.
 -->
-本文阐述如何为 `pkgs.k8s.io` 上托管的、社区自治的软件包仓库的用户，
+本页介绍了如何在升级集群时启用包含 Kubernetes 次要版本的软件包仓库。
+这仅适用于使用托管在 `pkgs.k8s.io` 上社区自治软件包仓库的用户。
 启用新的 Kubernetes 小版本的软件包仓库。与传统的软件包仓库不同，
 社区自治的软件包仓库所采用的结构为每个 Kubernetes 小版本都有一个专门的软件包仓库。
+
+{{< note >}}
+<!--
+This guide only covers a part of the Kubernetes upgrade process. Please see the
+[upgrade guide](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/) for
+more information about upgrading Kubernetes clusters.
+-->
+本指南仅介绍 Kubernetes 升级过程的一部分。
+有关升级 Kubernetes 集群的更多信息，
+请参阅[升级指南](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)。
+{{</ note >}}
+
+{{< note >}}
+<!--
+This step is only needed upon upgrading a cluster to another **minor** release.
+If you're upgrading to another patch release within the same minor release (e.g.
+v{{< skew currentVersion >}}.5 to v{{< skew currentVersion >}}.7), you don't
+need to follow this guide. However, if you're still using the legacy package
+repositories, you'll need to migrate to the new community-owned package
+repositories before upgrading (see the next section for more details on how to
+do this).
+-->
+仅在将集群升级到另一个**次要**版本时才需要执行此步骤。
+如果你要升级到同一次要版本中的另一个补丁版本（例如：v{{< skew currentVersion >}}.5 到
+v{{< skew currentVersion >}}.7）则不需要遵循本指南。
+但是，如果你仍在使用旧的软件包仓库，则需要在升级之前迁移到社区自治的新软件包仓库
+（有关如何执行此操作的更多详细信息，请参阅下一节）。
+{{</ note >}}
 
 ## {{% heading "prerequisites" %}}
 
