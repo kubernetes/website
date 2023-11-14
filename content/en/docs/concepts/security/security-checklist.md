@@ -320,7 +320,9 @@ easily deploy applications in a containerized environment.
 
 Some of the key benefits of using a secure container registry include:
 
-- Improved security: Secure container registries provide a secure and centralized location for storing and managing container images, which can help improve security by reducing the risk of unauthorized access or tampering.
+- Improved security: Secure container registries provide a secure and centralized location
+  for storing and managing container images, which can help improve security
+  by reducing the risk of unauthorized access or tampering.
 
 - Simplified management: By providing a centralized location for storing and managing container images, secure container registries can help simplify management and reduce the risk of errors or inconsistencies.
 
