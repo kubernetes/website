@@ -28,7 +28,8 @@ guide. You can file document formatting bugs against the
 
 ## CustomResourceDefinition {#CustomResourceDefinition}
 
-CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format \<.spec.name>.\<.spec.group>.
+CustomResourceDefinition represents a resource that should be exposed on the API server.
+Its name MUST be in the format \<.spec.name>.\<.spec.group>.
 
 <hr>
 
@@ -40,15 +41,16 @@ CustomResourceDefinition represents a resource that should be exposed on the API
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  Standard object's metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  Standard object's metadata.
+  More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinitionSpec" >}}">CustomResourceDefinitionSpec</a>), required
 
-  spec describes how the user wants the resources to appear
+  spec describes how the user wants the resources to appear.
 
 - **status** (<a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinitionStatus" >}}">CustomResourceDefinitionStatus</a>)
 
-  status indicates the actual state of the CustomResourceDefinition
+  status indicates the actual state of the CustomResourceDefinition.
 
 
 
@@ -56,13 +58,14 @@ CustomResourceDefinition represents a resource that should be exposed on the API
 
 ## CustomResourceDefinitionSpec {#CustomResourceDefinitionSpec}
 
-CustomResourceDefinitionSpec describes how a user wants their resource to appear
+CustomResourceDefinitionSpec describes how a user wants their resource to appear.
 
 <hr>
 
 - **group** (string), required
 
-  group is the API group of the defined custom resource. The custom resources are served under `/apis/\<group>/...`. Must match the name of the CustomResourceDefinition (in the form `\<names.plural>.\<group>`).
+  group is the API group of the defined custom resource. The custom resources are served under `/apis/\<group>/...`.
+  Must match the name of the CustomResourceDefinition (in the form `\<names.plural>.\<group>`).
 
 - **names** (CustomResourceDefinitionNames), required
 
@@ -73,15 +76,19 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
 
   - **names.kind** (string), required
 
-    kind is the serialized kind of the resource. It is normally CamelCase and singular. Custom resource instances will use this value as the `kind` attribute in API calls.
+    kind is the serialized kind of the resource. It is normally CamelCase and singular.
+    Custom resource instances will use this value as the `kind` attribute in API calls.
 
   - **names.plural** (string), required
 
-    plural is the plural name of the resource to serve. The custom resources are served under `/apis/\<group>/\<version>/.../\<plural>`. Must match the name of the CustomResourceDefinition (in the form `\<names.plural>.\<group>`). Must be all lowercase.
+    plural is the plural name of the resource to serve. The custom resources are served under
+    `/apis/\<group>/\<version>/.../\<plural>`. Must match the name of the CustomResourceDefinition
+    (in the form `\<names.plural>.\<group>`). Must be all lowercase.
 
   - **names.categories** ([]string)
 
-    categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
+    categories is a list of grouped resources this custom resource belongs to (e.g. 'all').
+    This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
 
   - **names.listKind** (string)
 
@@ -97,30 +104,41 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
 
 - **scope** (string), required
 
-  scope indicates whether the defined custom resource is cluster- or namespace-scoped. Allowed values are `Cluster` and `Namespaced`.
+  scope indicates whether the defined custom resource is cluster- or namespace-scoped.
+  Allowed values are `Cluster` and `Namespaced`.
 
 - **versions** ([]CustomResourceDefinitionVersion), required
 
-  versions is the list of all API versions of the defined custom resource. Version names are used to compute the order in which served versions are listed in API discovery. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
+  versions is the list of all API versions of the defined custom resource.
+  Version names are used to compute the order in which served versions are listed in API discovery.
+  If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically.
+  "kube-like" versions start with a "v", then are followed by a number (the major version),
+  then optionally the string "alpha" or "beta" and another number (the minor version).
+  These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha),
+  and then by comparing major version, then minor version. An example sorted list of versions:
+  v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
 
   <a name="CustomResourceDefinitionVersion"></a>
   *CustomResourceDefinitionVersion describes a version for CRD.*
 
   - **versions.name** (string), required
 
-    name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are served under this version at `/apis/\<group>/\<version>/...` if `served` is true.
+    name is the version name, e.g. "v1", "v2beta1", etc. The custom resources are served under this version at `/apis/\<group>/\<version>/...` if `served` is true.
 
   - **versions.served** (boolean), required
 
-    served is a flag enabling/disabling this version from being served via REST APIs
+    served is a flag enabling/disabling this version from being served via REST APIs.
 
   - **versions.storage** (boolean), required
 
-    storage indicates this version should be used when persisting custom resources to storage. There must be exactly one version with storage=true.
+    storage indicates this version should be used when persisting custom resources to storage.
+    There must be exactly one version with storage=true.
 
   - **versions.additionalPrinterColumns** ([]CustomResourceColumnDefinition)
 
-    additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If no columns are specified, a single column displaying the age of the custom resource is used.
+    additionalPrinterColumns specifies additional columns returned in Table output.
+    See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details.
+    If no columns are specified, a single column displaying the age of the custom resource is used.
 
     <a name="CustomResourceColumnDefinition"></a>
     *CustomResourceColumnDefinition specifies a column for server side printing.*
@@ -143,19 +161,26 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
 
     - **versions.additionalPrinterColumns.format** (string)
 
-      format is an optional OpenAPI type definition for this column. The 'name' format is applied to the primary identifier column to assist in clients identifying column is the resource name. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
+      format is an optional OpenAPI type definition for this column.
+      The 'name' format is applied to the primary identifier column to assist in clients identifying column is the resource name.
+      See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
 
     - **versions.additionalPrinterColumns.priority** (int32)
 
-      priority is an integer defining the relative importance of this column compared to others. Lower numbers are considered higher priority. Columns that may be omitted in limited space scenarios should be given a priority greater than 0.
+      priority is an integer defining the relative importance of this column compared to others.
+      Lower numbers are considered higher priority. Columns that may be omitted in limited space
+      scenarios should be given a priority greater than 0.
 
   - **versions.deprecated** (boolean)
 
-    deprecated indicates this version of the custom resource API is deprecated. When set to true, API requests to this version receive a warning header in the server response. Defaults to false.
+    deprecated indicates this version of the custom resource API is deprecated.
+    When set to true, API requests to this version receive a warning header in the server response. Defaults to false.
 
   - **versions.deprecationWarning** (string)
 
-    deprecationWarning overrides the default warning returned to API clients. May only be set when `deprecated` is true. The default warning indicates this version is deprecated and recommends use of the newest served version of equal or greater stability, if one exists.
+    deprecationWarning overrides the default warning returned to API clients.
+    May only be set when `deprecated` is true. The default warning indicates this version
+    is deprecated and recommends use of the newest served version of equal or greater stability, if one exists.
 
   - **versions.schema** (CustomResourceValidation)
 
@@ -184,19 +209,33 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
 
       - **versions.subresources.scale.specReplicasPath** (string), required
 
-        specReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `spec.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.spec`. If there is no value under the given path in the custom resource, the `/scale` subresource will return an error on GET.
+        specReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `spec.replicas`.
+        Only JSON paths without the array notation are allowed. Must be a JSON Path under `.spec`.
+        If there is no value under the given path in the custom resource, the `/scale` subresource will return an error on GET.
 
       - **versions.subresources.scale.statusReplicasPath** (string), required
 
-        statusReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `status.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status`. If there is no value under the given path in the custom resource, the `status.replicas` value in the `/scale` subresource will default to 0.
+        statusReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `status.replicas`.
+        Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status`.
+        If there is no value under the given path in the custom resource, the `status.replicas` value
+        in the `/scale` subresource will default to 0.
 
       - **versions.subresources.scale.labelSelectorPath** (string)
 
-        labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale `status.selector`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status` or `.spec`. Must be set to work with HorizontalPodAutoscaler. The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form. More info: https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource If there is no value under the given path in the custom resource, the `status.selector` value in the `/scale` subresource will default to the empty string.
+        labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale `status.selector`.
+        Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status` or `.spec`.
+        Must be set to work with HorizontalPodAutoscaler.
+        The field pointed by this JSON path must be a string field (not a complex selector struct)
+        which contains a serialized label selector in string form.
+        More info: https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource.
+        If there is no value under the given path in the custom resource, the `status.selector`
+        value in the `/scale` subresource will default to the empty string.
 
     - **versions.subresources.status** (CustomResourceSubresourceStatus)
 
-      status indicates the custom resource should serve a `/status` subresource. When enabled: 1. requests to the custom resource primary endpoint ignore changes to the `status` stanza of the object. 2. requests to the custom resource `/status` subresource ignore changes to anything other than the `status` stanza of the object.
+      status indicates the custom resource should serve a `/status` subresource. When enabled:
+      1. requests to the custom resource primary endpoint ignore changes to the `status` stanza of the object.
+      2. requests to the custom resource `/status` subresource ignore changes to anything other than the `status` stanza of the object.
 
       <a name="CustomResourceSubresourceStatus"></a>
       *CustomResourceSubresourceStatus defines how to serve the status subresource for CustomResources. Status is represented by the `.status` JSON path inside of a CustomResource. When set, * exposes a /status subresource for the custom resource * PUT requests to the /status subresource take a custom resource object, and ignore changes to anything except the status stanza * PUT/POST/PATCH requests to the custom resource ignore changes to the status stanza*
@@ -210,7 +249,9 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
 
   - **conversion.strategy** (string), required
 
-    strategy specifies how custom resources are converted between versions. Allowed values are: - `"None"`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `"Webhook"`: API Server will call to an external webhook to do the conversion. Additional information
+    strategy specifies how custom resources are converted between versions. Allowed values are:
+    - `"None"`: The converter only change the apiVersion and would not touch any other field in the custom resource.
+    - `"Webhook"`: API Server will call to an external webhook to do the conversion. Additional information
       is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhook to be set.
 
   - **conversion.webhook** (WebhookConversion)
@@ -222,7 +263,11 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
 
     - **conversion.webhook.conversionReviewVersions** ([]string), required
 
-      conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the Webhook expects. The API server will use the first version in the list which it supports. If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail.
+      conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the Webhook expects.
+      The API server will use the first version in the list which it supports.
+      If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource.
+      If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server,
+      calls to the webhook will fail.
 
     - **conversion.webhook.clientConfig** (WebhookClientConfig)
 
@@ -233,7 +278,8 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
 
       - **conversion.webhook.clientConfig.caBundle** ([]byte)
 
-        caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
+        caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate.
+        If unspecified, system trust roots on the apiserver are used.
 
       - **conversion.webhook.clientConfig.service** (ServiceReference)
 
@@ -264,9 +310,13 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
 
         url gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
         
-        The `host` should not refer to a service running in the cluster; use the `service` field instead. The host might be resolved via external DNS in some apiservers (e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would be a layering violation). `host` may also be an IP address.
+        The `host` should not refer to a service running in the cluster; use the `service` field instead.
+        The host might be resolved via external DNS in some apiservers (e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would be a layering violation).
+        `host` may also be an IP address.
         
-        Please note that using `localhost` or `127.0.0.1` as a `host` is risky unless you take great care to run this webhook on all hosts which run an apiserver which might need to make calls to this webhook. Such installs are likely to be non-portable, i.e., not easy to turn up in a new cluster.
+        Please note that using `localhost` or `127.0.0.1` as a `host` is risky unless you take great care
+        to run this webhook on all hosts which run an apiserver which might need to make calls to this webhook.
+        Such installs are likely to be non-portable, i.e., not easy to turn up in a new cluster.
         
         The scheme must be "https"; the URL must begin with "https://".
         
@@ -276,7 +326,11 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
 
 - **preserveUnknownFields** (boolean)
 
-  preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. This field is deprecated in favor of setting `x-preserve-unknown-fields` to true in `spec.versions[*].schema.openAPIV3Schema`. See https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning for details.
+  preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema
+  should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside
+  metadata are always preserved. This field is deprecated in favor of setting `x-preserve-unknown-fields`
+  to true in `spec.versions[*].schema.openAPIV3Schema`.
+  See https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning for details.
 
 
 
@@ -314,7 +368,9 @@ JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-sc
 
 - **default** (JSON)
 
-  default is a default value for undefined object fields. Defaulting is a beta feature under the CustomResourceDefaulting feature gate. Defaulting requires spec.preserveUnknownFields to be false.
+  default is a default value for undefined object fields.
+  Defaulting is a beta feature under the CustomResourceDefaulting feature gate.
+  Defaulting requires spec.preserveUnknownFields to be false.
 
   <a name="JSON"></a>
   *JSON represents any valid JSON value. These types are supported: bool, int64, float64, string, []interface{}, map[string]interface{} and nil.*
@@ -365,7 +421,29 @@ JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-sc
 
   format is an OpenAPI v3 format string. Unknown formats are ignored. The following formats are validated:
   
-  - bsonobjectid: a bson object ID, i.e. a 24 characters hex string - uri: an URI as parsed by Golang net/url.ParseRequestURI - email: an email address as parsed by Golang net/mail.ParseAddress - hostname: a valid representation for an Internet host name, as defined by RFC 1034, section 3.1 [RFC1034]. - ipv4: an IPv4 IP as parsed by Golang net.ParseIP - ipv6: an IPv6 IP as parsed by Golang net.ParseIP - cidr: a CIDR as parsed by Golang net.ParseCIDR - mac: a MAC address as parsed by Golang net.ParseMAC - uuid: an UUID that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid3: an UUID3 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?3[0-9a-f]{3}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid4: an UUID4 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?4[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - uuid5: an UUID5 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?5[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - isbn: an ISBN10 or ISBN13 number string like "0321751043" or "978-0321751041" - isbn10: an ISBN10 number string like "0321751043" - isbn13: an ISBN13 number string like "978-0321751041" - creditcard: a credit card number defined by the regex ^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$ with any non digit characters mixed in - ssn: a U.S. social security number following the regex ^\d{3}[- ]?\d{2}[- ]?\d{4}$ - hexcolor: an hexadecimal color code like "#FFFFFF: following the regex ^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$ - rgbcolor: an RGB color code like rgb like "rgb(255,255,2559" - byte: base64 encoded binary data - password: any kind of string - date: a date string like "2006-01-02" as defined by full-date in RFC3339 - duration: a duration string like "22 ns" as parsed by Golang time.ParseDuration or compatible with Scala duration format - datetime: a date time string like "2014-12-15T19:30:20.000Z" as defined by date-time in RFC3339.
+  - bsonobjectid: a bson object ID, i.e. a 24 characters hex string
+  - uri: an URI as parsed by Golang net/url.ParseRequestURI
+  - email: an email address as parsed by Golang net/mail.ParseAddress
+  - hostname: a valid representation for an Internet host name, as defined by RFC 1034, section 3.1 [RFC1034].
+  - ipv4: an IPv4 IP as parsed by Golang net.ParseIP
+  - ipv6: an IPv6 IP as parsed by Golang net.ParseIP
+  - cidr: a CIDR as parsed by Golang net.ParseCIDR
+  - mac: a MAC address as parsed by Golang net.ParseMAC
+  - uuid: an UUID that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$
+  - uuid3: an UUID3 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?3[0-9a-f]{3}-?[0-9a-f]{4}-?[0-9a-f]{12}$
+  - uuid4: an UUID4 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?4[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$
+  - uuid5: an UUID5 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?5[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$
+  - isbn: an ISBN10 or ISBN13 number string like "0321751043" or "978-0321751041"
+  - isbn10: an ISBN10 number string like "0321751043"
+  - isbn13: an ISBN13 number string like "978-0321751041"
+  - creditcard: a credit card number defined by the regex ^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$ with any non digit characters mixed in
+  - ssn: a U.S. social security number following the regex ^\d{3}[- ]?\d{2}[- ]?\d{4}$
+  - hexcolor: an hexadecimal color code like "#FFFFFF: following the regex ^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$
+  - rgbcolor: an RGB color code like rgb like "rgb(255,255,2559"
+  - byte: base64 encoded binary data - password: any kind of string
+  - date: a date string like "2006-01-02" as defined by full-date in RFC3339
+  - duration: a duration string like "22 ns" as parsed by Golang time.ParseDuration or compatible with Scala duration format
+  - datetime: a date time string like "2014-12-15T19:30:20.000Z" as defined by date-time in RFC3339.
 
 - **id** (string)
 
@@ -454,7 +532,8 @@ JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-sc
 
   x-kubernetes-list-map-keys annotates an array with the x-kubernetes-list-type `map` by specifying the keys used as the index of the map.
   
-  This tag MUST only be used on lists that have the "x-kubernetes-list-type" extension set to "map". Also, the values specified for this attribute must be a scalar typed field of the child structure (no nesting is supported).
+  This tag MUST only be used on lists that have the "x-kubernetes-list-type" extension set to "map".
+  Also, the values specified for this attribute must be a scalar typed field of the child structure (no nesting is supported).
   
   The properties specified must either be required or have a default value, to ensure those properties are present for all list items.
 
@@ -488,7 +567,10 @@ JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-sc
 
 - **x-kubernetes-preserve-unknown-fields** (boolean)
 
-  x-kubernetes-preserve-unknown-fields stops the API server decoding step from pruning fields which are not specified in the validation schema. This affects fields recursively, but switches back to normal pruning behaviour if nested properties or additionalProperties are specified in the schema. This can either be true or undefined. False is forbidden.
+  x-kubernetes-preserve-unknown-fields stops the API server decoding step from pruning fields
+  which are not specified in the validation schema. This affects fields recursively,
+  but switches back to normal pruning behaviour if nested properties or additionalProperties are specified in the schema.
+  This can either be true or undefined. False is forbidden.
 
 - **x-kubernetes-validations** ([]ValidationRule)
 
@@ -496,33 +578,58 @@ JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-sc
   
   *Map: unique values on key rule will be kept during a merge*
   
-  x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+  x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
+  This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
 
   <a name="ValidationRule"></a>
   *ValidationRule describes a validation rule written in the CEL expression language.*
 
   - **x-kubernetes-validations.rule** (string), required
 
-    Rule represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec The Rule is scoped to the location of the x-kubernetes-validations extension in the schema. The `self` variable in the CEL expression is bound to the scoped value. Example: - Rule scoped to the root of a resource with a status subresource: {"rule": "self.status.actual \<= self.spec.maxDesired"}
+    rule represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec.
+    The rule is scoped to the location of the x-kubernetes-validations extension in the schema.
+    The `self` variable in the CEL expression is bound to the scoped value.
+    Example: - rule scoped to the root of a resource with a status subresource: {"rule": "self.status.actual \<= self.spec.maxDesired"}
     
-    If the Rule is scoped to an object with properties, the accessible properties of the object are field selectable via `self.field` and field presence can be checked via `has(self.field)`. Null valued fields are treated as absent fields in CEL expressions. If the Rule is scoped to an object with additionalProperties (i.e. a map) the value of the map are accessible via `self[mapKey]`, map containment can be checked via `mapKey in self` and all entries of the map are accessible via CEL macros and functions such as `self.all(...)`. If the Rule is scoped to an array, the elements of the array are accessible via `self[i]` and also by macros and functions. If the Rule is scoped to a scalar, `self` is bound to the scalar value. Examples: - Rule scoped to a map of objects: {"rule": "self.components['Widget'].priority \< 10"} - Rule scoped to a list of integers: {"rule": "self.values.all(value, value >= 0 && value \< 100)"} - Rule scoped to a string value: {"rule": "self.startsWith('kube')"}
+    If the rule is scoped to an object with properties, the accessible properties of the object are field selectable
+    via `self.field` and field presence can be checked via `has(self.field)`.
+    Null valued fields are treated as absent fields in CEL expressions. If the rule is scoped to an object with
+    additionalProperties (i.e. a map) the value of the map are accessible via `self[mapKey]`, map containment can
+    be checked via `mapKey in self` and all entries of the map are accessible via CEL macros and functions such as
+    `self.all(...)`. If the rule is scoped to an array, the elements of the array are accessible via `self[i]`
+    and also by macros and functions. If the rule is scoped to a scalar, `self` is bound to the scalar value.
+    Examples:
+      - rule scoped to a map of objects: {"rule": "self.components['Widget'].priority \< 10"}
+      - rule scoped to a list of integers: {"rule": "self.values.all(value, value >= 0 && value \< 100)"}
+      - rule scoped to a string value: {"rule": "self.startsWith('kube')"}
     
-    The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object and from any x-kubernetes-embedded-resource annotated objects. No other metadata properties are accessible.
+    The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from
+    the root of the object and from any x-kubernetes-embedded-resource annotated objects.
+    No other metadata properties are accessible.
     
-    Unknown data preserved in custom resources via x-kubernetes-preserve-unknown-fields is not accessible in CEL expressions. This includes: - Unknown field values that are preserved by object schemas with x-kubernetes-preserve-unknown-fields. - Object properties where the property schema is of an "unknown type". An "unknown type" is recursively defined as:
+    Unknown data preserved in custom resources via x-kubernetes-preserve-unknown-fields is not accessible in CEL expressions.
+    This includes:
+    - Unknown field values that are preserved by object schemas with x-kubernetes-preserve-unknown-fields.
+    - Object properties where the property schema is of an "unknown type". An "unknown type" is recursively defined as:
       - A schema with no type and x-kubernetes-preserve-unknown-fields set to true
       - An array where the items schema is of an "unknown type"
       - An object where the additionalProperties schema is of an "unknown type"
     
-    Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Accessible property names are escaped according to the following rules when accessed in the expression: - '__' escapes to '__underscores__' - '.' escapes to '__dot__' - '-' escapes to '__dash__' - '/' escapes to '__slash__' - Property names that exactly match a CEL RESERVED keyword escape to '__{keyword}__'. The keywords are:
-    	  "true", "false", "null", "in", "as", "break", "const", "continue", "else", "for", "function", "if",
-    	  "import", "let", "loop", "package", "namespace", "return".
+    Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible.
+    Accessible property names are escaped according to the following rules when accessed in the expression:
+    - '__' escapes to '__underscores__' - '.' escapes to '__dot__'
+    - '-' escapes to '__dash__'
+    - '/' escapes to '__slash__'
+    - Property names that exactly match a CEL RESERVED keyword escape to '__{keyword}__'. The keywords are:
+        "true", "false", "null", "in", "as", "break", "const", "continue", "else", "for", "function", "if",
+        "import", "let", "loop", "package", "namespace", "return".
     Examples:
       - Rule accessing a property named "namespace": {"rule": "self.__namespace__ > 0"}
       - Rule accessing a property named "x-prop": {"rule": "self.x__dash__prop > 0"}
       - Rule accessing a property named "redact__d": {"rule": "self.redact__underscores__d > 0"}
     
-    Equality on arrays with x-kubernetes-list-type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1]. Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
+    Equality on arrays with x-kubernetes-list-type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1].
+    Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
       - 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and
         non-intersecting elements in `Y` are appended, retaining their partial order.
       - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
@@ -531,19 +638,46 @@ JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-sc
 
   - **x-kubernetes-validations.fieldPath** (string)
 
-    fieldPath represents the field path returned when the validation fails. It must be a relative JSON path (i.e. with array notation) scoped to the location of this x-kubernetes-validations extension in the schema and refer to an existing field. e.g. when validation checks if a specific attribute `foo` under a map `testMap`, the fieldPath could be set to `.testMap.foo` If the validation checks two lists must have unique attributes, the fieldPath could be set to either of the list: e.g. `.testList` It does not support list numeric index. It supports child operation to refer to an existing field currently. Refer to [JSONPath support in Kubernetes](https://kubernetes.io/docs/reference/kubectl/jsonpath/) for more info. Numeric index of array is not supported. For field name which contains special characters, use `['specialName']` to refer the field name. e.g. for attribute `foo.34$` appears in a list `testList`, the fieldPath could be set to `.testList['foo.34$']`
+    fieldPath represents the field path returned when the validation fails.
+    It must be a relative JSON path (i.e. with array notation) scoped to the location of
+    this x-kubernetes-validations extension in the schema and refer to an existing field.
+    e.g. when validation checks if a specific attribute `foo` under a map `testMap`,
+    the fieldPath could be set to `.testMap.foo`. If the validation checks two lists must have unique attributes,
+    the fieldPath could be set to either of the list: e.g. `.testList` It does not support list numeric index.
+    It supports child operation to refer to an existing field currently.
+    Refer to [JSONPath support in Kubernetes](https://kubernetes.io/docs/reference/kubectl/jsonpath/) for more info.
+    Numeric index of array is not supported. For field name which contains special characters, use `['specialName']`
+    to refer the field name. e.g. for attribute `foo.34$` appears in a list `testList`,
+    the fieldPath could be set to `.testList['foo.34$']`
 
   - **x-kubernetes-validations.message** (string)
 
-    Message represents the message displayed when validation fails. The message is required if the Rule contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host"
+    Message represents the message displayed when validation fails.
+    The message is required if the Rule contains line breaks. The message must not contain line breaks.
+    If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host"
 
   - **x-kubernetes-validations.messageExpression** (string)
 
-    MessageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a rule, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the rule; the only difference is the return type. Example: "x must be less than max ("+string(self.max)+")"
+    MessageExpression declares a CEL expression that evaluates to the validation failure message
+    that is returned when this rule fails. Since messageExpression is used as a failure message,
+    it must evaluate to a string. If both message and messageExpression are present on a rule,
+    then messageExpression will be used if validation fails.
+    If messageExpression results in a runtime error, the runtime error is logged,
+    and the validation failure message is produced as if the messageExpression field were unset.
+    If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks,
+    then the validation failure message will also be produced as if the messageExpression field were unset,
+    and the fact that messageExpression produced an empty string/string with only spaces/string
+    with line breaks will be logged. messageExpression has access to all the same variables as the rule;
+    the only difference is the return type. Example: "x must be less than max ("+string(self.max)+")"
 
   - **x-kubernetes-validations.reason** (string)
 
-    reason provides a machine-readable validation failure reason that is returned to the caller when a request fails this validation rule. The HTTP status code returned to the caller will match the reason of the reason of the first failed validation rule. The currently supported reasons are: "FieldValueInvalid", "FieldValueForbidden", "FieldValueRequired", "FieldValueDuplicate". If not set, default to use "FieldValueInvalid". All future added reasons must be accepted by clients when reading this value and unknown reasons should be treated as FieldValueInvalid.
+    reason provides a machine-readable validation failure reason that is returned to the caller
+    when a request fails this validation rule. The HTTP status code returned to the caller will
+    match the reason of the reason of the first failed validation rule. The currently supported reasons are:
+    "FieldValueInvalid", "FieldValueForbidden", "FieldValueRequired", "FieldValueDuplicate".
+    If not set, default to use "FieldValueInvalid". All future added reasons must be accepted by
+    clients when reading this value and unknown reasons should be treated as FieldValueInvalid.
 
 
 
@@ -568,11 +702,14 @@ CustomResourceDefinitionStatus indicates the state of the CustomResourceDefiniti
 
   - **acceptedNames.plural** (string), required
 
-    plural is the plural name of the resource to serve. The custom resources are served under `/apis/\<group>/\<version>/.../\<plural>`. Must match the name of the CustomResourceDefinition (in the form `\<names.plural>.\<group>`). Must be all lowercase.
+    plural is the plural name of the resource to serve. The custom resources are served under
+    `/apis/\<group>/\<version>/.../\<plural>`. Must match the name of the CustomResourceDefinition
+    (in the form `\<names.plural>.\<group>`). Must be all lowercase.
 
   - **acceptedNames.categories** ([]string)
 
-    categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
+    categories is a list of grouped resources this custom resource belongs to (e.g. 'all').
+    This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
 
   - **acceptedNames.listKind** (string)
 
@@ -580,7 +717,8 @@ CustomResourceDefinitionStatus indicates the state of the CustomResourceDefiniti
 
   - **acceptedNames.shortNames** ([]string)
 
-    shortNames are short names for the resource, exposed in API discovery documents, and used by clients to support invocations like `kubectl get \<shortname>`. It must be all lowercase.
+    shortNames are short names for the resource, exposed in API discovery documents,
+    and used by clients to support invocations like `kubectl get \<shortname>`. It must be all lowercase.
 
   - **acceptedNames.singular** (string)
 
@@ -608,7 +746,8 @@ CustomResourceDefinitionStatus indicates the state of the CustomResourceDefiniti
     lastTransitionTime last time the condition transitioned from one status to another.
 
     <a name="Time"></a>
-    *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+    *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.
+    Wrappers are provided for many of the factory methods that the time package offers.*
 
   - **conditions.message** (string)
 
@@ -620,7 +759,11 @@ CustomResourceDefinitionStatus indicates the state of the CustomResourceDefiniti
 
 - **storedVersions** ([]string)
 
-  storedVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.
+  storedVersions lists all versions of CustomResources that were ever persisted.
+  Tracking these versions allows a migration path for stored versions in etcd.
+  The field is mutable so a migration controller can finish a migration to another version
+  (ensuring no old objects are left in storage), and then remove the rest of the versions from this list.
+  Versions may not be removed from `spec.versions` while they exist in this list.
 
 
 
@@ -634,19 +777,23 @@ CustomResourceDefinitionList is a list of CustomResourceDefinition objects.
 
 - **items** ([]<a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinition" >}}">CustomResourceDefinition</a>), required
 
-  items list individual CustomResourceDefinition objects
+  items list individual CustomResourceDefinition objects.
 
 - **apiVersion** (string)
 
-  APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  APIVersion defines the versioned schema of this representation of an object.
+  Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values.
+  More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 
 - **kind** (string)
 
-  Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+  kind is a string value representing the REST resource this object represents.
+  Servers may infer this from the endpoint the client submits requests to.
+  Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  Standard object's metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 
 
@@ -1180,4 +1327,3 @@ DELETE /apis/apiextensions.k8s.io/v1/customresourcedefinitions
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
 401: Unauthorized
-
