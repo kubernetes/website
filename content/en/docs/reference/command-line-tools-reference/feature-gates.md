@@ -146,7 +146,6 @@ For a reference to old feature gates that are removed, please refer to
 | `MinDomainsInPodTopologySpread` | `false` | Alpha | 1.24 | 1.24 |
 | `MinDomainsInPodTopologySpread` | `false` | Beta | 1.25 | 1.26 |
 | `MinDomainsInPodTopologySpread` | `true` | Beta | 1.27 | |
-| `MultiCIDRRangeAllocator` | `false` | Alpha | 1.25 | |
 | `MultiCIDRServiceAllocator` | `false` | Alpha | 1.27 | |
 | `NewVolumeManagerReconstruction` | `false` | Beta | 1.27 | 1.27  |
 | `NewVolumeManagerReconstruction` | `true` | Beta | 1.28 |  |
@@ -619,7 +618,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/).
 - `MinimizeIPTablesRestore`: Enables new performance improvement logics
   in the kube-proxy iptables mode.
-- `MultiCIDRRangeAllocator`: Enables the MultiCIDR range allocator.
 - `MultiCIDRServiceAllocator`: Track IP address allocations for Service cluster IPs using IPAddress objects.
 - `NewVolumeManagerReconstruction`: Enables improved discovery of mounted volumes during kubelet
   startup. Since this code has been significantly refactored, we allow to opt-out in case kubelet
