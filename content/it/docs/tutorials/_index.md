@@ -50,7 +50,7 @@ Prima di procedere con vari tutorial, raccomandiamo di aggiungere il
 
 * [AppArmor](/docs/tutorials/clusters/apparmor/)
 
-* [seccomp](/docs/tutorials/clusters/seccomp/)
+* [Seccomp](/docs/tutorials/clusters/seccomp/)
 
 ## Servizi
 
