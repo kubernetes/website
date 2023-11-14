@@ -336,7 +336,9 @@ Some of the key benefits of using a secure container registry include:
   by providing a centralized location for sharing and accessing container images,
   which can help reduce the risk of miscommunication or errors.
 
-By implementing these measures and maintaining a robust security posture, organizations can help to minimize the risk of security incidents and data breaches that may result from using insecure images.
+By implementing these measures and maintaining a robust security posture,
+organizations can help to minimize the risk of security incidents and data breaches
+that may result from using insecure images.
 
 Container image should contain the bare minimum to run the program they
 package. Preferably, only the program and its dependencies, building the image
