@@ -37,7 +37,7 @@ Prow automatically applies language labels based on file path. Thanks to SIG Doc
 /language ko
 ```
  
-These repo labels let reviewers filter for PRs and issues by language. For example, you can now filter the k/website dashboard for [PRs with Chinese content](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Aopen+is%3Apr+label%3Alanguage%2Fzh).  
+These repo labels let reviewers filter for PRs and issues by language. For example, you can now filter the kubernetes/website dashboard for [PRs with Chinese content](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Aopen+is%3Apr+label%3Alanguage%2Fzh).  
 
 ### Team review 
 
