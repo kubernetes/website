@@ -134,7 +134,7 @@ Used on: Pod
 
 This annotation indicates the time when a workload restart was triggered, using 
 the kubectl command-line tool.
-The kubelet tool updates the Pod template in a Deployment, ReplicaSet, StatefulSet
+The kubectl tool updates the Pod template in a Deployment, ReplicaSet, StatefulSet
 or DaemonSet, making a change to the metadata of Pods defined by that template.
 By either setting this annotation or changing the value to a new date, the kubectl tool
 triggers a rollout and indirectly causes the launch of fresh, replacement Pods.
