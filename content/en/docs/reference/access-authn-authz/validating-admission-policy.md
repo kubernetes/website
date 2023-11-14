@@ -113,7 +113,7 @@ actions. Failures defined by the `failurePolicy` are enforced
 according to these actions only if the `failurePolicy` is set to `Fail` (or not specified),
 otherwise the failures are ignored.
 
-See [Audit Annotations: validation falures](/docs/reference/labels-annotations-taints/audit-annotations/#validation-policy-admission-k8s-io-validation_failure)
+See [Audit Annotations: validation failures](/docs/reference/labels-annotations-taints/audit-annotations/#validation-policy-admission-k8s-io-validation-failure)
 for more details about the validation failure audit annotation.
 
 ### Parameter resources
