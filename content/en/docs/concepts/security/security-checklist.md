@@ -313,7 +313,10 @@ Some common practices for image security include:
 - Ensuring that all dependencies used by container images are also secure and up-to-date.
 - Restricting the use of container images to trusted sources and avoiding the use of untrusted images or repositories.
 
-Secure container registries are a type of cloud-based service that provides a secure and centralized location for storing and managing container images. Container are pre-packaged software components that can be used to quickly and easily deploy applications in a containerized environment.
+Secure container registries are a type of cloud-based service that provides a secure
+and centralized location for storing and managing container images.
+Container are pre-packaged software components that can be used to quickly and
+easily deploy applications in a containerized environment.
 
 Some of the key benefits of using a secure container registry include:
 
