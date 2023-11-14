@@ -241,10 +241,10 @@ parts:
     version: v1
   - name: FlowSchema
     group: flowcontrol.apiserver.k8s.io
-    version: v1beta3
+    version: v1
   - name: PriorityLevelConfiguration
     group: flowcontrol.apiserver.k8s.io
-    version: v1beta3
+    version: v1
   - name: Binding
     group: ""
     version: v1
