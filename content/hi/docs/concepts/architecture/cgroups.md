@@ -84,16 +84,17 @@ cgroup v2 में स्विच करते समय उपयोगकर
 
 cgroup v2 cgroup v1 की तुलना में एक अलग API का उपयोग करता है, इसलिए यदि कोई एप्लिकेशन सीधे cgroup फ़ाइल सिस्टम तक सीधे पहुँचता है, तो उन्हें cgroup v2 को समर्थन करने वाले नए संस्करणों में अपडेट किया जाना चाहिए। उदाहरण के लिए:
 
-* Some third-party monitoring and security agents may depend on the cgroup filesystem.
- Update these agents to versions that support cgroup v2.
-* If you run [cAdvisor](https://github.com/google/cadvisor) as a stand-alone
- DaemonSet for monitoring pods and containers, update it to v0.43.0 or later.
-* If you deploy Java applications, prefer to use versions which fully support cgroup v2:
-    * [OpenJDK / HotSpot](https://bugs.openjdk.org/browse/JDK-8230305): jdk8u372, 11.0.16, 15 and later
-    * [IBM Semeru Runtimes](https://www.ibm.com/support/pages/apar/IJ46681): 8.0.382.0, 11.0.20.0, 17.0.8.0, and later
-    * [IBM Java](https://www.ibm.com/support/pages/apar/IJ46681): 8.0.8.6 and later
-* If you are using the [uber-go/automaxprocs](https://github.com/uber-go/automaxprocs) package, make sure
-  the version you use is v1.5.1 or higher.
+
+* कुछ थर्ड-पार्टी मॉनिटरिंग और सुरक्षा एजेंट्स cgroup फ़ाइल सिस्टम पर निर्भर कर सकते हैं।
+  इन एजेंट्स को cgroup v2 का समर्थन करने वाले संस्करणों में अपडेट करें।
+* यदि आप [cAdvisor](https://github.com/google/cadvisor) को स्वतंत्र
+  डेमनसेट के रूप में चला रहे हैं पॉड्स और कंटेनरों की मॉनिटरिंग के लिए, तो इसे v0.43.0 या उससे ऊपर करें।
+* यदि आप जावा एप्लिकेशन डिप्लॉय कर रहे हैं, तो पूर्णत: cgroup v2 का समर्थन करने वाले संस्करण का उपयोग करें:
+    * [OpenJDK / HotSpot](https://bugs.openjdk.org/browse/JDK-8230305): jdk8u372, 11.0.16, 15 और ऊपर
+    * [IBM Semeru Runtimes](https://www.ibm.com/support/pages/apar/IJ46681): 8.0.382.0, 11.0.20.0, 17.0.8.0, और ऊपर
+    * [IBM Java](https://www.ibm.com/support/pages/apar/IJ46681): 8.0.8.6 और ऊपर
+* यदि आप [uber-go/automaxprocs](https://github.com/uber-go/automaxprocs) पैकेज का उपयोग कर रहे हैं, सुनिश्चित करें
+  कि आप उसके उपयोग करने वाले संस्करण v1.5.1 या उससे ऊपर है।
 
 
 * कुछ थर्ड-पार्टी मॉनिटरिंग और सुरक्षा एजेंट्स cgroup फ़ाइल सिस्टम पर निर्भर कर सकते हैं। इन एजेंट्स को cgroup v2 का समर्थन करने वाले संस्करणों में अपडेट करें।
