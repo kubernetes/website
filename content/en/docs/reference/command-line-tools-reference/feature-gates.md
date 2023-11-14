@@ -447,17 +447,11 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `CronJobsScheduledAnnotation`: Set the scheduled job time as an
   {{< glossary_tooltip text="annotation" term_id="annotation" >}} on Jobs that were created
   on behalf of a CronJob.
-<<<<<<< HEAD
-- `CRDValidationRatcheting`: Enable updates to custom resources to contain 
-   violations of their OpenAPI schema if the offending portions of the resource
-   update did not change. See [Validation Ratcheting](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-ratcheting) for more details.
-=======
 - `CronJobTimeZone`: Allow the use of the `timeZone` optional field in [CronJobs](/docs/concepts/workloads/controllers/cron-jobs/).
 - `CRDValidationRatcheting`: Enable updates to custom resources to contain
   violations of their OpenAPI schema if the offending portions of the resource
   update did not change. See [Validation Ratcheting](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-ratcheting)
   for more details.
->>>>>>> upstream/main
 - `CrossNamespaceVolumeDataSource`: Enable the usage of cross namespace volume data source
   to allow you to specify a source namespace in the `dataSourceRef` field of a
   PersistentVolumeClaim.
@@ -517,11 +511,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   for more details.
 - `GracefulNodeShutdownBasedOnPodPriority`: Enables the kubelet to check Pod priorities
   when shutting down a node gracefully.
-<<<<<<< HEAD
-=======
 - `GRPCContainerProbe`: Enables the gRPC probe method for liveness, readiness and startup probes.
   See [Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-a-grpc-liveness-probe).
->>>>>>> upstream/main
 - `HonorPVReclaimPolicy`: Honor persistent volume reclaim policy when it is `Delete` irrespective of PV-PVC deletion ordering.
   For more details, check the
   [PersistentVolume deletion protection finalizer](/docs/concepts/storage/persistent-volumes/#persistentvolume-deletion-protection-finalizer)
@@ -548,11 +539,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   and volume controllers.
 - `InTreePluginvSphereUnregister`: Stops registering the vSphere in-tree plugin in kubelet
   and volume controllers.
-<<<<<<< HEAD
-=======
 - `JobMutableNodeSchedulingDirectives`: Allows updating node scheduling directives in
   the pod template of [Job](/docs/concepts/workloads/controllers/job/).
->>>>>>> upstream/main
 - `JobBackoffLimitPerIndex`: Allows specifying the maximal number of pod
   retries per index in Indexed jobs.
 - `JobPodFailurePolicy`: Allow users to specify handling of pod failures based on container
@@ -610,14 +598,11 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `KubeletTracing`: Add support for distributed tracing in the kubelet.
   When enabled, kubelet CRI interface and authenticated http servers are instrumented to generate
   OpenTelemetry trace spans.
-<<<<<<< HEAD
+
   See [Traces for Kubernetes System Components](/docs/concepts/cluster-administration/system-traces) for more details.
-=======
-  See [Traces for Kubernetes System Components](/docs/concepts/cluster-administration/system-traces/)
-  for more details.
+
 - `LegacyServiceAccountTokenNoAutoGeneration`: Stop auto-generation of Secret-based
   [service account tokens](/docs/concepts/security/service-accounts/#get-a-token).
->>>>>>> upstream/main
 - `LegacyServiceAccountTokenCleanUp`: Enable cleaning up Secret-based
   [service account tokens](/docs/concepts/security/service-accounts/#get-a-token)
   when they are not used in a specified time (default to be one year).
@@ -693,15 +678,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   the pod is being deleted due to a disruption.
 - `PodHostIPs`: Enable the `status.hostIPs` field for pods and the {{< glossary_tooltip term_id="downward-api" text="downward API" >}}.
   The field lets you expose host IP addresses to workloads.
-<<<<<<< HEAD
 - `PodIndexLabel`: Enables the Job controller and StatefulSet controller to add the pod index as a label when creating new pods. See [Job completion mode docs](/docs/concepts/workloads/controllers/job#completion-mode) and [StatefulSet pod index label docs](/docs/concepts/workloads/controllers/statefulset/#pod-index-label) for more details.
 - `PodLifecycleSleepAction`: Enables the `sleep` action in Container lifecycle hooks.
-=======
-- `PodIndexLabel`: Enables the Job controller and StatefulSet controller to add the pod index as a label
-  when creating new pods. See [Job completion mode docs](/docs/concepts/workloads/controllers/job/#completion-mode)
-  and [StatefulSet pod index label docs](/docs/concepts/workloads/controllers/statefulset/#pod-index-label)
-  for more details.
->>>>>>> upstream/main
 - `PodReadyToStartContainersCondition`: Enable the kubelet to mark the [PodReadyToStartContainers](/docs/concepts/workloads/pods/pod-lifecycle/#pod-has-network)
   condition on pods. This was previously (1.25-1.27) known as `PodHasNetworkCondition`.
 - `PodSchedulingReadiness`: Enable setting `schedulingGates` field to control a Pod's
@@ -770,17 +748,11 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `StorageVersionHash`: Allow API servers to expose the storage version hash in the
   discovery.
 - `TopologyAwareHints`: Enables topology aware routing based on topology hints
-<<<<<<< HEAD
-  in EndpointSlices. See [Topology Aware
-  Hints](/docs/concepts/services-networking/topology-aware-hints/) for more
-  details.
-=======
   in EndpointSlices. See [Topology Aware Hints](/docs/concepts/services-networking/topology-aware-hints/)
   for more details.
 - `TopologyManager`: Enable a mechanism to coordinate fine-grained hardware resource
   assignments for different components in Kubernetes. See
   [Control Topology Management Policies on a node](/docs/tasks/administer-cluster/topology-manager/).
->>>>>>> upstream/main
 - `TopologyManagerPolicyAlphaOptions`: Allow fine-tuning of topology manager policies,
   experimental, Alpha-quality options.
   This feature gate guards *a group* of topology manager options whose quality level is alpha.
