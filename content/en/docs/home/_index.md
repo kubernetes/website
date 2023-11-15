@@ -47,7 +47,7 @@ cards:
   button: View Reference
   button_path: /docs/reference
 - name: contribute
-  title: Contribute to Kubernetes Documentation
+  title: Contribute to Kubernetes documentation
   description: Anyone can contribute, whether you're new to the project or you've been around a long time.
   button: Find out how to help
   button_path: /docs/contribute
