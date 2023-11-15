@@ -516,61 +516,38 @@ See [Configure a kubelet image credential provider](/docs/tasks/administer-clust
 The interpretation of `config.json` varies between the original Docker
 implementation and the Kubernetes interpretation. In Docker, the `auths` keys
 can only specify root URLs, whereas Kubernetes allows glob URLs as well as
-prefix-matched paths. This means that a `config.json` like this is valid:
+prefix-matched paths. The only limitation is that glob patterns (`*`) have to
+include the dot (`.`) for each subdomain. The amount of matched subdomains has
+to be equal to the amount of glob patterns (`*.`), for example:
 -->
 对于 `config.json` 的解释在原始 Docker 实现和 Kubernetes 的解释之间有所不同。
-在 Docker 中，`auths` 键只能指定根 URL，而 Kubernetes 允许 glob URLs 以及前缀匹配的路径。
+在 Docker 中，`auths` 键只能指定根 URL，而 Kubernetes 允许 glob URL 以及前缀匹配的路径。
+唯一的限制是 glob 模式（`*`）必须为每个子域名包括点（`.`）。
+匹配的子域名数量必须等于 glob 模式（`*.`）的数量，例如：
+
+<!--
+- `*.kubernetes.io` will *not* match `kubernetes.io`, but `abc.kubernetes.io`
+- `*.*.kubernetes.io` will *not* match `abc.kubernetes.io`, but `abc.def.kubernetes.io`
+- `prefix.*.io` will match `prefix.kubernetes.io`
+- `*-good.kubernetes.io` will match `prefix-good.kubernetes.io`
+-->
+- `*.kubernetes.io` **不**会匹配 `kubernetes.io`，但会匹配 `abc.kubernetes.io`
+- `*.*.kubernetes.io` **不**会匹配 `abc.kubernetes.io`，但会匹配 `abc.def.kubernetes.io`
+- `prefix.*.io` 将匹配 `prefix.kubernetes.io`
+- `*-good.kubernetes.io` 将匹配 `prefix-good.kubernetes.io`
+
+<!--
+This means that a `config.json` like this is valid:
+-->
 这意味着，像这样的 `config.json` 是有效的：
 
 ```json
 {
     "auths": {
-        "*my-registry.io/images": {
-            "auth": "…"
-        }
+        "my-registry.io/images": { "auth": "…" },
+        "*.my-registry.io/images": { "auth": "…" }
     }
 }
-```
-
-<!--
-The root URL (`*my-registry.io`) is matched by using the following syntax:
-
-```
-pattern:
-    { term }
-
-term:
-    '*'         matches any sequence of non-Separator characters
-    '?'         matches any single non-Separator character
-    '[' [ '^' ] { character-range } ']'
-                character class (must be non-empty)
-    c           matches character c (c != '*', '?', '\\', '[')
-    '\\' c      matches character c
-
-character-range:
-    c           matches character c (c != '\\', '-', ']')
-    '\\' c      matches character c
-    lo '-' hi   matches character c for lo <= c <= hi
-```
--->
-使用以下语法匹配根 URL （`*my-registry.io`）：
-
-```
-pattern:
-    { term }
-
-term:
-    '*'         匹配任何无分隔符字符序列
-    '?'         匹配任意单个非分隔符
-    '[' [ '^' ] 字符范围
-                  字符集（必须非空）
-    c           匹配字符 c （c 不为 '*', '?', '\\', '['）
-    '\\' c      匹配字符 c
-
-字符范围:
-    c           匹配字符 c （c 不为 '\\', '?', '-', ']'）
-    '\\' c      匹配字符 c
-    lo '-' hi   匹配字符范围在 lo 到 hi 之间字符
 ```
 
 <!--
@@ -584,13 +561,20 @@ would match successfully:
 - `my-registry.io/images/my-image`
 - `my-registry.io/images/another-image`
 - `sub.my-registry.io/images/my-image`
+
+<!--
+But not:
+-->
+但这些不会匹配成功：
+
 - `a.sub.my-registry.io/images/my-image`
+- `a.b.sub.my-registry.io/images/my-image`
 
 <!--
 The kubelet performs image pulls sequentially for every found credential. This
-means, that multiple entries in `config.json` are possible, too:
+means, that multiple entries in `config.json` for different paths are possible, too:
 -->
-kubelet 为每个找到的凭据的镜像按顺序拉取。这意味着在 `config.json` 中可能有多项：
+kubelet 为每个找到的凭据的镜像按顺序拉取。这意味着对于不同的路径在 `config.json` 中也可能有多项：
 
 ```json
 {
@@ -697,7 +681,7 @@ kubectl create secret docker-registry <name> \
 <!--
 If you already have a Docker credentials file then, rather than using the above
 command, you can import the credentials file as a Kubernetes
-{{< glossary_tooltip text="Secrets" term_id="secret" >}}.
+{{< glossary_tooltip text="Secrets" term_id="secret" >}}.  
 [Create a Secret based on existing Docker credentials](/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials)
 explains how to set this up.
 -->
@@ -774,8 +758,7 @@ will be merged.
 -->
 你需要对使用私有仓库的每个 Pod 执行以上操作。不过，
 设置该字段的过程也可以通过为[服务账号](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/)资源设置
-`imagePullSecrets` 来自动完成。
-有关详细指令，
+`imagePullSecrets` 来自动完成。有关详细指令，
 可参见[将 ImagePullSecrets 添加到服务账号](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)。
 
 你也可以将此方法与节点级别的 `.docker/config.json` 配置结合使用。
@@ -830,8 +813,9 @@ common use cases and suggested solutions.
    - Move sensitive data into a "Secret" resource, instead of packaging it in an image.
 -->
 3. 集群使用专有镜像，且有些镜像需要更严格的访问控制
-   - 确保 [AlwaysPullImages 准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)被启用。否则，所有 Pod 都可以使用所有镜像。
-   - 确保将敏感数据存储在 Secret 资源中，而不是将其打包在镜像里
+   - 确保 [AlwaysPullImages 准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)被启用。
+     否则，所有 Pod 都可以使用所有镜像。
+   - 确保将敏感数据存储在 Secret 资源中，而不是将其打包在镜像里。
 
 <!--
 1. A multi-tenant cluster where each tenant needs own private registry.
@@ -843,10 +827,11 @@ common use cases and suggested solutions.
    - The tenant adds that secret to imagePullSecrets of each namespace.
 -->
 4. 集群是多租户的并且每个租户需要自己的私有仓库
-   - 确保 [AlwaysPullImages 准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)。否则，所有租户的所有的 Pod 都可以使用所有镜像。
-   - 为私有仓库启用鉴权
+   - 确保 [AlwaysPullImages 准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)。
+     否则，所有租户的所有的 Pod 都可以使用所有镜像。
+   - 为私有仓库启用鉴权。
    - 为每个租户生成访问仓库的凭据，放置在 Secret 中，并将 Secret 发布到各租户的名字空间下。
-   - 租户将 Secret 添加到每个名字空间中的 imagePullSecrets
+   - 租户将 Secret 添加到每个名字空间中的 imagePullSecrets。
 
 <!--
 If you need access to multiple registries, you can create one secret for each registry.
@@ -859,7 +844,7 @@ If you need access to multiple registries, you can create one secret for each re
 In older versions of Kubernetes, the kubelet had a direct integration with cloud provider credentials.
 This gave it the ability to dynamically fetch credentials for image registries.
 -->
-## 旧版的内置 kubelet 凭据提供程序
+## 旧版的内置 kubelet 凭据提供程序    {#legacy-built-in-kubelet-credentials-provider}
 
 在旧版本的 Kubernetes 中，kubelet 与云提供商凭据直接集成。
 这使它能够动态获取镜像仓库的凭据。
@@ -869,7 +854,7 @@ There were three built-in implementations of the kubelet credential provider int
 ACR (Azure Container Registry), ECR (Elastic Container Registry), and GCR (Google Container Registry).
 -->
 kubelet 凭据提供程序集成存在三个内置实现：
-ACR（Azure 容器仓库）、ECR（Elastic 容器仓库）和 GCR（Google 容器仓库）
+ACR（Azure 容器仓库）、ECR（Elastic 容器仓库）和 GCR（Google 容器仓库）。
 
 <!--
 For more information on the legacy mechanism, read the documentation for the version of Kubernetes that you

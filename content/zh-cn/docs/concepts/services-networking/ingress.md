@@ -26,6 +26,13 @@ weight: 30
 
 {{< glossary_definition term_id="ingress" length="all" >}}
 
+{{< note >}}
+<!--
+Ingress is frozen. New features are being added to the [Gateway API](/docs/concepts/services-networking/gateway/).
+-->
+入口（Ingress）目前已停止更新。新的功能正在集成至[网关 API](/zh-cn/docs/concepts/services-networking/gateway/) 中。
+{{< /note >}}
+
 <!-- body -->
 
 <!--
