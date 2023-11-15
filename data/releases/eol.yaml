@@ -1,7 +1,9 @@
 branches:
   - release: "1.25"
-    finalPatchRelease: "1.25.15"
+    finalPatchRelease: "1.25.16"
     endOfLifeDate: 2023-10-28
+    note: >-
+      1.25.16 was released in November 2023 (after the EOL date) to fix [CVE-2023-5528](https://github.com/advisories/GHSA-hq6q-c2x6-hmch)
   - release: "1.24"
     finalPatchRelease: "1.24.17"
     endOfLifeDate: 2023-07-28

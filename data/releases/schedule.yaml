@@ -14,6 +14,8 @@ schedules:
     - release: 1.28.4
       cherryPickDeadline: ""
       targetDate: 2023-11-14
+      note: >-
+        Out of band release to fix [CVE-2023-5528](https://github.com/advisories/GHSA-hq6q-c2x6-hmch)
     - release: 1.28.3
       cherryPickDeadline: 2023-10-13
       targetDate: 2023-10-18
@@ -39,6 +41,8 @@ schedules:
     - release: 1.27.8
       cherryPickDeadline: ""
       targetDate: 2023-11-14
+      note: >-
+        Out of band release to fix [CVE-2023-5528](https://github.com/advisories/GHSA-hq6q-c2x6-hmch)
     - release: 1.27.7
       cherryPickDeadline: 2023-10-13
       targetDate: 2023-10-18
@@ -77,6 +81,8 @@ schedules:
     - release: 1.26.11
       cherryPickDeadline: ""
       targetDate: 2023-11-14
+      note: >-
+        Out of band release to fix [CVE-2023-5528](https://github.com/advisories/GHSA-hq6q-c2x6-hmch)
     - release: 1.26.10
       cherryPickDeadline: 2023-10-13
       targetDate: 2023-10-18
