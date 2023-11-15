@@ -186,6 +186,10 @@ For a reference to old feature gates that are removed, please refer to
 | `SELinuxMountReadWriteOncePod` | `true` | Beta | 1.28 | |
 | `SchedulerQueueingHints` | `true` | Beta | 1.28 | |
 | `SecurityContextDeny` | `false` | Alpha | 1.27 | |
+| `ServiceAccountTokenJTI` | `false` | Alpha | 1.29 | |
+| `ServiceAccountTokenNodeBinding` | `false` | Alpha | 1.29 | |
+| `ServiceAccountTokenNodeBindingValidation` | `false` | Alpha | 1.29 | |
+| `ServiceAccountTokenPodNodeInfo` | `false` | Alpha | 1.29 | |
 | `SidecarContainers` | `false` | Alpha | 1.28 | 1.28 |
 | `SidecarContainers` | `true` | Beta | 1.29 | |
 | `SizeMemoryBackedVolumes` | `false` | Alpha | 1.20 | 1.21 |
@@ -726,6 +730,12 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `ServerSideFieldValidation`: Enables server-side field validation. This means the validation
   of resource schema is performed at the API server side rather than the client side
   (for example, the `kubectl create` or `kubectl apply` command line).
+- `ServiceAccountTokenJTI`: Controls whether JTIs (UUIDs) are embedded into generated service account tokens,
+  and whether these JTIs are recorded into the Kubernetes audit log for future requests made by these tokens.
+- `ServiceAccountTokenNodeBinding`: Controls whether the apiserver allows binding service account tokens to Node objects.
+- `ServiceAccountTokenNodeBindingValidation`: Controls whether the apiserver will validate a Node reference in service account tokens.
+- `ServiceAccountTokenPodNodeInfo`: Controls whether the apiserver embeds the node name and uid
+  for the associated node when issuing service account tokens bound to Pod objects.
 - `SidecarContainers`: Allow setting the `restartPolicy` of an init container to
   `Always` so that the container becomes a sidecar container (restartable init containers).
   See

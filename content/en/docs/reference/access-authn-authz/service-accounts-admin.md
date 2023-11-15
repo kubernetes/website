@@ -1,9 +1,7 @@
 ---
 reviewers:
-  - bprashanth
-  - davidopp
-  - lavalamp
   - liggitt
+  - enj
 title: Managing Service Accounts
 content_type: concept
 weight: 50
