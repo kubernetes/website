@@ -291,9 +291,9 @@ validation error is thrown for any container sharing a name with another.
 
 #### API for sidecar containers
 
-{{< feature-state for_k8s_version="v1.28" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.29" state="beta" >}}
 
-Starting with Kubernetes 1.28 in alpha, a feature gate named `SidecarContainers`
+Enabled by default with Kubernetes 1.29, a feature gate named `SidecarContainers`
 allows you to specify a `restartPolicy` for init containers which is independent of
 the Pod and other init containers. Container [probes](/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe)
 can also be added to control their lifecycle.
