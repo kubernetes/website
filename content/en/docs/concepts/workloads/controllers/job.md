@@ -939,7 +939,7 @@ controller removes the finalizer only after the Pod has been accounted for in
 the Job status, allowing the Pod to be removed by other controllers or users.
 
 {{< note >}}
-See [My pod stays terminating](/docs/tasks/debug-application/debug-pods) if you
+See [My pod stays terminating](/docs/tasks/debug/debug-application/debug-pods/) if you
 observe that pods from a Job are stucked with the tracking finalizer.
 {{< /note >}}
 
