@@ -711,15 +711,28 @@ Restart containerd.
 systemctl restart containerd
 ```
 
-Create a RuntimeClass resource named `crun` to use the pre-configured crun handler in containerd. Specify the `runtimeClassName` in Pod Spec to use the `crun` RuntimeClass, instructing kubelet to run the Pod with the specified runtime. Additionally, set the annotation `module.wasm.image/variant: compat` to inform crun that this is a Wasm workload.
+Add label `runtime=crun` on the node.
+
+```bash
+kubectl label nodes wasm-demo-control-plane runtime=crun
+```
+
+Create a RuntimeClass resource named `crun` to use the pre-configured `crun` handler in containerd, the `scheduling.nodeSelector` property sends pod to nodes with the `runtime=crun` label.
 
 ```yaml
 apiVersion: node.k8s.io/v1
 kind: RuntimeClass
 metadata:
   name: crun
+scheduling:
+  nodeSelector:
+    runtime: crun
 handler: crun
----
+```
+
+Set `.spec.runtimeClassName` for the pod to target the pod at the `crun` RuntimeClass. This will ensure the pod gets assigned to a node and runtime specified in the `crun` RuntimeClass. Additionally, set the annotation `module.wasm.image/variant: compat` to inform crun that this is a Wasm workload.
+
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -770,7 +783,7 @@ Create a single-node Kubernetes cluster using kind.
 kind create cluster --name kwasm-demo
 ```
 
-A Helm chart is available to easily install the Kwasm operator. Install the Kwasm Operator using helm and enable Wasm support for all nodes by adding the annotation `kwasm.sh/kwasm-node=true`.
+A Helm chart is available to easily install the Kwasm operator. Install the Kwasm Operator using helm and enable Wasm support for the node `kwasm-demo-control-plane` by adding the annotation `kwasm.sh/kwasm-node=true`.
 
 ```bash
 # Add HELM repository if not already done
@@ -778,18 +791,31 @@ helm repo add kwasm http://kwasm.sh/kwasm-operator/
 # Install KWasm operator
 helm install -n kwasm --create-namespace kwasm-operator kwasm/kwasm-operator
 # Provision Nodes
-kubectl annotate node --all kwasm.sh/kwasm-node=true
+kubectl annotate node kwasm-demo-control-plane kwasm.sh/kwasm-node=true
 ```
 
-Create a RuntimeClass resource named `crun` to use the crun handler automatically set up by Kwasm in containerd. Specify the `runtimeClassName` in Pod spec to use the `crun` RuntimeClass, and set the annotation `module.wasm.image/variant: compat` to inform crun that this is a Wasm workload.
+Add label `runtime=crun` on the node.
+
+```bash
+kubectl label nodes kwasm-demo-control-plane runtime=crun
+```
+
+Create a RuntimeClass resource named `crun` to use the crun handler automatically set up by Kwasm in containerd, the `scheduling.nodeSelector` property sends pod to nodes with the `runtime=crun` label.
 
 ```yaml
 apiVersion: node.k8s.io/v1
 kind: RuntimeClass
 metadata:
   name: crun
+scheduling:
+  nodeSelector:
+    runtime: crun
 handler: crun
----
+```
+
+Set `.spec.runtimeClassName` for the pod to target the pod at the `crun` RuntimeClass. This will ensure the pod gets assigned to a node and runtime specified in the `crun` RuntimeClass. Additionally, set the annotation `module.wasm.image/variant: compat` to inform crun that this is a Wasm workload.
+
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -832,12 +858,6 @@ In this article, the `module.wasm.image/variant: compat` annotation is used to i
 When the `compat-smart` annotation is used, crun can intelligently determine how to start the container based on whether it is a Wasm workload or an OCI container. That makes it possible to run WASM containers with sidecars. Here is an example of a Pod YAML file with a Wasm container and a Linux container:
 
 ```yaml
-apiVersion: node.k8s.io/v1
-kind: RuntimeClass
-metadata:
-  name: crun
-handler: crun
----
 apiVersion: v1
 kind: Pod
 metadata:
