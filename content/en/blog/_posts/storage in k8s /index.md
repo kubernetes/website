@@ -5,16 +5,12 @@ title: "Storage in Kubernetes"
 
 **Author:** Goutam Verma (Salad Technologies)
 
-# **Introduction **
-
 Kubernetes offers robust tools for ensuring containers are always available, but guaranteeing high availability for applications requires more. Traditional backup methods are not well-suited to protect against data loss in Kubernetes because they struggle to adapt to Kubernetes' dynamic nature. This is because Kubernetes introduces new complexities in both computing and storage, demanding a fresh perspective on data protection. To secure your data effectively, it's crucial not only to grasp 'how' Kubernetes operates but also to understand 'why' it functions as it does and how data is stored and managed within its framework. 
 
 Without proper Kubernetes storage solutions, your application's data faces the risk of being lost during routine pod restarts. This can pose significant challenges, particularly for applications that require persistent data storage, such as databases and web applications. To address these issues and ensure data durability, Kubernetes provides various types of storage options. These storage solutions are essential for maintaining data integrity, enabling applications to securely store and retrieve data, and ensuring data survival throughout the lifecycle of containers and pods.
 
 
 ## **Types of Storage**
-
-
 
 * Persistent Volumes
 * Projected Volumes
@@ -31,11 +27,7 @@ Ephemeral storage refers to temporary storage within a Kubernetes pod that is ti
 
 Let's take a look into the fundamental root directory structure of cluster components. This structure provides a foundational understanding of how key elements within a Kubernetes cluster are organized and interact. 
 
-
-
-![Alt text](image.png)
-
-
+{{< figure src="image.png" title="root directory structure" >}}
 
 ## **How to persist data in K8s using volume**
 
@@ -43,18 +35,13 @@ Before delving into storage, let's consider a scenario where we have pods intera
 
 For this storage requirements looks like :
 
-
-
 * Storage does not depends on the Pod LifeCycle
 * Storage must be available on all node
 * Storage needs to survive even if cluster crashes 
 
-
-![Alt text](image-1.png)
+{{< figure src="image-1.png" title="availability of storage" >}}
 
 In favor to create  the persistent volume, it create just like any other component get create using yaml
-
-
 
 * Create as cluster resource
 * Created via YAML file
@@ -73,13 +60,11 @@ By creating Persistent Volumes (PVs), you can utilize actual physical storage. I
 Persistent volumes are the resources and they need to be there before the pod is created. In order to make it available you need to follow steps
 
 
-
 * Configure storage in cluster
 * Create PV component from storage backend 
 * Create explicit configure YAML to use those PV component or claim that volume using PersistentVolumeClaim (PVC)
 
 Here's an example where we use an NFS storage backend. Essentially, specify how much storage is required and provide additional parameters, such as whether it should be read-write or read-only, among other access options.
-
 
 ```
 apiVersion: vl
@@ -108,9 +93,7 @@ _Note : Depending on the storage type in the backend, some attributes in the spe
 
 Let’s take a look at workflow of persistent volume:
 
-
-
-![Alt text](image-2.png)
+{{< figure src="image-2.png" title="workflow of persistent volume" >}}
 
 Step 1 : Requesting Storage Through a Claim: Users request storage resources by creating a Persistent Volume Claim (PVC) a YAML file. Within the PVC, they specify the desired storage capacity and additional characteristics like read-only or read-write access.(see fig 3)
 
@@ -123,11 +106,9 @@ Step 4: Accessing Storage within Containers: Inside the pod, which can have one 
 Step 5: Persistence Across Pod Lifecycles: Importantly, if the pod were to terminate for any reason, when a new one gets created, it will inherit access to the same storage. This ensures continuity, allowing the new pod to see all the changes made by the previous pod or its containers.
 
 
-
-![Alt text](image-3.png)
+{{< figure src="image-3.png" title="config files" >}}
 
 _Note: Claims and pods must exist within the same namespace, but persistent volumes are not namespace-specific. This means claims are used to find volumes within the same namespace as the pod, ensuring proper isolation and resource management._
-
 
 ## **StorageClass**
 
@@ -149,22 +130,15 @@ parameters:
     topsPerGB: "10"
     fsType: ext4
 ```
-
-
 It's essential to note that each storage backend typically has its own provisioner, which Kubernetes provides internally. These internal provisioners are prefixed with "_kubernetes.io_" like the one shown here in the above example. However, for other storage types or custom setups, external provisioners may be necessary. These external provisioners must be explicitly selected and integrated into your StorageClass configuration.
 
 To use StorageClass in a pod configuration, you follow these steps:
-
-
 
 * Pods Need Storage: When a Pod needs storage in Kubernetes, it doesn't directly ask for it. Instead, it uses something called a PersistentVolumeClaim (PVC) to make the request.
 * PVC Request: In your PVC configuration, you add an attribute called storageClassName. This attribute tells Kubernetes which StorageClass to use for creating a PV that matches the PVC's needs. The storageClassName attribute is required in the PVC configuration. This attribute tells Kubernetes which StorageClass to use to provision a PersistentVolume (PV) that meets the requirements of the PVC.
 * Claiming Storage: When a Pod is created and mentions a PVC, Kubernetes takes care of the request. It automatically asks for the storage you specified in the PVC from the chosen StorageClass. Think of it as Kubernetes doing the asking on behalf of the Pod.
 * Automatic Provisioning: The StorageClass uses the provisioner specified in its configuration to create a PV that aligns with the PVC's requirements. This PV serves as the bridge to the actual storage backend.
 
-
-
-![Alt text](image-4.png)
-
+{{< figure src="image-4.png" title="storage class and pvc" >}}
 
 In conclusion, StorageClass in Kubernetes is a fundamental component that allows users to dynamically provision and manage storage resources for their applications. Now that we have covered StorageClass, let's delve into the eight key storage principles in Kubernetes. These principles are essential for understanding how storage works within a Kubernetes cluster and how to effectively manage and utilize storage resources for your applications.
