@@ -10,7 +10,7 @@ Kubernetes offers robust tools for ensuring containers are always available, but
 Without proper Kubernetes storage solutions, your application's data faces the risk of being lost during routine pod restarts. This can pose significant challenges, particularly for applications that require persistent data storage, such as databases and web applications. To address these issues and ensure data durability, Kubernetes provides various types of storage options. These storage solutions are essential for maintaining data integrity, enabling applications to securely store and retrieve data, and ensuring data survival throughout the lifecycle of containers and pods.
 
 
-## **Types of Storage**
+## Types of Storage
 
 * Persistent Volumes
 * Projected Volumes
@@ -23,13 +23,13 @@ Projected Volumes: Projected volumes are a feature that allows you to combine an
 Ephemeral storage refers to temporary storage within a Kubernetes pod that is tightly bound to the lifecycle of that pod. It exists only as long as the pod is running on a specific node. Once the pod is deleted, or if it's rescheduled to another node, any data stored in ephemeral storage is lost. Ephemeral storage is typically used for transient or disposable data, such as logs or temporary scratch files, that doesn't need to be preserved beyond the pod's runtime.
 
 
-## **Root Directory Structure**
+## Root Directory Structure
 
 Let's take a look into the fundamental root directory structure of cluster components. This structure provides a foundational understanding of how key elements within a Kubernetes cluster are organized and interact. 
 
 {{< figure src="image.png" title="root directory structure" >}}
 
-## **How to persist data in Kubernetes using volume**
+## How to persist data in Kubernetes using volume
 
 Before delving into storage, let's consider a scenario where we have pods interacting with a database and performing read/write operations. In this context, we require storage that remains available regardless of the pod's lifecycle. This ensures that the data persists even when a pod terminates, and new pods take over seamlessly, picking up where the previous one left off. These new pods should be able to read existing data from the storage and synchronize themselves to become up-to-date. It's essential that this storage is accessible from all nodes within the Kubernetes cluster, not limited to a specific node.
 
@@ -53,7 +53,7 @@ Persistent volumes need actual storage, such as local disks, external interface 
 Kubernetes doesn't care about the actual storage, it gives you a PersistentVolume as an interface to the actual storage. As a maintainer or administrator, you have to take care and need to decide what type of storage you need: local or remote. It's important to think of storage in Kubernetes as an external plugin to your cluster whether is a local storage or cloud storage.
 
 
-## **Persistent Volume YAML Example**
+## Persistent Volume YAML Example
 
 By creating Persistent Volumes (PVs), you can utilize actual physical storage. In the PV specification section, you define the storage backend you want to use to create that storage abstraction or resource for applications.
 
@@ -110,7 +110,7 @@ Step 5: Persistence Across Pod Lifecycles: Importantly, if the pod were to termi
 
 _Note: Claims and pods must exist within the same namespace, but persistent volumes are not namespace-specific. This means claims are used to find volumes within the same namespace as the pod, ensuring proper isolation and resource management._
 
-## **StorageClass**
+## StorageClass
 
 Now, we've seen that in Kubernetes, administrators configure storage for the cluster, creating Persistent Volumes (PVs). Developers can then claim these volumes using Persistent Volume Claims (PVCs). However, imagine a scenario with a cluster hosting hundreds of applications, where new deployments occur daily, each requiring storage resources. In such a situation, developers would need to request administrators to manually create hundreds of PVs for all these applications, which can be a time-consuming, and potentially messy process.
 
