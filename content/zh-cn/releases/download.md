@@ -15,10 +15,44 @@ cluster. Those components are also shipped in container images as part of the
 official release process. All binaries as well as container images are available
 for multiple operating systems as well as hardware architectures.
 -->
-Kubernetes 为每个组件提供二进制文件以及一组标准的客户端应用程序用来引导集群或与集群交互。
+Kubernetes 为每个组件提供二进制文件以及一组标准的客户端应用来引导集群或与集群交互。
 像 API 服务器这样的组件能够在集群内的容器镜像中运行。
-作为官方发布过程的一部分，这些组件也以容器镜像的形式提供。
+这些组件作为官方发布过程的一部分，也以容器镜像的形式提供。
 所有二进制文件和容器镜像都可用于多种操作系统和硬件架构。
+
+### kubectl
+
+<!-- overview -->
+
+<!--
+The Kubernetes command-line tool, [kubectl](/docs/reference/kubectl/kubectl/), allows
+you to run commands against Kubernetes clusters.
+
+You can use kubectl to deploy applications, inspect and manage cluster resources,
+and view logs. For more information including a complete list of kubectl operations, see the
+[`kubectl` reference documentation](/docs/reference/kubectl/).
+-->
+Kubernetes 命令行工具 [kubectl](/zh-cn/docs/reference/kubectl/kubectl/)
+允许你对 Kubernetes 集群执行命令。
+
+你可以使用 kubectl 部署应用，还可以检查和管理集群资源以及查看日志。
+有关包括 kubectl 完整操作列表在内的更多信息，请参阅
+[`kubectl` 参考文档](/zh-cn/docs/reference/kubectl/)。
+
+<!--
+kubectl is installable on a variety of Linux platforms, macOS and Windows.
+Find your preferred operating system below.
+
+- [Install kubectl on Linux](/docs/tasks/tools/install-kubectl-linux)
+- [Install kubectl on macOS](/docs/tasks/tools/install-kubectl-macos)
+- [Install kubectl on Windows](/docs/tasks/tools/install-kubectl-windows)
+-->
+kubectl 可安装在各种 Linux 平台、macOS 和 Windows 上。
+在下方找到你首选的操作系统。
+
+- [在 Linux 上安装 kubectl](/zh-cn/docs/tasks/tools/install-kubectl-linux)
+- [在 macOS 上安装 kubectl](/zh-cn/docs/tasks/tools/install-kubectl-macos)
+- [在 Windows 上安装 kubectl](/zh-cn/docs/tasks/tools/install-kubectl-windows)
 
 <!--
 ## Container Images
@@ -59,7 +93,7 @@ container image name, for example
 `registry.k8s.io/kube-apiserver-arm64:v{{< skew currentPatchVersion >}}`. All
 those derivations are signed in the same way as the multi-architecture manifest lists.
 -->
-所有容器镜像都支持多架构，容器运行时应根据下层平台选择正确的镜像。
+所有容器镜像都支持多架构，而容器运行时应根据下层平台选择正确的镜像。
 也可以通过给容器镜像名称加后缀来拉取适合特定架构的镜像，例如
 `registry.k8s.io/kube-apiserver-arm64:v{{< skew currentPatchVersion >}}`。
 所有这些派生镜像都以与多架构清单列表相同的方式签名。
@@ -69,8 +103,8 @@ The Kubernetes project publishes a list of signed Kubernetes container images
 in [SPDX 2.3](https://spdx.dev/specifications/) format.
 You can fetch that list using:
 -->
-Kubernetes 项目以 [SPDX 2.3](https://spdx.dev/specifications/) 格式发布已签名的 Kubernetes 容器镜像列表。
-你可以使用以下方法获取该列表：
+Kubernetes 项目以 [SPDX 2.3](https://spdx.dev/specifications/) 格式发布已签名的
+Kubernetes 容器镜像列表。你可以使用以下方法获取该列表：
 
 ```shell
 curl -Ls "https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/stable.txt)/release" | grep "SPDXID: SPDXRef-Package-registry.k8s.io" |  grep -v sha256 | cut -d- -f3- | sed 's/-/\//' | sed 's/-v1/:v1/'
@@ -91,47 +125,7 @@ To manually verify signed container images of Kubernetes core components, refer 
 
 <!--
 ## Binaries
-
-Find links to download Kubernetes components (and their checksums) in the
-[CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG) files.
-
-Alternately, use [downloadkubernetes.com](https://www.downloadkubernetes.com/) to filter by version and architecture.
 -->
 ## 二进制  {#binaries}
 
-在 [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG) 文件中找到下载 Kubernetes 组件（及其校验和）的链接。
-
-或者，使用 [downloadkubernetes.com](https://www.downloadkubernetes.com/) 按版本和架构进行过滤。
-
-### kubectl
-
-<!-- overview -->
-
-<!--
-The Kubernetes command-line tool, [kubectl](/docs/reference/kubectl/kubectl/), allows
-you to run commands against Kubernetes clusters.
-
-You can use kubectl to deploy applications, inspect and manage cluster resources,
-and view logs. For more information including a complete list of kubectl operations, see the
-[`kubectl` reference documentation](/docs/reference/kubectl/).
--->
-Kubernetes 命令行工具 [kubectl](/zh-cn/docs/reference/kubectl/kubectl/) 允许你对 Kubernetes 集群执行命令。
-
-你可以使用 kubectl 部署应用程序、检查和管理集群资源以及查看日志。
-有关更多信息，包括 kubectl 操作的完整列表，请参阅
-[`kubectl` 参考文档](/zh-cn/docs/reference/kubectl/)。
-
-<!--
-kubectl is installable on a variety of Linux platforms, macOS and Windows.
-Find your preferred operating system below.
-
-- [Install kubectl on Linux](/docs/tasks/tools/install-kubectl-linux)
-- [Install kubectl on macOS](/docs/tasks/tools/install-kubectl-macos)
-- [Install kubectl on Windows](/docs/tasks/tools/install-kubectl-windows)
--->
-kubectl 可安装在各种 Linux 平台、macOS 和 Windows 上。
-在下方找到你首选的操作系统。
-
-- [在 Linux 上安装 kubectl](/zh-cn/docs/tasks/tools/install-kubectl-linux)
-- [在 macOS 上安装 kubectl](/zh-cn/docs/tasks/tools/install-kubectl-macos)
-- [在 Windows 上安装 kubectl](/zh-cn/docs/tasks/tools/install-kubectl-windows)
+{{< release-binaries >}}
