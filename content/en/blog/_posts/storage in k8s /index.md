@@ -73,16 +73,16 @@ metadata:
   name: pv-name
 spec:
   capacity:
-    storage: 10Gi  //Define how much storage you require
+    storage: 10Gi  # Define how much storage you require
     VolumeMode: Filesystem 
     accessModes:
-      - ReadWriteOnce //Define the access mode
+      - ReadWriteOnce # Define the access mode
     persistentVolumeReclaimPolicy: Recycle 
     storageClassName: slow 
     mountOptions:
       - hard
       - nfsvers=4.0
-    Nfs: //Define NFS parameters
+    Nfs: # Define NFS parameters
       path: /dir/path/on/nfs/server 
       server: nfs-server-ip-address
 
