@@ -29,7 +29,7 @@ Let's take a look into the fundamental root directory structure of cluster compo
 
 {{< figure src="image.png" title="root directory structure" >}}
 
-## **How to persist data in K8s using volume**
+## **How to persist data in Kubernetes using volume**
 
 Before delving into storage, let's consider a scenario where we have pods interacting with a database and performing read/write operations. In this context, we require storage that remains available regardless of the pod's lifecycle. This ensures that the data persists even when a pod terminates, and new pods take over seamlessly, picking up where the previous one left off. These new pods should be able to read existing data from the storage and synchronize themselves to become up-to-date. It's essential that this storage is accessible from all nodes within the Kubernetes cluster, not limited to a specific node.
 
@@ -89,7 +89,7 @@ spec:
 ```
 
 
-_Note : Depending on the storage type in the backend, some attributes in the specification will vary because they are specific to the storage details. In the official [Kubernetes documentation](https://kubernetes.io/docs/concepts/storage/volumes/#volume-types), you can find a comprehensive list of over 25 storage backends that Kubernetes supports._
+_Note : Depending on the storage type in the backend, some attributes in the specification will vary because they are specific to the storage details. In the official [Kubernetes documentation](/docs/concepts/storage/volumes/#volume-types), you can find a comprehensive list of over 25 storage backends that Kubernetes supports._
 
 Let’s take a look at workflow of persistent volume:
 
