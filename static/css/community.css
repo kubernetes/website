@@ -330,6 +330,9 @@ body.cid-community .community-section.community-frame {
 
 body.cid-community .community-section.community-frame .twittercol1 {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 body.cid-community details > summary {
