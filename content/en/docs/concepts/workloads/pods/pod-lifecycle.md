@@ -164,7 +164,7 @@ through which the Pod has or has not passed. Kubelet manages the following
 PodConditions:
 
 * `PodScheduled`: the Pod has been scheduled to a node.
-* `PodReadyToStartContainers`: (alpha feature; must be [enabled explicitly](#pod-has-network)) the
+* `PodReadyToStartContainers`: (beta feature; enable by [default now](#pod-has-network)) the
   Pod sandbox has been successfully created and networking configured.
 * `ContainersReady`: all containers in the Pod are ready.
 * `Initialized`: all [init containers](/docs/concepts/workloads/pods/init-containers/)
@@ -242,17 +242,16 @@ When a Pod's containers are Ready but at least one custom condition is missing o
 
 ### Pod network readiness {#pod-has-network}
 
-{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.29" state="beta" >}}
 
 {{< note >}}
-This condition was renamed from PodHasNetwork to PodReadyToStartContainers.
+This condition was renamed from PodHasNetwork to PodReadyToStartContainers. And now is enable by default
 {{< /note >}}
 
 After a Pod gets scheduled on a node, it needs to be admitted by the Kubelet and
 have any volumes mounted. Once these phases are complete, the Kubelet works with
 a container runtime (using {{< glossary_tooltip term_id="cri" >}}) to set up a
-runtime sandbox and configure networking for the Pod. If the
-`PodReadyToStartContainersCondition` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled,
+runtime sandbox and configure networking for the Pod,
 Kubelet reports whether a pod has reached this initialization milestone through
 the `PodReadyToStartContainers` condition in the `status.conditions` field of a Pod.
 
