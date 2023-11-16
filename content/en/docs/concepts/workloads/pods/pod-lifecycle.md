@@ -164,7 +164,7 @@ through which the Pod has or has not passed. Kubelet manages the following
 PodConditions:
 
 * `PodScheduled`: the Pod has been scheduled to a node.
-* `PodReadyToStartContainers`: (beta feature; enable by [default now](#pod-has-network)) the
+* `PodReadyToStartContainers`: (beta feature; enabled by [default](#pod-has-network)) the
   Pod sandbox has been successfully created and networking configured.
 * `ContainersReady`: all containers in the Pod are ready.
 * `Initialized`: all [init containers](/docs/concepts/workloads/pods/init-containers/)
@@ -245,15 +245,18 @@ When a Pod's containers are Ready but at least one custom condition is missing o
 {{< feature-state for_k8s_version="v1.29" state="beta" >}}
 
 {{< note >}}
-This condition was renamed from PodHasNetwork to PodReadyToStartContainers. And now is enable by default
+During its early development, this condition was named `PodHasNetwork`.
 {{< /note >}}
 
-After a Pod gets scheduled on a node, it needs to be admitted by the Kubelet and
-have any volumes mounted. Once these phases are complete, the Kubelet works with
+After a Pod gets scheduled on a node, it needs to be admitted by the kubelet and
+to have any required storage volumes mounted. Once these phases are complete,
+the kubelet works with
 a container runtime (using {{< glossary_tooltip term_id="cri" >}}) to set up a
-runtime sandbox and configure networking for the Pod,
-Kubelet reports whether a pod has reached this initialization milestone through
-the `PodReadyToStartContainers` condition in the `status.conditions` field of a Pod.
+runtime sandbox and configure networking for the Pod. If the
+`PodReadyToStartContainersCondition`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled
+(it is enabled by default for Kubernetes {{< skew currentVersion >}}), the
+`PodReadyToStartContainers` condition in the `status.conditions` field of a Pod.
 
 The `PodReadyToStartContainers` condition is set to `False` by the Kubelet when it detects a
 Pod does not have a runtime sandbox with networking configured. This occurs in
