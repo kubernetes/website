@@ -10,7 +10,7 @@ Kubernetes offers robust tools for ensuring containers are always available, but
 Without proper Kubernetes storage solutions, your application's data faces the risk of being lost during routine pod restarts. This can pose significant challenges, particularly for applications that require persistent data storage, such as databases and web applications. To address these issues and ensure data durability, Kubernetes provides various types of storage options. These storage solutions are essential for maintaining data integrity, enabling applications to securely store and retrieve data, and ensuring data survival throughout the lifecycle of containers and pods.
 
 
-## Types of Storage
+## Types of storage
 
 * Persistent Volumes
 * Projected Volumes
@@ -23,7 +23,7 @@ Projected Volumes: Projected volumes are a feature that allows you to combine an
 Ephemeral storage refers to temporary storage within a Kubernetes pod that is tightly bound to the lifecycle of that pod. It exists only as long as the pod is running on a specific node. Once the pod is deleted, or if it's rescheduled to another node, any data stored in ephemeral storage is lost. Ephemeral storage is typically used for transient or disposable data, such as logs or temporary scratch files, that doesn't need to be preserved beyond the pod's runtime.
 
 
-## Root Directory Structure
+## Root directory structure
 
 Let's take a look into the fundamental root directory structure of cluster components. This structure provides a foundational understanding of how key elements within a Kubernetes cluster are organized and interact. 
 
@@ -53,7 +53,7 @@ Persistent volumes need actual storage, such as local disks, external interface 
 Kubernetes doesn't care about the actual storage, it gives you a PersistentVolume as an interface to the actual storage. As a maintainer or administrator, you have to take care and need to decide what type of storage you need: local or remote. It's important to think of storage in Kubernetes as an external plugin to your cluster whether is a local storage or cloud storage.
 
 
-## Persistent Volume YAML Example
+## Persistent volume YAML example
 
 By creating Persistent Volumes (PVs), you can utilize actual physical storage. In the PV specification section, you define the storage backend you want to use to create that storage abstraction or resource for applications.
 
