@@ -1,8 +1,15 @@
 ---
 reviewers:
 title: ReplicaSet
+feature:
+  title: セルフヒーリング
+  anchor: ReplicaSetがどのように動くか {#how-a-replicaset-works}
+  description: >
+    起動に失敗したコンテナを再起動し、ノードが停止したときにコンテナを置き換えて再スケジュールし、
+    ユーザーが定義したヘルスチェックに応答しないコンテナを停止させ、サービスの準備が出来るまではそれらのコンテナをクライアントに示しません。
 content_type: concept
-weight: 20
+weight: 30
+hide_summary: true # Listed separately in section index
 ---
 
 <!-- overview -->
