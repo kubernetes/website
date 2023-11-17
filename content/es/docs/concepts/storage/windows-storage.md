@@ -42,7 +42,7 @@ Como resultado, las siguientes funcionalidades de almacenamiento no son compatib
 Los {{< glossary_tooltip text="volúmenes" term_id="volume" >}} de Kubernetes habilitan la implementación de aplicaciones complejas, con requisitos de persistencia de datos y uso compartido de volúmenes de Pod, en Kubernetes.
 La gestión de volúmenes persistentes asociados a un backend o protocolo de almacenamiento específico incluye acciones como la provisión/desprovisión/redimensión de volúmenes, la conexión/desconexión de un volumen de/para un nodo de Kubernetes, y el montaje/desmontaje de un volumen de/para contenedores individuales en un Pod que necesita persistir datos.
 
-Los componentes de gestión de volúmenes se envían como volumen de Kubernetes [plugin](/docs/concepts/storage/volumes/#volume-types).
+Los componentes de gestión de volúmenes se envían como [plugin](/docs/concepts/storage/volumes/#volume-types) de volumen de Kubernetes.
 Las siguientes clases amplias de complementos de volumen de Kubernetes son compatibles en Windows:
 
 - [`FlexVolume plugins`](/docs/concepts/storage/volumes/#flexvolume)
