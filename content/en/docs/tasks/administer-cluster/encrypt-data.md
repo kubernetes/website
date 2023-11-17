@@ -262,7 +262,7 @@ The following table describes each available provider.
     Kubernetes generates a new DEK per encryption from a secret seed.
     The seed is rotated whenever the KEK is rotated.<br/>
     A good choice if using a third party tool for key management.
-    Available in stable from Kubernetes v1.29.
+    Available as stable from Kubernetes v1.29.
     <br />
     Read how to <a href="/docs/tasks/administer-cluster/kms-provider#configuring-the-kms-provider-kms-v2">configure the KMS V2 provider</a>.
     </td>
