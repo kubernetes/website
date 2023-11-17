@@ -518,7 +518,7 @@ spec:
       nodePort: 30007
 ```
 
-#### Reserve Nodeport Ranges to avoid collisions when port assigning 
+#### Reserve Nodeport ranges to avoid collisions  {#avoid-nodeport-collisions}
 
 {{< feature-state for_k8s_version="v1.28" state="beta" >}}
 
@@ -530,7 +530,6 @@ to use a different port allocation strategy for NodePort Services. The port rang
 is divided into two bands. Dynamic port assignment uses the upper band by default, and it may use
 the lower band once the upper band has been exhausted. Users can then allocate from the lower band
 with a lower risk of port collision.
-
 
 #### Custom IP address configuration for `type: NodePort` Services {#service-nodeport-custom-listen-address}
 
