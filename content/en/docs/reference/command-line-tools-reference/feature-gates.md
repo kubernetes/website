@@ -731,16 +731,21 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `ServerSideFieldValidation`: Enables server-side field validation. This means the validation
   of resource schema is performed at the API server side rather than the client side
   (for example, the `kubectl create` or `kubectl apply` command line).
+<<<<<<< HEAD
 - `ServiceAccountTokenJTI`: Controls whether JTIs (UUIDs) are embedded into generated service account tokens,
   and whether these JTIs are recorded into the Kubernetes audit log for future requests made by these tokens.
 - `ServiceAccountTokenNodeBinding`: Controls whether the apiserver allows binding service account tokens to Node objects.
 - `ServiceAccountTokenNodeBindingValidation`: Controls whether the apiserver will validate a Node reference in service account tokens.
 - `ServiceAccountTokenPodNodeInfo`: Controls whether the apiserver embeds the node name and uid
   for the associated node when issuing service account tokens bound to Pod objects.
+=======
+- `ServiceNodePortStaticSubrange`: Enables the use of different port allocation
+  strategies for NodePort Services. For more details, see
+  [reserve NodePort ranges to avoid collisions](/docs/concepts/services-networking/service/#avoid-nodeport-collisions).
+>>>>>>> upstream/main
 - `SidecarContainers`: Allow setting the `restartPolicy` of an init container to
   `Always` so that the container becomes a sidecar container (restartable init containers).
-  See
-  [Sidecar containers and restartPolicy](/docs/concepts/workloads/pods/init-containers/#sidecar-containers-and-restartpolicy)
+  See [Sidecar containers and restartPolicy](/docs/concepts/workloads/pods/init-containers/#sidecar-containers-and-restartpolicy)
   for more details.
 - `SizeMemoryBackedVolumes`: Enable kubelets to determine the size limit for
   memory-backed volumes (mainly `emptyDir` volumes).

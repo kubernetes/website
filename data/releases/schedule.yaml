@@ -5,12 +5,17 @@ schedules:
 - release: 1.28
   releaseDate: 2023-08-15
   next:
-    release: 1.28.4
+    release: 1.28.5
     cherryPickDeadline: 2023-12-01
     targetDate: 2023-12-06
   maintenanceModeStartDate: 2024-08-28
   endOfLifeDate: 2024-10-28
   previousPatches:
+    - release: 1.28.4
+      cherryPickDeadline: ""
+      targetDate: 2023-11-14
+      note: >-
+        Out of band release to fix [CVE-2023-5528](https://groups.google.com/g/kubernetes-announce/c/c3py6Fw0DTI/m/cScFSdk1BwAJ)
     - release: 1.28.3
       cherryPickDeadline: 2023-10-13
       targetDate: 2023-10-18
@@ -29,10 +34,15 @@ schedules:
   maintenanceModeStartDate: 2024-04-28
   endOfLifeDate: 2024-06-28
   next:
-    release: 1.27.8
+    release: 1.27.9
     cherryPickDeadline: 2023-12-01
     targetDate: 2023-12-06
   previousPatches:
+    - release: 1.27.8
+      cherryPickDeadline: ""
+      targetDate: 2023-11-14
+      note: >-
+        Out of band release to fix [CVE-2023-5528](https://groups.google.com/g/kubernetes-announce/c/c3py6Fw0DTI/m/cScFSdk1BwAJ)
     - release: 1.27.7
       cherryPickDeadline: 2023-10-13
       targetDate: 2023-10-18
@@ -64,10 +74,15 @@ schedules:
   maintenanceModeStartDate: 2023-12-28
   endOfLifeDate: 2024-02-28
   next:
-    release: 1.26.11
+    release: 1.26.12
     cherryPickDeadline: 2023-12-01
     targetDate: 2023-12-06
   previousPatches:
+    - release: 1.26.11
+      cherryPickDeadline: ""
+      targetDate: 2023-11-14
+      note: >-
+        Out of band release to fix [CVE-2023-5528](https://groups.google.com/g/kubernetes-announce/c/c3py6Fw0DTI/m/cScFSdk1BwAJ)
     - release: 1.26.10
       cherryPickDeadline: 2023-10-13
       targetDate: 2023-10-18
