@@ -208,6 +208,7 @@ For a reference to old feature gates that are removed, please refer to
 | `TopologyManagerPolicyBetaOptions` | `true` | Beta | 1.28 | |
 | `TopologyManagerPolicyOptions` | `false` | Alpha | 1.26 | 1.27 |
 | `TopologyManagerPolicyOptions` | `true` | Beta | 1.28 | |
+| `TranslateStreamCloseWebsocketRequests` | `false` | Alpha | 1.29 | |
 | `UnknownVersionInteroperabilityProxy` | `false` | Alpha | 1.28 | |
 | `UserNamespacesSupport` | `false` | Alpha | 1.28 | |
 | `ValidatingAdmissionPolicy` | `false` | Alpha | 1.26 | 1.27 |
@@ -771,6 +772,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
   This feature gate guards *a group* of topology manager options whose quality level is beta.
   This feature gate will never graduate to stable.
 - `TopologyManagerPolicyOptions`: Allow fine-tuning of topology manager policies,
+- `TranslateStreamCloseWebsocketRequests`: Allow WebSocket streaming of the
+  remote command sub-protocol (`exec`, `cp`, `attach`) from clients requesting
+  version 5 (v5) of the sub-protocol.
 - `UnknownVersionInteroperabilityProxy`: Proxy resource requests to the correct peer kube-apiserver when
   multiple kube-apiservers exist at varied versions.
   See [Mixed version proxy](/docs/concepts/architecture/mixed-version-proxy/) for more information.
