@@ -81,6 +81,13 @@ and when it catches such update, the scheduling queue moves PodA to activeQ/back
 
 ![PodA is moved by PodAffinity QueueingHint](./queueinghint2.svg)
 
+We actually already have a similar functionality called `preCheck` inside the scheduling queue,
+which filter out cluster events based on Kubernetes core scheduling constraints - 
+for example, filtering out node related events when nodes aren't ready.
+
+But, it's not ideal because this hard-coded `preCheck` refers to in-tree plugins logic,
+and it causes the issues for custom plugins ([#110175](https://github.com/kubernetes/kubernetes/issues/110175)).
+
 ## What's new in v1.29
 
 We have been working on the development of QueueingHint since v1.28.
