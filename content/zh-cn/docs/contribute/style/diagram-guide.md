@@ -420,11 +420,15 @@ and Netlify previews to verify the diagram is properly rendered.
 
 {{< caution >}}
 <!--
-The Mermaid live editor feature set may not support the kubernetes/website Mermaid feature set. 
+The Mermaid live editor feature set may not support the [kubernetes/website](https://github.com/kubernetes/website) Mermaid feature set.
+And please, note that contributors can mention `kubernetes/website` as `k/website`.
 You might see a syntax error or a blank screen after the Hugo build.
 If that is the case, consider using the Mermaid+SVG method. 
 -->
-Mermaid 在线编辑器的功能特性可能不支持 K8s 网站的 Mermaid 特性。
+Mermaid 在线编辑器的功能特性可能不支持
+[kubernetes/website](https://github.com/kubernetes/website)
+的 Mermaid 特性。
+请注意，贡献者可以将 `kubernetes/website` 称为 `k/website`。
 你可能在 Hugo 构建过程中看到语法错误提示或者空白屏幕。
 如果发生这类情况，可以考虑使用 Mermaid+SVG 方法。
 {{< /caution >}}
@@ -548,14 +552,15 @@ The following lists advantages of the Mermaid+SVG method:
 
 * Live editor tool.
 * Live editor tool supports the most current Mermaid feature set.  
-* Employ existing kubernetes/website methods for handling `.svg` image files.
+* Employ existing [kubernetes/website](https://github.com/kubernetes/website) methods for handling `.svg` image files.
 * Environment doesn't require Mermaid support.
 -->
 使用 Mermaid+SVG 方法的好处有：
 
 * 可以直接使用在线编辑器工具
 * 在线编辑器支持的 Mermaid 特性集合最新
-* 可以利用 K8s 网站用来处理 `.svg` 图片文件的现有方法
+* 可以利用 [kubernetes/website](https://github.com/kubernetes/website)
+  用来处理 `.svg` 图片文件的现有方法
 * 工作环境不需要 Mermaid 支持
 
 <!--
