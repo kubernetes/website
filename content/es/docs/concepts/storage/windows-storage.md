@@ -43,7 +43,7 @@ Los {{< glossary_tooltip text="volúmenes" term_id="volume" >}} de Kubernetes ha
 La gestión de volúmenes persistentes asociados a un backend o protocolo de almacenamiento específico incluye acciones como la provisión/desprovisión/redimensión de volúmenes, la conexión/desconexión de un volumen de/para un nodo de Kubernetes, y el montaje/desmontaje de un volumen de/para contenedores individuales en un Pod que necesita persistir datos.
 
 Los componentes de gestión de volúmenes se envían como [plugin](/docs/concepts/storage/volumes/#volume-types) de volumen de Kubernetes.
-Las siguientes clases amplias de complementos de volumen de Kubernetes son compatibles en Windows:
+Las siguiente variedad de clases de plugins de volumen de Kubernetes son compatibles en Windows:
 
 - [`FlexVolume plugins`](/docs/concepts/storage/volumes/#flexvolume)
 
@@ -51,9 +51,9 @@ Las siguientes clases amplias de complementos de volumen de Kubernetes son compa
 
 - [`CSI Plugins`](/docs/concepts/storage/volumes/#csi)
 
-##### complementos de volumen incorporados
+##### Plugins de volumen incorporados
 
-Los siguientes complementos incorporados admiten almacenamiento persistente en nodos de Windows:
+Los siguientes plugins incorporados admiten almacenamiento persistente en nodos de Windows:
 
 - [`azureFile`](/docs/concepts/storage/volumes/#azurefile)
 - [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk)
