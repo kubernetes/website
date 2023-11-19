@@ -738,10 +738,12 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `ServiceAccountTokenNodeBindingValidation`: Controls whether the apiserver will validate a Node reference in service account tokens.
 - `ServiceAccountTokenPodNodeInfo`: Controls whether the apiserver embeds the node name and uid
   for the associated node when issuing service account tokens bound to Pod objects.
+- `ServiceNodePortStaticSubrange`: Enables the use of different port allocation
+  strategies for NodePort Services. For more details, see
+  [reserve NodePort ranges to avoid collisions](/docs/concepts/services-networking/service/#avoid-nodeport-collisions).
 - `SidecarContainers`: Allow setting the `restartPolicy` of an init container to
   `Always` so that the container becomes a sidecar container (restartable init containers).
-  See
-  [Sidecar containers and restartPolicy](/docs/concepts/workloads/pods/init-containers/#sidecar-containers-and-restartpolicy)
+  See [Sidecar containers and restartPolicy](/docs/concepts/workloads/pods/init-containers/#sidecar-containers-and-restartpolicy)
   for more details.
 - `SizeMemoryBackedVolumes`: Enable kubelets to determine the size limit for
   memory-backed volumes (mainly `emptyDir` volumes).

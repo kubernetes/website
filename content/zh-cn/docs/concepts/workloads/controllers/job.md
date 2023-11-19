@@ -1611,6 +1611,15 @@ the Job status, allowing the Pod to be removed by other controllers or users.
 为了实现这一点，Job 控制器创建的 Pod 带有 Finalizer `batch.kubernetes.io/job-tracking`。
 控制器只有在 Pod 被记入 Job 状态后才会移除 Finalizer，允许 Pod 可以被其他控制器或用户移除。
 
+{{< note >}}
+<!--
+See [My pod stays terminating](/docs/tasks/debug-application/debug-pods) if you
+observe that pods from a Job are stucked with the tracking finalizer.
+-->
+如果你发现来自 Job 的某些 Pod 因存在负责跟踪的 Finalizer 而无法正常终止，
+请参阅[我的 Pod 一直处于终止状态](/zh-cn/docs/tasks/debug/debug-application/debug-pods/)。
+{{< /note >}}
+
 <!--
 ### Elastic Indexed Jobs
 -->

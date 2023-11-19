@@ -37,9 +37,9 @@ the docs for a different language.
 
 You can help add or improve the content of an existing localization. In
 [Kubernetes Slack](https://slack.k8s.io/), you can find a channel for each
-localization. There is also a general [SIG Docs Localizations Slack
-channel](https://kubernetes.slack.com/messages/sig-docs-localizations) where you
-can say hello.
+localization. There is also a general
+[SIG Docs Localizations Slack channel](https://kubernetes.slack.com/messages/sig-docs-localizations)
+where you can say hello.
 -->
 ## 为现有的本地化做出贡献 {#contribute-to-an-existing-localization}
 
@@ -59,9 +59,9 @@ look for a localized version of this page.
 <!--
 ### Find your two-letter language code
 
-First, consult the [ISO 639-1
-standard](https://www.loc.gov/standards/iso639-2/php/code_list.php) to find your
-localization's two-letter language code. For example, the two-letter code for
+First, consult the
+[ISO 639-1 standard](https://www.loc.gov/standards/iso639-2/php/code_list.php)
+to find your localization's two-letter language code. For example, the two-letter code for
 Korean is `ko`.
 
 Some languages use a lowercase version of the country code as defined by the
@@ -80,11 +80,10 @@ language code is `pt-br`.
 <!--
 ### Fork and clone the repo
 
-First, [create your own
-fork](/docs/contribute/new-content/open-a-pr/#fork-the-repo) of the
+First, [create your own fork](/docs/contribute/new-content/open-a-pr/#fork-the-repo) of the
 [kubernetes/website](https://github.com/kubernetes/website) repository.
 -->
-### 派生（fork）并且克隆仓库 {#fork-and-clone-the-repo}
+### 派生（fork）并且克隆仓库     {#fork-and-clone-the-repo}
 
 首先，为 [kubernetes/website](https://github.com/kubernetes/website)
 仓库[创建你自己的副本](/zh-cn/docs/contribute/new-content/open-a-pr/#fork-the-repo)。
@@ -152,7 +151,7 @@ localized content current.
 
 如果你希望将 Kubernetes 文档本地化为一种新语言，你需要执行以下操作。
 
-因为贡献者不能批准他们自己的拉取请求，你需要 **至少两个贡献者** 来开始本地化。
+因为贡献者不能批准他们自己的拉取请求，你需要**至少两个贡献者**来开始本地化。
 
 所有本地化团队都必须能够自我维持。
 Kubernetes 网站很乐意托管你的作品，但要由你来翻译它并使现有的本地化内容保持最新。
@@ -214,8 +213,8 @@ localization teams to collaborate on defining and documenting the processes for
 creating localized contribution guides. In addition, the SIG Docs localization
 subgroup looks for opportunities to create and share common tools across
 localization teams and identify new requirements for the SIG Docs Leadership
-team.  If you have questions about this meeting, please inquire on the [SIG Docs
-Localizations Slack channel](https://kubernetes.slack.com/messages/sig-docs-localizations).
+team. If you have questions about this meeting, please inquire on the
+[SIG Docs Localizations Slack channel](https://kubernetes.slack.com/messages/sig-docs-localizations).
 
 You can also create a Slack channel for your localization in the
 `kubernetes/community` repository. For an example of adding a Slack channel, see
@@ -334,11 +333,11 @@ script and use it in the theme. Assign "language name in latin script" to
 `languageNameLatinScript = "Deutsch"`.
 -->
 语言选择栏列出了 `languageName` 的值。
-将 `languageName` 赋值为“本地脚本中的语言名称（拉丁脚本中的语言名称）”。
+将 `languageName` 赋值为"本地脚本中的语言名称（拉丁脚本中的语言名称）"。
 例如，`languageName = "한국어 (Korean)"` 或 `languageName = "Deutsch (German)"`。
 
 `languageNameLatinScript` 可用于访问拉丁脚本中的语言名称并在主题中使用。
-将 `languageNameLatinScript` 赋值为“拉丁脚本中的语言名称”。
+将 `languageNameLatinScript` 赋值为"拉丁脚本中的语言名称"。
 例如，`languageNameLatinScript ="Korean"` 或 `languageNameLatinScript = "Deutsch"`。
 
 <!--
@@ -402,7 +401,7 @@ repository to add the code of conduct in your language.
 仓库提交 PR，添加你所用语言版本的行为准则。
 
 <!--
-### Setting up the OWNERS files
+### Set up the OWNERS files
 
 To set the roles of each user contributing to the localization, create an
 `OWNERS` file inside the language-specific subdirectory with:
@@ -418,13 +417,13 @@ To set the roles of each user contributing to the localization, create an
 
 要设置每个对本地化做出贡献用户的角色，请在特定于语言的子目录内创建一个 `OWNERS` 文件，其中：
 
-- **reviewers**: 具有评审人角色的 Kubernetes 团队的列表，
+- **reviewers**：具有评审人角色的 Kubernetes 团队的列表，
   在本例中为在[在 GitHub 中添加你的本地化团队](#add-your-localization-team-in-github)中创建的
   `sig-docs-**-reviews` 团队。
-- **approvers**: 具有批准人角色的 Kubernetes 团队的列表，
+- **approvers**：具有批准人角色的 Kubernetes 团队的列表，
   在本例中为在[在 GitHub 中添加你的本地化团队](#add-your-localization-team-in-github)中创建的
   `sig-docs-**-owners` 团队。
-- **labels**: 可以自动应用于 PR 的 GitHub 标签列表，
+- **labels**：可以自动应用于 PR 的 GitHub 标签列表，
   在本例中为[配置工作流程](#configure-the-workflow)中创建的语言标签。
 
 <!--
@@ -556,7 +555,7 @@ of Conduct.
 [Slack 频道](https://slack.com/)或其他联系方式。你还必须提供指向本地化的社区行为准则的链接。
 
 <!--
-### Launching your new localization
+### Launch your new localization
 
 When a localization meets the requirements for workflow and minimum output, SIG
 Docs does the following:
@@ -575,12 +574,12 @@ Docs does the following:
   [Kubernetes 博客](https://kubernetes.io/zh-cn/blog/)来宣传本地化的可用性。
 
 <!--
-## Translating content
+## Localize content
 
 Localizing *all* the Kubernetes documentation is an enormous task. It's okay to
 start small and expand over time.
 -->
-## 翻译文档 {#translating-content}
+## 本地化文档 {#localize-content}
 
 本地化**所有** Kubernetes 文档是一项艰巨的任务。从小做起，循序渐进。
 
@@ -646,14 +645,14 @@ should carefully review all machine-generated translations before publishing.
 为了确保语法和含义的准确性，本地化团队的成员应在发布之前仔细检查所有由机器生成的翻译。
 
 <!--
-### Translating SVG images
+### Localize SVG images
 
 The Kubernetes project recommends using vector (SVG) images where possible, as
 these are much easier for a localization team to edit. If you find a raster
 image that needs localizing, consider first redrawing the English version as
 a vector image, and then localize that.
 -->
-### 翻译 SVG 图片    {#translating-svg-images}
+### 本地化 SVG 图片    {#localize-svg-images}
 
 Kubernetes 项目建议尽可能使用矢量（SVG）图片，因为这些图片对于本地化团队来说更容易编辑。
 如果你发现一个光栅图（位图）需要本地化翻译，先将英文版本重新绘制为矢量图片，然后再进行本地化。
@@ -671,19 +670,19 @@ Kubernetes 文档中常用 SVG 图片来说明概念、工作流和图表。
 
 <!--
 1. **Identifying translatable text**: Start by identifying the text elements
-within the SVG image that need to be translated. These elements typically
-include labels, captions, annotations, or any text that conveys information.
+   within the SVG image that need to be translated. These elements typically
+   include labels, captions, annotations, or any text that conveys information.
 -->
 1. **识别可翻译文本**：首先辨别出 SVG 图片中需要翻译的文本元素。
    这些元素通常包括标签、标题、注解或任何传达信息的文本。
 
 <!--
-2. **Editing SVG files**: SVG files are XML-based, which means they can be
-edited using a text editor. However, it's important to note that most of the
-documentation images in Kubernetes already convert text to curves to avoid font
-compatibility issues. In such cases, it is recommended to use specialized SVG
-editing software, such as Inkscape, for editing, open the SVG file and locate
-the text elements that require translation.
+1. **Editing SVG files**: SVG files are XML-based, which means they can be
+   edited using a text editor. However, it's important to note that most of the
+   documentation images in Kubernetes already convert text to curves to avoid font
+   compatibility issues. In such cases, it is recommended to use specialized SVG
+   editing software, such as Inkscape, for editing, open the SVG file and locate
+   the text elements that require translation.
 -->
 2. **编辑 SVG 文件**：SVG 文件是基于 XML 的，这意味着可以使用文本编辑器进行编辑。
    但请注意 Kubernetes 文档中的大部分图片已经将文本转换为曲线以避免字体兼容性问题。
@@ -691,12 +690,12 @@ the text elements that require translation.
    打开 SVG 文件并定位需要翻译的文本元素。
 
 <!--
-3. **Translating the text**: Replace the original text with the translated
-version in the desired language. Ensure the translated text accurately conveys
-the intended meaning and fits within the available space in the image. The Open
-Sans font family should be used when working with languages that use the Latin
-alphabet. You can download the Open Sans typeface from here:
-[Open Sans Typeface](https://fonts.google.com/specimen/Open+Sans).
+1. **Translating the text**: Replace the original text with the translated
+   version in the desired language. Ensure the translated text accurately conveys
+   the intended meaning and fits within the available space in the image. The Open
+   Sans font family should be used when working with languages that use the Latin
+   alphabet. You can download the Open Sans typeface from here:
+   [Open Sans Typeface](https://fonts.google.com/specimen/Open+Sans).
 -->
 3. **翻译文本**：将原始的文本替换为目标语言的译文。确保翻译的文本准确传达所需的含义，
    并适配图片中可用的空间。在处理使用拉丁字母的语言时，应使用 Open Sans 字体系列。
@@ -704,20 +703,20 @@ alphabet. You can download the Open Sans typeface from here:
    [Open Sans Typeface](https://fonts.google.com/specimen/Open+Sans)。
 
 <!--
-4. **Converting text to curves**: As already mentioned, to address font
-compatibility issues, it is recommended to convert the translated text to
-curves or paths. Converting text to curves ensures that the final image
-displays the translated text correctly, even if the user's system does not
-have the exact font used in the original SVG.
+1. **Converting text to curves**: As already mentioned, to address font
+   compatibility issues, it is recommended to convert the translated text to
+   curves or paths. Converting text to curves ensures that the final image
+   displays the translated text correctly, even if the user's system does not
+   have the exact font used in the original SVG.
 -->
 4. **文本转换为曲线**：如前所述，为解决字体兼容性问题，建议将翻译后的文本转换为曲线或路径。
    即使用户的系统没有原始 SVG 中所使用的确切字体，将文本转换为曲线也可确保最终图片能正确显示译文。
 
 <!--
-5. **Reviewing and testing**: After making the necessary translations and
-converting text to curves, save and review the updated SVG image to ensure
-the text is properly displayed and aligned. Check
-[Preview your changes locally](/docs/contribute/new-content/open-a-pr/#preview-locally).
+1. **Reviewing and testing**: After making the necessary translations and
+   converting text to curves, save and review the updated SVG image to ensure
+   the text is properly displayed and aligned. Check
+   [Preview your changes locally](/docs/contribute/new-content/open-a-pr/#preview-locally).
 -->
 5. **检查和测试**：完成必要的翻译并将文本转换为曲线后，保存并检查更新后的 SVG 图片，确保文本正确显示和对齐。
    参考[在本地预览你的变更](/zh-cn/docs/contribute/new-content/open-a-pr/#preview-locally)。
@@ -732,7 +731,7 @@ release to target, referred to as the _target version_ below.
 To find source files for your target version:
 
 1. Navigate to the Kubernetes website repository at https://github.com/kubernetes/website.
-2. Select a branch for your target version from the following table:
+1. Select a branch for your target version from the following table:
 -->
 ### 源文件 {#source-files}
 
@@ -841,7 +840,7 @@ process until SIG Docs automates it.
 SIG Docs 联合主席或技术主管可以帮助完成该过程，直到 SIG Docs 实现自动化。
 
 <!--
-## Branching strategy
+## Branch strategy
 
 Because localization projects are highly collaborative efforts, we
 encourage teams to work in shared localization branches - especially
@@ -849,7 +848,7 @@ when starting out and the localization is not yet live.
 
 To collaborate on a localization branch:
 -->
-### 分支策略 {#branching-strategy}
+### 分支策略 {#branch-strategy}
 
 因为本地化项目是高度协同的工作，
 特别是在刚开始本地化并且本地化尚未生效时，我们鼓励团队基于共享的本地化分支工作。
@@ -888,15 +887,15 @@ To collaborate on a localization branch:
    直接新建了 kubernetes/website 仓库的本地化分支 `dev-1.12-de.1`。
 
 <!--
-2. Individual contributors open feature branches based on the localization
+1. Individual contributors open feature branches based on the localization
    branch.
 
    For example, a German contributor opens a pull request with changes to
    `kubernetes:dev-1.12-de.1` from `username:local-branch-name`.
 
-3. Approvers review and merge feature branches into the localization branch.
+1. Approvers review and merge feature branches into the localization branch.
 
-4. Periodically, an approver merges the localization branch with its source
+1. Periodically, an approver merges the localization branch with its source
    branch by opening and approving a new pull request. Be sure to squash the
    commits before approving the pull request.
 -->
