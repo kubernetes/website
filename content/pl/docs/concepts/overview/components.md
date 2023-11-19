@@ -4,7 +4,7 @@ content_type: concept
 description: >
   Klaster Kubernetesa tworzą: komponenty warstwy sterowania
   oraz zbiór maszyn nazywanych węzłami.
-weight: 20
+weight: 30
 card: 
   name: concepts
   weight: 20
@@ -47,8 +47,8 @@ Przykładowe kontrolery:
 * Node controller: Odpowiada za rozpoznawanie i reagowanie na sytuacje, kiedy węzeł staje się z jakiegoś powodu niedostępny.
 * Job controller: Czeka na obiekty typu *Job*, które definiują zadania uruchamiane jednorazowo
   i startuje Pody, odpowiadające za ich wykonanie tych zadań.
-* Endpoints controller: Dostarcza informacji do obiektów typu *Endpoints* (tzn. łączy ze sobą Serwisy i Pody).
-* Service Account & Token controllers: Tworzy domyślne konta i tokeny dostępu API dla nowych przestrzeni nazw (*namespaces*).
+* EndpointSlice controller: Dostarcza informacji do obiektów typu *EndpointSlice* (aby zapewnić połaczenie pomiędzy Serwisami i Podami).
+* ServiceAccount controllers: Tworzy domyślne konta dla nowych przestrzeni nazw (*namespaces*).
 
 ### cloud-controller-manager
 
