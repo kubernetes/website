@@ -503,7 +503,7 @@ Containerd can manage Wasm modules in two ways:
 In this section, I will demonstrate how to configure crun as runtime in containerd, enabling support for running Wasm modules.
 
 {{< note >}}
-Ensure that crun binary has been installed as per the instructions in the section: [Run Wasm modules in a local Linux container, via a low-level runtime](#run-wasm-modules-in-a-local-linux-container-via-a-low-level-runtime).
+Ensure that crun binary with Wasm support has been installed as per the instructions in the section: [Run Wasm modules in a local Linux container, via a low-level runtime](#run-wasm-modules-in-a-local-linux-container-via-a-low-level-runtime).
 {{< /note >}}
 
 Run the following commands to install containerd:
@@ -672,7 +672,7 @@ chmod +x ./kind
 sudo mv ./kind /usr/local/bin/kind
 ```
 
-##### Kubernetes + Containerd + Crun
+##### Set up your cluster for Wasm manually, then run the app inside a pod
 
 In this section, I will demonstrate the manual installation of crun with the WasmEdge runtime library, and adjust containerd config to use crun as the runtime, enabling Wasm support on the Kubernetes node.
 
@@ -689,7 +689,7 @@ docker exec -it wasm-demo-control-plane bash
 ```
 
 {{< note >}}
-After entering a shell on the node, follow the instructions in the section: [Low-level Container Runtime](#low-level-container-runtime) to install the crun binary on the node.
+After entering a shell on the node, follow the instructions in the section: [Run Wasm modules in a local Linux container, via a low-level runtime](#run-wasm-modules-in-a-local-linux-container-via-a-low-level-runtime) to install the crun binary with Wasm support on the node.
 {{< /note >}}
 
 Modify the containerd configuration file `/etc/containerd/config.toml`, add the following content at the end:
@@ -718,7 +718,7 @@ Set the label `runtime=crun` on the node:
 kubectl label nodes wasm-demo-control-plane runtime=crun
 ```
 
-Create a RuntimeClass resource named `crun` to use the pre-configured `crun` handler in containerd, the `scheduling.nodeSelector` property sends pod to nodes with the `runtime=crun` label.
+Create a RuntimeClass resource named `crun` to use the pre-configured `crun` handler in containerd, the `scheduling.nodeSelector` property sends pod to nodes with the `runtime=crun` label. Here is an example manifest:
 
 ```yaml
 apiVersion: node.k8s.io/v1
@@ -731,7 +731,7 @@ scheduling:
 handler: crun
 ```
 
-Set `.spec.runtimeClassName` for the pod to target the pod at the `crun` RuntimeClass. This will ensure the pod gets assigned to a node and runtime specified in the `crun` RuntimeClass. Additionally, set the annotation `module.wasm.image/variant: compat` to inform crun that this is a Wasm workload.
+Next, run the Wasm app inside a Kubernetes pod. Set `.spec.runtimeClassName` for the pod to target the pod at the `crun` RuntimeClass. This will ensure the pod gets assigned to a node and runtime specified in the `crun` RuntimeClass. Additionally, set the annotation `module.wasm.image/variant: compat` to inform crun that this is a Wasm workload.
 
 ```yaml
 apiVersion: v1
@@ -770,7 +770,7 @@ Once the testing is complete, you can destroy the cluster by running:
 ```bash
 kind delete cluster --name wasm-demo
 ```
-##### KWasm Operator
+##### Set up your cluster for Wasm automatically using KWasm, then run the app inside a pod
 
 _[Kwasm](https://kwasm.sh/)_ is a Kubernetes Operator that adds WebAssembly support to your Kubernetes nodes. The operator uses the _[kwasm-node-installer](https://github.com/KWasm/kwasm-node-installer)_ project to modify the underlying Kubernetes nodes.
 
@@ -795,14 +795,13 @@ helm install -n kwasm --create-namespace kwasm-operator kwasm/kwasm-operator
 kubectl annotate node kwasm-demo-control-plane kwasm.sh/kwasm-node=true
 ```
 
-Add label `runtime=crun` on the node.
+Add label `runtime=crun-kwasm` on the node.
 
 ```bash
-kubectl label nodes kwasm-demo-control-plane runtime=crun
+kubectl label nodes kwasm-demo-control-plane runtime=crun-kwasm
 ```
 
-Create a RuntimeClass resource named `crun` to use the crun handler automatically set up by Kwasm in containerd, the `scheduling.nodeSelector` property sends pod to nodes with the `runtime=crun` label.
-Here is an example manifest:
+Create a RuntimeClass resource named `crun` to use the crun handler automatically set up by Kwasm in containerd, the `scheduling.nodeSelector` property sends pod to nodes with the `runtime=crun-kwasm` label. Here is an example manifest:
 
 ```yaml
 apiVersion: node.k8s.io/v1
@@ -811,11 +810,11 @@ metadata:
   name: crun
 scheduling:
   nodeSelector:
-    runtime: crun
+    runtime: crun-kwasm
 handler: crun
 ```
 
-Set `.spec.runtimeClassName` for the pod to target the pod at the `crun` RuntimeClass. This will ensure the pod gets assigned to a node and runtime specified in the `crun` RuntimeClass. Additionally, set the annotation `module.wasm.image/variant: compat` to inform crun that this is a Wasm workload.
+Next, run the Wasm app inside a Kubernetes pod. Set `.spec.runtimeClassName` for the pod to target the pod at the `crun` RuntimeClass. This will ensure the pod gets assigned to a node and runtime specified in the `crun` RuntimeClass. Additionally, set the annotation `module.wasm.image/variant: compat` to inform crun that this is a Wasm workload.
 
 ```yaml
 apiVersion: v1
@@ -831,7 +830,7 @@ spec:
     image: docker.io/cr7258/wasm-demo-app:v1
 ```
 
-You can use `port-forward` to forward traffics to your local machine for access.
+You can use `kubectl port-forward` to forward traffic from your local machine into the Kubernetes cluster:
 
 ```bash
 kubectl port-forward pod/wasm-demo-app 8080:8080
