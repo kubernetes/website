@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "New Experimental Features in Gateway API v1.0"
-date: 2023-11-02T10:00:00-08:00
+date: 2023-11-27T10:00:00-08:00
 slug: gateway-api-ga
 ---
 
