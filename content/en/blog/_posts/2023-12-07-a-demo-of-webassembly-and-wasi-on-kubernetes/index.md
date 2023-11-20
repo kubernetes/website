@@ -69,7 +69,7 @@ cargo new http-server
 
 Edit the `Cargo.toml` file to add the dependencies listed below. _[warp_wasi](https://crates.io/crates/warp_wasi)_ is specifically designed for WASI and is built upon the _[Warp](https://docs.rs/warp/latest/warp/)_ framework, which is a lightweight web server framework used to develop high-performance asynchronous web applications.
 
-```bash
+```
 [dependencies]
 tokio_wasi = { version = "1", features = ["rt", "macros", "net", "time", "io-util"]}
 warp_wasi = "0.3"
@@ -104,7 +104,7 @@ The compiled Wasm module requires an appropriate Wasm runtime for execution. Pop
 
 In this article, I use _[WasmEdge](https://wasmedge.org/docs/)_, a lightweight, high-performance, and extensible WebAssembly runtime. 
 
-Install WasmEdge.
+Install WasmEdge by running:
 
 ```bash
 # Running scripts directly via curl | bash has security implications.  
@@ -202,6 +202,7 @@ CMD ["/http-server.wasm"]
 Build the container image. The image created this time is approximately only 1/4 the size of the previously built `wasm-demo-app:slim` image.
 
 ```bash
+# replace cr7258 with your own Docker Hub repository name
 docker build -t docker.io/cr7258/wasm-demo-app:v1 .
 ```
 
@@ -250,7 +251,7 @@ crun -v
 
 Seeing `+WASM:wasmedge` indicates that WasmEdge has been installed in crun.
 
-```bash
+```
 crun version 1.8.5.0.0.0.23-3856
 commit: 385654125154075544e83a6227557bfa5b1f8cc5
 rundir: /run/crun
@@ -502,7 +503,7 @@ Containerd can manage Wasm modules in two ways:
 In this section, I will demonstrate how to configure crun as runtime in containerd, enabling support for running Wasm modules.
 
 {{< note >}}
-Ensure that crun binary has been installed as per the instructions in the section: [Low-level Container Runtime](#low-level-container-runtime).
+Ensure that crun binary has been installed as per the instructions in the section: [Run Wasm modules in a local Linux container, via a low-level runtime](#run-wasm-modules-in-a-local-linux-container-via-a-low-level-runtime).
 {{< /note >}}
 
 Run the following commands to install containerd:
@@ -626,6 +627,8 @@ ctr task kill wasm-demo-app --signal SIGKILL
 
 #### Run Wasm modules on Docker Desktop
 
+When you're developing software, you want to try it out locally as well as in the cloud. I'll use Docker Desktop as an example of a tool you can use to run your code locally inside a container.
+
 Docker Desktop also uses runwasi to support the Wasm module. Follow the instructions in the [Docker Wasm documentation](https://docs.docker.com/desktop/wasm/#turn-on-wasm-workloads) to enable Wasm support on Docker Desktop.
 
 Use the following `docker run` command to start a Wasm container on your system. `--runtime=io.containerd.wasmedge.v1` informs the Docker engine that you want to use the Wasm containerd shim instead of the standard Linux container runtime.
@@ -659,7 +662,7 @@ docker rm -f wasm-demo-app
 
 WebAssembly is [driving the third wave of cloud computing](https://nigelpoulton.com/webassembly-the-future-of-cloud-computing/). As the de facto standard in the realm of container orchestration, Kubernetes continuously evolves to leverage the advantages brought about by WebAssembly.
 
-The major way to run Wasm modules on Kubernetes is adding Wasm support to the Kubernetes nodes. To achieve this, we can either manually install a container runtime build with the Wasm runtime library or use the Kwasm Operator to automate the process.
+The major way to run Wasm modules on Kubernetes is adding Wasm support to the Kubernetes nodes. To achieve this, you can either manually install a container runtime built with the Wasm runtime library or use the Kwasm Operator to automate the process.
 
 _[Kind](https://kind.sigs.k8s.io/)_ (Kubernetes in Docker) is a tool for running local Kubernetes clusters using local containers as "nodes", usually within Docker. To facilitate the experiments, use kind to create a Kubernetes cluster for use in the following sections. Run the following command to install kind:
 
@@ -762,7 +765,7 @@ The output is:
 Hello, World!
 ```
 
-Once the testing is complete, you can destroy the cluster using this command.
+Once the testing is complete, you can destroy the cluster by running:
 
 ```bash
 kind delete cluster --name wasm-demo
