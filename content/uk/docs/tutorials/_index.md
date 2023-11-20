@@ -63,7 +63,7 @@ Before walking through each tutorial, you may want to bookmark the
 
 * [AppArmor](/docs/tutorials/clusters/apparmor/)
 
-* [seccomp](/docs/tutorials/clusters/seccomp/)
+* [Seccomp](/docs/tutorials/clusters/seccomp/)
 
 ## Сервіси
 
