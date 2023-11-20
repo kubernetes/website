@@ -12,7 +12,10 @@ weight: 20
 <!-- overview -->
 
 <!--
-Alongside the [PR Wrangler](/docs/contribute/participate/pr-wranglers),formal approvers, and reviewers, members of SIG Docs take week long shifts [triaging and categorising issues](/docs/contribute/review/for-approvers.md/#triage-and-categorize-issues) for the repository.
+Alongside the [PR Wrangler](/docs/contribute/participate/pr-wranglers),formal approvers,
+and reviewers, members of SIG Docs take week long shifts
+[triaging and categorising issues](/docs/contribute/review/for-approvers.md/#triage-and-categorize-issues)
+for the repository.
 -->
 除了承担 [PR 管理者](/zh-cn/docs/contribute/participate/pr-wranglers)的职责外，
 SIG Docs 正式的批准人（Approver）、评审人（Reviewer）和成员（Member）
@@ -25,7 +28,9 @@ SIG Docs 正式的批准人（Approver）、评审人（Reviewer）和成员（M
 
 Each day in a week-long shift the Issue Wrangler will be responsible for:
 
-- Triaging and tagging incoming issues daily. See [Triage and categorize issues](https://github.com/kubernetes/website/blob/main/content/en/docs/contribute/review/for-approvers.md/#triage-and-categorize-issues) for guidelines on how SIG Docs uses metadata.
+- Triaging and tagging incoming issues daily. See
+  [Triage and categorize issues](/docs/contribute/review/for-approvers.md/#triage-and-categorize-issues)
+  for guidelines on how SIG Docs uses metadata.
 - Keeping an eye on stale & rotten issues within the kubernetes/website repository.
 - Maintenance of the [Issues board](https://github.com/orgs/kubernetes/projects/72/views/1).
 -->
@@ -34,18 +39,19 @@ Each day in a week-long shift the Issue Wrangler will be responsible for:
 在为期一周的轮值期内，Issue 管理者每天负责：
 
 - 对收到的 Issue 进行日常分类和标记。有关 SIG Docs 如何使用元数据的指导说明，
-  参阅[归类 Issue](https://github.com/kubernetes/website/blob/main/content/en/docs/contribute/review/for-approvers.md/#triage-and-categorize-issues)。
+  参阅[归类 Issue](/zh-cn/docs/contribute/review/for-approvers.md/#triage-and-categorize-issues)。
 - 密切关注 kubernetes/website 代码仓库中陈旧和过期的 Issue。
 - 维护 [Issues 看板](https://github.com/orgs/kubernetes/projects/72/views/1)。
 
 <!--
-### Requirements
+## Requirements
 
 - Must be an active member of the Kubernetes organization.
-- A minimum of 15 [non-trivial](https://www.kubernetes.dev/docs/guide/pull-requests/#trivial-edits) contributions to Kubernetes (of which a certain amount should be directed towards kubernetes/website).
-- Performing the role in an informal capacity already
+- A minimum of 15 [non-trivial](https://www.kubernetes.dev/docs/guide/pull-requests/#trivial-edits)
+  contributions to Kubernetes (of which a certain amount should be directed towards kubernetes/website).
+- Performing the role in an informal capacity already.
 -->
-### 要求   {#requirements}
+## 要求   {#requirements}
 
 - 必须是 Kubernetes 组织的活跃成员。
 - 至少为 Kubernetes 做了 15
@@ -54,12 +60,16 @@ Each day in a week-long shift the Issue Wrangler will be responsible for:
 - 已经以非正式身份履行该职责。
 
 <!--
-### Helpful [Prow commands](https://prow.k8s.io/command-help) for wranglers
+## Helpful Prow commands for wranglers
+
+Below are some commonly used commands for Issue Wranglers:
 -->
-### 对管理者有帮助的 [Prow 命令](https://prow.k8s.io/command-help)
+## 对管理者有帮助的 Prow 命令
+
+以下是 Issue 管理者的一些常用命令：
 
 <!--
-```
+```bash
 # reopen an issue
 /reopen
 
@@ -94,7 +104,7 @@ Each day in a week-long shift the Issue Wrangler will be responsible for:
 /close not-planned
 ```
 -->
-```
+```bash
 # 重新打开 Issue
 /reopen
 
@@ -130,11 +140,18 @@ Each day in a week-long shift the Issue Wrangler will be responsible for:
 ```
 
 <!--
-### When to close Issues
-
-For an open source project to succeed, good issue management is crucial. But it is also critical to resolve issues in order to maintain the repository and communicate clearly with contributors and users.
+To find more Prow commands, refer to the [Command Help](https://prow.k8s.io/command-help) documentation.
 -->
-### 何时关闭 Issue   {#when-to-close-issues}
+要查找更多 Prow 命令，请参阅[命令帮助](https://prow.k8s.io/command-help)文档。
+
+<!--
+## When to close Issues
+
+For an open source project to succeed, good issue management is crucial.
+But it is also critical to resolve issues in order to maintain the repository
+and communicate clearly with contributors and users.
+-->
+## 何时关闭 Issue   {#when-to-close-issues}
 
 一个开源项目想要成功，良好的 Issue 管理非常关键。
 但解决 Issue 也很重要，这样才能维护代码仓库，并与贡献者和用户进行清晰明确的交流。
@@ -142,7 +159,8 @@ For an open source project to succeed, good issue management is crucial. But it 
 <!--
 Close issues when:
 
-- A similar issue is reported more than once.You will first need to tag it as /triage duplicate; link it to the main issue & then close it. It is also advisable to direct the users to the original issue.
+- A similar issue is reported more than once.You will first need to tag it as `/triage duplicate`;
+  link it to the main issue & then close it. It is also advisable to direct the users to the original issue.
 - It is very difficult to understand and address the issue presented by the author with the information provided.
   However, encourage the user to provide more details or reopen the issue if they can reproduce it later.
 - The same functionality is implemented elsewhere. One can close this issue and direct user to the appropriate place.
@@ -152,7 +170,7 @@ Close issues when:
 -->
 关闭 Issue 的时机包括：
 
-- 类似的 Issue 被多次报告。你首先需要将其标记为 /triage duplicate；
+- 类似的 Issue 被多次报告。你首先需要将其标记为 `/triage duplicate`；
   将其链接到主要 Issue 然后关闭它。还建议将用户引导至最初的 Issue。
 - 通过所提供的信息很难理解和解决作者提出的 Issue。
   但要鼓励用户提供更多细节，或者在以后可以重现 Issue 时重新打开此 Issue 。
