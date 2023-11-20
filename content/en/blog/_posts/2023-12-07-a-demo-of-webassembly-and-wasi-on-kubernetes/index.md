@@ -515,6 +515,7 @@ sudo apt install -y wget
 
 wget https://github.com/containerd/containerd/releases/download/v${VERSION}/cri-containerd-cni-${VERSION}-linux-amd64.tar.gz
 wget https://github.com/containerd/containerd/releases/download/v${VERSION}/cri-containerd-cni-${VERSION}-linux-amd64.tar.gz.sha256sum
+# expected checksum: ea70faeb6c5d656fa0787dfc7d88a48daf961482c46bb22953cb5396289fd5b8
 sha256sum --check cri-containerd-cni-${VERSION}-linux-amd64.tar.gz.sha256sum
 
 sudo tar --no-overwrite-dir -C / -xzf cri-containerd-cni-${VERSION}-linux-amd64.tar.gz
