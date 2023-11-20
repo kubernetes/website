@@ -6,7 +6,10 @@ weight: 20
 
 <!-- overview -->
 
-Alongside the [PR Wrangler](/docs/contribute/participate/pr-wranglers),formal approvers, and reviewers, members of SIG Docs take week long shifts [triaging and categorising issues](/docs/contribute/review/for-approvers.md/#triage-and-categorize-issues) for the repository.
+Alongside the [PR Wrangler](/docs/contribute/participate/pr-wranglers), formal approvers,
+reviewers and members of SIG Docs take week-long shifts
+[triaging and categorising issues](/docs/contribute/review/for-approvers.md/#triage-and-categorize-issues)
+for the repository.
 
 <!-- body -->
 
@@ -14,19 +17,24 @@ Alongside the [PR Wrangler](/docs/contribute/participate/pr-wranglers),formal ap
 
 Each day in a week-long shift the Issue Wrangler will be responsible for:
 
-- Triaging and tagging incoming issues daily. See [Triage and categorize issues](https://github.com/kubernetes/website/blob/main/content/en/docs/contribute/review/for-approvers.md/#triage-and-categorize-issues) for guidelines on how SIG Docs uses metadata.
+- Triaging and tagging incoming issues daily. See
+  [Triage and categorize issues](/docs/contribute/review/for-approvers.md/#triage-and-categorize-issues)
+  for guidelines on how SIG Docs uses metadata.
 - Keeping an eye on stale & rotten issues within the kubernetes/website repository.
 - Maintenance of the [Issues board](https://github.com/orgs/kubernetes/projects/72/views/1).
 
-### Requirements
+## Requirements
 
 - Must be an active member of the Kubernetes organization.
-- A minimum of 15 [non-trivial](https://www.kubernetes.dev/docs/guide/pull-requests/#trivial-edits) contributions to Kubernetes (of which a certain amount should be directed towards kubernetes/website).
-- Performing the role in an informal capacity already
+- A minimum of 15 [non-trivial](https://www.kubernetes.dev/docs/guide/pull-requests/#trivial-edits)
+  contributions to Kubernetes (of which a certain amount should be directed towards kubernetes/website).
+- Performing the role in an informal capacity already.
 
-### Helpful [Prow commands](https://prow.k8s.io/command-help) for wranglers
+## Helpful Prow commands for wranglers
 
-```
+Below are some commonly used commands for Issue Wranglers:
+
+```bash
 # reopen an issue
 /reopen
 
@@ -61,13 +69,18 @@ Each day in a week-long shift the Issue Wrangler will be responsible for:
 /close not-planned
 ```
 
-### When to close Issues
+To find more Prow commands, refer to the [Command Help](https://prow.k8s.io/command-help) documentation.
 
-For an open source project to succeed, good issue management is crucial. But it is also critical to resolve issues in order to maintain the repository and communicate clearly with contributors and users.
+## When to close Issues
+
+For an open source project to succeed, good issue management is crucial.
+But it is also critical to resolve issues in order to maintain the repository
+and communicate clearly with contributors and users.
 
 Close issues when:
 
-- A similar issue is reported more than once.You will first need to tag it as /triage duplicate; link it to the main issue & then close it. It is also advisable to direct the users to the original issue.
+- A similar issue is reported more than once. You will first need to tag it as `/triage duplicate`;
+  link it to the main issue & then close it. It is also advisable to direct the users to the original issue.
 - It is very difficult to understand and address the issue presented by the author with the information provided.
   However, encourage the user to provide more details or reopen the issue if they can reproduce it later.
 - The same functionality is implemented elsewhere. One can close this issue and direct user to the appropriate place.

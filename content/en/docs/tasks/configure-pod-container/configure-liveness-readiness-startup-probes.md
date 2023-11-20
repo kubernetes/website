@@ -358,8 +358,8 @@ Readiness probes runs on the container during its whole lifecycle.
 {{< /note >}}
 
 {{< caution >}}
-Liveness probes *do not* wait for readiness probes to succeed.
-If you want to wait before executing a liveness probe you should use
+The readiness and liveness probes do not depend on each other to succeed.
+If you want to wait before executing a readiness probe, you should use
 `initialDelaySeconds` or a `startupProbe`.
 {{< /caution >}}
 
