@@ -136,6 +136,7 @@ For a reference to old feature gates that are removed, please refer to
 | `LogarithmicScaleDown` | `true` | Beta | 1.22 | |
 | `LoggingAlphaOptions` | `false` | Alpha | 1.24 | - |
 | `LoggingBetaOptions` | `true` | Beta | 1.24 | - |
+| `MatchLabelKeysInPodAffinity` | `false` | Alpha | 1.29 | - |
 | `MatchLabelKeysInPodTopologySpread` | `false` | Alpha | 1.25 | 1.26 |
 | `MatchLabelKeysInPodTopologySpread` | `true` | Beta | 1.27 | - |
 | `MaxUnavailableStatefulSet` | `false` | Alpha | 1.24 | |
@@ -627,6 +628,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   based on logarithmic bucketing of pod timestamps.
 - `LoggingAlphaOptions`: Allow fine-tuing of experimental, alpha-quality logging options.
 - `LoggingBetaOptions`: Allow fine-tuing of experimental, beta-quality logging options.
+- `MatchLabelKeysInPodAffinity`: Enable the `matchLabelKeys` and `mismatchLabelKeys` field for
+  [pod (anti)affinity](/docs/concepts/scheduling-eviction/assign-pod-node/).
 - `MatchLabelKeysInPodTopologySpread`: Enable the `matchLabelKeys` field for
   [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/).
 - `MaxUnavailableStatefulSet`: Enables setting the `maxUnavailable` field for the
