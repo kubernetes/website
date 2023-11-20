@@ -865,7 +865,7 @@ kind: Pod
 metadata:
   name: wasm-demo-app
   annotations:
-    module.wasm.image/variant: compat-smart
+    module.wasm.image/variant: compat-smart # Kubernetes copies Pod annotations to container runtime labels, which is why this works.
 spec:
   runtimeClassName: crun
   containers:
