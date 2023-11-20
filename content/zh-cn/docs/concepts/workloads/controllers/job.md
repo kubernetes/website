@@ -1613,7 +1613,7 @@ the Job status, allowing the Pod to be removed by other controllers or users.
 
 {{< note >}}
 <!--
-See [My pod stays terminating](/docs/tasks/debug-application/debug-pods) if you
+See [My pod stays terminating](/docs/tasks/debug/debug-application/debug-pods/) if you
 observe that pods from a Job are stucked with the tracking finalizer.
 -->
 如果你发现来自 Job 的某些 Pod 因存在负责跟踪的 Finalizer 而无法正常终止，
