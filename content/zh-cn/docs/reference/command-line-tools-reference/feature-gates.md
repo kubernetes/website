@@ -244,7 +244,7 @@ For a reference to old feature gates that are removed, please refer to
 | `SkipReadOnlyValidationGCE` | `false` | Alpha | 1.28 | |
 | `StableLoadBalancerNodeSet` | `true` | Beta | 1.27 | |
 | `StatefulSetAutoDeletePVC` | `false` | Alpha | 1.23 | 1.26 |
-| `StatefulSetAutoDeletePVC` | `false` | Beta | 1.27 | |
+| `StatefulSetAutoDeletePVC` | `true` | Beta | 1.27 | |
 | `StatefulSetStartOrdinal` | `false` | Alpha | 1.26 | 1.26 |
 | `StatefulSetStartOrdinal` | `true` | Beta | 1.27 | |
 | `StorageVersionAPI` | `false` | Alpha | 1.20 | |
