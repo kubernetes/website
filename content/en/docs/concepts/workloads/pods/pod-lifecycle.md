@@ -256,7 +256,7 @@ runtime sandbox and configure networking for the Pod. If the
 `PodReadyToStartContainersCondition`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled
 (it is enabled by default for Kubernetes {{< skew currentVersion >}}), the
-`PodReadyToStartContainers` condition in the `status.conditions` field of a Pod.
+`PodReadyToStartContainers` condition will be added to the `status.conditions` field of a Pod.
 
 The `PodReadyToStartContainers` condition is set to `False` by the Kubelet when it detects a
 Pod does not have a runtime sandbox with networking configured. This occurs in
