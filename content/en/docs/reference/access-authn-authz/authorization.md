@@ -211,7 +211,113 @@ so an earlier module has higher priority to allow or deny a request.
 
 ## Configuring the API Server using a Authorization Config File
 
-<!-- TODO -->
+{{< feature-state state="alpha" for_k8s_version="v1.29" >}}
+
+Kubernetes API Server authorizer chain can be configured using a config file by passing it through the `--authorization-config` flag. An example configuration with all possible values is provided below. In order to use the feature, the `StructuredAuthorizationConfiguration` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) has to be enabled.
+
+Note: When the feature is enabled, setting both `--authorization-config` and configuring an authorization webhook using the `--authorization-mode` and `--authorization-webhook-*` command line flags is not allowed. If done, there will be an error and API Server would exit right away.
+
+```yaml
+#
+# DO NOT USE THE CONFIG AS IS. THIS IS AN EXAMPLE.
+#
+apiVersion: apiserver.config.k8s.io/v1alpha1
+kind: AuthorizationConfiguration
+# authorizers are defined in order of precedence
+authorizers:
+  - type: Webhook
+    # Name used to describe the authorizer
+    # This is explicitly used in monitoring machinery for metrics
+    # Note:
+    #   - Validation for this field is similar to how K8s labels are validated today.
+    # Required, with no default
+    name: webhook
+    webhook:
+      # The duration to cache 'authorized' responses from the webhook
+      # authorizer.
+      # Same as setting `--authorization-webhook-cache-authorized-ttl` flag
+      # Default: 5m0s
+      authorizedTTL: 30s
+      # The duration to cache 'authorized' responses from the webhook
+      # authorizer.
+      # Same as setting `--authorization-webhook-cache-unauthorized-ttl` flag
+      # Default: 30s
+      unauthorizedTTL: 30s
+      # Timeout for the webhook request
+      # Maximum allowed is 30s.
+      # Required, with no default.
+      timeout: 3s
+      # The API version of the authorization.k8s.io SubjectAccessReview to
+      # send to and expect from the webhook.
+      # Same as setting `--authorization-webhook-version` flag
+      # Required, with no default
+      # Valid values: v1beta1, v1
+      subjectAccessReviewVersion: v1
+      # MatchConditionSubjectAccessReviewVersion specifies the SubjectAccessReview
+      # version the CEL expressions are evaluated against
+      # Valid values: v1
+      # Required only if matchConditions are specified, no default value
+      matchConditionSubjectAccessReviewVersion: v1
+      # Controls the authorization decision when a webhook request fails to
+      # complete or returns a malformed response or errors evaluating
+      # matchConditions.
+      # Valid values:
+      #   - NoOpinion: continue to subsequent authorizers to see if one of
+      #     them allows the request
+      #   - Deny: reject the request without consulting subsequent authorizers
+      # Required, with no default.
+      failurePolicy: Deny
+      connectionInfo:
+        # Controls how the webhook should communicate with the server.
+        # Valid values:
+        # - KubeConfig: use the file specified in kubeConfigFile to locate the
+        #   server.
+        # - InClusterConfig: use the in-cluster configuration to call the
+        #   SubjectAccessReview API hosted by kube-apiserver. This mode is not
+        #   allowed for kube-apiserver.
+        type: KubeConfig
+        # Path to KubeConfigFile for connection info
+        # Required, if connectionInfo.Type is KubeConfig
+        kubeConfigFile: /kube-system-authz-webhook.yaml
+        # matchConditions is a list of conditions that must be met for a request to be sent to this
+        # webhook. An empty list of matchConditions matches all requests.
+        # There are a maximum of 64 match conditions allowed.
+        #
+        # The exact matching logic is (in order):
+        #   1. If at least one matchCondition evaluates to FALSE, then the webhook is skipped.
+        #   2. If ALL matchConditions evaluate to TRUE, then the webhook is called.
+        #   3. If at least one matchCondition evaluates to an error (but none are FALSE):
+        #      - If failurePolicy=Deny, then the webhook rejects the request
+        #      - If failurePolicy=NoOpinion, then the error is ignored and the webhook is skipped
+      matchConditions:
+      # expression represents the expression which will be evaluated by CEL. Must evaluate to bool.
+      # CEL expressions have access to the contents of the SubjectAccessReview in v1 version.
+      # If version specified by subjectAccessReviewVersion in the request variable is v1beta1,
+      # the contents would be converted to the v1 version before evaluating the CEL expression.
+      #
+      # Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/
+      #
+      # only send resource requests to the webhook
+      - expression: has(request.resourceAttributes)
+      # only intercept requests to kube-system
+      - expression: request.resourceAttributes.namespace == 'kube-system'
+      # don't intercept requests from kube-system service accounts
+      - expression: !('system:serviceaccounts:kube-system' in request.user.groups)
+  - type: Node
+    name: node
+  - type: RBAC
+    name: rbac
+  - type: Webhook
+    name: in-cluster-authorizer
+    webhook:
+      authorizedTTL: 5m
+      unauthorizedTTL: 30s
+      timeout: 3s
+      subjectAccessReviewVersion: v1
+      failurePolicy: NoOpinion
+      connectionInfo:
+        type: InClusterConfig
+```
 
 ## Privilege escalation via workload creation or edits {#privilege-escalation-via-pod-creation}
 
@@ -245,4 +351,3 @@ This should be considered when deciding on your RBAC controls.
 
 * To learn more about Authentication, see **Authentication** in [Controlling Access to the Kubernetes API](/docs/concepts/security/controlling-access/).
 * To learn more about Admission Control, see [Using Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/).
-
