@@ -7,7 +7,7 @@ slug: a-demo-of-webassembly-and-wasi-on-kubernetes
 
 **Author:** Seven Cheng (SAP)
 
-_[WebAssembly](https://webassembly.org/)_ (Wasm) was originally created for the browser, and it has become increasingly popular on the server-side as well. WebAssembly is gaining popularity in the Cloud Native ecosystem due to its advantages over containers, including smaller size, faster speed, enhanced security, and greater portability. 
+_[WebAssembly](https://webassembly.org/)_ (Wasm) was originally created for the browser, and it has become increasingly popular on the server-side as well. In my view, WebAssembly is gaining popularity in the Cloud Native ecosystem due to its advantages over containers, including smaller size, faster speed, enhanced security, and greater portability.
 
 In this blog article, I will walk you through building and deploying Wasm applications in the Cloud Native ecosystem. You'll need:
 
@@ -683,7 +683,7 @@ Create a single-node Kubernetes cluster using kind.
 kind create cluster --name wasm-demo
 ```
 
-Each Kubernetes node created by kind is a Docker container, you can enter that node using the `docker exec` command.
+Each Kubernetes node created by kind is a container, typically running within Docker. you can enter that node using the `docker exec` command.
 
 ```bash
 docker exec -it wasm-demo-control-plane bash
