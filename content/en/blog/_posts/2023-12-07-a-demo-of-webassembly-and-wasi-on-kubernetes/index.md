@@ -9,9 +9,16 @@ slug: a-demo-of-webassembly-and-wasi-on-kubernetes
 
 _[WebAssembly](https://webassembly.org/)_ (Wasm) was originally created for the browser, and it has become increasingly popular on the server-side as well. WebAssembly is gaining popularity in the Cloud Native ecosystem due to its advantages over containers, including smaller size, faster speed, enhanced security, and greater portability. 
 
-In this blog article, I will walk you through building and deploying Wasm applications in the Cloud Native ecosystem.
+In this blog article, I will walk you through building and deploying Wasm applications in the Cloud Native ecosystem. You'll need:
 
-## What is WebAssembly
+- a login to Docker Hub (you can also adapt the walkthrough to use a different container image registry);
+- a Rust development environment (the article tells you how to find installation instructions);
+- a PC running Debian, Ubuntu, or a similar Linux distribution based on Debian.
+  The PC should have an AMD64 or compatible CPU.
+  Again, you can adapt the advice if you use a different flavor of Linux or a different kind of CPU. If you use a different operating system (not Linux), set up a local Linux environment inside a virtual machine.
+  
+
+## What is WebAssembly?
 
 WebAssembly is a universal bytecode technology that allows programs written in various languages like Go, Rust, and C/C++ to be compiled into bytecode, which can be executed directly within web browsers and servers.
 
@@ -21,7 +28,7 @@ WebAssembly is designed from the ground up to solve the performance problem of J
 
 In March 2019, Mozilla announced the WebAssembly System Interface (_WASI_), an API specification that defines a standard interface between WebAssembly modules and their host environments. WASI allows WebAssembly modules to access system resources securely, including the network, filesystem, etc. This extremely expanded Webassembly's potential by enabling it to work not only in browsers but also on servers.
 
-## The Advantages of WebAssembly
+## The advantages of WebAssembly
 
 WebAssembly stands out with several remarkable benefits over traditional containers:
 - **Fast**: Wasm modules typically start within milliseconds, significantly faster than traditional containers, which is crucial for workloads requiring rapid startup, such as serverless functions.
@@ -31,19 +38,20 @@ WebAssembly stands out with several remarkable benefits over traditional contain
 
 You can refer to this table for a detailed comparison between WebAssembly and containers: [WebAssembly vs Linux Container](https://wasmedge.org/wasm_linux_container/)。
 
-## Develop Wasm Application with Rust
+## Write an example application using Rust and WebAssembly
 
 Whether an application can be compiled to Wasm significantly depends on the programming language being used. Languages such as Rust, C, and C++ offer great support for Wasm, and Go provides preliminary support for WASI starting from version 1.21. Prior to this, third-party tools such as tinygo were needed for compilation. Due to Rust’s first-class support for Wasm, I use Rust for developing Wasm applications in this article.
 
 ### Install Rust
 
 Please refer to the [Rust installation instruction](https://www.rust-lang.org/tools/install) to install Rust.
+Make sure to install Cargo (Rust's package manager) as well as Rust itself.
 
 ### Add wasm32-wasi target for Rust
 
 As mentioned earlier, WASI is a system-level interface for WebAssembly, designed to facilitate interactions between WebAssembly and the host system in various environments. It offers a standardized method enabling WebAssembly to access system-level functionalities such as file I/O, network, and system calls.
 
-_Rustc_ is a cross-platform compiler with many compilation targets, including wasm32-wasi. This target compiles Rust code into Wasm modules that follow the WASI standard. Compiling Rust code to the wasm32-wasi target allows Rust's functionality and safety to be integrated into the WebAssembly environment while leveraging standardized system interfaces provided by wasm32-wasi for interaction with the host system.
+`rustc` is a cross-platform compiler with many compilation targets, including _wasm32-wasi_. This target compiles Rust code into Wasm modules that follow the WASI standard. Compiling Rust code to the wasm32-wasi target allows Rust's functionality and safety to be integrated into the WebAssembly environment while leveraging standardized system interfaces provided by wasm32-wasi for interaction with the host system.
 
 Add the `wasm32-wasi` target to the Rust compiler.
 
@@ -51,9 +59,9 @@ Add the `wasm32-wasi` target to the Rust compiler.
 rustup target add wasm32-wasi
 ```
 
-### Write a Rust Program
+### Write a Rust program
 
-Create a new Rust project using `cargo new` command.
+Create a new Rust project using `cargo new` command:
 
 ```bash
 cargo new http-server
@@ -83,6 +91,7 @@ async fn main() {
 }
 ```
 
+Save that file as `main.rs` onto your PC.
 Compile the program into a Wasm module, it will be written to the `target/wasm32-wasi/release` directory of project.
 
 ```bash
@@ -103,7 +112,7 @@ Install WasmEdge.
 curl -sSf https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash
 ```
 
-Make the installed binary available in the current session.
+Make the installed binary available in the current session:
 
 ```bash
 source $HOME/.wasmedge/env
@@ -111,13 +120,13 @@ source $HOME/.wasmedge/env
 
 ### Run the Wasm Module
 
-You can use the `wasmedge` command to run the Wasm module. 
+You can use the `wasmedge` command to run the Wasm module:
 
 ```bash
 wasmedge target/wasm32-wasi/release/http-server.wasm
 ```
 
-Send a request to the service.
+Send a request to the service running locally:
 
 ```bash
 curl http://localhost:8080
@@ -129,15 +138,15 @@ The output is:
 Hello, World!
 ```
 
-## Run Wasm Modules in the Container Ecosystem
+## Run Wasm modules using container tooling
 
-### Run Wasm Modules in Linux Container
+### Run Wasm modules in a local Linux container, manually
 
 An easy way to run Wasm modules in the container ecosystem is to embed the Wasm bytecode file in a Linux container image. Precisely, you can trim down the Linux OS inside the container to the point where it is just enough to support the Wasm runtime. Since Wasm modules are housed in standard containers, they can be integrated seamlessly with any existing container ecosystem.
 
 Compared to a regular Linux OS, the attack surface of the slimmed Linux OS is dramatically reduced. Nonetheless, this approach still necessitates the launching of a Linux container. Although the Linux OS is trimmed down, it still takes up 80% of the container's image size.
 
-Build a Linux container image using the compiled Wasm module. Create a Dockerfile named `Dockerfile-wasmedge-slim` in the root directory of the `http-server` project. In the Dockerfile, include the Wasm module in a slim Linux image with wasmedge installed, and execute the Wasm module using the `wasmedge` command.
+Build a Linux container image using the compiled Wasm module. I'll explain doing that using Docker, which is a really common way to make container images. Create a _Dockerfile_ named `Dockerfile-wasmedge-slim` in the root directory of the `http-server` project. In the Dockerfile, include the Wasm module in a slim Linux image with wasmedge installed, and execute the Wasm module using the `wasmedge` command.
 
 ```yaml
 FROM wasmedge/slim-runtime:0.10.1
@@ -145,13 +154,14 @@ COPY target/wasm32-wasi/release/http-server.wasm /
 CMD ["wasmedge", "--dir", ".:/", "/http-server.wasm"]
 ```
 
-Build the container image.
+Build the container image:
 
 ```bash
+# replace cr7258 with your own Docker Hub repository name
 docker build -f Dockerfile-wasmedge-slim -t cr7258/wasm-demo-app:slim .
 ```
 
-Start the container.
+To test the code locally, I'll run the container using Docker:
 
 ```bash
 docker run -itd -p 8080:8080 \
@@ -159,7 +169,7 @@ docker run -itd -p 8080:8080 \
 docker.io/cr7258/wasm-demo-app:slim
 ```
 
-Send a request to the service.
+Send a request to the service running in the local test container:
 
 ```bash
 curl http://localhost:8080
@@ -171,7 +181,7 @@ The output is:
 Hello, World!
 ```
 
-### Run Wasm Modules in Wasm-Supported Container Runtimes
+### Run Wasm modules in container runtimes that have Wasm support
 
 In the last section, I showcased how to embed Wasm modules directly into a Linux container to run Wasm modules. The advantage of this approach is that it allows for seamless integration with existing environments while also benefiting from the performance improvements brought by Wasm. However, compared to running Wasm modules directly in Wasm-supported container runtimes, this method is less efficient and secure.
 
@@ -198,12 +208,13 @@ docker build -t docker.io/cr7258/wasm-demo-app:v1 .
 To make it easier to use in the following demos, push the image to Docker Hub. Replace the repo with your own.
 
 ```bash
+# replace cr7258 with your own Docker Hub repository name
 docker push docker.io/cr7258/wasm-demo-app:v1
 ```
 
 Next, I will individually demonstrate how to run Wasm modules through both low-level and high-level container runtimes.
 
-#### Low-level Container Runtime
+#### Run Wasm modules in a local Linux container, via a low-level runtime
 
 _[Crun](https://github.com/containers/crun)_ is a fast and lightweight OCI container runtime written in C, which has built-in support for WasmEdge. In this section, I will demonstrate how to utilize crun to directly launch a Wasm module using the provided config.json and rootfs files, without depending on high-level container runtimes.
 
@@ -220,7 +231,7 @@ apt install -y make git gcc build-essential pkgconf libtool \
      go-md2man libtool autoconf python3 automake
 ```
 
-Configure, build, and install a crun binary with WasmEdge support.
+Configure, build, and install a `crun` binary that includes WasmEdge support:
 
 ```shell
 git clone https://github.com/containers/crun
@@ -247,7 +258,8 @@ spec: 1.0.0
 +SYSTEMD +SELINUX +APPARMOR +CAP +SECCOMP +EBPF +WASM:wasmedge +YAJL
 ```
 
-Create a directory to store the files required for running the container. (config.json and rootfs)
+Create a directory to store the files and directories required for running the container (`config.json` and `rootfs`),
+then copy in the root filesystem:
 
 ```bash
 mkdir test-crun
@@ -451,13 +463,13 @@ The configuration file should look like this after modifications:
 }
 ```
 
-Start the container using crun. 
+Start the container using `crun`:
 
 ```shell
 crun run wasm-demo-app
 ```
 
-Send a request to the service.
+Send a request to the demo service in that container:
 
 ```bash
 curl http://localhost:8080
@@ -475,13 +487,13 @@ To delete the container, you can execute the following command:
 crun kill wasm-demo-app SIGKILL
 ```
 
-#### High-level Container Runtime
+#### Run Wasm modules in a local Linux container, via a high-level runtime
 
 The _container shim_ serves as a bridge between high and low-level container runtimes. Its main purpose is to abstract low-level runtime details, enabling uniform management of various runtimes in high-level runtime. In this section, I will use _[containerd](https://github.com/containerd/containerd)_ as an example. Containerd is an industry-standard container runtime with an emphasis on simplicity, robustness, and portability. 
 
 Containerd can manage Wasm modules in two ways:
-- 1.Manages Wasm modules through container runtimes like crun and youki that support building with the Wasm runtime library. These two runtimes can also run regular Linux containers. Containerd uses `containerd-shim-runc-v2` to interface with low-level container runtimes.
-- 2.Manages Wasm modules directly through Wasm runtimes, such as WasmEdge, Wasmtime, Spin, and Slight. Containerd uses `containerd-wasm-shim(runwasi)` to interface with Wasm runtimes.
+1. Manages Wasm modules through container runtimes like crun and youki that support building with the Wasm runtime library. These two runtimes can also run regular Linux containers. Containerd uses `containerd-shim-runc-v2` to interface with low-level container runtimes.
+1. Manages Wasm modules directly through Wasm runtimes, such as Slight, Spin, WasmEdge, and Wasmtime. Containerd uses `containerd-wasm-shim(runwasi)` to interface with Wasm runtimes.
 
 {{< figure src="03-use-containerd-shim-to-manage-wasm-modules.svg" alt="The diagram illustrates that containerd can manage WebAssembly modules in two ways: through container runtimes that support building with the WebAssembly runtime library via the containerd-shim-runc-v2, or directly through WebAssembly runtimes like WasmEdge and Wasmtime using the containerd-wasm-shim." caption="Figure 3: Use containerd shim to manage Wasm modules" >}}
 
@@ -493,7 +505,7 @@ In this section, I will demonstrate how to configure crun as runtime in containe
 Ensure that crun binary has been installed as per the instructions in the section: [Low-level Container Runtime](#low-level-container-runtime).
 {{< /note >}}
 
-Run the following commands to install containerd.
+Run the following commands to install containerd:
 
 ```shell
 export VERSION="1.7.3"
@@ -506,12 +518,12 @@ sha256sum --check cri-containerd-cni-${VERSION}-linux-amd64.tar.gz.sha256sum
 
 sudo tar --no-overwrite-dir -C / -xzf cri-containerd-cni-${VERSION}-linux-amd64.tar.gz
 sudo systemctl daemon-reload
-sudo systemctl start containerd
+sudo systemctl enable containerd --now
 ```
 
 You can run Wasm modules through containerd:
 - `--runc-binary`: Specifies to use `crun` as low-level runtime to start the container.
-- `--runtime`: Specifies the version and name of the shim, which are converted by containerd into the binary name of the shim: `io.containerd.runc.v2 -> containerd-shim-runc-v2`. Containerd starts the shim by running `containerd-shim-runc-v2` binary file, which subsequently invokes crun to launch the container.
+- `--runtime`: Specifies the version and name of the shim, which are converted by containerd into the binary name of the shim. For example: `io.containerd.runc.v2` → `containerd-shim-runc-v2`. Containerd starts the shim by running the `containerd-shim-runc-v2` binary file, which subsequently invokes `crun` to launch the container.
 - `--label`: Adds `"module.wasm.image/variant": "compat"` to indicate that this is a Wasm application without a guest OS.
 
 ```bash
@@ -527,7 +539,7 @@ docker.io/cr7258/wasm-demo-app:v1 \
 wasm-demo-app
 ```
 
-Send a request to the service.
+Send a request to the demo service in that container:
 
 ```bash
 curl http://localhost:8080
@@ -592,7 +604,7 @@ docker.io/cr7258/wasm-demo-app:v1 \
 wasm-demo-app
 ```
 
-Send a request to the service.
+Send a request to the demo service in that container:
 
 ```bash
 curl http://localhost:8080
@@ -610,7 +622,7 @@ To delete the container, you can execute the following command.
 ctr task kill wasm-demo-app --signal SIGKILL
 ```
 
-### Run Wasm modules on Container Management Platforms
+### Run Wasm modules on container management platforms
 
 #### Run Wasm modules on Docker Desktop
 
@@ -625,7 +637,7 @@ docker run -d -p 8080:8080 \
 docker.io/cr7258/wasm-demo-app:v1
 ```
 
-Send a request to the service.
+Send a request to the demo service in that container:
 
 ```bash
 curl http://localhost:8080
@@ -637,7 +649,7 @@ The output is:
 Hello, World!
 ```
 
-To delete the container, you can execute the following command.
+To delete the container, you can execute the following command:
 
 ```bash
 docker rm -f wasm-demo-app
@@ -649,7 +661,7 @@ WebAssembly is [driving the third wave of cloud computing](https://nigelpoulton.
 
 The major way to run Wasm modules on Kubernetes is adding Wasm support to the Kubernetes nodes. To achieve this, we can either manually install a container runtime build with the Wasm runtime library or use the Kwasm Operator to automate the process.
 
-_[Kind](https://kind.sigs.k8s.io/)_ (Kubernetes in Docker) is a tool for running local Kubernetes clusters using Docker containers as "nodes". To facilitate the experiments, use kind to create Kubernetes cluster in the following sections. Run the following command to install Kind.
+_[Kind](https://kind.sigs.k8s.io/)_ (Kubernetes in Docker) is a tool for running local Kubernetes clusters using local containers as "nodes", usually within Docker. To facilitate the experiments, use kind to create a Kubernetes cluster for use in the following sections. Run the following command to install kind:
 
 ```bash
 [ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-linux-amd64
@@ -674,7 +686,7 @@ docker exec -it wasm-demo-control-plane bash
 ```
 
 {{< note >}}
-After entering the node, follow the instructions in the section: [Low-level Container Runtime](#low-level-container-runtime) to install crun binary on the node.
+After entering a shell on the node, follow the instructions in the section: [Low-level Container Runtime](#low-level-container-runtime) to install the crun binary on the node.
 {{< /note >}}
 
 Modify the containerd configuration file `/etc/containerd/config.toml`, add the following content at the end:
@@ -691,13 +703,13 @@ cat >> /etc/containerd/config.toml << EOF
 EOF
 ```
 
-Restart containerd.
+Restart containerd:
 
 ```bash
 systemctl restart containerd
 ```
 
-Add label `runtime=crun` on the node.
+Set the label `runtime=crun` on the node:
 
 ```bash
 kubectl label nodes wasm-demo-control-plane runtime=crun
@@ -732,7 +744,7 @@ spec:
     image: docker.io/cr7258/wasm-demo-app:v1
 ```
 
-You can use `port-forward` to forward traffics to your local machine for access.
+You can use `kubectl port-forward` to forward traffic from your local machine into the Kubernetes cluster:
 
 ```bash
 kubectl port-forward pod/wasm-demo-app 8080:8080
@@ -772,7 +784,7 @@ kind create cluster --name kwasm-demo
 A Helm chart is available to easily install the Kwasm operator. Install the Kwasm Operator using helm and enable Wasm support for the node `kwasm-demo-control-plane` by adding the annotation `kwasm.sh/kwasm-node=true`.
 
 ```bash
-# Add HELM repository if not already done
+# Add Helm repository if not already done
 helm repo add kwasm http://kwasm.sh/kwasm-operator/
 # Install KWasm operator
 helm install -n kwasm --create-namespace kwasm-operator kwasm/kwasm-operator
@@ -787,6 +799,7 @@ kubectl label nodes kwasm-demo-control-plane runtime=crun
 ```
 
 Create a RuntimeClass resource named `crun` to use the crun handler automatically set up by Kwasm in containerd, the `scheduling.nodeSelector` property sends pod to nodes with the `runtime=crun` label.
+Here is an example manifest:
 
 ```yaml
 apiVersion: node.k8s.io/v1
@@ -833,7 +846,7 @@ The output is:
 Hello, World!
 ```
 
-Once the testing is complete, you can destroy the cluster using this command.
+Once the testing is complete, you can destroy the cluster by running:
 
 ```bash
 kind delete cluster --name kwasm-demo
