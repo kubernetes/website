@@ -1,13 +1,10 @@
-[<u>What is Kubernetes and its
-purpose?</u>](#what-is-kubernetes-and-its-purpose)
-
-[<u>Docker vs Docker Swarm</u>](#docker-vs-docker-swarm)
-
-[<u>Architecture: Docker vs
-Kubernetes</u>](#architecture-docker-vs-kubernetes)
-
-[<u>Basic Kubernetes concepts and
-terms</u>](#basic-kubernetes-concepts-and-terms)
++++
+title = 'Kubernetes Networking Architecture 14112023'
+date = 2023-11-14T10:03:51Z
+draft = true
++++
+# Cloud Computing: Kubernetes Networking Architecture
+From Docker to Kubernetes, container technologies are evolving. Most developers are familiar with Docker but don't have the whole perspective of Kubernetes. And the most difficult thing to understand about Kubernetes is its network architecture. Here, with my 10 years of DevOps work experience and double CCIE in the field of networking and cybersecurity, I will provide a detailed explanation of the comprehensive architecture of Kubernetes Networking, ensuring all aspects are clearly understood. 
 
 [<u>Kubernetes Networking
 Architecture</u>](#kubernetes-networking-architecture)
@@ -78,317 +75,6 @@ Kubernetes</u>](#classic-networking-scenarios-in-kubernetes)
 
 [<u>Conclusion</u>](#conclusion)
 
-# What is Kubernetes and its purpose?
-
-Kubernetes, originally designed by Google and now maintained by the
-Cloud Native Computing Foundation, has been significantly influential in
-the world of container orchestration. Drawing on Google's internal Borg
-system, Kubernetes enhances the management of containerized applications
-and is part of a larger suite of technologies that bolster Google's
-infrastructure. This includes supporting millions of application and
-search engine servers worldwide with minimal downtime.
-
-Kubernetes services also provide crucial load balancing and simplify
-container management across multiple hosts, thereby improving the
-deployment and scaling of applications.
-
-In very simple terms, Kubernetes is similar to an OpenStack equivalent
-for container orchestration.
-
-Kubernetes is an open-source platform that's both portable and
-extensible, designed for managing containerized workloads and services.
-It supports declarative configuration and automation, enhancing its
-usability. The platform boasts a large and rapidly expanding ecosystem,
-with a wide range of services, support, and tools readily available.
-
-Referring to Kubernetes, a key player in the containerization technology
-landscape, it's important to note its predecessor, Docker, specifically
-Docker Swarm.
-
-# Docker vs Docker Swarm
-
-**Docker**. Docker is an open-source platform that enables developers to
-build, deploy, run, update, and manage containers. These containers are
-standardized, executable components combining application source code
-with the necessary operating system (OS) libraries and dependencies,
-ensuring that code runs seamlessly in any environment.
-
-Docker is tailored to accelerate the deployment of your applications.
-With Docker, you can detach your applications from your infrastructure,
-treating the latter as a manageable application. At its heart, Docker
-enables the safe isolation of almost any application within a container.
-This secure isolation permits the concurrent running of numerous
-containers on the same server. Thanks to the lightweight design of the
-container, which operates without the extra burden of a hypervisor, you
-can achieve greater efficiency from your hardware.
-
-Docker aids in creating Docker images and containers from an
-application's binary and configuration files. It utilizes
-containerization principles like namespaces and Cgroups, provided by the
-Linux Kernel, to effectively run Docker containers.
-
-**Docker Swarm**. Docker Swarm, an open-source tool from Docker, is used
-to manage a swarm of containers running in a Docker cluster. It helps
-create and manage the cluster nodes and schedules container jobs to run
-on these nodes.
-
-In this mode, Docker Swarm allows containers to run across multiple
-hosts by combining them into a shared pool of compute resources. Docker
-itself monitors these containers, managing their allocation and
-initiating them as needed. By default, Docker Swarm is disabled.
-
-# Architecture: Docker vs Kubernetes
-
-Kubernetes, often referred to as "Linux for the cloud," is the most
-popular container orchestration platform for a reason. Kubernetes
-supports a range of container runtime environments, including Docker,
-containerd, CRI-O, and all Kubernetes CRI (Container Runtime Interface)
-implementations.
-
-Docker is extremely valuable for modern application development,
-effectively solving the age-old problem of code that runs perfectly on
-one machine but fails elsewhere.
-
-When comparing these platforms, it's more appropriate to compare
-Kubernetes with Docker Swarm. Docker Swarm, also known as swarm mode, is
-a container orchestration tool similar to Kubernetes. As an advanced
-feature, it manages clusters of Docker daemons. The Manager/Worker
-architecture of Docker Swarm is comparable to the control plane/node
-mode in Kubernetes, much like the Master/Worker mode in Ali Cloud.
-
-<img src="./media/image1.png" style="width:6.26772in;height:3.11111in"
-alt="A screenshot of a computer Description automatically generated" />
-
-*Kubernetes vs Docker Swarm: Key Parameters*
-
-Kubernetes is 'not' a containerization platform that competes with
-Docker container engine (Docker CE/EE)
-
-Docker uses a client-server architecture. The Docker client communicates
-with the Docker daemon, responsible for essential tasks such as
-container creation, execution, and distribution. You have the option to
-run both the client and daemon on the same system or establish
-connectivity between the client and a remote Docker daemon. They
-communicate seamlessly through a RESTful API, often over UNIX sockets or
-a network interface.
-
-I've created a diagram to illustrate this concept. Please refer to the
-diagram of Docker Architecture below.
-
-<img src="./media/image2.jpg"
-style="width:6.26772in;height:3.66667in" />
-
-*Docker Architecture*
-
-In exploring the architecture of Kubernetes, it's important to recognize
-that a Kubernetes cluster is a set of node machines for running
-containerized applications. A cluster has at least one worker node and a
-control plane.
-
-The worker nodes in a Kubernetes cluster are responsible for hosting the
-Pods, which are the components of the application workload. Each worker
-node, functioning as either a physical or a virtual machine, is equipped
-with a Kubernetes node agent (Kubelet), a network proxy (kube-proxy),
-and a container runtime. The container runtime is essential for running
-the containers within the Pods, providing an environment for the
-containers to execute and interact with the operating system and
-underlying hardware.
-
-Pods are scheduled onto the nodes by the control plane, which consists
-of the kube-apiserver, kube-scheduler, kube-controller-manager, and etcd
-(a consistent and highly available key-value store).
-
-See below for a diagram illustrating Kubernetes architecture details.
-
-<img src="./media/image3.png" style="width:6.26772in;height:5.625in" />
-
-*Kubernetes Architecture*
-
-However, the key difference between Docker and Kubernetes is in the
-architecture of their network. With this in mind, let's move our
-discussion away from Docker and focus in-depth on our main topic for
-today: Kubernetes.
-
-# Basic Kubernetes concepts and terms
-
-**Master.** The control plane in Kubernetes, often referred to as the
-master node, is responsible for managing and controlling the cluster. It
-runs key components like the kube-apiserver, kube-controller-manager,
-kube-scheduler, and etcd. The control plane serves as the central
-management point for the entire cluster, similar in concept to the
-leader node in Docker Swarm.
-
-- kube-apiserver: validates and configures data for the API objects,
-  which include pods, services, replication controllers, and others. The
-  API server services REST operations and provides the front end to the
-  shared state of the cluster, through which all other components
-  interact.
-
-- kube-controller-manager: operates multiple Kubernetes controllers in a
-  single process. This component manages essential background tasks in
-  the cluster, such as node, replication, and endpoint controllers,
-  centralizing key operational functions.
-
-- kube-scheduler: is a control plane process that assigns Pods to Nodes.
-  The scheduler determines which Nodes are valid placements for each Pod
-  in the scheduling queue, according to constraints and available
-  resources.
-
-- etcd: Consistent and highly available key-value store that serves as
-  Kubernetes' backing store for all cluster data.
-
-**Non-Master** (named Worker in Ali Cloud). A worker node is where
-containerized applications run. It hosts the actual workloads in
-Kubernetes. Worker nodes run the container runtime (e.g. Docker), the
-Kubernetes agent (*kubelet*), and an optional networking plugin(e.g.
-Calico).
-
-- kubelet: is the primary "node agent" that runs on each node. It can
-  register the node with the apiserver using one of the hostnames, a
-  flag to override the hostname, or specific logic for a cloud
-  provider.  
-  → The kubelet manages a container networking implementation (via the
-  CNI) → The kubelet manages a container runtime (via the CRI.)
-
-- kube-proxy: is a network proxy daemon that runs on each node in a
-  Kubernetes cluster, mirroring Kubernetes networking services on these
-  nodes. Similar to the Kubelet, which is another per-node daemon,
-  kube-proxy plays a specific role in handling network communication to
-  and from the Pods.
-
-|                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| kube-proxy usually runs on worker nodes in a Kubernetes cluster, and in some configurations, it may also run on master nodes. Its primary role is to manage network proxying for pod-to-pod communication across all nodes, be they worker or master. kube-proxy is responsible for maintaining network rules and facilitating packet forwarding for pods, ensuring efficient and reliable network connectivity within the cluster. |
-
-In the following Kubernetes architecture diagram, we will see all the
-components mentioned above and illustrate how each component interacts
-with the others.
-
-<img src="./media/image4.png"
-style="width:6.26772in;height:4.65278in" />
-
-*Details of Kubernetes Architecture Components*
-
-**Kubernetes Objects** are categorized into three main types: Workload
-Objects, Service Objects, and Config & Storage Objects. While there are
-numerous objects within each category, this overview will focus only on
-the most commonly used ones
-
-Workload Objects:
-
-- **Pod**: The basic building block, representing one or more containers
-  with shared storage and network.
-
-- **ReplicaSet**: Ensures a specified number of pod replicas are running
-  at all times, providing high availability.
-
-- **Deployment**: Manages the deployment and scaling of a set of pods,
-  offering declarative updates. Deployments use ReplicaSets to ensure
-  that the desired number of pods is always running and available. This
-  object provides key features like version management, scalable
-  deployment, and rollback capabilities, enabling controlled updates to
-  the application.
-
-- **StatefulSet**: Manages the deployment and scaling of pods with
-  stable hostnames and persistent storage, suitable for stateful
-  applications.
-
-- **DaemonSet**: Ensures that a copy of a pod runs on every node in a
-  cluster, typically used for node-level system services like log
-  collectors or monitoring agents.
-
-- **Job**: Runs a single task to completion, making it suitable for
-  batch processing and one-time tasks.
-
-- **CronJob**: Creates Jobs on a regular schedule, similar to cron tasks
-  in traditional Unix-like systems.
-
-Service Objects:
-
-- **Service**: Exposes a set of pods as a network service with a stable
-  IP address and DNS name for load balancing and service discovery.
-
-> **externalTrafficPolicy** is a configuration field that can be set for
-> a Kubernetes Service object. It determines the routing of incoming
-> traffic from external sources (outside the Kubernetes cluster) to the
-> pods associated with the Service. This setting is particularly
-> important for controlling how external traffic is handled, whether
-> it's distributed evenly across all pods or sent to the nearest pod in
-> terms of network topology, affecting performance and source IP
-> preservation.
->
-> There are two available options for **externalTrafficPolicy**:
->
-> → Cluster: When externalTrafficPolicy is set to "Cluster" (the
-> default), the traffic from external clients is distributed to any
-> healthy pod within the Service, regardless of the node on which the
-> pod is running. This option is efficient for distributing traffic but
-> may not always preserve the source IP address of the incoming
-> requests.
->
-> → Local: When externalTrafficPolicy is set to "Local," traffic from
-> external clients is forwarded only to pods that are running on the
-> same node where the traffic entered the cluster. This option preserves
-> the source IP address of the incoming requests but may lead to uneven
-> distribution of traffic if the nodes have different numbers of pods
-> for the Service.
-
-<table>
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><p>For example, in Ali cloud, when there are changes to the backend
-endpoints or cluster nodes corresponding to a Service, the CCM (Cloud
-Controller Manager) will automatically update the SLB's (Server Load
-Balancer) backend virtual server group. The update strategy for the
-backend server group varies depending on the Service mode.</p>
-<ul>
-<li><p>In the Cluster mode (where spec.externalTrafficPolicy = Cluster):
-By default, CCM will attach all nodes to the SLB's backend — except
-those configured with BackendLabel labels.</p></li>
-<li><p>In Local mode (where spec.externalTrafficPolicy = Local): By
-default, CCM (Cloud Controller Manager) will only add the node where the
-Service's Pods are located to the SLB's backend. That approach helps
-reduce the rate at which SLB quotas are consumed and supports source IP
-preservation at the Layer 4 level.</p></li>
-</ul></td>
-</tr>
-</tbody>
-</table>
-
-- **Ingress**: Manages external access to services within a cluster,
-  typically HTTP.
-
-- **NetworkPolicy**: Defines how pods are allowed to communicate with
-  each other and other network endpoints, enhancing network security.
-
-Config and Storage Objects:
-
-- **ConfigMap**: Stores configuration data separately from application
-  code, allowing for dynamic configuration updates.
-
-- **Secret**: Stores sensitive information, such as passwords or tokens,
-  securely and separately from application code.
-
-- **PersistentVolume** (PV) and PersistentVolumeClaim (PVC): Manage
-  storage resources and volume claims for persistent data storage.
-
-- **Namespace**: Provides logical isolation and organization within a
-  cluster.
-
-- **Annotation**: A mechanism for attaching arbitrary non-identifying
-  metadata to Kubernetes objects. Annotations can be used to store
-  additional information that may be used by scripts, tools, or
-  utilities interacting with the cluster, without affecting the runtime
-  behavior of the object itself.
-
-To conclude, the above provides a brief history and an overview of some
-key concepts in Kubernetes. Now, let's understand how Kubernetes'
-networking architecture is organized — this understanding will help us
-work with the solution effectively, even if we start with fundamental
-knowledge.
 
 # Kubernetes Networking Architecture
 
@@ -428,8 +114,8 @@ Step 1: Create two network namespaces:
 > ip netns add netns1  
 > ip netns add netns2
 
-<img src="./media/image5.png" style="width:4.33071in;height:1.18595in"
-alt="A screenshot of a computer Description automatically generated" />
+![image](https://github.com/kubernetes/website/assets/15628010/5a72e92d-846b-466f-910f-72bf9f94fdd5)
+
 
 Step2: Create a veth pair:
 
@@ -449,14 +135,13 @@ Step2: Create a veth pair:
 But veth1 cannot successfully ping veth2, as shown in the screenshot
 below.
 
-<img src="./media/image6.png"
-style="width:4.33071in;height:0.38561in" />
+![image](https://github.com/kubernetes/website/assets/15628010/9fa9ca70-3bde-43d3-af38-37f8ccca09b6)
+
 
 > ip netns exec netns2 ip link show veth2 \# Check the status of veth2,
 > which is down.
 
-<img src="./media/image7.png"
-style="width:4.33071in;height:0.32675in" />
+![image](https://github.com/kubernetes/website/assets/15628010/b371c65f-9ed3-440b-91bc-41c4519553ee)
 
 3.  Activate the network interface veth1 within netns1 network namespace
     and veth2 within netns2.
@@ -468,8 +153,7 @@ style="width:4.33071in;height:0.32675in" />
 
 > ​​ip netns exec netns1 ping 10.1.1.2
 
-<img src="./media/image8.png" style="width:4.33071in;height:1.45189in"
-alt="A computer screen with white text Description automatically generated" />
+![image8](https://github.com/kubernetes/website/assets/15628010/5320d2c0-329c-45d3-9fd1-4c285ebc95ff)
 
 So far, we've successfully completed the experiment; let's continue
 further.
@@ -481,8 +165,7 @@ network, and we've used a veth pair to connect two virtual hosts. Now,
 if we configure the IP addresses with different subnets, what will
 happen?
 
-<img src="./media/image9.png" style="width:4.33071in;height:1.44181in"
-alt="A screenshot of a computer Description automatically generated" />
+![image9](https://github.com/kubernetes/website/assets/15628010/482cbd38-006f-44ac-a5ef-6feb0a0d9033)
 
 Without a router or subnet reconfiguration, the two hosts in different
 subnets will not be able to communicate over a simple network cable
@@ -505,8 +188,7 @@ received at the other end, allowing data to flow between isolated
 environments. Otherwise, it cannot interconnect between different
 network namespaces by default.
 
-<img src="./media/image10.png"
-style="width:6.26772in;height:3.31944in" />
+<img width="1029" alt="image10" src="https://github.com/kubernetes/website/assets/15628010/d4a1dfb4-5a5b-4f2f-9f2b-e701a7478d90">
 
 In simple words, the veth pair seems like a virtual network cable that
 connects virtual hosts in two different namespaces.
@@ -541,13 +223,11 @@ address 127.0.0.1.
 
 > ifconfig lo
 
-<img src="./media/image11.png" style="width:4.33071in;height:1.1832in"
-alt="A screenshot of a computer program Description automatically generated" />
+![image11](https://github.com/kubernetes/website/assets/15628010/0048c5c6-9ee6-4b87-a190-bc4b604f3517)
 
 > ip addr show lo
 
-<img src="./media/image12.png" style="width:4.33071in;height:0.60887in"
-alt="A black background with white text Description automatically generated" />
+![image](https://github.com/kubernetes/website/assets/15628010/9a609f0e-8976-4238-80eb-eb3ca06022bd)
 
 **Tunnel Interfaces (TUN, tap)**
 
@@ -619,10 +299,8 @@ single logical interface.
 These are virtual terminal interfaces used for terminal emulation, often
 in the context of SSH or terminal multiplexers like tmux.
 
-<img src="./media/image13.png" style="width:2.88889in;height:0.54167in"
-alt="A black background with white text Description automatically generated" />
-<img src="./media/image14.png" style="width:2.94635in;height:1.55389in"
-alt="A screenshot of a computer Description automatically generated" />
+![image13](https://github.com/kubernetes/website/assets/15628010/94d89be8-28c3-44c5-b4b2-007ed4ef8af6)
+![image14](https://github.com/kubernetes/website/assets/15628010/efe509ef-cb43-47ea-ab03-b447983d21ca)
 
 **Bridge Interfaces (br)**
 
@@ -700,8 +378,7 @@ Docker when you install Docker on a Linux system. It is a virtual
 Ethernet bridge that enables communication between Docker containers and
 between containers and the host system.
 
-<img src="./media/image15.png"
-style="width:6.26772in;height:4.16667in" />
+![image15](https://github.com/kubernetes/website/assets/15628010/d86dede1-e641-4694-9d4b-cf9e48bd4027)
 
 When discussing bridge mode in both Docker and Kubernetes, it's
 essential to understand the concept of container runtime because the
@@ -865,7 +542,7 @@ underlying technology used by iptables to perform these functions:
 - Load Balancing: In Kubernetes, Netfilter also plays a role in load
   balancing traffic to different pods within a Service.
 
-<img src="./media/image16.png" style="width:6.26772in;height:4.875in" />
+<img width="1037" alt="image16" src="https://github.com/kubernetes/website/assets/15628010/03d85ca0-434f-476f-a113-92fe3b8a1c97">
 
 *Netfilter vs iptables in Linux*
 
@@ -956,8 +633,7 @@ Romana, Weave Net, and others support the implementation of network
 policies (as shown in the table above). The working principle of Network
 Policy is depicted in the diagram below.
 
-<img src="./media/image17.png"
-style="width:6.26772in;height:5.13889in" />
+<img width="945" alt="image17" src="https://github.com/kubernetes/website/assets/15628010/6bc10b06-6aa3-43dc-80dc-bea23aeda0d4">
 
 *Network Policy Working Principle*
 
@@ -1011,8 +687,7 @@ across nodes. It's worth noting that while Docker container-to-container
 communication is similar to pod-to-pod communication in Kubernetes, the
 latter provides additional orchestration and management features.
 
-<img src="./media/image18.png"
-style="width:6.26772in;height:3.98611in" />
+![image18](https://github.com/kubernetes/website/assets/15628010/d975e28e-5c2f-496d-946f-cd99711e6ac2)
 
 *This is how the overlay network (using flannel plugins) works in
 Kubernetes*
@@ -1052,8 +727,7 @@ VXLAN is a tunneling technology used for overlay networking, often used
 in cloud and virtualized environments. It is supported in the Linux
 kernel.
 
-<img src="./media/image19.png"
-style="width:6.26772in;height:4.27778in" />
+<img width="1053" alt="image19" src="https://github.com/kubernetes/website/assets/15628010/98cc9966-bd9c-4c90-9cbd-ab1cbcffd7c8">
 
 GRE (Generic Routing Encapsulation):
 
@@ -1140,8 +814,8 @@ scenarios based on the theory of Kubernetes.
 ## Between Container and Container
 
 Let’s see how container 1 communicates with container 2 in the same pod,
-as illustrated in the following diagram.<img src="./media/image20.jpg"
-style="width:6.26772in;height:3.72222in" />
+as illustrated in the following diagram.
+![image20](https://github.com/kubernetes/website/assets/15628010/9062d2af-4d49-4114-a046-a2b1eb185402)
 
 Communication between Container1 and Container2
 
@@ -1173,8 +847,7 @@ configuration within the pod's network namespace.
 
 This is how communication between Pods on the same Node works:
 
-<img src="./media/image21.gif"
-style="width:6.26772in;height:4.69444in" />
+![image21](https://github.com/kubernetes/website/assets/15628010/4cd5e495-49d8-4ab8-8c69-c452bcbac117)
 
 *Pod1, Pod2, and cni0 are in the same subnet*
 
@@ -1182,9 +855,7 @@ style="width:6.26772in;height:4.69444in" />
 
 This is how communication between pod1 and pod2 across nodes works:
 
-<img src="./media/image22.gif"
-style="width:6.26772in;height:4.69444in" />
-
+![image22](https://github.com/kubernetes/website/assets/15628010/7849e4a4-206b-4c03-b2a7-7b9466406ccb)
 *Pods Communication across nodes*
 
 In the case of communication between Pods on different Nodes, the pod's
@@ -1236,8 +907,7 @@ performs load balancing.
 This is how communication from pod1 to service2 running on pod2 in
 different nodes works:
 
-<img src="./media/image23.gif"
-style="width:6.26772in;height:4.69444in" />
+![image23](https://github.com/kubernetes/website/assets/15628010/eabee8a5-28e5-40d5-81ef-184374938385)
 
 Pod to service
 
@@ -1245,8 +915,7 @@ Pod to service
 
 This is how communication from service2 to pod1 works:
 
-<img src="./media/image24.gif"
-style="width:6.26772in;height:4.69444in" />
+![image24](https://github.com/kubernetes/website/assets/15628010/d7b2fc98-9f34-4fea-a966-900b18025acd)
 
 Service to pod
 
@@ -1274,37 +943,31 @@ Service using an Ingress:
   specifying the hostnames, paths, and backend services to route the
   traffic to.
 
-> apiVersion: networking.k8s.io/v1
->
-> kind: Ingress
->
-> metadata:
->
-> name: my-ingress
->
-> spec:
->
-> rules:
->
-> \- host: example.com \# Hostname for incoming traffic
->
-> http:
->
-> paths:
->
-> \- path: /app \# Path-based routing
->
-> pathType: Prefix
->
-> backend:
->
-> service:
->
-> name: my-service \# Name of your Kubernetes Service
->
-> port:
->
-> number: 80 \# Port of your Service
+```
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: example-ingress
+spec:
+  rules:
+    - host: example.com        # Hostname for which traffic is routed
+      http:
+        paths:
+          - path: /app1         # Path under the hostname
+            pathType: Prefix    # Type of path matching
+            backend:
+              service:
+                name: service1   # Backend service for this path
+                port:
+                  number: 80     # Port number for the backend service
+          - path: /app2
+            pathType: Prefix
+            backend:
+              service:
+                name: service2
+                port:
+                  number: 8080
+```
 
 - Ingress Controller: To fulfill the Ingress resource, you need an
   Ingress controller. The Ingress controller is a component responsible
@@ -1313,62 +976,61 @@ Service using an Ingress:
   Controller, Traefik, and others. You deploy the Ingress controller in
   your cluster.
 
-> apiVersion: apps/v1
->
-> kind: Deployment
->
-> metadata:
->
-> name: nginx-ingress-controller
->
-> namespace: nginx-ingress
->
-> spec:
->
-> replicas: 1
->
-> selector:
->
-> matchLabels:
->
-> app: nginx-ingress-controller
->
-> template:
->
-> metadata:
->
-> labels:
->
-> app: nginx-ingress-controller
->
-> spec:
->
-> containers:
->
-> \- name: nginx-ingress-controller
->
-> image: k8s.gcr.io/ingress-nginx/controller:v1.0.0 \# Use a specific
-> version
->
-> args:
->
-> \- /nginx-ingress-controller
->
-> \- --configmap=\$(POD_NAMESPACE)/nginx-configuration
->
-> \- --tcp-services-configmap=\$(POD_NAMESPACE)/tcp-services
->
-> \- --udp-services-configmap=\$(POD_NAMESPACE)/udp-services
->
-> ports:
->
-> \- name: http
->
-> containerPort: 80
->
-> \- name: https
->
-> containerPort: 443
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-ingress-controller
+  namespace: ingress-nginx  # You can choose the namespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-ingress-controller
+  template:
+    metadata:
+      labels:
+        app: nginx-ingress-controller
+    spec:
+      containers:
+        - name: nginx-ingress-controller
+          image: k8s.gcr.io/ingress-nginx/nginx-ingress-controller:<controller-version>
+          args:
+            - /nginx-ingress-controller
+            - --configmap=$(POD_NAMESPACE)/nginx-configuration
+            - --tcp-services-configmap=$(POD_NAMESPACE)/tcp-services
+            - --udp-services-configmap=$(POD_NAMESPACE)/udp-services
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          ports:
+            - name: http
+              containerPort: 80
+            - name: https
+              containerPort: 443
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-ingress-controller
+  namespace: ingress-nginx  # Use the same namespace as the Deployment
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+    - name: https
+      port: 443
+      targetPort: 443
+  selector:
+    app: nginx-ingress-controller
+```
 
 - External Access: Once the Ingress controller is running, it watches
   for changes in the Ingress resources and configures itself
@@ -1510,4 +1172,4 @@ As we conclude our comprehensive exploration of Kubernetes' networking
 architecture. I hope you've found the information valuable and
 insightful. If you have any questions or come across any inaccuracies in
 the content, please don't hesitate to provide feedback on my personal
-[<u>website</u>](http://xpetersue.com).
+[<u>website</u>](https://xpetersue.com).
