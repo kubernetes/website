@@ -13,6 +13,6 @@ An object that defines the importance of a {{< glossary_tooltip text="Pod" term_
 
 <!--more-->
 
-A non-namespaced object that allows application owners to set different levels of importance to Pods. Pods with higher importance will be prioritized by the scheduler. For example, if a Pod cannot be scheduled, the scheduler tries to preempt (evict) lower priority Pods to make scheduling of the more important Pod possible.
+A non-namespaced object that allows application owners to define a mapping from a priority class name to the integer value, creating levels of importance for Pods. Pods mapped to Priority Class objects with higher importance values will be prioritized by the scheduler. For example, if a Pod cannot be scheduled, the scheduler tries to preempt (evict) lower priority Pods to make scheduling of the more important Pod possible.
 
 To learn more, read [Pod Priority and Preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/).
