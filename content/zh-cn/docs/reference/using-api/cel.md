@@ -27,10 +27,10 @@ convenient alternative to out-of-process mechanisms, such as webhooks, for many
 extensibility use cases. Your CEL expressions continue to execute so long as the
 control plane's API server component remains available.
 -->
-[通用表达式语言 (Common Expression Language, CEL)](https://github.com/google/cel-go)
+[通用表达式语言（Common Expression Language, CEL）](https://github.com/google/cel-go)
 用于声明 Kubernetes API 的验证规则、策略规则和其他限制或条件。
 
-CEL 表达式在{{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}中直接进行评估，
+CEL 表达式在 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}中直接进行评估，
 这使得 CEL 成为许多可扩展性用例的便捷替代方案，而无需使用类似 Webhook 这种进程外机制。
 只要控制平面的 API 服务器组件保持可用状态，你的 CEL 表达式就会继续执行。
 
@@ -54,8 +54,8 @@ API resources.
 [CEL 语言](https://github.com/google/cel-spec/blob/master/doc/langdef.md)的语法直观简单，
 类似于 C、C++、Java、JavaScript 和 Go 中的表达式。
 
-CEL 的设计目的是嵌入应用程序中。每个 CEL "程序" 都是一个单独的表达式，其评估结果为单个值。
-CEL 表达式通常是短小的 "一行式"，可以轻松嵌入到 Kubernetes API 资源的字符串字段中。
+CEL 的设计目的是嵌入应用程序中。每个 CEL "程序"都是一个单独的表达式，其评估结果为单个值。
+CEL 表达式通常是短小的"一行式"，可以轻松嵌入到 Kubernetes API 资源的字符串字段中。
 
 <!--
 Inputs to a CEL program are "variables". Each Kubernetes API field that contains
@@ -458,7 +458,7 @@ has(object.namex) ? object.namex == 'special' : request.name == 'special'
 | 'boolean'                                     | boolean                                                                                              |
 | 'number' (所有格式)                            | double                                                                                                |
 | 'integer' (所有格式)                           | int (64)                                                                                              |
-| **非等价 **                                    | uint (64)                                                                                             |
+| **非等价**                                    | uint (64)                                                                                             |
 | 'null'                                        | null_type                                                                                             |
 | 'string'                                      | string                                                                                                |
 | 设置了 format=byte 的 'string'（以 base64 编码） | bytes                                                                                                 |
@@ -534,7 +534,7 @@ expression:
 | `__dot__`         | `.`                                                                                      |
 | `__dash__`        | `-`                                                                                      |
 | `__slash__`       | `/`                                                                                      |
-| `__{keyword}__` | [CEL **保留的** 关键字](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#syntax) |
+| `__{keyword}__` | [CEL **保留的**关键字](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#syntax) |
 {{< /table >}}
 
 <!--
@@ -544,7 +544,7 @@ use the underscore escaping
 
 Examples on escaping:
 -->
-当你需要转义 CEL 的任一 **保留的** 关键字时，你需要使用下划线转义来完全匹配属性名
+当你需要转义 CEL 的任一**保留的**关键字时，你需要使用下划线转义来完全匹配属性名
 （例如，`sprint` 这个单词中的 `int` 不会被转义，也不需要被转义）。
 
 转义示例：
@@ -636,15 +636,15 @@ Some Kubernetes resources define an additional runtime cost budget that bounds
 the execution of multiple expressions. If the sum total of the cost of
 expressions exceed the budget, execution of the expressions will be halted, and
 an error will result. For example the validation of a custom resource has a
-_per-validation_ runtime cost budget for all [Validation
-Rules](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-rules)
+_per-validation_ runtime cost budget for all
+[Validation Rules](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-rules)
 evaluated to validate the custom resource.
 -->
 一些 Kubernetes 资源定义了额外的运行时成本预算，用于限制多个表达式的执行。
 如果所有表达式的成本总和超过预算，表达式的执行将停止，并将出现错误。
 例如，自定义资源的验证具有针对验证自定义资源所评估的所有
 [验证规则](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-rules)的
-**每个验证** 运行时成本预算。
+**每个验证**运行时成本预算。
 
 <!--
 ### Estimated cost limits
