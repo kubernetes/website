@@ -46,13 +46,12 @@ the queue and retried.
 ## Interfaces
 
 The following picture shows the scheduling context of a Pod and the interfaces
-that the scheduling framework exposes. In this picture "Filter" is
-equivalent to "Predicate" and "Scoring" is equivalent to "Priority function".
+that the scheduling framework exposes.
 
 One plugin may implement multiple interfaces to perform more complex or
 stateful tasks.
 
-Some interfaces are called as extension points which can be controled through 
+Some interfaces match the scheduler extension points which can be configured through 
 [Scheduler Configuration](/docs/reference/scheduling/config/#extension-points).
 
 {{< figure src="/images/docs/scheduling-framework-extensions.png" title="Scheduling framework extension points" class="diagram-large">}}
@@ -79,13 +78,13 @@ Plugins that implement PreEnqueue, PreFilter, Filter, Reserve or Permit should i
 {{< feature-state for_k8s_version="v1.28" state="beta" >}}
 
 QueueingHint is a callback function for deciding whether a Pod can be requeued to the active queue or backoff queue. 
-It's executed every time a certain kind of events happen,
-and when the QueueingHint finds that the event might make the Pod schedulable, 
+It's executed every time a certain kind of event or change happens in the cluster.
+When the QueueingHint finds that the event might make the Pod schedulable, 
 the Pod is put into the active queue or the backoff queue
 so that the scheduler will retry the scheduling of the Pod.
 
 {{< note >}}
-QueueingHint is a beta-level field and is enabled by default in 1.28. 
+QueueingHint evaluation during scheduling is a beta-level feature and is enabled by default in 1.28. 
 You can disable it via the
 `SchedulerQueueingHints` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 {{< /note >}}
