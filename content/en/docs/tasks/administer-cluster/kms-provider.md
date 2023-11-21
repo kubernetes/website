@@ -9,9 +9,17 @@ weight: 370
 <!-- overview -->
 This page shows how to configure a Key Management Service (KMS) provider and plugin to enable secret data encryption.
 In Kubernetes {{< skew currentVersion >}} there are two versions of KMS at-rest encryption.
-You should use KMS v2 if feasible because KMS v1 is deprecated (since Kubernetes v1.28).
-However, you should also read and observe the **Caution** notices in this page that highlight specific
-cases when you must not use KMS v2.  KMS v2 offers significantly better performance characteristics than KMS v1.
+You should use KMS v2 if feasible because KMS v1 is deprecated (since Kubernetes v1.28) and disabled by default (since Kubernetes v1.29).
+KMS v2 offers significantly better performance characteristics than KMS v1.
+
+{{< caution >}}
+This documentation is for the generally available implementation of KMS v2 (and for the
+deprecated version 1 implementation).
+If you are using any control plane components older than Kubernetes v1.29, please check
+the equivalent page in the documentation for the version of Kubernetes that your cluster
+is running. Earlier releases of Kubernetes had different behavior that may be relevant
+for information security.
+{{< /caution >}}
 
 ## {{% heading "prerequisites" %}}
 
@@ -24,7 +32,7 @@ you have selected.  Kubernetes recommends using KMS v2.
   (if you are running a different version of Kubernetes that also supports the v2 KMS
   API, switch to the documentation for that version of Kubernetes).
 - If you selected KMS API v1 to support clusters prior to version v1.27
-  or if you have a legacy KMS plugin that only supports KMS v1, 
+  or if you have a legacy KMS plugin that only supports KMS v1,
   any supported Kubernetes version will work.  This API is deprecated as of Kubernetes v1.28.
   Kubernetes does not recommend the use of this API.
 
@@ -35,79 +43,35 @@ you have selected.  Kubernetes recommends using KMS v2.
 
 * Kubernetes version 1.10.0 or later is required
 
+* For version 1.29 and later, the v1 implementation of KMS is disabled by default.
+  To enable the feature, set `--feature-gates=KMSv1=true` to configure a KMS v1 provider.
+
 * Your cluster must use etcd v3 or later
 
 ### KMS v2
-{{< feature-state for_k8s_version="v1.27" state="beta" >}}
+{{< feature-state for_k8s_version="v1.29" state="stable" >}}
 
-* For version 1.25 and 1.26, enabling the feature via kube-apiserver feature gate is required.
-Set `--feature-gates=KMSv2=true` to configure a KMS v2 provider.
- For environments where all API servers are running version 1.28 or later, and you do not require the ability
- to downgrade to Kubernetes v1.27, you can enable the `KMSv2KDF` feature gate (a beta feature) for more
- robust data encryption key generation. The Kubernetes project recommends enabling KMS v2 KDF if those
- preconditions are met.
- 
 * Your cluster must use etcd v3 or later
 
-{{< caution >}}
-The KMS v2 API and implementation changed in incompatible ways in-between the alpha release in v1.25
-and the beta release in v1.27.  Attempting to upgrade from old versions with the alpha feature
-enabled will result in data loss.
-
----
-
-Running mixed API server versions with some servers at v1.27, and others at v1.28 _with the
-`KMSv2KDF` feature gate enabled_  is **not supported** - and is likely to result in data loss.
-{{< /caution >}}
-
 <!-- steps -->
+
+## KMS encryption and per-object encryption keys
 
 The KMS encryption provider uses an envelope encryption scheme to encrypt data in etcd.
 The data is encrypted using a data encryption key (DEK).
 The DEKs are encrypted with a key encryption key (KEK) that is stored and managed in a remote KMS.
 
-With KMS v1, a new DEK is generated for each encryption.
+If you use the (deprecated) v1 implementation of KMS, a new DEK is generated for each encryption.
 
-With KMS v2, there are two ways for the API server to generate a DEK.
-Kubernetes defaults to generating a new DEK at API server startup, which is then reused
-for resource encryption. However, if you use KMS v2 _and_ enable the `KMSv2KDF`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/), then
-Kubernetes instead generates a new DEK **per encryption**: the API server uses a
+With KMS v2, a new DEK is generated **per encryption**: the API server uses a
 _key derivation function_ to generate single use data encryption keys from a secret seed
 combined with some random data.
-Whichever approach you configure, the DEK or seed is also rotated whenever the KEK is rotated
-(see `Understanding key_id and Key Rotation` section below for more details).
+The seed is rotated whenever the KEK is rotated
+(see the _Understanding key_id and Key Rotation_ section below for more details).
 
 The KMS provider uses gRPC to communicate with a specific KMS plugin over a UNIX domain socket.
 The KMS plugin, which is implemented as a gRPC server and deployed on the same host(s)
 as the Kubernetes control plane, is responsible for all communication with the remote KMS.
-
-{{< caution >}}
-
-If you are running virtual machine (VM) based nodes that leverage VM state store with this feature,
-using KMS v2 is **insecure** and an information security risk unless you also explicitly enable
-the `KMSv2KDF`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
-
-With KMS v2, the API server uses AES-GCM with a 12 byte nonce (8 byte atomic counter and 4 bytes random data) for encryption. 
-The following issues could occur if the VM is saved and restored:
-
-1. The counter value may be lost or corrupted if the VM is saved in an inconsistent state or restored improperly. 
-   This can lead to a situation where the same counter value is used twice, resulting in the same nonce being used 
-   for two different messages.
-2. If the VM is restored to a previous state, the counter value may be set back to its previous value, 
-resulting in the same nonce being used again.
-
-Although both of these cases are partially mitigated by the 4 byte random nonce, this can compromise 
-the security of the encryption.
-
-If you have enabled the `KMSv2KDF`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) _and_ are using KMS v2
-(not KMS v1), the API server generates single use data encryption keys from a secret seed.
-This eliminates the need for a counter based nonce while avoiding nonce collision concerns.
-It also removes any specific concerns with using KMS v2 and VM state store.
-
-{{< /caution >}}
 
 ## Configuring the KMS provider
 
@@ -197,10 +161,14 @@ Then use the functions and data structures in the stub file to develop the serve
 
 ##### KMS v2 {#developing-a-kms-plugin-gRPC-server-notes-kms-v2}
 
-* KMS plugin version: `v2beta1`
+* KMS plugin version: `v2`
 
-  In response to procedure call `Status`, a compatible KMS plugin should return `v2beta1` as `StatusResponse.version`,
+  In response to the `Status` remote procedure call, a compatible KMS plugin should return its KMS compatibility
+  version as `StatusResponse.version`. That status response should also include
   "ok" as `StatusResponse.healthz` and a `key_id` (remote KMS KEK ID) as `StatusResponse.key_id`.
+  The Kubernetes project recommends you make your plugin
+  compatible with the stable `v2` KMS API. Kubernetes {{< skew currentVersion >}} also supports the
+  `v2beta1` API for KMS; future Kubernetes releases are likely to continue supporting that beta version.
 
   The API server polls the `Status` procedure call approximately every minute when everything is healthy,
   and every 10 seconds when the plugin is not healthy.  Plugins must take care to optimize this call as it will be
@@ -258,20 +226,20 @@ Then use the functions and data structures in the stub file to develop the serve
   API server restart is required to perform KEK rotation.
 
   {{< caution >}}
-  Because you don't control the number of writes performed with the DEK, 
+  Because you don't control the number of writes performed with the DEK,
   the Kubernetes project recommends rotating the KEK at least every 90 days.
   {{< /caution >}}
 
 * protocol: UNIX domain socket (`unix`)
 
-  The plugin is implemented as a gRPC server that listens at UNIX domain socket. 
-  The plugin deployment should create a file on the file system to run the gRPC unix domain socket connection. 
-  The API server (gRPC client) is configured with the KMS provider (gRPC server) unix 
-  domain socket endpoint in order to communicate with it. 
-  An abstract Linux socket may be used by starting the endpoint with `/@`, i.e. `unix:///@foo`. 
-  Care must be taken when using this type of socket as they do not have concept of ACL 
-  (unlike traditional file based sockets). 
-  However, they are subject to Linux networking namespace, so will only be accessible to 
+  The plugin is implemented as a gRPC server that listens at UNIX domain socket.
+  The plugin deployment should create a file on the file system to run the gRPC unix domain socket connection.
+  The API server (gRPC client) is configured with the KMS provider (gRPC server) unix
+  domain socket endpoint in order to communicate with it.
+  An abstract Linux socket may be used by starting the endpoint with `/@`, i.e. `unix:///@foo`.
+  Care must be taken when using this type of socket as they do not have concept of ACL
+  (unlike traditional file based sockets).
+  However, they are subject to Linux networking namespace, so will only be accessible to
   containers within the same pod unless host networking is used.
 
 ### Integrating a KMS plugin with the remote KMS
@@ -362,10 +330,6 @@ The following table summarizes the health check endpoints for each KMS version:
 `Individual Healthchecks` means that each KMS plugin has an associated health check endpoint based on its location in the encryption config: `/healthz/kms-provider-0`, `/healthz/kms-provider-1` etc.
 
 These healthcheck endpoint paths are hard coded and generated/controlled by the server. The indices for individual healthchecks corresponds to the order in which the KMS encryption config is processed.
-
-At a high level, restarting an API server when a KMS plugin is unhealthy is unlikely to make the situation better.
-It can make the situation significantly worse by throwing away the API server's DEK cache.  Thus the general
-recommendation is to ignore the API server KMS healthz checks for liveness purposes, i.e. `/livez?exclude=kms-providers`.
 
 Until the steps defined in [Ensuring all secrets are encrypted](#ensuring-all-secrets-are-encrypted) are performed, the `providers` list should end with the `identity: {}` provider to allow unencrypted data to be read.  Once all resources are encrypted, the `identity` provider should be removed to prevent the API server from honoring unencrypted data.
 
