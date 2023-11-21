@@ -771,7 +771,28 @@ Once the testing is complete, you can destroy the cluster by running:
 ```bash
 kind delete cluster --name wasm-demo
 ```
-##### Set up your cluster for Wasm automatically using KWasm, then run the app inside a pod
+
+In this article, the `module.wasm.image/variant: compat` annotation is used to indicate to the container runtime that the workload is a Wasm workload. In this [PR](https://github.com/containers/crun/pull/886), crun has introduced a new annotation: `module.wasm.image/variant: compat-smart`. 
+
+When the `compat-smart` annotation is used, crun can intelligently determine how to start the container based on whether it is a Wasm workload or an OCI container. That makes it possible to run WASM containers with sidecars. Here is an example of a Pod YAML file with a Wasm container and a Linux container:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: wasm-demo-app
+  annotations:
+    module.wasm.image/variant: compat-smart # Kubernetes copies Pod annotations to container runtime labels, which is why this works.
+spec:
+  runtimeClassName: crun
+  containers:
+  - name: wasm-demo-app
+    image: docker.io/cr7258/wasm-demo-app:v1
+  - name: linux-demo-app
+    image: nginx:1.20
+```
+
+##### Set up your cluster for Wasm automatically using Kwasm, then run the app inside a pod
 
 _[Kwasm](https://kwasm.sh/)_ is a Kubernetes Operator that adds WebAssembly support to your Kubernetes nodes. The operator uses the _[kwasm-node-installer](https://github.com/KWasm/kwasm-node-installer)_ project to modify the underlying Kubernetes nodes.
 
@@ -796,36 +817,36 @@ helm install -n kwasm --create-namespace kwasm-operator kwasm/kwasm-operator
 kubectl annotate node kwasm-demo-control-plane kwasm.sh/kwasm-node=true
 ```
 
-Add label `runtime=crun-kwasm` on the node.
+Add label `runtime=wasmedge` on the node.
 
 ```bash
-kubectl label nodes kwasm-demo-control-plane runtime=crun-kwasm
+kubectl label nodes kwasm-demo-control-plane runtime=wasmedge
 ```
 
-Create a RuntimeClass resource named `crun` to use the crun handler automatically set up by Kwasm in containerd, the `scheduling.nodeSelector` property sends pod to nodes with the `runtime=crun-kwasm` label. Here is an example manifest:
+kwasm-node-installer version v0.3.0 has removed crun in favor of the WasmEdge shim. The WasmEdge shim has the same behavior as the `module.wasm.image/variant: compat-smart` annotation for crun + Wasmedge, but no annotation is required. 
+
+Create a RuntimeClass resource named `wasmedge` to use the wasmedge handler automatically set up by Kwasm in containerd, the `scheduling.nodeSelector` property sends pod to nodes with the `runtime=wasmedge` label. Here is an example manifest:
 
 ```yaml
 apiVersion: node.k8s.io/v1
 kind: RuntimeClass
 metadata:
-  name: crun
+  name: wasmedge
 scheduling:
   nodeSelector:
-    runtime: crun-kwasm
-handler: crun
+    runtime: wasmedge
+handler: wasmedge
 ```
 
-Next, run the Wasm app inside a Kubernetes pod. Set `.spec.runtimeClassName` for the pod to target the pod at the `crun` RuntimeClass. This will ensure the pod gets assigned to a node and runtime specified in the `crun` RuntimeClass. Additionally, set the annotation `module.wasm.image/variant: compat` to inform crun that this is a Wasm workload.
+Next, run the Wasm app inside a Kubernetes pod. Set `.spec.runtimeClassName` for the pod to target the pod at the `wasmedge` RuntimeClass. This will ensure the pod gets assigned to a node and runtime specified in the `wasmedge` RuntimeClass. 
 
 ```yaml
 apiVersion: v1
 kind: Pod
 metadata:
   name: wasm-demo-app
-  annotations:
-    module.wasm.image/variant: compat
 spec:
-  runtimeClassName: crun
+  runtimeClassName: wasmedge
   containers:
   - name: wasm-demo-app
     image: docker.io/cr7258/wasm-demo-app:v1
@@ -853,26 +874,6 @@ Once the testing is complete, you can destroy the cluster by running:
 
 ```bash
 kind delete cluster --name kwasm-demo
-```
-
-In this article, the `module.wasm.image/variant: compat` annotation is used to indicate to the container runtime that the workload is a Wasm workload. In this [PR](https://github.com/containers/crun/pull/886), crun has introduced a new annotation: `module.wasm.image/variant: compat-smart`. 
-
-When the `compat-smart` annotation is used, crun can intelligently determine how to start the container based on whether it is a Wasm workload or an OCI container. That makes it possible to run WASM containers with sidecars. Here is an example of a Pod YAML file with a Wasm container and a Linux container:
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: wasm-demo-app
-  annotations:
-    module.wasm.image/variant: compat-smart # Kubernetes copies Pod annotations to container runtime labels, which is why this works.
-spec:
-  runtimeClassName: crun
-  containers:
-  - name: wasm-demo-app
-    image: docker.io/cr7258/wasm-demo-app:v1
-  - name: linux-demo-app
-    image: nginx:1.20
 ```
 
 ## Conclusion
