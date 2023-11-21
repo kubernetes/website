@@ -103,11 +103,16 @@ With Timeouts, developers can fine-tune their Gateway API's behavior in two fund
 
 1. **Request Timeout**:
 
-    The request timeout is the duration within which the Gateway API implementation must send a response to a client's HTTP request. It allows flexibility in specifying when this timeout starts, either before or after the entire client request stream is received, making it implementation-specific. This timeout efficiently covers the entire request-response transaction, enhancing the responsiveness of your services.
+   The request timeout is the duration within which the Gateway API implementation must send a response to a client's HTTP request.
+   It allows flexibility in specifying when this timeout starts, either before or after the entire client request stream is received, making it implementation-specific.
+   This timeout efficiently covers the entire request-response transaction, enhancing the responsiveness of your services.
 
 1. **Backend Request Timeout**:
 
-    The backendRequest timeout is a game-changer for those dealing with backends. It sets a timeout for a single request sent from the Gateway to a backend service. This timeout spans from the initiation of the request to the reception of the full response from the backend. This feature is particularly helpful in scenarios where the Gateway needs to retry connections to a backend, ensuring smooth communication under various conditions.
+   The backendRequest timeout is a game-changer for those dealing with backends.
+   It sets a timeout for a single request sent from the Gateway to a backend service.
+   This timeout spans from the initiation of the request to the reception of the full response from the backend.
+   This feature is particularly helpful in scenarios where the Gateway needs to retry connections to a backend, ensuring smooth communication under various conditions.
 
 Notably, the `request` timeout encompasses the `backendRequest` timeout. Hence, the value of `backendRequest` should never exceed the value of the `request` timeout.
 
