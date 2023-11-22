@@ -24,7 +24,7 @@ and how QueueingHint improves our scheduling throughput.
 
 The scheduler stores all unscheduled Pods in an internal component that we call the Scheduling Queue.
 
-The Scheduling Queue is composed of three data structures: ActiveQ, BackoffQ and Unschedulable Pod Pool.
+The _scheduling queue_ is composed of three data structures: _ActiveQ_, _BackoffQ_ and _Unschedulable Pod Pool_.
 - ActiveQ: It holds newly created Pods or Pods which are ready to be retried for scheduling.
 - BackoffQ: It holds Pods which are ready to be retried, but are waiting for a backoff period, which depends on the number of times the scheduled attempted to schedule the Pod.
 - Unschedulable Pod Pool: It holds Pods which should not be scheduled for now, because they have a Scheduling Gate or because the scheduler attempted to schedule them and nothing has changed in the cluster that could make the Pod schedulable.
@@ -50,9 +50,9 @@ Although there are some exceptions, unscheduled Pods enter the _unschedulable po
 Pods in Unschedulable Pod Pool are moved to ActiveQ/BackoffQ 
 only when Scheduling Queue identifies changes in the cluster that might be schedulable if we retry the scheduling.
 
-That is a crucial step because Scheduling Cycle is performed for Pods one by one -
+That is a crucial step because scheduling cycle is performed for Pods one by one -
 if we didn't have Unschedulable Pod Pool and kept retrying the scheduling of any Pods, 
-multiple Scheduling Cycles would be wasted for Pods with no chance to be scheduled.
+multiple scheduling cycles would be wasted for Pods that have no chance to be scheduled.
 
 Then, how do they decide when to move a Pod back into the ActiveQ? How do they notice that Pods might be schedulable now?
 Here QueueingHints come into play.
@@ -69,22 +69,22 @@ because no Node has any Pod matching the Pod affinity specification for `pod-a`.
 
 When an unscheduled Pod is put into the unschedulable pod pool, the scheduling queue
 records which plugins caused the scheduling failure of the Pod.
-In this example, scheduling queue notes that `pod-a` was rejected by PodAffinity.
+In this example, scheduling queue notes that `pod-a` was rejected by `PodAffinity`.
 
 `pod-a` will never be schedulable until the PodAffinity failure is resolved somehow.
-The Scheduling Queue uses the QueueingHints from plugins that rejected the Pod, which is PodAffinity in the example.
+The scheduling queue uses the queueing hints from plugins that rejected the Pod, which is `PodAffinity` in the example.
 
 A QueueingHint subscribes to a particular kind of cluster event and make a decision whether an incoming event could make the Pod schedulable.
 Thinking about when PodAffinity failure could be resolved,
 one possible scenario is that an existing Pod gets a new label which matches with `pod-a`'s PodAffinity.
 
-PodAffinity QueueingHint checks all Pod updates happening in the cluster, 
-and when it catches such update, the scheduling queue moves `pod-a` to activeQ/backoffQ.
+The `PodAffinity` plugin's `QueueingHint` callback checks on all Pod updates happening in the cluster, 
+and when it catches such update, the scheduling queue moves `pod-a` to either ActiveQ or BackoffQ.
 
 ![pod-a is moved by PodAffinity QueueingHint](./queueinghint2.svg)
 
-We actually already have a similar functionality called `preCheck` inside the scheduling queue,
-which filter out cluster events based on Kubernetes core scheduling constraints - 
+We actually already had a similar functionality (called `preCheck`) inside the scheduling queue,
+which filters out cluster events based on Kubernetes core scheduling constraints - 
 for example, filtering out node related events when nodes aren't ready.
 
 But, it's not ideal because this hard-coded `preCheck` refers to in-tree plugins logic,
