@@ -332,7 +332,7 @@ Pod失敗ポリシーまたはPod失敗のバックオフポリシーのいず�
 これらはAPIの要件と機能です:
   - `.spec.podFailurePolicy`フィールドをJobに使いたい場合は、`.spec.restartPolicy`を`Never`に設定してそのJobのPodテンプレートも定義する必要があります。
   - `spec.podFailurePolicy.rules`で指定したPod失敗ポリシーのルールが順番に評価されます。あるPodの失敗がルールに一致すると、残りのルールは無視されます。Pod失敗に一致するルールがない場合は、デフォルトの処理が適用されます。
-  - `spec.podFailurePolicy.rules[*].containerName`を指定することで、ルールを特定のコンテナに制限することができます。指定しない場合、ルールはすべてのコンテナに適用されます。指定する場合は、Pod テンプレート内のコンテナ名または`initContainer`名のいずれかに一致する必要があります。
+  - `spec.podFailurePolicy.rules[*].onExitCodes.containerName`を指定することで、ルールを特定のコンテナに制限することができます。指定しない場合、ルールはすべてのコンテナに適用されます。指定する場合は、Pod テンプレート内のコンテナ名または`initContainer`名のいずれかに一致する必要があります。
   - Pod失敗ポリシーが`spec.podFailurePolicy.rules[*].action`にマッチしたときに実行されるアクションを指定できます。指定可能な値は以下のとおりです。
     - `FailJob`: PodのJobを`Failed`としてマークし、実行中の Pod をすべて終了させる必要があることを示します。 
     - `Ignore`: `.spec.backoffLimit`のカウンターは加算されず、代替のPodが作成すべきであることを示します。

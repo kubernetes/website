@@ -19,6 +19,386 @@ auto_generated: true
 - [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
 - [SerializedNodeConfigSource](#kubelet-config-k8s-io-v1beta1-SerializedNodeConfigSource)
 
+## `FormatOptions`     {#FormatOptions}
+
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [LoggingConfiguration](#LoggingConfiguration)
+
+<p>
+<!--
+FormatOptions contains options for the different logging formats.
+-->
+FormatOptions 包含为不同日志格式提供的选项。
+</p>
+
+<table class="table">
+<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
+<tbody>
+
+<tr><td><code>json</code> <B>[必需]</B><br/>
+<a href="#JSONOptions"><code>JSONOptions</code></a>
+</td>
+<td>
+   <!--
+   [Alpha] JSON contains options for logging format &quot;json&quot;.
+Only available when the LoggingAlphaOptions feature gate is enabled.
+   -->
+   <p>[Alpha] json 包含 &quot;json&quot; 日志格式的选项。
+只有 LoggingAlphaOptions 特性门控被启用时才可用。</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `JSONOptions`     {#JSONOptions}
+
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [FormatOptions](#FormatOptions)
+
+<p>
+<!--
+JSONOptions contains options for logging format &quot;json&quot;.
+-->
+JSONOptions 包含为 &quot;json&quot; 日志格式提供的选项。
+</p>
+
+<table class="table">
+<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
+<tbody>
+<tr><td><code>splitStream</code> <B>[必需]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   <p>
+   <!--[Alpha] SplitStream redirects error messages to stderr while
+info messages go to stdout, with buffering. The default is to write
+both to stdout, without buffering. Only available when
+the LoggingAlphaOptions feature gate is enabled.
+   -->
+   [Alpha] <code>splitStream</code> 将错误信息重定向到标准错误输出（stderr），
+而将提示信息重定向到标准输出（stdout），并为二者提供缓存。
+默认设置是将二者都写出到标准输出，并且不提供缓存。
+只有 LoggingAlphaOptions 特性门控被启用时才可用。
+   </p>
+</td>
+</tr>
+
+<tr><td><code>infoBufferSize</code> <B>[必需]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/api/resource#QuantityValue"><code>k8s.io/apimachinery/pkg/api/resource.QuantityValue</code></a>
+</td>
+<td>
+   <p>
+   <!--
+   [Alpha] InfoBufferSize sets the size of the info stream when
+using split streams. The default is zero, which disables buffering.
+Only available when the LoggingAlphaOptions feature gate is enabled.
+   -->
+   [Alpha] <code>infoBufferSize</code> 在分离数据流时用来设置 info 数据流的大小。
+默认值为 0，相当于禁止缓存。只有 LoggingAlphaOptions 特性门控被启用时才可用。
+   </p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `LogFormatFactory`     {#LogFormatFactory}
+
+<!--
+LogFormatFactory provides support for a certain additional,
+non-default log format.
+-->
+<p>LogFormatFactory 提供了对某些附加的、非默认的日志格式的支持。</p>
+
+## `LoggingConfiguration`     {#LoggingConfiguration}
+
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+
+<!--
+LoggingConfiguration contains logging options.
+-->
+LoggingConfiguration 包含日志选项。
+
+<table class="table">
+<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
+<tbody>
+
+<tr><td><code>format</code> <B>[必需]</B><br/>
+<code>string</code>
+</td>
+<td>
+  <p>
+  <!--
+  Format Flag specifies the structure of log messages.
+default value of format is `text`
+  -->
+  <code>format<code> 设置日志消息的结构。默认的格式取值为 <code>text</code>。
+  </p>
+</td>
+</tr>
+
+<tr><td><code>flushFrequency</code> <B>[必需]</B><br/>
+<a href="#TimeOrMetaDuration"><code>TimeOrMetaDuration</code></a>
+</td>
+<td>
+  <p>
+  <!--
+   Maximum time between log flushes.
+If a string, parsed as a duration (i.e. &quot;1s&quot;)
+If an int, the maximum number of nanoseconds (i.e. 1s = 1000000000).
+Ignored if the selected logging backend writes log messages without buffering.
+  -->
+   日志清洗之间的最大时间间隔。
+如果是字符串，则解析为持续时间（例如 "1s"）。
+如果是整数，则表示为最大纳秒数（例如 1s = 1000000000）。
+如果所选的日志后端在写入日志消息时未缓冲，则被忽略。
+  </p>
+</td>
+</tr>
+
+<tr><td><code>verbosity</code> <B>[必需]</B><br/>
+<a href="#VerbosityLevel"><code>VerbosityLevel</code></a>
+</td>
+<td>
+  <p>
+  <!--
+  Verbosity is the threshold that determines which log messages are
+logged. Default is zero which logs only the most important
+messages. Higher values enable additional messages. Error messages
+are always logged.
+  -->
+  <code>verbosity</code> 用来确定日志消息记录的详细程度阈值。默认值为 0，
+意味着仅记录最重要的消息。数值越大，额外的消息越多。出错消息总是会被记录下来。
+  </p>
+</td>
+</tr>
+
+<tr><td><code>vmodule</code> <B>[必需]</B><br/>
+<a href="#VModuleConfiguration"><code>VModuleConfiguration</code></a>
+</td>
+<td>
+  <p>
+  <!--
+  VModule overrides the verbosity threshold for individual files.
+Only supported for &quot;text&quot; log format.
+  -->
+  <code>vmodule</code> 会在单个文件层面重载 verbosity 阈值的设置。
+这一选项仅支持 &quot;text&quot; 日志格式。
+  </p>
+</td>
+</tr>
+
+<tr><td><code>options</code> <B>[必需]</B><br/>
+<a href="#FormatOptions"><code>FormatOptions</code></a>
+</td>
+<td>
+  <p>
+  <!--
+  [Alpha] Options holds additional parameters that are specific
+to the different logging formats. Only the options for the selected
+format get used, but all of them get validated.
+Only available when the LoggingAlphaOptions feature gate is enabled.
+  -->
+  [Alpha] <code>options</code> 中包含特定于不同日志格式的附加参数。
+只有针对所选格式的选项会被使用，但是合法性检查时会查看所有参数。
+只有 LoggingAlphaOptions 特性门控被启用时才可用。
+  </p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `LoggingOptions`     {#LoggingOptions}
+
+<p>
+<!--
+LoggingOptions can be used with ValidateAndApplyWithOptions to override
+certain global defaults.
+-->
+<code>LoggingOptions</code> 可以与 <code>ValidateAndApplyWithOptions</code> 一起使用，以覆盖某些全局默认值。
+</p>
+
+<table class="table">
+<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
+<tbody>
+      
+<tr><td><code>ErrorStream</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="https://pkg.go.dev/io#Writer"><code>io.Writer</code></a>
+</td>
+<td>
+   <p>
+   <!--
+   ErrorStream can be used to override the os.Stderr default.
+   -->
+   <code>ErrorStream</code> 可用于覆盖默认值 <code>os.Stderr</code>。
+   </p>
+</td>
+</tr>
+<tr><td><code>InfoStream</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="https://pkg.go.dev/io#Writer"><code>io.Writer</code></a>
+</td>
+<td>
+   <p>
+   <!--
+   InfoStream can be used to override the os.Stdout default.
+   -->
+   <code>InfoStream</code> 可用于覆盖默认值 <code>os.Stdout</code>。
+   </p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `TimeOrMetaDuration`     {#TimeOrMetaDuration}
+
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [LoggingConfiguration](#LoggingConfiguration)
+
+<p>
+<!--
+TimeOrMetaDuration is present only for backwards compatibility for the
+flushFrequency field, and new fields should use metav1.Duration.
+-->
+<code>TimeOrMetaDuration</code> 仅出于向后兼容 <code>flushFrequency<code> 字段而存在，
+新字段应使用 <code>metav1.Duration<code>。
+</p>
+
+<table class="table">
+<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
+<tbody>
+    
+<tr><td><code>Duration</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <p>
+   <!--
+   Duration holds the duration
+   -->
+   <code>Duration<code> 保存持续时间。
+   </p>
+</td>
+</tr>
+<tr><td><code>-</code> <B><!--[Required]-->[必需]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   <p>
+   <!--
+   SerializeAsString controls whether the value is serialized as a string or an integer
+   -->
+   <code>SerializeAsString</code> 控制此值是以字符串还是以整数进行序列化。
+   </p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `TracingConfiguration`     {#TracingConfiguration}
+
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+
+<!--
+TracingConfiguration provides versioned configuration for OpenTelemetry tracing clients.
+-->
+<p>TracingConfiguration 为 OpenTelemetry 追踪客户端提供版本化的配置信息。</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">字段</th><th>描述</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>endpoint</code><br/>
+<code>string</code>
+</td>
+<td>
+   <!--
+   Endpoint of the collector this component will report traces to.
+The connection is insecure, and does not currently support TLS.
+Recommended is unset, and endpoint is the otlp grpc default, localhost:4317.
+   -->
+   <p>采集器的端点，此组件将向其报告追踪链路。
+此连接不安全，目前不支持 TLS。推荐不设置，端点是 otlp grpc 默认值 localhost:4317。</p>
+</td>
+</tr>
+<tr><td><code>samplingRatePerMillion</code><br/>
+<code>int32</code>
+</td>
+<td>
+   <!--
+   SamplingRatePerMillion is the number of samples to collect per million spans.
+Recommended is unset. If unset, sampler respects its parent span's sampling
+rate, but otherwise never samples.
+   -->
+   <p>samplingRatePerMillion 是每百万 span 要采集的样本数。推荐不设置。
+如果不设置，则采样器优先使用其父级 span 的采样率，否则不采样。</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `VModuleConfiguration`     {#VModuleConfiguration}
+
+<!--
+(Alias of `[]k8s.io/component-base/logs/api/v1.VModuleItem`)
+-->
+（`[]k8s.io/component-base/logs/api/v1.VModuleItem` 的别名）
+
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [LoggingConfiguration](#LoggingConfiguration)
+
+<!--
+VModuleConfiguration is a collection of individual file names or patterns
+and the corresponding verbosity threshold.
+-->
+VModuleConfiguration 是一个集合，其中包含一个个文件名（或文件名模式）
+及其对应的详细程度阈值。
+
+## `VerbosityLevel`     {#VerbosityLevel}
+    
+<!--
+(Alias of `uint32`)
+-->
+（`uint32` 的别名）
+
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [LoggingConfiguration](#LoggingConfiguration)
+
+<!--
+VerbosityLevel represents a klog or logr verbosity threshold.
+-->
+<p>VerbosityLevel 表示 klog 或 logr 的详细程度（verbosity）阈值。</p>
+
 ## `CredentialProviderConfig`     {#kubelet-config-k8s-io-v1beta1-CredentialProviderConfig}
 
 <!--
@@ -2001,7 +2381,7 @@ Examples:'unix:///path/to/runtime.sock', 'npipe:////./pipe/runtime'
    -->
    <p>containerRuntimeEndpoint 是容器运行时的端点。
 Linux 支持 UNIX 域套接字，而 Windows 支持命名管道和 TCP 端点。
-示例：'unix://path/to/runtime.sock', 'npipe:////./pipe/runtime'。</p>
+示例：'unix:///path/to/runtime.sock', 'npipe:////./pipe/runtime'。</p>
 </td>
 </tr>
 <tr><td><code>imageServiceEndpoint</code><br/>
@@ -2231,7 +2611,7 @@ ExecEnvVar 用来在执行基于 exec 的凭据插件时设置环境变量。
    <!--
    No description provided.
    -->
-   无描述。
+   环境变量的名称。
    </span>
 </td>
 </tr>
@@ -2243,7 +2623,7 @@ ExecEnvVar 用来在执行基于 exec 的凭据插件时设置环境变量。
    <!--
    No description provided.
    -->
-   无描述。
+   环境变量的取值。
    </span>
 </td>
 </tr>
@@ -2489,7 +2869,7 @@ presenting a client certificate signed by one of the authorities in the bundle
 is authenticated with a username corresponding to the CommonName,
 and groups corresponding to the Organization in the client certificate.
    -->
-   <p><code>clientCAFile</code> 是一个指向 PEM 编发的证书包的路径。
+   <p><code>clientCAFile</code> 是一个指向 PEM 编码的证书包的路径。
 如果设置了此字段，则能够提供由此证书包中机构之一所签名的客户端证书的请求会被成功认证，
 并且其用户名对应于客户端证书的 <code>CommonName</code>、组名对应于客户端证书的
 <code>Organization</code>。</p>
@@ -2586,7 +2966,7 @@ MemoryReservation 为每个 NUMA 节点设置不同类型的内存预留。
 ResourceChangeDetectionStrategy denotes a mode in which internal
 managers (secret, configmap) are discovering object changes.
 -->
-ResourceChangeDetectionStrategy 给出的是内部管理器（ConfigMap、Secret）
+ResourceChangeDetectionStrategy 给出的是内部管理器（Secret、ConfigMap）
 用来发现对象变化的模式。
 
 ## `ShutdownGracePeriodByPodPriority`     {#kubelet-config-k8s-io-v1beta1-ShutdownGracePeriodByPodPriority}
@@ -2630,383 +3010,3 @@ ShutdownGracePeriodByPodPriority 基于 Pod 关联的优先级类数值来为其
 </tr>
 </tbody>
 </table>
-
-## `FormatOptions`     {#FormatOptions}
-
-<!--
-**Appears in:**
--->
-**出现在：**
-
-- [LoggingConfiguration](#LoggingConfiguration)
-
-<p>
-<!--
-FormatOptions contains options for the different logging formats.
--->
-FormatOptions 包含为不同日志格式提供的选项。
-</p>
-
-<table class="table">
-<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
-<tbody>
-
-<tr><td><code>json</code> <B>[必需]</B><br/>
-<a href="#JSONOptions"><code>JSONOptions</code></a>
-</td>
-<td>
-   <!--
-   [Alpha] JSON contains options for logging format &quot;json&quot;.
-Only available when the LoggingAlphaOptions feature gate is enabled.
-   -->
-   <p>[Alpha] JSON 包含记录 &quot;json&quot; 格式日志的选项。
-只有 LoggingAlphaOptions 特性门控被启用时才可用。</p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `JSONOptions`     {#JSONOptions}
-
-<!--
-**Appears in:**
--->
-**出现在：**
-
-- [FormatOptions](#FormatOptions)
-
-<p>
-<!--
-JSONOptions contains options for logging format &quot;json&quot;.
--->
-JSONOptions 包含为 &quot;json&quot; 日志格式提供的选项。
-</p>
-
-<table class="table">
-<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
-<tbody>
-<tr><td><code>splitStream</code> <B>[必需]</B><br/>
-<code>bool</code>
-</td>
-<td>
-   <p>
-   <!--[Alpha] SplitStream redirects error messages to stderr while
-info messages go to stdout, with buffering. The default is to write
-both to stdout, without buffering. Only available when
-the LoggingAlphaOptions feature gate is enabled.
-   -->
-   [Alpha] <code>splitStream</code> 将错误信息重定向到标准错误输出（stderr），
-而将提示信息重定向到标准输出（stdout），并为二者提供缓存。
-默认设置是将二者都写出到标准输出，并且不提供缓存。
-只有 LoggingAlphaOptions 特性门控被启用时才可用。
-   </p>
-</td>
-</tr>
-
-<tr><td><code>infoBufferSize</code> <B>[必需]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/api/resource#QuantityValue"><code>k8s.io/apimachinery/pkg/api/resource.QuantityValue</code></a>
-</td>
-<td>
-   <p>
-   <!--
-   [Alpha] InfoBufferSize sets the size of the info stream when
-using split streams. The default is zero, which disables buffering.
-Only available when the LoggingAlphaOptions feature gate is enabled.
-   -->
-   [Alpha] <code>infoBufferSize</code> 在分离数据流时用来设置提示数据流的大小。
-默认值为 0，相当于禁止缓存。只有 LoggingAlphaOptions 特性门控被启用时才可用。
-   </p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `LogFormatFactory`     {#LogFormatFactory}
-
-<!--
-LogFormatFactory provides support for a certain additional,
-non-default log format.
--->
-<p>LogFormatFactory 提供了对某些附加的、非默认的日志格式的支持。</p>
-
-## `LoggingConfiguration`     {#LoggingConfiguration}
-
-<!--
-**Appears in:**
--->
-**出现在：**
-
-- [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
-
-<!--
-LoggingConfiguration contains logging options.
--->
-LoggingConfiguration 包含日志选项。
-
-<table class="table">
-<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
-<tbody>
-
-<tr><td><code>format</code> <B>[必需]</B><br/>
-<code>string</code>
-</td>
-<td>
-  <p>
-  <!--
-  Format Flag specifies the structure of log messages.
-default value of format is `text`
-  -->
-  <code>format<code> 设置日志消息的结构。默认的格式取值为 <code>text</code>。
-  </p>
-</td>
-</tr>
-
-<tr><td><code>flushFrequency</code> <B>[必需]</B><br/>
-<a href="#TimeOrMetaDuration"><code>TimeOrMetaDuration</code></a>
-</td>
-<td>
-  <p>
-  <!--
-   Maximum time between log flushes.
-If a string, parsed as a duration (i.e. &quot;1s&quot;)
-If an int, the maximum number of nanoseconds (i.e. 1s = 1000000000).
-Ignored if the selected logging backend writes log messages without buffering.
-  -->
-   日志清洗之间的最大时间间隔。
-如果是字符串，则解析为持续时间（例如 "1s"）。
-如果是整数，则表示为最大纳秒数（例如 1s = 1000000000）。
-如果所选的日志后端在写入日志消息时未缓冲，则被忽略。
-  </p>
-</td>
-</tr>
-
-<tr><td><code>verbosity</code> <B>[必需]</B><br/>
-<a href="#VerbosityLevel"><code>VerbosityLevel</code></a>
-</td>
-<td>
-  <p>
-  <!--
-  Verbosity is the threshold that determines which log messages are
-logged. Default is zero which logs only the most important
-messages. Higher values enable additional messages. Error messages
-are always logged.
-  -->
-  <code>verbosity</code> 用来确定日志消息记录的详细程度阈值。默认值为 0，
-意味着仅记录最重要的消息。数值越大，额外的消息越多。出错消息总是会被记录下来。
-  </p>
-</td>
-</tr>
-
-<tr><td><code>vmodule</code> <B>[必需]</B><br/>
-<a href="#VModuleConfiguration"><code>VModuleConfiguration</code></a>
-</td>
-<td>
-  <p>
-  <!--
-  VModule overrides the verbosity threshold for individual files.
-Only supported for &quot;text&quot; log format.
-  -->
-  <code>vmodule</code> 会在单个文件层面重载 verbosity 阈值的设置。
-这一选项仅支持 &quot;text&quot; 日志格式。
-  </p>
-</td>
-</tr>
-
-<tr><td><code>options</code> <B>[必需]</B><br/>
-<a href="#FormatOptions"><code>FormatOptions</code></a>
-</td>
-<td>
-  <p>
-  <!--
-  [Alpha] Options holds additional parameters that are specific
-to the different logging formats. Only the options for the selected
-format get used, but all of them get validated.
-Only available when the LoggingAlphaOptions feature gate is enabled.
-  -->
-  [Alpha] <code>options</code> 中包含特定于不同日志格式的附加参数。
-只有针对所选格式的选项会被使用，但是合法性检查时会查看所有参数。
-只有 LoggingAlphaOptions 特性门控被启用时才可用。
-  </p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `LoggingOptions`     {#LoggingOptions}
-
-<p>
-<!--
-LoggingOptions can be used with ValidateAndApplyWithOptions to override
-certain global defaults.
--->
-<code>LoggingOptions</code> 可以与 <code>ValidateAndApplyWithOptions</code> 一起使用，以覆盖某些全局默认值。
-</p>
-
-<table class="table">
-<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
-<tbody>
-      
-<tr><td><code>ErrorStream</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://pkg.go.dev/io#Writer"><code>io.Writer</code></a>
-</td>
-<td>
-   <p>
-   <!--
-   ErrorStream can be used to override the os.Stderr default.
-   -->
-   <code>ErrorStream</code> 可用于覆盖默认值 <code>os.Stderr</code>。
-   </p>
-</td>
-</tr>
-<tr><td><code>InfoStream</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://pkg.go.dev/io#Writer"><code>io.Writer</code></a>
-</td>
-<td>
-   <p>
-   <!--
-   InfoStream can be used to override the os.Stdout default.
-   -->
-   <code>InfoStream</code> 可用于覆盖默认值 <code>os.Stdout</code>。
-   </p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `TimeOrMetaDuration`     {#TimeOrMetaDuration}
-
-<!--
-**Appears in:**
--->
-**出现在：**
-
-- [LoggingConfiguration](#LoggingConfiguration)
-
-<p>
-<!--
-TimeOrMetaDuration is present only for backwards compatibility for the
-flushFrequency field, and new fields should use metav1.Duration.
--->
-<code>TimeOrMetaDuration</code> 仅出于向后兼容 <code>flushFrequency<code> 字段而存在，
-新字段应使用 <code>metav1.Duration<code>。
-</p>
-
-<table class="table">
-<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
-<tbody>
-    
-<tr><td><code>Duration</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
-</td>
-<td>
-   <p>
-   <!--
-   Duration holds the duration
-   -->
-   <code>Duration<code> 保存持续时间。
-   </p>
-</td>
-</tr>
-<tr><td><code>-</code> <B><!--[Required]-->[必需]</B><br/>
-<code>bool</code>
-</td>
-<td>
-   <p>
-   <!--
-   SerializeAsString controls whether the value is serialized as a string or an integer
-   -->
-   <code>SerializeAsString</code> 控制此值是以字符串还是以整数进行序列化。
-   </p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `TracingConfiguration`     {#TracingConfiguration}
-
-<!--
-**Appears in:**
--->
-**出现在：**
-
-- [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
-
-<!--
-TracingConfiguration provides versioned configuration for OpenTelemetry tracing clients.
--->
-<p>TracingConfiguration 为 OpenTelemetry 追踪客户端提供版本化的配置信息。</p>
-
-
-<table class="table">
-<thead><tr><th width="30%">字段</th><th>描述</th></tr></thead>
-<tbody>
-    
-  
-<tr><td><code>endpoint</code><br/>
-<code>string</code>
-</td>
-<td>
-   <!--
-   Endpoint of the collector this component will report traces to.
-The connection is insecure, and does not currently support TLS.
-Recommended is unset, and endpoint is the otlp grpc default, localhost:4317.
-   -->
-   <p>采集器的 endpoint，此组件将向其报告追踪链路。
-此连接不安全，目前不支持 TLS。推荐不设置，endpoint 是 otlp grpc 默认值，localhost:4317。</p>
-</td>
-</tr>
-<tr><td><code>samplingRatePerMillion</code><br/>
-<code>int32</code>
-</td>
-<td>
-   <!--
-   SamplingRatePerMillion is the number of samples to collect per million spans.
-Recommended is unset. If unset, sampler respects its parent span's sampling
-rate, but otherwise never samples.
-   -->
-   <p>samplingRatePerMillion 是每百万 span 要采集的样本数。推荐不设置。
-如果不设置，则采样器优先使用其父级 span 的采样率，否则不采样。</p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `VModuleConfiguration`     {#VModuleConfiguration}
-
-<!--
-(Alias of `[]k8s.io/component-base/logs/api/v1.VModuleItem`)
--->
-（`[]k8s.io/component-base/logs/api/v1.VModuleItem` 的别名）
-
-<!--
-**Appears in:**
--->
-**出现在：**
-
-- [LoggingConfiguration](#LoggingConfiguration)
-
-<!--
-VModuleConfiguration is a collection of individual file names or patterns
-and the corresponding verbosity threshold.
--->
-VModuleConfiguration 是一个集合，其中包含一个个文件名（或文件名模式）
-及其对应的详细程度阈值。
-
-## `VerbosityLevel`     {#VerbosityLevel}
-    
-<!--
-(Alias of `uint32`)
--->
-（`uint32` 的别名）
-
-<!--
-**Appears in:**
--->
-**出现在：**
-
-- [LoggingConfiguration](#LoggingConfiguration)
-
-<!--
-VerbosityLevel represents a klog or logr verbosity threshold.
--->
-<p>VerbosityLevel 表示 klog 或 logr 的详细程度（verbosity）阈值。</p>
