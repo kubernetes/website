@@ -98,9 +98,9 @@ of the form `hostname.my-svc.my-namespace.svc.cluster-domain.example`.
 
 ### A/AAAA records
 
-In general a Pod has the following DNS resolution:
+Kube-DNS versions, prior to the implementation of the [DNS specification](https://github.com/kubernetes/dns/blob/master/docs/specification.md), had the following DNS resolution:
 
-`pod-ip-address.my-namespace.pod.cluster-domain.example`.
+`pod-ipv4-address.my-namespace.pod.cluster-domain.example`.
 
 For example, if a Pod in the `default` namespace has the IP address 172.17.0.3,
 and the domain name for your cluster is `cluster.local`, then the Pod has a DNS name:
@@ -109,7 +109,7 @@ and the domain name for your cluster is `cluster.local`, then the Pod has a DNS 
 
 Any Pods exposed by a Service have the following DNS resolution available:
 
-`pod-ip-address.service-name.my-namespace.svc.cluster-domain.example`.
+`pod-ipv4-address.service-name.my-namespace.svc.cluster-domain.example`.
 
 ### Pod's hostname and subdomain fields
 
