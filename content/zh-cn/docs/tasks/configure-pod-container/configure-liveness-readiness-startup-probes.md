@@ -579,12 +579,12 @@ Readiness probes runs on the container during its whole lifecycle.
 
 {{< caution >}}
 <!--
-Liveness probes *do not* wait for readiness probes to succeed.
-If you want to wait before executing a liveness probe you should use
+The readiness and liveness probes do not depend on each other to succeed.
+If you want to wait before executing a readiness probe, you should use
 `initialDelaySeconds` or a `startupProbe`.
 -->
-存活探针**不等待**就绪性探针成功。
-如果要在执行存活探针之前等待，应该使用 `initialDelaySeconds` 或 `startupProbe`。
+存活探针与就绪性探针相互间不等待对方成功。
+如果要在执行就绪性探针之前等待，应该使用 `initialDelaySeconds` 或 `startupProbe`。
 {{< /caution >}}
 
 <!--
