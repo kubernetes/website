@@ -17,7 +17,8 @@ and are in no way a direct recommendation from the Kubernetes community or autho
 
 USA's National Security Agency (NSA) and the Cybersecurity and Infrastructure
 Security Agency (CISA)
-released the 1.0 version of the Kubernetes hardening guide in August 2021 and updated it based on industry feedback in March 2022 (version 1.1). The most recent version of the Kubernetes hardening guidance was released in August 2022 with corrections and clarifications. Version 1.2 outlines a number of recommendations for  "[Kubernetes Hardening Guidance](https://media.defense.gov/2022/Aug/29/2003066362/-1/-1/0/CTR_KUBERNETES_HARDENING_GUIDANCE_1.2_20220829.PDF)". The guidance details threats to Kubernetes environments
+released Kubernetes Hardening Guidance
+on August 3rd, 2021. The guidance details threats to Kubernetes environments
 and provides secure configuration guidance to minimize risk.
 
 The following sections of this blog correlate to the sections in the NSA/CISA guidance. 
@@ -27,6 +28,11 @@ anything new to the existing content.
 _Note_: This blog post is not a substitute for reading the guide. Reading the published 
 guidance is recommended before proceeding as the following content is 
 complementary.
+
+> The National Security Agency (NSA) and the Cybersecurity and Infrastructure Security Agency (CISA) released
+> the 1.0 version of the Kubernetes hardening guide in August 2021 and updated it based on industry feedback in March 2022 (version 1.1).
+> The most recent version of the Kubernetes hardening guidance was released in August 2022 with corrections and clarifications.
+> Version 1.2 outlines a number of recommendations for (hardening Kubernetes clusters)[https://media.defense.gov/2022/Aug/29/2003066362/-1/-1/0/CTR_KUBERNETES_HARDENING_GUIDANCE_1.2_20220829.PDF]. 
 
 ## Introduction and Threat Model
 
