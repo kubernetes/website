@@ -209,13 +209,19 @@ The following flags can be used:
 You can choose more than one authorization module. Modules are checked in order
 so an earlier module has higher priority to allow or deny a request.
 
-## Configuring the API Server using a Authorization Config File
+## Configuring the API Server using an Authorization Config File
 
 {{< feature-state state="alpha" for_k8s_version="v1.29" >}}
 
-Kubernetes API Server authorizer chain can be configured using a config file by passing it through the `--authorization-config` flag. An example configuration with all possible values is provided below. In order to use the feature, the `StructuredAuthorizationConfiguration` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) has to be enabled.
+Kubernetes API Server authorizer chain can be configured using a config file by passing it through the `--authorization-config` flag. This feature enables creation of authorization chains with multiple webhooks with well-defined parameters that validate requests in a certain order and enables fine grained control like explicit Deny on failures. An example configuration with all possible values is provided below. In order to use the feature, the `StructuredAuthorizationConfiguration` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) has to be enabled.
 
 Note: When the feature is enabled, setting both `--authorization-config` and configuring an authorization webhook using the `--authorization-mode` and `--authorization-webhook-*` command line flags is not allowed. If done, there will be an error and API Server would exit right away.
+
+{{< caution >}}
+While the feature is in Alpha/Beta, there is no change if you want to keep on using command line flags. When the feature goes Beta, the feature flag would be turned on by default. The feature flag would be removed when feature goes GA.
+
+When configuring the authorizer chain using a config file, make sure all the apiserver nodes have the file. Also, take a note of the apiserver configuration when upgrading/downgrading the clusters. For example, if upgrading to v1.29+ clusters and using the config file, you would need to add to the flags back to the cluster bootrap mechanism.
+{{< /caution >}}
 
 ```yaml
 #
@@ -238,7 +244,7 @@ authorizers:
       # Same as setting `--authorization-webhook-cache-authorized-ttl` flag
       # Default: 5m0s
       authorizedTTL: 30s
-      # The duration to cache 'authorized' responses from the webhook
+      # The duration to cache 'unauthorized' responses from the webhook
       # authorizer.
       # Same as setting `--authorization-webhook-cache-unauthorized-ttl` flag
       # Default: 30s
