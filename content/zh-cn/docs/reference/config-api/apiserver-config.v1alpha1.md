@@ -24,6 +24,62 @@ Package v1alpha1 is the v1alpha1 version of the API.
 - [EgressSelectorConfiguration](#apiserver-k8s-io-v1alpha1-EgressSelectorConfiguration)
 - [TracingConfiguration](#apiserver-k8s-io-v1alpha1-TracingConfiguration)
 
+## `TracingConfiguration`     {#TracingConfiguration}
+
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+
+- [TracingConfiguration](#apiserver-k8s-io-v1alpha1-TracingConfiguration)
+
+<p>
+<!--
+TracingConfiguration provides versioned configuration for OpenTelemetry tracing clients.
+-->
+TracingConfiguration 为 OpenTelemetry 跟踪客户端提供了不同版本的配置。
+</p>
+
+<table class="table">
+<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
+<tbody>
+
+<tr><td><code>endpoint</code><br/>
+<code>string</code>
+</td>
+<td>
+   <p>
+   <!--
+   Endpoint of the collector this component will report traces to.
+   The connection is insecure, and does not currently support TLS.
+   Recommended is unset, and endpoint is the otlp grpc default, localhost:4317.
+   -->
+   采集器的端点，此组件将向其报告跟踪信息。
+   连接不安全，目前不支持 TLS。
+   推荐不设置，端点为 otlp grpc 默认值 localhost:4317。
+</p>
+</td>
+</tr>
+<tr><td><code>samplingRatePerMillion</code><br/>
+<code>int32</code>
+</td>
+<td>
+   <p>
+   <!--
+   SamplingRatePerMillion is the number of samples to collect per million spans.
+   Recommended is unset. If unset, sampler respects its parent span's sampling
+   rate, but otherwise never samples.
+   -->
+   SamplingRatePerMillion 是每百万 span 中采集的样本数。
+   推荐不设置。如果不设置，采集器将继承其父级 span 的采样率，否则不进行采样。
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+
 ## `AdmissionConfiguration`     {#apiserver-k8s-io-v1alpha1-AdmissionConfiguration}
 
 <p>
@@ -507,62 +563,6 @@ UDSTransport 设置通过 UDS 连接 konnectivity 服务器时需要的信息。
    字段取值不要求包含 <code>unix://</code> 前缀。
    （例如：<code>/etc/srv/kubernetes/konnectivity-server/konnectivity-server.socket</code>）
    </p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `TracingConfiguration`     {#TracingConfiguration}
-
-<!--
-**Appears in:**
--->
-**出现在：**
-
-- [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
-
-- [TracingConfiguration](#apiserver-k8s-io-v1alpha1-TracingConfiguration)
-
-<p>
-<!--
-TracingConfiguration provides versioned configuration for OpenTelemetry tracing clients.
--->
-TracingConfiguration 为 OpenTelemetry 跟踪客户端提供了不同版本的配置。
-</p>
-
-<table class="table">
-<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
-<tbody>
-
-<tr><td><code>endpoint</code><br/>
-<code>string</code>
-</td>
-<td>
-   <p>
-   <!--
-   Endpoint of the collector this component will report traces to.
-   The connection is insecure, and does not currently support TLS.
-   Recommended is unset, and endpoint is the otlp grpc default, localhost:4317.
-   -->
-   采集器的端点，此组件将向其报告跟踪信息。
-   连接不安全，目前不支持 TLS。
-   推荐不设置，端点为 otlp grpc 默认值 localhost:4317。
-</p>
-</td>
-</tr>
-<tr><td><code>samplingRatePerMillion</code><br/>
-<code>int32</code>
-</td>
-<td>
-   <p>
-   <!--
-   SamplingRatePerMillion is the number of samples to collect per million spans.
-   Recommended is unset. If unset, sampler respects its parent span's sampling
-   rate, but otherwise never samples.
-   -->
-   SamplingRatePerMillion 是每百万 span 中采集的样本数。
-   推荐不设置。如果不设置，采集器将继承其父级 span 的采样率，否则不进行采样。
-</p>
 </td>
 </tr>
 </tbody>

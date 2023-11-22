@@ -42,7 +42,6 @@ following Kubernetes concepts:
 * [Headless Services](/docs/concepts/services-networking/service/#headless-services)
 * [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)
 * [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/)
-* [StatefulSets](/docs/concepts/workloads/controllers/statefulset/)
 * The [kubectl](/docs/reference/kubectl/kubectl/) command line tool
 -->
 * [Pod](/zh-cn/docs/concepts/workloads/pods/)
@@ -50,18 +49,39 @@ following Kubernetes concepts:
 * [Headless Service](/zh-cn/docs/concepts/services-networking/service/#headless-services)
 * [PersistentVolumes](/zh-cn/docs/concepts/storage/persistent-volumes/)
 * [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/)
-* [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/)
 * [kubectl](/zh-cn/docs/reference/kubectl/kubectl/) 命令行工具
+
+{{% include "task-tutorial-prereqs.md" %}}
+<!--
+You should configure `kubectl` to use a context that uses the `default`
+namespace.
+If you are using an existing cluster, make sure that it's OK to use that
+cluster's default namespace to practice. Ideally, practice in a cluster
+that doesn't run any real workloads.
+
+It's also useful to read the concept page about [StatefulSets](/docs/concepts/workloads/controllers/statefulset/).
+-->
+你应该配置 `kubectl` 的上下文使用 `default` 命名空间。
+如果你使用的是现有集群，请确保可以使用该集群的 `default` 命名空间进行练习。
+理想情况下，在没有运行任何实际工作负载的集群中进行练习。
+
+阅读有关 [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/)
+的概念页面也很有用。
 
 {{< note >}}
 <!--
 This tutorial assumes that your cluster is configured to dynamically provision
-PersistentVolumes. If your cluster is not configured to do so, you
+PersistentVolumes. You'll also need to have a [default StorageClass](/docs/concepts/storage/storage-classes/#default-storageclass).
+If your cluster is not configured to provision storage dynamically, you
 will have to manually provision two 1 GiB volumes prior to starting this
-tutorial.
+tutorial and
+set up your cluster so that those PersistentVolumes map to the
+PersistentVolumeClaim templates that the StatefulSet defines.
 -->
-本教程假设你的集群被配置为动态制备 PersistentVolume 卷。
-如果没有这样配置，在开始本教程之前，你需要手动准备 2 个 1 GiB 的存储卷。
+本教程假设你的集群被配置为动态制备 PersistentVolume 卷，
+且有一个[默认 StorageClass](/zh-cn/docs/concepts/storage/storage-classes/#default-storageclass)。
+如果没有这样配置，在开始本教程之前，你需要手动准备 2 个 1 GiB 的存储卷，
+以便这些 PersistentVolume 可以映射到 StatefulSet 定义的 PersistentVolumeClaim 模板。
 {{< /note >}}
 
 ## {{% heading "objectives" %}}

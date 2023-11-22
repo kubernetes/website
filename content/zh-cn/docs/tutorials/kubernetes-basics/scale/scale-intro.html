@@ -1,56 +1,77 @@
 ---
 title: 运行应用程序的多个实例
 weight: 10
+description: |-
+  使用 kubectl 扩缩现有的应用程序
 ---
 
 <!--
 ---
 title: Running Multiple Instances of Your App
 weight: 10
+description: |-
+  Scale an existing app manually using kubectl.
 ---
 -->
 
 <!DOCTYPE html>
+
 <html lang="zh">
+
 <body>
-<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
 <div class="layout" id="top">
+
     <main class="content">
+
         <div class="row">
+
      <div class="col-md-8">
-					<!-- <h3>Objectives</h3> -->
-					<h3>目标</h3>
+          <!-- <h3>Objectives</h3> -->
+          <h3>目标</h3>
                 <ul>
-										<!-- <li>Scale an app using kubectl.</li> -->
-										<li>用 kubectl 扩缩应用程序</li>
+                    <!-- <li>Scale an app using kubectl.</li> -->
+                    <li>用 kubectl 扩缩应用程序</li>
                 </ul>
             </div>
 
             <div class="col-md-8">
-			 <!-- <h3>Scaling an application</h3> -->
-			 <h3>扩缩应用程序</h3>
+       <!-- <h3>Scaling an application</h3> -->
+       <h3>扩缩应用程序</h3>
 
-						<!-- <p>In the previous modules we created a <a href="/docs/concepts/workloads/controllers/deployment/"> Deployment</a>,
-							and then exposed it publicly via a <a href="/docs/concepts/services-networking/service/">Service</a>.
-							The Deployment created only one Pod for running our application.  When traffic increases, we will need to scale the application to keep up with  user demand.</p> -->
-						<p>在之前的模块中，我们创建了一个 <a href="/zh-cn/docs/concepts/workloads/controllers/deployment/"> Deployment</a>，然后通过 <a href="/zh-cn/docs/concepts/services-networking/service/">Service</a>让其可以开放访问。Deployment 仅为跑这个应用程序创建了一个 Pod。 当流量增加时，我们需要扩容应用程序满足用户需求。</p>
+            <!--
+            <p>Previously we created a <a href="/docs/concepts/workloads/controllers/deployment/"> Deployment</a>, and then exposed it publicly via a <a href="/docs/concepts/services-networking/service/">Service</a>. The Deployment created only one Pod for running our application.  When traffic increases, we will need to scale the application to keep up with user demand.</p>
+            <p>If you haven't worked through the earlier sections, start from <a href="/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/">Using minikube to create a cluster</a>.</p>
+            -->
+            <p>之前我们创建了一个 <a href="/zh-cn/docs/concepts/workloads/controllers/deployment/"> Deployment</a>，
+              然后通过 <a href="/zh-cn/docs/concepts/services-networking/service/">Service</a> 让其可以公开访问。
+              Deployment 仅创建了一个 Pod 用于运行这个应用程序。当流量增加时，我们需要扩容应用程序满足用户需求。</p>
+            <p>如果你还没有学习过之前的章节, 从 <a href="/zh-cn/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/">使用 Minikube 创建集群</a> 开始。</p>
 
-						<!-- <p><b>Scaling</b> is accomplished by changing the number of replicas in a Deployment</p> -->
-						<p><b>扩缩</b> 是通过改变 Deployment 中的副本数量来实现的。</p>
+            <!--
+            <p><em>Scaling</em> is accomplished by changing the number of replicas in a Deployment</p>
+            <p> <b> NOTE </b> If you are trying this after <a href="/docs/tutorials/kubernetes-basics/expose/expose-intro/">the previous section </a>, you may need to start from <a href="/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/">creating a cluster</a> as the services may have been deleted </p>
+            -->
+            <p><b>扩缩</b> 是通过改变 Deployment 中的副本数量来实现的。</p>
+            <p> <b> 注意 </b> 如果你是在 <a href="/zh-cn/docs/tutorials/kubernetes-basics/expose/expose-intro/">上一节</a> 之后尝试此操作, 
+              你可能需要从 <a href="/zh-cn/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/">创建一个集群</a> 开始，
+              因为 Service 可能已被删除。</p>
 
             </div>
             <div class="col-md-4">
                 <div class="content__box content__box_lined">
-										<!-- <h3>Summary:</h3> -->
-										<h3>小结:</h3>
+                    <!-- <h3>Summary:</h3> -->
+                    <h3>小结:</h3>
                     <ul>
-												<!-- <li>Scaling a Deployment</li> -->
-												<li>扩缩一个 Deployment</li>
+                        <!-- <li>Scaling a Deployment</li> -->
+                        <li>扩缩一个 Deployment</li>
                     </ul>
                 </div>
                 <div class="content__box content__box_fill">
-										<!-- <p><i> You can create from the start a Deployment with multiple instances using the --replicas parameter for the kubectl run command </i></p> -->
-										<p><i> 在运行 kubectl run 命令时，你可以通过设置 --replicas 参数来设置 Deployment 的副本数。</i></p>
+                    <!--
+                    <p><i> You can create from the start a Deployment with multiple instances using the --replicas parameter for the kubectl create deployment command </i></p>
+                    -->
+                    <p><i> 通过在使用 kubectl create deployment 命令时设置 --replicas 参数，你可以在启动 Deployment 时创建多个实例。</i></p>
                 </div>
             </div>
         </div>
@@ -58,8 +79,8 @@ weight: 10
 
         <div class="row">
             <div class="col-md-8">
-								<!-- <h2 style="color: #3771e3;">Scaling overview</h2> -->
-								<h2 style="color: #3771e3;">扩缩概述</h2>
+                <!-- <h2 style="color: #3771e3;">Scaling overview</h2> -->
+                <h2 style="color: #3771e3;">扩缩概述</h2>
             </div>
         </div>
 
@@ -97,19 +118,28 @@ weight: 10
         <div class="row">
             <div class="col-md-8">
 
-                <!-- <p>Scaling out a Deployment will ensure new Pods are created and scheduled to Nodes with available resources. Scaling in will reduce the number of Pods to the new desired state. Kubernetes also supports
-									<a href="/docs/user-guide/horizontal-pod-autoscaling/">autoscaling</a> of Pods, but it is outside of the scope of this tutorial. Scaling to zero is also possible, and it will terminate all Pods of the specified Deployment.</p> -->
-								<p>扩展 Deployment 将创建新的 Pods，并将资源调度请求分配到有可用资源的节点上，收缩 会将 Pods 数量减少至所需的状态。Kubernetes 还支持 Pods 的<a href="/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/">自动缩放</a>，但这并不在本教程的讨论范围内。将 Pods 数量收缩到0也是可以的，但这会终止 Deployment 上所有已经部署的 Pods。</p>
+                <!--
+                <p>Scaling out a Deployment will ensure new Pods are created and scheduled to Nodes with available resources. Scaling will increase the number of Pods to the new desired state. Kubernetes also supports <a href="/docs/tasks/run-application/horizontal-pod-autoscale/">autoscaling</a> of Pods, but it is outside of the scope of this tutorial. Scaling to zero is also possible, and it will terminate all Pods of the specified Deployment.</p>
+                -->
+                <p>对 Deployment 横向扩容将保证新的 Pod 被创建并调度到有可用资源的 Node 上，扩容会将 Pod 数量增加至新的预期状态。
+                  Kubernetes 还支持 Pod 的<a href="/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/">自动扩缩容</a>，
+                  但这并不在本教程的讨论范围内。
+                  将 Pods 数量收缩到 0 也是可以的，这会终止指定 Deployment 上所有的 Pod。</p>
 
-								<!-- <p>Running multiple instances of an application will require a way to distribute the traffic to all of them. Services have an integrated load-balancer that will distribute network traffic to all Pods of an exposed Deployment.
-									Services will monitor continuously the running Pods using endpoints, to ensure the traffic is sent only to available Pods.</p> -->
-								<p>运行应用程序的多个实例需要在它们之间分配流量。服务 (Service)有一种负载均衡器类型，可以将网络流量均衡分配到外部可访问的 Pods 上。服务将会一直通过端点来监视 Pods 的运行，保证流量只分配到可用的 Pods 上。</p>
+                <!--
+                <p>Running multiple instances of an application will require a way to distribute the traffic to all of them. Services have an integrated load-balancer that will distribute network traffic to all Pods of an exposed Deployment. Services will monitor continuously the running Pods using endpoints, to ensure the traffic is sent only to available Pods.</p>
+                -->
+                <p>运行应用程序的多个实例，需要有方法在它们之间分配流量。Service 有一个集成的负载均衡器，
+                  将网络流量分配到一个可公开访问的 Deployment 的所有 Pod 上。
+                  服务将会一直通过端点来监视 Pod 的运行，保证流量只分配到可用的 Pod 上。</p>
 
             </div>
             <div class="col-md-4">
                 <div class="content__box content__box_fill">
-										<!-- <p><i>Scaling is accomplished by changing the number of replicas in a Deployment.</i></p> -->
-										<p><i>扩缩是通过改变 Deployment 中的副本数量来实现的。</i></p>
+                    <!--
+                    <p><i>Scaling is accomplished by changing the number of replicas in a Deployment.</i></p>
+                    -->
+                    <p><i>扩缩是通过改变 Deployment 中的副本数量来实现的。</i></p>
                 </div>
             </div>
         </div>
@@ -118,18 +148,166 @@ weight: 10
 
         <div class="row">
             <div class="col-md-8">
-								<!-- <p> Once you have multiple instances of an Application running, you would be able to do Rolling updates without downtime. We'll cover that in the next module. Now, let's go to the online terminal and scale our application.</p> -->
-								<p>一旦有了多个应用实例，就可以没有宕机地滚动更新。我们将会在下面的模块中介绍这些。现在让我们使用在线终端来体验一下应用程序的扩缩过程。</p>
+                <!--
+                <p> Once you have multiple instances of an application running, you would be able to do Rolling updates without downtime. We'll cover that in the next section of the tutorial. Now, let's go to the terminal and scale our application.</p>
+                -->
+                <p>一旦有了多个应用实例，就可以进行滚动更新而无需停机。我们将会在教程的下一节介绍这些。
+                  现在让我们进入终端，来扩缩我们的应用程序。</p>
             </div>
         </div>
         <br>
 
         <div class="row">
             <div class="col-md-12">
-								<!-- <a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/scale/scale-interactive/" role="button">Start Interactive Tutorial <span class="btn__next">›</span></a> -->
-								<a class="btn btn-lg btn-success" href="/zh-cn/docs/tutorials/kubernetes-basics/scale/scale-interactive/" role="button">开始互动教程 <span class="btn__next">›</span></a>
+               <!-- <h3>Scaling a Deployment</h3> -->
+               <h3>扩容 Deployment</h3>
+               <!--
+               <p>To list your Deployments use the <code>get deployments</code> subcommand:</p>
+                -->
+               <p>要列出你的 Deployment，使用 <code>get deployments</code> 子命令：</p>
+               <p><code><b>kubectl get deployments</b></code></p>
+               <!--
+               <p>The output should be similar to:</p>
+               -->
+               <p>输出应该类似于：</p>
+<pre>
+NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
+kubernetes-bootcamp   1/1     1            1           11m
+</pre>
+               <!--
+               <p>We should have 1 Pod. If not, run the command again. This shows:</p>
+               <ul>
+               <li><em>NAME</em> lists the names of the Deployments in the cluster.</li>
+               <li><em>READY</em> shows the ratio of CURRENT/DESIRED replicas</li>
+               <li><em>UP-TO-DATE</em> displays the number of replicas that have been updated to achieve the desired state.</li>
+               <li><em>AVAILABLE</em> displays how many replicas of the application are available to your users.</li>
+               <li><em>AGE</em> displays the amount of time that the application has been running.</li>
+               </ul>
+               -->
+               <p>我们应该有 1 个 Pod。如果没有，请再次运行该命令。结果显示：</p>
+               <ul>
+               <li><em>NAME</em> 列出 Deployment 在集群中的名称。</li>
+               <li><em>READY</em> 显示当前/预期（CURRENT/DESIRED）副本数的比例/li>
+               <li><em>UP-TO-DATE</em> 显示为了达到预期状态，而被更新的副本的数量。</li>
+               <li><em>AVAILABLE</em> 显示应用程序有多少个副本对你的用户可用。</li>
+               <li><em>AGE</em> 显示应用程序的运行时间。</li>
+               </ul>
+               <!--
+               <p>To see the ReplicaSet created by the Deployment, run:</p>
+               -->
+               <p>要查看由 Deployment 创建的 ReplicaSet，运行：</p>
+               <p><code><b>kubectl get rs</b></code></p>
+               <!--
+               <p>Notice that the name of the ReplicaSet is always formatted as <tt>[DEPLOYMENT-NAME]-[RANDOM-STRING]</tt>. The random string is randomly generated and uses the <em>pod-template-hash</em> as a seed.</p>
+               -->
+               <p>注意 ReplicaSet 名称总是遵循 <tt>[DEPLOYMENT-NAME]-[RANDOM-STRING]</tt> 的格式。
+                随机字符串是使用 <em>pod-template-hash</em> 作为种子随机生成的。</p>
+               <!--
+               <p>Two important columns of this output are:</p>
+               <ul>
+               <li><em>DESIRED</em> displays the desired number of replicas of the application, which you define when you create the Deployment. This is the desired state.</li>
+               <li><em>CURRENT</em> displays how many replicas are currently running.</li>
+               </ul>
+               -->
+               <p>该输出有两个重要的列是：</p>
+               <ul>
+               <li><em>DESIRED</em> 显示了应用程序的预期副本数量，这是你在创建 Deployment 时定义的。这就是预期状态（desired state）。</li>
+               <li><em>CURRENT</em> 显示了当前正在运行的副本数量。</li>
+               </ul>
+               <!--
+               <p>Next, let’s scale the Deployment to 4 replicas. We’ll use the <code>kubectl scale</code> command, followed by the Deployment type, name and desired number of instances:</p>
+               -->
+               <p>接下来，让我们扩容 Deployment 到 4 个副本。
+                我们将使用 <code>kubectl scale</code> 命令，后面给出 Deployment 类型、名称和预期的实例数量：</p>
+               <p><code><b>kubectl scale deployments/kubernetes-bootcamp --replicas=4</b></code></p>
+               <!--
+               <p>To list your Deployments once again, use <code>get deployments</code>:</p>
+               -->
+               <p>要再次列举出你的 Deployment，使用 <code>get deployments</code>：</p>
+               <p><code><b>kubectl get deployments</b></code></p>
+               <!--
+               <p>The change was applied, and we have 4 instances of the application available. Next, let’s check if the number of Pods changed:</p>
+               -->
+               <p>更改已应用，我们有 4 个应用程序实例可用。接下来，让我们检查 Pod 的数量是否发生变化：</p>
+               <p><code><b>kubectl get pods -o wide</b></code></p>
+               <!--
+               <p>There are 4 Pods now, with different IP addresses. The change was registered in the Deployment events log. To check that, use the describe subcommand:</p>
+               -->
+               <p>现在有 4 个 Pod，各有不同的 IP 地址。这一变化会记录到 Deployment 的事件日志中。
+                要检查这一点，请使用 <code>describe</code> 子命令：</p>
+               <p><code><b>kubectl describe deployments/kubernetes-bootcamp</b></code></p>
+               <!--
+               <p>You can also view in the output of this command that there are 4 replicas now.</p>
+               -->
+               <p>你还可以从该命令的输出中看到，现在有 4 个副本。</p>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-md-12">
+               <!-- <h3>Load Balancing</h3> -->
+               <h3>负载均衡</h3>
+               <!--
+               <p>Let's check that the Service is load-balancing the traffic. To find out the exposed IP and Port we can use the describe service as we learned in the previous part of the tutorial:</p>
+               <p><code><b>kubectl describe services/kubernetes-bootcamp</b></code></p>
+               <p>Create an environment variable called <tt>NODE_PORT</tt> that has a value as the Node port:</p>
+               -->
+               <p>让我们来检查 Service 是否在进行流量负载均衡。要查找对外公开的 IP 和端口，
+                我们可以使用在教程之前部份学到的 <code>describe services</code>：</p>
+               <p><code><b>kubectl describe services/kubernetes-bootcamp</b></code></p>
+               <!--
+               <p>创建一个名为 <tt>NODE_PORT</tt> 的环境变量，值为 Node 的端口：</p>
+               -->
+               <p><code><b>export NODE_PORT="$(kubectl get services/kubernetes-bootcamp -o go-template='{{(index .spec.ports 0).nodePort}}')"</b></code><br />
+               <p><code><b>echo NODE_PORT=$NODE_PORT</b></code></p>
+               <!--
+               <p>Next, we’ll do a <code>curl</code> to the exposed IP address and port. Execute the command multiple times:</p>
+               -->
+               <p>接下来，我们将使用 <code>curl</code> 访问对外公开的 IP 和端口。多次执行以下命令：</p>
+               <p><code><b>curl http://"$(minikube ip):$NODE_PORT"</b></b></b></code></p>
+               <!--
+               <p>We hit a different Pod with every request. This demonstrates that the load-balancing is working.</p>
+               -->
+               <p>我们每个请求都命中了不同的 Pod，这证明负载均衡正在工作。</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+               <!-- <h3>Scale Down</h3> -->
+               <h3>缩容</h3>
+               <!--
+               <p>To scale down the Deployment to 2 replicas, run again the <code>scale</code> subcommand:</p>
+               -->
+               <p>要将 Deployment 缩容到 2 个副本，请再次运行 <code>scale</code> 子命令：</p>
+               <p><code><b>kubectl scale deployments/kubernetes-bootcamp --replicas=2</b></code></p>
+               <!--
+               <p>List the Deployments to check if the change was applied with the <code>get deployments</code> subcommand:</p>
+               -->
+               <p>要列举 Deployment 以检查是否应用了更改，使用 <code>get deployments</code> 子命令：</p>
+               <p><code><b>kubectl get deployments</b></code></p>
+               <!--
+               <p>The number of replicas decreased to 2. List the number of Pods, with <code>get pods</code>:</p>
+               -->
+               <p>副本数量减少到了 2 个，要列出 Pod 的数量，使用 <code>get pods</code>：</p>
+               <p><code><b>kubectl get pods -o wide</b></code></p>
+               <!--
+               <p>This confirms that 2 Pods were terminated.</p>
+               -->
+               <p>这证实了有 2 个 Pod 被终止。</p>
+            </div>
+        </div>
+
+      <div class="row">
+          <!--
+          <p>
+            Once you're ready, move on to <a href="/docs/tutorials/kubernetes-basics/update/update-intro/" title="Performing a Rolling Update">Performing a Rolling Update</a>.</p>
+          </p>
+          -->
+          <p>
+            准备好之后，继续学习<a href="/zh-cn/docs/tutorials/kubernetes-basics/update/update-intro/" title="Performing a Rolling Update">执行滚动更新</a>。
+          </p>
+      </div>
 
     </main>
 

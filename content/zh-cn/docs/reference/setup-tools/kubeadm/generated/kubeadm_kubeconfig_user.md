@@ -12,7 +12,7 @@ Output a kubeconfig file for an additional user.
 为其他用户输出一个 kubeconfig 文件。
 
 ```
-kubeadm alpha kubeconfig user [flags]
+kubeadm kubeconfig user [flags]
 ```
 
 <!--

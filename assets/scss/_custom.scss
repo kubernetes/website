@@ -680,19 +680,6 @@ main.content {
   }
 }
 
-/* COMMUNITY legacy styles */
-/* Leave these in place until localizations are caught up */
-
-.newcommunitywrapper {
-  .news {
-    margin-left: 0;
-
-    @media screen and (min-width: 768px) {
-      margin-left: 10%;
-    }
-  }
-}
-
 /* CASE-STUDIES */
 
 // Many of the case studies have small variations in markup and styles;
@@ -996,6 +983,16 @@ div.alert > em.javascript-required {
 // Adjust Bing search result page
 #bing-results-container {
     padding: 1em;
+}
+.bing-result {
+  margin-bottom: 1em;
+}
+.bing-result-url {
+  font-size: 14px;
+}
+.bing-result-snippet {
+  color: #666666;
+  font-size: 14px;
 }
 #bing-pagination-container {
     padding: 1em;

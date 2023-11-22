@@ -3,7 +3,6 @@ title: Pod 拓扑分布约束
 content_type: concept
 weight: 40
 ---
-
 <!--
 title: Pod Topology Spread Constraints
 content_type: concept
@@ -91,6 +90,27 @@ the following:
 
 Pod API 包括一个 `spec.topologySpreadConstraints` 字段。这个字段的用法如下所示：
 
+<!--
+```yaml
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: example-pod
+spec:
+  # Configure a topology spread constraint
+  topologySpreadConstraints:
+    - maxSkew: <integer>
+      minDomains: <integer> # optional; beta since v1.25
+      topologyKey: <string>
+      whenUnsatisfiable: <string>
+      labelSelector: <object>
+      matchLabelKeys: <list> # optional; beta since v1.27
+      nodeAffinityPolicy: [Honor|Ignore] # optional; beta since v1.26
+      nodeTaintsPolicy: [Honor|Ignore] # optional; beta since v1.26
+  ### other Pod fields go here
+```
+-->
 ```yaml
 ---
 apiVersion: v1
@@ -164,12 +184,16 @@ your cluster. Those fields are:
 
   {{< note >}}
   <!--
-  The `minDomains` field is a beta field and disabled by default in 1.25. You can enable it by enabling the
-  `MinDomainsInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+  The `MinDomainsInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  enables `minDomains` for pod topology spread. Starting from v1.28,
+  the `MinDomainsInPodTopologySpread` gate 
+  is enabled by default. In older Kubernetes clusters it might be explicitly
+  disabled or the field might not be available.
   -->
-  `minDomains` 字段是一个 Beta 字段，在 1.25 中默认被禁用。
-  你可以通过启用 `MinDomainsInPodTopologySpread`
-  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来启用该字段。
+  `MinDomainsInPodTopologySpread`
+  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)为
+  Pod 拓扑分布启用 `minDomains`。自 v1.28 起，`MinDomainsInPodTopologySpread` 特性门控默认被启用。
+  在早期的 Kubernetes 集群中，此特性门控可能被显式禁用或此字段可能不可用。
   {{< /note >}}
 
   <!--

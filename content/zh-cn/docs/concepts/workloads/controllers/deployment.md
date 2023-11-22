@@ -2144,10 +2144,111 @@ For example, when this value is set to 30%, the new ReplicaSet can be scaled up 
 rolling update starts, such that the total number of old and new Pods does not exceed 130% of desired
 Pods. Once old Pods have been killed, the new ReplicaSet can be scaled up further, ensuring that the
 total number of Pods running at any time during the update is at most 130% of desired Pods.
+
+Here are some Rolling Update Deployment examples that use the `maxUnavailable` and `maxSurge`:
 -->
 例如，当此值为 30% 时，启动滚动更新后，会立即对新的 ReplicaSet 扩容，同时保证新旧 Pod
 的总数不超过所需 Pod 总数的 130%。一旦旧 Pod 被杀死，新的 ReplicaSet 可以进一步扩容，
 同时确保更新期间的任何时候运行中的 Pod 总数最多为所需 Pod 总数的 130%。
+
+以下是一些使用 `maxUnavailable` 和 `maxSurge` 的滚动更新 Deployment 的示例：
+
+{{< tabs name="tab_with_md" >}}
+{{% tab name="最大不可用" %}}
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+```
+
+{{% /tab %}}
+{{% tab name="最大峰值" %}}
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+```
+
+{{% /tab %}}
+{{% tab name="两项混合" %}}
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+```
+
+{{% /tab %}}
+{{< /tabs >}}
 
 <!--
 ### Progress Deadline Seconds
@@ -2160,7 +2261,7 @@ retrying the Deployment. This defaults to 600. In the future, once automatic rol
 controller will roll back a Deployment as soon as it observes such a condition.
 -->
 ### 进度期限秒数    {#progress-deadline-seconds}
- 
+
 `.spec.progressDeadlineSeconds` 是一个可选字段，用于指定系统在报告 Deployment
 [进展失败](#failed-deployment) 之前等待 Deployment 取得进展的秒数。
 这类报告会在资源状态中体现为 `type: Progressing`、`status: False`、

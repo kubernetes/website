@@ -52,7 +52,8 @@ For details about each command, including all the supported flags and subcommand
 <!--
 For installation instructions, see [Installing kubectl](/docs/tasks/tools/#kubectl);
 for a quick guide, see the [cheat sheet](/docs/reference/kubectl/cheatsheet/).
-If you're used to using the `docker` command-line tool, [`kubectl` for Docker Users](/docs/reference/kubectl/docker-cli-to-kubectl/)
+If you're used to using the `docker` command-line tool,
+[`kubectl` for Docker Users](/docs/reference/kubectl/docker-cli-to-kubectl/)
 explains some equivalent commands for Kubernetes.
 -->
 有关安装说明，请参见[安装 kubectl](/zh-cn/docs/tasks/tools/#kubectl)；
@@ -81,8 +82,8 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
 其中 `command`、`TYPE`、`NAME` 和 `flags` 分别是：
 
 <!--
-* `command`: Specifies the operation that you want to perform on one or more resources, 
-for example `create`, `get`, `describe`, `delete`.
+* `command`: Specifies the operation that you want to perform on one or more resources,
+  for example `create`, `get`, `describe`, `delete`.
 
 * `TYPE`: Specifies the [resource type](#resource-types). Resource types are case-insensitive and
   you can specify the singular, plural, or abbreviated forms.
@@ -93,16 +94,18 @@ for example `create`, `get`, `describe`, `delete`.
 * `TYPE`：指定[资源类型](#resource-types)。资源类型不区分大小写，
   可以指定单数、复数或缩写形式。例如，以下命令输出相同的结果：
 
-   ```shell
-   kubectl get pod pod1
-   kubectl get pods pod1
-   kubectl get po pod1
-   ```
+  ```shell
+  kubectl get pod pod1
+  kubectl get pods pod1
+  kubectl get po pod1
+  ```
 
 <!--
-* `NAME`: Specifies the name of the resource. Names are case-sensitive. If the name is omitted, details for all resources are displayed, for example `kubectl get pods`.
+* `NAME`: Specifies the name of the resource. Names are case-sensitive. If the name is omitted,
+  details for all resources are displayed, for example `kubectl get pods`.
 
-   When performing an operation on multiple resources, you can specify each resource by type and name or specify one or more files:
+  When performing an operation on multiple resources, you can specify each resource by type
+  and name or specify one or more files:
 -->
 * `NAME`：指定资源的名称。名称区分大小写。
   如果省略名称，则显示所有资源的详细信息。例如：`kubectl get pods`。
@@ -112,16 +115,17 @@ for example `create`, `get`, `describe`, `delete`.
 <!--
   * To specify resources by type and name:
 
-      * To group resources if they are all the same type:  `TYPE1 name1 name2 name<#>`.<br/>
+    * To group resources if they are all the same type:  `TYPE1 name1 name2 name<#>`.<br/>
       Example: `kubectl get pod example-pod1 example-pod2`
 
-      * To specify multiple resource types individually:  `TYPE1/name1 TYPE1/name2 TYPE2/name3 TYPE<#>/name<#>`.<br/>
+    * To specify multiple resource types individually:  `TYPE1/name1 TYPE1/name2 TYPE2/name3 TYPE<#>/name<#>`.<br/>
       Example: `kubectl get pod/example-pod1 replicationcontroller/example-rc1`
 
-   * To specify resources with one or more files:  `-f file1 -f file2 -f file<#>`
+  * To specify resources with one or more files:  `-f file1 -f file2 -f file<#>`
 
-      * [Use YAML rather than JSON](/docs/concepts/configuration/overview/#general-configuration-tips) since YAML tends to be more user-friendly, especially for configuration files.<br/>
-     Example: `kubectl get -f ./pod.yaml`
+    * [Use YAML rather than JSON](/docs/concepts/configuration/overview/#general-configuration-tips)
+      since YAML tends to be more user-friendly, especially for configuration files.<br/>
+      Example: `kubectl get -f ./pod.yaml`
 -->
  * 要按类型和名称指定资源：
 
@@ -138,7 +142,8 @@ for example `create`, `get`, `describe`, `delete`.
     例子：`kubectl get -f ./pod.yaml`
 
 <!--
-* `flags`: Specifies optional flags. For example, you can use the `-s` or `--server` flags to specify the address and port of the Kubernetes API server.<br/>
+* `flags`: Specifies optional flags. For example, you can use the `-s` or `--server` flags
+  to specify the address and port of the Kubernetes API server.<br/>
 -->
 * `flags`： 指定可选的参数。例如，可以使用 `-s` 或 `--server` 参数指定
   Kubernetes API 服务器的地址和端口。
@@ -161,7 +166,10 @@ If you need help, run `kubectl help` from the terminal window.
 ## 集群内身份验证和命名空间覆盖   {#in-cluster-authentication-and-namespace-overrides}
 
 <!--
-By default `kubectl` will first determine if it is running within a pod, and thus in a cluster. It starts by checking for the `KUBERNETES_SERVICE_HOST` and `KUBERNETES_SERVICE_PORT` environment variables and the existence of a service account token file at `/var/run/secrets/kubernetes.io/serviceaccount/token`. If all three are found in-cluster authentication is assumed.
+By default `kubectl` will first determine if it is running within a pod, and thus in a cluster.
+It starts by checking for the `KUBERNETES_SERVICE_HOST` and `KUBERNETES_SERVICE_PORT` environment
+variables and the existence of a service account token file at `/var/run/secrets/kubernetes.io/serviceaccount/token`.
+If all three are found in-cluster authentication is assumed.
 -->
 默认情况下，`kubectl` 命令首先确定它是否在 Pod 中运行，从而被视为在集群中运行。
 它首先检查 `KUBERNETES_SERVICE_HOST` 和 `KUBERNETES_SERVICE_PORT` 环境变量以及
@@ -169,7 +177,9 @@ By default `kubectl` will first determine if it is running within a pod, and thu
 如果三个条件都被满足，则假定在集群内进行身份验证。
 
 <!--
-To maintain backwards compatibility, if the `POD_NAMESPACE` environment variable is set during in-cluster authentication it will override the default namespace from the service account token. Any manifests or tools relying on namespace defaulting will be affected by this.
+To maintain backwards compatibility, if the `POD_NAMESPACE` environment variable is set
+during in-cluster authentication it will override the default namespace from the
+service account token. Any manifests or tools relying on namespace defaulting will be affected by this.
 -->
 为保持向后兼容性，如果在集群内身份验证期间设置了 `POD_NAMESPACE`
 环境变量，它将覆盖服务帐户令牌中的默认命名空间。
@@ -181,7 +191,11 @@ To maintain backwards compatibility, if the `POD_NAMESPACE` environment variable
 **`POD_NAMESPACE` 环境变量**
 
 <!--
-If the `POD_NAMESPACE` environment variable is set, cli operations on namespaced resources will default to the variable value. For example, if the variable is set to `seattle`, `kubectl get pods` would return pods in the `seattle` namespace. This is because pods are a namespaced resource, and no namespace was provided in the command. Review the output of `kubectl api-resources` to determine if a resource is namespaced. 
+If the `POD_NAMESPACE` environment variable is set, cli operations on namespaced resources
+will default to the variable value. For example, if the variable is set to `seattle`,
+`kubectl get pods` would return pods in the `seattle` namespace. This is because pods are
+a namespaced resource, and no namespace was provided in the command. Review the output
+of `kubectl api-resources` to determine if a resource is namespaced. 
 -->
 如果设置了 `POD_NAMESPACE` 环境变量，对命名空间资源的 CLI 操作对象将使用该变量值作为默认值。
 例如，如果该变量设置为 `seattle`，`kubectl get pods` 将返回 `seattle` 命名空间中的 Pod。
@@ -269,7 +283,7 @@ Operation       | Syntax    |       Description
 `edit`        | <code>kubectl edit (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [flags]</code> | Edit and update the definition of one or more resources on the server by using the default editor.
 `events`      | `kubectl events` | List events
 `exec`        | `kubectl exec POD [-c CONTAINER] [-i] [-t] [flags] [-- COMMAND [args...]]` | Execute a command against a container in a pod.
-`explain`    | `kubectl explain  [--recursive=false] [flags]` | Get documentation of various resources. For instance pods, nodes, services, etc.
+`explain`    | `kubectl explain TYPE [--recursive=false] [flags]` | Get documentation of various resources. For instance pods, nodes, services, etc.
 `expose`        | <code>kubectl expose (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [--port=port] [--protocol=TCP&#124;UDP] [--target-port=number-or-name] [--name=name] [--external-ip=external-ip-of-service] [--type=type] [flags]</code> | Expose a replication controller, service, or pod as a new Kubernetes service.
 `get`        | <code>kubectl get (-f FILENAME &#124; TYPE [NAME &#124; /NAME &#124; -l label]) [--watch] [--sort-by=FIELD] [[-o &#124; --output]=OUTPUT_FORMAT] [flags]</code> | List one or more resources.
 `kustomize`    | `kubectl kustomize <dir> [flags] [options]` | List a set of API resources generated from instructions in a kustomization.yaml file. The argument must be the path to the directory containing the file, or a git repository URL with a path suffix specifying same with respect to the repository root.
@@ -286,7 +300,7 @@ Operation       | Syntax    |       Description
 `scale`        | <code>kubectl scale (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) --replicas=COUNT [--resource-version=version] [--current-replicas=count] [flags]</code> | Update the size of the specified replication controller.
 `set`    | `kubectl set SUBCOMMAND [options]` | Configure application resources.
 `taint`    | `kubectl taint NODE NAME KEY_1=VAL_1:TAINT_EFFECT_1 ... KEY_N=VAL_N:TAINT_EFFECT_N [options]` | Update the taints on one or more nodes.
-`top`    | `kubectl top [flags] [options]` | Display Resource (CPU/Memory/Storage) usage.
+`top`    | `kubectl top (POD | NODE) [flags] [options]` | Display Resource (CPU/Memory/Storage) usage.
 `uncordon`    | `kubectl uncordon NODE [options]` | Mark node as schedulable.
 `version`        | `kubectl version [--client] [flags]` | Display the Kubernetes version running on the client and server.
 `wait`    | <code>kubectl wait ([-f FILENAME] &#124; resource.group/resource.name &#124; resource.group [(-l label &#124; --all)]) [--for=delete&#124;--for condition=available] [options]</code> | Experimental: Wait for a specific condition on one or many resources.
@@ -316,8 +330,8 @@ Operation       | Syntax    |       Description
 `edit`        | <code>kubectl edit (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [flags]</code> | 使用默认编辑器编辑和更新服务器上一个或多个资源的定义。
 `events`      | `kubectl events` | 列举事件。
 `exec`        | `kubectl exec POD [-c CONTAINER] [-i] [-t] [flags] [-- COMMAND [args...]]` | 对 Pod 中的容器执行命令。
-`explain`    | `kubectl explain  [--recursive=false] [flags]` | 获取多种资源的文档。例如 Pod、Node、Service 等。
-`expose`        | <code>kubectl expose (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [--port=port] [--protocol=TCP&#124;UDP] [--target-port=number-or-name] [--name=name] [--external-ip=external-ip-of-service] [--type=type] [flags]</code> | 将副本控制器、服务或 Pod 作为新的 Kubernetes 服务暴露。
+`explain`    | `kubectl explain TYPE [--recursive=false] [flags]` | 获取多种资源的文档。例如 Pod、Node、Service 等。
+`expose`        | <code>kubectl expose (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [--port=port] [--protocol=TCP&#124;UDP] [--target-port=number-or-name] [--name=name] [--external-ip=external-ip-of-service] [--type=type] [flags]</code> | 将副本控制器、Service 或 Pod 作为新的 Kubernetes 服务暴露。
 `get`        | <code>kubectl get (-f FILENAME &#124; TYPE [NAME &#124; /NAME &#124; -l label]) [--watch] [--sort-by=FIELD] [[-o &#124; --output]=OUTPUT_FORMAT] [flags]</code> | 列出一个或多个资源。
 `kustomize`    | <code>kubectl kustomize <dir> [flags] [options]` </code> | 列出从 kustomization.yaml 文件中的指令生成的一组 API 资源。参数必须是包含文件的目录的路径，或者是 git 存储库 URL，其路径后缀相对于存储库根目录指定了相同的路径。
 `label`        | <code>kubectl label (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--overwrite] [--all] [--resource-version=version] [flags]</code> | 添加或更新一个或多个资源的标签。
@@ -333,7 +347,7 @@ Operation       | Syntax    |       Description
 `scale`        | <code>kubectl scale (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) --replicas=COUNT [--resource-version=version] [--current-replicas=count] [flags]</code> | 更新指定副本控制器的大小。
 `set`    | `kubectl set SUBCOMMAND [options]` | 配置应用资源。
 `taint`    | `kubectl taint NODE NAME KEY_1=VAL_1:TAINT_EFFECT_1 ... KEY_N=VAL_N:TAINT_EFFECT_N [options]` | 更新一个或多个节点上的污点。
-`top`    | `kubectl top [flags] [options]` | 显示资源（CPU、内存、存储）的使用情况。
+`top`    | `kubectl top (POD | NODE) [flags] [options]` | 显示资源（CPU、内存、存储）的使用情况。
 `uncordon`    | `kubectl uncordon NODE [options]` | 将节点标记为可调度。
 `version`        | `kubectl version [--client] [flags]` | 显示运行在客户端和服务器上的 Kubernetes 版本。
 `wait`    | <code>kubectl wait ([-f FILENAME] &#124; resource.group/resource.name &#124; resource.group [(-l label &#124; --all)]) [--for=delete&#124;--for condition=available] [options]</code> | 实验特性：等待一种或多种资源的特定状况。
@@ -428,7 +442,9 @@ The following table includes a list of all the supported resource types and thei
 ## 输出选项   {#output-options}
 
 <!--
-Use the following sections for information about how you can format or sort the output of certain commands. For details about which commands support the various output options, see the [kubectl](/docs/reference/kubectl/kubectl/) reference documentation.
+Use the following sections for information about how you can format or sort the output
+of certain commands. For details about which commands support the various output options,
+see the [kubectl](/docs/reference/kubectl/kubectl/) reference documentation.
 -->
 有关如何格式化或排序某些命令的输出的信息，请参阅以下章节。有关哪些命令支持不同输出选项的详细信息，
 请参阅 [kubectl](/zh-cn/docs/reference/kubectl/kubectl/) 参考文档。
@@ -439,7 +455,9 @@ Use the following sections for information about how you can format or sort the 
 ### 格式化输出   {#formatting-output}
 
 <!--
-The default output format for all `kubectl` commands is the human readable plain-text format. To output details to your terminal window in a specific format, you can add either the `-o` or `--output` flags to a supported `kubectl` command.
+The default output format for all `kubectl` commands is the human readable plain-text format.
+To output details to your terminal window in a specific format, you can add either the `-o`
+or `--output` flags to a supported `kubectl` command.
 -->
 所有 `kubectl` 命令的默认输出格式都是人类可读的纯文本格式。要以特定格式在终端窗口输出详细信息，
 可以将 `-o` 或 `--output` 参数添加到受支持的 `kubectl` 命令中。
@@ -470,16 +488,16 @@ Output format | Description
 `-o wide`     | Output in the plain-text format with any additional information. For pods, the node name is included.
 `-o yaml`     | Output a YAML formatted API object.
 -->
-输出格式  |  描述
---------------| -----------
-`-o custom-columns=<spec>` | 使用逗号分隔的[自定义列](#custom-columns)列表打印表。
+输出格式                             |  描述
+------------------------------------| -----------
+`-o custom-columns=<spec>`          | 使用逗号分隔的[自定义列](#custom-columns)列表打印表。
 `-o custom-columns-file=<filename>` | 使用 `<filename>` 文件中的[自定义列](#custom-columns)模板打印表。
-`-o json`     | 输出 JSON 格式的 API 对象
-`-o jsonpath=<template>` | 打印 [jsonpath](/zh-cn/docs/reference/kubectl/jsonpath/) 表达式定义的字段
-`-o jsonpath-file=<filename>` | 打印 `<filename>` 文件中 [jsonpath](/zh-cn/docs/reference/kubectl/jsonpath/) 表达式定义的字段。
-`-o name`     | 仅打印资源名称而不打印任何其他内容。
-`-o wide`     | 以纯文本格式输出，包含所有附加信息。对于 Pod 包含节点名。
-`-o yaml`     | 输出 YAML 格式的 API 对象。
+`-o json`                           | 输出 JSON 格式的 API 对象
+`-o jsonpath=<template>`            | 打印 [jsonpath](/zh-cn/docs/reference/kubectl/jsonpath/) 表达式定义的字段
+`-o jsonpath-file=<filename>`       | 打印 `<filename>` 文件中 [jsonpath](/zh-cn/docs/reference/kubectl/jsonpath/) 表达式定义的字段。
+`-o name`                           | 仅打印资源名称而不打印任何其他内容。
+`-o wide`                           | 以纯文本格式输出，包含所有附加信息。对于 Pod 包含节点名。
+`-o yaml`                           | 输出 YAML 格式的 API 对象。
 
 <!--
 ##### Example
@@ -511,7 +529,8 @@ To define custom columns and output only the details that you want into a table,
 You can choose to define the custom columns inline or use a template file: `-o custom-columns=<spec>` or `-o custom-columns-file=<filename>`.
 -->
 要定义自定义列并仅将所需的详细信息输出到表中，可以使用 `custom-columns` 选项。
-你可以选择内联定义自定义列或使用模板文件：`-o custom-columns=<spec>` 或 `-o custom-columns-file=<filename>`。
+你可以选择内联定义自定义列或使用模板文件：`-o custom-columns=<spec>` 或
+`-o custom-columns-file=<filename>`。
 
 <!--
 ##### Examples
@@ -606,7 +625,9 @@ pod-name   1m
 ### 排序列表对象
 
 <!--
-To output objects to a sorted list in your terminal window, you can add the `--sort-by` flag to a supported `kubectl` command. Sort your objects by specifying any numeric or string field with the `--sort-by` flag. To specify a field, use a [jsonpath](/docs/reference/kubectl/jsonpath/) expression.
+To output objects to a sorted list in your terminal window, you can add the `--sort-by` flag
+to a supported `kubectl` command. Sort your objects by specifying any numeric or string field
+with the `--sort-by` flag. To specify a field, use a [jsonpath](/docs/reference/kubectl/jsonpath/) expression.
 -->
 要将对象排序后输出到终端窗口，可以将 `--sort-by` 参数添加到支持的 `kubectl` 命令。
 通过使用 `--sort-by` 参数指定任何数字或字符串字段来对对象进行排序。
@@ -663,7 +684,7 @@ kubectl apply -f <directory>
 ```
 -->
 ```shell
-# 使用 example-service.yaml 中的定义创建服务。
+# 使用 example-service.yaml 中的定义创建 Service。
 kubectl apply -f example-service.yaml
 
 # 使用 example-controller.yaml 中的定义创建 replication controller。
@@ -708,7 +729,7 @@ kubectl get pods -o wide
 # 以纯文本输出格式列出具有指定名称的副本控制器。提示：你可以使用别名 'rc' 缩短和替换 'replicationcontroller' 资源类型。
 kubectl get replicationcontroller <rc-name>
 
-# 以纯文本输出格式列出所有副本控制器和服务。
+# 以纯文本输出格式列出所有副本控制器和 Service。
 kubectl get rc,services
 
 # 以纯文本输出格式列出所有守护程序集，包括未初始化的守护程序集。
@@ -796,7 +817,7 @@ kubectl delete pods --all
 # 使用 pod.yaml 文件中指定的类型和名称删除 Pod。
 kubectl delete -f pod.yaml
 
-# 删除所有带有 '<label-key>=<label-value>' 标签的 Pod 和服务。
+# 删除所有带有 '<label-key>=<label-value>' 标签的 Pod 和 Service。
 kubectl delete pods,services -l <label-key>=<label-value>
 
 # 删除所有 Pod，包括未初始化的 Pod。
@@ -865,7 +886,7 @@ cat service.yaml | kubectl diff -f -
 `kubectl diff` - 查看集群建议更新的差异。
 
 ```shell
-# “pod.json”中包含的差异资源。
+# “pod.json” 中包含的差异资源。
 kubectl diff -f pod.json
 
 # 从标准输入读取的差异文件。
@@ -926,6 +947,7 @@ kubectl hello
 ```
 -->
 这个插件写好了，把它变成可执行的：
+
 ```bash
 sudo chmod a+x ./kubectl-hello
 

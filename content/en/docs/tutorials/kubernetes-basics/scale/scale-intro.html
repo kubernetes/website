@@ -110,13 +110,13 @@ description: |-
         <div class="row">
             <div class="col-md-12">
                <h3>Scaling a Deployment</h3>
-               <p>To list your Deployments use the <code>get deployments</code> subcommand:
-               <code><b>kubectl get deployments</b></code></p>
+               <p>To list your Deployments, use the <code>get deployments</code> subcommand:</p>
+               <p><code><b>kubectl get deployments</b></code></p>
                <p>The output should be similar to:</p>
-               <pre>
-               NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
-               kubernetes-bootcamp   1/1     1            1           11m
-               </pre>
+<pre>
+NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
+kubernetes-bootcamp   1/1     1            1           11m
+</pre>
                <p>We should have 1 Pod. If not, run the command again. This shows:</p>
                <ul>
                <li><em>NAME</em> lists the names of the Deployments in the cluster.</li>
@@ -125,8 +125,8 @@ description: |-
                <li><em>AVAILABLE</em> displays how many replicas of the application are available to your users.</li>
                <li><em>AGE</em> displays the amount of time that the application has been running.</li>
                </ul>
-               <p>To see the ReplicaSet created by the Deployment, run
-               <code><b>kubectl get rs</b></code></p>
+               <p>To see the ReplicaSet created by the Deployment, run:</p>
+               <p><code><b>kubectl get rs</b></code></p>
                <p>Notice that the name of the ReplicaSet is always formatted as <tt>[DEPLOYMENT-NAME]-[RANDOM-STRING]</tt>. The random string is randomly generated and uses the <em>pod-template-hash</em> as a seed.</p>
                <p>Two important columns of this output are:</p>
                <ul>

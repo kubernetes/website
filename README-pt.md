@@ -49,7 +49,7 @@ Para executar o build do website em um contêiner, execute o comando abaixo:
 make container-serve
 ```
 
-Caso ocorram erros, é provável que o contêiner que está executando o Hugo não tenha recursos suficientes. A solução é aumentar a quantidade de CPU e memória disponível para o Docker ([MacOSX](https://docs.docker.com/docker-for-mac/#resources) e [Windows](https://docs.docker.com/docker-for-windows/#resources)).
+Caso ocorram erros, é provável que o contêiner que está executando o Hugo não tenha recursos suficientes. A solução é aumentar a quantidade de CPU e memória disponível para o Docker ([MacOS](https://docs.docker.com/desktop/settings/mac/) e [Windows](https://docs.docker.com/desktop/settings/windows/)).
 
 Abra seu navegador em http://localhost:1313 para visualizar o website. Conforme você faz alterações nos arquivos fontes, o Hugo atualiza o website e força a atualização do navegador.
 
