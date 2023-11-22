@@ -86,7 +86,8 @@ like `free -m`. This is important because `free -m` does not work in a
 container, and if users use the [node allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
 feature, out of resource decisions
 are made local to the end user Pod part of the cgroup hierarchy as well as the
-root node. This [script](/examples/admin/resource/memory-available.sh)
+root node. This [script](/examples/admin/resource/memory-available.sh) or
+[cgroupv2 script](/examples/admin/resource/memory-available-cgroupv2.sh)
 reproduces the same set of steps that the kubelet performs to calculate
 `memory.available`. The kubelet excludes inactive_file (the number of bytes of
 file-backed memory on the inactive LRU list) from its calculation, as it assumes that
