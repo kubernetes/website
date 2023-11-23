@@ -13,7 +13,7 @@ content_type: concept
 
 <!-- overview -->
 
-{{< feature-state state="alpha" for_k8s_version="v1.26" >}}
+{{< feature-state state="beta" for_k8s_version="v1.28" >}}
 
 <!--
 This page provides an overview of Validating Admission Policy.
@@ -79,7 +79,7 @@ At least a `ValidatingAdmissionPolicy` and a corresponding `ValidatingAdmissionP
 must be defined for a policy to have an effect.
 
 If a `ValidatingAdmissionPolicy` does not need to be configured via parameters, simply leave
-`spec.paramKind` in  `ValidatingAdmissionPolicy` unset.
+`spec.paramKind` in  `ValidatingAdmissionPolicy` not specified.
 -->
 至少要定义一个 `ValidatingAdmissionPolicy` 和一个相对应的 `ValidatingAdmissionPolicyBinding` 才能使策略生效。
 
@@ -90,10 +90,10 @@ If a `ValidatingAdmissionPolicy` does not need to be configured via parameters, 
 
 <!--
 - Ensure the `ValidatingAdmissionPolicy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
-- Ensure that the `admissionregistration.k8s.io/v1alpha1` API is enabled.
+- Ensure that the `admissionregistration.k8s.io/v1beta1` API is enabled.
 -->
 - 确保 `ValidatingAdmissionPolicy` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)被启用。
-- 确保 `admissionregistration.k8s.io/v1alpha1` API 被启用。
+- 确保 `admissionregistration.k8s.io/v1beta1` API 被启用。
 
 <!--
 ## Getting Started with Validating Admission Policy
@@ -115,51 +115,32 @@ The following is an example of a ValidatingAdmissionPolicy.
 
 以下是一个 ValidatingAdmissionPolicy 的示例：
 
-```yaml
-apiVersion: admissionregistration.k8s.io/v1alpha1
-kind: ValidatingAdmissionPolicy
-metadata:
-  name: "demo-policy.example.com"
-spec:
-  failurePolicy: Fail
-  matchConstraints:
-    resourceRules:
-    - apiGroups: ["apps"]
-      apiVersions: ["v1"]
-      operations: ["CREATE", "UPDATE"]
-      resources: ["deployments"]
-  validations:
-    - expression: "object.spec.replicas <= 5"
-```
+{{% code_sample language="yaml" file="validatingadmissionpolicy/basic-example-policy.yaml" %}}
 
 <!--
 `spec.validations` contains CEL expressions which use the [Common Expression Language (CEL)](https://github.com/google/cel-spec)
 to validate the request. If an expression evaluates to false, the validation check is enforced
 according to the `spec.failurePolicy` field.
-
-To configure a validating admission policy for use in a cluster, a binding is required.
-The following is an example of a ValidatingAdmissionPolicyBinding.:
 -->
 `spec.validations` 包含使用[通用表达式语言 (CEL)](https://github.com/google/cel-spec)
 来验证请求的 CEL 表达式。
 如果表达式的计算结果为 false，则根据 `spec.failurePolicy` 字段强制执行验证检查处理。
 
+{{< note >}}
+<!--
+You can quickly test CEL expressions in [CEL Playground](https://playcel.undistro.io).
+-->
+你可以在 [CEL Playground](https://playcel.undistro.io) 中快速验证 CEL 表达式。
+{{< /note >}}
+
+<!--
+To configure a validating admission policy for use in a cluster, a binding is required.
+The following is an example of a ValidatingAdmissionPolicyBinding:
+-->
 要配置一个在某集群中使用的验证准入策略，需要一个绑定。
 以下是一个 ValidatingAdmissionPolicyBinding 的示例：
 
-```yaml
-apiVersion: admissionregistration.k8s.io/v1alpha1
-kind: ValidatingAdmissionPolicyBinding
-metadata:
-  name: "demo-binding-test.example.com"
-spec:
-  policyName: "demo-policy.example.com"
-  validationActions: [Deny]
-  matchResources:
-    namespaceSelector:
-      matchLabels:
-        environment: test
-```
+{{% code_sample language="yaml" file="validatingadmissionpolicy/basic-example-binding.yaml" %}}
 
 <!--
 When trying to create a deployment with replicas set not satisfying the validation expression, an
@@ -221,22 +202,21 @@ API 响应体和 HTTP 警告头中。
 <!--
 A `validation` that evaluates to false is always enforced according to these
 actions. Failures defined by the `failurePolicy` are enforced
-according to these actions only if the `failurePolicy` is set to `Fail` (or unset),
+according to these actions only if the `failurePolicy` is set to `Fail` (or not specified),
 otherwise the failures are ignored.
 -->
 如果 `validation` 求值为 false，则始终根据这些操作执行。
-由 `failurePolicy` 定义的失败仅在 `failurePolicy` 设置为 `Fail`（或未设置）时根据这些操作执行，
+由 `failurePolicy` 定义的失败仅在 `failurePolicy` 设置为 `Fail`（或未指定）时根据这些操作执行，
 否则这些失败将被忽略。
 
 <!-- 
-See [Audit Annotations: validation falures](/docs/reference/labels-annotations-taints/audit-annotations/#validation-policy-admission-k8s-io-validation_failure)
-for more details about the validation failure audit annotation.
+See [Audit Annotations: validation failures](/docs/reference/labels-annotations-taints/audit-annotations/#validation-policy-admission-k8s-io-validation-failure) for more details about the validation failure audit annotation.
  -->
 有关验证失败审计注解的详细信息，请参见
 [审计注解：验证失败](/zh-cn/docs/reference/labels-annotations-taints/audit-annotations/#validation-policy-admission-k8s-io-validation_failure)。
 
 <!--
-#### Parameter resources
+### Parameter resources
 
 Parameter resources allow a policy configuration to be separate from its definition.
 A policy can define paramKind, which outlines GVK of the parameter resource,
@@ -245,7 +225,7 @@ and then a policy binding ties a policy by name (via policyName) to a particular
 If parameter configuration is needed, the following is an example of a ValidatingAdmissionPolicy
 with parameter configuration.
 -->
-#### 参数资源
+### 参数资源
 
 参数资源允许策略配置与其定义分开。
 一个策略可以定义 paramKind，给出参数资源的 GVK，
@@ -253,26 +233,7 @@ with parameter configuration.
 
 如果需要参数配置，下面是一个带有参数配置的 ValidatingAdmissionPolicy 的例子：
 
-```yaml
-apiVersion: admissionregistration.k8s.io/v1alpha1
-kind: ValidatingAdmissionPolicy
-metadata:
-  name: "replicalimit-policy.example.com"
-spec:
-  failurePolicy: Fail
-  paramKind:
-    apiVersion: rules.example.com/v1
-    kind: ReplicaLimit
-  matchConstraints:
-    resourceRules:
-    - apiGroups: ["apps"]
-      apiVersions: ["v1"]
-      operations: ["CREATE", "UPDATE"]
-      resources: ["deployments"]
-  validations:
-    - expression: "object.spec.replicas <= params.maxReplicas"
-      reason: Invalid
-```
+{{% code_sample language="yaml" file="validatingadmissionpolicy/policy-with-param.yaml" %}}
 
 <!--
 The `spec.paramKind` field of the ValidatingAdmissionPolicy specifies the kind of resources used
@@ -295,7 +256,9 @@ validation check is enforced according to the `spec.failurePolicy` field.
 The validating admission policy author is responsible for providing the ReplicaLimit parameter CRD.
 
 To configure an validating admission policy for use in a cluster, a binding and parameter resource
-are created. The following is an example of a ValidatingAdmissionPolicyBinding.
+are created. The following is an example of a ValidatingAdmissionPolicyBinding
+that uses a **cluster-wide** param - the same param will be used to validate
+every resource request that matches the binding:
 -->
 `spec.validations` 字段包含 CEL 表达式。
 如果表达式的计算结果为 false，则根据 `spec.failurePolicy` 字段强制执行验证检查操作。
@@ -303,77 +266,71 @@ are created. The following is an example of a ValidatingAdmissionPolicyBinding.
 验证准入策略的作者负责提供 ReplicaLimit 参数 CRD。
 
 要配置一个在某集群中使用的验证准入策略，需要创建绑定和参数资源。
-以下是 ValidatingAdmissionPolicyBinding 的示例：
+以下是 ValidatingAdmissionPolicyBinding **集群范围**参数的示例 - 相同的参数将用于验证与绑定匹配的每个资源请求：
 
-```yaml
-apiVersion: admissionregistration.k8s.io/v1alpha1
-kind: ValidatingAdmissionPolicyBinding
-metadata:
-  name: "replicalimit-binding-test.example.com"
-spec:
-  policyName: "replicalimit-policy.example.com"
-  validationActions: [Deny]
-  paramRef:
-    name: "replica-limit-test.example.com"
-  matchResources:
-    namespaceSelector:
-      matchLabels:
-        environment: test
-```
+{{% code_sample language="yaml" file="validatingadmissionpolicy/binding-with-param.yaml" %}}
+
+<!--
+Notice this binding applies a parameter to the policy for all resources which
+are in the `test` environment.
+-->
+请注意，此绑定将参数应用于 `test` 环境中所有资源的策略中。
 
 <!--
 The parameter resource could be as following:
 -->
 参数资源可以如下：
 
-```yaml
-apiVersion: rules.example.com/v1
-kind: ReplicaLimit
-metadata:
-  name: "replica-limit-test.example.com"
-maxReplicas: 3
-```
+{{% code_sample language="yaml" file="validatingadmissionpolicy/replicalimit-param.yaml" %}}
 
 <!--
-This policy parameter resource limits deployments to a max of 3 replicas in all namespaces in the
-test environment. An admission policy may have multiple bindings. To bind all other environments
-environment to have a maxReplicas limit of 100, create another ValidatingAdmissionPolicyBinding:
+This policy parameter resource limits deployments to a max of 3 replicas.
+An admission policy may have multiple bindings. To bind all other environments
+to have a maxReplicas limit of 100, create another ValidatingAdmissionPolicyBinding:
 -->
-此策略参数资源将限制测试环境所有名字空间中的 Deployment 最多有 3 个副本。
+此策略参数资源将限制 Deployment 最多有 3 个副本。
 一个准入策略可以有多个绑定。
 要绑定所有的其他环境，限制 maxReplicas 为 100，请创建另一个 ValidatingAdmissionPolicyBinding：
 
-```yaml
-apiVersion: admissionregistration.k8s.io/v1alpha1
-kind: ValidatingAdmissionPolicyBinding
-metadata:
-  name: "replicalimit-binding-nontest"
-spec:
-  policyName: "replicalimit-policy.example.com"
-  validationActions: [Deny]
-  paramRef:
-    name: "replica-limit-clusterwide.example.com"
-  matchResources:
-    namespaceSelector:
-      matchExpressions:
-      - key: environment
-        operator: NotIn
-        values:
-        - test
-```
+{{% code_sample language="yaml" file="validatingadmissionpolicy/binding-with-param-prod.yaml" %}}
 
 <!--
-And have a parameter resource like:
+Notice this binding applies a different parameter to resources which
+are not in the `test` environment.
 -->
-并有一个参数资源，如下：
+请注意，此绑定将不同的参数应用于不在 `test` 环境中的资源。
 
-```yaml
-apiVersion: rules.example.com/v1
-kind: ReplicaLimit
-metadata:
-  name: "replica-limit-clusterwide.example.com"
-maxReplicas: 100
-```
+<!--
+And have a parameter resource:
+-->
+并有一个参数资源：
+
+{{% code_sample language="yaml" file="validatingadmissionpolicy/replicalimit-param-prod.yaml" %}}
+
+<!--
+For each admission request, the API server evaluates CEL expressions of each 
+(policy, binding, param) combination that match the request. For a request
+to be admitted it must pass **all** evaluations.
+
+If multiple bindings match the request, the policy will be evaluated for each,
+and they must all pass evaluation for the policy to be considered passed.
+-->
+对于每个准入请求，API 服务器都会评估与请求匹配的每个（策略、绑定、参数）组合的 CEL 表达式。
+要获得准入资格，必须通过**所有**评估。
+
+如果多个绑定与请求匹配，则将为每个绑定评估策略，并且它们必须全部通过评估，策略才会被视为通过。
+
+<!--
+If multiple parameters match a single binding, the policy rules will be evaluated
+for each param, and they too must all pass for the binding to be considered passed.
+Bindings can have overlapping match criteria. The policy is evaluated for each 
+matching binding-parameter combination. A policy may even be evaluated multiple
+times if multiple bindings match it, or a single binding that matches multiple 
+parameters.
+-->
+如果多个参数与同一个绑定匹配，则系统将为每个参数评估策略规则，并且这些规则也必须全部通过才能认为该绑定通过。
+多个绑定之间可以在匹配条件存在重叠。系统针对匹配的绑定参数所有组合来评估策略。如果多个绑定与其匹配，
+或者同一个绑定与多个参数匹配，则策略甚至可以被多次评估。
 
 <!--
 Bindings can have overlapping match criteria. The policy is evaluated for each matching binding.
@@ -401,13 +358,16 @@ spec:
 <!--
 The params object representing a parameter resource will not be set if a parameter resource has
 not been bound, so for policies requiring a parameter resource, it can be useful to add a check to
-ensure one has been bound.
+ensure one has been bound. A parameter resource will not be bound and `params` will be null
+if `paramKind` of the policy, or `paramRef` of the binding are not specified.
 
 For the use cases require parameter configuration, we recommend to add a param check in
 `spec.validations[0].expression`:
 -->
 如果参数资源尚未被绑定，代表参数资源的 params 对象将不会被设置，
 所以对于需要参数资源的策略，添加一个检查来确保参数资源被绑定，这会很有用。
+如果策略的 `paramKind` 未指定或绑定的 `paramRef` 未指定，则不会绑定参数资源，
+并且 `params` 将为空。
 
 对于需要参数配置的场景，我们建议在 `spec.validations[0].expression` 中添加一个参数检查：
 
@@ -417,6 +377,8 @@ For the use cases require parameter configuration, we recommend to add a param c
 ```
 
 <!--
+#### Optional parameters
+
 It can be convenient to be able to have optional parameters as part of a parameter resource, and
 only validate them if present. CEL provides `has()`, which checks if the key passed to it exists.
 CEL also implements Boolean short-circuiting. If the first half of a logical OR evaluates to true,
@@ -424,6 +386,8 @@ it won’t evaluate the other half (since the result of the entire OR will be tr
 
 Combining the two, we can provide a way to validate optional parameters:
 -->
+#### 可选参数
+
 将可选参数作为参数资源的一部分，并且只在参数存在时执行检查操作，这样做会比较方便。
 CEL 提供了 `has()` 方法，它检查传递给它的键是否存在。CEL 还实现了布尔短路逻辑。
 如果逻辑 OR 的前半部分计算为 true，则不会计算另一半（因为无论如何整个 OR 的结果都为真）。
@@ -445,6 +409,64 @@ Here, we first check that the optional parameter is present with `!has(params.op
 - 如果 `optionalNumber` 没有被定义，那么表达式就会短路，因为 `!has(params.optionalNumber)` 的计算结果为 true。
 - 如果 `optionalNumber` 被定义了，那么将计算 CEL 表达式的后半部分，
   并且 `optionalNumber` 将被检查以确保它包含一个 5 到 10 之间的值（含 5 到 10）。
+
+<!--
+#### Per-namespace Parameters
+
+As the author of a ValidatingAdmissionPolicy and its ValidatingAdmissionPolicyBinding, 
+you can choose to specify cluster-wide, or per-namespace parameters. 
+If you specify a `namespace` for the binding's `paramRef`, the control plane only
+searches for parameters in that namespace.
+-->
+#### 按命名空间设置的参数
+
+作为 ValidatingAdmissionPolicy 及其 ValidatingAdmissionPolicyBinding 的作者，
+你可以选择指定其作用于集群范围还是某个命名空间。如果你为绑定的 `paramRef` 指定 `namespace`，
+则控制平面仅在该命名空间中搜索参数。
+
+<!--
+However, if `namespace` is not specified in the ValidatingAdmissionPolicyBinding, the
+API server can search for relevant parameters in the namespace that a request is against.
+For example, if you make a request to modify a ConfigMap in the `default` namespace and
+there is a relevant ValidatingAdmissionPolicyBinding with no `namespace` set, then the
+API server looks for a parameter object in `default`.
+This design enables policy configuration that depends on the namespace
+of the resource being manipulated, for more fine-tuned control.
+-->
+但是，如果 ValidatingAdmissionPolicyBinding 中未指定 `namespace`，则 API
+服务器可以在请求所针对的命名空间中搜索相关参数。
+例如，如果你请求修改 `default` 命名空间中的 ConfigMap，并且存在未设置 `namespace` 的相关
+ValidatingAdmissionPolicyBinding，则 API 服务器在 `default` 命名空间中查找参数对象。
+此设计支持依赖于所操作资源的命名空间的策略配置，以实现更精细的控制。
+
+<!--
+#### Parameter selector
+
+In addition to specify a parameter in a binding by `name`, you may
+choose instead to specify label selector, such that all resources of the
+policy's `paramKind`, and the param's `namespace` (if applicable) that match the
+label selector are selected for evaluation. See {{< glossary_tooltip text="selector" term_id="selector">}} for more information on how label selectors match resources.
+-->
+#### 参数选择算符
+
+除了在绑定中用 `name` 来指定参数之外，你还可以选择设置标签选择算符，
+这样对于与策略的 `paramKind` 参数匹配，且位于参数的 `namespace`（如果适用）内的所有资源，
+如果与标签选择算符匹配，都会被评估。有关标签选择算符如何匹配资源的更多信息，
+请参阅{{<glossary_tooltip text="选择算符" term_id="selector">}}。
+
+<!--
+If multiple parameters are found to meet the condition, the policy's rules are
+evaluated for each parameter found and the results will be ANDed together.
+
+If `namespace` is provided, only objects of the `paramKind` in the provided
+namespace are eligible for selection. Otherwise, when `namespace` is empty and 
+`paramKind` is namespace-scoped, the `namespace` used in the request being 
+admitted will be used.
+-->
+如果发现多个参数满足条件，则会针对所找到的每个参数来评估策略规则，并将结果进行“与”运算。
+
+如果设置了 `namespace`，则只有所提供的命名空间中类别为 `paramKind` 的对象才会被匹配。
+否则，当 `namespace` 为空且 `paramKind` 为命名空间作用域的资源时，使用被准入请求中指定的 `namespace`。
 
 <!--
 #### Authorization Check
@@ -489,15 +511,7 @@ Note that the `failurePolicy` is defined inside `ValidatingAdmissionPolicy`:
 
 请注意，`failurePolicy` 是在 `ValidatingAdmissionPolicy` 中定义的：
 
-```yaml
-apiVersion: admissionregistration.k8s.io/v1alpha1
-kind: ValidatingAdmissionPolicy
-spec:
-...
-failurePolicy: Ignore # 默认值是 "Fail"
-validations:
-- expression: "object.spec.xyz == params.x"
-```
+{{% code_sample language="yaml" file="validatingadmissionpolicy/failure-policy-ignore.yaml" %}}
 
 <!--
 ### Validation Expression
@@ -511,7 +525,7 @@ variables as well as some other useful variables:
 - 'oldObject' - The existing object. The value is null for CREATE requests.
 - 'request' - Attributes of the [admission request](/docs/reference/config-api/apiserver-admission.v1/#admission-k8s-io-v1-AdmissionRequest).
 - 'params' - Parameter resource referred to by the policy binding being evaluated. The value is
-  null if `ParamKind` is unset.
+  null if `ParamKind` is not specified.
 - `authorizer` - A CEL Authorizer. May be used to perform authorization checks for the principal
   (authenticated user) of the request. See
   [Authz](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz) in the Kubernetes CEL library
@@ -536,46 +550,9 @@ CEL 表达式可以访问按 CEL 变量来组织的 Admission 请求/响应的�
 <!--
 The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from
 the root of the object. No other metadata properties are accessible.
-
-Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible.
-Accessible property names are escaped according to the following rules when accessed in the
-expression:
 -->
 总是可以从对象的根访问的属性有 `apiVersion`、`kind`、`metadata.name` 和 `metadata.generateName`。
 其他元数据属性不能访问。
-
-只有符合 `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` 形式的属性名称是可访问的。
-可访问的属性名称在表达式中被访问时，根据以下规则进行转义：
-
-| 转义序列                | 属性名称等效            |
-| ----------------------- | -----------------------|
-| `__underscores__`       | `__`                  |
-| `__dot__`               | `.`                   |
-| `__dash__`              | `-`                   |
-| `__slash__`             | `/`                   |
-| `__{keyword}__`         | [CEL 保留关键字](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#syntax)       |
-
-{{< note >}}
-<!--
-A **CEL reserved** keyword only needs to be escaped if the token is an exact match
-for the reserved keyword.
-For example, `int` in the word “sprint” would not be escaped.
--->
-**CEL 保留**关键字仅在字符串与保留关键字完全匹配时才需要转义。
-例如，单词 “sprint” 中的 `int` 不需要被转义。
-{{< /note >}}
-
-<!--
-Examples on escaping:
--->
-转义示例：
-
-| 属性名      | 具有转义属性名称的规则            |
-| ----------- | --------------------------------- |
-| namespace   | `self.__namespace__ > 0`          |
-| x-prop      | `self.x__dash__prop > 0`          |
-| redact\_\_d | `self.redact__underscores__d > 0` |
-| string      | `self.startsWith('kube')`         |
 
 <!--
 Equality on arrays with list type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1].
@@ -655,7 +632,7 @@ Here is an example illustrating a few different uses for match conditions:
 -->
 以下示例说明了匹配条件的几个不同用法：
 
-{{% codenew file="access/validating-admission-policy-match-conditions.yaml" %}}
+{{% code_sample file="access/validating-admission-policy-match-conditions.yaml" %}}
 
 <!--
 Match conditions have access to the same CEL variables as validation expressions.
@@ -691,7 +668,7 @@ For example, here is an admission policy with an audit annotation:
 
 例如，以下是带有审计注解的准入策略：
 
-{{% codenew file="access/validating-admission-policy-audit-annotation.yaml" %}}
+{{% code_sample file="access/validating-admission-policy-audit-annotation.yaml" %}}
 
 <!--
 When an API request is validated with this admission policy, the resulting audit event will look like:
@@ -765,7 +742,7 @@ we can have the following validation:
 
 例如，为了在策略引用参数时更好地告知用户拒绝原因，我们可以有以下验证：
 
-{{% codenew file="access/deployment-replicas-policy.yaml" %}}
+{{% code_sample file="access/deployment-replicas-policy.yaml" %}}
 
 <!--
 After creating a params object that limits the replicas to 3 and setting up the binding,
@@ -818,26 +795,7 @@ For example, given the following policy definition:
 
 例如，给定以下策略定义：
 
-<!--
-# should be "object.spec.replicas > 1"
--->
-```yaml
-apiVersion: admissionregistration.k8s.io/v1alpha1
-kind: ValidatingAdmissionPolicy
-metadata:
-  name: "deploy-replica-policy.example.com"
-spec:
-  matchConstraints:
-    resourceRules:
-    - apiGroups:   ["apps"]
-      apiVersions: ["v1"]
-      operations:  ["CREATE", "UPDATE"]
-      resources:   ["deployments"]
-  validations:
-  - expression: "object.replicas > 1" # 应该是 object.spec.replicas > 1
-    message: "must be replicated"
-    reason: Invalid
-```
+{{% code_sample language="yaml" file="validatingadmissionpolicy/typechecking.yaml" %}}
 
 <!--
 The status will yield the following information:
@@ -862,26 +820,7 @@ For example, the following policy definition
 如果在 `spec.matchConstraints` 中匹配了多个资源，则所有匹配的资源都将进行检查。
 例如，以下策略定义：
 
-<!--
-# should be "object.spec.replicas > 1"
--->
-```yaml
-apiVersion: admissionregistration.k8s.io/v1alpha1
-kind: ValidatingAdmissionPolicy
-metadata:
-  name: "replica-policy.example.com"
-spec:
-  matchConstraints:
-    resourceRules:
-    - apiGroups:   ["apps"]
-      apiVersions: ["v1"]
-      operations:  ["CREATE", "UPDATE"]
-      resources:   ["deployments","replicasets"]
-  validations:
-  - expression: "object.replicas > 1" # 应该是 object.spec.replicas > 1
-    message: "must be replicated"
-    reason: Invalid
-```
+{{% code_sample language="yaml" file="validatingadmissionpolicy/typechecking-multiple-match.yaml" %}}
 
 <!--
 will have multiple types and type checking result of each type in the warning message.
@@ -923,3 +862,64 @@ Type Checking has the following limitation:
   如果在评估期间出现错误，则失败策略将决定其结果。
 - 类型检查不适用于 CRD（自定义资源定义），包括匹配的 CRD 类型和 paramKind 的引用。
   对 CRD 的支持将在未来发布中推出。
+
+<!--
+### Variable composition
+
+If an expression grows too complicated, or part of the expression is reusable and computationally expensive to evaluate,
+you can extract some part of the expressions into variables. A variable is a named expression that can be referred later
+in `variables` in other expressions.
+-->
+### 变量组合
+
+如果表达式变得太复杂，或者表达式的一部分可重用且进行评估时计算开销较大，可以将表达式的某些部分提取为变量。
+变量是一个命名表达式，后期可以在其他表达式中的 `variables` 中引用。
+
+```yaml
+spec:
+  variables:
+    - name: foo
+      expression: "'foo' in object.spec.metadata.labels ? object.spec.metadata.labels['foo'] : 'default'"
+  validations:
+    - expression: variables.foo == 'bar'
+```
+
+<!--
+A variable is lazily evaluated when it is first referred. Any error that occurs during the evaluation will be
+reported during the evaluation of the referring expression. Both the result and potential error are memorized and
+count only once towards the runtime cost.
+
+The order of variables are important because a variable can refer to other variables that are defined before it.
+This ordering prevents circular references.
+
+The following is a more complex example of enforcing that image repo names match the environment defined in its namespace.
+-->
+变量在首次引用时会被延迟求值。评估期间发生的任何错误都将在评估引用表达式期间报告，
+结果和可能的错误都会被记录下来，且在运行时开销中仅计为一次。
+
+变量的顺序很重要，因为一个变量可以引用在它之前定义的其他变量。
+对顺序的要求可以防止循环引用。
+
+以下是强制镜像仓库名称与其命名空间中定义的环境相匹配的一个较复杂示例。
+
+{{< code_sample file="access/image-matches-namespace-environment.policy.yaml" >}}
+
+<!--
+With the policy bound to the namespace `default`, which is labeled `environment: prod`,
+the following attempt to create a deployment would be rejected.
+-->
+在此策略被绑定到 `default` 命名空间（标签为 `environment: prod`）的情况下，
+以下创建 Deployment 的尝试将被拒绝。
+
+```shell
+kubectl create deploy --image=dev.example.com/nginx invalid
+```
+
+<!--
+The error message is similar to this.
+-->
+错误信息类似于：
+
+```console
+error: failed to create deployment: deployments.apps "invalid" is forbidden: ValidatingAdmissionPolicy 'image-matches-namespace-environment.policy.example.com' with binding 'demo-binding-test.example.com' denied request: only prod images are allowed in namespace default
+```

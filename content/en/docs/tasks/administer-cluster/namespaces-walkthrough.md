@@ -73,7 +73,7 @@ Let's create two new namespaces to hold our work.
 
 Use the file [`namespace-dev.yaml`](/examples/admin/namespace-dev.yaml) which describes a `development` namespace:
 
-{{% code language="yaml" file="admin/namespace-dev.yaml" %}}
+{{% code_sample language="yaml" file="admin/namespace-dev.yaml" %}}
 
 Create the `development` namespace using kubectl.
 
@@ -83,7 +83,7 @@ kubectl create -f https://k8s.io/examples/admin/namespace-dev.yaml
 
 Save the following contents into file [`namespace-prod.yaml`](/examples/admin/namespace-prod.yaml) which describes a `production` namespace:
 
-{{% code language="yaml" file="admin/namespace-prod.yaml" %}}
+{{% code_sample language="yaml" file="admin/namespace-prod.yaml" %}}
 
 And then let's create the `production` namespace using kubectl.
 
@@ -226,7 +226,7 @@ At this point, all requests we make to the Kubernetes cluster from the command l
 
 Let's create some contents.
 
-{{% code file="admin/snowflake-deployment.yaml" %}}
+{{% code_sample file="admin/snowflake-deployment.yaml" %}}
 
 Apply the manifest to create a Deployment 
 

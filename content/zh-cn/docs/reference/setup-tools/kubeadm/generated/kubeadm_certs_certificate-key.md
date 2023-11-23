@@ -1,18 +1,7 @@
 <!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
-<!--
 Generate certificate keys
 -->
-生成证书密钥
+生成证书密钥。
 
 <!--
 ### Synopsis
@@ -29,7 +18,7 @@ the "init" command.
 You can also use "kubeadm init -upload-certs" without specifying a certificate key and it will generate and print one for you.
 -->
 你也可以使用 `kubeadm init --upload-certs` 而无需指定证书密钥；
-命令将为你生成并打印一个证书密钥。
+此命令将为你生成并打印一个证书密钥。
 
 ```
 kubeadm certs certificate-key [flags]
@@ -56,7 +45,7 @@ kubeadm certs certificate-key [flags]
 <!--
 help for certificate-key
 -->
-certificate-key 操作的帮助命令
+certificate-key 操作的帮助命令。
 </p>
 </td>
 </tr>
@@ -92,4 +81,3 @@ certificate-key 操作的帮助命令
 
 </tbody>
 </table>
-

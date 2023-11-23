@@ -161,7 +161,7 @@ Here is the configuration file for the hostPath PersistentVolume:
 
 下面是 hostPath PersistentVolume 的配置文件：
 
-{{% code file="pods/storage/pv-volume.yaml" %}}
+{{% code_sample file="pods/storage/pv-volume.yaml" %}}
 
 <!--
 The configuration file specifies that the volume is at `/mnt/data` on the
@@ -227,7 +227,7 @@ Pod 使用 PersistentVolumeClaim 来请求物理存储。
 
 下面是 PersistentVolumeClaim 的配置文件：
 
-{{% code file="pods/storage/pv-claim.yaml" %}}
+{{% code_sample file="pods/storage/pv-claim.yaml" %}}
 
 <!--
 Create the PersistentVolumeClaim:
@@ -299,7 +299,7 @@ Here is the configuration file for the Pod:
 
 下面是此 Pod 的配置文件：
 
-{{% code file="pods/storage/pv-pod.yaml" %}}
+{{% code_sample file="pods/storage/pv-pod.yaml" %}}
 
 <!--
 Notice that the Pod's configuration file specifies a PersistentVolumeClaim, but
@@ -414,7 +414,7 @@ You can now close the shell to your Node.
 -->
 ## 在两个地方挂载相同的 persistentVolume   {#mounting-the-same-pv-in-two-places}
 
-{{% code file="pods/storage/pv-duplicate.yaml" %}}
+{{% code_sample file="pods/storage/pv-duplicate.yaml" %}}
 
 <!--
 You can perform 2 volume mounts on your nginx container:

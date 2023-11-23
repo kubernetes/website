@@ -43,7 +43,7 @@ A Pod is similar to a set of containers with shared namespaces and shared filesy
 
 The following is an example of a Pod which consists of a container running the image `nginx:1.14.2`.
 
-{{% code file="pods/simple-pod.yaml" %}}
+{{% code_sample file="pods/simple-pod.yaml" %}}
 
 To create the Pod shown above, run the following command:
 ```shell

@@ -174,6 +174,10 @@ If you haven't already set up a cluster locally, run `minikube start` to create 
    http://172.17.0.15:31637
    ```
 
+   ```shell
+   curl http://172.17.0.15:31637
+   ```
+
    <!--
    The output is similar to:
    -->
@@ -207,7 +211,7 @@ The following manifest defines an Ingress that sends traffic to your Service via
 
 1. 根据下面的 YAML 创建文件 `example-ingress.yaml`：
 
-   {{% code file="service/networking/example-ingress.yaml" %}}
+   {{% code_sample file="service/networking/example-ingress.yaml" %}}
 
 <!--
 1. Create the Ingress object by running the following command:
@@ -456,4 +460,4 @@ The following manifest defines an Ingress that sends traffic to your Service via
 -->
 * 进一步了解 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/)
 * 进一步了解 [Ingress 控制器](/zh-cn/docs/concepts/services-networking/ingress-controllers/)
-* 进一步了解[服务](/zh-cn/docs/concepts/services-networking/service/)
+* 进一步了解 [Service](/zh-cn/docs/concepts/services-networking/service/)

@@ -61,16 +61,20 @@ with great caution. The following describes how to quickly experiment with Valid
 
 The following is an example of a ValidatingAdmissionPolicy.
 
-{{% codenew language="yaml" file="validatingadmissionpolicy/basic-example-policy.yaml" %}}
+{{% code_sample language="yaml" file="validatingadmissionpolicy/basic-example-policy.yaml" %}}
 
 `spec.validations` contains CEL expressions which use the [Common Expression Language (CEL)](https://github.com/google/cel-spec)
 to validate the request. If an expression evaluates to false, the validation check is enforced
 according to the `spec.failurePolicy` field.
 
+{{< note >}}
+You can quickly test CEL expressions in [CEL Playground](https://playcel.undistro.io).
+{{< /note >}}
+
 To configure a validating admission policy for use in a cluster, a binding is required.
 The following is an example of a ValidatingAdmissionPolicyBinding.:
 
-{{% codenew language="yaml" file="validatingadmissionpolicy/basic-example-binding.yaml" %}}
+{{% code_sample language="yaml" file="validatingadmissionpolicy/basic-example-binding.yaml" %}}
 
 When trying to create a deployment with replicas set not satisfying the validation expression, an
 error will return containing message:
@@ -109,7 +113,7 @@ actions. Failures defined by the `failurePolicy` are enforced
 according to these actions only if the `failurePolicy` is set to `Fail` (or not specified),
 otherwise the failures are ignored.
 
-See [Audit Annotations: validation falures](/docs/reference/labels-annotations-taints/audit-annotations/#validation-policy-admission-k8s-io-validation_failure)
+See [Audit Annotations: validation failures](/docs/reference/labels-annotations-taints/audit-annotations/#validation-policy-admission-k8s-io-validation-failure)
 for more details about the validation failure audit annotation.
 
 ### Parameter resources
@@ -121,7 +125,7 @@ and then a policy binding ties a policy by name (via policyName) to a particular
 If parameter configuration is needed, the following is an example of a ValidatingAdmissionPolicy
 with parameter configuration.
 
-{{% codenew language="yaml" file="validatingadmissionpolicy/policy-with-param.yaml" %}}
+{{% code_sample language="yaml" file="validatingadmissionpolicy/policy-with-param.yaml" %}}
 
 The `spec.paramKind` field of the ValidatingAdmissionPolicy specifies the kind of resources used
 to parameterize this policy. For this example, it is configured by ReplicaLimit custom resources. 
@@ -140,28 +144,28 @@ are created. The following is an example of a ValidatingAdmissionPolicyBinding
 that uses a **cluster-wide** param - the same param will be used to validate
 every resource request that matches the binding:
 
-{{% codenew language="yaml" file="validatingadmissionpolicy/binding-with-param.yaml" %}}
+{{% code_sample language="yaml" file="validatingadmissionpolicy/binding-with-param.yaml" %}}
 
 Notice this binding applies a parameter to the policy for all resources which
 are in the `test` environment.
 
 The parameter resource could be as following:
 
-{{% codenew language="yaml" file="validatingadmissionpolicy/replicalimit-param.yaml" %}}
+{{% code_sample language="yaml" file="validatingadmissionpolicy/replicalimit-param.yaml" %}}
 
 This policy parameter resource limits deployments to a max of 3 replicas.
 
 An admission policy may have multiple bindings. To bind all other environments
 to have a maxReplicas limit of 100, create another ValidatingAdmissionPolicyBinding:
 
-{{% codenew language="yaml" file="validatingadmissionpolicy/binding-with-param-prod.yaml" %}}
+{{% code_sample language="yaml" file="validatingadmissionpolicy/binding-with-param-prod.yaml" %}}
 
 Notice this binding applies a different parameter to resources which
 are not in the `test` environment.
 
 And have a parameter resource:
 
-{{% codenew language="yaml" file="validatingadmissionpolicy/replicalimit-param-prod.yaml" %}}
+{{% code_sample language="yaml" file="validatingadmissionpolicy/replicalimit-param-prod.yaml" %}}
 
 For each admission request, the API server evaluates CEL expressions of each 
 (policy, binding, param) combination that match the request. For a request
@@ -261,7 +265,7 @@ admission policy are handled. Allowed values are `Ignore` or `Fail`.
 
 Note that the `failurePolicy` is defined inside `ValidatingAdmissionPolicy`:
 
-{{% codenew language="yaml" file="validatingadmissionpolicy/failure-policy-ignore.yaml" %}}
+{{% code_sample language="yaml" file="validatingadmissionpolicy/failure-policy-ignore.yaml" %}}
 
 ### Validation Expression
 
@@ -286,33 +290,6 @@ variables as well as some other useful variables:
 	
 The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from
 the root of the object. No other metadata properties are accessible.
-	
-Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible.
-Accessible property names are escaped according to the following rules when accessed in the
-expression:
-
-| escape sequence         | property name equivalent  |
-| ----------------------- | -----------------------|
-| `__underscores__`       | `__`                  |
-| `__dot__`               | `.`                   |
-|`__dash__`               | `-`                   |
-| `__slash__`             | `/`                   |
-| `__{keyword}__`         | [CEL RESERVED keyword](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#syntax)       |
-
-{{< note >}}
-A **CEL reserved** keyword only needs to be escaped if the token is an exact match
-for the reserved keyword.
-For example, `int` in the word “sprint” would not be escaped.
-{{< /note >}}
-
-Examples on escaping:
-
-|property name    | rule with escaped property name   |
-| ----------------|-----------------------------------|
-| namespace       | `object.__namespace__ > 0`        |
-| x-prop          | `object.x__dash__prop > 0`          |
-| redact__d       | `object.redact__underscores__d > 0` |
-| string          | `object.startsWith('kube')`         |
 	
 Equality on arrays with list type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1].
 Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
@@ -360,7 +337,7 @@ resource to be evaluated.
 
 Here is an example illustrating a few different uses for match conditions:
 
-{{% code file="access/validating-admission-policy-match-conditions.yaml" %}}
+{{% code_sample file="access/validating-admission-policy-match-conditions.yaml" %}}
 
 Match conditions have access to the same CEL variables as validation expressions.
 
@@ -378,7 +355,7 @@ the request is determined as follows:
 
 For example, here is an admission policy with an audit annotation:
 
-{{% code file="access/validating-admission-policy-audit-annotation.yaml" %}}
+{{% code_sample file="access/validating-admission-policy-audit-annotation.yaml" %}}
 
 When an API request is validated with this admission policy, the resulting audit event will look like:
 
@@ -415,7 +392,7 @@ Unlike validations, message expression must evaluate to a string.
 For example, to better inform the user of the reason of denial when the policy refers to a parameter,
 we can have the following validation:
 
-{{% code file="access/deployment-replicas-policy.yaml" %}}
+{{% code_sample file="access/deployment-replicas-policy.yaml" %}}
 
 After creating a params object that limits the replicas to 3 and setting up the binding,
 when we try to create a deployment with 5 replicas, we will receive the following message.
@@ -445,7 +422,7 @@ and an empty `status.typeChecking` means that no errors were detected.
 
 For example, given the following policy definition:
 
-{{< codenew language="yaml" file="validatingadmissionpolicy/typechecking.yaml" >}}
+{{< code_sample language="yaml" file="validatingadmissionpolicy/typechecking.yaml" >}}
 
 The status will yield the following information:
 
@@ -463,7 +440,7 @@ status:
 If multiple resources are matched in `spec.matchConstraints`, all of matched resources will be checked against.
 For example, the following policy definition 
 
-{{% codenew language="yaml" file="validatingadmissionpolicy/typechecking-multiple-match.yaml" %}}
+{{% code_sample language="yaml" file="validatingadmissionpolicy/typechecking-multiple-match.yaml" %}}
 
 
 will have multiple types and type checking result of each type in the warning message.
@@ -516,7 +493,7 @@ This ordering prevents circular references.
 
 The following is a more complex example of enforcing that image repo names match the environment defined in its namespace.
 
-{{< codenew file="access/image-matches-namespace-environment.policy.yaml" >}}
+{{< code_sample file="access/image-matches-namespace-environment.policy.yaml" >}}
 
 With the policy bound to the namespace `default`, which is labeled `environment: prod`,
 the following attempt to create a deployment would be rejected.

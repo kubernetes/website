@@ -164,10 +164,10 @@ that should run on the Node even if it is being drained of workload applications
 
 A Node's status contains the following information:
 
-* [Addresses](/docs/concepts/node/node-status/#addresses)
-* [Conditions](/docs/concepts/node/node-status/#condition)
-* [Capacity and Allocatable](/docs/concepts/node/node-status/#capacity)
-* [Info](/docs/concepts/node/node-status/#info)
+* [Addresses](/docs/reference/node/node-status/#addresses)
+* [Conditions](/docs/reference/node/node-status/#condition)
+* [Capacity and Allocatable](/docs/reference/node/node-status/#capacity)
+* [Info](/docs/reference/node/node-status/#info)
 
 You can use `kubectl` to view a Node's status and other details:
 
@@ -175,7 +175,7 @@ You can use `kubectl` to view a Node's status and other details:
 kubectl describe node <insert-node-name-here>
 ```
 
-See [Node Status](/docs/concepts/node/node-status) for more details.
+See [Node Status](/docs/reference/node/node-status/) for more details.
 
 ## Node heartbeats
 
@@ -184,7 +184,7 @@ availability of each node, and to take action when failures are detected.
 
 For nodes there are two forms of heartbeats:
 
-* Updates to the [`.status`](/docs/concepts/node/node-status/) of a Node
+* Updates to the [`.status`](/docs/reference/node/node-status/) of a Node.
 * [Lease](/docs/concepts/architecture/leases/) objects
   within the `kube-node-lease`
   {{< glossary_tooltip term_id="namespace" text="namespace">}}.
@@ -566,7 +566,7 @@ Containers configured in this manner will not have access to swap memory.
 Swap is supported only with **cgroup v2**, cgroup v1 is not supported.
 
 For more information, and to assist with testing and provide feedback, please
-see the blog-post about [Kubernetes 1.28: NodeSwap graduates to Beta1](/blog/2023/07/18/swap-beta1-1.28-2023/),
+see the blog-post about [Kubernetes 1.28: NodeSwap graduates to Beta1](/blog/2023/08/24/swap-linux-beta/),
 [KEP-2400](https://github.com/kubernetes/enhancements/issues/4128) and its
 [design proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2400-node-swap/README.md).
 

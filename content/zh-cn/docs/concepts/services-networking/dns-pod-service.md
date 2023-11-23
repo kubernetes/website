@@ -498,7 +498,7 @@ Pod 的 DNS 配置可让用户对 Pod 的 DNS 设置进行更多控制。
   This property is optional. When specified, the provided list will be merged
   into the base search domain names generated from the chosen DNS policy.
   Duplicate domain names are removed.
-  Kubernetes allows for at most 6 search domains.
+  Kubernetes allows up to 32 search domains.
 - `options`: an optional list of objects where each object may have a `name`
   property (required) and a `value` property (optional). The contents in this
   property will be merged to the options generated from the specified DNS policy.
@@ -512,7 +512,7 @@ Pod 的 DNS 配置可让用户对 Pod 的 DNS 设置进行更多控制。
 
 - `searches`：用于在 Pod 中查找主机名的 DNS 搜索域的列表。此属性是可选的。
   指定此属性时，所提供的列表将合并到根据所选 DNS 策略生成的基本搜索域名中。
-  重复的域名将被删除。Kubernetes 最多允许 6 个搜索域。
+  重复的域名将被删除。Kubernetes 最多允许 32 个搜索域。
 
 - `options`：可选的对象列表，其中每个对象可能具有 `name` 属性（必需）和 `value` 属性（可选）。
   此属性中的内容将合并到从指定的 DNS 策略生成的选项。
@@ -523,7 +523,7 @@ The following is an example Pod with custom DNS settings:
 -->
 以下是具有自定义 DNS 设置的 Pod 示例：
 
-{{% code file="service/networking/custom-dns.yaml" %}}
+{{% code_sample file="service/networking/custom-dns.yaml" %}}
 
 <!--
 When the Pod above is created, the container `test` gets the following contents
@@ -562,7 +562,7 @@ options ndots:5
 -->
 ## DNS 搜索域列表限制  {#dns-search-domain-list-limits}
 
-{{< feature-state for_k8s_version="1.26" state="beta" >}}
+{{< feature-state for_k8s_version="1.28" state="stable" >}}
 
 <!--
 Kubernetes itself does not limit the DNS Config until the length of the search

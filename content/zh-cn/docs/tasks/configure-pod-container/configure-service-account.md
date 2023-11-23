@@ -83,7 +83,7 @@ kubectl get pods/<podname> -o yaml
 
 <!--
 In the output, you see a field `spec.serviceAccountName`.
-Kubernetes [automatically](/docs/concepts/overview/working-with-objects/object-management/)
+Kubernetes automatically
 sets that value if you don't specify it when you create a Pod.
 
 An application running inside a Pod can access the Kubernetes API using
@@ -91,8 +91,7 @@ automatically mounted service account credentials.
 See [accessing the Cluster](/docs/tasks/access-application-cluster/access-cluster/) to learn more.
 -->
 在输出中，你可以看到字段 `spec.serviceAccountName`。当你在创建 Pod 时未设置该字段时，
-Kubernetes [自动](/zh-cn/docs/concepts/overview/working-with-objects/object-management/)为
-Pod 设置这一属性的取值。
+Kubernetes 自动为 Pod 设置这一属性的取值。
 
 Pod 中运行的应用可以使用这一自动挂载的服务账号凭据来访问 Kubernetes API。
 参阅[访问集群](/zh-cn/docs/tasks/access-application-cluster/access-cluster/)以进一步了解。
@@ -421,6 +420,24 @@ control plane automatically cleans up the long-lived token from that Secret.
 当你删除一个与某 Secret 相关联的 ServiceAccount 时，Kubernetes 的控制面会自动清理该
 Secret 中长期有效的令牌。
 
+{{< note >}}
+<!--
+If you view the ServiceAccount using:
+
+` kubectl get serviceaccount build-robot -o yaml`
+
+You can't see the `build-robot-secret` Secret in the ServiceAccount API objects
+[`.secrets`](/docs/reference/kubernetes-api/authentication-resources/service-account-v1/) field
+because that field is only populated with auto-generated Secrets.
+-->
+如果你使用以下命令查看 ServiceAccount:
+
+` kubectl get serviceaccount build-robot -o yaml`
+
+在 ServiceAccount API 对象中看不到 `build-robot-secret` Secret，
+[`.secrets`](/zh-cn/docs/reference/kubernetes-api/authentication-resources/service-account-v1/) 字段，
+因为该字段只会填充自动生成的 Secret。
+{{< /note >}}
 <!--
 ## Add ImagePullSecrets to a service account
 
@@ -657,7 +674,7 @@ of two hours, you could define a Pod manifest that is similar to:
 要为某 Pod 提供一个受众为 `vault` 并且有效期限为 2 小时的令牌，你可以定义一个与下面类似的
 Pod 清单：
 
-{{% code file="pods/pod-projected-svc-token.yaml" %}}
+{{% code_sample file="pods/pod-projected-svc-token.yaml" %}}
 
 <!--
 Create the Pod:

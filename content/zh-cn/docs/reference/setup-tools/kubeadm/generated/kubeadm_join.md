@@ -1,18 +1,7 @@
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
 <!-- 
 Run this on any machine you wish to join an existing cluster 
 -->
-在你希望加入现有集群的任何机器上运行它
+在你希望加入现有集群的任何机器上运行它。
 
 <!--
 ### Synopsis
@@ -25,7 +14,6 @@ bidirectional trust. This is split into discovery (having the Node
 trust the Kubernetes Control Plane) and TLS bootstrap (having the
 Kubernetes Control Plane trust the Node).
 -->
-
 当节点加入 kubeadm 初始化的集群时，我们需要建立双向信任。
 这个过程可以分解为发现（让待加入节点信任 Kubernetes 控制平面节点）和
 TLS 引导（让 Kubernetes 控制平面节点信任待加入节点）两个部分。
@@ -44,9 +32,8 @@ the discovery information is loaded from a URL, HTTPS must be used.
 Also, in that case the host installed CA bundle is used to verify
 the connection.
 -->
-
 有两种主要的发现方案。
-第一种方法是使用共享令牌和 API 服务器的 IP 地址。
+第一种方案是使用共享令牌和 API 服务器的 IP 地址。
 第二种是以文件形式提供标准 kubeconfig 文件的一个子集。
 发现/kubeconfig 文件支持令牌、client-go 鉴权插件（“exec”）、“tokenFile" 和
 "authProvider"。该文件可以是本地文件，也可以通过 HTTPS URL 下载。
@@ -68,7 +55,6 @@ This value is available in the output of "kubeadm init" or can be
 calculated using standard tools. The --discovery-token-ca-cert-hash flag
 may be repeated multiple times to allow more than one public key.
 -->
-
 如果使用共享令牌进行发现，还应该传递 --discovery-token-ca-cert-hash 参数来验证
 Kubernetes 控制平面节点提供的根证书颁发机构（CA）的公钥。
 此参数的值指定为 "&lt;hash-type&gt;:&lt;hex-encoded-value&gt;"，
@@ -96,7 +82,6 @@ approve these signing requests. This token is passed in with the
 Often times the same token is used for both parts. In this case, the
 --token flag can be used instead of specifying each token individually.
 -->
-
 TLS 引导机制也通过共享令牌驱动。
 这用于向 Kubernetes 控制平面节点进行临时的身份验证，以提交本地创建的密钥对的证书签名请求（CSR）。
 默认情况下，kubeadm 将设置 Kubernetes 控制平面节点自动批准这些签名请求。
@@ -108,7 +93,6 @@ TLS 引导机制也通过共享令牌驱动。
 <!-- 
 The "join [api-server-endpoint]" command executes the following phases:
 -->
-
 "join [api-server-endpoint]" 命令执行下列阶段：
 
 ```
@@ -178,7 +162,7 @@ If not set the default network interface will be used.
 <!--
 <p>Use this key to decrypt the certificate secrets uploaded by init.</p>
 -->
-<p>使用此密钥可以解密由 init 上传的证书 secret。</p>
+<p>使用此密钥可以解密由 init 上传的证书 Secret。</p>
 </td>
 </tr>
 
@@ -202,7 +186,7 @@ If not set the default network interface will be used.
 <!--
 <p>Create a new control plane instance on this node</p>
 -->
-<p>在此节点上创建一个新的控制平面实例</p>
+<p>在此节点上创建一个新的控制平面实例。</p>
 </td>
 </tr>
 
@@ -216,7 +200,7 @@ If not set the default network interface will be used.
 use this option only if you have more than one CRI installed or if you have non-standard CRI socket.</p>
 -->
 <p>要连接的 CRI 套接字的路径。如果为空，则 kubeadm 将尝试自动检测此值；
-仅当安装了多个 CRI 或具有非标准 CRI 插槽时，才使用此选项。</p>
+仅当安装了多个 CRI 或存在非标准的 CRI 套接字时，才使用此选项。</p>
 </td>
 </tr>
 
@@ -252,7 +236,7 @@ use this option only if you have more than one CRI installed or if you have non-
 <!--
 <p>For token-based discovery, validate that the root CA public key matches this hash (format: "&lt;type&gt;:&lt;value&gt;").</p>
 -->
-<p>对基于令牌的发现，验证根 CA 公钥是否与此哈希匹配 (格式: "&lt;type&gt;:&lt;value&gt;")。</p>
+<p>对基于令牌的发现，验证根 CA 公钥是否与此哈希匹配 (格式："&lt;type&gt;:&lt;value&gt;")。</p>
 </td>
 </tr>
 
@@ -288,7 +272,7 @@ Don't apply any changes; just output what would be done.
 <!--
 <p>help for join</p>
 -->
-<p>join 操作的帮助命令</p>
+<p>join 操作的帮助命令。</p>
 </td>
 </tr>
 
@@ -312,7 +296,7 @@ Don't apply any changes; just output what would be done.
 <!--
 <p>Specify the node name.</p>
 -->
-<p>指定节点的名称</p>
+<p>指定节点的名称。</p>
 </td>
 </tr>
 
@@ -341,7 +325,7 @@ Don't apply any changes; just output what would be done.
 <!--
 <p>List of phases to be skipped</p>
 -->
-<p>要跳过的阶段列表</p>
+<p>要跳过的阶段列表。</p>
 </td>
 </tr>
 
@@ -372,11 +356,9 @@ Don't apply any changes; just output what would be done.
 </tbody>
 </table>
 
-
 <!-- 
 ### Options inherited from parent commands 
 -->
-
 ### 从父命令继承的选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -400,4 +382,3 @@ Don't apply any changes; just output what would be done.
 
 </tbody>
 </table>
-

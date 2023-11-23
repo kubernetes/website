@@ -108,6 +108,10 @@ If you haven't already set up a cluster locally, run `minikube start` to create 
    http://172.17.0.15:31637
    ```
 
+   ```shell
+   curl http://172.17.0.15:31637 
+   ```
+
    The output is similar to:
 
    ```none
@@ -126,7 +130,7 @@ The following manifest defines an Ingress that sends traffic to your Service via
 
 1. Create `example-ingress.yaml` from the following file:
 
-   {{% code file="service/networking/example-ingress.yaml" %}}
+   {{% code_sample file="service/networking/example-ingress.yaml" %}}
 
 1. Create the Ingress object by running the following command:
 

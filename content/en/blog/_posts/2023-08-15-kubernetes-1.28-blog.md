@@ -88,7 +88,7 @@ read [non-graceful node shutdown](/docs/concepts/architecture/nodes/#non-gracefu
 ## Improvements to CustomResourceDefinition validation rules 
 
 The [Common Expression Language (CEL)](https://github.com/google/cel-go) can be used to validate
-[custom resources](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/). The primary goal is to allow the majority of the validation use cases that might once have needed you, as a CustomResourceDefinition (CRD) author, to design and implement a webhook. Instead, and as a beta feature, you can add _validation expressions_ directly into the schema of a CRD.
+[custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/). The primary goal is to allow the majority of the validation use cases that might once have needed you, as a CustomResourceDefinition (CRD) author, to design and implement a webhook. Instead, and as a beta feature, you can add _validation expressions_ directly into the schema of a CRD.
     
 CRDs need direct support for non-trivial validation. While admission webhooks do support CRDs validation, they significantly complicate the development and operability of CRDs.
 
@@ -221,18 +221,12 @@ For instance, if indexed jobs were used as the basis for a suite of long-running
 
     
 For more information, read [Handling Pod and container failures](/docs/concepts/workloads/controllers/job/#handling-pod-and-container-failures) in the Kubernetes documentation.
-   
-## CRI container and pod statistics without cAdvisor
 
-This encompasses two related pieces of work (changes to the kubelet's `/metrics/cadvisor` endpoint and improvements to the replacement _summary_ API).
+<hr />
+<a id="cri-container-and-pod-statistics-without-cadvisor" />
 
-There are two main APIs that consumers use to gather stats about running containers and pods: summary API and `/metrics/cadvisor`. The Kubelet is responsible for implementing the summary API, and cadvisor is responsible for fulfilling `/metrics/cadvisor`.
-
-This enhances CRI implementations to be able to fulfill all the stats needs of Kubernetes. At a high level, there are two pieces of this:
-
-- It enhances the CRI API with enough metrics to supplement the pod and container fields in the summary API directly from CRI.
-    
-- It enhances the CRI implementations to broadcast the required metrics to fulfill the pod and container fields in the `/metrics/cadvisor` endpoint.
+**Correction**: the feature CRI container and pod statistics without cAdvisor has been removed as it did not make the release.
+The original release announcement stated that Kubernetes 1.28 included the new feature.
 
 ## Feature graduations and deprecations in Kubernetes v1.28
 ### Graduations to stable
@@ -269,7 +263,7 @@ The complete details of the Kubernetes v1.28 release are available in our [relea
 
 ## Availability
 
-Kubernetes v1.28 is available for download on [GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.28.0). To get started with Kubernetes, you can run local Kubernetes clusters using [minikube](https://minikube.sigs.k8s.io/docs/), [kind](https://kind.sigs.k8s.io/), etc. You can also easily install v1.28 using [kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
+Kubernetes v1.28 is available for download on [GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.28.0). To get started with Kubernetes, you can run local Kubernetes clusters using [minikube](https://minikube.sigs.k8s.io/docs/), [kind](https://kind.sigs.k8s.io/), etc. You can also easily install v1.28 using [kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
  
 ## Release Team
 

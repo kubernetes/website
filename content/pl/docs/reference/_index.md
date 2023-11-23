@@ -4,6 +4,7 @@ linkTitle: "Materiały źródłowe"
 main_menu: true
 weight: 70
 content_type: concept
+no_list: true
 ---
 
 <!-- overview -->
@@ -28,6 +29,7 @@ Aby wywołać Kubernetes API z wybranego języka programowania, możesz skorzyst
 [bibliotek klienckich](/docs/reference/using-api/client-libraries/). Oficjalnie wspierane
 biblioteki to:
 
+* [Kubernetes Go client library](https://github.com/kubernetes/client-go/)
 * [Kubernetes Python client library](https://github.com/kubernetes-client/python)
 * [Kubernetes Java client library](https://github.com/kubernetes-client/java)
 * [Kubernetes JavaScript client library](https://github.com/kubernetes-client/javascript)
@@ -65,27 +67,44 @@ Kubernetesa lub innych narzędzi. Choć większość tych API nie jest udostępn
 serwer API w trybie RESTful, są one niezbędne dla użytkowników i administratorów
 w korzystaniu i zarządzaniu klastrem.
 
-* [kube-apiserver configuration (v1alpha1)](/docs/reference/config-api/apiserver-config.v1alpha1/)
-* [kube-apiserver configuration (v1)](/docs/reference/config-api/apiserver-config.v1/)
+
+* [kubeconfig (v1)](/docs/reference/config-api/kubeconfig.v1/)
+* [kube-apiserver admission (v1)](/docs/reference/config-api/apiserver-admission.v1/)
+* [kube-apiserver configuration (v1alpha1)](/docs/reference/config-api/apiserver-config.v1alpha1/) i
+* [kube-apiserver configuration (v1beta1)](/docs/reference/config-api/apiserver-config.v1beta1/) i
+  [kube-apiserver configuration (v1)](/docs/reference/config-api/apiserver-config.v1/)
 * [kube-apiserver encryption (v1)](/docs/reference/config-api/apiserver-encryption.v1/)
 * [kube-apiserver event rate limit (v1alpha1)](/docs/reference/config-api/apiserver-eventratelimit.v1alpha1/)
-* [kubelet configuration (v1alpha1)](/docs/reference/config-api/kubelet-config.v1alpha1/) oraz
-  [kubelet configuration (v1beta1)](/docs/reference/config-api/kubelet-config.v1beta1/)
-* [kubelet credential providers (v1alpha1)](/docs/reference/config-api/kubelet-credentialprovider.v1alpha1/)
-* [kubelet credential providers (v1beta1)](/docs/reference/config-api/kubelet-credentialprovider.v1beta1/)
-* [kube-scheduler configuration (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/) oraz
-  [kube-scheduler configuration (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
+* [kubelet configuration (v1alpha1)](/docs/reference/config-api/kubelet-config.v1alpha1/),
+  [kubelet configuration (v1beta1)](/docs/reference/config-api/kubelet-config.v1beta1/) i
+  [kubelet configuration (v1)](/docs/reference/config-api/kubelet-config.v1/)
+* [kubelet credential providers (v1alpha1)](/docs/reference/config-api/kubelet-credentialprovider.v1alpha1/),
+  [kubelet credential providers (v1beta1)](/docs/reference/config-api/kubelet-credentialprovider.v1beta1/) i
+  [kubelet credential providers (v1)](/docs/reference/config-api/kubelet-credentialprovider.v1/)
+* [kube-scheduler configuration (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/) i
+  [kube-scheduler configuration (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
+* [kube-controller-manager configuration (v1alpha1)](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/)
 * [kube-proxy configuration (v1alpha1)](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 * [`audit.k8s.io/v1` API](/docs/reference/config-api/apiserver-audit.v1/)
-* [Client authentication API (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/) oraz
+* [Client authentication API (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/) i
   [Client authentication API (v1)](/docs/reference/config-api/client-authentication.v1/)
 * [WebhookAdmission configuration (v1)](/docs/reference/config-api/apiserver-webhookadmission.v1/)
 * [ImagePolicy API (v1alpha1)](/docs/reference/config-api/imagepolicy.v1alpha1/)
 
 ## API konfiguracji dla kubeadm
 
-* [v1beta2](/docs/reference/config-api/kubeadm-config.v1beta2/)
+
 * [v1beta3](/docs/reference/config-api/kubeadm-config.v1beta3/)
+* [v1beta4](/docs/reference/config-api/kubeadm-config.v1beta4/)
+
+## Zewnętrzne API
+
+Istnieją API, które zostały zdefiniowane w ramach projektu Kubernetes, ale nie zostały zaimplementowane
+przez główny projekt:
+
+* [Metrics API (v1beta1)](/docs/reference/external-api/metrics.v1beta1/)
+* [Custom Metrics API (v1beta2)](/docs/reference/external-api/custom-metrics.v1beta2)
+* [External Metrics API (v1beta1)](/docs/reference/external-api/external-metrics.v1beta1)
 
 ## Dokumentacja projektowa
 

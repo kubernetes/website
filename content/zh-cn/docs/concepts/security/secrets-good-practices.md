@@ -203,10 +203,10 @@ repository means the secret is available to everyone who can read the manifest.
 同时将该 Secret 数据编码为 base64，
 那么共享此文件或将其检入一个源代码仓库就意味着有权读取该清单的所有人都能使用该 Secret。
 
-{{<caution>}}
+{{< caution >}}
 <!--
 Base64 encoding is _not_ an encryption method, it provides no additional
 confidentiality over plain text.
 -->
-Base64 编码 **不是** 一种加密方法，它没有为纯文本提供额外的保密机制。
-{{</caution>}}
+Base64 编码**不是**一种加密方法，它没有为纯文本提供额外的保密机制。
+{{< /caution >}}

@@ -29,13 +29,14 @@ tags:
 
 <!--
  A Kubernetes {{< glossary_tooltip text="control plane" term_id="control-plane" >}} component
-that embeds cloud-specific control logic. The cloud controller manager lets you link your
+that embeds cloud-specific control logic. The [cloud controller manager](/docs/concepts/architecture/cloud-controller/) lets you link your
 cluster into your cloud provider's API, and separates out the components that interact
 with that cloud platform from components that only interact with your cluster.
 -->
 一个 Kubernetes {{<glossary_tooltip text="控制平面" term_id="control-plane" >}}组件，
 嵌入了特定于云平台的控制逻辑。
-云控制器管理器（Cloud Controller Manager）允许你将你的集群连接到云提供商的 API 之上，
+[云控制器管理器（Cloud Controller Manager）](/zh-cn/docs/concepts/architecture/cloud-controller/)
+允许你将你的集群连接到云提供商的 API 之上，
 并将与该云平台交互的组件同与你的集群交互的组件分离开来。
 
 <!--more-->

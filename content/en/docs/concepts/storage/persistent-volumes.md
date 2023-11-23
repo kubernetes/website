@@ -539,13 +539,13 @@ Older versions of Kubernetes also supported the following in-tree PersistentVolu
   (**not available** in v1.26)
 * `photonPersistentDisk` - Photon controller persistent disk.
   (**not available** starting v1.15)
-* [`scaleIO`](/docs/concepts/storage/volumes/#scaleio) - ScaleIO volume
+* `scaleIO` - ScaleIO volume.
   (**not available** starting v1.21)
-* [`flocker`](/docs/concepts/storage/volumes/#flocker) - Flocker storage
+* `flocker` - Flocker storage.
   (**not available** starting v1.25)
-* [`quobyte`](/docs/concepts/storage/volumes/#quobyte) - Quobyte volume
+* `quobyte` - Quobyte volume.
   (**not available** starting v1.25)
-* [`storageos`](/docs/concepts/storage/volumes/#storageos) - StorageOS volume
+* `storageos` - StorageOS volume.
   (**not available** starting v1.25)
 
 ## Persistent Volumes
@@ -637,7 +637,7 @@ The access modes are:
  `ReadWriteOncePod`
 : {{< feature-state for_k8s_version="v1.27" state="beta" >}}
   the volume can be mounted as read-write by a single Pod. Use ReadWriteOncePod
-  access mode if you want to ensure that only one pod across whole cluster can
+  access mode if you want to ensure that only one pod across the whole cluster can
   read that PVC or write to it. This is only supported for CSI volumes and
   Kubernetes version 1.22+.
 
@@ -1130,7 +1130,7 @@ Kubernetes supports cross namespace volume data sources.
 To use cross namespace volume data sources, you must enable the `AnyVolumeDataSource`
 and `CrossNamespaceVolumeDataSource`
 [feature gates](/docs/reference/command-line-tools-reference/feature-gates/) for
-the kube-apiserver, kube-controller-manager.
+the kube-apiserver and kube-controller-manager.
 Also, you must enable the `CrossNamespaceVolumeDataSource` feature gate for the csi-provisioner.
 
 Enabling the `CrossNamespaceVolumeDataSource` feature gate allows you to specify

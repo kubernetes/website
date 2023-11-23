@@ -1,29 +1,16 @@
 <!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
-<!--
 Install required addons for passing conformance tests
 -->
-安装必要的插件以通过一致性测试
+安装必要的插件以通过一致性测试。
 
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
 This command is not meant to be run on its own. See list of available subcommands.
 -->
-
 此命令并非设计用来单独运行。请参阅可用子命令列表。
 
 ```
@@ -33,7 +20,6 @@ kubeadm init phase addon [flags]
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -52,7 +38,7 @@ kubeadm init phase addon [flags]
 help for addon
 -->
 <p>
-addon 操作的帮助命令
+addon 操作的帮助命令。
 </p>
 </td>
 </tr>
@@ -63,7 +49,6 @@ addon 操作的帮助命令
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 继承于父命令的选项
 
    <table style="width: 100%; table-layout: fixed;">

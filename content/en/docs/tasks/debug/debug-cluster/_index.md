@@ -14,6 +14,9 @@ problem you are experiencing. See
 the [application troubleshooting guide](/docs/tasks/debug/debug-application/) for tips on application debugging.
 You may also visit the [troubleshooting overview document](/docs/tasks/debug/) for more information.
 
+For troubleshooting {{<glossary_tooltip text="kubectl" term_id="kubectl">}}, refer to
+[Troubleshooting kubectl](/docs/tasks/debug/debug-cluster/troubleshoot-kubectl/).
+
 <!-- body -->
 
 ## Listing your cluster

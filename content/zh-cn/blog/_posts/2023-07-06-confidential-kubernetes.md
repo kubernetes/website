@@ -256,11 +256,11 @@ SEV 还可以计算内存内容的签名，该签名可以作为证明初始客�
 
 <!--
 The second generation of SEV, known as
-[Encrypted State](https://www.amd.com/system/files/TechDocs/Protecting%20VM%20Register%20State%20with%20SEV-ES.pdf)
+[Encrypted State](https://www.amd.com/content/dam/amd/en/documents/epyc-business-docs/white-papers/Protecting-VM-Register-State-with-SEV-ES.pdf)
 or SEV-ES, provides additional protection from the hypervisor by encrypting all
 CPU register contents when a context switch occurs.
 -->
-SEV 的第二代，称为[加密状态](https://www.amd.com/system/files/TechDocs/Protecting%20VM%20Register%20State%20with%20SEV-ES.pdf)
+SEV 的第二代，称为[加密状态](https://www.amd.com/content/dam/amd/en/documents/epyc-business-docs/white-papers/Protecting-VM-Register-State-with-SEV-ES.pdf)
 或 SEV-ES，通过在发生上下文切换时加密所有 CPU 寄存器内容，提供了对虚拟机管理程序的额外保护。
 
 <!--

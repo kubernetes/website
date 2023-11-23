@@ -52,19 +52,12 @@ clientConnection:
 
 {{< note >}}
 <!--
-KubeSchedulerConfiguration [v1beta2](/docs/reference/config-api/kube-scheduler-config.v1beta2/)
-is deprecated in v1.25 and will be removed in v1.28. 
 KubeSchedulerConfiguration [v1beta3](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
 is deprecated in v1.26 and will be removed in v1.29.
-
 Please migrate KubeSchedulerConfiguration to [v1](/docs/reference/config-api/kube-scheduler-config.v1/).
 -->
-KubeSchedulerConfiguration [v1beta2](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta2/)
-在 v1.25 中已弃用，并将在 v1.28 中移除。
-KubeSchedulerConfiguration [v1beta3](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/)
-在 v1.26 中已弃用，并将在 v1.29 中移除。
-
-请将 KubeSchedulerConfiguration 迁移到 [v1](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)。
+KubeSchedulerConfiguration [v1beta3](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/) 在 v1.26 中已被弃用，
+并将在 v1.29 中被移除。请将 KubeSchedulerConfiguration 迁移到 [v1](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)。
 {{< /note >}}
 
 <!--

@@ -25,7 +25,7 @@ Jobで複数のPodを並列で実行することもできます。
 
 下記にJobの定義例を記載しています。πを2000桁まで計算して出力するJobで、完了するまで約10秒かかります。
 
-{{< codenew file="controllers/job.yaml" >}}
+{{% codenew file="controllers/job.yaml" %}}
 
 このコマンドで実行できます:
 
@@ -311,7 +311,7 @@ Podがノードからキックされた(ノードがアップグレード、再�
 
 以下は、`podFailurePolicy`を定義するJobのマニフェストです:
 
-{{< codenew file="controllers/job-pod-failure-policy-example.yaml" >}}
+{{% codenew file="controllers/job-pod-failure-policy-example.yaml" %}}
 
 上記の例では、Pod失敗ポリシーの最初のルールは、`main`コンテナが42の終了コードで失敗した場合、そのJobを失敗とマークすることを指定しています。以下は特に `main`コンテナに関するルールです:
 
@@ -332,7 +332,7 @@ Pod失敗ポリシーまたはPod失敗のバックオフポリシーのいず�
 これらはAPIの要件と機能です:
   - `.spec.podFailurePolicy`フィールドをJobに使いたい場合は、`.spec.restartPolicy`を`Never`に設定してそのJobのPodテンプレートも定義する必要があります。
   - `spec.podFailurePolicy.rules`で指定したPod失敗ポリシーのルールが順番に評価されます。あるPodの失敗がルールに一致すると、残りのルールは無視されます。Pod失敗に一致するルールがない場合は、デフォルトの処理が適用されます。
-  - `spec.podFailurePolicy.rules[*].containerName`を指定することで、ルールを特定のコンテナに制限することができます。指定しない場合、ルールはすべてのコンテナに適用されます。指定する場合は、Pod テンプレート内のコンテナ名または`initContainer`名のいずれかに一致する必要があります。
+  - `spec.podFailurePolicy.rules[*].onExitCodes.containerName`を指定することで、ルールを特定のコンテナに制限することができます。指定しない場合、ルールはすべてのコンテナに適用されます。指定する場合は、Pod テンプレート内のコンテナ名または`initContainer`名のいずれかに一致する必要があります。
   - Pod失敗ポリシーが`spec.podFailurePolicy.rules[*].action`にマッチしたときに実行されるアクションを指定できます。指定可能な値は以下のとおりです。
     - `FailJob`: PodのJobを`Failed`としてマークし、実行中の Pod をすべて終了させる必要があることを示します。 
     - `Ignore`: `.spec.backoffLimit`のカウンターは加算されず、代替のPodが作成すべきであることを示します。

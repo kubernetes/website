@@ -174,6 +174,7 @@ spec:
   containers:
     - name: test
       image: busybox:1.28
+      command: ['sh', '-c', 'echo "The app is running!" && tail -f /dev/null']
       volumeMounts:
         - name: config-vol
           mountPath: /etc/config
@@ -221,9 +222,8 @@ to learn more.
 
 ### emptyDir {#emptydir}
 
-An `emptyDir` volume is first created when a Pod is assigned to a node, and
-exists as long as that Pod is running on that node. As the name says, the
-`emptyDir` volume is initially empty. All containers in the Pod can read and write the same
+For a Pod that defines an `emptyDir` volume, the volume is created when the Pod is assigned to a node.
+As the name says, the `emptyDir` volume is initially empty. All containers in the Pod can read and write the same
 files in the `emptyDir` volume, though that volume can be mounted at the same
 or different paths in each container. When a Pod is removed from a node for
 any reason, the data in the `emptyDir` is deleted permanently.
@@ -244,9 +244,8 @@ The `emptyDir.medium` field controls where `emptyDir` volumes are stored. By
 default `emptyDir` volumes are stored on whatever medium that backs the node
 such as disk, SSD, or network storage, depending on your environment. If you set
 the `emptyDir.medium` field to `"Memory"`, Kubernetes mounts a tmpfs (RAM-backed
-filesystem) for you instead.  While tmpfs is very fast, be aware that unlike
-disks, tmpfs is cleared on node reboot and any files you write count against
-your container's memory limit.
+filesystem) for you instead.  While tmpfs is very fast be aware that, unlike
+disks, files you write count against the memory limit of the container that wrote them.
 
 
 A size limit can be specified for the default medium, which limits the capacity
@@ -258,7 +257,7 @@ overlays), the `emptyDir` may run out of capacity before this limit.
 {{< note >}}
 If the `SizeMemoryBackedVolumes` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled,
 you can specify a size for memory backed volumes.  If no size is specified, memory
-backed volumes are sized to 50% of the memory on a Linux host.
+backed volumes are sized to node allocatable memory.
 {{< /note>}}
 
 #### emptyDir configuration example
@@ -758,7 +757,7 @@ The `CSIMigration` feature for Portworx has been added but disabled by default i
 It has been beta now since v1.25 but it is still turned off by default.
 It redirects all plugin operations from the existing in-tree plugin to the
 `pxd.portworx.com` Container Storage Interface (CSI) Driver.
-[Portworx CSI Driver](https://docs.portworx.com/portworx-install-with-kubernetes/storage-operations/csi/)
+[Portworx CSI Driver](https://docs.portworx.com/portworx-enterprise/operations/operate-kubernetes/storage-operations/csi)
 must be installed on the cluster.
 To enable the feature, set `CSIMigrationPortworx=true` in kube-controller-manager and kubelet.
 
@@ -1235,24 +1234,7 @@ in `Container.volumeMounts`. Its values are:
   (unmounted) by the containers on termination.
   {{< /warning >}}
 
-### Configuration
 
-Before mount propagation can work properly on some deployments (CoreOS,
-RedHat/Centos, Ubuntu) mount share must be configured correctly in
-Docker as shown below.
-
-Edit your Docker's `systemd` service file. Set `MountFlags` as follows:
-
-```shell
-MountFlags=shared
-```
-
-Or, remove `MountFlags=slave` if present. Then restart the Docker daemon:
-
-```shell
-sudo systemctl daemon-reload
-sudo systemctl restart docker
-```
 
 ## {{% heading "whatsnext" %}}
 

@@ -146,7 +146,7 @@ for a comprehensive list.
 
 - Use label selectors for `get` and `delete` operations instead of specific object names. See the
   sections on [label selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors)
-  and [using labels effectively](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively).
+  and [using labels effectively](/docs/concepts/overview/working-with-objects/labels/#using-labels-effectively).
 
 - Use `kubectl create deployment` and `kubectl expose` to quickly create single-container
   Deployments and Services.

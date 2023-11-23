@@ -37,7 +37,7 @@ Gunakan alat yang telah dipercayai oleh OS kamu untuk menghindari risiko dari pe
 
 Berikut ini adalah berkas konfigurasi yang dapat kamu gunakan untuk membuat Secret yang akan menampung nama pengguna dan kata sandi kamu:
 
-{{< codenew file="pods/inject/secret.yaml" >}}
+{{% codenew file="pods/inject/secret.yaml" %}}
 
 1. Membuat Secret
 
@@ -95,7 +95,7 @@ Tentu saja ini lebih mudah. Pendekatan yang mendetil setiap langkah di atas bert
 
 Berikut ini adalah berkas konfigurasi yang dapat kamu gunakan untuk membuat Pod:
 
-{{< codenew file="pods/inject/secret-pod.yaml" >}}
+{{% codenew file="pods/inject/secret-pod.yaml" %}}
 
 1. Membuat Pod:
 
@@ -157,7 +157,7 @@ Berikut ini adalah berkas konfigurasi yang dapat kamu gunakan untuk membuat Pod:
 
 *  Tentukan nilai `backend-username` yang didefinisikan di Secret ke variabel lingkungan `SECRET_USERNAME` di dalam spesifikasi Pod.
 
-   {{< codenew file="pods/inject/pod-single-secret-env-variable.yaml" >}}
+   {{% codenew file="pods/inject/pod-single-secret-env-variable.yaml" %}}
 
 *  Membuat Pod:
 
@@ -187,7 +187,7 @@ Berikut ini adalah berkas konfigurasi yang dapat kamu gunakan untuk membuat Pod:
 
 *  Definisikan variabel lingkungan di dalam spesifikasi Pod.
 
-   {{< codenew file="pods/inject/pod-multiple-secret-env-variable.yaml" >}}
+   {{% codenew file="pods/inject/pod-multiple-secret-env-variable.yaml" %}}
 
 *  Membuat Pod:
 
@@ -221,7 +221,7 @@ Fitur ini tersedia mulai dari Kubernetes v1.6 dan yang lebih baru.
 
 *  Gunakan envFrom untuk mendefinisikan semua data Secret sebagai variabel lingkungan Container. _Key_ dari Secret akan mennjadi nama variabel lingkungan di dalam Pod.
 
-    {{< codenew file="pods/inject/pod-secret-envFrom.yaml" >}}
+    {{% codenew file="pods/inject/pod-secret-envFrom.yaml" %}}
 
 *  Membuat Pod:
 

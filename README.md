@@ -5,7 +5,7 @@
 This repository contains the assets required to build the [Kubernetes website and documentation](https://kubernetes.io/). We're glad that you want to contribute!
 
 - [Contributing to the docs](#contributing-to-the-docs)
-- [Localization ReadMes](#localization-readmemds)
+- [Localization READMEs](#localization-readmemds)
 
 ## Using this repository
 
@@ -50,7 +50,7 @@ To build the site in a container, run the following:
 make container-serve
 ```
 
-If you see errors, it probably means that the hugo container did not have enough computing resources available. To solve it, increase the amount of allowed CPU and memory usage for Docker on your machine ([MacOSX](https://docs.docker.com/docker-for-mac/#resources) and [Windows](https://docs.docker.com/docker-for-windows/#resources)).
+If you see errors, it probably means that the hugo container did not have enough computing resources available. To solve it, increase the amount of allowed CPU and memory usage for Docker on your machine ([MacOS](https://docs.docker.com/desktop/settings/mac/) and [Windows](https://docs.docker.com/desktop/settings/windows/)).
 
 Open up your browser to <http://localhost:1313> to view the website. As you make changes to the source files, Hugo updates the website and forces a browser refresh.
 
@@ -58,13 +58,18 @@ Open up your browser to <http://localhost:1313> to view the website. As you make
 
 Make sure to install the Hugo extended version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L11) file.
 
-To build and test the site locally, run:
+To install dependencies, deploy and test the site locally, run:
 
-```bash
-# install dependencies
-npm ci
-make serve
-```
+- For macOS and Linux
+  ```bash
+  npm ci
+  make serve
+  ```
+- For Windows (PowerShell)
+  ```powershell
+  npm ci
+  hugo.exe server --buildFuture --environment development
+  ```
 
 This will start the local Hugo server on port 1313. Open up your browser to <http://localhost:1313> to view the website. As you make changes to the source files, Hugo updates the website and forces a browser refresh.
 
@@ -182,7 +187,7 @@ If you need help at any point when contributing, the [New Contributor Ambassador
 | -------------------------- | -------------------------- | -------------------------- |
 | Arsh Sharma                | @arsh                      | @RinkiyaKeDad              |
 
-## Localization `README.md`'s
+## Localization READMEs
 
 | Language                   | Language                   |
 | -------------------------- | -------------------------- |

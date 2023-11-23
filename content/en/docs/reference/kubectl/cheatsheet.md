@@ -42,6 +42,15 @@ complete -o default -F __start_kubectl k
 source <(kubectl completion zsh)  # set up autocomplete in zsh into the current shell
 echo '[[ $commands[kubectl] ]] && source <(kubectl completion zsh)' >> ~/.zshrc # add autocomplete permanently to your zsh shell
 ```
+
+### FISH
+
+Require kubectl version 1.23 or above.
+
+```bash
+echo 'kubectl completion fish | source' >> ~/.config/fish/config.fish  # add kubectl autocompletion permanently to your fish shell 
+```
+
 ### A note on `--all-namespaces`
 
 Appending `--all-namespaces` happens frequently enough that you should be aware of the shorthand for `--all-namespaces`:
@@ -204,7 +213,7 @@ kubectl get pods --field-selector=status.phase=Running
 kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="ExternalIP")].address}'
 
 # List Names of Pods that belong to Particular RC
-# "jq" command useful for transformations that are too complex for jsonpath, it can be found at https://stedolan.github.io/jq/
+# "jq" command useful for transformations that are too complex for jsonpath, it can be found at https://jqlang.github.io/jq/
 sel=${$(kubectl get rc my-rc --output=json | jq -j '.spec.selector | to_entries | .[] | "\(.key)=\(.value),"')%?}
 echo $(kubectl get pods --selector=$sel --output=jsonpath={.items..metadata.name})
 
@@ -214,6 +223,9 @@ kubectl get pods --show-labels
 # Check which nodes are ready
 JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}' \
  && kubectl get nodes -o jsonpath="$JSONPATH" | grep "Ready=True"
+
+# Check which nodes are ready with custom-columns
+kubectl get node -o custom-columns='NODE_NAME:.metadata.name,STATUS:.status.conditions[?(@.type=="Ready")].status'
 
 # Output decoded secrets without external tools
 kubectl get secret my-secret -o go-template='{{range $k,$v := .data}}{{"### "}}{{$k}}{{"\n"}}{{$v|base64decode}}{{"\n\n"}}{{end}}'

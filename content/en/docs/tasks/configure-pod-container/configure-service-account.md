@@ -47,7 +47,7 @@ kubectl get pods/<podname> -o yaml
 ```
 
 In the output, you see a field `spec.serviceAccountName`.
-Kubernetes [automatically](/docs/concepts/overview/working-with-objects/object-management/)
+Kubernetes automatically
 sets that value if you don't specify it when you create a Pod.
 
 An application running inside a Pod can access the Kubernetes API using
@@ -262,6 +262,16 @@ Secret somewhere that your terminal / computer screen could be seen by an onlook
 When you delete a ServiceAccount that has an associated Secret, the Kubernetes
 control plane automatically cleans up the long-lived token from that Secret.
 
+{{< note >}}
+If you view the ServiceAccount using:
+
+` kubectl get serviceaccount build-robot -o yaml`
+
+You can't see the `build-robot-secret` Secret in the ServiceAccount API objects
+[`.secrets`](/docs/reference/kubernetes-api/authentication-resources/service-account-v1/) field
+because that field is only populated with auto-generated Secrets.
+{{< /note >}}
+
 ## Add ImagePullSecrets to a service account
 
 First, [create an imagePullSecret](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
@@ -403,7 +413,7 @@ You can configure this behavior for the `spec` of a Pod using a
 To provide a Pod with a token with an audience of `vault` and a validity duration
 of two hours, you could define a Pod manifest that is similar to:
 
-{{% code file="pods/pod-projected-svc-token.yaml" %}}
+{{% code_sample file="pods/pod-projected-svc-token.yaml" %}}
 
 Create the Pod:
 

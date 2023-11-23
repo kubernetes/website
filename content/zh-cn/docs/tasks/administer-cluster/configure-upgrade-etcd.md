@@ -1,5 +1,5 @@
 ---
-title: 为 Kubernetes 运行 etcd 集群
+title: 操作 Kubernetes 中的 etcd 集群
 content_type: task
 weight: 270
 ---
@@ -20,6 +20,17 @@ weight: 270
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+<!--
+You need to have a Kubernetes cluster, and the kubectl command-line tool must
+be configured to communicate with your cluster. It is recommended to run this
+task on a cluster with at least two nodes that are not acting as control plane
+nodes . If you do not already have a cluster, you can create one by using
+[minikube](https://minikube.sigs.k8s.io/docs/tutorials/multi_node/).
+-->
+你需要有一个 Kubernetes 集群，并且必须配置 kubectl 命令行工具以与你的集群通信。
+建议在至少有两个不充当控制平面的节点上运行此任务。如果你还没有集群，
+你可以使用 [minikube](https://minikube.sigs.k8s.io/docs/tutorials/multi_node/) 创建一个。
 
 <!-- steps -->
 
@@ -484,12 +495,12 @@ etcd 支持内置快照。快照可以从使用 `etcdctl snapshot save` 命令�
 
 <!--
 Below is an example for taking a snapshot of the keyspace served by
-`$ENDPOINT` to the file `snapshotdb`:
+`$ENDPOINT` to the file `snapshot.db`:
 -->
-下面是一个示例，用于获取 `$ENDPOINT` 所提供的键空间的快照到文件 `snapshotdb`：
+下面是一个示例，用于获取 `$ENDPOINT` 所提供的键空间的快照到文件 `snapshot.db`：
 
 ```shell
-ETCDCTL_API=3 etcdctl --endpoints $ENDPOINT snapshot save snapshotdb
+ETCDCTL_API=3 etcdctl --endpoints $ENDPOINT snapshot save snapshot.db
 ```
 
 <!--
@@ -498,7 +509,7 @@ Verify the snapshot:
 验证快照:
 
 ```shell
-ETCDCTL_API=3 etcdctl --write-out=table snapshot status snapshotdb
+ETCDCTL_API=3 etcdctl --write-out=table snapshot status snapshot.db
 ```
 
 ```console
@@ -605,26 +616,30 @@ Here is an example:
 例如：
 
 ```shell
-ETCDCTL_API=3 etcdctl --endpoints 10.2.0.9:2379 snapshot restore snapshotdb
+ETCDCTL_API=3 etcdctl --endpoints 10.2.0.9:2379 snapshot restore snapshot.db
 ```
 
 <!--
-Another example for restoring using etcdctl options:
+Another example for restoring using `etcdctl` options:
 -->
-恢复时也可以指定操作选项，例如：
+恢复时使用 `etcdctl` 选项的另一个示例：
 
 ```shell
-ETCDCTL_API=3 etcdctl snapshot restore --data-dir <data-dir-location> snapshotdb
+ETCDCTL_API=3 etcdctl snapshot restore --data-dir <data-dir-location> snapshot.db
 ```
 
 <!--
-Yet another example would be to first export the environment variable
+where `<data-dir-location>` is a directory that will be created during the restore process.
+
+Yet another example would be to first export the `ETCDCTL_API` environment variable
 -->
-另一个例子是先导出环境变量：
+其中 `<data-dir-location>` 是将在恢复过程中创建的目录。
+
+另一个例子是先导出 `ETCDCTL_API` 环境变量：
 
 ```shell
 export ETCDCTL_API=3
-etcdctl snapshot restore --data-dir <data-dir-location> snapshotdb
+etcdctl snapshot restore --data-dir <data-dir-location> snapshot.db
 ```
 
 <!--
@@ -725,3 +740,12 @@ you perform defragmentation, you use a tool such as [etcd-defrag](https://github
 Kubernetes 项目建议在执行碎片整理时，
 使用诸如 [etcd-defrag](https://github.com/ahrtr/etcd-defrag) 之类的工具。
 {{< /note >}}
+
+<!--
+You can also run the defragmentation tool as a Kubernetes CronJob, to make sure that
+defragmentation happens regularly. See [`etcd-defrag-cronjob.yaml`](https://github.com/ahrtr/etcd-defrag/blob/main/doc/etcd-defrag-cronjob.yaml)
+for details.
+-->
+你还可以将碎片整理工具作为 Kubernetes CronJob 运行，以确保定期进行碎片整理。
+有关详细信息，请参阅
+[`etcd-defrag-cronjob.yaml`](https://github.com/ahrtr/etcd-defrag/blob/main/doc/etcd-defrag-cronjob.yaml)。

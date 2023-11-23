@@ -43,7 +43,7 @@ kubectl create namespace constraints-mem-example
 
 Here's an example manifest for a LimitRange:
 
-{{% code file="admin/resource/memory-constraints.yaml" %}}
+{{% code_sample file="admin/resource/memory-constraints.yaml" %}}
 
 Create the LimitRange:
 
@@ -89,7 +89,7 @@ Here's a manifest for a Pod that has one container. Within the Pod spec, the sol
 container specifies a memory request of 600 MiB and a memory limit of 800 MiB. These satisfy the
 minimum and maximum memory constraints imposed by the LimitRange.
 
-{{% code file="admin/resource/memory-constraints-pod.yaml" %}}
+{{% code_sample file="admin/resource/memory-constraints-pod.yaml" %}}
 
 Create the Pod:
 
@@ -132,7 +132,7 @@ kubectl delete pod constraints-mem-demo --namespace=constraints-mem-example
 Here's a manifest for a Pod that has one container. The container specifies a
 memory request of 800 MiB and a memory limit of 1.5 GiB.
 
-{{% code file="admin/resource/memory-constraints-pod-2.yaml" %}}
+{{% code_sample file="admin/resource/memory-constraints-pod-2.yaml" %}}
 
 Attempt to create the Pod:
 
@@ -153,7 +153,7 @@ pods "constraints-mem-demo-2" is forbidden: maximum memory usage per Container i
 Here's a manifest for a Pod that has one container. That container specifies a
 memory request of 100 MiB and a memory limit of 800 MiB.
 
-{{% code file="admin/resource/memory-constraints-pod-3.yaml" %}}
+{{% code_sample file="admin/resource/memory-constraints-pod-3.yaml" %}}
 
 Attempt to create the Pod:
 
@@ -174,7 +174,7 @@ pods "constraints-mem-demo-3" is forbidden: minimum memory usage per Container i
 Here's a manifest for a Pod that has one container. The container does not
 specify a memory request, and it does not specify a memory limit.
 
-{{% code file="admin/resource/memory-constraints-pod-4.yaml" %}}
+{{% code_sample file="admin/resource/memory-constraints-pod-4.yaml" %}}
 
 Create the Pod:
 

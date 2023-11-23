@@ -80,7 +80,7 @@ for that Pod.
 You can use a [LimitRange](/docs/concepts/policy/limit-range/) to automatically set
 a default request for these resources.
 -->
-- 对于 `cpu` 和 `memory` 资源：ResourceQuota 强制该命名空间中的每个（新）Pod 为该资源设置限制。
+- 对于 `cpu` 和 `memory` 资源：ResourceQuota 强制该命名空间中的**每个**（新）Pod 为该资源设置限制。
   如果你在命名空间中为 `cpu` 和 `memory` 实施资源配额，
   你或其他客户端**必须**为你提交的每个新 Pod 指定该资源的 `requests` 或 `limits`。
   否则，控制平面可能会拒绝接纳该 Pod。
@@ -752,11 +752,11 @@ from getting scheduled in a failure domain.
 <!--
 Using this scope operators can prevent certain namespaces (`foo-ns` in the example below)
 from having pods that use cross-namespace pod affinity by creating a resource quota object in
-that namespace with `CrossNamespaceAffinity` scope and hard limit of 0:
+that namespace with `CrossNamespacePodAffinity` scope and hard limit of 0:
 -->
 使用此作用域操作符可以避免某些名字空间（例如下面例子中的 `foo-ns`）运行特别的 Pod，
 这类 Pod 使用跨名字空间的 Pod 亲和性约束，在该名字空间中创建了作用域为
-`CrossNamespaceAffinity` 的、硬性约束为 0 的资源配额对象。
+`CrossNamespacePodAffinity` 的、硬性约束为 0 的资源配额对象。
 
 ```yaml
 apiVersion: v1
@@ -769,17 +769,18 @@ spec:
     pods: "0"
   scopeSelector:
     matchExpressions:
-    - scopeName: CrossNamespaceAffinity
+    - scopeName: CrossNamespacePodAffinity
+      operator: Exists
 ```
 
 <!--
 If operators want to disallow using `namespaces` and `namespaceSelector` by default, and
-only allow it for specific namespaces, they could configure `CrossNamespaceAffinity`
+only allow it for specific namespaces, they could configure `CrossNamespacePodAffinity`
 as a limited resource by setting the kube-apiserver flag --admission-control-config-file
 to the path of the following configuration file:
 -->
 如果集群运维人员希望默认禁止使用 `namespaces` 和 `namespaceSelector`，
-而仅仅允许在特定名字空间中这样做，他们可以将 `CrossNamespaceAffinity`
+而仅仅允许在特定名字空间中这样做，他们可以将 `CrossNamespacePodAffinity`
 作为一个被约束的资源。方法是为 `kube-apiserver` 设置标志
 `--admission-control-config-file`，使之指向如下的配置文件：
 
@@ -794,15 +795,16 @@ plugins:
     limitedResources:
     - resource: pods
       matchScopes:
-      - scopeName: CrossNamespaceAffinity
+      - scopeName: CrossNamespacePodAffinity
+        operator: Exists
 ```
 
 <!--
 With the above configuration, pods can use `namespaces` and `namespaceSelector` in pod affinity only
 if the namespace where they are created have a resource quota object with
-`CrossNamespaceAffinity` scope and a hard limit greater than or equal to the number of pods using those fields.
+`CrossNamespacePodAffinity` scope and a hard limit greater than or equal to the number of pods using those fields.
 -->
-基于上面的配置，只有名字空间中包含作用域为 `CrossNamespaceAffinity`
+基于上面的配置，只有名字空间中包含作用域为 `CrossNamespacePodAffinity`
 且硬性约束大于或等于使用 `namespaces` 和 `namespaceSelector` 字段的 Pod
 个数时，才可以在该名字空间中继续创建在其 Pod 亲和性规则中设置 `namespaces`
 或 `namespaceSelector` 的新 Pod。
@@ -1045,7 +1047,7 @@ Then, create a resource quota object in the `kube-system` namespace:
 -->
 现在在 `kube-system` 名字空间中创建一个资源配额对象：
 
-{{< codenew file="policy/priority-class-resourcequota.yaml" >}}
+{{% code_sample file="policy/priority-class-resourcequota.yaml" %}}
 
 ```shell
 kubectl apply -f https://k8s.io/examples/policy/priority-class-resourcequota.yaml -n kube-system
@@ -1089,4 +1091,3 @@ and it is to be created in a namespace other than `kube-system`.
 - 参阅[如何使用资源配额的详细示例](/zh-cn/docs/tasks/administer-cluster/quota-api-object/)。
 - 参阅[优先级类配额支持的设计文档](https://git.k8s.io/design-proposals-archive/scheduling/pod-priority-resourcequota.md)了解更多信息。
 - 参阅 [LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765)。
-
