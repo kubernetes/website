@@ -71,6 +71,44 @@ different completion index. For the user's convenience, the control plane sets t
 own](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
 or [expose the index as a file](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/).
 
+You can't reference `JOB_COMPLETION_INDEX` variables in container environment as fellow
+```yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: 'sample-job'
+spec:
+  completions: 3
+  parallelism: 3
+  completionMode: Indexed
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - command:
+            - 'bash'
+            - '-c'
+            - 'echo "My partition: ${JOB_COMPLETION_INDEX}"'
+          image: 'docker.io/library/bash'
+          name: 'sample-load'
+          env:
+          - name: JOB_ID
+            value: $(JOB_COMPLETION_INDEX)
+```
+the control plane add JOB_COMPLETION_INDEX environment at the end of the container environment variables, 
+variable references $(VAR_NAME) are expanded using the previously defined environment variables in the container, 
+more detail reference [environment variables](/docs/reference/kubernetes-api/workload-resources/pod-v1/#environment-variables).
+If you want to custom environment about completion index, you can do as fellow
+```yaml
+env:
+- name: JOB_ID
+  valueFrom:
+    fieldRef:
+      apiVersion: v1
+      fieldPath: metadata.annotations['batch.kubernetes.io/job-completion-index']
+```
+
+
 See [Indexed Job for parallel processing with static work
 assignment](/docs/tasks/job/indexed-parallel-processing-static/) for a
 step-by-step guide, and a few more examples.
