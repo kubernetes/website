@@ -18,7 +18,9 @@ the build setup and generates the reference documentation for a release.
 
 <!-- steps -->
 
-## Getting the docs repository
+## Method 1: Working in a local environment
+
+### Getting the docs repository
 
 Make sure your `website` fork is up-to-date with the `kubernetes/website` remote on
 GitHub (`main` branch), and clone your `website` fork.
@@ -39,7 +41,7 @@ If you want to change the content of the component tools and API reference,
 see the [contributing upstream guide](/docs/contribute/generate-ref-docs/contribute-upstream).
 {{< /note >}}
 
-## Overview of update-imported-docs
+### Overview of update-imported-docs
 
 The `update-imported-docs.py` script is located in the `<web-base>/update-imported-docs/`
 directory.
@@ -87,7 +89,9 @@ When the generated files are in your local clone of the `<web-base>`
 repository, you can submit them in a [pull request](/docs/contribute/new-content/open-a-pr/)
 to `<web-base>`.
 
-## Configuration file format
+You might notice a `Dockerfile` inside this directory which is covered to more detail later in this document.
+
+### Configuration file format
 
 Each configuration file may contain multiple repos that will be imported together. When
 necessary, you can customize the configuration file by manually editing it. You
@@ -109,7 +113,7 @@ repos:
 Single page Markdown documents, imported by the tool, must adhere to
 the [Documentation Style Guide](/docs/contribute/style/style-guide/).
 
-## Customizing reference.yml
+### Customizing reference.yml
 
 Open `<web-base>/update-imported-docs/reference.yml` for editing.
 Do not change the content for the `generate-command` field unless you understand
@@ -152,7 +156,7 @@ For example:
     dst: content/en/docs/reference/setup-tools/kubeadm/generated/
 ```
 
-## Running the update-imported-docs tool
+### Running the update-imported-docs tool
 
 You can run the `update-imported-docs.py` tool as follows:
 
@@ -168,14 +172,14 @@ For example:
 ```
 
 <!-- Revisit: is the release configuration used -->
-## Fixing Links
+### Fixing Links
 
 The `release.yml` configuration file contains instructions to fix relative links.
 To fix relative links within your imported files, set the`gen-absolute-links`
 property to `true`. You can find an example of this in
 [`release.yml`](https://github.com/kubernetes/website/blob/main/update-imported-docs/release.yml).
 
-## Adding and committing changes in kubernetes/website
+### Adding and committing changes in kubernetes/website
 
 List the files that were generated and copied to `<web-base>`:
 
@@ -187,7 +191,7 @@ git status
 The output shows the new and modified files. The generated output varies
 depending upon changes made to the upstream source code.
 
-### Generated component tool files
+#### Generated component tool files
 
 ```
 content/en/docs/reference/command-line-tools-reference/cloud-controller-manager.md
@@ -199,7 +203,7 @@ content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm.md
 content/en/docs/reference/kubectl/kubectl.md
 ```
 
-### Generated kubectl command reference files
+#### Generated kubectl command reference files
 
 ```
 static/docs/reference/generated/kubectl/kubectl-commands.html
@@ -214,7 +218,7 @@ static/docs/reference/generated/kubectl/node_modules/jquery/dist/jquery.min.js
 static/docs/reference/generated/kubectl/css/font-awesome.min.css
 ```
 
-### Generated Kubernetes API reference directories and files
+#### Generated Kubernetes API reference directories and files
 
 ```
 static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/index.html
@@ -234,7 +238,7 @@ static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/fonts/fon
 
 Run `git add` and `git commit` to commit the files.
 
-## Creating a pull request
+### Creating a pull request {#create-pull-request-local}
 
 Create a pull request to the `kubernetes/website` repository. Monitor your
 pull request, and respond to review comments as needed. Continue to monitor
@@ -243,6 +247,83 @@ your pull request until it is merged.
 A few minutes after your pull request is merged, your updated reference
 topics will be visible in the
 [published documentation](/docs/home/).
+
+## Method 2: Working in a containerized environment {#reference-docs-build-container}
+
+There are a series of steps available if you wish to save some time
+by not installing the dependencies
+
+Please follow the initial steps of cloning the
+documentation repository from the local environment build tutorial.
+Considering you have Docker installed and running, We can proceed on to building the container image.
+
+### Change directories to update-imported-docs
+
+Make sure you are inside your documentation repository, Then
+
+``` shell
+cd ./update-imported-docs
+```
+
+Here, you shall find all the build tools including the scripts and the dockerfile
+
+### Build an image from the Dockerfile
+
+You can start building an image for generation of reference documentation
+
+```shell
+docker build -t refdocsgen . 
+```
+
+You'll see your image in your docker dashboard after a successful build
+
+### Running the image
+
+What remains is running the image and generating your documentation, 
+You can execute the shell command below to get your image up and running
+
+
+```shell
+docker run -it --rm <path-to-website-root>:/website -v /tempvol refdocsgen /bin/bash/ -c "./update-imported-docs release.yml <release-version>"
+```
+
+### Creating a pull request
+
+After the generation has completed, You'll see some changes which may include:
+
+```
+Kubectl-commands.md
+index.md
+navData.js
+```
+
+You might even see some more generated files
+In order to make a pull request for these changes, you can follow these steps:
+
+1. Adding the changes to git
+
+```shell
+git add .
+```
+
+2. Commiting the changes
+
+```shell
+git commit -m "Generated documentation for release <release-version>"
+```
+
+3. Push the changes to your local fork
+
+```shell
+git push origin <branch-name>
+```
+
+4. From there, you can navigate to your local fork and create a pull request against the 
+`main` branch of the website repository
+
+
+
+
 
 
 
