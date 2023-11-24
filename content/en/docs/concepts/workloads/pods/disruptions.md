@@ -157,8 +157,8 @@ Initially, the pods are laid out as follows:
 | pod-a  *available*   | pod-b *available*   | pod-c *available*  |
 | pod-x  *available*   |                     |                    |
 
-All 3 pods are part of a deployment, and they collectively have a PDB which requires
-there be at least 2 of the 3 pods to be available at all times.
+The 3 pods (`pod-a`, `pod-b`, and `pod-c`) are part of a deployment, and they collectively have a PDB which requires
+there be at least 2 of the 3 pods for each to be available at all times.
 
 For example, assume the cluster administrator wants to reboot into a new kernel version to fix a bug in the kernel.
 The cluster administrator first tries to drain `node-1` using the `kubectl drain` command.
