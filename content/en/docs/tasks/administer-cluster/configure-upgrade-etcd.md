@@ -279,7 +279,27 @@ Below is an example for taking a snapshot of the keyspace served by
 
 ```shell
 ETCDCTL_API=3 etcdctl --endpoints $ENDPOINT snapshot save snapshot.db
-```
+step1:regarding the endpoints with the following command:
+cat /etc/kubernetes/manifests/etcd.yaml | grep listen
+
+Step2:to get the certificate information with the following command.
+cat /etc/kubernetes/manifests/etcd.yaml | grep listen
+
+Step 3:execute the command (example)
+ETCDCTL_API=3 etcdctl \
+  --endpoints=https://127.0.0.1:2379 \
+  --cacert=<ca-file> \
+  --cert=<cert-file> \
+  --key=<key-file> \
+  snapshot save <backup-file-location>
+
+Step 4: Edit the changes and apply
+ETCDCTL_API=3 etcdctl \
+  --endpoints=https://127.0.0.1:2379 \
+  --cacert=/etc/kubernetes/pki/etcd/ca.crt \
+  --cert=/etc/kubernetes/pki/etcd/server.crt \
+  --key=/etc/kubernetes/pki/etcd/server.key \
+  snapshot save /opt/backup/etcd.db
 
 Verify the snapshot:
 
