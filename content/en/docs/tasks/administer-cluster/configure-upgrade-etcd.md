@@ -351,15 +351,15 @@ etcdutl --data-dir <data-dir-location> snapshot restore snapshot.db
 ```
 where `<data-dir-location>` is a directory that will be created during the restore process.
 
-Another example would be to first export the `ETCDCTL_API` environment variable:
+The below example depicts the usage of the `etcdctl` tool for the restore operation:
+{{< note >}}
+The usage of `etcdctl` for restoring has been deprecated since etcd v3.5.x and may be removed from a future etcd release.
+{{< /note >}}
 
 ```shell
 export ETCDCTL_API=3
 etcdctl --data-dir <data-dir-location> snapshot restore snapshot.db
 ```
-{{< note >}}
-Using etcdctl for restoring snapshots is deprecated since etcd v3.5.x
-{{< /note >}}
 
 If `<data-dir-location>` is the same folder as before, delete it and stop etcd process before restoring the cluster. Else change etcd configuration and restart the etcd process after restoration to make it use the new data directory.
 
