@@ -16,7 +16,7 @@ weight: 10
 
 <!-- overview -->
 <!--
-This page provides an overview of authenticating.
+This page provides an overview of authentication.
 -->
 本页提供身份认证有关的概述。
 
@@ -106,7 +106,8 @@ Kubernetes 通过身份认证插件利用客户端证书、持有者令牌（Bea
 <!--
 * Username: a string which identifies the end user. Common values might be `kube-admin` or `jane@example.com`.
 * UID: a string which identifies the end user and attempts to be more consistent and unique than username.
-* Groups: a set of strings, each of which indicates the user's membership in a named logical collection of users. Common values might be `system:masters` or `devops-team`.
+* Groups: a set of strings, each of which indicates the user's membership in a named logical collection of users.
+  Common values might be `system:masters` or `devops-team`.
 * Extra fields: a map of strings to list of strings which holds additional information authorizers may find useful.
 -->
 * 用户名：用来辩识最终用户的字符串。常见的值可以是 `kube-admin` 或 `jane@example.com`。
@@ -154,7 +155,7 @@ API 服务器并不保证身份认证模块的运行顺序。
 来实现。
 
 <!--
-### X509 Client Certs
+### X509 Client certificates
 
 Client certificate authentication is enabled by passing the `--client-ca-file=SOMEFILE`
 option to API server. The referenced file must contain one or more certificate authorities
@@ -192,9 +193,10 @@ See [Managing Certificates](/docs/tasks/administer-cluster/certificates/) for ho
 参阅[管理证书](/zh-cn/docs/tasks/administer-cluster/certificates/)了解如何生成客户端证书。
 
 <!--
-### Static Token File
+### Static token file
 
-The API server reads bearer tokens from a file when given the `--token-auth-file=SOMEFILE` option on the command line.  Currently, tokens last indefinitely, and the token list cannot be
+The API server reads bearer tokens from a file when given the `--token-auth-file=SOMEFILE` option
+on the command line.  Currently, tokens last indefinitely, and the token list cannot be
 changed without restarting the API server.
 
 The token file is a csv file with a minimum of 3 columns: token, user name, user uid,
@@ -220,7 +222,7 @@ token,user,uid,"group1,group2,group3"
 {{< /note >}}
 
 <!--
-#### Putting a Bearer Token in a Request
+#### Putting a bearer token in a request
 
 When using bearer token authentication from an http client, the API
 server expects an `Authorization` header with a value of `Bearer
@@ -242,7 +244,7 @@ Authorization: Bearer 31ada4fd-adec-460c-809a-9e56ceb75269
 ```
 
 <!--
-### Bootstrap Tokens
+### Bootstrap tokens
 -->
 ### 启动引导令牌    {#bootstrap-tokens}
 
@@ -308,15 +310,15 @@ how to manage these tokens with `kubeadm`.
 `kubeadm` 来管理这些令牌。
 
 <!--
-### Service Account Tokens
+### Service account tokens
 
 A service account is an automatically enabled authenticator that uses signed
 bearer tokens to verify requests. The plugin takes two optional flags:
 
 * `--service-account-key-file` File containing PEM-encoded x509 RSA or ECDSA
-private or public keys, used to verify ServiceAccount tokens. The specified file
-can contain multiple keys, and the flag can be specified multiple times with
-different files. If unspecified, --tls-private-key-file is used.
+  private or public keys, used to verify ServiceAccount tokens. The specified file
+  can contain multiple keys, and the flag can be specified multiple times with
+  different files. If unspecified, --tls-private-key-file is used.
 * `--service-account-lookup` If enabled, tokens which are deleted from the API will be revoked.
 -->
 ### 服务账号令牌   {#service-account-tokens}
@@ -457,7 +459,7 @@ ID 令牌是一种由服务器签名的 JWT 令牌，其中包含一些可预知
 <!--
 To identify the user, the authenticator uses the `id_token` (not the `access_token`)
 from the OAuth2 [token response](https://openid.net/specs/openid-connect-core-1_0.html#TokenResponse)
-as a bearer token.  See [above](#putting-a-bearer-token-in-a-request) for how the token
+as a bearer token. See [above](#putting-a-bearer-token-in-a-request) for how the token
 is included in a request.
 -->
 要识别用户，身份认证组件使用 OAuth2
@@ -495,14 +497,14 @@ sequenceDiagram
 
 <!--
 1. Login to your identity provider
-2. Your identity provider will provide you with an `access_token`, `id_token` and a `refresh_token`
-3. When using `kubectl`, use your `id_token` with the `--token` flag or add it directly to your `kubeconfig`
-4. `kubectl` sends your `id_token` in a header called Authorization to the API server
-5. The API server will make sure the JWT signature is valid by checking against the certificate named in the configuration
-6. Check to make sure the `id_token` hasn't expired
-7. Make sure the user is authorized
-8. Once authorized the API server returns a response to `kubectl`
-9. `kubectl` provides feedback to the user
+1. Your identity provider will provide you with an `access_token`, `id_token` and a `refresh_token`
+1. When using `kubectl`, use your `id_token` with the `--token` flag or add it directly to your `kubeconfig`
+1. `kubectl` sends your `id_token` in a header called Authorization to the API server
+1. The API server will make sure the JWT signature is valid by checking against the certificate named in the configuration
+1. Check to make sure the `id_token` hasn't expired
+1. Make sure the user is authorized
+1. Once authorized the API server returns a response to `kubectl`
+1. `kubectl` provides feedback to the user
 -->
 1. 登录到你的身份服务（Identity Provider）
 2. 你的身份服务将为你提供 `access_token`、`id_token` 和 `refresh_token`
@@ -517,16 +519,20 @@ sequenceDiagram
 
 <!--
 Since all of the data needed to validate who you are is in the `id_token`, Kubernetes doesn't need to
-"phone home" to the identity provider.  In a model where every request is stateless this provides a very scalable solution for authentication.  It does offer a few challenges:
+"phone home" to the identity provider. In a model where every request is stateless this provides a
+very scalable solution for authentication. It does offer a few challenges:
 -->
 由于用来验证你是谁的所有数据都在 `id_token` 中，Kubernetes 不需要再去联系身份服务。
 在一个所有请求都是无状态请求的模型中，这一工作方式可以使得身份认证的解决方案更容易处理大规模请求。
 不过，此访问也有一些挑战：
 
 <!--
-1. Kubernetes has no "web interface" to trigger the authentication process.  There is no browser or interface to collect credentials which is why you need to authenticate to your identity provider first.
-2. The `id_token` can't be revoked, it's like a certificate so it should be short-lived (only a few minutes) so it can be very annoying to have to get a new token every few minutes.
-3. To authenticate to the Kubernetes dashboard, you must use the `kubectl proxy` command or a reverse proxy that injects the `id_token`.
+1. Kubernetes has no "web interface" to trigger the authentication process. There is no browser or
+   interface to collect credentials which is why you need to authenticate to your identity provider first.
+1. The `id_token` can't be revoked, it's like a certificate so it should be short-lived (only a few minutes)
+   so it can be very annoying to have to get a new token every few minutes.
+1. To authenticate to the Kubernetes dashboard, you must use the `kubectl proxy` command or a reverse proxy
+   that injects the `id_token`.
 -->
 1. Kubernetes 没有提供用来触发身份认证过程的 "Web 界面"。
    因为不存在用来收集用户凭据的浏览器或用户接口，你必须自己先行完成对身份服务的认证过程。
@@ -604,20 +610,27 @@ Tremolo Security 的 [OpenUnison](https://openunison.github.io/)。
 <!--
 For an identity provider to work with Kubernetes it must:
 
-1.  Support [OpenID connect discovery](https://openid.net/specs/openid-connect-discovery-1_0.html); not all do.
-2.  Run in TLS with non-obsolete ciphers
-3.  Have a CA signed certificate (even if the CA is not a commercial CA or is self signed)
+1. Support [OpenID connect discovery](https://openid.net/specs/openid-connect-discovery-1_0.html); not all do.
+1. Run in TLS with non-obsolete ciphers
+1. Have a CA signed certificate (even if the CA is not a commercial CA or is self signed)
 -->
 要在 Kubernetes 环境中使用某身份服务，该服务必须：
 
-1.  支持 [OpenID connect 发现](https://openid.net/specs/openid-connect-discovery-1_0.html)；
-    但事实上并非所有服务都具备此能力
-2.  运行 TLS 协议且所使用的加密组件都未过时
-3.  拥有由 CA 签名的证书（即使 CA 不是商业 CA 或者是自签名的 CA 也可以）
+1. 支持 [OpenID connect 发现](https://openid.net/specs/openid-connect-discovery-1_0.html)；
+   但事实上并非所有服务都具备此能力
+2. 运行 TLS 协议且所使用的加密组件都未过时
+3. 拥有由 CA 签名的证书（即使 CA 不是商业 CA 或者是自签名的 CA 也可以）
 
 <!--
-A note about requirement #3 above, requiring a CA signed certificate.  If you deploy your own identity provider (as opposed to one of the cloud providers like Google or Microsoft) you MUST have your identity provider's web server certificate signed by a certificate with the `CA` flag set to `TRUE`, even if it is self signed.  This is due to GoLang's TLS client implementation being very strict to the standards around certificate validation.  If you don't have a CA handy, you can use [this script](https://github.com/dexidp/dex/blob/master/examples/k8s/gencert.sh) from the Dex team to create a simple CA and a signed certificate and key pair.
-Or you can use [this similar script](https://raw.githubusercontent.com/TremoloSecurity/openunison-qs-kubernetes/master/src/main/bash/makessl.sh) that generates SHA256 certs with a longer life and larger key size.
+A note about requirement #3 above, requiring a CA signed certificate.  If you deploy your own
+identity provider (as opposed to one of the cloud providers like Google or Microsoft) you MUST
+have your identity provider's web server certificate signed by a certificate with the `CA` flag
+set to `TRUE`, even if it is self signed.  This is due to GoLang's TLS client implementation
+being very strict to the standards around certificate validation.  If you don't have a CA handy,
+you can use [this script](https://github.com/dexidp/dex/blob/master/examples/k8s/gencert.sh)
+from the Dex team to create a simple CA and a signed certificate and key pair. Or you can use
+[this similar script](https://raw.githubusercontent.com/TremoloSecurity/openunison-qs-kubernetes/master/src/main/bash/makessl.sh)
+that generates SHA256 certs with a longer life and larger key size.
 -->
 关于上述第三条需求，即要求具备 CA 签名的证书，有一些额外的注意事项。
 如果你部署了自己的身份服务，而不是使用云厂商（如 Google 或 Microsoft）所提供的服务，
@@ -642,9 +655,12 @@ Setup instructions for specific systems:
 
 ##### Option 1 - OIDC Authenticator
 
-The first option is to use the kubectl `oidc` authenticator, which sets the `id_token` as a bearer token for all requests and refreshes the token once it expires. After you've logged into your provider, use kubectl to add your `id_token`, `refresh_token`, `client_id`, and `client_secret` to configure the plugin.
+The first option is to use the kubectl `oidc` authenticator, which sets the `id_token` as a bearer token
+for all requests and refreshes the token once it expires. After you've logged into your provider, use
+kubectl to add your `id_token`, `refresh_token`, `client_id`, and `client_secret` to configure the plugin.
 
-Providers that don't return an `id_token` as part of their refresh token response aren't supported by this plugin and should use "Option 2" below.
+Providers that don't return an `id_token` as part of their refresh token response aren't supported
+by this plugin and should use "Option 2" below.
 -->
 #### 使用 kubectl   {#using-kubectl}
 
@@ -706,7 +722,8 @@ users:
 ```
 
 <!--
-Once your `id_token` expires, `kubectl` will attempt to refresh your `id_token` using your `refresh_token` and `client_secret` storing the new values for the `refresh_token` and `id_token` in your `.kube/config`.
+Once your `id_token` expires, `kubectl` will attempt to refresh your `id_token` using your `refresh_token`
+and `client_secret` storing the new values for the `refresh_token` and `id_token` in your `.kube/config`.
 -->
 当你的 `id_token` 过期时，`kubectl` 会尝试使用你的 `refresh_token` 来刷新你的
 `id_token`，并且在 `.kube/config` 文件的 `client_secret` 中存放 `refresh_token`
@@ -816,8 +833,9 @@ contexts:
 ```
 
 <!--
-When a client attempts to authenticate with the API server using a bearer token as discussed [above](#putting-a-bearer-token-in-a-request),
-the authentication webhook POSTs a JSON-serialized `TokenReview` object containing the token to the remote service.
+When a client attempts to authenticate with the API server using a bearer token as discussed
+[above](#putting-a-bearer-token-in-a-request), the authentication webhook POSTs a JSON-serialized
+`TokenReview` object containing the token to the remote service.
 -->
 当客户端尝试在 API 服务器上使用持有者令牌完成身份认证
 （如[前](#putting-a-bearer-token-in-a-request)所述）时，
@@ -826,8 +844,8 @@ the authentication webhook POSTs a JSON-serialized `TokenReview` object containi
 Kubernetes 不会强制请求提供此 HTTP 头部。
 
 <!--
-Note that webhook API objects are subject to the same [versioning compatibility rules](/docs/concepts/overview/kubernetes-api/) as other Kubernetes API objects.
-Implementers should check the `apiVersion` field of the request to ensure correct deserialization,
+Note that webhook API objects are subject to the same [versioning compatibility rules](/docs/concepts/overview/kubernetes-api/)
+as other Kubernetes API objects. Implementers should check the `apiVersion` field of the request to ensure correct deserialization,
 and **must** respond with a `TokenReview` object of the same version as the request.
 -->
 要注意的是，Webhook API 对象和其他 Kubernetes API 对象一样，
@@ -1015,9 +1033,15 @@ API 服务器可以配置成从请求的头部字段值（如 `X-Remote-User`）
 这一设计是用来与某身份认证代理一起使用 API 服务器，代理负责设置请求的头部字段值。
 
 <!--
-* `--requestheader-username-headers` Required, case-insensitive. Header names to check, in order, for the user identity. The first header containing a value is used as the username.
-* `--requestheader-group-headers` 1.6+. Optional, case-insensitive. "X-Remote-Group" is suggested. Header names to check, in order, for the user's groups. All values in all specified headers are used as group names.
-* `--requestheader-extra-headers-prefix` 1.6+. Optional, case-insensitive. "X-Remote-Extra-" is suggested. Header prefixes to look for to determine extra information about the user (typically used by the configured authorization plugin). Any headers beginning with any of the specified prefixes have the prefix removed. The remainder of the header name is lowercased and [percent-decoded](https://tools.ietf.org/html/rfc3986#section-2.1) and becomes the extra key, and the header value is the extra value.
+* `--requestheader-username-headers` Required, case-insensitive. Header names to check, in order,
+  for the user identity. The first header containing a value is used as the username.
+* `--requestheader-group-headers` 1.6+. Optional, case-insensitive. "X-Remote-Group" is suggested.
+  Header names to check, in order, for the user's groups. All values in all specified headers are used as group names.
+* `--requestheader-extra-headers-prefix` 1.6+. Optional, case-insensitive. "X-Remote-Extra-" is suggested.
+  Header prefixes to look for to determine extra information about the user (typically used by the configured authorization plugin).
+  Any headers beginning with any of the specified prefixes have the prefix removed.
+  The remainder of the header name is lowercased and [percent-decoded](https://tools.ietf.org/html/rfc3986#section-2.1)
+  and becomes the extra key, and the header value is the extra value.
 -->
 * `--requestheader-username-headers` 必需字段，大小写不敏感。
   用来设置要获得用户身份所要检查的头部字段名称列表（有序）。
@@ -1034,7 +1058,8 @@ API 服务器可以配置成从请求的头部字段值（如 `X-Remote-User`）
 
 {{< note >}}
 <!--
-Prior to 1.11.3 (and 1.10.7, 1.9.11), the extra key could only contain characters which were [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6).
+Prior to 1.11.3 (and 1.10.7, 1.9.11), the extra key could only contain characters which
+were [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6).
 -->
 在 1.13.3 版本之前（包括 1.10.7、1.9.11），附加字段的键名只能包含
 [HTTP 头部标签的合法字符](https://tools.ietf.org/html/rfc7230#section-3.2.6)。
@@ -1090,8 +1115,12 @@ certificate to the API server for validation against the specified CA before the
 checked. WARNING: do **not** reuse a CA that is used in a different context unless you understand
 the risks and the mechanisms to protect the CA's usage.
 
-* `--requestheader-client-ca-file` Required. PEM-encoded certificate bundle. A valid client certificate must be presented and validated against the certificate authorities in the specified file before the request headers are checked for user names.
-* `--requestheader-allowed-names` Optional. List of Common Name values (CNs). If set, a valid client certificate with a CN in the specified list must be presented before the request headers are checked for user names. If empty, any CN is allowed.
+* `--requestheader-client-ca-file` Required. PEM-encoded certificate bundle. A valid client certificate
+  must be presented and validated against the certificate authorities in the specified file before the
+  request headers are checked for user names.
+* `--requestheader-allowed-names` Optional. List of Common Name values (CNs). If set, a valid client
+  certificate with a CN in the specified list must be presented before the request headers are checked
+  for user names. If empty, any CN is allowed.
 -->
 为了防范头部信息侦听，在请求中的头部字段被检视之前，
 身份认证代理需要向 API 服务器提供一份合法的客户端证书，供后者使用所给的 CA 来执行验证。
@@ -1182,9 +1211,14 @@ to the impersonated user info.
 The following HTTP headers can be used to performing an impersonation request:
 
 * `Impersonate-User`: The username to act as.
-* `Impersonate-Group`: A group name to act as. Can be provided multiple times to set multiple groups. Optional. Requires "Impersonate-User".
-* `Impersonate-Extra-( extra name )`: A dynamic header used to associate extra fields with the user. Optional. Requires "Impersonate-User". In order to be preserved consistently, `( extra name )` must be lower-case, and any characters which aren't [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6) MUST be utf8 and [percent-encoded](https://tools.ietf.org/html/rfc3986#section-2.1).
-* `Impersonate-Uid`: A unique identifier that represents the user being impersonated. Optional. Requires "Impersonate-User". Kubernetes does not impose any format requirements on this string.
+* `Impersonate-Group`: A group name to act as. Can be provided multiple times to set multiple groups.
+  Optional. Requires "Impersonate-User".
+* `Impersonate-Extra-( extra name )`: A dynamic header used to associate extra fields with the user.
+  Optional. Requires "Impersonate-User". In order to be preserved consistently, `( extra name )`
+  must be lower-case, and any characters which aren't [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6)
+  MUST be utf8 and [percent-encoded](https://tools.ietf.org/html/rfc3986#section-2.1).
+* `Impersonate-Uid`: A unique identifier that represents the user being impersonated. Optional.
+  Requires "Impersonate-User". Kubernetes does not impose any format requirements on this string.
 -->
 以下 HTTP 头部字段可用来执行伪装请求：
 
@@ -1201,7 +1235,8 @@ The following HTTP headers can be used to performing an impersonation request:
 
 {{< note >}}
 <!--
-Prior to 1.11.3 (and 1.10.7, 1.9.11), `( extra name )` could only contain characters which were [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6).
+Prior to 1.11.3 (and 1.10.7, 1.9.11), `( extra name )` could only contain characters which
+were [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6).
 -->
 在 1.11.3 版本之前（以及 1.10.7、1.9.11），`<附加名称>` 只能包含合法的 HTTP 标签字符。
 {{< /note >}}
@@ -1999,9 +2034,13 @@ The following `ExecCredential` manifest describes a cluster information sample.
 {{< feature-state for_k8s_version="v1.28" state="stable" >}}
 
 <!--
-If your cluster has the API enabled, you can use the `SelfSubjectReview` API to find out how your Kubernetes cluster maps your authentication information to identify you as a client. This works whether you are authenticating as a user (typically representing a real person) or as a ServiceAccount.
+If your cluster has the API enabled, you can use the `SelfSubjectReview` API to find out
+how your Kubernetes cluster maps your authentication information to identify you as a client.
+This works whether you are authenticating as a user (typically representing
+a real person) or as a ServiceAccount.
 
-`SelfSubjectReview` objects do not have any configurable fields. On receiving a request, the Kubernetes API server fills the status with the user attributes and returns it to the user.
+`SelfSubjectReview` objects do not have any configurable fields. On receiving a request,
+the Kubernetes API server fills the status with the user attributes and returns it to the user.
 
 Request example (the body would be a `SelfSubjectReview`):
 -->
@@ -2052,7 +2091,8 @@ Response example:
 ```
 
 <!--
-For convenience, the `kubectl auth whoami` command is present. Executing this command will produce the following output (yet different user attributes will be shown):
+For convenience, the `kubectl auth whoami` command is present. Executing this command will
+produce the following output (yet different user attributes will be shown):
 
 * Simple output example
 -->
@@ -2164,8 +2204,8 @@ Kubernetes API 服务器在所有身份验证机制
 {{< /note >}}
 
 <!--
-By default, all authenticated users can create `SelfSubjectReview` objects when the `APISelfSubjectReview` feature is enabled.
-It is allowed by the `system:basic-user` cluster role.
+By default, all authenticated users can create `SelfSubjectReview` objects when the `APISelfSubjectReview`
+feature is enabled. It is allowed by the `system:basic-user` cluster role.
 -->
 默认情况下，所有经过身份验证的用户都可以在 `APISelfSubjectReview` 特性被启用时创建 `SelfSubjectReview` 对象。
 这是 `system:basic-user` 集群角色允许的操作。
@@ -2173,6 +2213,7 @@ It is allowed by the `system:basic-user` cluster role.
 {{< note >}}
 <!--
 You can only make `SelfSubjectReview` requests if:
+
 * the `APISelfSubjectReview`
   [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
   is enabled for your cluster (not needed for Kubernetes {{< skew currentVersion >}}, but older

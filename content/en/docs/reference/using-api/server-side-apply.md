@@ -180,7 +180,7 @@ Managers identify distinct workflows that are modifying the object (especially
 useful on conflicts!), and can be specified through the
 [`fieldManager`](/docs/reference/kubernetes-api/common-parameters/common-parameters/#fieldManager)
 query parameter as part of a modifying request. When you Apply to a resource,
-the `fieldManager` parameter is required
+the `fieldManager` parameter is required.
 For other updates, the API server infers a field manager identity from the
  "User-Agent:" HTTP header (if present).
 

@@ -730,10 +730,12 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `ServerSideFieldValidation`: Enables server-side field validation. This means the validation
   of resource schema is performed at the API server side rather than the client side
   (for example, the `kubectl create` or `kubectl apply` command line).
+- `ServiceNodePortStaticSubrange`: Enables the use of different port allocation
+  strategies for NodePort Services. For more details, see
+  [reserve NodePort ranges to avoid collisions](/docs/concepts/services-networking/service/#avoid-nodeport-collisions).
 - `SidecarContainers`: Allow setting the `restartPolicy` of an init container to
   `Always` so that the container becomes a sidecar container (restartable init containers).
-  See
-  [Sidecar containers and restartPolicy](/docs/concepts/workloads/pods/init-containers/#sidecar-containers-and-restartpolicy)
+  See [Sidecar containers and restartPolicy](/docs/concepts/workloads/pods/init-containers/#sidecar-containers-and-restartpolicy)
   for more details.
 - `SizeMemoryBackedVolumes`: Enable kubelets to determine the size limit for
   memory-backed volumes (mainly `emptyDir` volumes).

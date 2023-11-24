@@ -55,7 +55,7 @@ API concepts:
 
 * A *resource type* is the name used in the URL (`pods`, `namespaces`, `services`)
 * All resource types have a concrete representation (their object schema) which is called a *kind*
-* A list of instances of a resource is known as a *collection*
+* A list of instances of a resource type is known as a *collection*
 * A single instance of a resource type is called a *resource*, and also usually represents an *object*
 * For some resource types, the API includes one or more *sub-resources*, which are represented as URI paths below the resource
 -->
@@ -64,7 +64,7 @@ API concepts:
 Kubernetes 通常使用常见的 RESTful 术语来描述 API 概念：
 * **资源类型（Resource Type）** 是 URL 中使用的名称（`pods`、`namespaces`、`services`）
 * 所有资源类型都有一个具体的表示（它们的对象模式），称为 **类别（Kind）**
-* 资源实例的列表称为 **集合（Collection）**
+* 资源类型的实例的列表称为 **集合（Collection）**
 * 资源类型的单个实例称为 **资源（Resource）**，通常也表示一个 **对象（Object）**
 * 对于某些资源类型，API 包含一个或多个 **子资源（sub-resources）**，这些子资源表示为资源下的 URI 路径
 
@@ -269,7 +269,7 @@ For example:
 -->
 1. 列举给定名字空间中的所有 Pod：
 
-   ```console
+   ```
    GET /api/v1/namespaces/test/pods
    ---
    200 OK
@@ -285,16 +285,16 @@ For example:
 
 <!--
 2. Starting from resource version 10245, receive notifications of any API operations
-   (such as **create**, **delete**, **apply** or **update**) that affect Pods in the
+   (such as **create**, **delete**, **patch** or **update**) that affect Pods in the
    _test_ namespace. Each change notification is a JSON document. The HTTP response body
    (served as `application/json`) consists a series of JSON documents.
 -->
 2. 从资源版本 10245 开始，接收影响 _test_ 名字空间中 Pod 的所有 API 操作
-   （例如 **create**、**delete**、**apply** 或 **update**）的通知。
+   （例如 **create**、**delete**、**patch** 或 **update**）的通知。
    每个更改通知都是一个 JSON 文档。
    HTTP 响应正文（用作 `application/json`）由一系列 JSON 文档组成。
 
-   ```console
+   ```
    GET /api/v1/namespaces/test/pods?watch=1&resourceVersion=10245
    ---
    200 OK
@@ -349,7 +349,7 @@ but only includes a `.metadata.resourceVersion` field. For example:
 这是一种特殊的事件，用于标记客户端请求的给定 `resourceVersion` 的所有更改都已发送。
 代表 `BOOKMARK` 事件的文档属于请求所请求的类型，但仅包含一个 `.metadata.resourceVersion` 字段。例如：
 
-```console
+```
 GET /api/v1/namespaces/test/pods?watch=1&resourceVersion=10245&allowWatchBookmarks=true
 ---
 200 OK
@@ -446,7 +446,7 @@ in the following sequence of events:
 接下来你发送了以下请求（通过使用 `resourceVersion=` 设置空的资源版本来明确请求 **一致性读**），
 这样做的结果是可能收到如下事件序列：
 
-```console
+```
 GET /api/v1/namespaces/test/pods?watch=1&sendInitialEvents=true&allowWatchBookmarks=true&resourceVersion=&resourceVersionMatch=NotOlderThan
 ---
 200 OK
@@ -504,7 +504,7 @@ API server with an `Accept-Encoding` header, and check the response size and hea
 要验证 `APIResponseCompression` 是否正常工作，你可以使用一个 `Accept-Encoding`
 头向 API 服务器发送一个 **get** 或 **list** 请求，并检查响应大小和头信息。例如：
 
-```console
+```
 GET /api/v1/pods
 Accept-Encoding: gzip
 ---
@@ -596,7 +596,7 @@ of 500 pods at a time, request those chunks as follows:
 -->
 1. 列举集群中所有 Pod，每次接收至多 500 个 Pod：
 
-   ```console
+   ```
    GET /api/v1/pods?limit=500
    ---
    200 OK
@@ -620,7 +620,7 @@ of 500 pods at a time, request those chunks as follows:
 -->
 2. 继续前面的调用，返回下一组 500 个 Pod：
 
-   ```console
+   ```
    GET /api/v1/pods?limit=500&continue=ENCODED_CONTINUE_TOKEN
    ---
    200 OK
@@ -644,7 +644,7 @@ of 500 pods at a time, request those chunks as follows:
 -->
 3. 继续前面的调用，返回最后 253 个 Pod：
 
-   ```console
+   ```
    GET /api/v1/pods?limit=500&continue=ENCODED_CONTINUE_TOKEN_2
    ---
    200 OK
@@ -847,7 +847,7 @@ Kubernetes API 实现标准的 HTTP 内容类型（Content Type）协商：为 `
 
 例如，以 Table 格式列举集群中所有 Pod：
 
-```console
+```
 GET /api/v1/pods
 Accept: application/json;as=Table;g=meta.k8s.io;v=v1
 ---
@@ -872,7 +872,7 @@ plane, the API server returns a default Table response that consists of the reso
 对于在控制平面上不存在定制的 Table 定义的 API 资源类型而言，服务器会返回一个默认的
 Table 响应，其中包含资源的 `name` 和 `creationTimestamp` 字段。
 
-```console
+```
 GET /apis/crd.example.com/v1alpha1/namespaces/default/resources
 ---
 200 OK
@@ -915,7 +915,7 @@ extensions, you should make requests that specify multiple content types in the
 如果你正在实现使用 Table 信息并且必须针对所有资源类型（包括扩展）工作的客户端，
 你应该在 `Accept` 请求头中指定多种内容类型的请求。例如：
 
-```console
+```
 Accept: application/json;as=Table;g=meta.k8s.io;v=v1, application/json
 ```
 
@@ -966,7 +966,7 @@ For example:
 -->
 1. 以 Protobuf 格式列举集群上的所有 Pod：
 
-   ```console
+   ```
    GET /api/v1/pods
    Accept: application/vnd.kubernetes.protobuf
    ---
@@ -981,7 +981,7 @@ For example:
 -->
 2. 通过向服务器发送 Protobuf 编码的数据创建 Pod，但请求以 JSON 形式接收响应：
 
-   ```console
+   ```
    POST /api/v1/namespaces/test/pods
    Content-Type: application/vnd.kubernetes.protobuf
    Accept: application/json
@@ -1013,7 +1013,7 @@ Protobuf 不适用于定义为 {{< glossary_tooltip term_id="CustomResourceDefin
 作为客户端，如果你可能需要使用扩展类型，则应在请求 `Accept` 请求头中指定多种内容类型以支持回退到 JSON。
 例如：
 
-```console
+```
 Accept: application/vnd.kubernetes.protobuf, application/json
 ```
 
@@ -1038,7 +1038,7 @@ Kubernetes 使用封套形式来对 Protobuf 响应进行编码。
 封套格式如下：
 
 <!--
-```console
+```
 A four byte magic number prefix:
   Bytes 0-3: "k8s\x00" [0x6b, 0x38, 0x73, 0x00]
 
@@ -1066,7 +1066,7 @@ An encoded Protobuf message with the following IDL:
   }
 ```
 -->
-```console
+```
 四个字节的特殊数字前缀：
   字节 0-3: "k8s\x00" [0x6b, 0x38, 0x73, 0x00]
 
@@ -1171,7 +1171,7 @@ Once the last finalizer is removed, the resource is actually removed from etcd.
 <!--
 ## Single resource API
 
-The Kubernetes API verbs **get**, **create**, **apply**, **update**, **patch**,
+The Kubernetes API verbs **get**, **create**, **update**, **patch**,
 **delete** and **proxy** support single resources only.
 These verbs with single resource support have no support for submitting multiple
 resources together in an ordered or unordered list or transaction.
@@ -1184,7 +1184,7 @@ resources, and **deletecollection** allows deleting multiple resources.
 -->
 ## 单个资源 API  {#single-resource-api}
 
-Kubernetes API 动词 **get**、**create**、**apply**、**update**、**patch**、**delete** 和 **proxy** 仅支持单一资源。
+Kubernetes API 动词 **get**、**create**、**update**、**patch**、**delete** 和 **proxy** 仅支持单一资源。
 这些具有单一资源支持的动词不支持在有序或无序列表或事务中一起提交多个资源。
 
 当客户端（包括 kubectl）对一组资源进行操作时，客户端会发出一系列单资源 API 请求，
@@ -1249,11 +1249,11 @@ These situations are:
 2. 字段在对象中重复出现。
 
 <!--
-### Validation for unrecognized or duplicate fields (#setting-the-field-validation-level)
+### Validation for unrecognized or duplicate fields {#setting-the-field-validation-level}
 -->
 ### 检查无法识别或重复的字段  {#setting-the-field-validation-level}
 
-  {{< feature-state for_k8s_version="v1.27" state="stable" >}}
+{{< feature-state for_k8s_version="v1.27" state="stable" >}}
 
 <!--
 From 1.25 onward, unrecognized or duplicate fields in an object are detected via
@@ -1439,7 +1439,7 @@ Here is an example dry-run request that uses `?dryRun=All`:
 -->
 这是一个使用 `?dryRun=All` 的试运行请求的示例：
 
-```console
+```
 POST /api/v1/namespaces/test/pods?dryRun=All
 Content-Type: application/json
 Accept: application/json
@@ -1449,7 +1449,6 @@ Accept: application/json
 The response would look the same as for non-dry-run request, but the values of some
 generated fields may differ.
 -->
-
 响应会与非试运行模式请求的响应看起来相同，只是某些生成字段的值可能会不同。
 
 <!--
@@ -1512,26 +1511,266 @@ See [Authorization Overview](/docs/reference/access-authn-authz/authorization/).
 参阅[鉴权概述](/zh-cn/docs/reference/access-authn-authz/authorization/)以了解鉴权细节。
 
 <!--
-## Server Side Apply
+## Updates to existing resources {#patch-and-apply}
+
+Kubernetes provides several ways to update existing objects.
+You can read [choosing an update mechanism](#update-mechanism-choose) to
+learn about which approach might be best for your use case.
 -->
-## 服务器端应用  {#server-side-apply}
+## 更新现有资源   {#patch-and-apply}
+
+Kubernetes 提供了多种更新现有对象的方式。
+你可以阅读[选择更新机制](#update-mechanism-choose)以了解哪种方法可能最适合你的用例。
+
+<!--
+You can overwrite (**update**) an existing resource - for example, a ConfigMap -
+using an HTTP PUT. For a PUT request, it is the client's responsibility to specify
+the `resourceVersion` (taking this from the object being updated). Kubernetes uses
+that `resourceVersion` information so that the API server can detect lost updates
+and reject requests made by a client that is out of date with the cluster.
+In the event that the resource has changed (the `resourceVersion` the client
+provided is stale), the API server returns a `409 Conflict` error response.
+-->
+你可以使用 HTTP PUT 覆盖（**update**）ConfigMap 等现有资源。
+对于 PUT 请求，客户端需要指定 `resourceVersion`（从要更新的对象中获取此项）。
+Kubernetes 使用该 `resourceVersion` 信息，这样 API 服务器可以检测丢失的更新并拒绝对集群来说过期的客户端所发出的请求。
+如果资源已发生变化（即客户端提供的 `resourceVersion` 已过期），API 服务器将返回 `409 Conflict` 错误响应。
+
+<!--
+Instead of sending a PUT request, the client can send an instruction to the API
+server to **patch** an existing resource. A **patch** is typically appropriate
+if the change that the client wants to make isn't conditional on the existing data. Clients that need effective detection of lost updates should consider
+making their request conditional on the existing `resourceVersion` (either HTTP PUT or HTTP PATCH),
+and then handle any retries that are needed in case there is a conflict.
+
+The Kubernetes API supports four different PATCH operations, determined by their
+corresponding HTTP `Content-Type` header:
+-->
+客户端除了发送 PUT 请求之外，还可以发送指令给 API 服务器对现有资源执行 **patch** 操作。
+**patch** 通常适用于客户端希望进行的更改并不依赖于现有数据的场景。
+需要有效检测丢失更新的客户端应该考虑根据现有 `resourceVersion` 来进行有条件的请求
+（HTTP PUT 或 HTTP PATCH），并在存在冲突时作必要的重试。
+
+Kubernetes API 支持四种不同的 PATCH 操作，具体取决于它们所对应的 HTTP `Content-Type` 标头：
+
+<!--
+`application/apply-patch+yaml`
+: Server Side Apply YAML (a Kubernetes-specific extension, based on YAML).
+  All JSON documents are valid YAML, so you can also submit JSON using this
+  media type. See [Server Side Apply serialization](/docs/reference/using-api/server-side-apply/#serialization)
+  for more details.  
+  To Kubernetes, this is a **create** operation if the object does not exist,
+  or a **patch** operation if the object already exists.
+  -->
+`application/apply-patch+yaml`
+: Server Side Apply YAML（基于 YAML 的 Kubernetes 扩展）。
+  所有 JSON 文档都是有效的 YAML，因此你也可以使用此媒体类型提交 JSON。
+  更多细节参阅[服务器端应用序列化](/zh-cn/docs/reference/using-api/server-side-apply/#serialization)。
+  对于 Kubernetes，这一 PATCH 请求在对象不存在时成为 **create** 操作；在对象已存在时成为 **patch** 操作。
+
+<!--
+`application/json-patch+json`
+: JSON Patch, as defined in [RFC6902](https://tools.ietf.org/html/rfc6902).
+  A JSON patch is a sequence of operations that are executed on the resource;
+  for example `{"op": "add", "path": "/a/b/c", "value": [ "foo", "bar" ]}`.  
+  To Kubernetes, this is a **patch** operation.
+  
+  A **patch** using `application/json-patch+json` can include conditions to
+  validate consistency, allowing the operation to fail if those conditions
+  are not met (for example, to avoid a lost update).
+-->
+`application/json-patch+json`
+: JSON Patch，如 [RFC6902](https://tools.ietf.org/html/rfc6902) 中定义。
+  JSON Patch 是对资源执行的一个操作序列；例如 `{"op": "add", "path": "/a/b/c", "value": [ "foo", "bar" ]}`。
+  对于 Kubernetes，这一 PATCH 请求即是一个 **patch** 操作。
+  
+  使用 `application/json-patch+json` 的 **patch** 可以包含用于验证一致性的条件，
+  如果这些条件不满足，则允许此操作失败（例如避免丢失更新）。
+
+<!--
+`application/merge-patch+json`
+: JSON Merge Patch, as defined in [RFC7386](https://tools.ietf.org/html/rfc7386).
+  A JSON Merge Patch is essentially a partial representation of the resource.
+  The submitted JSON is combined with the current resource to create a new one,
+  then the new one is saved.  
+  To Kubernetes, this is a **patch** operation.
+-->
+`application/merge-patch+json`
+: JSON Merge Patch，如 [RFC7386](https://tools.ietf.org/html/rfc7386) 中定义。
+  JSON Merge Patch 实质上是资源的部分表示。提交的 JSON 与当前资源合并以创建一个新资源，然后将其保存。
+  对于 Kubernetes，这个 PATCH 请求是一个 **patch** 操作。
+
+<!--
+`application/strategic-merge-patch+json`
+: Strategic Merge Patch (a Kubernetes-specific extension based on JSON).
+  Strategic Merge Patch is a custom implementation of JSON Merge Patch.
+  You can only use Strategic Merge Patch with built-in APIs, or with aggregated
+  API servers that have special support for it. You cannot use
+  `application/strategic-merge-patch+json` with any API
+  defined using a {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}.
+-->
+`application/strategic-merge-patch+json`
+: Strategic Merge Patch（基于 JSON 的 Kubernetes 扩展）。
+  Strategic Merge Patch 是 JSON Merge Patch 的自定义实现。
+  你只能在内置 API 或具有特殊支持的聚合 API 服务器中使用 Strategic Merge Patch。
+  你不能针对任何使用 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
+  定义的 API 来使用 `application/strategic-merge-patch+json`。
+
+  {{< note >}}
+  <!--
+  The Kubernetes _server side apply_ mechanism has superseded Strategic Merge
+  Patch.
+  -->
+  Kubernetes **服务器端应用**机制已取代 Strategic Merge Patch。
+  {{< /note >}}
 
 <!--
 Kubernetes' [Server Side Apply](/docs/reference/using-api/server-side-apply/)
 feature allows the control plane to track managed fields for newly created objects.
 Server Side Apply provides a clear pattern for managing field conflicts,
-offers server-side `Apply` and `Update` operations, and replaces the
+offers server-side **apply** and **update** operations, and replaces the
 client-side functionality of `kubectl apply`.
 
-The API verb for Server-Side Apply is **apply**.
+For Server-Side Apply, Kubernetes treats the request as a **create** if the object
+does not yet exist, and a **patch** otherwise. For other requests that use PATCH
+at the HTTP level, the logical Kubernetes operation is always **patch**.
+
 See [Server Side Apply](/docs/reference/using-api/server-side-apply/) for more details.
 -->
 Kubernetes 的[服务器端应用](/zh-cn/docs/reference/using-api/server-side-apply/)功能允许控制平面跟踪新创建对象的托管字段。
-服务端应用为管理字段冲突提供了清晰的模式，提供了服务器端 `Apply` 和 `Update` 操作，
+服务端应用为管理字段冲突提供了清晰的模式，提供了服务器端 **apply** 和 **update**  操作，
 并替换了 `kubectl apply` 的客户端功能。
 
-服务端应用的 API 动词是 **apply**。有关详细信息，
-请参阅[服务器端应用](/zh-cn/docs/reference/using-api/server-side-apply/)。
+对于服务器端应用，Kubernetes 在对象尚不存在时将请求视为 **create**，否则视为 **patch**。
+对于其他在 HTTP 层面使用 PATCH 的请求，逻辑上的 Kubernetes 操作始终是 **patch**。
+
+更多细节参阅[服务器端应用](/zh-cn/docs/reference/using-api/server-side-apply/)。
+
+<!--
+### Choosing an update mechanism {#update-mechanism-choose}
+
+#### HTTP PUT to replace existing resource {#update-mechanism-update}
+
+The **update** (HTTP `PUT`) operation is simple to implement and flexible,
+but has drawbacks:
+-->
+### 选择更新机制   {#update-mechanism-choose}
+
+#### HTTP PUT 替换现有资源  {#update-mechanism-update}
+
+**update** (HTTP `PUT`) 操作实现简单且灵活，但也存在一些缺点：
+
+<!--
+* You need to handle conflicts where the `resourceVersion` of the object changes
+  between your client reading it and trying to write it back. Kubernetes always
+  detects the conflict, but you as the client author need to implement retries.
+* You might accidentally drop fields if you decode an object locally (for example,
+  using client-go, you could receive fields that your client does not know how to
+  handle - and then drop them as part of your update.
+* If there's a lot of contention on the object (even on a field, or set of fields,
+  that you're not trying to edit), you might have trouble sending the update.
+  The problem is worse for larger objects and for objects with many fields.
+-->
+* 你需要处理对象的 `resourceVersion` 在客户端读取和写回之间发生变化所造成的冲突。
+  Kubernetes 总是会检测到此冲突，但你作为客户端开发者需要实现重试机制。
+* 如果你在本地解码对象，可能会意外丢失字段。例如你在使用 client-go 时，
+  可能会收到客户端不知道如何处理的一些字段，而客户端在构造更新时会将这些字段丢弃。
+* 如果对象上存在大量争用（即使是在你不打算编辑的某字段或字段集上），你可能会难以发送更新。
+  对于体量较大或字段较多的对象，这个问题会更为严重。
+
+<!--
+#### HTTP PATCH using JSON Patch {#update-mechanism-json-patch}
+
+A **patch** update is helpful, because:
+-->
+#### 使用 JSON Patch 的 HTTP PATCH   {#update-mechanism-json-patch}
+
+**patch** 更新很有帮助，因为：
+
+<!--
+* As you're only sending differences, you have less data to send in the `PATCH`
+  request.
+* You can make changes that rely on existing values, such as copying the
+  value of a particular field into an annotation.
+-->
+* 由于你只发送差异，所以你在 `PATCH` 请求中需要发送的数据较少。
+* 你可以依赖于现有值进行更改，例如将特定字段的值复制到注解中。
+<!--
+* Unlike with an **update** (HTTP `PUT`), making your change can happen right away
+  even if there are frequent changes to unrelated fields): you usually would
+  not need to retry.
+  * You might still need to specify the `resourceVersion` (to match an existing object)
+    if you want to be extra careful to avoid lost updates
+  * It's still good practice to write in some retry logic in case of errors.
+-->
+* 与 **update**（HTTP `PUT`）不同，即使存在对无关字段的频繁更改，你的更改也可以立即生效：
+  你通常无需重试。
+  * 如果你要特别小心避免丢失更新，仍然可能需要指定 `resourceVersion`（以匹配现有对象）。
+  * 编写一些重试逻辑以处理错误仍然是一个良好的实践。
+<!--
+* You can use test conditions to careful craft specific update conditions.
+  For example, you can increment a counter without reading it if the existing
+  value matches what you expect. You can do this with no lost update risk,
+  even if the object has changed in other ways since you last wrote to it.
+  (If the test condition fails, you can fall back to reading the current value
+  and then write back the changed number).
+-->
+* 你可以通过测试条件来精确地构造特定的更新条件。
+  例如，如果现有值与你期望的值匹配，你可以递增计数器而无需读取它。
+  即使自上次写入以来对象以其他方式发生了更改，你也可以做到这一点而不会遇到丢失更新的风险。
+  （如果测试条件失败，你可以回退为读取当前值，然后写回更改的数字）。
+
+<!--
+However:
+
+* you need more local (client) logic to build the patch; it helps a lot if you have
+  a library implementation of JSON Patch, or even for making a JSON Patch specifically against Kubernetes
+* as the author of client software, you need to be careful when building the patch
+  (the HTTP request body) not to drop fields (the order of operations matters)
+-->
+然而：
+
+* 你需要更多本地（客户端）逻辑来构建补丁；如果你拥有实现了 JSON Patch 的库，
+  或者针对 Kubernetes 生成特定的 JSON Patch 的库，将非常有帮助。
+* 作为客户端软件的开发者，你在构建补丁（HTTP 请求体）时需要小心，避免丢弃字段（操作顺序很重要）。
+
+<!--
+#### HTTP PATCH using Server-Side Apply {#update-mechanism-server-side-apply}
+
+Server-Side Apply has some clear benefits:
+-->
+#### 使用服务器端应用的 HTTP PATCH {#update-mechanism-server-side-apply}
+
+服务器端应用（Server-Side Apply）具有一些明显的优势：
+
+<!--
+* A single round trip: it rarely requires making a `GET` request first.
+  * and you can still detect conflicts for unexpected changes
+  * you have the option to force override a conflict, if appropriate
+* Client implementations are easy to make
+* You get an atomic create-or-update operation without extra effort
+  (similar to `UPSERT` in some SQL dialects)
+-->
+* 仅需一次轮询：通常无需先执行 `GET` 请求。
+  * 并且你仍然可以检测到意外更改造成的冲突
+  * 合适的时候，你可以选择强制覆盖冲突
+* 客户端实现简单
+* 你可以轻松获得原子级别的 create 或 update 操作，无需额外工作
+  （类似于某些 SQL 语句中的 `UPSERT`）
+
+<!--
+However:
+
+* Server-Side Apply does not work at all for field changes that depend on a current value of the object
+* You can only apply updates to objects. Some resources in the Kubernetes HTTP API are
+  not objects (they do not have a `.metadata` field), and Server-Side Apply
+  is only relevant for Kubernetes objects.
+-->
+然而：
+
+* 服务器端应用不适合依赖对象当前值的字段更改
+* 你只能更新对象。Kubernetes HTTP API 中的某些资源不是对象（它们没有 `.metadata` 字段），
+  并且服务器端应用只能用于 Kubernetes 对象。
 
 <!--
 ## Resource versions

@@ -33,19 +33,34 @@ Find your preferred operating system below.
 All Kubernetes container images are deployed to the
 `registry.k8s.io` container image registry.
 
-{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
-
 For Kubernetes {{< param "version" >}}, the following
-container images are signed using [cosign](https://github.com/sigstore/cosign)
+container images are signed using [sigstore](https://sigstore.dev)
 signatures:
 
-| Container Image                                                           | Supported Architectures                                                                  |
-| ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| Container Image                                                           | Supported Architectures           |
+| ------------------------------------------------------------------------- | --------------------------------- |
 | registry.k8s.io/kube-apiserver:v{{< skew currentPatchVersion >}}          | amd64, arm, arm64, ppc64le, s390x |
 | registry.k8s.io/kube-controller-manager:v{{< skew currentPatchVersion >}} | amd64, arm, arm64, ppc64le, s390x |
 | registry.k8s.io/kube-proxy:v{{< skew currentPatchVersion >}}              | amd64, arm, arm64, ppc64le, s390x |
 | registry.k8s.io/kube-scheduler:v{{< skew currentPatchVersion >}}          | amd64, arm, arm64, ppc64le, s390x |
 | registry.k8s.io/conformance:v{{< skew currentPatchVersion >}}             | amd64, arm, arm64, ppc64le, s390x |
+
+### Container image signatures
+
+{{< feature-state for_k8s_version="v1.26" state="beta" >}}
+
+For Kubernetes {{< param "version" >}},
+container images are signed using [sigstore](https://sigstore.dev)
+signatures:
+
+{{< note >}}
+Container image sigstore signatures do currently not match between different geographical locations.
+More information about this problem is available in the corresponding
+[GitHub issue](https://github.com/kubernetes/registry.k8s.io/issues/187).
+{{< /note >}}
+
+### Container image architectures
+
 
 All container images are available for multiple architectures, whereas the
 container runtime should choose the correct one based on the underlying
