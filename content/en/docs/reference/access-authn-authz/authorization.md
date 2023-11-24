@@ -220,7 +220,7 @@ Note: When the feature is enabled, setting both `--authorization-config` and con
 {{< caution >}}
 While the feature is in Alpha/Beta, there is no change if you want to keep on using command line flags. When the feature goes Beta, the feature flag would be turned on by default. The feature flag would be removed when feature goes GA.
 
-When configuring the authorizer chain using a config file, make sure all the apiserver nodes have the file. Also, take a note of the apiserver configuration when upgrading/downgrading the clusters. For example, if upgrading to v1.29+ clusters and using the config file, you would need to add to the flags back to the cluster bootrap mechanism.
+When configuring the authorizer chain using a config file, make sure all the apiserver nodes have the file. Also, take a note of the apiserver configuration when upgrading/downgrading the clusters. For example, if upgrading to v1.29+ clusters and using the config file, you would need to make sure the config file exists before upgrading the cluster. When downgrading to v1.28, you would need to add the flags back to their bootstrap mechanism.
 {{< /caution >}}
 
 ```yaml
