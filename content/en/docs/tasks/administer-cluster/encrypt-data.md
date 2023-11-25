@@ -323,6 +323,8 @@ appropriate for your security needs.
 
 ## Encrypt your data {#encrypting-your-data}
 
+### Generate the encryption key {#generate-key-no-kms}
+
 {{< caution >}}
 Storing the raw encryption key in the EncryptionConfig only moderately improves your security posture,
 compared to no encryption.
@@ -330,13 +332,12 @@ compared to no encryption.
 For additional secrecy, consider using the `kms` provider as this relies on keys held outside your
 Kubernetes cluster. Implementations of `kms` can work with hardware security modules or with
 encryption services managed by your cloud provider.
+
+To learn about setting
+up encryption at rest using KMS, see
+[Using a KMS provider for data encryption](/docs/tasks/administer-cluster/kms-provider/).
+The KMS provider plugin that you use may also come with additional specific documentation.
 {{< /caution >}}
-
-### Generate the encryption key {#generate-key-no-kms}
-
-_These instructions explain how to set up non-KMS encryption. You can use these as a guide
-to how you would configure KMS encryption; however, the specific details of that depend
-on the (external) KMS integration that you are using._
 
 Start by generating a new encryption key, and then encode it using base64:
 
