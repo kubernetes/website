@@ -172,8 +172,6 @@ For a reference to old feature gates that are removed, please refer to
 | `PodSchedulingReadiness` | `true` | Beta | 1.27 | |
 | `ProcMountType` | `false` | Alpha | 1.12 | |
 | `QOSReserved` | `false` | Alpha | 1.11 | |
-| `ReadWriteOncePod` | `false` | Alpha | 1.22 | 1.26 |
-| `ReadWriteOncePod` | `true` | Beta | 1.27 | |
 | `RecoverVolumeExpansionFailure` | `false` | Alpha | 1.23 | |
 | `RemainingItemCount` | `false` | Alpha | 1.15 | 1.15 |
 | `RemainingItemCount` | `true` | Beta | 1.16 | |
@@ -313,6 +311,9 @@ For a reference to old feature gates that are removed, please refer to
 | `ProxyTerminatingEndpoints` | `false` | Alpha | 1.22 | 1.25 |
 | `ProxyTerminatingEndpoints` | `true` | Beta | 1.26 | 1.27 |
 | `ProxyTerminatingEndpoints` | `true` | GA | 1.28 | |
+| `ReadWriteOncePod` | `false` | Alpha | 1.22 | 1.26 |
+| `ReadWriteOncePod` | `true` | Beta | 1.27 | 1.28 |
+| `ReadWriteOncePod` | `true` | GA | 1.29 | |
 | `RemoveSelfLink` | `false` | Alpha | 1.16 | 1.19 |
 | `RemoveSelfLink` | `true` | Beta | 1.20 | 1.23 |
 | `RemoveSelfLink` | `true` | GA | 1.24 | |
