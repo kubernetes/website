@@ -61,7 +61,7 @@ Linux पर kubectl संस्थापित करने के लिए �
 
    अगर चेक फेल हो जाता है, तो `sha256` nonzero स्थिति के साथ बाहर निकलता है और इस आउटपुट के समान प्रिंट करता है:
 
-   ```bash
+   ```console
    kubectl: FAILED
    sha256sum: WARNING: 1 computed checksum did NOT match
    ```
@@ -135,7 +135,7 @@ baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
 enabled=1
 gpgcheck=1
 repo_gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
 yum install -y kubectl
 {{< /tab >}}
@@ -216,7 +216,7 @@ kubectl Bash और Zsh के लिए ऑटोकम्प्लेशन �
 
    अगर चेक फेल हो जाता है, तो `sha256` nonzero स्थिति के साथ बाहर निकलता है और इस आउटपुट के समान प्रिंट करता है:
 
-   ```bash
+   ```console
    kubectl-convert: FAILED
    sha256sum: WARNING: 1 computed checksum did NOT match
    ```

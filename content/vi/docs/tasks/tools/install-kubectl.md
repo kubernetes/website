@@ -33,10 +33,10 @@ Bạn cần phải sử dụng phiên bản kubectl sai lệch không quá một
 
     Để tải về phiên bản cụ thể, hãy thay thế phần `$(curl -LS https://dl.k8s.io/release/stable.txt)` trong câu lệnh với một phiên bản cụ thể.
 
-    Ví dụ như, để tải về phiên bản {{< param "fullversion" >}} trên Linux, hãy nhập như sau:
+    Ví dụ như, để tải về phiên bản {{< skew currentPatchVersion >}} trên Linux, hãy nhập như sau:
     
     ```
-    curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
+    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/amd64/kubectl
     ```
 
 2. Tạo kubectl binary thực thi.
@@ -108,10 +108,10 @@ Nếu bạn đang sử dụng Ubuntu hoặc distro Linux khác hỗ trợ trình
 
     Để tải về phiên bản cụ thể, hãy thay thế phần `$(curl -LS https://dl.k8s.io/release/stable.txt)` trong câu lệnh với phiên bản cụ thể. 
 
-    Ví dụ, để tải về phiên bản {{< param "fullversion" >}} trên macOS, gõ:
+    Ví dụ, để tải về phiên bản {{< skew currentPatchVersion >}} trên macOS, gõ:
 		  
     ```
-    curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl
+    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/darwin/amd64/kubectl
     ```
 
 2. Tạo kubectl binary thực thi.
@@ -173,12 +173,12 @@ Nếu bạn đang trên macOS và sử dụng trình quản lý gói [Macports](
 
 ### Cài đặt kubectl binary với curl trên Windows
 
-1. Tải về phiên bản mới nhất {{< param "fullversion" >}} từ [đường dẫn này](https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
+1. Tải về phiên bản mới nhất {{< skew currentPatchVersion >}} từ [đường dẫn này](https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe).
 
     Hoặc nếu bạn đã cài đặt `curl`, hãy sử dụng câu lệnh sau:
 
     ```
-    curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe
+    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe
     ```
 
     Để tìm ra phiên bản ổn định mới nhất, hãy xem [https://dl.k8s.io/release/stable.txt](https://dl.k8s.io/release/stable.txt).

@@ -317,6 +317,10 @@ kubelet은 로컬 임시 스토리지가 아닌 컨테이너 메모리 사용으
 `tmpfs` emptyDir 볼륨을 추적한다.
 {{< /note >}}
 
+{{< note >}}
+kubelet은 임시 스토리지을 위해 오직 루트 파일시스템만을 추적한다. `/var/lib/kubelet` 혹은 `/var/lib/containers`에 대해 별도의 디스크를 마운트하는 OS 레이아웃은 임시 스토리지를 정확하게 보고하지 않을 것이다.
+{{< /note >}}
+
 ### 로컬 임시 스토리지에 대한 요청 및 제한 설정
 
 `ephemeral-storage`를 명시하여 로컬 임시 저장소를 관리할 수 있다. 
@@ -343,6 +347,7 @@ Ei, Pi, Ti, Gi, Mi, Ki와 같은 2의 거듭제곱을 사용할 수도 있다.
 각 컨테이너에는 2GiB의 로컬 임시 스토리지 요청이 있다. 
 각 컨테이너에는 4GiB의 로컬 임시 스토리지 제한이 있다. 
 따라서, 파드는 4GiB의 로컬 임시 스토리지 요청과 8GiB 로컬 임시 스토리지 제한을 가진다.
+이 제한 중 500Mi까지는 `emptyDir` 볼륨에 의해 소진될 수 있다.
 
 ```yaml
 apiVersion: v1
@@ -373,7 +378,8 @@ spec:
       mountPath: "/tmp"
   volumes:
     - name: ephemeral
-      emptyDir: {}
+      emptyDir:
+        sizeLimit: 500Mi
 ```
 
 ### `ephemeral-storage` 요청이 있는 파드의 스케줄링 방법
@@ -796,7 +802,7 @@ Events:
 ## {{% heading "whatsnext" %}}
 
 * [컨테이너와 파드에 메모리 리소스를 할당](/ko/docs/tasks/configure-pod-container/assign-memory-resource/)하는 핸즈온 경험을 해보자.
-* [컨테이너와 파드에 CPU 리소스를 할당](/docs/tasks/configure-pod-container/assign-cpu-resource/)하는 핸즈온 경험을 해보자.
+* [컨테이너와 파드에 CPU 리소스를 할당](/ko/docs/tasks/configure-pod-container/assign-cpu-resource/)하는 핸즈온 경험을 해보자.
 * API 레퍼런스에 [컨테이너](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)와 
   [컨테이너 리소스 요구사항](/docs/reference/kubernetes-api/workload-resources/pod-v1/#resources)이 어떻게 정의되어 있는지 확인한다.
 * XFS의 [프로젝트 쿼터](https://xfs.org/index.php/XFS_FAQ#Q:_Quota:_Do_quotas_work_on_XFS.3F)에 대해 읽어보기

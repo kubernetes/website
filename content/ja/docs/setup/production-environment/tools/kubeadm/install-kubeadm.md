@@ -132,7 +132,7 @@ kubeadmは`kubelet`や`kubectl`をインストールまたは管理**しない**
 2. Google Cloudの公開鍵をダウンロードします:
 
    ```shell
-   curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
+   curl -fsSL https://dl.k8s.io/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
    ```
 
 3. Kubernetesの`apt`リポジトリを追加します:

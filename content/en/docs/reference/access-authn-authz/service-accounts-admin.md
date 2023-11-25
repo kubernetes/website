@@ -99,6 +99,7 @@ each source also represents a single path within that volume. The three sources 
 1. A `serviceAccountToken` source, that contains a token that the kubelet acquires from kube-apiserver.
    The kubelet fetches time-bound tokens using the TokenRequest API. A token served for a TokenRequest expires
    either when the pod is deleted or after a defined lifespan (by default, that is 1 hour).
+   The kubelet also refreshes that token before the token expires.
    The token is bound to the specific Pod and has the kube-apiserver as its audience.
    This mechanism superseded an earlier mechanism that added a volume based on a Secret,
    where the Secret represented the ServiceAccount for the Pod, but did not expire.
@@ -264,7 +265,7 @@ updates that Secret with that generated token data.
 
 Here is a sample manifest for such a Secret:
 
-{{< codenew file="secret/serviceaccount/mysecretname.yaml" >}}
+{{% code_sample file="secret/serviceaccount/mysecretname.yaml" %}}
 
 To create a Secret based on this example, run:
 
@@ -337,30 +338,6 @@ Then, delete the Secret you now know the name of:
 
 ```shell
 kubectl -n examplens delete secret/example-automated-thing-token-zyxwv
-```
-
-The control plane spots that the ServiceAccount is missing its Secret,
-and creates a replacement:
-
-```shell
-kubectl -n examplens get serviceaccount/example-automated-thing -o yaml
-```
-
-```yaml
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  annotations:
-    kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"v1","kind":"ServiceAccount","metadata":{"annotations":{},"name":"example-automated-thing","namespace":"examplens"}}
-  creationTimestamp: "2019-07-21T07:07:07Z"
-  name: example-automated-thing
-  namespace: examplens
-  resourceVersion: "1026"
-  selfLink: /api/v1/namespaces/examplens/serviceaccounts/example-automated-thing
-  uid: f23fd170-66f2-4697-b049-e1e266b7f835
-secrets:
-  - name: example-automated-thing-token-4rdrh
 ```
 
 ## Clean up

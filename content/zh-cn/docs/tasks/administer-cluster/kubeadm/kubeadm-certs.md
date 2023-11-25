@@ -238,11 +238,11 @@ kubeadm 在 1.17 版本之前有一个[缺陷](https://github.com/kubernetes/kub
 <!--
 ## Manual certificate renewal
 
-You can renew your certificates manually at any time with the `kubeadm certs renew` command.
+You can renew your certificates manually at any time with the `kubeadm certs renew` command, with the appropriate command line options.
 -->
 ## 手动更新证书 {#manual-certificate-renewal}
 
-你能随时通过 `kubeadm certs renew` 命令手动更新你的证书。
+你能随时通过 `kubeadm certs renew` 命令手动更新你的证书，只需带上合适的命令行选项。
 
 <!--
 This command performs the renewal using CA (or front-proxy-CA) certificate and key stored in `/etc/kubernetes/pki`.
@@ -286,26 +286,32 @@ to keep them both in sync.
 {{< /note >}}
 
 <!--
-`kubeadm certs renew` provides the following options:
+`kubeadm certs renew` can renew any specific certificate or, with the subcommand `all`, it can renew all of them, as shown below:
 -->
-`kubeadm certs renew` 提供以下选项：
+`kubeadm certs renew` 可以更新任何特定的证书，或者使用子命令 `all`
+更新所有的证书，如下所示：
 
+```shell
+kubeadm certs renew all
+```
+
+{{< note >}}
 <!--
-- The Kubernetes certificates normally reach their expiration date after one year.
+Clusters built with kubeadm often copy the `admin.conf` certificate into
+`$HOME/.kube/config`, as instructed in [Creating a cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
+On such a system, to update the contents of `$HOME/.kube/config`
+after renewing the `admin.conf`, you must run the following commands:
 -->
-- Kubernetes 证书通常在一年后到期。
+使用 kubeadm 构建的集群通常会将 `admin.conf` 证书复制到 `$HOME/.kube/config` 中，
+如[使用 kubeadm 创建集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)中所指示的那样。
+在这样的系统中，为了在更新 `admin.conf` 后更新 `$HOME/.kube/config` 的内容，
+你必须运行以下命令：
 
-<!--
-- `--csr-only` can be used to renew certificates with an external CA by generating certificate
-  signing requests (without actually renewing certificates in place); see next paragraph for more
-  information.
-
-- It's also possible to renew a single certificate instead of all.
--->
-- `--csr-only` 可用于经过一个外部 CA 生成的证书签名请求来更新证书（无需实际替换更新证书）；
-  更多信息请参见下节。
-
-- 可以更新单个证书而不是全部证书。
+```shell
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+```
+{{< /note >}}
 
 <!--
 ## Renew certificates with the Kubernetes certificates API
@@ -601,13 +607,14 @@ IP 或域名请求服务证书。
 During cluster creation, kubeadm signs the certificate in the `admin.conf` to have
 `Subject: O = system:masters, CN = kubernetes-admin`.
 [`system:masters`](/docs/reference/access-authn-authz/rbac/#user-facing-roles)
-is a break-glass, super user group that bypasses the authorization layer (e.g. RBAC).
+is a break-glass, super user group that bypasses the authorization layer (for example,
+[RBAC](/docs/reference/access-authn-authz/rbac/)).
 Sharing the `admin.conf` with additional users is **not recommended**!
 -->
 在集群创建过程中，kubeadm 对 `admin.conf` 中的证书进行签名时，将其配置为
 `Subject: O = system:masters, CN = kubernetes-admin`。
 [`system:masters`](/zh-cn/docs/reference/access-authn-authz/rbac/#user-facing-roles)
-是一个例外的超级用户组，可以绕过鉴权层（例如 RBAC）。
+是一个例外的超级用户组，可以绕过鉴权层（例如 [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/)）。
 强烈建议不要将 `admin.conf` 文件与任何人共享。
 
 <!--

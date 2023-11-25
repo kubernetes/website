@@ -8,26 +8,30 @@ weight: 370
 ---
 <!-- overview -->
 This page shows how to configure a Key Management Service (KMS) provider and plugin to enable secret data encryption.
-Currently there are two KMS API versions. New integrations that only need to support Kubernetes v1.27+ 
-should use KMS v2 as it offers significantly better performance characteristics than v1
-(note the `Caution` sections below for specific cases when KMS v2 must not be used.)
+In Kubernetes {{< skew currentVersion >}} there are two versions of KMS at-rest encryption.
+You should use KMS v2 if feasible because KMS v1 is deprecated (since Kubernetes v1.28).
+However, you should also read and observe the **Caution** notices in this page that highlight specific
+cases when you must not use KMS v2.  KMS v2 offers significantly better performance characteristics than KMS v1.
 
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}}
 
 The version of Kubernetes that you need depends on which KMS API version
-you have selected.
+you have selected.  Kubernetes recommends using KMS v2.
 
-- If you selected KMS API v1, any supported Kubernetes version will work fine.
 - If you selected KMS API v2, you should use Kubernetes v{{< skew currentVersion >}}
   (if you are running a different version of Kubernetes that also supports the v2 KMS
   API, switch to the documentation for that version of Kubernetes).
+- If you selected KMS API v1 to support clusters prior to version v1.27
+  or if you have a legacy KMS plugin that only supports KMS v1, 
+  any supported Kubernetes version will work.  This API is deprecated as of Kubernetes v1.28.
+  Kubernetes does not recommend the use of this API.
 
 {{< version-check >}}
 
 ### KMS v1
-{{< feature-state for_k8s_version="v1.12" state="beta" >}}
+{{< feature-state for_k8s_version="v1.28" state="deprecated" >}}
 
 * Kubernetes version 1.10.0 or later is required
 
@@ -38,13 +42,22 @@ you have selected.
 
 * For version 1.25 and 1.26, enabling the feature via kube-apiserver feature gate is required.
 Set `--feature-gates=KMSv2=true` to configure a KMS v2 provider.
-
+ For environments where all API servers are running version 1.28 or later, and you do not require the ability
+ to downgrade to Kubernetes v1.27, you can enable the `KMSv2KDF` feature gate (a beta feature) for more
+ robust data encryption key generation. The Kubernetes project recommends enabling KMS v2 KDF if those
+ preconditions are met.
+ 
 * Your cluster must use etcd v3 or later
 
 {{< caution >}}
 The KMS v2 API and implementation changed in incompatible ways in-between the alpha release in v1.25
 and the beta release in v1.27.  Attempting to upgrade from old versions with the alpha feature
 enabled will result in data loss.
+
+---
+
+Running mixed API server versions with some servers at v1.27, and others at v1.28 _with the
+`KMSv2KDF` feature gate enabled_  is **not supported** - and is likely to result in data loss.
 {{< /caution >}}
 
 <!-- steps -->
@@ -52,18 +65,33 @@ enabled will result in data loss.
 The KMS encryption provider uses an envelope encryption scheme to encrypt data in etcd.
 The data is encrypted using a data encryption key (DEK).
 The DEKs are encrypted with a key encryption key (KEK) that is stored and managed in a remote KMS.
+
 With KMS v1, a new DEK is generated for each encryption.
-With KMS v2, a new DEK is generated on server startup and when the KMS plugin informs the API server
-that a KEK rotation has occurred (see `Understanding key_id and Key Rotation` section below).
+
+With KMS v2, there are two ways for the API server to generate a DEK.
+Kubernetes defaults to generating a new DEK at API server startup, which is then reused
+for resource encryption. However, if you use KMS v2 _and_ enable the `KMSv2KDF`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/), then
+Kubernetes instead generates a new DEK **per encryption**: the API server uses a
+_key derivation function_ to generate single use data encryption keys from a secret seed
+combined with some random data.
+Whichever approach you configure, the DEK or seed is also rotated whenever the KEK is rotated
+(see `Understanding key_id and Key Rotation` section below for more details).
+
 The KMS provider uses gRPC to communicate with a specific KMS plugin over a UNIX domain socket.
 The KMS plugin, which is implemented as a gRPC server and deployed on the same host(s)
 as the Kubernetes control plane, is responsible for all communication with the remote KMS.
 
 {{< caution >}}
-If you are running virtual machine (VM) based nodes that leverage VM state store with this feature, you must not use KMS v2.
+
+If you are running virtual machine (VM) based nodes that leverage VM state store with this feature,
+using KMS v2 is **insecure** and an information security risk unless you also explicitly enable
+the `KMSv2KDF`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 
 With KMS v2, the API server uses AES-GCM with a 12 byte nonce (8 byte atomic counter and 4 bytes random data) for encryption. 
 The following issues could occur if the VM is saved and restored:
+
 1. The counter value may be lost or corrupted if the VM is saved in an inconsistent state or restored improperly. 
    This can lead to a situation where the same counter value is used twice, resulting in the same nonce being used 
    for two different messages.
@@ -72,6 +100,13 @@ resulting in the same nonce being used again.
 
 Although both of these cases are partially mitigated by the 4 byte random nonce, this can compromise 
 the security of the encryption.
+
+If you have enabled the `KMSv2KDF`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) _and_ are using KMS v2
+(not KMS v1), the API server generates single use data encryption keys from a secret seed.
+This eliminates the need for a counter based nonce while avoiding nonce collision concerns.
+It also removes any specific concerns with using KMS v2 and VM state store.
+
 {{< /caution >}}
 
 ## Configuring the KMS provider
@@ -108,7 +143,7 @@ See [Understanding the encryption at rest configuration](/docs/tasks/administer-
 
 To implement a KMS plugin, you can develop a new plugin gRPC server or enable a KMS plugin
 already provided by your cloud provider.
-You then integrate the plugin with the remote KMS and deploy it on the Kubernetes master.
+You then integrate the plugin with the remote KMS and deploy it on the Kubernetes control plane.
 
 ### Enabling the KMS supported by your cloud provider
 
@@ -222,8 +257,9 @@ Then use the functions and data structures in the stub file to develop the serve
   desired buffer to allow config changes to be processed - a minimum `M` of five minutes is recommend).  Note that no
   API server restart is required to perform KEK rotation.
 
-  {{< caution >}}  
-  Because you don't control the number of writes performed with the DEK, we recommend rotating the KEK at least every 90 days.
+  {{< caution >}}
+  Because you don't control the number of writes performed with the DEK, 
+  the Kubernetes project recommends rotating the KEK at least every 90 days.
   {{< /caution >}}
 
 * protocol: UNIX domain socket (`unix`)
@@ -248,7 +284,7 @@ for decryption (KMS v2 makes this process easier by providing a dedicated `annot
 
 ### Deploying the KMS plugin
 
-Ensure that the KMS plugin runs on the same host(s) as the Kubernetes master(s).
+Ensure that the KMS plugin runs on the same host(s) as the Kubernetes API server(s).
 
 ## Encrypting your data with the KMS provider
 

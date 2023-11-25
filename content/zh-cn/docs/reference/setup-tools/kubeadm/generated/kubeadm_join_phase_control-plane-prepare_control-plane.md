@@ -1,30 +1,17 @@
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
 <!-- 
 Generate the manifests for the new control plane components 
 -->
-为新的控制平面组件生成清单
+为新的控制平面组件生成清单。
 
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
 Generate the manifests for the new control plane components
 -->
-
-为新的控制平面组件生成清单（manifest）
+为新的控制平面组件生成清单（manifest）。
 
 ```
 kubeadm join phase control-plane-prepare control-plane [flags]
@@ -33,7 +20,6 @@ kubeadm join phase control-plane-prepare control-plane [flags]
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -92,7 +78,7 @@ kubeadm join phase control-plane-prepare control-plane [flags]
 <!--
 <p>Create a new control plane instance on this node</p>
 -->
-<p>在此节点上创建一个新的控制平面实例</p>
+<p>在此节点上创建一个新的控制平面实例。</p>
 </td>
 </tr>
 
@@ -118,7 +104,7 @@ Don't apply any changes; just output what would be done.
 <!--
 <p>help for control-plane</p>
 -->
-<p>control-plane 操作的帮助命令</p>
+<p>control-plane 操作的帮助命令。</p>
 </td>
 </tr>
 
@@ -148,7 +134,6 @@ Don't apply any changes; just output what would be done.
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 从父命令中继承的选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -172,4 +157,3 @@ Don't apply any changes; just output what would be done.
 
 </tbody>
 </table>
-

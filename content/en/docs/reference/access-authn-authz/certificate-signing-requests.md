@@ -78,7 +78,7 @@ To allow creating a CertificateSigningRequest and retrieving any CertificateSign
 
 For example:
 
-{{< codenew file="access/certificate-signing-request/clusterrole-create.yaml" >}}
+{{% code_sample file="access/certificate-signing-request/clusterrole-create.yaml" %}}
 
 To allow approving a CertificateSigningRequest:
 
@@ -88,7 +88,7 @@ To allow approving a CertificateSigningRequest:
 
 For example:
 
-{{< codenew file="access/certificate-signing-request/clusterrole-approve.yaml" >}}
+{{% code_sample file="access/certificate-signing-request/clusterrole-approve.yaml" %}}
 
 To allow signing a CertificateSigningRequest:
 
@@ -96,7 +96,7 @@ To allow signing a CertificateSigningRequest:
 * Verbs: `update`, group: `certificates.k8s.io`, resource: `certificatesigningrequests/status`
 * Verbs: `sign`, group: `certificates.k8s.io`, resource: `signers`, resourceName: `<signerNameDomain>/<signerNamePath>` or `<signerNameDomain>/*`
 
-{{< codenew file="access/certificate-signing-request/clusterrole-sign.yaml" >}}
+{{% code_sample file="access/certificate-signing-request/clusterrole-sign.yaml" %}}
 
 
 ## Signers
@@ -180,7 +180,7 @@ Kubernetes provides built-in signers that each have a well-known `signerName`:
    1. Permitted subjects - organizations are exactly `["system:nodes"]`, common name starts with "`system:node:`".
    1. Permitted x509 extensions - honors key usage and DNSName/IPAddress subjectAltName extensions, forbids EmailAddress and
       URI subjectAltName extensions, drops other extensions. At least one DNS or IP subjectAltName must be present.
-   1. Permitted key usages - `["key encipherment", "digital signature", "client auth"]` or `["digital signature", "client auth"]`.
+   1. Permitted key usages - `["key encipherment", "digital signature", "server auth"]` or `["digital signature", "server auth"]`.
    1. Expiration/certificate lifetime - for the kube-controller-manager implementation of this signer, set to the minimum
       of the `--cluster-signing-duration` option or, if specified, the `spec.expirationSeconds` field of the CSR object.
    1. CA bit allowed/disallowed - not allowed.
@@ -488,7 +488,7 @@ O is the group that this user will belong to. You can refer to
 
 ```shell
 openssl genrsa -out myuser.key 2048
-openssl req -new -key myuser.key -out myuser.csr
+openssl req -new -key myuser.key -out myuser.csr -subj "/CN=myuser"
 ```
 
 ### Create a CertificateSigningRequest {#create-certificatessigningrequest}

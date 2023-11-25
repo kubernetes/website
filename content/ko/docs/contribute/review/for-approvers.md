@@ -81,14 +81,14 @@ Prow 명령     | 역할 제한           | 설명
 :------------|:------------------|:-----------
 `/lgtm` | 조직 멤버 | PR 리뷰를 마치고 변경 사항에 만족했음을 나타낸다.
 `/approve` | 승인자 | PR을 병합(merge)하기 위해 승인한다.
-`/assign` | 리뷰어 또는 승인자 | PR을 리뷰하거나 승인할 사람을 지정한다.
-`/close` | 리뷰어 또는 승인자 | 이슈 또는 PR을 닫는다.
+`/assign` | 누구나 | PR을 리뷰하거나 승인할 사람을 지정한다.
+`/close` | 조직 멤버 | 이슈 또는 PR을 닫는다.
 `/hold` | 누구나 | 자동으로 병합할 수 없음을 나타내는 `do-not-merge/hold` 레이블을 추가한다.
 `/hold cancel` | 누구나 | `do-not-merge/hold` 레이블을 제거한다.
 {{< /table >}}
 
-PR에서 사용할 수 있는 명령의 전체 목록을 보려면
-[Prow 명령 레퍼런스](https://prow.k8s.io/command-help)를 참고한다.
+PR에서 사용할 수 있는 명령어들을 보려면
+[Prow 명령 레퍼런스](https://prow.k8s.io/command-help?repo=kubernetes%2Fwebsite)를 참고한다.
 
 ## 이슈 심사와 분류
 

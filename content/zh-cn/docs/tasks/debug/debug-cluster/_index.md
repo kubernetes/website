@@ -25,6 +25,13 @@ You may also visit the [troubleshooting overview document](/docs/tasks/debug/) f
 对于应用的调试，请参阅[应用故障排查指南](/zh-cn/docs/tasks/debug/debug-application/)。
 你也可以访问[故障排查](/zh-cn/docs/tasks/debug/)来获取更多的信息。
 
+<!--
+For troubleshooting {{<glossary_tooltip text="kubectl" term_id="kubectl">}}, refer to
+[Troubleshooting kubectl](/docs/tasks/debug/debug-cluster/troubleshoot-kubectl/).
+-->
+有关 {{<glossary_tooltip text="kubectl" term_id="kubectl">}} 的故障排查，
+请参阅 [kubectl 故障排查](/zh-cn/docs/tasks/debug/debug-cluster/troubleshoot-kubectl/)。
+
 <!-- body -->
 
 <!--

@@ -1,7 +1,7 @@
 ---
 title: 어노테이션
 content_type: concept
-weight: 50
+weight: 60
 ---
 
 <!-- overview -->

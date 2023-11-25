@@ -1,6 +1,6 @@
 ---
 title: "워크로드"
-weight: 50
+weight: 55
 description: >
   쿠버네티스에서 배포할 수 있는 가장 작은 컴퓨트 오브젝트인 파드와, 이를 실행하는 데 도움이 되는 하이-레벨(higher-level) 추상화
 no_list: true
@@ -62,7 +62,7 @@ _모든_ 파드가 가용한 경우가 아닌 경우 멈추고 싶다면(아마�
 
 * [`Deployment` 를 사용하여 스테이트리스(stateless) 애플리케이션 실행](/ko/docs/tasks/run-application/run-stateless-application-deployment/)
 * 스테이트풀(stateful) 애플리케이션을 [단일 인스턴스](/ko/docs/tasks/run-application/run-single-instance-stateful-application/)
-  또는 [복제된 세트](/docs/tasks/run-application/run-replicated-stateful-application/)로 실행
+  또는 [복제된 세트](/ko/docs/tasks/run-application/run-replicated-stateful-application/)로 실행
 * [`CronJob` 을 사용하여 자동화된 작업 실행](/ko/docs/tasks/job/automated-tasks-with-cron-jobs/)
 
 코드를 구성(configuration)에서 분리하는 쿠버네티스의 메커니즘을 배우기 위해서는,

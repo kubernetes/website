@@ -36,7 +36,7 @@ of Containers for each.
 
 - Fetch all Pods in all namespaces using `kubectl get pods --all-namespaces`
 - Format the output to include only the list of Container image names
-  using `-o jsonpath={.items[*].spec.containers[*].image}`.  This will recursively parse out the
+  using `-o jsonpath={.items[*].spec['initContainers', 'containers'][*].image}`.  This will recursively parse out the
   `image` field from the returned json.
   - See the [jsonpath reference](/docs/reference/kubectl/jsonpath/)
     for further information on how to use jsonpath.
@@ -48,7 +48,7 @@ of Containers for each.
 ## 列出所有命名空间下的所有容器镜像   {#list-all-container-images-in-all-namespaces}
 
 - 使用 `kubectl get pods --all-namespaces` 获取所有命名空间下的所有 Pod
-- 使用 `-o jsonpath={.items[*].spec.containers[*].image}` 来格式化输出，以仅包含容器镜像名称。
+- 使用 `-o jsonpath={.items[*].spec['initContainers', 'containers'][*].image}` 来格式化输出，以仅包含容器镜像名称。
   这将以递归方式从返回的 json 中解析出 `image` 字段。
   - 参阅 [jsonpath 说明](/zh-cn/docs/reference/kubectl/jsonpath/)
     获取更多关于如何使用 jsonpath 的信息。
@@ -69,14 +69,14 @@ The jsonpath is interpreted as follows:
 
 - `.items[*]`: for each returned value
 - `.spec`: get the spec
-- `.containers[*]`: for each container
+- `['initContainers', 'containers'][*]`: for each container
 - `.image`: get the image
 -->
 jsonpath 解释如下：
 
 - `.items[*]`: 对于每个返回的值
 - `.spec`: 获取 spec
-- `.containers[*]`: 对于每个容器
+- `['initContainers', 'containers'][*]`: 对于每个容器
 - `.image`: 获取镜像
 
 <!--

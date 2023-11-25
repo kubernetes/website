@@ -90,7 +90,7 @@ earlier versions of this tutorial.
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 <!--
-The example shown on this page works with `kubectl` 1.14 and above.
+The example shown on this page works with `kubectl` 1.27 and above.
 
 Download the following configuration files:
 
@@ -98,7 +98,7 @@ Download the following configuration files:
 
 1. [wordpress-deployment.yaml](/examples/application/wordpress/wordpress-deployment.yaml)
 -->
-此例在 `kubectl` 1.14 或者更高版本有效。
+此例在 `kubectl` 1.27 或者更高版本有效。
 
 下载下面的配置文件：
 
@@ -211,7 +211,7 @@ environment variable sets the database password from the Secret.
 以下清单文件描述的是一个单实例的 MySQL Deployment。MySQL 容器将 PersistentVolume 挂载在 `/var/lib/mysql`。
 `MYSQL_ROOT_PASSWORD` 环境变量根据 Secret 设置数据库密码。
 
-{{< codenew file="application/wordpress/mysql-deployment.yaml" >}}
+{{% code_sample file="application/wordpress/mysql-deployment.yaml" %}}
 
 <!--
 The following manifest describes a single-instance WordPress Deployment. The WordPress container mounts the
@@ -224,7 +224,7 @@ the name of the MySQL Service defined above, and WordPress will access the datab
 `WORDPRESS_DB_HOST` 环境变量设置上面定义的 MySQL Service 的名称，WordPress 将通过 Service 访问数据库。
 `WORDPRESS_DB_PASSWORD` 环境变量根据使用 kustomize 生成的 Secret 设置数据库密码。
 
-{{< codenew file="application/wordpress/wordpress-deployment.yaml" >}}
+{{% code_sample file="application/wordpress/wordpress-deployment.yaml" %}}
 
 <!--
 1. Download the MySQL deployment configuration file.

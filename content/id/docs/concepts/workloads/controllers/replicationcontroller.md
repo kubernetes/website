@@ -36,7 +36,7 @@ Sebuah contoh sederhana adalah membuat sebuah objek ReplicationController untuk 
 
 Contoh ReplicationController ini mengonfigurasi tiga salinan dari peladen web nginx.
 
-{{< codenew file="controllers/replication.yaml" >}}
+{{% codenew file="controllers/replication.yaml" %}}
 
 Jalankan contoh di atas dengan mengunduh berkas contoh dan menjalankan perintah ini:
 

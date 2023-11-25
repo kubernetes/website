@@ -102,7 +102,7 @@ GitHub 계정을 가진 누구나 쿠버네티스에 기여할 수 있다. SIG D
 ## 리뷰어
 
 리뷰어는 열린 풀 리퀘스트를 리뷰할 책임이 있다. 멤버 피드백과는 달리,
-여러분은 리뷰어의 피드백을 반드시 해결해야 한다. 리뷰어는
+PR 작성자는 리뷰어의 피드백을 반드시 해결해야 한다. 리뷰어는
 [@kubernetes/sig-docs-{language}-reviews](https://github.com/orgs/kubernetes/teams?query=sig-docs)
 GitHub 팀의 멤버이다.
 
@@ -192,7 +192,7 @@ PR은 자동으로 병합된다. SIG Docs 승인자는 추가적인 기술 리�
   {{< /warning >}}
 
 - 제안된 변경이
-  [컨트리뷰션 가이드 라인](/docs/contribute/style/content-guide/#contributing-content)에 적합한지 확인한다.
+  [컨트리뷰션 가이드 라인](/docs/contribute/style/content-guide/)에 적합한지 확인한다.
 
   질문이 생기거나 확실하지 않다면 자유롭게
   추가 리뷰를 요청한다.

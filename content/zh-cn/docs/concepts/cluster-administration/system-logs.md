@@ -28,29 +28,36 @@ scheduler decisions).
 
 <!-- body -->
 
+{{< warning >}}
+<!--
+In contrast to the command line flags described here, the *log
+output* itself does *not* fall under the Kubernetes API stability guarantees:
+individual log entries and their formatting may change from one release
+to the next!
+-->
+与此处描述的命令行标志不同，日志输出本身不属于 Kubernetes API 的稳定性保证范围：
+单个日志条目及其格式可能会在不同版本之间发生变化！
+{{< /warning >}}
+
 ## Klog
 
 <!--
 klog is the Kubernetes logging library. [klog](https://github.com/kubernetes/klog)
 generates log messages for the Kubernetes system components.
-
-For more information about klog configuration, see the [Command line tool reference](/docs/reference/command-line-tools-reference/).
 -->
 klog 是 Kubernetes 的日志库。
 [klog](https://github.com/kubernetes/klog)
 为 Kubernetes 系统组件生成日志消息。
 
-有关 klog 配置的更多信息，请参见[命令行工具参考](/zh-cn/docs/reference/command-line-tools-reference/)。
-
 <!--
 Kubernetes is in the process of simplifying logging in its components.
 The following klog command line flags
 [are deprecated](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)
-starting with Kubernetes 1.23 and will be removed in a future release:
+starting with Kubernetes v1.23 and removed in Kubernetes v1.26:
 -->
-Kubernetes 正在进行简化其组件日志的努力。下面的 klog 命令行参数从 Kubernetes 1.23
+Kubernetes 正在进行简化其组件日志的努力。下面的 klog 命令行参数从 Kubernetes v1.23
 开始[已被废弃](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)，
-会在未来版本中移除：
+在 Kubernetes v1.26 中被移除：
 
 - `--add-dir-header`
 - `--alsologtostderr`
@@ -168,7 +175,7 @@ compatible with traditional klog:
 -->
 默认的结构化日志消息是以文本形式呈现的，其格式与传统的 klog 保持向后兼容：
 
-```ini
+```
 <klog header> "<message>" <key1>="<value1>" <key2>="<value2>" ...
 ```
 
@@ -177,7 +184,7 @@ Example:
 -->
 示例：
 
-```ini
+```
 I1025 00:15:15.525108       1 controller_utils.go:116] "Pod status updated" pod="kube-system/kubedns" status="ready"
 ```
 
@@ -449,10 +456,9 @@ The complete list of options that can be used are:
 -->
 kubelet 使用启发方式来检索日志。
 如果你还未意识到给定的系统服务正将日志写入到操作系统的原生日志记录程序（例如 journald）
-或 `/var/log/` 中的日志文件，这会很有帮助。
-这种启发方式先检查原生的日志记录程序，如果不可用，则尝试从
-`/var/log/<servicename>`、`/var/log/<servicename>.log` 或 `/var/log/<servicename>/<servicename>.log`
-中检索第一批日志。
+或 `/var/log/` 中的日志文件，这会很有帮助。这种启发方式先检查原生的日志记录程序，
+如果不可用，则尝试从 `/var/log/<servicename>`、`/var/log/<servicename>.log`
+或 `/var/log/<servicename>/<servicename>.log` 中检索第一批日志。
 
 可用选项的完整列表如下：
 

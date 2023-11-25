@@ -1,19 +1,7 @@
 <!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
-
-<!--
 Renew the certificate for serving the Kubernetes API
 -->
-续订用于提供 Kubernetes API 的证书
+续订用于提供 Kubernetes API 的证书。
 
 <!--
 ### Synopsis
@@ -99,19 +87,23 @@ kubeadm 配置文件的路径。
 help for apiserver
 -->
 <p>
-apiserver 子操作的帮助命令
+apiserver 子操作的帮助命令。
 </p>
 </td>
 </tr>
 
 <tr>
-<td colspan="2"><!-- --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf" -->
+<td colspan="2">
+<!--
+--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
+-->
 --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/admin.conf"
 </td>
 </tr>
 
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><!--
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
 <p>

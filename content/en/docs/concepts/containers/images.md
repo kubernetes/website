@@ -88,7 +88,7 @@ You should avoid using the `:latest` tag when deploying containers in production
 it is harder to track which version of the image is running and more difficult to
 roll back properly.
 
-Instead, specify a meaningful tag such as `v1.42.0`.
+Instead, specify a meaningful tag such as `v1.42.0` and/or a digest.
 {{< /note >}}
 
 To make sure the Pod always uses the same version of a container image, you can specify
@@ -113,6 +113,8 @@ running the same code no matter what tag changes happen at the registry.
 When you (or a controller) submit a new Pod to the API server, your cluster sets the
 `imagePullPolicy` field when specific conditions are met:
 
+- if you omit the `imagePullPolicy` field, and you specify the digest for the
+  container image, the `imagePullPolicy` is automatically set to `IfNotPresent`.
 - if you omit the `imagePullPolicy` field, and the tag for the container image is
   `:latest`, `imagePullPolicy` is automatically set to `Always`;
 - if you omit the `imagePullPolicy` field, and you don't specify the tag for the
@@ -123,7 +125,7 @@ When you (or a controller) submit a new Pod to the API server, your cluster sets
 
 {{< note >}}
 The value of `imagePullPolicy` of the container is always set when the object is
-first _created_, and is not updated if the image's tag later changes.
+first _created_, and is not updated if the image's tag or digest later changes.
 
 For example, if you create a Deployment with an image whose tag is _not_
 `:latest`, and later update that Deployment's image to a `:latest` tag, the
@@ -263,36 +265,24 @@ See [Configure a kubelet image credential provider](/docs/tasks/administer-clust
 The interpretation of `config.json` varies between the original Docker
 implementation and the Kubernetes interpretation. In Docker, the `auths` keys
 can only specify root URLs, whereas Kubernetes allows glob URLs as well as
-prefix-matched paths. This means that a `config.json` like this is valid:
+prefix-matched paths. The only limitation is that glob patterns (`*`) have to
+include the dot (`.`) for each subdomain. The amount of matched subdomains has
+to be equal to the amount of glob patterns (`*.`), for example:
+
+- `*.kubernetes.io` will *not* match `kubernetes.io`, but `abc.kubernetes.io`
+- `*.*.kubernetes.io` will *not* match `abc.kubernetes.io`, but `abc.def.kubernetes.io`
+- `prefix.*.io` will match `prefix.kubernetes.io`
+- `*-good.kubernetes.io` will match `prefix-good.kubernetes.io`
+
+This means that a `config.json` like this is valid:
 
 ```json
 {
     "auths": {
-        "*my-registry.io/images": {
-            "auth": "…"
-        }
+        "my-registry.io/images": { "auth": "…" },
+        "*.my-registry.io/images": { "auth": "…" }
     }
 }
-```
-
-The root URL (`*my-registry.io`) is matched by using the following syntax:
-
-```
-pattern:
-    { term }
-
-term:
-    '*'         matches any sequence of non-Separator characters
-    '?'         matches any single non-Separator character
-    '[' [ '^' ] { character-range } ']'
-                character class (must be non-empty)
-    c           matches character c (c != '*', '?', '\\', '[')
-    '\\' c      matches character c
-
-character-range:
-    c           matches character c (c != '\\', '-', ']')
-    '\\' c      matches character c
-    lo '-' hi   matches character c for lo <= c <= hi
 ```
 
 Image pull operations would now pass the credentials to the CRI container
@@ -303,10 +293,14 @@ would match successfully:
 - `my-registry.io/images/my-image`
 - `my-registry.io/images/another-image`
 - `sub.my-registry.io/images/my-image`
+
+But not:
+
 - `a.sub.my-registry.io/images/my-image`
+- `a.b.sub.my-registry.io/images/my-image`
 
 The kubelet performs image pulls sequentially for every found credential. This
-means, that multiple entries in `config.json` are possible, too:
+means, that multiple entries in `config.json` for different paths are possible, too:
 
 ```json
 {

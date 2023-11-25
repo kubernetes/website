@@ -10,11 +10,11 @@ slug: pod-security-admission-stable
 The release of Kubernetes v1.25 marks a major milestone for Kubernetes out-of-the-box pod security
 controls: Pod Security admission (PSA) graduated to stable, and Pod Security Policy (PSP) has been
 removed.
-[PSP was deprecated in Kubernetes v1.21](https://kubernetes.io/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/),
+[PSP was deprecated in Kubernetes v1.21](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/),
 and no longer functions in Kubernetes v1.25 and later.
 
 The Pod Security admission controller replaces PodSecurityPolicy, making it easier to enforce predefined
-[Pod Security Standards](https://kubernetes.io/docs/concepts/security/pod-security-standards/) by
+[Pod Security Standards](/docs/concepts/security/pod-security-standards/) by
 simply adding a label to a namespace. The Pod Security Standards are maintained by the K8s
 community, which means you automatically get updated security policies whenever new
 security-impacting Kubernetes features are introduced.
@@ -56,7 +56,7 @@ Warning: myjob-g342hj (and 6 other pods): host namespaces, allowPrivilegeEscalat
 ```
 
 Additionally, when you apply a non-privileged label to a namespace that has been
-[configured to be exempt](https://kubernetes.io/docs/concepts/security/pod-security-admission/#exemptions),
+[configured to be exempt](/docs/concepts/security/pod-security-admission/#exemptions),
 you will now get a warning alerting you to this fact:
 
 ```
@@ -65,7 +65,7 @@ Warning: namespace 'kube-system' is exempt from Pod Security, and the policy (en
 
 ### Changes to the Pod Security Standards
 
-The [Pod Security Standards](https://kubernetes.io/docs/concepts/security/pod-security-standards/),
+The [Pod Security Standards](/docs/concepts/security/pod-security-standards/),
 which Pod Security admission enforces, have been updated with support for the new Pod OS
 field. In v1.25 and later, if you use the Restricted policy, the following Linux-specific restrictions will no
 longer be required if you explicitly set the pod's `.spec.os.name` field to `windows`:
@@ -76,14 +76,14 @@ longer be required if you explicitly set the pod's `.spec.os.name` field to `win
 
 In Kubernetes v1.23 and earlier, the kubelet didn't enforce the Pod OS field.
 If your cluster includes nodes running a v1.23 or older kubelet, you should explicitly
-[pin Restricted policies](https://kubernetes.io/docs/concepts/security/pod-security-admission/#pod-security-admission-labels-for-namespaces)
+[pin Restricted policies](/docs/concepts/security/pod-security-admission/#pod-security-admission-labels-for-namespaces)
 to a version prior to v1.25.
 
 ## Migrating from PodSecurityPolicy to the Pod Security admission controller
 
 For instructions to migrate from PodSecurityPolicy to the Pod Security admission controller, and
 for help choosing a migration strategy, refer to the
-[migration guide](https://kubernetes.io/docs/tasks/configure-pod-container/migrate-from-psp/).
+[migration guide](/docs/tasks/configure-pod-container/migrate-from-psp/).
 We're also developing a tool called
 [pspmigrator](https://github.com/kubernetes-sigs/pspmigrator) to automate parts
 of the migration process.

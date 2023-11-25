@@ -62,7 +62,7 @@ For v1.22, use [v1alpha1](https://v1-22.docs.kubernetes.io/docs/tasks/configure-
 {{< /note >}}
 
 ```yaml
-apiVersion: apiserver.config.k8s.io/v1 # 查阅兼容性说明
+apiVersion: apiserver.config.k8s.io/v1
 kind: AdmissionConfiguration
 plugins:
 - name: PodSecurity
@@ -94,6 +94,14 @@ plugins:
       # 要豁免的名字空间列表
       namespaces: []
 ```
+
+
+{{< note >}}
+<!--
+The above manifest needs to be specified via the `--admission-control-config-file` to kube-apiserver.
+-->
+上面的清单需要通过 `——admission-control-config-file` 指定到 kube-apiserver。
+{{< /note >}}
 
 {{< note >}}
 <!--

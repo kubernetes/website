@@ -296,7 +296,8 @@ several types of extensions.
 注意，某些方案可能需要同时采用几种类型的扩展。
 
 <!-- image source for flowchart: https://docs.google.com/drawings/d/1sdviU6lDz4BpnzJNHfNpQrqI9F19QZ07KnhnxVrp2yg/edit -->
-{{< figure src="/zh-cn/docs/concepts/extend-kubernetes/flowchart.png"
+
+{{< figure src="/zh-cn/docs/concepts/extend-kubernetes/flowchart.svg"
     alt="附带使用场景问题和实现指南的流程图。绿圈表示是；红圈表示否。"
     class="diagram-large" caption="选择一个扩展方式的流程图指导" >}}
 
@@ -445,8 +446,8 @@ allows calling out to custom code that makes an authorization decision.
 换言之，它不会基于对象的特定字段作出不同的判决。
 
 如果内置的鉴权选项无法满足你的需要，
-你可以使用[鉴权 Webhook](/zh-cn/docs/reference/access-authn-authz/webhook/) 来调用用户提供的代码，
-执行定制的鉴权决定。
+你可以使用[鉴权 Webhook](/zh-cn/docs/reference/access-authn-authz/webhook/)
+来调用用户提供的代码，执行定制的鉴权决定。
 
 <!--
 ### Dynamic admission control
@@ -645,4 +646,3 @@ not available through the webhook integration.
 * 进一步了解[扩展 API 服务器](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
 * 进一步了解[动态准入控制](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)
 * 进一步了解 [Operator 模式](/zh-cn/docs/concepts/extend-kubernetes/operator/)
-

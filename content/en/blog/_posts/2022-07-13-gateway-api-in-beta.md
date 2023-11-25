@@ -41,7 +41,7 @@ gateways and service meshes and guides are available to start exploring quickly.
 ### Getting started
 
 Gateway API is an official Kubernetes API like
-[Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/).
+[Ingress](/docs/concepts/services-networking/ingress/).
 Gateway API represents a superset of Ingress functionality, enabling more
 advanced concepts. Similar to Ingress, there is no default implementation of
 Gateway API built into Kubernetes. Instead, there are many different
@@ -169,7 +169,7 @@ If there's something on this list you want to get involved in, or there's
 something not on this list that you want to advocate for to get on the roadmap
 please join us in the #sig-network-gateway-api channel on Kubernetes Slack or our weekly [community calls](https://gateway-api.sigs.k8s.io/contributing/community/#meetings).
 
-[gep1016]:https://github.com/kubernetes-sigs/gateway-api/blob/master/site-src/geps/gep-1016.md
+[gep1016]:https://github.com/kubernetes-sigs/gateway-api/blob/main/geps/gep-1016.md
 [grpc]:https://grpc.io/
 [pr1085]:https://github.com/kubernetes-sigs/gateway-api/pull/1085
 [tcpr]:https://github.com/kubernetes-sigs/gateway-api/blob/main/apis/v1alpha2/tcproute_types.go

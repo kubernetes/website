@@ -611,12 +611,12 @@ Notice that the field `someRandomField` was pruned.
 <!--
 This example turned off client-side validation to demonstrate the API server's behavior, by adding
 the `--validate=false` command line option.
-Because the [OpenAPI validation schemas are also published](#publish-validation-schema-in-openapi-v2)
+Because the [OpenAPI validation schemas are also published](#publish-validation-schema-in-openapi)
 to clients, `kubectl` also checks for unknown fields and rejects those objects well before they
 would be sent to the API server.
 -->
 本例中通过 `--validate=false` 命令行选项 关闭了客户端的合法性检查以展示 API 服务器的行为，
-因为 [OpenAPI 合法性检查模式也会发布到](#publish-validation-schema-in-openapi-v2)
+因为 [OpenAPI 合法性检查模式也会发布到](#publish-validation-schema-in-openapi)
 客户端，`kubectl` 也会检查未知的字段并在对象被发送到 API
 服务器之前就拒绝它们。
 
@@ -770,12 +770,12 @@ allOf:
 <!--
 With one of those specification, both an integer and a string validate.
 
-In [Validation Schema Publishing](#publish-validation-schema-in-openapi-v2),
+In [Validation Schema Publishing](#publish-validation-schema-in-openapi),
 `x-kubernetes-int-or-string: true` is unfolded to one of the two patterns shown above.
 -->
 在以上两种规约中，整数值和字符串值都会被认为是合法的。
 
-在[合法性检查模式定义的发布时](#publish-validation-schema-in-openapi-v2)，
+在[合法性检查模式定义的发布时](#publish-validation-schema-in-openapi)，
 `x-kubernetes-int-or-string: true` 会被展开为上述两种模式之一。
 
 ### RawExtension
@@ -1125,9 +1125,9 @@ kubectl apply -f my-crontab.yaml
 crontab "my-new-cron-object" created
 ```
 <!--
-## Validation rules
+### Validation rules
 -->
-## 验证规则
+### 验证规则
 
 {{< feature-state state="beta" for_k8s_version="v1.25" >}}
 
@@ -1320,21 +1320,21 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
 -->
 验证规则例子：
 
-| 规则                                                                             | 目的                                                                             |
-| ----------------                                                                 | ------------                                                                     |
-| `self.minReplicas <= self.replicas && self.replicas <= self.maxReplicas`         | 验证定义副本数的三个字段大小顺序是否正确                                             |
-| `'Available' in self.stateCounts`                                                | 验证 map 中是否存在键名为 `Available`的条目                                   |
-| `(size(self.list1) == 0) != (size(self.list2) == 0)`                             | 验证两个 list 之一是非空的，但不是二者都非空                                   |
-| <code>!('MY_KEY' in self.map1) &#124;&#124; self['MY_KEY'].matches('^[a-zA-Z]*$')</code>               | 如果某个特定的 key 在 map 中，验证 map 中这个 key 的 value |
-| `self.envars.filter(e, e.name = 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$')` | 验证一个 listMap 中主键 'name' 为 'MY_ENV' 'value' 的表项，检查其取值 'value'             |
-| `has(self.expired) && self.created + self.ttl < self.expired`    | 验证 'Expired' 日期是否晚于 'Create' 日期加上 'ttl' 持续时间                   |
-| `self.health.startsWith('ok')`                                                   | 验证 'health' 字符串字段有前缀 'ok'             |
-| `self.widgets.exists(w, w.key == 'x' && w.foo < 10)`                             | 验证 key 为 'x' 的 listMap 项的 'foo' 属性是否小于 10                             |
-| `type(self) == string ? self == '100%' : self == 1000`                           | 在 int 型和 string 型两种情况下验证 int-or-string 字段                           |
-| `self.metadata.name.startsWith(self.prefix)`                                     | 验证对象的名称是否具有另一个字段值的前缀                                         |
-| `self.set1.all(e, !(e in self.set2))`                                            | 验证两个 listSet 是否不相交                                                      |
-| `size(self.names) == size(self.details) && self.names.all(n, n in self.details)` | 验证 'details' map 是由 'names' listSet 的项目所决定的。                         |
-| `size(self.clusters.filter(c, c.name == self.primary)) == 1`                     | 验证 'primary' 属性仅在 'clusters' listMap 中出现一次且只有一次           |
+| 规则                                                                                      | 目的                                                                              |
+| ----------------                                                                         | ------------                                                                      |
+| `self.minReplicas <= self.replicas && self.replicas <= self.maxReplicas`                 | 验证定义副本数的三个字段大小顺序是否正确                                                 |
+| `'Available' in self.stateCounts`                                                        | 验证映射中是否存在键名为 `Available`的条目                                             |
+| `(size(self.list1) == 0) != (size(self.list2) == 0)`                                     | 检查两个列表之一是非空的，但不是二者都非空                                               |
+| <code>!('MY_KEY' in self.map1) &#124;&#124; self['MY_KEY'].matches('^[a-zA-Z]*$')</code> | 如果某个特定的键在映射中，验证映射中对应键的取值                                           |
+| `self.envars.filter(e, e.name = 'MY_ENV').all(e, e.value.matches('^[a-zA-Z]*$')`         | 验证一个 listMap 中主键 'name' 为 'MY_ENV' 的表项的取值                                 |
+| `has(self.expired) && self.created + self.ttl < self.expired`                            | 验证 'Expired' 日期是否晚于 'Create' 日期加上 'ttl' 时长                                |
+| `self.health.startsWith('ok')`                                                           | 验证 'health' 字符串字段有前缀 'ok'                                                   |
+| `self.widgets.exists(w, w.key == 'x' && w.foo < 10)`                                     | 验证键为 'x' 的 listMap 项的 'foo' 属性是否小于 10                                     |
+| `type(self) == string ? self == '100%' : self == 1000`                                   | 在 int 型和 string 型两种情况下验证 int-or-string 字段                                 |
+| `self.metadata.name.startsWith(self.prefix)`                                             | 验证对象的名称是否以另一个字段值为前缀                                                   |
+| `self.set1.all(e, !(e in self.set2))`                                                    | 验证两个 listSet 是否不相交                                                           |
+| `size(self.names) == size(self.details) && self.names.all(n, n in self.details)`         | 验证 'details' 映射中的 'names' 来自于 listSet                                        |
+| `size(self.clusters.filter(c, c.name == self.primary)) == 1`                             | 验证 'primary' 属性在 'clusters' listMap 中出现一次且只有一次                           |
 
 参考：[CEL 中支持的求值](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#evaluation)
 
@@ -2531,7 +2531,7 @@ To enable the scale subresource, the following fields are defined in the CustomR
   `Scale.Status.Selector`.
 
   - It is an optional value.
-  - It must be set to work with HPA.
+  - It must be set to work with HPA and VPA.
   - Only JSONPaths under `.status` or `.spec` and with the dot notation are allowed.
   - If there is no value under the `labelSelectorPath` in the custom resource,
     the status selector value in the `/scale` subresource will default to the empty string.
@@ -2541,7 +2541,7 @@ To enable the scale subresource, the following fields are defined in the CustomR
 - `labelSelectorPath` 指定定制资源内与 `Scale.Status.Selector` 对应的 JSON 路径。
 
   - 此字段为可选值。
-  - 此字段必须设置才能使用 HPA。
+  - 此字段必须设置才能使用 HPA 和 VPA。
   - 只可以使用 `.status` 或 `.spec` 下的 JSON 路径，只可使用带句点的路径。
   - 如果定制资源的 `labelSelectorPath` 下没有取值，则针对 `/scale`
     子资源的选择算符状态值默认为空字符串。

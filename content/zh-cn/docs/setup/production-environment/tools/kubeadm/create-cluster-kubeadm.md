@@ -136,16 +136,16 @@ For detailed instructions and other prerequisites, see [Installing kubeadm](/doc
 
 {{< note >}}
 <!--
-If you have already installed kubeadm, run
-`apt-get update && apt-get upgrade` or
-`yum update` to get the latest version of kubeadm.
+If you have already installed kubeadm, see the first two steps of the
+[Upgrading Linux nodes](/docs/tasks/administer-cluster/kubeadm/upgrading-linux-nodes) document for instructions on how to upgrade kubeadm.
 
 When you upgrade, the kubelet restarts every few seconds as it waits in a crashloop for
 kubeadm to tell it what to do. This crashloop is expected and normal.
 After you initialize your control-plane, the kubelet runs normally.
 -->
-如果你已经安装了kubeadm，执行 `apt-get update && apt-get upgrade` 或 `yum update`
-以获取 kubeadm 的最新版本。
+如果你已经安装了 kubeadm，
+请查看[升级 Linux 节点](/zh-cn/docs/tasks/administer-cluster/kubeadm/upgrading-linux-nodes)文档的前两步，
+了解如何升级 kubeadm 的说明。
 
 升级时，kubelet 每隔几秒钟重新启动一次，
 在 crashloop 状态中等待 kubeadm 发布指令。crashloop 状态是正常现象。
@@ -746,7 +746,7 @@ and `scp` using that other user instead.
 The `admin.conf` file gives the user _superuser_ privileges over the cluster.
 This file should be used sparingly. For normal users, it's recommended to
 generate an unique credential to which you grant privileges. You can do
-this with the `kubeadm alpha kubeconfig user --client-name <CN>`
+this with the `kubeadm kubeconfig user --client-name <CN>`
 command. That command will print out a KubeConfig file to STDOUT which you
 should save to a file and distribute to your user. After that, grant
 privileges by using `kubectl create (cluster)rolebinding`.
@@ -756,7 +756,7 @@ privileges by using `kubectl create (cluster)rolebinding`.
 
 admin.conf 文件为用户提供了对集群的超级用户特权。
 该文件应谨慎使用。对于普通用户，建议生成一个你为其授予特权的唯一证书。
-你可以使用 `kubeadm alpha kubeconfig user --client-name <CN>` 命令执行此操作。
+你可以使用 `kubeadm kubeconfig user --client-name <CN>` 命令执行此操作。
 该命令会将 KubeConfig 文件打印到 STDOUT，你应该将其保存到文件并分发给用户。
 之后，使用 `kubectl create (cluster)rolebinding` 授予特权。
 {{< /note >}}

@@ -96,7 +96,7 @@ system daemon should ideally run within its own child control group. Refer to
 for more details on recommended control group hierarchy.
 
 Note that Kubelet **does not** create `--kube-reserved-cgroup` if it doesn't
-exist. Kubelet will fail if an invalid cgroup is specified. With `systemd`
+exist. The kubelet will fail to start if an invalid cgroup is specified. With `systemd`
 cgroup driver, you should follow a specific pattern for the name of the cgroup you
 define: the name should be the value you set for `--kube-reserved-cgroup`,
 with `.slice` appended.
@@ -134,7 +134,7 @@ with `.slice` appended.
 {{< feature-state for_k8s_version="v1.17" state="stable" >}}
 
 **Kubelet Flag**: `--reserved-cpus=0-3`
-**KubeletConfiguration Flag**: `reservedSystemCpus: 0-3`
+**KubeletConfiguration Flag**: `reservedSystemCPUs: 0-3`
 
 `reserved-cpus` is meant to define an explicit CPU set for OS system daemons and
 kubernetes system daemons. `reserved-cpus` is for systems that do not intend to

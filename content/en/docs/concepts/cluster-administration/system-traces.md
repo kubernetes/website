@@ -105,8 +105,12 @@ span will be sent to the exporter.
 
 The kubelet in Kubernetes v{{< skew currentVersion >}} collects spans from
 the garbage collection, pod synchronization routine as well as every gRPC
-method. Connected container runtimes like CRI-O and containerd can link the
-traces to their exported spans to provide additional context of information.
+method. The kubelet propagates trace context with gRPC requests so that
+container runtimes with trace instrumentation, such as CRI-O and containerd,
+can associate their exported spans with the trace context from the kubelet.
+The resulting traces will have parent-child links between kubelet and
+container runtime spans, providing helpful context when debugging node
+issues.
 
 Please note that exporting spans always comes with a small performance overhead
 on the networking and CPU side, depending on the overall configuration of the

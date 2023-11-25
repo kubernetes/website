@@ -314,8 +314,8 @@ minikube delete
 Se você desejar utilizar o minikube novamente para aprender mais sobre o Kubernetes,
 você não precisa apagar a VM.
 
-## Próximos passos
+## {{% heading "whatsnext" %}}
 
-* Aprender mais sobre [objetos Deployment](/docs/concepts/workloads/controllers/deployment/).
-* Aprender mais sobre [implantar aplicações](/docs/tasks/run-application/run-stateless-application-deployment/).
-* Aprender mais sobre [objetos Service](/docs/concepts/services-networking/service/).
+* Aprenda mais sobre [objetos Deployment](/docs/concepts/workloads/controllers/deployment/).
+* Aprenda mais sobre [implantar aplicações](/docs/tasks/run-application/run-stateless-application-deployment/).
+* Aprenda mais sobre [objetos Service](/docs/concepts/services-networking/service/).

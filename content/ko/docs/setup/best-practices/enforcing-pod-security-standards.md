@@ -15,7 +15,7 @@ weight: 40
 
 ## 내장된 파드 시큐리티 어드미션 컨트롤러 사용
 
-{{< feature-state for_k8s_version="v1.23" state="beta" >}}
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 [파드 시큐리티 어드미션 컨트롤러(Pod Security Admission Controller)](/docs/reference/access-authn-authz/admission-controllers/#podsecurity)는
 더 이상 사용되지 않는 파드시큐리티폴리시(PodSecurityPolicy)를 대체한다. 
@@ -28,7 +28,7 @@ weight: 40
 레이블이 없는 네임스페이스는 아직 평가되지 않았음을 표시해야 한다.
 
 모든 네임스페이스의 모든 워크로드에 동일한 보안 요구 사항이 있는 시나리오에서, 
-파드 시큐리티 레이블을 대량으로 적용할 수 있는 방법을 보여주는 [예시](/docs/concepts/security/pod-security-admission/#applying-to-all-namespaces)를 
+파드 시큐리티 레이블을 대량으로 적용할 수 있는 방법을 보여주는 [예시](/docs/tasks/configure-pod-container/enforce-standards-namespace-labels/#applying-to-all-namespaces)를 
 제공한다.
 
 ### 최소 권한 원칙 수용

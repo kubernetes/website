@@ -6,7 +6,7 @@
 # - msau42
 title: 스토리지 클래스
 content_type: concept
-weight: 30
+weight: 40
 ---
 
 <!-- overview -->
@@ -72,7 +72,6 @@ volumeBindingMode: Immediate
 | FC                   | -                   | -                                    |
 | FlexVolume           | -                   | -                                    |
 | GCEPersistentDisk    | &#x2713;            | [GCE PD](#gce-pd)                          |
-| Glusterfs            | &#x2713;            | [Glusterfs](#glusterfs)              |
 | iSCSI                | -                   | -                                    |
 | NFS                  | -                   | [NFS](#nfs)       |
 | RBD                  | &#x2713;            | [Ceph RBD](#ceph-rbd)                |
@@ -123,7 +122,6 @@ true로 설정된 경우 볼륨 확장을 지원한다.
 gcePersistentDisk | 1.11
 awsElasticBlockStore | 1.11
 Cinder | 1.11
-glusterfs | 1.11
 rbd | 1.11
 Azure File | 1.11
 Azure Disk | 1.11
@@ -337,87 +335,6 @@ parameters:
 `zone` 과 `zones` 파라미터는 사용 중단 되었으며,
 [allowedTopologies](#allowed-topologies)로 대체되었다.
 {{< /note >}}
-
-### Glusterfs
-
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: slow
-provisioner: kubernetes.io/glusterfs
-parameters:
-  resturl: "http://127.0.0.1:8081"
-  clusterid: "630372ccdc720a92c681fb928f27b53f"
-  restauthenabled: "true"
-  restuser: "admin"
-  secretNamespace: "default"
-  secretName: "heketi-secret"
-  gidMin: "40000"
-  gidMax: "50000"
-  volumetype: "replicate:3"
-```
-
-* `resturl`: 필요에 따라 gluster 볼륨을 프로비전하는 Gluster REST 서비스/Heketi
-  서비스 url 이다. 일반적인 형식은 `IPaddress:Port` 이어야 하며 이는 GlusterFS
-  동적 프로비저너의 필수 파라미터이다. Heketi 서비스가 openshift/kubernetes
-  설정에서 라우팅이 가능한 서비스로 노출이 되는 경우 이것은 fqdn이 해석할 수 있는
-  Heketi 서비스 url인 `http://heketi-storage-project.cloudapps.mystorage.com` 과
-  유사한 형식을 가질 수 있다.
-* `restauthenabled` : REST 서버에 대한 인증을 가능하게 하는 Gluster REST 서비스
-  인증 부울이다. 이 값이 `"true"` 이면, `restuser` 와 `restuserkey`
-  또는 `secretNamespace` + `secretName` 을 채워야 한다. 이 옵션은
-  사용 중단이며, `restuser`, `restuserkey`, `secretName` 또는
-  `secretNamespace` 중 하나를 지정하면 인증이 활성화된다.
-* `restuser` : Gluster REST 서비스/Heketi 사용자로 Gluster Trusted Pool에서
-  볼륨을 생성할 수 있다.
-* `restuserkey` : REST 서버에 대한 인증에 사용될 Gluster REST 서비스/Heketi
-  사용자의 암호이다. 이 파라미터는 `secretNamespace` + `secretName` 을 위해
-  사용 중단 되었다.
-* `secretNamespace`, `secretName` : Gluster REST 서비스와 통신할 때 사용할
-  사용자 암호가 포함된 시크릿 인스턴스를 식별한다. 이 파라미터는
-  선택 사항으로 `secretNamespace` 와 `secretName` 을 모두 생략하면
-  빈 암호가 사용된다. 제공된 시크릿은 `"kubernetes.io/glusterfs"` 유형이어야
-  하며, 예를 들어 다음과 같이 생성한다.
-
-    ```
-    kubectl create secret generic heketi-secret \
-      --type="kubernetes.io/glusterfs" --from-literal=key='opensesame' \
-      --namespace=default
-    ```
-
-    시크릿의 예시는
-    [glusterfs-provisioning-secret.yaml](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/glusterfs/glusterfs-secret.yaml)에서 찾을 수 있다.
-
-* `clusterid`: `630372ccdc720a92c681fb928f27b53f` 는 볼륨을 프로비저닝할
-  때 Heketi가 사용할 클러스터의 ID이다. 또한, 예시와 같이 클러스터
-  ID 목록이 될 수 있다. 예:
-  `"8452344e2becec931ece4e33c4674e4e,42982310de6c63381718ccfa6d8cf397"`. 이것은
-  선택적 파라미터이다.
-* `gidMin`, `gidMax` : 스토리지클래스에 대한 GID 범위의 최소값과
-  최대값이다. 이 범위( gidMin-gidMax )의 고유한 값(GID)은 동적으로
-  프로비전된 볼륨에 사용된다. 이것은 선택적인 값이다. 지정하지 않으면,
-  볼륨은 각각 gidMin과 gidMax의 기본값인 2000-2147483647
-  사이의 값으로 프로비전된다.
-* `volumetype` : 볼륨 유형과 파라미터는 이 선택적 값으로 구성할
-  수 있다. 볼륨 유형을 언급하지 않는 경우, 볼륨 유형을 결정하는 것은
-  프로비저너의 책임이다.
-
-    예를 들어:
-    * 레플리카 볼륨: `volumetype: replicate:3` 여기서 '3'은 레플리카의 수이다.
-    * Disperse/EC 볼륨: `volumetype: disperse:4:2` 여기서 '4'는 데이터이고 '2'는 중복 횟수이다.
-    * Distribute 볼륨: `volumetype: none`
-
-    사용 가능한 볼륨 유형과 관리 옵션에 대해서는
-    [관리 가이드](https://access.redhat.com/documentation/en-us/red_hat_gluster_storage/)를 참조한다.
-
-    자세한 정보는
-    [Heketi 구성 방법](https://github.com/heketi/heketi/wiki/Setting-up-the-topology)을 참조한다.
-
-    퍼시스턴트 볼륨이 동적으로 프로비전되면 Gluster 플러그인은
-    `gluster-dynamic-<claimname>` 이라는 이름으로 엔드포인트와
-    헤드리스 서비스를 자동으로 생성한다. 퍼시스턴트 볼륨 클레임을
-    삭제하면 동적 엔드포인트와 서비스가 자동으로 삭제된다.
 
 ### NFS
 

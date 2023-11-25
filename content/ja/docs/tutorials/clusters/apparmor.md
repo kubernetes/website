@@ -161,7 +161,7 @@ done
 
 次に、deny-writeプロファイルを使用した単純な "Hello AppArmor" Podを実行します。
 
-{{< codenew file="pods/security/hello-apparmor.yaml" >}}
+{{% codenew file="pods/security/hello-apparmor.yaml" %}}
 
 ```shell
 kubectl create -f ./hello-apparmor.yaml

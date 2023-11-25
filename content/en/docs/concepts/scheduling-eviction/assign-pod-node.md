@@ -35,9 +35,10 @@ specific Pods:
 ## Node labels {#built-in-node-labels}
 
 Like many other Kubernetes objects, nodes have
-[labels](/docs/concepts/overview/working-with-objects/labels/). You can [attach labels manually](/docs/tasks/configure-pod-container/assign-pods-nodes/#add-a-label-to-a-node).
-Kubernetes also populates a standard set of labels on all nodes in a cluster. See [Well-Known Labels, Annotations and Taints](/docs/reference/labels-annotations-taints/)
-for a list of common node labels.
+[labels](/docs/concepts/overview/working-with-objects/labels/). You can
+[attach labels manually](/docs/tasks/configure-pod-container/assign-pods-nodes/#add-a-label-to-a-node).
+Kubernetes also populates a [standard set of labels](/docs/reference/node/node-labels/)
+on all nodes in a cluster.
 
 {{<note>}}
 The value of these labels is cloud provider specific and is not guaranteed to be reliable.
@@ -122,7 +123,7 @@ your Pod spec.
 
 For example, consider the following Pod spec:
 
-{{< codenew file="pods/pod-with-node-affinity.yaml" >}}
+{{% code_sample file="pods/pod-with-node-affinity.yaml" %}}
 
 In this example, the following rules apply:
 
@@ -172,7 +173,7 @@ scheduling decision for the Pod.
 
 For example, consider the following Pod spec:
 
-{{< codenew file="pods/pod-with-affinity-anti-affinity.yaml" >}}
+{{% code_sample file="pods/pod-with-affinity-anti-affinity.yaml" %}}
 
 If there are two possible nodes that match the
 `preferredDuringSchedulingIgnoredDuringExecution` rule, one with the
@@ -284,28 +285,43 @@ To use inter-pod affinity, use the `affinity.podAffinity` field in the Pod spec.
 For inter-pod anti-affinity, use the `affinity.podAntiAffinity` field in the Pod
 spec.
 
+#### Scheduling a group of pods with inter-pod affinity to themselves
+
+If the current Pod being scheduled is the first in a series that have affinity to themselves,
+it is allowed to be scheduled if it passes all other affinity checks. This is determined by
+verifying that no other pod in the cluster matches the namespace and selector of this pod,
+that the pod matches its own terms, and the chosen node matches all requested topologies.
+This ensures that there will not be a deadlock even if all the pods have inter-pod affinity
+specified.
+
 #### Pod affinity example {#an-example-of-a-pod-that-uses-pod-affinity}
 
 Consider the following Pod spec:
 
-{{< codenew file="pods/pod-with-pod-affinity.yaml" >}}
+{{% code_sample file="pods/pod-with-pod-affinity.yaml" %}}
 
 This example defines one Pod affinity rule and one Pod anti-affinity rule. The
 Pod affinity rule uses the "hard"
 `requiredDuringSchedulingIgnoredDuringExecution`, while the anti-affinity rule
 uses the "soft" `preferredDuringSchedulingIgnoredDuringExecution`.
 
-The affinity rule says that the scheduler can only schedule a Pod onto a node if
-the node is in the same zone as one or more existing Pods with the label
-`security=S1`. More precisely, the scheduler must place the Pod on a node that has the
-`topology.kubernetes.io/zone=V` label, as long as there is at least one node in
-that zone that currently has one or more Pods with the Pod label `security=S1`.
+The affinity rule specifies that the scheduler is allowed to place the example Pod 
+on a node only if that node belongs to a specific [zone](/docs/concepts/scheduling-eviction/topology-spread-constraints/topology-spread-constraints/)
+where other Pods have been labeled with `security=S1`. 
+For instance, if we have a cluster with a designated zone, let's call it "Zone V," 
+consisting of nodes labeled with `topology.kubernetes.io/zone=V`, the scheduler can 
+assign the Pod to any node within Zone V, as long as there is at least one Pod within 
+Zone V already labeled with `security=S1`. Conversely, if there are no Pods with `security=S1` 
+labels in Zone V, the scheduler will not assign the example Pod to any node in that zone.
 
-The anti-affinity rule says that the scheduler should try to avoid scheduling
-the Pod onto a node that is in the same zone as one or more Pods with the label
-`security=S2`. More precisely, the scheduler should try to avoid placing the Pod on a node that has the
-`topology.kubernetes.io/zone=R` label if there are other nodes in the
-same zone currently running Pods with the `Security=S2` Pod label.
+The anti-affinity rule specifies that the scheduler should try to avoid scheduling the Pod 
+on a node if that node belongs to a specific [zone](/docs/concepts/scheduling-eviction/topology-spread-constraints/topology-spread-constraints/)
+where other Pods have been labeled with `security=S2`. 
+For instance, if we have a cluster with a designated zone, let's call it "Zone R," 
+consisting of nodes labeled with `topology.kubernetes.io/zone=R`, the scheduler should avoid 
+assigning the Pod to any node within Zone R, as long as there is at least one Pod within 
+Zone R already labeled with `security=S2`. Conversely, the anti-affinity rule does not impact 
+scheduling into Zone R if there are no Pods with `security=S2` labels.
 
 To get yourself more familiar with the examples of Pod affinity and anti-affinity,
 refer to the [design proposal](https://git.k8s.io/design-proposals-archive/scheduling/podaffinity.md).
@@ -319,7 +335,8 @@ to learn more about how these work.
 In principle, the `topologyKey` can be any allowed label key with the following
 exceptions for performance and security reasons:
 
-- For Pod affinity and anti-affinity, an empty `topologyKey` field is not allowed in both `requiredDuringSchedulingIgnoredDuringExecution`
+- For Pod affinity and anti-affinity, an empty `topologyKey` field is not allowed in both
+  `requiredDuringSchedulingIgnoredDuringExecution`
   and `preferredDuringSchedulingIgnoredDuringExecution`.
 - For `requiredDuringSchedulingIgnoredDuringExecution` Pod anti-affinity rules,
   the admission controller `LimitPodHardAntiAffinityTopology` limits
@@ -513,8 +530,8 @@ The following operators can only be used with `nodeAffinity`.
 
 |    Operator    |    Behaviour    |
 | :------------: | :-------------: |
-| `Gt` | The supplied value will be parsed as an integer, and that integer is less than or equal to the integer that results from parsing the value of a label named by this selector | 
-| `Lt` | The supplied value will be parsed as an integer, and that integer is greater than or equal to the integer that results from parsing the value of a label named by this selector | 
+| `Gt` | The supplied value will be parsed as an integer, and that integer is less than the integer that results from parsing the value of a label named by this selector | 
+| `Lt` | The supplied value will be parsed as an integer, and that integer is greater than the integer that results from parsing the value of a label named by this selector | 
 
 
 {{<note>}}

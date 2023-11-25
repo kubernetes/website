@@ -3,6 +3,12 @@ title: Well-Known Labels, Annotations and Taints
 content_type: concept
 weight: 40
 no_list: true
+card:
+  name: reference
+  weight: 30
+  anchors:
+  - anchor: "#labels-annotations-and-taints-used-on-api-objects"
+    title: Labels, annotations and taints
 ---
 
 <!-- overview -->
@@ -14,6 +20,21 @@ This document serves both as a reference to the values and as a coordination poi
 <!-- body -->
 
 ## Labels, annotations and taints used on API objects
+
+
+### apf.kubernetes.io/autoupdate-spec
+
+Type: Annotation
+
+Example: `apf.kubernetes.io/autoupdate-spec: "true"`
+
+Used on: [`FlowSchema` and `PriorityLevelConfiguration` Objects](/docs/concepts/cluster-administration/flow-control/#defaults)
+
+If this annotation is set to true on a FlowSchema or PriorityLevelConfiguration, the `spec` for that object
+is managed by the kube-apiserver. If the API server does not recognize an APF object, and you annotate it
+for automatic update, the API server deletes the entire object. Otherwise, the API server does not manage the
+object spec.
+For more details, read  [Maintenance of the Mandatory and Suggested Configuration Objects](/docs/concepts/cluster-administration/flow-control/#maintenance-of-the-mandatory-and-suggested-configuration-objects).
 
 ### app.kubernetes.io/component
 
@@ -43,7 +64,7 @@ Starting from v1.9, this label is deprecated.
 
 ### app.kubernetes.io/instance
 
-Type: Label 
+Type: Label
 
 Example: `app.kubernetes.io/instance: "mysql-abcxzy"`
 
@@ -180,6 +201,7 @@ There is no relation between the value of this label and object UID.
 ### applyset.kubernetes.io/is-parent-type (alpha) {#applyset-kubernetes-io-is-parent-type}
 
 Type: Label
+
 Example: `applyset.kubernetes.io/is-parent-type: "true"`
 
 Used on: Custom Resource Definition (CRD)
@@ -226,6 +248,22 @@ This annotation is applied to the parent object used to track an ApplySet to ind
 tooling manages that ApplySet. Tooling should refuse to mutate ApplySets belonging to other tools.
 The value must be in the format `<toolname>/<semver>`.
 
+### apps.kubernetes.io/pod-index (beta) {#apps-kubernetes.io-pod-index}
+
+Type: Label
+
+Example: `apps.kubernetes.io/pod-index: "0"`
+
+Used on: Pod
+
+When a StatefulSet controller creates a Pod for the StatefulSet, it sets this label on that Pod. 
+The value of the label is the ordinal index of the pod being created.
+
+See [Pod Index Label](/docs/concepts/workloads/controllers/statefulset/#pod-index-label)
+in the StatefulSet topic for more details.
+Note the [PodIndexLabel](/docs/reference/command-line-tools-reference/feature-gates/)
+feature gate must be enabled for this label to be added to pods.
+
 ### cluster-autoscaler.kubernetes.io/safe-to-evict
 
 Type: Annotation
@@ -260,6 +298,23 @@ the API server even when it would otherwise be assumed to be local.
 This annotation is part of the Kubernetes Resource Model (KRM) Functions Specification,
 which is used by Kustomize and similar third-party tools.
 For example, Kustomize removes objects with this annotation from its final build output.
+
+
+### container.apparmor.security.beta.kubernetes.io/* (beta) {#container-apparmor-security-beta-kubernetes-io}
+
+Type: Annotation
+
+Example: `container.apparmor.security.beta.kubernetes.io/my-container: my-custom-profile`
+
+Used on: Pods
+
+This annotation allows you to specify the AppArmor security profile for a container within a
+Kubernetes pod. 
+To learn more, see the [AppArmor](/docs/tutorials/security/apparmor/) tutorial.
+The tutorial illustrates using AppArmor to restrict a container's abilities and access.
+
+The profile specified dictates the set of rules and restrictions that the containerized process must
+adhere to. This helps enforce security policies and isolation for your containers.
 
 ### internal.config.kubernetes.io/* (reserved prefix) {#internal.config.kubernetes.io-reserved-wildcard}
 
@@ -399,19 +454,19 @@ This label can have one of three values: `Reconcile`, `EnsureExists`, or `Ignore
 - `Ignore`: Addon resources will be ignored. This mode is useful for add-ons that are not
   compatible with the add-on manager or that are managed by another controller.
 
-For more details, see [Addon-manager](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/addon-manager/README.md)
+For more details, see [Addon-manager](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/addon-manager/README.md).
 
 ### beta.kubernetes.io/arch (deprecated)
 
 Type: Label
 
-This label has been deprecated. Please use `kubernetes.io/arch` instead.
+This label has been deprecated. Please use [`kubernetes.io/arch`](#kubernetes-io-arch) instead.
 
 ### beta.kubernetes.io/os (deprecated)
 
 Type: Label
 
-This label has been deprecated. Please use `kubernetes.io/os` instead.
+This label has been deprecated. Please use [`kubernetes.io/os`](#kubernetes-io-os) instead.
 
 ### kube-aggregator.kubernetes.io/automanaged {#kube-aggregator-kubernetesio-automanaged}
 
@@ -493,8 +548,23 @@ Example: `kubernetes.io/enforce-mountable-secrets: "true"`
 Used on: ServiceAccount
 
 The value for this annotation must be **true** to take effect.
-This annotation indicates that Pods running as this ServiceAccount may only reference
-Secret API objects specified in the ServiceAccount's `secrets` field.
+When you set this annotation  to "true", Kubernetes enforces the following rules for
+Pods running as this ServiceAccount:
+
+1. Secrets mounted as volumes must be listed in the ServiceAccount's `secrets` field.
+1. Secrets referenced in `envFrom` for containers (including sidecar containers and init containers)
+   must also be listed in the ServiceAccount's secrets field.
+   If any container in a Pod references a Secret not listed in the ServiceAccount's `secrets` field
+   (and even if the reference is marked as `optional`), then the Pod will fail to start,
+   and an error indicating the non-compliant secret reference will be generated.
+1. Secrets referenced in a Pod's `imagePullSecrets` must be present in the
+   ServiceAccount's `imagePullSecrets` field, the Pod will fail to start,
+   and an error indicating the non-compliant image pull secret reference will be generated.
+
+When you create or update a Pod, these rules are checked. If a Pod doesn't follow them, it won't start and you'll see an error message.
+If a Pod is already running and you change the `kubernetes.io/enforce-mountable-secrets` annotation
+to true, or you edit the associated ServiceAccount to remove the reference to a Secret
+that the Pod is already using, the Pod continues to run.
 
 ### node.kubernetes.io/exclude-from-external-load-balancers
 
@@ -689,7 +759,7 @@ When this annotation is set, the Kubernetes components will "stand-down" and the
 
 ### statefulset.kubernetes.io/pod-name {#statefulsetkubernetesiopod-name}
 
-Type: Annotation
+Type: Label
 
 Example: `statefulset.kubernetes.io/pod-name: "mystatefulset-7"`
 
@@ -758,7 +828,7 @@ Kubernetes makes a few assumptions about the structure of zones and regions:
 
 1. regions and zones are hierarchical: zones are strict subsets of regions and
    no zone can be in 2 regions
-2) zone names are unique across regions; for example region "africa-east-1" might be comprised
+2. zone names are unique across regions; for example region "africa-east-1" might be comprised
    of zones "africa-east-1a" and "africa-east-1b"
 
 It should be safe to assume that topology labels do not change.
@@ -796,7 +866,7 @@ Example: `volume.beta.kubernetes.io/storage-provisioner: "k8s.io/minikube-hostpa
 Used on: PersistentVolumeClaim
 
 This annotation has been deprecated since v1.23.
-See [volume.kubernetes.io/storage-provisioner](#volume-kubernetes-io-storage-provisioner)
+See [volume.kubernetes.io/storage-provisioner](#volume-kubernetes-io-storage-provisioner).
 
 ### volume.beta.kubernetes.io/storage-class (deprecated)
 
@@ -881,6 +951,42 @@ Example: `service.kubernetes.io/headless: ""`
 Used on: Service
 
 The control plane adds this label to an Endpoints object when the owning Service is headless.
+
+### service.kubernetes.io/topology-aware-hints (deprecated) {#servicekubernetesiotopology-aware-hints}
+
+Example: `service.kubernetes.io/topology-aware-hints: "Auto"`
+
+Used on: Service
+
+This annotation was used for enabling _topology aware hints_ on Services. Topology aware
+hints have since been renamed: the concept is now called
+[topology aware routing](/docs/concepts/services-networking/topology-aware-routing/).
+Setting the annotation to `Auto`, on a Service, configured the Kubernetes control plane to
+add topology hints on EndpointSlices associated with that Service. You can also explicitly
+set the annotation to `Disabled`.
+
+If you are running a version of Kubernetes older than {{< skew currentVersion >}},
+check the documentation for that Kubernetes version to see how topology aware routing
+works in that release.
+
+There are no other valid values for this annotation. If you don't want topology aware hints
+for a Service, don't add this annotation.
+
+### service.kubernetes.io/topology-mode
+
+Type: Annotation
+
+Example: `service.kubernetes.io/topology-mode: Auto`
+
+Used on: Service
+
+This annotation provides a way to define how Services handle network topology;
+for example, you can configure a Service so that Kubernetes prefers keeping traffic between
+a client and server within a single topology zone.
+In some cases this can help reduce costs or improve network performance.
+
+See [Topology Aware Routing](/docs/concepts/services-networking/topology-aware-routing/)
+for more details.
 
 ### kubernetes.io/service-name {#kubernetesioservice-name}
 
@@ -1009,6 +1115,7 @@ Starting in v1.18, this annotation is deprecated in favor of `spec.ingressClassN
 ### storageclass.kubernetes.io/is-default-class
 
 Type: Annotation
+
 Example: `storageclass.kubernetes.io/is-default-class: "true"`
 
 Used on: StorageClass
@@ -1016,7 +1123,7 @@ Used on: StorageClass
 When a single StorageClass resource has this annotation set to `"true"`, new PersistentVolumeClaim
 resource without a class specified will be assigned this default class.
 
-### alpha.kubernetes.io/provided-node-ip
+### alpha.kubernetes.io/provided-node-ip (alpha) {#alpha-kubernetes-io-provided-node-ip}
 
 Type: Annotation
 
@@ -1024,7 +1131,7 @@ Example: `alpha.kubernetes.io/provided-node-ip: "10.0.0.1"`
 
 Used on: Node
 
-The kubelet can set this annotation on a Node to denote its configured IPv4 address.
+The kubelet can set this annotation on a Node to denote its configured IPv4 and/or IPv6 address.
 
 When kubelet is started with the `--cloud-provider` flag set to any value (includes both external
 and legacy in-tree cloud providers), it sets this annotation on the Node to denote an IP address
@@ -1033,14 +1140,31 @@ by the cloud-controller-manager.
 
 ### batch.kubernetes.io/job-completion-index
 
-Type: Annotation
+Type: Annotation, Label
 
 Example: `batch.kubernetes.io/job-completion-index: "3"`
 
 Used on: Pod
 
-The Job controller in the kube-controller-manager sets this annotation for Pods
+The Job controller in the kube-controller-manager sets this as a label and annotation for Pods
 created with Indexed [completion mode](/docs/concepts/workloads/controllers/job/#completion-mode).
+
+Note the [PodIndexLabel](/docs/reference/command-line-tools-reference/feature-gates/)
+feature gate must be enabled for this to be added as a pod **label**,
+otherwise it will just be an annotation.
+
+### batch.kubernetes.io/cronjob-scheduled-timestamp
+
+Type: Annotation
+
+Example: `batch.kubernetes.io/cronjob-scheduled-timestamp: "2016-05-19T03:00:00-07:00"`
+
+Used on: Jobs and Pods controlled by CronJobs
+
+This annotation is used to record the original (expected) creation timestamp for a Job,
+when that Job is part of a CronJob.
+The control plane sets the value to that timestamp in RFC3339 format. If the Job belongs to a CronJob
+with a timezone specified, then the timestamp is in that timezone. Otherwise, the timestamp is in controller-manager's local time.
 
 ### kubectl.kubernetes.io/default-container
 
@@ -1065,9 +1189,24 @@ container.
 {{< note >}}
 This annotation is deprecated. You should use the
 [`kubectl.kubernetes.io/default-container`](#kubectl-kubernetes-io-default-container)
-annotation instead.
-Kubernetes versions 1.25 and newer ignore this annotation.
+annotation instead. Kubernetes versions 1.25 and newer ignore this annotation.
 {{< /note >}}
+
+### kubectl.kubernetes.io/last-applied-configuration
+
+Type: Annotation
+
+Example: _see following snippet_
+```yaml
+    kubectl.kubernetes.io/last-applied-configuration: >
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"example","namespace":"default"},"spec":{"selector":{"matchLabels":{"app.kubernetes.io/name":foo}},"template":{"metadata":{"labels":{"app.kubernetes.io/name":"foo"}},"spec":{"containers":[{"image":"container-registry.example/foo-bar:1.42","name":"foo-bar","ports":[{"containerPort":42}]}]}}}}
+```
+
+Used on: all objects
+
+The kubectl command line tool uses this annotation as a legacy mechanism
+to track changes. That mechanism has been superseded by
+[Server-side apply](/docs/reference/using-api/server-side-apply/).
 
 ### endpoints.kubernetes.io/over-capacity
 
@@ -1085,6 +1224,27 @@ has been truncated to 1000.
 
 If the number of backend endpoints falls below 1000, the control plane removes this annotation.
 
+### control-plane.alpha.kubernetes.io/leader (deprecated) {#control-plane-alpha-kubernetes-io-leader}
+
+Type: Annotation
+
+Example: `control-plane.alpha.kubernetes.io/leader={"holderIdentity":"controller-0","leaseDurationSeconds":15,"acquireTime":"2023-01-19T13:12:57Z","renewTime":"2023-01-19T13:13:54Z","leaderTransitions":1}`
+
+Used on: Endpoints
+
+The {{< glossary_tooltip text="control plane" term_id="control-plane" >}} previously set annotation on
+an [Endpoints](/docs/concepts/services-networking/service/#endpoints) object. This annotation provided
+the following detail:
+
+- Who is the current leader.
+- The time when the current leadership was acquired.
+- The duration of the lease (of the leadership) in seconds.
+- The time the current lease (the current leadership) should be renewed.
+- The number of leadership transitions that happened in the past.
+
+Kubernetes now uses [Leases](/docs/concepts/architecture/leases/) to
+manage leader assignment for the Kubernetes control plane.
+
 ### batch.kubernetes.io/job-tracking (deprecated) {#batch-kubernetes-io-job-tracking}
 
 Type: Annotation
@@ -1093,17 +1253,10 @@ Example: `batch.kubernetes.io/job-tracking: ""`
 
 Used on: Jobs
 
-The presence of this annotation on a Job indicates that the control plane is
+The presence of this annotation on a Job used to indicate that the control plane is
 [tracking the Job status using finalizers](/docs/concepts/workloads/controllers/job/#job-tracking-with-finalizers).
-The control plane uses this annotation to safely transition to tracking Jobs
-using finalizers, while the feature is in development.
-You should **not** manually add or remove this annotation.
-
-{{< note >}}
-Starting from Kubernetes 1.26, this annotation is deprecated.
-Kubernetes 1.27 and newer will ignore this annotation and always track Jobs
-using finalizers.
-{{< /note >}}
+Adding or removing this annotation no longer has an effect (Kubernetes v1.27 and later)
+All Jobs are tracked with finalizers.
 
 ### job-name (deprecated) {#job-name}
 
@@ -1324,7 +1477,7 @@ Type: Label
 
 Example: `feature.node.kubernetes.io/network-sriov.capable: "true"`
 
-Used on: Node 
+Used on: Node
 
 These labels are used by the Node Feature Discovery (NFD) component to advertise
 features on a node. All built-in labels use the `feature.node.kubernetes.io` label
@@ -1382,11 +1535,460 @@ This annotation records a comma-separated list of
 managed by [Node Feature Discovery](https://kubernetes-sigs.github.io/node-feature-discovery/) (NFD).
 NFD uses this for an internal mechanism. You should not edit this annotation yourself.
 
+### nfd.node.kubernetes.io/node-name
+
+Type: Label
+
+Example: `nfd.node.kubernetes.io/node-name: node-1`
+
+Used on: Nodes
+
+It specifies which node the NodeFeature object is targeting.
+Creators of NodeFeature objects must set this label and 
+consumers of the objects are supposed to use the label for 
+filtering features designated for a certain node.
+
 {{< note >}}
-These annotations only applies to nodes where NFD is running.
-To learn more about NFD and its components go to its official
-[documentation](https://kubernetes-sigs.github.io/node-feature-discovery/stable/get-started/).
+These Node Feature Discovery (NFD) labels or annotations only apply to 
+the nodes where NFD is running. To learn more about NFD and 
+its components go to its official [documentation](https://kubernetes-sigs.github.io/node-feature-discovery/stable/get-started/).
 {{< /note >}}
+
+### service.beta.kubernetes.io/aws-load-balancer-access-log-emit-interval (beta) {#service-beta-kubernetes-io-aws-load-balancer-access-log-emit-interval}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-access-log-emit-interval: "5"`
+
+Used on: Service
+
+The cloud controller manager integration with AWS elastic load balancing configures
+the load balancer for a Service based on this annotation. The value determines
+how often the load balancer writes log entries. For example, if you set the value
+to 5, the log writes occur 5 seconds apart.
+
+### service.beta.kubernetes.io/aws-load-balancer-access-log-enabled (beta) {#service-beta-kubernetes-io-aws-load-balancer-access-log-enabled}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-access-log-enabled: "false"`
+
+Used on: Service
+
+The cloud controller manager integration with AWS elastic load balancing configures
+the load balancer for a Service based on this annotation. Access logging is enabled
+if you set the annotation to "true".
+
+### service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name (beta) {#service-beta-kubernetes-io-aws-load-balancer-access-log-s3-bucket-name}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-access-log-enabled: example`
+
+Used on: Service
+
+The cloud controller manager integration with AWS elastic load balancing configures
+the load balancer for a Service based on this annotation. The load balancer
+writes logs to an S3 bucket with the name you specify.
+
+### service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-prefix (beta) {#service-beta-kubernetes-io-aws-load-balancer-access-log-s3-bucket-prefix}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-access-log-enabled: "/example"`
+
+Used on: Service
+
+The cloud controller manager integration with AWS elastic load balancing configures
+the load balancer for a Service based on this annotation. The load balancer
+writes log objects with the prefix that you specify.
+
+### service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags (beta) {#service-beta-kubernetes-io-aws-load-balancer-additional-resource-tags}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: "Environment=demo,Project=example"`
+
+Used on: Service
+
+The cloud controller manager integration with AWS elastic load balancing configures
+tags (an AWS concept) for a load balancer based on the comma-separated key/value
+pairs in the value of this annotation.
+
+### service.beta.kubernetes.io/aws-load-balancer-alpn-policy (beta) {#service-beta-kubernetes-io-aws-load-balancer-alpn-policy}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-alpn-policy: HTTP2Optional`
+
+Used on: Service
+
+The [AWS load balancer controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/)
+uses this annotation.
+See [annotations](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/service/annotations/)
+in the AWS load balancer controller documentation.
+
+### service.beta.kubernetes.io/aws-load-balancer-attributes (beta) {#service-beta-kubernetes-io-aws-load-balancer-attributes}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-attributes: "deletion_protection.enabled=true"`
+
+Used on: Service
+
+The [AWS load balancer controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/)
+uses this annotation.
+See [annotations](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/service/annotations/)
+in the AWS load balancer controller documentation.
+
+### service.beta.kubernetes.io/aws-load-balancer-backend-protocol (beta) {#service-beta-kubernetes-io-aws-load-balancer-backend-protocol}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp`
+
+Used on: Service
+
+The cloud controller manager integration with AWS elastic load balancing configures
+the load balancer listener based on the value of this annotation.
+
+### service.beta.kubernetes.io/aws-load-balancer-connection-draining-enabled (beta) {#service-beta-kubernetes-io-aws-load-balancer-connection-draining-enabled}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-connection-draining-enabled: "false"`
+
+Used on: Service
+
+The cloud controller manager integration with AWS elastic load balancing configures
+the load balancer based on this annotation. The load balancer's connection draining
+setting depends on the value you set.
+
+### service.beta.kubernetes.io/aws-load-balancer-connection-draining-timeout (beta) {#service-beta-kubernetes-io-aws-load-balancer-connection-draining-timeout}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-connection-draining-timeout: "60"`
+
+Used on: Service
+
+If you configure [connection draining](#service-beta-kubernetes-io-aws-load-balancer-connection-draining-enabled)
+for a Service of `type: LoadBalancer`, and you use the AWS cloud, the integration configures
+the draining period based on this annotation. The value you set determines the draining
+timeout in seconds.
+
+### service.beta.kubernetes.io/aws-load-balancer-ip-address-type (beta) {#service-beta-kubernetes-io-aws-load-balancer-ip-address-type}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-ip-address-type: ipv4`
+
+Used on: Service
+
+The [AWS load balancer controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/)
+uses this annotation.
+See [annotations](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/service/annotations/)
+in the AWS load balancer controller documentation.
+
+### service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout (beta) {#service-beta-kubernetes-io-aws-load-balancer-connection-idle-timeout}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: "60"`
+
+Used on: Service
+
+The cloud controller manager integration with AWS elastic load balancing configures
+a load balancer based on this annotation. The load balancer has a configured idle
+timeout period (in seconds) that applies to its connections. If no data has been
+sent or received by the time that the idle timeout period elapses, the load balancer
+closes the connection.
+
+### service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled (beta) {#service-beta-kubernetes-io-aws-load-balancer-cross-zone-load-balancing-enabled}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"`
+
+Used on: Service
+
+The cloud controller manager integration with AWS elastic load balancing configures
+a load balancer based on this annotation. If you set this annotation to "true",
+each load balancer node distributes requests evenly across the registered targets
+in all enabled [availability zones](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-availability-zones).
+If you disable cross-zone load balancing, each load balancer node distributes requests
+evenly across the registered targets in its availability zone only.
+
+### service.beta.kubernetes.io/aws-load-balancer-eip-allocations (beta) {#service-beta-kubernetes-io-aws-load-balancer-eip-allocations}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-eip-allocations: "eipalloc-01bcdef23bcdef456,eipalloc-def1234abc4567890"`
+
+Used on: Service
+
+The cloud controller manager integration with AWS elastic load balancing configures
+a load balancer based on this annotation. The value is a comma-separated list
+of elastic IP address allocation IDs.
+
+This annotation is only relevant for Services of `type: LoadBalancer`, where
+the load balancer is an AWS Network Load Balancer.
+
+### service.beta.kubernetes.io/aws-load-balancer-extra-security-groups (beta) {#service-beta-kubernetes-io-aws-load-balancer-extra-security-groups}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-extra-security-groups: "sg-12abcd3456,sg-34dcba6543"`
+
+Used on: Service
+
+The cloud controller manager integration with AWS elastic load balancing configures
+a load balancer based on this annotation. The annotation value is a comma-separated
+list of extra AWS VPC security groups to configure for the load balancer.
+
+### service.beta.kubernetes.io/aws-load-balancer-healthcheck-healthy-threshold (beta) {#service-beta-kubernetes-io-aws-load-balancer-healthcheck-healthy-threshold}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-healthcheck-healthy-threshold: "3"`
+
+Used on: Service
+
+The cloud controller manager integration with AWS elastic load balancing configures
+a load balancer based on this annotation. The annotation value specifies the number of
+successive successful health checks required for a backend to be considered healthy
+for traffic.
+
+### service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval (beta) {#service-beta-kubernetes-io-aws-load-balancer-healthcheck-interval}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval: "30"`
+
+Used on: Service
+
+The cloud controller manager integration with AWS elastic load balancing configures
+a load balancer based on this annotation. The annotation value specifies the interval,
+in seconds, between health check probes made by the load balancer.
+
+### service.beta.kubernetes.io/aws-load-balancer-healthcheck-path (beta) {#service-beta-kubernetes-io-aws-load-balancer-healthcheck-papth}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-healthcheck-path: /healthcheck`
+
+Used on: Service
+
+The cloud controller manager integration with AWS elastic load balancing configures
+a load balancer based on this annotation. The annotation value determines the
+path part of the URL that is used for HTTP health checks.
+
+### service.beta.kubernetes.io/aws-load-balancer-healthcheck-port (beta) {#service-beta-kubernetes-io-aws-load-balancer-healthcheck-port}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-healthcheck-port: "24"`
+
+Used on: Service
+
+The cloud controller manager integration with AWS elastic load balancing configures
+a load balancer based on this annotation. The annotation value determines which
+port the load balancer connects to when performing health checks.
+
+### service.beta.kubernetes.io/aws-load-balancer-healthcheck-protocol (beta) {#service-beta-kubernetes-io-aws-load-balancer-healthcheck-protocol}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-healthcheck-protocol: TCP`
+
+Used on: Service
+
+The cloud controller manager integration with AWS elastic load balancing configures
+a load balancer based on this annotation. The annotation value determines how the
+load balancer checks the health of backend targets.
+
+### service.beta.kubernetes.io/aws-load-balancer-healthcheck-timeout (beta) {#service-beta-kubernetes-io-aws-load-balancer-healthcheck-timeout}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-healthcheck-timeout: "3"`
+
+Used on: Service
+
+The cloud controller manager integration with AWS elastic load balancing configures
+a load balancer based on this annotation. The annotation value specifies the number
+of seconds before a probe that hasn't yet succeeded is automatically treated as
+having failed.
+
+### service.beta.kubernetes.io/aws-load-balancer-healthcheck-unhealthy-threshold (beta) {#service-beta-kubernetes-io-aws-load-balancer-healthcheck-unhealthy-threshold}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-healthcheck-unhealthy-threshold: "3"`
+
+Used on: Service
+
+The cloud controller manager integration with AWS elastic load balancing configures
+a load balancer based on this annotation. The annotation value specifies the number of
+successive unsuccessful health checks required for a backend to be considered unhealthy
+for traffic.
+
+### service.beta.kubernetes.io/aws-load-balancer-internal (beta) {#service-beta-kubernetes-io-aws-load-balancer-internal}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-internal: "true"`
+
+Used on: Service
+
+The cloud controller manager integration with AWS elastic load balancing configures
+a load balancer based on this annotation. When you set this annotation to "true",
+the integration configures an internal load balancer.
+
+If you use the [AWS load balancer controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/),
+see [`service.beta.kubernetes.io/aws-load-balancer-scheme`](#service-beta-kubernetes-io-aws-load-balancer-scheme).
+
+### service.beta.kubernetes.io/aws-load-balancer-manage-backend-security-group-rules (beta) {#service-beta-kubernetes-io-aws-load-balancer-manage-backend-security-group-rules}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-manage-backend-security-group-rules: "true"`
+
+Used on: Service
+
+The [AWS load balancer controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/)
+uses this annotation.
+See [annotations](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/service/annotations/)
+in the AWS load balancer controller documentation.
+
+### service.beta.kubernetes.io/aws-load-balancer-name (beta) {#service-beta-kubernetes-io-aws-load-balancer-name}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-name: my-elb`
+
+Used on: Service
+
+If you set this annotation on a Service, and you also annotate that Service with
+`service.beta.kubernetes.io/aws-load-balancer-type: "external"`, and you use the
+[AWS load balancer controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/)
+in your cluster, then the AWS load balancer controller sets the name of that load
+balancer to the value you set for _this_ annotation.
+
+See [annotations](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/service/annotations/)
+in the AWS load balancer controller documentation.
+
+### service.beta.kubernetes.io/aws-load-balancer-nlb-target-type (beta) {#service-beta-kubernetes-io-aws-load-balancer-nlb-target-type}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "true"`
+
+Used on: Service
+
+The [AWS load balancer controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/)
+uses this annotation.
+See [annotations](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/service/annotations/)
+in the AWS load balancer controller documentation.
+
+### service.beta.kubernetes.io/aws-load-balancer-private-ipv4-addresses (beta) {#service-beta-kubernetes-io-aws-load-balancer-private-ipv4-addresses}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-private-ipv4-addresses: "198.51.100.0,198.51.100.64"`
+
+Used on: Service
+
+The [AWS load balancer controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/)
+uses this annotation.
+See [annotations](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/service/annotations/)
+in the AWS load balancer controller documentation.
+
+### service.beta.kubernetes.io/aws-load-balancer-proxy-protocol (beta) {#service-beta-kubernetes-io-aws-load-balancer-proxy-protocol}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"`
+
+Used on: Service
+
+The official Kubernetes integration with AWS elastic load balancing configures
+a load balancer based on this annotation. The only permitted value is `"*"`,
+which indicates that the load balancer should wrap TCP connections to the backend
+Pod with the PROXY protocol.
+
+### service.beta.kubernetes.io/aws-load-balancer-scheme (beta) {#service-beta-kubernetes-io-aws-load-balancer-scheme}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-scheme: internal`
+
+Used on: Service
+
+The [AWS load balancer controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/)
+uses this annotation.
+See [annotations](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/service/annotations/)
+in the AWS load balancer controller documentation.
+
+### service.beta.kubernetes.io/aws-load-balancer-security-groups (deprecated) {#service-beta-kubernetes-io-aws-load-balancer-security-groups}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-security-groups: "sg-53fae93f,sg-8725gr62r"`
+
+Used on: Service
+
+The AWS load balancer controller uses this annotation to specify a comma seperated list
+of security groups you want to attach to an AWS load balancer. Both name and ID of security
+are supported where name matches a `Name` tag, not the `groupName` attribute.
+
+When this annotation is added to a Service, the load-balancer controller attaches the security groups
+referenced by the annotation to the load balancer. If you omit this annotation, the AWS load balancer
+controller automatically creates a new security group and attaches it to the load balancer.
+
+{{< note >}}
+Kubernetes v1.27 and later do not directly set or read this annotation. However, the AWS
+load balancer controller (part of the Kubernetes project) does still use the
+`service.beta.kubernetes.io/aws-load-balancer-security-groups` annotation.
+{{< /note >}}
+
+### service.beta.kubernetes.io/load-balancer-source-ranges (deprecated) {#service-beta-kubernetes-io-load-balancer-source-ranges}
+
+Example: `service.beta.kubernetes.io/load-balancer-source-ranges: "192.0.2.0/25"`
+
+Used on: Service
+
+The [AWS load balancer controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/)
+uses this annotation. You should set `.spec.loadBalancerSourceRanges` for the Service instead.
+
+### service.beta.kubernetes.io/aws-load-balancer-ssl-cert (beta) {#service-beta-kubernetes-io-aws-load-balancer-ssl-cert}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012"`
+
+Used on: Service
+
+The official integration with AWS elastic load balancing configures TLS for a Service of
+`type: LoadBalancer` based on this annotation. The value of the annotation is the
+AWS Resource Name (ARN) of the X.509 certificate that the load balancer listener should
+use.
+
+(The TLS protocol is based on an older technology that abbreviates to SSL.)
+
+### service.beta.kubernetes.io/aws-load-balancer-ssl-negotiation-policy (beta) {#service-beta-kubernetes-io-aws-load-balancer-ssl-negotiation-policy}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-ssl-negotiation-policy: ELBSecurityPolicy-TLS-1-2-2017-01`
+
+The official integration with AWS elastic load balancing configures TLS for a Service of
+`type: LoadBalancer` based on this annotation. The value of the annotation is the name
+of an AWS policy for negotiating TLS with a client peer.
+
+### service.beta.kubernetes.io/aws-load-balancer-ssl-ports (beta) {#service-beta-kubernetes-io-aws-load-balancer-ssl-ports}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "*"`
+
+The official integration with AWS elastic load balancing configures TLS for a Service of
+`type: LoadBalancer` based on this annotation. The value of the annotation is either `"*"`,
+which means that all the load balancer's ports should use TLS, or it is a comma separated
+list of port numbers.
+
+### service.beta.kubernetes.io/aws-load-balancer-subnets (beta) {#service-beta-kubernetes-io-aws-load-balancer-subnets}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-subnets: "private-a,private-b"`
+
+Kubernetes' official integration with AWS uses this annotation to configure a
+load balancer and determine in which AWS availability zones to deploy the managed
+load balancing service. The value is either a comma separated list of subnet names, or a
+comma separated list of subnet IDs.
+
+### service.beta.kubernetes.io/aws-load-balancer-target-group-attributes (beta) {#service-beta-kubernetes-io-aws-load-balancer-target-group-attributes}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-target-group-attributes: "stickiness.enabled=true,stickiness.type=source_ip"`
+
+Used on: Service
+
+The [AWS load balancer controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/)
+uses this annotation.
+See [annotations](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/service/annotations/)
+in the AWS load balancer controller documentation.
+
+### service.beta.kubernetes.io/aws-load-balancer-target-node-labels (beta) {#service-beta-kubernetes-io-aws-target-node-labels}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-target-node-labels: "kubernetes.io/os=Linux,topology.kubernetes.io/region=us-east-2"`
+
+Kubernetes' official integration with AWS uses this annotation to determine which
+nodes in your cluster should be considered as valid targets for the load balancer.
+
+### service.beta.kubernetes.io/aws-load-balancer-type (beta) {#service-beta-kubernetes-io-aws-load-balancer-type}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-type: external`
+
+Kubernetes' official integrations with AWS use this annotation to determine
+whether the AWS cloud provider integration should manage a Service of
+`type: LoadBalancer`.
+
+There are two permitted values:
+
+`nlb`
+: the cloud controller manager configures a Network Load Balancer
+
+`external`
+: the cloud controller manager does not configure any load balancer
+
+If you deploy a Service of `type: LoadBalancer` on AWS, and you don't set any
+`service.beta.kubernetes.io/aws-load-balancer-type` annotation,
+the AWS integration deploys a classic Elastic Load Balancer. This behavior,
+with no annotation present, is the default unless you specify otherwise.
+
+When you set this annotation to `external` on a Service of `type: LoadBalancer`,
+and your cluster has a working deployment of the AWS Load Balancer controller,
+then the AWS Load Balancer controller attempts to deploy a load balancer based
+on the Service specification.
+
+{{< caution >}}
+Do not modify or add the `service.beta.kubernetes.io/aws-load-balancer-type` annotation
+on an existing Service object. See the AWS documentation on this topic for more
+details.
+{{< /caution >}}
 
 ### pod-security.kubernetes.io/enforce
 
@@ -1628,9 +2230,9 @@ of the exposed advertise address/port endpoint for that API server instance.
 
 Type: Annotation
 
-Used on: ConfigMap
-
 Example: `kubeadm.kubernetes.io/component-config.hash: 2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae`
+
+Used on: ConfigMap
 
 Annotation that kubeadm places on ConfigMaps that it manages for configuring components.
 It contains a hash (SHA-256) used to determine if the user has applied settings different
@@ -1682,4 +2284,3 @@ Taint that kubeadm previously applied on control plane nodes to allow only criti
 workloads to schedule on them. Replaced by the
 [`node-role.kubernetes.io/control-plane`](#node-role-kubernetes-io-control-plane-taint)
 taint. kubeadm no longer sets or uses this deprecated taint.
-
