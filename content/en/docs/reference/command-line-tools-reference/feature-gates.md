@@ -659,7 +659,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/).
 - `MinimizeIPTablesRestore`: Enables new performance improvement logics
   in the kube-proxy iptables mode.
-- `MultiCIDRServiceAllocator`: Track IP address allocations for Service cluster IPs using IPAddress objects.
+- `MultiCIDRServiceAllocator`: Allow to dynamically configure the cluster Service IP ranges using
+  ServiceCIDR objects and track IP address allocations for Service cluster IPs using IPAddress objects.
 - `NewVolumeManagerReconstruction`: Enables improved discovery of mounted volumes during kubelet
   startup. Since this code has been significantly refactored, we allow to opt-out in case kubelet
   gets stuck at the startup or is not unmounting volumes from terminated Pods. Note that this
