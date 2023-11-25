@@ -1,14 +1,3 @@
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
 <!-- 
 Read an older version of the kubeadm configuration API types from a file, and output the similar config object for the newer version 
 -->
@@ -17,7 +6,6 @@ Read an older version of the kubeadm configuration API types from a file, and ou
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
@@ -26,8 +14,9 @@ locally in the CLI tool without ever touching anything in the cluster.
 In this version of kubeadm, the following API versions are supported:
 - kubeadm.k8s.io/v1beta3
 -->
+此命令允许你在 CLI 工具中将本地旧版本的配置对象转换为最新支持的版本，而无需变更集群中的任何内容。
+在此版本的 kubeadm 中，支持以下 API 版本：
 
-此命令允许您在 CLI 工具中将本地旧版本的配置对象转换为最新支持的版本，而无需变更集群中的任何内容。在此版本的 kubeadm 中，支持以下 API 版本：
 - kubeadm.k8s.io/v1beta3
 
 <!--
@@ -37,15 +26,14 @@ read, deserialized, defaulted, converted, validated, and re-serialized when writ
 --new-config if specified.
 -->
 
-因此，无论您在此处传递 --old-config 参数的版本是什么，当写入到 stdout 或 --new-config （如果已指定）时，
+因此，无论你在此处传递 --old-config 参数的版本是什么，当写入到 stdout 或 --new-config （如果已指定）时，
 都会读取、反序列化、默认、转换、验证和重新序列化 API 对象。
 
 <!--
 In other words, the output of this command is what kubeadm actually would read internally if you
 submitted this file to "kubeadm init"
 -->
-
-换句话说，如果您将此文件传递给 "kubeadm init"，则该命令的输出就是 kubeadm 实际上在内部读取的内容。
+换句话说，如果你将此文件传递给 "kubeadm init"，则该命令的输出就是 kubeadm 实际上在内部读取的内容。
 
 ```
 kubeadm config migrate [flags]
@@ -54,7 +42,6 @@ kubeadm config migrate [flags]
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -72,7 +59,7 @@ kubeadm config migrate [flags]
 <!-- 
 <p>help for migrate</p> 
 -->
-<p>migrate 操作的帮助信息</p>
+<p>migrate 操作的帮助信息。</p>
 </td>
 </tr>
 
@@ -106,7 +93,6 @@ kubeadm config migrate [flags]
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 从父命令继承的选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -118,7 +104,9 @@ kubeadm config migrate [flags]
 
 <tr>
 <td colspan="2">
-<!-- kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf" -->
+<!--
+kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"
+-->
 --kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/admin.conf"
 </td>
 </tr>
@@ -145,4 +133,3 @@ kubeadm config migrate [flags]
 
 </tbody>
 </table>
-

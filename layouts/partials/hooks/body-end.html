@@ -5,41 +5,22 @@
 <!-- scripts for algolia docsearch -->
 {{ end }}
 {{/* copy-and-paste helper for codenew shortcode */}}
-{{- if .HasShortcode "codenew" -}}
+{{- if or (.HasShortcode "code_sample") (.HasShortcode "code") (.HasShortcode "codenew") -}}
 <script async src="{{ "js/sweetalert-2.1.2.min.js" | relURL }}"></script>
 <script type="text/javascript">
 function copyCode(elem){
   if (document.getElementById(elem)) {
-    // create hidden text element, if it doesn't already exist
-    var targetId = "_hiddenCopyText_";
-    // must use a temporary form element for the selection and copy
-    target = document.getElementById(targetId);
-    if (!target) {
-      var target = document.createElement("textarea");
-      target.style.position = "absolute";
-      target.style.left = "-9999px";
-      target.style.top = "0";
-      target.id = targetId;
-      document.body.appendChild(target);
-    }
-    target.value = document.getElementById(elem).innerText;
-    // select the content
-    target.select();
-
-    // copy the selection
-    var succeed;
-    try {
-        succeed = document.execCommand("copy");
-    } catch(e) {
-        swal("Oh, no…","Sorry, your browser doesn't support copying this example to your clipboard.");
-        succeed = false;
-    }
-    if (succeed) {
-      swal("Copied to clipboard: ",elem);
-      return succeed;
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(document.getElementById(elem).textContent).then(
+        function () {
+          swal("Copied to clipboard: ",elem);
+        },
+        function () {
+          swal("Oh, no…","Failed to copy to clipboard: ",elem);
+        },
+      );
     } else {
-      swal("Oops!", elem + " not found when trying to copy code");
-      return false;
+      swal("Oh, no…","Sorry, your browser doesn't support copying this example to your clipboard.");
     }
   }
 }

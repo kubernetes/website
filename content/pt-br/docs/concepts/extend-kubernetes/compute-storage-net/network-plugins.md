@@ -29,7 +29,7 @@ Para plugins de CNI, isso equivale ao valor `cni`.
 
 ## Requisitos de plugins de Rede
 
-Além de prover a [interface `NetworkPlugin`](https://github.com/kubernetes/kubernetes/tree/{{< param "fullversion" >}}/pkg/kubelet/dockershim/network/plugins.go)
+Além de prover a [interface `NetworkPlugin`](https://github.com/kubernetes/kubernetes/tree/v{{< skew currentPatchVersion >}}/pkg/kubelet/dockershim/network/plugins.go)
 para configuração da rede do pod, o plugin pode necessitar de suporte específico ao 
 kube-proxy.
 O proxy iptables obviamente depende do iptables, e o plugin deve garantir que o 

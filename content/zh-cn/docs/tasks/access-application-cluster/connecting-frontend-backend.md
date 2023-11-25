@@ -61,11 +61,11 @@ require a supported environment. If your environment does not support this, you 
 The backend is a simple hello greeter microservice. Here is the configuration
 file for the backend Deployment:
 -->
-### 使用部署对象（Deployment）创建后端
+### 使用部署对象（Deployment）创建后端   {#creating-the-backend-using-a-deployment}
 
 后端是一个简单的 hello 欢迎微服务应用。这是后端应用的 Deployment 配置文件：
 
-{{< codenew file="service/access/backend-deployment.yaml" >}}
+{{% code_sample file="service/access/backend-deployment.yaml" %}}
 
 <!-- 
 Create the backend Deployment:
@@ -136,7 +136,7 @@ the Pods that it routes traffic to.
 
 First, explore the Service configuration file:
 -->
-### 创建 `hello` Service 对象
+### 创建 `hello` Service 对象   {#creating-the-hello-service-object}
 
 将请求从前端发送到后端的关键是后端 Service。Service 创建一个固定 IP 和 DNS 解析名入口，
 使得后端微服务总是可达。Service 使用
@@ -145,7 +145,7 @@ First, explore the Service configuration file:
 
 首先，浏览 Service 的配置文件：
 
-{{< codenew file="service/access/backend-service.yaml" >}}
+{{% code_sample file="service/access/backend-service.yaml" %}}
 
 <!--
 In the configuration file, you can see that the Service, named `hello` routes
@@ -185,7 +185,7 @@ configuration file.
 The Pods in the frontend Deployment run a nginx image that is configured
 to proxy requests to the `hello` backend Service. Here is the nginx configuration file:
 -->
-### 创建前端应用
+### 创建前端   {#creating-the-frontend}
 
 现在你已经有了运行中的后端应用，你可以创建一个可在集群外部访问的前端，并通过代理
 前端的请求连接到后端。
@@ -197,7 +197,7 @@ to proxy requests to the `hello` backend Service. Here is the nginx configuratio
 前端 Deployment 中的 Pods 运行一个 nginx 镜像，这个已经配置好的镜像会将请求转发
 给后端的 `hello` Service。下面是  nginx 的配置文件：
 
-{{< codenew file="service/access/frontend-nginx.conf" >}}
+{{% code_sample file="service/access/frontend-nginx.conf" %}}
 
 <!--
 Similar to the backend, the frontend has a Deployment and a Service. An important
@@ -210,9 +210,9 @@ accessible from outside the cluster.
 重要区别是前端 Service 的配置文件包含了 `type: LoadBalancer`，也就是说，Service
 会使用你的云服务商的默认负载均衡设备，从而实现从集群外访问的目的。
 
-{{< codenew file="service/access/frontend-service.yaml" >}}
+{{% code_sample file="service/access/frontend-service.yaml" %}}
 
-{{< codenew file="service/access/frontend-deployment.yaml" >}}
+{{% code_sample file="service/access/frontend-deployment.yaml" %}}
 
 
 <!--
@@ -299,13 +299,13 @@ cluster.
 The frontend and backend are now connected. You can hit the endpoint
 by using the curl command on the external IP of your frontend Service.
 -->
-### 通过前端发送流量
+### 通过前端发送流量   {#send-traffic-through-the-frontend}
 
 前端和后端已经完成连接了。你可以使用 curl 命令通过你的前端 Service 的外部
 IP 访问服务端点。
 
 ```shell
-curl http://${EXTERNAL_IP} # 将 EXTERNAL_P 替换为你之前看到的外部 IP
+curl http://${EXTERNAL_IP} # 将 EXTERNAL_IP 替换为你之前看到的外部 IP
 ```
 
 <!--
@@ -346,4 +346,4 @@ kubectl delete deployment frontend backend
 -->
 * 进一步了解 [Service](/zh-cn/docs/concepts/services-networking/service/)
 * 进一步了解 [ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)
-* 进一步了解 [Service 和 Pods 的 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/)
+* 进一步了解 [Service 和 Pod 的 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/)

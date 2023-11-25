@@ -145,7 +145,7 @@ kubeadm 所提供的默认值在必要时也会保证其在多个组件之间是
 
 <!--
 <p>Users are always allowed to override default values, with the only exception of a small subset of setting with
-relevance for security (e.g. enforce authorization-mode Node and RBAC on api server)</p>
+relevance for security (e.g. enforce authorization-mode Node and RBAC on api server).</p>
 <p>If the user provides a configuration types that is not expected for the action you are performing, kubeadm will
 ignore those types and print a warning.</p>
 -->
@@ -377,7 +377,7 @@ https://pkg.go.dev/k8s.io/kubelet/config/v1beta1#KubeletConfiguration。</p>
 </span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">pathType</span>:<span style="color:#bbb"> </span>File<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">scheduler</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">extraArgs</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">address</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;10.100.0.1&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">bind-address</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;10.100.0.1&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">extraVolumes</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">    </span>- <span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;some-volume&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">hostPath</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/etc/some-path&#34;</span><span style="color:#bbb">
@@ -445,7 +445,7 @@ node only (e.g. the node ip).</p>
 - [ClusterConfiguration](#kubeadm-k8s-io-v1beta3-ClusterConfiguration)
 - [InitConfiguration](#kubeadm-k8s-io-v1beta3-InitConfiguration)
 - [JoinConfiguration](#kubeadm-k8s-io-v1beta3-JoinConfiguration)
-  
+
 ## `BootstrapToken`     {#BootstrapToken}
     
 <!--
@@ -484,8 +484,8 @@ Used for joining nodes in the cluster.
    <code>description</code> sets a human-friendly message why this token exists and what it's used
 for, so other administrators can know its purpose.
    -->
-   <p><code>description</code> 设置一个对人友好的消息，说明为什么此令牌
-会存在以及其目标用途，这样其他管理员能够知道其目的。</p>
+   <p><code>description</code> 设置一个对人友好的消息，
+   说明为什么此令牌会存在以及其目标用途，这样其他管理员能够知道其目的。</p>
 </td>
 </tr>
 <tr><td><code>ttl</code><br/>
@@ -501,7 +501,7 @@ for, so other administrators can know its purpose.
 </td>
 </tr>
 <tr><td><code>expires</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#time-v1-meta"><code>meta/v1.Time</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
    <!--
@@ -521,8 +521,8 @@ dynamically at runtime based on the <code>ttl</code>. <code>expires</code> and <
    <code>usages</code> describes the ways in which this token can be used. Can by default be used
 for establishing bidirectional trust, but that can be changed here.
    -->
-   <p><code>usages</code> 描述此令牌的可能使用方式。默认情况下，令牌可用于
-建立双向的信任关系；不过这里可以改变默认用途。</p>
+   <p><code>usages</code> 描述此令牌的可能使用方式。默认情况下，
+   令牌可用于建立双向的信任关系；不过这里可以改变默认用途。</p>
 </td>
 </tr>
 <tr><td><code>groups</code><br/>
@@ -580,8 +580,6 @@ of view and as an authentication method for the node in the bootstrap phase of
 </tr>
 </tbody>
 </table>
-  
-    
 
 ## `ClusterConfiguration`     {#kubeadm-k8s-io-v1beta3-ClusterConfiguration}
 
@@ -845,7 +843,7 @@ uploaded in a Secret in the cluster during the <code>uploadcerts init</code> pha
 The list of phases can be obtained with the <code>kubeadm init --help</code> command.
 The flag &quot;--skip-phases&quot; takes precedence over this field.</p>
    -->
-   <p><code>skipPhases</code> 是命令执行过程中药略过的阶段（Phases）。
+   <p><code>skipPhases</code> 是命令执行过程中要略过的阶段（Phases）。
 通过执行命令 <code>kubeadm init --help</code> 可以获得阶段的列表。
 参数标志 &quot;--skip-phases&quot; 优先于此字段的设置。</p>
 </td>
@@ -1545,7 +1543,7 @@ HostPathMount contains elements describing volumes that are mounted from the hos
 </td>
 </tr>
 <tr><td><code>pathType</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
 </td>
 <td>
    <!--
@@ -1836,14 +1834,14 @@ Defaults to the hostname of the node if not provided.
 <td>
    <!--
    <code>criSocket</code> is used to retrieve container runtime info.
-This information will be annotated to the Node API object, for later re-use
+This information will be annotated to the Node API object, for later re-use.
    -->
    <p><code>criSocket</code> 用来读取容器运行时的信息。
 此信息会被以注解的方式添加到 Node API 对象至上，用于后续用途。</p>
 </td>
 </tr>
 <tr><td><code>taints</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    <!--
@@ -1886,14 +1884,19 @@ command line except without leading dash(es).
 <td>
    <!--
    <code>ignorePreflightErrors</code> provides a list of pre-flight errors to be ignored when
-the current node is registered.
+the current node is registered, e.g.
+  <code>IsPrevilegedUser,Swap</code>.
+  Value <code>all</code> ignores errors from all checks.
    -->
-   <p><code>ignorePreflightErrors</code> 提供一组在当前节点被注册时可以
-忽略掉的预检错误。</p>
+   <p>
+      <code>ignorePreflightErrors</code> 提供一组在当前节点被注册时可以忽略掉的预检错误。
+      例如：<code>IsPrevilegedUser,Swap</code>。
+      取值 <code>all</code> 忽略所有检查的错误。
+   </p>
 </td>
 </tr>
 <tr><td><code>imagePullPolicy</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
 </td>
 <td>
    <!--

@@ -4,7 +4,8 @@ content_type: task
 weight: 30
 card:
   name: tasks
-  weight: 40
+  weight: 25
+  title: Configure access to clusters
 ---
 
 <!-- overview -->
@@ -403,8 +404,8 @@ $Env:KUBECONFIG=$ENV:KUBECONFIG_SAVED
 It is not always obvious what attributes (username, groups) you will get after authenticating to the cluster. 
 It can be even more challenging if you are managing more than one cluster at the same time.
 
-There is a `kubectl` alpha subcommand command to check subject attributes, such as username,
-for your selected Kubernetes client context: `kubectl alpha auth whoami`.
+There is a `kubectl` subcommand to check subject attributes, such as username, for your selected Kubernetes 
+client context: `kubectl auth whoami`.
 
 Read [API access to authentication information for a client](/docs/reference/access-authn-authz/authentication/#self-subject-review)
 to learn about this in more detail.

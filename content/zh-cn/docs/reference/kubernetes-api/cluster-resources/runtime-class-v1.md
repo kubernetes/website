@@ -45,7 +45,7 @@ https://kubernetes.io/zh-cn/docs/concepts/containers/runtime-class/
   More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **handler** (string), required
-  Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable.
+  handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable.
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
@@ -62,7 +62,7 @@ https://kubernetes.io/zh-cn/docs/concepts/containers/runtime-class/
 
 <!--
 - **overhead** (Overhead)
-  Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
+  overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
    https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/
 
   <a name="Overhead"></a>
@@ -79,7 +79,7 @@ https://kubernetes.io/zh-cn/docs/concepts/containers/runtime-class/
   <!--
   - **overhead.podFixed** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
     
-    PodFixed represents the fixed resource overhead associated with running a pod.
+    podFixed represents the fixed resource overhead associated with running a pod.
   -->
   
   - **overhead.podFixed** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
@@ -88,7 +88,7 @@ https://kubernetes.io/zh-cn/docs/concepts/containers/runtime-class/
 
 <!--
 - **scheduling** (Scheduling)
-  Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
+  scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
 
   <a name="Scheduling"></a>
   *Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.*
@@ -194,7 +194,7 @@ RuntimeClassList 是 RuntimeClass 对象的列表。
   Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **items** ([]<a href="{{< ref "../cluster-resources/runtime-class-v1#RuntimeClass" >}}">RuntimeClass</a>), required
-  Items is a list of schema objects.
+  items is a list of schema objects.
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
@@ -258,6 +258,7 @@ GET /apis/node.k8s.io/v1/runtimeclasses
 - **pretty** (*in query*): string
 - **resourceVersion** (*in query*): string
 - **resourceVersionMatch** (*in query*): string
+- **sendInitialEvents** (*in query*): boolean
 - **timeoutSeconds** (*in query*): integer
 - **watch** (*in query*): boolean
 -->
@@ -293,6 +294,10 @@ GET /apis/node.k8s.io/v1/runtimeclasses
 - **resourceVersionMatch** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 
@@ -535,6 +540,7 @@ DELETE /apis/node.k8s.io/v1/runtimeclasses
 - **propagationPolicy** (*in query*): string
 - **resourceVersion** (*in query*): string
 - **resourceVersionMatch** (*in query*): string
+- **sendInitialEvents** (*in query*): boolean
 - **timeoutSeconds** (*in query*): integer
 -->
 ##### 参数
@@ -579,6 +585,10 @@ DELETE /apis/node.k8s.io/v1/runtimeclasses
 - **resourceVersionMatch** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 

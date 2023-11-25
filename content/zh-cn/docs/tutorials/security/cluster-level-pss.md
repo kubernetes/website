@@ -17,12 +17,10 @@ This tutorial applies only for new clusters.
 {{% /alert %}}
 
 <!--
-Pod Security admission (PSA) is enabled by default in v1.23 and later, as it has
-[graduated to beta](/blog/2021/12/09/pod-security-admission-beta/).
-Pod Security
-is an admission controller that carries out checks against the Kubernetes
+Pod Security is an admission controller that carries out checks against the Kubernetes
 [Pod Security Standards](/docs/concepts/security/pod-security-standards/) when new pods are
-created. This tutorial shows you how to enforce the `baseline` Pod Security
+created. It is a feature GA'ed in v1.25.
+This tutorial shows you how to enforce the `baseline` Pod Security
 Standard at the cluster level which applies a standard configuration
 to all namespaces in a cluster.
 
@@ -32,10 +30,8 @@ To apply Pod Security Standards to specific namespaces, refer to
 If you are running a version of Kubernetes other than v{{< skew currentVersion >}},
 check the documentation for that version.
 -->
-Pod 安全准入（PSA）在 v1.23 及更高版本默认启用，
-因为它已[进阶为 Beta](/blog/2021/12/09/pod-security-admission-beta/)。
-Pod 安全准入是在创建 Pod 时应用
-[Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)的准入控制器。
+Pod 安全是一个准入控制器，当新的 Pod 被创建时，它会根据 Kubernetes [Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)
+进行检查。这是在 v1.25 中达到正式发布（GA）的功能。
 本教程将向你展示如何在集群级别实施 `baseline` Pod 安全标准，
 该标准将标准配置应用于集群中的所有名字空间。
 
@@ -49,12 +45,12 @@ Pod 安全准入是在创建 Pod 时应用
 <!--
 Install the following on your workstation:
 
-- [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
+- [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
 - [kubectl](/docs/tasks/tools/)
 -->
 在你的工作站中安装以下内容：
 
-- [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
+- [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
 - [kubectl](/zh-cn/docs/tasks/tools/)
 
 <!--
@@ -102,7 +98,7 @@ that are most appropriate for your configuration, do the following:
 
    ```
    Creating cluster "psa-wo-cluster-pss" ...
-   ✓ Ensuring node image (kindest/node:v{{< skew currentVersion >}}.0) 🖼
+   ✓ Ensuring node image (kindest/node:v{{< skew currentPatchVersion >}}) 🖼
    ✓ Preparing nodes 📦
    ✓ Writing configuration 📜
    ✓ Starting control-plane 🕹️
@@ -372,11 +368,11 @@ following:
 
    {{<note>}}
    <!--
-   If you use Docker Desktop with KinD on macOS, you can
+   If you use Docker Desktop with *kind* on macOS, you can
    add `/tmp` as a Shared Directory under the menu item
    **Preferences > Resources > File Sharing**.
    -->
-   如果你在 macOS 上使用 Docker Desktop 和 KinD，
+   如果你在 macOS 上使用 Docker Desktop 和 kind，
    你可以在菜单项 **Preferences > Resources > File Sharing**
    下添加 `/tmp` 作为共享目录。
    {{</note>}}
@@ -398,7 +394,7 @@ following:
 
    ```
    Creating cluster "psa-with-cluster-pss" ...
-    ✓ Ensuring node image (kindest/node:v{{< skew currentVersion >}}.0) 🖼
+    ✓ Ensuring node image (kindest/node:v{{< skew currentPatchVersion >}}) 🖼
     ✓ Preparing nodes 📦
     ✓ Writing configuration 📜
     ✓ Starting control-plane 🕹️
@@ -415,7 +411,7 @@ following:
 <!--
 1. Point kubectl to the cluster:
 -->
-6. 将 kubectl 指向集群
+6. 将 kubectl 指向集群：
 
    ```shell
    kubectl cluster-info --context kind-psa-with-cluster-pss

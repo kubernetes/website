@@ -1,7 +1,7 @@
 ---
 title: ストレージにボリュームを使用するPodを構成する
 content_type: task
-weight: 50
+weight: 80
 ---
 
 <!-- overview -->
@@ -30,7 +30,7 @@ weight: 50
 今回作成するPodには、コンテナが終了して再起動した場合でもPodの寿命が続く[emptyDir](/docs/concepts/storage/volumes/#emptydir)タイプのボリュームがあります。
 これがPodの設定ファイルです:
 
-{{< codenew file="pods/storage/redis.yaml" >}}
+{{% codenew file="pods/storage/redis.yaml" %}}
 
 1. Podを作成します:
 

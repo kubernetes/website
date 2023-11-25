@@ -50,7 +50,7 @@ dalam spesifikasi Pod. Bagian `securityContext` adalah sebuah objek
 Aturan keamanan yang kamu tetapkan untuk Pod akan berlaku untuk semua Container dalam Pod tersebut.
 Berikut sebuah berkas konfigurasi untuk Pod yang memiliki volume `securityContext` dan `emptyDir`:
 
-{{< codenew file="pods/security/security-context.yaml" >}}
+{{% codenew file="pods/security/security-context.yaml" %}}
 
 Dalam berkas konfigurasi ini, bagian `runAsUser` menentukan bahwa dalam setiap Container pada
 Pod, semua proses dijalankan oleh ID pengguna 1000. Bagian `runAsGroup` menentukan grup utama dengan ID 3000 untuk
@@ -191,7 +191,7 @@ ada aturan yang tumpang tindih. Aturan pada Container mempengaruhi volume pada P
 Berikut berkas konfigurasi untuk Pod yang hanya memiliki satu Container. Keduanya, baik Pod
 dan Container memiliki bagian `securityContext` sebagai berikut:
 
-{{< codenew file="pods/security/security-context-2.yaml" >}}
+{{% codenew file="pods/security/security-context-2.yaml" %}}
 
 Buatlah Pod tersebut:
 
@@ -244,7 +244,7 @@ bagian `capabilities` pada `securityContext` di manifes Container-nya.
 Pertama-tama, mari melihat apa yang terjadi ketika kamu tidak menyertakan bagian `capabilities`.
 Berikut ini adalah berkas konfigurasi yang tidak menambah atau mengurangi kemampuan apa pun dari Container:
 
-{{< codenew file="pods/security/security-context-3.yaml" >}}
+{{% codenew file="pods/security/security-context-3.yaml" %}}
 
 Buatlah Pod tersebut:
 
@@ -306,7 +306,7 @@ Container ini memiliki kapabilitas tambahan yang sudah ditentukan.
 Berikut ini adalah berkas konfigurasi untuk Pod yang hanya menjalankan satu Container. Konfigurasi
 ini menambahkan kapabilitas `CAP_NET_ADMIN` dan `CAP_SYS_TIME`:
 
-{{< codenew file="pods/security/security-context-4.yaml" >}}
+{{% codenew file="pods/security/security-context-4.yaml" %}}
 
 Buatlah Pod tersebut:
 

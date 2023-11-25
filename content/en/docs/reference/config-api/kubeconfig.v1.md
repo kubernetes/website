@@ -11,6 +11,83 @@ auto_generated: true
 - [Config](#Config)
   
     
+    
+
+## `Config`     {#Config}
+    
+
+
+<p>Config holds the information needed to build connect to remote kubernetes clusters as a given user</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+<tr><td><code>apiVersion</code><br/>string</td><td><code>/v1</code></td></tr>
+<tr><td><code>kind</code><br/>string</td><td><code>Config</code></td></tr>
+    
+  
+<tr><td><code>kind</code><br/>
+<code>string</code>
+</td>
+<td>
+   <p>Legacy field from pkg/api/types.go TypeMeta.
+TODO(jlowdermilk): remove this after eliminating downstream dependencies.</p>
+</td>
+</tr>
+<tr><td><code>apiVersion</code><br/>
+<code>string</code>
+</td>
+<td>
+   <p>Legacy field from pkg/api/types.go TypeMeta.
+TODO(jlowdermilk): remove this after eliminating downstream dependencies.</p>
+</td>
+</tr>
+<tr><td><code>preferences</code> <B>[Required]</B><br/>
+<a href="#Preferences"><code>Preferences</code></a>
+</td>
+<td>
+   <p>Preferences holds general information to be use for cli interactions</p>
+</td>
+</tr>
+<tr><td><code>clusters</code> <B>[Required]</B><br/>
+<a href="#NamedCluster"><code>[]NamedCluster</code></a>
+</td>
+<td>
+   <p>Clusters is a map of referencable names to cluster configs</p>
+</td>
+</tr>
+<tr><td><code>users</code> <B>[Required]</B><br/>
+<a href="#NamedAuthInfo"><code>[]NamedAuthInfo</code></a>
+</td>
+<td>
+   <p>AuthInfos is a map of referencable names to user configs</p>
+</td>
+</tr>
+<tr><td><code>contexts</code> <B>[Required]</B><br/>
+<a href="#NamedContext"><code>[]NamedContext</code></a>
+</td>
+<td>
+   <p>Contexts is a map of referencable names to context configs</p>
+</td>
+</tr>
+<tr><td><code>current-context</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>CurrentContext is the name of the context that you would like to use by default</p>
+</td>
+</tr>
+<tr><td><code>extensions</code><br/>
+<a href="#NamedExtension"><code>[]NamedExtension</code></a>
+</td>
+<td>
+   <p>Extensions holds additional information. This is useful for extenders so that reads and writes don't clobber unknown fields</p>
+</td>
+</tr>
+</tbody>
+</table>
 
 ## `AuthInfo`     {#AuthInfo}
     

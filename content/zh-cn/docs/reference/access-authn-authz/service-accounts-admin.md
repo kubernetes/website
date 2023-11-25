@@ -88,7 +88,7 @@ Kubernetes 区分用户账号和服务账号的概念，主要基于以下原因
   tied to complex business processes. By contrast, service account creation is
   intended to be more lightweight, allowing cluster users to create service accounts
   for specific tasks on demand. Separating ServiceAccount creation from the steps to
-  onboard human users makes it easier for workloads to following the principle of
+  onboard human users makes it easier for workloads to follow the principle of
   least privilege.
 -->
 - 通常情况下，集群的用户账号可能会从企业数据库进行同步，
@@ -117,13 +117,13 @@ Kubernetes 区分用户账号和服务账号的概念，主要基于以下原因
 
 <!--
 By default, the Kubernetes control plane (specifically, the
-[ServiceAccount admission controller](#service-account-admission-controller))
+[ServiceAccount admission controller](#serviceaccount-admission-controller))
 adds a [projected volume](/docs/concepts/storage/projected-volumes/) to Pods,
 and this volume includes a token for Kubernetes API access.
 
 Here's an example of how that looks for a launched Pod:
 -->
-默认情况下，Kubernetes 控制平面（特别是 [ServiceAccount 准入控制器](#service-account-admission-controller)）
+默认情况下，Kubernetes 控制平面（特别是 [ServiceAccount 准入控制器](#serviceaccount-admission-controller)）
 添加一个[投射卷](/zh-cn/docs/concepts/storage/projected-volumes/)到 Pod，
 此卷包括了访问 Kubernetes API 的令牌。
 
@@ -244,10 +244,14 @@ to obtain short-lived API access tokens is recommended instead.
 <!--
 ## Control plane details
 
+### ServiceAccount controller
+
 A ServiceAccount controller manages the ServiceAccounts inside namespaces, and
 ensures a ServiceAccount named "default" exists in every active namespace.
 -->
 ## 控制平面细节   {#control-plane-details}
+
+### ServiceAccount 控制器   {#serviceaccount-controller} 
 
 ServiceAccount 控制器管理名字空间内的 ServiceAccount，
 并确保每个活跃的名字空间中都存在名为 `default` 的 ServiceAccount。
@@ -409,6 +413,7 @@ That manifest snippet defines a projected volume that combines information from 
 1. A `serviceAccountToken` source, that contains a token that the kubelet acquires from kube-apiserver.
    The kubelet fetches time-bound tokens using the TokenRequest API. A token served for a TokenRequest expires
    either when the pod is deleted or after a defined lifespan (by default, that is 1 hour).
+   The kubelet also refreshes that token before the token expires.
    The token is bound to the specific Pod and has the kube-apiserver as its audience.
 1. A `configMap` source. The ConfigMap contains a bundle of certificate authority data. Pods can use these
    certificates to make sure that they are connecting to your cluster's kube-apiserver (and not to middlebox
@@ -420,8 +425,8 @@ That manifest snippet defines a projected volume that combines information from 
 
 1. `serviceAccountToken` 数据源，包含 kubelet 从 kube-apiserver 获取的令牌。
    kubelet 使用 TokenRequest API 获取有时间限制的令牌。为 TokenRequest 服务的这个令牌会在
-   Pod 被删除或定义的生命周期（默认为 1 小时）结束之后过期。该令牌绑定到特定的 Pod，
-   并将其 audience（受众）设置为与 `kube-apiserver` 的 audience 相匹配。
+   Pod 被删除或定义的生命周期（默认为 1 小时）结束之后过期。在令牌过期之前，kubelet 还会刷新该令牌。
+   该令牌绑定到特定的 Pod，并将其 audience（受众）设置为与 `kube-apiserver` 的 audience 相匹配。
 1. `configMap` 数据源。ConfigMap 包含一组证书颁发机构数据。
    Pod 可以使用这些证书来确保自己连接到集群的 kube-apiserver（而不是连接到中间件或意外配置错误的对等点上）。
 1. `downwardAPI` 数据源。这个 `downwardAPI` 卷获得包含 Pod 的名字空间的名称，
@@ -461,7 +466,7 @@ Here is a sample manifest for such a Secret:
 
 以下是此类 Secret 的示例清单：
 
-{{< codenew file="secret/serviceaccount/mysecretname.yaml" >}}
+{{% code_sample file="secret/serviceaccount/mysecretname.yaml" %}}
 
 <!--
 To create a Secret based on this example, run:
@@ -561,33 +566,6 @@ Then, delete the Secret you now know the name of:
 
 ```shell
 kubectl -n examplens delete secret/example-automated-thing-token-zyxwv
-```
-
-<!--
-The control plane spots that the ServiceAccount is missing its Secret,
-and creates a replacement:
--->
-控制平面发现 ServiceAccount 缺少其 Secret，并创建一个替代项：
-
-```shell
-kubectl -n examplens get serviceaccount/example-automated-thing -o yaml
-```
-
-```yaml
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  annotations:
-    kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"v1","kind":"ServiceAccount","metadata":{"annotations":{},"name":"example-automated-thing","namespace":"examplens"}}
-  creationTimestamp: "2019-07-21T07:07:07Z"
-  name: example-automated-thing
-  namespace: examplens
-  resourceVersion: "1026"
-  selfLink: /api/v1/namespaces/examplens/serviceaccounts/example-automated-thing
-  uid: f23fd170-66f2-4697-b049-e1e266b7f835
-secrets:
-  - name: example-automated-thing-token-4rdrh
 ```
 
 <!--

@@ -55,7 +55,7 @@ card:
 
 MySQLとWordpressはそれぞれ、データを保存するためのPersistentVolumeを必要とします。各PersistentVolumeClaimはデプロイの段階で作成されます。
 
-多くのクラスタ環境では、デフォルトのStorageClassがインストールされています。StorageClassがPersistentVolumeClaim中で指定されていなかった場合、クラスターのデフォルトのStorageClassが代わりに使われます。
+多くのクラスター環境では、デフォルトのStorageClassがインストールされています。StorageClassがPersistentVolumeClaim中で指定されていなかった場合、クラスターのデフォルトのStorageClassが代わりに使われます。
 
 PersistentVolumeClaimが作成されるとき、StorageClassの設定に基づいてPersistentVolumeが動的にプロビジョニングされます。
 
@@ -92,12 +92,12 @@ EOF
 
 以下のマニフェストには、シングルインスタンスのMySQLのDeploymentが書かれています。MySQLコンテナはPersistentVolumeを`/var/lib/mysql`にマウントします。`MYSQL_ROOT_PASSWORD`環境変数には、Secretから得られたデータベースのパスワードが設定されます。
 
-{{< codenew file="application/wordpress/mysql-deployment.yaml" >}}
+{{% codenew file="application/wordpress/mysql-deployment.yaml" %}}
 
 以下のマニフェストには、シングルインスタンスのWordPressのDeploymentが書かれています。WordPressコンテナはPersistentVolumeをウェブサイトのデータファイルのために`/var/www/html`にマウントします。`WORDPRESS_DB_HOST`環境変数に上で定義したMySQLのServiceの名前を設定すると、WordPressはServiceによってデータベースにアクセスします。`WORDPRESS_DB_PASSWORD`環境変数には、kustomizeが生成したSecretから得たデータベースのパスワードが設定されます。
 
 
-{{< codenew file="application/wordpress/wordpress-deployment.yaml" >}}
+{{% codenew file="application/wordpress/wordpress-deployment.yaml" %}}
 
 1. MySQLのDeploymentの設定ファイルをダウンロードします。
 

@@ -39,16 +39,16 @@ card:
    {{< note >}}
    특정 버전을 다운로드하려면, `$(curl -L -s https://dl.k8s.io/release/stable.txt)` 명령 부분을 특정 버전으로 바꾼다.
 
-   예를 들어, Intel macOS에 버전 {{< param "fullversion" >}}을 다운로드하려면, 다음을 입력한다.
+   예를 들어, Intel macOS에 버전 {{< skew currentPatchVersion >}}을 다운로드하려면, 다음을 입력한다.
 
    ```bash
-   curl -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl"
+   curl -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/darwin/amd64/kubectl"
    ```
 
    Apple Silicon의 macOS라면, 다음을 입력한다.
 
    ```bash
-   curl -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/arm64/kubectl"
+   curl -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/darwin/arm64/kubectl"
    ```
 
    {{< /note >}}

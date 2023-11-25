@@ -111,7 +111,7 @@ mkdir content/de
 
 ### Lokalisierungs README Datei hinzufügen
 
-Um andere Lokalisierungsmitwirkende anzuleiten, füge eine neue [`README-**.md`](https://help.github.com/articles/about-readmes/) auf der obersten Ebene von k/website hinzu, wobei `**` der aus zwei Buchstaben bestehende Sprachcode ist. Eine deutsche README-Datei wäre zum Beispiel `README-de.md`.
+Um andere Lokalisierungsmitwirkende anzuleiten, füge eine neue [`README-**.md`](https://help.github.com/articles/about-readmes/) auf der obersten Ebene von kubernetes/website hinzu, wobei `**` der aus zwei Buchstaben bestehende Sprachcode ist. Eine deutsche README-Datei wäre zum Beispiel `README-de.md`.
 
 Gebe den Lokalisierungsmitwirkende in der lokalisierten `README-**.md`-Datei Anleitung zum Mitwirken. Füge dieselben Informationen ein, die auch in `README.md` enthalten sind, sowie:
 
@@ -262,7 +262,7 @@ In einem Entwicklungszweig zusammenzuarbeiten:
 
     `dev-<Quellversion>-<Sprachcode>.<Team-Meilenstein>`
 
-    Beispielsweise öffnet ein Genehmigender in einem deutschen Lokalisierungsteam den Entwicklungszweig `dev-1.12-de.1` direkt gegen das k/website-Repository, basierend auf dem Quellzweig für Kubernetes v1.12.
+    Beispielsweise öffnet ein Genehmigender in einem deutschen Lokalisierungsteam den Entwicklungszweig `dev-1.12-de.1` direkt gegen das kubernetes/website-Repository, basierend auf dem Quellzweig für Kubernetes v1.12.
 
 2. Einzelne Mitwirkende öffnen Feature-Zweige, die auf dem Entwicklungszweig basieren.
 

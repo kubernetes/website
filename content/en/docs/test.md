@@ -61,17 +61,17 @@ Markdown doesn't have strict rules about how to process lists. When we moved
 from Jekyll to Hugo, we broke some lists. To fix them, keep the following in
 mind:
 
-- Make sure you indent sub-list items **2 spaces**. 
+- Make sure you indent sub-list items **2 spaces**.
 
-- To end a list and start another, you need a HTML comment block on a new line
+- To end a list and start another, you need an HTML comment block on a new line
   between the lists, flush with the left-hand border. The first list won't end
   otherwise, no matter how many blank lines you put between it and the second.
 
 ### Bullet lists
 
-- This is a list item
-* This is another list item in the same list
-- You can mix `-` and `*`
+- This is a list item.
+* This is another list item in the same list.
+- You can mix `-` and `*`.
   - To make a sub-item, indent two spaces.
     - This is a sub-sub-item. Indent two more spaces.
   - Another sub-item.
@@ -93,37 +93,38 @@ mind:
   - And a sub-list after some block-level content
 
 - A bullet list item can contain a numbered list.
-    1.  Numbered sub-list item 1
-    2.  Numbered sub-list item 2
+  1. Numbered sub-list item 1
+  1. Numbered sub-list item 2
 
 ### Numbered lists
 
-1.  This is a list item
-2.  This is another list item in the same list. The number you use in Markdown
-    does not necessarily correlate to the number in the final output. By
-    convention, we keep them in sync.
-3.  {{<note>}}
-    For single-digit numbered lists, using two spaces after the period makes
-    interior block-level content line up better along tab-stops.
-    {{</note>}}
+1. This is a list item
+1. This is another list item in the same list. The number you use in Markdown
+   does not necessarily correlate to the number in the final output. By
+   convention, we keep them in sync.
+
+{{<note>}}
+For single-digit numbered lists, using two spaces after the period makes
+interior block-level content line up better along tab-stops.
+{{</note>}}
 
 <!-- separate lists -->
 
-1.  This is a new list. With Hugo, you need to use a HTML comment to separate
-    two consecutive lists. **The HTML comment needs to be at the left margin.**
-2.  Numbered lists can have paragraphs or block elements within them.
+1. This is a new list. With Hugo, you need to use an HTML comment to separate
+   two consecutive lists. **The HTML comment needs to be at the left margin.**
+1. Numbered lists can have paragraphs or block elements within them.
 
-    Indent the content to be the same as the first line of the bullet
-    point. **This paragraph and the code block line up with the `N` in
-    `Numbered` above.**
+   Indent the content to be the same as the first line of the bullet
+   point. **This paragraph and the code block line up with the `N` in
+   `Numbered` above.**
 
-    ```bash
-    ls -l
-    ```
+   ```bash
+   ls -l
+   ```
 
-    - And a sub-list after some block-level content. This is at the same
-      "level" as the paragraph and code block above, despite being indented
-      more.
+   - And a sub-list after some block-level content. This is at the same
+     "level" as the paragraph and code block above, despite being indented
+     more.
 
 ### Tab lists
 
@@ -212,17 +213,19 @@ the `>` characters. The following example illustrates this (view the Markdown
 source for this page).
 
 ```none
-{{</* codenew file="pods/storage/gce-volume.yaml" */>}}
+{{</* alert color="warning" >}}This is a warning.{{< /alert */>}}
 ```
 
 ## Links
 
 To format a link, put the link text inside square brackets, followed by the
-link target in parentheses. [Link to Kubernetes.io](https://kubernetes.io/) or
-[Relative link to Kubernetes.io](/)
+link target in parentheses.
+
+- `[Link to Kubernetes.io](https://kubernetes.io/)` or
+- `[Relative link to Kubernetes.io](/)`
 
 You can also use HTML, but it is not preferred.
-<a href="https://kubernetes.io/">Link to Kubernetes.io</a>
+For example, `<a href="https://kubernetes.io/">Link to Kubernetes.io</a>`.
 
 ## Images
 
@@ -250,7 +253,6 @@ the entire image tag, and the link target is in the parentheses at the end.
 You can also use HTML for images, but it is not preferred.
 
 <img src="/images/pencil.png" alt="pencil icon" />
-
 
 ## Tables
 
@@ -299,7 +301,7 @@ graph TD;
 {{</*/ mermaid */>}}
 ```
 
-Produces: 
+Produces:
 
 {{< mermaid >}}
 graph TD;
@@ -323,7 +325,7 @@ sequenceDiagram
 {{</*/ mermaid */>}}
 ```
 
-Produces: 
+Produces:
 
 {{< mermaid >}}
 sequenceDiagram
@@ -337,7 +339,7 @@ sequenceDiagram
     Alice->John: Yes... John, how are you?
 {{</ mermaid >}}
 
-<br>More [examples](https://mermaid-js.github.io/mermaid/#/examples) from the official docs.
+You can check more [examples](https://mermaid-js.github.io/mermaid/#/examples) from the official docs.
 
 ## Sidebars and Admonitions
 
@@ -358,7 +360,6 @@ A sidebar offsets text visually, but without the visual prominence of
 > ```bash
 > sudo dmesg
 > ```
->
 
 ### Admonitions
 
@@ -376,12 +377,9 @@ You can have multiple paragraphs and block-level elements inside an admonition.
 The reader should proceed with caution.
 {{< /caution >}}
 
-
 {{< warning >}}
 Warnings point out something that could cause harm if ignored.
 {{< /warning >}}
-
-
 
 ## Includes
 

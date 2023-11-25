@@ -15,6 +15,47 @@ auto_generated: true
 - [TracingConfiguration](#apiserver-k8s-io-v1alpha1-TracingConfiguration)
   
     
+    
+
+## `TracingConfiguration`     {#TracingConfiguration}
+    
+
+**Appears in:**
+
+- [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+
+- [TracingConfiguration](#apiserver-k8s-io-v1alpha1-TracingConfiguration)
+
+
+<p>TracingConfiguration provides versioned configuration for OpenTelemetry tracing clients.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>endpoint</code><br/>
+<code>string</code>
+</td>
+<td>
+   <p>Endpoint of the collector this component will report traces to.
+The connection is insecure, and does not currently support TLS.
+Recommended is unset, and endpoint is the otlp grpc default, localhost:4317.</p>
+</td>
+</tr>
+<tr><td><code>samplingRatePerMillion</code><br/>
+<code>int32</code>
+</td>
+<td>
+   <p>SamplingRatePerMillion is the number of samples to collect per million spans.
+Recommended is unset. If unset, sampler respects its parent span's sampling
+rate, but otherwise never samples.</p>
+</td>
+</tr>
+</tbody>
+</table>
+  
 
 ## `AdmissionConfiguration`     {#apiserver-k8s-io-v1alpha1-AdmissionConfiguration}
     
@@ -81,23 +122,11 @@ auto_generated: true
 <tr><td><code>kind</code><br/>string</td><td><code>TracingConfiguration</code></td></tr>
     
   
-<tr><td><code>endpoint</code><br/>
-<code>string</code>
+<tr><td><code>TracingConfiguration</code> <B>[Required]</B><br/>
+<a href="#TracingConfiguration"><code>TracingConfiguration</code></a>
 </td>
-<td>
-   <p>Endpoint of the collector that's running on the control-plane node.
-The APIServer uses the egressType ControlPlane when sending data to the collector.
-The syntax is defined in https://github.com/grpc/grpc/blob/master/doc/naming.md.
-Defaults to the otlpgrpc default, localhost:4317
-The connection is insecure, and does not support TLS.</p>
-</td>
-</tr>
-<tr><td><code>samplingRatePerMillion</code><br/>
-<code>int32</code>
-</td>
-<td>
-   <p>SamplingRatePerMillion is the number of samples to collect per million spans.
-Defaults to 0.</p>
+<td>(Members of <code>TracingConfiguration</code> are embedded into this type.)
+   <p>Embed the component config tracing configuration struct</p>
 </td>
 </tr>
 </tbody>

@@ -1,4 +1,4 @@
-apiVersion: flowcontrol.apiserver.k8s.io/v1beta2
+apiVersion: flowcontrol.apiserver.k8s.io/v1beta3
 kind: FlowSchema
 metadata:
   name: health-for-strangers
@@ -7,14 +7,14 @@ spec:
   priorityLevelConfiguration:
     name: exempt
   rules:
-  - nonResourceRules:
-    - nonResourceURLs:
-      - "/healthz"
-      - "/livez"
-      - "/readyz"
-      verbs:
-      - "*"
-    subjects:
-    - kind: Group
-      group:
-        name: system:unauthenticated
+    - nonResourceRules:
+        - nonResourceURLs:
+            - "/healthz"
+            - "/livez"
+            - "/readyz"
+          verbs:
+            - "*"
+      subjects:
+        - kind: Group
+          group:
+            name: "system:unauthenticated"

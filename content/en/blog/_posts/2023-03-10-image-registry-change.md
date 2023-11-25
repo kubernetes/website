@@ -123,8 +123,8 @@ repository](https://github.com/aws/aws-eks-best-practices/tree/master/policies/k
 that will block them from being pulled. You can use these third-party policies with any Kubernetes
 cluster.
 
-**Option 5**: As a **LAST** possible option, you can use a [Mutating
-Admission Webhook](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks)
+**Option 5**: As a **LAST** possible option, you can use a
+[Mutating Admission Webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks)
 to change the image address dynamically. This should only be
 considered a stopgap till your manifests have been updated. You can
 find a (third party) Mutating Webhook and Kyverno policy in
@@ -162,7 +162,7 @@ restricted environments or using very old clients that do not respect redirects 
 
 ## What will happen to k8s.gcr.io?
 
-Separate from the the redirect, k8s.gcr.io will be frozen [and will not be updated with new images
+Separate from the redirect, k8s.gcr.io will be frozen [and will not be updated with new images
 after April 3rd, 2023](https://kubernetes.io/blog/2023/02/06/k8s-gcr-io-freeze-announcement/). `k8s.gcr.io`
 will not get any new releases, patches, or security updates. It will continue to remain available to
 help people migrate, but it **WILL** be phased out entirely in the future.

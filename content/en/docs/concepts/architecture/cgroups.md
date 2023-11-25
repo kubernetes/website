@@ -102,7 +102,10 @@ updated to newer versions that support cgroup v2. For example:
  Update these agents to versions that support cgroup v2.
 * If you run [cAdvisor](https://github.com/google/cadvisor) as a stand-alone
  DaemonSet for monitoring pods and containers, update it to v0.43.0 or later.
-* If you use JDK, prefer to use JDK 11.0.16 and later or JDK 15 and later, which [fully support cgroup v2](https://bugs.openjdk.org/browse/JDK-8230305).
+* If you deploy Java applications, prefer to use versions which fully support cgroup v2:
+    * [OpenJDK / HotSpot](https://bugs.openjdk.org/browse/JDK-8230305): jdk8u372, 11.0.16, 15 and later
+    * [IBM Semeru Runtimes](https://www.ibm.com/support/pages/apar/IJ46681): 8.0.382.0, 11.0.20.0, 17.0.8.0, and later
+    * [IBM Java](https://www.ibm.com/support/pages/apar/IJ46681): 8.0.8.6 and later
 * If you are using the [uber-go/automaxprocs](https://github.com/uber-go/automaxprocs) package, make sure
   the version you use is v1.5.1 or higher.
 

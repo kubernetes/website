@@ -4,10 +4,6 @@ reviewers:
 title: Install and Set Up kubectl on Windows
 content_type: task
 weight: 10
-card:
-  name: tasks
-  weight: 20
-  title: Install kubectl on Windows
 ---
 
 ## {{% heading "prerequisites" %}}
@@ -27,12 +23,13 @@ The following methods exist for installing kubectl on Windows:
 
 ### Install kubectl binary with curl on Windows
 
-1. Download the [latest release {{< param "fullversion" >}}](https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
+1. Download the latest {{< skew currentVersion >}} patch release:
+   [kubectl {{< skew currentPatchVersion >}}](https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe).
 
    Or if you have `curl` installed, use this command:
 
    ```powershell
-   curl.exe -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe"
+   curl.exe -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe"
    ```
 
    {{< note >}}
@@ -45,7 +42,7 @@ The following methods exist for installing kubectl on Windows:
    Download the `kubectl` checksum file:
 
    ```powershell
-   curl.exe -LO "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe.sha256"
+   curl.exe -LO "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe.sha256"
    ```
 
    Validate the `kubectl` binary against the checksum file:
@@ -71,17 +68,6 @@ The following methods exist for installing kubectl on Windows:
    ```cmd
    kubectl version --client
    ```
-
-   {{< note >}}
-   The above command will generate a warning:
-
-   ```
-   WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.
-   ```
-
-   You can ignore this warning. You are only checking the version of `kubectl` that you
-   have installed.
-   {{< /note >}}
    
    Or use this for detailed view of version:
 
@@ -89,11 +75,7 @@ The following methods exist for installing kubectl on Windows:
    kubectl version --client --output=yaml
    ```
 
-1. After installing the plugin, clean up the installation files:
 
-   ```powershell
-   del kubectl.exe kubectl.exe.sha256
-   ```
 
 {{< note >}}
 [Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/#kubernetes)
@@ -183,7 +165,7 @@ Below are the procedures to set up autocompletion for PowerShell.
 1. Download the latest release with the command:
 
    ```powershell
-   curl.exe -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe"
+   curl.exe -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl-convert.exe"
    ```
 
 1. Validate the binary (optional).
@@ -191,7 +173,7 @@ Below are the procedures to set up autocompletion for PowerShell.
    Download the `kubectl-convert` checksum file:
 
    ```powershell
-   curl.exe -LO "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe.sha256"
+   curl.exe -LO "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl-convert.exe.sha256"
    ```
 
    Validate the `kubectl-convert` binary against the checksum file:

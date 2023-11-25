@@ -9,9 +9,9 @@ weight: 65
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
 
-Dynamic resource allocation is a new API for requesting and sharing resources
+Dynamic resource allocation is an API for requesting and sharing resources
 between pods and containers inside a pod. It is a generalization of the
 persistent volumes API for generic resources. Third-party resource drivers are
 responsible for tracking and allocating resources. Different kinds of
@@ -31,8 +31,8 @@ check the documentation for that version of Kubernetes.
 
 ## API
 
-The new `resource.k8s.io/v1alpha1` {{< glossary_tooltip text="API group"
-term_id="api-group" >}} provides four new types:
+The `resource.k8s.io/v1alpha2` {{< glossary_tooltip text="API group"
+term_id="api-group" >}} provides four types:
 
 ResourceClass
 : Defines which resource driver handles a certain kind of
@@ -51,7 +51,7 @@ ResourceClaimTemplate
 : Defines the spec and some meta data for creating
   ResourceClaims. Created by a user when deploying a workload.
 
-PodScheduling
+PodSchedulingContext
 : Used internally by the control plane and resource drivers
   to coordinate pod scheduling when ResourceClaims need to be allocated
   for a Pod.
@@ -61,7 +61,7 @@ typically using the type defined by a {{< glossary_tooltip
 term_id="CustomResourceDefinition" text="CRD" >}} that was created when
 installing a resource driver.
 
-The `core/v1` `PodSpec` defines ResourceClaims that are needed for a Pod in a new
+The `core/v1` `PodSpec` defines ResourceClaims that are needed for a Pod in a
 `resourceClaims` field. Entries in that list reference either a ResourceClaim
 or a ResourceClaimTemplate. When referencing a ResourceClaim, all Pods using
 this PodSpec (for example, inside a Deployment or StatefulSet) share the same
@@ -76,7 +76,7 @@ Here is an example for a fictional resource driver. Two ResourceClaim objects
 will get created for this Pod and each container gets access to one of them.
 
 ```yaml
-apiVersion: resource.k8s.io/v1alpha1
+apiVersion: resource.k8s.io/v1alpha2
 kind: ResourceClass
 name: resource.example.com
 driverName: resource-driver.example.com
@@ -88,7 +88,7 @@ spec:
   color: black
   size: large
 ---
-apiVersion: resource.k8s.io/v1alpha1
+apiVersion: resource.k8s.io/v1alpha2
 kind: ResourceClaimTemplate
 metadata:
   name: large-black-cat-claim-template
@@ -162,21 +162,52 @@ gets scheduled onto one node and then cannot run there, which is bad because
 such a pending Pod also blocks all other resources like RAM or CPU that were
 set aside for it.
 
-## Limitations
+## Monitoring resources
 
-The scheduler plugin must be involved in scheduling Pods which use
-ResourceClaims. Bypassing the scheduler by setting the `nodeName` field leads
-to Pods that the kubelet refuses to start because the ResourceClaims are not
-reserved or not even allocated. It may be possible to [remove this
-limitation](https://github.com/kubernetes/kubernetes/issues/114005) in the
-future.
+The kubelet provides a gRPC service to enable discovery of dynamic resources of
+running Pods. For more information on the gRPC endpoints, see the
+[resource allocation reporting](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources).
+
+## Pre-scheduled Pods
+
+When you - or another API client - create a Pod with `spec.nodeName` already set, the scheduler gets bypassed.
+If some ResourceClaim needed by that Pod does not exist yet, is not allocated
+or not reserved for the Pod, then the kubelet will fail to run the Pod and
+re-check periodically because those requirements might still get fulfilled
+later.
+
+Such a situation can also arise when support for dynamic resource allocation
+was not enabled in the scheduler at the time when the Pod got scheduled
+(version skew, configuration, feature gate, etc.). kube-controller-manager
+detects this and tries to make the Pod runnable by triggering allocation and/or
+reserving the required ResourceClaims.
+
+However, it is better to avoid this because a Pod that is assigned to a node
+blocks normal resources (RAM, CPU) that then cannot be used for other Pods
+while the Pod is stuck. To make a Pod run on a specific node while still going
+through the normal scheduling flow, create the Pod with a node selector that
+exactly matches the desired node:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-cats
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: name-of-the-intended-node
+  ...
+```
+
+You may also be able to mutate the incoming Pod, at admission time, to unset
+the `.spec.nodeName` field and to use a node selector instead.
 
 ## Enabling dynamic resource allocation
 
 Dynamic resource allocation is an *alpha feature* and only enabled when the
 `DynamicResourceAllocation` [feature
 gate](/docs/reference/command-line-tools-reference/feature-gates/) and the
-`resource.k8s.io/v1alpha1` {{< glossary_tooltip text="API group"
+`resource.k8s.io/v1alpha2` {{< glossary_tooltip text="API group"
 term_id="api-group" >}} are enabled. For details on that, see the
 `--feature-gates` and `--runtime-config` [kube-apiserver
 parameters](/docs/reference/command-line-tools-reference/kube-apiserver/).
@@ -203,8 +234,9 @@ error: the server doesn't have a resource type "resourceclasses"
 ```
 
 The default configuration of kube-scheduler enables the "DynamicResources"
-plugin if and only if the feature gate is enabled. Custom configurations may
-have to be modified to include it.
+plugin if and only if the feature gate is enabled and when using
+the v1 configuration API. Custom configurations may have to be modified to
+include it.
 
 In addition to enabling the feature in the cluster, a resource driver also has to
 be installed. Please refer to the driver's documentation for details.

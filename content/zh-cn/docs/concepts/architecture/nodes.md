@@ -15,7 +15,8 @@ weight: 10
 <!-- overview -->
 
 <!--
-Kubernetes runs your {{< glossary_tooltip text="workload" term_id="workload" >}} by placing containers into Pods to run on _Nodes_.
+Kubernetes runs your {{< glossary_tooltip text="workload" term_id="workload" >}}
+by placing containers into Pods to run on _Nodes_.
 A node may be a virtual or physical machine, depending on the cluster. Each node
 is managed by the
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}}
@@ -47,14 +48,15 @@ Kubernetes 通过将容器放入在节点（Node）上运行的 Pod
 <!--
 ## Management
 
-There are two main ways to have Nodes added to the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}:
+There are two main ways to have Nodes added to the
+{{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}:
 
 1. The kubelet on a node self-registers to the control plane
 2. You (or another human user) manually add a Node object
 
 After you create a Node {{< glossary_tooltip text="object" term_id="object" >}},
-or the kubelet on a node self-registers, the control plane checks whether the new Node object is
-valid. For example, if you try to create a Node from the following JSON manifest:
+or the kubelet on a node self-registers, the control plane checks whether the new Node object
+is valid. For example, if you try to create a Node from the following JSON manifest:
 -->
 ## 管理  {#management}
 
@@ -119,11 +121,10 @@ Node 对象的名称必须是合法的
 The [name](/docs/concepts/overview/working-with-objects/names#names) identifies a Node. Two Nodes
 cannot have the same name at the same time. Kubernetes also assumes that a resource with the same
 name is the same object. In case of a Node, it is implicitly assumed that an instance using the
-same name will have the same state (e.g. network settings, root disk contents)
-and attributes like node labels. This may lead to
-inconsistencies if an instance was modified without changing its name. If the Node needs to be
-replaced or updated significantly, the existing Node object needs to be removed from API server
-first and re-added after the update.
+same name will have the same state (e.g. network settings, root disk contents) and attributes like
+node labels. This may lead to inconsistencies if an instance was modified without changing its name.
+If the Node needs to be replaced or updated significantly, the existing Node object needs to be
+removed from API server first and re-added after the update.
 -->
 ### 节点名称唯一性     {#node-name-uniqueness}
 
@@ -138,11 +139,11 @@ first and re-added after the update.
 ### Self-registration of Nodes
 
 When the kubelet flag `--register-node` is true (the default), the kubelet will attempt to
-register itself with the API server.  This is the preferred pattern, used by most distros.
+register itself with the API server. This is the preferred pattern, used by most distros.
 
 For self-registration, the kubelet is started with the following options:
 -->
-### 节点自注册 {#self-registration-of-nodes}
+### 节点自注册    {#self-registration-of-nodes}
 
 当 kubelet 标志 `--register-node` 为 true（默认）时，它会尝试向 API 服务注册自己。
 这是首选模式，被绝大多数发行版选用。
@@ -158,19 +159,36 @@ For self-registration, the kubelet is started with the following options:
   {{< glossary_tooltip text="taints" term_id="taint" >}} (comma separated `<key>=<value>:<effect>`).
 
   No-op if `register-node` is false.
-- `--node-ip` - IP address of the node.
+-->
+- `--kubeconfig` - 用于向 API 服务器执行身份认证所用的凭据的路径。
+- `--cloud-provider` - 与某{{< glossary_tooltip text="云驱动" term_id="cloud-provider" >}}
+  进行通信以读取与自身相关的元数据的方式。
+- `--register-node` - 自动向 API 服务器注册。
+- `--register-with-taints` - 使用所给的{{< glossary_tooltip text="污点" term_id="taint" >}}列表
+  （逗号分隔的 `<key>=<value>:<effect>`）注册节点。当 `register-node` 为 false 时无效。
+<!--
+- `--node-ip` - Optional comma-separated list of the IP addresses for the node.
+  You can only specify a single address for each address family.
+  For example, in a single-stack IPv4 cluster, you set this value to be the IPv4 address that the
+  kubelet should use for the node.
+  See [configure IPv4/IPv6 dual stack](/docs/concepts/services-networking/dual-stack/#configure-ipv4-ipv6-dual-stack)
+  for details of running a dual-stack cluster.
+
+  If you don't provide this argument, the kubelet uses the node's default IPv4 address, if any;
+  if the node has no IPv4 addresses then the kubelet uses the node's default IPv6 address.
+-->
+- `--node-ip` - 可选的以英文逗号隔开的节点 IP 地址列表。你只能为每个地址簇指定一个地址。
+  例如在单协议栈 IPv4 集群中，需要将此值设置为 kubelet 应使用的节点 IPv4 地址。
+  参阅[配置 IPv4/IPv6 双协议栈](/zh-cn/docs/concepts/services-networking/dual-stack/#configure-ipv4-ipv6-dual-stack)了解运行双协议栈集群的详情。
+
+  如果你未提供这个参数，kubelet 将使用节点默认的 IPv4 地址（如果有）；
+  如果节点没有 IPv4 地址，则 kubelet 使用节点的默认 IPv6 地址。
+<!--
 - `--node-labels` - {{< glossary_tooltip text="Labels" term_id="label" >}} to add when registering the node
   in the cluster (see label restrictions enforced by the
   [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)).
 - `--node-status-update-frequency` - Specifies how often kubelet posts its node status to the API server.
 -->
-- `--kubeconfig` - 用于向 API 服务器执行身份认证所用的凭据的路径。
-- `--cloud-provider` - 与某{{< glossary_tooltip text="云驱动" term_id="cloud-provider" >}}
-  进行通信以读取与自身相关的元数据的方式。
-- `--register-node` - 自动向 API 服务注册。
-- `--register-with-taints` - 使用所给的{{< glossary_tooltip text="污点" term_id="taint" >}}列表
-  （逗号分隔的 `<key>=<value>:<effect>`）注册节点。当 `register-node` 为 false 时无效。
-- `--node-ip` - 节点 IP 地址。
 - `--node-labels` - 在集群中注册节点时要添加的{{< glossary_tooltip text="标签" term_id="label" >}}。
   （参见 [NodeRestriction 准入控制插件](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#noderestriction)所实施的标签限制）。
 - `--node-status-update-frequency` - 指定 kubelet 向 API 服务器发送其节点状态的频率。
@@ -202,7 +220,7 @@ Pods already scheduled on the Node may misbehave or cause issues if the Node
 configuration will be changed on kubelet restart. For example, already running
 Pod may be tainted against the new labels assigned to the Node, while other
 Pods, that are incompatible with that Pod will be scheduled based on this new
-label.  Node re-registration ensures all Pods will be drained and properly
+label. Node re-registration ensures all Pods will be drained and properly
 re-scheduled.
 -->
 如果在 kubelet 重启期间 Node 配置发生了变化，已经被调度到某 Node 上的 Pod
@@ -280,22 +298,26 @@ DaemonSet 通常提供节点本地的服务，即使节点上的负载应用已�
 
 A Node's status contains the following information:
 
-* [Addresses](#addresses)
-* [Conditions](#condition)
-* [Capacity and Allocatable](#capacity)
-* [Info](#info)
+* [Addresses](/docs/reference/node/node-status/#addresses)
+* [Conditions](/docs/reference/node/node-status/#condition)
+* [Capacity and Allocatable](/docs/reference/node/node-status/#capacity)
+* [Info](/docs/reference/node/node-status/#info)
 -->
 ## 节点状态   {#node-status}
 
 一个节点的状态包含以下信息:
 
-* [地址（Addresses）](#addresses)
-* [状况（Condition）](#condition)
-* [容量与可分配（Capacity）](#capacity)
-* [信息（Info）](#info)
+* [地址（Addresses）](/zh-cn/docs/reference/node/node-status/#addresses)
+* [状况（Condition）](/zh-cn/docs/reference/node/node-status/#condition)
+* [容量与可分配（Capacity）](/zh-cn/docs/reference/node/node-status/#capacity)
+* [信息（Info）](/zh-cn/docs/reference/node/node-status/#info)
 
 <!--
 You can use `kubectl` to view a Node's status and other details:
+
+```shell
+kubectl describe node <insert-node-name-here>
+```
 -->
 你可以使用 `kubectl` 来查看节点状态和其他细节信息：
 
@@ -304,248 +326,35 @@ kubectl describe node <节点名称>
 ```
 
 <!-- 
-Each section of the output is described below.
+See [Node Status](/docs/reference/node/node-status/) for more details.
 -->
-下面对输出的每个部分进行详细描述。
+更多细节参见 [Node Status](/zh-cn/docs/reference/node/node-status)。
 
 <!--
-### Addresses
-
-The usage of these fields varies depending on your cloud provider or bare metal configuration.
--->
-### 地址   {#addresses}
-
-这些字段的用法取决于你的云服务商或者物理机配置。
-
-<!--
-* HostName: The hostname as reported by the node's kernel. Can be overridden via the kubelet
-  `--hostname-override` parameter.
-* ExternalIP: Typically the IP address of the node that is externally routable (available from
-  outside the cluster).
-* InternalIP: Typically the IP address of the node that is routable only within the cluster.
--->
-* HostName：由节点的内核报告。可以通过 kubelet 的 `--hostname-override` 参数覆盖。
-* ExternalIP：通常是节点的可外部路由（从集群外可访问）的 IP 地址。
-* InternalIP：通常是节点的仅可在集群内部路由的 IP 地址。
-
-<!--
-### Conditions {#condition}
-
-The `conditions` field describes the status of all `Running` nodes. Examples of conditions include:
--->
-### 状况 {#condition}
-
-`conditions` 字段描述了所有 `Running` 节点的状况。状况的示例包括：
-
-<!--
-{{< table caption = "Node conditions, and a description of when each condition applies." >}}
-| Node Condition       | Description |
-|----------------------|-------------|
-| `Ready`              | `True` if the node is healthy and ready to accept pods, `False` if the node is not healthy and is not accepting pods, and `Unknown` if the node controller has not heard from the node in the last `node-monitor-grace-period` (default is 40 seconds) |
-| `DiskPressure`       | `True` if pressure exists on the disk size—that is, if the disk capacity is low; otherwise `False` |
-| `MemoryPressure`     | `True` if pressure exists on the node memory—that is, if the node memory is low; otherwise `False` |
-| `PIDPressure`        | `True` if pressure exists on the processes—that is, if there are too many processes on the node; otherwise `False` |
-| `NetworkUnavailable` | `True` if the network for the node is not correctly configured, otherwise `False` |
-{{< /table >}}
--->
-{{< table caption = "节点状况及每种状况适用场景的描述" >}}
-| 节点状况       | 描述        |
-|----------------|-------------|
-| `Ready` | 如节点是健康的并已经准备好接收 Pod 则为 `True`；`False` 表示节点不健康而且不能接收 Pod；`Unknown` 表示节点控制器在最近 `node-monitor-grace-period` 期间（默认 40 秒）没有收到节点的消息 |
-| `DiskPressure` | `True` 表示节点存在磁盘空间压力，即磁盘可用量低, 否则为 `False` |
-| `MemoryPressure` | `True` 表示节点存在内存压力，即节点内存可用量低，否则为 `False` |
-| `PIDPressure` | `True` 表示节点存在进程压力，即节点上进程过多；否则为 `False` |
-| `NetworkUnavailable` | `True` 表示节点网络配置不正确；否则为 `False` |
-{{< /table >}}
-
-{{< note >}}
-<!--
-If you use command-line tools to print details of a cordoned Node, the Condition includes
-`SchedulingDisabled`. `SchedulingDisabled` is not a Condition in the Kubernetes API; instead,
-cordoned nodes are marked Unschedulable in their spec.
--->
-如果使用命令行工具来打印已保护（Cordoned）节点的细节，其中的 Condition 字段可能包括
-`SchedulingDisabled`。`SchedulingDisabled` 不是 Kubernetes API 中定义的
-Condition，被保护起来的节点在其规约中被标记为不可调度（Unschedulable）。
-{{< /note >}}
-
-<!--
-In the Kubernetes API, a node's condition is represented as part of the `.status`
-of the Node resource. For example, the following JSON structure describes a healthy node:
--->
-在 Kubernetes API 中，节点的状况表示节点资源中 `.status` 的一部分。
-例如，以下 JSON 结构描述了一个健康节点：
-
-```json
-"conditions": [
-  {
-    "type": "Ready",
-    "status": "True",
-    "reason": "KubeletReady",
-    "message": "kubelet is posting ready status",
-    "lastHeartbeatTime": "2019-06-05T18:38:35Z",
-    "lastTransitionTime": "2019-06-05T11:41:27Z"
-  }
-]
-```
-
-<!--
-If the `status` of the Ready condition remains `Unknown` or `False` for longer
-than the `pod-eviction-timeout` (an argument passed to the
-{{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager"
->}}), then the [node controller](#node-controller) triggers
-{{< glossary_tooltip text="API-initiated eviction" term_id="api-eviction" >}}
-for all Pods assigned to that node. The default eviction timeout duration is
-**five minutes**.
--->
-如果 Ready 状况的 `status` 处于 `Unknown` 或者 `False` 状态的时间超过了
-`pod-eviction-timeout` 值（一个传递给
-{{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}
-的参数），[节点控制器](#node-controller)会对节点上的所有 Pod 触发
-{{< glossary_tooltip text="API 发起的驱逐" term_id="api-eviction" >}}。
-默认的逐出超时时长为 **5 分钟**。
-
-<!--
-In some cases when the node is unreachable, the API server is unable to communicate
-with the kubelet on the node. The decision to delete the pods cannot be communicated to
-the kubelet until communication with the API server is re-established. In the meantime,
-the pods that are scheduled for deletion may continue to run on the partitioned node.
--->
-某些情况下，当节点不可达时，API 服务器不能和其上的 kubelet 通信。
-删除 Pod 的决定不能传达给 kubelet，直到它重新建立和 API 服务器的连接为止。
-与此同时，被计划删除的 Pod 可能会继续在游离的节点上运行。
-
-<!--
-The node controller does not force delete pods until it is confirmed that they have stopped
-running in the cluster. You can see the pods that might be running on an unreachable node as
-being in the `Terminating` or `Unknown` state. In cases where Kubernetes cannot deduce from the
-underlying infrastructure if a node has permanently left a cluster, the cluster administrator
-may need to delete the node object by hand. Deleting the node object from Kubernetes causes
-all the Pod objects running on the node to be deleted from the API server and frees up their
-names.
--->
-节点控制器在确认 Pod 在集群中已经停止运行前，不会强制删除它们。
-你可以看到可能在这些无法访问的节点上运行的 Pod 处于 `Terminating` 或者 `Unknown` 状态。
-如果 Kubernetes 不能基于下层基础设施推断出某节点是否已经永久离开了集群，
-集群管理员可能需要手动删除该节点对象。
-从 Kubernetes 删除节点对象将导致 API 服务器删除节点上所有运行的 Pod 对象并释放它们的名字。
-
-<!--
-When problems occur on nodes, the Kubernetes control plane automatically creates
-[taints](/docs/concepts/scheduling-eviction/taint-and-toleration/) that match the conditions
-affecting the node.
-The scheduler takes the Node's taints into consideration when assigning a Pod to a Node.
-Pods can also have {{< glossary_tooltip text="tolerations" term_id="toleration" >}} that let
-them run on a Node even though it has a specific taint.
--->
-当节点上出现问题时，Kubernetes 控制面会自动创建与影响节点的状况对应的
-[污点](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)。
-调度器在将 Pod 指派到某 Node 时会考虑 Node 上的污点设置。
-Pod 也可以设置{{< glossary_tooltip text="容忍度" term_id="toleration" >}}，
-以便能够在设置了特定污点的 Node 上运行。
-
-<!--
-See [Taint Nodes by Condition](/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-nodes-by-condition)
-for more details.
--->
-进一步的细节可参阅[根据状况为节点设置污点](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-nodes-by-condition)。
-
-<!--
-### Capacity and Allocatable {#capacity}
-
-Describes the resources available on the node: CPU, memory, and the maximum
-number of pods that can be scheduled onto the node.
--->
-### 容量（Capacity）与可分配（Allocatable）     {#capacity}
-
-这两个值描述节点上的可用资源：CPU、内存和可以调度到节点上的 Pod 的个数上限。
-
-<!--
-The fields in the capacity block indicate the total amount of resources that a
-Node has. The allocatable block indicates the amount of resources on a
-Node that is available to be consumed by normal Pods.
--->
-`capacity` 块中的字段标示节点拥有的资源总量。
-`allocatable` 块指示节点上可供普通 Pod 消耗的资源量。
-
-<!--
-You may read more about capacity and allocatable resources while learning how
-to [reserve compute resources](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
-on a Node.
--->
-可以在学习如何在节点上[预留计算资源](/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
-的时候了解有关容量和可分配资源的更多信息。
-
-<!--
-### Info
-
-Describes general information about the node, such as kernel version, Kubernetes
-version (kubelet and kube-proxy version), container runtime details, and which
-operating system the node uses.
-The kubelet gathers this information from the node and publishes it into
-the Kubernetes API.
--->
-### 信息（Info） {#info}
-
-Info 指的是节点的一般信息，如内核版本、Kubernetes 版本（`kubelet` 和 `kube-proxy` 版本）、
-容器运行时详细信息，以及节点使用的操作系统。
-`kubelet` 从节点收集这些信息并将其发布到 Kubernetes API。
-
-<!--
-## Heartbeats
+## Node heartbeats
 
 Heartbeats, sent by Kubernetes nodes, help your cluster determine the
 availability of each node, and to take action when failures are detected.
 
 For nodes there are two forms of heartbeats:
 -->
-## 心跳  {#heartbeats}
+## 节点心跳  {#node-heartbeats}
 
 Kubernetes 节点发送的心跳帮助你的集群确定每个节点的可用性，并在检测到故障时采取行动。
 
 对于节点，有两种形式的心跳:
 
 <!--
-* updates to the `.status` of a Node
+* Updates to the [`.status`](/docs/reference/node/node-status/) of a Node.
 * [Lease](/docs/concepts/architecture/leases/) objects
   within the `kube-node-lease`
   {{< glossary_tooltip term_id="namespace" text="namespace">}}.
   Each Node has an associated Lease object.
 -->
-* 更新节点的 `.status`
+* 更新节点的 [`.status`](/zh-cn/docs/reference/node/node-status/)
 * `kube-node-lease` {{<glossary_tooltip term_id="namespace" text="名字空间">}}中的
   [Lease（租约）](/zh-cn/docs/concepts/architecture/leases/)对象。
   每个节点都有一个关联的 Lease 对象。
-
-<!--
-Compared to updates to `.status` of a Node, a Lease is a lightweight resource.
-Using Leases for heartbeats reduces the performance impact of these updates
-for large clusters.
-
-The kubelet is responsible for creating and updating the `.status` of Nodes,
-and for updating their related Leases.
--->
-与 Node 的 `.status` 更新相比，Lease 是一种轻量级资源。
-使用 Lease 来表达心跳在大型集群中可以减少这些更新对性能的影响。
-
-kubelet 负责创建和更新节点的 `.status`，以及更新它们对应的 Lease。
-
-<!--
-- The kubelet updates the node's `.status` either when there is change in status
-  or if there has been no update for a configured interval. The default interval
-  for `.status` updates to Nodes is 5 minutes, which is much longer than the 40
-  second default timeout for unreachable nodes.
-- The kubelet creates and then updates its Lease object every 10 seconds
-  (the default update interval). Lease updates occur independently from
-  updates to the Node's `.status`. If the Lease update fails, the kubelet retries,
-  using exponential backoff that starts at 200 milliseconds and capped at 7 seconds.
--->
-- 当节点状态发生变化时，或者在配置的时间间隔内没有更新事件时，kubelet 会更新 `.status`。
-  `.status` 更新的默认间隔为 5 分钟（比节点不可达事件的 40 秒默认超时时间长很多）。
-- `kubelet` 会创建并每 10 秒（默认更新间隔时间）更新 Lease 对象。
-  Lease 的更新独立于 Node 的 `.status` 更新而发生。
-  如果 Lease 的更新操作失败，kubelet 会采用指数回退机制，从 200 毫秒开始重试，
-  最长重试间隔为 7 秒钟。
 
 <!--
 ## Node controller
@@ -653,7 +462,7 @@ then the eviction mechanism does not take per-zone unavailability into account.
 A key reason for spreading your nodes across availability zones is so that the
 workload can be shifted to healthy zones when one entire zone goes down.
 Therefore, if all nodes in a zone are unhealthy, then the node controller evicts at
-the normal rate of `--node-eviction-rate`.  The corner case is when all zones are
+the normal rate of `--node-eviction-rate`. The corner case is when all zones are
 completely unhealthy (none of the nodes in the cluster are healthy). In such a
 case, the node controller assumes that there is some problem with connectivity
 between the control plane and the nodes, and doesn't perform any evictions.
@@ -750,12 +559,14 @@ The kubelet attempts to detect node system shutdown and terminates pods running 
 
 Kubelet ensures that pods follow the normal
 [pod termination process](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
-during the node shutdown.
+during the node shutdown. During node shutdown, the kubelet does not accept new
+Pods (even if those Pods are already bound to the node).
 -->
 kubelet 会尝试检测节点系统关闭事件并终止在节点上运行的所有 Pod。
 
 在节点终止期间，kubelet 保证 Pod 遵从常规的
-[Pod 终止流程](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。
+[Pod 终止流程](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)，
+且不接受新的 Pod（即使这些 Pod 已经绑定到该节点）。
 
 <!-- 
 The Graceful node shutdown feature depends on systemd since it takes advantage of
@@ -785,6 +596,36 @@ set to non-zero values.
 注意，默认情况下，下面描述的两个配置选项，`shutdownGracePeriod` 和
 `shutdownGracePeriodCriticalPods` 都是被设置为 0 的，因此不会激活节点体面关闭功能。
 要激活此功能特性，这两个 kubelet 配置选项要适当配置，并设置为非零值。
+
+<!--
+Once systemd detects or notifies node shutdown, the kubelet sets a `NotReady` condition on
+the Node, with the `reason` set to `"node is shutting down"`. The kube-scheduler honors this condition
+and does not schedule any Pods onto the affected node; other third-party schedulers are
+expected to follow the same logic. This means that new Pods won't be scheduled onto that node
+and therefore none will start.
+-->
+一旦 systemd 检测到或通知节点关闭，kubelet 就会在节点上设置一个
+`NotReady` 状况，并将 `reason` 设置为 `"node is shutting down"`。
+kube-scheduler 会重视此状况，不将 Pod 调度到受影响的节点上；
+其他第三方调度程序也应当遵循相同的逻辑。这意味着新的 Pod 不会被调度到该节点上，
+因此不会有新 Pod 启动。
+
+<!--
+The kubelet **also** rejects Pods during the `PodAdmission` phase if an ongoing
+node shutdown has been detected, so that even Pods with a
+{{< glossary_tooltip text="toleration" term_id="toleration" >}} for
+`node.kubernetes.io/not-ready:NoSchedule` do not start there.
+-->
+如果检测到节点关闭过程正在进行中，kubelet **也会**在 `PodAdmission`
+阶段拒绝 Pod，即使是该 Pod 带有 `node.kubernetes.io/not-ready:NoSchedule`
+的{{< glossary_tooltip text="容忍度" term_id="toleration" >}}。
+
+<!--
+At the same time when kubelet is setting that condition on its Node via the API, the kubelet also begins
+terminating any Pods that are running locally.
+-->
+同时，当 kubelet 通过 API 在其 Node 上设置该状况时，kubelet
+也开始终止在本地运行的所有 Pod。
 
 <!-- 
 During a graceful shutdown, kubelet terminates pods in two phases:
@@ -820,6 +661,19 @@ Graceful node shutdown feature is configured with two
   * 在节点关闭期间指定用于终止[关键 Pod](/zh-cn/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)
     的持续时间。该值应小于 `shutdownGracePeriod`。
 
+{{< note >}}
+<!--
+There are cases when Node termination was cancelled by the system (or perhaps manually
+by an administrator). In either of those situations the
+Node will return to the `Ready` state. However Pods which already started the process
+of termination
+will not be restored by kubelet and will need to be re-scheduled.
+-->
+在某些情况下，节点终止过程会被系统取消（或者可能由管理员手动取消）。
+无论哪种情况下，节点都将返回到 `Ready` 状态。然而，已经开始终止进程的
+Pod 将不会被 kubelet 恢复，需要被重新调度。
+{{< /note >}}
+
 <!--  
 For example, if `shutdownGracePeriod=30s`, and
 `shutdownGracePeriodCriticalPods=10s`, kubelet will delay the node shutdown by
@@ -853,7 +707,7 @@ Message:        Pod was terminated in response to imminent node shutdown.
 -->
 ### 基于 Pod 优先级的节点体面关闭    {#pod-priority-graceful-node-shutdown}
 
-{{< feature-state state="alpha" for_k8s_version="v1.23" >}}
+{{< feature-state state="beta" for_k8s_version="v1.24" >}}
 
 <!--
 To provide more flexibility during graceful node shutdown around the ordering
@@ -907,10 +761,10 @@ in a cluster,
 |`regular/unset`          | 0                      |
 
 <!--
-Within the [kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+Within the [kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1/)
 the settings for `shutdownGracePeriodByPodPriority` could look like:
 -->
-在 [kubelet 配置](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)中，
+在 [kubelet 配置](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)中，
 `shutdownGracePeriodByPodPriority` 可能看起来是这样：
 
 | Pod 优先级类数值       | 关闭期限  |
@@ -1010,17 +864,17 @@ kubelet 子系统中会生成 `graceful_shutdown_start_time_seconds` 和
 `graceful_shutdown_end_time_seconds` 度量指标以便监视节点关闭行为。
 
 <!--
-## Non Graceful node shutdown {#non-graceful-node-shutdown}
+## Non-graceful node shutdown handling {#non-graceful-node-shutdown}
 -->
-## 节点非体面关闭 {#non-graceful-node-shutdown}
+## 处理节点非体面关闭 {#non-graceful-node-shutdown}
 
-{{< feature-state state="beta" for_k8s_version="v1.26" >}}
+{{< feature-state state="stable" for_k8s_version="v1.28" >}}
 
 <!--
-A node shutdown action may not be detected by kubelet's Node Shutdown Manager, 
-either because the command does not trigger the inhibitor locks mechanism used by 
-kubelet or because of a user error, i.e., the ShutdownGracePeriod and 
-ShutdownGracePeriodCriticalPods are not configured properly. Please refer to above 
+A node shutdown action may not be detected by kubelet's Node Shutdown Manager,
+either because the command does not trigger the inhibitor locks mechanism used by
+kubelet or because of a user error, i.e., the ShutdownGracePeriod and
+ShutdownGracePeriodCriticalPods are not configured properly. Please refer to above
 section [Graceful Node Shutdown](#graceful-node-shutdown) for more details.
 -->
 节点关闭的操作可能无法被 kubelet 的节点关闭管理器检测到，
@@ -1029,16 +883,16 @@ section [Graceful Node Shutdown](#graceful-node-shutdown) for more details.
 请参考以上[节点体面关闭](#graceful-node-shutdown)部分了解更多详细信息。
 
 <!--
-When a node is shutdown but not detected by kubelet's Node Shutdown Manager, the pods 
-that are part of a {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}} will be stuck in terminating status on 
-the shutdown node and cannot move to a new running node. This is because kubelet on 
-the shutdown node is not available to delete the pods so the StatefulSet cannot 
-create a new pod with the same name. If there are volumes used by the pods, the 
-VolumeAttachments will not be deleted from the original shutdown node so the volumes 
-used by these pods cannot be attached to a new running node. As a result, the 
-application running on the StatefulSet cannot function properly. If the original 
-shutdown node comes up, the pods will be deleted by kubelet and new pods will be 
-created on a different running node. If the original shutdown node does not come up,  
+When a node is shutdown but not detected by kubelet's Node Shutdown Manager, the pods
+that are part of a {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}} will be stuck in terminating status on
+the shutdown node and cannot move to a new running node. This is because kubelet on
+the shutdown node is not available to delete the pods so the StatefulSet cannot
+create a new pod with the same name. If there are volumes used by the pods, the
+VolumeAttachments will not be deleted from the original shutdown node so the volumes
+used by these pods cannot be attached to a new running node. As a result, the
+application running on the StatefulSet cannot function properly. If the original
+shutdown node comes up, the pods will be deleted by kubelet and new pods will be
+created on a different running node. If the original shutdown node does not come up,
 these pods will be stuck in terminating status on the shutdown node forever.
 -->
 当某节点关闭但 kubelet 的节点关闭管理器未检测到这一事件时，
@@ -1053,13 +907,13 @@ these pods will be stuck in terminating status on the shutdown node forever.
 如果原来的已关闭节点没有被恢复，那些在已关闭节点上的 Pod 将永远滞留在终止状态。
 
 <!--
-To mitigate the above situation, a  user can manually add the taint `node.kubernetes.io/out-of-service` with either `NoExecute`
-or `NoSchedule` effect to a Node marking it out-of-service. 
+To mitigate the above situation, a user can manually add the taint `node.kubernetes.io/out-of-service` with either `NoExecute`
+or `NoSchedule` effect to a Node marking it out-of-service.
 If the `NodeOutOfServiceVolumeDetach`[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 is enabled on {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}, and a Node is marked out-of-service with this taint, the
 pods on the node will be forcefully deleted if there are no matching tolerations on it and volume
 detach operations for the pods terminating on the node will happen immediately. This allows the
-Pods on the out-of-service node to recover quickly on a different node. 
+Pods on the out-of-service node to recover quickly on a different node.
 -->
 为了缓解上述情况，用户可以手动将具有 `NoExecute` 或 `NoSchedule` 效果的
 `node.kubernetes.io/out-of-service` 污点添加到节点上，标记其无法提供服务。
@@ -1074,7 +928,7 @@ Pods on the out-of-service node to recover quickly on a different node.
 During a non-graceful shutdown, Pods are terminated in the two phases:
 
 1. Force delete the Pods that do not have matching `out-of-service` tolerations.
-2. Immediately perform detach volume operation for such pods. 
+2. Immediately perform detach volume operation for such pods.
 -->
 在非体面关闭期间，Pod 分两个阶段终止：
 
@@ -1101,26 +955,17 @@ During a non-graceful shutdown, Pods are terminated in the two phases:
 -->
 ## 交换内存管理 {#swap-memory}
 
-{{< feature-state state="alpha" for_k8s_version="v1.22" >}}
-
-<!--
-Prior to Kubernetes 1.22, nodes did not support the use of swap memory, and a
-kubelet would by default fail to start if swap was detected on a node. In 1.22
-onwards, swap memory support can be enabled on a per-node basis.
--->
-在 Kubernetes 1.22 之前，节点不支持使用交换内存，并且默认情况下，
-如果在节点上检测到交换内存配置，kubelet 将无法启动。
-在 1.22 以后，可以逐个节点地启用交换内存支持。
+{{< feature-state state="beta" for_k8s_version="v1.28" >}}
 
 <!--
 To enable swap on a node, the `NodeSwap` feature gate must be enabled on
 the kubelet, and the `--fail-swap-on` command line flag or `failSwapOn`
-[configuration setting](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+[configuration setting](/docs/reference/config-api/kubelet-config.v1beta1/)
 must be set to false.
 -->
 要在节点上启用交换内存，必须启用 kubelet 的 `NodeSwap` 特性门控，
 同时使用 `--fail-swap-on` 命令行参数或者将 `failSwapOn`
-[配置](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)设置为 false。
+[配置](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)设置为 false。
 
 {{< warning >}}
 <!--
@@ -1138,64 +983,91 @@ specify how a node will use swap memory. For example,
 
 ```yaml
 memorySwap:
-  swapBehavior: LimitedSwap
+  swapBehavior: UnlimitedSwap
 ```
 
 <!--
-The available configuration options for `swapBehavior` are:
-
-- `LimitedSwap`: Kubernetes workloads are limited in how much swap they can
-  use. Workloads on the node not managed by Kubernetes can still swap.
-- `UnlimitedSwap`: Kubernetes workloads can use as much swap memory as they
+- `UnlimitedSwap` (default): Kubernetes workloads can use as much swap memory as they
   request, up to the system limit.
+- `LimitedSwap`: The utilization of swap memory by Kubernetes workloads is subject to limitations.
+  Only Pods of Burstable QoS are permitted to employ swap.
 -->
-可用的 `swapBehavior` 的配置选项有：
-
-- `LimitedSwap`：Kubernetes 工作负载的交换内存会受限制。
-  不受 Kubernetes 管理的节点上的工作负载仍然可以交换。
-- `UnlimitedSwap`：Kubernetes 工作负载可以使用尽可能多的交换内存请求，
+- `UnlimitedSwap`（默认）：Kubernetes 工作负载可以根据请求使用尽可能多的交换内存，
   一直到达到系统限制为止。
+- `LimitedSwap`：Kubernetes 工作负载对交换内存的使用受到限制。
+  只有具有 Burstable QoS 的 Pod 可以使用交换空间。
 
 <!--
 If configuration for `memorySwap` is not specified and the feature gate is
 enabled, by default the kubelet will apply the same behaviour as the
-`LimitedSwap` setting.
-
-The behaviour of the `LimitedSwap` setting depends if the node is running with
-v1 or v2 of control groups (also known as "cgroups"):
+`UnlimitedSwap` setting.
 -->
-如果启用了特性门控但是未指定 `memorySwap` 的配置，默认情况下 kubelet 将使用
-`LimitedSwap` 设置。
-
-`LimitedSwap` 这种设置的行为取决于节点运行的是 v1 还是 v2 的控制组（也就是 `cgroups`）：
+如果启用了特性门控但是未指定 `memorySwap` 的配置，默认情况下 kubelet 将使用与
+`UnlimitedSwap` 设置相同的行为。
 
 <!--
-- **cgroupsv1:** Kubernetes workloads can use any combination of memory and
-  swap, up to the pod's memory limit, if set.
-- **cgroupsv2:** Kubernetes workloads cannot use swap memory.
+With `LimitedSwap`, Pods that do not fall under the Burstable QoS classification (i.e.
+`BestEffort`/`Guaranteed` Qos Pods) are prohibited from utilizing swap memory.
+To maintain the aforementioned security and node
+health guarantees, these Pods are not permitted to use swap memory when `LimitedSwap` is
+in effect.
 -->
-- **cgroupsv1:** Kubernetes 工作负载可以使用内存和交换，上限为 Pod 的内存限制值（如果设置了的话）。
-- **cgroupsv2:** Kubernetes 工作负载不能使用交换内存。
+采用 `LimitedSwap` 时，不属于 Burstable QoS 分类的 Pod
+（即 `BestEffort`/`Guaranteed` QoS Pod）
+被禁止使用交换内存。为了保持上述的安全性和节点健康性保证，
+在 `LimitedSwap` 生效时，不允许这些 Pod 使用交换内存。
 
 <!--
+Prior to detailing the calculation of the swap limit, it is necessary to define the following terms:
+* `nodeTotalMemory`: The total amount of physical memory available on the node.
+* `totalPodsSwapAvailable`: The total amount of swap memory on the node that is available for use by Pods (some swap memory may be reserved for system use).
+* `containerMemoryRequest`: The container's memory request.
+-->
+在详细介绍交换限制的计算之前，有必要定义以下术语：
+
+* `nodeTotalMemory`：节点上可用的物理内存总量。
+* `totalPodsSwapAvailable`：节点上可供 Pod 使用的交换内存总量
+  （一些交换内存可能被保留由系统使用）。
+* `containerMemoryRequest`：容器的内存请求。
+
+<!--
+Swap limitation is configured as:
+`(containerMemoryRequest / nodeTotalMemory) * totalPodsSwapAvailable`.
+
+It is important to note that, for containers within Burstable QoS Pods, it is possible to
+opt-out of swap usage by specifying memory requests that are equal to memory limits.
+Containers configured in this manner will not have access to swap memory.
+-->
+交换限制被配置为 `(containerMemoryRequest / nodeTotalMemory) * totalPodsSwapAvailable` 的值。
+
+需要注意的是，位于 Burstable QoS Pod 中的容器可以通过将内存请求设置为与内存限制相同来选择不使用交换空间。
+以这种方式配置的容器将无法访问交换内存。
+
+<!--
+Swap is supported only with **cgroup v2**, cgroup v1 is not supported. 
+
 For more information, and to assist with testing and provide feedback, please
-see [KEP-2400](https://github.com/kubernetes/enhancements/issues/2400) and its
+see the blog-post about [Kubernetes 1.28: NodeSwap graduates to Beta1](/blog/2023/08/24/swap-linux-beta/),
+[KEP-2400](https://github.com/kubernetes/enhancements/issues/4128) and its
 [design proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2400-node-swap/README.md).
 -->
-如需更多信息以及协助测试和提供反馈，请参见
-[KEP-2400](https://github.com/kubernetes/enhancements/issues/2400)
+只有 **cgroup v2** 支持交换空间，cgroup v1 不支持。
+
+如需了解更多信息、协助测试和提交反馈，请参阅关于
+[Kubernetes 1.28：NodeSwap 进阶至 Beta1](/zh-cn/blog/2023/08/24/swap-linux-beta/) 的博客文章、
+[KEP-2400](https://github.com/kubernetes/enhancements/issues/4128)
 及其[设计提案](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2400-node-swap/README.md)。
 
 ## {{% heading "whatsnext" %}}
 
 <!--
 Learn more about the following:
-   * [Components](/docs/concepts/overview/components/#node-components) that make up a node.
-   * [API definition for Node](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
-   * [Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node) section of the architecture design document.
-   * [Taints and Tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
-   * [Node Resource Managers](/docs/concepts/policy/node-resource-managers/).
-   * [Resource Management for Windows nodes](/docs/concepts/configuration/windows-resource-management/).
+* [Components](/docs/concepts/overview/components/#node-components) that make up a node.
+* [API definition for Node](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
+* [Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node) section of the architecture design document.
+* [Taints and Tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
+* [Node Resource Managers](/docs/concepts/policy/node-resource-managers/).
+* [Resource Management for Windows nodes](/docs/concepts/configuration/windows-resource-management/).
 -->
 进一步了解以下资料：
 

@@ -4,7 +4,6 @@ title: "Kubernetes 1.24 中的移除和弃用"
 date: 2022-04-07
 slug: upcoming-changes-in-kubernetes-1-24
 ---
-
 <!--
 layout: blog
 title: "Kubernetes Removals and Deprecations In 1.24"
@@ -69,9 +68,9 @@ the authors succinctly captured the change's impact and encouraged users to rema
 -->
 在文章[别慌: Kubernetes 和 Docker](/zh-cn/blog/2020/12/02/dont-panic-kubernetes-and-docker/) 中，
 作者简洁地记述了变化的影响，并鼓励用户保持冷静：
->弃用 Docker 这个底层运行时，转而支持符合为 Kubernetes 创建的容器运行接口
->Container Runtime Interface (CRI) 的运行时。
->Docker 构建的镜像，将在你的集群的所有运行时中继续工作，一如既往。
+> 弃用 Docker 这个底层运行时，转而支持符合为 Kubernetes 创建的容器运行接口
+> Container Runtime Interface (CRI) 的运行时。
+> Docker 构建的镜像，将在你的集群的所有运行时中继续工作，一如既往。
 
 <!--
 Several guides have been created with helpful information about migrating from dockershim
@@ -94,7 +93,7 @@ Take a look at the [Is Your Cluster Ready for v1.24?](/blog/2022/03/31/ready-for
 请参见：[Kubernetes 即将移除 Dockershim](/zh-cn/blog/2022/01/07/kubernetes-is-moving-on-from-dockershim/)
 和[最新的弃用 Dockershim 的常见问题](/zh-cn/blog/2022/02/17/dockershim-faq/)。
 
-查看[你的集群准备好使用 v1.24 版本了吗？](/zh-cn/blog/2022/03/31/ready-for-dockershim-removal/) 一文，
+查看[你的集群准备好使用 v1.24 版本了吗？](/zh-cn/blog/2022/03/31/ready-for-dockershim-removal/)一文，
 了解如何确保你的集群在从 1.23 版本升级到 1.24 版本后继续工作。
 
 <!--
@@ -142,13 +141,13 @@ been deprecated. These removals have been superseded by newer, stable/generally 
 <!--
 ## API removals, deprecations, and other changes for Kubernetes 1.24
 
-* [Dynamic kubelet configuration](https://github.com/kubernetes/enhancements/issues/281): `DynamicKubeletConfig` is used to enable the dynamic configuration of the kubelet. The `DynamicKubeletConfig` flag was deprecated in Kubernetes 1.22. In v1.24, this feature gate will be removed from the kubelet. See [Reconfigure kubelet](/docs/tasks/administer-cluster/reconfigure-kubelet/). Refer to the ["Dynamic kubelet config is removed" KEP](https://github.com/kubernetes/enhancements/issues/281) for more information.
+* [Dynamic kubelet configuration](https://github.com/kubernetes/enhancements/issues/281): `DynamicKubeletConfig` is used to enable the dynamic configuration of the kubelet. The `DynamicKubeletConfig` flag was deprecated in Kubernetes 1.22. In v1.24, this feature gate will be removed from the kubelet. Refer to the ["Dynamic kubelet config is removed" KEP](https://github.com/kubernetes/enhancements/issues/281) for more information.
 -->
 ## Kubernetes 1.24 的 API 移除、弃用和其他更改  {#api-removals-deprecations-and-other-changes-for-kubernetes-1.24}
 
 * [动态 kubelet 配置](https://github.com/kubernetes/enhancements/issues/281): `DynamicKubeletConfig`
   用于启用 kubelet 的动态配置。Kubernetes 1.22 中弃用 `DynamicKubeletConfig` 标志。
-  在 1.24 版本中，此特性门控将从 kubelet 中移除。请参阅[重新配置 kubelet](/zh-cn/docs/tasks/administer-cluster/reconfigure-kubelet/)。
+  在 1.24 版本中，此特性门控将从 kubelet 中移除。
   更多详细信息，请参阅[“移除动态 kubelet 配置” 的 KEP](https://github.com/kubernetes/enhancements/issues/281)。
 <!--
 * [Dynamic log sanitization](https://github.com/kubernetes/kubernetes/pull/107207): The experimental dynamic log sanitization feature is deprecated and will be removed in v1.24. This feature introduced a logging filter that could be applied to all Kubernetes system components logs to prevent various types of sensitive information from leaking via logs. Refer to [KEP-1753: Kubernetes system components logs sanitization](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/1753-logs-sanitization#deprecation) for more information and an [alternative approach](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/1753-logs-sanitization#alternatives=).
@@ -294,4 +293,3 @@ Kubernetes 发行说明中宣告了弃用信息。你可以在以下版本的发
   作为该版本 CHANGELOG 的一部分。
 
 有关弃用和移除过程的信息，请查看 Kubernetes 官方[弃用策略](/zh-cn/docs/reference/using-api/deprecation-policy/#deprecating-parts-of-the-api)文档。
-

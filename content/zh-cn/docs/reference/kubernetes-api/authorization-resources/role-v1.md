@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "Role 是一个按命名空间划分的 PolicyRule 逻辑分组，可以被 RoleBinding 作为一个单元引用。"
 title: "Role"
-weight: 8
+weight: 7
 ---
 <!--
 api_metadata:
@@ -16,7 +16,7 @@ api_metadata:
 content_type: "api_reference"
 description: "Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding."
 title: "Role"
-weight: 8
+weight: 7
 auto_generated: true
 -->
 
@@ -212,6 +212,8 @@ GET /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/roles
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 - **resourceVersionMatch** (*in query*): string
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+- **sendInitialEvents** (*in query*): boolean
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 - **timeoutSeconds** (*in query*): integer
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 - **watch** (*in query*): boolean
@@ -254,6 +256,10 @@ GET /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/roles
 - **resourceVersionMatch**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 - **timeoutSeconds**（**查询参数**）：integer
   
@@ -300,6 +306,8 @@ GET /apis/rbac.authorization.k8s.io/v1/roles
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 - **resourceVersionMatch** (*in query*): string
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+- **sendInitialEvents** (*in query*): boolean
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 - **timeoutSeconds** (*in query*): integer
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 - **watch** (*in query*): boolean
@@ -338,6 +346,10 @@ GET /apis/rbac.authorization.k8s.io/v1/roles
 - **resourceVersionMatch**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 - **timeoutSeconds**（**查询参数**）：integer
   
@@ -653,6 +665,8 @@ DELETE /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/roles
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 - **resourceVersionMatch** (*in query*): string
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+- **sendInitialEvents** (*in query*): boolean
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 - **timeoutSeconds** (*in query*): integer
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 -->
@@ -703,6 +717,11 @@ DELETE /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/roles
 - **resourceVersionMatch**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
 
 - **timeoutSeconds**（**查询参数**）：integer
   

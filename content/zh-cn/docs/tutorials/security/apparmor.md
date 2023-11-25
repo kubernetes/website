@@ -193,19 +193,17 @@ gke-test-default-pool-239f5d02-xwux: kubelet is posting ready status. AppArmor e
 {{< note >}}
 <!--
 AppArmor is currently in beta, so options are specified as annotations. Once support graduates to
-general availability, the annotations will be replaced with first-class fields (more details in
-[Upgrade path to GA](#upgrade-path-to-general-availability)).
+general availability, the annotations will be replaced with first-class fields.
 -->
 AppArmor 目前处于 Beta 阶段，因此选项以注解形式设定。
-一旦 AppArmor 支持进入正式发布阶段，注解将被替换为一阶的资源字段
-（更多详情参见[升级到 GA 的途径](#upgrade-path-to-general-availability)）。
+一旦 AppArmor 支持进入正式发布阶段，注解将被替换为一阶的资源字段。
 {{< /note >}}
 
 <!--
 AppArmor profiles are specified *per-container*. To specify the AppArmor profile to run a Pod
 container with, add an annotation to the Pod's metadata:
 -->
-AppArmor 配置文件是按 **逐个容器** 的形式来设置的。
+AppArmor 配置文件是按**逐个容器**的形式来设置的。
 要指定用来运行 Pod 容器的 AppArmor 配置文件，请向 Pod 的 metadata 添加注解：
 
 ```yaml
@@ -331,7 +329,7 @@ Next, we'll run a simple "Hello AppArmor" pod with the deny-write profile:
 -->
 接下来，我们将运行一个带有拒绝写入配置文件的简单 “Hello AppArmor” Pod：
 
-{{< codenew file="pods/security/hello-apparmor.yaml" >}}
+{{% code_sample file="pods/security/hello-apparmor.yaml" %}}
 
 ```shell
 kubectl create -f ./hello-apparmor.yaml

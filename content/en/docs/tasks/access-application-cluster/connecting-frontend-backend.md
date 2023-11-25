@@ -36,7 +36,7 @@ require a supported environment. If your environment does not support this, you 
 The backend is a simple hello greeter microservice. Here is the configuration
 file for the backend Deployment:
 
-{{< codenew file="service/access/backend-deployment.yaml" >}}
+{{% code_sample file="service/access/backend-deployment.yaml" %}}
 
 Create the backend Deployment:
 
@@ -97,7 +97,7 @@ the Pods that it routes traffic to.
 
 First, explore the Service configuration file:
 
-{{< codenew file="service/access/backend-service.yaml" >}}
+{{% code_sample file="service/access/backend-service.yaml" %}}
 
 In the configuration file, you can see that the Service, named `hello` routes 
 traffic to Pods that have the labels `app: hello` and `tier: backend`.
@@ -125,7 +125,7 @@ configuration file.
 The Pods in the frontend Deployment run a nginx image that is configured
 to proxy requests to the `hello` backend Service. Here is the nginx configuration file:
 
-{{< codenew file="service/access/frontend-nginx.conf" >}}
+{{% code_sample file="service/access/frontend-nginx.conf" %}}
 
 Similar to the backend, the frontend has a Deployment and a Service. An important
 difference to notice between the backend and frontend services, is that the
@@ -133,9 +133,9 @@ configuration for the frontend Service has `type: LoadBalancer`, which means tha
 the Service uses a load balancer provisioned by your cloud provider and will be
 accessible from outside the cluster.
 
-{{< codenew file="service/access/frontend-service.yaml" >}}
+{{% code_sample file="service/access/frontend-service.yaml" %}}
 
-{{< codenew file="service/access/frontend-deployment.yaml" >}}
+{{% code_sample file="service/access/frontend-deployment.yaml" %}}
 
 Create the frontend Deployment and Service:
 

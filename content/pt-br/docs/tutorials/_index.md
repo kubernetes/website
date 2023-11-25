@@ -8,34 +8,41 @@ content_type: concept
 
 <!-- overview -->
 
-Essa seção da documentação contém tutoriais (em inglês). Um tutorial mostra como realizar um objetivo mais complexo que uma simples [tarefa](/docs/tasks/). Eles podem ser divididos em diversas seções, cada uma com uma sequência de passos e etapas a serem seguidos.
-
-Antes de iniciar um tutorial, é interessante que vocẽ salve a página de [Glossário](/pt/docs/reference/glossary/) para futuras referências.
+Essa seção da documentação contém tutoriais. Um tutorial demonstra como realizar
+um objetivo mais complexo que uma simples [tarefa](/pt-br/docs/tasks/). Tipicamente,
+um tutorial é dividido em várias seções, em que cada seção tem uma sequência de
+passos.
+Antes de iniciar um tutorial, é interessante que você salve a página do
+[Glossário Padronizado](/pt-br/docs/reference/glossary/) para futuras referências.
 
 
 <!-- body -->
 
-## Básicos
+## Noções Básicas
 
-* [Kubernetes básico](/docs/tutorials/kubernetes-basics/) é um tutorial interativo que auxilia no entendimento do ecossistema Kubernetes, bem como te permite testar algumas funcionalidades básicas do Kubernetes.
+* [Noções Básicas do Kubernetes](/pt-br/docs/tutorials/kubernetes-basics/) é um
+  tutorial interativo que auxilia no entendimento do ecossistema Kubernetes, bem
+  como permite testar algumas funcionalidades básicas do Kubernetes.
 
-* [Introdução ao Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#) é um curso gratuíto da edX que te guia no entendimento do Kubernetes, seus conceitos, bem como na execução de tarefas mais simples.
+* [Introdução ao Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
 
-* [Olá, Minikube!](/pt/docs/tutorials/hello-minikube/) é um "Hello World" que te permite testar rapidamente o Kubernetes em sua estação com o uso do Minikube
+* [Olá, Minikube!](/pt-br/docs/tutorials/hello-minikube/)
 
 ## Configuração
 
+* [Exemplo: Configurando um Microsserviço Java](/docs/tutorials/configuration/configure-java-microservice/)
+
 * [Configurando o Redis usando um ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
 
-## Aplicações stateless
+## Aplicações sem estado (_stateless_)
 
 * [Expondo um Endereço de IP externo para acessar uma aplicação no Cluster](/docs/tutorials/stateless-application/expose-external-ip-address/)
 
-* [Exemplo: Implantando a aplicação de Livro de Visitas (Guestbook) em  PHP com Redis](/docs/tutorials/stateless-application/guestbook/)
+* [Exemplo: Implantando a aplicação de Livro de Visitas (Guestbook) em PHP com Redis](/docs/tutorials/stateless-application/guestbook/)
 
-## Aplicações stateful
+## Aplicações com estado (_stateful_)
 
-* [Básicos sobre StatefulSet](/docs/tutorials/stateful-application/basic-stateful-set/)
+* [Noções Básicas sobre StatefulSet](/docs/tutorials/stateful-application/basic-stateful-set/)
 
 * [Exemplo: WordPress e MySQL com Volumes Persistentes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)
 
@@ -43,18 +50,24 @@ Antes de iniciar um tutorial, é interessante que vocẽ salve a página de [Glo
 
 * [Executando ZooKeeper no Kubernetes](/docs/tutorials/stateful-application/zookeeper/)
 
-## Clusters
+## Services
 
-* [AppArmor](/docs/tutorials/clusters/apparmor/)
-
-* [seccomp](/docs/tutorials/clusters/seccomp/)
-
-## Serviços / "Services"
+* [Conectando aplicações com Services](/docs/tutorials/services/connect-applications-service/)
 
 * [Usando IP de origem](/docs/tutorials/services/source-ip/)
 
+## Segurança
+
+* [Aplique os Padrões de Segurança do Pod a nível de cluster](/docs/tutorials/security/cluster-level-pss/)
+
+* [Aplique os Padrões de Segurança do Pod a nível de namespace](/docs/tutorials/security/cluster-level-pss/)
+
+* [AppArmor](/docs/tutorials/security/apparmor/)
+
+* [Seccomp](/docs/tutorials/security/seccomp/)
+
 ## {{% heading "whatsnext" %}}
 
-Se você desejar escrever um tutorial, veja a página 
-[Utilizando templates](/docs/home/contribute/page-templates/) 
-para informações sobre o tipo de página e o formato a ser utilizado.
+Se você desejar escrever um tutorial, consulte a documentação de
+[Tipos de Página de Conteúdo](/docs/contribute/style/page-content-types/)
+para informações sobre o tipo de página de tutorial.

@@ -6,10 +6,7 @@ weight: 30
 
 <!-- overview -->
 
-Operadores são extensões de software para o Kubernetes que
-fazem uso de [*recursos personalizados*](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
-para gerir aplicações e os seus componentes. Operadores seguem os  
-princípios do Kubernetes, notavelmente o [ciclo de controle](/docs/concepts/#kubernetes-control-plane).
+Operadores são extensões de software para o Kubernetes que fazem uso de [*recursos personalizados*](/docs/concepts/extend-kubernetes/api-extension/custom-resources/) para gerir aplicações e os seus componentes. Operadores seguem os princípios do Kubernetes, notavelmente o [ciclo de controle](/pt-br/docs/concepts/architecture/controller/).
 
 
 
@@ -18,121 +15,90 @@ princípios do Kubernetes, notavelmente o [ciclo de controle](/docs/concepts/#ku
 
 ## Motivação
 
-O padrão Operador tem como objetivo capturar o principal objetivo de um operador
-humano que gere um serviço ou um conjunto de serviços. Operadores humanos 
-responsáveis por aplicações e serviços específicos têm um conhecimento
-profundo da forma como o sistema é suposto se comportar, como é instalado
-e como deve reagir na ocorrência de problemas.
+O *padrão operador* tem como objetivo capturar o principal objetivo de um operador humano que está gerenciando um serviço ou conjunto de serviços. Operadores humanos que cuidam de aplicativos e serviços específicos possuem um conhecimento profundo de como o sistema deve se comportar, como implantá-lo e como reagir se houver problemas.
 
-As pessoas que executam cargas de trabalho no Kubernetes habitualmente gostam
-de usar automação para cuidar de tarefas repetitivas. O padrão Operador captura
-a forma como pode escrever código para automatizar uma tarefa para além do que
-o Kubernetes fornece.
+As pessoas que executam cargas de trabalho no Kubernetes muitas vezes gostam de usar automação para cuidar de tarefas repetitivas. O padrão do operador captura como você pode escrever código para automatizar uma tarefa além do que o próprio Kubernetes fornece.
 
 ## Operadores no Kubernetes
 
-O Kubernetes é desenhado para automação. *Out of the box*, você tem bastante
-automação embutida no núcleo do Kubernetes. Pode usar
-o Kubernetes para automatizar instalações e executar cargas de trabalho,
-e pode ainda automatizar a forma como o Kubernetes faz isso.
+O Kubernetes é projetado para automação. Por padrão, você tem bastante automação integrada ao núcleo do Kubernetes. Você pode usar o Kubernetes para automatizar a implantação e execução de cargas de trabalho, e pode automatizar como o Kubernetes faz isso.
 
-O conceito de {{< glossary_tooltip text="controlador" term_id="controller" >}} no
-Kubernetes permite a extensão do comportamento sem modificar o código do próprio
-Kubernetes.
-Operadores são clientes da API do Kubernetes que atuam como controladores para
-um dado [*Custom Resource*](/docs/concepts/api-extension/custom-resources/)
+O conceito de {{< glossary_tooltip text="padrão operador" term_id="operator-pattern" >}} do Kubernetes permite a extensão do comportamento sem modificar o código do próprio Kubernetes, vinculando {{< glossary_tooltip text="controladores" term_id="controller" >}} a um ou mais recursos personalizados.
+Os operadores são clientes da API do Kubernetes que atuam como controladores para um [*recurso personalizado*](/docs/concepts/api-extension/custom-resources/).
 
-## Exemplo de um Operador {#exemplo}
+## Exemplo de um operador
 
-Algumas das coisas que um operador pode ser usado para automatizar incluem:
+Algumas das coisas que você pode automatizar usando um operador incluem:
 
-* instalar uma aplicação a pedido
-* obter e restaurar backups do estado dessa aplicação
-* manipular atualizações do código da aplicação juntamente com alterações
-  como esquemas de base de dados ou definições de configuração extra
-* publicar um *Service* para aplicações que não suportam a APIs do Kubernetes
-  para as descobrir
-* simular uma falha em todo ou parte do cluster de forma a testar a resiliência
-* escolher um lider para uma aplicação distribuída sem um processo
-  de eleição de membro interno
+* implantação sob demanda de uma aplicação
+* fazer e restaurar backups do estado dessa aplicação
+* lidar com atualizações do código da aplicação junto com mudanças relacionadas, como esquemas de banco de dados ou configurações adicionais
+* publicar um Service para que aplicações que não suportam as APIs do Kubernetes possam descobrí-los
+* simular falhas em todo ou parte do seu cluster para testar resiliência
+* escolher um líder para uma aplicação distribuída sem um processo de eleição interna de membros
 
-Como deve um Operador parecer em mais detalhe? Aqui está um exemplo em mais
-detalhe:
+Como seria um operador com mais detalhes? Aqui está um exemplo:
 
-1. Um recurso personalizado (*custom resource*) chamado SampleDB, que você pode
-  configurar para dentro do *cluster*.
-2. Um *Deployment* que garante que um *Pod* está a executar que contém a
-  parte controlador do operador.
-3. Uma imagem do *container* do código do operador.
-4. Código do controlador que consulta o plano de controle para descobrir quais
-  recursos *SampleDB* estão configurados.
-5. O núcleo do Operador é o código para informar ao servidor da API (*API server*) como fazer
-   a realidade coincidir com os recursos configurados.
-   * Se você adicionar um novo *SampleDB*, o operador configurará *PersistentVolumeClaims*
-     para fornecer armazenamento de base de dados durável, um *StatefulSet* para executar *SampleDB* e
-     um *Job* para lidar com a configuração inicial.
-   * Se você apagá-lo, o Operador tira um *snapshot* e então garante que
-     o *StatefulSet* e *Volumes* também são removidos.
-6. O operador também gere backups regulares da base de dados. Para cada recurso *SampleDB*,
-  o operador determina quando deve criar um *Pod* que possa se conectar
-   à base de dados e faça backups. Esses *Pods* dependeriam de um *ConfigMap*
-   e / ou um *Secret* que possui detalhes e credenciais de conexão com à base de dados.
-7. Como o Operador tem como objetivo fornecer automação robusta para o recurso
-   que gere, haveria código de suporte adicional. Para este exemplo,
-   O código verifica se a base de dados está a executar uma versão antiga e, se estiver,
-   cria objetos *Job* que o atualizam para si.
+1. Um recurso personalizado (*custom resource*) chamado SampleDB, que você pode configurar dentro do *cluster*.
+2. Um Deployment que garante que um Pod esteja em execução contendo a parte do controlador do operador.
+3. Uma imagem de contêiner do código do operador.
+4. Código do controlador que consulta a camada de gerenciamento para descobrir quais recursos SampleDB estão configurados.
+5. O núcleo do Operador é o código que informa ao servidor da API como fazer com que a realidade corresponda aos recursos configurados.
+   * Se você adicionar um novo SampleDB, o operador configura PersistentVolumeClaims para fornecer armazenamento durável da base de dados, um StatefulSet para executar o SampleDB e um Job para lidar com a configuração inicial.
+   * Se você excluir um SampleDB, o operador cria um instantâneo e em seguida, garante que o StatefulSet e os Volumes também sejam removidos.
+6. O operador também gerencia backups regulares da base de dados. Para cada recurso SampleDB, o operador determina quando criar um Pod que pode se conectar ao banco de dados e fazer backups. Esses Pods dependeriam de um ConfigMap e/ou um Secret que tenha detalhes da conexão e credenciais do banco de dados.
+7. Considerando que o Operador tem como objetivo fornecer automação robusta para o recurso que gerencia, haveria código de suporte adicional. Para este exemplo, o código verifica se o banco de dados está a executando uma versão antiga e, se estiver, cria objetos Job que fazem a atualização para você.
 
-## Instalar Operadores
+## Implantando operadores
 
-A forma mais comum de instalar um Operador é a de adicionar a
-definição personalizada de recurso (*Custom Resource Definition*) e
-o seu Controlador associado ao seu cluster.
-O Controlador vai normalmente executar fora do
-{{< glossary_tooltip text="plano de controle" term_id="control-plane" >}},
-como você faria com qualquer aplicação containerizada.
+A maneira mais comum de implantar um operador é adicionar a definição personalizada de recurso (*Custom Resource Definition*) e o Controlador associado ao seu cluster.
+O Controlador normalmente é executado fora da {{< glossary_tooltip text="camada de gerenciamento" term_id="control-plane" >}}, assim como você executaria qualquer aplicação que rode em contêineres.
 Por exemplo, você pode executar o controlador no seu cluster como um *Deployment*.
 
-## Usando um Operador
+## Usando um operador
 
-Uma vez que você tenha um Operador instalado, usaria-o adicionando, modificando
-ou apagando a espécie de recurso que o Operador usa. Seguindo o exemplo acima,
-você configuraria um *Deployment* para o próprio Operador, e depois:
+Depois de implantar um operador, você o usaria adicionando, modificando ou excluindo o tipo de recurso que o operador usa. Seguindo o exemplo acima,
+você configuraria um Deployment para o próprio operador, e depois:
 
 ```shell
-kubectl get SampleDB                   # encontra a base de dados configurada
+kubectl get SampleDB                   # encontrar banco de dados configurados
 
-kubectl edit SampleDB/example-database # mudar manualmente algumas definições
+kubectl edit SampleDB/example-database # alterar manualmente algumas configurações
 ```
 
-&hellip;e é isso! O Operador vai tomar conta de aplicar
-as mudanças assim como manter o serviço existente em boa forma.
+&hellip;e é isso! O Operador cuidará de aplicar as alterações, bem como manter o serviço existente em bom estado.
 
-## Escrevendo o seu próprio Operador {#escrevendo-operador}
+## Escrevendo o seu próprio operador
 
-Se não existir no ecosistema um Operador que implementa
-o comportamento que pretende, pode codificar o seu próprio.
-[Qual é o próximo](#qual-é-o-próximo) você vai encontrar
-alguns *links* para bibliotecas e ferramentas que pode usar
-para escrever o seu próprio Operador *cloud native*.
+Se não houver um operador no ecossistema que implemente o comportamento desejado, você pode programar o seu próprio.
 
-Pode também implementar um Operador (isto é, um Controlador) usando qualquer linguagem / *runtime*
-que pode atuar como um [cliente da API do Kubernetes](/docs/reference/using-api/client-libraries/).
+Você também pode implementar um operador (ou seja, um Controlador) usando qualquer linguagem/agente de execução que possa atuar como um [cliente para a API do Kubernetes](/docs/reference/using-api/client-libraries/).
+
+A seguir estão algumas bibliotecas e ferramentas que você pode usar para escrever seu próprio operador nativo de nuvem.
+
+{{% thirdparty-content %}}
+
+* [Charmed Operator Framework](https://juju.is/)
+* [Java Operator SDK](https://github.com/java-operator-sdk/java-operator-sdk)
+* [Kopf](https://github.com/nolar/kopf) (Kubernetes Operator Pythonic Framework)
+* [kube-rs](https://kube.rs/) (Rust)
+* [kubebuilder](https://book.kubebuilder.io/)
+* [KubeOps](https://buehler.github.io/dotnet-operator-sdk/) (.NET operator SDK)
+* [KUDO](https://kudo.dev/) (Kubernetes Universal Declarative Operator)
+* [Mast](https://docs.ansi.services/mast/user_guide/operator/)
+* [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html) em conjunto com webhooks que você mesmo implementa
+* [Operator Framework](https://operatorframework.io)
+* [shell-operator](https://github.com/flant/shell-operator)
+
+## {{% heading "whatsnext" %}} 
 
 
-
-## {{% heading "whatsnext" %}}
-
-
-* Aprenda mais sobre [Recursos Personalizados](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
-* Encontre operadores prontos em [OperatorHub.io](https://operatorhub.io/) para o seu caso de uso
-* Use ferramentes existentes para escrever os seus Operadores:
-  * usando [KUDO](https://kudo.dev/) (Kubernetes Universal Declarative Operator)
-  * usando [kubebuilder](https://book.kubebuilder.io/)
-  * usando [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html) juntamente com WebHooks que
-    implementa você mesmo
-  * usando o [Operator Framework](https://operatorframework.io/)
-* [Publique](https://operatorhub.io/) o seu operador para que outras pessoas o possam usar
-* Leia o [artigo original da CoreOS](https://coreos.com/blog/introducing-operators.html) que introduz o padrão Operador
-* Leia um [artigo](https://cloud.google.com/blog/products/containers-kubernetes/best-practices-for-building-kubernetes-operators-and-stateful-apps) da Google Cloud sobre as melhores práticas para contruir Operadores
-
+* Leia o [whitepaper sobre operadores](https://github.com/cncf/tag-app-delivery/blob/eece8f7307f2970f46f100f51932db106db46968/operator-wg/whitepaper/Operator-WhitePaper_v1-0.md) da {{< glossary_tooltip text="CNCF" term_id="cncf" >}}
+* Saiba mais sobre [Custom Resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+* Encontre operadores prontos em [OperatorHub.io](https://operatorhub.io/) para atender ao seu caso de uso
+* [Publique](https://operatorhub.io/) seu operador para outras pessoas usarem
+* Leia o [artigo original do CoreOS](https://web.archive.org/web/20170129131616/https://coreos.com/blog/introducing-operators.html)
+  que introduziu o padrão de operador (esta é uma versão arquivada do artigo original)
+* Leia um [artigo](https://cloud.google.com/blog/products/containers-kubernetes/best-practices-for-building-kubernetes-operators-and-stateful-apps)
+  do Google Cloud sobre as melhores práticas para construir operadores
 

@@ -29,7 +29,7 @@ methods for adding custom resources and how to choose between them.
 ## Custom resources
 
 A *resource* is an endpoint in the [Kubernetes API](/docs/concepts/overview/kubernetes-api/) that
-stores a collection of [API objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/)
+stores a collection of {{< glossary_tooltip text="API objects" term_id="object" >}}
 of a certain kind; for example, the built-in *pods* resource contains a collection of Pod objects.
 -->
 ## 定制资源  {#custom-resources}
@@ -37,7 +37,7 @@ of a certain kind; for example, the built-in *pods* resource contains a collecti
 **资源（Resource）** 是
 [Kubernetes API](/zh-cn/docs/concepts/overview/kubernetes-api/) 中的一个端点，
 其中存储的是某个类别的
-[API 对象](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/)的一个集合。
+{{< glossary_tooltip text="API 对象" term_id="object" >}}的一个集合。
 例如内置的 **Pod** 资源包含一组 Pod 对象。
 
 <!--
@@ -417,7 +417,7 @@ Aggregated APIs offer more advanced API features and customization of other feat
 <!--
 | Feature | Description | CRDs | Aggregated API |
 | ------- | ----------- | ---- | -------------- |
-| Validation | Help users prevent errors and allow you to evolve your API independently of your clients. These features are most useful when there are many clients who can't all update at the same time. | Yes.  Most validation can be specified in the CRD using [OpenAPI v3.0 validation](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation).  Any other validations supported by addition of a [Validating Webhook](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook-alpha-in-1-8-beta-in-1-9). | Yes, arbitrary validation checks |
+| Validation | Help users prevent errors and allow you to evolve your API independently of your clients. These features are most useful when there are many clients who can't all update at the same time. | Yes.  Most validation can be specified in the CRD using [OpenAPI v3.0 validation](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation). [CRDValidationRatcheting](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-ratcheting) feature gate allows failing validations specified using OpenAPI also can be ignored if the failing part of the resource was unchanged.  Any other validations supported by addition of a [Validating Webhook](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook-alpha-in-1-8-beta-in-1-9). | Yes, arbitrary validation checks |
 | Defaulting | See above | Yes, either via [OpenAPI v3.0 validation](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#defaulting) `default` keyword (GA in 1.17), or via a [Mutating Webhook](/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook) (though this will not be run when reading from etcd for old objects). | Yes |
 | Multi-versioning | Allows serving the same object through two API versions. Can help ease API changes like renaming fields. Less important if you control your client versions. | [Yes](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning) | Yes |
 | Custom Storage | If you need storage with a different performance mode (for example, a time-series database instead of key-value store) or isolation for security (for example, encryption of sensitive information, etc.) | No | Yes |
@@ -431,7 +431,7 @@ Aggregated APIs offer more advanced API features and customization of other feat
 -->
 | 特性    | 描述        | CRD | 聚合 API       |
 | ------- | ----------- | ---- | -------------- |
-| 合法性检查 | 帮助用户避免错误，允许你独立于客户端版本演化 API。这些特性对于由很多无法同时更新的客户端的场合。| 可以。大多数验证可以使用 [OpenAPI v3.0 合法性检查](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation) 来设定。其他合法性检查操作可以通过添加[合法性检查 Webhook](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook-alpha-in-1-8-beta-in-1-9)来实现。 | 可以，可执行任何合法性检查。|
+| 合法性检查 | 帮助用户避免错误，允许你独立于客户端版本演化 API。这些特性对于由很多无法同时更新的客户端的场合。| 可以。大多数验证可以使用 [OpenAPI v3.0 合法性检查](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation) 来设定。[CRDValidationRatcheting](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-ratcheting) 特性门控允许在资源的失败部分未发生变化的情况下，忽略 OpenAPI 指定的失败验证。其他合法性检查操作可以通过添加[合法性检查 Webhook](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook-alpha-in-1-8-beta-in-1-9)来实现。 | 可以，可执行任何合法性检查。|
 | 默认值设置 | 同上 | 可以。可通过 [OpenAPI v3.0 合法性检查](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#defaulting)的 `default` 关键词（自 1.17 正式发布）或[更改性（Mutating）Webhook](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)来实现（不过从 etcd 中读取老的对象时不会执行这些 Webhook）。 | 可以。 |
 | 多版本支持 | 允许通过两个 API 版本同时提供同一对象。可帮助简化类似字段更名这类 API 操作。如果你能控制客户端版本，这一特性将不再重要。 | [可以](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning)。 | 可以。 |
 | 定制存储 | 支持使用具有不同性能模式的存储（例如，要使用时间序列数据库而不是键值存储），或者因安全性原因对存储进行隔离（例如对敏感信息执行加密）。 | 不可以。 | 可以。 |

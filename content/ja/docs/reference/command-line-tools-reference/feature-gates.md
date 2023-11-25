@@ -108,7 +108,8 @@ content_type: concept
 | `KubeletPodResourcesGetAllocatable` | `false` | Alpha | 1.21 | 1.22 |
 | `KubeletPodResourcesGetAllocatable` | `true` | Beta | 1.23 | |
 | `KubeletTracing` | `false` | Alpha | 1.25 | |
-| `LegacyServiceAccountTokenTracking` | `false` | Alpha | 1.25 | |
+| `LegacyServiceAccountTokenTracking` | `false` | Alpha | 1.26 | 1.26 |
+| `LegacyServiceAccountTokenTracking` | `true` | Beta | 1.27 | |
 | `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | - |
 | `LogarithmicScaleDown` | `false` | Alpha | 1.21 | 1.21 |
 | `LogarithmicScaleDown` | `true` | Beta | 1.22 | |
@@ -264,9 +265,6 @@ content_type: concept
 | `ExpandPersistentVolumes` | `false` | Alpha | 1.8 | 1.10 |
 | `ExpandPersistentVolumes` | `true` | Beta | 1.11 | 1.23 |
 | `ExpandPersistentVolumes` | `true` | GA | 1.24 |- |
-| `IdentifyPodOS` | `false` | Alpha | 1.23 | 1.23 |
-| `IdentifyPodOS` | `true` | Beta | 1.24 | 1.24 |
-| `IdentifyPodOS` | `true` | GA | 1.25 | - |
 | `JobTrackingWithFinalizers` | `false` | Alpha | 1.22 | 1.22 |
 | `JobTrackingWithFinalizers` | `false` | Beta | 1.23 | 1.24 |
 | `JobTrackingWithFinalizers` | `true` | Beta | 1.25 | 1.25 |
@@ -441,7 +439,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `ServiceAppProtocol`: サービスとエンドポイントで`AppProtocol`フィールドを有効にします。
 - `ServiceLoadBalancerFinalizer`: サービスロードバランサーのファイナライザー保護を有効にします。
 - `ServiceNodeExclusion`: クラウドプロバイダーによって作成されたロードバランサーからのノードの除外を有効にします。"`alpha.service-controller.kubernetes.io/exclude-balancer`"キーまたは`node.kubernetes.io/exclude-from-external-load-balancers`でラベル付けされている場合ノードは除外の対象となります。
-- `ServiceTopology`: クラスタのノードトポロジーに基づいてトラフィックをルーティングするサービスを有効にします。詳細については、[Serviceトポロジー](/ja/docs/concepts/services-networking/service-topology/)を参照してください。
+- `ServiceTopology`: クラスターのノードトポロジーに基づいてトラフィックをルーティングするサービスを有効にします。詳細については、[Serviceトポロジー](/ja/docs/concepts/services-networking/service-topology/)を参照してください。
 - `StartupProbe`: kubeletで[startup](/ja/docs/concepts/workloads/pods/pod-lifecycle/#when-should-you-use-a-startup-probe)プローブを有効にします。
 - `StorageObjectInUseProtection`: PersistentVolumeまたはPersistentVolumeClaimオブジェクトがまだ使用されている場合、それらの削除を延期します。
 - `StorageVersionHash`: apiserversがディスカバリーでストレージのバージョンハッシュを公開できるようにします。

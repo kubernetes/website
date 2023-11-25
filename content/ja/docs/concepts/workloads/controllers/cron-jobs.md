@@ -36,7 +36,7 @@ CronJobは、クラスターがアイドル状態になりそうなときにJob�
 
 このCronJobマニフェスト例は、毎分ごとに現在の時刻とhelloメッセージを表示します。
 
-{{< codenew file="application/job/cronjob.yaml" >}}
+{{% codenew file="application/job/cronjob.yaml" %}}
 
 ([Running Automated Tasks with a CronJob](/ja/docs/tasks/job/automated-tasks-with-cron-jobs/)ではこの例をより詳しく説明しています。).
 

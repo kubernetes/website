@@ -6,7 +6,8 @@ weight: 60
 
 <!-- overview -->
 You can use Kubernetes annotations to attach arbitrary non-identifying metadata
-to objects. Clients such as tools and libraries can retrieve this metadata.
+to {{< glossary_tooltip text="objects" term_id="object" >}}.
+Clients such as tools and libraries can retrieve this metadata.
 
 <!-- body -->
 ## Attaching metadata to objects
@@ -16,7 +17,8 @@ objects. Labels can be used to select objects and to find
 collections of objects that satisfy certain conditions. In contrast, annotations
 are not used to identify and select objects. The metadata
 in an annotation can be small or large, structured or unstructured, and can
-include characters not permitted by labels.
+include characters not permitted by labels. It is possible to use labels as 
+well as annotations in the metadata of the same object.
 
 Annotations, like labels, are key/value maps:
 
@@ -92,4 +94,5 @@ spec:
 
 ## {{% heading "whatsnext" %}}
 
-Learn more about [Labels and Selectors](/docs/concepts/overview/working-with-objects/labels/).
+- Learn more about [Labels and Selectors](/docs/concepts/overview/working-with-objects/labels/).
+- Find [Well-known labels, Annotations and Taints](/docs/reference/labels-annotations-taints/)

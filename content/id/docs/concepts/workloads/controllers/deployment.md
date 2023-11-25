@@ -41,7 +41,7 @@ Berikut adalah penggunaan yang umum pada Deployment:
 
 Berikut adalah contoh Deployment. Dia membuat ReplicaSet untuk membangkitkan tiga Pod `nginx`:
 
-{{< codenew file="controllers/nginx-deployment.yaml" >}}
+{{% codenew file="controllers/nginx-deployment.yaml" %}}
 
 Dalam contoh ini:
 
@@ -116,9 +116,9 @@ Dalam contoh ini:
   6. Untuk melihat label yang dibangkitkan secara otomatis untuk tiap Pod, jalankan `kubectl get pods --show-labels`. Perintah akan menghasilkan keluaran berikut:
     ```shell
     NAME                                READY     STATUS    RESTARTS   AGE       LABELS
-    nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
-    nginx-deployment-75675f5897-kzszj   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
-    nginx-deployment-75675f5897-qqcnn   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
+    nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=75675f5897
+    nginx-deployment-75675f5897-kzszj   1/1       Running   0          18s       app=nginx,pod-template-hash=75675f5897
+    nginx-deployment-75675f5897-qqcnn   1/1       Running   0          18s       app=nginx,pod-template-hash=75675f5897
     ```
     ReplicaSet yang dibuat menjamin bahwa ada tiga Pod `nginx`.
 

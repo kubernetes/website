@@ -266,13 +266,6 @@ to `windows`.
 对于运行 Linux 容器的 Pod，将 `.spec.os.name` 设置为 `linux`。
 对于运行 Windows 容器的 Pod，将 `.spec.os.name` 设置为 `windows`。
 
-{{< note >}}
-<!-- 
-Starting from 1.25, the `IdentifyPodOS` feature is in GA stage and defaults to be enabled.
--->
-从 1.25 开始，`IdentifyPodOS` 特性处于 GA 阶段，默认启用。
-{{< /note >}}
-
 <!-- 
 The scheduler does not use the value of `.spec.os.name` when assigning Pods to nodes. You should
 use normal Kubernetes mechanisms for
@@ -403,78 +396,80 @@ for the Windows OS, architecture, and version.
 
 1. 将此文件保存到 `runtimeClasses.yml`。它包括针对 Windows 操作系统、架构和版本的 `nodeSelector`。
 
-```yaml
-apiVersion: node.k8s.io/v1
-kind: RuntimeClass
-metadata:
-  name: windows-2019
-handler: 'docker'
-scheduling:
-  nodeSelector:
-    kubernetes.io/os: 'windows'
-    kubernetes.io/arch: 'amd64'
-    node.kubernetes.io/windows-build: '10.0.17763'
-  tolerations:
-  - effect: NoSchedule
-    key: os
-    operator: Equal
-    value: "windows"
-```
+   ```yaml
+   ---
+   apiVersion: node.k8s.io/v1
+   kind: RuntimeClass
+   metadata:
+     name: windows-2019
+   handler: example-container-runtime-handler
+   scheduling:
+     nodeSelector:
+       kubernetes.io/os: 'windows'
+       kubernetes.io/arch: 'amd64'
+       node.kubernetes.io/windows-build: '10.0.17763'
+     tolerations:
+     - effect: NoSchedule
+       key: os
+       operator: Equal
+       value: "windows"
+   ```
 
 <!-- 
 1. Run `kubectl create -f runtimeClasses.yml` using as a cluster administrator
 1. Add `runtimeClassName: windows-2019` as appropriate to Pod specs
 
-For example:
+   For example:
 -->
 1. 以集群管理员身份运行 `kubectl create -f runtimeClasses.yml`
 1. 根据情况，向 Pod 规约中添加 `runtimeClassName: windows-2019`
 
-例如：
+   例如：
 
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: iis-2019
-  labels:
-    app: iis-2019
-spec:
-  replicas: 1
-  template:
-    metadata:
-      name: iis-2019
-      labels:
-        app: iis-2019
-    spec:
-      runtimeClassName: windows-2019
-      containers:
-      - name: iis
-        image: mcr.microsoft.com/windows/servercore/iis:windowsservercore-ltsc2019
-        resources:
-          limits:
-            cpu: 1
-            memory: 800Mi
-          requests:
-            cpu: .1
-            memory: 300Mi
-        ports:
-          - containerPort: 80
- selector:
-    matchLabels:
-      app: iis-2019
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: iis
-spec:
-  type: LoadBalancer
-  ports:
-  - protocol: TCP
-    port: 80
-  selector:
-    app: iis-2019
-```
+   ```yaml
+   ---
+   apiVersion: apps/v1
+   kind: Deployment
+   metadata:
+     name: iis-2019
+     labels:
+       app: iis-2019
+   spec:
+     replicas: 1
+     template:
+       metadata:
+         name: iis-2019
+         labels:
+           app: iis-2019
+       spec:
+         runtimeClassName: windows-2019
+         containers:
+         - name: iis
+           image: mcr.microsoft.com/windows/servercore/iis:windowsservercore-ltsc2019
+           resources:
+             limits:
+               cpu: 1
+               memory: 800Mi
+             requests:
+               cpu: .1
+               memory: 300Mi
+           ports:
+             - containerPort: 80
+    selector:
+       matchLabels:
+         app: iis-2019
+   ---
+   apiVersion: v1
+   kind: Service
+   metadata:
+     name: iis
+   spec:
+     type: LoadBalancer
+     ports:
+     - protocol: TCP
+       port: 80
+     selector:
+       app: iis-2019
+   ```
 
 [RuntimeClass]: /zh-cn/docs/concepts/containers/runtime-class/

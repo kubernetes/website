@@ -49,7 +49,7 @@ Berikut beberapa contoh kasus penggunaan Init Container:
 
 * Menunggu sebuah Service untuk dibuat dengan perintah _shell_ seperti:
 
-      for i in {1..100}; do sleep 1; if dig myservice; then exit 0; fi; done; exit 1
+      for i in {1..100}; do sleep 1; if nslookup myservice; then exit 0; fi; done; exit 1
 
 * Mendaftarkan suatu Pod ke sebuah peladen terpisah dari _downward API_ dengan perintah seperti:
 
@@ -241,6 +241,33 @@ Init Container memiliki semua kolom yang dimiliki oleh Container aplikasi. Tetap
 Gunakan `activeDeadlineSeconds` pada Pod dan `livenessProbe` pada Container untuk mencegah Init Container gagal terus menerus. Nilai `activeDeadlineSeconds` berlaku juga terhadap Init Container.
 
 Nama setiap Container aplikasi dan Init Container pada sebuah Pod haruslah unik; Kesalahan validasi akan terjadi jika ada Container atau Init Container yang memiliki nama yang sama.
+
+### API untuk sidecar containers
+
+{{< feature-state for_k8s_version="v1.28" state="alpha" >}}
+
+Mulai dari Kubernetes 1.28 dalam mode alpha, terdapat fitur yang disebut `SidecarContainers` yang memungkinkan Anda untuk menentukan `restartPolicy` untuk kontainer init yang independen dari Pod dan kontainer init lainnya. [Probes] (/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe) juga dapat ditambahkan untuk mengendalikan siklus hidup mereka.
+
+Jika sebuah kontainer init dibuat dengan `restartPolicy` yang diatur sebagai `Always`, maka kontainer ini akan mulai dan tetap berjalan selama seluruh masa hidup Pod, yang berguna untuk menjalankan layanan pendukung yang terpisah dari kontainer aplikasi utama.
+
+Jika sebuah `readinessProbe` ditentukan untuk kontainer init ini, hasilnya akan digunakan untuk menentukan status siap dari Pod.
+
+Karena kontainer-kontainer ini didefinisikan sebagai kontainer init, mereka mendapatkan manfaat dari urutan dan jaminan berurutan yang sama seperti kontainer init lainnya, yang memungkinkan mereka dicampur dengan kontainer init lainnya dalam aliran inisialisasi Pod yang kompleks.
+
+Dibandingkan dengan kontainer init reguler, kontainer init tipe sidecar terus berjalan, dan kontainer init berikutnya dapat mulai menjalankan saat kubelet telah menetapkan status kontainer `started` menjadi benar untuk kontainer init tipe sidecar. Status tersebut menjadi benar karena ada proses yang berjalan dalam kontainer dan tidak ada probe awal yang ditentukan, atau sebagai hasil dari keberhasilan `startupProbe`.
+
+Fitur ini dapat digunakan untuk mengimplementasikan pola kontainer sidecar dengan lebih tangguh, karena kubelet selalu akan me-restart kontainer sidecar jika kontainer tersebut gagal.
+
+Berikut adalah contoh Deployment dengan dua kontainer, salah satunya adalah sidecar:
+
+{{% code_sample language="yaml" file="application/deployment-sidecar.yaml" %}}
+
+Fitur ini juga berguna untuk menjalankan Job dengan sidecar, karena kontainer sidecar tidak akan mencegah Job untuk menyelesaikan tugasnya setelah kontainer utama selesai.
+
+Berikut adalah contoh sebuah Job dengan dua kontainer, salah satunya adalah sidecar:
+
+{{% code_sample language="yaml" file="application/job/job-sidecar.yaml" %}}
+
 
 ### Sumber Daya
 

@@ -8,12 +8,10 @@ weight: 10
 This tutorial applies only for new clusters.
 {{% /alert %}}
 
-Pod Security admission (PSA) is enabled by default in v1.23 and later, as it has
-[graduated to beta](/blog/2021/12/09/pod-security-admission-beta/).
-Pod Security
-is an admission controller that carries out checks against the Kubernetes
+Pod Security is an admission controller that carries out checks against the Kubernetes
 [Pod Security Standards](/docs/concepts/security/pod-security-standards/) when new pods are
-created. This tutorial shows you how to enforce the `baseline` Pod Security
+created. It is a feature GA'ed in v1.25.
+This tutorial shows you how to enforce the `baseline` Pod Security
 Standard at the cluster level which applies a standard configuration
 to all namespaces in a cluster.
 
@@ -27,7 +25,7 @@ check the documentation for that version.
 
 Install the following on your workstation:
 
-- [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
+- [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
 - [kubectl](/docs/tasks/tools/)
 
 This tutorial demonstrates what you can configure for a Kubernetes cluster that you fully
@@ -52,7 +50,7 @@ that are most appropriate for your configuration, do the following:
    The output is similar to:
    ```
    Creating cluster "psa-wo-cluster-pss" ...
-   ✓ Ensuring node image (kindest/node:v{{< skew currentVersion >}}.0) 🖼
+   ✓ Ensuring node image (kindest/node:v{{< skew currentPatchVersion >}}) 🖼
    ✓ Preparing nodes 📦
    ✓ Writing configuration 📜
    ✓ Starting control-plane 🕹️
@@ -254,7 +252,7 @@ following:
    ```
 
    {{<note>}}
-   If you use Docker Desktop with KinD on macOS, you can
+   If you use Docker Desktop with *kind* on macOS, you can
    add `/tmp` as a Shared Directory under the menu item
    **Preferences > Resources > File Sharing**.
    {{</note>}}
@@ -268,7 +266,7 @@ following:
    The output is similar to this:
    ```
    Creating cluster "psa-with-cluster-pss" ...
-    ✓ Ensuring node image (kindest/node:v{{< skew currentVersion >}}.0) 🖼
+    ✓ Ensuring node image (kindest/node:v{{< skew currentPatchVersion >}}) 🖼
     ✓ Preparing nodes 📦
     ✓ Writing configuration 📜
     ✓ Starting control-plane 🕹️

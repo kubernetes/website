@@ -24,7 +24,7 @@ Dans cet exercice, vous allez créer un pod contenant un conteneur.
 Le conteneur exécute une image nginx.
 Voici le fichier de configuration du Pod:
 
-{{< codenew file="application/shell-demo.yaml" >}}
+{{% codenew file="application/shell-demo.yaml" %}}
 
 Créez le Pod:
 
@@ -105,7 +105,7 @@ Lorsque vous avez terminé avec votre shell, entrez `exit`.
 Dans une fenêtre de commande ordinaire, pas votre shell, répertoriez les variables d'environnement dans le conteneur en cours d'exécution:
 
 ```shell
-kubectl exec shell-demo env
+kubectl exec shell-demo -- env
 ```
 
 Essayez d'exécuter d'autres commandes.

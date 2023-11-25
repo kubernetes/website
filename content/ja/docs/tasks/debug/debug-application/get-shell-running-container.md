@@ -26,7 +26,7 @@ content_type: task
 このエクササイズでは、1つのコンテナを持つPodを作成します。
 コンテナはnginxのイメージを実行します。以下がそのPodの設定ファイルです:
 
-{{< codenew file="application/shell-demo.yaml" >}}
+{{% codenew file="application/shell-demo.yaml" %}}
 
 Podを作成します:
 
@@ -111,7 +111,7 @@ exit # コンテナ内のシェルを終了する
 シェルではない通常のコマンドウインドウ内で、実行中のコンテナの環境変数の一覧を表示します:
 
 ```shell
-kubectl exec shell-demo env
+kubectl exec shell-demo -- env
 ```
 
 他のコマンドを試します。以下がいくつかの例です:

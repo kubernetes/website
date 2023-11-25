@@ -4,8 +4,12 @@ description: 设置监控和日志记录以对集群进行故障排除或调试�
 weight: 40
 content_type: concept
 no_list: true
+card:
+  name: tasks
+  weight: 999
+  title: 寻求帮助
 ---
-<!-- 
+<!--
 title: "Monitoring, Logging, and Debugging"
 description: Set up monitoring and logging to troubleshoot a cluster, or debug a containerized application.
 weight: 40
@@ -14,6 +18,10 @@ reviewers:
 - davidopp
 content_type: concept
 no_list: true
+card:
+  name: tasks
+  weight: 999
+  title: Getting help
 -->
 
 <!-- overview -->
@@ -154,13 +162,13 @@ Slack 需要注册；你可以[请求一份邀请](https://slack.kubernetes.io)�
 Once you are registered, browse the growing list of channels for various subjects of
 interest. For example, people new to Kubernetes may also want to join the
 [`#kubernetes-novice`](https://kubernetes.slack.com/messages/kubernetes-novice) channel. As another example, developers should join the
-[`#kubernetes-dev`](https://kubernetes.slack.com/messages/kubernetes-dev) channel.
+[`#kubernetes-contributors`](https://kubernetes.slack.com/messages/kubernetes-contributors) channel.
 -->
 一旦你完成了注册，就可以浏览各种感兴趣主题的频道列表（一直在增长）。
 例如，Kubernetes 新人可能还想加入
 [`#kubernetes-novice`](https://kubernetes.slack.com/messages/kubernetes-novice)
 频道。又比如，开发人员应该加入
-[`#kubernetes-dev`](https://kubernetes.slack.com/messages/kubernetes-dev)
+[`#kubernetes-contributors`](https://kubernetes.slack.com/messages/kubernetes-contributors)
 频道。
 
 <!--
@@ -249,4 +257,3 @@ problem, such as:
 * Kubernetes 版本：`kubectl version`
 * 云平台、OS 发行版、网络配置和 Docker 版本
 * 重现问题的步骤
-

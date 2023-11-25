@@ -108,7 +108,7 @@ You should avoid using the `:latest` tag when deploying containers in production
 it is harder to track which version of the image is running and more difficult to
 roll back properly.
 
-Instead, specify a meaningful tag such as `v1.42.0`.
+Instead, specify a meaningful tag such as `v1.42.0` and/or a digest.
 {{< /note >}}
 
 To make sure the Pod always uses the same version of a container image, you can specify
@@ -133,6 +133,8 @@ running the same code no matter what tag changes happen at the registry.
 When you (or a controller) submit a new Pod to the API server, your cluster sets the
 `imagePullPolicy` field when specific conditions are met:
 
+- if you omit the `imagePullPolicy` field, and you specify the digest for the
+  container image, the `imagePullPolicy` is automatically set to `IfNotPresent`.
 - if you omit the `imagePullPolicy` field, and the tag for the container image is
   `:latest`, `imagePullPolicy` is automatically set to `Always`;
 - if you omit the `imagePullPolicy` field, and you don't specify the tag for the
@@ -143,7 +145,7 @@ When you (or a controller) submit a new Pod to the API server, your cluster sets
 
 {{< note >}}
 The value of `imagePullPolicy` of the container is always set when the object is
-first _created_, and is not updated if the image's tag later changes.
+first _created_, and is not updated if the image's tag or digest later changes.
 
 For example, if you create a Deployment with an image whose tag is _not_
 `:latest`, and later update that Deployment's image to a `:latest` tag, the
@@ -176,6 +178,48 @@ that Kubernetes will keep trying to pull the image, with an increasing back-off 
 
 Kubernetes raises the delay between each attempt until it reaches a compiled-in limit,
 which is 300 seconds (5 minutes).
+
+## Serial and parallel image pulls
+
+By default, kubelet pulls images serially. In other words, kubelet sends only
+one image pull request to the image service at a time. Other image pull requests
+have to wait until the one being processed is complete.
+
+Nodes make image pull decisions in isolation. Even when you use serialized image
+pulls, two different nodes can pull the same image in parallel.
+
+If you would like to enable parallel image pulls, you can set the field
+`serializeImagePulls` to false in the [kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1/).
+With `serializeImagePulls` set to false, image pull requests will be sent to the image service immediately,
+and multiple images will be pulled at the same time.
+
+When enabling parallel image pulls, please make sure the image service of your
+container runtime can handle parallel image pulls.
+
+The kubelet never pulls multiple images in parallel on behalf of one Pod. For example,
+if you have a Pod that has an init container and an application container, the image
+pulls for the two containers will not be parallelized. However, if you have two
+Pods that use different images, the kubelet pulls the images in parallel on
+behalf of the two different Pods, when parallel image pulls is enabled.
+
+### Maximum parallel image pulls
+
+{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+
+When `serializeImagePulls` is set to false, the kubelet defaults to no limit on the
+maximum number of images being pulled at the same time. If you would like to
+limit the number of parallel image pulls, you can set the field `maxParallelImagePulls`
+in kubelet configuration. With `maxParallelImagePulls` set to _n_, only _n_ images
+can be pulled at the same time, and any image pull beyond _n_ will have to wait
+until at least one ongoing image pull is complete.
+
+Limiting the number parallel image pulls would prevent image pulling from consuming
+too much network bandwidth or disk I/O, when parallel image pulling is enabled.
+
+You can set `maxParallelImagePulls` to a positive number that is greater than or
+equal to 1. If you set `maxParallelImagePulls` to be greater than or equal to 2, you
+must set the `serializeImagePulls` to false. The kubelet will fail to start with invalid
+`maxParallelImagePulls` settings.
 
 ## Multi-architecture images with image indexes
 
@@ -241,36 +285,24 @@ See [Configure a kubelet image credential provider](/docs/tasks/administer-clust
 The interpretation of `config.json` varies between the original Docker
 implementation and the Kubernetes interpretation. In Docker, the `auths` keys
 can only specify root URLs, whereas Kubernetes allows glob URLs as well as
-prefix-matched paths. This means that a `config.json` like this is valid:
+prefix-matched paths. The only limitation is that glob patterns (`*`) have to
+include the dot (`.`) for each subdomain. The amount of matched subdomains has
+to be equal to the amount of glob patterns (`*.`), for example:
+
+- `*.kubernetes.io` will *not* match `kubernetes.io`, but `abc.kubernetes.io`
+- `*.*.kubernetes.io` will *not* match `abc.kubernetes.io`, but `abc.def.kubernetes.io`
+- `prefix.*.io` will match `prefix.kubernetes.io`
+- `*-good.kubernetes.io` will match `prefix-good.kubernetes.io`
+
+This means that a `config.json` like this is valid:
 
 ```json
 {
     "auths": {
-        "*my-registry.io/images": {
-            "auth": "…"
-        }
+        "my-registry.io/images": { "auth": "…" },
+        "*.my-registry.io/images": { "auth": "…" }
     }
 }
-```
-
-The root URL (`*my-registry.io`) is matched by using the following syntax:
-
-```
-pattern:
-    { term }
-
-term:
-    '*'         matches any sequence of non-Separator characters
-    '?'         matches any single non-Separator character
-    '[' [ '^' ] { character-range } ']'
-                character class (must be non-empty)
-    c           matches character c (c != '*', '?', '\\', '[')
-    '\\' c      matches character c
-
-character-range:
-    c           matches character c (c != '\\', '-', ']')
-    '\\' c      matches character c
-    lo '-' hi   matches character c for lo <= c <= hi
 ```
 
 Image pull operations would now pass the credentials to the CRI container
@@ -281,10 +313,14 @@ would match successfully:
 - `my-registry.io/images/my-image`
 - `my-registry.io/images/another-image`
 - `sub.my-registry.io/images/my-image`
+
+But not:
+
 - `a.sub.my-registry.io/images/my-image`
+- `a.b.sub.my-registry.io/images/my-image`
 
 The kubelet performs image pulls sequentially for every found credential. This
-means, that multiple entries in `config.json` are possible, too:
+means, that multiple entries in `config.json` for different paths are possible, too:
 
 ```json
 {
@@ -436,9 +472,22 @@ common use cases and suggested solutions.
 
 If you need access to multiple registries, you can create one secret for each registry.
 
+## Legacy built-in kubelet credential provider
+
+In older versions of Kubernetes, the kubelet had a direct integration with cloud provider credentials.
+This gave it the ability to dynamically fetch credentials for image registries.
+
+There were three built-in implementations of the kubelet credential provider integration:
+ACR (Azure Container Registry), ECR (Elastic Container Registry), and GCR (Google Container Registry).
+
+For more information on the legacy mechanism, read the documentation for the version of Kubernetes that you
+are using. Kubernetes v1.26 through to v{{< skew latestVersion >}} do not include the legacy mechanism, so
+you would need to either:
+- configure a kubelet image credential provider on each node
+- specify image pull credentials using `imagePullSecrets` and at least one Secret
+
 ## {{% heading "whatsnext" %}}
 
 * Read the [OCI Image Manifest Specification](https://github.com/opencontainers/image-spec/blob/master/manifest.md).
 * Learn about [container image garbage collection](/docs/concepts/architecture/garbage-collection/#container-image-garbage-collection).
 * Learn more about [pulling an Image from a Private Registry](/docs/tasks/configure-pod-container/pull-image-private-registry).
-

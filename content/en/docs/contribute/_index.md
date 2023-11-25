@@ -76,7 +76,7 @@ end
 subgraph second[Review]
 direction TB
    T[ ] -.-
-   D[Look over the<br>K8s/website<br>repository] --- E[Check out the<br>Hugo static site<br>generator]
+   D[Look over the<br>kubernetes/website<br>repository] --- E[Check out the<br>Hugo static site<br>generator]
    E --- F[Understand basic<br>GitHub commands]
    F --- G[Review open PR<br>and change review <br>processes]
 end
@@ -123,7 +123,7 @@ flowchart LR
     direction TB
     S[ ] -.-
     G[Review PRs from other<br>K8s members] -->
-    A[Check K8s/website<br>issues list for<br>good first PRs] --> B[Open a PR!!]
+    A[Check kubernetes/website<br>issues list for<br>good first PRs] --> B[Open a PR!!]
     end
     subgraph first[Suggested Prep]
     direction TB
@@ -157,6 +157,10 @@ Figure 2. Preparation for your first contribution.
   [style guides](/docs/contribute/style/style-guide/) so you can leave informed comments.
 - Learn about [page content types](/docs/contribute/style/page-content-types/)
   and [Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/).
+
+## Getting help when contributing
+
+Making your first contribution can be overwhelming. The [New Contributor Ambassadors](https://github.com/kubernetes/website#new-contributor-ambassadors) are there to walk you through making your first few contributions. You can reach out to them in the [Kubernetes Slack](https://slack.k8s.io/) preferably in the `#sig-docs` channel. There is also the [New Contributors Meet and Greet call](https://www.kubernetes.dev/resources/calendar/) that happens on the first Tuesday of every month. You can interact with the New Contributor Ambassadors and get your queries resolved here.
 
 ## Next steps
 

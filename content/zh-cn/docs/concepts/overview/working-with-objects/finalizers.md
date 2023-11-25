@@ -10,12 +10,11 @@ weight: 80
 
 <!--
 You can use finalizers to control {{<glossary_tooltip text="garbage collection" term_id="garbage-collection">}}
-of resources by alerting {{<glossary_tooltip text="controllers" term_id="controller">}} to perform specific cleanup tasks before
-deleting the target resource. 
+of {{< glossary_tooltip text="objects" term_id="object" >}} by alerting {{<glossary_tooltip text="controllers" term_id="controller">}}
+to perform specific cleanup tasks before deleting the target resource.
 -->
-你可以通过使用 Finalizers 提醒{{<glossary_tooltip text="控制器" term_id="controller">}}
-在删除目标资源前执行特定的清理任务，
-来控制资源的{{<glossary_tooltip text="垃圾收集" term_id="garbage-collection">}}。
+你可以使用 Finalizers 来控制{{< glossary_tooltip text="对象" term_id="object" >}}的{{<glossary_tooltip text="垃圾回收" term_id="garbage-collection">}}，
+方法是在删除目标资源之前提醒{{<glossary_tooltip text="控制器" term_id="controller">}}执行特定的清理任务。
 
 <!--
 Finalizers don't usually specify the code to execute. Instead, they are
@@ -38,6 +37,7 @@ and does the following:
   * Modifies the object to add a `metadata.deletionTimestamp` field with the
     time you started the deletion.
   * Prevents the object from being removed until its `metadata.finalizers` field is empty.
+  * Prevents the object from being removed until all items are removed from its `metadata.finalizers` field
   * Returns a `202` status code (HTTP "Accepted")
 -->
 ## Finalizers 如何工作   {#how-finalizers-work}
@@ -47,7 +47,7 @@ and does the following:
 并进行以下操作：
 
   * 修改对象，将你开始执行删除的时间添加到 `metadata.deletionTimestamp` 字段。
-  * 禁止对象被删除，直到其 `metadata.finalizers` 字段为空。
+  * 禁止对象被删除，直到其 `metadata.finalizers` 字段内的所有项被删除。
   * 返回 `202` 状态码（HTTP "Accepted"）。
 
 <!--
@@ -82,6 +82,23 @@ Kubernetes 会添加 `pv-protection` Finalizer。
 但是控制器因为该 Finalizer 存在而无法删除该资源。
 当 Pod 停止使用 `PersistentVolume` 时，
 Kubernetes 清除 `pv-protection` Finalizer，控制器就会删除该卷。
+
+{{<note>}}
+<!--
+* When you `DELETE` an object, Kubernetes adds the deletion timestamp for that object and then
+immediately starts to restrict changes to the `.metadata.finalizers` field for the object that is
+now pending deletion. You can remove existing finalizers (deleting an entry from the `finalizers`
+list) but you cannot add a new finalizer. You also cannot modify the `deletionTimestamp` for an
+object once it is set.
+
+* After the deletion is requested, you can not resurrect this object. The only way is to delete it and make a new similar object.
+-->
+* 当你 `DELETE` 一个对象时，Kubernetes 为该对象增加删除时间戳，然后立即开始限制
+对这个正处于待删除状态的对象的 `.metadata.finalizers` 字段进行修改。
+你可以删除现有的 finalizers （从 `finalizers` 列表删除条目），但你不能添加新的 finalizer。
+对象的 `deletionTimestamp` 被设置后也不能修改。
+* 删除请求已被发出之后，你无法复活该对象。唯一的方法是删除它并创建一个新的相似对象。
+{{</note>}}
 
 <!--
 ## Owner references, labels, and finalizers {#owners-labels-finalizers}

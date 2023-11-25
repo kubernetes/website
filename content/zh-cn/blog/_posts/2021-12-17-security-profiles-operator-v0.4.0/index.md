@@ -198,12 +198,12 @@ validations are done here.
 ### AppArmor support
 
 This version introduces the initial support for AppArmor, allowing users to load and 
-unload AppArmor profiles into cluster nodes by using the new [AppArmorProfile](https://github.com/kubernetes-sigs/security-profiles-operator/blob/main/deploy/base/crds/apparmorprofile.yaml) CRD.
+unload AppArmor profiles into cluster nodes by using the new [AppArmorProfile](https://github.com/kubernetes-sigs/security-profiles-operator/blob/main/deploy/base-crds/crds/apparmorprofile.yaml) CRD.
 -->
 ### AppArmor 支持
 
 0.4.0 版本引入了对 AppArmor 的初始支持，允许用户通过使用新的
-[AppArmorProfile](https://github.com/kubernetes-sigs/security-profiles-operator/blob/main/deploy/base/crds/apparmorprofile.yaml)
+[AppArmorProfile](https://github.com/kubernetes-sigs/security-profiles-operator/blob/main/deploy/base-crds/crds/apparmorprofile.yaml)
 在集群节点中 CRD 加载或卸载 AppArmor 配置文件。
 
 <!--

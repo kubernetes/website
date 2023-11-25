@@ -54,7 +54,7 @@ Kubesprayは環境のプロビジョニングを支援するために次のユ�
 * 下記のクラウドプロバイダー用の[Terraform](https://www.terraform.io/)スクリプト:
   * [AWS](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/aws)
   * [OpenStack](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/openstack)
-  * [Equinix Metal](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/metal)
+  * [Equinix Metal](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/equinix)
 
 
 ### (2/5) インベントリーファイルの用意

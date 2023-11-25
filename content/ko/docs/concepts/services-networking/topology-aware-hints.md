@@ -3,7 +3,11 @@
 # - robscott
 title: 토폴로지 인지 힌트
 content_type: concept
-weight: 45
+weight: 100
+description: >-
+  _토폴로지 인지 힌트_ 는 트래픽이 발생한 존 내에서 네트워크 트래픽을 유지하도록 처리하는
+  메커니즘을 제공한다. 클러스터의 파드간 동일한 존의 트래픽을 선호하는 것은
+  안전성, 성능(네트워크 지연 및 처리량) 혹은 비용 측면에 도움이 될 수 있다.
 ---
 
 
@@ -11,19 +15,13 @@ weight: 45
 
 {{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
-_토폴로지 인지 힌트(Topology Aware Hints)_ 는 클라이언트가 엔드포인트를 어떻게 사용해야 하는지에 대한 제안을 포함시킴으로써 
+_토폴로지 인지 힌트(Topology Aware Hints)_ 는 클라이언트가 엔드포인트(endpoint)를 어떻게 사용해야 하는지에 대한 제안을 포함시킴으로써
 토폴로지 인지 라우팅을 가능하게 한다. 
-이러한 접근은 엔드포인트슬라이스(EndpointSlice) 및 엔드포인트(Endpoint) 오브젝트의 소비자(consumer)가 이용할 수 있는 메타데이터를 추가하며, 
+이러한 접근은 엔드포인트슬라이스(EndpointSlice) 또는 엔드포인트(Endpoints) 오브젝트의 소비자(consumer)가 이용할 수 있는 메타데이터를 추가하며,
 이를 통해 해당 네트워크 엔드포인트로의 트래픽이 근원지에 더 가깝게 라우트될 수 있다.
 
 예를 들어, 비용을 줄이거나 네트워크 성능을 높이기 위해, 
 인접성을 고려하여 트래픽을 라우트할 수 있다.
-
-{{< note >}}
-"토폴로지 인지 힌트" 기능은 베타 단계이며 기본적으로 활성화되어 있지 **않다**. 
-이 기능을 사용해 보려면, 
-`TopologyAwareHints` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 한다.
-{{< /note >}}
 
 <!-- body -->
 
@@ -161,4 +159,4 @@ kube-proxy 구성요소는 엔드포인트슬라이스 컨트롤러가 설정한
 
 ## {{% heading "whatsnext" %}}
 
-* [서비스와 애플리케이션 연결하기](/ko/docs/concepts/services-networking/connect-applications-service/)를 읽어본다.
+* [서비스와 애플리케이션 연결하기](/ko/docs/tutorials/services/connect-applications-service/)를 따라하기.

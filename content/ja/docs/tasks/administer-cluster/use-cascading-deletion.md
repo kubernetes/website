@@ -139,7 +139,7 @@ kubectl delete deployment nginx-deployment --cascade=background
 
 ## オーナーオブジェクトの削除と従属オブジェクトの孤立 {#set-orphan-deletion-policy}
 
-デフォルトでは、Kubernetesにオブジェクトの削除を指示すると、{{<glossary_tooltip text="コントローラー" term_id="controller">}}は従属オブジェクトも削除します。クラスタが動作しているKubernetesのバージョンに応じて、`kubectl`またはKubernetes APIを使用して、これらの従属オブジェクトをKubernetesで*orphan*にすることができます。{{<version-check>}}
+デフォルトでは、Kubernetesにオブジェクトの削除を指示すると、{{<glossary_tooltip text="コントローラー" term_id="controller">}}は従属オブジェクトも削除します。クラスターが動作しているKubernetesのバージョンに応じて、`kubectl`またはKubernetes APIを使用して、これらの従属オブジェクトをKubernetesで*orphan*にすることができます。{{<version-check>}}
 
 **kubectlを使用する**
 

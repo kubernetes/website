@@ -1,7 +1,7 @@
 ---
 title: PodにQuality of Serviceを設定する
 content_type: task
-weight: 30
+weight: 60
 ---
 
 
@@ -48,7 +48,7 @@ PodにGuaranteedのQoSクラスを与えるには、以下が必要になりま�
 
 以下に1つのコンテナをもつPodの設定ファイルを示します。コンテナには200MiBのメモリー制限とリクエストを与え、700ミリCPUの制限と要求を与えます。
 
-{{< codenew file="pods/qos/qos-pod.yaml" >}}
+{{% codenew file="pods/qos/qos-pod.yaml" %}}
 
 Podを作成してください:
 
@@ -99,7 +99,7 @@ kubectl delete pod qos-demo --namespace=qos-example
 
 以下に1つのコンテナをもつPodの設定ファイルを示します。コンテナには200MiBのメモリー制限と100MiBのメモリー要求を与えます。
 
-{{< codenew file="pods/qos/qos-pod-2.yaml" >}}
+{{% codenew file="pods/qos/qos-pod-2.yaml" %}}
 
 Podを作成してください:
 
@@ -143,7 +143,7 @@ PodにBestEffort QoSクラスを与えるには、Pod内のコンテナにはメ
 
 以下に1つのコンテナをもつPodの設定ファイルを示します。コンテナにはメモリーやCPUの制限や要求がありません:
 
-{{< codenew file="pods/qos/qos-pod-3.yaml" >}}
+{{% codenew file="pods/qos/qos-pod-3.yaml" %}}
 
 Podを作成してください:
 
@@ -179,7 +179,7 @@ kubectl delete pod qos-demo-3 --namespace=qos-example
 
 以下に2つのコンテナをもつPodの設定ファイルを示します。一方のコンテナは200MiBのメモリー要求を指定し、もう一方のコンテナには要求や制限を指定しません。
 
-{{< codenew file="pods/qos/qos-pod-4.yaml" >}}
+{{% codenew file="pods/qos/qos-pod-4.yaml" %}}
 
 このPodがBurstable QoSクラスの基準を満たしていることに注目してください。つまり、Guaranteed QoSクラスの基準に満たしておらず、一方のコンテナにはメモリー要求を与えられています。
 

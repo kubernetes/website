@@ -1,7 +1,7 @@
 ---
 title: 명령줄 도구 (kubectl)
 content_type: reference
-weight: 60
+weight: 110
 no_list: true
 card:
   name: reference
@@ -101,7 +101,13 @@ kubectl은 자신이 클러스터 내부에서 실행되고 있다고 가정한�
 kubectl은 해당 서비스어카운트의 네임스페이스(파드의 네임스페이스와 동일하다)를 인식하고 해당 네임스페이스에 대해 동작한다.
 이는 클러스터 외부에서 실행되었을 때와는 다른데, 
 kubectl이 클러스터 외부에서 실행되었으며 네임스페이스가 명시되지 않은 경우 
-kubectl은 `default` 네임스페이스에 대해 동작한다.
+kubectl 명령어는 클라이언트 구성에서 현재 컨텍스트(current context)에
+설정된 네임스페이스에 대해 동작한다.
+kubectl이 동작하는 기본 네임스페이스를 변경하려면 아래의 명령어를 실행한다.
+
+```shell
+kubectl config set-context --current --namespace=<namespace-name>
+```
 
 ## 명령어
 
@@ -130,6 +136,7 @@ kubectl은 `default` 네임스페이스에 대해 동작한다.
 `diff`        | `kubectl diff -f FILENAME [flags]`| 라이브 구성에 대해 파일이나 표준입력의 차이점을 출력한다.
 `drain`    | `kubectl drain NODE [options]` | 유지 보수를 준비 중인 노드를 드레인한다.
 `edit`        | <code>kubectl edit (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [flags]</code> | 기본 편집기를 사용하여 서버에서 하나 이상의 리소스 정의를 편집하고 업데이트한다.
+`events`      | `kubectl events` | List events
 `exec`        | `kubectl exec POD [-c CONTAINER] [-i] [-t] [flags] [-- COMMAND [args...]]` | 파드의 컨테이너에 대해 명령을 실행한다.
 `explain`    | `kubectl explain  [--recursive=false] [flags]` | 파드, 노드, 서비스 등의 다양한 리소스에 대한 문서를 출력한다.
 `expose`        | <code>kubectl expose (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [--port=port] [--protocol=TCP&#124;UDP] [--target-port=number-or-name] [--name=name] [--external-ip=external-ip-of-service] [--type=type] [flags]</code> | 레플리케이션 컨트롤러, 서비스 또는 파드를 새로운 쿠버네티스 서비스로 노출한다.
@@ -159,66 +166,66 @@ kubectl은 `default` 네임스페이스에 대해 동작한다.
 
 다음 표에는 지원되는 모든 리소스 타입과 해당 약어가 나열되어 있다.
 
-(이 출력은 `kubectl api-resources` 에서 확인할 수 있으며, 쿠버네티스 1.19.1 에서의 출력을 기준으로 한다.)
+(이 출력은 `kubectl api-resources` 에서 확인할 수 있으며, 쿠버네티스 1.25.0 에서의 출력을 기준으로 한다.)
 
-| NAME | SHORTNAMES | APIGROUP | NAMESPACED | KIND |
+| NAME | SHORTNAMES | APIVERSION | NAMESPACED | KIND |
 |---|---|---|---|---|
-| `bindings` | | | true | Binding |
-| `componentstatuses` | `cs` | | false | ComponentStatus |
-| `configmaps` | `cm` | | true | ConfigMap |
-| `endpoints` | `ep` | | true | Endpoints |
-| `events` | `ev` | | true | Event |
-| `limitranges` | `limits` | | true | LimitRange |
-| `namespaces` | `ns` | | false | Namespace |
-| `nodes` | `no` | | false | Node |
-| `persistentvolumeclaims` | `pvc` | | true | PersistentVolumeClaim |
-| `persistentvolumes` | `pv` | | false | PersistentVolume |
-| `pods` | `po` | | true | Pod |
-| `podtemplates` | | | true | PodTemplate |
-| `replicationcontrollers` | `rc` | | true | ReplicationController |
-| `resourcequotas` | `quota` | | true | ResourceQuota |
-| `secrets` | | | true | Secret |
-| `serviceaccounts` | `sa` | | true | ServiceAccount |
-| `services` | `svc` | | true | Service |
-| `mutatingwebhookconfigurations` | | admissionregistration.k8s.io | false | MutatingWebhookConfiguration |
-| `validatingwebhookconfigurations` | | admissionregistration.k8s.io | false | ValidatingWebhookConfiguration |
-| `customresourcedefinitions` | `crd,crds` | apiextensions.k8s.io | false |  CustomResourceDefinition |
-| `apiservices` | | apiregistration.k8s.io | false | APIService |
-| `controllerrevisions` | | apps | true | ControllerRevision |
-| `daemonsets` | `ds` | apps | true | DaemonSet |
-| `deployments` | `deploy` | apps | true | Deployment |
-| `replicasets` | `rs` | apps | true | ReplicaSet |
-| `statefulsets` | `sts` | apps | true | StatefulSet |
-| `tokenreviews` | | authentication.k8s.io | false | TokenReview |
-| `localsubjectaccessreviews` | | authorization.k8s.io | true | LocalSubjectAccessReview |
-| `selfsubjectaccessreviews` | | authorization.k8s.io | false | SelfSubjectAccessReview |
-| `selfsubjectrulesreviews` | | authorization.k8s.io | false | SelfSubjectRulesReview |
-| `subjectaccessreviews` | | authorization.k8s.io | false | SubjectAccessReview |
-| `horizontalpodautoscalers` | `hpa` | autoscaling | true | HorizontalPodAutoscaler |
-| `cronjobs` | `cj` | batch | true | CronJob |
-| `jobs` | | batch | true | Job |
-| `certificatesigningrequests` | `csr` | certificates.k8s.io | false | CertificateSigningRequest |
-| `leases` | | coordination.k8s.io | true | Lease |
-| `endpointslices` |  | discovery.k8s.io | true | EndpointSlice |
-| `events` | `ev` | events.k8s.io | true | Event |
-| `ingresses` | `ing` | extensions | true | Ingress |
-| `flowschemas` |  | flowcontrol.apiserver.k8s.io | false | FlowSchema |
-| `prioritylevelconfigurations` |  | flowcontrol.apiserver.k8s.io | false | PriorityLevelConfiguration |
-| `ingressclasses` |  | networking.k8s.io | false | IngressClass |
-| `ingresses` | `ing` | networking.k8s.io | true | Ingress |
-| `networkpolicies` | `netpol` | networking.k8s.io | true | NetworkPolicy |
-| `runtimeclasses` |  | node.k8s.io | false | RuntimeClass |
-| `poddisruptionbudgets` | `pdb` | policy | true | PodDisruptionBudget |
-| `podsecuritypolicies` | `psp` | policy | false | PodSecurityPolicy |
-| `clusterrolebindings` | | rbac.authorization.k8s.io | false | ClusterRoleBinding |
-| `clusterroles` | | rbac.authorization.k8s.io | false | ClusterRole |
-| `rolebindings` | | rbac.authorization.k8s.io | true | RoleBinding |
-| `roles` | | rbac.authorization.k8s.io | true | Role |
-| `priorityclasses` | `pc` | scheduling.k8s.io | false | PriorityClass |
-| `csidrivers` | | storage.k8s.io | false | CSIDriver |
-| `csinodes` | | storage.k8s.io | false | CSINode |
-| `storageclasses` | `sc` | storage.k8s.io | false | StorageClass |
-| `volumeattachments` | | storage.k8s.io | false | VolumeAttachment |
+| `bindings` |  | v1 | true | Binding |
+| `componentstatuses` | `cs` | v1 | false | ComponentStatus |
+| `configmaps` | `cm` | v1 | true | ConfigMap |
+| `endpoints` | `ep` | v1 | true | Endpoints |
+| `events` | `ev` | v1 | true | Event |
+| `limitranges` | `limits` | v1 | true | LimitRange |
+| `namespaces` | `ns` | v1 | false | Namespace |
+| `nodes` | `no` | v1 | false | Node |
+| `persistentvolumeclaims` | `pvc` | v1 | true | PersistentVolumeClaim |
+| `persistentvolumes` | `pv` | v1 | false | PersistentVolume |
+| `pods` | `po` | v1 | true | Pod |
+| `podtemplates` |  | v1 | true | PodTemplate |
+| `replicationcontrollers` | `rc` | v1 | true | ReplicationController |
+| `resourcequotas` | `quota` | v1 | true | ResourceQuota |
+| `secrets` |  | v1 | true | Secret |
+| `serviceaccounts` | `sa` | v1 | true | ServiceAccount |
+| `services` | `svc` | v1 | true | Service |
+| `mutatingwebhookconfigurations` |  | admissionregistration.k8s.io/v1 | false | MutatingWebhookConfiguration |
+| `validatingwebhookconfigurations` |  | admissionregistration.k8s.io/v1 | false | ValidatingWebhookConfiguration |
+| `customresourcedefinitions` | `crd,crds` | apiextensions.k8s.io/v1 | false | CustomResourceDefinition |
+| `apiservices` |  | apiregistration.k8s.io/v1 | false | APIService |
+| `controllerrevisions` |  | apps/v1 | true | ControllerRevision |
+| `daemonsets` | `ds` | apps/v1 | true | DaemonSet |
+| `deployments` | `deploy` | apps/v1 | true | Deployment |
+| `replicasets` | `rs` | apps/v1 | true | ReplicaSet |
+| `statefulsets` | `sts` | apps/v1 | true | StatefulSet |
+| `tokenreviews` |  | authentication.k8s.io/v1 | false | TokenReview |
+| `localsubjectaccessreviews` |  | authorization.k8s.io/v1 | true | LocalSubjectAccessReview |
+| `selfsubjectaccessreviews` |  | authorization.k8s.io/v1 | false | SelfSubjectAccessReview |
+| `selfsubjectrulesreviews` |  | authorization.k8s.io/v1 | false | SelfSubjectRulesReview |
+| `subjectaccessreviews` |  | authorization.k8s.io/v1 | false | SubjectAccessReview |
+| `horizontalpodautoscalers` | `hpa` | autoscaling/v2 | true | HorizontalPodAutoscaler |
+| `cronjobs` | `cj` | batch/v1 | true | CronJob |
+| `jobs` |  | batch/v1 | true | Job |
+| `certificatesigningrequests` | `csr` | certificates.k8s.io/v1 | false | CertificateSigningRequest |
+| `leases` |  | coordination.k8s.io/v1 | true | Lease |
+| `endpointslices` |  | discovery.k8s.io/v1 | true | EndpointSlice |
+| `events` | `ev` | events.k8s.io/v1 | true | Event |
+| `flowschemas` |  | flowcontrol.apiserver.k8s.io/v1beta2 | false | FlowSchema |
+| `prioritylevelconfigurations` |  | flowcontrol.apiserver.k8s.io/v1beta2 | false | PriorityLevelConfiguration |
+| `ingressclasses` |  | networking.k8s.io/v1 | false | IngressClass |
+| `ingresses` | `ing` | networking.k8s.io/v1 | true | Ingress |
+| `networkpolicies` | `netpol` | networking.k8s.io/v1 | true | NetworkPolicy |
+| `runtimeclasses` |  | node.k8s.io/v1 | false | RuntimeClass |
+| `poddisruptionbudgets` | `pdb` | policy/v1 | true | PodDisruptionBudget |
+| `podsecuritypolicies` | `psp` | policy/v1beta1 | false | PodSecurityPolicy |
+| `clusterrolebindings` |  | rbac.authorization.k8s.io/v1 | false | ClusterRoleBinding |
+| `clusterroles` |  | rbac.authorization.k8s.io/v1 | false | ClusterRole |
+| `rolebindings` |  | rbac.authorization.k8s.io/v1 | true | RoleBinding |
+| `roles` |  | rbac.authorization.k8s.io/v1 | true | Role |
+| `priorityclasses` | `pc` | scheduling.k8s.io/v1 | false | PriorityClass |
+| `csidrivers` |  | storage.k8s.io/v1 | false | CSIDriver |
+| `csinodes` |  | storage.k8s.io/v1 | false | CSINode |
+| `csistoragecapacities` |  | storage.k8s.io/v1 | true | CSIStorageCapacity |
+| `storageclasses` | `sc` | storage.k8s.io/v1 | false | StorageClass |
+| `volumeattachments` |  | storage.k8s.io/v1 | false | VolumeAttachment |
 
 ## 출력 옵션
 

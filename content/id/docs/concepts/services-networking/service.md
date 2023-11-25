@@ -828,7 +828,7 @@ _Value_ dari `externalIP` tidak diatur oleh Kubernetes dan merupakan tanggung ja
 dari administrator klaster.
 
 Pada _ServiceSpec_, kamu dapat memberikan spesifikasi `externalIP` dan `ServiceTypes`.
-Pada contoh di bawah ini. `"my-service"` dapat diakses oleh klien pada "`80.11.12.10:80`" (`externalIP:port`).
+Pada contoh di bawah ini. `"my-service"` dapat diakses oleh klien pada "`198.51.100.32:80`" (`externalIP:port`).
 
 ```yaml
 kind: Service

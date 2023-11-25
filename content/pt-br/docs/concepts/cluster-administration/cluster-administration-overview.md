@@ -1,7 +1,4 @@
 ---
-reviewers:
-- davidopp
-- lavalamp
 title: Visão Geral da Administração de Cluster
 content_type: concept
 weight: 10

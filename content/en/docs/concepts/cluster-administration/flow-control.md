@@ -107,19 +107,18 @@ objects mentioned below.
 ### Seats Occupied by a Request
 
 The above description of concurrency management is the baseline story.
-In it, requests have different durations but are counted equally at
-any given moment when comparing against a priority level's concurrency
-limit. In the baseline story, each request occupies one unit of
-concurrency. The word "seat" is used to mean one unit of concurrency,
-inspired by the way each passenger on a train or aircraft takes up one
-of the fixed supply of seats.
+Requests have different durations but are counted equally at any given
+moment when comparing against a priority level's concurrency limit. In
+the baseline story, each request occupies one unit of concurrency. The
+word "seat" is used to mean one unit of concurrency, inspired by the
+way each passenger on a train or aircraft takes up one of the fixed
+supply of seats.
 
 But some requests take up more than one seat.  Some of these are **list**
 requests that the server estimates will return a large number of
 objects.  These have been found to put an exceptionally heavy burden
-on the server, among requests that take a similar amount of time to
-run.  For this reason, the server estimates the number of objects that
-will be returned and considers the request to take a number of seats
+on the server.  For this reason, the server estimates the number of objects
+that will be returned and considers the request to take a number of seats
 that is proportional to that estimated number.
 
 ### Execution time tweaks for watch requests
@@ -194,7 +193,7 @@ A PriorityLevelConfiguration represents a single priority level. Each
 PriorityLevelConfiguration has an independent limit on the number of outstanding
 requests, and limitations on the number of queued requests.
 
-The nominal oncurrency limit for a PriorityLevelConfiguration is not
+The nominal concurrency limit for a PriorityLevelConfiguration is not
 specified in an absolute number of seats, but rather in "nominal
 concurrency shares." The total concurrency limit for the API Server is
 distributed among the existing PriorityLevelConfigurations in
@@ -294,10 +293,9 @@ HandSize | Queues | 1 elephant | 4 elephants | 16 elephants
 ### FlowSchema
 
 A FlowSchema matches some inbound requests and assigns them to a
-priority level. Every inbound request is tested against every
-FlowSchema in turn, starting with those with numerically lowest ---
-which we take to be the logically highest --- `matchingPrecedence` and
-working onward.  The first match wins.
+priority level. Every inbound request is tested against FlowSchemas,
+starting with those with the numerically lowest `matchingPrecedence` and
+working upward. The first match wins.
 
 {{< caution >}}
 Only the first matching FlowSchema for a given request matters. If multiple
@@ -311,7 +309,7 @@ ensure that no two FlowSchemas have the same `matchingPrecedence`.
 A FlowSchema matches a given request if at least one of its `rules`
 matches. A rule matches if at least one of its `subjects` *and* at least
 one of its `resourceRules` or `nonResourceRules` (depending on whether the
-incoming request is for a resource or non-resource URL) matches the request.
+incoming request is for a resource or non-resource URL) match the request.
 
 For the `name` field in subjects, and the `verbs`, `apiGroups`, `resources`,
 `namespaces`, and `nonResourceURLs` fields of resource and non-resource rules,
@@ -319,12 +317,11 @@ the wildcard `*` may be specified to match all values for the given field,
 effectively removing it from consideration.
 
 A FlowSchema's `distinguisherMethod.type` determines how requests matching that
-schema will be separated into flows. It may be
-either `ByUser`, in which case one requesting user will not be able to starve
-other users of capacity, or `ByNamespace`, in which case requests for resources
-in one namespace will not be able to starve requests for resources in other
-namespaces of capacity, or it may be blank (or `distinguisherMethod` may be
-omitted entirely), in which case all requests matched by this FlowSchema will be
+schema will be separated into flows. It may be `ByUser`, in which one requesting
+user will not be able to starve other users of capacity; `ByNamespace`, in which
+requests for resources in one namespace will not be able to starve requests for
+resources in other namespaces of capacity; or blank (or `distinguisherMethod` may be
+omitted entirely), in which all requests matched by this FlowSchema will be
 considered part of a single flow. The correct choice for a given FlowSchema
 depends on the resource and your particular environment.
 
@@ -434,7 +431,7 @@ for an annotation with key `apf.kubernetes.io/autoupdate-spec`.  If
 there is such an annotation and its value is `true` then the
 kube-apiservers control the object.  If there is such an annotation
 and its value is `false` then the users control the object.  If
-neither of those condtions holds then the `metadata.generation` of the
+neither of those conditions holds then the `metadata.generation` of the
 object is consulted.  If that is 1 then the kube-apiservers control
 the object.  Otherwise the users control the object.  These rules were
 introduced in release 1.22 and their consideration of
@@ -473,24 +470,7 @@ traffic, you can configure rules to block any health check requests
 that originate from outside your cluster.
 {{< /caution >}}
 
-{{< codenew file="priority-and-fairness/health-for-strangers.yaml" >}}
-
-## Diagnostics
-
-Every HTTP response from an API server with the priority and fairness feature
-enabled has two extra headers: `X-Kubernetes-PF-FlowSchema-UID` and
-`X-Kubernetes-PF-PriorityLevel-UID`, noting the flow schema that matched the request
-and the priority level to which it was assigned, respectively. The API objects'
-names are not included in these headers in case the requesting user does not
-have permission to view them, so when debugging you can use a command like
-
-```shell
-kubectl get flowschemas -o custom-columns="uid:{metadata.uid},name:{metadata.name}"
-kubectl get prioritylevelconfigurations -o custom-columns="uid:{metadata.uid},name:{metadata.name}"
-```
-
-to get a mapping of UIDs to names for both FlowSchemas and
-PriorityLevelConfigurations.
+{{% code_sample file="priority-and-fairness/health-for-strangers.yaml" %}}
 
 ## Observability
 
@@ -508,18 +488,20 @@ exports additional metrics. Monitoring these can help you determine whether your
 configuration is inappropriately throttling important traffic, or find
 poorly-behaved workloads that may be harming system health.
 
+#### Maturity level BETA
+
 * `apiserver_flowcontrol_rejected_requests_total` is a counter vector
   (cumulative since server start) of requests that were rejected,
   broken down by the labels `flow_schema` (indicating the one that
   matched the request), `priority_level` (indicating the one to which
   the request was assigned), and `reason`.  The `reason` label will be
-  have one of the following values:
+  one of the following values:
 
   * `queue-full`, indicating that too many requests were already
-    queued,
+    queued.
   * `concurrency-limit`, indicating that the
     PriorityLevelConfiguration is configured to reject rather than
-    queue excess requests, or
+    queue excess requests.
   * `time-out`, indicating that the request was still in the queue
     when its queuing time limit expired.
   * `cancelled`, indicating that the request is not purge locked
@@ -527,9 +509,38 @@ poorly-behaved workloads that may be harming system health.
 
 * `apiserver_flowcontrol_dispatched_requests_total` is a counter
   vector (cumulative since server start) of requests that began
-  executing, broken down by the labels `flow_schema` (indicating the
-  one that matched the request) and `priority_level` (indicating the
-  one to which the request was assigned).
+  executing, broken down by `flow_schema` and `priority_level`.
+
+* `apiserver_flowcontrol_current_inqueue_requests` is a gauge vector
+  holding the instantaneous number of queued (not executing) requests,
+  broken down by `priority_level` and `flow_schema`.
+
+* `apiserver_flowcontrol_current_executing_requests` is a gauge vector
+  holding the instantaneous number of executing (not waiting in a
+  queue) requests, broken down by `priority_level` and `flow_schema`.
+
+* `apiserver_flowcontrol_current_executing_seats` is a gauge vector
+  holding the instantaneous number of occupied seats, broken down by
+  `priority_level` and `flow_schema`.
+
+* `apiserver_flowcontrol_request_wait_duration_seconds` is a histogram
+  vector of how long requests spent queued, broken down by the labels
+  `flow_schema`, `priority_level`, and `execute`. The `execute` label
+  indicates whether the request has started executing.
+
+  {{< note >}}
+  Since each FlowSchema always assigns requests to a single
+  PriorityLevelConfiguration, you can add the histograms for all the
+  FlowSchemas for one priority level to get the effective histogram for
+  requests assigned to that priority level.
+  {{< /note >}}
+
+* `apiserver_flowcontrol_nominal_limit_seats` is a gauge vector
+  holding each priority level's nominal concurrency limit, computed
+  from the API server's total concurrency limit and the priority
+  level's configured nominal concurrency shares.
+
+#### Maturity level ALPHA
 
 * `apiserver_current_inqueue_requests` is a gauge vector of recent
   high water marks of the number of queued requests, grouped by a
@@ -540,28 +551,23 @@ poorly-behaved workloads that may be harming system health.
   last window's high water mark of number of requests actively being
   served.
 
+* `apiserver_current_inqueue_seats` is a gauge vector of the sum over
+  queued requests of the largest number of seats each will occupy,
+  grouped by labels named `flow_schema` and `priority_level`.
+
 * `apiserver_flowcontrol_read_vs_write_current_requests` is a
   histogram vector of observations, made at the end of every
   nanosecond, of the number of requests broken down by the labels
   `phase` (which takes on the values `waiting` and `executing`) and
   `request_kind` (which takes on the values `mutating` and
-  `readOnly`).  Each observed value is a ratio, between 0 and 1, of a
-  number of requests divided by the corresponding limit on the number
-  of requests (queue volume limit for waiting and concurrency limit
-  for executing).
-
-* `apiserver_flowcontrol_current_inqueue_requests` is a gauge vector
-  holding the instantaneous number of queued (not executing) requests,
-  broken down by the labels `priority_level` and `flow_schema`.
-
-* `apiserver_flowcontrol_current_executing_requests` is a gauge vector
-  holding the instantaneous number of executing (not waiting in a
-  queue) requests, broken down by the labels `priority_level` and
-  `flow_schema`.
+  `readOnly`).  Each observed value is a ratio, between 0 and 1, of
+  the number of requests divided by the corresponding limit on the
+  number of requests (queue volume limit for waiting and concurrency
+  limit for executing).
 
 * `apiserver_flowcontrol_request_concurrency_in_use` is a gauge vector
   holding the instantaneous number of occupied seats, broken down by
-  the labels `priority_level` and `flow_schema`.
+  `priority_level` and `flow_schema`.
 
 * `apiserver_flowcontrol_priority_level_request_utilization` is a
   histogram vector of observations, made at the end of each
@@ -587,11 +593,10 @@ poorly-behaved workloads that may be harming system health.
 
 * `apiserver_flowcontrol_request_queue_length_after_enqueue` is a
   histogram vector of queue lengths for the queues, broken down by
-  the labels `priority_level` and `flow_schema`, as sampled by the
-  enqueued requests.  Each request that gets queued contributes one
-  sample to its histogram, reporting the length of the queue immediately
-  after the request was added.  Note that this produces different
-  statistics than an unbiased survey would.
+  `priority_level` and `flow_schema`, as sampled by the enqueued requests.
+  Each request that gets queued contributes one sample to its histogram,
+  reporting the length of the queue immediately after the request was added.
+  Note that this produces different statistics than an unbiased survey would.
 
   {{< note >}}
   An outlier value in a histogram here means it is likely that a single flow
@@ -607,11 +612,6 @@ poorly-behaved workloads that may be harming system health.
   introduction of concurrency borrowing between priority levels, this
   was always equal to `apiserver_flowcontrol_current_limit_seats`
   (which did not exist as a distinct metric).
-
-* `apiserver_flowcontrol_nominal_limit_seats` is a gauge vector
-  holding each priority level's nominal concurrency limit, computed
-  from the API server's total concurrency limit and the priority
-  level's configured nominal concurrency shares.
 
 * `apiserver_flowcontrol_lower_limit_seats` is a gauge vector holding
   the lower bound on each priority level's dynamic concurrency limit.
@@ -655,26 +655,9 @@ poorly-behaved workloads that may be harming system health.
   holding, for each priority level, the dynamic concurrency limit
   derived in the last adjustment.
 
-
-* `apiserver_flowcontrol_request_wait_duration_seconds` is a histogram
-  vector of how long requests spent queued, broken down by the labels
-  `flow_schema` (indicating which one matched the request),
-  `priority_level` (indicating the one to which the request was
-  assigned), and `execute` (indicating whether the request started
-  executing).
-
-  {{< note >}}
-  Since each FlowSchema always assigns requests to a single
-  PriorityLevelConfiguration, you can add the histograms for all the
-  FlowSchemas for one priority level to get the effective histogram for
-  requests assigned to that priority level.
-  {{< /note >}}
-
 * `apiserver_flowcontrol_request_execution_seconds` is a histogram
   vector of how long requests took to actually execute, broken down by
-  the labels `flow_schema` (indicating which one matched the request)
-  and `priority_level` (indicating the one to which the request was
-  assigned).
+  `flow_schema` and `priority_level`.
 
 * `apiserver_flowcontrol_watch_count_samples` is a histogram vector of
   the number of active WATCH requests relevant to a given write,
@@ -686,120 +669,133 @@ poorly-behaved workloads that may be harming system health.
   and `priority_level`.
 
 * `apiserver_flowcontrol_request_dispatch_no_accommodation_total` is a
-  counter vec of the number of events that in principle could have led
+  counter vector of the number of events that in principle could have led
   to a request being dispatched but did not, due to lack of available
-  concurrency, broken down by `flow_schema` and `priority_level`.  The
-  relevant sorts of events are arrival of a request and completion of
-  a request.
+  concurrency, broken down by `flow_schema` and `priority_level`.
 
-### Debug endpoints
+* `apiserver_flowcontrol_epoch_advance_total` is a counter vector of
+  the number of attempts to jump a priority level's progress meter
+  backward to avoid numeric overflow, grouped by `priority_level` and
+  `success`.
 
-When you enable the API Priority and Fairness feature, the `kube-apiserver`
-serves the following additional paths at its HTTP[S] ports.
+## Good practices for using API Priority and Fairness
 
-- `/debug/api_priority_and_fairness/dump_priority_levels` - a listing of
-  all the priority levels and the current state of each.  You can fetch like this:
+When a given priority level exceeds its permitted concurrency, requests can
+experience increased latency or be dropped with an HTTP 429 (Too Many Requests)
+error. To prevent these side effects of APF, you can modify your workload or
+tweak your APF settings to ensure there are sufficient seats available to serve
+your requests.
 
-  ```shell
-  kubectl get --raw /debug/api_priority_and_fairness/dump_priority_levels
-  ```
+To detect whether requests are being rejected due to APF, check the following
+metrics:
 
-  The output is similar to this:
+- apiserver_flowcontrol_rejected_requests_total: the total number of requests
+  rejected per FlowSchema and PriorityLevelConfiguration.
+- apiserver_flowcontrol_current_inqueue_requests: the current number of requests
+  queued per FlowSchema and PriorityLevelConfiguration.
+- apiserver_flowcontrol_request_wait_duration_seconds: the latency added to
+  requests waiting in queues.
+- apiserver_flowcontrol_priority_level_seat_utilization: the seat utilization
+  per PriorityLevelConfiguration.
 
-  ```none
-  PriorityLevelName, ActiveQueues, IsIdle, IsQuiescing, WaitingRequests, ExecutingRequests, DispatchedRequests, RejectedRequests, TimedoutRequests, CancelledRequests
-  catch-all,         0,            true,   false,       0,               0,                 1,                  0,                0,                0
-  exempt,            <none>,       <none>, <none>,      <none>,          <none>,            <none>,             <none>,           <none>,           <none>
-  global-default,    0,            true,   false,       0,               0,                 46,                 0,                0,                0
-  leader-election,   0,            true,   false,       0,               0,                 4,                  0,                0,                0
-  node-high,         0,            true,   false,       0,               0,                 34,                 0,                0,                0
-  system,            0,            true,   false,       0,               0,                 48,                 0,                0,                0
-  workload-high,     0,            true,   false,       0,               0,                 500,                0,                0,                0
-  workload-low,      0,            true,   false,       0,               0,                 0,                  0,                0,                0
-  ```
+### Workload modifications {#good-practice-workload-modifications}
 
-- `/debug/api_priority_and_fairness/dump_queues` - a listing of all the
-  queues and their current state.  You can fetch like this:
+To prevent requests from queuing and adding latency or being dropped due to APF,
+you can optimize your requests by:
 
-  ```shell
-  kubectl get --raw /debug/api_priority_and_fairness/dump_queues
-  ```
+- Reducing the rate at which requests are executed. A fewer number of requests
+  over a fixed period will result in a fewer number of seats being needed at a
+  given time.
+- Avoid issuing a large number of expensive requests concurrently. Requests can
+  be optimized to use fewer seats or have lower latency so that these requests
+  hold those seats for a shorter duration. List requests can occupy more than 1
+  seat depending on the number of objects fetched during the request. Restricting
+  the number of objects retrieved in a list request, for example by using
+  pagination, will use less total seats over a shorter period. Furthermore,
+  replacing list requests with watch requests will require lower total concurrency
+  shares as watch requests only occupy 1 seat during its initial burst of
+  notifications. If using streaming lists in versions 1.27 and later, watch
+  requests will occupy the same number of seats as a list request for its initial
+  burst of notifications because the entire state of the collection has to be
+  streamed. Note that in both cases, a watch request will not hold any seats after
+  this initial phase.
 
-  The output is similar to this:
+Keep in mind that queuing or rejected requests from APF could be induced by
+either an increase in the number of requests or an increase in latency for
+existing requests. For example, if requests that normally take 1s to execute
+start taking 60s, it is possible that APF will start rejecting requests because
+requests are occupying seats for a longer duration than normal due to this
+increase in latency. If APF starts rejecting requests across multiple priority
+levels without a significant change in workload, it is possible there is an
+underlying issue with control plane performance rather than the workload or APF
+settings.
 
-  ```none
-  PriorityLevelName, Index,  PendingRequests, ExecutingRequests, VirtualStart,
-  workload-high,     0,      0,               0,                 0.0000,
-  workload-high,     1,      0,               0,                 0.0000,
-  workload-high,     2,      0,               0,                 0.0000,
-  ...
-  leader-election,   14,     0,               0,                 0.0000,
-  leader-election,   15,     0,               0,                 0.0000,
-  ```
+### Priority and fairness settings {#good-practice-apf-settings}
 
-- `/debug/api_priority_and_fairness/dump_requests` - a listing of all the requests
-  that are currently waiting in a queue.  You can fetch like this:
+You can also modify the default FlowSchema and PriorityLevelConfiguration
+objects or create new objects of these types to better accommodate your
+workload.
 
-  ```shell
-  kubectl get --raw /debug/api_priority_and_fairness/dump_requests
-  ```
+APF settings can be modified to:
 
-  The output is similar to this:
+- Give more seats to high priority requests.
+- Isolate non-essential or expensive requests that would starve a concurrency
+  level if it was shared with other flows.
 
-  ```none
-  PriorityLevelName, FlowSchemaName, QueueIndex, RequestIndexInQueue, FlowDistingsher,       ArriveTime,
-  exempt,            <none>,         <none>,     <none>,              <none>,                <none>,
-  system,            system-nodes,   12,         0,                   system:node:127.0.0.1, 2020-07-23T15:26:57.179170694Z,
-  ```
-  
-  In addition to the queued requests, the output includes one phantom line
-  for each priority level that is exempt from limitation.
+#### Give more seats to high priority requests
 
-  You can get a more detailed listing with a command like this:
+1. If possible, the number of seats available across all priority levels for a
+   particular `kube-apiserver` can be increased by increasing the values for the
+   `max-requests-inflight` and `max-mutating-requests-inflight` flags. Alternatively,
+   horizontally scaling the number of `kube-apiserver` instances will increase the
+   total concurrency per priority level across the cluster assuming there is
+   sufficient load balancing of requests.
+1. You can create a new FlowSchema which references a PriorityLevelConfiguration
+   with a larger concurrency level. This new PriorityLevelConfiguration could be an
+   existing level or a new level with its own set of nominal concurrency shares.
+   For example, a new FlowSchema could be introduced to change the
+   PriorityLevelConfiguration for your requests from global-default to workload-low
+   to increase the number of seats available to your user. Creating a new
+   PriorityLevelConfiguration will reduce the number of seats designated for
+   existing levels. Recall that editing a default FlowSchema or
+   PriorityLevelConfiguration will require setting the
+   `apf.kubernetes.io/autoupdate-spec` annotation to false.
+1. You can also increase the NominalConcurrencyShares for the
+   PriorityLevelConfiguration which is serving your high priority requests.
+   Alternatively, for versions 1.26 and later, you can increase the LendablePercent
+   for competing priority levels so that the given priority level has a higher pool
+   of seats it can borrow.
 
-  ```shell
-  kubectl get --raw '/debug/api_priority_and_fairness/dump_requests?includeRequestDetails=1'
-  ```
+#### Isolate non-essential requests from starving other flows
 
-  The output is similar to this:
+For request isolation, you can create a FlowSchema whose subject matches the
+user making these requests or create a FlowSchema that matches what the request
+is (corresponding to the resourceRules). Next, you can map this FlowSchema to a
+PriorityLevelConfiguration with a low share of seats.
 
-  ```none
-  PriorityLevelName, FlowSchemaName, QueueIndex, RequestIndexInQueue, FlowDistingsher,       ArriveTime,                     UserName,              Verb,   APIPath,                                                     Namespace, Name,   APIVersion, Resource, SubResource,
-  system,            system-nodes,   12,         0,                   system:node:127.0.0.1, 2020-07-23T15:31:03.583823404Z, system:node:127.0.0.1, create, /api/v1/namespaces/scaletest/configmaps,
-  system,            system-nodes,   12,         1,                   system:node:127.0.0.1, 2020-07-23T15:31:03.594555947Z, system:node:127.0.0.1, create, /api/v1/namespaces/scaletest/configmaps,
-  ```
+For example, suppose list event requests from Pods running in the default namespace
+are using 10 seats each and execute for 1 minute. To prevent these expensive
+requests from impacting requests from other Pods using the existing service-accounts
+FlowSchema, you can apply the following FlowSchema to isolate these list calls
+from other requests.
 
-### Debug logging
+Example FlowSchema object to isolate list event requests:
 
-At `-v=3` or more verbose the server outputs an httplog line for every
-request, and it includes the following attributes.
+{{% code_sample file="priority-and-fairness/list-events-default-service-account.yaml" %}}
 
-- `apf_fs`: the name of the flow schema to which the request was classified.
-- `apf_pl`: the name of the priority level for that flow schema.
-- `apf_iseats`: the number of seats determined for the initial
-  (normal) stage of execution of the request.
-- `apf_fseats`: the number of seats determined for the final stage of
-  execution (accounting for the associated WATCH notifications) of the
-  request.
-- `apf_additionalLatency`: the duration of the final stage of
-  execution of the request.
-
-At higher levels of verbosity there will be log lines exposing details
-of how APF handled the request, primarily for debug purposes.
-
-### Response headers
-
-APF adds the following two headers to each HTTP response message.
-
-- `X-Kubernetes-PF-FlowSchema-UID` holds the UID of the FlowSchema
-  object to which the corresponding request was classified.
-- `X-Kubernetes-PF-PriorityLevel-UID` holds the UID of the
-  PriorityLevelConfiguration object associated with that FlowSchema.
+- This FlowSchema captures all list event calls made by the default service
+  account in the default namespace. The matching precedence 8000 is lower than the
+  value of 9000 used by the existing service-accounts FlowSchema so these list
+  event calls will match list-events-default-service-account rather than
+  service-accounts.
+- The catch-all PriorityLevelConfiguration is used to isolate these requests.
+  The catch-all priority level has a very small concurrency share and does not
+  queue requests.
 
 ## {{% heading "whatsnext" %}}
 
-
-For background information on design details for API priority and fairness, see
+- You can visit flow control [reference doc](/docs/reference/debug-cluster/flow-control/) to learn more about troubleshooting.
+- For background information on design details for API priority and fairness, see
 the [enhancement proposal](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1040-priority-and-fairness).
-You can make suggestions and feature requests via [SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery) 
+- You can make suggestions and feature requests via [SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery)
 or the feature's [slack channel](https://kubernetes.slack.com/messages/api-priority-and-fairness).

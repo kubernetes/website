@@ -41,7 +41,7 @@ FOO_SERVICE_HOST=<хост, на котором запущен сервис>
 FOO_SERVICE_PORT=<порт, на котором запущен сервис>
 ```
 
-Сервисы получают выделенные IP-адреса и доступны для контейнера через DNS, если включен [аддон DNS](https://releases.k8s.io/{{< param "fullversion" >}}/cluster/addons/dns/). 
+Сервисы получают выделенные IP-адреса и доступны для контейнера через DNS, если включен [аддон DNS](https://releases.k8s.io/v{{< skew currentPatchVersion >}}/cluster/addons/dns/). 
 
 
 ## {{% heading "whatsnext" %}}

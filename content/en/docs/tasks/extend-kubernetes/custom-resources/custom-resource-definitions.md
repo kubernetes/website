@@ -387,7 +387,7 @@ Notice that the field `someRandomField` was pruned.
 
 This example turned off client-side validation to demonstrate the API server's behavior, by adding
 the `--validate=false` command line option.
-Because the [OpenAPI validation schemas are also published](#publish-validation-schema-in-openapi-v2)
+Because the [OpenAPI validation schemas are also published](#publish-validation-schema-in-openapi)
 to clients, `kubectl` also checks for unknown fields and rejects those objects well before they
 would be sent to the API server.
 
@@ -501,7 +501,7 @@ allOf:
 
 With one of those specification, both an integer and a string validate.
 
-In [Validation Schema Publishing](#publish-validation-schema-in-openapi-v2),
+In [Validation Schema Publishing](#publish-validation-schema-in-openapi),
 `x-kubernetes-int-or-string: true` is unfolded to one of the two patterns shown above.
 
 ### RawExtension
@@ -717,8 +717,59 @@ And create it:
 kubectl apply -f my-crontab.yaml
 crontab "my-new-cron-object" created
 ```
+### Validation ratcheting
 
-## Validation rules
+{{< feature-state state="alpha" for_k8s_version="v1.28" >}}
+
+You need to enable the `CRDValidationRatcheting`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
+use this behavior, which then applies to all CustomResourceDefinitions in your
+cluster.
+
+Provided you enabled the feature gate, Kubernetes implements _validation racheting_
+for CustomResourceDefinitions. The API server is willing to accept updates to resources that
+are not valid after the update, provided that each part of the resource that failed to validate
+was not changed by the update operation. In other words, any invalid part of the resource
+that remains invalid must have already been wrong.
+You cannot use this mechanism to update a valid resource so that it becomes invalid.
+
+This feature allows authors of CRDs to confidently add new validations to the
+OpenAPIV3 schema under certain conditions. Users can update to the new schema
+safely without bumping the version of the object or breaking workflows.
+
+While most validations placed in the OpenAPIV3 schema of a CRD support
+ratcheting, there are a few exceptions. The following OpenAPIV3 schema 
+validations are not supported by ratcheting under the implementation in Kubernetes
+{{< skew currentVersion >}} and if violated will continue to throw an error as normally:
+
+- Quantors
+  - `allOf`
+  - `oneOf`
+  - `anyOf`
+  - `not`
+  -  any validations in a descendent of one of these fields
+- `x-kubernetes-validations`
+  For Kubernetes {{< skew currentVersion >}}, CRD validation rules](#validation-rules) are ignored by
+  ratcheting. This may change in later Kubernetes releases.
+- `x-kubernetes-list-type`
+  Errors arising from changing the list type of a subschema will not be 
+  ratcheted. For example adding `set` onto a list with duplicates will always 
+  result in an error.
+- `x-kubernetes-map-keys`
+  Errors arising from changing the map keys of a list schema will not be 
+  ratcheted.
+- `required`
+  Errors arising from changing the list of required fields will not be ratcheted.
+- `properties`
+  Adding/removing/modifying the names of properties is not ratcheted, but 
+  changes to validations in each properties' schemas and subschemas may be ratcheted
+  if the name of the property stays the same.
+- `additionalProperties`
+  To remove a previously specified `additionalProperties` validation will not be
+  ratcheted.
+
+
+### Validation rules
 
 {{< feature-state state="beta" for_k8s_version="v1.25" >}}
 
@@ -765,7 +816,7 @@ For example:
         required:
           - minReplicas
           - replicas
-          - maxReplicas 
+          - maxReplicas
 ```
 
 will reject a request to create this custom resource:
@@ -788,7 +839,7 @@ The CronTab "my-new-cron-object" is invalid:
 * spec: Invalid value: map[string]interface {}{"maxReplicas":10, "minReplicas":0, "replicas":20}: replicas should be smaller than or equal to maxReplicas.
 ```
 
-`x-kubernetes-validations` could have multiple rules. 
+`x-kubernetes-validations` could have multiple rules.
 The `rule` under `x-kubernetes-validations` represents the expression which will be evaluated by CEL.
 The `message` represents the message displayed when validation fails. If message is unset, the
 above response would be:
@@ -798,22 +849,26 @@ The CronTab "my-new-cron-object" is invalid:
 * spec: Invalid value: map[string]interface {}{"maxReplicas":10, "minReplicas":0, "replicas":20}: failed rule: self.replicas <= self.maxReplicas
 ```
 
-Validation rules are compiled when CRDs are created/updated. 
-The request of CRDs create/update will fail if compilation of validation rules fail. 
+{{< note >}}
+You can quickly test CEL expressions in [CEL Playground](https://playcel.undistro.io).
+{{< /note >}}
+
+Validation rules are compiled when CRDs are created/updated.
+The request of CRDs create/update will fail if compilation of validation rules fail.
 Compilation process includes type checking as well.
 
 The compilation failure:
 
 - `no_matching_overload`: this function has no overload for the types of the arguments.
- 
+
   For example, a rule like `self == true` against a field of integer type will get error:
 
   ```none
   Invalid value: apiextensions.ValidationRule{Rule:"self == true", Message:""}: compilation failed: ERROR: \<input>:1:6: found no matching overload for '_==_' applied to '(int, bool)'
   ```
-  
+
 - `no_such_field`: does not contain the desired field.
-  
+
   For example, a rule like `self.nonExistingField > 0` against a non-existing field will return
   the following error:
 
@@ -822,7 +877,7 @@ The compilation failure:
   ```
 
 - `invalid argument`: invalid argument to macros.
- 
+
   For example, a rule like `has(self)` will return error:
 
   ```none
@@ -961,7 +1016,7 @@ Examples:
 The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from
 the root of the object and from any `x-kubernetes-embedded-resource` annotated objects. No other
 metadata properties are accessible.
-	
+
 Unknown data preserved in custom resources via `x-kubernetes-preserve-unknown-fields` is not
 accessible in CEL expressions. This includes:
 
@@ -1007,7 +1062,7 @@ the list type:
 - `map`: `X + Y` performs a merge where the array positions of all keys in `X` are preserved but
   the values are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements
   in `Y` with non-intersecting keys are appended, retaining their partial order.
- 
+
 
 Here is the declarations type mapping between OpenAPIv3 and CEL type:
 
@@ -1034,6 +1089,93 @@ Here is the declarations type mapping between OpenAPIv3 and CEL type:
 xref: [CEL types](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#values),
 [OpenAPI types](https://swagger.io/specification/#data-types),
 [Kubernetes Structural Schemas](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#specifying-a-structural-schema).
+
+#### The messageExpression field
+
+Similar to the `message` field, which defines the string reported for a validation rule failure, 
+`messageExpression` allows you to use a CEL expression to construct the message string.
+This allows you to insert more descriptive information into the validation failure message. 
+`messageExpression` must evaluate a string and may use the same variables that are available to the `rule` 
+field. For example:
+
+```yaml
+x-kubernetes-validations:
+- rule: "self.x <= self.maxLimit"
+  messageExpression: '"x exceeded max limit of " + string(self.maxLimit)'
+```
+
+Keep in mind that CEL string concatenation (`+` operator) does not auto-cast to string. If
+you have a non-string scalar, use the `string(<value>)` function to cast the scalar to a string
+like shown in the above example.
+
+`messageExpression` must evaluate to a string, and this is checked while the CRD is being written. Note that it is possible
+to set `message` and `messageExpression` on the same rule, and if both are present, `messageExpression`
+will be used. However, if `messageExpression` evaluates to an error, the string defined in `message` 
+will be used instead, and the `messageExpression` error will be logged. This fallback will also occur if
+the CEL expression defined in `messageExpression` generates an empty string, or a string containing line 
+breaks.
+
+If one of the above conditions are met and no `message` has been set, then the default validation failure
+message will be used instead.
+
+`messageExpression` is a CEL expression, so the restrictions listed in [Resource use by validation functions](#resource-use-by-validation-functions) apply. If evaluation halts due to resource constraints 
+during `messageExpression` execution, then no further validation rules will be executed.
+
+Setting `messageExpression` is optional.
+
+#### The `message` field {#field-message}
+
+If you want to set a static message, you can supply `message` rather than `messageExpression`.
+The value of `message` is used as an opaque error string if validation fails.
+
+Setting `message` is optional.
+
+#### The `reason` field {#field-reason}
+
+You can add a machine-readable validation failure reason within a `validation`, to be returned
+whenever a request fails this validation rule.
+
+For example:
+
+```yaml
+x-kubernetes-validations:
+- rule: "self.x <= self.maxLimit"
+  reason: "FieldValueInvalid"
+```
+
+The HTTP status code returned to the caller will match the reason of the first failed validation rule.
+The currently supported reasons are: "FieldValueInvalid", "FieldValueForbidden", "FieldValueRequired", "FieldValueDuplicate".
+If not set or unknown reasons, default to use "FieldValueInvalid".
+
+Setting `reason` is optional.
+
+#### The `fieldPath` field {#field-field-path}
+
+You can specify the field path returned when the validation fails.
+
+For example:
+
+```yaml
+x-kubernetes-validations:
+- rule: "self.foo.test.x <= self.maxLimit"
+  fieldPath: ".foo.test.x"
+```
+
+In the example above, the validation checks the value of field `x` should be less than the value of `maxLimit`.
+If no `fieldPath` specified, when validation fails, the fieldPath would be default to wherever `self` scoped.
+With `fieldPath` specified, the returned error will have `fieldPath` properly refer to the location of field `x`.
+
+The `fieldPath` value must be a relative JSON path that is scoped to the location of this x-kubernetes-validations extension in the schema. 
+Additionally, it should refer to an existing field within the schema.
+For example when validation checks if a specific attribute `foo` under a map `testMap`, you could set
+`fieldPath` to `".testMap.foo"` or `.testMap['foo']'`.
+If the validation requires checking for unique attributes in two lists, the fieldPath can be set to either of the lists. 
+For example, it can be set to `.testList1` or `.testList2`.
+It supports child operation to refer to an existing field currently. 
+Refer to [JSONPath support in Kubernetes](/docs/reference/kubectl/jsonpath/) for more info.
+The `fieldPath` field does not support indexing arrays numerically.
+
+Setting `fieldPath` is optional.
 
 #### Validation functions {#available-validation-functions}
 
@@ -1100,8 +1242,8 @@ estimated to be prohibitively expensive to execute, the API server rejects the c
 or update operation, and returns an error message.
 A similar system is used at runtime that observes the actions the interpreter takes. If the interpreter executes
 too many instructions, execution of the rule will be halted, and an error will result.
-Each CustomResourceDefinition is also allowed a certain amount of resources to finish executing all of 
-its validation rules. If the sum total of its rules are estimated at creation time to go over that limit, 
+Each CustomResourceDefinition is also allowed a certain amount of resources to finish executing all of
+its validation rules. If the sum total of its rules are estimated at creation time to go over that limit,
 then a validation error will also occur.
 
 You are unlikely to encounter issues with the resource budget for validation if you only
@@ -1114,7 +1256,7 @@ Another example would be if `foo` were an array, and you specified a validation 
 The cost system always assumes the worst-case scenario if a limit on the length of `foo` is not
 given, and this will happen for anything that can be iterated over (lists, maps, etc.).
 
-Because of this, it is considered best practice to put a limit via `maxItems`, `maxProperties`, and 
+Because of this, it is considered best practice to put a limit via `maxItems`, `maxProperties`, and
 `maxLength` for anything that will be processed in a validation rule in order to prevent validation
 errors during cost estimation. For example, given this schema with one rule:
 
@@ -1133,8 +1275,8 @@ openAPIV3Schema:
 then the API server rejects this rule on validation budget grounds with error:
 
 ```
-spec.validation.openAPIV3Schema.properties[spec].properties[foo].x-kubernetes-validations[0].rule: Forbidden: 
-CEL rule exceeded budget by more than 100x (try simplifying the rule, or adding maxItems, maxProperties, and 
+spec.validation.openAPIV3Schema.properties[spec].properties[foo].x-kubernetes-validations[0].rule: Forbidden:
+CEL rule exceeded budget by more than 100x (try simplifying the rule, or adding maxItems, maxProperties, and
 maxLength where arrays, maps, and strings are used)
 ```
 
@@ -1177,7 +1319,7 @@ openAPIV3Schema:
         maxLength: 10
 ```
 
-If a list inside of a list has a validation rule that uses `self.all`, that is significantly more expensive 
+If a list inside of a list has a validation rule that uses `self.all`, that is significantly more expensive
 than a non-nested list with the same rule. A rule that would have been allowed on a non-nested list might need
 lower limits set on both nested lists in order to be allowed. For example, even without having limits set,
 the following rule is allowed:
@@ -1346,19 +1488,23 @@ with `foo` pruned and defaulted because the field is non-nullable, `bar` maintai
 value due to `nullable: true`, and `baz` pruned because the field is non-nullable and has no
 default.
 
-### Publish Validation Schema in OpenAPI v2
+### Publish Validation Schema in OpenAPI
 
 CustomResourceDefinition [OpenAPI v3 validation schemas](#validation) which are
 [structural](#specifying-a-structural-schema) and [enable pruning](#field-pruning) are published
-as part of the [OpenAPI v2 spec](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions)
-from Kubernetes API server.
+as [OpenAPI v3](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions) and
+OpenAPI v2 from Kubernetes API server. It is recommended to use the OpenAPI v3 document
+as it is a lossless representation of the CustomResourceDefinition OpenAPI v3 validation schema
+while OpenAPI v2 represents a lossy conversion.
 
 The [kubectl](/docs/reference/kubectl/) command-line tool consumes the published schema to perform
 client-side validation (`kubectl create` and `kubectl apply`), schema explanation (`kubectl explain`)
 on custom resources. The published schema can be consumed for other purposes as well, like client generation or documentation.
 
-The OpenAPI v3 validation schema is converted to OpenAPI v2 schema, and
-show up in `definitions` and `paths` fields in the
+#### Compatibility with OpenAPI V2
+
+For compatibility with OpenAPI V2, the OpenAPI v3 validation schema performs a lossy conversion
+to the OpenAPI v2 schema. The schema show up in `definitions` and `paths` fields in the
 [OpenAPI v2 spec](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions).
 
 The following modifications are applied during the conversion to keep backwards compatibility with
@@ -1366,8 +1512,7 @@ kubectl in previous 1.13 version. These modifications prevent kubectl from being
 valid OpenAPI schemas that it doesn't understand. The conversion won't modify the validation schema defined in CRD,
 and therefore won't affect [validation](#validation) in the API server.
 
-1. The following fields are removed as they aren't supported by OpenAPI v2
-   (in future versions OpenAPI v3 will be used without these restrictions)
+1. The following fields are removed as they aren't supported by OpenAPI v2.
 
    - The fields `allOf`, `anyOf`, `oneOf` and `not` are removed
 
@@ -1559,7 +1704,7 @@ To enable the scale subresource, the following fields are defined in the CustomR
   `Scale.Status.Selector`.
 
   - It is an optional value.
-  - It must be set to work with HPA.
+  - It must be set to work with HPA and VPA.
   - Only JSONPaths under `.status` or `.spec` and with the dot notation are allowed.
   - If there is no value under the `labelSelectorPath` in the custom resource,
     the status selector value in the `/scale` subresource will default to the empty string.
@@ -1769,4 +1914,3 @@ crontabs/my-new-cron-object   3s
 
 * Serve [multiple versions](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/) of a
   CustomResourceDefinition.
-

@@ -453,7 +453,7 @@ configmap/special-config-2-c92b5mmcf2 created
 
 1. Attribuez la valeur `special.how` défini dans ConfigMap à la variable d'environnement `SPECIAL_LEVEL_KEY` dans la spécification du Pod.
 
-   {{< codenew file="pods/pod-single-configmap-env-variable.yaml" >}}
+   {{% codenew file="pods/pod-single-configmap-env-variable.yaml" %}}
 
    Créez le pod:
 
@@ -467,7 +467,7 @@ configmap/special-config-2-c92b5mmcf2 created
 
 * Comme avec l'exemple précédent, créez d'abord les ConfigMaps.
 
-   {{< codenew file="configmap/configmaps.yaml" >}}
+   {{% codenew file="configmap/configmaps.yaml" %}}
 
    Créez le ConfigMap:
 
@@ -477,7 +477,7 @@ configmap/special-config-2-c92b5mmcf2 created
 
 * Définissez les variables d'environnement dans la spécification Pod.
 
-  {{< codenew file="pods/pod-multiple-configmap-env-variable.yaml" >}}
+  {{% codenew file="pods/pod-multiple-configmap-env-variable.yaml" %}}
 
   Créez le pod:
 
@@ -495,7 +495,7 @@ Cette fonctionnalité est disponible dans Kubernetes v1.6 et versions ultérieur
 
 * Créez un ConfigMap contenant plusieurs paires clé-valeur.
 
-  {{< codenew file="configmap/configmap-multikeys.yaml" >}}
+  {{% codenew file="configmap/configmap-multikeys.yaml" %}}
 
   Créez le ConfigMap:
 
@@ -506,7 +506,7 @@ Cette fonctionnalité est disponible dans Kubernetes v1.6 et versions ultérieur
 * Utilisez `envFrom` pour définir toutes les données du ConfigMap en tant que variables d'environnement du conteneur.
   La clé de ConfigMap devient le nom de la variable d'environnement dans le pod.
 
- {{< codenew file="pods/pod-configmap-envFrom.yaml" >}}
+ {{% codenew file="pods/pod-configmap-envFrom.yaml" %}}
 
  Créez le pod:
 
@@ -522,7 +522,7 @@ Vous pouvez utiliser des variables d'environnement définies par ConfigMap dans 
 
 Par exemple, la spécification de pod suivante
 
-{{< codenew file="pods/pod-configmap-env-var-valueFrom.yaml" >}}
+{{% codenew file="pods/pod-configmap-env-var-valueFrom.yaml" %}}
 
 créé en exécutant
 
@@ -531,6 +531,9 @@ kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-env-var-valu
 ```
 
 produit la sortie suivante dans le conteneur `test-container`:
+```shell
+kubectl logs dapi-test-pod
+```
 
 ```shell
 very charm
@@ -543,7 +546,7 @@ Le contenu du fichier devient la valeur de la clé.
 
 Les exemples de cette section se réfèrent à un ConfigMap nommé special-config, illustré ci-dessous.
 
-{{< codenew file="configmap/configmap-multikeys.yaml" >}}
+{{% codenew file="configmap/configmap-multikeys.yaml" %}}
 
 Créez le ConfigMap:
 
@@ -557,7 +560,7 @@ Ajoutez le nom ConfigMap sous la section `volumes` de la spécification Pod.
 Ceci ajoute les données ConfigMap au répertoire spécifié comme `volumeMounts.mountPath` (dans ce cas, `/etc/config`).
 La section `command` répertorie les fichiers de répertoire dont les noms correspondent aux clés de ConfigMap.
 
-{{< codenew file="pods/pod-configmap-volume.yaml" >}}
+{{% codenew file="pods/pod-configmap-volume.yaml" %}}
 
 Créez le pod:
 
@@ -581,7 +584,7 @@ S'il y a des fichiers dans le dossier `/etc/config/`, ils seront supprimés.
 Utilisez le champ `path` pour spécifier le chemin de fichier souhaité pour les éléments de configmap spécifiques.
 Dans ce cas, le `SPECIAL_LEVEL` sera monté dans le volume `config-volume` au chemin `/etc/config/keys`.
 
-{{< codenew file="pods/pod-configmap-volume-specific-key.yaml" >}}
+{{% codenew file="pods/pod-configmap-volume-specific-key.yaml" %}}
 
 Créez le Pod :
 

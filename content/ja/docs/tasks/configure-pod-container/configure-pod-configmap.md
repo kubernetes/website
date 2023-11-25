@@ -1,7 +1,7 @@
 ---
 title: Podを構成してConfigMapを使用する
 content_type: task
-weight: 150
+weight: 190
 card:
   name: tasks
   weight: 50
@@ -457,7 +457,7 @@ configmap/special-config-2-c92b5mmcf2 created
 
 2.  ConfigMapに定義された値`special.how`をPod specificationの環境変数`SPECIAL_LEVEL_KEY`に割り当てます。
 
-   {{< codenew file="pods/pod-single-configmap-env-variable.yaml" >}}
+   {{% codenew file="pods/pod-single-configmap-env-variable.yaml" %}}
 
    Podを作成します:
 
@@ -471,7 +471,7 @@ configmap/special-config-2-c92b5mmcf2 created
 
  * 先ほどの例の通り、まずはConfigMapを作成します。
 
-   {{< codenew file="configmap/configmaps.yaml" >}}
+   {{% codenew file="configmap/configmaps.yaml" %}}
 
    ConfigMapを作成します:
 
@@ -481,7 +481,7 @@ configmap/special-config-2-c92b5mmcf2 created
 
 * Pod specificationの環境変数を定義します
 
-  {{< codenew file="pods/pod-multiple-configmap-env-variable.yaml" >}}
+  {{% codenew file="pods/pod-multiple-configmap-env-variable.yaml" %}}
 
   Podを作成します:
 
@@ -498,7 +498,7 @@ configmap/special-config-2-c92b5mmcf2 created
 
 * 複数のキーバリューペアを含むConfigMapを作成します。
 
-  {{< codenew file="configmap/configmap-multikeys.yaml" >}}
+  {{% codenew file="configmap/configmap-multikeys.yaml" %}}
 
   ConfigMapを作成します:
 
@@ -508,7 +508,7 @@ configmap/special-config-2-c92b5mmcf2 created
 
 * `envFrom`を利用して全てのConfigMapのデータをコンテナ環境変数として定義します。ConfigMapからのキーがPodの環境変数名になります。
 
- {{< codenew file="pods/pod-configmap-envFrom.yaml" >}}
+ {{% codenew file="pods/pod-configmap-envFrom.yaml" %}}
 
  Podを作成します:
 
@@ -525,7 +525,7 @@ ConfigMapに環境変数を定義し、Pod specificationの`command` セクシ�
 
 例えば以下のPod specificationは
 
-{{< codenew file="pods/pod-configmap-env-var-valueFrom.yaml" >}}
+{{% codenew file="pods/pod-configmap-env-var-valueFrom.yaml" %}}
 
 以下コマンドの実行で作成され、
 
@@ -534,6 +534,9 @@ kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-env-var-valu
 ```
 
 `test-container`コンテナで以下の出力結果を表示します:
+```shell
+kubectl logs dapi-test-pod
+```
 
 ```shell
 very charm
@@ -545,7 +548,7 @@ very charm
 
 このセクションの例は以下に示されているspecial-configと名付けれたConfigMapについて言及したものです。
 
-{{< codenew file="configmap/configmap-multikeys.yaml" >}}
+{{% codenew file="configmap/configmap-multikeys.yaml" %}}
 
 ConfigMapを作成します:
 
@@ -558,7 +561,7 @@ kubectl create -f https://kubernetes.io/examples/configmap/configmap-multikeys.y
 ConfigMap名をPod specificationの`volumes`セクション配下に追加します。
 これによりConfigMapデータが`volumeMounts.mountPath`で指定されたディレクトリに追加されます (このケースでは、`/etc/config`に)。`command`セクションはConfigMapのキーに合致したディレクトリファイルを名前別でリスト表示します。
 
-{{< codenew file="pods/pod-configmap-volume.yaml" >}}
+{{% codenew file="pods/pod-configmap-volume.yaml" %}}
 
 Podを作成します:
 
@@ -586,7 +589,7 @@ SPECIAL_TYPE
 `path`フィールドを利用して特定のConfigMapのアイテム向けに希望のファイルパスを指定します。
 このケースでは`SPECIAL_LEVEL`アイテムが`/etc/config/keys`の`config-volume`ボリュームにマウントされます。
 
-{{< codenew file="pods/pod-configmap-volume-specific-key.yaml" >}}
+{{% codenew file="pods/pod-configmap-volume-specific-key.yaml" %}}
 
 Podを作成します:
 

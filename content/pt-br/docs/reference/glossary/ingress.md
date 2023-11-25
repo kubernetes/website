@@ -2,7 +2,7 @@
 title: Ingress
 id: ingress
 date: 2018-04-12
-full_link: /docs/concepts/services-networking/ingress/
+full_link: /pt-br/docs/concepts/services-networking/ingress/
 short_description: >
   Um objeto da API que gerencia o acesso externo aos serviços em um cluster, normalmente HTTP.
 
@@ -16,5 +16,6 @@ tags:
 
 <!--more--> 
 
-Um Ingress pode fornecer as capacidades de um proxy reverso para as aplicações.
+Um Ingress pode fornecer balanceamento de carga, terminação SSL e hospedagem
+virtual baseada em nomes.
 

@@ -201,6 +201,7 @@ PodSpec 是对 Pod 的描述。
   <!--
   *PodOS defines the OS parameters of a pod.*
   -->
+  
   **PodOS 定义一个 Pod 的操作系统参数。**
 
   <!--
@@ -546,7 +547,8 @@ PodSpec 是对 Pod 的描述。
 
     *Atomic: will be replaced during a merge*
     
-    MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+    MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod.  The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. MatchLabelKeys cannot be set when LabelSelector isn't set. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+    This is a beta field and requires the MatchLabelKeysInPodTopologySpread feature gate to be enabled (enabled by default).
   -->
   - **topologySpreadConstraints.matchLabelKeys** ([]string)
 
@@ -554,8 +556,11 @@ PodSpec 是对 Pod 的描述。
     
     matchLabelKeys 是一组 Pod 标签键，用于通过计算 Pod 分布方式来选择 Pod。
     新 Pod 标签中不存在的键将被忽略。这些键用于从新来的 Pod 标签中查找值，这些键值标签与 labelSelector 进行逻辑与运算，
-    通过计算 Pod 的分布方式来选择现有 Pod 的组。新来的 Pod 标签中不存在的键将被忽略。
-    null 或空的列表意味着仅与 labelSelector 匹配。
+    通过计算 Pod 的分布方式来选择现有 Pod 的组。matchLabelKeys 和 labelSelector
+    中禁止存在相同的键。未设置 labelSelector 时无法设置 matchLabelKeys。
+    新来的 Pod 标签中不存在的键将被忽略。null 或空的列表意味着仅与 labelSelector 匹配。
+
+    这是一个 Beta 字段，需要启用 MatchLabelKeysInPodTopologySpread 特性门控（默认启用）。
   <!--
   - **topologySpreadConstraints.minDomains** (int32)
 
@@ -647,11 +652,12 @@ PodSpec 是对 Pod 的描述。
 <!--
 - **restartPolicy** (string)
 
-  Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
+  Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
 -->
 - **restartPolicy** (string)
 
-  Pod 内所有容器的重启策略。`Always`、`OnFailure`、`Never` 之一。默认为 `Always`。更多信息：
+  Pod 内所有容器的重启策略。`Always`、`OnFailure`、`Never` 之一。
+  在某些情况下，可能只允许这些值的一个子集。默认为 `Always`。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
 
 <!--
@@ -675,7 +681,7 @@ PodSpec 是对 Pod 的描述。
 - **activeDeadlineSeconds** (int64)
 
   在系统将主动尝试将此 Pod 标记为已失败并杀死相关容器之前，Pod 可能在节点上活跃的时长；
-  市场计算基于 startTime 计算间（以秒为单位）。字段值必须是正整数。
+  时长计算基于 startTime 计算（以秒为单位）。字段值必须是正整数。
 
 <!--
 - **readinessGates** ([]PodReadinessGate)
@@ -1076,14 +1082,14 @@ PodSpec 是对 Pod 的描述。
     <!--
     - **securityContext.seccompProfile.localhostProfile** (string)
 
-      localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
+      localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must be set if type is "Localhost". Must NOT be set for any other type.
     -->
 
     - **securityContext.seccompProfile.localhostProfile** (string)
 
       localhostProfile 指示应使用在节点上的文件中定义的配置文件。该配置文件必须在节点上预先配置才能工作。
       必须是相对于 kubelet 配置的 seccomp 配置文件位置的下降路径。
-      仅当 type 为 `"Localhost"` 时才必须设置。
+      仅当 type 为 `"Localhost"` 时才必须设置。不得为任何其他类别设置此字段。
 
   <!--
   - **securityContext.seLinuxOptions** (SELinuxOptions)
@@ -1217,14 +1223,12 @@ PodSpec 是对 Pod 的描述。
     <!--
     - **securityContext.windowsOptions.hostProcess** (boolean)
 
-      HostProcess determines if a container should be run as a 'Host Process' container. This field is alpha-level and will only be honored by components that enable the WindowsHostProcessContainers feature flag. Setting this field without the feature flag will result in errors when validating the Pod. All of a Pod's containers must have the same effective HostProcess value (it is not allowed to have a mix of HostProcess containers and non-HostProcess containers).  In addition, if HostProcess is true then HostNetwork must also be set to true.
+      HostProcess determines if a container should be run as a 'Host Process' container. All of a Pod's containers must have the same effective HostProcess value (it is not allowed to have a mix of HostProcess containers and non-HostProcess containers). In addition, if HostProcess is true then HostNetwork must also be set to true.
     -->
 
     - **securityContext.windowsOptions.hostProcess** (boolean)
 
       hostProcess 确定容器是否应作为"主机进程"容器运行。
-      此字段是 Alpha 级别的，只有启用 WindowsHostProcessContainers 特性门控的组件才会理解此字段。
-      在不启用该功能门控的前提下设置了此字段，将导致验证 Pod 时发生错误。
       一个 Pod 的所有容器必须具有相同的有效 hostProcess 值（不允许混合设置了 hostProcess
       的容器和未设置 hostProcess 容器）。
       此外，如果 hostProcess 为 true，则 hostNetwork 也必须设置为 true。
@@ -1341,18 +1345,18 @@ PodSpec 是对 Pod 的描述。
       resourceClaimTemplateName 是与此 Pod 位于同一命名空间中的 `ResourceClaimTemplate` 对象的名称。
 
       <!--
-      The template will be used to create a new ResourceClaim, which will be bound to this pod. When this pod is deleted, the ResourceClaim will also be deleted. The name of the ResourceClaim will be \<pod name>-\<resource name>, where \<resource name> is the PodResourceClaim.Name. Pod validation will reject the pod if the concatenated name is not valid for a ResourceClaim (e.g. too long).
+      The template will be used to create a new ResourceClaim, which will be bound to this pod. When this pod is deleted, the ResourceClaim will also be deleted. The pod name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in pod.status.resourceClaimStatuses.
       -->
     
       该模板将用于创建一个新的 ResourceClaim，新的 ResourceClaim 将被绑定到此 Pod。
-      删除此 Pod 时，ResourceClaim 也将被删除。ResourceClaim 
-      的名称将为 \<Pod 名称>-\<资源名称>，其中 \<资源名称>
-      是 PodResourceClaim.name。如果串接起来的名称对于 ResourceClaim
-      无效（例如太长），Pod 的验证机制将拒绝该 Pod。
+      删除此 Pod 时，ResourceClaim 也将被删除。
+      Pod 名称和资源名称，连同生成的组件，将用于为 ResourceClaim 形成唯一名称，
+      该名称将记录在 pod.status.resourceClaimStatuses 中。
 
       <!--
       An existing ResourceClaim with that name that is not owned by the pod will not be used for the pod to avoid using an unrelated resource by mistake. Scheduling and pod startup are then blocked until the unrelated ResourceClaim is removed.
       -->
+      
       不属于此 Pod 但与此名称重名的现有 ResourceClaim 不会被用于此 Pod，
       以避免错误地使用不相关的资源。Pod 的调度和启动动作会因此而被阻塞，
       直到不相关的 ResourceClaim 被删除。
@@ -1360,6 +1364,7 @@ PodSpec 是对 Pod 的描述。
       <!--
       This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
       -->
+      
       此字段是不可变更的，创建 ResourceClaim 后控制平面不会对相应的 ResourceClaim 进行任何更改。
 <!--
 - **schedulingGates** ([]PodSchedulingGate)
@@ -1375,15 +1380,19 @@ PodSpec 是对 Pod 的描述。
   **映射：键 `name` 的唯一值将在合并过程中保留**
    
   <!--
-  SchedulingGates is an opaque list of values that if specified will block scheduling the pod. More info:  https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness.
+  SchedulingGates is an opaque list of values that if specified will block scheduling the pod. If schedulingGates is not empty, the pod will stay in the SchedulingGated state and the scheduler will not attempt to schedule the pod.
+
+  SchedulingGates can only be set at pod creation time, and be removed only afterwards.
   
   This is an alpha-level feature enabled by PodSchedulingReadiness feature gate.
   -->
   
   schedulingGates 是一个不透明的值列表，如果指定，将阻止调度 Pod。
-  更多信息，请参阅：https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness。
+  如果 schedulingGates 不为空，则 Pod 将保持 SchedulingGated 状态，调度程序将不会尝试调度 Pod。
+ 
+  SchedulingGates 只能在 Pod 创建时设置，并且只能在创建之后删除。 
 
-  此特性为 Alpha 级别，需要通过 PodSchedulingReadiness 特性门控启用。
+  此特性为 Beta 特性，需要通过 PodSchedulingReadiness 特性门控启用。
 
   <a name="PodSchedulingGate"></a>
   <!--
@@ -1393,7 +1402,8 @@ PodSpec 是对 Pod 的描述。
 
     Name of the scheduling gate. Each scheduling gate must have a unique name field.
   -->
-  PodSchedulingGate 与 Pod 相关联以保护其调度。
+  
+  **PodSchedulingGate 与 Pod 相关联以保护其调度。**
 
   - **schedulingGates.name** (string)，必需
   
@@ -1927,7 +1937,7 @@ A single application container that you want to run within a pod.
 
     如果为 true，则以只读方式挂载，否则（false 或未设置）以读写方式挂载。默认为 false。
 
-  - **volumeMounts.subPath** (boolean)
+  - **volumeMounts.subPath** (string)
 
     卷中的路径，容器中的卷应该这一路径安装。默认为 ""（卷的根）。
 
@@ -1999,26 +2009,26 @@ A single application container that you want to run within a pod.
   <!--
   - **resources.claims** ([]ResourceClaim)
 
-    *Set: unique values will be kept during a merge*
+    *Map: unique values on key name will be kept during a merge*
     
     Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
   -->
   
   - **resources.claims** ([]ResourceClaim)
 
-    **set：合并期间将保留唯一值**
+    **映射：键 `name` 的唯一值将在合并过程中保留**
 
     claims 列出此容器使用的资源名称，资源名称在 `spec.resourceClaims` 中定义。
 
     <!--
     This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
     
-    This field is immutable.
+    This field is immutable. It can only be set for containers.
     -->
     
     这是一个 Alpha 特性字段，需要启用 DynamicResourceAllocation 功能门控开启此特性。
 
-    此字段不可变更。
+    此字段不可变更，只能在容器级别设置。
 
     <a name="ResourceClaim"></a>
     <!--
@@ -2043,7 +2053,7 @@ A single application container that you want to run within a pod.
 
   - **resources.requests** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+    Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
   -->
 
   - **resources.limits** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
@@ -2054,8 +2064,46 @@ A single application container that you want to run within a pod.
   - **resources.requests** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
     requests 描述所需的最小计算资源量。如果容器省略了 requests，但明确设定了 limits，
-    则 requests 默认值为 limits 值，否则为实现定义的值。更多信息：
+    则 requests 默认值为 limits 值，否则为实现定义的值。请求不能超过限制。更多信息：
     https://kubernetes.io/zh-cn/docs/concepts/configuration/manage-resources-containers/
+
+<!--
+- **resizePolicy** ([]ContainerResizePolicy)
+
+  *Atomic: will be replaced during a merge*
+  
+  Resources resize policy for the container.
+-->
+- **resizePolicy** ([]ContainerResizePolicy)
+
+  **原子性: 将在合并期间被替换**
+
+  容器的资源调整策略。
+
+  <!--
+  <a name="ContainerResizePolicy"></a>
+  *ContainerResizePolicy represents resource resize policy for the container.*
+
+  - **resizePolicy.resourceName** (string), required
+
+    Name of the resource to which this resource resize policy applies. Supported values: cpu, memory.
+  -->
+  <a name="ContainerResizePolicy"></a>
+  **ContainerResizePolicy 表示容器的资源大小调整策略**
+
+  - **resizePolicy.resourceName** (string), 必需
+
+    该资源调整策略适用的资源名称。支持的值：cpu、memory。
+
+  <!--
+  - **resizePolicy.restartPolicy** (string), required
+
+    Restart policy to apply when specified resource is resized. If not specified, it defaults to NotRequired.
+  -->
+  
+  - **resizePolicy.restartPolicy** (string), 必需
+
+    重启策略，会在调整指定资源大小时使用该策略。如果未指定，则默认为 NotRequired。
 
 <!--
 ### Lifecycle
@@ -2160,6 +2208,22 @@ A single application container that you want to run within a pod.
   这可用于在 Pod 生命周期开始时提供不同的探针参数，此时加载数据或预热缓存可能需要比稳态操作期间更长的时间。
   这无法更新。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+
+<!--
+- **restartPolicy** (string)
+
+  RestartPolicy defines the restart behavior of individual containers in a pod. This field may only be set for init containers, and the only allowed value is "Always". For non-init containers or when this field is not specified, the restart behavior is defined by the Pod's restart policy and the container type. Setting the RestartPolicy as "Always" for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy "Always" will be shut down. This lifecycle differs from normal init containers and is often referred to as a "sidecar" container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
+-->
+- **restartPolicy** (string)
+
+  restartPolicy 定义 Pod 中各个容器的重新启动行为。
+  该字段仅适用于 Init 容器，唯一允许的值是 "Always"。
+  对于非 Init 容器或未指定此字段的情况，重新启动行为由 Pod 的重启策略和容器类型来定义。
+  将 restartPolicy 设置为 "Always" 会产生以下效果：该 Init 容器将在退出后持续重新启动，直到所有常规容器终止。
+  一旦所有常规容器已完成，所有具有 restartPolicy 为 "Always" 的 Init 容器将被关闭。
+  这种生命期与正常的 Init 容器不同，通常被称为 "sidecar" 容器。
+  虽然此 Init 容器仍然在 Init 容器序列中启动，但它在进入下一个 Init 容器之前并不等待容器完成。
+  相反，在此 Init 容器被启动后或在任意 startupProbe 已成功完成后下一个 Init 容器将立即启动。
 
 <!--
 ### Security Context
@@ -2338,7 +2402,7 @@ A single application container that you want to run within a pod.
     <!--
     - **securityContext.seccompProfile.localhostProfile** (string)
 
-      localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
+      localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must be set if type is "Localhost". Must NOT be set for any other type.
     -->
 
     - **securityContext.seccompProfile.localhostProfile** (string)
@@ -2346,7 +2410,7 @@ A single application container that you want to run within a pod.
       localhostProfile 指示应使用的在节点上的文件，文件中定义了配置文件。
       该配置文件必须在节点上先行配置才能使用。
       必须是相对于 kubelet 所配置的 seccomp 配置文件位置下的下级路径。
-      仅当 type 为 "Localhost" 时才必须设置。
+      仅当 type 为 "Localhost" 时才必须设置。不得为任何其他类别设置此字段。
 
   <!--
   - **securityContext.seLinuxOptions** (SELinuxOptions)
@@ -2436,14 +2500,12 @@ A single application container that you want to run within a pod.
     <!--
     - **securityContext.windowsOptions.hostProcess** （boolean）
 
-      HostProcess determines if a container should be run as a 'Host Process' container. This field is alpha-level and will only be honored by components that enable the WindowsHostProcessContainers feature flag. Setting this field without the feature flag will result in errors when validating the Pod. All of a Pod's containers must have the same effective HostProcess value (it is not allowed to have a mix of HostProcess containers and non-HostProcess containers).  In addition, if HostProcess is true then HostNetwork must also be set to true.
+      HostProcess determines if a container should be run as a 'Host Process' container. All of a Pod's containers must have the same effective HostProcess value (it is not allowed to have a mix of HostProcess containers and non-HostProcess containers).  In addition, if HostProcess is true then HostNetwork must also be set to true.
     -->
 
     - **securityContext.windowsOptions.hostProcess** （boolean）
 
       hostProcess 确定容器是否应作为 "主机进程" 容器运行。
-      此字段是 Alpha 级别的，只有启用 WindowsHostProcessContainers 特性门控的组件才会处理。
-      设置此字段而不启用特性门控是，在验证 Pod 时将发生错误。
       一个 Pod 的所有容器必须具有相同的有效 hostProcess 值（不允许混合设置了 hostProcess 容器和未设置 hostProcess 的容器）。
       此外，如果 hostProcess 为 true，则 hostNetwork 也必须设置为 true。
 
@@ -2989,7 +3051,45 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
     name 必须与 Pod 中的 persistentVolumeClaim 的名称匹配。
 
 <!--
-### 生命周期
+- **resizePolicy** ([]ContainerResizePolicy)
+
+  *Atomic: will be replaced during a merge*
+  
+  Resources resize policy for the container.
+-->
+- **resizePolicy** ([]ContainerResizePolicy)
+
+  **原子性: 将在合并期间被替换**
+
+  容器的资源调整策略。
+
+  <!--
+  <a name="ContainerResizePolicy"></a>
+  *ContainerResizePolicy represents resource resize policy for the container.*
+
+  - **resizePolicy.resourceName** (string), required
+
+    Name of the resource to which this resource resize policy applies. Supported values: cpu, memory.
+  -->
+  <a name="ContainerResizePolicy"></a>
+  **ContainerResizePolicy 表示容器的资源大小调整策略**
+
+  - **resizePolicy.resourceName** (string), 必需
+
+    该资源调整策略适用的资源名称。支持的值：cpu、memory。
+
+  <!--
+  - **resizePolicy.restartPolicy** (string), required
+
+    Restart policy to apply when specified resource is resized. If not specified, it defaults to NotRequired.
+  -->
+  
+  - **resizePolicy.restartPolicy** (string), 必需
+
+    重启策略，会在调整指定资源大小时使用该策略。如果未指定，则默认为 NotRequired。
+
+<!--
+### Lifecycle
 -->
 ### 生命周期
 
@@ -3017,6 +3117,15 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
   表示将使用容器日志输出的最后一块。日志输出限制为 2048 字节或 80 行，以较小者为准。
   默认为 `File`。无法更新。
 
+<!--
+- **restartPolicy** (string)
+
+  Restart policy for the container to manage the restart behavior of each container within a pod. This may only be set for init containers. You cannot set this field on ephemeral containers.
+-->
+- **restartPolicy** (string)
+
+  这是针对容器的重启策略，用于管理 Pod 内每个容器的重启行为。
+  此字段仅适用于 Init 容器，在临时容器上无法设置此字段。
 
 <!--
 ### Debugging
@@ -3236,7 +3345,7 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
     <!--
     - **securityContext.seccompProfile.localhostProfile** (string)
 
-      localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
+      localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must be set if type is "Localhost". Must NOT be set for any other type.
     -->
      
     - **securityContext.seccompProfile.localhostProfile** （string）
@@ -3244,7 +3353,7 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
       localhostProfile 指示应使用在节点上的文件中定义的配置文件。
       该配置文件必须在节点上预先配置才能工作。
       必须是相对于 kubelet 配置的 seccomp 配置文件位置下的子路径。
-      仅当 type 为 "Localhost" 时才必须设置。
+      仅当 type 为 "Localhost" 时才必须设置。不得为任何其他类别设置此字段。
 
   <!--
   - **securityContext.seLinuxOptions** (SELinuxOptions)
@@ -3339,14 +3448,12 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
     <!--
     - **securityContext.windowsOptions.hostProcess** (boolean)
 
-      HostProcess determines if a container should be run as a 'Host Process' container. This field is alpha-level and will only be honored by components that enable the WindowsHostProcessContainers feature flag. Setting this field without the feature flag will result in errors when validating the Pod. All of a Pod's containers must have the same effective HostProcess value (it is not allowed to have a mix of HostProcess containers and non-HostProcess containers).  In addition, if HostProcess is true then HostNetwork must also be set to true.
+      HostProcess determines if a container should be run as a 'Host Process' container. All of a Pod's containers must have the same effective HostProcess value (it is not allowed to have a mix of HostProcess containers and non-HostProcess containers).  In addition, if HostProcess is true then HostNetwork must also be set to true.
     -->
 
     - **securityContext.windowsOptions.hostProcess** （boolean）
 
-      hostProcess 确定容器是否应作为 "主机进程" 容器运行。此字段是 Alpha 级别的，只有启用了
-      WindowsHostProcessContainers 特性门控的组件才会处理此字段。
-      设置此字段而未启用特性门控的话，在验证 Pod 时将引发错误。
+      hostProcess 确定容器是否应作为 "主机进程" 容器运行。
       一个 Pod 的所有容器必须具有相同的有效 hostProcess 值
       （不允许混合设置了 hostProcess 的容器和未设置 hostProcess 的容器）。
       此外，如果 hostProcess 为 true，则 hostNetwork 也必须设置为 true。
@@ -3457,26 +3564,26 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
   <!--
   - **resources.claims** ([]ResourceClaim)
 
-    *Set: unique values will be kept during a merge*
+    *Map: unique values on key name will be kept during a merge*
     
     Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
   -->
   
   - **resources.claims** ([]ResourceClaim)
 
-    **set：合并期间将保留唯一值**
+    **映射：键 `name` 的唯一值将在合并过程中保留**
 
     claims 列出了此容器使用的资源名称，资源名称在 `spec.resourceClaims` 中定义。
 
     <!--
     This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
     
-    This field is immutable.
+    This field is immutable. It can only be set for containers.
     -->
     
     这是一个 Alpha 特性字段，需要启用 DynamicResourceAllocation 功能门控开启此特性。
 
-    此字段不可变更。
+    此字段不可变更，只能在容器级别设置。
 
     <a name="ResourceClaim"></a>
     <!--
@@ -3486,6 +3593,7 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
 
       Name must match the name of one entry in pod.spec.resourceClaims of the Pod where this field is used. It makes that resource available inside a container.
     -->
+    
     **ResourceClaim 引用 `PodSpec.ResourceClaims` 中的一项。**
 
     - **resources.claims.name** (string)，必需
@@ -3507,13 +3615,13 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
   <!--
   - **resources.requests** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+    Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
   -->
 
   - **resources.requests** （map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>）
 
     requests 描述所需的最小计算资源量。如果对容器省略了 requests，则默认其资源请求值为 limits
-    （如果已显式指定）的值，否则为实现定义的值。更多信息：
+    （如果已显式指定）的值，否则为实现定义的值。请求不能超过限制。更多信息：
     https://kubernetes.io/zh-cn/docs/concepts/configuration/manage-resources-containers/
 
 <!--
@@ -3684,7 +3792,7 @@ LifecycleHandler 定义了应在生命周期挂钩中执行的特定操作。
     <!--
     - **httpGet.httpHeaders.name** (string), required
 
-      The header field name
+      The header field name. This will be canonicalized upon output, so case-variant names will be understood as the same header.
 
     - **httpGet.httpHeaders.value** (string), required
 
@@ -3694,6 +3802,7 @@ LifecycleHandler 定义了应在生命周期挂钩中执行的特定操作。
     - **httpGet.httpHeaders.name** (string)，必需
 
       HTTP 头部字段名称。
+      在输出时，它将被规范化处理，因此大小写变体的名称会被视为相同的头。
 
     - **httpGet.httpHeaders.value** (string)，必需
 
@@ -3748,6 +3857,7 @@ LifecycleHandler 定义了应在生命周期挂钩中执行的特定操作。
     <!--
     *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
     -->
+    
     **IntOrString 是一种可以保存 int32 或字符串值的类型。在 JSON 或 YAML 编组和解组中使用时，
     会生成或使用内部类型。例如，这允许你拥有一个可以接受名称或数字的 JSON 字段。**
 
@@ -4347,7 +4457,7 @@ Probe describes a health check to be performed against a container to determine 
     <!--
     - **httpGet.httpHeaders.name** (string), required
 
-      The header field name
+      The header field name. This will be canonicalized upon output, so case-variant names will be understood as the same header.
 
     - **httpGet.httpHeaders.value** (string), required
 
@@ -4357,6 +4467,7 @@ Probe describes a health check to be performed against a container to determine 
     - **httpGet.httpHeaders.name** (string)，必需
 
       HTTP 头部域名称。
+      在输出时，它将被规范化处理，因此大小写变体的名称会被视为相同的头。
 
     - **httpGet.httpHeaders.value** (string)，必需
 
@@ -4491,11 +4602,11 @@ Probe describes a health check to be performed against a container to determine 
 <!--
 - **grpc** (GRPCAction)
 
-  GRPC specifies an action involving a GRPC port. This is a beta field and requires enabling GRPCContainerProbe feature gate.
+  GRPC specifies an action involving a GRPC port.
 -->
 - **grpc** （GRPCAction）
 
-  GRPC 指定涉及 GRPC 端口的操作。这是一个 Beta 字段，需要启用 GRPCContainerProbe 特性门控。
+  GRPC 指定涉及 GRPC 端口的操作。
 
   <a name="GRPCAction"></a>
 
@@ -4549,12 +4660,48 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
 <!--
 - **hostIP** (string)
 
-  IP address of the host to which the pod is assigned. Empty if not yet scheduled.
+  hostIP holds the IP address of the host to which the pod is assigned. Empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns mean that HostIP will not be updated even if there is a node is assigned to pod
 -->
 - **hostIP** (string)
 
-  Pod 被调度到的主机的 IP 地址。如果尚未被调度，则为字段为空。
+  hostIP 存储分配给 Pod 的主机的 IP 地址。如果 Pod 尚未启动，则为空。
+  Pod 可以被调度到 kubelet 有问题的节点上，这意味着即使有节点被分配给 Pod，hostIP 也不会被更新。
 
+<!--
+- **hostIPs** ([]HostIP)
+
+  *Patch strategy: merge on key `ip`*
+  
+  *Atomic: will be replaced during a merge*
+  
+  hostIPs holds the IP addresses allocated to the host. If this field is specified, the first entry must match the hostIP field. This list is empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns means that HostIPs will not be updated even if there is a node is assigned to this pod.
+-->
+- **hostIPs** ([]HostIP)
+
+  **补丁策略：基于 `ip` 键合并**
+
+  **原子性：将在合并期间被替换**
+
+  hostIPs 存储分配给主机的 IP 地址列表。如果此字段被指定，则第一个条目必须与 hostIP 字段匹配。
+  如果 Pod 尚未启动，则此列表为空。Pod 可以被调度到 kubelet 有问题的节点上，
+  这意味着即使有节点被分配给此 Pod，HostIPs 也不会被更新。
+
+  <!--
+  <a name="HostIP"></a>
+  *HostIP represents a single IP address allocated to the host.*
+
+  - **hostIPs.ip** (string)
+
+    IP is the IP address assigned to the host
+  -->
+
+  <a name="HostIP"></a>
+  **HostIP 表示分配给主机的单个 IP 地址。**
+
+  - **hostIPs.ip** (string)
+
+    ip 是分配给主机的 IP 地址。
+  
 <!--
 - **startTime** (Time)
 
@@ -4595,6 +4742,7 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
   <!--
   More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-phase
   -->
+  
   更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/pod-lifecycle#pod-phase
 
@@ -4609,7 +4757,7 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
 
 - **podIP** (string)
 
-  IP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.
+  podIP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.
 -->
 - **message** (string)
 
@@ -4619,10 +4767,9 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
 
    一条简短的驼峰式命名的消息，指示有关 Pod 为何处于此状态的详细信息。例如 'Evicted'。
 
-
 - **podIP** （string）
 
-   分配给 Pod 的 IP 地址。至少在集群内可路由。如果尚未分配则为空。
+   分配给 Pod 的 podIP 地址。至少在集群内可路由。如果尚未分配则为空。
 
 <!--
 - **podIPs** ([]PodIP)
@@ -4632,9 +4779,7 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
   podIPs holds the IP addresses allocated to the pod. If this field is specified, the 0th entry must match the podIP field. Pods may be allocated at most 1 value for each of IPv4 and IPv6. This list is empty if no IPs have been allocated yet.
 
   <a name="PodIP"></a>
-  *IP address information for entries in the (plural) PodIPs field. Each entry includes:
-  
-  	IP: An IP address allocated to the pod. Routable at least within the cluster.*
+  *PodIP represents a single IP address allocated to the pod.*
 -->
 - **podIPs** （[]PodIP）
 
@@ -4644,19 +4789,17 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
   Pod 最多可以为 IPv4 和 IPv6 各分配 1 个值。如果尚未分配 IP，则此列表为空。
 
   <a name="PodIP"></a>
-  podIPs 字段中每个条目的 IP 地址信息。每个条目都包含：
-
-    `ip` 字段：给出分配给 Pod 的 IP 地址。该 IP 地址至少在集群内可路由。
+  **podIP 表示分配给 Pod 的单个 IP 地址。**
 
   <!--
   - **podIPs.ip** (string)
 
-    ip is an IP address (IPv4 or IPv6) assigned to the pod
+    IP is the IP address assigned to the pod
   -->
 
   - **podIP.ip** （string）
 
-     ip 是分配给 Pod 的 IP 地址（IPv4 或 IPv6）。
+    ip 是分配给 Pod 的 IP 地址。
 
 <!--
 - **conditions** ([]PodCondition)
@@ -4750,12 +4893,12 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
 <!--
 - **qosClass** (string)
 
-  The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
+  The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/#quality-of-service-classes
 -->
 - **qosClass** （string）
 
    根据资源要求分配给 Pod 的服务质量 (QOS) 分类。有关可用的 QOS 类，请参阅 PodQOSClass 类型。
-   更多信息： https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
+   更多信息： https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/pod-qos/#quality-of-service-classes
 
 <!--
 - **initContainerStatuses** ([]ContainerStatus)
@@ -4774,415 +4917,6 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
 
   **ContainerStatus 包含此容器当前状态的详细信息。**
 
-  <!--
-  - **initContainerStatuses.name** (string), required
-
-    This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.
-
-  - **initContainerStatuses.image** (string), required
-
-    The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images.
-  -->
-
-  - **initContainerStatuses.name** (string)，必需
-
-    此字段值必须是 DNS_LABEL。Pod 中的每个容器都必须具有唯一的名称。无法更新。
-
-  - **initContainerStatuses.image** (string)，必需
-
-    容器中正在运行的镜像。更多信息：
-    https://kubernetes.io/zh-cn/docs/concepts/containers/images。
-
-  <!--
-  - **initContainerStatuses.imageID** (string), required
-
-    ImageID of the container's image.
-
-  - **initContainerStatuses.containerID** (string)
-
-    Container's ID in the format '\<type>://\<container_id>'.
-  -->
-
-  - **initContainerStatuses.imageID** (string)，必需
-
-    容器镜像的镜像 ID。
-
-  - **initContainerStatuses.containerID** （string）
-
-    格式为 `<type>://<container_id>` 的容器 ID。
-
-  <!--
-  - **initContainerStatuses.state** (ContainerState)
-
-    Details about the container's current condition.
-
-    <a name="ContainerState"></a>
-    *ContainerState holds a possible state of container. Only one of its members may be specified. If none of them is specified, the default one is ContainerStateWaiting.*
-  -->
-
-  - **initContainerStatuses.state** （ContainerState）
-
-    有关容器当前状况的详细信息。
-
-    ContainerState 中保存容器的可能状态。只能设置其成员之一。如果其中所有字段都未设置，
-    则默认为 ContainerStateWaiting。
-
-    <!--
-    - **initContainerStatuses.state.running** (ContainerStateRunning)
-
-      Details about a running container
-
-      <a name="ContainerStateRunning"></a>
-      *ContainerStateRunning is a running state of a container.*
-    -->
-
-    - **initContainerStatuses.state.running** （ContainerStateRunning）
-
-      有关正在运行的容器的详细信息。
-
-      **ContainerStateRunning 是容器的运行状态。**
-
-      <!--
-      - **initContainerStatuses.state.running.startedAt** (Time)
-
-        Time at which the container was last (re-)started
-
-        <a name="Time"></a>
-        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-      -->
-
-      - **initContainerStatuses.state.running.startedAt** （Time）
-
-        容器上次（重新）启动的时间。
-
-        Time 是 `time.Time` 的包装器，支持正确编组为 YAML 和 JSON。
-        time 包所提供的许多工厂方法都有包装器。
-
-    <!--
-    - **initContainerStatuses.state.terminated** (ContainerStateTerminated)
-
-      Details about a terminated container
-
-      <a name="ContainerStateTerminated"></a>
-      *ContainerStateTerminated is a terminated state of a container.*
-    -->
-
-    - **initContainerStatuses.state.terminated** （ContainerStateTerminated）
-
-      有关已终止容器的详细信息。
-
-      **ContainerStateTerminated 是容器的终止状态。**
-
-      <!--
-      - **initContainerStatuses.state.terminated.containerID** (string)
-
-        Container's ID in the format '\<type>://\<container_id>'
-
-      - **initContainerStatuses.state.terminated.exitCode** (int32), required
-
-        Exit status from the last termination of the container
-      -->
-
-      - **initContainerStatuses.state.terminated.containerID** （string）
-
-        容器的 ID，格式为 `"<类型>://<container_id>"`。
-
-      - **initContainerStatuses.state.terminated.exitCode** （int32），必需
-
-        容器上次终止时的退出状态
-
-      <!--
-      - **initContainerStatuses.state.terminated.startedAt** (Time)
-
-        Time at which previous execution of the container started
-
-        <a name="Time"></a>
-        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-      -->
-
-      - **initContainerStatuses.state.terminated.startedAt** （Time）
-
-        容器上次执行时的开始时间。
-
-        Time 是 `time.Time` 的包装器，支持正确编组为 YAML 和 JSON。
-        time 包所提供的许多工厂方法都有包装器。
-
-      <!--
-      - **initContainerStatuses.state.terminated.finishedAt** (Time)
-
-        Time at which the container last terminated
-
-        <a name="Time"></a>
-        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-      -->
-
-      - **initContainerStatuses.state.terminated.finishedAt** （Time）
-
-        容器上次终止的时间。
-
-        Time 是 `time.Time` 的包装器，支持正确编组为 YAML 和 JSON。
-        time 包所提供的许多工厂方法都有包装器。
-
-      <!--
-      - **initContainerStatuses.state.terminated.message** (string)
-
-        Message regarding the last termination of the container
-
-      - **initContainerStatuses.state.terminated.reason** (string)
-
-        (brief) reason from the last termination of the container
-
-      - **initContainerStatuses.state.terminated.signal** (int32)
-
-        Signal from the last termination of the container
-      -->
-
-      - **initContainerStatuses.state.terminated.message** （string）
-
-        有关容器上次终止的消息。
-
-      - **initContainerStatuses.state.terminated.reason** （string）
-
-        容器最后一次终止的（简要）原因。
-
-      - **initContainerStatuses.state.terminated.signal** （int32）
-
-        容器最后一次终止的信号。
-
-    <!--
-    - **initContainerStatuses.state.waiting** (ContainerStateWaiting)
-
-      Details about a waiting container
-
-      <a name="ContainerStateWaiting"></a>
-      *ContainerStateWaiting is a waiting state of a container.*
-    -->
-
-    - **initContainerStatuses.state.waiting** （ContainerStateWaiting）
-
-      有关等待状态容器的详细信息。
-
-      **容器状态等待是容器的等待状态。**
-
-      <!--
-      - **initContainerStatuses.state.waiting.message** (string)
-
-        Message regarding why the container is not yet running.
-
-      - **initContainerStatuses.state.waiting.reason** (string)
-
-        (brief) reason the container is not yet running.
-      -->
-
-      - **initContainerStatuses.state.waiting.message** （string）
-
-        有关容器尚未运行的原因的消息。
-
-      - **initContainerStatuses.state.waiting.reason** （string）
-
-        容器尚未运行的（简要）原因。
-
-  <!--
-  - **initContainerStatuses.lastState** (ContainerState)
-
-    Details about the container's last termination condition.
-
-    <a name="ContainerState"></a>
-    *ContainerState holds a possible state of container. Only one of its members may be specified. If none of them is specified, the default one is ContainerStateWaiting.*
-  -->
-
-  - **initContainerStatuses.lastState** （ContainerState）
-
-    有关容器上次终止状况的详细信息。
-
-    ContainerState 保存容器的可能状态。只能设置其成员之一。如果未设置任何成员，
-    则默认为 ContainerStateWaiting。
-
-    <!--
-    - **initContainerStatuses.lastState.running** (ContainerStateRunning)
-
-      Details about a running container
-
-      <a name="ContainerStateRunning"></a>
-      *ContainerStateRunning is a running state of a container.*
-    -->
-
-    - **initContainerStatuses.lastState.running** （ContainerStateRunning）
-
-      有关正在运行的容器的详细信息
-
-      **ContainerStateRunning 是容器的运行状态。**
-
-      <!--
-      - **initContainerStatuses.lastState.running.startedAt** (Time)
-
-        Time at which the container was last (re-)started
-
-        <a name="Time"></a>
-        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-      -->
-
-      - **initContainerStatuses.lastState.running.startedAt** （Time）
-
-        容器上次（重新）启动的时间
-
-        Time 是 `time.Time` 的包装器，支持正确编组为 YAML 和 JSON。
-        time 包所提供的许多工厂方法都有包装器。
-
-    <!--
-    - **initContainerStatuses.lastState.terminated** (ContainerStateTerminated)
-
-      Details about a terminated container
-
-      <a name="ContainerStateTerminated"></a>
-      *ContainerStateTerminated is a terminated state of a container.*
-    -->
-
-    - **initContainerStatuses.lastState.terminated** （ContainerStateTerminated）
-
-      有关已终止容器的详细信息。
-
-      **ContainerStateTerminated 是容器的终止状态。**
-
-      <!--
-      - **initContainerStatuses.lastState.terminated.containerID** (string)
-
-        Container's ID in the format '\<type>://\<container_id>'
-
-      - **initContainerStatuses.lastState.terminated.exitCode** (int32), required
-
-        Exit status from the last termination of the container
-      -->
-
-      - **initContainerStatuses.lastState.terminated.containerID** （string）
-
-        容器的 ID，格式为 `"<类型>://<container_id>"`。
-
-      - **initContainerStatuses.lastState.terminated.exitCode** （int32），必需
-
-        容器上次终止的退出状态码。
-
-      <!--
-      - **initContainerStatuses.lastState.terminated.startedAt** (Time)
-
-        Time at which previous execution of the container started
-
-        <a name="Time"></a>
-        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-      -->
-
-      - **initContainerStatuses.lastState.terminated.startedAt** （Time）
-
-        容器上次执行的开始时间。
-
-        Time 是 `time.Time` 的包装器，支持正确编组为 YAML 和 JSON。
-        time 包所提供的许多工厂方法都有包装器。
-
-      <!--
-      - **initContainerStatuses.lastState.terminated.finishedAt** (Time)
-
-        Time at which the container last terminated
-
-        <a name="Time"></a>
-        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-      -->
-
-      - **initContainerStatuses.lastState.terminated.finishedAt** （Time）
-
-        容器上次终止的时间。
-
-        Time 是 `time.Time` 的包装器，支持正确编组为 YAML 和 JSON。
-        time 包所提供的许多工厂方法都有包装器。
-
-      <!--
-      - **initContainerStatuses.lastState.terminated.message** (string)
-
-        Message regarding the last termination of the container
-
-      - **initContainerStatuses.lastState.terminated.reason** (string)
-
-        (brief) reason from the last termination of the container
-
-      - **initContainerStatuses.lastState.terminated.signal** (int32)
-
-        Signal from the last termination of the container
-      -->
-
-      - **initContainerStatuses.lastState.terminated.message** （string）
-
-        有关容器上次终止的消息。
-
-      - **initContainerStatuses.lastState.terminated.reason** （string）
-
-        容器最后一次终止的（简要）原因。
-
-      - **initContainerStatuses.lastState.terminated.signal** （int32）
-
-        容器最后一次终止的信号。
-
-    <!--
-    - **initContainerStatuses.lastState.waiting** (ContainerStateWaiting)
-
-      Details about a waiting container
-
-      <a name="ContainerStateWaiting"></a>
-      *ContainerStateWaiting is a waiting state of a container.*
-    -->
-
-    - **initContainerStatuses.lastState.waiting** （ContainerStateWaiting）
-
-      有关等待状态的容器的详细信息。
-
-      **ContainerStateWaiting 是容器的等待状态。**
-
-      <!--
-      - **initContainerStatuses.lastState.waiting.message** (string)
-
-        Message regarding why the container is not yet running.
-
-      - **initContainerStatuses.lastState.waiting.reason** (string)
-
-        (brief) reason the container is not yet running.
-      -->
-
-      - **initContainerStatuses.lastState.waiting.message** （string）
-
-        关于容器尚未运行的原因的消息。
-
-      - **initContainerStatuses.lastState.waiting.reason** （string）
-
-        容器尚未运行的（简要）原因。
-
-  <!--
-  - **initContainerStatuses.ready** (boolean), required
-
-    Specifies whether the container has passed its readiness probe.
-
-  - **initContainerStatuses.restartCount** (int32), required
-
-    The number of times the container has been restarted.
-  -->
-
-  - **initContainerStatuses.ready** （boolean），必需
-
-    指定容器是否已通过其就绪态探测。
-
-  - **initContainerStatuses.restartCount** （int32），必需
-
-    容器重新启动的次数。
-
-  <!--
-  - **initContainerStatuses.started** (boolean)
-
-    Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
-  -->
-
-  - **initContainerStatuses.started** （boolean）
-
-    指定容器是否已通过其启动探测。初始化为 false，在 startupProbe 成功之后变为 true。
-    在容器重新启动时，或者如果 kubelet 暂时失去状态时重置为 false。
-    在未定义启动探测器时始终为 true。
-
 <!--
 - **containerStatuses** ([]ContainerStatus)
 
@@ -5193,420 +4927,11 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
 -->
 - **containerStatuses** （[]ContainerStatus）
 
-  该列表中针对清单中的每个容器都有一个条目。更多信息：
+  清单中的每个容器状态在该列表中都有一个条目。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
 
   **ContainerStatus 包含此容器当前状态的详细信息。**
-
-  <!--
-  - **containerStatuses.name** (string), required
-
-    This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.
-
-  - **containerStatuses.image** (string), required
-
-    The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images.
-  -->
-
-  - **containerStatuses.name**（string），必需
-
-    此字段必须是一个 DNS_LABEL。Pod 中的每个容器都必须具有唯一的名称。无法更新。
-
-  - **containerStatuses.image** （string），必需
-
-    容器正在运行的镜像。更多信息：
-    https://kubernetes.io/zh-cn/docs/concepts/containers/images。
-
-  <!--
-  - **containerStatuses.imageID** (string), required
-
-    ImageID of the container's image.
-
-  - **containerStatuses.containerID** (string)
-
-    Container's ID in the format '\<type>://\<container_id>'.
-  -->
-
-  - **containerStatuses.imageID** （string），必需
-
-    容器镜像的镜像 ID。
-
-  - **containerStatuses.containerID** （string）
-
-    容器的 ID，格式为 `"<类型>://<container_id>"`。
-
-  <!--
-  - **containerStatuses.state** (ContainerState)
-
-    Details about the container's current condition.
-
-    <a name="ContainerState"></a>
-    *ContainerState holds a possible state of container. Only one of its members may be specified. If none of them is specified, the default one is ContainerStateWaiting.*
-  -->
-
-  - **containerStatuses.state** （ContainerState）
-
-    有关容器当前状况的详细信息。
-
-    ContainerStatuses 保存容器的可能状态。只能设置其中一个成员。如果所有成员都未设置，
-    则默认为 ContainerStateWaiting。
-
-    <!--
-    - **containerStatuses.state.running** (ContainerStateRunning)
-
-      Details about a running container
-
-      <a name="ContainerStateRunning"></a>
-      *ContainerStateRunning is a running state of a container.*
-    -->
-
-    - **containerStatuses.state.running** （ContainerStateRunning）
-
-      有关正在运行的容器的详细信息。
-
-      **ContainerStateRunning 是容器的运行状态。**
-
-      <!--
-      - **containerStatuses.state.running.startedAt** (Time)
-
-        Time at which the container was last (re-)started
-
-        <a name="Time"></a>
-        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-      -->
-
-      - **containerStatuses.state.running.startedAt** （Time）
-
-        容器上次（重新）启动的时间。
-
-        Time 是 `time.Time` 的包装器，支持正确编组为 YAML 和 JSON。
-        time 包所提供的许多工厂方法都有包装器。
-
-    <!--
-    - **containerStatuses.state.terminated** (ContainerStateTerminated)
-
-      Details about a terminated container
-
-      <a name="ContainerStateTerminated"></a>
-      *ContainerStateTerminated is a terminated state of a container.*
-    -->
-
-    - **containerStatuses.state.terminated** （ContainerStateTerminated）
-
-      有关已终止容器的详细信息。
-
-      **ContainerStateTerminated 是容器的终止状态。**
-
-      <!--
-      - **containerStatuses.state.terminated.containerID** (string)
-
-        Container's ID in the format '\<type>://\<container_id>'
-
-      - **containerStatuses.state.terminated.exitCode** (int32), required
-
-        Exit status from the last termination of the container
-      -->
-
-      - **containerStatuses.state.terminated.containerID** （string）
-
-        容器的 ID，格式为 `"<类型>://<container_id>"`。
-
-      - **containerStatuses.state.terminated.exitCode** （int32），必需
-
-        容器上次终止的退出状态码。
-
-      <!--
-      - **containerStatuses.state.terminated.startedAt** (Time)
-
-        Time at which previous execution of the container started
-
-        <a name="Time"></a>
-        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-      -->
-
-      - **containerStatuses.state.terminated.startedAt** （Time）
-
-        容器上次执行的开始时间。
-
-        Time 是 `time.Time` 的包装器，支持正确编组为 YAML 和 JSON。
-        time 包所提供的许多工厂方法都有包装器。
-
-      <!--
-      - **containerStatuses.state.terminated.finishedAt** (Time)
-
-        Time at which the container last terminated
-
-        <a name="Time"></a>
-        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-      -->
-
-      - **containerStatuses.state.terminated.finishedAt** （Time）
-
-        容器上次终止的时间。
-
-        **Time 是 `time.Time` 的包装器，支持正确编组为 YAML 和 JSON。
-        time 包所提供的许多工厂方法都有包装器。**
-
-      <!--
-      - **containerStatuses.state.terminated.message** (string)
-
-        Message regarding the last termination of the container
-
-      - **containerStatuses.state.terminated.reason** (string)
-
-        (brief) reason from the last termination of the container
-
-      - **containerStatuses.state.terminated.signal** (int32)
-
-        Signal from the last termination of the container
-      -->
-
-      - **containerStatuses.state.terminated.message** （string）
-
-        有关容器上次终止的消息。
-
-      - **containerStatuses.state.terminated.reason** （string）
-
-        容器最后一次终止的（简要）原因
-
-      - **containerStatuses.state.terminated.signal** （int32）
-
-        容器最后一次终止的信号。
-
-    <!--
-    - **containerStatuses.state.waiting** (ContainerStateWaiting)
-
-      Details about a waiting container
-
-      <a name="ContainerStateWaiting"></a>
-      *ContainerStateWaiting is a waiting state of a container.*
-    -->
-
-    - **containerStatuses.state.waiting** （ContainerStateWaiting）
-
-      有关等待容器的详细信息。
-
-      **ContainerStateWaiting 是容器的等待状态。**
-
-      <!--
-      - **containerStatuses.state.waiting.message** (string)
-
-        Message regarding why the container is not yet running.
-
-      - **containerStatuses.state.waiting.reason** (string)
-
-        (brief) reason the container is not yet running.
-      -->
-
-      - **containerStatuses.state.waiting.message** （string）
-
-        关于容器尚未运行的原因的消息。
-
-      - **containerStatuses.state.waiting.reason** （string）
-
-        容器尚未运行的（简要）原因。
-
-  <!--
-  - **containerStatuses.lastState** (ContainerState)
-
-    Details about the container's last termination condition.
-
-    <a name="ContainerState"></a>
-    *ContainerState holds a possible state of container. Only one of its members may be specified. If none of them is specified, the default one is ContainerStateWaiting.*
-  -->
-
-  - **containerStatuses.lastState** （ContainerState）
-
-    有关容器上次终止状况的详细信息。
-
-    容器状态保存容器的可能状态。只能设置一个成员。如果所有成员都未设置，
-    则默认为 ContainerStateWaiting。
-
-    <!--
-    - **containerStatuses.lastState.running** (ContainerStateRunning)
-
-      Details about a running container
-
-      <a name="ContainerStateRunning"></a>
-      *ContainerStateRunning is a running state of a container.*
-    -->
-
-    - **containerStatuses.lastState.running** （ContainerStateRunning）
-
-      有关正在运行的容器的详细信息。
-
-      **ContainerStateRunning 是容器的运行状态。**
-
-      <!--
-      - **containerStatuses.lastState.running.startedAt** (Time)
-
-        Time at which the container was last (re-)started
-
-        <a name="Time"></a>
-        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-      -->
-
-      - **containerStatuses.lastState.running.startedAt** （Time）
-
-        容器上次（重新）启动的时间。
-
-        Time 是 `time.Time` 的包装器，支持正确编组为 YAML 和 JSON。
-        time 包所提供的许多工厂方法都有包装器。
-
-    <!--
-    - **containerStatuses.lastState.terminated** (ContainerStateTerminated)
-
-      Details about a terminated container
-
-      <a name="ContainerStateTerminated"></a>
-      *ContainerStateTerminated is a terminated state of a container.*
-    -->
-
-    - **containerStatuses.lastState.terminated** （ContainerStateTerminated）
-
-      有关已终止容器的详细信息。
-
-      **ContainerStateTerminated 是容器的终止状态。**
-
-      <!--
-      - **containerStatuses.lastState.terminated.containerID** (string)
-
-        Container's ID in the format '\<type>://\<container_id>'
-
-      - **containerStatuses.lastState.terminated.exitCode** (int32), required
-
-        Exit status from the last termination of the container
-      -->
-
-      - **containerStatuses.lastState.terminated.containerID** （string）
-
-        格式为 `<type>://<container_id>` 的容器 ID。
-
-      - **containerStatuses.lastState.terminated.exitCode** (int32)，必需
-
-        容器最后终止的退出状态码。
-
-      <!--
-      - **containerStatuses.lastState.terminated.startedAt** (Time)
-
-        Time at which previous execution of the container started
-
-        <a name="Time"></a>
-        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-      -->
-
-      - **containerStatuses.lastState.terminated.startedAt** （Time）
-
-        容器上次执行时的开始时间。
-
-        Time 是 `time.Time` 的包装器，支持正确编组为 YAML 和 JSON。
-        time 包所提供的许多工厂方法都有包装器。
-
-      <!--
-      - **containerStatuses.lastState.terminated.finishedAt** (Time)
-
-        Time at which the container last terminated
-
-        <a name="Time"></a>
-        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-      -->
-
-      - **containerStatuses.lastState.terminated.finishedAt** （Time）
-
-        容器上次终止的时间。
-
-        Time 是 `time.Time` 的包装器，支持正确编组为 YAML 和 JSON。
-        time 包所提供的许多工厂方法都有包装器。
-
-      <!--
-      - **containerStatuses.lastState.terminated.message** (string)
-
-        Message regarding the last termination of the container
-
-      - **containerStatuses.lastState.terminated.reason** (string)
-
-        (brief) reason from the last termination of the container
-
-      - **containerStatuses.lastState.terminated.signal** (int32)
-
-        Signal from the last termination of the container
-      -->
-
-      - **containerStatuses.lastState.terminated.message** （string）
-
-        关于容器上次终止的消息。
-
-      - **containerStatuses.lastState.terminated.reason** （string）
-
-        容器上次终止的（简要）原因
-
-      - **containerStatuses.lastState.terminated.signal** （int32）
-
-        容器上次终止的信号。
-
-    <!--
-    - **containerStatuses.lastState.waiting** (ContainerStateWaiting)
-
-      Details about a waiting container
-
-      <a name="ContainerStateWaiting"></a>
-      *ContainerStateWaiting is a waiting state of a container.*
-    -->
-
-    - **containerStatuses.lastState.waiting** （ContainerStateWaiting）
-
-      有关等待容器的详细信息。
-
-      **ContainerStateWaiting 是容器的等待状态。**
-
-      <!--
-      - **containerStatuses.lastState.waiting.message** (string)
-
-        Message regarding why the container is not yet running.
-
-      - **containerStatuses.lastState.waiting.reason** (string)
-
-        (brief) reason the container is not yet running.
-      -->
-
-      - **containerStatuses.lastState.waiting.message** （string）
-
-        关于容器尚未运行的原因的消息。
-
-      - **containerStatuses.lastState.waiting.reason** （string）
-
-        容器尚未运行的（简要）原因。
-
-  <!--
-  - **containerStatuses.ready** (boolean), required
-
-    Specifies whether the container has passed its readiness probe.
-
-  - **containerStatuses.restartCount** (int32), required
-
-    The number of times the container has been restarted.
-  -->
-
-  - **containerStatuses.ready** (boolean)，必需
-
-    指定容器是否已通过其就绪态探针。
-
-  - **containerStatuses.restartCount** (int32)，必需
-
-    容器重启的次数。
-
-  <!--
-  - **containerStatuses.started** (boolean)
-
-    Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
-  -->
-
-  - **containerStatuses.started** （boolean）
-
-    指定容器是否已通过其启动探针探测。初始化为 false，startupProbe 被认为成功后变为 true。
-    当容器重新启动或 kubelet 暂时丢失状态时重置为 false。
-    未定义启动探针时始终为 true。
-
+    
 <!--
 - **ephemeralContainerStatuses** ([]ContainerStatus)
 
@@ -5622,412 +4947,61 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
   <a name="ContainerStatus"></a>
   **ContainerStatus 包含此容器当前状态的详细信息。**
 
-  <!--
-  - **ephemeralContainerStatuses.name** (string), required
+<!--
+- **resourceClaimStatuses** ([]PodResourceClaimStatus)
 
-    This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.
+  *Patch strategies: retainKeys, merge on key `name`*
+  
+  *Map: unique values on key name will be kept during a merge*
+  
+  Status of resource claims.
+-->
+- **resourceClaimStatuses** ([]PodResourceClaimStatus)
 
-  - **ephemeralContainerStatuses.image** (string), required
+  **补丁策略：retainKeys，基于键 `name` 合并**
 
-    The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images.
-  -->
+  **映射：键 `name` 的唯一值将在合并过程中保留**
 
-  - **ephemeralContainerStatuses.name** (string)，必需
-
-    字段值必须是 DNS_LABEL。Pod 中的每个容器都必须具有唯一的名称。无法更新。
-
-  - **ephemeralContainerStatuses.image** (string)，必需
-
-    容器正在运行的镜像。更多信息：
-    https://kubernetes.io/zh-cn/docs/concepts/containers/images。
+  资源申领的状态。
 
   <!--
-  - **ephemeralContainerStatuses.imageID** (string), required
-
-    ImageID of the container's image.
-
-  - **ephemeralContainerStatuses.containerID** (string)
-
-    Container's ID in the format '\<type>://\<container_id>'.
+  <a name="PodResourceClaimStatus"></a>
+  *PodResourceClaimStatus is stored in the PodStatus for each PodResourceClaim which references a ResourceClaimTemplate. It stores the generated name for the corresponding ResourceClaim.*
   -->
 
-  - **ephemeralContainerStatuses.imageID** (string)，必需
-
-    容器镜像的镜像 ID。
-
-  - **ephemeralContainerStatuses.containerID** （string）
-
-    格式为 `<type>://<container_id>` 的容器 ID。
+  <a name="PodResourceClaimStatus"></a>
+  **对于每个引用 ResourceClaimTemplate 的 PodResourceClaim，PodResourceClaimStatus 被存储在
+  PodStatus 中。它存储为对应 ResourceClaim 生成的名称。**
 
   <!--
-  - **ephemeralContainerStatuses.state** (ContainerState)
+  - **resourceClaimStatuses.name** (string), required
 
-    Details about the container's current condition.
+    Name uniquely identifies this resource claim inside the pod. This must match the name of an entry in pod.spec.resourceClaims, which implies that the string must be a DNS_LABEL.
 
-    <a name="ContainerState"></a>
-    *ContainerState holds a possible state of container. Only one of its members may be specified. If none of them is specified, the default one is ContainerStateWaiting.*
-  -->
-  - **ephemeralContainerStatuses.state** （ContainerState）
+  - **resourceClaimStatuses.resourceClaimName** (string)
 
-    有关容器当前状况的详细信息。
-
-    ContainerState 保存容器的可能状态。只能设置其中一个成员。如果所有成员都未设置，
-    则默认为 ContainerStateWaiting。
-
-    <!--
-    - **ephemeralContainerStatuses.state.running** (ContainerStateRunning)
-
-      Details about a running container
-
-      <a name="ContainerStateRunning"></a>
-      *ContainerStateRunning is a running state of a container.*
-    -->
-
-    - **ephemeralContainerStatuses.state.running** （ContainerStateRunning）
-
-      有关正在运行的容器的详细信息
-
-      **ContainerStateRunning 是容器的运行状态。**
-
-      <!--
-      - **ephemeralContainerStatuses.state.running.startedAt** (Time)
-
-        Time at which the container was last (re-)started
-
-        <a name="Time"></a>
-        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-      -->
-
-      - **ephemeralContainerStatuses.state.running.startedAt** （Time）
-
-        容器上次（重新）启动的时间。
-
-        Time 是 `time.Time` 的包装器，支持正确编组为 YAML 和 JSON。
-        time 包所提供的许多工厂方法都有包装器。
-
-    <!--
-    - **ephemeralContainerStatuses.state.terminated** (ContainerStateTerminated)
-
-      Details about a terminated container
-
-      <a name="ContainerStateTerminated"></a>
-      *ContainerStateTerminated is a terminated state of a container.*
-    -->
-
-    - **ephemeralContainerStatuses.state.terminated** （ContainerStateTerminated）
-
-      有关已终止容器的详细信息。
-
-      **ContainerStateTerminated 是容器的终止状态。**
-
-      <!--
-      - **ephemeralContainerStatuses.state.terminated.containerID** (string)
-
-        Container's ID in the format '\<type>://\<container_id>'
-
-      - **ephemeralContainerStatuses.state.terminated.exitCode** (int32), required
-
-        Exit status from the last termination of the container
-      -->
-
-      - **ephemeralContainerStatuses.state.terminated.containerID** （string）
-
-        格式为 `<type>://<container_id>` 的容器 ID。
-
-      - **ephemeralContainerStatuses.state.terminated.exitCode** (int32)，必需
-
-        容器上次终止的退出状态码。
-
-      <!--
-      - **ephemeralContainerStatuses.state.terminated.startedAt** (Time)
-
-        Time at which previous execution of the container started
-
-        <a name="Time"></a>
-        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-      -->
-
-      - **ephemeralContainerStatuses.state.terminated.startedAt** （Time）
-
-        容器上次执行的开始时间。
-
-        Time 是 `time.Time` 的包装器，支持正确编组为 YAML 和 JSON。
-        time 包所提供的许多工厂方法都有包装器。
-
-      <!--
-      - **ephemeralContainerStatuses.state.terminated.finishedAt** (Time)
-
-        Time at which the container last terminated
-
-        <a name="Time"></a>
-        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-      -->
-
-      - **ephemeralContainerStatuses.state.terminated.finishat** （Time）
-
-        容器上次终止的时间。
-
-        Time 是 `time.Time` 的包装器，支持正确编组为 YAML 和 JSON。
-        time 包所提供的许多工厂方法都有包装器。
-
-      <!--
-      - **ephemeralContainerStatuses.state.terminated.message** (string)
-
-        Message regarding the last termination of the container
-
-      - **ephemeralContainerStatuses.state.terminated.reason** (string)
-
-        (brief) reason from the last termination of the container
-
-      - **ephemeralContainerStatuses.state.terminated.signal** (int32)
-
-        Signal from the last termination of the container
-      -->
-
-      - **ephemeralContainerStatuses.state.terminated.message** （string）
-
-        关于容器上次终止的消息。
-
-      - **ephemeralContainerStatuses.state.terminated.reason** （string）
-
-        容器上次终止的（简要）原因
-
-      - **ephemeralContainerStatuses.state.terminated.signal** （int32）
-
-        容器上次终止的信号
-
-    <!--
-    - **ephemeralContainerStatuses.state.waiting** (ContainerStateWaiting)
-
-      Details about a waiting container
-
-      <a name="ContainerStateWaiting"></a>
-      *ContainerStateWaiting is a waiting state of a container.*
-    -->
-
-    - **ephemeralContainerStatuses.state.waiting** （ContainerStateWaiting）
-
-      有关等待容器的详细信息。
-
-      **ContainerStateWaiting 是容器的等待状态。**
-
-      <!--
-      - **ephemeralContainerStatuses.state.waiting.message** (string)
-
-        Message regarding why the container is not yet running.
-
-      - **ephemeralContainerStatuses.state.waiting.reason** (string)
-
-        (brief) reason the container is not yet running.
-      -->
-
-      - **ephemeralContainerStatuses.state.waiting.message** （string）
-
-        关于容器尚未运行的原因的消息。
-
-      - **ephemeralContainerStatuses.state.waiting.reason** （string）
-
-        容器尚未运行的（简要）原因。
-
-  <!--
-  - **ephemeralContainerStatuses.lastState** (ContainerState)
-
-    Details about the container's last termination condition.
-
-    <a name="ContainerState"></a>
-    *ContainerState holds a possible state of container. Only one of its members may be specified. If none of them is specified, the default one is ContainerStateWaiting.*
-  -->
-  - **ephemeralContainerStatuses.lastState** （ContainerState）
-
-    有关容器的上次终止状况的详细信息。
-
-    ContainerState 保存容器的可能状态。只能设置其中一个成员。如果所有成员都未设置，
-    则默认为 `ContainerStateWaiting`。
-
-    <!--
-    - **ephemeralContainerStatuses.lastState.running** (ContainerStateRunning)
-
-      Details about a running container
-
-      <a name="ContainerStateRunning"></a>
-      *ContainerStateRunning is a running state of a container.*
-    -->
-
-    - **ephemeralContainerStatuses.lastState.running** （ContainerStateRunning）
-
-      有关正在运行的容器的详细信息。
-
-      **ContainerStateRunning 是容器的运行状态。**
-
-      <!--
-      - **ephemeralContainerStatuses.lastState.running.startedAt** (Time)
-
-        Time at which the container was last (re-)started
-
-        <a name="Time"></a>
-        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-      -->
-
-      - **ephemeralContainerStatuses.lastState.running.startedAt** （Time）
-
-        容器上次（重新）启动的时间。
-
-        Time 是 `time.Time` 的包装器，支持正确编组为 YAML 和 JSON。
-        time 包所提供的许多工厂方法都有包装器。
-
-    <!--
-    - **ephemeralContainerStatuses.lastState.terminated** (ContainerStateTerminated)
-
-      Details about a terminated container
-
-      <a name="ContainerStateTerminated"></a>
-      *ContainerStateTerminated is a terminated state of a container.*
-    -->
-
-    - **ephemeralContainerStatuses.lastState.terminated** （ContainerStateTerminated）
-
-      有关已终止容器的详细信息。
-
-      **`ContainerStateTerminated` 是容器的终止状态。**
-
-      <!--
-      - **ephemeralContainerStatuses.lastState.terminated.containerID** (string)
-
-        Container's ID in the format '\<type>://\<container_id>'
-
-      - **ephemeralContainerStatuses.lastState.terminated.exitCode** (int32), required
-
-        Exit status from the last termination of the container
-      -->
-
-      - **ephemeralContainerStatuses.lastState.terminated.containerID** （string）
-
-        格式为 `<type>://<container_id>` 的容器 ID。
-
-      - **ephemeralContainerStatuses.lastState.terminated.exitCode** (int32)，必需
-
-        容器上次终止时的退出状态码。
-
-      <!--
-      - **ephemeralContainerStatuses.lastState.terminated.startedAt** (Time)
-
-        Time at which previous execution of the container started
-
-        <a name="Time"></a>
-        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-      -->
-
-      - **ephemeralContainerStatuses.lastState.terminated.startedAt** （Time）
-
-        容器上次执行的开始时间。
-
-        Time 是 `time.Time` 的包装器，支持正确编组为 YAML 和 JSON。
-        time 包所提供的许多工厂方法都有包装器。
-
-      <!--
-      - **ephemeralContainerStatuses.lastState.terminated.finishedAt** (Time)
-
-        Time at which the container last terminated
-
-        <a name="Time"></a>
-        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-      -->
-
-      - **ephemeralContainerStatuses.lastState.terminated.finishedAt** （Time）
-
-        容器上次终止的时间。
-
-        Time 是 `time.Time` 的包装器，支持正确编组为 YAML 和 JSON。
-        time 包所提供的许多工厂方法都有包装器。
-
-      <!--
-      - **ephemeralContainerStatuses.lastState.terminated.message** (string)
-
-        Message regarding the last termination of the container
-
-      - **ephemeralContainerStatuses.lastState.terminated.reason** (string)
-
-        (brief) reason from the last termination of the container
-
-      - **ephemeralContainerStatuses.lastState.terminated.signal** (int32)
-
-        Signal from the last termination of the container
-      -->
-
-      - **ephemeralContainerStatuses.lastState.terminated.message** （string）
-
-        关于容器上次终止的消息。
-
-      - **ephemeralContainerStatuses.lastState.terminated.reason** （string）
-
-        容器上次终止的（简要）原因。
-
-      - **ephemeralContainerStatuses.lastState.terminated.signal** （int32）
-
-        容器上次终止的信号。
-
-    <!--
-    - **ephemeralContainerStatuses.lastState.waiting** (ContainerStateWaiting)
-
-      Details about a waiting container
-
-      <a name="ContainerStateWaiting"></a>
-      *ContainerStateWaiting is a waiting state of a container.*
-    -->
-
-    - **ephemeralContainerStatuses.lastState.waiting** （ContainerStateWaiting）
-
-      有关等待状态容器的详细信息。
-
-      **ContainerStateWaiting 是容器的等待状态。**
-
-      <!--
-      - **ephemeralContainerStatuses.lastState.waiting.message** (string)
-
-        Message regarding why the container is not yet running.
-
-      - **ephemeralContainerStatuses.lastState.waiting.reason** (string)
-
-        (brief) reason the container is not yet running.
-      -->
-
-      - **ephemeralContainerStatuses.lastState.waiting.message** （string）
-
-        关于容器尚未运行的原因的消息。
-
-      - **ephemeralContainerStatuses.lastState.waiting.reason** （string）
-
-        容器尚未运行的（简要）原因。
-
-  <!--
-  - **ephemeralContainerStatuses.ready** (boolean), required
-
-    Specifies whether the container has passed its readiness probe.
-
-  - **ephemeralContainerStatuses.restartCount** (int32), required
-
-    The number of times the container has been restarted.
+    ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod. It this is unset, then generating a ResourceClaim was not necessary. The pod.spec.resourceClaims entry can be ignored in this case.
   -->
 
-  - **ephemeralContainerStatuses.ready** （boolean），必需
+  - **resourceClaimStatuses.name** (string), required
 
-    指定容器是否已通过其就绪态探测。
+    Name 在 Pod 中唯一地标识此资源申领。
+    此名称必须与 pod.spec.resourceClaims 中的条目名称匹配，这意味着字符串必须是 DNS_LABEL。
 
-  - **ephemeralContainerStatuses.restartCount** （int32），必需
+  - **resourceClaimStatuses.resourceClaimName** (string)
 
-    容器重新启动的次数。
+    resourceClaimName 是为 Pod 在其名字空间中生成的 ResourceClaim 的名称。
+    如果此项未被设置，则不需要生成 ResourceClaim。在这种情况下，可以忽略 pod.spec.resourceClaims 这个条目。
 
-  <!--
-  - **ephemeralContainerStatuses.started** (boolean)
+<!--
+- **resize** (string)
+ 
+  Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+-->
+- **resize** (string)
 
-    Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
-  -->
-
-  - **ephemeralContainerStatuses.started** （boolean）
-
-    指定容器是否已通过其启动探测。初始化为 false，在 startProbe 成功之后变为 true。
-    在容器重新启动时或者 kubelet 暂时失去状态时重置为 false。
-    在未定义 startupProbe 时始终为 true。
+  Pod 容器所需的资源大小调整状态。如果没有待处理的资源调整大小，则它为空。
+  对容器资源的任何更改都会自动将其设置为"建议"值。
 
 ## PodList {#PodList}
 
@@ -6465,6 +5439,10 @@ GET /api/v1/namespaces/{namespace}/pods
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -6476,6 +5454,10 @@ GET /api/v1/namespaces/{namespace}/pods
 - **resourceVersionMatch** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 
@@ -6572,6 +5554,10 @@ GET /api/v1/pods
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 -->
 - **resourceVersion** (**查询参数**): string
 
@@ -6580,6 +5566,10 @@ GET /api/v1/pods
 - **resourceVersionMatch** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer
@@ -7401,6 +6391,10 @@ DELETE /api/v1/namespaces/{namespace}/pods
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 -->
 - **resourceVersion** (**查询参数**): string
 
@@ -7409,6 +6403,10 @@ DELETE /api/v1/namespaces/{namespace}/pods
 - **resourceVersionMatch** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer

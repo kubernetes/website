@@ -100,7 +100,7 @@ fail validation.
 			<td style="white-space: nowrap">HostProcess</td>
 			<td>
 				<p><!--Windows pods offer the ability to run <a href="/docs/tasks/configure-pod-container/create-hostprocess-pod">HostProcess containers</a> which enables privileged access to the Windows node. Privileged access to the host is disallowed in the baseline policy. -->
-                                Windows Pod 提供了运行 <a href="/zh-cn/docs/tasks/configure-pod-container/create-hostprocess-pod">HostProcess 容器</a> 的能力，这使得对 Windows 节点的特权访问成为可能。Baseline 策略中禁止对宿主的特权访问。{{< feature-state for_k8s_version="v1.23" state="beta" >}}
+                                Windows Pod 提供了运行 <a href="/zh-cn/docs/tasks/configure-pod-container/create-hostprocess-pod">HostProcess 容器</a> 的能力，这使得对 Windows 节点的特权访问成为可能。Baseline 策略中禁止对宿主的特权访问。{{< feature-state for_k8s_version="v1.26" state="stable" >}}
                                 </p>
 				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
 				<ul>
@@ -380,7 +380,7 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap"><!--Privilege Escalation (v1.8+)-->特权提升（v1.8+）</td>
 			<td>
-				<p><!--Privilege escalation (such as via set-user-ID or set-group-ID file mode) should not be allowed. <em><a href="#policies-specific-to-linux">This is Linux only policy</a> in v1.25+ <code>(spec.os.name != windows)</code></em>-->禁止（通过 SetUID 或 SetGID 文件模式）获得特权提升。<em><a href="#policies-specific-to-linux">这是 v1.25+ 中仅针对 Linux 的策略</a> <code>(spec.os.name != windows)</code></em></p>
+				<p><!--Privilege escalation (such as via set-user-ID or set-group-ID file mode) should not be allowed. <em><a href="#os-specific-policy-controls">This is Linux only policy</a> in v1.25+ <code>(spec.os.name != windows)</code></em>-->禁止（通过 SetUID 或 SetGID 文件模式）获得特权提升。<em><a href="#policies-specific-to-linux">这是 v1.25+ 中仅针对 Linux 的策略</a> <code>(spec.os.name != windows)</code></em></p>
 				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
 				<ul>
 					<li><code>spec.containers[*].securityContext.allowPrivilegeEscalation</code></li>
@@ -421,7 +421,7 @@ fail validation.
 				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
 				<ul>
 					<li><code>spec.securityContext.runAsUser</code></li>
-					<li><code>spec.containers[*].securityContext.runAsUser</code></li>
+          <li><code>spec.containers[*].securityContext.runAsUser</code></li>
 					<li><code>spec.initContainers[*].securityContext.runAsUser</code></li>
 					<li><code>spec.ephemeralContainers[*].securityContext.runAsUser</code></li>
 				</ul>
@@ -435,7 +435,7 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap">Seccomp (v1.19+)</td>
 			<td>
-  				<p><!--Seccomp profile must be explicitly set to one of the allowed values. Both the <code>Unconfined</code> profile and the <em>absence</em> of a profile are prohibited. <em><a href="#policies-specific-to-linux">This is Linux only policy</a> in v1.25+ <code>(spec.os.name != windows)</code></em>-->Seccomp Profile 必须被显式设置成一个允许的值。禁止使用 <code>Unconfined</code> Profile 或者指定 <em>不存在的</em> Profile。<em><a href="#policies-specific-to-linux">这是 v1.25+ 中仅针对 Linux 的策略</a> <code>(spec.os.name != windows)</code></em></p>
+  				<p><!--Seccomp profile must be explicitly set to one of the allowed values. Both the <code>Unconfined</code> profile and the <em>absence</em> of a profile are prohibited. <em><a href="#os-specific-policy-controls">This is Linux only policy</a> in v1.25+ <code>(spec.os.name != windows)</code></em>-->Seccomp Profile 必须被显式设置成一个允许的值。禁止使用 <code>Unconfined</code> Profile 或者指定 <em>不存在的</em> Profile。<em><a href="#policies-specific-to-linux">这是 v1.25+ 中仅针对 Linux 的策略</a> <code>(spec.os.name != windows)</code></em></p>
   				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
 				<ul>
 					<li><code>spec.securityContext.seccompProfile.type</code></li>
@@ -468,7 +468,7 @@ fail validation.
 				<p>
 					<!--
 					Containers must drop <code>ALL</code> capabilities, and are only permitted to add back
-					the <code>NET_BIND_SERVICE</code> capability. <em><a href="#policies-specific-to-linux">This is Linux only policy</a> in v1.25+ <code>(.spec.os.name != "windows")</code></em>
+					the <code>NET_BIND_SERVICE</code> capability. <em><a href="#os-specific-policy-controls">This is Linux only policy</a> in v1.25+ <code>(.spec.os.name != "windows")</code></em>
           -->
           容器必须弃用 <code>ALL</code> 权能，并且只允许添加
           <code>NET_BIND_SERVICE</code> 权能。<em><a href="#policies-specific-to-linux">这是 v1.25+ 中仅针对 Linux 的策略</a> <code>(.spec.os.name != "windows")</code></em>

@@ -84,13 +84,14 @@ ReplicationControllerSpec 表示一个副本控制器的规约。
 
 - **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>)
 
-  Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+  Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
 -->
 - **selector** (map[string]string)
   
   selector 是针对 Pod 的标签查询，符合条件的 Pod 个数应与 replicas 匹配。
   如果 selector 为空，则默认为出现在 Pod 模板中的标签。
   如果置空以表示默认使用 Pod 模板中的标签，则标签的主键和取值必须匹配，以便由这个副本控制器进行控制。
+  `template.spec.restartPolicy` 唯一被允许的值是 `Always`。
   更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/labels/#label-selectors
 
@@ -424,6 +425,10 @@ GET /api/v1/namespaces/{namespace}/replicationcontrollers
   
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
+- **sendInitialEvents** (*查询参数*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
 - **timeoutSeconds** (**查询参数**): integer
   
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -497,6 +502,10 @@ GET /api/v1/replicationcontrollers
 - **resourceVersionMatch** (**查询参数**): string
   
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (*查询参数*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 - **timeoutSeconds** (**查询参数**): integer
   
@@ -954,6 +963,10 @@ DELETE /api/v1/namespaces/{namespace}/replicationcontrollers
 - **resourceVersionMatch** (**查询参数**): string
   
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (*查询参数*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 - **timeoutSeconds** (**查询参数**): integer
   

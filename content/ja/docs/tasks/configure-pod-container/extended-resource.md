@@ -1,7 +1,7 @@
 ---
 title: 拡張リソースをコンテナに割り当てる
 content_type: task
-weight: 40
+weight: 70
 ---
 
 <!-- overview -->
@@ -24,7 +24,7 @@ weight: 40
 
 1つのコンテナからなるPodの構成ファイルを示します。
 
-{{< codenew file="pods/resource/extended-resource-pod.yaml" >}}
+{{% codenew file="pods/resource/extended-resource-pod.yaml" %}}
 
 構成ファイルでは、コンテナが3つのdongleをリクエストしていることがわかります。
 
@@ -59,7 +59,7 @@ Requests:
 
 以下に、1つのコンテナを持つPodの構成ファイルを示します。コンテナは2つのdongleをリクエストします。
 
-{{< codenew file="pods/resource/extended-resource-pod-2.yaml" >}}
+{{% codenew file="pods/resource/extended-resource-pod-2.yaml" %}}
 
 Kubernetesは、2つのdongleのリクエストを満たすことができません。1つ目のPodが、利用可能な4つのdongleのうち3つを使用してしまっているためです。
 

@@ -33,12 +33,12 @@ In this exercise, you create a Pod that runs two Containers. The two containers
 share a Volume that they can use to communicate. Here is the configuration file
 for the Pod:
 -->
-## 创建一个包含两个容器的 Pod
+## 创建一个包含两个容器的 Pod   {#creating-a-pod-that-runs-two-containers}
 
 在这个练习中，你会创建一个包含两个容器的 Pod。两个容器共享一个卷用于他们之间的通信。
 Pod 的配置文件如下：
 
-{{< codenew file="pods/two-container-pod.yaml" >}}
+{{% code_sample file="pods/two-container-pod.yaml" %}}
 
 <!--
 In the configuration file, you can see that the Pod has a Volume named
@@ -184,7 +184,7 @@ Typically this is done through a shared filesystem, as shown in this exercise,
 or through the loopback network interface, localhost. An example of this pattern is a
 web server along with a helper program that polls a Git repository for new updates.
 -->
-## 讨论
+## 讨论   {#discussion}
 
 Pod 能有多个容器的主要原因是为了支持辅助应用（helper applications），以协助主应用（primary application）。
 辅助应用的典型例子是数据抽取，数据推送和代理。辅助应用和主应用经常需要相互通信。
@@ -215,4 +215,3 @@ the shared Volume is lost.
 * 参考[在 Pod 中的容器之间共享进程命名空间](/zh-cn/docs/tasks/configure-pod-container/share-process-namespace/)
 * 参考 [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core)
 * 参考 [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
-

@@ -2,7 +2,7 @@
 title: Pod内のコンテナ間でプロセス名前空間を共有する
 min-kubernetes-server-version: v1.10
 content_type: task
-weight: 160
+weight: 200
 ---
 
 <!-- overview -->
@@ -30,7 +30,7 @@ weight: 160
 プロセス名前空間の共有は、`v1.PodSpec`の`shareProcessNamespace`フィールドを使用して有効にします。
 例:
 
-{{< codenew file="pods/share-process-namespace.yaml" >}}
+{{% codenew file="pods/share-process-namespace.yaml" %}}
 
 1. クラスターにPod `nginx`を作成します:
 

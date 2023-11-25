@@ -1,9 +1,5 @@
 ---
 title: Extendendo a API do Kubernetes com a camada de agregação
-reviewers:
-- lavalamp
-- cheftako
-- chenopis
 content_type: concept
 weight: 20
 ---

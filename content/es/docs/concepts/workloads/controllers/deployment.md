@@ -44,7 +44,7 @@ A continuación se presentan los casos de uso típicos de los Deployments:
 
 El siguiente ejemplo de un Deployment crea un ReplicaSet para arrancar tres Pods con `nginx`:
 
-{{< codenew file="controllers/nginx-deployment.yaml" >}}
+{{% codenew file="controllers/nginx-deployment.yaml" %}}
 
 En este ejemplo:
 
@@ -83,7 +83,7 @@ Esto es útil para futuras introspecciones, por ejemplo para comprobar qué coma
 
 A continuación, ejecuta el comando `kubectl get deployments`. La salida debe ser parecida a la siguiente:
 
-```shell
+```
 NAME               READY   UP-TO-DATE   AVAILABLE   AGE 
 nginx-deployment   3/3     3            3           1s  
 ```
@@ -126,7 +126,7 @@ deployment "nginx-deployment" successfully rolled out
 
 Ejecuta de nuevo el comando `kubectl get deployments` unos segundos más tarde:
 
-```shell
+```
 NAME               READY   UP-TO-DATE   AVAILABLE   AGE 
 nginx-deployment   3/3     3            3           18s  
 ```
@@ -136,7 +136,7 @@ la última plantilla Pod) y están disponibles (el estado del Pod tiene el valor
 
 Para ver el ReplicaSet (`rs`) creado por el Deployment, ejecuta el comando `kubectl get rs`:
 
-```shell
+```
 NAME                          DESIRED   CURRENT   READY   AGE
 nginx-deployment-75675f5897   3         3         3       18s
 ```
@@ -146,11 +146,11 @@ genera de forma aleatoria y usa el pod-template-hash como semilla.
 
 Para ver las etiquetas generadas automáticamente en cada pod, ejecuta el comando `kubectl get pods --show-labels`. Se devuelve la siguiente salida:
 
-```shell
+```
 NAME                                READY     STATUS    RESTARTS   AGE       LABELS
-nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
-nginx-deployment-75675f5897-kzszj   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
-nginx-deployment-75675f5897-qqcnn   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
+nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=75675f5897
+nginx-deployment-75675f5897-kzszj   1/1       Running   0          18s       app=nginx,pod-template-hash=75675f5897
+nginx-deployment-75675f5897-qqcnn   1/1       Running   0          18s       app=nginx,pod-template-hash=75675f5897
 ```
 
 El ReplicaSet creado garantiza que hay tres Pods de `nginx` ejecutándose en todo momento.

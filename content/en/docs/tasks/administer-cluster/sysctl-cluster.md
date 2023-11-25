@@ -26,6 +26,10 @@ the Linux man-pages project.
 {{< /note >}}
 ## {{% heading "prerequisites" %}}
 
+{{< note >}}
+`sysctl` is a Linux-specific command-line tool used to configure various kernel parameters
+and it is not available on non-Linux operating systems.
+{{< /note >}}
 
 {{< include "task-tutorial-prereqs.md" >}}
 
@@ -74,7 +78,10 @@ The following sysctls are supported in the _safe_ set:
 - `net.ipv4.ip_unprivileged_port_start` (since Kubernetes 1.22).
 
 {{< note >}}
-The example `net.ipv4.tcp_syncookies` is not namespaced on Linux kernel version 4.4 or lower.
+There are some exceptions to the set of safe sysctls:
+
+- The `net.*` sysctls are not allowed with host networking enabled.
+- The `net.ipv4.tcp_syncookies` sysctl is not namespaced on Linux kernel version 4.4 or lower.
 {{< /note >}}
 
 This list will be extended in future Kubernetes versions when the kubelet
@@ -119,10 +126,10 @@ in future versions of the Linux kernel.
 - `kernel.msg*`,
 - `kernel.sem`,
 - `fs.mqueue.*`,
-- The parameters under `net.*` that can be set in container networking
-  namespace. However, there are exceptions (e.g., before Linux 5.12.2,
-  `net.netfilter.nf_conntrack_max` and `net.netfilter.nf_conntrack_expect_max`
-  can be set in container networking namespace but they are unnamespaced).
+- Those `net.*` that can be set in container networking namespace. However,
+  there are exceptions (e.g., `net.netfilter.nf_conntrack_max` and
+  `net.netfilter.nf_conntrack_expect_max` can be set in container networking
+  namespace but are unnamespaced before Linux 5.12.2).
 
 Sysctls with no namespace are called _node-level_ sysctls. If you need to set
 them, you must manually configure them on each node's operating system, or by

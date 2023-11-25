@@ -24,6 +24,8 @@ content_type: concept
 
 ## 設定
 
+* [例: Javaのマイクロサービスの設定](/docs/tutorials/configuration/configure-java-microservice/)
+
 * [ConfigMapを用いたRedisの設定](/ja/docs/tutorials/configuration/configure-redis-using-configmap/)
 
 ## ステートレスアプリケーション
@@ -34,29 +36,26 @@ content_type: concept
 
 ## ステートフルアプリケーション
 
-* [StatefulSetの基本](/docs/tutorials/stateful-application/basic-stateful-set/)
+* [StatefulSetの基本](/ja/docs/tutorials/stateful-application/basic-stateful-set/)
 
-* [例: 永続ボリュームを使ったWordPressとMySQLのデプロイ](/ja/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)
+* [例: Persistent Volumeを使用したWordpressとMySQLをデプロイする](/ja/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)
 
-* [例: Stateful Setsを使ったCassandraのデプロイ](/docs/tutorials/stateful-application/cassandra/)
+* [例: Stateful Setを使用したCassandraのデプロイ](/ja/docs/tutorials/stateful-application/cassandra/)
 
 * [CP(一貫性＋分断耐性)分散システムZooKeeperの実行](/docs/tutorials/stateful-application/zookeeper/)
 
-## クラスター
-
-* [AppArmor](/docs/tutorials/clusters/apparmor/)
-
-* [seccomp](/docs/tutorials/clusters/seccomp/)
-
 ## サービス
 
+* [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/)
 * [Source IPを使う](/ja/docs/tutorials/services/source-ip/)
 
+## セキュリティ
 
+* [クラスターレベルのPod Securityの標準の適用](/docs/tutorials/security/cluster-level-pss/)
+* [NamespaceレベルのPod Securityの標準の適用](/docs/tutorials/security/ns-level-pss/)
+* [AppArmor](/docs/tutorials/security/apparmor/)
+* [Seccomp](/docs/tutorials/security/seccomp/)
 
 ## {{% heading "whatsnext" %}}
 
-
 チュートリアルのページタイプについての情報は、[Content Page Types](/docs/contribute/style/page-content-types/)を参照してください。
-
-

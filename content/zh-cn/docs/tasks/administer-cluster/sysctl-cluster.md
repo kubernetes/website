@@ -44,6 +44,15 @@ the Linux man-pages project.
 
 ## {{% heading "prerequisites" %}}
 
+{{< note >}}
+<!--
+`sysctl` is a Linux-specific command-line tool used to configure various kernel parameters
+and it is not available on non-Linux operating systems.
+-->
+`sysctl` 是一个 Linux 特有的命令行工具，用于配置各种内核参数，
+它在非 Linux 操作系统上无法使用。
+{{< /note >}}
+
 {{< include "task-tutorial-prereqs.md" >}}
 
 <!--
@@ -119,17 +128,23 @@ The following sysctls are supported in the _safe_ set:
 至今为止，大多数 **有命名空间的** sysctl 参数不一定被认为是 **安全** 的。
 以下几种 sysctl 参数是 **安全的**：
 
-- `kernel.shm_rmid_forced`
-- `net.ipv4.ip_local_port_range`
-- `net.ipv4.tcp_syncookies`
-- `net.ipv4.ping_group_range`（从 Kubernetes 1.18 开始）
+- `kernel.shm_rmid_forced`,
+- `net.ipv4.ip_local_port_range`,
+- `net.ipv4.tcp_syncookies`,
+- `net.ipv4.ping_group_range`（从 Kubernetes 1.18 开始）,
 - `net.ipv4.ip_unprivileged_port_start`（从 Kubernetes 1.22 开始）。
 
 {{< note >}}
 <!--
-The example `net.ipv4.tcp_syncookies` is not namespaced on Linux kernel version 4.4 or lower.
+There are some exceptions to the set of safe sysctls:
+
+- The `net.*` sysctls are not allowed with host networking enabled.
+- The `net.ipv4.tcp_syncookies` sysctl is not namespaced on Linux kernel version 4.4 or lower.
 -->
-示例中的 `net.ipv4.tcp_syncookies` 在Linux 内核 4.4 或更低的版本中是无命名空间的。
+安全 sysctl 参数有一些例外：
+
+- `net.*` sysctl 参数不允许在启用主机网络的情况下使用。
+- `net.ipv4.tcp_syncookies` sysctl 参数在 Linux 内核 4.4 或更低的版本中是无命名空间的。
 {{< /note >}}
 
 <!--
@@ -208,14 +223,14 @@ in future versions of the Linux kernel.
 - `kernel.sem`,
 - `fs.mqueue.*`,
 <!--
-- The parameters under `net.*` that can be set in container networking
-  namespace. However, there are exceptions (e.g., before Linux 5.12.2,
-  `net.netfilter.nf_conntrack_max` and `net.netfilter.nf_conntrack_expect_max`
-  can be set in container networking namespace but they are unnamespaced).
+- Those `net.*` that can be set in container networking namespace. However,
+  there are exceptions (e.g., `net.netfilter.nf_conntrack_max` and
+  `net.netfilter.nf_conntrack_expect_max` can be set in container networking
+  namespace but are unnamespaced before Linux 5.12.2).
 -->
-- `net.*`（内核中可以在容器命名空间里被更改的网络配置项相关参数）。然而也有一些特例
-  （例如，在 Linux 5.12.2 前，`net.netfilter.nf_conntrack_max` 和 `net.netfilter.nf_conntrack_expect_max`
-  可以在容器命名空间里被更改，但它们是非命名空间的）。
+- 那些可以在容器网络命名空间中设置的 `net.*`。但是，也有例外（例如
+  `net.netfilter.nf_conntrack_max` 和 `net.netfilter.nf_conntrack_expect_max`
+  可以在容器网络命名空间中设置，但在 Linux 5.12.2 之前它们是无命名空间的）。
 
 <!--
 Sysctls with no namespace are called _node-level_ sysctls. If you need to set
@@ -236,7 +251,7 @@ securityContext 应用于同一个 Pod 中的所有容器。
 <!--
 This example uses the pod securityContext to set a safe sysctl
 `kernel.shm_rmid_forced` and two unsafe sysctls `net.core.somaxconn` and
-`kernel.msgmax` There is no distinction between _safe_ and _unsafe_ sysctls in
+`kernel.msgmax`. There is no distinction between _safe_ and _unsafe_ sysctls in
 the specification.
 -->
 此示例中，使用 Pod SecurityContext 来对一个安全的 sysctl 参数

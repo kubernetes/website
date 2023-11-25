@@ -27,7 +27,6 @@ The responsibilities of each role are described below.
   - [Becoming a Release Manager](#becoming-a-release-manager)
 - [Release Manager Associates](#release-manager-associates)
   - [Becoming a Release Manager Associate](#becoming-a-release-manager-associate)
-- [Build Admins](#build-admins)
 - [SIG Release Leads](#sig-release-leads)
   - [Chairs](#chairs)
   - [Technical Leads](#technical-leads)
@@ -39,7 +38,6 @@ The responsibilities of each role are described below.
    - [成为发布管理员](#becoming-a-release-manager)
 - [发布管理员助理](#release-manager-associates)
    - [成为发布管理员助理](#becoming-a-release-manager-associate)
-- [构建管理员](#build-admins)
 - [SIG 发布负责人](#sig-release-leads)
    - [首席](#chairs)
    - [技术负责人](#technical-leads)
@@ -49,22 +47,25 @@ The responsibilities of each role are described below.
 
 | Mailing List | Slack | Visibility | Usage | Membership |
 | --- | --- | --- | --- | --- |
-| [release-managers@kubernetes.io](mailto:release-managers@kubernetes.io) | [#release-management](https://kubernetes.slack.com/messages/CJH2GBF7Y) (channel) / @release-managers (user group) | Public | Public discussion for Release Managers | All Release Managers (including Associates, Build Admins, and SIG Chairs) |
+| [release-managers@kubernetes.io](mailto:release-managers@kubernetes.io) | [#release-management](https://kubernetes.slack.com/messages/CJH2GBF7Y) (channel) / @release-managers (user group) | Public | Public discussion for Release Managers | All Release Managers (including Associates, and SIG Chairs) |
 | [release-managers-private@kubernetes.io](mailto:release-managers-private@kubernetes.io) | N/A | Private | Private discussion for privileged Release Managers | Release Managers, SIG Release leadership |
 | [security-release-team@kubernetes.io](mailto:security-release-team@kubernetes.io) | [#security-release-team](https://kubernetes.slack.com/archives/G0162T1RYHG) (channel) / @security-rel-team (user group) | Private | Security release coordination with the Security Response Committee | [security-discuss-private@kubernetes.io](mailto:security-discuss-private@kubernetes.io), [release-managers-private@kubernetes.io](mailto:release-managers-private@kubernetes.io) |
 -->
 ## 联系方式  {#contact}
 
-| 邮件列表 | Slack | 可见范围 | 用法 | 会员资格 |
-| --- | --- | --- | --- | --- |
-| [release-managers@kubernetes.io](mailto:release-managers@kubernetes.io) | [#release-management](https://kubernetes.slack.com/messages/CJH2GBF7Y)（频道）/@release-managers（用户组）| 公共 | 发布管理员公开讨论 | 所有发布管理员（包括助理、构建管理员和 SIG 主席）|
-| [release-managers-private@kubernetes.io](mailto:release-managers-private@kubernetes.io) | 不适用 | 私人 | 拥有特权的发布管理员私人讨论 | 发布管理员，SIG Release 负责人 |
-| [security-release-team@kubernetes.io](mailto:security-release-team@kubernetes.io) | [#security-release-team](https://kubernetes.slack.com/archives/G0162T1RYHG)（频道）/@security-rel-team（用户组）| 私人 | 与安全响应委员会协调安全发布 | [security-discuss-private@kubernetes.io](mailto:security-discuss-private@kubernetes.io), [release-managers-private@kubernetes.io](mailto:release-managers-private@kubernetes.io) |
+| 邮件列表                                                                                     | Slack                                                                                                         | 可见范围  | 用法                      | 会员资格                                                                                                                                                                          |
+| ------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------- | ------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [release-managers@kubernetes.io](mailto:release-managers@kubernetes.io)                    | [#release-management](https://kubernetes.slack.com/messages/CJH2GBF7Y)（频道）/@release-managers（用户组）        | 公共     | 发布管理员公开讨论          | 所有发布管理员（包括助理和 SIG 主席）                                                                                                                                                 |
+| [release-managers-private@kubernetes.io](mailto:release-managers-private@kubernetes.io)    | 不适用                                                                                                          | 私人     | 拥有特权的发布管理员私人讨论  | 发布管理员，SIG Release 负责人                                                                                                                                                      |
+| [security-release-team@kubernetes.io](mailto:security-release-team@kubernetes.io)          | [#security-release-team](https://kubernetes.slack.com/archives/G0162T1RYHG)（频道）/@security-rel-team（用户组）  | 私人     | 与安全响应委员会协调安全发布  | [security-discuss-private@kubernetes.io](mailto:security-discuss-private@kubernetes.io), [release-managers-private@kubernetes.io](mailto:release-managers-private@kubernetes.io) |
 
 <!-- 
 ### Security Embargo Policy
 
-Some information about releases is subject to embargo and we have defined policy about how those embargoes are set. Please refer to the [Security Embargo Policy](https://github.com/kubernetes/committee-security-response/blob/main/private-distributors-list.md#embargo-policy) for more information.
+Some information about releases is subject to embargo and we have defined policy about
+how those embargoes are set. Please refer to the
+[Security Embargo Policy](https://github.com/kubernetes/committee-security-response/blob/main/private-distributors-list.md#embargo-policy)
+for more information.
 -->
 ### 安全禁运政策  {#security-embargo-policy}
 
@@ -78,7 +79,6 @@ Some information about releases is subject to embargo and we have defined policy
 
 - [Patch Release Team][handbook-patch-release]
 - [Branch Managers][handbook-branch-mgmt]
-- [Build Admins][handbook-packaging]
 -->
 ## 手册  {#handbooks}
 
@@ -86,7 +86,6 @@ Some information about releases is subject to embargo and we have defined policy
 
 - [补丁发布团队][handbook-patch-release]
 - [分支管理员][handbook-branch-mgmt]
-- [构建管理员][handbook-packaging]
 
 <!-- 
 ## Release Managers
@@ -172,6 +171,7 @@ GitHub 访问控制：[@kubernetes/release-managers](https://github.com/orgs/kub
 GitHub 提及：[@kubernetes/release-engineering](https://github.com/orgs/kubernetes/teams/release-engineering)
 
 - Adolfo García Veytia ([@puerco](https://github.com/puerco))
+- Cici Huang ([@cici37](https://github.com/cici37))
 - Carlos Panato ([@cpanato](https://github.com/cpanato))
 - Jeremy Rickard ([@jeremyrickard](https://github.com/jeremyrickard))
 - Marko Mudrinić ([@xmudrii](https://github.com/xmudrii))
@@ -247,7 +247,6 @@ GitHub Mentions: @kubernetes/release-engineering
 GitHub 提及：@kubernetes/release-engineering
 
 - Arnaud Meukam ([@ameukam](https://github.com/ameukam))
-- Cici Huang ([@cici37](https://github.com/cici37))
 - Jim Angel ([@jimangel](https://github.com/jimangel))
 - Joseph Sandoval ([@jrsapi](https://github.com/jrsapi))
 - Xander Grzywinski([@salaxander](https://github.com/salaxander))
@@ -278,32 +277,6 @@ Contributors can become Associates by demonstrating the following:
    - 这种经验为理解 SIG Release 如何整体运作提供了坚实的基础——包括我们对技术技能、沟通、响应能力和可靠性的期望
 - 致力于改进我们与 Testgrid 交互的 kubernetes/release 项目，清理仓库等。
    - 这些工作需要与发布管理员和助理进行互动和合作
-
-<!-- 
-## Build Admins
-
-Build Admins are (currently) Google employees with the requisite access to
-Google build systems/tooling to publish deb/rpm packages on behalf of the
-Kubernetes project. They are responsible for:
-
-- Building, signing, and publishing the deb/rpm packages
-- Being the interlock with Release Managers (and Associates) on the final steps
-of each minor (1.Y) and patch (1.Y.Z) release
-
-GitHub team: [@kubernetes/build-admins](https://github.com/orgs/kubernetes/teams/build-admins)
--->
-## 构建管理员  {#build-admins}
-
-构建管理员（目前）是谷歌员工，他们拥有对谷歌构建系统/工具的必要访问权限，可以代表 Kubernetes 项目发布 deb/rpm 包。他们负责：
-
-- 构建、签名和发布 deb/rpm 包
-- 在每个次要 (1.Y) 和补丁 (1.Y.Z) 版本的最后步骤中与发布管理员（和助理）互锁
-
-GitHub 团队：[@kubernetes/build-admins](https://github.com/orgs/kubernetes/teams/build-admins)
-
-- Aaron Crickenberger ([@spiffxp](https://github.com/spiffxp))
-- Ben Kazemi ([@BenjaminKazemi](https://github.com/BenjaminKazemi))
-- Grant McCloskey ([@MushuEE](https://github.com/MushuEE))
 
 <!-- 
 ## SIG Release Leads
@@ -368,7 +341,6 @@ Example: [1.15 Release Team](https://git.k8s.io/sig-release/releases/release-1.1
 
 [community-membership]: https://git.k8s.io/community/community-membership.md#member
 [handbook-branch-mgmt]: https://git.k8s.io/sig-release/release-engineering/role-handbooks/branch-manager.md
-[handbook-packaging]: https://git.k8s.io/release/hack/rapture/README.md
 [handbook-patch-release]: https://git.k8s.io/sig-release/release-engineering/role-handbooks/patch-release-team.md
 [k-sig-release-releases]: https://git.k8s.io/sig-release/releases
 <!--
