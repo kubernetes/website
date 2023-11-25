@@ -276,6 +276,33 @@ not affect the performance of the member.
 
 Below is an example for taking a snapshot of the keyspace served by
 `$ENDPOINT` to the file `snapshot.db`:
+step1:Take an etcd snapshot backup using the following command
+
+ETCDCTL_API=3 etcdctl \
+  --endpoints=https://127.0.0.1:2379 \
+  --cacert=<ca-file> \
+  --cert=<cert-file> \
+  --key=<key-file> \
+  snapshot save <backup-file-location>
+
+  Step2 : How do we get the endpoint and the certificate informatio
+  we can retrieve them from the etcd pod and the manifest file for etcd pod is located under /etc/kubernetes/manifests folder
+  
+  cat /etc/kubernetes/manifests/etcd.yaml | grep listen
+![image](https://github.com/kubernetes/website/assets/151970071/a8116d2f-d4b5-4207-a6fb-cd4508e71b41)
+
+  step 3:we can get the certificate information with the following command.
+  
+ cat /etc/kubernetes/manifests/etcd.yaml | grep file
+  
+  step 4: Once we have the necessary information, we can run the snapshot save command using etcdctl.
+  example
+ETCDCTL_API=3 etcdctl \
+  --endpoints=https://127.0.0.1:2379 \
+  --cacert=/etc/kubernetes/pki/etcd/ca.crt \
+  --cert=/etc/kubernetes/pki/etcd/server.crt \
+  --key=/etc/kubernetes/pki/etcd/server.key \
+  snapshot save /opt/backup/etcd.db
 
 ```shell
 ETCDCTL_API=3 etcdctl --endpoints $ENDPOINT snapshot save snapshot.db
