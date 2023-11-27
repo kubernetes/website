@@ -123,7 +123,7 @@ The following methods exist for installing kubectl on macOS:
    kubectl version --client --output=yaml
    ```
 
-1. After installling and validating kubectl, delete the checksum file:
+1. After installing and validating kubectl, delete the checksum file:
 
    ```bash
    rm kkubectl.sha256
