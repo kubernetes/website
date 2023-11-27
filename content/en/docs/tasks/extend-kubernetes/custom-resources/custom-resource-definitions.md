@@ -749,8 +749,12 @@ validations are not supported by ratcheting under the implementation in Kubernet
   - `not`
   -  any validations in a descendent of one of these fields
 - `x-kubernetes-validations`
-  For Kubernetes {{< skew currentVersion >}}, CRD validation rules](#validation-rules) are ignored by
-  ratcheting. This may change in later Kubernetes releases.
+  For Kubernetes 1.28, CRD validation rules](#validation-rules) are ignored by
+  ratcheting. Starting with Alpha 2 in Kubernetes 1.29, `x-kubernetes-validations`
+  are ratcheted.
+
+  Transition Rules are never ratcheted: only errors raised by rules that do not 
+  use `oldSelf` will be automatically ratcheted if  their values are unchanged.
 - `x-kubernetes-list-type`
   Errors arising from changing the list type of a subschema will not be 
   ratcheted. For example adding `set` onto a list with duplicates will always 
@@ -767,7 +771,9 @@ validations are not supported by ratcheting under the implementation in Kubernet
 - `additionalProperties`
   To remove a previously specified `additionalProperties` validation will not be
   ratcheted.
-
+- `metadata`
+  Errors arising from changes to fields within an object's `metadata` are not
+  ratcheted.
 
 ### Validation rules
 
@@ -1168,6 +1174,34 @@ Refer to [JSONPath support in Kubernetes](/docs/reference/kubectl/jsonpath/) for
 The `fieldPath` field does not support indexing arrays numerically.
 
 Setting `fieldPath` is optional.
+
+#### The `optionalOldSelf` field {#field-optional-oldself}
+
+{{< feature-state state="alpha" for_k8s_version="v1.29" >}}
+
+The feature [CRDValidationRatcheting](#validation-ratcheting) must be enabled in order to 
+make use of this field.
+
+The `optionalOldSelf` field is a boolean field that alters the behavior of [Transition Rules](#transition-rules) described
+below. Normally, a transition rule will not evaluate if `oldSelf` cannot be determined:
+during object creation or when a new value is introduced in an update.
+
+If `optionalOldSelf` is set to true, then transition rules will always be 
+evaluated and the type of `oldSelf` be changed to a CEL [`Optional`](https://pkg.go.dev/github.com/google/cel-go/cel#OptionalTypes) type. 
+
+`optionalOldSelf` is useful in cases where schema authors would like a more
+control tool [than provided by the default equality based behavior of ][#validation-ratcheting] 
+to introduce newer, usually stricter constraints on new values, while still 
+allowing old values to be "grandfathered" or ratcheted using the older validation.
+
+Example Usage:
+
+| CEL                                     | Description |
+|-----------------------------------------|-------------|
+| `self.foo == "foo" || (oldSelf.hasValue() && oldSelf.value().foo != "foo")` | Ratcheted rule. Once a value is set to "foo", it must stay foo. But if it existed before the "foo" constraint was introduced, it may use any value |
+| [oldSelf.orValue(""), self].all(x, ["OldCase1", "OldCase2"].exists(case, x == case)) || ["NewCase1", "NewCase2"].exists(case, self == case) || ["NewCase"].has(self)` | "Ratcheted validation for removed enum cases if oldSelf used them" |
+| oldSelf.optMap(o, o.size()).orValue(0) < 4 || self.size() >= 4 | Ratcheted validation of newly increased minimum map or list size |
+
 
 #### Validation functions {#available-validation-functions}
 
