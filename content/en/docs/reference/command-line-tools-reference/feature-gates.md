@@ -177,6 +177,7 @@ For a reference to old feature gates that are removed, please refer to
 | `RemainingItemCount` | `true` | Beta | 1.16 | |
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | 1.11 |
 | `RotateKubeletServerCertificate` | `true` | Beta | 1.12 | |
+| `RuntimeClassInImageCriApi` | `false` | Alpha | 1.29 | |
 | `SELinuxMountReadWriteOncePod` | `false` | Alpha | 1.25 | 1.26 |
 | `SELinuxMountReadWriteOncePod` | `false` | Beta | 1.27 | 1.27 |
 | `SELinuxMountReadWriteOncePod` | `true` | Beta | 1.28 | |
@@ -728,6 +729,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `RotateKubeletServerCertificate`: Enable the rotation of the server TLS certificate on the kubelet.
   See [kubelet configuration](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#kubelet-configuration)
   for more details.
+- `RuntimeClassInImageCriApi` : Enables images to be pulled based on the [runtime class]
+  (/docs/concepts/containers/runtime-class/) of the pods that reference them.
 - `SELinuxMountReadWriteOncePod`: Speeds up container startup by allowing kubelet to mount volumes
   for a Pod directly with the correct SELinux label instead of changing each file on the volumes
   recursively. The initial implementation focused on ReadWriteOncePod volumes.
