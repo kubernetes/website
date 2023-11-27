@@ -333,11 +333,16 @@ To enable the plugin, configure the following flags on the API server:
 
 {{< feature-state for_k8s_version="v1.29" state="alpha" >}}
 
+JWT Authenticator is an authenticator to authenticate Kubernetes users using JWT compliant tokens. The authenticator will attempt to
+parse a raw ID token, verify it's been signed by the configured issuer. The public key to verify the signature is discovered from the issuer's public endpoint using OIDC discovery.
+
 The API server can be configured to use a JWT authenticator via the `--authentication-config` flag. This flag takes a path to a file containing the `AuthenticationConfiguration`. An example configuration is provided below.
 To use this config, the `StructuredAuthenticationConfiguration` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 has to be enabled.
 
-Note: When the feature is enabled, setting both `--authentication-config` and any of the `--oidc-*` flags will result in an error. If you want to use the feature, you have to remove the `--oidc-*` flags and use the configuration file instead.
+{{< note >}}
+When the feature is enabled, setting both `--authentication-config` and any of the `--oidc-*` flags will result in an error. If you want to use the feature, you have to remove the `--oidc-*` flags and use the configuration file instead.
+{{< /note >}}
 
 ```yaml
 ---
@@ -360,6 +365,7 @@ jwt:
     requiredValue: example.com
     # Instead of claim and requiredValue, you can use expression to validate the claim.
     # expression is a CEL expression that evaluates to a boolean.
+    # all the expressions must evaluate to true for validation to succeed.
   - expression: 'claims.hd == "example.com"'
     # Message customizes the error message seen in the API server logs when the validation fails.
     message: the hd claim must be set to example.com
@@ -404,6 +410,7 @@ jwt:
   # validation rules applied to the final user object.
   userValidationRules:
     # expression is a CEL expression that evaluates to a boolean.
+    # all the expressions must evaluate to true for the user to be valid.
   - expression: "!user.username.startsWith('system:')"
     # Message customizes the error message seen in the API server logs when the validation fails.
     message: 'username cannot used reserved system: prefix'
@@ -420,6 +427,7 @@ jwt:
 
   `jwt.userValidationRules[i].expression` represents the expression which will be evaluated by CEL.
   CEL expressions have access to the contents of `userInfo`, organized into `user` CEL variable.
+  Refer to the [UserInfo](/docs/reference/generated/kubernetes-api/v{{< skew currentVersion >}}/#userinfo-v1-authentication-k8s-io) API documentation for the schema of `user`.
 * Claim mapping expression
 
   `jwt.claimMappings.username.expression`, `jwt.claimMappings.groups.expression`, `jwt.claimMappings.uid.expression`
@@ -428,6 +436,183 @@ jwt:
   `claims` is a map of claim names (as strings) to claim values (of any type).
 
   To learn more, see the [Documentation on CEL](/docs/reference/using-api/cel/)
+
+  Here are examples of the `AuthenticationConfiguration` with different token payloads.
+
+  {{< tabs name="example_configuration" >}}
+  {{% tab name="Valid token" %}}
+  ```yaml
+  apiVersion: apiserver.config.k8s.io/v1alpha1
+  kind: AuthenticationConfiguration
+  jwt:
+  - issuer:
+      url: https://example.com
+      audiences:
+      - my-app
+    claimMappings:
+      username:
+        expression: 'claims.username + ":external-user"'
+      groups:
+        expression: 'claims.roles.split(",")'
+      uid:
+        expression: 'claims.sub'
+      extra:
+      - key: 'example.com/tenant'
+        valueExpression: 'claims.tenant'
+    userValidationRules:
+    - expression: "!user.username.startsWith('system:')" # the expression will evaluate to true, so validation will succeed.
+      message: 'username cannot used reserved system: prefix'
+  ```
+
+  ```bash
+  TOKEN=eyJhbGciOiJSUzI1NiIsImtpZCI6ImY3dF9tOEROWmFTQk1oWGw5QXZTWGhBUC04Y0JmZ0JVbFVpTG5oQkgxdXMiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJrdWJlcm5ldGVzIiwiZXhwIjoxNzAzMjMyOTQ5LCJpYXQiOjE3MDExMDcyMzMsImlzcyI6Imh0dHBzOi8vZXhhbXBsZS5jb20iLCJqdGkiOiI3YzMzNzk0MjgwN2U3M2NhYTJjMzBjODY4YWMwY2U5MTBiY2UwMmRkY2JmZWJlOGMyM2I4YjVmMjdhZDYyODczIiwibmJmIjoxNzAxMTA3MjMzLCJyb2xlcyI6InVzZXIsYWRtaW4iLCJzdWIiOiJhdXRoIiwidGVuYW50IjoiNzJmOTg4YmYtODZmMS00MWFmLTkxYWItMmQ3Y2QwMTFkYjRhIiwidXNlcm5hbWUiOiJmb28ifQ.TBWF2RkQHm4QQz85AYPcwLxSk-VLvQW-mNDHx7SEOSv9LVwcPYPuPajJpuQn9C_gKq1R94QKSQ5F6UgHMILz8OfmPKmX_00wpwwNVGeevJ79ieX2V-__W56iNR5gJ-i9nn6FYk5pwfVREB0l4HSlpTOmu80gbPWAXY5hLW0ZtcE1JTEEmefORHV2ge8e3jp1xGafNy6LdJWabYuKiw8d7Qga__HxtKB-t0kRMNzLRS7rka_SfQg0dSYektuxhLbiDkqhmRffGlQKXGVzUsuvFw7IGM5ZWnZgEMDzCI357obHeM3tRqpn5WRjtB8oM7JgnCymaJi-P3iCd88iu1xnzA
+  ```
+  where the token payload is:
+
+  ```json
+    {
+      "aud": "kubernetes",
+      "exp": 1703232949,
+      "iat": 1701107233,
+      "iss": "https://example.com",
+      "jti": "7c337942807e73caa2c30c868ac0ce910bce02ddcbfebe8c23b8b5f27ad62873",
+      "nbf": 1701107233,
+      "roles": "user,admin",
+      "sub": "auth",
+      "tenant": "72f988bf-86f1-41af-91ab-2d7cd011db4a",
+      "username": "foo"
+    }
+  ```
+
+  The token with the above `AuthenticationConfiguration` will produce the following `UserInfo` object and successfully authenticate the user.
+
+  ```json
+  {
+      "username": "foo:external-user",
+      "uid": "auth",
+      "groups": [
+          "user",
+          "admin"
+      ],
+      "extra": {
+          "example.com/tenant": "tenant1"
+      }
+  }
+  ```
+  {{% /tab %}}
+  {{% tab name="Fails claim validation" %}}
+  ```yaml
+  apiVersion: apiserver.config.k8s.io/v1alpha1
+  kind: AuthenticationConfiguration
+  jwt:
+  - issuer:
+      url: https://example.com
+      audiences:
+      - my-app
+    claimValidationRules:
+    - expression: 'claims.hd == "example.com"' # the token below does not have this claim, so validation will fail.
+      message: the hd claim must be set to example.com
+    claimMappings:
+      username:
+        expression: 'claims.username + ":external-user"'
+      groups:
+        expression: 'claims.roles.split(",")'
+      uid:
+        expression: 'claims.sub'
+      extra:
+      - key: 'example.com/tenant'
+        valueExpression: 'claims.tenant'
+    userValidationRules:
+    - expression: "!user.username.startsWith('system:')" # the expression will evaluate to true, so validation will succeed.
+      message: 'username cannot used reserved system: prefix'
+  ```
+
+  ```bash
+  TOKEN=eyJhbGciOiJSUzI1NiIsImtpZCI6ImY3dF9tOEROWmFTQk1oWGw5QXZTWGhBUC04Y0JmZ0JVbFVpTG5oQkgxdXMiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJrdWJlcm5ldGVzIiwiZXhwIjoxNzAzMjMyOTQ5LCJpYXQiOjE3MDExMDcyMzMsImlzcyI6Imh0dHBzOi8vZXhhbXBsZS5jb20iLCJqdGkiOiI3YzMzNzk0MjgwN2U3M2NhYTJjMzBjODY4YWMwY2U5MTBiY2UwMmRkY2JmZWJlOGMyM2I4YjVmMjdhZDYyODczIiwibmJmIjoxNzAxMTA3MjMzLCJyb2xlcyI6InVzZXIsYWRtaW4iLCJzdWIiOiJhdXRoIiwidGVuYW50IjoiNzJmOTg4YmYtODZmMS00MWFmLTkxYWItMmQ3Y2QwMTFkYjRhIiwidXNlcm5hbWUiOiJmb28ifQ.TBWF2RkQHm4QQz85AYPcwLxSk-VLvQW-mNDHx7SEOSv9LVwcPYPuPajJpuQn9C_gKq1R94QKSQ5F6UgHMILz8OfmPKmX_00wpwwNVGeevJ79ieX2V-__W56iNR5gJ-i9nn6FYk5pwfVREB0l4HSlpTOmu80gbPWAXY5hLW0ZtcE1JTEEmefORHV2ge8e3jp1xGafNy6LdJWabYuKiw8d7Qga__HxtKB-t0kRMNzLRS7rka_SfQg0dSYektuxhLbiDkqhmRffGlQKXGVzUsuvFw7IGM5ZWnZgEMDzCI357obHeM3tRqpn5WRjtB8oM7JgnCymaJi-P3iCd88iu1xnzA
+  ```
+  where the token payload is:
+  ```json
+    {
+      "aud": "kubernetes",
+      "exp": 1703232949,
+      "iat": 1701107233,
+      "iss": "https://example.com",
+      "jti": "7c337942807e73caa2c30c868ac0ce910bce02ddcbfebe8c23b8b5f27ad62873",
+      "nbf": 1701107233,
+      "roles": "user,admin",
+      "sub": "auth",
+      "tenant": "72f988bf-86f1-41af-91ab-2d7cd011db4a",
+      "username": "foo"
+    }
+  ```
+
+  The token with the above `AuthenticationConfiguration` will fail to authenticate because the `hd` claim is not set to `example.com`. The API server will return `401 Unauthorized` error.
+  {{% /tab %}}
+  {{% tab name="Fails user validation" %}}
+  ```yaml
+  apiVersion: apiserver.config.k8s.io/v1alpha1
+  kind: AuthenticationConfiguration
+  jwt:
+  - issuer:
+      url: https://example.com
+      audiences:
+      - my-app
+    claimValidationRules:
+    - expression: 'claims.hd == "example.com"'
+      message: the hd claim must be set to example.com
+    claimMappings:
+      username:
+        expression: '"system:" + claims.username' # this will prefix the username with "system:" and will fail user validation.
+      groups:
+        expression: 'claims.roles.split(",")'
+      uid:
+        expression: 'claims.sub'
+      extra:
+      - key: 'example.com/tenant'
+        valueExpression: 'claims.tenant'
+    userValidationRules:
+    - expression: "!user.username.startsWith('system:')" # the username will be system:foo and expression will evaluate to false, so validation will fail.
+      message: 'username cannot used reserved system: prefix'
+  ```
+  ```bash
+  TOKEN=eyJhbGciOiJSUzI1NiIsImtpZCI6ImY3dF9tOEROWmFTQk1oWGw5QXZTWGhBUC04Y0JmZ0JVbFVpTG5oQkgxdXMiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJrdWJlcm5ldGVzIiwiZXhwIjoxNzAzMjMyOTQ5LCJoZCI6ImV4YW1wbGUuY29tIiwiaWF0IjoxNzAxMTEzMTAxLCJpc3MiOiJodHRwczovL2V4YW1wbGUuY29tIiwianRpIjoiYjViMDY1MjM3MmNkMjBlMzQ1YjZmZGZmY2RjMjE4MWY0YWZkNmYyNTlhYWI0YjdlMzU4ODEyMzdkMjkyMjBiYyIsIm5iZiI6MTcwMTExMzEwMSwicm9sZXMiOiJ1c2VyLGFkbWluIiwic3ViIjoiYXV0aCIsInRlbmFudCI6IjcyZjk4OGJmLTg2ZjEtNDFhZi05MWFiLTJkN2NkMDExZGI0YSIsInVzZXJuYW1lIjoiZm9vIn0.FgPJBYLobo9jnbHreooBlvpgEcSPWnKfX6dc0IvdlRB-F0dCcgy91oCJeK_aBk-8zH5AKUXoFTlInfLCkPivMOJqMECA1YTrMUwt_IVqwb116AqihfByUYIIqzMjvUbthtbpIeHQm2fF0HbrUqa_Q0uaYwgy8mD807h7sBcUMjNd215ff_nFIHss-9zegH8GI1d9fiBf-g6zjkR1j987EP748khpQh9IxPjMJbSgG_uH5x80YFuqgEWwq-aYJPQxXX6FatP96a2EAn7wfPpGlPRt0HcBOvq5pCnudgCgfVgiOJiLr_7robQu4T1bis0W75VPEvwWtgFcLnvcQx0JWg
+  ```
+  where the token payload is:
+
+  ```json
+    {
+      "aud": "kubernetes",
+      "exp": 1703232949,
+      "hd": "example.com",
+      "iat": 1701113101,
+      "iss": "https://example.com",
+      "jti": "b5b0652372cd20e345b6fdffcdc2181f4afd6f259aab4b7e35881237d29220bc",
+      "nbf": 1701113101,
+      "roles": "user,admin",
+      "sub": "auth",
+      "tenant": "72f988bf-86f1-41af-91ab-2d7cd011db4a",
+      "username": "foo"
+    }
+  ```
+
+  The token with the above `AuthenticationConfiguration` will produce the following `UserInfo` object:
+
+  ```json
+  {
+      "username": "system:foo",
+      "uid": "auth",
+      "groups": [
+          "user",
+          "admin"
+      ],
+      "extra": {
+          "example.com/tenant": "tenant1"
+      }
+  }
+  ```
+  which will fail user validation because the username starts with `system:`. The API server will return `401 Unauthorized` error.
+  {{% /tab %}}
+  {{< /tabs >}}
 
 Importantly, the API server is not an OAuth2 client, rather it can only be
 configured to trust a single issuer. This allows the use of public providers,
