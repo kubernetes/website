@@ -62,6 +62,9 @@ On Linux nodes, the available modes for kube-proxy are:
 [`ipvs`](#proxy-mode-ipvs)
 : a mode where the kube-proxy configures packet forwarding rules using ipvs.
 
+[`nftables`](#proxy-mode-nftables)
+: a mode where the kube-proxy configures packet forwarding rules using nftables.
+
 There is only one mode available for kube-proxy on Windows:
 
 [`kernelspace`](#proxy-mode-kernelspace)
@@ -267,6 +270,23 @@ falls back to running in iptables proxy mode.
 {{< /note >}}
 
 {{< figure src="/images/docs/services-ipvs-overview.svg" title="Virtual IP address mechanism for Services, using IPVS mode" class="diagram-medium" >}}
+
+### `nftables` proxy mode {#proxy-mode-nftables}
+
+{{< feature-state for_k8s_version="v1.29" state="alpha" >}}
+
+_This proxy mode is only available on Linux nodes._
+
+In this mode, kube-proxy configures packet forwarding rules using the
+nftables API of the kernel netfilter subsystem. For each endpoint, it
+installs nftables rules which, by default, select a backend Pod at
+random.
+
+The nftables API is the successor to the iptables API, and although it
+is designed to provide better performance and scalability than
+iptables, the kube-proxy nftables mode is still under heavy
+development as of {{< skew currentVersion >}} and is not necessarily
+expected to outperform the other Linux modes at this time.
 
 ### `kernelspace` proxy mode {#proxy-mode-kernelspace}
 
