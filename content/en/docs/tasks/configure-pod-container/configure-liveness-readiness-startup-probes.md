@@ -487,6 +487,23 @@ startupProbe:
         value: ""
 ```
 
+{{< note >}}
+HTTP probes will not follow redirects. It will succeed on redirect response like `302`, but will report the warning as shown below:
+
+```none
+Events:
+  Type     Reason        Age                     From               Message
+  ----     ------        ----                    ----               -------
+  Normal   Scheduled     29m                     default-scheduler  Successfully assigned default/httpbin-7b8bc9cb85-bjzwn to daocloud
+  Normal   Pulling       29m                     kubelet            Pulling image "docker.io/kennethreitz/httpbin"
+  Normal   Pulled        24m                     kubelet            Successfully pulled image "docker.io/kennethreitz/httpbin" in 5m12.402735213s
+  Normal   Created       24m                     kubelet            Created container httpbin
+  Normal   Started       24m                     kubelet            Started container httpbin
+  Warning  ProbeWarning  4m11s (x1197 over 24m)  kubelet            Readiness probe warning: <body>
+```
+
+{{< /note >}}
+
 ### TCP probes
 
 For a TCP probe, the kubelet makes the probe connection at the node, not in the Pod, which
