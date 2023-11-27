@@ -213,14 +213,35 @@ so an earlier module has higher priority to allow or deny a request.
 
 {{< feature-state state="alpha" for_k8s_version="v1.29" >}}
 
-Kubernetes API Server authorizer chain can be configured using a config file by passing it through the `--authorization-config` flag. This feature enables creation of authorization chains with multiple webhooks with well-defined parameters that validate requests in a certain order and enables fine grained control like explicit Deny on failures. An example configuration with all possible values is provided below. In order to use the feature, the `StructuredAuthorizationConfiguration` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) has to be enabled.
+The Kubernetes API server's authorizer chain can be configured using a
+configuration file.
 
-Note: When the feature is enabled, setting both `--authorization-config` and configuring an authorization webhook using the `--authorization-mode` and `--authorization-webhook-*` command line flags is not allowed. If done, there will be an error and API Server would exit right away.
+You specify the path to that authorization configuration using the
+`--authorization-config` command line argument. This feature enables
+creation of authorization chains with multiple webhooks with well-defined
+parameters that validate requests in a certain order and enables fine grained
+control - such as explicit Deny on failures. An example configuration with
+all possible values is provided below.
+
+In order to customise the authorizer chain, you need to enable the
+`StructuredAuthorizationConfiguration` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+
+Note: When the feature is enabled, setting both `--authorization-config` and
+configuring an authorization webhook using the `--authorization-mode` and
+`--authorization-webhook-*` command line flags is not allowed. If done, there
+will be an error and API Server would exit right away.
 
 {{< caution >}}
-While the feature is in Alpha/Beta, there is no change if you want to keep on using command line flags. When the feature goes Beta, the feature flag would be turned on by default. The feature flag would be removed when feature goes GA.
+While the feature is in Alpha/Beta, there is no change if you want to keep on
+using command line flags. When the feature goes Beta, the feature flag would
+be turned on by default. The feature flag would be removed when feature goes GA.
 
-When configuring the authorizer chain using a config file, make sure all the apiserver nodes have the file. Also, take a note of the apiserver configuration when upgrading/downgrading the clusters. For example, if upgrading to v1.29+ clusters and using the config file, you would need to make sure the config file exists before upgrading the cluster. When downgrading to v1.28, you would need to add the flags back to their bootstrap mechanism.
+When configuring the authorizer chain using a config file, make sure all the
+apiserver nodes have the file. Also, take a note of the apiserver configuration
+when upgrading/downgrading the clusters. For example, if upgrading to v1.29+
+clusters and using the config file, you would need to make sure the config file
+exists before upgrading the cluster. When downgrading to v1.28, you would need
+to add the flags back to their bootstrap mechanism.
 {{< /caution >}}
 
 ```yaml
