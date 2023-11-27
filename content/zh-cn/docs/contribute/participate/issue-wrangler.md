@@ -14,12 +14,12 @@ weight: 20
 <!--
 Alongside the [PR Wrangler](/docs/contribute/participate/pr-wranglers),formal approvers,
 and reviewers, members of SIG Docs take week long shifts
-[triaging and categorising issues](/docs/contribute/review/for-approvers.md/#triage-and-categorize-issues)
+[triaging and categorising issues](/docs/contribute/review/for-approvers/#triage-and-categorize-issues)
 for the repository.
 -->
 除了承担 [PR 管理者](/zh-cn/docs/contribute/participate/pr-wranglers)的职责外，
 SIG Docs 正式的批准人（Approver）、评审人（Reviewer）和成员（Member）
-按周轮流[归类仓库的 Issue](/zh-cn/docs/contribute/review/for-approvers.md/#triage-and-categorize-issues)。
+按周轮流[归类仓库的 Issue](/zh-cn/docs/contribute/review/for-approvers/#triage-and-categorize-issues)。
 
 <!-- body -->
 
@@ -29,7 +29,7 @@ SIG Docs 正式的批准人（Approver）、评审人（Reviewer）和成员（M
 Each day in a week-long shift the Issue Wrangler will be responsible for:
 
 - Triaging and tagging incoming issues daily. See
-  [Triage and categorize issues](/docs/contribute/review/for-approvers.md/#triage-and-categorize-issues)
+  [Triage and categorize issues](/docs/contribute/review/for-approvers/#triage-and-categorize-issues)
   for guidelines on how SIG Docs uses metadata.
 - Keeping an eye on stale & rotten issues within the kubernetes/website repository.
 - Maintenance of the [Issues board](https://github.com/orgs/kubernetes/projects/72/views/1).
@@ -39,7 +39,7 @@ Each day in a week-long shift the Issue Wrangler will be responsible for:
 在为期一周的轮值期内，Issue 管理者每天负责：
 
 - 对收到的 Issue 进行日常分类和标记。有关 SIG Docs 如何使用元数据的指导说明，
-  参阅[归类 Issue](/zh-cn/docs/contribute/review/for-approvers.md/#triage-and-categorize-issues)。
+  参阅[归类 Issue](/zh-cn/docs/contribute/review/for-approvers/#triage-and-categorize-issues)。
 - 密切关注 kubernetes/website 代码仓库中陈旧和过期的 Issue。
 - 维护 [Issues 看板](https://github.com/orgs/kubernetes/projects/72/views/1)。
 

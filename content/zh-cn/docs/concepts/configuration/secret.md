@@ -1579,6 +1579,21 @@ Therefore, one Pod does not have access to the Secrets of another Pod.
 针对同一节点上的多个 Pod 可能有多个 Secret。不过，只有某个 Pod 所请求的 Secret
 才有可能对 Pod 中的容器可见。因此，一个 Pod 不会获得访问其他 Pod 的 Secret 的权限。
 
+<!--
+### Configure least-privilege access to Secrets
+
+To enhance the security measures around Secrets, Kubernetes provides a mechanism: you can
+annotate a ServiceAccount as `kubernetes.io/enforce-mountable-secrets: "true"`.
+
+For more information, you can refer to the [documentation about this annotation](/docs/concepts/security/service-accounts/#enforce-mountable-secrets).
+-->
+### 配置 Secret 资源的最小特权访问
+
+为了加强对 Secret 的安全措施，Kubernetes 提供了一种机制：
+你可以为 ServiceAccount 添加 `kubernetes.io/enforce-mountable-secrets: "true"` 注解。
+
+想了解更多信息，你可以参考[此注解的文档](/zh-cn/docs/concepts/security/service-accounts/#enforce-mountable-secrets)。
+
 {{< warning >}}
 <!--
 Any containers that run with `privileged: true` on a node can access all
