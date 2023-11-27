@@ -488,7 +488,9 @@ startupProbe:
 ```
 
 {{< note >}}
-HTTP probes will not follow redirects. It will succeed on redirect response like `302`, but will report the warning as shown below:
+When the kubelet probes a Pod using HTTP, the default behavior is only to follows redirects if the redirect  
+is to the same host. If the kubelet receives 11 or more redirects during probing, the probe is considered a  
+warning and a related Event is created:  
 
 ```none
 Events:
@@ -499,9 +501,11 @@ Events:
   Normal   Pulled        24m                     kubelet            Successfully pulled image "docker.io/kennethreitz/httpbin" in 5m12.402735213s
   Normal   Created       24m                     kubelet            Created container httpbin
   Normal   Started       24m                     kubelet            Started container httpbin
-  Warning  ProbeWarning  4m11s (x1197 over 24m)  kubelet            Readiness probe warning: <body>
+ Warning  ProbeWarning  4m11s (x1197 over 24m)  kubelet            Readiness probe warning: Probe terminated redirects  
 ```
 
+If the kubelet receives a redirect where the hostname is different from the request, the outcome of the probe  
+is a warning and the kubelet creates an event to report this.
 {{< /note >}}
 
 ### TCP probes
