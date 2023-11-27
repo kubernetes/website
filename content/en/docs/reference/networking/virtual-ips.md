@@ -115,8 +115,10 @@ through a load-balancer, though in those cases the client IP address does get al
 
 #### Optimizing iptables mode performance
 
-In large clusters (with tens of thousands of Pods and Services), the
-iptables mode of kube-proxy may take a long time to update the rules
+In iptables mode, kube-proxy creates a few iptables rules for every
+Service, and a few iptables rules for each endpoint IP address. In
+clusters with tens of thousands of Pods and Services, this means tens
+of thousands of iptables rules, and kube-proxy may take a long time to update the rules
 in the kernel when Services (or their EndpointSlices) change. You can adjust the syncing
 behavior of kube-proxy via options in the [`iptables` section](/docs/reference/config-api/kube-proxy-config.v1alpha1/#kubeproxy-config-k8s-io-v1alpha1-KubeProxyIPTablesConfiguration)
 of the
@@ -205,7 +207,7 @@ iptables mode, but uses a hash table as the underlying data structure and works
 in the kernel space.
 That means kube-proxy in IPVS mode redirects traffic with lower latency than
 kube-proxy in iptables mode, with much better performance when synchronizing
-proxy rules. Compared to the other proxy modes, IPVS mode also supports a
+proxy rules. Compared to the iptables proxy mode, IPVS mode also supports a
 higher throughput of network traffic.
 
 IPVS provides more options for balancing traffic to backend Pods;
