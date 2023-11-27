@@ -43,14 +43,16 @@ A scheduling or binding cycle can be aborted if the Pod is determined to
 be unschedulable or if there is an internal error. The Pod will be returned to
 the queue and retried.
 
-## Extension points
+## Interfaces
 
-The following picture shows the scheduling context of a Pod and the extension
-points that the scheduling framework exposes. In this picture "Filter" is
-equivalent to "Predicate" and "Scoring" is equivalent to "Priority function".
+The following picture shows the scheduling context of a Pod and the interfaces
+that the scheduling framework exposes.
 
-One plugin may register at multiple extension points to perform more complex or
+One plugin may implement multiple interfaces to perform more complex or
 stateful tasks.
+
+Some interfaces match the scheduler extension points which can be configured through 
+[Scheduler Configuration](/docs/reference/scheduling/config/#extension-points).
 
 {{< figure src="/images/docs/scheduling-framework-extensions.png" title="Scheduling framework extension points" class="diagram-large">}}
 
@@ -64,6 +66,28 @@ Otherwise, it's placed in the internal unschedulable Pods list, and doesn't get 
 
 For more details about how internal scheduler queues work, read
 [Scheduling queue in kube-scheduler](https://github.com/kubernetes/community/blob/f03b6d5692bd979f07dd472e7b6836b2dad0fd9b/contributors/devel/sig-scheduling/scheduler_queues.md).
+
+### EnqueueExtension
+
+EnqueueExtension is the interface where the plugin can control 
+whether to retry scheduling of Pods rejected by this plugin, based on changes in the cluster.
+Plugins that implement PreEnqueue, PreFilter, Filter, Reserve or Permit should implement this interface.
+
+#### QueueingHint
+
+{{< feature-state for_k8s_version="v1.28" state="beta" >}}
+
+QueueingHint is a callback function for deciding whether a Pod can be requeued to the active queue or backoff queue. 
+It's executed every time a certain kind of event or change happens in the cluster.
+When the QueueingHint finds that the event might make the Pod schedulable, 
+the Pod is put into the active queue or the backoff queue
+so that the scheduler will retry the scheduling of the Pod.
+
+{{< note >}}
+QueueingHint evaluation during scheduling is a beta-level feature and is enabled by default in 1.28. 
+You can disable it via the
+`SchedulerQueueingHints` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+{{< /note >}}
 
 ### QueueSort {#queue-sort}
 
@@ -148,7 +172,7 @@ NormalizeScore extension point.
 
 ### Reserve {#reserve}
 
-A plugin that implements the Reserve extension has two methods, namely `Reserve`
+A plugin that implements the Reserve interface has two methods, namely `Reserve`
 and `Unreserve`, that back two informational scheduling phases called Reserve
 and Unreserve, respectively. Plugins which maintain runtime state (aka "stateful
 plugins") should use these phases to be notified by the scheduler when resources
@@ -218,7 +242,7 @@ skipped**.
 
 ### PostBind {#post-bind}
 
-This is an informational extension point. Post-bind plugins are called after a
+This is an informational interface. Post-bind plugins are called after a
 Pod is successfully bound. This is the end of a binding cycle, and can be used
 to clean up associated resources.
 
