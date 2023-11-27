@@ -1185,11 +1185,12 @@ Setting `fieldPath` is optional.
 
 #### The `optionalOldSelf` field {#field-optional-oldself}
 
-The `optionalOldSelf` field is a boolean field added in Kubernetes 1.29. The feature
-[CRDValidationRatcheting](#validation-ratcheting) must be enabled in order to 
+{{< feature-state state="alpha" for_k8s_version="v1.29" >}}
+
+The feature [CRDValidationRatcheting](#validation-ratcheting) must be enabled in order to 
 make use of this field.
 
-This field alters the behavior of [Transition Rules](#transition-rules) described
+The `optionalOldSelf` field is a boolean that field alters the behavior of [Transition Rules](#transition-rules) described
 below. Normally, a transition rule will not evaluate if `oldSelf` cannot be determined:
 during object creation or when a new value is introduced in an update.
 
