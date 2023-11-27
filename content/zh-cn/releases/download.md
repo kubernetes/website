@@ -55,7 +55,7 @@ kubectl 可安装在各种 Linux 平台、macOS 和 Windows 上。
 - [在 Windows 上安装 kubectl](/zh-cn/docs/tasks/tools/install-kubectl-windows)
 
 <!--
-## Container Images
+## Container images
 
 All Kubernetes container images are deployed to the
 `registry.k8s.io` container image registry.
@@ -64,21 +64,11 @@ All Kubernetes container images are deployed to the
 
 所有 Kubernetes 容器镜像都被部署到 `registry.k8s.io` 容器镜像仓库。
 
-{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
-
 <!--
-For Kubernetes {{< param "version" >}}, the following
-container images are signed using [cosign](https://github.com/sigstore/cosign)
-signatures:
+| Container Image                                                           | Supported Architectures          |
 -->
-对于 Kubernetes {{< param "version" >}}，以下容器镜像使用
-[cosign](https://github.com/sigstore/cosign) 进行签名：
-
-<!--
-| Container Image                                                    | Supported Architectures            |
--->
-| 容器镜像                                                             | 支持架构                           |
-| ------------------------------------------------------------------- | --------------------------------- |
+| 容器镜像                                                                   | 支持架构                           |
+| ------------------------------------------------------------------------- | --------------------------------- |
 | registry.k8s.io/kube-apiserver:v{{< skew currentPatchVersion >}}          | amd64, arm, arm64, ppc64le, s390x |
 | registry.k8s.io/kube-controller-manager:v{{< skew currentPatchVersion >}} | amd64, arm, arm64, ppc64le, s390x |
 | registry.k8s.io/kube-proxy:v{{< skew currentPatchVersion >}}              | amd64, arm, arm64, ppc64le, s390x |
@@ -86,17 +76,47 @@ signatures:
 | registry.k8s.io/conformance:v{{< skew currentPatchVersion >}}             | amd64, arm, arm64, ppc64le, s390x |
 
 <!--
+### Container image architectures
+-->
+### 容器镜像架构
+
+<!--
 All container images are available for multiple architectures, whereas the
 container runtime should choose the correct one based on the underlying
 platform. It is also possible to pull a dedicated architecture by suffixing the
 container image name, for example
-`registry.k8s.io/kube-apiserver-arm64:v{{< skew currentPatchVersion >}}`. All
-those derivations are signed in the same way as the multi-architecture manifest lists.
+`registry.k8s.io/kube-apiserver-arm64:v{{< skew currentPatchVersion >}}`. 
 -->
 所有容器镜像都支持多架构，而容器运行时应根据下层平台选择正确的镜像。
 也可以通过给容器镜像名称加后缀来拉取适合特定架构的镜像，例如
 `registry.k8s.io/kube-apiserver-arm64:v{{< skew currentPatchVersion >}}`。
-所有这些派生镜像都以与多架构清单列表相同的方式签名。
+
+<!--
+### Container image signatures
+-->
+### 容器镜像签名
+
+{{< feature-state for_k8s_version="v1.26" state="beta" >}}
+
+<!--
+For Kubernetes {{< param "version" >}},
+container images are signed using [sigstore](https://sigstore.dev)
+signatures:
+-->
+对于 Kubernetes {{< param "version" >}}，容器镜像使用
+[sigstore](https://sigstore.dev) 进行签名：
+
+{{< note >}}
+<!--
+Container image sigstore signatures do currently not match between different geographical locations.
+More information about this problem is available in the corresponding
+[GitHub issue](https://github.com/kubernetes/registry.k8s.io/issues/187).
+-->
+目前，不同地理位置之间的容器镜像 sigstore 签名不匹配。
+有关此问题的更多信息，请参阅相应的
+[GitHub Issue](https://github.com/kubernetes/registry.k8s.io/issues/187)。
+{{< /note >}}
+
 
 <!--
 The Kubernetes project publishes a list of signed Kubernetes container images
@@ -111,17 +131,17 @@ curl -Ls "https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/stable.txt)/r
 ```
 
 <!--
-For Kubernetes v{{< skew currentVersion >}}, the only kind of code artifact that
-you can verify integrity for is a container image, using the experimental
-signing support.
-
 To manually verify signed container images of Kubernetes core components, refer to
 [Verify Signed Container Images](/docs/tasks/administer-cluster/verify-signed-artifacts).
 -->
-对于 Kubernetes v{{< skew currentVersion >}}，唯一可以验证完整性的代码工件就是容器镜像，它使用实验性签名支持。
-
 如需手动验证 Kubernetes 核心组件的签名容器镜像，
 请参考[验证签名容器镜像](/zh-cn/docs/tasks/administer-cluster/verify-signed-artifacts)。
+
+<!--
+If you pull a container image for a specific architecture, the single-architecture image
+is signed in the same way as for the multi-architecture manifest lists.
+-->
+如果你要拉取特定架构的容器镜像，则单架构镜像的签名方式与多架构清单列表相同。
 
 <!--
 ## Binaries
