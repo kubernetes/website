@@ -54,7 +54,7 @@ started using it. For E2E testing, that was
 [Ginkgo+Gomega](https://github.com/onsi/ginkgo). Some hacks were
 necessary, for example around cleanup after a test run and for
 categorising tests. Eventually this led to Ginkgo v2 and [revised best
-practices for E2E testing](/blog/2023/04/12/e2e-testing-best-practices-reloaded/).
+practices for E2E testing](https://www.kubernetes.dev/blog/2023/04/12/e2e-testing-best-practices-reloaded/).
 Regarding unit testing opinions are pretty diverse: some maintainers
 prefer to use just the Go standard library with hand-written
 checks. Others use helper packages like stretchr/testify. That
