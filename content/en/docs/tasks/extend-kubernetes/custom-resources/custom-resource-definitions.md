@@ -1190,7 +1190,7 @@ Setting `fieldPath` is optional.
 The feature [CRDValidationRatcheting](#validation-ratcheting) must be enabled in order to 
 make use of this field.
 
-The `optionalOldSelf` field is a boolean that field alters the behavior of [Transition Rules](#transition-rules) described
+The `optionalOldSelf` field is a boolean field that alters the behavior of [Transition Rules](#transition-rules) described
 below. Normally, a transition rule will not evaluate if `oldSelf` cannot be determined:
 during object creation or when a new value is introduced in an update.
 
@@ -1198,7 +1198,7 @@ If `optionalOldSelf` is set to true, then transition rules will always be
 evaluated and the type of `oldSelf` be changed to a CEL [`Optional`](https://pkg.go.dev/github.com/google/cel-go/cel#OptionalTypes) type. 
 
 `optionalOldSelf` is useful in cases where schema authors would like a more
-powerful tool than [implicit deepequal validation ratcheting][#validation-ratcheting] 
+control tool [than provided by the default equality based behavior of ][#validation-ratcheting] 
 to introduce newer, usually stricter constraints on new values, while still 
 allowing old values to be "grandfathered" or ratcheted using the older validation.
 
