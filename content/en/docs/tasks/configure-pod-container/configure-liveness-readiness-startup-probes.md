@@ -488,9 +488,9 @@ startupProbe:
 ```
 
 {{< note >}}
-When the kubelet probes a Pod using HTTP, the default behavior is only to follows redirects if the redirect  
-is to the same host. If the kubelet receives 11 or more redirects during probing, the probe is considered a  
-warning and a related Event is created:  
+When the kubelet probes a Pod using HTTP, it only follows redirects if the redirect   
+is to the same host. If the kubelet receives 11 or more redirects during probing, the probe is considered successful
+and a related Event is created:  
 
 ```none
 Events:
@@ -504,8 +504,7 @@ Events:
  Warning  ProbeWarning  4m11s (x1197 over 24m)  kubelet            Readiness probe warning: Probe terminated redirects  
 ```
 
-If the kubelet receives a redirect where the hostname is different from the request, the outcome of the probe  
-is a warning and the kubelet creates an event to report this.
+If the kubelet receives a redirect where the hostname is different from the request, the outcome of the probe is treated as successful and kubelet creates an event to report the redirect failure.
 {{< /note >}}
 
 ### TCP probes
