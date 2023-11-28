@@ -213,6 +213,7 @@ For a reference to old feature gates that are removed, please refer to
 | `TopologyManagerPolicyOptions` | `true` | Beta | 1.28 | |
 | `TranslateStreamCloseWebsocketRequests` | `false` | Alpha | 1.29 | |
 | `UnknownVersionInteroperabilityProxy` | `false` | Alpha | 1.28 | |
+| `UserNamespacesPodSecurityStandards` | `false` | Alpha | 1.29 | |
 | `UserNamespacesSupport` | `false` | Alpha | 1.28 | |
 | `ValidatingAdmissionPolicy` | `false` | Alpha | 1.26 | 1.27 |
 | `ValidatingAdmissionPolicy` | `false` | Beta | 1.28 | |
@@ -805,6 +806,10 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `UnknownVersionInteroperabilityProxy`: Proxy resource requests to the correct peer kube-apiserver when
   multiple kube-apiservers exist at varied versions.
   See [Mixed version proxy](/docs/concepts/architecture/mixed-version-proxy/) for more information.
+- `UserNamespacesPodSecurityStandards`: Enable Pod Security Standards policies relaxation for pods
+  that run with namespaces. You must set the value of this feature gate consistently across all nodes in
+  your cluster, and you must also enable `UserNamespacesSupport` to use this feature.
+  See [User Namespaces](/docs/concepts/workloads/pods/user-namespaces/#integration-with-pod-security-standards) for more details.
 - `UserNamespacesSupport`: Enable user namespace support for Pods.
   Before Kubernetes v1.28, this feature gate was named `UserNamespacesStatelessPodsSupport`.
 - `ValidatingAdmissionPolicy`: Enable [ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/)
