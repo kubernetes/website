@@ -142,7 +142,7 @@ recommended way to manage the creation and scaling of Pods.
     kubectl config view
     ```
 
-1. View application logs for a container in a pod. Note, the name passed here should be the one shown in the output from the `kubectl get pods` command.
+1. View application logs for a container in a pod. Make sure to replace `hello-node-5f76cf6ccf-br9b5` with the name of the pod from `kubectl get pods` command output.
    
    ```shell
    kubectl logs hello-node-5f76cf6ccf-br9b5
