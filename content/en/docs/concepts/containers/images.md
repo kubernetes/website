@@ -159,7 +159,7 @@ that Kubernetes will keep trying to pull the image, with an increasing back-off 
 Kubernetes raises the delay between each attempt until it reaches a compiled-in limit,
 which is 300 seconds (5 minutes).
 
-## Image pull per runtime class
+### Image pull per runtime class
 
 {{< feature-state for_k8s_version="v1.29" state="alpha" >}}
 Kubernetes includes alpha support for performing image pulls based on the RuntimeClass of a Pod.
