@@ -505,9 +505,9 @@ Resources is a list of resources this rule applies to.
   <ul>
   <li><code>pods</code> 匹配 Pod；</li>
   <li><code>pods/log</code> 匹配 Pod 的 log 子资源；</li>
-  <li><code>&ast;<code> 匹配所有资源及其子资源；</li>
+  <li><code><code> 匹配所有资源及其子资源；</li>
   <li><code>pods/&ast;</code> 匹配 Pod 的所有子资源；</li>
-  <li><code>&ast;/scale</code> 匹配所有的 scale 子资源。</li>
+  <li><code>/scale</code> 匹配所有的 scale 子资源。</li>
   </ul>
 
    <!--If wildcard is present, the validation rule will ensure resources do not
