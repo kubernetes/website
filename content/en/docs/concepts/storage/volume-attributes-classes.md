@@ -44,19 +44,19 @@ parameters:
 
 ### Provisioner
 
-Each VolumeAttributes has a provisioner that determines what volume plugin is used for provisioning PVs. This field must be specified. 
+Each VolumeAttributesClass has a provisioner that determines what volume plugin is used for provisioning PVs. The field ``driverName`` must be specified. 
 
 The feature support for VolumeAttributesClass is implemented in [kubernetes-csi/external-provisioner](https://github.com/kubernetes-csi/external-provisioner).
 
 You are not restricted to specifying the [kubernetes-csi/external-provisioner](https://github.com/kubernetes-csi/external-provisioner). You can also run and specify external provisioners,
 which are independent programs that follow a specification defined by Kubernetes.
 Authors of external provisioners have full discretion over where their code lives, how
-the provisioner is shipped, how it needs to be run, what volume plugin it uses (including Flex), etc. 
+the provisioner is shipped, how it needs to be run, what volume plugin it uses, etc. 
 
 
 ### Resizer
 
-Each VolumeAttributes has a resizer that determines what volume plugin is used for modifying PVs. This field must be specified. 
+Each VolumeAttributesClass has a resizer that determines what volume plugin is used for modifying PVs. The field ``driverName`` must be specified. 
 
 The modifying volume feature support for VolumeAttributesClass is implemented in [kubernetes-csi/external-resizer](https://github.com/kubernetes-csi/external-resizer).
 
