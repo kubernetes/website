@@ -17,8 +17,6 @@ with [volumes](/docs/concepts/storage/volumes/) and
 
 <!-- body -->
 
-## Introduction
-
 A StorageClass provides a way for administrators to describe the "classes" of
 storage they offer. Different classes might map to quality-of-service levels,
 or to backup policies, or to arbitrary policies determined by the cluster
@@ -26,7 +24,7 @@ administrators. Kubernetes itself is unopinionated about what classes
 represent. This concept is sometimes called "profiles" in other storage
 systems.
 
-## The StorageClass Resource
+## The StorageClass API
 
 Each StorageClass contains the fields `provisioner`, `parameters`, and
 `reclaimPolicy`, which are used when a PersistentVolume belonging to the
