@@ -218,6 +218,7 @@ For a reference to old feature gates that are removed, please refer to
 | `ValidatingAdmissionPolicy` | `false` | Alpha | 1.26 | 1.27 |
 | `ValidatingAdmissionPolicy` | `false` | Beta | 1.28 | |
 | `VolumeCapacityPriority` | `false` | Alpha | 1.21 | |
+| `VolumeAttributesClass` | `false` | Alpha | 1.29 | |
 | `WatchList` | `false` | Alpha | 1.27 | |
 | `WinDSR` | `false` | Alpha | 1.14 | |
 | `WinOverlay` | `false` | Alpha | 1.14 | 1.19 |
@@ -816,6 +817,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
   support for CEL validations be used in Admission Control.
 - `VolumeCapacityPriority`: Enable support for prioritizing nodes in different
   topologies based on available PV capacity.
+- `VolumeAttributesClass`: Enable support for VolumeAttributesClasses.
+  See [Volume Attributes Classes](/docs/concepts/storage/volume-attributes-classes/)
+  for more information.
 - `WatchBookmark`: Enable support for watch bookmark events.
 - `WatchList` : Enable support for [streaming initial state of objects in watch requests](/docs/reference/using-api/api-concepts/#streaming-lists).
 - `WinDSR`: Allows kube-proxy to create DSR loadbalancers for Windows.
