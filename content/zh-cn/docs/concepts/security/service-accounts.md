@@ -375,6 +375,65 @@ You can also use TokenRequest to obtain short-lived tokens for your external app
 {{< /note >}}
 
 <!--
+### Restricting access to Secrets {#enforce-mountable-secrets}
+-->
+### 限制对 Secret 的访问   {#enforce-mountable-secrets}
+
+<!--
+Kubernetes provides an annotation called `kubernetes.io/enforce-mountable-secrets`
+that you can add to your ServiceAccounts. When this annotation is applied,
+the ServiceAccount's secrets can only be mounted on specified types of resources,
+enhancing the security posture of your cluster.
+
+You can add the annotation to a ServiceAccount using a manifest:
+-->
+Kubernetes 提供了名为 `kubernetes.io/enforce-mountable-secrets` 的注解，
+你可以添加到你的 ServiceAccount 中。当应用了这个注解后，
+ServiceAccount 的 Secret 只能挂载到特定类型的资源上，从而增强集群的安全性。
+
+你可以使用以下清单将注解添加到一个 ServiceAccount 中：
+
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    kubernetes.io/enforce-mountable-secrets: "true"
+  name: my-serviceaccount
+  namespace: my-namespace
+```
+
+<!--
+When this annotation is set to "true", the Kubernetes control plane ensures that
+the Secrets from this ServiceAccount are subject to certain mounting restrictions.
+-->
+当此注解设置为 "true" 时，Kubernetes 控制平面确保来自该 ServiceAccount 的 Secret 受到特定挂载限制。
+
+<!--
+1. The name of each Secret that is mounted as a volume in a Pod must appear in the `secrets` field of the
+   Pod's ServiceAccount.
+-->
+1. 在 Pod 中作为卷挂载的每个 Secret 的名称必须列在该 Pod 中 ServiceAccount 的 `secrets` 字段中。
+
+<!--
+1. The name of each Secret referenced using `envFrom` in a Pod must also appear in the `secrets`
+   field of the Pod's ServiceAccount.
+-->
+2. 在 Pod 中使用 `envFrom` 引用的每个 Secret 的名称也必须列在该 Pod 中 ServiceAccount 的 `secrets` 字段中。
+
+<!--
+1. The name of each Secret referenced using `imagePullSecrets` in a Pod must also appear in the `secrets`
+   field of the Pod's ServiceAccount.
+-->
+3. 在 Pod 中使用 `imagePullSecrets` 引用的每个 Secret 的名称也必须列在该 Pod 中
+   ServiceAccount 的 `secrets` 字段中。
+
+<!--
+By understanding and enforcing these restrictions, cluster administrators can maintain a tighter security profile and ensure that secrets are accessed only by the appropriate resources.
+-->
+通过理解并执行这些限制，集群管理员可以维护更严格的安全配置，并确保 Secret 仅被适当的资源访问。
+
+<!--
 ## Authenticating service account credentials {#authenticating-credentials}
 -->
 ## 对服务账号凭据进行鉴别   {#authenticating-credentials}

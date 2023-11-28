@@ -65,9 +65,6 @@ All Kubernetes container images are deployed to the
 所有 Kubernetes 容器镜像都被部署到 `registry.k8s.io` 容器镜像仓库。
 
 <!--
-| Container Image                                                           | Supported Architectures           |
--->
-| 容器镜像                                                           | 支持架构           |
 | ------------------------------------------------------------------------- | --------------------------------- |
 | registry.k8s.io/kube-apiserver:v{{< skew currentPatchVersion >}}          | amd64, arm, arm64, ppc64le, s390x |
 | registry.k8s.io/kube-controller-manager:v{{< skew currentPatchVersion >}} | amd64, arm, arm64, ppc64le, s390x |
@@ -80,14 +77,15 @@ All Kubernetes container images are deployed to the
 ### 容器镜像架构
 
 <!--
+### Container image architectures
+-->
+### 容器镜像架构
+
+<!--
 All container images are available for multiple architectures, whereas the
 container runtime should choose the correct one based on the underlying
 platform. It is also possible to pull a dedicated architecture by suffixing the
 container image name, for example
--->
-所有容器镜像都支持多架构，而容器运行时应根据下层平台选择正确的镜像。
-也可以通过给容器镜像名称加后缀来拉取适合特定架构的镜像，例如
-`registry.k8s.io/kube-apiserver-arm64:v{{< skew currentPatchVersion >}}`.
 
 <!--
 ### Container image signatures
@@ -101,9 +99,6 @@ For Kubernetes {{< param "version" >}},
 container images are signed using [sigstore](https://sigstore.dev)
 signatures:
 -->
-对于 Kubernetes {{< 参数 "verison">}}，
-容器镜像使用 [sigstore](https://sigstore.dev) 
-签名：
 
 {{< note >}}
 <!--
@@ -111,10 +106,6 @@ Container image sigstore signatures do currently not match between different geo
 More information about this problem is available in the corresponding
 [GitHub issue](https://github.com/kubernetes/registry.k8s.io/issues/187).
 -->
-容器镜像 sigstore 签名目前在不同地理位置之间不匹配。
-有关此问题的更多信息，请参阅相应的
-[GitHub 问题](https://github.com/kubernetes/registry.k8s.io/issues/187)
-{{< /note >}}
 
 <!--
 The Kubernetes project publishes a list of signed Kubernetes container images
@@ -131,14 +122,17 @@ curl -Ls "https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/stable.txt)/r
 <!--
 To manually verify signed container images of Kubernetes core components, refer to
 [Verify Signed Container Images](/docs/tasks/administer-cluster/verify-signed-artifacts).
-
-If you pull a container image for a specific architecture, the single-architecture image
-is signed in the same way as for the multi-architecture manifest lists.
 -->
 如需手动验证 Kubernetes 核心组件的签名容器镜像，
 请参考[验证签名容器镜像](/zh-cn/docs/tasks/administer-cluster/verify-signed-artifacts)。
 
 如果为特定架构拉取容器镜像，单架构镜像的签名方式与多体系结构清单的签名方式相同。
+<!--
+If you pull a container image for a specific architecture, the single-architecture image
+is signed in the same way as for the multi-architecture manifest lists.
+-->
+如果你要拉取特定架构的容器镜像，则单架构镜像的签名方式与多架构清单列表相同。
+
 <!--
 ## Binaries
 -->

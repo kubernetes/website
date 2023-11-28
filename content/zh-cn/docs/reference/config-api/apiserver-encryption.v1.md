@@ -1,5 +1,5 @@
 ---
-title: kube-apiserver 加密配置 (v1)
+title: kube-apiserver 加密配置（v1）
 content_type: tool-reference
 package: apiserver.config.k8s.io/v1
 auto_generated: true
@@ -29,8 +29,8 @@ Package v1 is the v1 version of the API.
 ## `EncryptionConfiguration`     {#apiserver-config-k8s-io-v1-EncryptionConfiguration}
 
 <!--
-Use '<em>.<!!-- raw HTML omitted -->' to encrypt all resources within a group or '</em>.<em>' to encrypt all resources.
-'</em>.' can be used to encrypt all resource in the core group.  '<em>.</em>' will encrypt all
+Use '&ast;&lt;group&gt;o encrypt all resources within a group or '&ast;.&ast;' to encrypt all resources.
+'&ast;.' can be used to encrypt all resource in the core group.  '&ast;.&ast;' will encrypt all
 resources, even custom resources that are added after API server start.
 Use of wildcards that overlap within the same resource list or across multiple
 entries are not allowed since part of the configuration would be ineffective.
@@ -232,7 +232,7 @@ KMSConfiguration 包含基于 KMS 的封套转换器的名称、缓存大小以�
    <!--
    timeout for gRPC calls to kms-plugin (ex. 5s). The default is 3 seconds.
    -->
-   对 KMS 插件执行 gRPC 调用的超时时长（例如，'5s'）。默认值为 3 秒。
+   对 KMS 插件执行 gRPC 调用的超时时长（例如：'5s'）。默认值为 3 秒。
    </p>
 </td>
 </tr>
@@ -398,9 +398,9 @@ ResourceConfiguration 中保存资源配置。
    <!--
    resources is a list of kubernetes resources which have to be encrypted. The resource names are derived from <code>resource</code> or <code>resource.group</code> of the group/version/resource.
    eg: pandas.awesome.bears.example is a custom resource with 'group': awesome.bears.example, 'resource': pandas.
-   Use '<em>.</em>' to encrypt all resources and '<em>.< raw HTML omitted >' to encrypt all resources in a specific group.
-   eg: '</em>.awesome.bears.example' will encrypt all resources in the group 'awesome.bears.example'.
-   eg: '*.' will encrypt all resources in the core group (such as pods, configmaps, etc).</p>
+   Use '&ast;.&ast;' to encrypt all resources and '&ast;.&lt;group&gt;' to encrypt all resources in a specific group.
+   eg: '&ast;.awesome.bears.example' will encrypt all resources in the group 'awesome.bears.example'.
+   eg: '&ast;.' will encrypt all resources in the core group (such as pods, configmaps, etc).</p>
    -->
    <code>resources</code> 是必须要加密的 Kubernetes 资源的列表。
    资源名称来自于组/版本/资源的 <code>resource</code> 或 <code>resource.group</code>。
@@ -457,7 +457,7 @@ SecretboxConfiguration 包含用于某 Secretbox 转换器的 API 配置。
    keys is a list of keys to be used for creating the Secretbox transformer.
    Each key has to be 32 bytes long.
    -->
-   <code>keys</code> 是一个密钥列表，用来创建 Secretbox 转换器。每个密钥必须是 32 字节长。
+   <code>keys</code> 是一个密钥列表，用来创建 Secretbox 转换器。每个密钥长度必须是 32 字节。
    </p>
 </td>
 </tr>
