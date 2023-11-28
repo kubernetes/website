@@ -8,26 +8,40 @@ weight: 40
 ---
 <!-- overview -->
 
+{{< feature-state for_k8s_version="v1.29" state="alpha" >}}
+
 This page assumes that you are familiar with [StorageClasses](/docs/concepts/storage/storage-classes/),
 [volumes](/docs/concepts/storage/volumes/) and [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)
 in Kubernetes.
 
 <!-- body -->
 
-## Introduction
-
 A VolumeAttributesClass provides a way for administrators to describe the mutable
 "classes" of storage they offer. Different classes might map to different quality-of-service levels.
 Kubernetes itself is unopinionated about what these classes represent.
 
+This is an alpha feature and disabled by default.
 
-## The VolumeAttributesClass Resource
+If you want to test the feature whilst it's alpha, you need to enable the `VolumeAttributesClass`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the kube-controller-manager and the kube-apiserver. You use the `--feature-gates` command line argument:
 
-Each VolumeAttributesClass contains the `driverName` and `parameters`, which are used when a PersistentVolume belonging to the class needs to be dynamically provisioned or modified.
+```
+--feature-gates="...,VolumeAttributesClass=true"
+```
+
+You can also only use VolumeAttributesClasses with storage backed by
+{{< glossary_tooltip text="Container Storage Interface" term_id="csi" >}}, and only where the
+relevant CSI driver implements the `ModifyVolume` API.
+
+## The VolumeAttributesClass API
+
+Each VolumeAttributesClass contains the `driverName` and `parameters`, which are
+used when a PersistentVolume (PV) belonging to the class needs to be dynamically provisioned
+or modified.
 
 The name of a VolumeAttributesClass object is significant and is how users can request a particular class.
 Administrators set the name and other parameters of a class when first creating VolumeAttributesClass objects.
-While the name of a VolumeAttributesClass object in a PersistentVolumeClaim is mutable, the parameters in an existing class are immutable.
+While the name of a VolumeAttributesClass object in a `PersistentVolumeClaim` is mutable, the parameters in an existing class are immutable.
 
 
 ```yaml
@@ -44,7 +58,7 @@ parameters:
 
 ### Provisioner
 
-Each VolumeAttributesClass has a provisioner that determines what volume plugin is used for provisioning PVs. The field ``driverName`` must be specified. 
+Each VolumeAttributesClass has a provisioner that determines what volume plugin is used for provisioning PVs. The field `driverName` must be specified. 
 
 The feature support for VolumeAttributesClass is implemented in [kubernetes-csi/external-provisioner](https://github.com/kubernetes-csi/external-provisioner).
 
@@ -56,12 +70,11 @@ the provisioner is shipped, how it needs to be run, what volume plugin it uses, 
 
 ### Resizer
 
-Each VolumeAttributesClass has a resizer that determines what volume plugin is used for modifying PVs. The field ``driverName`` must be specified. 
+Each VolumeAttributesClass has a resizer that determines what volume plugin is used for modifying PVs. The field `driverName` must be specified. 
 
 The modifying volume feature support for VolumeAttributesClass is implemented in [kubernetes-csi/external-resizer](https://github.com/kubernetes-csi/external-resizer).
 
-For example the existing PVC is using VolumeAttributesClass silver:
-
+For example, a existing PersistentVolumeClaim is using a VolumeAttributesClass named silver:
 
 ```yaml
 apiVersion: v1
@@ -70,10 +83,9 @@ metadata:
   name: test-pv-claim
 spec:
   …
-  volumeAttributesClassName: gold
+  volumeAttributesClassName: silver
   …
 ```
-
 
 A new VolumeAttributesClass gold is available in the cluster:
 
@@ -107,7 +119,7 @@ spec:
 
 ## Parameters
 
-Volume Classes have parameters that describe volumes belonging to them. Different parameters may be accepted
+VolumeAttributeClasses have parameters that describe volumes belonging to them. Different parameters may be accepted
 depending on the provisioner or the resizer. For example, the value `4000`, for the parameter `iops`,
 and the parameter `throughput` are specific to GCE PD. 
 When a parameter is omitted, the default is used at volume provisioning.
