@@ -414,6 +414,44 @@ NAME              PARENTREF
 2001:db8:1:2::a   services/kube-system/kube-dns
 ```
 
+This feature also allow users to dynamically define the available IP ranges for Services using
+ServiceCIDR objects. During bootstrap, a default ServiceCIDR object named `kubernetes` is created
+from the value of the `--service-cluster-ip-range` command line argument to kube-apiserver:
+
+```shell
+kubectl get servicecidrs
+```
+```
+NAME         CIDRS         AGE
+kubernetes   10.96.0.0/28  17m
+```
+
+Users can create or delete new ServiceCIDR objects to manage the available IP ranges for Services:
+
+```shell
+cat <<'EOF' | kubectl apply -f -
+apiVersion: networking.k8s.io/v1alpha1
+kind: ServiceCIDR
+metadata:
+  name: newservicecidr
+spec:
+  cidrs:
+  - 10.96.0.0/24
+EOF
+```
+```
+servicecidr.networking.k8s.io/newcidr1 created
+```
+
+```shell
+kubectl get servicecidrs
+```
+```
+NAME             CIDRS         AGE
+kubernetes       10.96.0.0/28  17m
+newservicecidr   10.96.0.0/24  7m
+```
+
 #### IP address ranges for Service virtual IP addresses {#service-ip-static-sub-range}
 
 {{< feature-state for_k8s_version="v1.26" state="stable" >}}
