@@ -366,7 +366,7 @@ CIDR range that is configured for the {{< glossary_tooltip term_id="kube-apiserv
 
 ### IP address allocation tracking
 
-To ensure each Service receives a unique IP, an internal allocator atomically
+To ensure each Service receives a unique IP address, an internal allocator atomically
 updates a global allocation map in {{< glossary_tooltip term_id="etcd" >}}
 prior to creating each Service. The map object must exist in the registry for
 Services to get IP address assignments, otherwise creations will
@@ -375,7 +375,7 @@ fail with a message indicating an IP address could not be allocated.
 In the control plane, a background controller is responsible for creating that
 map (needed to support migrating from older versions of Kubernetes that used
 in-memory locking). Kubernetes also uses controllers to check for invalid
-assignments (e.g. due to administrator intervention) and for cleaning up allocated
+assignments (for example: due to administrator intervention) and for cleaning up allocated
 IP addresses that are no longer used by any Services.
 
 #### IP address allocation tracking using the Kubernetes API {#ip-address-objects}
