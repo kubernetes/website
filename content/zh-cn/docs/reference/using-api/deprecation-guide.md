@@ -81,16 +81,16 @@ The **storage.k8s.io/v1beta1** API version of CSIStorageCapacity will no longer 
 -->
 **storage.k8s.io/v1beta1** API 版本的 CSIStorageCapacity 将不会在 v1.27 提供。
 
-* 自 v1.24 版本起，迁移清单和 API 客户端使用 **storage.k8s.io/v1** API 版本
-* 所有现有的持久化对象都可以通过新的 API 访问
-* 没有需要额外注意的变更
+* 自 v1.24 版本起，迁移清单和 API 客户端使用 **storage.k8s.io/v1** API 版本。
+* 所有现有的持久化对象都可以通过新的 API 访问。
+* 没有需要额外注意的变更。
 
 ### v1.26
 
 <!--
 The **v1.26** release stopped serving the following deprecated API versions:
 -->
-**v1.26** 发行版本中将去除以下已弃用的 API 版本：
+**v1.26** 发行版本已停止提供以下已弃用 API 版本：
 
 <!--
 #### Flow control resources {#flowcontrol-resources-v126}
@@ -132,7 +132,7 @@ HorizontalPodAutoscaler。
 <!--
 The **v1.25** release stopped serving the following deprecated API versions:
 -->
-**v1.25** 发行版本将停止提供以下已废弃 API 版本：
+**v1.25** 发行版本已停止提供以下已弃用 API 版本：
 
 #### CronJob {#cronjob-v125}
 
@@ -292,7 +292,7 @@ RuntimeClass in the **node.k8s.io/v1beta1** API version is no longer served as o
 <!--
 The **v1.22** release stopped serving the following deprecated API versions:
 -->
-**v1.22** 发行版本停止提供以下已废弃 API 版本：
+**v1.22** 发行版本已停止提供以下已弃用 API 版本：
 
 <!--
 #### Webhook resources {#webhook-resources-v122}
@@ -527,7 +527,7 @@ The **extensions/v1beta1** and **networking.k8s.io/v1beta1** API versions of Ing
   * 字符串表示的后端 `servicePort` 字段被更名为 `service.port.name`
   * 对所有要指定的路径，`pathType` 都成为必需字段。
     可选项为 `Prefix`、`Exact` 和 `ImplementationSpecific`。
-    要匹配 `v1beta1` 版本中未定义路径类型时的行为，可使用 `ImplementationSpecific`
+    要匹配 `v1beta1` 版本中未定义路径类型时的行为，可使用 `ImplementationSpecific`。
 
 #### IngressClass {#ingressclass-v122}
 
@@ -613,7 +613,7 @@ The **storage.k8s.io/v1beta1** API version of CSIDriver, CSINode, StorageClass, 
 <!--
 The **v1.16** release stopped serving the following deprecated API versions:
 -->
-**v1.16** 发行版本停止提供以下已废弃 API 版本：
+**v1.16** 发行版本已停止提供以下已弃用 API 版本：
 
 #### NetworkPolicy {#networkpolicy-v116}
 
