@@ -61,7 +61,7 @@ localization you want to help out with is inside `content/<two-letter-code>`.
 ### Suggest changes
 
 Create or update your chosen localized page based on the English original. See
-[translating content](#translating-content) for more details.
+[localize content](#localize-content) for more details.
 
 If you notice a technical inaccuracy or other problem with the upstream
 (English) documentation, you should fix the upstream documentation first and

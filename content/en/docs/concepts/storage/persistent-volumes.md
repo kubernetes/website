@@ -185,8 +185,8 @@ and the volume is considered "released". But it is not yet available for
 another claim because the previous claimant's data remains on the volume.
 An administrator can manually reclaim the volume with the following steps.
 
-1. Delete the PersistentVolume. The associated storage asset in external infrastructure
-   (such as an AWS EBS or GCE PD volume) still exists after the PV is deleted.
+1. Delete the PersistentVolume. The associated storage asset in external infrastructure 
+   still exists after the PV is deleted.
 1. Manually clean up the data on the associated storage asset accordingly.
 1. Manually delete the associated storage asset.
 
@@ -197,7 +197,7 @@ the same storage asset definition.
 
 For volume plugins that support the `Delete` reclaim policy, deletion removes
 both the PersistentVolume object from Kubernetes, as well as the associated
-storage asset in the external infrastructure, such as an AWS EBS or GCE PD volume. Volumes that were dynamically provisioned
+storage asset in the external infrastructure. Volumes that were dynamically provisioned
 inherit the [reclaim policy of their StorageClass](#reclaim-policy), which
 defaults to `Delete`. The administrator should configure the StorageClass
 according to users' expectations; otherwise, the PV must be edited or
@@ -371,7 +371,6 @@ the following types of volumes:
 * azureFile (deprecated)
 * {{< glossary_tooltip text="csi" term_id="csi" >}}
 * flexVolume (deprecated)
-* gcePersistentDisk (deprecated)
 * rbd (deprecated)
 * portworxVolume (deprecated)
 
@@ -437,11 +436,6 @@ Similar to other volume types - FlexVolume volumes can also be expanded when in-
 
 {{< note >}}
 FlexVolume resize is possible only when the underlying driver supports resize.
-{{< /note >}}
-
-{{< note >}}
-Expanding EBS volumes is a time-consuming operation.
-Also, there is a per-volume quota of one modification every 6 hours.
 {{< /note >}}
 
 #### Recovering from Failure when Expanding Volumes
@@ -519,8 +513,6 @@ This means that support is still available but will be removed in a future Kuber
   (**deprecated** in v1.21)
 * [`flexVolume`](/docs/concepts/storage/volumes/#flexvolume) - FlexVolume
   (**deprecated** in v1.23)
-* [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE Persistent Disk
-  (**deprecated** in v1.17)
 * [`portworxVolume`](/docs/concepts/storage/volumes/#portworxvolume) - Portworx volume
   (**deprecated** in v1.25)
 * [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK volume
@@ -672,8 +664,7 @@ are specified as ReadWriteOncePod, the volume is constrained and can be mounted 
 {{< /note >}}
 
 > __Important!__ A volume can only be mounted using one access mode at a time,
-> even if it supports many. For example, a GCEPersistentDisk can be mounted as
-> ReadWriteOnce by a single node or ReadOnlyMany by many nodes, but not at the same time.
+> even if it supports many. 
 
 | Volume Plugin        | ReadWriteOnce          | ReadOnlyMany          | ReadWriteMany | ReadWriteOncePod       |
 | :---                 | :---:                  | :---:                 | :---:         | -                      |
@@ -682,8 +673,6 @@ are specified as ReadWriteOncePod, the volume is constrained and can be mounted 
 | CSI                  | depends on the driver  | depends on the driver | depends on the driver | depends on the driver |
 | FC                   | &#x2713;               | &#x2713;              | -             | -                      |
 | FlexVolume           | &#x2713;               | &#x2713;              | depends on the driver | -              |
-| GCEPersistentDisk    | &#x2713;               | &#x2713;              | -             | -                      |
-| Glusterfs            | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
 | HostPath             | &#x2713;               | -                     | -             | -                      |
 | iSCSI                | &#x2713;               | &#x2713;              | -             | -                      |
 | NFS                  | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
@@ -710,9 +699,9 @@ Current reclaim policies are:
 
 * Retain -- manual reclamation
 * Recycle -- basic scrub (`rm -rf /thevolume/*`)
-* Delete -- associated storage asset such as AWS EBS or GCE PD volume is deleted
+* Delete -- associated storage asset
 
-Currently, only NFS and HostPath support recycling. AWS EBS and GCE PD volumes support deletion.
+For Kubernetes {{< skew currentVersion >}}, only `nfs` and `hostPath` volume types support recycling.
 
 ### Mount Options
 
@@ -728,7 +717,6 @@ The following volume types support mount options:
 * `azureFile`
 * `cephfs` (**deprecated** in v1.28)
 * `cinder` (**deprecated** in v1.18)
-* `gcePersistentDisk` (**deprecated** in v1.28)
 * `iscsi`
 * `nfs`
 * `rbd` (**deprecated** in v1.28)
@@ -743,8 +731,7 @@ it will become fully deprecated in a future Kubernetes release.
 ### Node Affinity
 
 {{< note >}}
-For most volume types, you do not need to set this field. It is automatically
-populated for [GCE PD](/docs/concepts/storage/volumes/#gcepersistentdisk) volume block types.
+For most volume types, you do not need to set this field. 
 You need to explicitly set this for [local](/docs/concepts/storage/volumes/#local) volumes.
 {{< /note >}}
 
@@ -965,7 +952,6 @@ applicable:
 
 * CSI
 * FC (Fibre Channel)
-* GCEPersistentDisk (deprecated)
 * iSCSI
 * Local volume
 * OpenStack Cinder

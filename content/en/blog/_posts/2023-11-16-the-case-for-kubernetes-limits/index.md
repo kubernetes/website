@@ -35,7 +35,7 @@ Firstly, let’s discuss bin-packing and cluster resource allocation. There’s 
 
 When configuring fixed-fraction headroom limits, a proportional amount of this will be available to the pods. If the percentage of unallocated resources in the cluster is lower than the constant we use for setting fixed-fraction headroom limits (see the figure, line 2), all the pods together are able to theoretically use up all the node’s resources; otherwise there are some resources that will inevitably be wasted (see the figure, line 1). In order to eliminate the inevitable resource waste, the percentage for fixed-fraction headroom limits should be configured so that it’s at least equal to the expected percentage of unallocated resources.
 
-{{<figure alt="Chart displaying various requests/limits configurations" width="40%" src="requests-limits-configurations.svg">}}
+{{<figure alt="Chart displaying various requests/limits configurations" class="diagram-medium" src="requests-limits-configurations.svg">}}
 
 For requests = limits (see the figure, line 3), this does not hold: Unless we’re able to allocate all node’s resources, there’s going to be some inevitably wasted resources. Without any knobs to turn on the requests/limits side, the only suitable approach here is to ensure efficient bin-packing on the nodes by configuring correct machine profiles. This can be done either manually or by using a variety of cloud service provider tooling – for example [Karpenter](https://karpenter.sh/) for EKS or [GKE Node auto provisioning](https://cloud.google.com/kubernetes-engine/docs/how-to/node-auto-provisioning).
 

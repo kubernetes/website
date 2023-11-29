@@ -66,9 +66,9 @@ The **flowcontrol.apiserver.k8s.io/v1beta2** API version of FlowSchema and Prior
 ### v1.27
 
 <!--
-The **v1.27** release will stop serving the following deprecated API versions:
+The **v1.27** release stopped serving the following deprecated API versions:
 -->
-**v1.27** 发行版本中将去除以下已弃用的 API 版本：
+**v1.27** 发行版本停止支持以下已弃用的 API 版本：
 
 #### CSIStorageCapacity {#csistoragecapacity-v127}
 
