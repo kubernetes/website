@@ -181,15 +181,14 @@ A time zone database from the Go standard library is included in the binaries an
 
 ### Unsupported TimeZone specification
 
-The implementation of the CronJob API in Kubernetes {{< skew currentVersion >}} lets you set
-the `.spec.schedule` field to include a timezone; for example: `CRON_TZ=UTC * * * * *`
-or `TZ=UTC * * * * *`.
+Specifying a timezone using `CRON_TZ` or `TZ` variables inside `.spec.schedule`
+is **not officially supported** (and never has been).
 
-Specifying a timezone that way is **not officially supported** (and never has been).
-
-If you try to set a schedule that includes `TZ` or `CRON_TZ` timezone specification,
-Kubernetes reports a [warning](/blog/2020/09/03/warnings/) to the client.
-Future versions of Kubernetes will prevent setting the unofficial timezone mechanism entirely.
+Starting with Kubernetes 1.29 if you try to set a schedule that includes `TZ` or `CRON_TZ`
+timezone specification, Kubernetes will fail to create the resource with a validation
+error.
+Updates to CronJobs already using `TZ` or `CRON_TZ` will continue to report a
+[warning](/blog/2020/09/03/warnings/) to the client.
 
 ### Modifying a CronJob
 
