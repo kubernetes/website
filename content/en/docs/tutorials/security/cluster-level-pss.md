@@ -294,6 +294,8 @@ following:
 
 1. Create a Pod in the default namespace:
 
+    {{% code_sample file="security/example-baseline-pod.yaml" %}}
+
    ```shell
    kubectl apply -f https://k8s.io/examples/security/example-baseline-pod.yaml
    ```
