@@ -338,15 +338,15 @@ An administrator can manually reclaim the volume with the following steps.
 
 <!--
 1. Delete the PersistentVolume. The associated storage asset in external infrastructure
-   (such as an AWS EBS or GCE PD volume) still exists after the PV is deleted.
+   still exists after the PV is deleted.
 1. Manually clean up the data on the associated storage asset accordingly.
 1. Manually delete the associated storage asset.
 
 If you want to reuse the same storage asset, create a new PersistentVolume with
 the same storage asset definition.
 -->
-1. 删除 PersistentVolume 对象。与之相关的、位于外部基础设施中的存储资产
-   （例如 AWS EBS 或 GCE PD 卷）在 PV 删除之后仍然存在。
+1. 删除 PersistentVolume 对象。与之相关的、位于外部基础设施中的存储资产在
+   PV 删除之后仍然存在。
 1. 根据情况，手动清除所关联的存储资产上的数据。
 1. 手动删除所关联的存储资产。
 
@@ -357,8 +357,7 @@ the same storage asset definition.
 
 For volume plugins that support the `Delete` reclaim policy, deletion removes
 both the PersistentVolume object from Kubernetes, as well as the associated
-storage asset in the external infrastructure, such as an AWS EBS or GCE PD volume.
-Volumes that were dynamically provisioned
+storage asset in the external infrastructure. Volumes that were dynamically provisioned
 inherit the [reclaim policy of their StorageClass](#reclaim-policy), which
 defaults to `Delete`. The administrator should configure the StorageClass
 according to users' expectations; otherwise, the PV must be edited or
@@ -368,7 +367,7 @@ patched after it is created. See
 #### 删除（Delete）    {#delete}
 
 对于支持 `Delete` 回收策略的卷插件，删除动作会将 PersistentVolume 对象从
-Kubernetes 中移除，同时也会从外部基础设施（如 AWS EBS 或 GCE PD 卷）中移除所关联的存储资产。
+Kubernetes 中移除，同时也会从外部基础设施中移除所关联的存储资产。
 动态制备的卷会继承[其 StorageClass 中设置的回收策略](#reclaim-policy)，
 该策略默认为 `Delete`。管理员需要根据用户的期望来配置 StorageClass；
 否则 PV 卷被创建之后必须要被编辑或者修补。
@@ -478,7 +477,7 @@ Access Modes:    RWO
 VolumeMode:      Filesystem
 Capacity:        1Gi
 Node Affinity:   <none>
-Message:         
+Message:
 Source:
     Type:               vSphereVolume (a Persistent Disk resource in vSphere)
     VolumePath:         [vsanDatastore] d49c4a62-166f-ce12-c464-020077ba5d46/kubernetes-dynamic-pvc-74a498d6-3929-47e8-8c02-078c1ece4d78.vmdk
@@ -506,7 +505,7 @@ Access Modes:    RWO
 VolumeMode:      Filesystem
 Capacity:        200Mi
 Node Affinity:   <none>
-Message:         
+Message:
 Source:
     Type:              CSI (a Container Storage Interface (CSI) volume source)
     Driver:            csi.vsphere.vmware.com
@@ -617,14 +616,12 @@ the following types of volumes:
 * azureFile (deprecated)
 * {{< glossary_tooltip text="csi" term_id="csi" >}}
 * flexVolume (deprecated)
-* gcePersistentDisk (deprecated)
 * rbd
 * portworxVolume (deprecated)
 -->
 * azureFile（已弃用）
 * {{< glossary_tooltip text="csi" term_id="csi" >}}
 * flexVolume（已弃用）
-* gcePersistentDisk（已弃用）
 * rbd
 * portworxVolume（已弃用）
 
@@ -742,15 +739,6 @@ Similar to other volume types - FlexVolume volumes can also be expanded when in-
 FlexVolume resize is possible only when the underlying driver supports resize.
 -->
 FlexVolume 卷的重设大小只能在下层驱动支持重设大小的时候才可进行。
-{{< /note >}}
-
-{{< note >}}
-<!--
-Expanding EBS volumes is a time-consuming operation.
-Also, there is a per-volume quota of one modification every 6 hours.
--->
-扩充 EBS 卷的操作非常耗时。同时还存在另一个配额限制：
-每 6 小时只能执行一次（尺寸）修改操作。
 {{< /note >}}
 
 <!--
@@ -887,8 +875,6 @@ This means that support is still available but will be removed in a future Kuber
   (**deprecated** in v1.21)
 * [`flexVolume`](/docs/concepts/storage/volumes/#flexvolume) - FlexVolume
   (**deprecated** in v1.23)
-* [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE Persistent Disk
-  (**deprecated** in v1.17)
 * [`portworxVolume`](/docs/concepts/storage/volumes/#portworxvolume) - Portworx volume
   (**deprecated** in v1.25)
 * [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK volume
@@ -903,8 +889,6 @@ This means that support is still available but will be removed in a future Kuber
 * [`azureFile`](/zh-cn/docs/concepts/storage/volumes/#azurefile) - Azure File
   （于 v1.21 **弃用**）
 * [`flexVolume`](/zh-cn/docs/concepts/storage/volumes/#flexVolume) - FlexVolume （于 v1.23 **弃用**）
-* [`gcePersistentDisk`](/zh-cn/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE Persistent Disk
-  （于 v1.17 **弃用**）
 * [`portworxVolume`](/zh-cn/docs/concepts/storage/volumes/#portworxvolume) - Portworx 卷
   （于 v1.25 **弃用**）
 * [`vsphereVolume`](/zh-cn/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK 卷
@@ -1153,12 +1137,9 @@ Kubernetes 使用卷访问模式来匹配 PersistentVolumeClaim 和 PersistentVo
 
 <!--
 > __Important!__ A volume can only be mounted using one access mode at a time,
-> even if it supports many. For example, a GCEPersistentDisk can be mounted as
-> ReadWriteOnce by a single node or ReadOnlyMany by many nodes, but not at the same time.
+> even if it supports many.
 -->
 > **重要提醒！** 每个卷同一时刻只能以一种访问模式挂载，即使该卷能够支持多种访问模式。
-> 例如，一个 GCEPersistentDisk 卷可以被某节点以 ReadWriteOnce
-> 模式挂载，或者被多个节点以 ReadOnlyMany 模式挂载，但不可以同时以两种模式挂载。
 
 <!--
 | Volume Plugin        | ReadWriteOnce          | ReadOnlyMany          | ReadWriteMany | ReadWriteOncePod       |
@@ -1168,8 +1149,6 @@ Kubernetes 使用卷访问模式来匹配 PersistentVolumeClaim 和 PersistentVo
 | CSI                  | depends on the driver  | depends on the driver | depends on the driver | depends on the driver |
 | FC                   | &#x2713;               | &#x2713;              | -             | -                      |
 | FlexVolume           | &#x2713;               | &#x2713;              | depends on the driver | -              |
-| GCEPersistentDisk    | &#x2713;               | &#x2713;              | -             | -                      |
-| Glusterfs            | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
 | HostPath             | &#x2713;               | -                     | -             | -                      |
 | iSCSI                | &#x2713;               | &#x2713;              | -             | -                      |
 | NFS                  | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
@@ -1226,20 +1205,20 @@ Current reclaim policies are:
 
 * Retain -- manual reclamation
 * Recycle -- basic scrub (`rm -rf /thevolume/*`)
-* Delete -- associated storage asset such as AWS EBS or GCE PD volume is deleted
+* Delete -- associated storage asset
 
-Currently, only NFS and HostPath support recycling. AWS EBS and GCE PD volumes support deletion.
+For Kubernetes {{< skew currentVersion >}}, only `nfs` and `hostPath` volume types support recycling.
 -->
 ### 回收策略   {#reclaim-policy}
 
 目前的回收策略有：
 
 * Retain -- 手动回收
-* Recycle -- 基本擦除 (`rm -rf /thevolume/*`)
-* Delete -- 诸如 AWS EBS 或 GCE PD 卷这类关联存储资产也被删除
+* Recycle -- 简单擦除 (`rm -rf /thevolume/*`)
+* Delete -- 删除关联存储资产
 
-目前，仅 NFS 和 HostPath 支持回收（Recycle）。
-AWS EBS 和 GCE PD 卷支持删除（Delete）。
+对于 Kubernetes {{< skew currentVersion >}} 来说，只有
+`nfs` 和 `hostPath` 卷类型支持回收（Recycle）。
 
 <!--
 ### Mount Options
@@ -1264,7 +1243,6 @@ The following volume types support mount options:
 * `azureFile`
 * `cephfs` (**deprecated** in v1.28)
 * `cinder` (**deprecated** in v1.18)
-* `gcePersistentDisk` (**deprecated** in v1.28)
 * `iscsi`
 * `nfs`
 * `rbd` (**deprecated** in v1.28)
@@ -1275,7 +1253,6 @@ The following volume types support mount options:
 * `azureFile`
 * `cephfs`（于 v1.28 中**弃用**）
 * `cinder`（于 v1.18 中**弃用**）
-* `gcePersistentDisk`（于 v1.28 中**弃用**）
 * `iscsi`
 * `nfs`
 * `rbd`（于 v1.28 中**弃用**）
@@ -1302,13 +1279,12 @@ it will become fully deprecated in a future Kubernetes release.
 
 {{< note >}}
 <!--
-For most volume types, you do not need to set this field. It is automatically
-populated for [GCE PD](/docs/concepts/storage/volumes/#gcepersistentdisk) volume block types.
+For most volume types, you do not need to set this field.
 You need to explicitly set this for [local](/docs/concepts/storage/volumes/#local) volumes.
 -->
-对大多数类型的卷而言，你不需要设置节点亲和性字段。
-[GCE PD](/zh-cn/docs/concepts/storage/volumes/#gcepersistentdisk) 卷类型能自动设置相关字段。
-你需要为 [local](/zh-cn/docs/concepts/storage/volumes/#local) 卷显式地设置此属性。
+对大多数卷类型而言，你不需要设置节点亲和性字段。
+你需要为 [local](/zh-cn/docs/concepts/storage/volumes/#local)
+卷显式地设置此属性。
 {{< /note >}}
 
 <!--
@@ -1702,7 +1678,6 @@ applicable:
 <!--
 * CSI
 * FC (Fibre Channel)
-* GCEPersistentDisk (deprecated)
 * iSCSI
 * Local volume
 * OpenStack Cinder
@@ -1712,7 +1687,6 @@ applicable:
 -->
 * CSI
 * FC（光纤通道）
-* GCEPersistentDisk（已弃用）
 * iSCSI
 * Local 卷
 * OpenStack Cinder
@@ -2232,4 +2206,3 @@ Read about the APIs described in this page:
 
 * [`PersistentVolume`](/zh-cn/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/)
 * [`PersistentVolumeClaim`](/zh-cn/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/)
-

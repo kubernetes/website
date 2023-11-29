@@ -790,6 +790,36 @@ startupProbe:
         value: ""
 ```
 
+{{< note >}}
+<!--
+When the kubelet probes a Pod using HTTP, it only follows redirects if the redirect   
+is to the same host. If the kubelet receives 11 or more redirects during probing, the probe is considered successful
+and a related Event is created:
+-->
+当 kubelet 使用 HTTP 探测 Pod 时，仅当重定向到同一主机时，它才会遵循重定向。
+如果 kubelet 在探测期间收到 11 个或更多重定向，则认为探测成功并创建相关事件：
+
+```none
+Events:
+  Type     Reason        Age                     From               Message
+  ----     ------        ----                    ----               -------
+  Normal   Scheduled     29m                     default-scheduler  Successfully assigned default/httpbin-7b8bc9cb85-bjzwn to daocloud
+  Normal   Pulling       29m                     kubelet            Pulling image "docker.io/kennethreitz/httpbin"
+  Normal   Pulled        24m                     kubelet            Successfully pulled image "docker.io/kennethreitz/httpbin" in 5m12.402735213s
+  Normal   Created       24m                     kubelet            Created container httpbin
+  Normal   Started       24m                     kubelet            Started container httpbin
+ Warning  ProbeWarning  4m11s (x1197 over 24m)  kubelet            Readiness probe warning: Probe terminated redirects  
+```
+
+<!--
+If the kubelet receives a redirect where the hostname is different from the request,
+the outcome of the probe is treated as successful and kubelet creates an event
+to report the redirect failure.
+-->
+如果 kubelet 收到主机名与请求不同的重定向，则探测结果将被视为成功，并且
+kubelet 将创建一个事件来报告重定向失败。
+{{< /note >}}
+
 <!--
 ### TCP probes
 
