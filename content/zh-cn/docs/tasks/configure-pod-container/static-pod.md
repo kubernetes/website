@@ -166,7 +166,7 @@ For example, this is how to start a simple web server as a static Pod:
    `--pod-manifest-path=/etc/kubernetes/manifests/` argument.
    On Fedora, edit `/etc/kubernetes/kubelet` to include this line:
 -->
-3. 配置这个节点上的 kubelet，使用这个参数执行 `--pod-manifest-path=/etc/kubelet.d/`。
+3. 配置这个节点上的 kubelet，使用这个参数执行 `--pod-manifest-path=/etc/kubernetes/manifests/`。
    在 Fedora 上编辑 `/etc/kubernetes/kubelet` 以包含下面这行：
 
    ```
