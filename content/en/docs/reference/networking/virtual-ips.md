@@ -364,7 +364,7 @@ ensure that no two Services can collide. Kubernetes does that by allocating each
 Service its own IP address from within the `service-cluster-ip-range`
 CIDR range that is configured for the {{< glossary_tooltip term_id="kube-apiserver" text="API Server" >}}.
 
-#### IP address allocation tracking
+### IP address allocation tracking
 
 To ensure each Service receives a unique IP, an internal allocator atomically
 updates a global allocation map in {{< glossary_tooltip term_id="etcd" >}}
@@ -378,25 +378,34 @@ in-memory locking). Kubernetes also uses controllers to check for invalid
 assignments (e.g. due to administrator intervention) and for cleaning up allocated
 IP addresses that are no longer used by any Services.
 
+#### IP address allocation tracking using the Kubernetes API {#ip-address-objects}
+
 {{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+
 If you enable the `MultiCIDRServiceAllocator`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and the
 [`networking.k8s.io/v1alpha1` API group](/docs/tasks/administer-cluster/enable-disable-api/),
-the control plane replaces the existing etcd allocator with a new one, using IPAddress
-objects instead of an internal global allocation map.  The ClusterIP address
-associated to each Service will have a referenced IPAddress object.
+the control plane replaces the existing etcd allocator with a revised implementation
+that uses IPAddress and ServiceCIDR objects instead of an internal global allocation map.
+Each cluster IP address associated to a Service then references an IPAddress object.
 
-The background controller is also replaced by a new one to handle the new IPAddress
-objects and the migration from the old allocator model.
+Enabling the feature gate also replaces a background controller with an alternative
+that handles the IPAddress objects and supports migration from the old allocator model.
+Kubernetes {{< skew currentVersion >}} does not support migrating from IPAddress
+objects to the internal allocation map.
 
-One of the main benefits of the new allocator is that it removes the size limitations
-for the `service-cluster-ip-range`, there is no limitations for IPv4 and for IPv6
-users can use masks equal or larger than /64 (previously it was /108).
+One of the main benefits of the revised allocator is that it removes the size limitations
+for the IP address range that can be used for the cluster IP address of Services.
+With `MultiCIDRServiceAllocator` enabled, there are no limitations for IPv4, and for IPv6
+you can use IP address netmasks that are a /64 or smaller (as opposed to /108 with the
+legacy implementation).
 
-Users now will be able to inspect the IP addresses assigned to their Services, and
-Kubernetes extensions such as the [Gateway](https://gateway-api.sigs.k8s.io/) API, can use this new
-IPAddress object kind to enhance the Kubernetes networking capabilities, going beyond the limitations of
-the built-in Service API.
+Making IP address allocations available via the API means that you as a cluster administrator
+can allow users to inspect the IP addresses assigned to their Services.
+Kubernetes extensions, such as the [Gateway API](/docs/concepts/services-networking/gateway/),
+can use the IPAddress API to extend Kubernetes' inherent networking capabilities.
+
+Here is a brief example of a user querying for IP addresses:
 
 ```shell
 kubectl get services
@@ -414,7 +423,7 @@ NAME              PARENTREF
 2001:db8:1:2::a   services/kube-system/kube-dns
 ```
 
-This feature also allow users to dynamically define the available IP ranges for Services using
+Kubernetes also allow users to dynamically define the available IP ranges for Services using
 ServiceCIDR objects. During bootstrap, a default ServiceCIDR object named `kubernetes` is created
 from the value of the `--service-cluster-ip-range` command line argument to kube-apiserver:
 
@@ -452,7 +461,7 @@ kubernetes       10.96.0.0/28  17m
 newservicecidr   10.96.0.0/24  7m
 ```
 
-#### IP address ranges for Service virtual IP addresses {#service-ip-static-sub-range}
+### IP address ranges for Service virtual IP addresses {#service-ip-static-sub-range}
 
 {{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
