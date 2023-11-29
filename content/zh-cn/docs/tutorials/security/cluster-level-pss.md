@@ -434,25 +434,6 @@ following:
 -->
 7. 在 default 名字空间下创建一个 Pod：
 
-   ```
-   cat <<EOF > /tmp/pss/nginx-pod.yaml
-   apiVersion: v1
-   kind: Pod
-   metadata:
-     name: nginx
-   spec:
-     containers:
-       - image: nginx
-         name: nginx
-         ports:
-           - containerPort: 80
-   EOF
-   ```
-<!--
-1. Create the Pod in the cluster:
--->
-8. 在集群中创建 Pod：
-
    ```shell
    kubectl apply -f https://k8s.io/examples/security/example-baseline-pod.yaml
    ```
