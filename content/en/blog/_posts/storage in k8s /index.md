@@ -67,25 +67,17 @@ Persistent volumes are the resources and they need to be there before the pod is
 Here's an example where we use an NFS storage backend. Essentially, specify how much storage is required and provide additional parameters, such as whether it should be read-write or read-only, among other access options.
 
 ```
-apiVersion: vl
-kind: PersistentVolume
+apiVersion: v1
+kind: PersistentVolumeClaim
 metadata:
-  name: pv-name
+  name: my-pvc
 spec:
-  capacity:
-    storage: 10Gi  # Define how much storage you require
-    VolumeMode: Filesystem 
-    accessModes:
-      - ReadWriteOnce # Define the access mode
-    persistentVolumeReclaimPolicy: Recycle 
-    storageClassName: slow 
-    mountOptions:
-      - hard
-      - nfsvers=4.0
-    Nfs: # Define NFS parameters
-      path: /dir/path/on/nfs/server 
-      server: nfs-server-ip-address
-
+  storageClassName: my-storageclass
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
 ```
 
 
@@ -116,19 +108,19 @@ Now, we've seen that in Kubernetes, administrators configure storage for the clu
 
 To streamline this workflow and make it more efficient, Kubernetes introduces a third component of its persistence strategy called "**StorageClass**"  A StorageClass in Kubernetes is primarily responsible for dynamically creating or provisioning Persistent Volumes (PVs) when a Persistent Volume Claim (PVC) is made. This automation streamlines the process of creating and provisioning volumes in a cluster.
 
-To create a StorageClass, you use a YAML configuration file, similar to other Kubernetes resources. In this example, we specify the kind as "StorageClass." The key attribute in a StorageClass configuration is the _provisioner._ The provisioner specifies which provisioner Kubernetes should employ to create the PV. This choice is based on the storage platform or cloud provider you are using.
+To create a StorageClass, you can take example of YAML configuration file, similar to other Kubernetes resources. In this example, we specify the kind as "StorageClass." The key attribute in a StorageClass configuration is the _provisioner._ The provisioner specifies which provisioner Kubernetes should employ to create the PV. This choice is based on the storage platform or cloud provider you are using.
 
 
 ```
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-    name: storage-class-name
-provisioner: kubernetes.io/aws-ebs
+  name: my-storageclass
+provisioner: kubernetes.io/gce-pd
 parameters:
-    type: iol
-    topsPerGB: "10"
-    fsType: ext4
+  zone: us-central1-a
+  type: pd-standard
+
 ```
 It's essential to note that each storage backend typically has its own provisioner, which Kubernetes provides internally. These internal provisioners are prefixed with "_kubernetes.io_" like the one shown here in the above example. However, for other storage types or custom setups, external provisioners may be necessary. These external provisioners must be explicitly selected and integrated into your StorageClass configuration.
 
