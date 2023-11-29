@@ -888,6 +888,10 @@ protocol specific logic, then returns opaque credentials to use. Almost all cred
 use cases require a server side component with support for the [webhook token authenticator](#webhook-token-authentication)
 to interpret the credential format produced by the client plugin.
 
+{{< note >}}
+Earlier versions of `kubectl` included built-in support for authenticating to AKS and GKE, but this is no longer present.
+{{< /note >}}
+
 ### Example use case
 
 In a hypothetical use case, an organization would run an external service that exchanges LDAP credentials
