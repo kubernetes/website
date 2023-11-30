@@ -209,6 +209,7 @@ For a reference to old feature gates that are removed, please refer to
 | `TopologyManagerPolicyBetaOptions` | `true` | Beta | 1.28 | |
 | `TopologyManagerPolicyOptions` | `false` | Alpha | 1.26 | 1.27 |
 | `TopologyManagerPolicyOptions` | `true` | Beta | 1.28 | |
+| `UnauthenticatedHTTP2DOSMitigation` | `false` | Beta | 1.28 | |
 | `UnknownVersionInteroperabilityProxy` | `false` | Alpha | 1.28 | |
 | `UserNamespacesSupport` | `false` | Alpha | 1.28 | |
 | `ValidatingAdmissionPolicy` | `false` | Alpha | 1.26 | 1.27 |
@@ -766,6 +767,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
   This feature gate guards *a group* of topology manager options whose quality level is beta.
   This feature gate will never graduate to stable.
 - `TopologyManagerPolicyOptions`: Allow fine-tuning of topology manager policies,
+- `UnauthenticatedHTTP2DOSMitigation`: Enables HTTP/2 Denial of Service (DoS)
+  mitigations for unauthenticated clients.
+  Kubernetes v1.28.0 through v1.28.2 do not include this feature gate.
 - `UnknownVersionInteroperabilityProxy`: Proxy resource requests to the correct peer kube-apiserver when
   multiple kube-apiservers exist at varied versions.
   See [Mixed version proxy](/docs/concepts/architecture/mixed-version-proxy/) for more information.
