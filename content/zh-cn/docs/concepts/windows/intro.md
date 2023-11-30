@@ -469,8 +469,8 @@ The following list documents differences between how Pod specifications work bet
   请参考 [GitHub issue](https://github.com/moby/moby/issues/25982)。
   目前的行为是通过 CTRL_SHUTDOWN_EVENT 发送 ENTRYPOINT 进程，然后 Windows 默认等待 5 秒，
   最后使用正常的 Windows 关机行为终止所有进程。
-  5 秒默认值实际上位于[容器内](https://github.com/moby/moby/issues/25982#issuecomment-426441183)的 Windows 注册表中，
-  因此在构建容器时可以覆盖这个值。
+  5 秒默认值实际上位于[容器内](https://github.com/moby/moby/issues/25982#issuecomment-426441183)的
+  Windows 注册表中，因此在构建容器时可以覆盖这个值。
 * `volumeDevices` - 这是一个 beta 版功能特性，未在 Windows 上实现。
   Windows 无法将原始块设备挂接到 Pod。
 * `volumes`
@@ -594,7 +594,7 @@ The following container runtimes work with Windows:
 You can use {{< glossary_tooltip term_id="containerd" text="ContainerD" >}} 1.4.0+
 as the container runtime for Kubernetes nodes that run Windows.
 
-Learn how to [install ContainerD on a Windows node](/docs/setup/production-environment/container-runtimes/#install-containerd).
+Learn how to [install ContainerD on a Windows node](/docs/setup/production-environment/container-runtimes/#containerd).
 -->
 ### ContainerD {#containerd}
 
@@ -603,7 +603,7 @@ Learn how to [install ContainerD on a Windows node](/docs/setup/production-envir
 对于运行 Windows 的 Kubernetes 节点，你可以使用
 {{< glossary_tooltip term_id="containerd" text="ContainerD" >}} 1.4.0+ 作为容器运行时。
 
-学习如何[在 Windows 上安装 ContainerD](/zh-cn/docs/setup/production-environment/container-runtimes/#install-containerd)。
+学习如何[在 Windows 上安装 ContainerD](/zh-cn/docs/setup/production-environment/container-runtimes/#containerd)。
 
 {{< note >}}
 <!--
@@ -719,7 +719,8 @@ The Kubernetes [cluster API](https://cluster-api.sigs.k8s.io/) project also prov
 
 kubeadm 工具帮助你部署 Kubernetes 集群，提供管理集群的控制平面以及运行工作负载的节点。
 
-Kubernetes [集群 API](https://cluster-api.sigs.k8s.io/) 项目也提供了自动部署 Windows 节点的方式。
+Kubernetes [集群 API](https://cluster-api.sigs.k8s.io/) 项目也提供了自动部署
+Windows 节点的方式。
 
 <!--
 ## Windows distribution channels
