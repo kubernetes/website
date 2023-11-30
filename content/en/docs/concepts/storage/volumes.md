@@ -58,9 +58,15 @@ Volumes cannot mount within other volumes (but see [Using subPath](#using-subpat
 for a related mechanism). Also, a volume cannot contain a hard link to anything in
 a different volume.
 
-## Types of volumes {#volume-types}
+## In-tree volume plugins and their CSI Migration progress {#volume-types}
 
-Kubernetes supports several types of volumes.
+Below is a list of In-tree plugins that are supported by Kubernetes and the status of their respective CSI Migrations progress.
+The Container Storage Interface (CSI) was designed to help Kubernetes replace its existing, in-tree storage driver mechanisms - especially vendor specific plugins.Kubernetes support for the Container Storage Interface has been generally available since Kubernetes v1.13. For more details on CSI Migration, please refer to [Out-of-tree volume plugins](#out-of-tree-volume-plugins).
+
+{{< note >}}
+When a Kubernetes cluster administrator updates a cluster to enable CSI migration, existing workloads that utilize PVCs which are backed by in-tree storage plugins will continue to function as they always have. Existing In trees PVs and In Tree format yaml file will still be used in the future even after the migration is completed, and will not be left unprocessed or deleted in the future. Users can still specify the following In-tree plugins in their yaml file. However, behind the scenes, Kubernetes hands control of all storage management operations (previously targeting in-tree drivers) to CSI drivers.
+{{< /note >}}
+
 
 ### awsElasticBlockStore (removed) {#awselasticblockstore}
 
