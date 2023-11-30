@@ -811,7 +811,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `UserNamespacesPodSecurityStandards`: Enable Pod Security Standards policies relaxation for pods
   that run with namespaces. You must set the value of this feature gate consistently across all nodes in
   your cluster, and you must also enable `UserNamespacesSupport` to use this feature.
-  See [User Namespaces](/docs/concepts/workloads/pods/user-namespaces/#integration-with-pod-security-standards) for more details.
+  See [User Namespaces](/docs/concepts/workloads/pods/user-namespaces/#integration-with-pod-security-admission-checks) for more details.
 - `UserNamespacesSupport`: Enable user namespace support for Pods.
   Before Kubernetes v1.28, this feature gate was named `UserNamespacesStatelessPodsSupport`.
 - `ValidatingAdmissionPolicy`: Enable [ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/)
