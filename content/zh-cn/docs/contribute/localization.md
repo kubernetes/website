@@ -108,7 +108,7 @@ localization you want to help out with is inside `content/<two-letter-code>`.
 ### Suggest changes
 
 Create or update your chosen localized page based on the English original. See
-[translating content](#translating-content) for more details.
+[localize content](#localize-content) for more details.
 
 If you notice a technical inaccuracy or other problem with the upstream
 (English) documentation, you should fix the upstream documentation first and
@@ -124,7 +124,7 @@ changes to the upstream (English) content.
 ### 建议更改 {#suggest-changes}
 
 根据英文原件创建或更新你选择的本地化页面。
-有关更多详细信息，请参阅[翻译内容](#translating-content)。
+有关更多详细信息，请参阅[本地化内容](#localize-content)。
 
 如果你发现上游（英文）文档存在技术错误或其他问题，
 你应该先修复上游文档，然后通过更新你正在处理的本地化来重复等效的修复。
