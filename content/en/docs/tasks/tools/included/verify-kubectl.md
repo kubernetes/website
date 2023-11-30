@@ -36,3 +36,13 @@ If kubectl cluster-info returns the url response but you can't access your clust
 ```shell
 kubectl cluster-info dump
 ```
+
+### Troubleshooting the 'No Auth Provider Found' error message {#no-auth-provider-found}
+
+In Kubernetes 1.26, kubectl removed the built-in authentication for the following cloud
+providers' managed Kubernetes offerings. These providers have released kubectl plugins to provide the cloud-specific authentication. For instructions, refer to the following provider documentation:
+
+* Azure  AKS: [kubelogin plugin](https://azure.github.io/kubelogin/)
+* Google Kubernetes Engine: [gke-gcloud-auth-plugin](https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl#install_plugin)
+
+(There could also be other reasons to see the same error message, unrelated to that change.)

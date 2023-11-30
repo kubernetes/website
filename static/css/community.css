@@ -62,7 +62,7 @@ body.cid-community .community-section:first-child {
 body.cid-community #navigation-items {
   padding: 0.25em;
 
-  width: 100vw;
+  width: 100%;
   max-width: initial;
 
   margin-top: 2.5em;
@@ -117,7 +117,7 @@ body.cid-community .community-section#introduction > p {
 
 body.cid-community #gallery {
   display: flex;
-  max-width: 100vw;
+  max-width: 100%;
   gap: 0.75rem;
   justify-content: center;
   margin-left: auto;
@@ -140,7 +140,7 @@ body.cid-community #gallery img.community-gallery-mobile {
 
 
 body.cid-community .community-section#events {
-  width: 100vw;
+  width: 100%;
   max-width: initial;
   margin-bottom: 0;
 
@@ -154,7 +154,7 @@ body.cid-community .community-section#events {
 }
 
 body.cid-community .community-section#values {
-  width: 100vw;
+  width: 100%;
   max-width: initial;
   background-image: url('/images/community/event-bg.jpg');
   color: #fff;
@@ -167,7 +167,7 @@ body.cid-community .community-section#values {
 }
 
 body.cid-community .community-section#meetups {
-  width: 100vw;
+  width: 100%;
   max-width: initial;
   margin-top: 0;
 
@@ -176,8 +176,6 @@ body.cid-community .community-section#meetups {
   background-repeat: no-repeat, repeat;
   background-size: auto 100%, cover;
   color: #fff;
-
-  width: 100vw;
   /* fallback in case calc() fails */
   padding: 5vw;
   padding-bottom: 1em;
@@ -231,7 +229,7 @@ body.cid-community .fullbutton {
 }
 
 body.cid-community #videos {
-  width: 100vw;
+  width: 100%;
   max-width: initial;
   padding: 0.5em 5vw 5% 5vw; /* fallback in case calc() fails */
   background-color: #eeeeee;
@@ -325,7 +323,7 @@ body.cid-community .resourcebox {
 
 
 body.cid-community .community-section.community-frame {
-  width: 100vw;
+  width: 100%;
 }
 
 body.cid-community .community-section.community-frame .twittercol1 {
@@ -430,5 +428,12 @@ body.cid-community #cncf-code-of-conduct h2:after {
   }
   body.cid-community .community-section#meetups p:last-of-type {
    margin-bottom: 6em; /* extra space for background */
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  body.cid-community .community-section h2:before,
+  body.cid-community .community-section h2:after {
+    display: none;
   }
 }
