@@ -9,7 +9,7 @@
 
 # 저장소 사용하기
 
-Hugo(확장 버전)를 사용하여 웹사이트를 로컬에서 실행하거나, 컨테이너 런타임에서 실행할 수 있습니다. 라이브 웹사이트와의 배포 일관성을 제공하므로, 컨테이너 런타임을 사용하는 것을 적극 권장합니다.
+[Hugo(확장 버전)](https://gohugo.io/)를 사용하여 웹사이트를 로컬에서 실행하거나, 컨테이너 런타임에서 실행할 수 있습니다. 라이브 웹사이트와의 배포 일관성을 제공하므로, 컨테이너 런타임을 사용하는 것을 적극 권장합니다.
 
 ## 사전 준비 사항
 
@@ -29,17 +29,24 @@ cd website
 
 쿠버네티스 웹사이트는 [Docsy Hugo 테마](https://github.com/google/docsy#readme)를 사용합니다. 웹사이트를 컨테이너에서 실행하려는 경우에도, 다음을 실행하여 하위 모듈 및 기타 개발 종속성을 가져오는 것이 좋습니다.
 
-```
-# Docsy 하위 모듈 가져오기
+### 윈도우(Windows)
+```powershell
+# 하위 모듈 종속성 가져오기
 git submodule update --init --recursive --depth 1
+```
+
+### 리눅스 / 기타 유닉스(Linux / other Unix)
+```bash
+# 하위 모듈 종속성 가져오기
+make module-init
 ```
 
 ## 컨테이너를 사용하여 웹사이트 실행하기
 
 컨테이너에서 사이트를 빌드하려면, 다음을 실행하여 컨테이너 이미지를 빌드하고 실행합니다.
 
-```
-make container-image
+```bash
+# $CONTAINER_ENGINE을 Docker와 유사한 컨테이너 도구의 이름으로 설정할 수 있습니다.
 make container-serve
 ```
 
@@ -49,21 +56,26 @@ make container-serve
 
 ## Hugo를 사용하여 로컬에서 웹사이트 실행하기
 
-[`netlify.toml`](netlify.toml#L10) 파일의 `HUGO_VERSION` 환경 변수에 지정된 Hugo 확장 버전을 설치해야 합니다.
+[`netlify.toml`](netlify.toml#L11) 파일의 `HUGO_VERSION` 환경 변수에 지정된 Hugo 확장 버전을 설치해야 합니다.
 
 사이트를 로컬에서 빌드하고 테스트하려면, 다음을 실행합니다.
 
-```bash
-# 의존성 있는 소프트웨어 설치
-npm ci
-make serve
-```
+- 리눅스와 맥OS (macOS and Linux)
+  ```bash
+  npm ci
+  make serve
+  ```
+- 윈도우, 파워셀 (Windows, PowerShell)
+  ```powershell
+  npm ci
+  hugo.exe server --buildFuture --environment development
+  ```
 
 그러면 포트 1313에서 로컬 Hugo 서버가 시작됩니다. 웹사이트를 보려면 http://localhost:1313 으로 브라우저를 엽니다. 소스 파일을 변경하면, Hugo가 웹사이트를 업데이트하고 브라우저를 강제로 새로 고칩니다.
 
 ## API 레퍼런스 페이지 빌드하기
 
-`content/en/docs/reference/kubernetes-api`에 있는 API 레퍼런스 페이지는 <https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs>를 사용하여 Swagger 명세로부터 빌드되었습니다.
+`content/en/docs/reference/kubernetes-api`에 있는 API 참조 페이지는 <https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs>를 사용하여 Swagger 사양, 또는 OpenAPI 사양에서 빌드되었습니다.
 
 새로운 쿠버네티스 릴리스를 위해 레퍼런스 페이지를 업데이트하려면 다음 단계를 수행합니다.
 
@@ -108,7 +120,7 @@ Hugo는 기술적인 이유로 2개의 바이너리 세트로 제공됩니다. �
 
 macOS에서 `make serve` 를 실행하면 다음의 오류 메시지가 출력됩니다.
 
-```
+```bash
 ERROR 2020/08/01 19:09:18 Error: listen tcp 127.0.0.1:1313: socket: too many open files
 make: *** [serve] Error 1
 ```
@@ -119,7 +131,7 @@ make: *** [serve] Error 1
 
 그리고 다음의 명령을 실행합니다(https://gist.github.com/tombigel/d503800a282fcadbee14b537735d202c 를 참고하여 적용).
 
-```
+```shell
 #!/bin/sh
 
 # 코멘트 처리한 것은 원래 gist 링크들이며, 그 아래는 수정된 tombigel의 gist 링크입니다.
