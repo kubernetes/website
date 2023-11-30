@@ -37,7 +37,6 @@ The National Security Agency (NSA) and the Cybersecurity and Infrastructure Secu
 The most recent version of the Kubernetes hardening guidance was released in August 2022 with corrections and clarifications. Version 1.2 outlines a number of recommendations for [hardening Kubernetes clusters](https://media.defense.gov/2022/Aug/29/2003066362/-1/-1/0/CTR_KUBERNETES_HARDENING_GUIDANCE_1.2_20220829.PDF).
 {{% /pageinfo %}}
 
-
 ## Introduction and Threat Model
 
 Note that the threats identified as important by the NSA/CISA, or the intended audience of this guidance, may be different from the threats that other enterprise users of Kubernetes consider important. This section 
