@@ -124,8 +124,12 @@ Any commands under `kubeadm alpha` are, by definition, supported on an alpha lev
 
 <!--
 ### Preparing the hosts
+
+#### Component installation
 -->
 ### 主机准备 {#preparing-the-hosts}
+
+#### 安装组件   {#component-installation}
 
 <!--
 Install a {{< glossary_tooltip term_id="container-runtime" text="container runtime" >}} and kubeadm on all the hosts.
@@ -150,6 +154,110 @@ After you initialize your control-plane, the kubelet runs normally.
 升级时，kubelet 每隔几秒钟重新启动一次，
 在 crashloop 状态中等待 kubeadm 发布指令。crashloop 状态是正常现象。
 初始化控制平面后，kubelet 将正常运行。
+{{< /note >}}
+
+<!--
+#### Network setup
+
+kubeadm similarly to other Kubernetes components tries to find a usable IP on
+the network interface associated with the default gateway on a host. Such
+an IP is then used for the advertising and/or listening performed by a component.
+-->
+#### 网络设置   {#network-setup}
+
+kubeadm 与其他 Kubernetes 组件类似，会尝试在与主机默认网关关联的网络接口上找到可用的 IP 地址。
+这个 IP 地址随后用于由某组件执行的公告和/或监听。
+
+<!--
+To find out what this IP is on a Linux host you can use:
+
+```shell
+ip route show # Look for a line starting with "default via"
+```
+-->
+要在 Linux 主机上获得此 IP 地址，你可以使用以下命令：
+
+```shell
+ip route show # 查找以 "default via" 开头的行
+```
+
+<!--
+Kubernetes components do not accept custom network interface as an option,
+therefore a custom IP address must be passed as a flag to all components instances
+that need such a custom configuration.
+
+To configure the API server advertise address for control plane nodes created with both
+`init` and `join`, the flag `--apiserver-advertise-address` can be used.
+Preferably, this option can be set in the [kubeadm API](/docs/reference/config-api/kubeadm-config.v1beta3)
+as `InitConfiguration.localAPIEndpoint` and `JoinConfiguration.controlPlane.localAPIEndpoint`.
+-->
+Kubernetes 组件不接受自定义网络接口作为选项，因此必须将自定义 IP
+地址作为标志传递给所有需要此自定义配置的组件实例。
+
+要为使用 `init` 或 `join` 创建的控制平面节点配置 API 服务器的公告地址，
+你可以使用 `--apiserver-advertise-address` 标志。
+最好在 [kubeadm API](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3)中使用
+`InitConfiguration.localAPIEndpoint` 和 `JoinConfiguration.controlPlane.localAPIEndpoint`
+来设置此选项。
+
+<!--
+For kubelets on all nodes, the `--node-ip` option can be passed in
+`.nodeRegistration.kubeletExtraArgs` inside a kubeadm configuration file
+(`InitConfiguration` or `JoinConfiguration`).
+
+For dual-stack see
+[Dual-stack support with kubeadm](/docs/setup/production-environment/tools/kubeadm/dual-stack-support).
+-->
+对于所有节点上的 kubelet，`--node-ip` 选项可以在 kubeadm 配置文件
+（`InitConfiguration` 或 `JoinConfiguration`）的 `.nodeRegistration.kubeletExtraArgs`
+中设置。
+
+有关双协议栈细节参见[使用 kubeadm 支持双协议栈](/zh-cn/docs/setup/production-environment/tools/kubeadm/dual-stack-support)。
+
+{{< note >}}
+<!--
+IP addresses become part of certificates SAN fields. Changing these IP addresses would require
+signing new certificates and restarting the affected components, so that the change in
+certificate files is reflected. See
+[Manual certificate renewal](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#manual-certificate-renewal)
+for more details on this topic.
+-->
+IP 地址成为证书 SAN 字段的一部分。更改这些 IP 地址将需要签署新的证书并重启受影响的组件，
+以便反映证书文件中的变化。有关此主题的更多细节参见
+[手动续期证书](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#manual-certificate-renewal)。
+{{</ note >}}
+
+{{< warning >}}
+<!--
+The Kubernetes project recommends against this approach (configuring all component instances
+with custom IP addresses). Instead, the Kubernetes maintainers recommend to setup the host network,
+so that the default gateway IP is the one that Kubernetes components auto-detect and use.
+On Linux nodes, you can use commands such as `ip route` to configure networking; your operating
+system might also provide higher level network management tools. If your node's default gateway
+is a public IP address, you should configure packet filtering or other security measures that
+protect the nodes and your cluster.
+-->
+Kubernetes 项目不推荐此方法（使用自定义 IP 地址配置所有组件实例）。
+Kubernetes 维护者建议设置主机网络，使默认网关 IP 成为 Kubernetes 组件自动检测和使用的 IP。
+对于 Linux 节点，你可以使用诸如 `ip route` 的命令来配置网络；
+你的操作系统可能还提供更高级的网络管理工具。
+如果节点的默认网关是公共 IP 地址，你应配置数据包过滤或其他保护节点和集群的安全措施。
+{{< /warning >}}
+
+{{< note >}}
+<!--
+If the host does not have a default gateway, it is recommended to setup one. Otherwise,
+without passing a custom IP address to a Kubernetes component, the component
+will exit with an error. If two or more default gateways are present on the host,
+a Kubernetes component will try to use the first one it encounters that has a suitable
+global unicast IP address. While making this choice, the exact ordering of gateways
+might vary between different operating systems and kernel versions.
+-->
+如果主机没有默认网关，则建议设置一个默认网关。
+否则，在不传递自定义 IP 地址给 Kubernetes 组件的情况下，此组件将退出并报错。
+如果主机上存在两个或多个默认网关，则 Kubernetes
+组件将尝试使用所遇到的第一个具有合适全局单播 IP 地址的网关。
+在做出此选择时，网关的确切顺序可能因不同的操作系统和内核版本而有所差异。
 {{< /note >}}
 
 <!--
@@ -209,7 +317,7 @@ a provider-specific value. See [Installing a Pod network add-on](#pod-network).
 1. （推荐）如果计划将单个控制平面 kubeadm 集群升级成高可用，
    你应该指定 `--control-plane-endpoint` 为所有控制平面节点设置共享端点。
    端点可以是负载均衡器的 DNS 名称或 IP 地址。
-1. 选择一个 Pod 网络插件，并验证是否需要为 `kubeadm init` 传递参数。
+2. 选择一个 Pod 网络插件，并验证是否需要为 `kubeadm init` 传递参数。
    根据你选择的第三方网络插件，你可能需要设置 `--pod-network-cidr` 的值。
    请参阅[安装 Pod 网络附加组件](#pod-network)。
 
@@ -218,19 +326,10 @@ a provider-specific value. See [Installing a Pod network add-on](#pod-network).
 known endpoints. To use different container runtime or if there are more than one installed
 on the provisioned node, specify the `--cri-socket` argument to `kubeadm`. See
 [Installing a runtime](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime).
-1. (Optional) Unless otherwise specified, `kubeadm` uses the network interface associated
-with the default gateway to set the advertise address for this particular control-plane node's API server.
-To use a different network interface, specify the `--apiserver-advertise-address=<ip-address>` argument
-to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, you
-must specify an IPv6 address, for example `--apiserver-advertise-address=2001:db8::101`
 -->
-1. （可选）`kubeadm` 试图通过使用已知的端点列表来检测容器运行时。
+3. （可选）`kubeadm` 试图通过使用已知的端点列表来检测容器运行时。
    使用不同的容器运行时或在预配置的节点上安装了多个容器运行时，请为 `kubeadm init` 指定 `--cri-socket` 参数。
    请参阅[安装运行时](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime)。
-1. （可选）除非另有说明，否则 `kubeadm` 使用与默认网关关联的网络接口来设置此控制平面节点 API server 的广播地址。
-   要使用其他网络接口，请为 `kubeadm init` 设置 `--apiserver-advertise-address=<ip-address>` 参数。
-   要部署使用 IPv6 地址的 Kubernetes 集群，
-   必须指定一个 IPv6 地址，例如 `--apiserver-advertise-address=2001:db8::101`。
 
 <!--
 To initialize the control-plane node run:

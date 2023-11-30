@@ -295,127 +295,15 @@ beforehand so that Kubernetes hosts can access them.
 See the [fibre channel example](https://github.com/kubernetes/examples/tree/master/staging/volumes/fibre_channel)
 for more details.
 
-### gcePersistentDisk (deprecated) {#gcepersistentdisk}
+### gcePersistentDisk (removed) {#gcepersistentdisk}
 
-{{< feature-state for_k8s_version="v1.17" state="deprecated" >}}
+Kubernetes {{< skew currentVersion >}} does not include a `gcePersistentDisk` volume type.
 
-A `gcePersistentDisk` volume mounts a Google Compute Engine (GCE)
-[persistent disk](https://cloud.google.com/compute/docs/disks) (PD) into your Pod.
-Unlike `emptyDir`, which is erased when a pod is removed, the contents of a PD are
-preserved and the volume is merely unmounted. This means that a PD can be
-pre-populated with data, and that data can be shared between pods.
+The `gcePersistentDisk` in-tree storage driver was deprecated in the Kubernetes v1.17 release
+and then removed entirely in the v1.28 release.
 
-{{< note >}}
-You must create a PD using `gcloud` or the GCE API or UI before you can use it.
-{{< /note >}}
-
-There are some restrictions when using a `gcePersistentDisk`:
-
-* the nodes on which Pods are running must be GCE VMs
-* those VMs need to be in the same GCE project and zone as the persistent disk
-
-One feature of GCE persistent disk is concurrent read-only access to a persistent disk.
-A `gcePersistentDisk` volume permits multiple consumers to simultaneously
-mount a persistent disk as read-only. This means that you can pre-populate a PD with your dataset
-and then serve it in parallel from as many Pods as you need. Unfortunately,
-PDs can only be mounted by a single consumer in read-write mode. Simultaneous
-writers are not allowed.
-
-Using a GCE persistent disk with a Pod controlled by a ReplicaSet will fail unless
-the PD is read-only or the replica count is 0 or 1.
-
-#### Creating a GCE persistent disk {#gce-create-persistent-disk}
-
-Before you can use a GCE persistent disk with a Pod, you need to create it.
-
-```shell
-gcloud compute disks create --size=500GB --zone=us-central1-a my-data-disk
-```
-
-#### GCE persistent disk configuration example
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: test-pd
-spec:
-  containers:
-  - image: registry.k8s.io/test-webserver
-    name: test-container
-    volumeMounts:
-    - mountPath: /test-pd
-      name: test-volume
-  volumes:
-  - name: test-volume
-    # This GCE PD must already exist.
-    gcePersistentDisk:
-      pdName: my-data-disk
-      fsType: ext4
-```
-
-#### Regional persistent disks
-
-The [Regional persistent disks](https://cloud.google.com/compute/docs/disks/#repds)
-feature allows the creation of persistent disks that are available in two zones
-within the same region. In order to use this feature, the volume must be provisioned
-as a PersistentVolume; referencing the volume directly from a pod is not supported.
-
-#### Manually provisioning a Regional PD PersistentVolume
-
-Dynamic provisioning is possible using a
-[StorageClass for GCE PD](/docs/concepts/storage/storage-classes/#gce-pd).
-Before creating a PersistentVolume, you must create the persistent disk:
-
-```shell
-gcloud compute disks create --size=500GB my-data-disk
-  --region us-central1
-  --replica-zones us-central1-a,us-central1-b
-```
-
-#### Regional persistent disk configuration example
-
-```yaml
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: test-volume
-spec:
-  capacity:
-    storage: 400Gi
-  accessModes:
-  - ReadWriteOnce
-  gcePersistentDisk:
-    pdName: my-data-disk
-    fsType: ext4
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-      - matchExpressions:
-        # failure-domain.beta.kubernetes.io/zone should be used prior to 1.21
-        - key: topology.kubernetes.io/zone
-          operator: In
-          values:
-          - us-central1-a
-          - us-central1-b
-```
-
-#### GCE CSI migration
-
-{{< feature-state for_k8s_version="v1.25" state="stable" >}}
-
-The `CSIMigration` feature for GCE PD, when enabled, redirects all plugin operations
-from the existing in-tree plugin to the `pd.csi.storage.gke.io` Container
-Storage Interface (CSI) Driver. In order to use this feature, the [GCE PD CSI
-Driver](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver)
-must be installed on the cluster.
-
-#### GCE CSI migration complete
-
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
-
-To disable the `gcePersistentDisk` storage plugin from being loaded by the controller manager
-and the kubelet, set the `InTreePluginGCEUnregister` flag to `true`.
+The Kubernetes project suggests that you use the [Google Compute Engine Persistent Disk CSI](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver) 
+third party storage driver instead.
 
 ### gitRepo (deprecated) {#gitrepo}
 
@@ -704,8 +592,8 @@ for an example of mounting NFS volumes with PersistentVolumes.
 
 A `persistentVolumeClaim` volume is used to mount a
 [PersistentVolume](/docs/concepts/storage/persistent-volumes/) into a Pod. PersistentVolumeClaims
-are a way for users to "claim" durable storage (such as a GCE PersistentDisk or an
-iSCSI volume) without knowing the details of the particular cloud environment.
+are a way for users to "claim" durable storage (such as an iSCSI volume)
+without knowing the details of the particular cloud environment.
 
 See the information about [PersistentVolumes](/docs/concepts/storage/persistent-volumes/) for more
 details.
