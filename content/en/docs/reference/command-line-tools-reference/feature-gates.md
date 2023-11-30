@@ -209,7 +209,11 @@ For a reference to old feature gates that are removed, please refer to
 | `TopologyManagerPolicyBetaOptions` | `true` | Beta | 1.28 | |
 | `TopologyManagerPolicyOptions` | `false` | Alpha | 1.26 | 1.27 |
 | `TopologyManagerPolicyOptions` | `true` | Beta | 1.28 | |
+<<<<<<< HEAD
 | `UnauthenticatedHTTP2DOSMitigation` | `false` | Beta | 1.28 | |
+=======
+| `UnauthenticatedHTTP2DOSMitigation` | `false` | Beta | 1.29 | |
+>>>>>>> 6699d58d9e (Add New FeatureGate UnauthenticatedHTTP2DOSMitigation)
 | `UnknownVersionInteroperabilityProxy` | `false` | Alpha | 1.28 | |
 | `UserNamespacesSupport` | `false` | Alpha | 1.28 | |
 | `ValidatingAdmissionPolicy` | `false` | Alpha | 1.26 | 1.27 |
