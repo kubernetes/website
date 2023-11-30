@@ -114,7 +114,8 @@ If you see the following warnings while running `kubeadm init`
 ```
 
 <!--
-Then you may be missing `ebtables`, `ethtool` or a similar executable on your node. You can install them with the following commands:
+Then you may be missing `ebtables`, `ethtool` or a similar executable on your node.
+You can install them with the following commands:
 
 - For Ubuntu/Debian users, run `apt install ebtables ethtool`.
 - For CentOS/Fedora users, run `yum install ebtables ethtool`.
@@ -143,9 +144,9 @@ This may be caused by a number of problems. The most common are:
 
 - network connection problems. Check that your machine has full network connectivity before continuing.
 - the cgroup driver of the container runtime differs from that of the kubelet. To understand how to
-  configure it properly see [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/).
+  configure it properly, see [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/).
 - control plane containers are crashlooping or hanging. You can check this by running `docker ps`
-  and investigating each container by running `docker logs`. For other container runtime see
+  and investigating each container by running `docker logs`. For other container runtime, see
   [Debugging Kubernetes nodes with crictl](/docs/tasks/debug/debug-cluster/crictl/).
 -->
 这可能是由许多问题引起的。最常见的是：
@@ -240,10 +241,12 @@ provider. Please contact the author of the Pod Network add-on to find out whethe
 
 Calico, Canal, and Flannel CNI providers are verified to support HostPort.
 
-For more information, see the [CNI portmap documentation](https://github.com/containernetworking/plugins/blob/master/plugins/meta/portmap/README.md).
+For more information, see the
+[CNI portmap documentation](https://github.com/containernetworking/plugins/blob/master/plugins/meta/portmap/README.md).
 
-If your network provider does not support the portmap CNI plugin, you may need to use the [NodePort feature of
-services](/docs/concepts/services-networking/service/#type-nodeport) or use `HostNetwork=true`.
+If your network provider does not support the portmap CNI plugin, you may need to use the
+[NodePort feature of services](/docs/concepts/services-networking/service/#type-nodeport)
+or use `HostNetwork=true`.
 -->
 ## `HostPort` 服务无法工作
 
@@ -267,9 +270,10 @@ services](/docs/concepts/services-networking/service/#type-nodeport) or use `Hos
   add-on provider to get the latest status of their support for hairpin mode.
 
 - If you are using VirtualBox (directly or via Vagrant), you will need to
-  ensure that `hostname -i` returns a routable IP address. By default the first
+  ensure that `hostname -i` returns a routable IP address. By default, the first
   interface is connected to a non-routable host-only network. A work around
-  is to modify `/etc/hosts`, see this [Vagrantfile](https://github.com/errordeveloper/k8s-playground/blob/22dd39dfc06111235620e6c4404a96ae146f26fd/Vagrantfile#L11)
+  is to modify `/etc/hosts`, see this
+  [Vagrantfile](https://github.com/errordeveloper/k8s-playground/blob/22dd39dfc06111235620e6c4404a96ae146f26fd/Vagrantfile#L11)
   for an example.
 -->
 ## 无法通过其服务 IP 访问 Pod
@@ -301,12 +305,14 @@ Unable to connect to the server: x509: certificate signed by unknown authority (
   regenerate a certificate if necessary. The certificates in a kubeconfig file
   are base64 encoded. The `base64 --decode` command can be used to decode the certificate
   and `openssl x509 -text -noout` can be used for viewing the certificate information.
+
 - Unset the `KUBECONFIG` environment variable using:
 -->
 - 验证 `$HOME/.kube/config` 文件是否包含有效证书，
   并在必要时重新生成证书。在 kubeconfig 文件中的证书是 base64 编码的。
   该 `base64 --decode` 命令可以用来解码证书，`openssl x509 -text -noout`
   命令可以用于查看证书信息。
+
 - 使用如下方法取消设置 `KUBECONFIG` 环境变量的值：
 
   ```shell
@@ -328,7 +334,7 @@ Unable to connect to the server: x509: certificate signed by unknown authority (
 - 另一个方法是覆盖 `kubeconfig` 的现有用户 "管理员"：
 
   ```shell
-  mv  $HOME/.kube $HOME/.kube.bak
+  mv $HOME/.kube $HOME/.kube.bak
   mkdir $HOME/.kube
   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
   sudo chown $(id -u):$(id -g) $HOME/.kube/config
@@ -337,7 +343,8 @@ Unable to connect to the server: x509: certificate signed by unknown authority (
 <!--
 ## Kubelet client certificate rotation fails {#kubelet-client-cert}
 
-By default, kubeadm configures a kubelet with automatic rotation of client certificates by using the `/var/lib/kubelet/pki/kubelet-client-current.pem` symlink specified in `/etc/kubernetes/kubelet.conf`.
+By default, kubeadm configures a kubelet with automatic rotation of client certificates by using the
+`/var/lib/kubelet/pki/kubelet-client-current.pem` symlink specified in `/etc/kubernetes/kubelet.conf`.
 If this rotation process fails you might see errors such as `x509: certificate has expired or is not yet valid`
 in kube-apiserver logs. To fix the issue you must follow these steps:
 -->
@@ -401,11 +408,15 @@ Error from server (NotFound): the server could not find the requested resource
 ```
 
 <!--
-- If you're using flannel as the pod network inside Vagrant, then you will have to specify the default interface name for flannel.
+- If you're using flannel as the pod network inside Vagrant, then you will have to
+  specify the default interface name for flannel.
 
-  Vagrant typically assigns two interfaces to all VMs. The first, for which all hosts are assigned the IP address `10.0.2.15`, is for external traffic that gets NATed.
+  Vagrant typically assigns two interfaces to all VMs. The first, for which all hosts
+  are assigned the IP address `10.0.2.15`, is for external traffic that gets NATed.
 
-  This may lead to problems with flannel, which defaults to the first interface on a host. This leads to all hosts thinking they have the same public IP address. To prevent this, pass the `--iface eth1` flag to flannel so that the second interface is chosen.
+  This may lead to problems with flannel, which defaults to the first interface on a host.
+  This leads to all hosts thinking they have the same public IP address. To prevent this,
+  pass the `--iface eth1` flag to flannel so that the second interface is chosen.
 -->
 - 如果你正在 Vagrant 中使用 flannel 作为 Pod 网络，则必须指定 flannel 的默认接口名称。
 
@@ -417,7 +428,8 @@ Error from server (NotFound): the server could not find the requested resource
 <!--
 ## Non-public IP used for containers
 
-In some situations `kubectl logs` and `kubectl run` commands may return with the following errors in an otherwise functional cluster:
+In some situations `kubectl logs` and `kubectl run` commands may return with the
+following errors in an otherwise functional cluster:
 -->
 ## 容器使用的非公共 IP
 
@@ -428,10 +440,15 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
 ```
 
 <!--
-- This may be due to Kubernetes using an IP that can not communicate with other IPs on the seemingly same subnet, possibly by policy of the machine provider.
-- DigitalOcean assigns a public IP to `eth0` as well as a private one to be used internally as anchor for their floating IP feature, yet `kubelet` will pick the latter as the node's `InternalIP` instead of the public one.
+- This may be due to Kubernetes using an IP that can not communicate with other IPs on
+  the seemingly same subnet, possibly by policy of the machine provider.
+- DigitalOcean assigns a public IP to `eth0` as well as a private one to be used internally
+  as anchor for their floating IP feature, yet `kubelet` will pick the latter as the node's
+  `InternalIP` instead of the public one.
 
-  Use `ip addr show` to check for this scenario instead of `ifconfig` because `ifconfig` will not display the offending alias IP address. Alternatively an API endpoint specific to DigitalOcean allows to query for the anchor IP from the droplet:
+  Use `ip addr show` to check for this scenario instead of `ifconfig` because `ifconfig` will
+  not display the offending alias IP address. Alternatively an API endpoint specific to
+  DigitalOcean allows to query for the anchor IP from the droplet:
 -->
 - 这或许是由于 Kubernetes 使用的 IP 无法与看似相同的子网上的其他 IP 进行通信的缘故，
   可能是由机器提供商的政策所导致的。
@@ -471,8 +488,8 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
 <!--
 ## `coredns` pods have `CrashLoopBackOff` or `Error` state
 
-If you have nodes that are running SELinux with an older version of Docker you might experience a scenario
-where the `coredns` pods are not starting. To solve that you can try one of the following options:
+If you have nodes that are running SELinux with an older version of Docker, you might experience a scenario
+where the `coredns` pods are not starting. To solve that, you can try one of the following options:
 
 - Upgrade to a [newer version of Docker](/docs/setup/production-environment/container-runtimes/#docker).
 
@@ -497,7 +514,8 @@ kubectl -n kube-system get deployment coredns -o yaml | \
 ```
 
 <!--
-Another cause for CoreDNS to have `CrashLoopBackOff` is when a CoreDNS Pod deployed in Kubernetes detects a loop. [A number of workarounds](https://github.com/coredns/coredns/tree/master/plugin/loop#troubleshooting-loops-in-kubernetes-clusters)
+Another cause for CoreDNS to have `CrashLoopBackOff` is when a CoreDNS Pod deployed in Kubernetes detects a loop.
+[A number of workarounds](https://github.com/coredns/coredns/tree/master/plugin/loop#troubleshooting-loops-in-kubernetes-clusters)
 are available to avoid Kubernetes trying to restart the CoreDNS Pod every time CoreDNS detects the loop and exits.
 -->
 CoreDNS 处于 `CrashLoopBackOff` 时的另一个原因是当 Kubernetes 中部署的 CoreDNS Pod 检测到环路时。
@@ -526,7 +544,7 @@ rpc error: code = 2 desc = oci runtime error: exec failed: container_linux.go:24
 ```
 
 <!--
-this issue appears if you run CentOS 7 with Docker 1.13.1.84.
+This issue appears if you run CentOS 7 with Docker 1.13.1.84.
 This version of Docker can prevent the kubelet from executing into the etcd container.
 
 To work around the issue, choose one of these options:
@@ -622,7 +640,24 @@ conditions abate:
 而不管它们的条件如何，将其与其他节点保持隔离，直到它们的初始保护条件消除：
 
 ```shell
-kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec": { "tolerations": [ { "key": "CriticalAddonsOnly", "operator": "Exists" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/control-plane" } ] } } } }'
+kubectl -n kube-system patch ds kube-proxy -p='{
+  "spec": {
+    "template": {
+      "spec": {
+        "tolerations": [
+          {
+            "key": "CriticalAddonsOnly",
+            "operator": "Exists"
+          },
+          {
+            "effect": "NoSchedule",
+            "key": "node-role.kubernetes.io/control-plane"
+          }
+        ]
+      }
+    }
+  }
+}'
 ```
 
 <!--
@@ -638,7 +673,6 @@ For [flex-volume support](https://github.com/kubernetes/community/blob/ab55d85/c
 Kubernetes components like the kubelet and kube-controller-manager use the default path of
 `/usr/libexec/kubernetes/kubelet-plugins/volume/exec/`, yet the flex-volume directory _must be writeable_
 for the feature to work.
-(**Note**: FlexVolume was deprecated in the Kubernetes v1.23 release)
 -->
 ## 节点上的 `/usr` 被以只读方式挂载 {#usr-mounted-read-only}
 
@@ -648,13 +682,19 @@ for the feature to work.
 类似 kubelet 和 kube-controller-manager 这类 Kubernetes 组件使用默认路径
 `/usr/libexec/kubernetes/kubelet-plugins/volume/exec/`，
 而 FlexVolume 的目录 **必须是可写入的**，该功能特性才能正常工作。
-（**注意**：FlexVolume 在 Kubernetes v1.23 版本中已被弃用）
+
+{{< note >}}
+<!--
+FlexVolume was deprecated in the Kubernetes v1.23 release.
+-->
+FlexVolume 在 Kubernetes v1.23 版本中已被弃用。
+{{< /note >}}
 
 <!--
-To workaround this issue you can configure the flex-volume directory using the kubeadm
+To workaround this issue, you can configure the flex-volume directory using the kubeadm
 [configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/).
 
-On the primary control-plane Node (created using `kubeadm init`) pass the following
+On the primary control-plane Node (created using `kubeadm init`), pass the following
 file using `--config`:
 -->
 为了解决这个问题，你可以使用 kubeadm 的[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)来配置
@@ -700,7 +740,10 @@ be advised that this is modifying a design principle of the Linux distribution.
 <!--
 ## `kubeadm upgrade plan` prints out `context deadline exceeded` error message
 
-This error message is shown when upgrading a Kubernetes cluster with `kubeadm` in the case of running an external etcd. This is not a critical bug and happens because older versions of kubeadm perform a version check on the external etcd cluster. You can proceed with `kubeadm upgrade apply ...`.
+This error message is shown when upgrading a Kubernetes cluster with `kubeadm` in
+the case of running an external etcd. This is not a critical bug and happens because
+older versions of kubeadm perform a version check on the external etcd cluster.
+You can proceed with `kubeadm upgrade apply ...`.
 
 This issue is fixed as of version 1.19.
 -->
@@ -767,3 +810,110 @@ Also see [How to run the metrics-server securely](https://github.com/kubernetes-
 以进一步了解如何在 kubeadm 集群中配置 kubelet 使用正确签名了的服务证书。
 
 另请参阅 [How to run the metrics-server securely](https://github.com/kubernetes-sigs/metrics-server/blob/master/FAQ.md#how-to-run-metrics-server-securely)。
+
+<!--
+## Upgrade fails due to etcd hash not changing
+
+Only applicable to upgrading a control plane node with a kubeadm binary v1.28.3 or later,
+where the node is currently managed by kubeadm versions v1.28.0, v1.28.1 or v1.28.2.
+
+Here is the error message you may encounter:
+-->
+## 因 etcd 哈希值无变化而升级失败   {#upgrade-fails-due-to-etcd-hash-not-changing}
+
+仅适用于通过 kubeadm 二进制文件 v1.28.3 或更高版本升级控制平面节点的情况，
+其中此节点当前由 kubeadm v1.28.0、v1.28.1 或 v1.28.2 管理。
+
+以下是你可能遇到的错误消息：
+
+```
+[upgrade/etcd] Failed to upgrade etcd: couldn't upgrade control plane. kubeadm has tried to recover everything into the earlier state. Errors faced: static Pod hash for component etcd on Node kinder-upgrade-control-plane-1 did not change after 5m0s: timed out waiting for the condition
+[upgrade/etcd] Waiting for previous etcd to become available
+I0907 10:10:09.109104    3704 etcd.go:588] [etcd] attempting to see if all cluster endpoints ([https://172.17.0.6:2379/ https://172.17.0.4:2379/ https://172.17.0.3:2379/]) are available 1/10
+[upgrade/etcd] Etcd was rolled back and is now available
+static Pod hash for component etcd on Node kinder-upgrade-control-plane-1 did not change after 5m0s: timed out waiting for the condition
+couldn't upgrade control plane. kubeadm has tried to recover everything into the earlier state. Errors faced
+k8s.io/kubernetes/cmd/kubeadm/app/phases/upgrade.rollbackOldManifests
+	cmd/kubeadm/app/phases/upgrade/staticpods.go:525
+k8s.io/kubernetes/cmd/kubeadm/app/phases/upgrade.upgradeComponent
+	cmd/kubeadm/app/phases/upgrade/staticpods.go:254
+k8s.io/kubernetes/cmd/kubeadm/app/phases/upgrade.performEtcdStaticPodUpgrade
+	cmd/kubeadm/app/phases/upgrade/staticpods.go:338
+...
+```
+
+<!--
+The reason for this failure is that the affected versions generate an etcd manifest file with
+unwanted defaults in the PodSpec. This will result in a diff from the manifest comparison,
+and kubeadm will expect a change in the Pod hash, but the kubelet will never update the hash.
+
+There are two way to workaround this issue if you see it in your cluster:
+- The etcd upgrade can be skipped between the affected versions and v1.28.3 (or later) by using:
+
+  This is not recommended in case a new etcd version was introduced by a later v1.28 patch version.
+-->
+本次失败的原因是受影响的版本在 PodSpec 中生成的 etcd 清单文件带有不需要的默认值。
+这将导致与清单比较的差异，并且 kubeadm 预期 Pod 哈希值将发生变化，但 kubelet 永远不会更新哈希值。
+
+如果你在集群中遇到此问题，有两种解决方法：
+
+- 可以运行以下命令跳过 etcd 的版本升级，即受影响版本和 v1.28.3（或更高版本）之间的版本升级:
+
+  ```shell
+  kubeadm upgrade {apply|node} [version] --etcd-upgrade=false
+  ```
+  
+  但不推荐这种方法，因为后续的 v1.28 补丁版本可能引入新的 etcd 版本。
+
+<!--
+- Before upgrade, patch the manifest for the etcd static pod, to remove the problematic defaulted attributes:
+-->
+- 在升级之前，对 etcd 静态 Pod 的清单进行修补，以删除有问题的默认属性:
+
+  ```patch
+  diff --git a/etc/kubernetes/manifests/etcd_defaults.yaml b/etc/kubernetes/manifests/etcd_origin.yaml
+  index d807ccbe0aa..46b35f00e15 100644
+  --- a/etc/kubernetes/manifests/etcd_defaults.yaml
+  +++ b/etc/kubernetes/manifests/etcd_origin.yaml
+  @@ -43,7 +43,6 @@ spec:
+          scheme: HTTP
+        initialDelaySeconds: 10
+        periodSeconds: 10
+  -      successThreshold: 1
+        timeoutSeconds: 15
+      name: etcd
+      resources:
+  @@ -59,26 +58,18 @@ spec:
+          scheme: HTTP
+        initialDelaySeconds: 10
+        periodSeconds: 10
+  -      successThreshold: 1
+        timeoutSeconds: 15
+  -    terminationMessagePath: /dev/termination-log
+  -    terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/lib/etcd
+        name: etcd-data
+      - mountPath: /etc/kubernetes/pki/etcd
+        name: etcd-certs
+  -  dnsPolicy: ClusterFirst
+  -  enableServiceLinks: true
+    hostNetwork: true
+    priority: 2000001000
+    priorityClassName: system-node-critical
+  -  restartPolicy: Always
+  -  schedulerName: default-scheduler
+    securityContext:
+      seccompProfile:
+        type: RuntimeDefault
+  -  terminationGracePeriodSeconds: 30
+    volumes:
+    - hostPath:
+        path: /etc/kubernetes/pki/etcd
+  ```
+
+<!--
+More information can be found in the
+[tracking issue](https://github.com/kubernetes/kubeadm/issues/2927) for this bug.
+-->
+有关此错误的更多信息，请查阅[此问题的跟踪页面](https://github.com/kubernetes/kubeadm/issues/2927)。
