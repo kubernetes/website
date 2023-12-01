@@ -225,9 +225,11 @@ These are often used in containerization technologies like Docker. They
 create a pair of virtual Ethernet interfaces, and packets sent to one
 end of the pair are received on the other end.
 
-> ip link add veth0 type veth peer name veth1  
-> ip link set dev veth0 up  
-> ip link set dev veth1 up
+```shell
+ip link add veth0 type veth peer name veth1  
+ip link set dev veth0 up  
+ip link set dev veth1 up
+```
 
 **Loopback Interface (lo)**
 
