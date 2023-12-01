@@ -117,7 +117,7 @@ ip netns add netns1
 ip netns add netns2
 ```
 
-![image](https://github.com/kubernetes/website/assets/15628010/5a72e92d-846b-466f-910f-72bf9f94fdd5)
+{{< figure src="image5.svg" title="create-netns" >}}
 
 
 Step2: Create a veth pair:
@@ -144,14 +144,14 @@ ip netns exec netns2 ip addr add 10.1.1.2/24 dev veth2
 But veth1 cannot successfully ping veth2, as shown in the screenshot
 below.
 
-![image](https://github.com/kubernetes/website/assets/15628010/9fa9ca70-3bde-43d3-af38-37f8ccca09b6)
+{{< figure src="image6.svg" title="netns1-ping-netns2" >}}
 
 
 ```shell
 ip netns exec netns2 ip link show veth2 # Check the status of veth2, which is down
 ```
 
-![image](https://github.com/kubernetes/website/assets/15628010/b371c65f-9ed3-440b-91bc-41c4519553ee)
+{{< figure src="image7.svg" title="netns-ip-link" >}}
 
 3.  Activate the network interface veth1 within netns1 network namespace
     and veth2 within netns2.
@@ -167,7 +167,7 @@ ip netns exec netns2 ip link set dev veth2 up
 ​​ip netns exec netns1 ping 10.1.1.2
 ```
 
-![image8](https://github.com/kubernetes/website/assets/15628010/5320d2c0-329c-45d3-9fd1-4c285ebc95ff)
+{{< figure src="image8.svg" title="netns1-ping-netns2-success" >}}
 
 So far, we've successfully completed the experiment; let's continue
 further.
@@ -179,7 +179,7 @@ network, and we've used a veth pair to connect two virtual hosts. Now,
 if we configure the IP addresses with different subnets, what will
 happen?
 
-![image9](https://github.com/kubernetes/website/assets/15628010/482cbd38-006f-44ac-a5ef-6feb0a0d9033)
+{{< figure src="image9.svg" title="ping-unsuccessful" >}}
 
 Without a router or subnet reconfiguration, the two hosts in different
 subnets will not be able to communicate over a simple network cable
@@ -202,7 +202,7 @@ received at the other end, allowing data to flow between isolated
 environments. Otherwise, it cannot interconnect between different
 network namespaces by default.
 
-<img width="1029" alt="image10" src="https://github.com/kubernetes/website/assets/15628010/d4a1dfb4-5a5b-4f2f-9f2b-e701a7478d90">
+{{< figure src="image10.svg" title="simple-veth-pair" >}}
 
 In simple words, the veth pair seems like a virtual network cable that
 connects virtual hosts in two different namespaces.
@@ -241,13 +241,13 @@ address 127.0.0.1.
 ifconfig lo
 ```
 
-![image11](https://github.com/kubernetes/website/assets/15628010/0048c5c6-9ee6-4b87-a190-bc4b604f3517)
+{{< figure src="image11.svg" title="ifconfig-lo" >}}
 
 ```shell
 ip addr show lo
 ```
 
-![image](https://github.com/kubernetes/website/assets/15628010/9a609f0e-8976-4238-80eb-eb3ca06022bd)
+{{< figure src="image12.svg" title="ip-addr-show-lo" >}}
 
 **Tunnel Interfaces (TUN, tap)**
 
@@ -319,8 +319,8 @@ single logical interface.
 These are virtual terminal interfaces used for terminal emulation, often
 in the context of SSH or terminal multiplexers like tmux.
 
-![image13](https://github.com/kubernetes/website/assets/15628010/94d89be8-28c3-44c5-b4b2-007ed4ef8af6)
-![image14](https://github.com/kubernetes/website/assets/15628010/efe509ef-cb43-47ea-ab03-b447983d21ca)
+{{< figure src="image13.svg" title="tty" >}}
+{{< figure src="image14.svg" title="tmux" >}}
 
 **Bridge Interfaces (br)**
 
@@ -398,7 +398,7 @@ Docker when you install Docker on a Linux system. It is a virtual
 Ethernet bridge that enables communication between Docker containers and
 between containers and the host system.
 
-![image15](https://github.com/kubernetes/website/assets/15628010/d86dede1-e641-4694-9d4b-cf9e48bd4027)
+{{< figure src="image15.svg" title="tmux" >}}
 
 When discussing bridge mode in both Docker and Kubernetes, it's
 essential to understand the concept of container runtime because the
@@ -562,7 +562,7 @@ underlying technology used by iptables to perform these functions:
 - Load Balancing: In Kubernetes, Netfilter also plays a role in load
   balancing traffic to different pods within a Service.
 
-<img width="1037" alt="image16" src="https://github.com/kubernetes/website/assets/15628010/03d85ca0-434f-476f-a113-92fe3b8a1c97">
+{{< figure src="image16.svg" title="dokcer-bridge-networking-in-linux" >}}
 
 *Netfilter vs iptables in Linux*
 
@@ -653,7 +653,7 @@ Romana, Weave Net, and others support the implementation of network
 policies (as shown in the table above). The working principle of Network
 Policy is depicted in the diagram below.
 
-<img width="945" alt="image17" src="https://github.com/kubernetes/website/assets/15628010/6bc10b06-6aa3-43dc-80dc-bea23aeda0d4">
+{{< figure src="image17.svg" title="network-policy" >}}
 
 *Network Policy Working Principle*
 
@@ -707,7 +707,7 @@ across nodes. It's worth noting that while Docker container-to-container
 communication is similar to pod-to-pod communication in Kubernetes, the
 latter provides additional orchestration and management features.
 
-![image18](https://github.com/kubernetes/website/assets/15628010/d975e28e-5c2f-496d-946f-cd99711e6ac2)
+{{< figure src="image18.svg" title="flannel-overlay" >}}
 
 *This is how the overlay network (using flannel plugins) works in
 Kubernetes*
@@ -747,7 +747,7 @@ VXLAN is a tunneling technology used for overlay networking, often used
 in cloud and virtualized environments. It is supported in the Linux
 kernel.
 
-<img width="1053" alt="image19" src="https://github.com/kubernetes/website/assets/15628010/98cc9966-bd9c-4c90-9cbd-ab1cbcffd7c8">
+{{< figure src="image19.svg" title="vxlan-tunnel" >}}
 
 GRE (Generic Routing Encapsulation):
 
@@ -835,7 +835,7 @@ scenarios based on the theory of Kubernetes.
 
 Let’s see how container 1 communicates with container 2 in the same pod,
 as illustrated in the following diagram.
-![image20](https://github.com/kubernetes/website/assets/15628010/9062d2af-4d49-4114-a046-a2b1eb185402)
+{{< figure src="image20.svg" title="c2c" >}}
 
 Communication between Container1 and Container2
 
@@ -867,7 +867,7 @@ configuration within the pod's network namespace.
 
 This is how communication between Pods on the same Node works:
 
-![image21](https://github.com/kubernetes/website/assets/15628010/4cd5e495-49d8-4ab8-8c69-c452bcbac117)
+{{< figure src="image21.gif" title="p2p-on-the-same-node" >}}
 
 *Pod1, Pod2, and cni0 are in the same subnet*
 
@@ -875,7 +875,7 @@ This is how communication between Pods on the same Node works:
 
 This is how communication between pod1 and pod2 across nodes works:
 
-![image22](https://github.com/kubernetes/website/assets/15628010/7849e4a4-206b-4c03-b2a7-7b9466406ccb)
+{{< figure src="image22.gif" title="p2p-across-nodes" >}}
 *Pods Communication across nodes*
 
 In the case of communication between Pods on different Nodes, the pod's
@@ -927,7 +927,7 @@ performs load balancing.
 This is how communication from pod1 to service2 running on pod2 in
 different nodes works:
 
-![image23](https://github.com/kubernetes/website/assets/15628010/eabee8a5-28e5-40d5-81ef-184374938385)
+{{< figure src="image23.gif" title="p2s" >}}
 
 Pod to service
 
@@ -935,7 +935,7 @@ Pod to service
 
 This is how communication from service2 to pod1 works:
 
-![image24](https://github.com/kubernetes/website/assets/15628010/d7b2fc98-9f34-4fea-a966-900b18025acd)
+{{< figure src="image24.gif" title="s2p" >}}
 
 Service to pod
 
