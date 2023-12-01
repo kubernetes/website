@@ -3,7 +3,7 @@ layout: blog
 title: "Kubernetes Networking Architecture"
 slug: kubernetes-networking-architecture
 ---
-**Author**: <Author's_name>
+**Author**: Susie Su
 # Cloud Computing: Kubernetes Networking Architecture
 From Docker to Kubernetes, container technologies are evolving. Most developers are familiar with Docker but don't have the whole perspective of Kubernetes. And the most difficult thing to understand about Kubernetes is its network architecture. Here, with my 10 years of DevOps work experience and double CCIE in the field of networking and cybersecurity, I will provide a detailed explanation of the comprehensive architecture of Kubernetes Networking, ensuring all aspects are clearly understood. 
 
