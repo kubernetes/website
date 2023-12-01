@@ -212,6 +212,8 @@ For a reference to old feature gates that are removed, please refer to
 | `TopologyManagerPolicyOptions` | `false` | Alpha | 1.26 | 1.27 |
 | `TopologyManagerPolicyOptions` | `true` | Beta | 1.28 | |
 | `TranslateStreamCloseWebsocketRequests` | `false` | Alpha | 1.29 | |
+| `UnauthenticatedHTTP2DOSMitigation` | `false` | Beta | 1.28 | |
+| `UnauthenticatedHTTP2DOSMitigation` | `true` | Beta | 1.29 | |
 | `UnknownVersionInteroperabilityProxy` | `false` | Alpha | 1.28 | |
 | `UserNamespacesPodSecurityStandards` | `false` | Alpha | 1.29 | |
 | `UserNamespacesSupport` | `false` | Alpha | 1.28 | |
@@ -805,6 +807,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `TranslateStreamCloseWebsocketRequests`: Allow WebSocket streaming of the
   remote command sub-protocol (`exec`, `cp`, `attach`) from clients requesting
   version 5 (v5) of the sub-protocol.
+- `UnauthenticatedHTTP2DOSMitigation`: Enables HTTP/2 Denial of Service (DoS)
+   mitigations for unauthenticated clients.
+   Kubernetes v1.28.0 through v1.28.2 do not include this feature gate.
 - `UnknownVersionInteroperabilityProxy`: Proxy resource requests to the correct peer kube-apiserver when
   multiple kube-apiservers exist at varied versions.
   See [Mixed version proxy](/docs/concepts/architecture/mixed-version-proxy/) for more information.
