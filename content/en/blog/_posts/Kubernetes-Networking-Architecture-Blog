@@ -156,8 +156,10 @@ ip netns exec netns2 ip link show veth2 # Check the status of veth2, which is do
 3.  Activate the network interface veth1 within netns1 network namespace
     and veth2 within netns2.
 
-> ip netns exec netns1 ip link set dev veth1 up  
-> ip netns exec netns2 ip link set dev veth2 up
+```shell
+ip netns exec netns1 ip link set dev veth1 up  
+ip netns exec netns2 ip link set dev veth2 up
+```
 
 4.  Try to ping veth2 from netns1:
 
