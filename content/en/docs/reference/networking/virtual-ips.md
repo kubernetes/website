@@ -14,6 +14,18 @@ The `kube-proxy` component is responsible for implementing a _virtual IP_
 mechanism for {{< glossary_tooltip term_id="service" text="Services">}}
 of `type` other than
 [`ExternalName`](/docs/concepts/services-networking/service/#externalname).
+Each instance of kube-proxy watches the Kubernetes {{< glossary_tooltip
+term_id="control-plane" text="control plane" >}} for the addition and
+removal of Service and EndpointSlice {{< glossary_tooltip
+term_id="object" text="objects" >}}. For each Service, kube-proxy
+calls appropriate APIs (depending on the kube-proxy mode) to configure
+the node to capture traffic to the Service's `clusterIP` and `port`,
+and redirect that traffic to one of the Service's endpoints
+(usually a Pod, but possibly an arbitrary user-provided IP address). A control
+loop ensures that the rules on each node are reliably synchronized with
+the Service and EndpointSlice state as indicated by the API server.
+
+{{< figure src="/images/docs/services-iptables-overview.svg" title="Virtual IP mechanism for Services, using iptables mode" class="diagram-medium" >}}
 
 A question that pops up every now and then is why Kubernetes relies on
 proxying to forward inbound traffic to backends. What about other
@@ -57,7 +69,7 @@ The kube-proxy starts up in different modes, which are determined by its configu
 On Linux nodes, the available modes for kube-proxy are:
 
 [`iptables`](#proxy-mode-iptables)
-: A mode where the kube-proxy configures packet forwarding rules using iptables, on Linux.
+: A mode where the kube-proxy configures packet forwarding rules using iptables.
 
 [`ipvs`](#proxy-mode-ipvs)
 : a mode where the kube-proxy configures packet forwarding rules using ipvs.
@@ -74,32 +86,10 @@ There is only one mode available for kube-proxy on Windows:
 
 _This proxy mode is only available on Linux nodes._
 
-In this mode, kube-proxy watches the Kubernetes
-{{< glossary_tooltip term_id="control-plane" text="control plane" >}} for the addition and
-removal of Service and EndpointSlice {{< glossary_tooltip term_id="object" text="objects." >}}
-For each Service, it installs
-iptables rules, which capture traffic to the Service's `clusterIP` and `port`,
-and redirect that traffic to one of the Service's
-backend sets. For each endpoint, it installs iptables rules which
-select a backend Pod.
-
-By default, kube-proxy in iptables mode chooses a backend at random.
-
-Using iptables to handle traffic has a lower system overhead, because traffic
-is handled by Linux netfilter without the need to switch between userspace and the
-kernel space. This approach is also likely to be more reliable.
-
-If kube-proxy is running in iptables mode and the first Pod that's selected
-does not respond, the connection fails. This is different from the old `userspace`
-mode: in that scenario, kube-proxy would detect that the connection to the first
-Pod had failed and would automatically retry with a different backend Pod.
-
-You can use Pod [readiness probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)
-to verify that backend Pods are working OK, so that kube-proxy in iptables mode
-only sees backends that test out as healthy. Doing this means you avoid
-having traffic sent via kube-proxy to a Pod that's known to have failed.
-
-{{< figure src="/images/docs/services-iptables-overview.svg" title="Virtual IP mechanism for Services, using iptables mode" class="diagram-medium" >}}
+In this mode, kube-proxy configures packet forwarding rules using the
+iptables API of the kernel netfilter subsystem. For each endpoint, it
+installs iptables rules which, by default, select a backend Pod at
+random.
 
 #### Example {#packet-processing-iptables}
 
@@ -125,8 +115,10 @@ through a load-balancer, though in those cases the client IP address does get al
 
 #### Optimizing iptables mode performance
 
-In large clusters (with tens of thousands of Pods and Services), the
-iptables mode of kube-proxy may take a long time to update the rules
+In iptables mode, kube-proxy creates a few iptables rules for every
+Service, and a few iptables rules for each endpoint IP address. In
+clusters with tens of thousands of Pods and Services, this means tens
+of thousands of iptables rules, and kube-proxy may take a long time to update the rules
 in the kernel when Services (or their EndpointSlices) change. You can adjust the syncing
 behavior of kube-proxy via options in the [`iptables` section](/docs/reference/config-api/kube-proxy-config.v1alpha1/#kubeproxy-config-k8s-io-v1alpha1-KubeProxyIPTablesConfiguration)
 of the
@@ -207,18 +199,15 @@ and is likely to hurt functionality more than it improves performance.
 
 _This proxy mode is only available on Linux nodes._
 
-In `ipvs` mode, kube-proxy watches Kubernetes Services and EndpointSlices,
-calls `netlink` interface to create IPVS rules accordingly and synchronizes
-IPVS rules with Kubernetes Services and EndpointSlices periodically.
-This control loop ensures that IPVS status matches the desired state.
-When accessing a Service, IPVS directs traffic to one of the backend Pods.
+In `ipvs` mode, kube-proxy uses the kernel IPVS and iptables APIs to
+create rules to redirect traffic from Service IPs to endpoint IPs.
 
 The IPVS proxy mode is based on netfilter hook function that is similar to
 iptables mode, but uses a hash table as the underlying data structure and works
 in the kernel space.
 That means kube-proxy in IPVS mode redirects traffic with lower latency than
 kube-proxy in iptables mode, with much better performance when synchronizing
-proxy rules. Compared to the other proxy modes, IPVS mode also supports a
+proxy rules. Compared to the iptables proxy mode, IPVS mode also supports a
 higher throughput of network traffic.
 
 IPVS provides more options for balancing traffic to backend Pods;
@@ -266,7 +255,7 @@ the node before starting kube-proxy.
 
 When kube-proxy starts in IPVS proxy mode, it verifies whether IPVS
 kernel modules are available. If the IPVS kernel modules are not detected, then kube-proxy
-falls back to running in iptables proxy mode.
+exits with an error.
 {{< /note >}}
 
 {{< figure src="/images/docs/services-ipvs-overview.svg" title="Virtual IP address mechanism for Services, using IPVS mode" class="diagram-medium" >}}
