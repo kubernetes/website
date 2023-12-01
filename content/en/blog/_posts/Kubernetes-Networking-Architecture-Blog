@@ -161,7 +161,9 @@ ip netns exec netns2 ip link show veth2 # Check the status of veth2, which is do
 
 4.  Try to ping veth2 from netns1:
 
-> ​​ip netns exec netns1 ping 10.1.1.2
+```shell
+​​ip netns exec netns1 ping 10.1.1.2
+```
 
 ![image8](https://github.com/kubernetes/website/assets/15628010/5320d2c0-329c-45d3-9fd1-4c285ebc95ff)
 
