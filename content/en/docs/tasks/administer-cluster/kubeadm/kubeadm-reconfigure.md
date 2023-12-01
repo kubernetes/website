@@ -99,11 +99,14 @@ kubeadm init phase certs <component-name> --config <config-file>
 To write new manifest files in `/etc/kubernetes/manifests` you can use:
 
 ```shell
+# For Kubernetes control plane components
 kubeadm init phase control-plane <component-name> --config <config-file>
+# For local etcd
+kubeadm init phase etcd local --config <config-file>
 ```
 
 The `<config-file>` contents must match the updated `ClusterConfiguration`.
-The `<component-name>` value must be the name of the component.
+The `<component-name>` value must be a name of a Kubernetes control plane component (`apiserver`, `controller-manager` or `scheduler`).
 
 {{< note >}}
 Updating a file in `/etc/kubernetes/manifests` will tell the kubelet to restart the static Pod for the corresponding component.

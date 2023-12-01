@@ -78,7 +78,6 @@ for provisioning PVs. This field must be specified.
 | CephFS               |          -           |                   -                   |
 | FC                   |          -           |                   -                   |
 | FlexVolume           |          -           |                   -                   |
-| GCEPersistentDisk    |       &#x2713;       |           [GCE PD](#gce-pd)           |
 | iSCSI                |          -           |                   -                   |
 | NFS                  |          -           |              [NFS](#nfs)              |
 | RBD                  |       &#x2713;       |         [Ceph RBD](#ceph-rbd)         |
@@ -125,7 +124,6 @@ StorageClass has the field `allowVolumeExpansion` set to true.
 
 | Volume type          | Required Kubernetes version |
 | :------------------- | :-------------------------- |
-| gcePersistentDisk    | 1.11                        |
 | rbd                  | 1.11                        |
 | Azure File           | 1.11                        |
 | Portworx             | 1.11                        |
@@ -169,13 +167,7 @@ requirements](/docs/concepts/configuration/manage-resources-containers/),
 anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity),
 and [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration).
 
-The following plugins support `WaitForFirstConsumer` with dynamic provisioning:
-
-- [GCEPersistentDisk](#gce-pd)
-
 The following plugins support `WaitForFirstConsumer` with pre-created PersistentVolume binding:
-
-- All of the above
 - [Local](#local)
 
 [CSI volumes](/docs/concepts/storage/volumes/#csi) are also supported with dynamic provisioning
@@ -292,55 +284,6 @@ parameters:
 {{< note >}}
 `zone` and `zones` parameters are deprecated and replaced with
 [allowedTopologies](#allowed-topologies)
-{{< /note >}}
-
-### GCE PD
-
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: slow
-provisioner: kubernetes.io/gce-pd
-parameters:
-  type: pd-standard
-  fstype: ext4
-  replication-type: none
-```
-
-- `type`: `pd-standard` or `pd-ssd`. Default: `pd-standard`
-- `zone` (Deprecated): GCE zone. If neither `zone` nor `zones` is specified, volumes are
-  generally round-robin-ed across all active zones where Kubernetes cluster has
-  a node. `zone` and `zones` parameters must not be used at the same time.
-- `zones` (Deprecated): A comma separated list of GCE zone(s). If neither `zone` nor `zones`
-  is specified, volumes are generally round-robin-ed across all active zones
-  where Kubernetes cluster has a node. `zone` and `zones` parameters must not
-  be used at the same time.
-- `fstype`: `ext4` or `xfs`. Default: `ext4`. The defined filesystem type must be supported by the host operating system.
-
-- `replication-type`: `none` or `regional-pd`. Default: `none`.
-
-If `replication-type` is set to `none`, a regular (zonal) PD will be provisioned.
-
-If `replication-type` is set to `regional-pd`, a
-[Regional Persistent Disk](https://cloud.google.com/compute/docs/disks/#repds)
-will be provisioned. It's highly recommended to have
-`volumeBindingMode: WaitForFirstConsumer` set, in which case when you create
-a Pod that consumes a PersistentVolumeClaim which uses this StorageClass, a
-Regional Persistent Disk is provisioned with two zones. One zone is the same
-as the zone that the Pod is scheduled in. The other zone is randomly picked
-from the zones available to the cluster. Disk zones can be further constrained
-using `allowedTopologies`.
-
-{{< note >}}
-`zone` and `zones` parameters are deprecated and replaced with
-[allowedTopologies](#allowed-topologies). When
-[GCE CSI Migration](/docs/concepts/storage/volumes/#gce-csi-migration) is
-enabled, a GCE PD volume can be provisioned in a topology that does not match
-any nodes, but any pod trying to use that volume will fail to schedule. With
-legacy pre-migration GCE PD, in this case an error will be produced
-instead at provisioning time. GCE CSI Migration is enabled by default beginning
-from the Kubernetes 1.23 release.
 {{< /note >}}
 
 ### NFS

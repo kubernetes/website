@@ -210,8 +210,7 @@ otherwise the failures are ignored.
 否则这些失败将被忽略。
 
 <!-- 
-See [Audit Annotations: validation falures](/docs/reference/labels-annotations-taints/audit-annotations/#validation-policy-admission-k8s-io-validation_failure)
-for more details about the validation failure audit annotation.
+See [Audit Annotations: validation failures](/docs/reference/labels-annotations-taints/audit-annotations/#validation-policy-admission-k8s-io-validation-failure) for more details about the validation failure audit annotation.
  -->
 有关验证失败审计注解的详细信息，请参见
 [审计注解：验证失败](/zh-cn/docs/reference/labels-annotations-taints/audit-annotations/#validation-policy-admission-k8s-io-validation_failure)。

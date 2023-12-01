@@ -58,7 +58,12 @@ Given the JSON input:
   "items":[
     {
       "kind":"None",
-      "metadata":{"name":"127.0.0.1"},
+      "metadata":{
+        "name":"127.0.0.1",
+        "labels":{
+          "kubernetes.io/hostname":"127.0.0.1"
+        }
+      },
       "status":{
         "capacity":{"cpu":"4"},
         "addresses":[{"type": "LegacyHostIP", "address":"127.0.0.1"}]
@@ -90,36 +95,38 @@ Given the JSON input:
 ```
 
 <!--
-Function            | Description               | Example                                                         | Result
---------------------|---------------------------|-----------------------------------------------------------------|------------------
-`text`              | the plain text            | `kind is {.kind}`                                               | `kind is List`
-`@`                 | the current object        | `{@}`                                                           | the same as input
-`.` or `[]`         | child operator            | `{.kind}`, `{['kind']}` or `{['name\.type']}`                   | `List`
-`..`                | recursive descent         | `{..name}`                                                      | `127.0.0.1 127.0.0.2 myself e2e`
-`*`                 | wildcard. Get all objects | `{.items[*].metadata.name}`                                     | `[127.0.0.1 127.0.0.2]`
-`[start:end:step]`  | subscript operator        | `{.users[0].name}`                                              | `myself`
-`[,]`               | union operator            | `{.items[*]['metadata.name', 'status.capacity']}`               | `127.0.0.1 127.0.0.2 map[cpu:4] map[cpu:8]`
-`?()`               | filter                    | `{.users[?(@.name=="e2e")].user.password}`                      | `secret`
-`range`, `end`      | iterate list              | `{range .items[*]}[{.metadata.name}, {.status.capacity}] {end}` | `[127.0.0.1, map[cpu:4]] [127.0.0.2, map[cpu:8]]`
-`''`                | quote interpreted string  | `{range .items[*]}{.metadata.name}{'\t'}{end}`                  | `127.0.0.1      127.0.0.2`
+Function            | Description                  | Example                                                         | Result
+--------------------|------------------------------|-----------------------------------------------------------------|------------------
+`text`              | the plain text               | `kind is {.kind}`                                               | `kind is List`
+`@`                 | the current object           | `{@}`                                                           | the same as input
+`.` or `[]`         | child operator               | `{.kind}`, `{['kind']}` or `{['name\.type']}`                   | `List`
+`..`                | recursive descent            | `{..name}`                                                      | `127.0.0.1 127.0.0.2 myself e2e`
+`*`                 | wildcard. Get all objects    | `{.items[*].metadata.name}`                                     | `[127.0.0.1 127.0.0.2]`
+`[start:end:step]`  | subscript operator           | `{.users[0].name}`                                              | `myself`
+`[,]`               | union operator               | `{.items[*]['metadata.name', 'status.capacity']}`               | `127.0.0.1 127.0.0.2 map[cpu:4] map[cpu:8]`
+`?()`               | filter                       | `{.users[?(@.name=="e2e")].user.password}`                      | `secret`
+`range`, `end`      | iterate list                 | `{range .items[*]}[{.metadata.name}, {.status.capacity}] {end}` | `[127.0.0.1, map[cpu:4]] [127.0.0.2, map[cpu:8]]`
+`''`                | quote interpreted string     | `{range .items[*]}{.metadata.name}{'\t'}{end}`                  | `127.0.0.1      127.0.0.2`
+`\`                 | escape termination character | `{.items[0].metadata.labels.kubernetes\.io/hostname}`           | `127.0.0.1`
 -->
-函数            | 描述               | 示例                                                         | 结果
---------------------|---------------------------|-----------------------------------------------------------------|------------------
-`text`              | 纯文本            | `kind is {.kind}`                                               | `kind is List`
-`@`                 | 当前对象        | `{@}`                                                           | 与输入相同
-`.` or `[]`         | 子运算符            | `{.kind}`, `{['kind']}` or `{['name\.type']}`                    | `List`
-`..`                | 递归下降         | `{..name}`                                                      | `127.0.0.1 127.0.0.2 myself e2e`
-`*`                 | 通配符。获取所有对象 | `{.items[*].metadata.name}`                                     | `[127.0.0.1 127.0.0.2]`
-`[start:end:step]`  | 下标运算符        | `{.users[0].name}`                                              | `myself`
-`[,]`               | 并集运算符            | `{.items[*]['metadata.name', 'status.capacity']}`               | `127.0.0.1 127.0.0.2 map[cpu:4] map[cpu:8]`
-`?()`               | 过滤                    | `{.users[?(@.name=="e2e")].user.password}`                      | `secret`
-`range`, `end`      | 迭代列表              | `{range .items[*]}[{.metadata.name}, {.status.capacity}] {end}` | `[127.0.0.1, map[cpu:4]] [127.0.0.2, map[cpu:8]]`
-`''`                | 引用解释执行字符串  | `{range .items[*]}{.metadata.name}{'\t'}{end}`                  | `127.0.0.1      127.0.0.2`
+函数                 | 描述                     | 示例                                                             | 结果
+--------------------|--------------------------|-----------------------------------------------------------------|------------------
+`text`              | 纯文本                    | `kind is {.kind}`                                               | `kind is List`
+`@`                 | 当前对象                  | `{@}`                                                           | 与输入相同
+`.` 或 `[]`         | 子运算符                  | `{.kind}`、`{['kind']}` 或 `{['name\.type']}`                    | `List`
+`..`                | 递归下降                  | `{..name}`                                                      | `127.0.0.1 127.0.0.2 myself e2e`
+`*`                 | 通配符。获取所有对象        | `{.items[*].metadata.name}`                                     | `[127.0.0.1 127.0.0.2]`
+`[start:end:step]`  | 下标运算符                | `{.users[0].name}`                                              | `myself`
+`[,]`               | 并集运算符                | `{.items[*]['metadata.name', 'status.capacity']}`               | `127.0.0.1 127.0.0.2 map[cpu:4] map[cpu:8]`
+`?()`               | 过滤                     | `{.users[?(@.name=="e2e")].user.password}`                      | `secret`
+`range`，`end`      | 迭代列表                  | `{range .items[*]}[{.metadata.name}, {.status.capacity}] {end}` | `[127.0.0.1, map[cpu:4]] [127.0.0.2, map[cpu:8]]`
+`''`                | 引用解释执行字符串          | `{range .items[*]}{.metadata.name}{'\t'}{end}`                  | `127.0.0.1      127.0.0.2`
+`\`                 | 转义终止符                 | `{.items[0].metadata.labels.kubernetes\.io/hostname}`           | `127.0.0.1`
 
 <!--
 Examples using `kubectl` and JSONPath expressions:
 -->
-使用 `kubectl` 和 JSONPath 表达式的示例:
+使用 `kubectl` 和 JSONPath 表达式的示例：
 
 ```shell
 kubectl get pods -o json
@@ -128,22 +135,21 @@ kubectl get pods -o=jsonpath='{.items[0]}'
 kubectl get pods -o=jsonpath='{.items[0].metadata.name}'
 kubectl get pods -o=jsonpath="{.items[*]['metadata.name', 'status.capacity']}"
 kubectl get pods -o=jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.startTime}{"\n"}{end}'
+kubectl get pods -o=jsonpath='{.items[0].metadata.labels.kubernetes\.io/hostname}'
 ```
 
-<!--
 {{< note >}}
-On Windows, you must _double_ quote any JSONPath template that contains spaces (not single quote as shown above for bash). This in turn means that you must use a single quote or escaped double quote around any literals in the template. For example:
+<!--
+On Windows, you must _double_ quote any JSONPath template that contains spaces (not single quote as shown above for bash).
+This in turn means that you must use a single quote or escaped double quote around any literals in the template. For example:
 
 ```cmd
 kubectl get pods -o=jsonpath="{range .items[*]}{.metadata.name}{'\t'}{.status.startTime}{'\n'}{end}"
 kubectl get pods -o=jsonpath="{range .items[*]}{.metadata.name}{\"\t\"}{.status.startTime}{\"\n\"}{end}"
 ```
-{{< /note >}}
 -->
-{{< note >}}
 在 Windows 上，对于任何包含空格的 JSONPath 模板，你必须使用双引号（不是上面 bash 所示的单引号）。
-反过来，这意味着你必须在模板中的所有文字周围使用单引号或转义的双引号。
-例如:
+反过来，这意味着你必须在模板中的所有文字周围使用单引号或转义的双引号。例如：
 
 ```cmd
 C:\> kubectl get pods -o=jsonpath="{range .items[*]}{.metadata.name}{'\t'}{.status.startTime}{'\n'}{end}"

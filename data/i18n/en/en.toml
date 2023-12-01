@@ -366,6 +366,78 @@ other = "Before you begin"
 [previous_patches]
 other = "Patch Releases:"
 
+# The following text is displayed when JavaScript isn't available.
+[release_binary_alternate_links]
+other  = """You can find links to download Kubernetes components (and their checksums) in the [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG) files.
+Alternately, use [downloadkubernetes.com](https://www.downloadkubernetes.com/) to filter by version and architecture."""
+
+[release_binary_arch]
+other  = "Architecture"
+
+[release_binary_arch_option]
+other = "Architectures"
+
+[release_binary_copy_link]
+other = "Copy Link"
+
+[release_binary_copy_link_certifcate]
+other = "cert"
+
+[release_binary_copy_link_checksum]
+other = "checksum"
+
+[release_binary_copy_link_signature]
+other = "signature"
+
+[release_binary_copy_link_tooltip]
+other = "copy to clipboard"
+
+[release_binary_download]
+other  = "Download Binary"
+
+[release_binary_download_tooltip]
+other = "download binary file"
+
+[release_binary_options]
+other  = "Download Options"
+
+[release_binary_os]
+other = "Operating System"
+
+[release_binary_os_option]
+other = "Operating Systems"
+
+[release_binary_os_darwin]
+other = "darwin"
+
+[release_binary_os_linux]
+other = "linux"
+
+[release_binary_os_windows]
+other = "windows"
+
+[release_binary_table_caption]
+other = "Download Kubernetes component binaries"
+
+# NOTE: <current-version> is a placeholder for the actual version number set by 'release-binaries' shortcode.
+# Please do not localize or modify <current-version> placeholder.
+[release_binary_section]
+other = """You can find the links to download <current-version> Kubernetes components (along with their checksums) below.
+To access downloads for older supported versions, visit the respective documentation 
+link for [older versions](https://kubernetes.io/docs/home/supported-doc-versions/#versions-older) or use [downloadkubernetes.com](https://www.downloadkubernetes.com/).""" 
+
+# NOTE: <current-version> and <current-changelog-url> are placeholders set by 'release-binaries' shortcode.
+# Please do not localize or modify <current-version> and <current-changelog-url>  placeholders.
+[release_binary_section_note]
+other = """To download older patch versions of <current-version> Kubernetes components (and their checksums), 
+please refer to the [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG/CHANGELOG-<current-changelog-url>.md) file.""" 
+
+[release_binary_version]
+other  = "Version"
+
+[release_binary_version_option]
+other = "Latest Version"
+
 [release_date_after]
 other = ")"
 

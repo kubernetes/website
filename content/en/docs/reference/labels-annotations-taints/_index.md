@@ -548,8 +548,23 @@ Example: `kubernetes.io/enforce-mountable-secrets: "true"`
 Used on: ServiceAccount
 
 The value for this annotation must be **true** to take effect.
-This annotation indicates that Pods running as this ServiceAccount may only reference
-Secret API objects specified in the ServiceAccount's `secrets` field.
+When you set this annotation  to "true", Kubernetes enforces the following rules for
+Pods running as this ServiceAccount:
+
+1. Secrets mounted as volumes must be listed in the ServiceAccount's `secrets` field.
+1. Secrets referenced in `envFrom` for containers (including sidecar containers and init containers)
+   must also be listed in the ServiceAccount's secrets field.
+   If any container in a Pod references a Secret not listed in the ServiceAccount's `secrets` field
+   (and even if the reference is marked as `optional`), then the Pod will fail to start,
+   and an error indicating the non-compliant secret reference will be generated.
+1. Secrets referenced in a Pod's `imagePullSecrets` must be present in the
+   ServiceAccount's `imagePullSecrets` field, the Pod will fail to start,
+   and an error indicating the non-compliant image pull secret reference will be generated.
+
+When you create or update a Pod, these rules are checked. If a Pod doesn't follow them, it won't start and you'll see an error message.
+If a Pod is already running and you change the `kubernetes.io/enforce-mountable-secrets` annotation
+to true, or you edit the associated ServiceAccount to remove the reference to a Secret
+that the Pod is already using, the Pod continues to run.
 
 ### node.kubernetes.io/exclude-from-external-load-balancers
 

@@ -83,7 +83,8 @@ applies to `kubeadm` as well as to Kubernetes overall.
 Check that policy to learn about what versions of Kubernetes and `kubeadm`
 are supported. This page is written for Kubernetes {{< param "version" >}}.
 -->
-[Kubernetes 版本及版本偏差策略](/zh-cn/releases/version-skew-policy/#supported-versions)适用于 `kubeadm` 以及整个 Kubernetes。
+[Kubernetes 版本及版本偏差策略](/zh-cn/releases/version-skew-policy/#supported-versions)适用于
+`kubeadm` 以及整个 Kubernetes。
 查阅该策略以了解支持哪些版本的 Kubernetes 和 `kubeadm`。
 该页面是为 Kubernetes {{< param "version" >}} 编写的。
 
@@ -124,8 +125,12 @@ Any commands under `kubeadm alpha` are, by definition, supported on an alpha lev
 
 <!--
 ### Preparing the hosts
+
+#### Component installation
 -->
 ### 主机准备 {#preparing-the-hosts}
+
+#### 安装组件   {#component-installation}
 
 <!--
 Install a {{< glossary_tooltip term_id="container-runtime" text="container runtime" >}} and kubeadm on all the hosts.
@@ -153,6 +158,102 @@ After you initialize your control-plane, the kubelet runs normally.
 {{< /note >}}
 
 <!--
+#### Network setup
+
+kubeadm similarly to other Kubernetes components tries to find a usable IP on
+the network interfaces associated with the default gateway on a host. Such
+an IP is then used for the advertising and/or listening performed by a component.
+-->
+#### 网络设置   {#network-setup}
+
+kubeadm 与其他 Kubernetes 组件类似，会尝试在与主机默认网关关联的网络接口上找到可用的 IP 地址。
+这个 IP 地址随后用于由某组件执行的公告和/或监听。
+
+<!--
+To find out what this IP is on a Linux host you can use:
+
+```shell
+ip route show # Look for a line starting with "default via"
+```
+-->
+要在 Linux 主机上获得此 IP 地址，你可以使用以下命令：
+
+```shell
+ip route show # 查找以 "default via" 开头的行
+```
+
+{{< note >}}
+<!--
+If the host does not have a default gateway and if a custom IP address is not passed
+to a Kubernetes component, the component may exit with an error.
+-->
+如果主机没有默认网关，并且未给 Kubernetes 组件赋予自定义 IP，此组件可能会报错退出。
+{{< /note >}}
+
+<!--
+Kubernetes components do not accept custom network interface as an option,
+therefore a custom IP address must be passed as a flag to all components instances
+that need such a custom configuration.
+
+To configure the API server advertise address for control plane nodes created with both
+`init` and `join`, the flag `--apiserver-advertise-address` can be used.
+Preferably, this option can be set in the [kubeadm API](/docs/reference/config-api/kubeadm-config.v1beta3)
+as `InitConfiguration.localAPIEndpoint` and `JoinConfiguration.controlPlane.localAPIEndpoint`.
+-->
+Kubernetes 组件不接受自定义网络接口作为选项，因此必须将自定义 IP
+地址作为标志传递给所有需要此自定义配置的组件实例。
+
+要为使用 `init` 或 `join` 创建的控制平面节点配置 API 服务器的公告地址，
+你可以使用 `--apiserver-advertise-address` 标志。
+最好在 [kubeadm API](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3)中使用
+`InitConfiguration.localAPIEndpoint` 和 `JoinConfiguration.controlPlane.localAPIEndpoint`
+来设置此选项。
+
+<!--
+For kubelets on all nodes, the `--node-ip` option can be passed in
+`.nodeRegistration.kubeletExtraArgs` inside a kubeadm configuration file
+(`InitConfiguration` or `JoinConfiguration`).
+
+For dual-stack see
+[Dual-stack support with kubeadm](/docs/setup/production-environment/tools/kubeadm/dual-stack-support).
+-->
+对于所有节点上的 kubelet，`--node-ip` 选项可以在 kubeadm 配置文件
+（`InitConfiguration` 或 `JoinConfiguration`）的 `.nodeRegistration.kubeletExtraArgs`
+中设置。
+
+有关双协议栈细节参见[使用 kubeadm 支持双协议栈](/zh-cn/docs/setup/production-environment/tools/kubeadm/dual-stack-support)。
+
+<!--
+The IP addresses that you assign to control plane components become part of their X.509 certificates'
+subject alternative name fields. Changing these IP addresses would require
+signing new certificates and restarting the affected components, so that the change in
+certificate files is reflected. See
+[Manual certificate renewal](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#manual-certificate-renewal)
+for more details on this topic.
+-->
+控制平面组件所分配的 IP 地址将成为其 X.509 证书的使用者备用名称字段的一部分。
+更改这些 IP 地址将需要签署新的证书并重启受影响的组件，
+以便反映证书文件中的变化。有关此主题的更多细节参见
+[手动续期证书](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#manual-certificate-renewal)。
+
+{{< warning >}}
+<!--
+The Kubernetes project recommends against this approach (configuring all component instances
+with custom IP addresses). Instead, the Kubernetes maintainers recommend to setup the host network,
+so that the default gateway IP is the one that Kubernetes components auto-detect and use.
+On Linux nodes, you can use commands such as `ip route` to configure networking; your operating
+system might also provide higher level network management tools. If your node's default gateway
+is a public IP address, you should configure packet filtering or other security measures that
+protect the nodes and your cluster.
+-->
+Kubernetes 项目不推荐此方法（使用自定义 IP 地址配置所有组件实例）。
+Kubernetes 维护者建议设置主机网络，使默认网关 IP 成为 Kubernetes 组件自动检测和使用的 IP。
+对于 Linux 节点，你可以使用诸如 `ip route` 的命令来配置网络；
+你的操作系统可能还提供更高级的网络管理工具。
+如果节点的默认网关是公共 IP 地址，你应配置数据包过滤或其他保护节点和集群的安全措施。
+{{< /warning >}}
+
+<!--
 ### Preparing the required container images
 -->
 ### 准备所需的容器镜像 {#preparing-the-required-container-images}
@@ -170,7 +271,8 @@ Kubeadm allows you to use a custom image repository for the required images.
 See [Using custom images](/docs/reference/setup-tools/kubeadm/kubeadm-init#custom-images)
 for more details.
 -->
-这个步骤是可选的，只适用于你希望 `kubeadm init` 和 `kubeadm join` 不去下载存放在 `registry.k8s.io` 上的默认的容器镜像的情况。
+这个步骤是可选的，只适用于你希望 `kubeadm init` 和 `kubeadm join` 不去下载存放在
+`registry.k8s.io` 上的默认的容器镜像的情况。
 
 当你在离线的节点上创建一个集群的时候，Kubeadm 有一些命令可以帮助你预拉取所需的镜像。
 阅读[离线运行 kubeadm](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init#without-internet-connection)
@@ -209,7 +311,7 @@ a provider-specific value. See [Installing a Pod network add-on](#pod-network).
 1. （推荐）如果计划将单个控制平面 kubeadm 集群升级成高可用，
    你应该指定 `--control-plane-endpoint` 为所有控制平面节点设置共享端点。
    端点可以是负载均衡器的 DNS 名称或 IP 地址。
-1. 选择一个 Pod 网络插件，并验证是否需要为 `kubeadm init` 传递参数。
+2. 选择一个 Pod 网络插件，并验证是否需要为 `kubeadm init` 传递参数。
    根据你选择的第三方网络插件，你可能需要设置 `--pod-network-cidr` 的值。
    请参阅[安装 Pod 网络附加组件](#pod-network)。
 
@@ -218,19 +320,10 @@ a provider-specific value. See [Installing a Pod network add-on](#pod-network).
 known endpoints. To use different container runtime or if there are more than one installed
 on the provisioned node, specify the `--cri-socket` argument to `kubeadm`. See
 [Installing a runtime](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime).
-1. (Optional) Unless otherwise specified, `kubeadm` uses the network interface associated
-with the default gateway to set the advertise address for this particular control-plane node's API server.
-To use a different network interface, specify the `--apiserver-advertise-address=<ip-address>` argument
-to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, you
-must specify an IPv6 address, for example `--apiserver-advertise-address=2001:db8::101`
 -->
-1. （可选）`kubeadm` 试图通过使用已知的端点列表来检测容器运行时。
+3. （可选）`kubeadm` 试图通过使用已知的端点列表来检测容器运行时。
    使用不同的容器运行时或在预配置的节点上安装了多个容器运行时，请为 `kubeadm init` 指定 `--cri-socket` 参数。
    请参阅[安装运行时](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime)。
-1. （可选）除非另有说明，否则 `kubeadm` 使用与默认网关关联的网络接口来设置此控制平面节点 API server 的广播地址。
-   要使用其他网络接口，请为 `kubeadm init` 设置 `--apiserver-advertise-address=<ip-address>` 参数。
-   要部署使用 IPv6 地址的 Kubernetes 集群，
-   必须指定一个 IPv6 地址，例如 `--apiserver-advertise-address=2001:db8::101`。
 
 <!--
 To initialize the control-plane node run:
@@ -277,8 +370,9 @@ This will allow you to pass `--control-plane-endpoint=cluster-endpoint` to `kube
 high availability scenario.
 -->
 其中 `192.168.0.102` 是此节点的 IP 地址，`cluster-endpoint` 是映射到该 IP 的自定义 DNS 名称。
-这将允许你将 `--control-plane-endpoint=cluster-endpoint` 传递给 `kubeadm init`，并将相同的 DNS 名称传递给 `kubeadm join`。
-稍后你可以修改 `cluster-endpoint` 以指向高可用性方案中的负载均衡器的地址。
+这将允许你将 `--control-plane-endpoint=cluster-endpoint` 传递给 `kubeadm init`，
+并将相同的 DNS 名称传递给 `kubeadm join`。稍后你可以修改 `cluster-endpoint`
+以指向高可用性方案中的负载均衡器的地址。
 
 <!--
 Turning a single control plane cluster created without `--control-plane-endpoint` into a highly available cluster
@@ -439,8 +533,8 @@ Read all of this advice carefully before proceeding.
 Cluster DNS (CoreDNS) will not start up before a network is installed.**
 -->
 **你必须部署一个基于 Pod 网络插件的
-{{< glossary_tooltip text="容器网络接口" term_id="cni" >}}
-(CNI)，以便你的 Pod 可以相互通信。
+{{< glossary_tooltip text="容器网络接口" term_id="cni" >}}（CNI），
+以便你的 Pod 可以相互通信。
 在安装网络之前，集群 DNS (CoreDNS) 将不会启动。**
 
 <!--
@@ -565,7 +659,7 @@ reasons. If you want to be able to schedule Pods on the control plane nodes,
 for example for a single machine Kubernetes cluster, run:
 -->
 默认情况下，出于安全原因，你的集群不会在控制平面节点上调度 Pod。
-如果你希望能够在控制平面节点上调度 Pod，例如单机 Kubernetes 集群，请运行:
+如果你希望能够在控制平面节点上调度 Pod，例如单机 Kubernetes 集群，请运行：
 
 ```bash
 kubectl taint nodes --all node-role.kubernetes.io/control-plane-
@@ -681,7 +775,8 @@ The output is similar to:
 <!--
 To specify an IPv6 tuple for `<control-plane-host>:<control-plane-port>`, IPv6 address must be enclosed in square brackets, for example: `[2001:db8::101]:2073`.
 -->
-要为 `<control-plane-host>:<control-plane-port>` 指定 IPv6 元组，必须将 IPv6 地址括在方括号中，例如：`[2001:db8::101]:2073`
+要为 `<control-plane-host>:<control-plane-port>` 指定 IPv6 元组，必须将 IPv6
+地址括在方括号中，例如：`[2001:db8::101]:2073`
 {{< /note >}}
 
 <!--
@@ -930,10 +1025,10 @@ options.
 * 有关漏洞，访问 [kubeadm GitHub issue tracker](https://github.com/kubernetes/kubeadm/issues)
 * 有关支持，访问
   [#kubeadm](https://kubernetes.slack.com/messages/kubeadm/) Slack 频道
-* General SIG 集群生命周期开发 Slack 频道:
+* General SIG 集群生命周期开发 Slack 频道：
   [#sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle/)
 * SIG 集群生命周期 [SIG information](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle#readme)
-* SIG 集群生命周期邮件列表:
+* SIG 集群生命周期邮件列表：
   [kubernetes-sig-cluster-lifecycle](https://groups.google.com/forum/#!forum/kubernetes-sig-cluster-lifecycle)
 
 <!--
@@ -1044,7 +1139,7 @@ Example for `kubeadm upgrade`:
 * The version of kubeadm used for upgrading the node must be at {{< skew currentVersionAddMinor -1 >}}
 or {{< skew currentVersion >}}
 -->
-`kubeadm upgrade` 的例子:
+`kubeadm upgrade` 的例子：
 * 用于创建或升级节点的 kubeadm 版本为 {{< skew currentVersionAddMinor -1 >}}。
 * 用于升级节点的 kubeadm 版本必须为 {{< skew currentVersionAddMinor -1 >}} 或 {{< skew currentVersion >}}。
 
@@ -1052,8 +1147,8 @@ or {{< skew currentVersion >}}
 To learn more about the version skew between the different Kubernetes component see
 the [Version Skew Policy](/releases/version-skew-policy/).
 -->
-要了解更多关于不同 Kubernetes 组件之间的版本偏差，请参见
-[版本偏差策略](/zh-cn/releases/version-skew-policy/)。
+要了解更多关于不同 Kubernetes 组件之间的版本偏差，
+请参见[版本偏差策略](/zh-cn/releases/version-skew-policy/)。
 
 <!--
 ## Limitations {#limitations}

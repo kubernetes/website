@@ -62,6 +62,12 @@ recommendations include:
 *  Implement audit rules that alert on specific events, such as concurrent
    reading of multiple Secrets by a single user
 
+#### Additional ServiceAccount annotations for Secret management
+
+You can also use the `kubernetes.io/enforce-mountable-secrets` annotation on
+a ServiceAccount to enforce specific rules on how Secrets are used in a Pod.
+For more details, see the [documentation on this annotation](/docs/reference/labels-annotations-taints/#enforce-mountable-secrets).
+
 ### Improve etcd management policies
 
 Consider wiping or shredding the durable storage used by `etcd` once it is

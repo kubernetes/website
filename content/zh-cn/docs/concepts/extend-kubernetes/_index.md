@@ -209,7 +209,7 @@ clients that access it.
 
 <!-- image source: https://docs.google.com/drawings/d/1k2YdJgNTtNfW7_A8moIIkij-DmVgEhNrn3y2OODwqQQ/view -->
 
-{{< figure src="/docs/concepts/extend-kubernetes/extension-points.svg"
+{{< figure src="/docs/concepts/extend-kubernetes/extension-points.png"
     alt="用符号表示的七个编号的 Kubernetes 扩展点"
     class="diagram-large" caption="Kubernetes 扩展点" >}}
 
@@ -296,7 +296,8 @@ several types of extensions.
 注意，某些方案可能需要同时采用几种类型的扩展。
 
 <!-- image source for flowchart: https://docs.google.com/drawings/d/1sdviU6lDz4BpnzJNHfNpQrqI9F19QZ07KnhnxVrp2yg/edit -->
-{{< figure src="/zh-cn/docs/concepts/extend-kubernetes/flowchart.png"
+
+{{< figure src="/zh-cn/docs/concepts/extend-kubernetes/flowchart.svg"
     alt="附带使用场景问题和实现指南的流程图。绿圈表示是；红圈表示否。"
     class="diagram-large" caption="选择一个扩展方式的流程图指导" >}}
 

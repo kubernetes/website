@@ -76,7 +76,7 @@ end
 subgraph second[Review]
 direction TB
    T[ ] -.-
-   D[Look over the<br>K8s/website<br>repository] --- E[Check out the<br>Hugo static site<br>generator]
+   D[Look over the<br>kubernetes/website<br>repository] --- E[Check out the<br>Hugo static site<br>generator]
    E --- F[Understand basic<br>GitHub commands]
    F --- G[Review open PR<br>and change review <br>processes]
 end
@@ -123,7 +123,7 @@ flowchart LR
     direction TB
     S[ ] -.-
     G[Review PRs from other<br>K8s members] -->
-    A[Check K8s/website<br>issues list for<br>good first PRs] --> B[Open a PR!!]
+    A[Check kubernetes/website<br>issues list for<br>good first PRs] --> B[Open a PR!!]
     end
     subgraph first[Suggested Prep]
     direction TB
