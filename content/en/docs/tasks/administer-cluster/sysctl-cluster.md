@@ -76,6 +76,7 @@ The following sysctls are supported in the _safe_ set:
 - `net.ipv4.tcp_syncookies`,
 - `net.ipv4.ping_group_range` (since Kubernetes 1.18),
 - `net.ipv4.ip_unprivileged_port_start` (since Kubernetes 1.22).
+- `net.ipv4.ip_local_reserved_ports` (since Kubernetes 1.27).
 
 {{< note >}}
 There are some exceptions to the set of safe sysctls:
