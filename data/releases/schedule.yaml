@@ -3,11 +3,11 @@
 # latest patch version for a minor release.
 schedules:
 - release: 1.29
-  releaseDate: 2023-12-05
+  releaseDate: 2023-12-13
   next:
     release: 1.29.1
-    cherryPickDeadline: 2024-01-05
-    targetDate: 2024-01-10
+    cherryPickDeadline: 2024-01-12
+    targetDate: 2024-01-17
   maintenanceModeStartDate: 2025-12-28
   endOfLifeDate: 2026-02-28
 - release: 1.28
