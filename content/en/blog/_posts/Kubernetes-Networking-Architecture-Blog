@@ -100,7 +100,7 @@ This isolation allows you to run multiple independent network
 environments on the same physical or virtual machine, keeping them
 separate from each other.
 
-Containers like Docker and Kubernetes use network namespaces to provide
+Tools like Docker and Kubernetes use network namespaces to provide
 isolated networking environments for each container. This isolation
 ensures that containers cannot interfere with each other's network
 configurations.
