@@ -237,7 +237,9 @@ The loopback interface is used for local network communication, allowing
 a system to communicate with itself. It is typically assigned the IP
 address 127.0.0.1.
 
-> ifconfig lo
+```shell
+ifconfig lo
+```
 
 ![image11](https://github.com/kubernetes/website/assets/15628010/0048c5c6-9ee6-4b87-a190-bc4b604f3517)
 
