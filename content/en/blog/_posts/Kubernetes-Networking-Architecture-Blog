@@ -112,8 +112,10 @@ different network namespaces?
 
 Step 1: Create two network namespaces:
 
-> ip netns add netns1  
-> ip netns add netns2
+```shell
+ip netns add netns1  
+ip netns add netns2
+```
 
 ![image](https://github.com/kubernetes/website/assets/15628010/5a72e92d-846b-466f-910f-72bf9f94fdd5)
 
