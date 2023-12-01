@@ -1,17 +1,18 @@
 ---
 layout: blog
-title: "Kubernetes v1.29: QueueingHint Brings a New Possibility to Optimize Our Scheduling"
+title: "Kubernetes v1.29: QueueingHint Brings a New Possibility to Optimize Pod Scheduling"
 date: 2023-12-13:00:00-08:00
 slug: scheduler-queueinghint
 ---
 
 **Author:** [Kensei Nakada](https://github.com/sanposhiho) (Mercari)
 
-The scheduler is the core component that decides which Node Pods run on.
+The Kubernetes [scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/) is the core
+component that decides which node any new Pods should run on.
 Basically, it schedules Pods **one by one**, 
 and thus the larger your cluster is, the more crucial the throughput of the scheduler is.
 
-The throughput of the scheduler is our eternal challenge, 
+For the Kubernetes project, the throughput of the scheduler has been an eternal challenge
 over the years, SIG Scheduling have been putting effort to improve the scheduling throughput by many enhancements.
 
 In this blog post, I'll introduce a recent major improvement in the scheduler: a new
@@ -22,9 +23,10 @@ and how QueueingHint improves our scheduling throughput.
 
 ## Scheduling queue
 
-The scheduler stores all unscheduled Pods in an internal component that we call the Scheduling Queue.
+The scheduler stores all unscheduled Pods in an internal component that we - SIG Scheduling - 
+call the _scheduling queue_.
 
-The _scheduling queue_ is composed of three data structures: _ActiveQ_, _BackoffQ_ and _Unschedulable Pod Pool_.
+The scheduling queue is composed of three data structures: _ActiveQ_, _BackoffQ_ and _Unschedulable Pod Pool_.
 - ActiveQ: It holds newly created Pods or Pods which are ready to be retried for scheduling.
 - BackoffQ: It holds Pods which are ready to be retried, but are waiting for a backoff period, which depends on the number of times the scheduled attempted to schedule the Pod.
 - Unschedulable Pod Pool: It holds Pods which should not be scheduled for now, because they have a Scheduling Gate or because the scheduler attempted to schedule them and nothing has changed in the cluster that could make the Pod schedulable.
