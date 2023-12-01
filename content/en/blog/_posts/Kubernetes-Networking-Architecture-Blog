@@ -147,8 +147,9 @@ below.
 ![image](https://github.com/kubernetes/website/assets/15628010/9fa9ca70-3bde-43d3-af38-37f8ccca09b6)
 
 
-> ip netns exec netns2 ip link show veth2 \# Check the status of veth2,
-> which is down.
+```shell
+ip netns exec netns2 ip link show veth2 # Check the status of veth2, which is down
+```
 
 ![image](https://github.com/kubernetes/website/assets/15628010/b371c65f-9ed3-440b-91bc-41c4519553ee)
 
