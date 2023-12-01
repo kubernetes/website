@@ -136,8 +136,10 @@ ip link set veth2 netns netns2
 
 2.  Assign IP address to the interfaces within the namespaces:
 
-> ip netns exec netns1 ip addr add 10.1.1.1/24 dev veth1  
-> ip netns exec netns2 ip addr add 10.1.1.2/24 dev veth2
+```shell
+ip netns exec netns1 ip addr add 10.1.1.1/24 dev veth1  
+ip netns exec netns2 ip addr add 10.1.1.2/24 dev veth2
+```
 
 But veth1 cannot successfully ping veth2, as shown in the screenshot
 below.
