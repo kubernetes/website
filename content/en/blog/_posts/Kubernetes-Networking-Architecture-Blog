@@ -122,7 +122,9 @@ ip netns add netns2
 
 Step2: Create a veth pair:
 
-> ip link add veth1 type veth peer name veth2
+```shell
+ip link add veth1 type veth peer name veth2
+```
 
 1.  Assign veth 1 to the network namespace netns1 and veth 2 to the
     network namespace netns2:
