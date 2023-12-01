@@ -7,6 +7,9 @@
     <p> Kubernetes {{ .Param "version" }} {{ T "deprecation_warning" }}
       <a href="{{ site.Params.currentUrl }}">{{ T "latest_version" }}</a>
     </p>
+    <p>
+      Check <a href="{{ .Permalink }}">Current Page URL</a>
+    </p>
   </div>
 </section>
 {{ else if and (eq .Section "blog") (not .Params.evergreen) .Date (.Date.Before (now.AddDate -1 0 0)) -}}
