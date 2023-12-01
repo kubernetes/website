@@ -36,7 +36,7 @@ The `kubeadm` tool is good if you need:
 - A building block in other ecosystem and/or installer tools with a larger
   scope.
 -->
-kubeadm 工具很棒，如果你需要：
+`kubeadm` 工具很棒，如果你需要：
 
 - 一个尝试 Kubernetes 的简单方法。
 - 一个现有用户可以自动设置集群并测试其应用程序的途径。
@@ -48,9 +48,8 @@ of cloud servers, a Raspberry Pi, and more. Whether you're deploying into the
 cloud or on-premises, you can integrate `kubeadm` into provisioning systems such
 as Ansible or Terraform.
 -->
-你可以在各种机器上安装和使用 `kubeadm`：笔记本电脑，
-一组云服务器，Raspberry Pi 等。无论是部署到云还是本地，
-你都可以将 `kubeadm` 集成到预配置系统中，例如 Ansible 或 Terraform。
+你可以在各种机器上安装和使用 `kubeadm`：笔记本电脑、一组云服务器、Raspberry Pi 等。
+无论是部署到云还是本地，你都可以将 `kubeadm` 集成到 Ansible 或 Terraform 这类预配置系统中。
 
 ## {{% heading "prerequisites" %}}
 
@@ -128,7 +127,7 @@ Any commands under `kubeadm alpha` are, by definition, supported on an alpha lev
 
 #### Component installation
 -->
-### 主机准备 {#preparing-the-hosts}
+### 主机准备  {#preparing-the-hosts}
 
 #### 安装组件   {#component-installation}
 
@@ -136,7 +135,7 @@ Any commands under `kubeadm alpha` are, by definition, supported on an alpha lev
 Install a {{< glossary_tooltip term_id="container-runtime" text="container runtime" >}} and kubeadm on all the hosts.
 For detailed instructions and other prerequisites, see [Installing kubeadm](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
 -->
-在所有主机上安装 {{< glossary_tooltip term_id="container-runtime" text="容器运行时" >}} 和 kubeadm。
+在所有主机上安装{{< glossary_tooltip term_id="container-runtime" text="容器运行时" >}}和 kubeadm。
 详细说明和其他前提条件，请参见[安装 kubeadm](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)。
 
 {{< note >}}
@@ -161,7 +160,7 @@ After you initialize your control-plane, the kubelet runs normally.
 #### Network setup
 
 kubeadm similarly to other Kubernetes components tries to find a usable IP on
-the network interfaces associated with the default gateway on a host. Such
+the network interfaces associated with a default gateway on a host. Such
 an IP is then used for the advertising and/or listening performed by a component.
 -->
 #### 网络设置   {#network-setup}
@@ -184,25 +183,37 @@ ip route show # 查找以 "default via" 开头的行
 
 {{< note >}}
 <!--
-If the host does not have a default gateway and if a custom IP address is not passed
-to a Kubernetes component, the component may exit with an error.
+If two or more default gateways are present on the host, a Kubernetes component will
+try to use the first one it encounters that has a suitable global unicast IP address.
+While making this choice, the exact ordering of gateways might vary between different
+operating systems and kernel versions.
 -->
-如果主机没有默认网关，并且未给 Kubernetes 组件赋予自定义 IP，此组件可能会报错退出。
+如果主机上存在两个或多个默认网关，Kubernetes 组件将尝试使用遇到的第一个具有合适全局单播 IP 地址的网关。
+在做出这个选择时，网关的确切顺序可能因不同的操作系统和内核版本而有所差异。
 {{< /note >}}
 
 <!--
 Kubernetes components do not accept custom network interface as an option,
 therefore a custom IP address must be passed as a flag to all components instances
 that need such a custom configuration.
+-->
+Kubernetes 组件不接受自定义网络接口作为选项，因此必须将自定义 IP
+地址作为标志传递给所有需要此自定义配置的组件实例。
 
+{{< note >}}
+<!--
+If the host does not have a default gateway and if a custom IP address is not passed
+to a Kubernetes component, the component may exit with an error.
+-->
+如果主机没有默认网关，并且没有将自定义 IP 地址传递给 Kubernetes 组件，此组件可能会因错误而退出。
+{{< /note >}}
+
+<!--
 To configure the API server advertise address for control plane nodes created with both
 `init` and `join`, the flag `--apiserver-advertise-address` can be used.
 Preferably, this option can be set in the [kubeadm API](/docs/reference/config-api/kubeadm-config.v1beta3)
 as `InitConfiguration.localAPIEndpoint` and `JoinConfiguration.controlPlane.localAPIEndpoint`.
 -->
-Kubernetes 组件不接受自定义网络接口作为选项，因此必须将自定义 IP
-地址作为标志传递给所有需要此自定义配置的组件实例。
-
 要为使用 `init` 或 `join` 创建的控制平面节点配置 API 服务器的公告地址，
 你可以使用 `--apiserver-advertise-address` 标志。
 最好在 [kubeadm API](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3)中使用
@@ -231,7 +242,7 @@ certificate files is reflected. See
 [Manual certificate renewal](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#manual-certificate-renewal)
 for more details on this topic.
 -->
-控制平面组件所分配的 IP 地址将成为其 X.509 证书的使用者备用名称字段的一部分。
+你分配给控制平面组件的 IP 地址将成为其 X.509 证书的使用者备用名称字段的一部分。
 更改这些 IP 地址将需要签署新的证书并重启受影响的组件，
 以便反映证书文件中的变化。有关此主题的更多细节参见
 [手动续期证书](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#manual-certificate-renewal)。
@@ -272,15 +283,14 @@ See [Using custom images](/docs/reference/setup-tools/kubeadm/kubeadm-init#custo
 for more details.
 -->
 这个步骤是可选的，只适用于你希望 `kubeadm init` 和 `kubeadm join` 不去下载存放在
-`registry.k8s.io` 上的默认的容器镜像的情况。
+`registry.k8s.io` 上的默认容器镜像的情况。
 
 当你在离线的节点上创建一个集群的时候，Kubeadm 有一些命令可以帮助你预拉取所需的镜像。
 阅读[离线运行 kubeadm](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init#without-internet-connection)
 获取更多的详情。
 
 Kubeadm 允许你给所需要的镜像指定一个自定义的镜像仓库。
-阅读[使用自定义镜像](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init#custom-images)
-获取更多的详情。
+阅读[使用自定义镜像](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init#custom-images)获取更多的详情。
 
 <!--
 ### Initializing your control-plane node
@@ -344,7 +354,7 @@ While `--apiserver-advertise-address` can be used to set the advertise address f
 control-plane node's API server, `--control-plane-endpoint` can be used to set the shared endpoint
 for all control-plane nodes.
 -->
-`--apiserver-advertise-address`  可用于为控制平面节点的 API server 设置广播地址，
+`--apiserver-advertise-address` 可用于为控制平面节点的 API 服务器设置广播地址，
 `--control-plane-endpoint` 可用于为所有控制平面节点设置共享端点。
 
 <!--
@@ -432,8 +442,7 @@ After it finishes you should see:
 -->
 `kubeadm init` 首先运行一系列预检查以确保机器为运行 Kubernetes 准备就绪。
 这些预检查会显示警告并在错误时退出。然后 `kubeadm init`
-下载并安装集群控制平面组件。这可能会需要几分钟。
-完成之后你应该看到：
+下载并安装集群控制平面组件。这可能会需要几分钟。完成之后你应该看到：
 
 ```none
 Your Kubernetes control-plane has initialized successfully!
@@ -523,8 +532,7 @@ This section contains important information about networking setup and
 deployment order.
 Read all of this advice carefully before proceeding.
 -->
-本节包含有关网络设置和部署顺序的重要信息。
-在继续之前，请仔细阅读所有建议。
+本节包含有关网络设置和部署顺序的重要信息。在继续之前，请仔细阅读所有建议。
 
 <!--
 **You must deploy a
@@ -532,10 +540,8 @@ Read all of this advice carefully before proceeding.
 (CNI) based Pod network add-on so that your Pods can communicate with each other.
 Cluster DNS (CoreDNS) will not start up before a network is installed.**
 -->
-**你必须部署一个基于 Pod 网络插件的
-{{< glossary_tooltip text="容器网络接口" term_id="cni" >}}（CNI），
-以便你的 Pod 可以相互通信。
-在安装网络之前，集群 DNS (CoreDNS) 将不会启动。**
+**你必须部署一个基于 Pod 网络插件的{{< glossary_tooltip text="容器网络接口" term_id="cni" >}}（CNI），
+以便你的 Pod 可以相互通信。在安装网络之前，集群 DNS (CoreDNS) 将不会启动。**
 
 <!--
 - Take care that your Pod network must not overlap with any of the host
@@ -545,8 +551,7 @@ Cluster DNS (CoreDNS) will not start up before a network is installed.**
   CIDR block to use instead, then use that during `kubeadm init` with
   `--pod-network-cidr` and as a replacement in your network plugin's YAML).
 -->
-- 注意你的 Pod 网络不得与任何主机网络重叠：
-  如果有重叠，你很可能会遇到问题。
+- 注意你的 Pod 网络不得与任何主机网络重叠：如果有重叠，你很可能会遇到问题。
   （如果你发现网络插件的首选 Pod 网络与某些主机网络之间存在冲突，
   则应考虑使用一个合适的 CIDR 块来代替，
   然后在执行 `kubeadm init` 时使用 `--pod-network-cidr` 参数并在你的网络插件的 YAML 中替换它）。
@@ -588,13 +593,15 @@ kubeadm 应该是与 CNI 无关的，对 CNI 驱动进行验证目前不在我�
 Several external projects provide Kubernetes Pod networks using CNI, some of which also
 support [Network Policy](/docs/concepts/services-networking/network-policies/).
 -->
-一些外部项目为 Kubernetes 提供使用 CNI 的 Pod 网络，其中一些还支持[网络策略](/zh-cn/docs/concepts/services-networking/network-policies/)。
+一些外部项目为 Kubernetes 提供使用 CNI 的 Pod 网络，
+其中一些还支持[网络策略](/zh-cn/docs/concepts/services-networking/network-policies/)。
 
 <!--
 See a list of add-ons that implement the
 [Kubernetes networking model](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model).
 -->
-请参阅实现 [Kubernetes 网络模型](/zh-cn/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model)的附加组件列表。
+请参阅实现
+[Kubernetes 网络模型](/zh-cn/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model)的附加组件列表。
 
 <!--
 You can install a Pod network add-on with the following command on the
@@ -659,7 +666,7 @@ reasons. If you want to be able to schedule Pods on the control plane nodes,
 for example for a single machine Kubernetes cluster, run:
 -->
 默认情况下，出于安全原因，你的集群不会在控制平面节点上调度 Pod。
-如果你希望能够在控制平面节点上调度 Pod，例如单机 Kubernetes 集群，请运行：
+如果你希望能够在单机 Kubernetes 集群等控制平面节点上调度 Pod，请运行：
 
 ```bash
 kubectl taint nodes --all node-role.kubernetes.io/control-plane-
@@ -713,7 +720,7 @@ The nodes are where your workloads (containers and Pods, etc) run. To add new no
 <!--
 If you do not have the token, you can get it by running the following command on the control-plane node:
 -->
-如果没有令牌，可以通过在控制平面节点上运行以下命令来获取令牌：
+如果你没有令牌，可以通过在控制平面节点上运行以下命令来获取令牌：
 
 ```bash
 kubeadm token list
@@ -742,6 +749,7 @@ you can create a new token by running the following command on the control-plane
 ```bash
 kubeadm token create
 ```
+
 <!--
 The output is similar to this:
 -->
@@ -776,7 +784,7 @@ The output is similar to:
 To specify an IPv6 tuple for `<control-plane-host>:<control-plane-port>`, IPv6 address must be enclosed in square brackets, for example: `[2001:db8::101]:2073`.
 -->
 要为 `<control-plane-host>:<control-plane-port>` 指定 IPv6 元组，必须将 IPv6
-地址括在方括号中，例如：`[2001:db8::101]:2073`
+地址括在方括号中，例如 `[2001:db8::101]:2073`。
 {{< /note >}}
 
 <!--
@@ -810,8 +818,8 @@ on the first control-plane node. To provide higher availability, please rebalanc
 with `kubectl -n kube-system rollout restart deployment coredns` after at least one new node is joined.
 -->
 由于集群节点通常是按顺序初始化的，CoreDNS Pod 很可能都运行在第一个控制面节点上。
-为了提供更高的可用性，请在加入至少一个新节点后
-使用 `kubectl -n kube-system rollout restart deployment coredns` 命令，重新平衡这些 CoreDNS Pod。
+为了提供更高的可用性，请在加入至少一个新节点后使用
+`kubectl -n kube-system rollout restart deployment coredns` 命令，重新平衡这些 CoreDNS Pod。
 {{< /note >}}
 
 <!--
@@ -865,7 +873,7 @@ admin.conf 文件为用户提供了对集群的超级用户特权。
 If you want to connect to the API Server from outside the cluster you can use
 `kubectl proxy`:
 -->
-如果要从集群外部连接到 API 服务器，则可以使用 `kubectl proxy`：
+如果你要从集群外部连接到 API 服务器，则可以使用 `kubectl proxy`：
 
 ```bash
 scp root@<control-plane-host>:/etc/kubernetes/admin.conf .
@@ -875,7 +883,7 @@ kubectl --kubeconfig ./admin.conf proxy
 <!--
 You can now access the API Server locally at `http://localhost:8001/api/v1`
 -->
-你现在可以在本地访问 API 服务器 `http://localhost:8001/api/v1`。
+你现在可以在 `http://localhost:8001/api/v1` 从本地访问 API 服务器。
 
 <!--
 ## Clean up {#tear-down}
@@ -903,21 +911,25 @@ and make sure that the node is empty, then deconfigure the node.
 <!--
 ### Remove the node
 -->
-### 删除节点 {#remove-the-node}
+### 移除节点   {#remove-the-node}
 
 <!--
 Talking to the control-plane node with the appropriate credentials, run:
--->
-使用适当的凭证与控制平面节点通信，运行：
 
 ```bash
 kubectl drain <node name> --delete-emptydir-data --force --ignore-daemonsets
+```
+-->
+使用适当的凭据与控制平面节点通信，运行：
+
+```bash
+kubectl drain <节点名称> --delete-emptydir-data --force --ignore-daemonsets
 ```
 
 <!--
 Before removing the node, reset the state installed by `kubeadm`:
 -->
-在删除节点之前，请重置 `kubeadm` 安装的状态：
+在移除节点之前，请重置 `kubeadm` 安装的状态：
 
 ```bash
 kubeadm reset
@@ -942,8 +954,12 @@ ipvsadm -C
 ```
 <!--
 Now remove the node:
+
+```bash
+kubectl delete node <node name>
+```
 -->
-现在删除节点：
+现在移除节点：
 
 ```bash
 kubectl delete node <节点名称>
@@ -998,7 +1014,8 @@ options.
   an overview of what is involved.
 -->
 * 使用 [Sonobuoy](https://github.com/heptio/sonobuoy) 验证集群是否正常运行。
-* <a id="lifecycle"/>有关使用 kubeadm 升级集群的详细信息，请参阅[升级 kubeadm 集群](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)。
+* <a id="lifecycle"/>有关使用 kubeadm 升级集群的详细信息，
+  请参阅[升级 kubeadm 集群](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)。
 * 在 [kubeadm 参考文档](/zh-cn/docs/reference/setup-tools/kubeadm/)中了解有关 `kubeadm` 进阶用法的信息。
 * 了解有关 Kubernetes [概念](/zh-cn/docs/concepts/)和 [`kubectl`](/zh-cn/docs/reference/kubectl/)的更多信息。
 * 有关 Pod 网络附加组件的更多列表，请参见[集群网络](/zh-cn/docs/concepts/cluster-administration/networking/)页面。
@@ -1025,10 +1042,10 @@ options.
 * 有关漏洞，访问 [kubeadm GitHub issue tracker](https://github.com/kubernetes/kubeadm/issues)
 * 有关支持，访问
   [#kubeadm](https://kubernetes.slack.com/messages/kubeadm/) Slack 频道
-* General SIG 集群生命周期开发 Slack 频道：
+* 常规的 SIG Cluster Lifecycle 开发 Slack 频道：
   [#sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle/)
-* SIG 集群生命周期 [SIG information](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle#readme)
-* SIG 集群生命周期邮件列表：
+* SIG Cluster Lifecycle 的 [SIG 资料](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle#readme)
+* SIG Cluster Lifecycle 邮件列表：
   [kubernetes-sig-cluster-lifecycle](https://groups.google.com/forum/#!forum/kubernetes-sig-cluster-lifecycle)
 
 <!--
