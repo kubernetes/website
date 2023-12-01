@@ -241,7 +241,9 @@ address 127.0.0.1.
 
 ![image11](https://github.com/kubernetes/website/assets/15628010/0048c5c6-9ee6-4b87-a190-bc4b604f3517)
 
-> ip addr show lo
+```shell
+ip addr show lo
+```
 
 ![image](https://github.com/kubernetes/website/assets/15628010/9a609f0e-8976-4238-80eb-eb3ca06022bd)
 
