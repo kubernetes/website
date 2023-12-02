@@ -52,35 +52,35 @@ Kubernetesコミュニティで効果的に働くためには、[git](https://gi
 
 {{< mermaid >}}
 flowchart TB
-subgraph third[Open PR]
+subgraph third[プルリクエストのオープン]
 direction TB
 U[ ] -.-
-Q[Improve content] --- N[Create content]
-N --- O[Translate docs]
-O --- P[Manage/publish docs parts<br>of K8s release cycle]
+Q[コンテンツを改善する] --- N[コンテンツを作成する]
+N --- O[ドキュメントの翻訳]
+O --- P[k8sリリースサイクルの <br>ドキュメントを管理する]
 
 end
 
-subgraph second[Review]
+subgraph second[レビュー]
 direction TB
    T[ ] -.-
-   D[Look over the<br>kubernetes/website<br>repository] --- E[Check out the<br>Hugo static site<br>generator]
-   E --- F[Understand basic<br>GitHub commands]
-   F --- G[Review open PR<br>and change review <br>processes]
+   D[kubernetes/website <br>リポジトリを確認する] --- E[静的サイトジェネレータ <br>Hugoを確認する]
+   E --- F[基本的なGitHubの <br>コマンドを理解する]
+   F --- G[オープンした <br>プルリクエストを確認し <br>レビュープロセスを見直す]
 end
 
-subgraph first[Sign up]
+subgraph first[サインアップ]
     direction TB
     S[ ] -.-
-    B[Sign the CNCF<br>Contributor<br>License Agreement] --- C[Join sig-docs<br>Slack channel]
-    C --- V[Join kubernetes-sig-docs<br>mailing list]
-    V --- M[Attend weekly<br>sig-docs calls<br>or slack meetings]
+    B[CNCFの <br>貢献者ライセンス <br>契約に署名する] --- C[Slackチャンネル <br>sig-docs に<br>参加する]
+    C --- V[kubernetes-sig-docsの<br> メーリングリストに <br>参加する]
+    V --- M[毎週開催している <br>sig-docs callsや<br> slack callsに <br>参加する]
 end
 
-A([fa:fa-user New<br>Contributor]) --> first
+A([fa:fa-user 新たな<br>貢献者]) --> first
 A --> second
 A --> third
-A --> H[Ask Questions!!!]
+A --> H[質問をする!!!]
 
 
 classDef grey fill:#dddddd,stroke:#ffffff,stroke-width:px,color:#000000, font-size:15px;
@@ -92,7 +92,7 @@ class first,second,third white
 {{</ mermaid >}}
 新たな貢献のためのロードマップ
 
-これは新しい貢献者のためのロードマップを概説しています。`Sign up`や`Review`のステップのいくつか、またはその全てに従うことができます。これで、`Open PR`の下にリストされているいくつかの貢献目標を達成するためのプルリクエストを開く準備が整いました。また、質問はいつでも歓迎です！
+これは新しい貢献者のためのロードマップを概説しています。`サインアップ`や`レビュー`のステップのいくつか、またはその全てに従うことができます。これで、`プルリクエストのオープン`の下にリストされているいくつかの貢献目標を達成するためのプルリクエストを開く準備が整いました。また、質問はいつでも歓迎です！
 
 一部のタスクでは、Kubernetes organizationで、より多くの信頼とアクセス権限が必要です。
 役割と権限についての詳細は、[SIG Docsへの参加](/ja/docs/contribute/participate/)を参照してください。
@@ -106,17 +106,17 @@ class first,second,third white
 
 {{< mermaid >}}
 flowchart LR
-    subgraph second[First Contribution]
+    subgraph second[はじめての貢献]
     direction TB
     S[ ] -.-
-    G[Review PRs from other<br>K8s members] -->
-    A[Check kubernetes/website<br>issues list for<br>good first PRs] --> B[Open a PR!!]
+    G[K8sメンバーからの <br>PRレビューを受ける] -->
+    A[最初のPRを作成するための <br>良いissueを <br>kubernetes/websiteから探す] --> B[PRをオープンする!!]
     end
-    subgraph first[Suggested Prep]
+    subgraph first[提案された準備]
     direction TB
        T[ ] -.-
-       D[Read contribution overview] -->E[Read K8s content<br>and style guides]
-       E --> F[Learn about Hugo page<br>content types<br>and shortcodes]
+       D[貢献者の概要を読む] -->E[K8sのコンテンツと<br> スタイルガイドを読む]
+       E --> F[Hugoのページコンテンツタイプと <br>ショートコードについて学ぶ]
     end
 
 
