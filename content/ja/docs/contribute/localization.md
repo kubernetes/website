@@ -22,7 +22,7 @@ card:
 
 翻訳作業は全て[GitHubのIssue](https://github.com/kubernetes/website/issues?q=is%3Aissue+is%3Aopen+label%3Alanguage%2Fja)によって管理されています。翻訳作業を行いたい場合は、Issueの一覧をまず最初にご確認ください。
 
-また、Kubernetes傘下のリポジトリでは`CLA`と呼ばれる同意書に署名しないと、Pull Requestをマージすることができません。詳しくは[英語のドキュメント](https://github.com/kubernetes/community/blob/master/CLA.md)や、[Qiitaに有志の方が書いてくださった日本語のまとめ](https://qiita.com/jlandowner/items/d14d9bc8797a62b65e67)をご覧ください。
+また、Kubernetes傘下のリポジトリでは`CLA`と呼ばれる同意書に署名しないと、Pull Requestをマージすることができません。詳しくは[英語のドキュメント](https://github.com/kubernetes/community/blob/main/CLA.md)や、[Qiitaに有志の方が書いてくださった日本語のまとめ](https://qiita.com/jlandowner/items/d14d9bc8797a62b65e67)をご覧ください。
 
 ### 翻訳を始めるまで
 
@@ -44,16 +44,16 @@ card:
 #### 新規ページを翻訳する場合の手順 {#translate-new-page}
 
 1. `kubernetes/website`リポジトリをフォークする
-2. `master`から任意の名前でブランチを作成する
+2. `main`から任意の名前でブランチを作成する
 3. `content/en`のディレクトリから必要なファイルを`content/ja`にコピーし、翻訳する
-4. `master`ブランチに向けてPull Requestを作成する
+4. `main`ブランチに向けてPull Requestを作成する
 
 #### 既存のページの誤字脱字や古い記述を修正する場合の手順
 
 1. `kubernetes/website`リポジトリをフォークする
-2. `master`から任意の名前でブランチを作成する
+2. `main`から任意の名前でブランチを作成する
 3. `content/ja`のディレクトリから必要なファイルを編集する
-4. `master`ブランチに向けてPull Requestを作成する
+4. `main`ブランチに向けてPull Requestを作成する
 
 ## 翻訳スタイルガイド
 
