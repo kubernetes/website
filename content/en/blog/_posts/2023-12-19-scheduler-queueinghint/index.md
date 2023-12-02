@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes v1.29: QueueingHint Brings a New Possibility to Optimize Pod Scheduling"
-date: 2023-12-13:00:00-08:00
+date: 2023-12-19:00:00-08:00
 slug: scheduler-queueinghint
 ---
 
