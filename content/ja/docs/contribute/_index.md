@@ -18,10 +18,9 @@ card:
 {{< note >}}
 Kubernetesへの貢献について総合的に知りたい場合は、[contributor documentation](https://www.kubernetes.dev/docs/)を参照してください。
 
-You can also read the
-{{< glossary_tooltip text="CNCF" term_id="cncf" >}}
-[page](https://contribute.cncf.io/contributors/projects/#kubernetes)
-about contributing to Kubernetes.
+また、Kubernetesへの貢献については、
+{{< glossary_tooltip text="CNCF" term_id="cncf" >}} の[ページ](https://contribute.cncf.io/contributors/projects/#kubernetes)
+を参照することもできます。
 {{< /note >}}
 
 ---
@@ -91,16 +90,16 @@ class A,B,C,D,E,F,G,H,M,Q,N,O,P,V grey
 class S,T,U spacewhite
 class first,second,third white
 {{</ mermaid >}}
-Figure 1. Getting started for a new contributor.
+新たな貢献のためのロードマップ
 
-Figure 1 outlines a roadmap for new contributors. You can follow some or all of the steps for `Sign up` and `Review`. Now you are ready to open PRs that achieve your contribution objectives with some listed under `Open PR`. Again, questions are always welcome!
+これは新しい貢献者のためのロードマップを概説しています。`Sign up`や`Review`のステップのいくつか、またはその全てに従うことができます。これで、`Open PR`の下にリストされているいくつかの貢献目標を達成するためのプルリクエストを開く準備が整いました。また、質問はいつでも歓迎です！
 
 一部のタスクでは、Kubernetes organizationで、より多くの信頼とアクセス権限が必要です。
 役割と権限についての詳細は、[SIG Docsへの参加](/ja/docs/contribute/participate/)を参照してください。
 
 ## はじめての貢献
 
-You can prepare for your first contribution by reviewing several steps beforehand. Figure 2 outlines the steps and the details follow.
+あらかじめいくつかのステップを見直すことで、最初の貢献に備えることができます。以下の図ではそれらのステップと詳細を概説しています。
 
 <!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
 <!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
@@ -131,7 +130,7 @@ class A,B,D,E,F,G grey
 class S,T spacewhite
 class first,second white
 {{</ mermaid >}}
-Figure 2. Preparation for your first contribution.
+はじめての貢献のための準備
 
 - 貢献のための複数の方法について学ぶために[貢献の概要](/ja/docs/contribute/new-content/overview/)を読んでください。
 - 良い開始地点を探すために[`kubernetes/website` issueリスト](https://github.com/kubernetes/website/issues/)を確認してください。
@@ -140,9 +139,9 @@ Figure 2. Preparation for your first contribution.
 - 見識のあるコメントを残せるようにするため、Kubernetesの[コンテンツ](/ja/docs/contribute/style/content-guide/)と[スタイルガイド](/docs/contribute/style/style-guide/)を読んでください。
 - [ページコンテンツの種類](/docs/contribute/style/page-content-types/)と[Hugoショートコード](/docs/contribute/style/hugo-shortcodes/)について勉強してください。
 
-## Getting help when contributing
+## 貢献時の支援の受け方
 
-Making your first contribution can be overwhelming. The [New Contributor Ambassadors](https://github.com/kubernetes/website#new-contributor-ambassadors) are there to walk you through making your first few contributions. You can reach out to them in the [Kubernetes Slack](https://slack.k8s.io/) preferably in the `#sig-docs` channel. There is also the [New Contributors Meet and Greet call](https://www.kubernetes.dev/resources/calendar/) that happens on the first Tuesday of every month. You can interact with the New Contributor Ambassadors and get your queries resolved here.
+最初の貢献を行うことは大変なことがあります。[新規貢献者のためのアンバサダー](https://github.com/kubernetes/website#new-contributor-ambassadors)は、最初の数回の貢献を行う手助けをしてくれます。[Kubernetes Slack](https://slack.k8s.io/)で、特に `#sig-docs` チャンネルを用いて連絡を取ることができます。また毎月最初の火曜日に行われる[新規貢献者のための歓迎会](https://www.kubernetes.dev/resources/calendar/)もあります。ここで新規貢献者のアンバサダーと交流し、質問に答えてもらうことができます。
 
 ## 次のステップ
 
@@ -165,5 +164,5 @@ SIG Docsは複数の方法でコミュニケーションをとっています。
 
 - [Kubernetesコミュニティサイト](/community/)を訪問してください。TwitterやStack Overflowに参加したり、Kubernetesの集会やイベントについて学んだりしてください。
 - 機能開発に貢献したい方は、まずはじめに[Kubernetesコントリビューターチートシート](https://github.com/kubernetes/community/tree/master/contributors/guide/contributor-cheatsheet)を読んでください。
-- Visit the contributor site to learn more about [Kubernetes Contributors](https://www.kubernetes.dev/) and [additional contributor resources](https://www.kubernetes.dev/resources/).
+- [Kubernetesの貢献者](https://www.kubernetes.dev/)や[追加の貢献者向けリソース](https://www.kubernetes.dev/resources/) についてもっと学ぶために、貢献者サイトを読んでください。
 - [ブログ記事やケーススタディ](/docs/contribute/new-content/blogs-case-studies/)を投稿してください。
