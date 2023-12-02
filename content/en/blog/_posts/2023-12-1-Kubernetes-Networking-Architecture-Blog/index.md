@@ -257,13 +257,17 @@ used for routing, while tap interfaces are used for Ethernet bridging.
 
 To create a TUN interface for a simple tunnel:
 
-> ip tuntap add mode tun tun0  
-> ip link set dev tun0 up
+```shell
+ip tuntap add mode tun tun0  
+ip link set dev tun0 up
+```
 
 To create a TAP interface for an Ethernet bridge:
 
-> ip tuntap add mode tap tap0  
-> ip link set dev tap0 up
+```shell
+ip tuntap add mode tap tap0  
+ip link set dev tap0 up
+```
 
 **Virtual LAN Interfaces (vlan)**
 
@@ -271,8 +275,10 @@ VLAN interfaces are used to partition a physical network into multiple
 virtual LANs. They allow multiple VLANs to exist on a single physical
 network interface.
 
-> ip link add link eth0 name eth0.10 type vlan id 10  
-> ip link set dev eth0.10 up
+```shell
+ip link add link eth0 name eth0.10 type vlan id 10  
+ip link set dev eth0.10 up
+```
 
 **WireGuard Interfaces (wg)**
 
@@ -281,27 +287,35 @@ configure and manage WireGuard tunnels.
 
 Create a WireGuard interface:
 
-> ip link add dev wg0 type wireguard
+```shell
+ip link add dev wg0 type wireguard
+```
 
 Generate private and public keys
 
-> wg genkey \| sudo tee /etc/wireguard/privatekey \| wg pubkey \| sudo
-> tee /etc/wireguard/publickey
+```shell
+wg genkey \| sudo tee /etc/wireguard/privatekey \| wg pubkey \| sudo
+tee /etc/wireguard/publickey
+```
 
 Configure the WireGuard interface
 
-> ip address add 10.0.0.1/24 dev wg0  
-> wg set wg0 private-key /etc/wireguard/privatekey  
-> wg set wg0 listen-port 51820
+```shell
+ip address add 10.0.0.1/24 dev wg0  
+wg set wg0 private-key /etc/wireguard/privatekey  
+wg set wg0 listen-port 51820
+```
 
 **Dummy Interfaces (dummy)**
 
 Dummy interfaces are used for various purposes, such as simulating
 network interfaces or providing a placeholder for network configuration.
 
-> modprobe dummy  
-> ip link add dummy0 type dummy  
-> ip link set dev dummy0 up
+```shell
+modprobe dummy  
+ip link add dummy0 type dummy  
+ip link set dev dummy0 up
+```
 
 **Bonded Interfaces (bond)**
 
@@ -309,10 +323,12 @@ Bonding interfaces are used for network link aggregation and fault
 tolerance. They combine multiple physical network interfaces into a
 single logical interface.
 
-> modprobe bonding  
-> ip link add bond0 type bond  
-> ip link set dev eth0 master bond0  
-> ip link set dev eth1 master bond0
+```shell
+modprobe bonding  
+ip link add bond0 type bond  
+ip link set dev eth0 master bond0  
+ip link set dev eth1 master bond0
+```
 
 **Virtual TTY Interfaces (PTY – ‘Pseudo-Terminal’)**
 
@@ -328,13 +344,15 @@ Bridge interfaces are used for bridging network traffic between two or
 more physical or virtual network interfaces. They are created when
 setting up software bridges using tools like brctl or ip.
 
-> ip link add name br0 type bridge  
-> ip link set dev eth0 master br0 \# eth0 is the physical network
-> interface, and it can also configure veth (virtual network interface)
-> instead, for example, with the command 'ip link set veth master
-> br0'.  
-> ip link set dev eth1 master br0  
-> ip link set dev br0 up
+```shell
+ip link add name br0 type bridge  
+ip link set dev eth0 master br0 \# eth0 is the physical network
+interface, and it can also configure veth (virtual network interface)
+instead, for example, with the command 'ip link set veth master
+br0'.  
+ip link set dev eth1 master br0  
+ip link set dev br0 up
+```
 
 After becoming familiar with the various virtual network interfaces
 above, let's shift our focus to the Linux Network Bridge, which can be
@@ -423,14 +441,7 @@ Several common container runtimes with Kubernetes
   as an adapter layer that allowed Kubernetes to communicate with
   Docker's daemon using the CRI.
 
-> In more recent developments, Kubernetes announced the deprecation of
-> Dockershim as an intermediary. The primary reason for this was to
-> streamline the Kubernetes architecture and use container runtimes that
-> directly implement the CRI. However, Docker containers and images
-> remain fully compatible with Kubernetes because Docker produces
-> OCI-compliant containers. This means that the containers built with
-> Docker can be run by other CRI-compatible runtimes like containerd and
-> CRI-O, which Kubernetes supports natively.
+| In more recent developments, Kubernetes announced the deprecation of Dockershim as an intermediary. The primary reason for this was to streamline the Kubernetes architecture and use container runtimes that directly implement the CRI. However, Docker containers and images remain fully compatible with Kubernetes because Docker produces OCI-compliant containers. This means that the containers built with Docker can be run by other CRI-compatible runtimes like containerd and CRI-O, which Kubernetes supports natively.
 
 - **containerd**: An industry-standard container runtime focused on
   simplicity and robustness, containerd is used by Docker and supports
