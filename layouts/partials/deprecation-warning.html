@@ -7,8 +7,8 @@
     <p> Kubernetes {{ .Param "version" }} {{ T "deprecation_warning" }}
      <a href="{{ site.Params.currentUrl }}">{{ T "latest_version" }}</a>
     </p>
-    <p>
-      Check out the <strong><a href="{{ .Permalink }}">latest version</a></strong> of this page for the most up-to-date information.
+    <p> {{ T "deprecation_warning_page_link" }} 
+     <a href="{{ .Permalink }}">{{ T "latest_version" }}</a>
     </p>
   </div>
 </section>
