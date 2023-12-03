@@ -126,7 +126,7 @@ The following methods exist for installing kubectl on macOS:
 1. After installing and validating kubectl, delete the checksum file:
 
    ```bash
-   rm kkubectl.sha256
+   rm kubectl.sha256
    ```
 
 ### Install with Homebrew on macOS
