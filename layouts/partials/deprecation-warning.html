@@ -5,7 +5,10 @@
       {{ T "deprecation_title" }} {{ .Param "version" }}
     </h3>
     <p> Kubernetes {{ .Param "version" }} {{ T "deprecation_warning" }}
-      <a href="{{ site.Params.currentUrl }}">{{ T "latest_version" }}</a>
+     <a href="{{ site.Params.currentUrl }}">{{ T "latest_version" }}</a>
+    </p>
+    <p> {{ T "deprecation_warning_page_link" }} 
+     <a href="{{ .Permalink }}">{{ T "latest_version" }}</a>
     </p>
   </div>
 </section>
