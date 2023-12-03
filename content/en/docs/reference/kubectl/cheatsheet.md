@@ -366,6 +366,8 @@ kubectl exec --stdin --tty my-pod -- /bin/sh        # Interactive shell access t
 kubectl exec my-pod -c my-container -- ls /         # Run command in existing pod (multi-container case)
 kubectl top pod POD_NAME --containers               # Show metrics for a given pod and its containers
 kubectl top pod POD_NAME --sort-by=cpu              # Show metrics for a given pod and sort it by 'cpu' or 'memory'
+kubectl top pods -n <your-namespace> --selector=cpu-consuming --sort-by=cpu --no-headers | head -n 1 | awk '{print $1}' > cpu.txt       #gets the information about one pods consuming the most CPU in a namesapce among a group of pods
+
 ```
 ## Copying files and directories to and from containers
 
