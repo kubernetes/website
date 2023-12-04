@@ -277,8 +277,8 @@ spec:
 사용자들은 파드의 DNS 설정을 통해서 직접 파드의 DNS를 세팅할 수 있다.
 
 `dnsConfig` 필드는 선택적이고, `dnsPolicy` 세팅과 함께 동작한다.
-이때, 파드의 `dnsPolicy`의 값이 "`None`"으로 설정되어 있어야
-`dnsConfig` 필드를 지정할 수 있다.
+이때, 파드의 `dnsPolicy`의 값이 "`None`"으로 설정되어 있으면
+`dnsConfig` 필드는 필수로 지정해야 한다.
 
 사용자는 `dnsConfig` 필드에서 다음과 같은 속성들을 지정할 수 있다.
 
