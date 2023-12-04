@@ -112,12 +112,14 @@ aliases:
     - gochist
     - jihoon-seo
     - seokho-son
+    - yoonian
     - ysyukr
   sig-docs-ko-reviews: # PR reviews for Korean content
     - gochist
     - jihoon-seo
     - jmyung
     - seokho-son
+    - yoonian
     - ysyukr
   sig-docs-leads: # Website chairs and tech leads
     - divya-mohan0209
@@ -128,6 +130,7 @@ aliases:
     - sftim
     - tengqm
   sig-docs-zh-owners: # Admins for Chinese content
+    - chenrui
     - howieyuen
     - mengjiao-liu
     - my-git9
@@ -140,6 +143,7 @@ aliases:
     - ydFu
   sig-docs-zh-reviews: # PR reviews for Chinese content
     - asa3311
+    - chenrui
     - howieyuen
     # idealhack
     - kinzhi
