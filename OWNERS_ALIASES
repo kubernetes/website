@@ -130,7 +130,7 @@ aliases:
     - sftim
     - tengqm
   sig-docs-zh-owners: # Admins for Chinese content
-    - chenrui
+    - chenrui333
     - howieyuen
     - mengjiao-liu
     - my-git9
@@ -143,7 +143,7 @@ aliases:
     - ydFu
   sig-docs-zh-reviews: # PR reviews for Chinese content
     - asa3311
-    - chenrui
+    - chenrui333
     - howieyuen
     # idealhack
     - kinzhi
