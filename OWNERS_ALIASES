@@ -12,7 +12,6 @@ aliases:
   sig-docs-localization-owners: # Admins for localization content
     - a-mccarthy
     - divya-mohan0209
-    - jimangel
     - kbhawkey
     - natalisucks
     - onlydole
@@ -22,15 +21,11 @@ aliases:
     - tengqm
   sig-docs-de-owners: # Admins for German content
     - bene2k1
-    - mkorbi
     - rlenferink
   sig-docs-de-reviews: # PR reviews for German content
     - bene2k1
-    - mkorbi
     - rlenferink
   sig-docs-en-owners: # Admins for English content
-    - annajung
-    - bradtopol
     - divya-mohan0209
     - katcosgrove # RT 1.29 Docs Lead
     - kbhawkey
@@ -112,18 +107,15 @@ aliases:
     - atoato88
     - bells17
     - kakts
-    - ptux
     - t-inu
   sig-docs-ko-owners: # Admins for Korean content
     - gochist
-    - ianychoi
     - jihoon-seo
     - seokho-son
     - yoonian
     - ysyukr
   sig-docs-ko-reviews: # PR reviews for Korean content
     - gochist
-    - ianychoi
     - jihoon-seo
     - jmyung
     - jongwooo
@@ -153,7 +145,6 @@ aliases:
   sig-docs-zh-reviews: # PR reviews for Chinese content
     - asa3311
     - chenrui333
-    - chenxuc
     - howieyuen
     # idealhack
     - kinzhi
@@ -208,7 +199,6 @@ aliases:
     - Arhell
     - idvoretskyi
     - MaxymVlasov
-    - Potapy4
   # authoritative source: git.k8s.io/community/OWNERS_ALIASES
   committee-steering: # provide PR approvals for announcements
     - bentheelder
