@@ -156,7 +156,7 @@ metadata:
     name: busybox
 spec:
   hostname: busybox-1
-  subdomain: busy-subdomain
+  subdomain: busybox-subdomain
   containers:
   - image: busybox:1.28
     command:
@@ -172,7 +172,7 @@ metadata:
     name: busybox
 spec:
   hostname: busybox-2
-  subdomain: busy-subdomain
+  subdomain: busybox-subdomain
   containers:
   - image: busybox:1.28
     command:
