@@ -198,7 +198,7 @@ received at the other end, allowing data to flow between isolated
 environments. Otherwise, it cannot interconnect between different
 network namespaces by default.
 
-{{< figure src="image10.svg" title="simple-veth-pair" >}}
+{{< figure src="image10.svg" >}}
 
 In simple words, the veth pair seems like a virtual network cable that
 connects virtual hosts in two different namespaces.
@@ -409,7 +409,7 @@ Docker when you install Docker on a Linux system. It is a virtual
 Ethernet bridge that enables communication between Docker containers and
 between containers and the host system.
 
-{{< figure src="image15.svg" title="dokcer-bridge-networking-in-linux" >}}
+{{< figure src="image15.svg" >}}
 
 When discussing bridge mode in both Docker and Kubernetes, it's
 essential to understand the concept of container runtime because the
@@ -569,7 +569,6 @@ underlying technology used by iptables to perform these functions:
   balancing traffic to different pods within a Service.
 
 {{< figure src="image16.svg" >}}
-*Netfilter vs iptables in Linux*
 <p style="text-align: center; font-style: italic;">Netfilter vs iptables in Linux</p>
 
 In Kubernetes, there are several components and concepts that serve
@@ -659,9 +658,8 @@ Romana, Weave Net, and others support the implementation of network
 policies (as shown in the table above). The working principle of Network
 Policy is depicted in the diagram below.
 
-{{< figure src="image17.svg" title="network-policy" >}}
-
-*Network Policy Working Principle*
+{{< figure src="image17.svg"}}
+<p style="text-align: center; font-style: italic;">Network Policy Working Principle</p>
 
 ## Routing
 
@@ -713,7 +711,8 @@ across nodes. It's worth noting that while Docker container-to-container
 communication is similar to pod-to-pod communication in Kubernetes, the
 latter provides additional orchestration and management features.
 
-{{< figure src="image18.svg" title="flannel-overlay" >}}
+{{< figure src="image18.svg" >}}
+<p style="text-align: center; font-style: italic;">Flannel Overlay Network</p>
 
 *This is how the overlay network (using flannel plugins) works in
 Kubernetes*
@@ -753,7 +752,8 @@ VXLAN is a tunneling technology used for overlay networking, often used
 in cloud and virtualized environments. It is supported in the Linux
 kernel.
 
-{{< figure src="image19.svg" title="vxlan-tunnel" >}}
+{{< figure src="image19.svg" >}}
+<p style="text-align: center; font-style: italic;">VxLAN Overlay Network</p>
 
 GRE (Generic Routing Encapsulation):
 
@@ -841,9 +841,8 @@ scenarios based on the theory of Kubernetes.
 
 Let’s see how container 1 communicates with container 2 in the same pod,
 as illustrated in the following diagram.
-{{< figure src="image20.svg" title="c2c" >}}
-
-Communication between Container1 and Container2
+{{< figure src="image20.svg" >}}
+<p style="text-align: center; font-style: italic;">Communication between Container1 and Container2</p>
 
 In each pod, every Docker container, and the pod itself share a network
 namespace. This means that network configurations such as IP addresses
@@ -873,16 +872,15 @@ configuration within the pod's network namespace.
 
 This is how communication between Pods on the same Node works:
 
-{{< figure src="image21.gif" title="p2p-on-the-same-node" >}}
-
-*Pod1, Pod2, and cni0 are in the same subnet*
+{{< figure src="image21.gif">}}
+<p style="text-align: center; font-style: italic;">Pod1, Pod2, and cni0 are in the same subnet</p>
 
 ### Pods across the nodes
 
 This is how communication between pod1 and pod2 across nodes works:
 
-{{< figure src="image22.gif" title="p2p-across-nodes" >}}
-*Pods Communication across nodes*
+{{< figure src="image22.gif" >}}
+<p style="text-align: center; font-style: italic;">Pods Communication across nodes</p>
 
 In the case of communication between Pods on different Nodes, the pod's
 network segment and the bridge are within the same network segment,
@@ -933,17 +931,15 @@ performs load balancing.
 This is how communication from pod1 to service2 running on pod2 in
 different nodes works:
 
-{{< figure src="image23.gif" title="p2s" >}}
-
-Pod to service
+{{< figure src="image23.gif" >}}
+<p style="text-align: center; font-style: italic;">Pod to service</p>
 
 ### Service to Pod
 
 This is how communication from service2 to pod1 works:
 
-{{< figure src="image24.gif" title="s2p" >}}
-
-Service to pod
+{{< figure src="image24.gif" >}}
+<p style="text-align: center; font-style: italic;">Service to pod</p>
 
 In summary, service discovery is achieved through Service resources that
 provide stable IP addresses and DNS names for accessing pods. These
