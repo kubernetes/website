@@ -75,7 +75,6 @@ Kubernetes</u>](#classic-networking-scenarios-in-kubernetes)
 
 
 # Kubernetes Networking Architecture
-
 Kubernetes runs on the Linux system. There are five key networking
 concepts in Linux, which will help you understand how the Kubernetes
 network was designed to be compatible with these key components and meet
