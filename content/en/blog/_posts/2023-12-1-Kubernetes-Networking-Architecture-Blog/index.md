@@ -93,7 +93,7 @@ the final requirements.
     </tr>
     <tr class="even">
       <td>Network Namespace</td>
-      <td><p>Node in Root Network Namespace</p><p>Pod in Pod Network Namespace</p></td>
+      <td><p>Node in Root Network Namespace<br>Pod in Pod Network Namespace</p></td>
     </tr>
   </tbody>
 </table>
@@ -374,7 +374,7 @@ managed and created using 'brctl.' In Kubernetes networking, we use CNI
 to manage Linux network interfaces for container networking, as
 illustrated in the following table.
 
-<table>
+<table border="1">
 <colgroup>
 <col style="width: 30%" />
 <col style="width: 30%" />
@@ -652,7 +652,7 @@ rules that control the traffic flow to and from pods. These policies are
 enforced using iptables rules on the nodes. Network Policies provide
 fine-grained control over which pods can communicate with each other.
 
-<table>
+<table border="1">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 25%" />
@@ -1197,7 +1197,7 @@ engineers with years of Linux experience will find this format
 convenient for understanding how Kubernetes implements complex
 networking. Please refer to the table below for details.
 
-<table>
+<table border="1">
 <colgroup>
 <col style="width: 40%" />
 <col style="width: 60%" />
