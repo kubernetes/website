@@ -22,29 +22,29 @@ For a beginner or someone who is attending any KubeCon can be very overwhelming,
 
 I want to showcase some of the talks from KubeCon North America that I attended virtually.
 
-Keynote: Welcome + Opening Remarks - Priyanka Sharma, Executive Director, Cloud Native Computing Foundation
+**Keynote: Welcome + Opening Remarks - Priyanka Sharma, Executive Director, Cloud Native Computing Foundation**
 
-Keynote: Windy City Whirlwind: Stirring Up the Cloud Native Ecosystem - Taylor Dolezal, Head of Ecosystem, Cloud Native Computing Foundation
+**Keynote: Windy City Whirlwind: Stirring Up the Cloud Native Ecosystem - Taylor Dolezal, Head of Ecosystem, Cloud Native Computing Foundation**
 
-Keynote: Blueprint Banter: Cloud Native Conversations by the Fireside - Taylor Dolezal, Cloud Native Computing Foundation; Alolita Sharma, Apple; Mike Bowen, Blackrock; Cailyn Edwards, Shopify; Mukulika Kapas, Intuit
+**Keynote: Blueprint Banter: Cloud Native Conversations by the Fireside - Taylor Dolezal, Cloud Native Computing Foundation; Alolita Sharma, Apple; Mike Bowen, Blackrock; Cailyn Edwards, Shopify; Mukulika Kapas, Intuit**
 
-Humans of Cloud Native Panel – Finding Your Way in #TeamCloudNative - Mitch Connors, Aviatrix; Miranda Jaramillo, The Trevor Project; Bart Farrell, CNCF Ambassador; Whitney Lee, VMware
+**Humans of Cloud Native Panel – Finding Your Way in #TeamCloudNative - Mitch Connors, Aviatrix; Miranda Jaramillo, The Trevor Project; Bart Farrell, CNCF Ambassador; Whitney Lee, VMware**
 
-From Non-Tech to CNCF Ambassador: You Can Do It Too! - Julia Furst, Veeam
+**From Non-Tech to CNCF Ambassador: You Can Do It Too! - Julia Furst, Veeam**
 
-From Classroom to Cluster: Embracing Kubernetes as a Student and Contributing to Its Development - Nitish Kumar, Faeka Ansari & Grace Nguyen, Independent; Meha Bhalodiya, Red Hat; Leonard Pahlke, Liquid Reply
+**From Classroom to Cluster: Embracing Kubernetes as a Student and Contributing to Its Development - Nitish Kumar, Faeka Ansari & Grace Nguyen, Independent; Meha Bhalodiya, Red Hat; Leonard Pahlke, Liquid Reply**
 
-Learning Kubernetes by Chaos – Breaking a Kubernetes Cluster to Understand the Components - Ricardo Katz, VMware & Anderson Duboc, Google Cloud
+**Learning Kubernetes by Chaos – Breaking a Kubernetes Cluster to Understand the Components - Ricardo Katz, VMware & Anderson Duboc, Google Cloud**
 
-[Livestream Sponsored by Vulk Coop] Cloud Native Telco Day Hosted by CNCF - Half Day Event
+**[Livestream Sponsored by Vulk Coop] Cloud Native Telco Day Hosted by CNCF - Half Day Event**
 
-15,000 Minecraft Players Vs One K8s Cluster. Who Wins? - Justin Head, Super League Gaming & Cornelia Davis, Spectro Cloud
+**15,000 Minecraft Players Vs One K8s Cluster. Who Wins? - Justin Head, Super League Gaming & Cornelia Davis, Spectro Cloud**
 
-Rise of the Global Cloud Native Community: The Untold Stories - Ashutosh Kumar, Elastic & Rajas Kakodkar, VMware
+**Rise of the Global Cloud Native Community: The Untold Stories - Ashutosh Kumar, Elastic & Rajas Kakodkar, VMware**
 
 These are some of the talks I attended during the events but apart from these, there were a lot more talks that were very helpful and educational. KubeCon provides the talks on social media a few days after the event, and we can hear them and learn whenever we want. The Slack channel helped us to network with people all around the world.
 
-My learnings and key takeaways from KubeCon
+# My learnings and key takeaways from KubeCon
 
 KubeCon, a significant conference for Kubernetes and cloud-native technologies, usually offers a wealth of insights and developments. Here are some potential key takeaways from such an event:
 
@@ -68,11 +68,11 @@ Diversity and Inclusion: Initiatives and discussions around diversity, inclusion
 
 Roadmap and Future Developments: Keynotes or sessions might reveal the future roadmap of Kubernetes and associated technologies, giving insights into upcoming features or enhancements.
 
-Good to Have for Beginners
+# Good to Have for Beginners
 
 Attending KubeCon as a beginner in the Kubernetes ecosystem can be overwhelming yet exciting. Here are some points to consider:
 
-Preparation:
+**Preparation:**
 
 Understand Basics: Familiarize yourself with Kubernetes concepts, such as pods, services, deployments, etc. Online tutorials or introductory videos can help.
 
@@ -80,7 +80,7 @@ Set Goals: Define what you want to learn or achieve from the conference. It coul
 
 Review Schedule: Study the event schedule in advance. Identify sessions, workshops, and keynotes relevant to your goals.
 
-During the Conference:
+**During the Conference:**
 
 Take Notes: Carry a notebook or use an app to jot down important points, new tools, or ideas you come across during sessions.
 
@@ -94,7 +94,7 @@ Attend Workshops: Hands-on workshops are great for practical learning. Participa
 
 Be Open to New Ideas: Kubernetes and its ecosystem are vast. Stay open-minded to new concepts and technologies.
 
-After the Conference:
+**After the Conference:**
 
 Review & Reflect: Take some time after the conference to review your notes, revisit resources, and reflect on what you've learned.
 
