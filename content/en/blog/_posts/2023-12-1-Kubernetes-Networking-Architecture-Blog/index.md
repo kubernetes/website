@@ -198,8 +198,8 @@ connection.
 ## Veth (virtual ethernet) pairs
 <table border="1">
 <colgroup>
-<col style="width: 49%" />
-<col style="width: 50%" />
+<col style="width: 30%" />
+<col style="width: 70%" />
 </colgroup>
 <tbody>
 <tr class="odd">
@@ -377,14 +377,14 @@ illustrated in the following table.
 
 <table>
 <colgroup>
-<col style="width: 26%" />
-<col style="width: 38%" />
-<col style="width: 35%" />
+<col style="width: 30%" />
+<col style="width: 30%" />
+<col style="width: 40%" />
 </colgroup>
 <tbody>
 <tr class="odd">
-<td>Linux Network</td>
-<td colspan="2">Kubernetes Network</td>
+<td>Linux Networking</td>
+<td colspan="2">Kubernetes Networking</td>
 </tr>
 <tr class="even">
 <td rowspan="4">Network Interface(Physical+Virtual)</td>
@@ -421,9 +421,9 @@ bridge.
 
 <table border="1">
 <colgroup>
-<col style="width: 49%" />
-<col style="width: 50%" />
-<col style="width: 50%" />
+<col style="width: 30%" />
+<col style="width: 30%" />
+<col style="width: 40%" />
 </colgroup>
 <tbody>
 <tr class="odd">
@@ -584,8 +584,8 @@ seamless operation and management of network resources.
 
 <table border="1">
   <colgroup>
-    <col style="width: 49%" />
-    <col style="width: 50%" />
+    <col style="width: 30%" />
+    <col style="width: 70%" />
   </colgroup>
   <tbody>
     <tr class="odd">
@@ -657,8 +657,8 @@ fine-grained control over which pods can communicate with each other.
 
 <table>
 <colgroup>
-<col style="width: 24%" />
-<col style="width: 24%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
 <col style="width: 25%" />
 <col style="width: 25%" />
 </colgroup>
