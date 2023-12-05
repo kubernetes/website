@@ -342,10 +342,7 @@ setting up software bridges using tools like brctl or ip.
 
 ```shell
 ip link add name br0 type bridge  
-ip link set dev eth0 master br0 # eth0 is the physical network
-interface, and it can also configure veth (virtual network interface)
-instead, for example, with the command 'ip link set veth master
-br0'.  
+ip link set dev eth0 master br0 # eth0 is the physical network interface, and it can also configure veth (virtual network interface) instead, for example, with the command 'ip link set veth master br0'.  
 ip link set dev eth1 master br0  
 ip link set dev br0 up
 ```
