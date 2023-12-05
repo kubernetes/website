@@ -81,7 +81,7 @@ network was designed to be compatible with these key components and meet
 the final requirements.
 
 ## Network Namespace (netns)
-<table border="1">
+<table>
   <colgroup>
     <col style="width: 29.5%" />
     <col style="width: 70.5%" />
@@ -97,7 +97,27 @@ the final requirements.
     </tr>
   </tbody>
 </table>
-  
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    border: 1px solid #000; /* Add borders to table cells */
+    padding: 8px;
+  }
+
+  /* Define specific widths for columns */
+  th:nth-child(1), td:nth-child(1) {
+    width: 30%;
+  }
+
+  th:nth-child(2), td:nth-child(2) {
+    width: 70%;
+  }
+</style>
+
 A network namespace is a feature in Linux that allows you to create
 isolated network environments within a single Linux system. Each network
 namespace has its own network stack, including network interfaces,
