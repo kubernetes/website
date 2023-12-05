@@ -437,6 +437,7 @@ Several common container runtimes with Kubernetes
   Kubernetes, a component called Dockershim was used. Dockershim acted
   as an adapter layer that allowed Kubernetes to communicate with
   Docker's daemon using the CRI.
+
 |                                                                                                                                                         |
 |---------------------------------------------------------------------------------------------------------------------------------------------------------|
 | In more recent developments, Kubernetes announced the deprecation of Dockershim as an intermediary. The primary reason for this was to streamline the Kubernetes architecture and use container runtimes that directly implement the CRI. However, Docker containers and images remain fully compatible with Kubernetes because Docker produces OCI-compliant containers. This means that the containers built with Docker can be run by other CRI-compatible runtimes like containerd and CRI-O, which Kubernetes supports natively. |
