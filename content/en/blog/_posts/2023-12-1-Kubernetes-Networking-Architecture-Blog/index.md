@@ -81,7 +81,7 @@ network was designed to be compatible with these key components and meet
 the final requirements.
 
 ## Network Namespace (netns)
-<table>
+<table border="1">
 <colgroup>
 <col style="width: 49%" />
 <col style="width: 50%" />
