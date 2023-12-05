@@ -366,6 +366,8 @@ kubectl exec --stdin --tty my-pod -- /bin/sh        # Interactive shell access t
 kubectl exec my-pod -c my-container -- ls /         # Run command in existing pod (multi-container case)
 kubectl top pod POD_NAME --containers               # Show metrics for a given pod and its containers
 kubectl top pod POD_NAME --sort-by=cpu              # Show metrics for a given pod and sort it by 'cpu' or 'memory'
+##Get the pod that is consuming CPU resources in a ns by lable
+kubectl top pods -l app=cpu-consumer  --sort-by=cpu --no-headers | head -n 1 | awk '{print $1}'  # to get pods comnsuming CPU
 ```
 ## Copying files and directories to and from containers
 
@@ -411,6 +413,9 @@ kubectl cluster-info dump --output-directory=/path/to/cluster-state   # Dump cur
 
 # View existing taints on which exist on current nodes.
 kubectl get nodes -o='custom-columns=NodeName:.metadata.name,TaintKey:.spec.taints[*].key,TaintValue:.spec.taints[*].value,TaintEffect:.spec.taints[*].effect'
+#Exclude the nodes with taints and show only the ready ones
+kubectl get nodes -o custom-columns='NODE_NAME:.metadata.name,STATUS:.status.conditions[?(@.type=="Ready")].status,TAINT:.spec.taints[?(@.effect=="NoSchedule")].effect' --no-headers | grep -v "NoSchedule"
+
 
 # If a taint with that key and effect already exists, its value is replaced as specified.
 kubectl taint nodes foo dedicated=special-user:NoSchedule
