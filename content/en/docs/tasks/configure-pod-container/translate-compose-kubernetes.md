@@ -110,7 +110,7 @@ you need is an existing `docker-compose.yml` file.
          - GET_HOSTS_FROM=dns
 
      frontend:
-       image: gcr.io/google-samples/gb-frontend:v4
+       image: docker.io/corelab/gb-frontend:v4
        ports:
          - "80:80"
        environment:

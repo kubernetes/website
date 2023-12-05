@@ -50,7 +50,7 @@ guestbook { 'myguestbook':
   frontend_replicas => 3,
   redis_master_image => 'redis',
   redis_slave_image => 'gcr.io/google_samples/gb-redisslave:v1',
-  frontend_image => 'gcr.io/google_samples/gb-frontend:v3',     
+  frontend_image => 'docker.io/corelab/gb-frontend:v3',     
 }
 ```
 
