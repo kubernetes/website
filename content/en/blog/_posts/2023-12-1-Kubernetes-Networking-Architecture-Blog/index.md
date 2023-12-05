@@ -196,19 +196,19 @@ connection.
 | It reminds me of a loopback address. For example, the loopback interface is a special interface for same-host communication. Packets sent to the loopback interface will not leave the host, and processes listening on 127.0.0.1 will be accessible only to other processes on the same host. |
 
 ## Veth (virtual ethernet) pairs
-<table border="1">
+<table style="width: 100%; border-collapse: collapse;">
 <colgroup>
 <col style="width: 30%" />
 <col style="width: 70%" />
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><strong>Linux Networking</strong></td>
-<td><strong>Kubernetes Networking</strong></td>
+<td style="border: 1px solid #000; padding: 8px;"><strong>Linux Networking</strong></td>
+<td style="border: 1px solid #000; padding: 8px;"><strong>Kubernetes Networking</strong></td>
 </tr>
 <tr class="even">
-<td>Veth Pair</td>
-<td>Veth Pair(on pods)</td>
+<td style="border: 1px solid #000; padding: 8px;">Veth Pair</td>
+<td style="border: 1px solid #000; padding: 8px;">Veth Pair (on pods)</td>
 </tr>
 </tbody>
 </table>
@@ -374,7 +374,7 @@ managed and created using 'brctl.' In Kubernetes networking, we use CNI
 to manage Linux network interfaces for container networking, as
 illustrated in the following table.
 
-<table border="1">
+<table style="width: 100%; border-collapse: collapse;">
 <colgroup>
 <col style="width: 30%" />
 <col style="width: 30%" />
@@ -382,23 +382,23 @@ illustrated in the following table.
 </colgroup>
 <tbody>
 <tr class="odd">
-<td>Linux Networking</td>
-<td colspan="2">Kubernetes Networking</td>
+<td style="border: 1px solid #000; padding: 8px;">Linux Networking</td>
+<td colspan="2" style="border: 1px solid #000; padding: 8px;">Kubernetes Networking</td>
 </tr>
 <tr class="even">
-<td rowspan="4">Network Interface(Physical+Virtual)</td>
-<td rowspan="4"><p>CNI plugins</p>
+<td rowspan="4" style="border: 1px solid #000; padding: 8px;">Network Interface(Physical+Virtual)</td>
+<td rowspan="4" style="border: 1px solid #000; padding: 8px;"><p>CNI plugins</p>
 <p>(Container Network Interface)</p></td>
-<td>Cilium</td>
+<td style="border: 1px solid #000; padding: 8px;">Cilium</td>
 </tr>
 <tr class="odd">
-<td>Flannel</td>
+<td style="border: 1px solid #000; padding: 8px;">Flannel</td>
 </tr>
 <tr class="even">
-<td>Calico</td>
+<td style="border: 1px solid #000; padding: 8px;">Calico</td>
 </tr>
 <tr class="odd">
-<td>Weave Net</td>
+<td style="border: 1px solid #000; padding: 8px;">Weave Net</td>
 </tr>
 </tbody>
 </table>
@@ -418,7 +418,7 @@ Bridges and veth pairs can be used together to create more complex
 network setups, such as connecting multiple containers within a single
 bridge.
 
-<table border="1">
+<table style="width: 100%; border-collapse: collapse;">
 <colgroup>
 <col style="width: 30%" />
 <col style="width: 30%" />
@@ -426,14 +426,14 @@ bridge.
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><strong>Linux Network</strong></td>
-<td><strong>Docker Network</strong></td>
-<td><strong>Kubernetes Network</strong></td>
+<td style="border: 1px solid #000; padding: 8px;"><strong>Linux Networking</strong></td>
+<td style="border: 1px solid #000; padding: 8px;"><strong>Docker Networking</strong></td>
+<td style="border: 1px solid #000; padding: 8px;"><strong>Kubernetes Networking</strong></td>
 </tr>
 <tr class="even">
-<td>Bridge Interface</td>
-<td>docker 0</td>
-<td>cni0 (on Flannel plugin)</td>
+<td style="border: 1px solid #000; padding: 8px;">Bridge Interface</td>
+<td style="border: 1px solid #000; padding: 8px;">docker 0</td>
+<td style="border: 1px solid #000; padding: 8px;">cni0 (on Flannel plugin)</td>
 </tr>
 </tbody>
 </table>
@@ -579,23 +579,23 @@ seamless operation and management of network resources.
 
 ## Netfilter and iptables
 
-<table border="1">
+<table style="width: 100%; border-collapse: collapse;">
   <colgroup>
     <col style="width: 30%" />
     <col style="width: 70%" />
   </colgroup>
   <tbody>
     <tr class="odd">
-      <td><strong>Linux Networking</strong></td>
-      <td><strong>Kubernetes Networking</strong></td>
+      <td style="border: 1px solid #000; padding: 8px;"><strong>Linux Networking</strong></td>
+      <td style="border: 1px solid #000; padding: 8px;"><strong>Kubernetes Networking</strong></td>
     </tr>
     <tr class="even">
-      <td> Netfilter(Security)</td>
-      <td>iptables</td>
+      <td style="border: 1px solid #000; padding: 8px;"> Netfilter(Security)</td>
+      <td style="border: 1px solid #000; padding: 8px;">iptables</td>
     </tr>
     <tr class="even">
-      <td> Netfilter/iptables </td>
-      <td>iptables/IPVS mode (Loadbalancer created by kube-proxy )</td>
+      <td style="border: 1px solid #000; padding: 8px;"> Netfilter/iptables </td>
+      <td style="border: 1px solid #000; padding: 8px;">iptables/IPVS mode (Loadbalancer created by kube-proxy )</td>
     </tr>
   </tbody>
 </table>
@@ -652,7 +652,7 @@ rules that control the traffic flow to and from pods. These policies are
 enforced using iptables rules on the nodes. Network Policies provide
 fine-grained control over which pods can communicate with each other.
 
-<table border="1">
+<table style="width: 100%; border-collapse: collapse;">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 25%" />
@@ -661,36 +661,36 @@ fine-grained control over which pods can communicate with each other.
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><strong>Name</strong></td>
-<td><strong>NetworkPolicy Support</strong></td>
-<td><strong>Data storage</strong></td>
-<td><strong>Network setup</strong></td>
+<td style="border: 1px solid #000; padding: 8px;"><strong>Name</strong></td>
+<td style="border: 1px solid #000; padding: 8px;"><strong>NetworkPolicy Support</strong></td>
+<td style="border: 1px solid #000; padding: 8px;"><strong>Data storage</strong></td>
+<td style="border: 1px solid #000; padding: 8px;"><strong>Network setup</strong></td>
 </tr>
 <tr class="even">
-<td>Cilium</td>
-<td>Yes</td>
-<td>etcd or consul</td>
-<td>IPvlan(beta), veth, L7-aware</td>
+<td style="border: 1px solid #000; padding: 8px;">Cilium</td>
+<td style="border: 1px solid #000; padding: 8px;">Yes</td>
+<td style="border: 1px solid #000; padding: 8px;">etcd or consul</td>
+<td style="border: 1px solid #000; padding: 8px;">IPvlan(beta), veth, L7-aware</td>
 </tr>
 <tr class="odd">
-<td>Flannel</td>
-<td>No</td>
-<td>etcd</td>
-<td>Layer3 IPv4 Overlay network</td>
+<td style="border: 1px solid #000; padding: 8px;">Flannel</td>
+<td style="border: 1px solid #000; padding: 8px;">No</td>
+<td style="border: 1px solid #000; padding: 8px;">etcd</td>
+<td style="border: 1px solid #000; padding: 8px;">Layer3 IPv4 Overlay network</td>
 </tr>
 <tr class="even">
-<td>Calico</td>
-<td>Yes</td>
-<td>etcd or Kubernetes<br />
+<td style="border: 1px solid #000; padding: 8px;">Calico</td>
+<td style="border: 1px solid #000; padding: 8px;">Yes</td>
+<td style="border: 1px solid #000; padding: 8px;">etcd or Kubernetes<br />
 API</td>
-<td>Layer3 network using BGP</td>
+<td style="border: 1px solid #000; padding: 8px;">Layer3 network using BGP</td>
 </tr>
 <tr class="odd">
-<td>Weave Net</td>
-<td>Yes</td>
-<td>No external<br />
+<td style="border: 1px solid #000; padding: 8px;">Weave Net</td>
+<td style="border: 1px solid #000; padding: 8px;">Yes</td>
+<td style="border: 1px solid #000; padding: 8px;">No external<br />
 cluster store</td>
-<td>Mesh Overlay network</td>
+<td style="border: 1px solid #000; padding: 8px;">Mesh Overlay network</td>
 </tr>
 </tbody>
 </table>
@@ -734,7 +734,7 @@ different components of a Kubernetes cluster functions correctly.
 Here are key aspects of routing in Kubernetes:
 
 ### Pod-to-Pod Across Nodes Routing
-<table border="1">
+<table style="width: 100%; border-collapse: collapse;">
 <colgroup>
 <col style="width: 30%" />
 <col style="width: 30%" />
@@ -742,14 +742,14 @@ Here are key aspects of routing in Kubernetes:
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><strong>Linux Network</strong></td>
-<td><strong>Docker Network</strong></td>
-<td><strong>Kubernetes Network</strong></td>
+<td style="border: 1px solid #000; padding: 8px;"><strong>Linux Networking</strong></td>
+<td style="border: 1px solid #000; padding: 8px;"><strong>Docker Networking</strong></td>
+<td style="border: 1px solid #000; padding: 8px;"><strong>Kubernetes Networking</strong></td>
 </tr>
 <tr class="even">
-<td>VXLAN/GRE/IP-in-IP/Open vSwitch</td>
-<td>CNI Plugins</td>
-<td><p>Flannel Network Type(udp/vxlan/host-gw/Cloud Provider VPC/alloc)</p><p>Cilium/Calico/Weave Net</p></td>
+<td style="border: 1px solid #000; padding: 8px;">VXLAN/GRE/IP-in-IP/Open vSwitch</td>
+<td style="border: 1px solid #000; padding: 8px;">CNI Plugins</td>
+<td style="border: 1px solid #000; padding: 8px;"><p>Flannel Network Type(udp/vxlan/host-gw/Cloud Provider VPC/alloc)</p><p>Cilium/Calico/Weave Net</p></td>
 </tr>
 </tbody>
 </table>
@@ -836,19 +836,19 @@ and protocols, including NetFlow, sFlow, SPAN, RSPAN, CLI, LACP,
 and as a network overlay for virtual machines.
 
 ### Node-to-Node Routing
-<table border="1">
+<table style="width: 100%; border-collapse: collapse;">
   <colgroup>
     <col style="width: 30%" />
     <col style="width: 70%" />
   </colgroup>
   <tbody>
     <tr class="odd">
-      <td><strong>Linux Networking</strong></td>
-      <td><strong>Kubernetes Networking</strong></td>
+      <td style="border: 1px solid #000; padding: 8px;"><strong>Linux Networking</strong></td>
+      <td style="border: 1px solid #000; padding: 8px;"><strong>Kubernetes Networking</strong></td>
     </tr>
     <tr class="even">
-      <td> L3 Routing</td>
-      <td>L3 Routing (underlying network)</td>
+      <td style="border: 1px solid #000; padding: 8px;"> L3 Routing</td>
+      <td style="border: 1px solid #000; padding: 8px;">L3 Routing (underlying network)</td>
     </tr>
   </tbody>
 </table>
@@ -861,19 +861,19 @@ infrastructure and is necessary for features like LoadBalancer-type
 Services, which route traffic to different nodes hosting pods.
 
 ### Service Routing
-<table border="1">
+<table style="width: 100%; border-collapse: collapse;">
   <colgroup>
     <col style="width: 30%" />
     <col style="width: 70%" />
   </colgroup>
   <tbody>
     <tr class="odd">
-      <td><strong>Linux Networking</strong></td>
-      <td><strong>Kubernetes Networking</strong></td>
+      <td style="border: 1px solid #000; padding: 8px;"><strong>Linux Networking</strong></td>
+      <td style="border: 1px solid #000; padding: 8px;"><strong>Kubernetes Networking</strong></td>
     </tr>
     <tr class="even">
-      <td>Netfilter</td>
-      <td>iptables/IPVS mode (Loadbalancer created by kube-proxy )</td>
+      <td style="border: 1px solid #000; padding: 8px;">Netfilter</td>
+      <td style="border: 1px solid #000; padding: 8px;">iptables/IPVS mode (Loadbalancer created by kube-proxy )</td>
     </tr>
   </tbody>
 </table>
@@ -1197,78 +1197,78 @@ engineers with years of Linux experience will find this format
 convenient for understanding how Kubernetes implements complex
 networking. Please refer to the table below for details.
 
-<table border="1">
+<table style="width: 100%; border-collapse: collapse;">
 <colgroup>
 <col style="width: 40%" />
 <col style="width: 60%" />
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><strong>Linux Networking</strong></td>
-<td><strong>Kubernetes Networking</strong></td>
+<td style="border: 1px solid #000; padding: 8px;"><strong>Linux Networking</strong></td>
+<td style="border: 1px solid #000; padding: 8px;"><strong>Kubernetes Networking</strong></td>
 </tr>
 <tr class="even">
-<td>Network Namespace</td>
-<td><p>Node in Root Network Namespace</p>
+<td style="border: 1px solid #000; padding: 8px;">Network Namespace</td>
+<td style="border: 1px solid #000; padding: 8px;"><p>Node in Root Network Namespace</p>
 <p>Pod in Pod Network Namespace</p></td>
 </tr>
 <tr class="odd">
-<td>Network Interface (Physical+Virtual)</td>
-<td>CNI(Container Network Interface)</td>
+<td style="border: 1px solid #000; padding: 8px;">Network Interface (Physical+Virtual)</td>
+<td style="border: 1px solid #000; padding: 8px;">CNI(Container Network Interface)</td>
 </tr>
 <tr class="even">
-<td>Veth Pair</td>
-<td>Veth Pair on pods</td>
+<td style="border: 1px solid #000; padding: 8px;">Veth Pair</td>
+<td style="border: 1px solid #000; padding: 8px;">Veth Pair on pods</td>
 </tr>
 <tr class="odd">
-<td>Bridge Interface</td>
-<td>cni0 (on Flannel plugin)</td>
+<td style="border: 1px solid #000; padding: 8px;">Bridge Interface</td>
+<td style="border: 1px solid #000; padding: 8px;">cni0 (on Flannel plugin)</td>
 </tr>
 <tr class="even">
-<td>NULL</td>
-<td><p>CRI(Container Runtime Interface)<br />
+<td style="border: 1px solid #000; padding: 8px;">NULL</td>
+<td style="border: 1px solid #000; padding: 8px;"><p>CRI(Container Runtime Interface)<br />
 (Docker/containerd/CRI-O/Mirantis Container Runtime)</p></td>
 </tr>
 <tr class="odd">
-<td>NULL</td>
-<td>kube-apiserver</td>
+<td style="border: 1px solid #000; padding: 8px;">NULL</td>
+<td style="border: 1px solid #000; padding: 8px;">kube-apiserver</td>
 </tr>
 <tr class="even">
-<td>NULL</td>
-<td>kube-controller-manager</td>
+<td style="border: 1px solid #000; padding: 8px;">NULL</td>
+<td style="border: 1px solid #000; padding: 8px;">kube-controller-manager</td>
 </tr>
 <tr class="odd">
-<td>NULL</td>
-<td>etcd</td>
+<td style="border: 1px solid #000; padding: 8px;">NULL</td>
+<td style="border: 1px solid #000; padding: 8px;">etcd</td>
 </tr>
 <tr class="even">
-<td>systemd/Container Runtime/Process Supervisor/cgroup/namespace</td>
-<td>kubelet</td>
+<td style="border: 1px solid #000; padding: 8px;">systemd/Container Runtime/Process Supervisor/cgroup/namespace</td>
+<td style="border: 1px solid #000; padding: 8px;">kubelet</td>
 </tr>
 <tr class="odd">
-<td>iptables mode/IPVS mode/routing and network policy /proxy
+<td style="border: 1px solid #000; padding: 8px;">iptables mode/IPVS mode/routing and network policy /proxy
 server</td>
-<td>kube-proxy</td>
+<td style="border: 1px solid #000; padding: 8px;">kube-proxy</td>
 </tr>
 <tr class="even">
-<td>IPv4 and IPv6 Protocol Stack</td>
-<td>SingleStack/PreferDualStack/RequireDualStack/ipFamilies</td>
+<td style="border: 1px solid #000; padding: 8px;">IPv4 and IPv6 Protocol Stack</td>
+<td style="border: 1px solid #000; padding: 8px;">SingleStack/PreferDualStack/RequireDualStack/ipFamilies</td>
 </tr>
 <tr class="odd">
-<td>DNS</td>
-<td>KubeDNS(old), CoreDNS (k8s version&gt;1.13)</td>
+<td style="border: 1px solid #000; padding: 8px;">DNS</td>
+<td style="border: 1px solid #000; padding: 8px;">KubeDNS(old), CoreDNS (k8s version&gt;1.13)</td>
 </tr>
 <tr class="even">
-<td>Load Balancer(nginx,haproxy)</td>
-<td>Service LoadBalancer/Service ClusterIP(L4)/Ingress(L7)</td>
+<td style="border: 1px solid #000; padding: 8px;">Load Balancer(nginx,haproxy)</td>
+<td style="border: 1px solid #000; padding: 8px;">Service LoadBalancer/Service ClusterIP(L4)/Ingress(L7)</td>
 </tr>
 <tr class="odd">
-<td>Security (Netfilter/iptables)</td>
-<td>NetworkPolicy</td>
+<td style="border: 1px solid #000; padding: 8px;">Security (Netfilter/iptables)</td>
+<td style="border: 1px solid #000; padding: 8px;">NetworkPolicy</td>
 </tr>
 <tr class="even">
-<td>Logs</td>
-<td>Fluentd/Logtail</td>
+<td style="border: 1px solid #000; padding: 8px;">Logs</td>
+<td style="border: 1px solid #000; padding: 8px;">Fluentd/Logtail</td>
 </tr>
 </tbody>
 </table>
