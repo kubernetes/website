@@ -83,8 +83,8 @@ the final requirements.
 ## Network Namespace (netns)
 <table border="1">
   <colgroup>
-    <col style="width: 49%" />
-    <col style="width: 50%" />
+    <col style="width: 30%" />
+    <col style="width: 70%" />
   </colgroup>
   <tbody>
     <tr class="odd">
@@ -93,7 +93,7 @@ the final requirements.
     </tr>
     <tr class="even">
       <td>Network Namespace</td>
-      <td>Node in Root Network Namespace<br />Pod in Pod Network Namespace</td>
+      <td><p>Node in Root Network Namespace</p><p>Pod in Pod Network Namespace</p></td>
     </tr>
   </tbody>
 </table>
@@ -868,8 +868,8 @@ Services, which route traffic to different nodes hosting pods.
 ### Service Routing
 <table border="1">
   <colgroup>
-    <col style="width: 49%" />
-    <col style="width: 50%" />
+    <col style="width: 30%" />
+    <col style="width: 70%" />
   </colgroup>
   <tbody>
     <tr class="odd">
