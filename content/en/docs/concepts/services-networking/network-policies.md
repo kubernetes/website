@@ -1,8 +1,8 @@
 ---
 reviewers:
-- thockin
-- caseydavenport
-- danwinship
+  - thockin
+  - caseydavenport
+  - danwinship
 title: Network Policies
 content_type: concept
 weight: 70
@@ -11,7 +11,6 @@ description: >-
   NetworkPolicies allow you to specify rules for traffic flow within your cluster, and
   also between Pods and the outside world.
   Your cluster must use a network plugin that supports NetworkPolicy enforcement.
-
 ---
 
 <!-- overview -->
@@ -40,6 +39,7 @@ and from the Pod(s) that match the selector.
 Meanwhile, when IP based NetworkPolicies are created, we define policies based on IP blocks (CIDR ranges).
 
 <!-- body -->
+
 ## Prerequisites
 
 Network policies are implemented by the [network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/).
@@ -50,8 +50,8 @@ Creating a NetworkPolicy resource without a controller that implements it will h
 
 There are two sorts of isolation for a pod: isolation for egress, and isolation for ingress.
 They concern what connections may be established. "Isolation" here is not absolute, rather it
-means "some restrictions apply". The alternative, "non-isolated for $direction", means that no
-restrictions apply in the stated direction.  The two sorts of isolation (or not) are declared
+means "some restrictions apply". The alternative, "non-isolated for direction", means that no
+restrictions apply in the stated direction. The two sorts of isolation (or not) are declared
 independently, and are both relevant for a connection from one pod to another.
 
 By default, a pod is non-isolated for egress; all outbound connections are allowed.
@@ -90,8 +90,8 @@ POSTing this to the API server for your cluster will have no effect unless your 
 solution supports network policy.
 {{< /note >}}
 
-__Mandatory Fields__: As with all other Kubernetes config, a NetworkPolicy needs `apiVersion`,
-`kind`, and `metadata` fields.  For general information about working with config files, see
+**Mandatory Fields**: As with all other Kubernetes config, a NetworkPolicy needs `apiVersion`,
+`kind`, and `metadata` fields. For general information about working with config files, see
 [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/),
 and [Object Management](/docs/concepts/overview/working-with-objects/object-management).
 
@@ -124,9 +124,9 @@ So, the example NetworkPolicy:
 1. (Ingress rules) allows connections to all pods in the `default` namespace with the label
    `role=db` on TCP port 6379 from:
 
-   * any pod in the `default` namespace with the label `role=frontend`
-   * any pod in a namespace with the label `project=myproject`
-   * IP addresses in the ranges `172.17.0.0`–`172.17.0.255` and `172.17.2.0`–`172.17.255.255`
+   - any pod in the `default` namespace with the label `role=frontend`
+   - any pod in a namespace with the label `project=myproject`
+   - IP addresses in the ranges `172.17.0.0`–`172.17.0.255` and `172.17.2.0`–`172.17.255.255`
      (ie, all of `172.17.0.0/16` except `172.17.1.0/24`)
 
 1. (Egress rules) allows connections from any pod in the `default` namespace with the label
@@ -146,7 +146,7 @@ should be allowed as ingress sources or egress destinations.
 **namespaceSelector**: This selects particular namespaces for which all Pods should be allowed as
 ingress sources or egress destinations.
 
-**namespaceSelector** *and* **podSelector**: A single `to`/`from` entry that specifies both
+**namespaceSelector** _and_ **podSelector**: A single `to`/`from` entry that specifies both
 `namespaceSelector` and `podSelector` selects particular Pods within particular namespaces. Be
 careful to use correct YAML syntax. For example:
 
@@ -180,7 +180,7 @@ This policy contains a single `from` element allowing connections from Pods with
 ```
 
 It contains two elements in the `from` array, and allows connections from Pods in the local
-Namespace with the label `role=client`, *or* from any Pod in any namespace with the label
+Namespace with the label `role=client`, _or_ from any Pod in any namespace with the label
 `user=alice`.
 
 When in doubt, use `kubectl describe` to see how Kubernetes has interpreted the policy.
@@ -225,7 +225,7 @@ that explicitly allows that.
 {{% code_sample file="service/networking/network-policy-allow-all-ingress.yaml" %}}
 
 With this policy in place, no additional policy or policies can cause any incoming connection to
-those pods to be denied.  This policy has no effect on isolation for egress from any pod.
+those pods to be denied. This policy has no effect on isolation for egress from any pod.
 
 ### Default deny all egress traffic
 
@@ -245,7 +245,7 @@ explicitly allows all outgoing connections from pods in that namespace.
 {{% code_sample file="service/networking/network-policy-allow-all-egress.yaml" %}}
 
 With this policy in place, no additional policy or policies can cause any outgoing connection from
-those pods to be denied.  This policy has no effect on isolation for ingress to any pod.
+those pods to be denied. This policy has no effect on isolation for ingress to any pod.
 
 ### Default deny all ingress and all egress traffic
 
@@ -259,8 +259,8 @@ ingress or egress traffic.
 
 ## Network traffic filtering
 
-NetworkPolicy is defined for [layer 4](https://en.wikipedia.org/wiki/OSI_model#Layer_4:_Transport_layer) 
-connections (TCP, UDP, and optionally SCTP). For all the other protocols, the behaviour may vary 
+NetworkPolicy is defined for [layer 4](https://en.wikipedia.org/wiki/OSI_model#Layer_4:_Transport_layer)
+connections (TCP, UDP, and optionally SCTP). For all the other protocols, the behaviour may vary
 across network plugins.
 
 {{< note >}}
@@ -271,7 +271,7 @@ protocol NetworkPolicies.
 When a `deny all` network policy is defined, it is only guaranteed to deny TCP, UDP and SCTP
 connections. For other protocols, such as ARP or ICMP, the behaviour is undefined.
 The same applies to allow rules: when a specific pod is allowed as ingress source or egress destination,
-it is undefined what happens with (for example) ICMP packets. Protocols such as ICMP may be allowed by some 
+it is undefined what happens with (for example) ICMP packets. Protocols such as ICMP may be allowed by some
 network plugins and denied by others.
 
 ## Targeting a range of ports
@@ -284,20 +284,20 @@ This is achievable with the usage of the `endPort` field, as the following examp
 
 {{% code_sample file="service/networking/networkpolicy-multiport-egress.yaml" %}}
 
-The above rule allows any Pod with label `role=db` on the namespace `default` to communicate 
-with any IP within the range `10.0.0.0/24` over TCP, provided that the target 
+The above rule allows any Pod with label `role=db` on the namespace `default` to communicate
+with any IP within the range `10.0.0.0/24` over TCP, provided that the target
 port is between the range 32000 and 32768.
 
 The following restrictions apply when using this field:
 
-* The `endPort` field must be equal to or greater than the `port` field.
-* `endPort` can only be defined if `port` is also defined.
-* Both ports must be numeric.
+- The `endPort` field must be equal to or greater than the `port` field.
+- `endPort` can only be defined if `port` is also defined.
+- Both ports must be numeric.
 
 {{< note >}}
 Your cluster must be using a {{< glossary_tooltip text="CNI" term_id="cni" >}} plugin that
 supports the `endPort` field in NetworkPolicy specifications.
-If your [network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) 
+If your [network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
 does not support the `endPort` field and you specify a NetworkPolicy with that,
 the policy will be applied only for the single `port` field.
 {{< /note >}}
@@ -324,14 +324,14 @@ spec:
     matchLabels:
       app: myapp
   policyTypes:
-  - Egress
+    - Egress
   egress:
-  - to:
-    - namespaceSelector:
-        matchExpressions:
-        - key: namespace
-          operator: In
-          values: ["frontend", "backend"]
+    - to:
+        - namespaceSelector:
+            matchExpressions:
+              - key: namespace
+                operator: In
+                values: ["frontend", "backend"]
 ```
 
 {{< note >}}
@@ -358,32 +358,32 @@ NetworkPolicy.
 When a new NetworkPolicy object is created, it may take some time for a network plugin
 to handle the new object. If a pod that is affected by a NetworkPolicy
 is created before the network plugin has completed NetworkPolicy handling,
-that pod may be started unprotected, and isolation rules will be applied when 
+that pod may be started unprotected, and isolation rules will be applied when
 the NetworkPolicy handling is completed.
 
 Once the NetworkPolicy is handled by a network plugin,
 
-1. All newly created pods affected by a given NetworkPolicy will be isolated before 
-they are started.
-Implementations of NetworkPolicy must ensure that filtering is effective throughout
-the Pod lifecycle, even from the very first instant that any container in that Pod is started.
-Because they are applied at Pod level, NetworkPolicies apply equally to init containers,
-sidecar containers, and regular containers.
+1. All newly created pods affected by a given NetworkPolicy will be isolated before
+   they are started.
+   Implementations of NetworkPolicy must ensure that filtering is effective throughout
+   the Pod lifecycle, even from the very first instant that any container in that Pod is started.
+   Because they are applied at Pod level, NetworkPolicies apply equally to init containers,
+   sidecar containers, and regular containers.
 
 2. Allow rules will be applied eventually after the isolation rules (or may be applied at the same time).
-In the worst case, a newly created pod may have no network connectivity at all when it is first started, if
-isolation rules were already applied, but no allow rules were applied yet.
+   In the worst case, a newly created pod may have no network connectivity at all when it is first started, if
+   isolation rules were already applied, but no allow rules were applied yet.
 
 Every created NetworkPolicy will be handled by a network plugin eventually, but there is no
 way to tell from the Kubernetes API when exactly that happens.
 
 Therefore, pods must be resilient against being started up with different network
-connectivity than expected. If you need to make sure the pod can reach certain destinations 
+connectivity than expected. If you need to make sure the pod can reach certain destinations
 before being started, you can use an [init container](/docs/concepts/workloads/pods/init-containers/)
 to wait for those destinations to be reachable before kubelet starts the app containers.
 
 Every NetworkPolicy will be applied to all selected pods eventually.
-Because the network plugin may implement NetworkPolicy in a distributed manner, 
+Because the network plugin may implement NetworkPolicy in a distributed manner,
 it is possible that pods may see a slightly inconsistent view of network policies
 when the pod is first created, or when pods or policies change.
 For example, a newly-created pod that is supposed to be able to reach both Pod A
@@ -393,18 +393,20 @@ but cannot reach Pod B until a few seconds later.
 ## NetworkPolicy and `hostNetwork` pods
 
 NetworkPolicy behaviour for `hostNetwork` pods is undefined, but it should be limited to 2 possibilities:
+
 - The network plugin can distinguish `hostNetwork` pod traffic from all other traffic
   (including being able to distinguish traffic from different `hostNetwork` pods on
   the same node), and will apply NetworkPolicy to `hostNetwork` pods just like it does
   to pod-network pods.
-- The network plugin cannot properly distinguish `hostNetwork` pod traffic, 
-  and so it ignores `hostNetwork` pods when matching `podSelector` and `namespaceSelector`. 
-  Traffic to/from `hostNetwork` pods is treated the same as all other traffic to/from the node IP. 
+- The network plugin cannot properly distinguish `hostNetwork` pod traffic,
+  and so it ignores `hostNetwork` pods when matching `podSelector` and `namespaceSelector`.
+  Traffic to/from `hostNetwork` pods is treated the same as all other traffic to/from the node IP.
   (This is the most common implementation.)
 
 This applies when
+
 1. a `hostNetwork` pod is selected by `spec.podSelector`.
-   
+
    ```yaml
      ...
      spec:
@@ -413,7 +415,7 @@ This applies when
            role: client
      ...
    ```
- 
+
 2. a `hostNetwork` pod is selected by a `podSelector` or `namespaceSelector` in an `ingress` or `egress` rule.
 
    ```yaml
@@ -435,7 +437,7 @@ from a `hostNetwork` Pod using an `ipBlock` rule.
 As of Kubernetes {{< skew currentVersion >}}, the following functionality does not exist in the
 NetworkPolicy API, but you might be able to implement workarounds using Operating System
 components (such as SELinux, OpenVSwitch, IPTables, and so on) or Layer 7 technologies (Ingress
-controllers, Service Mesh implementations) or admission controllers.  In case you are new to
+controllers, Service Mesh implementations) or admission controllers. In case you are new to
 network security in Kubernetes, its worth noting that the following User Stories cannot (yet) be
 implemented using the NetworkPolicy API.
 
