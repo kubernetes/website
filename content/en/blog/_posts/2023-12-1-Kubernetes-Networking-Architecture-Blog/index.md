@@ -113,7 +113,7 @@ ip netns add netns1
 ip netns add netns2
 ```
 
-{{< figure src="image5.svg" title="">}}
+{{< figure src="image5.svg" >}}
 
 
 Step2: Create a veth pair:
@@ -140,14 +140,14 @@ ip netns exec netns2 ip addr add 10.1.1.2/24 dev veth2
 But veth1 cannot successfully ping veth2, as shown in the screenshot
 below.
 
-{{< figure src="image6.svg" title="" >}}
+{{< figure src="image6.svg" >}}
 
 
 ```shell
 ip netns exec netns2 ip link show veth2 # Check the status of veth2, which is down
 ```
 
-{{< figure src="image7.svg" title="" >}}
+{{< figure src="image7.svg"  >}}
 
 3.  Activate the network interface veth1 within netns1 network namespace
     and veth2 within netns2.
@@ -163,7 +163,7 @@ ip netns exec netns2 ip link set dev veth2 up
 ​​ip netns exec netns1 ping 10.1.1.2
 ```
 
-{{< figure src="image8.svg" title="" >}}
+{{< figure src="image8.svg" >}}
 
 So far, we've successfully completed the experiment; let's continue
 further.
@@ -175,7 +175,7 @@ network, and we've used a veth pair to connect two virtual hosts. Now,
 if we configure the IP addresses with different subnets, what will
 happen?
 
-{{< figure src="image9.svg" title="" >}}
+{{< figure src="image9.svg" >}}
 
 Without a router or subnet reconfiguration, the two hosts in different
 subnets will not be able to communicate over a simple network cable
@@ -198,7 +198,7 @@ received at the other end, allowing data to flow between isolated
 environments. Otherwise, it cannot interconnect between different
 network namespaces by default.
 
-{{< figure src="image10.svg" title="" >}}
+{{< figure src="image10.svg" >}}
 
 In simple words, the veth pair seems like a virtual network cable that
 connects virtual hosts in two different namespaces.
@@ -237,13 +237,13 @@ address 127.0.0.1.
 ifconfig lo
 ```
 
-{{< figure src="image11.svg" title="" >}}
+{{< figure src="image11.svg" >}}
 
 ```shell
 ip addr show lo
 ```
 
-{{< figure src="image12.svg" title="" >}}
+{{< figure src="image12.svg" >}}
 
 **Tunnel Interfaces (TUN, tap)**
 
@@ -331,8 +331,8 @@ ip link set dev eth1 master bond0
 These are virtual terminal interfaces used for terminal emulation, often
 in the context of SSH or terminal multiplexers like tmux.
 
-{{< figure src="image13.svg" title="" >}}
-{{< figure src="image14.svg" title="" >}}
+{{< figure src="image13.svg" >}}
+{{< figure src="image14.svg" >}}
 
 **Bridge Interfaces (br)**
 
@@ -409,7 +409,7 @@ Docker when you install Docker on a Linux system. It is a virtual
 Ethernet bridge that enables communication between Docker containers and
 between containers and the host system.
 
-{{< figure src="image15.svg" title="">}}
+{{< figure src="image15.svg" >}}
 
 When discussing bridge mode in both Docker and Kubernetes, it's
 essential to understand the concept of container runtime because the
@@ -568,7 +568,7 @@ underlying technology used by iptables to perform these functions:
 - Load Balancing: In Kubernetes, Netfilter also plays a role in load
   balancing traffic to different pods within a Service.
 
-{{< figure src="image16.svg" title="">}}
+{{< figure src="image16.svg" >}}
 <p style="text-align: center; font-style: italic;">Netfilter vs iptables in Linux</p>
 
 In Kubernetes, there are several components and concepts that serve
@@ -657,7 +657,7 @@ Romana, Weave Net, and others support the implementation of network
 policies (as shown in the table above). The working principle of Network
 Policy is depicted in the diagram below.
 
-{{< figure src="image17.svg" title="" >}}
+{{< figure src="image17.svg" >}}
 <p style="text-align: center; font-style: italic;">Network Policy Working Principle</p>
 
 ## Routing
