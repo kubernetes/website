@@ -81,13 +81,14 @@ network was designed to be compatible with these key components and meet
 the final requirements.
 
 ## Network Namespace (netns)
+  -------------------- --------------------------------------------------
+  Linux Network        Kubernetes Network
 
-|                   |                                |
-|-------------------|--------------------------------|
-| Linux Network     | Kubernetes Network             |
-| Network Namespace | Node in Root Network Namespace |
-|                   | Pod in Pod Network Namespace   |
+  Network Namespace    Node in Root Network Namespace
 
+                       Pod in Pod Network Namespace
+  -------------------- --------------------------------------------------
+  
 A network namespace is a feature in Linux that allows you to create
 isolated network environments within a single Linux system. Each network
 namespace has its own network stack, including network interfaces,
