@@ -83,8 +83,8 @@ the final requirements.
 ## Network Namespace (netns)
 <table border="1">
   <colgroup>
-    <col style="width: 30%" />
-    <col style="width: 100%" />
+    <col style="width: 29.5%" />
+    <col style="width: 70.5%" />
   </colgroup>
   <tbody>
     <tr class="odd">
@@ -1227,8 +1227,7 @@ networking. Please refer to the table below for details.
 <tr class="even">
 <td>NULL</td>
 <td><p>CRI(Container Runtime Interface)<br />
-(Docker/containerd/CRI-O</p>
-<p>Mirantis Container Runtime)</p></td>
+(Docker/containerd/CRI-O/Mirantis Container Runtime)</p></td>
 </tr>
 <tr class="odd">
 <td>NULL</td>
