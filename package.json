@@ -1,7 +1,15 @@
 {
   "private": true,
   "devDependencies": {
-    "autoprefixer": "^9.8.4",
-    "postcss-cli": "^7.1.1"
+    "autoprefixer": "^10.0.0",
+    "postcss-cli": "^8.0.0"
+  },
+  "scripts": {
+    "prepublish": "npm run snyk-protect",
+    "snyk-protect": "snyk-protect"
+  },
+  "snyk": true,
+  "dependencies": {
+    "@snyk/protect": "latest"
   }
 }
