@@ -191,7 +191,7 @@ Without a router or subnet reconfiguration, the two hosts in different
 subnets will not be able to communicate over a simple network cable
 connection.
 
-<table style="background-color: #f0f0f0; padding: 10px;">
+<table style="background-color: #f0f0f0;">
   <tr>
     <td>
       It reminds me of a loopback address. For example, the loopback interface is a special interface for same-host communication. Packets sent to the loopback interface will not leave the host, and processes listening on 127.0.0.1 will be accessible only to other processes on the same host.
@@ -228,9 +228,13 @@ network namespaces by default.
 In simple words, the veth pair seems like a virtual network cable that
 connects virtual hosts in two different namespaces.
 
-|                                                                                                                                                         |
-|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Packets transmitted from one device in the pair are immediately received on the other host. When either host is down, the link state of the pair is down. |
+<table style="background-color: #f0f0f0;">
+  <tr>
+    <td>
+      Packets transmitted from one device in the pair are immediately received on the other host. When either host is down, the link state of the pair is down.
+    </td>
+  </tr>
+</table>
 
 Linux itself features the concept of network interfaces, which can be
 either physical or virtual. For instance, when you use the 'ifconfig'
@@ -407,9 +411,13 @@ illustrated in the following table.
 </tbody>
 </table>
 
-|                                                                                                                                            |
-|--------------------------------------------------------------------------------------------------------------------------------------------|
-| Linux network interfaces are the underlying foundation, while CNI provides a standardized way to configure container network connectivity. |
+<table style="background-color: #f0f0f0;">
+  <tr>
+    <td>
+      Linux network interfaces are the underlying foundation, while CNI provides a standardized way to configure container network connectivity.
+    </td>
+  </tr>
+</table>
 
 ## Network Bridge Interface
 
@@ -474,9 +482,13 @@ Several common container runtimes with Kubernetes
   as an adapter layer that allowed Kubernetes to communicate with
   Docker's daemon using the CRI.
 
-|                                                                                                                                                         |
-|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| In more recent developments, Kubernetes announced the deprecation of Dockershim as an intermediary. The primary reason for this was to streamline the Kubernetes architecture and use container runtimes that directly implement the CRI. However, Docker containers and images remain fully compatible with Kubernetes because Docker produces OCI-compliant containers. This means that the containers built with Docker can be run by other CRI-compatible runtimes like containerd and CRI-O, which Kubernetes supports natively. |
+<table style="background-color: #f0f0f0;">
+  <tr>
+    <td>
+      In more recent developments, Kubernetes announced the deprecation of Dockershim as an intermediary. The primary reason for this was to streamline the Kubernetes architecture and use container runtimes that directly implement the CRI. However, Docker containers and images remain fully compatible with Kubernetes because Docker produces OCI-compliant containers. This means that the containers built with Docker can be run by other CRI-compatible runtimes like containerd and CRI-O, which Kubernetes supports natively.
+    </td>
+  </tr>
+</table>
 
 - **containerd**: An industry-standard container runtime focused on
   simplicity and robustness, containerd is used by Docker and supports
