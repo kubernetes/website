@@ -113,7 +113,7 @@ ip netns add netns1
 ip netns add netns2
 ```
 
-{{< figure src="image5.svg" title="create-netns" >}}
+{{< figure src="image5.svg" >}}
 
 
 Step2: Create a veth pair:
@@ -140,14 +140,14 @@ ip netns exec netns2 ip addr add 10.1.1.2/24 dev veth2
 But veth1 cannot successfully ping veth2, as shown in the screenshot
 below.
 
-{{< figure src="image6.svg" title="netns1-ping-netns2" >}}
+{{< figure src="image6.svg" >}}
 
 
 ```shell
 ip netns exec netns2 ip link show veth2 # Check the status of veth2, which is down
 ```
 
-{{< figure src="image7.svg" title="netns-ip-link" >}}
+{{< figure src="image7.svg" >}}
 
 3.  Activate the network interface veth1 within netns1 network namespace
     and veth2 within netns2.
@@ -163,7 +163,7 @@ ip netns exec netns2 ip link set dev veth2 up
 ​​ip netns exec netns1 ping 10.1.1.2
 ```
 
-{{< figure src="image8.svg" title="netns1-ping-netns2-success" >}}
+{{< figure src="image8.svg" >}}
 
 So far, we've successfully completed the experiment; let's continue
 further.
@@ -175,7 +175,7 @@ network, and we've used a veth pair to connect two virtual hosts. Now,
 if we configure the IP addresses with different subnets, what will
 happen?
 
-{{< figure src="image9.svg" title="ping-unsuccessful" >}}
+{{< figure src="image9.svg" >}}
 
 Without a router or subnet reconfiguration, the two hosts in different
 subnets will not be able to communicate over a simple network cable
@@ -237,13 +237,13 @@ address 127.0.0.1.
 ifconfig lo
 ```
 
-{{< figure src="image11.svg" title="ifconfig-lo" >}}
+{{< figure src="image11.svg" >}}
 
 ```shell
 ip addr show lo
 ```
 
-{{< figure src="image12.svg" title="ip-addr-show-lo" >}}
+{{< figure src="image12.svg" >}}
 
 **Tunnel Interfaces (TUN, tap)**
 
@@ -331,8 +331,8 @@ ip link set dev eth1 master bond0
 These are virtual terminal interfaces used for terminal emulation, often
 in the context of SSH or terminal multiplexers like tmux.
 
-{{< figure src="image13.svg" title="tty" >}}
-{{< figure src="image14.svg" title="tmux" >}}
+{{< figure src="image13.svg" >}}
+{{< figure src="image14.svg" >}}
 
 **Bridge Interfaces (br)**
 
@@ -643,8 +643,7 @@ cluster store</td>
 </tr>
 </tbody>
 </table>
-
-> *NetworkPolicy Support Status in CNI Plugins*
+<p style="text-align: center; font-style: italic;">NetworkPolicy Support Status in CNI Plugins</p>
 
 To use Network Policy, Kubernetes introduces a new resource object
 called "NetworkPolicy," which allows users to define policies for
