@@ -14,65 +14,62 @@ Architecture</u>](#kubernetes-networking-architecture)
 >
 > [<u>Veth (virtual ethernet) pairs</u>](#veth-virtual-ethernet-pairs)
 >
-> [<u>Types of Virtual Network Interfaces in
+>   [<u>Types of Virtual Network Interfaces in
 > Linux</u>](#types-of-virtual-network-interfaces-in-linux)
 >
 > [<u>Network Bridge Interface</u>](#network-bridge-interface)
 >
-> [<u>A network bridge is similar to a layer-2
-> switch</u>](#a-network-bridge-is-similar-to-a-layer-2-switch)
+>   [<u>Container Runtime</u>](#container-runtime)
 >
-> [<u>Container Runtime</u>](#container-runtime)
+>   [<u>Container Network Mode</u>](#container-network-mode)
 >
-> [<u>Container Network Mode</u>](#container-network-mode)
+>     [<u>Docker Bridge Mode</u>](#docker-bridge-mode)
 >
-> [<u>Docker Bridge Mode</u>](#docker-bridge-mode)
+>     [<u>Kubernetes CNI</u>](#kubernetes-cni)
 >
-> [<u>Kubernetes CNI</u>](#kubernetes-cni)
->
-> [<u>Common CNI Plugins</u>](#common-cni-plugins)
+>       [<u>Common CNI Plugins</u>](#common-cni-plugins)
 >
 > [<u>Netfilter and</u> <u>iptables</u>](#netfilter-and-iptables)
 >
 > [<u>Routing</u>](#routing)
 >
-> [<u>Pod-to-Pod Across Nodes
+>   [<u>Pod-to-Pod Across Nodes
 > Routing</u>](#pod-to-pod-across-nodes-routing)
 >
-> [<u>Overlay Networks</u>](#overlay-networks)
+>     [<u>Overlay Networks</u>](#overlay-networks)
 >
-> [<u>Linux Overlay Network
+>     [<u>Linux Overlay Network
 > technology</u>](#linux-overlay-network-technology)
 >
-> [<u>Node-to-Node Routing</u>](#node-to-node-routing)
+>   [<u>Node-to-Node Routing</u>](#node-to-node-routing)
 >
-> [<u>Service Routing</u>](#service-routing)
+>   [<u>Service Routing</u>](#service-routing)
 >
-> [<u>Network Policies</u>](#network-policies)
+>   [<u>Network Policies</u>](#network-policies)
 >
-> [<u>Ingress Controller</u>](#ingress-controller)
+>   [<u>Ingress Controller</u>](#ingress-controller)
 >
-> [<u>External Routing</u>](#external-routing)
+>   [<u>External Routing</u>](#external-routing)
 
 [<u>Classic Networking Scenarios in
 Kubernetes</u>](#classic-networking-scenarios-in-kubernetes)
 
-> [<u>Between Container and
+>   [<u>Between Container and
 > Container</u>](#between-container-and-container)
 >
-> [<u>Between Pod and Pod</u>](#between-pod-and-pod)
+>   [<u>Between Pod and Pod</u>](#between-pod-and-pod)
 >
-> [<u>Pods in the same node</u>](#pods-in-the-same-node)
+>   [<u>Pods in the same node</u>](#pods-in-the-same-node)
 >
-> [<u>Pods across the nodes</u>](#pods-across-the-nodes)
+>   [<u>Pods across the nodes</u>](#pods-across-the-nodes)
 >
-> [<u>Between Pod and Service</u>](#between-pod-and-service)
+>   [<u>Between Pod and Service</u>](#between-pod-and-service)
 >
-> [<u>Pod to Service</u>](#pod-to-service)
+>     [<u>Pod to Service</u>](#pod-to-service)
 >
-> [<u>Service to Pod</u>](#service-to-pod)
+>     [<u>Service to Pod</u>](#service-to-pod)
 >
-> [<u>Between Internet and Service</u>](#between-internet-and-service)
+>   [<u>Between Internet and Service</u>](#between-internet-and-service)
 
 [<u>Conclusion</u>](#conclusion)
 
