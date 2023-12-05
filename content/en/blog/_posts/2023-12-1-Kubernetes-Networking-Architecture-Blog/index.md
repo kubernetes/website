@@ -84,7 +84,7 @@ the final requirements.
 <table border="1">
   <colgroup>
     <col style="width: 30%" />
-    <col style="width: 70%" />
+    <col style="width: 100%" />
   </colgroup>
   <tbody>
     <tr class="odd">
@@ -93,7 +93,7 @@ the final requirements.
     </tr>
     <tr class="even">
       <td>Network Namespace</td>
-      <td><p>Node in Root Network Namespace<br>Pod in Pod Network Namespace</p></td>
+      <td><p>Node in Root Network Namespace</p><p>Pod in Pod Network Namespace</p></td>
     </tr>
   </tbody>
 </table>
