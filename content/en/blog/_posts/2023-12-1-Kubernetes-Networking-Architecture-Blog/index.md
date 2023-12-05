@@ -89,7 +89,7 @@ the final requirements.
   <tbody>
     <tr class="odd">
       <td><strong>Linux Networking</strong></td>
-      <td><strong>Kubernetes Networking<br /></strong></td>
+      <td><strong>Kubernetes Networking</strong></td>
     </tr>
     <tr class="even">
       <td>Network Namespace</td>
@@ -204,8 +204,7 @@ connection.
 <tbody>
 <tr class="odd">
 <td><strong>Linux Networking</strong></td>
-<td><strong>Kubernetes Networking<br />
-</strong></td>
+<td><strong>Kubernetes Networking</strong></td>
 </tr>
 <tr class="even">
 <td>Veth Pair</td>
@@ -428,10 +427,8 @@ bridge.
 <tbody>
 <tr class="odd">
 <td><strong>Linux Network</strong></td>
-<td><strong>Docker Network<br />
-</strong></td>
-<td><strong>Kubernetes Network<br />
-</strong></td>
+<td><strong>Docker Network</strong></td>
+<td><strong>Kubernetes Network</strong></td>
 </tr>
 <tr class="even">
 <td>Bridge Interface</td>
@@ -590,7 +587,7 @@ seamless operation and management of network resources.
   <tbody>
     <tr class="odd">
       <td><strong>Linux Networking</strong></td>
-      <td><strong>Kubernetes Networking<br /></strong></td>
+      <td><strong>Kubernetes Networking</strong></td>
     </tr>
     <tr class="even">
       <td> Netfilter(Security)</td>
@@ -739,17 +736,15 @@ Here are key aspects of routing in Kubernetes:
 ### Pod-to-Pod Across Nodes Routing
 <table border="1">
 <colgroup>
-<col style="width: 49%" />
-<col style="width: 50%" />
-<col style="width: 50%" />
+<col style="width: 30%" />
+<col style="width: 30%" />
+<col style="width: 40%" />
 </colgroup>
 <tbody>
 <tr class="odd">
 <td><strong>Linux Network</strong></td>
-<td><strong>Docker Network<br />
-</strong></td>
-<td><strong>Kubernetes Network<br />
-</strong></td>
+<td><strong>Docker Network</strong></td>
+<td><strong>Kubernetes Network</strong></td>
 </tr>
 <tr class="even">
 <td>VXLAN/GRE/IP-in-IP/Open vSwitch</td>
@@ -843,13 +838,13 @@ and as a network overlay for virtual machines.
 ### Node-to-Node Routing
 <table border="1">
   <colgroup>
-    <col style="width: 49%" />
-    <col style="width: 50%" />
+    <col style="width: 30%" />
+    <col style="width: 70%" />
   </colgroup>
   <tbody>
     <tr class="odd">
       <td><strong>Linux Networking</strong></td>
-      <td><strong>Kubernetes Networking<br /></strong></td>
+      <td><strong>Kubernetes Networking</strong></td>
     </tr>
     <tr class="even">
       <td> L3 Routing</td>
@@ -874,7 +869,7 @@ Services, which route traffic to different nodes hosting pods.
   <tbody>
     <tr class="odd">
       <td><strong>Linux Networking</strong></td>
-      <td><strong>Kubernetes Networking<br /></strong></td>
+      <td><strong>Kubernetes Networking</strong></td>
     </tr>
     <tr class="even">
       <td>Netfilter</td>
@@ -1204,14 +1199,13 @@ networking. Please refer to the table below for details.
 
 <table>
 <colgroup>
-<col style="width: 49%" />
-<col style="width: 50%" />
+<col style="width: 40%" />
+<col style="width: 60%" />
 </colgroup>
 <tbody>
 <tr class="odd">
 <td><strong>Linux Networking</strong></td>
-<td><strong>Kubernetes Networking<br />
-</strong></td>
+<td><strong>Kubernetes Networking</strong></td>
 </tr>
 <tr class="even">
 <td>Network Namespace</td>
