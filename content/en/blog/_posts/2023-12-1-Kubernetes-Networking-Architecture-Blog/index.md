@@ -191,9 +191,13 @@ Without a router or subnet reconfiguration, the two hosts in different
 subnets will not be able to communicate over a simple network cable
 connection.
 
-|                                                                                                                                                                                                                                                                                                |
-|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| It reminds me of a loopback address. For example, the loopback interface is a special interface for same-host communication. Packets sent to the loopback interface will not leave the host, and processes listening on 127.0.0.1 will be accessible only to other processes on the same host. |
+<table style="background-color: #f0f0f0; padding: 10px;">
+  <tr>
+    <td>
+      It reminds me of a loopback address. For example, the loopback interface is a special interface for same-host communication. Packets sent to the loopback interface will not leave the host, and processes listening on 127.0.0.1 will be accessible only to other processes on the same host.
+    </td>
+  </tr>
+</table>
 
 ## Veth (virtual ethernet) pairs
 <table style="width: 100%; border-collapse: collapse;">
