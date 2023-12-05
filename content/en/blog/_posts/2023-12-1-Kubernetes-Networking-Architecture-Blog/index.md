@@ -33,7 +33,7 @@ Architecture</u>](#kubernetes-networking-architecture)
 >
 > [<u>Routing</u>](#routing)
 >
->   [<u>Pod-to-Pod Across Nodes
+> [<u>Pod-to-Pod Across Nodes
 > Routing</u>](#pod-to-pod-across-nodes-routing)
 >
 > [<u>Overlay Networks</u>](#overlay-networks)
@@ -65,11 +65,11 @@ Kubernetes</u>](#classic-networking-scenarios-in-kubernetes)
 >
 > [<u>Between Pod and Service</u>](#between-pod-and-service)
 >
-> [<u>  Pod to Service</u>](#pod-to-service)
+> &nbsp;[<u>Pod to Service</u>](#pod-to-service)
 >
-> [<u>  Service to Pod</u>](#service-to-pod)
+> [<u>&nbsp;&nbsp;Service to Pod</u>](#service-to-pod)
 >
->   [<u>Between Internet and Service</u>](#between-internet-and-service)
+> [<u>Between Internet and Service</u>](#between-internet-and-service)
 
 [<u>Conclusion</u>](#conclusion)
 
@@ -438,6 +438,7 @@ Several common container runtimes with Kubernetes
   as an adapter layer that allowed Kubernetes to communicate with
   Docker's daemon using the CRI.
 
+|                                                                                                                                                         |
 |---------------------------------------------------------------------------------------------------------------------------------------------------------|
 | In more recent developments, Kubernetes announced the deprecation of Dockershim as an intermediary. The primary reason for this was to streamline the Kubernetes architecture and use container runtimes that directly implement the CRI. However, Docker containers and images remain fully compatible with Kubernetes because Docker produces OCI-compliant containers. This means that the containers built with Docker can be run by other CRI-compatible runtimes like containerd and CRI-O, which Kubernetes supports natively. |
 
