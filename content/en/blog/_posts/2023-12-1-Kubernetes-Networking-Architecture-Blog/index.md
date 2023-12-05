@@ -14,42 +14,42 @@ Architecture</u>](#kubernetes-networking-architecture)
 >
 > [<u>Veth (virtual ethernet) pairs</u>](#veth-virtual-ethernet-pairs)
 >
-> [<u>Types of Virtual Network Interfaces in
+> &nbsp;&nbsp;[<u>Types of Virtual Network Interfaces in
 > Linux</u>](#types-of-virtual-network-interfaces-in-linux)
 >
 > [<u>Network Bridge Interface</u>](#network-bridge-interface)
 >
-> [<u>Container Runtime</u>](#container-runtime)
+> &nbsp;&nbsp;[<u>Container Runtime</u>](#container-runtime)
 >
-> [<u>Container Network Mode</u>](#container-network-mode)
+> &nbsp;&nbsp;[<u>Container Network Mode</u>](#container-network-mode)
 >
-> [<u>Docker Bridge Mode</u>](#docker-bridge-mode)
+> &nbsp;&nbsp;&nbsp;&nbsp;[<u>Docker Bridge Mode</u>](#docker-bridge-mode)
 >
-> [<u>Kubernetes CNI</u>](#kubernetes-cni)
+> &nbsp;&nbsp;&nbsp;&nbsp;[<u>Kubernetes CNI</u>](#kubernetes-cni)
 >
-> [<u>Common CNI Plugins</u>](#common-cni-plugins)
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<u>Common CNI Plugins</u>](#common-cni-plugins)
 >
 > [<u>Netfilter and</u> <u>iptables</u>](#netfilter-and-iptables)
 >
 > [<u>Routing</u>](#routing)
 >
-> [<u>Pod-to-Pod Across Nodes
+> &nbsp;&nbsp;[<u>Pod-to-Pod Across Nodes
 > Routing</u>](#pod-to-pod-across-nodes-routing)
 >
-> [<u>Overlay Networks</u>](#overlay-networks)
+> &nbsp;&nbsp;&nbsp;&nbsp;[<u>Overlay Networks</u>](#overlay-networks)
 >
-> [<u>Linux Overlay Network
+> &nbsp;&nbsp;&nbsp;&nbsp;[<u>Linux Overlay Network
 > technology</u>](#linux-overlay-network-technology)
 >
-> [<u>Node-to-Node Routing</u>](#node-to-node-routing)
+> &nbsp;&nbsp;[<u>Node-to-Node Routing</u>](#node-to-node-routing)
 >
-> [<u>Service Routing</u>](#service-routing)
+> &nbsp;&nbsp;[<u>Service Routing</u>](#service-routing)
 >
-> [<u>Network Policies</u>](#network-policies)
+> &nbsp;&nbsp;[<u>Network Policies</u>](#network-policies)
 >
-> [<u>Ingress Controller</u>](#ingress-controller)
+> &nbsp;&nbsp;[<u>Ingress Controller</u>](#ingress-controller)
 >
-> [<u>External Routing</u>](#external-routing)
+> &nbsp;&nbsp;[<u>External Routing</u>](#external-routing)
 
 [<u>Classic Networking Scenarios in
 Kubernetes</u>](#classic-networking-scenarios-in-kubernetes)
@@ -59,15 +59,15 @@ Kubernetes</u>](#classic-networking-scenarios-in-kubernetes)
 >
 > [<u>Between Pod and Pod</u>](#between-pod-and-pod)
 >
-> [<u>Pods in the same node</u>](#pods-in-the-same-node)
+> &nbsp;&nbsp;[<u>Pods in the same node</u>](#pods-in-the-same-node)
 >
-> [<u>Pods across the nodes</u>](#pods-across-the-nodes)
+> &nbsp;&nbsp;[<u>Pods across the nodes</u>](#pods-across-the-nodes)
 >
 > [<u>Between Pod and Service</u>](#between-pod-and-service)
 >
-> &nbsp;[<u>Pod to Service</u>](#pod-to-service)
+> &nbsp;&nbsp;[<u>Pod to Service</u>](#pod-to-service)
 >
-> [<u>&nbsp;&nbsp;Service to Pod</u>](#service-to-pod)
+> &nbsp;&nbsp;[<u>Service to Pod</u>](#service-to-pod)
 >
 > [<u>Between Internet and Service</u>](#between-internet-and-service)
 
