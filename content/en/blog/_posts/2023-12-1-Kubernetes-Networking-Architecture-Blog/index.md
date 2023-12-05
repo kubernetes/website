@@ -81,42 +81,22 @@ network was designed to be compatible with these key components and meet
 the final requirements.
 
 ## Network Namespace (netns)
-<table>
+<table border="1" style="width: 100%; border-collapse: collapse;">
   <colgroup>
-    <col style="width: 29.5%" />
-    <col style="width: 70.5%" />
+    <col style="width: 30%" />
+    <col style="width: 70%" />
   </colgroup>
   <tbody>
     <tr class="odd">
-      <td><strong>Linux Networking</strong></td>
-      <td><strong>Kubernetes Networking</strong></td>
+      <td style="border: 1px solid #000; padding: 8px;"><strong>Linux Networking</strong></td>
+      <td style="border: 1px solid #000; padding: 8px;"><strong>Kubernetes Networking</strong></td>
     </tr>
     <tr class="even">
-      <td>Network Namespace</td>
-      <td><p>Node in Root Network Namespace</p><p>Pod in Pod Network Namespace</p></td>
+      <td style="border: 1px solid #000; padding: 8px;">Network Namespace</td>
+      <td style="border: 1px solid #000; padding: 8px;"><p>Node in Root Network Namespace</p><p>Pod in Pod Network Namespace</p></td>
     </tr>
   </tbody>
 </table>
-<style>
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  th, td {
-    border: 1px solid #000; /* Add borders to table cells */
-    padding: 8px;
-  }
-
-  /* Define specific widths for columns */
-  th:nth-child(1), td:nth-child(1) {
-    width: 30%;
-  }
-
-  th:nth-child(2), td:nth-child(2) {
-    width: 70%;
-  }
-</style>
 
 A network namespace is a feature in Linux that allows you to create
 isolated network environments within a single Linux system. Each network
