@@ -196,11 +196,23 @@ connection.
 | It reminds me of a loopback address. For example, the loopback interface is a special interface for same-host communication. Packets sent to the loopback interface will not leave the host, and processes listening on 127.0.0.1 will be accessible only to other processes on the same host. |
 
 ## Veth (virtual ethernet) pairs
-
-|               |                    |
-|---------------|--------------------|
-| Linux Network | Kubernetes Network |
-| Veth Pair     | Veth Pair(on Pods) |
+<table border="1">
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Linux Networking</strong></td>
+<td><strong>Kubernetes Networking<br />
+</strong></td>
+</tr>
+<tr class="even">
+<td>Veth Pair</td>
+<td>Veth Pair(on pods)</td>
+</tr>
+</tbody>
+</table>
 
 Veth pairs facilitate communication between different network namespaces
 or containers. Traffic sent into one end of the veth pair can be
@@ -407,10 +419,27 @@ Bridges and veth pairs can be used together to create more complex
 network setups, such as connecting multiple containers within a single
 bridge.
 
-|                  |                |                          |
-|------------------|----------------|--------------------------|
-| Linux Network    | Docker Network | Kubernetes Network       |
-| Bridge Interface | docker 0       | cni0 (on Flannel plugin) |
+<table border="1">
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Linux Network</strong></td>
+<td><strong>Docker Network<br />
+</strong></td>
+<td><strong>Kubernetes Network<br />
+</strong></td>
+</tr>
+<tr class="even">
+<td>Bridge Interface</td>
+<td>docker 0</td>
+<td>cni0 (on Flannel plugin)</td>
+</tr>
+</tbody>
+</table>
 
 ### A network bridge is similar to a layer-2 switch
 
@@ -553,11 +582,26 @@ seamless operation and management of network resources.
 
 ## Netfilter and iptables
 
-|                     |                                                          |
-|---------------------|----------------------------------------------------------|
-| Linux Network       | Kubernetes Network                                       |
-| Netfilter(Security) | iptables                                                 |
-| Netfilter/iptables  | iptables/IPVS mode (Loadbalancer created by kube-proxy ) |
+<table border="1">
+  <colgroup>
+    <col style="width: 49%" />
+    <col style="width: 50%" />
+  </colgroup>
+  <tbody>
+    <tr class="odd">
+      <td><strong>Linux Networking</strong></td>
+      <td><strong>Kubernetes Networking<br /></strong></td>
+    </tr>
+    <tr class="even">
+      <td> Netfilter(Security)</td>
+      <td>iptables</td>
+    </tr>
+    <tr class="even">
+      <td> Netfilter/iptables </td>
+      <td>iptables/IPVS mode (Loadbalancer created by kube-proxy )</td>
+    </tr>
+  </tbody>
+</table>
 
 **Netfilter** is the underlying framework in the Linux kernel
 responsible for packet filtering, NAT, and connection tracking, while
@@ -693,12 +737,27 @@ different components of a Kubernetes cluster functions correctly.
 Here are key aspects of routing in Kubernetes:
 
 ### Pod-to-Pod Across Nodes Routing
-
-|                                 |                    |                                                                  |
-|---------------------------------|--------------------|------------------------------------------------------------------|
-| Linux Network                   | Kubernetes Network |                                                                  |
-| VXLAN/GRE/IP-in-IP/Open vSwitch | CNI Plugins        | Flannel Network Type(udp/vxlan/host-gw/Cloud Provider VPC/alloc) |
-|                                 |                    | Cilium/Calico/Weave Net                                          |
+<table border="1">
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Linux Network</strong></td>
+<td><strong>Docker Network<br />
+</strong></td>
+<td><strong>Kubernetes Network<br />
+</strong></td>
+</tr>
+<tr class="even">
+<td>VXLAN/GRE/IP-in-IP/Open vSwitch</td>
+<td>CNI Plugins</td>
+<td><p>Flannel Network Type(udp/vxlan/host-gw/Cloud Provider VPC/alloc)</p><p>Cilium/Calico/Weave Net</p></td>
+</tr>
+</tbody>
+</table>
 
 Kubernetes assigns a unique IP address to each pod within a cluster.
 Pods can communicate directly with each other using these IP addresses,
@@ -782,11 +841,22 @@ and protocols, including NetFlow, sFlow, SPAN, RSPAN, CLI, LACP,
 and as a network overlay for virtual machines.
 
 ### Node-to-Node Routing
-
-|               |                                 |
-|---------------|---------------------------------|
-| Linux Network | Kubernetes Network              |
-| L3 Routing    | L3 Routing (underlying network) |
+<table border="1">
+  <colgroup>
+    <col style="width: 49%" />
+    <col style="width: 50%" />
+  </colgroup>
+  <tbody>
+    <tr class="odd">
+      <td><strong>Linux Networking</strong></td>
+      <td><strong>Kubernetes Networking<br /></strong></td>
+    </tr>
+    <tr class="even">
+      <td> L3 Routing</td>
+      <td>L3 Routing (underlying network)</td>
+    </tr>
+  </tbody>
+</table>
 
 Kubernetes nodes may need to communicate with each other for various
 reasons, such as control plane coordination or network traffic routing.
@@ -796,11 +866,22 @@ infrastructure and is necessary for features like LoadBalancer-type
 Services, which route traffic to different nodes hosting pods.
 
 ### Service Routing
-
-|               |                                                          |
-|---------------|----------------------------------------------------------|
-| Linux Network | Kubernetes Network                                       |
-| Netfilter     | iptables/IPVS mode (Loadbalancer created by kube-proxy ) |
+<table border="1">
+  <colgroup>
+    <col style="width: 49%" />
+    <col style="width: 50%" />
+  </colgroup>
+  <tbody>
+    <tr class="odd">
+      <td><strong>Linux Networking</strong></td>
+      <td><strong>Kubernetes Networking<br /></strong></td>
+    </tr>
+    <tr class="even">
+      <td>Netfilter</td>
+      <td>iptables/IPVS mode (Loadbalancer created by kube-proxy )</td>
+    </tr>
+  </tbody>
+</table>
 
 It’s the most challenging to comprehend and the most different from
 Docker swarm. Kubernetes Services provide a stable and abstracted way to
