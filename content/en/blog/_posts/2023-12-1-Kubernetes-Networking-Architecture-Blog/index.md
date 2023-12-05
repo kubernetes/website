@@ -82,22 +82,20 @@ the final requirements.
 
 ## Network Namespace (netns)
 <table border="1">
-<colgroup>
-<col style="width: 49%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><strong>Linux Networking</strong></td>
-<td><strong>Kubernetes Networking<br />
-</strong></td>
-</tr>
-<tr class="even">
-<td>Network Namespace</td>
-<td><p>Node in Root Network Namespace</p>
-<p>Pod in Pod Network Namespace</p></td>
-</tr>
-</tbody>
+  <colgroup>
+    <col style="width: 49%" />
+    <col style="width: 50%" />
+  </colgroup>
+  <tbody>
+    <tr class="odd">
+      <td><strong>Linux Networking</strong></td>
+      <td><strong>Kubernetes Networking<br /></strong></td>
+    </tr>
+    <tr class="even">
+      <td>Network Namespace</td>
+      <td>Node in Root Network Namespace<br />Pod in Pod Network Namespace</td>
+    </tr>
+  </tbody>
 </table>
   
 A network namespace is a feature in Linux that allows you to create
