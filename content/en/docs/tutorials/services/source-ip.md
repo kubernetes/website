@@ -56,6 +56,9 @@ The output is:
 deployment.apps/source-ip-app created
 ```
 
+{{< note >}}
+The example image works only with AMD64 architecture.
+{{< note >}}
 
 
 ## {{% heading "objectives" %}}
