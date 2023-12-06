@@ -229,13 +229,9 @@ network namespaces by default.
 In simple words, the veth pair seems like a virtual network cable that
 connects virtual hosts in two different namespaces.
 
-<table style="background-color: #f0f0f0;">
-  <tr>
-    <td>
-      Packets transmitted from one device in the pair are immediately received on the other host. When either host is down, the link state of the pair is down.
-    </td>
-  </tr>
-</table>
+{{< note >}}
+Packets transmitted from one device in the pair are immediately received on the other host. When either host is down, the link state of the pair is down.
+{{< /note >}}
 
 Linux itself features the concept of network interfaces, which can be
 either physical or virtual. For instance, when you use the 'ifconfig'
