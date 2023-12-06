@@ -1035,8 +1035,7 @@ different nodes works:
 
 This is how communication from service2 to pod1 works:
 
-{{< figure src="image24.gif" >}}
-<p style="text-align: center; font-style: italic;">Service to pod</p>
+{{< figure src="image24.gif" caption="Service to pod" >}}
 
 In summary, service discovery is achieved through Service resources that
 provide stable IP addresses and DNS names for accessing pods. These
