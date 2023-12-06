@@ -712,7 +712,7 @@ Romana, Weave Net, and others support the implementation of network
 policies (as shown in the table above). The working principle of Network
 Policy is depicted in the diagram below.
 
-{{< figure src="image17.svg" caption="Network Policy Working Principle" class="center-caption italic-caption" >}}
+{{< figure src="image17.svg" caption="*<center>Network Policy Working Principle</center>*" >}}
 
 ## Routing
 
@@ -778,7 +778,7 @@ across nodes. It's worth noting that while Docker container-to-container
 communication is similar to pod-to-pod communication in Kubernetes, the
 latter provides additional orchestration and management features.
 
-{{< figure src="image18.svg" caption="Flannel Overlay Network" class="center-caption italic-caption" >}}
+{{< figure src="image18.svg" caption="*<center>Flannel Overlay Network</center>*" >}}
 
 *This is how the overlay network (using flannel plugins) works in
 Kubernetes*
@@ -818,7 +818,7 @@ VXLAN is a tunneling technology used for overlay networking, often used
 in cloud and virtualized environments. It is supported in the Linux
 kernel.
 
-{{< figure src="image19.svg" caption="VxLAN Overlay Network" class="center-caption italic-caption" >}}
+{{< figure src="image19.svg" caption="*<center>VxLAN Overlay Network</center>*" >}}
 
 GRE (Generic Routing Encapsulation):
 
@@ -930,7 +930,7 @@ scenarios based on the theory of Kubernetes.
 
 Let’s see how container 1 communicates with container 2 in the same pod,
 as illustrated in the following diagram.
-{{< figure src="image20.svg" caption="Communication between Container1 and Container2" class="center-caption italic-caption" >}}
+{{< figure src="image20.svg" caption="*<center>Communication between Container1 and Container2</center>*" >}}
 
 In each pod, every Docker container, and the pod itself share a network
 namespace. This means that network configurations such as IP addresses
@@ -960,13 +960,13 @@ configuration within the pod's network namespace.
 
 This is how communication between Pods on the same Node works:
 
-{{< figure src="image21.gif" caption="Pod1, Pod2, and cni0 are in the same subnet" class="center-caption italic-caption" >}}
+{{< figure src="image21.gif" caption="*<center>Pod1, Pod2, and cni0 are in the same subnet</center>*" >}}
 
 ### Pods across the nodes
 
 This is how communication between pod1 and pod2 across nodes works:
 
-{{< figure src="image22.gif" caption="Pods Communication across nodes" class="center-caption italic-caption" >}}
+{{< figure src="image22.gif" caption="*<center>Pods Communication across nodes</center>*" >}}
 
 In the case of communication between Pods on different Nodes, the pod's
 network segment and the bridge are within the same network segment,
@@ -1017,13 +1017,13 @@ performs load balancing.
 This is how communication from pod1 to service2 running on pod2 in
 different nodes works:
 
-{{< figure src="image23.gif" caption="Pod to service" class="center-caption italic-caption" >}}
+{{< figure src="image23.gif" caption="*<center>Pod to service</center>*" >}}
 
 ### Service to Pod
 
 This is how communication from service2 to pod1 works:
 
-{{< figure src="image24.gif" caption="Service to pod" class="center-caption italic-caption" >}}
+{{< figure src="image24.gif" caption="*<center>Service to Pod</center>*" >}}
 
 In summary, service discovery is achieved through Service resources that
 provide stable IP addresses and DNS names for accessing pods. These
