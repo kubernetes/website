@@ -1094,7 +1094,7 @@ spec:
   Controller, Traefik, and others. You deploy the Ingress controller in
   your cluster.
 
-```
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
