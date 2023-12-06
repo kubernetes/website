@@ -48,25 +48,25 @@ These are some of the talks I attended during the events but apart from these, t
 
 KubeCon, a significant conference for Kubernetes and cloud-native technologies, usually offers a wealth of insights and developments. Here are some potential key takeaways from such an event:
 
-Emerging Trends: KubeCon often showcases emerging trends in cloud-native technologies. This could include new tools, approaches, or strategies in Kubernetes orchestration, containerization, and microservices.
+- Emerging Trends: KubeCon often showcases emerging trends in cloud-native technologies. This could include new tools, approaches, or strategies in Kubernetes orchestration, containerization, and microservices.
 
-Innovative Use Cases: Attendees might learn about innovative use cases and real-world applications of Kubernetes across various industries, demonstrating how it's being leveraged for different purposes.
+- Innovative Use Cases: Attendees might learn about innovative use cases and real-world applications of Kubernetes across various industries, demonstrating how it's being leveraged for different purposes.
 
-Security and Governance: Discussions around security, compliance, and governance within Kubernetes ecosystems could be a focal point, addressing challenges and best practices to secure containerized environments.
+- Security and Governance: Discussions around security, compliance, and governance within Kubernetes ecosystems could be a focal point, addressing challenges and best practices to secure containerized environments.
 
-Community and Collaboration: KubeCon emphasizes the importance of community and collaboration in open-source projects. Attendees might learn about new collaborations or initiatives within the Kubernetes community.
+- Community and Collaboration: KubeCon emphasizes the importance of community and collaboration in open-source projects. Attendees might learn about new collaborations or initiatives within the Kubernetes community.
 
-Networking and Partnerships: The conference is an excellent opportunity for networking and forging partnerships. Companies often use it to announce collaborations or new integrations within the Kubernetes ecosystem.
+- Networking and Partnerships: The conference is an excellent opportunity for networking and forging partnerships. Companies often use it to announce collaborations or new integrations within the Kubernetes ecosystem.
 
-Scaling and Performance: Discussions around scaling applications, optimizing performance, and managing large-scale deployments on Kubernetes could provide valuable insights into handling complex infrastructures.
+- Scaling and Performance: Discussions around scaling applications, optimizing performance, and managing large-scale deployments on Kubernetes could provide valuable insights into handling complex infrastructures.
 
-Operator Frameworks and Automation: Automation and operator frameworks within Kubernetes are likely to be highlighted, focusing on streamlining operations and managing complex applications effectively.
+- Operator Frameworks and Automation: Automation and operator frameworks within Kubernetes are likely to be highlighted, focusing on streamlining operations and managing complex applications effectively.
 
-Ecosystem Growth: Updates on the growth of the Kubernetes ecosystem, including new tools, extensions, or enhancements to the Kubernetes ecosystem, may be shared.
+- Ecosystem Growth: Updates on the growth of the Kubernetes ecosystem, including new tools, extensions, or enhancements to the Kubernetes ecosystem, may be shared.
 
-Diversity and Inclusion: Initiatives and discussions around diversity, inclusion, and expanding participation within the tech industry, especially in cloud-native and Kubernetes spaces, might be highlighted.
+- Diversity and Inclusion: Initiatives and discussions around diversity, inclusion, and expanding participation within the tech industry, especially in cloud-native and Kubernetes spaces, might be highlighted.
 
-Roadmap and Future Developments: Keynotes or sessions might reveal the future roadmap of Kubernetes and associated technologies, giving insights into upcoming features or enhancements.
+- Roadmap and Future Developments: Keynotes or sessions might reveal the future roadmap of Kubernetes and associated technologies, giving insights into upcoming features or enhancements.
 
 # Good to Have for Beginners
 
@@ -74,30 +74,30 @@ Attending KubeCon as a beginner in the Kubernetes ecosystem can be overwhelming 
 
 **Preparation:**
 
-Understand Basics: Familiarize yourself with Kubernetes concepts, such as pods, services, deployments, etc. Online tutorials or introductory videos can help.
+- Understand Basics: Familiarize yourself with Kubernetes concepts, such as pods, services, deployments, etc. Online tutorials or introductory videos can help.
 
-Set Goals: Define what you want to learn or achieve from the conference. It could be networking, learning about specific tools, understanding best practices, etc.
+- Set Goals: Define what you want to learn or achieve from the conference. It could be networking, learning about specific tools, understanding best practices, etc.
 
-Review Schedule: Study the event schedule in advance. Identify sessions, workshops, and keynotes relevant to your goals.
+- Review Schedule: Study the event schedule in advance. Identify sessions, workshops, and keynotes relevant to your goals.
 
 **During the Conference:**
 
-Take Notes: Carry a notebook or use an app to jot down important points, new tools, or ideas you come across during sessions.
+- Take Notes: Carry a notebook or use an app to jot down important points, new tools, or ideas you come across during sessions.
 
-Engage & Network: Don't hesitate to talk to people. Networking is a valuable aspect of conferences. Engage with speakers, attendees, and sponsors.
+- Engage & Network: Don't hesitate to talk to people. Networking is a valuable aspect of conferences. Engage with speakers, attendees, and sponsors.
 
-Visit Booths: Explore the expo area to learn about various tools and solutions related to Kubernetes.
+- Visit Booths: Explore the expo area to learn about various tools and solutions related to Kubernetes.
 
-Ask Questions: If you have doubts or need clarification during sessions, ask questions. Many others might have similar queries.
+- Ask Questions: If you have doubts or need clarification during sessions, ask questions. Many others might have similar queries.
 
-Attend Workshops: Hands-on workshops are great for practical learning. Participate actively to understand tools and processes better.
+- Attend Workshops: Hands-on workshops are great for practical learning. Participate actively to understand tools and processes better.
 
-Be Open to New Ideas: Kubernetes and its ecosystem are vast. Stay open-minded to new concepts and technologies.
+- Be Open to New Ideas: Kubernetes and its ecosystem are vast. Stay open-minded to new concepts and technologies.
 
 **After the Conference:**
 
-Review & Reflect: Take some time after the conference to review your notes, revisit resources, and reflect on what you've learned.
+- Review & Reflect: Take some time after the conference to review your notes, revisit resources, and reflect on what you've learned.
 
-Follow Up: Connect with people you met via LinkedIn, Twitter, or email. Keep the conversation going and build your network.
+- Follow Up: Connect with people you met via LinkedIn, Twitter, or email. Keep the conversation going and build your network.
 
 Remember, KubeCon can be intense, so it's okay not to absorb everything at once. Enjoy the experience and take away what you can, knowing you can continue learning and exploring afterward.
