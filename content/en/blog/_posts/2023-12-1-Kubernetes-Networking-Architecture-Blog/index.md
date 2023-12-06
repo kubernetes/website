@@ -2,6 +2,7 @@
 layout: blog
 title: "Kubernetes Networking Architecture"
 slug: kubernetes-networking-architecture
+date: 2024-01-07
 ---
 **Author**: Susie Su
 # Cloud Computing: Kubernetes Networking Architecture
