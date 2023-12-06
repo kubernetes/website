@@ -80,7 +80,6 @@ Kubernetes runs on the Linux system. There are five key networking
 concepts in Linux, which will help you understand how the Kubernetes
 network was designed to be compatible with these key components and meet
 the final requirements.
-
 ## Network Namespace (netns)
 <table style="width: 100%; border-collapse: collapse;">
   <caption style="text-align: center; font-style: italic;">Network Namespace</caption>
