@@ -83,6 +83,7 @@ the final requirements.
 
 ## Network Namespace (netns)
 <table style="width: 100%; border-collapse: collapse;">
+  <caption>Network Namespace</caption>
   <colgroup>
     <col style="width: 30%" />
     <col style="width: 70%" />
@@ -124,7 +125,7 @@ ip netns add netns1
 ip netns add netns2
 ```
 
-{{< figure src="image5.svg" >}}
+{{< figure src="image5.svg" alt="Create two network namespaces" >}}
 
 
 Step2: Create a veth pair:
@@ -151,14 +152,14 @@ ip netns exec netns2 ip addr add 10.1.1.2/24 dev veth2
 But veth1 cannot successfully ping veth2, as shown in the screenshot
 below.
 
-{{< figure src="image6.svg" >}}
+{{< figure src="image6.svg" alt="ping unsuccessfully">}}
 
 
 ```shell
 ip netns exec netns2 ip link show veth2 # Check the status of veth2, which is down
 ```
 
-{{< figure src="image7.svg"  >}}
+{{< figure src="image7.svg" alt="ip link show" >}}
 
 3.  Activate the network interface veth1 within netns1 network namespace
     and veth2 within netns2.
@@ -174,7 +175,7 @@ ip netns exec netns2 ip link set dev veth2 up
 ​​ip netns exec netns1 ping 10.1.1.2
 ```
 
-{{< figure src="image8.svg" >}}
+{{< figure src="image8.svg" alt="ping successfully" >}}
 
 So far, we've successfully completed the experiment; let's continue
 further.
@@ -186,22 +187,19 @@ network, and we've used a veth pair to connect two virtual hosts. Now,
 if we configure the IP addresses with different subnets, what will
 happen?
 
-{{< figure src="image9.svg" >}}
+{{< figure src="image9.svg" alt="Network in unreachable" >}}
 
 Without a router or subnet reconfiguration, the two hosts in different
 subnets will not be able to communicate over a simple network cable
 connection.
 
-<table style="background-color: #f0f0f0;">
-  <tr>
-    <td>
-      It reminds me of a loopback address. For example, the loopback interface is a special interface for same-host communication. Packets sent to the loopback interface will not leave the host, and processes listening on 127.0.0.1 will be accessible only to other processes on the same host.
-    </td>
-  </tr>
-</table>
+{{< note >}}
+It reminds me of a loopback address. For example, the loopback interface is a special interface for same-host communication. Packets sent to the loopback interface will not leave the host, and processes listening on 127.0.0.1 will be accessible only to other processes on the same host.
+{{< /note >}}
 
 ## Veth (virtual ethernet) pairs
 <table style="width: 100%; border-collapse: collapse;">
+<caption>Veth Pairs</caption>
 <colgroup>
 <col style="width: 30%" />
 <col style="width: 70%" />
@@ -224,7 +222,7 @@ received at the other end, allowing data to flow between isolated
 environments. Otherwise, it cannot interconnect between different
 network namespaces by default.
 
-{{< figure src="image10.svg" >}}
+{{< figure src="image10.svg" alt="simple veth pair" >}}
 
 In simple words, the veth pair seems like a virtual network cable that
 connects virtual hosts in two different namespaces.
@@ -263,13 +261,13 @@ address 127.0.0.1.
 ifconfig lo
 ```
 
-{{< figure src="image11.svg" >}}
+{{< figure src="image11.svg" alt="ifconfig lo" >}}
 
 ```shell
 ip addr show lo
 ```
 
-{{< figure src="image12.svg" >}}
+{{< figure src="image12.svg" alt="ip addr show lo">}}
 
 **Tunnel Interfaces (TUN, tap)**
 
@@ -357,8 +355,8 @@ ip link set dev eth1 master bond0
 These are virtual terminal interfaces used for terminal emulation, often
 in the context of SSH or terminal multiplexers like tmux.
 
-{{< figure src="image13.svg" >}}
-{{< figure src="image14.svg" >}}
+{{< figure src="image13.svg" alt="tty" >}}
+{{< figure src="image14.svg" alt="tmux" >}}
 
 **Bridge Interfaces (br)**
 
@@ -380,6 +378,7 @@ to manage Linux network interfaces for container networking, as
 illustrated in the following table.
 
 <table style="width: 100%; border-collapse: collapse;">
+<caption>Network Interface</caption>
 <colgroup>
 <col style="width: 30%" />
 <col style="width: 30%" />
@@ -408,13 +407,9 @@ illustrated in the following table.
 </tbody>
 </table>
 
-<table style="background-color: #f0f0f0;">
-  <tr>
-    <td>
+{{< note >}}
       Linux network interfaces are the underlying foundation, while CNI provides a standardized way to configure container network connectivity.
-    </td>
-  </tr>
-</table>
+{{< /note >}}
 
 ## Network Bridge Interface
 
@@ -428,6 +423,7 @@ network setups, such as connecting multiple containers within a single
 bridge.
 
 <table style="width: 100%; border-collapse: collapse;">
+<caption>Network Bridge Interface</caption>
 <colgroup>
 <col style="width: 30%" />
 <col style="width: 30%" />
@@ -454,7 +450,7 @@ Docker when you install Docker on a Linux system. It is a virtual
 Ethernet bridge that enables communication between Docker containers and
 between containers and the host system.
 
-{{< figure src="image15.svg" >}}
+{{< figure src="image15.svg" alt="Docker Bridge Networking in Linux" >}}
 
 When discussing bridge mode in both Docker and Kubernetes, it's
 essential to understand the concept of container runtime because the
@@ -479,13 +475,9 @@ Several common container runtimes with Kubernetes
   as an adapter layer that allowed Kubernetes to communicate with
   Docker's daemon using the CRI.
 
-<table style="background-color: #f0f0f0;">
-  <tr>
-    <td>
-      In more recent developments, Kubernetes announced the deprecation of Dockershim as an intermediary. The primary reason for this was to streamline the Kubernetes architecture and use container runtimes that directly implement the CRI. However, Docker containers and images remain fully compatible with Kubernetes because Docker produces OCI-compliant containers. This means that the containers built with Docker can be run by other CRI-compatible runtimes like containerd and CRI-O, which Kubernetes supports natively.
-    </td>
-  </tr>
-</table>
+{{< note >}}
+In more recent developments, Kubernetes announced the deprecation of Dockershim as an intermediary. The primary reason for this was to streamline the Kubernetes architecture and use container runtimes that directly implement the CRI. However, Docker containers and images remain fully compatible with Kubernetes because Docker produces OCI-compliant containers. This means that the containers built with Docker can be run by other CRI-compatible runtimes like containerd and CRI-O, which Kubernetes supports natively.
+{{< /note >}}
 
 - **containerd**: An industry-standard container runtime focused on
   simplicity and robustness, containerd is used by Docker and supports
@@ -593,6 +585,7 @@ seamless operation and management of network resources.
 ## Netfilter and iptables
 
 <table style="width: 100%; border-collapse: collapse;">
+<caption>Netfilter and iptables</caption>
   <colgroup>
     <col style="width: 30%" />
     <col style="width: 70%" />
@@ -632,8 +625,7 @@ underlying technology used by iptables to perform these functions:
 - Load Balancing: In Kubernetes, Netfilter also plays a role in load
   balancing traffic to different pods within a Service.
 
-{{< figure src="image16.svg" >}}
-<p style="text-align: center; font-style: italic;">Netfilter vs iptables in Linux</p>
+{{< figure src="image16.svg" caption="Netfilter vs iptables in Linux" >}}
 
 In Kubernetes, there are several components and concepts that serve
 similar roles and functions as Netfilter/iptables in managing network
@@ -666,6 +658,7 @@ enforced using iptables rules on the nodes. Network Policies provide
 fine-grained control over which pods can communicate with each other.
 
 <table style="width: 100%; border-collapse: collapse;">
+<caption>NetworkPolicy Support Status in CNI Plugins</caption>
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 25%" />
@@ -707,7 +700,6 @@ cluster store</td>
 </tr>
 </tbody>
 </table>
-<p style="text-align: center; font-style: italic;">NetworkPolicy Support Status in CNI Plugins</p>
 
 To use Network Policy, Kubernetes introduces a new resource object
 called "NetworkPolicy," which allows users to define policies for
@@ -721,8 +713,7 @@ Romana, Weave Net, and others support the implementation of network
 policies (as shown in the table above). The working principle of Network
 Policy is depicted in the diagram below.
 
-{{< figure src="image17.svg" >}}
-<p style="text-align: center; font-style: italic;">Network Policy Working Principle</p>
+{{< figure src="image17.svg" caption="Network Policy Working Principle" >}}
 
 ## Routing
 
@@ -748,6 +739,7 @@ Here are key aspects of routing in Kubernetes:
 
 ### Pod-to-Pod Across Nodes Routing
 <table style="width: 100%; border-collapse: collapse;">
+<caption>Pod-to-Pod Across Nodes Routing</caption>
 <colgroup>
 <col style="width: 30%" />
 <col style="width: 30%" />
@@ -787,8 +779,7 @@ across nodes. It's worth noting that while Docker container-to-container
 communication is similar to pod-to-pod communication in Kubernetes, the
 latter provides additional orchestration and management features.
 
-{{< figure src="image18.svg" >}}
-<p style="text-align: center; font-style: italic;">Flannel Overlay Network</p>
+{{< figure src="image18.svg" caption="Flannel Overlay Network" >}}
 
 *This is how the overlay network (using flannel plugins) works in
 Kubernetes*
@@ -828,8 +819,7 @@ VXLAN is a tunneling technology used for overlay networking, often used
 in cloud and virtualized environments. It is supported in the Linux
 kernel.
 
-{{< figure src="image19.svg" >}}
-<p style="text-align: center; font-style: italic;">VxLAN Overlay Network</p>
+{{< figure src="image19.svg" caption="VxLAN Overlay Network">}}
 
 GRE (Generic Routing Encapsulation):
 
@@ -850,6 +840,7 @@ and as a network overlay for virtual machines.
 
 ### Node-to-Node Routing
 <table style="width: 100%; border-collapse: collapse;">
+  <caption>Node-to-Node Routing</caption>
   <colgroup>
     <col style="width: 30%" />
     <col style="width: 70%" />
@@ -875,6 +866,7 @@ Services, which route traffic to different nodes hosting pods.
 
 ### Service Routing
 <table style="width: 100%; border-collapse: collapse;">
+  <caption>Service Routing</caption>
   <colgroup>
     <col style="width: 30%" />
     <col style="width: 70%" />
@@ -939,8 +931,7 @@ scenarios based on the theory of Kubernetes.
 
 Let’s see how container 1 communicates with container 2 in the same pod,
 as illustrated in the following diagram.
-{{< figure src="image20.svg" >}}
-<p style="text-align: center; font-style: italic;">Communication between Container1 and Container2</p>
+{{< figure src="image20.svg" caption="Communication between Container1 and Container2">}}
 
 In each pod, every Docker container, and the pod itself share a network
 namespace. This means that network configurations such as IP addresses
@@ -970,15 +961,13 @@ configuration within the pod's network namespace.
 
 This is how communication between Pods on the same Node works:
 
-{{< figure src="image21.gif" >}}
-<p style="text-align: center; font-style: italic;">Pod1, Pod2, and cni0 are in the same subnet</p>
+{{< figure src="image21.gif" caption="Pod1, Pod2, and cni0 are in the same subnet" >}}
 
 ### Pods across the nodes
 
 This is how communication between pod1 and pod2 across nodes works:
 
-{{< figure src="image22.gif" >}}
-<p style="text-align: center; font-style: italic;">Pods Communication across nodes</p>
+{{< figure src="image22.gif" caption="Pods Communication across nodes" >}}
 
 In the case of communication between Pods on different Nodes, the pod's
 network segment and the bridge are within the same network segment,
@@ -1209,6 +1198,7 @@ convenient for understanding how Kubernetes implements complex
 networking. Please refer to the table below for details.
 
 <table style="width: 100%; border-collapse: collapse;">
+<caption>Linux Networking vs Kubernetes Networking</caption>
 <colgroup>
 <col style="width: 40%" />
 <col style="width: 60%" />
