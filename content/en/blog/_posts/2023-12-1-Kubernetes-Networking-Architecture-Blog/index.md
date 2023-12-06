@@ -624,7 +624,7 @@ underlying technology used by iptables to perform these functions:
 - Load Balancing: In Kubernetes, Netfilter also plays a role in load
   balancing traffic to different pods within a Service.
 
-{{< figure src="image16.svg" caption="<span style='text-align: center; font-style: italic;'>Netfilter vs iptables in Linux</span>" >}}
+{{< figure src="image16.svg" caption="*<center>Netfilter vs iptables in Linux</center>*" >}}
 
 In Kubernetes, there are several components and concepts that serve
 similar roles and functions as Netfilter/iptables in managing network
