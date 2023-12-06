@@ -83,7 +83,7 @@ the final requirements.
 
 ## Network Namespace (netns)
 <table style="width: 100%; border-collapse: collapse;">
-  <caption>Network Namespace</caption>
+  <caption style="text-align: center; font-style: italic;">Network Namespace</caption>
   <colgroup>
     <col style="width: 30%" />
     <col style="width: 70%" />
@@ -199,7 +199,7 @@ It reminds me of a loopback address. For example, the loopback interface is a sp
 
 ## Veth (virtual ethernet) pairs
 <table style="width: 100%; border-collapse: collapse;">
-<caption>Veth Pairs</caption>
+<caption style="text-align: center; font-style: italic;">Veth Pairs</caption>
 <colgroup>
 <col style="width: 30%" />
 <col style="width: 70%" />
@@ -378,7 +378,7 @@ to manage Linux network interfaces for container networking, as
 illustrated in the following table.
 
 <table style="width: 100%; border-collapse: collapse;">
-<caption>Network Interface</caption>
+<caption style="text-align: center; font-style: italic;">Network Interface</caption>
 <colgroup>
 <col style="width: 30%" />
 <col style="width: 30%" />
@@ -423,7 +423,7 @@ network setups, such as connecting multiple containers within a single
 bridge.
 
 <table style="width: 100%; border-collapse: collapse;">
-<caption>Network Bridge Interface</caption>
+<caption style="text-align: center; font-style: italic;">Network Bridge Interface</caption>
 <colgroup>
 <col style="width: 30%" />
 <col style="width: 30%" />
@@ -585,7 +585,7 @@ seamless operation and management of network resources.
 ## Netfilter and iptables
 
 <table style="width: 100%; border-collapse: collapse;">
-<caption>Netfilter and iptables</caption>
+<caption style="text-align: center; font-style: italic;">Netfilter and iptables</caption>
   <colgroup>
     <col style="width: 30%" />
     <col style="width: 70%" />
@@ -625,7 +625,7 @@ underlying technology used by iptables to perform these functions:
 - Load Balancing: In Kubernetes, Netfilter also plays a role in load
   balancing traffic to different pods within a Service.
 
-{{< figure src="image16.svg" caption="Netfilter vs iptables in Linux" >}}
+{{< figure src="image16.svg" caption="Netfilter vs iptables in Linux" class="center-caption italic-caption" >}}
 
 In Kubernetes, there are several components and concepts that serve
 similar roles and functions as Netfilter/iptables in managing network
@@ -658,7 +658,7 @@ enforced using iptables rules on the nodes. Network Policies provide
 fine-grained control over which pods can communicate with each other.
 
 <table style="width: 100%; border-collapse: collapse;">
-<caption>NetworkPolicy Support Status in CNI Plugins</caption>
+<caption style="text-align: center; font-style: italic;">NetworkPolicy Support Status in CNI Plugins</caption>
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 25%" />
@@ -713,7 +713,7 @@ Romana, Weave Net, and others support the implementation of network
 policies (as shown in the table above). The working principle of Network
 Policy is depicted in the diagram below.
 
-{{< figure src="image17.svg" caption="Network Policy Working Principle" >}}
+{{< figure src="image17.svg" caption="Network Policy Working Principle" class="center-caption italic-caption" >}}
 
 ## Routing
 
@@ -739,7 +739,7 @@ Here are key aspects of routing in Kubernetes:
 
 ### Pod-to-Pod Across Nodes Routing
 <table style="width: 100%; border-collapse: collapse;">
-<caption>Pod-to-Pod Across Nodes Routing</caption>
+<caption style="text-align: center; font-style: italic;">Pod-to-Pod Across Nodes Routing</caption>
 <colgroup>
 <col style="width: 30%" />
 <col style="width: 30%" />
@@ -779,7 +779,7 @@ across nodes. It's worth noting that while Docker container-to-container
 communication is similar to pod-to-pod communication in Kubernetes, the
 latter provides additional orchestration and management features.
 
-{{< figure src="image18.svg" caption="Flannel Overlay Network" >}}
+{{< figure src="image18.svg" caption="Flannel Overlay Network" class="center-caption italic-caption" >}}
 
 *This is how the overlay network (using flannel plugins) works in
 Kubernetes*
@@ -819,7 +819,7 @@ VXLAN is a tunneling technology used for overlay networking, often used
 in cloud and virtualized environments. It is supported in the Linux
 kernel.
 
-{{< figure src="image19.svg" caption="VxLAN Overlay Network">}}
+{{< figure src="image19.svg" caption="VxLAN Overlay Network" class="center-caption italic-caption" >}}
 
 GRE (Generic Routing Encapsulation):
 
@@ -840,7 +840,7 @@ and as a network overlay for virtual machines.
 
 ### Node-to-Node Routing
 <table style="width: 100%; border-collapse: collapse;">
-  <caption>Node-to-Node Routing</caption>
+  <caption style="text-align: center; font-style: italic;">Node-to-Node Routing</caption>
   <colgroup>
     <col style="width: 30%" />
     <col style="width: 70%" />
@@ -866,7 +866,7 @@ Services, which route traffic to different nodes hosting pods.
 
 ### Service Routing
 <table style="width: 100%; border-collapse: collapse;">
-  <caption>Service Routing</caption>
+  <caption style="text-align: center; font-style: italic;"Service Routing</caption>
   <colgroup>
     <col style="width: 30%" />
     <col style="width: 70%" />
@@ -931,7 +931,7 @@ scenarios based on the theory of Kubernetes.
 
 Let’s see how container 1 communicates with container 2 in the same pod,
 as illustrated in the following diagram.
-{{< figure src="image20.svg" caption="Communication between Container1 and Container2">}}
+{{< figure src="image20.svg" caption="Communication between Container1 and Container2" class="center-caption italic-caption" >}}
 
 In each pod, every Docker container, and the pod itself share a network
 namespace. This means that network configurations such as IP addresses
@@ -961,13 +961,13 @@ configuration within the pod's network namespace.
 
 This is how communication between Pods on the same Node works:
 
-{{< figure src="image21.gif" caption="Pod1, Pod2, and cni0 are in the same subnet" >}}
+{{< figure src="image21.gif" caption="Pod1, Pod2, and cni0 are in the same subnet" class="center-caption italic-caption" >}}
 
 ### Pods across the nodes
 
 This is how communication between pod1 and pod2 across nodes works:
 
-{{< figure src="image22.gif" caption="Pods Communication across nodes" >}}
+{{< figure src="image22.gif" caption="Pods Communication across nodes" class="center-caption italic-caption" >}}
 
 In the case of communication between Pods on different Nodes, the pod's
 network segment and the bridge are within the same network segment,
@@ -1018,13 +1018,13 @@ performs load balancing.
 This is how communication from pod1 to service2 running on pod2 in
 different nodes works:
 
-{{< figure src="image23.gif" caption="Pod to service" >}}
+{{< figure src="image23.gif" caption="Pod to service" class="center-caption italic-caption" >}}
 
 ### Service to Pod
 
 This is how communication from service2 to pod1 works:
 
-{{< figure src="image24.gif" caption="Service to pod" >}}
+{{< figure src="image24.gif" caption="Service to pod" class="center-caption italic-caption" >}}
 
 In summary, service discovery is achieved through Service resources that
 provide stable IP addresses and DNS names for accessing pods. These
@@ -1198,7 +1198,7 @@ convenient for understanding how Kubernetes implements complex
 networking. Please refer to the table below for details.
 
 <table style="width: 100%; border-collapse: collapse;">
-<caption>Linux Networking vs Kubernetes Networking</caption>
+<caption style="text-align: center; font-style: italic;">Linux Networking vs Kubernetes Networking</caption>
 <colgroup>
 <col style="width: 40%" />
 <col style="width: 60%" />
