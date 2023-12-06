@@ -1061,7 +1061,7 @@ Service using an Ingress:
   specifying the hostnames, paths, and backend services to route the
   traffic to.
 
-```
+```yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
