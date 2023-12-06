@@ -1029,8 +1029,7 @@ performs load balancing.
 This is how communication from pod1 to service2 running on pod2 in
 different nodes works:
 
-{{< figure src="image23.gif" >}}
-<p style="text-align: center; font-style: italic;">Pod to service</p>
+{{< figure src="image23.gif" caption="Pod to service" >}}
 
 ### Service to Pod
 
