@@ -4,6 +4,7 @@ description: Create a production-quality Kubernetes cluster
 weight: 30
 no_list: true
 ---
+
 <!-- overview -->
 
 A production-quality Kubernetes cluster requires planning and preparation.
@@ -27,21 +28,28 @@ As you decide where you want your production Kubernetes environment to live
 on or hand to others, consider how your requirements for a Kubernetes cluster
 are influenced by the following issues:
 
-- *Availability*: A single-machine Kubernetes [learning environment](/docs/setup/#learning-environment)
+- _Availability_: A single-machine Kubernetes [learning environment](/docs/setup/#learning-environment)
   has a single point of failure. Creating a highly available cluster means considering:
+
   - Separating the control plane from the worker nodes.
   - Replicating the control plane components on multiple nodes.
-  - Load balancing traffic to the cluster’s {{< glossary_tooltip term_id="kube-apiserver" text="API server" >}}.
+  - Load balancing traffic to both the cluster’s
+    {{< glossary_tooltip term_id="kube-apiserver" text="API server" >}} and the
+    {{< glossary_tooltip term_id="workload" text="workloads" >}}. There are various types of load bancers
+    including built-in solutions like [Ingress](/docs/concepts/services-networking/ingress) as well as
+    [external projects](/docs/tasks/access-application-cluster/create-external-load-balancer). Considering the
+    specific needs of your deployment, external projects can often provide advanced features and flexibility
+    beyond the capabilities of native Kubernetes components.
   - Having enough worker nodes available, or able to quickly become available, as changing workloads warrant it.
 
-- *Scale*: If you expect your production Kubernetes environment to receive a stable amount of
+- _Scale_: If you expect your production Kubernetes environment to receive a stable amount of
   demand, you might be able to set up for the capacity you need and be done. However,
   if you expect demand to grow over time or change dramatically based on things like
   season or special events, you need to plan how to scale to relieve increased
   pressure from more requests to the control plane and worker nodes or scale down to reduce unused
   resources.
 
-- *Security and access management*: You have full admin privileges on your own
+- _Security and access management_: You have full admin privileges on your own
   Kubernetes learning cluster. But shared clusters with important workloads, and
   more than one or two users, require a more refined approach to who and what can
   access cluster resources. You can use role-based access control
@@ -53,27 +61,27 @@ are influenced by the following issues:
   [container resources](/docs/concepts/configuration/manage-resources-containers/).
 
 Before building a Kubernetes production environment on your own, consider
-handing off some or all of this job to 
-[Turnkey Cloud Solutions](/docs/setup/production-environment/turnkey-solutions/) 
+handing off some or all of this job to
+[Turnkey Cloud Solutions](/docs/setup/production-environment/turnkey-solutions/)
 providers or other [Kubernetes Partners](/partners/).
 Options include:
 
-- *Serverless*: Just run workloads on third-party equipment without managing
+- _Serverless_: Just run workloads on third-party equipment without managing
   a cluster at all. You will be charged for things like CPU usage, memory, and
   disk requests.
-- *Managed control plane*: Let the provider manage the scale and availability
+- _Managed control plane_: Let the provider manage the scale and availability
   of the cluster's control plane, as well as handle patches and upgrades.
-- *Managed worker nodes*: Configure pools of nodes to meet your needs,
+- _Managed worker nodes_: Configure pools of nodes to meet your needs,
   then the provider makes sure those nodes are available and ready to implement
   upgrades when needed.
-- *Integration*: There are providers that integrate Kubernetes with other
+- _Integration_: There are providers that integrate Kubernetes with other
   services you may need, such as storage, container registries, authentication
   methods, and development tools.
 
 Whether you build a production Kubernetes cluster yourself or work with
 partners, review the following sections to evaluate your needs as they relate
-to your cluster’s *control plane*, *worker nodes*, *user access*, and
-*workload resources*.
+to your cluster’s _control plane_, _worker nodes_, _user access_, and
+_workload resources_.
 
 ## Production cluster setup
 
@@ -98,21 +106,21 @@ If keeping the cluster up and running
 and ensuring that it can be repaired if something goes wrong is important,
 consider these steps:
 
-- *Choose deployment tools*: You can deploy a control plane using tools such
+- _Choose deployment tools_: You can deploy a control plane using tools such
   as kubeadm, kops, and kubespray. See
   [Installing Kubernetes with deployment tools](/docs/setup/production-environment/tools/)
   to learn tips for production-quality deployments using each of those deployment
   methods. Different [Container Runtimes](/docs/setup/production-environment/container-runtimes/)
   are available to use with your deployments.
-- *Manage certificates*: Secure communications between control plane services
+- _Manage certificates_: Secure communications between control plane services
   are implemented using certificates. Certificates are automatically generated
   during deployment or you can generate them using your own certificate authority.
   See [PKI certificates and requirements](/docs/setup/best-practices/certificates/) for details.
-- *Configure load balancer for apiserver*: Configure a load balancer
-  to distribute external API requests to the apiserver service instances running on different nodes. See 
+- _Configure load balancer for apiserver_: Configure a load balancer
+  to distribute external API requests to the apiserver service instances running on different nodes. See
   [Create an External Load Balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/)
   for details.
-- *Separate and backup etcd service*: The etcd services can either run on the
+- _Separate and backup etcd service_: The etcd services can either run on the
   same machines as other control plane services or run on separate machines, for
   extra security and availability. Because etcd stores cluster configuration data,
   backing up the etcd database should be done regularly to ensure that you can
@@ -121,7 +129,7 @@ consider these steps:
   See [Operating etcd clusters for Kubernetes](/docs/tasks/administer-cluster/configure-upgrade-etcd/)
   and [Set up a High Availability etcd cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)
   for details.
-- *Create multiple control plane systems*: For high availability, the
+- _Create multiple control plane systems_: For high availability, the
   control plane should not be limited to a single machine. If the control plane
   services are run by an init service (such as systemd), each service should run on at
   least three machines. However, running control plane services as pods in
@@ -130,15 +138,15 @@ consider these steps:
   The scheduler should be fault tolerant,
   but not highly available. Some deployment tools set up [Raft](https://raft.github.io/)
   consensus algorithm to do leader election of Kubernetes services. If the
-  primary goes away, another service elects itself and take over. 
-- *Span multiple zones*: If keeping your cluster available at all times is
+  primary goes away, another service elects itself and take over.
+- _Span multiple zones_: If keeping your cluster available at all times is
   critical, consider creating a cluster that runs across multiple data centers,
   referred to as zones in cloud environments. Groups of zones are referred to as regions.
   By spreading a cluster across
   multiple zones in the same region, it can improve the chances that your
   cluster will continue to function even if one zone becomes unavailable.
   See [Running in multiple zones](/docs/setup/best-practices/multiple-zones/) for details.
-- *Manage on-going features*: If you plan to keep your cluster over time,
+- _Manage on-going features_: If you plan to keep your cluster over time,
   there are tasks you need to do to maintain its health and security. For example,
   if you installed with kubeadm, there are instructions to help you with
   [Certificate Management](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/)
@@ -163,27 +171,27 @@ Production-quality workloads need to be resilient and anything they rely
 on needs to be resilient (such as CoreDNS). Whether you manage your own
 control plane or have a cloud provider do it for you, you still need to
 consider how you want to manage your worker nodes (also referred to
-simply as *nodes*).  
+simply as _nodes_).
 
-- *Configure nodes*: Nodes can be physical or virtual machines. If you want to
+- _Configure nodes_: Nodes can be physical or virtual machines. If you want to
   create and manage your own nodes, you can install a supported operating system,
   then add and run the appropriate
   [Node services](/docs/concepts/overview/components/#node-components). Consider:
   - The demands of your workloads when you set up nodes by having appropriate memory, CPU, and disk speed and storage capacity available.
   - Whether generic computer systems will do or you have workloads that need GPU processors, Windows nodes, or VM isolation.
-- *Validate nodes*: See [Valid node setup](/docs/setup/best-practices/node-conformance/)
+- _Validate nodes_: See [Valid node setup](/docs/setup/best-practices/node-conformance/)
   for information on how to ensure that a node meets the requirements to join
   a Kubernetes cluster.
-- *Add nodes to the cluster*: If you are managing your own cluster you can
+- _Add nodes to the cluster_: If you are managing your own cluster you can
   add nodes by setting up your own machines and either adding them manually or
   having them register themselves to the cluster’s apiserver. See the
   [Nodes](/docs/concepts/architecture/nodes/) section for information on how to set up Kubernetes to add nodes in these ways.
-- *Scale nodes*: Have a plan for expanding the capacity your cluster will
+- _Scale nodes_: Have a plan for expanding the capacity your cluster will
   eventually need. See [Considerations for large clusters](/docs/setup/best-practices/cluster-large/)
   to help determine how many nodes you need, based on the number of pods and
   containers you need to run. If you are managing nodes yourself, this can mean
   purchasing and installing your own physical equipment.
-- *Autoscale nodes*: Most cloud providers support
+- _Autoscale nodes_: Most cloud providers support
   [Cluster Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#readme)
   to replace unhealthy nodes or grow and shrink the number of nodes as demand requires. See the
   [Frequently Asked Questions](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md)
@@ -192,7 +200,7 @@ simply as *nodes*).
   for how it is implemented by different cloud providers. For on-premises, there
   are some virtualization platforms that can be scripted to spin up new nodes
   based on demand.
-- *Set up node health checks*: For important workloads, you want to make sure
+- _Set up node health checks_: For important workloads, you want to make sure
   that the nodes and pods running on those nodes are healthy. Using the
   [Node Problem Detector](/docs/tasks/debug/debug-cluster/monitor-node-health/)
   daemon, you can ensure your nodes are healthy.
@@ -211,23 +219,23 @@ select strategies for validating the identities of those who try to access your
 cluster (authentication) and deciding if they have permissions to do what they
 are asking (authorization):
 
-- *Authentication*: The apiserver can authenticate users using client
+- _Authentication_: The apiserver can authenticate users using client
   certificates, bearer tokens, an authenticating proxy, or HTTP basic auth.
   You can choose which authentication methods you want to use.
   Using plugins, the apiserver can leverage your organization’s existing
   authentication methods, such as LDAP or Kerberos. See
   [Authentication](/docs/reference/access-authn-authz/authentication/)
   for a description of these different methods of authenticating Kubernetes users.
-- *Authorization*: When you set out to authorize your regular users, you will probably choose
+- _Authorization_: When you set out to authorize your regular users, you will probably choose
   between RBAC and ABAC authorization. See [Authorization Overview](/docs/reference/access-authn-authz/authorization/)
   to review different modes for authorizing user accounts (as well as service account access to
   your cluster):
-  - *Role-based access control* ([RBAC](/docs/reference/access-authn-authz/rbac/)): Lets you
+  - _Role-based access control_ ([RBAC](/docs/reference/access-authn-authz/rbac/)): Lets you
     assign access to your cluster by allowing specific sets of permissions to authenticated users.
     Permissions can be assigned for a specific namespace (Role) or across the entire cluster
     (ClusterRole). Then using RoleBindings and ClusterRoleBindings, those permissions can be attached
     to particular users.
-  - *Attribute-based access control* ([ABAC](/docs/reference/access-authn-authz/abac/)): Lets you
+  - _Attribute-based access control_ ([ABAC](/docs/reference/access-authn-authz/abac/)): Lets you
     create policies based on resource attributes in the cluster and will allow or deny access
     based on those attributes. Each line of a policy file identifies versioning properties (apiVersion
     and kind) and a map of spec properties to match the subject (user or group), resource property,
@@ -236,22 +244,22 @@ are asking (authorization):
 
 As someone setting up authentication and authorization on your production Kubernetes cluster, here are some things to consider:
 
-- *Set the authorization mode*: When the Kubernetes API server
+- _Set the authorization mode_: When the Kubernetes API server
   ([kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/))
-  starts, the supported authentication modes must be set using the *--authorization-mode*
-  flag. For example, that flag in the *kube-adminserver.yaml* file (in */etc/kubernetes/manifests*)
+  starts, the supported authentication modes must be set using the _--authorization-mode_
+  flag. For example, that flag in the _kube-adminserver.yaml_ file (in _/etc/kubernetes/manifests_)
   could be set to Node,RBAC. This would allow Node and RBAC authorization for authenticated requests.
-- *Create user certificates and role bindings (RBAC)*: If you are using RBAC
+- _Create user certificates and role bindings (RBAC)_: If you are using RBAC
   authorization, users can create a CertificateSigningRequest (CSR) that can be
   signed by the cluster CA. Then you can bind Roles and ClusterRoles to each user.
   See [Certificate Signing Requests](/docs/reference/access-authn-authz/certificate-signing-requests/)
   for details.
-- *Create policies that combine attributes (ABAC)*: If you are using ABAC
+- _Create policies that combine attributes (ABAC)_: If you are using ABAC
   authorization, you can assign combinations of attributes to form policies to
   authorize selected users or groups to access particular resources (such as a
   pod), namespace, or apiGroup. For more information, see
   [Examples](/docs/reference/access-authn-authz/abac/#examples).
-- *Consider Admission Controllers*: Additional forms of authorization for
+- _Consider Admission Controllers_: Additional forms of authorization for
   requests that can come in through the API server include
   [Webhook Token Authentication](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication).
   Webhooks and other special authorization types need to be enabled by adding
@@ -264,15 +272,15 @@ Demands from production workloads can cause pressure both inside and outside
 of the Kubernetes control plane. Consider these items when setting up for the
 needs of your cluster's workloads:
 
-- *Set namespace limits*: Set per-namespace quotas on things like memory and CPU. See
+- _Set namespace limits_: Set per-namespace quotas on things like memory and CPU. See
   [Manage Memory, CPU, and API Resources](/docs/tasks/administer-cluster/manage-resources/)
   for details. You can also set
   [Hierarchical Namespaces](/blog/2020/08/14/introducing-hierarchical-namespaces/)
   for inheriting limits.
-- *Prepare for DNS demand*: If you expect workloads to massively scale up,
+- _Prepare for DNS demand_: If you expect workloads to massively scale up,
   your DNS service must be ready to scale up as well. See
   [Autoscale the DNS service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/).
-- *Create additional service accounts*: User accounts determine what users can
+- _Create additional service accounts_: User accounts determine what users can
   do on a cluster, while a service account defines pod access within a particular
   namespace. By default, a pod takes on the default service account from its namespace.
   See [Managing Service Accounts](/docs/reference/access-authn-authz/service-accounts-admin/)
@@ -306,4 +314,3 @@ needs of your cluster's workloads:
   [resource limits](/docs/tasks/administer-cluster/manage-resources/),
   [DNS autoscaling](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)
   and [service accounts](/docs/reference/access-authn-authz/service-accounts-admin/).
-
