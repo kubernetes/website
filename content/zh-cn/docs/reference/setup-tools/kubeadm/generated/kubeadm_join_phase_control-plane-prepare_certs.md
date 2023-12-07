@@ -1,30 +1,17 @@
 <!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference conent, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
-
-<!--
 Generate the certificates for the new control plane components
 -->
-为新的控制平面组件生成证书
+为新的控制平面组件生成证书。
 
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
 Generate the certificates for the new control plane components
 -->
-为新的控制平面组件生成证书
+为新的控制平面组件生成证书。
 
 ```
 kubeadm join phase control-plane-prepare certs [api-server-endpoint] [flags]
@@ -62,7 +49,7 @@ If the node should host a new control plane instance, the IP address the API Ser
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Path to kubeadm config file.
+Path to a kubeadm configuration file.
 -->
 <p>
 kubeadm 配置文件的路径。
@@ -79,7 +66,7 @@ kubeadm 配置文件的路径。
 Create a new control plane instance on this node
 -->
 <p>
-在此节点上创建一个新的控制平面实例
+在此节点上创建一个新的控制平面实例。
 </p>
 </td>
 </tr>
@@ -141,6 +128,20 @@ For token-based discovery, allow joining without --discovery-token-ca-cert-hash 
 </tr>
 
 <tr>
+<td colspan="2">--dry-run</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Don't apply any changes; just output what would be done.
+-->
+<p>
+不做任何更改；只输出将要执行的操作。
+</p>
+</td>
+</tr>
+
+<tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
@@ -149,7 +150,7 @@ For token-based discovery, allow joining without --discovery-token-ca-cert-hash 
 help for certs
 -->
 <p>
-certs 操作的帮助命令
+certs 操作的帮助命令。
 </p>
 </td>
 </tr>

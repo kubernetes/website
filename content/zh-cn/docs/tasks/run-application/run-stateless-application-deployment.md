@@ -15,13 +15,13 @@ This page shows how to run an application using a Kubernetes Deployment object.
 ## {{% heading "objectives" %}}
 
 <!--
-* Create an nginx deployment.
-* Use kubectl to list information about the deployment.
-* Update the deployment.
+- Create an nginx deployment.
+- Use kubectl to list information about the deployment.
+- Update the deployment.
 -->
-* 创建一个 nginx Deployment。
-* 使用 kubectl 列举该 Deployment 的相关信息。
-* 更新该 Deployment。
+- 创建一个 nginx Deployment。
+- 使用 kubectl 列举该 Deployment 的相关信息。
+- 更新该 Deployment。
 
 ## {{% heading "prerequisites" %}}
 
@@ -39,10 +39,10 @@ a Deployment that runs the nginx:1.14.2 Docker image:
 ## 创建并了解一个 nginx Deployment
 
 你可以通过创建一个 Kubernetes Deployment 对象来运行一个应用, 且你可以在一个
-YAML 文件中描述 Deployment。例如, 下面这个 YAML 文件描述了一个运行 nginx:1.14.2
+YAML 文件中描述 Deployment。例如，下面这个 YAML 文件描述了一个运行 nginx:1.14.2
 Docker 镜像的 Deployment：
 
-{{< codenew file="application/deployment.yaml" >}}
+{{% code_sample file="application/deployment.yaml" %}}
 
 <!--
 1. Create a Deployment based on the YAML file:
@@ -81,8 +81,8 @@ Docker 镜像的 Deployment：
    Pod Template:
      Labels:       app=nginx
      Containers:
-      nginx:
-       Image:              nginx:1.7.9
+       nginx:
+       Image:              nginx:1.14.2
        Port:               80/TCP
        Environment:        <none>
        Mounts:             <none>
@@ -142,7 +142,7 @@ specifies that the deployment should be updated to use nginx 1.16.1.
 你可以通过应用一个新的 YAML 文件来更新 Deployment。下面的 YAML 文件指定该
 Deployment 镜像更新为 nginx 1.16.1。
 
-{{< codenew file="application/deployment-update.yaml" >}}
+{{% code_sample file="application/deployment-update.yaml" %}}
 
 <!--
 1. Apply the new YAML file:
@@ -161,6 +161,7 @@ Deployment 镜像更新为 nginx 1.16.1。
    ```shell
    kubectl get pods -l app=nginx
    ```
+
 <!--
 ## Scaling the application by increasing the replica count
 
@@ -173,7 +174,7 @@ should have four Pods:
 你可以通过应用新的 YAML 文件来增加 Deployment 中 Pod 的数量。
 下面的 YAML 文件将 `replicas` 设置为 4，指定该 Deployment 应有 4 个 Pod：
 
-{{< codenew file="application/deployment-scale.yaml" >}}
+{{% code_sample file="application/deployment-scale.yaml" %}}
 
 <!--
 1. Apply the new YAML file:
@@ -196,7 +197,7 @@ should have four Pods:
    <!--
    The output is similar to this:
    -->
-   输出的结果类似于:
+   输出的结果类似于：
 
    ```
    NAME                               READY     STATUS    RESTARTS   AGE
@@ -237,6 +238,6 @@ added to Kubernetes, replicated applications were configured using a
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
+- Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
 -->
-* 进一步了解 [Deployment 对象](/zh-cn/docs/concepts/workloads/controllers/deployment/)。
+- 进一步了解 [Deployment 对象](/zh-cn/docs/concepts/workloads/controllers/deployment/)。

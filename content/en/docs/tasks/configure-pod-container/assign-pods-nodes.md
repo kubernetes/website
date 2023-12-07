@@ -1,7 +1,7 @@
 ---
 title: Assign Pods to Nodes
 content_type: task
-weight: 120
+weight: 150
 ---
 
 <!-- overview -->
@@ -66,7 +66,7 @@ This pod configuration file describes a pod that has a node selector,
 `disktype: ssd`. This means that the pod will get scheduled on a node that has
 a `disktype=ssd` label.
 
-{{< codenew file="pods/pod-nginx.yaml" >}}
+{{% code_sample file="pods/pod-nginx.yaml" %}}
 
 1. Use the configuration file to create a pod that will get scheduled on your
    chosen node:
@@ -91,7 +91,7 @@ a `disktype=ssd` label.
 
 You can also schedule a pod to one specific node via setting `nodeName`.
 
-{{< codenew file="pods/pod-nginx-specific-node.yaml" >}}
+{{% code_sample file="pods/pod-nginx-specific-node.yaml" %}}
 
 Use the configuration file to create a pod that will get scheduled on `foo-node` only.
 

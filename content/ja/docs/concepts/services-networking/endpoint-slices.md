@@ -1,7 +1,7 @@
 ---
 title: EndpointSlice
 content_type: concept
-weight: 35
+weight: 60
 ---
 
 <!-- overview -->

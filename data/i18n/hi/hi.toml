@@ -1,8 +1,15 @@
 # i18n strings for Hindi version of the site.
 # NOTE: Please keep the entries in alphabetical order when editing
 
+# Avoid using conjunction_1.
+# Must match the context in layouts/shortcodes/release-data.html
+# Appears on https://kubernetes.io/releases/
+# For example the "and" in "Complete 1.25 Schedule and Changelog"
+[conjunction_1]
+other = "और"
+
 [caution]
-other = "सावधानी:"
+other = "सावधान:"
 
 [cleanup_heading]
 other = "सफाई करना"
@@ -239,6 +246,19 @@ other = "(रिलीज़ड: "
 # For a suitable format
 [release_date_format]
 other = "2006-01-02"
+
+# Deprecated. Planned for removal in a future release.
+# Use [release_full_details_initial_text] instead.
+
+# Replace [release_complete] with [release_full_details_initial_text]
+[release_full_details_initial_text]
+other = "पूर्ण"
+
+[release_schedule]
+other = "अनुसूची"
+
+[release_changelog]
+other = "बदलाव के अभिलेख"
 
 [seealso_heading]
 other = "यह भी देखें"

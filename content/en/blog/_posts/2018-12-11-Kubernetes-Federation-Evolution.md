@@ -82,7 +82,7 @@ For external clients, automatic DNS expansion described is not currently possibl
 
 That way, your clients can always use the short form on the left, and always be automatically routed to the closest healthy shard on their home continent. All of the required failover is handled for you automatically by Kubernetes cluster federation.
 
-As further reading, a more elaborate example for users is available in the [Multi-Cluster Service DNS with ExternalDNS guide](https://github.com/kubernetes-sigs/federation-v2/blob/master/docs/servicedns-with-externaldns.md).
+As further reading, a more elaborate example for users is available in the [Multi-Cluster Service DNS with ExternalDNS guide](https://github.com/kubernetes-retired/kubefed/blob/dbcd4da3823a7ba8ac29e80c9d5b968868638d28/docs/servicedns-with-externaldns.md)
 
 # Try it yourself
 To get started with Federation v2, please refer to the [user guide](https://github.com/kubernetes-sigs/federation-v2/blob/master/docs/userguide.md). Deployment can be accomplished with a [Helm chart](https://github.com/kubernetes-sigs/kubefed/blob/master/charts/kubefed/README.md), and once the control plane is available, the [user guide’s example](https://github.com/kubernetes-sigs/federation-v2/blob/master/docs/userguide.md#example) can be used to get some hands-on experience with using Federation V2.

@@ -25,14 +25,14 @@ min-kubernetes-server-version: 1.16
 
 Server-Side Apply helps users and controllers manage their resources through
 declarative configurations. Clients can create and modify their
-[objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/)
+{{< glossary_tooltip text="objects" term_id="object" >}}
 declaratively by sending their fully specified intent.
 -->
 ## 简介 {#introduction}
 
 服务器端应用协助用户、控制器通过声明式配置的方式管理他们的资源。
 客户端可以发送完整描述的目标（A fully specified intent），
-声明式地创建和修改[对象](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/)。
+声明式地创建和修改{{< glossary_tooltip text="对象" term_id="object" >}}。
 
 <!--
 A fully specified intent is a partial object that only includes the fields and

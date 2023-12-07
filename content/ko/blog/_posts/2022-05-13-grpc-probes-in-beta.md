@@ -93,7 +93,8 @@ metadata:
 spec:
   containers:
   - name: agnhost
-    image: k8s.gcr.io/e2e-test-images/agnhost:2.35
+    # 이미지가 변경됨 (기존에는 "k8s.gcr.io" 레지스트리를 사용)
+    image: registry.k8s.io/e2e-test-images/agnhost:2.35
     command: ["/agnhost", "grpc-health-checking"]
     ports:
     - containerPort: 5000

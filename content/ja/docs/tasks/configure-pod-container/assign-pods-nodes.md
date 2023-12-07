@@ -1,19 +1,19 @@
 ---
 title: Podをノードに割り当てる
 content_type: task
-weight: 120
+weight: 150
 ---
 
 <!-- overview -->
 このページでは、KubernetesのPodをKubernetesクラスター上の特定のノードに割り当てる方法を説明します。
 
-## {{% heading "prerequisites" %}}
+## {{% heading "prerequisites" %}} {#before-you-begin}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 <!-- steps -->
 
-## ラベルをノードに追加する
+## ラベルをノードに追加する {#add-a-label-to-a-node}
 
 1. クラスター内の{{< glossary_tooltip term_id="node" text="ノード" >}}のリストをラベル付きで表示します。
 
@@ -54,11 +54,11 @@ weight: 120
 
     上の出力を見ると、`worker0`に`disktype=ssd`というラベルがあることがわかります。
 
-## 選択したノードにスケジューリングされるPodを作成する
+## 選択したノードにスケジューリングされるPodを作成する {#create-a-pod-that-gets-scheduled-to-your-chosen-node}
 
 以下のPodの構成ファイルには、nodeSelectorに`disktype: ssd`を持つPodが書かれています。これにより、Podは`disktype: ssd`というラベルを持っているノードにスケジューリングされるようになります。
 
-{{< codenew file="pods/pod-nginx.yaml" >}}
+{{% codenew file="pods/pod-nginx.yaml" %}}
 
 1. 構成ファイルを使用して、選択したノードにスケジューリングされるPodを作成します。
 
@@ -79,11 +79,11 @@ weight: 120
     nginx    1/1       Running   0          13s    10.200.0.4   worker0
     ```
 
-## 特定のノードにスケジューリングされるPodを作成する
+## 特定のノードにスケジューリングされるPodを作成する {#create-a-pod-that-gets-scheduled-to-specific-node}
 
 `nodeName`という設定を使用して、Podを特定のノードにスケジューリングすることもできます。
 
-{{< codenew file="pods/pod-nginx-specific-node.yaml" >}}
+{{% codenew file="pods/pod-nginx-specific-node.yaml" %}}
 
 構成ファイルを使用して、`foo-node`にだけスケジューリングされるPodを作成します。
 

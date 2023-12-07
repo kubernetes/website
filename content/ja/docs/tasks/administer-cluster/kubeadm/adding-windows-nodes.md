@@ -104,11 +104,11 @@ LinuxベースのKubernetesコントロールプレーンノードを取得し�
 
     これで、Windows互換バージョンのFlannelおよびkube-proxyを追加できます。
     互換性のあるバージョンのkube-proxyを確実に入手するには、イメージのタグを置換する必要があります。
-    次の例は、Kubernetes{{< param "fullversion" >}}の使用方法を示していますが、
+    次の例は、Kubernetes {{< skew currentPatchVersion >}}の使用方法を示していますが、
     独自のデプロイに合わせてバージョンを調整する必要があります。
 
     ```bash
-    curl -L https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/kube-proxy.yml | sed 's/VERSION/{{< param "fullversion" >}}/g' | kubectl apply -f -
+    curl -L https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/kube-proxy.yml | sed 's/VERSION/v{{< skew currentPatchVersion >}}/g' | kubectl apply -f -
     kubectl apply -f https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/flannel-overlay.yml
     ```
     {{< note >}}
@@ -129,7 +129,7 @@ wins cli process run --path /k/flannel/setup.exe --args "--mode=overlay --interf
 curl -L https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/flannel-overlay.yml | sed 's/Ethernet/Ethernet0 2/g' | kubectl apply -f -
 ```
     {{< /note >}}
-    
+
 
 
 ### Windowsワーカーノードの参加
@@ -147,7 +147,7 @@ Windowsワーカーノードの(管理者)権限を持つPowerShell環境で実�
 
    ```PowerShell
    curl.exe -LO https://raw.githubusercontent.com/kubernetes-sigs/sig-windows-tools/master/kubeadm/scripts/PrepareNode.ps1
-   .\PrepareNode.ps1 -KubernetesVersion {{< param "fullversion" >}}
+   .\PrepareNode.ps1 -KubernetesVersion v{{% skew currentPatchVersion %}}
    ```
 
 1. `kubeadm`を実行してノードに参加します

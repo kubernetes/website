@@ -46,7 +46,7 @@ the HorizontalPodAutoscaler instructs the workload resource (the Deployment, Sta
 or other similar resource) to scale back down.
 -->
 水平扩缩意味着对增加的负载的响应是部署更多的 {{< glossary_tooltip text="Pod" term_id="pod" >}}。
-这与 “垂直（Vertical）” 扩缩不同，对于 Kubernetes，
+这与“垂直（Vertical）”扩缩不同，对于 Kubernetes，
 垂直扩缩意味着将更多资源（例如：内存或 CPU）分配给已经为工作负载运行的 Pod。
 
 如果负载减少，并且 Pod 的数量高于配置的最小值，
@@ -129,9 +129,10 @@ Kubernetes 将水平 Pod 自动扩缩实现为一个间歇运行的控制回路�
 
 <!--
 Once during each period, the controller manager queries the resource utilization against the
-metrics specified in each HorizontalPodAutoscaler definition.  The controller manager 
+metrics specified in each HorizontalPodAutoscaler definition. The controller manager
 finds the target resource defined by the `scaleTargetRef`,
-then selects the pods based on the target resource's `.spec.selector` labels, and obtains the metrics from either the resource metrics API (for per-pod resource metrics),
+then selects the pods based on the target resource's `.spec.selector` labels,
+and obtains the metrics from either the resource metrics API (for per-pod resource metrics),
 or the custom metrics API (for all other metrics).
 -->
 在每个时间段内，控制器管理器都会根据每个 HorizontalPodAutoscaler 定义中指定的指标查询资源利用率。
@@ -144,7 +145,7 @@ or the custom metrics API (for all other metrics).
   Then, if a target utilization value is set, the controller calculates the utilization
   value as a percentage of the equivalent
   [resource request](/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)
-  on the containers in each Pod.  If a target raw value is set, the raw metric values are used directly.
+  on the containers in each Pod. If a target raw value is set, the raw metric values are used directly.
   The controller then takes the mean of the utilization or the raw value (depending on the type
   of target specified) across all targeted Pods, and produces a ratio used to scale
   the number of desired replicas.
@@ -184,7 +185,7 @@ or the custom metrics API (for all other metrics).
 <!--
 The common use for HorizontalPodAutoscaler is to configure it to fetch metrics from
 {{< glossary_tooltip text="aggregated APIs" term_id="aggregation-layer" >}}
-(`metrics.k8s.io`, `custom.metrics.k8s.io`, or `external.metrics.k8s.io`).  The `metrics.k8s.io` API is
+(`metrics.k8s.io`, `custom.metrics.k8s.io`, or `external.metrics.k8s.io`). The `metrics.k8s.io` API is
 usually provided by an add-on named Metrics Server, which needs to be launched separately.
 For more information about resource metrics, see
 [Metrics Server](/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/#metrics-server).
@@ -235,7 +236,7 @@ desiredReplicas = ceil[currentReplicas * ( currentMetricValue / desiredMetricVal
 For example, if the current metric value is `200m`, and the desired value
 is `100m`, the number of replicas will be doubled, since `200.0 / 100.0 ==
 2.0` If the current value is instead `50m`, you'll halve the number of
-replicas, since `50.0 / 100.0 == 0.5`.  The control plane skips any scaling
+replicas, since `50.0 / 100.0 == 0.5`. The control plane skips any scaling
 action if the ratio is sufficiently close to 1.0 (within a globally-configurable
 tolerance, 0.1 by default).
 -->
@@ -274,11 +275,11 @@ with missing metrics will be used to adjust the final scaling amount.
 
 <!--
 When scaling on CPU, if any pod has yet to become ready (it's still
-initializing, or possibly is unhealthy) *or* the most recent metric point for
+initializing, or possibly is unhealthy) _or_ the most recent metric point for
 the pod was before it became ready, that pod is set aside as well.
 -->
-当使用 CPU 指标来扩缩时，任何还未就绪（还在初始化，或者可能是不健康的）状态的 Pod **或**
-最近的指标度量值采集于就绪状态前的 Pod，该 Pod 也会被搁置。
+当使用 CPU 指标来扩缩时，任何还未就绪（还在初始化，或者可能是不健康的）状态的 Pod
+**或**最近的指标度量值采集于就绪状态前的 Pod，该 Pod 也会被搁置。
 
 <!--
 Due to technical constraints, the HorizontalPodAutoscaler controller
@@ -286,10 +287,12 @@ cannot exactly determine the first time a pod becomes ready when
 determining whether to set aside certain CPU metrics. Instead, it
 considers a Pod "not yet ready" if it's unready and transitioned to
 ready within a short, configurable window of time since it started.
-This value is configured with the `--horizontal-pod-autoscaler-initial-readiness-delay` flag, and its default is 30
-seconds.  Once a pod has become ready, it considers any transition to
+This value is configured with the `--horizontal-pod-autoscaler-initial-readiness-delay`
+flag, and its default is 30 seconds.
+Once a pod has become ready, it considers any transition to
 ready to be the first if it occurred within a longer, configurable time
-since it started. This value is configured with the `--horizontal-pod-autoscaler-cpu-initialization-period` flag, and its
+since it started. This value is configured with the
+`--horizontal-pod-autoscaler-cpu-initialization-period` flag, and its
 default is 5 minutes.
 -->
 由于技术限制，HorizontalPodAutoscaler 控制器在确定是否保留某些 CPU 指标时无法准确确定 Pod 首次就绪的时间。
@@ -308,7 +311,7 @@ calculated using the remaining pods not set aside or discarded from above.
 <!--
 If there were any missing metrics, the control plane recomputes the average more
 conservatively, assuming those pods were consuming 100% of the desired
-value in case of a scale down, and 0% in case of a scale up.  This dampens
+value in case of a scale down, and 0% in case of a scale up. This dampens
 the magnitude of any potential scale.
 -->
 如果缺失某些度量值，控制平面会更保守地重新计算平均值，在需要缩小时假设这些 Pod 消耗了目标值的 100%，
@@ -325,7 +328,7 @@ of the desired metric, further dampening the magnitude of a scale up.
 
 <!--
 After factoring in the not-yet-ready pods and missing metrics, the
-controller recalculates the usage ratio.  If the new ratio reverses the scale
+controller recalculates the usage ratio. If the new ratio reverses the scale
 direction, or is within the tolerance, the controller doesn't take any scaling
 action. In other cases, the new ratio is used to decide any change to the
 number of Pods.
@@ -335,12 +338,12 @@ number of Pods.
 在其他情况下，新比率用于决定对 Pod 数量的任何更改。
 
 <!--
-Note that the *original* value for the average utilization is reported
+Note that the _original_ value for the average utilization is reported
 back via the HorizontalPodAutoscaler status, without factoring in the
 not-yet-ready pods or missing metrics, even when the new usage ratio is
 used.
 -->
-注意，平均利用率的 **原始** 值是通过 HorizontalPodAutoscaler 状态体现的，
+注意，平均利用率的**原始**值是通过 HorizontalPodAutoscaler 状态体现的，
 而不考虑尚未准备好的 Pod 或缺少的指标，即使使用新的使用率也是如此。
 
 <!--
@@ -360,9 +363,10 @@ the current value.
 这表示，如果一个或多个指标给出的 `desiredReplicas` 值大于当前值，HPA 仍然能实现扩容。
 
 <!--
-Finally, right before HPA scales the target, the scale recommendation is recorded.  The
+Finally, right before HPA scales the target, the scale recommendation is recorded. The
 controller considers all recommendations within a configurable window choosing the
-highest recommendation from within that window. This value can be configured using the `--horizontal-pod-autoscaler-downscale-stabilization` flag, which defaults to 5 minutes.
+highest recommendation from within that window. This value can be configured using the
+`--horizontal-pod-autoscaler-downscale-stabilization` flag, which defaults to 5 minutes.
 This means that scaledowns will occur gradually, smoothing out the impact of rapidly
 fluctuating metric values.
 -->
@@ -377,7 +381,7 @@ fluctuating metric values.
 ## API Object
 
 The Horizontal Pod Autoscaler is an API resource in the Kubernetes
-`autoscaling` API group.  The current stable version can be found in
+`autoscaling` API group. The current stable version can be found in
 the `autoscaling/v2` API version which includes support for scaling on
 memory and custom metrics. The new fields introduced in
 `autoscaling/v2` are preserved as annotations when working with
@@ -405,8 +409,8 @@ More details about the API object can be found at
 
 When managing the scale of a group of replicas using the HorizontalPodAutoscaler,
 it is possible that the number of replicas keeps fluctuating frequently due to the
-dynamic nature of the metrics evaluated. This is sometimes referred to as *thrashing*,
-or *flapping*. It's similar to the concept of *hysteresis* in cybernetics.
+dynamic nature of the metrics evaluated. This is sometimes referred to as _thrashing_,
+or _flapping_. It's similar to the concept of _hysteresis_ in cybernetics.
 -->
 ## 工作量规模的稳定性 {#flapping}
 
@@ -439,7 +443,7 @@ replicas, the StatefulSet directly manages its set of Pods (there is no intermed
 similar to ReplicaSet).
 -->
 如果你对一个副本个数被自动扩缩的 StatefulSet 执行滚动更新，该 StatefulSet
-会直接管理它的 Pod 集合 （不存在类似 ReplicaSet 这样的中间资源）。
+会直接管理它的 Pod 集合（不存在类似 ReplicaSet 这样的中间资源）。
 
 <!--
 ## Support for resource metrics
@@ -452,7 +456,7 @@ like this:
 -->
 ## 对资源指标的支持   {#support-for-resource-metrics}
 
-HPA 的任何目标资源都可以基于其中的 Pods 的资源用量来实现扩缩。
+HPA 的任何目标资源都可以基于其中的 Pod 的资源用量来实现扩缩。
 在定义 Pod 规约时，类似 `cpu` 和 `memory` 这类资源请求必须被设定。
 这些设定值被用来确定资源利用量并被 HPA 控制器用来对目标资源完成扩缩操作。
 要使用基于资源利用率的扩缩，可以像下面这样指定一个指标源：
@@ -493,7 +497,7 @@ pod usage is still within acceptable limits.
 -->
 ### 容器资源指标   {#container-resource-metrics}
 
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
 <!--
 The HorizontalPodAutoscaler API also supports a container metric source where the HPA can track the
@@ -614,8 +618,8 @@ HorizontalPodAutoscaler 采用为每个指标推荐的最大比例，
 <!--
 ## Support for metrics APIs
 
-By default, the HorizontalPodAutoscaler controller retrieves metrics from a series of APIs.  In order for it to access these
-APIs, cluster administrators must ensure that:
+By default, the HorizontalPodAutoscaler controller retrieves metrics from a series of APIs.
+In order for it to access these APIs, cluster administrators must ensure that:
 -->
 ## 对 Metrics API 的支持   {#support-for-metrics-apis}
 
@@ -627,26 +631,31 @@ APIs, cluster administrators must ensure that:
 
 * The corresponding APIs are registered:
 
-   * For resource metrics, this is the `metrics.k8s.io` API, generally provided by [metrics-server](https://github.com/kubernetes-sigs/metrics-server).
+   * For resource metrics, this is the `metrics.k8s.io` [API](/docs/reference/external-api/metrics.v1beta1/),
+     generally provided by [metrics-server](https://github.com/kubernetes-sigs/metrics-server).
      It can be launched as a cluster add-on.
 
-   * For custom metrics, this is the `custom.metrics.k8s.io` API.  It's provided by "adapter" API servers provided by metrics solution vendors.
+   * For custom metrics, this is the `custom.metrics.k8s.io` [API](/docs/reference/external-api/metrics.v1beta1/).
+     It's provided by "adapter" API servers provided by metrics solution vendors.
      Check with your metrics pipeline to see if there is a Kubernetes metrics adapter available.
 
-   * For external metrics, this is the `external.metrics.k8s.io` API.  It may be provided by the custom metrics adapters provided above.
+   * For external metrics, this is the `external.metrics.k8s.io` [API](/docs/reference/external-api/metrics.v1beta1/).
+     It may be provided by the custom metrics adapters provided above.
 -->
 * 启用了 [API 聚合层](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
 
 * 相应的 API 已注册：
 
-   * 对于资源指标，将使用 `metrics.k8s.io` API，一般由 [metrics-server](https://github.com/kubernetes-incubator/metrics-server) 提供。
-     它可以作为集群插件启动。
+  * 对于资源指标，将使用 `metrics.k8s.io` [API](/zh-cn/docs/reference/external-api/metrics.v1beta1/)，
+    一般由 [metrics-server](https://github.com/kubernetes-incubator/metrics-server) 提供。
+    它可以作为集群插件启动。
 
-   * 对于自定义指标，将使用 `custom.metrics.k8s.io` API。
-     它由其他度量指标方案厂商的“适配器（Adapter）” API 服务器提供。
-     检查你的指标管道以查看是否有可用的 Kubernetes 指标适配器。
+  * 对于自定义指标，将使用 `custom.metrics.k8s.io` [API](/zh-cn/docs/reference/external-api/metrics.v1beta1/)。
+    它由其他度量指标方案厂商的“适配器（Adapter）” API 服务器提供。
+    检查你的指标管道以查看是否有可用的 Kubernetes 指标适配器。
 
-   * 对于外部指标，将使用 `external.metrics.k8s.io` API。可能由上面的自定义指标适配器提供。
+  * 对于外部指标，将使用 `external.metrics.k8s.io` [API](/zh-cn/docs/reference/external-api/metrics.v1beta1/)。
+    可能由上面的自定义指标适配器提供。
 
 <!--
 For more information on these different metrics paths and how they differ please see the relevant design proposals for
@@ -660,7 +669,8 @@ and [external.metrics.k8s.io](https://git.k8s.io/design-proposals-archive/instru
 [external.metrics.k8s.io](https://git.k8s.io/design-proposals-archive/instrumentation/external-metrics-api.md)。
 
 <!--
-For examples of how to use them see [the walkthrough for using custom metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics)
+For examples of how to use them see
+[the walkthrough for using custom metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics)
 and [the walkthrough for using external metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-metrics-not-related-to-kubernetes-objects).
 -->
 关于如何使用它们的示例，
@@ -692,11 +702,11 @@ under the `behavior` field.
 
 <!--
 You can specify a _stabilization window_ that prevents [flapping](#flapping)
-the replica count for a scaling target. Scaling policies also let you controls the
+the replica count for a scaling target. Scaling policies also let you control the
 rate of change of replicas while scaling.
 -->
 
-你可以指定一个 “稳定窗口”，以防止扩缩目标的副本计数发生[波动](#flapping)。
+你可以指定一个“稳定窗口”，以防止扩缩目标的副本计数发生[波动](#flapping)。
 扩缩策略还允许你在扩缩时控制副本的变化率。
 
 <!--
@@ -726,6 +736,7 @@ behavior:
 
 <!--
 `periodSeconds` indicates the length of time in the past for which the policy must hold true.
+The maximum value that you can set for `periodSeconds` is 1800 (half an hour).
 The first policy _(Pods)_ allows at most 4 replicas to be scaled down in one minute. The second policy
 _(Percent)_ allows at most 10% of the current replicas to be scaled down in one minute.
 
@@ -739,6 +750,7 @@ of current replicas. When the number of replicas falls below 40 the first policy
 and 4 replicas will be reduced at a time.
 -->
 `periodSeconds` 表示在过去的多长时间内要求策略值为真。
+你可以设置 `periodSeconds` 的最大值为 1800（半小时）。
 第一个策略（Pods）允许在一分钟内最多缩容 4 个副本。第二个策略（Percent）
 允许在一分钟内最多缩容当前副本个数的百分之十。
 
@@ -837,13 +849,13 @@ for scaling down which allows a 100% of the currently running replicas to be rem
 means the scaling target can be scaled down to the minimum allowed replicas.
 For scaling up there is no stabilization window. When the metrics indicate that the target should be
 scaled up the target is scaled up immediately. There are 2 policies where 4 pods or a 100% of the currently
-running replicas will be added every 15 seconds till the HPA reaches its steady state.
+running replicas may at most be added every 15 seconds till the HPA reaches its steady state.
 -->
 用于缩小稳定窗口的时间为 **300** 秒（或是 `--horizontal-pod-autoscaler-downscale-stabilization`
 参数设定值）。
 只有一种缩容的策略，允许 100% 删除当前运行的副本，这意味着扩缩目标可以缩小到允许的最小副本数。
 对于扩容，没有稳定窗口。当指标显示目标应该扩容时，目标会立即扩容。
-这里有两种策略，每 15 秒添加 4 个 Pod 或 100% 当前运行的副本数，直到 HPA 达到稳定状态。
+这里有两种策略，每 15 秒最多添加 4 个 Pod 或 100% 当前运行的副本数，直到 HPA 达到稳定状态。
 
 <!--
 ### Example: change downscale stabilization window
@@ -918,6 +930,7 @@ behavior:
   scaleDown:
     selectPolicy: Disabled
 ```
+
 <!--
 ## Support for HorizontalPodAutoscaler in kubectl
 
@@ -936,7 +949,7 @@ Finally, you can delete an autoscaler using `kubectl delete hpa`.
 <!--
 In addition, there is a special `kubectl autoscale` command for creating a HorizontalPodAutoscaler object.
 For instance, executing `kubectl autoscale rs foo --min=2 --max=5 --cpu-percent=80`
-will create an autoscaler for ReplicaSet *foo*, with target CPU utilization set to `80%`
+will create an autoscaler for ReplicaSet _foo_, with target CPU utilization set to `80%`
 and the number of replicas between 2 and 5.
 -->
 此外，还有一个特殊的 `kubectl autoscale` 命令用于创建 HorizontalPodAutoscaler 对象。
@@ -948,7 +961,7 @@ and the number of replicas between 2 and 5.
 
 You can implicitly deactivate the HPA for a target without the
 need to change the HPA configuration itself. If the target's desired replica count
-is set to 0, and the HPA's minimum replica count is greater than 0, the HPA 
+is set to 0, and the HPA's minimum replica count is greater than 0, the HPA
 stops adjusting the target (and sets the `ScalingActive` Condition on itself
 to `false`) until you reactivate it by manually adjusting the target's desired
 replica count or HPA's minimum replica count.
@@ -965,7 +978,7 @@ replica count or HPA's minimum replica count.
 
 When an HPA is enabled, it is recommended that the value of `spec.replicas` of
 the Deployment and / or StatefulSet be removed from their
-{{< glossary_tooltip text="manifest(s)" term_id="manifest" >}}.  If this isn't done, any time
+{{< glossary_tooltip text="manifest(s)" term_id="manifest" >}}. If this isn't done, any time
 a change to that object is applied, for example via `kubectl apply -f
 deployment.yaml`, this will instruct Kubernetes to scale the current number of Pods
 to the value of the `spec.replicas` key. This may not be
@@ -984,9 +997,9 @@ Deployment 和/或 StatefulSet 的 `spec.replicas` 的值。
 Keep in mind that the removal of `spec.replicas` may incur a one-time
 degradation of Pod counts as the default value of this key is 1 (reference
 [Deployment Replicas](/docs/concepts/workloads/controllers/deployment#replicas)).
-Upon the update, all Pods except 1 will begin their termination procedures.  Any
+Upon the update, all Pods except 1 will begin their termination procedures. Any
 deployment application afterwards will behave as normal and respect a rolling
-update configuration as desired.  You can avoid this degradation by choosing one of the following two
+update configuration as desired. You can avoid this degradation by choosing one of the following two
 methods based on how you are modifying your deployments:
 -->
 请记住，删除 `spec.replicas` 可能会导致 Pod 计数一次性降级，因为此键的默认值为 1
@@ -1000,10 +1013,10 @@ methods based on how you are modifying your deployments:
 <!--
 1. `kubectl apply edit-last-applied deployment/<deployment_name>`
 2. In the editor, remove `spec.replicas`. When you save and exit the editor, `kubectl`
-    applies the update.  No changes to Pod counts happen at this step.
+   applies the update. No changes to Pod counts happen at this step.
 3. You can now remove `spec.replicas` from the manifest. If you use source code management,
-    also commit your changes or take whatever other steps for revising the source code
-    are appropriate for how you track updates.
+   also commit your changes or take whatever other steps for revising the source code
+   are appropriate for how you track updates.
 4. From here on out you can run `kubectl apply -f deployment.yaml`
 -->
 1. `kubectl apply edit-last-applied deployment/<Deployment 名称>`
@@ -1053,4 +1066,3 @@ For more information on HorizontalPodAutoscaler:
 * 如果你想编写自己的自定义指标适配器，
   请查看 [boilerplate](https://github.com/kubernetes-sigs/custom-metrics-apiserver) 以开始使用。
 * 阅读 [API 参考](/zh-cn/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler-v2/)。
-

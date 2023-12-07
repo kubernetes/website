@@ -1,7 +1,7 @@
 ---
 title: 使用 Cilium 提供 NetworkPolicy
 content_type: task
-weight: 20
+weight: 30
 ---
 
 <!--
@@ -10,18 +10,18 @@ reviewers:
 - aanm
 title: Use Cilium for NetworkPolicy
 content_type: task
-weight: 20
+weight: 30
 -->
 
 <!-- overview -->
 <!--
 This page shows how to use Cilium for NetworkPolicy.
 
-For background on Cilium, read the [Introduction to Cilium](https://docs.cilium.io/en/stable/intro).
+For background on Cilium, read the [Introduction to Cilium](https://docs.cilium.io/en/stable/overview/intro).
 -->
 本页展示如何使用 Cilium 提供 NetworkPolicy。
 
-关于 Cilium 的背景知识，请阅读 [Cilium 介绍](https://docs.cilium.io/en/stable/intro)。
+关于 Cilium 的背景知识，请阅读 [Cilium 介绍](https://docs.cilium.io/en/stable/overview/intro)。
 
 ## {{% heading "prerequisites" %}}
 
@@ -129,14 +129,14 @@ L7 （如 HTTP）的安全策略。
 ## Deploying Cilium for Production Use
 
 For detailed instructions around deploying Cilium for production, see:
-[Cilium Kubernetes Installation Guide](https://docs.cilium.io/en/stable/concepts/kubernetes/intro/)
+[Cilium Kubernetes Installation Guide](https://docs.cilium.io/en/stable/network/kubernetes/concepts/)
 This documentation includes detailed requirements, instructions and example
 production DaemonSet files.
  -->
 ## 部署 Cilium 用于生产用途   {#deployment-cilium-for-production-use}
 
 关于部署 Cilium 用于生产的详细说明，请参见
-[Cilium Kubernetes 安装指南](https://docs.cilium.io/en/stable/concepts/kubernetes/intro/)。
+[Cilium Kubernetes 安装指南](https://docs.cilium.io/en/stable/network/kubernetes/concepts/)。
 此文档包括详细的需求、说明和生产用途 DaemonSet 文件示例。
 
 <!-- discussion -->

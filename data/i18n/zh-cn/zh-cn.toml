@@ -270,6 +270,80 @@ other = "准备开始"
 [previous_patches]
 other = "补丁版本："
 
+# 当 JavaScript 不可用时显示以下文本。
+[release_binary_alternate_links]
+other  = """你可以在 [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG)
+文件中找到下载 Kubernetes 组件（及其校验和）的链接。另外你还可以使用
+[downloadkubernetes.com](https://www.downloadkubernetes.com/) 筛选版本和架构。"""
+
+[release_binary_arch]
+other  = "架构"
+
+[release_binary_arch_option]
+other = "架构"
+
+[release_binary_copy_link]
+other = "复制链接"
+
+[release_binary_copy_link_certifcate]
+other = "证书"
+
+[release_binary_copy_link_checksum]
+other = "校验和"
+
+[release_binary_copy_link_signature]
+other = "签名"
+
+[release_binary_copy_link_tooltip]
+other = "复制到剪贴板"
+
+[release_binary_download]
+other  = "下载二进制"
+
+[release_binary_download_tooltip]
+other = "下载二进制文件"
+
+[release_binary_options]
+other  = "下载选项"
+
+[release_binary_os]
+other = "操作系统"
+
+[release_binary_os_option]
+other = "操作系统"
+
+[release_binary_os_darwin]
+other = "darwin"
+
+[release_binary_os_linux]
+other = "linux"
+
+[release_binary_os_windows]
+other = "windows"
+
+[release_binary_table_caption]
+other = "下载 Kubernetes 组件二进制"
+
+# 注：<current-version> 是通过 'release-binaries' 短代码设置的实际版本号的占位符。
+# 请勿翻译或修改 <current-version> 占位符。
+[release_binary_section]
+other = """你可以从下表找到下载 <current-version> Kubernetes 组件（及其校验和）的链接。
+若想下载早期支持的版本，可以查阅各自的文档链接了解[早期版本](https://kubernetes.io/zh-cn/docs/home/supported-doc-versions/#versions-older)，
+或使用 [downloadkubernetes.com](https://www.downloadkubernetes.com/)。"""
+
+# 注：<current-version> 和 <current-changelog-url> 是通过 'release-binaries' 短代码设置的占位符。
+# 请勿翻译或修改 <current-version> 和 <current-changelog-url> 占位符。
+[release_binary_section_note]
+other = """要下载 <current-version> Kubernetes 组件更早的补丁版本（及其校验和），请参阅
+[CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG/CHANGELOG-<current-changelog-url>.md)
+文件。""" 
+
+[release_binary_version]
+other  = "版本"
+
+[release_binary_version_option]
+other = "最新版本"
+
 [release_date_after]
 other = "）"
 

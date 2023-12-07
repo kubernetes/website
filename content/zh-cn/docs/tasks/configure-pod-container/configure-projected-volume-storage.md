@@ -1,7 +1,7 @@
 ---
 title: 配置 Pod 使用投射卷作存储
 content_type: task
-weight: 70
+weight: 100
 ---
 
 <!--
@@ -10,7 +10,7 @@ reviewers:
 - pmorie
 title: Configure a Pod to Use a Projected Volume for Storage
 content_type: task
-weight: 70
+weight: 100
 -->
 
 <!-- overview -->
@@ -20,14 +20,14 @@ several existing volume sources into the same directory. Currently, `secret`, `c
 and `serviceAccountToken` volumes can be projected.
 -->
 
-本文介绍怎样通过[`projected`](/zh-cn/docs/concepts/storage/volumes/#projected) 卷将现有的多个卷资源挂载到相同的目录。
+本文介绍怎样通过 [`projected`](/zh-cn/docs/concepts/storage/volumes/#projected) 卷将现有的多个卷资源挂载到相同的目录。
 当前，`secret`、`configMap`、`downwardAPI` 和 `serviceAccountToken` 卷可以被投射。
 
 <!--
 `serviceAccountToken` is not a volume type.
 -->
 {{< note >}}
-`serviceAccountToken` 不是一种卷类型
+`serviceAccountToken` 不是一种卷类型。
 {{< /note >}}
 
 ## {{% heading "prerequisites" %}}
@@ -39,9 +39,7 @@ and `serviceAccountToken` volumes can be projected.
 <!--
 ## Configure a projected volume for a pod
 
-In this exercise, you create username and password {{< glossary_tooltip text="Secrets" term_id="secret" >}} from local files. 
-You then create a Pod that runs one container, using a [`projected`](/docs/concepts/storage/volumes/#projected) Volume
-to mount the Secrets into the same shared directory.
+In this exercise, you create username and password {{< glossary_tooltip text="Secrets" term_id="secret" >}} from local files. You then create a Pod that runs one container, using a [`projected`](/docs/concepts/storage/volumes/#projected) Volume to mount the Secrets into the same shared directory.
 
 Here is the configuration file for the Pod:
 -->
@@ -54,13 +52,13 @@ Here is the configuration file for the Pod:
 
 下面是 Pod 的配置文件：
 
-{{< codenew file="pods/storage/projected.yaml" >}}
+{{% code_sample file="pods/storage/projected.yaml" %}}
 
 1. <!--Create the Secrets:-->
-   创建 Secret:
+   创建 Secret：
 
    ```shell
-   # 创建包含用户名和密码的文件:
+   # 创建包含用户名和密码的文件：
    echo -n "admin" > ./username.txt
    echo -n "1f2d1e2e67df" > ./password.txt
 
@@ -115,13 +113,13 @@ Here is the configuration file for the Pod:
 <!--
 Delete the Pod and the Secrets:
 -->
-删除 Pod 和 Secret:
+删除 Pod 和 Secret：
 
 ```shell
 kubectl delete pod test-projected-volume
 kubectl delete secret user pass
 ```
-   
+
 ## {{% heading "whatsnext" %}}
 
 <!--
@@ -129,5 +127,5 @@ kubectl delete secret user pass
 * Read the [all-in-one volume](https://git.k8s.io/design-proposals-archive/node/all-in-one-volume.md) design document.
 -->
 
-* 进一步了解[`projected`](/zh-cn/docs/concepts/storage/volumes/#projected) 卷。
+* 进一步了解 [`projected`](/zh-cn/docs/concepts/storage/volumes/#projected) 卷。
 * 阅读[一体卷](https://git.k8s.io/design-proposals-archive/node/all-in-one-volume.md)设计文档。

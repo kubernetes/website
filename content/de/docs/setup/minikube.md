@@ -52,7 +52,7 @@ Creating machine...
 Starting local Kubernetes cluster...
 ```
 ```shell
-kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.10
+kubectl create deployment hello-minikube --image=registry.k8s.io/echoserver:1.10
 ```
 ```
 deployment.apps/hello-minikube created

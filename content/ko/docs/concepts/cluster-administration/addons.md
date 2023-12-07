@@ -1,6 +1,7 @@
 ---
 title: 애드온 설치
 content_type: concept
+weight: 120
 ---
 
 <!-- overview -->

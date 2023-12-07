@@ -28,7 +28,7 @@ Kubelet memiliki _plugin_ jaringan bawaan tunggal, dan jaringan bawaan umum untu
 
 ## Persyaratan _Plugin_ Jaringan
 
-Selain menyediakan [antarmuka `NetworkPlugin`](https://github.com/kubernetes/kubernetes/tree/{{< param "fullversion" >}}/pkg/kubelet/dockershim/network/plugins.go) untuk mengonfigurasi dan membersihkan jaringan Pod, _plugin_ ini mungkin juga memerlukan dukungan khusus untuk kube-proxy. Proksi _iptables_ jelas tergantung pada _iptables_, dan _plugin_ ini mungkin perlu memastikan bahwa lalu lintas kontainer tersedia untuk _iptables_. Misalnya, jika plugin menghubungkan kontainer ke _bridge_ Linux, _plugin_ harus mengatur nilai sysctl `net/bridge/bridge-nf-call-iptables` menjadi `1` untuk memastikan bahwa proksi _iptables_ berfungsi dengan benar. Jika _plugin_ ini tidak menggunakan _bridge_ Linux (melainkan sesuatu seperti Open vSwitch atau mekanisme lainnya), _plugin_ ini harus memastikan lalu lintas kontainer dialihkan secara tepat untuk proksi.
+Selain menyediakan [antarmuka `NetworkPlugin`](https://github.com/kubernetes/kubernetes/tree/v{{< skew currentPatchVersion >}}/pkg/kubelet/dockershim/network/plugins.go) untuk mengonfigurasi dan membersihkan jaringan Pod, _plugin_ ini mungkin juga memerlukan dukungan khusus untuk kube-proxy. Proksi _iptables_ jelas tergantung pada _iptables_, dan _plugin_ ini mungkin perlu memastikan bahwa lalu lintas kontainer tersedia untuk _iptables_. Misalnya, jika plugin menghubungkan kontainer ke _bridge_ Linux, _plugin_ harus mengatur nilai sysctl `net/bridge/bridge-nf-call-iptables` menjadi `1` untuk memastikan bahwa proksi _iptables_ berfungsi dengan benar. Jika _plugin_ ini tidak menggunakan _bridge_ Linux (melainkan sesuatu seperti Open vSwitch atau mekanisme lainnya), _plugin_ ini harus memastikan lalu lintas kontainer dialihkan secara tepat untuk proksi.
 
 Secara bawaan jika tidak ada _plugin_ jaringan Kubelet yang ditentukan, _plugin_ `noop` digunakan, yang menetapkan `net/bridge/bridge-nf-call-iptables=1` untuk memastikan konfigurasi sederhana (seperti Docker dengan sebuah _bridge_) bekerja dengan benar dengan proksi _iptables_.
 
@@ -70,7 +70,8 @@ Contoh:
     },
     {
       "type": "portmap",
-      "capabilities": {"portMappings": true}
+      "capabilities": {"portMappings": true},
+      "externalSetMarkChain": "KUBE-MARK-MASQ"
     }
   ]
 }
@@ -154,6 +155,3 @@ Opsi ini disediakan untuk _plugin_ jaringan; Saat ini **hanya kubenet yang mendu
 
 
 ## {{% heading "whatsnext" %}}
-
-
-

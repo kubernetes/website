@@ -45,6 +45,30 @@ body {
   }
 }
 
+/* Complex table layout support */
+
+.td-content, body.td-content {
+  table.complex-layout {
+    tbody tr,
+    tbody tr:nth-of-type(2n+1) {
+      /* Avoid stripes */
+      background-color: initial;
+    }
+    tbody tr:not(:last-child) > td[colspan] {
+      /* provide a visual break between rows */
+      padding-bottom: 1.5em;
+    }
+    tbody > tr > th[scope="row"]:first-child {
+      min-width: 9em;
+    }
+    tbody > tr > th[rowspan] {
+      vertical-align: middle;
+    }
+    border-collapse: separate;
+    border-spacing: 0 0;
+    max-width: calc(max(min(100vw, 110%), 40vw));
+  }
+}
 
 /* Emphasize first paragraph of running text on site front page */
 body.td-home main[role="main"] > section:first-of-type .content p:first-child {
@@ -293,20 +317,63 @@ footer {
 /* DOCS */
 
 .launch-cards {
-  button {
-    cursor: pointer;
-    box-sizing: border-box;
-    background: none;
-    margin: 0;
-    border: 0;
-  }
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 1em;
+  .launch-card {
+    display: flex;
+    padding: 0 30px 0 0;
+    .card-content{
+      width: fit-content;
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      row-gap: 1em;
+      h2 {
+        font-size: 1.75em;
+        padding: 0.5em 0;
+        margin: 0;
+        a {
+          display: none;
+        }
+      }
+  
+      p {
+        margin: 0;
+      }
+  
+      ul {
+        list-style: none;
+        height: fit-content;
+        line-height: 1.6;
+        padding: 0;
+        margin-block-end: auto;
+      }
+  
+      br {
+        display: none;
+      }
+  
+      button {
+        height: min-content;
+        width: auto;
+        padding: .5em 1em;
+        cursor: pointer;
+        box-sizing: border-box;
+      }
+    }
+    }
 
-  ul,
-  li {
-    list-style: none;
-    padding-left: 0;
-  }
+  @media only screen and (max-width: 1000px) {
+    grid-template-columns: 1fr;
+  
+    .launch-card {
+      width: 100%;
+    }
 }
+}
+
 
 // table of contents
 .td-toc {
@@ -325,17 +392,64 @@ footer {
 }
 
 main {
-  .td-content table code,
-  .td-content>table td {
-    word-break: break-word;
+
+/* SCSS Related to the Metrics list */
+
+  div.metric:nth-of-type(odd) { // Look & Feel , Aesthetics
+    background-color: $light-grey;
   }
 
-  table.no-word-break td,
-  table.no-word-break code {
-    word-break: normal;
+  div.metrics {
+
+    .metric {
+      div:empty{
+        display: none;
+      }
+
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      gap: .75em;
+      padding:.75em .75em .75em .75em;
+  
+      .metric_name{
+        font-size: large;
+        font-weight: bold;
+        word-break: break-word;
+      }
+  
+      label{
+        font-weight: bold;
+        margin-right: .5em;
+      }
+      ul {
+        li:empty{
+          display: none;
+        }
+        display: flex;
+        flex-direction: column;
+        gap: .75em;
+        flex-wrap: wrap;
+        li.metric_labels_varying{
+          span{
+                display: inline-block;
+                background-color: rgb(240, 239, 239);
+                padding: 0 0.5em;
+                margin-right: .35em;
+                font-family: monospace;
+                border: 1px solid rgb(230 , 230 , 230);
+                border-radius: 5%;
+                margin-bottom: .35em;
+          }
+        }
+  
+      }
+      
+    }
+
+
   }
 }
-
 
 // blockquotes and callouts
 
@@ -562,19 +676,6 @@ main.content {
 
     span {
       margin-left: 0.5rem;
-    }
-  }
-}
-
-/* COMMUNITY legacy styles */
-/* Leave these in place until localizations are caught up */
-
-.newcommunitywrapper {
-  .news {
-    margin-left: 0;
-
-    @media screen and (min-width: 768px) {
-      margin-left: 10%;
     }
   }
 }
@@ -882,6 +983,16 @@ div.alert > em.javascript-required {
 // Adjust Bing search result page
 #bing-results-container {
     padding: 1em;
+}
+.bing-result {
+  margin-bottom: 1em;
+}
+.bing-result-url {
+  font-size: 14px;
+}
+.bing-result-snippet {
+  color: #666666;
+  font-size: 14px;
 }
 #bing-pagination-container {
     padding: 1em;

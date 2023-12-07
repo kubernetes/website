@@ -8,12 +8,10 @@ weight: 10
 This tutorial applies only for new clusters.
 {{% /alert %}}
 
-Pod Security admission (PSA) is enabled by default in v1.23 and later, as it has
-[graduated to beta](/blog/2021/12/09/pod-security-admission-beta/).
-Pod Security
-is an admission controller that carries out checks against the Kubernetes
+Pod Security is an admission controller that carries out checks against the Kubernetes
 [Pod Security Standards](/docs/concepts/security/pod-security-standards/) when new pods are
-created. This tutorial shows you how to enforce the `baseline` Pod Security
+created. It is a feature GA'ed in v1.25.
+This tutorial shows you how to enforce the `baseline` Pod Security
 Standard at the cluster level which applies a standard configuration
 to all namespaces in a cluster.
 
@@ -27,8 +25,13 @@ check the documentation for that version.
 
 Install the following on your workstation:
 
-- [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
+- [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
 - [kubectl](/docs/tasks/tools/)
+
+This tutorial demonstrates what you can configure for a Kubernetes cluster that you fully
+control. If you are learning how to configure Pod Security Admission for a managed cluster
+where you are not able to configure the control plane, read
+[Apply Pod Security Standards at the namespace level](/docs/tutorials/security/ns-level-pss).
 
 ## Choose the right Pod Security Standard to apply
 
@@ -42,22 +45,22 @@ that are most appropriate for your configuration, do the following:
 1. Create a cluster with no Pod Security Standards applied:
 
    ```shell
-   kind create cluster --name psa-wo-cluster-pss --image kindest/node:v1.24.0
+   kind create cluster --name psa-wo-cluster-pss
    ```
-   The output is similar to this:
+   The output is similar to:
    ```
    Creating cluster "psa-wo-cluster-pss" ...
-   ✓ Ensuring node image (kindest/node:v1.24.0) 🖼
-   ✓ Preparing nodes 📦  
+   ✓ Ensuring node image (kindest/node:v{{< skew currentPatchVersion >}}) 🖼
+   ✓ Preparing nodes 📦
    ✓ Writing configuration 📜
    ✓ Starting control-plane 🕹️
    ✓ Installing CNI 🔌
    ✓ Installing StorageClass 💾
    Set kubectl context to "kind-psa-wo-cluster-pss"
    You can now use your cluster with:
-   
+
    kubectl cluster-info --context kind-psa-wo-cluster-pss
-   
+
    Thanks for using kind! 😊
    ```
 
@@ -72,7 +75,7 @@ that are most appropriate for your configuration, do the following:
    Kubernetes control plane is running at https://127.0.0.1:61350
 
    CoreDNS is running at https://127.0.0.1:61350/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
-   
+
    To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
    ```
 
@@ -82,7 +85,7 @@ that are most appropriate for your configuration, do the following:
    kubectl get ns
    ```
    The output is similar to this:
-   ```     
+   ```
    NAME                 STATUS   AGE
    default              Active   9m30s
    kube-node-lease      Active   9m32s
@@ -99,8 +102,9 @@ that are most appropriate for your configuration, do the following:
       kubectl label --dry-run=server --overwrite ns --all \
       pod-security.kubernetes.io/enforce=privileged
       ```
-      The output is similar to this:
-      ```      
+
+      The output is similar to:
+      ```
       namespace/default labeled
       namespace/kube-node-lease labeled
       namespace/kube-public labeled
@@ -108,12 +112,13 @@ that are most appropriate for your configuration, do the following:
       namespace/local-path-storage labeled
       ```
    2. Baseline
-      ```shell    
+      ```shell
       kubectl label --dry-run=server --overwrite ns --all \
       pod-security.kubernetes.io/enforce=baseline
       ```
-      The output is similar to this:
-      ```   
+
+      The output is similar to:
+      ```
       namespace/default labeled
       namespace/kube-node-lease labeled
       namespace/kube-public labeled
@@ -123,15 +128,16 @@ that are most appropriate for your configuration, do the following:
       Warning: kube-proxy-m6hwf: host namespaces, hostPath volumes, privileged
       namespace/kube-system labeled
       namespace/local-path-storage labeled
-      ```   
+      ```
 
    3. Restricted
       ```shell
       kubectl label --dry-run=server --overwrite ns --all \
       pod-security.kubernetes.io/enforce=restricted
       ```
-      The output is similar to this:
-      ```   
+
+      The output is similar to:
+      ```
       namespace/default labeled
       namespace/kube-node-lease labeled
       namespace/kube-public labeled
@@ -180,7 +186,7 @@ following:
 
    ```
    mkdir -p /tmp/pss
-   cat <<EOF > /tmp/pss/cluster-level-pss.yaml 
+   cat <<EOF > /tmp/pss/cluster-level-pss.yaml
    apiVersion: apiserver.config.k8s.io/v1
    kind: AdmissionConfiguration
    plugins:
@@ -212,7 +218,7 @@ following:
 1. Configure the API server to consume this file during cluster creation:
 
    ```
-   cat <<EOF > /tmp/pss/cluster-config.yaml 
+   cat <<EOF > /tmp/pss/cluster-config.yaml
    kind: Cluster
    apiVersion: kind.x-k8s.io/v1alpha4
    nodes:
@@ -246,7 +252,7 @@ following:
    ```
 
    {{<note>}}
-   If you use Docker Desktop with KinD on macOS, you can
+   If you use Docker Desktop with *kind* on macOS, you can
    add `/tmp` as a Shared Directory under the menu item
    **Preferences > Resources > File Sharing**.
    {{</note>}}
@@ -255,22 +261,22 @@ following:
    these Pod Security Standards:
 
    ```shell
-   kind create cluster --name psa-with-cluster-pss --image kindest/node:v1.24.0 --config /tmp/pss/cluster-config.yaml
+   kind create cluster --name psa-with-cluster-pss --config /tmp/pss/cluster-config.yaml
    ```
    The output is similar to this:
    ```
    Creating cluster "psa-with-cluster-pss" ...
-    ✓ Ensuring node image (kindest/node:v1.24.0) 🖼 
-    ✓ Preparing nodes 📦  
-    ✓ Writing configuration 📜 
-    ✓ Starting control-plane 🕹️ 
-    ✓ Installing CNI 🔌 
-    ✓ Installing StorageClass 💾 
+    ✓ Ensuring node image (kindest/node:v{{< skew currentPatchVersion >}}) 🖼
+    ✓ Preparing nodes 📦
+    ✓ Writing configuration 📜
+    ✓ Starting control-plane 🕹️
+    ✓ Installing CNI 🔌
+    ✓ Installing StorageClass 💾
    Set kubectl context to "kind-psa-with-cluster-pss"
    You can now use your cluster with:
-    
+
    kubectl cluster-info --context kind-psa-with-cluster-pss
-    
+
    Have a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community 🙂
    ```
 
@@ -281,36 +287,23 @@ following:
    The output is similar to this:
    ```
    Kubernetes control plane is running at https://127.0.0.1:63855
-
    CoreDNS is running at https://127.0.0.1:63855/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
-  
+
    To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
    ```
-1. Create the following Pod specification for a minimal configuration in the default namespace:
 
-   ```
-   cat <<EOF > /tmp/pss/nginx-pod.yaml
-   apiVersion: v1
-   kind: Pod
-   metadata:
-     name: nginx
-   spec:
-     containers:
-       - image: nginx
-         name: nginx
-         ports:
-           - containerPort: 80
-   EOF
-   ```
-1. Create the Pod in the cluster:
+1. Create a Pod in the default namespace:
+
+    {{% code_sample file="security/example-baseline-pod.yaml" %}}
 
    ```shell
-   kubectl apply -f /tmp/pss/nginx-pod.yaml
+   kubectl apply -f https://k8s.io/examples/security/example-baseline-pod.yaml
    ```
-   The output is similar to this:
+
+   The pod is started normally, but the output includes a warning:
    ```
-    Warning: would violate PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container "nginx" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container "nginx" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "nginx" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "nginx" must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost")
-    pod/nginx created
+   Warning: would violate PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container "nginx" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container "nginx" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "nginx" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "nginx" must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost")
+   pod/nginx created
    ```
 
 ## Clean up

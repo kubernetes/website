@@ -68,7 +68,7 @@ end
 subgraph second[समीक्षा]
 direction TB
    T[ ] -.-
-   D[K8s/website<br>रिपॉजिटरी<br>को देखें] --- E[Hugo स्टैटिक साइट<br>जनरेटर<br>को देखें]
+   D[kubernetes/website<br>रिपॉजिटरी<br>को देखें] --- E[Hugo स्टैटिक साइट<br>जनरेटर<br>को देखें]
    E --- F[मूलभूत GitHub<br>कमांड समझें]
    F --- G[ओपन PR की समीक्षा करे<br>और समीक्षा प्रक्रिया<br>को बदलें]
 end
@@ -115,7 +115,7 @@ flowchart LR
     direction TB
     S[ ] -.-
     G[दूसरे K8s मेम्बर्स के<br>PRs की समीक्षा करें] -->
-    A[अपने पहले इशू (गुफ फर्स्ट इशू)<br>के लिए K8s/website<br>की इशू सूची पर जाएं] --> B[PR ओपन करें!!]
+    A[अपने पहले इशू (गुफ फर्स्ट इशू)<br>के लिए kubernetes/website<br>की इशू सूची पर जाएं] --> B[PR ओपन करें!!]
     end
     subgraph first[सूचित तैयारी]
     direction TB

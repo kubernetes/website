@@ -1,14 +1,3 @@
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
 <!-- 
 Install the kube-proxy addon to a Kubernetes cluster 
 -->
@@ -17,13 +6,11 @@ Install the kube-proxy addon to a Kubernetes cluster
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
 Install the kube-proxy addon components via the API server.
 -->
-
 通过 API 服务器安装 kube-proxy 附加组件。
 
 ```
@@ -33,7 +20,6 @@ kubeadm init phase addon kube-proxy [flags]
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -97,6 +83,18 @@ kubeadm init phase addon kube-proxy [flags]
 </tr>
 
 <tr>
+<td colspan="2">--dry-run</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+<p>Don't apply any changes; just output what would be done.</p>
+-->
+<p>不做任何更改；只输出将要执行的操作。</p>
+</td>
+</tr>
+
+<tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
@@ -104,7 +102,7 @@ kubeadm init phase addon kube-proxy [flags]
 <!--
 <p>help for kube-proxy</p>
 -->
-<p>kube-proxy 操作的帮助命令</p>
+<p>kube-proxy 操作的帮助命令。</p>
 </td>
 </tr>
 
@@ -121,7 +119,7 @@ kubeadm init phase addon kube-proxy [flags]
 <!--
 <p>Choose a container registry to pull control plane images from</p>
 -->
-<p>选择用于拉取控制平面镜像的容器仓库</p>
+<p>选择用于拉取控制平面镜像的容器仓库。</p>
 </td>
 </tr>
 
@@ -178,7 +176,7 @@ kubeadm init phase addon kube-proxy [flags]
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--Print the addon manifests to STDOUT instead of installing them
 -->
-向 STDOUT 打印插件清单，而非安装这些插件
+向 STDOUT 打印插件清单，而非安装这些插件。
 </p></td>
 </tr>
 
@@ -188,7 +186,6 @@ kubeadm init phase addon kube-proxy [flags]
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 继承于父命令的选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -212,4 +209,3 @@ kubeadm init phase addon kube-proxy [flags]
 
 </tbody>
 </table>
-

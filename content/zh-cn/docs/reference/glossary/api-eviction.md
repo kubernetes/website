@@ -48,8 +48,7 @@ API-initiated eviction is not the same as [node-pressure eviction](/docs/concept
 API 发起的驱逐取决于你配置的 [`PodDisruptionBudgets`](/zh-cn/docs/tasks/run-application/configure-pdb/)
 和 [`terminationGracePeriodSeconds`](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle#pod-termination)。
 
-API 发起的驱逐不同于
-[节点压力引发的驱逐](/zh-cn/docs/concepts/scheduling-eviction/node-pressure-eviction/)。
+API 发起的驱逐不同于[节点压力引发的驱逐](/zh-cn/docs/concepts/scheduling-eviction/node-pressure-eviction/)。
 
 <!--
 * See [API-initiated eviction](/docs/concepts/scheduling-eviction/api-eviction/) for more information.

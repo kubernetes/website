@@ -36,7 +36,7 @@ You need the `cfssl` tool. You can download `cfssl` from
 
 Some steps in this page use the `jq` tool. If you don't have `jq`, you can
 install it via your operating system's software sources, or fetch it from
-[https://stedolan.github.io/jq/](https://stedolan.github.io/jq/).
+[https://jqlang.github.io/jq/](https://jqlang.github.io/jq/).
 
 <!-- steps -->
 
@@ -236,7 +236,7 @@ This produces a certificate authority key file (`ca-key.pem`) and certificate (`
 
 ### Issue a certificate
 
-{{< codenew file="tls/server-signing-config.json" >}}
+{{% code_sample file="tls/server-signing-config.json" %}}
 
 Use a `server-signing-config.json` signing configuration and the certificate authority key file 
 and certificate to sign the certificate request:
@@ -267,7 +267,7 @@ kubectl get csr my-svc.my-namespace -o json | \
 ```
 
 {{< note >}}
-This uses the command line tool [`jq`](https://stedolan.github.io/jq/) to populate the base64-encoded
+This uses the command line tool [`jq`](https://jqlang.github.io/jq/) to populate the base64-encoded
 content in the `.status.certificate` field.
 If you do not have `jq`, you can also save the JSON output to a file, populate this field manually, and
 upload the resulting file.

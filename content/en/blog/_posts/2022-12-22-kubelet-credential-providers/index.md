@@ -69,7 +69,7 @@ in `CredentialProviderResponse`. When the value is `Image`, the kubelet will onl
 match the image of the first request. When the value is `Registry`, the kubelet will use cached credentials for any subsequent image pulls
 destined for the same registry host but using different paths (for example, `gcr.io/foo/bar` and `gcr.io/bar/foo` refer to different images
 from the same registry). Lastly, when the value is `Global`, the kubelet will use returned credentials for all images that match against
-the plugin, including images that can map to different registry hosts (for example, gcr.io vs k8s.gcr.io). The `cacheKeyType` field is required by plugin
+the plugin, including images that can map to different registry hosts (for example, gcr.io vs registry.k8s.io (previously k8s.gcr.io)). The `cacheKeyType` field is required by plugin
 implementations.
 
 ```json
@@ -118,7 +118,7 @@ Below is an overview of how the Kubernetes project is using kubelet credential p
 
 {{< figure src="kubelet-credential-providers-enabling.png" caption="Figure 4: Kubelet credential provider configuration used for Kubernetes e2e testing" >}}
 
-For more configuration details, see [Kubelet Credential Providers](https://kubernetes.io/docs/tasks/kubelet-credential-provider/kubelet-credential-provider/).
+For more configuration details, see [Kubelet Credential Providers](/docs/tasks/kubelet-credential-provider/kubelet-credential-provider/).
 
 ## Getting Involved
 

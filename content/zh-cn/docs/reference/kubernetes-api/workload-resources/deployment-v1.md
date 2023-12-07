@@ -79,7 +79,7 @@ DeploymentSpec 定义 Deployment 预期行为的规约。
 
 - **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>), required
 
-  Template describes the pods that will be created.
+  Template describes the pods that will be created. The only allowed template.spec.restartPolicy value is "Always".
 -->
 - **selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)，必需
   
@@ -88,7 +88,8 @@ DeploymentSpec 定义 Deployment 预期行为的规约。
 
 - **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>)，必需
   
-  template 描述将要创建的 Pod。
+  template 描述将要创建的 Pod。`template.spec.restartPolicy`
+  唯一被允许的值是 `Always`。
 
 <!--
 - **replicas** (int32)
@@ -521,6 +522,7 @@ GET /apis/apps/v1/namespaces/{namespace}/deployments
 - **pretty** (*in query*): string
 - **resourceVersion** (*in query*): string
 - **resourceVersionMatch** (*in query*): string
+- **sendInitialEvents** (*in query*): boolean
 - **timeoutSeconds** (*in query*): integer
 - **watch** (*in query*): boolean
 -->
@@ -562,6 +564,10 @@ GET /apis/apps/v1/namespaces/{namespace}/deployments
   
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
 - **timeoutSeconds** (**查询参数**): integer
   
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -599,6 +605,7 @@ GET /apis/apps/v1/deployments
 - **pretty** (*in query*): string
 - **resourceVersion** (*in query*): string
 - **resourceVersionMatch** (*in query*): string
+- **sendInitialEvents** (*in query*): boolean
 - **timeoutSeconds** (*in query*): integer
 - **watch** (*in query*): boolean
 -->
@@ -635,6 +642,10 @@ GET /apis/apps/v1/deployments
 - **resourceVersionMatch** (**查询参数**): string
   
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 - **timeoutSeconds** (**查询参数**): integer
   
@@ -1043,6 +1054,7 @@ DELETE /apis/apps/v1/namespaces/{namespace}/deployments
 - **propagationPolicy** (*in query*): string
 - **resourceVersion** (*in query*): string
 - **resourceVersionMatch** (*in query*): string
+- **sendInitialEvents** (*in query*): boolean
 - **timeoutSeconds** (*in query*): integer
 -->
 #### 参数
@@ -1092,6 +1104,10 @@ DELETE /apis/apps/v1/namespaces/{namespace}/deployments
 - **resourceVersionMatch** (**查询参数**): string
   
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 - **timeoutSeconds** (**查询参数**): integer
   

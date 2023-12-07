@@ -1,12 +1,13 @@
 # i18n strings for the Korean translation.
 # NOTE: Please keep the entries in alphabetical order when editing
 
-# Avoid using conjunction_1.
-# Must match the context in layouts/shortcodes/release-data.html
-# Appears on https://kubernetes.io/releases/
-# For example the "and" in "Complete 1.25 Schedule and Changelog"
-[conjunction_1]
-other = "및"
+# For "and", see [conjunction_1]
+
+[auto_generated_edit_notice]
+other = "(자동 생성된 페이지)"
+
+[auto_generated_pageinfo]
+other = """<p>이 페이지는 자동으로 생성된 것이다.</p><p>이 페이지에 대한 이슈를 제보할 때, 이 페이지가 자동 생성된 것임을 이슈 본문에 언급한다. 이슈에 대한 해결책은 다른 쿠버네티스 프로젝트에 적용되어야 할 수도 있다.</p>"""
 
 [caution]
 other = "주의:"
@@ -35,6 +36,12 @@ other = "Twitter"
 [community_youtube_name]
 other = "YouTube"
 
+# Avoid using conjunction_1.
+# Must match the context in layouts/shortcodes/release-data.html
+# Appears on https://kubernetes.io/releases/
+# For example the "and" in "Complete 1.25 Schedule and Changelog"
+[conjunction_1]
+other = "및"
 
 [cve_id]
 other = "CVE ID"
@@ -42,26 +49,17 @@ other = "CVE ID"
 [cve_issue_url]
 other = "CVE 깃헙 이슈 URL"
 
-[cve_json_external_url]
-other = "외부 URL"
-
-[cve_json_id]
-other = "id"
-
-[cve_json_summary]
-other = "요약"
-
-[cve_json_url]
-other = "url"
-
 [cve_summary]
 other = "이슈 요약"
 
 [cve_table]
 other = "공식 쿠버네티스 CVE 목록"
 
-[cve_url]
-other = "CVE URL"
+[cve_table_date_format]
+other = "2006년 1월 2일 15:04:05 KST"
+
+[cve_table_date_format_string]
+other = "(최근 업데이트: %s)"
 
 [deprecation_title]
 other = "해당 문서의 쿠버네티스 버전:"
@@ -114,14 +112,17 @@ other = "기능 상태:"
 [feedback_heading]
 other = "피드백"
 
+[feedback_no]
+other = "아니요"
+
 [feedback_question]
 other = "이 페이지가 도움이 되었나요?"
 
 [feedback_yes]
 other = "네"
 
-[feedback_no]
-other = "아니요"
+[final_patch_release]
+other = "최종 패치 릴리스"
 
 [inline_list_separator]
 other = ","
@@ -250,6 +251,9 @@ other = "옵션"
 [outdated_blog__message]
 other = "이 글은 작성일로부터 1년 이상 지났습니다. 오래된 글은 더 이상 유효하지 않은 컨텐츠를 포함하고 있을 수 있습니다. 이 페이지의 정보가 틀리지 않았는지 다시 한 번 확인하세요."
 
+[patch_release]
+other = "패치 릴리스"
+
 [post_create_issue]
 other = "이슈 생성"
 
@@ -270,17 +274,49 @@ other = "("
 [release_date_format]
 other = "2006-01-02"
 
+[release_cherry_pick_deadline]
+other = "체리픽(Cherry Pick) 기한"
+
 # Deprecated. Planned for removal in a future release.
 # Use [release_full_details_initial_text] instead.
 [release_complete]
 other = "완료"
 
+[release_end_of_life_date]
+other = "지원 종료(End Of Life) 일자"
+
 # Replace [release_complete] with [release_full_details_initial_text]
 [release_full_details_initial_text]
 other = "전체"
 
+[release_information_navbar]
+other = "릴리스 정보"
+
+[release_minor_version]
+other = "마이너 버전"
+
+[release_info_next_patch]
+other = "다음 패치 릴리스는 **%s** 이다."
+
+# Localization note: You can use Markdown here.
+# The three placeholders (in order) are:
+#   Kubernetes minor version
+#   maintenance mode date
+#   end of life date
+#
+# Keep this order. It is OK to use more than one sentence, and it's also OK to change the
+# tense of the text so long as the meaning is clear.
+[release_info_eol]
+other = "**%s** 버전은 **%s** 에 메인터넌스 모드로 들어가며, **%s** 에 지원 종료된다."
+
+[release_note]
+other = "정보"
+
 [release_schedule]
 other = "일정"
+
+[release_target_date]
+other = "목표 일자"
 
 [release_changelog]
 other = "변경 이력"
@@ -327,3 +363,75 @@ other = "경고:"
 
 [whatsnext_heading]
 other = "다음 내용"
+
+[layout_docs_glossary_architecture_name]
+other = "아키텍처"
+
+[layout_docs_glossary_architecture_description]
+other = "쿠버네티스의 내부 구성요소."
+
+[layout_docs_glossary_community_name]
+other = "커뮤니티"
+
+[layout_docs_glossary_community_description]
+other = "쿠버네티스 오픈소스 개발 관련 사항."
+
+[layout_docs_glossary_core-object_name]
+other = "핵심 오브젝트"
+
+[layout_docs_glossary_core-object_description]
+other = "쿠버네티스가 기본적으로 지원하는 리소스 종류."
+
+[layout_docs_glossary_extension_name]
+other = "확장 기능"
+
+[layout_docs_glossary_extension_description]
+other = "쿠버네티스가 지원하는 사용자화(customization)."
+
+[layout_docs_glossary_fundamental_name]
+other = "기본 개념"
+
+[layout_docs_glossary_fundamental_description]
+other = "쿠버네티스를 처음 사용하는 사람을 위한 설명."
+
+[layout_docs_glossary_networking_name]
+other = "네트워킹"
+
+[layout_docs_glossary_networking_description]
+other = "쿠버네티스 구성요소 간, 및 클러스터 외부의 프로그램과 통신하는 방법."
+
+[layout_docs_glossary_operation_name]
+other = "운용"
+
+[layout_docs_glossary_operation_description]
+other = "쿠버네티스 구축 및 유지."
+
+[layout_docs_glossary_security_name]
+other = "보안"
+
+[layout_docs_glossary_security_description]
+other = "쿠버네티스 애플리케이션을 안전하게 보호."
+
+[layout_docs_glossary_storage_name]
+other = "스토리지"
+
+[layout_docs_glossary_storage_description]
+other = "쿠버네티스 애플리케이션이 영속적 자료를 다루는 방법."
+
+[layout_docs_glossary_tool_name]
+other = "도구"
+
+[layout_docs_glossary_tool_description]
+other = "쿠버네티스를 쉽게, 사용하기 편하게 만들어 주는 소프트웨어."
+
+[layout_docs_glossary_user-type_name]
+other = "사용자 종류"
+
+[layout_docs_glossary_user-type_description]
+other = "일반적인 쿠버네티스 사용자 종류."
+
+[layout_docs_glossary_workload_name]
+other = "워크로드"
+
+[layout_docs_glossary_workload_description]
+other = "쿠버네티스에서 실행되는 애플리케이션."

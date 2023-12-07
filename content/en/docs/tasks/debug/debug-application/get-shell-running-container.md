@@ -29,7 +29,7 @@ running container.
 In this exercise, you create a Pod that has one container. The container
 runs the nginx image. Here is the configuration file for the Pod:
 
-{{< codenew file="application/shell-demo.yaml" >}}
+{{% code_sample file="application/shell-demo.yaml" %}}
 
 Create the Pod:
 
@@ -119,7 +119,7 @@ In an ordinary command window, not your shell, list the environment
 variables in the running container:
 
 ```shell
-kubectl exec shell-demo env
+kubectl exec shell-demo -- env
 ```
 
 Experiment with running other commands. Here are some examples:

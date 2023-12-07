@@ -11,8 +11,11 @@ tags:
 - architecture
 - fundamental
 ---
- Componente da camada de gerenciamento que executa os processos de {{< glossary_tooltip text="controlador" term_id="controller" >}}.
+Componente da camada de gerenciamento que executa os processos de
+{{< glossary_tooltip text="controlador" term_id="controller" >}}.
 
 <!--more-->
 
-Logicamente, cada _{{< glossary_tooltip text="controlador" term_id="controller" >}}_ está em um processo separado, mas para reduzir a complexidade, eles todos são compilados num único binário e executam em um processo único.
+Logicamente, cada {{< glossary_tooltip text="controlador" term_id="controller" >}}
+está em um processo separado, mas para reduzir a complexidade, eles todos são
+compilados num único binário e executam em um processo único.

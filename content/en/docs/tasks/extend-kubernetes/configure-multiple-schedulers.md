@@ -52,11 +52,13 @@ Save the file as `Dockerfile`, build the image and push it to a registry. This e
 pushes the image to
 [Google Container Registry (GCR)](https://cloud.google.com/container-registry/).
 For more details, please read the GCR
-[documentation](https://cloud.google.com/container-registry/docs/).
+[documentation](https://cloud.google.com/container-registry/docs/). Alternatively
+you can also use the [docker hub](https://hub.docker.com/search?q=). For more details
+refer to the docker hub [documentation](https://docs.docker.com/docker-hub/repos/create/#create-a-repository).
 
 ```shell
-docker build -t gcr.io/my-gcp-project/my-kube-scheduler:1.0 .
-gcloud docker -- push gcr.io/my-gcp-project/my-kube-scheduler:1.0
+docker build -t gcr.io/my-gcp-project/my-kube-scheduler:1.0 .     # The image name and the repository
+gcloud docker -- push gcr.io/my-gcp-project/my-kube-scheduler:1.0 # used in here is just an example
 ```
 
 ## Define a Kubernetes Deployment for the scheduler
@@ -69,7 +71,7 @@ for this example. A [Deployment](/docs/concepts/workloads/controllers/deployment
 thereby making the scheduler resilient to failures. Here is the deployment
 config. Save it as `my-scheduler.yaml`:
 
-{{< codenew file="admin/sched/my-scheduler.yaml" >}}
+{{% code_sample file="admin/sched/my-scheduler.yaml" %}}
 
 In the above manifest, you use a [KubeSchedulerConfiguration](/docs/reference/scheduling/config/)
 to customize the behavior of your scheduler implementation. This configuration has been passed to
@@ -139,7 +141,7 @@ Add your scheduler name to the resourceNames of the rule applied for `endpoints`
 kubectl edit clusterrole system:kube-scheduler
 ```
 
-{{< codenew file="admin/sched/clusterrole.yaml" >}}
+{{% code_sample file="admin/sched/clusterrole.yaml" %}}
 
 ## Specify schedulers for pods
 
@@ -150,7 +152,7 @@ scheduler in that pod spec. Let's look at three examples.
 
 - Pod spec without any scheduler name
 
-  {{< codenew file="admin/sched/pod1.yaml" >}}
+  {{% code_sample file="admin/sched/pod1.yaml" %}}
 
   When no scheduler name is supplied, the pod is automatically scheduled using the
   default-scheduler.
@@ -163,7 +165,7 @@ scheduler in that pod spec. Let's look at three examples.
 
 - Pod spec with `default-scheduler`
 
-  {{< codenew file="admin/sched/pod2.yaml" >}}
+  {{% code_sample file="admin/sched/pod2.yaml" %}}
 
   A scheduler is specified by supplying the scheduler name as a value to `spec.schedulerName`. In this case, we supply the name of the
   default scheduler which is `default-scheduler`.
@@ -176,7 +178,7 @@ scheduler in that pod spec. Let's look at three examples.
 
 - Pod spec with `my-scheduler`
 
-  {{< codenew file="admin/sched/pod3.yaml" >}}
+  {{% code_sample file="admin/sched/pod3.yaml" %}}
 
   In this case, we specify that this pod should be scheduled using the scheduler that we
   deployed - `my-scheduler`. Note that the value of `spec.schedulerName` should match the name supplied for the scheduler

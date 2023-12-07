@@ -2,7 +2,7 @@
 title: Upgrading Windows nodes
 min-kubernetes-server-version: 1.17
 content_type: task
-weight: 50
+weight: 110
 ---
 
 <!-- overview -->
@@ -27,8 +27,8 @@ upgrade the control plane nodes before upgrading your Windows nodes.
 1.  From the Windows node, upgrade kubeadm:
 
     ```powershell
-    # replace {{< param "fullversion" >}} with your desired version
-    curl.exe -Lo <path-to-kubeadm.exe>  "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubeadm.exe"
+    # replace {{< skew currentPatchVersion >}} with your desired version
+    curl.exe -Lo <path-to-kubeadm.exe>  "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubeadm.exe"
     ```
 
 ### Drain the node
@@ -62,7 +62,7 @@ upgrade the control plane nodes before upgrading your Windows nodes.
 
     ```powershell
     stop-service kubelet
-    curl.exe -Lo <path-to-kubelet.exe> "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubelet.exe"
+    curl.exe -Lo <path-to-kubelet.exe> "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubelet.exe"
     restart-service kubelet
     ```
 
@@ -70,7 +70,7 @@ upgrade the control plane nodes before upgrading your Windows nodes.
 
     ```powershell
     stop-service kube-proxy
-    curl.exe -Lo <path-to-kube-proxy.exe> "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kube-proxy.exe"
+    curl.exe -Lo <path-to-kube-proxy.exe> "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kube-proxy.exe"
     restart-service kube-proxy
     ```
 
@@ -88,4 +88,6 @@ bring the node back online by marking it schedulable:
     # replace <node-to-drain> with the name of your node
     kubectl uncordon <node-to-drain>
     ```
+ ## {{% heading "whatsnext" %}}
 
+* See how to [Upgrade Linux nodes](/docs/tasks/administer-cluster/kubeadm/upgrading-linux-nodes/).

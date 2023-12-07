@@ -46,11 +46,11 @@ VolumeAttachment objects are non-namespaced.
 
 - **spec** (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachmentSpec" >}}">VolumeAttachmentSpec</a>), required
 
-  Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
+  spec represents specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
 
 - **status** (<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachmentStatus" >}}">VolumeAttachmentStatus</a>)
 
-  Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
+  status represents status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
 
 
 
@@ -64,15 +64,15 @@ VolumeAttachmentSpec is the specification of a VolumeAttachment request.
 
 - **attacher** (string), required
 
-  Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
+  attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
 
 - **nodeName** (string), required
 
-  The node that the volume should be attached to.
+  nodeName represents the node that the volume should be attached to.
 
 - **source** (VolumeAttachmentSource), required
 
-  Source represents the volume that should be attached.
+  source represents the volume that should be attached.
 
   <a name="VolumeAttachmentSource"></a>
   *VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.*
@@ -83,7 +83,7 @@ VolumeAttachmentSpec is the specification of a VolumeAttachment request.
 
   - **source.persistentVolumeName** (string)
 
-    Name of the persistent volume to attach.
+    persistentVolumeName represents the name of the persistent volume to attach.
 
 
 
@@ -97,44 +97,44 @@ VolumeAttachmentStatus is the status of a VolumeAttachment request.
 
 - **attached** (boolean), required
 
-  Indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+  attached indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
 
 - **attachError** (VolumeError)
 
-  The last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+  attachError represents the last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
 
   <a name="VolumeError"></a>
   *VolumeError captures an error encountered during a volume operation.*
 
   - **attachError.message** (string)
 
-    String detailing the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
+    message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
 
   - **attachError.time** (Time)
 
-    Time the error was encountered.
+    time represents the time the error was encountered.
 
     <a name="Time"></a>
     *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
 
 - **attachmentMetadata** (map[string]string)
 
-  Upon successful attach, this field is populated with any information returned by the attach operation that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+  attachmentMetadata is populated with any information returned by the attach operation, upon successful attach, that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
 
 - **detachError** (VolumeError)
 
-  The last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
+  detachError represents the last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
 
   <a name="VolumeError"></a>
   *VolumeError captures an error encountered during a volume operation.*
 
   - **detachError.message** (string)
 
-    String detailing the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
+    message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
 
   - **detachError.time** (Time)
 
-    Time the error was encountered.
+    time represents the time the error was encountered.
 
     <a name="Time"></a>
     *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
@@ -161,7 +161,7 @@ VolumeAttachmentList is a collection of VolumeAttachment objects.
 
 - **items** ([]<a href="{{< ref "../config-and-storage-resources/volume-attachment-v1#VolumeAttachment" >}}">VolumeAttachment</a>), required
 
-  Items is the list of VolumeAttachments
+  items is the list of VolumeAttachments
 
 
 
@@ -281,6 +281,11 @@ GET /apis/storage.k8s.io/v1/volumeattachments
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -671,6 +676,11 @@ DELETE /apis/storage.k8s.io/v1/volumeattachments
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer

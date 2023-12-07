@@ -1,9 +1,15 @@
 ---
-title: 使用 Secret 安全地分发凭证
+title: 使用 Secret 安全地分发凭据
 content_type: task
 weight: 50
 min-kubernetes-server-version: v1.6
 ---
+<!--
+title: Distribute Credentials Securely Using Secrets
+content_type: task
+weight: 50
+min-kubernetes-server-version: v1.6
+-->
 
 <!-- overview -->
 <!--
@@ -59,7 +65,7 @@ username and password:
 
 这里是一个配置文件，可以用来创建存有用户名和密码的 Secret：
 
-{{< codenew file="pods/inject/secret.yaml" >}}
+{{% code_sample file="pods/inject/secret.yaml" %}}
 
 <!--
 1. Create the Secret
@@ -83,7 +89,7 @@ username and password:
    Output:
    -->
    输出：
-	
+
    ```
    NAME          TYPE      DATA      AGE
    test-secret   Opaque    2         1m
@@ -148,7 +154,7 @@ Here is a configuration file you can use to create a Pod:
 
 这里是一个可以用来创建 Pod 的配置文件：
 
-{{< codenew file="pods/inject/secret-pod.yaml" >}}
+{{% code_sample file="pods/inject/secret-pod.yaml" %}}
 
 1. <!-- Create the Pod:-->
    创建 Pod：
@@ -222,106 +228,254 @@ Here is a configuration file you can use to create a Pod:
    my-app
    39528$vdg7Jb
    ```
+<!--
+Modify your image or command line so that the program looks for files in the
+`mountPath` directory. Each key in the Secret `data` map becomes a file name
+in this directory.
+-->
+修改你的镜像或命令行，使程序在 `mountPath` 目录下查找文件。
+Secret `data` 映射中的每个键都成为该目录中的文件名。
+
+<!--
+### Project Secret keys to specific file paths
+
+You can also control the paths within the volume where Secret keys are projected. Use the
+`.spec.volumes[].secret.items` field to change the target path of each key:
+-->
+### 映射 Secret 键到特定文件路径    {#project-secret-keys-to-specific-file-paths}
+
+你还可以控制卷内 Secret 键的映射路径。
+使用 `.spec.volumes[].secret.items` 字段来改变每个键的目标路径。
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+  - name: mypod
+    image: redis
+    volumeMounts:
+    - name: foo
+      mountPath: "/etc/foo"
+      readOnly: true
+  volumes:
+  - name: foo
+    secret:
+      secretName: mysecret
+      items:
+      - key: username
+        path: my-group/my-username
+```
+
+<!--
+When you deploy this Pod, the following happens:
+-->
+当你部署此 Pod 时，会发生以下情况：
+
+<!--
+- The `username` key from `mysecret` is available to the container at the path
+  `/etc/foo/my-group/my-username` instead of at `/etc/foo/username`.
+- The `password` key from that Secret object is not projected.
+-->
+- 来自 `mysecret` 的键 `username` 可以在路径 `/etc/foo/my-group/my-username`
+  下供容器使用，而不是路径 `/etc/foo/username`。
+- 来自该 Secret 的键 `password` 没有映射到任何路径。
+
+<!--
+If you list keys explicitly using `.spec.volumes[].secret.items`, consider the
+following:
+-->
+
+如果你使用 `.spec.volumes[].secret.items` 明确地列出键，请考虑以下事项：
+
+<!--
+- Only keys specified in `items` are projected.
+- To consume all keys from the Secret, all of them must be listed in the
+  `items` field.
+- All listed keys must exist in the corresponding Secret. Otherwise, the volume
+  is not created.
+-->
+- 只有在 `items` 字段中指定的键才会被映射。
+- 要使用 Secret 中全部的键，那么全部的键都必须列在 `items` 字段中。
+- 所有列出的键必须存在于相应的 Secret 中。否则，该卷不被创建。
+
+<!--
+### Set POSIX permissions for Secret keys
+
+You can set the POSIX file access permission bits for a single Secret key.
+If you don't specify any permissions, `0644` is used by default.
+You can also set a default POSIX file mode for the entire Secret volume, and
+you can override per key if needed.
+-->
+### 为 Secret 键设置 POSIX 权限
+
+你可以为单个 Secret 键设置 POSIX 文件访问权限位。
+如果不指定任何权限，默认情况下使用 `0644`。
+你也可以为整个 Secret 卷设置默认的 POSIX 文件模式，需要时你可以重写单个键的权限。
+
+<!--
+For example, you can specify a default mode like this:
+-->
+例如，可以像这样指定默认模式：
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+  - name: mypod
+    image: redis
+    volumeMounts:
+    - name: foo
+      mountPath: "/etc/foo"
+  volumes:
+  - name: foo
+    secret:
+      secretName: mysecret
+      defaultMode: 0400
+```
+
+<!--
+The Secret is mounted on `/etc/foo`; all the files created by the
+secret volume mount have permission `0400`.
+-->
+Secret 被挂载在 `/etc/foo` 目录下；所有由 Secret 卷挂载创建的文件的访问许可都是 `0400`。
+
+{{< note >}}
+<!--
+If you're defining a Pod or a Pod template using JSON, beware that the JSON
+specification doesn't support octal literals for numbers because JSON considers
+`0400` to be the _decimal_ value `400`. In JSON, use decimal values for the
+`defaultMode` instead. If you're writing YAML, you can write the `defaultMode`
+in octal.
+-->
+如果使用 JSON 定义 Pod 或 Pod 模板，请注意 JSON 规范不支持数字的八进制形式，
+因为 JSON 将 `0400` 视为**十进制**的值 `400`。
+在 JSON 中，要改为使用十进制的 `defaultMode`。
+如果你正在编写 YAML，则可以用八进制编写 `defaultMode`。
+{{< /note >}}
 
 <!--
 ## Define container environment variables using Secret data
-
-### Define a container environment variable with data from a single Secret
-
 -->
 ## 使用 Secret 数据定义容器变量   {#define-container-env-var-using-secret-data}
+
+<!--
+You can consume the data in Secrets as environment variables in your
+containers.
+
+If a container already consumes a Secret in an environment variable,
+a Secret update will not be seen by the container unless it is
+restarted. There are third party solutions for triggering restarts when
+secrets change.
+-->
+在你的容器中，你可以以环境变量的方式使用 Secret 中的数据。
+
+如果容器已经使用了在环境变量中的 Secret，除非容器重新启动，否则容器将无法感知到 Secret 的更新。
+有第三方解决方案可以在 Secret 改变时触发容器重启。
+
+<!--
+### Define a container environment variable with data from a single Secret
+-->
 
 ### 使用来自 Secret 中的数据定义容器变量   {#define-a-container-env-var-with-data-from-a-single-secret}
 
 <!--
-*  Define an environment variable as a key-value pair in a Secret:
+- Define an environment variable as a key-value pair in a Secret:
 -->
-*  定义环境变量为 Secret 中的键值偶对：
+- 定义环境变量为 Secret 中的键值偶对：
 
-   ```shell
-   kubectl create secret generic backend-user --from-literal=backend-username='backend-admin'
-   ```
+  ```shell
+  kubectl create secret generic backend-user --from-literal=backend-username='backend-admin'
+  ```
 
 <!--
-*  Assign the `backend-username` value defined in the Secret to the `SECRET_USERNAME` environment variable in the Pod specification.
+- Assign the `backend-username` value defined in the Secret to the `SECRET_USERNAME` environment variable in the Pod specification.
 -->
-*  在 Pod 规约中，将 Secret 中定义的值 `backend-username` 赋给 `SECRET_USERNAME` 环境变量。
+- 在 Pod 规约中，将 Secret 中定义的值 `backend-username` 赋给 `SECRET_USERNAME` 环境变量。
 
-   {{< codenew file="pods/inject/pod-single-secret-env-variable.yaml" >}}
+  {{% code_sample file="pods/inject/pod-single-secret-env-variable.yaml" %}}
 
 <!--
-*  Create the Pod:
+- Create the Pod:
 -->
-*  创建 Pod：
+- 创建 Pod：
 
-   ```shell
-   kubectl create -f https://k8s.io/examples/pods/inject/pod-single-secret-env-variable.yaml
-   ```
+  ```shell
+  kubectl create -f https://k8s.io/examples/pods/inject/pod-single-secret-env-variable.yaml
+  ```
 
 <!--
-*  In your shell, display the content of `SECRET_USERNAME` container environment variable
+- In your shell, display the content of `SECRET_USERNAME` container environment variable.
 -->
-*  在 Shell 中，显示容器环境变量 `SECRET_USERNAME` 的内容：
+- 在 Shell 中，显示容器环境变量 `SECRET_USERNAME` 的内容：
 
-   ```shell
-   kubectl exec -i -t env-single-secret -- /bin/sh -c 'echo $SECRET_USERNAME'
-   ```
+  ```shell
+  kubectl exec -i -t env-single-secret -- /bin/sh -c 'echo $SECRET_USERNAME'
+  ```
 
-   <!--
-   The output is
-   -->
-   输出为：
-   ```
-   backend-admin
-   ```
-   
+  <!--
+  The output is similar to:
+  -->
+  输出类似于：
+
+  ```
+  backend-admin
+  ```
+
 <!--
 ### Define container environment variables with data from multiple Secrets
 -->
 ### 使用来自多个 Secret 的数据定义环境变量   {#define-container-env-var-with-data-from-multi-secrets}
 
 <!--
-*  As with the previous example, create the Secrets first.
+- As with the previous example, create the Secrets first.
 -->
-*  和前面的例子一样，先创建 Secret：
+- 和前面的例子一样，先创建 Secret：
 
-   ```shell
-   kubectl create secret generic backend-user --from-literal=backend-username='backend-admin'
-   kubectl create secret generic db-user --from-literal=db-username='db-admin'
-   ```
+  ```shell
+  kubectl create secret generic backend-user --from-literal=backend-username='backend-admin'
+  kubectl create secret generic db-user --from-literal=db-username='db-admin'
+  ```
 
 <!--
-*  Define the environment variables in the Pod specification.
+- Define the environment variables in the Pod specification.
 -->
-*  在 Pod 规约中定义环境变量：
+- 在 Pod 规约中定义环境变量：
 
-   {{< codenew file="pods/inject/pod-multiple-secret-env-variable.yaml" >}}
+  {{% code_sample file="pods/inject/pod-multiple-secret-env-variable.yaml" %}}
 
 <!--
-*  Create the Pod:
+- Create the Pod:
 -->
-*  创建 Pod：
+- 创建 Pod：
 
-   ```shell
-   kubectl create -f https://k8s.io/examples/pods/inject/pod-multiple-secret-env-variable.yaml
-   ```
+  ```shell
+  kubectl create -f https://k8s.io/examples/pods/inject/pod-multiple-secret-env-variable.yaml
+  ```
 
 <!--
-*  In your shell, display the container environment variables
+- In your shell, display the container environment variables.
 -->
-*  在你的 Shell 中，显示容器环境变量的内容：
+- 在你的 Shell 中，显示容器环境变量的内容：
 
-   ```shell
-   kubectl exec -i -t envvars-multiple-secrets -- /bin/sh -c 'env | grep _USERNAME'
-   ```
-   <!--
-   The output is
-   -->
-   输出：
-   ```
-   DB_USERNAME=db-admin
-   BACKEND_USERNAME=backend-admin
-   ```
+  ```shell
+  kubectl exec -i -t envvars-multiple-secrets -- /bin/sh -c 'env | grep _USERNAME'
+  ```
+
+  <!--
+  The output is similar to:
+  -->
+  输出类似于：
+
+  ```
+  DB_USERNAME=db-admin
+  BACKEND_USERNAME=backend-admin
+  ```
 
 <!--
 ## Configure all key-value pairs in a Secret as container environment variables
@@ -336,44 +490,45 @@ This functionality is available in Kubernetes v1.6 and later.
 {{< /note >}}
 
 <!--
-*  Create a Secret containing multiple key-value pairs
+- Create a Secret containing multiple key-value pairs
 -->
-*  创建包含多个键值偶对的 Secret：
+- 创建包含多个键值偶对的 Secret：
 
-   ```shell
-   kubectl create secret generic test-secret --from-literal=username='my-app' --from-literal=password='39528$vdg7Jb'
-   ```
+  ```shell
+  kubectl create secret generic test-secret --from-literal=username='my-app' --from-literal=password='39528$vdg7Jb'
+  ```
 
 <!--
-*  Use envFrom to define all of the Secret's data as container environment variables. The key from the Secret becomes the environment variable name in the Pod.
+- Use envFrom to define all of the Secret's data as container environment variables.
+  The key from the Secret becomes the environment variable name in the Pod.
 -->
-*  使用 `envFrom` 来将 Secret 中的所有数据定义为环境变量。
-   Secret 中的键名成为容器中的环境变量名：
+- 使用 `envFrom` 来将 Secret 中的所有数据定义为环境变量。
+  Secret 中的键名成为容器中的环境变量名：
 
-   {{< codenew file="pods/inject/pod-secret-envFrom.yaml" >}}
+  {{% code_sample file="pods/inject/pod-secret-envFrom.yaml" %}}
 
 <!--
-*  Create the Pod:
+- Create the Pod:
 -->
-*  创建 Pod：
+- 创建 Pod：
 
-   ```shell
-   kubectl create -f https://k8s.io/examples/pods/inject/pod-secret-envFrom.yaml
-   ```
+  ```shell
+  kubectl create -f https://k8s.io/examples/pods/inject/pod-secret-envFrom.yaml
+  ```
 
 <!--
-* In your shell, display `username` and `password` container environment variables
+- In your shell, display `username` and `password` container environment variables.
 -->
-* 在 Shell 中，显示环境变量 `username` 和 `password` 的内容：
+- 在 Shell 中，显示环境变量 `username` 和 `password` 的内容：
 
   ```shell
   kubectl exec -i -t envfrom-secret -- /bin/sh -c 'echo "username: $username\npassword: $password\n"'
   ```
   
   <!--
-  The output is
+  The output is similar to:
   -->
-  输出为：
+  输出类似于：
 
   ```
   username: my-app
@@ -381,20 +536,195 @@ This functionality is available in Kubernetes v1.6 and later.
   ```
 
 <!--
+## Example: Provide prod/test credentials to Pods using Secrets {#provide-prod-test-creds}
+
+This example illustrates a Pod which consumes a secret containing production credentials and
+another Pod which consumes a secret with test environment credentials.
+-->
+## 示例：使用 Secret 为 Pod 提供生产环境或测试环境的凭据   {#provide-prod-test-creds}
+
+此示例展示的是一个使用了包含生产环境凭据的 Secret 的 Pod 和一个使用了包含测试环境凭据的 Secret 的 Pod。
+
+<!--
+1. Create a secret for prod environment credentials:
+-->
+1. 创建用于生产环境凭据的 Secret：
+
+   ```shell
+   kubectl create secret generic prod-db-secret --from-literal=username=produser --from-literal=password=Y4nys7f11
+   ```
+
+   <!--
+   The output is similar to:
+   -->
+   输出类似于：
+
+   ```
+   secret "prod-db-secret" created
+   ```
+
+<!--
+1. Create a secret for test environment credentials.
+-->
+2. 为测试环境凭据创建 Secret。
+
+   ```shell
+   kubectl create secret generic test-db-secret --from-literal=username=testuser --from-literal=password=iluvtests
+   ```
+
+   <!--
+   The output is similar to:
+   -->
+   输出类似于：
+
+   ```
+   secret "test-db-secret" created
+   ```
+
+   {{< note >}}
+   <!--
+   Special characters such as `$`, `\`, `*`, `=`, and `!` will be interpreted by your
+   [shell](https://en.wikipedia.org/wiki/Shell_(computing)) and require escaping.
+
+   In most shells, the easiest way to escape the password is to surround it with single quotes (`'`).
+   For example, if your actual password is `S!B\*d$zDsb=`, you should execute the command as follows:
+   -->
+   `$`、`\`、`*`、`=` 和 `!` 这类特殊字符会被你的 [Shell](https://en.wikipedia.org/wiki/Shell_(computing))
+   解释，需要进行转义。
+
+   在大多数 Shell 中，最简单的密码转义方法是使用单引号（`'`）将密码包起来。
+   例如，如果你的实际密码是 `S!B\*d$zDsb=`，则应执行以下命令：
+
+   ```shell
+   kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password='S!B\*d$zDsb='
+   ```
+
+   <!--
+   You do not need to escape special characters in passwords from files (`--from-file`).
+   -->
+   你无需转义来自文件（`--from-file`）的密码中的特殊字符。
+   {{< /note >}}
+
+<!--
+1. Create the Pod manifests:
+-->
+3. 创建 Pod 清单：
+
+   ```shell
+   cat <<EOF > pod.yaml
+   apiVersion: v1
+   kind: List
+   items:
+   - kind: Pod
+     apiVersion: v1
+     metadata:
+       name: prod-db-client-pod
+       labels:
+         name: prod-db-client
+     spec:
+       volumes:
+       - name: secret-volume
+         secret:
+           secretName: prod-db-secret
+       containers:
+       - name: db-client-container
+         image: myClientImage
+         volumeMounts:
+         - name: secret-volume
+           readOnly: true
+           mountPath: "/etc/secret-volume"
+   - kind: Pod
+     apiVersion: v1
+     metadata:
+       name: test-db-client-pod
+       labels:
+         name: test-db-client
+     spec:
+       volumes:
+       - name: secret-volume
+         secret:
+           secretName: test-db-secret
+       containers:
+       - name: db-client-container
+         image: myClientImage
+         volumeMounts:
+         - name: secret-volume
+           readOnly: true
+           mountPath: "/etc/secret-volume"
+   EOF
+   ```
+
+   {{< note >}}
+   <!--
+   How the specs for the two Pods differ only in one field; this facilitates creating Pods
+   with different capabilities from a common Pod template.
+   -->
+   这两个 Pod 的规约只在一个字段上有所不同；这样便于从一个通用的 Pod 模板创建具有不同权能的 Pod。
+   {{< /note >}}
+
+<!--
+1. Apply all those objects on the API server by running:
+-->
+4. 通过运行以下命令将所有这些对象应用到 API 服务器：
+
+   ```shell
+   kubectl create -f pod.yaml
+   ```
+
+<!--
+Both containers will have the following files present on their filesystems with the values
+for each container's environment:
+-->
+两个容器的文件系统中都将存在以下文件，其中包含每个容器环境的值：
+
+```
+/etc/secret-volume/username
+/etc/secret-volume/password
+```
+
+<!--
+You could further simplify the base Pod specification by using two service accounts:
+
+1. `prod-user` with the `prod-db-secret`
+1. `test-user` with the `test-db-secret`
+
+The Pod specification is shortened to:
+-->
+你可以通过使用两个服务账号进一步简化基础 Pod 规约：
+
+1. 带有 `prod-db-secret` 的 `prod-user`
+1. 带有 `test-db-secret` 的 `test-user`
+
+Pod 规约精简为：
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: prod-db-client-pod
+  labels:
+    name: prod-db-client
+spec:
+  serviceAccount: prod-db-client
+  containers:
+  - name: db-client-container
+    image: myClientImage
+```
+
+<!--
 ### References
 -->
 ### 参考   {#references}
 
-* [Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
-* [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core)
-* [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
+- [Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
+- [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core)
+- [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
 
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Learn more about [Secrets](/docs/concepts/configuration/secret/).
-* Learn about [Volumes](/docs/concepts/storage/volumes/).
+- Learn more about [Secrets](/docs/concepts/configuration/secret/).
+- Learn about [Volumes](/docs/concepts/storage/volumes/).
 -->
-* 进一步了解 [Secret](/zh-cn/docs/concepts/configuration/secret/)。
-* 了解[卷](/zh-cn/docs/concepts/storage/volumes/)。
-
+- 进一步了解 [Secret](/zh-cn/docs/concepts/configuration/secret/)。
+- 了解[卷](/zh-cn/docs/concepts/storage/volumes/)。

@@ -28,7 +28,7 @@ ReplicaSetはどんな時でも指定された数のPodのレプリカが稼働�
 
 ## ReplicaSetの使用例
 
-{{< codenew file="controllers/frontend.yaml" >}}
+{{% codenew file="controllers/frontend.yaml" %}}
 
 上記のマニフェストを`frontend.yaml`ファイルに保存しKubernetesクラスターに適用すると、マニフェストに定義されたReplicaSetとそれが管理するPod群を作成します。
 
@@ -128,7 +128,7 @@ metadata:
 
 前のセクションで取り上げた`frontend`ReplicaSetと、下記のマニフェストのPodをみてみます。
 
-{{< codenew file="pods/pod-rs.yaml" >}}
+{{% codenew file="pods/pod-rs.yaml" %}}
 
 これらのPodは`ownerReferences`に何のコントローラー(もしくはオブジェクト)も指定されておらず、そして`frontend`ReplicaSetにマッチするセレクターをもっており、これらのPodは即座に`frontend`ReplicaSetによって所有されます。
 
@@ -193,7 +193,7 @@ ReplicaSetオブジェクトの名前は、有効な
 
 ### Pod テンプレート
 
-`.spec.template`はラベルを持つことが必要な[Podテンプレート](/ja/docs/concepts/workloads/pods/#pod-template) です。先ほど作成した`frontend.yaml`の例では、`tier: frontend`というラベルを1つ持っています。
+`.spec.template`はラベルを持つことが必要な[Podテンプレート](/ja/docs/concepts/workloads/pods/#pod-templates) です。先ほど作成した`frontend.yaml`の例では、`tier: frontend`というラベルを1つ持っています。
 他のコントローラーがこのPodを所有しようとしないためにも、他のコントローラーのセレクターでラベルを上書きしないように注意してください。
 
 テンプレートの[再起動ポリシー](/ja/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)のためのフィールドである`.spec.template.spec.restartPolicy`は`Always`のみ許可されていて、そしてそれがデフォルト値です。
@@ -275,7 +275,7 @@ ReplicaSetは、ただ`.spec.replicas`フィールドを更新することによ
 
 [`controller.kubernetes.io/pod-deletion-cost`](/docs/reference/labels-annotations-taints/#pod-deletion-cost)アノテーションを使用すると、ReplicaSetをスケールダウンする際に、どのPodを最初に削除するかについて、ユーザーが優先順位を設定することができます。
 
-アノテーションはPodに設定する必要があり、範囲は[-2147483647, 2147483647]になります。同じReplicaSetに属する他のPodと比較して、Podを削除する際のコストを表しています。削除コストの低いPodは、削除コストの高いPodより優先的に削除されます。
+アノテーションはPodに設定する必要があり、範囲は[-2147483648, 2147483647]になります。同じReplicaSetに属する他のPodと比較して、Podを削除する際のコストを表しています。削除コストの低いPodは、削除コストの高いPodより優先的に削除されます。
 
 このアノテーションを設定しないPodは暗黙的に0と設定され、負の値は許容されます。
 無効な値はAPIサーバーによって拒否されます。
@@ -297,7 +297,7 @@ ReplicaSetはまた、[Horizontal Pod Autoscalers (HPA)](/docs/tasks/run-applica
 これはつまりReplicaSetがHPAによってオートスケールされうることを意味します。
 ここではHPAが、前の例で作成したReplicaSetをターゲットにする例を示します。
 
-{{< codenew file="controllers/hpa-rs.yaml" >}}
+{{% codenew file="controllers/hpa-rs.yaml" %}}
 
 このマニフェストを`hpa-rs.yaml`に保存し、Kubernetesクラスターに適用すると、レプリケートされたPodのCPU使用量にもとづいてターゲットのReplicaSetをオートスケールするHPAを作成します。
 

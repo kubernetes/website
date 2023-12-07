@@ -1,30 +1,16 @@
 <!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
-
-<!--
 Write kubelet settings, certificates and (re)start the kubelet
 -->
-配置 Kubelet、证书并（重新）启动 Kubelet
+配置 kubelet、证书并（重新）启动 kubelet。
 
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
 Write a file with KubeletConfiguration and an environment file with node specific kubelet settings, and then (re)start kubelet.
 -->
-
 生成一个包含 KubeletConfiguration 的文件和一个包含特定于节点的 kubelet 配置的环境文件，然后（重新）启动 kubelet。
 
 ```
@@ -34,7 +20,6 @@ kubeadm join phase kubelet-start [api-server-endpoint] [flags]
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -50,7 +35,7 @@ kubeadm join phase kubelet-start [api-server-endpoint] [flags]
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Path to kubeadm config file.
+Path to a kubeadm configuration file.
 -->
 kubeadm 配置文件的路径。
 </td>
@@ -65,7 +50,8 @@ kubeadm 配置文件的路径。
 Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this value; use this option only if you have more than one CRI installed or if you have non-standard CRI socket.
 -->
 <p>
-提供给 CRI 套接字建立连接的路径。如果为空，则 kubeadm 将尝试自动检测该值；仅当安装了多个 CRI 或具有非标准 CRI 套接字时，才使用此选项。
+提供给 CRI 套接字建立连接的路径。如果为空，则 kubeadm 将尝试自动检测该值；
+仅当安装了多个 CRI 或存在非标准的 CRI 套接字时，才使用此选项。
 </p>
 </td>
 </tr>
@@ -127,6 +113,20 @@ For token-based discovery, allow joining without --discovery-token-ca-cert-hash 
 </tr>
 
 <tr>
+<td colspan="2">--dry-run</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Don't apply any changes; just output what would be done.
+-->
+<p>
+不做任何更改；只输出将要执行的操作。
+</p>
+</td>
+</tr>
+
+<tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
@@ -135,7 +135,7 @@ For token-based discovery, allow joining without --discovery-token-ca-cert-hash 
 help for kubelet-start
 -->
 <p>
-kubelet-start 操作的帮助命令
+kubelet-start 操作的帮助命令。
 </p>
 </td>
 </tr>
@@ -159,7 +159,8 @@ Specify the node name.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--Path to a directory that contains files named &quot;target[suffix][+patchtype].extension&quot;. For example, &quot;kube-apiserver0+merge.yaml&quot; or just &quot;etcd.json&quot;. &quot;target&quot; can be one of &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;, &quot;kubeletconfiguration&quot;. &quot;patchtype&quot; can be one of &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot; and they match the patch formats supported by kubectl. The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&quot; must be either &quot;json&quot; or &quot;yaml&quot;. &quot;suffix&quot; is an optional string that can be used to determine which patches are applied first alpha-numerically.
+<!--
+Path to a directory that contains files named &quot;target[suffix][+patchtype].extension&quot;. For example, &quot;kube-apiserver0+merge.yaml&quot; or just &quot;etcd.json&quot;. &quot;target&quot; can be one of &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;, &quot;kubeletconfiguration&quot;. &quot;patchtype&quot; can be one of &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot; and they match the patch formats supported by kubectl. The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&quot; must be either &quot;json&quot; or &quot;yaml&quot;. &quot;suffix&quot; is an optional string that can be used to determine which patches are applied first alpha-numerically.
 -->
 目录路径，指向的目录中包含名为 “target[suffix][+patchtype].extension” 的文件。
 例如，"kube-apiserver0+merge.yaml" 或 "etcd.json" 这种简单形式。
@@ -203,7 +204,6 @@ Use this token for both discovery-token and tls-bootstrap-token when those value
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 从父命令继承的选项
 
    <table style="width: 100%; table-layout: fixed;">

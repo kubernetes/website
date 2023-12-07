@@ -4,15 +4,14 @@ reviewers:
 title: Install and Set Up kubectl on macOS
 content_type: task
 weight: 10
-card:
-  name: tasks
-  weight: 20
-  title: Install kubectl on macOS
 ---
 
 ## {{% heading "prerequisites" %}}
 
-You must use a kubectl version that is within one minor version difference of your cluster. For example, a v{{< skew currentVersion >}} client can communicate with v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}}, and v{{< skew currentVersionAddMinor 1 >}} control planes.
+You must use a kubectl version that is within one minor version difference of
+your cluster. For example, a v{{< skew currentVersion >}} client can communicate
+with v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}},
+and v{{< skew currentVersionAddMinor 1 >}} control planes.
 Using the latest compatible version of kubectl helps avoid unforeseen issues.
 
 ## Install kubectl on macOS
@@ -42,18 +41,19 @@ The following methods exist for installing kubectl on macOS:
    {{< /tabs >}}
 
    {{< note >}}
-   To download a specific version, replace the `$(curl -L -s https://dl.k8s.io/release/stable.txt)` portion of the command with the specific version.
+   To download a specific version, replace the `$(curl -L -s https://dl.k8s.io/release/stable.txt)`
+   portion of the command with the specific version.
 
-   For example, to download version {{< param "fullversion" >}} on Intel macOS, type:
+   For example, to download version {{< skew currentPatchVersion >}} on Intel macOS, type:
 
    ```bash
-   curl -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl"
+   curl -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/darwin/amd64/kubectl"
    ```
 
    And for macOS on Apple Silicon, type:
 
    ```bash
-   curl -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/arm64/kubectl"
+   curl -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/darwin/arm64/kubectl"
    ```
 
    {{< /note >}}
@@ -85,7 +85,7 @@ The following methods exist for installing kubectl on macOS:
 
    If the check fails, `shasum` exits with nonzero status and prints output similar to:
 
-   ```bash
+   ```console
    kubectl: FAILED
    shasum: WARNING: 1 computed checksum did NOT match
    ```
@@ -116,6 +116,7 @@ The following methods exist for installing kubectl on macOS:
    ```bash
    kubectl version --client
    ```
+   
    Or use this for detailed view of version:
 
    ```cmd
@@ -130,7 +131,8 @@ The following methods exist for installing kubectl on macOS:
 
 ### Install with Homebrew on macOS
 
-If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you can install kubectl with Homebrew.
+If you are on macOS and using [Homebrew](https://brew.sh/) package manager,
+you can install kubectl with Homebrew.
 
 1. Run the installation command:
 
@@ -152,7 +154,8 @@ If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you 
 
 ### Install with Macports on macOS
 
-If you are on macOS and using [Macports](https://macports.org/) package manager, you can install kubectl with Macports.
+If you are on macOS and using [Macports](https://macports.org/) package manager,
+you can install kubectl with Macports.
 
 1. Run the installation command:
 
@@ -175,7 +178,8 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
 
 ### Enable shell autocompletion
 
-kubectl provides autocompletion support for Bash, Zsh, Fish, and PowerShell which can save you a lot of typing.
+kubectl provides autocompletion support for Bash, Zsh, Fish, and PowerShell
+which can save you a lot of typing.
 
 Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
 
@@ -227,7 +231,7 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
 
    If the check fails, `shasum` exits with nonzero status and prints output similar to:
 
-   ```bash
+   ```console
    kubectl-convert: FAILED
    shasum: WARNING: 1 computed checksum did NOT match
    ```
@@ -264,9 +268,38 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
 1. After installing the plugin, clean up the installation files:
 
    ```bash
-   rm kubectl kubectl.sha256
+   rm kubectl-convert kubectl-convert.sha256
    ```
 
+### Uninstall kubectl on macOS
+
+Depending on how you installed `kubectl`, use one of the following methods.
+
+### Uninstall kubectl using the command-line
+
+1.  Locate the `kubectl` binary on your system:
+
+    ```bash
+    which kubectl
+    ```
+
+1.  Remove the `kubectl` binary:
+
+    ```bash
+    sudo rm <path>
+    ```
+    Replace `<path>` with the path to the `kubectl` binary from the previous step. For example, `sudo rm /usr/local/bin/kubectl`.
+
+### Uninstall kubectl using homebrew
+
+If you installed `kubectl` using Homebrew, run the following command:
+
+```bash
+brew remove kubectl
+```
+  
 ## {{% heading "whatsnext" %}}
 
 {{< include "included/kubectl-whats-next.md" >}}
+
+

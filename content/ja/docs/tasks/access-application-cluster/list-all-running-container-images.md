@@ -84,7 +84,7 @@ kubectl get pods --namespace kube-system -o jsonpath="{..image}"
 
 ## jsonpathの代わりにgo-templateを使用してコンテナイメージを一覧表示する {#list-container-images-using-a-go-template-instead-of-jsonpath}
 
-jsonpathの代わりに、kubectlは[go-templates](https://golang.org/pkg/text/template/)を使用した出力のフォーマットをサポートしています:
+jsonpathの代わりに、kubectlは[go-templates](https://pkg.go.dev/text/template)を使用した出力のフォーマットをサポートしています:
 
 
 ```shell
@@ -105,7 +105,7 @@ kubectl get pods --all-namespaces -o go-template --template="{{range .items}}{{r
 ### 参照
 
 * [jsonpath](/docs/reference/kubectl/jsonpath/)参照ガイド
-* [Go template](https://golang.org/pkg/text/template/)参照ガイド
+* [Go template](https://pkg.go.dev/text/template)参照ガイド
 
 
 

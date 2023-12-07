@@ -55,7 +55,7 @@ Podの各フェーズの値と意味は厳重に守られています。ここ�
 Podの削除中に、kubectlコマンドには`Terminating`が出力されることがあります。この`Terminating`ステータスは、Podのフェーズではありません。Podには、正常に終了するための期間を与えられており、デフォルトは30秒です。`--force`フラグを使用して、[Podを強制的に削除する](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced)ことができます。
 {{< /note >}}
 
-Nodeが停止するか、クラスタの残りの部分から切断された場合、Kubernetesは失われたNode上のすべてのPodの`Phase`をFailedに設定するためのポリシーを適用します。
+Nodeが停止するか、クラスターの残りの部分から切断された場合、Kubernetesは失われたNode上のすべてのPodの`Phase`をFailedに設定するためのポリシーを適用します。
 
 ## コンテナのステータス {#container-states}
 
@@ -92,7 +92,7 @@ Podの`spec`には、Always、OnFailure、またはNeverのいずれかの値を
 PodにはPodStatusがあります。それにはPodが成功したかどうかの情報を持つ[PodCondition](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podcondition-v1-core)の配列が含まれています。kubeletは、下記のPodConditionを管理します:
 
 * `PodScheduled`: PodがNodeにスケジュールされました。
-* `PodHasNetwork`: (アルファ版機能; [明示的に有効](#pod-has-network)にしなければならない) Podサンドボックスが正常に成功され、ネットワークの設定が完了しました。
+* `PodHasNetwork`: (アルファ版機能; [明示的に有効](#pod-has-network)にしなければならない) Podサンドボックスが正常に作成され、ネットワークの設定が完了しました。
 * `ContainersReady`: Pod内のすべてのコンテナが準備できた状態です。
 * `Initialized`: すべての[Initコンテナ](/ja/docs/concepts/workloads/pods/init-containers)が正常に終了しました。
 * `Ready`: Podはリクエストを処理でき、一致するすべてのサービスの負荷分散プールに追加されます。
@@ -206,7 +206,7 @@ probeを使ってコンテナをチェックする4つの異なる方法があ�
 : コンテナの診断が失敗しました。
 
 `Unknown`
-: コンテナの診断が失敗しました(何も実行する必要はなく、kubeletはさらにチェックを行います)。
+: コンテナの診断自体が失敗しました(何も実行する必要はなく、kubeletはさらにチェックを行います)。
 
 ### Probeの種類 {#types-of-probe}
 
@@ -310,7 +310,7 @@ Podは、クラスター内のNodeで実行中のプロセスを表すため、�
 
 {{< caution >}}
 即時削除では、実行中のリソースの終了を待ちません。
-リソースはクラスタ上で無期限に実行し続ける可能性があります。
+リソースはクラスター上で無期限に実行し続ける可能性があります。
 {{< /caution >}}
 
 StatefulSetのPodについては、[StatefulSetからPodを削除するためのタスクのドキュメント](/ja/docs/tasks/run-application/force-delete-stateful-set-pod/)を参照してください。

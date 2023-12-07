@@ -7,6 +7,9 @@ weight: 20
 card:
   name: concepts
   weight: 10
+  anchors:
+  - anchor: "#why-you-need-kubernetes-and-what-can-it-do"
+    title: 为什么选择 Kubernetes?
 no_list: true
 ---
 <!--
@@ -21,6 +24,9 @@ weight: 20
 card:
   name: concepts
   weight: 10
+  anchors:
+  - anchor: "#why-you-need-kubernetes-and-what-can-it-do"
+    title: Why Kubernetes?
 no_list: true
 -->
 
@@ -64,7 +70,7 @@ Let's take a look at why Kubernetes is so useful by going back in time.
 <!--
 ![Deployment evolution](/images/docs/Container_Evolution.svg)
 -->
-![部署演进](/images/docs/Container_Evolution.svg)
+![部署演进](/zh-cn/docs/images/Container_Evolution.svg)
 
 <!--
 **Traditional deployment era:**
@@ -83,7 +89,7 @@ was expensive for organizations to maintain many physical servers.
 例如，如果在同一台物理服务器上运行多个应用程序，
 则可能会出现一个应用程序占用大部分资源的情况，而导致其他应用程序的性能下降。
 一种解决方案是将每个应用程序都运行在不同的物理服务器上，
-但是当某个应用程式资源利用率不高时，剩余资源无法被分配给其他应用程式，
+但是当某个应用程序资源利用率不高时，剩余资源无法被分配给其他应用程序，
 而且维护许多物理服务器的成本很高。
 
 <!--
@@ -268,8 +274,27 @@ Kubernetes 为你提供：
 -->
 * **密钥与配置管理**
 
-  Kubernetes 允许你存储和管理敏感信息，例如密码、OAuth 令牌和 ssh 密钥。
+  Kubernetes 允许你存储和管理敏感信息，例如密码、OAuth 令牌和 SSH 密钥。
   你可以在不重建容器镜像的情况下部署和更新密钥和应用程序配置，也无需在堆栈配置中暴露密钥。
+
+<!--
+* **Batch execution**
+  In addition to services, Kubernetes can manage your batch and CI workloads, replacing containers that fail, if desired.
+* **Horizontal scaling**
+  Scale your application up and down with a simple command, with a UI, or automatically based on CPU usage.
+* **IPv4/IPv6 dual-stack**
+  Allocation of IPv4 and IPv6 addresses to Pods and Services
+* **Designed for extensibility**
+  Add features to your Kubernetes cluster without changing upstream source code.
+-->
+* **批处理执行**
+  除了服务外，Kubernetes 还可以管理你的批处理和 CI（持续集成）工作负载，如有需要，可以替换失败的容器。
+* **水平扩缩**
+  使用简单的命令、用户界面或根据 CPU 使用率自动对你的应用进行扩缩。
+* **IPv4/IPv6 双栈**
+  为 Pod（容器组）和 Service（服务）分配 IPv4 和 IPv6 地址。
+* **为可扩展性设计**
+  在不改变上游源代码的情况下为你的 Kubernetes 集群添加功能。
 
 <!--
 ## What Kubernetes is not
@@ -339,7 +364,7 @@ Kubernetes：
 * 不提供也不采用任何全面的机器配置、维护、管理或自我修复系统。
 * 此外，Kubernetes 不仅仅是一个编排系统，实际上它消除了编排的需要。
   编排的技术定义是执行已定义的工作流程：首先执行 A，然后执行 B，再执行 C。
-  而 Kubernetes 包含了一组独立可组合的控制过程，可以连续地将当前状态驱动到所提供的预期状态。
+  而 Kubernetes 包含了一组独立可组合的控制过程，可以持续地将当前状态驱动到所提供的预期状态。
   你不需要在乎如何从 A 移动到 C，也不需要集中控制，这使得系统更易于使用且功能更强大、
   系统更健壮，更为弹性和可扩展。
 

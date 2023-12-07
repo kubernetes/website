@@ -67,7 +67,7 @@ NamespaceSpec 用于描述 Namespace 的属性。
   Finalizers is an opaque list of values that must be empty to permanently remove object from storage. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
   -->
 
-  finalizers 是一个不透明的值列表，只有此列表为空时才能从存储中永久删除对象。 更多信息： https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
+  finalizers 是一个不透明的值列表，只有此列表为空时才能从存储中永久删除对象。 更多信息： https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/namespaces/
 
 ## NamespaceStatus {#NamespaceStatus}
 <!--
@@ -127,7 +127,7 @@ NamespaceStatus 表示 Namespace 的当前状态信息。
   <!--
   Phase is the current lifecycle phase of the namespace. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
   -->
-  phase 是命名空间的当前生命周期阶段。更多信息： https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
+  phase 是命名空间的当前生命周期阶段。更多信息： https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/namespaces/
 
 ## NamespaceList {#NamespaceList}
 <!--
@@ -157,7 +157,7 @@ NamespaceList 是一个命名空间列表。
   <!--
   Items is the list of Namespace objects in the list. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
   -->
-  items 是列表中的 Namespace 对象列表。更多信息： https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
+  items 是列表中的 Namespace 对象列表。更多信息： https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/namespaces/
 
 <!--
 ## Operations {#Operations}
@@ -320,6 +320,13 @@ GET /api/v1/namespaces
 - **resourceVersionMatch** (*in query*): string
 -->
 - **resourceVersionMatch** (**查询参数**)：string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+<!--
+- **sendInitialEvents** (*in query*): boolean
+-->
+- **resourceVersionMatch** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 

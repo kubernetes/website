@@ -375,7 +375,7 @@ _Pod Security Policy_ はクラスターレベルのリソースで、Pod定義�
 ### セキュリティポリシーとセキュリティコンテキストの違いは何ですか?
 
 [Security Context](/docs/tasks/configure-pod-container/security-context/)は実行時のコンテナやPodを設定するものです。
-Security ContextはPodのマニフェストの中でPodやコンテナの仕様の一部として定義され、コンテナランタイムへ渡されるパラメータを示します。
+Security ContextはPodのマニフェストの中でPodやコンテナの仕様の一部として定義され、コンテナランタイムへ渡されるパラメーターを示します。
 
 セキュリティポリシーはコントロールプレーンの機構で、Security Contextとそれ以外も含め、特定の設定を強制するものです。
 2020年2月時点では、ネイティブにサポートされているポリシー強制の機構は[Pod Security

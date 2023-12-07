@@ -49,7 +49,7 @@ Kubernetesクラスターの計画、セットアップ、設定の例を知る�
 
 * [Kubernetesクラスターでのsysctlの使用](/docs/concepts/cluster-administration/sysctl-cluster/)では、管理者向けにカーネルパラメーターを設定するため`sysctl`コマンドラインツールの使用方法について解説します。
 
-* [クラスターの監査](/docs/tasks/debug-application-cluster/audit/)では、Kubernetesの監査ログの扱い方について解説します。
+* [クラスターの監査](/ja/docs/tasks/debug/debug-cluster/audit/)では、Kubernetesの監査ログの扱い方について解説します。
 
 ### kubeletをセキュアにする
   * [マスターとノードのコミュニケーション](/ja/docs/concepts/architecture/master-node-communication/)
@@ -61,7 +61,3 @@ Kubernetesクラスターの計画、セットアップ、設定の例を知る�
 * [DNSのインテグレーション](/ja/docs/concepts/services-networking/dns-pod-service/)では、DNS名をKubernetes Serviceに直接名前解決する方法を解説します。
 
 * [クラスターアクティビィのロギングと監視](/docs/concepts/cluster-administration/logging/)では、Kubernetesにおけるロギングがどのように行われ、どう実装されているかについて解説します。
-
-
-
-

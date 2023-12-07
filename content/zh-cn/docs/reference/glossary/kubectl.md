@@ -2,7 +2,7 @@
 title: Kubectl
 id: kubectl
 date: 2018-04-12
-full_link: /docs/user-guide/kubectl-overview/
+full_link: /zh-cn/docs/reference/kubectl/
 short_description: >
   kubectl 是用来和 Kubernetes 集群进行通信的命令行工具。
 
@@ -18,7 +18,7 @@ tags:
 title: Kubectl
 id: kubectl
 date: 2018-04-12
-full_link: /docs/user-guide/kubectl-overview/
+full_link: /docs/reference/kubectl/
 short_description: >
   A command line tool for communicating with a Kubernetes cluster.
 

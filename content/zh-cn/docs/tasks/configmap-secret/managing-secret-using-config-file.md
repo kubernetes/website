@@ -147,7 +147,7 @@ parts of that configuration file during your deployment process.
 <!--
 For example, if your application uses the following configuration file:
 -->
-例如，如果你的应用程序使用以下配置文件:
+例如，如果你的应用程序使用以下配置文件：
 
 ```yaml
 apiUrl: "https://my.api.com/api/v1"
@@ -158,7 +158,7 @@ password: "<password>"
 <!--
 You could store this in a Secret using the following definition:
 -->
-你可以使用以下定义将其存储在 Secret 中:
+你可以使用以下定义将其存储在 Secret 中：
 
 ```yaml
 apiVersion: v1
@@ -172,6 +172,13 @@ stringData:
     username: <user>
     password: <password>
 ```
+
+{{< note >}}
+<!--
+The `stringData` field for a Secret does not work well with server-side apply.
+-->
+Secret 的 `stringData` 字段不能很好地与服务器端应用配合使用。
+{{< /note >}}
 
 <!-- 
 When you retrieve the Secret data, the command returns the encoded values,
@@ -230,6 +237,13 @@ data:
 stringData:
   username: administrator
 ```
+
+{{< note >}}
+<!--
+The `stringData` field for a Secret does not work well with server-side apply.
+-->
+Secret 的 `stringData` 字段不能很好地与服务器端应用配合使用。
+{{< /note >}}
 
 <!--
 The `Secret` object is created as follows:
@@ -363,4 +377,3 @@ kubectl delete secret mysecret
 - 进一步阅读 [Secret 概念](/zh-cn/docs/concepts/configuration/secret/)
 - 了解如何[使用 `kubectl` 管理 Secret](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
 - 了解如何[使用 kustomize 管理 Secret](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
-

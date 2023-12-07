@@ -60,7 +60,7 @@ dans le manifeste des ressources du conteneur. Pour spécifier une limite de mé
 Dans cet exercice, vous créez un pod qui possède un seul conteneur. Le conteneur dispose d'une demande de mémoire de 100 MiB et une limite de mémoire de 200 MiB. Voici le fichier de configuration
 pour le Pod :
 
-{{< codenew file="pods/resource/memory-request-limit.yaml" >}}
+{{% codenew file="pods/resource/memory-request-limit.yaml" %}}
 
 La section `args` de votre fichier de configuration fournit des arguments pour le conteneur lorsqu'il démarre.
 Les arguments `"--vm-bytes", "150M"` indiquent au conteneur d'allouer 150 MiB de mémoire.
@@ -123,7 +123,7 @@ Si un conteneur terminé peut être redémarré, le kubelet le redémarre, comme
 Dans cet exercice, vous créez un Pod qui tente d'allouer plus de mémoire que sa limite.
 Voici le fichier de configuration d'un Pod qui contient un conteneur avec une demande de mémoire de 50 MiB et une limite de mémoire de 100 MiB :
 
-{{< codenew file="pods/resource/memory-request-limit-2.yaml" >}}
+{{% codenew file="pods/resource/memory-request-limit-2.yaml" %}}
 
 Dans la section `args` du fichier de configuration, vous pouvez voir que le conteneur
 tentera d'allouer 250 MiB de mémoire, ce qui est bien au-dessus de la limite de 100 MiB.
@@ -226,7 +226,7 @@ L'ordonnancement des modules est basé sur les demandes. Un Pod est schedulé po
 
 Dans cet exercice, vous allez créer un Pod dont la demande de mémoire est si importante qu'elle dépasse la capacité de la mémoire de n'importe quel nœud de votre cluster. Voici le fichier de configuration d'un Pod qui possède un seul conteneur avec une demande de 1000 GiB de mémoire, qui dépasse probablement la capacité de tous les nœuds de votre cluster.
 
-{{< codenew file="pods/resource/memory-request-limit-3.yaml" >}}
+{{% codenew file="pods/resource/memory-request-limit-3.yaml" %}}
 
 Créez le Pod :
 

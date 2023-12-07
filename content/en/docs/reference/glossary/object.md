@@ -2,9 +2,9 @@
 title: Object
 id: object
 date: 2020-10-12
-full_link: https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects
+full_link: /docs/concepts/overview/working-with-objects/#kubernetes-objects
 short_description: >
-   A entity in the Kubernetes system, representing part of the state of your cluster.
+   An entity in the Kubernetes system, representing part of the state of your cluster.
 aka: 
 tags:
 - fundamental

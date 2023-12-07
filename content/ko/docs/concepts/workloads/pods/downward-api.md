@@ -1,6 +1,7 @@
 ---
 title: 다운워드(Downward) API
 content_type: concept
+weight: 170
 description: >
   실행 중인 컨테이너에 파드 및 컨테이너 필드를 노출하는 두 가지 방법이 있다.
   환경 변수를 활용하거나, 그리고 특수한 볼륨 타입으로 채워진 파일을 이용한다.

@@ -49,7 +49,7 @@ kubectl create namespace default-cpu-example
 Here's a manifest for an example {{< glossary_tooltip text="LimitRange" term_id="limitrange" >}}.
 The manifest specifies a default CPU request and a default CPU limit.
 
-{{< codenew file="admin/resource/cpu-defaults.yaml" >}}
+{{% code_sample file="admin/resource/cpu-defaults.yaml" %}}
 
 Create the LimitRange in the default-cpu-example namespace:
 
@@ -65,7 +65,7 @@ CPU limit of 1.
 Here's a manifest for a Pod that has one container. The container
 does not specify a CPU request and limit.
 
-{{< codenew file="admin/resource/cpu-defaults-pod.yaml" >}}
+{{% code_sample file="admin/resource/cpu-defaults-pod.yaml" %}}
 
 Create the Pod.
 
@@ -100,7 +100,7 @@ containers:
 Here's a manifest for a Pod that has one container. The container
 specifies a CPU limit, but not a request:
 
-{{< codenew file="admin/resource/cpu-defaults-pod-2.yaml" >}}
+{{% code_sample file="admin/resource/cpu-defaults-pod-2.yaml" %}}
 
 Create the Pod:
 
@@ -109,7 +109,7 @@ Create the Pod:
 kubectl apply -f https://k8s.io/examples/admin/resource/cpu-defaults-pod-2.yaml --namespace=default-cpu-example
 ```
 
-View the [specification](/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status)
+View the [specification](/docs/concepts/overview/working-with-objects/#object-spec-and-status)
 of the Pod that you created:
 
 ```
@@ -132,7 +132,7 @@ resources:
 Here's an example manifest for a Pod that has one container. The container
 specifies a CPU request, but not a limit:
 
-{{< codenew file="admin/resource/cpu-defaults-pod-3.yaml" >}}
+{{% code_sample file="admin/resource/cpu-defaults-pod-3.yaml" %}}
 
 Create the Pod:
 
@@ -140,8 +140,7 @@ Create the Pod:
 kubectl apply -f https://k8s.io/examples/admin/resource/cpu-defaults-pod-3.yaml --namespace=default-cpu-example
 ```
 
-View the [specification](/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status)
-of the Pod that you created:
+View the specification of the Pod that you created:
 
 ```
 kubectl get pod default-cpu-demo-3 --output=yaml --namespace=default-cpu-example

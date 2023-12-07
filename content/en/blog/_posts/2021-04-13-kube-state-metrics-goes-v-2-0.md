@@ -35,7 +35,7 @@ So without further ado, here is the list of more noteworthy user-facing breaking
 * Metric labels that relate to Kubernetes were converted to snake_case.
 * If you are importing kube-state-metrics as a library, we have updated our go module path to `k8s.io/kube-state-metrics/v2`
 * All deprecated stable metrics were removed as per the [notice in the v1.9 release](https://github.com/kubernetes/kube-state-metrics/tree/release-1.9/docs#metrics-deprecation).
-* `quay.io/coreos/kube-state-metrics` images will no longer be updated. `k8s.gcr.io/kube-state-metrics/kube-state-metrics` is the new canonical location.
+* `quay.io/coreos/kube-state-metrics` images will no longer be updated. `k8s.gcr.io/kube-state-metrics/kube-state-metrics` is the new canonical location _(update: `k8s.gcr.io` has been deprecated in favor of `registry.k8s.io`)._
 * The helm chart that is part of the kubernetes/kube-state-metrics repository is deprecated. https://github.com/prometheus-community/helm-charts will be its new location. 
 
 For the full list of v2.0 release changes includes features, bug fixes and other breaking changes see the full [CHANGELOG](https://github.com/kubernetes/kube-state-metrics/blob/master/CHANGELOG.md).

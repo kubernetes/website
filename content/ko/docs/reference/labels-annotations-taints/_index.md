@@ -1,8 +1,8 @@
 ---
 title: 잘 알려진 레이블, 어노테이션, 테인트(Taint)
 content_type: concept
-weight: 20
-
+weight: 40
+no_list: true
 ---
 
 <!-- overview -->
@@ -19,7 +19,7 @@ weight: 20
 
 예시: `app.kubernetes.io/component: "database"`
 
-적용 대상: 모든 오브젝트
+적용 대상: 모든 오브젝트 (일반적으로 [워크로드 리소스](/docs/reference/kubernetes-api/workload-resources/)에서 사용됨)
 
 아키텍처 내의 컴포넌트.
 
@@ -29,7 +29,7 @@ weight: 20
 
 예시: `app.kubernetes.io/created-by: "controller-manager"`
 
-적용 대상: 모든 오브젝트
+적용 대상: 모든 오브젝트 (일반적으로 [워크로드 리소스](/docs/reference/kubernetes-api/workload-resources/)에서 사용됨)
 
 리소스를 생성한 컨트롤러/사용자.
 
@@ -41,9 +41,9 @@ v1.9부터 이 레이블은 더 이상 사용되지 않는다.
 
 예시: `app.kubernetes.io/instance: "mysql-abcxzy"`
 
-적용 대상: 모든 오브젝트
+적용 대상: 모든 오브젝트 (일반적으로 [워크로드 리소스](/docs/reference/kubernetes-api/workload-resources/)에서 사용됨)
 
-애플리케이션 인스턴스를 식별하기 위한 고유한 이름.
+애플리케이션 인스턴스를 식별하기 위한 고유한 이름. 고유하지 않은 이름을 할당하려면, [app.kubernetes.io/name](#app-kubernetes-io-name)를 사용한다.
 
 [추천하는 레이블](/ko/docs/concepts/overview/working-with-objects/common-labels/#labels)을 확인한다.
 
@@ -51,7 +51,7 @@ v1.9부터 이 레이블은 더 이상 사용되지 않는다.
 
 예시: `app.kubernetes.io/managed-by: "helm"`
 
-적용 대상: 모든 오브젝트
+적용 대상: 모든 오브젝트 (일반적으로 [워크로드 리소스](/docs/reference/kubernetes-api/workload-resources/)에서 사용됨)
 
 애플리케이션의 작업을 관리하기 위해 사용되는 도구.
 
@@ -61,7 +61,7 @@ v1.9부터 이 레이블은 더 이상 사용되지 않는다.
 
 예시: `app.kubernetes.io/name: "mysql"`
 
-적용 대상: 모든 오브젝트
+적용 대상: 모든 오브젝트 (일반적으로 [워크로드 리소스](/docs/reference/kubernetes-api/workload-resources/)에서 사용됨)
 
 애플리케이션의 이름.
 
@@ -71,7 +71,7 @@ v1.9부터 이 레이블은 더 이상 사용되지 않는다.
 
 예시: `app.kubernetes.io/part-of: "wordpress"`
 
-적용 대상: 모든 오브젝트
+적용 대상: 모든 오브젝트 (일반적으로 [워크로드 리소스](/docs/reference/kubernetes-api/workload-resources/)에서 사용됨)
 
 해당 애플리케이션이 속한 상위 레벨의 애플리케이션 이름.
 
@@ -81,9 +81,14 @@ v1.9부터 이 레이블은 더 이상 사용되지 않는다.
 
 예시: `app.kubernetes.io/version: "5.7.21"`
 
-적용 대상: 모든 오브젝트
+적용 대상: 모든 오브젝트 (일반적으로 [워크로드 리소스](/docs/reference/kubernetes-api/workload-resources/)에서 사용됨)
 
-애플리케이션의 현재 버전(시맨틱 버전, 리비전 해시, 기타 등등).
+애플리케이션의 현재 버전.
+
+일반적으로 다음과 같은 형태의 값들을 포함한다.
+
+- [시맨틱 버전](https://semver.org/spec/v1.0.0.html)
+- [리비전 해시](https://git-scm.com/book/en/v2/Git-Tools-Revision-Selection#_single_revisions) 깃 소스 코드
 
 [추천하는 레이블](/ko/docs/concepts/overview/working-with-objects/common-labels/#labels)을 확인한다.
 
@@ -127,6 +132,20 @@ Go에 의해 정의된 `runtime.GOOS` 값을 kubelet이 읽어서 이 레이블�
 
 레이블 {{< glossary_tooltip text="셀렉터" term_id="selector" >}}를 이용하여 특정 네임스페이스를 지정하고 싶다면
 이 레이블이 유용할 수 있다.
+
+### kubernetes.io/limit-ranger
+
+예시: `kubernetes.io/limit-ranger: "LimitRanger plugin set: cpu, memory request for container nginx; cpu, memory limit for container nginx"`
+
+적용 대상: 파드
+
+쿠버네티스는 기본적으로 어떠한 리소스 한도도 설정하지 않는다. 명시적으로 한도를 설정하지 않을 경우,
+컨테이너는 CPU와 메모리를 무제한으로 사용하게 된다.
+네임스페이스에 리밋레인지를 생성함으로써 리소스에 대한 요청이나 한도 기본값을 파드에 설정할 수 있다.
+리밋레인지를 정의한 뒤에 배포된 파드들은 이러한 한도가 적용된다.
+`kubernetes.io/limit-ranger` 어노테이션은 파드에 대해 리소스 기본값이
+성공적으로 적용되었다고 기록한다.
+자세한 내용은 [리밋레인지](/ko/docs/concepts/policy/limit-range/)를 확인한다.
 
 ## beta.kubernetes.io/arch (사용 중단됨)
 
@@ -173,6 +192,17 @@ kubelet이 호스트네임을 읽어서 이 레이블의 값으로 채운다. `k
 
 이 어노테이션의 값은 **true**로 설정되어야만 작동한다. 이 어노테이션은, 해당 서비스어카운트로 동작중인 파드가 그 서비스어카운트의 `secrets` 항목에 명시된 Secret API 오브젝트만을 참조한다는 뜻이다.
 
+### node.kubernetes.io/exclude-from-external-load-balancer
+
+예시: `node.kubernetes.io/exclude-from-external-load-balancer`
+
+적용 대상: 노드
+
+쿠버네티스는 클러스터에 `ServiceNodeExclusion` 기능 게이트를 자동으로 활성화한다. 해당 기능 게이트가 클러스터에 활성화되어 있으면,
+백엔드 서버들로부터 특정 워커 노드를 제외시키도록 레이블을 추가할 수 있다.
+다음 명령어는 백엔드 목록에서 워커 노드를 제외시키는 명령어이다.
+`kubectl label nodes <node-name> node.kubernetes.io/exclude-from-external-load-balancers=true`
+
 ## controller.kubernetes.io/pod-deletion-cost {#pod-deletion-cost}
 
 예시: `controller.kubernetes.io/pod-deletion-cost=10`
@@ -207,7 +237,7 @@ kubelet이 호스트네임을 읽어서 이 레이블의 값으로 채운다. `k
 실행파일이 CNI의 실행파일 경로(기본적으로 `/opt/cni/bin`) 아래에 포함되어있는지도 확인하자.
 {{< /note >}}
 
-Example: `kubernetes.io/ingress-bandwidth: 10M`
+예시: `kubernetes.io/ingress-bandwidth: 10M`
 
 적용 대상: 파드
 
@@ -276,6 +306,14 @@ Example: `kubernetes.io/ingress-bandwidth: 10M`
 스테이트풀셋 문서의 [파드 이름 레이블](/ko/docs/concepts/workloads/controllers/statefulset/#파드-이름-레이블)에서
 상세 사항을 확인한다.
 
+### scheduler.alpha.kubernetes.io/node-selector {#schedulerkubernetesnode-selector}
+
+예시: `scheduler.alpha.kubernetes.io/node-selector: "name-of-node-selector"`
+
+적용 대상: 네임스페이스
+
+[파드-노드 셀렉터(PodNodeSelector)](/docs/reference/access-authn-authz/admission-controllers/#podnodeselector)는 이 어노테이션의 키를 사용하여 네임스페이스의 파드들에 노드 셀렉터를 할당한다.
+
 ## topology.kubernetes.io/region {#topologykubernetesioregion}
 
 예시:
@@ -323,7 +361,7 @@ _SelectorSpreadPriority_ 는 최선 노력(best effort) 배치 방법이다. 클
 
 이 어노테이션은 사용 중단되었다.
 
-### volume.beta.kubernetes.io/mount-options (deprecated) {#mount-options}
+### volume.beta.kubernetes.io/mount-options (사용 중단) {#mount-options}
 
 예시 : `volume.beta.kubernetes.io/mount-options: "ro,soft"`
 
@@ -359,17 +397,22 @@ kubelet이 Microsoft 윈도우에서 실행되고 있다면, 사용 중인 Windo
 
 ## kubernetes.io/service-name {#kubernetesioservice-name}
 
-예시: `kubernetes.io/service-name="nginx"`
+예시: `kubernetes.io/service-name="my-website"`
 
-적용 대상: 서비스
+적용 대상: 엔드포인트슬라이스(EndpointSlices)
 
-쿠버네티스가 여러 서비스를 구분하기 위해 이 레이블을 사용한다. 현재는 `ELB`(Elastic Load Balancer) 를 위해서만 사용되고 있다.
+쿠버네티스는 이 레이블을 사용하여 [엔드포인트슬라이스](/ko/docs/concepts/services-networking/endpoint-slices/)와
+[서비스](/ko/docs/concepts/services-networking/service/)를 결합한다.
+
+이 레이블은 엔드포인트슬라이스가 지원하는 서비스의 {{< glossary_tooltip term_id="name" text="이름">}}을 기록한다.
+모든 엔드포인트슬라이스는 이 레이블을
+자신과 연결된 서비스의 이름으로 설정해야 한다.
 
 ### kubernetes.io/service-account.name
 
 예시: `kubernetes.io/service-account.name: "sa-name"`
 
-Used on: 시크릿(Secret)
+적용 대상: 시크릿(Secret)
 
 이 어노테이션에는 토큰(`kubernetes.io/service-account-token` 타입의 시크릿에 저장되는)이 나타내는
 서비스어카운트의 {{< glossary_tooltip term_id="name" text="이름">}}을 기록한다.
@@ -383,11 +426,25 @@ Used on: 시크릿(Secret)
 이 어노테이션에는 토큰(`kubernetes.io/service-account-token` 타입의 시크릿에 저장되는)이 나타내는
 서비스어카운트의 {{< glossary_tooltip term_id="uid" text="고유 ID">}}를 기록한다.
 
+### kubernetes.io/legacy-token-last-used
+
+예시: `kubernetes.io/legacy-token-last-used: 2022-10-24`
+
+적용 대상: 시크릿
+
+컨트롤 플레인은 `kubernetes.io/service-account-token` 타입을 갖는 시크릿에 대해서만 이 레이블을 추가한다.
+이 레이블의 값은, 클라이언트가 서비스어카운트 토큰을 사용하여 인증한 요청을
+컨트롤 플레인이 마지막으로 확인한 날짜(ISO 8601 형식, UTC 시간대)를 기록한다.
+
+클러스터가 해당 기능을 얻기 전에 기존의 토큰을 마지막으로 사용한 경우(쿠버네티스 v1.26에 추가됨),
+이 레이블은 설정되지 않는다.
+
+
 ## endpointslice.kubernetes.io/managed-by {#endpointslicekubernetesiomanaged-by}
 
 예시: `endpointslice.kubernetes.io/managed-by="controller"`
 
-적용 대상: 엔드포인트슬라이스(EndpointSlices)
+적용 대상: 엔드포인트슬라이스
 
 이 레이블은 엔드포인트슬라이스(EndpointSlice)를 어떤 컨트롤러나 엔티티가 관리하는지를 나타내기 위해 사용된다. 이 레이블을 사용함으로써 한 클러스터 내에서 여러 엔드포인트슬라이스 오브젝트가 각각 다른 컨트롤러나 엔티티에 의해 관리될 수 있다.
 
@@ -407,7 +464,7 @@ Used on: 시크릿(Secret)
 
 kube-proxy 에는 커스텀 프록시를 위한 이와 같은 레이블이 있으며, 이 레이블은 서비스 컨트롤을 커스텀 프록시에 위임한다.
 
-## experimental.windows.kubernetes.io/isolation-type (deprecated) {#experimental-windows-kubernetes-io-isolation-type}
+## experimental.windows.kubernetes.io/isolation-type (사용 중단) {#experimental-windows-kubernetes-io-isolation-type}
 
 예시: `experimental.windows.kubernetes.io/isolation-type: "hyperv"`
 
@@ -474,19 +531,37 @@ kube-controller-manager의 잡(Job) 컨트롤러는
 
 적용 대상: 엔드포인트(Endpoints)
 
-v1.22 이상의 쿠버네티스 클러스터에서, 한 엔드포인트(Endpoints) 리소스가 관리하고 있는 엔드포인트의 수가 1000개 이상이면 엔드포인트 컨트롤러가 해당 엔드포인트 리소스에 이 어노테이션을 추가한다. 이 어노테이션은 해당 엔드포인트 리소스가 용량 초과 되었으며 엔드포인트 컨트롤러가 엔드포인트의 수를 1000으로 줄였음을 나타낸다.
+{{< glossary_tooltip text="컨트롤 플레인" term_id="control-plane" >}}은, 연결된 {{< glossary_tooltip text="서비스" term_id="service" >}}에 1000개 이상의 엔드포인트가 있는 경우, 이 어노테이션을 [엔드포인트](/ko/docs/concepts/services-networking/service/#endpoints) 오브젝트에 추가한다. 이 어노테이션은 엔드포인트의 용량이 초과되었거나 엔드포인트의 수가 1000개로 잘렸음을 나타낸다.
 
-## batch.kubernetes.io/job-tracking
+백엔드 엔드포인트의 수가 1000개 미만이면, 컨트롤 플레인은 이 어노테이션을 제거한다.
+
+### batch.kubernetes.io/job-tracking (사용 중단) {#batch-kubernetes-io-job-tracking}
 
 예시: `batch.kubernetes.io/job-tracking: ""`
 
 적용 대상: 잡
 
-잡에 어노테이션이 있으면 컨트롤 플레인은 [finalizers를 사용하여 잡 상태 추적](/ko/docs/concepts/workloads/controllers/job/#job-tracking-with-finalizers)
-중임을 나타낸다.
-어노테이션을 수동으로 추가하거나 제거하지 **않는다**.
+잡에 이 어노테이션이 있는 경우, 컨트롤 플레인이
+[파이널라이저(finalizer)를 이용하여 잡 상태를 추적](/ko/docs/concepts/workloads/controllers/job/#종료자-finalizers-를-이용한-잡-추적)하고 있음을 나타낸다.
+컨트롤 플레인은 이 어노테이션을 사용하여, 아직 기능이 개발 중인 동안
+파이널라이저를 사용하여 잡을 추적하도록 안전하게 전환한다.
+이 어노테이션을 수동으로 추가하거나 제거해서는 **안 된다**.
 
-## scheduler.alpha.kubernetes.io/preferAvoidPods (deprecated) {#scheduleralphakubernetesio-preferavoidpods}
+{{< note >}}
+쿠버네티스 1.26 부터, 이 어노테이션은 사용되지 않는다.
+쿠버네티스 1.27 과 그 이상의 버전들은 이 어노테이션을 무시할 것이며,
+항상 파이널라이저를 사용하여 잡을 추적할 것이다..
+{{< /note >}}
+
+### scheduler.alpha.kubernetes.io/defaultTolerations {#scheduleralphakubernetesio-defaulttolerations}
+
+예시: `scheduler.alpha.kubernetes.io/defaultTolerations: '[{"operator": "Equal", "value": "value1", "effect": "NoSchedule", "key": "dedicated-node"}]'`
+
+적용 대상: 네임스페이스
+
+이 어노테이션은 [PodTolerationRestriction](/docs/reference/access-authn-authz/admission-controllers/#podtolerationrestriction) 어드미션 컨트롤러가 활성화되어 있어야 한다.  어노테이션의 키는 네임스페이스에 톨러레이션(toleration)을 할당하는 것을 허용하며, 해당 네임스페이스에 생성되는 모든 파드들은 이 톨러레이션이 부여된다.
+
+## scheduler.alpha.kubernetes.io/preferAvoidPods (사용 중단) {#scheduleralphakubernetesio-preferavoidpods}
 
 적용 대상: 노드
 
@@ -576,7 +651,7 @@ kubelet이 "외부" 클라우드 공급자에 의해 실행되었다면 노드�
 특히 `enforce` 레이블은 표시된 수준에 정의된 요구 사항을 충족하지 않는
 레이블 네임스페이스에 모든 파드의 생성을 금지한다.
 
-더 많은 정보는 [네임스페이스에서 파드 보안 적용](/docs/concepts/security/pod-security-admission)을
+더 많은 정보는 [네임스페이스에서 파드 보안 적용](/ko/docs/concepts/security/pod-security-admission)을
 참고한다.
 
 ## pod-security.kubernetes.io/enforce-version
@@ -589,7 +664,7 @@ kubelet이 "외부" 클라우드 공급자에 의해 실행되었다면 노드�
 설정된 파드의 유효성을 검사할 때 적용할 [파드 보안 표준](/ko/docs/concepts/security/pod-security-standards/)
 정책의 버전이 결정된다.
 
-더 많은 정보는 [네임스페이스에서 파드 보안 적용](/docs/concepts/security/pod-security-admission)을
+더 많은 정보는 [네임스페이스에서 파드 보안 적용](/ko/docs/concepts/security/pod-security-admission)을
 참고한다.
 
 ## pod-security.kubernetes.io/audit
@@ -603,7 +678,7 @@ kubelet이 "외부" 클라우드 공급자에 의해 실행되었다면 노드�
 특히 `audit` 레이블은 표시된 수준에 정의된 요구 사항을 충족하지 않는 레이블 네임스페이스에 파드를 생성하는 것을
 방지하지 않지만, 해당 파드에 audit 어노테이션을 추가한다.
 
-더 많은 정보는 [네임스페이스에서 파드 보안 적용](/docs/concepts/security/pod-security-admission)을
+더 많은 정보는 [네임스페이스에서 파드 보안 적용](/ko/docs/concepts/security/pod-security-admission)을
 참고한다.
 
 ## pod-security.kubernetes.io/audit-version
@@ -616,7 +691,7 @@ kubelet이 "외부" 클라우드 공급자에 의해 실행되었다면 노드�
 설정된 파드의 유효성을 검사할 때 적용할 [파드 보안 표준](/ko/docs/concepts/security/pod-security-standards/)
 정책의 버전이 결정된다.
 
-더 많은 정보는 [네임스페이스에서 파드 보안 적용](/docs/concepts/security/pod-security-admission)을
+더 많은 정보는 [네임스페이스에서 파드 보안 적용](/ko/docs/concepts/security/pod-security-admission)을
 참고한다.
 
 ## pod-security.kubernetes.io/warn
@@ -632,7 +707,7 @@ kubelet이 "외부" 클라우드 공급자에 의해 실행되었다면 노드�
 디플로이먼트, 잡, 스테이트풀셋 등과 같은 파드 템플릿을 포함하는
 객체를 만들거나 업데이트할 때에도 경고가 표시된다.
 
-더 많은 정보는 [네임스페이스에서 파드 보안 적용](/docs/concepts/security/pod-security-admission)을
+더 많은 정보는 [네임스페이스에서 파드 보안 적용](/ko/docs/concepts/security/pod-security-admission)을
 참고한다.
 
 ## pod-security.kubernetes.io/warn-version
@@ -646,7 +721,7 @@ kubelet이 "외부" 클라우드 공급자에 의해 실행되었다면 노드�
 정책의 버전이 결정된다. 디플로이먼트, 잡, 스테이트풀셋 등과 같은 파드 템플릿을 포함하는
 객체를 만들거나 업데이트할 때에도 경고가 표시된다.
 
-더 많은 정보는 [네임스페이스에서 파드 보안 적용](/docs/concepts/security/pod-security-admission)을
+더 많은 정보는 [네임스페이스에서 파드 보안 적용](/ko/docs/concepts/security/pod-security-admission)을
 참고한다.
 
 ### kubernetes.io/psp (사용 중단됨) {#kubernetes-io-psp}
@@ -730,7 +805,7 @@ etcd 클라이언트들이 접근할 수 있는 URL 목록을 추적하기 위�
 
 ### kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint
 
-예시: `kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: https//172.17.0.18:6443`
+예시: `kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: https://172.17.0.18:6443`
 
 적용 대상: 파드
 
@@ -752,10 +827,20 @@ etcd 클라이언트들이 접근할 수 있는 URL 목록을 추적하기 위�
 
 kubeadm이 관리하는 컨트롤 플레인 노드에 적용되는 레이블.
 
-### node-role.kubernetes.io/control-plane
+### node-role.kubernetes.io/control-plane {#node-role-kubernetes-io-control-plane-taint}
 
 예시: `node-role.kubernetes.io/control-plane:NoSchedule`
 
 적용 대상: 노드
 
 중요한 워크로드만 스케줄링할 수 있도록 컨트롤 플레인 노드에 적용시키는 테인트.
+
+### node-role.kubernetes.io/master (사용 중단) {#node-role-kubernetes-io-master-taint}
+
+적용 대상: Node
+
+예시: `node-role.kubernetes.io/master:NoSchedule`
+
+이전 버전에서 kubeadm이 컨트롤 플레인에 중요한 워크로드만 스케줄링하기 위해 적용했던 테인트.
+[`node-role.kubernetes.io/control-plane`](#node-role-kubernetes-io-control-plane-taint)로 대체되었다.
+kubeadm은 더 이상 해당 테인트를 설정하거나 사용하지 않는다.

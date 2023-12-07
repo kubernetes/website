@@ -1,6 +1,7 @@
 ---
 title: 适用于 Docker 用户的 kubectl
 content_type: concept
+weight: 50
 ---
 <!--
 title: kubectl for Docker Users
@@ -8,6 +9,7 @@ content_type: concept
 reviewers:
 - brendandburns
 - thockin
+weight: 50
 -->
 
 <!-- overview -->

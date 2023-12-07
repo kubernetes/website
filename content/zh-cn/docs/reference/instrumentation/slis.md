@@ -15,19 +15,19 @@ weight: 20
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
 <!--
-As an alpha feature, Kubernetes lets you configure Service Level Indicator (SLI) metrics 
+By default, Kubernetes {{< skew currentVersion >}} publishes Service Level Indicator (SLI) metrics 
 for each Kubernetes component binary. This metric endpoint is exposed on the serving 
-HTTPS port of each component, at the path `/metrics/slis`. You must enable the 
+HTTPS port of each component, at the path `/metrics/slis`. The 
 `ComponentSLIs` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-for every component from which you want to scrape SLI metrics.
+defaults to enabled for each Kubernetes component as of v1.27.
 -->
-作为一个 Alpha 特性，Kubernetes 允许你为每个 Kubernetes 组件二进制文件配置服务水平指示器 (SLI) 指标。
+默认情况下，Kubernetes {{< skew currentVersion >}} 会为每个 Kubernetes 组件的二进制文件发布服务等级指标（SLI）。
 此指标端点被暴露在每个组件提供 HTTPS 服务的端口上，路径为 `/metrics/slis`。
-你必须为想要抓取 SLI 指标的每个组件启用 `ComponentSLIs`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
+从 v1.27 版本开始，对每个 Kubernetes 组件而言，
+`ComponentSLIs` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)都是默认启用的。
 
 <!-- body -->
 

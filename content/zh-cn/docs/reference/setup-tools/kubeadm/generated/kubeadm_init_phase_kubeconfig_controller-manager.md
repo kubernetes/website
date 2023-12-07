@@ -1,29 +1,16 @@
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference conent, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
 <!-- 
 Generate a kubeconfig file for the controller manager to use 
 -->
-生成控制器管理器要使用的 kubeconfig 文件
+生成控制器管理器要使用的 kubeconfig 文件。
 
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
 Generate the kubeconfig file for the controller manager to use and save it to controller-manager.conf file
 -->
-
 生成控制器管理器要使用的 kubeconfig 文件，并保存到 controller-manager.conf 文件中。
 
 ```
@@ -33,7 +20,6 @@ kubeadm init phase kubeconfig controller-manager [flags]
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -114,6 +100,18 @@ kubeadm init phase kubeconfig controller-manager [flags]
 </tr>    
 
 <tr>
+<td colspan="2">--dry-run</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+<p>Don't apply any changes; just output what would be done.</p>
+-->
+<p>不做任何更改；只输出将要执行的操作。</p>
+</td>
+</tr>
+
+<tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
@@ -121,7 +119,7 @@ kubeadm init phase kubeconfig controller-manager [flags]
 <!--
 <p>help for controller-manager</p>
 -->
-<p>controller-manager 操作的帮助命令</p>
+<p>controller-manager 操作的帮助命令。</p>
 </td>
 </tr>
 
@@ -164,7 +162,6 @@ kubeadm init phase kubeconfig controller-manager [flags]
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 继承于父命令的选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -188,4 +185,3 @@ kubeadm init phase kubeconfig controller-manager [flags]
 
 </tbody>
 </table>
-

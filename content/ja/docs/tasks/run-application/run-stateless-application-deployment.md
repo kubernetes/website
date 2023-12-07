@@ -32,11 +32,11 @@ weight: 10
 
 <!-- lessoncontent -->
 
-## nginx deploymentの作成と探検
+## nginx deploymentの作成と探検 {#creating-and-exploring-an-nginx-deployment}
 
 Kubernetes Deploymentオブジェクトを作成することでアプリケーションを実行できます。また、YAMLファイルでDeploymentを記述できます。例えば、このYAMLファイルはnginx:1.14.2 Dockerイメージを実行するデプロイメントを記述しています:
 
-{{< codenew file="application/deployment.yaml" >}}
+{{% codenew file="application/deployment.yaml" %}}
 
 
 1. YAMLファイルに基づいてDeploymentを作成します:
@@ -97,7 +97,7 @@ Kubernetes Deploymentオブジェクトを作成することでアプリケー�
 
 新しいYAMLファイルを適用してDeploymentを更新できます。このYAMLファイルは、Deploymentを更新してnginx 1.16.1を使用するように指定しています。
 
-{{< codenew file="application/deployment-update.yaml" >}}
+{{% codenew file="application/deployment-update.yaml" %}}
 
 1. 新しいYAMLファイルを適用します:
 
@@ -111,7 +111,7 @@ Kubernetes Deploymentオブジェクトを作成することでアプリケー�
 
 新しいYAMLファイルを適用することで、Deployment内のPodの数を増やすことができます。このYAMLファイルは`replicas`を4に設定します。これはDeploymentが4つのPodを持つべきであることを指定します:
 
-{{< codenew file="application/deployment-scale.yaml" >}}
+{{% codenew file="application/deployment-scale.yaml" %}}
 
 1. 新しいYAMLファイルを適用します:
 

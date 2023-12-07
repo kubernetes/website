@@ -72,7 +72,7 @@ end
 subgraph second[Recenzuj]
 direction TB
    T[ ] -.-
-   D[Przejrzyj<br>repozytorium<br>K8s/website] --- E[Pobierz generator<br>stron statycznych<br>Hugo]
+   D[Przejrzyj<br>repozytorium<br>kubernetes/website] --- E[Pobierz generator<br>stron statycznych<br>Hugo]
    E --- F[Zrozum podstawowe<br>polecenia GitHub-a]
    F --- G[Zrecenzuj otwarty PR<br>i zmień procesy<br>recenzji]
 end
@@ -118,7 +118,7 @@ flowchart LR
     direction TB
     S[ ] -.-
     G[Obejrzyj PR-y<br>innych uczestników K8s] -->
-    A[Przejrzyj listę zgłoszonych spraw<br>na K8s/website<br>po pomysł na nowy PR] --> B[Otwórz PR!!]
+    A[Przejrzyj listę zgłoszonych spraw<br>na kubernetes/website<br>po pomysł na nowy PR] --> B[Otwórz PR!!]
     end
     subgraph first[Sugerowane przygotowanie]
     direction TB

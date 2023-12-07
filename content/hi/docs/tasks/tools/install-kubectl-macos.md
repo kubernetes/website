@@ -37,16 +37,16 @@ macOS पर kubectl संस्थापित करने के लिए �
    {{< note >}}
    एक विशिष्ट संस्करण डाउनलोड करने के लिए, कमांड के इस हिस्से `$(curl -L -s https://dl.k8s.io/release/stable.txt)` को विशिष्ट संस्करण से बदलें।
    
-   उदाहरण के लिए, Intel macOS पर {{< param "fullversion" >}} संस्करण डाउनलोड करने के लिए, टाइप करें:
+   उदाहरण के लिए, Intel macOS पर {{< skew currentPatchVersion >}} संस्करण डाउनलोड करने के लिए, टाइप करें:
 
    ```bash
-   curl -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl"
+   curl -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/darwin/amd64/kubectl"
    ```
 
    और Apple Silicon macOS के लिए, टाइप करें:
 
    ```bash
-   curl -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/arm64/kubectl"
+   curl -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/darwin/arm64/kubectl"
    ```
 
    {{< /note >}}

@@ -17,12 +17,10 @@ This tutorial applies only for new clusters.
 {{% /alert %}}
 
 <!--
-Pod Security admission (PSA) is enabled by default in v1.23 and later, as it has
-[graduated to beta](/blog/2021/12/09/pod-security-admission-beta/).
-Pod Security
-is an admission controller that carries out checks against the Kubernetes
+Pod Security is an admission controller that carries out checks against the Kubernetes
 [Pod Security Standards](/docs/concepts/security/pod-security-standards/) when new pods are
-created. This tutorial shows you how to enforce the `baseline` Pod Security
+created. It is a feature GA'ed in v1.25.
+This tutorial shows you how to enforce the `baseline` Pod Security
 Standard at the cluster level which applies a standard configuration
 to all namespaces in a cluster.
 
@@ -32,10 +30,8 @@ To apply Pod Security Standards to specific namespaces, refer to
 If you are running a version of Kubernetes other than v{{< skew currentVersion >}},
 check the documentation for that version.
 -->
-Pod 安全准入（PSA）在 v1.23 及更高版本默认启用，
-因为它已[进阶为 Beta](/blog/2021/12/09/pod-security-admission-beta/)。
-Pod 安全准入是在创建 Pod 时应用
-[Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)的准入控制器。
+Pod 安全是一个准入控制器，当新的 Pod 被创建时，它会根据 Kubernetes [Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)
+进行检查。这是在 v1.25 中达到正式发布（GA）的功能。
 本教程将向你展示如何在集群级别实施 `baseline` Pod 安全标准，
 该标准将标准配置应用于集群中的所有名字空间。
 
@@ -46,16 +42,27 @@ Pod 安全准入是在创建 Pod 时应用
 请查阅该版本的文档。
 
 ## {{% heading "prerequisites" %}}
+
 <!--
 Install the following on your workstation:
 
-- [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
+- [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
 - [kubectl](/docs/tasks/tools/)
 -->
 在你的工作站中安装以下内容：
 
-- [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
+- [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
 - [kubectl](/zh-cn/docs/tasks/tools/)
+
+<!--
+This tutorial demonstrates what you can configure for a Kubernetes cluster that you fully
+control. If you are learning how to configure Pod Security Admission for a managed cluster
+where you are not able to configure the control plane, read
+[Apply Pod Security Standards at the namespace level](/docs/tutorials/security/ns-level-pss).
+-->
+本教程演示了你可以对完全由你控制的 Kubernetes 集群所配置的内容。
+如果你正在学习如何为一个无法配置控制平面的托管集群配置 Pod 安全准入，
+请参阅[在名字空间级别应用 Pod 安全标准](/zh-cn/docs/tutorials/security/ns-level-pss)。
 
 <!--
 ## Choose the right Pod Security Standard to apply
@@ -82,13 +89,17 @@ that are most appropriate for your configuration, do the following:
 1. 创建一个没有应用 Pod 安全标准的集群：
 
    ```shell
-   kind create cluster --name psa-wo-cluster-pss --image kindest/node:v1.24.0
+   kind create cluster --name psa-wo-cluster-pss
    ```
-   <!-- The output is similar to this: -->
+   <!--
+   The output is similar to:
+   -->
+
    输出类似于：
+
    ```
    Creating cluster "psa-wo-cluster-pss" ...
-   ✓ Ensuring node image (kindest/node:v1.24.0) 🖼
+   ✓ Ensuring node image (kindest/node:v{{< skew currentPatchVersion >}}) 🖼
    ✓ Preparing nodes 📦
    ✓ Writing configuration 📜
    ✓ Starting control-plane 🕹️
@@ -110,8 +121,12 @@ that are most appropriate for your configuration, do the following:
    ```shell
    kubectl cluster-info --context kind-psa-wo-cluster-pss
    ```
-   <!-- The output is similar to this: -->
+   <!--
+   The output is similar to this:
+   -->
+
    输出类似于：
+
    ```
    Kubernetes control plane is running at https://127.0.0.1:61350
 
@@ -128,8 +143,12 @@ that are most appropriate for your configuration, do the following:
    ```shell
    kubectl get ns
    ```
-   <!-- The output is similar to this: -->
+   <!--
+   The output is similar to this:
+   -->
+
    输出类似于：
+
    ```
    NAME                 STATUS   AGE
    default              Active   9m30s
@@ -150,8 +169,13 @@ that are most appropriate for your configuration, do the following:
       kubectl label --dry-run=server --overwrite ns --all \
       pod-security.kubernetes.io/enforce=privileged
       ```
-      <!-- The output is similar to this: -->
+
+      <!--
+      The output is similar to:
+      -->
+
       输出类似于：
+
       ```
       namespace/default labeled
       namespace/kube-node-lease labeled
@@ -164,8 +188,13 @@ that are most appropriate for your configuration, do the following:
       kubectl label --dry-run=server --overwrite ns --all \
       pod-security.kubernetes.io/enforce=baseline
       ```
-      <!-- The output is similar to this: -->
+
+      <!--
+      The output is similar to:
+      -->
+
       输出类似于：
+
       ```
       namespace/default labeled
       namespace/kube-node-lease labeled
@@ -183,8 +212,13 @@ that are most appropriate for your configuration, do the following:
       kubectl label --dry-run=server --overwrite ns --all \
       pod-security.kubernetes.io/enforce=restricted
       ```
-      <!-- The output is similar to this: -->
+
+      <!--
+      The output is similar to:
+      -->
+
       输出类似于：
+
       ```
       namespace/default labeled
       namespace/kube-node-lease labeled
@@ -335,11 +369,11 @@ following:
 
    {{<note>}}
    <!--
-   If you use Docker Desktop with KinD on macOS, you can
+   If you use Docker Desktop with *kind* on macOS, you can
    add `/tmp` as a Shared Directory under the menu item
    **Preferences > Resources > File Sharing**.
    -->
-   如果你在 macOS 上使用 Docker Desktop 和 KinD，
+   如果你在 macOS 上使用 Docker Desktop 和 kind，
    你可以在菜单项 **Preferences > Resources > File Sharing**
    下添加 `/tmp` 作为共享目录。
    {{</note>}}
@@ -351,13 +385,17 @@ following:
 5. 创建一个使用 Pod 安全准入的集群来应用这些 Pod 安全标准：
 
    ```shell
-   kind create cluster --name psa-with-cluster-pss --image kindest/node:v1.24.0 --config /tmp/pss/cluster-config.yaml
+   kind create cluster --name psa-with-cluster-pss --config /tmp/pss/cluster-config.yaml
    ```
-   <!-- The output is similar to this: -->
+   <!--
+   The output is similar to this:
+   -->
+
    输出类似于：
+
    ```
    Creating cluster "psa-with-cluster-pss" ...
-    ✓ Ensuring node image (kindest/node:v1.24.0) 🖼
+    ✓ Ensuring node image (kindest/node:v{{< skew currentPatchVersion >}}) 🖼
     ✓ Preparing nodes 📦
     ✓ Writing configuration 📜
     ✓ Starting control-plane 🕹️
@@ -374,50 +412,41 @@ following:
 <!--
 1. Point kubectl to the cluster:
 -->
-6. 将 kubectl 指向集群
+6. 将 kubectl 指向集群：
 
    ```shell
    kubectl cluster-info --context kind-psa-with-cluster-pss
    ```
-   <!-- The output is similar to this: -->
+   <!--
+   The output is similar to this:
+   -->
+
    输出类似于：
+
    ```
    Kubernetes control plane is running at https://127.0.0.1:63855
    CoreDNS is running at https://127.0.0.1:63855/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
 
    To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
    ```
-<!--
-1. Create the following Pod specification for a minimal configuration in the default namespace:
--->
-7. 创建以下 Pod 规约作为在 default 名字空间中的一个最小配置：
 
-   ```
-   cat <<EOF > /tmp/pss/nginx-pod.yaml
-   apiVersion: v1
-   kind: Pod
-   metadata:
-     name: nginx
-   spec:
-     containers:
-       - image: nginx
-         name: nginx
-         ports:
-           - containerPort: 80
-   EOF
-   ```
 <!--
-1. Create the Pod in the cluster:
+1. Create a Pod in the default namespace:
 -->
-8. 在集群中创建 Pod：
+7. 在 default 名字空间下创建一个 Pod：
+
+   {{% code_sample file="security/example-baseline-pod.yaml" %}}
 
    ```shell
-   kubectl apply -f /tmp/pss/nginx-pod.yaml
+   kubectl apply -f https://k8s.io/examples/security/example-baseline-pod.yaml
    ```
-   <!-- The output is similar to this: -->
-   输出类似于：
+
+   <!--
+   The pod is started normally, but the output includes a warning:
+   -->
+   这个 Pod 正常启动，但输出包含警告：
    ```
-   Warning: would violate PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container "nginx" must set securityContext allowPrivilegeEscalation=false), unrestricted capabilities (container "nginx" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "nginx" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "nginx" must set securityContext seccompProfile.type to "RuntimeDefault" or "Localhost")
+   Warning: would violate PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container "nginx" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container "nginx" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "nginx" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "nginx" must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost")
    pod/nginx created
    ```
 

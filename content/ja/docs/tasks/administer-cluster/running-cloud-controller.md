@@ -1,6 +1,7 @@
 ---
 title: クラウドコントローラーマネージャーの運用管理
 content_type: concept
+weight: 110
 ---
 
 <!-- overview -->
@@ -54,7 +55,7 @@ Kubernetesのコアリポジトリにないクラウドコントローラーマ�
 
 すでにKubernetesのコアリポジトリにあるプロバイダーの場合、クラスター内でデーモンセットとしてKubernetesリポジトリ内部のクラウドコントローラーマネージャーを実行できます。以下をガイドラインとして使用してください。
 
-{{< codenew file="admin/cloud/ccm-example.yaml" >}}
+{{% codenew file="admin/cloud/ccm-example.yaml" %}}
 
 
 ## 制限

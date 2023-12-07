@@ -167,13 +167,6 @@ Kubernetes 关键组件在 Windows 上的工作方式与在 Linux 上相同。
 
     `.spec.os.name` 字段应设置为 `windows` 以表明当前 Pod 使用 Windows 容器。
 
-    {{< note >}}
-    <!--
-    Starting from 1.25, the `IdentifyPodOS` feature gate is in GA stage and defaults to be enabled.
-    -->
-    从 1.25 开始，`IdentifyPodOS` 特性门控进入 GA 阶段，默认启用。
-    {{< /note >}}
-
     <!--
     If you set the `.spec.os.name` field to `windows`,
     you must not set the following fields in the `.spec` of that Pod:
@@ -435,11 +428,11 @@ work between Windows and Linux:
 The following list documents differences between how Pod specifications work between Windows and Linux:
 
 * `hostIPC` and `hostpid` - host namespace sharing is not possible on Windows
-* `hostNetwork` - [see below](/docs/concepts/windows/intro#compatibility-v1-pod-spec-containers-hostnetwork)
+* `hostNetwork` - [see below](#compatibility-v1-pod-spec-containers-hostnetwork)
 * `dnsPolicy` - setting the Pod `dnsPolicy` to `ClusterFirstWithHostNet` is
    not supported on Windows because host networking is not provided. Pods always
    run with a container network.
-* `podSecurityContext` [see below](/docs/concepts/windows/intro#compatibility-v1-pod-spec-containers-securitycontext)
+* `podSecurityContext` [see below](#compatibility-v1-pod-spec-containers-securitycontext)
 * `shareProcessNamespace` - this is a beta feature, and depends on Linux namespaces
   which are not implemented on Windows. Windows cannot share process namespaces or
   the container's root filesystem. Only the network can be shared.
@@ -476,8 +469,8 @@ The following list documents differences between how Pod specifications work bet
   请参考 [GitHub issue](https://github.com/moby/moby/issues/25982)。
   目前的行为是通过 CTRL_SHUTDOWN_EVENT 发送 ENTRYPOINT 进程，然后 Windows 默认等待 5 秒，
   最后使用正常的 Windows 关机行为终止所有进程。
-  5 秒默认值实际上位于[容器内](https://github.com/moby/moby/issues/25982#issuecomment-426441183)的 Windows 注册表中，
-  因此在构建容器时可以覆盖这个值。
+  5 秒默认值实际上位于[容器内](https://github.com/moby/moby/issues/25982#issuecomment-426441183)的
+  Windows 注册表中，因此在构建容器时可以覆盖这个值。
 * `volumeDevices` - 这是一个 beta 版功能特性，未在 Windows 上实现。
   Windows 无法将原始块设备挂接到 Pod。
 * `volumes`
@@ -552,7 +545,7 @@ Kubernetes 使用 pause 容器以允许工作容器崩溃或重启，而不会�
 
 <!--
 Kubernetes maintains a multi-architecture image that includes support for Windows.
-For Kubernetes v{{< skew currentVersion >}} the recommended pause image is `registry.k8s.io/pause:3.6`.
+For Kubernetes v{{< skew currentPatchVersion >}} the recommended pause image is `registry.k8s.io/pause:3.6`.
 The [source code](https://github.com/kubernetes/kubernetes/tree/master/build/pause)
 is available on GitHub.
 
@@ -565,7 +558,7 @@ deploying to a production or production-like environment that requires signed
 binaries.
 -->
 Kubernetes 维护一个多体系结构的镜像，包括对 Windows 的支持。
-对于 Kubernetes v{{< skew currentVersion >}}，推荐的 pause 镜像为 `registry.k8s.io/pause:3.6`。
+对于 Kubernetes v{{< skew currentPatchVersion >}}，推荐的 pause 镜像为 `registry.k8s.io/pause:3.6`。
 可在 GitHub 上获得[源代码](https://github.com/kubernetes/kubernetes/tree/master/build/pause)。
 
 Microsoft 维护一个不同的多体系结构镜像，支持 Linux 和 Windows amd64，
@@ -601,7 +594,7 @@ The following container runtimes work with Windows:
 You can use {{< glossary_tooltip term_id="containerd" text="ContainerD" >}} 1.4.0+
 as the container runtime for Kubernetes nodes that run Windows.
 
-Learn how to [install ContainerD on a Windows node](/docs/setup/production-environment/container-runtimes/#install-containerd).
+Learn how to [install ContainerD on a Windows node](/docs/setup/production-environment/container-runtimes/#containerd).
 -->
 ### ContainerD {#containerd}
 
@@ -610,7 +603,7 @@ Learn how to [install ContainerD on a Windows node](/docs/setup/production-envir
 对于运行 Windows 的 Kubernetes 节点，你可以使用
 {{< glossary_tooltip term_id="containerd" text="ContainerD" >}} 1.4.0+ 作为容器运行时。
 
-学习如何[在 Windows 上安装 ContainerD](/zh-cn/docs/setup/production-environment/container-runtimes/#install-containerd)。
+学习如何[在 Windows 上安装 ContainerD](/zh-cn/docs/setup/production-environment/container-runtimes/#containerd)。
 
 {{< note >}}
 <!--
@@ -726,7 +719,8 @@ The Kubernetes [cluster API](https://cluster-api.sigs.k8s.io/) project also prov
 
 kubeadm 工具帮助你部署 Kubernetes 集群，提供管理集群的控制平面以及运行工作负载的节点。
 
-Kubernetes [集群 API](https://cluster-api.sigs.k8s.io/) 项目也提供了自动部署 Windows 节点的方式。
+Kubernetes [集群 API](https://cluster-api.sigs.k8s.io/) 项目也提供了自动部署
+Windows 节点的方式。
 
 <!--
 ## Windows distribution channels

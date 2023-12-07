@@ -1,12 +1,14 @@
 ---
 title: kubectl 的用法约定
 content_type: concept
+weight: 60
 ---
 <!--
 title: kubectl Usage Conventions
 reviewers:
 - janetkuo
 content_type: concept
+weight: 60
 -->
 
 <!-- overview -->
@@ -44,16 +46,20 @@ For a stable output in a script:
 ## 子资源    {#subresources}
 
 <!--
-* You can use the `--subresource` alpha flag for kubectl commands like `get`, `patch`,
+* You can use the `--subresource` beta flag for kubectl commands like `get`, `patch`,
 `edit` and `replace` to fetch and update subresources for all resources that
 support them. Currently, only the `status` and `scale` subresources are supported.
+  * For `kubectl edit`, the `scale` subresource is not supported. If you use  `--subresource` with
+    `kubectl edit` and specify `scale` as the subresource, the command will error out.
 * The API contract against a subresource is identical to a full resource. While updating the
 `status` subresource to a new value, keep in mind that the subresource could be potentially
 reconciled by a controller to a different value.
 -->
 
-* 你可以将 `--subresource` alpha 标志用于 kubectl 命令，例如 `get`、`patch`、`edit` 和 `replace`
+* 你可以将 `--subresource` Beta 标志用于 kubectl 命令，例如 `get`、`patch`、`edit` 和 `replace`
   来获取和更新所有支持子资源的资源的子资源。目前，仅支持 `status` 和 `scale` 子资源。
+  * 对于 `kubectl edit`，不支持 `scale` 子资源。如果将 `--subresource` 与 `kubectl edit` 一起使用，
+    并指定 `scale` 作为子资源，则命令将会报错。
 * 针对子资源的 API 协定与完整资源相同。在更新 `status` 子资源为一个新值时，请记住，
   子资源可能是潜在的由控制器调和为不同的值。
 

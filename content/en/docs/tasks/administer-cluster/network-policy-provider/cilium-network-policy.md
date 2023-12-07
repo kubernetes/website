@@ -10,7 +10,7 @@ weight: 30
 <!-- overview -->
 This page shows how to use Cilium for NetworkPolicy.
 
-For background on Cilium, read the [Introduction to Cilium](https://docs.cilium.io/en/stable/intro).
+For background on Cilium, read the [Introduction to Cilium](https://docs.cilium.io/en/stable/overview/intro).
 
 
 ## {{% heading "prerequisites" %}}
@@ -82,7 +82,7 @@ policies using an example application.
 ## Deploying Cilium for Production Use
 
 For detailed instructions around deploying Cilium for production, see:
-[Cilium Kubernetes Installation Guide](https://docs.cilium.io/en/stable/concepts/kubernetes/intro/)
+[Cilium Kubernetes Installation Guide](https://docs.cilium.io/en/stable/network/kubernetes/concepts/)
 This documentation includes detailed requirements, instructions and example
 production DaemonSet files.
 

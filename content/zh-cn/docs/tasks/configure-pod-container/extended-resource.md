@@ -1,13 +1,13 @@
 ---
 title: 为容器分派扩展资源 
 content_type: task
-weight: 40
+weight: 70
 ---
 
 <!--
 title: Assign Extended Resources to a Container
 content_type: task
-weight: 40
+weight: 70
 -->
 
 <!-- overview -->
@@ -54,7 +54,7 @@ Here is the configuration file for a Pod that has one Container:
 
 下面是包含一个容器的 Pod 配置文件：
 
-{{< codenew file="pods/resource/extended-resource-pod.yaml" >}}
+{{% code_sample file="pods/resource/extended-resource-pod.yaml" %}}
 
 <!--
 In the configuration file, you can see that the Container requests 3 dongles.
@@ -109,7 +109,7 @@ two dongles.
 
 下面是包含一个容器的 Pod 配置文件，容器请求了 2 个 dongles。
 
-{{< codenew file="pods/resource/extended-resource-pod-2.yaml" >}}
+{{% code_sample file="pods/resource/extended-resource-pod-2.yaml" %}}
 
 <!--
 Kubernetes will not be able to satisfy the request for two dongles, because the first Pod
@@ -166,7 +166,7 @@ It has a status of Pending:
 -->
 输出结果表明 Pod 虽然被创建了，但没有被调度到节点上正常运行。Pod 的状态为 Pending：
 
-```
+```yaml
 NAME                       READY     STATUS    RESTARTS   AGE
 extended-resource-demo-2   0/1       Pending   0          6m
 ```

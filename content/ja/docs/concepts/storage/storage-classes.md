@@ -159,7 +159,7 @@ spec:
 
 ### 許可されたトポロジー {#allowed-topologies}
 
-クラスタオペレーターが`WaitForFirstConsumer`ボリュームバインディングモードを指定すると、ほとんどの状況でプロビジョニングを特定のトポロジに制限する必要がなくなります。ただし、それでも必要な場合は、`allowedTopologies`を指定できます。
+クラスターオペレーターが`WaitForFirstConsumer`ボリュームバインディングモードを指定すると、ほとんどの状況でプロビジョニングを特定のトポロジに制限する必要がなくなります。ただし、それでも必要な場合は、`allowedTopologies`を指定できます。
 
 この例は、プロビジョニングされたボリュームのトポロジを特定のゾーンに制限する方法を示しており、サポートされているプラグインの`zone`および`zones`パラメーターの代わりとして使用する必要があります。
 
@@ -274,7 +274,7 @@ parameters:
 
     シークレットの例は[glusterfs-provisioning-secret.yaml](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/glusterfs/glusterfs-secret.yaml)にあります。
 
-* `clusterid`:`630372ccdc720a92c681fb928f27b53f`は、ボリュームのプロビジョニング時にHeketiによって使用されるクラスターのIDです。また、クラスタIDのリストにすることもできます。これはオプションのパラメーターです。
+* `clusterid`:`630372ccdc720a92c681fb928f27b53f`は、ボリュームのプロビジョニング時にHeketiによって使用されるクラスターのIDです。また、クラスターIDのリストにすることもできます。これはオプションのパラメーターです。
 * `gidMin`、`gidMax`:StorageClassのGID範囲の最小値と最大値。この範囲内の一意の値(GID)(gidMin-gidMax)が、動的にプロビジョニングされたボリュームに使用されます。これらはオプションの値です。指定しない場合、ボリュームは、それぞれgidMinとgidMaxのデフォルトである2000から2147483647の間の値でプロビジョニングされます。
 * `volumetype`:ボリュームタイプとそのパラメーターは、このオプションの値で構成できます。ボリュームタイプが記載されていない場合、プロビジョニング担当者がボリュームタイプを決定します。
     例えば、
@@ -492,7 +492,7 @@ parameters:
 * `secretName`:Azureストレージアカウント名とキーを含むシークレットの名前。デフォルトは`azure-storage-account-<accountName>-secret`です
 * `readOnly`:ストレージが読み取り専用としてマウントされるかどうかを示すフラグ。デフォルトはfalseで、読み取り/書き込みマウントを意味します。この設定は、VolumeMountsの`ReadOnly`設定にも影響します。
 
-ストレージのプロビジョニング中に、`secretName`という名前のシークレットがマウント資格証明用に作成されます。クラスタで[RBAC](/ja/docs/reference/access-authn-authz/rbac/)と[Controller Roles](/ja/docs/reference/access-authn-authz/rbac/#controller-roles)の両方が有効になっている場合は、追加します。clusterrole`system:controller:persistent-volume-binder`に対するリソース`secret`の`create`パーミッション。
+ストレージのプロビジョニング中に、`secretName`という名前のシークレットがマウント資格証明用に作成されます。クラスターで[RBAC](/ja/docs/reference/access-authn-authz/rbac/)と[Controller Roles](/ja/docs/reference/access-authn-authz/rbac/#controller-roles)の両方が有効になっている場合は、追加します。clusterrole`system:controller:persistent-volume-binder`に対するリソース`secret`の`create`パーミッション。
 
 マルチテナンシーコンテキストでは、`secretNamespace`の値を明示的に設定することを強くお勧めします。そうしないと、ストレージアカウントの資格情報が他のユーザーに読み取られる可能性があります。
 

@@ -1,7 +1,7 @@
 ---
 title: CSI Volume Cloning
 content_type: concept
-weight: 30
+weight: 70
 ---
 
 <!-- overview -->

@@ -108,13 +108,14 @@ Utilisez cette méthode pour inclure des exemples de fichiers YAML lorsque l'éc
 Lors de l'ajout d'un nouveau fichier d'exemple autonome, tel qu'un fichier YAML, placez le code dans l'un des sous-répertoires `<LANG>/examples/` où `<LANG>` est la langue utilisé dans votre page.
 Dans votre fichier, utilisez le shortcode `codenew` :
 
-<pre>&#123;&#123;&lt; codenew file="&lt;RELPATH&gt;/my-example-yaml&gt;" &gt;&#125;&#125;</pre>
-
+```none
+{{%/* codenew file="<RELPATH>/my-example-yaml>" */%}}
+```
 où `<RELPATH>` est le chemin vers le fichier à inclure, relatif au répertoire `examples`.
 Le shortcode Hugo suivant fait référence à un fichier YAML situé sur `/content/en/examples/pods/storage/gce-volume.yaml`.
 
 ```none
-{{</* codenew file="pods/storage/gce-volume.yaml" */>}}
+{{%/* codenew file="pods/storage/gce-volume.yaml" */%}}
 ```
 
 {{< note >}}

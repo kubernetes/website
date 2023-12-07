@@ -3,7 +3,6 @@ title: 开发云控制器管理器
 content_type: task
 weight: 190
 ---
-
 <!--
 reviewers:
 - luxas
@@ -27,7 +26,7 @@ weight: 190
 
 Since cloud providers develop and release at a different pace compared to the Kubernetes project, abstracting the provider-specific code to the `cloud-controller-manager` binary allows cloud vendors to evolve independently from the core Kubernetes code.
 -->
-## 背景
+## 背景   {#background}
 
 由于云驱动的开发和发布与 Kubernetes 项目本身步调不同，将特定于云环境的代码抽象到
 `cloud-controller-manager` 二进制组件有助于云厂商独立于 Kubernetes
@@ -45,7 +44,7 @@ Kubernetes 核心代码导入软件包来实现一个 cloud-controller-manager�
 <!--
 ## Developing
 -->
-## 开发
+## 开发   {#developing}
 
 ### 树外（Out of Tree）
 
@@ -84,4 +83,3 @@ For in-tree cloud providers, you can run the in-tree cloud controller manager as
 对于树内（In-Tree）驱动，你可以将树内云控制器管理器作为集群中的
 {{< glossary_tooltip term_id="daemonset" text="DaemonSet" >}} 来运行。
 有关详细信息，请参阅[云控制器管理器管理](/zh-cn/docs/tasks/administer-cluster/running-cloud-controller/)。
-

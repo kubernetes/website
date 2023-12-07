@@ -40,7 +40,7 @@ compatible behavior when disabled, and to document how to interact with each oth
 
 This enabled the Kubernetes project to graduate to GA the CPU Manager core component and core CPU allocation algorithms to GA,
 while also enabling a new age of experimentation in this area.
-In Kubernetes v1.26, the CPU Manager supports [three different policy options](/docs/tasks/administer-cluster/cpu-management-policies.md#static-policy-options):
+In Kubernetes v1.26, the CPU Manager supports [three different policy options](/docs/tasks/administer-cluster/cpu-management-policies#static-policy-options):
 
 `full-pcpus-only`
 : restrict the CPU Manager core allocation algorithm to full physical cores only, reducing noisy neighbor issues from hardware technologies that allow sharing cores.

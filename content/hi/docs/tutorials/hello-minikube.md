@@ -94,7 +94,7 @@ minikube dashboard --url
 प्रदान की गई डॉकर इमेज के आधार पर एक कंटेनर चलाता है।
 
     ```shell
-    kubectl create deployment hello-node --image=k8s.gcr.io/echoserver:1.4
+    kubectl create deployment hello-node --image=registry.k8s.io/echoserver:1.4
     ```
 
 2. डेप्लॉयमेंट देखें:
@@ -155,7 +155,7 @@ minikube dashboard --url
     `--type=LoadBalancer` फ्लैग इंगित करता है कि आप क्लस्टर के बाहर 
     अपने सर्विस को प्रदर्शित करना चाहते हैं।
     
-    इमेज के अंदर एप्लिकेशन कोड `k8s.gcr.io/echoserver` केवल TCP पोर्ट 8080 पर सुनता है। 
+    इमेज के अंदर एप्लिकेशन कोड `registry.k8s.io/echoserver` केवल TCP पोर्ट 8080 पर सुनता है। 
     यदि आपने किसी भिन्न पोर्ट को एक्सपोज़ करने के लिए `kubectl एक्सपोज़` का उपयोग किया है, तो क्लाइंट उस अन्य पोर्ट से जुड़ नहीं सकते।
 
 2. आपके द्वारा बनाई गई सर्विस देखें:

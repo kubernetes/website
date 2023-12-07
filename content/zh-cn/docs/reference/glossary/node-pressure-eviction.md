@@ -45,6 +45,6 @@ kubelet 监控集群节点上的 CPU、内存、磁盘空间和文件系统 inod
 kubelet 可以主动使节点上的一个或多个 Pod 失效，以回收资源并防止饥饿。
 
 <!-- 
-Node-pressure eviction is not the same as [API-initiated eviction](/docs/reference/generated/kubernetes-api/v1.23/).
+Node-pressure eviction is not the same as [API-initiated eviction](/docs/concepts/scheduling-eviction/api-eviction/).
 -->
-节点压力驱逐不用于 [API 发起的驱逐](/docs/reference/generated/kubernetes-api/v1.23/)。
+节点压力驱逐不用于 [API 发起的驱逐](/zh-cn/docs/concepts/scheduling-eviction/api-eviction/)。

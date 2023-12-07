@@ -207,6 +207,7 @@ change will have no or little effect, for a similar reason.
 If your cluster has several hundred Nodes or fewer, leave this configuration option
 at its default value. Making changes is unlikely to improve the
 scheduler's performance significantly.
+{{< /note >}}
 -->
 {{< note >}}
 当集群中的可调度节点少于 50 个时，调度器仍然会去检查所有的 Node，

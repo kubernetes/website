@@ -63,7 +63,7 @@ This metric has labels for the API `group`, `version`, `resource`, and `subresou
 and a `removed_release` label that indicates the Kubernetes release in which the API will no longer be served.
 
 This is an example query using `kubectl`, [prom2json](https://github.com/prometheus/prom2json),
-and [jq](https://stedolan.github.io/jq/) to determine which deprecated APIs have been requested
+and [jq](https://jqlang.github.io/jq/) to determine which deprecated APIs have been requested
 from the current instance of the API server:
 
 ```sh
