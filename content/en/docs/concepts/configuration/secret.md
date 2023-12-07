@@ -381,7 +381,7 @@ The following YAML contains an example config for a TLS Secret:
 
 The TLS Secret type is provided only for convenience.
 You can create an `Opaque` type for credentials used for TLS authentication.
-However, using the defined and public Secret type (`kubernetes.io/ssh-auth`)
+However, using the defined and public Secret type (`kubernetes.io/tls`)
 helps ensure the consistency of Secret format in your project. The API server
 verifies if the required keys are set for a Secret of this type.
 
