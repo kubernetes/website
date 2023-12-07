@@ -15,3 +15,7 @@ tags:
 इसका कार्य कुबरनेटीज वातावरण में कंटेनर्स के क्रियान्वयन और जीवनकाल का प्रबंधन करना है।
 
 <!--more-->
+
+कुबरनेटीज कंटेनर रनटाइम्स का समर्थन करता है जैसे:
+{{< glossary_tooltip term_id="containerd" >}}, {{< glossary_tooltip term_id="cri-o" >}},
+और [कुबरनेटीज CRI (कंटेनर रनटाइम इंटरफेस)](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md) के किसी अन्य प्रस्तुतिकरण का।
