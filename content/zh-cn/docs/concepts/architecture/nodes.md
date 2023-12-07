@@ -430,7 +430,7 @@ becomes unhealthy. The node controller checks what percentage of nodes in the zo
 are unhealthy (the `Ready` condition is `Unknown` or `False`) at
 the same time:
 -->
-当一个可用区域（Availability Zone）中的节点变为不健康时，节点的驱逐行为将发生改变。
+当一个区域(Availability Zone)从availability zone变为unhealthy-zone时（参考--unhealthy-zone-threshold配置），节点的驱逐行为将发生改变。
 节点控制器会同时检查可用区域中不健康（`Ready` 状况为 `Unknown` 或 `False`）
 的节点的百分比：
 
