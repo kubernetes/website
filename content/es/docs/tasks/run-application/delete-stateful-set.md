@@ -10,14 +10,14 @@ Esta página muestra como se debe eliminar un {{< glossary_tooltip term_id="Stat
 
 ## {{% heading "prerequisites" %}}
 
-- Se asume que se tiene una aplicacion del tipo StatefulSet corrriendo en su cluster.
+- Se asume que se tiene una aplicación del tipo StatefulSet corriendo en su clúster.
 
 <!-- steps -->
 
 ## Borrando un StatefulSet
 
 Se puede eliminar un StatefulSet de la misma manera que se eliminan otros recursos en Kubernetes:
-use el comando `kubectl delete` y especifique el StatefulSet, usando su nombre o el archivo con el que fue creado.
+Use el comando `kubectl delete` y especifique el StatefulSet, usando su nombre o el archivo con el que fue creado.
 
 ```shell
 kubectl delete -f <archivo.yaml>
@@ -27,7 +27,7 @@ kubectl delete -f <archivo.yaml>
 kubectl delete statefulsets <nombre-del-stateful-set>
 ```
 
-Puede suceder que necesite eliminar los servicios headless asociados despues de eliminar el StatefulSet.
+Puede suceder que necesite eliminar los servicios headless asociados después de eliminar el StatefulSet.
 
 ```shell
 kubectl delete service <nombre-del-servicio>
@@ -53,8 +53,8 @@ kubectl delete pods -l app.kubernetes.io/name=MyApp
 
 Eliminar los Pods de un StatefulSet no va a eliminar los volúmenes asociados.
 Esto es para asegurar que se tiene una oportunidad de copiar los datos fuera del volumen
-antes de eliminarlo. Borar el PVC después de que los pods esten terminados puede disparar
-la eliminacino del Volumen Persistente que hay detrás dependiendo de la clase de almacenamiento
+antes de eliminarlo. Borrar el PVC después de que los pods estén terminados puede disparar
+la eliminación del Volumen Persistente que hay detrás dependiendo de la clase de almacenamiento
 y la política de reclamo. #TODO You should never assume ability to access a volume
 after claim deletion.
 
@@ -83,9 +83,9 @@ sustituya la misma por su propia etiqueta.
 Si encuentra algún pod bloqueado en su StatefulSet en el estado 'Terminating'
 o 'Unknow' por un largo período de tiempo, puede ser que necesite intervenir
 manualmente para forzar la eliminación del pod del apiserver.
-Esta es una tarea potencialmente riesgosa. Visite [Forzar eliminacion de Pods en StatefulSet](/docs/tasks/run-application/force-delete-stateful-set-pod/)
+Esta es una tarea potencialmente riesgosa. Visite [Forzar eliminación de Pods en StatefulSet](/docs/tasks/run-application/force-delete-stateful-set-pod/)
 para más detalles.
 
 ## {{% heading "whatsnext" %}}
 
-Aprenda más sobre [Forzar eliminacion de Pods en StatefulSet](/docs/tasks/run-application/force-delete-stateful-set-pod/).
+Aprenda más sobre [Forzar eliminación de Pods en StatefulSet](/docs/tasks/run-application/force-delete-stateful-set-pod/).
