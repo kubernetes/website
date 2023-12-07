@@ -22,7 +22,7 @@ card:
 
 翻訳作業は全て[GitHubのIssue](https://github.com/kubernetes/website/issues?q=is%3Aissue+is%3Aopen+label%3Alanguage%2Fja)によって管理されています。翻訳作業を行いたい場合は、Issueの一覧をまず最初にご確認ください。
 
-また、Kubernetes傘下のリポジトリでは`CLA`と呼ばれる同意書に署名しないと、Pull Requestをマージすることができません。詳しくは[英語のドキュメント](https://github.com/kubernetes/community/blob/main/CLA.md)や、[Qiitaに有志の方が書いてくださった日本語のまとめ](https://qiita.com/jlandowner/items/d14d9bc8797a62b65e67)をご覧ください。
+また、Kubernetes傘下のリポジトリでは`CLA`と呼ばれる同意書に署名しないと、Pull Requestをマージすることができません。詳しくは[英語のドキュメント](https://github.com/kubernetes/community/blob/master/CLA.md)や、[Qiitaに有志の方が書いてくださった日本語のまとめ](https://qiita.com/jlandowner/items/d14d9bc8797a62b65e67)をご覧ください。
 
 ### 翻訳を始めるまで
 
