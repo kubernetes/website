@@ -1433,6 +1433,13 @@ to interpret the credential format produced by the client plugin.
 [Webhook 令牌身份认证组件](#webhook-token-authentication)的模块，
 负责解析客户端插件所生成的凭据格式。
 
+{{< note >}}
+<!--
+Earlier versions of `kubectl` included built-in support for authenticating to AKS and GKE, but this is no longer present.
+-->
+早期版本的 `kubectl` 内置了对 AKS 和 GKE 的认证支持，但这一功能已不再存在。
+{{< /note >}}
+
 <!--
 ### Example use case
 
