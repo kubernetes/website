@@ -16,7 +16,7 @@ Esta página muestra como se debe eliminar un {{< glossary_tooltip term_id="Stat
 
 ## Borrando un StatefulSet
 
-Se puede eliminar un StatefulSet de la misma manera que se eliminan otros recursos en Kubernetes:
+Se puede eliminar un StatefulSet de la misma manera que se eliminan el resto de los recursos en Kubernetes:
 Use el comando `kubectl delete` y especifique el StatefulSet, usando su nombre o el archivo con el que fue creado.
 
 ```shell
