@@ -66,9 +66,9 @@ kubectl patch statefulsets <nombre-del-stateful-set> -p '{"spec":{"replicas":<n�
 
 ## Solución de Problemas
 
-### El desescalamiento no funciona correctamente
+### El escalamiento hacia abajo no funciona correctamente
 
-No se puede desescalar un StatefulSet cuando alguno de los Pods que administra esta
+No se puede escalar hacia abajo un StatefulSet cuando alguno de los Pods que administra esta
 dañado. Desescalar solo tiene lugar después de tener los Pods disponibles.
 
 Si spec.replicas > 1, Kubernetes no puede determinar la razón de un Pod dañado.
@@ -81,7 +81,7 @@ una cantidad de miembros inferior a la cantidad de replicas que son necesarias p
 correctamente. Esto puede causar que el StatefulSet no este disponible.
 
 Si el Pod está dañado por una falla transitoria y el Pod puede volver a estar disponible nuevamente,
-el error transitorio puede interferir con la operación de escalar o desescalar. Algunas bases de datos
+el error transitorio puede interferir con la operación de escalar. Algunas bases de datos
 distribuidas tienen errores cuando los nodos se unen y abandonan en el mismo momento. Es mejor
 analizar acerca de escalar la operación a nivel de la aplicación y realizar
 el escalamiento solamente cuando está seguro que la el cluster de la aplicacion esta
