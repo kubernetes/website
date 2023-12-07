@@ -258,6 +258,7 @@ For a reference to old feature gates that are removed, please refer to
 | `TopologyManagerPolicyBetaOptions` | `true` | Beta | 1.28 | |
 | `TopologyManagerPolicyOptions` | `false` | Alpha | 1.26 | 1.27 |
 | `TopologyManagerPolicyOptions` | `true` | Beta | 1.28 | |
+| `UnauthenticatedHTTP2DOSMitigation` | `false` | Beta | 1.28 | |
 | `UnknownVersionInteroperabilityProxy` | `false` | Alpha | 1.28 | |
 | `UserNamespacesSupport` | `false` | Alpha | 1.28 | |
 | `ValidatingAdmissionPolicy` | `false` | Alpha | 1.26 | 1.27 |
@@ -1272,6 +1273,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
   此特性门控绝对不会进阶至稳定版。
 <!--
 - `TopologyManagerPolicyOptions`: Allow fine-tuning of topology manager policies,
+- `UnauthenticatedHTTP2DOSMitigation`: Enables HTTP/2 Denial of Service (DoS)
+  mitigations for unauthenticated clients.
+  Kubernetes v1.28.0 through v1.28.2 do not include this feature gate.
 - `UnknownVersionInteroperabilityProxy`: Proxy resource requests to the correct peer kube-apiserver when
   multiple kube-apiservers exist at varied versions.
   See [Mixed version proxy](/docs/concepts/architecture/mixed-version-proxy/) for more information.
@@ -1279,6 +1283,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   Before Kubernetes v1.28, this feature gate was named `UserNamespacesStatelessPodsSupport`.
 -->
 - `TopologyManagerPolicyOptions`：允许微调拓扑管理器策略。
+- `UnauthenticatedHTTP2DOSMitigation`：此功能针对未认证客户端启用 HTTP/2 拒绝服务（DoS）防御机制。
+  值得注意的是，Kubernetes v1.28.0 至 v1.28.2 版本中并未包含这一功能。
 - `UnknownVersionInteroperabilityProxy`：存在多个不同版本的 kube-apiserver 时将资源请求代理到正确的对等 kube-apiserver。
   详细信息请参阅[混合版本代理](/zh-cn/docs/concepts/architecture/mixed-version-proxy/)。
 - `UserNamespacesSupport`：为 Pod 启用用户名字空间支持。

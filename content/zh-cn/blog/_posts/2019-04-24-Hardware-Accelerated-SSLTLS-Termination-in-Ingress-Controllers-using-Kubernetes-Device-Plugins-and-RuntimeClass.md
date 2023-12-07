@@ -171,12 +171,12 @@ underlying host devices.
 基于 PCIe 的加密加速设备功能
 可以受益于 IO 硬件虚拟化，通过 I/O 内存管理单元（IOMMU），提供隔离：IOMMU 将设备分组，为工作负载提供隔离的资源
 （假设加密卡不与其他设备共享 **IOMMU 组**）。如果PCIe设备支持单根 I/O 虚拟化（SR-IOV）规范，则可以进一步增加隔离资源的数量。
-SR-IOV 允许将 PCIe 设备将**物理功能项（Physical Functions，PF）**设备进一步拆分为
+SR-IOV 允许将 PCIe 设备将 **物理功能项（Physical Functions，PF）** 设备进一步拆分为
 **虚拟功能项（Virtual Functions, VF）**，并且每个设备都属于自己的 IOMMU 组。
 要将这些借助 IOMMU 完成隔离的设备功能项暴露给用户空间和容器，主机内核应该将它们绑定到特定的设备驱动程序。
 在 Linux 中，这个驱动程序是 vfio-pci，
 它通过字符设备将设备提供给用户空间。内核 vfio-pci 驱动程序使用一种称为
-**PCI 透传（PCI Passthrough）**的机制，
+**PCI 透传（PCI Passthrough）** 的机制，
 为用户空间应用程序提供了对 PCIe 设备与功能项的直接的、IOMMU 支持的访问。
 用户空间框架，如数据平面开发工具包（Data Plane Development Kit，DPDK）可以利用该接口。
 此外，虚拟机（VM）管理程序可以向 VM 提供这些用户空间设备节点，并将它们作为 PCI 设备暴露给寄宿内核。
