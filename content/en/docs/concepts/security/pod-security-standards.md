@@ -271,6 +271,7 @@ fail validation.
 					<li><code>net.ipv4.ip_unprivileged_port_start</code></li>
 					<li><code>net.ipv4.tcp_syncookies</code></li>
 					<li><code>net.ipv4.ping_group_range</code></li>
+					<li><code>net.ipv4.ip_local_reserved_ports</code> (since Kubernetes 1.27)</li>
 				</ul>
 			</td>
 		</tr>

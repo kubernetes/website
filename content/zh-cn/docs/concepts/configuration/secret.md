@@ -307,7 +307,7 @@ and structure the Secret type to have your domain name before the name, separate
 by a `/`. For example: `cloud-hosting.example.net/cloud-api-credentials`.
 -->
 如果你要定义一种公开使用的 Secret 类型，请遵守 Secret 类型的约定和结构，
-在类型名签名添加域名，并用 `/` 隔开。
+在类型名前面添加域名，并用 `/` 隔开。
 例如：`cloud-hosting.example.net/cloud-api-credentials`。
 
 <!--
