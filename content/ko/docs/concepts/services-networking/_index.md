@@ -49,5 +49,15 @@ NAT 없이 모든 노드의 모든 파드와 통신할 수 있다.
 쿠버네티스 네트워킹은 다음의 네 가지 문제를 해결한다.
 - 파드 내의 컨테이너는 루프백(loopback)을 통한 [네트워킹을 사용하여 통신](/ko/docs/concepts/services-networking/dns-pod-service/)한다.
 - 클러스터 네트워킹은 서로 다른 파드 간의 통신을 제공한다.
-- [서비스 리소스](/ko/docs/concepts/services-networking/service/)를 사용하면 [파드에서 실행 중인 애플리케이션을 클러스터 외부에서 접근](/ko/docs/concepts/services-networking/connect-applications-service/)할 수 있다.
-- 또한 서비스를 사용하여 [서비스를 클러스터 내부에서만 사용할 수 있도록 게시](/ko/docs/concepts/services-networking/service-traffic-policy/)할 수 있다.
+- [서비스](/ko/docs/concepts/services-networking/service/) API를 사용하면
+  [파드에서 실행 중인 애플리케이션을 클러스터 외부에서 접근](/ko/docs/tutorials/services/connect-applications-service/)
+  할 수 있다.
+  - [인그레스](/ko/docs/concepts/services-networking/ingress/)는
+    특히 HTTP 애플리케이션, 웹사이트 그리고 API를 노출하기 위한 추가 기능을 제공한다.
+- 또한 서비스를 사용하여
+  [서비스를 클러스터 내부에서만 사용할 수 있도록 게시](/ko/docs/concepts/services-networking/service-traffic-policy/)할 수 있다.
+
+- [서비스와 애플리케이션 연결하기](/ko/docs/tutorials/services/connect-applications-service/) 튜토리얼에서는 실습 예제를 통해 서비스와 쿠버네티스 네트워킹에 대해 배울 수 있다.
+
+[클러스터 네트워킹](/ko/docs/concepts/cluster-administration/networking/)은
+클러스터에 네트워킹을 설정하는 방법과 관련된 기술에 대한 개요도 제공한다.

@@ -75,12 +75,10 @@ the CSI provisioner receives the credentials from the Secret as part of the Node
 CSI volumes that require secrets for online expansion will have NodeExpandSecretRef
 field set. If not set, the NodeExpandVolume CSI RPC call will be made without a secret.
 
-
-
 ## Trying it out
 
 1. Enable the `CSINodeExpandSecret` feature gate (please refer to
-   [Feature Gates](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/)).
+   [Feature Gates](/docs/reference/command-line-tools-reference/feature-gates/)).
 
 1. Create a Secret, and then a StorageClass that uses that Secret.
 

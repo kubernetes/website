@@ -15,13 +15,16 @@ weight: 20
 
 <!-- overview -->
 <!--
-SIG Docs [Reviewers](/docs/contribute/participate/#reviewers) and [Approvers](/docs/contribute/participate/#approvers) do a few extra things when reviewing a change.
+SIG Docs [Reviewers](/docs/contribute/participate/#reviewers) and
+[Approvers](/docs/contribute/participate/#approvers) do a few extra things
+when reviewing a change.
 
-Every week a specific docs approver volunteers to triage
-and review pull requests. This
-person is the "PR Wrangler" for the week. See the
-[PR Wrangler scheduler](https://github.com/kubernetes/website/wiki/PR-Wranglers) for more information. To become a PR Wrangler, attend the weekly SIG Docs meeting and volunteer. Even if you are not on the schedule for the current week, you can still review pull
-requests (PRs) that are not already under active review.
+Every week a specific docs approver volunteers to triage and review pull requests.
+This person is the "PR Wrangler" for the week. See the
+[PR Wrangler scheduler](https://github.com/kubernetes/website/wiki/PR-Wranglers)
+for more information. To become a PR Wrangler, attend the weekly SIG Docs meeting
+and volunteer. Even if you are not on the schedule for the current week, you can
+still review pull requests (PRs) that are not already under active review.
 
 In addition to the rotation, a bot assigns reviewers and approvers
 for the PR based on the owners for the affected files.
@@ -43,9 +46,12 @@ SIG Docs
 <!-- body -->
 <!--
 ## Reviewing a PR
-Kubernetes documentation follows the [Kubernetes code review process](https://github.com/kubernetes/community/blob/master/contributors/guide/owners.md#the-code-review-process).
 
-Everything described in [Reviewing a pull request](/docs/contribute/review/reviewing-prs) applies, but Reviewers and Approvers should also do the following:
+Kubernetes documentation follows the
+[Kubernetes code review process](https://github.com/kubernetes/community/blob/master/contributors/guide/owners.md#the-code-review-process).
+
+Everything described in [Reviewing a pull request](/docs/contribute/review/reviewing-prs)
+applies, but Reviewers and Approvers should also do the following:
 -->
 ## 评阅 PR
 
@@ -55,17 +61,20 @@ Kubernetes 文档遵循 [Kubernetes 代码评阅流程](https://github.com/kuber
 不过评阅人和批准人还要做以下工作：
 
 <!--
-- Using the `/assign` Prow command to assign a specific reviewer to a PR as needed. This is extra important
-when it comes to requesting technical review from code contributors.
+- Using the `/assign` Prow command to assign a specific reviewer to a PR as needed.
+  This is extra important when it comes to requesting technical review from code contributors.
 
   {{< note >}}
   Look at the `reviewers` field in the front-matter at the top of a Markdown file to see who can
   provide technical review.
   {{< /note >}}
 
-- Making sure the PR follows the [Content](/docs/contribute/style/content-guide/) and [Style](/docs/contribute/style/style-guide/) guides; link the author to the relevant part of the guide(s) if it doesn't.
+- Making sure the PR follows the [Content](/docs/contribute/style/content-guide/)
+  and [Style](/docs/contribute/style/style-guide/) guides; link the author to the
+  relevant part of the guide(s) if it doesn't.
 - Using the GitHub **Request Changes** option when applicable to suggest changes to the PR author.
-- Changing your review status in GitHub using the `/approve` or `/lgtm` Prow commands, if your suggestions are implemented.
+- Changing your review status in GitHub using the `/approve` or `/lgtm` Prow commands,
+  if your suggestions are implemented.
 -->
 - 根据需要使用 Prow 命令 `/assign` 指派特定的评阅人。如果某个 PR
   需要来自代码贡献者的技术审核时，这一点非常重要。
@@ -108,13 +117,6 @@ true:
 - If the PR author pushed their branch directly to the
   [https://github.com/kubernetes/website/](https://github.com/kubernetes/website/)
   repository. Only a reviewer with push access can commit to another user's PR.
-
-  {{< note >}}
-  Encourage the author to push their branch to their fork before
-  opening the PR next time.
-  {{< /note >}}
-
-- The PR author explicitly disallows edits from approvers.
 -->
 如果处于下列情况之一，你不可以向别人的 PR 提交内容：
 
@@ -123,9 +125,16 @@ true:
   仓库。只有具有推送权限的评阅人才可以向他人的 PR 提交内容。
 
   {{< note >}}
+  <!--
+  Encourage the author to push their branch to their fork before
+  opening the PR next time.
+  -->
   我们应鼓励作者下次将分支推送到自己的克隆副本之后再发起 PR。
   {{< /note >}}
 
+<!--
+- The PR author explicitly disallows edits from approvers.
+-->
 - PR 作者明确地禁止批准人编辑他/她的 PR。
 
 <!--
@@ -134,7 +143,9 @@ true:
 [Prow](https://github.com/kubernetes/test-infra/blob/master/prow/README.md) is
 the Kubernetes-based CI/CD system that runs jobs against pull requests (PRs). Prow
 enables chatbot-style commands to handle GitHub actions across the Kubernetes
-organization, like [adding and removing labels](#adding-and-removing-issue-labels), closing issues, and assigning an approver. Enter Prow commands as GitHub comments using the `/<command-name>` format.
+organization, like [adding and removing labels](#adding-and-removing-issue-labels),
+closing issues, and assigning an approver. Enter Prow commands as GitHub comments
+using the `/<command-name>` format.
 
 The most common prow commands reviewers and approvers use are:
 -->
@@ -177,10 +188,13 @@ Prow 命令 | 角色限制 | 描述
 
 要查看可以在 PR 中使用的命令，请参阅
 [Prow 命令指南](https://prow.k8s.io/command-help?repo=kubernetes%2Fwebsite)。
+
 <!--
 ## Triage and categorize issues
 
-In general, SIG Docs follows the [Kubernetes issue triage](https://github.com/kubernetes/community/blob/master/contributors/guide/issue-triage.md) process and uses the same labels.
+In general, SIG Docs follows the
+[Kubernetes issue triage](https://github.com/kubernetes/community/blob/master/contributors/guide/issue-triage.md)
+process and uses the same labels.
 
 This GitHub Issue [filter](https://github.com/kubernetes/website/issues?q=is%3Aissue+is%3Aopen+-label%3Apriority%2Fbacklog+-label%3Apriority%2Fimportant-longterm+-label%3Apriority%2Fimportant-soon+-label%3Atriage%2Fneeds-information+-label%3Atriage%2Fsupport+sort%3Acreated-asc)
 finds issues that might need triage.
@@ -197,13 +211,14 @@ finds issues that might need triage.
 ### Triaging an issue
 
 1. Validate the issue
-  - Make sure the issue is about website documentation. Some issues can be closed quickly by
-    answering a question or pointing the reporter to a resource. See the
-    [Support requests or code bug reports](#support-requests-or-code-bug-reports) section for details.
-  - Assess whether the issue has merit.
-  - Add the `triage/needs-information` label if the issue doesn't have enough
-    detail to be actionable or the template is not filled out adequately.
-  - Close the issue if it has both the `lifecycle/stale` and `triage/needs-information` labels.
+
+   - Make sure the issue is about website documentation. Some issues can be closed quickly by
+     answering a question or pointing the reporter to a resource. See the
+     [Support requests or code bug reports](#support-requests-or-code-bug-reports) section for details.
+   - Assess whether the issue has merit.
+   - Add the `triage/needs-information` label if the issue doesn't have enough
+     detail to be actionable or the template is not filled out adequately.
+   - Close the issue if it has both the `lifecycle/stale` and `triage/needs-information` labels.
 -->
 
 ### 评判 Issue {#triaging-an-issue}
@@ -222,9 +237,10 @@ finds issues that might need triage.
 
 <!--
 2. Add a priority label (the
-  [Issue Triage Guidelines](https://github.com/kubernetes/community/blob/master/contributors/guide/issue-triage.md#define-priority) define priority labels in detail)
+   [Issue Triage Guidelines](https://github.com/kubernetes/community/blob/master/contributors/guide/issue-triage.md#define-priority)
+   define priority labels in detail)
 
-  < table caption="Issue labels" >
+  {{< table caption="Issue labels" >}}
   Label | Description
   :------------|:------------------
   `priority/critical-urgent` | Do this right now.
@@ -233,6 +249,8 @@ finds issues that might need triage.
   `priority/backlog` | Deferrable indefinitely. Do when resources are available.
   `priority/awaiting-more-evidence` | Placeholder for a potentially good issue so it doesn't get lost.
   `help` or `good first issue` | Suitable for someone with very little Kubernetes or SIG Docs experience. See [Help Wanted and Good First Issue Labels](https://kubernetes.dev/docs/guide/help-wanted/) for more information.
+
+  {{< /table >}}
 
   At your discretion, take ownership of an issue and submit a PR for it
   (especially if it's quick or relates to work you're already doing).
@@ -290,7 +308,8 @@ To remove a label, leave a comment in one of the following formats:
 In both cases, the label must already exist. If you try to add a label that does not exist, the command is
 silently ignored.
 
-For a list of all labels, see the [website repository's Labels section](https://github.com/kubernetes/website/labels). Not all labels are used by SIG Docs.
+For a list of all labels, see the [website repository's Labels section](https://github.com/kubernetes/website/labels).
+Not all labels are used by SIG Docs.
 -->
 在以上两种情况下，标签都必须合法存在。如果你尝试添加一个尚不存在的标签，
 对应的命令会被悄悄忽略。
@@ -356,7 +375,9 @@ SIG Docs 常常会遇到以下类型的 Issue，因此对其处理方式描述�
 <!--
 ### Dead link issues
 
-If the dead link issue is in the API or `kubectl` documentation, assign them `/priority critical-urgent` until the problem is fully understood. Assign all other dead link issues `/priority important-longterm`, as they must be manually fixed.
+If the dead link issue is in the API or `kubectl` documentation, assign them
+`/priority critical-urgent` until the problem is fully understood. Assign all
+other dead link issues `/priority important-longterm`, as they must be manually fixed.
 
 ### Blog issues
 
@@ -429,3 +450,95 @@ https://github.com/kubernetes/kubernetes/issues.
 
 If this is a documentation issue, please re-open this issue.
 ```
+
+<!--
+### Squashing
+
+As an approver, when you review pull requests (PRs), there are various cases
+where you might do the following:
+
+- Advise the contributor to squash their commits.
+- Squash the commits for the contributor.
+- Advise the contributor not to squash yet.
+- Prevent squashing.
+-->
+### 压缩（Squashing）提交
+
+作为一名 Approver，当你评审 PR 时，可能会遇到以下几种情况：
+
+- 建议贡献者压缩他们的提交。
+- 协助贡献者压缩提交。
+- 建议贡献者先不要压缩提交。
+- 阻止压缩提交。
+
+<!--
+**Advising contributors to squash**: A new contributor might not know that they
+should squash commits in their pull requests (PRs). If this is the case, advise
+them to do so, provide links to useful information, and offer to arrange help if
+they need it. Some useful links:
+
+- [Opening pull requests and squashing your commits](/docs/contribute/new-content/open-a-pr#squashing-commits)
+  for documentation contributors.
+- [GitHub Workflow](https://www.k8s.dev/docs/guide/github-workflow/), including diagrams, for developers.
+-->
+**建议贡献者压缩提交**：新贡献者可能不知道要压缩 PR 中的提交。
+如果是这种情况，Approver 要给出压缩提交的建议，并贴附有用的链接，
+并在贡献者需要帮助时伸出援手。这里有一些有用的链接：
+
+- 协助文档贡献者[提 PR 和压缩提交](/zh-cn/docs/contribute/new-content/open-a-pr#squashing-commits)。
+- 面向开发者包括插图在内的 [GitHub 工作流程](https://www.k8s.dev/docs/guide/github-workflow/)。
+
+<!--
+**Squashing commits for contributors**: If a contributor might have difficulty
+squashing commits or there is time pressure to merge a PR, you can perform the
+squash for them:
+-->
+**协助贡献者压缩提交**：如果贡献者压缩提交遇到难题或合并 PR 的时间紧迫，
+你可以协助贡献者执行压缩提交的操作。
+
+<!--
+- The kubernetes/website repo is
+  [configured to allow squashing for pull request merges](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/configuring-commit-squashing-for-pull-requests).
+  Simply select the *Squash commits* button.
+- In the PR, if the contributor enables maintainers to manage the PR, you can
+  squash their commits and update their fork with the result. Before you squash,
+  advise them to save and push their latest changes to the PR. After you squash,
+  advise them to pull the squashed commit to their local clone.
+- You can get GitHub to squash the commits by using a label so that Tide / GitHub
+  performs the squash or by clicking the *Squash commits* button when you merge the PR.
+-->
+- kubernetes/website
+  仓库[被配置为允许压缩提交后合并 PR](https://docs.github.com/zh/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/configuring-commit-squashing-for-pull-requests)。
+  你只需选择 **Squash commits** 按钮。
+- 在 PR 中，如果贡献者允许 Maintainer 们管理 PR，你就可以为他们压缩提交并将其 fork 更新为最新结果。
+  在你执行压缩提交之后，请建议贡献者将压缩后的提交拉到他们本地的克隆副本。
+- 你可以使用标签让 GitHub 压缩提交，这样 Tide / GitHub 就会对提交执行压缩；
+  你还可以在合并 PR 时点选 **Squash commits** 按钮。
+
+<!--
+**Advise contributors to avoid squashing**
+
+- If one commit does something broken or unwise, and the last commit reverts this
+  error, don't squash the commits. Even though the "Files changed" tab in the PR
+  on GitHub and the Netlify preview will both look OK, merging this PR might create
+  rebase or merge conflicts for other folks. Intervene as you see fit to avoid that
+  risk to other contributors.
+-->
+**建议贡献者避免压缩提交**
+
+- 如果一个提交做了一些破坏性或不明智的修改，那最后一个提交可用于回滚错误，这种情况不要压缩提交。
+  即使通过 GitHub 上 PR 中的 "Files changed" 页签以及 Netlify 预览看起来都正常，
+  合并这种 PR 可能会在其他 fork 中造成 rebase 或合并冲突。
+  你看到这种情况要进行合理的干预，避免对其他贡献者造成麻烦。
+
+<!--
+**Never squash**
+
+- If you're launching a localization or releasing the docs for a new version,
+  you are merging in a branch that's not from a user's fork, _never squash the commits_.
+  Not squashing is essential because you must maintain the commit history for those files.
+-->
+**千万不要压缩提交**
+
+- 如果你为新版本发起了一次本地化批量作业或为新版发布许多文档，那你要合并到的分支将与用户 fork 的分支不同，
+  这种情况**千万不要压缩提交**。之所以不压缩提交，是因为你必须保持这些文件的提交历史记录。

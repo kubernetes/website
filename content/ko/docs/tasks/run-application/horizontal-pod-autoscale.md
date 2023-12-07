@@ -47,7 +47,30 @@ Horizontal Pod Autoscaling을 활용하는
 
 ## HorizontalPodAutoscaler는 어떻게 작동하는가?
 
-{{< figure src="/images/docs/horizontal-pod-autoscaler.svg" caption="HorizontalPodAutoscaler는 디플로이먼트 및 디플로이먼트의 레플리카셋의 크기를 조정한다" class="diagram-medium">}}
+{{< mermaid >}}
+graph BT
+
+hpa[Horizontal Pod Autoscaler] --> scale[Scale]
+
+subgraph rc[RC / Deployment]
+    scale
+end
+
+scale -.-> pod1[Pod 1]
+scale -.-> pod2[Pod 2]
+scale -.-> pod3[Pod N]
+
+classDef hpa fill:#D5A6BD,stroke:#1E1E1D,stroke-width:1px,color:#1E1E1D;
+classDef rc fill:#F9CB9C,stroke:#1E1E1D,stroke-width:1px,color:#1E1E1D;
+classDef scale fill:#B6D7A8,stroke:#1E1E1D,stroke-width:1px,color:#1E1E1D;
+classDef pod fill:#9FC5E8,stroke:#1E1E1D,stroke-width:1px,color:#1E1E1D;
+class hpa hpa;
+class rc rc;
+class scale scale;
+class pod1,pod2,pod3 pod
+{{< /mermaid >}}
+
+그림 1. HorizontalPodAutoscaler는 디플로이먼트 및 디플로이먼트의 레플리카셋의 크기를 조정한다.
 
 쿠버네티스는 Horizontal Pod Autoscaling을
 간헐적으로(intermittently) 실행되는
@@ -139,7 +162,7 @@ CPU를 스케일할 때, 파드가 아직 Ready되지 않았거나(여전히
 기술적 제약으로 인해, HorizontalPodAutoscaler 컨트롤러는
 특정 CPU 메트릭을 나중에 사용할지 말지 결정할 때, 파드가 준비되는
 시작 시간을 정확하게 알 수 없다. 대신, 파드가 아직 준비되지
-않았고 시작 이후 짧은 시간 내에 파드가 준비되지 않은 상태로
+않았고 시작 이후 짧은 시간 내에 파드가 준비 상태로
 전환된다면, 해당 파드를 "아직 준비되지 않음(not yet ready)"으로 간주한다.
 이 값은 `--horizontal-pod-autoscaler-initial-readiness-delay` 플래그로 설정되며, 기본값은 30초
 이다. 일단 파드가 준비되고 시작된 후 구성 가능한 시간 이내이면,

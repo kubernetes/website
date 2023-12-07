@@ -30,7 +30,7 @@ Dockerの概念を使って説明すると、Podは共有の名前空間と共�
 
 以下は、`nginx:1.14.2`イメージが実行されるコンテナからなるPodの例を記載しています。
 
-{{< codenew file="pods/simple-pod.yaml" >}}
+{{% codenew file="pods/simple-pod.yaml" %}}
 
 上記のようなPodを作成するには、以下のコマンドを実行します:
 ```shell
@@ -98,7 +98,7 @@ Kubernetes v{{< skew currentVersion >}}では、このフィールドに設定�
 * {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}
 * {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}
 
-### Podテンプレート {#pod-template}
+### Podテンプレート {#pod-templates}
 
 {{< glossary_tooltip text="workload" term_id="workload" >}}リソース向けのコントローラーは、Podを*Podテンプレート*を元に作成し、あなたの代わりにPodを管理してくれます。
 

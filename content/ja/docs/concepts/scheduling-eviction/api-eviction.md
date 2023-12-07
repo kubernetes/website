@@ -1,7 +1,7 @@
 ---
 title: APIを起点とした退避
 content_type: concept
-weight: 70
+weight: 110
 ---
 
 {{< glossary_definition term_id="api-eviction" length="short" >}} </br>

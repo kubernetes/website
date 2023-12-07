@@ -12,7 +12,6 @@ auto_generated: true
 
 - [WebhookAdmission](#apiserver-config-k8s-io-v1-WebhookAdmission)
   
-    
 
 ## `WebhookAdmission`     {#apiserver-config-k8s-io-v1-WebhookAdmission}
     

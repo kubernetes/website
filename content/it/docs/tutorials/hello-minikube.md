@@ -76,7 +76,7 @@ modalità raccomandata per gestire la creazione e lo scaling dei Pods.
 eseguirà un Container basato sulla Docker image specificata.
 
     ```shell
-    kubectl create deployment hello-node --image=k8s.gcr.io/echoserver:1.4
+    kubectl create deployment hello-node --image=registry.k8s.io/echoserver:1.4
     ```
 
 2. Visualizza il Deployment:

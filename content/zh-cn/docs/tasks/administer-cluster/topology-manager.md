@@ -21,7 +21,7 @@ weight: 150
 
 <!-- overview -->
 
-{{< feature-state state="beta" for_k8s_version="v1.18" >}}
+{{< feature-state state="beta" for_k8s_version="v1.27" >}}
 
 <!--
 An increasing number of systems leverage a combination of CPUs and hardware accelerators to
@@ -101,19 +101,6 @@ resource allocation decisions.
 所选建议将被存储为拓扑管理器的一部分。
 取决于所配置的策略，所选建议可用来决定节点接受或拒绝 Pod。
 之后，建议会被存储在拓扑管理器中，供 **建议提供者** 在作资源分配决策时使用。
-
-<!--
-### Enable the Topology Manager feature
-
-Support for the Topology Manager requires `TopologyManager`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
-It is enabled by default starting with Kubernetes 1.18.
--->
-### 启用拓扑管理器功能特性 {#enable-the-topology-manager-feature}
-
-为了使用拓扑管理器，需要先启用 `TopologyManager`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
-从 Kubernetes 1.18 版本开始，这一特性默认是启用的。
 
 <!--
 ## Topology Manager Scopes and Policies
@@ -362,10 +349,10 @@ kubelet 将调用每个建议提供者以确定资源可用性。
 如果亲和性不是首选，则拓扑管理器将存储该亲和性，并且无论如何都将 Pod 接纳到该节点。
 
 <!--
-The *Hint Providers* can then use this information when making the 
+The *Hint Providers* can then use this information when making the
 resource allocation decision.
 -->
-之后 **建议提供者** 可以在进行资源分配决策时使用这个信息。
+之后**建议提供者**可以在进行资源分配决策时使用这个信息。
 
 <!--
 ### restricted policy {#policy-restricted}
@@ -395,10 +382,10 @@ have the `Topology Affinity` error.
 还可以通过实现外部控制环，以触发重新部署具有 `Topology Affinity` 错误的 Pod。
 
 <!--
-If the pod is admitted, the *Hint Providers* can then use this information when making the 
+If the pod is admitted, the *Hint Providers* can then use this information when making the
 resource allocation decision.
 -->
-如果 Pod 被允许运行在某节点，则 **建议提供者** 可以在做出资源分配决定时使用此信息。
+如果 Pod 被允许运行在某节点，则**建议提供者**可以在做出资源分配决定时使用此信息。
 
 <!--
 ### single-numa-node policy {#policy-single-numa-node}
@@ -413,7 +400,7 @@ admission failure.
 -->
 ### single-numa-node 策略 {#policy-single-numa-node}
 
-对于 Pod 中的每个容器，配置了 `single-numa-nodde` 拓扑管理策略的
+对于 Pod 中的每个容器，配置了 `single-numa-node` 拓扑管理策略的
 kubelet 调用每个建议提供者以确定其资源可用性。
 使用此信息，拓扑管理器确定是否支持单 NUMA 节点亲和性。
 如果支持，则拓扑管理器将存储此信息，然后 **建议提供者** 可以在做出资源分配决定时使用此信息。
@@ -434,30 +421,38 @@ that have the `Topology Affinity` error.
 ### Topology manager policy options
 
 Support for the Topology Manager policy options requires `TopologyManagerPolicyOptions`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled
+(it is enabled by default).
 -->
 ### 拓扑管理器策略选项  {#topology-manager-policy-options}
 
 对拓扑管理器策略选项的支持需要启用 `TopologyManagerPolicyOptions`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)（默认启用）。
 
 <!--
 You can toggle groups of options on and off based upon their maturity level using the following feature gates:
-* `TopologyManagerPolicyBetaOptions` default disabled. Enable to show beta-level options. Currently there are no beta-level options.
-* `TopologyManagerPolicyAlphaOptions` default disabled. Enable to show alpha-level options. You will still have to enable each option using the `TopologyManagerPolicyOptions` kubelet option.
+* `TopologyManagerPolicyBetaOptions` default enabled.. Enable to show beta-level options.
+* `TopologyManagerPolicyAlphaOptions` default disabled. Enable to show alpha-level options.
 -->
 你可以使用以下特性门控根据成熟度级别打开和关闭这些选项组：
-* `TopologyManagerPolicyBetaOptions` 默认禁用。启用以显示 Beta 级别选项。目前没有 Beta 级别选项。
-* `TopologyManagerPolicyAlphaOptions` 默认禁用。启用以显示 Alpha 级别选项。你仍然需要使用
-  `TopologyManagerPolicyOptions` kubelet 选项来启用每个选项。
+* `TopologyManagerPolicyBetaOptions` 默认启用。启用以显示 Beta 级别选项。
+* `TopologyManagerPolicyAlphaOptions` 默认禁用。启用以显示 Alpha 级别选项。
+
+<!--
+You will still have to enable each option using the `TopologyManagerPolicyOptions` kubelet option.
+-->
+你仍然需要使用 `TopologyManagerPolicyOptions` kubelet 选项来启用每个选项。
 
 <!--
 The following policy options exists:
-* `prefer-closest-numa-nodes` (alpha, invisible by default, `TopologyManagerPolicyOptions` and `TopologyManagerPolicyAlphaOptions` feature gates have to be enabled)(1.26 or higher)
+* `prefer-closest-numa-nodes` (beta, visible by default, `TopologyManagerPolicyOptions` and `TopologyManagerPolicyAlphaOptions` feature gates have to be enabled).
+The `prefer-closest-numa-nodes` policy option is beta in Kubernetes {{< skew currentVersion >}}.
 -->
 存在以下策略选项：
-* `prefer-closest-numa-nodes`（Alpha，默认不可见，`TopologyManagerPolicyOptions` 和
-  `TopologyManagerPolicyAlphaOptions` 特性门控必须被启用）（1.26 或更高版本）
+* `prefer-closest-numa-nodes`（Beta，默认可见，`TopologyManagerPolicyOptions` 和
+  `TopologyManagerPolicyAlphaOptions` 特性门控必须被启用）。
+  `prefer-closest-numa-nodes` 策略选项在 Kubernetes {{< skew currentVersion >}}
+  中是 Beta 版。
 
 <!--
 If the `prefer-closest-numa-nodes` policy option is specified, the `best-effort` and `restricted`
@@ -593,7 +588,7 @@ This pod runs in the `BestEffort` QoS class because there are no CPU and memory 
 
 <!--
 The Topology Manager would consider the above pods. The Topology Manager would consult the Hint
-Providers, which are CPU and Device Manager to get topology hints for the pods. 
+Providers, which are CPU and Device Manager to get topology hints for the pods.
 
 In the case of the `Guaranteed` pod with integer CPU request, the `static` CPU Manager policy
 would return topology hints relating to the exclusive CPU and the Device Manager would send back
@@ -628,7 +623,7 @@ of the requested devices.
 <!--
 Using this information the Topology Manager calculates the optimal hint for the pod and stores
 this information, which will be used by the Hint Providers when they are making their resource
-assignments. 
+assignments.
 -->
 基于此信息，拓扑管理器将为 Pod 计算最佳提示并存储该信息，并且供
 提示提供程序在进行资源分配时使用。
@@ -649,4 +644,3 @@ assignments.
 1. 拓扑管理器所能处理的最大 NUMA 节点个数是 8。若 NUMA 节点数超过 8，
    枚举可能的 NUMA 亲和性并为之生成提示时会发生状态爆炸。
 2. 调度器无法感知拓扑，所以有可能一个 Pod 被调度到一个节点之后，会因为拓扑管理器的缘故在该节点上启动失败。
-

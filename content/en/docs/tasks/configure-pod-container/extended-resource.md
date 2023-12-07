@@ -1,7 +1,7 @@
 ---
 title: Assign Extended Resources to a Container
 content_type: task
-weight: 40
+weight: 70
 ---
 
 <!-- overview -->
@@ -37,7 +37,7 @@ descriptive resource name.
 
 Here is the configuration file for a Pod that has one Container:
 
-{{< codenew file="pods/resource/extended-resource-pod.yaml" >}}
+{{% code_sample file="pods/resource/extended-resource-pod.yaml" %}}
 
 In the configuration file, you can see that the Container requests 3 dongles.
 
@@ -73,7 +73,7 @@ Requests:
 Here is the configuration file for a Pod that has one Container. The Container requests
 two dongles.
 
-{{< codenew file="pods/resource/extended-resource-pod-2.yaml" >}}
+{{% code_sample file="pods/resource/extended-resource-pod-2.yaml" %}}
 
 Kubernetes will not be able to satisfy the request for two dongles, because the first Pod
 used three of the four available dongles.

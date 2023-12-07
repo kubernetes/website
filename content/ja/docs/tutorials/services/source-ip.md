@@ -2,6 +2,7 @@
 title: 送信元IPを使用する
 content_type: tutorial
 min-kubernetes-server-version: v1.5
+weight: 40
 ---
 
 <!-- overview -->

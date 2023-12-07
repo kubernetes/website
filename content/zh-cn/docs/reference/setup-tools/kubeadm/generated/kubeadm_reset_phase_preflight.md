@@ -1,18 +1,7 @@
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference conent, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
 <!-- 
 Run reset pre-flight checks 
 -->
-运行重置启动前检查
+kubeadm reset（重置）前运行启动前检查。
 
 <!--
 ### Synopsis
@@ -23,7 +12,6 @@ Run reset pre-flight checks
 <!--
 Run pre-flight checks for kubeadm reset.
 -->
-
 kubeadm reset（重置）前运行启动前检查。
 
 ```
@@ -33,7 +21,6 @@ kubeadm reset phase preflight [flags]
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -42,6 +29,20 @@ kubeadm reset phase preflight [flags]
 <col span="1" />
 </colgroup>
 <tbody>
+
+<tr>
+<td colspan="2">--dry-run</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Don't apply any changes; just output what would be done.
+-->
+<p>
+不做任何更改；只输出将要执行的操作。
+</p>
+</td>
+</tr>
 
 <tr>
 <td colspan="2">-f, --force</td>
@@ -63,7 +64,7 @@ kubeadm reset phase preflight [flags]
 <!--
 <p>help for preflight</p>
 -->
-<p>preflight 操作的帮助命令</p>
+<p>preflight 操作的帮助命令。</p>
 </td>
 </tr>
 
@@ -85,7 +86,6 @@ kubeadm reset phase preflight [flags]
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 从父命令继承的选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -109,4 +109,3 @@ kubeadm reset phase preflight [flags]
 
 </tbody>
 </table>
-

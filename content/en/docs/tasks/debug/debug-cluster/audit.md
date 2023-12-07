@@ -2,7 +2,6 @@
 reviewers:
 - soltysh
 - sttts
-- ericchiang
 content_type: concept
 title: Auditing
 ---
@@ -81,7 +80,7 @@ A policy with no (0) rules is treated as illegal.
 
 Below is an example audit policy file:
 
-{{< codenew file="audit/audit-policy.yaml" >}}
+{{% code_sample file="audit/audit-policy.yaml" %}}
 
 You can use a minimal audit policy file to log all requests at the `Metadata` level:
 
@@ -145,10 +144,12 @@ You can configure the log audit backend using the following `kube-apiserver` fla
 
 If your cluster's control plane runs the kube-apiserver as a Pod, remember to mount the `hostPath`
 to the location of the policy file and log file, so that audit records are persisted. For example:
-```shell
-    --audit-policy-file=/etc/kubernetes/audit-policy.yaml \
-    --audit-log-path=/var/log/kubernetes/audit/audit.log
+
+```yaml
+  - --audit-policy-file=/etc/kubernetes/audit-policy.yaml
+  - --audit-log-path=/var/log/kubernetes/audit/audit.log
 ```
+
 then mount the volumes:
 
 ```yaml

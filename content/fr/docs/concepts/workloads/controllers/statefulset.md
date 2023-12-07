@@ -78,7 +78,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
       - name: nginx
-        image: k8s.gcr.io/nginx-slim:0.8
+        image: registry.k8s.io/nginx-slim:0.8
         ports:
         - containerPort: 80
           name: web
@@ -165,7 +165,7 @@ Le domaine cluster sera `cluster.local` à moins qu'il soit
 
 Kubernetes crée un [PersistentVolume](/docs/concepts/storage/persistent-volumes/) pour chaque
 VolumeClaimTemplate. Dans l'exemple nginx ci-dessus, chaque Pod se verra affecter un unique PersistentVolume
-avec un StorageClass de `my-storage-class` et 1 Gib de stockage provisionné. Si aucun StorageClass
+avec un StorageClass de `my-storage-class` et 1 GiB de stockage provisionné. Si aucun StorageClass
 n'est spécifié, alors le StorageClass par défaut sera utilisé. Lorsqu'un Pod est (re)schedulé
 sur un noeud, ses `volumeMounts` montent les PersistentVolumes associés aux  
 PersistentVolumeClaims. Notez que les PersistentVolumes associés avec les PersistentVolumeClaims des Pods

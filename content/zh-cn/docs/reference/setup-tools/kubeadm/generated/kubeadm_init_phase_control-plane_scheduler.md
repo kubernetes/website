@@ -1,18 +1,7 @@
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference conent, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
 <!-- 
 Generates the kube-scheduler static Pod manifest
 -->
-生成 kube-scheduler 静态 Pod 清单
+生成 kube-scheduler 静态 Pod 清单。
 
 <!-- 
 ### Synopsis
@@ -22,7 +11,7 @@ Generates the kube-scheduler static Pod manifest
 <!--
 Generates the kube-scheduler static Pod manifest
 -->
-生成 kube-scheduler 静态 Pod 清单
+生成 kube-scheduler 静态 Pod 清单。
 
 ```
 kubeadm init phase control-plane scheduler [flags]
@@ -77,7 +66,7 @@ kubeadm init phase control-plane scheduler [flags]
 <!--
 <p>Don't apply any changes; just output what would be done.</p>
 -->
-<p>不应用任何变更；仅仅输出将会变更的内容</p>
+<p>不做任何更改；只输出将要执行的操作。</p>
 </td>
 </tr>
 
@@ -89,16 +78,16 @@ kubeadm init phase control-plane scheduler [flags]
 <!--
 <p>help for scheduler</p>
 -->
-<p>scheduler 操作的帮助命令</p>
+<p>scheduler 操作的帮助命令。</p>
 </td>
 </tr>
 
 <tr>
 <td colspan="2">
 <!--
---image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "k8s.gcr.io"
+--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "registry.k8s.io"
 -->
---image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值:"k8s.gcr.io"
+--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值:"registry.k8s.io"
 </td>
 </tr>
 <tr>
@@ -106,7 +95,7 @@ kubeadm init phase control-plane scheduler [flags]
 <!--
 <p>Choose a container registry to pull control plane images from</p>
 -->
-<p>选择要从中拉取控制平面镜像的容器仓库</p>
+<p>选择要从中拉取控制平面镜像的容器仓库。</p>
 </td>
 </tr>
 
@@ -132,10 +121,11 @@ kubeadm init phase control-plane scheduler [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--Path to a directory that contains files named "target[suffix][+patchtype].extension". For example, "kube-apiserver0+merge.yaml" or just "etcd.json". "patchtype" can be one of "strategic", "merge" or "json" and they match the patch formats supported by kubectl. The default "patchtype" is "strategic". "extension" must be either "json" or "yaml". "suffix" is an optional string that can be used to determine which patches are applied first alpha-numerically.-->
+<!--Path to a directory that contains files named "target[suffix][+patchtype].extension". For example, "kube-apiserver0+merge.yaml" or just "etcd.json". "target" can be one of "kube-apiserver", "kube-controller-manager", "kube-scheduler", "etcd", "kubeletconfiguration". "patchtype" can be one of "strategic", "merge" or "json" and they match the patch formats supported by kubectl. The default "patchtype" is "strategic". "extension" must be either "json" or "yaml". "suffix" is an optional string that can be used to determine which patches are applied first alpha-numerically.-->
 包含名为 "target[suffix][+patchtype].extension" 的文件的目录。
 例如，"kube-apiserver0+merge.yaml" 或者 "etcd.json"。
-"patchtype" 可以是 "strategic"、"merge" 或 "json" 之一，分别与 kubectl
+"target" 可以是 "kube-apiserver"、"kube-controller-manager"、"kube-scheduler"、"etcd"、"kubeletconfiguration" 之一。
+"patchtype" 可以是 "strategic"、"merge"、"json" 之一，分别与 kubectl
 所支持的 patch 格式相匹配。默认的 "patchtype" 是 "strategic"。
 "extension" 必须是 "json" 或 "yaml"。
 "suffix" 是一个可选的字符串，用来确定按字母顺序排序时首先应用哪些 patch。
@@ -155,8 +145,7 @@ kubeadm init phase control-plane scheduler [flags]
 <!--
 <p>A set of extra flags to pass to the Scheduler or override default ones in form of &lt;flagname&gt;=&lt;value&gt;</p>
 -->
-<p>一组 &lt;flagname&gt;=&lt;value&gt; 形式的额外参数，用来传递给调度器
-或者覆盖其默认参数配置</p>
+<p>一组 &lt;flagname&gt;=&lt;value&gt; 形式的额外参数，用来传递给调度器或者覆盖其默认参数配置。</p>
 </td>
 </tr>
 
@@ -189,4 +178,3 @@ kubeadm init phase control-plane scheduler [flags]
 
 </tbody>
 </table>
-

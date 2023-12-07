@@ -3,7 +3,22 @@ title: "容器"
 weight: 40
 description: 打包应用及其运行依赖环境的技术。
 content_type: concept
+card:
+  name: concepts
+  weight: 50
 ---
+<!--
+title: Containers
+weight: 40
+description: Technology for packaging an application along with its runtime dependencies.
+reviewers:
+- erictune
+- thockin
+content_type: concept
+card:
+  name: concepts
+  weight: 50
+-->
 
 <!-- overview -->
 <!--
@@ -11,7 +26,7 @@ Each container that you run is repeatable; the standardization from having
 dependencies included means that you get the same behavior wherever you
 run it.
 
-Containers decouple applications from underlying host infrastructure.
+Containers decouple applications from the underlying host infrastructure.
 This makes deployment easier in different cloud or OS environments.
 
 Each {{< glossary_tooltip text="node" term_id="node" >}} in a Kubernetes
@@ -33,7 +48,7 @@ Kubernetes 集群中的每个{{< glossary_tooltip text="节点" term_id="node" >
 <!--
 ## Container images
 A [container image](/docs/concepts/containers/images/) is a ready-to-run
-software package, containing everything needed to run an application:
+software package containing everything needed to run an application:
 the code and any runtime it requires, application and system libraries,
 and default values for any essential settings.
 

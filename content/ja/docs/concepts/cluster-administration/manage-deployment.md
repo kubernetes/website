@@ -1,6 +1,6 @@
 ---
 reviewers:
-- 
+-
 title: リソースの管理
 content_type: concept
 weight: 40
@@ -21,7 +21,7 @@ weight: 40
 多くのアプリケーションではDeploymentやServiceなど複数のリソースの作成を要求します。複数のリソースの管理は、同一のファイルにひとまとめにしてグループ化すると簡単になります(YAMLファイル内で`---`で区切る)。
 例えば:
 
-{{< codenew file="application/nginx-app.yaml" >}}
+{{% codenew file="application/nginx-app.yaml" %}}
 
 複数のリソースは単一のリソースと同様の方法で作成できます。
 
@@ -157,7 +157,7 @@ deployment.apps/my-deployment created
 persistentvolumeclaim/my-pvc created
 ```
 
-`kubectl`についてさらに知りたい場合は、[kubectlの概要](/ja/docs/reference/kubectl/overview/)を参照してください。
+`kubectl`についてさらに知りたい場合は、[コマンドラインツール(kubectl)](/ja/docs/reference/kubectl/)を参照してください。
 
 ## ラベルを有効に使う
 
@@ -449,6 +449,5 @@ kubectl edit deployment/my-nginx
 
 ## {{% heading "whatsnext" %}}
 
-- [アプリケーションの調査とデバッグのための`kubectl`の使用方法](/docs/tasks/debug-application-cluster/debug-application-introspection/)について学んでください。
+- [アプリケーションの調査とデバッグのための`kubectl`の使用方法](/ja/docs/tasks/debug/debug-application/debug-running-pod/)について学んでください。
 - [設定のベストプラクティスとTIPS](/ja/docs/concepts/configuration/overview/)を参照してください。
-

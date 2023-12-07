@@ -20,7 +20,7 @@ content_type: task
 
 この例では、先ほどの例と同様に、Deploymentを使用して2つのpodを作成します。
 
-{{< codenew file="application/nginx-with-request.yaml" >}}
+{{% codenew file="application/nginx-with-request.yaml" %}}
 
 以下のコマンドを実行して、Deploymentを作成します:
 

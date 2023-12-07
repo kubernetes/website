@@ -34,6 +34,10 @@
 #   + /docs/bar                : is a redirect entry, or
 #   + /docs/bar                : is something we don't understand
 #
+# + [foo](<lang>/docs/bar/...) : leading slash missing for absolute path
+#
+# + [foo](docs/bar/...)        : leading slash missing for absolute path
+#
 # + {{ < api-reference page="" anchor="" ... > }}
 # + {{ < api-reference page="" > }}
 
@@ -324,6 +328,7 @@ def check_target(page, anchor, target):
                 return None
             msg = ("Localized page detected, please append '/%s' to the target"
                    % LANG)
+
             return new_record("ERROR", msg, target)
 
         # taget might be a redirect entry
@@ -333,6 +338,11 @@ def check_target(page, anchor, target):
                    real_target)
             return new_record("WARNING", msg, target)
         return new_record("ERROR", "Missing link for [%s]" % anchor, target)
+
+    # absolute link missing leading slash
+    if (target.startswith("docs/") or target.startswith(LANG + "/docs/")):
+        return new_record("ERROR", "Missing leading slash. Try \"/%s\"" %
+                                   target, target)
 
     msg = "Link may be wrong for the anchor [%s]" % anchor
     return new_record("WARNING", msg, target)
@@ -381,7 +391,7 @@ def check_apiref_target(target, anchor):
                           target+"#"+anchor)
 
 
-def validate_links(page):
+def validate_links(page, in_place_edit):
     """Find and validate links on a content page.
 
     The checking records are consolidated into the global variable RESULT.
@@ -401,10 +411,34 @@ def validate_links(page):
 
     matches = regex.findall(content)
     records = []
+    target_records = []
     for m in matches:
         r = check_target(page, m[0], m[1])
         if r:
             records.append(r)
+            target_records.append(m[1])
+
+    # if multiple records are the same they need not be checked repeatedly
+    # remove paths that are not relative too
+    target_records = {item for item in target_records
+                         if not item.startswith("http") and
+                          not item.startswith(f"/{LANG}")}
+
+    # English-language pages don't have "en" in their path
+    if in_place_edit and target_records and LANG != "en":
+        updated_data = []
+        for line in data:
+            if any(rec in line for rec in target_records):
+                for rec in target_records:
+                    line = line.replace(
+                        f"({rec})",
+                        # assumes unlocalized links are in "/docs/..." format
+                        f"(/{LANG}{rec})")
+            updated_data.append(line)
+
+        with open(page, "w") as f:
+            for line in updated_data:
+                f.write(line)
 
     # searches for pattern: {{< api-reference page="" anchor=""
     apiref_re = r"{{ *< *api-reference page=\"([^\"]*?)\" *anchor=\"(.*?)\""
@@ -446,6 +480,9 @@ def parse_arguments():
                         metavar="<FILTER>",
                         help=("File pattern to scan. "
                               "(default='content/en/docs/**/*.md')"))
+    PARSER.add_argument("-w", dest="in_place_edit", action="store_true",
+                        help="[EXPERIMENTAL] Turns on in-place replacement "
+                             "for localized content.")
 
     return PARSER.parse_args()
 
@@ -491,7 +528,7 @@ def main():
 
     folders = [f for f in glob.glob(ARGS.filter, recursive=True)]
     for page in folders:
-        validate_links(page)
+        validate_links(page, ARGS.in_place_edit)
 
     dump_result()
 

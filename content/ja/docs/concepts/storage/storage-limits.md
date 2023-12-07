@@ -1,6 +1,7 @@
 ---
 title: ノード固有のボリューム制限
 content_type: concept
+weight: 90
 ---
 
 <!-- overview -->
@@ -52,7 +53,7 @@ Kubernetesスケジューラーには、ノードに接続できるボリュー�
 
 * Azureでは、ノードの種類に応じて、最大64個のディスクをノードに接続できます。詳細については、[Azureの仮想マシンのサイズ](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes)を参照してください。
 
-* CSIストレージドライバーが(`NodeGetInfo`を使用して)ノードの最大ボリューム数をアドバタイズする場合、{{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}はその制限を尊重します。詳細については、[CSIの仕様](https://github.com/ontainer-storage-interface/spec/blob/master/spec.md#nodegetinfo)を参照してください。
+* CSIストレージドライバーが(`NodeGetInfo`を使用して)ノードの最大ボリューム数をアドバタイズする場合、{{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}はその制限を尊重します。詳細については、[CSIの仕様](https://github.com/container-storage-interface/spec/blob/master/spec.md#nodegetinfo)を参照してください。
 
 * CSIドライバーに移行されたツリー内プラグインによって管理されるボリュームの場合、ボリュームの最大数はCSIドライバーによって報告される数になります。
 

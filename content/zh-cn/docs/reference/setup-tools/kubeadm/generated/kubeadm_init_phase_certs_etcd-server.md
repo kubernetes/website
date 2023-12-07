@@ -1,9 +1,12 @@
+<!--
+Generate the certificate for serving etcd
+-->
+生成用于提供 etcd 服务的证书。
 
 <!-- 
 ### Synopsis
 -->
 ### 概要
-
 
 <!--
 Generate the certificate for serving etcd, and save them into etcd/server.crt and etcd/server.key files.
@@ -23,7 +26,7 @@ If both files already exist, kubeadm skips the generation step and existing file
 <!--
 Alpha Disclaimer: this command is currently alpha.
 -->
-Alpha 免责声明：此命令当前为 alpha 功能。
+Alpha 免责声明：此命令当前为 Alpha 功能。
 
 ```
 kubeadm init phase certs etcd-server [flags]
@@ -71,6 +74,18 @@ kubeadm init phase certs etcd-server [flags]
 </tr>
 
 <tr>
+<td colspan="2">--dry-run</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+<p>Don't apply any changes; just output what would be done.</p>
+-->
+<p>不做任何更改；只输出将要执行的操作。<p>
+</td>
+</tr>
+
+<tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
@@ -78,7 +93,7 @@ kubeadm init phase certs etcd-server [flags]
 <!--
 <p>help for etcd-server</p>
 -->
-<p>etcd-server 操作的帮助命令<p>
+<p>etcd-server 操作的帮助命令。<p>
 </td>
 </tr>
 
@@ -101,8 +116,6 @@ kubeadm init phase certs etcd-server [flags]
 
 </tbody>
 </table>
-
-
 
 <!--
 ### Options inherited from parent commands
@@ -130,4 +143,3 @@ kubeadm init phase certs etcd-server [flags]
 
 </tbody>
 </table>
-

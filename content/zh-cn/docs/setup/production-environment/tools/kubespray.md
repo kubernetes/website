@@ -12,14 +12,18 @@ weight: 30
 <!-- overview -->
 
 <!--
-This quickstart helps to install a Kubernetes cluster hosted on GCE, Azure, OpenStack, AWS, vSphere, Equinix Metal (formerly Packet), Oracle Cloud Infrastructure (Experimental) or Baremetal with [Kubespray](https://github.com/kubernetes-sigs/kubespray).
+This quickstart helps to install a Kubernetes cluster hosted on GCE, Azure, OpenStack,
+AWS, vSphere, Equinix Metal (formerly Packet), Oracle Cloud Infrastructure (Experimental)
+or Baremetal with [Kubespray](https://github.com/kubernetes-sigs/kubespray).
 -->
 此快速入门有助于使用 [Kubespray](https://github.com/kubernetes-sigs/kubespray)
 安装在 GCE、Azure、OpenStack、AWS、vSphere、Equinix Metal（曾用名 Packet）、Oracle Cloud
 Infrastructure（实验性）或 Baremetal 上托管的 Kubernetes 集群。
 
 <!--
-Kubespray is a composition of [Ansible](https://docs.ansible.com/) playbooks, [inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md#inventory), provisioning tools, and domain knowledge for generic OS/Kubernetes clusters configuration management tasks. 
+Kubespray is a composition of [Ansible](https://docs.ansible.com/) playbooks,
+[inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md#inventory),
+provisioning tools, and domain knowledge for generic OS/Kubernetes clusters configuration management tasks.
 
 Kubespray provides:
 -->
@@ -65,7 +69,8 @@ Kubespray 提供：
 - 持续集成测试
 
 <!--
-To choose a tool which best fits your use case, read [this comparison](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/comparisons.md) to
+To choose a tool which best fits your use case, read
+[this comparison](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/comparisons.md) to
 [kubeadm](/docs/reference/setup-tools/kubeadm/) and [kops](/docs/setup/production-environment/tools/kops/).
 -->
 要选择最适合你的用例的工具，请阅读
@@ -95,8 +100,11 @@ Provision servers with the following [requirements](https://github.com/kubernete
 * The target servers must have **access to the Internet** in order to pull docker images. Otherwise, additional configuration is required See ([Offline Environment](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/offline-environment.md))
 * The target servers are configured to allow **IPv4 forwarding**.
 * If using IPv6 for pods and services, the target servers are configured to allow **IPv6 forwarding**.
-* The **firewalls are not managed**, you'll need to implement your own rules the way you used to. in order to avoid any issue during deployment you should disable your firewall.
-* If kubespray is run from non-root user account, correct privilege escalation method should be configured in the target servers. Then the `ansible_become` flag or command parameters `--become` or `-b` should be specified.
+* The **firewalls are not managed**, you'll need to implement your own rules the way you used to.
+  in order to avoid any issue during deployment you should disable your firewall.
+* If kubespray is run from non-root user account, correct privilege escalation method
+  should be configured in the target servers. Then the `ansible_become` flag or command
+  parameters `--become` or `-b` should be specified.
 -->
 * **Kubernetes** 的最低版本要求为 V1.22
 * **在将运行 Ansible 命令的计算机上安装 Ansible v2.11（或更高版本）、Jinja 2.11（或更高版本）和 python-netaddr**
@@ -114,19 +122,22 @@ Kubespray provides the following utilities to help provision your environment:
 * [Terraform](https://www.terraform.io/) scripts for the following cloud providers:
   * [AWS](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/aws)
   * [OpenStack](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/openstack)
-  * [Equinix Metal](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/metal)
+  * [Equinix Metal](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/equinix)
 -->
 Kubespray 提供以下实用程序来帮助你设置环境：
 
 * 为以下云驱动提供的 [Terraform](https://www.terraform.io/) 脚本：
   * [AWS](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/aws)
   * [OpenStack](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/openstack)
-  * [Equinix Metal](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/metal)
+  * [Equinix Metal](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/equinix)
 
 <!--
 ### (2/5) Compose an inventory file
 
-After you provision your servers, create an [inventory file for Ansible](https://docs.ansible.com/ansible/latest/network/getting_started/first_inventory.html). You can do this manually or via a dynamic inventory script. For more information, see "[Building your own inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory)".
+After you provision your servers, create an
+[inventory file for Ansible](https://docs.ansible.com/ansible/latest/network/getting_started/first_inventory.html).
+You can do this manually or via a dynamic inventory script. For more information,
+see "[Building your own inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory)".
 
 ### (3/5) Plan your cluster deployment
 
@@ -156,7 +167,7 @@ Kubespray 能够自定义部署的许多方面：
   * {{< glossary_tooltip term_id="cri-o" >}}
 * Certificate generation methods
 -->
-* 选择部署模式： kubeadm 或非 kubeadm
+* 选择部署模式：kubeadm 或非 kubeadm
 * CNI（网络）插件
 * DNS 配置
 * 控制平面的选择：本机/可执行文件或容器化
@@ -169,7 +180,10 @@ Kubespray 能够自定义部署的许多方面：
 * 证书生成方式
 
 <!--
-Kubespray customizations can be made to a [variable file](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html). If you are getting started with Kubespray, consider using the Kubespray defaults to deploy your cluster and explore Kubernetes.
+Kubespray customizations can be made to a
+[variable file](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html).
+If you are getting started with Kubespray, consider using the Kubespray
+defaults to deploy your cluster and explore Kubernetes.
 -->
 可以修改[变量文件](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html)以进行
 Kubespray 定制。
@@ -180,7 +194,8 @@ Kubespray 定制。
 
 Next, deploy your cluster:
 
-Cluster deployment using [ansible-playbook](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#starting-custom-deployment).
+Cluster deployment using
+[ansible-playbook](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#starting-custom-deployment).
 -->
 ### （4/5）部署集群
 
@@ -195,7 +210,9 @@ ansible-playbook -i your/inventory/inventory.ini cluster.yml -b -v \
 ```
 
 <!--
-Large deployments (100+ nodes) may require [specific adjustments](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/large-deployments.md) for best results.
+Large deployments (100+ nodes) may require
+[specific adjustments](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/large-deployments.md)
+for best results.
 -->
 大型部署（超过 100 个节点）
 可能需要[特定的调整](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/large-deployments.md)，
@@ -204,7 +221,11 @@ Large deployments (100+ nodes) may require [specific adjustments](https://github
 <!--
 ### (5/5) Verify the deployment
 
-Kubespray provides a way to verify inter-pod connectivity and DNS resolve with [Netchecker](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/netcheck.md). Netchecker ensures the netchecker-agents pods can resolve DNS requests and ping each over within the default namespace. Those pods mimic similar behavior as the rest of the workloads and serve as cluster health indicators.
+Kubespray provides a way to verify inter-pod connectivity and DNS resolve with
+[Netchecker](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/netcheck.md).
+Netchecker ensures the netchecker-agents pods can resolve DNS requests and ping each
+over within the default namespace. Those pods mimic similar behavior as the rest
+of the workloads and serve as cluster health indicators.
 -->
 ### （5/5）验证部署
 
@@ -227,8 +248,10 @@ Kubespray 提供了其他 Playbook 来管理集群： **scale** 和 **upgrade**�
 <!--
 ### Scale your cluster
 
-You can add worker nodes from your cluster by running the scale playbook. For more information, see "[Adding nodes](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#adding-nodes)".
-You can remove worker nodes from your cluster by running the remove-node playbook. For more information, see "[Remove nodes](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#remove-nodes)".
+You can add worker nodes from your cluster by running the scale playbook. For more information,
+see "[Adding nodes](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#adding-nodes)".
+You can remove worker nodes from your cluster by running the remove-node playbook. For more information,
+see "[Remove nodes](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#remove-nodes)".
 -->
 ### 扩展集群   {#scale-your-cluster}
 
@@ -240,7 +263,8 @@ You can remove worker nodes from your cluster by running the remove-node playboo
 <!--
 ### Upgrade your cluster
 
-You can upgrade your cluster by running the upgrade-cluster playbook. For more information, see "[Upgrades](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/upgrades.md)".
+You can upgrade your cluster by running the upgrade-cluster playbook. For more information,
+see "[Upgrades](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/upgrades.md)".
 -->
 ### 升级集群   {#upgrade-your-cluster}
 
@@ -250,7 +274,8 @@ You can upgrade your cluster by running the upgrade-cluster playbook. For more i
 <!--
 ## Cleanup
 
-You can reset your nodes and wipe out all components installed with Kubespray via the [reset playbook](https://github.com/kubernetes-sigs/kubespray/blob/master/reset.yml).
+You can reset your nodes and wipe out all components installed with Kubespray
+via the [reset playbook](https://github.com/kubernetes-sigs/kubespray/blob/master/reset.yml).
 -->
 ## 清理   {#cleanup}
 
@@ -267,7 +292,8 @@ When running the reset playbook, be sure not to accidentally target your product
 <!--
 ## Feedback
 
-* Slack Channel: [#kubespray](https://kubernetes.slack.com/messages/kubespray/) (You can get your invite [here](https://slack.k8s.io/)).
+* Slack Channel: [#kubespray](https://kubernetes.slack.com/messages/kubespray/)
+  (You can get your invite [here](https://slack.k8s.io/)).
 * [GitHub Issues](https://github.com/kubernetes-sigs/kubespray/issues).
 -->
 ## 反馈   {#feedback}
@@ -282,6 +308,6 @@ When running the reset playbook, be sure not to accidentally target your product
 * Check out planned work on Kubespray's [roadmap](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/roadmap.md).
 * Learn more about [Kubespray](https://github.com/kubernetes-sigs/kubespray).
 -->
-* 查看有关 Kubespray 的
+* 查看有关 Kubespray
   [路线图](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/roadmap.md)的计划工作。
 * 查阅有关 [Kubespray](https://github.com/kubernetes-sigs/kubespray) 的更多信息。

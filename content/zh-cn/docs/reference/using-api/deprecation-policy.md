@@ -707,7 +707,7 @@ to determine SLOs, these tend to have greater import. Other metrics are more
 experimental in nature or are used primarily in the Kubernetes development
 process.
 
-Accordingly, metrics fall under two stability classes (`ALPHA` and `STABLE`);
+Accordingly, metrics fall under three stability classes (`ALPHA`, `BETA` `STABLE`);
 this impacts removal of a metric during a Kubernetes release. These classes
 are determined by the perceived importance of the metric. The rules for
 deprecating and removing a metric are as follows:
@@ -718,7 +718,7 @@ Kubernetes 控制平面的每个组件都公开度量值（通常是 `/metrics` 
 并不是所有的度量值都是同样重要的：一些度量值通常用作 SLIs 或被使用来确定 SLOs，这些往往比较重要。
 其他度量值在本质上带有实验性，或者主要用于 Kubernetes 开发过程。
 
-因此，度量值分为两个稳定性类别（`ALPHA` 和 `STABLE`）;
+因此，度量值分为三个稳定性类别（`ALPHA`、`BETA`、`STABLE`）;
 此分类会影响在 Kubernetes 发布版本中移除某度量值。
 所对应的分类取决于对该度量值重要性的预期。
 弃用和移除度量值的规则如下：
@@ -727,21 +727,25 @@ Kubernetes 控制平面的每个组件都公开度量值（通常是 `/metrics` 
 **Rule #9a: Metrics, for the corresponding stability class, must function for no less than:**
 
    * **STABLE: 4 releases or 12 months (whichever is longer)**
+   * **BETA: 2 releases or 8 months (whichever is longer)**
    * **ALPHA: 0 releases**
 
 **Rule #9b: Metrics, after their _announced deprecation_, must function for no less than:**
 
    * **STABLE: 3 releases or 9 months (whichever is longer)**
+   * **BETA: 1 releases or 4 months (whichever is longer)**
    * **ALPHA: 0 releases**
 -->
 **规则 #9a: 对于相应的稳定性类别，度量值起作用的周期必须不小于：**
 
 * **STABLE: 4 个发布版本或者 12 个月 (取其较长者)**
+* **BETA: 2 个发布版本或者 8 个月 (取其较长者)**
 * **ALPHA: 0 个发布版本**
 
 **规则 #9b: 在度量值被宣布启用之后，它起作用的周期必须不小于：**
 
 * **STABLE: 3 个发布版本或者 9 个月 (取其较长者)**
+* **BETA: 1 个发布版本或者 4 个月 (取其较长者)**
 * **ALPHA: 0 个发布版本**
 
 <!--

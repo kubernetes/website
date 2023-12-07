@@ -107,7 +107,14 @@ kubectl apply -f https://kubernetes.io/examples/application/job/indexed-job.yaml
 
 `.spec.parallelism`가 `.spec.completions`보다 작기 때문에, 컨트롤 플레인은 추가로 파드를 시작하기 전 최초 생성된 파드 중 일부가 완료되기를 기다린다.
 
-잡을 생성했다면, 잠시 기다린 후 진행 상황을 확인한다.
+아래와 같이 시간 제한(timeout)을 설정하고, 잡이 성공할 때까지 기다린다.
+```shell
+# 조건명은 대소문자를 구분하지 않는다.
+kubectl wait --for=condition=complete --timeout=300s job/indexed-job
+```
+
+잡의 상세 설명을 출력하여 성공적으로 수행되었는지 확인한다.
+
 
 ```shell
 kubectl describe jobs/indexed-job

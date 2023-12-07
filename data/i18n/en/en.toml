@@ -49,35 +49,32 @@ other = "CVE ID"
 [cve_issue_url]
 other = "CVE GitHub Issue URL"
 
-[cve_json_external_url]
-other = "external_url"
-
-[cve_json_id]
-other = "id"
-
-[cve_json_summary]
-other = "summary"
-
-[cve_json_url]
-other = "url"
-
 [cve_summary]
 other = "Issue Summary"
 
 [cve_table]
 other = "Official Kubernetes CVE List"
 
-[cve_url]
-other = "CVE URL"
+[cve_table_date_format]
+other = "02 Jan 2006 15:04:05 MST"
+
+[cve_table_date_format_string]
+other = "(last updated: %s)"
 
 [deprecation_title]
 other = "You are viewing documentation for Kubernetes version:"
 
 [deprecation_warning]
-other = " documentation is no longer actively maintained. The version you are currently viewing is a static snapshot. For up-to-date documentation, see the "
+other = " documentation is no longer actively maintained. The version you are currently viewing is a static snapshot. For up-to-date information, see the "
 
 [deprecation_file_warning]
 other = "Deprecated"
+
+[outdated_content_title]
+other = "Information in this document may be out of date"
+
+[outdated_content_message]
+other = "This document has an older update date than the original, so the information it contains may be out of date. If you're able to read English, see the English version for the most up-to-date information: "
 
 [dockershim_message]
 other = """Dockershim has been removed from the Kubernetes project as of release 1.24. Read the <a href="/dockershim">Dockershim Removal FAQ</a> for further details."""
@@ -93,6 +90,9 @@ other = "I AM..."
 
 [docs_label_users]
 other = "Users"
+
+[docs_page_versions]
+other = "This %s is for Kubernetes %s. If you want to use a different Kubernetes version, please refer to the following pages instead:"
 
 [docs_version_current]
 other = "(this documentation)"
@@ -142,17 +142,31 @@ other = "email address"
 [javascript_required]
 other = "JavaScript must be [enabled](https://www.enable-javascript.com/) to view this content"
 
+[katacoda_message]
+other = """<h4>Shutdown of interactive tutorials</h4>
+<p>The interactive tutorials on this website are being shut down. The Kubernetes
+project hopes to reinstate a similar interactive learning option in the long
+term.</p>
+<p>The shutdown follows O'Reilly Media's 2019 <a
+href="https://www.oreilly.com/content/oreilly-acquires-katacoda-and-a-new-way-for-2-5m-customers-to-learn/">acquisition</a>
+of Katacoda.</p>
+<p>Kubernetes is grateful to O'Reilly and Katacoda for many years of helping
+people take their first steps in learning Kubernetes.</p>
+<p>The tutorials will cease to function after the <b>31<sup>st</sup> of March,
+2023</b>. For more information, see "<a href="/blog/2023/02/14/kubernetes-katacoda-tutorials-stop-from-2023-03-31/">Free Katacoda Kubernetes Tutorials Are Shutting
+Down</a>."</p>"""
+
 [latest_release]
 other = "Latest Release:"
 
 [latest_version]
 other = "latest version."
 
-[layouts_blog_pager_prev]
-other = "<< Prev"
-
 [layouts_blog_pager_next]
 other = "Next >>"
+
+[layouts_blog_pager_prev]
+other = "<< Prev"
 
 [layouts_case_studies_list_tell]
 other = "Tell your story"
@@ -160,11 +174,11 @@ other = "Tell your story"
 [layouts_docs_glossary_aka]
 other = "Also known as"
 
-[layouts_docs_glossary_description]
-other = "This glossary is intended to be a comprehensive, standardized list of Kubernetes terminology. It includes technical terms that are specific to Kubernetes, as well as more general terms that provide useful context."
+[layout_docs_glossary_architecture_description]
+other = "The inner components of Kubernetes."
 
-[layouts_docs_glossary_deselect_all]
-other = "Deselect all"
+[layout_docs_glossary_architecture_name]
+other = "Architecture"
 
 [layouts_docs_glossary_click_details_after]
 other = "indicators below to get a longer explanation for any particular term."
@@ -172,17 +186,89 @@ other = "indicators below to get a longer explanation for any particular term."
 [layouts_docs_glossary_click_details_before]
 other = "Click on the"
 
+[layout_docs_glossary_community_description]
+other = "Related to Kubernetes open-source development."
+
+[layout_docs_glossary_community_name]
+other = "Community"
+
+[layout_docs_glossary_core-object_description]
+other = "A resource type that Kubernetes supports by default."
+
+[layout_docs_glossary_core-object_name]
+other = "Core Object"
+
+[layouts_docs_glossary_description]
+other = "This glossary is intended to be a comprehensive, standardized list of Kubernetes terminology. It includes technical terms that are specific to Kubernetes, as well as more general terms that provide useful context."
+
+[layouts_docs_glossary_deselect_all]
+other = "Deselect all"
+
+[layout_docs_glossary_extension_description]
+other = "Supported customizations of Kubernetes."
+
+[layout_docs_glossary_extension_name]
+other = "Extension"
+
 [layouts_docs_glossary_filter]
 other = "Filter terms according to their tags"
 
+[layout_docs_glossary_fundamental_description]
+other = "Relevant for a first-time user of Kubernetes."
+
+[layout_docs_glossary_fundamental_name]
+other = "Fundamental"
+
+[layout_docs_glossary_networking_description]
+other = "How Kubernetes components talk to each other (and to programs outside the cluster)."
+
+[layout_docs_glossary_networking_name]
+other = "Networking"
+
+[layout_docs_glossary_operation_description]
+other = "Starting and maintaining Kubernetes."
+
+[layout_docs_glossary_operation_name]
+other = "Operation"
+
+[layout_docs_glossary_security_description]
+other = "Keeping Kubernetes applications safe and secure."
+
+[layout_docs_glossary_security_name]
+other = "Security"
+
 [layouts_docs_glossary_select_all]
 other = "Select all"
+
+[layout_docs_glossary_storage_description]
+other = "How Kubernetes applications handle persistent data."
+
+[layout_docs_glossary_storage_name]
+other = "Storage"
+
+[layout_docs_glossary_tool_description]
+other = "Software that makes Kubernetes easier or better to use."
+
+[layout_docs_glossary_tool_name]
+other = "Tool"
+
+[layout_docs_glossary_user-type_description]
+other = "Represents a common type of Kubernetes user."
+
+[layout_docs_glossary_user-type_name]
+other = "User Type"
+
+[layout_docs_glossary_workload_description]
+other = "Applications running on Kubernetes."
+
+[layout_docs_glossary_workload_name]
+other = "Workload"
 
 [layouts_docs_partials_feedback_improvement]
 other = "suggest an improvement"
 
 [layouts_docs_partials_feedback_issue]
-other = "Open an issue in the GitHub repo if you want to "
+other = """Open an issue in the [GitHub Repository](https://www.github.com/kubernetes/website/) if you want to """
 
 [layouts_docs_partials_feedback_or]
 other = "or"
@@ -195,6 +281,14 @@ other = "Thanks for the feedback. If you have a specific, answerable question ab
 
 [layouts_docs_search_fetching]
 other = "Fetching results..."
+
+[legacy_repos_message]
+other = """The legacy package repositories (`apt.kubernetes.io` and `yum.kubernetes.io`) have been
+[deprecated and frozen starting from September 13, 2023](/blog/2023/08/31/legacy-package-repository-deprecation/).
+**Using the [new package repositories hosted at `pkgs.k8s.io`](/blog/2023/08/15/pkgs-k8s-io-introduction/)
+is strongly recommended and required in order to install Kubernetes versions released after September 13, 2023.**
+The deprecated legacy repositories, and their contents, might be removed at any time in the future and without
+a further notice period. The new package repositories provide downloads for Kubernetes versions starting with v1.24.0."""
 
 [main_by]
 other = "by"
@@ -272,6 +366,78 @@ other = "Before you begin"
 [previous_patches]
 other = "Patch Releases:"
 
+# The following text is displayed when JavaScript isn't available.
+[release_binary_alternate_links]
+other  = """You can find links to download Kubernetes components (and their checksums) in the [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG) files.
+Alternately, use [downloadkubernetes.com](https://www.downloadkubernetes.com/) to filter by version and architecture."""
+
+[release_binary_arch]
+other  = "Architecture"
+
+[release_binary_arch_option]
+other = "Architectures"
+
+[release_binary_copy_link]
+other = "Copy Link"
+
+[release_binary_copy_link_certifcate]
+other = "cert"
+
+[release_binary_copy_link_checksum]
+other = "checksum"
+
+[release_binary_copy_link_signature]
+other = "signature"
+
+[release_binary_copy_link_tooltip]
+other = "copy to clipboard"
+
+[release_binary_download]
+other  = "Download Binary"
+
+[release_binary_download_tooltip]
+other = "download binary file"
+
+[release_binary_options]
+other  = "Download Options"
+
+[release_binary_os]
+other = "Operating System"
+
+[release_binary_os_option]
+other = "Operating Systems"
+
+[release_binary_os_darwin]
+other = "darwin"
+
+[release_binary_os_linux]
+other = "linux"
+
+[release_binary_os_windows]
+other = "windows"
+
+[release_binary_table_caption]
+other = "Download Kubernetes component binaries"
+
+# NOTE: <current-version> is a placeholder for the actual version number set by 'release-binaries' shortcode.
+# Please do not localize or modify <current-version> placeholder.
+[release_binary_section]
+other = """You can find the links to download <current-version> Kubernetes components (along with their checksums) below.
+To access downloads for older supported versions, visit the respective documentation 
+link for [older versions](https://kubernetes.io/docs/home/supported-doc-versions/#versions-older) or use [downloadkubernetes.com](https://www.downloadkubernetes.com/).""" 
+
+# NOTE: <current-version> and <current-changelog-url> are placeholders set by 'release-binaries' shortcode.
+# Please do not localize or modify <current-version> and <current-changelog-url>  placeholders.
+[release_binary_section_note]
+other = """To download older patch versions of <current-version> Kubernetes components (and their checksums), 
+please refer to the [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG/CHANGELOG-<current-changelog-url>.md) file.""" 
+
+[release_binary_version]
+other  = "Version"
+
+[release_binary_version_option]
+other = "Latest Version"
+
 [release_date_after]
 other = ")"
 
@@ -347,7 +513,7 @@ other = """&#128711; This item links to a third party project or product that is
 other = """<p>Items on this page refer to third party products or projects that provide functionality required by Kubernetes. The Kubernetes project authors aren't responsible for those third-party products or projects. See the <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF website guidelines</a> for more details.</p><p>You should read the <a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a> before proposing a change that adds an extra third-party link.</p>"""
 
 [ui_search_placeholder]
-other = "Search"
+other = "Search this site"
 
 [version_check_mustbe]
 other = "Your Kubernetes server must be version "
@@ -367,74 +533,4 @@ other = "Warning:"
 [whatsnext_heading]
 other = "What's next"
 
-[layout_docs_glossary_architecture_name]
-other = "Architecture"
 
-[layout_docs_glossary_architecture_description]
-other = "The inner components of Kubernetes."
-
-[layout_docs_glossary_community_name]
-other = "Community"
-
-[layout_docs_glossary_community_description]
-other = "Related to Kubernetes open-source development."
-
-[layout_docs_glossary_core-object_name]
-other = "Core Object"
-
-[layout_docs_glossary_core-object_description]
-other = "A resource type that Kubernetes supports by default."
-
-[layout_docs_glossary_extension_name]
-other = "Extension"
-
-[layout_docs_glossary_extension_description]
-other = "Supported customizations of Kubernetes."
-
-[layout_docs_glossary_fundamental_name]
-other = "Fundamental"
-
-[layout_docs_glossary_fundamental_description]
-other = "Relevant for a first-time user of Kubernetes."
-
-[layout_docs_glossary_networking_name]
-other = "Networking"
-
-[layout_docs_glossary_networking_description]
-other = "How Kubernetes components talk to each other (and to programs outside the cluster)."
-
-[layout_docs_glossary_operation_name]
-other = "Operation"
-
-[layout_docs_glossary_operation_description]
-other = "Starting and maintaining Kubernetes."
-
-[layout_docs_glossary_security_name]
-other = "Security"
-
-[layout_docs_glossary_security_description]
-other = "Keeping Kubernetes applications safe and secure."
-
-[layout_docs_glossary_storage_name]
-other = "Storage"
-
-[layout_docs_glossary_storage_description]
-other = "How Kubernetes applications handle persistent data."
-
-[layout_docs_glossary_tool_name]
-other = "Tool"
-
-[layout_docs_glossary_tool_description]
-other = "Software that makes Kubernetes easier or better to use."
-
-[layout_docs_glossary_user-type_name]
-other = "User Type"
-
-[layout_docs_glossary_user-type_description]
-other = "Represents a common type of Kubernetes user."
-
-[layout_docs_glossary_workload_name]
-other = "Workload"
-
-[layout_docs_glossary_workload_description]
-other = "Applications running on Kubernetes."

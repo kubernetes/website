@@ -61,6 +61,7 @@ cat ~/.docker/config.json
 
 {{< note >}}
 도커 자격 증명 저장소를 사용하는 경우, `auth` 항목이 아닌, 저장소의 이름을 값으로 사용하는 `credsStore` 항목을 확인할 수 있다.
+이 경우, 시크릿을 직접 생성할 수 있다. [커맨드 라인에서 자격 증명을 통하여 시크릿 생성하기](#커맨드-라인에서-자격-증명을-통하여-시크릿-생성하기)를 보자.
 {{< /note >}}
 
 ## 기존의 자격 증명을 기반으로 시크릿 생성하기 {#registry-secret-existing-credentials}
@@ -190,7 +191,7 @@ janedoe:xxxxxxxxxxx
 위 파일을 컴퓨터에 다운로드한다.
 
 ```shell
-curl -L -O my-private-reg-pod.yaml https://k8s.io/examples/pods/private-reg-pod.yaml
+curl -L -o my-private-reg-pod.yaml https://k8s.io/examples/pods/private-reg-pod.yaml
 ```
 
 `my-private-reg-pod.yaml` 파일 안에서, `<your-private-image>` 값을 다음과 같은 프라이빗 저장소 안의 이미지 경로로 변경한다.

@@ -2,7 +2,7 @@
 title: Windowsノードのアップグレード
 min-kubernetes-server-version: 1.17
 content_type: task
-weight: 40
+weight: 50
 ---
 
 <!-- overview -->
@@ -32,8 +32,8 @@ Windowsノードをアップグレードする前にコントロールプレー�
 1.  Windowsノードから、kubeadmをアップグレードします。:
 
     ```powershell
-    # {{< param "fullversion" >}}を目的のバージョンに置き換えます
-    curl.exe -Lo C:\k\kubeadm.exe https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubeadm.exe
+    # {{% skew currentPatchVersion %}}を目的のバージョンに置き換えます
+    curl.exe -Lo C:\k\kubeadm.exe https://dl.k8s.io/v{{% skew currentPatchVersion %}}/bin/windows/amd64/kubeadm.exe
     ```
 
 ### ノードをドレインする
@@ -67,7 +67,7 @@ Windowsノードをアップグレードする前にコントロールプレー�
 
     ```powershell
     stop-service kubelet
-    curl.exe -Lo C:\k\kubelet.exe https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubelet.exe
+    curl.exe -Lo C:\k\kubelet.exe https://dl.k8s.io/v{{% skew currentPatchVersion %}}/bin/windows/amd64/kubelet.exe
     restart-service kubelet
     ```
 
@@ -83,10 +83,10 @@ Windowsノードをアップグレードする前にコントロールプレー�
 ### kube-proxyをアップグレード
 
 1. Kubernetes APIにアクセスできるマシンから、次を実行します、
-もう一度{{< param "fullversion" >}}を目的のバージョンに置き換えます:
+もう一度{{< skew currentPatchVersion >}}を目的のバージョンに置き換えます:
 
     ```shell
-    curl -L https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/kube-proxy.yml | sed 's/VERSION/{{< param "fullversion" >}}/g' | kubectl apply -f -
+    curl -L https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/kube-proxy.yml | sed 's/VERSION/v{{< skew currentPatchVersion >}}/g' | kubectl apply -f -
     ```
 
 

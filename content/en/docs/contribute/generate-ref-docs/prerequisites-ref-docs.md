@@ -5,9 +5,9 @@
 
 - You need to have these tools installed:
 
-  - [Python](https://www.python.org/downloads/) v3.7.x
+  - [Python](https://www.python.org/downloads/) v3.7.x+
   - [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-  - [Golang](https://golang.org/doc/install) version 1.13+
+  - [Golang](https://go.dev/dl/) version 1.13+
   - [Pip](https://pypi.org/project/pip/) used to install PyYAML
   - [PyYAML](https://pyyaml.org/) v5.1.2
   - [make](https://www.gnu.org/software/make/)
@@ -19,4 +19,3 @@
 - You need to know how to create a pull request to a GitHub repository.
   This involves creating your own fork of the repository. For more
   information, see [Work from a local clone](/docs/contribute/new-content/open-a-pr/#fork-the-repo).
-

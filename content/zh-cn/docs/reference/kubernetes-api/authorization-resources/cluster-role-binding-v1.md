@@ -56,7 +56,7 @@ ClusterRoleBinding 引用 ClusterRole，但不包含它。
   标准对象的元数据。
 <!-- 
 - **roleRef** (RoleRef), required
-  RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+  RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
   <a name="RoleRef"></a>
   *RoleRef contains information that points to the role being used*
   - **roleRef.apiGroup** (string), required
@@ -69,7 +69,7 @@ ClusterRoleBinding 引用 ClusterRole，但不包含它。
 - **roleRef** (RoleRef)，必需
 
   RoleRef 只能引用全局命名空间中的 ClusterRole。
-  如果无法解析 RoleRef，则 Authorizer 必定返回一个错误。
+  如果无法解析 RoleRef，则 Authorizer 必定返回一个错误。这个字段是不可变的。
   
   <a name="RoleRef"></a>
   **RoleRef 包含指向正被使用的角色的信息。**
@@ -227,6 +227,8 @@ GET /apis/rbac.authorization.k8s.io/v1/clusterrolebindings
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 - **resourceVersionMatch** (*in query*): string
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+- **sendInitialEvents** (*in query*): boolean
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 - **timeoutSeconds** (*in query*): integer
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 - **watch** (*in query*): boolean
@@ -265,6 +267,10 @@ GET /apis/rbac.authorization.k8s.io/v1/clusterrolebindings
 - **resourceVersionMatch** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 
@@ -557,6 +563,8 @@ DELETE /apis/rbac.authorization.k8s.io/v1/clusterrolebindings
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 - **resourceVersionMatch** (*in query*): string
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+- **sendInitialEvents** (*in query*): boolean
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 - **timeoutSeconds** (*in query*): integer
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 -->
@@ -603,6 +611,10 @@ DELETE /apis/rbac.authorization.k8s.io/v1/clusterrolebindings
 - **resourceVersionMatch** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 

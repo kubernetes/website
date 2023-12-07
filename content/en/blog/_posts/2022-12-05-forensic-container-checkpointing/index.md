@@ -69,7 +69,7 @@ to be considered as an alpha level feature in CRI-O and Kubernetes and the
 security implications are still under consideration.
 
 Once containers and pods are running it is possible to create a checkpoint.
-[Checkpointing](https://kubernetes.io/docs/reference/node/kubelet-checkpoint-api/)
+[Checkpointing](/docs/reference/node/kubelet-checkpoint-api/)
 is currently only exposed on the **kubelet** level. To checkpoint a container,
 you can run `curl` on the node where that container is running, and trigger a
 checkpoint:
@@ -207,3 +207,11 @@ and without losing the state of the containers in that Pod.
 You can reach SIG Node by several means:
 - Slack: [#sig-node](https://kubernetes.slack.com/messages/sig-node)
 - [Mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-node)
+
+## Further reading
+
+Please see the follow-up article [Forensic container
+analysis][forensic-container-analysis] for details on how a container checkpoint
+can be analyzed.
+
+[forensic-container-analysis]: /blog/2023/03/10/forensic-container-analysis/

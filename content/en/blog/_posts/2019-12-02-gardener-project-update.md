@@ -47,7 +47,7 @@ The essential idea is that so-called **seed** clusters are used to host the
 control planes of end-user clusters (botanically named **shoots**). \
 Gardener provides vanilla Kubernetes clusters as a service independent of the
 underlying infrastructure provider in a homogenous way, utilizing the upstream
-provided `k8s.gcr.io/*` images as open distribution. The project is built
+provided `k8s.gcr.io/*` images as open distribution _(update: `k8s.gcr.io` has been deprecated in favor of `registry.k8s.io`)._ The project is built
 entirely on top of Kubernetes extension concepts, and as such adds a custom API
 server, a controller-manager, and a scheduler to create and manage the lifecycle
 of Kubernetes clusters. It extends the Kubernetes API with custom resources,

@@ -44,11 +44,11 @@ RuntimeClass defines a class of container runtime supported in the cluster. The 
 
 - **handler** (string), required
 
-  Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable.
+  handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable.
 
 - **overhead** (Overhead)
 
-  Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
+  overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
    https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/
 
   <a name="Overhead"></a>
@@ -56,11 +56,11 @@ RuntimeClass defines a class of container runtime supported in the cluster. The 
 
   - **overhead.podFixed** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    PodFixed represents the fixed resource overhead associated with running a pod.
+    podFixed represents the fixed resource overhead associated with running a pod.
 
 - **scheduling** (Scheduling)
 
-  Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
+  scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
 
   <a name="Scheduling"></a>
   *Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.*
@@ -85,8 +85,6 @@ RuntimeClass defines a class of container runtime supported in the cluster. The 
     - **scheduling.tolerations.operator** (string)
 
       Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category.
-      
-      
 
     - **scheduling.tolerations.value** (string)
 
@@ -95,8 +93,6 @@ RuntimeClass defines a class of container runtime supported in the cluster. The 
     - **scheduling.tolerations.effect** (string)
 
       Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
-      
-      
 
     - **scheduling.tolerations.tolerationSeconds** (int64)
 
@@ -124,7 +120,7 @@ RuntimeClassList is a list of RuntimeClass objects.
 
 - **items** ([]<a href="{{< ref "../cluster-resources/runtime-class-v1#RuntimeClass" >}}">RuntimeClass</a>), required
 
-  Items is a list of schema objects.
+  items is a list of schema objects.
 
 
 
@@ -216,6 +212,11 @@ GET /apis/node.k8s.io/v1/runtimeclasses
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -501,6 +502,11 @@ DELETE /apis/node.k8s.io/v1/runtimeclasses
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer

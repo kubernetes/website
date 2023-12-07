@@ -59,46 +59,32 @@ Figure 1. SOCKS5 tutorial components
 
 ## Using ssh to create a SOCKS5 proxy
 
-This command starts a SOCKS5 proxy between your client machine and the remote server.
-The SOCKS5 proxy lets you connect to your cluster's API server.
+The following command starts a SOCKS5 proxy between your client machine and the remote SOCKS server:
 
 ```shell
 # The SSH tunnel continues running in the foreground after you run this
 ssh -D 1080 -q -N username@kubernetes-remote-server.example
 ```
 
+The SOCKS5 proxy lets you connect to your cluster's API server based on the following configuration: 
 * `-D 1080`: opens a SOCKS proxy on local port :1080.
 * `-q`: quiet mode. Causes most warning and diagnostic messages to be suppressed.
 * `-N`: Do not execute a remote command. Useful for just forwarding ports.
-* `username@kubernetes-remote-server.example`: the remote SSH server where the Kubernetes cluster is running.
+* `username@kubernetes-remote-server.example`: the remote SSH server behind which the Kubernetes cluster 
+  is running (eg: a bastion host).
 
 ## Client configuration
 
-To explore the Kubernetes API you'll first need to instruct your clients to send their queries through
-the SOCKS5 proxy we created earlier.
-
-For command-line tools, set the `https_proxy` environment variable and pass it to commands that you run.
-
-```shell
-export https_proxy=socks5h://localhost:1080
-```
-
-When you set the `https_proxy` variable, tools such as `curl` route HTTPS traffic through the proxy
-you configured. For this to work, the tool must support SOCKS5 proxying.
-
-{{< note >}}
-In the URL https://localhost:6443/api, `localhost` does not refer to your local client computer.
-Instead, it refers to the endpoint on the remote server known as `localhost`.
-The `curl` tool sends the hostname from the HTTPS URL over SOCKS, and the remote server
-resolves that locally (to an address that belongs to its loopback interface).
-{{</ note >}}
+To access the Kubernetes API server through the proxy you must instruct `kubectl` to send queries through
+the `SOCKS` proxy we created earlier. Do this by either setting the appropriate environment variable, 
+or via the `proxy-url` attribute in the kubeconfig file. Using an environment variable: 
 
 ```shell
-curl -k -v https://localhost:6443/api
+export HTTPS_PROXY=socks5://localhost:1080
 ```
 
-To use the official Kubernetes client `kubectl` with a proxy, set the `proxy-url` element
-for the relevant `cluster` entry within  your `~/.kube/config` file. For example:
+To always use this setting on a specific `kubectl` context, specify the `proxy-url` attribute in the relevant 
+`cluster` entry within the `~/.kube/config` file. For example:
 
 ```yaml
 apiVersion: v1
@@ -106,7 +92,7 @@ clusters:
 - cluster:
     certificate-authority-data: LRMEMMW2 # shortened for readability 
     server: https://<API_SERVER_IP_ADRESS>:6443  # the "Kubernetes API" server, in other words the IP address of kubernetes-remote-server.example
-    proxy-url: socks5://localhost:1080   # the "SSH SOCKS5 proxy" in the diagram above (DNS resolution over socks is built-in)
+    proxy-url: socks5://localhost:1080   # the "SSH SOCKS5 proxy" in the diagram above
   name: default
 contexts:
 - context:
@@ -123,7 +109,8 @@ users:
     client-key-data: LS0tLS1CRUdJT=      # shortened for readability
 ```
 
-If the tunnel is operating and you use `kubectl` with a context that uses this cluster, you can interact with your cluster through that proxy. For example:
+Once you have created the tunnel via the ssh command mentioned earlier, and defined either the environment variable or 
+the `proxy-url` attribute, you can interact with your cluster through that proxy. For example:
 
 ```shell
 kubectl get pods
@@ -133,6 +120,24 @@ kubectl get pods
 NAMESPACE     NAME                                     READY   STATUS      RESTARTS   AGE
 kube-system   coredns-85cb69466-klwq8                  1/1     Running     0          5m46s
 ```
+
+{{< note >}}
+- Before `kubectl` 1.24, most `kubectl` commands worked when using a socks proxy, except `kubectl exec`.
+- `kubectl` supports both `HTTPS_PROXY` and `https_proxy` environment variables. These are used by other 
+  programs that support SOCKS, such as `curl`. Therefore in some cases it 
+  will be better to define the environment variable on the command line:
+  ```shell
+  HTTPS_PROXY=socks5://localhost:1080 kubectl get pods
+  ```
+- When using `proxy-url`, the proxy is used only for the relevant `kubectl` context, 
+  whereas the environment variable will affect all contexts.
+- The k8s API server hostname can be further protected from DNS leakage by using the `socks5h` protocol name
+  instead of the more commonly known `socks5` protocol shown above. In this case, `kubectl` will ask the proxy server
+  (such as an ssh bastion) to resolve the k8s API server domain name, instead of resolving it on the system running
+  `kubectl`. Note also that with `socks5h`, a k8s API server URL like `https://localhost:6443/api` does not refer 
+  to your local client computer. Instead, it refers to `localhost` as known on the proxy server (eg the ssh bastion).
+{{</ note >}}
+
 
 ## Clean up
 

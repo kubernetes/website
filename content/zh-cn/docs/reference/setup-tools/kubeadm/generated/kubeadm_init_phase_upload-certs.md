@@ -1,18 +1,7 @@
 <!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
-<!--
 Upload certificates to kubeadm-certs
 -->
-将证书上传到 kubeadm-certs
+将证书上传到 kubeadm-certs。
 
 <!-- 
 ### Synopsis
@@ -22,7 +11,7 @@ Upload certificates to kubeadm-certs
 <!--
 Upload control plane certificates to the kubeadm-certs Secret
 -->
-将控制平面证书上传到 kubeadm-certs Secret
+将控制平面证书上传到 kubeadm-certs Secret。
 
 ```
 kubeadm init phase upload-certs [flags]
@@ -77,7 +66,7 @@ kubeadm 配置文件的路径。
 Don't apply any changes; just output what would be done.
 -->
 <p>
-不应用任何变更；只是输出将要执行的操作。
+不做任何更改；只输出将要执行的操作。
 </p>
 </td>
 </tr>
@@ -91,7 +80,7 @@ Don't apply any changes; just output what would be done.
 help for upload-certs
 -->
 <p>
-upload-certs 操作的帮助命令
+upload-certs 操作的帮助命令。
 </p>
 </td>
 </tr>

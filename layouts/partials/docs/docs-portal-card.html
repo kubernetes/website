@@ -1,5 +1,6 @@
 {{ range .Params.cards }}
 <div class="launch-card">
+    <div class="card-content">
     <h2 id="{{ replace .title " " "-" | lower }}">{{ .title }}</h2>
     <p>{{ .description }}</p>
     <ul>
@@ -25,5 +26,6 @@
       <br>
       <br>
     {{ end }}
+    </div>
 </div>
 {{ end }}

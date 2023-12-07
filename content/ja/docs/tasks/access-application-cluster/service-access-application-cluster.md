@@ -36,9 +36,9 @@ weight: 60
 
 アプリケーションDeploymentの設定ファイルは以下の通りです:
 
-{{< codenew file="service/access/hello-application.yaml" >}}
+{{% codenew file="service/access/hello-application.yaml" %}}
 
-1. クラスタでHello Worldアプリケーションを稼働させます:
+1. クラスターでHello Worldアプリケーションを稼働させます:
    上記のファイルを使用し、アプリケーションのDeploymentを作成します:
    ```shell
    kubectl apply -f https://k8s.io/examples/service/access/hello-application.yaml

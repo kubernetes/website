@@ -57,29 +57,40 @@ Kubernetes 的宗旨就是在应用之间共享机器。
 与其去解决这些问题，Kubernetes 选择了其他不同的方法。
 
 要了解 Kubernetes 网络模型，请参阅[此处](/zh-cn/docs/concepts/services-networking/)。
+
 <!--
 ## How to implement the Kubernetes network model
 
-The network model is implemented by the container runtime on each node. The most common container runtimes use [Container Network Interface](https://github.com/containernetworking/cni) (CNI) plugins to manage their network and security capabilities. Many different CNI plugins exist from many different vendors. Some of these provide only basic features of adding and removing network interfaces, while others provide more sophisticated solutions, such as integration with other container orchestration systems, running multiple CNI plugins, advanced IPAM features etc.
-
-See [this page](/docs/concepts/cluster-administration/addons/#networking-and-network-policy) for a non-exhaustive list of networking addons supported by Kubernetes.
+The network model is implemented by the container runtime on each node. The most common container
+runtimes use [Container Network Interface](https://github.com/containernetworking/cni) (CNI)
+plugins to manage their network and security capabilities. Many different CNI plugins exist from
+many different vendors. Some of these provide only basic features of adding and removing network
+interfaces, while others provide more sophisticated solutions, such as integration with other
+container orchestration systems, running multiple CNI plugins, advanced IPAM features etc.
 -->
 ## 如何实现 Kubernetes 的网络模型    {#how-to-implement-the-kubernetes-network-model}
 
-网络模型由每个节点上的容器运行时实现。最常见的容器运行时使用
-[Container Network Interface](https://github.com/containernetworking/cni) (CNI) 插件来管理其网络和安全功能。
-许多不同的 CNI 插件来自于许多不同的供应商。其中一些仅提供添加和删除网络接口的基本功能，
+网络模型由各节点上的容器运行时来实现。最常见的容器运行时使用
+[Container Network Interface](https://github.com/containernetworking/cni) (CNI) 插件来管理其网络和安全能力。
+来自不同供应商 CNI 插件有很多。其中一些仅提供添加和删除网络接口的基本功能，
 而另一些则提供更复杂的解决方案，例如与其他容器编排系统集成、运行多个 CNI 插件、高级 IPAM 功能等。
 
+<!--
+See [this page](/docs/concepts/cluster-administration/addons/#networking-and-network-policy)
+for a non-exhaustive list of networking addons supported by Kubernetes.
+-->
 请参阅[此页面](/zh-cn/docs/concepts/cluster-administration/addons/#networking-and-network-policy)了解
 Kubernetes 支持的网络插件的非详尽列表。
 
 ## {{% heading "whatsnext" %}}
 
 <!--
-The early design of the networking model and its rationale, and some future
-plans are described in more detail in the
+The early design of the networking model and its rationale are described in more detail in the
 [networking design document](https://git.k8s.io/design-proposals-archive/network/networking.md).
+For future plans and some on-going efforts that aim to improve Kubernetes networking, please
+refer to the SIG-Network
+[KEPs](https://github.com/kubernetes/enhancements/tree/master/keps/sig-network).
 -->
-网络模型的早期设计、运行原理以及未来的一些计划，
-都在[联网设计文档](https://git.k8s.io/design-proposals-archive/network/networking.md)里有更详细的描述。
+网络模型的早期设计、运行原理都在[联网设计文档](https://git.k8s.io/design-proposals-archive/network/networking.md)里有详细描述。
+关于未来的计划，以及旨在改进 Kubernetes 联网能力的一些正在进行的工作，可以参考 SIG Network
+的 [KEPs](https://github.com/kubernetes/enhancements/tree/master/keps/sig-network)。

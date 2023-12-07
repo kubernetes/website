@@ -122,7 +122,7 @@ In addition, you can limit consumption of storage resources based on associated 
 | `requests.storage` | Across all persistent volume claims, the sum of storage requests cannot exceed this value. |
 | `persistentvolumeclaims` | The total number of [PersistentVolumeClaims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace. |
 | `<storage-class-name>.storageclass.storage.k8s.io/requests.storage` | Across all persistent volume claims associated with the `<storage-class-name>`, the sum of storage requests cannot exceed this value. |
-| `<storage-class-name>.storageclass.storage.k8s.io/persistentvolumeclaims` | Across all persistent volume claims associated with the storage-class-name, the total number of [persistent volume claims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace. |
+| `<storage-class-name>.storageclass.storage.k8s.io/persistentvolumeclaims` | Across all persistent volume claims associated with the `<storage-class-name>`, the total number of [persistent volume claims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace. |
 
 For example, if an operator wants to quota storage with `gold` storage class separate from `bronze` storage class, the operator can
 define a quota as follows:
@@ -465,7 +465,7 @@ from getting scheduled in a failure domain.
 
 Using this scope operators can prevent certain namespaces (`foo-ns` in the example below) 
 from having pods that use cross-namespace pod affinity by creating a resource quota object in
-that namespace with `CrossNamespaceAffinity` scope and hard limit of 0:
+that namespace with `CrossNamespacePodAffinity` scope and hard limit of 0:
 
 ```yaml
 apiVersion: v1
@@ -478,11 +478,12 @@ spec:
     pods: "0"
   scopeSelector:
     matchExpressions:
-    - scopeName: CrossNamespaceAffinity
+    - scopeName: CrossNamespacePodAffinity
+      operator: Exists
 ```
 
 If operators want to disallow using `namespaces` and `namespaceSelector` by default, and 
-only allow it for specific namespaces, they could configure `CrossNamespaceAffinity` 
+only allow it for specific namespaces, they could configure `CrossNamespacePodAffinity` 
 as a limited resource by setting the kube-apiserver flag --admission-control-config-file
 to the path of the following configuration file:
 
@@ -497,12 +498,13 @@ plugins:
     limitedResources:
     - resource: pods
       matchScopes:
-      - scopeName: CrossNamespaceAffinity
+      - scopeName: CrossNamespacePodAffinity
+        operator: Exists
 ```
 
 With the above configuration, pods can use `namespaces` and `namespaceSelector` in pod affinity only
 if the namespace where they are created have a resource quota object with 
-`CrossNamespaceAffinity` scope and a hard limit greater than or equal to the number of pods using those fields.
+`CrossNamespacePodAffinity` scope and a hard limit greater than or equal to the number of pods using those fields.
 
 ## Requests compared to Limits {#requests-vs-limits}
 
@@ -687,7 +689,7 @@ plugins:
 
 Then, create a resource quota object in the `kube-system` namespace:
 
-{{< codenew file="policy/priority-class-resourcequota.yaml" >}}
+{{% code_sample file="policy/priority-class-resourcequota.yaml" %}}
 
 ```shell
 kubectl apply -f https://k8s.io/examples/policy/priority-class-resourcequota.yaml -n kube-system

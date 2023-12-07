@@ -11,37 +11,39 @@ weight: 60
 
 <!-- overview -->
 
-<!-- 
-In Kubernetes, some objects are *owners* of other objects. For example, a
-{{<glossary_tooltip text="ReplicaSet" term_id="replica-set">}} is the owner of a set of Pods. These owned objects are *dependents*
-of their owner. 
+<!--
+In Kubernetes, some {{< glossary_tooltip text="objects" term_id="object" >}} are
+*owners* of other objects. For example, a
+{{<glossary_tooltip text="ReplicaSet" term_id="replica-set">}} is the owner
+of a set of Pods. These owned objects are *dependents* of their owner.
 -->
 
-在 Kubernetes 中，一些对象是其他对象的“属主（Owner）”。
+在 Kubernetes 中，一些{{< glossary_tooltip text="对象" term_id="Object" >}}是其他对象的“属主（Owner）”。
 例如，{{<glossary_tooltip text="ReplicaSet" term_id="replica-set">}} 是一组 Pod 的属主。
 具有属主的对象是属主的“附属（Dependent）”。
 
 <!--
 Ownership is different from the [labels and selectors](/docs/concepts/overview/working-with-objects/labels/)
-mechanism that some resources also use. For example, consider a Service that 
-creates `EndpointSlice` objects. The Service uses labels to allow the control plane to
+mechanism that some resources also use. For example, consider a Service that
+creates `EndpointSlice` objects. The Service uses {{<glossary_tooltip text="labels" term_id="label">}} to allow the control plane to
 determine which `EndpointSlice` objects are used for that Service. In addition
 to the labels, each `EndpointSlice` that is managed on behalf of a Service has
 an owner reference. Owner references help different parts of Kubernetes avoid
-interfering with objects they don’t control. 
+interfering with objects they don’t control.
 -->
 属主关系不同于一些资源使用的[标签和选择算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/)机制。
 例如，有一个创建 `EndpointSlice` 对象的 Service，
-该 Service 使用标签来让控制平面确定，哪些 `EndpointSlice` 对象属于该 Service。
-除开标签，每个代表 Service 所管理的 `EndpointSlice` 都有一个属主引用。
-属主引用避免 Kubernetes 的不同部分干扰到不受它们控制的对象。
+该 Service 使用{{<glossary_tooltip text="标签" term_id="label">}}来让控制平面确定哪些
+`EndpointSlice` 对象属于该 Service。除开标签，每个代表 Service 所管理的
+`EndpointSlice` 都有一个属主引用。属主引用避免 Kubernetes
+的不同部分干扰到不受它们控制的对象。
 
 <!--
 ## Owner references in object specifications
 
 Dependent objects have a `metadata.ownerReferences` field that references their
-owner object. A valid owner reference consists of the object name and a UID
-within the same namespace as the dependent object. Kubernetes sets the value of
+owner object. A valid owner reference consists of the object name and a {{<glossary_tooltip text="UID" term_id="uid">}}
+within the same {{<glossary_tooltip text="namespace" term_id="namespace">}} as the dependent object. Kubernetes sets the value of
 this field automatically for objects that are dependents of other objects like
 ReplicaSets, DaemonSets, Deployments, Jobs and CronJobs, and ReplicationControllers.
 You can also configure these relationships manually by changing the value of
@@ -50,8 +52,9 @@ automatically manage the relationships.
 -->
 ## 对象规约中的属主引用   {#owner-references-in-object-specifications}
 
-附属对象有一个 `metadata.ownerReferences` 字段，用于引用其属主对象。
-一个有效的属主引用，包含与附属对象同在一个命名空间下的对象名称和一个 UID。
+附属对象有一个 `metadata.ownerReferences` 字段，用于引用其属主对象。一个有效的属主引用，
+包含与附属对象同在一个{{<glossary_tooltip text="命名空间" term_id="namespace">}}下的对象名称和一个
+{{<glossary_tooltip text="UID" term_id="uid">}}。
 Kubernetes 自动为一些对象的附属资源设置属主引用的值，
 这些对象包含 ReplicaSet、DaemonSet、Deployment、Job、CronJob、ReplicationController 等。
 你也可以通过改变这个字段的值，来手动配置这些关系。
@@ -124,10 +127,10 @@ When you tell Kubernetes to delete a resource, the API server allows the
 managing controller to process any [finalizer rules](/docs/concepts/overview/working-with-objects/finalizers/)
 for the resource. {{<glossary_tooltip text="Finalizers" term_id="finalizer">}}
 prevent accidental deletion of resources your cluster may still need to function
-correctly. For example, if you try to delete a `PersistentVolume` that is still
+correctly. For example, if you try to delete a [PersistentVolume](/docs/concepts/storage/persistent-volumes/) that is still
 in use by a Pod, the deletion does not happen immediately because the
 `PersistentVolume` has the `kubernetes.io/pv-protection` finalizer on it.
-Instead, the volume remains in the `Terminating` status until Kubernetes clears
+Instead, the [volume](/docs/concepts/storage/volumes/) remains in the `Terminating` status until Kubernetes clears
 the finalizer, which only happens after the `PersistentVolume` is no longer
 bound to a Pod. 
 -->
@@ -138,9 +141,11 @@ bound to a Pod.
 {{<glossary_tooltip text="Finalizer" term_id="finalizer">}}
 防止意外删除你的集群所依赖的、用于正常运作的资源。
 例如，如果你试图删除一个仍被 Pod 使用的 `PersistentVolume`，该资源不会被立即删除，
-因为 `PersistentVolume` 有 `kubernetes.io/pv-protection` Finalizer。
-相反，它将进入 `Terminating` 状态，直到 Kubernetes 清除这个 Finalizer，
-而这种情况只会发生在 `PersistentVolume` 不再被挂载到 Pod 上时。
+因为 [PersistentVolume](/zh-cn/docs/concepts/storage/persistent-volumes/) 有
+`kubernetes.io/pv-protection` Finalizer。
+相反，[数据卷](/zh-cn/docs/concepts/storage/volumes/)将进入 `Terminating` 状态，
+直到 Kubernetes 清除这个 Finalizer，而这种情况只会发生在 `PersistentVolume`
+不再被挂载到 Pod 上时。
 
 <!--
 Kubernetes also adds finalizers to an owner resource when you use either

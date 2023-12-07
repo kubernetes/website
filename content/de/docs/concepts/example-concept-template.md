@@ -2,6 +2,9 @@
 title: Konzept Dokumentations-Vorlage
 content_type: concept
 toc_hide: true
+description: >
+    Wenn Sie eine Konzeptseite schreiben möchten, lesen Sie [Seitenvorlagen verwenden](/docs/home/contribute/page-templates/) 
+    für Informationen zum Konzeptseitentyp und zur Dokumentations-Vorlage.
 ---
 
 <!-- overview -->

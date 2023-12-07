@@ -43,7 +43,7 @@ _dynamically_
 : the cluster's control plane automatically picks a free IP address from within the configured IP range for `type: ClusterIP` Services.
 -->
 **动态**
-：群集的控制平面会自动从配置的 IP 范围内为 `type:ClusterIP` 的 Service 选择一个空闲 IP 地址。
+：集群的控制平面会自动从配置的 IP 范围内为 `type:ClusterIP` 的 Service 选择一个空闲 IP 地址。
 
 <!--
 _statically_
@@ -58,7 +58,7 @@ Trying to create a Service with a specific `ClusterIP` that has already
 been allocated will return an error.
 -->
 在整个集群中，每个 Service 的 `ClusterIP` 必须是唯一的。
-尝试创建一个已经被分配了的 `ClusterIP` 的 Service 将会返回错误。
+尝试创建一个已经被分配了 `ClusterIP` 的 Service 将会返回错误。
 
 <!--
 ## Why do you need to reserve Service Cluster IPs?
@@ -142,7 +142,7 @@ use the lower range. This will allow users to use static allocations on the lowe
 risk of collision.
 -->
 分配默认使用上半段地址，当上半段地址耗尽后，将使用下半段地址范围。
-这将允许用户使用下半段地址中静态分配的地址并且降低冲突的风险。
+这将允许用户在下半段地址中使用静态分配从而降低冲突的风险。
 
 <!--
 Examples:
@@ -264,5 +264,5 @@ The current SIG-Network [KEPs](https://github.com/orgs/kubernetes/projects/10) a
 [SIG Network meetings](https://github.com/kubernetes/community/tree/master/sig-network) are a friendly, welcoming venue for you to connect with the community and share your ideas.
 Looking forward to hearing from you!
 -->
-[SIG Network 会议](https://github.com/kubernetes/community/tree/master/sig-network)是一个友好、热情的场所，
+[SIG Network 会议](https://github.com/kubernetes/community/tree/master/sig-network)是一个友好、热情的地方，
 你可以与社区联系并分享你的想法。期待你的回音！

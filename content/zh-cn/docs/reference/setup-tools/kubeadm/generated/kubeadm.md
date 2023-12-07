@@ -1,11 +1,10 @@
-
 <!-- 
 kubeadm: easily bootstrap a secure Kubernetes cluster
 
 ### Synopsis 
 -->
+kubeadm：轻松创建一个安全的 Kubernetes 集群
 
-kubeadm: 轻松创建一个安全的 Kubernetes 集群
 ### 摘要
 
 <!--
@@ -31,16 +30,14 @@ kubeadm: 轻松创建一个安全的 Kubernetes 集群
 <!-- 
 Example usage: 
 -->
-
 用途示例：
 
 <!-- 
     Create a two-machine cluster with one control-plane node
     (which controls the cluster), and one worker node
-    (where your workloads, like Pods and Deployments run). 
+    (where your workloads, like Pods and Deployments run).
 -->
-
-创建一个有两台机器的集群，包含一个主节点（用来控制集群），和一个工作节点（运行你的工作负载，像 Pod 和 Deployment）。
+创建一个有两台机器的集群，包含一个主节点（用来控制集群）和一个工作节点（运行你的 Pod 和 Deployment 等工作负载）。
 
 <!--
     ┌──────────────────────────────────────────────────────────┐
@@ -60,13 +57,13 @@ Example usage:
 
 ```
 ┌──────────────────────────────────────────────────────────┐
-│ 在第一台机器上：                                         │
+│ 在第一台机器上：                                            │
 ├──────────────────────────────────────────────────────────┤
 │ control-plane# kubeadm init                              │
 └──────────────────────────────────────────────────────────┘
 
 ┌──────────────────────────────────────────────────────────┐
-│ 在第二台机器上：                                         │
+│ 在第二台机器上：                                            │
 ├──────────────────────────────────────────────────────────┤
 │ worker# kubeadm join &lt;arguments-returned-from-init&gt;│
 └──────────────────────────────────────────────────────────┘
@@ -77,7 +74,6 @@ Example usage:
 <!-- 
 ### Options 
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -95,7 +91,7 @@ Example usage:
 <!--
 <p>help for kubeadm</p>
 -->
-<p>kubeadm 操作的帮助信息<p>
+<p>kubeadm 操作的帮助信息。<p>
 </td>
 </tr>
 
@@ -113,4 +109,3 @@ Example usage:
 
 </tbody>
 </table>
-

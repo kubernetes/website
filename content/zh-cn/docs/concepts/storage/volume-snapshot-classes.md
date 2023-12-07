@@ -43,7 +43,8 @@ of a class when first creating VolumeSnapshotClass objects, and the objects cann
 be updated once they are created.
 
 {{< note >}}
-Installation of the CRDs is the responsibility of the Kubernetes distribution. Without the required CRDs present, the creation of a VolumeSnapshotClass fails.  
+Installation of the CRDs is the responsibility of the Kubernetes distribution. 
+Without the required CRDs present, the creation of a VolumeSnapshotClass fails.
 {{< /note >}}
 
 -->
@@ -104,14 +105,19 @@ used for provisioning VolumeSnapshots. This field must be specified.
 <!--
 ### DeletionPolicy
 
-Volume snapshot classes have a deletionPolicy. It enables you to configure what happens to a VolumeSnapshotContent when the VolumeSnapshot object it is bound to is to be deleted. The deletionPolicy of a volume snapshot class can either be `Retain` or `Delete`. This field must be specified.
+Volume snapshot classes have a [deletionPolicy](/docs/concepts/storage/volume-snapshots/#delete).
+It enables you to configure what happens to a VolumeSnapshotContent when the VolumeSnapshot
+object it is bound to is to be deleted. The deletionPolicy of a volume snapshot class can
+either be `Retain` or `Delete`. This field must be specified.
 
-If the deletionPolicy is `Delete`, then the underlying storage snapshot will be deleted along with the VolumeSnapshotContent object. If the deletionPolicy is `Retain`, then both the underlying snapshot and VolumeSnapshotContent remain.
+If the deletionPolicy is `Delete`, then the underlying storage snapshot will be 
+deleted along with the VolumeSnapshotContent object. If the deletionPolicy is `Retain`, 
+then both the underlying snapshot and VolumeSnapshotContent remain.
 -->
 ### 删除策略 {#deletion-policy}
 
-卷快照类具有 `deletionPolicy` 属性。用户可以配置当所绑定的 VolumeSnapshot
-对象将被删除时，如何处理 VolumeSnapshotContent 对象。
+卷快照类具有 [deletionPolicy](/zh-cn/docs/concepts/storage/volume-snapshots/#delete) 属性。
+用户可以配置当所绑定的 VolumeSnapshot 对象将被删除时，如何处理 VolumeSnapshotContent 对象。
 卷快照类的这个策略可以是 `Retain` 或者 `Delete`。这个策略字段必须指定。
 
 如果删除策略是 `Delete`，那么底层的存储快照会和 VolumeSnapshotContent 对象

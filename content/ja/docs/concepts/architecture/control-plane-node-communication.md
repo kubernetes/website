@@ -8,7 +8,7 @@ aliases:
 
 <!-- overview -->
 
-本ドキュメントは、APIサーバーとKubernetesクラスター間の通信経路をまとめたものです。
+本ドキュメントは、{{< glossary_tooltip term_id="kube-apiserver" text="APIサーバー" >}}とKubernetes{{< glossary_tooltip text="クラスター" term_id="cluster" length="all" >}}間の通信経路をまとめたものです。
 その目的は、信頼できないネットワーク上(またはクラウドプロバイダー上の完全なパブリックIP)でクラスターが実行できるよう、ユーザーがインストールをカスタマイズしてネットワーク構成を強固にできるようにすることです。
 
 <!-- body -->
@@ -18,10 +18,10 @@ aliases:
 Kubernetesには「ハブアンドスポーク」というAPIパターンがあります。ノード(またはノードが実行するPod)からのすべてのAPIの使用は、APIサーバーで終了します。他のコントロールプレーンコンポーネントは、どれもリモートサービスを公開するようには設計されていません。APIサーバーは、1つ以上の形式のクライアント[認証](/ja/docs/reference/access-authn-authz/authentication/)が有効になっている状態で、セキュアなHTTPSポート(通常は443)でリモート接続をリッスンするように設定されています。
 特に[匿名リクエスト](/ja/docs/reference/access-authn-authz/authentication/#anonymous-requests)や[サービスアカウントトークン](/ja/docs/reference/access-authn-authz/authentication/#service-account-token)が許可されている場合は、1つ以上の[認可](/docs/reference/access-authn-authz/authorization/)形式を有効にする必要があります。
 
-ノードは、有効なクライアント認証情報とともに、APIサーバーに安全に接続できるように、クラスターのパブリックルート証明書でプロビジョニングされる必要があります。適切なやり方は、kubeletに提供されるクライアント認証情報が、クライアント証明書の形式であることです。kubeletクライアント証明書の自動プロビジョニングについては、[kubelet TLSブートストラップ](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)を参照してください。
+ノードは、有効なクライアント認証情報とともに、APIサーバーに安全に接続できるように、クラスターのパブリックルート{{< glossary_tooltip text="証明書" term_id="certificate" >}}でプロビジョニングされる必要があります。適切なやり方は、kubeletに提供されるクライアント認証情報が、クライアント証明書の形式であることです。kubeletクライアント証明書の自動プロビジョニングについては、[kubelet TLSブートストラップ](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)を参照してください。
 
-APIサーバーに接続したいPodは、サービスアカウントを利用することで、安全に接続することができます。これにより、Podのインスタンス化時に、Kubernetesはパブリックルート証明書と有効なBearerトークンを自動的にPodに挿入します。
-`kubernetes`サービス(`デフォルト`の名前空間)は、APIサーバー上のHTTPSエンドポイントに(`kube-proxy`経由で)リダイレクトされる仮想IPアドレスで構成されます。
+APIサーバーに接続したい{{< glossary_tooltip text="Pod" term_id="pod" >}}は、サービスアカウントを利用することで、安全に接続することができます。これにより、Podのインスタンス化時に、Kubernetesはパブリックルート証明書と有効なBearerトークンを自動的にPodに挿入します。
+`kubernetes`サービス(`デフォルト`の名前空間)は、APIサーバー上のHTTPSエンドポイントに(`{{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}`経由で)リダイレクトされる仮想IPアドレスで構成されます。
 
 また、コントロールプレーンのコンポーネントは、セキュアなポートを介してAPIサーバーとも通信します。
 
@@ -30,7 +30,7 @@ APIサーバーに接続したいPodは、サービスアカウントを利用�
 ## コントロールプレーンからノードへの通信 {#control-plane-to-node}
 
 コントロールプレーン(APIサーバー)からノードへの主要な通信経路は2つあります。
-1つ目は、APIサーバーからクラスター内の各ノードで実行されるkubeletプロセスへの通信経路です。
+1つ目は、APIサーバーからクラスター内の各ノードで実行される{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}プロセスへの通信経路です。
 2つ目は、APIサーバーの _プロキシー_ 機能を介した、APIサーバーから任意のノード、Pod、またはサービスへの通信経路です。
 
 ### APIサーバーからkubeletへの通信 {#api-server-to-kubelet}
@@ -56,7 +56,7 @@ APIサーバーからノード、Pod、またはサービスへの接続は、�
 
 ### SSHトンネル {#ssh-tunnels}
 
-Kubernetesは、コントロールプレーンからノードへの通信経路を保護するために、SSHトンネルをサポートしています。この構成では、APIサーバーがクラスター内の各ノードへのSSHトンネルを開始(ポート22でリッスンしているSSHサーバーに接続)し、kubelet、ノード、Pod、またはサービス宛てのすべてのトラフィックをトンネル経由で渡します。
+Kubernetesは、コントロールプレーンからノードへの通信経路を保護するために、[SSHトンネル](https://www.ssh.com/academy/ssh/tunneling)をサポートしています。この構成では、APIサーバーがクラスター内の各ノードへのSSHトンネルを開始(ポート22でリッスンしているSSHサーバーに接続)し、kubelet、ノード、Pod、またはサービス宛てのすべてのトラフィックをトンネル経由で渡します。
 このトンネルにより、ノードが稼働するネットワークの外部にトラフィックが公開されないようになります。
 
 {{< note >}}
@@ -73,3 +73,12 @@ Konnectivityサービスを有効にすると、コントロールプレーン�
 
 [Konnectivityサービスのセットアップ](/docs/tasks/extend-kubernetes/setup-konnectivity/)に従って、クラスターにKonnectivityサービスをセットアップしてください。
 
+## {{% heading "whatsnext" %}}
+
+* [Kubernetesコントロールプレーンコンポーネント](/ja/docs/concepts/overview/components/#control-plane-components)について読む。
+* [HubsとSpokeモデル](https://book.kubebuilder.io/multiversion-tutorial/conversion-concepts.html#hubs-spokes-and-other-wheel-metaphors)について学習する。
+* [クラスターのセキュリティ](/ja/docs/tasks/administer-cluster/securing-a-cluster/)について学習する。
+* [Kubernetes API](/ja/docs/concepts/overview/kubernetes-api/)について学習する。
+* [Konnectivityサービスを設定する](/docs/tasks/extend-kubernetes/setup-konnectivity/)
+* [Port Forwardingを使用してクラスター内のアプリケーションにアクセスする](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
+* [Podログを調べます](/ja/docs/tasks/debug/debug-application/debug-running-pod/#examine-pod-logs)と[kubectl port-forwardを使用します](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/#forward-a-local-port-to-a-port-on-the-pod)について学習する。

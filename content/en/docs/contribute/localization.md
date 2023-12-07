@@ -8,7 +8,7 @@ weight: 50
 card:
   name: contribute
   weight: 50
-  title: Translating the docs
+  title: Localizing the docs
 ---
 
 <!-- overview -->
@@ -23,9 +23,9 @@ the docs for a different language.
 
 You can help add or improve the content of an existing localization. In
 [Kubernetes Slack](https://slack.k8s.io/), you can find a channel for each
-localization. There is also a general [SIG Docs Localizations Slack
-channel](https://kubernetes.slack.com/messages/sig-docs-localizations) where you
-can say hello.
+localization. There is also a general
+[SIG Docs Localizations Slack channel](https://kubernetes.slack.com/messages/sig-docs-localizations)
+where you can say hello.
 
 {{< note >}}
 For extra details on how to contribute to a specific localization,
@@ -34,15 +34,18 @@ look for a localized version of this page.
 
 ### Find your two-letter language code
 
-First, consult the [ISO 639-1
-standard](https://www.loc.gov/standards/iso639-2/php/code_list.php) to find your
-localization's two-letter language code. For example, the two-letter code for
+First, consult the
+[ISO 639-1 standard](https://www.loc.gov/standards/iso639-2/php/code_list.php)
+to find your localization's two-letter language code. For example, the two-letter code for
 Korean is `ko`.
+
+Some languages use a lowercase version of the country code as defined by the
+ISO-3166 along with their language codes. For example, the Brazilian Portuguese
+language code is `pt-br`.
 
 ### Fork and clone the repo
 
-First, [create your own
-fork](/docs/contribute/new-content/open-a-pr/#fork-the-repo) of the
+First, [create your own fork](/docs/contribute/new-content/open-a-pr/#fork-the-repo) of the
 [kubernetes/website](https://github.com/kubernetes/website) repository.
 
 Then, clone your fork and `cd` into it:
@@ -58,7 +61,7 @@ localization you want to help out with is inside `content/<two-letter-code>`.
 ### Suggest changes
 
 Create or update your chosen localized page based on the English original. See
-[translating content](#translating-content) for more details.
+[localize content](#localize-content) for more details.
 
 If you notice a technical inaccuracy or other problem with the upstream
 (English) documentation, you should fix the upstream documentation first and
@@ -88,6 +91,11 @@ You'll need to know the two-letter language code for your language. Consult the
 to find your localization's two-letter language code. For example, the
 two-letter code for Korean is `ko`.
 
+If the language you are starting a localization for is spoken in various places
+with significant differences between the variants, it might make sense to
+combine the lowercased ISO-3166 country code with the language two-letter code.
+For example, Brazilian Portuguese is localized as `pt-br`.
+
 When you start a new localization, you must localize all the
 [minimum required content](#minimum-required-content) before
 the Kubernetes project can publish your changes to the live
@@ -111,8 +119,8 @@ localization teams to collaborate on defining and documenting the processes for
 creating localized contribution guides. In addition, the SIG Docs localization
 subgroup looks for opportunities to create and share common tools across
 localization teams and identify new requirements for the SIG Docs Leadership
-team.  If you have questions about this meeting, please inquire on the [SIG Docs
-Localizations Slack channel](https://kubernetes.slack.com/messages/sig-docs-localizations).
+team.  If you have questions about this meeting, please inquire on the
+[SIG Docs Localizations Slack channel](https://kubernetes.slack.com/messages/sig-docs-localizations).
 
 You can also create a Slack channel for your localization in the
 `kubernetes/community` repository. For an example of adding a Slack channel, see
@@ -153,10 +161,10 @@ For an example of adding a label, see the PR for adding the
 
 The Kubernetes website uses Hugo as its web framework. The website's Hugo
 configuration resides in the
-[`config.toml`](https://github.com/kubernetes/website/tree/main/config.toml)
-file. You'll need to modify `config.toml` to support a new localization.
+[`hugo.toml`](https://github.com/kubernetes/website/tree/main/hugo.toml)
+file. You'll need to modify `hugo.toml` to support a new localization.
 
-Add a configuration block for the new language to `config.toml` under the
+Add a configuration block for the new language to `hugo.toml` under the
 existing `[languages]` block. The German block, for example, looks like:
 
 ```toml
@@ -211,7 +219,7 @@ Open a PR against the
 [`cncf/foundation`](https://github.com/cncf/foundation/tree/main/code-of-conduct-languages)
 repository to add the code of conduct in your language.
 
-### Setting up the OWNERS files
+### Set up the OWNERS files
 
 To set the roles of each user contributing to the localization, create an
 `OWNERS` file inside the language-specific subdirectory with:
@@ -304,7 +312,7 @@ a GitHub ID, email address, [Slack channel](https://slack.com/), or another
 method of contact. You must also provide a link to your localized Community Code
 of Conduct.
 
-### Launching your new localization
+### Launch your new localization
 
 When a localization meets the requirements for workflow and minimum output, SIG
 Docs does the following:
@@ -314,7 +322,7 @@ Docs does the following:
   [Cloud Native Computing Foundation](https://www.cncf.io/about/)(CNCF)
   channels, including the [Kubernetes blog](/blog/).
 
-## Translating content
+## Localize content
 
 Localizing *all* the Kubernetes documentation is an enormous task. It's okay to
 start small and expand over time.
@@ -352,6 +360,48 @@ extensive human review to meet minimum standards of quality.
 To ensure accuracy in grammar and meaning, members of your localization team
 should carefully review all machine-generated translations before publishing.
 
+### Localize SVG images
+
+The Kubernetes project recommends using vector (SVG) images where possible, as
+these are much easier for a localization team to edit. If you find a raster
+image that needs localizing, consider first redrawing the English version as
+a vector image, and then localize that.
+
+When translating text within SVG (Scalable Vector Graphics) images, it's
+essential to follow certain guidelines to ensure accuracy and maintain
+consistency across different language versions. SVG images are commonly
+used in the Kubernetes documentation to illustrate concepts, workflows,
+and diagrams.
+
+1. **Identifying translatable text**: Start by identifying the text elements
+   within the SVG image that need to be translated. These elements typically
+   include labels, captions, annotations, or any text that conveys information.
+
+1. **Editing SVG files**: SVG files are XML-based, which means they can be
+   edited using a text editor. However, it's important to note that most of the
+   documentation images in Kubernetes already convert text to curves to avoid font
+   compatibility issues. In such cases, it is recommended to use specialized SVG
+   editing software, such as Inkscape, for editing, open the SVG file and locate
+   the text elements that require translation.
+
+1. **Translating the text**: Replace the original text with the translated
+   version in the desired language. Ensure the translated text accurately conveys
+   the intended meaning and fits within the available space in the image. The Open
+   Sans font family should be used when working with languages that use the Latin
+   alphabet. You can download the Open Sans typeface from here:
+   [Open Sans Typeface](https://fonts.google.com/specimen/Open+Sans).
+
+1. **Converting text to curves**: As already mentioned, to address font
+   compatibility issues, it is recommended to convert the translated text to
+   curves or paths. Converting text to curves ensures that the final image
+   displays the translated text correctly, even if the user's system does not
+   have the exact font used in the original SVG.
+
+1. **Reviewing and testing**: After making the necessary translations and
+   converting text to curves, save and review the updated SVG image to ensure
+   the text is properly displayed and aligned. Check
+   [Preview your changes locally](/docs/contribute/new-content/open-a-pr/#preview-locally).
+
 ### Source files
 
 Localizations must be based on the English files from a specific release
@@ -363,7 +413,7 @@ To find source files for your target version:
 1. Navigate to the Kubernetes website repository at
    https://github.com/kubernetes/website.
 
-2. Select a branch for your target version from the following table:
+1. Select a branch for your target version from the following table:
 
 Target version | Branch
 -----|-----
@@ -430,7 +480,7 @@ Per CNCF policy, the localization teams must upload their meetings to the SIG
 Docs YouTube playlist. A SIG Docs Co-Chair or Tech Lead can help with the
 process until SIG Docs automates it.
 
-## Branching strategy
+## Branch strategy
 
 Because localization projects are highly collaborative efforts, we
 encourage teams to work in shared localization branches - especially
@@ -455,15 +505,15 @@ To collaborate on a localization branch:
    branch `dev-1.12-de.1` directly against the `kubernetes/website` repository,
    based on the source branch for Kubernetes v1.12.
 
-2. Individual contributors open feature branches based on the localization
+1. Individual contributors open feature branches based on the localization
    branch.
 
    For example, a German contributor opens a pull request with changes to
    `kubernetes:dev-1.12-de.1` from `username:local-branch-name`.
 
-3. Approvers review and merge feature branches into the localization branch.
+1. Approvers review and merge feature branches into the localization branch.
 
-4. Periodically, an approver merges the localization branch with its source
+1. Periodically, an approver merges the localization branch with its source
    branch by opening and approving a new pull request. Be sure to squash the
    commits before approving the pull request.
 

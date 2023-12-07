@@ -144,7 +144,7 @@ kubeadm init [flags]
 </tr>
 
 <tr>
-<td colspan="2">--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "k8s.gcr.io"</td>
+<td colspan="2">--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "registry.k8s.io"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Seleciona um registro de contêineres de onde baixar imagens.</p></td>

@@ -1,7 +1,7 @@
 ---
 title: 为 Pod 配置服务账号
 content_type: task
-weight: 90
+weight: 120
 ---
 <!--
 reviewers:
@@ -10,7 +10,7 @@ reviewers:
 - thockin
 title: Configure Service Accounts for Pods
 content_type: task
-weight: 90
+weight: 120
 -->
 
 <!-- overview -->
@@ -33,7 +33,7 @@ server, you identify yourself as a particular _user_. Kubernetes recognises
 the concept of a user, however, Kubernetes itself does **not** have a User
 API.
 -->
-**服务账号（Service Account）**为 Pod 中运行的进程提供身份标识，
+**服务账号（Service Account）** 为 Pod 中运行的进程提供身份标识，
 并映射到 ServiceAccount 对象。当你向 API 服务器执行身份认证时，
 你会将自己标识为某个**用户（User）**。Kubernetes 能够识别用户的概念，
 但是 Kubernetes 自身**并不**提供 User API。
@@ -83,7 +83,7 @@ kubectl get pods/<podname> -o yaml
 
 <!--
 In the output, you see a field `spec.serviceAccountName`.
-Kubernetes [automatically](/docs/concepts/overview/working-with-objects/object-management/)
+Kubernetes automatically
 sets that value if you don't specify it when you create a Pod.
 
 An application running inside a Pod can access the Kubernetes API using
@@ -91,8 +91,7 @@ automatically mounted service account credentials.
 See [accessing the Cluster](/docs/tasks/access-application-cluster/access-cluster/) to learn more.
 -->
 在输出中，你可以看到字段 `spec.serviceAccountName`。当你在创建 Pod 时未设置该字段时，
-Kubernetes [自动](/zh-cn/docs/concepts/overview/working-with-objects/object-management/)为
-Pod 设置这一属性的取值。
+Kubernetes 自动为 Pod 设置这一属性的取值。
 
 Pod 中运行的应用可以使用这一自动挂载的服务账号凭据来访问 Kubernetes API。
 参阅[访问集群](/zh-cn/docs/tasks/access-application-cluster/access-cluster/)以进一步了解。
@@ -134,7 +133,7 @@ automountServiceAccountToken: false
 ...
 ```
 <!--
-You can also opt out of automounting API credentials for a particular pod:
+You can also opt out of automounting API credentials for a particular Pod:
 -->
 你也可以选择不给特定 Pod 自动挂载 API 凭据：
 
@@ -223,7 +222,7 @@ The output is similar to this:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  creationTimestamp: 2015-06-16T00:12:59Z
+  creationTimestamp: 2019-06-16T00:12:34Z
   name: build-robot
   namespace: default
   resourceVersion: "272500"
@@ -235,7 +234,7 @@ You can use authorization plugins to
 [set permissions on service accounts](/docs/reference/access-authn-authz/rbac/#service-account-permissions).
 
 To use a non-default service account, set the `spec.serviceAccountName`
-field of a pod to the name of the service account you wish to use.
+field of a Pod to the name of the ServiceAccount you wish to use.
 -->
 你可以使用鉴权插件来[设置服务账号的访问许可](/zh-cn/docs/reference/access-authn-authz/rbac/#service-account-permissions)。
 
@@ -251,11 +250,11 @@ of a Pod that already exists.
 
 {{< note >}}
 <!--
-The `spec.serviceAccount` field is a deprecated alias for `spec.serviceAccountName`.
+The `.spec.serviceAccount` field is a deprecated alias for `.spec.serviceAccountName`.
 If you want to remove the fields from a workload resource, set both fields to empty explicitly
 on the [pod template](/docs/concepts/workloads/pods#pod-templates).
 -->
-`spec.serviceAccount` 字段是 `spec.serviceAccountName` 的已弃用别名。
+`.spec.serviceAccount` 字段是 `.spec.serviceAccountName` 的已弃用别名。
 如果要从工作负载资源中删除这些字段，请在
 [Pod 模板](/zh-cn/docs/concepts/workloads/pods#pod-templates)上将这两个字段显式设置为空。
 {{< /note >}}
@@ -338,7 +337,7 @@ subresource to obtain a token to access the API is recommended instead.
 If you want to obtain an API token for a ServiceAccount, you create a new Secret
 with a special annotation, `kubernetes.io/service-account.name`.
 -->
-### 手动为 ServiceAccount 创建长期有效的 API 令牌 {#manually-create-a-long-lived-api-token-for-a-serviceaccount}」
+### 手动为 ServiceAccount 创建长期有效的 API 令牌 {#manually-create-a-long-lived-api-token-for-a-serviceaccount}
 
 如果你需要为 ServiceAccount 获得一个 API 令牌，你可以创建一个新的、带有特殊注解
 `kubernetes.io/service-account.name` 的 Secret 对象。
@@ -421,6 +420,24 @@ control plane automatically cleans up the long-lived token from that Secret.
 当你删除一个与某 Secret 相关联的 ServiceAccount 时，Kubernetes 的控制面会自动清理该
 Secret 中长期有效的令牌。
 
+{{< note >}}
+<!--
+If you view the ServiceAccount using:
+
+` kubectl get serviceaccount build-robot -o yaml`
+
+You can't see the `build-robot-secret` Secret in the ServiceAccount API objects
+[`.secrets`](/docs/reference/kubernetes-api/authentication-resources/service-account-v1/) field
+because that field is only populated with auto-generated Secrets.
+-->
+如果你使用以下命令查看 ServiceAccount:
+
+` kubectl get serviceaccount build-robot -o yaml`
+
+在 ServiceAccount API 对象中看不到 `build-robot-secret` Secret，
+[`.secrets`](/zh-cn/docs/reference/kubernetes-api/authentication-resources/service-account-v1/) 字段，
+因为该字段只会填充自动生成的 Secret。
+{{< /note >}}
 <!--
 ## Add ImagePullSecrets to a service account
 
@@ -487,6 +504,11 @@ kubectl edit serviceaccount/default
 ```
 
 <!--
+The output of the `sa.yaml` file is similar to this:
+-->
+`sa.yaml` 文件的输出类似于：
+
+<!--
 Your selected text editor will open with a configuration looking something like this:
 -->
 你所选择的文本编辑器会被打开，展示如下所示的配置：
@@ -551,7 +573,7 @@ myregistrykey
 ```
 
 <!--
-## Service Account Token Volume Projection
+## ServiceAccount token volume projection
 -->
 ## 服务账号令牌卷投射   {#service-account-token-volume-projection}
 
@@ -611,7 +633,7 @@ command line arguments to `kube-apiserver`:
   command line argument but you don't set `--api-audiences`, the control plane defaults to
   a single element audience list that contains only the issuer URL.
 -->
-`--api-audiences` (可以省略)
+`--api-audiences`（可以省略）
 : 为 ServiceAccount 令牌定义其受众（Audiences）。
   服务账号令牌身份检查组件会检查针对 API 访问所使用的令牌，
   确认令牌至少是被绑定到这里所给的受众之一。
@@ -619,6 +641,7 @@ command line arguments to `kube-apiserver`:
   Kubernetes API 服务器当做合法的令牌。如果你指定了 `--service-account-issuer`
   参数，但沒有設置 `--api-audiences`，则控制面认为此参数的默认值为一个只有一个元素的列表，
   且该元素为令牌发放者的 URL。
+
 {{< /note >}}
 
 <!--
@@ -651,7 +674,7 @@ of two hours, you could define a Pod manifest that is similar to:
 要为某 Pod 提供一个受众为 `vault` 并且有效期限为 2 小时的令牌，你可以定义一个与下面类似的
 Pod 清单：
 
-{{< codenew file="pods/pod-projected-svc-token.yaml" >}}
+{{% code_sample file="pods/pod-projected-svc-token.yaml" %}}
 
 <!--
 Create the Pod:
@@ -718,14 +741,14 @@ registered or accessible.
 {{< /note >}}
 
 <!--
-When enabled, the Kubernetes API server provides an OpenID Provider
+When enabled, the Kubernetes API server publishes an OpenID Provider
 Configuration document via HTTP. The configuration document is published at
 `/.well-known/openid-configuration`.
 The OpenID Provider Configuration is sometimes referred to as the _discovery document_.
 The Kubernetes API server publishes the related
 JSON Web Key Set (JWKS), also via HTTP, at `/openid/v1/jwks`.
 -->
-当此特性被启用时，Kubernetes API 服务器会通过 HTTP 提供一个 OpenID 提供者配置文档。
+当此特性被启用时，Kubernetes API 服务器会通过 HTTP 发布一个 OpenID 提供者配置文档。
 该配置文档发布在 `/.well-known/openid-configuration` 路径。
 这里的 OpenID 提供者配置（OpenID Provider Configuration）有时候也被称作
 “发现文档（Discovery Document）”。
@@ -755,7 +778,7 @@ bind the role to `system:authenticated` or `system:unauthenticated` depending on
 security requirements and which external systems they intend to federate with.
 -->
 使用 {{< glossary_tooltip text="RBAC" term_id="rbac">}} 的集群都包含一个的默认
-RBAC ClusterRole, 名为 `system:service-account-issuer-discovery`。 
+RBAC ClusterRole, 名为 `system:service-account-issuer-discovery`。
 默认的 RBAC ClusterRoleBinding 将此角色分配给 `system:serviceaccounts` 组，
 所有 ServiceAccount 隐式属于该组。这使得集群上运行的 Pod
 能够通过它们所挂载的服务账号令牌访问服务账号发现文档。
@@ -807,7 +830,7 @@ See also:
 - 阅读 [Secret](/zh-cn/docs/concepts/configuration/secret/) 的概念
   - 或者学习[使用 Secret 来安全地分发凭据](/zh-cn/docs/tasks/inject-data-application/distribute-credentials-secure/)
   - 不过也要注意，使用 Secret 来完成 ServiceAccount 身份验证的做法已经过时。
-    建议的替代做法是执行 [ServiceAccount 令牌卷投射](#service-account-token-volume-projection).
+    建议的替代做法是执行 [ServiceAccount 令牌卷投射](#service-account-token-volume-projection)。
 <!--
 - Read about [projected volumes](/docs/tasks/configure-pod-container/configure-projected-volume-storage/).
 - For background on OIDC discovery, read the
@@ -819,4 +842,3 @@ See also:
 - 关于 OIDC 发现的相关背景信息，阅读[服务账号签署密钥检索 KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/1393-oidc-discovery)
   这一 Kubernetes 增强提案
 - 阅读 [OIDC 发现规范](https://openid.net/specs/openid-connect-discovery-1_0.html)
-

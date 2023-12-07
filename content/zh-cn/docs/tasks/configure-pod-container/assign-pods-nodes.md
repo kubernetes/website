@@ -1,12 +1,12 @@
 ---
 title: 将 Pod 分配给节点
 content_type: task
-weight: 120
+weight: 150
 ---
 <!--
 title: Assign Pods to Nodes
 content_type: task
-weight: 120
+weight: 150
 -->
 
 <!-- overview -->
@@ -41,7 +41,7 @@ Kubernetes cluster.
    -->
    输出类似如下：
 
-   ```
+   ```shell
    NAME      STATUS    ROLES    AGE     VERSION        LABELS
    worker0   Ready     <none>   1d      v1.13.0        ...,kubernetes.io/hostname=worker0
    worker1   Ready     <none>   1d      v1.13.0        ...,kubernetes.io/hostname=worker1
@@ -76,7 +76,7 @@ Kubernetes cluster.
    -->
    输出类似如下：
 
-   ```
+   ```shell
    NAME      STATUS    ROLES    AGE     VERSION        LABELS
    worker0   Ready     <none>   1d      v1.13.0        ...,disktype=ssd,kubernetes.io/hostname=worker0
    worker1   Ready     <none>   1d      v1.13.0        ...,kubernetes.io/hostname=worker1
@@ -100,7 +100,7 @@ a `disktype=ssd` label.
 此 Pod 配置文件描述了一个拥有节点选择器 `disktype: ssd` 的 Pod。这表明该 Pod
 将被调度到有 `disktype=ssd` 标签的节点。
 
-{{< codenew file="pods/pod-nginx.yaml" >}}
+{{% code_sample file="pods/pod-nginx.yaml" %}}
 
 <!--
 1. Use the configuration file to create a pod that will get scheduled on your
@@ -126,7 +126,7 @@ a `disktype=ssd` label.
    -->
    输出类似如下：
 
-   ```
+   ```shell
    NAME     READY     STATUS    RESTARTS   AGE    IP           NODE
    nginx    1/1       Running   0          13s    10.200.0.4   worker0
    ```
@@ -140,7 +140,7 @@ You can also schedule a pod to one specific node via setting `nodeName`.
 
 你也可以通过设置 `nodeName` 将某个 Pod 调度到特定的节点。
 
-{{< codenew file="pods/pod-nginx-specific-node.yaml" >}}
+{{% code_sample file="pods/pod-nginx-specific-node.yaml" %}}
 
 <!--
 Use the configuration file to create a pod that will get scheduled on `foo-node` only.
@@ -155,4 +155,3 @@ Use the configuration file to create a pod that will get scheduled on `foo-node`
 -->
 * 进一步了解[标签和选择算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/)
 * 进一步了解[节点](/zh-cn/docs/concepts/architecture/nodes/)
-

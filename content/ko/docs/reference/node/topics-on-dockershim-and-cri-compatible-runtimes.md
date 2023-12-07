@@ -1,6 +1,7 @@
 ---
 title: 도커심 제거 및 CRI 호환 런타임 사용에 대한 기사
 content_type: reference
+weight: 20
 ---
 <!-- overview -->
 이 문서는 쿠버네티스의 _도커심_

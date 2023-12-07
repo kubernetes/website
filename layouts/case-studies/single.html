@@ -4,7 +4,7 @@
 {{ else }}
 	{{ if .Params.new_case_study_styles }}
 		<!-- Heading -->
-		<div class="banner {{ if .Params.use_gradient_overlay }}overlay{{ end }}" {{ if isset .Params "heading_background" }}style="background-image: url({{ .Params.heading_background }})"{{ end }}>
+		<div class="banner {{ if .Params.use_gradient_overlay }}overlay{{ end }}" {{ if isset .Params "heading_background" }}style="background-image: url({{ .Params.heading_background }});"{{ end }}>
 			<h1>
 				<span class="heading">{{ .Params.title_prefix | default "CASE STUDY:" }}</span>
 				{{- if isset .Params "heading_title_logo" -}}

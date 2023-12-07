@@ -35,7 +35,7 @@ Kubernetes 组件以 [Prometheus 格式](https://prometheus.io/docs/instrumentin
 ## Metrics in Kubernetes
 
 In most cases metrics are available on `/metrics` endpoint of the HTTP server. For components that
-doesn't expose endpoint by default it can be enabled using `--bind-address` flag.
+don't expose endpoint by default, it can be enabled using `--bind-address` flag.
 
 Examples of those components:
 -->
@@ -59,7 +59,7 @@ kind of time series database.
 
 Note that {{< glossary_tooltip term_id="kubelet" text="kubelet" >}} also exposes metrics in
 `/metrics/cadvisor`, `/metrics/resource` and `/metrics/probes` endpoints. Those metrics do not
-have same lifecycle.
+have the same lifecycle.
 
 If your cluster uses {{< glossary_tooltip term_id="rbac" text="RBAC" >}}, reading metrics requires
 authorization via a user, group or ServiceAccount with a ClusterRole that allows accessing
@@ -203,35 +203,6 @@ to remove this metric dependency before upgrading to `1.14`
 
 如果你要从版本 `1.12` 升级到 `1.13`，但仍依赖于 `1.12` 中弃用的指标 `A`，则应通过命令行设置隐藏指标：
 `--show-hidden-metrics=1.12`，并记住在升级到 `1.14` 版本之前删除此指标依赖项。
-
-<!--
-## Disable accelerator metrics
-
-The kubelet collects accelerator metrics through cAdvisor. To collect these metrics, for
-accelerators like NVIDIA GPUs, kubelet held an open handle on the driver. This meant that in order
-to perform infrastructure changes (for example, updating the driver), a cluster administrator
-needed to stop the kubelet agent.
-
-The responsibility for collecting accelerator metrics now belongs to the vendor rather than the
-kubelet. Vendors must provide a container that collects metrics and exposes them to the metrics
-service (for example, Prometheus).
-
-The [`DisableAcceleratorUsageMetrics` feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-disables metrics collected by the kubelet, with a
-[timeline for enabling this feature by default](https://github.com/kubernetes/enhancements/tree/411e51027db842355bd489691af897afc1a41a5e/keps/sig-node/1867-disable-accelerator-usage-metrics#graduation-criteria).
--->
-## 禁用加速器指标  {#disable-accelerator-metrics}
-
-kubelet 通过 cAdvisor 收集加速器指标。为了收集这些指标，对于 NVIDIA GPU 之类的加速器，
-kubelet 在驱动程序上保持打开状态。这意味着为了执行基础结构更改（例如更新驱动程序），
-集群管理员需要停止 kubelet 代理。
-
-现在，收集加速器指标的责任属于供应商，而不是 kubelet。供应商必须提供一个收集指标的容器，
-并将其公开给指标服务（例如 Prometheus）。
-
-[`DisableAcceleratorUsageMetrics` 特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-禁止由 kubelet 收集的指标。
-关于[何时会在默认情况下启用此功能也有一定规划](https://github.com/kubernetes/enhancements/tree/411e51027db842355bd489691af897afc1a41a5e/keps/sig-node/1867-disable-accelerator-usage-metrics#graduation-criteria)。
 
 <!--
 ## Component metrics

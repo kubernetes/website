@@ -27,7 +27,7 @@ card:
 [쿠버네티스를 다운로드](/releases/download/)하여 
 로컬 머신에, 클라우드에, 데이터센터에 쿠버네티스 클러스터를 구축할 수 있다.
 
-`kube-apiserver`나 `kube-proxy`와 같은 몇몇 [쿠버네티스 컴포넌트](/releases/download/)들은
+{{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}}나 {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}와 같은 몇몇 [쿠버네티스 컴포넌트](/releases/download/)들은
 클러스터 내에서 [컨테이너 이미지](/releases/download/#container-images)를 통해 배포할 수 있다.
 
 쿠버네티스 컴포넌트들은 가급적 컨테이너 이미지로 실행하는 것을 **추천**하며,

@@ -8,7 +8,6 @@ description: "Job 表示单个任务的配置。"
 title: "Job"
 weight: 9
 ---
-
 <!--
 api_metadata:
 apiVersion: "batch/v1"
@@ -45,7 +44,8 @@ Job 表示单个任务的配置。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  标准的对象元数据。更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  标准的对象元数据。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 <!--
 - **spec** (<a href="{{< ref "../workload-resources/job-v1#JobSpec" >}}">JobSpec</a>)
@@ -54,7 +54,8 @@ Job 表示单个任务的配置。
 -->
 - **spec** (<a href="{{< ref "../workload-resources/job-v1#JobSpec" >}}">JobSpec</a>)
 
-  任务的预期行为的规约。更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+  任务的预期行为的规约。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 <!--
 - **status** (<a href="{{< ref "../workload-resources/job-v1#JobStatus" >}}">JobStatus</a>)
@@ -63,8 +64,8 @@ Job 表示单个任务的配置。
 -->
 - **status** (<a href="{{< ref "../workload-resources/job-v1#JobStatus" >}}">JobStatus</a>)
 
-  任务的当前状态。更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-
+  任务的当前状态。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 ## JobSpec {#JobSpec}
 
@@ -80,7 +81,7 @@ JobSpec 描述了任务执行的情况。
 <!--
 - **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>), required
 
-  Describes the pod that will be created when executing a job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+  Describes the pod that will be created when executing a job. The only allowed template.spec.restartPolicy values are "Never" or "OnFailure". More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 
 - **parallelism** (int32)
 
@@ -88,38 +89,41 @@ JobSpec 描述了任务执行的情况。
 -->
 - **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>), 必需
 
-  描述执行任务时将创建的 Pod。更多信息： https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+  描述执行任务时将创建的 Pod。template.spec.restartPolicy 可以取的值只能是
+  "Never" 或 "OnFailure"。更多信息：
+  https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 
 - **parallelism** (int32)
 
   指定任务应在任何给定时刻预期运行的 Pod 个数上限。
   当(.spec.completions - .status.successful) \< .spec.parallelism 时，
   即当剩余的工作小于最大并行度时，在稳定状态下运行的 Pod 的实际数量将小于此数量。
-  更多信息： https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+  更多信息：
+  https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 
 ### Lifecycle
 
 <!--
 - **completions** (int32)
 
-  Specifies the desired number of successfully finished pods the job should be run with.  Setting to nil means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+  Specifies the desired number of successfully finished pods the job should be run with.  Setting to null means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 -->
 - **completions** (int32)
 
-  指定任务应该运行并预期成功完成的 Pod 个数。设置为 nil 意味着任何 Pod 的成功都标识着所有 Pod 的成功，
+  指定任务应该运行并预期成功完成的 Pod 个数。设置为空意味着任何 Pod 的成功都标识着所有 Pod 的成功，
   并允许 parallelism 设置为任何正值。设置为 1 意味着并行性被限制为 1，并且该 Pod 的成功标志着任务的成功。更多信息：
   https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 
 <!--
 - **completionMode** (string)
 
-  CompletionMode specifies how Pod completions are tracked. It can be `NonIndexed` (default) or `Indexed`.
-
+  completionMode specifies how Pod completions are tracked. It can be `NonIndexed` (default) or `Indexed`.
+  
   `NonIndexed` means that the Job is considered complete when there have been .spec.completions successfully completed Pods. Each Pod completion is homologous to each other.
 -->
 - **completionMode** (string)
 
-  completionMode 指定如何跟踪 Pod 完成情况。它可以是 `NonIndexed` （默认） 或者 `Indexed`。
+  completionMode 指定如何跟踪 Pod 完成情况。它可以是 `NonIndexed`（默认）或者 `Indexed`。
 
   `NonIndexed` 表示当有 `.spec.completions` 个成功完成的 Pod 时，认为 Job 完成。每个 Pod 完成都是彼此同源的。
 
@@ -175,7 +179,7 @@ JobSpec 描述了任务执行的情况。
 <!--
 - **suspend** (boolean)
 
-  Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
+  suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
 -->
 - **suspend** (boolean)
 
@@ -205,18 +209,18 @@ JobSpec 描述了任务执行的情况。
   manualSelector 控制 Pod 标签和 Pod 选择器的生成。除非你确定你在做什么，否则不要设置 `manualSelector`。
   当此字段为 false 或未设置时，系统会选择此 Pod 唯一的标签并将这些标签附加到 Pod 模板。
   当此字段为 true 时，用户负责选择唯一标签并指定选择器。
-  未能选择唯一标签可能会导致此任务和其他任务无法正常运行。
-  但是，你可能会在使用旧的 `extensions/v1beta1` API 创建的任务中看到 `manualSelector=true`。
-  更多信息： https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
+  未能选择唯一标签可能会导致此任务和其他任务无法正常运行。但是，你可能会在使用旧的 `extensions/v1beta1` API
+  创建的任务中看到 `manualSelector=true`。更多信息：
+  https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
 
 <!--
-### Alpha level
+### Beta level
 
 - **podFailurePolicy** (PodFailurePolicy)
 
   Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
 -->
-### Alpha 级别
+### Beta 级别   {#beta-level}
 
 - **podFailurePolicy** (PodFailurePolicy)
 
@@ -225,13 +229,13 @@ JobSpec 描述了任务执行的情况。
   并针对 backoffLimit 进行检查。此字段不能与 restartPolicy=OnFailure 结合使用。
 
   <!--
-  This field is alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default).
+  This field is beta-level. It can be used when the `JobPodFailurePolicy` feature gate is enabled (enabled by default).
 
   <a name="PodFailurePolicy"></a>
   *PodFailurePolicy describes how failed pods influence the backoffLimit.*
   -->
 
-  此字段是 Alpha 级别。要使用此字段，你必须启用 `JobPodFailurePolicy` 特性门控（默认被禁用）。
+  此字段是 Beta 级别。当 `JobPodFailurePolicy` 特性门控被启用时（默认被启用），可以使用此字段。
 
   <a name="PodFailurePolicy"></a>
   **PodFailurePolicy 描述失效的 Pod 如何影响 backoffLimit。**
@@ -254,19 +258,24 @@ JobSpec 描述了任务执行的情况。
 
     <!--
     <a name="PodFailurePolicyRule"></a>
-    *PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of OnExitCodes and onPodConditions, but not both, can be used in each rule.*
+    *PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of onExitCodes and onPodConditions, but not both, can be used in each rule.*
     -->
 
     <a name="PodFailurePolicyRule"></a>
     **PodFailurePolicyRule 描述当满足要求时如何处理一个 Pod 失效。
-    在每个规则中可以使用 OnExitCodes 和 onPodConditions 之一，但不能同时使用二者。**
+    在每个规则中可以使用 onExitCodes 和 onPodConditions 之一，但不能同时使用二者。**
 
     <!--
     - **podFailurePolicy.rules.action** (string), required
 
       Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are:
+      
       - FailJob: indicates that the pod's job is marked as Failed and all
         running pods are terminated.
+      - FailIndex: indicates that the pod's index is marked as Failed and will
+        not be restarted.
+        This value is alpha-level. It can be used when the
+        `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).
     -->
 
     - **podFailurePolicy.rules.action** (string)，必需
@@ -274,6 +283,8 @@ JobSpec 描述了任务执行的情况。
       指定当要求满足时对 Pod 失效采取的操作。可能的值是：
 
       - FailJob：表示 Pod 的任务被标记为 Failed 且所有正在运行的 Pod 都被终止。
+      - FailIndex：表示 Pod 对应的索引被标记为 Failed 且 Pod 不会被重新启动。
+        此值是 Alpha 级别的。当 `JobBackoffLimitPerIndex` 特性门控被启用时（默认被禁用），可以使用此值。
 
       <!--
       - Ignore: indicates that the counter towards the .backoffLimit is not
@@ -400,6 +411,60 @@ JobSpec 描述了任务执行的情况。
         将退出码的检查限制为具有指定名称的容器。当为 null 时，该规则适用于所有容器。
         当被指定时，它应与 Pod 模板中的容器名称或 initContainer 名称之一匹配。
 
+<!--
+### Alpha level
+-->
+### Alpha 级别   {#alpha-level}
+
+<!--
+- **backoffLimitPerIndex** (int32)
+
+  Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable. This field is alpha-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).
+-->
+- **backoffLimitPerIndex**（int32）
+
+  指定在将特定索引的 Pod 标记为失败之前在对该 Pod 重试次数的限制。
+  启用后，各索引的失败次数将保存在 Pod 的 `batch.kubernetes.io/job-index-failure-count` 注解中。
+  仅当 Job 的 completionMode=Indexed 且 Pod 的重启策略为 Never 时才能设置此字段。
+  此字段是不可变更的。此字段是 Alpha 级别的。
+  当 `JobBackoffLimitPerIndex` 特性门控被启用时（默认被禁用），可以使用此字段。
+
+<!--
+- **maxFailedIndexes** (int32)
+
+  Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5. This field is alpha-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).
+-->
+- **maxFailedIndexes**（int32）
+
+  指定在 backoffLimitPerIndex 被设置时、标记 Job 为失败之前所允许的最大失败索引数。
+  一旦失败的索引数超过此数值，整个 Job 将被标记为 Failed 并终止执行。
+  如果不设置此字段（对应为 null），则作业继续执行其所有索引，且 Job 会被标记 `Complete` 状况。
+  此字段只能在设置 backoffLimitPerIndex 时指定。此字段值可以是 null 或完成次数之内的值。
+  当完成次数大于 10^5 时，此字段是必需的且必须小于等于 10^4。
+  此字段是 Alpha 级别的。当 `JobBackoffLimitPerIndex` 特性门控被启用时（默认禁用），可以使用此字段。
+
+<!--
+- **podReplacementPolicy** (string)
+
+  podReplacementPolicy specifies when to create replacement Pods. Possible values are: - TerminatingOrFailed means that we recreate pods
+    when they are terminating (has a metadata.deletionTimestamp) or failed.
+  - Failed means to wait until a previously created Pod is fully terminated (has phase
+    Failed or Succeeded) before creating a replacement Pod.
+-->
+- **podReplacementPolicy**（string）
+
+  podReplacementPolicy 指定何时创建替代的 Pod。可能的值包括：
+  
+  - TerminatingOrFailed：表示当 Pod 处于终止中（具有 metadata.deletionTimestamp）或失败时，重新创建 Pod。
+  - Failed：表示在创建替代的 Pod 之前，等待先前创建的 Pod 完全终止（处于 Failed 或 Succeeded 阶段）。
+
+  <!--
+  When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an alpha field. Enable JobPodReplacementPolicy to be able to use this field.
+  -->
+  当使用 podFailurePolicy 时，Failed 是唯一允许值。
+  当不使用 podFailurePolicy 时，允许使用 TerminatingOrFailed 和 Failed。
+  这是一个 Alpha 级别的字段。启用 JobPodReplacementPolicy 特性门控才能使用此字段。
+
 ## JobStatus {#JobStatus}
 
 <!--
@@ -422,6 +487,7 @@ JobStatus 表示 Job 的当前状态。
   表示任务控制器开始处理任务的时间。在挂起状态下创建 Job 时，直到第一次恢复时才会设置此字段。
   每次从暂停中恢复任务时都会重置此字段。它表示为 RFC3339 格式的 UTC 时间。
 
+  <a name="Time"></a>
   **Time 是 time.Time 的包装器，支持正确编码为 YAML 和 JSON。time 包提供的许多工厂方法都提供了包装器。**
 
 <!--
@@ -437,6 +503,7 @@ JobStatus 表示 Job 的当前状态。
   表示任务完成的时间。不能保证对多个独立操作按发生的先后顺序设置。此字段表示为 RFC3339 格式的 UTC 时间。
   仅当任务成功完成时才设置完成时间。
 
+  <a name="Time"></a>
   **Time 是 time.Time 的包装器，支持正确编码为 YAML 和 JSON。time 包提供的许多工厂方法都提供了包装器。**
 
 <!--
@@ -466,7 +533,7 @@ JobStatus 表示 Job 的当前状态。
 <!--
 - **completedIndexes** (string)
 
-  CompletedIndexes holds the completed indexes when .spec.completionMode = "Indexed" in a text format. The indexes are represented as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7".
+  completedIndexes holds the completed indexes when .spec.completionMode = "Indexed" in a text format. The indexes are represented as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7".
 -->
 - **completedIndexes** (string)
 
@@ -516,11 +583,11 @@ JobStatus 表示 Job 的当前状态。
 
   - **conditions.status** (string), 必需
 
-    状况的状态，True、False、Unknown 之一。
+    状况的状态：True、False、Unknown 之一。
 
   - **conditions.type** (string), 必需
 
-    任务状况的类型，Completed 或 Failed。
+    任务状况的类型：Completed 或 Failed。
 
   - **conditions.lastProbeTime** (Time)
 
@@ -531,6 +598,7 @@ JobStatus 表示 Job 的当前状态。
     *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
     -->
     
+    <a name="Time"></a>
     **Time 是对 time.Time 的封装，支持正确编码为 YAML 和 JSON。我们为 time 包提供的许多工厂方法提供了封装器。**
 
   <!--
@@ -548,6 +616,7 @@ JobStatus 表示 Job 的当前状态。
     *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
     -->
 
+    <a name="Time"></a>
     **Time 是 time.Time 的包装器，支持正确编码为 YAML 和 JSON。time 包提供的许多工厂方法都提供了包装器。**
 
   <!--
@@ -571,18 +640,22 @@ JobStatus 表示 Job 的当前状态。
 <!--
 - **uncountedTerminatedPods** (UncountedTerminatedPods)
 
-  UncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
+  uncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
 
-  The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
-  counter.
+  The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status:
+  
+  1. Add the pod UID to the arrays in this field. 2. Remove the pod finalizer. 3. Remove the pod UID from the arrays while increasing the corresponding
+      counter.
 -->
-
 - **uncountedTerminatedPods** (UncountedTerminatedPods)
 
   UncountedTerminatedPods 保存已终止但尚未被任务控制器纳入状态计数器中的 Pod 的 UID 的集合。
 
   任务控制器所创建 Pod 带有终结器。当 Pod 终止（成功或失败）时，控制器将执行三个步骤以在任务状态中对其进行说明：
-  （1）将 Pod UID 添加到此字段的列表中。（2）去掉 Pod 中的终结器。（3）从数组中删除 Pod UID，同时为相应的计数器加一。
+
+  1. 将 Pod UID 添加到此字段的列表中。
+  2. 去掉 Pod 中的终结器。
+  3. 从数组中删除 Pod UID，同时为相应的计数器加一。
 
   <!--
   Old jobs might not be tracked using this field, in which case the field remains null.
@@ -599,8 +672,8 @@ JobStatus 表示 Job 的当前状态。
   - **uncountedTerminatedPods.failed** ([]string)
 
     *Set: unique values will be kept during a merge*
-
-    Failed holds UIDs of failed Pods.
+    
+    failed holds UIDs of failed Pods.
   -->
 
   - **uncountedTerminatedPods.failed** ([]string)
@@ -613,8 +686,8 @@ JobStatus 表示 Job 的当前状态。
   - **uncountedTerminatedPods.succeeded** ([]string)
 
     *Set: unique values will be kept during a merge*
-
-    Succeeded holds UIDs of succeeded Pods.
+    
+    succeeded holds UIDs of succeeded Pods.
   -->
 
   - **uncountedTerminatedPods.succeeded** ([]string)
@@ -626,7 +699,7 @@ JobStatus 表示 Job 的当前状态。
 <!--
 ### Beta level
 -->
-### Beta 级别
+### Beta 级别   {#beta-level}
 
 <!--
 - **ready** (int32)
@@ -635,12 +708,43 @@ JobStatus 表示 Job 的当前状态。
 
   This field is beta-level. The job controller populates the field when the feature gate JobReadyPods is enabled (enabled by default).
 -->
-
 - **ready** (int32)
 
   状况为 Ready 的 Pod 数量。
 
   此字段为 Beta 级别。当特性门控 JobReadyPods 启用（默认启用）时，任务控制器会填充该字段。
+
+<!--
+### Alpha level
+-->
+### Alpha 级别
+
+<!--
+- **failedIndexes** (string)
+
+  FailedIndexes holds the failed indexes when backoffLimitPerIndex=true. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7". This field is alpha-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).
+-->
+- **failedIndexes** (string)
+
+  当 backoffLimitPerIndex=true 时，failedIndexes 保存失败的索引。
+  索引以文本格式表示，类似于 `completedIndexes` 字段，即这些索引是使用逗号分隔的十进制整数。
+  这些数字按升序列出。三个或更多连续的数字会被压缩，整个序列表示为第一个数字、连字符和最后一个数字。
+  例如，如果失败的索引是 1、3、4、5 和 7，则表示为 "1,3-5,7"。
+  该字段是 Alpha 级别的。当 `JobBackoffLimitPerIndex` 特性门控被启用时（默认被禁用），可以使用此字段。
+
+<!--
+- **terminating** (int32)
+
+  The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).
+  
+  This field is alpha-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (disabled by default).
+-->
+- **terminating**（int32）
+
+  正在终止的 Pod 数量（处于 Pending 或 Running 阶段且具有 deletionTimestamp）。
+  
+  此字段是 Alpha 级别的。当特性门控 JobPodReplacementPolicy 被启用时（默认被禁用），
+  Job 控制器会填充该字段。
 
 ## JobList {#JobList}
 
@@ -667,7 +771,8 @@ JobList 是 Job 的集合。
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  标准列表元数据。更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  标准列表元数据。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **items** ([]<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>), required
 
@@ -676,7 +781,6 @@ JobList 是 Job 的集合。
 <!--
 ## Operations {#Operations}
 -->
-
 ## 操作 {#Operations}
 
 <hr>
@@ -824,7 +928,6 @@ GET /apis/batch/v1/namespaces/{namespace}/jobs
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 -->
-
 - **allowWatchBookmarks** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
@@ -842,7 +945,6 @@ GET /apis/batch/v1/namespaces/{namespace}/jobs
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 -->
-
 - **fieldSelector** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
@@ -860,7 +962,6 @@ GET /apis/batch/v1/namespaces/{namespace}/jobs
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
-
 - **limit** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
@@ -878,7 +979,6 @@ GET /apis/batch/v1/namespaces/{namespace}/jobs
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 -->
-
 - **resourceVersion** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
@@ -888,6 +988,10 @@ GET /apis/batch/v1/namespaces/{namespace}/jobs
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 <!--
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -896,6 +1000,9 @@ GET /apis/batch/v1/namespaces/{namespace}/jobs
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 -->
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 
@@ -943,7 +1050,6 @@ GET /apis/batch/v1/jobs
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 -->
-
 - **allowWatchBookmarks** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
@@ -961,7 +1067,6 @@ GET /apis/batch/v1/jobs
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 -->
-
 - **fieldSelector** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
@@ -979,7 +1084,6 @@ GET /apis/batch/v1/jobs
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
-
 - **limit** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
@@ -997,7 +1101,6 @@ GET /apis/batch/v1/jobs
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 -->
-
 - **resourceVersion** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
@@ -1007,6 +1110,10 @@ GET /apis/batch/v1/jobs
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 <!--
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -1015,6 +1122,9 @@ GET /apis/batch/v1/jobs
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 -->
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 
@@ -1074,7 +1184,6 @@ POST /apis/batch/v1/namespaces/{namespace}/jobs
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 -->
-
 - **dryRun** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
@@ -1092,7 +1201,6 @@ POST /apis/batch/v1/namespaces/{namespace}/jobs
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
-
 - **fieldValidation** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
@@ -1149,7 +1257,6 @@ PUT /apis/batch/v1/namespaces/{namespace}/jobs/{name}
 
 - **body**: <a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>, required
 -->
-
 - **name** (**路径参数**): string, 必需
 
   Job 的名称。
@@ -1169,7 +1276,6 @@ PUT /apis/batch/v1/namespaces/{namespace}/jobs/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 -->
-
 - **dryRun** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
@@ -1187,7 +1293,6 @@ PUT /apis/batch/v1/namespaces/{namespace}/jobs/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
-
 - **fieldValidation** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
@@ -1240,7 +1345,6 @@ PUT /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
 
 - **body**: <a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>, required
 -->
-
 - **name** (**路径参数**): string, 必需
 
   Job 的名称。
@@ -1260,7 +1364,6 @@ PUT /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 -->
-
 - **dryRun** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
@@ -1278,7 +1381,6 @@ PUT /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
-
 - **fieldValidation** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
@@ -1350,7 +1452,6 @@ PATCH /apis/batch/v1/namespaces/{namespace}/jobs/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 -->
-
 - **dryRun** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
@@ -1368,7 +1469,6 @@ PATCH /apis/batch/v1/namespaces/{namespace}/jobs/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 -->
-
 - **fieldValidation** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
@@ -1382,7 +1482,6 @@ PATCH /apis/batch/v1/namespaces/{namespace}/jobs/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
-
 - **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -1431,7 +1530,6 @@ PATCH /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 -->
-
 - **name** (**路径参数**): string, 必需
 
   Job 的名称。
@@ -1451,7 +1549,6 @@ PATCH /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 -->
-
 - **dryRun** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
@@ -1469,7 +1566,6 @@ PATCH /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 -->
-
 - **fieldValidation** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
@@ -1483,7 +1579,6 @@ PATCH /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
-
 - **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -1546,7 +1641,6 @@ DELETE /apis/batch/v1/namespaces/{namespace}/jobs/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 -->
-
 - **dryRun** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
@@ -1564,7 +1658,6 @@ DELETE /apis/batch/v1/namespaces/{namespace}/jobs/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 -->
-
 - **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -1623,7 +1716,6 @@ DELETE /apis/batch/v1/namespaces/{namespace}/jobs
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 -->
-
 - **continue** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
@@ -1641,7 +1733,6 @@ DELETE /apis/batch/v1/namespaces/{namespace}/jobs
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 -->
-
 - **fieldSelector** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
@@ -1659,7 +1750,6 @@ DELETE /apis/batch/v1/namespaces/{namespace}/jobs
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 -->
-
 - **labelSelector** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
@@ -1677,7 +1767,6 @@ DELETE /apis/batch/v1/namespaces/{namespace}/jobs
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 -->
-
 - **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -1695,7 +1784,6 @@ DELETE /apis/batch/v1/namespaces/{namespace}/jobs
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 -->
-
 - **resourceVersion** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
@@ -1705,10 +1793,17 @@ DELETE /apis/batch/v1/namespaces/{namespace}/jobs
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 <!--
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 -->
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 
@@ -1726,4 +1821,3 @@ DELETE /apis/batch/v1/namespaces/{namespace}/jobs
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
 401: Unauthorized
-

@@ -1,29 +1,16 @@
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference conent, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
 <!-- 
 Generate a kubeconfig file for the admin to use and for kubeadm itself 
 -->
-为管理员（admin）和 kubeadm 本身生成 kubeconfig 文件
+为管理员（admin）和 kubeadm 本身生成 kubeconfig 文件。
 
 <!-- 
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
 Generate the kubeconfig file for the admin and for kubeadm itself, and save it to admin.conf file.
 -->
-
 为管理员和 kubeadm 本身生成 kubeconfig 文件，并将其保存到 admin.conf 文件中。
 
 ```
@@ -33,7 +20,6 @@ kubeadm init phase kubeconfig admin [flags]
 <!-- 
 ### Options 
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -114,6 +100,20 @@ kubeadm init phase kubeconfig admin [flags]
 </tr>
 
 <tr>
+<td colspan="2">--dry-run</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Don't apply any changes; just output what would be done.
+-->
+<p>
+不做任何更改；只输出将要执行的操作。
+</p>
+</td>
+</tr>
+
+<tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
@@ -121,7 +121,7 @@ kubeadm init phase kubeconfig admin [flags]
 <!--
 <p>help for admin</p>
 -->
-<p>admin 操作的帮助命令</p>
+<p>admin 操作的帮助命令。</p>
 </td>
 </tr>
 
@@ -165,7 +165,6 @@ kubeadm init phase kubeconfig admin [flags]
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 继承于父命令的选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -189,4 +188,3 @@ kubeadm init phase kubeconfig admin [flags]
 
 </tbody>
 </table>
-

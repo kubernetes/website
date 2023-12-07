@@ -14,7 +14,7 @@ weight: 150
 {{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
 
 {{< note >}}
-この機能、特にアルファ版の`topologyKeys`APIは、Kubernetes v1.21以降では非推奨です。Kubernetes v1.21で導入された、[トポロジーを意識したヒント](/ja/docs/concepts/services-networking/topology-aware-hints/)が同様の機能を提供します。
+この機能、特にアルファ版の`topologyKeys`APIは、Kubernetes v1.21以降では非推奨です。Kubernetes v1.21で導入された、[トポロジーを意識したルーティング](/ja/docs/concepts/services-networking/topology-aware-routing/)が同様の機能を提供します。
 {{</ note >}}
 
 *Serviceトポロジー*を利用すると、Serviceのトラフィックをクラスターのノードトポロジーに基づいてルーティングできるようになります。たとえば、あるServiceのトラフィックに対して、できるだけ同じノードや同じアベイラビリティゾーン上にあるエンドポイントを優先してルーティングするように指定できます。

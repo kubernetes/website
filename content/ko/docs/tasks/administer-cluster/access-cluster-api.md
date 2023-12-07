@@ -1,6 +1,7 @@
 ---
 title: 쿠버네티스 API를 사용하여 클러스터에 접근하기
 content_type: task
+weight: 60
 ---
 
 <!-- overview -->

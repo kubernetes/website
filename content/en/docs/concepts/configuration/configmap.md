@@ -29,14 +29,16 @@ that exposes the database component to your cluster.
 This lets you fetch a container image running in the cloud and
 debug the exact same code locally if needed.
 
+{{< note >}}
 A ConfigMap is not designed to hold large chunks of data. The data stored in a
 ConfigMap cannot exceed 1 MiB. If you need to store settings that are
 larger than this limit, you may want to consider mounting a volume or use a
 separate database or file service.
+{{< /note >}}
 
 ## ConfigMap object
 
-A ConfigMap is an API [object](/docs/concepts/overview/working-with-objects/kubernetes-objects/)
+A ConfigMap is an {{< glossary_tooltip text="API object" term_id="object" >}}
 that lets you store configuration for other objects to use. Unlike most
 Kubernetes objects that have a `spec`, a ConfigMap has `data` and `binaryData`
 fields. These fields accept key-value pairs as their values.  Both the `data`
@@ -111,7 +113,7 @@ technique also lets you access a ConfigMap in a different namespace.
 
 Here's an example Pod that uses values from `game-demo` to configure a Pod:
 
-{{< codenew file="configmap/configure-pod.yaml" >}}
+{{% code_sample file="configmap/configure-pod.yaml" %}}
 
 A ConfigMap doesn't differentiate between single line property values and
 multi-line file-like values.
@@ -188,7 +190,7 @@ own `volumeMounts` block, but only one `.spec.volumes` is needed per ConfigMap.
 When a ConfigMap currently consumed in a volume is updated, projected keys are eventually updated as well.
 The kubelet checks whether the mounted ConfigMap is fresh on every periodic sync.
 However, the kubelet uses its local cache for getting the current value of the ConfigMap.
-The type of the cache is configurable using the `ConfigMapAndSecretChangeDetectionStrategy` field in
+The type of the cache is configurable using the `configMapAndSecretChangeDetectionStrategy` field in
 the [KubeletConfiguration struct](/docs/reference/config-api/kubelet-config.v1beta1/).
 A ConfigMap can be either propagated by watch (default), ttl-based, or by redirecting
 all requests directly to the API server.
@@ -216,8 +218,6 @@ data has the following advantages:
 - improves performance of your cluster by significantly reducing load on kube-apiserver, by
   closing watches for ConfigMaps marked as immutable.
 
-This feature is controlled by the `ImmutableEphemeralVolumes`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 You can create an immutable ConfigMap by setting the `immutable` field to `true`.
 For example:
 
