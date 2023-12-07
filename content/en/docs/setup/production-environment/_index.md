@@ -35,11 +35,12 @@ are influenced by the following issues:
   - Replicating the control plane components on multiple nodes.
   - Load balancing traffic to both the cluster’s
     {{< glossary_tooltip term_id="kube-apiserver" text="API server" >}} and the
-    {{< glossary_tooltip term_id="workload" text="workloads" >}}. There are various types of load bancers
-    including built-in solutions like [Ingress](/docs/concepts/services-networking/ingress) as well as
-    [external projects](/docs/tasks/access-application-cluster/create-external-load-balancer). Considering the
-    specific needs of your deployment, external projects can often provide advanced features and flexibility
-    beyond the capabilities of native Kubernetes components.
+    {{< glossary_tooltip term_id="workload" text="workloads" >}}.
+    Considering the specific needs of your deployment, external projects like
+    [Ingress Controllers](/docs/concepts/services-networking/ingress-controller) can often provide
+    advanced features and flexibility beyond the capabilities of native Kubernetes components.
+    [See](/docs/tasks/access-application-cluster/create-external-load-balancer) how to set up an external load
+    balancer.
   - Having enough worker nodes available, or able to quickly become available, as changing workloads warrant it.
 
 - _Scale_: If you expect your production Kubernetes environment to receive a stable amount of
