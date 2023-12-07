@@ -762,12 +762,13 @@ The output is:
 
 1. 在列表中使用 note 短代码
 
-1. 带嵌套 note 的第二个条目
+2. 带嵌套 note 的第二个条目
 
-    {{< note >}}
     <!--
     Warning, Caution, and Note shortcodes, embedded in lists, need to be indented four spaces. See [Common Shortcode Issues](#common-shortcode-issues).
     -->
+    
+    {{< note >}}
     警告、小心和注释短代码可以嵌套在列表中，但是要缩进四个空格。
     参见[常见短代码问题](#common-shortcode-issues)。
     {{< /note >}}
@@ -777,9 +778,9 @@ The output is:
 
 1. A fourth item in a list
 -->
-1. 列表中第三个条目
+3. 列表中第三个条目
 
-1. 列表中第四个条目
+4. 列表中第四个条目
 
 <!--
 ### Caution

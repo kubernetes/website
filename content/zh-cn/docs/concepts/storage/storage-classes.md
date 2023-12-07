@@ -103,7 +103,7 @@ Note that certain cloud providers may already define a default StorageClass.
 
 当一个 PVC 没有指定 `storageClassName` 时，会使用默认的 StorageClass。
 集群中只能有一个默认的 StorageClass。如果不小心设置了多个默认的 StorageClass，
-当 PVC 动态配置时，将使用最新设置的默认 StorageClass。
+在动态制备 PVC 时将使用其中最新的默认设置的 StorageClass。
 
 关于如何设置默认的 StorageClass，
 请参见[更改默认 StorageClass](/zh-cn/docs/tasks/administer-cluster/change-default-storage-class/)。
@@ -130,7 +130,6 @@ for provisioning PVs. This field must be specified.
 | CephFS               |     -      |                   -                   |
 | FC                   |     -      |                   -                   |
 | FlexVolume           |     -      |                   -                   |
-| GCEPersistentDisk    |  &#x2713;  |           [GCE PD](#gce-pd)           |
 | iSCSI                |     -      |                   -                   |
 | NFS                  |     -      |              [NFS](#nfs)              |
 | RBD                  |  &#x2713;  |         [Ceph RBD](#ceph-rbd)         |
@@ -208,14 +207,16 @@ PersistentVolume 可以配置为可扩展。将此功能设置为 `true` 时，�
 
 当下层 StorageClass 的 `allowVolumeExpansion` 字段设置为 true 时，以下类型的卷支持卷扩展。
 
-{{< table caption = "Table of Volume types and the version of Kubernetes they require"  >}}
+<!--
+"Table of Volume types and the version of Kubernetes they require"
+-->
+{{< table caption = "卷类型及其 Kubernetes 版本要求"  >}}
 
 <!--
 Volume type | Required Kubernetes version
 -->
 | 卷类型               | Kubernetes 版本要求       |
 | :------------------- | :------------------------ |
-| gcePersistentDisk    | 1.11                      |
 | rbd                  | 1.11                      |
 | Azure File           | 1.11                      |
 | Portworx             | 1.11                      |
@@ -293,23 +294,11 @@ PersistentVolume 会根据 Pod 调度约束指定的拓扑来选择或制备。
 以及[污点和容忍度](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration)。
 
 <!--
-The following plugins support `WaitForFirstConsumer` with dynamic provisioning:
-
-- [GCEPersistentDisk](#gce-pd)
--->
-以下插件支持动态制备的 `WaitForFirstConsumer` 模式：
-
-- [GCEPersistentDisk](#gce-pd)
-
-<!--
 The following plugins support `WaitForFirstConsumer` with pre-created PersistentVolume binding:
-
-- All of the above
 - [Local](#local)
 -->
 以下插件支持预创建绑定 PersistentVolume 的 `WaitForFirstConsumer` 模式：
 
-- 上述全部
 - [Local](#local)
 
 {{< feature-state state="stable" for_k8s_version="v1.17" >}}
@@ -483,85 +472,6 @@ parameters:
 [allowedTopologies](#allowed-topologies)
 -->
 `zone` 和 `zones` 已被弃用并被[允许的拓扑结构](#allowed-topologies)取代。
-{{< /note >}}
-
-### GCE PD  {#gce-pd}
-
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: slow
-provisioner: kubernetes.io/gce-pd
-parameters:
-  type: pd-standard
-  fstype: ext4
-  replication-type: none
-```
-
-<!--
-- `type`: `pd-standard` or `pd-ssd`. Default: `pd-standard`
-- `zone` (Deprecated): GCE zone. If neither `zone` nor `zones` is specified, volumes are
-  generally round-robin-ed across all active zones where Kubernetes cluster has
-  a node. `zone` and `zones` parameters must not be used at the same time.
-- `zones` (Deprecated): A comma separated list of GCE zone(s). If neither `zone` nor `zones`
-  is specified, volumes are generally round-robin-ed across all active zones
-  where Kubernetes cluster has a node. `zone` and `zones` parameters must not
-  be used at the same time.
-- `fstype`: `ext4` or `xfs`. Default: `ext4`. The defined filesystem type must be supported by the host operating system.
-
-- `replication-type`: `none` or `regional-pd`. Default: `none`.
--->
-- `type`：`pd-standard` 或者 `pd-ssd`。默认：`pd-standard`
-- `zone`（已弃用）：GCE 区域。如果没有指定 `zone` 和 `zones`，
-  通常卷会在 Kubernetes 集群节点所在的活动区域中轮询调度分配。
-  `zone` 和 `zones` 参数不能同时使用。
-- `zones`（已弃用）：逗号分隔的 GCE 区域列表。如果没有指定 `zone` 和 `zones`，
-  通常卷会在 Kubernetes 集群节点所在的活动区域中轮询调度（round-robin）分配。
-  `zone` 和 `zones` 参数不能同时使用。
-- `fstype`：`ext4` 或 `xfs`。默认：`ext4`。宿主机操作系统必须支持所定义的文件系统类型。
-- `replication-type`：`none` 或者 `regional-pd`。默认值：`none`。
-
-<!--
-If `replication-type` is set to `none`, a regular (zonal) PD will be provisioned.
--->
-如果 `replication-type` 设置为 `none`，会制备一个常规（当前区域内的）持久化磁盘。
-
-<!--
-If `replication-type` is set to `regional-pd`, a
-[Regional Persistent Disk](https://cloud.google.com/compute/docs/disks/#repds)
-will be provisioned. It's highly recommended to have
-`volumeBindingMode: WaitForFirstConsumer` set, in which case when you create
-a Pod that consumes a PersistentVolumeClaim which uses this StorageClass, a
-Regional Persistent Disk is provisioned with two zones. One zone is the same
-as the zone that the Pod is scheduled in. The other zone is randomly picked
-from the zones available to the cluster. Disk zones can be further constrained
-using `allowedTopologies`.
--->
-如果 `replication-type` 设置为 `regional-pd`，
-会制备一个[区域性持久化磁盘（Regional Persistent Disk）](https://cloud.google.com/compute/docs/disks/#repds)。
-
-强烈建议设置 `volumeBindingMode: WaitForFirstConsumer`，这样设置后，
-当你创建一个 Pod，它使用的 PersistentVolumeClaim 使用了这个 StorageClass，
-区域性持久化磁盘会在两个区域里制备。其中一个区域是 Pod 所在区域，
-另一个区域是会在集群管理的区域中任意选择，磁盘区域可以通过 `allowedTopologies` 加以限制。
-
-{{< note >}}
-<!--
-`zone` and `zones` parameters are deprecated and replaced with
-[allowedTopologies](#allowed-topologies). When
-[GCE CSI Migration](/docs/concepts/storage/volumes/#gce-csi-migration) is
-enabled, a GCE PD volume can be provisioned in a topology that does not match
-any nodes, but any pod trying to use that volume will fail to schedule. With
-legacy pre-migration GCE PD, in this case an error will be produced
-instead at provisioning time. GCE CSI Migration is enabled by default beginning
-from the Kubernetes 1.23 release.
--->
-`zone` 和 `zones` 已被弃用并被 [allowedTopologies](#allowed-topologies) 取代。
-当启用 [GCE CSI 迁移](/zh-cn/docs/concepts/storage/volumes/#gce-csi-migration)时，
-GCE PD 卷可能被制备在某个与所有节点都不匹配的拓扑域中，但任何尝试使用该卷的 Pod 都无法被调度。
-对于传统的迁移前 GCE PD，这种情况下将在制备卷的时候产生错误。
-从 Kubernetes 1.23 版本开始，GCE CSI 迁移默认启用。
 {{< /note >}}
 
 ### NFS  {#nfs}
