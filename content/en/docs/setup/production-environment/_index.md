@@ -39,8 +39,7 @@ are influenced by the following issues:
     Considering the specific needs of your deployment, external projects like
     [Ingress Controllers](/docs/concepts/services-networking/ingress-controller) can often provide
     advanced features and flexibility beyond the capabilities of native Kubernetes components.
-    [See](/docs/tasks/access-application-cluster/create-external-load-balancer) how to set up an external load
-    balancer.
+    See [Create an External Load Balancer](/docs/tasks/access-application-cluster/create-external-load-balancer) for details.
   - Having enough worker nodes available, or able to quickly become available, as changing workloads warrant it.
 
 - _Scale_: If you expect your production Kubernetes environment to receive a stable amount of
