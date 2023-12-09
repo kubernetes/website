@@ -76,9 +76,7 @@ It creates a [headless Service](/docs/concepts/services-networking/service/#head
 
 {{% code_sample file="application/web/web.yaml" %}}
 
-Download the example above, and save it to a file named `web.yaml`
-
-You will need to use two terminal windows. In the first terminal, use
+You will need to use at least two terminal windows. In the first terminal, use
 [`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get) to watch the creation
 of the StatefulSet's Pods.
 
@@ -88,10 +86,10 @@ kubectl get pods -w -l app=nginx
 
 In the second terminal, use
 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply) to create the
-headless Service and StatefulSet defined in `web.yaml`.
+headless Service and StatefulSet:
 
 ```shell
-kubectl apply -f web.yaml
+kubectl apply -f https://k8s.io/examples/application/web/web.yaml
 ```
 ```
 service/nginx created
@@ -919,7 +917,7 @@ you deleted the `nginx` Service (which you should not have), you will see
 an error indicating that the Service already exists.
 
 ```shell
-kubectl apply -f web.yaml
+kubectl apply -f https://k8s.io/examples/application/web/web.yaml
 ```
 ```
 statefulset.apps/web created
@@ -1038,7 +1036,7 @@ service "nginx" deleted
 Recreate the StatefulSet and headless Service one more time:
 
 ```shell
-kubectl apply -f web.yaml
+kubectl apply -f https://k8s.io/examples/application/web/web.yaml
 ```
 
 ```
@@ -1104,8 +1102,6 @@ Pod. This option only affects the behavior for scaling operations. Updates are n
 
 {{% code_sample file="application/web/web-parallel.yaml" %}}
 
-Download the example above, and save it to a file named `web-parallel.yaml`
-
 This manifest is identical to the one you downloaded above except that the `.spec.podManagementPolicy`
 of the `web` StatefulSet is set to `Parallel`.
 
@@ -1118,7 +1114,7 @@ kubectl get pod -l app=nginx -w
 In another terminal, create the StatefulSet and Service in the manifest:
 
 ```shell
-kubectl apply -f web-parallel.yaml
+kubectl apply -f https://k8s.io/examples/application/web/web-parallel.yaml
 ```
 ```
 service/nginx created
