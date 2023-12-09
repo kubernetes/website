@@ -9,8 +9,9 @@ slug: cloud-provider-integration-changes
 
 For Kubernetes v1.29, you need to use additional components to integrate your
 Kubernetes cluster with a cloud infrastructure provider. By default, Kubernetes
-v1.29 disallows components configured with legacy compiled-in cloud provider
-integrations.
+v1.29 components **abort** if you try to specify integration with any cloud provider using
+one of the legacy compiled-in cloud provider integrations. If you want to use a legacy
+integration, you have to opt back in - and a future release will remove even that option.
 
 In 2018, the [Kubernetes community agreed to form the Cloud Provider Special
 Interest Group (SIG)][oldblog], with a mission to externalize all cloud provider
