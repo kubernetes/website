@@ -8,7 +8,7 @@ Like any other event, you need to register at their official site. You can learn
 
 ![KubeCon](https://raw.githubusercontent.com/Rajdeep1311/website/main/content/en/blog/_posts/2023-12-05-My-first-ever-KubeCon-KubeCon+CloudNativeCon-North-America-2023/pic2.png)
 
-KubeCon serves as a dynamic platform for attendees to actively engage with the expansive Kubernetes community. Through a diverse array of networking avenues, including Birds of a Feather sessions, social events, and dedicated breaks, participants have the opportunity to connect with fellow developers, contributors, and users of Kubernetes. These interactions not only foster collaboration but also facilitate the exchange of knowledge and experiences. The conference's emphasis on networking creates an environment where like-minded professionals and industry experts can forge connections, share insights, and collectively contribute to the ever-evolving landscape of container orchestration and cloud-native technologies.
+KubeCon serves as a dynamic platform for attendees to actively engage with the expansive Kubernetes community. Through a diverse array of networking avenues, including Birds of a Feather session, social events, and dedicated breaks, participants have the opportunity to connect with fellow developers, contributors, and users of Kubernetes. These interactions not only foster collaboration but also facilitate the exchange of knowledge and experiences. The conference's emphasis on networking creates an environment where like-minded professionals and industry experts can forge connections, share insights, and collectively contribute to the ever-evolving landscape of container orchestration and cloud-native technologies.
 
 # General Information about KubeCon
 
