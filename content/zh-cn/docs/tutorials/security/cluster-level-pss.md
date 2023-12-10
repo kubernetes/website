@@ -42,6 +42,7 @@ Pod 安全是一个准入控制器，当新的 Pod 被创建时，它会根据 K
 请查阅该版本的文档。
 
 ## {{% heading "prerequisites" %}}
+
 <!--
 Install the following on your workstation:
 
@@ -433,6 +434,8 @@ following:
 1. Create a Pod in the default namespace:
 -->
 7. 在 default 名字空间下创建一个 Pod：
+
+   {{% code_sample file="security/example-baseline-pod.yaml" %}}
 
    ```shell
    kubectl apply -f https://k8s.io/examples/security/example-baseline-pod.yaml
