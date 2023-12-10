@@ -113,7 +113,7 @@ Existen los siguientes métodos para instalar kubectl en Linux:
    kubectl version --client
    ```
 
-   O use lo siguiente para una vista detallada de la versión:
+   Se puede utilizar lo siguiente para una vista detallada de la versión:
 
    ```cmd
    kubectl version --client --output=yaml
@@ -124,7 +124,7 @@ Existen los siguientes métodos para instalar kubectl en Linux:
 {{< tabs name="kubectl_install" >}}
 {{% tab name="Debian-based distributions" %}}
 
-1. Update the `apt` package index and install packages needed to use the Kubernetes `apt` repository:
+1. Actualice el índice del paquete `apt`, luego instale los paquetes necesarios para Kubernetes:
 
    ```shell
    sudo apt-get update
@@ -132,25 +132,25 @@ Existen los siguientes métodos para instalar kubectl en Linux:
    sudo apt-get install -y apt-transport-https ca-certificates curl
    ```
 
-2. Download the public signing key for the Kubernetes package repositories. The same signing key is used for all repositories so you can disregard the version in the URL:
+2. Descarge la llave pública firmada para los repositorios de Kubernetes. La misma llave firmada es usada para todos los repositorios por lo que se puede obviarl a versión en la URL:
 
    ```shell
    curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    ```
 
-3. Add the appropriate Kubernetes `apt` repository. If you want to use Kubernetes version different than {{< param "version" >}},
-   replace {{< param "version" >}} with the desired minor version in the command below:
+3. Agregue el repositorio apropiado de Kubernetes. Si usted quisiera una versión de Kubernetes diferente a {{< param "version" >}},
+   reemplace {{< param "version" >}} con la versión deseada en el siguiente comando:
 
    ```shell
-   # This overwrites any existing configuration in /etc/apt/sources.list.d/kubernetes.list
+   # Esto sobrescribe cualquier configuración existente en el archivo /etc/apt/sources.list.d/kubernetes.list
    echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
    ```
 
 {{< note >}}
-To upgrade kubectl to another minor release, you'll need to bump the version in `/etc/apt/sources.list.d/kubernetes.list` before running `apt-get update` and `apt-get upgrade`. This procedure is described in more detail in [Changing The Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
+Para actualizar kubectl a una minor release diferente, se debe reemplazar la versión en el archivo `/etc/apt/sources.list.d/kubernetes.list` antes de ejecutar `apt-get update` y `apt-get upgrade`. Este procedimiento se describe con mas detalle en [Cambiando el Repositorio de Kubernetes](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
 {{< /note >}}
 
-4. Update `apt` package index, then install kubectl:
+4. Actualice el índice de `apt`, luego instale kubectl:
 
    ```shell
    sudo apt-get update
@@ -158,7 +158,7 @@ To upgrade kubectl to another minor release, you'll need to bump the version in 
    ```
 
 {{< note >}}
-In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default, and can be created using `sudo mkdir -m 755 /etc/apt/keyrings`
+En versiones anteriores a Debian 12 y Ubuntu 22.04 el directorio `/etc/apt/keyrings` no existe por defecto, puede ser creado usando el comando `sudo mkdir -m 755 /etc/apt/keyrings`
 {{< /note >}}
 
 {{% /tab %}}
