@@ -171,7 +171,7 @@ Operation       | Syntax    |       Description
 `scale`        | <code>kubectl scale (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) --replicas=COUNT [--resource-version=version] [--current-replicas=count] [flags]</code> | Update the size of the specified replication controller.
 `set`    | `kubectl set SUBCOMMAND [options]` | Configure application resources.
 `taint`    | `kubectl taint NODE NAME KEY_1=VAL_1:TAINT_EFFECT_1 ... KEY_N=VAL_N:TAINT_EFFECT_N [options]` | Update the taints on one or more nodes.
-`top`    | `kubectl top (POD | NODE) [flags] [options]` | Display Resource (CPU/Memory/Storage) usage of pod or node.
+`top`    | <code>kubectl top (POD &#124; NODE) [flags] [options]</code> | Display Resource (CPU/Memory/Storage) usage of pod or node.
 `uncordon`    | `kubectl uncordon NODE [options]` | Mark node as schedulable.
 `version`        | `kubectl version [--client] [flags]` | Display the Kubernetes version running on the client and server.
 `wait`    | <code>kubectl wait ([-f FILENAME] &#124; resource.group/resource.name &#124; resource.group [(-l label &#124; --all)]) [--for=delete&#124;--for condition=available] [options]</code> | Experimental: Wait for a specific condition on one or many resources.
