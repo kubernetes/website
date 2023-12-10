@@ -4,7 +4,7 @@
 
 This blog is kind of a personal experience cum guide for beginners when they first encounter such a huge and important conference. Although KubeCon is the first conference I attended, it is certainly the largest. Earlier I have been to community-driven conferences such as Google Cloud Community Days Kolkata 2023 and Kubernetes Community Days Mumbai 2023, they were quite big too but they lasted for a day or two. KubeCon was much larger and more overwhelming for new folks in the field. I attended my first KubeCon virtually as the Dan Kohn Scholarship approved me for virtual attendance. Before deep-diving into the event and my experiences, let's start with the basics of the event or any event hosted by the Cloud Native Computing Foundation.
 
-Like any other event, you need to register at their official site. You can learn about upcoming events on their official page. Sometimes it might be not easy to afford the cost of attending these events, but CNCF also offers scholarships to individuals. To provide an overview, CNCF mainly offers scholarships based on 3 categories namely - Diversity, Need-Based, and Maintainer.
+Like any other event, you need to register at their official site. You can learn about upcoming events on their [official page](https://www.cncf.io/events/). Sometimes it might be not easy to afford the cost of attending these events, but CNCF also offers scholarships to individuals. To provide an overview, CNCF mainly offers scholarships based on 3 categories namely - Diversity, Need-Based, and Maintainer.
 
 ![KubeCon](https://raw.githubusercontent.com/Rajdeep1311/website/main/content/en/blog/_posts/2023-12-05-My-first-ever-KubeCon-KubeCon+CloudNativeCon-North-America-2023/pic2.png)
 
@@ -22,11 +22,11 @@ Education and collaboration are vital to the future of the CNCF ecosystem and it
   <img src="https://raw.githubusercontent.com/Rajdeep1311/website/main/content/en/blog/_posts/2023-12-05-My-first-ever-KubeCon-KubeCon+CloudNativeCon-North-America-2023/pic4.jpg">
 </p>
 
-Every KubeCon has more or less the same schedule except for the talks. The talks vary depending on the CFPs submitted. To give a very basic plot of the event, here is a schedule of this year's KubeCon:
+Every KubeCon has more or less the same schedule except for the talks. The talks vary depending on the [CFPs](https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/program/cfp/) submitted. To give a very basic plot of the event, here is a schedule of this year's KubeCon:
 
 ![KubeCon](https://raw.githubusercontent.com/Rajdeep1311/website/main/content/en/blog/_posts/2023-12-05-My-first-ever-KubeCon-KubeCon+CloudNativeCon-North-America-2023/pic5.png)
 
-In case you want to check the full schedule, click here. You can change the timezone of the schedule according to your local time.
+In case you want to check the full schedule, click [here](https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/). You can change the timezone of the schedule according to your local time.
 
 For a beginner or someone who is attending any KubeCon can be very overwhelming, some might think of leaving the world of tech and open-source but I would suggest just holding your nerve, there is a place for everyone in the community. I am also a beginner in this field, speaking from that perspective, one must look carefully at the schedule and look for one's interests and talks related to the same. Also, keynotes are important for beginners and are mainly conducted by CNCF Ambassadors.
 
