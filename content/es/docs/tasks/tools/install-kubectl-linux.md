@@ -12,17 +12,18 @@ con los siguientes versiones de plano de control v{{< skew currentVersionAddMino
 v{{< skew currentVersionAddMinor 0 >}}, and v{{< skew currentVersionAddMinor 1 >}}.
 Utilizar la ultima version compatible de kubectl evita posibles errores.
 
-## Install kubectl on Linux
+## Instalar kubectl en Linux
 
-The following methods exist for installing kubectl on Linux:
+Existen los siguientes métodos para instalar kubectl en Linux:
 
-- [Install kubectl binary with curl on Linux](#install-kubectl-binary-with-curl-on-linux)
-- [Install using native package management](#install-using-native-package-management)
-- [Install using other package management](#install-using-other-package-management)
+# TODO -> tengo dudas si los links dentro del documento van a funcionar si los nombres no son exactamente iguales!
+- [Instalación del binario para Linux de kubectl con Curl](#install-kubectl-binary-with-curl-on-linux)
+- [Instalación mediante el administrador de paquetes nativo](#install-using-native-package-management)
+- [Instalación usando otro administrador de paquetes](#install-using-other-package-management)
 
-### Install kubectl binary with curl on Linux
+### Instalación del binario para Linux de kubectl con Curl
 
-1. Download the latest release with the command:
+1. Descargar la ultima versión con el siguiente comando:
 
    {{< tabs name="download_binary_linux" >}}
    {{< tab name="x86-64" codelang="bash" >}}
@@ -34,16 +35,16 @@ The following methods exist for installing kubectl on Linux:
    {{< /tabs >}}
 
    {{< note >}}
-   To download a specific version, replace the `$(curl -L -s https://dl.k8s.io/release/stable.txt)`
-   portion of the command with the specific version.
+   Para Descargar una versión específica reemplazar la siguiente parte del comando con la 
+   versión que desea instalar `$(curl -L -s https://dl.k8s.io/release/stable.txt)`
 
-   For example, to download version {{< skew currentPatchVersion >}} on Linux x86-64, type:
+   Por ejemplo, para descargar la versión {{< skew currentPatchVersion >}} en linux x86-64:
 
    ```bash
    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/amd64/kubectl
    ```
 
-   And for Linux ARM64, type:
+   Y para Linux ARM64:
 
    ```bash
    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/arm64/kubectl
@@ -51,9 +52,9 @@ The following methods exist for installing kubectl on Linux:
 
    {{< /note >}}
 
-1. Validate the binary (optional)
+1. Validación del binario (paso opcional)
 
-   Download the kubectl checksum file:
+   Descargar el archivo checksum:
 
    {{< tabs name="download_checksum_linux" >}}
    {{< tab name="x86-64" codelang="bash" >}}
@@ -64,19 +65,19 @@ The following methods exist for installing kubectl on Linux:
    {{< /tab >}}
    {{< /tabs >}}
 
-   Validate the kubectl binary against the checksum file:
+   Validar el binario de kubectl contra el archivo checksum:
 
    ```bash
    echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
    ```
 
-   If valid, the output is:
+   Si es válido va a obtener la siguiente respuesta:
 
    ```console
    kubectl: OK
    ```
 
-   If the check fails, `sha256` exits with nonzero status and prints output similar to:
+   En caso de falla, `sha256` terminará con un estado diferente a cero con una salida similar a esta:
 
    ```console
    kubectl: FAILED
@@ -84,41 +85,41 @@ The following methods exist for installing kubectl on Linux:
    ```
 
    {{< note >}}
-   Download the same version of the binary and checksum.
+   Descargue la misma versión del binario y el checksum.
    {{< /note >}}
 
-1. Install kubectl
+1. Instalar kubectl
 
    ```bash
    sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
    ```
 
    {{< note >}}
-   If you do not have root access on the target system, you can still install
-   kubectl to the `~/.local/bin` directory:
+   Si no tiene acceso root en el sistema donde se busca instalar, se puede colocar
+   el binario kubectl en el directorio `~/.local/bin`:
 
    ```bash
    chmod +x kubectl
    mkdir -p ~/.local/bin
    mv ./kubectl ~/.local/bin/kubectl
-   # and then append (or prepend) ~/.local/bin to $PATH
+   # Y Despues agregue el directorio ~/.local/bin a su $PATH
    ```
 
    {{< /note >}}
 
-1. Test to ensure the version you installed is up-to-date:
+1. Test para asegurar que la versión instalada esta actualizada:
 
    ```bash
    kubectl version --client
    ```
 
-   Or use this for detailed view of version:
+   O use lo siguiente para una vista detallada de la versión:
 
    ```cmd
    kubectl version --client --output=yaml
    ```
 
-### Install using native package management
+### Instalación mediante el administrador de paquetes nativo
 
 {{< tabs name="kubectl_install" >}}
 {{% tab name="Debian-based distributions" %}}
@@ -225,13 +226,13 @@ before running `zypper update`. This procedure is described in more detail in
 {{% /tab %}}
 {{< /tabs >}}
 
-### Install using other package management
+### Instalación usando otro administrador de paquetes
 
 {{< tabs name="other_kubectl_install" >}}
 {{% tab name="Snap" %}}
-If you are on Ubuntu or another Linux distribution that supports the
-[snap](https://snapcraft.io/docs/core/install) package manager, kubectl
-is available as a [snap](https://snapcraft.io/) application.
+Si utiliza Ubuntu o alguna distribución que soporte el administrador de
+paquetes [snap](https://snapcraft.io/docs/core/install), kubectl
+esta disponible como una aplicación de [snap](https://snapcraft.io/).
 
 ```shell
 snap install kubectl --classic
@@ -241,8 +242,8 @@ kubectl version --client
 {{% /tab %}}
 
 {{% tab name="Homebrew" %}}
-If you are on Linux and using [Homebrew](https://docs.brew.sh/Homebrew-on-Linux)
-package manager, kubectl is available for [installation](https://docs.brew.sh/Homebrew-on-Linux#install).
+Si utiliza [Homebrew](https://docs.brew.sh/Homebrew-on-Linux) en Linux,
+kubectl esta disponible para su [instalación](https://docs.brew.sh/Homebrew-on-Linux#install).
 
 ```shell
 brew install kubectl
@@ -253,18 +254,18 @@ kubectl version --client
 
 {{< /tabs >}}
 
-## Verify kubectl configuration
+## Verificar la configuración de kubectl
 
 {{< include "included/verify-kubectl.md" >}}
 
-## Optional kubectl configurations and plugins
+## Configuraciones opcionales y plugins de kubectl
 
-### Enable shell autocompletion
+### Habilitar el autocompletado en la shell
 
-kubectl provides autocompletion support for Bash, Zsh, Fish, and PowerShell,
-which can save you a lot of typing.
+Kubectl tiene soporte para autocompletar en Bash, Zsh, Fish y Powershell,
+lo que puede agilizar el tipeo.
 
-Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
+A continuación estan los procedimientos para configurarlo en Bash, Fisch y Zsh.
 
 {{< tabs name="kubectl_autocompletion" >}}
 {{< tab name="Bash" include="included/optional-kubectl-configs-bash-linux.md" />}}
@@ -272,11 +273,11 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
 {{< tab name="Zsh" include="included/optional-kubectl-configs-zsh.md" />}}
 {{< /tabs >}}
 
-### Install `kubectl convert` plugin
+### Instalar el plugin `kubectl convert`
 
 {{< include "included/kubectl-convert-overview.md" >}}
 
-1. Download the latest release with the command:
+1. Descargue la última version con el siguiente comando:
 
    {{< tabs name="download_convert_binary_linux" >}}
    {{< tab name="x86-64" codelang="bash" >}}
@@ -287,9 +288,9 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
    {{< /tab >}}
    {{< /tabs >}}
 
-1. Validate the binary (optional)
+1. Valide el binario (opcional)
 
-   Download the kubectl-convert checksum file:
+   Descargue el checksum de kubectl-convert:
 
    {{< tabs name="download_convert_checksum_linux" >}}
    {{< tab name="x86-64" codelang="bash" >}}
@@ -300,19 +301,19 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
    {{< /tab >}}
    {{< /tabs >}}
 
-   Validate the kubectl-convert binary against the checksum file:
+   Ahora se puede validar el binario utilizando el checksum:
 
    ```bash
    echo "$(cat kubectl-convert.sha256) kubectl-convert" | sha256sum --check
    ```
 
-   If valid, the output is:
+   Si es válido, la salida será:
 
    ```console
    kubectl-convert: OK
    ```
 
-   If the check fails, `sha256` exits with nonzero status and prints output similar to:
+   En caso de falla, `sha256` terminará con un estado diferente a cero con una salida similar a esta:
 
    ```console
    kubectl-convert: FAILED
@@ -320,22 +321,22 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
    ```
 
    {{< note >}}
-   Download the same version of the binary and checksum.
+   Descargue la misma versión del binario y del checksum.
    {{< /note >}}
 
-1. Install kubectl-convert
+1. Instalar kubectl-convert
 
    ```bash
    sudo install -o root -g root -m 0755 kubectl-convert /usr/local/bin/kubectl-convert
    ```
 
-1. Verify plugin is successfully installed
+1. Verificar si el plugin fue instalado correctamente
 
    ```shell
    kubectl convert --help
    ```
 
-   If you do not see an error, it means the plugin is successfully installed.
+   Si no visualiza ningún error quiere decir que el plugin fue isntalado correctamente.
 
 1. After installing the plugin, clean up the installation files:
 
