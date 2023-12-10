@@ -77,7 +77,7 @@ Existen los siguientes métodos para instalar kubectl en Linux:
    kubectl: OK
    ```
 
-   En caso de falla, `sha256` terminará con un estado diferente a cero con una salida similar a esta:
+   En caso de falla, `sha256` terminará con un estado diferente a cero con una salida similar a:
 
    ```console
    kubectl: FAILED
@@ -165,12 +165,12 @@ En versiones anteriores a Debian 12 y Ubuntu 22.04 el directorio `/etc/apt/keyri
 
 {{% tab name="Red Hat-based distributions" %}}
 
-1. Add the Kubernetes `yum` repository. If you want to use Kubernetes version
-   different than {{< param "version" >}}, replace {{< param "version" >}} with
-   the desired minor version in the command below.
+1. Agregue Kubernetes al repositorio `yum`. Si desea usar una versión de Kubernetes
+   diferente a {{< param "version" >}}, reemplace {{< param "version" >}} con
+   la versión deseada en el siguiente comando:
 
    ```bash
-   # This overwrites any existing configuration in /etc/yum.repos.d/kubernetes.repo
+   # Lo siguiente reemplaza cualquier configuración existente en /etc/yum.repos.d/kubernetes.repo
    cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
    [kubernetes]
    name=Kubernetes
@@ -182,10 +182,10 @@ En versiones anteriores a Debian 12 y Ubuntu 22.04 el directorio `/etc/apt/keyri
    ```
 
 {{< note >}}
-To upgrade kubectl to another minor release, you'll need to bump the version in `/etc/yum.repos.d/kubernetes.repo` before running `yum update`. This procedure is described in more detail in [Changing The Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
+Para actualizar kubectl a otra versión será necesario modificar la versión en `/etc/yum.repos.d/kubernetes.repo` antes de ejecutar `yum update`. Este procedimiento se describe con más detalle en [Changing The Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
 {{< /note >}}
 
-2. Install kubectl using `yum`:
+2. Instalar kubectl utilizando `yum`:
 
    ```bash
    sudo yum install -y kubectl
