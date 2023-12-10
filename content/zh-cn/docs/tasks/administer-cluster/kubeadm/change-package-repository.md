@@ -223,7 +223,7 @@ version.
 
 在从一个 Kubernetes 小版本升级到另一个版本时，应执行此步骤以获取所需 Kubernetes 小版本的软件包访问权限。
 
-{{< tabs name="k8s_install_versions" >}}
+{{< tabs name="k8s_upgrade_versions" >}}
 {{% tab name="Ubuntu、Debian 或 HypriotOS" %}}
 
 <!--

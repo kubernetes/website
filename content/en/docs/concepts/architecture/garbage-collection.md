@@ -111,7 +111,7 @@ to override this behaviour, see [Delete owner objects and orphan dependents](/do
 ## Garbage collection of unused containers and images {#containers-images}
 
 The {{<glossary_tooltip text="kubelet" term_id="kubelet">}} performs garbage
-collection on unused images every five minutes and on unused containers every
+collection on unused images every two minutes and on unused containers every
 minute. You should avoid using external garbage collection tools, as these can
 break the kubelet behavior and remove containers that should exist.
 
