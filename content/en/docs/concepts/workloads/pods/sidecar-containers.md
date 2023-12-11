@@ -101,14 +101,16 @@ for resource usage apply:
 * The highest of any particular resource request or limit defined on all init
   containers is the *effective init request/limit*. If any resource has no
   resource limit specified this is considered as the highest limit.
-* The Pod's *effective request/limit* for a resource is the higher of:
-  * the sum of all app containers request/limit for a resource
+* The Pod's *effective request/limit* for a resource is the sum of
+[pod overhead](/docs/concepts/scheduling-eviction/pod-overhead/) and the higher of:
+  * the sum of all non-init containers(app and sidecar containers) request/limit for a
+  resource
   * the effective init request/limit for a resource
 * Scheduling is done based on effective requests/limits, which means
   init containers can reserve resources for initialization that are not used
   during the life of the Pod.
 * The QoS (quality of service) tier of the Pod's *effective QoS tier* is the
-  QoS tier for init containers and app containers alike.
+  QoS tier for all init, sidecar and app containers alike.
 
 Quota and limits are applied based on the effective Pod request and
 limit.
@@ -121,3 +123,4 @@ limit, the same as the scheduler.
 * Read a blog post on [native sidecar containers](/blog/2023/08/25/native-sidecar-containers/).
 * Read about [creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container).
 * Learn about the [types of probes](/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe): liveness, readiness, startup probe.
+* Learn about [pod overhead](/docs/concepts/scheduling-eviction/pod-overhead/).
