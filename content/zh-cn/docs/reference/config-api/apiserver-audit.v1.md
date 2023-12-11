@@ -234,7 +234,7 @@ Note: All but the last IP can be arbitrarily set by the client.
    to the external type, and serialized as JSON.  Omitted for non-resource requests.  Only logged
    at Response Level.
    -->
-   响应中包含的 API 对象，以 JSON 格式呈现。requestObject 是在被转换为外部类型
+   响应中包含的 API 对象，以 JSON 格式呈现。responseObject 是在被转换为外部类型
    并序列化为 JSON 格式之后才被记录的。
    对于非资源请求，此字段会被忽略。
    只有审计级别为 Response 时才会记录。
