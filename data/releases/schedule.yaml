@@ -2,6 +2,14 @@
 # This file helps to populate the /releases page, and is also parsed to find out the
 # latest patch version for a minor release.
 schedules:
+- release: 1.29
+  releaseDate: 2023-12-13
+  next:
+    release: 1.29.1
+    cherryPickDeadline: 2024-01-12
+    targetDate: 2024-01-17
+  maintenanceModeStartDate: 2024-12-28
+  endOfLifeDate: 2025-02-28
 - release: 1.28
   releaseDate: 2023-08-15
   next:
