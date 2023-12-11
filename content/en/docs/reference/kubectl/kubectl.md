@@ -370,10 +370,10 @@ kubectl [flags]
 </tr>
 
 <tr>
-<td colspan="2">KUBECTL_INTERACTIVE_DELETE</td>
+<td colspan="2">KUBECTL_REMOTE_COMMAND_WEBSOCKETS</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">When set to true, the --interactive flag in the kubectl delete command will be activated, allowing users to preview and confirm resources before proceeding to delete by passing this flag.
+<td></td><td style="line-height: 130%; word-wrap: break-word;">When set to true, the kubectl exec, cp, and attach commands will attempt to stream using the websockets protocol. If the upgrade to websockets fails, the commands will fallback to use the current SPDY protocol.
 </td>
 </tr>
 

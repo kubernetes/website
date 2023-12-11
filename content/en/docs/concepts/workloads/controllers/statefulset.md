@@ -116,6 +116,12 @@ spec:
           storage: 1Gi
 ```
 
+{{< note >}}
+This example uses the `ReadWriteOnce` access mode, for simplicity. For
+production use, the Kubernetes project recommends using the `ReadWriteOncePod`
+access mode instead.
+{{< /note >}}
+
 In the above example:
 
 * A Headless Service, named `nginx`, is used to control the network domain.
