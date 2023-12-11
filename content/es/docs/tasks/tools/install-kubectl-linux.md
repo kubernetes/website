@@ -6,11 +6,11 @@ weight: 10
 
 ## {{% heading "prerequisites" %}}
 
-Se debe utilizar la version de kubectl con una minor version de diferencia con
-su cluster. Por ejemplo, un cliente con version v{{< skew currentVersion >}} se puede comunicar
+Se debe utilizar la versión de kubectl con una minor versión de diferencia con
+su cluster. Por ejemplo, un cliente con versión v{{< skew currentVersion >}} se puede comunicar
 con los siguientes versiones de plano de control v{{< skew currentVersionAddMinor -1 >}}, 
 v{{< skew currentVersionAddMinor 0 >}}, and v{{< skew currentVersionAddMinor 1 >}}.
-Utilizar la ultima version compatible de kubectl evita posibles errores.
+Utilizar la última versión compatible de kubectl evita posibles errores.
 
 ## Instalar kubectl en Linux
 
@@ -23,7 +23,7 @@ Existen los siguientes métodos para instalar kubectl en Linux:
 
 ### Instalación del binario para Linux de kubectl con Curl
 
-1. Descargar la ultima versión con el siguiente comando:
+1. Descargar la última versión con el siguiente comando:
 
    {{< tabs name="download_binary_linux" >}}
    {{< tab name="x86-64" codelang="bash" >}}
@@ -102,12 +102,12 @@ Existen los siguientes métodos para instalar kubectl en Linux:
    chmod +x kubectl
    mkdir -p ~/.local/bin
    mv ./kubectl ~/.local/bin/kubectl
-   # Y Despues agregue el directorio ~/.local/bin a su $PATH
+   # Y después agregue el directorio ~/.local/bin a su $PATH
    ```
 
    {{< /note >}}
 
-1. Test para asegurar que la versión instalada esta actualizada:
+1. Test para asegurar que la versión instalada está actualizada:
 
    ```bash
    kubectl version --client
@@ -132,7 +132,7 @@ Existen los siguientes métodos para instalar kubectl en Linux:
    sudo apt-get install -y apt-transport-https ca-certificates curl
    ```
 
-2. Descarge la llave pública firmada para los repositorios de Kubernetes. La misma llave firmada es usada para todos los repositorios por lo que se puede obviarl a versión en la URL:
+2. Descarge la llave pública firmada para los repositorios de Kubernetes. La misma llave firmada es usada para todos los repositorios por lo que se puede obviar la versión en la URL:
 
    ```shell
    curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
@@ -147,7 +147,7 @@ Existen los siguientes métodos para instalar kubectl en Linux:
    ```
 
 {{< note >}}
-Para actualizar kubectl a una minor release diferente, se debe reemplazar la versión en el archivo `/etc/apt/sources.list.d/kubernetes.list` antes de ejecutar `apt-get update` y `apt-get upgrade`. Este procedimiento se describe con mas detalle en [Cambiando el Repositorio de Kubernetes](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
+Para actualizar kubectl a una minor release diferente, se debe reemplazar la versión en el archivo `/etc/apt/sources.list.d/kubernetes.list` antes de ejecutar `apt-get update` y `apt-get upgrade`. Este procedimiento se describe con más detalle en [Cambiando el Repositorio de Kubernetes](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
 {{< /note >}}
 
 4. Actualice el índice de `apt`, luego instale kubectl:
@@ -226,12 +226,12 @@ antes de ejecutar `zypper update`. Este procedimiento se describe con más detal
 {{% /tab %}}
 {{< /tabs >}}
 
-### Instalación usando otro administrador de paquetes
+### Instalación usando otro administrador de páquetes
 
 {{< tabs name="other_kubectl_install" >}}
 {{% tab name="Snap" %}}
 Si utiliza Ubuntu o alguna distribución que soporte el administrador de
-paquetes [snap](https://snapcraft.io/docs/core/install), kubectl
+páquetes [snap](https://snapcraft.io/docs/core/install), kubectl
 esta disponible como una aplicación de [snap](https://snapcraft.io/).
 
 ```shell
@@ -243,7 +243,7 @@ kubectl version --client
 
 {{% tab name="Homebrew" %}}
 Si utiliza [Homebrew](https://docs.brew.sh/Homebrew-on-Linux) en Linux,
-kubectl esta disponible para su [instalación](https://docs.brew.sh/Homebrew-on-Linux#install).
+kubectl está disponible para su [instalación](https://docs.brew.sh/Homebrew-on-Linux#install).
 
 ```shell
 brew install kubectl
@@ -265,7 +265,7 @@ kubectl version --client
 Kubectl tiene soporte para autocompletar en Bash, Zsh, Fish y Powershell,
 lo que puede agilizar el tipeo.
 
-A continuación estan los procedimientos para configurarlo en Bash, Fisch y Zsh.
+A continuación están los procedimientos para configurarlo en Bash, Fisch y Zsh.
 
 {{< tabs name="kubectl_autocompletion" >}}
 {{< tab name="Bash" include="included/optional-kubectl-configs-bash-linux.md" />}}
@@ -277,7 +277,7 @@ A continuación estan los procedimientos para configurarlo en Bash, Fisch y Zsh.
 
 {{< include "included/kubectl-convert-overview.md" >}}
 
-1. Descargue la última version con el siguiente comando:
+1. Descargue la última versión con el siguiente comando:
 
    {{< tabs name="download_convert_binary_linux" >}}
    {{< tab name="x86-64" codelang="bash" >}}
@@ -336,7 +336,7 @@ A continuación estan los procedimientos para configurarlo en Bash, Fisch y Zsh.
    kubectl convert --help
    ```
 
-   Si no visualiza ningún error quiere decir que el plugin fue isntalado correctamente.
+   Si no visualiza ningún error quiere decir que el plugin fue instalado correctamente.
 
 1. Después de instalar el plugin elimine los archivos de instalación:
 
