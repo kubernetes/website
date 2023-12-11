@@ -14,6 +14,9 @@ Init containers can contain utilities or setup scripts not present in an app ima
 You can specify init containers in the Pod specification alongside the `containers`
 array (which describes app containers).
 
+In Kubernetes, a [sidecar container](/docs/concepts/workloads/pods/sidecar-containers/) is a container that
+starts before the main application container and _continues to run_. This document is about init containers:
+containers that run to completion during Pod initialization.
 
 <!-- body -->
 
@@ -48,13 +51,32 @@ including resource limits, [volumes](/docs/concepts/storage/volumes/), and secur
 resource requests and limits for an init container are handled differently,
 as documented in [Resource sharing within containers](#resource-sharing-within-containers).
 
-Also, init containers do not support `lifecycle`, `livenessProbe`, `readinessProbe`, or
-`startupProbe` because they must run to completion before the Pod can be ready.
+Regular init containers (in other words: excluding sidecar containers) do not support the
+`lifecycle`, `livenessProbe`, `readinessProbe`, or `startupProbe` fields. Init containers
+must run to completion before the Pod can be ready; sidecar containers continue running
+during a Pod's lifetime, and _do_ support some probes. See [sidecar container](/docs/concepts/workloads/pods/sidecar-containers/)
+for further details about sidecar containers.
 
 If you specify multiple init containers for a Pod, kubelet runs each init
 container sequentially. Each init container must succeed before the next can run.
 When all of the init containers have run to completion, kubelet initializes
 the application containers for the Pod and runs them as usual.
+
+### Differences from sidecar containers
+
+Init containers run and complete their tasks before the main application container starts.
+Unlike [sidecar containers](/docs/concepts/workloads/pods/sidecar-containers),
+init containers are not continuously running alongside the main containers.
+
+Init containers run to completion sequentially, and the main container does not start
+until all the init containers have successfully completed.
+
+init containers do not support `lifecycle`, `livenessProbe`, `readinessProbe`, or
+`startupProbe` whereas sidecar containers support all these [probes](/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe) to control their lifecycle.
+
+Init containers share the same resources (CPU, memory, network) with the main application
+containers but do not interact directly with them. They can, however, use shared volumes
+for data exchange.
 
 ## Using init containers
 
@@ -289,51 +311,9 @@ The Pod which is already running correctly would be killed by `activeDeadlineSec
 The name of each app and init container in a Pod must be unique; a
 validation error is thrown for any container sharing a name with another.
 
-#### API for sidecar containers
+### Resource sharing within containers
 
-{{< feature-state for_k8s_version="v1.28" state="alpha" >}}
-
-Starting with Kubernetes 1.28 in alpha, a feature gate named `SidecarContainers`
-allows you to specify a `restartPolicy` for init containers which is independent of
-the Pod and other init containers. Container [probes](/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe)
-can also be added to control their lifecycle.
-
-If an init container is created with its `restartPolicy` set to `Always`, it will
-start and remain running during the entire life of the Pod, which is useful for
-running supporting services separated from the main application containers.
-
-If a `readinessProbe` is specified for this init container, its result will be used
-to determine the `ready` state of the Pod.
-
-Since these containers are defined as init containers, they benefit from the same
-ordering and sequential guarantees as other init containers, allowing them to
-be mixed with other init containers into complex Pod initialization flows.
-
-Compared to regular init containers, sidecar-style init containers continue to
-run and the next init container can begin starting once the kubelet has set
-the `started` container status for the sidecar-style init container to true.
-That status either becomes true because there is a process running in the
-container and no startup probe defined, or
-as a result of its `startupProbe` succeeding.
-
-This feature can be used to implement the sidecar container pattern in a more
-robust way, as the kubelet always restarts a sidecar container if it fails.
-
-Here's an example of a Deployment with two containers, one of which is a sidecar:
-
-{{% code_sample language="yaml" file="application/deployment-sidecar.yaml" %}}
-
-This feature is also useful for running Jobs with sidecars, as the sidecar
-container will not prevent the Job from completing after the main container
-has finished.
-
-Here's an example of a Job with two containers, one of which is a sidecar:
-
-{{% code_sample language="yaml" file="application/job/job-sidecar.yaml" %}}
-
-#### Resource sharing within containers
-
-Given the ordering and execution for init containers, the following rules
+Given the order of execution for init, sidecar and app containers, the following rules
 for resource usage apply:
 
 * The highest of any particular resource request or limit defined on all init
@@ -354,6 +334,10 @@ limit.
 Pod level control groups (cgroups) are based on the effective Pod request and
 limit, the same as the scheduler.
 
+{{< comment >}}
+This section also present under [sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/) page.
+If you're editing this section, change both places.
+{{< /comment >}}
 
 ### Pod restart reasons
 
@@ -373,7 +357,9 @@ Kubernetes, consult the documentation for the version you are using.
 
 ## {{% heading "whatsnext" %}}
 
-* Read about [creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)
-* Learn how to [debug init containers](/docs/tasks/debug/debug-application/debug-init-containers/)
-* Read about an overview of [kubelet](/docs/reference/command-line-tools-reference/kubelet/) and [kubectl](/docs/reference/kubectl/)
-* Learn about the [types of probes](/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe): liveness, readiness, startup probe.
+Learn more about the following:
+* [Creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container).
+* [Debug init containers](/docs/tasks/debug/debug-application/debug-init-containers/).
+* Overview of [kubelet](/docs/reference/command-line-tools-reference/kubelet/) and [kubectl](/docs/reference/kubectl/).
+* [Types of probes](/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe): liveness, readiness, startup probe.
+* [Sidecar containers](/docs/concepts/workloads/pods/sidecar-containers).
