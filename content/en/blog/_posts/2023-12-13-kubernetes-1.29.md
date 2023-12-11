@@ -47,7 +47,7 @@ In Kubernetes, a volume expansion operation may include the expansion of the vol
 
 To meet this requirement, the CSI Node Expand Secret feature was introduced in Kubernetes v1.25. This allows an optional secret field to be sent as part of the NodeExpandVolumeRequest by the CSI drivers so that node volume expansion operation can be performed with the underlying storage system. In Kubernetes v1.29, this feature became generally available.
 
-### KMS v2 encryption at rest graduates to GA in v1.29 ([Sig Auth](https://github.com/kubernetes/community/tree/master/sig-auth))
+### KMS v2 encryption at rest generally available ([SIG Auth](https://github.com/kubernetes/community/tree/master/sig-auth)) {#kms-v2-api-encryption}
  
 One of the first things to consider when securing a Kubernetes cluster is encrypting persisted API data at rest. KMS provides an interface for a provider to utilize a key stored in an external key service to perform this encryption. With the new release of Kubernetes, KMS v2 has become a stable feature bringing numerous improvements in performance, key rotation, health check & status, and observability. These enhancements enable users with a reliable solution to encrypt all resources in their Kubernetes clusters. [KEP-3299](https://kep.k8s.io/3299)
 
