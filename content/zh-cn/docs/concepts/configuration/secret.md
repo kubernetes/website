@@ -705,7 +705,7 @@ TLS Secret 的一种典型用法是为 [Ingress](/zh-cn/docs/concepts/services-n
 <!--
 The TLS Secret type is provided only for convenience.
 You can create an `Opaque` type for credentials used for TLS authentication.
-However, using the defined and public Secret type (`kubernetes.io/ssh-auth`)
+However, using the defined and public Secret type (`kubernetes.io/tls`)
 helps ensure the consistency of Secret format in your project. The API server
 verifies if the required keys are set for a Secret of this type.
 
@@ -713,7 +713,7 @@ To create a TLS Secret using `kubectl`, use the `tls` subcommand:
 -->
 提供 TLS 类型的 Secret 仅仅是出于方便性考虑。
 你可以创建 `Opaque` 类型的 Secret 来保存用于 TLS 身份认证的凭据。
-不过，使用已定义和公开的 Secret 类型有助于确保你自己项目中的 Secret 格式的一致性。
+不过，使用已定义和公开的 Secret 类型（`kubernetes.io/tls`）有助于确保你自己项目中的 Secret 格式的一致性。
 API 服务器会验证这种类型的 Secret 是否设定了所需的主键。
 
 要使用 `kubectl` 创建 TLS Secret，你可以使用 `tls` 子命令：
