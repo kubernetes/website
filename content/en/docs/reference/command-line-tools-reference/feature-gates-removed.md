@@ -120,6 +120,9 @@ In the following table:
 | `CronJobControllerV2` | `false` | Alpha | 1.20 | 1.20 |
 | `CronJobControllerV2` | `true` | Beta | 1.21 | 1.21 |
 | `CronJobControllerV2` | `true` | GA | 1.22 | 1.23 |
+| `CronJobTimeZone` | `false` | Alpha | 1.24 | 1.24 |
+| `CronJobTimeZone` | `true` | Beta | 1.25 | 1.26 |
+| `CronJobTimeZone` | `true` | GA | 1.27 | 1.28 |
 | `CustomPodDNS` | `false` | Alpha | 1.9 | 1.9 |
 | `CustomPodDNS` | `true` | Beta| 1.10 | 1.13 |
 | `CustomPodDNS` | `true` | GA | 1.14 | 1.16 |
@@ -153,6 +156,10 @@ In the following table:
 | `DisableAcceleratorUsageMetrics` | `false` | Alpha | 1.19 | 1.19 |
 | `DisableAcceleratorUsageMetrics` | `true` | Beta | 1.20 | 1.24 |
 | `DisableAcceleratorUsageMetrics` | `true` | GA | 1.25 | 1.27 |
+| `DownwardAPIHugePages` | `false` | Alpha | 1.20 | 1.20 |
+| `DownwardAPIHugePages` | `false` | Beta | 1.21 | 1.21 |
+| `DownwardAPIHugePages` | `true` | Beta | 1.22 | 1.26 |
+| `DownwardAPIHugePages` | `true` | GA | 1.27 | 1.28 |
 | `DryRun` | `false` | Alpha | 1.12 | 1.12 |
 | `DryRun` | `true` | Beta | 1.13 | 1.18 |
 | `DryRun` | `true` | GA | 1.19 | 1.27 |
@@ -200,6 +207,9 @@ In the following table:
 | `ExternalPolicyForExternalIP` | `true` | GA | 1.18 | 1.22 |
 | `GCERegionalPersistentDisk` | `true` | Beta | 1.10 | 1.12 |
 | `GCERegionalPersistentDisk` | `true` | GA | 1.13 | 1.16 |
+| `GRPCContainerProbe` | `false` | Alpha | 1.23 | 1.23 |
+| `GRPCContainerProbe` | `true` | Beta | 1.24 | 1.26 |
+| `GRPCContainerProbe` | `true` | GA | 1.27 | 1.28 |
 | `GenericEphemeralVolume` | `false` | Alpha | 1.19 | 1.20 |
 | `GenericEphemeralVolume` | `true` | Beta | 1.21 | 1.22 |
 | `GenericEphemeralVolume` | `true` | GA | 1.23 | 1.24 |
@@ -228,6 +238,8 @@ In the following table:
 | `IngressClassNamespacedParams` | `true` | GA | 1.23 | 1.24 |
 | `Initializers` | `false` | Alpha | 1.7 | 1.13 |
 | `Initializers` | - | Deprecated | 1.14 | 1.14 |
+| `JobMutableNodeSchedulingDirectives` | `true` | Beta | 1.23 | 1.26 |
+| `JobMutableNodeSchedulingDirectives` | `true` | GA | 1.27 | 1.28 |
 | `KMSv1` | `true` | Deprecated | 1.28 | |
 | `KubeletConfigFile` | `false` | Alpha | 1.8 | 1.9 |
 | `KubeletConfigFile` | - | Deprecated | 1.10 | 1.10 |
@@ -240,6 +252,8 @@ In the following table:
 | `LegacyNodeRoleBehavior` | `false` | Alpha | 1.16 | 1.18 |
 | `LegacyNodeRoleBehavior` | `true` | Beta | 1.19 | 1.20 |
 | `LegacyNodeRoleBehavior` | `false` | GA | 1.21 | 1.22 |
+| `LegacyServiceAccountTokenNoAutoGeneration` | `true` | Beta | 1.24 | 1.25 |
+| `LegacyServiceAccountTokenNoAutoGeneration` | `true` | GA | 1.26 | 1.28 |
 | `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | 1.9 |
 | `LocalStorageCapacityIsolation` | `true` | Beta | 1.10 | 1.24 |
 | `LocalStorageCapacityIsolation` | `true` | GA | 1.25 | 1.26 |
@@ -303,6 +317,9 @@ In the following table:
 | `ResourceQuotaScopeSelectors` | `false` | Alpha | 1.11 | 1.11 |
 | `ResourceQuotaScopeSelectors` | `true` | Beta | 1.12 | 1.16 |
 | `ResourceQuotaScopeSelectors` | `true` | GA | 1.17 | 1.18 |
+| `RetroactiveDefaultStorageClass` | `false` | Alpha | 1.25 | 1.25 |
+| `RetroactiveDefaultStorageClass` | `true` | Beta | 1.26 | 1.27 |
+| `RetroactiveDefaultStorageClass` | `true` | GA | 1.28 | 1.28 |
 | `RootCAConfigMap` | `false` | Alpha | 1.13 | 1.19 |
 | `RootCAConfigMap` | `true` | Beta | 1.20 | 1.20 |
 | `RootCAConfigMap` | `true` | GA | 1.21 | 1.22 |
@@ -393,6 +410,9 @@ In the following table:
 | `TokenRequestProjection` | `false` | Alpha | 1.11 | 1.11 |
 | `TokenRequestProjection` | `true` | Beta | 1.12 | 1.19 |
 | `TokenRequestProjection` | `true` | GA | 1.20 | 1.21 |
+| `TopologyManager` | `false` | Alpha | 1.16 | 1.17 |	
+| `TopologyManager` | `true` | Beta | 1.18 | 1.26 |	
+| `TopologyManager` | `true` | GA | 1.27 | 1.28 |
 | `UserNamespacesStatelessPodsSupport` | `false` | Alpha | 1.25 | 1.27 |
 | `ValidateProxyRedirects` | `false` | Alpha | 1.12 | 1.13 |
 | `ValidateProxyRedirects` | `true` | Beta | 1.14 | 1.21 |
@@ -591,16 +611,18 @@ In the following table:
   [Configure volume permission and ownership change policy for Pods](/docs/tasks/configure-pod-container/security-context/#configure-volume-permission-and-ownership-change-policy-for-pods)
   for more details.
 
-- `CronJobControllerV2`: Use an alternative implementation of the
-  {{< glossary_tooltip text="CronJob" term_id="cronjob" >}} controller. Otherwise,
-  version 1 of the same controller is selected.
-
 - `ControllerManagerLeaderMigration`: Enables Leader Migration for
   [kube-controller-manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/#initial-leader-migration-configuration) and
   [cloud-controller-manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/#deploy-cloud-controller-manager)
   which allows a cluster operator to live migrate
   controllers from the kube-controller-manager into an external controller-manager
   (e.g. the cloud-controller-manager) in an HA cluster without downtime.
+
+- `CronJobControllerV2`: Use an alternative implementation of the
+  {{< glossary_tooltip text="CronJob" term_id="cronjob" >}} controller. Otherwise,
+  version 1 of the same controller is selected.
+
+- `CronJobTimeZone`: Allow the use of the `timeZone` optional field in [CronJobs](/docs/concepts/workloads/controllers/cron-jobs/)
 
 - `CustomPodDNS`: Enable customizing the DNS settings for a Pod using its `dnsConfig` property.
   Check [Pod's DNS Config](/docs/concepts/services-networking/dns-pod-service/#pods-dns-config)
@@ -635,6 +657,9 @@ In the following table:
 
 - `DisableAcceleratorUsageMetrics`:
   [Disable accelerator metrics collected by the kubelet](/docs/concepts/cluster-administration/system-metrics/#disable-accelerator-metrics).
+
+- `DownwardAPIHugePages`: Enables usage of hugepages in
+  [downward API](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information).
 
 - `DryRun`: Enable server-side [dry run](/docs/reference/using-api/api-concepts/#dry-run) requests
   so that validation, merging, and mutation can be tested without committing.
@@ -695,6 +720,9 @@ In the following table:
 
 - `GCERegionalPersistentDisk`: Enable the regional PD feature on GCE.
 
+- `GRPCContainerProbe`: Enables the gRPC probe method for {Liveness,Readiness,Startup}Probe.
+  See [Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-a-grpc-liveness-probe).
+
 - `GenericEphemeralVolume`: Enables ephemeral, inline volumes that support all features
   of normal volumes (can be provided by third-party storage vendors, storage capacity tracking,
   restore from snapshot, etc.).
@@ -731,6 +759,9 @@ In the following table:
 - `Initializers`: Allow asynchronous coordination of object creation using the
   Initializers admission plugin.
 
+- `JobMutableNodeSchedulingDirectives`: Allows updating node scheduling directives in
+  the pod template of [Job](/docs/concepts/workloads/controllers/job).
+
 - `KubeletConfigFile`: Enable loading kubelet configuration from
   a file specified using a config file.
   See [setting kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file/)
@@ -745,6 +776,9 @@ In the following table:
 - `LegacyNodeRoleBehavior`: When disabled, legacy behavior in service load balancers and
   node disruption will ignore the `node-role.kubernetes.io/master` label in favor of the
   feature-specific labels provided by `NodeDisruptionExclusion` and `ServiceNodeExclusion`.
+
+- `LegacyServiceAccountTokenNoAutoGeneration`: Stop auto-generation of Secret-based
+  [service account tokens](/docs/concepts/security/service-accounts/#get-a-token).
 
 - `LocalStorageCapacityIsolation`: Enable the consumption of
   [local ephemeral storage](/docs/concepts/configuration/manage-resources-containers/)
@@ -817,6 +851,8 @@ In the following table:
   nodes with same scores.
 
 - `ResourceQuotaScopeSelectors`: Enable resource quota scope selectors.
+
+- `RetroactiveDefaultStorageClass`: Allow assigning StorageClass to unbound PVCs retroactively.
 
 - `RootCAConfigMap`: Configure the `kube-controller-manager` to publish a
   {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} named `kube-root-ca.crt`
@@ -919,6 +955,10 @@ In the following table:
 
 - `TokenRequestProjection`: Enable the injection of service account tokens into a Pod through a
   [`projected` volume](/docs/concepts/storage/volumes/#projected).
+
+- `TopologyManager`: Enable a mechanism to coordinate fine-grained hardware resource	
+  assignments for different components in Kubernetes. See	
+  [Control Topology Management Policies on a node](/docs/tasks/administer-cluster/topology-manager/).
 
 - `UserNamespacesStatelessPodsSupport`: Enable user namespace support for stateless Pods. This flag was renamed on newer releases to `UserNamespacesSupport`.
 

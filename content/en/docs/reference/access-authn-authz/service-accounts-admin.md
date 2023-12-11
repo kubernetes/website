@@ -1,9 +1,7 @@
 ---
 reviewers:
-  - bprashanth
-  - davidopp
-  - lavalamp
   - liggitt
+  - enj
 title: Managing Service Accounts
 content_type: concept
 weight: 50
@@ -140,6 +138,62 @@ using [TokenRequest](/docs/reference/kubernetes-api/authentication-resources/tok
 to obtain short-lived API access tokens is recommended instead.
 {{< /note >}}
 
+## Auto-generated legacy ServiceAccount token clean up {#auto-generated-legacy-serviceaccount-token-clean-up}
+
+Before version 1.24, Kubernetes automatically generated Secret-based tokens for
+ServiceAccounts. To distinguish between automatically generated tokens and
+manually created ones, Kubernetes checks for a reference from the
+ServiceAccount's secrets field. If the Secret is referenced in the `secrets`
+field, it is considered an auto-generated legacy token. Otherwise, it is
+considered a manually created legacy token. For example:
+
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: build-robot
+  namespace: default
+secrets:
+  - name: build-robot-secret # usually NOT present for a manually generated token                         
+```
+
+Beginning from version 1.29, legacy ServiceAccount tokens that were generated
+automatically will be marked as invalid if they remain unused for a certain
+period of time (set to default at one year). Tokens that continue to be unused
+for this defined period (again, by default, one year) will subsequently be
+purged by the control plane.
+
+If users use an invalidated auto-generated token, the token validator will
+
+1. add an audit annotation for the key-value pair
+  `authentication.k8s.io/legacy-token-invalidated: <secret name>/<namepace>`,
+1. increment the `invalid_legacy_auto_token_uses_total` metric count,
+1. update the Secret label `kubernetes.io/legacy-token-last-used` with the new
+   date,
+1. return an error indicating that the token has been invalidated.
+
+When receiving this validation error, users can update the Secret to remove the
+`kubernetes.io/legacy-token-invalid-since` label to temporarily allow use of
+this token.
+
+Here's an example of an auto-generated legacy token that has been marked with the
+`kubernetes.io/legacy-token-last-used` and `kubernetes.io/legacy-token-invalid-since`
+labels:
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: build-robot-secret
+  namespace: default
+  labels:
+    kubernetes.io/legacy-token-last-used: 2022-10-24
+    kubernetes.io/legacy-token-invalid-since: 2023-10-25
+  annotations:
+    kubernetes.io/service-account.name: build-robot
+type: kubernetes.io/service-account-token
+```
+
 ## Control plane details
 
 ### ServiceAccount controller
@@ -192,6 +246,51 @@ it does the following when a Pod is created:
      on Windows nodes, the mount is at the equivalent path.
 1. If the spec of the incoming Pod doesn't already contain any `imagePullSecrets`, then the
    admission controller adds `imagePullSecrets`, copying them from the `ServiceAccount`.
+
+### Legacy ServiceAccount token tracking controller
+
+{{< feature-state for_k8s_version="v1.28" state="stable" >}}
+
+This controller generates a ConfigMap called
+`kube-system/kube-apiserver-legacy-service-account-token-tracking` in the
+`kube-system` namespace. The ConfigMap records the timestamp when legacy service
+account tokens began to be monitored by the system.
+
+### Legacy ServiceAccount token cleaner
+
+{{< feature-state for_k8s_version="v1.29" state="beta" >}}
+
+The legacy ServiceAccount token cleaner runs as part of the
+`kube-controller-manager` and checks every 24 hours to see if any auto-generated
+legacy ServiceAccount token has not been used in a *specified amount of time*.
+If so, the cleaner marks those tokens as invalid.
+
+The cleaner works by first checking the ConfigMap created by the control plane
+(provided that `LegacyServiceAccountTokenTracking` is enabled). If the current
+time is a *specified amount of time* after the date in the ConfigMap, the
+cleaner then loops through the list of Secrets in the cluster and evaluates each
+Secret that has the type `kubernetes.io/service-account-token`.
+
+If a Secret meets all of the following conditions, the cleaner marks it as
+invalid:
+
+- The Secret is auto-generated, meaning that it is bi-directionally referenced
+  by a ServiceAccount.
+- The Secret is not currently mounted by any pods.
+- The Secret has not been used in a *specified amount of time* since it was
+  created or since it was last used.
+
+The cleaner marks a Secret invalid by adding a label called
+`kubernetes.io/legacy-token-invalid-since` to the Secret, with the current date
+as the value. If an invalid Secret is not used in a *specified amount of time*,
+the cleaner will delete it.
+
+{{< note >}}
+All the *specified amount of time* above defaults to one year. The cluster
+administrator can configure this value through the
+`--legacy-service-account-token-clean-up-period` command line argument for the
+`kube-controller-manager` component.
+{{< /note >}}
 
 ### TokenRequest API
 
@@ -299,6 +398,12 @@ token:          ...
 
 If you launch a new Pod into the `examplens` namespace, it can use the `myserviceaccount`
 service-account-token Secret that you just created.
+
+{{< caution >}}
+Do not reference manually created Secrets in the `secrets` field of a
+ServiceAccount. Or the manually created Secrets will be cleaned if it is not used for a long
+time. Please refer to [auto-generated legacy ServiceAccount token clean up](#auto-generated-legacy-serviceaccount-token-clean-up).
+{{< /caution >}}
 
 ## Delete/invalidate a ServiceAccount token {#delete-token}
 

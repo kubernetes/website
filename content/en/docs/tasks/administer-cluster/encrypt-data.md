@@ -248,7 +248,7 @@ The following table describes each available provider.
     </td>
   </tr>
   <tr>
-  <th rowspan="2" scope="row"><tt>kms</tt> v2 <em>(beta)</em></th>
+  <th rowspan="2" scope="row"><tt>kms</tt> v2 </th>
   <td>Uses envelope encryption scheme with DEK per API server.</td>
   <td>Strongest</td>
   <td>Fast</td>
@@ -259,14 +259,10 @@ The following table describes each available provider.
     Data is encrypted by data encryption keys (DEKs) using AES-GCM; DEKs
     are encrypted by key encryption keys (KEKs) according to configuration
     in Key Management Service (KMS).
-    Kubernetes defaults to generating a new DEK at API server startup, which is then
-    reused for object encryption.
-    If you enable the <tt>KMSv2KDF</tt>
-    <a href="/docs/reference/command-line-tools-reference/feature-gates/">feature gate</a>,
-    Kubernetes instead generates a new DEK per encryption from a secret seed.
-    Whichever approach you configure, the DEK or seed is also rotated whenever the KEK is rotated.<br/>
+    Kubernetes generates a new DEK per encryption from a secret seed.
+    The seed is rotated whenever the KEK is rotated.<br/>
     A good choice if using a third party tool for key management.
-    Available in beta from Kubernetes v1.27.
+    Available as stable from Kubernetes v1.29.
     <br />
     Read how to <a href="/docs/tasks/administer-cluster/kms-provider#configuring-the-kms-provider-kms-v2">configure the KMS V2 provider</a>.
     </td>
@@ -538,4 +534,3 @@ To allow automatic reloading, configure the API server to run with:
 
 * Read about [decrypting data that are already stored at rest](/docs/tasks/administer-cluster/decrypt-data/)
 * Learn more about the [EncryptionConfiguration configuration API (v1)](/docs/reference/config-api/apiserver-encryption.v1/).
-

@@ -152,6 +152,35 @@ host's file owner/group.
 
 [CVE-2021-25741]: https://github.com/kubernetes/kubernetes/issues/104980
 
+## Integration with Pod security admission checks
+
+{{< feature-state state="alpha" for_k8s_version="v1.29" >}}
+
+For Linux Pods that enable user namespaces, Kubernetes relaxes the application of
+[Pod Security Standards](/docs/concepts/security/pod-security-standards) in a controlled way.
+This behavior can be controlled by the [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/)
+`UserNamespacesPodSecurityStandards`, which allows an early opt-in for end
+users. Admins have to ensure that user namespaces are enabled by all nodes
+within the cluster if using the feature gate.
+
+If you enable the associated feature gate and create a Pod that uses user
+namespaces, the following fields won't be constrained even in contexts that enforce the
+_Baseline_ or _Restricted_ pod security standard. This behavior does not
+present a security concern because `root` inside a Pod with user namespaces
+actually refers to the user inside the container, that is never mapped to a
+privileged user on the host. Here's the list of fields that are **not** checks for Pods in those
+circumstances:
+
+- `spec.securityContext.runAsNonRoot`
+- `spec.containers[*].securityContext.runAsNonRoot`
+- `spec.initContainers[*].securityContext.runAsNonRoot`
+- `spec.ephemeralContainers[*].securityContext.runAsNonRoot`
+- `spec.securityContext.runAsUser`
+- `spec.containers[*].securityContext.runAsUser`
+- `spec.initContainers[*].securityContext.runAsUser`
+- `spec.ephemeralContainers[*].securityContext.runAsUser`
+
 ## Limitations
 
 When using a user namespace for the pod, it is disallowed to use other host

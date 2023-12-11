@@ -5,7 +5,7 @@ weight: 50
 ---
 
 <!-- overview -->
-{{< feature-state for_k8s_version="v1.28" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.29" state="beta" >}}
 
 Sidecar containers are the secondary containers that run along with the main
 application container within the same {{< glossary_tooltip text="Pod" term_id="pod" >}}.

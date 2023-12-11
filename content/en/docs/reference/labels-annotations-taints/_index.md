@@ -1043,6 +1043,23 @@ last saw a request where the client authenticated using the service account toke
 If a legacy token was last used before the cluster gained the feature (added in Kubernetes v1.26),
 then the label isn't set.
 
+### kubernetes.io/legacy-token-invalid-since
+
+Type: Label
+
+Example: `kubernetes.io/legacy-token-invalid-since: 2023-10-27`
+
+Used on: Secret
+
+The control plane automatically adds this label to auto-generated Secrets that
+have the type `kubernetes.io/service-account-token`, provided that you have the
+`LegacyServiceAccountTokenCleanUp` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+enabled. Kubernetes {{< skew currentVersion >}} enables that behavior by default.
+This label marks the Secret-based token as invalid for authentication. The value
+of this label records the date (ISO 8601 format, UTC time zone) when the control
+plane detects that the auto-generated Secret has not been used for a specified
+duration (defaults to one year).
+
 ### endpointslice.kubernetes.io/managed-by {#endpointslicekubernetesiomanaged-by}
 
 Type: Label
