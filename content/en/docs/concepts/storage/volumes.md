@@ -60,7 +60,7 @@ a different volume.
 
 ## In-tree volume plugins and their CSI Migration progress {#volume-types}
 
-Below is a list of In-tree plugins that are supported by Kubernetes and the status of their respective CSI Migrations progress.
+Below is a list of in-tree plugins that are supported by Kubernetes and the status of their respective CSI Migrations progress.
 The Container Storage Interface (CSI) was designed to help Kubernetes replace its existing, in-tree storage driver mechanisms - especially vendor specific plugins. Kubernetes support for the Container Storage Interface has been generally available since Kubernetes v1.13. For more details on CSI Migration, please refer to [Out-of-tree volume plugins](#out-of-tree-volume-plugins).
 
 {{< note >}}
