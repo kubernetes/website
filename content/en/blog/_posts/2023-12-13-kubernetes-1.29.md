@@ -15,7 +15,7 @@ Similar to previous releases, the release of Kubernetes v1.29 introduces new sta
 
 This release consists of 49 enhancements. Of those enhancements, 11 have graduated to Stable, 19 are entering Beta and 19 have graduated to Alpha.
 
-## Release Theme And Logo
+## Release theme and logo
     
 Kubernetes v1.29: *Mandala (The Universe)*.
 
@@ -75,7 +75,7 @@ The throughput of the scheduler is our eternal challenge. This QueueingHint feat
 
 As title describes, it's to decouple `TaintManager` that performs taint-based pod eviction from `NodeLifecycleController` and make them two separate controllers: `NodeLifecycleController` to add taints to unhealthy nodes and `TaintManager` to perform pod deletion on nodes tainted with NoExecute effect.
 
-### Reduce secret based SA token, LegacyServiceAccountTokenCleanUp going to Beta in v1.29 ([Sig Auth](https://github.com/kubernetes/community/tree/master/sig-auth))
+### Clean up for legacy Secret-based ServiceAccount tokens ([SIG Auth](https://github.com/kubernetes/community/tree/master/sig-auth)) {#serviceaccount-token-clean-up}
 
 Kubernetes switched to using more secure service account tokens, which were time-limited and bound to specific pods by 1.22. Stopped auto-generating legacy secret-based service account tokens in 1.24. Then started labeling remaining auto-generated secret-based tokens still in use with their last-used date in 1.27.
 
@@ -106,7 +106,7 @@ Container images can either be a manifest or an index. When the image being pull
 
 The image pull per runtime class feature adds support to pull different images based the runtime class specified. This is achieved by referencing an image by a tuple of (`imageID`, `runtimeClass`), instead of just the `imageName` or `imageID`. Container runtimes could choose to add support for this feature if they'd like. If they do not, the default behavior of kubelet that existed prior to Kubernetes v1.29 will be retained.
 
-### Implement In-place Update of Pod Resources ([Sig Windows](https://github.com/kubernetes/community/tree/master/sig-windows))
+### In-place updates for Pod resources, for Windows Pods ([SIG Windows](https://github.com/kubernetes/community/tree/master/sig-windows))
 
 This feature makes the Pod spec mutable with respect to `resources`, allowing users to define the _desired_ resource requests and limits for a Pod without the need to restart the Pod. With v1.29, this feature is now supported for Windows containers.
 
@@ -178,6 +178,7 @@ deprecated.
 
 > Please note that in August of 2023, the legacy package repositories (apt.kubernetes.io and yum.kubernetes.io) were formally deprecated and the Kubernetes project announced the general availability of the community-owned package repositories for Debian and RPM packages available at pkgs.k8s.io. These legacy repositories were frozen in September of 2023, and will go away entirely in January of 2024. If you are currently relying on them, you _must_ migrate.
 _This deprecation is not directly related to the v1.29 release._ For more details, including how these changes may affect you and what to do if you are affected, please read the [legacy package repository deprecation announcement](/blog/2023/08/31/legacy-package-repository-deprecation/).
+
 ## Release notes
 
 Check out the full details of the Kubernetes v1.29 release in our [release notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.29.md).
