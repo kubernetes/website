@@ -138,7 +138,7 @@ Existen los siguientes métodos para instalar kubectl en Linux:
    curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    ```
 
-3. Agregue el repositorio apropiado de Kubernetes. Si usted quisiera una versión de Kubernetes diferente a {{< param "version" >}},
+3. Agregar el repositorio apropiado de Kubernetes. Si usted quisiera una versión de Kubernetes diferente a {{< param "version" >}},
    reemplace {{< param "version" >}} con la versión deseada en el siguiente comando:
 
    ```shell
@@ -165,7 +165,7 @@ En versiones anteriores a Debian 12 y Ubuntu 22.04 el directorio `/etc/apt/keyri
 
 {{% tab name="Red Hat-based distributions" %}}
 
-1. Agregue Kubernetes al repositorio `yum`. Si desea usar una versión de Kubernetes
+1. Agregar Kubernetes al repositorio `yum`. Si desea usar una versión de Kubernetes
    diferente a {{< param "version" >}}, reemplace {{< param "version" >}} con
    la versión deseada en el siguiente comando:
 
@@ -182,7 +182,8 @@ En versiones anteriores a Debian 12 y Ubuntu 22.04 el directorio `/etc/apt/keyri
    ```
 
 {{< note >}}
-Para actualizar kubectl a otra versión será necesario modificar la versión en `/etc/yum.repos.d/kubernetes.repo` antes de ejecutar `yum update`. Este procedimiento se describe con más detalle en [Changing The Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
+Para actualizar kubectl a otra versión será necesario modificar la versión en `/etc/yum.repos.d/kubernetes.repo`
+antes de ejecutar `yum update`. Este procedimiento se describe con más detalle en [Changing The Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
 {{< /note >}}
 
 2. Instalar kubectl utilizando `yum`:
@@ -195,12 +196,12 @@ Para actualizar kubectl a otra versión será necesario modificar la versión en
 
 {{% tab name="SUSE-based distributions" %}}
 
-1. Add the Kubernetes `zypper` repository. If you want to use Kubernetes version
-   different than {{< param "version" >}}, replace {{< param "version" >}} with
-   the desired minor version in the command below.
+1. Agregar Kubernetes al repositorio `zypper`. Si desea usar una versión de Kubernetes
+   diferente a {{< param "version" >}}, reemplace {{< param "version" >}} con
+   la versión deseada en el siguiente comando:
 
    ```bash
-   # This overwrites any existing configuration in /etc/zypp/repos.d/kubernetes.repo
+   # Lo siguiente reemplaza cualquier configuración existente en /etc/zypp/repos.d/kubernetes.repo
    cat <<EOF | sudo tee /etc/zypp/repos.d/kubernetes.repo
    [kubernetes]
    name=Kubernetes
@@ -212,12 +213,11 @@ Para actualizar kubectl a otra versión será necesario modificar la versión en
    ```
 
 {{< note >}}
-To upgrade kubectl to another minor release, you'll need to bump the version in `/etc/zypp/repos.d/kubernetes.repo`
-before running `zypper update`. This procedure is described in more detail in
-[Changing The Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
+Para actualizar kubectl a otra versión será necesario modificar la versión en `/etc/zypp/repos.d/kubernetes.repo`
+antes de ejecutar `zypper update`. Este procedimiento se describe con más detalle en [Changing The Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
 {{< /note >}}
 
-   2. Install kubectl using `zypper`:
+   2. Instalar kubectl usando `zypper`:
 
       ```bash
       sudo zypper install -y kubectl
@@ -338,7 +338,7 @@ A continuación estan los procedimientos para configurarlo en Bash, Fisch y Zsh.
 
    Si no visualiza ningún error quiere decir que el plugin fue isntalado correctamente.
 
-1. After installing the plugin, clean up the installation files:
+1. Después de instalar el plugin elimine los archivos de instalación:
 
    ```bash
    rm kubectl-convert kubectl-convert.sha256
