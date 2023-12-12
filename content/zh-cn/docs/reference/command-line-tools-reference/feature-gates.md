@@ -258,6 +258,7 @@ For a reference to old feature gates that are removed, please refer to
 | `TopologyManagerPolicyBetaOptions` | `true` | Beta | 1.28 | |
 | `TopologyManagerPolicyOptions` | `false` | Alpha | 1.26 | 1.27 |
 | `TopologyManagerPolicyOptions` | `true` | Beta | 1.28 | |
+| `UnauthenticatedHTTP2DOSMitigation` | `false` | Beta | 1.28 | |
 | `UnknownVersionInteroperabilityProxy` | `false` | Alpha | 1.28 | |
 | `UserNamespacesSupport` | `false` | Alpha | 1.28 | |
 | `ValidatingAdmissionPolicy` | `false` | Alpha | 1.26 | 1.27 |
@@ -397,7 +398,7 @@ For a reference to old feature gates that are removed, please refer to
 A feature can be in *Alpha*, *Beta* or *GA* stage.
 An *Alpha* feature means:
 -->
-处于 **Alpha** 、**Beta** 、 **GA** 阶段的特性。
+处于 **Alpha**、**Beta**、**GA** 阶段的特性。
 
 **Alpha** 特性代表：
 
@@ -454,7 +455,7 @@ After they exit beta, it may not be practical for us to make more changes.
 <!--
 A *General Availability* (GA) feature is also referred to as a *stable* feature. It means:
 -->
-**General Availability** (GA) 特性也称为 **稳定** 特性，**GA** 特性代表着：
+**General Availability**（GA）特性也称为**稳定**特性，**GA** 特性代表着：
 
 <!--
 * The feature is always enabled; you cannot disable it.
@@ -479,7 +480,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `AdmissionWebhookMatchConditions`: Enable [match conditions](/docs/reference/access-authn-authz/extensible-admission-controllers/#matching-requests-matchconditions)
   on mutating & validating admission webhooks.
 -->
-- `AdmissionWebhookMatchConditions`: 在转换和验证准入 Webhook
+- `AdmissionWebhookMatchConditions`：在转换和验证准入 Webhook
   上启用[匹配条件](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#matching-requests-matchconditions)
 <!--
 - `APIListChunking`: Enable the API clients to retrieve (`LIST` or `GET`)
@@ -623,7 +624,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   on behalf of a CronJob.
 - `CronJobTimeZone`: Allow the use of the `timeZone` optional field in [CronJobs](/docs/concepts/workloads/controllers/cron-jobs/).
 -->
-- `ComponentSLIs`: 在 kubelet、kube-scheduler、kube-proxy、kube-controller-manager、cloud-controller-manager
+- `ComponentSLIs`：在 kubelet、kube-scheduler、kube-proxy、kube-controller-manager、cloud-controller-manager
   等 Kubernetes 组件上启用 `/metrics/slis` 端点，从而允许你抓取健康检查指标。
 - `ConsistentHTTPGetHandlers`：使用探测器为生命周期处理程序规范化 HTTP get URL 和标头传递。
 - `ConsistentListFromCache`：允许 API 服务器从缓存中提供一致的列表。
@@ -1132,7 +1133,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   允许 kube-proxy 来处理终止过程中的端点。
 - `QOSReserved`：允许在 QoS 级别进行资源预留，以防止处于较低 QoS 级别的 Pod
   突发进入处于较高 QoS 级别的请求资源（目前仅适用于内存）。
-- `ReadWriteOncePod`: 允许使用 `ReadWriteOncePod` 访问模式的 PersistentVolume。
+- `ReadWriteOncePod`：允许使用 `ReadWriteOncePod` 访问模式的 PersistentVolume。
 <!--
 - `RecoverVolumeExpansionFailure`: Enables users to edit their PVCs to smaller
   sizes so as they can recover from previously issued volume expansion failures.
@@ -1196,16 +1197,23 @@ Each feature gate is designed for enabling/disabling a specific feature:
 -->
 - `SeccompDefault`：启用 `RuntimeDefault` 作为所有工作负载的默认 seccomp 配置文件。
   此 seccomp 配置文件在 Pod 和/或 Container 的 `securityContext` 中被指定。
-- `SecurityContextDeny`: 此门控表示 `SecurityContextDeny` 准入控制器已弃用。
+- `SecurityContextDeny`：此门控表示 `SecurityContextDeny` 准入控制器已弃用。
 - `ServerSideApply`：在 API 服务器上启用[服务器端应用（SSA）](/zh-cn/docs/reference/using-api/server-side-apply/)。
 - `ServerSideFieldValidation`：启用服务器端字段验证。
   这意味着验证资源模式在 API 服务器端而不是客户端执行
   （例如，`kubectl create` 或 `kubectl apply` 命令行）。
 <!--
+- `ServiceNodePortStaticSubrange`: Enables the use of different port allocation
+  strategies for NodePort Services. For more details, see
+  [reserve NodePort ranges to avoid collisions](/docs/concepts/services-networking/service/#avoid-nodeport-collisions).
+-->
+- `ServiceNodePortStaticSubrange`：允许对 NodePort Service
+  使用不同的端口分配策略。有关更多详细信息，
+  请参阅[保留 NodePort 范围以避免冲突](/zh-cn/docs/concepts/services-networking/service/#avoid-nodeport-collisions)。
+<!--
 - `SidecarContainers`: Allow setting the `restartPolicy` of an init container to
   `Always` so that the container becomes a sidecar container (restartable init containers).
-  See
-  [Sidecar containers and restartPolicy](/docs/concepts/workloads/pods/init-containers/#sidecar-containers-and-restartpolicy)
+  See [Sidecar containers and restartPolicy](/docs/concepts/workloads/pods/init-containers/#sidecar-containers-and-restartpolicy)
   for more details.
 -->
 - `SidecarContainers`：允许将 Init 容器的 `restartPolicy` 设置为 `Always`，
@@ -1225,7 +1233,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 -->
 - `SizeMemoryBackedVolumes`：允许 kubelet 检查基于内存制备的卷的尺寸约束（目前主要针对 `emptyDir` 卷）。
 - `SkipReadOnlyValidationGCE`：跳过对 GCE 的验证，将在下个版本中启用。
-- `StableLoadBalancerNodeSet`: 允许服务控制器（KCCM）根据节点状态变化来减少负载均衡器的重新配置。
+- `StableLoadBalancerNodeSet`：允许服务控制器（KCCM）根据节点状态变化来减少负载均衡器的重新配置。
 - `StatefulSetStartOrdinal`：允许在 StatefulSet 中配置起始序号。
   更多细节请参阅[起始序号](/zh-cn/docs/concepts/workloads/controllers/statefulset/#start-ordinal)。
 <!--
@@ -1258,13 +1266,16 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `TopologyManager`：启用一种机制来协调 Kubernetes 不同组件的细粒度硬件资源分配。
   详见[控制节点上的拓扑管理策略](/zh-cn/docs/tasks/administer-cluster/topology-manager/)。
 - `TopologyManagerPolicyAlphaOptions`：允许微调拓扑管理器策略的实验性的、Alpha 质量的选项。
-  此特性门控守护 **一组** 质量级别为 Alpha 的拓扑管理器选项。
+  此特性门控守护**一组**质量级别为 Alpha 的拓扑管理器选项。
   此特性门控绝对不会进阶至 Beta 或稳定版。
 - `TopologyManagerPolicyBetaOptions`：允许微调拓扑管理器策略的实验性的、Beta 质量的选项。
-  此特性门控守护 **一组** 质量级别为 Beta 的拓扑管理器选项。
+  此特性门控守护**一组**质量级别为 Beta 的拓扑管理器选项。
   此特性门控绝对不会进阶至稳定版。
 <!--
 - `TopologyManagerPolicyOptions`: Allow fine-tuning of topology manager policies,
+- `UnauthenticatedHTTP2DOSMitigation`: Enables HTTP/2 Denial of Service (DoS)
+  mitigations for unauthenticated clients.
+  Kubernetes v1.28.0 through v1.28.2 do not include this feature gate.
 - `UnknownVersionInteroperabilityProxy`: Proxy resource requests to the correct peer kube-apiserver when
   multiple kube-apiservers exist at varied versions.
   See [Mixed version proxy](/docs/concepts/architecture/mixed-version-proxy/) for more information.
@@ -1272,6 +1283,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   Before Kubernetes v1.28, this feature gate was named `UserNamespacesStatelessPodsSupport`.
 -->
 - `TopologyManagerPolicyOptions`：允许微调拓扑管理器策略。
+- `UnauthenticatedHTTP2DOSMitigation`：此功能针对未认证客户端启用 HTTP/2 拒绝服务（DoS）防御机制。
+  值得注意的是，Kubernetes v1.28.0 至 v1.28.2 版本中并未包含这一功能。
 - `UnknownVersionInteroperabilityProxy`：存在多个不同版本的 kube-apiserver 时将资源请求代理到正确的对等 kube-apiserver。
   详细信息请参阅[混合版本代理](/zh-cn/docs/concepts/architecture/mixed-version-proxy/)。
 - `UserNamespacesSupport`：为 Pod 启用用户名字空间支持。
@@ -1283,7 +1296,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   topologies based on available PV capacity.
 -->
 - `ValidatingAdmissionPolicy`：启用准入控制中所用的对 CEL 校验的 [ValidatingAdmissionPolicy](/zh-cn/docs/reference/access-authn-authz/validating-admission-policy/) 支持。
-- `VolumeCapacityPriority`: 基于可用 PV 容量的拓扑，启用对不同节点的优先级支持。
+- `VolumeCapacityPriority`：基于可用 PV 容量的拓扑，启用对不同节点的优先级支持。
 <!--
 - `WatchBookmark`: Enable support for watch bookmark events.
 - `WatchList` : Enable support for [streaming initial state of objects in watch requests](/docs/reference/using-api/api-concepts/#streaming-lists).
@@ -1291,7 +1304,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `WinOverlay`: Allows kube-proxy to run in overlay mode for Windows.
 -->
 - `WatchBookmark`：启用对 watch 操作中 bookmark 事件的支持。
-- `WatchList` : 启用对
+- `WatchList`：启用对
   [在 watch 请求中流式传输对象的初始状态](/zh-cn/docs/reference/using-api/api-concepts/#streaming-lists)的支持。
 - `WinDSR`：允许 kube-proxy 为 Windows 创建 DSR 负载均衡。
 - `WinOverlay`：允许在 Windows 的覆盖网络模式下运行 kube-proxy。

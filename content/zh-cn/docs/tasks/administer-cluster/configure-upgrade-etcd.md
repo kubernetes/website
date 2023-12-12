@@ -1,5 +1,5 @@
 ---
-title: 为 Kubernetes 运行 etcd 集群
+title: 操作 Kubernetes 中的 etcd 集群
 content_type: task
 weight: 270
 ---

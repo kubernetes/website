@@ -196,6 +196,36 @@ or using a custom mechanism such as an [authentication webhook](/docs/reference/
 You can also use TokenRequest to obtain short-lived tokens for your external application.
 {{< /note >}}
 
+### Restricting access to Secrets {#enforce-mountable-secrets}
+
+Kubernetes provides an annotation called `kubernetes.io/enforce-mountable-secrets`
+that you can add to your ServiceAccounts. When this annotation is applied,
+the ServiceAccount's secrets can only be mounted on specified types of resources,
+enhancing the security posture of your cluster.
+
+You can add the annotation to a ServiceAccount using a manifest:
+
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    kubernetes.io/enforce-mountable-secrets: "true"
+  name: my-serviceaccount
+  namespace: my-namespace
+```
+When this annotation is set to "true", the Kubernetes control plane ensures that
+the Secrets from this ServiceAccount are subject to certain mounting restrictions.
+
+1. The name of each Secret that is mounted as a volume in a Pod must appear in the `secrets` field of the
+   Pod's ServiceAccount.
+1. The name of each Secret referenced using `envFrom` in a Pod must also appear in the `secrets`
+   field of the Pod's ServiceAccount.
+1. The name of each Secret referenced using `imagePullSecrets` in a Pod must also appear in the `secrets`
+   field of the Pod's ServiceAccount.
+
+By understanding and enforcing these restrictions, cluster administrators can maintain a tighter security profile and ensure that secrets are accessed only by the appropriate resources.
+
 ## Authenticating service account credentials {#authenticating-credentials}
 
 ServiceAccounts use signed

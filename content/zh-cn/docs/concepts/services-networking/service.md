@@ -894,9 +894,9 @@ spec:
 ```
 
 <!--
-#### Reserve Nodeport Ranges to avoid collisions when port assigning 
+#### Reserve Nodeport ranges to avoid collisions  {#avoid-nodeport-collisions}
 -->
-#### 预留 NodePort 端口范围以避免分配端口时发生冲突
+#### 预留 NodePort 端口范围以避免发生冲突  {#avoid-nodeport-collisions}
 
 {{< feature-state for_k8s_version="v1.28" state="beta" >}}
 

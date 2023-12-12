@@ -47,8 +47,8 @@ pull request (PR) to the
 [`kubernetes/website` GitHub repository](https://github.com/kubernetes/website).
 You need to be comfortable with
 [git](https://git-scm.com/) and
-[GitHub](https://lab.github.com/)
-to work effectively in the Kubernetes community.
+[GitHub](https://skills.github.com/)
+to work effectively in the Kubernetes community. 
 
 To get involved with documentation:
 

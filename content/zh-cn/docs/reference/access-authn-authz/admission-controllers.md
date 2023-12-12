@@ -1494,6 +1494,16 @@ You should enable this admission controller if you intend to make any use of Kub
 的自动化。强烈推荐为 Kubernetes 项目启用此准入控制器。
 如果你打算使用 Kubernetes 的 `ServiceAccount` 对象，你应启用这个准入控制器。
 
+<!--
+Regarding the annotation `kubernetes.io/enforce-mountable-secrets`: While the annotation's name suggests it only concerns the mounting of Secrets,
+its enforcement also extends to other ways Secrets are used in the context of a Pod.
+Therefore, it is crucial to ensure that all the referenced secrets are correctly specified in the ServiceAccount.
+-->
+关于 `kubernetes.io/enforce-mountable-secrets` 注解：尽管注解的名称表明它只涉及 Secret 的挂载，
+但其执行范围也扩展到 Pod 上下文中 Secret 的其他使用方式。
+因此，确保所有引用的 Secret 在 ServiceAccount 中被正确指定是至关重要的。
+
+
 ### StorageObjectInUseProtection   {#storageobjectinuseprotection}
 
 <!--

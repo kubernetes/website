@@ -158,7 +158,8 @@ like `free -m`. This is important because `free -m` does not work in a
 container, and if users use the [node allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
 feature, out of resource decisions
 are made local to the end user Pod part of the cgroup hierarchy as well as the
-root node. This [script](/examples/admin/resource/memory-available.sh)
+root node. This [script](/examples/admin/resource/memory-available.sh) or
+[cgroupv2 script](/examples/admin/resource/memory-available-cgroupv2.sh)
 reproduces the same set of steps that the kubelet performs to calculate
 `memory.available`. The kubelet excludes inactive_file (the number of bytes of
 file-backed memory on inactive LRU list) from its calculation as it assumes that
@@ -168,7 +169,8 @@ memory is reclaimable under pressure.
 这很重要，因为 `free -m` 在容器中不起作用，如果用户使用
 [节点可分配资源](/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
 这一功能特性，资源不足的判定是基于 cgroup 层次结构中的用户 Pod 所处的局部及 cgroup 根节点作出的。
-这个[脚本](/zh-cn/examples/admin/resource/memory-available.sh)
+这个[脚本](/zh-cn/examples/admin/resource/memory-available.sh)或者
+[cgroupv2 脚本](/zh-cn/examples/admin/resource/memory-available-cgroupv2.sh)
 重现了 kubelet 为计算 `memory.available` 而执行的相同步骤。
 kubelet 在其计算中排除了 inactive_file（非活动 LRU 列表上基于文件来虚拟的内存的字节数），
 因为它假定在压力下内存是可回收的。

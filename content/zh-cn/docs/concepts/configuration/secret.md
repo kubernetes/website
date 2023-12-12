@@ -307,7 +307,7 @@ and structure the Secret type to have your domain name before the name, separate
 by a `/`. For example: `cloud-hosting.example.net/cloud-api-credentials`.
 -->
 如果你要定义一种公开使用的 Secret 类型，请遵守 Secret 类型的约定和结构，
-在类型名签名添加域名，并用 `/` 隔开。
+在类型名前面添加域名，并用 `/` 隔开。
 例如：`cloud-hosting.example.net/cloud-api-credentials`。
 
 <!--
@@ -705,7 +705,7 @@ TLS Secret 的一种典型用法是为 [Ingress](/zh-cn/docs/concepts/services-n
 <!--
 The TLS Secret type is provided only for convenience.
 You can create an `Opaque` type for credentials used for TLS authentication.
-However, using the defined and public Secret type (`kubernetes.io/ssh-auth`)
+However, using the defined and public Secret type (`kubernetes.io/tls`)
 helps ensure the consistency of Secret format in your project. The API server
 verifies if the required keys are set for a Secret of this type.
 
@@ -713,7 +713,7 @@ To create a TLS Secret using `kubectl`, use the `tls` subcommand:
 -->
 提供 TLS 类型的 Secret 仅仅是出于方便性考虑。
 你可以创建 `Opaque` 类型的 Secret 来保存用于 TLS 身份认证的凭据。
-不过，使用已定义和公开的 Secret 类型有助于确保你自己项目中的 Secret 格式的一致性。
+不过，使用已定义和公开的 Secret 类型（`kubernetes.io/tls`）有助于确保你自己项目中的 Secret 格式的一致性。
 API 服务器会验证这种类型的 Secret 是否设定了所需的主键。
 
 要使用 `kubectl` 创建 TLS Secret，你可以使用 `tls` 子命令：
@@ -1578,6 +1578,21 @@ Therefore, one Pod does not have access to the Secrets of another Pod.
 -->
 针对同一节点上的多个 Pod 可能有多个 Secret。不过，只有某个 Pod 所请求的 Secret
 才有可能对 Pod 中的容器可见。因此，一个 Pod 不会获得访问其他 Pod 的 Secret 的权限。
+
+<!--
+### Configure least-privilege access to Secrets
+
+To enhance the security measures around Secrets, Kubernetes provides a mechanism: you can
+annotate a ServiceAccount as `kubernetes.io/enforce-mountable-secrets: "true"`.
+
+For more information, you can refer to the [documentation about this annotation](/docs/concepts/security/service-accounts/#enforce-mountable-secrets).
+-->
+### 配置 Secret 资源的最小特权访问
+
+为了加强对 Secret 的安全措施，Kubernetes 提供了一种机制：
+你可以为 ServiceAccount 添加 `kubernetes.io/enforce-mountable-secrets: "true"` 注解。
+
+想了解更多信息，你可以参考[此注解的文档](/zh-cn/docs/concepts/security/service-accounts/#enforce-mountable-secrets)。
 
 {{< warning >}}
 <!--

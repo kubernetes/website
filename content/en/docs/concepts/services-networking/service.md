@@ -518,7 +518,7 @@ spec:
       nodePort: 30007
 ```
 
-#### Reserve Nodeport Ranges to avoid collisions when port assigning 
+#### Reserve Nodeport ranges to avoid collisions  {#avoid-nodeport-collisions}
 
 {{< feature-state for_k8s_version="v1.28" state="beta" >}}
 
@@ -530,7 +530,6 @@ to use a different port allocation strategy for NodePort Services. The port rang
 is divided into two bands. Dynamic port assignment uses the upper band by default, and it may use
 the lower band once the upper band has been exhausted. Users can then allocate from the lower band
 with a lower risk of port collision.
-
 
 #### Custom IP address configuration for `type: NodePort` Services {#service-nodeport-custom-listen-address}
 
@@ -867,10 +866,7 @@ finding a Service: environment variables and DNS.
 When a Pod is run on a Node, the kubelet adds a set of environment variables
 for each active Service. It adds `{SVCNAME}_SERVICE_HOST` and `{SVCNAME}_SERVICE_PORT` variables,
 where the Service name is upper-cased and dashes are converted to underscores.
-It also supports variables
-(see [makeLinkVariables](https://github.com/kubernetes/kubernetes/blob/dd2d12f6dc0e654c15d5db57a5f9f6ba61192726/pkg/kubelet/envvars/envvars.go#L72))
-that are compatible with Docker Engine's
-"_[legacy container links](https://docs.docker.com/network/links/)_" feature.
+
 
 For example, the Service `redis-primary` which exposes TCP port 6379 and has been
 allocated cluster IP address 10.0.0.11, produces the following environment

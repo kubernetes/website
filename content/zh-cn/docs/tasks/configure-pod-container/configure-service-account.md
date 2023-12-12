@@ -33,7 +33,7 @@ server, you identify yourself as a particular _user_. Kubernetes recognises
 the concept of a user, however, Kubernetes itself does **not** have a User
 API.
 -->
-**服务账号（Service Account）**为 Pod 中运行的进程提供身份标识，
+**服务账号（Service Account）** 为 Pod 中运行的进程提供身份标识，
 并映射到 ServiceAccount 对象。当你向 API 服务器执行身份认证时，
 你会将自己标识为某个**用户（User）**。Kubernetes 能够识别用户的概念，
 但是 Kubernetes 自身**并不**提供 User API。

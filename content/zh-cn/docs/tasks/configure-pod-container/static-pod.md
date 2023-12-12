@@ -133,13 +133,12 @@ For example, this is how to start a simple web server as a static Pod:
 <!--
 1. Choose a directory, say `/etc/kubernetes/manifests` and place a web server
    Pod definition there, for example `/etc/kubernetes/manifests/static-web.yaml`:
+
+   # Run this command on the node where kubelet is running
 -->
 2. 选择一个目录，比如在 `/etc/kubernetes/manifests` 目录来保存 Web 服务 Pod 的定义文件，例如
    `/etc/kubernetes/manifests/static-web.yaml`：
 
-   <!--
-   # Run this command on the node where kubelet is running
-   -->
    ```shell
    # 在 kubelet 运行的节点上执行以下命令
    mkdir -p /etc/kubernetes/manifests/
@@ -166,7 +165,7 @@ For example, this is how to start a simple web server as a static Pod:
    `--pod-manifest-path=/etc/kubernetes/manifests/` argument.
    On Fedora, edit `/etc/kubernetes/kubelet` to include this line:
 -->
-3. 配置这个节点上的 kubelet，使用这个参数执行 `--pod-manifest-path=/etc/kubelet.d/`。
+3. 配置这个节点上的 kubelet，使用这个参数执行 `--pod-manifest-path=/etc/kubernetes/manifests/`。
    在 Fedora 上编辑 `/etc/kubernetes/kubelet` 以包含下面这行：
 
    ```
