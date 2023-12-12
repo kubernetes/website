@@ -286,8 +286,7 @@ Dependiendo de como haya instalado `kubectl` puede utilizar uno de los siguiente
     ```bash
     sudo rm <path>
     ```
-    Reemplace `<path>` con el path que apunta al binario de `kubectl`
-    del paso anterior. Por ejemplo, `sudo rm /usr/local/bin/kubectl`
+    Reemplace `<path>` con el path que apunta al binario de `kubectl` del paso anterior. Por ejemplo, `sudo rm /usr/local/bin/kubectl`
 
 ### Eliminar kubectl utilizando homebrew
 
