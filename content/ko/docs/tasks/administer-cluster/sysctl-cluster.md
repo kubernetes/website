@@ -66,11 +66,20 @@ sysctl은 _safe_ sysctl과 _unsafe_ sysctl로 구성되어 있다. _safe_ sysctl
 아직까지 대부분 _네임스페이스된_ sysctl은 _safe_ sysctl로 고려되지 않았다.
 다음 sysctl은 _safe_ 명령을 지원한다.
 
+<!--
+- `kernel.shm_rmid_forced`,
+- `net.ipv4.ip_local_port_range`,
+- `net.ipv4.tcp_syncookies`,
+- `net.ipv4.ping_group_range` (since Kubernetes 1.18),
+- `net.ipv4.ip_unprivileged_port_start` (since Kubernetes 1.22),
+- `net.ipv4.ip_local_reserved_ports` (since Kubernetes 1.27).
+-->
 - `kernel.shm_rmid_forced`,
 - `net.ipv4.ip_local_port_range`,
 - `net.ipv4.tcp_syncookies`,
 - `net.ipv4.ping_group_range` (쿠버네티스 1.18 이후),
-- `net.ipv4.ip_unprivileged_port_start` (쿠버네티스 1.22 이후).
+- `net.ipv4.ip_unprivileged_port_start` (쿠버네티스 1.22 이후),
+- `net.ipv4.ip_local_reserved_ports` (쿠버네티스 1.27 이후).
 
 {{< note >}}
 `net.ipv4.tcp_syncookies` 예시는 리눅스 커널 버전 4.4 또는 이하에서 네임스페이스되지 않는다.
