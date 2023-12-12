@@ -49,7 +49,12 @@ To meet this requirement, the CSI Node Expand Secret feature was introduced in K
 
 ### KMS v2 encryption at rest generally available ([SIG Auth](https://github.com/kubernetes/community/tree/master/sig-auth)) {#kms-v2-api-encryption}
  
-One of the first things to consider when securing a Kubernetes cluster is encrypting persisted API data at rest. KMS provides an interface for a provider to utilize a key stored in an external key service to perform this encryption. With the new release of Kubernetes, KMS v2 has become a stable feature bringing numerous improvements in performance, key rotation, health check & status, and observability. These enhancements enable users with a reliable solution to encrypt all resources in their Kubernetes clusters. [KEP-3299](https://kep.k8s.io/3299)
+One of the first things to consider when securing a Kubernetes cluster is encrypting persisted
+API data at rest. KMS provides an interface for a provider to utilize a key stored in an external
+key service to perform this encryption. With the Kubernetes v1.29, KMS v2 has become
+a stable feature bringing numerous improvements in performance, key rotation,
+health check & status, and observability.
+These enhancements provide users with a reliable solution to encrypt all resources in their Kubernetes clusters. You can read more about this in [KEP-3299](https://kep.k8s.io/3299).
 
 For Kubernetes v1.29, [encryption at rest for API data](/docs/tasks/administer-cluster/encrypt-data/)
 can integrate with an external _key management service_ (KMS). Available since Kubernetes v1.13,
@@ -100,7 +105,8 @@ This feature implements a new allocator logic that uses 2 new API Objects: Servi
 
 ### Add support to containerd/kubelet/CRI to support image pull per runtime class ([SIG Windows](https://github.com/kubernetes/community/tree/master/sig-windows)) {#image-pull-per-runtimeclass}
 
-This feature adds support to pull container images based on runtime class. This feature is off by default in v1.29 under a feature gate called `RuntimeClassInImageCriApi`.
+Kubernetes v1.29 adds support to pull container images based on the RuntimeClass of the Pod that uses them.
+This feature is off by default in v1.29 under a feature gate called `RuntimeClassInImageCriApi`.
 
 Container images can either be a manifest or an index. When the image being pulled is an index (image index has a list of image manifests ordered by platform), platform matching logic in the container runtime is used to pull an appropriate image manifest from the index. By default, the platform matching logic picks a manifest that matches the host that the image pull is being executed from. This can be limiting for VM-based containers where a user could pull an image with the intention of running it as a VM-based container, for example, Windows Hyper-V containers.
 
@@ -108,7 +114,7 @@ The image pull per runtime class feature adds support to pull different images b
 
 ### In-place updates for Pod resources, for Windows Pods ([SIG Windows](https://github.com/kubernetes/community/tree/master/sig-windows))
 
-This feature makes the Pod spec mutable with respect to `resources`, allowing users to define the _desired_ resource requests and limits for a Pod without the need to restart the Pod. With v1.29, this feature is now supported for Windows containers.
+As an alpha feature, Kubernetes Pods can be mutable with respect to their `resources`, allowing users to change the _desired_ resource requests and limits for a Pod without the need to restart the Pod. With v1.29, this feature is now supported for Windows containers.
 
 ## Graduations, deprecations and removals for Kubernetes v1.29
 
