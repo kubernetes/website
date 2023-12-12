@@ -36,6 +36,8 @@ I want to showcase some of the talks from KubeCon North America that I attended 
 
 **Keynote: Welcome + Opening Remarks - Priyanka Sharma, Executive Director, Cloud Native Computing Foundation**
 
+![KubeCon](https://raw.githubusercontent.com/Rajdeep1311/website/main/content/en/blog/_posts/2023-12-05-My-first-ever-KubeCon-KubeCon+CloudNativeCon-North-America-2023/ss1.png)
+
 **Keynote: Windy City Whirlwind: Stirring Up the Cloud Native Ecosystem - Taylor Dolezal, Head of Ecosystem, Cloud Native Computing Foundation**
 
 **Keynote: Blueprint Banter: Cloud Native Conversations by the Fireside - Taylor Dolezal, Cloud Native Computing Foundation; Alolita Sharma, Apple; Mike Bowen, Blackrock; Cailyn Edwards, Shopify; Mukulika Kapas, Intuit**
