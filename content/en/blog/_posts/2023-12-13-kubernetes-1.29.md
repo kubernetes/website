@@ -176,7 +176,17 @@ is running.
 If you've been using this field in client software, stop - the information isn't reliable and the field is now
 deprecated.
 
-> Please note that in August of 2023, the legacy package repositories (apt.kubernetes.io and yum.kubernetes.io) were formally deprecated and the Kubernetes project announced the general availability of the community-owned package repositories for Debian and RPM packages available at pkgs.k8s.io. These legacy repositories were frozen in September of 2023, and will go away entirely in January of 2024. If you are currently relying on them, you _must_ migrate.
+
+#### Legacy Linux package repositories
+
+Please note that in August of 2023, the legacy package repositories (`apt.kubernetes.io` and
+`yum.kubernetes.io`) were formally deprecated and the Kubernetes project announced the
+general availability of the community-owned package repositories for Debian and RPM packages,
+available at `https://pkgs.k8s.io`.
+
+These legacy repositories were frozen in September of 2023, and
+will go away entirely in January of 2024. If you are currently relying on them, you **must** migrate.
+
 _This deprecation is not directly related to the v1.29 release._ For more details, including how these changes may affect you and what to do if you are affected, please read the [legacy package repository deprecation announcement](/blog/2023/08/31/legacy-package-repository-deprecation/).
 
 ## Release notes
