@@ -42,8 +42,8 @@ To address this problem, a fourth access mode ReadWriteOncePod was introduced as
 ### Node volume expansion Secret support for CSI drivers ([SIG Storage](https://github.com/kubernetes/community/tree/master/sig-storage)) {#csi-node-volume-expansion-secrets}
     
 In Kubernetes, a volume expansion operation may include the expansion of the volume on the node, which involves filesystem resize. Some CSI drivers require secrets, for example a credential for accessing a SAN fabric, during the node expansion for the following use cases:
-	•	When a PersistentVolume represents encrypted block storage, for example using LUKS, you need to provide a passphrase in order to expand the device.
-	•	For various validations, the CSI driver needs to have credentials to communicate with the backend storage system at time of node expansion. 
+* When a PersistentVolume represents encrypted block storage, for example using LUKS, you may need to provide a passphrase in order to expand the device.
+* For various validations, the CSI driver needs to have credentials to communicate with the backend storage system at time of node expansion.
 
 To meet this requirement, the CSI Node Expand Secret feature was introduced in Kubernetes v1.25. This allows an optional secret field to be sent as part of the NodeExpandVolumeRequest by the CSI drivers so that node volume expansion operation can be performed with the underlying storage system. In Kubernetes v1.29, this feature became generally available.
 
