@@ -34,27 +34,47 @@ For a beginner or someone who is attending any KubeCon can be very overwhelming,
 
 I want to showcase some of the talks from KubeCon North America that I attended virtually.
 
+![KubeCon](https://raw.githubusercontent.com/Rajdeep1311/website/main/content/en/blog/_posts/2023-12-05-My-first-ever-KubeCon-KubeCon+CloudNativeCon-North-America-2023/ss1.png)
+
 **Keynote: Welcome + Opening Remarks - Priyanka Sharma, Executive Director, Cloud Native Computing Foundation**
 
-![KubeCon](https://raw.githubusercontent.com/Rajdeep1311/website/main/content/en/blog/_posts/2023-12-05-My-first-ever-KubeCon-KubeCon+CloudNativeCon-North-America-2023/ss1.png)
+![KubeCon](https://raw.githubusercontent.com/Rajdeep1311/website/main/content/en/blog/_posts/2023-12-05-My-first-ever-KubeCon-KubeCon+CloudNativeCon-North-America-2023/ss2.png)
 
 **Keynote: Windy City Whirlwind: Stirring Up the Cloud Native Ecosystem - Taylor Dolezal, Head of Ecosystem, Cloud Native Computing Foundation**
 
+![KubeCon](https://raw.githubusercontent.com/Rajdeep1311/website/main/content/en/blog/_posts/2023-12-05-My-first-ever-KubeCon-KubeCon+CloudNativeCon-North-America-2023/ss3.png)
+
 **Keynote: Blueprint Banter: Cloud Native Conversations by the Fireside - Taylor Dolezal, Cloud Native Computing Foundation; Alolita Sharma, Apple; Mike Bowen, Blackrock; Cailyn Edwards, Shopify; Mukulika Kapas, Intuit**
+
+![KubeCon](https://raw.githubusercontent.com/Rajdeep1311/website/main/content/en/blog/_posts/2023-12-05-My-first-ever-KubeCon-KubeCon+CloudNativeCon-North-America-2023/ss4.png)
 
 **Humans of Cloud Native Panel – Finding Your Way in #TeamCloudNative - Mitch Connors, Aviatrix; Miranda Jaramillo, The Trevor Project; Bart Farrell, CNCF Ambassador; Whitney Lee, VMware**
 
+![KubeCon](https://raw.githubusercontent.com/Rajdeep1311/website/main/content/en/blog/_posts/2023-12-05-My-first-ever-KubeCon-KubeCon+CloudNativeCon-North-America-2023/ss5.png)
+
 **From Non-Tech to CNCF Ambassador: You Can Do It Too! - Julia Furst, Veeam**
+
+![KubeCon](https://raw.githubusercontent.com/Rajdeep1311/website/main/content/en/blog/_posts/2023-12-05-My-first-ever-KubeCon-KubeCon+CloudNativeCon-North-America-2023/ss6.png)
 
 **From Classroom to Cluster: Embracing Kubernetes as a Student and Contributing to Its Development - Nitish Kumar, Faeka Ansari & Grace Nguyen, Independent; Meha Bhalodiya, Red Hat; Leonard Pahlke, Liquid Reply**
 
+![KubeCon](https://raw.githubusercontent.com/Rajdeep1311/website/main/content/en/blog/_posts/2023-12-05-My-first-ever-KubeCon-KubeCon+CloudNativeCon-North-America-2023/ss7.png)
+
 **Learning Kubernetes by Chaos – Breaking a Kubernetes Cluster to Understand the Components - Ricardo Katz, VMware & Anderson Duboc, Google Cloud**
+
+![KubeCon](https://raw.githubusercontent.com/Rajdeep1311/website/main/content/en/blog/_posts/2023-12-05-My-first-ever-KubeCon-KubeCon+CloudNativeCon-North-America-2023/ss8.png)
 
 **[Livestream Sponsored by Vulk Coop] Cloud Native Telco Day Hosted by CNCF - Half Day Event**
 
+![KubeCon](https://raw.githubusercontent.com/Rajdeep1311/website/main/content/en/blog/_posts/2023-12-05-My-first-ever-KubeCon-KubeCon+CloudNativeCon-North-America-2023/ss9.png)
+
 **15,000 Minecraft Players Vs One K8s Cluster. Who Wins? - Justin Head, Super League Gaming & Cornelia Davis, Spectro Cloud**
 
+![KubeCon](https://raw.githubusercontent.com/Rajdeep1311/website/main/content/en/blog/_posts/2023-12-05-My-first-ever-KubeCon-KubeCon+CloudNativeCon-North-America-2023/ss10.png)
+
 **Rise of the Global Cloud Native Community: The Untold Stories - Ashutosh Kumar, Elastic & Rajas Kakodkar, VMware**
+
+![KubeCon](https://raw.githubusercontent.com/Rajdeep1311/website/main/content/en/blog/_posts/2023-12-05-My-first-ever-KubeCon-KubeCon+CloudNativeCon-North-America-2023/ss11.png)
 
 These are some of the talks I attended during the events but apart from these, there were a lot more talks that were very helpful and educational. KubeCon provides the talks on social media a few days after the event, and we can hear them and learn whenever we want. The Slack channel helped us to network with people all around the world.
 
