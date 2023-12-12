@@ -128,11 +128,20 @@ The following sysctls are supported in the _safe_ set:
 至今为止，大多数 **有命名空间的** sysctl 参数不一定被认为是 **安全** 的。
 以下几种 sysctl 参数是 **安全的**：
 
+<!--
+- `kernel.shm_rmid_forced`,
+- `net.ipv4.ip_local_port_range`,
+- `net.ipv4.tcp_syncookies`,
+- `net.ipv4.ping_group_range` (since Kubernetes 1.18),
+- `net.ipv4.ip_unprivileged_port_start` (since Kubernetes 1.22),
+- `net.ipv4.ip_local_reserved_ports` (since Kubernetes 1.27).
+-->
 - `kernel.shm_rmid_forced`,
 - `net.ipv4.ip_local_port_range`,
 - `net.ipv4.tcp_syncookies`,
 - `net.ipv4.ping_group_range`（从 Kubernetes 1.18 开始）,
-- `net.ipv4.ip_unprivileged_port_start`（从 Kubernetes 1.22 开始）。
+- `net.ipv4.ip_unprivileged_port_start`（从 Kubernetes 1.22 开始）,
+- `net.ipv4.ip_local_reserved_ports`（从 Kubernetes 1.27 开始）。
 
 {{< note >}}
 <!--
