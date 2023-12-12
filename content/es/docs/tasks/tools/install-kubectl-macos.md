@@ -150,36 +150,36 @@ puede instalar kubectl con Homebrew.
    kubectl version --client
    ```
 
-### Install with Macports on macOS
+### Instalar con Macports en macOS
 
-If you are on macOS and using [Macports](https://macports.org/) package manager,
-you can install kubectl with Macports.
+Si esta en macOS y utiliza [Macports](https://macports.org/),
+puede instalar kubectl con Macports.
 
-1. Run the installation command:
+1. Ejecute  el comando para instalar:
 
    ```bash
    sudo port selfupdate
    sudo port install kubectl
    ```
 
-1. Test to ensure the version you installed is up-to-date:
+1. Test para asegurar que la versión instalada está actualizada:
 
    ```bash
    kubectl version --client
    ```
 
-## Verify kubectl configuration
+## Verificar la configuración de kubectl
 
 {{< include "included/verify-kubectl.md" >}}
 
-## Optional kubectl configurations and plugins
+## Configuraciones opcionales y plugins de kubectl
 
-### Enable shell autocompletion
+### Habilitar el autocompletado en la shell
 
-kubectl provides autocompletion support for Bash, Zsh, Fish, and PowerShell
-which can save you a lot of typing.
+Kubectl tiene soporte para autocompletar en Bash, Zsh, Fish y Powershell,
+lo que puede agilizar el tipeo.
 
-Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
+A continuación están los procedimientos para configurarlo en Bash, Fisch y Zsh.
 
 {{< tabs name="kubectl_autocompletion" >}}
 {{< tab name="Bash" include="included/optional-kubectl-configs-bash-mac.md" />}}
@@ -187,11 +187,11 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
 {{< tab name="Zsh" include="included/optional-kubectl-configs-zsh.md" />}}
 {{< /tabs >}}
 
-### Install `kubectl convert` plugin
+### Instalar el plugin `kubectl convert`
 
 {{< include "included/kubectl-convert-overview.md" >}}
 
-1. Download the latest release with the command:
+1. Descargue la última versión con el siguiente comando:
 
    {{< tabs name="download_convert_binary_macos" >}}
    {{< tab name="Intel" codelang="bash" >}}
@@ -202,9 +202,9 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
    {{< /tab >}}
    {{< /tabs >}}
 
-1. Validate the binary (optional)
+1. Valide el binario (opcional)
 
-   Download the kubectl-convert checksum file:
+   Descargue el checksum de kubectl-convert:
 
    {{< tabs name="download_convert_checksum_macos" >}}
    {{< tab name="Intel" codelang="bash" >}}
@@ -215,19 +215,19 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
    {{< /tab >}}
    {{< /tabs >}}
 
-   Validate the kubectl-convert binary against the checksum file:
+   Ahora se puede validar el binario utilizando el checksum:
 
    ```bash
    echo "$(cat kubectl-convert.sha256)  kubectl-convert" | shasum -a 256 --check
    ```
 
-   If valid, the output is:
+   Si es válido, la salida será:
 
    ```console
    kubectl-convert: OK
    ```
 
-   If the check fails, `shasum` exits with nonzero status and prints output similar to:
+   En caso de falla, `sha256` terminará con un estado diferente a cero con una salida similar a esta:
 
    ```console
    kubectl-convert: FAILED
@@ -235,16 +235,16 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
    ```
 
    {{< note >}}
-   Download the same version of the binary and checksum.
+   Descargue la misma versión del binario y del checksum.
    {{< /note >}}
 
-1. Make kubectl-convert binary executable
+1. Dar permisos de ejecución al binario.
 
    ```bash
    chmod +x ./kubectl-convert
    ```
 
-1. Move the kubectl-convert binary to a file location on your system `PATH`.
+1. Mover el binario de kubectl al `PATH` de su sistema.
 
    ```bash
    sudo mv ./kubectl-convert /usr/local/bin/kubectl-convert
@@ -252,45 +252,46 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
    ```
 
    {{< note >}}
-   Make sure `/usr/local/bin` is in your PATH environment variable.
+   Asegúrese que el PATH `/usr/local/bin` forme parte de las variables de entorno.
    {{< /note >}}
 
-1. Verify plugin is successfully installed
+1. Verificar si el plugin fue instalado correctamente
 
    ```shell
    kubectl convert --help
    ```
 
-   If you do not see an error, it means the plugin is successfully installed.
+   Si no visualiza ningún error quiere decir que el plugin fue instalado correctamente.
 
-1. After installing the plugin, clean up the installation files:
+1. Después de instalar el plugin elimine los archivos de instalación:
 
    ```bash
    rm kubectl-convert kubectl-convert.sha256
    ```
 
-### Uninstall kubectl on macOS
+### Eliminar kubectl en macOS
 
-Depending on how you installed `kubectl`, use one of the following methods.
+Dependiendo de como haya instalado `kubectl` puede utilizar uno de los siguientes métodos.
 
-### Uninstall kubectl using the command-line
+### Eliminar kubectl usando la linea de comandos
 
-1.  Locate the `kubectl` binary on your system:
+1.  Ubique el binario de `kubectl` en su sistema:
 
     ```bash
     which kubectl
     ```
 
-1.  Remove the `kubectl` binary:
+1.  Elimine el binario de `kubectl`:
 
     ```bash
     sudo rm <path>
     ```
-    Replace `<path>` with the path to the `kubectl` binary from the previous step. For example, `sudo rm /usr/local/bin/kubectl`.
+    Reemplace `<path>` con el path que apunta al binario de `kubectl`
+    del paso anterior. Por ejemplo, `sudo rm /usr/local/bin/kubectl`
 
-### Uninstall kubectl using homebrew
+### Eliminar kubectl utilizando homebrew
 
-If you installed `kubectl` using Homebrew, run the following command:
+Si instaló `kubectl` utilizando Homebrew ejecute el siguiente comando:
 
 ```bash
 brew remove kubectl
@@ -299,5 +300,3 @@ brew remove kubectl
 ## {{% heading "whatsnext" %}}
 
 {{< include "included/kubectl-whats-next.md" >}}
-
-
