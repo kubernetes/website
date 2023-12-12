@@ -209,7 +209,7 @@ Check out the full details of the Kubernetes v1.29 release in our [release notes
 
 ## Availability
 
-Kubernetes v1.29 is available for download on [GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.29.0). To get started with Kubernetes, check out these [interactive tutorials](https://kubernetes.io/docs/tutorials/) or run local Kubernetes clusters using [minikube](https://minikube.sigs.k8s.io/). You can also easily install v1.29 using [kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/).
+Kubernetes v1.29 is available for download on [GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.29.0). To get started with Kubernetes, check out these [interactive tutorials](/docs/tutorials) or run local Kubernetes clusters using [minikube](https://minikube.sigs.k8s.io/). You can also easily install v1.29 using [kubeadm](/docs/setup/independent/create-cluster-kubeadm).
 
 ## Release team
 
