@@ -233,6 +233,11 @@ To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`,
 The `systemd` cgroup driver is recommended if you use [cgroup v2](/docs/concepts/architecture/cgroups).
 
 {{< note >}}
+The elipses above indicate that config.toml should already have these sections. If you
+find yourself having to create these entries (instead of just changing `SystemdCgroup`
+to `true`, then you definitely need to run the `containerd config` command referenced
+below.
+
 If you installed containerd from a package (for example, RPM or `.deb`), you may find
 that the CRI integration plugin is disabled by default.
 
