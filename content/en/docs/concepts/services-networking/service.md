@@ -520,16 +520,15 @@ spec:
 
 #### Reserve Nodeport ranges to avoid collisions  {#avoid-nodeport-collisions}
 
-{{< feature-state for_k8s_version="v1.28" state="beta" >}}
+{{< feature-state for_k8s_version="v1.29" state="stable" >}}
 
 The policy for assigning ports to NodePort services applies to both the auto-assignment and
 the manual assignment scenarios. When a user wants to create a NodePort service that
 uses a specific port, the target port may conflict with another port that has already been assigned.
-In this case, you can enable the feature gate `ServiceNodePortStaticSubrange`, which allows you
-to use a different port allocation strategy for NodePort Services. The port range for NodePort services
-is divided into two bands. Dynamic port assignment uses the upper band by default, and it may use
-the lower band once the upper band has been exhausted. Users can then allocate from the lower band
-with a lower risk of port collision.
+
+To avoid this problem, the port range for NodePort services is divided into two bands.
+Dynamic port assignment uses the upper band by default, and it may use the lower band once the 
+upper band has been exhausted. Users can then allocate from the lower band with a lower risk of port collision.
 
 #### Custom IP address configuration for `type: NodePort` Services {#service-nodeport-custom-listen-address}
 
@@ -668,6 +667,28 @@ Once set, it cannot be changed.
 The value of `spec.loadBalancerClass` must be a label-style identifier,
 with an optional prefix such as "`internal-vip`" or "`example.com/internal-vip`".
 Unprefixed names are reserved for end-users.
+
+#### Specifying IPMode of load balancer status {#load-balancer-ip-mode}
+
+{{< feature-state for_k8s_version="v1.29" state="alpha" >}}
+
+Starting as Alpha in Kubernetes 1.29, 
+a [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) 
+named `LoadBalancerIPMode` allows you to set the `.status.loadBalancer.ingress.ipMode` 
+for a Service with `type` set to `LoadBalancer`. 
+The `.status.loadBalancer.ingress.ipMode` specifies how the load-balancer IP behaves. 
+It may be specified only when the `.status.loadBalancer.ingress.ip` field is also specified.
+
+There are two possible values for `.status.loadBalancer.ingress.ipMode`: "VIP" and "Proxy". 
+The default value is "VIP" meaning that traffic is delivered to the node 
+with the destination set to the load-balancer's IP and port. 
+There are two cases when setting this to "Proxy", depending on how the load-balancer 
+from the cloud provider delivers the traffics:  
+
+- If the traffic is delivered to the node then DNATed to the pod, the destination would be set to the node's IP and node port;
+- If the traffic is delivered directly to the pod, the destination would be set to the pod's IP and port.
+
+Service implementations may use this information to adjust traffic routing.
 
 #### Internal load balancer
 
