@@ -64,7 +64,9 @@ API data at rest. KMS provides an interface for a provider to utilize a key stor
 key service to perform this encryption. With the Kubernetes v1.29, KMS v2 has become
 a stable feature bringing numerous improvements in performance, key rotation,
 health check & status, and observability.
-These enhancements provide users with a reliable solution to encrypt all resources in their Kubernetes clusters. You can read more about this in [KEP-3299](https://kep.k8s.io/3299).
+These enhancements provide users with a reliable solution to encrypt all resources in their Kubernetes clusters. You can read more about this in [KEP-3299](https://kep.k8s.io/3299). 
+
+It is recommended to use KMS v2. KMS v1 feature gate is disabled by default. You will have to opt in to continue to use it.
 
 For Kubernetes v1.29, [encryption at rest for API data](/docs/tasks/administer-cluster/encrypt-data/)
 can integrate with an external _key management service_ (KMS). Available since Kubernetes v1.13,
