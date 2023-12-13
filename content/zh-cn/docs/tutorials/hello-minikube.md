@@ -103,7 +103,7 @@ Now, switch back to the terminal where you ran `minikube start`.
 The `dashboard` command enables the dashboard add-on and opens the proxy in the default web browser.
 You can create Kubernetes resources on the dashboard such as Deployment and Service.
 
-If you are running in an environment as root, see [Open Dashboard with URL](#open-dashboard-with-url).
+To find out how to avoid directly invoking the browser from the terminal and get a URL for the web dashboard, see the "URL copy and paste" tab.
 
 By default, the dashboard is only accessible from within the internal Kubernetes virtual network.
 The `dashboard` command creates a temporary proxy to make the dashboard accessible from outside the Kubernetes virtual network.
@@ -116,8 +116,8 @@ You can run the `dashboard` command again to create another proxy to access the 
 `dashboard` 命令启用仪表板插件，并在默认的 Web 浏览器中打开代理。
 你可以在仪表板上创建 Kubernetes 资源，例如 Deployment 和 Service。
 
-如果你以 root 用户身份在环境中运行，
-请参见[使用 URL 打开仪表板](#open-dashboard-with-url)。
+要了解如何避免从终端直接调用浏览器并获取 Web 仪表板的 URL，请参阅
+"URL 复制和粘贴"选项卡。
 
 默认情况下，仪表板只能从内部 Kubernetes 虚拟网络中访问。
 `dashboard` 命令创建一个临时代理，使仪表板可以从 Kubernetes 虚拟网络外部访问。
@@ -131,12 +131,12 @@ You can run the `dashboard` command again to create another proxy to access the 
 {{% tab name="URL 复制粘贴" %}}
 
 <!--
-If you don't want minikube to open a web browser for you, run the dashboard command with the
+If you don't want minikube to open a web browser for you, run the `dashboard` subcommand with the
 `--url` flag. `minikube` outputs a URL that you can open in the browser you prefer:
 
 Open a **new** terminal, and run:
 -->
-如果你不想 Minikube 为你打开 Web 浏览器，可以使用 `--url` 标志运行仪表板命令。
+如果你不想 Minikube 为你打开 Web 浏览器，可以使用 `--url` 标志运行 `dashboard` 子命令。
 `minikube` 会输出一个 URL，你可以在你喜欢的浏览器中打开该 URL。
 
 打开一个**新的**终端，然后运行：
@@ -147,9 +147,9 @@ minikube dashboard --url
 ```
 
 <!--
-Now, switch back to the terminal where you ran `minikube start`.
+Now, you can use this URL and switch back to the terminal where you ran `minikube start`.
 -->
-现在，切换回运行 `minikube start` 的终端。
+现在，你可以使用此 URL 并切换回运行 `minikube start` 的终端。
 
 {{% /tab %}}
 {{< /tabs >}}
@@ -317,7 +317,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
    The output is similar to:
    -->
 
-   输出结果类似于这样:
+   输出结果类似于这样：
 
    ```
    NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
