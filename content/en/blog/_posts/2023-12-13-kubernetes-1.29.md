@@ -77,7 +77,6 @@ New in v1.29 is stable support for version 2 of the KMS integration. If you're u
 encryption, or you plan to, the Kubernetes project recommends using the version 2 integration
 mechanism in all cases.
 
-For details about integration with specific cloud providers and other services, ask your provider
 
 ## Improvements that graduated to beta in Kubernetes v1.29 {#graduations-to-beta}
 
