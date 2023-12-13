@@ -27,7 +27,10 @@ This year's KubeCon North America 2023 was held from November 6th to 9th of 2023
 
 ![KubeCon](https://raw.githubusercontent.com/kubernetes/website/main/content/en/blog/_posts/2023-12-05-My-first-ever-KubeCon-KubeCon+CloudNativeCon-North-America-2023/pic3.jpg)
 
-Education and collaboration are vital to the future of the CNCF ecosystem and it is imperative to CNCF that everyone in the community that wants to participate feels welcome to do so regardless of gender, gender identity, sexual orientation, dis/ability, race, ethnicity, age, religion, or economic status.
+Education and collaboration are vital to the future of the CNCF ecosystem and
+it is imperative to CNCF that everyone in the community that 
+wants to participate feels welcome to do so regardless of
+gender, gender identity, sexual orientation, dis/ability, race, ethnicity, age, religion, or economic status.
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/kubernetes/website/main/content/en/blog/_posts/2023-12-05-My-first-ever-KubeCon-KubeCon+CloudNativeCon-North-America-2023/pic4.jpg">
