@@ -78,7 +78,6 @@ encryption, or you plan to, the Kubernetes project recommends using the version 
 mechanism in all cases.
 
 For details about integration with specific cloud providers and other services, ask your provider
-or consult the documentation for their plugin.
 
 ## Improvements that graduated to beta in Kubernetes v1.29 {#graduations-to-beta}
 
