@@ -184,7 +184,7 @@ For a reference to old feature gates that are removed, please refer to
 | `SELinuxMountReadWriteOncePod` | `false` | Alpha | 1.25 | 1.26 |
 | `SELinuxMountReadWriteOncePod` | `false` | Beta | 1.27 | 1.27 |
 | `SELinuxMountReadWriteOncePod` | `true` | Beta | 1.28 | |
-| `SchedulerQueueingHints` | `true` | Beta | 1.28.0 | 1.28.5 |
+| `SchedulerQueueingHints` | `true` | Beta | 1.28 | 1.28 |
 | `SchedulerQueueingHints` | `false` | Beta | 1.29 | |
 | `SecurityContextDeny` | `false` | Alpha | 1.27 | |
 | `SeparateTaintEvictionController` | `true` | Beta | 1.29 | |
