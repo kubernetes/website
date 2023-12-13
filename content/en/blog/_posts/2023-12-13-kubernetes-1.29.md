@@ -33,6 +33,8 @@ In the spirit of Mandala’s transformative symbolism, Kubernetes v1.29 celebrat
 
 ## Improvements that graduated to stable in Kubernetes v1.29 {#graduations-to-stable}
 
+_This is a selection of some of the improvements that are now stable following the v1.29 release._
+
 ### ReadWriteOncePod PersistentVolume access mode ([SIG Storage](https://github.com/kubernetes/community/tree/master/sig-storage)) {#readwriteoncepod-pv-access-mode}
 
 In Kubernetes, volume [access modes](/docs/concepts/storage/persistent-volumes/#access-modes)
