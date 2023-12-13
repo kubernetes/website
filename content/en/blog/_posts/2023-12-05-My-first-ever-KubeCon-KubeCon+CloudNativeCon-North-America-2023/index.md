@@ -5,6 +5,8 @@ date: 2023-12-05
 slug: My-first-ever-KubeCon-KubeCon+CloudNativeCon-North-America-2023
 ---
 
+**Author -** Rajdeep Pal, Student, Techno India University
+
 _This post is a guide for beginners to look at huge and overwhelming events like KubeCon._
 
 # Introduction
