@@ -70,7 +70,6 @@ It is recommended to use KMS v2. KMS v1 feature gate is disabled by default. You
 
 
 
-
 ## Improvements that graduated to beta in Kubernetes v1.29 {#graduations-to-beta}
 
 _This is a selection of some of the improvements that are now beta following the v1.29 release._
