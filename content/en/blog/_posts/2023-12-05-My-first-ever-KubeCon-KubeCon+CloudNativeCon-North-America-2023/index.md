@@ -1,3 +1,12 @@
+---
+layout: blog
+title: "My first-ever KubeCon - KubeCon+CloudNativeCon North America 2023"
+date: 2023-12-05
+slug: My-first-ever-KubeCon-KubeCon+CloudNativeCon-North-America-2023
+---
+
+_This post is a guide for beginners to look at huge and overwhelming events like KubeCon._
+
 # Introduction
 
 ![KubeCon](https://raw.githubusercontent.com/kubernetes/website/main/content/en/blog/_posts/2023-12-05-My-first-ever-KubeCon-KubeCon+CloudNativeCon-North-America-2023/pic1.jpg)
