@@ -371,7 +371,7 @@ you like. If you want to add a note for human consumption, use the
 {{< feature-state for_k8s_version="v1.27" state="alpha" >}}
 
 {{< note >}}
-In Kubernetes {{< skew currentVersion >}}, you must enable the `ClusterTrustBundles`
+In Kubernetes {{< skew currentVersion >}}, you must enable the `ClusterTrustBundle`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 _and_ the `certificates.k8s.io/v1alpha1`
 {{< glossary_tooltip text="API group" term_id="api-group" >}} in order to use
@@ -471,6 +471,12 @@ such as role-based access control.
 
 To distinguish them from signer-linked ClusterTrustBundles, the names of
 signer-unlinked ClusterTrustBundles **must not** contain a colon (`:`).
+
+### Accessing ClusterTrustBundles from pods {#ctb-projection}
+
+{{<feature-state for_k8s_version="v1.29" state="alpha" >}}
+
+The contents of ClusterTrustBundles can be injected into the container filesystem, similar to ConfigMaps and Secrets.  See the [clusterTrustBundle projected volume source](/docs/concepts/storage/projected-volumes#clustertrustbundle) for more details.
 
 <!-- TODO this should become a task page -->
 ## How to issue a certificate for a user {#normal-user}

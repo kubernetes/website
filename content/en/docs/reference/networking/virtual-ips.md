@@ -14,6 +14,18 @@ The `kube-proxy` component is responsible for implementing a _virtual IP_
 mechanism for {{< glossary_tooltip term_id="service" text="Services">}}
 of `type` other than
 [`ExternalName`](/docs/concepts/services-networking/service/#externalname).
+Each instance of kube-proxy watches the Kubernetes {{< glossary_tooltip
+term_id="control-plane" text="control plane" >}} for the addition and
+removal of Service and EndpointSlice {{< glossary_tooltip
+term_id="object" text="objects" >}}. For each Service, kube-proxy
+calls appropriate APIs (depending on the kube-proxy mode) to configure
+the node to capture traffic to the Service's `clusterIP` and `port`,
+and redirect that traffic to one of the Service's endpoints
+(usually a Pod, but possibly an arbitrary user-provided IP address). A control
+loop ensures that the rules on each node are reliably synchronized with
+the Service and EndpointSlice state as indicated by the API server.
+
+{{< figure src="/images/docs/services-iptables-overview.svg" title="Virtual IP mechanism for Services, using iptables mode" class="diagram-medium" >}}
 
 A question that pops up every now and then is why Kubernetes relies on
 proxying to forward inbound traffic to backends. What about other
@@ -57,10 +69,13 @@ The kube-proxy starts up in different modes, which are determined by its configu
 On Linux nodes, the available modes for kube-proxy are:
 
 [`iptables`](#proxy-mode-iptables)
-: A mode where the kube-proxy configures packet forwarding rules using iptables, on Linux.
+: A mode where the kube-proxy configures packet forwarding rules using iptables.
 
 [`ipvs`](#proxy-mode-ipvs)
 : a mode where the kube-proxy configures packet forwarding rules using ipvs.
+
+[`nftables`](#proxy-mode-nftables)
+: a mode where the kube-proxy configures packet forwarding rules using nftables.
 
 There is only one mode available for kube-proxy on Windows:
 
@@ -71,32 +86,10 @@ There is only one mode available for kube-proxy on Windows:
 
 _This proxy mode is only available on Linux nodes._
 
-In this mode, kube-proxy watches the Kubernetes
-{{< glossary_tooltip term_id="control-plane" text="control plane" >}} for the addition and
-removal of Service and EndpointSlice {{< glossary_tooltip term_id="object" text="objects." >}}
-For each Service, it installs
-iptables rules, which capture traffic to the Service's `clusterIP` and `port`,
-and redirect that traffic to one of the Service's
-backend sets. For each endpoint, it installs iptables rules which
-select a backend Pod.
-
-By default, kube-proxy in iptables mode chooses a backend at random.
-
-Using iptables to handle traffic has a lower system overhead, because traffic
-is handled by Linux netfilter without the need to switch between userspace and the
-kernel space. This approach is also likely to be more reliable.
-
-If kube-proxy is running in iptables mode and the first Pod that's selected
-does not respond, the connection fails. This is different from the old `userspace`
-mode: in that scenario, kube-proxy would detect that the connection to the first
-Pod had failed and would automatically retry with a different backend Pod.
-
-You can use Pod [readiness probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)
-to verify that backend Pods are working OK, so that kube-proxy in iptables mode
-only sees backends that test out as healthy. Doing this means you avoid
-having traffic sent via kube-proxy to a Pod that's known to have failed.
-
-{{< figure src="/images/docs/services-iptables-overview.svg" title="Virtual IP mechanism for Services, using iptables mode" class="diagram-medium" >}}
+In this mode, kube-proxy configures packet forwarding rules using the
+iptables API of the kernel netfilter subsystem. For each endpoint, it
+installs iptables rules which, by default, select a backend Pod at
+random.
 
 #### Example {#packet-processing-iptables}
 
@@ -122,8 +115,10 @@ through a load-balancer, though in those cases the client IP address does get al
 
 #### Optimizing iptables mode performance
 
-In large clusters (with tens of thousands of Pods and Services), the
-iptables mode of kube-proxy may take a long time to update the rules
+In iptables mode, kube-proxy creates a few iptables rules for every
+Service, and a few iptables rules for each endpoint IP address. In
+clusters with tens of thousands of Pods and Services, this means tens
+of thousands of iptables rules, and kube-proxy may take a long time to update the rules
 in the kernel when Services (or their EndpointSlices) change. You can adjust the syncing
 behavior of kube-proxy via options in the [`iptables` section](/docs/reference/config-api/kube-proxy-config.v1alpha1/#kubeproxy-config-k8s-io-v1alpha1-KubeProxyIPTablesConfiguration)
 of the
@@ -204,18 +199,15 @@ and is likely to hurt functionality more than it improves performance.
 
 _This proxy mode is only available on Linux nodes._
 
-In `ipvs` mode, kube-proxy watches Kubernetes Services and EndpointSlices,
-calls `netlink` interface to create IPVS rules accordingly and synchronizes
-IPVS rules with Kubernetes Services and EndpointSlices periodically.
-This control loop ensures that IPVS status matches the desired state.
-When accessing a Service, IPVS directs traffic to one of the backend Pods.
+In `ipvs` mode, kube-proxy uses the kernel IPVS and iptables APIs to
+create rules to redirect traffic from Service IPs to endpoint IPs.
 
 The IPVS proxy mode is based on netfilter hook function that is similar to
 iptables mode, but uses a hash table as the underlying data structure and works
 in the kernel space.
 That means kube-proxy in IPVS mode redirects traffic with lower latency than
 kube-proxy in iptables mode, with much better performance when synchronizing
-proxy rules. Compared to the other proxy modes, IPVS mode also supports a
+proxy rules. Compared to the iptables proxy mode, IPVS mode also supports a
 higher throughput of network traffic.
 
 IPVS provides more options for balancing traffic to backend Pods;
@@ -263,10 +255,27 @@ the node before starting kube-proxy.
 
 When kube-proxy starts in IPVS proxy mode, it verifies whether IPVS
 kernel modules are available. If the IPVS kernel modules are not detected, then kube-proxy
-falls back to running in iptables proxy mode.
+exits with an error.
 {{< /note >}}
 
 {{< figure src="/images/docs/services-ipvs-overview.svg" title="Virtual IP address mechanism for Services, using IPVS mode" class="diagram-medium" >}}
+
+### `nftables` proxy mode {#proxy-mode-nftables}
+
+{{< feature-state for_k8s_version="v1.29" state="alpha" >}}
+
+_This proxy mode is only available on Linux nodes._
+
+In this mode, kube-proxy configures packet forwarding rules using the
+nftables API of the kernel netfilter subsystem. For each endpoint, it
+installs nftables rules which, by default, select a backend Pod at
+random.
+
+The nftables API is the successor to the iptables API, and although it
+is designed to provide better performance and scalability than
+iptables, the kube-proxy nftables mode is still under heavy
+development as of {{< skew currentVersion >}} and is not necessarily
+expected to outperform the other Linux modes at this time.
 
 ### `kernelspace` proxy mode {#proxy-mode-kernelspace}
 
@@ -344,9 +353,9 @@ ensure that no two Services can collide. Kubernetes does that by allocating each
 Service its own IP address from within the `service-cluster-ip-range`
 CIDR range that is configured for the {{< glossary_tooltip term_id="kube-apiserver" text="API Server" >}}.
 
-#### IP address allocation tracking
+### IP address allocation tracking
 
-To ensure each Service receives a unique IP, an internal allocator atomically
+To ensure each Service receives a unique IP address, an internal allocator atomically
 updates a global allocation map in {{< glossary_tooltip term_id="etcd" >}}
 prior to creating each Service. The map object must exist in the registry for
 Services to get IP address assignments, otherwise creations will
@@ -355,28 +364,37 @@ fail with a message indicating an IP address could not be allocated.
 In the control plane, a background controller is responsible for creating that
 map (needed to support migrating from older versions of Kubernetes that used
 in-memory locking). Kubernetes also uses controllers to check for invalid
-assignments (e.g. due to administrator intervention) and for cleaning up allocated
+assignments (for example: due to administrator intervention) and for cleaning up allocated
 IP addresses that are no longer used by any Services.
 
+#### IP address allocation tracking using the Kubernetes API {#ip-address-objects}
+
 {{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+
 If you enable the `MultiCIDRServiceAllocator`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and the
 [`networking.k8s.io/v1alpha1` API group](/docs/tasks/administer-cluster/enable-disable-api/),
-the control plane replaces the existing etcd allocator with a new one, using IPAddress
-objects instead of an internal global allocation map.  The ClusterIP address
-associated to each Service will have a referenced IPAddress object.
+the control plane replaces the existing etcd allocator with a revised implementation
+that uses IPAddress and ServiceCIDR objects instead of an internal global allocation map.
+Each cluster IP address associated to a Service then references an IPAddress object.
 
-The background controller is also replaced by a new one to handle the new IPAddress
-objects and the migration from the old allocator model.
+Enabling the feature gate also replaces a background controller with an alternative
+that handles the IPAddress objects and supports migration from the old allocator model.
+Kubernetes {{< skew currentVersion >}} does not support migrating from IPAddress
+objects to the internal allocation map.
 
-One of the main benefits of the new allocator is that it removes the size limitations
-for the `service-cluster-ip-range`, there is no limitations for IPv4 and for IPv6
-users can use masks equal or larger than /64 (previously it was /108).
+One of the main benefits of the revised allocator is that it removes the size limitations
+for the IP address range that can be used for the cluster IP address of Services.
+With `MultiCIDRServiceAllocator` enabled, there are no limitations for IPv4, and for IPv6
+you can use IP address netmasks that are a /64 or smaller (as opposed to /108 with the
+legacy implementation).
 
-Users now will be able to inspect the IP addresses assigned to their Services, and
-Kubernetes extensions such as the [Gateway](https://gateway-api.sigs.k8s.io/) API, can use this new
-IPAddress object kind to enhance the Kubernetes networking capabilities, going beyond the limitations of
-the built-in Service API.
+Making IP address allocations available via the API means that you as a cluster administrator
+can allow users to inspect the IP addresses assigned to their Services.
+Kubernetes extensions, such as the [Gateway API](/docs/concepts/services-networking/gateway/),
+can use the IPAddress API to extend Kubernetes' inherent networking capabilities.
+
+Here is a brief example of a user querying for IP addresses:
 
 ```shell
 kubectl get services
@@ -394,7 +412,45 @@ NAME              PARENTREF
 2001:db8:1:2::a   services/kube-system/kube-dns
 ```
 
-#### IP address ranges for Service virtual IP addresses {#service-ip-static-sub-range}
+Kubernetes also allow users to dynamically define the available IP ranges for Services using
+ServiceCIDR objects. During bootstrap, a default ServiceCIDR object named `kubernetes` is created
+from the value of the `--service-cluster-ip-range` command line argument to kube-apiserver:
+
+```shell
+kubectl get servicecidrs
+```
+```
+NAME         CIDRS         AGE
+kubernetes   10.96.0.0/28  17m
+```
+
+Users can create or delete new ServiceCIDR objects to manage the available IP ranges for Services:
+
+```shell
+cat <<'EOF' | kubectl apply -f -
+apiVersion: networking.k8s.io/v1alpha1
+kind: ServiceCIDR
+metadata:
+  name: newservicecidr
+spec:
+  cidrs:
+  - 10.96.0.0/24
+EOF
+```
+```
+servicecidr.networking.k8s.io/newcidr1 created
+```
+
+```shell
+kubectl get servicecidrs
+```
+```
+NAME             CIDRS         AGE
+kubernetes       10.96.0.0/28  17m
+newservicecidr   10.96.0.0/24  7m
+```
+
+### IP address ranges for Service virtual IP addresses {#service-ip-static-sub-range}
 
 {{< feature-state for_k8s_version="v1.26" state="stable" >}}
 

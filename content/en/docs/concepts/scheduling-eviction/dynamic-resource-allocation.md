@@ -162,6 +162,17 @@ gets scheduled onto one node and then cannot run there, which is bad because
 such a pending Pod also blocks all other resources like RAM or CPU that were
 set aside for it.
 
+{{< note >}}
+
+Scheduling of pods which use ResourceClaims is going to be slower because of
+the additional communication that is required. Beware that this may also impact
+pods that don't use ResourceClaims because only one pod at a time gets
+scheduled, blocking API calls are made while handling a pod with
+ResourceClaims, and thus scheduling the next pod gets delayed.
+
+{{< /note >}}
+
+
 ## Monitoring resources
 
 The kubelet provides a gRPC service to enable discovery of dynamic resources of

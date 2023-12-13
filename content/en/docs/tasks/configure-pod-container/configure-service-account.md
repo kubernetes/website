@@ -1,6 +1,6 @@
 ---
 reviewers:
-- bprashanth
+- enj
 - liggitt
 - thockin
 title: Configure Service Accounts for Pods
@@ -183,6 +183,16 @@ The output from that command is a token that you can use to authenticate as that
 ServiceAccount. You can request a specific token duration using the `--duration`
 command line argument to `kubectl create token` (the actual duration of the issued
 token might be shorter, or could even be longer).
+
+When the `ServiceAccountTokenNodeBinding` and `ServiceAccountTokenNodeBindingValidation`
+features are enabled and the `KUBECTL_NODE_BOUND_TOKENS` enviroment variable is set to `true`,
+it is possible to create a service account token that is directly bound to a `Node`:
+
+```shell
+KUBECTL_NODE_BOUND_TOKENS=true kubectl create token build-robot --bound-object-kind Node --bound-object-name node-001 --bound-object-uid 123...456
+```
+
+The token will be valid until it expires or either the assocaited `Node` or service account are deleted.
 
 {{< note >}}
 Versions of Kubernetes before v1.22 automatically created long term credentials for
@@ -407,6 +417,39 @@ or the ServiceAccount is deleted.
 You can configure this behavior for the `spec` of a Pod using a
 [projected volume](/docs/concepts/storage/volumes/#projected) type called
 `ServiceAccountToken`.
+
+The token from this projected volume is a {{<glossary_tooltip term_id="jwt" text="JSON Web Token">}}  (JWT).
+The JSON payload of this token follows a well defined schema - an example payload for a pod bound token:
+
+```yaml
+{
+  "aud": [  # matches the requested audiences, or the API server's default audiences when none are explicitly requested
+    "https://kubernetes.default.svc"
+  ],
+  "exp": 1731613413,
+  "iat": 1700077413,
+  "iss": "https://kubernetes.default.svc",  # matches the first value passed to the --service-account-issuer flag
+  "jti": "ea28ed49-2e11-4280-9ec5-bc3d1d84661a",  # ServiceAccountTokenJTI feature must be enabled for the claim to be present
+  "kubernetes.io": {
+    "namespace": "kube-system",
+    "node": {  # ServiceAccountTokenPodNodeInfo feature must be enabled for the API server to add this node reference claim
+      "name": "127.0.0.1",
+      "uid": "58456cb0-dd00-45ed-b797-5578fdceaced"
+    },
+    "pod": {
+      "name": "coredns-69cbfb9798-jv9gn",
+      "uid": "778a530c-b3f4-47c0-9cd5-ab018fb64f33"
+    },
+    "serviceaccount": {
+      "name": "coredns",
+      "uid": "a087d5a0-e1dd-43ec-93ac-f13d89cd13af"
+    },
+    "warnafter": 1700081020
+  },
+  "nbf": 1700077413,
+  "sub": "system:serviceaccount:kube-system:coredns"
+}
+```
 
 ### Launch a Pod using service account token projection
 
