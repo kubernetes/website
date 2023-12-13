@@ -68,7 +68,6 @@ These enhancements provide users with a reliable solution to encrypt all resourc
 
 It is recommended to use KMS v2. KMS v1 feature gate is disabled by default. You will have to opt in to continue to use it.
 
-can integrate with an external _key management service_ (KMS). Available since Kubernetes v1.13,
 this mechanism allows you to protect your cluster's control plane from security risks even if the etcd
 persistence layer is somehow compromised.
 
