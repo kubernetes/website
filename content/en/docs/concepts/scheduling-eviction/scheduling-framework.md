@@ -84,8 +84,10 @@ the Pod is put into the active queue or the backoff queue
 so that the scheduler will retry the scheduling of the Pod.
 
 {{< note >}}
-QueueingHint evaluation during scheduling is a beta-level feature and is enabled by default in 1.28. 
-You can disable it via the
+QueueingHint evaluation during scheduling is a beta-level feature. 
+It's enabled by default in 1.28.0 - 1.28.5, 
+but is disabled by default in 1.29 because of excessive memory footprint.
+You can enable it via the
 `SchedulerQueueingHints` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 {{< /note >}}
 
