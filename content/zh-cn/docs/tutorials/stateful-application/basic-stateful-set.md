@@ -137,16 +137,11 @@ It creates a [headless Service](/docs/concepts/services-networking/service/#head
 {{% code_sample file="application/web/web.yaml" %}}
 
 <!--
-Download the example above, and save it to a file named `web.yaml`
--->
-下载上面的例子并保存为文件 `web.yaml`。
-
-<!--
-You will need to use two terminal windows. In the first terminal, use
+You will need to use at least two terminal windows. In the first terminal, use
 [`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get) to watch the creation
 of the StatefulSet's Pods.
 -->
-你需要使用两个终端窗口。在第一个终端中，使用
+你需要使用至少两个终端窗口。在第一个终端中，使用
 [`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get)
 来监视 StatefulSet 的 Pod 的创建情况。
 
@@ -157,13 +152,13 @@ kubectl get pods -w -l app=nginx
 <!--
 In the second terminal, use
 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply) to create the
-headless Service and StatefulSet defined in `web.yaml`.
+headless Service and StatefulSet.
 -->
 在另一个终端中，使用 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply)
-来创建定义在 `web.yaml` 中的 Headless Service 和 StatefulSet。
+来创建 Headless Service 和 StatefulSet。
 
 ```shell
-kubectl apply -f web.yaml
+kubectl apply -f https://k8s.io/examples/application/web/web.yaml
 ```
 ```
 service/nginx created
@@ -1229,7 +1224,7 @@ update.
 <!--
 The partition is currently set to `2`. Set the partition to `0`:
 -->
-分区当前为 `2`。请将分区设置为 `0`：
+分区当前为 `2`，请将其设置为 `0`：
 
 ```shell
 kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":0}}}}'
@@ -1415,7 +1410,7 @@ an error indicating that the Service already exists.
 Service（你不应该这样做），你将会看到一个错误，提示 Service 已经存在。
 
 ```shell
-kubectl apply -f web.yaml
+kubectl apply -f https://k8s.io/examples/application/web/web.yaml
 ```
 ```
 statefulset.apps/web created
@@ -1577,7 +1572,7 @@ Recreate the StatefulSet and headless Service one more time:
 再一次重新创建 StatefulSet 和 Headless Service：
 
 ```shell
-kubectl apply -f web.yaml
+kubectl apply -f https://k8s.io/examples/application/web/web.yaml
 ```
 
 ```
@@ -1680,11 +1675,6 @@ Pod. This option only affects the behavior for scaling operations. Updates are n
 {{{% code_sample file="application/web/web-parallel.yaml" %}}
 
 <!--
-Download the example above, and save it to a file named `web-parallel.yaml`
--->
-下载上面的例子并保存为 `web-parallel.yaml`。
-
-<!--
 This manifest is identical to the one you downloaded above except that the `.spec.podManagementPolicy`
 of the `web` StatefulSet is set to `Parallel`.
 -->
@@ -1706,7 +1696,7 @@ In another terminal, create the StatefulSet and Service in the manifest:
 在另一个终端窗口创建清单中的 StatefulSet 和 Service：
 
 ```shell
-kubectl apply -f web-parallel.yaml
+kubectl apply -f https://k8s.io/examples/application/web/web-parallel.yaml
 ```
 ```
 service/nginx created

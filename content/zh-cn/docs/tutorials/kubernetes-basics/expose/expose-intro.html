@@ -51,9 +51,9 @@ description: |-
 			<!--
 			<p>Kubernetes <a href="/docs/concepts/workloads/pods/">Pods</a> are mortal. Pods have a <a href="/docs/concepts/workloads/pods/pod-lifecycle/">lifecycle</a>. When a worker node dies, the Pods running on the Node are also lost. A <a href="/docs/concepts/workloads/controllers/replicaset/">ReplicaSet</a> might then dynamically drive the cluster back to the desired state via the creation of new Pods to keep your application running. As another example, consider an image-processing backend with 3 replicas. Those replicas are exchangeable; the front-end system should not care about backend replicas or even if a Pod is lost and recreated. That said, each Pod in a Kubernetes cluster has a unique IP address, even Pods on the same Node, so there needs to be a way of automatically reconciling changes among Pods so that your applications continue to function.</p>
 			-->
-			
-			<p> Kubernetes <a href="/zh-cn/docs/concepts/workloads/pods/">Pod</a> 是转瞬即逝的。 Pod 拥有 <a href="/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/">生命周期</a>。 
-			当一个工作节点挂掉后, 在节点上运行的 Pod 也会消亡。 <a href="/zh-cn/docs/concepts/workloads/controllers/replicaset/">ReplicaSet</a> 会自动地通过创建新的 Pod 驱动集群回到目标状态，以保证应用正常运行。 
+
+			<p> Kubernetes <a href="/zh-cn/docs/concepts/workloads/pods/">Pod</a> 是转瞬即逝的。 Pod 拥有 <a href="/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/">生命周期</a>。
+			当一个工作节点挂掉后, 在节点上运行的 Pod 也会消亡。 <a href="/zh-cn/docs/concepts/workloads/controllers/replicaset/">ReplicaSet</a> 会自动地通过创建新的 Pod 驱动集群回到目标状态，以保证应用正常运行。
 			换一个例子，考虑一个具有 3 个副本的用作图像处理的后端程序。
 			这些副本是可替换的。前端系统不应该关心后端副本，即使某个 Pod 丢失或被重新创建。
 			此外，Kubernetes 集群中的每个 Pod 都有一个唯一的 IP 地址，即使是在同一个 Node 上的 Pod 也是如此，
@@ -177,8 +177,8 @@ description: |-
 		<br>
 		<div class="row">
 			<div class="col-md-12">
-				<!-- <h3>Create a new Service</h3> -->
-				<h3>创建新 Service</h3>
+				<!-- <h3>Step 1: Creating a new Service</h3> -->
+				<h3>第一步：创建新 Service</h3>
 				<!--
 				<p>Let’s verify that our application is running. We’ll use the <code>kubectl get</code> command and look for existing Pods:</p>
 				-->
@@ -211,7 +211,7 @@ description: |-
 				<p>To find out what port was opened externally (for the <tt>type: NodePort</tt> Service) we’ll run the <code>describe service</code> subcommand:</p>
 				-->
 				<p>我们现在有一个运行中的 Service 名为 kubernetes-bootcamp。
-				这里我们看到 Service 收到了一个唯一的集群内 IP（cluster-IP），一个内部端口和一个外部 IP 
+				这里我们看到 Service 收到了一个唯一的集群内 IP（cluster-IP），一个内部端口和一个外部 IP
 				（external-IP）（Node 的 IP）。</p>
 				<p>要得到外部打开的端口号（对于 <tt>type: NodePort</tt> 的服务），我们需要运行 <code>describe service</code> 子命令：</p>
 				<p><code><b>kubectl describe services/kubernetes-bootcamp</b></code></p>
@@ -239,7 +239,7 @@ description: |-
 				-->
 				{{< note >}}<p>如果你正在使用 Docker Desktop 作为容器驱动来运行 minikube, 需要使用 minikube tunnel。
 				这是因为 Docker Desktop 内部的容器和宿主机是隔离的。<br>
-				<p>在另一个终端窗口中，执行:<br>
+				<p>在另一个终端窗口中，执行：<br>
 				<code><b>minikube service kubernetes-bootcamp --url</b></code></p>
 				<p>输出结果如下：
 				<pre><b>http://127.0.0.1:51082<br>!  Because you are using a Docker driver on darwin, the terminal needs to be open to run it.</b></pre></p>
@@ -300,12 +300,12 @@ description: |-
 
 		<div class="row">
 			<div class="col-md-12">
-				<!-- <h3>Deleting a service</h3> -->
-				<h3>删除一个 Service</h3>
+				<!-- <h3>Step 3: Deleting a service</h3> -->
+				<h3>第三步：删除一个 Service</h3>
 				<!--
 				<p>To delete Services you can use the <code>delete service</code> subcommand. Labels can be used also here:</p>
 				-->
-				<p>要删除一个 Service 你可以使用 <code>delete service</code> 子命令。这里也可以使用标签:</p>
+				<p>要删除一个 Service 你可以使用 <code>delete service</code> 子命令。这里也可以使用标签：</p>
 				<p><code><b>kubectl delete service -l app=kubernetes-bootcamp</b></code></p>
 				<!--
 				<p>Confirm that the Service is gone:</p>
@@ -340,7 +340,7 @@ description: |-
 				<p>
 					准备好之后，继续学习<a href="/zh-cn/docs/tutorials/kubernetes-basics/scale/scale-intro/" title="运行应用的多个实例">运行应用的多个实例</a>。
 				</p>
-				
+
 				</div>
 
 		</div>

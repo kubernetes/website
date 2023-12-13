@@ -53,7 +53,7 @@ description: |-
             <p> <b> NOTE </b> If you are trying this after <a href="/docs/tutorials/kubernetes-basics/expose/expose-intro/">the previous section </a>, you may need to start from <a href="/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/">creating a cluster</a> as the services may have been deleted </p>
             -->
             <p><b>扩缩</b> 是通过改变 Deployment 中的副本数量来实现的。</p>
-            <p> <b> 注意 </b> 如果你是在 <a href="/zh-cn/docs/tutorials/kubernetes-basics/expose/expose-intro/">上一节</a> 之后尝试此操作, 
+            <p> <b> 注意 </b> 如果你是在 <a href="/zh-cn/docs/tutorials/kubernetes-basics/expose/expose-intro/">上一节</a> 之后尝试此操作,
               你可能需要从 <a href="/zh-cn/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/">创建一个集群</a> 开始，
               因为 Service 可能已被删除。</p>
 
@@ -61,7 +61,7 @@ description: |-
             <div class="col-md-4">
                 <div class="content__box content__box_lined">
                     <!-- <h3>Summary:</h3> -->
-                    <h3>小结:</h3>
+                    <h3>小结：</h3>
                     <ul>
                         <!-- <li>Scaling a Deployment</li> -->
                         <li>扩缩一个 Deployment</li>
@@ -269,6 +269,28 @@ kubernetes-bootcamp   1/1     1            1           11m
                <p>We hit a different Pod with every request. This demonstrates that the load-balancing is working.</p>
                -->
                <p>我们每个请求都命中了不同的 Pod，这证明负载均衡正在工作。</p>
+               {{< note >}}
+              <!--
+              <p>If you're running minikube with Docker Desktop as the container driver, a minikube tunnel is needed.
+                This is because containers inside Docker Desktop are isolated from your host computer.<br>
+                <p>In a separate terminal window, execute:<br>
+                  <code><b>minikube service kubernetes-bootcamp --url</b></code></p>
+               -->
+              <p>如果你使用 Docker Desktop 作为容器驱动程序运行 minikube，则需要 minikube 隧道。
+                这是因为 Docker Desktop 内的容器与主机隔离。<br>
+                <p>在单独的终端窗口中，执行：<br>
+                  <code><b>minikube service kubernetes-bootcamp --url</b></code></p>
+                <!--
+                <p>The output looks like this:
+                  <pre><b>http://127.0.0.1:51082<br>!  Because you are using a Docker driver on darwin, the terminal needs to be open to run it.</b></pre></p>
+                <p>Then use the given URL to access the app:<br>
+                  <code><b>curl 127.0.0.1:51082</b></code></p>
+                -->
+                <p>输出看起来像这样：
+                  <pre><b>http://127.0.0.1:51082<br>!  Because you are using a Docker driver on darwin, the terminal needs to be open to run it.</b></pre></p>
+                <p>然后使用给定的 URL 访问应用程序：
+                  <code><b>curl 127.0.0.1:51082</b></code></p>
+               {{< /note >}}
             </div>
         </div>
 
