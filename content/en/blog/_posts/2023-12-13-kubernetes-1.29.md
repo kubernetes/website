@@ -68,7 +68,6 @@ These enhancements provide users with a reliable solution to encrypt all resourc
 
 It is recommended to use KMS v2. KMS v1 feature gate is disabled by default. You will have to opt in to continue to use it.
 
-persistence layer is somehow compromised.
 
 New in v1.29 is stable support for version 2 of the KMS integration. If you're using KMS for
 encryption, or you plan to, the Kubernetes project recommends using the version 2 integration
