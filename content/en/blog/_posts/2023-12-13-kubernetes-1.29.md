@@ -74,7 +74,6 @@ It is recommended to use KMS v2. KMS v1 feature gate is disabled by default. You
 
 _This is a selection of some of the improvements that are now beta following the v1.29 release._
 
-### Per-plugin callback functions in kube-scheduler for accurate requeueing ([SIG Scheduling](https://github.com/kubernetes/community/tree/master/sig-scheduling)) {#scheduler-queueing-hint}
 
 The throughput of the scheduler is our eternal challenge. This QueueingHint feature brings a new possibility to optimize the efficiency of requeueing, which could reduce useless scheduling retries significantly.
 
