@@ -265,6 +265,7 @@ In the following table:
 | `MountPropagation` | `false` | Alpha | 1.8 | 1.9 |
 | `MountPropagation` | `true` | Beta | 1.10 | 1.11 |
 | `MountPropagation` | `true` | GA | 1.12 | 1.14 |
+| `MultiCIDRRangeAllocator` | `false` | Alpha | 1.25 | 1.28 |
 | `NamespaceDefaultLabelName` | `true` | Beta | 1.21 | 1.21 |
 | `NamespaceDefaultLabelName` | `true` | GA | 1.22 | 1.23 |
 | `NetworkPolicyEndPort` | `false` | Alpha | 1.21 | 1.21 |
@@ -534,6 +535,7 @@ In the following table:
 - {{< feature-gate-description name="MixedProtocolLBService" >}}
 - {{< feature-gate-description name="MountContainers" >}}
 - {{< feature-gate-description name="MountPropagation" >}}
+- {{< feature-gate-description name="MultiCIDRRangeAllocator" >}}
 - {{< feature-gate-description name="NamespaceDefaultLabelName" >}}
 - {{< feature-gate-description name="NetworkPolicyStatus" >}}
 - {{< feature-gate-description name="NodeDisruptionExclusion" >}}
