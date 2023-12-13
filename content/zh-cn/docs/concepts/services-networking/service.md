@@ -3,7 +3,8 @@ title: 服务（Service）
 feature:
   title: 服务发现与负载均衡
   description: >
-    你无需修改应用来使用陌生的服务发现机制。Kubernetes 为每个 Pod 提供了自己的 IP 地址并为一组 Pod 提供一个 DNS 名称，并且可以在它们之间实现负载均衡。
+    你无需修改应用来使用陌生的服务发现机制。Kubernetes 为每个 Pod 提供了自己的 IP 地址并为一组
+    Pod 提供一个 DNS 名称，并且可以在它们之间实现负载均衡。
 description: >-
   将在集群中运行的应用通过同一个面向外界的端点公开出去，即使工作负载分散于多个后端也完全可行。
 content_type: concept
@@ -36,8 +37,7 @@ an older app you've containerized. You use a Service to make that set of Pods av
 on the network so that clients can interact with it.
 -->
 Kubernetes 中 Service 的一个关键目标是让你无需修改现有应用以使用某种不熟悉的服务发现机制。
-你可以在 Pod 集合中运行代码，无论该代码是为云原生环境设计的，
-还是被容器化的老应用。
+你可以在 Pod 集合中运行代码，无论该代码是为云原生环境设计的，还是被容器化的老应用。
 你可以使用 Service 让一组 Pod 可在网络上访问，这样客户端就能与之交互。
 
 <!--
@@ -241,7 +241,7 @@ A Service can map _any_ incoming `port` to a `targetPort`. By default and
 for convenience, the `targetPort` is set to the same value as the `port`
 field.
 -->
-Service 能够将任意入站 `port` 映射到某个 `targetPort`。
+Service 能够将**任意**入站 `port` 映射到某个 `targetPort`。
 默认情况下，出于方便考虑，`targetPort` 会被设置为与 `port` 字段相同的值。
 {{< /note >}}
 
@@ -373,6 +373,31 @@ object manually. For example:
 由于此 Service 没有选择算符，因此不会自动创建对应的 EndpointSlice（和旧版的 Endpoints）对象。
 你可以通过手动添加 EndpointSlice 对象，将 Service 映射到该服务运行位置的网络地址和端口：
 
+<!--
+```yaml
+apiVersion: discovery.k8s.io/v1
+kind: EndpointSlice
+metadata:
+  name: my-service-1 # by convention, use the name of the Service
+                     # as a prefix for the name of the EndpointSlice
+  labels:
+    # You should set the "kubernetes.io/service-name" label.
+    # Set its value to match the name of the Service
+    kubernetes.io/service-name: my-service
+addressType: IPv4
+ports:
+  - name: '' # empty because port 9376 is not assigned as a well-known
+             # port (by IANA)
+    appProtocol: http
+    protocol: TCP
+    port: 9376
+endpoints:
+  - addresses:
+      - "10.4.5.6"
+  - addresses:
+      - "10.1.2.3"
+```
+-->
 ```yaml
 apiVersion: discovery.k8s.io/v1
 kind: EndpointSlice
@@ -898,22 +923,21 @@ spec:
 -->
 #### 预留 NodePort 端口范围以避免发生冲突  {#avoid-nodeport-collisions}
 
-{{< feature-state for_k8s_version="v1.28" state="beta" >}}
+{{< feature-state for_k8s_version="v1.29" state="stable" >}}
 
 <!--
 The policy for assigning ports to NodePort services applies to both the auto-assignment and
 the manual assignment scenarios. When a user wants to create a NodePort service that
 uses a specific port, the target port may conflict with another port that has already been assigned.
-In this case, you can enable the feature gate `ServiceNodePortStaticSubrange`, which allows you
-to use a different port allocation strategy for NodePort Services. The port range for NodePort services
-is divided into two bands. Dynamic port assignment uses the upper band by default, and it may use
-the lower band once the upper band has been exhausted. Users can then allocate from the lower band
-with a lower risk of port collision.
+
+To avoid this problem, the port range for NodePort services is divided into two bands.
+Dynamic port assignment uses the upper band by default, and it may use the lower band once the 
+upper band has been exhausted. Users can then allocate from the lower band with a lower risk of port collision.
 -->
 为 NodePort 服务分配端口的策略既适用于自动分配的情况，也适用于手动分配的场景。
 当某个用于希望创建一个使用特定端口的 NodePort 服务时，该目标端口可能与另一个已经被分配的端口冲突。
-这时，你可以启用特性门控 `ServiceNodePortStaticSubrange`，进而为 NodePort Service
-使用不同的端口分配策略。用于 NodePort 服务的端口范围被分为两段。
+
+为了避免这个问题，用于 NodePort 服务的端口范围被分为两段。
 动态端口分配默认使用较高的端口段，并且在较高的端口段耗尽时也可以使用较低的端口段。
 用户可以从较低端口段中分配端口，降低端口冲突的风险。
 
@@ -1169,6 +1193,50 @@ Unprefixed names are reserved for end-users.
 没有前缀的名字是保留给最终用户的。
 
 <!--
+#### Specifying IPMode of load balancer status {#load-balancer-ip-mode}
+-->
+#### 指定负载均衡器状态的 IPMode    {#load-balancer-ip-mode}
+
+{{< feature-state for_k8s_version="v1.29" state="alpha" >}}
+
+<!--
+Starting as Alpha in Kubernetes 1.29, 
+a [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) 
+named `LoadBalancerIPMode` allows you to set the `.status.loadBalancer.ingress.ipMode` 
+for a Service with `type` set to `LoadBalancer`. 
+The `.status.loadBalancer.ingress.ipMode` specifies how the load-balancer IP behaves. 
+It may be specified only when the `.status.loadBalancer.ingress.ip` field is also specified.
+-->
+这是从 Kubernetes 1.29 开始的一个 Alpha 级别特性，通过名为 `LoadBalancerIPMode`
+的[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)允许你为
+`type` 为 `LoadBalancer` 的服务设置 `.status.loadBalancer.ingress.ipMode`。
+`.status.loadBalancer.ingress.ipMode` 指定负载均衡器 IP 的行为方式。
+此字段只能在 `.status.loadBalancer.ingress.ip` 字段也被指定时才能指定。
+
+<!--
+There are two possible values for `.status.loadBalancer.ingress.ipMode`: "VIP" and "Proxy". 
+The default value is "VIP" meaning that traffic is delivered to the node 
+with the destination set to the load-balancer's IP and port. 
+There are two cases when setting this to "Proxy", depending on how the load-balancer 
+from the cloud provider delivers the traffics:
+-->
+`.status.loadBalancer.ingress.ipMode` 有两个可能的值："VIP" 和 "Proxy"。
+默认值是 "VIP"，意味着流量被传递到目的地设置为负载均衡器 IP 和端口的节点上。
+将此字段设置为 "Proxy" 时会出现两种情况，具体取决于云驱动提供的负载均衡器如何传递流量：
+
+<!--
+- If the traffic is delivered to the node then DNATed to the pod, the destination would be set to the node's IP and node port;
+- If the traffic is delivered directly to the pod, the destination would be set to the pod's IP and port.
+-->
+- 如果流量被传递到节点，然后 DNAT 到 Pod，则目的地将被设置为节点的 IP 和节点端口；
+- 如果流量被直接传递到 Pod，则目的地将被设置为 Pod 的 IP 和端口。
+
+<!--
+Service implementations may use this information to adjust traffic routing.
+-->
+服务实现可以使用此信息来调整流量路由。
+
+<!--
 #### Internal load balancer
 
 In a mixed environment it is sometimes necessary to route traffic from Services inside the same
@@ -1184,16 +1252,18 @@ depending on the cloud service provider you're using:
 
 在混合环境中，有时有必要在同一（虚拟）网络地址段内路由来自 Service 的流量。
 
-在水平分割（Split-Horizon） DNS 环境中，你需要两个 Service 才能将内部和外部流量都路由到你的端点。
+在水平分割（Split-Horizon）DNS 环境中，你需要两个 Service 才能将内部和外部流量都路由到你的端点。
 
 如要设置内部负载均衡器，请根据你所使用的云平台，为 Service 添加以下注解之一：
 
 {{< tabs name="service_tabs" >}}
 {{% tab name="Default" %}}
+
 <!--
 Select one of the tabs.
 -->
 选择一个标签。
+
 {{% /tab %}}
 {{% tab name="GCP" %}}
 
@@ -1245,7 +1315,9 @@ metadata:
 ```
 
 {{% /tab %}}
-<!--Baidu Cloud-->
+<!--
+Baidu Cloud
+-->
 {{% tab name="百度云" %}}
 
 ```yaml
@@ -1256,7 +1328,9 @@ metadata:
 ```
 
 {{% /tab %}}
-<!--Tencent Cloud-->
+<!--
+Tencent Cloud
+-->
 {{% tab name="腾讯云" %}}
 
 ```yaml
@@ -1266,7 +1340,9 @@ metadata:
 ```
 
 {{% /tab %}}
-<!--Alibaba Cloud-->
+<!--
+Alibaba Cloud
+-->
 {{% tab name="阿里云" %}}
 
 ```yaml
@@ -1452,10 +1528,6 @@ finding a Service: environment variables and DNS.
 When a Pod is run on a Node, the kubelet adds a set of environment variables
 for each active Service. It adds `{SVCNAME}_SERVICE_HOST` and `{SVCNAME}_SERVICE_PORT` variables,
 where the Service name is upper-cased and dashes are converted to underscores.
-It also supports variables
-(see [makeLinkVariables](https://github.com/kubernetes/kubernetes/blob/dd2d12f6dc0e654c15d5db57a5f9f6ba61192726/pkg/kubelet/envvars/envvars.go#L72))
-that are compatible with Docker Engine's
-"_[legacy container links](https://docs.docker.com/network/links/)_" feature.
 
 For example, the Service `redis-primary` which exposes TCP port 6379 and has been
 allocated cluster IP address 10.0.0.11, produces the following environment
@@ -1466,9 +1538,6 @@ variables:
 当 Pod 运行在某 Node 上时，kubelet 会在其中为每个活跃的 Service 添加一组环境变量。
 kubelet 会添加环境变量 `{SVCNAME}_SERVICE_HOST` 和 `{SVCNAME}_SERVICE_PORT`。
 这里 Service 的名称被转为大写字母，横线被转换成下划线。
-它还支持与 Docker Engine 的 "**[legacy container links](https://docs.docker.com/network/links/)**" 
-特性兼容的变量
-（参阅 [makeLinkVariables](https://github.com/kubernetes/kubernetes/blob/dd2d12f6dc0e654c15d5db57a5f9f6ba61192726/pkg/kubelet/envvars/envvars.go#L72)) 。
 
 例如，一个 Service `redis-primary` 公开了 TCP 端口 6379，
 同时被分配了集群 IP 地址 10.0.0.11，这个 Service 生成的环境变量如下：
@@ -1594,7 +1663,7 @@ to control how Kubernetes routes traffic to healthy (“ready”) backends.
 
 See [Traffic Policies](/docs/reference/networking/virtual-ips/#traffic-policies) for more details.
 -->
-### 流量策略
+### 流量策略    {#traffic-policies}
 
 你可以设置 `.spec.internalTrafficPolicy` 和 `.spec.externalTrafficPolicy`
 字段来控制 Kubernetes 如何将流量路由到健康（“就绪”）的后端。
