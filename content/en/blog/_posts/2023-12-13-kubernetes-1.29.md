@@ -69,7 +69,6 @@ These enhancements provide users with a reliable solution to encrypt all resourc
 It is recommended to use KMS v2. KMS v1 feature gate is disabled by default. You will have to opt in to continue to use it.
 
 
-mechanism in all cases.
 
 
 ## Improvements that graduated to beta in Kubernetes v1.29 {#graduations-to-beta}
