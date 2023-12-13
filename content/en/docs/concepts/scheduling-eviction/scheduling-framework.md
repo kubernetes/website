@@ -85,8 +85,10 @@ so that the scheduler will retry the scheduling of the Pod.
 
 {{< note >}}
 QueueingHint evaluation during scheduling is a beta-level feature. 
-It's enabled by default in 1.28.0 - 1.28.5, 
-but is disabled by default in 1.29 because of excessive memory footprint.
+The v1.28 release series initially enabled the associated feature gate; however, after the
+discovery of an excessive memory footprint, the Kubernetes project set that feature gate
+to be disabled by default. In Kubernetes {{< skew currentVersion >}}, this feature gate is
+disabled and you need to enable it manually.
 You can enable it via the
 `SchedulerQueueingHints` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 {{< /note >}}
