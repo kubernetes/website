@@ -571,7 +571,7 @@ Cluster-level extended resources are not tied to nodes. They are usually managed
 by scheduler extenders, which handle the resource consumption and resource quota.
 
 You can specify the extended resources that are handled by scheduler extenders
-in [scheduler configuration](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
+in [scheduler configuration](/docs/reference/config-api/kube-scheduler-config.v1/)
 
 **Example:**
 
@@ -817,6 +817,6 @@ memory limit (and possibly request) for that container.
 * Read how the API reference defines a [container](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)
   and its [resource requirements](/docs/reference/kubernetes-api/workload-resources/pod-v1/#resources)
 * Read about [project quotas](https://www.linux.org/docs/man8/xfs_quota.html) in XFS
-* Read more about the [kube-scheduler configuration reference (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
+* Read more about the [kube-scheduler configuration reference (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
 * Read more about [Quality of Service classes for Pods](/docs/concepts/workloads/pods/pod-qos/)
 
