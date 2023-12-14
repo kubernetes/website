@@ -16,6 +16,17 @@ Use <code>APIServer.ExtraEnvs</code>, <code>ControllerManager.ExtraEnvs</code>, 
 <code>Etcd.Local.ExtraEnvs</code>.</li>
 <li>The <code>ResetConfiguration</code> API type is now supported in v1beta4.
 Users are able to reset a node by passing a <code>--config</code> file to <code>kubeadm reset</code>.</li>
+<li><code>dry-run</code> mode is now configureable in InitConfiguration and JoinConfiguration config files.</li>
+<li>Replace the existing string/string extra argument maps with structured extra arguments
+that support duplicates. The change applies to <code>ClusterConfiguration</code> - <code>APIServer.ExtraArgs</code>,
+<code>ControllerManager.ExtraArgs</code>, <code>Scheduler.ExtraArgs</code>. Also to <code>NodeRegistrationOptions.KubeletExtraArgs</code>.</li>
+<li>Add <code>ClusterConfiguration.EncryptionAlgorithm</code> that can be used to set the asymmetric
+encryption algorithm used for this cluster's keys and certificates. Can be <code>&quot;RSA&quot;</code>
+(default algorithm, key size is 2048) or <code>&quot;ECDSA&quot;</code> (uses the P-256 elliptic curve).</li>
+<li>Add <code>ClusterConfiguration.DNS.Disabled</code> and <code>ClusterConfiguration.Proxy.Disabled</code>
+that can be used to disable the CoreDNS and kube-proxy addons during cluster
+initialization. Skipping the related addons phases, during cluster creation will
+set the same fields to <code>false</code>.</li>
 </ul>
 <h1>Migration from old kubeadm config versions</h1>
 <ul>
@@ -336,7 +347,7 @@ for, so other administrators can know its purpose.</p>
 </td>
 </tr>
 <tr><td><code>expires</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#time-v1-meta"><code>meta/v1.Time</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
    <p><code>expires</code> specifies the timestamp when this token expires. Defaults to being set
@@ -401,7 +412,7 @@ of view and as an authentication method for the node in the bootstrap phase of
     
 
 
-<p>ClusterConfiguration contains cluster-wide configuration for a kubeadm cluster</p>
+<p>ClusterConfiguration contains cluster-wide configuration for a kubeadm cluster.</p>
 
 
 <table class="table">
@@ -416,97 +427,116 @@ of view and as an authentication method for the node in the bootstrap phase of
 <a href="#kubeadm-k8s-io-v1beta4-Etcd"><code>Etcd</code></a>
 </td>
 <td>
-   <p>Etcd holds configuration for etcd.</p>
+   <p><code>etcd</code> holds the configuration for etcd.</p>
 </td>
 </tr>
 <tr><td><code>networking</code><br/>
 <a href="#kubeadm-k8s-io-v1beta4-Networking"><code>Networking</code></a>
 </td>
 <td>
-   <p>Networking holds configuration for the networking topology of the cluster.</p>
+   <p><code>networking</code> holds configuration for the networking topology of the cluster.</p>
 </td>
 </tr>
 <tr><td><code>kubernetesVersion</code><br/>
 <code>string</code>
 </td>
 <td>
-   <p>KubernetesVersion is the target version of the control plane.</p>
+   <p><code>kubernetesVersion</code> is the target version of the control plane.</p>
 </td>
 </tr>
 <tr><td><code>controlPlaneEndpoint</code><br/>
 <code>string</code>
 </td>
 <td>
-   <p>ControlPlaneEndpoint sets a stable IP address or DNS name for the control plane; it
-can be a valid IP address or a RFC-1123 DNS subdomain, both with optional TCP port.
-In case the ControlPlaneEndpoint is not specified, the AdvertiseAddress + BindPort
-are used; in case the ControlPlaneEndpoint is specified but without a TCP port,
-the BindPort is used.
-Possible usages are:
-e.g. In a cluster with more than one control plane instances, this field should be
+   <p><code>ontrolPlaneEndpoint</code> sets a stable IP address or DNS name for the control plane;
+It can be a valid IP address or a RFC-1123 DNS subdomain, both with optional TCP port.
+In case the <code>controlPlaneEndpoint</code> is not specified, the <code>advertiseAddress</code> + <code>bindPort</code>
+are used; in case the <code>controlPlaneEndpoint</code> is specified but without a TCP port,
+the <code>bindPort</code> is used.
+Possible usages are:</p>
+<ul>
+<li>In a cluster with more than one control plane instances, this field should be
 assigned the address of the external load balancer in front of the
-control plane instances.
-e.g.  in environments with enforced node recycling, the ControlPlaneEndpoint
-could be used for assigning a stable DNS to the control plane.</p>
+control plane instances.</li>
+<li>In environments with enforced node recycling, the <code>controlPlaneEndpoint</code>
+could be used for assigning a stable DNS to the control plane.</li>
+</ul>
 </td>
 </tr>
 <tr><td><code>apiServer</code><br/>
 <a href="#kubeadm-k8s-io-v1beta4-APIServer"><code>APIServer</code></a>
 </td>
 <td>
-   <p>APIServer contains extra settings for the API server control plane component</p>
+   <p><code>apiServer</code> contains extra settings for the API server.</p>
 </td>
 </tr>
 <tr><td><code>controllerManager</code><br/>
 <a href="#kubeadm-k8s-io-v1beta4-ControlPlaneComponent"><code>ControlPlaneComponent</code></a>
 </td>
 <td>
-   <p>ControllerManager contains extra settings for the controller manager control plane component</p>
+   <p><code>controllerManager</code> contains extra settings for the controller manager.</p>
 </td>
 </tr>
 <tr><td><code>scheduler</code><br/>
 <a href="#kubeadm-k8s-io-v1beta4-ControlPlaneComponent"><code>ControlPlaneComponent</code></a>
 </td>
 <td>
-   <p>Scheduler contains extra settings for the scheduler control plane component</p>
+   <p><code>scheduler</code> contains extra settings for the scheduler.</p>
 </td>
 </tr>
 <tr><td><code>dns</code><br/>
 <a href="#kubeadm-k8s-io-v1beta4-DNS"><code>DNS</code></a>
 </td>
 <td>
-   <p>DNS defines the options for the DNS add-on installed in the cluster.</p>
+   <p><code>dns</code> defines the options for the DNS add-on installed in the cluster.</p>
+</td>
+</tr>
+<tr><td><code>proxy</code> <B>[Required]</B><br/>
+<a href="#kubeadm-k8s-io-v1beta4-Proxy"><code>Proxy</code></a>
+</td>
+<td>
+   <p><code>proxy</code> defines the options for the proxy add-on installed in the cluster.</p>
 </td>
 </tr>
 <tr><td><code>certificatesDir</code><br/>
 <code>string</code>
 </td>
 <td>
-   <p>CertificatesDir specifies where to store or look for all required certificates.</p>
+   <p><code>certificatesDir</code> specifies where to store or look for all required certificates.</p>
 </td>
 </tr>
 <tr><td><code>imageRepository</code><br/>
 <code>string</code>
 </td>
 <td>
-   <p>ImageRepository sets the container registry to pull images from.
-If empty, <code>registry.k8s.io</code> will be used by default; in case of kubernetes version is a CI build (kubernetes version starts with <code>ci/</code>)
-<code>gcr.io/k8s-staging-ci-images</code> will be used as a default for control plane components and for kube-proxy, while <code>registry.k8s.io</code>
-will be used for all the other images.</p>
+   <p><code>imageRepository</code> sets the container registry to pull images from.
+If empty, <code>registry.k8s.io</code> will be used by default.
+In case of kubernetes version is a CI build (kubernetes version starts with <code>ci/</code>)
+<code>gcr.io/k8s-staging-ci-images</code> will be used as a default for control plane components
+and for kube-proxy, while <code>registry.k8s.io</code> will be used for all the other images.</p>
 </td>
 </tr>
 <tr><td><code>featureGates</code><br/>
 <code>map[string]bool</code>
 </td>
 <td>
-   <p>FeatureGates enabled by the user.</p>
+   <p><code>featureGates</code> contains the feature gates enabled by the user.</p>
 </td>
 </tr>
 <tr><td><code>clusterName</code><br/>
 <code>string</code>
 </td>
 <td>
-   <p>The cluster name</p>
+   <p>The cluster name.</p>
+</td>
+</tr>
+<tr><td><code>encryptionAlgorithm</code><br/>
+<a href="#kubeadm-k8s-io-v1beta4-EncryptionAlgorithmType"><code>EncryptionAlgorithmType</code></a>
+</td>
+<td>
+   <p><code>encryptionAlgorithm</code> holds the type of asymmetric encryption algorithm used for keys and
+certificates. Can be <code>&quot;RSA&quot;</code> (default algorithm, key size is 2048) or <code>&quot;ECDSA&quot;</code> (uses the
+P-256 elliptic curve).</p>
 </td>
 </tr>
 </tbody>
@@ -517,7 +547,10 @@ will be used for all the other images.</p>
 
 
 <p>InitConfiguration contains a list of elements that is specific &quot;kubeadm init&quot;-only runtime
-information.</p>
+information.
+<code>kubeadm init</code>-only information. These fields are solely used the first time <code>kubeadm init</code> runs.
+After that, the information in the fields IS NOT uploaded to the <code>kubeadm-config</code> ConfigMap
+that is used by <code>kubeadm upgrade</code> for instance. These fields must be omitempty.</p>
 
 
 <table class="table">
@@ -532,52 +565,63 @@ information.</p>
 <a href="#BootstrapToken"><code>[]BootstrapToken</code></a>
 </td>
 <td>
-   <p>BootstrapTokens is respected at <code>kubeadm init</code> time and describes a set of Bootstrap Tokens to create.
+   <p><code>bootstrapTokens</code> is respected at <code>kubeadm init</code> time and describes a set of Bootstrap Tokens to create.
 This information IS NOT uploaded to the kubeadm cluster configmap, partly because of its sensitive nature</p>
+</td>
+</tr>
+<tr><td><code>dryRun</code> <B>[Required]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   <p><code>dryRun</code> tells if the dry run mode is enabled, don't apply any change in dry run mode,
+just out put what would be done.</p>
 </td>
 </tr>
 <tr><td><code>nodeRegistration</code><br/>
 <a href="#kubeadm-k8s-io-v1beta4-NodeRegistrationOptions"><code>NodeRegistrationOptions</code></a>
 </td>
 <td>
-   <p>NodeRegistration holds fields that relate to registering the new control-plane node to the cluster</p>
+   <p><code>nodeRegistration</code> holds fields that relate to registering the new control-plane node
+to the cluster.</p>
 </td>
 </tr>
 <tr><td><code>localAPIEndpoint</code><br/>
 <a href="#kubeadm-k8s-io-v1beta4-APIEndpoint"><code>APIEndpoint</code></a>
 </td>
 <td>
-   <p>LocalAPIEndpoint represents the endpoint of the API server instance that's deployed on this control plane node
-In HA setups, this differs from ClusterConfiguration.ControlPlaneEndpoint in the sense that ControlPlaneEndpoint
-is the global endpoint for the cluster, which then loadbalances the requests to each individual API server. This
-configuration object lets you customize what IP/DNS name and port the local API server advertises it's accessible
-on. By default, kubeadm tries to auto-detect the IP of the default interface and use that, but in case that process
-fails you may set the desired value here.</p>
+   <p><code>localAPIEndpoint</code> represents the endpoint of the API server instance that's deployed on this
+control plane node. In HA setups, this differs from <code>ClusterConfiguration.controlPlaneEndpoint</code>
+in the sense that <code>ontrolPlaneEndpoint</code> is the global endpoint for the cluster, which then
+loadbalances the requests to each individual API server.
+This configuration object lets you customize what IP/DNS name and port the local API server
+advertises it's accessible on. By default, kubeadm tries to auto-detect the IP of the default
+interface and use that, but in case that process fails you may set the desired value here.</p>
 </td>
 </tr>
 <tr><td><code>certificateKey</code><br/>
 <code>string</code>
 </td>
 <td>
-   <p>CertificateKey sets the key with which certificates and keys are encrypted prior to being uploaded in
-a secret in the cluster during the uploadcerts init phase.</p>
+   <p><code>certificateKey</code> sets the key with which certificates and keys are encrypted prior to being
+uploaded in a Secret in the cluster during the <code>uploadcerts init</code> phase.
+The certificate key is a hex encoded string that is an AES key of size 32 bytes.</p>
 </td>
 </tr>
 <tr><td><code>skipPhases</code><br/>
 <code>[]string</code>
 </td>
 <td>
-   <p>SkipPhases is a list of phases to skip during command execution.
-The list of phases can be obtained with the &quot;kubeadm init --help&quot; command.
-The flag &quot;--skip-phases&quot; takes precedence over this field.</p>
+   <p><code>skipPhases</code> is a list of phases to skip during command execution.
+The list of phases can be obtained with the <code>kubeadm init --help</code> command.
+The flag <code>--skip-phases</code> takes precedence over this field.</p>
 </td>
 </tr>
 <tr><td><code>patches</code><br/>
 <a href="#kubeadm-k8s-io-v1beta4-Patches"><code>Patches</code></a>
 </td>
 <td>
-   <p>Patches contains options related to applying patches to components deployed by kubeadm during
-&quot;kubeadm init&quot;.</p>
+   <p><code>patches</code> contains options related to applying patches to components deployed by kubeadm during
+<code>kubeadm init</code>.</p>
 </td>
 </tr>
 </tbody>
@@ -598,19 +642,28 @@ The flag &quot;--skip-phases&quot; takes precedence over this field.</p>
 <tr><td><code>kind</code><br/>string</td><td><code>JoinConfiguration</code></td></tr>
     
   
+<tr><td><code>dryRun</code><br/>
+<code>bool</code>
+</td>
+<td>
+   <p><code>dryRun</code> tells if the dry run mode is enabled, don't apply any change if it is set,
+just output what would be done.</p>
+</td>
+</tr>
 <tr><td><code>nodeRegistration</code><br/>
 <a href="#kubeadm-k8s-io-v1beta4-NodeRegistrationOptions"><code>NodeRegistrationOptions</code></a>
 </td>
 <td>
-   <p>NodeRegistration holds fields that relate to registering the new control-plane node to the cluster</p>
+   <p><code>nodeRegistration</code> holds fields that relate to registering the new control-plane
+node to the cluster</p>
 </td>
 </tr>
 <tr><td><code>caCertPath</code><br/>
 <code>string</code>
 </td>
 <td>
-   <p>CACertPath is the path to the SSL certificate authority used to
-secure comunications between node and control-plane.
+   <p><code>caCertPath</code> is the path to the SSL certificate authority used to secure comunications
+between node and control-plane.
 Defaults to &quot;/etc/kubernetes/pki/ca.crt&quot;.</p>
 </td>
 </tr>
@@ -618,32 +671,32 @@ Defaults to &quot;/etc/kubernetes/pki/ca.crt&quot;.</p>
 <a href="#kubeadm-k8s-io-v1beta4-Discovery"><code>Discovery</code></a>
 </td>
 <td>
-   <p>Discovery specifies the options for the kubelet to use during the TLS Bootstrap process</p>
+   <p><code>discovery</code> specifies the options for the kubelet to use during the TLS bootstrap process.</p>
 </td>
 </tr>
 <tr><td><code>controlPlane</code><br/>
 <a href="#kubeadm-k8s-io-v1beta4-JoinControlPlane"><code>JoinControlPlane</code></a>
 </td>
 <td>
-   <p>ControlPlane defines the additional control plane instance to be deployed on the joining node.
-If nil, no additional control plane instance will be deployed.</p>
+   <p><code>controlPlane</code> defines the additional control plane instance to be deployed on the
+joining node. If nil, no additional control plane instance will be deployed.</p>
 </td>
 </tr>
 <tr><td><code>skipPhases</code><br/>
 <code>[]string</code>
 </td>
 <td>
-   <p>SkipPhases is a list of phases to skip during command execution.
-The list of phases can be obtained with the &quot;kubeadm join --help&quot; command.
-The flag &quot;--skip-phases&quot; takes precedence over this field.</p>
+   <p><code>skipPhases</code> is a list of phases to skip during command execution.
+The list of phases can be obtained with the <code>kubeadm join --help</code> command.
+The flag <code>--skip-phases</code> takes precedence over this field.</p>
 </td>
 </tr>
 <tr><td><code>patches</code><br/>
 <a href="#kubeadm-k8s-io-v1beta4-Patches"><code>Patches</code></a>
 </td>
 <td>
-   <p>Patches contains options related to applying patches to components deployed by kubeadm during
-&quot;kubeadm join&quot;.</p>
+   <p><code>patches</code> contains options related to applying patches to components deployed
+by kubeadm during <code>kubeadm join</code>.</p>
 </td>
 </tr>
 </tbody>
@@ -653,7 +706,8 @@ The flag &quot;--skip-phases&quot; takes precedence over this field.</p>
     
 
 
-<p>ResetConfiguration contains a list of fields that are specifically &quot;kubeadm reset&quot;-only runtime information.</p>
+<p>ResetConfiguration contains a list of fields that are specifically <code>kubeadm reset</code>-only
+runtime information.</p>
 
 
 <table class="table">
@@ -668,52 +722,58 @@ The flag &quot;--skip-phases&quot; takes precedence over this field.</p>
 <code>bool</code>
 </td>
 <td>
-   <p>CleanupTmpDir specifies whether the &quot;/etc/kubernetes/tmp&quot; directory should be cleaned during the reset process.</p>
+   <p><code>cleanupTmpDir</code> specifies whether the &quot;/etc/kubernetes/tmp&quot; directory should be cleaned
+during the reset process.</p>
 </td>
 </tr>
 <tr><td><code>certificatesDir</code><br/>
 <code>string</code>
 </td>
 <td>
-   <p>CertificatesDir specifies the directory where the certificates are stored. If specified, it will be cleaned during the reset process.</p>
+   <p><code> certificatesDir</code> specifies the directory where the certificates are stored.
+If specified, it will be cleaned during the reset process.</p>
 </td>
 </tr>
 <tr><td><code>criSocket</code><br/>
 <code>string</code>
 </td>
 <td>
-   <p>CRISocket is used to retrieve container runtime info and used for the removal of the containers.
-If CRISocket is not specified by flag or config file, kubeadm will try to detect one valid CRISocket instead.</p>
+   <p><code>criSocket</code> is used to retrieve container runtime inforomation and used for the
+removal of the containers.
+If <code>criSocket</code> is not specified by flag or config file, kubeadm will try to detect
+one valid CRI socket instead.</p>
 </td>
 </tr>
 <tr><td><code>dryRun</code><br/>
 <code>bool</code>
 </td>
 <td>
-   <p>DryRun tells if the dry run mode is enabled, don't apply any change if it is and just output what would be done.</p>
+   <p><code>dryRun</code> tells if the dry run mode is enabled, don't apply any change if it is set
+and just output what would be done.</p>
 </td>
 </tr>
 <tr><td><code>force</code><br/>
 <code>bool</code>
 </td>
 <td>
-   <p>Force flag instructs kubeadm to reset the node without prompting for confirmation.</p>
+   <p>The <code>force</code> flag instructs kubeadm to reset the node without prompting for confirmation.</p>
 </td>
 </tr>
 <tr><td><code>ignorePreflightErrors</code><br/>
 <code>[]string</code>
 </td>
 <td>
-   <p>IgnorePreflightErrors provides a slice of pre-flight errors to be ignored during the reset process, e.g. 'IsPrivilegedUser,Swap'.
-Value 'all' ignores errors from all checks.</p>
+   <p><code>ignorePreflightErrors</code> provides a list of pre-flight errors to be ignored during
+the reset process, e.g. <code>IsPrivilegedUser,Swap</code>.
+Value <code>all</code> ignores errors from all checks.</p>
 </td>
 </tr>
 <tr><td><code>skipPhases</code><br/>
 <code>[]string</code>
 </td>
 <td>
-   <p>SkipPhases is a list of phases to skip during command execution.
-The list of phases can be obtained with the &quot;kubeadm reset phase --help&quot; command.</p>
+   <p><code>skipPhases</code> is a list of phases to skip during command execution.
+The list of phases can be obtained with the <code>kubeadm reset phase --help</code> command.</p>
 </td>
 </tr>
 </tbody>
@@ -741,14 +801,14 @@ The list of phases can be obtained with the &quot;kubeadm reset phase --help&quo
 <code>string</code>
 </td>
 <td>
-   <p>AdvertiseAddress sets the IP address for the API server to advertise.</p>
+   <p><code>dvertiseAddress</code> sets the IP address for the API server to advertise.</p>
 </td>
 </tr>
 <tr><td><code>bindPort</code><br/>
 <code>int32</code>
 </td>
 <td>
-   <p>BindPort sets the secure port for the API Server to bind to.
+   <p><code>bindPort</code> sets the secure port for the API Server to bind to.
 Defaults to 6443.</p>
 </td>
 </tr>
@@ -781,14 +841,52 @@ Defaults to 6443.</p>
 <code>[]string</code>
 </td>
 <td>
-   <p>CertSANs sets extra Subject Alternative Names for the API Server signing cert.</p>
+   <p><code>certSANs</code> sets extra Subject Alternative Names (SANs) for the API Server signing
+certificate.</p>
 </td>
 </tr>
 <tr><td><code>timeoutForControlPlane</code><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
-   <p>TimeoutForControlPlane controls the timeout that we use for API server to appear</p>
+   <p><code>timeoutForControlPlane</code> controls the timeout that we use for API server to appear.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `Arg`     {#kubeadm-k8s-io-v1beta4-Arg}
+    
+
+**Appears in:**
+
+- [ControlPlaneComponent](#kubeadm-k8s-io-v1beta4-ControlPlaneComponent)
+
+- [LocalEtcd](#kubeadm-k8s-io-v1beta4-LocalEtcd)
+
+- [NodeRegistrationOptions](#kubeadm-k8s-io-v1beta4-NodeRegistrationOptions)
+
+
+<p>Arg represents an argument with a name and a value.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>name</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>The name of the argument.</p>
+</td>
+</tr>
+<tr><td><code>value</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>The value of the argument.</p>
 </td>
 </tr>
 </tbody>
@@ -802,7 +900,7 @@ Defaults to 6443.</p>
 - [Discovery](#kubeadm-k8s-io-v1beta4-Discovery)
 
 
-<p>BootstrapTokenDiscovery is used to set the options for bootstrap token based discovery</p>
+<p>BootstrapTokenDiscovery is used to set the options for bootstrap token based discovery.</p>
 
 
 <table class="table">
@@ -814,37 +912,37 @@ Defaults to 6443.</p>
 <code>string</code>
 </td>
 <td>
-   <p>Token is a token used to validate cluster information
-fetched from the control-plane.</p>
+   <p><code>token</code> is a token used to validate cluster information fetched from the
+control-plane.</p>
 </td>
 </tr>
 <tr><td><code>apiServerEndpoint</code><br/>
 <code>string</code>
 </td>
 <td>
-   <p>APIServerEndpoint is an IP or domain name to the API server from which info will be fetched.</p>
+   <p><code>apiServerEndpoint</code> is an IP or domain name to the API server from which
+information will be fetched.</p>
 </td>
 </tr>
 <tr><td><code>caCertHashes</code><br/>
 <code>[]string</code>
 </td>
 <td>
-   <p>CACertHashes specifies a set of public key pins to verify
-when token-based discovery is used. The root CA found during discovery
-must match one of these values. Specifying an empty set disables root CA
-pinning, which can be unsafe. Each hash is specified as &quot;<!-- raw HTML omitted -->:<!-- raw HTML omitted -->&quot;,
-where the only currently supported type is &quot;sha256&quot;. This is a hex-encoded
-SHA-256 hash of the Subject Public Key Info (SPKI) object in DER-encoded
-ASN.1. These hashes can be calculated using, for example, OpenSSL.</p>
+   <p><code>caCertHashes</code> specifies a set of public key pins to verify when token-based discovery
+is used. The root CA found during discovery must match one of these values.
+Specifying an empty set disables root CA pinning, which can be unsafe.
+Each hash is specified as <code>&lt;type&gt;:&lt;value&gt;</code>, where the only currently supported type is
+&quot;sha256&quot;. This is a hex-encoded SHA-256 hash of the Subject Public Key Info (SPKI)
+object in DER-encoded ASN.1. These hashes can be // calculated using, for example, OpenSSL.</p>
 </td>
 </tr>
 <tr><td><code>unsafeSkipCAVerification</code><br/>
 <code>bool</code>
 </td>
 <td>
-   <p>UnsafeSkipCAVerification allows token-based discovery
-without CA verification via CACertHashes. This can weaken
-the security of kubeadm since other nodes can impersonate the control-plane.</p>
+   <p><code>unsafeSkipCAVerification</code> allows token-based discovery without CA verification
+via <code>caCertHashes</code>. This can weaken the security of kubeadm since other nodes can
+impersonate the control-plane.</p>
 </td>
 </tr>
 </tbody>
@@ -869,29 +967,29 @@ the security of kubeadm since other nodes can impersonate the control-plane.</p>
     
   
 <tr><td><code>extraArgs</code><br/>
-<code>map[string]string</code>
+<a href="#kubeadm-k8s-io-v1beta4-Arg"><code>[]Arg</code></a>
 </td>
 <td>
-   <p>ExtraArgs is an extra set of flags to pass to the control plane component.
-A key in this map is the flag name as it appears on the
-command line except without leading dash(es).
-TODO: This is temporary and ideally we would like to switch all components to
-use ComponentConfig + ConfigMaps.</p>
+   <p><code>extraArgs</code> is an extra set of flags to pass to the control plane component.
+An argument name in this list is the flag name as it appears on the
+command line except without leading dash(es). Extra arguments will override existing
+default arguments. Duplicate extra arguments are allowed.</p>
 </td>
 </tr>
 <tr><td><code>extraVolumes</code><br/>
 <a href="#kubeadm-k8s-io-v1beta4-HostPathMount"><code>[]HostPathMount</code></a>
 </td>
 <td>
-   <p>ExtraVolumes is an extra set of host volumes, mounted to the control plane component.</p>
+   <p><code>extraVolumes</code> is an extra set of host volumes, mounted to the control plane component.</p>
 </td>
 </tr>
 <tr><td><code>extraEnvs</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#envvar-v1-core"><code>[]core/v1.EnvVar</code></a>
+<a href="#kubeadm-k8s-io-v1beta4-EnvVar"><code>[]EnvVar</code></a>
 </td>
 <td>
-   <p>ExtraEnvs is an extra set of environment variables to pass to the control plane component.
-Environment variables passed using ExtraEnvs will override any existing environment variables, or *_proxy environment variables that kubeadm adds by default.</p>
+   <p><code>extraEnvs</code> is an extra set of environment variables to pass to the control plane component.
+Environment variables passed using <code>extraEnvs</code> will override any existing environment variables,
+or <code>*_proxy</code> environment variables that kubeadm adds by default.</p>
 </td>
 </tr>
 </tbody>
@@ -917,7 +1015,14 @@ Environment variables passed using ExtraEnvs will override any existing environm
 <a href="#kubeadm-k8s-io-v1beta4-ImageMeta"><code>ImageMeta</code></a>
 </td>
 <td>(Members of <code>ImageMeta</code> are embedded into this type.)
-   <p>ImageMeta allows to customize the image used for the DNS component</p>
+   <p><code>imageMeta</code> allows to customize the image used for the DNS addon.</p>
+</td>
+</tr>
+<tr><td><code>disabled</code> <B>[Required]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   <p><code>disabled</code> specifies whether to disable this addon in the cluster.</p>
 </td>
 </tr>
 </tbody>
@@ -943,33 +1048,75 @@ Environment variables passed using ExtraEnvs will override any existing environm
 <a href="#kubeadm-k8s-io-v1beta4-BootstrapTokenDiscovery"><code>BootstrapTokenDiscovery</code></a>
 </td>
 <td>
-   <p>BootstrapToken is used to set the options for bootstrap token based discovery
-BootstrapToken and File are mutually exclusive</p>
+   <p><code>bootstrapToken</code> is used to set the options for bootstrap token based discovery.
+<code>bootstrapToken</code> and <code>file</code> are mutually exclusive.</p>
 </td>
 </tr>
 <tr><td><code>file</code><br/>
 <a href="#kubeadm-k8s-io-v1beta4-FileDiscovery"><code>FileDiscovery</code></a>
 </td>
 <td>
-   <p>File is used to specify a file or URL to a kubeconfig file from which to load cluster information
-BootstrapToken and File are mutually exclusive</p>
+   <p><code>file</code> is used to specify a file or URL to a kubeconfig file from which to load
+cluster information. <code>bootstrapToken</code> and <code>file</code> are mutually exclusive.</p>
 </td>
 </tr>
 <tr><td><code>tlsBootstrapToken</code><br/>
 <code>string</code>
 </td>
 <td>
-   <p>TLSBootstrapToken is a token used for TLS bootstrapping.
-If .BootstrapToken is set, this field is defaulted to .BootstrapToken.Token, but can be overridden.
-If .File is set, this field <strong>must be set</strong> in case the KubeConfigFile does not contain any other authentication information</p>
+   <p><code>tlsBootstrapToken</code> is a token used for TLS bootstrapping.
+If <code>bootstrapToken</code> is set, this field is defaulted to <code>bootstrapToken.token</code>, but
+can be overridden. If <code>file</code> is set, this field <strong>must be set</strong> in case the KubeConfigFile
+does not contain any other authentication information.</p>
 </td>
 </tr>
 <tr><td><code>timeout</code><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
-   <p>Timeout modifies the discovery timeout</p>
+   <p><code>timeout</code> modifies the discovery timeout.</p>
 </td>
+</tr>
+</tbody>
+</table>
+
+## `EncryptionAlgorithmType`     {#kubeadm-k8s-io-v1beta4-EncryptionAlgorithmType}
+    
+(Alias of `string`)
+
+**Appears in:**
+
+- [ClusterConfiguration](#kubeadm-k8s-io-v1beta4-ClusterConfiguration)
+
+
+<p>EncryptionAlgorithmType can define an asymmetric encryption algorithm type.</p>
+
+
+
+
+## `EnvVar`     {#kubeadm-k8s-io-v1beta4-EnvVar}
+    
+
+**Appears in:**
+
+- [ControlPlaneComponent](#kubeadm-k8s-io-v1beta4-ControlPlaneComponent)
+
+- [LocalEtcd](#kubeadm-k8s-io-v1beta4-LocalEtcd)
+
+
+<p>EnvVar represents an environment variable present in a Container.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>EnvVar</code> <B>[Required]</B><br/>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#envvar-v1-core"><code>core/v1.EnvVar</code></a>
+</td>
+<td>(Members of <code>EnvVar</code> are embedded into this type.)
+   <span class="text-muted">No description provided.</span></td>
 </tr>
 </tbody>
 </table>
@@ -994,16 +1141,16 @@ If .File is set, this field <strong>must be set</strong> in case the KubeConfigF
 <a href="#kubeadm-k8s-io-v1beta4-LocalEtcd"><code>LocalEtcd</code></a>
 </td>
 <td>
-   <p>Local provides configuration knobs for configuring the local etcd instance
-Local and External are mutually exclusive</p>
+   <p><code>local</code> provides configuration knobs for configuring the local etcd instance.
+<code>local</code> and <code>external</code> are mutually exclusive.</p>
 </td>
 </tr>
 <tr><td><code>external</code><br/>
 <a href="#kubeadm-k8s-io-v1beta4-ExternalEtcd"><code>ExternalEtcd</code></a>
 </td>
 <td>
-   <p>External describes how to connect to an external etcd cluster
-Local and External are mutually exclusive</p>
+   <p><code>external</code> describes how to connect to an external etcd cluster.
+<code>local</code> and <code>external</code> are mutually exclusive.</p>
 </td>
 </tr>
 </tbody>
@@ -1030,14 +1177,14 @@ Kubeadm has no knowledge of where certificate files live and they must be suppli
 <code>[]string</code>
 </td>
 <td>
-   <p>Endpoints of etcd members. Required for ExternalEtcd.</p>
+   <p><code>endpoints</code> contains the list of etcd members.</p>
 </td>
 </tr>
 <tr><td><code>caFile</code> <B>[Required]</B><br/>
 <code>string</code>
 </td>
 <td>
-   <p>CAFile is an SSL Certificate Authority file used to secure etcd communication.
+   <p><code>caFile</code> is an SSL Certificate Authority (CA) file used to secure etcd communication.
 Required if using a TLS connection.</p>
 </td>
 </tr>
@@ -1045,7 +1192,7 @@ Required if using a TLS connection.</p>
 <code>string</code>
 </td>
 <td>
-   <p>CertFile is an SSL certification file used to secure etcd communication.
+   <p><code>certFile</code> is an SSL certification file used to secure etcd communication.
 Required if using a TLS connection.</p>
 </td>
 </tr>
@@ -1053,7 +1200,7 @@ Required if using a TLS connection.</p>
 <code>string</code>
 </td>
 <td>
-   <p>KeyFile is an SSL key file used to secure etcd communication.
+   <p><code>keyFile</code> is an SSL key file used to secure etcd communication.
 Required if using a TLS connection.</p>
 </td>
 </tr>
@@ -1068,7 +1215,8 @@ Required if using a TLS connection.</p>
 - [Discovery](#kubeadm-k8s-io-v1beta4-Discovery)
 
 
-<p>FileDiscovery is used to specify a file or URL to a kubeconfig file from which to load cluster information</p>
+<p>FileDiscovery is used to specify a file or URL to a kubeconfig file from which to load
+cluster information.</p>
 
 
 <table class="table">
@@ -1080,7 +1228,8 @@ Required if using a TLS connection.</p>
 <code>string</code>
 </td>
 <td>
-   <p>KubeConfigPath is used to specify the actual file path or URL to the kubeconfig file from which to load cluster information</p>
+   <p><code>kubeConfigPath</code> is used to specify the actual file path or URL to the kubeconfig
+file from which to load cluster information.</p>
 </td>
 </tr>
 </tbody>
@@ -1094,8 +1243,7 @@ Required if using a TLS connection.</p>
 - [ControlPlaneComponent](#kubeadm-k8s-io-v1beta4-ControlPlaneComponent)
 
 
-<p>HostPathMount contains elements describing volumes that are mounted from the
-host.</p>
+<p>HostPathMount contains elements describing volumes that are mounted from the host.</p>
 
 
 <table class="table">
@@ -1107,36 +1255,35 @@ host.</p>
 <code>string</code>
 </td>
 <td>
-   <p>Name of the volume inside the pod template.</p>
+   <p><code>name</code> is the name of the volume inside the Pod template.</p>
 </td>
 </tr>
 <tr><td><code>hostPath</code> <B>[Required]</B><br/>
 <code>string</code>
 </td>
 <td>
-   <p>HostPath is the path in the host that will be mounted inside
-the pod.</p>
+   <p><code>hostPath</code> is the path in the host that will be mounted inside the Pod.</p>
 </td>
 </tr>
 <tr><td><code>mountPath</code> <B>[Required]</B><br/>
 <code>string</code>
 </td>
 <td>
-   <p>MountPath is the path inside the pod where hostPath will be mounted.</p>
+   <p><code>mountPath</code> is the path inside the Pod where <code>hostPath</code> will be mounted.</p>
 </td>
 </tr>
 <tr><td><code>readOnly</code><br/>
 <code>bool</code>
 </td>
 <td>
-   <p>ReadOnly controls write access to the volume</p>
+   <p><code>readOnly</code> controls write access to the volume.</p>
 </td>
 </tr>
 <tr><td><code>pathType</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
 </td>
 <td>
-   <p>PathType is the type of the HostPath.</p>
+   <p><code>pathType</code> is the type of the <code>hostPath</code>.</p>
 </td>
 </tr>
 </tbody>
@@ -1165,16 +1312,17 @@ originated from the Kubernetes/Kubernetes release process</p>
 <code>string</code>
 </td>
 <td>
-   <p>ImageRepository sets the container registry to pull images from.
-if not set, the ImageRepository defined in ClusterConfiguration will be used instead.</p>
+   <p><code>imageRepository</code> sets the container registry to pull images from.
+if not set, the <code>imageRepository</code> defined in ClusterConfiguration will be used instead.</p>
 </td>
 </tr>
 <tr><td><code>imageTag</code><br/>
 <code>string</code>
 </td>
 <td>
-   <p>ImageTag allows to specify a tag for the image.
-In case this value is set, kubeadm does not change automatically the version of the above components during upgrades.</p>
+   <p><code>imageTag</code> allows to specify a tag for the image.
+In case this value is set, kubeadm does not change automatically the version of
+the above components during upgrades.</p>
 </td>
 </tr>
 </tbody>
@@ -1200,15 +1348,18 @@ In case this value is set, kubeadm does not change automatically the version of 
 <a href="#kubeadm-k8s-io-v1beta4-APIEndpoint"><code>APIEndpoint</code></a>
 </td>
 <td>
-   <p>LocalAPIEndpoint represents the endpoint of the API server instance to be deployed on this node.</p>
+   <p><code>localAPIEndpoint</code> represents the endpoint of the API server instance to be
+deployed on this node.</p>
 </td>
 </tr>
 <tr><td><code>certificateKey</code><br/>
 <code>string</code>
 </td>
 <td>
-   <p>CertificateKey is the key that is used for decryption of certificates after they are downloaded from the secret
-upon joining a new control plane node. The corresponding encryption key is in the InitConfiguration.</p>
+   <p><code>certificateKey</code> is the key that is used for decryption of certificates after
+they are downloaded from the Secret upon joining a new control plane node.
+The corresponding encryption key is in the InitConfiguration.
+The certificate key is a hex encoded string that is an AES key of size 32 bytes.</p>
 </td>
 </tr>
 </tbody>
@@ -1222,7 +1373,7 @@ upon joining a new control plane node. The corresponding encryption key is in th
 - [Etcd](#kubeadm-k8s-io-v1beta4-Etcd)
 
 
-<p>LocalEtcd describes that kubeadm should run an etcd cluster locally</p>
+<p>LocalEtcd describes that kubeadm should run an etcd cluster locally.</p>
 
 
 <table class="table">
@@ -1241,40 +1392,45 @@ upon joining a new control plane node. The corresponding encryption key is in th
 <code>string</code>
 </td>
 <td>
-   <p>DataDir is the directory etcd will place its data.
+   <p><code>dataDir</code> is the directory etcd will place its data.
 Defaults to &quot;/var/lib/etcd&quot;.</p>
 </td>
 </tr>
-<tr><td><code>extraArgs</code><br/>
-<code>map[string]string</code>
+<tr><td><code>extraArgs</code> <B>[Required]</B><br/>
+<a href="#kubeadm-k8s-io-v1beta4-Arg"><code>[]Arg</code></a>
 </td>
 <td>
-   <p>ExtraArgs are extra arguments provided to the etcd binary
-when run inside a static pod.
-A key in this map is the flag name as it appears on the
-command line except without leading dash(es).</p>
+   <p><code>extraArgs</code> are extra arguments provided to the etcd binary when run
+inside a static Pod. An argument name in this list is the flag name as
+it appears on the command line except without leading dash(es).
+Extra arguments will override existing default arguments.
+Duplicate extra arguments are allowed.</p>
 </td>
 </tr>
 <tr><td><code>extraEnvs</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#envvar-v1-core"><code>[]core/v1.EnvVar</code></a>
+<a href="#kubeadm-k8s-io-v1beta4-EnvVar"><code>[]EnvVar</code></a>
 </td>
 <td>
-   <p>ExtraEnvs is an extra set of environment variables to pass to the control plane component.
-Environment variables passed using ExtraEnvs will override any existing environment variables, or *_proxy environment variables that kubeadm adds by default.</p>
+   <p><code>extraEnvs</code> is an extra set of environment variables to pass to the
+control plane component. Environment variables passed using <code>extraEnvs</code>
+will override any existing environment variables, or <code>*_proxy</code> environment
+variables that kubeadm adds by default.</p>
 </td>
 </tr>
 <tr><td><code>serverCertSANs</code><br/>
 <code>[]string</code>
 </td>
 <td>
-   <p>ServerCertSANs sets extra Subject Alternative Names for the etcd server signing cert.</p>
+   <p><code>serverCertSANs</code> sets extra Subject Alternative Names (SANs) for the etcd
+server signing certificate.</p>
 </td>
 </tr>
 <tr><td><code>peerCertSANs</code><br/>
 <code>[]string</code>
 </td>
 <td>
-   <p>PeerCertSANs sets extra Subject Alternative Names for the etcd peer signing cert.</p>
+   <p><code>peerCertSANs</code> sets extra Subject Alternative Names (SANs) for the etcd peer
+signing certificate.</p>
 </td>
 </tr>
 </tbody>
@@ -1288,7 +1444,7 @@ Environment variables passed using ExtraEnvs will override any existing environm
 - [ClusterConfiguration](#kubeadm-k8s-io-v1beta4-ClusterConfiguration)
 
 
-<p>Networking contains elements describing cluster's networking configuration</p>
+<p>Networking contains elements describing cluster's networking configuration.</p>
 
 
 <table class="table">
@@ -1300,21 +1456,21 @@ Environment variables passed using ExtraEnvs will override any existing environm
 <code>string</code>
 </td>
 <td>
-   <p>ServiceSubnet is the subnet used by k8s services. Defaults to &quot;10.96.0.0/12&quot;.</p>
+   <p><code>serviceSubnet</code> is the subnet used by Kubernetes Services. Defaults to &quot;10.96.0.0/12&quot;.</p>
 </td>
 </tr>
 <tr><td><code>podSubnet</code><br/>
 <code>string</code>
 </td>
 <td>
-   <p>PodSubnet is the subnet used by pods.</p>
+   <p><code>podSubnet</code> is the subnet used by Pods.</p>
 </td>
 </tr>
 <tr><td><code>dnsDomain</code><br/>
 <code>string</code>
 </td>
 <td>
-   <p>DNSDomain is the dns domain used by k8s services. Defaults to &quot;cluster.local&quot;.</p>
+   <p><code>dnsDomain</code> is the dns domain used by Kubernetes Services. Defaults to &quot;cluster.local&quot;.</p>
 </td>
 </tr>
 </tbody>
@@ -1330,7 +1486,8 @@ Environment variables passed using ExtraEnvs will override any existing environm
 - [JoinConfiguration](#kubeadm-k8s-io-v1beta4-JoinConfiguration)
 
 
-<p>NodeRegistrationOptions holds fields that relate to registering a new control-plane or node to the cluster, either via &quot;kubeadm init&quot; or &quot;kubeadm join&quot;</p>
+<p>NodeRegistrationOptions holds fields that relate to registering a new control-plane or
+node to the cluster, either via <code>kubeadm init</code> or <code>kubeadm join</code>.</p>
 
 
 <table class="table">
@@ -1342,8 +1499,10 @@ Environment variables passed using ExtraEnvs will override any existing environm
 <code>string</code>
 </td>
 <td>
-   <p>Name is the <code>.Metadata.Name</code> field of the Node API object that will be created in this <code>kubeadm init</code> or <code>kubeadm join</code> operation.
-This field is also used in the CommonName field of the kubelet's client certificate to the API server.
+   <p><code>name</code> is the <code>.Metadata.Name</code> field of the Node API object that will be created in this
+<code>kubeadm init</code> or <code>kubeadm join</code> operation.
+This field is also used in the <code>CommonName</code> field of the kubelet's client certificate to
+the API server.
 Defaults to the hostname of the node if not provided.</p>
 </td>
 </tr>
@@ -1351,44 +1510,52 @@ Defaults to the hostname of the node if not provided.</p>
 <code>string</code>
 </td>
 <td>
-   <p>CRISocket is used to retrieve container runtime info. This information will be annotated to the Node API object, for later re-use</p>
+   <p><code>criSocket</code> is used to retrieve container runtime info.
+This information will be annotated to the Node API object, for later re-use.</p>
 </td>
 </tr>
 <tr><td><code>taints</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
-   <p>Taints specifies the taints the Node API object should be registered with. If this field is unset, i.e. nil,
-it will be defaulted with a control-plane taint for control-plane nodes. If you don't want to taint your control-plane
-node, set this field to an empty slice, i.e. <code>taints: []</code> in the YAML file. This field is solely used for Node registration.</p>
+   <p><code>taints</code> specifies the taints the Node API object should be registered with.
+If this field is unset, i.e. nil, it will be defaulted with a control-plane taint for control-plane nodes.
+If you don't want to taint your control-plane node, set this field to an empty list,
+i.e. <code>taints: []</code> in the YAML file. This field is solely used for Node registration.</p>
 </td>
 </tr>
 <tr><td><code>kubeletExtraArgs</code><br/>
-<code>map[string]string</code>
+<a href="#kubeadm-k8s-io-v1beta4-Arg"><code>[]Arg</code></a>
 </td>
 <td>
-   <p>KubeletExtraArgs passes through extra arguments to the kubelet. The arguments here are passed to the kubelet command line via the environment file
-kubeadm writes at runtime for the kubelet to source. This overrides the generic base-level configuration in the kubelet-config ConfigMap
-Flags have higher priority when parsing. These values are local and specific to the node kubeadm is executing on.
-A key in this map is the flag name as it appears on the
-command line except without leading dash(es).</p>
+   <p><code>kubeletExtraArgs</code> passes through extra arguments to the kubelet.
+The arguments here are passed to the kubelet command line via the environment file
+kubeadm writes at runtime for the kubelet to source.
+This overrides the generic base-level configuration in the <code>kubelet-config</code> ConfigMap.
+Flags have higher priority when parsing. These values are local and specific to the node
+kubeadm is executing on. An argument name in this list is the flag name as it appears on the
+command line except without leading dash(es). Extra arguments will override existing
+default arguments. Duplicate extra arguments are allowed.</p>
 </td>
 </tr>
 <tr><td><code>ignorePreflightErrors</code><br/>
 <code>[]string</code>
 </td>
 <td>
-   <p>IgnorePreflightErrors provides a slice of pre-flight errors to be ignored when the current node is registered, e.g. 'IsPrivilegedUser,Swap'.
+   <p><code>ignorePreflightErrors</code> provides a slice of pre-flight errors to be ignored when
+the current node is registered, e.g. 'IsPrivilegedUser,Swap'.
 Value 'all' ignores errors from all checks.</p>
 </td>
 </tr>
 <tr><td><code>imagePullPolicy</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
 </td>
 <td>
-   <p>ImagePullPolicy specifies the policy for image pulling during kubeadm &quot;init&quot; and &quot;join&quot; operations.
+   <p><code>imagePullPolicy</code> specifies the policy for image pulling during kubeadm <code>init</code> and
+<code>join</code> operations.
 The value of this field must be one of &quot;Always&quot;, &quot;IfNotPresent&quot; or &quot;Never&quot;.
-If this field is unset kubeadm will default it to &quot;IfNotPresent&quot;, or pull the required images if not present on the host.</p>
+If this field is unset kubeadm will default it to &quot;IfNotPresent&quot;, or pull the required
+images if not present on the host.</p>
 </td>
 </tr>
 </tbody>
@@ -1416,13 +1583,41 @@ If this field is unset kubeadm will default it to &quot;IfNotPresent&quot;, or p
 <code>string</code>
 </td>
 <td>
-   <p>Directory is a path to a directory that contains files named &quot;target[suffix][+patchtype].extension&quot;.
+   <p><code>directory</code> is a path to a directory that contains files named
+&quot;target[suffix][+patchtype].extension&quot;.
 For example, &quot;kube-apiserver0+merge.yaml&quot; or just &quot;etcd.json&quot;. &quot;target&quot; can be one of
 &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;, &quot;kubeletconfiguration&quot;.
-&quot;patchtype&quot; can be one of &quot;strategic&quot; &quot;merge&quot; or &quot;json&quot; and they match the patch formats supported by kubectl.
+&quot;patchtype&quot; can be one of &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot; and they match the patch formats
+supported by kubectl.
 The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&quot; must be either &quot;json&quot; or &quot;yaml&quot;.
 &quot;suffix&quot; is an optional string that can be used to determine which patches are applied
 first alpha-numerically.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `Proxy`     {#kubeadm-k8s-io-v1beta4-Proxy}
+    
+
+**Appears in:**
+
+- [ClusterConfiguration](#kubeadm-k8s-io-v1beta4-ClusterConfiguration)
+
+
+<p>Proxy defines the proxy addon that should be used in the cluster.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>disabled</code> <B>[Required]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   <p><code>disabled</code> specifies whether to disable this addon in the cluster.</p>
 </td>
 </tr>
 </tbody>
