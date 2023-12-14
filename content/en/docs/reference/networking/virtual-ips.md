@@ -464,11 +464,6 @@ which means that if you want to assign a specific IP address to a `type: Cluster
 Service, you should manually assign an IP address from the **lower** band. That approach
 reduces the risk of a conflict over allocation.
 
-If you disable the `ServiceIPStaticSubrange`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) then Kubernetes
-uses a single shared pool for both manually and dynamically assigned IP addresses,
-that are used for `type: ClusterIP` Services.
-
 ## Traffic policies
 
 You can set the `.spec.internalTrafficPolicy` and `.spec.externalTrafficPolicy` fields
