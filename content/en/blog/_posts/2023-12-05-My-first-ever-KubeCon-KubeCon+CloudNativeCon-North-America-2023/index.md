@@ -5,21 +5,25 @@ date: 2023-12-05
 slug: My-first-ever-KubeCon-KubeCon+CloudNativeCon-North-America-2023
 ---
 
-**Author -** Rajdeep Pal, Student, Techno India University
+**Author:** Rajdeep Pal (Student, Techno India University)
 
 _This post is a guide for beginners to look at huge and overwhelming events like KubeCon._
 
 # Introduction
 
-![KubeCon](https://raw.githubusercontent.com/kubernetes/website/main/content/en/blog/_posts/2023-12-05-My-first-ever-KubeCon-KubeCon+CloudNativeCon-North-America-2023/pic1.jpg)
+![KubeCon NA 2023 Poster](https://raw.githubusercontent.com/kubernetes/website/blob/main/content/en/blog/_posts/2023-12-05-My-first-ever-KubeCon-KubeCon+CloudNativeCon-North-America-2023/pic1.jpg)
 
-This blog is kind of a personal experience cum guide for beginners when they first encounter such a huge and important conference. Although KubeCon is the first conference I attended, it is certainly the largest. Earlier I have been to community-driven conferences such as Google Cloud Community Days Kolkata 2023, Kubernetes Community Days Mumbai 2023, and KubeDay India 2023, they were quite big too but they lasted for a day or two. KubeCon was much larger and more overwhelming for new folks in the field. I attended my first KubeCon virtually as the Dan Kohn Scholarship approved me for virtual attendance. Before deep-diving into the event and my experiences, let's start with the basics of the event or any event hosted by the Cloud Native Computing Foundation.
+This blog is a personal journey and beginner's guide for those encountering a significant conference for the first time. KubeCon marks my inaugural conference, and it's undeniably the largest. Previously, I've been to community-driven events like Google Cloud Community Days Kolkata 2023, Kubernetes Community Days Mumbai 2023, and KubeDay India 2023; they were sizable but lasted only a day or two. In contrast, KubeCon was significantly larger and more overwhelming, especially for newcomers in the field.
+
+My introduction to KubeCon was virtual, thanks to the Dan Kohn Scholarship, which granted me access to attend remotely. Before delving into my event experiences, let's first explore the fundamentals of this event and others hosted by the Cloud Native Computing Foundation.
 
 Like any other event, you need to register at their official site. You can learn about upcoming events on their [official page](https://www.cncf.io/events/). Sometimes it might be not easy to afford the cost of attending these events, but CNCF also offers scholarships to individuals. To provide an overview, CNCF mainly offers scholarships based on 3 categories namely - Diversity, Need-Based, and Maintainer.
 
-![KubeCon](https://raw.githubusercontent.com/kubernetes/website/main/content/en/blog/_posts/2023-12-05-My-first-ever-KubeCon-KubeCon+CloudNativeCon-North-America-2023/pic2.png)
+![KubeCon](https://raw.githubusercontent.com/kubernetes/website/blob/main/content/en/blog/_posts/2023-12-05-My-first-ever-KubeCon-KubeCon+CloudNativeCon-North-America-2023/pic2.jpg)
 
-KubeCon serves as a dynamic platform for attendees to actively engage with the expansive Kubernetes community. Through a diverse array of networking avenues, including Birds of a Feather session, social events, and dedicated breaks, participants have the opportunity to connect with fellow developers, contributors, and users of Kubernetes. These interactions not only foster collaboration but also facilitate the exchange of knowledge and experiences. The conference's emphasis on networking creates an environment where like-minded professionals and industry experts can forge connections, share insights, and collectively contribute to the ever-evolving landscape of container orchestration and cloud-native technologies.
+KubeCon serves as a dynamic platform for attendees to actively engage with the expansive Kubernetes community. Through a diverse array of networking avenues, including Birds of a Feather sessions, social events, and dedicated breaks, participants have the opportunity to connect with fellow developers, contributors, and users of Kubernetes.
+
+These interactions foster collaboration and facilitate the exchange of knowledge and experiences. The conference's emphasis on networking creates an environment where like-minded professionals and industry experts can forge connections, share insights, and collectively contribute to the ever-evolving landscape of container orchestration and cloud-native technologies.
 
 # General Information about KubeCon
 
@@ -27,10 +31,7 @@ This year's KubeCon North America 2023 was held from November 6th to 9th of 2023
 
 ![KubeCon](https://raw.githubusercontent.com/kubernetes/website/main/content/en/blog/_posts/2023-12-05-My-first-ever-KubeCon-KubeCon+CloudNativeCon-North-America-2023/pic3.jpg)
 
-Education and collaboration are vital to the future of the CNCF ecosystem and
-it is imperative to CNCF that everyone in the community that 
-wants to participate feels welcome to do so regardless of
-gender, gender identity, sexual orientation, dis/ability, race, ethnicity, age, religion, or economic status.
+Education and collaboration are vital to the future of the CNCF ecosystem. It's imperative to CNCF that everyone in the community who wants to participate feels welcome, regardless of gender, gender identity, sexual orientation, dis/ability, race, ethnicity, age, religion, or economic status.
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/kubernetes/website/main/content/en/blog/_posts/2023-12-05-My-first-ever-KubeCon-KubeCon+CloudNativeCon-North-America-2023/pic4.jpg">
@@ -42,7 +43,7 @@ Every KubeCon has more or less the same schedule except for the talks. The talks
 
 In case you want to check the full schedule, click [here](https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/). You can change the timezone of the schedule according to your local time.
 
-For a beginner or someone who is attending any KubeCon can be very overwhelming, some might think of leaving the world of tech and open-source but I would suggest just holding your nerve, there is a place for everyone in the community. I am also a beginner in this field, speaking from that perspective, one must look carefully at the schedule and look for one's interests and talks related to the same. Also, keynotes are important for beginners and are mainly conducted by CNCF Ambassadors.
+For a beginner attending KubeCon can be overwhelming. Some might consider leaving tech and open-source. But hold your nerve. There's a place for everyone in the community. As a beginner, I'd suggest carefully examining the schedule for talks aligned with your interests. Keynotes, mainly by CNCF Ambassadors, are crucial for beginners.
 
 # My experiences
 
@@ -90,7 +91,7 @@ I want to showcase some of the talks from KubeCon North America that I attended 
 
 ![KubeCon](https://raw.githubusercontent.com/kubernetes/website/main/content/en/blog/_posts/2023-12-05-My-first-ever-KubeCon-KubeCon+CloudNativeCon-North-America-2023/ss11.png)
 
-These are some of the talks I attended during the events but apart from these, there were a lot more talks that were very helpful and educational. KubeCon provides the talks on social media a few days after the event, and we can hear them and learn whenever we want. The Slack channel helped us to network with people all around the world.
+I attended some talks at the event, but many others were equally helpful. KubeCon offers talks on social media post-event, enabling ongoing learning. Slack channels were instrumental for global networking.
 
 # My learnings and key takeaways from KubeCon
 
@@ -167,7 +168,6 @@ Attending KubeCon as a beginner in the Kubernetes ecosystem can be overwhelming 
 - Review & Reflect: Take some time after the conference to review your notes, revisit resources, and reflect on what you've learned.
 
 - Follow Up: Connect with people you met via LinkedIn, Twitter, or email. Keep the conversation going and build your network.
-
 <p align="center">
   <img src="https://raw.githubusercontent.com/kubernetes/website/main/content/en/blog/_posts/2023-12-05-My-first-ever-KubeCon-KubeCon+CloudNativeCon-North-America-2023/pic11.jpg">
 </p>
