@@ -36,7 +36,7 @@ Education and collaboration are vital to the future of the CNCF ecosystem. It's 
   <figure src="pic4.jpg" alt="Priyanka Sharma KubeCon">
 </p>
 
-Every KubeCon has more or less the same schedule except for the talks. The talks vary depending on the [CFPs](https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/program/cfp/) submitted. To give a very basic plot of the event, here is a schedule of this year's KubeCon:
+Every KubeCon has more or less the same schedule except for the talks. The talks vary depending on the [CFPs](https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/program/cfp/) submitted. To give a very basic plot of the event, This was the schedule of KubeCon 2023:
 
 <figure src="pic5.png" alt="KubeCon Schedule">
 
