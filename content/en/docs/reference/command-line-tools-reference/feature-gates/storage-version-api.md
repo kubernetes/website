@@ -1,0 +1,9 @@
+---
+title: StorageVersionAPI
+content_type: feature_gate
+_build:
+  list: never
+  render: false
+---
+Enable the
+[storage version API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#storageversion-v1alpha1-internal-apiserver-k8s-io).
