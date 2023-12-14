@@ -50,7 +50,7 @@ IP of requests it receives through an HTTP header. You can create it as follows:
 
 {{< note >}}
 The example image below works only with AMD64 architecture.
-{{< note >}}
+{{< /note >}}
 
 ```shell
 kubectl create deployment source-ip-app --image=registry.k8s.io/echoserver:1.4
