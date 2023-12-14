@@ -28,7 +28,7 @@ These interactions foster collaboration and facilitate the exchange of knowledge
 
 This year's KubeCon North America 2023 was held from November 6th to 9th of 2023 in Chicago, Illinois.
 
-<figure src="pic3.jpg" alt="Chicago City">
+{{< figure src="pic3.jpg" alt="Chicago City" >}}
 
 Education and collaboration are vital to the future of the CNCF ecosystem. It's imperative to CNCF that everyone in the community who wants to participate feels welcome, regardless of gender, gender identity, sexual orientation, dis/ability, race, ethnicity, age, religion, or economic status.
 
