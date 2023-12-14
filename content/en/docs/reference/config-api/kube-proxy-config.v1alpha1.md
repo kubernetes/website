@@ -21,8 +21,6 @@ auto_generated: true
 
 - [KubeProxyConfiguration](#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConfiguration)
 
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
-
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
 
 - [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
@@ -81,8 +79,6 @@ client.</p>
 
 **Appears in:**
 
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
-
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
 
 - [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
@@ -118,8 +114,6 @@ enableProfiling is true.</p>
     
 
 **Appears in:**
-
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
 
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
 
@@ -226,35 +220,66 @@ Kubernetes proxy server.</p>
    <p>featureGates is a map of feature names to bools that enable or disable alpha/experimental features.</p>
 </td>
 </tr>
+<tr><td><code>clientConnection</code> <B>[Required]</B><br/>
+<a href="#ClientConnectionConfiguration"><code>ClientConnectionConfiguration</code></a>
+</td>
+<td>
+   <p>clientConnection specifies the kubeconfig file and client connection settings for the proxy
+server to use when communicating with the apiserver.</p>
+</td>
+</tr>
+<tr><td><code>logging</code> <B>[Required]</B><br/>
+<a href="#LoggingConfiguration"><code>LoggingConfiguration</code></a>
+</td>
+<td>
+   <p>logging specifies the options of logging.
+Refer to <a href="https://github.com/kubernetes/component-base/blob/master/logs/options.go">Logs Options</a>
+for more information.</p>
+</td>
+</tr>
+<tr><td><code>hostnameOverride</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>hostnameOverride, if non-empty, will be used as the name of the Node that
+kube-proxy is running on. If unset, the node name is assumed to be the same as
+the node's hostname.</p>
+</td>
+</tr>
 <tr><td><code>bindAddress</code> <B>[Required]</B><br/>
 <code>string</code>
 </td>
 <td>
-   <p>bindAddress is the IP address for the proxy server to serve on (set to 0.0.0.0
-for all interfaces)</p>
+   <p>bindAddress can be used to override kube-proxy's idea of what its node's
+primary IP is. Note that the name is a historical artifact, and kube-proxy does
+not actually bind any sockets to this IP.</p>
 </td>
 </tr>
 <tr><td><code>healthzBindAddress</code> <B>[Required]</B><br/>
 <code>string</code>
 </td>
 <td>
-   <p>healthzBindAddress is the IP address and port for the health check server to serve on,
-defaulting to 0.0.0.0:10256</p>
+   <p>healthzBindAddress is the IP address and port for the health check server to
+serve on, defaulting to &quot;0.0.0.0:10256&quot; (if bindAddress is unset or IPv4), or
+&quot;[::]:10256&quot; (if bindAddress is IPv6).</p>
 </td>
 </tr>
 <tr><td><code>metricsBindAddress</code> <B>[Required]</B><br/>
 <code>string</code>
 </td>
 <td>
-   <p>metricsBindAddress is the IP address and port for the metrics server to serve on,
-defaulting to 127.0.0.1:10249 (set to 0.0.0.0 for all interfaces)</p>
+   <p>metricsBindAddress is the IP address and port for the metrics server to serve
+on, defaulting to &quot;127.0.0.1:10249&quot; (if bindAddress is unset or IPv4), or
+&quot;[::1]:10249&quot; (if bindAddress is IPv6). (Set to &quot;0.0.0.0:10249&quot; / &quot;[::]:10249&quot;
+to bind on all interfaces.)</p>
 </td>
 </tr>
 <tr><td><code>bindAddressHardFail</code> <B>[Required]</B><br/>
 <code>bool</code>
 </td>
 <td>
-   <p>bindAddressHardFail, if true, kube-proxy will treat failure to bind to a port as fatal and exit</p>
+   <p>bindAddressHardFail, if true, tells kube-proxy to treat failure to bind to a
+port as fatal and exit</p>
 </td>
 </tr>
 <tr><td><code>enableProfiling</code> <B>[Required]</B><br/>
@@ -265,28 +290,18 @@ defaulting to 127.0.0.1:10249 (set to 0.0.0.0 for all interfaces)</p>
 Profiling handlers will be handled by metrics server.</p>
 </td>
 </tr>
-<tr><td><code>clusterCIDR</code> <B>[Required]</B><br/>
+<tr><td><code>showHiddenMetricsForVersion</code> <B>[Required]</B><br/>
 <code>string</code>
 </td>
 <td>
-   <p>clusterCIDR is the CIDR range of the pods in the cluster. It is used to
-bridge traffic coming from outside of the cluster. If not provided,
-no off-cluster bridging will be performed.</p>
+   <p>showHiddenMetricsForVersion is the version for which you want to show hidden metrics.</p>
 </td>
 </tr>
-<tr><td><code>hostnameOverride</code> <B>[Required]</B><br/>
-<code>string</code>
+<tr><td><code>mode</code> <B>[Required]</B><br/>
+<a href="#kubeproxy-config-k8s-io-v1alpha1-ProxyMode"><code>ProxyMode</code></a>
 </td>
 <td>
-   <p>hostnameOverride, if non-empty, will be used as the identity instead of the actual hostname.</p>
-</td>
-</tr>
-<tr><td><code>clientConnection</code> <B>[Required]</B><br/>
-<a href="#ClientConnectionConfiguration"><code>ClientConnectionConfiguration</code></a>
-</td>
-<td>
-   <p>clientConnection specifies the kubeconfig file and client connection settings for the proxy
-server to use when communicating with the apiserver.</p>
+   <p>mode specifies which proxy mode to use.</p>
 </td>
 </tr>
 <tr><td><code>iptables</code> <B>[Required]</B><br/>
@@ -303,27 +318,61 @@ server to use when communicating with the apiserver.</p>
    <p>ipvs contains ipvs-related configuration options.</p>
 </td>
 </tr>
+<tr><td><code>nftables</code> <B>[Required]</B><br/>
+<a href="#kubeproxy-config-k8s-io-v1alpha1-KubeProxyNFTablesConfiguration"><code>KubeProxyNFTablesConfiguration</code></a>
+</td>
+<td>
+   <p>nftables contains nftables-related configuration options.</p>
+</td>
+</tr>
+<tr><td><code>winkernel</code> <B>[Required]</B><br/>
+<a href="#kubeproxy-config-k8s-io-v1alpha1-KubeProxyWinkernelConfiguration"><code>KubeProxyWinkernelConfiguration</code></a>
+</td>
+<td>
+   <p>winkernel contains winkernel-related configuration options.</p>
+</td>
+</tr>
+<tr><td><code>detectLocalMode</code> <B>[Required]</B><br/>
+<a href="#kubeproxy-config-k8s-io-v1alpha1-LocalMode"><code>LocalMode</code></a>
+</td>
+<td>
+   <p>detectLocalMode determines mode to use for detecting local traffic, defaults to LocalModeClusterCIDR</p>
+</td>
+</tr>
+<tr><td><code>detectLocal</code> <B>[Required]</B><br/>
+<a href="#kubeproxy-config-k8s-io-v1alpha1-DetectLocalConfiguration"><code>DetectLocalConfiguration</code></a>
+</td>
+<td>
+   <p>detectLocal contains optional configuration settings related to DetectLocalMode.</p>
+</td>
+</tr>
+<tr><td><code>clusterCIDR</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>clusterCIDR is the CIDR range of the pods in the cluster. (For dual-stack
+clusters, this can be a comma-separated dual-stack pair of CIDR ranges.). When
+DetectLocalMode is set to LocalModeClusterCIDR, kube-proxy will consider
+traffic to be local if its source IP is in this range. (Otherwise it is not
+used.)</p>
+</td>
+</tr>
+<tr><td><code>nodePortAddresses</code> <B>[Required]</B><br/>
+<code>[]string</code>
+</td>
+<td>
+   <p>nodePortAddresses is a list of CIDR ranges that contain valid node IPs. If set,
+connections to NodePort services will only be accepted on node IPs in one of
+the indicated ranges. If unset, NodePort connections will be accepted on all
+local IPs.</p>
+</td>
+</tr>
 <tr><td><code>oomScoreAdj</code> <B>[Required]</B><br/>
 <code>int32</code>
 </td>
 <td>
    <p>oomScoreAdj is the oom-score-adj value for kube-proxy process. Values must be within
 the range [-1000, 1000]</p>
-</td>
-</tr>
-<tr><td><code>mode</code> <B>[Required]</B><br/>
-<a href="#kubeproxy-config-k8s-io-v1alpha1-ProxyMode"><code>ProxyMode</code></a>
-</td>
-<td>
-   <p>mode specifies which proxy mode to use.</p>
-</td>
-</tr>
-<tr><td><code>portRange</code> <B>[Required]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <p>portRange is the range of host ports (beginPort-endPort, inclusive) that may be consumed
-in order to proxy service traffic. If unspecified (0-0) then ports will be randomly chosen.</p>
 </td>
 </tr>
 <tr><td><code>conntrack</code> <B>[Required]</B><br/>
@@ -341,54 +390,11 @@ in order to proxy service traffic. If unspecified (0-0) then ports will be rando
 than 0.</p>
 </td>
 </tr>
-<tr><td><code>nodePortAddresses</code> <B>[Required]</B><br/>
-<code>[]string</code>
-</td>
-<td>
-   <p>nodePortAddresses is the --nodeport-addresses value for kube-proxy process. Values must be valid
-IP blocks. These values are as a parameter to select the interfaces where nodeport works.
-In case someone would like to expose a service on localhost for local visit and some other interfaces for
-particular purpose, a list of IP blocks would do that.
-If set it to &quot;127.0.0.0/8&quot;, kube-proxy will only select the loopback interface for NodePort.
-If set it to a non-zero IP block, kube-proxy will filter that down to just the IPs that applied to the node.
-An empty string slice is meant to select all network interfaces.</p>
-</td>
-</tr>
-<tr><td><code>winkernel</code> <B>[Required]</B><br/>
-<a href="#kubeproxy-config-k8s-io-v1alpha1-KubeProxyWinkernelConfiguration"><code>KubeProxyWinkernelConfiguration</code></a>
-</td>
-<td>
-   <p>winkernel contains winkernel-related configuration options.</p>
-</td>
-</tr>
-<tr><td><code>showHiddenMetricsForVersion</code> <B>[Required]</B><br/>
+<tr><td><code>portRange</code> <B>[Required]</B><br/>
 <code>string</code>
 </td>
 <td>
-   <p>ShowHiddenMetricsForVersion is the version for which you want to show hidden metrics.</p>
-</td>
-</tr>
-<tr><td><code>detectLocalMode</code> <B>[Required]</B><br/>
-<a href="#kubeproxy-config-k8s-io-v1alpha1-LocalMode"><code>LocalMode</code></a>
-</td>
-<td>
-   <p>DetectLocalMode determines mode to use for detecting local traffic, defaults to LocalModeClusterCIDR</p>
-</td>
-</tr>
-<tr><td><code>detectLocal</code> <B>[Required]</B><br/>
-<a href="#kubeproxy-config-k8s-io-v1alpha1-DetectLocalConfiguration"><code>DetectLocalConfiguration</code></a>
-</td>
-<td>
-   <p>DetectLocal contains optional configuration settings related to DetectLocalMode.</p>
-</td>
-</tr>
-<tr><td><code>logging</code> <B>[Required]</B><br/>
-<a href="#LoggingConfiguration"><code>LoggingConfiguration</code></a>
-</td>
-<td>
-   <p>logging specifies the options of logging.
-Refer to <a href="https://github.com/kubernetes/component-base/blob/master/logs/options.go">Logs Options</a>
-for more information.</p>
+   <p>portRange was previously used to configure the userspace proxy, but is now unused.</p>
 </td>
 </tr>
 </tbody>
@@ -414,18 +420,18 @@ for more information.</p>
 <code>string</code>
 </td>
 <td>
-   <p>BridgeInterface is a string argument which represents a single bridge interface name.
-Kube-proxy considers traffic as local if originating from this given bridge.
-This argument should be set if DetectLocalMode is set to LocalModeBridgeInterface.</p>
+   <p>bridgeInterface is a bridge interface name. When DetectLocalMode is set to
+LocalModeBridgeInterface, kube-proxy will consider traffic to be local if
+it originates from this bridge.</p>
 </td>
 </tr>
 <tr><td><code>interfaceNamePrefix</code> <B>[Required]</B><br/>
 <code>string</code>
 </td>
 <td>
-   <p>InterfaceNamePrefix is a string argument which represents a single interface prefix name.
-Kube-proxy considers traffic as local if originating from one or more interfaces which match
-the given prefix. This argument should be set if DetectLocalMode is set to LocalModeInterfaceNamePrefix.</p>
+   <p>interfaceNamePrefix is an interface name prefix. When DetectLocalMode is set to
+LocalModeInterfaceNamePrefix, kube-proxy will consider traffic to be local if
+it originates from any interface whose name begins with this prefix.</p>
 </td>
 </tr>
 </tbody>
@@ -461,7 +467,7 @@ per CPU core (0 to leave the limit as-is and ignore min).</p>
 </td>
 <td>
    <p>min is the minimum value of connect-tracking records to allocate,
-regardless of conntrackMaxPerCore (set maxPerCore=0 to leave the limit as-is).</p>
+regardless of maxPerCore (set maxPerCore=0 to leave the limit as-is).</p>
 </td>
 </tr>
 <tr><td><code>tcpEstablishedTimeout</code> <B>[Required]</B><br/>
@@ -479,6 +485,33 @@ regardless of conntrackMaxPerCore (set maxPerCore=0 to leave the limit as-is).</
    <p>tcpCloseWaitTimeout is how long an idle conntrack entry
 in CLOSE_WAIT state will remain in the conntrack
 table. (e.g. '60s'). Must be greater than 0 to set.</p>
+</td>
+</tr>
+<tr><td><code>tcpBeLiberal</code> <B>[Required]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   <p>tcpBeLiberal, if true, kube-proxy will configure conntrack
+to run in liberal mode for TCP connections and packets with
+out-of-window sequence numbers won't be marked INVALID.</p>
+</td>
+</tr>
+<tr><td><code>udpTimeout</code> <B>[Required]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <p>udpTimeout is how long an idle UDP conntrack entry in
+UNREPLIED state will remain in the conntrack table
+(e.g. '30s'). Must be greater than 0 to set.</p>
+</td>
+</tr>
+<tr><td><code>udpStreamTimeout</code> <B>[Required]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <p>udpStreamTimeout is how long an idle UDP conntrack entry in
+ASSURED state will remain in the conntrack table
+(e.g. '300s'). Must be greater than 0 to set.</p>
 </td>
 </tr>
 </tbody>
@@ -506,38 +539,44 @@ details for the Kubernetes proxy server.</p>
 </td>
 <td>
    <p>masqueradeBit is the bit of the iptables fwmark space to use for SNAT if using
-the pure iptables proxy mode. Values must be within the range [0, 31].</p>
+the iptables or ipvs proxy mode. Values must be within the range [0, 31].</p>
 </td>
 </tr>
 <tr><td><code>masqueradeAll</code> <B>[Required]</B><br/>
 <code>bool</code>
 </td>
 <td>
-   <p>masqueradeAll tells kube-proxy to SNAT everything if using the pure iptables proxy mode.</p>
+   <p>masqueradeAll tells kube-proxy to SNAT all traffic sent to Service cluster IPs,
+when using the iptables or ipvs proxy mode. This may be required with some CNI
+plugins.</p>
 </td>
 </tr>
 <tr><td><code>localhostNodePorts</code> <B>[Required]</B><br/>
 <code>bool</code>
 </td>
 <td>
-   <p>LocalhostNodePorts tells kube-proxy to allow service NodePorts to be accessed via
-localhost (iptables mode only)</p>
+   <p>localhostNodePorts, if false, tells kube-proxy to disable the legacy behavior
+of allowing NodePort services to be accessed via localhost. (Applies only to
+iptables mode and IPv4; localhost NodePorts are never allowed with other proxy
+modes or with IPv6.)</p>
 </td>
 </tr>
 <tr><td><code>syncPeriod</code> <B>[Required]</B><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
-   <p>syncPeriod is the period that iptables rules are refreshed (e.g. '5s', '1m',
-'2h22m').  Must be greater than 0.</p>
+   <p>syncPeriod is an interval (e.g. '5s', '1m', '2h22m') indicating how frequently
+various re-synchronizing and cleanup operations are performed. Must be greater
+than 0.</p>
 </td>
 </tr>
 <tr><td><code>minSyncPeriod</code> <B>[Required]</B><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
-   <p>minSyncPeriod is the minimum period that iptables rules are refreshed (e.g. '5s', '1m',
-'2h22m').</p>
+   <p>minSyncPeriod is the minimum period between iptables rule resyncs (e.g. '5s',
+'1m', '2h22m'). A value of 0 means every Service or EndpointSlice change will
+result in an immediate iptables resync.</p>
 </td>
 </tr>
 </tbody>
@@ -564,30 +603,32 @@ details for the Kubernetes proxy server.</p>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
-   <p>syncPeriod is the period that ipvs rules are refreshed (e.g. '5s', '1m',
-'2h22m').  Must be greater than 0.</p>
+   <p>syncPeriod is an interval (e.g. '5s', '1m', '2h22m') indicating how frequently
+various re-synchronizing and cleanup operations are performed. Must be greater
+than 0.</p>
 </td>
 </tr>
 <tr><td><code>minSyncPeriod</code> <B>[Required]</B><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
-   <p>minSyncPeriod is the minimum period that ipvs rules are refreshed (e.g. '5s', '1m',
-'2h22m').</p>
+   <p>minSyncPeriod is the minimum period between IPVS rule resyncs (e.g. '5s', '1m',
+'2h22m'). A value of 0 means every Service or EndpointSlice change will result
+in an immediate IPVS resync.</p>
 </td>
 </tr>
 <tr><td><code>scheduler</code> <B>[Required]</B><br/>
 <code>string</code>
 </td>
 <td>
-   <p>ipvs scheduler</p>
+   <p>scheduler is the IPVS scheduler to use</p>
 </td>
 </tr>
 <tr><td><code>excludeCIDRs</code> <B>[Required]</B><br/>
 <code>[]string</code>
 </td>
 <td>
-   <p>excludeCIDRs is a list of CIDR's which the ipvs proxier should not touch
+   <p>excludeCIDRs is a list of CIDRs which the ipvs proxier should not touch
 when cleaning up ipvs services.</p>
 </td>
 </tr>
@@ -595,7 +636,7 @@ when cleaning up ipvs services.</p>
 <code>bool</code>
 </td>
 <td>
-   <p>strict ARP configure arp_ignore and arp_announce to avoid answering ARP queries
+   <p>strictARP configures arp_ignore and arp_announce to avoid answering ARP queries
 from kube-ipvs0 interface</p>
 </td>
 </tr>
@@ -621,6 +662,60 @@ The default value is 0, which preserves the current timeout value on the system.
 <td>
    <p>udpTimeout is the timeout value used for IPVS UDP packets.
 The default value is 0, which preserves the current timeout value on the system.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `KubeProxyNFTablesConfiguration`     {#kubeproxy-config-k8s-io-v1alpha1-KubeProxyNFTablesConfiguration}
+    
+
+**Appears in:**
+
+- [KubeProxyConfiguration](#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConfiguration)
+
+
+<p>KubeProxyNFTablesConfiguration contains nftables-related configuration
+details for the Kubernetes proxy server.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>masqueradeBit</code> <B>[Required]</B><br/>
+<code>int32</code>
+</td>
+<td>
+   <p>masqueradeBit is the bit of the iptables fwmark space to use for SNAT if using
+the nftables proxy mode. Values must be within the range [0, 31].</p>
+</td>
+</tr>
+<tr><td><code>masqueradeAll</code> <B>[Required]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   <p>masqueradeAll tells kube-proxy to SNAT all traffic sent to Service cluster IPs,
+when using the nftables mode. This may be required with some CNI plugins.</p>
+</td>
+</tr>
+<tr><td><code>syncPeriod</code> <B>[Required]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <p>syncPeriod is an interval (e.g. '5s', '1m', '2h22m') indicating how frequently
+various re-synchronizing and cleanup operations are performed. Must be greater
+than 0.</p>
+</td>
+</tr>
+<tr><td><code>minSyncPeriod</code> <B>[Required]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <p>minSyncPeriod is the minimum period between iptables rule resyncs (e.g. '5s',
+'1m', '2h22m'). A value of 0 means every Service or EndpointSlice change will
+result in an immediate iptables resync.</p>
 </td>
 </tr>
 </tbody>
@@ -655,7 +750,7 @@ to create endpoints and policies</p>
 <code>string</code>
 </td>
 <td>
-   <p>sourceVip is the IP address of the source VIP endoint used for
+   <p>sourceVip is the IP address of the source VIP endpoint used for
 NAT when loadbalancing</p>
 </td>
 </tr>
@@ -671,7 +766,7 @@ with DSR</p>
 <code>string</code>
 </td>
 <td>
-   <p>RootHnsEndpointName is the name of hnsendpoint that is attached to
+   <p>rootHnsEndpointName is the name of hnsendpoint that is attached to
 l2bridge for root network namespace</p>
 </td>
 </tr>
@@ -679,7 +774,7 @@ l2bridge for root network namespace</p>
 <code>bool</code>
 </td>
 <td>
-   <p>ForwardHealthCheckVip forwards service VIP for health check port on
+   <p>forwardHealthCheckVip forwards service VIP for health check port on
 Windows</p>
 </td>
 </tr>
