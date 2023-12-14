@@ -9,7 +9,6 @@ slug: first-kubecon-cloudnativecon-virtual-experience
 
 _This post is a guide for beginners to look at huge and overwhelming events like KubeCon._
 
-# Introduction
 
 <figure src="pic1.jpg" alt="KubeCon NA 2023 Poster">
 
