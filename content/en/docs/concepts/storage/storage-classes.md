@@ -242,17 +242,19 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: standard
-provisioner: kubernetes.io/example
-parameters:
-  type: pd-standard
+provisioner: your-provisioner
 volumeBindingMode: WaitForFirstConsumer
 allowedTopologies:
 - matchLabelExpressions:
   - key: topology.kubernetes.io/zone
     values:
-    - us-central-1a
-    - us-central-1b
+    - zone1
+    - zone2
 ```
+
+- `provisioner`: See [`Provisioner`](/docs/concepts/storage/storage-classes/#provisioner) for details. 
+- `allowedTopologies`: Defines the constraints for the allowed topologies. In this example, it's based on zone.
+- `matchLabelExpressions`: Specify label expressions to enable a node to be considered part of the allowed topology. For example, the node must have a label `topology.kubernetes.io/zone` with a value of either `zone1` or `zone2`.
 
 ## Parameters
 

@@ -525,21 +525,23 @@ This means that support is still available but will be removed in a future Kuber
 Older versions of Kubernetes also supported the following in-tree PersistentVolume types:
 
 * [`awsElasticBlockStore`](/docs/concepts/storage/volumes/#awselasticblockstore) - AWS Elastic Block Store (EBS)
-  (**not available** in v1.27)
+  (**not available** starting with v1.27)
 * [`azureDisk`](/docs/concepts/storage/volumes/#azuredisk) - Azure Disk
-  (**not available** in v1.27)
+  (**not available** starting with v1.27)
 * [`cinder`](/docs/concepts/storage/volumes/#cinder) - Cinder (OpenStack block storage)
-  (**not available** in v1.26)
+  (**not available** starting with v1.26)
+* [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE Persistent Disk
+  (**not available** starting with v1.28)
 * `photonPersistentDisk` - Photon controller persistent disk.
-  (**not available** starting v1.15)
+  (**not available** starting with v1.15)
 * `scaleIO` - ScaleIO volume.
-  (**not available** starting v1.21)
+  (**not available** starting with v1.21)
 * `flocker` - Flocker storage.
-  (**not available** starting v1.25)
+  (**not available** starting with v1.25)
 * `quobyte` - Quobyte volume.
-  (**not available** starting v1.25)
+  (**not available** starting with v1.25)
 * `storageos` - StorageOS volume.
-  (**not available** starting v1.25)
+  (**not available** starting with v1.25)
 
 ## Persistent Volumes
 
