@@ -9,7 +9,7 @@ aka:
 tags:
 - tool
 ---
-cAdvisor(Container Advisor)は、コンテナユーザーに実行中の {{< Glossary_tooltip text="コンテナ" term_id="container" >}}のリソース使用量とパフォーマンス特性を理解させることができます。
+cAdvisor(Container Advisor)は、コンテナユーザーに実行中の{{< glossary_tooltip text="コンテナ" term_id="container" >}}のリソース使用量とパフォーマンス特性を理解させることができます。
 
 <!--more-->
 
