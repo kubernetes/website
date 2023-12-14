@@ -48,6 +48,10 @@ the target localization.
 The examples use a small nginx webserver that echoes back the source
 IP of requests it receives through an HTTP header. You can create it as follows:
 
+{{< note >}}
+The example image below works only with AMD64 architecture.
+{{< note >}}
+
 ```shell
 kubectl create deployment source-ip-app --image=registry.k8s.io/echoserver:1.4
 ```
@@ -55,10 +59,6 @@ The output is:
 ```
 deployment.apps/source-ip-app created
 ```
-
-{{< note >}}
-The example image works only with AMD64 architecture.
-{{< note >}}
 
 
 ## {{% heading "objectives" %}}
