@@ -90,7 +90,7 @@ I want to showcase some of the talks I attended at KubeCon North America virtual
 
 <figure src="ss11.png">
 
-I attended some talks at the event, but many others were equally helpful. KubeCon offers talks on social media post-event, enabling ongoing learning. Slack channels were instrumental in global networking.
+I attended some talks at the event, but many others were equally helpful. KubeCon offers post-event social media talks, enabling ongoing learning. Slack channels were instrumental in global networking.
 
 # My learnings and key takeaways from KubeCon
 
