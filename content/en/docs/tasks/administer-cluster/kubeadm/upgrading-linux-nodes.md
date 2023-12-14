@@ -62,6 +62,7 @@ sudo kubeadm upgrade node
 Prepare the node for maintenance by marking it unschedulable and evicting the workloads:
 
 ```shell
+# execute this command on a control plane node
 # replace <node-to-drain> with the name of your node you are draining
 kubectl drain <node-to-drain> --ignore-daemonsets
 ```
@@ -99,6 +100,7 @@ kubectl drain <node-to-drain> --ignore-daemonsets
 Bring the node back online by marking it schedulable:
 
 ```shell
+# execute this command on a control plane node
 # replace <node-to-uncordon> with the name of your node
 kubectl uncordon <node-to-uncordon>
 ```
