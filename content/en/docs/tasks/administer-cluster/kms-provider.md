@@ -411,30 +411,10 @@ To switch from a local encryption provider to the `kms` provider and re-encrypt 
    kubectl get secrets --all-namespaces -o json | kubectl replace -f -
    ```
 
-## Disabling encryption at rest
+## {{% heading "whatsnext" %}}
 
-To disable encryption at rest:
+<!-- preserve legacy hyperlinks -->
+<a id="disabling-encryption-at-rest" />
 
-1. Place the `identity` provider as the first entry in the configuration file:
-
-   ```yaml
-   apiVersion: apiserver.config.k8s.io/v1
-   kind: EncryptionConfiguration
-   resources:
-     - resources:
-         - secrets
-       providers:
-         - identity: {}
-         - kms:
-             apiVersion: v2
-             name : myKmsPlugin
-             endpoint: unix:///tmp/socketfile.sock
-   ```
-
-1. Restart all `kube-apiserver` processes.
-
-1. Run the following command to force all secrets to be decrypted.
-
-   ```shell
-   kubectl get secrets --all-namespaces -o json | kubectl replace -f -
-   ```
+If you no longer want to use encryption for data persisted in the Kubernetes API, read
+[decrypt data that are already stored at rest](/docs/tasks/administer-cluster/decrypt-data/).
