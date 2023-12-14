@@ -15,7 +15,7 @@ Generate a kubeconfig file for the super-admin
 ### Synopsis
 
 
-Generate a kubeconfig file for the super-admin.
+Generate a kubeconfig file for the super-admin, and save it to super-admin.conf file.
 
 ```
 kubeadm init phase kubeconfig super-admin [flags]
@@ -76,7 +76,7 @@ kubeadm init phase kubeconfig super-admin [flags]
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for admin</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for super-admin</p></td>
 </tr>
 
 <tr>
