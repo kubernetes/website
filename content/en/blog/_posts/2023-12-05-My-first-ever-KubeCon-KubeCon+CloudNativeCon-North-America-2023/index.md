@@ -9,8 +9,7 @@ slug: first-kubecon-cloudnativecon-virtual-experience
 
 _This post is a guide for beginners to look at huge and overwhelming events like KubeCon._
 
-
-<figure src="pic1.jpg" alt="KubeCon NA 2023 Poster">
+<img src="pic1.jpg" alt="KubeCon NA 2023 Poster">
 
 This blog is a personal journey and beginner's guide for those encountering a significant conference for the first time. KubeCon marks my inaugural conference, and it's undeniably the largest. Previously, I've been to community-driven events like Google Cloud Community Days Kolkata 2023, Kubernetes Community Days Mumbai 2023, and KubeDay India 2023; they were sizable but lasted only a day or two. In contrast, KubeCon was significantly larger and more overwhelming, especially for newcomers in the field.
 
@@ -18,84 +17,84 @@ My introduction to KubeCon was virtual, thanks to the Dan Kohn Scholarship, whic
 
 Like any other event, you need to register at their official site. You can learn about upcoming events on their [official page](https://www.cncf.io/events/). Sometimes it might be not easy to afford the cost of attending these events, but CNCF also offers scholarships to individuals. To provide an overview, CNCF mainly offers scholarships based on 3 categories namely - Diversity, Need-Based, and Maintainer.
 
-<figure src="pic2.jpg" alt="Scholarship Details">
+<img src="pic2.png" alt="Scholarship Details">
 
 KubeCon serves as a dynamic platform for attendees to actively engage with the expansive Kubernetes community. Through a diverse array of networking avenues, including Birds of a Feather sessions, social events, and dedicated breaks, participants have the opportunity to connect with fellow developers, contributors, and users of Kubernetes.
 
 These interactions foster collaboration and facilitate the exchange of knowledge and experiences. The conference's emphasis on networking creates an environment where like-minded professionals and industry experts can forge connections, share insights, and collectively contribute to the ever-evolving landscape of container orchestration and cloud-native technologies.
 
-# General Information about KubeCon
+<h2>General Information about KubeCon</h2>
 
-This year's KubeCon North America 2023 was held from November 6th to 9th of 2023 in Chicago, Illinois.
+KubeCon North America 2023 was held from the 6th to the 9th of November 2023, in Chicago, Illinois.
 
-{{< figure src="pic3.jpg" alt="Chicago City" >}}
+<img src="pic3.jpg" alt="Cloud Gate, Chicago">
 
 Education and collaboration are vital to the future of the CNCF ecosystem. It's imperative to CNCF that everyone in the community who wants to participate feels welcome, regardless of gender, gender identity, sexual orientation, dis/ability, race, ethnicity, age, religion, or economic status.
 
 <p align="center">
-  <figure src="pic4.jpg" alt="Priyanka Sharma KubeCon">
+  <img src="pic4.jpg" alt="Priyanka Sharma KubeCon">
 </p>
 
 Every KubeCon has more or less the same schedule except for the talks. The talks vary depending on the [CFPs](https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/program/cfp/) submitted. To give a very basic plot of the event, This was the schedule of KubeCon 2023:
 
-<figure src="pic5.png" alt="KubeCon Schedule">
+<img src="pic5.png" alt="KubeCon Schedule">
 
 In case you want to check the full schedule, click [here](https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/). You can change the timezone of the schedule according to your local time.
 
-For a beginner attending KubeCon can be overwhelming. Some might consider leaving tech and open-source. But hold your nerve. There's a place for everyone in the community. As a beginner, I'd suggest carefully examining the schedule for talks aligned with your interests. Keynotes, mainly by CNCF Ambassadors, are crucial for beginners.
+For a beginner, attending KubeCon can be overwhelming. Some might consider leaving tech and open-source. But hold your nerve. There's a place for everyone in the community. As a beginner, I'd suggest carefully examining the schedule for talks aligned with your interests. Keynotes, mainly by CNCF Ambassadors, are crucial for beginners.
 
-# My experiences
+<h2>My experiences</h2>
 
 I want to showcase some of the talks I attended at KubeCon North America virtually.
 
-<figure src="ss1.png">
+<img src="ss1.png">
 
 **Keynote: Welcome + Opening Remarks - Priyanka Sharma, Executive Director, Cloud Native Computing Foundation**
 
-<figure src="ss2.png">
+<img src="ss2.png">
 
 **Keynote: Windy City Whirlwind: Stirring Up the Cloud Native Ecosystem - Taylor Dolezal, Head of Ecosystem, Cloud Native Computing Foundation**
 
-<figure src="ss3.png">
+<img src="ss3.png">
 
 **Keynote: Blueprint Banter: Cloud Native Conversations by the Fireside - Taylor Dolezal, Cloud Native Computing Foundation; Alolita Sharma, Apple; Mike Bowen, Blackrock; Cailyn Edwards, Shopify; Mukulika Kapas, Intuit**
 
-<figure src="ss4.png">
+<img src="ss4.png">
 
 **Humans of Cloud Native Panel – Finding Your Way in #TeamCloudNative - Mitch Connors, Aviatrix; Miranda Jaramillo, The Trevor Project; Bart Farrell, CNCF Ambassador; Whitney Lee, VMware**
 
-<figure src="ss5.png">
+<img src="ss5.png">
 
 **From Non-Tech to CNCF Ambassador: You Can Do It Too! - Julia Furst, Veeam**
 
-<figure src="ss6.png">
+<img src="ss6.png">
 
 **From Classroom to Cluster: Embracing Kubernetes as a Student and Contributing to Its Development - Nitish Kumar, Faeka Ansari & Grace Nguyen, Independent; Meha Bhalodiya, Red Hat; Leonard Pahlke, Liquid Reply**
 
-<figure src="ss7.png">
+<img src="ss7.png">
 
 **Learning Kubernetes by Chaos – Breaking a Kubernetes Cluster to Understand the Components - Ricardo Katz, VMware & Anderson Duboc, Google Cloud**
 
-<figure src="ss8.png">
+<img src="ss8.png">
 
 **[Livestream Sponsored by Vulk Coop] Cloud Native Telco Day Hosted by CNCF - Half Day Event**
 
-<figure src="ss9.png">
+<img src="ss9.png">
 
 **15,000 Minecraft Players Vs One K8s Cluster. Who Wins? - Justin Head, Super League Gaming & Cornelia Davis, Spectro Cloud**
 
-<figure src="ss10.png">
+<img src="ss10.png">
 
 **Rise of the Global Cloud Native Community: The Untold Stories - Ashutosh Kumar, Elastic & Rajas Kakodkar, VMware**
 
-<figure src="ss11.png">
+<img src="ss11.png">
 
 I attended some talks at the event, but many others were equally helpful. KubeCon offers post-event social media talks, enabling ongoing learning. Slack channels were instrumental in global networking.
 
-# My learnings and key takeaways from KubeCon
+<h2>My learnings and key takeaways from KubeCon</h2>
 
 <p align="center">
-  <figure src="pic6.jpg">
+  <img src="pic6.jpg">
 </p>
 
 KubeCon, a significant conference for Kubernetes and cloud-native technologies, usually offers many insights and developments. Here are some potential key takeaways from such an event:
@@ -121,13 +120,13 @@ KubeCon, a significant conference for Kubernetes and cloud-native technologies, 
 - Roadmap and Future Developments: Keynotes or sessions might reveal the future roadmap of Kubernetes and associated technologies, giving insights into upcoming features or enhancements.
 
 <p align="center">
-  <figure src="pic7.jpg">
+  <img src="pic7.jpg">
 </p>
 
-# Good to Have for Beginners
+<h2>Good to Have for Beginners</h2>
 
 <p align="center">
-  <figure src="pic8.jpg">
+  <img src="pic8.jpg">
 </p>
 
 Attending KubeCon as a beginner in the Kubernetes ecosystem can be overwhelming yet exciting. Here are some points to consider:
@@ -141,7 +140,7 @@ Attending KubeCon as a beginner in the Kubernetes ecosystem can be overwhelming 
 - Review Schedule: Study the event schedule in advance. Identify sessions, workshops, and keynotes relevant to your goals.
 
 <p align="center">
-  <figure src="pic9.jpg">
+  <img src="pic9.jpg">
 </p>
 
 **During the Conference:**
@@ -159,7 +158,7 @@ Attending KubeCon as a beginner in the Kubernetes ecosystem can be overwhelming 
 - Be Open to New Ideas: Kubernetes and its ecosystem are vast. Stay open-minded to new concepts and technologies.
 
 <p align="center">
-  <figure src="pic10.jpg">
+  <img src="pic10.jpg">
 </p>
 
 **After the Conference:**
@@ -169,7 +168,7 @@ Attending KubeCon as a beginner in the Kubernetes ecosystem can be overwhelming 
 - Follow Up: Connect with people you met via LinkedIn, Twitter, or email. Keep the conversation going and build your network.
 
 <p align="center">
-  <figure src="pic11.jpg">
+  <img src="pic11.jpg">
 </p>
 
 Remember, KubeCon can be intense, so it's okay not to absorb everything at once. Enjoy the experience and take away what you can, knowing you can continue learning and exploring afterward.
