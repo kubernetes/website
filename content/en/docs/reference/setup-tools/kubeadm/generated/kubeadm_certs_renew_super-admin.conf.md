@@ -54,7 +54,7 @@ kubeadm certs renew super-admin.conf [flags]
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for admin.conf</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for super-admin.conf</p></td>
 </tr>
 
 <tr>
