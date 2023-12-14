@@ -7,19 +7,18 @@ weight: 10
 ## {{% heading "prerequisites" %}}
 
 Se debe utilizar la versión de kubectl con una minor versión de diferencia con
-su cluster. Por ejemplo, un cliente con versión v{{< skew currentVersion >}} se puede comunicar
-con los siguientes versiones de plano de control v{{< skew currentVersionAddMinor -1 >}}, 
-v{{< skew currentVersionAddMinor 0 >}}, and v{{< skew currentVersionAddMinor 1 >}}.
+tu cluster. Por ejemplo, un cliente con versión v{{< skew currentVersion >}} se puede comunicar
+con las siguientes versiones de plano de control v{{< skew currentVersionAddMinor -1 >}}, 
+v{{< skew currentVersionAddMinor 0 >}} y v{{< skew currentVersionAddMinor 1 >}}.
 Utilizar la última versión compatible de kubectl evita posibles errores.
 
 ## Instalar kubectl en Linux
 
 Existen los siguientes métodos para instalar kubectl en Linux:
 
-# TODO -> tengo dudas si los links dentro del documento van a funcionar si los nombres no son exactamente iguales!
-- [Instalación del binario para Linux de kubectl con Curl](#install-kubectl-binary-with-curl-on-linux)
-- [Instalación mediante el administrador de paquetes nativo](#install-using-native-package-management)
-- [Instalación usando otro administrador de paquetes](#install-using-other-package-management)
+- [Instalación del binario para Linux de kubectl con Curl](#instalación-del-binario-para-linux-de-kubectl-con-curl)
+- [Instalación mediante el administrador de paquetes nativo](#instalación-mediante-el-administrador-de-paquetes-nativo)
+- [Instalación usando otro administrador de paquetes](#instalación-usando-otro-administrador-de-paquetes)
 
 ### Instalación del binario para Linux de kubectl con Curl
 
@@ -226,7 +225,7 @@ antes de ejecutar `zypper update`. Este procedimiento se describe con más detal
 {{% /tab %}}
 {{< /tabs >}}
 
-### Instalación usando otro administrador de páquetes
+### Instalación usando otro administrador de paquetes
 
 {{< tabs name="other_kubectl_install" >}}
 {{% tab name="Snap" %}}
@@ -265,7 +264,7 @@ kubectl version --client
 Kubectl tiene soporte para autocompletar en Bash, Zsh, Fish y Powershell,
 lo que puede agilizar el tipeo.
 
-A continuación están los procedimientos para configurarlo en Bash, Fisch y Zsh.
+A continuación están los procedimientos para configurarlo en Bash, Fish y Zsh.
 
 {{< tabs name="kubectl_autocompletion" >}}
 {{< tab name="Bash" include="included/optional-kubectl-configs-bash-linux.md" />}}
