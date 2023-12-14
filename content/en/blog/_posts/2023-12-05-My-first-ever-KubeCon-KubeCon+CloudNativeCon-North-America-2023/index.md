@@ -2,7 +2,7 @@
 layout: blog
 title: "My first-ever KubeCon - KubeCon+CloudNativeCon North America 2023"
 date: 2023-12-05
-slug: My-first-ever-KubeCon-KubeCon+CloudNativeCon-North-America-2023
+slug: first-kubecon-cloudnativecon-virtual-experience
 ---
 
 **Author:** Rajdeep Pal (Student, Techno India University)
