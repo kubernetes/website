@@ -522,16 +522,19 @@ This means that support is still available but will be removed in a future Kuber
 * [`rbd`](/docs/concepts/storage/volumes/#rbd) - Rados Block Device (RBD) volume
   (**deprecated** in v1.28)
 
-Older versions of Kubernetes also supported the following in-tree PersistentVolume types:
+The following in-tree PersistentVolume types are no longer available, but are supported through `CSIMigration` and have a corresponding CSI driver implemented.
 
 * [`awsElasticBlockStore`](/docs/concepts/storage/volumes/#awselasticblockstore) - AWS Elastic Block Store (EBS)
-  (**not available** starting with v1.27)
+  (**not available** starting with v1.27, see [AWS EBS](https://github.com/kubernetes-sigs/aws-ebs-csi-driver) CSI driver)  
 * [`azureDisk`](/docs/concepts/storage/volumes/#azuredisk) - Azure Disk
-  (**not available** starting with v1.27)
+  (**not available** starting with v1.27, see [Azure Disk](https://github.com/kubernetes-sigs/azuredisk-csi-driver) CSI driver)
 * [`cinder`](/docs/concepts/storage/volumes/#cinder) - Cinder (OpenStack block storage)
-  (**not available** starting with v1.26)
+  (**not available** starting with v1.26, see [OpenStack Cinder](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md) CSI driver)  
 * [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE Persistent Disk
-  (**not available** starting with v1.28)
+  (**not available** starting with v1.28, see [GCE Persistent Disk](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver) CSI driver)  
+
+Older versions of Kubernetes also supported the following in-tree PersistentVolume types:
+
 * `photonPersistentDisk` - Photon controller persistent disk.
   (**not available** starting with v1.15)
 * `scaleIO` - ScaleIO volume.
