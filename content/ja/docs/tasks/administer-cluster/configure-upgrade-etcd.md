@@ -94,33 +94,23 @@ etcdクラスタは、あらかじめ定義されたメンバーの情報、ま�
 2. etcdクラスタの前にロードバランサーを設定します。例えば、ロードバランサーのアドレスを `$LB` とします。
 3. フラグ `--etcd-servers=$LB:2379` を使ってKubernetes APIサーバーを起動します。
 
-## Securing etcd clusters
+## etcdクラスタのセキュリティ強化
 
-Access to etcd is equivalent to root permission in the cluster so ideally only
-the API server should have access to it. Considering the sensitivity of the
-data, it is recommended to grant permission to only those nodes that require
-access to etcd clusters.
+etcdへのアクセスはクラスタ内でのルート権限に相当するため、理想的にはAPIサーバーのみがアクセスできるようにするべきです。
+データの機密性を考慮して、etcdクラスタへのアクセス権を必要とするノードのみに付与することが推奨されます。
 
-To secure etcd, either set up firewall rules or use the security features
-provided by etcd. etcd security features depend on x509 Public Key
-Infrastructure (PKI). To begin, establish secure communication channels by
-generating a key and certificate pair. For example, use key pairs `peer.key`
-and `peer.cert` for securing communication between etcd members, and
-`client.key` and `client.cert` for securing communication between etcd and its
-clients. See the [example scripts](https://github.com/coreos/etcd/tree/master/hack/tls-setup)
-provided by the etcd project to generate key pairs and CA files for client
-authentication.
+etcdをセキュアにするためには、ファイアウォールのルールを設定するか、etcdによって提供されるセキュリティ機能を使用します。
+etcdのセキュリティ機能はx509公開鍵基盤（PKI）に依存します。
+開始するためには、キーと証明書のペアを生成して、セキュアな通信チャンネルを確立します。
+例えば、etcdメンバー間の通信をセキュアにするために`peer.key`と`peer.cert`のキーペアを使用し、
+etcdとそのクライアント間の通信をセキュアにするために`client.key`と`client.cert`を使用します。
+クライアント認証用のキーペアとCAファイルを生成するための[サンプルスクリプト](https://github.com/coreos/etcd/tree/master/hack/tls-setup)はetcdプロジェクトによって提供されています。
 
-### Securing communication
+### 通信のセキュリティ強化
 
-To configure etcd with secure peer communication, specify flags
-`--peer-key-file=peer.key` and `--peer-cert-file=peer.cert`, and use HTTPS as
-the URL schema.
+セキュアなピア通信を持つetcdを構成するためには、`--peer-key-file=peer.key`および`--peer-cert-file=peer.cert`フラグを指定し、URLスキーマとしてHTTPSを使用します。
 
-Similarly, to configure etcd with secure client communication, specify flags
-`--key-file=k8sclient.key` and `--cert-file=k8sclient.cert`, and use HTTPS as
-the URL schema. Here is an example on a client command that uses secure
-communication:
+同様に、セキュアなクライアント通信を持つetcdを構成するためには、`--key-file=k8sclient.key`および`--cert-file=k8sclient.cert`フラグを指定し、URLスキーマとしてHTTPSを使用します。セキュアな通信を使用するクライアントコマンドの例は以下の通りです：
 
 ```
 ETCDCTL_API=3 etcdctl --endpoints 10.2.0.9:2379 \
@@ -130,27 +120,22 @@ ETCDCTL_API=3 etcdctl --endpoints 10.2.0.9:2379 \
   member list
 ```
 
-### Limiting access of etcd clusters
+### etcdクラスタへのアクセス制限
 
-After configuring secure communication, restrict the access of etcd cluster to
-only the Kubernetes API servers. Use TLS authentication to do so.
+セキュアな通信を構成した後、etcdクラスタへのアクセスをKubernetes APIサーバーのみに制限します。
+これを行うためにはTLS認証を使用します。
 
-For example, consider key pairs `k8sclient.key` and `k8sclient.cert` that are
-trusted by the CA `etcd.ca`. When etcd is configured with `--client-cert-auth`
-along with TLS, it verifies the certificates from clients by using system CAs
-or the CA passed in by `--trusted-ca-file` flag. Specifying flags
-`--client-cert-auth=true` and `--trusted-ca-file=etcd.ca` will restrict the
-access to clients with the certificate `k8sclient.cert`.
+例えば、CA`etcd.ca`によって信頼されるキーペア`k8sclient.key`と`k8sclient.cert`を考えてみます。
+`--client-cert-auth`とTLSを使用してetcdが構成されている場合、etcdは`--trusted-ca-file`フラグで渡されたCAまたはシステムのCAを使用してクライアントからの証明書を検証します。
+`--client-cert-auth=true`および`--trusted-ca-file=etcd.ca`フラグを指定することで、証明書`k8sclient.cert`を持つクライアントのみにアクセスを制限します。
 
-Once etcd is configured correctly, only clients with valid certificates can
-access it. To give Kubernetes API servers the access, configure them with the
-flags `--etcd-certfile=k8sclient.cert`, `--etcd-keyfile=k8sclient.key` and
-`--etcd-cafile=ca.cert`.
+etcdが正しく構成されると、有効な証明書を持つクライアントのみがアクセスできます。
+Kubernetes APIサーバーにアクセス権を与えるためには、`--etcd-certfile=k8sclient.cert`、`--etcd-keyfile=k8sclient.key`および`--etcd-cafile=ca.cert`フラグで構成します。
 
 {{< note >}}
-etcd authentication is not currently supported by Kubernetes. For more
-information, see the related issue
-[Support Basic Auth for Etcd v2](https://github.com/kubernetes/kubernetes/issues/23398).
+Kubernetesによるetcd認証は現在サポートされていません。
+詳細については関連するIssue
+[Support Basic Auth for Etcd v2](https://github.com/kubernetes/kubernetes/issues/23398)を参照してください。
 {{< /note >}}
 
 ## Replacing a failed etcd member
