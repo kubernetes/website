@@ -18,27 +18,25 @@ nodes . If you do not already have a cluster, you can create one by using
 
 <!-- steps -->
 
-## Prerequisites
+## 前提条件
 
-* Run etcd as a cluster of odd members.
+* etcdは、奇数のメンバーを持つクラスタとして実行します。
 
-* etcd is a leader-based distributed system. Ensure that the leader
-  periodically send heartbeats on time to all followers to keep the cluster
-  stable.
+* etcdはリーダーベースの分散システムです。
+* リーダーが定期的に全てのフォロワーにハートビートを送信し、クラスタの安定性を維持することが重要です。
 
-* Ensure that no resource starvation occurs.
+* リソース不足が発生しないようにします。
 
-  Performance and stability of the cluster is sensitive to network and disk
-  I/O. Any resource starvation can lead to heartbeat timeout, causing instability
-  of the cluster. An unstable etcd indicates that no leader is elected. Under
-  such circumstances, a cluster cannot make any changes to its current state,
-  which implies no new pods can be scheduled.
+  クラスタのパフォーマンスと安定性は、ネットワークとディスクのI/Oに敏感です。
+  リソース不足はハートビートのタイムアウトを引き起こし、クラスタの不安定化につながる可能性があります。
+  不安定なetcdは、リーダーが選出されていないことを意味します。
+  そのような状況下では、クラスタは現在の状態に変更を加えることができません。
+  これは、新しいポッドがスケジュールされないことを意味します。
 
-* Keeping etcd clusters stable is critical to the stability of Kubernetes
-  clusters. Therefore, run etcd clusters on dedicated machines or isolated
-  environments for [guaranteed resource requirements](https://etcd.io/docs/current/op-guide/hardware/).
+* Kubernetesクラスタの安定性には、etcdクラスタの安定性が不可欠です。
+  したがって、etcdクラスタは専用のマシンまたは[保証されたリソース要件](https://etcd.io/docs/current/op-guide/hardware/)を持つ隔離された環境で実行してください。
 
-* The minimum recommended etcd versions to run in production are `3.4.22+` and `3.5.6+`.
+* 本番環境で実行するために推奨される最低限のetcdバージョンは `3.4.22` 以降あるいは `3.5.6` 以降です。
 
 ## Resource requirements
 
