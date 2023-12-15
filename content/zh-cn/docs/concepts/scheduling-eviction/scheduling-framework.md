@@ -167,7 +167,7 @@ You can enable it via the
 在调度过程中对 QueueingHint 求值是一个 Beta 级别的特性。
 v1.28 的系列小版本最初都开启了这个特性的门控；但是发现了内存占用过多的问题，
 于是 Kubernetes 项目将该特性门控设置为默认禁用。
-在Kubernetes 的 {{< skew currentVersion >}} 版本中，这个 feature gate 是关闭的，你需要手动开启它。
+在 Kubernetes 的 {{< skew currentVersion >}} 版本中，这个特性门控被禁用，你需要手动开启它。
 你可以通过 `SchedulerQueueingHints`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来启用它。
 {{< /note >}}
