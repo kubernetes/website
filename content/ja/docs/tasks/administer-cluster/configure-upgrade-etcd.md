@@ -38,67 +38,61 @@ nodes . If you do not already have a cluster, you can create one by using
 
 * 本番環境で実行するために推奨される最低限のetcdバージョンは `3.4.22` 以降あるいは `3.5.6` 以降です。
 
-## Resource requirements
+## リソース要件
 
-Operating etcd with limited resources is suitable only for testing purposes.
-For deploying in production, advanced hardware configuration is required.
-Before deploying etcd in production, see
-[resource requirement reference](https://etcd.io/docs/current/op-guide/hardware/#example-hardware-configurations).
+限られたリソースでetcdを運用するのは、テスト目的にのみ適しています。
+本番環境でのデプロイには、高度なハードウェア構成が必要です。
+本番環境でetcdをデプロイする前に、
+[リソース要件](https://etcd.io/docs/current/op-guide/hardware/#example-hardware-configurations)を確認してください。
 
-## Starting etcd clusters
+## etcdクラスタの起動
 
-This section covers starting a single-node and multi-node etcd cluster.
+このセクションでは、単一ノードおよびマルチノードetcdクラスタの起動について説明します。
 
-### Single-node etcd cluster
+### 単一ノードetcdクラスタ
 
-Use a single-node etcd cluster only for testing purpose.
+単一ノードetcdクラスタは、テスト目的でのみ使用してください。
 
-1. Run the following:
+1. 以下を実行します:
 
    ```sh
    etcd --listen-client-urls=http://$PRIVATE_IP:2379 \
       --advertise-client-urls=http://$PRIVATE_IP:2379
    ```
 
-2. Start the Kubernetes API server with the flag
-   `--etcd-servers=$PRIVATE_IP:2379`.
+2. Kubernetes APIサーバーをフラグ `--etcd-servers=$PRIVATE_IP:2379` で起動します。
 
-   Make sure `PRIVATE_IP` is set to your etcd client IP.
+   `PRIVATE_IP`があなたのetcdクライアントIPに設定されていることを確認してください。
 
-### Multi-node etcd cluster
+### マルチノードetcdクラスタ
 
-For durability and high availability, run etcd as a multi-node cluster in
-production and back it up periodically. A five-member cluster is recommended
-in production. For more information, see
-[FAQ documentation](https://etcd.io/docs/current/faq/#what-is-failure-tolerance).
+耐久性と高可用性のために、本番環境ではマルチノードクラスタとしてetcdを実行し、定期的にバックアップを取ります。
+本番環境では5つのメンバーによるクラスタが推奨されます。
+詳細は[FAQドキュメント](https://etcd.io/docs/current/faq/#what-is-failure-tolerance)を参照してください。
 
-Configure an etcd cluster either by static member information or by dynamic
-discovery. For more information on clustering, see
-[etcd clustering documentation](https://etcd.io/docs/current/op-guide/clustering/).
+etcdクラスタは、あらかじめ定義されたメンバーの情報、または自動的な検出や構成を通じて設定されます。
+クラスタリングに関する詳細は、[etcdクラスタリングドキュメント](https://etcd.io/docs/current/op-guide/clustering/)を参照してください。
 
-For an example, consider a five-member etcd cluster running with the following
-client URLs: `http://$IP1:2379`, `http://$IP2:2379`, `http://$IP3:2379`,
-`http://$IP4:2379`, and `http://$IP5:2379`. To start a Kubernetes API server:
+例として、次のクライアントURLで実行される5つのメンバーによるetcdクラスタを考えてみます。
+5つのURLは、`http://$IP1:2379`、`http://$IP2:2379`、`http://$IP3:2379`、`http://$IP4:2379`、および`http://$IP5:2379`です。Kubernetes APIサーバーを起動するには、
 
-1. Run the following:
+1. 以下を実行します:
 
    ```shell
    etcd --listen-client-urls=http://$IP1:2379,http://$IP2:2379,http://$IP3:2379,http://$IP4:2379,http://$IP5:2379 --advertise-client-urls=http://$IP1:2379,http://$IP2:2379,http://$IP3:2379,http://$IP4:2379,http://$IP5:2379
    ```
 
-2. Start the Kubernetes API servers with the flag
-   `--etcd-servers=$IP1:2379,$IP2:2379,$IP3:2379,$IP4:2379,$IP5:2379`.
+2. フラグ `--etcd-servers=$IP1:2379,$IP2:2379,$IP3:2379,$IP4:2379,$IP5:2379` を使ってKubernetes APIサーバーを起動します。
 
-   Make sure the `IP<n>` variables are set to your client IP addresses.
+   `IP<n>`変数がクライアントのIPアドレスに設定されていることを確認してください。
 
-### Multi-node etcd cluster with load balancer
+### ロードバランサーを使用したマルチノードetcdクラスタ
 
-To run a load balancing etcd cluster:
+ロードバランシングされたetcdクラスタを実行するには、次の手順に従います。
 
-1. Set up an etcd cluster.
-2. Configure a load balancer in front of the etcd cluster.
-   For example, let the address of the load balancer be `$LB`.
-3. Start Kubernetes API Servers with the flag `--etcd-servers=$LB:2379`.
+1. etcdクラスタを設定します。
+2. etcdクラスタの前にロードバランサーを設定します。例えば、ロードバランサーのアドレスを `$LB` とします。
+3. フラグ `--etcd-servers=$LB:2379` を使ってKubernetes APIサーバーを起動します。
 
 ## Securing etcd clusters
 
