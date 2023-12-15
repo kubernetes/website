@@ -110,7 +110,7 @@ etcdとそのクライアント間の通信をセキュアにするために`cli
 
 セキュアなピア通信を持つetcdを構成するためには、`--peer-key-file=peer.key`および`--peer-cert-file=peer.cert`フラグを指定し、URLスキーマとしてHTTPSを使用します。
 
-同様に、セキュアなクライアント通信を持つetcdを構成するためには、`--key-file=k8sclient.key`および`--cert-file=k8sclient.cert`フラグを指定し、URLスキーマとしてHTTPSを使用します。セキュアな通信を使用するクライアントコマンドの例は以下の通りです：
+同様に、セキュアなクライアント通信を持つetcdを構成するためには、`--key-file=k8sclient.key`および`--cert-file=k8sclient.cert`フラグを指定し、URLスキーマとしてHTTPSを使用します。セキュアな通信を使用するクライアントコマンドの例は以下の通りです:
 
 ```
 ETCDCTL_API=3 etcdctl --endpoints 10.2.0.9:2379 \
@@ -138,27 +138,22 @@ Kubernetesによるetcd認証は現在サポートされていません。
 [Support Basic Auth for Etcd v2](https://github.com/kubernetes/kubernetes/issues/23398)を参照してください。
 {{< /note >}}
 
-## Replacing a failed etcd member
+## 障害が発生したetcdメンバーの交換
 
-etcd cluster achieves high availability by tolerating minor member failures.
-However, to improve the overall health of the cluster, replace failed members
-immediately. When multiple members fail, replace them one by one. Replacing a
-failed member involves two steps: removing the failed member and adding a new
-member.
+etcdクラスタは、一部のメンバーの障害を許容することで高可用性を実現します。
+しかし、クラスタの全体的な状態を改善するためには、障害が発生したメンバーを直ちに交換することが重要です。
+複数のメンバーに障害が発生した場合は、一つずつ交換します。
+障害が発生したメンバーを交換するには、メンバーを削除し、新しいメンバーを追加するという二つのステップがあります。
 
-Though etcd keeps unique member IDs internally, it is recommended to use a
-unique name for each member to avoid human errors. For example, consider a
-three-member etcd cluster. Let the URLs be, `member1=http://10.0.0.1`,
-`member2=http://10.0.0.2`, and `member3=http://10.0.0.3`. When `member1` fails,
-replace it with `member4=http://10.0.0.4`.
+etcdは内部でユニークなメンバーIDを保持していますが、人的なミスを避けるためにも各メンバーにはユニークな名前を使用することが推奨されます。例えば、3つのメンバーのetcdクラスタを考えてみましょう。URLが `member1=http://10.0.0.1`、`member2=http://10.0.0.2`、そして `member3=http://10.0.0.3` だとします。`member1` に障害が発生した場合、`member4=http://10.0.0.4` で交換します。
 
-1. Get the member ID of the failed `member1`:
+1. 障害が発生した`member1`のメンバーIDを取得します:
 
    ```shell
    etcdctl --endpoints=http://10.0.0.2,http://10.0.0.3 member list
    ```
 
-   The following message is displayed:
+   次のメッセージが表示されます:
 
    ```console
    8211f1d0f64f3269, started, member1, http://10.0.0.1:2380, http://10.0.0.1:2379
@@ -166,45 +161,42 @@ replace it with `member4=http://10.0.0.4`.
    fd422379fda50e48, started, member3, http://10.0.0.3:2380, http://10.0.0.3:2379
    ```
 
-1. Do either of the following:
+2. 以下のいずれかを行います:
 
-   1. If each Kubernetes API server is configured to communicate with all etcd
-      members, remove the failed member from the `--etcd-servers` flag, then
-      restart each Kubernetes API server.
-   1. If each Kubernetes API server communicates with a single etcd member,
-      then stop the Kubernetes API server that communicates with the failed
-      etcd.
+   1. 各Kubernetes APIサーバーが全てのetcdメンバーと通信するように構成されている場合、
+    `--etcd-servers` フラグから障害が発生したメンバーを削除し、各Kubernetes APIサーバーを再起動します。
+   2. 各Kubernetes APIサーバーが単一のetcdメンバーと通信している場合、
+    障害が発生したetcdと通信しているKubernetes APIサーバーを停止します。
 
-1. Stop the etcd server on the broken node. It is possible that other
-   clients besides the Kubernetes API server is causing traffic to etcd
-   and it is desirable to stop all traffic to prevent writes to the data
-   dir.
+3. 壊れたノード上のetcdサーバーを停止します。
+   Kubernetes APIサーバー以外のクライアントからetcdにトラフィックが流れている可能性があり、
+   データディレクトリへの書き込みを防ぐためにすべてのトラフィックを停止することが望ましいです。
 
-1. Remove the failed member:
+4. メンバーを削除します:
 
    ```shell
    etcdctl member remove 8211f1d0f64f3269
    ```
 
-   The following message is displayed:
+   次のメッセージが表示されます:
 
    ```console
    Removed member 8211f1d0f64f3269 from cluster
    ```
 
-1. Add the new member:
+5. 新しいメンバーを追加します:
 
    ```shell
    etcdctl member add member4 --peer-urls=http://10.0.0.4:2380
    ```
 
-   The following message is displayed:
+   次のメッセージが表示されます:
 
    ```console
    Member 2be1eb8f84b7f63e added to cluster ef37ad9dc622a7c4
    ```
 
-1. Start the newly added member on a machine with the IP `10.0.0.4`:
+6. IP`10.0.0.4` のマシン上で新たに追加されたメンバーを起動します:
 
    ```shell
    export ETCD_NAME="member4"
@@ -213,19 +205,16 @@ replace it with `member4=http://10.0.0.4`.
    etcd [flags]
    ```
 
-1. Do either of the following:
+7. 以下のいずれかを行います:
 
-   1. If each Kubernetes API server is configured to communicate with all etcd
-      members, add the newly added member to the `--etcd-servers` flag, then
-      restart each Kubernetes API server.
-   1. If each Kubernetes API server communicates with a single etcd member,
-      start the Kubernetes API server that was stopped in step 2. Then
-      configure Kubernetes API server clients to again route requests to the
-      Kubernetes API server that was stopped. This can often be done by
-      configuring a load balancer.
+   1. 各Kubernetes APIサーバーが全てのetcdメンバーと通信するように構成されている場合、
+    `--etcd-servers` フラグに新たに追加されたメンバーを加え、各Kubernetes APIサーバーを再起動します。
+   2. 各Kubernetes APIサーバーが単一のetcdメンバーと通信している場合、
+    ステップ2で停止したKubernetes APIサーバーを起動します。
+    その後、Kubernetes APIサーバークライアントを再度構成して、停止されたKubernetes APIサーバーへのリクエストをルーティングします。
+    これはロードバランサーを構成することで、多くの場合行われます。
 
-For more information on cluster reconfiguration, see
-[etcd reconfiguration documentation](https://etcd.io/docs/current/op-guide/runtime-configuration/#remove-a-member).
+クラスタの再構成に関する詳細については、[etcd再構成ドキュメント](https://etcd.io/docs/current/op-guide/runtime-configuration/#remove-a-member)を参照してください。
 
 ## Backing up an etcd cluster
 
