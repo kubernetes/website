@@ -1190,7 +1190,7 @@ If `optionalOldSelf` is set to true, then transition rules will always be
 evaluated and the type of `oldSelf` be changed to a CEL [`Optional`](https://pkg.go.dev/github.com/google/cel-go/cel#OptionalTypes) type. 
 
 `optionalOldSelf` is useful in cases where schema authors would like a more
-control tool [than provided by the default equality based behavior of ][#validation-ratcheting] 
+control tool [than provided by the default equality based behavior of](#validation-ratcheting)
 to introduce newer, usually stricter constraints on new values, while still 
 allowing old values to be "grandfathered" or ratcheted using the older validation.
 
