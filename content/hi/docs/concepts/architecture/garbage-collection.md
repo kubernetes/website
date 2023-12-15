@@ -5,7 +5,7 @@ weight: 70
 ---
 
 <!-- overview -->
-{{<glossary_definition term_id="गार्बेज-कलेक्शन" length="short">}} यह
+{{<glossary_definition term_id="garbage-collection" length="short">}} यह
 निम्नलिखित जैसे संसाधनों की सफाई की अनुमति देता है:
 
   * [टर्मिनेटेड पॉड](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)
