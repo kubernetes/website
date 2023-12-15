@@ -34,7 +34,7 @@ Existen los siguientes métodos para instalar kubectl en Linux:
    {{< /tabs >}}
 
    {{< note >}}
-   Para Descargar una versión específica reemplazar la siguiente parte del comando con la 
+   Para descargar una versión específica reemplaza la siguiente parte del comando con la 
    versión que desea instalar `$(curl -L -s https://dl.k8s.io/release/stable.txt)`
 
    Por ejemplo, para descargar la versión {{< skew currentPatchVersion >}} en linux x86-64:
@@ -70,7 +70,7 @@ Existen los siguientes métodos para instalar kubectl en Linux:
    echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
    ```
 
-   Si es válido va a obtener la siguiente respuesta:
+   Si es válido, va a obtener la siguiente respuesta:
 
    ```console
    kubectl: OK
@@ -84,7 +84,7 @@ Existen los siguientes métodos para instalar kubectl en Linux:
    ```
 
    {{< note >}}
-   Descargue la misma versión del binario y el checksum.
+   Descarga la misma versión del binario y el checksum.
    {{< /note >}}
 
 1. Instalar kubectl
@@ -94,14 +94,14 @@ Existen los siguientes métodos para instalar kubectl en Linux:
    ```
 
    {{< note >}}
-   Si no tiene acceso root en el sistema donde se busca instalar, se puede colocar
+   Si no tienes acceso root en el sistema donde se busca instalar, puedes colocar
    el binario kubectl en el directorio `~/.local/bin`:
 
    ```bash
    chmod +x kubectl
    mkdir -p ~/.local/bin
    mv ./kubectl ~/.local/bin/kubectl
-   # Y después agregue el directorio ~/.local/bin a su $PATH
+   # Y después agrega el directorio ~/.local/bin a tu $PATH
    ```
 
    {{< /note >}}
@@ -112,7 +112,7 @@ Existen los siguientes métodos para instalar kubectl en Linux:
    kubectl version --client
    ```
 
-   Se puede utilizar lo siguiente para una vista detallada de la versión:
+   O puedes utilizar lo siguiente para una vista detallada de la versión:
 
    ```cmd
    kubectl version --client --output=yaml
@@ -123,7 +123,7 @@ Existen los siguientes métodos para instalar kubectl en Linux:
 {{< tabs name="kubectl_install" >}}
 {{% tab name="Debian-based distributions" %}}
 
-1. Actualice el índice del paquete `apt`, luego instale los paquetes necesarios para Kubernetes:
+1. Actualiza el índice del paquete `apt`, luego instala los paquetes necesarios para Kubernetes:
 
    ```shell
    sudo apt-get update
@@ -131,13 +131,13 @@ Existen los siguientes métodos para instalar kubectl en Linux:
    sudo apt-get install -y apt-transport-https ca-certificates curl
    ```
 
-2. Descarge la llave pública firmada para los repositorios de Kubernetes. La misma llave firmada es usada para todos los repositorios por lo que se puede obviar la versión en la URL:
+2. Descarga la llave pública firmada para los repositorios de Kubernetes. La misma llave firmada es usada para todos los repositorios por lo que se puede obviar la versión en la URL:
 
    ```shell
    curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    ```
 
-3. Agregar el repositorio apropiado de Kubernetes. Si usted quisiera una versión de Kubernetes diferente a {{< param "version" >}},
+3. Agregar el repositorio apropiado de Kubernetes. Si quieres una versión de Kubernetes diferente a {{< param "version" >}},
    reemplace {{< param "version" >}} con la versión deseada en el siguiente comando:
 
    ```shell
@@ -149,7 +149,7 @@ Existen los siguientes métodos para instalar kubectl en Linux:
 Para actualizar kubectl a una minor release diferente, se debe reemplazar la versión en el archivo `/etc/apt/sources.list.d/kubernetes.list` antes de ejecutar `apt-get update` y `apt-get upgrade`. Este procedimiento se describe con más detalle en [Cambiando el Repositorio de Kubernetes](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
 {{< /note >}}
 
-4. Actualice el índice de `apt`, luego instale kubectl:
+4. Actualiza el índice de `apt`, luego instala kubectl:
 
    ```shell
    sudo apt-get update
@@ -164,8 +164,8 @@ En versiones anteriores a Debian 12 y Ubuntu 22.04 el directorio `/etc/apt/keyri
 
 {{% tab name="Red Hat-based distributions" %}}
 
-1. Agregar Kubernetes al repositorio `yum`. Si desea usar una versión de Kubernetes
-   diferente a {{< param "version" >}}, reemplace {{< param "version" >}} con
+1. Agregar Kubernetes al repositorio `yum`. Si deseas usar una versión de Kubernetes
+   diferente a {{< param "version" >}}, reemplaza {{< param "version" >}} con
    la versión deseada en el siguiente comando:
 
    ```bash
@@ -181,7 +181,7 @@ En versiones anteriores a Debian 12 y Ubuntu 22.04 el directorio `/etc/apt/keyri
    ```
 
 {{< note >}}
-Para actualizar kubectl a otra versión será necesario modificar la versión en `/etc/yum.repos.d/kubernetes.repo`
+Para actualizar kubectl a otra versión, será necesario modificar la versión en `/etc/yum.repos.d/kubernetes.repo`
 antes de ejecutar `yum update`. Este procedimiento se describe con más detalle en [Changing The Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
 {{< /note >}}
 
@@ -195,8 +195,8 @@ antes de ejecutar `yum update`. Este procedimiento se describe con más detalle 
 
 {{% tab name="SUSE-based distributions" %}}
 
-1. Agregar Kubernetes al repositorio `zypper`. Si desea usar una versión de Kubernetes
-   diferente a {{< param "version" >}}, reemplace {{< param "version" >}} con
+1. Agregar Kubernetes al repositorio `zypper`. Si deseas usar una versión de Kubernetes
+   diferente a {{< param "version" >}}, reemplaza {{< param "version" >}} con
    la versión deseada en el siguiente comando:
 
    ```bash
@@ -229,9 +229,9 @@ antes de ejecutar `zypper update`. Este procedimiento se describe con más detal
 
 {{< tabs name="other_kubectl_install" >}}
 {{% tab name="Snap" %}}
-Si utiliza Ubuntu o alguna distribución que soporte el administrador de
+Si utilizas Ubuntu o alguna distribución que soporte el administrador de
 páquetes [snap](https://snapcraft.io/docs/core/install), kubectl
-esta disponible como una aplicación de [snap](https://snapcraft.io/).
+está disponible como una aplicación de [snap](https://snapcraft.io/).
 
 ```shell
 snap install kubectl --classic
@@ -241,7 +241,7 @@ kubectl version --client
 {{% /tab %}}
 
 {{% tab name="Homebrew" %}}
-Si utiliza [Homebrew](https://docs.brew.sh/Homebrew-on-Linux) en Linux,
+Si utilizas [Homebrew](https://docs.brew.sh/Homebrew-on-Linux) en Linux,
 kubectl está disponible para su [instalación](https://docs.brew.sh/Homebrew-on-Linux#install).
 
 ```shell
@@ -268,7 +268,7 @@ A continuación están los procedimientos para configurarlo en Bash, Fish y Zsh.
 
 {{< tabs name="kubectl_autocompletion" >}}
 {{< tab name="Bash" include="included/optional-kubectl-configs-bash-linux.md" />}}
-{{< tab name="Fish" include="included/optional-kubectl-configs-fish.md" />}}
+<!-- TODO: included/optional-kubectl-configs-fish.md -->
 {{< tab name="Zsh" include="included/optional-kubectl-configs-zsh.md" />}}
 {{< /tabs >}}
 
@@ -276,7 +276,7 @@ A continuación están los procedimientos para configurarlo en Bash, Fish y Zsh.
 
 {{< include "included/kubectl-convert-overview.md" >}}
 
-1. Descargue la última versión con el siguiente comando:
+1. Descarga la última versión con el siguiente comando:
 
    {{< tabs name="download_convert_binary_linux" >}}
    {{< tab name="x86-64" codelang="bash" >}}
@@ -287,9 +287,9 @@ A continuación están los procedimientos para configurarlo en Bash, Fish y Zsh.
    {{< /tab >}}
    {{< /tabs >}}
 
-1. Valide el binario (opcional)
+1. Valida el binario (opcional)
 
-   Descargue el checksum de kubectl-convert:
+   Descarga el checksum de kubectl-convert:
 
    {{< tabs name="download_convert_checksum_linux" >}}
    {{< tab name="x86-64" codelang="bash" >}}
@@ -335,9 +335,9 @@ A continuación están los procedimientos para configurarlo en Bash, Fish y Zsh.
    kubectl convert --help
    ```
 
-   Si no visualiza ningún error quiere decir que el plugin fue instalado correctamente.
+   Si no visualizas ningún error quiere decir que el plugin fue instalado correctamente.
 
-1. Después de instalar el plugin elimine los archivos de instalación:
+1. Después de instalar el plugin elimina los archivos de instalación:
 
    ```bash
    rm kubectl-convert kubectl-convert.sha256
