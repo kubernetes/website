@@ -16,15 +16,28 @@ weight: 370
 <!--
 This page shows how to configure a Key Management Service (KMS) provider and plugin to enable secret data encryption.
 In Kubernetes {{< skew currentVersion >}} there are two versions of KMS at-rest encryption.
-You should use KMS v2 if feasible because KMS v1 is deprecated (since Kubernetes v1.28).
-However, you should also read and observe the **Caution** notices in this page that highlight specific
-cases when you must not use KMS v2.  KMS v2 offers significantly better performance characteristics than KMS v1.
+You should use KMS v2 if feasible because KMS v1 is deprecated (since Kubernetes v1.28) and disabled by default (since Kubernetes v1.29).
+KMS v2 offers significantly better performance characteristics than KMS v1.
 -->
 本页展示了如何配置密钥管理服务（Key Management Service，KMS）驱动和插件以启用 Secret 数据加密。
 在 Kubernetes {{< skew currentVersion >}} 中，存在两个版本的 KMS 静态加密方式。
-如果可行的话，建议使用 KMS v2，因为（自 Kubernetes v1.28 起）KMS v1 已经被弃用。
-然而，在某些特殊情况下没办法使用 KMS v2，你应阅读和关注本页中强调的 **注意** 事项。
+如果可行的话，建议使用 KMS v2，因为（自 Kubernetes v1.28 起）KMS v1 已经被弃用并
+（自 Kubernetes v1.29 起）默认被禁用。
 KMS v2 提供了比 KMS v1 明显更好的性能特征。
+
+{{< caution >}}
+<!--
+This documentation is for the generally available implementation of KMS v2 (and for the
+deprecated version 1 implementation).
+If you are using any control plane components older than Kubernetes v1.29, please check
+the equivalent page in the documentation for the version of Kubernetes that your cluster
+is running. Earlier releases of Kubernetes had different behavior that may be relevant
+for information security.
+-->
+本文适用于正式发布的 KMS v2 实现（以及已废弃的 v1 实现）。
+如果你使用的控制平面组件早于 Kubernetes v1.29，请查看集群所运行的 Kubernetes 版本文档中的相应页面。
+早期版本的 Kubernetes 在信息安全方面具有不同的行为。
+{{< /caution >}}
 
 ## {{% heading "prerequisites" %}}
 
@@ -38,7 +51,7 @@ you have selected.  Kubernetes recommends using KMS v2.
   (if you are running a different version of Kubernetes that also supports the v2 KMS
   API, switch to the documentation for that version of Kubernetes).
 - If you selected KMS API v1 to support clusters prior to version v1.27
-  or if you have a legacy KMS plugin that only supports KMS v1, 
+  or if you have a legacy KMS plugin that only supports KMS v1,
   any supported Kubernetes version will work.  This API is deprecated as of Kubernetes v1.28.
   Kubernetes does not recommend the use of this API.
 -->
@@ -59,85 +72,54 @@ you have selected.  Kubernetes recommends using KMS v2.
 <!--
 * Kubernetes version 1.10.0 or later is required
 
+* For version 1.29 and later, the v1 implementation of KMS is disabled by default.
+  To enable the feature, set `--feature-gates=KMSv1=true` to configure a KMS v1 provider.
+
 * Your cluster must use etcd v3 or later
 -->
 * 需要 Kubernetes 1.10.0 或更高版本
+* 对于 1.29 及更高版本，KMS 的 v1 实现默认处于禁用状态。
+  要启用此特性，设置 `--feature-gates=KMSv1=true` 以配置 KMS v1 驱动。
 * 你的集群必须使用 etcd v3 或更高版本
 
 ### KMS v2
 
-{{< feature-state for_k8s_version="v1.27" state="beta" >}}
+{{< feature-state for_k8s_version="v1.29" state="stable" >}}
 
 <!--
-* For version 1.25 and 1.26, enabling the feature via kube-apiserver feature gate is required.
-Set `--feature-gates=KMSv2=true` to configure a KMS v2 provider.
- For environments where all API servers are running version 1.28 or later, and you do not require the ability
- to downgrade to Kubernetes v1.27, you can enable the `KMSv2KDF` feature gate (a beta feature) for more
- robust data encryption key generation. The Kubernetes project recommends enabling KMS v2 KDF if those
- preconditions are met.
-
 * Your cluster must use etcd v3 or later
 -->
-* 对于 Kubernetes 1.25 和 1.26 版本，需要通过 kube-apiserver 特性门控启用此特性。
-  设置 `--feature-gates=KMSv2=true` 以配置 KMS v2 驱动。
-  对于所有 API 服务器正在运行 1.28 或更高的版本并且你不需要降级到 Kubernetes v1.27 的环境，
-  你可以启用 `KMSv2KDF` 特性门控（Beta 特性）以生成更稳健的数据加密密钥。
-  如果这些前提条件均已满足，则 Kubernetes 项目建议启用 KMS v2
-  密钥派生函数（Key Derivation Function, KDF）。
-
-* 你的集群必须使用 etcd v3 或更高版本。
-
-{{< caution >}}
-<!--
-The KMS v2 API and implementation changed in incompatible ways in-between the alpha release in v1.25
-and the beta release in v1.27.  Attempting to upgrade from old versions with the alpha feature
-enabled will result in data loss.
--->
-KMS v2 API 和实现在 v1.25 的 Alpha 版本和 v1.27 的 Beta 版本之间以不兼容的方式进行了更改。
-如果尝试从启用了 Alpha 特性的旧版本进行升级将导致数据丢失。
-
----
-
-<!--
-Running mixed API server versions with some servers at v1.27, and others at v1.28 _with the
-`KMSv2KDF` feature gate enabled_  is **not supported** - and is likely to result in data loss.
--->
-不支持在启用 `KMSv2KDF` 特性门控的情况下运行一些服务器为 v1.27 而另一些服务器为 v1.28 的混合 API 服务器版本，
-这可能导致数据丢失。
-{{< /caution >}}
+* 你的集群必须使用 etcd v3 或更高版本
 
 <!-- steps -->
+
+<!--
+## KMS encryption and per-object encryption keys
+-->
+### KMS 加密和为每个对象加密的密钥    {#kms-encryption-and-perobject-encryption-keys}
 
 <!--
 The KMS encryption provider uses an envelope encryption scheme to encrypt data in etcd.
 The data is encrypted using a data encryption key (DEK).
 The DEKs are encrypted with a key encryption key (KEK) that is stored and managed in a remote KMS.
 
-With KMS v1, a new DEK is generated for each encryption.
+If you use the (deprecated) v1 implementation of KMS, a new DEK is generated for each encryption.
 -->
 KMS 加密驱动使用封套加密模型来加密 etcd 中的数据。数据使用数据加密密钥（DEK）加密。
 这些 DEK 经一个密钥加密密钥（KEK）加密后在一个远端的 KMS 中存储和管理。
 
-对于 KMS v1，每次加密将生成新的 DEK。
+如果你使用（已弃用的）KMS v1 实现，每次加密将生成新的 DEK。
 
 <!--
-With KMS v2, there are two ways for the API server to generate a DEK.
-Kubernetes defaults to generating a new DEK at API server startup, which is then reused
-for resource encryption. However, if you use KMS v2 _and_ enable the `KMSv2KDF`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/), then
-Kubernetes instead generates a new DEK **per encryption**: the API server uses a
+With KMS v2, a new DEK is generated **per encryption**: the API server uses a
 _key derivation function_ to generate single use data encryption keys from a secret seed
 combined with some random data.
-Whichever approach you configure, the DEK or seed is also rotated whenever the KEK is rotated
-(see `Understanding key_id and Key Rotation` section below for more details).
+The seed is rotated whenever the KEK is rotated
+(see the _Understanding key_id and Key Rotation_ section below for more details).
 -->
-对于 KMS v2，API 服务器生成 DEK 有两种方式。
-Kubernetes 默认在 API 服务器启动时生成一个新的 DEK（数据加密密钥），
-然后重复使用该密钥进行资源加密。然而，如果你使用 KMS v2 并且启用了 `KMSv2KDF`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-则 Kubernetes 将转为为每次加密生成一个新的 DEK：API 服务器使用**密钥派生函数**根据
-秘密的种子数结合一些随机数据生成一次性的数据加密密钥。
-无论你配置哪种方法，DEK 或种子也会在 KEK 轮换时进行轮换
+对于 KMS v2，**每次加密**将生成新的 DEK：
+API 服务器使用**密钥派生函数**根据秘密的种子数结合一些随机数据生成一次性的数据加密密钥。
+种子会在 KEK 轮换时进行轮换
 （有关更多详细信息，请参阅下面的“了解 key_id 和密钥轮换”章节）。
 
 <!--
@@ -147,54 +129,6 @@ as the Kubernetes control plane, is responsible for all communication with the r
 -->
 KMS 驱动使用 gRPC 通过 UNIX 域套接字与一个特定的 KMS 插件通信。
 这个 KMS 插件作为一个 gRPC 服务器被部署在 Kubernetes 控制平面的相同主机上，负责与远端 KMS 的通信。
-
-{{< caution >}}
-<!--
-If you are running virtual machine (VM) based nodes that leverage VM state store with this feature,
-using KMS v2 is **insecure** and an information security risk unless you also explicitly enable
-the `KMSv2KDF`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
-
-With KMS v2, the API server uses AES-GCM with a 12 byte nonce (8 byte atomic counter and 4 bytes random data) for encryption. 
-The following issues could occur if the VM is saved and restored:
--->
-如果你正在运行基于虚机的节点并使用虚机状态存储支持本特性，则使用 KMS v2 是**不安全的**，
-且存在信息安全风险，除非你还显式启用了 `KMSv2KDF`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
-
-使用 KMS v2 时，API 服务器使用带有 12 字节随机数（8 字节原子计数器和 4 字节随机数据）
-的 AES-GCM 进行加密。如果保存并恢复虚机，则可能会出现以下问题：
-
-<!--
-1. The counter value may be lost or corrupted if the VM is saved in an inconsistent state or restored improperly. 
-   This can lead to a situation where the same counter value is used twice, resulting in the same nonce being used 
-   for two different messages.
-2. If the VM is restored to a previous state, the counter value may be set back to its previous value, 
-   resulting in the same nonce being used again.
--->
-1. 如果虚机在不一致的状态下保存或恢复不当，则可能会丢失或损坏计数器值。
-   这可能导致相同的计数器值被用了两次，从而造成两个不同的消息使用相同的随机数。
-2. 如果将虚机还原到先前的状态，则计数器值可能会被设置回其先前的值，导致再次使用相同的随机数。
-
-<!--
-Although both of these cases are partially mitigated by the 4 byte random nonce, this can compromise 
-the security of the encryption.
--->
-尽管这两种情况都通过 4 字节随机数进行了部分缓解，但这可能会损害加密的安全性。
-
-<!--
-If you have enabled the `KMSv2KDF`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) _and_ are using KMS v2
-(not KMS v1), the API server generates single use data encryption keys from a secret seed.
-This eliminates the need for a counter based nonce while avoiding nonce collision concerns.
-It also removes any specific concerns with using KMS v2 and VM state store.
--->
-如果你已启用了 `KMSv2KDF`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-并且正在使用 KMS v2（而不是 KMS v1），API 服务器会根据秘密的种子数生成一次性的数据加密密钥。
-这就不再需要使用基于计数器的随机数 (nonce)，同时避免了随机数冲突问题。
-这样还消除了使用 KMS v2 和虚机状态存储的特定问题。
-{{< /caution >}}
 
 <!--
 ## Configuring the KMS provider
@@ -372,15 +306,22 @@ Then use the functions and data structures in the stub file to develop the serve
 ##### KMS v2 {#developing-a-kms-plugin-gRPC-server-notes-kms-v2}
 
 <!--
-* KMS plugin version: `v2beta1`
+* KMS plugin version: `v2`
 
-  In response to procedure call `Status`, a compatible KMS plugin should return `v2beta1` as `StatusResponse.version`,
+  In response to the `Status` remote procedure call, a compatible KMS plugin should return its KMS compatibility
+  version as `StatusResponse.version`. That status response should also include
   "ok" as `StatusResponse.healthz` and a `key_id` (remote KMS KEK ID) as `StatusResponse.key_id`.
+  The Kubernetes project recommends you make your plugin
+  compatible with the stable `v2` KMS API. Kubernetes {{< skew currentVersion >}} also supports the
+  `v2beta1` API for KMS; future Kubernetes releases are likely to continue supporting that beta version.
 -->
-* KMS 插件版本：`v2beta1`
+* KMS 插件版本：`v2`
 
-  作为对过程调用 `Status` 的响应，兼容的 KMS 插件应把 `v2beta1` 作为 `StatusResponse.Version` 版本、
-  “ok” 作为 `StatusResponse.healthz` 并且 `key_id`（远程 KMS KEK ID）作为 `StatusResponse.key_id` 返回。
+  作为对过程调用 `Status` 的响应，兼容的 KMS 插件应把 `StatusResponse.version` 作为其 KMS 兼容版本返回。
+  该状态响应还应包括 "ok" 作为 `StatusResponse.healthz` 以及 `key_id`（远程 KMS KEK ID）作为
+  `StatusResponse.key_id`。Kubernetes 项目建议你的插件与稳定的 `v2` KMS API 兼容。
+  Kubernetes {{< skew currentVersion >}} 针对 KMS 还支持 `v2beta1` API；
+  Kubernetes 后续版本可能会继续支持该 Beta 版本。
 
   <!--
   The API server polls the `Status` procedure call approximately every minute when everything is healthy,
@@ -497,7 +438,7 @@ Then use the functions and data structures in the stub file to develop the serve
 
   {{< caution >}}  
   <!--
-  Because you don't control the number of writes performed with the DEK, 
+  Because you don't control the number of writes performed with the DEK,
   the Kubernetes project recommends rotating the KEK at least every 90 days.
   -->
   因为你未控制使用 DEK 执行的写入次数，所以 Kubernetes 项目建议至少每 90 天轮换一次 KEK。
@@ -506,14 +447,14 @@ Then use the functions and data structures in the stub file to develop the serve
 <!--
 * protocol: UNIX domain socket (`unix`)
 
-  The plugin is implemented as a gRPC server that listens at UNIX domain socket. 
-  The plugin deployment should create a file on the file system to run the gRPC unix domain socket connection. 
-  The API server (gRPC client) is configured with the KMS provider (gRPC server) unix 
-  domain socket endpoint in order to communicate with it. 
-  An abstract Linux socket may be used by starting the endpoint with `/@`, i.e. `unix:///@foo`. 
-  Care must be taken when using this type of socket as they do not have concept of ACL 
-  (unlike traditional file based sockets). 
-  However, they are subject to Linux networking namespace, so will only be accessible to 
+  The plugin is implemented as a gRPC server that listens at UNIX domain socket.
+  The plugin deployment should create a file on the file system to run the gRPC unix domain socket connection.
+  The API server (gRPC client) is configured with the KMS provider (gRPC server) unix
+  domain socket endpoint in order to communicate with it.
+  An abstract Linux socket may be used by starting the endpoint with `/@`, i.e. `unix:///@foo`.
+  Care must be taken when using this type of socket as they do not have concept of ACL
+  (unlike traditional file based sockets).
+  However, they are subject to Linux networking namespace, so will only be accessible to
   containers within the same pod unless host networking is used.
 -->
 * 协议：UNIX 域套接字 (`unix`)
@@ -667,16 +608,6 @@ These healthcheck endpoint paths are hard coded and generated/controlled by the 
 
 这些健康检查端点路径是由服务器硬编码、生成并控制的。
 `Individual Healthchecks` 的索引序号对应于 KMS 加密配置被处理的顺序。
-
-<!--
-At a high level, restarting an API server when a KMS plugin is unhealthy is unlikely to make the situation better.
-It can make the situation significantly worse by throwing away the API server's DEK cache.  Thus the general
-recommendation is to ignore the API server KMS healthz checks for liveness purposes, i.e. `/livez?exclude=kms-providers`.
--->
-一般而言，在 KMS 插件出现故障时重新启动 API 服务器并不太可能改善情况。
-这样做会由于丢弃 API 服务器的 DEK 缓存使情况显著恶化。因此，
-一般建议忽略出于存活性探测的目的而对 API 服务器 KMS 的健康检查，
-即 `/livez?exclude=kms-providers`。
 
 <!--
 Until the steps defined in [Ensuring all secrets are encrypted](#ensuring-all-secrets-are-encrypted) are performed,
