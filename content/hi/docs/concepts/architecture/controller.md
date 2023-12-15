@@ -16,7 +16,7 @@ weight: 30
 *वर्तमान स्थिति*। थर्मोस्टेट वर्तमान स्थिति लाने के लिए कार्य करता है
 उपकरण को चालू या बंद करके वांछित स्थिति के करीब।
 
-{{< glossary_definition term_id="कंट्रोल" length="short">}}
+{{< glossary_definition term_id="controller" length="short">}}
 
 <!-- body -->
 
