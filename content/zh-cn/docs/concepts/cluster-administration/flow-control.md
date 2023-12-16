@@ -13,7 +13,7 @@ weight: 110
 
 <!-- overview -->
 
-{{< feature-state state="beta"  for_k8s_version="v1.20" >}}
+{{< feature-state state="stable"  for_k8s_version="v1.29" >}}
 
 <!--
 Controlling the behavior of the Kubernetes API server in an overload situation
@@ -80,48 +80,38 @@ APF 适用于 **watch** 请求。当 APF 被禁用时，**watch** 请求不受 `
 ## 启用/禁用 API 优先级和公平性    {#enabling-api-priority-and-fairness}
 
 <!--
-The API Priority and Fairness feature is controlled by a feature gate
-and is enabled by default.  See [Feature
-Gates](/docs/reference/command-line-tools-reference/feature-gates/)
-for a general explanation of feature gates and how to enable and
-disable them.  The name of the feature gate for APF is
-"APIPriorityAndFairness".  This feature also involves an {{<
-glossary_tooltip term_id="api-group" text="API Group" >}} with: (a) a
-`v1alpha1` version and a `v1beta1` version, disabled by default, and
-(b) `v1beta2` and `v1beta3` versions, enabled by default.  You can
-disable the feature gate and API group beta versions by adding the
-following command-line flags to your `kube-apiserver` invocation:
+The API Priority and Fairness feature is controlled by a command-line flag
+and is enabled by default.  See 
+[Options](/docs/reference/command-line-tools-reference/kube-apiserver/options/)
+for a general explanation of the available kube-apiserver command-line 
+options and how to enable and disable them.  The name of the 
+command-line option for APF is "--enable-priority-and-fairness".  This feature
+also involves an {{<glossary_tooltip term_id="api-group" text="API Group" >}} 
+with: (a) a stable `v1` version, introduced in 1.29, and 
+enabled by default (b) a `v1beta3` version, enabled by default, and
+deprecated in v1.29.  You can
+disable the API group beta version `v1beta3` by adding the
 -->
-API 优先级与公平性（APF）特性由特性门控控制，默认情况下启用。
-有关特性门控的一般性描述以及如何启用和禁用特性门控，
-请参见[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
-APF 的特性门控称为 `APIPriorityAndFairness`。
+API 优先级与公平性（APF）特性由命令行标志控制，默认情况下启用。
+有关可用 kube-apiserver 命令行参数以及如何启用和禁用的说明，
+请参见[参数](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/options/)。
+APF 的命令行参数是 "--enable-priority-and-fairness"。
 此特性也与某个 {{< glossary_tooltip term_id="api-group" text="API 组" >}}相关：
-(a) `v1alpha1` 和 `v1beta1` 版本，默认被禁用；
-(b) `v1beta2` 和 `v1beta3` 版本，默认被启用。
-你可以在启动 `kube-apiserver` 时，添加以下命令行标志来禁用此功能门控及 API Beta 组：
+(a) 稳定的 `v1` 版本，在 1.29 中引入，默认启用；
+(b) `v1beta3` 版本，默认被启用，在 1.29 中被弃用。
+你可以通过添加以下内容来禁用 Beta 版的 `v1beta3` API 组：
 
 ```shell
 kube-apiserver \
---feature-gates=APIPriorityAndFairness=false \
---runtime-config=flowcontrol.apiserver.k8s.io/v1beta2=false,flowcontrol.apiserver.k8s.io/v1beta3=false \
+--runtime-config=flowcontrol.apiserver.k8s.io/v1beta3=false \
   # ...其他配置不变
 ```
 
 <!--
-Alternatively, you can enable the v1alpha1 and v1beta1 versions of the API group
-with `--runtime-config=flowcontrol.apiserver.k8s.io/v1alpha1=true,flowcontrol.apiserver.k8s.io/v1beta1=true`.
--->
-或者，你也可以通过
-`--runtime-config=flowcontrol.apiserver.k8s.io/v1alpha1=true,flowcontrol.apiserver.k8s.io/v1beta1=true`
-启用 API 组的 v1alpha1 和 v1beta1 版本。
-
-<!--
 The command-line flag `--enable-priority-and-fairness=false` will disable the
-API Priority and Fairness feature, even if other flags have enabled it.
+API Priority and Fairness feature.
 -->
-命令行标志 `--enable-priority-fairness=false` 将彻底禁用 APF 特性，
-即使其他标志启用它也是无效。
+命令行标志 `--enable-priority-fairness=false` 将彻底禁用 APF 特性。
 
 <!--
 ## Concepts
@@ -312,23 +302,20 @@ server.
 ## Resources
 
 The flow control API involves two kinds of resources.
-[PriorityLevelConfigurations](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#prioritylevelconfiguration-v1beta2-flowcontrol-apiserver-k8s-io)
+[PriorityLevelConfigurations](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#prioritylevelconfiguration-v1-flowcontrol-apiserver-k8s-io)
 define the available priority levels, the share of the available concurrency
 budget that each can handle, and allow for fine-tuning queuing behavior.
-[FlowSchemas](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#flowschema-v1beta2-flowcontrol-apiserver-k8s-io)
+[FlowSchemas](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#flowschema-v1-flowcontrol-apiserver-k8s-io)
 are used to classify individual inbound requests, matching each to a
-single PriorityLevelConfiguration.  There is also a `v1alpha1` version
-of the same API group, and it has the same Kinds with the same syntax and
-semantics.
+single PriorityLevelConfiguration.
 -->
 ## 资源    {#resources}
 
 流控 API 涉及两种资源。
-[PriorityLevelConfiguration](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#prioritylevelconfiguration-v1beta2-flowcontrol-apiserver-k8s-io)
+[PriorityLevelConfiguration](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#prioritylevelconfiguration-v1-flowcontrol-apiserver-k8s-io)
 定义可用的优先级和可处理的并发预算量，还可以微调排队行为。
-[FlowSchema](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#flowschema-v1beta2-flowcontrol-apiserver-k8s-io)
+[FlowSchema](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#flowschema-v1-flowcontrol-apiserver-k8s-io)
 用于对每个入站请求进行分类，并与一个 PriorityLevelConfiguration 相匹配。
-此外同一 API 组还有一个 `v1alpha1` 版本，其中包含语法和语义都相同的资源类别。
 
 <!--
 ### PriorityLevelConfiguration
