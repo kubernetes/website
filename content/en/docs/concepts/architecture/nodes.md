@@ -280,7 +280,7 @@ If you want to explicitly reserve resources for non-Pod processes, see
 
 ## Node topology
 
-{{< feature-state state="beta" for_k8s_version="v1.18" >}}
+{{< feature-state state="stable" for_k8s_version="v1.27" >}}
 
 If you have enabled the `TopologyManager`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/), then

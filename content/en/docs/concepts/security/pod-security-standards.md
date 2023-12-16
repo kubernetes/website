@@ -486,6 +486,12 @@ Restrictions on the following controls are only required if `.spec.os.name` is n
 - Seccomp
 - Linux Capabilities
 
+## User namespaces
+
+User Namespaces are a Linux-only feature to run workloads with increased
+isolation. How they work together with Pod Security Standards is described in
+the [documentation](/docs/concepts/workloads/pods/user-namespaces#integration-with-pod-security-admission-checks) for Pods that use user namespaces.
+
 ## FAQ
 
 ### Why isn't there a profile between privileged and baseline?

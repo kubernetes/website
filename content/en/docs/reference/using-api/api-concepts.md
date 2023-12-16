@@ -317,7 +317,7 @@ The `content-encoding` header indicates that the response is compressed with `gz
 
 ## Retrieving large results sets in chunks
 
-{{< feature-state for_k8s_version="v1.9" state="beta" >}}
+{{< feature-state for_k8s_version="v1.29" state="stable" >}}
 
 On large clusters, retrieving the collection of some resource types may result in
 very large responses that can impact the server and client. For instance, a cluster
@@ -325,9 +325,7 @@ may have tens of thousands of Pods, each of which is equivalent to roughly 2 KiB
 encoded JSON. Retrieving all pods across all namespaces may result in a very large
 response (10-20MB) and consume a large amount of server resources.
 
-Provided that you don't explicitly disable the `APIListChunking`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/), the
-Kubernetes API server supports the ability to break a single large collection request
+The Kubernetes API server supports the ability to break a single large collection request
 into many smaller chunks while preserving the consistency of the total request. Each
 chunk can be returned sequentially which reduces both the total size of the request and
 allows user-oriented clients to display results incrementally to improve responsiveness.

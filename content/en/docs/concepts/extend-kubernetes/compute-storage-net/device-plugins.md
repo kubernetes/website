@@ -159,8 +159,8 @@ The general workflow of a device plugin includes the following steps:
    {{< note >}}
    The processing of the fully-qualified CDI device names by the Device Manager requires
    that the `DevicePluginCDIDevices` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-   is enabled for the kubelet and the kube-apiserver. This was added as an alpha feature in Kubernetes
-   v1.28.
+   is enabled for both the kubelet and the kube-apiserver. This was added as an alpha feature in Kubernetes
+   v1.28 and graduated to beta in v1.29.
    {{< /note >}}
 
 ### Handling kubelet restarts

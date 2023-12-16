@@ -392,52 +392,63 @@ footer {
 }
 
 main {
-  .td-content table code,
-  .td-content>table td {
-    word-break: break-word;
+
+/* SCSS Related to the Metrics list */
+
+  div.metric:nth-of-type(odd) { // Look & Feel , Aesthetics
+    background-color: $light-grey;
   }
 
-/* SCSS Related to the Metrics Table */
+  div.metrics {
 
-    @media (max-width: 767px) { // for mobile devices, Display the names, Stability levels & types
-
-     table.metrics { 
-      th:nth-child(n + 4),
-      td:nth-child(n + 4) {
+    .metric {
+      div:empty{
         display: none;
       }
 
-      td.metric_type{
-        min-width: 7em;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      gap: .75em;
+      padding:.75em .75em .75em .75em;
+  
+      .metric_name{
+        font-size: large;
+        font-weight: bold;
+        word-break: break-word;
       }
-      td.metric_stability_level{
-        min-width: 6em;
+  
+      label{
+        font-weight: bold;
+        margin-right: .5em;
       }
-    }
+      ul {
+        li:empty{
+          display: none;
+        }
+        display: flex;
+        flex-direction: column;
+        gap: .75em;
+        flex-wrap: wrap;
+        li.metric_labels_varying{
+          span{
+                display: inline-block;
+                background-color: rgb(240, 239, 239);
+                padding: 0 0.5em;
+                margin-right: .35em;
+                font-family: monospace;
+                border: 1px solid rgb(230 , 230 , 230);
+                border-radius: 5%;
+                margin-bottom: .35em;
+          }
+        }
+  
+      }
+      
     }
 
-    table.metrics tbody{ // Tested dimensions to improve overall aesthetic of the table
-      tr {
-        td {
-          font-size: smaller;
-        }
-        td.metric_labels_varying{
-          min-width: 9em;
-        }
-        td.metric_type{
-          min-width: 9em;
-        }
-        td.metric_description{
-          min-width: 10em;
-        }
-    
-      }
-    }
 
-  table.no-word-break td,
-  table.no-word-break code {
-    word-break: normal;
-}
+  }
 }
 
 // blockquotes and callouts
