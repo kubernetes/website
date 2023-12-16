@@ -120,7 +120,7 @@ For example, NFS doesn't provide an internal provisioner, but an external
 provisioner can be used. There are also cases when 3rd party storage
 vendors provide their own external provisioner.
 
-## Reclaim Policy
+## Reclaim policy
 
 PersistentVolumes that are dynamically created by a StorageClass will have the
 [reclaim policy](/docs/concepts/storage/persistent-volumes/#reclaiming)
@@ -131,7 +131,7 @@ StorageClass object is created, it will default to `Delete`.
 PersistentVolumes that are created manually and managed via a StorageClass will have
 whatever reclaim policy they were assigned at creation.
 
-## Volume Expansion {#allow-volume-expansion}
+## Volume expansion {#allow-volume-expansion}
 
 PersistentVolumes can be configured to be expandable. This allows you to resize the
 volume by editing the corresponding PVC object, requesting a new larger amount of
@@ -156,7 +156,7 @@ StorageClass has the field `allowVolumeExpansion` set to true.
 You can only use the volume expansion feature to grow a Volume, not to shrink it.
 {{< /note >}}
 
-## Mount Options
+## Mount options
 
 PersistentVolumes that are dynamically created by a StorageClass will have the
 mount options specified in the `mountOptions` field of the class.
@@ -165,7 +165,7 @@ If the volume plugin does not support mount options but mount options are
 specified, provisioning will fail. Mount options are **not** validated on either
 the class or PV. If a mount option is invalid, the PV mount fails.
 
-## Volume Binding Mode
+## Volume binding mode
 
 The `volumeBindingMode` field controls when
 [volume binding and dynamic provisioning](/docs/concepts/storage/persistent-volumes/#provisioning)
@@ -227,7 +227,7 @@ spec:
           name: task-pv-storage
 ```
 
-## Allowed Topologies
+## Allowed topologies
 
 When a cluster operator specifies the `WaitForFirstConsumer` volume binding mode, it is no longer necessary
 to restrict provisioning to specific topologies in most situations. However,
@@ -523,7 +523,7 @@ In a multi-tenancy context, it is strongly recommended to set the value for
 `secretNamespace` explicitly, otherwise the storage account credentials may
 be read by other users.
 
-### Portworx Volume (deprecated) {#portworx-volume}
+### Portworx volume (deprecated) {#portworx-volume}
 
 ```yaml
 apiVersion: storage.k8s.io/v1
