@@ -25,8 +25,8 @@ This format is structured plain text, designed so that people and machines can b
 -->
 通过系统组件指标可以更好地了解系统组个内部发生的情况。系统组件指标对于构建仪表板和告警特别有用。
 
-Kubernetes 组件以 [Prometheus 格式](https://prometheus.io/docs/instrumenting/exposition_formats/)
-生成度量值。
+Kubernetes 组件以
+[Prometheus 格式](https://prometheus.io/docs/instrumenting/exposition_formats/)生成度量值。
 这种格式是结构化的纯文本，旨在使人和机器都可以阅读。
 
 <!-- body -->
@@ -65,7 +65,7 @@ If your cluster uses {{< glossary_tooltip term_id="rbac" text="RBAC" >}}, readin
 authorization via a user, group or ServiceAccount with a ClusterRole that allows accessing
 `/metrics`. For example:
 -->
-在生产环境中，你可能需要配置 [Prometheus 服务器](https://prometheus.io/) 或
+在生产环境中，你可能需要配置 [Prometheus 服务器](https://prometheus.io/)或
 某些其他指标搜集器以定期收集这些指标，并使它们在某种时间序列数据库中可用。
 
 请注意，{{< glossary_tooltip term_id="kubelet" text="kubelet" >}} 还会在 `/metrics/cadvisor`，
@@ -255,10 +255,9 @@ of all running pods. These metrics can be used to build capacity planning dashbo
 current or historical scheduling limits, quickly identify workloads that cannot schedule due to
 lack of resources, and compare actual usage to the pod's request.
 -->
-调度器会暴露一些可选的指标，报告所有运行中 Pods 所请求的资源和期望的约束值。
+调度器会暴露一些可选的指标，报告所有运行中 Pod 所请求的资源和期望的约束值。
 这些指标可用来构造容量规划监控面板、访问调度约束的当前或历史数据、
-快速发现因为缺少资源而无法被调度的负载，或者将 Pod 的实际资源用量
-与其请求值进行比较。
+快速发现因为缺少资源而无法被调度的负载，或者将 Pod 的实际资源用量与其请求值进行比较。
 
 <!--
 The kube-scheduler identifies the resource [requests and limits](/docs/concepts/configuration/manage-resources-containers/)
@@ -351,6 +350,29 @@ Here is an example:
 ```none
 --allow-label-value number_count_metric,odd_number='1,3,5', number_count_metric,even_number='2,4,6', date_gauge_metric,weekend='Saturday,Sunday'
 ```
+
+<!--
+In addition to specifying this from the CLI, this can also be done within a configuration file. You
+can specify the path to that configuration file using the `--allow-metric-labels-manifest` command
+line argument to a component. Here's an example of the contents of that configuration file:
+-->
+除了从 CLI 中指定之外，还可以在配置文件中完成此操作。
+你可以使用组件的 `--allow-metric-labels-manifest` 命令行参数指定该配置文件的路径。
+以下是该配置文件的内容示例：
+
+```yaml
+allow-list:
+- "metric1,label2": "v1,v2,v3"
+- "metric2,label1": "v1,v2,v3"
+```
+
+<!--
+Additionally, the `cardinality_enforcement_unexpected_categorizations_total` meta-metric records the
+count of unexpected categorizations during cardinality enforcement, that is, whenever a label value
+is encountered that is not allowed with respect to the allow-list contraints.
+-->
+此外，`cardinality_enforcement_unexpected_categorizations_total`
+元指标记录基数执行期间意外分类的计数，即每当遇到允许列表约束不允许的标签值时。
 
 ## {{% heading "whatsnext" %}}
 
