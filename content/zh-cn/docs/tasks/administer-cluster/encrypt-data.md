@@ -124,7 +124,10 @@ decrypt data stored in the etcd.
 # wildcard match requires Kubernetes 1.27 or later
 # wildcard match requires Kubernetes 1.27 or later
 -->
-```yaml
+<!-- note to localizers: the highlight is to make the initial comment obvious -->
+<!-- you can use as many lines as makes sense for your target localization    -->
+
+{{< highlight yaml "linenos=false,hl_lines=2-5" >}}
 ---
 #
 # 注意：这是一个示例配置。请勿将其用于你自己的集群！
@@ -174,7 +177,7 @@ resources:
           keys:
           - name: key3
             secret: c2VjcmV0IGlzIHNlY3VyZSwgSSB0aGluaw==
-```
+{{< /highlight  >}}
 
 <!--
 Each `resources` array item is a separate config and contains a complete configuration. The
@@ -406,7 +409,7 @@ Kubernetes 静态数据加密的提供程序
     </td>
   </tr>
   <tr>
-  <th rowspan="2" scope="row"><tt>kms</tt> v2 <em>(beta)</em></th>
+  <th rowspan="2" scope="row"><tt>kms</tt> v2 </th>
   <td>
   <!--
   Uses envelope encryption scheme with DEK per API server.
@@ -423,24 +426,17 @@ Kubernetes 静态数据加密的提供程序
     Data is encrypted by data encryption keys (DEKs) using AES-GCM; DEKs
     are encrypted by key encryption keys (KEKs) according to configuration
     in Key Management Service (KMS).
-    Kubernetes defaults to generating a new DEK at API server startup, which is then
-    reused for object encryption.
-    If you enable the <tt>KMSv2KDF</tt>
-    <a href="/docs/reference/command-line-tools-reference/feature-gates/">feature gate</a>,
-    Kubernetes instead generates a new DEK per encryption from a secret seed.
-    Whichever approach you configure, the DEK or seed is also rotated whenever the KEK is rotated.<br/>
+    Kubernetes generates a new DEK per encryption from a secret seed.
+    The seed is rotated whenever the KEK is rotated.<br/>
     A good choice if using a third party tool for key management.
-    Available in beta from Kubernetes v1.27.
+    Available as stable from Kubernetes v1.29.
     -->
     通过数据加密密钥（DEK）使用 AES-GCM 加密数据；
     DEK 根据 Key Management Service（KMS）中的配置通过密钥加密密钥（Key Encryption Keys，KEK）加密。
-    Kubernetes 默认在 API 服务器启动时生成一个新的 DEK，
-    然后重复使用该密钥进行资源加密。然而，如果你使用 KMS v2 并且启用了 `KMSv2KDF`
-    [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-    则 Kubernetes 将转为基于秘密的种子数为每次加密生成一个新的 DEK。
-    无论你配置哪种方法，每当 KEK 轮换时，DEK 或种子也会轮换。
-    如果使用第三方工具进行密钥管理，会是一个不错的选择。
-    从 `v1.27` 开始，该功能处于 Beta 阶段。
+    Kubernetes 基于秘密的种子数为每次加密生成一个新的 DEK。
+    每当 KEK 轮换时，种子也会轮换。
+    如果使用第三方工具进行密钥管理，这是一个不错的选择。
+    从 `v1.29` 开始，该功能处于稳定阶段。
     <br />
     <!--
     Read how to <a href="/docs/tasks/administer-cluster/kms-provider#configuring-the-kms-provider-kms-v2">configure the KMS V2 provider</a>.
@@ -516,7 +512,149 @@ In the KMS case, an attacker who intends to get unauthorised access to the plain
 values would need to compromise etcd **and** the third-party KMS provider.
 -->
 使用封套加密会依赖于密钥加密密钥，此密钥不存储在 Kubernetes 中。
-就 KMS 而言，如果攻击者意图未经授权地访问明文值，则需要同时入侵 etcd **和** 第三方 KMS 提供程序。
+就 KMS 而言，如果攻击者意图未经授权地访问明文值，则需要同时入侵 etcd
+**和**第三方 KMS 提供程序。
+
+<!--
+### Protection for encryption keys
+
+You should take appropriate measures to protect the confidential information that allows decryption,
+whether that is a local encryption key, or an authentication token that allows the API server to
+call KMS.
+-->
+### 保护加密密钥   {#protection-for-encryption-keys}
+
+你应该采取适当的措施来保护允许解密的机密信息，无论是本地加密密钥还是允许
+API 服务器调用 KMS 的身份验证令牌。
+
+<!--
+Even when you rely on a provider to manage the use and lifecycle of the main encryption key (or keys), you are still responsible
+for making sure that access controls and other security measures for the managed encryption service are
+appropriate for your security needs.
+-->
+即使你依赖提供商来管理主加密密钥（或多个密钥）的使用和生命周期，
+你仍然有责任确保托管加密服务的访问控制和其他安全措施满足你的安全需求。
+
+<!--
+## Encrypt your data {#encrypting-your-data}
+
+### Generate the encryption key {#generate-key-no-kms}
+-->
+## 加密你的数据  {#encrypting-your-data}
+
+### 生成加密密钥  {#generate-key-no-kms}
+
+<!--
+The following steps assume that you are not using KMS, and therefore the steps also
+assume that you need to generate an encryption key. If you already have an encryption key,
+skip to [Write an encryption configuration file](#write-an-encryption-configuration-file).
+-->
+以下步骤假设你没有使用 KMS，因此这些步骤还假设您需要生成加密密钥。
+如果你已有加密密钥，请跳至[编写加密配置文件](#write-an-encryption-configuration-file)。
+
+{{< caution >}}
+<!--
+Storing the raw encryption key in the EncryptionConfig only moderately improves your security posture,
+compared to no encryption.
+-->
+与不加密相比，将原始加密密钥存储在 EncryptionConfig 中只能适度改善你的安全状况。
+
+<!--
+For additional secrecy, consider using the `kms` provider as this relies on keys held outside your
+Kubernetes cluster. Implementations of `kms` can work with hardware security modules or with
+encryption services managed by your cloud provider.
+-->
+为了获得额外的保密性，请考虑使用 `kms` 提供程序，因为这依赖于 Kubernetes
+集群外部保存的密钥。`kms` 的实现可以与硬件安全模块或由云提供商管理的加密服务配合使用。
+
+<!--
+To learn about setting
+up encryption at rest using KMS, see
+[Using a KMS provider for data encryption](/docs/tasks/administer-cluster/kms-provider/).
+The KMS provider plugin that you use may also come with additional specific documentation.
+-->
+要了解如何使用 KMS 设置静态加密，请参阅[使用 KMS 提供程序进行数据加密](/zh-cn/docs/tasks/administer-cluster/kms-provider/)。
+你使用的 KMS 提供程序插件可能还附带其他特定文档。
+{{< /caution >}}
+
+<!--
+Start by generating a new encryption key, and then encode it using base64:
+-->
+首先生成新的加密密钥，然后使用 base64 对其进行编码：
+
+{{< tabs name="generate_encryption_key" >}}
+{{% tab name="Linux" %}}
+<!--
+Generate a 32-byte random key and base64 encode it. You can use this command:
+-->
+生成 32 字节随机密钥并对其进行 base64 编码。你可以使用这个命令：
+
+```shell
+head -c 32 /dev/urandom | base64
+```
+
+<!--
+You can use `/dev/hwrng` instead of `/dev/urandom` if you want to
+use your PC's built-in hardware entropy source. Not all Linux
+devices provide a hardware random generator.
+-->
+如果你想使用 PC 的内置硬件熵源，可以使用 `/dev/hwrng` 而不是 `/dev/urandom`。
+并非所有 Linux 设备都提供硬件随机数生成器。
+{{% /tab %}}
+{{% tab name="macOS" %}}
+<!-- localization note: this is similar to the Linux tab and the wording
+should match wherever the English text does -->
+<!--
+Generate a 32-byte random key and base64 encode it. You can use this command:
+-->
+生成 32 字节随机密钥并对其进行 base64 编码。你可以使用此命令：
+
+```shell
+head -c 32 /dev/urandom | base64
+```
+{{% /tab %}}
+{{% tab name="Windows" %}}
+<!--
+Generate a 32-byte random key and base64 encode it. You can use this command:
+-->
+生成 32 字节随机密钥并对其进行 base64 编码。你可以使用此命令：
+
+<!--
+# Do not run this in a session where you have set a random number
+# generator seed.
+-->
+```powershell
+# 不要在已设置随机数生成器种子的会话中运行此命令。
+[Convert]::ToBase64String((1..32|%{[byte](Get-Random -Max 256)}))
+```
+{{% /tab %}}
+{{< /tabs >}}
+
+
+{{< note >}}
+<!--
+Keep the encryption key confidential, including whilst you generate it and
+ideally even after you are no longer actively using it.
+-->
+保持加密密钥的机密性，包括在生成密钥时，甚至理想的情况下在你不再主动使用密钥后也要保密。
+{{< /note >}}
+
+<!--
+### Replicate the encryption key
+
+Using a secure mechanism for file transfer, make a copy of that encryption key
+available to every other control plane host.
+
+At a minimum, use encryption in transit - for example, secure shell (SSH). For more
+security, use asymmetric encryption between hosts, or change the approach you are using
+so that you're relying on KMS encryption.
+-->
+### 复制加密密钥
+
+使用安全的文件传输机制，将该加密密钥的副本提供给所有其他控制平面主机。
+
+至少，使用传输加密 - 例如，安全 shell（SSH）。为了提高安全性，
+请在主机之间使用非对称加密，或更改您正在使用的方法，以便依赖 KMS 加密。
 
 <!--
 ## Write an encryption configuration file
@@ -565,37 +703,28 @@ resources:
 ```
 
 <!--
-To create a new Secret, perform the following steps:
-
-1. Generate a 32-byte random key and base64 encode it. If you're on Linux or macOS, run the following command:
+To create a new encryption key (that does not use KMS), see
+[Generate the encryption key](#generate-key-no-kms).
 -->
-遵循如下步骤来创建一个新的 Secret：
-
-1. 生成一个 32 字节的随机密钥并进行 base64 编码。如果你在 Linux 或 macOS 上，请运行以下命令：
-
-   ```shell
-   head -c 32 /dev/urandom | base64
-   ```
+要创建新的加密密钥（不使用 KMS），请参阅[生成加密密钥](#generate-key-no-kms)。
 
 <!--
-1. Place that value in the `secret` field of the `EncryptionConfiguration` struct.
-1. Set the `--encryption-provider-config` flag on the `kube-apiserver` to point to
-   the location of the config file.
-
-   You will need to mount the new encryption config file to the `kube-apiserver` static pod. Here is an example on how to do that:
+### Use the new encryption configuration file
 -->
-2. 将这个值放入到 `EncryptionConfiguration` 结构体的 `secret` 字段中。
-3. 设置 `kube-apiserver` 的 `--encryption-provider-config` 参数，将其指向配置文件所在位置。
+### 使用新的加密配置文件
 
-   你将需要把新的加密配置文件挂载到 `kube-apiserver` 静态 Pod。以下是这个操作的示例：
+<!--
+You will need to mount the new encryption config file to the `kube-apiserver` static pod. Here is an example on how to do that:
+-->
+你将需要把新的加密配置文件挂载到 `kube-apiserver` 静态 Pod。以下是这个操作的示例：
 
-   <!--
-   1. Save the new encryption config file to `/etc/kubernetes/enc/enc.yaml` on the control-plane node.
-   1. Edit the manifest for the `kube-apiserver` static pod: `/etc/kubernetes/manifests/kube-apiserver.yaml` similarly to this:
-   -->
-   1. 将新的加密配置文件保存到控制平面节点上的 `/etc/kubernetes/enc/enc.yaml`。
-   2. 编辑 `kube-apiserver` 静态 Pod 的清单：`/etc/kubernetes/manifests/kube-apiserver.yaml`，
-      代码范例如下：
+<!--
+1. Save the new encryption config file to `/etc/kubernetes/enc/enc.yaml` on the control-plane node.
+1. Edit the manifest for the `kube-apiserver` static pod: `/etc/kubernetes/manifests/kube-apiserver.yaml` similarly to this:
+-->
+1. 将新的加密配置文件保存到控制平面节点上的 `/etc/kubernetes/enc/enc.yaml`。
+2. 编辑 `kube-apiserver` 静态 Pod 的清单：`/etc/kubernetes/manifests/kube-apiserver.yaml`，
+   代码范例如下：
 
    <!--
    # This is a fragment of a manifest for a static Pod.
@@ -653,6 +782,13 @@ permissions on your control-plane nodes so only the user who runs the `kube-apis
 你的配置文件包含可以解密 etcd 内容的密钥，因此你必须正确限制控制平面节点的访问权限，
 以便只有能运行 `kube-apiserver` 的用户才能读取它。
 {{< /caution >}}
+
+<!--
+You now have encryption in place for **one** control plane host. A typical
+Kubernetes cluster has multiple control plane hosts, so there is more to do.
+-->
+你现在已经为**一个**控制平面主机进行了加密。典型的 Kubernetes
+集群有多个控制平面主机，因此需要做的事情更多。
 
 <!--
 ### Reconfigure other control plane hosts {#api-server-config-update-more}
@@ -823,49 +959,45 @@ or script an update.
 {{< /note >}}
 
 <!--
-## Rotating a decryption key
+## Prevent plain text retrieval {#cleanup-all-secrets-encrypted}
 
-Changing a Secret without incurring downtime requires a multi-step operation, especially in
-the presence of a highly-available deployment where multiple `kube-apiserver` processes are running.
-
-1. Generate a new key and add it as the second key entry for the current provider on all servers
-1. Restart all `kube-apiserver` processes to ensure each server can decrypt using the new key
-1. Make the new key the first entry in the `keys` array so that it is used for encryption in the config
-1. Restart all `kube-apiserver` processes to ensure each server now encrypts using the new key
-1. Run `kubectl get secrets --all-namespaces -o json | kubectl replace -f -` to encrypt all
-   existing Secrets with the new key
-1. Remove the old decryption key from the config after you have backed up etcd with the new key in use
-   and updated all Secrets
-
-When running a single `kube-apiserver` instance, step 2 may be skipped.
+If you want to make sure that the only access to a particular API kind is done using
+encryption, you can remove the API server's ability to read that API's backing data
+as plaintext.
 -->
-## 轮换解密密钥   {#rotating-a-decryption-key}
+## 防止纯文本检索   {#cleanup-all-secrets-encrypted}
 
-在不发生停机的情况下更改 Secret 需要多步操作，特别是在有多个 `kube-apiserver`
-进程正在运行的高可用环境中。
+如果你想确保对特定 API 类型的唯一访问是使用加密完成的，你可以移除
+API 服务器以明文形式读取该 API 的支持数据的能力。
 
-1. 生成一个新密钥并将其添加为所有服务器上当前提供程序的第二个密钥条目
-1. 重新启动所有 `kube-apiserver` 进程以确保每台服务器都可以使用新密钥进行解密
-1. 将新密钥设置为 `keys` 数组中的第一个条目，以便在配置中使用其进行加密
-1. 重新启动所有 `kube-apiserver` 进程以确保每个服务器现在都使用新密钥进行加密
-1. 运行 `kubectl get secrets --all-namespaces -o json | kubectl replace -f -`
-   以用新密钥加密所有现有的 Secret
-1. 在使用新密钥备份 etcd 后，从配置中删除旧的解密密钥并更新所有密钥
+{{< warning >}}
+<!--
+Making this change prevents the API server from retrieving resources that are marked
+as encrypted at rest, but are actually stored in the clear.
 
-当只运行一个 `kube-apiserver` 实例时，第 2 步可以忽略。
+When you have configured encryption at rest for an API (for example: the API kind
+`Secret`, representing `secrets` resources in the core API group), you **must** ensure
+that all those resources in this cluster really are encrypted at rest. Check this before
+you carry on with the next steps.
+-->
+
+此更改可防止 API 服务器检索标记为静态加密但实际上以明文形式存储的资源。
+
+当你为某个 API 配置静态加密时（例如：API 种类 `Secret`，代表核心 API 组中的 `secrets` 资源），
+你**必须**确保该集群中的所有这些资源确实被静态加密，
+在后续步骤开始之前请检查此项。
+{{< /warning >}}
 
 <!--
-## Decrypting all data
-
-To disable encryption at rest, place the `identity` provider as the first entry in the config
-and restart all `kube-apiserver` processes.
+Once all Secrets in your cluster are encrypted, you can remove the `identity`
+part of the encryption configuration. For example:
 -->
-## 解密所有数据    {#decrypting-all-data}
+一旦集群中的所有 Secret 都被加密，你就可以删除加密配置中的 `identity` 部分。例如：
 
-要禁用静态加密，请将 `identity` 提供程序
-作为配置中的第一个条目并重新启动所有 `kube-apiserver` 进程。
-
-```yaml
+<!--
+# REMOVE THIS LINE
+-->
+{{< highlight yaml "linenos=false,hl_lines=12" >}}
 ---
 apiVersion: apiserver.config.k8s.io/v1
 kind: EncryptionConfiguration
@@ -873,21 +1005,108 @@ resources:
   - resources:
       - secrets
     providers:
-      - identity: {}
       - aescbc:
           keys:
             - name: key1
               secret: <BASE 64 ENCODED SECRET>
+      - identity: {} # 删除此行
+{{< /highlight >}}
+
+<!--
+…and then restart each API server in turn. This change prevents the API server
+from accessing a plain-text Secret, even by accident.
+-->
+…然后依次重新启动每个 API 服务器。此更改可防止 API 服务器访问纯文本 Secret，即使是意外访问也是如此。
+
+<!--
+## Rotating a decryption key
+
+Changing an encryption key for Kubernetes without incurring downtime requires a multi-step operation,
+especially in the presence of a highly-available deployment where multiple `kube-apiserver` processes
+are running.
+
+1. Generate a new key and add it as the second key entry for the current provider on all
+   control plane nodes.
+1. Restart **all** `kube-apiserver` processes, to ensure each server can decrypt
+   any data that are encrypted with the new key.
+1. Make a secure backup of the new encryption key. If you lose all copies of this key you would
+   need to delete all the resources were encrypted under the lost key, and workloads may not
+   operate as expected during the time that at-rest encryption is broken.
+1. Make the new key the first entry in the `keys` array so that it is used for encryption-at-rest
+   for new config
+1.  Restart all `kube-apiserver` processes to ensure each control plane host now encrypts using the new key
+1. As a privileged user, run `kubectl get secrets --all-namespaces -o json | kubectl replace -f -`
+   to encrypt all existing Secrets with the new key
+1. After you have updated all existing Secrets to use the new key and have made a secure backup of the
+   new key, remove the old decryption key from the configuration.
+-->
+## 轮换解密密钥   {#rotating-a-decryption-key}
+
+在不发生停机的情况下更改 Kubernetes 的加密密钥需要多步操作，特别是在有多个 `kube-apiserver`
+进程正在运行的高可用环境中。
+
+1. 生成一个新密钥并将其添加为所有控制平面节点上当前提供程序的第二个密钥条目
+1. 重新启动所有 `kube-apiserver` 进程以确保每台服务器都可以使用新密钥加密任何数据
+1. 对新的加密密钥进行安全备份。如果你丢失了此密钥的所有副本，则需要删除用已丢失的密钥加密的所有资源，
+   并且在静态加密被破坏期间，工作负载可能无法按预期运行。
+1. 将新密钥设置为 `keys` 数组中的第一个条目，以便将其用于新配置的静态加密
+1. 重新启动所有 `kube-apiserver` 进程，以确保每个控制平面主机现在使用新密钥进行加密
+1. 作为特权用户，运行 `kubectl get secrets --all-namespaces -o json | kubectl replace -f -`
+   以用新密钥加密所有现有的 Secret
+1. 将所有现有 Secret 更新为使用新密钥并对新密钥进行安全备份后，从配置中删除旧的解密密钥。
+
+<!--
+## Decrypt all data {#decrypting-all-data}
+
+This example shows how to stop encrypting the Secret API at rest. If you are encrypting
+other API kinds, adjust the steps to match.
+
+To disable encryption at rest, place the `identity` provider as the first
+entry in your encryption configuration file:
+-->
+## 解密所有数据    {#decrypting-all-data}
+
+此示例演示如何停止静态加密 Secret API。如果你所加密的是其他 API 类型，请调整对应步骤来适配。
+
+要禁用静态加密，请将 `identity` 提供程序作为加密配置文件中的第一个条目：
+
+<!--
+# list any other resources here that you previously were encrypting at rest
+# add this line
+# keep this in place make sure it comes after "identity"
+-->
+```yaml
+---
+apiVersion: apiserver.config.k8s.io/v1
+kind: EncryptionConfiguration
+resources:
+  - resources:
+      - secrets
+      # 在此列出你之前静态加密的任何其他资源
+    providers:
+      - identity: {} # 添加此行
+      - aescbc:
+          keys:
+            - name: key1
+              secret: <BASE 64 ENCODED SECRET> # 将其保留在适当的位置并确保它位于 "identity" 之后
 ```
 
 <!--
-Then run the following command to force decrypt all Secrets:
+Then run the following command to force decryption of all Secrets:
 -->
 然后运行以下命令以强制解密所有 Secret：
 
 ```shell
 kubectl get secrets --all-namespaces -o json | kubectl replace -f -
 ```
+
+<!--
+Once you have replaced all existing encrypted resources with backing data that
+don't use encryption, you can remove the encryption settings from the
+`kube-apiserver`.
+-->
+将所有现有加密资源替换为不使用加密的支持数据后，你可以从 `kube-apiserver`
+中删除加密设置。
 
 <!--
 ## Configure automatic reloading
@@ -923,4 +1142,4 @@ To allow automatic reloading, configure the API server to run with:
 * Learn more about the [EncryptionConfiguration configuration API (v1)](/docs/reference/config-api/apiserver-encryption.v1/).
 -->
 * 进一步学习[解密已静态加密的数据](/zh-cn/docs/tasks/administer-cluster/decrypt-data/)。
-* 进一步学习 [EncryptionConfiguration 配置 API (v1)](/zh-cn/docs/reference/config-api/apiserver-encryption.v1/)。
+* 进一步学习 [EncryptionConfiguration 配置 API（v1）](/zh-cn/docs/reference/config-api/apiserver-encryption.v1/)。

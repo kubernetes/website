@@ -43,7 +43,7 @@ To set the `MostAllocated` strategy for the `NodeResourcesFit` plugin, use a
 可以使用一个类似于下面这样的[调度器配置](/zh-cn/docs/reference/scheduling/config/)：
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta3
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 profiles:
 - pluginConfig:
@@ -64,10 +64,10 @@ profiles:
 
 <!--
 To learn more about other parameters and their default configuration, see the API documentation for
-[`NodeResourcesFitArgs`](/docs/reference/config-api/kube-scheduler-config.v1beta3/#kubescheduler-config-k8s-io-v1beta3-NodeResourcesFitArgs).
+[`NodeResourcesFitArgs`](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-NodeResourcesFitArgs).
 -->
 要进一步了解其它参数及其默认配置，请参阅
-[`NodeResourcesFitArgs`](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/#kubescheduler-config-k8s-io-v1beta3-NodeResourcesFitArgs)
+[`NodeResourcesFitArgs`](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-NodeResourcesFitArgs)
 的 API 文档。
 
 <!--
@@ -79,7 +79,7 @@ allows users to bin pack extended resources by using appropriate parameters
 to improve the utilization of scarce resources in large clusters. It favors nodes according to a
 configured function of the allocated resources. The behavior of the `RequestedToCapacityRatio` in
 the `NodeResourcesFit` score function can be controlled by the
-[scoringStrategy](/docs/reference/config-api/kube-scheduler-config.v1beta3/#kubescheduler-config-k8s-io-v1beta3-ScoringStrategy) field.
+[scoringStrategy](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-ScoringStrategy) field.
 Within the `scoringStrategy` field, you can configure two parameters: `requestedToCapacityRatio` and
 `resources`. The `shape` in the `requestedToCapacityRatio`
 parameter allows the user to tune the function as least requested or most
@@ -92,11 +92,10 @@ specify the weight of each resource.
 `RequestedToCapacityRatio` 策略允许用户基于请求值与容量的比率，针对参与节点计分的每类资源设置权重。
 这一策略使得用户可以使用合适的参数来对扩展资源执行装箱操作，进而提升大规模集群中稀有资源的利用率。
 此策略根据所分配资源的一个配置函数来评价节点。
-`NodeResourcesFit` 计分函数中的 `RequestedToCapacityRatio` 可以通过字段
-[scoringStrategy](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/#kubescheduler-config-k8s-io-v1beta3-ScoringStrategy)
-来控制。
-在 `scoringStrategy` 字段中，你可以配置两个参数：`requestedToCapacityRatio`
-和 `resources`。`requestedToCapacityRatio` 参数中的 `shape`
+`NodeResourcesFit` 计分函数中的 `RequestedToCapacityRatio` 可以通过
+[scoringStrategy](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-ScoringStrategy)
+字段来控制。在 `scoringStrategy` 字段中，你可以配置两个参数：
+`requestedToCapacityRatio` 和 `resources`。`requestedToCapacityRatio` 参数中的 `shape`
 设置使得用户能够调整函数的算法，基于 `utilization` 和 `score` 值计算最少请求或最多请求。
 `resources` 参数中包含计分过程中需要考虑的资源的 `name`，以及用来设置每种资源权重的 `weight`。
 
@@ -109,7 +108,7 @@ using the `requestedToCapacityRatio` field.
 和 `intel.com/bar` 设置装箱行为：
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta3
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 profiles:
 - pluginConfig:
@@ -140,10 +139,10 @@ scheduler.
 
 <!--
 To learn more about other parameters and their default configuration, see the API documentation for
-[`NodeResourcesFitArgs`](/docs/reference/config-api/kube-scheduler-config.v1beta3/#kubescheduler-config-k8s-io-v1beta3-NodeResourcesFitArgs).
+[`NodeResourcesFitArgs`](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-NodeResourcesFitArgs).
 -->
 要进一步了解其它参数及其默认配置，可以参阅
-[`NodeResourcesFitArgs`](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/#kubescheduler-config-k8s-io-v1beta3-NodeResourcesFitArgs)
+[`NodeResourcesFitArgs`](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-NodeResourcesFitArgs)
 的 API 文档。
 
 <!--
