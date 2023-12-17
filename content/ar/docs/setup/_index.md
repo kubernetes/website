@@ -1,5 +1,5 @@
 ---
-title: بدء الاستخدام
+title: دليل الاستخدام
 main_menu: true
 weight: 20
 content_type: concept
