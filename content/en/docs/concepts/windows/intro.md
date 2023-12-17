@@ -37,7 +37,7 @@ you can deploy worker nodes running either Windows or Linux.
 
 Windows {{< glossary_tooltip text="nodes" term_id="node" >}} are
 [supported](#windows-os-version-support) provided that the operating system is
-Windows Server 2019.
+Windows Server 2019 or Windows Server 2022.
 
 This document uses the term *Windows containers* to mean Windows containers with
 process isolation. Kubernetes does not support running Windows containers with
