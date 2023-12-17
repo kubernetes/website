@@ -2,7 +2,7 @@
 title: Spec
 id: spec
 date: 2023-12-17
-full_link: /docs/concepts/overview/working-with-objects/
+full_link: /docs/concepts/overview/working-with-objects/#object-spec-and-status
 short_description: >
   This field in Kubernetes manifests defines the desired state or configuration for specific Kubernetes objects.
 
