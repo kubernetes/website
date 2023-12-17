@@ -156,14 +156,22 @@ QueueingHint 作为一个回调函数，用于决定是否将 Pod 重新排队�
 
 {{< note >}}
 <!--
-QueueingHint evaluation during scheduling is a beta-level feature and is enabled by default in 1.28. 
-You can disable it via the
+QueueingHint evaluation during scheduling is a beta-level feature.
+The v1.28 release series initially enabled the associated feature gate; however, after the
+discovery of an excessive memory footprint, the Kubernetes project set that feature gate
+to be disabled by default. In Kubernetes {{< skew currentVersion >}}, this feature gate is
+disabled and you need to enable it manually.
+You can enable it via the
 `SchedulerQueueingHints` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 -->
-在调度过程中对 QueueingHint 求值是一个 Beta 级别的特性，在 1.28 中默认被启用。
+在调度过程中对 QueueingHint 求值是一个 Beta 级别的特性。
+v1.28 的系列小版本最初都开启了这个特性的门控；但是发现了内存占用过多的问题，
+于是 Kubernetes 项目将该特性门控设置为默认禁用。
+在 Kubernetes 的 {{< skew currentVersion >}} 版本中，这个特性门控被禁用，你需要手动开启它。
 你可以通过 `SchedulerQueueingHints`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来禁用它。
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来启用它。
 {{< /note >}}
+
 
 <!--
 ### QueueSort {#queue-sort}
@@ -325,9 +333,9 @@ plugins") should use these phases to be notified by the scheduler when resources
 on a node are being reserved and unreserved for a given Pod.
 -->
 实现了 Reserve 接口的插件，拥有两个方法，即 `Reserve` 和 `Unreserve`，
-他们分别支持两个名为 Reserve 和 Unreserve 的信息处理性质的调度阶段。
+他们分别支持两个名为 Reserve 和 Unreserve 的信息传递性质的调度阶段。
 维护运行时状态的插件（又称 "有状态插件"）应该使用这两个阶段，
-以便在节点上的资源被保留和未保留给特定的 Pod 时得到调度器的通知。
+以便在节点上的资源被保留和解除保留给特定的 Pod 时，得到调度器的通知。
 
 <!--
 The Reserve phase happens before the scheduler actually binds a Pod to its
@@ -475,28 +483,9 @@ This is an informational interface. Post-bind plugins are called after a
 Pod is successfully bound. This is the end of a binding cycle, and can be used
 to clean up associated resources.
 -->
-这是个信息性的接口。
+这是个信息传递性质的接口。
 PostBind 插件在 Pod 成功绑定后被调用。这是绑定周期的结尾，可用于清理相关的资源。
 
-<!--
-### Unreserve
--->
-### Unreserve
-
-<!--
-This is an informational extension point. If a Pod was reserved and then
-rejected in a later phase, then unreserve plugins will be notified. Unreserve
-plugins should clean up state associated with the reserved Pod.
--->
-这是个信息性的扩展点。
-如果 Pod 被保留，然后在后面的阶段中被拒绝，则 Unreserve 插件将被通知。
-Unreserve 插件应该清楚保留 Pod 的相关状态。
-
-<!--
-Plugins that use this extension point usually should also use
-[Reserve](#reserve).
--->
-使用此扩展点的插件通常也使用 [Reserve](#reserve)。
 
 <!--
 ## Plugin API
