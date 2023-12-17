@@ -10,28 +10,27 @@ weight: 60
 
 {{< feature-state for_k8s_version="v1.19" state="stable" >}}
 
-The scheduling framework is a pluggable architecture for the Kubernetes scheduler.
-It adds a new set of "plugin" APIs to the existing scheduler. Plugins are compiled into the scheduler. The APIs allow most scheduling features to be implemented as plugins, while keeping the
-scheduling "core" lightweight and maintainable. Refer to the [design proposal of the
-scheduling framework][kep] for more technical information on the design of the
-framework.
+The _scheduling framework_ is a pluggable architecture for the Kubernetes scheduler.
+It consists of a set of "plugin" APIs that are compiled directly into the scheduler.
+These APIs allow most scheduling features to be implemented as plugins,
+while keeping the scheduling "core" lightweight and maintainable. Refer to the
+[design proposal of the scheduling framework][kep] for more technical information on
+the design of the framework.
 
 [kep]: https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/624-scheduling-framework/README.md
 
-
-
 <!-- body -->
 
-# Framework workflow
+## Framework workflow
 
 The Scheduling Framework defines a few extension points. Scheduler plugins
 register to be invoked at one or more extension points. Some of these plugins
 can change the scheduling decisions and some are informational only.
 
-Each attempt to schedule one Pod is split into two phases, the **scheduling
-cycle** and the **binding cycle**.
+Each attempt to schedule one Pod is split into two phases, the
+**scheduling cycle** and the **binding cycle**.
 
-## Scheduling Cycle & Binding Cycle
+### Scheduling cycle & binding cycle
 
 The scheduling cycle selects a node for the Pod, and the binding cycle applies
 that decision to the cluster. Together, a scheduling cycle and binding cycle are
@@ -51,7 +50,7 @@ that the scheduling framework exposes.
 One plugin may implement multiple interfaces to perform more complex or
 stateful tasks.
 
-Some interfaces match the scheduler extension points which can be configured through 
+Some interfaces match the scheduler extension points which can be configured through
 [Scheduler Configuration](/docs/reference/scheduling/config/#extension-points).
 
 {{< figure src="/images/docs/scheduling-framework-extensions.png" title="Scheduling framework extension points" class="diagram-large">}}
@@ -69,17 +68,17 @@ For more details about how internal scheduler queues work, read
 
 ### EnqueueExtension
 
-EnqueueExtension is the interface where the plugin can control 
+EnqueueExtension is the interface where the plugin can control
 whether to retry scheduling of Pods rejected by this plugin, based on changes in the cluster.
 Plugins that implement PreEnqueue, PreFilter, Filter, Reserve or Permit should implement this interface.
 
-#### QueueingHint
+### QueueingHint
 
 {{< feature-state for_k8s_version="v1.28" state="beta" >}}
 
-QueueingHint is a callback function for deciding whether a Pod can be requeued to the active queue or backoff queue. 
+QueueingHint is a callback function for deciding whether a Pod can be requeued to the active queue or backoff queue.
 It's executed every time a certain kind of event or change happens in the cluster.
-When the QueueingHint finds that the event might make the Pod schedulable, 
+When the QueueingHint finds that the event might make the Pod schedulable,
 the Pod is put into the active queue or the backoff queue
 so that the scheduler will retry the scheduling of the Pod.
 
@@ -222,9 +221,9 @@ the three things:
 
 {{< note >}}
 While any plugin can access the list of "waiting" Pods and approve them
-(see [`FrameworkHandle`](https://git.k8s.io/enhancements/keps/sig-scheduling/624-scheduling-framework#frameworkhandle)), we expect only the permit
-plugins to approve binding of reserved Pods that are in "waiting" state. Once a Pod
-is approved, it is sent to the [PreBind](#pre-bind) phase.
+(see [`FrameworkHandle`](https://git.k8s.io/enhancements/keps/sig-scheduling/624-scheduling-framework#frameworkhandle)),
+we expect only the permit plugins to approve binding of reserved Pods that are in "waiting" state.
+Once a Pod is approved, it is sent to the [PreBind](#pre-bind) phase.
 {{< /note >}}
 
 ### PreBind {#pre-bind}
@@ -288,4 +287,3 @@ plugins and get them configured along with default plugins. You can visit
 If you are using Kubernetes v1.18 or later, you can configure a set of plugins as
 a scheduler profile and then define multiple profiles to fit various kinds of workload.
 Learn more at [multiple profiles](/docs/reference/scheduling/config/#multiple-profiles).
-
