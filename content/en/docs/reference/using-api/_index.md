@@ -21,9 +21,9 @@ The REST API is the fundamental fabric of Kubernetes. All operations and
 communications between components, and external user commands are REST API
 calls that the API Server handles. Consequently, everything in the Kubernetes
 platform is treated as an API object and has a corresponding entry in the
-[API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/).
+[API](/docs/reference/kubernetes-api/).
 
-The [Kubernetes API reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
+[Kubernetes API Reference](/docs/reference/kubernetes-api/)
 lists the API for Kubernetes version {{< param "version" >}}.
 
 For general background information, read
@@ -101,7 +101,7 @@ There are several API groups in Kubernetes:
 *  The named groups are at REST path `/apis/$GROUP_NAME/$VERSION` and use
    `apiVersion: $GROUP_NAME/$VERSION` (for example, `apiVersion: batch/v1`).
    You can find the full list of supported API groups in
-   [Kubernetes API reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#-strong-api-groups-strong-).
+   [Kubernetes API reference](/docs/reference/kubernetes-api/#-strong-api-groups-strong-).
 
 ## Enabling or disabling API groups   {#enabling-or-disabling}
 
