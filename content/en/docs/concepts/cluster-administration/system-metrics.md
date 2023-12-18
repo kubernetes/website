@@ -202,10 +202,23 @@ Here is an example:
 --allow-label-value number_count_metric,odd_number='1,3,5', number_count_metric,even_number='2,4,6', date_gauge_metric,weekend='Saturday,Sunday'
 ```
 
+In addition to specifying this from the CLI, this can also be done within a configuration file. You
+can specify the path to that configuration file using the `--allow-metric-labels-manifest` command
+line argument to a component. Here's an example of the contents of that configuration file:
+
+```yaml
+allow-list:
+- "metric1,label2": "v1,v2,v3"
+- "metric2,label1": "v1,v2,v3"
+```
+
+Additionally, the `cardinality_enforcement_unexpected_categorizations_total` meta-metric records the
+count of unexpected categorizations during cardinality enforcement, that is, whenever a label value
+is encountered that is not allowed with respect to the allow-list contraints.
+
 ## {{% heading "whatsnext" %}}
 
 * Read about the [Prometheus text format](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md#text-based-format)
   for metrics
 * See the list of [stable Kubernetes metrics](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml)
 * Read about the [Kubernetes deprecation policy](/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)
-

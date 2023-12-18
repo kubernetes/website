@@ -23,7 +23,7 @@ To set the `MostAllocated` strategy for the `NodeResourcesFit` plugin, use a
 [scheduler configuration](/docs/reference/scheduling/config) similar to the following:
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta3
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 profiles:
 - pluginConfig:
@@ -43,7 +43,7 @@ profiles:
 ```
 
 To learn more about other parameters and their default configuration, see the API documentation for
-[`NodeResourcesFitArgs`](/docs/reference/config-api/kube-scheduler-config.v1beta3/#kubescheduler-config-k8s-io-v1beta3-NodeResourcesFitArgs).
+[`NodeResourcesFitArgs`](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-NodeResourcesFitArgs).
 
 ## Enabling bin packing using RequestedToCapacityRatio
 
@@ -53,7 +53,7 @@ allows users to bin pack extended resources by using appropriate parameters
 to improve the utilization of scarce resources in large clusters. It favors nodes according to a
 configured function of the allocated resources. The behavior of the `RequestedToCapacityRatio` in
 the `NodeResourcesFit` score function can be controlled by the
-[scoringStrategy](/docs/reference/config-api/kube-scheduler-config.v1beta3/#kubescheduler-config-k8s-io-v1beta3-ScoringStrategy) field.
+[scoringStrategy](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-ScoringStrategy) field.
 Within the `scoringStrategy` field, you can configure two parameters: `requestedToCapacityRatio` and
 `resources`. The `shape` in the `requestedToCapacityRatio`
 parameter allows the user to tune the function as least requested or most
@@ -66,7 +66,7 @@ the bin packing behavior for extended resources `intel.com/foo` and `intel.com/b
 using the `requestedToCapacityRatio` field.
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta3
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 profiles:
 - pluginConfig:
@@ -92,7 +92,7 @@ flag `--config=/path/to/config/file` will pass the configuration to the
 scheduler.
 
 To learn more about other parameters and their default configuration, see the API documentation for
-[`NodeResourcesFitArgs`](/docs/reference/config-api/kube-scheduler-config.v1beta3/#kubescheduler-config-k8s-io-v1beta3-NodeResourcesFitArgs).
+[`NodeResourcesFitArgs`](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-NodeResourcesFitArgs).
 
 ### Tuning the score function
 
