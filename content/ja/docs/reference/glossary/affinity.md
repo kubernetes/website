@@ -10,7 +10,7 @@ tags:
 - fundamental
 ---
 
-Kubernetesでは、_affinity_ はポッドを配置する場所に関するヒントをスケジューラに与える一連のルールです。
+Kubernetesでは、_アフィニティ(affinity)_ はPodを配置する場所に関するヒントをスケジューラーに与える一連のルールです。
 <!--more-->
 アフィニティには次の2種類があります:
 * Nodeアフィニティ](/ja/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity)
