@@ -16,4 +16,4 @@ tags:
 
 <!--more-->
 
-{{< glossary_tooltip text="Kubernetes API Server" term_id="kube-apiserver" >}}を[support additional APIs](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)に設定すると, `APIService`オブジェクトを追加してKubernetes APIのパスを要求できます。
+{{< glossary_tooltip text="Kubernetes APIサーバー" term_id="kube-apiserver" >}}を[support additional APIs](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)に設定すると、`APIService`オブジェクトを追加して、Kubernetes APIのURLパスを「要求」することができます。
