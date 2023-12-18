@@ -179,13 +179,13 @@ KMS v2 does not support the `cachesize` property. All data encryption keys (DEKs
 the clear once the server has unwrapped them via a call to the KMS. Once cached, DEKs can be used
 to perform decryption indefinitely without making a call to the KMS.
 -->
-KMS v2 不支持 `cachesize` 属性。一旦服务器通过调用 KMS 解密了数据加密密钥 (DEK)，
+KMS v2 不支持 `cachesize` 属性。一旦服务器通过调用 KMS 解密了数据加密密钥（DEK），
 所有的 DEK 将会以明文形式被缓存。一旦被缓存，DEK 可以无限期地用于解密操作，而无需再次调用 KMS。
 
 <!--
 See [Understanding the encryption at rest configuration.](/docs/tasks/administer-cluster/encrypt-data)
 -->
-参见[理解静态配置加密](/zh-cn/docs/tasks/administer-cluster/encrypt-data)
+参见[理解静态配置加密](/zh-cn/docs/tasks/administer-cluster/encrypt-data)。
 
 <!--
 ## Implementing a KMS plugin
@@ -623,7 +623,7 @@ For details about the `EncryptionConfiguration` format, please check the
 [API server encryption API reference](/docs/reference/config-api/apiserver-encryption.v1/).
 -->
 有关 `EncryptionConfiguration` 格式的更多详细信息，请参阅
-[kube-apiserver 加密 API 参考 (v1)](/zh-cn/docs/reference/config-api/apiserver-encryption.v1/).
+[kube-apiserver 加密 API 参考（v1）](/zh-cn/docs/reference/config-api/apiserver-encryption.v1/)。
 
 <!--
 ## Verifying that the data is encrypted
@@ -751,43 +751,14 @@ To switch from a local encryption provider to the `kms` provider and re-encrypt 
    kubectl get secrets --all-namespaces -o json | kubectl replace -f -
    ```
 
-<!--
-## Disabling encryption at rest
+## {{% heading "whatsnext" %}}
 
-To disable encryption at rest:
--->
-## 禁用静态数据加密   {#disabling-encryption-at-rest}
-
-要禁用静态数据加密：
+<!-- preserve legacy hyperlinks -->
+<a id="disabling-encryption-at-rest" />
 
 <!--
-1. Place the `identity` provider as the first entry in the configuration file:
+If you no longer want to use encryption for data persisted in the Kubernetes API, read
+[decrypt data that are already stored at rest](/docs/tasks/administer-cluster/decrypt-data/).
 -->
-1. 将 `identity` 驱动作为配置文件中的第一个条目：
-
-   ```yaml
-   apiVersion: apiserver.config.k8s.io/v1
-   kind: EncryptionConfiguration
-   resources:
-     - resources:
-         - secrets
-       providers:
-         - identity: {}
-         - kms:
-             apiVersion: v2
-             name : myKmsPlugin
-             endpoint: unix:///tmp/socketfile.sock
-   ```
-
-<!--
-1. Restart all `kube-apiserver` processes. 
-
-1. Run the following command to force all secrets to be decrypted.
--->
-2. 重启所有 `kube-apiserver` 进程。
-
-3. 运行下列命令强制重新加密所有 Secret。
-
-   ```shell
-   kubectl get secrets --all-namespaces -o json | kubectl replace -f -
-   ```
+如果你不想再对 Kubernetes API 中保存的数据加密，
+请阅读[解密已静态存储的数据](/zh-cn/docs/tasks/administer-cluster/decrypt-data/)。
