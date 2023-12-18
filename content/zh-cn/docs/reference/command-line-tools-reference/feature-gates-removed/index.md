@@ -50,7 +50,7 @@ In the following table:
 - “结束（To）” 列（如果不为空）包含你仍然可以使用某个特性门控的最后一个 Kubernetes 版本。
   如果对应特性处于 “废弃” 或 “GA” 状态，则 “结束（To）” 列是该特性被移除时的 Kubernetes 版本。
 
-{{< table caption="Feature Gates Removed" >}}
+{{< table caption="已移除的特性门控" >}}
 
 <!--
 | Feature | Default | Stage | From | To |
