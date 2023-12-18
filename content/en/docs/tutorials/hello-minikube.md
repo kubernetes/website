@@ -238,7 +238,7 @@ The minikube tool includes a set of built-in {{< glossary_tooltip text="addons" 
     storage-provisioner-gluster: disabled
     ```
 
-2. Enable an addon, for example, `metrics-server`:
+1. Enable an addon, for example, `metrics-server`:
 
     ```shell
     minikube addons enable metrics-server
@@ -250,7 +250,7 @@ The minikube tool includes a set of built-in {{< glossary_tooltip text="addons" 
     The 'metrics-server' addon is enabled
     ```
 
-3. View the Pod and Service you created by installing that addon:
+1. View the Pod and Service you created by installing that addon:
 
     ```shell
     kubectl get pod,svc -n kube-system
@@ -279,7 +279,26 @@ The minikube tool includes a set of built-in {{< glossary_tooltip text="addons" 
     service/monitoring-influxdb    ClusterIP   10.111.169.94   <none>        8083/TCP,8086/TCP   26s
     ```
 
-4. Disable `metrics-server`:
+1. Check the output from `metrics-server`:
+
+    ```shell
+    kubectl top pods
+    ```
+
+    The output is similar to:
+
+    ```
+    NAME                         CPU(cores)   MEMORY(bytes)   
+    hello-node-ccf4b9788-4jn97   1m           6Mi             
+    ```
+
+    If you see the following message, wait, and try again:
+
+    ```
+    error: Metrics API not available
+    ```
+
+1. Disable `metrics-server`:
 
     ```shell
     minikube addons disable metrics-server
