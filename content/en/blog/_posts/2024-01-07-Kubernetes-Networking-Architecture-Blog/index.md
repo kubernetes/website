@@ -716,7 +716,7 @@ Policy is depicted in the diagram below.
 
 ## Routing
 
-Routing in Linux is quite simple. Let's delve directly into Kubernetes
+Routing in Linux follows the classic approach, as usual. Let's delve directly into Kubernetes
 routing. First, you should be aware that in Kubernetes, there are
 several IP address blocks
 
