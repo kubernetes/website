@@ -4,7 +4,7 @@ id: affinity
 date: 2019-01-11
 full_link: /ja/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity
 short_description: >
-     ポッドを配置する場所を決定するためにスケジューラによって使用されるルール
+     Podを配置する場所を決定するためにスケジューラーによって使用されるルール
 aka:
 tags:
 - fundamental
