@@ -268,7 +268,7 @@ A continuación están los procedimientos para configurarlo en Bash, Fish y Zsh.
 
 {{< tabs name="kubectl_autocompletion" >}}
 {{< tab name="Bash" include="included/optional-kubectl-configs-bash-linux.md" />}}
-<!-- TODO: included/optional-kubectl-configs-fish.md -->
+{{< tab name="Fish" include="included/optional-kubectl-configs-fish.md" />}}
 {{< tab name="Zsh" include="included/optional-kubectl-configs-zsh.md" />}}
 {{< /tabs >}}
 
