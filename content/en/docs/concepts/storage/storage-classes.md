@@ -126,7 +126,7 @@ StorageClass has the field `allowVolumeExpansion` set to true.
 | Azure File           | 1.11                        |
 | Portworx             | 1.11                        |
 | FlexVolume           | 1.13                        |
-| CSI                  | 1.14 (alpha), 1.16 (beta)   |
+| CSI                  | 1.24                        |
 
 {{< /table >}}
 
