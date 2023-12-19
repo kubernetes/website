@@ -26,7 +26,13 @@ In the following table:
   you can still use a feature gate. If the feature stage is either "Deprecated"
   or "GA", the "To" column is the Kubernetes release when the feature is removed.
 
-{{< table caption="Feature Gates Removed" >}}
+
+### New Table shortcode removed
+{{< feature-gate-table show-removed="true" caption="Feature Gates Removed" sortable="true" >}}
+
+
+### (TO-Be removed) Table shortcode removed 
+{{< table caption="Feature Gates Removed" sortable="true" >}}
 
 | Feature | Default | Stage | From | To |
 |---------|---------|-------|-------|-------|

@@ -4,6 +4,11 @@ content_type: feature_gate
 _build:
   list: never
   render: false
+
+stages:
+  - stage: alpha
+    defaultValue: false
+    fromVersion: "1.28"
 ---
 Enable detection of the kubelet cgroup driver
 configuration option from the {{<glossary_tooltip term_id="cri" text="CRI">}}.

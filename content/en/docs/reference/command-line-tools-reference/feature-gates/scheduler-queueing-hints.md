@@ -4,6 +4,15 @@ content_type: feature_gate
 _build:
   list: never
   render: false
+
+stages:
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.28"
+    toVersion: "1.28"
+  - stage: beta
+    defaultValue: false
+    fromVersion: "1.29"
 ---
 Enables [the scheduler's _queueing hints_ enhancement](https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/4247-queueinghint/README.md),
 which benefits to reduce the useless requeueing.
