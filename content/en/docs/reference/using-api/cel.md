@@ -88,7 +88,7 @@ CEL is configured with the following options, libraries and language features, i
 [opt5]: https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#CrossTypeNumericComparisons
 
 CEL functions, features and language settings support downgrade. For example,
-"CEL Optional Values" was introduced at Kubernetes 1.29 and so only API servers
+_CEL Optional Values_ was introduced at Kubernetes 1.29 and so only API servers
 at that version or newer will accept write requests to CEL expressions that use
 "CEL Optional Values". However, when a cluster is downgraded to Kubernetes 1.28
 CEL expressions using "CEL Optional Values" that are already stored in API
