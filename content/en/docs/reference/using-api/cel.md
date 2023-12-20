@@ -73,10 +73,10 @@ CEL is configured with the following options, libraries and language features, i
 | [Default UTC Time Zone](opt2)                       |                                                                                                                 | *                          |
 | [Eagerly Validate Declarations](opt3)               |                                                                                                                 | *                          |
 | [extended strings library](stringsgodoc), Version 1 | `charAt`, `indexOf`, `lastIndexOf`, `lowerAscii`, `upperAscii`, `replace`, `split`, `join`, `substring`, `trim` | *                          |
-| Kubernetes list library                             | See below                                                                                                       | *                          |
-| Kubernetes regex library                            | See below                                                                                                       | *                          |
-| Kubernetes URL library                              | See below                                                                                                       | *                          |
-| Kubernetes authorizer library                       | See below                                                                                                       | *                          |
+| Kubernetes list library                             | See [Kubernetes list library](#kubernetes-list-library)                                                         | *                          |
+| Kubernetes regex library                            | See [Kubernetes regex library](#kubernetes-regex-library)                                                       | *                          |
+| Kubernetes URL library                              | See [Kubernetes URL library](#kubernetes-url-library)                                                           | *                          |
+| Kubernetes authorizer library                       | See [Kubernetes authorizer library](#kubernetes-authorizer-library)                                             | *                          |
 
 [stdmacros]: https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#macros
 [stdlib]: https://github.com/google/cel-spec/blob/master/doc/langdef.md#list-of-standard-definitions
@@ -87,12 +87,12 @@ CEL is configured with the following options, libraries and language features, i
 [opt4]: https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#OptionalTypes
 [opt5]: https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#CrossTypeNumericComparisons
 
-CEL functions, features and language settings support downgrade. For example,
-_CEL Optional Values_ was introduced at Kubernetes 1.29 and so only API servers
-at that version or newer will accept write requests to CEL expressions that use
-"CEL Optional Values". However, when a cluster is downgraded to Kubernetes 1.28
-CEL expressions using "CEL Optional Values" that are already stored in API
-resources will continue to evaluate correctly.
+CEL functions, features and language settings support Kubernetes control plane
+rollbacks. For example, _CEL Optional Values_ was introduced at Kubernetes 1.29
+and so only API servers at that version or newer will accept write requests to
+CEL expressions that use _CEL Optional Values_. However, when a cluster is
+rolled back to Kubernetes 1.28 CEL expressions using "CEL Optional Values" that
+are already stored in API resources will continue to evaluate correctly.
 
 ## Kubernetes CEL libraries
 
