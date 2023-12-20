@@ -58,15 +58,9 @@ Volumes cannot mount within other volumes (but see [Using subPath](#using-subpat
 for a related mechanism). Also, a volume cannot contain a hard link to anything in
 a different volume.
 
-## In-tree volume plugins and their CSI Migration progress {#volume-types}
+## Types of volumes {#volume-types}
 
-Below is a list of in-tree plugins that are supported by Kubernetes and the status of their respective CSI Migrations progress.
-The Container Storage Interface (CSI) was designed to help Kubernetes replace its existing, in-tree storage driver mechanisms - especially vendor specific plugins. Kubernetes support for the Container Storage Interface has been generally available since Kubernetes v1.13. For more details on CSI Migration, please refer to [Out-of-tree volume plugins](#out-of-tree-volume-plugins).
-
-{{< note >}}
-When a Kubernetes cluster administrator updates a cluster to enable CSI migration, existing workloads that utilize PVCs which are backed by in-tree storage plugins will continue to function as they always have. Existing in-tree PVs and in-tree format yaml file will still be used in the future even after the migration is completed, and will not be left unprocessed or deleted in the future. Users can still specify the following in-tree plugins in their yaml file. However, behind the scenes, Kubernetes hands control of all storage management operations (previously targeting in-tree drivers) to CSI drivers.
-{{< /note >}}
-
+Kubernetes supports several types of volumes.
 
 ### awsElasticBlockStore (removed) {#awselasticblockstore}
 
@@ -1039,6 +1033,12 @@ plugins to corresponding CSI plugins (which are expected to be installed and con
 As a result, operators do not have to make any
 configuration changes to existing Storage Classes, PersistentVolumes or PersistentVolumeClaims
 (referring to in-tree plugins) when transitioning to a CSI driver that supersedes an in-tree plugin.
+
+{{< note >}}
+* The existing PV created by in-tree volume plugin can still be used in the future without any configuration changes even after the `CSIMigration` is completed. 
+* Manifests that use in-tree volume plugins will also be used in the future without modifying.
+* A new PV with a manifest that uses in-tree volume plugins can still be created, even after the in-tree volume plugin is removed from Kubernetes.
+{{< /note >}}
 
 The operations and features that are supported include:
 provisioning/delete, attach/detach, mount/unmount and resizing of volumes.
