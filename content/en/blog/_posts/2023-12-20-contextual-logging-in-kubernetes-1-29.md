@@ -104,7 +104,7 @@ they need to be aware of how this change affects them.
 
 ## Further reading
 
-- Read the [Contextual Logging in Kubernetes 1.24](https://www.kubernetes.dev/blog/2022/05/25/contextual-logging/).
+- Read the [Contextual Logging in Kubernetes 1.24](https://www.kubernetes.dev/blog/2022/05/25/contextual-logging/) article.
 - Read the [KEP-3077: contextual logging](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/3077-contextual-logging).
 
 ## Get involved
