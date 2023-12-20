@@ -3,7 +3,7 @@ layout: blog
 title: "Contextual logging in Kubernetes 1.29: Better troubleshooting and enhanced logging"
 slug: contextual-logging-in-kubernetes-1-29
 date: 2023-12-20T09:30:00-08:00
-canonicalUrl: https://www.kubernetes.dev/blog/2023/12/20/contextual-logging-in-kubernetes-1-29/
+canonicalUrl: https://www.kubernetes.dev/blog/2023/12/20/contextual-logging/
 ---
 
 **Authors**: [Mengjiao Liu](https://github.com/mengjiao-liu/) (DaoCloud), [Patrick Ohly](https://github.com/pohly) (Intel)
