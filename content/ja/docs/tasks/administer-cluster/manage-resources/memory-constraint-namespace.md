@@ -36,7 +36,7 @@ kubectl create namespace constraints-mem-example
 
 LimitRangeの設定ファイルです。
 
-{{< codenew file="admin/resource/memory-constraints.yaml" >}}
+{{% codenew file="admin/resource/memory-constraints.yaml" %}}
 
 LimitRangeを作成します。
 
@@ -82,7 +82,7 @@ Kubernetesは以下の手順を実行するようになっています。
 以下は、1つのコンテナを持つPodの設定ファイルです。設定ファイルのコンテナ(containers)では、600MiBのメモリー要求と800MiBのメモリー制限が指定されています。これらはLimitRangeによって課される最小と最大のメモリー制約を満たしています。
 
 
-{{< codenew file="admin/resource/memory-constraints-pod.yaml" >}}
+{{% codenew file="admin/resource/memory-constraints-pod.yaml" %}}
 
 Podの作成
 
@@ -124,7 +124,7 @@ kubectl delete pod constraints-mem-demo --namespace=constraints-mem-example
 これは、1つのコンテナを持つPodの設定ファイルです。コンテナは800MiBのメモリー要求と1.5GiBのメモリー制限を指定しています。
 
 
-{{< codenew file="admin/resource/memory-constraints-pod-2.yaml" >}}
+{{% codenew file="admin/resource/memory-constraints-pod-2.yaml" %}}
 
 Podを作成してみます。
 
@@ -146,7 +146,7 @@ pods "constraints-mem-demo-2" is forbidden: maximum memory usage per Container i
 これは、1つのコンテナを持つPodの設定ファイルです。コンテナは100MiBのメモリー要求と800MiBのメモリー制限を指定しています。
 
 
-{{< codenew file="admin/resource/memory-constraints-pod-3.yaml" >}}
+{{% codenew file="admin/resource/memory-constraints-pod-3.yaml" %}}
 
 Podを作成してみます。
 
@@ -166,7 +166,7 @@ pods "constraints-mem-demo-3" is forbidden: minimum memory usage per Container i
 
 これは、1つのコンテナを持つPodの設定ファイルです。コンテナはメモリー要求を指定しておらず、メモリー制限も指定していません。
 
-{{< codenew file="admin/resource/memory-constraints-pod-4.yaml" >}}
+{{% codenew file="admin/resource/memory-constraints-pod-4.yaml" %}}
 
 Podを作成します。
 

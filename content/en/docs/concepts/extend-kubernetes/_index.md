@@ -157,7 +157,7 @@ several types of extensions.
 
 <!-- image source for flowchart: https://docs.google.com/drawings/d/1sdviU6lDz4BpnzJNHfNpQrqI9F19QZ07KnhnxVrp2yg/edit -->
 
-{{< figure src="/docs/concepts/extend-kubernetes/flowchart.png"
+{{< figure src="/docs/concepts/extend-kubernetes/flowchart.svg"
     alt="Flowchart with questions about use cases and guidance for implementers. Green circles indicate yes; red circles indicate no."
     class="diagram-large" caption="Flowchart guide to select an extension approach" >}}
 

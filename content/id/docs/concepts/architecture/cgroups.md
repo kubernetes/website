@@ -98,7 +98,7 @@ Untuk cgroup v2, outputnya adalah `cgroup2fs`.
 
 Untuk cgroup v1, outputnya adalah `tmpfs.`
 
-## {{% heading "Selanjutnya" %}}
+## {{% heading "whatsnext" %}}
 
 - Pelajari lebih lanjut tentang [cgroups](https://man7.org/linux/man-pages/man7/cgroups.7.html)
 - Pelajari lebih lanjut tentang [container runtime](/docs/concepts/architecture/cri)

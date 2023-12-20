@@ -38,7 +38,7 @@ for the Pod:
 在这个练习中，你会创建一个包含两个容器的 Pod。两个容器共享一个卷用于他们之间的通信。
 Pod 的配置文件如下：
 
-{{% code file="pods/two-container-pod.yaml" %}}
+{{% code_sample file="pods/two-container-pod.yaml" %}}
 
 <!--
 In the configuration file, you can see that the Pod has a Volume named
@@ -215,4 +215,3 @@ the shared Volume is lost.
 * 参考[在 Pod 中的容器之间共享进程命名空间](/zh-cn/docs/tasks/configure-pod-container/share-process-namespace/)
 * 参考 [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core)
 * 参考 [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
-

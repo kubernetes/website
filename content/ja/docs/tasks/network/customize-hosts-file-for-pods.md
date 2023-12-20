@@ -61,7 +61,7 @@ fe00::2	ip6-allrouters
 
 デフォルトのボイラープレートに加えて、`hosts`ファイルに追加エントリーを追加できます。たとえば、`foo.local`と`bar.local`を`127.0.0.1`に、`foo.remote`と`bar.remote`を`10.1.2.3`にそれぞれ解決するためには、PodのHostAliasesを`.spec.hostAliases`以下に設定します。
 
-{{< codenew file="service/networking/hostaliases-pod.yaml" >}}
+{{% codenew file="service/networking/hostaliases-pod.yaml" %}}
 
 この設定を使用したPodを開始するには、次のコマンドを実行します。
 

@@ -30,7 +30,7 @@ Dalam latihan ini, kamu membuat sebuah Pod yang menjalankan satu buah Container.
 Berkas konfigurasi untuk Pod tersebut mendefinisikan sebuah variabel lingkungan dengan nama `DEMO_GREETING` yang bernilai `"Hello from the environment"`.
 Berikut berkas konfigurasi untuk Pod tersebut:
 
-{{< codenew file="pods/inject/envars.yaml" >}}
+{{% codenew file="pods/inject/envars.yaml" %}}
 
 1. Buatlah sebuah Pod berdasarkan berkas konfigurasi YAML tersebut:
 

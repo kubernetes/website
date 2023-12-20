@@ -33,12 +33,12 @@ For v1.22, use [v1alpha1](https://v1-22.docs.kubernetes.io/docs/tasks/configure-
 {{< /note >}}
 
 ```yaml
-apiVersion: apiserver.config.k8s.io/v1 # see compatibility note
+apiVersion: apiserver.config.k8s.io/v1
 kind: AdmissionConfiguration
 plugins:
 - name: PodSecurity
   configuration:
-    apiVersion: pod-security.admission.config.k8s.io/v1
+    apiVersion: pod-security.admission.config.k8s.io/v1 # see compatibility note
     kind: PodSecurityConfiguration
     # Defaults applied when a mode label is not set.
     #

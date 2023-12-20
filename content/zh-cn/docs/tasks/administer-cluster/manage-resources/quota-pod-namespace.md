@@ -61,7 +61,7 @@ Here is an example manifest for a ResourceQuota:
 
 下面是 ResourceQuota 的示例清单：
 
-{{% code file="admin/resource/quota-pod.yaml" %}}
+{{% code_sample file="admin/resource/quota-pod.yaml" %}}
 
 <!--
 Create the ResourceQuota:
@@ -104,7 +104,7 @@ Here is an example manifest for a {{< glossary_tooltip term_id="deployment" >}}:
 -->
 下面是一个 {{< glossary_tooltip term_id="deployment" >}} 的示例清单：
 
-{{% code file="admin/resource/quota-pod-deployment.yaml" %}}
+{{% code_sample file="admin/resource/quota-pod-deployment.yaml" %}}
 
 <!--
 In that manifest, `replicas: 3` tells Kubernetes to attempt to create three new Pods, all

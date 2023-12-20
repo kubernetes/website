@@ -58,8 +58,8 @@ for a secure solution.
 注意：在配置的 YAML 文件中定义密码的做法是不安全的。具体安全解决方案请参考
 [Kubernetes Secrets](/zh-cn/docs/concepts/configuration/secret/)。
 
-{{% code file="application/mysql/mysql-deployment.yaml" %}}
-{{% code file="application/mysql/mysql-pv.yaml" %}}
+{{% code_sample file="application/mysql/mysql-deployment.yaml" %}}
+{{% code_sample file="application/mysql/mysql-pv.yaml" %}}
 
 <!--
 1. Deploy the PV and PVC of the YAML file:

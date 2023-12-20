@@ -212,11 +212,11 @@ root@temp-loe07:/# export BROKER_URL=amqp://guest:guest@rabbitmq-service:5672
 
 root@temp-loe07:/# /usr/bin/amqp-declare-queue --url=$BROKER_URL -q foo -d foo
 
-# 向它推送一条消息:
+# 向它推送一条消息：
 
 root@temp-loe07:/# /usr/bin/amqp-publish --url=$BROKER_URL -r foo -p -b Hello
 
-# 然后取回它.
+# 然后取回它：
 
 root@temp-loe07:/# /usr/bin/amqp-consume --url=$BROKER_URL -q foo -c 1 cat && echo
 Hello
@@ -225,7 +225,8 @@ root@temp-loe07:/#
 
 <!--
 In the last command, the `amqp-consume` tool takes one message (`-c 1`)
-from the queue, and passes that message to the standard input of an arbitrary command.  In this case, the program `cat` prints out the characters read from standard input, and the echo adds a carriage
+from the queue, and passes that message to the standard input of an arbitrary command.
+In this case, the program `cat` prints out the characters read from standard input, and the echo adds a carriage
 return so the example is readable.
 -->
 
@@ -302,12 +303,12 @@ example program:
 我们将用 `amqp-consume` 实用程序从队列中读取消息并运行实际的程序。
 这里给出一个非常简单的示例程序：
 
-{{% code language="python" file="application/job/rabbitmq/worker.py" %}}
+{{% code_sample language="python" file="application/job/rabbitmq/worker.py" %}}
 
 <!--
 Give the script execution permission:
 -->
-赋予脚本执行权限:
+赋予脚本执行权限：
 
 ```shell
 chmod +x worker.py
@@ -371,7 +372,7 @@ image to match the name you used, and call it `./job.yaml`.
 
 这里给出一个 Job 定义 YAML 文件。你将需要拷贝一份 Job 并编辑该镜像以匹配你使用的名称，保存为 `./job.yaml`。
 
-{{% code file="application/job/rabbitmq/job.yaml" %}}
+{{% code_sample file="application/job/rabbitmq/job.yaml" %}}
 
 <!--
 In this example, each pod works on one item from the queue and then exits.
@@ -520,4 +521,3 @@ Job 也会显示为未完成。Job 将创建 Pod 并阻塞等待消息输入。
 当发生下面两种情况时，即使队列中所有的消息都处理完了，Job 也不会显示为完成状态：
 * 在 amqp-consume 命令拿到消息和容器成功退出之间的时间段内，执行杀死容器操作；
 * 在 kubelet 向 api-server 传回 Pod 成功运行之前，发生节点崩溃。
-

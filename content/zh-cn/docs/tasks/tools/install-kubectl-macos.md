@@ -398,7 +398,7 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
    <!--
    Make sure `/usr/local/bin` is in your PATH environment variable.
    -->
-   确保你的 PATH 环境变量中存在 `/usr/local/bin`
+   确保你的 PATH 环境变量中存在 `/usr/local/bin`。
    {{< /note >}}
 
 <!--
@@ -443,7 +443,7 @@ Depending on how you installed `kubectl`, use one of the following methods.
 1. 找到你系统上的 `kubectl` 可执行文件：
 
    ```bash
-   where kubectl
+   which kubectl
    ```
 
 <!--

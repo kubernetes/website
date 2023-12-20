@@ -14,10 +14,10 @@ This repository contains the assets required to build the [Kubernetes website an
 
 <!--
 - [Contributing to the docs](#contributing-to-the-docs)
-- [Localization ReadMes](#localization-readmemds)
+- [Localization READMEs](#localization-readmemds)
 -->
 - [为文档做贡献](#为文档做贡献)
-- [README.md 本地化](#readmemd-本地化)
+- [README 本地化](#readme-本地化)
 
 <!--
 ## Using this repository
@@ -26,7 +26,8 @@ You can run the website locally using [Hugo (Extended version)](https://gohugo.i
 -->
 ## 使用这个仓库
 
-可以使用 [Hugo（扩展版）](https://gohugo.io/)在本地运行网站，也可以在容器中运行它。强烈建议使用容器，因为这样可以和在线网站的部署保持一致。
+可以使用 [Hugo（扩展版）](https://gohugo.io/)在本地运行网站，也可以在容器中运行它。
+强烈建议使用容器，因为这样可以和在线网站的部署保持一致。
 
 <!--
 ## Prerequisites
@@ -71,10 +72,11 @@ git submodule update --init --recursive --depth 1
 ``` 
 -->
 ### Windows
+
 ```powershell
 # 获取子模块依赖
 git submodule update --init --recursive --depth 1
-``` 
+```
 
 <!-- 
 ### Linux / other Unix
@@ -84,10 +86,11 @@ make module-init
 ``` 
 -->
 ### Linux / 其它 Unix
+
 ```bash
 # 获取子模块依赖
 make module-init
-``` 
+```
 
 <!--
 ## Running the website using a container
@@ -98,17 +101,23 @@ To build the site in a container, run the following:
 
 要在容器中构建网站，请运行以下命令：
 
+<!--
+```bash
+# You can set $CONTAINER_ENGINE to the name of any Docker-like container tool
+make container-serve
+```
+-->
 ```bash
 # 你可以将 $CONTAINER_ENGINE 设置为任何 Docker 类容器工具的名称
 make container-serve
 ```
 
 <!--
-If you see errors, it probably means that the hugo container did not have enough computing resources available. To solve it, increase the amount of allowed CPU and memory usage for Docker on your machine ([MacOSX](https://docs.docker.com/docker-for-mac/#resources) and [Windows](https://docs.docker.com/docker-for-windows/#resources)).
+If you see errors, it probably means that the hugo container did not have enough computing resources available. To solve it, increase the amount of allowed CPU and memory usage for Docker on your machine ([MacOS](https://docs.docker.com/desktop/settings/mac/) and [Windows](https://docs.docker.com/desktop/settings/windows/)).
 -->
 如果你看到错误，这可能意味着 Hugo 容器没有足够的可用计算资源。
-要解决这个问题，请增加机器（[MacOSX](https://docs.docker.com/docker-for-mac/#resources)
-和 [Windows](https://docs.docker.com/docker-for-windows/#resources)）上
+要解决这个问题，请增加机器（[MacOS](https://docs.docker.com/desktop/settings/mac/)
+和 [Windows](https://docs.docker.com/desktop/settings/windows/)）上
 Docker 允许的 CPU 和内存使用量。
 
 <!--
@@ -122,20 +131,34 @@ Open up your browser to <http://localhost:1313> to view the website. As you make
 
 Make sure to install the Hugo extended version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L11) file.
 
-To build and test the site locally, run:
+To install dependencies, deploy and test the site locally, run:
 -->
 ## 在本地使用 Hugo 来运行网站
 
 请确保安装的是 [`netlify.toml`](netlify.toml#L11) 文件中环境变量 `HUGO_VERSION` 所指定的
 Hugo Extended 版本。
 
-若要在本地构造和测试网站，请运行：
+若要在本地安装依赖，构建和测试网站，运行以下命令：
 
-```bash
-# 安装依赖
-npm ci
-make serve
-```
+<!--
+- For macOS and Linux
+-->
+- 对于 macOS 和 Linux
+
+  ```bash
+  npm ci
+  make serve
+  ```
+
+<!--
+- For Windows (PowerShell)
+-->
+- 对于 Windows (PowerShell)
+
+  ```powershell
+  npm ci
+  hugo.exe server --buildFuture --environment development
+  ```
 
 <!--
 This will start the local Hugo server on port 1313. Open up your browser to <http://localhost:1313> to view the website. As you make changes to the source files, Hugo updates the website and forces a browser refresh.
@@ -154,7 +177,9 @@ The API reference pages located in `content/en/docs/reference/kubernetes-api` ar
 
 To update the reference pages for a new Kubernetes release follow these steps:
 -->
-位于 `content/en/docs/reference/kubernetes-api` 的 API 参考页面是使用 <https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs> 根据 Swagger 规范（也称为 OpenAPI 规范）构建的。
+位于 `content/en/docs/reference/kubernetes-api` 的 API 参考页面是使用
+<https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs>
+根据 Swagger 规范（也称为 OpenAPI 规范）构建的。
 
 要更新 Kubernetes 新版本的参考页面，请执行以下步骤：
 
@@ -193,7 +218,7 @@ To update the reference pages for a new Kubernetes release follow these steps:
    <!--
    You can test the results locally by making and serving the site from a container image:
    -->
-   你可以通过从容器映像创建和提供站点来在本地测试结果：
+   你可以通过从容器镜像创建和提供站点来在本地测试结果：
 
    ```bash
    make container-image
@@ -203,12 +228,13 @@ To update the reference pages for a new Kubernetes release follow these steps:
    <!--
    In a web browser, go to <http://localhost:1313/docs/reference/kubernetes-api/> to view the API reference.
    -->
-   在 Web 浏览器中，打开 <http://localhost:1313/docs/reference/kubernetes-api/> 查看 API 参考。
+   在 Web 浏览器中，打开 <http://localhost:1313/docs/reference/kubernetes-api/> 查看 API 参考页面。
 
 <!--
 5. When all changes of the new contract are reflected into the configuration files `toc.yaml` and `fields.yaml`, create a Pull Request with the newly generated API reference pages.
 -->
-5. 当所有新的更改都反映到配置文件 `toc.yaml` 和 `fields.yaml` 中时，使用新生成的 API 参考页面创建一个 Pull Request。
+5. 当所有新的更改都反映到配置文件 `toc.yaml` 和 `fields.yaml` 中时，使用新生成的 API
+   参考页面创建一个 Pull Request。
 
 <!--
 ## Troubleshooting
@@ -252,10 +278,13 @@ Then run the following commands (adapted from <https://gist.github.com/tombigel/
 -->
 然后运行以下命令（参考 <https://gist.github.com/tombigel/d503800a282fcadbee14b537735d202c>）：
 
+<!--
+# These are the original gist links, linking to my gists now.
+-->
 ```shell
 #!/bin/sh
 
-# 这些是原始的 gist 链接，立即链接到我的 gist。
+# 这些是原始的 gist 链接，立即链接到我的 gist
 # curl -O https://gist.githubusercontent.com/a2ikm/761c2ab02b7b3935679e55af5d81786a/raw/ab644cb92f216c019a2f032bbf25e258b01d87f9/limit.maxfiles.plist
 # curl -O https://gist.githubusercontent.com/a2ikm/761c2ab02b7b3935679e55af5d81786a/raw/ab644cb92f216c019a2f032bbf25e258b01d87f9/limit.maxproc.plist
 
@@ -319,7 +348,7 @@ ARG HUGO_VERSION
 
 将 "https://proxy.golang.org" 替换为本地可以使用的代理地址。
 
-**注意：** 此部分仅适用于中国大陆 
+**注意：** 此部分仅适用于中国大陆。
 
 <!--
 ## Get involved with SIG Docs
@@ -404,14 +433,14 @@ SIG Docs 的当前新贡献者大使：
 | -------------------------- | -------------------------- | -------------------------- |
 | Arsh Sharma                | @arsh                      | @RinkiyaKeDad              |
 -->
-| 姓名                       | Slack                      | GitHub                     |                   
+| 姓名                       | Slack                      | GitHub                     |
 | -------------------------- | -------------------------- | -------------------------- |
 | Arsh Sharma                | @arsh                      | @RinkiyaKeDad              |
 
 <!--
-## Localization `README.md`'s
+## Localization READMEs
 -->
-## `README.md` 本地化
+## README 本地化
 
 <!--
 | Language                   | Language                   |
@@ -434,7 +463,7 @@ SIG Docs 的当前新贡献者大使：
 | [意大利语](README-it.md)   | [乌克兰语](README-uk.md)   |
 | [日语](README-ja.md)       | [越南语](README-vi.md)     |
 
-# 中文本地化
+## 中文本地化
 
 可以通过以下方式联系中文本地化的维护人员：
 

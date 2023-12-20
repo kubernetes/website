@@ -59,6 +59,11 @@ For each node in your cluster, [drain](/docs/tasks/administer-cluster/safely-dra
 that node and then either replace it with a new node that uses the {{< skew currentVersion >}}
 kubelet, or upgrade the kubelet on that node and bring the node back into service.
 
+{{< caution >}}
+Draining nodes before upgrading kubelet ensures that pods are re-admitted and containers are
+re-created, which may be necessary to resolve some security issues or other important bugs.
+{{</ caution >}}
+
 ### Other deployments {#upgrade-other}
 
 Refer to the documentation for your cluster deployment tool to learn the recommended set

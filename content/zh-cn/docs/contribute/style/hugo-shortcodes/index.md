@@ -450,13 +450,13 @@ Renders to:
 
 <!--
 ## Source code files
-You can use the `{{</* code */>}}` shortcode to embed the contents of file
+You can use the `{{%/* code_sample */%}}` shortcode to embed the contents of file
 in a code block to allow users to download or copy its content to their clipboard.
 This shortcode is used when the contents of the sample file is generic and reusable, 
 and you want the users to try it out themselves.
 -->
 ## 源代码文件
-你可以使用 `{{</* code */>}}` 短代码将文件内容嵌入代码块中，
+你可以使用 `{{%/* code_sample */%}}` 短代码将文件内容嵌入代码块中，
 以允许用户下载或复制其内容到他们的剪贴板。
 当示例文件的内容是通用的、可复用的，并且希望用户自己尝试使用示例文件时，
 可以使用此短代码。
@@ -476,7 +476,7 @@ For example:
 如果未提供 `language` 参数，短代码将尝试根据文件扩展名推测编程语言。
 
 ```none
-{{</* code language="yaml" file="application/deployment-scale.yaml" */>}}
+{{%/* code_sample language="yaml" file="application/deployment-scale.yaml" */%}}
 ```
 
 <!--
@@ -484,7 +484,7 @@ The output is:
 -->
 输出是：
 
-{{< code language="yaml" file="application/deployment-scale.yaml" >}}
+{{% code_sample language="yaml" file="application/deployment-scale.yaml" %}}
 
 <!--
 When adding a new sample file, such as a YAML file, create the file in one
@@ -496,22 +496,22 @@ the page. In the markdown of your page, use the `code` shortcode:
 在你的页面的 markdown 文本中，使用 `code` 短代码：
 
 ```none
-{{</* code file="<RELATIVE-PATH>/example-yaml>" */>}}
+{{%/* code_sample file="<RELATIVE-PATH>/example-yaml>" */%}}
 ```
 
 其中 `<RELATIVE-PATH>` 是要包含的示例文件的路径，相对于 `examples` 目录。
 以下短代码引用位于 `/content/en/examples/configmap/configmaps.yaml` 的 YAML 文件。
 
 ```none
-{{</* code file="configmap/configmaps.yaml" */>}}
+{{%/* code_sample file="configmap/configmaps.yaml" */%}}
 ```
 
 <!--
-The legacy `{{%/* codenew */%}}` shortcode is being replaced by `{{%/* code */%}}`.
-Use `{{%/* code */%}}` in new documentation.
+The legacy `{{%/* codenew */%}}` shortcode is being replaced by `{{%/* code_sample */%}}`.
+Use `{{%/* code_sample */%}}` (not `{{%/* codenew */%}}` or `{{%/* code */%}}`) in new documentation.
 -->
-传统的 `{{%/* codenew */%}}` 短代码将被替换为 `{{%/* code */%}}`。
-在新文档中使用 `{{%/* code */%}}`。
+传统的 `{{%/* codenew */%}}` 短代码将被替换为 `{{%/* code_sample */%}}`。
+在新文档中使用 `{{%/* code_sample */%}}`。
 
 <!--
 ## Third party content marker

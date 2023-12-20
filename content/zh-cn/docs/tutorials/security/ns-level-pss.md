@@ -18,21 +18,18 @@ This tutorial applies only for new clusters.
 {{% /alert %}}
 
 <!--
-Pod Security admission (PSA) is enabled by default in v1.23 and later, as it
-[graduated to beta](/blog/2021/12/09/pod-security-admission-beta/). Pod Security Admission
-is an admission controller that applies 
+Pod Security Admission is an admission controller that applies
 [Pod Security Standards](/docs/concepts/security/pod-security-standards/) 
-when pods are created. In this tutorial, you will enforce the `baseline` Pod Security Standard,
+when pods are created.  It is a feature GA'ed in v1.25.
+In this tutorial, you will enforce the `baseline` Pod Security Standard,
 one namespace at a time.
 
 You can also apply Pod Security Standards to multiple namespaces at once at the cluster
 level. For instructions, refer to
 [Apply Pod Security Standards at the cluster level](/docs/tutorials/security/cluster-level-pss/).
 -->
-Pod 安全准入（PSA）在 v1.23 及更高版本默认启用，
-因为它[升级到测试版（beta）](/blog/2021/12/09/pod-security-admission-beta/)。
-Pod 安全准入是在创建 Pod 时应用
-[Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)的准入控制器。
+Pod Security Admission 是一个准入控制器，在创建 Pod 时应用 [Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)。
+这是在 v1.25 中达到正式发布（GA）的功能。
 在本教程中，你将应用 `baseline` Pod 安全标准，每次一个名字空间。
 
 你还可以在集群级别一次将 Pod 安全标准应用于多个名称空间。
@@ -43,22 +40,22 @@ Pod 安全准入是在创建 Pod 时应用
 <!-- 
 Install the following on your workstation:
 
-- [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
+- [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
 - [kubectl](/docs/tasks/tools/)
 -->
 在你的工作站中安装以下内容：
 
-- [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
+- [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
 - [kubectl](/zh-cn/docs/tasks/tools/)
 
 <!--
 ## Create cluster
 
-1. Create a `KinD` cluster as follows:
+1. Create a `kind` cluster as follows:
 -->
 ## 创建集群  {#create-cluster}
 
-2. 按照如下方式创建一个 `KinD` 集群：
+2. 按照如下方式创建一个 `kind` 集群：
 
    ```shell
    kind create cluster --name psa-ns-level
@@ -236,7 +233,7 @@ kind delete cluster --name psa-ns-level
   [shell script](/examples/security/kind-with-namespace-level-baseline-pod-security.sh)
   to perform all the preceding steps all at once.
 
-  1. Create KinD cluster
+  1. Create kind cluster
   2. Create new namespace
   3. Apply `baseline` Pod Security Standard in `enforce` mode while applying
      `restricted` Pod Security Standard also in `warn` and `audit` mode.
@@ -249,7 +246,7 @@ kind delete cluster --name psa-ns-level
 - 运行一个 [shell 脚本](/examples/security/kind-with-namespace-level-baseline-pod-security.sh)
   一次执行所有前面的步骤。
 
-   1. 创建 KinD 集群
+   1. 创建 kind 集群
    2. 创建新的名字空间
    3. 在 `enforce` 模式下应用 `baseline` Pod 安全标准，
       同时在 `warn` 和 `audit` 模式下应用 `restricted` Pod 安全标准。

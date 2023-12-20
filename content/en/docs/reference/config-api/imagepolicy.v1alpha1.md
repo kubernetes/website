@@ -11,7 +11,6 @@ auto_generated: true
 
 - [ImageReview](#imagepolicy-k8s-io-v1alpha1-ImageReview)
   
-    
 
 ## `ImageReview`     {#imagepolicy-k8s-io-v1alpha1-ImageReview}
     
@@ -29,7 +28,7 @@ auto_generated: true
     
   
 <tr><td><code>metadata</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#objectmeta-v1-meta"><code>meta/v1.ObjectMeta</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#objectmeta-v1-meta"><code>meta/v1.ObjectMeta</code></a>
 </td>
 <td>
    <p>Standard object's metadata.

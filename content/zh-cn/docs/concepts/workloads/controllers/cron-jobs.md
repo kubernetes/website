@@ -77,7 +77,7 @@ This example CronJob manifest prints the current time and a hello message every 
 
 下面的 CronJob 示例清单会在每分钟打印出当前时间和问候消息：
 
-{{% code file="application/job/cronjob.yaml" %}}
+{{% code_sample file="application/job/cronjob.yaml" %}}
 
 <!--
 ([Running Automated Tasks with a CronJob](/docs/tasks/job/automated-tasks-with-cron-jobs/)

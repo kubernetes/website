@@ -23,7 +23,7 @@ container starts.
 
 Here is the configuration file for the Pod:
 
-{{% code file="pods/init-containers.yaml" %}}
+{{% code_sample file="pods/init-containers.yaml" %}}
 
 In the configuration file, you can see that the Pod has a Volume that the init
 container and the application container share.

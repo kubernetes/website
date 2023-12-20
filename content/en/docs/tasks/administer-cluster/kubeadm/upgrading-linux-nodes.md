@@ -19,10 +19,12 @@ upgrade the control plane nodes before upgrading your Linux Worker nodes.
 
 ## Changing the package repository
 
-If you're using the Kubernetes community-owned repositories, you need to change
-the package repository to one that contains packages for your desired Kubernetes
-minor version. This is explained in [Changing the Kubernetes package repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/)
+If you're using the community-owned package repositories (`pkgs.k8s.io`), you need to 
+enable the package repository for the desired Kubernetes minor release. This is explained in
+[Changing the Kubernetes package repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/)
 document.
+
+{{% legacy-repos-deprecation %}}
 
 ## Upgrading worker nodes
 
@@ -60,6 +62,7 @@ sudo kubeadm upgrade node
 Prepare the node for maintenance by marking it unschedulable and evicting the workloads:
 
 ```shell
+# execute this command on a control plane node
 # replace <node-to-drain> with the name of your node you are draining
 kubectl drain <node-to-drain> --ignore-daemonsets
 ```
@@ -97,6 +100,7 @@ kubectl drain <node-to-drain> --ignore-daemonsets
 Bring the node back online by marking it schedulable:
 
 ```shell
+# execute this command on a control plane node
 # replace <node-to-uncordon> with the name of your node
 kubectl uncordon <node-to-uncordon>
 ```

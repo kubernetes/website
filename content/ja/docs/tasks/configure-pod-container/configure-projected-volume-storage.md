@@ -26,7 +26,7 @@ weight: 100
 
 以下にPodの設定ファイルを示します:
 
-{{< codenew file="pods/storage/projected.yaml" >}}
+{{% codenew file="pods/storage/projected.yaml" %}}
 
 1. Secretを作成します:
 

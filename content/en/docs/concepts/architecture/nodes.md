@@ -280,7 +280,7 @@ If you want to explicitly reserve resources for non-Pod processes, see
 
 ## Node topology
 
-{{< feature-state state="beta" for_k8s_version="v1.18" >}}
+{{< feature-state state="stable" for_k8s_version="v1.27" >}}
 
 If you have enabled the `TopologyManager`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/), then
@@ -566,7 +566,7 @@ Containers configured in this manner will not have access to swap memory.
 Swap is supported only with **cgroup v2**, cgroup v1 is not supported.
 
 For more information, and to assist with testing and provide feedback, please
-see the blog-post about [Kubernetes 1.28: NodeSwap graduates to Beta1](/blog/2023/07/18/swap-beta1-1.28-2023/),
+see the blog-post about [Kubernetes 1.28: NodeSwap graduates to Beta1](/blog/2023/08/24/swap-linux-beta/),
 [KEP-2400](https://github.com/kubernetes/enhancements/issues/4128) and its
 [design proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2400-node-swap/README.md).
 

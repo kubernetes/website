@@ -76,7 +76,7 @@ Diese Container bilden eine einzelne zusammenhängende
 Serviceeinheit, z. B. ein Container, der Daten in einem gemeinsam genutzten 
 Volume öffentlich verfügbar macht, während ein separater _Sidecar_-Container 
 die Daten aktualisiert. Der Pod fasst die Container, die Speicherressourcen
-und eine kurzlebiges Netzwerk-Identität als eine Einheit zusammen.
+und eine kurzlebige Netzwerk-Identität als eine Einheit zusammen.
 
 {{< note >}}
 Das Gruppieren mehrerer gemeinsam lokalisierter und gemeinsam verwalteter

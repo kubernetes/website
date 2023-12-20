@@ -65,12 +65,12 @@ To configure IPv4/IPv6 dual-stack, set dual-stack cluster network assignments:
 * kube-proxy:
   * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
 * kubelet:
-  * when there is no `--cloud-provider` the administrator can pass a comma-separated pair of IP
-    addresses via `--node-ip` to manually configure dual-stack `.status.addresses` for that Node.
-    If a Pod runs on that node in HostNetwork mode, the Pod reports these IP addresses in its
-    `.status.podIPs` field.
-    All `podIPs` in a node match the IP family preference defined by the `.status.addresses`
-    field for that Node.
+  * `--node-ip=<IPv4 IP>,<IPv6 IP>`
+    * This option is required for bare metal dual-stack nodes (nodes that do not define a
+      cloud provider with the `--cloud-provider` flag). If you are using a cloud provider
+      and choose to override the node IPs chosen by the cloud provider, set the
+      `--node-ip` option.
+    * (The legacy built-in cloud providers do not support dual-stack `--node-ip`.)
 
 {{< note >}}
 An example of an IPv4 CIDR: `10.244.0.0/16` (though you would supply your own address range)
@@ -78,13 +78,6 @@ An example of an IPv4 CIDR: `10.244.0.0/16` (though you would supply your own ad
 An example of an IPv6 CIDR: `fdXY:IJKL:MNOP:15::/64` (this shows the format but is not a valid
 address - see [RFC 4193](https://tools.ietf.org/html/rfc4193))
 {{< /note >}}
-
-{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
-
-When using an external cloud provider, you can pass a dual-stack `--node-ip` value to
-kubelet if you enable the `CloudDualStackNodeIPs` feature gate in both kubelet and the
-external cloud provider. This is only supported for cloud providers that support dual
-stack clusters.
 
 ## Services
 
@@ -135,7 +128,7 @@ These examples demonstrate the behavior of various dual-stack Service configurat
    [headless Services](/docs/concepts/services-networking/service/#headless-services) with selectors
    will behave in this same way.)
 
-   {{% code file="service/networking/dual-stack-default-svc.yaml" %}}
+   {{% code_sample file="service/networking/dual-stack-default-svc.yaml" %}}
 
 1. This Service specification explicitly defines `PreferDualStack` in `.spec.ipFamilyPolicy`. When
    you create this Service on a dual-stack cluster, Kubernetes assigns both IPv4 and IPv6
@@ -151,14 +144,14 @@ These examples demonstrate the behavior of various dual-stack Service configurat
    * On a cluster with dual-stack enabled, specifying `RequireDualStack` in `.spec.ipFamilyPolicy`
      behaves the same as `PreferDualStack`.
 
-   {{% code file="service/networking/dual-stack-preferred-svc.yaml" %}}
+   {{% code_sample file="service/networking/dual-stack-preferred-svc.yaml" %}}
 
 1. This Service specification explicitly defines `IPv6` and `IPv4` in `.spec.ipFamilies` as well
    as defining `PreferDualStack` in `.spec.ipFamilyPolicy`. When Kubernetes assigns an IPv6 and
    IPv4 address in `.spec.ClusterIPs`, `.spec.ClusterIP` is set to the IPv6 address because that is
    the first element in the `.spec.ClusterIPs` array, overriding the default.
 
-   {{% code file="service/networking/dual-stack-preferred-ipfamilies-svc.yaml" %}}
+   {{% code_sample file="service/networking/dual-stack-preferred-ipfamilies-svc.yaml" %}}
 
 #### Dual-stack defaults on existing Services
 
@@ -171,7 +164,7 @@ dual-stack.)
    `.spec.ipFamilies` to the address family of the existing Service. The existing Service cluster IP
    will be stored in `.spec.ClusterIPs`.
 
-   {{% code file="service/networking/dual-stack-default-svc.yaml" %}}
+   {{% code_sample file="service/networking/dual-stack-default-svc.yaml" %}}
 
    You can validate this behavior by using kubectl to inspect an existing service.
 
@@ -211,7 +204,7 @@ dual-stack.)
    `--service-cluster-ip-range` flag to the kube-apiserver) even though `.spec.ClusterIP` is set to
    `None`.
 
-   {{% code file="service/networking/dual-stack-default-svc.yaml" %}}
+   {{% code_sample file="service/networking/dual-stack-default-svc.yaml" %}}
 
    You can validate this behavior by using kubectl to inspect an existing headless service with selectors.
 

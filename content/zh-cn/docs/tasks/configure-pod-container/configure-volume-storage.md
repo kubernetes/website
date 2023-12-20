@@ -46,7 +46,7 @@ restarts. Here is the configuration file for the Pod:
 [emptyDir](/zh-cn/docs/concepts/storage/volumes/#emptydir) 的卷，
 在整个 Pod 生命周期中一直存在，即使 Pod 中的容器被终止和重启。以下是 Pod 的配置：
 
-{{% code file="pods/storage/redis.yaml" %}}
+{{% code_sample file="pods/storage/redis.yaml" %}}
 
 <!--
 1. Create the Pod:

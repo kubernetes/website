@@ -15,6 +15,7 @@ This section contains the following reference topics about nodes:
 
 * the kubelet's [checkpoint API](/docs/reference/node/kubelet-checkpoint-api/)
 * a list of [Articles on dockershim Removal and on Using CRI-compatible Runtimes](/docs/reference/node/topics-on-dockershim-and-cri-compatible-runtimes/)
+* [Node `.status` information](/docs/reference/node/node-status/)
 
 You can also read node reference details from elsewhere in the
 Kubernetes documentation, including:
@@ -26,7 +27,8 @@ Kubernetes documentation, including:
 
 * Kubelet 的 [Checkpoint API](/zh-cn/docs/reference/node/kubelet-checkpoint-api/)
 * 一系列[关于 dockershim 移除和使用兼容 CRI 运行时的文章](/zh-cn/docs/reference/node/topics-on-dockershim-and-cri-compatible-runtimes/)
-
+* [节点 `.status` 信息](/zh-cn/docs/reference/node/node-status/)
+* 
 你还可以从 Kubernetes 文档的其他地方阅读节点的详细参考信息，包括：
 
 * [节点指标数据](/zh-cn/docs/reference/instrumentation/node-metrics)。

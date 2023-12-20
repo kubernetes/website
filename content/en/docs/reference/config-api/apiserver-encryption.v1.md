@@ -12,7 +12,6 @@ auto_generated: true
 
 - [EncryptionConfiguration](#apiserver-config-k8s-io-v1-EncryptionConfiguration)
   
-    
 
 ## `EncryptionConfiguration`     {#apiserver-config-k8s-io-v1-EncryptionConfiguration}
     

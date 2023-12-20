@@ -137,7 +137,7 @@ To limit the access to the `nginx` service so that only Pods with the label `acc
 如果想限制对 `nginx` 服务的访问，只让那些拥有标签 `access: true` 的 Pod 访问它，
 那么可以创建一个如下所示的 NetworkPolicy 对象：
 
-{{% code file="service/networking/nginx-policy.yaml" %}}
+{{% code_sample file="service/networking/nginx-policy.yaml" %}}
 
 <!--
 The name of a NetworkPolicy object must be a valid
@@ -224,4 +224,3 @@ wget --spider --timeout=1 nginx
 Connecting to nginx (10.100.0.16:80)
 remote file exists
 ```
-

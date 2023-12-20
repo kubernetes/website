@@ -48,14 +48,14 @@ You need the `cfssl` tool. You can download `cfssl` from
 
 Some steps in this page use the `jq` tool. If you don't have `jq`, you can
 install it via your operating system's software sources, or fetch it from
-[https://stedolan.github.io/jq/](https://stedolan.github.io/jq/).
+[https://jqlang.github.io/jq/](https://jqlang.github.io/jq/).
 -->
 你需要 `cfssl` 工具。
 你可以从 [https://github.com/cloudflare/cfssl/releases](https://github.com/cloudflare/cfssl/releases)
 下载 `cfssl`。
 
 本文中某些步骤使用 `jq` 工具。如果你没有 `jq`，你可以通过操作系统的软件源安装，
-或者从 [https://stedolan.github.io/jq/](https://stedolan.github.io/jq/) 获取。
+或者从 [https://jqlang.github.io/jq/](https://jqlang.github.io/jq/) 获取。
 
 <!-- steps -->
 
@@ -346,7 +346,7 @@ This produces a certificate authority key file (`ca-key.pem`) and certificate (`
 <!-- ### Issue a certificate -->
 ### 颁发证书
 
-{{% code file="tls/server-signing-config.json" %}}
+{{% code_sample file="tls/server-signing-config.json" %}}
 
 <!-- 
 Use a `server-signing-config.json` signing configuration and the certificate authority key file 
@@ -393,12 +393,12 @@ kubectl get csr my-svc.my-namespace -o json | \
 
 {{< note >}}
 <!-- 
-This uses the command line tool [`jq`](https://stedolan.github.io/jq/) to populate the base64-encoded
+This uses the command line tool [`jq`](https://jqlang.github.io/jq/) to populate the base64-encoded
 content in the `.status.certificate` field.
 If you do not have `jq`, you can also save the JSON output to a file, populate this field manually, and
 upload the resulting file.
 -->
-这使用命令行工具 [`jq`](https://stedolan.github.io/jq/)
+这使用命令行工具 [`jq`](https://jqlang.github.io/jq/)
 在 `.status.certificate` 字段中填充 base64 编码的内容。
 如果你没有 `jq` 工具，你还可以将 JSON 输出保存到文件中，手动填充此字段，然后上传结果文件。
 {{< /note >}}

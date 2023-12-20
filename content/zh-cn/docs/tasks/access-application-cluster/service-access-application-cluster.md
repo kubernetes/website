@@ -45,7 +45,7 @@ Here is the configuration file for the application Deployment:
 
 这是应用程序部署的配置文件：
 
-{{% code file="service/access/hello-application.yaml" %}}
+{{% code_sample file="service/access/hello-application.yaml" %}}
 
 <!--
 1. Run a Hello World application in your cluster:

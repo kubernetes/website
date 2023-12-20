@@ -79,7 +79,7 @@ that are shutdown/failed and automatically failover workloads to another node.
 ## How can I learn more?
 
 Check out additional documentation on this feature
-[here](https://kubernetes.io/docs/concepts/architecture/nodes/#non-graceful-node-shutdown).
+[here](/docs/concepts/architecture/nodes/#non-graceful-node-shutdown).
 
 ## How to get involved?
 

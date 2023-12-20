@@ -23,7 +23,7 @@ plane hosts. If you do not already have a cluster, you can create one by using
 
 The following steps require an egress configuration, for example:
 
-{{% code file="admin/konnectivity/egress-selector-configuration.yaml" %}}
+{{% code_sample file="admin/konnectivity/egress-selector-configuration.yaml" %}}
 
 You need to configure the API Server to use the Konnectivity service
 and direct the network traffic to the cluster nodes:
@@ -74,12 +74,12 @@ that the Kubernetes components are deployed as a {{< glossary_tooltip text="stat
 term_id="static-pod" >}} in your cluster. If not, you can deploy the Konnectivity
 server as a DaemonSet.
 
-{{% code file="admin/konnectivity/konnectivity-server.yaml" %}}
+{{% code_sample file="admin/konnectivity/konnectivity-server.yaml" %}}
 
 Then deploy the Konnectivity agents in your cluster:
 
-{{% code file="admin/konnectivity/konnectivity-agent.yaml" %}}
+{{% code_sample file="admin/konnectivity/konnectivity-agent.yaml" %}}
 
 Last, if RBAC is enabled in your cluster, create the relevant RBAC rules:
 
-{{% code file="admin/konnectivity/konnectivity-rbac.yaml" %}}
+{{% code_sample file="admin/konnectivity/konnectivity-rbac.yaml" %}}

@@ -59,14 +59,14 @@ see the [all-in-one volume](https://git.k8s.io/design-proposals-archive/node/all
 -->
 ### 带有 Secret、DownwardAPI 和 ConfigMap 的配置示例 {#example-configuration-secret-downwardapi-configmap}
 
-{{< codenew file="pods/storage/projected-secret-downwardapi-configmap.yaml" >}}
+{{% code_sample file="pods/storage/projected-secret-downwardapi-configmap.yaml" %}}
 
 <!--
 ### Example configuration: secrets with a non-default permission mode set {#example-configuration-secrets-nondefault-permission-mode}
 -->
 ### 带有非默认权限模式设置的 Secret 的配置示例 {#example-configuration-secrets-nondefault-permission-mode}
 
-{{< codenew file="pods/storage/projected-secrets-nondefault-permission-mode.yaml" >}}
+{{% code_sample file="pods/storage/projected-secrets-nondefault-permission-mode.yaml" %}}
 
 <!--
 Each projected volume source is listed in the spec under `sources`. The
@@ -94,7 +94,7 @@ into a Pod at a specified path. For example:
 你可以将当前[服务账号](/zh-cn/docs/reference/access-authn-authz/authentication/#service-account-tokens)的令牌注入到
 Pod 中特定路径下。例如：
 
-{{< codenew file="pods/storage/projected-service-account-token.yaml" >}}
+{{% code_sample file="pods/storage/projected-service-account-token.yaml" %}}
 
 <!--
 The example Pod has a projected volume containing the injected service account

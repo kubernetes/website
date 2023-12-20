@@ -180,7 +180,7 @@ Managers identify distinct workflows that are modifying the object (especially
 useful on conflicts!), and can be specified through the
 [`fieldManager`](/docs/reference/kubernetes-api/common-parameters/common-parameters/#fieldManager)
 query parameter as part of a modifying request. When you Apply to a resource,
-the `fieldManager` parameter is required
+the `fieldManager` parameter is required.
 For other updates, the API server infers a field manager identity from the
  "User-Agent:" HTTP header (if present).
 
@@ -214,17 +214,6 @@ Here's an example of a Server-Side Apply message body (fully specified intent):
 of a **patch** request to a valid `v1/configmaps` resource, and with the
 appropriate request `Content-Type`).
 
-## Server-Side Apply for custom resources {#custom-resources}
-
-By default, Server-Side Apply treats
-{{< glossary_tooltip term_id="CustomResourceDefinition" text="custom resources" >}}
-as unstructured data. All keys are treated the same as if they were struct fields for
-a built-in API, and all lists are considered atomic.
-
-If the CustomResourceDefinition defines a
-[schema](/docs/reference/kubernetes-api/extend-resources/custom-resource-definition-v1/#JSONSchemaProps)
-that contains annotations as defined in [Merge strategy](#merge-strategy),
-then these annotations will be used when merging objects of this type.
 
 ## Operations in scope for field management {#apply-and-update}
 
@@ -311,7 +300,7 @@ you can set these markers when you define the custom resource.
 | `//+structType` | `x-kubernetes-map-type` | `atomic`/`granular` | Applicable to structs; otherwise same usage and OpenAPI annotation as `//+mapType`.|
 
 If `listType` is missing, the API server interprets a
-`patchMergeStrategy=merge` marker as a `listType=map` and the
+`patchStrategy=merge` marker as a `listType=map` and the
 corresponding `patchMergeKey` marker as a `listMapKey`.
 
 The `atomic` list type is recursive.
@@ -394,7 +383,7 @@ read-modify-write and/or patch are the following:
   to be specified.
 
 It is strongly recommended for controllers to always force conflicts on objects that
-the own and manage, since they might not be able to resolve or act on these conflicts.
+they own and manage, since they might not be able to resolve or act on these conflicts.
 
 ## Transferring ownership
 
@@ -409,7 +398,7 @@ resource and its accompanying controller.
 
 Say a user has defined Deployment with `replicas` set to the desired value:
 
-{{% code file="application/ssa/nginx-deployment.yaml" %}}
+{{% code_sample file="application/ssa/nginx-deployment.yaml" %}}
 
 And the user has created the Deployment using Server-Side Apply, like so:
 
@@ -476,7 +465,7 @@ process than it sometimes does.
 
 At this point the user may remove the `replicas` field from their manifest:
 
-{{% code file="application/ssa/nginx-deployment-no-replicas.yaml" %}}
+{{% code_sample file="application/ssa/nginx-deployment-no-replicas.yaml" %}}
 
 Note that whenever the HPA controller sets the `replicas` field to a new value,
 the temporary field manager will no longer own any fields and will be

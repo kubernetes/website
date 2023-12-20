@@ -22,7 +22,8 @@ object.
 -->
 本文讨论如何为 API 对象配置配额，包括 PersistentVolumeClaim 和 Service。
 配额限制了可以在命名空间中创建的特定类型对象的数量。
-你可以在 [ResourceQuota](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcequota-v1-core) 对象中指定配额。
+你可以在 [ResourceQuota](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcequota-v1-core)
+对象中指定配额。
 
 ## {{% heading "prerequisites" %}}
 
@@ -53,7 +54,7 @@ Here is the configuration file for a ResourceQuota object:
 
 下面是一个 ResourceQuota 对象的配置文件：
 
-{{% code file="admin/resource/quota-objects.yaml" %}}
+{{% code_sample file="admin/resource/quota-objects.yaml" %}}
 
 <!--
 Create the ResourceQuota:
@@ -102,7 +103,7 @@ Here is the configuration file for a PersistentVolumeClaim object:
 
 下面是一个 PersistentVolumeClaim 对象的配置文件：
 
-{{% code file="admin/resource/quota-objects-pvc.yaml" %}}
+{{% code_sample file="admin/resource/quota-objects-pvc.yaml" %}}
 
 <!--
 Create the PersistentVolumeClaim:
@@ -141,7 +142,7 @@ Here is the configuration file for a second PersistentVolumeClaim:
 
 下面是第二个 PersistentVolumeClaim 的配置文件：
 
-{{% code file="admin/resource/quota-objects-pvc-2.yaml" %}}
+{{% code_sample file="admin/resource/quota-objects-pvc-2.yaml" %}}
 
 <!--
 Attempt to create the second PersistentVolumeClaim:

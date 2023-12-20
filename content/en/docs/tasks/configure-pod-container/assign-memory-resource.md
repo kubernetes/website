@@ -69,7 +69,7 @@ In this exercise, you create a Pod that has one Container. The Container has a m
 request of 100 MiB and a memory limit of 200 MiB. Here's the configuration file
 for the Pod:
 
-{{% code file="pods/resource/memory-request-limit.yaml" %}}
+{{% code_sample file="pods/resource/memory-request-limit.yaml" %}}
 
 The `args` section in the configuration file provides arguments for the Container when it starts.
 The `"--vm-bytes", "150M"` arguments tell the Container to attempt to allocate 150 MiB of memory.
@@ -139,7 +139,7 @@ In this exercise, you create a Pod that attempts to allocate more memory than it
 Here is the configuration file for a Pod that has one Container with a
 memory request of 50 MiB and a memory limit of 100 MiB:
 
-{{% code file="pods/resource/memory-request-limit-2.yaml" %}}
+{{% code_sample file="pods/resource/memory-request-limit-2.yaml" %}}
 
 In the `args` section of the configuration file, you can see that the Container
 will attempt to allocate 250 MiB of memory, which is well above the 100 MiB limit.
@@ -248,7 +248,7 @@ capacity of any Node in your cluster. Here is the configuration file for a Pod t
 Container with a request for 1000 GiB of memory, which likely exceeds the capacity
 of any Node in your cluster.
 
-{{% code file="pods/resource/memory-request-limit-3.yaml" %}}
+{{% code_sample file="pods/resource/memory-request-limit-3.yaml" %}}
 
 Create the Pod:
 

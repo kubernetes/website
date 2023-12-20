@@ -33,7 +33,7 @@ Kubernetesでは、どのホストで稼働するかに関わらず、Podが他�
 前の例でネットワークモデルを紹介しましたが、再度ネットワークの観点に焦点を当てましょう。
 nginx Podを作成し、コンテナポートの仕様を指定していることに注意してください。
 
-{{< codenew file="service/networking/run-my-nginx.yaml" >}}
+{{% codenew file="service/networking/run-my-nginx.yaml" %}}
 
 これにより、クラスター内のどのノードからでもアクセスできるようになります。
 Podが実行されているノードを確認します:
@@ -87,7 +87,7 @@ service/my-nginx exposed
 
 これは次のyamlを`kubectl apply -f`することと同等です:
 
-{{< codenew file="service/networking/nginx-svc.yaml" >}}
+{{% codenew file="service/networking/nginx-svc.yaml" %}}
 
 この仕様は、`run：my-nginx`ラベルを持つ任意のPodのTCPポート80をターゲットとするサービスを作成し、抽象化されたサービスポートでPodを公開します(`targetPort`:はコンテナがトラフィックを受信するポート、`port`:は抽象化されたServiceのポートであり、他のPodがServiceへのアクセスに使用する任意のポートにすることができます)。
 サービス定義でサポートされているフィールドのリストは[Service](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core) APIオブジェクトを参照してください。
@@ -308,7 +308,7 @@ nginxsecret           kubernetes.io/tls                     2         1m
 
 次に、nginxレプリカを変更して、シークレットの証明書とServiceを使用してhttpsサーバーを起動し、両方のポート(80と443)を公開します:
 
-{{< codenew file="service/networking/nginx-secure-app.yaml" >}}
+{{% codenew file="service/networking/nginx-secure-app.yaml" %}}
 
 nginx-secure-appマニフェストに関する注目すべき点:
 
@@ -341,7 +341,7 @@ CNameの不一致を無視するようcurlに指示する必要があります�
 Serviceを作成することにより、証明書で使用されるCNameを、Service検索中にPodで使用される実際のDNS名にリンクしました。
 これをPodからテストしましょう(簡単にするために同じシークレットを再利用しています。PodはServiceにアクセスするためにnginx.crtのみを必要とします):
 
-{{< codenew file="service/networking/curlpod.yaml" >}}
+{{% codenew file="service/networking/curlpod.yaml" %}}
 
 ```shell
 kubectl apply -f ./curlpod.yaml

@@ -1,15 +1,4 @@
 <!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
-<!--
 Run this command in order to set up the Kubernetes control plane
 -->
 运行此命令以安装 Kubernetes 控制平面。
@@ -17,19 +6,16 @@ Run this command in order to set up the Kubernetes control plane
 <!--
 ### Synopsis 
 -->
-
 ### 概要
 
 <!--
 Run this command in order to set up the Kubernetes control plane
 -->
-
 运行此命令来搭建 Kubernetes 控制平面节点。
 
 <!--
 The "init" command executes the following phases:
 -->
-
 "init" 命令执行以下阶段：
 
 ```
@@ -51,13 +37,13 @@ kubeconfig                   Generate all kubeconfig files necessary to establis
   /kubelet                     Generate a kubeconfig file for the kubelet to use *only* for cluster bootstrapping purposes
   /controller-manager          Generate a kubeconfig file for the controller manager to use
   /scheduler                   Generate a kubeconfig file for the scheduler to use
-kubelet-start                Write kubelet settings and (re)start the kubelet
+etcd                         Generate static Pod manifest file for local etcd
+  /local                       Generate the static Pod manifest file for a local, single-node local etcd instance
 control-plane                Generate all static Pod manifest files necessary to establish the control plane
   /apiserver                   Generates the kube-apiserver static Pod manifest
   /controller-manager          Generates the kube-controller-manager static Pod manifest
   /scheduler                   Generates the kube-scheduler static Pod manifest
-etcd                         Generate static Pod manifest file for local etcd
-  /local                       Generate the static Pod manifest file for a local, single-node local etcd instance
+kubelet-start                Write kubelet settings and (re)start the kubelet
 upload-config                Upload the kubeadm and kubelet configuration to a ConfigMap
   /kubeadm                     Upload the kubeadm ClusterConfiguration to a ConfigMap
   /kubelet                     Upload the kubelet component config to a ConfigMap
@@ -66,7 +52,7 @@ mark-control-plane           Mark a node as a control-plane
 bootstrap-token              Generates bootstrap tokens used to join a node to a cluster
 kubelet-finalize             Updates settings relevant to the kubelet after TLS bootstrap
   /experimental-cert-rotation  Enable kubelet client certificate rotation
-addon                        Install required addons for passing Conformance tests
+addon                        Install required addons for passing conformance tests
   /coredns                     Install the CoreDNS addon to a Kubernetes cluster
   /kube-proxy                  Install the kube-proxy addon to a Kubernetes cluster
 show-join-command            Show the join command for control-plane and worker node
@@ -79,7 +65,6 @@ kubeadm init [flags]
 <!-- 
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -206,7 +191,8 @@ Specify a stable IP address or DNS name for the control plane.
 Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this value; use this option only if you have more than one CRI installed or if you have non-standard CRI socket.
 -->
 <p>
-要连接的 CRI 套接字的路径。如果为空，则 kubeadm 将尝试自动检测此值；仅当安装了多个 CRI 或具有非标准 CRI 插槽时，才使用此选项。
+要连接的 CRI 套接字的路径。如果为空，则 kubeadm 将尝试自动检测此值；
+仅当安装了多个 CRI 或具有非标准 CRI 套接字时，才使用此选项。
 </p>
 </td>
 </tr>
@@ -231,12 +217,17 @@ Don't apply any changes; just output what would be done.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of key=value pairs that describe feature gates for various features. Options are:<br/>EtcdLearnerMode=true|false (ALPHA - default=false)<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)
+A set of key=value pairs that describe feature gates for various features. Options are:<br/>
+EtcdLearnerMode=true|false (ALPHA - default=false)<br/>
+PublicKeysECDSA=true|false (ALPHA - default=false)<br/>
+RootlessControlPlane=true|false (ALPHA - default=false)<br/>
+UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - default=false)
 -->
-一组用来描述各种功能特性的键值（key=value）对。选项是：
-<br/>EtcdLearnerMode=true|false (ALPHA - 默认值=false)
-<br/>PublicKeysECDSA=true|false (ALPHA - 默认值=false)
-<br/>RootlessControlPlane=true|false (ALPHA - 默认值=false)
+一组用来描述各种功能特性的键值（key=value）对。选项是：<br/>
+EtcdLearnerMode=true|false (ALPHA - 默认值=false)<br/>
+PublicKeysECDSA=true|false (ALPHA - 默认值=false)<br/>
+RootlessControlPlane=true|false (ALPHA - 默认值=false)<br/>
+UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - 默认值=false)
 </td>
 </tr>
 
@@ -249,7 +240,7 @@ A set of key=value pairs that describe feature gates for various features. Optio
 help for init
 -->
 <p>
-init 操作的帮助命令
+init 操作的帮助命令。
 </p>
 </td>
 </tr>
@@ -282,7 +273,7 @@ A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedU
 Choose a container registry to pull control plane images from
 -->
 <p>
-选择用于拉取控制平面镜像的容器仓库
+选择用于拉取控制平面镜像的容器仓库。
 </p>
 </td>
 </tr>
@@ -350,7 +341,7 @@ Path to a directory that contains files named &quot;target[suffix][+patchtype].e
 Specify range of IP addresses for the pod network. If set, the control plane will automatically allocate CIDRs for every node.
 -->
 <p>
-指明 pod 网络可以使用的 IP 地址段。如果设置了这个参数，控制平面将会为每一个节点自动分配 CIDRs。
+指明 Pod 网络可以使用的 IP 地址段。如果设置了这个参数，控制平面将会为每一个节点自动分配 CIDR。
 </p>
 </td>
 </tr>
@@ -369,7 +360,7 @@ Specify range of IP addresses for the pod network. If set, the control plane wil
 Use alternative range of IP address for service VIPs.
 -->
 <p>
-为服务的虚拟 IP 地址另外指定 IP 地址段
+为服务的虚拟 IP 地址另外指定 IP 地址段。
 </p>
 </td>
 </tr>
@@ -414,7 +405,7 @@ Don't print the key used to encrypt the control-plane certificates.
 List of phases to be skipped
 -->
 <p>
-要跳过的阶段列表
+要跳过的阶段列表。
 </p>
 </td>
 </tr>
@@ -442,7 +433,8 @@ Skip printing of the default bootstrap token generated by 'kubeadm init'.
 The token to use for establishing bidirectional trust between nodes and control-plane nodes. The format is [a-z0-9]{6}.[a-z0-9]{16} - e.g. abcdef.0123456789abcdef
 -->
 <p>
-这个令牌用于建立控制平面节点与工作节点间的双向通信。格式为 [a-z0-9]{6}.[a-z0-9]{16} - 示例：abcdef.0123456789abcdef
+这个令牌用于建立控制平面节点与工作节点间的双向通信。
+格式为 [a-z0-9]{6}.[a-z0-9]{16} - 示例：abcdef.0123456789abcdef
 </p>
 </td>
 </tr>
@@ -461,7 +453,7 @@ The token to use for establishing bidirectional trust between nodes and control-
 The duration before the token is automatically deleted (e.g. 1s, 2m, 3h). If set to '0', the token will never expire
 -->
 <p>
-令牌被自动删除之前的持续时间（例如 1 s，2 m，3 h）。如果设置为 '0'，则令牌将永不过期
+令牌被自动删除之前的持续时间（例如 1s，2m，3h）。如果设置为 '0'，则令牌将永不过期。
 </p>
 </td>
 </tr>
@@ -486,7 +478,6 @@ Upload control-plane certificates to the kubeadm-certs Secret.
 <!-- 
 ### Options inherited from parent commands 
 -->
-
 ### 从父命令继承的选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -512,4 +503,3 @@ Upload control-plane certificates to the kubeadm-certs Secret.
 
 </tbody>
 </table>
-

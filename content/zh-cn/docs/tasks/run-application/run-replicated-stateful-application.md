@@ -59,7 +59,7 @@ MySQL 设置都使用的是不安全的默认值，这是因为我们想把重�
   [PersistentVolumes](/zh-cn/docs/concepts/storage/persistent-volumes/)
   与 [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/)，
   以及其他核心概念，例如 [Pod](/zh-cn/docs/concepts/workloads/pods/)、
-  [服务](/zh-cn/docs/concepts/services-networking/service/)与
+  [Service](/zh-cn/docs/concepts/services-networking/service/)与
   [ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)。
 - 熟悉 MySQL 会有所帮助，但是本教程旨在介绍对其他系统应该有用的常规模式。
 - 你正在使用默认命名空间或不包含任何冲突对象的另一个命名空间。
@@ -98,7 +98,7 @@ Create the ConfigMap from the following YAML configuration file:
 
 使用以下的 YAML 配置文件创建 ConfigMap ：
 
-{{% code file="application/mysql/mysql-configmap.yaml" %}}
+{{% code_sample file="application/mysql/mysql-configmap.yaml" %}}
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/mysql/mysql-configmap.yaml
@@ -132,7 +132,7 @@ Create the Services from the following YAML configuration file:
 
 使用以下 YAML 配置文件创建服务：
 
-{{% code file="application/mysql/mysql-services.yaml" %}}
+{{% code_sample file="application/mysql/mysql-services.yaml" %}}
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/mysql/mysql-services.yaml
@@ -180,7 +180,7 @@ Finally, create the StatefulSet from the following YAML configuration file:
 
 最后，使用以下 YAML 配置文件创建 StatefulSet：
 
-{{% code file="application/mysql/mysql-statefulset.yaml" %}}
+{{% code_sample file="application/mysql/mysql-statefulset.yaml" %}}
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/mysql/mysql-statefulset.yaml
@@ -247,7 +247,7 @@ In addition, the controller assigns each Pod a unique, stable name of the form
 `mysql-1`, and `mysql-2`. 
 -->
 此外，控制器为每个 Pod 分配一个唯一、稳定的名称，形如 `<statefulset 名称>-<序数索引>`，
-其结果是 Pods 名为 `mysql-0`、`mysql-1` 和 `mysql-2`。
+其结果是 Pod 名为 `mysql-0`、`mysql-1` 和 `mysql-2`。
 
 <!--
 The Pod template in the above StatefulSet manifest takes advantage of these
@@ -688,7 +688,7 @@ Now uncordon the Node to return it to a normal state:
 kubectl uncordon <node-name>
 ```
 -->
-现在去掉节点保护（Uncordon），使其恢复为正常模式:
+现在去掉节点保护（Uncordon），使其恢复为正常模式：
 
 ```shell
 kubectl uncordon <节点名称>

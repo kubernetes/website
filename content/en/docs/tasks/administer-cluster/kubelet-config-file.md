@@ -35,14 +35,22 @@ address: "192.168.0.8"
 port: 20250
 serializeImagePulls: false
 evictionHard:
-    memory.available:  "200Mi"
+    memory.available:  "100Mi"
+    nodefs.available:  "10%"
+    nodefs.inodesFree: "5%"
+    imagefs.available: "15%"
 ```
 
-In the example, the kubelet is configured to serve on IP address 192.168.0.8 and port 20250, pull images in parallel,
-and evict Pods when available memory drops below 200Mi. Since only one of the four evictionHard thresholds is configured,
-other evictionHard thresholds are reset to 0 from their built-in defaults.
-All other kubelet configuration values are left at their built-in defaults, unless overridden
-by flags. Command line flags which target the same value as a config file will override that value.
+In this example, the kubelet is configured with the following settings:
+
+1. `address`: The kubelet will serve on IP address `192.168.0.8`.
+2. `port`: The kubelet will serve on port `20250`.
+3. `serializeImagePulls`: Image pulls will be done in parallel.
+4. `evictionHard`: The kubelet will evict Pods under one of the following conditions:
+   - When the node's available memory drops below 100MiB.
+   - When the node's main filesystem's available space is less than 10%.
+   - When the image filesystem's available space is less than 15%.
+   - When more than 95% of the node's main filesystem's inodes are in use.
 
 {{< note >}}
 In the example, by changing the default value of only one parameter for
@@ -50,6 +58,9 @@ evictionHard, the default values of other parameters will not be inherited and
 will be set to zero. In order to provide custom values, you should provide all
 the threshold values respectively.
 {{< /note >}}
+
+The `imagefs` is an optional filesystem that container runtimes use to store container
+images and container writable layers.
 
 ## Start a kubelet process configured via the config file
 

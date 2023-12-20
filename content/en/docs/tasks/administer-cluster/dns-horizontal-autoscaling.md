@@ -86,7 +86,7 @@ container based on the `cluster-proportional-autoscaler-amd64` image.
 
 Create a file named `dns-horizontal-autoscaler.yaml` with this content:
 
-{{% code file="admin/dns/dns-horizontal-autoscaler.yaml" %}}
+{{% code_sample file="admin/dns/dns-horizontal-autoscaler.yaml" %}}
 
 In the file, replace `<SCALE_TARGET>` with your scale target.
 

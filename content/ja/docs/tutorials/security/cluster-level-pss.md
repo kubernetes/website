@@ -20,7 +20,7 @@ v{{< skew currentVersion >}}以外のKubernetesバージョンを実行してい
 
 ワークステーションに以下をインストールしてください:
 
-- [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
+- [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
 - [kubectl](/ja/docs/tasks/tools/)
 
 このチュートリアルでは、完全な制御下にあるKubernetesクラスターの何を設定できるかをデモンストレーションします。
@@ -230,7 +230,7 @@ v{{< skew currentVersion >}}以外のKubernetesバージョンを実行してい
    ```
 
    {{<note>}}
-   macOSでDocker DesktopとKinDを利用している場合は、**Preferences > Resources > File Sharing**のメニュー項目からShared Directoryとして`/tmp`を追加できます。
+   macOSでDocker Desktopと*kind*を利用している場合は、**Preferences > Resources > File Sharing**のメニュー項目からShared Directoryとして`/tmp`を追加できます。
    {{</note>}}
 
 1. 目的のPodセキュリティの標準を適用するために、Podセキュリティアドミッションを使うクラスターを作成します:

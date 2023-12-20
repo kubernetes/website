@@ -25,11 +25,11 @@ weight: 21 # just after persistent volumes
 
 ### secret、downwardAPI、およびconfigMapを使用した構成例 {#example-configuration-secret-downwardapi-configmap}
 
-{{< codenew file="pods/storage/projected-secret-downwardapi-configmap.yaml" >}}
+{{% codenew file="pods/storage/projected-secret-downwardapi-configmap.yaml" %}}
 
 ### 構成例:デフォルト以外のアクセス許可モードが設定されたsecret {#example-configuration-secrets-nondefault-permission-mode}
 
-{{< codenew file="pods/storage/projected-secrets-nondefault-permission-mode.yaml" >}}
+{{% codenew file="pods/storage/projected-secrets-nondefault-permission-mode.yaml" %}}
 
 各投影ボリュームソースは、specの`sources`にリストされています。パラメーターは、2つの例外を除いてほぼ同じです。
 
@@ -38,7 +38,7 @@ weight: 21 # just after persistent volumes
 
 `TokenRequestProjection`機能が有効になっている場合、現在の[サービスアカウントトークン](/ja/docs/reference/access-authn-authz/authentication/#service-account-token)を指定されたパスのPodに挿入できます。例えば:
 
-{{< codenew file="pods/storage/projected-service-account-token.yaml" >}}
+{{% codenew file="pods/storage/projected-service-account-token.yaml" %}}
 
 この例のPodには、挿入されたサービスアカウントトークンを含む投影ボリュームがあります。このトークンはPodのコンテナがKubernetes APIサーバーにアクセスするために使用できます。この`audience`フィールドにはトークンの受信対象者が含まれています。トークンの受信者は、トークンの`audience`フィールドで指定された識別子で自分自身であるかを識別します。そうでない場合はトークンを拒否します。このフィールドはオプションで、デフォルトではAPIサーバーの識別子が指定されます。
 

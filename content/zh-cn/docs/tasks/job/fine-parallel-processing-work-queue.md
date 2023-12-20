@@ -106,7 +106,7 @@ Start a temporary interactive pod for running the Redis CLI.
 -->
 ## 使用任务填充队列
 
-现在，让我们往队列里添加一些 “任务”。在这个例子中，我们的任务是一些将被打印出来的字符串。
+现在，让我们往队列里添加一些“任务”。在这个例子中，我们的任务是一些将被打印出来的字符串。
 
 启动一个临时的可交互的 Pod 用于运行 Redis 命令行界面。
 
@@ -192,9 +192,9 @@ called rediswq.py ([Download](/examples/application/job/redis/rediswq.py)).
 The "worker" program in each Pod of the Job uses the work queue
 client library to get work.  Here it is:
 -->
-Job 中每个 Pod 内的 “工作程序” 使用工作队列客户端库获取工作。具体如下：
+Job 中每个 Pod 内的“工作程序” 使用工作队列客户端库获取工作。具体如下：
 
-{{% code language="python" file="application/job/redis/worker.py" %}}
+{{% code_sample language="python" file="application/job/redis/worker.py" %}}
 
 <!--
 You could also download [`worker.py`](/examples/application/job/redis/worker.py),
@@ -241,7 +241,7 @@ your app image with your project ID, and push to GCR. Replace
 `<project>` with your project ID.
 -->
 如果你使用的是 [Google Container Registry](https://cloud.google.com/tools/container-registry/)，
-请先用你的 project ID 给你的镜像打上标签，然后 push 到 GCR 。请将 `<project>` 替换为你自己的 project ID。
+请先用你的 project ID 给你的镜像打上标签，然后 push 到 GCR。请将 `<project>` 替换为你自己的 project ID。
 
 ```shell
 docker tag job-wq-2 gcr.io/<project>/job-wq-2
@@ -257,7 +257,7 @@ Here is the job definition:
 
 这是 Job 定义：
 
-{{% code file="application/job/redis/job.yaml" %}}
+{{% code_sample file="application/job/redis/job.yaml" %}}
 
 <!--
 Be sure to edit the job template to

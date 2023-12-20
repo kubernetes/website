@@ -115,24 +115,32 @@ The following is an example of a ValidatingAdmissionPolicy.
 
 以下是一个 ValidatingAdmissionPolicy 的示例：
 
-{{% codenew language="yaml" file="validatingadmissionpolicy/basic-example-policy.yaml" %}}
+{{% code_sample language="yaml" file="validatingadmissionpolicy/basic-example-policy.yaml" %}}
 
 <!--
 `spec.validations` contains CEL expressions which use the [Common Expression Language (CEL)](https://github.com/google/cel-spec)
 to validate the request. If an expression evaluates to false, the validation check is enforced
 according to the `spec.failurePolicy` field.
-
-To configure a validating admission policy for use in a cluster, a binding is required.
-The following is an example of a ValidatingAdmissionPolicyBinding.:
 -->
 `spec.validations` 包含使用[通用表达式语言 (CEL)](https://github.com/google/cel-spec)
 来验证请求的 CEL 表达式。
 如果表达式的计算结果为 false，则根据 `spec.failurePolicy` 字段强制执行验证检查处理。
 
+{{< note >}}
+<!--
+You can quickly test CEL expressions in [CEL Playground](https://playcel.undistro.io).
+-->
+你可以在 [CEL Playground](https://playcel.undistro.io) 中快速验证 CEL 表达式。
+{{< /note >}}
+
+<!--
+To configure a validating admission policy for use in a cluster, a binding is required.
+The following is an example of a ValidatingAdmissionPolicyBinding:
+-->
 要配置一个在某集群中使用的验证准入策略，需要一个绑定。
 以下是一个 ValidatingAdmissionPolicyBinding 的示例：
 
-{{% codenew language="yaml" file="validatingadmissionpolicy/basic-example-binding.yaml" %}}
+{{% code_sample language="yaml" file="validatingadmissionpolicy/basic-example-binding.yaml" %}}
 
 <!--
 When trying to create a deployment with replicas set not satisfying the validation expression, an
@@ -202,8 +210,7 @@ otherwise the failures are ignored.
 否则这些失败将被忽略。
 
 <!-- 
-See [Audit Annotations: validation falures](/docs/reference/labels-annotations-taints/audit-annotations/#validation-policy-admission-k8s-io-validation_failure)
-for more details about the validation failure audit annotation.
+See [Audit Annotations: validation failures](/docs/reference/labels-annotations-taints/audit-annotations/#validation-policy-admission-k8s-io-validation-failure) for more details about the validation failure audit annotation.
  -->
 有关验证失败审计注解的详细信息，请参见
 [审计注解：验证失败](/zh-cn/docs/reference/labels-annotations-taints/audit-annotations/#validation-policy-admission-k8s-io-validation_failure)。
@@ -226,7 +233,7 @@ with parameter configuration.
 
 如果需要参数配置，下面是一个带有参数配置的 ValidatingAdmissionPolicy 的例子：
 
-{{% codenew language="yaml" file="validatingadmissionpolicy/policy-with-param.yaml" %}}
+{{% code_sample language="yaml" file="validatingadmissionpolicy/policy-with-param.yaml" %}}
 
 <!--
 The `spec.paramKind` field of the ValidatingAdmissionPolicy specifies the kind of resources used
@@ -261,7 +268,7 @@ every resource request that matches the binding:
 要配置一个在某集群中使用的验证准入策略，需要创建绑定和参数资源。
 以下是 ValidatingAdmissionPolicyBinding **集群范围**参数的示例 - 相同的参数将用于验证与绑定匹配的每个资源请求：
 
-{{% codenew language="yaml" file="validatingadmissionpolicy/binding-with-param.yaml" %}}
+{{% code_sample language="yaml" file="validatingadmissionpolicy/binding-with-param.yaml" %}}
 
 <!--
 Notice this binding applies a parameter to the policy for all resources which
@@ -274,7 +281,7 @@ The parameter resource could be as following:
 -->
 参数资源可以如下：
 
-{{% codenew language="yaml" file="validatingadmissionpolicy/replicalimit-param.yaml" %}}
+{{% code_sample language="yaml" file="validatingadmissionpolicy/replicalimit-param.yaml" %}}
 
 <!--
 This policy parameter resource limits deployments to a max of 3 replicas.
@@ -285,7 +292,7 @@ to have a maxReplicas limit of 100, create another ValidatingAdmissionPolicyBind
 一个准入策略可以有多个绑定。
 要绑定所有的其他环境，限制 maxReplicas 为 100，请创建另一个 ValidatingAdmissionPolicyBinding：
 
-{{% codenew language="yaml" file="validatingadmissionpolicy/binding-with-param-prod.yaml" %}}
+{{% code_sample language="yaml" file="validatingadmissionpolicy/binding-with-param-prod.yaml" %}}
 
 <!--
 Notice this binding applies a different parameter to resources which
@@ -298,7 +305,7 @@ And have a parameter resource:
 -->
 并有一个参数资源：
 
-{{% codenew language="yaml" file="validatingadmissionpolicy/replicalimit-param-prod.yaml" %}}
+{{% code_sample language="yaml" file="validatingadmissionpolicy/replicalimit-param-prod.yaml" %}}
 
 <!--
 For each admission request, the API server evaluates CEL expressions of each 
@@ -415,7 +422,7 @@ searches for parameters in that namespace.
 
 作为 ValidatingAdmissionPolicy 及其 ValidatingAdmissionPolicyBinding 的作者，
 你可以选择指定其作用于集群范围还是某个命名空间。如果你为绑定的 `paramRef` 指定 `namespace`，
-则控制平面仅在该名字空间中搜索参数。
+则控制平面仅在该命名空间中搜索参数。
 
 <!--
 However, if `namespace` is not specified in the ValidatingAdmissionPolicyBinding, the
@@ -504,7 +511,7 @@ Note that the `failurePolicy` is defined inside `ValidatingAdmissionPolicy`:
 
 请注意，`failurePolicy` 是在 `ValidatingAdmissionPolicy` 中定义的：
 
-{{% codenew language="yaml" file="validatingadmissionpolicy/failure-policy-ignore.yaml" %}}
+{{% code_sample language="yaml" file="validatingadmissionpolicy/failure-policy-ignore.yaml" %}}
 
 <!--
 ### Validation Expression
@@ -543,46 +550,9 @@ CEL 表达式可以访问按 CEL 变量来组织的 Admission 请求/响应的�
 <!--
 The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from
 the root of the object. No other metadata properties are accessible.
-
-Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible.
-Accessible property names are escaped according to the following rules when accessed in the
-expression:
 -->
 总是可以从对象的根访问的属性有 `apiVersion`、`kind`、`metadata.name` 和 `metadata.generateName`。
 其他元数据属性不能访问。
-
-只有符合 `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` 形式的属性名称是可访问的。
-可访问的属性名称在表达式中被访问时，根据以下规则进行转义：
-
-| 转义序列                | 属性名称等效            |
-| ----------------------- | -----------------------|
-| `__underscores__`       | `__`                  |
-| `__dot__`               | `.`                   |
-| `__dash__`              | `-`                   |
-| `__slash__`             | `/`                   |
-| `__{keyword}__`         | [CEL 保留关键字](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#syntax)       |
-
-{{< note >}}
-<!--
-A **CEL reserved** keyword only needs to be escaped if the token is an exact match
-for the reserved keyword.
-For example, `int` in the word “sprint” would not be escaped.
--->
-**CEL 保留**关键字仅在字符串与保留关键字完全匹配时才需要转义。
-例如，单词 “sprint” 中的 `int` 不需要被转义。
-{{< /note >}}
-
-<!--
-Examples on escaping:
--->
-转义示例：
-
-| 属性名      | 具有转义属性名称的规则            |
-| ----------- | --------------------------------- |
-| namespace   | `self.__namespace__ > 0`          |
-| x-prop      | `self.x__dash__prop > 0`          |
-| redact\_\_d | `self.redact__underscores__d > 0` |
-| string      | `self.startsWith('kube')`         |
 
 <!--
 Equality on arrays with list type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1].
@@ -662,7 +632,7 @@ Here is an example illustrating a few different uses for match conditions:
 -->
 以下示例说明了匹配条件的几个不同用法：
 
-{{% codenew file="access/validating-admission-policy-match-conditions.yaml" %}}
+{{% code_sample file="access/validating-admission-policy-match-conditions.yaml" %}}
 
 <!--
 Match conditions have access to the same CEL variables as validation expressions.
@@ -698,7 +668,7 @@ For example, here is an admission policy with an audit annotation:
 
 例如，以下是带有审计注解的准入策略：
 
-{{% codenew file="access/validating-admission-policy-audit-annotation.yaml" %}}
+{{% code_sample file="access/validating-admission-policy-audit-annotation.yaml" %}}
 
 <!--
 When an API request is validated with this admission policy, the resulting audit event will look like:
@@ -772,7 +742,7 @@ we can have the following validation:
 
 例如，为了在策略引用参数时更好地告知用户拒绝原因，我们可以有以下验证：
 
-{{% codenew file="access/deployment-replicas-policy.yaml" %}}
+{{% code_sample file="access/deployment-replicas-policy.yaml" %}}
 
 <!--
 After creating a params object that limits the replicas to 3 and setting up the binding,
@@ -825,7 +795,7 @@ For example, given the following policy definition:
 
 例如，给定以下策略定义：
 
-{{% codenew language="yaml" file="validatingadmissionpolicy/typechecking.yaml" %}}
+{{% code_sample language="yaml" file="validatingadmissionpolicy/typechecking.yaml" %}}
 
 <!--
 The status will yield the following information:
@@ -850,7 +820,7 @@ For example, the following policy definition
 如果在 `spec.matchConstraints` 中匹配了多个资源，则所有匹配的资源都将进行检查。
 例如，以下策略定义：
 
-{{% codenew language="yaml" file="validatingadmissionpolicy/typechecking-multiple-match.yaml" %}}
+{{% code_sample language="yaml" file="validatingadmissionpolicy/typechecking-multiple-match.yaml" %}}
 
 <!--
 will have multiple types and type checking result of each type in the warning message.
@@ -932,7 +902,7 @@ The following is a more complex example of enforcing that image repo names match
 
 以下是强制镜像仓库名称与其命名空间中定义的环境相匹配的一个较复杂示例。
 
-{{< codenew file="access/image-matches-namespace-environment.policy.yaml" >}}
+{{< code_sample file="access/image-matches-namespace-environment.policy.yaml" >}}
 
 <!--
 With the policy bound to the namespace `default`, which is labeled `environment: prod`,

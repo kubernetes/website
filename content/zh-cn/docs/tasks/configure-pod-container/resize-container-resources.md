@@ -166,7 +166,7 @@ Consider the following manifest for a Pod that has one Container.
 
 考虑以下包含一个容器的 Pod 的清单。
 
-{{% code file="pods/qos/qos-pod-5.yaml" %}}
+{{% code_sample file="pods/qos/qos-pod-5.yaml" %}}
 
 <!--
 Create the pod in the `qos-example` namespace:
@@ -352,7 +352,7 @@ kubectl delete namespace qos-example
 
 * [为容器和 Pod 分配内存资源](/zh-cn/docs/tasks/configure-pod-container/assign-memory-resource/)
 
-* [为容器和 Pod 分配 CPU 资源](/docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [为容器和 Pod 分配 CPU 资源](/zh-cn/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
 <!--
 ### For cluster administrators

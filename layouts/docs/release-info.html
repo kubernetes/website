@@ -1,5 +1,15 @@
 {{ define "main" }}
 {{ if not .Site.Params.deprecated }}
   {{ .Content }}
+{{ else }}
+<div class="section-index">
+  {{ range where .Site.Pages "Section" "releases" }}
+    {{ if not .IsNode }}
+      <div class="entry">
+        <h5><a href="{{ .RelPermalink }}">{{ .Title }}</a></h5>
+      </div>
+    {{ end }}
+  {{ end }}
+</div>    
 {{ end }}
 {{ end }}

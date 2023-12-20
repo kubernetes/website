@@ -918,7 +918,7 @@ The two options are discussed in more detail in the following sections.
 <!--
 As previously mentioned, you should consider isolating each workload in its own namespace, even if
 you are using dedicated clusters or virtualized control planes. This ensures that each workload
-only has access to its own resources, such as Config Maps and Secrets, and allows you to tailor
+only has access to its own resources, such as ConfigMaps and Secrets, and allows you to tailor
 dedicated security policies for each workload. In addition, it is a best practice to give each
 namespace names that are unique across your entire fleet (that is, even if they are in separate
 clusters), as this gives you the flexibility to switch between dedicated and shared clusters in

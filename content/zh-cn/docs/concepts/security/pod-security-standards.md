@@ -36,7 +36,7 @@ Pod 安全性标准定义了三种不同的**策略（Policy）**，以广泛覆
 | Profile | 描述 |
 | ------ | ----------- |
 | <strong style="white-space: nowrap">Privileged</strong> | 不受限制的策略，提供最大可能范围的权限许可。此策略允许已知的特权提升。 |
-| <strong style="white-space: nowrap">Baseline</strong> | 限制性最弱的策略，禁止已知的策略提升。允许使用默认的（规定最少）Pod 配置。 |
+| <strong style="white-space: nowrap">Baseline</strong> | 限制性最弱的策略，禁止已知的特权提升。允许使用默认的（规定最少）Pod 配置。 |
 | <strong style="white-space: nowrap">Restricted</strong> | 限制性非常强的策略，遵循当前的保护 Pod 的最佳实践。 |
 
 <!-- body -->
@@ -315,6 +315,7 @@ fail validation.
 					<li><code>net.ipv4.ip_unprivileged_port_start</code></li>
 					<li><code>net.ipv4.tcp_syncookies</code></li>
 					<li><code>net.ipv4.ping_group_range</code></li>
+					<li><code>net.ipv4.ip_local_reserved_ports</code><!-- (since Kubernetes 1.27)-->（从 Kubernetes 1.27 开始）</li>
 				</ul>
 			</td>
 		</tr>

@@ -58,7 +58,7 @@ To demonstrate a HorizontalPodAutoscaler, you will first start a Deployment that
 `hpa-example` image, and expose it as a {{< glossary_tooltip term_id="service">}}
 using the following manifest:
 
-{{% code file="application/php-apache.yaml" %}}
+{{% code_sample file="application/php-apache.yaml" %}}
 
 To do so, run the following command:
 
@@ -498,7 +498,7 @@ between `1` and `1500m`, or `1` and `1.5` when written in decimal notation.
 Instead of using `kubectl autoscale` command to create a HorizontalPodAutoscaler imperatively we
 can use the following manifest to create it declaratively:
 
-{{% code file="application/hpa/php-apache.yaml" %}}
+{{% code_sample file="application/hpa/php-apache.yaml" %}}
 
 Then, create the autoscaler by executing the following command:
 

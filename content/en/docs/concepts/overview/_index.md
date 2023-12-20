@@ -129,6 +129,14 @@ Kubernetes provides you with:
   Kubernetes lets you store and manage sensitive information, such as passwords, OAuth tokens,
   and SSH keys. You can deploy and update secrets and application configuration without
   rebuilding your container images, and without exposing secrets in your stack configuration.
+* **Batch execution**
+  In addition to services, Kubernetes can manage your batch and CI workloads, replacing containers that fail, if desired.
+* **Horizontal scaling**
+  Scale your application up and down with a simple command, with a UI, or automatically based on CPU usage.
+* **IPv4/IPv6 dual-stack**
+  Allocation of IPv4 and IPv6 addresses to Pods and Services
+* **Designed for extensibility**
+  Add features to your Kubernetes cluster without changing upstream source code.
 
 ## What Kubernetes is not
 

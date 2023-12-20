@@ -280,7 +280,7 @@ Depending on how you installed `kubectl`, use one of the following methods.
 1.  Locate the `kubectl` binary on your system:
 
     ```bash
-    where kubectl
+    which kubectl
     ```
 
 1.  Remove the `kubectl` binary:

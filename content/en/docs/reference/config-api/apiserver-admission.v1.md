@@ -11,7 +11,6 @@ auto_generated: true
 
 - [AdmissionReview](#admission-k8s-io-v1-AdmissionReview)
   
-    
 
 ## `AdmissionReview`     {#admission-k8s-io-v1-AdmissionReview}
     
@@ -153,7 +152,7 @@ requested. e.g. a patch can result in either a CREATE or UPDATE Operation.</p>
 </td>
 </tr>
 <tr><td><code>userInfo</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
 </td>
 <td>
    <p>UserInfo is information about the requesting user</p>
@@ -227,7 +226,7 @@ This must be copied over from the corresponding AdmissionRequest.</p>
 </td>
 </tr>
 <tr><td><code>status</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#status-v1-meta"><code>meta/v1.Status</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#status-v1-meta"><code>meta/v1.Status</code></a>
 </td>
 <td>
    <p>Result contains extra details into why an admission request was denied.

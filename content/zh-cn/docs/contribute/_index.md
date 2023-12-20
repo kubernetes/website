@@ -151,7 +151,10 @@ class first,second,third white
 <!-- 
 Figure 1. Getting started for a new contributor.
 
-Figure 1 outlines a roadmap for new contributors. You can follow some or all of the steps for `Sign up` and `Review`. Now you are ready to open PRs that achieve your contribution objectives with some listed under `Open PR`. Again, questions are always welcome!
+Figure 1 outlines a roadmap for new contributors. You can follow some or
+all of the steps for `Sign up` and `Review`. Now you are ready to open PRs
+that achieve your contribution objectives with some listed under `Open PR`.
+Again, questions are always welcome!
 -->
 图 1. 新手入门指示。
 
@@ -239,6 +242,27 @@ Figure 2. Preparation for your first contribution.
   [风格指南](/zh-cn/docs/contribute/style/style-guide/)，以发表有见地的评论。
 - 了解[页面内容类型](/zh-cn/docs/contribute/style/page-content-types/)和
   [Hugo 短代码](/zh-cn/docs/contribute/style/hugo-shortcodes/)。
+
+<!--
+## Getting help when contributing
+
+Making your first contribution can be overwhelming. The
+[New Contributor Ambassadors](https://github.com/kubernetes/website#new-contributor-ambassadors)
+are there to walk you through making your first few contributions.
+You can reach out to them in the [Kubernetes Slack](https://slack.k8s.io/)
+preferably in the `#sig-docs` channel. There is also the
+[New Contributors Meet and Greet call](https://www.kubernetes.dev/resources/calendar/)
+that happens on the first Tuesday of every month. You can interact with
+the New Contributor Ambassadors and get your queries resolved here.
+-->
+## 贡献时获取帮助
+
+做出第一个贡献可能会让人感觉比较困难。
+[新贡献者大使](https://github.com/kubernetes/website#new-contributor-ambassadors)
+将引导你完成最初的一些贡献。你可以在 [Kubernetes Slack](https://slack.k8s.io/)
+中联系他们，最好是在 `#sig-docs` 频道中。还有每月第一个星期二举行的
+[新贡献者见面会](https://www.kubernetes.dev/resources/calendar/)，
+你可以在此处与新贡献者大使互动并解决你的疑问。
 
 <!--
 ## Next steps

@@ -42,7 +42,7 @@ The `command` field corresponds to `entrypoint` in some container runtimes.
 In this exercise, you create a Pod that runs one container. The configuration
 file for the Pod defines a command and two arguments:
 
-{{% code file="pods/commands.yaml" %}}
+{{% code_sample file="pods/commands.yaml" %}}
 
 1. Create a Pod based on the YAML configuration file:
 

@@ -52,7 +52,7 @@ Setting the `--image-repository` flag.
 kubeadm init --image-repository=k8s.gcr.io
 ```
 
-Or in [kubeadm config](https://kubernetes.io/docs/reference/config-api/kubeadm-config.v1beta3/) `ClusterConfiguration`:
+Or in [kubeadm config](/docs/reference/config-api/kubeadm-config.v1beta3/) `ClusterConfiguration`:
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta3

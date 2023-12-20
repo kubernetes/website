@@ -60,7 +60,7 @@ Now, switch back to the terminal where you ran `minikube start`.
 The `dashboard` command enables the dashboard add-on and opens the proxy in the default web browser.
 You can create Kubernetes resources on the dashboard such as Deployment and Service.
 
-If you are running in an environment as root, see [Open Dashboard with URL](#open-dashboard-with-url).
+To find out how to avoid directly invoking the browser from the terminal and get a URL for the web dashboard, see the "URL copy and paste" tab.
 
 By default, the dashboard is only accessible from within the internal Kubernetes virtual network.
 The `dashboard` command creates a temporary proxy to make the dashboard accessible from outside the Kubernetes virtual network.
@@ -73,7 +73,7 @@ You can run the `dashboard` command again to create another proxy to access the 
 {{% /tab %}}
 {{% tab name="URL copy and paste" %}}
 
-If you don't want minikube to open a web browser for you, run the dashboard command with the
+If you don't want minikube to open a web browser for you, run the `dashboard` subcommand with the
 `--url` flag. `minikube` outputs a URL that you can open in the browser you prefer.
 
 Open a **new** terminal, and run:
@@ -82,7 +82,7 @@ Open a **new** terminal, and run:
 minikube dashboard --url
 ```
 
-Now, switch back to the terminal where you ran `minikube start`.
+Now, you can use this URL and switch back to the terminal where you ran `minikube start`.
 
 {{% /tab %}}
 {{< /tabs >}}
@@ -141,6 +141,20 @@ recommended way to manage the creation and scaling of Pods.
     ```shell
     kubectl config view
     ```
+
+1. View application logs for a container in a pod.
+   
+   ```shell
+   kubectl logs hello-node-5f76cf6ccf-br9b5
+   ```
+
+   The output is similar to:
+
+   ```
+   I0911 09:19:26.677397       1 log.go:195] Started HTTP server on port 8080
+   I0911 09:19:26.677586       1 log.go:195] Started UDP server on port  8081
+   ```
+
 
 {{< note >}}
 For more information about `kubectl` commands, see the [kubectl overview](/docs/reference/kubectl/).
@@ -224,7 +238,7 @@ The minikube tool includes a set of built-in {{< glossary_tooltip text="addons" 
     storage-provisioner-gluster: disabled
     ```
 
-2. Enable an addon, for example, `metrics-server`:
+1. Enable an addon, for example, `metrics-server`:
 
     ```shell
     minikube addons enable metrics-server
@@ -236,7 +250,7 @@ The minikube tool includes a set of built-in {{< glossary_tooltip text="addons" 
     The 'metrics-server' addon is enabled
     ```
 
-3. View the Pod and Service you created by installing that addon:
+1. View the Pod and Service you created by installing that addon:
 
     ```shell
     kubectl get pod,svc -n kube-system
@@ -265,7 +279,26 @@ The minikube tool includes a set of built-in {{< glossary_tooltip text="addons" 
     service/monitoring-influxdb    ClusterIP   10.111.169.94   <none>        8083/TCP,8086/TCP   26s
     ```
 
-4. Disable `metrics-server`:
+1. Check the output from `metrics-server`:
+
+    ```shell
+    kubectl top pods
+    ```
+
+    The output is similar to:
+
+    ```
+    NAME                         CPU(cores)   MEMORY(bytes)   
+    hello-node-ccf4b9788-4jn97   1m           6Mi             
+    ```
+
+    If you see the following message, wait, and try again:
+
+    ```
+    error: Metrics API not available
+    ```
+
+1. Disable `metrics-server`:
 
     ```shell
     minikube addons disable metrics-server

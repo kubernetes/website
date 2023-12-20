@@ -38,7 +38,7 @@ Use a local tool trusted by your OS to decrease the security risks of external t
 Here is a configuration file you can use to create a Secret that holds your
 username and password:
 
-{{% code file="pods/inject/secret.yaml" %}}
+{{% code_sample file="pods/inject/secret.yaml" %}}
 
 1. Create the Secret
 
@@ -97,7 +97,7 @@ through each step explicitly to demonstrate what is happening.
 
 Here is a configuration file you can use to create a Pod:
 
-{{% code file="pods/inject/secret-pod.yaml" %}}
+{{% code_sample file="pods/inject/secret-pod.yaml" %}}
 
 1. Create the Pod:
 
@@ -260,7 +260,7 @@ secrets change.
 
 - Assign the `backend-username` value defined in the Secret to the `SECRET_USERNAME` environment variable in the Pod specification.
 
-  {{% code file="pods/inject/pod-single-secret-env-variable.yaml" %}}
+  {{% code_sample file="pods/inject/pod-single-secret-env-variable.yaml" %}}
 
 - Create the Pod:
 
@@ -291,7 +291,7 @@ secrets change.
 
 - Define the environment variables in the Pod specification.
 
-  {{% code file="pods/inject/pod-multiple-secret-env-variable.yaml" %}}
+  {{% code_sample file="pods/inject/pod-multiple-secret-env-variable.yaml" %}}
 
 - Create the Pod:
 
@@ -327,7 +327,7 @@ This functionality is available in Kubernetes v1.6 and later.
 - Use envFrom to define all of the Secret's data as container environment variables.
   The key from the Secret becomes the environment variable name in the Pod.
 
-  {{% code file="pods/inject/pod-secret-envFrom.yaml" %}}
+  {{% code_sample file="pods/inject/pod-secret-envFrom.yaml" %}}
 
 - Create the Pod:
 
