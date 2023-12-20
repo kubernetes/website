@@ -429,7 +429,7 @@ deleted by the Kubelet.
 ### 创建容器 {#create-a-container}
 
 用 `crictl` 创建容器对容器运行时排错很有帮助。
-在运行的 Kubernetes 集群中，沙盒会随机地被 kubelet 停止和删除。
+在运行的 Kubernetes 集群中，容器会随机地被 kubelet 停止和删除。
 
 <!--
 1. Pull a busybox image
