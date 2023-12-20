@@ -1,5 +1,5 @@
 ---
-title: kubectl Quick Start Guide
+title: kubectl Quick Reference
 reviewers:
 - erictune
 - krousey
