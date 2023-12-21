@@ -1,4 +1,5 @@
 ---
+# Removed from Kubernetes
 title: APISelfSubjectReview
 content_type: feature_gate
 _build:
