@@ -92,6 +92,10 @@ In the following table:
 | `CSIMigrationOpenStack` | `true` | GA | 1.24 | 1.25 |
 | `CSIMigrationOpenStackComplete` | `false` | Alpha | 1.17 | 1.20 |
 | `CSIMigrationOpenStackComplete` | - | Deprecated | 1.21 | 1.21 |
+| `CSIMigrationvSphere` | `false` | Alpha | 1.18 | 1.18 |
+| `CSIMigrationvSphere` | `false` | Beta | 1.19 | 1.24 |
+| `CSIMigrationvSphere` | `true` | Beta | 1.25 | 1.25 |
+| `CSIMigrationvSphere` | `true` | GA | 1.26 | 1.28 |
 | `CSIMigrationvSphereComplete` | `false` | Beta | 1.19 | 1.21 |
 | `CSIMigrationvSphereComplete` | - | Deprecated | 1.22 | 1.22 |
 | `CSINodeInfo` | `false` | Alpha | 1.12 | 1.13 |
@@ -143,7 +147,7 @@ In the following table:
 | `CustomResourceWebhookConversion` | `true` | GA | 1.16 | 1.18 |
 | `DaemonSetUpdateSurge` | `false` | Alpha | 1.21 | 1.21 |
 | `DaemonSetUpdateSurge` | `true` | Beta | 1.22 | 1.24 |
-| `DaemonSetUpdateSurge` | `true` | GA | 1.25 | 1.26 |
+| `DaemonSetUpdateSurge` | `true` | GA | 1.25 | 1.28 |
 | `DefaultPodTopologySpread` | `false` | Alpha | 1.19 | 1.19 |
 | `DefaultPodTopologySpread` | `true` | Beta | 1.20 | 1.23 |
 | `DefaultPodTopologySpread` | `true` | GA | 1.24 | 1.25 |
@@ -240,7 +244,10 @@ In the following table:
 | `Initializers` | - | Deprecated | 1.14 | 1.14 |
 | `JobMutableNodeSchedulingDirectives` | `true` | Beta | 1.23 | 1.26 |
 | `JobMutableNodeSchedulingDirectives` | `true` | GA | 1.27 | 1.28 |
-| `KMSv1` | `true` | Deprecated | 1.28 | |
+| `JobTrackingWithFinalizers` | `false` | Alpha | 1.22 | 1.22 |
+| `JobTrackingWithFinalizers` | `false` | Beta | 1.23 | 1.24 |
+| `JobTrackingWithFinalizers` | `true` | Beta | 1.25 | 1.25 |
+| `JobTrackingWithFinalizers` | `true` | GA | 1.26 | 1.28 |
 | `KubeletConfigFile` | `false` | Alpha | 1.8 | 1.9 |
 | `KubeletConfigFile` | - | Deprecated | 1.10 | 1.10 |
 | `KubeletCredentialProviders` | `false` | Alpha | 1.20 | 1.23 |
@@ -281,6 +288,9 @@ In the following table:
 | `NonPreemptingPriority` | `false` | Alpha | 1.15 | 1.18 |
 | `NonPreemptingPriority` | `true` | Beta | 1.19 | 1.23 |
 | `NonPreemptingPriority` | `true` | GA | 1.24 | 1.25 |
+| `OpenAPIV3` | `false` | Alpha | 1.23 | 1.23 |
+| `OpenAPIV3` | `true` | Beta | 1.24 | 1.26 |
+| `OpenAPIV3` | `true` | GA | 1.27 | 1.28 |
 | `PVCProtection` | `false` | Alpha | 1.9 | 1.9 |
 | `PVCProtection` | - | Deprecated | 1.10 | 1.10 |
 | `PersistentLocalVolumes` | `false` | Alpha | 1.7 | 1.9 |
@@ -311,6 +321,10 @@ In the following table:
 | `PreferNominatedNode` | `false` | Alpha | 1.21 | 1.21 |
 | `PreferNominatedNode` | `true` | Beta | 1.22 | 1.23 |
 | `PreferNominatedNode` | `true` | GA | 1.24 | 1.25 |
+| `ProbeTerminationGracePeriod` | `false` | Alpha | 1.21 | 1.21 |
+| `ProbeTerminationGracePeriod` | `false` | Beta | 1.22 | 1.24 |
+| `ProbeTerminationGracePeriod` | `true` | Beta | 1.25 | 1.27 |
+| `ProbeTerminationGracePeriod` | `true` | GA | 1.28 | 1.28 |
 | `RequestManagement` | `false` | Alpha | 1.15 | 1.16 |
 | `RequestManagement` | - | Deprecated | 1.17 | 1.17 |
 | `ResourceLimitsPriorityFunction` | `false` | Alpha | 1.9 | 1.18 |
@@ -337,6 +351,9 @@ In the following table:
 | `ScheduleDaemonSetPods` | `false` | Alpha | 1.11 | 1.11 |
 | `ScheduleDaemonSetPods` | `true` | Beta | 1.12 | 1.16  |
 | `ScheduleDaemonSetPods` | `true` | GA | 1.17 | 1.18 |
+| `SeccompDefault` | `false` | Alpha | 1.22 | 1.24 |
+| `SeccompDefault` | `true` | Beta | 1.25 | 1.26 |
+| `SeccompDefault` | `true` | GA | 1.27 | 1.28 |
 | `SelectorIndex` | `false` | Alpha | 1.18 | 1.18 |
 | `SelectorIndex` | `true` | Beta | 1.19 | 1.19 |
 | `SelectorIndex` | `true` | GA | 1.20 | 1.25 |
@@ -473,6 +490,7 @@ In the following table:
 - {{< feature-gate-description name="CSIMigrationOpenStack" >}}
 - {{< feature-gate-description name="CSIMigrationOpenStackComplete" >}}
 - {{< feature-gate-description name="CSIMigrationvSphereComplete" >}}
+- {{< feature-gate-description name="CSIMigrationvSphere" >}}
 - {{< feature-gate-description name="CSINodeInfo" >}}
 - {{< feature-gate-description name="CSIPersistentVolume" >}}
 - {{< feature-gate-description name="CSIServiceAccountToken" >}}
@@ -526,6 +544,7 @@ In the following table:
 - {{< feature-gate-description name="IngressClassNamespacedParams" >}}
 - {{< feature-gate-description name="Initializers" >}}
 - {{< feature-gate-description name="JobMutableNodeSchedulingDirectives" >}}
+- {{< feature-gate-description name="JobTrackingWithFinalizers" >}}
 - {{< feature-gate-description name="KubeletConfigFile" >}}
 - {{< feature-gate-description name="KubeletCredentialProviders" >}}
 - {{< feature-gate-description name="KubeletPluginsWatcher" >}}
@@ -541,6 +560,7 @@ In the following table:
 - {{< feature-gate-description name="NodeDisruptionExclusion" >}}
 - {{< feature-gate-description name="NodeLease" >}}
 - {{< feature-gate-description name="NonPreemptingPriority" >}}
+- {{< feature-gate-description name="OpenAPIV3" >}}
 - {{< feature-gate-description name="PVCProtection" >}}
 - {{< feature-gate-description name="PersistentLocalVolumes" >}}
 - {{< feature-gate-description name="PodAffinityNamespaceSelector" >}}
@@ -552,6 +572,7 @@ In the following table:
 - {{< feature-gate-description name="PodSecurity" >}}
 - {{< feature-gate-description name="PodShareProcessNamespace" >}}
 - {{< feature-gate-description name="PreferNominatedNode" >}}
+- {{< feature-gate-description name="ProbeTerminationGracePeriod" >}}
 - {{< feature-gate-description name="RequestManagement" >}}
 - {{< feature-gate-description name="ResourceLimitsPriorityFunction" >}}
 - {{< feature-gate-description name="ResourceQuotaScopeSelectors" >}}
@@ -562,6 +583,7 @@ In the following table:
 - {{< feature-gate-description name="RuntimeClass" >}}
 - {{< feature-gate-description name="SCTPSupport" >}}
 - {{< feature-gate-description name="ScheduleDaemonSetPods" >}}
+- {{< feature-gate-description name="SeccompDefault" >}}
 - {{< feature-gate-description name="SelectorIndex" >}}
 - {{< feature-gate-description name="ServiceAccountIssuerDiscovery" >}}
 - {{< feature-gate-description name="ServiceAppProtocol" >}}
