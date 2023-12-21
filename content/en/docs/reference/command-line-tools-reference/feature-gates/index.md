@@ -518,6 +518,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - {{< feature-gate-description name="SizeMemoryBackedVolumes" >}}
 - {{< feature-gate-description name="SkipReadOnlyValidationGCE" >}}
 - {{< feature-gate-description name="StableLoadBalancerNodeSet" >}}
+- {{< feature-gate-description name="StatefulSetAutoDeletePVC" >}}
 - {{< feature-gate-description name="StatefulSetStartOrdinal" >}}
 - {{< feature-gate-description name="StorageVersionAPI" >}}
 - {{< feature-gate-description name="StorageVersionHash" >}}
