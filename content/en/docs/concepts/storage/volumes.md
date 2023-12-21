@@ -1036,7 +1036,7 @@ configuration changes to existing Storage Classes, PersistentVolumes or Persiste
 
 {{< note >}}
 * Existing PVs created by in-tree volume plugin can still be used in the future without any configuration changes even after the `CSIMigration` is completed and corresponing in-tree volume plugins are deleted.
-* A new PV with a manifest that uses in-tree volume plugins can still be created, even after the in-tree volume plugin is removed from Kubernetes.
+* New PVs with manifests that referring to in-tree volume plugins can still be created, even after the in-tree volume plugins are removed from Kubernetes.
 {{< /note >}}
 
 The operations and features that are supported include:
