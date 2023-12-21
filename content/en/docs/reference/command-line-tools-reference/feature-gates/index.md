@@ -56,8 +56,6 @@ For a reference to old feature gates that are removed, please refer to
 
 | Feature | Default | Stage | Since | Until |
 |---------|---------|-------|-------|-------|
-| `APIPriorityAndFairness` | `false` | Alpha | 1.18 | 1.19 |
-| `APIPriorityAndFairness` | `true` | Beta | 1.20 | |
 | `APIResponseCompression` | `false` | Alpha | 1.7 | 1.15 |
 | `APIResponseCompression` | `true` | Beta | 1.16 | |
 | `APIServerIdentity` | `false` | Alpha | 1.20 | 1.25 |
@@ -85,16 +83,19 @@ For a reference to old feature gates that are removed, please refer to
 | `ClusterTrustBundle` | false | Alpha | 1.27 | |
 | `ClusterTrustBundleProjection` | `false` | Alpha | 1.29 | |
 | `ComponentSLIs` | `false` | Alpha | 1.26 | 1.26 |
-| `ComponentSLIs` | `true` | Beta | 1.27 | |
+| `ComponentSLIs` | `true` | Beta | 1.27 |  |
 | `ConsistentListFromCache` | `false` | Alpha | 1.28 | |
 | `ContainerCheckpoint` | `false` | Alpha | 1.25 | |
 | `ContextualLogging` | `false` | Alpha | 1.24 | |
 | `CronJobsScheduledAnnotation` | `true` | Beta | 1.28 | |
 | `CrossNamespaceVolumeDataSource` | `false` | Alpha| 1.26 | |
 | `CustomCPUCFSQuotaPeriod` | `false` | Alpha | 1.12 | |
-| `DevicePluginCDIDevices` | `false` | Alpha | 1.28 | |
-| `DisableCloudProviders` | `false` | Alpha | 1.22 | |
-| `DisableKubeletCloudCredentialProviders` | `false` | Alpha | 1.23 | |
+| `DevicePluginCDIDevices` | `false` | Alpha | 1.28 | 1.28 |
+| `DevicePluginCDIDevices` | `true` | Beta | 1.29 | |
+| `DisableCloudProviders` | `false` | Alpha | 1.22 | 1.28 |
+| `DisableCloudProviders` | `true` | Beta | 1.29 | |
+| `DisableKubeletCloudCredentialProviders` | `false` | Alpha | 1.23 | 1.28 |
+| `DisableKubeletCloudCredentialProviders` | `true` | Beta | 1.29 | |
 | `DisableNodeKubeProxyVersion` | `false` | Alpha | 1.29 | |
 | `DynamicResourceAllocation` | `false` | Alpha | 1.26 | |
 | `ElasticIndexedJob` | `true` | Beta | 1.27 | |
@@ -107,7 +108,8 @@ For a reference to old feature gates that are removed, please refer to
 | `HPAContainerMetrics` | `false` | Alpha | 1.20 | 1.26 |
 | `HPAContainerMetrics` | `true` | Beta | 1.27 | |
 | `HPAScaleToZero` | `false` | Alpha | 1.16 | |
-| `HonorPVReclaimPolicy` | `false` | Alpha | 1.23 |  |
+| `HonorPVReclaimPolicy` | `false` | Alpha | 1.23 | |
+| `ImageMaximumGCAge` | `false` | Alpha | 1.29 | |
 | `InPlacePodVerticalScaling` | `false` | Alpha | 1.27 | |
 | `InTreePluginAWSUnregister` | `false` | Alpha | 1.21 | |
 | `InTreePluginAzureDiskUnregister` | `false` | Alpha | 1.21 | |
@@ -127,6 +129,7 @@ For a reference to old feature gates that are removed, please refer to
 | `KubeletInUserNamespace` | `false` | Alpha | 1.22 | |
 | `KubeletPodResourcesDynamicResources` | `false` | Alpha | 1.27 | |
 | `KubeletPodResourcesGet` | `false` | Alpha | 1.27 | |
+| `KubeletSeparateDiskGC` | `false` | Alpha | 1.29 | |
 | `KubeletTracing` | `false` | Alpha | 1.25 | 1.26 |
 | `KubeletTracing` | `true` | Beta | 1.27 | |
 | `LegacyServiceAccountTokenCleanUp` | `false` | Alpha | 1.28 | 1.28 |
@@ -148,6 +151,7 @@ For a reference to old feature gates that are removed, please refer to
 | `MinDomainsInPodTopologySpread` | `false` | Beta | 1.25 | 1.26 |
 | `MinDomainsInPodTopologySpread` | `true` | Beta | 1.27 | |
 | `MultiCIDRServiceAllocator` | `false` | Alpha | 1.27 | |
+| `NFTablesProxyMode` | `false` | Alpha | 1.29 |  |
 | `NewVolumeManagerReconstruction` | `false` | Beta | 1.27 | 1.27  |
 | `NewVolumeManagerReconstruction` | `true` | Beta | 1.28 |  |
 | `NodeInclusionPolicyInPodTopologySpread` | `false` | Alpha | 1.25 | 1.25 |
@@ -177,15 +181,13 @@ For a reference to old feature gates that are removed, please refer to
 | `ProcMountType` | `false` | Alpha | 1.12 | |
 | `QOSReserved` | `false` | Alpha | 1.11 | |
 | `RecoverVolumeExpansionFailure` | `false` | Alpha | 1.23 | |
-| `RemainingItemCount` | `false` | Alpha | 1.15 | 1.15 |
-| `RemainingItemCount` | `true` | Beta | 1.16 | |
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | 1.11 |
 | `RotateKubeletServerCertificate` | `true` | Beta | 1.12 | |
 | `RuntimeClassInImageCriApi` | `false` | Alpha | 1.29 | |
 | `SELinuxMountReadWriteOncePod` | `false` | Alpha | 1.25 | 1.26 |
 | `SELinuxMountReadWriteOncePod` | `false` | Beta | 1.27 | 1.27 |
 | `SELinuxMountReadWriteOncePod` | `true` | Beta | 1.28 | |
-| `SchedulerQueueingHints` | `true` | Beta | 1.28 | 1.29 |
+| `SchedulerQueueingHints` | `true` | Beta | 1.28 | 1.28 |
 | `SchedulerQueueingHints` | `false` | Beta | 1.29 | |
 | `SecurityContextDeny` | `false` | Alpha | 1.27 | |
 | `SeparateTaintEvictionController` | `true` | Beta | 1.29 | |
@@ -205,6 +207,8 @@ For a reference to old feature gates that are removed, please refer to
 | `StorageVersionAPI` | `false` | Alpha | 1.20 | |
 | `StorageVersionHash` | `false` | Alpha | 1.14 | 1.14 |
 | `StorageVersionHash` | `true` | Beta | 1.15 | |
+| `StructuredAuthenticationConfiguration` | `false` | Alpha | 1.29 | |
+| `StructuredAuthorizationConfiguration` | `false` | Alpha | 1.29 | |
 | `TopologyAwareHints` | `false` | Alpha | 1.21 | 1.22 |
 | `TopologyAwareHints` | `false` | Beta | 1.23 | 1.23 |
 | `TopologyAwareHints` | `true` | Beta | 1.24 | |
@@ -214,20 +218,22 @@ For a reference to old feature gates that are removed, please refer to
 | `TopologyManagerPolicyOptions` | `false` | Alpha | 1.26 | 1.27 |
 | `TopologyManagerPolicyOptions` | `true` | Beta | 1.28 | |
 | `TranslateStreamCloseWebsocketRequests` | `false` | Alpha | 1.29 | |
-| `UnauthenticatedHTTP2DOSMitigation` | `false` | Beta | 1.28 | |
+| `UnauthenticatedHTTP2DOSMitigation` | `false` | Beta | 1.28 | 1.28 |
 | `UnauthenticatedHTTP2DOSMitigation` | `true` | Beta | 1.29 | |
 | `UnknownVersionInteroperabilityProxy` | `false` | Alpha | 1.28 | |
 | `UserNamespacesPodSecurityStandards` | `false` | Alpha | 1.29 | |
 | `UserNamespacesSupport` | `false` | Alpha | 1.28 | |
 | `ValidatingAdmissionPolicy` | `false` | Alpha | 1.26 | 1.27 |
 | `ValidatingAdmissionPolicy` | `false` | Beta | 1.28 | |
-| `VolumeCapacityPriority` | `false` | Alpha | 1.21 | |
 | `VolumeAttributesClass` | `false` | Alpha | 1.29 | |
+| `VolumeCapacityPriority` | `false` | Alpha | 1.21 | |
 | `WatchList` | `false` | Alpha | 1.27 | |
 | `WinDSR` | `false` | Alpha | 1.14 | |
 | `WinOverlay` | `false` | Alpha | 1.14 | 1.19 |
 | `WinOverlay` | `true` | Beta | 1.20 | |
 | `WindowsHostNetwork` | `true` | Alpha | 1.26 | |
+| `ZeroLimitedNominalConcurrencyShares` | `false` | Beta | v1.29 | |
+
 {{< /table >}}
 
 ### Feature gates for graduated or deprecated features
@@ -239,9 +245,13 @@ For a reference to old feature gates that are removed, please refer to
 | `APIListChunking` | `false` | Alpha | 1.8 | 1.8 |
 | `APIListChunking` | `true` | Beta | 1.9 | 1.28 |
 | `APIListChunking` | `true` | GA | 1.29 | - |
+| `APIPriorityAndFairness` | `false` | Alpha | 1.18 | 1.19 |
+| `APIPriorityAndFairness` | `true` | Beta | 1.20 | 1.28 |
+| `APIPriorityAndFairness` | `true` | GA | 1.29 | - |
 | `APISelfSubjectReview` | `false` | Alpha | 1.26 | 1.26 |
 | `APISelfSubjectReview` | `true` | Beta | 1.27 | 1.27 |
 | `APISelfSubjectReview` | `true` | GA | 1.28 | - |
+| `AllowServiceLBStatusOnNonLB` | `false` | Deprecated | 1.29 | |
 | `CPUManager` | `false` | Alpha | 1.8 | 1.9 |
 | `CPUManager` | `true` | Beta | 1.10 | 1.25 |
 | `CPUManager` | `true` | GA | 1.26 | - |
@@ -251,23 +261,13 @@ For a reference to old feature gates that are removed, please refer to
 | `CSIMigrationAzureFile` | `true` | GA | 1.26 | |
 | `CSIMigrationRBD` | `false` | Alpha | 1.23 | 1.27 |
 | `CSIMigrationRBD` | `false` | Deprecated | 1.28 | |
-| `CSIMigrationvSphere` | `false` | Alpha | 1.18 | 1.18 |
-| `CSIMigrationvSphere` | `false` | Beta | 1.19 | 1.24 |
-| `CSIMigrationvSphere` | `true` | Beta | 1.25 | 1.25 |
-| `CSIMigrationvSphere` | `true` | GA | 1.26 | - |
 | `CSINodeExpandSecret` | `false` | Alpha | 1.25 | 1.26 |
 | `CSINodeExpandSecret` | `true` | Beta | 1.27 | 1.28 |
 | `CSINodeExpandSecret` | `true` | GA   | 1.29 | |
-| `ComponentSLIs` | `false` | Alpha | 1.26 | 1.26 |
-| `ComponentSLIs` | `true` | Beta | 1.27 | 1.28|
-| `ComponentSLIs` | `true` | GA | 1.29 | - |
 | `ConsistentHTTPGetHandlers` | `true` | GA | 1.25 | - |
 | `CustomResourceValidationExpressions` | `false` | Alpha | 1.23 | 1.24 |
 | `CustomResourceValidationExpressions` | `true`  | Beta  | 1.25 | 1.28 |
 | `CustomResourceValidationExpressions` | `true`  | GA | 1.29 | - |
-| `DaemonSetUpdateSurge` | `false` | Alpha | 1.21 | 1.21 |
-| `DaemonSetUpdateSurge` | `true` | Beta | 1.22 | 1.24 |
-| `DaemonSetUpdateSurge` | `true` | GA | 1.25 | |
 | `DefaultHostNetworkHostPortsInPodTemplates` | `false` | Deprecated | 1.28 | |
 | `EfficientWatchResumption` | `false` | Alpha | 1.20 | 1.20 |
 | `EfficientWatchResumption` | `true` | Beta | 1.21 | 1.23 |
@@ -286,10 +286,6 @@ For a reference to old feature gates that are removed, please refer to
 | `JobReadyPods` | `false` | Alpha | 1.23 | 1.23 |
 | `JobReadyPods` | `true` | Beta | 1.24 | 1.28 |
 | `JobReadyPods` | `true` | GA | 1.29 | |
-| `JobTrackingWithFinalizers` | `false` | Alpha | 1.22 | 1.22 |
-| `JobTrackingWithFinalizers` | `false` | Beta | 1.23 | 1.24 |
-| `JobTrackingWithFinalizers` | `true` | Beta | 1.25 | 1.25 |
-| `JobTrackingWithFinalizers` | `true` | GA | 1.26 | |
 | `KMSv1` | `true` | Deprecated | 1.28 | 1.28 |
 | `KMSv1` | `false` | Deprecated | 1.29 | |
 | `KMSv2` | `false` | Alpha | 1.25 | 1.26 |
@@ -312,37 +308,24 @@ For a reference to old feature gates that are removed, please refer to
 | `NodeOutOfServiceVolumeDetach` | `false` | Alpha | 1.24 | 1.25 |
 | `NodeOutOfServiceVolumeDetach` | `true` | Beta | 1.26 | 1.27 |
 | `NodeOutOfServiceVolumeDetach` | `true` | GA | 1.28 | |
-| `OpenAPIV3` | `false` | Alpha | 1.23 | 1.23 |
-| `OpenAPIV3` | `true` | Beta | 1.24 | 1.26 |
-| `OpenAPIV3` | `true` | GA | 1.27 | |
-| `ProbeTerminationGracePeriod` | `false` | Alpha | 1.21 | 1.21 |
-| `ProbeTerminationGracePeriod` | `false` | Beta | 1.22 | 1.24 |
-| `ProbeTerminationGracePeriod` | `true` | Beta | 1.25 | 1.27 |
-| `ProbeTerminationGracePeriod` | `true` | GA | 1.28 | |
 | `ProxyTerminatingEndpoints` | `false` | Alpha | 1.22 | 1.25 |
 | `ProxyTerminatingEndpoints` | `true` | Beta | 1.26 | 1.27 |
 | `ProxyTerminatingEndpoints` | `true` | GA | 1.28 | |
 | `ReadWriteOncePod` | `false` | Alpha | 1.22 | 1.26 |
 | `ReadWriteOncePod` | `true` | Beta | 1.27 | 1.28 |
 | `ReadWriteOncePod` | `true` | GA | 1.29 | |
+| `RemainingItemCount` | `false` | Alpha | 1.15 | 1.15 |
+| `RemainingItemCount` | `true` | Beta | 1.16 | 1.28 |
+| `RemainingItemCount` | `true` | GA | 1.29 | |
 | `RemoveSelfLink` | `false` | Alpha | 1.16 | 1.19 |
 | `RemoveSelfLink` | `true` | Beta | 1.20 | 1.23 |
 | `RemoveSelfLink` | `true` | GA | 1.24 | |
-| `SeccompDefault` | `false` | Alpha | 1.22 | 1.24 |
-| `SeccompDefault` | `true` | Beta | 1.25 | 1.26 |
-| `SeccompDefault` | `true` | GA | 1.27 | - |
 | `ServerSideApply` | `false` | Alpha | 1.14 | 1.15 |
 | `ServerSideApply` | `true` | Beta | 1.16 | 1.21 |
 | `ServerSideApply` | `true` | GA | 1.22 | - |
 | `ServerSideFieldValidation` | `false` | Alpha | 1.23 | 1.24 |
 | `ServerSideFieldValidation` | `true` | Beta | 1.25 | 1.26 |
 | `ServerSideFieldValidation` | `true` | GA | 1.27 | - |
-| `ServiceIPStaticSubrange` | `false` | Alpha | 1.24 | 1.24 |
-| `ServiceIPStaticSubrange` | `true` | Beta | 1.25 | 1.25 |
-| `ServiceIPStaticSubrange` | `true` | GA | 1.26 | - |
-| `ServiceInternalTrafficPolicy` | `false` | Alpha | 1.21 | 1.21 |
-| `ServiceInternalTrafficPolicy` | `true` | Beta | 1.22 | 1.25 |
-| `ServiceInternalTrafficPolicy` | `true` | GA | 1.26 | - |
 | `ServiceNodePortStaticSubrange` | `false` | Alpha | 1.27 | 1.27 |
 | `ServiceNodePortStaticSubrange` | `true` | Beta | 1.28 | 1.28 |
 | `ServiceNodePortStaticSubrange` | `true` | GA | 1.29 | - |
@@ -398,6 +381,7 @@ A *General Availability* (GA) feature is also referred to as a *stable* feature.
 Each feature gate is designed for enabling/disabling a specific feature:
 
 - {{< feature-gate-description name="AdmissionWebhookMatchConditions" >}}
+- {{< feature-gate-description name="AllowServiceLBStatusOnNonLB" >}}
 - {{< feature-gate-description name="AggregatedDiscoveryEndpoint" >}}
 - {{< feature-gate-description name="AnyVolumeDataSource" >}}
 - {{< feature-gate-description name="APIListChunking" >}}
@@ -427,12 +411,10 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - {{< feature-gate-description name="CSIMigrationAzureFile" >}}
 - {{< feature-gate-description name="CSIMigrationPortworx" >}}
 - {{< feature-gate-description name="CSIMigrationRBD" >}}
-- {{< feature-gate-description name="CSIMigrationvSphere" >}}
 - {{< feature-gate-description name="CSINodeExpandSecret" >}}
 - {{< feature-gate-description name="CSIVolumeHealth" >}}
 - {{< feature-gate-description name="CustomCPUCFSQuotaPeriod" >}}
 - {{< feature-gate-description name="CustomResourceValidationExpressions" >}}
-- {{< feature-gate-description name="DaemonSetUpdateSurge" >}}
 - {{< feature-gate-description name="DefaultHostNetworkHostPortsInPodTemplates" >}}
 - {{< feature-gate-description name="DevicePluginCDIDevices" >}}
 - {{< feature-gate-description name="DisableCloudProviders" >}}
@@ -451,6 +433,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - {{< feature-gate-description name="HonorPVReclaimPolicy" >}}
 - {{< feature-gate-description name="HPAContainerMetrics" >}}
 - {{< feature-gate-description name="HPAScaleToZero" >}}
+- {{< feature-gate-description name="ImageMaximumGCAge" >}}
 - {{< feature-gate-description name="InPlacePodVerticalScaling" >}}
 - {{< feature-gate-description name="InTreePluginAWSUnregister" >}}
 - {{< feature-gate-description name="InTreePluginAzureDiskUnregister" >}}
@@ -466,7 +449,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - {{< feature-gate-description name="JobPodFailurePolicy" >}}
 - {{< feature-gate-description name="JobPodReplacementPolicy" >}}
 - {{< feature-gate-description name="JobReadyPods" >}}
-- {{< feature-gate-description name="JobTrackingWithFinalizers" >}}
 - {{< feature-gate-description name="KMSv1" >}}
 - {{< feature-gate-description name="KMSv2" >}}
 - {{< feature-gate-description name="KMSv2KDF" >}}
@@ -476,6 +458,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - {{< feature-gate-description name="KubeletPodResourcesDynamicResources" >}}
 - {{< feature-gate-description name="KubeletPodResourcesGet" >}}
 - {{< feature-gate-description name="KubeletPodResourcesGetAllocatable" >}}
+- {{< feature-gate-description name="KubeletSeparateDiskGC" >}}
 - {{< feature-gate-description name="KubeletTracing" >}}
 - {{< feature-gate-description name="KubeProxyDrainingTerminatingNodes" >}}
 - {{< feature-gate-description name="LegacyServiceAccountTokenCleanUp" >}}
@@ -495,12 +478,12 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - {{< feature-gate-description name="MinimizeIPTablesRestore" >}}
 - {{< feature-gate-description name="MultiCIDRServiceAllocator" >}}
 - {{< feature-gate-description name="NewVolumeManagerReconstruction" >}}
+- {{< feature-gate-description name="NFTablesProxyMode" >}}
 - {{< feature-gate-description name="NodeInclusionPolicyInPodTopologySpread" >}}
 - {{< feature-gate-description name="NodeLogQuery" >}}
 - {{< feature-gate-description name="NodeOutOfServiceVolumeDetach" >}}
 - {{< feature-gate-description name="NodeSwap" >}}
 - {{< feature-gate-description name="OpenAPIEnums" >}}
-- {{< feature-gate-description name="OpenAPIV3" >}}
 - {{< feature-gate-description name="PDBUnhealthyPodEvictionPolicy" >}}
 - {{< feature-gate-description name="PersistentVolumeLastPhaseTransitionTime" >}}
 - {{< feature-gate-description name="PodAndContainerStatsFromCRI" >}}
@@ -511,7 +494,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - {{< feature-gate-description name="PodLifecycleSleepAction" >}}
 - {{< feature-gate-description name="PodReadyToStartContainersCondition" >}}
 - {{< feature-gate-description name="PodSchedulingReadiness" >}}
-- {{< feature-gate-description name="ProbeTerminationGracePeriod" >}}
 - {{< feature-gate-description name="ProcMountType" >}}
 - {{< feature-gate-description name="ProxyTerminatingEndpoints" >}}
 - {{< feature-gate-description name="QOSReserved" >}}
@@ -522,7 +504,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - {{< feature-gate-description name="RotateKubeletServerCertificate" >}}
 - {{< feature-gate-description name="RuntimeClassInImageCriApi" >}}
 - {{< feature-gate-description name="SchedulerQueueingHints" >}}
-- {{< feature-gate-description name="SeccompDefault" >}}
 - {{< feature-gate-description name="SecurityContextDeny" >}}
 - {{< feature-gate-description name="SELinuxMountReadWriteOncePod" >}}
 - {{< feature-gate-description name="SeparateTaintEvictionController" >}}
@@ -540,6 +521,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - {{< feature-gate-description name="StatefulSetStartOrdinal" >}}
 - {{< feature-gate-description name="StorageVersionAPI" >}}
 - {{< feature-gate-description name="StorageVersionHash" >}}
+- {{< feature-gate-description name="StructuredAuthenticationConfiguration" >}}
+- {{< feature-gate-description name="StructuredAuthorizationConfiguration" >}}
 - {{< feature-gate-description name="TopologyAwareHints" >}}
 - {{< feature-gate-description name="TopologyManager" >}}
 - {{< feature-gate-description name="TopologyManagerPolicyAlphaOptions" >}}
@@ -558,6 +541,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - {{< feature-gate-description name="WindowsHostNetwork" >}}
 - {{< feature-gate-description name="WinDSR" >}}
 - {{< feature-gate-description name="WinOverlay" >}}
+- {{< feature-gate-description name="ZeroLimitedNominalConcurrencyShares" >}}
 
 ## {{% heading "whatsnext" %}}
 
