@@ -1,5 +1,5 @@
 ---
-title: kubectl Cheat Sheet
+title: kubectl Quick Reference
 reviewers:
 - erictune
 - krousey
