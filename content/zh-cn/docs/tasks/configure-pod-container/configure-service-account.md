@@ -5,7 +5,7 @@ weight: 120
 ---
 <!--
 reviewers:
-- bprashanth
+- enj
 - liggitt
 - thockin
 title: Configure Service Accounts for Pods
@@ -72,8 +72,8 @@ You can fetch the details for a Pod you have created. For example:
 ServiceAccount。
 
 每个 Kubernetes 名字空间至少包含一个 ServiceAccount：也就是该名字空间的默认服务账号，
-名为 `default`。如果你在创建 Pod 时没有指定 ServiceAccount，Kubernetes 会自动将该名字空间中
-名为 `default` 的 ServiceAccount 分配给该 Pod。
+名为 `default`。如果你在创建 Pod 时没有指定 ServiceAccount，Kubernetes 会自动将该名字空间中名为
+`default` 的 ServiceAccount 分配给该 Pod。
 
 你可以检视你刚刚创建的 Pod 的细节。例如：
 
@@ -132,6 +132,7 @@ metadata:
 automountServiceAccountToken: false
 ...
 ```
+
 <!--
 You can also opt out of automounting API credentials for a particular Pod:
 -->
@@ -202,7 +203,7 @@ The name of a ServiceAccount object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 -->
 ServiceAccount 对象的名字必须是一个有效的
-[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 
 <!--
 If you get a complete dump of the service account object, like this:
@@ -284,7 +285,7 @@ You can get a time-limited API token for that ServiceAccount using `kubectl`:
 ## 手动为 ServiceAccount 创建 API 令牌 {#manually-create-an-api-token-for-a-serviceaccount}
 
 假设你已经有了一个前文所提到的名为 "build-robot" 的服务账号。
-你可以使用 `kubectl` 为该 ServiceAccount 获得一个时间上受限的 API 令牌：
+你可以使用 `kubectl` 为该 ServiceAccount 获得一个有时限的 API 令牌：
 
 ```shell
 kubectl create token build-robot
@@ -299,6 +300,24 @@ token might be shorter, or could even be longer).
 这一命令的输出是一个令牌，你可以使用该令牌来将身份认证为对应的 ServiceAccount。
 你可以使用 `kubectl create token` 命令的 `--duration` 参数来请求特定的令牌有效期
 （实际签发的令牌的有效期可能会稍短一些，也可能会稍长一些）。
+
+<!--
+When the `ServiceAccountTokenNodeBinding` and `ServiceAccountTokenNodeBindingValidation`
+features are enabled and the `KUBECTL_NODE_BOUND_TOKENS` enviroment variable is set to `true`,
+it is possible to create a service account token that is directly bound to a `Node`:
+-->
+当启用了 `ServiceAccountTokenNodeBinding` 和 `ServiceAccountTokenNodeBindingValidation`
+特性，并将 `KUBECTL_NODE_BOUND_TOKENS` 环境变量设置为 `true` 时，
+可以创建一个直接绑定到 `Node` 的服务账号令牌：
+
+```shell
+KUBECTL_NODE_BOUND_TOKENS=true kubectl create token build-robot --bound-object-kind Node --bound-object-name node-001 --bound-object-uid 123...456
+```
+
+<!--
+The token will be valid until it expires or either the assocaited `Node` or service account are deleted.
+-->
+此令牌将有效直至其过期或关联的 `Node` 或服务账户被删除。
 
 {{< note >}}
 <!--
@@ -660,8 +679,76 @@ You can configure this behavior for the `spec` of a Pod using a
 [projected volume](/docs/concepts/storage/volumes/#projected) type called
 `ServiceAccountToken`.
 -->
-你可以使用类型为 `ServiceAccountToken` 的[投射卷](/zh-cn/docs/concepts/storage/volumes/#projected)
-来为 Pod 的 `spec` 配置此行为。
+你可以使用类型为 `ServiceAccountToken` 的[投射卷](/zh-cn/docs/concepts/storage/volumes/#projected)来为
+Pod 的 `spec` 配置此行为。
+
+<!--
+The token from this projected volume is a {{<glossary_tooltip term_id="jwt" text="JSON Web Token">}}  (JWT).
+The JSON payload of this token follows a well defined schema - an example payload for a pod bound token:
+-->
+来自此投射卷的令牌是一个 {{<glossary_tooltip term_id="jwt" text="JSON Web Token">}} (JWT)。
+此令牌的 JSON 载荷遵循明确定义的模式，绑定到 Pod 的令牌的示例载荷如下：
+
+<!--
+```yaml
+{
+  "aud": [  # matches the requested audiences, or the API server's default audiences when none are explicitly requested
+    "https://kubernetes.default.svc"
+  ],
+  "exp": 1731613413,
+  "iat": 1700077413,
+  "iss": "https://kubernetes.default.svc",  # matches the first value passed to the --service-account-issuer flag
+  "jti": "ea28ed49-2e11-4280-9ec5-bc3d1d84661a",  # ServiceAccountTokenJTI feature must be enabled for the claim to be present
+  "kubernetes.io": {
+    "namespace": "kube-system",
+    "node": {  # ServiceAccountTokenPodNodeInfo feature must be enabled for the API server to add this node reference claim
+      "name": "127.0.0.1",
+      "uid": "58456cb0-dd00-45ed-b797-5578fdceaced"
+    },
+    "pod": {
+      "name": "coredns-69cbfb9798-jv9gn",
+      "uid": "778a530c-b3f4-47c0-9cd5-ab018fb64f33"
+    },
+    "serviceaccount": {
+      "name": "coredns",
+      "uid": "a087d5a0-e1dd-43ec-93ac-f13d89cd13af"
+    },
+    "warnafter": 1700081020
+  },
+  "nbf": 1700077413,
+  "sub": "system:serviceaccount:kube-system:coredns"
+}
+```
+-->
+```yaml
+{
+  "aud": [  # 匹配请求的受众，或当没有明确请求时匹配 API 服务器的默认受众
+    "https://kubernetes.default.svc"
+  ],
+  "exp": 1731613413,
+  "iat": 1700077413,
+  "iss": "https://kubernetes.default.svc",  # 匹配传递到 --service-account-issuer 标志的第一个值
+  "jti": "ea28ed49-2e11-4280-9ec5-bc3d1d84661a",  # ServiceAccountTokenJTI 特性必须被启用才能出现此申领
+  "kubernetes.io": {
+    "namespace": "kube-system",
+    "node": {  # ServiceAccountTokenPodNodeInfo 特性必须被启用，API 服务器才会添加此节点引用申领
+      "name": "127.0.0.1",
+      "uid": "58456cb0-dd00-45ed-b797-5578fdceaced"
+    },
+    "pod": {
+      "name": "coredns-69cbfb9798-jv9gn",
+      "uid": "778a530c-b3f4-47c0-9cd5-ab018fb64f33"
+    },
+    "serviceaccount": {
+      "name": "coredns",
+      "uid": "a087d5a0-e1dd-43ec-93ac-f13d89cd13af"
+    },
+    "warnafter": 1700081020
+  },
+  "nbf": 1700077413,
+  "sub": "system:serviceaccount:kube-system:coredns"
+}
+```
 
 <!--
 ### Launch a Pod using service account token projection
