@@ -15,7 +15,7 @@
       <link>{{ .Permalink }}</link>
     </image>
     {{ with .OutputFormats.Get "RSS" }}
-	  {{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType | safeHTML }}
+    {{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType | safeHTML }}
     {{ end }}
     {{ range first 50 (where site.RegularPages "Type" "in" (slice "blog")) }}
     <item>
