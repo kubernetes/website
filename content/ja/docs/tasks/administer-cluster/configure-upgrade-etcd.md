@@ -216,34 +216,28 @@ etcdは内部でユニークなメンバーIDを保持していますが、人�
 
 クラスタの再構成に関する詳細については、[etcd再構成ドキュメント](https://etcd.io/docs/current/op-guide/runtime-configuration/#remove-a-member)を参照してください。
 
-## Backing up an etcd cluster
+## etcdクラスタのバックアップ
 
-All Kubernetes objects are stored on etcd. Periodically backing up the etcd
-cluster data is important to recover Kubernetes clusters under disaster
-scenarios, such as losing all control plane nodes. The snapshot file contains
-all the Kubernetes states and critical information. In order to keep the
-sensitive Kubernetes data safe, encrypt the snapshot files.
+すべてのKubernetesオブジェクトはetcdに保存されています。
+定期的にetcdクラスタのデータをバックアップすることは、すべてのコントロールプレーンノードを失うなどの災害シナリオでKubernetesクラスタを復旧するために重要です。
+スナップショットファイルには、すべてのKubernetesの状態と重要な情報が含まれています。
+機密性の高いKubernetesデータを安全に保つために、スナップショットファイルを暗号化してください。
 
-Backing up an etcd cluster can be accomplished in two ways: etcd built-in
-snapshot and volume snapshot.
+etcdクラスタのバックアップは、etcdの組み込みスナップショットとボリュームスナップショットの2つの方法で実現できます。
 
-### Built-in snapshot
+### ビルトインスナップショット
 
-etcd supports built-in snapshot. A snapshot may either be taken from a live
-member with the `etcdctl snapshot save` command or by copying the
-`member/snap/db` file from an etcd
-[data directory](https://etcd.io/docs/current/op-guide/configuration/#--data-dir)
-that is not currently used by an etcd process. Taking the snapshot will
-not affect the performance of the member.
+etcdはビルトインスナップショットをサポートしています。
+スナップショットは、`etcdctl snapshot save`コマンドを使用してライブメンバーから、あるいはetcdプロセスによって現在使用されていない[データディレクトリ](https://etcd.io/docs/current/op-guide/configuration/#--data-dir)から`member/snap/db`ファイルをコピーして取得できます。
+スナップショットを取得しても、メンバーのパフォーマンスに影響はありません。
 
-Below is an example for taking a snapshot of the keyspace served by
-`$ENDPOINT` to the file `snapshot.db`:
+以下は、`$ENDPOINT`によって提供されるキースペースのスナップショットを`snapshot.db`ファイルに取る例です：
 
 ```shell
 ETCDCTL_API=3 etcdctl --endpoints $ENDPOINT snapshot save snapshot.db
 ```
 
-Verify the snapshot:
+スナップショットを確認します:
 
 ```shell
 ETCDCTL_API=3 etcdctl --write-out=table snapshot status snapshot.db
@@ -257,29 +251,28 @@ ETCDCTL_API=3 etcdctl --write-out=table snapshot status snapshot.db
 +----------+----------+------------+------------+
 ```
 
-### Volume snapshot
+### ボリュームスナップショット
 
-If etcd is running on a storage volume that supports backup, such as Amazon
-Elastic Block Store, back up etcd data by taking a snapshot of the storage
-volume.
+etcdがAmazon Elastic Block Storeのようなバックアップをサポートするストレージボリューム上で実行されている場合、ストレージボリュームのスナップショットを取ることによってetcdデータをバックアップします。
 
-### Snapshot using etcdctl options
+### etcdctlオプションを使用したスナップショット
 
-We can also take the snapshot using various options given by etcdctl. For example
+etcdctlによって提供されるさまざまなオプションを使用してスナップショットを取ることもできます。例えば
 
 ```shell
 ETCDCTL_API=3 etcdctl -h
 ```
 
-will list various options available from etcdctl. For example, you can take a snapshot by specifying
-the endpoint, certificates etc as shown below:
+はetcdctlから利用可能なさまざまなオプションを一覧表示します。
+例えば、以下のようにエンドポイント、証明書などを指定してスナップショットを取ることができます:
 
 ```shell
 ETCDCTL_API=3 etcdctl --endpoints=https://127.0.0.1:2379 \
   --cacert=<trusted-ca-file> --cert=<cert-file> --key=<key-file> \
   snapshot save <backup-file-location>
 ```
-where `trusted-ca-file`, `cert-file` and `key-file` can be obtained from the description of the etcd Pod.
+
+ここで、`trusted-ca-file`、`cert-file`、`key-file`はetcd Podの説明から取得できます。
 
 ## Scaling out etcd clusters
 
