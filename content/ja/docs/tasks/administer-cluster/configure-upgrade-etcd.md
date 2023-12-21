@@ -274,19 +274,16 @@ ETCDCTL_API=3 etcdctl --endpoints=https://127.0.0.1:2379 \
 
 ここで、`trusted-ca-file`、`cert-file`、`key-file`はetcd Podの説明から取得できます。
 
-## Scaling out etcd clusters
+## etcdクラスタのスケールアウト
 
-Scaling out etcd clusters increases availability by trading off performance.
-Scaling does not increase cluster performance nor capability. A general rule
-is not to scale out or in etcd clusters. Do not configure any auto scaling
-groups for etcd clusters. It is highly recommended to always run a static
-five-member etcd cluster for production Kubernetes clusters at any officially
-supported scale.
+etcdクラスタのスケールアウトは、パフォーマンスとのトレードオフで可用性を高めます。
+スケーリングはクラスタのパフォーマンスや能力を高めるものではありません。
+一般的なルールとして、etcdクラスタをスケールアウトまたはスケールインすることはありません。
+etcdクラスタに自動スケーリンググループを設定しないでください。
+公式にサポートされるどんなスケールのプロダクション環境のKubernetesクラスタにおいても、常に静的な5メンバーのetcdクラスタを運用することを強く推奨します。
 
-A reasonable scaling is to upgrade a three-member cluster to a five-member
-one, when more reliability is desired. See
-[etcd reconfiguration documentation](https://etcd.io/docs/current/op-guide/runtime-configuration/#remove-a-member)
-for information on how to add members into an existing cluster.
+合理的なスケーリングは、より高い信頼性が求められる場合に、3メンバーのクラスタを5メンバーにアップグレードすることです。
+既存のクラスタにメンバーを追加する方法については、[etcdの再構成ドキュメント](https://etcd.io/docs/current/op-guide/runtime-configuration/#remove-a-member)を参照してください。
 
 ## Restoring an etcd cluster
 
