@@ -41,6 +41,9 @@ In the following table:
 | `AllowExtTrafficLocalEndpoints` | `true` | GA | 1.7 | 1.9 |
 | `AllowInsecureBackendProxy` | `true` | Beta | 1.17 | 1.20 |
 | `AllowInsecureBackendProxy` | `true` | GA | 1.21 | 1.25 |
+| `APISelfSubjectReview` | `false` | Alpha | 1.26 | 1.26 |
+| `APISelfSubjectReview` | `true` | Beta | 1.27 | 1.27 |
+| `APISelfSubjectReview` | `true` | GA | 1.28 | 1.29 |
 | `AttachVolumeLimit` | `false` | Alpha | 1.11 | 1.11 |
 | `AttachVolumeLimit` | `true` | Beta | 1.12 | 1.16 |
 | `AttachVolumeLimit` | `true` | GA | 1.17 | 1.21 |
@@ -454,6 +457,7 @@ In the following table:
 - {{< feature-gate-description name="AdvancedAuditing" >}}
 - {{< feature-gate-description name="AllowExtTrafficLocalEndpoints" >}}
 - {{< feature-gate-description name="AllowInsecureBackendProxy" >}}
+- {{< feature-gate-description name="APISelfSubjectReview" >}}
 - {{< feature-gate-description name="AttachVolumeLimit" >}}
 - {{< feature-gate-description name="BalanceAttachedNodeVolumes" >}}
 - {{< feature-gate-description name="BlockVolume" >}}
