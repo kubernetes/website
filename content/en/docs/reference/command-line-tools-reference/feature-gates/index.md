@@ -239,9 +239,6 @@ For a reference to old feature gates that are removed, please refer to
 | `APIListChunking` | `false` | Alpha | 1.8 | 1.8 |
 | `APIListChunking` | `true` | Beta | 1.9 | 1.28 |
 | `APIListChunking` | `true` | GA | 1.29 | - |
-| `APISelfSubjectReview` | `false` | Alpha | 1.26 | 1.26 |
-| `APISelfSubjectReview` | `true` | Beta | 1.27 | 1.27 |
-| `APISelfSubjectReview` | `true` | GA | 1.28 | - |
 | `CPUManager` | `false` | Alpha | 1.8 | 1.9 |
 | `CPUManager` | `true` | Beta | 1.10 | 1.25 |
 | `CPUManager` | `true` | GA | 1.26 | - |
@@ -403,7 +400,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - {{< feature-gate-description name="APIListChunking" >}}
 - {{< feature-gate-description name="APIPriorityAndFairness" >}}
 - {{< feature-gate-description name="APIResponseCompression" >}}
-- {{< feature-gate-description name="APISelfSubjectReview" >}}
 - {{< feature-gate-description name="APIServerIdentity" >}}
 - {{< feature-gate-description name="APIServerTracing" >}}
 - {{< feature-gate-description name="AppArmor" >}}
