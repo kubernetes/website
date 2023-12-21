@@ -61,22 +61,22 @@ Example CEL expressions:
 | `self.names.size() == self.details.size() && self.names.all(n, n in self.details)` | Validate the 'details' map is keyed by the items in the 'names' listSet           |
 {{< /table >}}
 
-## CEL options, language features and libraries
+## CEL options, language features, and libraries
 
 CEL is configured with the following options, libraries and language features, introduced at the specified Kubernetes versions:
 
 | CEL option, library or language feature             | Included                                                                                                        | Availablity                |
 | --------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | -------------------------- |
-| [standard macros](stdmacros)                        | `has`, `all`, `exists`, `exists_one`, `map`, `filter`                                                           | *                          |
-| [standard functions](stdlib)                        | see the [official list of standard definitions](stdlib)                                                         | *                          |
-| [Homogeneous Aggregate Literals](opt1)              |                                                                                                                 | *                          |
-| [Default UTC Time Zone](opt2)                       |                                                                                                                 | *                          |
-| [Eagerly Validate Declarations](opt3)               |                                                                                                                 | *                          |
-| [extended strings library](stringsgodoc), Version 1 | `charAt`, `indexOf`, `lastIndexOf`, `lowerAscii`, `upperAscii`, `replace`, `split`, `join`, `substring`, `trim` | *                          |
-| Kubernetes list library                             | See [Kubernetes list library](#kubernetes-list-library)                                                         | *                          |
-| Kubernetes regex library                            | See [Kubernetes regex library](#kubernetes-regex-library)                                                       | *                          |
-| Kubernetes URL library                              | See [Kubernetes URL library](#kubernetes-url-library)                                                           | *                          |
-| Kubernetes authorizer library                       | See [Kubernetes authorizer library](#kubernetes-authorizer-library)                                             | *                          |
+| [Standard macros](stdmacros)                        | `has`, `all`, `exists`, `exists_one`, `map`, `filter`                                                           | All Kubernetes versions    |
+| [Standard functions](stdlib)                        | See [official list of standard definitions](stdlib)                                                             | All Kubernetes versions    |
+| [Homogeneous Aggregate Literals](opt1)              |                                                                                                                 | All Kubernetes versions    |
+| [Default UTC Time Zone](opt2)                       |                                                                                                                 | All Kubernetes versions    |
+| [Eagerly Validate Declarations](opt3)               |                                                                                                                 | All Kubernetes versions    |
+| [extended strings library](stringsgodoc), Version 1 | `charAt`, `indexOf`, `lastIndexOf`, `lowerAscii`, `upperAscii`, `replace`, `split`, `join`, `substring`, `trim` | All Kubernetes versions    |
+| Kubernetes list library                             | See [Kubernetes list library](#kubernetes-list-library)                                                         | All Kubernetes versions    |
+| Kubernetes regex library                            | See [Kubernetes regex library](#kubernetes-regex-library)                                                       | All Kubernetes versions    |
+| Kubernetes URL library                              | See [Kubernetes URL library](#kubernetes-url-library)                                                           | All Kubernetes versions    |
+| Kubernetes authorizer library                       | See [Kubernetes authorizer library](#kubernetes-authorizer-library)                                             | All Kubernetes versions    |
 
 [stdmacros]: https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#macros
 [stdlib]: https://github.com/google/cel-spec/blob/master/doc/langdef.md#list-of-standard-definitions
