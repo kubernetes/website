@@ -1,8 +1,8 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>{{ site.Title }} – {{ .Title }}</title>
+    <title>{{ site.Title }} Blog</title>
     <link>{{ .Permalink }}</link>
-    <description>The Kubernetes project blog</description>
+    <description>The Kubernetes blog is used by the project to communicate new features, community reports, and any news that might be relevant to the Kubernetes community.</description>
     <generator>Hugo -- gohugo.io</generator>{{ with site.LanguageCode }}
     <language>{{.}}</language>{{end}}{{ with site.Author.email }}
     <managingEditor>{{.}}{{ with site.Author.name }} ({{.}}){{end}}</managingEditor>{{end}}{{ with site.Author.email }}
@@ -11,15 +11,15 @@
     <lastBuildDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</lastBuildDate>{{ end }}
     <image>
       <url>https://raw.githubusercontent.com/kubernetes/kubernetes/master/logo/logo.png</url>
-      <title>Kubernetes.io</title>
+      <title>The Kubernetes project logo</title>
       <link>{{ .Permalink }}</link>
     </image>
     {{ with .OutputFormats.Get "RSS" }}
-	{{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType | safeHTML }}
+    {{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType | safeHTML }}
     {{ end }}
     {{ range first 50 (where site.RegularPages "Type" "in" (slice "blog")) }}
     <item>
-      <title>{{ .Section | title }}: {{ .Title }}</title>
+      <title>{{ .Title }}</title>
       <link>{{ .Permalink }}</link>
       <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
       {{ with site.Author.email }}<author>{{.}}{{ with site.Author.name }} ({{.}}){{end}}</author>{{end}}
