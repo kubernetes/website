@@ -60,7 +60,7 @@ When present, indicates that modifications should not be persisted. An invalid o
 
 ## fieldManager {#fieldManager}
 
-fieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint.
+fieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://pkg.go.dev/unicode#IsPrint.
 
 <hr>
 
