@@ -116,7 +116,7 @@ NAME      DESIRED   CURRENT   AGE
 web       2         1         20s
 ```
 
-### Ordered Pod Creation
+### Ordered Pod creation
 
 For a StatefulSet with _n_ replicas, when Pods are being deployed, they are
 created sequentially, ordered from _{0..n-1}_. Examine the output of the
@@ -479,7 +479,7 @@ created each Pod sequentially with respect to its ordinal index, and it
 waited for each Pod's predecessor to be Running and Ready before launching the
 subsequent Pod.
 
-### Scaling Down
+### Scaling down
 
 In one terminal, watch the StatefulSet's Pods:
 
