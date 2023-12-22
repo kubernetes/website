@@ -7,5 +7,5 @@ _build:
 ---
 Allow setting the `restartPolicy` of an init container to
 `Always` so that the container becomes a sidecar container (restartable init containers).
-
-See [Sidecar containers and restartPolicy](/docs/concepts/workloads/pods/init-containers/#sidecar-containers-and-restartpolicy)
+See [Sidecar containers and restartPolicy](/docs/concepts/workloads/pods/sidecar-containers/)
+for more details.
