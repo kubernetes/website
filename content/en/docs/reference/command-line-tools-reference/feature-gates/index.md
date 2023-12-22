@@ -163,8 +163,8 @@ For a reference to old feature gates that are removed, please refer to
 | `OpenAPIEnums` | `true` | Beta | 1.24 | |
 | `PDBUnhealthyPodEvictionPolicy` | `false` | Alpha | 1.26 | 1.26 |
 | `PDBUnhealthyPodEvictionPolicy` | `true` | Beta | 1.27 | |
-| `PersistentVolumeLastPhaseTransistionTime` | `false` | Alpha | 1.28  | 1.28 |
-| `PersistentVolumeLastPhaseTransistionTime` | `true`  | Beta  | 1.29  | |
+| `PersistentVolumeLastPhaseTransitionTime` | `false` | Alpha | 1.28  | 1.28 |
+| `PersistentVolumeLastPhaseTransitionTime` | `true`  | Beta  | 1.29  | |
 | `PodAndContainerStatsFromCRI` | `false` | Alpha | 1.23 | |
 | `PodDeletionCost` | `false` | Alpha | 1.21 | 1.21 |
 | `PodDeletionCost` | `true` | Beta | 1.22 | |
@@ -232,7 +232,7 @@ For a reference to old feature gates that are removed, please refer to
 | `WinOverlay` | `false` | Alpha | 1.14 | 1.19 |
 | `WinOverlay` | `true` | Beta | 1.20 | |
 | `WindowsHostNetwork` | `true` | Alpha | 1.26 | |
-| `ZeroLimitedNominalConcurrencyShares` | `false` | Beta | v1.29 | |
+| `ZeroLimitedNominalConcurrencyShares` | `false` | Beta | 1.29 | |
 
 {{< /table >}}
 
