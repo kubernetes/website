@@ -25,7 +25,7 @@
           </div>
           {{ if .Site.Params.k8s_search }}
             <script src="{{ "js/search.js" | relURL }}"></script>
-            <div id="bing-note" role="alert"></div> 
+            <div id="bing-note" role="alert">{{ T "bing_note" }}</div> 
           {{end}}
           <div class="col-12 col-md-8 offset-md-2">
               <h2 class="search-title ml-3">{{ .Title }}</h2>

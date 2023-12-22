@@ -13,6 +13,7 @@
     });
 
     window.renderGoogleSearchResults = () => {
+        $('#bing-note').css('display', 'none');
         var cx = '013288817511911618469:elfqqbqldzg';
         var gcse = document.createElement('script');
         gcse.type = 'text/javascript';
@@ -45,8 +46,7 @@
     }
 
     window.renderBingSearchResults = () => {
-      let note = 'The search results on this page are currently using Bing. Please note that Bing search may not be as effective as Google search at indexing websites where different query strings might be used, and the results may vary from your usual experience.';
-      $('#bing-note').html(note).addClass('alert alert-info note callout');;
+      $('#bing-note').addClass('alert alert-info note callout').css('display', 'block');
       let urlParams = new URLSearchParams(window.location.search);
       let searchTerm = urlParams.get("q") || "";
       let page = urlParams.get("page") || 1;
