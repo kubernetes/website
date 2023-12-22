@@ -3,8 +3,5 @@
   "devDependencies": {
     "autoprefixer": "^9.8.4",
     "postcss-cli": "^7.1.1"
-  },
-  "dependencies": {
-    "i18n-js": "^4.3.2"
   }
 }

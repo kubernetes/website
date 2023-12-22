@@ -1,6 +1,3 @@
-    import { I18n } from "i18n-js";
-    const i18n = new I18n(translations);
-    
     document.querySelector('html').classList.add('search');
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -48,7 +45,7 @@
     }
 
     window.renderBingSearchResults = () => {
-      let note = i18n.t("bing_note");
+      let note = 'The search results on this page are currently using Bing. Please note that Bing search may not be as effective as Google search at indexing websites where different query strings might be used, and the results may vary from your usual experience.';
       $('#bing-note').html(note).addClass('alert alert-info note callout');;
       let urlParams = new URLSearchParams(window.location.search);
       let searchTerm = urlParams.get("q") || "";
