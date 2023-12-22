@@ -385,7 +385,7 @@ In the following table:
 | `ServiceTopology` | `false` | Deprecated | 1.20 | 1.22 |
 | `SetHostnameAsFQDN` | `false` | Alpha | 1.19 | 1.19 |
 | `SetHostnameAsFQDN` | `true` | Beta | 1.20 | 1.21 |
-| `SetHostnameAsFQDN` | `true` | GA | 1.22 | 1,24 |
+| `SetHostnameAsFQDN` | `true` | GA | 1.22 | 1.24 |
 | `StartupProbe` | `false` | Alpha | 1.16 | 1.17 |
 | `StartupProbe` | `true` | Beta | 1.18 | 1.19 |
 | `StartupProbe` | `true` | GA | 1.20 | 1.23 |
