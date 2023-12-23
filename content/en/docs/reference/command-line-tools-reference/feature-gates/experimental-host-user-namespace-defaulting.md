@@ -4,6 +4,15 @@ content_type: feature_gate
 _build:
   list: never
   render: false
+
+stages:
+  - stage: beta
+    defaultValue: false
+    fromVersion: "1.5"  
+    toVersion: "1.27" 
+  - stage: deprecated
+    defaultValue: false
+    fromVersion: "1.28"  
 ---
 Enabling the defaulting user
 namespace to host. This is for containers that are using other host namespaces,
