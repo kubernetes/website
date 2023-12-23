@@ -80,3 +80,17 @@ is signed in the same way as for the multi-architecture manifest lists.
 ## Binaries
 
 {{< release-binaries >}}
+
+## Official Package Repositories
+
+| Official Packages                                                      | Repositories          
+| ---------------------------------------------------------------------- | ---------------------------------                     |
+| kubectl                                                                | https://github.com/kubernetes/kubectl                 |
+| kubeadm                                                                | https://github.com/kubernetes/kubeadm                 |
+| kubelet                                                                | https://github.com/kubernetes/kubelet                 |
+| kube-aggregator                                                        | https://github.com/kubernetes/kube-aggregator         |
+| kube-controller-manager                                                | https://github.com/kubernetes/kube-controller-manager |
+| kube-proxy                                                             | https://github.com/kubernetes/kube-proxy              |
+| kube-scheduler                                                         | https://github.com/kubernetes/kube-scheduler          |
+| apiextensions-apiserver                                                | https://github.com/kubernetes/apiextensions-apiserver |
+| mount-utils                                                            | https://github.com/kubernetes/mount-utils             |
