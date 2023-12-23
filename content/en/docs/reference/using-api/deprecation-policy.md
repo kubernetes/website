@@ -349,6 +349,15 @@ after their announced deprecation for no less than:**
    * **Beta: 3 months or 1 release (whichever is longer)**
    * **Alpha: 0 releases**
 
+**Rule #5c: Command line interface (CLI) elements cannot be deprecated in favor of
+less stable CLI elements**
+
+Similar to the Rule #3 for APIs, if an element of a command line interface is being replaced with an
+alternative implementation, such as by renaming an existing element, or by switching to
+use configuration sourced from a file 
+instead of a command line argument, that recommended alternative must be of
+the same or higher stability level.
+
 **Rule #6: Deprecated CLI elements must emit warnings (optionally disable)
 when used.**
 
@@ -361,8 +370,31 @@ rules for deprecation are as follows:
 **Rule #7: Deprecated behaviors must function for no less than 1 year after their
 announced deprecation.**
 
-This does not imply that all changes to the system are governed by this policy.
-This applies only to significant, user-visible behaviors which impact the
+If the feature or behavior is being replaced with an alternative implementation
+that requires work to adopt the change, there should be an effort to simplify
+the transition whenever possible. If an alternative implementation is under
+Kubernetes organization control, the following rules apply:
+
+**Rule #8: The feature of behavior must not be deprecated in favor of an alternative
+implementation that is less stable**
+
+For example, a generally available feature cannot be deprecated in favor of a Beta
+replacement.
+The Kubernetes project does, however, encourage users to adopt and transitions to alternative
+implementations even before they reach the same maturity level. This is particularly important
+for exploring new use cases of a feature or getting an early feedback on the replacement.
+
+Alternative implementations may sometimes be external tools or products,
+for example a feature may move from the kubelet to container runtime
+that is not under Kubernetes project control. In such cases, the rule cannot be
+applied, but there must be an effort to ensure that there is a transition path
+that does not compromise on components' maturity levels. In the example with
+container runtimes, the effort may involve trying to ensure that popular container runtimes
+have versions that offer the same level of stability while implementing that replacement behavior.
+
+Deprecation rules for features and behaviors do not imply that all changes
+to the system are governed by this policy.
+These rules applies only to significant, user-visible behaviors which impact the
 correctness of applications running on Kubernetes or that impact the
 administration of Kubernetes clusters, and which are being removed entirely.
 
@@ -405,14 +437,14 @@ feature in the associated feature gate.
 Versioning for feature gates is different from the previously discussed components,
 therefore the rules for deprecation are as follows:
 
-**Rule #8: Feature gates must be deprecated when the corresponding feature they control
+**Rule #9: Feature gates must be deprecated when the corresponding feature they control
 transitions a lifecycle stage as follows. Feature gates must function for no less than:**
 
    * **Beta feature to GA: 6 months or 2 releases (whichever is longer)**
    * **Beta feature to EOL: 3 months or 1 release (whichever is longer)**
    * **Alpha feature to EOL: 0 releases**
 
-**Rule #9: Deprecated feature gates must respond with a warning when used. When a feature gate
+**Rule #10: Deprecated feature gates must respond with a warning when used. When a feature gate
 is deprecated it must be documented in both in the release notes and the corresponding CLI help.
 Both warnings and documentation must indicate whether a feature gate is non-operational.**
 
@@ -430,13 +462,13 @@ this impacts removal of a metric during a Kubernetes release. These classes
 are determined by the perceived importance of the metric. The rules for
 deprecating and removing a metric are as follows:
 
-**Rule #9a: Metrics, for the corresponding stability class, must function for no less than:**
+**Rule #11a: Metrics, for the corresponding stability class, must function for no less than:**
 
    * **STABLE: 4 releases or 12 months (whichever is longer)**
    * **BETA: 2 releases or 8 months (whichever is longer)**
    * **ALPHA: 0 releases**
 
-**Rule #9b: Metrics, after their _announced deprecation_, must function for no less than:**
+**Rule #11b: Metrics, after their _announced deprecation_, must function for no less than:**
 
    * **STABLE: 3 releases or 9 months (whichever is longer)**
    * **BETA: 1 releases or 4 months (whichever is longer)**
