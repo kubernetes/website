@@ -419,10 +419,10 @@ This applies when
    ```yaml
      ...
      ingress:
-       - from:
-         - podSelector:
-             matchLabels:
-               role: client
+     - from:
+       - podSelector:
+           matchLabels:
+             role: client
      ...
    ```
 
