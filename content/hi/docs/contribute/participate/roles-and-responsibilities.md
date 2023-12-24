@@ -1,5 +1,5 @@
 ---
-title: नियम और जिम्मेदारियाँ
+title: भूमिकाएँ और उनकी जिम्मेदारियाँ
 content_type: concept
 weight: 10
 ---
