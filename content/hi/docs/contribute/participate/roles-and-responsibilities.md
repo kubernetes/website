@@ -14,7 +14,7 @@ weight: 10
 ## कोई भी
 GitHub खाते वाला कोई भी व्यक्ति कुबेरनेट्स में योगदान कर सकता है। SIG Docs सभी नए योगदानकर्ताओं का स्वागत करता है!
 
-- किसी भी [कुबेरनेट्स](https://github.com/kubernetes/) रिपॉजिटरी में एक समस्या खोलें, जिसमें शामिल हैं [`कुबेरनेट्स/वेबसाइट`](https://github.com/kubernetes/website)
+[`कुबेरनेट्स/वेबसाइट`](https://github.com/kubernetes/website) सहित किसी भी [कुबेरनेट्स](https://github.com/kubernetes/) रिपॉजिटरी में एक मुद्दा खोलें
 - पुल अनुरोध पर गैर-बाध्यकारी प्रतिक्रिया दें
 - स्थानीयकरण में योगदान करें
 - [Slack](https://slack.k8s.io/) या [SIG docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs) में सुधार का सुझाव दें
