@@ -69,5 +69,5 @@ crictl | Description
 `pods` | List pods
 `runp` | Run a new pod
 `rmp` | Remove one or more pods
-`stop` | Stop one or more running pods
+`stopp` | Stop one or more running pods
 {{< /table >}}
