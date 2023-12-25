@@ -395,7 +395,7 @@ for pod failures independently for each index. To do so, set the
 `.spec.backoffLimitPerIndex` to specify the maximal number of pod failures
 per index.
 
-When the per-index backoff limit is exceeded for an index, Kuberentes considers the index as failed and adds it to the
+When the per-index backoff limit is exceeded for an index, Kubernetes considers the index as failed and adds it to the
 `.status.failedIndexes` field. The succeeded indexes, those with a successfully
 executed pods, are recorded in the `.status.completedIndexes` field, regardless of whether you set
 the `backoffLimitPerIndex` field.
@@ -940,7 +940,7 @@ the Job status, allowing the Pod to be removed by other controllers or users.
 
 {{< note >}}
 See [My pod stays terminating](/docs/tasks/debug/debug-application/debug-pods/) if you
-observe that pods from a Job are stucked with the tracking finalizer.
+observe that pods from a Job are stuck with the tracking finalizer.
 {{< /note >}}
 
 ### Elastic Indexed Jobs

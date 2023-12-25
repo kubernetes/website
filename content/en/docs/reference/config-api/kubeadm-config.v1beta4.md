@@ -16,7 +16,7 @@ Use <code>APIServer.ExtraEnvs</code>, <code>ControllerManager.ExtraEnvs</code>, 
 <code>Etcd.Local.ExtraEnvs</code>.</li>
 <li>The <code>ResetConfiguration</code> API type is now supported in v1beta4.
 Users are able to reset a node by passing a <code>--config</code> file to <code>kubeadm reset</code>.</li>
-<li><code>dry-run</code> mode is now configureable in InitConfiguration and JoinConfiguration config files.</li>
+<li><code>dry-run</code> mode is now configurable in InitConfiguration and JoinConfiguration config files.</li>
 <li>Replace the existing string/string extra argument maps with structured extra arguments
 that support duplicates. The change applies to <code>ClusterConfiguration</code> - <code>APIServer.ExtraArgs</code>,
 <code>ControllerManager.ExtraArgs</code>, <code>Scheduler.ExtraArgs</code>. Also to <code>NodeRegistrationOptions.KubeletExtraArgs</code>.</li>
