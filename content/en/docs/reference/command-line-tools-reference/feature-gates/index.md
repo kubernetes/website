@@ -223,7 +223,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - {{< feature-gate-description name="ReadWriteOncePod" >}}
 - {{< feature-gate-description name="RecoverVolumeExpansionFailure" >}}
 - {{< feature-gate-description name="RemainingItemCount" >}}
-- {{< feature-gate-description name="RemoveSelfLink" >}}
 - {{< feature-gate-description name="RotateKubeletServerCertificate" >}}
 - {{< feature-gate-description name="RuntimeClassInImageCriApi" >}}
 - {{< feature-gate-description name="SchedulerQueueingHints" >}}
