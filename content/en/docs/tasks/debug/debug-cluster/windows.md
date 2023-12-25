@@ -22,7 +22,7 @@ content_type: concept
 
    {{< note >}}
    If using containerd as your container runtime the pause image is specified in the
-   `plugins.plugins.cri.sandbox_image` field of the of config.toml configration file.
+   `plugins.plugins.cri.sandbox_image` field of the of config.toml configuration file.
    {{< /note >}}
 
 1. My pods show status as `ErrImgPull` or `ImagePullBackOff`

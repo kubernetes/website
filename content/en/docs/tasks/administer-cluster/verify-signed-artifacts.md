@@ -55,7 +55,7 @@ To learn more about keyless signing, please refer to [Keyless Signatures](https:
 
 Previous versions of Cosign required that you set `COSIGN_EXPERIMENTAL=1`.
 
-For additional information, plase refer to the [sigstore Blog](https://blog.sigstore.dev/cosign-2-0-released/)
+For additional information, please refer to the [sigstore Blog](https://blog.sigstore.dev/cosign-2-0-released/)
 {{< /note >}}
 
 ## Verifying image signatures
