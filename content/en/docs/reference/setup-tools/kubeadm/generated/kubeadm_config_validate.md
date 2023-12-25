@@ -18,7 +18,7 @@ Read a file containing the kubeadm configuration API and report any validation p
 
 This command lets you validate a kubeadm configuration API file and report any warnings and errors.
 If there are no errors the exit status will be zero, otherwise it will be non-zero.
-Any unmarshaling problems such as unknown API fields will trigger errors. Unknown API versions and
+Any unmarshalling problems such as unknown API fields will trigger errors. Unknown API versions and
 fields with invalid values will also trigger errors. Any other errors or warnings may be reported
 depending on contents of the input file.
 

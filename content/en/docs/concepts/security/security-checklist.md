@@ -390,7 +390,7 @@ availability state and recommended to improve your security posture:
 
 [`NodeRestriction`](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)
 : Restricts kubelet's permissions to only modify the pods API resources they own
-or the node API ressource that represent themselves. It also prevents kubelet
+or the node API resource that represent themselves. It also prevents kubelet
 from using the `node-restriction.kubernetes.io/` annotation, which can be used
 by an attacker with access to the kubelet's credentials to influence pod
 placement to the controlled node.
