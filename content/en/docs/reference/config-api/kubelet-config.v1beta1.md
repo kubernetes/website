@@ -545,7 +545,7 @@ Default: 50</p>
 <td>
    <p>eventBurst is the maximum size of a burst of event creations, temporarily
 allows event creations to burst to this number, while still not exceeding
-eventRecordQPS. This field canot be a negative number and it is only used
+eventRecordQPS. This field cannot be a negative number and it is only used
 when eventRecordQPS &gt; 0.
 Default: 100</p>
 </td>
