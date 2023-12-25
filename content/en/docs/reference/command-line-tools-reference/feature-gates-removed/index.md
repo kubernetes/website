@@ -139,6 +139,7 @@ In the following table:
 - {{< feature-gate-description name="PodShareProcessNamespace" >}}
 - {{< feature-gate-description name="PreferNominatedNode" >}}
 - {{< feature-gate-description name="ProbeTerminationGracePeriod" >}}
+- {{< feature-gate-description name="RemoveSelfLink" >}}
 - {{< feature-gate-description name="RequestManagement" >}}
 - {{< feature-gate-description name="ResourceLimitsPriorityFunction" >}}
 - {{< feature-gate-description name="ResourceQuotaScopeSelectors" >}}
