@@ -148,7 +148,7 @@ metadata:
   name: regcred
   ...
 data:
-  .dockerconfigjson: eyJodHRwczovL2luZGV4L ... J0QUl6RTIifX0=
+  .dockerconfigjson: eyJodHRwczovL2luZGV4L ... J0QUl6RTIfX0=
 type: kubernetes.io/dockerconfigjson
 ```
 

@@ -445,7 +445,7 @@ a new `kubelet.conf.csr`, sign the certificate, embed it in `kubelet.conf`
 and restart the kubelet.
 
 If this does not apply to your setup, you can skip processing the `kubelet.conf.csr`
-on secondary control plane and on workers nodes (all nodes tha call `kubeadm join ...`).
+on secondary control plane and on workers nodes (all nodes that call `kubeadm join ...`).
 That is because the active kube-controller-manager will be responsible
 for signing new kubelet client certificates.
 
