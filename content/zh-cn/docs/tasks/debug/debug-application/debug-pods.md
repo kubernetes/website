@@ -128,6 +128,60 @@ There are three things to check:
 * 尝试手动是否能拉取镜像。例如，如果你在你的 PC 上使用 Docker，请运行 `docker pull <镜像>`。
 
 <!--
+#### My pod stays terminating
+
+If a Pod is stuck in the `Terminating` state, it means that a deletion has been
+issued for the Pod, but the control plane is unable to delete the Pod object.
+
+This typically happens if the Pod has a [finalizer](/docs/concepts/overview/working-with-objects/finalizers/)
+and there is an [admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)
+installed in the cluster that prevents the control plane from removing the
+finalizer.
+-->
+#### Pod 停滞在 terminating 状态  {#my-pod-stays-terminating}
+
+如果 Pod 停滞在 `Terminating` 状态，表示已发出删除 Pod 的请求，
+但控制平面无法删除该 Pod 对象。
+
+如果 Pod 拥有 [Finalizer](/zh-cn/docs/concepts/overview/working-with-objects/finalizers/)
+并且集群中安装了[准入 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)，
+可能会导致控制平面无法移除 Finalizer，从而导致 Pod 出现此问题。
+
+<!--
+To identify this scenario, check if your cluster has any
+ValidatingWebhookConfiguration or MutatingWebhookConfiguration that target
+`UPDATE` operations for `pods` resources.
+
+If the webhook is provided by a third-party:
+- Make sure you are using the latest version.
+- Disable the webhook for `UPDATE` operations.
+- Report an issue with the corresponding provider.
+-->
+要确认这种情况，请检查你的集群中是否有针对 `pods` 资源进行 `UPDATE`
+操作的 ValidatingWebhookConfiguration 或 MutatingWebhookConfiguration。
+
+如果 Webhook 是由第三方提供的：
+- 确保你使用的是最新版。
+- 禁用 `UPDATE` 操作的 Webhook。
+- 向相关供应商报告问题。
+
+<!--
+If you are the author of the webhook:
+- For a mutating webhook, make sure it never changes immutable fields on
+  `UPDATE` operations. For example, changes to containers are usually not allowed.
+- For a validating webhook, make sure that your validation policies only apply
+  to new changes. In other words, you should allow Pods with existing violations
+  to pass validation. This allows Pods that were created before the validating
+  webhook was installed to continue running.
+-->
+如果你是 Webhook 的作者：
+- 对于变更性质的 Webhook，请确保在 `UPDATE` 操作中永远不要更改不可变字段。
+  例如，一般不允许更改容器。
+- 对于验证性质的 Webhook，请确保你的验证策略仅适用于新的更改。换句话说，
+  你应该允许存在违规的现有 Pod 通过验证。这样可以确保在安装验证性质的 Webhook
+  之前创建的 Pod 可以继续运行。
+
+<!--
 #### My pod is crashing or otherwise unhealthy
 
 Once your pod has been scheduled, the methods described in
