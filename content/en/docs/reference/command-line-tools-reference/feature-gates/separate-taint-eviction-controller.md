@@ -4,6 +4,11 @@ content_type: feature_gate
 _build:
   list: never
   render: false
+
+stages:
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.29"
 ---
 Enables running `TaintEvictionController`,
 that performs [Taint-based Evictions](/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-based-evictions),
