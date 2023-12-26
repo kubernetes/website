@@ -6,8 +6,8 @@ weight: 10
 
 ## {{% heading "prerequisites" %}}
 
-Se debe utilizar la versión de kubectl con la menor versión de diferencia con
-su cluster. Por ejemplo, un cliente con versión v{{< skew currentVersion >}} se puede comunicar
+Se debe utilizar la versión de kubectl con la menor diferencia de versión de respecto de 
+su clúster. Por ejemplo, un cliente con versión v{{< skew currentVersion >}} se puede comunicar
 con los siguientes versiones de plano de control v{{< skew currentVersionAddMinor -1 >}}, 
 v{{< skew currentVersionAddMinor 0 >}}, and v{{< skew currentVersionAddMinor 1 >}}.
 Utilizar la última versión compatible de kubectl evita posibles errores.
