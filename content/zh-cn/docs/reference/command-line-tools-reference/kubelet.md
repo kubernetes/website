@@ -2214,7 +2214,7 @@ number for the log level verbosity
 <!--
 Print version information and quit; <code>--version=vX.Y.Z...</code> sets the reported version.
 -->
-打印版本信息并退出；<code>--version=vX.Y.Z...</code> 设置报告的版本。
+打印 kubelet 版本信息并退出；<code>--version=vX.Y.Z...</code> 设置报告的版本。
 </td>
 </tr>
 
