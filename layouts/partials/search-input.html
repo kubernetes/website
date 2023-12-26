@@ -1,41 +1,83 @@
-  <style> 
-    input[type=text] {
+<head>
+  <style>
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 20px; 
+      padding: 4px; 
+      width: 50vw;
+    }
+
+    .search-bar:focus-within {
+      border: 2.5px solid rgba(47, 135, 223, 0.7);
+    }
+
+    .search-bar i.fas {
+      margin-right: 10px; 
+    }
+
+    .td-search-input {
+      font-family: 'Your Preferred Font', sans-serif;
+    }
+
+    .search-input {
+      flex: 1;
       box-sizing: border-box;
-      background-color: white;
-      background-image: url('https://www.w3schools.com/css/searchicon.png');
-      background-position: 10px 10px; 
-      background-repeat: no-repeat;
-      padding: 12px 20px 12px 40px;
+      border: none;
+      outline: none;
+      padding: 8px;
+      font-size: 16px;
+      border-radius: 15px;
+    }
+
+    /* Adjust the placeholder font style */
+    .search-input::placeholder {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      color: #aaa;
     }
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
 
-{{ if or .Site.Params.gcs_engine_id .Site.Params.algolia_docsearch }}
-  <input
-    type="text"
-    class="form-control td-search-input"
-    placeholder=" {{ T "ui_search_placeholder" }}"
-    aria-label="{{ T "ui_search_placeholder" }}"
-    autocomplete="off"
-  >
-{{ else if .Site.Params.offlineSearch }}
-  <div id="search-nav-container">
+<body>
+  {{ if or .Site.Params.gcs_engine_id .Site.Params.algolia_docsearch }}
+  <div class="search-bar">
+    <i class="fas fa-search"></i>
     <input
-      type="text"
-      id="search-input"
-      autocomplete="off"
-      class="form-control td-search-input"
-      placeholder=" {{ T "ui_search_placeholder" }}"
+      type="search"
+      class="search-input td-search-input" 
+      placeholder="{{ T "ui_search_placeholder" }}"
+      aria-label="{{ T "ui_search_placeholder" }}"
       autocomplete="off"
     >
-    <div id="search-results" class="container"></div>
   </div>
-{{ else if .Site.Params.k8s_search }}
-  <input
-    type="text"
-    class="form-control td-search-input"
-    name="q"
-    placeholder=" {{ T "ui_search_placeholder" }}"
-    aria-label="{{ T "ui_search_placeholder" }}"
-    autocomplete="off"
-  >
-{{ end }}
+  {{ else if .Site.Params.offlineSearch }}
+  <div class="search-bar" id="search-nav-container">
+    <i class="fas fa-search"></i>
+    <input
+      type="search"
+      class="search-input td-search-input" 
+      id="search-input"
+      placeholder="{{ T "ui_search_placeholder" }}"
+      aria-label="{{ T "ui_search_placeholder" }}"
+      autocomplete="off"
+    >
+  </div>
+  {{ else if .Site.Params.k8s_search }}
+  <div class="search-bar">
+    <i class="fas fa-search"></i>
+    <input
+      type="search"
+      name="q"
+      class="search-input td-search-input" 
+      placeholder="{{ T "ui_search_placeholder" }}"
+      aria-label="{{ T "ui_search_placeholder" }}"
+      autocomplete="off"
+    >
+  </div>
+  {{ end }}
+</body>
