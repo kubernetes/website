@@ -562,6 +562,43 @@ For larger clusters, you may wish to subdivide the Secrets by namespace,
 or script an update.
 {{< /note >}}
 
+## Prevent plain text retrieval {#cleanup-all-secrets-encrypted}
+
+If you want to make sure that the only access to a particular API kind is done using
+encryption, you can remove the API server's ability to read that API's backing data
+as plaintext.
+
+{{< warning >}}
+Making this change prevents the API server from retrieving resources that are marked
+as encrypted as rest, but are actually stored in the clear.
+
+When you have configured encryption at rest for an API (for example: the API kind
+`Secret`, representing `secrets` resources in the core API group), you **must** ensure
+that all those resources in this cluster really are encrypted at rest. Check this before
+you carry on with the next steps.
+{{< /warning >}}
+
+Once all Secrets in your cluster are encrypted, you can remove the `identity`
+part of the encryption configuration. For example:
+
+{{< highlight yaml "linenos=false,hl_lines=12" >}}
+---
+apiVersion: apiserver.config.k8s.io/v1
+kind: EncryptionConfiguration
+resources:
+  - resources:
+      - secrets
+    providers:
+      - aescbc:
+          keys:
+            - name: key1
+              secret: <BASE 64 ENCODED SECRET>
+      - identity: {} # REMOVE THIS LINE
+{{< /highlight >}}
+
+…and then restart each API server in turn. This change prevents the API server
+from accessing a plain-text Secret, even by accident.
+
 ## Rotating a decryption key
 
 Changing a Secret without incurring downtime requires a multi-step operation, especially in
