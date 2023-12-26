@@ -157,12 +157,13 @@ If the webhook is provided by a third-party:
 - Disable the webhook for `UPDATE` operations.
 - Report an issue with the corresponding provider.
 -->
-要确认这种情况，请检查你的集群中是否有针对 `pods` 资源进行 `UPDATE`
-操作的 ValidatingWebhookConfiguration 或 MutatingWebhookConfiguration。
+要确认这种情况，请检查你的集群中是否有 ValidatingWebhookConfiguration 或
+MutatingWebhookConfiguration 处理 `pods` 资源的 `UPDATE` 操作。
 
 如果 Webhook 是由第三方提供的：
+
 - 确保你使用的是最新版。
-- 禁用 `UPDATE` 操作的 Webhook。
+- 禁用处理 `UPDATE` 操作的 Webhook。
 - 向相关供应商报告问题。
 
 <!--
@@ -175,9 +176,10 @@ If you are the author of the webhook:
   webhook was installed to continue running.
 -->
 如果你是 Webhook 的作者：
-- 对于变更性质的 Webhook，请确保在 `UPDATE` 操作中永远不要更改不可变字段。
-  例如，一般不允许更改容器。
-- 对于验证性质的 Webhook，请确保你的验证策略仅适用于新的更改。换句话说，
+
+- 对于变更性质的 Webhook，请确保在处理 `UPDATE` 操作时不要更改不可变字段。
+  例如，一般不允许更改 `containers`。
+- 对于验证性质的 Webhook，请确保你的验证策略仅被应用于新的更改之上。换句话说，
   你应该允许存在违规的现有 Pod 通过验证。这样可以确保在安装验证性质的 Webhook
   之前创建的 Pod 可以继续运行。
 
@@ -325,7 +327,6 @@ kubectl get pods --selector=name=nginx,type=frontend
 ```
 
 to list pods that match this selector. Verify that the list matches the Pods that you expect to provide your Service.
-Verify that the pod's `containerPort` matches up with the Service's `targetPort`
 -->
 你可以使用如下命令列出与选择算符相匹配的 Pod，并验证这些 Pod 是否归属于创建的服务：
 
