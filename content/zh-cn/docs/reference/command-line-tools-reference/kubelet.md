@@ -1732,7 +1732,7 @@ kubelet 默认值不同时，kubelet 都会出错。
 <!--
 Unique identifier for identifying the node in a machine database, i.e cloud provider.
 -->
-在机器数据库中标识节点的唯一标识符，即云服务提供商。
+在主机数据库（即云驱动）中标识节点的唯一标识符。
 </td>
 </tr>
 
