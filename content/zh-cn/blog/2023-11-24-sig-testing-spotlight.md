@@ -100,7 +100,7 @@ started using it. For E2E testing, that was
 [Ginkgo+Gomega](https://github.com/onsi/ginkgo). Some hacks were
 necessary, for example around cleanup after a test run and for
 categorising tests. Eventually this led to Ginkgo v2 and [revised best
-practices for E2E testing](/blog/2023/04/12/e2e-testing-best-practices-reloaded/).
+practices for E2E testing](https://www.kubernetes.dev/blog/2023/04/12/e2e-testing-best-practices-reloaded/).
 Regarding unit testing opinions are pretty diverse: some maintainers
 prefer to use just the Go standard library with hand-written
 checks. Others use helper packages like stretchr/testify. That
@@ -114,7 +114,7 @@ and other components, then runs tests that are more like E2E tests.
 当时开发人员只是看看有什么可用的工具并开始使用这些工具。对于 E2E 测试来说，使用的是
 [Ginkgo + Gomega](https://github.com/onsi/ginkgo)。集成一些黑科技是必要的，
 例如在测试运行后进行清理和对测试进行分类。最终形成了 Ginkgo v2
-和[重新修订的 E2E 测试最佳实践](/blog/2023/04/12/e2e-testing-best-practices-reloaded/)。
+和[重新修订的 E2E 测试最佳实践](https://www.kubernetes.dev/blog/2023/04/12/e2e-testing-best-practices-reloaded/)。
 关于单元测试，意见非常多样化：一些维护者倾向于只使用 Go 标准库和手动检查。
 而其他人使用 stretchr/testify 这类辅助工具包。这种多样性是可以接受的，因为单元测试是自包含的：
 贡献者只需在处理许多不同领域时保持灵活。集成测试介于二者之间，它基于 Go 单元测试，
