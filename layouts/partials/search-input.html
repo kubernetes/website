@@ -27,4 +27,15 @@
     aria-label="{{ T "ui_search_placeholder" }}"
     autocomplete="off"
   >
+{{ else }}
+
+<link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+<script src="/pagefind/pagefind-ui.js"></script>
+<div id="search"></div>
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        new PagefindUI({ element: "#search", showSubResults: true });
+    });
+</script>
+
 {{ end }}
