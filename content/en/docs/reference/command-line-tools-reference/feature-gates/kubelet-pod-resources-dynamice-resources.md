@@ -4,6 +4,11 @@ content_type: feature_gate
 _build:
   list: never
   render: false
+  
+stages:
+  - stage: alpha
+    defaultValue: false
+    fromVersion: "1.27"  
 ---
 Extend the kubelet's pod resources gRPC endpoint to
 to include resources allocated in `ResourceClaims` via `DynamicResourceAllocation` API.
