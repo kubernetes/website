@@ -15,6 +15,6 @@ tags:
 
 <!--more-->
 
-Admission Controllerは、Kubernetes APIサーバーに対して設定可能であり、検証、変更、またはその両方を行います。いずれのAdmission Controllerもリクエストを拒否することができます。Mutating Controllerは、受け入れたオブジェクトを変更することができますが、Validating Controllersは変更を加えることはできません。
+Admission Controllerは、Kubernetes APIサーバーに対して設定可能であり、検証、変更、またはその両方を行います。いずれのAdmission Controllerもリクエストを拒否することができます。Mutating Controllerは、受け入れたオブジェクトを変更することができますが、Validating Controllerは変更を加えることはできません。
 
 * [Kubernetesドキュメント内のAdmission Controller](/docs/reference/access-authn-authz/admission-controllers/)
