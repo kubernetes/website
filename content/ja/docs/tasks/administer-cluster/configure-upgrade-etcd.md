@@ -1,20 +1,19 @@
 ---
-title: Operating etcd clusters for Kubernetes
+title: Kubernetes向けのetcdクラスターの運用
 content_type: task
 weight: 270
 ---
 
 <!-- overview -->
 
-{{< glossary_definition term_id="etcd" length="all" prepend="etcd is a ">}}
+{{< glossary_definition term_id="etcd" length="all" prepend="etcdは">}}
 
 ## {{% heading "prerequisites" %}}
 
-You need to have a Kubernetes cluster, and the kubectl command-line tool must
-be configured to communicate with your cluster. It is recommended to run this
-task on a cluster with at least two nodes that are not acting as control plane
-nodes . If you do not already have a cluster, you can create one by using
-[minikube](https://minikube.sigs.k8s.io/docs/tutorials/multi_node/).
+このタスクを行うには、Kubernetesクラスターが必要で、
+kubectlコマンドラインツールがクラスターと通信できるように設定されている必要があります。
+コントロールプレーンノード以外に少なくとも2つのノードを持つクラスターでこのタスクを実行することを推奨します。
+まだクラスターを持っていない場合は、[minikube](https://minikube.sigs.k8s.io/docs/tutorials/multi_node/)を使用して作成することができます。
 
 <!-- steps -->
 
