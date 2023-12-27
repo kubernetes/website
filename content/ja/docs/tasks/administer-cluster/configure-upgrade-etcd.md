@@ -285,67 +285,58 @@ etcdクラスタに自動スケーリンググループを設定しないでく�
 合理的なスケーリングは、より高い信頼性が求められる場合に、3メンバーのクラスタを5メンバーにアップグレードすることです。
 既存のクラスタにメンバーを追加する方法については、[etcdの再構成ドキュメント](https://etcd.io/docs/current/op-guide/runtime-configuration/#remove-a-member)を参照してください。
 
-## Restoring an etcd cluster
+## etcdクラスタの復元
 
-etcd supports restoring from snapshots that are taken from an etcd process of
-the [major.minor](http://semver.org/) version. Restoring a version from a
-different patch version of etcd also is supported. A restore operation is
-employed to recover the data of a failed cluster.
+etcdは、[major.minor](http://semver.org/)バージョンのetcdプロセスから取得されたスナップショットからの復元をサポートしています。
+異なるパッチバージョンのetcdからのバージョン復元もサポートされています。
+復元操作は、失敗したクラスタのデータを回復するために用いられます。
 
-Before starting the restore operation, a snapshot file must be present. It can
-either be a snapshot file from a previous backup operation, or from a remaining
-[data directory](https://etcd.io/docs/current/op-guide/configuration/#--data-dir).
+復元操作を開始する前に、スナップショットファイルが存在している必要があります。
+これは、以前のバックアップ操作からのスナップショットファイル、または残っている[データディレクトリ](https://etcd.io/docs/current/op-guide/configuration/#--data-dir)からのものである可能性があります。
 
-Here is an example:
+以下に例を示します:
 
 ```shell
 ETCDCTL_API=3 etcdctl --endpoints 10.2.0.9:2379 snapshot restore snapshot.db
 ```
 
-Another example for restoring using `etcdctl` options:
+`etcdctl` オプションを使用して復元する別の例を示します:
 
 ```shell
 ETCDCTL_API=3 etcdctl --data-dir <data-dir-location> snapshot restore snapshot.db
 ```
-where `<data-dir-location>` is a directory that will be created during the restore process.
 
-Yet another example would be to first export the `ETCDCTL_API` environment variable:
+ここで、`<data-dir-location>`は復元プロセス中に作成されるディレクトリです。
+
+もう一つの例としては、まず`ETCDCTL_API`環境変数をエクスポートします:
 
 ```shell
 export ETCDCTL_API=3
 etcdctl --data-dir <data-dir-location> snapshot restore snapshot.db
 ```
 
-For more information and examples on restoring a cluster from a snapshot file, see
-[etcd disaster recovery documentation](https://etcd.io/docs/current/op-guide/recovery/#restoring-a-cluster).
+スナップショットファイルからクラスタを復元する方法と例についての詳細は、[etcd災害復旧ドキュメント](https://etcd.io/docs/current/op-guide/recovery/#restoring-a-cluster)を参照してください。
 
-If the access URLs of the restored cluster is changed from the previous
-cluster, the Kubernetes API server must be reconfigured accordingly. In this
-case, restart Kubernetes API servers with the flag
-`--etcd-servers=$NEW_ETCD_CLUSTER` instead of the flag
-`--etcd-servers=$OLD_ETCD_CLUSTER`. Replace `$NEW_ETCD_CLUSTER` and
-`$OLD_ETCD_CLUSTER` with the respective IP addresses. If a load balancer is
-used in front of an etcd cluster, you might need to update the load balancer
-instead.
+復元されたクラスタのアクセスURLが前のクラスタと異なる場合、Kubernetes APIサーバーをそれに応じて再設定する必要があります。この場合、`--etcd-servers=$OLD_ETCD_CLUSTER`のフラグの代わりに`--etcd-servers=$NEW_ETCD_CLUSTER`のフラグでKubernetes APIサーバーを再起動します。
+`$NEW_ETCD_CLUSTER`と`$OLD_ETCD_CLUSTER`をそれぞれのIPアドレスに置き換えてください。
+etcdクラスタの前にロードバランサーを使用している場合、ロードバランサーを更新する必要があるかもしれません。
 
-If the majority of etcd members have permanently failed, the etcd cluster is
-considered failed. In this scenario, Kubernetes cannot make any changes to its
-current state. Although the scheduled pods might continue to run, no new pods
-can be scheduled. In such cases, recover the etcd cluster and potentially
-reconfigure Kubernetes API servers to fix the issue.
+etcdメンバーの過半数が永続的に失敗した場合、etcdクラスタは失敗と見なされます。
+このシナリオでは、Kubernetesは現在の状態に対して変更を加えることができません。
+スケジュールされたポッドは引き続き実行されるかもしれませんが、新しいポッドはスケジュールできません。
+このような場合、etcdクラスタを復旧し、必要に応じてKubernetes APIサーバーを再設定して問題を修正します。
 
 {{< note >}}
-If any API servers are running in your cluster, you should not attempt to
-restore instances of etcd. Instead, follow these steps to restore etcd:
+クラスタ内でAPIサーバーが実行されている場合、etcdのインスタンスを復元しようとしないでください。
+代わりに、以下の手順に従ってetcdを復元してください:
 
-- stop *all* API server instances
-- restore state in all etcd instances
-- restart all API server instances
+- **すべての**APIサーバーインスタンスを停止
+- すべてのetcdインスタンスで状態を復元
+- すべてのAPIサーバーインスタンスを再起動
 
-We also recommend restarting any components (e.g. `kube-scheduler`,
-`kube-controller-manager`, `kubelet`) to ensure that they don't rely on some
-stale data. Note that in practice, the restore takes a bit of time.  During the
-restoration, critical components will lose leader lock and restart themselves.
+また、`kube-scheduler`、`kube-controller-manager`、`kubelet`などのコンポーネントを再起動することもお勧めします。
+これは、これらが古いデータに依存していないことを確認するためです。実際には、復元には少し時間がかかります。
+復元中、重要なコンポーネントはリーダーロックを失い、自動的に再起動します。
 {{< /note >}}
 
 ## Upgrading etcd clusters
