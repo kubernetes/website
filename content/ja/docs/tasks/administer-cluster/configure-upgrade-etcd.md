@@ -339,28 +339,25 @@ etcdメンバーの過半数が永続的に失敗した場合、etcdクラスタ
 復元中、重要なコンポーネントはリーダーロックを失い、自動的に再起動します。
 {{< /note >}}
 
-## Upgrading etcd clusters
+## etcdクラスタのアップグレード
 
-
-For more details on etcd upgrade, please refer to the [etcd upgrades](https://etcd.io/docs/latest/upgrades/) documentation.
+etcdのアップグレードに関する詳細は、[etcdアップグレード](https://etcd.io/docs/latest/upgrades/)のドキュメントを参照してください。
 
 {{< note >}}
-Before you start an upgrade, please back up your etcd cluster first.
+アップグレードを開始する前に、まずetcdクラスタをバックアップしてください。
 {{< /note >}}
 
-## Maintaining etcd clusters
+## etcdクラスタのメンテナンス
 
-For more details on etcd maintenance, please refer to the [etcd maintenance](https://etcd.io/docs/latest/op-guide/maintenance/) documentation.
+etcdのメンテナンスに関する詳細は、[etcdメンテナンス](https://etcd.io/docs/latest/op-guide/maintenance/)のドキュメントを参照してください。
 
 {{% thirdparty-content single="true" %}}
 
 {{< note >}}
-Defragmentation is an expensive operation, so it should be executed as infrequent
-as possible. On the other hand, it's also necessary to make sure any etcd member
-will not run out of the storage quota. The Kubernetes project recommends that when
-you perform defragmentation, you use a tool such as [etcd-defrag](https://github.com/ahrtr/etcd-defrag).
+デフラグメンテーションはコストがかかる操作なので、できるだけ頻繁に実行しないようにしてください。
+一方で、etcdメンバーがストレージのクォータを使い果たさないようにすることも必要です。
+Kubernetesプロジェクトでは、デフラグメンテーションを行う際には、[etcd-defrag](https://github.com/ahrtr/etcd-defrag)などのツールを使用することを推奨しています。
 
-You can also run the defragmentation tool as a Kubernetes CronJob, to make sure that
-defragmentation happens regularly. See [`etcd-defrag-cronjob.yaml`](https://github.com/ahrtr/etcd-defrag/blob/main/doc/etcd-defrag-cronjob.yaml)
-for details.
+また、デフラグメンテーションを定期的に実行するために、KubernetesのCronJobとしてデフラグメンテーションツールを実行することもできます。
+詳細は[`etcd-defrag-cronjob.yaml`](https://github.com/ahrtr/etcd-defrag/blob/main/doc/etcd-defrag-cronjob.yaml)を参照してください。
 {{< /note >}}
