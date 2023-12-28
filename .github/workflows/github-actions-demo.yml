@@ -20,4 +20,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: static-site
-          path: .scripts\
+          path: scripts\
