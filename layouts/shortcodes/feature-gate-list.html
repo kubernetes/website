@@ -1,0 +1,60 @@
+{{- $featureDataFiles := .Site.GetPage "page" "docs/reference/command-line-tools-reference/feature-gates" -}}
+
+<!-- Check if 'show-removed' is passed to the shortcode to display only 'removed' feature gates -->
+{{- $removedFeatureGateRequested := .Get "show-removed" -}}
+
+<!-- Extract value for the 'include' parameter passed to the shortcode  -->
+{{- $includeValues := .Get "include" -}}
+
+<!-- Sort Feature gate pages list -->
+{{- $sortedFeatureGates := sort ($featureDataFiles.Resources.ByType "page") -}}
+
+<ul class="feature-gate-list">
+  {{- range $featureGateFile := $sortedFeatureGates -}}
+
+    <!-- Extract the feature gate name from the "Title" parameter in file -->
+    {{- $featureGateName := $featureGateFile.Params.Title -}}
+
+    <!-- Extract the feature gate status (i.e. removed or not) from the "Removed" parameter in file -->
+    {{- $removedStatusForFeature := index $featureGateFile.Params.Removed -}}
+
+    {{- $shouldDisplayThisFeatureGate := false -}}
+
+    <!-- Check if 'stages' parameter is missing in the front matter -->
+    {{- if not (isSet $featureGateFile.Params "stages") -}}
+        {{- warnf "Stages parameter is missing in the front matter for %s in %s" $featureGateName (print $featureGateFile.File.Lang "/" $featureGateFile.File.Path) -}}
+
+    {{- else -}}
+      <!-- Iterate through stages for current Feature gate to check for "stable" or "deprecated" stage -->
+      {{- range $stage := $featureGateFile.Params.stages -}}
+        {{- if and (eq ($stage).stage "stable") (in $includeValues "ga") -}}
+          {{- $shouldDisplayThisFeatureGate = true -}}
+          {{- continue -}}
+        {{- end -}}
+        {{- if (in $includeValues ($stage).stage ) -}}
+          {{- $shouldDisplayThisFeatureGate = true -}}
+          {{- continue -}}
+        {{- end -}}
+      {{- end -}}
+
+      {{- if and (not $removedFeatureGateRequested) ($removedStatusForFeature) -}}
+        {{- $shouldDisplayThisFeatureGate = false -}}
+      {{- end -}}
+
+      {{- if and ($removedFeatureGateRequested) ($removedStatusForFeature) -}}
+        {{- $shouldDisplayThisFeatureGate = true -}}
+      {{- end -}}
+    {{- end -}}
+
+    {{- if $shouldDisplayThisFeatureGate -}}
+      {{- with $featureGateFile.Content -}}
+      <li>
+        {{- $hasParagraphWrapper := (hasPrefix ( . | markdownify ) "<p>") -}}
+        {{- if not $hasParagraphWrapper }}<p>{{ end -}}
+          <code class="feature-gate-name">{{ $featureGateName }}</code>: {{ . | markdownify -}}
+        {{- if not $hasParagraphWrapper }}</p>{{ end -}}
+      </li>
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+</ul>
