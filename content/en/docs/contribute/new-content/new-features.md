@@ -155,12 +155,6 @@ description of the feature gate is also required; create a new Markdown file
 inside `content/en/docs/reference/command-line-tools-reference/feature-gates/`
 (use other files as a template).
 
-{{< note >}}
-Make sure to add a
-[`feature-gate-description` shortcode](/docs/contribute/style/hugo-shortcodes/#feature-gate-description)
-into the feature gates page. The list is sorted alphabetically.
-{{< /note >}}
-
 When you change a feature gate to disabled-by-default to enabled-by-default,
 you may also need to change other documentation (not just the list of
 feature gates). Watch out for language such as ”The `exampleSetting` field
@@ -195,11 +189,7 @@ Eventually, Kubernetes will stop including the feature gate at all. To signify t
 include `removed: true` in the front matter of the respective description file.
 This action triggers the transition of the feature gate 
 from [Feature gates for graduated or deprecated features](/docs/reference/command-line-tools-reference/feature-gates-removed/#feature-gates-that-are-removed) section to a dedicated page titled 
-[Feature Gates (removed)](/docs/reference/command-line-tools-reference/feature-gates-removed/).
-
-Also make sure to move the relevant list entry and
-[`feature-gate-description` shortcode](/docs/contribute/style/hugo-shortcodes/#feature-gate-description) into the
-removed feature gates page. The lists are sorted alphabetically.
+[Feature Gates (removed)](/docs/reference/command-line-tools-reference/feature-gates-removed/), including its description.
 
 ### All PRs reviewed and ready to merge
 
