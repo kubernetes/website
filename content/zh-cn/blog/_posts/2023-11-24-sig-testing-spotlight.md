@@ -52,7 +52,7 @@ Intel and a SIG Testing Tech Lead.
 **Sandipan:** Could you tell us a bit about yourself, your role, and
 how you got involved in the Kubernetes project and SIG Testing?
 -->
-## 会见贡献者
+## 会见贡献者   {#meet-the-contributors}
 
 **Sandipan:** 你能简单介绍一下自己吗，谈谈你的职责角色以及你是如何参与
 Kubernetes 项目和 SIG Testing 的？
@@ -88,7 +88,7 @@ structured logging WG lead.
 **Sandipan:** Testing is a field in which multiple approaches and
 tools exist; how did you arrive at the existing practices?
 -->
-## 测试实践和工具
+## 测试实践和工具    {#testing-practices-and-tools}
 
 **Sandipan:** 测试是一个存在多种方法和工具的领域，你们是如何形成现有实践方式的？
 
@@ -126,7 +126,7 @@ and other components, then runs tests that are more like E2E tests.
 **Sandipan:** SIG Testing is pretty diverse. Can you give a brief
 overview of the various subprojects owned by SIG Testing?
 -->
-## SIG Testing 拥有的子项目
+## SIG Testing 拥有的子项目    {#subprojects-owned-by-sig-testing}
 
 **Sandipan:** SIG Testing 非常多样化。你能简要介绍一下 SIG Testing 拥有的各个子项目吗？
 
@@ -174,7 +174,7 @@ Testing subprojects, check out the [SIG Testing README](https://github.com/kuber
 
 **Sandipan:** What are some of the key challenges you face?
 -->
-## 主要挑战和成就
+## 主要挑战和成就    {#key-challenges-and-accomplishments}
 
 **Sandipan:** 你们面临的一些主要挑战是什么？
 
@@ -260,7 +260,7 @@ be related to a regression in their current change.
 
 **Sandipan:** What are some of your favourite things about this SIG?
 -->
-## 人员和范围
+## 人员和范围    {#the-people-and-the-scope}
 
 **Sandipan:** 这个 SIG 中有哪些让你热爱的？
 
@@ -312,7 +312,7 @@ it might even be yourself!
 
 **Sandipan:** What areas and/or subprojects does your SIG need help with?
 -->
-## 展望未来
+## 展望未来    {#looking-ahead}
 
 **Sandipan:** 在哪些领域和/或子项目上，你们的 SIG 需要帮助？
 
