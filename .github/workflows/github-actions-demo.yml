@@ -16,3 +16,8 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
+      - name: upload static site content
+        uses: actions/upload-artifact@v4
+        with:
+          name: static-site
+          path: .data\
