@@ -116,8 +116,13 @@ runs on a single-core, dual-core, or 48-core machine.
 
 {{< note >}}
 Kubernetes doesn't allow you to specify CPU resources with a precision finer than
-`1m`. Because of this, it's useful to specify CPU units less than `1.0` or `1000m` using
-the milliCPU form; for example, `5m` rather than `0.005`.
+`1m` or `0.001` CPU. To avoid accidentally using an invalid CPU quantity, it's useful to specify CPU units using the milliCPU form 
+instead of the decimal form when using less than 1 CPU unit. 
+
+For example, you have a Pod that uses `5m` or `0.005` CPU and would like to decrease
+its CPU resources. By using the decimal form, it's harder to spot that `0.0005` CPU
+is an invalid value, while by using the milliCPU form, it's easier to spot that
+`0.5m` is an invalid value.
 {{< /note >}}
 
 ### Memory resource units {#meaning-of-memory}
