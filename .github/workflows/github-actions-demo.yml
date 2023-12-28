@@ -21,3 +21,12 @@ jobs:
         with:
           name: static-site
           path: scripts/
+  Download-GitHub-Actions:
+    name: Download Github Actions
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/download-artifact@v4
+  
+    
+      
+    
