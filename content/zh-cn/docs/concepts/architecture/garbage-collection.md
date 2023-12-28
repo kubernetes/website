@@ -273,6 +273,30 @@ until disk usage reaches the `LowThresholdPercent` value.
 垃圾收集器会基于镜像上次被使用的时间来按顺序删除它们，首先删除的是最近未使用的镜像。
 kubelet 会持续删除镜像，直到磁盘用量到达 `LowThresholdPercent` 值为止。
 
+
+<!--
+#### Garbage collection for unused container images {#image-maximum-age-gc}
+
+{{< feature-state for_k8s_version="v1.29" state="alpha" >}}
+
+As an alpha feature, you can specify the maximum time a local image can be unused for,
+regardless of disk usage. This is a kubelet setting that you configure for each node.
+
+To configure the setting, enable the `ImageMaximumGCAge`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the kubelet,
+and also set a value for the `ImageMaximumGCAge` field in the kubelet configuration file.
+
+The value is specified as a Kubernetes _duration_; for example, you can set the configuration
+field to `3d12h`, which means 3 days and 12 hours.
+-->
+#### 未使用的容器镜像的垃圾回收 {#image-maximum-age-gc}
+
+{{< feature-state for_k8s_version="v1.29" state="alpha" >}}
+
+作为一个alpha功能，你可以指定本地镜像无论磁盘使用情况如何，在多长时间内未被使用将进行垃圾回收。这是一个kubelet设置，你可以为每个节点进行配置。
+要配置此设置，请为kubelet启用`ImageMaximumGCAge`[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)，并在kubelet配置文件中设置`ImageMaximumGCAge`字段的值。
+该值被指定为Kubernetes持续时间，例如，你可以将配置字段设置为3d12h，表示3天12小时。
+
 <!--
 ### Container garbage collection {#container-image-garbage-collection}
 
