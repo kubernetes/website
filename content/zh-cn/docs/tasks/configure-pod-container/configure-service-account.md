@@ -594,7 +594,7 @@ myregistrykey
 <!--
 ## ServiceAccount token volume projection
 -->
-## 服务账号令牌卷投射   {#service-account-token-volume-projection}
+## 服务账号令牌卷投射   {#serviceaccount-token-volume-projection}
 
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
@@ -908,7 +908,7 @@ See also:
   - or learn to [distribute credentials securely using Secrets](/docs/tasks/inject-data-application/distribute-credentials-secure/)
   - but also bear in mind that using Secrets for authenticating as a ServiceAccount
     is deprecated. The recommended alternative is
-    [ServiceAccount token volume projection](#service-account-token-volume-projection).
+    [ServiceAccount token volume projection](#serviceaccount-token-volume-projection).
 -->
 另请参见：
 
@@ -917,7 +917,7 @@ See also:
 - 阅读 [Secret](/zh-cn/docs/concepts/configuration/secret/) 的概念
   - 或者学习[使用 Secret 来安全地分发凭据](/zh-cn/docs/tasks/inject-data-application/distribute-credentials-secure/)
   - 不过也要注意，使用 Secret 来完成 ServiceAccount 身份验证的做法已经过时。
-    建议的替代做法是执行 [ServiceAccount 令牌卷投射](#service-account-token-volume-projection)。
+    建议的替代做法是执行 [ServiceAccount 令牌卷投射](#serviceaccount-token-volume-projection)。
 <!--
 - Read about [projected volumes](/docs/tasks/configure-pod-container/configure-projected-volume-storage/).
 - For background on OIDC discovery, read the
