@@ -83,14 +83,7 @@ is signed in the same way as for the multi-architecture manifest lists.
 
 ## Official Package Repositories
 
-| Official Packages                                                      | Repositories          
-| ---------------------------------------------------------------------- | ---------------------------------                     |
-| kubectl                                                                | https://github.com/kubernetes/kubectl                 |
-| kubeadm                                                                | https://github.com/kubernetes/kubeadm                 |
-| kubelet                                                                | https://github.com/kubernetes/kubelet                 |
-| kube-aggregator                                                        | https://github.com/kubernetes/kube-aggregator         |
-| kube-controller-manager                                                | https://github.com/kubernetes/kube-controller-manager |
-| kube-proxy                                                             | https://github.com/kubernetes/kube-proxy              |
-| kube-scheduler                                                         | https://github.com/kubernetes/kube-scheduler          |
-| apiextensions-apiserver                                                | https://github.com/kubernetes/apiextensions-apiserver |
-| mount-utils                                                            | https://github.com/kubernetes/mount-utils             |
+The Kubernetes project primarily operates with two types of package repositories: **Google-hosted** package repositories and the recently introduced **community-owned** package repositories. The community-owned package repositories for Debian and RPM packages, available at `pkgs.k8s.io`, have been announced as the official replacement for the Google-hosted package repositories: `apt.kubernetes.io` and `yum.kubernetes.io`. These Google-hosted repositories have been in use since Kubernetes v1.5, and as of now, the Kubernetes community-owned repositories announced as the official package repositories for the Kubernetes project.
+- For more details about this change, check out our [announcement](/blog/2023/08/31/legacy-package-repository-deprecation/) blog.
+- Explore the significant differences between the Google-hosted and Kubernetes package repositories [here](/blog/2023/08/15/pkgs-k8s-io-introduction/#what-are-significant-differences-between-the-google-hosted-and-kubernetes-package-repositories).
+- For guidance on migrating to the Kubernetes community-owned repositories, follow the steps outlined [here](/blog/2023/08/15/pkgs-k8s-io-introduction/#how-to-migrate).
