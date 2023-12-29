@@ -219,7 +219,29 @@ This example demonstrates how to restrict the topology of provisioned volumes to
 zones and should be used as a replacement for the `zone` and `zones` parameters for the
 supported plugins.
 
-{{% code_sample language="yaml" file="storage/storageclass/storageclass-topology.yaml" %}}
+```yaml
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: standard
+provisioner: your-provisioner
+volumeBindingMode: WaitForFirstConsumer
+allowedTopologies:
+- matchLabelExpressions:
+  - key: topology.kubernetes.io/zone
+    values:
+    - zone1
+    - zone2
+```
+
+Here's an outline of some important fields within the [StorageClass](/docs/reference/kubernetes-api/config-and-storage-resources/storage-class-v1/) API:
+
+- `provisioner`: See [`Provisioner`](/docs/concepts/storage/storage-classes/#provisioner) for details.
+- `allowedTopologies`: Defines the constraints for the allowed topologies. In this example, it's based on zone.
+- `matchLabelExpressions`: Specify selectors to enable a node to be considered
+  part of the allowed topology.
+  In the example manifest, PersistentVolumes for this StorageClass must have a label
+  `topology.kubernetes.io/zone`,   with a label value of either `zone1` or `zone2`.
 
 ## Parameters
 
