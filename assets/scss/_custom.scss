@@ -239,6 +239,12 @@ body.td-404 main .error-details {
   }
 }
 
+.flip-nav .search-item {
+  .td-search-input {
+    background-color: $dark-grey;
+  }
+}
+
 /* FOOTER */
 footer {
   background-color: #303030;
