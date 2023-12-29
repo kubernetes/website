@@ -650,7 +650,7 @@ from failed Jobs is not lost inadvertently.
 -->
 ### 逐索引的回退限制    {#backoff-limit-per-index}
 
-{{< feature-state for_k8s_version="v1.28" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.29" state="beta" >}}
 
 {{< note >}}
 <!--
@@ -1262,7 +1262,7 @@ Here, `W` is the number of work items.
 | 模式  | `.spec.completions` |  `.spec.parallelism` |
 | ----- |:-------------------:|:--------------------:|
 | [每工作条目一 Pod 的队列](/zh-cn/docs/tasks/job/coarse-parallel-processing-work-queue/) | W | 任意值 |
-| [Pod 个数可变的队列](/zh-cn/docs/tasks/job/fine-parallel-processing-work-queue/) | 1 | 任意值 |
+| [Pod 数量可变的队列](/zh-cn/docs/tasks/job/fine-parallel-processing-work-queue/) | 1 | 任意值 |
 | [静态任务分派的带索引的 Job](/zh-cn/docs/tasks/job/indexed-parallel-processing-static) | W |  | 任意值 |
 | [带 Pod 间通信的 Job](/zh-cn/docs/tasks/job/job-with-pod-to-pod-communication/) | W | W |
 | [Job 模板扩展](/zh-cn/docs/tasks/job/parallel-processing-expansion/) | 1 | 应该为 1 |
@@ -1378,6 +1378,9 @@ Job 的 `status` 可以用来确定 Job 是否被挂起，或者曾经被挂起�
 kubectl get jobs/myjob -o yaml
 ```
 
+<!--
+# .metadata and .spec omitted
+-->
 ```yaml
 apiVersion: batch/v1
 kind: Job
@@ -1623,7 +1626,7 @@ observe that pods from a Job are stucked with the tracking finalizer.
 <!--
 ### Elastic Indexed Jobs
 -->
-### 弹性索引 Job  {#elastic-indexed-job}
+### 弹性索引 Job  {#elastic-indexed-jobs}
 
 {{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
@@ -1649,15 +1652,17 @@ scaling an indexed Job, such as MPI, Horovord, Ray, and PyTorch training jobs.
 -->
 ### 延迟创建替换 Pod   {#pod-replacement-policy}
 
-{{< feature-state for_k8s_version="v1.28" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.29" state="beta" >}}
 
 {{< note >}}
 <!--
 You can only set `podReplacementPolicy` on Jobs if you enable the `JobPodReplacementPolicy`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+(enabled by default).
+
 -->
 你只有在启用了 `JobPodReplacementPolicy`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)后，
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)后（默认启用），
 才能为 Job 设置 `podReplacementPolicy`。
 {{< /note >}}
 
