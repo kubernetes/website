@@ -750,7 +750,7 @@ DEPRECATED: the maximum time a pod can stay in unschedulablePods. If a pod stays
 已弃用：Pod 可以在 unschedulablePods 中停留的最长时间。
 如果 Pod 在 unschedulablePods 中停留的时间超过此值，则该 pod 将被从
 unschedulablePods 移动到 backoffQ 或 activeQ。
-此标志已弃用，将在 1.2 中删除。
+此标志已弃用，将在 1.26 中删除。
 
 </td>
 </tr>
