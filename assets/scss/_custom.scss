@@ -245,6 +245,13 @@ body.td-404 main .error-details {
   }
 }
 
+@media only screen and (max-width: 1500px) {
+  .search-item {
+    display: none;
+  }
+}
+
+
 /* FOOTER */
 footer {
   background-color: #303030;
