@@ -129,13 +129,13 @@ kubeadmは`kubelet`や`kubectl`をインストールまたは管理**しない**
    sudo apt-get install -y apt-transport-https ca-certificates curl
    ```
 
-2. Google Cloudの公開鍵をダウンロードします:
+2. Kubernetesパッケージリポジトリの公開署名キーをダウンロードします。すべてのリポジトリに同じ署名キーが使用されるため、URL内のバージョンは無視できます。:
 
    ```shell
-   curl -fsSL https://dl.k8s.io/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
+   curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    ```
 
-3. Kubernetesの`apt`リポジトリを追加します:
+3. 適切なKubernetesaptリポジトリを追加します。このリポジトリには、Kubernetes {{< skew currentVersion >}}用のパッケージのみがあることに注意してください。他のKubernetesマイナーバージョンの場合は、目的のマイナーバージョンに一致するようにURL内のKubernetesマイナーバージョンを変更する必要があります(インストールする予定のKubernetesバージョンのドキュメントも読んでください)。:
 
    ```shell
    # This overwrites any existing configuration in /etc/apt/sources.list.d/kubernetes.list
