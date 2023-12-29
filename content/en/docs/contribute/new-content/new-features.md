@@ -129,8 +129,28 @@ content is not received, the feature may be removed from the milestone.
 #### Feature gates {#ready-for-review-feature-gates}
 
 If your feature is an Alpha or Beta feature and is behind a feature gate,
-make sure you add it to [Alpha/Beta Feature gates](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features)
-table as part of your pull request. With net new feature gates, a separate
+you need a feature gate file for it inside
+`content/en/docs/reference/command-line-tools-reference/feature-gates/`.
+The name of the file should be the feature gate, converted from `UpperCamelCase`
+to `kebab-case`, with `.md` as the suffix.
+You can look at other files already in the same directory for a hint about what yours
+should look like. Usually a single paragraph is enough; for longer explanations,
+add documentation elsewhere and link to that.
+
+Also,
+to ensure your feature gate appears in the [Alpha/Beta Feature gates](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) table, include the following details 
+in the [front matter](https://gohugo.io/content-management/front-matter/) of your Markdown
+description file:
+
+```yaml
+stages:
+  - stage: <alpha/beta/stable/deprecated>  # Specify the development stage of the feature gate
+    defaultValue: <true or false>     # Set to true if enabled by default, false otherwise
+    fromVersion: <Version>            # Version from which the feature gate is available
+    toVersion: <Version>              # (Optional) The version until which the feature gate is available
+```
+
+With net new feature gates, a separate
 description of the feature gate is also required; create a new Markdown file
 inside `content/en/docs/reference/command-line-tools-reference/feature-gates/`
 (use other files as a template).
@@ -147,14 +167,35 @@ feature gates). Watch out for language such as ”The `exampleSetting` field
 is a beta field and disabled by default. You can enable it by enabling the
 `ProcessExampleThings` feature gate.”
 
-If your feature is GA'ed or deprecated, make sure to move it from the
+If your feature is GA'ed or deprecated, 
+include an additional `stage` entry within the `stages` block in the description file. 
+Ensure that the Alpha and Beta stages remain intact. 
+This step transitions the feature gate from the 
 [Feature gates for Alpha/Feature](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) table
-to [Feature gates for graduated or deprecated features](/docs/reference/command-line-tools-reference/feature-gates-removed/#feature-gates-that-are-removed)
-table with Alpha and Beta history intact.
+to [Feature gates for graduated or deprecated features](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features) table. For example:
 
-Eventually, Kubernetes will stop including the feature gate at all.
-In that case, you move it from [Feature gates for graduated or deprecated features](/docs/reference/command-line-tools-reference/feature-gates-removed/#feature-gates-that-are-removed)
-and into a separate page, [Feature Gates (removed)](/docs/reference/command-line-tools-reference/feature-gates-removed/).
+{{< highlight yaml "linenos=false,hl_lines=10-15" >}}
+stages:
+  - stage: alpha 
+    defaultValue: false
+    fromVersion: "1.12"
+    toVersion: "1.12"
+  - stage: beta 
+    defaultValue: true
+    fromVersion: "1.13"
+    toVersion: "1.18"    
+  # Added 'stable' stage block to existing stages.  
+  - stage: stable     
+    defaultValue: true
+    fromVersion: "1.19"
+    toVersion: "1.27"   
+{{< / highlight >}}
+
+Eventually, Kubernetes will stop including the feature gate at all. To signify the removal of a feature gate, 
+include `removed: true` in the front matter of the respective description file.
+This action triggers the transition of the feature gate 
+from [Feature gates for graduated or deprecated features](/docs/reference/command-line-tools-reference/feature-gates-removed/#feature-gates-that-are-removed) section to a dedicated page titled 
+[Feature Gates (removed)](/docs/reference/command-line-tools-reference/feature-gates-removed/).
 
 Also make sure to move the relevant list entry and
 [`feature-gate-description` shortcode](/docs/contribute/style/hugo-shortcodes/#feature-gate-description) into the

@@ -526,7 +526,7 @@ Before proceeding, clean up some of the ConfigMaps you made:
 ```bash
 kubectl delete configmap special-config
 kubectl delete configmap env-config
-kubectl delete configmap -l 'game-config in (config-4,config-5)’
+kubectl delete configmap -l 'game-config in (config-4,config-5)'
 ```
 
 Now that you have learned to define ConfigMaps, you can move on to the next
@@ -910,7 +910,7 @@ kubectl delete pod dapi-test-pod --now
 
 # You might already have removed the next set
 kubectl delete configmaps/special-config configmaps/env-config
-kubectl delete configmap -l 'game-config in (config-4,config-5)’
+kubectl delete configmap -l 'game-config in (config-4,config-5)'
 ```
 
 If you created a directory `configure-pod-container` and no longer need it, you should remove that too,

@@ -17,7 +17,7 @@ security, or data synchronization, without directly altering the primary applica
 
 ## Enabling sidecar containers
 
-Starting with Kubernetes 1.28, a
+Enabled by default with Kubernetes 1.29, a
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) named
 `SidecarContainers` allows you to specify a `restartPolicy` for containers listed in a
 Pod's `initContainers` field. These restartable _sidecar_ containers are independent with
@@ -57,9 +57,6 @@ has finished.
 Here's an example of a Job with two containers, one of which is a sidecar:
 
 {{% code_sample language="yaml" file="application/job/job-sidecar.yaml" %}}
-By default, this feature is not available in Kubernetes. To avail this feature, you
-need to enable the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-named `SidecarContainers`.
 
 ## Differences from regular containers
 

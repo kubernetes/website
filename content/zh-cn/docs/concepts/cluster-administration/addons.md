@@ -145,6 +145,9 @@ Add-on 扩展了 Kubernetes 的功能。
   Pods and non-Kubernetes environments with visibility and security monitoring.
 * [Romana](https://github.com/romana) is a Layer 3 networking solution for pod
   networks that also supports the [NetworkPolicy](/docs/concepts/services-networking/network-policies/) API.
+* [Spiderpool](https://github.com/spidernet-io/spiderpool) is an underlay and RDMA
+  networking solution for Kubernetes. Spiderpool is supported on bare metal, virtual machines,
+  and public cloud environments.
 * [Weave Net](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/)
   provides networking and network policy, will carry on working on both sides
   of a network partition, and does not require an external database.
@@ -156,6 +159,8 @@ Add-on 扩展了 Kubernetes 的功能。
   是一个 SDN 平台，可在 Kubernetes Pods 和非 Kubernetes 环境之间提供基于策略的联网，并具有可视化和安全监控。
 * [Romana](https://github.com/romana) 是一个 Pod 网络的第三层解决方案，并支持
   [NetworkPolicy](/zh-cn/docs/concepts/services-networking/network-policies/) API。
+* [Spiderpool](https://github.com/spidernet-io/spiderpool) 为 Kubernetes
+  提供了下层网络和 RDMA 高速网络解决方案，兼容裸金属、虚拟机和公有云等运行环境。
 * [Weave Net](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/)
   提供在网络分组两端参与工作的联网和网络策略，并且不需要额外的数据库。
 
