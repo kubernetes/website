@@ -30,6 +30,8 @@
 /docs/api-reference/labels-annotations-taints/     /docs/reference/labels-annotations-taints/ 301
 /docs/reference/using-api/api-overview/     /docs/reference/using-api/ 301
 /docs/reference/access-authn-authz/controlling-access/   /docs/concepts/security/controlling-access/ 301
+/docs/reference/kubectl/cheatsheet/   /docs/reference/kubectl/quick-reference/ 301
+/kubectlguide /docs/reference/kubectl/quick-reference/ 302
 
 /docs/concepts/abstractions/controllers/garbage-collection/     /docs/concepts/workloads/controllers/garbage-collection/ 301
 /docs/concepts/abstractions/controllers/statefulsets/     /docs/concepts/workloads/controllers/statefulset/ 301
@@ -345,7 +347,7 @@
 /docs/tutorials/stateless-application/run-stateless-ap-replication-controller/     /docs/tasks/run-application/run-stateless-application-deployment/ 301
 /docs/tutorials/stateless-application/run-stateless-application-deployment/     /docs/tasks/run-application/run-stateless-application-deployment/ 301
 
-/cheatsheet /docs/reference/kubectl/cheatsheet/ 302
+/cheatsheet /docs/reference/kubectl/quick-reference/ 302
 
 /docs/whatisk8s/     /docs/concepts/overview/what-is-kubernetes/ 301
 /events/     /docs/community     301

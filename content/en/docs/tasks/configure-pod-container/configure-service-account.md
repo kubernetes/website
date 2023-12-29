@@ -539,7 +539,7 @@ See also:
   - or learn to [distribute credentials securely using Secrets](/docs/tasks/inject-data-application/distribute-credentials-secure/)
   - but also bear in mind that using Secrets for authenticating as a ServiceAccount
     is deprecated. The recommended alternative is
-    [ServiceAccount token volume projection](#service-account-token-volume-projection).
+    [ServiceAccount token volume projection](#serviceaccount-token-volume-projection).
 - Read about [projected volumes](/docs/tasks/configure-pod-container/configure-projected-volume-storage/).
 - For background on OIDC discovery, read the
   [ServiceAccount signing key retrieval](https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/1393-oidc-discovery)

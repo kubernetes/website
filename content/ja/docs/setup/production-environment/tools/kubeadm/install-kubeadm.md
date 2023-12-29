@@ -126,7 +126,7 @@ kubeadmは`kubelet`や`kubectl`をインストールまたは管理**しない**
 
    ```shell
    sudo apt-get update
-   sudo apt-get install -y apt-transport-https ca-certificates curl
+   sudo apt-get install -y apt-transport-https ca-certificates curl gpg
    ```
 
 2. Google Cloudの公開鍵をダウンロードします:

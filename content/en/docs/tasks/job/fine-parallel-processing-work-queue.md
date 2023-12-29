@@ -1,23 +1,23 @@
 ---
 title: Fine Parallel Processing Using a Work Queue
 content_type: task
-min-kubernetes-server-version: v1.8
 weight: 30
 ---
 
 <!-- overview -->
 
-In this example, we will run a Kubernetes Job with multiple parallel
-worker processes in a given pod.
+In this example, you will run a Kubernetes Job that runs multiple parallel
+tasks as worker processes, each running as a separate Pod.
 
 In this example, as each pod is created, it picks up one unit of work
 from a task queue, processes it, and repeats until the end of the queue is reached.
 
 Here is an overview of the steps in this example:
 
-1. **Start a storage service to hold the work queue.**  In this example, we use Redis to store
-   our work items.  In the previous example, we used RabbitMQ.  In this example, we use Redis and
-   a custom work-queue client library because AMQP does not provide a good way for clients to
+1. **Start a storage service to hold the work queue.**  In this example, you will use Redis to store
+   work items.  In the [previous example](/docs/tasks/job/coarse-parallel-processing-work-queue),
+   you used RabbitMQ.  In this example, you will use Redis and a custom work-queue client library;
+   this is because AMQP does not provide a good way for clients to
    detect when a finite-length work queue is empty.  In practice you would set up a store such
    as Redis once and reuse it for the work queues of many jobs, and other things.
 1. **Create a queue, and fill it with messages.**  Each message represents one task to be done.  In
@@ -30,6 +30,13 @@ Here is an overview of the steps in this example:
 
 {{< include "task-tutorial-prereqs.md" >}}
 
+You will need a container image registry where you can upload images to run in your cluster.
+The example uses [Docker Hub](https://hub.docker.com/), but you could adapt it to a different
+container image registry.
+
+This task example also assumes that you have Docker installed locally. You use Docker to
+build container images.
+
 <!-- steps -->
 
 Be familiar with the basic,
@@ -39,7 +46,7 @@ non-parallel, use of [Job](/docs/concepts/workloads/controllers/job/).
 
 ## Starting Redis
 
-For this example, for simplicity, we will start a single instance of Redis.
+For this example, for simplicity, you will start a single instance of Redis.
 See the [Redis Example](https://github.com/kubernetes/examples/tree/master/guestbook) for an example
 of deploying Redis scalably and redundantly.
 
@@ -53,23 +60,27 @@ You could also download the following files directly:
 - [`worker.py`](/examples/application/job/redis/worker.py)
 
 
-## Filling the Queue with tasks
+## Filling the queue with tasks
 
-Now let's fill the queue with some "tasks".  In our example, our tasks are strings to be
+Now let's fill the queue with some "tasks".  In this example, the tasks are strings to be
 printed.
 
 Start a temporary interactive pod for running the Redis CLI.
 
 ```shell
 kubectl run -i --tty temp --image redis --command "/bin/sh"
+```
+```
 Waiting for pod default/redis2-c7h78 to be running, status is Pending, pod ready: false
 Hit enter for command prompt
 ```
 
-Now hit enter, start the redis CLI, and create a list with some work items in it.
+Now hit enter, start the Redis CLI, and create a list with some work items in it.
 
+```shell
+redis-cli -h redis
 ```
-# redis-cli -h redis
+```console
 redis:6379> rpush job2 "apple"
 (integer) 1
 redis:6379> rpush job2 "banana"
@@ -100,21 +111,21 @@ redis:6379> lrange job2 0 -1
 9) "orange"
 ```
 
-So, the list with key `job2` will be our work queue.
+So, the list with key `job2` will be the work queue.
 
 Note: if you do not have Kube DNS setup correctly, you may need to change
 the first step of the above block to `redis-cli -h $REDIS_SERVICE_HOST`.
 
 
-## Create an Image
+## Create a container image {#create-an-image}
 
-Now we are ready to create an image that we will run.
+Now you are ready to create an image that will process the work in that queue.
 
-We will use a python worker program with a redis client to read
+You're going to use a Python worker program with a Redis client to read
 the messages from the message queue.
 
 A simple Redis work queue client library is provided,
-called rediswq.py ([Download](/examples/application/job/redis/rediswq.py)).
+called `rediswq.py` ([Download](/examples/application/job/redis/rediswq.py)).
 
 The "worker" program in each Pod of the Job uses the work queue
 client library to get work.  Here it is:
@@ -124,7 +135,7 @@ client library to get work.  Here it is:
 You could also download [`worker.py`](/examples/application/job/redis/worker.py),
 [`rediswq.py`](/examples/application/job/redis/rediswq.py), and
 [`Dockerfile`](/examples/application/job/redis/Dockerfile) files, then build
-the image:
+the container image. Here's an example using Docker to do the image build:
 
 ```shell
 docker build -t job-wq-2 .
@@ -144,46 +155,40 @@ docker push <username>/job-wq-2
 You need to push to a public repository or [configure your cluster to be able to access
 your private repository](/docs/concepts/containers/images/).
 
-If you are using [Google Container
-Registry](https://cloud.google.com/tools/container-registry/), tag
-your app image with your project ID, and push to GCR. Replace
-`<project>` with your project ID.
-
-```shell
-docker tag job-wq-2 gcr.io/<project>/job-wq-2
-gcloud docker -- push gcr.io/<project>/job-wq-2
-```
-
 ## Defining a Job
 
-Here is the job definition:
+Here is a manifest for the Job you will create:
 
 {{% code_sample file="application/job/redis/job.yaml" %}}
 
-Be sure to edit the job template to
+{{< note >}}
+Be sure to edit the manifest to
 change `gcr.io/myproject` to your own path.
+{{< /note >}}
 
 In this example, each pod works on several items from the queue and then exits when there are no more items.
 Since the workers themselves detect when the workqueue is empty, and the Job controller does not
 know about the workqueue, it relies on the workers to signal when they are done working.
-The workers signal that the queue is empty by exiting with success.  So, as soon as any worker
-exits with success, the controller knows the work is done, and the Pods will exit soon.
-So, we set the completion count of the Job to 1.  The job controller will wait for the other pods to complete
-too.
-
+The workers signal that the queue is empty by exiting with success.  So, as soon as **any** worker
+exits with success, the controller knows the work is done, and that the Pods will exit soon.
+So, you need to set the completion count of the Job to 1.  The job controller will wait for
+the other pods to complete too.
 
 ## Running the Job
 
 So, now run the Job:
 
 ```shell
+# this assumes you downloaded and then edited the manifest already
 kubectl apply -f ./job.yaml
 ```
 
-Now wait a bit, then check on the job.
+Now wait a bit, then check on the Job:
 
 ```shell
 kubectl describe jobs/job-wq-2
+```
+```
 Name:             job-wq-2
 Namespace:        default
 Selector:         controller-uid=b1c7e4e3-92e1-11e7-b85e-fa163ee3c11f
@@ -192,14 +197,14 @@ Labels:           controller-uid=b1c7e4e3-92e1-11e7-b85e-fa163ee3c11f
 Annotations:      <none>
 Parallelism:      2
 Completions:      <unset>
-Start Time:       Mon, 11 Jan 2016 17:07:59 -0800
+Start Time:       Mon, 11 Jan 2022 17:07:59 +0000
 Pods Statuses:    1 Running / 0 Succeeded / 0 Failed
 Pod Template:
   Labels:       controller-uid=b1c7e4e3-92e1-11e7-b85e-fa163ee3c11f
                 job-name=job-wq-2
   Containers:
    c:
-    Image:              gcr.io/exampleproject/job-wq-2
+    Image:              container-registry.example/exampleproject/job-wq-2
     Port:
     Environment:        <none>
     Mounts:             <none>
@@ -227,7 +232,7 @@ Working on date
 Working on lemon
 ```
 
-As you can see, one of our pods worked on several work units.
+As you can see, one of the pods for this Job worked on several work units.
 
 <!-- discussion -->
 
@@ -238,8 +243,7 @@ want to consider one of the other
 [job patterns](/docs/concepts/workloads/controllers/job/#job-patterns).
 
 If you have a continuous stream of background processing work to run, then
-consider running your background workers with a `ReplicaSet` instead,
+consider running your background workers with a ReplicaSet instead,
 and consider running a background processing library such as
 [https://github.com/resque/resque](https://github.com/resque/resque).
-
 

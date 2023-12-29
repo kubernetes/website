@@ -369,7 +369,7 @@ kubectl describe pod goproxy
 <!--
 ## Define a gRPC liveness probe
 -->
-## 定义 gRPC 存活探针
+## 定义 gRPC 存活探针 {#define-a-grpc-liveness-probe}
 
 {{< feature-state for_k8s_version="v1.27" state="stable" >}}
 
