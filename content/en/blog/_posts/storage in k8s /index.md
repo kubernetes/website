@@ -1,6 +1,7 @@
 ---
 layout: blog
 title: "Storage in Kubernetes"
+slug: storage-in-kubernetes
 ---
 
 **Author:** Goutam Verma (Salad Technologies)
