@@ -241,7 +241,13 @@ body.td-404 main .error-details {
 
 .flip-nav .search-item {
   .td-search-input {
-    background-color: $dark-grey;
+    background-color: $medium-grey;
+  }
+  input, textarea {
+    color: white;
+  }
+  textarea:focus, input:focus {
+    color: white;
   }
 }
 
