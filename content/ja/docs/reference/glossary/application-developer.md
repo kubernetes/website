@@ -10,7 +10,7 @@ aka:
 tags:
 - user-type
 ---
- Kubernetesクラスターで実行されるアプリケーションを作成する人
+ Kubernetesクラスターで実行されるアプリケーションを作成する人。
 
 <!--more--> 
 
