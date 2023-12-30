@@ -10,7 +10,7 @@ aka:
 tags:
 - community
 ---
- Kubernetesコードの貢献をレビュー、および承認できる人
+ Kubernetesコードの貢献をレビュー、および承認できる人。
 
 <!--more--> 
 
