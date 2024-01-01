@@ -21,8 +21,10 @@ aliases:
     - tengqm
   sig-docs-de-owners: # Admins for German content
     - bene2k1
+    - rlenferink
   sig-docs-de-reviews: # PR reviews for German content
     - bene2k1
+    - rlenferink
   sig-docs-en-owners: # Admins for English content
     - divya-mohan0209
     - katcosgrove # RT 1.29 Docs Lead
@@ -72,15 +74,21 @@ aliases:
     - bishal7679
     - divya-mohan0209
   sig-docs-id-owners: # Admins for Indonesian content
+    - ariscahyadi
     - girikuncoro
     - habibrosyad
   sig-docs-id-reviews: # PR reviews for Indonesian content
+    - ariscahyadi
     - girikuncoro
     - habibrosyad
   sig-docs-it-owners: # Admins for Italian content
     - fabriziopandini
+    - Fale
+    - mattiaperi
   sig-docs-it-reviews: # PR reviews for Italian content
     - fabriziopandini
+    - Fale
+    - mattiaperi
   sig-docs-ja-owners: # Admins for Japanese content
     - inductor
     - nasa9084
@@ -156,8 +164,11 @@ aliases:
     - shurup
   sig-docs-pl-owners: # Admins for Polish content
     - mfilocha
+    - nvtkaszpir
   sig-docs-pl-reviews: # PR reviews for Polish content
     - mfilocha
+    - nvtkaszpir
+    - kpucynski
   sig-docs-uk-owners: # Admins for Ukrainian content
     - Arhell
     - MaxymVlasov
