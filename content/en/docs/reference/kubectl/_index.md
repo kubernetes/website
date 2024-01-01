@@ -24,7 +24,7 @@ For details about each command, including all the supported flags and subcommand
 [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) reference documentation.
 
 For installation instructions, see [Installing kubectl](/docs/tasks/tools/#kubectl);
-for a quick guide, see the [cheat sheet](/docs/reference/kubectl/cheatsheet/).
+for a quick guide, see the [cheat sheet](/docs/reference/kubectl/quick-reference/).
 If you're used to using the `docker` command-line tool,
 [`kubectl` for Docker Users](/docs/reference/kubectl/docker-cli-to-kubectl/) explains some equivalent commands for Kubernetes.
 
