@@ -158,7 +158,7 @@ githubWebsiteRaw = "raw.githubusercontent.com/kubernetes/website"
 github_repo = "https://github.com/kubernetes/website"
 
 # Searching
-k8s_search = true
+k8s_search = false
 
 # The following search parameters are specific to Docsy's implementation. Kubernetes implementes its own search-related partials and scripts.
 
