@@ -134,8 +134,8 @@ description: |-
                 By default they are visible from other pods and services within the same Kubernetes cluster, but not outside that network.
                 When we use <code>kubectl</code>, we're interacting through an API endpoint to communicate with our application.</p>
                 <p>We will cover other options on how to expose your application outside the Kubernetes cluster later, in <a href="/docs/tutorials/kubernetes-basics/expose/">Module 4</a>.
-                Also as a basic tutorial, we're not explaining what <code>Pods</code> are in any detail here, it will cover in later topics.</p>
-                <p>The <code>kubectl proxy</code> command can create a proxy that will forward communications into the cluster-wide, private network. The proxy can be terminated by pressing control-C and won't show any output while its running.</p>
+                Also as a basic tutorial, we're not explaining what <code>Pods</code> are in any detail here, it will be covered in later topics.</p>
+                <p>The <code>kubectl proxy</code> command can create a proxy that will forward communications into the cluster-wide, private network. The proxy can be terminated by pressing control-C and won't show any output while it's running.</p>
                 <p><strong>You need to open a second terminal window to run the proxy.</strong></p>
                 <p><b><code>kubectl proxy</b></code>
                 <p>We now have a connection between our host (the terminal) and the Kubernetes cluster. The proxy enables direct access to the API from these terminals.</p>
