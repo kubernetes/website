@@ -306,7 +306,7 @@ Pod affinity rule uses the "hard"
 uses the "soft" `preferredDuringSchedulingIgnoredDuringExecution`.
 
 The affinity rule specifies that the scheduler is allowed to place the example Pod 
-on a node only if that node belongs to a specific [zone](/docs/concepts/scheduling-eviction/topology-spread-constraints/topology-spread-constraints/)
+on a node only if that node belongs to a specific [zone](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 where other Pods have been labeled with `security=S1`. 
 For instance, if we have a cluster with a designated zone, let's call it "Zone V," 
 consisting of nodes labeled with `topology.kubernetes.io/zone=V`, the scheduler can 
@@ -315,7 +315,7 @@ Zone V already labeled with `security=S1`. Conversely, if there are no Pods with
 labels in Zone V, the scheduler will not assign the example Pod to any node in that zone.
 
 The anti-affinity rule specifies that the scheduler should try to avoid scheduling the Pod 
-on a node if that node belongs to a specific [zone](/docs/concepts/scheduling-eviction/topology-spread-constraints/topology-spread-constraints/)
+on a node if that node belongs to a specific [zone](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 where other Pods have been labeled with `security=S2`. 
 For instance, if we have a cluster with a designated zone, let's call it "Zone R," 
 consisting of nodes labeled with `topology.kubernetes.io/zone=R`, the scheduler should avoid 

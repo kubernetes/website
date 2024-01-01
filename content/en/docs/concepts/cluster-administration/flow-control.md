@@ -47,7 +47,7 @@ are not subject to the `--max-requests-inflight` limit.
 
 The API Priority and Fairness feature is controlled by a command-line flag
 and is enabled by default.  See 
-[Options](/docs/reference/command-line-tools-reference/kube-apiserver/options/)
+[Options](/docs/reference/command-line-tools-reference/kube-apiserver/#options)
 for a general explanation of the available kube-apiserver command-line 
 options and how to enable and disable them.  The name of the 
 command-line option for APF is "--enable-priority-and-fairness".  This feature
