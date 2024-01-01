@@ -61,4 +61,4 @@ Certains comportements sont indépendants de la classe QoS attribuée par Kubern
 - En savoir plus sur [Perturbations des pods](/docs/concepts/workloads/pods/disruptions/).
 - Découvrez comment [affecter des ressources mémoire à des conteneurs et des pods](/docs/tasks/configure-pod-container/assign-memory-resource/).
 - Découvrez comment [affecter des ressources CPU à des conteneurs et des pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
-- Apprenez à [configurer la qualité de service pour les pods](/docs/tasks/configure-pod-container/quality-service-pod/).
+- Apprenez à [configurer la qualité de service pour les pods](/docs/tasks/configure-pod-container/quality-service-pod/). 
