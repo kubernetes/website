@@ -113,7 +113,7 @@ Disadvantages compared to imperative commands:
 Advantages compared to declarative object configuration:
 
 - Imperative object configuration behavior is simpler and easier to understand.
-- As of Kubernetes version 1.5, imperative object configuration is more mature.
+- As of Kubernetes version 1.5, imperative object configuration was highlighted for its maturity. However, in the present Kubernetes landscape, both imperative (kubectl create) and declarative (kubectl apply) object configurations are well-established and widely used in production environments.
 
 Disadvantages compared to declarative object configuration:
 
