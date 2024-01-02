@@ -465,7 +465,7 @@ sudo kubeadm certs generate-csr
 ```
 
 If external etcd is to be used, follow the
-[External etcd with kubeadm](docs/setup/production-environment/tools/kubeadm/high-availability/#external-etcd-nodes)
+[External etcd with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/#external-etcd-nodes)
 guide to understand what CSR files are needed on the kubeadm and etcd nodes. Other
 `.csr` and `.key` files under `/etc/kubernetes/pki/etcd` can be removed.
 
