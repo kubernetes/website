@@ -68,7 +68,7 @@ The **v1.26** release stopped serving the following deprecated API versions:
 
 The **flowcontrol.apiserver.k8s.io/v1beta1** API version of FlowSchema and PriorityLevelConfiguration is no longer served as of v1.26.
 
-* Migrate manifests and API clients to use the **flowcontrol.apiserver.k8s.io/v1beta3** API version, available since v1.26.
+* Migrate manifests and API clients to use the **flowcontrol.apiserver.k8s.io/v1beta2** API version.
 * All existing persisted objects are accessible via the new API
 * No notable changes
 

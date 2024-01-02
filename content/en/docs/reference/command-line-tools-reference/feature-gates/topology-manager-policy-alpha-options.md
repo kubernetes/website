@@ -4,6 +4,11 @@ content_type: feature_gate
 _build:
   list: never
   render: false
+
+stages:
+  - stage: alpha 
+    defaultValue: false
+    fromVersion: "1.26"
 ---
 Allow fine-tuning of topology manager policies,
 experimental, Alpha-quality options.
