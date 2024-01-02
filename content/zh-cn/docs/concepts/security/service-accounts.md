@@ -474,7 +474,8 @@ API 服务器按照以下方式检查该持有者令牌的有效性：
 <!--
 The TokenRequest API produces _bound tokens_ for a ServiceAccount. This
 binding is linked to the lifetime of the client, such as a Pod, that is acting
-as that ServiceAccount.
+as that ServiceAccount.  See [Token Volume Projection](/docs/tasks/configure-pod-container/configure-service-account/#serviceaccount-token-volume-projection)
+for an example of a bound pod service account token's JWT schema and payload.
 
 For tokens issued using the `TokenRequest` API, the API server also checks that
 the specific object reference that is using the ServiceAccount still exists,
@@ -482,8 +483,9 @@ matching by the {{< glossary_tooltip term_id="uid" text="unique ID" >}} of that
 object. For legacy tokens that are mounted as Secrets in Pods, the API server
 checks the token against the Secret.
 -->
-TokenRequest API 为 ServiceAccount 生成**绑定令牌**。这种绑定与以该 ServiceAccount 身份运行的
-的客户端（如 Pod）的生命期相关联。
+TokenRequest API 为 ServiceAccount 生成**绑定令牌**。这种绑定与以该 ServiceAccount
+身份运行的客户端（如 Pod）的生命期相关联。有关绑定 Pod 服务账号令牌的 JWT 模式和载荷的示例，
+请参阅[服务账号令牌卷投射](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#serviceaccount-token-volume-projection)。
 
 对于使用 `TokenRequest` API 签发的令牌，API 服务器还会检查正在使用 ServiceAccount 的特定对象引用是否仍然存在，
 方式是通过该对象的{{< glossary_tooltip term_id="uid" text="唯一 ID" >}} 进行匹配。
@@ -516,14 +518,14 @@ account credentials, you can use the following methods:
 <!--
 The Kubernetes project recommends that you use the TokenReview API, because
 this method invalidates tokens that are bound to API objects such as Secrets,
-ServiceAccounts, and Pods when those objects are deleted. For example, if you
+ServiceAccounts, Pods or Nodes when those objects are deleted. For example, if you
 delete the Pod that contains a projected ServiceAccount token, the cluster
 invalidates that token immediately and a TokenReview immediately fails.
 If you use OIDC validation instead, your clients continue to treat the token
 as valid until the token reaches its expiration timestamp.
 -->
 Kubernetes 项目建议你使用 TokenReview API，因为当你删除某些 API 对象
-（如 Secret、ServiceAccount 和 Pod）的时候，此方法将使绑定到这些 API 对象上的令牌失效。
+（如 Secret、ServiceAccount、Pod 和 Node）的时候，此方法将使绑定到这些 API 对象上的令牌失效。
 例如，如果删除包含投射 ServiceAccount 令牌的 Pod，则集群立即使该令牌失效，
 并且 TokenReview 操作也会立即失败。
 如果你使用的是 OIDC 验证，则客户端将继续将令牌视为有效，直到令牌达到其到期时间戳。

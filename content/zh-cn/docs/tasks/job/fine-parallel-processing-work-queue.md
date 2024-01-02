@@ -1,23 +1,22 @@
 ---
 title: 使用工作队列进行精细的并行处理
 content_type: task
-min-kubernetes-server-version: v1.8
 weight: 30
 ---
 <!--
 title: Fine Parallel Processing Using a Work Queue
 content_type: task
 weight: 30
-min-kubernetes-server-version: v1.8
 -->
 
 <!-- overview -->
 
 <!--
-In this example, we will run a Kubernetes Job with multiple parallel
-worker processes in a given pod.
+In this example, you will run a Kubernetes Job that runs multiple parallel
+tasks as worker processes, each running as a separate Pod.
 -->
-在这个例子中，我们会运行一个 Kubernetes Job，其中的 Pod 会运行多个并行工作进程。
+在此示例中，你将运行一个 Kubernetes Job，该 Job 将多个并行任务作为工作进程运行，
+每个任务在单独的 Pod 中运行。
 
 <!--
 In this example, as each pod is created, it picks up one unit of work
@@ -30,17 +29,19 @@ Here is an overview of the steps in this example:
 下面是这个示例的步骤概述：
 
 <!--
-1. **Start a storage service to hold the work queue.**  In this example, we use Redis to store
-   our work items.  In the previous example, we used RabbitMQ.  In this example, we use Redis and
-   a custom work-queue client library because AMQP does not provide a good way for clients to
+1. **Start a storage service to hold the work queue.**  In this example, you will use Redis to store
+   work items.  In the [previous example](/docs/tasks/job/coarse-parallel-processing-work-queue),
+   you used RabbitMQ.  In this example, you will use Redis and a custom work-queue client library;
+   this is because AMQP does not provide a good way for clients to
    detect when a finite-length work queue is empty.  In practice you would set up a store such
    as Redis once and reuse it for the work queues of many jobs, and other things.
 -->
 
-1. **启动存储服务用于保存工作队列。** 在这个例子中，我们使用 Redis 来存储工作项。
-   在上一个例子中，我们使用了 RabbitMQ。
+1. **启动存储服务用于保存工作队列。** 在这个例子中，你将使用 Redis 来存储工作项。
+   在[上一个例子中](/zh-cn/docs/tasks/job/coarse-parallel-processing-work-queue)，
+   你使用了 RabbitMQ。
    在这个例子中，由于 AMQP 不能为客户端提供一个良好的方法来检测一个有限长度的工作队列是否为空，
-   我们使用了 Redis 和一个自定义的工作队列客户端库。
+   你将使用 Redis 和一个自定义的工作队列客户端库。
    在实践中，你可能会设置一个类似于 Redis 的存储库，并将其同时用于多项任务或其他事务的工作队列。
 
 <!--
@@ -61,6 +62,20 @@ Here is an overview of the steps in this example:
 
 {{< include "task-tutorial-prereqs.md" >}}
 
+<!--
+You will need a container image registry where you can upload images to run in your cluster.
+The example uses [Docker Hub](https://hub.docker.com/), but you could adapt it to a different
+container image registry.
+
+This task example also assumes that you have Docker installed locally. You use Docker to
+build container images.
+-->
+你将需要一个容器镜像仓库，可以向其中上传镜像以在集群中运行。
+此示例使用的是 [Docker Hub](https://hub.docker.com/)，
+当然你可以将其调整为别的容器镜像仓库。
+
+此任务示例还假设你已在本地安装了 Docker，并使用 Docker 来构建容器镜像。
+
 <!-- steps -->
 
 <!--
@@ -74,13 +89,13 @@ non-parallel, use of [Job](/docs/concepts/workloads/controllers/job/).
 <!--
 ## Starting Redis
 
-For this example, for simplicity, we will start a single instance of Redis.
+For this example, for simplicity, you will start a single instance of Redis.
 See the [Redis Example](https://github.com/kubernetes/examples/tree/master/guestbook) for an example
 of deploying Redis scalably and redundantly.
 -->
 ## 启动 Redis
 
-对于这个例子，为了简单起见，我们将启动一个单实例的 Redis。
+对于这个例子，为了简单起见，你将启动一个单实例的 Redis。
 了解如何部署一个可伸缩、高可用的 Redis 例子，请查看
 [Redis 示例](https://github.com/kubernetes/examples/tree/master/guestbook)
 
@@ -97,9 +112,9 @@ You could also download the following files directly:
 - [`worker.py`](/examples/application/job/redis/worker.py)
 
 <!--
-## Filling the Queue with tasks
+## Filling the queue with tasks
 
-Now let's fill the queue with some "tasks".  In our example, our tasks are strings to be
+Now let's fill the queue with some "tasks".  In this example, our tasks are strings to be
 printed.
 
 Start a temporary interactive pod for running the Redis CLI.
@@ -121,12 +136,14 @@ Hit enter for command prompt
 ```
 
 <!--
-Now hit enter, start the redis CLI, and create a list with some work items in it.
+Now hit enter, start the Redis CLI, and create a list with some work items in it.
 -->
 现在按回车键，启动 Redis 命令行界面，然后创建一个存在若干个工作项的列表。
 
 ```shell
-# redis-cli -h redis
+redis-cli -h redis
+```
+```console
 redis:6379> rpush job2 "apple"
 (integer) 1
 redis:6379> rpush job2 "banana"
@@ -158,9 +175,9 @@ redis:6379> lrange job2 0 -1
 ```
 
 <!--
-So, the list with key `job2` will be our work queue.
+So, the list with key `job2` will be the work queue.
 -->
-因此，这个键为 `job2` 的列表就是我们的工作队列。
+因此，这个键为 `job2` 的列表就是工作队列。
 
 <!--
 Note: if you do not have Kube DNS setup correctly, you may need to change
@@ -170,23 +187,24 @@ the first step of the above block to `redis-cli -h $REDIS_SERVICE_HOST`.
 `redis-cli -h $REDIS_SERVICE_HOST`。
 
 <!--
-## Create an Image
+## Create a container image {#create-an-image}
 
-Now we are ready to create an image that we will run.
+Now you are ready to create an image that will process the work in that queue.
 
-We will use a python worker program with a redis client to read
+You're going to use a Python worker program with a Redis client to read
 the messages from the message queue.
 
 A simple Redis work queue client library is provided,
-called rediswq.py ([Download](/examples/application/job/redis/rediswq.py)).
+called `rediswq.py` ([Download](/examples/application/job/redis/rediswq.py)).
 -->
-## 创建镜像
+## 创建容器镜像  {#create-an-image}
 
-现在我们已经准备好创建一个我们要运行的镜像。
+现在你已准备好创建一个镜像来处理该队列中的工作。
 
-我们会使用一个带有 Redis 客户端的 Python 工作程序从消息队列中读出消息。
+你将使用一个带有 Redis 客户端的 Python 工作程序从消息队列中读出消息。
 
-这里提供了一个简单的 Redis 工作队列客户端库，名为 rediswq.py ([下载](/examples/application/job/redis/rediswq.py))。
+这里提供了一个简单的 Redis 工作队列客户端库，名为 `rediswq.py`
+（[下载](/zh-cn/examples/application/job/redis/rediswq.py)）。
 
 <!--
 The "worker" program in each Pod of the Job uses the work queue
@@ -200,11 +218,12 @@ Job 中每个 Pod 内的“工作程序” 使用工作队列客户端库获取�
 You could also download [`worker.py`](/examples/application/job/redis/worker.py),
 [`rediswq.py`](/examples/application/job/redis/rediswq.py), and
 [`Dockerfile`](/examples/application/job/redis/Dockerfile) files, then build
-the image:
+the container image. Here's an example using Docker to do the image build:
 -->
 你也可以下载 [`worker.py`](/examples/application/job/redis/worker.py)、
 [`rediswq.py`](/examples/application/job/redis/rediswq.py) 和
-[`Dockerfile`](/examples/application/job/redis/Dockerfile) 文件。然后构建镜像：
+[`Dockerfile`](/examples/application/job/redis/Dockerfile) 文件。然后构建容器镜像。
+以下是使用 Docker 进行镜像构建的示例：
 
 ```shell
 docker build -t job-wq-2 .
@@ -235,51 +254,39 @@ your private repository](/docs/concepts/containers/images/).
 [配置集群访问你的私有仓库](/zh-cn/docs/concepts/containers/images/)。
 
 <!--
-If you are using [Google Container
-Registry](https://cloud.google.com/tools/container-registry/), tag
-your app image with your project ID, and push to GCR. Replace
-`<project>` with your project ID.
--->
-如果你使用的是 [Google Container Registry](https://cloud.google.com/tools/container-registry/)，
-请先用你的 project ID 给你的镜像打上标签，然后 push 到 GCR。请将 `<project>` 替换为你自己的 project ID。
-
-```shell
-docker tag job-wq-2 gcr.io/<project>/job-wq-2
-gcloud docker -- push gcr.io/<project>/job-wq-2
-```
-
-<!--
 ## Defining a Job
 
-Here is the job definition:
+Here is a manifest for the Job you will create:
 -->
 ## 定义一个 Job
 
-这是 Job 定义：
+以下是你将创建的 Job 的清单：
 
 {{% code_sample file="application/job/redis/job.yaml" %}}
 
+{{< note >}}
 <!--
-Be sure to edit the job template to
+Be sure to edit the manifest to
 change `gcr.io/myproject` to your own path.
 -->
-请确保将 Job 模板中的 `gcr.io/myproject` 更改为你自己的路径。
+请确保将 Job 清单中的 `gcr.io/myproject` 更改为你自己的路径。
+{{< /note >}}
 
 <!--
 In this example, each pod works on several items from the queue and then exits when there are no more items.
 Since the workers themselves detect when the workqueue is empty, and the Job controller does not
 know about the workqueue, it relies on the workers to signal when they are done working.
-The workers signal that the queue is empty by exiting with success.  So, as soon as any worker
-exits with success, the controller knows the work is done, and the Pods will exit soon.
-So, we set the completion count of the Job to 1.  The job controller will wait for the other pods to complete
-too.
+The workers signal that the queue is empty by exiting with success.  So, as soon as **any** worker
+exits with success, the controller knows the work is done, and that the Pods will exit soon.
+So, we need to set the completion count of the Job to 1.  The job controller will wait for
+the other pods to complete too.
 -->
 在这个例子中，每个 Pod 处理了队列中的多个项目，直到队列中没有项目时便退出。
 因为是由工作程序自行检测工作队列是否为空，并且 Job 控制器不知道工作队列的存在，
 这依赖于工作程序在完成工作时发出信号。
 工作程序以成功退出的形式发出信号表示工作队列已经为空。
-所以，只要有任意一个工作程序成功退出，控制器就知道工作已经完成了，所有的 Pod 将很快会退出。
-因此，我们将 Job 的完成计数（Completion Count）设置为 1。
+所以，只要有**任意**一个工作程序成功退出，控制器就知道工作已经完成了，所有的 Pod 将很快会退出。
+因此，我们需要将 Job 的完成计数（Completion Count）设置为 1。
 尽管如此，Job 控制器还是会等待其它 Pod 完成。
 
 <!--
@@ -291,14 +298,18 @@ So, now run the Job:
 
 现在运行这个 Job：
 
+<!--
+# this assumes you downloaded and then edited the manifest already
+-->
 ```shell
+# 这假设你已经下载并编辑了清单
 kubectl apply -f ./job.yaml
 ```
 
 <!--
-Now wait a bit, then check on the job.
+Now wait a bit, then check on the Job:
 -->
-稍等片刻，然后检查这个 Job。
+稍等片刻，然后检查这个 Job：
 
 ```shell
 kubectl describe jobs/job-wq-2
@@ -313,14 +324,14 @@ Labels:           controller-uid=b1c7e4e3-92e1-11e7-b85e-fa163ee3c11f
 Annotations:      <none>
 Parallelism:      2
 Completions:      <unset>
-Start Time:       Mon, 11 Jan 2016 17:07:59 -0800
+Start Time:       Mon, 11 Jan 2022 17:07:59 +0000
 Pods Statuses:    1 Running / 0 Succeeded / 0 Failed
 Pod Template:
   Labels:       controller-uid=b1c7e4e3-92e1-11e7-b85e-fa163ee3c11f
                 job-name=job-wq-2
   Containers:
    c:
-    Image:              gcr.io/exampleproject/job-wq-2
+    Image:              container-registry.example/exampleproject/job-wq-2
     Port:
     Environment:        <none>
     Mounts:             <none>
@@ -353,9 +364,9 @@ Working on lemon
 ```
 
 <!--
-As you can see, one of our pods worked on several work units.
+As you can see, one of the pods for this Job worked on several work units.
 -->
-你可以看到，其中的一个 Pod 处理了若干个工作单元。
+你可以看到，此 Job 中的一个 Pod 处理了若干个工作单元。
 
 <!-- discussion -->
 
@@ -374,10 +385,10 @@ want to consider one of the other
 
 <!--
 If you have a continuous stream of background processing work to run, then
-consider running your background workers with a `ReplicaSet` instead,
+consider running your background workers with a ReplicaSet instead,
 and consider running a background processing library such as
 [https://github.com/resque/resque](https://github.com/resque/resque).
 -->
-如果你有持续的后台处理业务，那么可以考虑使用 `ReplicaSet` 来运行你的后台业务，
+如果你有持续的后台处理业务，那么可以考虑使用 ReplicaSet 来运行你的后台业务，
 和运行一个类似 [https://github.com/resque/resque](https://github.com/resque/resque)
 的后台处理库。
