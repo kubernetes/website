@@ -91,7 +91,7 @@ apiVersion: v1
 clusters:
 - cluster:
     certificate-authority-data: LRMEMMW2 # shortened for readability 
-    server: https://<API_SERVER_IP_ADRESS>:6443  # the "Kubernetes API" server, in other words the IP address of kubernetes-remote-server.example
+    server: https://<API_SERVER_IP_ADDRESS>:6443  # the "Kubernetes API" server, in other words the IP address of kubernetes-remote-server.example
     proxy-url: socks5://localhost:1080   # the "SSH SOCKS5 proxy" in the diagram above
   name: default
 contexts:

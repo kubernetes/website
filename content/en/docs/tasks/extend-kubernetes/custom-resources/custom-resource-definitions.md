@@ -394,7 +394,7 @@ would be sent to the API server.
 #### Controlling pruning
 
 By default, all unspecified fields for a custom resource, across all versions, are pruned. It is possible though to
-opt-out of that for specifc sub-trees of fields by adding `x-kubernetes-preserve-unknown-fields: true` in the
+opt-out of that for specific sub-trees of fields by adding `x-kubernetes-preserve-unknown-fields: true` in the
 [structural OpenAPI v3 validation schema](#specifying-a-structural-schema).
 
 For example:

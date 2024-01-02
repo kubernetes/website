@@ -135,7 +135,7 @@ request fails.
 It is however possible to change `.metadata.managedFields` through an
 **update**, or through a **patch** operation that does not use Server-Side Apply.
 Doing so is highly discouraged, but might be a reasonable option to try if,
-for example, the `.metatadata.managedFields` get into an inconsistent state
+for example, the `.metadata.managedFields` get into an inconsistent state
 (which should not happen in normal operations).
 
 The format of `managedFields` is [described](/docs/reference/kubernetes-api/common-definitions/object-meta/#System)
