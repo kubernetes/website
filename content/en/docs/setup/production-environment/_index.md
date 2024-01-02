@@ -296,9 +296,8 @@ needs of your cluster's workloads:
   and the
   [API server](/docs/setup/production-environment/tools/kubeadm/ha-topology/).
 - Choose from [kubeadm](/docs/setup/production-environment/tools/kubeadm/),
-  [kops](/docs/setup/production-environment/tools/kops/) or
-  [Kubespray](/docs/setup/production-environment/tools/kubespray/)
-  deployment methods.
+  [kops](https://kops.sigs.k8s.io/) or
+  [Kubespray](https://kubespray.io/) deployment methods.
 - Configure user management by determining your
   [Authentication](/docs/reference/access-authn-authz/authentication/) and
   [Authorization](/docs/reference/access-authn-authz/authorization/) methods.

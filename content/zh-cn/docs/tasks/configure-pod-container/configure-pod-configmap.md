@@ -811,7 +811,7 @@ Before proceeding, clean up some of the ConfigMaps you made:
 ```bash
 kubectl delete configmap special-config
 kubectl delete configmap env-config
-kubectl delete configmap -l 'game-config in (config-4,config-5)’
+kubectl delete configmap -l 'game-config in (config-4,config-5)'
 ```
 
 <!--
@@ -1485,7 +1485,7 @@ kubectl delete pod dapi-test-pod --now
 
 # 你可能已经删除了下一组内容
 kubectl delete configmaps/special-config configmaps/env-config
-kubectl delete configmap -l 'game-config in (config-4,config-5)’
+kubectl delete configmap -l 'game-config in (config-4,config-5)'
 ```
 
 <!--
