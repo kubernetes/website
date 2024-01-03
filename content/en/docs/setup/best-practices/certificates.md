@@ -21,28 +21,30 @@ This page explains the certificates that your cluster requires.
 
 Kubernetes requires PKI for the following operations:
 
-### Server Certificates
+### Server certificates
+
 * Server certificate for the API server endpoint
-* Server certificate for the ETCD server
-* [Server certificates](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#client-and-serving-certificates) for the Kubelets (one for each worker node) so the API server can communicate with the Worker Nodes
-* Server certificate for the [front-proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
+* Server certificate for the etcd server
+* [Server certificates](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#client-and-serving-certificates) each kubelet (every {{< glossary_tooltip text="node" term_id="node" >}} runs a kubelet)
+* Optional server certificate for the [front-proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
 
-### Client Certificates
+### Client certificates
 
-* Client certificates for the Kubelet to authenticate to the API server
-* Client certificate for the API server to securely communicate with the ETCD server
+* Client certificates for each kubelet, used to authenticate to the API server as a client of
+  the Kubernetes API
+* Client certificate for each API server, used to authenticate to etcd
 * Client certificate for the Controller Manager to securely communicate with the API server
 * Client certificate for the Scheduler to securely communicate with the API server
 * Client certificates for Administrators of the Cluster to authenticate to the API server
 * Client certificates for kube-proxy to authenticate to the API server
-* Client certificate for the [front-proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
+* Optional client certificate for the [front-proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
 
 {{< note >}}
 `front-proxy` certificates are required only if you run kube-proxy to support
 [an extension API server](/docs/tasks/extend-kubernetes/setup-extension-api-server/).
 {{< /note >}}
 
-ETCD also implements mutual TLS to authenticate clients and peers.
+etcd also implements mutual TLS to authenticate clients and peers.
 
 ## Where certificates are stored
 
