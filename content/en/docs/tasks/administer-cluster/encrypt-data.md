@@ -75,9 +75,12 @@ a previous migration to encrypted storage has succeeded. If you are not sure, se
 ## Plan an encryption-at-rest configuration {#understanding-the-encryption-at-rest-configuration}
 
 {{< caution >}}
-**IMPORTANT:** For high-availability configurations (with two or more control plane nodes), the
-encryption configuration file must be the same! Otherwise, the `kube-apiserver` component cannot
-decrypt data stored in the etcd.
+For cluster configurations with two or more control plane nodes, the encryption configuration
+**must** be identical across each control plane node.
+
+If there is a difference in the encryption provider configuration, this may well mean
+that the kube-apiserver can't decrypt data stored inside the key-value store (potentially
+leading to further problems, such as inconsistent resource reads, or even data loss).
 {{< /caution >}}
 
 Here is an example EncryptionConfiguration file for the kube-apiserver:
@@ -250,9 +253,12 @@ If no provider can read the stored data (perhaps due to a mismatch in format or 
 an error is returned, and that error prevents clients from accessing that resource.
 
 {{< caution >}}
-If any resource is not readable via the encryption config (because keys were changed),
-the only recourse is to delete that key from the underlying etcd directly. Calls that attempt to
-read that resource will fail until it is deleted or a valid decryption key is provided.
+If any resource is not readable via the encryption configuration (because keys were changed),
+and you cannot restore a working configuration, your only recourse is to delete that entry from
+the underlying etcd directly.
+
+Any calls to the Kubernetes API that attempt to read that resource will fail until it is deleted
+or a valid decryption key is provided.
 {{< /caution >}}
 
 ### Available providers {#providers}
@@ -458,7 +464,7 @@ Generate a 32-byte random key and base64 encode it. You can use this command:
 {{< /tabs >}}
 
 {{< note >}}
-Keep the encryption key confidential, including whilst you generate it and
+Keep the encryption key confidential, including while you generate it and
 ideally even after you are no longer actively using it.
 {{< /note >}}
 
