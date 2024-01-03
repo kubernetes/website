@@ -445,7 +445,6 @@ languageNameLatinScript = "Bahasa Indonesia"
 
 [languages.hi]
 title = "Kubernetes"
-description = "प्रोडक्शन-ग्रेड कंटेनर ऑर्केस्ट्रेशन"
 languageName = "हिन्दी (Hindi)"  
 weight = 12
 contentDir = "content/hi"
@@ -455,6 +454,7 @@ languagedirection = "ltr"
 time_format_blog = "02.01.2006"
 # A list of language codes to look for untranslated content, ordered from left to right.
 language_alternatives = ["en"]
+description = "प्रोडक्शन-ग्रेड कंटेनर ऑर्केस्ट्रेशन"
 languageNameLatinScript = "Hindi"
 
 [languages.vi]
