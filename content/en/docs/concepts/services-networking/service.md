@@ -833,7 +833,7 @@ can start its Pods, add appropriate selectors or endpoints, and change the
 Service's `type`.
 
 {{< caution >}}
-An External Service that does not have selectors or any defined ports or endpoints. It solely uses DNS names instead.
+An External Service does not have selectors or any defined ports or endpoints. It solely uses DNS names instead.
 
 You may have trouble using ExternalName for some common protocols, including HTTP and HTTPS.
 If you use ExternalName then the hostname used by clients inside your cluster is different from
