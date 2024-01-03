@@ -1,13 +1,13 @@
 ---
-title: Maintain an Existing Localization
+title: Maintaining an Existing Localization
 content_type: concept
 approvers:
 - remyleone
 - rlenferink
-weight: 50
+weight: 11
 card:
   name: contribute
-  weight: 50
+  weight: 8
   title: Localizing the docs
 ---
 
