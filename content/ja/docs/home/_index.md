@@ -21,7 +21,7 @@ overview: >
   Kubernetesは、コンテナ化されたアプリケーションの展開、スケーリング、また管理を自動化するためのオープンソースコンテナプラットフォームです。このオープンソースプロジェクトは、Cloud Native Computing Foundation(<a href="https://www.cncf.io/about">CNCF</a>)によってホストされています。
 cards:
 - name: concepts
-  title: "基本を理解する"
+  title: "Kubernetesを理解する"
   description: "Kubernetesとその基本的なコンセプトを学びます。"
   button: "コンセプトを学ぶ"
   button_path: "/docs/concepts"
@@ -40,11 +40,6 @@ cards:
   description: "一般的なタスク、そのタスクを短い手順でどのように実行するかを見てみます。"
   button: "タスクを見る"
   button_path: "/docs/tasks"
-- name: training
-  title: "トレーニング"
-  description: "Kubernetesの資格を取得して、クラウドネイティブプロジェクトを成功させます！"
-  button: "トレーニングを見る"
-  button_path: "/training"
 - name: reference
   title: "リファレンス情報を調べる"
   description: "用語、コマンドラインの構文、APIリソースタイプ、そして構築ツールのドキュメントを見て回ります。"
@@ -55,8 +50,13 @@ cards:
   description: "プロジェクトに不慣れでも、長い間関わっていたとしても、誰でもコントリビュートすることができます。"
   button: "ドキュメントにコントリビュートする"
   button_path: /docs/contribute
-- name: release-notes
-  title: "K8sリリースノート"
+- name: training
+  title: "トレーニング"
+  description: "Kubernetesの資格を取得して、クラウドネイティブプロジェクトを成功させます！"
+  button: "トレーニングを見る"
+  button_path: "/training"
+- name: Download
+  title: "Kubernetesをダウンロードする"
   description: "もしKubernetesをインストールする、また最新バージョンにアップグレードする場合、最新のリリースノートを参照してください。"
   button: "Kubernetesをダウンロードする"
   button_path: "/releases/download"
