@@ -1,5 +1,6 @@
 ---
-title: NetworkPolicyEndPort
+# Removed from Kubernetes
+title: PodSecurity
 content_type: feature_gate
 _build:
   list: never
@@ -8,19 +9,21 @@ _build:
 stages:
   - stage: alpha 
     defaultValue: false
-    fromVersion: "1.21"
-    toVersion: "1.21"
+    fromVersion: "1.22"
+    toVersion: "1.22"
   - stage: beta 
     defaultValue: true
-    fromVersion: "1.22"
+    fromVersion: "1.23"
     toVersion: "1.24"
   - stage: stable
     defaultValue: true
     fromVersion: "1.25"
-    toVersion: "1.26"
+    toVersion: "1.27"
 
 removed: true
 ---
-Allows you to define ports in a
-[NetworkPolicy](/docs/concepts/services-networking/network-policies/)
-rule as a range of port numbers.
+
+<!--
+Enables the `PodSecurity` admission plugin.
+-->
+启用 `PodSecurity` 准入插件。

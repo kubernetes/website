@@ -191,7 +191,7 @@ guide for details on migrating Ingress resources to Gateway API resources.
 ## {{% heading "whatsnext" %}}
 
 Instead of Gateway API resources being natively implemented by Kubernetes, the specifications
-are defined as [Custom Resources](docs/concepts/extend-kubernetes/api-extension/custom-resources)
+are defined as [Custom Resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 supported by a wide range of [implementations](https://gateway-api.sigs.k8s.io/implementations/).
 [Install](https://gateway-api.sigs.k8s.io/guides/#installing-gateway-api) the Gateway API CRDs or
 follow the installation instructions of your selected implementation. After installing an
