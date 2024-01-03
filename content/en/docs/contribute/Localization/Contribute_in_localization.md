@@ -13,7 +13,8 @@ card:
 
 <!-- overview -->
 
-This page shows you how to Contribute in Existing
+This page shows you how to contribute in an existing
+
 [localization](https://blog.mozilla.org/l10n/2011/12/14/i18n-vs-l10n-whats-the-diff/).
 You can help add or improve the content of an existing localization. In
 [Kubernetes Slack](https://slack.k8s.io/), you can find a channel for each
