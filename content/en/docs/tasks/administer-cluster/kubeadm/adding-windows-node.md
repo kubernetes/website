@@ -16,7 +16,7 @@ You can use Kubernetes to run a mixture of Linux and Windows nodes, so you can m
  
  {{< version-check >}}
 * Obtain a [Windows Server 2019 license](https://www.microsoft.com/en-us/windows-server/pricing) (or higher) in order to configure the Windows node that hosts Windows containers. If you are using VXLAN/Overlay networking you must have also have [KB4489899](https://support.microsoft.com/en-gb/topic/march-12-2019-kb4489899-os-build-17763-379-2a91a5c5-f351-f181-5501-510308a4030f) installed.
-* A Linux-based Kubernetes kubeadm cluster in which you have access to the control plane (see [Creating a cluster with kubeadm]()).
+* A Linux-based Kubernetes kubeadm cluster in which you have access to the control plane (see [Creating a cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)).
 
 
 <!-- steps -->
@@ -60,7 +60,7 @@ Once you have a Linux-based Kubernetes control-plane node you are ready to choos
     ```
 
 {{< note >}}
-The VNI must be set to 4096 and port 4789 for Flannel on Linux to interoperate with Flannel on Windows. See the [VXLAN documentation](). for an explanation of these fields.
+The VNI must be set to 4096 and port 4789 for Flannel on Linux to interoperate with Flannel on Windows. See the [VXLAN documentation](https://github.com/flannel-io/flannel/blob/master/Documentation/backends.md#vxlan). for an explanation of these fields.
 {{< /note >}}
 
 {{< note >}}
@@ -107,7 +107,7 @@ If you're using a different interface rather than Ethernet (i.e. "Ethernet0 2") 
 
 
 {{< note >}}
-You must install the `Containers` feature and install Docker. Instructions to do so are available at [Install Docker Engine - Enterprise on Windows Servers]().
+You must install the `Containers` feature and install Docker. Instructions to do so are available at [Install Docker Engine - Enterprise on Windows Servers](https://docs.docker.com/desktop/install/windows-install/#install-docker-engine---enterprise).
 {{< /note >}}
 
 {{< note >}}
