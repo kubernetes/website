@@ -9,8 +9,9 @@ weight: 90
 कुबेरनेट्स में कुछ {{< glossary_tooltip text="objects" term_id="object" >}} 
 अन्य वस्तुओं के *owners* हैं , उदाहरण के लिए,
 
-{{<glossary_tooltip text="ReplicaSet" term_id="replica-set">}} है owner
-पॉड्स के एक सेट का। ये स्वामित्व वाली वस्तुएँ हैं *dependents* उनके owner.
+{{<glossary_tooltip text="ReplicaSet" term_id="replica-set">}} पॉड्स के 
+ एक सेट का owner है । ये स्वामित्व वाली वस्तुएँ उनके owner के *dependents* हैं।
+
 
 स्वामित्व से भिन्न है [लेबल और चयनकर्ता](/docs/concepts/overview/working-with-objects/labels/)
 वह तंत्र जिसका उपयोग कुछ संसाधन भी करते हैं। उदाहरण के लिए, एक ऐसी सेवा पर विचार करें
