@@ -1,6 +1,6 @@
 ---
-linktitle: Release History
-title: Releases
+linktitle: リリース履歴
+title: リリース
 type: docs
 layout: release-info
 notoc: true
@@ -8,27 +8,23 @@ notoc: true
 
 <!-- overview -->
 
-The Kubernetes project maintains release branches for the most recent three minor releases
-({{< skew latestVersion >}}, {{< skew prevMinorVersion >}}, {{< skew oldestMinorVersion >}}).
-Kubernetes 1.19 and newer receive
-[approximately 1 year of patch support](/releases/patch-releases/#support-period).
-Kubernetes 1.18 and older received approximately 9 months of patch support.
+Kubernetesプロジェクトは、最新の3つのマイナーリリース({{< skew latestVersion >}}、{{< skew prevMinorVersion >}}、{{< skew oldestMinorVersion >}})のリリースブランチをメンテナンスしています。
+Kubernetes 1.19以降のバージョンは、[約1年間のパッチサポート](/releases/patch-releases/#support-period)を受けつけます。
+Kubernetes 1.18以前のバージョンは、約9ヶ月間のパッチサポートを受けつけていました。
 
-Kubernetes versions are expressed as **x.y.z**,
-where **x** is the major version, **y** is the minor version, and **z** is the patch version,
-following [Semantic Versioning](https://semver.org/) terminology.
+Kubernetesのバージョンは、**x.y.z**と表されます。
+ここで、**x**はメジャーバージョン、**y**はマイナーバージョン、**z**はパッチバージョンを指し、これらは[セマンティックバージョニング](https://semver.org/)の用語に従います。
 
-More information in the [version skew policy](/releases/version-skew-policy/) document.
+詳細は、[バージョンスキューポリシー](/releases/version-skew-policy/)のドキュメントで確認できます。
 
 <!-- body -->
 
-## Release History
+## リリース履歴
 
 {{< release-data >}}
 
-## Upcoming Release
+## リリース予定
 
-Check out the [schedule](https://github.com/kubernetes/sig-release/tree/master/releases/release-{{< skew nextMinorVersion >}})
-for the upcoming **{{< skew nextMinorVersion >}}** Kubernetes release!
+Kubernetes**{{< skew nextMinorVersion >}}**の[リリーススケジュール](https://github.com/kubernetes/sig-release/tree/master/releases/release-{{< skew nextMinorVersion >}})をチェックしてみてください！
 
-## Helpful Resources
+## リソース
