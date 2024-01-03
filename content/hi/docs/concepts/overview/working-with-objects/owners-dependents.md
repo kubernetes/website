@@ -6,8 +6,9 @@ weight: 90
 
 <!-- overview -->
 
-कुबेरनेट्स में, कुछ {{< glossary_tooltip text="objects" term_id="object" >}} हैं
-*owners* अन्य वस्तुओं का. उदाहरण के लिए,
+कुबेरनेट्स में कुछ {{< glossary_tooltip text="objects" term_id="object" >}} 
+अन्य वस्तुओं के *owners* हैं , उदाहरण के लिए,
+
 {{<glossary_tooltip text="ReplicaSet" term_id="replica-set">}} है owner
 पॉड्स के एक सेट का। ये स्वामित्व वाली वस्तुएँ हैं *dependents* उनके owner.
 
