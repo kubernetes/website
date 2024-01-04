@@ -307,7 +307,72 @@ Using envelope encryption creates dependence on the key encryption key, which is
 In the KMS case, an attacker who intends to get unauthorised access to the plaintext
 values would need to compromise etcd **and** the third-party KMS provider.
 
-## Write an encryption configuration file
+### Protection for encryption keys
+
+You should take appropriate measures to protect the confidential information that allows decryption,
+whether that is a local encryption key, or an authentication token that allows the API server to
+call KMS.
+
+Even when you rely on a provider to manage the use and lifecycle of the main encryption key (or keys), you are still responsible
+for making sure that access controls and other security measures for the managed encryption service are
+appropriate for your security needs.
+
+## Encrypt your data {#encrypting-your-data}
+
+### Generate the encryption key {#generate-key-no-kms}
+
+{{< caution >}}
+Storing the raw encryption key in the EncryptionConfig only moderately improves your security posture,
+compared to no encryption.
+
+For additional secrecy, consider using the `kms` provider as this relies on keys held outside your
+Kubernetes cluster. Implementations of `kms` can work with hardware security modules or with
+encryption services managed by your cloud provider.
+
+To learn about setting
+up encryption at rest using KMS, see
+[Using a KMS provider for data encryption](/docs/tasks/administer-cluster/kms-provider/).
+The KMS provider plugin that you use may also come with additional specific documentation.
+{{< /caution >}}
+
+Start by generating a new encryption key, and then encode it using base64:
+
+{{< tabs name="generate_encryption_key" >}}
+{{% tab name="Linux" %}}
+Generate a 32-byte random key and base64 encode it. You can use this command:
+```shell
+head -c 32 /dev/urandom | base64
+```
+
+You can use `/dev/hwrng` instead of `/dev/urandom` if you want to
+use your PC's built-in hardware entropy source. Not all Linux
+devices provide a hardware random generator.
+{{% /tab %}}
+{{% tab name="macOS" %}}
+<!-- localization note: this is similar to the Linux tab and the wording
+should match wherever the English text does -->
+Generate a 32-byte random key and base64 encode it. You can use this command:
+```shell
+head -c 32 /dev/urandom | base64
+```
+{{% /tab %}}
+{{% tab name="Windows" %}}
+Generate a 32-byte random key and base64 encode it. You can use this command:
+```powershell
+# Do not run this in a session where you have set a random number
+# generator seed.
+[Convert]::ToBase64String((1..32|%{[byte](Get-Random -Max 256)}))
+```
+{{% /tab %}}
+{{< /tabs >}}
+
+
+{{< note >}}
+Keep the encryption key confidential, including whilst you generate it and
+ideally even after you are no longer actively using it.
+{{< /note >}}
+
+### Write an encryption configuration file
 
 {{< caution >}}
 The encryption configuration file may contain keys that can decrypt content in etcd.
@@ -337,22 +402,15 @@ resources:
                      # for example, during initial migration
 ```
 
-To create a new Secret, perform the following steps:
+To create a new encryption key (that does not use KMS), see
+[Generate the encryption key](#generate-key-no-kms).
 
-1. Generate a 32-byte random key and base64 encode it. If you're on Linux or macOS, run the following command:
+### Use the new encryption configuration file
 
-   ```shell
-   head -c 32 /dev/urandom | base64
-   ```
+You will need to mount the new encryption config file to the `kube-apiserver` static pod. Here is an example on how to do that:
 
-1. Place that value in the `secret` field of the `EncryptionConfiguration` struct.
-1. Set the `--encryption-provider-config` flag on the `kube-apiserver` to point to
-   the location of the config file.
-
-   You will need to mount the new encryption config file to the `kube-apiserver` static pod. Here is an example on how to do that:
-
-   1. Save the new encryption config file to `/etc/kubernetes/enc/enc.yaml` on the control-plane node.
-   1. Edit the manifest for the `kube-apiserver` static pod: `/etc/kubernetes/manifests/kube-apiserver.yaml` similarly to this:
+1. Save the new encryption config file to `/etc/kubernetes/enc/enc.yaml` on the control-plane node.
+1. Edit the manifest for the `kube-apiserver` static pod: `/etc/kubernetes/manifests/kube-apiserver.yaml` so that it is similar to:
 
    ```yaml
    ---
@@ -398,6 +456,9 @@ To create a new Secret, perform the following steps:
 Your config file contains keys that can decrypt the contents in etcd, so you must properly restrict
 permissions on your control-plane nodes so only the user who runs the `kube-apiserver` can read it.
 {{< /caution >}}
+
+You now have encryption in place for **one** control plane host. A typical
+Kubernetes cluster has multiple control plane hosts, so there is more to do.
 
 ### Reconfigure other control plane hosts {#api-server-config-update-more}
 

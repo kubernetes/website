@@ -578,9 +578,7 @@ mounting of NFS filesystems.
 ### Capacity
 
 Generally, a PV will have a specific storage capacity. This is set using the PV's
-`capacity` attribute. Read the glossary term
-[Quantity](/docs/reference/glossary/?all=true#term-quantity) to understand the units
-expected by `capacity`.
+`capacity` attribute which is a {{< glossary_tooltip term_id="quantity" >}} value.
 
 Currently, storage size is the only resource that can be set or requested.
 Future attributes may include IOPS, throughput, etc.

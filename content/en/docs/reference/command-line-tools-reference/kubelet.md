@@ -609,7 +609,7 @@ ZeroLimitedNominalConcurrencyShares=true|false (BETA - default=false)<br/>
 <td colspan="2">--kube-reserved strings&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: &lt;None&gt;</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">A set of <code>&lt;resource name&gt;=&lt;resource quantity&gt;</code> (e.g. &quot;<code>cpu=200m,memory=500Mi,ephemeral-storage=1Gi,pid='100'</code>&auot;) pairs that describe resources reserved for kubernetes system components. Currently <code>cpu</code>, <code>memory</code> and local <code>ephemeral-storage</code> for root file system are supported. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/#kube-reserved">here</a> for more detail. (DEPRECATED: This parameter should be set via the config file specified by the kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">A set of <code>&lt;resource name&gt;=&lt;resource quantity&gt;</code> (e.g. &quot;<code>cpu=200m,memory=500Mi,ephemeral-storage=1Gi,pid='100'</code>&quot;) pairs that describe resources reserved for kubernetes system components. Currently <code>cpu</code>, <code>memory</code> and local <code>ephemeral-storage</code> for root file system are supported. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/#kube-reserved">here</a> for more detail. (DEPRECATED: This parameter should be set via the config file specified by the kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
 </tr>
 
 <tr>
@@ -1088,4 +1088,3 @@ Insecure values:
 </tr>
 </tbody>
 </table>
-

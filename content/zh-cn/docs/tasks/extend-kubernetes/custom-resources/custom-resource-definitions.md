@@ -1124,28 +1124,145 @@ And create it:
 kubectl apply -f my-crontab.yaml
 crontab "my-new-cron-object" created
 ```
+
+<!--
+### Validation ratcheting
+-->
+### 验证逐步升级   {#validation-ratcheting}
+
+{{< feature-state state="alpha" for_k8s_version="v1.28" >}}
+
+<!--
+You need to enable the `CRDValidationRatcheting`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
+use this behavior, which then applies to all CustomResourceDefinitions in your
+cluster.
+-->
+你需要启用 `CRDValidationRatcheting`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
+才能使用这种行为，并将其应用到集群中的所有 CustomResourceDefinition。
+
+<!--
+Provided you enabled the feature gate, Kubernetes implements _validation racheting_
+for CustomResourceDefinitions. The API server is willing to accept updates to resources that
+are not valid after the update, provided that each part of the resource that failed to validate
+was not changed by the update operation. In other words, any invalid part of the resource
+that remains invalid must have already been wrong.
+You cannot use this mechanism to update a valid resource so that it becomes invalid.
+-->
+只要你启用了此特性门控，Kubernetes 就会对 CustomResourceDefinition 实施**验证逐步升级**。
+即使更新后的资源无效，API 服务器也愿意接受对资源的更新，
+只要资源中未通过验证的每个部分都没有被更新操作改变。
+换句话说，资源中任何无效的部分如果仍然无效，那它必须之前就是错误的。
+你不能使用此机制来更新一个有效资源，使其变为无效。
+
+<!--
+This feature allows authors of CRDs to confidently add new validations to the
+OpenAPIV3 schema under certain conditions. Users can update to the new schema
+safely without bumping the version of the object or breaking workflows.
+-->
+此特性使得 CRD 的作者能够在某些条件下有信心地向 OpenAPIV3 模式定义中添加新的验证。
+用户可以安全地更新到新的模式定义，而不必提升对象的版本或破坏工作流。
+
+<!--
+While most validations placed in the OpenAPIV3 schema of a CRD support
+ratcheting, there are a few exceptions. The following OpenAPIV3 schema 
+validations are not supported by ratcheting under the implementation in Kubernetes
+{{< skew currentVersion >}} and if violated will continue to throw an error as normally:
+-->
+尽管大多数放在 CRD 的 OpenAPIV3 模式定义中的验证都支持逐步升级，仍存在一些例外。
+Kubernetes {{< skew currentVersion >}} 下实现的验证逐步升级不支持下面所列举的 OpenAPIV3 模式检查，
+如果检查时发现违例，会和以往一样抛出错误：
+
+<!--
+- Quantors
+  - `allOf`
+  - `oneOf`
+  - `anyOf`
+  - `not`
+  -  any validations in a descendent of one of these fields
+-->
+- 量词
+  - `allOf`
+  - `oneOf`
+  - `anyOf`
+  - `not`
+  - 以及这些字段的下级字段中的所有合法性检查
+
+<!--
+- `x-kubernetes-validations`
+  For Kubernetes 1.28, CRD validation rules](#validation-rules) are ignored by
+  ratcheting. Starting with Alpha 2 in Kubernetes 1.29, `x-kubernetes-validations`
+  are ratcheted.
+
+  Transition Rules are never ratcheted: only errors raised by rules that do not 
+  use `oldSelf` will be automatically ratcheted if  their values are unchanged.
+-->
+- `x-kubernetes-validations`
+
+  在 Kubernetes 1.28 中，CRD [验证规则](#validation-rules)被逐步升级所忽略。
+  从 Kubernetes 1.29 的 Alpha 2 开始，`x-kubernetes-validations` 的检查也用逐步升级机制处理。
+
+  转换规则（Transition Rules）永远不会被逐步升级机制处理：只有那些不使用
+  `oldSelf` 的规则引发的错误会在其值未更改时自动按逐步升级机制处理。
+
+<!--
+- `x-kubernetes-list-type`
+  Errors arising from changing the list type of a subschema will not be 
+  ratcheted. For example adding `set` onto a list with duplicates will always 
+  result in an error.
+- `x-kubernetes-map-keys`
+  Errors arising from changing the map keys of a list schema will not be 
+  ratcheted.
+-->
+- `x-kubernetes-list-type`
+
+  更改子模式的列表类型引发的错误不会被逐步升级机制处理。
+  例如，在具有重复项的列表上添加 `set` 一定会出错。
+
+- `x-kubernetes-map-keys`
+
+  由于更改列表模式定义的映射键而引起的错误将不会被逐步升级机制处理。
+
+<!--
+- `required`
+  Errors arising from changing the list of required fields will not be ratcheted.
+- `properties`
+  Adding/removing/modifying the names of properties is not ratcheted, but 
+  changes to validations in each properties' schemas and subschemas may be ratcheted
+  if the name of the property stays the same.
+-->
+- `required`
+
+  由于更改必需字段列表而引起的错误将不会被逐步升级处理。
+
+- `properties`
+
+  添加、移除、修改属性的名称不会被逐步升级处理，但如果属性名称保持不变，
+  如果更改各属性的模式定义和子模式定义中的合法性检查规则，可能会被逐步升级机制处理。
+
+<!--
+- `additionalProperties`
+  To remove a previously specified `additionalProperties` validation will not be
+  ratcheted.
+- `metadata`
+  Errors arising from changes to fields within an object's `metadata` are not
+  ratcheted.
+-->
+- `additionalProperties`
+
+  移除先前指定的 `additionalProperties` 合法性检查时，不会被逐步升级机制处理。
+
+- `metadata`
+
+  因更改对象的 `metadata` 中的字段而引起的错误不会被逐步升级机制处理。
+
 <!--
 ### Validation rules
 -->
-### 验证规则
+### 合法性检查规则   {#validation-rules}
 
-{{< feature-state state="beta" for_k8s_version="v1.25" >}}
-
-<!--
-Validation rules are in beta since 1.25 and the `CustomResourceValidationExpressions`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled by default to
-validate custom resource based on _validation rules_. You can disable this feature by explicitly
-setting the `CustomResourceValidationExpressions` feature gate to `false`, for the
-[kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/) component. This
-feature is only available if the schema is a [structural schema](#specifying-a-structural-schema).
--->
-验证规则从 1.25 开始处于 Beta 状态，
-默认情况下，`CustomResourceValidationExpressions` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-是被启用的，以便根据**验证规则**来验证定制资源。
-对于 [`kube-apiserver`](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/) 组件，
-特性门控显式设置为 false 来禁用此特性。
-
-这个特性只有在模式是[结构化的模式](#specifying-a-structural-schema)时才可用。
+{{< feature-state state="stable" for_k8s_version="v1.29" >}}
 
 <!--
 Validation rules use the [Common Expression Language (CEL)](https://github.com/google/cel-spec)
@@ -1686,11 +1803,169 @@ message will be used instead.
 如果满足上述条件之一且未设置 `message` 字段，则将使用默认的检查失败消息。
 
 <!--
-`messageExpression` is a CEL expression, so the restrictions listed in [Resource use by validation functions](#resource-use-by-validation-functions) apply. If evaluation halts due to resource constraints
+`messageExpression` is a CEL expression, so the restrictions listed in [Resource use by validation functions](#resource-use-by-validation-functions) apply. If evaluation halts due to resource constraints 
 during `messageExpression` execution, then no further validation rules will be executed.
+
+Setting `messageExpression` is optional.
 -->
-`messageExpression` 是一个 CEL 表达式，因此[验证函数的资源使用](#resource-use-by-validation-functions)中列出的限制也适用于它。
-如果在 `messageExpression` 执行期间由于资源限制而导致计算停止，则不会执行进一步的检查规则。
+`messageExpression` 是一个 CEL 表达式，
+因此[验证函数的资源使用](#resource-use-by-validation-functions)中所列出的限制也适用于它。
+如果在 `messageExpression` 执行期间由于资源限制而导致计算停止，则不会继续处理其他合法性检查规则。
+
+`messageExpression` 设置是可选的。
+
+<!--
+#### The `message` field {#field-message}
+
+If you want to set a static message, you can supply `message` rather than `messageExpression`.
+The value of `message` is used as an opaque error string if validation fails.
+
+Setting `message` is optional.
+-->
+#### `message` 字段   {#field-message}
+
+如果你要设置一个静态消息，可以提供 `message` 而不是 `messageExpression`。
+如果合法性检查失败，则 `message` 的值将被用作不透明的错误字符串。
+
+`message` 设置是可选的。
+
+<!--
+#### The `reason` field {#field-reason}
+
+You can add a machine-readable validation failure reason within a `validation`, to be returned
+whenever a request fails this validation rule.
+
+For example:
+-->
+#### `reason` 字段   {#field-reason}
+
+你可以在 `validation` 中添加一个机器可读的验证失败原因，以便在请求未通过此验证规则时返回。
+
+例如：
+
+```yaml
+x-kubernetes-validations:
+- rule: "self.x <= self.maxLimit"
+  reason: "FieldValueInvalid"
+```
+
+<!--
+The HTTP status code returned to the caller will match the reason of the first failed validation rule.
+The currently supported reasons are: "FieldValueInvalid", "FieldValueForbidden", "FieldValueRequired", "FieldValueDuplicate".
+If not set or unknown reasons, default to use "FieldValueInvalid".
+
+Setting `reason` is optional.
+-->
+返回给调用者的 HTTP 状态码将与第一个失败的验证规则的原因匹配。
+目前支持的原因有："FieldValueInvalid"、"FieldValueForbidden"、"FieldValueRequired"、"FieldValueDuplicate"。
+如果未设置或原因未知，默认使用 "FieldValueInvalid"。
+
+`reason` 设置是可选的。
+
+<!--
+#### The `fieldPath` field {#field-field-path}
+
+You can specify the field path returned when the validation fails.
+
+For example:
+-->
+#### `fieldPath` 字段   {#field-field-path}
+
+你可以指定在验证失败时返回的字段路径。
+
+例如：
+
+```yaml
+x-kubernetes-validations:
+- rule: "self.foo.test.x <= self.maxLimit"
+  fieldPath: ".foo.test.x"
+```
+
+<!--
+In the example above, the validation checks the value of field `x` should be less than the value of `maxLimit`.
+If no `fieldPath` specified, when validation fails, the fieldPath would be default to wherever `self` scoped.
+With `fieldPath` specified, the returned error will have `fieldPath` properly refer to the location of field `x`.
+-->
+在上面的示例中，验证检查字段 `x` 的值应小于 `maxLimit` 的值。
+如果未指定 `fieldPath`，当验证失败时，`fieldPath` 将默认为 `self` 的作用范围。
+如果指定了 `fieldPath`，返回的错误将正确地将 `fieldPath` 指向字段 `x` 的位置。
+
+<!--
+The `fieldPath` value must be a relative JSON path that is scoped to the location of this x-kubernetes-validations extension in the schema. 
+Additionally, it should refer to an existing field within the schema.
+For example when validation checks if a specific attribute `foo` under a map `testMap`, you could set
+`fieldPath` to `".testMap.foo"` or `.testMap['foo']'`.
+If the validation requires checking for unique attributes in two lists, the fieldPath can be set to either of the lists. 
+For example, it can be set to `.testList1` or `.testList2`.
+It supports child operation to refer to an existing field currently. 
+Refer to [JSONPath support in Kubernetes](/docs/reference/kubectl/jsonpath/) for more info.
+The `fieldPath` field does not support indexing arrays numerically.
+-->
+`fieldPath` 值必须是相对 JSON 路径，且限定为此 `x-kubernetes-validations` 扩展在模式定义中的位置。
+此外，它应该指向模式定义中的一个现有字段。例如，当验证检查 `testMap` 映射下的特定属性 `foo` 时，
+你可以将 `fieldPath` 设置为 `".testMap.foo"` 或 `.testMap['foo']'`。
+如果验证要求检查两个列表中的唯一属性，`fieldPath` 可以设置为其中一个列表。
+例如，它可以设置为 `.testList1` 或 `.testList2`。它目前支持引用现有字段的取子操作。
+更多信息请参阅 [Kubernetes 中的 JSONPath 支持](/zh-cn/docs/reference/kubectl/jsonpath/)。
+`fieldPath` 字段不支持按数字下表索引数组。
+
+<!--
+Setting `fieldPath` is optional.
+
+#### The `optionalOldSelf` field {#field-optional-oldself}
+-->
+`fieldPath` 设置是可选的。
+
+#### `optionalOldSelf` 字段   {#field-optional-oldself}
+
+{{< feature-state state="alpha" for_k8s_version="v1.29" >}}
+
+<!--
+The feature [CRDValidationRatcheting](#validation-ratcheting) must be enabled in order to 
+make use of this field.
+
+The `optionalOldSelf` field is a boolean field that alters the behavior of [Transition Rules](#transition-rules) described
+below. Normally, a transition rule will not evaluate if `oldSelf` cannot be determined:
+during object creation or when a new value is introduced in an update.
+-->
+要使用此字段，必须启用特性 [CRDValidationRatcheting](#validation-ratcheting)。
+
+`optionalOldSelf` 字段是一个布尔字段，它会改变下文所述的[转换规则](#transition-rules)的行为。
+通常，在对象创建期间或在更新中引入新值时，如果无法确定 `oldSelf`，则不会处理转换规则。
+
+<!--
+If `optionalOldSelf` is set to true, then transition rules will always be 
+evaluated and the type of `oldSelf` be changed to a CEL [`Optional`](https://pkg.go.dev/github.com/google/cel-go/cel#OptionalTypes) type.
+-->
+如果 `optionalOldSelf` 设置为 true，则一定会处理转换规则，并且 `oldSelf` 的类型会被更改为
+CEL [`Optional`](https://pkg.go.dev/github.com/google/cel-go/cel#OptionalTypes) 类型。
+
+<!--
+`optionalOldSelf` is useful in cases where schema authors would like a more
+control tool [than provided by the default equality based behavior of ][#validation-ratcheting] 
+to introduce newer, usually stricter constraints on new values, while still 
+allowing old values to be "grandfathered" or ratcheted using the older validation.
+
+Example Usage:
+-->
+`optionalOldSelf` 在以下情况下很有用，
+模式的作者希望拥有[比默认的基于相等性的行为](#validation-ratcheting)的控制力更强的工具，
+以便对新值引入更严格的约束，同时仍允许旧值通过旧的验证进行 "grandfathered"（溯源）或作逐步升级处理。
+
+示例用法：
+
+<!--
+| CEL                                     | Description |
+|-----------------------------------------|-------------|
+| `self.foo == "foo" || (oldSelf.hasValue() && oldSelf.value().foo != "foo")` | Ratcheted rule. Once a value is set to "foo", it must stay foo. But if it existed before the "foo" constraint was introduced, it may use any value |
+| [oldSelf.orValue(""), self].all(x, ["OldCase1", "OldCase2"].exists(case, x == case)) || ["NewCase1", "NewCase2"].exists(case, self == case) || ["NewCase"].has(self)` | "Ratcheted validation for removed enum cases if oldSelf used them" |
+| oldSelf.optMap(o, o.size()).orValue(0) < 4 || self.size() >= 4 | Ratcheted validation of newly increased minimum map or list size |
+-->
+| CEL                                     | 描述 |
+|-----------------------------------------|------|
+| `self.foo == "foo" || (oldSelf.hasValue() && oldSelf.value().foo != "foo")` | 逐步升级规则。一旦将值设置为 "foo"，它必须保持为 foo。但如果在引入 "foo" 约束之前它已存在，则可以使用所有值 |
+| [oldSelf.orValue(""), self].all(x, ["OldCase1", "OldCase2"].exists(case, x == case)) || ["NewCase1", "NewCase2"].exists(case, self == case) || ["NewCase"].has(self)` | "如果 oldSelf 使用了已移除的枚举值，则逐步升级验证" |
+| oldSelf.optMap(o, o.size()).orValue(0) < 4 || self.size() >= 4 | 对新增的最小映射或列表大小进行逐步升级验证 |
 
 <!--
 #### Validation functions {#available-validation-functions}

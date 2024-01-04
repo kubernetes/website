@@ -624,7 +624,7 @@ caption and the diagram referral.
 flowchart
 A[Diagram<br><br>Inline Mermaid or<br>SVG image files]
 B[Diagram Caption<br><br>Add Figure Number. and<br>Caption Text]
-C[Diagram Referral<br><br>Referenence Figure Number<br>in text]
+C[Diagram Referral<br><br>Reference Figure Number<br>in text]
 
     classDef box fill:#fff,stroke:#000,stroke-width:1px,color:#000;
     class A,B,C box

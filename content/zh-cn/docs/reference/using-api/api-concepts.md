@@ -289,7 +289,7 @@ For example:
    _test_ namespace. Each change notification is a JSON document. The HTTP response body
    (served as `application/json`) consists a series of JSON documents.
 -->
-2. 从资源版本 10245 开始，接收影响 _test_ 名字空间中 Pod 的所有 API 操作
+2. 从资源版本 10245 开始，接收影响 **test** 名字空间中 Pod 的所有 API 操作
    （例如 **create**、**delete**、**patch** 或 **update**）的通知。
    每个更改通知都是一个 JSON 文档。
    HTTP 响应正文（用作 `application/json`）由一系列 JSON 文档组成。
@@ -443,7 +443,7 @@ _consistent read_ by setting empty resource version using `resourceVersion=`) co
 in the following sequence of events:
 -->
 举个例子：你想监视一组 Pod。对于该集合，当前资源版本为 10245，并且有两个 Pod：`foo` 和 `bar`。
-接下来你发送了以下请求（通过使用 `resourceVersion=` 设置空的资源版本来明确请求 **一致性读**），
+接下来你发送了以下请求（通过使用 `resourceVersion=` 设置空的资源版本来明确请求**一致性读**），
 这样做的结果是可能收到如下事件序列：
 
 ```
@@ -524,7 +524,7 @@ The `content-encoding` header indicates that the response is compressed with `gz
 -->
 ## 分块检视大体量结果  {#retrieving-large-results-sets-in-chunks}
 
-{{< feature-state for_k8s_version="v1.9" state="beta" >}}
+{{< feature-state for_k8s_version="v1.29" state="stable" >}}
 
 <!--
 On large clusters, retrieving the collection of some resource types may result in
@@ -538,15 +538,14 @@ response (10-20MB) and consume a large amount of server resources.
 跨所有名字空间检索所有 Pod 可能会导致非常大的响应 (10-20MB) 并消耗大量服务器资源。
 
 <!--
-Provided that you don't explicitly disable the `APIListChunking`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/), the
-Kubernetes API server supports the ability to break a single large collection request
+The Kubernetes API server supports the ability to break a single large collection request
 into many smaller chunks while preserving the consistency of the total request. Each
 chunk can be returned sequentially which reduces both the total size of the request and
 allows user-oriented clients to display results incrementally to improve responsiveness.
 -->
-如果你没有明确禁用 `APIListChunking` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-Kubernetes API 服务器支持将单个大型集合请求分解为许多较小块的能力，同时保持总请求的一致性。
+Kubernetes API 服务器支持将单个大型集合请求分解为许多较小块的能力，
+同时保持总体请求的一致性。每个块都可以按顺序返回，这既减少了请求的总大小，
+又允许面向用户的客户端增量显示结果以提高响应能力。
 
 <!--
 You can request that the API server handles a **list** by serving single collection
@@ -572,7 +571,7 @@ continuing until the server returns an empty `continue` value, you can retrieve 
 entire collection.
 -->
 作为 API 客户端，你可以在下一次请求时将 `continue` 值传递给 API 服务器，
-以指示服务器返回下一页（_块_）结果。继续下去直到服务器返回一个空的 `continue` 值，
+以指示服务器返回下一页（**块**）结果。继续下去直到服务器返回一个空的 `continue` 值，
 你可以检索整个集合。
 
 <!--
@@ -1128,14 +1127,14 @@ When you **delete** a resource this takes place in two phases.
   "kind": "ConfigMap",
   "apiVersion": "v1",
   "metadata": {
-    "finalizers": {"url.io/neat-finalization", "other-url.io/my-finalizer"},
+    "finalizers": ["url.io/neat-finalization", "other-url.io/my-finalizer"],
     "deletionTimestamp": nil,
   }
 }
 ```
 
 <!--
-When a client first sends a **delete** to request removal of a resource, the `.metadata.deletionTimestamp` is set to the current time.
+When a client first sends a **delete** to request the removal of a resource, the `.metadata.deletionTimestamp` is set to the current time.
 Once the `.metadata.deletionTimestamp` is set, external controllers that act on finalizers
 may start performing their cleanup work at any time, in any order.
 
@@ -1157,7 +1156,7 @@ Once the last finalizer is removed, the resource is actually removed from etcd.
 一旦设置了 `.metadata.deletionTimestamp`，
 作用于终结器的外部控制器可以在任何时间以任何顺序开始执行它们的清理工作。
 
-终结器之间 **不存在** 强制的执行顺序，因为这会带来卡住 `.metadata.finalizers` 的重大风险。
+终结器之间**不存在**强制的执行顺序，因为这会带来卡住 `.metadata.finalizers` 的重大风险。
 
 `.metadata.finalizers` 字段是共享的：任何有权限的参与者都可以重新排序。
 如果终结器列表是按顺序处理的，那么这可能会导致这样一种情况：
@@ -1220,7 +1219,7 @@ By default, the API server drops fields that it does not recognize
 from an input that it receives (for example, the JSON body of a `PUT` request).
 -->
 默认情况下，如果接收到的输入信息中含有 API 服务器无法识别的字段，API 服务器会丢弃该字段
-（例如： `PUT` 请求中的 JSON 主体）。
+（例如：`PUT` 请求中的 JSON 主体）。
 
 <!--
 There are two situations where the API server drops fields that you supplied in
@@ -1658,7 +1657,7 @@ but has drawbacks:
 
 #### HTTP PUT 替换现有资源  {#update-mechanism-update}
 
-**update** (HTTP `PUT`) 操作实现简单且灵活，但也存在一些缺点：
+**update**（HTTP `PUT`）操作实现简单且灵活，但也存在一些缺点：
 
 <!--
 * You need to handle conflicts where the `resourceVersion` of the object changes
@@ -1999,7 +1998,7 @@ Continue Token, Exact
 
 从 token 开始、精确匹配
 : 返回初始分页 **list** 调用的资源版本的数据。
-  返回的 _Continue 令牌_ 负责跟踪最初提供的资源版本，最初提供的资源版本用于在初始分页 **list** 之后的所有分页 **list** 中。
+  返回的 **Continue 令牌**负责跟踪最初提供的资源版本，最初提供的资源版本用于在初始分页 **list** 之后的所有分页 **list** 中。
 
 
 {{< note >}}

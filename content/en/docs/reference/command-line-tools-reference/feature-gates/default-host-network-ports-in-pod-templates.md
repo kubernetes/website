@@ -4,6 +4,11 @@ content_type: feature_gate
 _build:
   list: never
   render: false
+
+stages:
+  - stage: deprecated
+    defaultValue: false
+    fromVersion: "1.28"  
 ---
 Changes when the default value of
 `PodSpec.containers[*].ports[*].hostPort`
