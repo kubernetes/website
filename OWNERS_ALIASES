@@ -5,6 +5,7 @@ aliases:
     - onlydole
     - sftim
   sig-docs-blog-reviewers: # Reviewers for blog content
+    - Gauravpadam
     - mrbobbytables
     - nate-double-u
     - onlydole
