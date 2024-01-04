@@ -43,7 +43,7 @@ cards:
   title: "प्रशिक्षण"
   description: "कुबेरनेट्स में प्रमाणित हो कर अपने क्लाउड नेटिव प्रोजेक्ट सफल बनाएं!"
   button: "प्रशिक्षण देखें"
-  button_path: "/training"
+  button_path: "/hi/training"
 - name: reference
   title: संदर्भ जानकारी देखें 
   description: शब्दावली, कमांड लाइन सिंटैक्स, API संसाधनो के प्रकार और टूल सेटअप करने के प्रलेखन। 
