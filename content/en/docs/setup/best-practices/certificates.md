@@ -39,6 +39,14 @@ Kubernetes requires PKI for the following operations:
 * Client certificates for kube-proxy to authenticate to the API server
 * Optional client certificate for the [front-proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
 
+### Kubelet's server and client certificates
+
+To establish a secure connection and authenticate itself to the kubelet, the kube-apiserver requires a client certificate and key pair. In this scenario, there are two approaches for certificate usage: using shared certificates or separate certificates;
+
+* Shared Certificates: The kube-apiserver can utilize the same certificate and key pair it uses to authenticate its clients. This means that the existing certificates, such as `apiserver.crt`  and `apiserver.key`, can be used for communicating with the kubelet servers.
+
+* Separate Certificates: Alternatively, the kube-apiserver can generate a new client certificate and key pair to authenticate its communication with the kubelet servers. In this case, a distinct certificate named `kubelet-client.crt` and its corresponding private key, `kubelet-client.key` are created.
+
 {{< note >}}
 `front-proxy` certificates are required only if you run kube-proxy to support
 [an extension API server](/docs/tasks/extend-kubernetes/setup-extension-api-server/).
