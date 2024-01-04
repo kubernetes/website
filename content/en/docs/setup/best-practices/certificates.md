@@ -33,10 +33,10 @@ Kubernetes requires PKI for the following operations:
 * Client certificates for each kubelet, used to authenticate to the API server as a client of
   the Kubernetes API
 * Client certificate for each API server, used to authenticate to etcd
-* Client certificate for the Controller Manager to securely communicate with the API server
-* Client certificate for the Scheduler to securely communicate with the API server
-* Client certificates for Administrators of the Cluster to authenticate to the API server
-* Client certificates for kube-proxy to authenticate to the API server
+* Client certificate for the controller manager to securely communicate with the API server
+* Client certificate for the scheduler to securely communicate with the API server
+* Client certificates, one for each node, for kube-proxy to authenticate to the API server
+* Optional client certificates for administrators of the cluster to authenticate to the API server
 * Optional client certificate for the [front-proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
 
 ### Kubelet's server and client certificates
