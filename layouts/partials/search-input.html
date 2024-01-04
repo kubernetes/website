@@ -1,30 +1,36 @@
 {{ if or .Site.Params.gcs_engine_id .Site.Params.algolia_docsearch }}
+<div class="search-bar">
+  <i class="search-icon fas fa-search"></i>
   <input
     type="search"
-    class="form-control td-search-input"
-    placeholder="&#xf002; {{ T "ui_search_placeholder" }}"
+    class="search-input td-search-input" 
+    placeholder="{{ T "ui_search_placeholder" }}"
     aria-label="{{ T "ui_search_placeholder" }}"
     autocomplete="off"
   >
+</div>
 {{ else if .Site.Params.offlineSearch }}
-  <div id="search-nav-container">
-    <input
-      type="search"
-      id="search-input"
-      autocomplete="off"
-      class="form-control td-search-input"
-      placeholder="&#xf002 {{ T "ui_search_placeholder" }}"
-      autocomplete="off"
-    >
-    <div id="search-results" class="container"></div>
-  </div>
-{{ else if .Site.Params.k8s_search }}
+<div class="search-bar" id="search-nav-container">
+  <i class="search-icon fas fa-search"></i>
   <input
     type="search"
-    class="form-control td-search-input"
-    name="q"
-    placeholder="&#xf002 {{ T "ui_search_placeholder" }}"
+    class="search-input td-search-input" 
+    id="search-input"
+    placeholder="{{ T "ui_search_placeholder" }}"
     aria-label="{{ T "ui_search_placeholder" }}"
     autocomplete="off"
   >
+</div>
+{{ else if .Site.Params.k8s_search }}
+<div class="search-bar">
+  <i class="search-icon fas fa-search"></i>
+  <input
+    type="search"
+    name="q"
+    class="search-input td-search-input" 
+    placeholder="{{ T "ui_search_placeholder" }}"
+    aria-label="{{ T "ui_search_placeholder" }}"
+    autocomplete="off"
+  >
+</div>
 {{ end }}
