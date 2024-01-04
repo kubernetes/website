@@ -185,6 +185,11 @@ These instructions are for Kubernetes {{< skew currentVersion >}}.
    curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    ```
 
+{{< note >}}
+In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default;
+you can create it by running `sudo mkdir -m 755 /etc/apt/keyrings`
+{{< /note >}}
+
 3. Add the appropriate Kubernetes `apt` repository. Please note that this repository have packages
    only for Kubernetes {{< skew currentVersion >}}; for other Kubernetes minor versions, you need to
    change the Kubernetes minor version in the URL to match your desired minor version
@@ -203,11 +208,6 @@ These instructions are for Kubernetes {{< skew currentVersion >}}.
    sudo apt-get install -y kubelet kubeadm kubectl
    sudo apt-mark hold kubelet kubeadm kubectl
    ```
-
-{{< note >}}
-In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default;
-you can create it by running `sudo mkdir -m 755 /etc/apt/keyrings`
-{{< /note >}}
 
 {{% /tab %}}
 {{% tab name="Red Hat-based distributions" %}}
