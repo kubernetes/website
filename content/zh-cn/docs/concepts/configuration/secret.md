@@ -645,14 +645,14 @@ Kubernetes 所提供的内置类型 `kubernetes.io/ssh-auth` 用来存放 SSH �
 <!--
 The SSH authentication Secret type is provided only for convenience.
 You can create an `Opaque` type for credentials used for SSH authentication.
-However, using the defined and public Secret type (`kubernetes.io/ssh-auth`) helps other
+However, using the defined and public Secret type (`kubernetes.io/tls`) helps other
 people to understand the purpose of your Secret, and sets a convention for what key names
 to expect.
 The Kubernetes API verifies that the required keys are set for a Secret of this type.
 -->
 提供 SSH 身份认证类型的 Secret 仅仅是出于方便性考虑。
 你可以使用 `Opaque` 类型来保存用于 SSH 身份认证的凭据。
-不过，使用预定义的、公开的 Secret 类型（`kubernetes.io/ssh-auth`）
+不过，使用预定义的、公开的 Secret 类型（`kubernetes.io/tls`）
 有助于其他人理解你的 Secret 的用途，也可以就其中包含的主键名形成约定。
 Kubernetes API 会验证这种类型的 Secret 中是否设定了所需的主键。
 
