@@ -61,7 +61,7 @@ Die Verbindungen vom Apiserver zu einem Knoten, Pod oder Dienst verwenden standa
 Sie können über eine sichere HTTPS-Verbindung ausgeführt werden, indem dem Node, dem Pod oder dem Servicenamen in der API-URL "https:" vorangestellt wird. Das vom HTTPS-Endpunkt bereitgestellte Zertifikat wird jedoch nicht überprüft, und es werden keine Clientanmeldeinformationen bereitgestellt. Die Verbindung wird zwar verschlüsselt, garantiert jedoch keine Integrität.
 Diese Verbindungen **sind derzeit nicht sicher** innerhalb von nicht vertrauenswürdigen und/oder öffentlichen Netzen.
 
-### SSH Tunnel
+### SSH-Tunnel
 
 Kubernetes unterstützt SSH-Tunnel zum Schutz der Control Plane -> Cluster Kommunikationspfade.
 In dieser Konfiguration initiiert der Apiserver einen SSH-Tunnel zu jedem Knoten im Cluster (Verbindung mit dem SSH-Server, der mit Port 22 läuft), und leitet den gesamten Datenverkehr für ein kubelet, einen Knoten, einen Pod oder einen Dienst durch den Tunnel.
