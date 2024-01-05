@@ -1011,7 +1011,7 @@ associated with the service and you can access each pod associated with the serv
 
 To create a headless service, define a service with the clusterIP field set to **None**. 
 Once the headless service has been created, The DNS record for each pod will be in the format 
-`<pod-name>.<headless-service-name>.<namespace>.svc.cluster.local`
+`<pod-name>.<headless-service-name>.<namespace>.svc.cluster.local`.
 
 ### service.kubernetes.io/topology-aware-hints (deprecated) {#servicekubernetesiotopology-aware-hints}
 
