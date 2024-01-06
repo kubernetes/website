@@ -1010,7 +1010,7 @@ div.alert > em.javascript-required {
 }
 
 // Adjust Search-bar search-icon
-.search-bar {
+.search-bar, #search .pagefind-ui form input {
   display: flex;
   align-items: center;
   background-color: #fff;
@@ -1020,6 +1020,34 @@ div.alert > em.javascript-required {
   flex-grow: 1;
   overflow-x: hidden;
   width: auto;
+}
+
+#search .pagefind-ui .pagefind-ui__result-nested {
+  padding-left: 2em;
+}
+
+#search .pagefind-ui.pagefind-ui__result-nested::before {
+  content: "\2937 ";
+  color: $blue;
+}
+
+#search .pagefind-ui ol > li {
+  list-style-type: none;
+  align-items: flex-start;
+  border-top: 1.5px solid rgba(47, 135, 223, 0.7);
+}
+
+#search .pagefind-ui button {
+  color: #fff;
+  background-color: $blue;
+  border-radius: 0.2em;
+  border: 0.1rem solid $medium-grey;
+  padding: 0.1em;
+}
+
+body.td-search #search {
+  margin-top: 1rem;
+  margin-bottom: 3rem;
 }
 
 .search-bar:focus-within {
