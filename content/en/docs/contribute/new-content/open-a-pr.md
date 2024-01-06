@@ -320,6 +320,10 @@ variable to override this behaviour.
    make container-serve
    ```
 
+   If you want to test changes to the search functionality using PageFind,
+   you run `make container-serve-pagefind` instead. It takes about 5 minutes longer
+   to start the preview.
+
 1. In a web browser, navigate to `https://localhost:1313`. Hugo watches the
    changes and rebuilds the site as needed.
 
