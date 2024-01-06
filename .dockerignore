@@ -1,1 +1,4 @@
 **
+!scripts/hugo_preview.sh
+!package.json
+!package-lock.json

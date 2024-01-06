@@ -19,37 +19,27 @@
       <main role="main" class="td-main">
         <section class="row td-search-result">
           <div class="col-12 col-md-4 offset-md-2">
-            <form class="td-sidebar__search d-flex align-items-center">
-              {{ partial "search-input.html" . }}
-            </form>
-          </div>
-          <div class="col-12 col-md-8 offset-md-2">
-              <h2 class="search-title ml-3">{{ .Title }}</h2>
-          {{ if .Site.Params.gcs_engine_id }}
-          <script>
-            (function() {
-            var cx = '{{ . }}';
-            var gcse = document.createElement('script');
-            gcse.type = 'text/javascript';
-            gcse.async = true;
-            gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(gcse, s);
-            })();
-          </script>
-          <gcse:searchresults-only></gcse:searchresults-only>
-          {{ else if .Site.Params.k8s_search }}
-          <script src="{{ "js/search.js" | relURL }}"></script>
-          <gcse:searchresults-only linktarget="_parent">
-            <div id="bing-results-container">{{ T "layouts_docs_search_fetching" }}</div>
-            <div id="bing-pagination-container"></div>
-          </gcse:searchresults-only>
-          {{ end }}
+            <div id="search"></div>
           </div>
         </section>
       </main>
     </div>
     {{ partial "footer.html" . }}
     {{ partialCached "scripts.html" . }}
+    <script src="/pagefind/pagefind-ui.js"></script>
+    <script>
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const searchString = urlParams.get("q");
+      window.addEventListener('DOMContentLoaded', (event) => {
+        pagefind = new PagefindUI({ element: "#search", showSubResults: true, showImages: false, resetStyles: false });
+        if (searchString) {
+          pagefind.triggerSearch(searchString);
+        }
+        waitForElm(".pagefind-ui__search-input").then((thing) => {
+          thing.focus();
+        });
+      });
+    </script>
   </body>
 </html>

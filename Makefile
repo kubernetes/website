@@ -35,27 +35,35 @@ all: build ## Build site with production settings and put deliverables in ./publ
 
 build: module-check ## Build site with non-production settings and put deliverables in ./public
 	hugo --cleanDestinationDir --minify --environment development
+	npx -y pagefind@1.0.4 --site public
 
 build-preview: module-check ## Build site with drafts and future posts enabled
 	hugo --cleanDestinationDir --buildDrafts --buildFuture --environment preview
+	npx -y pagefind@1.0.4 --site public
 
 deploy-preview: ## Deploy preview site via netlify
 	GOMAXPROCS=1 hugo --cleanDestinationDir --enableGitInfo --buildFuture --environment preview -b $(DEPLOY_PRIME_URL)
+	npx -y pagefind@1.0.4 --site public
 
 functions-build:
 	$(NETLIFY_FUNC) build functions-src
+
+pagefind-preview:
+	npx pagefind@1.0.4 --source="public" --bundle-dir="static/_pagefind"
 
 check-headers-file:
 	scripts/check-headers-file.sh
 
 production-build: module-check ## Build the production site and ensure that noindex headers aren't added
 	GOMAXPROCS=1 hugo --cleanDestinationDir --minify --environment production
+	npx -y pagefind@1.0.4 --site public
 	HUGO_ENV=production $(MAKE) check-headers-file
 
 non-production-build: module-check ## Build the non-production site, which adds noindex headers to prevent indexing
 	GOMAXPROCS=1 hugo --cleanDestinationDir --enableGitInfo --environment nonprod
+	npx -y pagefind@1.0.4 --site public
 
-serve: module-check ## Boot the development server.
+serve: module-check ## Boot the development server. Doesn't set up Pagefind.
 	hugo server --buildFuture --environment development
 
 docker-image:
@@ -102,6 +110,10 @@ container-build: module-check
 # no build lock to allow for read-only mounts
 container-serve: module-check ## Boot the development server using container.
 	$(CONTAINER_RUN) --cap-drop=ALL --cap-add=AUDIT_WRITE --read-only --mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 -p 1313:1313 $(CONTAINER_IMAGE) hugo server --buildFuture --environment development --bind 0.0.0.0 --destination /tmp/hugo --cleanDestinationDir --noBuildLock
+
+# no build lock to allow for read-only mounts. Provide PageFind.
+container-serve-pagefind: module-check ## Boot the development server using container.
+	$(CONTAINER_RUN) --cap-drop=ALL --cap-add=AUDIT_WRITE --read-only --mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 -p 1313:1313 $(CONTAINER_IMAGE) --pagefind
 
 test-examples:
 	scripts/test_examples.sh install

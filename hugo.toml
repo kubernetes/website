@@ -157,9 +157,6 @@ githubWebsiteRaw = "raw.githubusercontent.com/kubernetes/website"
 # GitHub repository link for editing a page and opening issues.
 github_repo = "https://github.com/kubernetes/website"
 
-# Searching
-k8s_search = false
-
 # The following search parameters are specific to Docsy's implementation. Kubernetes implementes its own search-related partials and scripts.
 
 # Google Custom Search Engine ID. Remove or comment out to disable search.
