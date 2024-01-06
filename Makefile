@@ -42,7 +42,7 @@ build-preview: module-check ## Build site with drafts and future posts enabled
 	npx -y pagefind@1.0.4 --site public
 
 deploy-preview: ## Deploy preview site via netlify
-	GOMAXPROCS=1 hugo --cleanDestinationDir --enableGitInfo --buildFuture --environment preview -b $(DEPLOY_PRIME_URL)
+	GOMAXPROCS=1 hugo --verbose --cleanDestinationDir --enableGitInfo --buildFuture --environment preview -b $(DEPLOY_PRIME_URL)
 	npx -y pagefind@1.0.4 --site public
 
 functions-build:
