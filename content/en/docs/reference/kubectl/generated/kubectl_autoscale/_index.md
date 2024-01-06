@@ -1,8 +1,9 @@
 ---
-title: kubectl
+title: kubectl autoscale
 content_type: tool-reference
 weight: 30
 auto_generated: true
+no_list: true
 ---
 
 
@@ -21,15 +22,144 @@ guide. You can file document formatting bugs against the
 ## {{% heading "synopsis" %}}
 
 
-kubectl controls the Kubernetes cluster manager.
+Creates an autoscaler that automatically chooses and sets the number of pods that run in a Kubernetes cluster.
 
- Find more information at: https://kubernetes.io/docs/reference/kubectl/
+ Looks up a deployment, replica set, stateful set, or replication controller by name and creates an autoscaler that uses the given resource as a reference. An autoscaler can automatically increase or decrease number of pods deployed within the system as needed.
 
 ```
-kubectl [flags]
+kubectl autoscale (-f FILENAME | TYPE NAME | TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu-percent=CPU]
+```
+
+## {{% heading "examples" %}}
+
+```
+  # Auto scale a deployment "foo", with the number of pods between 2 and 10, no target CPU utilization specified so a default autoscaling policy will be used
+  kubectl autoscale deployment foo --min=2 --max=10
+  
+  # Auto scale a replication controller "foo", with the number of pods between 1 and 5, target CPU utilization at 80%
+  kubectl autoscale rc foo --max=5 --cpu-percent=80
 ```
 
 ## {{% heading "options" %}}
+
+   <table style="width: 100%; table-layout: fixed;">
+<colgroup>
+<col span="1" style="width: 10px;" />
+<col span="1" />
+</colgroup>
+<tbody>
+
+<tr>
+<td colspan="2">--allow-missing-template-keys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--cpu-percent int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: -1</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The target average CPU utilization (represented as a percent of requested CPU) over all the pods. If it's not specified or negative, a default autoscaling policy will be used.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--dry-run string[="unchanged"]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "none"</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--field-manager string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "kubectl-autoscale"</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Name of the manager used to track field ownership.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">-f, --filename strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Filename, directory, or URL to files identifying the resource to autoscale.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">-h, --help</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for autoscale</p></td>
+</tr>
+
+<tr>
+<td colspan="2">-k, --kustomize string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Process the kustomization directory. This flag can't be used together with -f or -R.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--max int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: -1</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The upper limit for the number of pods that can be set by the autoscaler. Required.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--min int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: -1</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The lower limit for the number of pods that can be set by the autoscaler. If it's not specified or negative, the server will apply a default value.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--name string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The name for the newly created object. If not specified, the name of the input resource will be used.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">-o, --output string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Output format. One of: (json, yaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).</p></td>
+</tr>
+
+<tr>
+<td colspan="2">-R, --recursive</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--save-config</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, the configuration of current object will be saved in its annotation. Otherwise, the annotation will be unchanged. This flag is useful when you want to perform kubectl apply on this object in the future.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--show-managed-fields</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, keep the managedFields when printing objects in JSON or YAML format.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--template string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].</p></td>
+</tr>
+
+</tbody>
+</table>
+
+
+
+## {{% heading "parentoptions" %}}
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -141,13 +271,6 @@ kubectl [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, opt-out of response compression for all requests to the server</p></td>
-</tr>
-
-<tr>
-<td colspan="2">-h, --help</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for kubectl</p></td>
 </tr>
 
 <tr>
@@ -311,47 +434,5 @@ kubectl [flags]
 
 ## {{% heading "seealso" %}}
 
-* [kubectl annotate](../kubectl_annotate/)	 - Update the annotations on a resource
-* [kubectl api-resources](../kubectl_api-resources/)	 - Print the supported API resources on the server
-* [kubectl api-versions](../kubectl_api-versions/)	 - Print the supported API versions on the server, in the form of "group/version"
-* [kubectl apply](../kubectl_apply/)	 - Apply a configuration to a resource by file name or stdin
-* [kubectl attach](../kubectl_attach/)	 - Attach to a running container
-* [kubectl auth](../kubectl_auth/)	 - Inspect authorization
-* [kubectl autoscale](../kubectl_autoscale/)	 - Auto-scale a deployment, replica set, stateful set, or replication controller
-* [kubectl certificate](../kubectl_certificate/)	 - Modify certificate resources
-* [kubectl cluster-info](../kubectl_cluster-info/)	 - Display cluster information
-* [kubectl completion](../kubectl_completion/)	 - Output shell completion code for the specified shell (bash, zsh, fish, or powershell)
-* [kubectl config](../kubectl_config/)	 - Modify kubeconfig files
-* [kubectl cordon](../kubectl_cordon/)	 - Mark node as unschedulable
-* [kubectl cp](../kubectl_cp/)	 - Copy files and directories to and from containers
-* [kubectl create](../kubectl_create/)	 - Create a resource from a file or from stdin
-* [kubectl debug](../kubectl_debug/)	 - Create debugging sessions for troubleshooting workloads and nodes
-* [kubectl delete](../kubectl_delete/)	 - Delete resources by file names, stdin, resources and names, or by resources and label selector
-* [kubectl describe](../kubectl_describe/)	 - Show details of a specific resource or group of resources
-* [kubectl diff](../kubectl_diff/)	 - Diff the live version against a would-be applied version
-* [kubectl drain](../kubectl_drain/)	 - Drain node in preparation for maintenance
-* [kubectl edit](../kubectl_edit/)	 - Edit a resource on the server
-* [kubectl events](../kubectl_events/)	 - List events
-* [kubectl exec](../kubectl_exec/)	 - Execute a command in a container
-* [kubectl explain](../kubectl_explain/)	 - Get documentation for a resource
-* [kubectl expose](../kubectl_expose/)	 - Take a replication controller, service, deployment or pod and expose it as a new Kubernetes service
-* [kubectl get](../kubectl_get/)	 - Display one or many resources
-* [kubectl kustomize](../kubectl_kustomize/)	 - Build a kustomization target from a directory or URL
-* [kubectl label](../kubectl_label/)	 - Update the labels on a resource
-* [kubectl logs](../kubectl_logs/)	 - Print the logs for a container in a pod
-* [kubectl options](../kubectl_options/)	 - Print the list of flags inherited by all commands
-* [kubectl patch](../kubectl_patch/)	 - Update fields of a resource
-* [kubectl plugin](../kubectl_plugin/)	 - Provides utilities for interacting with plugins
-* [kubectl port-forward](../kubectl_port-forward/)	 - Forward one or more local ports to a pod
-* [kubectl proxy](../kubectl_proxy/)	 - Run a proxy to the Kubernetes API server
-* [kubectl replace](../kubectl_replace/)	 - Replace a resource by file name or stdin
-* [kubectl rollout](../kubectl_rollout/)	 - Manage the rollout of a resource
-* [kubectl run](../kubectl_run/)	 - Run a particular image on the cluster
-* [kubectl scale](../kubectl_scale/)	 - Set a new size for a deployment, replica set, or replication controller
-* [kubectl set](../kubectl_set/)	 - Set specific features on objects
-* [kubectl taint](../kubectl_taint/)	 - Update the taints on one or more nodes
-* [kubectl top](../kubectl_top/)	 - Display resource (CPU/memory) usage
-* [kubectl uncordon](../kubectl_uncordon/)	 - Mark node as schedulable
-* [kubectl version](../kubectl_version/)	 - Print the client and server version information
-* [kubectl wait](../kubectl_wait/)	 - Experimental: Wait for a specific condition on one or many resources
+* [kubectl](../kubectl/)	 - kubectl controls the Kubernetes cluster manager
 

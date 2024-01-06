@@ -1,5 +1,5 @@
 ---
-title: kubectl
+title: kubectl cluster-info dump
 content_type: tool-reference
 weight: 30
 auto_generated: true
@@ -21,15 +21,108 @@ guide. You can file document formatting bugs against the
 ## {{% heading "synopsis" %}}
 
 
-kubectl controls the Kubernetes cluster manager.
+Dump cluster information out suitable for debugging and diagnosing cluster problems.  By default, dumps everything to stdout. You can optionally specify a directory with --output-directory.  If you specify a directory, Kubernetes will build a set of files in that directory.  By default, only dumps things in the current namespace and 'kube-system' namespace, but you can switch to a different namespace with the --namespaces flag, or specify --all-namespaces to dump all namespaces.
 
- Find more information at: https://kubernetes.io/docs/reference/kubectl/
+ The command also dumps the logs of all of the pods in the cluster; these logs are dumped into different directories based on namespace and pod name.
 
 ```
-kubectl [flags]
+kubectl cluster-info dump [flags]
+```
+
+## {{% heading "examples" %}}
+
+```
+  # Dump current cluster state to stdout
+  kubectl cluster-info dump
+  
+  # Dump current cluster state to /path/to/cluster-state
+  kubectl cluster-info dump --output-directory=/path/to/cluster-state
+  
+  # Dump all namespaces to stdout
+  kubectl cluster-info dump --all-namespaces
+  
+  # Dump a set of namespaces to /path/to/cluster-state
+  kubectl cluster-info dump --namespaces default,kube-system --output-directory=/path/to/cluster-state
 ```
 
 ## {{% heading "options" %}}
+
+   <table style="width: 100%; table-layout: fixed;">
+<colgroup>
+<col span="1" style="width: 10px;" />
+<col span="1" />
+</colgroup>
+<tbody>
+
+<tr>
+<td colspan="2">-A, --all-namespaces</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, dump all namespaces.  If true, --namespaces is ignored.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--allow-missing-template-keys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">-h, --help</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for dump</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--namespaces strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A comma separated list of namespaces to dump.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">-o, --output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "json"</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Output format. One of: (json, yaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--output-directory string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Where to output the files.  If empty or '-' uses stdout, otherwise creates a directory hierarchy in that directory</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--pod-running-timeout duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 20s</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The length of time (like 5s, 2m, or 3h, higher than zero) to wait until at least one pod is running</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--show-managed-fields</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, keep the managedFields when printing objects in JSON or YAML format.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--template string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].</p></td>
+</tr>
+
+</tbody>
+</table>
+
+
+
+## {{% heading "parentoptions" %}}
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -141,13 +234,6 @@ kubectl [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, opt-out of response compression for all requests to the server</p></td>
-</tr>
-
-<tr>
-<td colspan="2">-h, --help</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for kubectl</p></td>
 </tr>
 
 <tr>
@@ -311,47 +397,5 @@ kubectl [flags]
 
 ## {{% heading "seealso" %}}
 
-* [kubectl annotate](../kubectl_annotate/)	 - Update the annotations on a resource
-* [kubectl api-resources](../kubectl_api-resources/)	 - Print the supported API resources on the server
-* [kubectl api-versions](../kubectl_api-versions/)	 - Print the supported API versions on the server, in the form of "group/version"
-* [kubectl apply](../kubectl_apply/)	 - Apply a configuration to a resource by file name or stdin
-* [kubectl attach](../kubectl_attach/)	 - Attach to a running container
-* [kubectl auth](../kubectl_auth/)	 - Inspect authorization
-* [kubectl autoscale](../kubectl_autoscale/)	 - Auto-scale a deployment, replica set, stateful set, or replication controller
-* [kubectl certificate](../kubectl_certificate/)	 - Modify certificate resources
-* [kubectl cluster-info](../kubectl_cluster-info/)	 - Display cluster information
-* [kubectl completion](../kubectl_completion/)	 - Output shell completion code for the specified shell (bash, zsh, fish, or powershell)
-* [kubectl config](../kubectl_config/)	 - Modify kubeconfig files
-* [kubectl cordon](../kubectl_cordon/)	 - Mark node as unschedulable
-* [kubectl cp](../kubectl_cp/)	 - Copy files and directories to and from containers
-* [kubectl create](../kubectl_create/)	 - Create a resource from a file or from stdin
-* [kubectl debug](../kubectl_debug/)	 - Create debugging sessions for troubleshooting workloads and nodes
-* [kubectl delete](../kubectl_delete/)	 - Delete resources by file names, stdin, resources and names, or by resources and label selector
-* [kubectl describe](../kubectl_describe/)	 - Show details of a specific resource or group of resources
-* [kubectl diff](../kubectl_diff/)	 - Diff the live version against a would-be applied version
-* [kubectl drain](../kubectl_drain/)	 - Drain node in preparation for maintenance
-* [kubectl edit](../kubectl_edit/)	 - Edit a resource on the server
-* [kubectl events](../kubectl_events/)	 - List events
-* [kubectl exec](../kubectl_exec/)	 - Execute a command in a container
-* [kubectl explain](../kubectl_explain/)	 - Get documentation for a resource
-* [kubectl expose](../kubectl_expose/)	 - Take a replication controller, service, deployment or pod and expose it as a new Kubernetes service
-* [kubectl get](../kubectl_get/)	 - Display one or many resources
-* [kubectl kustomize](../kubectl_kustomize/)	 - Build a kustomization target from a directory or URL
-* [kubectl label](../kubectl_label/)	 - Update the labels on a resource
-* [kubectl logs](../kubectl_logs/)	 - Print the logs for a container in a pod
-* [kubectl options](../kubectl_options/)	 - Print the list of flags inherited by all commands
-* [kubectl patch](../kubectl_patch/)	 - Update fields of a resource
-* [kubectl plugin](../kubectl_plugin/)	 - Provides utilities for interacting with plugins
-* [kubectl port-forward](../kubectl_port-forward/)	 - Forward one or more local ports to a pod
-* [kubectl proxy](../kubectl_proxy/)	 - Run a proxy to the Kubernetes API server
-* [kubectl replace](../kubectl_replace/)	 - Replace a resource by file name or stdin
-* [kubectl rollout](../kubectl_rollout/)	 - Manage the rollout of a resource
-* [kubectl run](../kubectl_run/)	 - Run a particular image on the cluster
-* [kubectl scale](../kubectl_scale/)	 - Set a new size for a deployment, replica set, or replication controller
-* [kubectl set](../kubectl_set/)	 - Set specific features on objects
-* [kubectl taint](../kubectl_taint/)	 - Update the taints on one or more nodes
-* [kubectl top](../kubectl_top/)	 - Display resource (CPU/memory) usage
-* [kubectl uncordon](../kubectl_uncordon/)	 - Mark node as schedulable
-* [kubectl version](../kubectl_version/)	 - Print the client and server version information
-* [kubectl wait](../kubectl_wait/)	 - Experimental: Wait for a specific condition on one or many resources
+* [kubectl cluster-info](../)	 - Display cluster information
 

@@ -1,5 +1,5 @@
 ---
-title: kubectl
+title: kubectl config set-credentials
 content_type: tool-reference
 weight: 30
 auto_generated: true
@@ -21,15 +21,166 @@ guide. You can file document formatting bugs against the
 ## {{% heading "synopsis" %}}
 
 
-kubectl controls the Kubernetes cluster manager.
+Set a user entry in kubeconfig.
 
- Find more information at: https://kubernetes.io/docs/reference/kubectl/
+ Specifying a name that already exists will merge new fields on top of existing values.
+
+        Client-certificate flags:
+        --client-certificate=certfile --client-key=keyfile
+        
+        Bearer token flags:
+        --token=bearer_token
+        
+        Basic auth flags:
+        --username=basic_user --password=basic_password
+        
+ Bearer token and basic auth are mutually exclusive.
 
 ```
-kubectl [flags]
+kubectl config set-credentials NAME [--client-certificate=path/to/certfile] [--client-key=path/to/keyfile] [--token=bearer_token] [--username=basic_user] [--password=basic_password] [--auth-provider=provider_name] [--auth-provider-arg=key=value] [--exec-command=exec_command] [--exec-api-version=exec_api_version] [--exec-arg=arg] [--exec-env=key=value]
+```
+
+## {{% heading "examples" %}}
+
+```
+  # Set only the "client-key" field on the "cluster-admin"
+  # entry, without touching other values
+  kubectl config set-credentials cluster-admin --client-key=~/.kube/admin.key
+  
+  # Set basic auth for the "cluster-admin" entry
+  kubectl config set-credentials cluster-admin --username=admin --password=uXFGweU9l35qcif
+  
+  # Embed client certificate data in the "cluster-admin" entry
+  kubectl config set-credentials cluster-admin --client-certificate=~/.kube/admin.crt --embed-certs=true
+  
+  # Enable the Google Compute Platform auth provider for the "cluster-admin" entry
+  kubectl config set-credentials cluster-admin --auth-provider=gcp
+  
+  # Enable the OpenID Connect auth provider for the "cluster-admin" entry with additional arguments
+  kubectl config set-credentials cluster-admin --auth-provider=oidc --auth-provider-arg=client-id=foo --auth-provider-arg=client-secret=bar
+  
+  # Remove the "client-secret" config value for the OpenID Connect auth provider for the "cluster-admin" entry
+  kubectl config set-credentials cluster-admin --auth-provider=oidc --auth-provider-arg=client-secret-
+  
+  # Enable new exec auth plugin for the "cluster-admin" entry
+  kubectl config set-credentials cluster-admin --exec-command=/path/to/the/executable --exec-api-version=client.authentication.k8s.io/v1beta1
+  
+  # Define new exec auth plugin arguments for the "cluster-admin" entry
+  kubectl config set-credentials cluster-admin --exec-arg=arg1 --exec-arg=arg2
+  
+  # Create or update exec auth plugin environment variables for the "cluster-admin" entry
+  kubectl config set-credentials cluster-admin --exec-env=key1=val1 --exec-env=key2=val2
+  
+  # Remove exec auth plugin environment variables for the "cluster-admin" entry
+  kubectl config set-credentials cluster-admin --exec-env=var-to-remove-
 ```
 
 ## {{% heading "options" %}}
+
+   <table style="width: 100%; table-layout: fixed;">
+<colgroup>
+<col span="1" style="width: 10px;" />
+<col span="1" />
+</colgroup>
+<tbody>
+
+<tr>
+<td colspan="2">--auth-provider string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Auth provider for the user entry in kubeconfig</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--auth-provider-arg strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>'key=value' arguments for the auth provider</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--client-certificate string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to client-certificate file for the user entry in kubeconfig</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--client-key string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to client-key file for the user entry in kubeconfig</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--embed-certs tristate[=true]</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Embed client cert/key for the user entry in kubeconfig</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--exec-api-version string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>API version of the exec credential plugin for the user entry in kubeconfig</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--exec-arg strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>New arguments for the exec credential plugin command for the user entry in kubeconfig</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--exec-command string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Command for the exec credential plugin for the user entry in kubeconfig</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--exec-env strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>'key=value' environment values for the exec credential plugin</p></td>
+</tr>
+
+<tr>
+<td colspan="2">-h, --help</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for set-credentials</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--password string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>password for the user entry in kubeconfig</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--token string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>token for the user entry in kubeconfig</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--username string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>username for the user entry in kubeconfig</p></td>
+</tr>
+
+</tbody>
+</table>
+
+
+
+## {{% heading "parentoptions" %}}
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -78,20 +229,6 @@ kubectl [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a cert file for the certificate authority</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--client-certificate string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a client certificate file for TLS</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--client-key string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a client key file for TLS</p></td>
 </tr>
 
 <tr>
@@ -144,13 +281,6 @@ kubectl [flags]
 </tr>
 
 <tr>
-<td colspan="2">-h, --help</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for kubectl</p></td>
-</tr>
-
-<tr>
 <td colspan="2">--insecure-skip-tls-verify</td>
 </tr>
 <tr>
@@ -161,7 +291,7 @@ kubectl [flags]
 <td colspan="2">--kubeconfig string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to the kubeconfig file to use for CLI requests.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>use a particular kubeconfig file</p></td>
 </tr>
 
 <tr>
@@ -176,13 +306,6 @@ kubectl [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If present, the namespace scope for this CLI request</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--password string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Password for basic authentication to the API server</p></td>
 </tr>
 
 <tr>
@@ -270,24 +393,10 @@ kubectl [flags]
 </tr>
 
 <tr>
-<td colspan="2">--token string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Bearer token for authentication to the API server</p></td>
-</tr>
-
-<tr>
 <td colspan="2">--user string</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The name of the kubeconfig user to use</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--username string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Username for basic authentication to the API server</p></td>
 </tr>
 
 <tr>
@@ -311,47 +420,5 @@ kubectl [flags]
 
 ## {{% heading "seealso" %}}
 
-* [kubectl annotate](../kubectl_annotate/)	 - Update the annotations on a resource
-* [kubectl api-resources](../kubectl_api-resources/)	 - Print the supported API resources on the server
-* [kubectl api-versions](../kubectl_api-versions/)	 - Print the supported API versions on the server, in the form of "group/version"
-* [kubectl apply](../kubectl_apply/)	 - Apply a configuration to a resource by file name or stdin
-* [kubectl attach](../kubectl_attach/)	 - Attach to a running container
-* [kubectl auth](../kubectl_auth/)	 - Inspect authorization
-* [kubectl autoscale](../kubectl_autoscale/)	 - Auto-scale a deployment, replica set, stateful set, or replication controller
-* [kubectl certificate](../kubectl_certificate/)	 - Modify certificate resources
-* [kubectl cluster-info](../kubectl_cluster-info/)	 - Display cluster information
-* [kubectl completion](../kubectl_completion/)	 - Output shell completion code for the specified shell (bash, zsh, fish, or powershell)
-* [kubectl config](../kubectl_config/)	 - Modify kubeconfig files
-* [kubectl cordon](../kubectl_cordon/)	 - Mark node as unschedulable
-* [kubectl cp](../kubectl_cp/)	 - Copy files and directories to and from containers
-* [kubectl create](../kubectl_create/)	 - Create a resource from a file or from stdin
-* [kubectl debug](../kubectl_debug/)	 - Create debugging sessions for troubleshooting workloads and nodes
-* [kubectl delete](../kubectl_delete/)	 - Delete resources by file names, stdin, resources and names, or by resources and label selector
-* [kubectl describe](../kubectl_describe/)	 - Show details of a specific resource or group of resources
-* [kubectl diff](../kubectl_diff/)	 - Diff the live version against a would-be applied version
-* [kubectl drain](../kubectl_drain/)	 - Drain node in preparation for maintenance
-* [kubectl edit](../kubectl_edit/)	 - Edit a resource on the server
-* [kubectl events](../kubectl_events/)	 - List events
-* [kubectl exec](../kubectl_exec/)	 - Execute a command in a container
-* [kubectl explain](../kubectl_explain/)	 - Get documentation for a resource
-* [kubectl expose](../kubectl_expose/)	 - Take a replication controller, service, deployment or pod and expose it as a new Kubernetes service
-* [kubectl get](../kubectl_get/)	 - Display one or many resources
-* [kubectl kustomize](../kubectl_kustomize/)	 - Build a kustomization target from a directory or URL
-* [kubectl label](../kubectl_label/)	 - Update the labels on a resource
-* [kubectl logs](../kubectl_logs/)	 - Print the logs for a container in a pod
-* [kubectl options](../kubectl_options/)	 - Print the list of flags inherited by all commands
-* [kubectl patch](../kubectl_patch/)	 - Update fields of a resource
-* [kubectl plugin](../kubectl_plugin/)	 - Provides utilities for interacting with plugins
-* [kubectl port-forward](../kubectl_port-forward/)	 - Forward one or more local ports to a pod
-* [kubectl proxy](../kubectl_proxy/)	 - Run a proxy to the Kubernetes API server
-* [kubectl replace](../kubectl_replace/)	 - Replace a resource by file name or stdin
-* [kubectl rollout](../kubectl_rollout/)	 - Manage the rollout of a resource
-* [kubectl run](../kubectl_run/)	 - Run a particular image on the cluster
-* [kubectl scale](../kubectl_scale/)	 - Set a new size for a deployment, replica set, or replication controller
-* [kubectl set](../kubectl_set/)	 - Set specific features on objects
-* [kubectl taint](../kubectl_taint/)	 - Update the taints on one or more nodes
-* [kubectl top](../kubectl_top/)	 - Display resource (CPU/memory) usage
-* [kubectl uncordon](../kubectl_uncordon/)	 - Mark node as schedulable
-* [kubectl version](../kubectl_version/)	 - Print the client and server version information
-* [kubectl wait](../kubectl_wait/)	 - Experimental: Wait for a specific condition on one or many resources
+* [kubectl config](../)	 - Modify kubeconfig files
 

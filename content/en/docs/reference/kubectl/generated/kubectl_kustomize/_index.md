@@ -1,8 +1,9 @@
 ---
-title: kubectl
+title: kubectl kustomize
 content_type: tool-reference
 weight: 30
 auto_generated: true
+no_list: true
 ---
 
 
@@ -21,15 +22,117 @@ guide. You can file document formatting bugs against the
 ## {{% heading "synopsis" %}}
 
 
-kubectl controls the Kubernetes cluster manager.
-
- Find more information at: https://kubernetes.io/docs/reference/kubectl/
+Build a set of KRM resources using a 'kustomization.yaml' file. The DIR argument must be a path to a directory containing 'kustomization.yaml', or a git repository URL with a path suffix specifying same with respect to the repository root. If DIR is omitted, '.' is assumed.
 
 ```
-kubectl [flags]
+kubectl kustomize DIR [flags]
+```
+
+## {{% heading "examples" %}}
+
+```
+  # Build the current working directory
+  kubectl kustomize
+  
+  # Build some shared configuration directory
+  kubectl kustomize /home/config/production
+  
+  # Build from github
+  kubectl kustomize https://github.com/kubernetes-sigs/kustomize.git/examples/helloWorld?ref=v1.0.6
 ```
 
 ## {{% heading "options" %}}
+
+   <table style="width: 100%; table-layout: fixed;">
+<colgroup>
+<col span="1" style="width: 10px;" />
+<col span="1" />
+</colgroup>
+<tbody>
+
+<tr>
+<td colspan="2">--as-current-user</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>use the uid and gid of the command executor to run the function in the container</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--enable-alpha-plugins</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>enable kustomize plugins</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--enable-helm</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Enable use of the Helm chart inflator generator.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">-e, --env strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>a list of environment variables to be used by functions</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--helm-command string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "helm"</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>helm command (path to executable)</p></td>
+</tr>
+
+<tr>
+<td colspan="2">-h, --help</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for kustomize</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--load-restrictor string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "LoadRestrictionsRootOnly"</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>if set to 'LoadRestrictionsNone', local kustomizations may load files from outside their root. This does, however, break the relocatability of the kustomization.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--mount strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>a list of storage options read from the filesystem</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--network</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>enable network access for functions that declare it</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--network-name string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "bridge"</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>the docker network to run the container in</p></td>
+</tr>
+
+<tr>
+<td colspan="2">-o, --output string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If specified, write output to this path.</p></td>
+</tr>
+
+</tbody>
+</table>
+
+
+
+## {{% heading "parentoptions" %}}
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -141,13 +244,6 @@ kubectl [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, opt-out of response compression for all requests to the server</p></td>
-</tr>
-
-<tr>
-<td colspan="2">-h, --help</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for kubectl</p></td>
 </tr>
 
 <tr>
@@ -311,47 +407,5 @@ kubectl [flags]
 
 ## {{% heading "seealso" %}}
 
-* [kubectl annotate](../kubectl_annotate/)	 - Update the annotations on a resource
-* [kubectl api-resources](../kubectl_api-resources/)	 - Print the supported API resources on the server
-* [kubectl api-versions](../kubectl_api-versions/)	 - Print the supported API versions on the server, in the form of "group/version"
-* [kubectl apply](../kubectl_apply/)	 - Apply a configuration to a resource by file name or stdin
-* [kubectl attach](../kubectl_attach/)	 - Attach to a running container
-* [kubectl auth](../kubectl_auth/)	 - Inspect authorization
-* [kubectl autoscale](../kubectl_autoscale/)	 - Auto-scale a deployment, replica set, stateful set, or replication controller
-* [kubectl certificate](../kubectl_certificate/)	 - Modify certificate resources
-* [kubectl cluster-info](../kubectl_cluster-info/)	 - Display cluster information
-* [kubectl completion](../kubectl_completion/)	 - Output shell completion code for the specified shell (bash, zsh, fish, or powershell)
-* [kubectl config](../kubectl_config/)	 - Modify kubeconfig files
-* [kubectl cordon](../kubectl_cordon/)	 - Mark node as unschedulable
-* [kubectl cp](../kubectl_cp/)	 - Copy files and directories to and from containers
-* [kubectl create](../kubectl_create/)	 - Create a resource from a file or from stdin
-* [kubectl debug](../kubectl_debug/)	 - Create debugging sessions for troubleshooting workloads and nodes
-* [kubectl delete](../kubectl_delete/)	 - Delete resources by file names, stdin, resources and names, or by resources and label selector
-* [kubectl describe](../kubectl_describe/)	 - Show details of a specific resource or group of resources
-* [kubectl diff](../kubectl_diff/)	 - Diff the live version against a would-be applied version
-* [kubectl drain](../kubectl_drain/)	 - Drain node in preparation for maintenance
-* [kubectl edit](../kubectl_edit/)	 - Edit a resource on the server
-* [kubectl events](../kubectl_events/)	 - List events
-* [kubectl exec](../kubectl_exec/)	 - Execute a command in a container
-* [kubectl explain](../kubectl_explain/)	 - Get documentation for a resource
-* [kubectl expose](../kubectl_expose/)	 - Take a replication controller, service, deployment or pod and expose it as a new Kubernetes service
-* [kubectl get](../kubectl_get/)	 - Display one or many resources
-* [kubectl kustomize](../kubectl_kustomize/)	 - Build a kustomization target from a directory or URL
-* [kubectl label](../kubectl_label/)	 - Update the labels on a resource
-* [kubectl logs](../kubectl_logs/)	 - Print the logs for a container in a pod
-* [kubectl options](../kubectl_options/)	 - Print the list of flags inherited by all commands
-* [kubectl patch](../kubectl_patch/)	 - Update fields of a resource
-* [kubectl plugin](../kubectl_plugin/)	 - Provides utilities for interacting with plugins
-* [kubectl port-forward](../kubectl_port-forward/)	 - Forward one or more local ports to a pod
-* [kubectl proxy](../kubectl_proxy/)	 - Run a proxy to the Kubernetes API server
-* [kubectl replace](../kubectl_replace/)	 - Replace a resource by file name or stdin
-* [kubectl rollout](../kubectl_rollout/)	 - Manage the rollout of a resource
-* [kubectl run](../kubectl_run/)	 - Run a particular image on the cluster
-* [kubectl scale](../kubectl_scale/)	 - Set a new size for a deployment, replica set, or replication controller
-* [kubectl set](../kubectl_set/)	 - Set specific features on objects
-* [kubectl taint](../kubectl_taint/)	 - Update the taints on one or more nodes
-* [kubectl top](../kubectl_top/)	 - Display resource (CPU/memory) usage
-* [kubectl uncordon](../kubectl_uncordon/)	 - Mark node as schedulable
-* [kubectl version](../kubectl_version/)	 - Print the client and server version information
-* [kubectl wait](../kubectl_wait/)	 - Experimental: Wait for a specific condition on one or many resources
+* [kubectl](../kubectl/)	 - kubectl controls the Kubernetes cluster manager
 

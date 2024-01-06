@@ -1,8 +1,9 @@
 ---
-title: kubectl
+title: kubectl run
 content_type: tool-reference
 weight: 30
 auto_generated: true
+no_list: true
 ---
 
 
@@ -21,15 +22,247 @@ guide. You can file document formatting bugs against the
 ## {{% heading "synopsis" %}}
 
 
-kubectl controls the Kubernetes cluster manager.
-
- Find more information at: https://kubernetes.io/docs/reference/kubectl/
+Create and run a particular image in a pod.
 
 ```
-kubectl [flags]
+kubectl run NAME --image=image [--env="key=value"] [--port=port] [--dry-run=server|client] [--overrides=inline-json] [--command] -- [COMMAND] [args...]
+```
+
+## {{% heading "examples" %}}
+
+```
+  # Start a nginx pod
+  kubectl run nginx --image=nginx
+  
+  # Start a hazelcast pod and let the container expose port 5701
+  kubectl run hazelcast --image=hazelcast/hazelcast --port=5701
+  
+  # Start a hazelcast pod and set environment variables "DNS_DOMAIN=cluster" and "POD_NAMESPACE=default" in the container
+  kubectl run hazelcast --image=hazelcast/hazelcast --env="DNS_DOMAIN=cluster" --env="POD_NAMESPACE=default"
+  
+  # Start a hazelcast pod and set labels "app=hazelcast" and "env=prod" in the container
+  kubectl run hazelcast --image=hazelcast/hazelcast --labels="app=hazelcast,env=prod"
+  
+  # Dry run; print the corresponding API objects without creating them
+  kubectl run nginx --image=nginx --dry-run=client
+  
+  # Start a nginx pod, but overload the spec with a partial set of values parsed from JSON
+  kubectl run nginx --image=nginx --overrides='{ "apiVersion": "v1", "spec": { ... } }'
+  
+  # Start a busybox pod and keep it in the foreground, don't restart it if it exits
+  kubectl run -i -t busybox --image=busybox --restart=Never
+  
+  # Start the nginx pod using the default command, but use custom arguments (arg1 .. argN) for that command
+  kubectl run nginx --image=nginx -- <arg1> <arg2> ... <argN>
+  
+  # Start the nginx pod using a different command and custom arguments
+  kubectl run nginx --image=nginx --command -- <cmd> <arg1> ... <argN>
 ```
 
 ## {{% heading "options" %}}
+
+   <table style="width: 100%; table-layout: fixed;">
+<colgroup>
+<col span="1" style="width: 10px;" />
+<col span="1" />
+</colgroup>
+<tbody>
+
+<tr>
+<td colspan="2">--allow-missing-template-keys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--annotations strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Annotations to apply to the pod.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--attach</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, wait for the Pod to start running, and then attach to the Pod as if 'kubectl attach ...' were called.  Default false, unless '-i/--stdin' is set, in which case the default is true. With '--restart=Never' the exit code of the container process is returned.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--command</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true and extra arguments are present, use them as the 'command' field in the container, rather than the 'args' field which is the default.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--dry-run string[="unchanged"]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "none"</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--env strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Environment variables to set in the container.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--expose --port</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, create a ClusterIP service associated with the pod.  Requires --port.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--field-manager string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "kubectl-run"</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Name of the manager used to track field ownership.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">-h, --help</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for run</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--image string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The image for the container to run.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--image-pull-policy string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The image pull policy for the container.  If left empty, this value will not be specified by the client and defaulted by the server.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">-l, --labels string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Comma separated labels to apply to the pod. Will override previous values.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--leave-stdin-open</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If the pod is started in interactive mode or with stdin, leave stdin open after the first attach completes. By default, stdin will be closed after the first attach completes.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">-o, --output string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Output format. One of: (json, yaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--override-type string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "merge"</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The method used to override the generated object: json, merge, or strategic.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--overrides string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>An inline JSON override for the generated object. If this is non-empty, it is used to override the generated object. Requires that the object supply a valid apiVersion field.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--pod-running-timeout duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 1m0s</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The length of time (like 5s, 2m, or 3h, higher than zero) to wait until at least one pod is running</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--port string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The port that this container exposes.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--privileged</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, run the container in privileged mode.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">-q, --quiet</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, suppress prompt messages.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--restart string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "Always"</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The restart policy for this Pod.  Legal values [Always, OnFailure, Never].</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--rm</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, delete the pod after it exits.  Only valid when attaching to the container, e.g. with '--attach' or with '-i/--stdin'.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--save-config</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, the configuration of current object will be saved in its annotation. Otherwise, the annotation will be unchanged. This flag is useful when you want to perform kubectl apply on this object in the future.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--show-managed-fields</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, keep the managedFields when printing objects in JSON or YAML format.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">-i, --stdin</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Keep stdin open on the container in the pod, even if nothing is attached.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--template string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].</p></td>
+</tr>
+
+<tr>
+<td colspan="2">-t, --tty</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Allocate a TTY for the container in the pod.</p></td>
+</tr>
+
+</tbody>
+</table>
+
+
+
+## {{% heading "parentoptions" %}}
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -141,13 +374,6 @@ kubectl [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, opt-out of response compression for all requests to the server</p></td>
-</tr>
-
-<tr>
-<td colspan="2">-h, --help</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for kubectl</p></td>
 </tr>
 
 <tr>
@@ -311,47 +537,5 @@ kubectl [flags]
 
 ## {{% heading "seealso" %}}
 
-* [kubectl annotate](../kubectl_annotate/)	 - Update the annotations on a resource
-* [kubectl api-resources](../kubectl_api-resources/)	 - Print the supported API resources on the server
-* [kubectl api-versions](../kubectl_api-versions/)	 - Print the supported API versions on the server, in the form of "group/version"
-* [kubectl apply](../kubectl_apply/)	 - Apply a configuration to a resource by file name or stdin
-* [kubectl attach](../kubectl_attach/)	 - Attach to a running container
-* [kubectl auth](../kubectl_auth/)	 - Inspect authorization
-* [kubectl autoscale](../kubectl_autoscale/)	 - Auto-scale a deployment, replica set, stateful set, or replication controller
-* [kubectl certificate](../kubectl_certificate/)	 - Modify certificate resources
-* [kubectl cluster-info](../kubectl_cluster-info/)	 - Display cluster information
-* [kubectl completion](../kubectl_completion/)	 - Output shell completion code for the specified shell (bash, zsh, fish, or powershell)
-* [kubectl config](../kubectl_config/)	 - Modify kubeconfig files
-* [kubectl cordon](../kubectl_cordon/)	 - Mark node as unschedulable
-* [kubectl cp](../kubectl_cp/)	 - Copy files and directories to and from containers
-* [kubectl create](../kubectl_create/)	 - Create a resource from a file or from stdin
-* [kubectl debug](../kubectl_debug/)	 - Create debugging sessions for troubleshooting workloads and nodes
-* [kubectl delete](../kubectl_delete/)	 - Delete resources by file names, stdin, resources and names, or by resources and label selector
-* [kubectl describe](../kubectl_describe/)	 - Show details of a specific resource or group of resources
-* [kubectl diff](../kubectl_diff/)	 - Diff the live version against a would-be applied version
-* [kubectl drain](../kubectl_drain/)	 - Drain node in preparation for maintenance
-* [kubectl edit](../kubectl_edit/)	 - Edit a resource on the server
-* [kubectl events](../kubectl_events/)	 - List events
-* [kubectl exec](../kubectl_exec/)	 - Execute a command in a container
-* [kubectl explain](../kubectl_explain/)	 - Get documentation for a resource
-* [kubectl expose](../kubectl_expose/)	 - Take a replication controller, service, deployment or pod and expose it as a new Kubernetes service
-* [kubectl get](../kubectl_get/)	 - Display one or many resources
-* [kubectl kustomize](../kubectl_kustomize/)	 - Build a kustomization target from a directory or URL
-* [kubectl label](../kubectl_label/)	 - Update the labels on a resource
-* [kubectl logs](../kubectl_logs/)	 - Print the logs for a container in a pod
-* [kubectl options](../kubectl_options/)	 - Print the list of flags inherited by all commands
-* [kubectl patch](../kubectl_patch/)	 - Update fields of a resource
-* [kubectl plugin](../kubectl_plugin/)	 - Provides utilities for interacting with plugins
-* [kubectl port-forward](../kubectl_port-forward/)	 - Forward one or more local ports to a pod
-* [kubectl proxy](../kubectl_proxy/)	 - Run a proxy to the Kubernetes API server
-* [kubectl replace](../kubectl_replace/)	 - Replace a resource by file name or stdin
-* [kubectl rollout](../kubectl_rollout/)	 - Manage the rollout of a resource
-* [kubectl run](../kubectl_run/)	 - Run a particular image on the cluster
-* [kubectl scale](../kubectl_scale/)	 - Set a new size for a deployment, replica set, or replication controller
-* [kubectl set](../kubectl_set/)	 - Set specific features on objects
-* [kubectl taint](../kubectl_taint/)	 - Update the taints on one or more nodes
-* [kubectl top](../kubectl_top/)	 - Display resource (CPU/memory) usage
-* [kubectl uncordon](../kubectl_uncordon/)	 - Mark node as schedulable
-* [kubectl version](../kubectl_version/)	 - Print the client and server version information
-* [kubectl wait](../kubectl_wait/)	 - Experimental: Wait for a specific condition on one or many resources
+* [kubectl](../kubectl/)	 - kubectl controls the Kubernetes cluster manager
 
