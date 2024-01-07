@@ -10,7 +10,7 @@ Nessa página vai encontrar informações sobre convenções usadas na documenta
 
 ## Glossário de termos {#termos}
 
-|      Inglês          |        Português          |   Commentarios          |
+|      Inglês          |        Português          |   Comentários          |
 | -----------------    | ----------------------    | ----------------------- |
 |  addon | complemento |                           |
 | control plane        | camada de gerenciamento   |                         |
