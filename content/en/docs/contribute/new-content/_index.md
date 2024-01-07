@@ -98,7 +98,7 @@ Scenario | Branch
 :---------|:------------
 Existing or new English language content for the current release | `main`
 Content for a feature change release | The branch which corresponds to the major and minor version the feature change is in, using the pattern `dev-<version>`. For example, if a feature changes in the `v{{< skew nextMinorVersion >}}` release, then add documentation changes to the ``dev-{{< skew nextMinorVersion >}}`` branch.
-Content in other languages (localizations) | Use the localization's convention. See the [Localization branching strategy](/docs/contribute/localization/#branching-strategy) for more information.
+Content in other languages (localizations) | Use the localization's convention. See the [Localization branching strategy](/docs/contribute/localization/#branch-strategy) for more information.
 
 If you're still not sure which branch to choose, ask in `#sig-docs` on Slack.
 
