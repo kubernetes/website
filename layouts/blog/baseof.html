@@ -13,12 +13,12 @@
       {{ partial "announcement.html" . }}
       {{ block "hero" . }}
       <section class="header-hero text-center text-white font-bold pb-4">
-        <h1>
+        {{ if .IsSection }}<h1>{{ else }}<h2>{{ end }}
           {{ $sectionHeading := .Site.GetPage "section" .Section }}
           {{ with $sectionHeading }}
             {{ .Title }}
           {{ end }}
-        </h1>
+        {{ if .IsSection }}</h1>{{ else }}</h2>{{ end }}
       </section>
          {{ block "hero-more" . }}{{ end }}
       {{ end }}
