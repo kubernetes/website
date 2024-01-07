@@ -331,7 +331,7 @@ Several external projects provide Kubernetes Pod networks using CNI, some of whi
 support [Network Policy](/docs/concepts/services-networking/network-policies/).
 
 See a list of add-ons that implement the
-[Kubernetes networking model](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model).
+[Kubernetes networking model](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-network-model).
 
 You can install a Pod network add-on with the following command on the
 control-plane node or a node that has the kubeconfig credentials:
