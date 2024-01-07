@@ -1,8 +1,9 @@
 ---
-title: kubectl
+title: kubectl debug
 content_type: tool-reference
 weight: 30
 auto_generated: true
+no_list: true
 ---
 
 
@@ -21,15 +22,191 @@ guide. You can file document formatting bugs against the
 ## {{% heading "synopsis" %}}
 
 
-kubectl controls the Kubernetes cluster manager.
+Debug cluster resources using interactive debugging containers.
 
- Find more information at: https://kubernetes.io/docs/reference/kubectl/
+ 'debug' provides automation for common debugging tasks for cluster objects identified by resource and name. Pods will be used by default if no resource is specified.
+
+ The action taken by 'debug' varies depending on what resource is specified. Supported actions include:
+
+  *  Workload: Create a copy of an existing pod with certain attributes changed, for example changing the image tag to a new version.
+  *  Workload: Add an ephemeral container to an already running pod, for example to add debugging utilities without restarting the pod.
+  *  Node: Create a new pod that runs in the node's host namespaces and can access the node's filesystem.
 
 ```
-kubectl [flags]
+kubectl debug (POD | TYPE[[.VERSION].GROUP]/NAME) [ -- COMMAND [args...] ]
+```
+
+## {{% heading "examples" %}}
+
+```
+  # Create an interactive debugging session in pod mypod and immediately attach to it.
+  kubectl debug mypod -it --image=busybox
+  
+  # Create an interactive debugging session for the pod in the file pod.yaml and immediately attach to it.
+  # (requires the EphemeralContainers feature to be enabled in the cluster)
+  kubectl debug -f pod.yaml -it --image=busybox
+  
+  # Create a debug container named debugger using a custom automated debugging image.
+  kubectl debug --image=myproj/debug-tools -c debugger mypod
+  
+  # Create a copy of mypod adding a debug container and attach to it
+  kubectl debug mypod -it --image=busybox --copy-to=my-debugger
+  
+  # Create a copy of mypod changing the command of mycontainer
+  kubectl debug mypod -it --copy-to=my-debugger --container=mycontainer -- sh
+  
+  # Create a copy of mypod changing all container images to busybox
+  kubectl debug mypod --copy-to=my-debugger --set-image=*=busybox
+  
+  # Create a copy of mypod adding a debug container and changing container images
+  kubectl debug mypod -it --copy-to=my-debugger --image=debian --set-image=app=app:debug,sidecar=sidecar:debug
+  
+  # Create an interactive debugging session on a node and immediately attach to it.
+  # The container will run in the host namespaces and the host's filesystem will be mounted at /host
+  kubectl debug node/mynode -it --image=busybox
 ```
 
 ## {{% heading "options" %}}
+
+   <table style="width: 100%; table-layout: fixed;">
+<colgroup>
+<col span="1" style="width: 10px;" />
+<col span="1" />
+</colgroup>
+<tbody>
+
+<tr>
+<td colspan="2">--arguments-only</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If specified, everything after -- will be passed to the new container as Args instead of Command.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--attach</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, wait for the container to start running, and then attach as if 'kubectl attach ...' were called.  Default false, unless '-i/--stdin' is set, in which case the default is true.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">-c, --container string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Container name to use for debug container.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--copy-to string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Create a copy of the target Pod with this name.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--env stringToString&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: []</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Environment variables to set in the container.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">-f, --filename strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>identifying the resource to debug</p></td>
+</tr>
+
+<tr>
+<td colspan="2">-h, --help</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for debug</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--image string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Container image to use for debug container.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--image-pull-policy string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The image pull policy for the container. If left empty, this value will not be specified by the client and defaulted by the server.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "legacy"</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Debugging profile. Options are &quot;legacy&quot;, &quot;general&quot;, &quot;baseline&quot;, &quot;netadmin&quot;, or &quot;restricted&quot;.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">-q, --quiet</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, suppress informational messages.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--replace</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>When used with '--copy-to', delete the original Pod.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--same-node</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>When used with '--copy-to', schedule the copy of target Pod on the same node.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--set-image stringToString&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: []</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>When used with '--copy-to', a list of name=image pairs for changing container images, similar to how 'kubectl set image' works.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--share-processes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>When used with '--copy-to', enable process namespace sharing in the copy.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">-i, --stdin</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Keep stdin open on the container(s) in the pod, even if nothing is attached.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--target string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>When using an ephemeral container, target processes in this container name.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">-t, --tty</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Allocate a TTY for the debugging container.</p></td>
+</tr>
+
+</tbody>
+</table>
+
+
+
+## {{% heading "parentoptions" %}}
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -144,13 +321,6 @@ kubectl [flags]
 </tr>
 
 <tr>
-<td colspan="2">-h, --help</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for kubectl</p></td>
-</tr>
-
-<tr>
 <td colspan="2">--insecure-skip-tls-verify</td>
 </tr>
 <tr>
@@ -183,13 +353,6 @@ kubectl [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Password for basic authentication to the API server</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "none"</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)</p></td>
 </tr>
 
 <tr>
@@ -311,47 +474,5 @@ kubectl [flags]
 
 ## {{% heading "seealso" %}}
 
-* [kubectl annotate](../kubectl_annotate/)	 - Update the annotations on a resource
-* [kubectl api-resources](../kubectl_api-resources/)	 - Print the supported API resources on the server
-* [kubectl api-versions](../kubectl_api-versions/)	 - Print the supported API versions on the server, in the form of "group/version"
-* [kubectl apply](../kubectl_apply/)	 - Apply a configuration to a resource by file name or stdin
-* [kubectl attach](../kubectl_attach/)	 - Attach to a running container
-* [kubectl auth](../kubectl_auth/)	 - Inspect authorization
-* [kubectl autoscale](../kubectl_autoscale/)	 - Auto-scale a deployment, replica set, stateful set, or replication controller
-* [kubectl certificate](../kubectl_certificate/)	 - Modify certificate resources
-* [kubectl cluster-info](../kubectl_cluster-info/)	 - Display cluster information
-* [kubectl completion](../kubectl_completion/)	 - Output shell completion code for the specified shell (bash, zsh, fish, or powershell)
-* [kubectl config](../kubectl_config/)	 - Modify kubeconfig files
-* [kubectl cordon](../kubectl_cordon/)	 - Mark node as unschedulable
-* [kubectl cp](../kubectl_cp/)	 - Copy files and directories to and from containers
-* [kubectl create](../kubectl_create/)	 - Create a resource from a file or from stdin
-* [kubectl debug](../kubectl_debug/)	 - Create debugging sessions for troubleshooting workloads and nodes
-* [kubectl delete](../kubectl_delete/)	 - Delete resources by file names, stdin, resources and names, or by resources and label selector
-* [kubectl describe](../kubectl_describe/)	 - Show details of a specific resource or group of resources
-* [kubectl diff](../kubectl_diff/)	 - Diff the live version against a would-be applied version
-* [kubectl drain](../kubectl_drain/)	 - Drain node in preparation for maintenance
-* [kubectl edit](../kubectl_edit/)	 - Edit a resource on the server
-* [kubectl events](../kubectl_events/)	 - List events
-* [kubectl exec](../kubectl_exec/)	 - Execute a command in a container
-* [kubectl explain](../kubectl_explain/)	 - Get documentation for a resource
-* [kubectl expose](../kubectl_expose/)	 - Take a replication controller, service, deployment or pod and expose it as a new Kubernetes service
-* [kubectl get](../kubectl_get/)	 - Display one or many resources
-* [kubectl kustomize](../kubectl_kustomize/)	 - Build a kustomization target from a directory or URL
-* [kubectl label](../kubectl_label/)	 - Update the labels on a resource
-* [kubectl logs](../kubectl_logs/)	 - Print the logs for a container in a pod
-* [kubectl options](../kubectl_options/)	 - Print the list of flags inherited by all commands
-* [kubectl patch](../kubectl_patch/)	 - Update fields of a resource
-* [kubectl plugin](../kubectl_plugin/)	 - Provides utilities for interacting with plugins
-* [kubectl port-forward](../kubectl_port-forward/)	 - Forward one or more local ports to a pod
-* [kubectl proxy](../kubectl_proxy/)	 - Run a proxy to the Kubernetes API server
-* [kubectl replace](../kubectl_replace/)	 - Replace a resource by file name or stdin
-* [kubectl rollout](../kubectl_rollout/)	 - Manage the rollout of a resource
-* [kubectl run](../kubectl_run/)	 - Run a particular image on the cluster
-* [kubectl scale](../kubectl_scale/)	 - Set a new size for a deployment, replica set, or replication controller
-* [kubectl set](../kubectl_set/)	 - Set specific features on objects
-* [kubectl taint](../kubectl_taint/)	 - Update the taints on one or more nodes
-* [kubectl top](../kubectl_top/)	 - Display resource (CPU/memory) usage
-* [kubectl uncordon](../kubectl_uncordon/)	 - Mark node as schedulable
-* [kubectl version](../kubectl_version/)	 - Print the client and server version information
-* [kubectl wait](../kubectl_wait/)	 - Experimental: Wait for a specific condition on one or many resources
+* [kubectl](../kubectl/)	 - kubectl controls the Kubernetes cluster manager
 
