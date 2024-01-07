@@ -10,8 +10,15 @@ Nessa página vai encontrar informações sobre convenções usadas na documenta
 
 ## Glossário de termos {#termos}
 
-|      Inglês          |        Português          |   Comentários          |
-| -----------------    | ----------------------    | ----------------------- |
-|  addon | complemento |                           |
-| control plane        | camada de gerenciamento   |                         |
-
+|      Inglês            |        Português          |   Comentários           |
+| ---------------------- | ----------------------    | ----------------------- |
+| addon                 | complemento               |                          |
+| control plane          | camada de gerenciamento   |                         |
+| workload               | carga de trabalho         |                         |
+| workflow               | fluxo de execução         |                         |
+| API call               | chamada para a API        |                         |
+| API server             | servidor de API           |                         |
+| backward compatibility | retrocompatibilidade      |                         |
+| container image        | imagem do contêiner       |                         | 
+| dashboard              | painel                    |                         | 
+| data plane             | camada de dados           |                         | 
