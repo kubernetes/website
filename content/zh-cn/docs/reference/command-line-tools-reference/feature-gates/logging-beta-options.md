@@ -12,6 +12,6 @@ stages:
 ---
 
 <!-- 
-Allow fine-tuing of experimental, beta-quality logging options.
+Allow fine-tuning of experimental, beta-quality logging options.
 -->
 允许微调实验性的、Beta 级别的日志选项。
