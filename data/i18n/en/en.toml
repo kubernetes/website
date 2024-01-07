@@ -163,6 +163,9 @@ other = "Was this page helpful?"
 [feedback_yes]
 other = "Yes"
 
+[filter_section]
+other = "Section"
+
 [final_patch_release]
 other = "Final Patch Release"
 

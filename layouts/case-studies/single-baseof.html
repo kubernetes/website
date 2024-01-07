@@ -6,7 +6,7 @@
 	<body>
 		{{ partial "navbar.html" . }}
 		{{ partial "deprecation-warning.html" . }}
-                <div data-pagefind-body>
+                <div data-pagefind-body data-pagefind-filter="{{ i18n "filter_section" }}:{{ with .GetPage "/case-studies" }}{{ .Title }}{{ end }}">
 		{{ block "main" . }}{{ end }}
                 </div>
 		{{ partialCached "footer.html" . }}

@@ -1,5 +1,9 @@
 {{ define "main" }}
-    <div class="td-content">
+    {{- $secondLevelSection := false -}}
+    {{- if gt ( len .Ancestors) 1 -}}
+      {{- $secondLevelSection = index .Ancestors.Reverse 2 -}}
+    {{- end -}}
+    <div class="td-content" {{ with $secondLevelSection }}data-pagefind-filter="{{ i18n "filter_section" }}:{{ .Title }}"{{ end }}>
     {{ partial "docs/content-page" (dict "ctx" . "page" .) }}
     </div>
 {{ end }}
