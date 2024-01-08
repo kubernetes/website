@@ -23,11 +23,11 @@ cgroup v2 ist die nächste Version der Linux `cgroup` API. cgroup v2 stellt ein 
 
 cgroup v2 bietet einige Verbesserungen gegenüber cgroup v1, zum Beispiel folgende:
 
-- einzelnes vereinheitlichtes Hierarchiendesign in der API
-- erhöhte Sicherheit bei sub-tree Delegierung zu Container
+- Einzelnes vereinheitlichtes Hierarchiendesign in der API
+- Erhöhte Sicherheit bei sub-tree Delegierung zu Container
 - Neuere Features, wie [Pressure Stall Information](https://www.kernel.org/doc/html/latest/accounting/psi.html)
-- erweitertes Ressourcen Zuteilungsmanagement und Isolierung über mehrfache Ressourcen
-  - einheitliche Erfassung für verschiedene Arten der Speicherzuteilung (Netzwerkspeicher, Kernelspeicher, usw.)
+- Erweitertes Ressourcen Zuteilungsmanagement und Isolierung über mehrfache Ressourcen
+  - Einheitliche Erfassung für verschiedene Arten der Speicherzuteilung (Netzwerkspeicher, Kernelspeicher, usw.)
   - Erfassung nicht-unmittelbarer Ressourcenänderungen wie "page cache write backs"
 
 Manche Kubernetes Funktionen verwenden ausschließlich cgroup v2 für erweitertes Ressourcenmanagement und Isolierung. Die [MemoryQoS](/blog/2021/11/26/qos-memory-resources/) Funktion, zum Beispiel, verbessert Speicher QoS und setzt dabei auf cgroup v2 Primitives.
