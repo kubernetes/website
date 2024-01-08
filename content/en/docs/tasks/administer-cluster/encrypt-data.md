@@ -562,21 +562,99 @@ For larger clusters, you may wish to subdivide the Secrets by namespace,
 or script an update.
 {{< /note >}}
 
-## Rotating a decryption key
+## Prevent plain text retrieval {#cleanup-all-secrets-encrypted}
 
-Changing a Secret without incurring downtime requires a multi-step operation, especially in
-the presence of a highly-available deployment where multiple `kube-apiserver` processes are running.
+If you want to make sure that the only access to a particular API kind is done using
+encryption, you can remove the API server's ability to read that API's backing data
+as plaintext.
 
-1. Generate a new key and add it as the second key entry for the current provider on all servers
-1. Restart all `kube-apiserver` processes to ensure each server can decrypt using the new key
-1. Make the new key the first entry in the `keys` array so that it is used for encryption in the config
-1. Restart all `kube-apiserver` processes to ensure each server now encrypts using the new key
-1. Run `kubectl get secrets --all-namespaces -o json | kubectl replace -f -` to encrypt all
-   existing Secrets with the new key
-1. Remove the old decryption key from the config after you have backed up etcd with the new key in use
-   and updated all Secrets
+{{< warning >}}
+Making this change prevents the API server from retrieving resources that are marked
+as encrypted as rest, but are actually stored in the clear.
 
-When running a single `kube-apiserver` instance, step 2 may be skipped.
+When you have configured encryption at rest for an API (for example: the API kind
+`Secret`, representing `secrets` resources in the core API group), you **must** ensure
+that all those resources in this cluster really are encrypted at rest. Check this before
+you carry on with the next steps.
+{{< /warning >}}
+
+Once all Secrets in your cluster are encrypted, you can remove the `identity`
+part of the encryption configuration. For example:
+
+{{< highlight yaml "linenos=false,hl_lines=12" >}}
+---
+apiVersion: apiserver.config.k8s.io/v1
+kind: EncryptionConfiguration
+resources:
+  - resources:
+      - secrets
+    providers:
+      - aescbc:
+          keys:
+            - name: key1
+              secret: <BASE 64 ENCODED SECRET>
+      - identity: {} # REMOVE THIS LINE
+{{< /highlight >}}
+
+…and then restart each API server in turn. This change prevents the API server
+from accessing a plain-text Secret, even by accident.
+
+## Rotate a decryption key {#rotating-a-decryption-key}
+
+Changing an encryption key for Kubernetes without incurring downtime requires a multi-step operation,
+especially in the presence of a highly-available deployment where multiple `kube-apiserver` processes
+are running.
+
+1. Generate a new key and add it as the second key entry for the current provider on all
+   control plane nodes.
+1. Restart **all** `kube-apiserver` processes, to ensure each server can decrypt
+   any data that are encrypted with the new key.
+1. Make a secure backup of the new encryption key. If you lose all copies of this key you would
+   need to delete all the resources were encrypted under the lost key, and workloads may not
+   operate as expected during the time that at-rest encryption is broken.
+1. Make the new key the first entry in the `keys` array so that it is used for encryption-at-rest
+   for new writes
+1. Restart all `kube-apiserver` processes to ensure each control plane host now encrypts using the new key
+1. As a privileged user, run `kubectl get secrets --all-namespaces -o json | kubectl replace -f -`
+   to encrypt all existing Secrets with the new key
+1. After you have updated all existing Secrets to use the new key and have made a secure backup of the
+   new key, remove the old decryption key from the configuration.
+
+## Decrypt all data {#decrypting-all-data}
+
+This example shows how to stop encrypting the Secret API at rest. If you are encrypting
+other API kinds, adjust the steps to match.
+
+To disable encryption at rest, place the `identity` provider as the first
+entry in your encryption configuration file:
+
+```yaml
+---
+apiVersion: apiserver.config.k8s.io/v1
+kind: EncryptionConfiguration
+resources:
+  - resources:
+      - secrets
+      # list any other resources here that you previously were
+      # encrypting at rest
+    providers:
+      - identity: {} # add this line
+      - aescbc:
+          keys:
+            - name: key1
+              secret: <BASE 64 ENCODED SECRET> # keep this in place
+                                               # make sure it comes after "identity"
+```
+
+Then run the following command to force decryption of all Secrets:
+
+```shell
+kubectl get secrets --all-namespaces -o json | kubectl replace -f -
+```
+
+Once you have replaced all existing encrypted resources with backing data that
+don't use encryption, you can remove the encryption settings from the
+`kube-apiserver`.
 
 ## Configure automatic reloading
 
