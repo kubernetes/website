@@ -65,7 +65,10 @@ decrypt data stored in the etcd.
 
 ## Understanding the encryption at rest configuration
 
-```yaml
+<!-- note to localizers: the highlight is to make the initial comment obvious -->
+<!-- you can use as many lines as makes sense for your target localization    -->
+
+{{< highlight yaml "linenos=false,hl_lines=2-5" >}}
 ---
 #
 # CAUTION: this is an example configuration.
@@ -118,7 +121,7 @@ resources:
           keys:
           - name: key3
             secret: c2VjcmV0IGlzIHNlY3VyZSwgSSB0aGluaw==
-```
+{{< /highlight  >}}
 
 Each `resources` array item is a separate config and contains a complete configuration. The
 `resources.resources` field is an array of Kubernetes resource names (`resource` or `resource.group`)
