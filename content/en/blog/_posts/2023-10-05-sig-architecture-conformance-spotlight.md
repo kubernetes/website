@@ -26,7 +26,7 @@ sub-project](https://github.com/kubernetes/community/blob/master/sig-architectur
 bit about yourself, your role and how you got involved in Kubernetes.
 
 **Riaan Kleinhans (RK)**: Hi! My name is Riaan Kleinhans and I live in
-South Africa. I am the Project manager for the [ii-Team](ii.nz) in New
+South Africa. I am the Project manager for the [ii-Team](https://ii.nz) in New
 Zealand. When I joined ii the plan was to move to New Zealand in April
 2020 and then Covid happened. Fortunately, being a flexible and
 dynamic team we were able to make it work remotely and in very

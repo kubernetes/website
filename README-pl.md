@@ -9,7 +9,7 @@ W tym repozytorium znajdziesz wszystko, czego potrzebujesz do zbudowania [strony
 
 ## Jak używać tego repozytorium
 
-Możesz uruchomić serwis lokalnie poprzez Hugo (Extended version) lub ze środowiska kontenerowego. Zdecydowanie zalecamy korzystanie z kontenerów, bo dzięki temu lokalna wersja będzie spójna z tym, co jest na oficjalnej stronie.
+Możesz uruchomić serwis lokalnie poprzez [Hugo (Extended version)](https://gohugo.io/) lub ze środowiska kontenerowego. Zdecydowanie zalecamy korzystanie z kontenerów, bo dzięki temu lokalna wersja będzie spójna z tym, co jest na oficjalnej stronie.
 
 ## Wymagania wstępne
 
@@ -29,9 +29,16 @@ cd website
 
 Strona Kubernetesa używa [Docsy Hugo theme](https://github.com/google/docsy#readme). Nawet jeśli planujesz uruchomić serwis w środowisku kontenerowym, zalecamy pobranie podmodułów i innych zależności za pomocą polecenia:
 
-```bash
-# pull in the Docsy submodule
+### Windows
+```powershell
+# aktualizuj podrzędne moduły
 git submodule update --init --recursive --depth 1
+```
+
+### Linux / inne systemy Unix
+```bash
+# aktualizuj podrzędne moduły
+make module-init
 ```
 
 ## Uruchomienie serwisu w kontenerze
@@ -39,7 +46,7 @@ git submodule update --init --recursive --depth 1
 Aby zbudować i uruchomić serwis wewnątrz środowiska kontenerowego, wykonaj następujące polecenia:
 
 ```bash
-make container-image
+# Możesz ustawić zmienną $CONTAINER_ENGINE wskazującą na dowolne narzędzie obsługujące kontenery podobnie jak Docker
 make container-serve
 ```
 
@@ -53,11 +60,16 @@ Upewnij się, że zainstalowałeś odpowiednią wersję Hugo "extended", określ
 
 Aby uruchomić i przetestować serwis lokalnie, wykonaj:
 
-```bash
-# install dependencies
-npm ci
-make serve
-```
+- macOS i Linux
+  ```bash
+  npm ci
+  make serve
+  ```
+- Windows (PowerShell)
+  ```powershell
+  npm ci
+  hugo.exe server --buildFuture --environment development
+  ```
 
 Zostanie uruchomiony lokalny serwer Hugo na porcie 1313. Otwórz w przeglądarce adres <http://localhost:1313>, aby obejrzeć zawartość serwisu. Po każdej zmianie plików źródłowych, Hugo automatycznie aktualizuje stronę i odświeża jej widok w przeglądarce.
 

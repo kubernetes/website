@@ -192,7 +192,7 @@ Rules](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition
 are fully type checked.
 
 Some Kubernetes API fields contain partially type checked CEL expressions. A
-partially type checked expression is an experessions where some of the variables
+partially type checked expression is an expressions where some of the variables
 are statically typed but others are dynamically typed. For example, in the CEL
 expressions of
 [ValidatingAdmissionPolicies](/docs/reference/access-authn-authz/validating-admission-policy/)

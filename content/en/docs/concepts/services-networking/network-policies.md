@@ -58,7 +58,8 @@ By default, a pod is non-isolated for egress; all outbound connections are allow
 A pod is isolated for egress if there is any NetworkPolicy that both selects the pod and has
 "Egress" in its `policyTypes`; we say that such a policy applies to the pod for egress.
 When a pod is isolated for egress, the only allowed connections from the pod are those allowed by
-the `egress` list of some NetworkPolicy that applies to the pod for egress.
+the `egress` list of some NetworkPolicy that applies to the pod for egress. Reply traffic for those
+allowed connections will also be implicitly allowed.
 The effects of those `egress` lists combine additively.
 
 By default, a pod is non-isolated for ingress; all inbound connections are allowed.
@@ -66,7 +67,8 @@ A pod is isolated for ingress if there is any NetworkPolicy that both selects th
 has "Ingress" in its `policyTypes`; we say that such a policy applies to the pod for ingress.
 When a pod is isolated for ingress, the only allowed connections into the pod are those from
 the pod's node and those allowed by the `ingress` list of some NetworkPolicy that applies to
-the pod for ingress. The effects of those `ingress` lists combine additively.
+the pod for ingress. Reply traffic for those allowed connections will also be implicitly allowed.
+The effects of those `ingress` lists combine additively.
 
 Network policies do not conflict; they are additive. If any policy or policies apply to a given
 pod for a given direction, the connections allowed in that direction from that pod is the union of
@@ -455,6 +457,16 @@ implemented using the NetworkPolicy API.
   default, with only the ability to add allow rules).
 - The ability to prevent loopback or incoming host traffic (Pods cannot currently block localhost
   access, nor do they have the ability to block access from their resident node).
+
+## NetworkPolicy's impact on existing connections
+
+When the set of NetworkPolicies that applies to an existing connection changes - this could happen
+either due to a change in NetworkPolicies or if the relevant labels of the namespaces/pods selected by the
+policy (both subject and peers) are changed in the middle of an existing connection - it is
+implementation defined as to whether the change will take effect for that existing connection or not.
+Example: A policy is created that leads to denying a previously allowed connection, the underlying network plugin
+implementation is responsible for defining if that new policy will close the existing connections or not.
+It is recommended not to modify policies/pods/namespaces in ways that might affect existing connections.
 
 ## {{% heading "whatsnext" %}}
 

@@ -4,6 +4,15 @@ content_type: feature_gate
 _build:
   list: never
   render: false
+
+stages:
+  - stage: alpha 
+    defaultValue: false
+    fromVersion: "1.23"
+    toVersion: "1.27"
+  - stage: deprecated
+    defaultValue: false
+    fromVersion: "1.28"  
 ---
 Enables shims and translation logic to route volume
 operations from the RBD in-tree plugin to Ceph RBD CSI plugin. Requires

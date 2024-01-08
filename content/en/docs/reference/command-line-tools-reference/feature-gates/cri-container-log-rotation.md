@@ -6,6 +6,22 @@ content_type: feature_gate
 _build:
   list: never
   render: false
+
+stages:
+  - stage: alpha 
+    defaultValue: false
+    fromVersion: "1.10"
+    toVersion: "1.10"
+  - stage: beta 
+    defaultValue: true
+    fromVersion: "1.11"
+    toVersion: "1.20"    
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.21"
+    toVersion: "1.22"    
+
+removed: true
 ---
 Enable container log rotation for CRI container runtime.
 The default max size of a log file is 10MB and the default max number of

@@ -100,13 +100,11 @@ code {
   display: block;
   height: 100%;
   position: fixed;
-  width: 100%;
-  z-index: 1;
   top: 0;
   left: 0;
   background-color: rgba(51, 113, 227, 3%);
   border-right: 1px solid #dee2e6;
-  overflow-x: hidden;
+  overflow-x: scroll;
   padding-top: .5rem;
 }
 

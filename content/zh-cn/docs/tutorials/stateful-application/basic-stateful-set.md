@@ -145,8 +145,14 @@ of the StatefulSet's Pods.
 [`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get)
 来监视 StatefulSet 的 Pod 的创建情况。
 
+<!--
+# use this terminal to run commands that specify --watch
+# end this watch when you are asked to start a new watch
+-->
 ```shell
-kubectl get pods -w -l app=nginx
+# 使用此终端运行指定 --watch 的命令
+# 当你被要求开始一个新的 watch 时结束这个 watch
+kubectl get pods --watch -l app=nginx
 ```
 
 <!--
@@ -194,7 +200,7 @@ web       2         1         20s
 ```
 
 <!--
-### Ordered Pod Creation
+### Ordered Pod creation
 -->
 ### 顺序创建 Pod   {#ordered-pod-creation}
 
@@ -207,8 +213,14 @@ look like the example below.
 对于一个拥有 **n** 个副本的 StatefulSet，Pod 被部署时是按照 **{0..n-1}** 的序号顺序创建的。
 在第一个终端中使用 `kubectl get` 检查输出。这个输出最终将看起来像下面的样子。
 
+<!--
+# Do not start a new watch;
+# this should already be running
+-->
 ```shell
-kubectl get pods -w -l app=nginx
+# 不要开始一个新的 watch
+# 这应该已经处于 Running 状态
+kubectl get pods --watch -l app=nginx
 ```
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -370,8 +382,14 @@ In one terminal, watch the StatefulSet's Pods:
 -->
 在一个终端中监视 StatefulSet 的 Pod：
 
+<!--
+# Start a new watch
+# End this watch when you've seen that the delete is finished
+-->
 ```shell
-kubectl get pod -w -l app=nginx
+# 启动一个新的 watch
+# 当你看到删除完成后结束这个 watch
+kubectl get pod --watch -l app=nginx
 ```
 
 <!--
@@ -397,8 +415,12 @@ Running and Ready:
 -->
 等待 StatefulSet 重启它们，并且两个 Pod 都变成 Running 和 Ready 状态：
 
+<!--
+# This should already be running
+-->
 ```shell
-kubectl get pod -w -l app=nginx
+# 这应该已经处于 Running 状态
+kubectl get pod --watch -l app=nginx
 ```
 ```
 NAME      READY     STATUS              RESTARTS   AGE
@@ -611,8 +633,14 @@ In a second terminal, delete all of the StatefulSet's Pods:
 -->
 在另一个终端删除 StatefulSet 所有的 Pod：
 
+<!--
+# End this watch when you've reached the end of the section.
+# At the start of "Scaling a StatefulSet" you'll start a new watch.
+-->
 ```shell
-kubectl delete pod -l app=nginx
+# 当你到达该部分的末尾时结束此 watch
+# 在开始“扩展 StatefulSet” 时，你将启动一个新的 watch。
+kubectl get pod --watch -l app=nginx
 ```
 ```
 pod "web-0" deleted
@@ -625,8 +653,12 @@ for all of the Pods to transition to Running and Ready.
 -->
 在第一个终端里检查 `kubectl get` 命令的输出，等待所有 Pod 变成 Running 和 Ready 状态。
 
+<!--
+# This should already be running
+-->
 ```shell
-kubectl get pod -w -l app=nginx
+# 这应该已经处于 Running 状态
+kubectl get pod --watch -l app=nginx
 ```
 ```
 NAME      READY     STATUS              RESTARTS   AGE
@@ -688,8 +720,16 @@ In one terminal window, watch the Pods in the StatefulSet:
 -->
 在一个终端窗口监视 StatefulSet 的 Pod：
 
+<!--
+# If you already have a watch running, you can continue using that.
+# Otherwise, start one.
+# End this watch when there are 5 healthy Pods for the StatefulSet
+-->
 ```shell
-kubectl get pods -w -l app=nginx
+# 如果你已经有一个正在运行的 wach，你可以继续使用它。
+# 否则，就启动一个。
+# 当 StatefulSet 有 5 个健康的 Pod 时结束此 watch
+kubectl get pods --watch -l app=nginx
 ```
 
 <!--
@@ -711,8 +751,12 @@ for the three additional Pods to transition to Running and Ready.
 -->
 在第一个 终端中检查 `kubectl get` 命令的输出，等待增加的 3 个 Pod 的状态变为 Running 和 Ready。
 
+<!--
+# This should already be running
+-->
 ```shell
-kubectl get pods -w -l app=nginx
+# 这应该已经处于 Running 状态
+kubectl get pod --watch -l app=nginx
 ```
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -745,7 +789,7 @@ StatefulSet 控制器扩展了副本的数量。
 Pod，并且会等待前一个 Pod 变为 Running 和 Ready 才会启动下一个 Pod。
 
 <!--
-### Scaling Down
+### Scaling down
 -->
 ### 缩容   {#scaling-down}
 
@@ -754,8 +798,13 @@ In one terminal, watch the StatefulSet's Pods:
 -->
 在一个终端监视 StatefulSet 的 Pod：
 
+<!--
+# End this watch when there are only 3 Pods for the StatefulSet
+-->
 ```shell
 kubectl get pods -w -l app=nginx
+# 当 StatefulSet 只有 3 个 Pod 时结束此 watch
+kubectl get pod --watch -l app=nginx
 ```
 
 <!--
@@ -776,8 +825,13 @@ Wait for `web-4` and `web-3` to transition to Terminating.
 -->
 等待 `web-4` 和 `web-3` 状态变为 Terminating。
 
+<!--
+# This should already be running
+-->
 ```shell
 kubectl get pods -w -l app=nginx
+# 这应该已经处于 Running 状态
+kubectl get pods --watch -l app=nginx
 ```
 ```
 NAME      READY     STATUS              RESTARTS   AGE
@@ -898,8 +952,16 @@ In another terminal, watch the Pods in the StatefulSet:
 -->
 在另一个终端监控 StatefulSet 中的 Pod：
 
+<!--
+# End this watch when the rollout is complete
+#
+# If you're not sure, leave it running one more minute
+-->
 ```shell
-kubectl get pod -l app=nginx -w
+# 滚动完成后结束此 watch
+#
+# 如果你不确定，请让它再运行一分钟
+kubectl get pod -l app=nginx --watch
 ```
 
 <!--
@@ -1048,8 +1110,12 @@ Wait for the Pod to be Running and Ready.
 -->
 等待 Pod 变成 Running 和 Ready。
 
+<!--
+# End the watch when you see that web-2 is healthy
+-->
 ```shell
-kubectl get pod -l app=nginx -w
+# 当你看到 web-2 运行正常时结束 watch
+kubectl get pod -l app=nginx --watch
 ```
 ```
 NAME      READY     STATUS              RESTARTS   AGE
@@ -1097,7 +1163,12 @@ Patch the StatefulSet to decrement the partition:
 -->
 通过 patch 命令修改 StatefulSet 来减少分区：
 
+<!--
+# The value of "partition" should match the highest existing ordinal for
+# the StatefulSet
+-->
 ```shell
+# “partition” 的值应与 StatefulSet 现有的最高序数相匹配
 kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":2}}}}'
 ```
 ```
@@ -1109,8 +1180,12 @@ Wait for `web-2` to be Running and Ready.
 -->
 等待 `web-2` 变成 Running 和 Ready。
 
+<!--
+# This should already be running
+-->
 ```shell
-kubectl get pod -l app=nginx -w
+# 这应该已经处于 Running 状态
+kubectl get pod -l app=nginx --watch
 ```
 ```
 NAME      READY     STATUS              RESTARTS   AGE
@@ -1158,8 +1233,12 @@ Wait for the `web-1` Pod to be Running and Ready.
 -->
 等待 `web-1` 变成 Running 和 Ready。
 
+<!--
+# This should already be running
+-->
 ```shell
-kubectl get pod -l app=nginx -w
+# 这应该已经处于 Running 状态
+kubectl get pod -l app=nginx --watch
 ```
 
 <!--
@@ -1238,8 +1317,12 @@ Wait for all of the Pods in the StatefulSet to become Running and Ready.
 -->
 等待 StatefulSet 中的所有 Pod 变成 Running 和 Ready。
 
+<!--
+# This should already be running
+-->
 ```shell
-kubectl get pod -l app=nginx -w
+# 这应该已经处于 Running 状态
+kubectl get pod -l app=nginx --watch
 ```
 
 <!--
@@ -1323,8 +1406,12 @@ In one terminal window, watch the Pods in the StatefulSet.
 -->
 在一个终端窗口监视 StatefulSet 中的 Pod。
 
+<!--
+# End this watch when there are no Pods for the StatefulSet
+-->
 ```
-kubectl get pods -w -l app=nginx
+# 当 StatefulSet 没有 Pod 时结束此 watch
+kubectl get pods --watch -l app=nginx
 ```
 
 <!--
@@ -1397,8 +1484,12 @@ In one terminal, watch the StatefulSet's Pods.
 -->
 在一个终端监控 StatefulSet 的 Pod。
 
+<!--
+# Leave this watch running until the next time you start a watch
+-->
 ```shell
-kubectl get pods -w -l app=nginx
+# 让 watch 一直运行到你下次启动 watch 为止
+kubectl get pods --watch -l app=nginx
 ```
 
 <!--
@@ -1429,8 +1520,12 @@ Examine the output of the `kubectl get` command running in the first terminal.
 -->
 在第一个终端中运行并检查 `kubectl get` 命令的输出。
 
+<!--
+# This should already be running
+-->
 ```shell
-kubectl get pods -w -l app=nginx
+# 这应该已经处于 Running 状态
+kubectl get pods --watch -l app=nginx
 ```
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -1496,8 +1591,12 @@ In one terminal window, watch the Pods in the StatefulSet.
 -->
 在一个终端窗口监视 StatefulSet 里的 Pod。
 
+<!--
+# Leave this running until the next page section
+-->
 ```shell
-kubectl get pods -w -l app=nginx
+# 让它运行直到下一页部分
+kubectl get pods --watch -l app=nginx
 ```
 
 <!--
@@ -1520,8 +1619,12 @@ and wait for all of the Pods to transition to Terminating.
 -->
 在第一个终端检查 `kubectl get` 命令的输出，并等待所有的 Pod 变成 Terminating 状态。
 
+<!--
+# This should already be running
+-->
 ```shell
-kubectl get pods -w -l app=nginx
+# 这应该已经处于 Running 状态
+kubectl get pods --watch -l app=nginx
 ```
 
 ```
@@ -1686,8 +1789,12 @@ In one terminal, watch the Pods in the StatefulSet.
 -->
 在一个终端窗口监视 StatefulSet 中的 Pod。
 
+<!--
+# Leave this watch running until the end of the section
+-->
 ```shell
-kubectl get pod -l app=nginx -w
+# 让 watch 一直运行直到本节结束
+kubectl get pod -l app=nginx --watch
 ```
 
 <!--
@@ -1708,8 +1815,12 @@ Examine the output of the `kubectl get` command that you executed in the first t
 -->
 查看你在第一个终端中运行的 `kubectl get` 命令的输出。
 
+<!--
+# This should already be running
+-->
 ```shell
-kubectl get pod -l app=nginx -w
+# 这应该已经处于 Running 状态
+kubectl get pod -l app=nginx --watch
 ```
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -1779,8 +1890,12 @@ You can watch `kubectl get` to see those Pods being deleted.
 -->
 你可以监视 `kubectl get` 来查看那些 Pod 被删除：
 
+<!--
+# end the watch when you've seen what you need to
+-->
 ```shell
-kubectl get pod -l app=nginx -w
+# 当你看到需要的内容后结束 watch
+kubectl get pod -l app=nginx --watch
 ```
 ```
 web-3     1/1       Terminating   0         9m
