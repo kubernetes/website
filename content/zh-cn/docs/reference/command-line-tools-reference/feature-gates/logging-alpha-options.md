@@ -12,6 +12,6 @@ stages:
 ---
 
 <!--
-Allow fine-tuing of experimental, alpha-quality logging options.
+Allow fine-tuning of experimental, alpha-quality logging options.
 -->
 允许微调实验性的、Alpha 级别的日志选项。
