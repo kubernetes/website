@@ -1067,6 +1067,18 @@ Grants a Role or ClusterRole within a specific namespace. Examples:
   kubectl create rolebinding myappnamespace-myapp-view-binding --clusterrole=view --serviceaccount=myappnamespace:myapp --namespace=acme
   ```
 
+Create a RoleBinding for a particular Role or ClusterRole. Examples:
+
+```shell
+# Create a RoleBinding for user1, user2, and group1, that is bound to an existing ClusterRole named "admin".
+# The RoleBinding goes into the namespaces that kubectl is targeting in its current configuration context.
+kubectl create rolebinding clusteradmin --clusterrole=admin --user=user1 --user=user2 --group=group1
+
+# Create a RoleBinding for a ServiceAccount named dev-observability, bound an existing Role named "view"
+# The ServiceAccount is in the "monitoring" namespace but the Role and RoleBinding are in the "dev" namespace
+kubectl --namespace dev create rolebinding dev-observability-view --role=view --serviceaccount=monitoring:dev-observability
+```
+
 ### `kubectl create clusterrolebinding`
 
 Grants a ClusterRole across the entire cluster (all namespaces). Examples:
