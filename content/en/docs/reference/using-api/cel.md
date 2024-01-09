@@ -61,13 +61,38 @@ Example CEL expressions:
 | `self.names.size() == self.details.size() && self.names.all(n, n in self.details)` | Validate the 'details' map is keyed by the items in the 'names' listSet           |
 {{< /table >}}
 
-## CEL community libraries
+## CEL options, language features, and libraries
 
-Kubernetes CEL expressions have access to the following CEL community libraries:
+CEL is configured with the following options, libraries and language features, introduced at the specified Kubernetes versions:
 
-- CEL standard functions, defined in the [list of standard definitions](https://github.com/google/cel-spec/blob/master/doc/langdef.md#list-of-standard-definitions)
-- CEL standard [macros](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#macros)
-- CEL [extended string function library](https://pkg.go.dev/github.com/google/cel-go/ext#Strings)
+| CEL option, library or language feature             | Included                                                                                                        | Availablity                |
+| --------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | -------------------------- |
+| [Standard macros](stdmacros)                        | `has`, `all`, `exists`, `exists_one`, `map`, `filter`                                                           | All Kubernetes versions    |
+| [Standard functions](stdlib)                        | See [official list of standard definitions](stdlib)                                                             | All Kubernetes versions    |
+| [Homogeneous Aggregate Literals](opt1)              |                                                                                                                 | All Kubernetes versions    |
+| [Default UTC Time Zone](opt2)                       |                                                                                                                 | All Kubernetes versions    |
+| [Eagerly Validate Declarations](opt3)               |                                                                                                                 | All Kubernetes versions    |
+| [extended strings library](stringsgodoc), Version 1 | `charAt`, `indexOf`, `lastIndexOf`, `lowerAscii`, `upperAscii`, `replace`, `split`, `join`, `substring`, `trim` | All Kubernetes versions    |
+| Kubernetes list library                             | See [Kubernetes list library](#kubernetes-list-library)                                                         | All Kubernetes versions    |
+| Kubernetes regex library                            | See [Kubernetes regex library](#kubernetes-regex-library)                                                       | All Kubernetes versions    |
+| Kubernetes URL library                              | See [Kubernetes URL library](#kubernetes-url-library)                                                           | All Kubernetes versions    |
+| Kubernetes authorizer library                       | See [Kubernetes authorizer library](#kubernetes-authorizer-library)                                             | All Kubernetes versions    |
+
+[stdmacros]: https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#macros
+[stdlib]: https://github.com/google/cel-spec/blob/master/doc/langdef.md#list-of-standard-definitions
+[stringsgodoc]: https://pkg.go.dev/github.com/google/cel-go/ext#Strings
+[opt1]: https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#HomogeneousAggregateLiterals
+[opt2]: https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#DefaultUTCTimeZone
+[opt3]: https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#EagerlyValidateDeclarations
+[opt4]: https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#OptionalTypes
+[opt5]: https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#CrossTypeNumericComparisons
+
+CEL functions, features and language settings support Kubernetes control plane
+rollbacks. For example, _CEL Optional Values_ was introduced at Kubernetes 1.29
+and so only API servers at that version or newer will accept write requests to
+CEL expressions that use _CEL Optional Values_. However, when a cluster is
+rolled back to Kubernetes 1.28 CEL expressions using "CEL Optional Values" that
+are already stored in API resources will continue to evaluate correctly.
 
 ## Kubernetes CEL libraries
 
@@ -336,3 +361,4 @@ API resources by rejecting create or update operations containing the CEL
 expression to the API resources. This feature offers a stronger assurance that
 CEL expressions written to the API resource will be evaluate at runtime without
 exceeding the runtime cost budget.
+
