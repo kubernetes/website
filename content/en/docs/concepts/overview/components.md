@@ -25,7 +25,10 @@ a complete and working Kubernetes cluster.
 <!-- body -->
 ## Control Plane Components
 
-The control plane's components make global decisions about the cluster (for example, scheduling), as well as detecting and responding to cluster events (for example, starting up a new {{< glossary_tooltip text="pod" term_id="pod">}} when a deployment's `replicas` field is unsatisfied).
+The control plane's components make global decisions about the cluster (for example, scheduling),
+as well as detecting and responding to cluster events (for example, starting up a new
+{{< glossary_tooltip text="pod" term_id="pod">}} when a Deployment's
+`{{< glossary_tooltip text="replicas" term_id="replica" >}}` field is unsatisfied).
 
 Control plane components can be run on any machine in the cluster. However,
 for simplicity, set up scripts typically start all control plane components on
@@ -105,19 +108,24 @@ see [Addons](/docs/concepts/cluster-administration/addons/).
 
 ### DNS
 
-While the other addons are not strictly required, all Kubernetes clusters should have [cluster DNS](/docs/concepts/services-networking/dns-pod-service/), as many examples rely on it.
+While the other addons are not strictly required, all Kubernetes clusters should have
+[cluster DNS](/docs/concepts/services-networking/dns-pod-service/), as many examples rely on it.
 
-Cluster DNS is a DNS server, in addition to the other DNS server(s) in your environment, which serves DNS records for Kubernetes services.
+Cluster DNS is a DNS server, in addition to the other DNS server(s) in your environment,
+which serves DNS records for Kubernetes services.
 
 Containers started by Kubernetes automatically include this DNS server in their DNS searches.
 
 ### Web UI (Dashboard)
 
-[Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/) is a general purpose, web-based UI for Kubernetes clusters. It allows users to manage and troubleshoot applications running in the cluster, as well as the cluster itself.
+[Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/) is a general purpose,
+web-based UI for Kubernetes clusters. It allows users to manage and troubleshoot applications
+running in the cluster, as well as the cluster itself.
 
 ### Container Resource Monitoring
 
-[Container Resource Monitoring](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/) records generic time-series metrics
+[Container Resource Monitoring](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
+records generic time-series metrics
 about containers in a central database, and provides a UI for browsing that data.
 
 ### Cluster-level Logging
@@ -135,7 +143,8 @@ allocating IP addresses to pods and enabling them to communicate with each other
 ## {{% heading "whatsnext" %}}
 
 Learn more about the following:
-   * [Nodes](/docs/concepts/architecture/nodes/) and [their communication](/docs/concepts/architecture/control-plane-node-communication/) with the control plane.
+   * [Nodes](/docs/concepts/architecture/nodes/) and [their communication](/docs/concepts/architecture/control-plane-node-communication/)
+     with the control plane.
    * Kubernetes [controllers](/docs/concepts/architecture/controller/).
    * [kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/) which is the default scheduler for Kubernetes.
    * Etcd's official [documentation](https://etcd.io/docs/).

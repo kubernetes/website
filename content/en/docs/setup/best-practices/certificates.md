@@ -95,6 +95,12 @@ Required certificates:
 | kube-apiserver-kubelet-client | kubernetes-ca             | system:masters | client           |                                                     |
 | front-proxy-client            | kubernetes-front-proxy-ca |                | client           |                                                     |
 
+{{< note >}}
+Instead of using the super-user group `system:masters` for `kube-apiserver-kubelet-client`
+a less privileged group can be used. kubeadm uses the `kubeadm:cluster-admins` group for
+that purpose.
+{{< /note >}}
+
 [1]: any other IP or DNS name you contact your cluster on (as used by [kubeadm](/docs/reference/setup-tools/kubeadm/)
 the load balancer stable IP and/or DNS name, `kubernetes`, `kubernetes.default`, `kubernetes.default.svc`,
 `kubernetes.default.svc.cluster`, `kubernetes.default.svc.cluster.local`)
@@ -184,17 +190,34 @@ you need to provide if you are generating all of your own keys and certificates:
 
 You must manually configure these administrator account and service accounts:
 
-| filename                | credential name            | Default CN                          | O (in Subject) |
-|-------------------------|----------------------------|-------------------------------------|----------------|
-| admin.conf              | default-admin              | kubernetes-admin                    | system:masters |
-| kubelet.conf            | default-auth               | system:node:`<nodeName>` (see note) | system:nodes   |
-| controller-manager.conf | default-controller-manager | system:kube-controller-manager      |                |
-| scheduler.conf          | default-scheduler          | system:kube-scheduler               |                |
+| filename                | credential name            | Default CN                          | O (in Subject)         |
+|-------------------------|----------------------------|-------------------------------------|------------------------|
+| admin.conf              | default-admin              | kubernetes-admin                    | `<admin-group>`        |
+| super-admin.conf        | default-super-admin        | kubernetes-super-admin              | system:masters         |
+| kubelet.conf            | default-auth               | system:node:`<nodeName>` (see note) | system:nodes           |
+| controller-manager.conf | default-controller-manager | system:kube-controller-manager      |                        |
+| scheduler.conf          | default-scheduler          | system:kube-scheduler               |                        |
 
 {{< note >}}
 The value of `<nodeName>` for `kubelet.conf` **must** match precisely the value of the node name
 provided by the kubelet as it registers with the apiserver. For further details, read the
 [Node Authorization](/docs/reference/access-authn-authz/node/).
+{{< /note >}}
+
+{{< note >}}
+In the above example `<admin-group>` is implementation specific. Some tools sign the
+certificate in the default `admin.conf` to be part of the `system:masters` group.
+`system:masters` is a break-glass, super user group can bypass the authorization
+layer of Kubernetes, such as RBAC. Also some tools do not generate a separate
+`super-admin.conf` with a certificate bound to this super user group.
+
+kubeadm generates two separate administrator certificates in kubeconfig files.
+One is in `admin.conf` and has `Subject: O = kubeadm:cluster-admins, CN = kubernetes-admin`.
+`kubeadm:cluster-admins` is a custom group bound to the `cluster-admin` ClusterRole.
+This file is generated on all kubeadm managed control plane machines.
+
+Another is in `super-admin.conf` that has `Subject: O = system:masters, CN = kubernetes-super-admin`.
+This file is generated only on the node where `kubeadm init` was called.
 {{< /note >}}
 
 1. For each config, generate an x509 cert/key pair with the given CN and O.
@@ -213,6 +236,7 @@ These files are used as follows:
 | filename                | command                 | comment                                                               |
 |-------------------------|-------------------------|-----------------------------------------------------------------------|
 | admin.conf              | kubectl                 | Configures administrator user for the cluster                         |
+| super-admin.conf        | kubectl                 | Configures super administrator user for the cluster                   |
 | kubelet.conf            | kubelet                 | One required for each node in the cluster.                            |
 | controller-manager.conf | kube-controller-manager | Must be added to manifest in `manifests/kube-controller-manager.yaml` |
 | scheduler.conf          | kube-scheduler          | Must be added to manifest in `manifests/kube-scheduler.yaml`          |
@@ -221,6 +245,7 @@ The following files illustrate full paths to the files listed in the previous ta
 
 ```
 /etc/kubernetes/admin.conf
+/etc/kubernetes/super-admin.conf
 /etc/kubernetes/kubelet.conf
 /etc/kubernetes/controller-manager.conf
 /etc/kubernetes/scheduler.conf

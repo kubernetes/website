@@ -324,7 +324,7 @@ systemctl enable --now kubelet
 {{< note >}}
 The Flatcar Container Linux distribution mounts the `/usr` directory as a read-only filesystem.
 Before bootstrapping your cluster, you need to take additional steps to configure a writable directory.
-See the [Kubeadm Troubleshooting guide](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#usr-mounted-read-only/)
+See the [Kubeadm Troubleshooting guide](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#usr-mounted-read-only)
 to learn how to set up a writable directory.
 {{< /note >}}
 {{% /tab %}}

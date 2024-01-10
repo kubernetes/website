@@ -48,9 +48,9 @@ cards:
   button_path: /docs/reference
 - name: contribute
   title: Contribute to Kubernetes
-  description: Anyone can contribute, whether you're new to the project or you've been around a long time.
-  button: Find out how to help
-  button_path: /docs/contribute
+  description: Find out how you can help make Kubernetes better.
+  button: See Ways to Contribute
+  button_path: "/docs/contribute"
 - name: training
   title: "Training"
   description: "Get certified in Kubernetes and make your cloud native projects successful!"
