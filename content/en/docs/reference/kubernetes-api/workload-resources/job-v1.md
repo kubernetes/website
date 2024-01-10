@@ -254,10 +254,6 @@ JobStatus represents the current state of a Job.
 
   The number of pods which reached phase Succeeded.
 
-- **ready** (int32)
-
-  The number of pods which have a Ready condition.
-    
 - **completedIndexes** (string)
 
   completedIndexes holds the completed indexes when .spec.completionMode = "Indexed" in a text format. The indexes are represented as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7".
@@ -330,6 +326,15 @@ JobStatus represents the current state of a Job.
     succeeded holds UIDs of succeeded Pods.
 
 
+
+### Beta level
+
+
+- **ready** (int32)
+
+  The number of pods which have a Ready condition.
+  
+  This field is beta-level. The job controller populates the field when the feature gate JobReadyPods is enabled (enabled by default).
 
 ### Alpha level
 
