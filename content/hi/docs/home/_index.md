@@ -43,22 +43,22 @@ cards:
   title: "प्रशिक्षण"
   description: "कुबेरनेट्स में प्रमाणित हो कर अपने क्लाउड नेटिव प्रोजेक्ट सफल बनाएं!"
   button: "प्रशिक्षण देखें"
-  button_path: "/training"
+  button_path:/docs/reference
 - name: reference
   title: संदर्भ जानकारी देखें 
   description: शब्दावली, कमांड लाइन सिंटैक्स, API संसाधनो के प्रकार और टूल सेटअप करने के प्रलेखन। 
   button: संदर्भ देखें 
-  button_path: /docs/reference
+  button_path: /docs/contribute
 - name: contribute
   title: प्रलेखन में योगदान करें 
   description: कोई भी योगदान दे सकता है, चाहे आप प्रोजेक्ट में नए हैं या आप लंबे समय से हैं।
   button: प्रलेखन में योगदान करें 
-  button_path: /docs/contribute
+  button_path: /docs/training
 - name: release-notes
   title: कुबेरनेट्स रिलीज नोट्स 
   description: यदि आप कुबेरनेट्स इंस्टॉल कर रहे हैं या नवीनतम संस्करण में अपग्रेड कर रहे हैं, तो वर्तमान रिलीज़ नोट्स देखें।
   button: कुबेरनेट्स डाउनलोड करें
-  button_path: "/docs/setup/release/notes"
+  button_path: /docs/setup/release/download
 - name: about
   title: प्रलेखन के बारे में
   description: इस वेबसाइट में कुबेरनेट्स के वर्तमान और पिछले 4 संस्करणों के लिए प्रलेखन हैं।
