@@ -103,8 +103,8 @@ kubectl apply -f https://k8s.io/examples/service/networking/nginx-policy.yaml
 networkpolicy.networking.k8s.io/access-nginx created
 ```
 
-## Tester l'accès au service lorsque l'étiquette d'accès n'est pas définie
-Lorsque vous tentez d'accéder au service `nginx` depuis un pod sans les labels corrects, la requête échoue :
+## Tester l'accès au service lorsque le label d'accès n'est pas défini
+Lorsque vous tentez d'accéder au service `nginx` depuis un pod sans les bons labels, la requête échoue :
 
 ```console
 kubectl run busybox --rm -ti --image=busybox:1.28 -- /bin/sh
@@ -123,7 +123,7 @@ wget: download timed out
 
 ## Définir le label d'accès et tester à nouveau
 
-Vous pouvez créer un pod avec les bons labels pour voir que la requête est autorisée :
+Vous pouvez créer un pod avec le bon label pour voir que la requête est autorisée :
 
 ```console
 kubectl run busybox --rm -ti --labels="access=true" --image=busybox:1.28 -- /bin/sh
