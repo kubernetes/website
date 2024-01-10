@@ -30,7 +30,7 @@ This guide outlines the requirements of each policy.
 typically aimed at system- and infrastructure-level workloads managed by privileged, trusted users.
 
 The Privileged policy is defined by an absence of restrictions. Allow-by-default
-mechanisms (such as gatekeeper) may be Privileged by default. In contrast, for a deny-by-default mechanism (such as Pod
+mechanisms (such as Gatekeeper) may be Privileged by default. In contrast, for a deny-by-default mechanism (such as Pod
 Security Policy) the Privileged policy should disable all restrictions.
 
 ### Baseline
@@ -300,7 +300,7 @@ fail validation.
 			<td><strong>Policy</strong></td>
 		</tr>
 		<tr>
-			<td colspan="2"><em>Everything from the baseline profile.</em></td>
+			<td colspan="2"><em>Everything from the baseline policy</em></td>
 		</tr>
 		<tr>
 			<td style="white-space: nowrap">Volume Types</td>
@@ -475,16 +475,15 @@ Kubelets prior to v1.24 don't enforce the pod OS field, and if a cluster has nod
 {{< /note >}}
 
 ### Restricted Pod Security Standard changes
-Another important change, made in Kubernetes v1.25 is that the  _restricted_ Pod security
+Another important change, made in Kubernetes v1.25 is that the  _Restricted_ policy
 has been updated to use the `pod.spec.os.name` field. Based on the OS name, certain policies that are specific
 to a particular OS can be relaxed for the other OS.
-
 
 #### OS-specific policy controls
 Restrictions on the following controls are only required if `.spec.os.name` is not `windows`:
 - Privilege Escalation
 - Seccomp
-- Linux Capabilities
+- Capabilities
 
 ## FAQ
 
