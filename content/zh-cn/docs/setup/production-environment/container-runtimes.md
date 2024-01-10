@@ -640,6 +640,6 @@ The command line argument to use is `--pod-infra-container-image`.
 
 <!-- 
 As well as a container runtime, your cluster will need a working
-[network plugin](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model).
+[network plugin](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-network-model).
 -->
-除了容器运行时，你的集群还需要有效的[网络插件](/zh-cn/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model)。
+除了容器运行时，你的集群还需要有效的[网络插件](/zh-cn/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-network-model)。
