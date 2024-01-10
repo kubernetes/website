@@ -161,7 +161,7 @@ description: |-
             <div class="col-md-12">
                <h3>Roll back an update</h3>
                <p>Let’s perform another update, and try to deploy an image tagged with <code>v10</code>:</p>
-               <p><code><b>kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=gcr.io/google-samples/kubernetes-bootcamp:v10</b></code></p>
+               <p><code><b>kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=gcr.io/google-samples/kubernetes-bootcamp:v1</b></code></p>
                <p>Use <code>get deployments</code> to see the status of the deployment:</p>
                <p><code><b>kubectl get deployments</b></code></p>
                <p>Notice that the output doesn't list the desired number of available Pods. Run the <code>get pods</code> subcommand to list all Pods:</p>
