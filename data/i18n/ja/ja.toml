@@ -58,6 +58,9 @@ other = "私は..."
 [docs_label_users]
 other = "ユーザー"
 
+[end_of_life]
+other = "保守終了日"
+
 [feedback_heading]
 other = "フィードバック"
 
@@ -192,6 +195,9 @@ other = "始める前に"
 
 [previous_patches]
 other = "パッチリリース"
+
+[release_date_before]
+other = "(リリース日: "
 
 [subscribe_button]
 other = "購読する"
