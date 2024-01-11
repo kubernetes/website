@@ -91,7 +91,7 @@ Le nom d'un objet NetworkPolicy doit être un [nom de sous-domaine DNS valide](/
 Les NetworkPolicy incluent un `podSelector` qui sélectionne le regroupement de pods auxquels la politique s'applique. Vous pouvez voir que cette politique sélectionne les pods avec le label `app=nginx`. Ce label a été ajouté automatiquement au pod dans le déploiement `nginx`. Un `podSelector` vide sélectionne tous les pods dans le namespace.
 {{< /note >}}
 
-## Affecter la politique au service
+## Affecter la politique au Service
 
 Utilisez kubectl pour créer une NetworkPolicy à partir du fichier `nginx-policy.yaml` ci-dessus :
 
