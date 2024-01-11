@@ -24,7 +24,7 @@ Assurez-vous d'avoir configuré un fournisseur de réseau qui supporte les polit
 
 <!-- steps -->
 
-## Créer un déploiement `nginx` et l'exposer via un service
+## Créer un Deployment `nginx` et l'exposer via un Service
 
 Pour comprendre comment fonctionne les politiques réseau dans Kubernetes, commencez par créer un déploiement `nginx`.
 
