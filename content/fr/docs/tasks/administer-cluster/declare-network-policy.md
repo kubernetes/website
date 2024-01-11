@@ -45,7 +45,7 @@ kubectl expose deployment nginx --port=80
 service/nginx exposed
 ```
 
-Les commandes ci-dessus créent un déploiement avec un Pod nginx et exposent le déploiement via un service nommé `nginx`. Le Pod et le déploiement `nginx` se trouvent dans le namespace `default`.
+Les commandes ci-dessus créent un déploiement avec un Pod nginx et exposent le déploiement via un service nommé `nginx`. Le Pod et le Deployment `nginx` se trouvent dans le namespace `default`.
 
 ```console
 kubectl get svc,pod
