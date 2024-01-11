@@ -60,7 +60,7 @@ NAME                        READY         STATUS        RESTARTS   AGE
 pod/nginx-701339712-e0qfq   1/1           Running       0          35s
 ```
 
-## Tester le service en y accédant depuis un autre Pod
+## Tester le Service en y accédant depuis un autre Pod
 
 Vous devriez pouvoir accéder au nouveau service `nginx` depuis d'autres pods. Pour accéder au service `nginx` depuis un autre pod dans le namespace `default`, démarrez un conteneur busybox :
 
