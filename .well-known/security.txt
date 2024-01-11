@@ -1,5 +1,5 @@
 Contact: mailto:security@kubernetes.io
-Expires: 2024-11-23T06:30:00.000Z
+Expires: 2031-01-11T06:30:00.000Z
 Preferred-Languages: en
 Canonical: https://k8s.io/.well-known/security.txt 
 Policy: https://github.com/kubernetes/website/blob/main/SECURITY.md
