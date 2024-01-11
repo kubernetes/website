@@ -193,9 +193,6 @@ other = "始める前に"
 [previous_patches]
 other = "パッチリリース"
 
-[released]
-other = "リリース"
-
 [subscribe_button]
 other = "購読する"
 
