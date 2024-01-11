@@ -73,6 +73,9 @@ other = "はい"
 [input_placeholder_email_address]
 other = "メールアドレス"
 
+[latest_release]
+other = "最新リリース"
+
 [latest_version]
 other = "最新バージョン"
 
@@ -167,7 +170,7 @@ other = "過去のニュースレターを見る"
 other = "登録"
 
 [main_page_history]
-other ="ページ履歴"
+other = "ページ履歴"
 
 [main_page_last_modified_on]
 other = "ページの最終更新"
@@ -183,6 +186,9 @@ other = "備考:"
 
 [objectives_heading]
 other = "目標"
+
+[patch_releases]
+other = "パッチリリース"
 
 [prerequisites_heading]
 other = "始める前に"
