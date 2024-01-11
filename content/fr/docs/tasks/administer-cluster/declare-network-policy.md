@@ -79,7 +79,7 @@ Connecting to nginx (10.100.0.16:80)
 remote file exists
 ```
 
-## Limiter l'accès au service `nginx`
+## Limiter l'accès au Service `nginx`
 
 Pour limiter l'accès au service `nginx` afin que seuls les pods avec le label `access: true` puissent le consulter, créez un objet NetworkPolicy comme suit :
 
