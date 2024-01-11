@@ -103,7 +103,7 @@ kubectl apply -f https://k8s.io/examples/service/networking/nginx-policy.yaml
 networkpolicy.networking.k8s.io/access-nginx created
 ```
 
-## Tester l'accès au service lorsque le label d'accès n'est pas défini
+## Tester l'accès au Service lorsque le label d'accès n'est pas défini
 Lorsque vous tentez d'accéder au service `nginx` depuis un pod sans les bons labels, la requête échoue :
 
 ```console
