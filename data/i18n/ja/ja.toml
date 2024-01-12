@@ -59,7 +59,7 @@ other = "私は..."
 other = "ユーザー"
 
 [end_of_life]
-other = "保守終了日"
+other = "サポート終了日"
 
 [feedback_heading]
 other = "フィードバック"
