@@ -27,7 +27,8 @@ aliases:
     - rlenferink
   sig-docs-en-owners: # Admins for English content
     - divya-mohan0209
-    - katcosgrove # RT 1.29 Docs Lead
+    - katcosgrove # RT 1.30 Lead
+    - drewhagen # RT 1.30 Docs Lead
     - natalisucks
     - nate-double-u
     - onlydole
