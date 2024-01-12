@@ -324,6 +324,10 @@ appropriate for your security needs.
 
 ### Generate the encryption key {#generate-key-no-kms}
 
+The following steps assume that you are not using KMS, and therefore the steps also
+assume that you need to generate an encryption key. If you already have an encryption key,
+skip to [Write an encryption configuration file](#write-an-encryption-configuration-file).
+
 {{< caution >}}
 Storing the raw encryption key in the EncryptionConfig only moderately improves your security posture,
 compared to no encryption.
@@ -374,6 +378,15 @@ Generate a 32-byte random key and base64 encode it. You can use this command:
 Keep the encryption key confidential, including whilst you generate it and
 ideally even after you are no longer actively using it.
 {{< /note >}}
+
+### Replicate the encryption key
+
+Using a secure mechanism for file transfer, make a copy of that encryption key
+available to every other control plane host.
+
+At a minimum, use encryption in transit - for example, secure shell (SSH). For more
+security, use asymmetric encryption between hosts, or change the approach you are using
+so that you're relying on KMS encryption.
 
 ### Write an encryption configuration file
 
