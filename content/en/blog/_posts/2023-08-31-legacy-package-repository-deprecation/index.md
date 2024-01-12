@@ -98,6 +98,11 @@ we'll only publish packages to the new package repositories (`pkgs.k8s.io`).
 Kubernetes 1.29 and onwards will have packages published **only** to the
 community-owned repositories (`pkgs.k8s.io`).
 
+### What releases are available in the new community-owned package repositories?
+
+All releases starting from Kubernetes v1.24.0 are available in the 
+community-owned package repositories (`pkgs.k8s.io`).
+
 ## Can I continue to use the legacy package repositories?
 
 ~~The existing packages in the legacy repositories will be available for the foreseeable
