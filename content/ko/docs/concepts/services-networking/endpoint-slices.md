@@ -82,25 +82,25 @@ IPv4와 IPv6를 사용할 수 있는 서비스가 있을 경우,
 
 ### 컨디션
 
-엔드포인트슬라이스 API는 컨슈머에게 유용한 엔드포인트에 대한 조건을 저장한다.
-조건은 `ready`, `serving` 및 `Terminating` 세 가지가 있다.
+엔드포인트슬라이스 API는 컨슈머에게 유용한 엔드포인트에 대한 컨디션을 저장한다.
+컨디션은 `ready`, `serving` 및 `Terminating` 세 가지가 있다.
 
 #### Ready
 
-`ready`는 파드의 `Ready` 조건에 매핑되는 조건이다. `Ready` 조건이 `True`로 설정된 실행 중인 파드는
-이 엔드포인트슬라이스 조건도 `true`로 설정되어야 한다. 호환성의
-이유로, 파드가 종료될 때 `ready`는 절대 `true`가 되면 안 된다. 컨슈머는 `serving` 조건을 참조하여
+`ready`는 파드의 `Ready` 컨디션에 매핑되는 컨디션이다. `Ready` 컨디션이 `True`로 설정된 실행 중인 파드는
+이 엔드포인트슬라이스 컨디션도 `true`로 설정되어야 한다. 호환성의
+이유로, 파드가 종료될 때 `ready`는 절대 `true`가 되면 안 된다. 컨슈머는 `serving` 컨디션을 참조하여
 파드 종료 준비 상태(readiness)를 검사해야 한다.
 이 규칙의 유일한 예외는 `spec.publishNotReadyAddresses`가 `true`로 설정된 서비스이다.
-이러한 서비스의 엔드 포인트는 항상 `ready`조건이 `true`로 설정된다.
+이러한 서비스의 엔드 포인트는 항상 `ready` 컨디션이 `true`로 설정된다.
 
 #### Serving
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
-`serving`은 종료 상태를 고려하지 않는다는 점을 제외하면 `ready` 조건과 동일하다.
-엔드포인트슬라이스 API 컨슈머는 파드가 종료되는 동안 파드 준비 상태에 관심이 있다면
-이 조건을 확인해야 한다.
+`serving` 컨디션은 `ready` 컨디션과 거의 동일하다.
+차이점은 엔드포인트슬라이스 API 컨슈머는 파드가 종료되는 동안 파드 준비 상태에 관심이 있다면
+`serving` 컨디션을 확인해야 한다는 점이다.
 
 {{< note >}}
 
@@ -109,7 +109,7 @@ IPv4와 IPv6를 사용할 수 있는 서비스가 있을 경우,
 역사적으로 종료된 엔드포인트는 처음부터 엔드포인트 또는 엔드포인트슬라이스 API에 포함되지 않았기 때문이다.
 이러한 이유로 `ready`는 엔드포인트 종료를 위해 _always_ `false`이며,
 클라이언트가 `ready`에 대한 기존 의미와 관계없이 파드 종료 준비 상태를
-추적 할 수 있도록 v1.20에 새로운 조건 `serving`이 추가되었다.
+추적 할 수 있도록 v1.20에 새로운 컨디션 `serving`이 추가되었다.
 
 {{< /note >}}
 
@@ -117,7 +117,7 @@ IPv4와 IPv6를 사용할 수 있는 서비스가 있을 경우,
 
 {{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
-`종료(Terminating)`는 엔드포인트가 종료되는지 여부를 나타내는 조건이다.
+`종료(Terminating)`는 엔드포인트가 종료되는지 여부를 나타내는 컨디션이다.
 파드의 경우 삭제 타임 스탬프가 설정된 모든 파드이다.
 
 ### 토폴로지 정보 {#topology}
@@ -275,3 +275,4 @@ v1 API의 `zone` 필드로 접근할 수 있다.
 * [서비스와 애플리케이션 연결하기](/ko/docs/tutorials/services/connect-applications-service/) 튜토리얼을 따라하기
 * [엔드포인트슬라이스 API 레퍼런스](/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/) 를 읽어보기
 * [엔드포인트 API 레퍼런스](/docs/reference/kubernetes-api/service-resources/endpoints-v1/) 를 읽어보기
+
