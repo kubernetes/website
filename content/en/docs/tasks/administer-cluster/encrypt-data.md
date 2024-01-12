@@ -72,7 +72,18 @@ you already have at-rest encryption enabled. However, that check does not tell y
 a previous migration to encrypted storage has succeeded. If you are not sure, see
 [ensure all relevant data are encrypted](#ensure-all-secrets-are-encrypted).
 
-## Understanding the encryption at rest configuration
+## Plan an encryption-at-rest configuration {#understanding-the-encryption-at-rest-configuration}
+
+{{< caution >}}
+For cluster configurations with two or more control plane nodes, the encryption configuration
+**must** be identical across each control plane node.
+
+If there is a difference in the encryption provider configuration, this may well mean
+that the kube-apiserver can't decrypt data stored inside the key-value store (potentially
+leading to further problems, such as inconsistent resource reads, or even data loss).
+{{< /caution >}}
+
+Here is an example EncryptionConfiguration file for the kube-apiserver:
 
 <!-- note to localizers: the highlight is to make the initial comment obvious -->
 <!-- you can use as many lines as makes sense for your target localization    -->
@@ -132,35 +143,38 @@ resources:
             secret: c2VjcmV0IGlzIHNlY3VyZSwgSSB0aGluaw==
 {{< /highlight  >}}
 
-Each `resources` array item is a separate config and contains a complete configuration. The
-`resources.resources` field is an array of Kubernetes resource names (`resource` or `resource.group`)
-that should be encrypted like Secrets, ConfigMaps, or other resources.
 
-If custom resources are added to `EncryptionConfiguration` and the cluster version is 1.26 or newer,
-any newly created custom resources mentioned in the `EncryptionConfiguration` will be encrypted.
-Any custom resources that existed in etcd prior to that version and configuration will be unencrypted
-until they are next written to storage. This is the same behavior as built-in resources.
-See the [Ensure all secrets are encrypted](#ensure-all-secrets-are-encrypted) section.
+Each `resources` array item is a separate configuration and contains a full set of definitions for
+how Kubernetes should encrypt data. You can have more than one definition to allow for migration
+between an old and a new way of working, or to support different ways of encryption for different
+API kinds.
 
-The `providers` array is an ordered list of the possible encryption providers to use for the APIs that you listed.
-Each provider supports multiple keys - the keys are tried in order for decryption, and if the provider
-is the first provider, the first key is used for encryption.
+Within each top-level item, the inner `resources.resources` field is an array of Kubernetes resource
+types that the API server should encrypt.
+You can specify resource types as a simple type based on its URL representation (for example,
+`secrets` for the [Secret API](/docs/reference/kubernetes-api/config-and-storage-resources/secret-v1/)),
+or as a resource along with its API group. Here is an example of the second form:
+`clusterroles.rbac.authorization.k8s.io`; in that example, the name up to the first
+`.` represents the API kind (ClusterRole) as it appears in API URLs, and the text
+`rbac.authorization.k8s.io` is the unversioned API group for Kubernetes RBAC APIs.
+Whether you use simple or fully defined types, these specify which resources you want
+to have encrypted.
 
-Only one provider type may be specified per entry (`identity` or `aescbc` may be provided,
-but not both in the same item).
-The first provider in the list is used to encrypt resources written into the storage. When reading
-resources from storage, each provider that matches the stored data attempts in order to decrypt the
-data. If no provider can read the stored data due to a mismatch in format or secret key, an error
-is returned which prevents clients from accessing that resource.
+### Wildcards {#config-wildcards}
+
 
 `EncryptionConfiguration` supports the use of wildcards to specify the resources that should be encrypted.
-Use '`*.<group>`' to encrypt all resources within a group (for eg '`*.apps`' in above example) or '`*.*`'
-to encrypt all resources. '`*.`' can be used to encrypt all resource in the core group. '`*.*`' will
-encrypt all resources, even custom resources that are added after API server start.
+Use `*.<group>` to encrypt all resources within an API group (for example, `*.apps` to encrypt every
+resource in the `apps` group), or `*.*` to encrypt all resources.
+To encrypt all resource in the core group, specify `*.` with a trailing period.
+Specifying `*.*` will encrypt _all_ resources, even custom resources that are added after
+the API server has started.
 
-{{< note >}} Use of wildcards that overlap within the same resource list or across multiple entries are not allowed
+{{< note >}}
+Use of wildcards that overlap within the same resource list or across multiple entries are not allowed
 since part of the configuration would be ineffective. The `resources` list's processing order and precedence
-are determined by the order it's listed in the configuration. {{< /note >}}
+are determined by the order that items are listed in the configuration.
+{{< /note >}}
 
 If you have a wildcard covering resources and want to opt out of at-rest encryption for a particular kind
 of resource, you achieve that by adding a separate `resources` array item with the name of the resource that
@@ -191,6 +205,53 @@ to give it precedence.
 For more detailed information about the `EncryptionConfiguration` struct, please refer to the
 [encryption configuration API](/docs/reference/config-api/apiserver-encryption.v1/).
 
+### Providers {#config-providers}
+
+The `providers` array is an ordered list of the possible encryption providers. Although
+it's a list (and not a map), you cannot repeat the encryption kind that forms the top
+level entry of each list item (for example: you can specify `identity` or `aescbc`, but not both
+in the same item). Here is the same **invalid example** as a configuration snippet:
+```yaml
+  ...
+  - resources:
+      - 'examples'
+    providers:
+      - aescbc:
+          keys: # you can list more than one key
+          - name: key3
+            # as this is the first key for the first listed provider, this is
+            # the key that would be used to encrypt new "examples" objects
+            secret: c2VjcmV0IGlzIHNlY3VyZSwgSSB0aGluaw==
+      - aescbc: # INVALID as it duplicates "aescbc" for the same item
+          keys:
+          - name: key4
+            secret: RXZlbiBtb3JlIHNlY3VyZSwgcGVyaGFwcwo=
+```
+
+Each provider supports multiple keys - the keys are tried in order for decryption, and if the provider
+is the first provider, the first key is also used for encryption.
+
+If you add custom resources into `EncryptionConfiguration` and the cluster version is 1.26 or newer,
+any newly created custom resources mentioned in the `EncryptionConfiguration` will be encrypted.
+Any custom resources that existed in etcd prior to that version and configuration will be unencrypted
+until they are next written to storage. This is the same behavior as built-in resources.
+See the [Ensure all secrets are encrypted](#ensure-all-secrets-are-encrypted) section.
+
+Within an item, the `providers` array is an ordered list of the possible encryption providers to use
+for the APIs that you listed.
+
+This ordered list can contain more than one provider - the order matters - but you cannot repeat the
+same provider within one top-level item. For example, a top-level `resources` item can specify
+a `providers` array with details for `aescbc` and for `identity`, in that order, but not for
+`aescbc` and then a different `aescbc` configuration).
+
+For encryption, Kubernetes always uses the first item from the `providers` array. The other entries
+in that configuration array are used for decryption: Kubernetes attempts to decrypt the stored data
+using each provider in turn, starting at the first entry that is also used for encryption.
+If decryption succeeds, Kubernetes uses that data.
+If no provider can read the stored data (perhaps due to a mismatch in format or secret key),
+an error is returned, and that error prevents clients from accessing that resource.
+
 {{< caution >}}
 If any resource is not readable via the encryption configuration (because keys were changed),
 and you cannot restore a working configuration, your only recourse is to delete that entry from
@@ -208,7 +269,7 @@ need to select which provider(s) you will use.
 The following table describes each available provider.
 
 <!-- localization note: if it makes sense to adapt this table to work for your localization,
-     please do that. Each sentence in the English original should have a direct equivalent in the adapted
+     please do that. Each sentence in the original should have a direct equivalent in the adapted
      layout, although this may not always be possible -->
 <table class="complex-layout">
 <caption style="display: none;">Providers for Kubernetes encryption at rest</caption>
@@ -315,9 +376,9 @@ encrypt stored data and provides _no_ additional confidentiality protection.**
 #### Local key storage
 
 Encrypting secret data with a locally managed key protects against an etcd compromise, but it fails to
-protect against a host compromise. Since the encryption keys are stored on the host in the
-EncryptionConfiguration YAML file, a skilled attacker can access that file and extract the encryption
-keys.
+protect against a host compromise. Since the encryption keys are readable - in the clear - on the
+control plane host in the EncryptionConfiguration YAML file, a skilled attacker can access that file
+and extract the encryption keys.
 
 #### Managed (KMS) key storage {#kms-key-storage}
 
@@ -340,13 +401,12 @@ You should take appropriate measures to protect the confidential information tha
 whether that is a local encryption key, or an authentication token that allows the API server to
 call KMS.
 
-Even when you rely on a provider to manage the use and lifecycle of the main encryption key (or keys), you are still responsible
-for making sure that access controls and other security measures for the managed encryption service are
-appropriate for your security needs.
+Even when you rely on a provider to manage the use and lifecycle of the main encryption key (or keys), you are
+still responsible for making sure that access controls and other security measures for the managed encryption service
+are appropriate for your security needs.
 
 ## Encrypt your data {#encrypting-your-data}
 
-### Generate the encryption key {#generate-key-no-kms}
 
 The following steps assume that you are not using KMS, and therefore the steps also
 assume that you need to generate an encryption key. If you already have an encryption key,
@@ -365,6 +425,12 @@ up encryption at rest using KMS, see
 [Using a KMS provider for data encryption](/docs/tasks/administer-cluster/kms-provider/).
 The KMS provider plugin that you use may also come with additional specific documentation.
 {{< /caution >}}
+
+The following steps assume that you are not using KMS, and therefore the steps also
+assume that you need to generate an encryption key. If you already have an encryption key,
+skip to [Write an encryption configuration file](#write-an-encryption-configuration-file).
+
+### Generate the encryption key {#generate-key-no-kms}
 
 Start by generating a new encryption key, and then encode it using base64:
 
@@ -396,7 +462,6 @@ Generate a 32-byte random key and base64 encode it. You can use this command:
 ```
 {{% /tab %}}
 {{< /tabs >}}
-
 
 {{< note >}}
 Keep the encryption key confidential, including while you generate it and
@@ -442,17 +507,28 @@ resources:
                      # for example, during initial migration
 ```
 
-To create a new encryption key (that does not use KMS), see
+To create a new encryption key that does not use KMS, see
 [Generate the encryption key](#generate-key-no-kms).
 
-### Use the new encryption configuration file
+### Use the new encryption configuration file {#api-server-config-update}
 
-You will need to mount the new encryption config file to the `kube-apiserver` static pod. Here is an example on how to do that:
+On a typical cluster than runs the API server as a {{< glossary_tooltip text="static pod" term_id="static-pod" >}},
+you will need to mount the new encryption config file into the Pod for the kube-apiserver.
 
-1. Save the new encryption config file to `/etc/kubernetes/enc/enc.yaml` on the control-plane node.
-1. Edit the manifest for the `kube-apiserver` static pod: `/etc/kubernetes/manifests/kube-apiserver.yaml` so that it is similar to:
+You need to do this for each control plane host where you are running an API server.
 
-   ```yaml
+#### Update the configuration of each API server {#api-server-config-update-initial}
+
+You will need to mount the new encryption configuration file to the `kube-apiserver`
+static pod manifest on each control plane host. Here is an example of how to do that:
+
+1. Save the new encryption configuration file to `/etc/kubernetes/enc/enc.yaml` on the
+   control-plane node.
+1. Edit the manifest for the `kube-apiserver` static pod, typically
+   `/etc/kubernetes/manifests/kube-apiserver.yaml`. That static Pod should end up
+   similar to:
+
+   {{< highlight yaml "linenos=false,hl_lines=22" >}}
    ---
    #
    # This is a fragment of a manifest for a static Pod.
@@ -488,34 +564,26 @@ You will need to mount the new encryption config file to the `kube-apiserver` st
          path: /etc/kubernetes/enc           # add this line
          type: DirectoryOrCreate             # add this line
      ...
-   ```
+   {{< / highlight >}}
 
-1. Restart your API server.
+1. Restart the API server; for example, using `crictl stopp`.
+   (When you manually stop a static Pod, the kubelet automatically creates a new
+    replacement Pod based on the current manifest.)
 
-{{< caution >}}
-Your config file contains keys that can decrypt the contents in etcd, so you must properly restrict
-permissions on your control-plane nodes so only the user who runs the `kube-apiserver` can read it.
-{{< /caution >}}
+{{< note >}}
+Depending on your information security needs, you may want to create a secure backup of the
+configuration file. If appropriate, do that before you continue.
+
+If you do take a backup, it's good practice to check you can read it afterwards.
+{{< /note >}}
 
 You now have encryption in place for **one** control plane host. A typical
 Kubernetes cluster has multiple control plane hosts, so there is more to do.
 
-### Reconfigure other control plane hosts {#api-server-config-update-more}
+#### Reconfigure other control plane hosts {#api-server-config-update-more}
 
 If you have multiple API servers in your cluster, you should deploy the
 changes in turn to each API server.
-
-{{< caution >}}
-For cluster configurations with two or more control plane nodes, the encryption configuration
-should be identical across each control plane node.
-
-If there is a difference in the encryption provider configuration between control plane
-nodes, this difference may mean that the kube-apiserver can't decrypt data.
-{{< /caution >}}
-
-When you are planning to update the encryption configuration of your cluster, plan this
-so that the API servers in your control plane can always decrypt the stored data
-(even part way through rolling out the change).
 
 Make sure that you use the **same** encryption configuration on each
 control plane host.
