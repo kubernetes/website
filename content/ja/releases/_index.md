@@ -9,7 +9,7 @@ notoc: true
 <!-- overview -->
 
 Kubernetesプロジェクトは、最新の3つのマイナーリリース({{< skew latestVersion >}}、{{< skew prevMinorVersion >}}、{{< skew oldestMinorVersion >}})のリリースブランチをメンテナンスしています。
-Kubernetes 1.19以降のバージョンは、[約1年間のパッチサポート](/releases/patch-releases/#support-period)を受けつけます。
+Kubernetes 1.19以降のバージョンは、[約1年間のパッチサポート](/releases/patch-releases/#support-period)を受け付けています。
 Kubernetes 1.18以前のバージョンは、約9ヶ月間のパッチサポートを受けつけていました。
 
 Kubernetesのバージョンは、**x.y.z**と表されます。
