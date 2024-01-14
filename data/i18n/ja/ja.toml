@@ -196,6 +196,9 @@ other = "始める前に"
 [previous_patches]
 other = "パッチリリース"
 
+[release_date_after]
+other = ")"
+
 [release_date_before]
 other = "(リリース日: "
 
