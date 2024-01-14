@@ -5,10 +5,10 @@ content_type: concept
 
 Olá!
 
-Nessa página vai encontrar informações sobre convenções usadas na documentação em português, assim como um glossário de termos com suas respectivas traduções.
+Esta página contém informações sobre convenções usadas na documentação em português, assim como um dicionário de termos com suas respectivas traduções.
 
 
-## Glossário de termos {#termos}
+## Dicionário de termos com tradução
 
 |      Inglês            |        Português          |   Comentários           |
 | ---------------------- | ----------------------    | ----------------------- |
@@ -22,3 +22,24 @@ Nessa página vai encontrar informações sobre convenções usadas na documenta
 | container image        | imagem do contêiner       |                         | 
 | dashboard              | painel                    |                         | 
 | data plane             | camada de dados           |                         | 
+| builtin                | embutido                  |                         | 
+
+
+## Dicionário de termos não traduzidos
+
+|      Inglês            |    Comentários           |
+| ---------------------- | -----------------------  |
+| addon manager          |                          |
+| auto-scaling           |                          |
+| bind                   |                          |
+| cloud native           |                          |
+| controller manager     |                          |
+| deploy                 |                          |
+| service mesh           |                          |
+| release                |                          |
+| proxy                  |                          |
+| endpoint               |                          |
+
+
+
+
