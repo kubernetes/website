@@ -41,7 +41,7 @@ this is true when user namespaces are used.
 * You need to exec commands in the host
 * You need to be able to exec into pods
 * You need to enable the `UserNamespacesSupport`
-  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  [feature gate](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/)
 
 {{< note >}}
 The feature gate to enable user namespaces was previously named
@@ -50,12 +50,12 @@ Only Kubernetes v1.25 through to v1.27 recognise `UserNamespacesStatelessPodsSup
 {{</ note >}}
 
 The cluster that you're using **must** include at least one node that meets the
-[requirements](/docs/concepts/workloads/pods/user-namespaces/#before-you-begin)
+[requirements]( https://kubernetes.io/docs/concepts/workloads/pods/user-namespaces/)
 for using user namespaces with Pods.
 
 If you have a mixture of nodes and only some of the nodes provide user namespace support for
 Pods, you also need to ensure that the user namespace Pods are
-[scheduled](/docs/concepts/scheduling-eviction/assign-pod-node/) to suitable nodes.
+[scheduled](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/) to suitable nodes.
 
 Please note that **if your container runtime doesn't support user namespaces, the
 `hostUsers` field in the pod spec will be silently ignored and the pod will be
