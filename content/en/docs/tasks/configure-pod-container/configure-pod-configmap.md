@@ -728,10 +728,8 @@ kubectl delete pod dapi-test-pod --now
 
 ### Project keys to specific paths and file permissions
 
-You can project keys to specific paths and specific permissions on a per-file
-basis. The
-[Secrets](/docs/concepts/configuration/secret/#using-secrets-as-files-from-a-pod)
-guide explains the syntax.
+You can project keys to specific paths. Refer to the corresponding section in the [Secrets](/docs/tasks/inject-data-application/distribute-credentials-secure/#project-secret-keys-to-specific-file-paths) guide for the syntax.  
+You can set POSIX permissions for keys. Refer to the corresponding section in the [Secrets](/docs/tasks/inject-data-application/distribute-credentials-secure/#set-posix-permissions-for-secret-keys) guide for the syntax.
 
 ### Optional references
 
