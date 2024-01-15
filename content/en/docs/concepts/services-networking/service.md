@@ -826,9 +826,9 @@ If you want to map a Service directly to a specific IP address, consider using
 
 {{< note >}}
 If the external service has a valid domain name and you don’t need port remapping, 
-then using the “ExternalName” service type is an easy and quick way to map the external 
+then using the `ExternalName` service type is an easy and quick way to map the external 
 service to an internal one. If you don’t have a domain name or need to do port remapping, 
-simply add the IP addresses to an EndpointSlice and use that instead.
+add the IP addresses to an `EndpointSlice` and use that instead.
 {{< /note >}}
 
 When looking up the host `my-service.prod.svc.cluster.local`, the cluster DNS Service
