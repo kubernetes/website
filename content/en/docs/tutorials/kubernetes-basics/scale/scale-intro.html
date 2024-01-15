@@ -31,7 +31,9 @@ description: |-
             <p>If you haven't worked through the earlier sections, start from <a href="/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/">Using minikube to create a cluster</a>.</p>
 
             <p><em>Scaling</em> is accomplished by changing the number of replicas in a Deployment</p>
-            <p> <b> NOTE </b> If you are trying this after <a href="/docs/tutorials/kubernetes-basics/expose/expose-intro/">the previous section </a>, you may need to start from <a href="/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/">creating a cluster</a> as the services may have been deleted </p>
+              {{< note >}}
+            <p>If you are trying this after <a href="/docs/tutorials/kubernetes-basics/expose/expose-intro/">the previous section</a>, you may have deleted the Service exposing the Deployment. In that case, please expose the Deployment again using the following command:</p><p><code><b>kubectl expose deployment/kubernetes-bootcamp --type="NodePort" --port 8080</b></code></p>
+              {{< /note >}}
             </div>
             <div class="col-md-4">
                 <div class="content__box content__box_lined">
