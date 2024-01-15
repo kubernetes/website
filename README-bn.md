@@ -30,7 +30,7 @@
 - [Hugo (বর্ধিত সংস্করণ)](https://gohugo.io/)
 - একটি ধারক রানটাইম, উদাহরন হিসেবে [Docker](https://www.docker.com/).
 
-আপনি কাজ শুরু করার আগে, দরকারি জিনিশগুলি ইনস্টল করুন। সংগ্রহস্থল ক্লোন(clone) করুন এবং ডিরেক্টরিতে(directory) প্রবেশ করুন:
+আপনি কাজ শুরু করার আগে, দরকারি জিনিসগুলো  ইনস্টল করুন। সংগ্রহস্থল ক্লোন(clone) করুন এবং ডিরেক্টরিতে(directory) প্রবেশ করুন:
 ```bash
 git clone https://github.com/kubernetes/website.git
 cd website
