@@ -107,7 +107,7 @@ y monta ese volumen para un Pod. Para los volúmenes que admiten múltiples modo
 
 Una vez que un usuario tiene una solicitud y esa solicitud está unida, el PV unido pertenece al
 usuario mientras lo necesiten. Los usuarios programan Pods y acceden a sus PVs reclamados incluyendo una sección de `persistentVolumeClaim` en el bloque `volumes` de un Pod.
-Consulta [Claims As Volumes](#claims-as-volumes) para más detalles sobre esto.
+Consulta [Solicitudes como Volúmenes](#solicitudes-como-volumenes) para más detalles sobre esto.
 
 ### Protección de Objeto de Almacenamiento en Uso
 
