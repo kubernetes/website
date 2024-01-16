@@ -133,13 +133,12 @@ For example, this is how to start a simple web server as a static Pod:
 <!--
 1. Choose a directory, say `/etc/kubernetes/manifests` and place a web server
    Pod definition there, for example `/etc/kubernetes/manifests/static-web.yaml`:
+
+   # Run this command on the node where kubelet is running
 -->
 2. 选择一个目录，比如在 `/etc/kubernetes/manifests` 目录来保存 Web 服务 Pod 的定义文件，例如
    `/etc/kubernetes/manifests/static-web.yaml`：
 
-   <!--
-   # Run this command on the node where kubelet is running
-   -->
    ```shell
    # 在 kubelet 运行的节点上执行以下命令
    mkdir -p /etc/kubernetes/manifests/
@@ -162,24 +161,21 @@ For example, this is how to start a simple web server as a static Pod:
    ```
 
 <!--
-1. Configure your kubelet on the node to use this directory by running it with
+1. Configure the kubelet on that node to set a `staticPodPath` value in the
+   [kubelet configuration file](/docs/reference/config-api/kubelet-config.v1beta1/).  
+   See [Set Kubelet Parameters Via A Configuration File](/docs/tasks/administer-cluster/kubelet-config-file/)
+   for more information.
+
+   An alternative and deprecated method is to configure the kubelet on that node
+   to look for static Pod manifests locally, using a command line argument.
+   To use the deprecated approach, start the kubelet with the
    `--pod-manifest-path=/etc/kubernetes/manifests/` argument.
-   On Fedora, edit `/etc/kubernetes/kubelet` to include this line:
 -->
-3. 配置这个节点上的 kubelet，使用这个参数执行 `--pod-manifest-path=/etc/kubernetes/manifests/`。
-   在 Fedora 上编辑 `/etc/kubernetes/kubelet` 以包含下面这行：
+3. 在该节点上配置 kubelet，在 [kubelet 配置文件](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)中设定 `staticPodPath` 值。
+   欲了解更多信息，请参考[通过配置文件设定 kubelet 参数](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)。
 
-   ```
-   KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubernetes/manifests/"
-   ```
-
-   <!--
-   or add the `staticPodPath: <the directory>` field in the
-   [kubelet configuration file](/docs/reference/config-api/kubelet-config.v1beta1/).
-   -->
-   或者在 [Kubelet 配置文件](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)中添加
-   `staticPodPath: <目录>`字段。
-
+   另一个已弃用的方法是，在该节点上通过命令行参数配置 kubelet，以便从本地查找静态 Pod 清单。
+   若使用这种弃用的方法，请启动 kubelet 时加上 `--pod-manifest-path=/etc/kubernetes/manifests/` 参数。
 <!--
 1. Restart the kubelet. On Fedora, you would run:
 

@@ -247,7 +247,8 @@ request. The API server checks the validity of that bearer token as follows:
 
 The TokenRequest API produces _bound tokens_ for a ServiceAccount. This
 binding is linked to the lifetime of the client, such as a Pod, that is acting
-as that ServiceAccount.
+as that ServiceAccount.  See [Token Volume Projection](/docs/tasks/configure-pod-container/configure-service-account/#serviceaccount-token-volume-projection)
+for an example of a bound pod service account token's JWT schema and payload.
 
 For tokens issued using the `TokenRequest` API, the API server also checks that
 the specific object reference that is using the ServiceAccount still exists,
@@ -269,7 +270,7 @@ account credentials, you can use the following methods:
 
 The Kubernetes project recommends that you use the TokenReview API, because
 this method invalidates tokens that are bound to API objects such as Secrets,
-ServiceAccounts, and Pods when those objects are deleted. For example, if you
+ServiceAccounts, Pods or Nodes when those objects are deleted. For example, if you
 delete the Pod that contains a projected ServiceAccount token, the cluster
 invalidates that token immediately and a TokenReview immediately fails.
 If you use OIDC validation instead, your clients continue to treat the token

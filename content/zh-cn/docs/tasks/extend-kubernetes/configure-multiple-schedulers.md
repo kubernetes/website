@@ -137,11 +137,10 @@ the `kube-scheduler` during initialization with the `--config` option. The `my-s
 
 <!--
 In the aforementioned Scheduler Configuration, your scheduler implementation is represented via
-a [KubeSchedulerProfile](/docs/reference/config-api/kube-scheduler-config.v1beta3/#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerProfile).
+a [KubeSchedulerProfile](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-KubeSchedulerProfile).
 -->
 在前面提到的调度器配置中，你的调度器呈现为一个
-[KubeSchedulerProfile](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerProfile)。
-
+[KubeSchedulerProfile](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-KubeSchedulerProfile)。
 {{< note >}}
 <!--
 To determine if a scheduler is responsible for scheduling a specific Pod, the `spec.schedulerName` field in a
@@ -164,11 +163,11 @@ Also, note that you create a dedicated service account `my-scheduler` and bind t
 Please see the
 [kube-scheduler documentation](/docs/reference/command-line-tools-reference/kube-scheduler/) for
 detailed description of other command line arguments and
-[Scheduler Configuration reference](/docs/reference/config-api/kube-scheduler-config.v1beta3/) for
+[Scheduler Configuration reference](/docs/reference/config-api/kube-scheduler-config.v1/) for
 detailed description of other customizable `kube-scheduler` configurations.
 -->
 请参阅 [kube-scheduler 文档](/zh-cn/docs/reference/command-line-tools-reference/kube-scheduler/)
-获取其他命令行参数以及 [Scheduler 配置参考](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/)
+获取其他命令行参数以及 [Scheduler 配置参考](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)
 获取自定义 `kube-scheduler` 配置的详细说明。
 
 <!--

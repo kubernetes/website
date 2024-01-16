@@ -33,7 +33,7 @@ Kubernetesドキュメントコントリビューターは
 ## はじめに
 
 どなたでも、問題を説明するissueや、ドキュメントの改善を求めるissueを作成し、[`kubernetes/website` GitHub リポジトリ](https://github.com/kubernetes/website)に対するプルリクエスト(PR)を用いて変更に貢献することができます。
-Kubernetesコミュニティで効果的に働くためには、[git](https://git-scm.com/)と[GitHub](https://lab.github.com/)を基本的に使いこなせる必要があります。
+Kubernetesコミュニティで効果的に働くためには、[git](https://git-scm.com/)と[GitHub](https://skills.github.com/)を基本的に使いこなせる必要があります。
 
 ドキュメンテーションに関わるには:
 

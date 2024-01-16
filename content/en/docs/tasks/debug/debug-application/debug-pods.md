@@ -109,15 +109,15 @@ If your pod is not behaving as you expected, it may be that there was an error i
 pod description (e.g. `mypod.yaml` file on your local machine), and that the error
 was silently ignored when you created the pod.  Often a section of the pod description
 is nested incorrectly, or a key name is typed incorrectly, and so the key is ignored.
-For example, if you misspelled `command` as `commnd` then the pod will be created but
+For example, if you misspelled `command` as `command` then the pod will be created but
 will not use the command line you intended it to use.
 
 The first thing to do is to delete your pod and try creating it again with the `--validate` option.
 For example, run `kubectl apply --validate -f mypod.yaml`.
-If you misspelled `command` as `commnd` then will give an error like this:
+If you misspelled `command` as `command` then will give an error like this:
 
 ```shell
-I0805 10:43:25.129850   46757 schema.go:126] unknown field: commnd
+I0805 10:43:25.129850   46757 schema.go:126] unknown field: command
 I0805 10:43:25.129973   46757 schema.go:129] this may be a false alarm, see https://github.com/kubernetes/kubernetes/issues/6842
 pods/mypod
 ```

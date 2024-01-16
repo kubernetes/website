@@ -37,7 +37,7 @@ you can deploy worker nodes running either Windows or Linux.
 
 Windows {{< glossary_tooltip text="nodes" term_id="node" >}} are
 [supported](#windows-os-version-support) provided that the operating system is
-Windows Server 2019.
+Windows Server 2019 or Windows Server 2022.
 
 This document uses the term *Windows containers* to mean Windows containers with
 process isolation. Kubernetes does not support running Windows containers with
@@ -320,8 +320,7 @@ The following container runtimes work with Windows:
 You can use {{< glossary_tooltip term_id="containerd" text="ContainerD" >}} 1.4.0+
 as the container runtime for Kubernetes nodes that run Windows.
 
-Learn how to [install ContainerD on a Windows node](/docs/setup/production-environment/container-runtimes/#install-containerd).
-
+Learn how to [install ContainerD on a Windows node](/docs/setup/production-environment/container-runtimes/#containerd).
 {{< note >}}
 There is a [known limitation](/docs/tasks/configure-pod-container/configure-gmsa/#gmsa-limitations)
 when using GMSA with containerd to access Windows network shares, which requires a

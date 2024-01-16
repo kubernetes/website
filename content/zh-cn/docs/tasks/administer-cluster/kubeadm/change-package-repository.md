@@ -223,7 +223,7 @@ version.
 
 在从一个 Kubernetes 小版本升级到另一个版本时，应执行此步骤以获取所需 Kubernetes 小版本的软件包访问权限。
 
-{{< tabs name="k8s_install_versions" >}}
+{{< tabs name="k8s_upgrade_versions" >}}
 {{% tab name="Ubuntu、Debian 或 HypriotOS" %}}
 
 <!--
@@ -284,10 +284,10 @@ version.
    ```
    [kubernetes]
    name=Kubernetes
-   baseurl=https://pkgs.k8s.io/core:/stable:/v{{< skew currentVersionAddMinor -1 "." >}}/rpm/
+   baseurl=https://pkgs.k8s.io/core:/stable:/{{< skew currentVersionAddMinor -1 "." >}}/rpm/
    enabled=1
    gpgcheck=1
-   gpgkey=https://pkgs.k8s.io/core:/stable:/v{{< skew currentVersionAddMinor -1 "." >}}/rpm/repodata/repomd.xml.key
+   gpgkey=https://pkgs.k8s.io/core:/stable:/{{< skew currentVersionAddMinor -1 "." >}}/rpm/repodata/repomd.xml.key
    exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
    ```
 
@@ -299,10 +299,10 @@ version.
    ```
    [kubernetes]
    name=Kubernetes
-   baseurl=https://pkgs.k8s.io/core:/stable:/v{{< param "version" >}}/rpm/
+   baseurl=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/
    enabled=1
    gpgcheck=1
-   gpgkey=https://pkgs.k8s.io/core:/stable:/v{{< param "version" >}}/rpm/repodata/repomd.xml.key
+   gpgkey=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/repodata/repomd.xml.key
    exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
    ```
 

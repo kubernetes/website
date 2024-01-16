@@ -271,10 +271,10 @@ If set, any request presenting a client certificate signed by one of the authori
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The path to the cloud provider configuration file. Empty string for no configuration file. (DEPRECATED: will be removed in 1.24 or later, in favor of removing cloud providers code from kubelet.)
+The path to the cloud provider configuration file. Empty string for no configuration file. (DEPRECATED: will be removed in 1.25 or later, in favor of removing cloud providers code from kubelet.)
 -->
 云驱动配置文件的路径。空字符串表示没有配置文件。
-已弃用：将在 1.24 或更高版本中移除，以便于从 kubelet 中去除云驱动代码。
+已弃用：将在 1.25 或更高版本中移除，以便于从 kubelet 中去除云驱动代码。
 </td>
 </tr>
 
@@ -284,11 +284,11 @@ The path to the cloud provider configuration file. Empty string for no configura
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The provider for cloud services. Set to empty string for running with no cloud provider. If set, the cloud provider determines the name of the node (consult cloud provider documentation to determine if and how the hostname is used). (DEPRECATED: will be removed in 1.24 or later, in favor of removing cloud provider code from kubelet.)
+The provider for cloud services. Set to empty string for running with no cloud provider. Set to 'external' for running with an external cloud provider. If set, the cloud provider determines the name of the node (consult cloud provider documentation to determine if and how the hostname is used).
 -->
-云服务的提供者。设置为空字符串表示在没有云驱动的情况下运行。
+云服务的提供者。设置为空字符串表示在没有云驱动的情况下运行，
+设置为 'external' 表示使用外部云驱动。
 如果设置了此标志，则云驱动负责确定节点的名称（参考云提供商文档以确定是否以及如何使用主机名）。
-已弃用：将在 1.24 或更高版本中移除，以便于从 kubelet 中去除云驱动代码。
 </td>
 </tr>
 
@@ -399,17 +399,20 @@ The container runtime to use. Possible values: <code>docker</code>, <code>remote
 </tr>
 
 <tr>
-<td colspan="2">--container-runtime-endpoint string</td>
+<td colspan="2">--container-runtime-endpoint string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: <code>"unix:///run/containerd/containerd.sock"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
 The endpoint of remote runtime service. UNIX domain sockets are supported on Linux, while npipe and tcp endpoints are supported on windows. Examples: <code>unix:///path/to/runtime.sock</code>, <code>npipe:////./pipe/runtime</code>.
+The endpoint of remote runtime service. UNIX domain sockets are supported on Linux, while 'npipe' and 'tcp' endpoints are supported on windows. Examples: <code>'unix:///path/to/runtime.sock'</code>, <code>'npipe:////./pipe/runtime'</code>. (DEPRECATED: This parameter should be set via the config file specified by the kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
 -->
 远程运行时服务的端点。目前支持 Linux 系统上的 UNIX 套接字和
 Windows 系统上的 npipe 和 TCP 端点。例如：
 <code>unix:///path/to/runtime.sock</code>、
 <code>npipe:////./pipe/runtime</code>。
+（已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
+请参阅 <a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> 了解更多信息。）
 </td>
 </tr>
 
@@ -620,7 +623,7 @@ Maximum allowed grace period (in seconds) to use when terminating pods in respon
 </tr>
 
 <tr>
-<td colspan="2">--eviction-minimum-reclaim string</td>
+<td colspan="2">--eviction-minimum-reclaim strings</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -649,7 +652,7 @@ kubelet 在驱逐压力状况解除之前的最长等待时间。
 </tr>
 
 <tr>
-<td colspan="2">--eviction-soft string</td>
+<td colspan="2">--eviction-soft strings</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -664,7 +667,7 @@ A set of eviction thresholds (e.g. <code>memory.available>1.5Gi</code>) that if 
 </tr>
 
 <tr>
-<td colspan="2">--eviction-soft-grace-period string</td>
+<td colspan="2">--eviction-soft-grace-period strings</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -696,12 +699,12 @@ Whether kubelet should exit upon lock-file contention.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-When set to <code>true</code>, hard eviction thresholds will be ignored while calculating node allocatable. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/">here</a> for more details. (DEPRECATED: will be removed in 1.24 or later)
+When set to <code>true</code>, hard eviction thresholds will be ignored while calculating node allocatable. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/">here</a> for more details. (DEPRECATED: will be removed in 1.25 or later)
 -->
 设置为 <code>true</code> 表示在计算节点可分配资源数量时忽略硬性逐出阈值设置。
 参考<a href="https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/">
 相关文档</a>。
-已弃用：将在 1.24 或更高版本中移除。
+已弃用：将在 1.25 或更高版本中移除。
 </td>
 </tr>
 
@@ -739,8 +742,6 @@ Makes the kubelet fail to start if swap is enabled on the node. (DEPRECATED: Thi
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
 A set of <code>key=value</code> pairs that describe feature gates for alpha/experimental features. Options are:<br/>
-APIListChunking=true|false (BETA - default=true)<br/>
-APIPriorityAndFairness=true|false (BETA - default=true)<br/>
 APIResponseCompression=true|false (BETA - default=true)<br/>
 APISelfSubjectReview=true|false (BETA - default=true)<br/>
 APIServerIdentity=true|false (BETA - default=true)<br/>
@@ -756,11 +757,11 @@ CPUManagerPolicyBetaOptions=true|false (BETA - default=true)<br/>
 CPUManagerPolicyOptions=true|false (BETA - default=true)<br/>
 CRDValidationRatcheting=true|false (ALPHA - default=false)<br/>
 CSIMigrationPortworx=true|false (BETA - default=false)<br/>
-CSINodeExpandSecret=true|false (BETA - default=true)<br/>
 CSIVolumeHealth=true|false (ALPHA - default=false)<br/>
 CloudControllerManagerWebhook=true|false (ALPHA - default=false)<br/>
-CloudDualStackNodeIPs=true|false (ALPHA - default=false)<br/>
+CloudDualStackNodeIPs=true|false (BETA - default=true)<br/>
 ClusterTrustBundle=true|false (ALPHA - default=false)<br/>
+ClusterTrustBundleProjection=true|false (ALPHA - default=false)<br/>
 ComponentSLIs=true|false (BETA - default=true)<br/>
 ConsistentListFromCache=true|false (ALPHA - default=false)<br/>
 ContainerCheckpoint=true|false (ALPHA - default=false)<br/>
@@ -768,10 +769,10 @@ ContextualLogging=true|false (ALPHA - default=false)<br/>
 CronJobsScheduledAnnotation=true|false (BETA - default=true)<br/>
 CrossNamespaceVolumeDataSource=true|false (ALPHA - default=false)<br/>
 CustomCPUCFSQuotaPeriod=true|false (ALPHA - default=false)<br/>
-CustomResourceValidationExpressions=true|false (BETA - default=true)<br/>
-DevicePluginCDIDevices=true|false (ALPHA - default=false)<br/>
-DisableCloudProviders=true|false (ALPHA - default=false)<br/>
-DisableKubeletCloudCredentialProviders=true|false (ALPHA - default=false)<br/>
+DevicePluginCDIDevices=true|false (BETA - default=true)<br/>
+DisableCloudProviders=true|false (BETA - default=true)<br/>
+DisableKubeletCloudCredentialProviders=true|false (BETA - default=true)<br/>
+DisableNodeKubeProxyVersion=true|false (ALPHA - default=false)<br/>
 DynamicResourceAllocation=true|false (ALPHA - default=false)<br/>
 ElasticIndexedJob=true|false (BETA - default=true)<br/>
 EventedPLEG=true|false (BETA - default=false)<br/>
@@ -780,6 +781,7 @@ GracefulNodeShutdownBasedOnPodPriority=true|false (BETA - default=true)<br/>
 HPAContainerMetrics=true|false (BETA - default=true)<br/>
 HPAScaleToZero=true|false (ALPHA - default=false)<br/>
 HonorPVReclaimPolicy=true|false (ALPHA - default=false)<br/>
+ImageMaximumGCAge=true|false (ALPHA - default=false)<br/>
 InPlacePodVerticalScaling=true|false (ALPHA - default=false)<br/>
 InTreePluginAWSUnregister=true|false (ALPHA - default=false)<br/>
 InTreePluginAzureDiskUnregister=true|false (ALPHA - default=false)<br/>
@@ -788,79 +790,87 @@ InTreePluginGCEUnregister=true|false (ALPHA - default=false)<br/>
 InTreePluginOpenStackUnregister=true|false (ALPHA - default=false)<br/>
 InTreePluginPortworxUnregister=true|false (ALPHA - default=false)<br/>
 InTreePluginvSphereUnregister=true|false (ALPHA - default=false)<br/>
-JobBackoffLimitPerIndex=true|false (ALPHA - default=false)<br/>
+JobBackoffLimitPerIndex=true|false (BETA - default=true)<br/>
 JobPodFailurePolicy=true|false (BETA - default=true)<br/>
-JobPodReplacementPolicy=true|false (ALPHA - default=false)<br/>
-JobReadyPods=true|false (BETA - default=true)<br/>
-KMSv2=true|false (BETA - default=true)<br/>
-KMSv2KDF=true|false (BETA - default=false)<br/>
+JobPodReplacementPolicy=true|false (BETA - default=true)<br/>
 KubeProxyDrainingTerminatingNodes=true|false (ALPHA - default=false)<br/>
 KubeletCgroupDriverFromCRI=true|false (ALPHA - default=false)<br/>
 KubeletInUserNamespace=true|false (ALPHA - default=false)<br/>
 KubeletPodResourcesDynamicResources=true|false (ALPHA - default=false)<br/>
 KubeletPodResourcesGet=true|false (ALPHA - default=false)<br/>
+KubeletSeparateDiskGC=true|false (ALPHA - default=false)<br/>
 KubeletPodResourcesGetAllocatable=true|false (BETA - default=true)<br/>
 KubeletTracing=true|false (BETA - default=true)<br/>
-LegacyServiceAccountTokenCleanUp=true|false (ALPHA - default=false)<br/>
+LegacyServiceAccountTokenCleanUp=true|false (BETA - default=true)<br/>
+LoadBalancerIPMode=true|false (ALPHA - default=false)<br/>
 LocalStorageCapacityIsolationFSQuotaMonitoring=true|false (ALPHA - default=false)<br/>
 LogarithmicScaleDown=true|false (BETA - default=true)<br/>
 LoggingAlphaOptions=true|false (ALPHA - default=false)<br/>
 LoggingBetaOptions=true|false (BETA - default=true)<br/>
+MatchLabelKeysInPodAffinity=true|false (ALPHA - default=false)<br/>
 MatchLabelKeysInPodTopologySpread=true|false (BETA - default=true)<br/>
 MaxUnavailableStatefulSet=true|false (ALPHA - default=false)<br/>
 MemoryManager=true|false (BETA - default=true)<br/>
 MemoryQoS=true|false (ALPHA - default=false)<br/>
 MinDomainsInPodTopologySpread=true|false (BETA - default=true)<br/>
-MultiCIDRRangeAllocator=true|false (ALPHA - default=false)<br/>
 MultiCIDRServiceAllocator=true|false (ALPHA - default=false)<br/>
+NFTablesProxyMode=true|false (ALPHA - default=false)<br/>
 NewVolumeManagerReconstruction=true|false (BETA - default=true)<br/>
 NodeInclusionPolicyInPodTopologySpread=true|false (BETA - default=true)<br/>
 NodeLogQuery=true|false (ALPHA - default=false)<br/>
 NodeSwap=true|false (BETA - default=false)<br/>
 OpenAPIEnums=true|false (BETA - default=true)<br/>
 PDBUnhealthyPodEvictionPolicy=true|false (BETA - default=true)<br/>
-PersistentVolumeLastPhaseTransitionTime=true|false (ALPHA - default=false)<br/>
+PersistentVolumeLastPhaseTransitionTime=true|false (BETA - default=true)<br/>
 PodAndContainerStatsFromCRI=true|false (ALPHA - default=false)<br/>
 PodDeletionCost=true|false (BETA - default=true)<br/>
 PodDisruptionConditions=true|false (BETA - default=true)<br/>
-PodHostIPs=true|false (ALPHA - default=false)<br/>
+PodHostIPs=true|false (BETA - default=true)<br/>
 PodIndexLabel=true|false (BETA - default=true)<br/>
-PodReadyToStartContainersCondition=true|false (ALPHA - default=false)<br/>
+PodLifecycleSleepAction=true|false (ALPHA - default=false)<br/>
+PodReadyToStartContainersCondition=true|false (BETA - default=true)<br/>
 PodSchedulingReadiness=true|false (BETA - default=true)<br/>
 ProcMountType=true|false (ALPHA - default=false)<br/>
 QOSReserved=true|false (ALPHA - default=false)<br/>
-ReadWriteOncePod=true|false (BETA - default=true)<br/>
 RecoverVolumeExpansionFailure=true|false (ALPHA - default=false)<br/>
-RemainingItemCount=true|false (BETA - default=true)<br/>
 RotateKubeletServerCertificate=true|false (BETA - default=true)<br/>
+RuntimeClassInImageCriApi=true|false (ALPHA - default=false)<br/>
 SELinuxMountReadWriteOncePod=true|false (BETA - default=true)<br/>
-SchedulerQueueingHints=true|false (BETA - default=true)<br/>
+SchedulerQueueingHints=true|false (BETA - default=false)<br/>
 SecurityContextDeny=true|false (ALPHA - default=false)<br/>
-ServiceNodePortStaticSubrange=true|false (BETA - default=true)<br/>
-SidecarContainers=true|false (ALPHA - default=false)<br/>
+SeparateTaintEvictionController=true|false (BETA - default=true)<br/>
+ServiceAccountTokenJTI=true|false (ALPHA - default=false)<br/>
+ServiceAccountTokenNodeBinding=true|false (ALPHA - default=false)<br/>
+ServiceAccountTokenNodeBindingValidation=true|false (ALPHA - default=false)<br/>
+ServiceAccountTokenPodNodeInfo=true|false (ALPHA - default=false)<br/>
+SidecarContainers=true|false (BETA - default=true)<br/>
 SizeMemoryBackedVolumes=true|false (BETA - default=true)<br/>
-SkipReadOnlyValidationGCE=true|false (ALPHA - default=false)<br/>
 StableLoadBalancerNodeSet=true|false (BETA - default=true)<br/>
 StatefulSetAutoDeletePVC=true|false (BETA - default=true)<br/>
 StatefulSetStartOrdinal=true|false (BETA - default=true)<br/>
 StorageVersionAPI=true|false (ALPHA - default=false)<br/>
-StorageVersionHash=true|false (BETA - default=true)<br/>
+StructuredAuthenticationConfiguration=true|false (ALPHA - default=false)<br/>
+StructuredAuthorizationConfiguration=true|false (ALPHA - default=false)<br/>
 TopologyAwareHints=true|false (BETA - default=true)<br/>
 TopologyManagerPolicyAlphaOptions=true|false (ALPHA - default=false)<br/>
-TopologyManagerPolicyBetaOptions=true|false (BETA - default=false)<br/>
+TopologyManagerPolicyBetaOptions=true|false (BETA - default=true)<br/>
 TopologyManagerPolicyOptions=true|false (BETA - default=true)<br/>
-UserNamespacesStatelessPodsSupport=true|false (ALPHA - default=false)<br/>
+TranslateStreamCloseWebsocketRequests=true|false (ALPHA - default=false)<br/>
+UnauthenticatedHTTP2DOSMitigation=true|false (BETA - default=true)<br/>
+UserNamespacesPodSecurityStandards=true|false (ALPHA - default=false)<br/>
+UnknownVersionInteroperabilityProxy=true|false (ALPHA - default=false)<br/>
+UserNamespacesSupport=true|false (ALPHA - default=false)<br/>
 ValidatingAdmissionPolicy=true|false (BETA - default=false)<br/>
+VolumeAttributesClass=true|false (ALPHA - default=false)<br/>
 VolumeCapacityPriority=true|false (ALPHA - default=false)<br/>
 WatchList=true|false (ALPHA - default=false)<br/>
 WinDSR=true|false (ALPHA - default=false)<br/>
 WinOverlay=true|false (BETA - default=true)<br/>
-WindowsHostNetwork=true|false (ALPHA - default=true)</p>
+WindowsHostNetwork=true|false (ALPHA - default=true)<br/>
+ZeroLimitedNominalConcurrencyShares=true|false (BETA - default=false)<br/>
 (DEPRECATED: This parameter should be set via the config file specified by the kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
 -->
 用于 alpha 实验性特性的特性开关组，每个开关以 key=value 形式表示。当前可用开关包括：</br>
-APIListChunking=true|false (BETA - 默认值为 true)<br/>
-APIPriorityAndFairness=true|false (BETA - 默认值为 true)<br/>
 APIResponseCompression=true|false (BETA - 默认值为 true)<br/>
 APISelfSubjectReview=true|false (BETA - 默认值为 true)<br/>
 APIServerIdentity=true|false (BETA - 默认值为 true)<br/>
@@ -876,11 +886,11 @@ CPUManagerPolicyBetaOptions=true|false (BETA - 默认值为 true)<br/>
 CPUManagerPolicyOptions=true|false (BETA - 默认值为 true)<br/>
 CRDValidationRatcheting=true|false (ALPHA -  默认值为 false)<br/>
 CSIMigrationPortworx=true|false (BETA - 默认值为 false)<br/>
-CSINodeExpandSecret=true|false (BETA - 默认值为 true)<br/>
 CSIVolumeHealth=true|false (ALPHA - 默认值为 false)<br/>
 CloudControllerManagerWebhook=true|false (ALPHA - 默认值为 false)<br/>
-CloudDualStackNodeIPs=true|false (ALPHA - 默认值为 false)<br/>
+CloudDualStackNodeIPs=true|false (BETA - 默认值为 true)<br/>
 ClusterTrustBundle=true|false (ALPHA - 默认值为 false)<br/>
+ClusterTrustBundleProjection=true|false (ALPHA - 默认值为 false)<br/>
 ComponentSLIs=true|false (BETA - 默认值为 true)<br/>
 ConsistentListFromCache=true|false (ALPHA - 默认值为 false)<br/>
 ContainerCheckpoint=true|false (ALPHA - 默认值为 false)<br/>
@@ -888,10 +898,10 @@ ContextualLogging=true|false (ALPHA - 默认值为 false)<br/>
 CronJobsScheduledAnnotation=true|false (BETA - 默认值为 true)<br/>
 CrossNamespaceVolumeDataSource=true|false (ALPHA - 默认值为 false)<br/>
 CustomCPUCFSQuotaPeriod=true|false (ALPHA - 默认值为 false)<br/>
-CustomResourceValidationExpressions=true|false (BETA - 默认值为 true)<br/>
-DevicePluginCDIDevices=true|false (ALPHA - 默认值为 false)<br/>
-DisableCloudProviders=true|false (ALPHA - 默认值为 false)<br/>
-DisableKubeletCloudCredentialProviders=true|false (ALPHA - 默认值为 false)<br/>
+DevicePluginCDIDevices=true|false (BETA - 默认值为 true)<br/>
+DisableCloudProviders=true|false (BETA - 默认值为 true)<br/>
+DisableKubeletCloudCredentialProviders=true|false (BETA - 默认值为 true)<br/>
+DisableNodeKubeProxyVersion=true|false (ALPHA - 默认值为 false)<br/>
 DynamicResourceAllocation=true|false (ALPHA - 默认值为 false)<br/>
 ElasticIndexedJob=true|false (BETA - 默认值为 true)<br/>
 EventedPLEG=true|false (BETA - 默认值为 false)<br/>
@@ -900,6 +910,7 @@ GracefulNodeShutdownBasedOnPodPriority=true|false (BETA - 默认值为 true)<br/
 HPAContainerMetrics=true|false (BETA - 默认值为 true)<br/>
 HPAScaleToZero=true|false (ALPHA - 默认值为 false)<br/>
 HonorPVReclaimPolicy=true|false (ALPHA - 默认值为 false)<br/>
+ImageMaximumGCAge=true|false (ALPHA - 默认值为 false)<br/>
 InPlacePodVerticalScaling=true|false (ALPHA - 默认值为 false)<br/>
 InTreePluginAWSUnregister=true|false (ALPHA - 默认值为 false)<br/>
 InTreePluginAzureDiskUnregister=true|false (ALPHA - 默认值为 false)<br/>
@@ -908,74 +919,85 @@ InTreePluginGCEUnregister=true|false (ALPHA - 默认值为 false)<br/>
 InTreePluginOpenStackUnregister=true|false (ALPHA - 默认值为 false)<br/>
 InTreePluginPortworxUnregister=true|false (ALPHA - 默认值为 false)<br/>
 InTreePluginvSphereUnregister=true|false (ALPHA - 默认值为 false)<br/>
-JobBackoffLimitPerIndex=true|false (ALPHA - 默认值为 false)<br/>
+JobBackoffLimitPerIndex=true|false (BETA - 默认值为 true)<br/>
 JobPodFailurePolicy=true|false (BETA - 默认值为 true)<br/>
-JobPodReplacementPolicy=true|false (ALPHA - 默认值为 false)<br/>
-JobReadyPods=true|false (BETA - 默认值为 true)<br/>
-KMSv2=true|false (BETA - 默认值为 true)<br/>
-KMSv2KDF=true|false (BETA - 默认值为 false)<br/>
+JobPodReplacementPolicy=true|false (BETA - 默认值为 true)<br/>
 KubeProxyDrainingTerminatingNodes=true|false (ALPHA - 默认值为 false)<br/>
 KubeletCgroupDriverFromCRI=true|false (ALPHA - 默认值为 false)<br/>
 KubeletInUserNamespace=true|false (ALPHA - 默认值为 false)<br/>
 KubeletPodResourcesDynamicResources=true|false (ALPHA - 默认值为 false)<br/>
 KubeletPodResourcesGet=true|false (ALPHA - 默认值为 false)<br/>
+KubeletSeparateDiskGC=true|false (ALPHA - 默认值为 false)<br/>
 KubeletPodResourcesGetAllocatable=true|false (BETA - 默认值为 true)<br/>
 KubeletTracing=true|false (BETA - 默认值为 true)<br/>
-LegacyServiceAccountTokenCleanUp=true|false (ALPHA - 默认值为 false)<br/>
+LegacyServiceAccountTokenCleanUp=true|false (BETA - 默认值为 true)<br/>
+LoadBalancerIPMode=true|false (ALPHA - 默认值为 false)<br/>
 LocalStorageCapacityIsolationFSQuotaMonitoring=true|false (ALPHA - 默认值为 false)<br/>
 LogarithmicScaleDown=true|false (BETA - 默认值为 true)<br/>
 LoggingAlphaOptions=true|false (ALPHA - 默认值为 false)<br/>
 LoggingBetaOptions=true|false (BETA - 默认值为 true)<br/>
+MatchLabelKeysInPodAffinity=true|false (ALPHA - 默认值为 false)<br/>
 MatchLabelKeysInPodTopologySpread=true|false (BETA - 默认值为 true)<br/>
 MaxUnavailableStatefulSet=true|false (ALPHA - 默认值为 false)<br/>
 MemoryManager=true|false (BETA - 默认值为 true)<br/>
 MemoryQoS=true|false (ALPHA - 默认值为 false)<br/>
 MinDomainsInPodTopologySpread=true|false (BETA - 默认值为 true)<br/>
-MultiCIDRRangeAllocator=true|false (ALPHA - 默认值为 false)<br/>
 MultiCIDRServiceAllocator=true|false (ALPHA - 默认值为 false)<br/>
+NFTablesProxyMode=true|false (ALPHA - 默认值为 false)<br/>
 NewVolumeManagerReconstruction=true|false (BETA - 默认值为 true)<br/>
 NodeInclusionPolicyInPodTopologySpread=true|false (BETA - 默认值为 true)<br/>
 NodeLogQuery=true|false (ALPHA - 默认值为 false)<br/>
 NodeSwap=true|false (BETA - 默认值为 false)<br/>
 OpenAPIEnums=true|false (BETA - 默认值为 true)<br/>
 PDBUnhealthyPodEvictionPolicy=true|false (BETA - 默认值为 true)<br/>
-PersistentVolumeLastPhaseTransitionTime=true|false (ALPHA - 默认值为 false)<br/>
+PersistentVolumeLastPhaseTransitionTime=true|false (BETA - 默认值为 true)<br/>
 PodAndContainerStatsFromCRI=true|false (ALPHA - 默认值为 false)<br/>
 PodDeletionCost=true|false (BETA - 默认值为 true)<br/>
 PodDisruptionConditions=true|false (BETA - 默认值为 true)<br/>
-PodHostIPs=true|false (ALPHA - 默认值为 false)<br/>
+PodHostIPs=true|false (BETA - 默认值为 true)<br/>
 PodIndexLabel=true|false (BETA - 默认值为 true)<br/>
-PodReadyToStartContainersCondition=true|false (ALPHA - 默认值为 false)<br/>
+PodLifecycleSleepAction=true|false (ALPHA - 默认值为 false)<br/>
+PodReadyToStartContainersCondition=true|false (BETA - 默认值为 true)<br/>
 PodSchedulingReadiness=true|false (BETA - 默认值为 true)<br/>
 ProcMountType=true|false (ALPHA - 默认值为 false)<br/>
 QOSReserved=true|false (ALPHA - 默认值为 false)<br/>
-ReadWriteOncePod=true|false (BETA - 默认值为 true)<br/>
 RecoverVolumeExpansionFailure=true|false (ALPHA - 默认值为 false)<br/>
-RemainingItemCount=true|false (BETA - 默认值为 true)<br/>
 RotateKubeletServerCertificate=true|false (BETA - 默认值为 true)<br/>
+RuntimeClassInImageCriApi=true|false (ALPHA - 默认值为 false)<br/>
 SELinuxMountReadWriteOncePod=true|false (BETA - 默认值为 true)<br/>
-SchedulerQueueingHints=true|false (BETA - 默认值为 true)<br/>
+SchedulerQueueingHints=true|false (BETA - 默认值为 false)<br/>
 SecurityContextDeny=true|false (ALPHA - 默认值为 false)<br/>
-ServiceNodePortStaticSubrange=true|false (BETA - 默认值为 true)<br/>
-SidecarContainers=true|false (ALPHA - 默认值为 false)<br/>
+SeparateTaintEvictionController=true|false (BETA - 默认值为 true)<br/>
+ServiceAccountTokenJTI=true|false (ALPHA - 默认值为 false)<br/>
+ServiceAccountTokenNodeBinding=true|false (ALPHA - 默认值为 false)<br/>
+ServiceAccountTokenNodeBindingValidation=true|false (ALPHA - 默认值为 false)<br/>
+ServiceAccountTokenPodNodeInfo=true|false (ALPHA - 默认值为 false)<br/>
+SidecarContainers=true|false (BETA - default=true)<br/>
 SizeMemoryBackedVolumes=true|false (BETA - 默认值为 true)<br/>
-SkipReadOnlyValidationGCE=true|false (ALPHA - 默认值为 false)<br/>
 StableLoadBalancerNodeSet=true|false (BETA - 默认值为 true)<br/>
 StatefulSetAutoDeletePVC=true|false (BETA - 默认值为 true)<br/>
 StatefulSetStartOrdinal=true|false (BETA - 默认值为 true)<br/>
 StorageVersionAPI=true|false (ALPHA - 默认值为 false)<br/>
 StorageVersionHash=true|false (BETA - 默认值为 true)<br/>
+StructuredAuthenticationConfiguration=true|false (ALPHA - 默认值为 false)<br/>
+StructuredAuthorizationConfiguration=true|false (ALPHA - 默认值为 false)<br/>
 TopologyAwareHints=true|false (BETA - 默认值为 true)<br/>
 TopologyManagerPolicyAlphaOptions=true|false (ALPHA - 默认值为 false)<br/>
-TopologyManagerPolicyBetaOptions=true|false (BETA - 默认值为 false)<br/>
+TopologyManagerPolicyBetaOptions=true|false (BETA - 默认值为 true)<br/>
 TopologyManagerPolicyOptions=true|false (BETA - 默认值为 true)<br/>
-UserNamespacesStatelessPodsSupport=true|false (ALPHA - 默认值为 false)<br/>
+TranslateStreamCloseWebsocketRequests=true|false (ALPHA - 默认值为 false)<br/>
+UnauthenticatedHTTP2DOSMitigation=true|false (BETA - 默认值为 true)<br/>
+UnknownVersionInteroperabilityProxy=true|false (ALPHA - 默认值为 false)<br/>
+UserNamespacesPodSecurityStandards=true|false (ALPHA - 默认值为 false)<br/>
+UserNamespacesSupport=true|false (ALPHA - 默认值为 false)<br/>
 ValidatingAdmissionPolicy=true|false (BETA - 默认值为 false)<br/>
+VolumeAttributesClass=true|false (ALPHA - 默认值为 false)<br/>
 VolumeCapacityPriority=true|false (ALPHA - 默认值为 false)<br/>
 WatchList=true|false (ALPHA - 默认值为 false)<br/>
 WinDSR=true|false (ALPHA - 默认值为 false)<br/>
 WinOverlay=true|false (BETA - 默认值为 true)<br/>
-WindowsHostNetwork=true|false (ALPHA - 默认值为 true)</p>
+WindowsHostNetwork=true|false (ALPHA - 默认值为 true)<br/>
+ZeroLimitedNominalConcurrencyShares=true|false (BETA - 默认值为 false)<br/>
 已弃用: 应在 <code>--config</code> 所给的配置文件中进行设置。
 （<a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file">进一步了解</a>）
 </td>
@@ -1138,11 +1160,13 @@ The percent of disk usage before which image garbage collection is never run. Lo
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The endpoint of remote image service. If not specified, it will be the same with <code>--container-runtime-endpoint</code> by default. UNIX Domain Socket are supported on Linux, while npipe and TCP endpoints are supported on Windows.  Examples: <code>unix:///var/run/dockershim.sock</code>, <code>npipe:////./pipe/dockershim</code>
+The endpoint of remote image service. If not specified, it will be the same with <code>--container-runtime-endpoint</code> by default. UNIX domain socket are supported on Linux, while `npipe` and `tcp` endpoints are supported on Windows. Examples: <code>unix:///path/to/runtime.sock</code>, <code>npipe:////./pipe/runtime</code>. (DEPRECATED: This parameter should be set via the config file specified by the kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
 -->
 远程镜像服务的端点。若未设定则默认情况下使用 <code>--container-runtime-endpoint</code>
 的值。目前支持的类型包括在 Linux 系统上的 UNIX 套接字端点和 Windows 系统上的 npipe 和 TCP 端点。
 例如：<code>unix:///var/run/dockershim.sock</code>、<code>npipe:////./pipe/dockershim</code>。
+（已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
+请参阅 <a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> 了解更多信息。）
 </td>
 </tr>
 
@@ -1195,10 +1219,11 @@ If enabled, the kubelet will integrate with the kernel memcg notification to det
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Burst to use while talking with kubernetes API server. The number must be >= 0. If 0 will use default burst (10). (DEPRECATED: This parameter should be set via the config file specified by the kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
+Burst to use while talking with kubernetes API server. The number must be >= 0. If 0 will use default burst (100). Doesn't cover events and node heartbeat apis which rate limiting is controlled by a different set of flags. (DEPRECATED: This parameter should be set via the config file specified by the kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
 -->
 每秒发送到 API 服务器 的突发请求数量上限。
 该数字必须大于或等于 0。如果为 0，则使用默认的突发值（100）。
+不包括事件和节点心跳 API，其速率限制由一组不同的标志控制。
 （已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
 请参阅 <a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> 了解更多信息。）
 </td>
@@ -1235,7 +1260,7 @@ QPS to use while talking with kubernetes API server. The number must be &gt;= 0.
 </tr>
 
 <tr>
-<td colspan="2">--kube-reserved string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: &lt;None&gt;-->默认值：&lt;None&gt;</td>
+<td colspan="2">--kube-reserved strings&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: &lt;None&gt;-->默认值：&lt;None&gt;</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -1407,7 +1432,7 @@ URL for accessing additional Pod specifications to run (DEPRECATED: This paramet
 </tr>
 
 <tr>
-<td colspan="2">--manifest-url-header string</td>
+<td colspan="2">--manifest-url-header strings</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -1728,11 +1753,9 @@ kubelet 默认值不同时，kubelet 都会出错。
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Unique identifier for identifying the node in a machine database, i.e cloud provider. (DEPRECATED: This parameter should be set via the config file specified by the kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
+Unique identifier for identifying the node in a machine database, i.e cloud provider.
 -->
 设置主机数据库（即，云驱动）中用来标识节点的唯一标识。
-（已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
-请参阅 <a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> 了解更多信息。）
 </td>
 </tr>
 
@@ -1971,7 +1994,7 @@ Timeout of all runtime requests except long running request - <code>pull</code>,
 </tr>
 
 <tr>
-<td colspan="2">--seccomp-default string</td>
+<td colspan="2">--seccomp-default</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -2212,9 +2235,9 @@ number for the log level verbosity
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Print version information and quit; --version=vX.Y.Z... sets the reported version.
+Print version information and quit; <code>--version=vX.Y.Z...</code> sets the reported version.
 -->
-打印 kubelet 版本信息并退出；--version=vX.Y.Z... 设置报告的版本。
+打印 kubelet 版本信息并退出；<code>--version=vX.Y.Z...</code> 设置报告的版本。
 </td>
 </tr>
 
@@ -2250,10 +2273,10 @@ The full path of the directory in which to search for additional third party vol
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Specifies interval for kubelet to calculate and cache the volume disk usage for all pods and volumes. To disable volume calculations, set to <code>0</code>. (DEPRECATED: This parameter should be set via the config file specified by the kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
+Specifies interval for kubelet to calculate and cache the volume disk usage for all pods and volumes. To disable volume calculations, set to a negative number. (DEPRECATED: This parameter should be set via the config file specified by the kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
 -->
 指定 kubelet 计算和缓存所有 Pod 和卷的磁盘用量总值的时间间隔。要禁用磁盘用量计算，
-可设置为 0。
+可设置为负数。
 （已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
 请参阅 <a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> 了解更多信息。）
 </td>

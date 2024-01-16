@@ -111,9 +111,9 @@ Some Pods have {{< glossary_tooltip text="init containers" term_id="init-contain
 as well as {{< glossary_tooltip text="app containers" term_id="app-container" >}}.
 By default, init containers run and complete before the app containers are started.
 
-{{< feature-state for_k8s_version="v1.28" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.29" state="beta" >}}
 
-Enabling the `SidecarContainers` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+Enabled by default, the `SidecarContainers` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 allows you to specify `restartPolicy: Always` for init containers.
 Setting the `Always` restart policy ensures that the init containers where you set it are
 kept running during the entire lifetime of the Pod.

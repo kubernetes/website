@@ -857,7 +857,7 @@ Vous devez créer un secret dans l'API Kubernetes avant de pouvoir l'utiliser.
 Un conteneur utilisant un secret en tant que point de montage de volume [subPath](#using-subpath) ne recevra pas les mises à jour des secrets.
 {{< /note >}}
 
-Les secrets sont décrits plus en détails [ici](/docs/user-guide/secrets).
+Les secrets sont décrits plus en détails [ici](/docs/concepts/configuration/secret/).
 
 ### storageOS {#storageos}
 

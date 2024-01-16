@@ -209,7 +209,7 @@ You should only create a ServiceAccount token Secret
 if you can't use the `TokenRequest` API to obtain a token,
 and the security exposure of persisting a non-expiring token credential
 in a readable API object is acceptable to you. For instructions, see
-[Manually create a long-lived API token for a ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/#manually-create-a-service-account-api-token).
+[Manually create a long-lived API token for a ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/#manually-create-an-api-token-for-a-serviceaccount).
 {{< /note >}}
 
 When using this Secret type, you need to ensure that the
@@ -381,7 +381,7 @@ The following YAML contains an example config for a TLS Secret:
 
 The TLS Secret type is provided only for convenience.
 You can create an `Opaque` type for credentials used for TLS authentication.
-However, using the defined and public Secret type (`kubernetes.io/ssh-auth`)
+However, using the defined and public Secret type (`kubernetes.io/tls`)
 helps ensure the consistency of Secret format in your project. The API server
 verifies if the required keys are set for a Secret of this type.
 
