@@ -485,17 +485,17 @@ Los tipos de PersistentVolume se implementan como plugins. Actualmente, Kubernet
 Los siguientes tipos de PersistentVolume están obsoletos.
 Esto significa que el soporte aún está disponible, pero se eliminará en una futura versión de Kubernetes.
 
-- [`azureFile`](/docs/concepts/storage/volumes/#azurefile) - Azure File
+- [`azureFile`](/es/docs/concepts/storage/volumes/#azurefile) - Azure File
   (**obsoleto** en v1.21)
-- [`flexVolume`](/docs/concepts/storage/volumes/#flexvolume) - FlexVolume
+- [`flexVolume`](/es/docs/concepts/storage/volumes/#flexvolume) - FlexVolume
   (**obsoleto** en v1.23)
-- [`portworxVolume`](/docs/concepts/storage/volumes/#portworxvolume) - Volumen Portworx
+- [`portworxVolume`](/es/docs/concepts/storage/volumes/#portworxvolume) - Volumen Portworx
   (**obsoleto** en v1.25)
-- [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume) - Volumen VMDK de vSphere
+- [`vsphereVolume`](/es/docs/concepts/storage/volumes/#vspherevolume) - Volumen VMDK de vSphere
   (**obsoleto** en v1.19)
-- [`cephfs`](/docs/concepts/storage/volumes/#cephfs) - Volumen CephFS
+- [`cephfs`](/es/docs/concepts/storage/volumes/#cephfs) - Volumen CephFS
   (**obsoleto** en v1.28)
-- [`rbd`](/docs/concepts/storage/volumes/#rbd) - Dispositivo de Bloque Rados (RBD)
+- [`rbd`](/es/docs/concepts/storage/volumes/#rbd) - Dispositivo de Bloque Rados (RBD)
   (**obsoleto** en v1.28)
 
 Versiones anteriores de Kubernetes también soportaban los siguientes tipos de PersistentVolume integrados:
