@@ -322,7 +322,7 @@ PersistentVolumeClaims a través de su campo `claimRef`, entonces el PersistentV
 el PersistentVolumeClaim se unirán.
 
 La unión ocurre independientemente de algunos criterios de coincidencia de volumen, incluida la afinidad de nodo.
-El plano de control aún verifica que la [clase de almacenamiento](/docs/concepts/storage/storage-classes/),
+El plano de control aún verifica que la [clase de almacenamiento](/es/docs/concepts/storage/storage-classes/),
 los modos de acceso y el tamaño de almacenamiento solicitado sean válidos.
 
 ```yaml
