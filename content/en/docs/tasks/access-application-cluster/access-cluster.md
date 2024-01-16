@@ -26,7 +26,7 @@ Check the location and credentials that kubectl knows about with this command:
 kubectl config view
 ```
 
-Many of the [examples](/docs/reference/kubectl/cheatsheet/) provide an introduction to using
+Many of the [examples](/docs/reference/kubectl/quick-reference/) provide an introduction to using
 `kubectl`, and complete documentation is found in the
 [kubectl reference](/docs/reference/kubectl/).
 

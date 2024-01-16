@@ -21,10 +21,10 @@ files by setting the `KUBECONFIG` environment variable or by setting the
 
 This overview covers `kubectl` syntax, describes the command operations, and provides common examples.
 For details about each command, including all the supported flags and subcommands, see the
-[kubectl](/docs/reference/generated/kubectl/kubectl-commands/) reference documentation.
+[kubectl](/docs/reference/kubectl/generated/kubectl/) reference documentation.
 
 For installation instructions, see [Installing kubectl](/docs/tasks/tools/#kubectl);
-for a quick guide, see the [cheat sheet](/docs/reference/kubectl/cheatsheet/).
+for a quick guide, see the [cheat sheet](/docs/reference/kubectl/quick-reference/).
 If you're used to using the `docker` command-line tool,
 [`kubectl` for Docker Users](/docs/reference/kubectl/docker-cli-to-kubectl/) explains some equivalent commands for Kubernetes.
 
@@ -582,7 +582,7 @@ Current user: plugins-user
 
 * Read the `kubectl` reference documentation:
   * the kubectl [command reference](/docs/reference/kubectl/kubectl/)
-  * the [command line arguments](/docs/reference/generated/kubectl/kubectl-commands/) reference
+  * the [command line arguments](/docs/reference/kubectl/generated/kubectl/) reference
 * Learn about [`kubectl` usage conventions](/docs/reference/kubectl/conventions/)
 * Read about [JSONPath support](/docs/reference/kubectl/jsonpath/) in kubectl
 * Read about how to [extend kubectl with plugins](/docs/tasks/extend-kubectl/kubectl-plugins)

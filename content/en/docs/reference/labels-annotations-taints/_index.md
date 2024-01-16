@@ -898,7 +898,7 @@ This is achieved via _SelectorSpreadPriority_.
 _SelectorSpreadPriority_ is a best effort placement. If the zones in your cluster are
 heterogeneous (for example: different numbers of nodes, different types of nodes, or different pod
 resource requirements), this placement might prevent equal spreading of your Pods across zones.
-If desired, you can use homogenous zones (same number and types of nodes) to reduce the probability
+If desired, you can use homogeneous zones (same number and types of nodes) to reduce the probability
 of unequal spreading.
 
 The scheduler (through the _VolumeZonePredicate_ predicate) also will ensure that Pods,
@@ -1375,7 +1375,7 @@ Example: `batch.kubernetes.io/controller-uid: "$UID"`
 Used on: Jobs and Pods controlled by Jobs
 
 This label is used as a programmatic way to get all Pods corresponding to a Job.  
-The `controller-uid` is a unique identifer that gets set in the `selector` field so the Job
+The `controller-uid` is a unique identifier that gets set in the `selector` field so the Job
 controller can get all the corresponding Pods.
 
 ### scheduler.alpha.kubernetes.io/defaultTolerations {#scheduleralphakubernetesio-defaulttolerations}
@@ -1948,7 +1948,7 @@ Example: `service.beta.kubernetes.io/aws-load-balancer-security-groups: "sg-53fa
 
 Used on: Service
 
-The AWS load balancer controller uses this annotation to specify a comma seperated list
+The AWS load balancer controller uses this annotation to specify a comma separated list
 of security groups you want to attach to an AWS load balancer. Both name and ID of security
 are supported where name matches a `Name` tag, not the `groupName` attribute.
 
