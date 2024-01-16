@@ -5,7 +5,7 @@ reviewers:
   - electrocucaracha
 title: Volúmenes Persistentes
 feature:
-  title: Storage orchestration
+  title: Orquestación de almacenamiento
   description: >
     Monta automáticamente el sistema de almacenamiento de tu elección, ya sea de almacenamiento local, un proveedor de nube pública o un sistema de almacenamiento en red como iSCSI o NFS.
 content_type: concept
