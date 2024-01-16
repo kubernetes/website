@@ -472,15 +472,15 @@ Kubernetes no admite reducir un PVC a menos de su tamaño actual.
 
 Los tipos de PersistentVolume se implementan como plugins. Actualmente, Kubernetes admite los siguientes plugins:
 
-- [`csi`](/docs/concepts/storage/volumes/#csi) - Interfaz de Almacenamiento de Contenedores (CSI)
-- [`fc`](/docs/concepts/storage/volumes/#fc) - Almacenamiento de Canal de Fibra (FC)
-- [`hostPath`](/docs/concepts/storage/volumes/#hostpath) - Volumen HostPath
+- [`csi`](/es/docs/concepts/storage/volumes/#csi) - Interfaz de Almacenamiento de Contenedores (CSI)
+- [`fc`](/es/docs/concepts/storage/volumes/#fc) - Almacenamiento de Canal de Fibra (FC)
+- [`hostPath`](/es/docs/concepts/storage/volumes/#hostpath) - Volumen HostPath
   (solo para pruebas en un único nodo; NO FUNCIONARÁ en un clúster multinodo;
   considera usar el volumen `local` en su lugar)
-- [`iscsi`](/docs/concepts/storage/volumes/#iscsi) - iSCSI (SCSI sobre IP) almacenamiento
-- [`local`](/docs/concepts/storage/volumes/#local) - dispositivos de almacenamiento locales
+- [`iscsi`](/es/docs/concepts/storage/volumes/#iscsi) - iSCSI (SCSI sobre IP) almacenamiento
+- [`local`](/es/docs/concepts/storage/volumes/#local) - dispositivos de almacenamiento locales
   montados en los nodos.
-- [`nfs`](/docs/concepts/storage/volumes/#nfs) - Almacenamiento del Sistema de Archivos de Red (NFS)
+- [`nfs`](/es/docs/concepts/storage/volumes/#nfs) - Almacenamiento del Sistema de Archivos de Red (NFS)
 
 Los siguientes tipos de PersistentVolume están obsoletos.
 Esto significa que el soporte aún está disponible, pero se eliminará en una futura versión de Kubernetes.
