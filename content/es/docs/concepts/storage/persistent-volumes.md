@@ -33,7 +33,7 @@ provisionada por un administrador o provisionada dinámicamente usando
 el cluster al igual que un nodo es un recurso del cluster. Los PVs son plugins de volumen como
 Volumes, pero tienen un ciclo de vida independiente de cualquier Pod individual que use el PV.
 Este objeto API captura los detalles de la implementación del almacenamiento, sea
-NFS, iSCSI, o un sistema de almacenamiento específico de un proveedor de nube.
+NFS, iSCSI o un sistema de almacenamiento específico de un proveedor de nube.
 
 Un _PersistentVolumeClaim_ (PVC) es una solicitud de almacenamiento por parte de un usuario. Es similar
 a un Pod. Los Pods consumen recursos de nodos y los PVCs consumen recursos de PVs. Los Pods pueden
