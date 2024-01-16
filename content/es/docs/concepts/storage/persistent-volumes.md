@@ -452,7 +452,7 @@ intervención del administrador.
 5. No olvides restaurar la política de reclamación del PV.
 
 {{% /tab %}}
-{{% tab name="By requesting expansion to smaller size" %}}
+{{% tab name="Solicitando ampliación a un tamaño menor" %}}
 {{% feature-state for_k8s_version="v1.23" state="alpha" %}}
 
 {{< note >}}
