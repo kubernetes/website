@@ -56,7 +56,7 @@ como comprobantes de reclamo al recurso. La interacción entre PVs y PVCs sigue 
 
 ### Aprovisionamiento
 
-Hay dos formas en que los PVs pueden ser aprovisionados: estática o dinámicamente.
+Hay dos formas en que los PVs pueden ser aprovisionados: estáticamente o dinámicamente.
 
 #### Estático
 
