@@ -5,6 +5,7 @@ aliases:
     - onlydole
     - sftim
   sig-docs-blog-reviewers: # Reviewers for blog content
+    - Gauravpadam
     - mrbobbytables
     - nate-double-u
     - onlydole
@@ -12,7 +13,6 @@ aliases:
   sig-docs-localization-owners: # Admins for localization content
     - a-mccarthy
     - divya-mohan0209
-    - kbhawkey
     - natalisucks
     - onlydole
     - reylejano
@@ -27,8 +27,8 @@ aliases:
     - rlenferink
   sig-docs-en-owners: # Admins for English content
     - divya-mohan0209
-    - katcosgrove # RT 1.29 Docs Lead
-    - kbhawkey
+    - katcosgrove # RT 1.30 Lead
+    - drewhagen # RT 1.30 Docs Lead
     - natalisucks
     - nate-double-u
     - onlydole
@@ -124,7 +124,6 @@ aliases:
     - ysyukr
   sig-docs-leads: # Website chairs and tech leads
     - divya-mohan0209
-    - kbhawkey
     - natalisucks
     - onlydole
     - reylejano

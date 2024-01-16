@@ -42,6 +42,10 @@ The upgrade workflow at high level is the following:
   first drain the node (or nodes) that you are upgrading. In the case of control plane nodes,
   they could be running CoreDNS Pods or other critical workloads. For more information see
   [Draining nodes](/docs/tasks/administer-cluster/safely-drain-node/).
+- The Kubernetes project recommends that you match your kubelet and kubeadm versions.
+  You can instead use an a version of kubelet that is older than kubeadm, provided it is within the
+  range of supported versions.
+  For more details, please visit [kubeadm's skew against the kubelet](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#kubeadm-s-skew-against-the-kubelet).
 - All containers are restarted after upgrade, because the container spec hash value is changed.
 - To verify that the kubelet service has successfully restarted after the kubelet has been upgraded,
   you can execute `systemctl status kubelet` or view the service logs with `journalctl -xeu kubelet`.

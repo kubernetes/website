@@ -449,7 +449,7 @@ Default: &quot;&quot;</p>
 <td>
    <p>tlsCipherSuites is the list of allowed cipher suites for the server.
 Note that TLS 1.3 ciphersuites are not configurable.
-Values are from tls package constants (https://golang.org/pkg/crypto/tls/#pkg-constants).
+Values are from tls package constants (https://pkg.go.dev/crypto/tls#pkg-constants).
 Default: nil</p>
 </td>
 </tr>
@@ -458,7 +458,7 @@ Default: nil</p>
 </td>
 <td>
    <p>tlsMinVersion is the minimum TLS version supported.
-Values are from tls package constants (https://golang.org/pkg/crypto/tls/#pkg-constants).
+Values are from tls package constants (https://pkg.go.dev/crypto/tls#pkg-constants).
 Default: &quot;&quot;</p>
 </td>
 </tr>

@@ -86,34 +86,40 @@ A more detailed description of the termination behavior can be found in
 ### Hook handler implementations
 
 Containers can access a hook by implementing and registering a handler for that hook.
-There are two types of hook handlers that can be implemented for Containers:
+There are three types of hook handlers that can be implemented for Containers:
 -->
 ### 回调处理程序的实现
 
 容器可以通过实现和注册该回调的处理程序来访问该回调。
-针对容器，有两种类型的回调处理程序可供实现：
+针对容器，有三种类型的回调处理程序可供实现：
 
 <!--
 * Exec - Executes a specific command, such as `pre-stop.sh`, inside the cgroups and namespaces of the Container.
 Resources consumed by the command are counted against the Container.
 * HTTP - Executes an HTTP request against a specific endpoint on the Container.
+* Sleep - Pauses the container for a specified duration.
+  The "Sleep" action is available when the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  `PodLifecycleSleepAction` is enabled.
 -->
 
 * Exec - 在容器的 cgroups 和名字空间中执行特定的命令（例如 `pre-stop.sh`）。
   命令所消耗的资源计入容器的资源消耗。
 * HTTP - 对容器上的特定端点执行 HTTP 请求。
+* Sleep - 将容器暂停一段指定的时间。
+  当[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/) `PodLifecycleSleepAction` 被启用时，
+  “Sleep” 操作才可用。
 
 <!--
 ### Hook handler execution
 
 When a Container lifecycle management hook is called,
 the Kubernetes management system executes the handler according to the hook action,
-`httpGet` and `tcpSocket` are executed by the kubelet process, and `exec` is executed in the container.
+`httpGet` , `tcpSocket` and `sleep` are executed by the kubelet process, and `exec` is executed in the container.
 -->
 ### 回调处理程序执行
 
 当调用容器生命周期管理回调时，Kubernetes 管理系统根据回调动作执行其处理程序，
-`httpGet` 和 `tcpSocket` 在 kubelet 进程执行，而 `exec` 则由容器内执行。
+`httpGet`、`tcpSocket` 和 `sleep` 由 kubelet 进程执行，而 `exec` 在容器中执行。
 
 <!--
 Hook handler calls are synchronous within the context of the Pod containing the Container.
