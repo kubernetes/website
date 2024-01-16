@@ -167,6 +167,16 @@ spec:
           storage: 1Gi
 ```
 
+{{< note >}}
+<!--
+This example uses the `ReadWriteOnce` access mode, for simplicity. For
+production use, the Kubernetes project recommends using the `ReadWriteOncePod`
+access mode instead.
+-->
+这个示例出于简化考虑使用了 `ReadWriteOnce` 访问模式。但对于生产环境，
+Kubernetes 项目建议使用 `ReadWriteOncePod` 访问模式。
+{{< /note >}}
+
 <!--
 In the above example:
 
