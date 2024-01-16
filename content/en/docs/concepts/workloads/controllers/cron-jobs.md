@@ -55,9 +55,9 @@ The `.spec.schedule` field is required. The value of that field follows the [Cro
 # │ ┌───────────── hour (0 - 23)
 # │ │ ┌───────────── day of the month (1 - 31)
 # │ │ │ ┌───────────── month (1 - 12)
-# │ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday;
-# │ │ │ │ │                                   7 is also Sunday on some systems)
+# │ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday)
 # │ │ │ │ │                                   OR sun, mon, tue, wed, thu, fri, sat
+# │ │ │ │ │ 
 # │ │ │ │ │
 # * * * * *
 ```

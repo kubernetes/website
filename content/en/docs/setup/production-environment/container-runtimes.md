@@ -360,4 +360,4 @@ The command line argument to use is `--pod-infra-container-image`.
 ## {{% heading "whatsnext" %}}
 
 As well as a container runtime, your cluster will need a working
-[network plugin](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model).
+[network plugin](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-network-model).

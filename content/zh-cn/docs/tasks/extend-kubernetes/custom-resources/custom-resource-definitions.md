@@ -624,7 +624,7 @@ would be sent to the API server.
 #### Controlling pruning
 
 By default, all unspecified fields for a custom resource, across all versions, are pruned. It is possible though to
-opt-out of that for specifc sub-trees of fields by adding `x-kubernetes-preserve-unknown-fields: true` in the
+opt-out of that for specific sub-trees of fields by adding `x-kubernetes-preserve-unknown-fields: true` in the
 [structural OpenAPI v3 validation schema](#specifying-a-structural-schema).
 
 For example:
@@ -1942,7 +1942,7 @@ CEL [`Optional`](https://pkg.go.dev/github.com/google/cel-go/cel#OptionalTypes) 
 
 <!--
 `optionalOldSelf` is useful in cases where schema authors would like a more
-control tool [than provided by the default equality based behavior of ][#validation-ratcheting] 
+control tool [than provided by the default equality based behavior of](#validation-ratcheting) 
 to introduce newer, usually stricter constraints on new values, while still 
 allowing old values to be "grandfathered" or ratcheted using the older validation.
 

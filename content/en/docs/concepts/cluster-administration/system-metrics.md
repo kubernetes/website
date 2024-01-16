@@ -214,7 +214,7 @@ allow-list:
 
 Additionally, the `cardinality_enforcement_unexpected_categorizations_total` meta-metric records the
 count of unexpected categorizations during cardinality enforcement, that is, whenever a label value
-is encountered that is not allowed with respect to the allow-list contraints.
+is encountered that is not allowed with respect to the allow-list constraints.
 
 ## {{% heading "whatsnext" %}}
 

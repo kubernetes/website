@@ -154,7 +154,7 @@ Kubernetes 作为一个项目，目前支持和维护
 * The [Traefik Kubernetes Ingress provider](https://doc.traefik.io/traefik/providers/kubernetes-ingress/) is an
   ingress controller for the [Traefik](https://traefik.io/traefik/) proxy.
 * [Tyk Operator](https://github.com/TykTechnologies/tyk-operator) extends Ingress with Custom Resources to bring API Management capabilities to Ingress. Tyk Operator works with the Open Source Tyk Gateway & Tyk Cloud control plane.
-* [Voyager](https://appscode.com/products/voyager) is an ingress controller for
+* [Voyager](https://voyagermesh.com) is an ingress controller for
   [HAProxy](https://www.haproxy.org/#desc).
 * [Wallarm Ingress Controller](https://www.wallarm.com/solutions/waf-for-kubernetes) is an Ingress Controller that provides WAAP (WAF) and API Security capabilities.
 -->
@@ -163,7 +163,7 @@ Kubernetes 作为一个项目，目前支持和维护
 * [Tyk Operator](https://github.com/TykTechnologies/tyk-operator)
   使用自定义资源扩展 Ingress，为之带来 API 管理能力。Tyk Operator
   使用开源的 Tyk Gateway & Tyk Cloud 控制面。
-* [Voyager](https://appscode.com/products/voyager) 是一个针对
+* [Voyager](https://voyagermesh.com) 是一个针对
   [HAProxy](https://www.haproxy.org/#desc) 的 Ingress 控制器。
 * [Wallarm Ingress Controller](https://www.wallarm.com/solutions/waf-for-kubernetes) 是提供 WAAP（WAF）
   和 API 安全功能的 Ingress Controller。

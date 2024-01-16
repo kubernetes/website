@@ -77,6 +77,8 @@
             {{- end -}}
         {{- end -}}
 
+        {{- $featureDescription := $featureGateFile.Content | plainify -}}
+
         {{- range $featureGate := $featureGateFile.Params.stages -}}
             <!-- Check if the 'stage' value is valid -->
             {{- $validStages := slice "alpha" "beta" "stable" "deprecated" -}}
@@ -101,7 +103,7 @@
 
             <!-- Display feature gate information in table rows -->
             <tr>
-                <td><code>{{- $featureGateName -}}</code></td>
+                <td><code title="{{- $featureDescription -}}">{{- $featureGateName -}}</code></td>
                 <td>{{- if isSet $featureGate "defaultValue" -}}<code>{{- $featureGate.defaultValue -}}</code>{{- else -}}–{{- end -}}</td>
                 <td>{{- T (printf "feature_gate_stage_%s" $featureGate.stage) -}}</td>
                 <td>{{- $featureGate.fromVersion -}}</td>
