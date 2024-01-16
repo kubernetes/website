@@ -114,7 +114,7 @@ The general workflow of a device plugin includes the following steps:
          // informed allocation decision when possible.
          rpc GetPreferredAllocation(PreferredAllocationRequest) returns (PreferredAllocationResponse) {}
 
-         // PreStartContainer is called, if indicated by Device Plugin during registeration phase,
+         // PreStartContainer is called, if indicated by Device Plugin during registration phase,
          // before each container start. Device plugin can run device specific operations
          // such as resetting the device before making devices available to the container.
          rpc PreStartContainer(PreStartContainerRequest) returns (PreStartContainerResponse) {}
@@ -159,8 +159,8 @@ The general workflow of a device plugin includes the following steps:
    {{< note >}}
    The processing of the fully-qualified CDI device names by the Device Manager requires
    that the `DevicePluginCDIDevices` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-   is enabled for the kubelet and the kube-apiserver. This was added as an alpha feature in Kubernetes
-   v1.28.
+   is enabled for both the kubelet and the kube-apiserver. This was added as an alpha feature in Kubernetes
+   v1.28 and graduated to beta in v1.29.
    {{< /note >}}
 
 ### Handling kubelet restarts
@@ -346,7 +346,7 @@ update and Kubelet needs to be restarted to reflect the correct resource capacit
 {{< /note >}}
 
 ```gRPC
-// AllocatableResourcesResponses contains informations about all the devices known by the kubelet
+// AllocatableResourcesResponses contains information about all the devices known by the kubelet
 message AllocatableResourcesResponse {
     repeated ContainerDevices devices = 1;
     repeated int64 cpu_ids = 2;

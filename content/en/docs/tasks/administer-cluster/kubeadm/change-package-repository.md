@@ -136,7 +136,7 @@ This step should be done upon upgrading from one to another Kubernetes minor
 release in order to get access to the packages of the desired Kubernetes minor
 version.
 
-{{< tabs name="k8s_install_versions" >}}
+{{< tabs name="k8s_upgrade_versions" >}}
 {{% tab name="Ubuntu, Debian or HypriotOS" %}}
 
 1. Open the file that defines the Kubernetes `apt` repository using a text editor of your choice:
@@ -189,10 +189,10 @@ version.
    ```
    [kubernetes]
    name=Kubernetes
-   baseurl=https://pkgs.k8s.io/core:/stable:/v{{< param "version" >}}/rpm/
+   baseurl=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/
    enabled=1
    gpgcheck=1
-   gpgkey=https://pkgs.k8s.io/core:/stable:/v{{< param "version" >}}/rpm/repodata/repomd.xml.key
+   gpgkey=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/repodata/repomd.xml.key
    exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
    ```
 

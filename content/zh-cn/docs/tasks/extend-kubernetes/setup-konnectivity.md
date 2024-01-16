@@ -42,7 +42,7 @@ You need to configure the API Server to use the Konnectivity service
 and direct the network traffic to the cluster nodes:
 
 1. Make sure that
-[Service Account Token Volume Projection](/docs/tasks/configure-pod-container/configure-service-account/#service-account-token-volume-projection)
+[Service Account Token Volume Projection](/docs/tasks/configure-pod-container/configure-service-account/#serviceaccount-token-volume-projection)
 feature enabled in your cluster. It is enabled by default since Kubernetes v1.20.
 1. Create an egress configuration file such as `admin/konnectivity/egress-selector-configuration.yaml`.
 1. Set the `--egress-selector-config-file` flag of the API Server to the path of
@@ -51,7 +51,7 @@ your API Server egress configuration file.
 -->
 你需要配置 API 服务器来使用 Konnectivity 服务，并将网络流量定向到集群节点：
 
-1. 确保[服务账号令牌卷投射](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#service-account-token-volume-projection)特性被启用。
+1. 确保[服务账号令牌卷投射](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#serviceaccount-token-volume-projection)特性被启用。
    该特性自 Kubernetes v1.20 起默认已被启用。
 1. 创建一个出站流量配置文件，比如 `admin/konnectivity/egress-selector-configuration.yaml`。
 1. 将 API 服务器的 `--egress-selector-config-file` 参数设置为你的 API

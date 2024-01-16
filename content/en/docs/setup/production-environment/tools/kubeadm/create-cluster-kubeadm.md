@@ -89,7 +89,7 @@ After you initialize your control-plane, the kubelet runs normally.
 #### Network setup
 
 kubeadm similarly to other Kubernetes components tries to find a usable IP on
-the network interface associated with the default gateway on a host. Such
+the network interfaces associated with a default gateway on a host. Such
 an IP is then used for the advertising and/or listening performed by a component.
 
 To find out what this IP is on a Linux host you can use:
@@ -98,9 +98,21 @@ To find out what this IP is on a Linux host you can use:
 ip route show # Look for a line starting with "default via"
 ```
 
+{{< note >}}
+If two or more default gateways are present on the host, a Kubernetes component will
+try to use the first one it encounters that has a suitable global unicast IP address.
+While making this choice, the exact ordering of gateways might vary between different
+operating systems and kernel versions.
+{{< /note >}}
+
 Kubernetes components do not accept custom network interface as an option,
 therefore a custom IP address must be passed as a flag to all components instances
 that need such a custom configuration.
+
+{{< note >}}
+If the host does not have a default gateway and if a custom IP address is not passed
+to a Kubernetes component, the component may exit with an error.
+{{< /note >}}
 
 To configure the API server advertise address for control plane nodes created with both
 `init` and `join`, the flag `--apiserver-advertise-address` can be used.
@@ -114,13 +126,12 @@ For kubelets on all nodes, the `--node-ip` option can be passed in
 For dual-stack see
 [Dual-stack support with kubeadm](/docs/setup/production-environment/tools/kubeadm/dual-stack-support).
 
-{{< note >}}
-IP addresses become part of certificates SAN fields. Changing these IP addresses would require
+The IP addresses that you assign to control plane components become part of their X.509 certificates'
+subject alternative name fields. Changing these IP addresses would require
 signing new certificates and restarting the affected components, so that the change in
 certificate files is reflected. See
 [Manual certificate renewal](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#manual-certificate-renewal)
 for more details on this topic.
-{{</ note >}}
 
 {{< warning >}}
 The Kubernetes project recommends against this approach (configuring all component instances
@@ -131,15 +142,6 @@ system might also provide higher level network management tools. If your node's 
 is a public IP address, you should configure packet filtering or other security measures that
 protect the nodes and your cluster.
 {{< /warning >}}
-
-{{< note >}}
-If the host does not have a default gateway, it is recommended to setup one. Otherwise,
-without passing a custom IP address to a Kubernetes component, the component
-will exit with an error. If two or more default gateways are present on the host,
-a Kubernetes component will try to use the first one it encounters that has a suitable
-global unicast IP address. While making this choice, the exact ordering of gateways
-might vary between different operating systems and kernel versions.
-{{< /note >}}
 
 ### Preparing the required container images
 
@@ -263,11 +265,19 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 ```
 
 {{< warning >}}
-Kubeadm signs the certificate in the `admin.conf` to have `Subject: O = system:masters, CN = kubernetes-admin`.
-`system:masters` is a break-glass, super user group that bypasses the authorization layer (e.g. RBAC).
-Do not share the `admin.conf` file with anyone and instead grant users custom permissions by generating
-them a kubeconfig file using the `kubeadm kubeconfig user` command. For more details see
-[Generating kubeconfig files for additional users](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#kubeconfig-additional-users).
+The kubeconfig file `admin.conf` that `kubeadm init` generates contains a certificate with
+`Subject: O = kubeadm:cluster-admins, CN = kubernetes-admin`. The group `kubeadm:cluster-admins`
+is bound to the built-in `cluster-admin` ClusterRole.
+Do not share the `admin.conf` file with anyone.
+
+`kubeadm init` generates another kubeconfig file `super-admin.conf` that contains a certificate with
+`Subject: O = system:masters, CN = kubernetes-super-admin`.
+`system:masters` is a break-glass, super user group that bypasses the authorization layer (for example RBAC).
+Do not share the `super-admin.conf` file with anyone. It is recommended to move the file to a safe location.
+
+See
+[Generating kubeconfig files for additional users](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#kubeconfig-additional-users)
+on how to use `kubeadm kubeconfig user` to generate kubeconfig files for additional users.
 {{< /warning >}}
 
 Make a record of the `kubeadm join` command that `kubeadm init` outputs. You
@@ -321,7 +331,7 @@ Several external projects provide Kubernetes Pod networks using CNI, some of whi
 support [Network Policy](/docs/concepts/services-networking/network-policies/).
 
 See a list of add-ons that implement the
-[Kubernetes networking model](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model).
+[Kubernetes networking model](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-network-model).
 
 You can install a Pod network add-on with the following command on the
 control-plane node or a node that has the kubeconfig credentials:
@@ -603,7 +613,7 @@ version as kubeadm or one version older.
 
 Example:
 * kubeadm is at {{< skew currentVersion >}}
-* kubelet on the host must be at {{< skew currentVersion >}} or {{< skew currentVersionAddMinor -1 >}}
+* kubelet on the host must be at {{< skew currentVersion >}}, {{< skew currentVersionAddMinor -1 >}}, {{< skew currentVersionAddMinor -2 >}} or {{< skew currentVersionAddMinor -3 >}}
 
 ### kubeadm's skew against kubeadm
 

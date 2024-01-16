@@ -17,7 +17,8 @@ weight: 20
 <!-- overview -->
 
 This document describes _persistent volumes_ in Kubernetes. Familiarity with
-[volumes](/docs/concepts/storage/volumes/) is suggested.
+[volumes](/docs/concepts/storage/volumes/), [StorageClasses](/docs/concepts/storage/storage-classes/)
+and [VolumeAttributesClasses](/docs/concepts/storage/volume-attributes-classes/) is suggested.
 
 <!-- body -->
 
@@ -39,8 +40,8 @@ NFS, iSCSI, or a cloud-provider-specific storage system.
 A _PersistentVolumeClaim_ (PVC) is a request for storage by a user. It is similar
 to a Pod. Pods consume node resources and PVCs consume PV resources. Pods can
 request specific levels of resources (CPU and Memory). Claims can request specific
-size and access modes (e.g., they can be mounted ReadWriteOnce, ReadOnlyMany or
-ReadWriteMany, see [AccessModes](#access-modes)).
+size and access modes (e.g., they can be mounted ReadWriteOnce, ReadOnlyMany,
+ReadWriteMany, or ReadWriteOncePod, see [AccessModes](#access-modes)).
 
 While PersistentVolumeClaims allow a user to consume abstract storage resources,
 it is common that users need PersistentVolumes with varying properties, such as
@@ -184,7 +185,7 @@ and the volume is considered "released". But it is not yet available for
 another claim because the previous claimant's data remains on the volume.
 An administrator can manually reclaim the volume with the following steps.
 
-1. Delete the PersistentVolume. The associated storage asset in external infrastructure 
+1. Delete the PersistentVolume. The associated storage asset in external infrastructure
    still exists after the PV is deleted.
 1. Manually clean up the data on the associated storage asset accordingly.
 1. Manually delete the associated storage asset.
@@ -272,7 +273,7 @@ Access Modes:    RWO
 VolumeMode:      Filesystem
 Capacity:        1Gi
 Node Affinity:   <none>
-Message:         
+Message:
 Source:
     Type:               vSphereVolume (a Persistent Disk resource in vSphere)
     VolumePath:         [vsanDatastore] d49c4a62-166f-ce12-c464-020077ba5d46/kubernetes-dynamic-pvc-74a498d6-3929-47e8-8c02-078c1ece4d78.vmdk
@@ -297,7 +298,7 @@ Access Modes:    RWO
 VolumeMode:      Filesystem
 Capacity:        200Mi
 Node Affinity:   <none>
-Message:         
+Message:
 Source:
     Type:              CSI (a Container Storage Interface (CSI) volume source)
     Driver:            csi.vsphere.vmware.com
@@ -577,9 +578,7 @@ mounting of NFS filesystems.
 ### Capacity
 
 Generally, a PV will have a specific storage capacity. This is set using the PV's
-`capacity` attribute. Read the glossary term
-[Quantity](/docs/reference/glossary/?all=true#term-quantity) to understand the units
-expected by `capacity`.
+`capacity` attribute which is a {{< glossary_tooltip term_id="quantity" >}} value.
 
 Currently, storage size is the only resource that can be set or requested.
 Future attributes may include IOPS, throughput, etc.
@@ -618,7 +617,8 @@ The access modes are:
 
 `ReadWriteOnce`
 : the volume can be mounted as read-write by a single node. ReadWriteOnce access
-  mode still can allow multiple pods to access the volume when the pods are running on the same node.
+  mode still can allow multiple pods to access the volume when the pods are
+  running on the same node. For single pod access, please see ReadWriteOncePod.
 
 `ReadOnlyMany`
 : the volume can be mounted as read-only by many nodes.
@@ -627,15 +627,22 @@ The access modes are:
 : the volume can be mounted as read-write by many nodes.
 
  `ReadWriteOncePod`
-: {{< feature-state for_k8s_version="v1.27" state="beta" >}}
+: {{< feature-state for_k8s_version="v1.29" state="stable" >}}
   the volume can be mounted as read-write by a single Pod. Use ReadWriteOncePod
   access mode if you want to ensure that only one pod across the whole cluster can
-  read that PVC or write to it. This is only supported for CSI volumes and
-  Kubernetes version 1.22+.
+  read that PVC or write to it.
 
-The blog article
-[Introducing Single Pod Access Mode for PersistentVolumes](/blog/2021/09/13/read-write-once-pod-access-mode-alpha/)
-covers this in more detail.
+{{< note >}}
+The `ReadWriteOncePod` access mode is only supported for
+{{< glossary_tooltip text="CSI" term_id="csi" >}} volumes and Kubernetes version
+1.22+. To use this feature you will need to update the following
+[CSI sidecars](https://kubernetes-csi.github.io/docs/sidecar-containers.html)
+to these versions or greater:
+
+* [csi-provisioner:v3.0.0+](https://github.com/kubernetes-csi/external-provisioner/releases/tag/v3.0.0)
+* [csi-attacher:v3.3.0+](https://github.com/kubernetes-csi/external-attacher/releases/tag/v3.3.0)
+* [csi-resizer:v1.3.0+](https://github.com/kubernetes-csi/external-resizer/releases/tag/v1.3.0)
+{{< /note >}}
 
 In the CLI, the access modes are abbreviated to:
 
@@ -655,7 +662,7 @@ are specified as ReadWriteOncePod, the volume is constrained and can be mounted 
 {{< /note >}}
 
 > __Important!__ A volume can only be mounted using one access mode at a time,
-> even if it supports many. 
+> even if it supports many.
 
 | Volume Plugin        | ReadWriteOnce          | ReadOnlyMany          | ReadWriteMany | ReadWriteOncePod       |
 | :---                 | :---:                  | :---:                 | :---:         | -                      |
@@ -690,7 +697,7 @@ Current reclaim policies are:
 
 * Retain -- manual reclamation
 * Recycle -- basic scrub (`rm -rf /thevolume/*`)
-* Delete -- associated storage asset
+* Delete -- delete the volume
 
 For Kubernetes {{< skew currentVersion >}}, only `nfs` and `hostPath` volume types support recycling.
 
@@ -722,7 +729,7 @@ it will become fully deprecated in a future Kubernetes release.
 ### Node Affinity
 
 {{< note >}}
-For most volume types, you do not need to set this field. 
+For most volume types, you do not need to set this field.
 You need to explicitly set this for [local](/docs/concepts/storage/volumes/#local) volumes.
 {{< /note >}}
 
@@ -753,7 +760,7 @@ You can see the name of the PVC bound to the PV using `kubectl describe persiste
 
 #### Phase transition timestamp
 
-{{< feature-state for_k8s_version="v1.28" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.29" state="beta" >}}
 
 The `.status` field for a PersistentVolume can include an alpha `lastPhaseTransitionTime` field. This field records
 the timestamp of when the volume last transitioned its phase. For newly created
@@ -1152,7 +1159,7 @@ users should be aware of:
 When the `CrossNamespaceVolumeDataSource` feature is enabled, there are additional differences:
 
 * The `dataSource` field only allows local objects, while the `dataSourceRef` field allows
-  objects in any namespaces.  
+  objects in any namespaces.
 * When namespace is specified, `dataSource` and `dataSourceRef` are not synced.
 
 Users should always use `dataSourceRef` on clusters that have the feature gate enabled, and

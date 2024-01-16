@@ -33,6 +33,36 @@ deprecated API versions to newer and more stable API versions.
 -->
 ## 各发行版本中移除的 API  {#removed-apis-by-release}
 
+### v1.32
+
+<!--
+The **v1.32** release will stop serving the following deprecated API versions:
+-->
+**v1.32** 发行版本将停止提供以下已弃用的 API 版本：
+
+<!--
+#### Flow control resources {#flowcontrol-resources-v132}
+
+The **flowcontrol.apiserver.k8s.io/v1beta3** API version of FlowSchema and PriorityLevelConfiguration will no longer be served in v1.32.
+-->
+#### 流控制资源   {#flowcontrol-resources-v132}
+
+FlowSchema 和 PriorityLevelConfiguration 的
+**flowcontrol.apiserver.k8s.io/v1beta3** API 版本将不再在 v1.32 中提供。
+
+<!--
+* Migrate manifests and API clients to use the **flowcontrol.apiserver.k8s.io/v1** API version, available since v1.29.
+* All existing persisted objects are accessible via the new API
+* Notable changes in **flowcontrol.apiserver.k8s.io/v1**:
+  * The PriorityLevelConfiguration `spec.limited.nominalConcurrencyShares` field
+    only defaults to 30 when unspecified, and an explicit value of 0 is not changed to 30.
+-->
+* 迁移清单和 API 客户端以使用 **flowcontrol.apiserver.k8s.io/v1** API 版本（自 v1.29 起可用）。
+* 所有现有的持久对象都可以通过新的 API 访问。
+* **flowcontrol.apiserver.k8s.io/v1** 中的显着变化：
+  * PriorityLevelConfiguration 的 `spec.limited.nominalConcurrencyShares`
+    字段仅在未指定时默认为 30，并且显式值 0 时不会更改为 30。
+
 ### v1.29
 
 <!--
@@ -48,20 +78,28 @@ The **v1.29** release will stop serving the following deprecated API versions:
 <!--
 The **flowcontrol.apiserver.k8s.io/v1beta2** API version of FlowSchema and PriorityLevelConfiguration will no longer be served in v1.29.
 
-* Migrate manifests and API clients to use the **flowcontrol.apiserver.k8s.io/v1beta3** API version, available since v1.26.
+* Migrate manifests and API clients to use the **flowcontrol.apiserver.k8s.io/v1** API version, available since v1.29, or the **flowcontrol.apiserver.k8s.io/v1beta3** API version, available since v1.26.
 * All existing persisted objects are accessible via the new API
+* Notable changes in **flowcontrol.apiserver.k8s.io/v1**:
+  * The PriorityLevelConfiguration `spec.limited.assuredConcurrencyShares` field
+    is renamed to `spec.limited.nominalConcurrencyShares` and only defaults to 30 when unspecified,
+    and an explicit value of 0 is not changed to 30.
 * Notable changes in **flowcontrol.apiserver.k8s.io/v1beta3**:
   * The PriorityLevelConfiguration `spec.limited.assuredConcurrencyShares` field is renamed to `spec.limited.nominalConcurrencyShares`
 -->
 **flowcontrol.apiserver.k8s.io/v1beta2** API 版本的 FlowSchema
 和 PriorityLevelConfiguration 将不会在 v1.29 中提供。
 
-* 迁移清单和 API 客户端使用 **flowcontrol.apiserver.k8s.io/v1beta3** API 版本，
-  此 API 从 v1.26 版本开始可用；
+* 迁移清单和 API 客户端使用 **flowcontrol.apiserver.k8s.io/v1** API 版本（自 v1.29 版本开始可用），
+  或 **flowcontrol.apiserver.k8s.io/v1beta3** API 版本（自 v1.26 起可用）；
 * 所有的已保存的对象都可以通过新的 API 来访问；
+* **flowcontrol.apiserver.k8s.io/v1** 中的显着变化：
+  * PriorityLevelConfiguration 的 `spec.limited.assuredConcurrencyShares`
+    字段已被重命名为 `spec.limited.nominalConcurrencyShares`，仅在未指定时默认为 30，
+    并且显式值 0 不会更改为 30。
 * **flowcontrol.apiserver.k8s.io/v1beta3** 中需要额外注意的变更：
   * PriorityLevelConfiguration 的 `spec.limited.assuredConcurrencyShares`
-    字段已被更名为 `spec.limited.nominalConcurrencyShares`
+    字段已被更名为 `spec.limited.nominalConcurrencyShares`。
 
 ### v1.27
 

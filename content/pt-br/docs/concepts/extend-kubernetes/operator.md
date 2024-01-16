@@ -93,7 +93,7 @@ A seguir estão algumas bibliotecas e ferramentas que você pode usar para escre
 ## {{% heading "whatsnext" %}} 
 
 
-* Leia o [whitepaper sobre operadores](https://github.com/cncf/tag-app-delivery/blob/eece8f7307f2970f46f100f51932db106db46968/operator-wg/whitepaper/Operator-WhitePaper_v1-0.md) da {{< glossary_tooltip text="CNCF" term_id="cncf" >}}
+* Leia o [whitepaper sobre operadores](https://github.com/cncf/tag-app-delivery/blob/163962c4b1cd70d085107fc579e3e04c2e14d59c/operator-wg/whitepaper/Operator-WhitePaper_v1-0.md) da {{< glossary_tooltip text="CNCF" term_id="cncf" >}}
 * Saiba mais sobre [Custom Resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 * Encontre operadores prontos em [OperatorHub.io](https://operatorhub.io/) para atender ao seu caso de uso
 * [Publique](https://operatorhub.io/) seu operador para outras pessoas usarem

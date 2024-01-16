@@ -202,12 +202,16 @@ The existing packages in the legacy repositories will be available for the fores
 future. However, the Kubernetes project can't provide _any_ guarantees on how long
 is that going to be. The deprecated legacy repositories, and their contents, might
 be removed at any time in the future and without a further notice period.
+
+**UPDATE**: The legacy packages are expected to go away in January 2024.
 -->
 ## 我可以继续使用旧软件包仓库吗？ {#can-i-continue-to-use-the-legacy-package-repositories}
 
-旧仓库中的现有软件包将在可预见的未来内保持可用。然而，
+~~旧仓库中的现有软件包将在可预见的未来内保持可用。然而，
 Kubernetes 项目无法对这会持续多久提供**任何**保证。
-已弃用的旧仓库及其内容可能会在未来随时删除，恕不另行通知。
+已弃用的旧仓库及其内容可能会在未来随时删除，恕不另行通知。~~
+
+**更新**: 旧版软件包预计将于 2024 年 1 月被删除。
 
 <!--
 The Kubernetes project **strongly recommends** migrating to the new community-owned

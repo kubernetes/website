@@ -79,6 +79,9 @@ installation instructions. The list does not try to be exhaustive.
   Pods and non-Kubernetes environments with visibility and security monitoring.
 * [Romana](https://github.com/romana) is a Layer 3 networking solution for pod
   networks that also supports the [NetworkPolicy](/docs/concepts/services-networking/network-policies/) API.
+* [Spiderpool](https://github.com/spidernet-io/spiderpool) is an underlay and RDMA
+  networking solution for Kubernetes. Spiderpool is supported on bare metal, virtual machines,
+  and public cloud environments.
 * [Weave Net](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/)
   provides networking and network policy, will carry on working on both sides
   of a network partition, and does not require an external database.
