@@ -15,7 +15,7 @@ weight: 20
 <!-- overview -->
 
 Este documento describe _volúmenes persistentes_ en Kubernetes. Se sugiere familiarizarse con
-[volumes](/docs/concepts/storage/volumes/), [StorageClasses](/docs/concepts/storage/storage-classes/)
+[volumes](/es/docs/concepts/storage/volumes/), [StorageClasses](/es/docs/concepts/storage/storage-classes/)
 y [VolumeAttributesClasses](/docs/concepts/storage/volume-attributes-classes/).
 
 <!-- body -->
