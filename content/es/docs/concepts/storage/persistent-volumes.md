@@ -29,7 +29,7 @@ Para hacer esto, introducimos dos nuevos recursos de API: PersistentVolume y Per
 
 Un _PersistentVolume_ (PV) es una pieza de almacenamiento en el cluster que ha sido
 provisionada por un administrador o provisionada dinámicamente usando
-[Storage Classes](/docs/concepts/storage/storage-classes/). Es un recurso en
+[Storage Classes](/es/docs/concepts/storage/storage-classes/). Es un recurso en
 el cluster al igual que un nodo es un recurso del cluster. Los PVs son plugins de volumen como
 Volumes, pero tienen un ciclo de vida independiente de cualquier Pod individual que use el PV.
 Este objeto API captura los detalles de la implementación del almacenamiento, sea
