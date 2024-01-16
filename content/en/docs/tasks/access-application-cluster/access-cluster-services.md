@@ -77,7 +77,7 @@ if suitable credentials are passed, or through a kubectl proxy at, for example:
 `http://localhost:8080/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`.
 
 {{< note >}}
-See [Access Clusters Using the Kubernetes API](/docs/tasks/administer-cluster/access-cluster-api/#accessing-the-cluster-api)
+See [Access Clusters Using the Kubernetes API](/docs/tasks/administer-cluster/access-cluster-api/#accessing-the-kubernetes-api)
 for how to pass credentials or use kubectl proxy.
 {{< /note >}}
 

@@ -438,7 +438,7 @@ controller in the cluster, so they have several security features:
   `<signerNameDomain>/*`.
 * Signer-linked ClusterTrustBundles **must** be named with a prefix derived from
   their `spec.signerName` field.  Slashes (`/`) are replaced with colons (`:`),
-  and a final colon is appended.  This is followed by an arbitary name.  For
+  and a final colon is appended.  This is followed by an arbitrary name.  For
   example, the signer `example.com/mysigner` can be linked to a
   ClusterTrustBundle `example.com:mysigner:<arbitrary-name>`.
 

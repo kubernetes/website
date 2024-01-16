@@ -207,21 +207,7 @@ SELinux is only available on Linux nodes, and enabled in
 ## Logs and auditing
 
 - [ ] Audit logs, if enabled, are protected from general access.
-- [ ] The `/logs` API is disabled (you are running kube-apiserver with
-  `--enable-logs-handler=false`).
 
-  Kubernetes includes a `/logs` API endpoint, enabled by default,
-  that lets users request the contents of the API server's `/var/log` directory over HTTP. Accessing
-  that endpoint requires authentication.
-
-Allowing broad access to Kubernetes logs can make security information
-available to a potential attacker.
-
-As a good practice, set up a separate means to collect and aggregate
-control plane logs, and do not use the `/logs` API endpoint.
-Alternatively, if you run your control plane with the `/logs` API endpoint
-and limit the content of `/var/log` (within the host or container where the API server is running) to
-Kubernetes API server logs only.
 
 ## Pod placement
 
@@ -390,7 +376,7 @@ availability state and recommended to improve your security posture:
 
 [`NodeRestriction`](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)
 : Restricts kubelet's permissions to only modify the pods API resources they own
-or the node API ressource that represent themselves. It also prevents kubelet
+or the node API resource that represent themselves. It also prevents kubelet
 from using the `node-restriction.kubernetes.io/` annotation, which can be used
 by an attacker with access to the kubelet's credentials to influence pod
 placement to the controlled node.
