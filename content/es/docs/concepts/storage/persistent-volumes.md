@@ -332,7 +332,7 @@ metadata:
   name: foo-pvc
   namespace: foo
 spec:
-  storageClassName: "" # Empty string must be explicitly set otherwise default StorageClass will be set
+  storageClassName: "" # La cadena vacía debe establecerse explícitamente; de lo contrario, se establecerá la StorageClass predeterminada
   volumeName: foo-pv
   ...
 ```
