@@ -39,7 +39,7 @@ Un _PersistentVolumeClaim_ (PVC) es una solicitud de almacenamiento por parte de
 a un Pod. Los Pods consumen recursos de nodos y los PVCs consumen recursos de PVs. Los Pods pueden
 solicitar niveles específicos de recursos (CPU y Memoria). Las solicitudes pueden pedir tamaños específicos
 y modos de acceso (por ejemplo, pueden montarse como ReadWriteOnce, ReadOnlyMany,
-ReadWriteMany o ReadWriteOncePod, ver [AccessModes](#modos-de-acceso)).
+ReadWriteMany o ReadWriteOncePod, ver [Modos de Acceso](#modos-de-acceso)).
 
 Aunque los PersistentVolumeClaims permiten a un usuario consumir recursos de almacenamiento abstractos,
 es común que los usuarios necesiten PersistentVolumes con propiedades variadas, tales como
