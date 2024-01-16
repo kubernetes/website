@@ -204,7 +204,7 @@ es utilizar el aprovisionamiento dinámico.
 {{< /warning >}}
 
 Si es compatible con el plugin de volumen subyacente, la política de reclamación `Recycle` realiza
-un borrado básico (`rm -rf /thevolume/*`) en el volumen y lo hace disponible nuevamente para una nueva solicitud.
+un borrado básico (`rm -rf /elvolumen/*`) en el volumen y lo hace disponible nuevamente para una nueva solicitud.
 
 Sin embargo, un administrador puede configurar una plantilla de Pod reciclador personalizada usando
 los argumentos de línea de comandos del administrador del controlador de Kubernetes como se describe en la
