@@ -97,7 +97,7 @@ class first,second,third white
 
 ## はじめての貢献
 
-あらかじめいくつかのステップを見直すことで、最初の貢献に備えることができます。以下の図ではそれらのステップと詳細を概説しています。
+あらかじめいくつかのステップを見直すことで、最初の貢献に備えることができます。図2はそれらのステップの概説で、詳細は次のとおりです。
 
 <!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
 <!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
