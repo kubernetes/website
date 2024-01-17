@@ -1104,7 +1104,12 @@ configuration changes to existing Storage Classes, PersistentVolumes or Persiste
 (referring to in-tree plugins) when transitioning to a CSI driver that supersedes an in-tree plugin.
 
 {{< note >}}
-* Existing PVs created by in-tree volume plugin can still be used in the future without any configuration changes even after the `CSIMigration` is completed and corresponing in-tree volume plugins are deleted.
+Existing PVs created by a in-tree volume plugin can still be used in the future without any configuration
+changes, even after the migration to CSI is completed for that volume type, and even after you upgrade to a
+version of Kubernetes that doesn't have compiled-in support for that kind of storage.
+ 
+As part of that migration, you - or another cluster administrator - **must** have installed and configured
+the appropriate CSI driver for that storage. The core of Kubernetes does not install that software for you.
 * New PVs in manifests referring to in-tree volume plugins can still be created, even after the in-tree volume plugins are removed from Kubernetes.
 {{< /note >}}
 
