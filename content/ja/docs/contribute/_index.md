@@ -110,7 +110,7 @@ flowchart LR
     G[K8sメンバーからの <br>PRレビューを受ける] -->
     A[最初のPRを作成するための <br>良いissueを <br>kubernetes/websiteから探す] --> B[PRをオープンする!!]
     end
-    subgraph first[提案された準備]
+    subgraph first[推奨される準備]
     direction TB
        T[ ] -.-
        D[貢献者の概要を読む] -->E[K8sのコンテンツと<br> スタイルガイドを読む]
