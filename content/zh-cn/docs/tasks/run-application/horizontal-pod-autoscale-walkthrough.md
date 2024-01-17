@@ -89,6 +89,15 @@ Kubernetes Metrics Server 从集群中的 {{<glossary_tooltip term_id="kubelet" 
 要了解如何部署 Metrics Server，请参阅
 [metrics-server 文档](https://github.com/kubernetes-sigs/metrics-server#deployment)。
 
+<!--
+If you are running {{< glossary_tooltip term_id="minikube" >}}, run the following command to enable metrics-server:
+-->
+如果你正在运行 {{< glossary_tooltip term_id="minikube" >}}，运行以下命令以启用 metrics-server：
+
+```shell
+minikube addons enable metrics-server
+```
+
 <!-- steps -->
 
 <!--
