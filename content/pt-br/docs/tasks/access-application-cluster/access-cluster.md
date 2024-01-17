@@ -188,7 +188,7 @@ como a CLI do kubectl faz, para localizar e autenticar ao apiserver. Veja esse
 
 Se o aplicativo for disponibilizado como um pod no cluster, consulte a [próxima seção] (#acessar-o-api-deum-pod).
 
-### Bliblioteca Python client
+### Biblioteca Python client
 
 Para usar o [cliente Python](https://github.com/kubernetes-client/python), execute o seguinte comando:
 `pip install kubernetes`. Consulte [a página Python Client Library](https://github.com/kubernetes-client/python)
@@ -200,7 +200,7 @@ como a CLI do kubectl faz, para localizar e autenticar ao apiserver. Veja esse
 
 ### Outras bibliotecas
 
-Existem [bibliotecas de clientes](/docs/reference/using-api/client-libraries/) para acessar a API de outros linguagens.
+Existem [bibliotecas de clientes](/docs/reference/using-api/client-libraries/) para acessar a API de outras linguagens.
 Consulte a documentação de outras bibliotecas para saber como elas se autenticam.
 
 ## Acessando a API a partir de um pod
