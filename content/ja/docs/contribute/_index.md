@@ -128,7 +128,7 @@ class A,B,D,E,F,G grey
 class S,T spacewhite
 class first,second white
 {{</ mermaid >}}
-はじめての貢献のための準備
+図2. はじめての貢献のための準備。
 
 - 貢献のための複数の方法について学ぶために[貢献の概要](/ja/docs/contribute/new-content/overview/)を読んでください。
 - 良い開始地点を探すために[`kubernetes/website` issueリスト](https://github.com/kubernetes/website/issues/)を確認してください。
