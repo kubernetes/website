@@ -19,6 +19,8 @@ no_list: true
 
 クラスターで最初にデバッグするのは、ノードがすべて正しく登録されているかどうかです。
 
+以下を実行します。
+
 ```shell
 kubectl get nodes
 ```
@@ -30,6 +32,7 @@ kubectl get nodes
 ```shell
 kubectl cluster-info dump
 ```
+
 ## ログの確認
 
 今のところ、クラスターをより深く掘り下げるには、関連するマシンにログインする必要があります。
