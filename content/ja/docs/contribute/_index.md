@@ -18,9 +18,7 @@ card:
 {{< note >}}
 Kubernetesへの貢献について総合的に知りたい場合は、[contributor documentation](https://www.kubernetes.dev/docs/)を参照してください。
 
-また、Kubernetesへの貢献については、
-{{< glossary_tooltip text="CNCF" term_id="cncf" >}} の[ページ](https://contribute.cncf.io/contributors/projects/#kubernetes)
-を参照することもできます。
+また、Kubernetesへの貢献については、{{< glossary_tooltip text="CNCF" term_id="cncf" >}}の[ページ](https://contribute.cncf.io/contributors/projects/#kubernetes)を参照することもできます。
 {{< /note >}}
 
 ---
