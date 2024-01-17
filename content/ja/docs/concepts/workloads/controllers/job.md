@@ -83,7 +83,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   annotations: batch.kubernetes.io/job-tracking: ""
-             ...  
+             ...
   creationTimestamp: "2022-11-10T17:53:53Z"
   generation: 1
   labels:
@@ -334,7 +334,7 @@ Pod失敗ポリシーまたはPod失敗のバックオフポリシーのいず�
   - `spec.podFailurePolicy.rules`で指定したPod失敗ポリシーのルールが順番に評価されます。あるPodの失敗がルールに一致すると、残りのルールは無視されます。Pod失敗に一致するルールがない場合は、デフォルトの処理が適用されます。
   - `spec.podFailurePolicy.rules[*].onExitCodes.containerName`を指定することで、ルールを特定のコンテナに制限することができます。指定しない場合、ルールはすべてのコンテナに適用されます。指定する場合は、Pod テンプレート内のコンテナ名または`initContainer`名のいずれかに一致する必要があります。
   - Pod失敗ポリシーが`spec.podFailurePolicy.rules[*].action`にマッチしたときに実行されるアクションを指定できます。指定可能な値は以下のとおりです。
-    - `FailJob`: PodのJobを`Failed`としてマークし、実行中の Pod をすべて終了させる必要があることを示します。 
+    - `FailJob`: PodのJobを`Failed`としてマークし、実行中の Pod をすべて終了させる必要があることを示します。
     - `Ignore`: `.spec.backoffLimit`のカウンターは加算されず、代替のPodが作成すべきであることを示します。
     - `Count`: Podがデフォルトの方法で処理されるべきであることを示します。`.spec.backoffLimit`のカウンターが加算されます。
 
@@ -433,8 +433,8 @@ Jobオブジェクトは、Podの確実な並列実行をサポートするた�
 並列計算にはいくつかのパターンがあり、それぞれに長所と短所があります。
 トレードオフの関係にあるのは:
 
-- 各作業項目に1つのJobオブジェクト vs. すべての作業項目に1つのJobオブジェクト。  
-　後者は大量の作業項目を処理する場合に適しています。  
+- 各作業項目に1つのJobオブジェクト vs. すべての作業項目に1つのJobオブジェクト。
+　後者は大量の作業項目を処理する場合に適しています。
 　前者は大量のJobオブジェクトを管理するため、ユーザーとシステムにオーバーヘッドをかけることになります。
 - 作成されるPod数が作業項目数と等しい、 vs. 各Podが複数の作業項目を処理する。
 　前者は通常、既存のコードやコンテナへの変更が少なくて済みます。
@@ -574,7 +574,7 @@ Events:
 
 この機能により、Jobが開始する前にスケジューリング命令を更新でき、カスタムキューコントローラーがPodの配置に影響を与えることができるようになります。同時に実際のPodからNodeへの割り当てをkube-schedulerにオフロードする能力を提供します。これは一時停止されたJobの中で、一度も一時停止解除されたことのないJobに対してのみ許可されます。
 
-JobのPodテンプレートで更新可能なフィールドはnodeAffinity、nodeSelector、tolerations、labelsとannotations、[スケジューリングゲート](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)です。 
+JobのPodテンプレートで更新可能なフィールドはnodeAffinity、nodeSelector、tolerations、labelsとannotations、[スケジューリングゲート](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)です。
 
 ### 独自のPodセレクターを指定  {#specifying-your-own-pod-selector}
 
@@ -652,7 +652,7 @@ Jobが`batch.kubernetes.io/job-tracking`というアノテーションを持っ�
 
 ### 単なるPod  {#bare-pods}
 
-Podが動作しているノードが再起動または故障した場合、Podは終了し、再起動されません。しかし、終了したPodを置き換えるため、Jobが新しいPodを作成します。このため、たとえアプリケーションが1つのPodしか必要としない場合でも、単なるPodではなくJobを使用することをお勧めします。 
+Podが動作しているノードが再起動または故障した場合、Podは終了し、再起動されません。しかし、終了したPodを置き換えるため、Jobが新しいPodを作成します。このため、たとえアプリケーションが1つのPodしか必要としない場合でも、単なるPodではなくJobを使用することをお勧めします。
 
 ### Replication Controller  {#replication-controller}
 
