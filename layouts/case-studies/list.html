@@ -21,6 +21,11 @@
 		</div>
 	</div>
 </section>
+<style>
+    #video button:hover {
+        background-color: #303539;
+	}
+</style>
 {{ $featuredVideos := where .Pages ".Params.video" "!=" nil }}
 {{ with $featuredVideos }}
 {{ with index $featuredVideos 0 }}
