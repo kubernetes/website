@@ -139,7 +139,7 @@ class first,second white
 
 ## 貢献時の支援の受け方
 
-最初の貢献を行うことは大変なことがあります。[新規貢献者のためのアンバサダー](https://github.com/kubernetes/website#new-contributor-ambassadors)は、最初の数回の貢献を行う手助けをしてくれます。[Kubernetes Slack](https://slack.k8s.io/)で、特に `#sig-docs` チャンネルを用いて連絡を取ることができます。また毎月最初の火曜日に行われる[新規貢献者のための歓迎会](https://www.kubernetes.dev/resources/calendar/)もあります。ここで新規貢献者のアンバサダーと交流し、質問に答えてもらうことができます。
+はじめて貢献を行うのは大変なことかもしれません。[新規貢献者のためのアンバサダー](https://github.com/kubernetes/website#new-contributor-ambassadors)は、最初の数回の貢献を行う手助けをしてくれます。[Kubernetes Slack](https://slack.k8s.io/)で、特に`#sig-docs`チャンネルを用いて連絡を取ることができます。また毎月第一火曜日に行われる[新規貢献者のための歓迎会](https://www.kubernetes.dev/resources/calendar/)もあります。ここで新規貢献者のアンバサダーと交流し、質問に答えてもらうことができます。
 
 ## 次のステップ
 
