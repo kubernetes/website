@@ -39,7 +39,7 @@ curl ou wget, ou um navegador, há várias maneiras de localizar e autenticar:
 - Forneça o local e as credenciais diretamente para o cliente http.
   - método alternativo.
   - Funciona com alguns tipos de código de cliente que são confundidos pelo uso de um proxy.
-  - Necessidade de importar um certificado raiz em seu navegador para se proteger contra MITM (Man-In-The-Middle) ataque.
+  - Necessidade de importar um certificado raiz em seu navegador para se proteger contra ataque MITM (Man-In-The-Middle).
 
 ### Usando o kubectl proxy
 
@@ -53,7 +53,7 @@ kubectl proxy --port=8080
 
 Consulte [kubectl proxy](/docs/reference/generated/kubectl/kubectl-commands/#proxy) para obter mais detalhes.
 
-Em seguir, você pode explorar a API com curl, wget ou um navegador, substituindo localhost
+Em seguida, você pode explorar a API com curl, wget ou um navegador, substituindo localhost
 por [::1] para IPv6, da seguinte forma:
 
 ```shell
@@ -104,7 +104,7 @@ while ! kubectl describe secret default-token | grep -E '^token' >/dev/null; do
 done
 ```
 
-Recolha e use o token gerado:
+Recupere e use o token gerado:
 
 ```shell
 APISERVER=$(kubectl config view --minify | grep server | cut -f 2- -d ":" | tr -d " ")
@@ -169,26 +169,26 @@ descreve como um administrador de cluster pode configurar isso.
 
 ## Acesso programático à API
 
-O Kubernetes suporta oficialmente as [Go](#go-client) e [Python](#python-client) bibliotecas de clientes.
+O Kubernetes suporta oficialmente as bibliotecas de clientes [Go](#go-client) e [Python](#python-client).
 
-### Go cliente
+### Biblioteca Go client
 
 * Para obter a biblioteca, execute o seguinte comando: `go get k8s.io/client-go@kubernetes-<kubernetes-version-number>`,
   consulte [INSTALL.md](https://github.com/kubernetes/client-go/blob/master/INSTALL.md#for-the-casual-user)
   para obter instruções detalhadas de instalação. Consulte
   [https://github.com/kubernetes/client-go](https://github.com/kubernetes/client-go#compatibility-matrix)
   para ver quais versões são compatíveis.
-* Escreva um aplicativo sobre os clientes cliente-go. Observe que o client-go define seus próprios objetos de API,
-  portanto, se necessário, importe as definições de API do client-go em vez de importá-las do repositório principal.
+* Escreva um aplicativo sobre a biblioteca client-go. Observe que o client-go define seus próprios objetos de API,
+  portanto, se necessário, importe as definições de API da biblioteca Go Client em vez de importá-las do repositório principal.
   Por exemplo, `import "k8s.io/client-go/kubernetes"` está correto.
 
-O cliente Go pode usar o mesmo arquivo [kubeconfig] (/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+A biblioteca Go Client pode usar o mesmo arquivo [kubeconfig] (/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 como a CLI do kubectl faz, para localizar e autenticar ao apiserver. Veja esse
 [exemplo](https://git.k8s.io/client-go/examples/out-of-cluster-client-configuration/main.go).
 
 Se o aplicativo for disponibilizado como um pod no cluster, consulte a [próxima seção] (#acessar-o-api-deum-pod).
 
-### Python cliente
+### Bliblioteca Python client
 
 Para usar o [cliente Python](https://github.com/kubernetes-client/python), execute o seguinte comando:
 `pip install kubernetes`. Consulte [a página Python Client Library](https://github.com/kubernetes-client/python)
@@ -198,9 +198,9 @@ O cliente Python pode usar o mesmo arquivo [kubeconfig](/docs/concepts/configura
 como a CLI do kubectl faz, para localizar e autenticar ao apiserver. Veja esse
 [exemplo](https://github.com/kubernetes-client/python/tree/master/examples).
 
-### Outros idiomas
+### Outras bibliotecas
 
-Existem [bibliotecas de clientes](/docs/reference/using-api/client-libraries/) para acessar a API de outros idiomas.
+Existem [bibliotecas de clientes](/docs/reference/using-api/client-libraries/) para acessar a API de outros linguagens.
 Consulte a documentação de outras bibliotecas para saber como elas se autenticam.
 
 ## Acessando a API a partir de um pod
