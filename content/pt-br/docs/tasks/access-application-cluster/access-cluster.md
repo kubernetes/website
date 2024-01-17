@@ -178,7 +178,7 @@ O Kubernetes suporta oficialmente as bibliotecas de clientes [Go](#go-client) e 
   para obter instruções detalhadas de instalação. Consulte
   [https://github.com/kubernetes/client-go](https://github.com/kubernetes/client-go#compatibility-matrix)
   para ver quais versões são compatíveis.
-* Escreva um aplicativo sobre a biblioteca client-go. Observe que o client-go define seus próprios objetos de API,
+* Escreva um aplicativo utilizando a biblioteca Go Client. Observe que ela define seus próprios objetos de API,
   portanto, se necessário, importe as definições de API da biblioteca Go Client em vez de importá-las do repositório principal.
   Por exemplo, `import "k8s.io/client-go/kubernetes"` está correto.
 
