@@ -363,6 +363,13 @@ relative to their scheduling requests are killed first.
 Unlike pod eviction, if a container is OOM killed, the kubelet can restart it
 based on its `restartPolicy`.
 
+{{<note>}}
+If using [cgroup v2](/docs/concepts/architecture/cgroups/), the kubelet sets the `memory.oom.group` flag so that if a single process in
+a container is OOM killed, all processes in the container will be killed as a group. You can set
+the `singleProcessOOMKill` flag in the [kubelet configuration file](/docs/tasks/administer-cluster/kubelet-config-file/) to
+cause kubelet to select the legacy kubelet behavior when using cgroup v2.
+{{</note>}}
+
 ## Good practices {#node-pressure-eviction-good-practices}
 
 The following sections describe good practice for eviction configuration.
