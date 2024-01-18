@@ -51,7 +51,7 @@ Allocatable:
 
 {{< note >}}
 For dynamically allocated pages (after boot), the Kubelet needs to be restarted
-for the new allocations to be refrelected.
+for the new allocations to be reflected.
 {{< /note >}}
 
 <!-- steps -->
