@@ -27,10 +27,13 @@ weight: 20
 
 <!--
 This document describes _persistent volumes_ in Kubernetes. Familiarity with
-[volumes](/docs/concepts/storage/volumes/) is suggested.
+[volumes](/docs/concepts/storage/volumes/), [StorageClasses](/docs/concepts/storage/storage-classes/)
+and [VolumeAttributesClasses](/docs/concepts/storage/volume-attributes-classes/) is suggested.
 -->
-本文描述 Kubernetes 中的**持久卷（Persistent Volume）** 。
-建议先熟悉[卷（Volume）](/zh-cn/docs/concepts/storage/volumes/)的概念。
+本文描述 Kubernetes 中的**持久卷（Persistent Volumes）**。
+建议先熟悉[卷（volume）](/zh-ch/docs/concepts/storage/volumes/)、
+[存储类（StorageClass）](/zh-cn/docs/concepts/storage/storage-classes/)和
+[卷属性类（VolumeAttributesClass）](/zh-cn/docs/concepts/storage/volume-attributes-classes/)。
 
 <!-- body -->
 
@@ -63,14 +66,14 @@ A _PersistentVolume_ (PV) is a piece of storage in the cluster that has been pro
 A _PersistentVolumeClaim_ (PVC) is a request for storage by a user. It is similar
 to a Pod. Pods consume node resources and PVCs consume PV resources. Pods can
 request specific levels of resources (CPU and Memory). Claims can request specific
-size and access modes (e.g., they can be mounted ReadWriteOnce, ReadOnlyMany or
-ReadWriteMany, see [AccessModes](#access-modes)).
+size and access modes (e.g., they can be mounted ReadWriteOnce, ReadOnlyMany,
+ReadWriteMany, or ReadWriteOncePod, see [AccessModes](#access-modes)).
 -->
 **持久卷申领（PersistentVolumeClaim，PVC）** 表达的是用户对存储的请求。概念上与 Pod 类似。
 Pod 会耗用节点资源，而 PVC 申领会耗用 PV 资源。Pod 可以请求特定数量的资源（CPU
-和内存）；同样 PVC 申领也可以请求特定的大小和访问模式
-（例如，可以要求 PV 卷能够以 ReadWriteOnce、ReadOnlyMany 或 ReadWriteMany
-模式之一来挂载，参见[访问模式](#access-modes)）。
+和内存）。同样 PVC 申领也可以请求特定的大小和访问模式
+（例如，可以挂载为 ReadWriteOnce、ReadOnlyMany、ReadWriteMany 或 ReadWriteOncePod，
+请参阅[访问模式](#access-modes)）。
 
 <!--
 While PersistentVolumeClaims allow a user to consume abstract storage resources,
@@ -982,9 +985,7 @@ mounting of NFS filesystems.
 ### Capacity
 
 Generally, a PV will have a specific storage capacity. This is set using the PV's
-`capacity` attribute. Read the glossary term
-[Quantity](/docs/reference/glossary/?all=true#term-quantity) to understand the units
-expected by `capacity`.
+`capacity` attribute which is a {{< glossary_tooltip term_id="quantity" >}} value.
 
 Currently, storage size is the only resource that can be set or requested.
 Future attributes may include IOPS, throughput, etc.
@@ -992,9 +993,8 @@ Future attributes may include IOPS, throughput, etc.
 ### 容量    {#capacity}
 
 一般而言，每个 PV 卷都有确定的存储容量。
-容量属性是使用 PV 对象的 `capacity` 属性来设置的。
-参考词汇表中的[量纲（Quantity）](/zh-cn/docs/reference/glossary/?all=true#term-quantity)
-词条，了解 `capacity` 字段可以接受的单位。
+这是通过 PV 的 `capacity` 属性设置的，
+该属性是一个{{< glossary_tooltip text="量纲（Quantity）" term_id="quantity" >}}。
 
 目前，存储大小是可以设置和请求的唯一资源。
 未来可能会包含 IOPS、吞吐量等属性。
@@ -1062,7 +1062,8 @@ The access modes are:
 
 `ReadWriteOnce`
 : the volume can be mounted as read-write by a single node. ReadWriteOnce access
-  mode still can allow multiple pods to access the volume when the pods are running on the same node.
+  mode still can allow multiple pods to access the volume when the pods are
+  running on the same node. For single pod access, please see ReadWriteOncePod.
 
 `ReadOnlyMany`
 : the volume can be mounted as read-only by many nodes.
@@ -1071,21 +1072,17 @@ The access modes are:
 : the volume can be mounted as read-write by many nodes.
 
  `ReadWriteOncePod`
-: {{< feature-state for_k8s_version="v1.27" state="beta" >}}
+: {{< feature-state for_k8s_version="v1.29" state="stable" >}}
   the volume can be mounted as read-write by a single Pod. Use ReadWriteOncePod
   access mode if you want to ensure that only one pod across whole cluster can
-  read that PVC or write to it. This is only supported for CSI volumes and
-  Kubernetes version 1.22+.
-
-The blog article
-[Introducing Single Pod Access Mode for PersistentVolumes](/blog/2021/09/13/read-write-once-pod-access-mode-alpha/)
-covers this in more detail.
+  read that PVC or write to it.
 -->
 访问模式有：
 
 `ReadWriteOnce`
 : 卷可以被一个节点以读写方式挂载。
-  ReadWriteOnce 访问模式也允许运行在同一节点上的多个 Pod 访问卷。
+  ReadWriteOnce 访问模式仍然可以在同一节点上运行的多个 Pod 访问该卷。
+  对于单个 Pod 的访问，请参考 ReadWriteOncePod 访问模式。
 
 `ReadOnlyMany`
 : 卷可以被多个节点以只读方式挂载。
@@ -1094,13 +1091,32 @@ covers this in more detail.
 : 卷可以被多个节点以读写方式挂载。
 
 `ReadWriteOncePod`
-: {{< feature-state for_k8s_version="v1.27" state="beta" >}}
+: {{< feature-state for_k8s_version="v1.29" state="stable" >}}
   卷可以被单个 Pod 以读写方式挂载。
   如果你想确保整个集群中只有一个 Pod 可以读取或写入该 PVC，
-  请使用 ReadWriteOncePod 访问模式。这只支持 CSI 卷以及需要 Kubernetes 1.22 以上版本。
+  请使用 ReadWriteOncePod 访问模式。
 
-这篇博客文章 [Introducing Single Pod Access Mode for PersistentVolumes](/blog/2021/09/13/read-write-once-pod-access-mode-alpha/)
-描述了更详细的内容。
+{{< note >}}
+<!--
+The `ReadWriteOncePod` access mode is only supported for
+{{< glossary_tooltip text="CSI" term_id="csi" >}} volumes and Kubernetes version
+1.22+. To use this feature you will need to update the following
+[CSI sidecars](https://kubernetes-csi.github.io/docs/sidecar-containers.html)
+to these versions or greater:
+
+* [csi-provisioner:v3.0.0+](https://github.com/kubernetes-csi/external-provisioner/releases/tag/v3.0.0)
+* [csi-attacher:v3.3.0+](https://github.com/kubernetes-csi/external-attacher/releases/tag/v3.3.0)
+* [csi-resizer:v1.3.0+](https://github.com/kubernetes-csi/external-resizer/releases/tag/v1.3.0)
+-->
+
+`ReadWriteOncePod` 访问模式仅适用于 {{< glossary_tooltip text="CSI" term_id="csi" >}} 卷和 Kubernetes v1.22+。
+要使用此特性，你需要将以下
+[CSI 边车](https://kubernetes-csi.github.io/docs/sidecar-containers.html)更新为下列或更高版本：
+
+- [csi-provisioner:v3.0.0+](https://github.com/kubernetes-csi/external-provisioner/releases/tag/v3.0.0)
+- [csi-attacher:v3.3.0+](https://github.com/kubernetes-csi/external-attacher/releases/tag/v3.3.0)
+- [csi-resizer:v1.3.0+](https://github.com/kubernetes-csi/external-resizer/releases/tag/v1.3.0)
+{{< /note >}}
 
 <!--
 In the CLI, the access modes are abbreviated to:
@@ -1205,7 +1221,7 @@ Current reclaim policies are:
 
 * Retain -- manual reclamation
 * Recycle -- basic scrub (`rm -rf /thevolume/*`)
-* Delete -- associated storage asset
+* Delete -- delete the volume
 
 For Kubernetes {{< skew currentVersion >}}, only `nfs` and `hostPath` volume types support recycling.
 -->
@@ -1215,7 +1231,7 @@ For Kubernetes {{< skew currentVersion >}}, only `nfs` and `hostPath` volume typ
 
 * Retain -- 手动回收
 * Recycle -- 简单擦除 (`rm -rf /thevolume/*`)
-* Delete -- 删除关联存储资产
+* Delete -- 删除存储卷
 
 对于 Kubernetes {{< skew currentVersion >}} 来说，只有
 `nfs` 和 `hostPath` 卷类型支持回收（Recycle）。
@@ -1344,7 +1360,7 @@ You can see the name of the PVC bound to the PV using `kubectl describe persiste
 -->
 #### 阶段转换时间戳
 
-{{< feature-state for_k8s_version="v1.28" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.29" state="beta" >}}
 
 <!--
 The `.status` field for a PersistentVolume can include an alpha `lastPhaseTransitionTime` field. This field records
