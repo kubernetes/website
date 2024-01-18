@@ -221,18 +221,18 @@ status:
 
 今のところ、クラスターをより深く掘り下げるには、関連するマシンにログインする必要があります。
 以下は、関連するログファイルの場所です。
-(systemdベースのシステムでは、代わりに `journalctl` を使う必要があるかもしれないことに注意してください)
+(systemdベースのシステムでは、代わりに`journalctl`を使う必要があるかもしれないことに注意してください)
 
 ### マスターノード
 
-   * `/var/log/kube-apiserver.log` - APIの提供を担当するAPIサーバーのログ
-   * `/var/log/kube-scheduler.log` - スケジューリング決定責任者であるスケジューラーのログ
-   * `/var/log/kube-controller-manager.log` - レプリケーションコントローラーを管理するコントローラーのログ
+* `/var/log/kube-apiserver.log` - APIの提供を担当するAPIサーバーのログ
+* `/var/log/kube-scheduler.log` - スケジューリング決定責任者であるスケジューラーのログ
+* `/var/log/kube-controller-manager.log` - スケジューリングを除く、ほとんどのKubernetes組み込みの{{<glossary_tooltip text="コントローラー" term_id="controller">}}を実行するコンポーネントのログ(スケジューリングはkube-schedulerが担当します)
 
 ### ワーカーノード
 
-   * `/var/log/kubelet.log` - ノード上でコンテナの実行を担当するKubeletのログ
-   * `/var/log/kube-proxy.log` - サービスのロードバランシングを担うKube Proxyのログ
+* `/var/log/kubelet.log` - ノード上でコンテナの実行を担当するKubeletのログ
+* `/var/log/kube-proxy.log` - サービスのロードバランシングを担うKube Proxyのログ
 
 ## クラスター障害モードの一般的な概要
 
