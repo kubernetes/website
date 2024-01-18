@@ -1,7 +1,7 @@
  ---
-reviewers:
-- caesarxuchao
-- dchen1107
+- reviewers:
+- - caesarxuchao
+- - dchen1107
 title: नोड्स
 content_type: concept
 weight: 10
@@ -180,13 +180,13 @@ kubectl describe node <insert-node-name-here>
 `शर्तें` फ़ील्ड सभी `चल रहे` नोड्स की स्थिति का वर्णन करता है। शर्तों के उदाहरणों में शामिल हैं:
 
 {{< table caption = "Node conditions, and a description of when each condition applies." >}}
-| Node Condition       | Description |
+| नोड स्थिति       | विवरण |
 |----------------------|-------------|
-| `Ready`              | `True` if the node is healthy and ready to accept pods, `False` if the node is not healthy and is not accepting pods, and `Unknown` if the node controller has not heard from the node in the last `node-monitor-grace-period` (default is 40 seconds) |
-| `DiskPressure`       | `True` if pressure exists on the disk size—that is, if the disk capacity is low; otherwise `False` |
-| `MemoryPressure`     | `True` if pressure exists on the node memory—that is, if the node memory is low; otherwise `False` |
-| `PIDPressure`        | `True` if pressure exists on the processes—that is, if there are too many processes on the node; otherwise `False` |
-| `NetworkUnavailable` | `True` if the network for the node is not correctly configured, otherwise `False` |
+| 'तैयार'              | यदि नोड स्वस्थ है और पॉड्स स्वीकार करने के लिए तैयार है, तो `सही` है, यदि नोड स्वस्थ नहीं है और पॉड्स स्वीकार नहीं कर रहा है, तो `गलत` है, और यदि नोड नियंत्रक ने अंतिम `नोड-मॉनिटर में नोड से नहीं सुना है` तो `अज्ञात` है। -अनुग्रह-अवधि` (डिफ़ॉल्ट 40 सेकंड है) |
+| `डिस्कप्रेशर`       | `सही` यदि डिस्क आकार पर दबाव मौजूद है - यानी, यदि डिस्क क्षमता कम है; अन्यथा 'झूठा' |
+| `मेमोरीप्रेशर`     | `सही` यदि नोड मेमोरी पर दबाव मौजूद है - अर्थात, यदि नोड मेमोरी कम है; अन्यथा 'झूठा' |
+| `पीआईडीप्रेशर`        | `सही` यदि प्रक्रियाओं पर दबाव मौजूद है - अर्थात, यदि नोड पर बहुत अधिक प्रक्रियाएं हैं; अन्यथा 'झूठा' |
+| `प्रसार अनुपलब्ध है` | `सही` यदि नोड के लिए नेटवर्क सही ढंग से कॉन्फ़िगर नहीं किया गया है, अन्यथा `गलत` |
 {{< /table >}}
 
 {{< note >}}
