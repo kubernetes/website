@@ -191,11 +191,6 @@ These instructions are for Kubernetes {{< skew currentVersion >}}.
 In releases older than Debian 12 and Ubuntu 22.04, folder `/etc/apt/keyrings` does not exist by default, and it should be created before the curl command.
 {{< /note >}}
 
-{{< note >}}
-In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default;
-you can create it by running `sudo mkdir -m 755 /etc/apt/keyrings`
-{{< /note >}}
-
 3. Add the appropriate Kubernetes `apt` repository. Please note that this repository have packages
    only for Kubernetes {{< skew currentVersion >}}; for other Kubernetes minor versions, you need to
    change the Kubernetes minor version in the URL to match your desired minor version
