@@ -151,5 +151,19 @@ other = "Fin du support:"
 [previous_patches]
 other = "Correctifs publiés:"
 
+[thirdparty_message]
+other = """Cette section renvoie à des projets tiers qui fournissent des fonctionnalités requises par Kubernetes. Les auteurs du projet Kubernetes ne sont pas responsables de ces projets, classés par ordre alphabétique. Pour ajouter un projet à cette liste, lisez le <a href="/docs/contribute/style/content-guide/#third-party-content">guide</a> avant de soumettre une modification. <a href="#third-party-content-disclaimer">Plus d'informations.</a>"""
+
+[thirdparty_message_edit_disclaimer]
+other="""Conseils sur le contenu tiers"""
+
+[thirdparty_message_single_item]
+other = """&#128711; Cet élément renvoie à un projet ou un produit tiers qui ne fait pas partie de Kubernetes lui-même. <a class="alert-more-info" href="#third-party-content-disclaimer">Plus d'informations</a>"""
+
+[thirdparty_message_disclaimer]
+other = """<p>Certains éléments sur cette page font référence à des produits ou projets tiers qui fournissent des fonctionnalités requises par Kubernetes. Les auteurs du projet Kubernetes ne sont pas responsables de ces produits ou projets tiers. Consultez les <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">lignes directrices du site de la CNCF</a> pour plus de détails.</p> <p>Vous devriez lire le <a href="/docs/contribute/style/content-guide/#third-party-content">guide</a> avant de proposer une modification qui ajoute un nouveau lien tiers. </p>"""
+
+
 [release_date_before]
 other = "(publiée: "
+
