@@ -1110,7 +1110,14 @@ version of Kubernetes that doesn't have compiled-in support for that kind of sto
  
 As part of that migration, you - or another cluster administrator - **must** have installed and configured
 the appropriate CSI driver for that storage. The core of Kubernetes does not install that software for you.
-* New PVs in manifests referring to in-tree volume plugins can still be created, even after the in-tree volume plugins are removed from Kubernetes.
+
+---
+
+After that migration, you can also define new PVCs and PVs that refer to the legacy, built-in
+storage integrations.
+Provided you have the appropriate CSI driver installed and configured, the PV creation continues
+to work, even for brand new volumes. The actual storage management now happens through
+the CSI driver.
 {{< /note >}}
 
 The operations and features that are supported include:
