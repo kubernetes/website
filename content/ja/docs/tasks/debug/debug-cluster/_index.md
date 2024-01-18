@@ -307,3 +307,13 @@ status:
 - 対処法: 予期せぬ再起動に耐えられるように設計されたアプリケーション(コンテナ)
   - 異常: ノードのシャットダウン
   - 異常: Kubeletソフトウェア障害
+
+## {{% heading "whatsnext" %}}
+
+* [リソースメトリクスパイプライン](/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/)で利用可能なメトリクスについて学ぶ
+* [リソース使用状況の監視](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)に役立つ追加ツールを探す
+* Node Problem Detectorを使用して[ノードの健康状態を監視する](/docs/tasks/debug/debug-cluster/monitor-node-health/)
+* `kubectl debug node`を使用して[Kubernetesノードをデバッグする](/docs/tasks/debug/debug-cluster/kubectl-node-debug)
+* `crictl`を使用して[Kubernetesノードをデバッグする](/docs/tasks/debug/debug-cluster/crictl/)
+* [Kubernetesの監査](/docs/tasks/debug/debug-cluster/audit/)に関する詳細な情報を得る
+* `telepresence`を使用して[ローカルでサービスを開発・デバッグする](/docs/tasks/debug/debug-cluster/local-debugging/)
