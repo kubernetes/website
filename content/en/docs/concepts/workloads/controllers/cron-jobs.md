@@ -130,7 +130,9 @@ The spec may specify only one of the following concurrency policies:
 
 * `Allow` (default): The CronJob allows concurrently running jobs
 * `Forbid`: The CronJob does not allow concurrent runs; if it is time for a new job run and the
-  previous job run hasn't finished yet, the CronJob skips the new job run
+  previous job run hasn't finished yet, the CronJob skips the new job run. Also note that when the
+  previous job run finishes, `.spec.startingDeadlineSeconds` is still taken into account and may
+  result in a new job run.
 * `Replace`: If it is time for a new job run and the previous job run hasn't finished yet, the
   CronJob replaces the currently running job run with a new job run
 
