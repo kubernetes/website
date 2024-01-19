@@ -11,8 +11,6 @@ Kubernetesでは、TLS認証のためにPKI証明書が必要です。
 自身で証明書を作成することも可能です。例えば、秘密鍵をAPIサーバーに保持しないことで、管理をよりセキュアにする場合が挙げられます。
 本ページでは、クラスターに必要な証明書について説明します。
 
-
-
 <!-- body -->
 
 ## クラスターではどのように証明書が使われているのか
@@ -157,6 +155,3 @@ KUBECONFIG=<filename> kubectl config use-context default-system
 | kubelet.conf            | kubelet                 | クラスターの各ノードに1つ必要です。                            |
 | controller-manager.conf | kube-controller-manager | `manifests/kube-controller-manager.yaml`のマニフェストファイルに追記する必要があります。 |
 | scheduler.conf          | kube-scheduler          | `manifests/kube-scheduler.yaml`のマニフェストファイルに追記する必要があります。          |
-
-
-
