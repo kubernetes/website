@@ -310,7 +310,7 @@ status:
 
 ## {{% heading "whatsnext" %}}
 
-* [リソースメトリクスパイプライン](/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/)で利用可能なメトリクスについて学ぶ
+* [リソースメトリクスパイプライン](/ja/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/)で利用可能なメトリクスについて学ぶ
 * [リソース使用状況の監視](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)に役立つ追加ツールを探す
 * Node Problem Detectorを使用して[ノードの健康状態を監視する](/docs/tasks/debug/debug-cluster/monitor-node-health/)
 * `kubectl debug node`を使用して[Kubernetesノードをデバッグする](/docs/tasks/debug/debug-cluster/kubectl-node-debug)
