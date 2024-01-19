@@ -23,13 +23,13 @@ plane hosts. If you do not already have a cluster, you can create one by using
 
 The following steps require an egress configuration, for example:
 
-{{< codenew file="admin/konnectivity/egress-selector-configuration.yaml" >}}
+{{% code_sample file="admin/konnectivity/egress-selector-configuration.yaml" %}}
 
 You need to configure the API Server to use the Konnectivity service
 and direct the network traffic to the cluster nodes:
 
 1. Make sure that
-[Service Account Token Volume Projection](/docs/tasks/configure-pod-container/configure-service-account/#service-account-token-volume-projection)
+[Service Account Token Volume Projection](/docs/tasks/configure-pod-container/configure-service-account/#serviceaccount-token-volume-projection)
 feature enabled in your cluster. It is enabled by default since Kubernetes v1.20.
 1. Create an egress configuration file such as `admin/konnectivity/egress-selector-configuration.yaml`.
 1. Set the `--egress-selector-config-file` flag of the API Server to the path of
@@ -74,12 +74,12 @@ that the Kubernetes components are deployed as a {{< glossary_tooltip text="stat
 term_id="static-pod" >}} in your cluster. If not, you can deploy the Konnectivity
 server as a DaemonSet.
 
-{{< codenew file="admin/konnectivity/konnectivity-server.yaml" >}}
+{{% code_sample file="admin/konnectivity/konnectivity-server.yaml" %}}
 
 Then deploy the Konnectivity agents in your cluster:
 
-{{< codenew file="admin/konnectivity/konnectivity-agent.yaml" >}}
+{{% code_sample file="admin/konnectivity/konnectivity-agent.yaml" %}}
 
 Last, if RBAC is enabled in your cluster, create the relevant RBAC rules:
 
-{{< codenew file="admin/konnectivity/konnectivity-rbac.yaml" >}}
+{{% code_sample file="admin/konnectivity/konnectivity-rbac.yaml" %}}

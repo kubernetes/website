@@ -12,7 +12,8 @@ auto_generated: true
 
 {{< warning >}}
 <!-- 
-This content is auto-generated and links may not function. The source of the document is located [here](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/release.md).
+This content is auto-generated and links may not function. The source of the document
+is located [here](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/release.md).
 -->
 此内容原文是自动生成的，链接可能无法正常访问。
 文档的来源在[这里](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/release.md)。

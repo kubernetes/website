@@ -1,30 +1,17 @@
 <!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
-<!--
 Add a new local etcd member
 -->
-添加一个新的本地 etcd 成员
+添加一个新的本地 etcd 成员。
 
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
 Add a new local etcd member
 -->
-
-添加新的本地 etcd 成员
+添加新的本地 etcd 成员。
 
 ```
 kubeadm join phase control-plane-join etcd [flags]
@@ -33,7 +20,6 @@ kubeadm join phase control-plane-join etcd [flags]
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -80,7 +66,7 @@ kubeadm 配置文件的路径。
 Create a new control plane instance on this node
 -->
 <p>
-在此节点上创建一个新的控制平面实例
+在此节点上创建一个新的控制平面实例。
 </p>
 </td>
 </tr>
@@ -108,7 +94,7 @@ Don't apply any changes; just output what would be done.
 help for etcd
 -->
 <p>
-etcd 操作的帮助命令
+etcd 操作的帮助命令。
 </p>
 </td>
 </tr>
@@ -122,7 +108,7 @@ etcd 操作的帮助命令
 Specify the node name.
 -->
 <p>
-指定节点的名称
+指定节点的名称。
 </p>
 </td>
 </tr>
@@ -147,7 +133,6 @@ Specify the node name.
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 从父命令中继承的选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -173,4 +158,3 @@ Specify the node name.
 
 </tbody>
 </table>
-

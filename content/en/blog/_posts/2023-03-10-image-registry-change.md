@@ -123,8 +123,8 @@ repository](https://github.com/aws/aws-eks-best-practices/tree/master/policies/k
 that will block them from being pulled. You can use these third-party policies with any Kubernetes
 cluster.
 
-**Option 5**: As a **LAST** possible option, you can use a [Mutating
-Admission Webhook](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks)
+**Option 5**: As a **LAST** possible option, you can use a
+[Mutating Admission Webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks)
 to change the image address dynamically. This should only be
 considered a stopgap till your manifests have been updated. You can
 find a (third party) Mutating Webhook and Kyverno policy in

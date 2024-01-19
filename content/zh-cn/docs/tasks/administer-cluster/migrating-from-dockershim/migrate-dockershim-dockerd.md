@@ -146,9 +146,12 @@ instructions for that tool.
 1.  Open `/var/lib/kubelet/kubeadm-flags.env` on each affected node.
 1.  Modify the `--container-runtime-endpoint` flag to
     `unix:///var/run/cri-dockerd.sock`.
+1.  Modify the `--container-runtime` flag to `remote`
+    (unavailable in Kubernetes v1.27 and later).
 -->
 1. 在每个被影响的节点上，打开 `/var/lib/kubelet/kubeadm-flags.env` 文件；
 1. 将 `--container-runtime-endpoint` 标志，将其设置为 `unix:///var/run/cri-dockerd.sock`。
+1. 将 `--container-runtime` 标志修改为 `remote`（在 Kubernetes v1.27 及更高版本中不可用）。
 
 <!--
 The kubeadm tool stores the node's socket as an annotation on the `Node` object

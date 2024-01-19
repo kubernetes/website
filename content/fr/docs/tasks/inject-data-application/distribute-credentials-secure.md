@@ -39,7 +39,7 @@ afin de réduire les risques de sécurité liés à l'utilisation d'un outil ext
 Voici un fichier de configuration que vous pouvez utiliser pour créer un Secret
 qui contiendra votre identifiant et mot de passe:
 
-{{< codenew file="pods/inject/secret.yaml" >}}
+{{% codenew file="pods/inject/secret.yaml" %}}
 
 1. Créez le Secret:
 
@@ -99,7 +99,7 @@ montrée précédemment permet de démontrer et comprendre le fonctionnement des
 
 Voici un fichier de configuration qui permet de créer un Pod:
 
-{{< codenew file="pods/inject/secret-pod.yaml" >}}
+{{% codenew file="pods/inject/secret-pod.yaml" %}}
 
 1. Créez le Pod:
 
@@ -255,7 +255,7 @@ permettant de redémarrer les containers lors d'une mise à jour du Secret.
 *  Assignez la valeur de `backend-username` définie dans le Secret 
    à la variable d'environnement `SECRET_USERNAME` dans la configuration du Pod.
 
-   {{< codenew file="pods/inject/pod-single-secret-env-variable.yaml" >}}
+   {{% codenew file="pods/inject/pod-single-secret-env-variable.yaml" %}}
 
 *  Créez le Pod:
 
@@ -286,7 +286,7 @@ permettant de redémarrer les containers lors d'une mise à jour du Secret.
 
 *  Définissez les variables d'environnement dans la configuration du Pod.
 
-   {{< codenew file="pods/inject/pod-multiple-secret-env-variable.yaml" >}}
+   {{% codenew file="pods/inject/pod-multiple-secret-env-variable.yaml" %}}
 
 *  Créez le Pod:
 
@@ -323,7 +323,7 @@ Cette fonctionnalité n'est disponible que dans les versions de Kubernetes
    d'environnement. Les clés du Secret deviendront les noms des variables
    d'environnement à l'intérieur du Pod.
 
-    {{< codenew file="pods/inject/pod-secret-envFrom.yaml" >}}
+    {{% codenew file="pods/inject/pod-secret-envFrom.yaml" %}}
 
 *  Créez le Pod:
 

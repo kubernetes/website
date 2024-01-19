@@ -24,7 +24,7 @@ To learn how to install and use Node Problem Detector, see
 [Node Problem Detector project documentation](https://github.com/kubernetes/node-problem-detector).
 -->
 
-*节点问题检测器（Node Problem Detector）* 是一个守护程序，用于监视和报告节点的健康状况。
+**节点问题检测器（Node Problem Detector）** 是一个守护程序，用于监视和报告节点的健康状况。
 你可以将节点问题探测器以 `DaemonSet` 或独立守护程序运行。
 节点问题检测器从各种守护进程收集节点问题，并以节点
 [Condition](/zh-cn/docs/concepts/architecture/nodes/#condition) 和
@@ -77,7 +77,7 @@ to detect customized node problems. For example:
 <!--
 1. Create a Node Problem Detector configuration similar to `node-problem-detector.yaml`:
 
-   {{< codenew file="debug/node-problem-detector.yaml" >}}
+   {{% code_sample file="debug/node-problem-detector.yaml" %}}
 
    {{< note >}}
    You should verify that the system log directory is right for your operating system distribution.
@@ -90,7 +90,7 @@ to detect customized node problems. For example:
    ```
 -->
 1. 创建类似于 `node-strought-detector.yaml` 的节点问题检测器配置：
-   {{< codenew file="debug/node-problem-detector.yaml" >}}
+   {{% code_sample file="debug/node-problem-detector.yaml" %}}
 
    {{< note >}}
    你应该检查系统日志目录是否适用于操作系统发行版本。
@@ -148,7 +148,7 @@ to overwrite the configuration:
 
 1. Change the `node-problem-detector.yaml` to use the `ConfigMap`:
 
-   {{< codenew file="debug/node-problem-detector-configmap.yaml" >}}
+   {{% code_sample file="debug/node-problem-detector-configmap.yaml" %}}
 
 1. Recreate the Node Problem Detector with the new configuration file:
 
@@ -165,9 +165,9 @@ to overwrite the configuration:
    kubectl create configmap node-problem-detector-config --from-file=config/
    ```
 
-1. 更改 `node-problem-detector.yaml` 以使用 ConfigMap:
+1. 更改 `node-problem-detector.yaml` 以使用 ConfigMap：
 
-   {{< codenew file="debug/node-problem-detector-configmap.yaml" >}}
+      {{% code_sample file="debug/node-problem-detector-configmap.yaml" %}}
 
 1. 使用新的配置文件重新创建节点问题检测器：
 
@@ -303,13 +303,13 @@ The following exporters are supported:
 导出器（Exporter）向特定后端报告节点问题和/或指标。
 支持下列导出器：
 
-- **Kubernetes exporter**: 此导出器向 Kubernetes API 服务器报告节点问题。
+- **Kubernetes exporter**：此导出器向 Kubernetes API 服务器报告节点问题。
   临时问题报告为事件，永久性问题报告为节点状况。
 
-- **Prometheus exporter**: 此导出器在本地将节点问题和指标报告为 Prometheus（或 OpenMetrics）指标。
+- **Prometheus exporter**：此导出器在本地将节点问题和指标报告为 Prometheus（或 OpenMetrics）指标。
   你可以使用命令行参数指定导出器的 IP 地址和端口。
 
-- **Stackdriver exporter**: 此导出器向 Stackdriver Monitoring API 报告节点问题和指标。
+- **Stackdriver exporter**：此导出器向 Stackdriver Monitoring API 报告节点问题和指标。
   可以使用[配置文件](https://github.com/kubernetes/node-problem-detector/blob/v0.8.12/config/exporter/stackdriver-exporter.json)自定义导出行为。
 
 <!-- discussion -->

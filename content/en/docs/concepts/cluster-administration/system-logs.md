@@ -17,6 +17,13 @@ scheduler decisions).
 
 <!-- body -->
 
+{{< warning >}}
+In contrast to the command line flags described here, the *log
+output* itself does *not* fall under the Kubernetes API stability guarantees:
+individual log entries and their formatting may change from one release
+to the next!
+{{< /warning >}}
+
 ## Klog
 
 klog is the Kubernetes logging library. [klog](https://github.com/kubernetes/klog)

@@ -281,41 +281,34 @@ Memory limit superior to request can expose the whole node to OOM issues.
 <!--
 ### Enabling Seccomp
 
-Seccomp can improve the security of your workloads by reducing the Linux kernel
-syscall attack surface available inside containers. The seccomp filter mode
-leverages BPF to create an allow or deny list of specific syscalls, named
-profiles. Those seccomp profiles can be enabled on individual workloads,
-[a security tutorial is available](/docs/tutorials/security/seccomp/). In
-addition, the [Kubernetes Security Profiles Operator](https://github.com/kubernetes-sigs/security-profiles-operator)
-is a project to facilitate the management and use of seccomp in clusters.
+Seccomp stands for secure computing mode and has been a feature of the Linux kernel since version 2.6.12.
+It can be used to sandbox the privileges of a process, restricting the calls it is able to make
+from userspace into the kernel. Kubernetes lets you automatically apply seccomp profiles loaded onto
+a node to your Pods and containers.
+
+Seccomp can improve the security of your workloads by reducing the Linux kernel syscall attack
+surface available inside containers. The seccomp filter mode leverages BPF to create an allow or
+deny list of specific syscalls, named profiles.
+
+Since Kubernetes 1.27, you can enable the use of `RuntimeDefault` as the default seccomp profile
+for all workloads. A [security tutorial](/docs/tutorials/security/seccomp/) is available on this
+topic. In addition, the
+[Kubernetes Security Profiles Operator](https://github.com/kubernetes-sigs/security-profiles-operator)
+is a project that facilitates the management and use of seccomp in clusters.
 -->
 ### 启用 Seccomp {#enabling-seccomp}
 
-<!-- 按照英文原文翻译比较啰嗦，本小段是英文原文结合 Seccomp 简洁翻译的 -->
+Seccomp 代表安全计算模式（Secure computing mode），这是一个自 Linux 内核版本 2.6.12 被加入的特性。
+它可以将进程的特权沙箱化，来限制从用户空间发起的对内核的调用。
+Kubernetes 允许你将加载到节点上的 Seccomp 配置文件自动应用于你的 Pod 和容器。
+
 Seccomp 通过减少容器内对 Linux 内核的系统调用（System Call）以缩小攻击面，从而提高工作负载的安全性。
-Seccomp 过滤器模式借助 BPF 创建了配置文件（Profile），文件中设置对具体系统调用的允许或拒绝，
-可以针对单个工作负载上启用这类 Seccomp 配置文件。你可以阅读相应的[安全教程](/zh-cn/docs/tutorials/security/seccomp/)。
+Seccomp 过滤器模式借助 BPF 创建具体系统调用的允许清单或拒绝清单，名为配置文件（Profile）。
+
+从 Kubernetes 1.27 开始，你可以将 `RuntimeDefault` 设置为工作负载的默认 Seccomp 配置。
+你可以阅读相应的[安全教程](/zh-cn/docs/tutorials/security/seccomp/)。
 此外，[Kubernetes Security Profiles Operator](https://github.com/kubernetes-sigs/security-profiles-operator)
 是一个方便在集群中管理和使用 Seccomp 的项目。
-
-<!--
-For historical context, please note that Docker has been using
-[a default seccomp profile](https://docs.docker.com/engine/security/seccomp/)
-to only allow a restricted set of syscalls since 2016 from
-[Docker Engine 1.10](https://www.docker.com/blog/docker-engine-1-10-security/),
-but Kubernetes is still not confining workloads by default. The default seccomp
-profile can be found [in containerd](https://github.com/containerd/containerd/blob/main/contrib/seccomp/seccomp_default.go)
-as well. Fortunately, [Seccomp Default](/blog/2021/08/25/seccomp-default/), a
-new alpha feature to use a default seccomp profile for all workloads can now be
-enabled and tested.
--->
-从历史背景看，请注意 Docker 自 2016 年以来一直使用[默认的 Seccomp 配置文件](https://docs.docker.com/engine/security/seccomp/)，
-仅允许来自 [Docker Engine 1.10](https://www.docker.com/blog/docker-engine-1-10-security/) 的很小的一组系统调用，
-但是，在默认情况下 Kubernetes 仍不限制工作负载。
-默认的 Seccomp 配置文件也可以在
-[containerd](https://github.com/containerd/containerd/blob/main/contrib/seccomp/seccomp_default.go) 中找到。
-幸运的是，[Seccomp Default](/blog/2021/08/25/seccomp-default/) 可将默认的 Seccomp 配置文件用于所有工作负载，
-这是一项新的 Alpha 功能，现在可以启用和测试了。
 
 {{< note >}}
 <!--

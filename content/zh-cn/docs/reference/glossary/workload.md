@@ -1,6 +1,6 @@
 ---
 title: 工作负载（Workload）
-id: workloads
+id: workload
 date: 2019-02-13
 full_link: /zh-cn/docs/concepts/workloads/
 short_description: >
@@ -12,7 +12,7 @@ tags:
 ---
 <!-- 
 title: Workload
-id: workloads
+id: workload
 date: 2019-02-13
 full_link: /docs/concepts/workloads/
 short_description: >

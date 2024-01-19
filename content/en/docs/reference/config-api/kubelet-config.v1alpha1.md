@@ -11,7 +11,6 @@ auto_generated: true
 
 - [CredentialProviderConfig](#kubelet-config-k8s-io-v1alpha1-CredentialProviderConfig)
   
-    
 
 ## `CredentialProviderConfig`     {#kubelet-config-k8s-io-v1alpha1-CredentialProviderConfig}
     

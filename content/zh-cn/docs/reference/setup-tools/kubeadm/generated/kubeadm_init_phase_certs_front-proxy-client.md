@@ -1,34 +1,25 @@
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
 <!-- 
 Generate the certificate for the front proxy client 
 -->
-为前端代理客户端生成证书
+为前端代理客户端生成证书。
 
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
 Generate the certificate for the front proxy client, and save them into front-proxy-client.crt and front-proxy-client.key files.
+
 If both files already exist, kubeadm skips the generation step and existing files will be used.
+
 Alpha Disclaimer: this command is currently alpha.
 -->
-
 为前端代理客户端生成证书，并将其保存到 front-proxy-client.crt 和 front-proxy-client.key 文件中。
+
 如果两个文件都已存在，kubeadm 将跳过生成步骤并将使用现有文件。
-Alpha 免责声明：此命令目前是 alpha 阶段。
+
+Alpha 免责声明：此命令目前是 Alpha 阶段。
 
 ```
 kubeadm init phase certs front-proxy-client [flags]
@@ -37,7 +28,6 @@ kubeadm init phase certs front-proxy-client [flags]
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -95,7 +85,7 @@ kubeadm init phase certs front-proxy-client [flags]
 <!--
 <p>help for front-proxy-client</p>
 -->
-<p>front-proxy-client 操作的帮助命令</p>
+<p>front-proxy-client 操作的帮助命令。</p>
 </td>
 </tr>
 
@@ -122,7 +112,6 @@ kubeadm init phase certs front-proxy-client [flags]
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 从父命令继承的选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -146,4 +135,3 @@ kubeadm init phase certs front-proxy-client [flags]
 
 </tbody>
 </table>
-

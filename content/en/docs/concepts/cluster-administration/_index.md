@@ -8,6 +8,12 @@ content_type: concept
 description: >
   Lower-level detail relevant to creating or administering a Kubernetes cluster.
 no_list: true
+card:
+  name: setup
+  weight: 60
+  anchors:
+  - anchor: "#securing-a-cluster"
+    title: Securing a cluster
 ---
 
 <!-- overview -->

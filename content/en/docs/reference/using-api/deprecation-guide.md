@@ -20,6 +20,19 @@ deprecated API versions to newer and more stable API versions.
 
 ## Removed APIs by release
 
+### v1.32
+
+The **v1.32** release will stop serving the following deprecated API versions:
+
+#### Flow control resources {#flowcontrol-resources-v132}
+
+The **flowcontrol.apiserver.k8s.io/v1beta3** API version of FlowSchema and PriorityLevelConfiguration will no longer be served in v1.32.
+
+* Migrate manifests and API clients to use the **flowcontrol.apiserver.k8s.io/v1** API version, available since v1.29.
+* All existing persisted objects are accessible via the new API
+* Notable changes in **flowcontrol.apiserver.k8s.io/v1**:
+  * The PriorityLevelConfiguration `spec.limited.nominalConcurrencyShares` field only defaults to 30 when unspecified, and an explicit value of 0 is not changed to 30.
+
 ### v1.29
 
 The **v1.29** release will stop serving the following deprecated API versions:
@@ -28,14 +41,16 @@ The **v1.29** release will stop serving the following deprecated API versions:
 
 The **flowcontrol.apiserver.k8s.io/v1beta2** API version of FlowSchema and PriorityLevelConfiguration will no longer be served in v1.29.
 
-* Migrate manifests and API clients to use the **flowcontrol.apiserver.k8s.io/v1beta3** API version, available since v1.26.
+* Migrate manifests and API clients to use the **flowcontrol.apiserver.k8s.io/v1** API version, available since v1.29, or the **flowcontrol.apiserver.k8s.io/v1beta3** API version, available since v1.26.
 * All existing persisted objects are accessible via the new API
+* Notable changes in **flowcontrol.apiserver.k8s.io/v1**:
+  * The PriorityLevelConfiguration `spec.limited.assuredConcurrencyShares` field is renamed to `spec.limited.nominalConcurrencyShares` and only defaults to 30 when unspecified, and an explicit value of 0 is not changed to 30.
 * Notable changes in **flowcontrol.apiserver.k8s.io/v1beta3**:
   * The PriorityLevelConfiguration `spec.limited.assuredConcurrencyShares` field is renamed to `spec.limited.nominalConcurrencyShares`
 
 ### v1.27
 
-The **v1.27** release will stop serving the following deprecated API versions:
+The **v1.27** release stopped serving the following deprecated API versions:
 
 #### CSIStorageCapacity {#csistoragecapacity-v127}
 
@@ -53,7 +68,7 @@ The **v1.26** release stopped serving the following deprecated API versions:
 
 The **flowcontrol.apiserver.k8s.io/v1beta1** API version of FlowSchema and PriorityLevelConfiguration is no longer served as of v1.26.
 
-* Migrate manifests and API clients to use the **flowcontrol.apiserver.k8s.io/v1beta3** API version, available since v1.26.
+* Migrate manifests and API clients to use the **flowcontrol.apiserver.k8s.io/v1beta2** API version.
 * All existing persisted objects are accessible via the new API
 * No notable changes
 
@@ -379,14 +394,26 @@ to locate use of deprecated APIs.
 * Update custom integrations and controllers to call the non-deprecated APIs
 * Change YAML files to reference the non-deprecated APIs
 
-  You can use the `kubectl-convert` command (`kubectl convert` prior to v1.20)
-  to automatically convert an existing object:
+  You can use the `kubectl convert` command to automatically convert an existing object:
 
-  `kubectl-convert -f <file> --output-version <group>/<version>`.
+  `kubectl convert -f <file> --output-version <group>/<version>`.
 
   For example, to convert an older Deployment to `apps/v1`, you can run:
 
-  `kubectl-convert -f ./my-deployment.yaml --output-version apps/v1`
+  `kubectl convert -f ./my-deployment.yaml --output-version apps/v1`
 
-  Note that this may use non-ideal default values. To learn more about a specific
+  This conversion may use non-ideal default values. To learn more about a specific
   resource, check the Kubernetes [API reference](/docs/reference/kubernetes-api/).
+  
+  {{< note >}}
+  The `kubectl convert` tool is not installed by default, although
+  in fact it once was part of `kubectl` itself. For more details, you can read the
+  [deprecation and removal issue](https://github.com/kubernetes/kubectl/issues/725)
+  for the built-in subcommand.
+  
+  To learn how to set up `kubectl convert` on your computer, visit the page that is right for your 
+  operating system:
+  [Linux](/docs/tasks/tools/install-kubectl-linux/#install-kubectl-convert-plugin),
+  [macOS](/docs/tasks/tools/install-kubectl-macos/#install-kubectl-convert-plugin), or
+  [Windows](/docs/tasks/tools/install-kubectl-windows/#install-kubectl-convert-plugin).
+  {{< /note >}}

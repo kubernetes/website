@@ -118,7 +118,7 @@ Below is an overview of how the Kubernetes project is using kubelet credential p
 
 {{< figure src="kubelet-credential-providers-enabling.png" caption="Figure 4: Kubelet credential provider configuration used for Kubernetes e2e testing" >}}
 
-For more configuration details, see [Kubelet Credential Providers](https://kubernetes.io/docs/tasks/kubelet-credential-provider/kubelet-credential-provider/).
+For more configuration details, see [Kubelet Credential Providers](/docs/tasks/kubelet-credential-provider/kubelet-credential-provider/).
 
 ## Getting Involved
 

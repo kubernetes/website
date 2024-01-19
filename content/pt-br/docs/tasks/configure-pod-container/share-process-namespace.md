@@ -1,9 +1,5 @@
 ---
 title: Compartilhando o Namespace de Processo Entre Contêineres em um Pod
-reviewers:
-- verb
-- yujuhong
-- dchen1107
 content_type: task
 weight: 160
 ---
@@ -29,7 +25,7 @@ incluem utilitários de depuração como um shell.
 O compartilhamento de namespace de processos é ativado usando o campo `shareProcessNamespace` da
 `.spec` para um Pod. Por exemplo:
 
-{{< codenew file="pods/share-process-namespace.yaml" >}}
+{{% codenew file="pods/share-process-namespace.yaml" %}}
 
 1. Crie o pod `nginx` no seu cluster:
 

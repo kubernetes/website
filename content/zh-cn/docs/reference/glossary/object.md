@@ -15,7 +15,7 @@ id: object
 date: 2020-10-12
 full_link: /docs/concepts/overview/working-with-objects/#kubernetes-objects
 short_description: >
-   A entity in the Kubernetes system, representing part of the state of your cluster.
+   An entity in the Kubernetes system, representing part of the state of your cluster.
 aka: 
 tags:
 - fundamental
@@ -35,7 +35,8 @@ that the item it represents actually exists.
 By creating an object, you're effectively telling the Kubernetes system what you want that part of
 your cluster's workload to look like; this is your cluster's desired state.
 -->
-Kubernetes 对象通常是一个“目标记录”-一旦你创建了一个对象，Kubernetes 
-{{< glossary_tooltip text="控制平面（Control Plane）" term_id="control-plane" >}} 
-不断工作，以确保它代表的项目确实存在。
+Kubernetes 对象通常是一个“意向表述（Record of Intent）”—一旦你创建了一个对象，Kubernetes 
+{{< glossary_tooltip text="控制平面（Control Plane）" term_id="control-plane" >}} 就不断工作，
+以确保它所代表的事物确实存在。
 创建一个对象相当于告知 Kubernetes 系统：你期望这部分集群负载看起来像什么；这也就是你集群的期望状态。
+

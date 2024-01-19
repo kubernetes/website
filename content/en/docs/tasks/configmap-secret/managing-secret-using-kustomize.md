@@ -24,6 +24,10 @@ You can generate a Secret by defining a `secretGenerator` in a
 literal values. For example, the following instructions create a Kustomization
 file for the username `admin` and the password `1f2d1e2e67df`.
 
+{{< note >}}
+The `stringData` field for a Secret does not work well with server-side apply.
+{{< /note >}}
+
 ### Create the Kustomization file
 
 {{< tabs name="Secret data" >}}
@@ -35,7 +39,7 @@ secretGenerator:
   - password=1f2d1e2e67df
 {{< /tab >}}
 {{% tab name="Files" %}}
-1.  Store the credentials in files with the values encoded in base64:
+1.  Store the credentials in files. The filenames are the keys of the secret:
 
     ```shell
     echo -n 'admin' > ./username.txt
@@ -89,8 +93,31 @@ When a Secret is generated, the Secret name is created by hashing
 the Secret data and appending the hash value to the name. This ensures that
 a new Secret is generated each time the data is modified.
 
-To verify that the Secret was created and to decode the Secret data, refer to
-[Managing Secrets using kubectl](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#verify-the-secret).
+To verify that the Secret was created and to decode the Secret data, 
+
+```shell
+kubectl get -k <directory-path> -o jsonpath='{.data}' 
+```
+
+The output is similar to:
+
+```
+{ "password": "UyFCXCpkJHpEc2I9", "username": "YWRtaW4=" }
+```
+
+```
+echo 'UyFCXCpkJHpEc2I9' | base64 --decode
+```
+
+The output is similar to:
+
+```
+S!B\*d$zDsb=
+```
+
+For more information, refer to
+[Managing Secrets using kubectl](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#verify-the-secret) and
+[Declarative Management of Kubernetes Objects Using Kustomize](/docs/tasks/manage-kubernetes-objects/kustomization/).
 
 ## Edit a Secret {#edit-secret}
 

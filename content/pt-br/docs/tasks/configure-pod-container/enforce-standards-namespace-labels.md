@@ -1,8 +1,5 @@
 ---
 title: Aplicando Padrões de Segurança de Pod com `Labels` em Namespace
-reviewers:
-- tallclair
-- liggitt
 content_type: task
 min-kubernetes-server-version: v1.22
 ---

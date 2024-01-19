@@ -97,6 +97,7 @@ For restricted LoadBalancer and ExternalIPs use, see
 [CVE-2020-8554: Man in the middle using LoadBalancer or ExternalIPs](https://github.com/kubernetes/kubernetes/issues/97076)
 and the [DenyServiceExternalIPs admission controller](/docs/reference/access-authn-authz/admission-controllers/#denyserviceexternalips)
 for further information.
+
 ## Pod security
 
 - [ ] RBAC rights to `create`, `update`, `patch`, `delete` workloads is only granted if necessary.
@@ -153,23 +154,20 @@ Memory limit superior to request can expose the whole node to OOM issues.
 
 ### Enabling Seccomp
 
-Seccomp can improve the security of your workloads by reducing the Linux kernel
-syscall attack surface available inside containers. The seccomp filter mode
-leverages BPF to create an allow or deny list of specific syscalls, named
-profiles. Those seccomp profiles can be enabled on individual workloads,
-[a security tutorial is available](/docs/tutorials/security/seccomp/). In
-addition, the [Kubernetes Security Profiles Operator](https://github.com/kubernetes-sigs/security-profiles-operator)
-is a project to facilitate the management and use of seccomp in clusters.
+Seccomp stands for secure computing mode and has been a feature of the Linux kernel since version 2.6.12.
+It can be used to sandbox the privileges of a process, restricting the calls it is able to make
+from userspace into the kernel. Kubernetes lets you automatically apply seccomp profiles loaded onto
+a node to your Pods and containers.
 
-For historical context, please note that Docker has been using
-[a default seccomp profile](https://docs.docker.com/engine/security/seccomp/)
-to only allow a restricted set of syscalls since 2016 from
-[Docker Engine 1.10](https://www.docker.com/blog/docker-engine-1-10-security/),
-but Kubernetes is still not confining workloads by default. The default seccomp
-profile can be found [in containerd](https://github.com/containerd/containerd/blob/main/contrib/seccomp/seccomp_default.go)
-as well. Fortunately, [Seccomp Default](/blog/2021/08/25/seccomp-default/), a
-new alpha feature to use a default seccomp profile for all workloads can now be
-enabled and tested.
+Seccomp can improve the security of your workloads by reducing the Linux kernel syscall attack
+surface available inside containers. The seccomp filter mode leverages BPF to create an allow or
+deny list of specific syscalls, named profiles.
+
+Since Kubernetes 1.27, you can enable the use of `RuntimeDefault` as the default seccomp profile
+for all workloads. A [security tutorial](/docs/tutorials/security/seccomp/) is available on this
+topic. In addition, the
+[Kubernetes Security Profiles Operator](https://github.com/kubernetes-sigs/security-profiles-operator)
+is a project that facilitates the management and use of seccomp in clusters.
 
 {{< note >}}
 Seccomp is only available on Linux nodes.
@@ -209,21 +207,7 @@ SELinux is only available on Linux nodes, and enabled in
 ## Logs and auditing
 
 - [ ] Audit logs, if enabled, are protected from general access.
-- [ ] The `/logs` API is disabled (you are running kube-apiserver with
-  `--enable-logs-handler=false`).
 
-  Kubernetes includes a `/logs` API endpoint, enabled by default,
-  that lets users request the contents of the API server's `/var/log` directory over HTTP. Accessing
-  that endpoint requires authentication.
-
-Allowing broad access to Kubernetes logs can make security information
-available to a potential attacker.
-
-As a good practice, set up a separate means to collect and aggregate
-control plane logs, and do not use the `/logs` API endpoint.
-Alternatively, if you run your control plane with the `/logs` API endpoint
-and limit the content of `/var/log` (within the host or container where the API server is running) to
-Kubernetes API server logs only.
 
 ## Pod placement
 
@@ -392,7 +376,7 @@ availability state and recommended to improve your security posture:
 
 [`NodeRestriction`](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)
 : Restricts kubelet's permissions to only modify the pods API resources they own
-or the node API ressource that represent themselves. It also prevents kubelet
+or the node API resource that represent themselves. It also prevents kubelet
 from using the `node-restriction.kubernetes.io/` annotation, which can be used
 by an attacker with access to the kubelet's credentials to influence pod
 placement to the controlled node.

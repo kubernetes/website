@@ -39,7 +39,7 @@ content_type: tutorial
 
 最初に、`redis-config`ファイルからConfigMapを含む`kustomization.yaml`を作成します:
 
-{{< codenew file="pods/config/redis-config" >}}
+{{% codenew file="pods/config/redis-config" %}}
 
 ```shell
 curl -OL https://k8s.io/examples/pods/config/redis-config
@@ -54,7 +54,7 @@ EOF
 
 Podリソースの設定を`kustomization.yaml`に入れます:
 
-{{< codenew file="pods/config/redis-pod.yaml" >}}
+{{% codenew file="pods/config/redis-pod.yaml" %}}
 
 ```shell
 curl -OL https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/pods/config/redis-pod.yaml

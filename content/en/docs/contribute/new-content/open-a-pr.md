@@ -37,7 +37,7 @@ opening a pull request. Figure 1 outlines the steps and the details follow.
 
 {{< mermaid >}}
 flowchart LR
-A([fa:fa-user New<br>Contributor]) --- id1[(K8s/Website<br>GitHub)]
+A([fa:fa-user New<br>Contributor]) --- id1[(kubernetes/website<br>GitHub)]
 subgraph tasks[Changes using GitHub]
 direction TB
     0[ ] -.-
@@ -132,7 +132,7 @@ Figure 2 shows the steps to follow when you work from a local fork. The details 
 
 {{< mermaid >}}
 flowchart LR
-1[Fork the K8s/website<br>repository] --> 2[Create local clone<br>and set upstream]
+1[Fork the kubernetes/website<br>repository] --> 2[Create local clone<br>and set upstream]
 subgraph changes[Your changes]
 direction TB
 S[ ] -.-
@@ -359,7 +359,9 @@ Alternately, install and use the `hugo` command on your computer:
 
 ### Open a pull request from your fork to kubernetes/website {#open-a-pr}
 
-Figure 3 shows the steps to open a PR from your fork to the K8s/website. The details follow.
+Figure 3 shows the steps to open a PR from your fork to the [kubernetes/website](https://github.com/kubernetes/website). The details follow.
+
+Please, note that contributors can mention `kubernetes/website` as `k/website`.
 
 <!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
 <!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
@@ -368,7 +370,7 @@ Figure 3 shows the steps to open a PR from your fork to the K8s/website. The det
 flowchart LR
 subgraph first[ ]
 direction TB
-1[1. Go to K8s/website repository] --> 2[2. Select New Pull Request]
+1[1. Go to kubernetes/website repository] --> 2[2. Select New Pull Request]
 2 --> 3[3. Select compare across forks]
 3 --> 4[4. Select your fork from<br>head repository drop-down menu]
 end
@@ -387,7 +389,7 @@ class 1,2,3,4,5,6,7,8 grey
 class first,second white
 {{</ mermaid >}}
 
-Figure 3. Steps to open a PR from your fork to the K8s/website.
+Figure 3. Steps to open a PR from your fork to the [kubernetes/website](https://github.com/kubernetes/website).
 
 1. In a web browser, go to the [`kubernetes/website`](https://github.com/kubernetes/website/) repository.
 1. Select **New Pull Request**.

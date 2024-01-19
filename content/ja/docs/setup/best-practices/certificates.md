@@ -67,7 +67,7 @@ CAの秘密鍵をクラスターにコピーしたくない場合、自身で全
 | kube-etcd                     | etcd-ca                   |                | server, client                         | `<hostname>`, `<Host_IP>`, `localhost`, `127.0.0.1` |
 | kube-etcd-peer                | etcd-ca                   |                | server, client                         | `<hostname>`, `<Host_IP>`, `localhost`, `127.0.0.1` |
 | kube-etcd-healthcheck-client  | etcd-ca                   |                | client                                 |                                                     |
-| kube-apiserver-etcd-client    | etcd-ca                   | system:masters | client                                 |                                                     |
+| kube-apiserver-etcd-client    | etcd-ca                   |                | client                                 |                                                     |
 | kube-apiserver                | kubernetes-ca             |                | server                                 | `<hostname>`, `<Host_IP>`, `<advertise_IP>`, `[1]`  |
 | kube-apiserver-kubelet-client | kubernetes-ca             | system:masters | client                                 |                                                     |
 | front-proxy-client            | kubernetes-front-proxy-ca |                | client                                 |                                                     |

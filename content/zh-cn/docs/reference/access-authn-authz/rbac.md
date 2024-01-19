@@ -64,7 +64,7 @@ using tools such as `kubectl`, just like any other Kubernetes object.
 
 RBAC API 声明了四种 Kubernetes 对象：**Role**、**ClusterRole**、**RoleBinding** 和
 **ClusterRoleBinding**。你可以像使用其他 Kubernetes 对象一样，
-通过类似 `kubectl` 这类工具描述或修补 RBAC 
+通过类似 `kubectl` 这类工具描述或修补 RBAC
 {{< glossary_tooltip text="对象" term_id="object" >}}。
 
 {{< caution >}}
@@ -567,7 +567,7 @@ Here is an example that allows access to perform any current and future action o
 all current and future resources in the `example.com` API group.
 This is similar to the built-in `cluster-admin` role.
 -->
-你可愈使用通配符 `*` 可以批量引用所有的 `resources`、`apiGroups` 和 `verbs` 对象， 无需逐一引用。
+你可以使用通配符 `*` 批量引用所有的 `resources`、`apiGroups` 和 `verbs` 对象，无需逐一引用。
 对于 `nonResourceURLs`，你可以将通配符 `*` 作为后缀实现全局通配，
 对于 `resourceNames`，空集表示没有任何限制。
 下面的示例对 `example.com` API 组中所有当前和未来资源执行所有动作。
@@ -598,7 +598,7 @@ workload to function correctly are applied.
 在 resources 和 verbs 条目中使用通配符会为敏感资源授予过多的访问权限。
 例如，如果添加了新的资源类型、新的子资源或新的自定义动词，
 通配符条目会自动授予访问权限，用户可能不希望出现这种情况。
-应该执行[最小特权原则](zh-cn/docs/concepts/security/rbac-good-practices/#least-privilege)，
+应该执行[最小特权原则](/zh-cn/docs/concepts/security/rbac-good-practices/#least-privilege)，
 使用具体的 resources 和 verbs 确保仅赋予工作负载正常运行所需的权限。
 {{< /caution >}}
 
@@ -960,7 +960,7 @@ so that authentication produces usernames in the format you want.
 -->
 ### 对主体的引用   {#referring-to-subjects}
 
-RoleBinding 或者 ClusterRoleBinding 可绑定角色到某**主体（Subject）**上。
+RoleBinding 或者 ClusterRoleBinding 可绑定角色到某**主体（Subject）** 上。
 主体可以是组，用户或者{{< glossary_tooltip text="服务账户" term_id="service-account" >}}。
 
 Kubernetes 用字符串来表示用户名。
@@ -2303,7 +2303,7 @@ you can create the following ClusterRole:
 
 如果你希望在新集群的聚合角色里保留此访问权限，你可以创建下面的 ClusterRole：
 
-{{< codenew file="access/endpoints-aggregated.yaml" >}}
+{{< code_sample file="access/endpoints-aggregated.yaml" >}}
 
 <!--
 ## Upgrading from ABAC

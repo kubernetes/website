@@ -27,6 +27,7 @@ import (
 	"strings"
 	"testing"
 
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/types"
@@ -65,7 +66,6 @@ import (
 	storage_validation "k8s.io/kubernetes/pkg/apis/storage/validation"
 
 	"k8s.io/kubernetes/pkg/capabilities"
-	"k8s.io/kubernetes/pkg/registry/batch/job"
 
 	// initialize install packages
 	_ "k8s.io/kubernetes/pkg/apis/admissionregistration/install"
@@ -159,7 +159,6 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 	podValidationOptions := validation.PodValidationOptions{
 		AllowInvalidPodDeletionCost:     false,
 		AllowIndivisibleHugePagesValues: true,
-		AllowExpandedDNSConfig:          true,
 	}
 	netValidationOptions := networking_validation.NetworkPolicyValidationOptions{
 		AllowInvalidLabelValueInSelector: false,
@@ -196,17 +195,13 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 	case *api.Namespace:
 		errors = validation.ValidateNamespace(t)
 	case *api.PersistentVolume:
-		opts := validation.PersistentVolumeSpecValidationOptions{
-			AllowReadWriteOncePod: true,
-		}
+		opts := validation.PersistentVolumeSpecValidationOptions{}
 		errors = validation.ValidatePersistentVolume(t, opts)
 	case *api.PersistentVolumeClaim:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		opts := validation.PersistentVolumeClaimSpecValidationOptions{
-			AllowReadWriteOncePod: true,
-		}
+		opts := validation.PersistentVolumeClaimSpecValidationOptions{}
 		errors = validation.ValidatePersistentVolumeClaim(t, opts)
 	case *api.Pod:
 		if t.Namespace == "" {
@@ -293,16 +288,34 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
+
 		// Job needs generateSelector called before validation, and job.Validate does this.
-		// See: https://github.com/kubernetes/kubernetes/issues/20951#issuecomment-187787040
-		t.ObjectMeta.UID = types.UID("fakeuid")
 		if strings.Index(t.ObjectMeta.Name, "$") > -1 {
 			t.ObjectMeta.Name = "skip-for-good"
 		}
-		errors = job.Strategy.Validate(nil, t)
+		t.ObjectMeta.UID = types.UID("fakeuid")
+		if t.Spec.Template.ObjectMeta.Labels == nil {
+			t.Spec.Template.ObjectMeta.Labels = make(map[string]string)
+		}
+		t.Spec.Template.ObjectMeta.Labels["controller-uid"] = "fakeuid"
+		t.Spec.Template.ObjectMeta.Labels["job-name"] = t.ObjectMeta.Name
+		if t.Spec.Selector == nil {
+			t.Spec.Selector = &metav1.LabelSelector{
+				MatchLabels: map[string]string{
+					"controller-uid": "fakeuid",
+					"job-name":       t.ObjectMeta.Name,
+				},
+			}
+		}
+		opts := batch_validation.JobValidationOptions{
+			RequirePrefixedLabels: false,
+		}
+		errors = batch_validation.ValidateJob(t, opts)
+
 	// case *flowcontrol.FlowSchema:
 	// TODO: This is still failing
 	// errors = flowcontrol_validation.ValidateFlowSchema(t)
+
 	case *networking.Ingress:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
@@ -315,8 +328,6 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 			t.Namespace = api.NamespaceDefault
 		}
 		errors = networking_validation.ValidateNetworkPolicy(t, netValidationOptions)
-	case *policy.PodSecurityPolicy:
-		errors = policy_validation.ValidatePodSecurityPolicy(t)
 	case *policy.PodDisruptionBudget:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
@@ -400,6 +411,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 		"access": {
 			"deployment-replicas-policy":                   {&admissionregistration.ValidatingAdmissionPolicy{}},
 			"endpoints-aggregated":                         {&rbac.ClusterRole{}},
+			"image-matches-namespace-environment.policy":   {&admissionregistration.ValidatingAdmissionPolicy{}},
 			"validating-admission-policy-audit-annotation": {&admissionregistration.ValidatingAdmissionPolicy{}},
 			"validating-admission-policy-match-conditions": {&admissionregistration.ValidatingAdmissionPolicy{}},
 		},
@@ -477,6 +489,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"deployment-patch":      {&apps.Deployment{}},
 			"deployment-retainkeys": {&apps.Deployment{}},
 			"deployment-scale":      {&apps.Deployment{}},
+			"deployment-sidecar":    {&apps.Deployment{}},
 			"deployment-update":     {&apps.Deployment{}},
 			"nginx-app":             {&api.Service{}, &apps.Deployment{}},
 			"nginx-with-request":    {&apps.Deployment{}},
@@ -502,12 +515,15 @@ func TestExampleObjectSchemas(t *testing.T) {
 		},
 		"application/job": {
 			"cronjob":         {&batch.CronJob{}},
+			"job-sidecar":     {&batch.Job{}},
 			"job-tmpl":        {&batch.Job{}},
 			"indexed-job":     {&batch.Job{}},
 			"indexed-job-vol": {&batch.Job{}},
 		},
 		"application/job/rabbitmq": {
-			"job": {&batch.Job{}},
+			"job":                  {&batch.Job{}},
+			"rabbitmq-statefulset": {&apps.StatefulSet{}},
+			"rabbitmq-service":     {&api.Service{}},
 		},
 		"application/job/redis": {
 			"job":           {&batch.Job{}},
@@ -556,11 +572,13 @@ func TestExampleObjectSchemas(t *testing.T) {
 		},
 		"controllers": {
 			"daemonset":                           {&apps.DaemonSet{}},
+			"daemonset-label-selector":            {&apps.DaemonSet{}},
 			"fluentd-daemonset":                   {&apps.DaemonSet{}},
 			"fluentd-daemonset-update":            {&apps.DaemonSet{}},
 			"frontend":                            {&apps.ReplicaSet{}},
 			"hpa-rs":                              {&autoscaling.HorizontalPodAutoscaler{}},
 			"job":                                 {&batch.Job{}},
+			"job-backoff-limit-per-index-example": {&batch.Job{}},
 			"job-pod-failure-policy-config-issue": {&batch.Job{}},
 			"job-pod-failure-policy-example":      {&batch.Job{}},
 			"job-pod-failure-policy-failjob":      {&batch.Job{}},
@@ -667,6 +685,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"pv-pod":                                       {&api.Pod{}},
 			"pv-volume":                                    {&api.PersistentVolume{}},
 			"redis":                                        {&api.Pod{}},
+			"projected-clustertrustbundle":                 {&api.Pod{}},
 		},
 		"pods/topology-spread-constraints": {
 			"one-constraint":                   {&api.Pod{}},
@@ -674,11 +693,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"two-constraints":                  {&api.Pod{}},
 		},
 		"policy": {
-			"baseline-psp":                 {&policy.PodSecurityPolicy{}},
-			"example-psp":                  {&policy.PodSecurityPolicy{}},
-			"priority-class-resourcequota": {&api.ResourceQuota{}},
-			"privileged-psp":               {&policy.PodSecurityPolicy{}},
-			"restricted-psp":               {&policy.PodSecurityPolicy{}},
+			"priority-class-resourcequota":                   {&api.ResourceQuota{}},
 			"zookeeper-pod-disruption-budget-maxunavailable": {&policy.PodDisruptionBudget{}},
 			"zookeeper-pod-disruption-budget-minavailable":   {&policy.PodDisruptionBudget{}},
 		},
@@ -697,9 +712,10 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"podsecurity-restricted": {&api.Namespace{}},
 		},
 		"service": {
-			"nginx-service":                 {&api.Service{}},
-			"load-balancer-example":         {&apps.Deployment{}},
-			"pod-with-graceful-termination": {&apps.Deployment{}},
+			"nginx-service":                      {&api.Service{}},
+			"load-balancer-example":              {&apps.Deployment{}},
+			"pod-with-graceful-termination":      {&apps.Deployment{}},
+			"explore-graceful-termination-nginx": {&api.Service{}},
 		},
 		"service/access": {
 			"backend-deployment":  {&apps.Deployment{}},
@@ -760,6 +776,13 @@ func TestExampleObjectSchemas(t *testing.T) {
 	filesIgnore := map[string]map[string]bool{
 		"audit": {
 			"audit-policy": true,
+		},
+		// PSP is dropped in v1.29, do not validate them
+		"policy": {
+			"baseline-psp":   true,
+			"example-psp":    true,
+			"privileged-psp": true,
+			"restricted-psp": true,
 		},
 	}
 	capabilities.SetForTests(capabilities.Capabilities{

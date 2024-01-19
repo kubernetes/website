@@ -49,35 +49,35 @@ You have several options for connecting to nodes, pods and services from outside
 你有多种可选方式从集群外连接节点、Pod 和服务：
 
 <!--
-  - Access services through public IPs.
-    - Use a service with type `NodePort` or `LoadBalancer` to make the service reachable outside
-      the cluster.  See the [services](/docs/concepts/services-networking/service/) and
-      [kubectl expose](/docs/reference/generated/kubectl/kubectl-commands/#expose) documentation.
-    - Depending on your cluster environment, this may only expose the service to your corporate network,
-      or it may expose it to the internet.  Think about whether the service being exposed is secure.
-      Does it do its own authentication?
-    - Place pods behind services.  To access one specific pod from a set of replicas, such as for debugging,
-      place a unique label on the pod and create a new service which selects this label.
-    - In most cases, it should not be necessary for application developer to directly access
-      nodes via their nodeIPs.
+- Access services through public IPs.
+  - Use a service with type `NodePort` or `LoadBalancer` to make the service reachable outside
+    the cluster.  See the [services](/docs/concepts/services-networking/service/) and
+    [kubectl expose](/docs/reference/generated/kubectl/kubectl-commands/#expose) documentation.
+  - Depending on your cluster environment, this may only expose the service to your corporate network,
+    or it may expose it to the internet.  Think about whether the service being exposed is secure.
+    Does it do its own authentication?
+  - Place pods behind services.  To access one specific pod from a set of replicas, such as for debugging,
+    place a unique label on the pod and create a new service which selects this label.
+  - In most cases, it should not be necessary for application developer to directly access
+    nodes via their nodeIPs.
 -->
 - 通过公网 IP 访问服务
-  - 使用类型为 `NodePort` 或 `LoadBalancer` 的服务，可以从外部访问它们。
-    请查阅[服务](/zh-cn/docs/concepts/services-networking/service/) 和
+  - 使用类型为 `NodePort` 或 `LoadBalancer` 的 Service，可以从外部访问它们。
+    请查阅 [Service](/zh-cn/docs/concepts/services-networking/service/) 和
     [kubectl expose](/docs/reference/generated/kubectl/kubectl-commands/#expose) 文档。
-  - 取决于你的集群环境，你可以仅把服务暴露在你的企业网络环境中，也可以将其暴露在
+  - 取决于你的集群环境，你可以仅把 Service 暴露在你的企业网络环境中，也可以将其暴露在
     因特网上。需要考虑暴露的服务是否安全，它是否有自己的用户认证？
-  - 将 Pod 放置于服务背后。如果要访问一个副本集合中特定的 Pod，例如用于调试目的，
+  - 将 Pod 放置于 Service 背后。如果要访问一个副本集合中特定的 Pod，例如用于调试目的，
     请给 Pod 指定一个独特的标签并创建一个新服务选择该标签。
   - 大部分情况下，都不需要应用开发者通过节点 IP 直接访问节点。
 <!--
-  - Access services, nodes, or pods using the Proxy Verb.
-    - Does apiserver authentication and authorization prior to accessing the remote service.
-      Use this if the services are not secure enough to expose to the internet, or to gain
-      access to ports on the node IP, or for debugging.
-    - Proxies may cause problems for some web applications.
-    - Only works for HTTP/HTTPS.
-    - Described [here](#manually-constructing-apiserver-proxy-urls).
+- Access services, nodes, or pods using the Proxy Verb.
+  - Does apiserver authentication and authorization prior to accessing the remote service.
+    Use this if the services are not secure enough to expose to the internet, or to gain
+    access to ports on the node IP, or for debugging.
+  - Proxies may cause problems for some web applications.
+  - Only works for HTTP/HTTPS.
+  - Described [here](#manually-constructing-apiserver-proxy-urls).
 -->
 - 通过 Proxy 动词访问服务、节点或者 Pod
   - 在访问远程服务之前，利用 API 服务器执行身份认证和鉴权。
@@ -88,17 +88,17 @@ You have several options for connecting to nodes, pods and services from outside
   - 进一步的描述在[这里](#manually-constructing-apiserver-proxy-urls)
   - 从集群中的 node 或者 pod 访问。
 <!--
-  - Access from a node or pod in the cluster.
-    - Run a pod, and then connect to a shell in it using [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/#exec).
-      Connect to other nodes, pods, and services from that shell.
-    - Some clusters may allow you to ssh to a node in the cluster. From there you may be able to
-      access cluster services. This is a non-standard method, and will work on some clusters but
-      not others. Browsers and other tools may or may not be installed. Cluster DNS may not work.
+- Access from a node or pod in the cluster.
+  - Run a pod, and then connect to a shell in it using [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/#exec).
+    Connect to other nodes, pods, and services from that shell.
+  - Some clusters may allow you to ssh to a node in the cluster. From there you may be able to
+    access cluster services. This is a non-standard method, and will work on some clusters but
+    not others. Browsers and other tools may or may not be installed. Cluster DNS may not work.
 -->
 - 从集群中的一个节点或 Pod 访问
   - 运行一个 Pod，然后使用
     [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/#exec)
-    连接到它的 Shell。从那个 Shell 连接其他的节点、Pod 和 服务
+    连接到它的 Shell，从那个 Shell 连接其他的节点、Pod 和 Service。
   - 某些集群可能允许你 SSH 到集群中的节点。你可能可以从那儿访问集群服务。
     这是一个非标准的方式，可能在一些集群上能工作，但在另一些上却不能。
     浏览器和其他工具可能已经安装也可能没有安装。集群 DNS 可能不会正常工作。
@@ -135,7 +135,8 @@ heapster is running at https://192.0.2.1/api/v1/namespaces/kube-system/services/
 <!--
 This shows the proxy-verb URL for accessing each service.
 For example, this cluster has cluster-level logging enabled (using Elasticsearch), which can be reached
-at `https://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/` if suitable credentials are passed, or through a kubectl proxy at, for example:
+at `https://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`
+if suitable credentials are passed, or through a kubectl proxy at, for example:
 `http://localhost:8080/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`.
 -->
 这一输出显示了用 proxy 动词访问每个服务时可用的 URL。例如，此集群
@@ -145,7 +146,8 @@ at `https://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-loggi
 `http://localhost:8080/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`。
 
 <!--
-See [Access Clusters Using the Kubernetes API](/docs/tasks/administer-cluster/access-cluster-api/#accessing-the-cluster-api) for how to pass credentials or use kubectl proxy.
+See [Access Clusters Using the Kubernetes API](/docs/tasks/administer-cluster/access-cluster-api/#accessing-the-cluster-api)
+for how to pass credentials or use kubectl proxy.
 -->
 {{< note >}}
 请参阅[使用 Kubernetes API 访问集群](/zh-cn/docs/tasks/administer-cluster/access-cluster-api/#accessing-the-cluster-api)
@@ -155,10 +157,12 @@ See [Access Clusters Using the Kubernetes API](/docs/tasks/administer-cluster/ac
 <!--
 #### Manually constructing apiserver proxy URLs
 
-As mentioned above, you use the `kubectl cluster-info` command to retrieve the service's proxy URL. To create proxy URLs that include service endpoints, suffixes, and parameters, you append to the service's proxy URL:
+As mentioned above, you use the `kubectl cluster-info` command to retrieve the service's proxy URL. To create
+proxy URLs that include service endpoints, suffixes, and parameters, you append to the service's proxy URL:
 `http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`[https:]service_name[:port_name]`*`/proxy`
 
-If you haven't specified a name for your port, you don't have to specify *port_name* in the URL. You can also use the port number in place of the *port_name* for both named and unnamed ports.
+If you haven't specified a name for your port, you don't have to specify *port_name* in the URL. You can also
+use the port number in place of the *port_name* for both named and unnamed ports.
 
 By default, the API server proxies to your service using HTTP. To use HTTPS, prefix the service name with `https:`:
 `http://<kubernetes_master_address>/api/v1/namespaces/<namespace_name>/services/<service_name>/proxy`
@@ -176,8 +180,8 @@ The supported formats for the `<service_name>` segment of the URL are:
 为了创建包含服务末端、后缀和参数的代理 URLs，你可以在服务的代理 URL 中添加：
 `http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`service_name[:port_name]`*`/proxy`
 
-如果还没有为你的端口指定名称，你可以不用在 URL 中指定 *port_name*。
-对于命名和未命名端口，你还可以使用端口号代替 *port_name*。
+如果还没有为你的端口指定名称，你可以不用在 URL 中指定 **port_name**。
+对于命名和未命名端口，你还可以使用端口号代替 **port_name**。
 
 默认情况下，API 服务器使用 HTTP 为你的服务提供代理。 要使用 HTTPS，请在服务名称前加上 `https:`：
 `http://<kubernetes_master_address>/api/v1/namespaces/<namespace_name>/services/<service_name>/proxy`
@@ -209,25 +213,25 @@ URL 的 `<service_name>` 段支持的格式为：
   https://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_cluster/health?pretty=true
   ```
 
-    <!--
-    The health information is similar to this:
-    -->
-    健康信息与下面的例子类似：
+  <!--
+  The health information is similar to this:
+  -->
+  健康信息与下面的例子类似：
 
-    ```json
-    {
-      "cluster_name" : "kubernetes_logging",
-      "status" : "yellow",
-      "timed_out" : false,
-      "number_of_nodes" : 1,
-      "number_of_data_nodes" : 1,
-      "active_primary_shards" : 5,
-      "active_shards" : 5,
-      "relocating_shards" : 0,
-      "initializing_shards" : 0,
-      "unassigned_shards" : 5
-    }
-    ```
+  ```json
+  {
+    "cluster_name" : "kubernetes_logging",
+    "status" : "yellow",
+    "timed_out" : false,
+    "number_of_nodes" : 1,
+    "number_of_data_nodes" : 1,
+    "active_primary_shards" : 5,
+    "active_shards" : 5,
+    "relocating_shards" : 0,
+    "initializing_shards" : 0,
+    "unassigned_shards" : 5
+  }
+  ```
 
 <!--
 * To access the *https* Elasticsearch service health information `_cluster/health?pretty=true`, you would use:
@@ -248,12 +252,12 @@ You may be able to put an apiserver proxy URL into the address bar of a browser.
 你或许能够将 API 服务器代理的 URL 放入浏览器的地址栏，然而：
 
 <!--
-  - Web browsers cannot usually pass tokens, so you may need to use basic (password) auth. Apiserver can be configured to accept basic auth,
-    but your cluster may not be configured to accept basic auth.
-  - Some web apps may not work, particularly those with client side javascript that construct URLs in a
-    way that is unaware of the proxy path prefix.
+- Web browsers cannot usually pass tokens, so you may need to use basic (password) auth. Apiserver can be configured to accept basic auth,
+  but your cluster may not be configured to accept basic auth.
+- Some web apps may not work, particularly those with client side javascript that construct URLs in a
+  way that is unaware of the proxy path prefix.
 -->
-  - Web 服务器通常不能传递令牌，所以你可能需要使用基本（密码）认证。
-    API 服务器可以配置为接受基本认证，但你的集群可能并没有这样配置。
-  - 某些 Web 应用可能无法工作，特别是那些使用客户端 Javascript 构造 URL 的
-    应用，所构造的 URL 可能并不支持代理路径前缀。
+- Web 服务器通常不能传递令牌，所以你可能需要使用基本（密码）认证。
+  API 服务器可以配置为接受基本认证，但你的集群可能并没有这样配置。
+- 某些 Web 应用可能无法工作，特别是那些使用客户端 Javascript 构造 URL 的
+  应用，所构造的 URL 可能并不支持代理路径前缀。

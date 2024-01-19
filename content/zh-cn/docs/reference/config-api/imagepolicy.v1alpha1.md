@@ -26,7 +26,7 @@ package: imagepolicy.k8s.io/v1alpha1
 <tr><td><code>kind</code><br/>string</td><td><code>ImageReview</code></td></tr>
 
 <tr><td><code>metadata</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#objectmeta-v1-meta"><code>meta/v1.ObjectMeta</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#objectmeta-v1-meta"><code>meta/v1.ObjectMeta</code></a>
 </td>
 <td>
   <!--
@@ -207,4 +207,3 @@ appropriate prefix).</p>
 </tr>
 </tbody>
 </table>
-

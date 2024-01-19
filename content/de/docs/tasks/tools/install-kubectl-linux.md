@@ -51,7 +51,7 @@ Um kubectl auf Linux zu installieren, gibt es die folgenden Möglichkeiten:
    Download der kubectl Checksum-Datei:
 
    ```bash
-   curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
    ```
 
    Kubectl Binary mit der Checksum-Datei validieren:
@@ -68,7 +68,7 @@ Um kubectl auf Linux zu installieren, gibt es die folgenden Möglichkeiten:
 
    Falls die Validierung fehlschlägt, beendet sich `sha256` mit einem "nonzero"-Status und gibt einen Fehler aus, welcher so aussehen könnte:
 
-   ```bash
+   ```console
    kubectl: FAILED
    sha256sum: WARNING: 1 computed checksum did NOT match
    ```
@@ -236,7 +236,7 @@ Untenstehend ist beschrieben, wie die Autovervollständigungen für Fish und Zsh
    Download der kubectl-convert Checksum-Datei:
 
    ```bash
-   curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert.sha256"
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert.sha256"
    ```
 
    Kubectl-convert Binary mit der Checksum-Datei validieren:
@@ -253,7 +253,7 @@ Untenstehend ist beschrieben, wie die Autovervollständigungen für Fish und Zsh
 
    Falls die Validierung fehlschlägt, beendet sich `sha256` mit einem "nonzero"-Status und gibt einen Fehler aus, welcher so aussehen könnte:
 
-   ```bash
+   ```console
    kubectl-convert: FAILED
    sha256sum: WARNING: 1 computed checksum did NOT match
    ```

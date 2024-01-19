@@ -44,7 +44,7 @@ Linux पर kubectl संस्थापित करने के लिए �
   kubectl चेकसम फाइल डाउनलोड करें:
 
    ```bash
-   curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
    ```
 
    चेकसम फ़ाइल से kubectl बाइनरी को मान्य करें:
@@ -61,7 +61,7 @@ Linux पर kubectl संस्थापित करने के लिए �
 
    अगर चेक फेल हो जाता है, तो `sha256` nonzero स्थिति के साथ बाहर निकलता है और इस आउटपुट के समान प्रिंट करता है:
 
-   ```bash
+   ```console
    kubectl: FAILED
    sha256sum: WARNING: 1 computed checksum did NOT match
    ```
@@ -199,7 +199,7 @@ kubectl Bash और Zsh के लिए ऑटोकम्प्लेशन �
    kubectl-convert चेकसम फ़ाइल डाउनलोड करें:
 
    ```bash
-   curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert.sha256"
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert.sha256"
    ```
 
    चेकसम फ़ाइल से kubectl-convert बाइनरी को मान्य करें:
@@ -216,7 +216,7 @@ kubectl Bash और Zsh के लिए ऑटोकम्प्लेशन �
 
    अगर चेक फेल हो जाता है, तो `sha256` nonzero स्थिति के साथ बाहर निकलता है और इस आउटपुट के समान प्रिंट करता है:
 
-   ```bash
+   ```console
    kubectl-convert: FAILED
    sha256sum: WARNING: 1 computed checksum did NOT match
    ```

@@ -81,7 +81,7 @@ Agregue la opción `-R` para procesar un directorio de manera recursiva.
 
 El siguiente es un ejemplo de archivo de configuración para un objeto:
 
-{{< codenew file="application/simple_deployment.yaml" >}}
+{{% codenew file="application/simple_deployment.yaml" %}}
 
 Ejecute `kubectl diff` para visualizar el objeto que será creado:
 
@@ -175,7 +175,7 @@ Agregue la opción `-R` para procesar directorios de manera recursiva.
 
 Este es un ejemplo de archivo de configuración:
 
-{{< codenew file="application/simple_deployment.yaml" >}}
+{{% codenew file="application/simple_deployment.yaml" %}}
 
 Cree el objeto usando `kubectl apply`:
 
@@ -294,7 +294,7 @@ spec:
 Actualice el archivo de configuración `simple_deployment.yaml` para cambiar el campo `image`
 de `nginx:1.14.2` a `nginx:1.16.1`, y elimine el campo `minReadySeconds`:
 
-{{< codenew file="application/update_deployment.yaml" >}}
+{{% codenew file="application/update_deployment.yaml" %}}
 
 Aplique los cambios realizados al archivo de configuración:
 
@@ -450,7 +450,7 @@ son usados para calcular que campos deben ser eliminados o definidos:
 
 A continuación un ejemplo. Suponga que este es el archivo de configuración para un objeto de tipo Deployment:
 
-{{< codenew file="application/update_deployment.yaml" >}}
+{{% codenew file="application/update_deployment.yaml" %}}
 
 También, suponga que esta es la configuración activa para ese mismo objeto de tipo Deployment:
 
@@ -745,7 +745,7 @@ al momento de crear un objeto.
 Aquí puede ver un archivo de configuración para un Deployment. Este archivo no especifica
 el campo `strategy`:
 
-{{< codenew file="application/simple_deployment.yaml" >}}
+{{% codenew file="application/simple_deployment.yaml" %}}
 
 Cree un nuevo objeto `kubectl apply`:
 

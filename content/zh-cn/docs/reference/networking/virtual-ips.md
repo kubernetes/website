@@ -3,7 +3,6 @@ title: 虚拟 IP 和服务代理
 content_type: reference
 weight: 50
 ---
-
 <!--
 title: Virtual IPs and Service Proxies
 content_type: reference
@@ -195,7 +194,7 @@ having traffic sent via kube-proxy to a Pod that's known to have failed.
 <!--
 {{< figure src="/images/docs/services-iptables-overview.svg" title="Virtual IP mechanism for Services, using iptables mode" class="diagram-medium" >}}
 -->
-{{< figure src="/images/docs/services-iptables-overview.svg" title="iptables 模式下 Service 的虚拟 IP 机制" class="diagram-medium" >}}
+{{< figure src="/zh-cn/docs/images/services-iptables-overview.svg" title="iptables 模式下 Service 的虚拟 IP 机制" class="diagram-medium" >}}
 
 <!--
 #### Example {#packet-processing-iptables}
@@ -255,7 +254,7 @@ kube-proxy [configuration file](/docs/reference/config-api/kube-proxy-config.v1a
 -->
 #### 优化 iptables 模式性能  {#optimizing-iptables-mode-performance}
 
-在大型集群（有数万个 Pod 和 Service）中，当 Service（或其 EndpointSlices）发生变化时
+在大型集群（有数万个 Pod 和 Service）中，当 Service（或其 EndpointSlice）发生变化时
 iptables 模式的 kube-proxy 在更新内核中的规则时可能要用较长时间。
 你可以通过（`kube-proxy --config <path>` 指定的）kube-proxy
 [配置文件](/zh-cn/docs/reference/config-api/kube-proxy-config.v1alpha1/)的
@@ -269,44 +268,6 @@ iptables:
   syncPeriod: 30s
 ...
 ```
-
-<!--
-##### Performance optimization for `iptables` mode {#minimize-iptables-restore}
--->
-##### 对 `iptables` 模式的性能优化 {#minimize-iptables-restore}
-
-{{< feature-state for_k8s_version="v1.27" state="beta" >}}
-
-<!--
-In Kubernetes {{< skew currentVersion >}} the kube-proxy defaults to a minimal approach
-to `iptables-restore` operations, only making updates where Services or EndpointSlices have
-actually changed. This is a performance optimization.
-The original implementation updated all the rules for all Services on every sync; this
-sometimes led to performance issues (update lag) in large clusters.
--->
-在 Kubernetes {{< skew currentVersion >}} 中，kube-proxy 默认采用最小方式进行 `iptables-restore` 操作，
-仅在 Service 或 EndpointSlice 实际发生变化的地方进行更新。这是一个性能优化。
-最初的实现在每次同步时都会更新所有服务的所有规则；这有时会导致大型集群出现性能问题（更新延迟）。
-
-<!--
-If you are not running kube-proxy from Kubernetes {{< skew currentVersion >}}, check
-the behavior and associated advice for the version that you are actually running.
--->
-如果你运行的不是 Kubernetes {{< skew currentVersion >}} 版本的 kube-proxy，
-请检查你实际运行的版本的行为和相关建议。
-
-<!--
-If you were previously overriding `minSyncPeriod`, you should try
-removing that override and letting kube-proxy use the default value
-(`1s`) or at least a smaller value than you were using before upgrading.
-You can select the legacy behavior by disabling the `MinimizeIPTablesRestore`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-(you should not need to).
--->
-如果你之前覆盖了 `minSyncPeriod`，你应该尝试删除该覆盖并让 kube-proxy 使用默认值（`1s`）或至少比升级前使用的值小。
-你可以通过禁用 `MinimizeIPTablesRestore`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来选择执行旧的行为
-（你应该不需要）。
 
 ##### `minSyncPeriod`
 
@@ -356,10 +317,42 @@ Especially, if kube-proxy's `sync_proxy_rules_duration_seconds` metric
 indicates an average time much larger than 1 second, then bumping up
 `minSyncPeriod` may make updates more efficient.
 -->
-默认值 `1s` 适用于大多数集群，
-在大型集群中，可能需要将其设置为更大的值。
+默认值 `1s` 适用于大多数集群，在大型集群中，可能需要将其设置为更大的值。
 （特别是，如果 kube-proxy 的 `sync_proxy_rules_duration_seconds` 指标表明平均时间远大于 1 秒，
 那么提高 `minSyncPeriod` 可能会使更新更有效率。）
+
+<!--
+##### Updating legacy `minSyncPeriod` configuration {#minimize-iptables-restore}
+-->
+##### 更新原有的 `minSyncPeriod` 配置   {#minimize-iptables-restore}
+
+<!--
+Older versions of kube-proxy updated all the rules for all Services on
+every sync; this led to performance issues (update lag) in large
+clusters, and the recommended solution was to set a larger
+`minSyncPeriod`. Since Kubernetes v1.28, the iptables mode of
+kube-proxy uses a more minimal approach, only making updates where
+Services or EndpointSlices have actually changed.
+-->
+旧版本的 kube-proxy 在每次同步时为所有 Service 更新规则；
+这在大型集群中会造成性能问题（更新延迟），建议的解决方案是设置较大的 `minSyncPeriod`。
+自 Kubernetes v1.28 开始，kube-proxy 的 iptables 模式采用了更精简的方法，
+只有在 Service 或 EndpointSlice 实际发生变化时才会进行更新。
+
+<!--
+If you were previously overriding `minSyncPeriod`, you should try
+removing that override and letting kube-proxy use the default value
+(`1s`) or at least a smaller value than you were using before upgrading.
+-->
+如果你之前覆盖了 `minSyncPeriod`，你应该尝试删除该覆盖并让 kube-proxy
+使用默认值（`1s`）或至少比升级前使用的值小。
+
+<!--
+If you are not running kube-proxy from Kubernetes {{< skew currentVersion >}}, check
+the behavior and associated advice for the version that you are actually running.
+-->
+如果你运行的不是 Kubernetes {{< skew currentVersion >}} 版本的 kube-proxy，
+请检查你实际运行的版本的行为和相关建议。
 
 ##### `syncPeriod`
 
@@ -399,8 +392,7 @@ _This proxy mode is only available on Linux nodes._
 In `ipvs` mode, kube-proxy watches Kubernetes Services and EndpointSlices,
 calls `netlink` interface to create IPVS rules accordingly and synchronizes
 IPVS rules with Kubernetes Services and EndpointSlices periodically.
-This control loop ensures that IPVS status matches the desired
-state.
+This control loop ensures that IPVS status matches the desired state.
 When accessing a Service, IPVS directs traffic to one of the backend Pods.
 -->
 在 `ipvs` 模式下，kube-proxy 监视 Kubernetes Service 和 EndpointSlice，
@@ -427,22 +419,76 @@ IPVS 代理模式基于 netfilter 回调函数，类似于 iptables 模式，
 <!--
 IPVS provides more options for balancing traffic to backend Pods;
 these are:
-
-* `rr`: round-robin
-* `lc`: least connection (smallest number of open connections)
-* `dh`: destination hashing
-* `sh`: source hashing
-* `sed`: shortest expected delay
-* `nq`: never queue
 -->
 IPVS 为将流量均衡到后端 Pod 提供了更多选择：
 
-* `rr`：轮询
-* `lc`：最少连接（打开连接数最少）
-* `dh`：目标地址哈希
-* `sh`：源地址哈希
-* `sed`：最短预期延迟
-* `nq`：最少队列
+<!--
+* `rr` (Round Robin): Traffic is equally distributed amongst the backing servers.
+
+* `wrr` (Weighted Round Robin): Traffic is routed to the backing servers based on
+  the weights of the servers. Servers with higher weights receive new connections
+  and get more requests than servers with lower weights.
+
+* `lc` (Least Connection): More traffic is assigned to servers with fewer active connections.
+-->
+* `rr`（轮询）：流量被平均分发给后端服务器。
+
+* `wrr`（加权轮询）：流量基于服务器的权重被路由到后端服务器。
+  高权重的服务器接收新的连接并处理比低权重服务器更多的请求。
+
+* `lc`（最少连接）：将更多流量分配给活跃连接数较少的服务器。
+
+<!--
+* `wlc` (Weighted Least Connection): More traffic is routed to servers with fewer connections
+  relative to their weights, that is, connections divided by weight.
+
+* `lblc` (Locality based Least Connection): Traffic for the same IP address is sent to the
+  same backing server if the server is not overloaded and available; otherwise the traffic
+  is sent to servers with fewer connections, and keep it for future assignment.
+-->
+* `wlc`（加权最少连接）：将更多流量按照服务器权重分配给连接数较少的服务器，即基于连接数除以权重。
+
+* `lblc`（基于地域的最少连接）：如果服务器未超载且可用，则针对相同 IP 地址的流量被发送到同一后端服务器；
+  否则，流量被发送到连接较少的服务器，并在未来的流量分配中保持这一分配决定。
+
+<!--
+* `lblcr` (Locality Based Least Connection with Replication): Traffic for the same IP
+  address is sent to the server with least connections. If all the backing servers are
+  overloaded, it picks up one with fewer connections and add it to the target set.
+  If the target set has not changed for the specified time, the most loaded server
+  is removed from the set, in order to avoid high degree of replication.
+-->
+* `lblcr`（带副本的基于地域的最少连接）：针对相同 IP 地址的流量被发送到连接数最少的服务器。
+  如果所有后端服务器都超载，则选择连接较少的服务器并将其添加到目标集中。
+  如果目标集在指定时间内未发生变化，则从此集合中移除负载最高的服务器，以避免副本的负载过高。
+
+<!--
+* `sh` (Source Hashing): Traffic is sent to a backing server by looking up a statically
+  assigned hash table based on the source IP addresses.
+
+* `dh` (Destination Hashing): Traffic is sent to a backing server by looking up a
+  statically assigned hash table based on their destination addresses.
+-->
+* `sh`（源哈希）：通过查找基于源 IP 地址的静态分配哈希表，将流量发送到某后端服务器。
+
+* `dh`（目标哈希）：通过查找基于目标地址的静态分配哈希表，将流量发送到某后端服务器。
+
+<!--
+* `sed` (Shortest Expected Delay): Traffic forwarded to a backing server with the shortest
+  expected delay. The expected delay is `(C + 1) / U` if sent to a server, where `C` is
+  the number of connections on the server and `U` is the fixed service rate (weight) of
+  the server.
+
+* `nq` (Never Queue): Traffic is sent to an idle server if there is one, instead of
+  waiting for a fast one; if all servers are busy, the algorithm falls back to the `sed`
+  behavior.
+-->
+* `sed`（最短预期延迟）：流量被转发到具有最短预期延迟的后端服务器。
+  如果流量被发送给服务器，预期延迟为 `(C + 1) / U`，其中 `C` 是服务器上的连接数，
+  `U` 是服务器的固定服务速率（权重）。
+
+* `nq`（永不排队）：流量被发送到一台空闲服务器（如果有的话），而不是等待一台快速服务器；
+  如果所有服务器都忙碌，算法将退回到 `sed` 行为。
 
 {{< note >}}
 <!--
@@ -462,7 +508,7 @@ falls back to running in iptables proxy mode.
 <!--
 {{< figure src="/images/docs/services-ipvs-overview.svg" title="Virtual IP address mechanism for Services, using IPVS mode" class="diagram-medium" >}}
 -->
-{{< figure src="/images/docs/services-ipvs-overview.svg" title="IPVS 模式下 Service 的虚拟 IP 地址机制" class="diagram-medium" >}}
+{{< figure src="/zh-cn/docs/images/services-ipvs-overview.svg" title="IPVS 模式下 Service 的虚拟 IP 地址机制" class="diagram-medium" >}}
 
 <!--
 ### `kernelspace` proxy mode {#proxy-mode-kernelspace}
@@ -511,7 +557,7 @@ apply the packet rewriting directly, rather than placing this burden on the node
 Pod is running. This is called _direct server return_.
 -->
 作为基本操作的替代方案，托管服务后端 Pod 的节点可以直接应用数据包重写，
-而不用将此工作交给运行客户端 Pod 的节点来执行。这称为**Direct Server Return（DSR）**。
+而不用将此工作交给运行客户端 Pod 的节点来执行。这称为 **Direct Server Return（DSR）**。
 
 <!--
 To use this, you must run kube-proxy with the `--enable-dsr` command line argument **and**
@@ -523,7 +569,7 @@ are running on the same node.
 要使用这种技术，你必须使用 `--enable-dsr` 命令行参数运行 kube-proxy **并**启用
 `WinDSR` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 
-即使两个 Pod 在同一节点上运行，Direct Server Return（DSR）也可优化 Pod 的返回流量。
+即使两个 Pod 在同一节点上运行，DSR 也可优化 Pod 的返回流量。
 
 <!--
 ## Session affinity
@@ -615,8 +661,8 @@ Service its own IP address from within the `service-cluster-ip-range`
 CIDR range that is configured for the {{< glossary_tooltip term_id="kube-apiserver" text="API Server" >}}.
 -->
 为了允许你为 Service 选择 IP 地址，我们必须确保没有任何两个 Service 会发生冲突。
-Kubernetes 通过从为 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}
-配置的 `service-cluster-ip-range` CIDR 范围内为每个 Service 分配自己的 IP 地址来实现这一点。
+Kubernetes 通过从为 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}配置的
+`service-cluster-ip-range` CIDR 范围内为每个 Service 分配自己的 IP 地址来实现这一点。
 
 <!--
 #### IP address allocation tracking
@@ -654,8 +700,8 @@ the control plane replaces the existing etcd allocator with a new one, using IPA
 objects instead of an internal global allocation map.  The ClusterIP address
 associated to each Service will have a referenced IPAddress object.
 -->
-如果你启用 `MultiCIDRServiceAllocator` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gate/)
-和 [`networking.k8s.io/v1alpha1` API 组](/zh-cn/docs/tasks/administer-cluster/enable-disable-api/)，
+如果你启用 `MultiCIDRServiceAllocator` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gate/)和
+[`networking.k8s.io/v1alpha1` API 组](/zh-cn/docs/tasks/administer-cluster/enable-disable-api/)，
 控制平面将用一个新的分配器替换现有的 etcd 分配器，使用 IPAddress 对象而不是内部的全局分配映射。
 与每个 Service 关联的 ClusterIP 地址将有一个对应的 IPAddress 对象。
 
@@ -686,6 +732,7 @@ the built-in Service API.
 ```shell
 kubectl get services
 ```
+
 ```
 NAME         TYPE        CLUSTER-IP        EXTERNAL-IP   PORT(S)   AGE
 kubernetes   ClusterIP   2001:db8:1:2::1   <none>        443/TCP   3d1h
@@ -694,6 +741,7 @@ kubernetes   ClusterIP   2001:db8:1:2::1   <none>        443/TCP   3d1h
 ```shell
 kubectl get ipaddresses
 ```
+
 ```
 NAME              PARENTREF
 2001:db8:1:2::1   services/default/kubernetes
@@ -725,8 +773,7 @@ reduces the risk of a conflict over allocation.
 -->
 Kubernetes 优先通过从高段中选择来为 Service 分配动态 IP 地址，
 这意味着如果要将特定 IP 地址分配给 `type: ClusterIP` Service，
-则应手动从**低**段中分配 IP 地址。
-该方法降低了分配导致冲突的风险。
+则应手动从**低**段中分配 IP 地址。该方法降低了分配导致冲突的风险。
 
 <!--
 If you disable the `ServiceIPStaticSubrange`
@@ -795,7 +842,7 @@ relevant Service.
 -->
 ### 流向正终止的端点的流量  {#traffic-to-terminating-endpoints}
 
-{{< feature-state for_k8s_version="v1.26" state="beta" >}}
+{{< feature-state for_k8s_version="v1.28" state="stable" >}}
 
 <!--
 If the `ProxyTerminatingEndpoints`

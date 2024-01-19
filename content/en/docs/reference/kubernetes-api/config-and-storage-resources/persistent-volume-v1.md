@@ -852,6 +852,13 @@ PersistentVolumeStatus is the current status of a persistent volume.
 
 <hr>
 
+- **lastPhaseTransitionTime** (Time)
+
+  lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions. This is an alpha field and requires enabling PersistentVolumeLastPhaseTransitionTime feature.
+
+  <a name="Time"></a>
+  *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+
 - **message** (string)
 
   message is a human-readable message indicating details about why the volume is in this state.

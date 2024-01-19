@@ -29,7 +29,7 @@ Dans cet exercice, vous créez un pod qui contient un seul conteneur. Ce Pod a u
 [emptyDir](/fr/docs/concepts/storage/volumes/#emptydir) qui dure toute la vie du Pod, même si le conteneur se termine et redémarre.
 Voici le fichier de configuration du Pod :
 
-{{< codenew file="pods/storage/redis.yaml" >}}
+{{% codenew file="pods/storage/redis.yaml" %}}
 
 1. Créez le Pod :
 

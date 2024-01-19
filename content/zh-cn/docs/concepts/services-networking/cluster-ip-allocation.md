@@ -242,7 +242,7 @@ pie showData
 <!--
 ## {{% heading "whatsnext" %}}
 * Read about [Service External Traffic Policy](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)
-* Read about [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
+* Read about [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/)
 * Read about [Services](/docs/concepts/services-networking/service/)
 -->
 ## {{% heading "whatsnext" %}}

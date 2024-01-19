@@ -28,7 +28,7 @@ déploiement Kubernetes, et vous pouvez décrire un
 déploiement dans un fichier YAML. Par exemple, 
 ce fichier YAML décrit un déploiement qui exécute l'image Docker nginx:1.14.2 :
 
-{{< codenew file="application/deployment.yaml" >}}
+{{% codenew file="application/deployment.yaml" %}}
 
 1. Créez un déploiement basé sur ce fichier YAML:
 
@@ -102,7 +102,7 @@ Vous pouvez mettre à jour le déploiement en appliquant un nouveau fichier YAML
 Ce fichier YAML indique que le déploiement doit être mis à jour
 pour utiliser nginx 1.16.1.
 
-{{< codenew file="application/deployment-update.yaml" >}}
+{{% codenew file="application/deployment-update.yaml" %}}
 
 1. Appliquez le nouveau fichier YAML :
 
@@ -121,7 +121,7 @@ pour utiliser nginx 1.16.1.
 Vous pouvez augmenter le nombre de pods dans votre déploiement en appliquant un nouveau fichier YAML.
 Ce fichier YAML définit `replicas` à 4, ce qui spécifie que le déploiement devrait avoir quatre pods :
 
-{{< codenew file="application/deployment-scale.yaml" >}}
+{{% codenew file="application/deployment-scale.yaml" %}}
 
 1. Appliquez le nouveau fichier YAML :
 

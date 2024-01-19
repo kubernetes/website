@@ -89,7 +89,7 @@ to set up
 
 Here is the configuration file for the hostPath PersistentVolume:
 
-{{< codenew file="pods/storage/pv-volume.yaml" >}}
+{{% code_sample file="pods/storage/pv-volume.yaml" %}}
 
 The configuration file specifies that the volume is at `/mnt/data` on the
 cluster's Node. The configuration also specifies a size of 10 gibibytes and
@@ -97,6 +97,12 @@ an access mode of `ReadWriteOnce`, which means the volume can be mounted as
 read-write by a single Node. It defines the [StorageClass name](/docs/concepts/storage/persistent-volumes/#class)
 `manual` for the PersistentVolume, which will be used to bind
 PersistentVolumeClaim requests to this PersistentVolume.
+
+{{< note >}}
+This example uses the `ReadWriteOnce` access mode, for simplicity. For
+production use, the Kubernetes project recommends using the `ReadWriteOncePod`
+access mode instead.
+{{< /note >}}
 
 Create the PersistentVolume:
 
@@ -123,11 +129,11 @@ task-pv-volume   10Gi       RWO           Retain          Available             
 The next step is to create a PersistentVolumeClaim. Pods use PersistentVolumeClaims
 to request physical storage. In this exercise, you create a PersistentVolumeClaim
 that requests a volume of at least three gibibytes that can provide read-write
-access for at least one Node.
+access for at most one Node at a time.
 
 Here is the configuration file for the PersistentVolumeClaim:
 
-{{< codenew file="pods/storage/pv-claim.yaml" >}}
+{{% code_sample file="pods/storage/pv-claim.yaml" %}}
 
 Create the PersistentVolumeClaim:
 
@@ -173,7 +179,7 @@ The next step is to create a Pod that uses your PersistentVolumeClaim as a volum
 
 Here is the configuration file for the Pod:
 
-{{< codenew file="pods/storage/pv-pod.yaml" >}}
+{{% code_sample file="pods/storage/pv-pod.yaml" %}}
 
 Notice that the Pod's configuration file specifies a PersistentVolumeClaim, but
 it does not specify a PersistentVolume. From the Pod's point of view, the claim
@@ -244,7 +250,7 @@ You can now close the shell to your Node.
 
 ## Mounting the same persistentVolume in two places
 
-{{< codenew file="pods/storage/pv-duplicate.yaml" >}}
+{{% code_sample file="pods/storage/pv-duplicate.yaml" %}}
 
 You can perform 2 volume mounts on your nginx container:
 

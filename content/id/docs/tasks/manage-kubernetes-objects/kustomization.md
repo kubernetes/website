@@ -118,7 +118,7 @@ metadata:
 #### secretGenerator
 
 Kamu dapat membangkitkan Secret dari berkas atau pasangan _key-value_ literal. Untuk membangkitkan dari berkas, tambahkan entri pada daftar `files` di `secretGenerator`.
-Contoh di bawah ini membangkitkan Secret dengan data dari berkas: 
+Contoh di bawah ini membangkitkan Secret dengan data dari berkas:
 
 ```shell
 # Membuat berkas password.txt
@@ -837,5 +837,3 @@ deployment.apps "dev-my-nginx" deleted
 * [Buku Kubectl](https://kubectl.docs.kubernetes.io)
 * [Rujukan Perintah Kubectl](/docs/reference/generated/kubectl/kubectl-commands/)
 * [Rujukan API Kubernetes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
-
-

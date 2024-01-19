@@ -81,13 +81,13 @@ You can pass information from available Container-level fields using
 <!--
 ### Information available via `fieldRef` {#downwardapi-fieldRef}
 
-For most Pod-level fields, you can provide them to a container either as
+For some Pod-level fields, you can provide them to a container either as
 an environment variable or using a `downwardAPI` volume. The fields available
 via either mechanism are:
 -->
 ### 可通过 `fieldRef` 获得的信息  {#downwardapi-fieldRef}
 
-对于大多数 Pod 级别的字段，你可以将它们作为环境变量或使用 `downwardAPI` 卷提供给容器。
+对于某些 Pod 级别的字段，你可以将它们作为环境变量或使用 `downwardAPI` 卷提供给容器。
 通过这两种机制可用的字段有：
 
 <!--
@@ -153,11 +153,27 @@ The following information is available through environment variables
 : Pod 所在节点的主 IP 地址
 
 <!--
+`status.hostIPs`
+: the IP addresses is a dual-stack version of `status.hostIP`, the first is always the same as `status.hostIP`.
+  The field is available if you enable the `PodHostIPs` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+-->
+`status.hostIPs`
+: 这组 IP 地址是 `status.hostIP` 的双协议栈版本，第一个 IP 始终与 `status.hostIP` 相同。
+  该字段在启用了 `PodHostIPs` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)后可用。
+
+<!--
 `status.podIP`
 : the pod's primary IP address (usually, its IPv4 address)
 -->
 `status.podIP`
 : Pod 的主 IP 地址（通常是其 IPv4 地址）
+
+<!--
+`status.podIPs`
+: the IP addresses is a dual-stack version of `status.podIP`, the first is always the same as `status.podIP`
+-->
+`status.podIPs`
+: 这组 IP 地址是 `status.podIP` 的双协议栈版本, 第一个 IP 始终与 `status.podIP` 相同。
 
 <!--
 The following information is available through a `downwardAPI` volume 

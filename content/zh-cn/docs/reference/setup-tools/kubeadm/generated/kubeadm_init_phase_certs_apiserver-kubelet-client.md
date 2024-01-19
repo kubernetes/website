@@ -1,23 +1,11 @@
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference conent, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
 <!-- 
 Generate the certificate for the API server to connect to kubelet 
 -->
-生成供 API 服务器连接 kubelet 的证书
+生成供 API 服务器连接 kubelet 的证书。
 
 <!-- 
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
@@ -28,14 +16,12 @@ Generate the certificate for the API server to connect to kubelet, and save them
 <!--
 If both files already exist, kubeadm skips the generation step and existing files will be used.
 -->
-
 如果两个文件都已存在，则 kubeadm 将跳过生成步骤，使用现有文件。
 
 <!--
 Alpha Disclaimer: this command is currently alpha.
 -->
-
-Alpha 免责声明：此命令当前为 Alpha 功能。
+Alpha 免责声明：此命令目前处于 Alpha 阶段。
 
 ```
 kubeadm init phase certs apiserver-kubelet-client [flags]
@@ -44,7 +30,6 @@ kubeadm init phase certs apiserver-kubelet-client [flags]
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -105,7 +90,7 @@ Don't apply any changes; just output what would be done.
 <!--
 <p>help for apiserver-kubelet-client</p>
 -->
-<p>apiserver-kubelet-client 操作的帮助命令</p>
+<p>apiserver-kubelet-client 操作的帮助命令。</p>
 </td>
 </tr>
 
@@ -132,7 +117,6 @@ Don't apply any changes; just output what would be done.
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 继承于父命令的选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -156,4 +140,3 @@ Don't apply any changes; just output what would be done.
 
 </tbody>
 </table>
-

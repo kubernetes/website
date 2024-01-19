@@ -213,7 +213,7 @@ the `>` characters. The following example illustrates this (view the Markdown
 source for this page).
 
 ```none
-{{</* codenew file="pods/storage/gce-volume.yaml" */>}}
+{{</* alert color="warning" >}}This is a warning.{{< /alert */>}}
 ```
 
 ## Links

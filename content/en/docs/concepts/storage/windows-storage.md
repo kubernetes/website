@@ -41,7 +41,7 @@ As a result, the following storage functionality is not supported on Windows nod
 * Block device mapping
 * Memory as the storage medium (for example, `emptyDir.medium` set to `Memory`)
 * File system features like uid/gid; per-user Linux filesystem permissions
-* Setting [secret permissions with DefaultMode](/docs/concepts/configuration/secret/#secret-files-permissions) (due to UID/GID dependency)
+* Setting [secret permissions with DefaultMode](/docs/tasks/inject-data-application/distribute-credentials-secure/#set-posix-permissions-for-secret-keys) (due to UID/GID dependency)
 * NFS based storage/volume support
 * Expanding the mounted volume (resizefs)
 
@@ -54,7 +54,7 @@ mounting/dismounting a volume to/from individual containers in a pod that needs 
 persist data.
 
 Volume management components are shipped as Kubernetes volume
-[plugin](/docs/concepts/storage/volumes/#types-of-volumes).
+[plugin](/docs/concepts/storage/volumes/#volume-types).
 The following broad classes of Kubernetes volume plugins are supported on Windows:
 
 * [`FlexVolume plugins`](/docs/concepts/storage/volumes/#flexvolume)
@@ -65,8 +65,5 @@ The following broad classes of Kubernetes volume plugins are supported on Window
 
 The following in-tree plugins support persistent storage on Windows nodes:
 
-* [`awsElasticBlockStore`](/docs/concepts/storage/volumes/#awselasticblockstore)
-* [`azureDisk`](/docs/concepts/storage/volumes/#azuredisk)
 * [`azureFile`](/docs/concepts/storage/volumes/#azurefile)
-* [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk)
 * [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume)

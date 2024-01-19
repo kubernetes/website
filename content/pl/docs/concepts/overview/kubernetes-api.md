@@ -1,7 +1,7 @@
 ---
 title: API Kubernetesa
 content_type: concept
-weight: 30
+weight: 40
 description: >
   API Kubernetesa służy do odpytywania i zmiany stanu obiektów Kubernetesa.
   Sercem warstwy sterowania Kubernetesa jest serwer API i udostępniane po HTTP API. Przez ten serwer odbywa się komunikacja pomiędzy użytkownikami, różnymi częściami składowymi klastra oraz komponentami zewnętrznymi.
@@ -178,7 +178,8 @@ poprzez kilka różnych wersji API.
 Załóżmy przykładowo, że istnieją dwie wersje `v1` i `v1beta1` tego samego zasobu.
 Obiekt utworzony przez wersję `v1beta1` może być odczytany, 
 zaktualizowany i skasowany zarówno przez wersję
-`v1beta1`, jak i `v1`.
+`v1beta1`, jak i `v1`, do czasu aż wersja `v1beta1` będzie przestarzała i usunięta.
+Wtedy możesz dalej korzystać i modyfikować obiekt poprzez wersję `v1`.
 
 ## Trwałość API
 

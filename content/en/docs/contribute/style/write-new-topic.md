@@ -102,7 +102,7 @@ following cases (not an exhaustive list):
 - The code is not generic enough for users to try out. As an example, you can
   embed the YAML
   file for creating a Pod which depends on a specific
-  [FlexVolume](/docs/concepts/storage/volumes/#flexvolume-deprecated) implementation.
+  [FlexVolume](/docs/concepts/storage/volumes/#flexvolume) implementation.
 - The code is an incomplete example because its purpose is to highlight a
   portion of a larger file. For example, when describing ways to
   customize a [RoleBinding](/docs/reference/access-authn-authz/rbac/#role-binding-examples),
@@ -121,24 +121,18 @@ reusable, and you want the reader to try it out themselves.
 
 When adding a new standalone sample file, such as a YAML file, place the code in
 one of the `<LANG>/examples/` subdirectories where `<LANG>` is the language for
-the topic. In your topic file, use the `codenew` shortcode:
+the topic. In your topic file, use the `code_sample` shortcode:
 
 ```none
-{{</* codenew file="<RELPATH>/my-example-yaml>" */>}}
+{{%/* code_sample file="<RELPATH>/my-example-yaml>" */%}}
 ```
 where `<RELPATH>` is the path to the file to include, relative to the
 `examples` directory. The following Hugo shortcode references a YAML
 file located at `/content/en/examples/pods/storage/gce-volume.yaml`.
 
 ```none
-{{</* codenew file="pods/storage/gce-volume.yaml" */>}}
+{{%/* code_sample file="pods/storage/gce-volume.yaml" */%}}
 ```
-
-{{< note >}}
-To show raw Hugo shortcodes as in the above example and prevent Hugo
-from interpreting them, use C-style comments directly after the `<` and before
-the `>` characters. View the code for this page for an example.
-{{< /note >}}
 
 ## Showing how to create an API object from a configuration file
 

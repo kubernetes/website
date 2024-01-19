@@ -1,18 +1,7 @@
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
 <!-- 
 Generate the kubeconfig for the new control plane components 
 -->
-为新的控制平面组件生成 kubeconfig
+为新的控制平面组件生成 kubeconfig。
 
 <!--
 ### Synopsis
@@ -23,7 +12,7 @@ Generate the kubeconfig for the new control plane components
 Generate the kubeconfig for the new control plane components
 -->
 
-为新的控制平面组件生成 kubeconfig
+为新的控制平面组件生成 kubeconfig。
 
 ```
 kubeadm join phase control-plane-prepare kubeconfig [api-server-endpoint] [flags]
@@ -32,7 +21,6 @@ kubeadm join phase control-plane-prepare kubeconfig [api-server-endpoint] [flags
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -50,7 +38,7 @@ kubeadm join phase control-plane-prepare kubeconfig [api-server-endpoint] [flags
 <!--
 <p>Use this key to decrypt the certificate secrets uploaded by init.</p>
 -->
-<p>使用此密钥可以解密由 init 上传的证书 secret。</p>
+<p>使用此密钥可以解密由 init 上传的证书 Secret。</p>
 </td>
 </tr>
 
@@ -74,7 +62,7 @@ kubeadm join phase control-plane-prepare kubeconfig [api-server-endpoint] [flags
 <!--
 <p>Create a new control plane instance on this node</p>
 -->
-<p>在此节点上创建一个新的控制平面实例</p>
+<p>在此节点上创建一个新的控制平面实例。</p>
 </td>
 </tr>
 
@@ -146,7 +134,7 @@ kubeadm join phase control-plane-prepare kubeconfig [api-server-endpoint] [flags
 <!--
 <p>help for kubeconfig</p>
 -->
-<p>kubeconfig 操作的帮助命令</p>
+<p>kubeconfig 操作的帮助命令。</p>
 </td>
 </tr>
 
@@ -180,7 +168,6 @@ kubeadm join phase control-plane-prepare kubeconfig [api-server-endpoint] [flags
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 从父命令中继承的选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -204,4 +191,3 @@ kubeadm join phase control-plane-prepare kubeconfig [api-server-endpoint] [flags
 
 </tbody>
 </table>
-
