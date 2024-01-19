@@ -315,5 +315,5 @@ status:
 * Node Problem Detectorを使用して[ノードの健康状態を監視する](/ja/docs/tasks/debug/debug-cluster/monitor-node-health/)
 * `kubectl debug node`を使用して[Kubernetesノードをデバッグする](/docs/tasks/debug/debug-cluster/kubectl-node-debug)
 * `crictl`を使用して[Kubernetesノードをデバッグする](/ja/docs/tasks/debug/debug-cluster/crictl/)
-* [Kubernetesの監査](/docs/tasks/debug/debug-cluster/audit/)に関する詳細な情報を得る
+* [Kubernetesの監査](/ja/docs/tasks/debug/debug-cluster/audit/)に関する詳細な情報を得る
 * `telepresence`を使用して[ローカルでサービスを開発・デバッグする](/docs/tasks/debug/debug-cluster/local-debugging/)
