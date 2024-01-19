@@ -15,7 +15,7 @@ Kubernetesでは、TLS認証のためにPKI証明書が必要です。
 
 ## クラスターではどのように証明書が使われているのか
 
-Kubernetesは下記の用途でPKIを必要とします：
+Kubernetesは下記の用途でPKIを必要とします:
 
 * kubeletがAPIサーバーの認証をするためのクライアント証明書
 * APIサーバーがkubeletと通信するためのkubeletの[サーバー証明書](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#client-and-serving-certificates)
@@ -104,7 +104,7 @@ CAの秘密鍵をクラスターにコピーしたくない場合、自身で全
 {{< /note >}}
 
 {{< note >}}
-kubeadm利用者のみ：
+kubeadm利用者のみ:
 
 * 秘密鍵なしでCA証明書をクラスターにコピーするシナリオは、kubeadmドキュメントの外部認証局の項目で言及されています。
 * kubeadmでPKIを生成すると、`kube-etcd`、`kube-etcd-peer`および `kube-etcd-healthcheck-client`証明書は外部etcdを利用するケースでは生成されない事に留意してください。
