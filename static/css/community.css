@@ -6,6 +6,7 @@ body.cid-community #banner {
   max-height: min(calc(2.5vw + min(24em, calc(2 * 293px))), 50vh);
   object-fit: cover;
   overflow: clip;
+  min-height: 240px;
 }
 
 body.cid-community .community-section #h2 {
@@ -17,53 +18,83 @@ body.cid-community .community-section #h2 {
   text-transform: uppercase;
 }
 
+/* -------------------------------------
+ * Line through styles of Headings
+ ------------------------------------- */
+body.cid-community .community-section h2 {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  white-space: nowrap;
+  margin-bottom: 2rem;
+}
+
 body.cid-community .community-section h2:before,
 body.cid-community .community-section h2:after {
-  background-color: #aaaaaa;
+  background-color: #aaa;
   content: "";
   display: inline-block;
   height: 1px;
   position: relative;
   vertical-align: middle;
-  width: 35%;
+  width: 100%;
 }
 
 body.cid-community .community-section h2:before {
-  right: 0.5em;
-  margin-left: -50%;
+  margin-right: 0.5em;
 }
 
 body.cid-community .community-section h2:after {
-  left: 0.5em;
-  margin-right: -50%;
+  margin-left: 0.5em;
 }
 
-body.cid-community .community-section, body.cid-community #navigation-items {
-  max-width: min(85vw,100em);
-  margin-left: auto;
-  margin-right: auto;
-}
-
+/* -------------------------------------
+ * Containers and blocks of sections
+ ------------------------------------- */
 body.cid-community .community-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: space-between;
+
+  min-height: 24em;
+
   margin-top: 1em;
   margin-bottom: 1em;
-  padding: 0.5em 0;
-  justify-content: space-evenly;
-  align-items: baseline;
-  align-content: space-between;
-  min-height: 10em;
+  padding: 60px;
+
   text-align: center; /* overridden for paragraphs */
 }
 
 body.cid-community .community-section:first-child {
-  padding-top: max(3vh,1.5em);
+  padding-top: max(3vh, 1.5em);
+}
+
+body.cid-community .community-section > * {
+  max-width: 1200px;
+}
+
+/* -------------------------------------
+ * Containers and blocks of sections: Navigation
+ ------------------------------------- */
+body.cid-community .community-section, body.cid-community #navigation-items {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 body.cid-community #navigation-items {
-  padding: 0.25em;
+  /*
+    Padding on two sides = (total width - max width) / 2
+
+    If padding on two sides smaller then 60px, then use 60px,
+    otherwise uses the calculated value for padding.
+  */
+  padding: 8px max(calc((100% - 1200px)/2), 60px);
 
   width: 100%;
-  max-width: initial;
 
   margin-top: 2.5em;
   margin-bottom: 2.5em;
@@ -75,12 +106,7 @@ body.cid-community #navigation-items {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-}
-
-/* Allow fallback if calc() fails */
-body.cid-community #navigation-items {
-  padding-left: calc((100vw - min(85vw,120em))/2);
-  padding-right: calc((100vw - min(85vw,120em))/2);
+  justify-content: center;
 }
 
 body.cid-community #navigation-items .community-nav-item {
@@ -103,11 +129,18 @@ body.cid-community #navigation-items .community-nav-item {
   min-height: 2em;
 }
 
+body.cid-community #navigation-items .community-nav-item a {
+  transition: color 0.2s ease;
+}
+
 body.cid-community .community-section > p:not(.community-simple) {
   line-height: 1.5em;
   text-align: initial;
 }
 
+/* -------------------------------------
+ * Containers and blocks of sections - Introduction
+ ------------------------------------- */
 body.cid-community .community-section#introduction,
 body.cid-community .community-section#introduction > p {
   line-height: 1.75em;
@@ -115,13 +148,19 @@ body.cid-community .community-section#introduction > p {
   letter-spacing: 0.04em;
 }
 
+body.cid-community .community-section#introduction {
+  padding: 0 60px;
+  min-height: unset;
+}
+
+/* -------------------------------------
+ * Containers and blocks of sections - Conference gallery
+ ------------------------------------- */
 body.cid-community #gallery {
-  display: flex;
   max-width: 100%;
+  display: flex;
+  flex-direction: row;
   gap: 0.75rem;
-  justify-content: center;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 body.cid-community #gallery img {
@@ -136,12 +175,11 @@ body.cid-community #gallery img.community-gallery-mobile {
   display: none;
 }
 
-
-
-
+/* -------------------------------------
+ * Containers and blocks of sections - Events
+ ------------------------------------- */
 body.cid-community .community-section#events {
   width: 100%;
-  max-width: initial;
   margin-bottom: 0;
 
   /* no events
@@ -153,54 +191,53 @@ body.cid-community .community-section#events {
   display: none;
 }
 
+/* -------------------------------------
+ * Containers and blocks of sections - Community Values
+ ------------------------------------- */
 body.cid-community .community-section#values {
   width: 100%;
-  max-width: initial;
-  background-image: url('/images/community/event-bg.jpg');
   color: #fff;
-  padding: 2em;
-  margin-top: 3em;
-}
-body.cid-community .community-section#values {
-  padding-left: calc((100vw - min(75vw,120em))/2);
-  padding-right: calc((100vw - min(75vw,120em))/2);
+  background-image: url('/images/community/event-bg.jpg');
 }
 
+/* -------------------------------------
+ * Containers and blocks of sections - Meetups
+ ------------------------------------- */
 body.cid-community .community-section#meetups {
   width: 100%;
-  max-width: initial;
+  min-height: min(24em,50vh);
   margin-top: 0;
-
+  color: #fff;
   background: url('/images/community/kubernetes-community-final.jpg'), url('/images/community/kubernetes-community-column.png');
   background-position: 80% center, left center;
   background-repeat: no-repeat, repeat;
   background-size: auto 100%, cover;
-  color: #fff;
-  /* fallback in case calc() fails */
-  padding: 5vw;
-  padding-bottom: 1em;
-  min-height: min(24em,50vh);
 }
 
-body.cid-community .community-section#meetups {
-  padding-left: calc((100vw - min(75vw,100em))/2);
-  padding-right: calc((100vw - min(75vw,100em))/2);
+/* -------------------------------------
+ * Containers and blocks of sections - News
+ ------------------------------------- */
+body.cid-community .community-section#news {
+  padding: 12px 12px;
 }
 
 body.cid-community a.community-cta-button {
-  appearance: button;
-  display: inline-block;
-  margin: 0.75em auto 0 auto; /* gap before button */
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 
-  background-color: #0662EE;
-  color: white;
-
-  border-radius: 6px;
-  padding: 0.75em;
   min-height: 3em;
   min-width: max(5vw, 9em);
+  margin: 0.75em auto 0 auto; /* gap before button */
+  padding: 0.75em 1.5em;
+
+  color: white;
+  background-color: #0662EE;
+  border-radius: 6px;
 
   text-align: center;
+  appearance: button;
+  transition: background-color 0.2s ease;
 }
 
 body.cid-community a.community-cta-button:hover { background-color: #2357b0; }
@@ -228,32 +265,26 @@ body.cid-community .fullbutton {
   font-weight: bold;
 }
 
+/* -------------------------------------
+ * Containers and blocks of sections - Videos
+ ------------------------------------- */
 body.cid-community #videos {
   width: 100%;
-  max-width: initial;
-  padding: 0.5em 5vw 5% 5vw; /* fallback in case calc() fails */
   background-color: #eeeeee;
-  margin-top: 4em;
-}
-
-body.cid-community #videos {
-  padding-left: calc((100vw - min(95vw,160em))/2);
-  padding-right: calc((100vw - min(95vw,160em))/2);
 }
 
 body.cid-community #videos .container {
   display: flex;
-  flex-wrap: wrap;
-  gap: max(12px,2em);
-  max-width: 95vw;
   justify-content: center;
+  flex-wrap: wrap;
+  gap: max(12px, 2em);
   margin-left: auto;
   margin-right: auto;
 }
 
 
 body.cid-community .video {
-  width: min(80vw,max(31%, 24em));
+  width: min(80vw, max(31%, 24em));
   flex-basis: 31%;
   flex-shrink: 1;
 }
@@ -281,15 +312,13 @@ body.cid-community .video iframe {
   aspect-ratio: 16 / 9;
 }
 
-body.cid-community #resources {
-  margin-top: 5%;
-  margin-bottom: 3%;
-}
-
+/* -------------------------------------
+ * Containers and blocks of sections - Discussions
+ ------------------------------------- */
 body.cid-community #resources .container {
   width: 100%;
   display: flex;
-  flex-wrap: none;
+  flex-wrap: nowrap;
   gap: 2em;
   justify-content: center;
   margin-left: auto;
@@ -312,15 +341,13 @@ body.cid-community #resources .container > .community-resource img {
 
 body.cid-community #resources .container > .community-resource a {
   text-transform: uppercase;
+  transition: color 0.2s ease;
 }
 
 body.cid-community .resourcebox {
   height: 100%;
   min-height: 370px;
 }
-
-
-
 
 body.cid-community .community-section.community-frame {
   width: 100%;
@@ -376,7 +403,8 @@ body.cid-community #cncf-code-of-conduct h2:after {
   body.cid-community #navigation-items {
     justify-content: flex-start;
     text-align: left;
-    gap: min(2px,0.125em);
+    gap: min(2px, 0.125em);
+    padding: 8px 30px;
   }
   body.cid-community #navigation-items div.community-nav-item {
     width: 100%;
@@ -390,12 +418,33 @@ body.cid-community #cncf-code-of-conduct h2:after {
   }
   body.cid-community #resources .container {
     flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
   }
   body.cid-community #resources .container .community-resource {
     max-width: min(80vw, 24rem);
   }
   body.cid-community a.community-cta-button {
     font-size: 1.5rem;
+  }
+  body.cid-community a.community-cta-button {
+    padding: 0.5rem 1rem;
+    min-height: 2rem;
+    min-width: 5rem;
+    font-size: 1rem;
+  }
+  body.cid-community .community-section {
+    padding: 30px;
+  }
+  body.cid-community .community-section h2 {
+    /* Smaller title size when screen is small */
+    font-size: 24px;
+  }
+  body.cid-community .community-section#introduction {
+    padding: 0 30px;
+  }
+  body.cid-community .community-section#gallery {
+    min-height: unset;
   }
 }
 
@@ -409,14 +458,12 @@ body.cid-community #cncf-code-of-conduct h2:after {
     height: auto;
   }
   body.cid-community .video {
-    flex-basis: max(30em,80vw);
+    flex-basis: max(30em, 80vw);
     max-width: max(32em, 75vw);
   }
   body.cid-community .video .videocta {
     padding-bottom: 0.5em;
-    
   }
-  
 }
 
 @media only screen and (min-width: 1024px) {
@@ -424,7 +471,7 @@ body.cid-community #cncf-code-of-conduct h2:after {
     display: none;
   }
   body.cid-community .community-section:not(:first-of-type) {
-    min-height: max(20em,18vh);
+    min-height: max(20em, 18vh);
   }
   body.cid-community .community-section#meetups p:last-of-type {
    margin-bottom: 6em; /* extra space for background */

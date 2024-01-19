@@ -169,6 +169,7 @@
 
 /docs/reference/deprecation-policy/     /docs/reference/using-api/deprecation-policy/ 301
 
+/docs/reference/generated/kubectl/kubectl-commands/     /docs/reference/kubectl/ 301
 /docs/reference/generated/cloud-controller-manager/     /docs/reference/command-line-tools-reference/cloud-controller-manager/ 301
 /docs/reference/generated/kubelet/     /docs/reference/command-line-tools-reference/kubelet/ 301
 /docs/reference/generated/kube-apiserver/     /docs/reference/command-line-tools-reference/kube-apiserver/ 301

@@ -166,7 +166,7 @@ purged by the control plane.
 If users use an invalidated auto-generated token, the token validator will
 
 1. add an audit annotation for the key-value pair
-  `authentication.k8s.io/legacy-token-invalidated: <secret name>/<namepace>`,
+  `authentication.k8s.io/legacy-token-invalidated: <secret name>/<namespace>`,
 1. increment the `invalid_legacy_auto_token_uses_total` metric count,
 1. update the Secret label `kubernetes.io/legacy-token-last-used` with the new
    date,

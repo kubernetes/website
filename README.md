@@ -178,6 +178,7 @@ For more information about contributing to the Kubernetes documentation, see:
 - [Page Content Types](https://kubernetes.io/docs/contribute/style/page-content-types/)
 - [Documentation Style Guide](https://kubernetes.io/docs/contribute/style/style-guide/)
 - [Localizing Kubernetes Documentation](https://kubernetes.io/docs/contribute/localization/)
+- [Introduction to Kubernetes Docs](https://www.youtube.com/watch?v=pprMgmNzDcw)
 
 ### New contributor ambassadors
 

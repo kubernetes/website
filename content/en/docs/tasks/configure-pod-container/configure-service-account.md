@@ -185,14 +185,14 @@ command line argument to `kubectl create token` (the actual duration of the issu
 token might be shorter, or could even be longer).
 
 When the `ServiceAccountTokenNodeBinding` and `ServiceAccountTokenNodeBindingValidation`
-features are enabled and the `KUBECTL_NODE_BOUND_TOKENS` enviroment variable is set to `true`,
+features are enabled and the `KUBECTL_NODE_BOUND_TOKENS` environment variable is set to `true`,
 it is possible to create a service account token that is directly bound to a `Node`:
 
 ```shell
 KUBECTL_NODE_BOUND_TOKENS=true kubectl create token build-robot --bound-object-kind Node --bound-object-name node-001 --bound-object-uid 123...456
 ```
 
-The token will be valid until it expires or either the assocaited `Node` or service account are deleted.
+The token will be valid until it expires or either the associated `Node` or service account are deleted.
 
 {{< note >}}
 Versions of Kubernetes before v1.22 automatically created long term credentials for
@@ -291,7 +291,7 @@ Next, verify it has been created. For example:
   [Specifying ImagePullSecrets on a Pod](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
 
   ```shell
-  kubectl create secret docker-registry myregistrykey --docker-server=DUMMY_SERVER \
+  kubectl create secret docker-registry myregistrykey --docker-server=<registry name> \
           --docker-username=DUMMY_USERNAME --docker-password=DUMMY_DOCKER_PASSWORD \
           --docker-email=DUMMY_DOCKER_EMAIL
   ```
@@ -361,7 +361,7 @@ Now, when a new Pod is created in the current namespace and using the default
 ServiceAccount, the new Pod has its `spec.imagePullSecrets` field set automatically:
 
 ```shell
-kubectl run nginx --image=nginx --restart=Never
+kubectl run nginx --image=<registry name>/nginx --restart=Never
 kubectl get pod nginx -o=jsonpath='{.spec.imagePullSecrets[0].name}{"\n"}'
 ```
 

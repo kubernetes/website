@@ -250,7 +250,7 @@ to service accounts and read or write capabilities for Secrets.
 ### OpenID Connect Tokens
 
 [OpenID Connect](https://openid.net/connect/) is a flavor of OAuth2 supported by
-some OAuth2 providers, notably Azure Active Directory, Salesforce, and Google.
+some OAuth2 providers, notably Microsoft Entra ID, Salesforce, and Google.
 The protocol's main extension of OAuth2 is an additional field returned with
 the access token called an [ID Token](https://openid.net/specs/openid-connect-core-1_0.html#IDToken).
 This token is a JSON Web Token (JWT) with well known fields, such as a user's

@@ -28,7 +28,10 @@ The tutorial provides a container image that uses NGINX to echo back all the req
 
 
 This tutorial assumes that you have already set up `minikube`.
-See [minikube start](https://minikube.sigs.k8s.io/docs/start/) for installation instructions.
+See __Step 1__ in [minikube start](https://minikube.sigs.k8s.io/docs/start/) for installation instructions.
+{{< note >}}
+Only execute the instructions in __Step 1, Installation__. The rest is covered on this page.  
+{{< /note >}}
 
 You also need to install `kubectl`.
 See [Install tools](/docs/tasks/tools/#kubectl) for installation instructions.
@@ -333,6 +336,10 @@ minikube delete
 ```
 
 If you want to use minikube again to learn more about Kubernetes, you don't need to delete it.
+
+## Conclusion
+
+This page covered the basic aspects to get a minikube cluster up and running. You are now ready to deploy applications.
 
 ## {{% heading "whatsnext" %}}
 
