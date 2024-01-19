@@ -41,7 +41,7 @@ kubeadmを使用してKubernetesをインストールする場合、ほとんど
 ## 手動で証明書を設定する
 
 もしkubeadmに必要な証明書の生成を望まない場合、それらを単一ルート認証局を使って作成するか、全ての証明書を提供することで作成できます。
-自身の証明書機関を作成する詳細については、[証明書を手動で生成する](/ja/docs/tasks/administer-cluster/certificates/)を参照してください。
+自身の認証局を作成する詳細については、[証明書を手動で生成する](/ja/docs/tasks/administer-cluster/certificates/)を参照してください。
 証明書の管理についての詳細は、[kubeadmによる証明書管理](/ja/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/)を参照してください。
 
 ### 単一ルート認証局
@@ -57,7 +57,7 @@ kubeadmを使用してKubernetesをインストールする場合、ほとんど
 | front-proxy-ca.crt,key | kubernetes-front-proxy-ca | [front-end proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)用　　　 |
 
 上記の認証局に加えて、サービスアカウント管理用に公開鍵/秘密鍵のペア(`sa.key`と`sa.pub`)を取得する事が必要です。
-次の例は、前の表で示されたCAのキーと証明書ファイルを示しています:
+次の例は、前の表で示されたCAのキーと証明書を示しています:
 
 ```
 /etc/kubernetes/pki/ca.crt
