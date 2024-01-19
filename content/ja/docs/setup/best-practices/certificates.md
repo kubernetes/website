@@ -18,14 +18,13 @@ Kubernetesでは、TLS認証のためにPKI証明書が必要です。
 Kubernetesは下記の用途でPKIを必要とします：
 
 * kubeletがAPIサーバーの認証をするためのクライアント証明書
-* Kubelet [server certificates](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#client-and-serving-certificates) for the API server to talk to the kubelets
+* APIサーバーがkubeletと通信するためのkubeletの[サーバー証明書](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#client-and-serving-certificates)
 * APIサーバーのエンドポイント用サーバー証明書
 * クラスターの管理者がAPIサーバーの認証を行うためのクライアント証明書
 * APIサーバーがkubeletと通信するためのクライアント証明書
 * APIサーバーがetcdと通信するためのクライアント証明書
 * controller managerがAPIサーバーと通信するためのクライアント証明書およびkubeconfig
 * スケジューラーがAPIサーバーと通信するためのクライアント証明書およびkubeconfig
-* Client certificate/kubeconfig for the scheduler to talk to the API server.
 * [front-proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)用のクライアント証明書およびサーバー証明書
 
 {{< note >}}
@@ -36,17 +35,14 @@ Kubernetesは下記の用途でPKIを必要とします：
 
 ## 証明書の保存場所
 
-kubeadmを使用してKubernetesをインストールする場合、証明書は`/etc/kubernetes/pki`に保存されます。このドキュメントの全てのパスは、そのディレクトリの相対パスを表します。
-with the exception of user account
-certificates which kubeadm places in `/etc/kubernetes`.
+kubeadmを使用してKubernetesをインストールする場合、ほとんどの証明書は`/etc/kubernetes/pki`に保存されます。このドキュメントの全てのパスは、そのディレクトリの相対パスを表します。
+ただしユーザーアカウントの証明書に関しては、kubeadmは`/etc/kubernetes`に配置します。
 
 ## 手動で証明書を設定する
 
-If you don't want kubeadm to generate the required certificates, you can create them using a
-single root CA or by providing all certificates. See [Certificates](/docs/tasks/administer-cluster/certificates/)
-for details on creating your own certificate authority. See
-[Certificate Management with kubeadm](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/)
-for more on managing certificates.
+もしkubeadmに必要な証明書の生成を望まない場合、それらを単一ルート認証局を使って作成するか、全ての証明書を提供することで作成できます。
+自身の証明書機関を作成する詳細については、[証明書を手動で生成する](/ja/docs/tasks/administer-cluster/certificates/)を参照してください。
+証明書の管理についての詳細は、[kubeadmによる証明書管理](/ja/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/)を参照してください。
 
 ### 単一ルート認証局
 
@@ -61,7 +57,7 @@ for more on managing certificates.
 | front-proxy-ca.crt,key | kubernetes-front-proxy-ca | [front-end proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)用　　　 |
 
 上記の認証局に加えて、サービスアカウント管理用に公開鍵/秘密鍵のペア(`sa.key`と`sa.pub`)を取得する事が必要です。
-The following example illustrates the CA key and certificate files shown in the previous table:
+次の例は、前の表で示されたCAのキーと証明書ファイルを示しています:
 
 ```
 /etc/kubernetes/pki/ca.crt
@@ -89,16 +85,13 @@ CAの秘密鍵をクラスターにコピーしたくない場合、自身で全
 | front-proxy-client            | kubernetes-front-proxy-ca |                | client                                 |                                                     |
 
 {{< note >}}
-Instead of using the super-user group `system:masters` for `kube-apiserver-kubelet-client`
-a less privileged group can be used. kubeadm uses the `kubeadm:cluster-admins` group for
-that purpose.
+`kube-apiserver-kubelet-client`にスーパーユーザーグループ`system:masters`を使用する代わりに、より権限の低いグループを使用することができます。
+そのために、kubeadmは`kubeadm:cluster-admins`グループを使用します。
 {{< /note >}}
 
 [1]: クラスターに接続するIPおよびDNS名( [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)を使用する場合と同様、ロードバランサーのIPおよびDNS名、`kubernetes`、`kubernetes.default`、`kubernetes.default.svc`、`kubernetes.default.svc.cluster`、`kubernetes.default.svc.cluster.local`)
 
-where `kind` maps to one or more of the x509 key usage, which is also documented in the
-`.spec.usages` of a [CertificateSigningRequest](/docs/reference/kubernetes-api/authentication-resources/certificate-signing-request-v1#CertificateSigningRequest)
-type:
+ここで`kind`はx509キー使用方法の一つまたは複数に対応しており、これは[CertificateSigningRequest](/docs/reference/kubernetes-api/authentication-resources/certificate-signing-request-v1#CertificateSigningRequest)の`.spec.usages`にも記載されています:
 
 | 種類   | 鍵の用途  　　　                                                                     |
 |--------|---------------------------------------------------------------------------------|
@@ -118,7 +111,7 @@ kubeadm利用者のみ：
 
 {{< /note >}}
 
-### 証明書のパス
+### 証明書のパス {#certificate-paths}
 
 証明書は推奨パスに配置するべきです([kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)を使用する場合と同様)。
 パスは場所に関係なく与えられた引数で特定されます。
@@ -147,8 +140,7 @@ kubeadm利用者のみ：
 |  sa.key                      |                             | kube-controller-manager | service-account-private              |
 |                              | sa.pub                      | kube-apiserver          | service-account-key                  |
 
-The following example illustrates the file paths [from the previous tables](#certificate-paths)
-you need to provide if you are generating all of your own keys and certificates:
+次の例は、自分自身で全てのキーと証明書を生成している場合に提供する必要があるファイルパスを[前の表](#certificate-paths)から示しています:
 
 ```
 /etc/kubernetes/pki/etcd/ca.key
@@ -191,19 +183,18 @@ you need to provide if you are generating all of your own keys and certificates:
 {{< /note >}}
 
 {{< note >}}
-In the above example `<admin-group>` is implementation specific. Some tools sign the
-certificate in the default `admin.conf` to be part of the `system:masters` group.
-`system:masters` is a break-glass, super user group can bypass the authorization
-layer of Kubernetes, such as RBAC. Also some tools do not generate a separate
-`super-admin.conf` with a certificate bound to this super user group.
+上記の例での`<admin-group>`は実装に依存します。
+一部のツールはデフォルトの`admin.conf`内の証明書に`system:masters`グループの一部として署名します。
+`system:masters`はガラスを割って進入するようなスーパーユーザーグループであり、Kubernetesの認証レイヤー、例えばRBACを無視することができます。
+また、一部のツールはこのスーパーユーザーグループに紐づけられた証明書を含む`super-admin.conf`を生成しません。
 
-kubeadm generates two separate administrator certificates in kubeconfig files.
-One is in `admin.conf` and has `Subject: O = kubeadm:cluster-admins, CN = kubernetes-admin`.
-`kubeadm:cluster-admins` is a custom group bound to the `cluster-admin` ClusterRole.
-This file is generated on all kubeadm managed control plane machines.
+kubeadmはkubeconfigファイル内に2つの別々の管理者証明書を生成します。
+一つは`admin.conf`内にあり、`Subject: O = kubeadm:cluster-admins, CN = kubernetes-admin`となっています。
+`kubeadm:cluster-admins`は`cluster-admin` ClusterRoleに紐づけられたカスタムグループです。
+このファイルは、kubeadmが管理する全てのコントロールプレーンマシン上で生成されます。
 
-Another is in `super-admin.conf` that has `Subject: O = system:masters, CN = kubernetes-super-admin`.
-This file is generated only on the node where `kubeadm init` was called.
+もう一つは`super-admin.conf`内にあり、`Subject: O = system:masters, CN = kubernetes-super-admin`となっています。
+このファイルは`kubeadm init`が呼び出されたノード上でのみ生成されます。
 {{< /note >}}
 
 1. 各コンフィグ毎に、CN名と組織を指定してx509証明書と鍵ペアを生成してください。
@@ -226,7 +217,7 @@ KUBECONFIG=<filename> kubectl config use-context default-system
 | controller-manager.conf | kube-controller-manager | `manifests/kube-controller-manager.yaml`のマニフェストファイルに追記する必要があります。 |
 | scheduler.conf          | kube-scheduler          | `manifests/kube-scheduler.yaml`のマニフェストファイルに追記する必要があります。          |
 
-The following files illustrate full paths to the files listed in the previous table:
+以下のファイルは、前の表に挙げたファイルへの絶対パスを示しています:
 
 ```
 /etc/kubernetes/admin.conf
