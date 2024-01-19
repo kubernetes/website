@@ -586,7 +586,7 @@ as plaintext.
 
 {{< warning >}}
 Making this change prevents the API server from retrieving resources that are marked
-as encrypted as rest, but are actually stored in the clear.
+as encrypted at rest, but are actually stored in the clear.
 
 When you have configured encryption at rest for an API (for example: the API kind
 `Secret`, representing `secrets` resources in the core API group), you **must** ensure
