@@ -9,7 +9,7 @@ no_list: true
 
 このドキュメントはクラスターのトラブルシューティングに関するもので、あなたが経験している問題の根本原因として、アプリケーションをすでに除外していることを前提としています。
 アプリケーションのデバッグのコツは、[アプリケーションのトラブルシューティングガイド](/ja/docs/tasks/debug/debug-application/)をご覧ください。
-また、[トラブルシューティングドキュメント](docs/tasks/debug/)にも詳しい情報があります。
+また、[トラブルシューティングドキュメント](/docs/tasks/debug/)にも詳しい情報があります。
 
 {{<glossary_tooltip text="kubectl" term_id="kubectl">}}のトラブルシューティングについては、[kubectlのトラブルシューティング](/docs/tasks/debug/debug-cluster/troubleshoot-kubectl/)を参照してください。
 
