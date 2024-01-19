@@ -1,5 +1,5 @@
 ---
-title: kubectl 备忘单
+title: kubectl 快速参考
 content_type: concept
 weight: 10
 card:
@@ -7,7 +7,7 @@ card:
   weight: 10
 ---
 <!--
-title: kubectl Cheat Sheet
+title: kubectl Quick Reference
 reviewers:
 - erictune
 - krousey
