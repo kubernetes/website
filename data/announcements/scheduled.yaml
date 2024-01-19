@@ -211,7 +211,7 @@ announcements:
 - name: Legacy package repositories shutdown
   startTime: 2023-11-27T00:00:00
   endTime: 2024-02-01T00:00:00
-  style: "background: #d95e00"
+  style: "background: #3371e3"
   title: Changes to the location of Linux packages for Kubernetes
   message: |
     The legacy Linux package repositories (`apt.kubernetes.io` and `yum.kubernetes.io` AKA `packages.cloud.google.com`)<br/>
