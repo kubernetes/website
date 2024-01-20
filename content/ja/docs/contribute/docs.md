@@ -1,11 +1,11 @@
 ---
 content_type: concept
-title: Contribute to Kubernetes Documentation
+title: Kubernetesのドキュメントに貢献する
 weight: 09
 card:
-  name: contribute
+  name: 貢献
   weight: 11
-  title: Contribute to documentation
+  title: Kubernetesのドキュメントに貢献する
 ---
 
 
