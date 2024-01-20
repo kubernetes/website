@@ -47,9 +47,9 @@ cards:
   button_path: /docs/reference
 - name: contribute
   title: "ドキュメントにコントリビュートする"
-  description: "プロジェクトに不慣れでも、長い間関わっていたとしても、誰でもコントリビュートすることができます。"
-  button: "ドキュメントにコントリビュートする"
-  button_path: /docs/contribute
+  description: "Kubernetesをより良いものにするために、どのような貢献ができるかを見てみます。"
+  button: "貢献する方法を見る"
+  button_path: "/docs/contribute"
 - name: training
   title: "トレーニング"
   description: "Kubernetesの資格を取得して、クラウドネイティブプロジェクトを成功させます！"
