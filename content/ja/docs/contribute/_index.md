@@ -1,22 +1,30 @@
 ---
 content_type: concept
-title: K8sのドキュメントに貢献する
-linktitle: 貢献
+title: Kubernetesに貢献する
+linkTitle: 貢献
 main_menu: true
 no_list: true
 weight: 80
 card:
   name: 貢献
   weight: 10
-  title: K8sへの貢献を始める
+  title: Kubernetesに貢献する
 ---
 
 <!-- overview -->
 
-*Kubernetesは初心者でも経験者でも、全てのコントリビューターからの改善を歓迎しています！*
+Kubernetesに貢献する方法はたくさんあります。
+新機能のデザインに取り組むこともできますし、既存のコードにドキュメントを追加することも、[ブログ](/ja/blog)で記事を書くこともできます。
+それだけではありません。新機能を実装したり、バグを修正したりすることもできます。
+貢献者コミュニティへの参加を支援することも、既存の貢献者をサポートすることもできます。
 
-{{< note >}}
-Kubernetesへの貢献について総合的に知りたい場合は、[contributor documentation](https://www.kubernetes.dev/docs/)を参照してください。
+様々な方法でプロジェクトに違いをもたらすことができるため、Kubernetesは専用のウェブサイトを作成しました: https://k8s.dev/。
+Kubernetesへの貢献についてもっと学ぶために、それを参照することができます。
+
+If you specifically want to learn about contributing to _this_ documentation, read
+[Contribute to Kubernetes documentation](/docs/contribute/docs/).
+
+もし_この_ドキュメントへの貢献について特に学びたい場合は、[Kubernetesドキュメントへの貢献](/ja/docs/contribute/docs/)を参照してください。
 
 また、Kubernetesへの貢献については、{{< glossary_tooltip text="CNCF" term_id="cncf" >}}の[ページ](https://contribute.cncf.io/contributors/projects/#kubernetes)を参照することもできます。
 {{< /note >}}
