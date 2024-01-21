@@ -330,17 +330,22 @@ These instructions are for Kubernetes {{< skew currentVersion >}}.
 -->
 2. 下载用于 Kubernetes 软件包仓库的公共签名密钥。所有仓库都使用相同的签名密钥，因此你可以忽略URL中的版本：
 
+   <!--
+   # If the folder `/etc/apt/keyrings` does not exist, it should be created before the curl command, read the note below.
+   # sudo mkdir -p -m 755 /etc/apt/keyrings 
+   -->
    ```shell
+   # 如果 `/etc/apt/keyrings` 目录不存在，则应在 curl 命令之前创建它，请阅读下面的注释。
+   # sudo mkdir -p -m 755 /etc/apt/keyrings
    curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    ```
 
    {{< note >}}
    <!--
-   In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default;
-   you can create it by running `sudo mkdir -m 755 /etc/apt/keyrings`
+   In releases older than Debian 12 and Ubuntu 22.04, folder `/etc/apt/keyrings` does not exist by default, and it should be created before the curl command.
    -->
-   在 Debian 12 和 Ubuntu 22.04 之前的早期版本中，默认情况下不存在 `/etc/apt/keyrings` 目录；
-   你可以通过运行 `sudo mkdir -m 755 /etc/apt/keyrings` 来创建此目录。
+   在低于 Debian 12 和 Ubuntu 22.04 的发行版本中，`/etc/apt/keyrings` 默认不存在。
+   应在 curl 命令之前创建它。
    {{< /note >}}
 
 <!--
