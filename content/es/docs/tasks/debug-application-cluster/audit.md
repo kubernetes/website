@@ -69,7 +69,7 @@ Un reglamento sin (0) reglas se considera ilegal.
 
 Abajo se presenta un ejemplo de un archivo de reglamento de auditoría:
 
-{{< codenew file="audit/audit-policy.yaml" >}}
+{{% codenew file="audit/audit-policy.yaml" %}}
 
 Puedes usar un archivo mínimo de reglamento de auditoría para registrar todas las peticiones al nivel `Metadata` de la siguiente forma:
 

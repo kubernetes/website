@@ -11,7 +11,7 @@ weight: 80
 このページでは、特別な種類のコンテナであるエフェメラルコンテナの概要を説明します。エフェメラルコンテナは、トラブルシューティングなどのユーザーが開始するアクションを実行するために、すでに存在する{{< glossary_tooltip term_id="pod" >}}内で一時的に実行するコンテナです。エフェメラルコンテナは、アプリケーションの構築ではなく、serviceの調査のために利用します。
 
 {{< warning >}}
-エフェメラルコンテナは初期のアルファ状態であり、本番クラスタには適しません。[Kubernetesの非推奨ポリシー](/docs/reference/using-api/deprecation-policy/)に従って、このアルファ機能は、将来大きく変更されたり、完全に削除される可能性があります。
+エフェメラルコンテナは初期のアルファ状態であり、本番クラスターには適しません。[Kubernetesの非推奨ポリシー](/docs/reference/using-api/deprecation-policy/)に従って、このアルファ機能は、将来大きく変更されたり、完全に削除される可能性があります。
 {{< /warning >}}
 
 <!-- body -->
@@ -42,7 +42,7 @@ weight: 80
 
 エフェメラルコンテナを利用する場合には、他のコンテナ内のプロセスにアクセスできるように、[プロセス名前空間の共有](/ja/docs/tasks/configure-pod-container/share-process-namespace/)を有効にすると便利です。
 
-エフェメラルコンテナを利用してトラブルシューティングを行う例については、[デバッグ用のエフェメラルコンテナを使用してデバッグする](/docs/tasks/debug-application-cluster/debug-running-pod/#ephemeral-container)を参照してください。
+エフェメラルコンテナを利用してトラブルシューティングを行う例については、[デバッグ用のエフェメラルコンテナを使用してデバッグする](/ja/docs/tasks/debug/debug-application/debug-running-pod/#ephemeral-container)を参照してください。
 
 ## Ephemeral containers API
 

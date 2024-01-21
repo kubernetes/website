@@ -1,7 +1,7 @@
 ---
 title: サービスとアプリケーションの接続
 content_type: concept
-weight: 30
+weight: 40
 ---
 
 
@@ -33,7 +33,7 @@ Kubernetesでは、どのホストで稼働するかに関わらず、Podが他�
 前の例でネットワークモデルを紹介しましたが、再度ネットワークの観点に焦点を当てましょう。
 nginx Podを作成し、コンテナポートの仕様を指定していることに注意してください。
 
-{{< codenew file="service/networking/run-my-nginx.yaml" >}}
+{{% codenew file="service/networking/run-my-nginx.yaml" %}}
 
 これにより、クラスター内のどのノードからでもアクセスできるようになります。
 Podが実行されているノードを確認します:
@@ -87,7 +87,7 @@ service/my-nginx exposed
 
 これは次のyamlを`kubectl apply -f`することと同等です:
 
-{{< codenew file="service/networking/nginx-svc.yaml" >}}
+{{% codenew file="service/networking/nginx-svc.yaml" %}}
 
 この仕様は、`run：my-nginx`ラベルを持つ任意のPodのTCPポート80をターゲットとするサービスを作成し、抽象化されたサービスポートでPodを公開します(`targetPort`:はコンテナがトラフィックを受信するポート、`port`:は抽象化されたServiceのポートであり、他のPodがServiceへのアクセスに使用する任意のポートにすることができます)。
 サービス定義でサポートされているフィールドのリストは[Service](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core) APIオブジェクトを参照してください。
@@ -118,8 +118,12 @@ Labels:              run=my-nginx
 Annotations:         <none>
 Selector:            run=my-nginx
 Type:                ClusterIP
+IP Family Policy:    SingleStack
+IP Families:         IPv4
 IP:                  10.0.162.149
+IPs:                 10.0.162.149
 Port:                <unset> 80/TCP
+TargetPort:          80/TCP
 Endpoints:           10.244.2.5:80,10.244.3.4:80
 Session Affinity:    None
 Events:              <none>
@@ -139,7 +143,7 @@ Service IPは完全に仮想的なもので、ホスト側のネットワーク�
 ## Serviceにアクセスする
 
 Kubernetesは、環境変数とDNSの2つの主要なService検索モードをサポートしています。
-前者はそのまま使用でき、後者は[CoreDNSクラスタアドオン](https://releases.k8s.io/{{< param "fullversion" >}}/cluster/addons/dns/coredns)を必要とします。
+前者はそのまま使用でき、後者は[CoreDNSクラスターアドオン](https://releases.k8s.io/v{{< skew currentPatchVersion >}}/cluster/addons/dns/coredns)を必要とします。
 {{< note >}}
 サービス環境変数が望ましくない場合(予想されるプログラム変数と衝突する可能性がある、処理する変数が多すぎる、DNSのみを使用するなど)、[Pod仕様](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)で`enableServiceLinks`フラグを`false`に設定することでこのモードを無効にできます。
 {{< /note >}}
@@ -206,7 +210,7 @@ kube-dns   ClusterIP   10.0.0.10    <none>        53/UDP,53/TCP   8m
 このセクションの残りの部分は、寿命の長いIP(my-nginx)を持つServiceと、そのIPに名前を割り当てたDNSサーバーがあることを前提にしています。ここではCoreDNSクラスターアドオン(アプリケーション名: `kube-dns`)を使用しているため、標準的なメソッド(`gethostbyname()`など) を使用してクラスター内の任意のPodからServiceに通信できます。CoreDNSが起動していない場合、[CoreDNS README](https://github.com/coredns/deployment/tree/master/kubernetes)または[Installing CoreDNS](/ja/docs/tasks/administer-cluster/coredns/#installing-coredns)を参照し、有効にする事ができます。curlアプリケーションを実行して、これをテストしてみましょう。
 
 ```shell
-kubectl run curl --image=radial/busyboxplus:curl -i --tty
+kubectl run curl --image=radial/busyboxplus:curl -i --tty --rm
 ```
 ```
 Waiting for pod default/curl-131556218-9fnch to be running, status is Pending, pod ready: false
@@ -304,7 +308,7 @@ nginxsecret           kubernetes.io/tls                     2         1m
 
 次に、nginxレプリカを変更して、シークレットの証明書とServiceを使用してhttpsサーバーを起動し、両方のポート(80と443)を公開します:
 
-{{< codenew file="service/networking/nginx-secure-app.yaml" >}}
+{{% codenew file="service/networking/nginx-secure-app.yaml" %}}
 
 nginx-secure-appマニフェストに関する注目すべき点:
 
@@ -320,8 +324,12 @@ kubectl delete deployments,svc my-nginx; kubectl create -f ./nginx-secure-app.ya
 この時点で、任意のノードからnginxサーバーに到達できます。
 
 ```shell
-kubectl get pods -o yaml | grep -i podip
-    podIP: 10.244.3.5
+kubectl get pods -l run=my-nginx -o custom-columns=POD_IP:.status.podIPs
+    POD_IP
+    [map[ip:10.244.3.5]]
+```
+
+```shell
 node $ curl -k https://10.244.3.5
 ...
 <h1>Welcome to nginx!</h1>
@@ -333,7 +341,7 @@ CNameの不一致を無視するようcurlに指示する必要があります�
 Serviceを作成することにより、証明書で使用されるCNameを、Service検索中にPodで使用される実際のDNS名にリンクしました。
 これをPodからテストしましょう(簡単にするために同じシークレットを再利用しています。PodはServiceにアクセスするためにnginx.crtのみを必要とします):
 
-{{< codenew file="service/networking/curlpod.yaml" >}}
+{{% codenew file="service/networking/curlpod.yaml" %}}
 
 ```shell
 kubectl apply -f ./curlpod.yaml

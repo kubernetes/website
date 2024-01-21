@@ -65,7 +65,7 @@ Por exemplo, se sua senha atual é `S!B\*d$zDsb=`, você precisa executar o coma
 
 ```shell
 kubectl create secret generic db-user-pass \
-  --from-literal=username=devuser \
+  --from-literal=username=admin \
   --from-literal=password='S!B\*d$zDsb='
 ```
 

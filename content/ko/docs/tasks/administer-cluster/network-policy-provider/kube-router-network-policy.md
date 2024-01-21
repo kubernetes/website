@@ -1,4 +1,6 @@
 ---
+# reviewers:
+# - murali-reddy
 title: 네트워크 폴리시로 큐브 라우터(Kube-router) 사용하기
 content_type: task
 weight: 30

@@ -27,13 +27,14 @@ kubernetes.github.io.iml
 nohup.out
 
 # Hugo output
-public/
-resources/
+/public
+/resources/
+.hugo_build.lock
 
 # Netlify Functions build output
 package-lock.json
-functions/
-node_modules/
+/functions/
+/node_modules/
 
 # Generated files when building with make container-build
 .config/

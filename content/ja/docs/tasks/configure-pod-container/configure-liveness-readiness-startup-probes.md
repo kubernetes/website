@@ -1,7 +1,7 @@
 ---
 title: Liveness Probe、Readiness ProbeおよびStartup Probeを使用する
 content_type: task
-weight: 110
+weight: 140
 ---
 
 <!-- overview -->
@@ -36,10 +36,10 @@ Readiness Probeによるチェックを無効にし、これらがアプリケ�
 長期間実行されているアプリケーションの多くは、再起動されるまで回復できないような異常な状態になることがあります。
 Kubernetesはこのような状況を検知し、回復するためのLiveness Probeを提供します。
 
-この演習では、`k8s.gcr.io/busybox`イメージのコンテナを起動するPodを作成します。
+この演習では、`registry.k8s.io/busybox`イメージのコンテナを起動するPodを作成します。
 Podの構成ファイルは次の通りです。
 
-{{< codenew file="pods/probe/exec-liveness.yaml" >}}
+{{% codenew file="pods/probe/exec-liveness.yaml" %}}
 
 この構成ファイルでは、Podは一つの`Container`を起動します。
 `periodSeconds`フィールドは、kubeletがLiveness Probeを5秒おきに行うように指定しています。
@@ -51,7 +51,7 @@ Probeの動作としては、kubeletは`cat /tmp/healthy`を対象のコンテ�
 このコンテナは、起動すると次のコマンドを実行します:
 
 ```shell
-/bin/sh -c "touch /tmp/healthy; sleep 30; rm -rf /tmp/healthy; sleep 600"
+/bin/sh -c "touch /tmp/healthy; sleep 30; rm -f /tmp/healthy; sleep 600"
 ```
 
 コンテナが起動してから初めの30秒間は`/tmp/healthy`ファイルがコンテナ内に存在します。
@@ -76,8 +76,8 @@ kubectl describe pod liveness-exec
 FirstSeen    LastSeen    Count   From            SubobjectPath           Type        Reason      Message
 --------- --------    -----   ----            -------------           --------    ------      -------
 24s       24s     1   {default-scheduler }                    Normal      Scheduled   Successfully assigned liveness-exec to worker0
-23s       23s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulling     pulling image "k8s.gcr.io/busybox"
-23s       23s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulled      Successfully pulled image "k8s.gcr.io/busybox"
+23s       23s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulling     pulling image "registry.k8s.io/busybox"
+23s       23s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulled      Successfully pulled image "registry.k8s.io/busybox"
 23s       23s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Created     Created container with docker id 86849c15382e; Security:[seccomp=unconfined]
 23s       23s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Started     Started container with docker id 86849c15382e
 ```
@@ -94,8 +94,8 @@ kubectl describe pod liveness-exec
 FirstSeen LastSeen    Count   From            SubobjectPath           Type        Reason      Message
 --------- --------    -----   ----            -------------           --------    ------      -------
 37s       37s     1   {default-scheduler }                    Normal      Scheduled   Successfully assigned liveness-exec to worker0
-36s       36s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulling     pulling image "k8s.gcr.io/busybox"
-36s       36s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulled      Successfully pulled image "k8s.gcr.io/busybox"
+36s       36s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulling     pulling image "registry.k8s.io/busybox"
+36s       36s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulled      Successfully pulled image "registry.k8s.io/busybox"
 36s       36s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Created     Created container with docker id 86849c15382e; Security:[seccomp=unconfined]
 36s       36s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Started     Started container with docker id 86849c15382e
 2s        2s      1   {kubelet worker0}   spec.containers{liveness}   Warning     Unhealthy   Liveness probe failed: cat: can't open '/tmp/healthy': No such file or directory
@@ -117,9 +117,9 @@ liveness-exec   1/1       Running   1          1m
 ## HTTPリクエストによるLiveness Probeを定義する {#define-a-liveness-http-request}
 
 別の種類のLiveness Probeでは、HTTP GETリクエストを使用します。
-次の構成ファイルは、`k8s.gcr.io/liveness`イメージを使用したコンテナを起動するPodを作成します。
+次の構成ファイルは、`registry.k8s.io/liveness`イメージを使用したコンテナを起動するPodを作成します。
 
-{{< codenew file="pods/probe/http-liveness.yaml" >}}
+{{% codenew file="pods/probe/http-liveness.yaml" %}}
 
 この構成ファイルでは、Podは一つの`Container`を起動します。
 `periodSeconds`フィールドは、kubeletがLiveness Probeを3秒おきに行うように指定しています。
@@ -175,7 +175,7 @@ v1.13より後のリリースにおいては、ローカルHTTPプロキシ環�
 この構成においては、kubeletは指定したコンテナのソケットを開くことを試みます。
 コネクションが確立できる場合はコンテナを正常とみなし、失敗する場合は異常とみなします。
 
-{{< codenew file="pods/probe/tcp-liveness-readiness.yaml" >}}
+{{% codenew file="pods/probe/tcp-liveness-readiness.yaml" %}}
 
 見ての通り、TCPによるチェックの構成はHTTPによるチェックと非常に似ています。
 この例では、Readiness ProbeとLiveness Probeを両方使用しています。
@@ -295,7 +295,7 @@ Liveness ProbeおよびReadiness Probeのチェック動作をより正確に制
 * `periodSeconds`: Probeが実行される頻度(秒数)。デフォルトは10秒。最小値は1。
 * `timeoutSeconds`: Probeがタイムアウトになるまでの秒数。デフォルトは1秒。最小値は1。
 * `successThreshold`: 一度Probeが失敗した後、次のProbeが成功したとみなされるための最小連続成功数。
-デフォルトは1。Liveness Probeには1を設定する必要があります。最小値は1。
+デフォルトは1。Liveness ProbeおよびStartup Probeには1を設定する必要があります。最小値は1。
 * `failureThreshold`: Probeが失敗した場合、Kubernetesは`failureThreshold`に設定した回数までProbeを試行します。
 Liveness Probeにおいて、試行回数に到達することはコンテナを再起動することを意味します。
 Readiness Probeの場合は、Podが準備できていない状態として通知されます。デフォルトは3。最小値は1。

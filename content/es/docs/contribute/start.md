@@ -18,7 +18,7 @@ Si estas buscando información sobre cómo comenzar a contribuir a los repositor
 
 ## Lo básico sobre nuestra documentación
 
-La documentación de Kuberentes esta escrita usando Markdown, procesada y
+La documentación de Kubernetes esta escrita usando Markdown, procesada y
 desplegada usando Hugo. El código fuente está en GitHub accessible en [git.k8s.io/website/](https://github.com/kubernetes/website).
 La mayoría de la documentación en castellano está en `/content/es/docs`. Alguna de
 la documentación de referencia se genera automática con los scripts del
@@ -70,7 +70,7 @@ Cualquier persona con una cuenta de GitHub puede reportar una incidencia en la d
 
 - **En una página existente**
 
-    Si ves un problema en una página existente en la [documentación de Kuberenetes](/docs/) ve al final de la página y haz clic en el botón **Abrir un Issue**. Si no estas autenticado en GitHub, te pedirá que te identifiques y posteriormente un formulario de nueva incidencia aparecerá con contenido pre-cargado.
+    Si ves un problema en una página existente en la [documentación de Kubernetes](/docs/) ve al final de la página y haz clic en el botón **Abrir un Issue**. Si no estas autenticado en GitHub, te pedirá que te identifiques y posteriormente un formulario de nueva incidencia aparecerá con contenido pre-cargado.
 
     Utilizando formato Markdown completa todos los detalles que sea posible. En los lugares en que haya corchetes (`[ ]`) pon una `x` en medio de los corchetes para representar la elección de una opción. Si tienes una posible solución al problema añádela.
 

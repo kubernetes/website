@@ -14,7 +14,7 @@ card:
 [PersistentVolume](/ja/docs/concepts/storage/persistent-volumes/)(PV)とは、管理者が手動でプロビジョニングを行うか、[StorageClass](/docs/concepts/storage/storage-classes)を使ってKubernetesによって動的にプロビジョニングされた、クラスター内のストレージの一部です。[PersistentVolumeClaim](/ja/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)(PVC)は、PVによって満たすことができる、ユーザーによるストレージへのリクエストのことです。PersistentVolumeとPersistentVolumeClaimは、Podのライフサイクルからは独立していて、Podの再起動、Podの再スケジューリング、さらにはPodの削除が行われたとしても、その中のデータは削除されずに残ります。
 
 {{< warning >}}
-シングルインスタンスのWordPressとMySQLのPodを使用しているため、ここで行うデプロイは本番のユースケースには適しません。WordPressを本番環境にデプロイするときは、[WordPress Helm Chart](https://github.com/kubernetes/charts/tree/master/stable/wordpress)を使用することを検討してください。
+シングルインスタンスのWordPressとMySQLのPodを使用しているため、ここで行うデプロイは本番のユースケースには適しません。WordPressを本番環境にデプロイするときは、[WordPress Helm Chart](https://github.com/bitnami/charts/tree/master/bitnami/wordpress)を使用することを検討してください。
 {{< /warning >}}
 
 {{< note >}}
@@ -55,7 +55,7 @@ card:
 
 MySQLとWordpressはそれぞれ、データを保存するためのPersistentVolumeを必要とします。各PersistentVolumeClaimはデプロイの段階で作成されます。
 
-多くのクラスタ環境では、デフォルトのStorageClassがインストールされています。StorageClassがPersistentVolumeClaim中で指定されていなかった場合、クラスターのデフォルトのStorageClassが代わりに使われます。
+多くのクラスター環境では、デフォルトのStorageClassがインストールされています。StorageClassがPersistentVolumeClaim中で指定されていなかった場合、クラスターのデフォルトのStorageClassが代わりに使われます。
 
 PersistentVolumeClaimが作成されるとき、StorageClassの設定に基づいてPersistentVolumeが動的にプロビジョニングされます。
 
@@ -92,12 +92,12 @@ EOF
 
 以下のマニフェストには、シングルインスタンスのMySQLのDeploymentが書かれています。MySQLコンテナはPersistentVolumeを`/var/lib/mysql`にマウントします。`MYSQL_ROOT_PASSWORD`環境変数には、Secretから得られたデータベースのパスワードが設定されます。
 
-{{< codenew file="application/wordpress/mysql-deployment.yaml" >}}
+{{% codenew file="application/wordpress/mysql-deployment.yaml" %}}
 
 以下のマニフェストには、シングルインスタンスのWordPressのDeploymentが書かれています。WordPressコンテナはPersistentVolumeをウェブサイトのデータファイルのために`/var/www/html`にマウントします。`WORDPRESS_DB_HOST`環境変数に上で定義したMySQLのServiceの名前を設定すると、WordPressはServiceによってデータベースにアクセスします。`WORDPRESS_DB_PASSWORD`環境変数には、kustomizeが生成したSecretから得たデータベースのパスワードが設定されます。
 
 
-{{< codenew file="application/wordpress/wordpress-deployment.yaml" >}}
+{{% codenew file="application/wordpress/wordpress-deployment.yaml" %}}
 
 1. MySQLのDeploymentの設定ファイルをダウンロードします。
 
@@ -234,8 +234,7 @@ WordPressのインストールをこのページのまま放置してはいけ�
 ## {{% heading "whatsnext" %}}
 
 
-* [イントロスペクションとデバッグ](/docs/tasks/debug-application-cluster/debug-application-introspection/)についてさらに学ぶ
+* [イントロスペクションとデバッグ](/ja/docs/tasks/debug/debug-application/debug-running-pod/)についてさらに学ぶ
 * [Job](/docs/concepts/workloads/controllers/job/)についてさらに学ぶ
 * [Portフォワーディング](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)についてさらに学ぶ
-* [コンテナへのシェルを取得する](/ja/docs/tasks/debug-application-cluster/get-shell-running-container/)方法について学ぶ
-
+* [コンテナへのシェルを取得する](/ja/docs/tasks/debug/debug-application/get-shell-running-container/)方法について学ぶ

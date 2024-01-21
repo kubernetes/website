@@ -1,6 +1,5 @@
 ---
-title: 콘텐츠 개선 제안
-slug: suggest-improvements
+title: 콘텐츠 개선 제안하기
 content_type: concept
 weight: 10
 card:

@@ -53,13 +53,13 @@ setting up a cluster to use an external CA.
 
 You can use the `check-expiration` subcommand to check when certificates expire:
 
-```
+```shell
 kubeadm certs check-expiration
 ```
 
 The output is similar to this:
 
-```
+```console
 CERTIFICATE                EXPIRES                  RESIDUAL TIME   CERTIFICATE AUTHORITY   EXTERNALLY MANAGED
 admin.conf                 Dec 30, 2020 23:36 UTC   364d                                    no
 apiserver                  Dec 30, 2020 23:36 UTC   364d            ca                      no
@@ -78,9 +78,12 @@ etcd-ca                 Dec 28, 2029 23:36 UTC   9y              no
 front-proxy-ca          Dec 28, 2029 23:36 UTC   9y              no
 ```
 
-The command shows expiration/residual time for the client certificates in the `/etc/kubernetes/pki` folder and for the client certificate embedded in the KUBECONFIG files used by kubeadm (`admin.conf`, `controller-manager.conf` and `scheduler.conf`).
+The command shows expiration/residual time for the client certificates in the
+`/etc/kubernetes/pki` folder and for the client certificate embedded in the kubeconfig files used
+by kubeadm (`admin.conf`, `controller-manager.conf` and `scheduler.conf`).
 
-Additionally, kubeadm informs the user if the certificate is externally managed; in this case, the user should take care of managing certificate renewal manually/using other tools.
+Additionally, kubeadm informs the user if the certificate is externally managed; in this case, the
+user should take care of managing certificate renewal manually/using other tools.
 
 {{< warning >}}
 `kubeadm` cannot manage certificates signed by an external CA.
@@ -96,8 +99,10 @@ To repair an expired kubelet client certificate see
 
 {{< warning >}}
 On nodes created with `kubeadm init`, prior to kubeadm version 1.17, there is a
-[bug](https://github.com/kubernetes/kubeadm/issues/1753) where you manually have to modify the contents of `kubelet.conf`. After `kubeadm init` finishes, you should update `kubelet.conf` to point to the
-rotated kubelet client certificates, by replacing `client-certificate-data` and `client-key-data` with:
+[bug](https://github.com/kubernetes/kubeadm/issues/1753) where you manually have to modify the
+contents of `kubelet.conf`. After `kubeadm init` finishes, you should update `kubelet.conf` to
+point to the rotated kubelet client certificates, by replacing `client-certificate-data` and
+`client-key-data` with:
 
 ```yaml
 client-certificate: /var/lib/kubelet/pki/kubelet-client-current.pem
@@ -107,16 +112,21 @@ client-key: /var/lib/kubelet/pki/kubelet-client-current.pem
 
 ## Automatic certificate renewal
 
-kubeadm renews all the certificates during control plane [upgrade](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/).
+kubeadm renews all the certificates during control plane
+[upgrade](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/).
 
 This feature is designed for addressing the simplest use cases;
-if you don't have specific requirements on certificate renewal and perform Kubernetes version upgrades regularly (less than 1 year in between each upgrade), kubeadm will take care of keeping your cluster up to date and reasonably secure.
+if you don't have specific requirements on certificate renewal and perform Kubernetes version
+upgrades regularly (less than 1 year in between each upgrade), kubeadm will take care of keeping
+your cluster up to date and reasonably secure.
 
 {{< note >}}
 It is a best practice to upgrade your cluster frequently in order to stay secure.
 {{< /note >}}
 
-If you have more complex requirements for certificate renewal, you can opt out from the default behavior by passing `--certificate-renewal=false` to `kubeadm upgrade apply` or to `kubeadm upgrade node`.
+If you have more complex requirements for certificate renewal, you can opt out from the default
+behavior by passing `--certificate-renewal=false` to `kubeadm upgrade apply` or to `kubeadm
+upgrade node`.
 
 {{< warning >}}
 Prior to kubeadm version 1.17 there is a [bug](https://github.com/kubernetes/kubeadm/issues/1818)
@@ -126,7 +136,7 @@ command. In that case, you should explicitly set `--certificate-renewal=true`.
 
 ## Manual certificate renewal
 
-You can renew your certificates manually at any time with the `kubeadm certs renew` command.
+You can renew your certificates manually at any time with the `kubeadm certs renew` command, with the appropriate command line options.
 
 This command performs the renewal using CA (or front-proxy-CA) certificate and key stored in `/etc/kubernetes/pki`.
 
@@ -145,35 +155,52 @@ If you are running an HA cluster, this command needs to be executed on all the c
 {{< /warning >}}
 
 {{< note >}}
-`certs renew` uses the existing certificates as the authoritative source for attributes (Common Name, Organization, SAN, etc.) instead of the kubeadm-config ConfigMap. It is strongly recommended to keep them both in sync.
+`certs renew` uses the existing certificates as the authoritative source for attributes (Common
+Name, Organization, SAN, etc.) instead of the `kubeadm-config` ConfigMap. It is strongly recommended
+to keep them both in sync.
 {{< /note >}}
 
-`kubeadm certs renew` provides the following options:
+`kubeadm certs renew` can renew any specific certificate or, with the subcommand `all`, it can renew all of them, as shown below:
 
-The Kubernetes certificates normally reach their expiration date after one year.
+```shell
+kubeadm certs renew all
+```
 
-- `--csr-only` can be used to renew certificates with an external CA by generating certificate signing requests (without actually renewing certificates in place); see next paragraph for more information.
+{{< note >}}
+Clusters built with kubeadm often copy the `admin.conf` certificate into
+`$HOME/.kube/config`, as instructed in [Creating a cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
+On such a system, to update the contents of `$HOME/.kube/config`
+after renewing the `admin.conf`, you must run the following commands:
 
-- It's also possible to renew a single certificate instead of all.
+```shell
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+```
+{{< /note >}}
 
 ## Renew certificates with the Kubernetes certificates API
 
 This section provides more details about how to execute manual certificate renewal using the Kubernetes certificates API.
 
 {{< caution >}}
-These are advanced topics for users who need to integrate their organization's certificate infrastructure into a kubeadm-built cluster. If the default kubeadm configuration satisfies your needs, you should let kubeadm manage certificates instead.
+These are advanced topics for users who need to integrate their organization's certificate
+infrastructure into a kubeadm-built cluster. If the default kubeadm configuration satisfies your
+needs, you should let kubeadm manage certificates instead.
 {{< /caution >}}
 
 ### Set up a signer
 
 The Kubernetes Certificate Authority does not work out of the box.
-You can configure an external signer such as [cert-manager](https://cert-manager.io/docs/configuration/ca/), or you can use the built-in signer.
+You can configure an external signer such as [cert-manager](https://cert-manager.io/docs/configuration/ca/),
+or you can use the built-in signer.
 
 The built-in signer is part of [`kube-controller-manager`](/docs/reference/command-line-tools-reference/kube-controller-manager/).
 
-To activate the built-in signer, you must pass the `--cluster-signing-cert-file` and `--cluster-signing-key-file` flags.
+To activate the built-in signer, you must pass the `--cluster-signing-cert-file` and
+`--cluster-signing-key-file` flags.
 
-If you're creating a new cluster, you can use a kubeadm [configuration file](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3):
+If you're creating a new cluster, you can use a kubeadm
+[configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/):
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta3
@@ -186,7 +213,8 @@ controllerManager:
 
 ### Create certificate signing requests (CSR)
 
-See [Create CertificateSigningRequest](/docs/reference/access-authn-authz/certificate-signing-requests/#create-certificatesigningrequest) for creating CSRs with the Kubernetes API.
+See [Create CertificateSigningRequest](/docs/reference/access-authn-authz/certificate-signing-requests/#create-certificatessigningrequest)
+for creating CSRs with the Kubernetes API.
 
 ## Renew certificates with external CA
 
@@ -194,29 +222,14 @@ This section provide more details about how to execute manual certificate renewa
 
 To better integrate with external CAs, kubeadm can also produce certificate signing requests (CSRs).
 A CSR represents a request to a CA for a signed certificate for a client.
-In kubeadm terms, any certificate that would normally be signed by an on-disk CA can be produced as a CSR instead. A CA, however, cannot be produced as a CSR.
+In kubeadm terms, any certificate that would normally be signed by an on-disk CA can be produced
+as a CSR instead. A CA, however, cannot be produced as a CSR.
 
-### Create certificate signing requests (CSR)
+### Renewal by using certificate signing requests (CSR)
 
-You can create certificate signing requests with `kubeadm certs renew --csr-only`.
-
-Both the CSR and the accompanying private key are given in the output.
-You can pass in a directory with `--csr-dir` to output the CSRs to the specified location.
-If `--csr-dir` is not specified, the default certificate directory (`/etc/kubernetes/pki`) is used.
-
-Certificates can be renewed with `kubeadm certs renew --csr-only`.
-As with `kubeadm init`, an output directory can be specified with the `--csr-dir` flag.
-
-A CSR contains a certificate's name, domains, and IPs, but it does not specify usages.
-It is the responsibility of the CA to specify [the correct cert usages](/docs/setup/best-practices/certificates/#all-certificates)
-when issuing a certificate.
-
-* In `openssl` this is done with the
-  [`openssl ca` command](https://superuser.com/questions/738612/openssl-ca-keyusage-extension).
-* In `cfssl` you specify
-  [usages in the config file](https://github.com/cloudflare/cfssl/blob/master/doc/cmd/cfssl.txt#L170).
-
-After a certificate is signed using your preferred method, the certificate and the private key must be copied to the PKI directory (by default `/etc/kubernetes/pki`).
+Renewal of ceritficates is possible by generating new CSRs and signing them with the external CA.
+For more details about working with CSRs generated by kubeadm see the section
+[Signing certificate signing requests (CSR) generated by kubeadm](#signing-csr).
 
 ## Certificate authority (CA) rotation {#certificate-authority-rotation}
 
@@ -244,9 +257,9 @@ serverTLSBootstrap: true
 ```
 
 If you have already created the cluster you must adapt it by doing the following:
- - Find and edit the `kubelet-config-{{< skew latestVersion >}}` ConfigMap in the `kube-system` namespace.
+ - Find and edit the `kubelet-config-{{< skew currentVersion >}}` ConfigMap in the `kube-system` namespace.
 In that ConfigMap, the `kubelet` key has a
-[KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+[KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/)
 document as its value. Edit the KubeletConfiguration document to set `serverTLSBootstrap: true`.
 - On each node, add the `serverTLSBootstrap: true` field in `/var/lib/kubelet/config.yaml`
 and restart the kubelet with `systemctl restart kubelet`
@@ -262,6 +275,8 @@ These CSRs can be viewed using:
 
 ```shell
 kubectl get csr
+```
+```console
 NAME        AGE     SIGNERNAME                        REQUESTOR                      CONDITION
 csr-9wvgt   112s    kubernetes.io/kubelet-serving     system:node:worker-1           Pending
 csr-lz97v   1m58s   kubernetes.io/kubelet-serving     system:node:control-plane-1    Pending
@@ -276,7 +291,7 @@ By default, these serving certificate will expire after one year. Kubeadm sets t
 `KubeletConfiguration` field `rotateCertificates` to `true`, which means that close
 to expiration a new set of CSRs for the serving certificates will be created and must
 be approved to complete the rotation. To understand more see
-[Certificate Rotation](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#certificate-rotation).
+[Certificate Rotation](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#certificate-rotation).
 
 If you are looking for a solution for automatic approval of these CSRs it is recommended
 that you contact your cloud provider and ask if they have a CSR signer that verifies
@@ -297,15 +312,16 @@ CSRs requesting serving certificates for any IP or domain name.
 During cluster creation, kubeadm signs the certificate in the `admin.conf` to have
 `Subject: O = system:masters, CN = kubernetes-admin`.
 [`system:masters`](/docs/reference/access-authn-authz/rbac/#user-facing-roles)
-is a break-glass, super user group that bypasses the authorization layer (e.g. RBAC).
+is a break-glass, super user group that bypasses the authorization layer (for example,
+[RBAC](/docs/reference/access-authn-authz/rbac/)).
 Sharing the `admin.conf` with additional users is **not recommended**!
 
 Instead, you can use the [`kubeadm kubeconfig user`](/docs/reference/setup-tools/kubeadm/kubeadm-kubeconfig)
 command to generate kubeconfig files for additional users.
 The command accepts a mixture of command line flags and
 [kubeadm configuration](/docs/reference/config-api/kubeadm-config.v1beta3/) options.
-The generated kubeconfig will be written to stdout and can be piped to a file
-using `kubeadm kubeconfig user ... > somefile.conf`.
+The generated kubeconfig will be written to stdout and can be piped to a file using
+`kubeadm kubeconfig user ... > somefile.conf`.
 
 Example configuration file that can be used with `--config`:
 
@@ -340,3 +356,246 @@ The following example will generate a kubeconfig file with administrator credent
 ```shell
 kubeadm kubeconfig user --config example.yaml --client-name admin --validity-period 168h
 ```
+
+## Signing certificate signing requests (CSR) generated by kubeadm {#signing-csr}
+
+You can create certificate signing requests with `kubeadm certs generate-csr`.
+Calling this command will generate `.csr` / `.key` file pairs for regular
+certificates. For certificates embedded in kubeconfig files, the command will
+generate a `.csr` / `.conf` pair where the key is already embedded in the `.conf` file.
+
+A CSR file contains all relevant information for a CA to sign a certificate.
+kubeadm uses a
+[well defined specification](/docs/setup/best-practices/certificates/#all-certificates)
+for all its certificates and CSRs.
+
+The default certificate directory is `/etc/kubernetes/pki`, while the default
+directory for kubeconfig files is `/etc/kubernetes`. These defaults can be
+overridden with the flags `--cert-dir` and `--kubeconfig-dir`, respectively.
+
+To pass custom options to `kubeadm certs generate-csr` use the `--config` flag,
+which accepts a [kubeadm configuration](/docs/reference/config-api/kubeadm-config.v1beta3/)
+file, similarly to commands such as `kubeadm init`. Any specification such
+as extra SANs and custom IP addresses must be stored in the same configuration
+file and used for all relevant kubeadm commands by passing it as `--config`.
+
+{{< note >}}
+This guide will cover the usage of the `openssl` command for singing the CSRs,
+but you can use your preferred tools.
+{{< /note >}}
+
+{{< note >}}
+This guide will use the default Kubernetes directory `/etc/kubernetes`, which requires
+a super user. If you are following this guide with permissive directories
+(by passing `--cert-dir` and `--kubeconfig-dir`) you can omit the `sudo` command).
+But note that the resulted files must be copied to the `/etc/kubernetes` tree,
+so that `kubeadm init` or `kubeadm join` will find them.
+{{< /note >}}
+
+### Preparing CA and service account files
+
+On the primary control plane node, where `kubeadm init` will be executed, call the following
+commands:
+
+```shell
+sudo kubeadm init phase certs ca
+sudo kubeadm init phase certs etcd-ca
+sudo kubeadm init phase certs front-proxy-ca
+sudo kubeadm init phase certs sa
+```
+
+This will populate the folders `/etc/kubernetes/pki` and `/etc/kubernetes/pki/etcd`
+with all self-signed CA files (certificates and keys) and service account (public and
+private keys) that kubeadm needs for a control plane node.
+
+{{< note >}}
+If you are using an external CA, you must generate the same files out of band and manually
+copy them to the primary control plane node in `/etc/kubernetes`. Once all CSRs
+are signed, you can delete the root CA key (`ca.key`) as noted in the
+[External CA mode](#external-ca-mode) section.
+{{< /note >}}
+
+For secondary control plane nodes (`kubeadm join --control-plane`) there is no need to call
+the above commands. Depending on how you setup the
+[High Availability](/docs/setup/production-environment/tools/kubeadm/high-availability)
+cluster, you either have to manually copy the same files from the primary
+control plane node, or use the automated `--upload-certs` functionality of `kubeadm init`.
+
+### Generate CSRs
+
+The `kubeadm certs generate-csr` command generates CSRs for all known certificates
+managed by kubeadm. Once the command is done you must manually delete `.csr`, `.conf`
+or `.key` files that you don't need.
+
+#### Considerations for kubelet.conf {#considerations-kubelet-conf}
+
+This section applies to both control plane and worker nodes.
+
+If you have deleted the `ca.key` file from control plane nodes
+([External CA mode](#external-ca-mode)), the active kube-controller-manager in
+this cluster will not be able to sign kubelet client certificates. If no external
+method for signing these certificates exists in your setup (such as an
+[external signer](#set-up-a-signer), you could manually sign the `kubelet.conf.csr`
+as explained in this guide.
+
+Note that this also means that the automatic
+[kubelet client certificate rotation](/docs/tasks/tls/certificate-rotation/#enabling-client-certificate-rotation)
+will be disabled. If so, close to certificate expiration, you must generate
+a new `kubelet.conf.csr`, sign the certificate, embed it in `kubelet.conf`
+and restart the kubelet.
+
+If this does not apply to your setup, you can skip processing the `kubelet.conf.csr`
+on secondary control plane and on workers nodes (all nodes that call `kubeadm join ...`).
+That is because the active kube-controller-manager will be responsible
+for signing new kubelet client certificates.
+
+{{< note >}}
+Processing the `kubelet.conf.csr` on the primary control plane node
+(`kubeadm init`) is required, because that is considered the node that
+bootstraps the cluster and a pre-populated `kubelet.conf` is needed.
+{{< /note >}}
+
+#### Control plane nodes
+
+Execute the following command on primary (`kubeadm init`) and secondary
+(`kubeadm join --control-plane`) control plane nodes to generate all CSR files:
+
+```shell
+sudo kubeadm certs generate-csr
+```
+
+If external etcd is to be used, follow the
+[External etcd with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/#external-etcd-nodes)
+guide to understand what CSR files are needed on the kubeadm and etcd nodes. Other
+`.csr` and `.key` files under `/etc/kubernetes/pki/etcd` can be removed.
+
+Based on the explanation in
+[Considerations for kubelet.conf](#considerations-kubelet-conf) keep or delete
+the `kubelet.conf` and `kubelet.conf.csr` files.
+
+#### Worker nodes
+
+Based on the explanation in
+[Considerations for kubelet.conf](#considerations-kubelet-conf), optionally call:
+
+```shell
+sudo kubeadm certs generate-csr
+```
+
+and keep only the `kubelet.conf` and `kubelet.conf.csr` files. Alternatively skip
+the steps for worker nodes entirely.
+
+### Signing CSRs for all certificates
+
+{{< note >}}
+If you are using external CA and already have CA serial number files (`.srl`) for
+`openssl` you can copy such files to a kubeadm node where CSRs will be processed.
+`.srl` files to copy are `/etc/kubernetes/pki/ca.srl`,
+`/etc/kubernetes/pki/front-proxy-ca.srl` and `/etc/kubernetes/pki/etcd/ca.srl`.
+The files can be then moved to a new node where CSR files will be processed.
+
+If a `.srl` file is missing for a CA on a node, the script below will generate a new SRL file
+with a random starting serial number.
+
+To read more about `.srl` files see the
+[`openssl`](https://www.openssl.org/docs/man3.0/man1/openssl-x509.html)
+documentation for the `--CAserial` flag.
+{{< /note >}}
+
+Repeat this step for all nodes that have CSR files.
+
+Write the following script in the `/etc/kubernetes` directory, navigate to the directory
+and execute the script. The script will generate certificates for all CSR files that are
+present in the `/etc/kubernetes` tree.
+
+```bash
+#!/bin/bash
+
+# Set certificate expiration time in days
+DAYS=365
+
+# Process all CSR files except those for front-proxy and etcd
+find ./ -name "*.csr" | grep -v "pki/etcd" | grep -v "front-proxy" | while read -r FILE;
+do
+    echo "* Processing ${FILE} ..."
+    FILE=${FILE%.*} # Trim the extension
+    if [ -f "./pki/ca.srl" ]; then
+        SERIAL_FLAG="-CAserial ./pki/ca.srl"
+    else
+        SERIAL_FLAG="-CAcreateserial"
+    fi
+    openssl x509 -req -days "${DAYS}" -CA ./pki/ca.crt -CAkey ./pki/ca.key ${SERIAL_FLAG} \
+        -in "${FILE}.csr" -out "${FILE}.crt"
+    sleep 2
+done
+
+# Process all etcd CSRs
+find ./pki/etcd -name "*.csr" | while read -r FILE;
+do
+    echo "* Processing ${FILE} ..."
+    FILE=${FILE%.*} # Trim the extension
+    if [ -f "./pki/etcd/ca.srl" ]; then
+        SERIAL_FLAG=-CAserial ./pki/etcd/ca.srl
+    else
+        SERIAL_FLAG=-CAcreateserial
+    fi
+    openssl x509 -req -days "${DAYS}" -CA ./pki/etcd/ca.crt -CAkey ./pki/etcd/ca.key ${SERIAL_FLAG} \
+        -in "${FILE}.csr" -out "${FILE}.crt"
+done
+
+# Process front-proxy CSRs
+echo "* Processing ./pki/front-proxy-client.csr ..."
+openssl x509 -req -days "${DAYS}" -CA ./pki/front-proxy-ca.crt -CAkey ./pki/front-proxy-ca.key -CAcreateserial \
+    -in ./pki/front-proxy-client.csr -out ./pki/front-proxy-client.crt
+```
+
+### Embedding certificates in kubeconfig files
+
+Repeat this step for all nodes that have CSR files.
+
+Write the following script in the `/etc/kubernetes` directory, navigate to the directory
+and execute the script. The script will take the `.crt` files that were signed for
+kubeconfig files from CSRs in the previous step and will embed them in the kubeconfig files.
+
+```bash
+#!/bin/bash
+
+CLUSTER=kubernetes
+find ./ -name "*.conf" | while read -r FILE;
+do
+    echo "* Processing ${FILE} ..."
+    KUBECONFIG="${FILE}" kubectl config set-cluster "${CLUSTER}" --certificate-authority ./pki/ca.crt --embed-certs
+    USER=$(KUBECONFIG="${FILE}" kubectl config view -o jsonpath='{.users[0].name}')
+    KUBECONFIG="${FILE}" kubectl config set-credentials "${USER}" --client-certificate "${FILE}.crt" --embed-certs
+done
+```
+
+### Performing cleanup {#post-csr-cleanup}
+
+Perform this step on all nodes that have CSR files.
+
+Write the following script in the `/etc/kubernetes` directory, navigate to the directory
+and execute the script.
+
+```bash
+#!/bin/bash
+
+# Cleanup CSR files
+rm -f ./*.csr ./pki/*.csr ./pki/etcd/*.csr # Clean all CSR files
+
+# Cleanup CRT files that were already embedded in kubeconfig files
+rm -f ./*.crt
+```
+
+Optionally, move `.srl` files to the next node to be processed.
+
+Optionally, if using external CA remove the `/etc/kubernetes/pki/ca.key` file,
+as explained in the [External CA node](#external-ca-mode) section.
+
+### kubeadm node initialization
+
+Once CSR files have been signed and required certificates are in place on the hosts
+you want to use as nodes, you can use the commands `kubeadm init` and `kubeadm join`
+to create a Kubernetes cluster from these nodes. During `init` and `join`, kubeadm
+uses existing certificates, encryption keys and kubeconfig files that it finds in the
+`/etc/kubernetes` tree on the host's local filesystem.

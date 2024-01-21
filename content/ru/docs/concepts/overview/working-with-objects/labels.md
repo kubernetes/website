@@ -111,7 +111,7 @@ metadata:
 spec:
   containers:
     - name: cuda-test
-      image: "k8s.gcr.io/cuda-vector-add:v0.1"
+      image: "registry.k8s.io/cuda-vector-add:v0.1"
       resources:
         limits:
           nvidia.com/gpu: 1
@@ -166,7 +166,7 @@ kubectl get pods -l 'environment in (production),tier in (frontend)'
 kubectl get pods -l 'environment in (production, qa)'
 ```
 
-Либо можно воспользоваться исключающим сопоставлением с помощью оператора _exists_:
+Либо можно воспользоваться исключающим сопоставлением с помощью оператора _notin_:
 
 ```shell
 kubectl get pods -l 'environment,environment notin (frontend)'

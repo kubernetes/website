@@ -1,7 +1,7 @@
 ---
 title: Viewing Site Analytics
 content_type: concept
-weight: 100
+weight: 120
 card:
   name: contribute
   weight: 100

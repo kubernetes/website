@@ -155,7 +155,7 @@ spec:
       path: /any/path/it/will/be/replaced
   containers:
   - name: pv-recycler
-    image: "k8s.gcr.io/busybox"
+    image: "registry.k8s.io/busybox"
     command: ["/bin/sh", "-c", "test -e /scrub && rm -rf /scrub/..?* /scrub/.[!.]* /scrub/*  && test -z \"$(ls -A /scrub)\" || exit 1"]
     volumeMounts:
     - name: vol
@@ -166,7 +166,7 @@ Namun, alamat yang dispesifikasikan pada templat _recycler pod_ kustom pada bagi
 
 ### Memperluas _Persistent Volumes Claim_
 
-{{< feature-state for_k8s_version="v1.11" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 Dukungan untuk memperluas PersistentVolumeClaim (PVC) sekarang sudah diaktifkan sejak awal. Kamu dapat memperluas
 tipe-tipe volume berikut:

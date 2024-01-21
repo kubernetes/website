@@ -18,7 +18,7 @@ Pod kamu. Namun ada sejumlah cara untuk mendapatkan lebih banyak informasi tenta
 
 Dalam contoh ini, kamu menggunakan Deployment untuk membuat dua buah Pod, yang hampir sama dengan contoh sebelumnya.
 
-{{< codenew file="application/nginx-with-request.yaml" >}}
+{{% codenew file="application/nginx-with-request.yaml" %}}
 
 Buat Deployment dengan menjalankan perintah ini:
 
@@ -268,7 +268,7 @@ status:
 
 ## Contoh: Men-_debug_ Node yang mati/tidak terjangkau (_down/unreachable_)
 
-Terkadang saat men-_debug_ melihat status sebuah Node akan sangat berguna - misalnya, karena kamu telah melihat perilaku aneh dari sebuah Pod yang sedang berjalan pada Node tersebut, atau untuk mencari tahu mengapa sebuah Pod tidak dapat dijadwalkan ke dalam Node tersebut. Seperti pada Pod, kamu dapat menggunakan perintah `kubectl description node` dan` kubectl get node -o yaml` untuk mengambil informasi mendetil tentang Node. Misalnya, disini kamu akan melihat jika sebuah Node sedang mati (terputus dari jaringan, atau kubelet mati dan tidak mau restart, dll.). Perhatikan peristiwa yang menunjukkan Node tersebut NotReady, dan juga perhatikan bahwa Pod tidak lagi berjalan (mereka akan dikeluarkan setelah lima menit berstatus NotReady).
+Terkadang saat men-_debug_ melihat status sebuah Node akan sangat berguna - misalnya, karena kamu telah melihat perilaku aneh dari sebuah Pod yang sedang berjalan pada Node tersebut, atau untuk mencari tahu mengapa sebuah Pod tidak dapat dijadwalkan ke dalam Node tersebut. Seperti pada Pod, kamu dapat menggunakan perintah `kubectl description node` dan `kubectl get node -o yaml` untuk mengambil informasi mendetil tentang Node. Misalnya, disini kamu akan melihat jika sebuah Node sedang mati (terputus dari jaringan, atau kubelet mati dan tidak mau restart, dll.). Perhatikan peristiwa yang menunjukkan Node tersebut NotReady, dan juga perhatikan bahwa Pod tidak lagi berjalan (mereka akan dikeluarkan setelah lima menit berstatus NotReady).
 
 ```shell
 kubectl get nodes

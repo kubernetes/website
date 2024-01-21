@@ -60,10 +60,10 @@ so we added two administrator-facing tools to help track use of deprecated APIs 
 Starting in Kubernetes v1.19, when a request is made to a deprecated REST API endpoint,
 an `apiserver_requested_deprecated_apis` gauge metric is set to `1` in the kube-apiserver process.
 This metric has labels for the API `group`, `version`, `resource`, and `subresource`,
-and a `removed_version` label that indicates the Kubernetes release in which the API will no longer be served.
+and a `removed_release` label that indicates the Kubernetes release in which the API will no longer be served.
 
 This is an example query using `kubectl`, [prom2json](https://github.com/prometheus/prom2json),
-and [jq](https://stedolan.github.io/jq/) to determine which deprecated APIs have been requested
+and [jq](https://jqlang.github.io/jq/) to determine which deprecated APIs have been requested
 from the current instance of the API server:
 
 ```sh
@@ -169,7 +169,7 @@ You can also find that information through the following Prometheus query,
 which returns information about requests made to deprecated APIs which will be removed in v1.22:
 
 ```promql
-apiserver_requested_deprecated_apis{removed_version="1.22"} * on(group,version,resource,subresource)
+apiserver_requested_deprecated_apis{removed_release="1.22"} * on(group,version,resource,subresource)
 group_right() apiserver_request_total
 ```
 
@@ -177,7 +177,7 @@ group_right() apiserver_request_total
 
 Metrics are a fast way to check whether deprecated APIs are being used, and at what rate,
 but they don't include enough information to identify particular clients or API objects.
-Starting in Kubernetes v1.19, [audit events](/docs/tasks/debug-application-cluster/audit/)
+Starting in Kubernetes v1.19, [audit events](/docs/tasks/debug/debug-cluster/audit/)
 for requests to deprecated APIs include an audit annotation of `"k8s.io/deprecated":"true"`.
 Administrators can use those audit events to identify specific clients or objects that need to be updated.
 

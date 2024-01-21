@@ -76,7 +76,7 @@ Diese Container bilden eine einzelne zusammenhängende
 Serviceeinheit, z. B. ein Container, der Daten in einem gemeinsam genutzten 
 Volume öffentlich verfügbar macht, während ein separater _Sidecar_-Container 
 die Daten aktualisiert. Der Pod fasst die Container, die Speicherressourcen
-und eine kurzlebiges Netzwerk-Identität als eine Einheit zusammen.
+und eine kurzlebige Netzwerk-Identität als eine Einheit zusammen.
 
 {{< note >}}
 Das Gruppieren mehrerer gemeinsam lokalisierter und gemeinsam verwalteter
@@ -130,13 +130,13 @@ enthaltenen Container bereit:
 
 Du wirst selten einzelne Pods direkt in Kubernetes erstellen, selbst 
 Singleton-Pods. Das liegt daran, dass Pods als relativ kurzlebige 
-Einweg-Einheiten konzipiert sind. Wann Ein Pod erstellt wird (entweder direkt 
+Einweg-Einheiten konzipiert sind. Wenn ein Pod erstellt wird (entweder direkt 
 von Ihnen oder indirekt von einem
 {{<glossary_tooltip text="Controller" term_id="controller">}}), wird die 
 Ausführung auf einem {{<glossary_tooltip term_id="node">}} in Ihrem Cluster 
 geplant. Der Pod bleibt auf diesem (virtuellen) Server, bis entweder der Pod die
 Ausführung beendet hat, das Pod-Objekt gelöscht wird, der Pod aufgrund 
-mangelnder Ressourcen *evakuiert* wird oder oder der Node ausfällt. 
+mangelnder Ressourcen *evakuiert* wird oder der Node ausfällt. 
 
 {{< note >}}
 Das Neustarten eines Containers in einem Pod sollte nicht mit dem Neustarten 
@@ -163,20 +163,20 @@ verwalten:
 * {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}
 * {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}
 
-### Pod Vorlagen
+### Pod-Vorlagen
 
 Controller für 
 {{<glossary_tooltip text="Workload" term_id="workload">}}-Ressourcen 
-erstellen Pods von einer _Pod Vorlage_ und verwalten diese Pods für dich.
+erstellen Pods von einer _Pod-Vorlage_ und verwalten diese Pods für dich.
 
-Pod Vorlagen sind Spezifikationen zum Erstellen von Pods und sind in 
+Pod-Vorlagen sind Spezifikationen zum Erstellen von Pods und sind in 
 Workload-Ressourcen enthalten wie z. B.
 [Deployments](/docs/concepts/workloads/controllers/deployment/),
 [Jobs](/docs/concepts/workloads/controllers/job/), and
 [DaemonSets](/docs/concepts/workloads/controllers/daemonset/).
 
-Jeder Controller für eine Workload-Ressource verwendet die Pod Vorlage innerhalb 
-des Workload-Objektes, um Pods zu erzeugen. Die Pod Vorlage ist Teil des 
+Jeder Controller für eine Workload-Ressource verwendet die Pod-Vorlage innerhalb 
+des Workload-Objektes, um Pods zu erzeugen. Die Pod-Vorlage ist Teil des 
 gewünschten Zustands der Workload-Ressource, mit der du deine Anwendung 
 ausgeführt hast.
 
@@ -191,29 +191,29 @@ metadata:
  name: hello
 spec:
  template:
- # Dies is the Pod Vorlage
+ # Dies is the Pod-Vorlage
  spec:
  containers:
  - name: hello
  image: busybox
  command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
  restartPolicy: OnFailure
- # Die Pod Vorlage endet hier
+ # Die Pod-Vorlage endet hier
 ```
-Das Ändern der Pod Vorlage oder der Wechsel zu einer neuen Pod Vorlage hat keine 
-direkten Auswirkungen auf bereits existierende Pods. Wenn du die Pod Vorlage für
+Das Ändern der Pod-Vorlage oder der Wechsel zu einer neuen Pod-Vorlage hat keine 
+direkten Auswirkungen auf bereits existierende Pods. Wenn du die Pod-Vorlage für
 eine Workload-Ressource änderst, dann muss diese Ressource die Ersatz-Pods
 erstellen, welche die aktualisierte Vorlage verwenden. 
 
 Beispielsweise stellt der StatefulSet-Controller sicher, dass für jedes
-StatefulSet-Objekt die ausgeführten Pods mit der aktueller Pod Vorlage 
+StatefulSet-Objekt die ausgeführten Pods mit der aktueller Pod-Vorlage 
 übereinstimmen. Wenn du das StatefulSet bearbeitest und die Vorlage änderst, 
 beginnt das StatefulSet mit der Erstellung neuer Pods basierend auf der 
 aktualisierten Vorlage. Schließlich werden alle alten Pods durch neue Pods 
 ersetzt, und das Update ist abgeschlossen.
 
 Jede Workload-Ressource implementiert eigenen Regeln für die Umsetzung von 
-Änderungen der Pod Vorlage. Wenn du mehr über StatefulSet erfahren möchtest, 
+Änderungen der Pod-Vorlage. Wenn du mehr über StatefulSet erfahren möchtest, 
 dann lese die Seite
 [Update-Strategien](/docs/tutorials/stateful-application/basic-stateful-set/#updating-statefulsets) 
 im Tutorial StatefulSet Basics.
@@ -221,7 +221,7 @@ im Tutorial StatefulSet Basics.
 
 Auf Nodes beobachtet oder verwaltet das 
 {{< glossary_tooltip term_id="kubelet" text="Kubelet" >}}
-nicht direkt die Details zu Pod Vorlagen und Updates. Diese Details sind 
+nicht direkt die Details zu Pod-Vorlagen und Updates. Diese Details sind 
 abstrahiert. Die Abstraktion und Trennung von Aufgaben vereinfacht die 
 Systemsemantik und ermöglicht so das Verhalten des Clusters zu ändern ohne 
 vorhandenen Code zu ändern.
@@ -229,7 +229,7 @@ vorhandenen Code zu ändern.
 ## Pod Update und Austausch
 
 Wie im vorherigen Abschnitt erwähnt, erstellt der Controller neue Pods basierend
-auf der aktualisierten Vorlage, wenn die Pod Vorlage für eine Workload-Ressource
+auf der aktualisierten Vorlage, wenn die Pod-Vorlage für eine Workload-Ressource
 geändert wird anstatt die vorhandenen Pods zu aktualisieren oder zu patchen.
 
 Kubernetes hindert dich nicht daran, Pods direkt zu verwalten. Es ist möglich, 
@@ -248,7 +248,7 @@ einige Einschränkungen:
   Eintrag zur Liste `metadata.finalizers` hinzugefügt werden.
 - Pod-Updates dürfen keine Felder ändern, die Ausnahmen sind 
   `spec.containers[*].image`,
- `spec.initContainers[*].image`,` spec.activeDeadlineSeconds` oder
+ `spec.initContainers[*].image`, `spec.activeDeadlineSeconds` oder
  `spec.tolerations`. Für `spec.tolerations` kannnst du nur neue Einträge 
   hinzufügen.
 - Für `spec.activeDeadlineSeconds` sind nur zwei Änderungen erlaubt:

@@ -136,8 +136,8 @@ UID로 정의된 특정 파드는 다른 노드로 절대 "다시 스케줄"되�
 쿼리하면, 이유와 종료 코드 그리고 해당 컨테이너의 실행 기간에 대한 시작과
 종료 시간이 표시된다.
 
-컨테이너에 구성된 `preStop` 훅이 있는 경우, 컨테이너가 `Terminated` 상태에 들어가기 전에
-실행된다.
+컨테이너에 구성된 `preStop` 훅이 있는 경우, 
+이 혹은 컨테이너가 `Terminated` 상태에 들어가기 전에 실행된다.
 
 ## 컨테이너 재시작 정책 {#restart-policy}
 
@@ -154,9 +154,12 @@ kubelet은 해당 컨테이너의 재시작 백오프 타이머를 재설정한�
 
 파드는 하나의 PodStatus를 가지며,
 그것은 파드가 통과했거나 통과하지 못한 
-[PodConditions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podcondition-v1-core) 배열을 가진다.
+[PodConditions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podcondition-v1-core) 배열을 가진다. kubelet은 다음 
+PodConditions를 관리한다.
 
 * `PodScheduled`: 파드가 노드에 스케줄되었다.
+* `PodHasNetwork`: (알파 기능; 반드시 [명시적으로 활성화](#pod-has-network)해야 함)
+샌드박스가 성공적으로 생성되고 네트워킹이 구성되었다.
 * `ContainersReady`: 파드의 모든 컨테이너가 준비되었다.
 * `Initialized`: 모든 [초기화 컨테이너](/ko/docs/concepts/workloads/pods/init-containers/)가
   성공적으로 완료(completed)되었다.
@@ -230,6 +233,40 @@ status:
 
 파드의 컨테이너가 Ready 이나 적어도 한 개의 사용자 지정 컨디션이 빠졌거나 `False` 이면,
 kubelet은 파드의 [컨디션](#파드의-컨디션)을 `ContainerReady` 로 설정한다.
+
+### 파드 네트워크 준비성(readiness) {#pod-has-network}
+
+{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+
+파드가 노드에 스케줄링되면, kubelet이 이 파드를 승인해야 하고
+모든 볼륨이 마운트되어야 한다. 이러한 단계가 완료되면 kubelet은 
+({{< glossary_tooltip term_id="cri" >}}를 사용하여) 컨테이너 런타임과 
+통신하여 런타임 샌드박스를 설정하고 파드에 대한 네트워킹을 구성한다. 만약
+`PodHasNetworkCondition` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화되면,
+Kubelet은 파드의 `status.conditions` 필드에 있는 `PodHasNetwork` 컨디션을 통해 
+파드가 초기화 마일스톤에 도달했는지 여부를 보고한다.
+
+Kubelet이 파드에 네트워킹이 구성된 런타임 샌드박스가 
+없음을 탐지했을 때 `PodHasNetwork` 컨디션은 `False`로 설정된다. 이것은 다음
+시나리오에서 발생한다.
+* 파드 라이프사이클 초기에, kubelet이 컨테이너 런타임을 사용하여 파드를 위한 샌드박스 생성을 아직 ​​시작하지 않은 때.
+* 파드 라이프사이클 후기에, 파드 샌드박스가 다음중 하나의 이유로 
+파괴되었을 때.
+  * 파드 축출 없이, 노드가 재부팅됨
+  * 격리를 위해 가상 머신을 사용하는 컨테이너 런타임을 사용하는 경우, 
+    파드 샌드박스 가상 머신이 재부팅됨(이후, 새로운 샌드박스 및 새로운 컨테이너 네트워크 구성 생성이 필요함)
+
+런타임 플러그인이 파드를 위한 샌드박스 생성 및 네트워크 구성을 성공적으로 완료하면 
+kubelet이 `PodHasNetwork` 컨디션을 `True`로 설정한다. 
+`PodHasNetwork` 컨디션이 `True`로 설정되면
+kubelet이 컨테이너 이미지를 풀링하고 컨테이너를 생성할 수 있다.
+
+초기화 컨테이너가 있는 파드의 경우, kubelet은 초기화 컨테이너가
+성공적으로 완료(런타임 플러그인에 의한 성공적인 샌드박스 생성 및 네트워크 구성이 완료되었음을 의미)된 후
+`Initialized` 컨디션을 `True`로 설정한다.
+초기화 컨테이너가 없는 파드의 경우, kubelet은 샌드박스 생성 및 네트워크 구성이
+시작되기 전에 `Initialized` 컨디션을 `True`로 설정한다.
+
 
 ## 컨테이너 프로브(probe)
 
@@ -426,7 +463,7 @@ TERM 대신 이 값을 보낸다.
 1. kubelet이 정상 종료를 시작하는 동시에, 컨트롤 플레인은
    구성된 {{< glossary_tooltip text="셀렉터" term_id="selector" >}}가 있는
    {{< glossary_tooltip term_id="service" text="서비스" >}}를 나타내는
-   엔드포인트(Endpoint)(그리고, 활성화된 경우, 엔드포인트슬라이스(EndpointSlice)) 오브젝트에서 종료된 파드를 제거한다.
+   엔드포인트슬라이스(EndpointSplice)(그리고 엔드포인트) 오브젝트에서 종료된 파드를 제거한다.
    {{< glossary_tooltip text="레플리카셋(ReplicaSet)" term_id="replica-set" >}}과 기타 워크로드 리소스는
    더 이상 종료된 파드를 유효한 서비스 내 복제본으로 취급하지 않는다. 로드 밸런서(서비스 프록시와 같은)가
    종료 유예 기간이 _시작되는_ 즉시 엔드포인트 목록에서 파드를 제거하므로 느리게 종료되는
@@ -462,21 +499,35 @@ API에서 즉시 파드를 제거하므로 동일한 이름으로 새로운 파�
 있다. 노드에서 즉시 종료되도록 설정된 파드는 강제 종료되기 전에
 작은 유예 기간이 계속 제공된다.
 
+{{< caution >}}
+즉시 제거는 실행 중인 자원이 정상적으로 종료되는 것을 보장하지 않는다. 자원은 클러스터에서 영원히 회수되지 않을 수 있다.
+{{< /caution >}}
+
 스테이트풀셋(StatefulSet)의 일부인 파드를 강제 삭제해야 하는 경우,
 [스테이트풀셋에서 파드를 삭제하기](/ko/docs/tasks/run-application/force-delete-stateful-set-pod/)에 대한
 태스크 문서를 참고한다.
 
-### 실패한 파드의 가비지 콜렉션 {#pod-garbage-collection}
+### 파드의 가비지 콜렉션 {#pod-garbage-collection}
 
 실패한 파드의 경우, API 오브젝트는 사람이나
 {{< glossary_tooltip term_id="controller" text="컨트롤러" >}} 프로세스가
 명시적으로 파드를 제거할 때까지 클러스터의 API에 남아 있다.
 
-컨트롤 플레인은 파드 수가 구성된 임계값(kube-controller-manager에서
+컨트롤 플레인에서의 컨트롤러 역할인 파드 가비지 콜렉터(PodGC)는, 파드 수가 구성된 임계값(kube-controller-manager에서
 `terminated-pod-gc-threshold` 에 의해 결정됨)을 초과할 때 종료된 파드(`Succeeded` 또는
 `Failed` 단계 포함)를 정리한다.
 이렇게 하면 시간이 지남에 따라 파드가 생성되고 종료될 때 리소스 유출이 방지된다.
 
+추가적으로 PodGC는 다음과 같은 조건들 중 하나라도 만족하는 파드들을 정리한다.
+1. 고아 파드 - 더 이상 존재하지 않는 노드에 종속되어있는 파드이거나,
+2. 스케줄되지 않은 종료 중인 파드이거나,
+3. `NodeOutOfServiceVolumeDetach` 기능 게이트가 활성화되어 있을 때, [`node.kubernetes.io/out-of-service`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-out-of-service)에 테인트된 준비되지 않은 노드에 속한 종료 중인 파드인 경우에 적용된다.
+
+`PodDisruptionConditions` 기능 게이트가 활성화된 경우, PodGC는
+파드를 정리하는 것 뿐만 아니라 해당 파드들이 non-terminal 단계에 있는 경우
+그들을 실패했다고 표시하기도 한다.
+또한, PodGC는 고아 파드를 정리할 때 파드 중단 조건을 추가하기도 한다.
+(자세한 내용은 [파드 중단 조건](/ko/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)을 확인한다.)
 
 ## {{% heading "whatsnext" %}}
 

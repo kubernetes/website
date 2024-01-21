@@ -1,6 +1,6 @@
 ---
-
-
+# reviewers:
+# - mikedanese
 title: 리눅스에 kubectl 설치 및 설정
 content_type: task
 weight: 10
@@ -34,10 +34,10 @@ card:
    {{< note >}}
 특정 버전을 다운로드하려면, `$(curl -L -s https://dl.k8s.io/release/stable.txt)` 명령 부분을 특정 버전으로 바꾼다.
 
-예를 들어, 리눅스에서 버전 {{< param "fullversion" >}}을 다운로드하려면, 다음을 입력한다.
+예를 들어, 리눅스에서 버전 {{< skew currentPatchVersion >}}을 다운로드하려면, 다음을 입력한다.
 
    ```bash
-   curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
+   curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/amd64/kubectl
    ```
    {{< /note >}}
 
@@ -52,7 +52,7 @@ card:
    kubectl 바이너리를 체크섬 파일을 통해 검증한다.
 
    ```bash
-   echo "$(<kubectl.sha256) kubectl" | sha256sum --check
+   echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
    ```
 
    검증이 성공한다면, 출력은 다음과 같다.
@@ -83,9 +83,9 @@ card:
 
    ```bash
    chmod +x kubectl
-   mkdir -p ~/.local/bin/kubectl
+   mkdir -p ~/.local/bin
    mv ./kubectl ~/.local/bin/kubectl
-   # 그리고 ~/.local/bin/kubectl을 $PATH에 추가
+   # 그리고 ~/.local/bin 을 $PATH의 앞부분 또는 뒷부분에 추가
    ```
 
    {{< /note >}}
@@ -94,6 +94,11 @@ card:
 
    ```bash
    kubectl version --client
+   ```
+   또는 다음을 실행하여 버전에 대한 더 자세한 정보를 본다.
+
+   ```cmd
+   kubectl version --client --output=yaml    
    ```
 
 ### 기본 패키지 관리 도구를 사용하여 설치 {#install-using-native-package-management}
@@ -107,17 +112,21 @@ card:
    sudo apt-get update
    sudo apt-get install -y apt-transport-https ca-certificates curl
    ```
+   Debian 9(stretch) 또는 그 이전 버전을 사용하는 경우 `apt-transport-https`도 설치해야 한다.
+   ```shell
+   sudo apt-get install -y apt-transport-https
+   ```
 
 2. 구글 클라우드 공개 사이닝 키를 다운로드한다.
 
    ```shell
-   sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
    ```
 
 3. 쿠버네티스 `apt` 리포지터리를 추가한다.
 
    ```shell
-   echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
    ```
 
 4. 새 리포지터리의 `apt` 패키지 색인을 업데이트하고 kubectl을 설치한다.
@@ -126,21 +135,27 @@ card:
    sudo apt-get update
    sudo apt-get install -y kubectl
    ```
+{{< note >}}
+Debian 12 또는 Ubuntu 22.04 이전 릴리스에서는 기본적으로 `/etc/apt/keyrings` 파일이 존재하지 않는다.
+필요할 경우, 읽기 권한은 모두에게 부여되지만 쓰기 권한은 관리자만 갖도록 해당 디렉토리를 생성한다.
+{{< /note >}}
 
 {{% /tab %}}
 
-{{< tab name="레드햇 기반의 배포판" codelang="bash" >}}
+{{% tab name="레드햇 기반의 배포판" %}}
+```bash
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
 enabled=1
 gpgcheck=1
-repo_gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
 sudo yum install -y kubectl
-{{< /tab >}}
+```
+
+{{% /tab %}}
 {{< /tabs >}}
 
 ### 다른 패키지 관리 도구를 사용하여 설치 {#install-using-other-package-management}
@@ -178,10 +193,11 @@ kubectl version --client
 
 kubectl은 Bash, Zsh, Fish, 및 PowerShell에 대한 자동 완성 지원을 제공하므로 입력을 위한 타이핑을 많이 절약할 수 있다.
 
-다음은 Bash 및 Zsh에 대한 자동 완성을 설정하는 절차이다.
+다음은 Bash, Fish, 및 Zsh에 대한 자동 완성을 설정하는 절차이다.
 
 {{< tabs name="kubectl_autocompletion" >}}
 {{< tab name="Bash" include="included/optional-kubectl-configs-bash-linux.md" />}}
+{{< tab name="Fish" include="included/optional-kubectl-configs-fish.md" />}}
 {{< tab name="Zsh" include="included/optional-kubectl-configs-zsh.md" />}}
 {{< /tabs >}}
 
@@ -192,7 +208,7 @@ kubectl은 Bash, Zsh, Fish, 및 PowerShell에 대한 자동 완성 지원을 제
 1. 다음 명령으로 최신 릴리스를 다운로드한다.
 
    ```bash
-   curl -LO https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert"
    ```
 
 1. 바이너리를 검증한다. (선택 사항)
@@ -206,7 +222,7 @@ kubectl은 Bash, Zsh, Fish, 및 PowerShell에 대한 자동 완성 지원을 제
    kubectl-convert 바이너리를 체크섬 파일을 통해 검증한다.
 
    ```bash
-   echo "$(<kubectl-convert.sha256) kubectl-convert" | sha256sum --check
+   echo "$(cat kubectl-convert.sha256) kubectl-convert" | sha256sum --check
    ```
 
    검증이 성공한다면, 출력은 다음과 같다.

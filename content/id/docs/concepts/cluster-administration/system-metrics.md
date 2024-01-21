@@ -99,7 +99,7 @@ Opsi `show-hidden-metrics-for-version` menerima input versi yang kamu inginkan u
 
 Opsi tersebut hanya dapat menerima input versi minor sebelumnya sebagai nilai. Semua metrik yang disembunyikan di versi sebelumnya akan dikeluarkan jika admin mengatur versi sebelumnya ke `show-hidden-metrics-for-version`. Versi yang terlalu lama tidak diperbolehkan karena melanggar kebijakan untuk metrik usang.
 
-Ambil metrik `A` sebagai contoh, di sini diasumsikan bahwa` A` sudah menjadi usang di versi 1.n. Berdasarkan kebijakan metrik usang, kita dapat mencapai kesimpulan berikut:
+Ambil metrik `A` sebagai contoh, di sini diasumsikan bahwa `A` sudah menjadi usang di versi 1.n. Berdasarkan kebijakan metrik usang, kita dapat mencapai kesimpulan berikut:
 
 * Pada rilis `1.n`, metrik menjadi usang, dan dapat dikeluarkan secara bawaan.
 * Pada rilis `1.n+1`, metrik disembunyikan secara bawaan dan dapat dikeluarkan dengan baris perintah `show-hidden-metrics-for-version=1.n`.
@@ -155,7 +155,7 @@ kube-scheduler mengidentifikasi [permintaan dan limit](/docs/concepts/configurat
 - nama dari sumber daya (misalnya, `cpu`)
 - satuan dari sumber daya jika diketahui (misalnya, `cores`)
 
-Setelah pod selesai (memiliki `restartPolicy` `Never` atau `OnFailure` dan berada dalam fase pod `Succeeded` atau `Failed`, atau telah dihapus dan semua kontainer dalam keadaan Terminated) deret metrik tidak lagi dilaporkan karena penjadwal sekarang sudah dibebaskan untuk menjadwalkan pod lain untuk dijalankan. Metrik yang dibahas pada bagian ini dikenal sebagai `kube_pod_resource_request` dan` kube_pod_resource_limit`.
+Setelah pod selesai (memiliki `restartPolicy` `Never` atau `OnFailure` dan berada dalam fase pod `Succeeded` atau `Failed`, atau telah dihapus dan semua kontainer dalam keadaan Terminated) deret metrik tidak lagi dilaporkan karena penjadwal sekarang sudah dibebaskan untuk menjadwalkan pod lain untuk dijalankan. Metrik yang dibahas pada bagian ini dikenal sebagai `kube_pod_resource_request` dan `kube_pod_resource_limit`.
 
 Metrik diekspos melalui _endpoint_ HTTP `/metrics/resources` dan memerlukan otorisasi yang sama seperti endpoint `/metrics`
 pada penjadwal. Kamu harus menggunakan opsi `--show-hidden-metrics-for-version=1.20` untuk mengekspos metrik-metrik stabilitas alfa ini.

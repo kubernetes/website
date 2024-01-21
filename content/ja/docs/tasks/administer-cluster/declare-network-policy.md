@@ -2,6 +2,7 @@
 title: ネットワークポリシーを宣言する
 min-kubernetes-server-version: v1.8
 content_type: task
+weight: 180
 ---
 
 <!-- overview -->
@@ -85,7 +86,7 @@ remote file exists
 
 `nginx` Serviceへのアクセスを制限するために、`access: true`というラベルが付いたPodだけがクエリできるようにします。次の内容でNetworkPolicyオブジェクトを作成してください。
 
-{{< codenew file="service/networking/nginx-policy.yaml" >}}
+{{% codenew file="service/networking/nginx-policy.yaml" %}}
 
 NetworkPolicyオブジェクトの名前は、有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)でなければなりません。
 

@@ -4,8 +4,8 @@ type: docs
 ---
 
 "Release Managers" is an umbrella term that encompasses the set of Kubernetes
-contributors responsible for maintaining release branches, tagging releases,
-and building/packaging Kubernetes.
+contributors responsible for maintaining release branches and creating releases
+by using the tools SIG Release provides.
 
 The responsibilities of each role are described below.
 
@@ -16,7 +16,6 @@ The responsibilities of each role are described below.
   - [Becoming a Release Manager](#becoming-a-release-manager)
 - [Release Manager Associates](#release-manager-associates)
   - [Becoming a Release Manager Associate](#becoming-a-release-manager-associate)
-- [Build Admins](#build-admins)
 - [SIG Release Leads](#sig-release-leads)
   - [Chairs](#chairs)
   - [Technical Leads](#technical-leads)
@@ -25,13 +24,16 @@ The responsibilities of each role are described below.
 
 | Mailing List | Slack | Visibility | Usage | Membership |
 | --- | --- | --- | --- | --- |
-| [release-managers@kubernetes.io](mailto:release-managers@kubernetes.io) | [#release-management](https://kubernetes.slack.com/messages/CJH2GBF7Y) (channel) / @release-managers (user group) | Public | Public discussion for Release Managers | All Release Managers (including Associates, Build Admins, and SIG Chairs) |
+| [release-managers@kubernetes.io](mailto:release-managers@kubernetes.io) | [#release-management](https://kubernetes.slack.com/messages/CJH2GBF7Y) (channel) / @release-managers (user group) | Public | Public discussion for Release Managers | All Release Managers (including Associates, and SIG Chairs) |
 | [release-managers-private@kubernetes.io](mailto:release-managers-private@kubernetes.io) | N/A | Private | Private discussion for privileged Release Managers | Release Managers, SIG Release leadership |
 | [security-release-team@kubernetes.io](mailto:security-release-team@kubernetes.io) | [#security-release-team](https://kubernetes.slack.com/archives/G0162T1RYHG) (channel) / @security-rel-team (user group) | Private | Security release coordination with the Security Response Committee | [security-discuss-private@kubernetes.io](mailto:security-discuss-private@kubernetes.io), [release-managers-private@kubernetes.io](mailto:release-managers-private@kubernetes.io) |
 
 ### Security Embargo Policy
 
-Some information about releases is subject to embargo and we have defined policy about how those embargoes are set. Please refer to the [Security Embargo Policy](https://github.com/kubernetes/committee-security-response/blob/main/private-distributors-list.md#embargo-policy) for more information.
+Some information about releases is subject to embargo and we have defined policy about
+how those embargoes are set. Please refer to the
+[Security Embargo Policy](https://github.com/kubernetes/committee-security-response/blob/main/private-distributors-list.md#embargo-policy)
+for more information.
 
 ## Handbooks
 
@@ -39,7 +41,6 @@ Some information about releases is subject to embargo and we have defined policy
 
 - [Patch Release Team][handbook-patch-release]
 - [Branch Managers][handbook-branch-mgmt]
-- [Build Admins][handbook-packaging]
 
 ## Release Managers
 
@@ -69,7 +70,7 @@ Release Managers are responsible for:
   - Reviewing cherry picks
   - Ensuring the release branch stays healthy and that no unintended patch
     gets merged
-- Mentoring the [Release Manager Associates](#associates) group
+- Mentoring the [Release Manager Associates](#release-manager-associates) group
 - Actively developing features and maintaining the code in k/release
 - Supporting Release Manager Associates and contributors through actively
   participating in the Buddy program
@@ -87,7 +88,9 @@ GitHub Access Controls: [@kubernetes/release-managers](https://github.com/orgs/k
 GitHub Mentions: [@kubernetes/release-engineering](https://github.com/orgs/kubernetes/teams/release-engineering)
 
 - Adolfo García Veytia ([@puerco](https://github.com/puerco))
+- Cici Huang ([@cici37](https://github.com/cici37))
 - Carlos Panato ([@cpanato](https://github.com/cpanato))
+- Jeremy Rickard ([@jeremyrickard](https://github.com/jeremyrickard))
 - Marko Mudrinić ([@xmudrii](https://github.com/xmudrii))
 - Nabarun Pal ([@palnabarun](https://github.com/palnabarun))
 - Sascha Grunert ([@saschagrunert](https://github.com/saschagrunert))
@@ -134,11 +137,8 @@ GitHub Mentions: @kubernetes/release-engineering
 
 - Arnaud Meukam ([@ameukam](https://github.com/ameukam))
 - Jim Angel ([@jimangel](https://github.com/jimangel))
-- Joyce Kung ([@thejoycekung](https://github.com/thejoycekung))
-- Max Körbächer ([@mkorbi](https://github.com/mkorbi))
-- Seth McCombs ([@sethmccombs](https://github.com/sethmccombs))
-- Taylor Dolezal ([@onlydole](https://github.com/onlydole))
-- Wilson Husin ([@wilsonehusin](https://github.com/wilsonehusin))
+- Joseph Sandoval ([@jrsapi](https://github.com/jrsapi))
+- Xander Grzywinski([@salaxander](https://github.com/salaxander))
 
 ### Becoming a Release Manager Associate
 
@@ -155,23 +155,6 @@ Contributors can become Associates by demonstrating the following:
   cleaning up libraries, etc.
   - these efforts require interacting and pairing with Release Managers and
     Associates
-
-## Build Admins
-
-Build Admins are (currently) Google employees with the requisite access to
-Google build systems/tooling to publish deb/rpm packages on behalf of the
-Kubernetes project. They are responsible for:
-
-- Building, signing, and publishing the deb/rpm packages
-- Being the interlock with Release Managers (and Associates) on the final steps
-of each minor (1.Y) and patch (1.Y.Z) release
-
-GitHub team: [@kubernetes/build-admins](https://github.com/orgs/kubernetes/teams/build-admins)
-
-- Aaron Crickenberger ([@spiffxp](https://github.com/spiffxp))
-- Benjamin Elder ([@BenTheElder](https://github.com/BenTheElder))
-- Grant McCloskey ([@MushuEE](https://github.com/MushuEE))
-- Juan Escobar ([@juanfescobar](https://github.com/juanfescobar))
 
 ## SIG Release Leads
 
@@ -191,6 +174,7 @@ GitHub team: [@kubernetes/sig-release-leads](https://github.com/orgs/kubernetes/
 
 ### Chairs
 
+- Jeremy Rickard ([@jeremyrickard](https://github.com/jeremyrickard))
 - Sascha Grunert ([@saschagrunert](https://github.com/saschagrunert))
 - Stephen Augustus ([@justaugustus](https://github.com/justaugustus))
 
@@ -198,7 +182,7 @@ GitHub team: [@kubernetes/sig-release-leads](https://github.com/orgs/kubernetes/
 
 - Adolfo García Veytia ([@puerco](https://github.com/puerco))
 - Carlos Panato ([@cpanato](https://github.com/cpanato))
-- Jeremy Rickard ([@jeremyrickard](https://github.com/jeremyrickard))
+- Verónica López ([@verolop](https://github.com/verolop))
 
 ---
 
@@ -209,10 +193,9 @@ Example: [1.15 Release Team](https://git.k8s.io/sig-release/releases/release-1.1
 
 [community-membership]: https://git.k8s.io/community/community-membership.md#member
 [handbook-branch-mgmt]: https://git.k8s.io/sig-release/release-engineering/role-handbooks/branch-manager.md
-[handbook-packaging]: https://git.k8s.io/sig-release/release-engineering/packaging.md
 [handbook-patch-release]: https://git.k8s.io/sig-release/release-engineering/role-handbooks/patch-release-team.md
 [k-sig-release-releases]: https://git.k8s.io/sig-release/releases
-[patches]: /patch-releases.md
+[patches]: /releases/patch-releases/
 [src]: https://git.k8s.io/community/committee-security-response/README.md
 [release-team]: https://git.k8s.io/sig-release/release-team/README.md
 [security-release-process]: https://git.k8s.io/security/security-release-process.md

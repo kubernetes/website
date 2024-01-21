@@ -1,8 +1,9 @@
 ---
-
-
 title: kubectl 사용 규칙
+# reviewers:
+# - janetkuo
 content_type: concept
+weight: 60
 ---
 
 <!-- overview -->
@@ -19,6 +20,16 @@ content_type: concept
 * 예를 들어 `jobs.v1.batch/myjob`과 같이 전체 버전을 사용한다. 이를 통해 `kubectl`이 시간이 지남에 따라 변경될 수 있는 기본 버전을 사용하지 않도록 한다.
 * 문맥, 설정 또는 기타 암묵적 상태에 의존하지 않는다.
 
+## 서브리소스 {#subresources}
+
+* kubectl의 `get`, `patch`, `edit` 및 `replace`와 같은 명령어에서 
+  서브리소스를 지원하는 모든 리소스에 대해 `--subresource` 알파 플래그를 사용하여 
+  서브리소스를 조회하고 업데이트할 수 있다. 현재, `status`와 `scale` 서브리소스만 지원된다.
+* 서브리소스에 대한 API 계약은 전체 리소스와 동일하다. 
+  `status` 서브리소스를 새 값으로 업데이트해도, 
+  컨트롤러에서 서브리소스를 잠재적으로 다른 값으로 조정할 수 있다는 점을 염두에 두어야 한다.
+
+
 ## 모범 사례
 
 ### `kubectl run`
@@ -30,29 +41,6 @@ content_type: concept
 * 필요하지만 `kubectl run` 플래그를 통해 표현할 수 없는 기능은 구성 파일을 소스 코드 버전 관리 시스템에 넣어서 전환한다.
 
 `--dry-run` 플래그를 사용하여 실제로 제출하지 않고 클러스터로 보낼 오브젝트를 미리 볼 수 있다.
-
-{{< note >}}
-모든 `kubectl run`의 생성기(generator)는 더 이상 사용 할 수 없다. 생성기 [목록](https://v1-17.docs.kubernetes.io/docs/reference/kubectl/conventions/#generators) 및 사용 방법은 쿠버네티스 v1.17 문서를 참고한다.
-{{< /note >}}
-
-#### 생성기
-`kubectl create --dry-run -o yaml`라는 kubectl 커맨드를 통해 다음과 같은 리소스를 생성할 수 있다.
-
-* `clusterrole`: 클러스터롤(ClusterRole)를 생성한다.
-* `clusterrolebinding`: 특정 클러스터롤에 대한 클러스터롤바인딩(ClusterRoleBinding)을 생성한다.
-* `configmap`: 로컬 파일, 디렉토리 또는 문자 그대로의 값으로 컨피그맵(ConfigMap)을 생성한다.
-* `cronjob`: 지정된 이름으로 크론잡(CronJob)을 생성한다.
-* `deployment`: 지정된 이름으로 디플로이먼트(Deployment)를 생성한다.
-* `job`: 지정된 이름으로 잡(Job)을 생성한다.
-* `namespace`: 지정된 이름으로 네임스페이스(Namespace)를 생성한다.
-* `poddisruptionbudget`: 지정된 이름으로 PodDisruptionBudget을 생성한다.
-* `priorityclass`: 지정된 이름으로 프라이어리티클래스(PriorityClass)을 생성한다.
-* `quota`: 지정된 이름으로 쿼터(Quota)를 생성한다.
-* `role`: 단일 규칙으로 롤(Role)을 생성한다.
-* `rolebinding`: 특정 롤 또는 클러스터롤에 대한 롤바인딩(RoleBinding)을 생성한다.
-* `secret`: 지정된 하위 커맨드를 사용하여 시크릿(Secret)을 생성한다.
-* `service`: 지정된 하위 커맨드를 사용하여 서비스(Service)를 생성한다.
-* `serviceaccount`: 지정된 이름으로 서비스어카운트(ServiceAccount)을 생성한다.
 
 ### `kubectl apply`
 

@@ -9,7 +9,7 @@ weight: 30
 
 kubectl은 쿠버네티스 클러스터 관리자를 제어한다.
 
- 자세한 정보는 [kubectl 개요](/ko/docs/reference/kubectl/overview/)를 확인한다.
+ 자세한 정보는 [kubectl 개요](/ko/docs/reference/kubectl/)를 확인한다.
 
 ```
 kubectl [flags]
@@ -351,6 +351,16 @@ kubectl [flags]
 <td></td><td style="line-height: 130%; word-wrap: break-word;">false로 설정하면, 호출된 kubectl 명령(쿠버네티스 버전 v1.22 이상)을 자세히 설명하는 추가 HTTP 헤더를 해제</td>
 </tr>
 
+
+
+tr>
+<td colspan="2">KUBECTL_EXPLAIN_OPENAPIV3</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">`kubectl explain` 호출에 사용 가능한 새로운 OpenAPIv3 데이터 소스를 사용할지 여부를 전환. 쿠버네티스 1.24 이후로, OpenAPIV3 는 기본적으로 활성화 되어있다.
+</td>
+</tr>
+
 </tbody>
 </table>
 
@@ -376,6 +386,7 @@ kubectl [flags]
 * [kubectl diff](/docs/reference/generated/kubectl/kubectl-commands#diff)	 - 적용 예정 버전과 라이브 버전 비교
 * [kubectl drain](/docs/reference/generated/kubectl/kubectl-commands#drain)	 - 유지 보수 준비 중 노드 드레인
 * [kubectl edit](/docs/reference/generated/kubectl/kubectl-commands#edit)	 - 서버에서 리소스 편집
+* [kubectl events](/docs/reference/generated/kubectl/kubectl-commands#events)  - 이벤트 목록 나열
 * [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands#exec)	 - 컨테이너에서 커맨드 실행
 * [kubectl explain](/docs/reference/generated/kubectl/kubectl-commands#explain)	 - 리소스의 문서
 * [kubectl expose](/docs/reference/generated/kubectl/kubectl-commands#expose)	 - 레플리케이션 컨트롤러, 서비스, 디플로이먼트 또는 파드를 가져와서 새로운 쿠버네티스 서비스로 노출

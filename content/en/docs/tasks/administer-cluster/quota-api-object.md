@@ -1,6 +1,7 @@
 ---
 title: Configure Quotas for API Objects
 content_type: task
+weight: 130
 ---
 
 
@@ -39,7 +40,7 @@ kubectl create namespace quota-object-example
 
 Here is the configuration file for a ResourceQuota object:
 
-{{< codenew file="admin/resource/quota-objects.yaml" >}}
+{{% code_sample file="admin/resource/quota-objects.yaml" %}}
 
 Create the ResourceQuota:
 
@@ -73,7 +74,7 @@ status:
 
 Here is the configuration file for a PersistentVolumeClaim object:
 
-{{< codenew file="admin/resource/quota-objects-pvc.yaml" >}}
+{{% code_sample file="admin/resource/quota-objects-pvc.yaml" %}}
 
 Create the PersistentVolumeClaim:
 
@@ -89,7 +90,7 @@ kubectl get persistentvolumeclaims --namespace=quota-object-example
 
 The output shows that the PersistentVolumeClaim exists and has status Pending:
 
-```shell
+```
 NAME             STATUS
 pvc-quota-demo   Pending
 ```
@@ -98,7 +99,7 @@ pvc-quota-demo   Pending
 
 Here is the configuration file for a second PersistentVolumeClaim:
 
-{{< codenew file="admin/resource/quota-objects-pvc-2.yaml" >}}
+{{% code_sample file="admin/resource/quota-objects-pvc-2.yaml" %}}
 
 Attempt to create the second PersistentVolumeClaim:
 

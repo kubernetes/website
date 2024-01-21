@@ -8,7 +8,7 @@ content_type: tutorial
 
 <!-- overview -->
 
-This page provides a real world example of how to configure Redis using a ConfigMap and builds upon the [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) task. 
+This page provides a real world example of how to configure Redis using a ConfigMap and builds upon the [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) task. 
 
 
 
@@ -27,7 +27,7 @@ This page provides a real world example of how to configure Redis using a Config
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 * The example shown on this page works with `kubectl` 1.14 and above.
-* Understand [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/).
+* Understand [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 
 
 
@@ -61,14 +61,14 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/main/conte
 Examine the contents of the Redis pod manifest and note the following:
 
 * A volume named `config` is created by `spec.volumes[1]`
-* The `key` and `path` under `spec.volumes[1].items[0]` exposes the `redis-config` key from the 
+* The `key` and `path` under `spec.volumes[1].configMap.items[0]` exposes the `redis-config` key from the 
   `example-redis-config` ConfigMap as a file named `redis.conf` on the `config` volume.
 * The `config` volume is then mounted at `/redis-master` by `spec.containers[0].volumeMounts[1]`.
 
 This has the net effect of exposing the data in `data.redis-config` from the `example-redis-config`
 ConfigMap above as `/redis-master/redis.conf` inside the Pod.
 
-{{< codenew file="pods/config/redis-pod.yaml" >}}
+{{% code_sample file="pods/config/redis-pod.yaml" %}}
 
 Examine the created objects:
 
@@ -78,7 +78,7 @@ kubectl get pod/redis configmap/example-redis-config
 
 You should see the following output:
 
-```shell
+```
 NAME        READY   STATUS    RESTARTS   AGE
 pod/redis   1/1     Running   0          8s
 
@@ -139,7 +139,7 @@ Which should also yield its default value of `noeviction`:
 
 Now let's add some configuration values to the `example-redis-config` ConfigMap:
 
-{{< codenew file="pods/config/example-redis-config.yaml" >}}
+{{% code_sample file="pods/config/example-redis-config.yaml" %}}
 
 Apply the updated ConfigMap:
 

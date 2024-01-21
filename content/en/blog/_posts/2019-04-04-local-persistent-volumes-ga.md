@@ -129,7 +129,7 @@ spec:
     spec:
       containers:
       - name: test-container
-        image: k8s.gcr.io/busybox
+        image: registry.k8s.io/busybox # updated after publication (previously used k8s.gcr.io/busybox)
         command:
         - "/bin/sh"
         args:

@@ -90,13 +90,6 @@ NamespaceStatus is information about the current status of a Namespace.
   - **conditions.type** (string), required
 
     Type of namespace controller condition.
-    
-    Possible enum values:
-     - `"NamespaceContentRemaining"` contains information about resources remaining in a namespace.
-     - `"NamespaceDeletionContentFailure"` contains information about namespace deleter errors during deletion of resources.
-     - `"NamespaceDeletionDiscoveryFailure"` contains information about namespace deleter errors during resource discovery.
-     - `"NamespaceDeletionGroupVersionParsingFailure"` contains information about namespace deleter errors parsing GV for legacy types.
-     - `"NamespaceFinalizersRemaining"` contains information about which finalizers are on resources remaining in a namespace.
 
   - **conditions.lastTransitionTime** (Time)
 
@@ -113,10 +106,6 @@ NamespaceStatus is information about the current status of a Namespace.
 - **phase** (string)
 
   Phase is the current lifecycle phase of the namespace. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
-  
-  Possible enum values:
-   - `"Active"` means the namespace is available for use in the system
-   - `"Terminating"` means the namespace is undergoing graceful termination
 
 
 
@@ -260,6 +249,11 @@ GET /api/v1/namespaces
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer

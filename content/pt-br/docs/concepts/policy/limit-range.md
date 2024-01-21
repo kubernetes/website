@@ -23,7 +23,7 @@ O suporte ao _LimitRange_ foi ativado por padrão desde o Kubernetes 1.10.
 
 Um _LimitRange_ é aplicado em um _namespace_ específico quando há um objeto _LimitRange_ nesse _namespace_.
 
-O nome de um objeto _LimitRange_ deve ser um [nome de subdomínio DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) válido.
+O nome de um objeto _LimitRange_ deve ser um [nome de subdomínio DNS](/pt-br/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) válido.
 
 ### Visão geral do Limit Range
 

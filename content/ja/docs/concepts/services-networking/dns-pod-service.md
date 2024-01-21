@@ -2,7 +2,7 @@
 reviewers:
 title: ServiceとPodに対するDNS
 content_type: concept
-weight: 20
+weight: 80
 ---
 <!-- overview -->
 このページではKubernetesによるDNSサポートについて概観します。
@@ -193,7 +193,7 @@ PodのDNS設定は、ユーザーがPodに対してそのDNS設定上でさら�
 
 下記のファイルはカスタムDNS設定を持ったPodの例です。
 
-{{< codenew file="service/networking/custom-dns.yaml" >}}
+{{% codenew file="service/networking/custom-dns.yaml" %}}
 
 上記のPodが作成されたとき、`test`コンテナは、コンテナ内の`/etc/resolv.conf`ファイル内にある下記の内容を取得します。
 
@@ -207,7 +207,7 @@ IPv6用のセットアップのためには、サーチパスとname serverは�
 
 ```
 $ kubectl exec -it dns-example -- cat /etc/resolv.conf
-nameserver fd00:79:30::a
+nameserver 2001:db8:30::a
 search default.svc.cluster.local svc.cluster.local cluster.local
 options ndots:5
 ```

@@ -21,7 +21,7 @@ kube-dns.
 
 ### Membuat Pod sederhana yang digunakan sebagai lingkungan pengujian
 
-{{< codenew file="admin/dns/dnsutils.yaml" >}}
+{{% codenew file="admin/dns/dnsutils.yaml" %}}
 
 Gunakan manifes berikut untuk membuat sebuah Pod:
 
@@ -160,7 +160,7 @@ Nama layanan adalah `kube-dns` baik untuk CoreDNS maupun kube-dns.
 {{< /note >}}
 
 Jika kamu telah membuat Service atau seharusnya Service telah dibuat secara bawaan namun ternyata tidak muncul, lihat
-[_debugging_ Service](/docs/tasks/debug-application-cluster/debug-service/) untuk informasi lebih lanjut.
+[_debugging_ Service](/docs/tasks/debug/debug-application/debug-service/) untuk informasi lebih lanjut.
 
 ### Apakah endpoint DNS telah ekspos?
 
@@ -175,7 +175,7 @@ kube-dns   10.180.3.17:53,10.180.3.17:53    1h
 ```
 
 Jika kamu tidak melihat _endpoint_, lihat bagian _endpoint_ pada dokumentasi
-[_debugging_ Service](/docs/tasks/debug-application-cluster/debug-service/).
+[_debugging_ Service](/docs/tasks/debug/debug-application/debug-service/).
 
 Untuk tambahan contoh Kubernetes DNS, lihat
 [contoh cluster-dns](https://github.com/kubernetes/examples/tree/master/staging/cluster-dns) pada repositori Kubernetes GitHub.

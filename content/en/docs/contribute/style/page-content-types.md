@@ -1,10 +1,7 @@
 ---
 title: Page content types
 content_type: concept
-weight: 30
-card:
-  name: contribute
-  weight: 30
+weight: 80
 ---
 
 <!-- overview -->

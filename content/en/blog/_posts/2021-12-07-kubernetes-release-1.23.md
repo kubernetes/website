@@ -32,7 +32,7 @@ Kubernetes releases now generate provenance attestation files describing the sta
 
 ### HorizontalPodAutoscaler v2 graduates to GA
 
-The HorizontalPodAutscaler `autoscaling/v2` stable API moved to GA in 1.23. The HorizontalPodAutoscaler `autoscaling/v2beta2` API has been deprecated.
+The HorizontalPodAutoscaler `autoscaling/v2` stable API moved to GA in 1.23. The HorizontalPodAutoscaler `autoscaling/v2beta2` API has been deprecated.
 
 ### Generic Ephemeral Volume feature graduates to GA
 
@@ -81,7 +81,7 @@ If the `ServerSideFieldValidation` feature gate is enabled starting 1.23, users 
 
 With the feature gate enabled, we also introduce the `fieldValidation` query parameter so that users can specify the desired behavior of the server on a per request basis. Valid values for the `fieldValidation` query parameter are:
 
-- Ignore (default when feature gate is disabled, same as pre-1.23 behavior of dropping/ignoring unkonwn fields)
+- Ignore (default when feature gate is disabled, same as pre-1.23 behavior of dropping/ignoring unknown fields)
 - Warn (default when feature gate is enabled).
 - Strict (this will fail the request with an Invalid Request error)
 

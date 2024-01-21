@@ -1,7 +1,12 @@
 ---
+# reviewers:
+# - saad-ali
+# - jsafrane
+# - thockin
+# - msau42
 title: 동적 볼륨 프로비저닝
 content_type: concept
-weight: 40
+weight: 50
 ---
 
 <!-- overview -->
@@ -13,9 +18,6 @@ weight: 40
 생성해야 한다. 동적 프로비저닝 기능을 사용하면 클러스터 관리자가
 스토리지를 사전 프로비저닝 할 필요가 없다. 대신 사용자가
 스토리지를 요청하면 자동으로 프로비저닝 한다.
-
-
-
 
 <!-- body -->
 
@@ -110,8 +112,8 @@ spec:
 - API 서버에서 [`DefaultStorageClass` 어드미션 컨트롤러](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)를
   사용하도록 설정한다.
 
-관리자는 `storageclass.kubernetes.io/is-default-class` 어노테이션을
-추가해서 특정 `StorageClass` 를 기본으로 표시할 수 있다.
+관리자는 [`storageclass.kubernetes.io/is-default-class` 어노테이션](/ko/docs/reference/labels-annotations-taints/#storageclass-kubernetes-io-is-default-class)을
+추가하여 특정 `StorageClass` 를 기본으로 표시할 수 있다.
 기본 `StorageClass` 가 클러스터에 존재하고 사용자가
 `storageClassName` 를 지정하지 않은 `PersistentVolumeClaim` 을
 작성하면, `DefaultStorageClass` 어드미션 컨트롤러가 디폴트

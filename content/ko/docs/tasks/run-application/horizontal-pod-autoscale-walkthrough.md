@@ -1,9 +1,9 @@
 ---
-
-
-
-
-
+# reviewers:
+# - fgrzadkowski
+# - jszczepkowski
+# - justinsb
+# - directxman12
 title: HorizontalPodAutoscaler 연습
 content_type: task
 weight: 100
@@ -54,31 +54,8 @@ Metrics Server를 실행하는 방법을 보려면
 
 ## php-apache 서버 구동 및 노출
 
-HorizontalPodAutoscaler 예시에서, 
-먼저 도커 허브의 `php-apache` 이미지를 베이스로 하는 커스텀 컨테이너 이미지를 만들어 시작점으로 삼을 것이다. 
-`Dockerfile`은 미리 준비되어 있으며, 내용은 다음과 같다.
-
-```dockerfile
-FROM php:5-apache
-COPY index.php /var/www/html/index.php
-RUN chmod a+rx index.php
-```
-
-아래의 코드는 CPU 과부하 연산을 수행하는 간단한 `index.php` 페이지를 정의하며,
-이를 이용해 클러스터에 부하를 시뮬레이트한다.
-
-```php
-<?php
-  $x = 0.0001;
-  for ($i = 0; $i <= 1000000; $i++) {
-    $x += sqrt($x);
-  }
-  echo "OK!";
-?>
-```
-
-컨테이너 이미지를 만들었다면, 
-방금 만든 이미지로부터 컨테이너를 실행하는 디플로이먼트를 시작하고, 다음의 매니페스트를 사용하여 디플로이먼트를 
+HorizontalPodAutoscaler 시연을 위해, `hpa-example` 이미지를 사용하여 컨테이너를 실행하는 디플로이먼트를 시작하고,
+다음의 매니페스트를 사용하여 디플로이먼트를
 {{< glossary_tooltip term_id="service" text="서비스">}}로 노출한다.
 
 {{< codenew file="application/php-apache.yaml" >}}
@@ -152,7 +129,7 @@ php-apache   Deployment/php-apache/scale   0% / 50%  1         10        1      
 ```shell
 # 부하 생성을 유지하면서 나머지 스텝을 수행할 수 있도록,
 # 다음의 명령을 별도의 터미널에서 실행한다.
-kubectl run -i --tty load-generator --rm --image=busybox --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://php-apache; done"
+kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://php-apache; done"
 ```
 
 이제 아래 명령을 실행한다.
@@ -321,7 +298,7 @@ object:
   metric:
     name: requests-per-second
   describedObject:
-    apiVersion: networking.k8s.io/v1beta1
+    apiVersion: networking.k8s.io/v1
     kind: Ingress
     name: main-route
   target:
@@ -367,7 +344,7 @@ spec:
       metric:
         name: requests-per-second
       describedObject:
-        apiVersion: networking.k8s.io/v1beta1
+        apiVersion: networking.k8s.io/v1
         kind: Ingress
         name: main-route
       target:
@@ -390,7 +367,7 @@ status:
       metric:
         name: requests-per-second
       describedObject:
-        apiVersion: networking.k8s.io/v1beta1
+        apiVersion: networking.k8s.io/v1
         kind: Ingress
         name: main-route
       current:

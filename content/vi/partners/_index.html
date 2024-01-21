@@ -7,85 +7,48 @@ cid: partners
 ---
 
 <section id="users">
-    <main class="main-section">
-        <h5>Kubernetes phối hợp làm việc với các đối tác để tạo ra một codebase mạnh mẽ hỗ trợ một loạt các nền tảng bổ sung.</h5>
-        <div class="col-container">
-          <div class="col-nav">
-            <center>
-              <h5>
-                <b>Các nhà cung cấp dịch vụ được chứng nhận bởi Kubernetes (KCSP)</b>
-              </h5>
-              <br>Các nhà cung cấp dịch vụ được chứng nhận với bề dày kinh nghiệm sẽ trợ giúp các tổ chức kinh doanh, các công ty ứng dụng Kubernetes nhanh chóng.
-              <br><br><br>
-              <button id="kcsp" class="button" onClick="updateSrc(this.id)">Xem các đối tác KCSP</button>
-              <br><br>Bạn muốn trở thành một <a href="https://www.cncf.io/certification/kcsp/">KCSP</a>?
-            </center>
-          </div>
-          <div class="col-nav">
-            <center>
-              <h5>
-                <b>Các nhà phân phối Kubernetes, dịch vụ hosting, dịch vụ cài đặt</b>
-              </h5>Tiêu chuẩn tương thích về phần mềm bảo đảm rằng các phiên bản Kubernetes từ các nhà cung cấp sẽ hỗ trợ các bộ API được yêu cầu bởi khách hàng.
-              <br><br><br>
-              <button id="conformance" class="button" onClick="updateSrc(this.id)">Xem các đối tác Conformance</button>
-              <br><br>Bạn muốn trở thành một <a href="https://www.cncf.io/certification/software-conformance/">Kubernetes Certified</a>?
-            </center>
-          </div>
-          <div class="col-nav">
-            <center>
-              <h5><b>Các đối tác đào tạo Kubernetes (KTP)</b></h5>
-              <br>Các đối tác đào tạo được chứng nhận đã và đang sở hữu bề dày kinh nghiệm trong lĩnh vực đám mây.
-              <br><br><br><br>
-              <button id="ktp" class="button" onClick="updateSrc(this.id)">Xem các đối tác KTP</button>
-              <br><br>Bạn muốn trở thành một <a href="https://www.cncf.io/certification/training/">KTP</a>?
-            </center>
-          </div>
-        </div>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<script type="text/javascript">
-
-			var defaultLink = "https://landscape.cncf.io/category=kubernetes-certified-service-provider&format=card-mode&grouping=category&embed=yes";
-			var firstLink = "https://landscape.cncf.io/category=certified-kubernetes-distribution,certified-kubernetes-hosted,certified-kubernetes-installer&format=card-mode&grouping=category&embed=yes";
-      var secondLink = "https://landscape.cncf.io/category=kubernetes-training-partner&format=card-mode&grouping=category&embed=yes";
-
-      function updateSrc(buttonId) {
-      	if (buttonId == "kcsp") {
-        		$("#landscape").attr("src",defaultLink);
-            window.location.hash = "#kcsp";
-        }
-        if (buttonId == "conformance") {
-         		$("#landscape").attr("src",firstLink);
-            window.location.hash = "#conformance";
-        }
-        if (buttonId == "ktp") {
-        		$("#landscape").attr("src",secondLink);
-            window.location.hash = "#ktp";
-        }
-      }
-
-      // Automatically load the correct iframe based on the URL fragment
-      document.addEventListener('DOMContentLoaded', function() {
-        var showContent = "kcsp";
-        if (window.location.hash) {
-          console.log('hash is:', window.location.hash.substring(1));
-          showContent = window.location.hash.substring(1);
-        }
-        updateSrc(showContent);
-      });
-</script>
-<body>
-    <div id="frameHolder">
-      <iframe id="landscape" title="CNCF Landscape" frameBorder="0" scrolling="no" style="width: 1px; min-width: 100%" src=""></iframe>
-      <script src="https://landscape.cncf.io/iframeResizer.js"></script>
+    <h5>Kubernetes phối hợp làm việc với các đối tác để tạo ra một codebase mạnh mẽ hỗ trợ một loạt các nền tảng bổ sung.</h5>
+    <div class="col-container">
+      <div class="col-nav">
+        <center>
+          <h5>
+            <b>Các nhà cung cấp dịch vụ được chứng nhận bởi Kubernetes (KCSP)</b>
+          </h5>
+          <br>Các nhà cung cấp dịch vụ được chứng nhận với bề dày kinh nghiệm sẽ trợ giúp các tổ chức kinh doanh, các công ty ứng dụng Kubernetes nhanh chóng.
+          <br><br><br>
+          <button class="button landscape-trigger landscape-default" data-landscape-types="special--kubernetes-certified-service-provider" id="kcsp">Xem các đối tác KCSP</button>
+          <br><br>Bạn muốn trở thành một
+          <a href="https://www.cncf.io/certification/kcsp/">KCSP</a>?
+        </center>
+      </div>
+      <div class="col-nav">
+        <center>
+          <h5>
+            <b>Các nhà phân phối Kubernetes, dịch vụ hosting, dịch vụ cài đặt</b>
+          </h5>Tiêu chuẩn tương thích về phần mềm bảo đảm rằng các phiên bản Kubernetes từ các nhà cung cấp sẽ hỗ trợ các bộ API được yêu cầu bởi khách hàng.
+          <br><br><br>
+          <button class="button landscape-trigger" data-landscape-types="platform" id="conformance">Xem các đối tác Conformance</button>
+          <br><br>Bạn muốn trở thành một
+          <a href="https://www.cncf.io/certification/software-conformance/">Kubernetes Certified</a>?
+        </center>
+      </div>
+      <div class="col-nav">
+        <center>
+          <h5>
+            <b>Các đối tác đào tạo Kubernetes (KTP)</b>
+          </h5>
+          <br>Các đối tác đào tạo được chứng nhận đã và đang sở hữu bề dày kinh nghiệm trong lĩnh vực đám mây.
+          <br><br><br>
+          <button class="button landscape-trigger" data-landscape-types="special--kubernetes-training-partner" id="ktp">Xem các đối tác KTP</button>
+          <br><br>Bạn muốn trở thành một
+          <a href="https://www.cncf.io/certification/training/">KTP</a>?
+        </center>
+      </div>
     </div>
-</body>
-    </main>
+    {{< cncf-landscape helpers=true >}}
 </section>
 
 <style>
     {{< include "partner-style.css" >}}
 </style>
 
-<script>
-    {{< include "partner-script.js" >}}
-</script>

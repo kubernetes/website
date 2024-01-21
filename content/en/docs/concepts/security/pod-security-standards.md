@@ -29,10 +29,9 @@ This guide outlines the requirements of each policy.
 **The _Privileged_ policy is purposely-open, and entirely unrestricted.** This type of policy is
 typically aimed at system- and infrastructure-level workloads managed by privileged, trusted users.
 
-The Privileged policy is defined by an absence of restrictions. For allow-by-default enforcement
-mechanisms (such as gatekeeper), the Privileged policy may be an absence of applied constraints
-rather than an instantiated profile. In contrast, for a deny-by-default mechanism (such as Pod
-Security Policy) the Privileged policy should enable all controls (disable all restrictions).
+The Privileged policy is defined by an absence of restrictions. Allow-by-default
+mechanisms (such as gatekeeper) may be Privileged by default. In contrast, for a deny-by-default mechanism (such as Pod
+Security Policy) the Privileged policy should disable all restrictions.
 
 ### Baseline
 
@@ -58,7 +57,7 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap">HostProcess</td>
 			<td>
-				<p>Windows pods offer the ability to run <a href="/docs/tasks/configure-pod-container/create-hostprocess-pod">HostProcess containers</a> which enables privileged access to the Windows node. Privileged access to the host is disallowed in the baseline policy. HostProcess pods are an <strong>alpha</strong> feature as of Kubernetes <strong>v1.22</strong>.</p>
+				<p>Windows pods offer the ability to run <a href="/docs/tasks/configure-pod-container/create-hostprocess-pod">HostProcess containers</a> which enables privileged access to the Windows node. Privileged access to the host is disallowed in the baseline policy. {{< feature-state for_k8s_version="v1.26" state="stable" >}}</p>
 				<p><strong>Restricted Fields</strong></p>
 				<ul>
 					<li><code>spec.securityContext.windowsOptions.hostProcess</code></li>
@@ -153,7 +152,7 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap">Host Ports</td>
 			<td>
-				<p>HostPorts should be disallowed, or at minimum restricted to a known list.</p>
+				<p>HostPorts should be disallowed entirely (recommended) or restricted to a known list</p>
 				<p><strong>Restricted Fields</strong></p>
 				<ul>
 					<li><code>spec.containers[*].ports[*].hostPort</code></li>
@@ -163,7 +162,7 @@ fail validation.
 				<p><strong>Allowed Values</strong></p>
 				<ul>
 					<li>Undefined/nil</li>
-					<li>Known list</li>
+					<li>Known list (not supported by the built-in <a href="/docs/concepts/security/pod-security-admission/">Pod Security Admission controller</a>)</li>
 					<li><code>0</code></li>
 				</ul>
 			</td>
@@ -272,6 +271,11 @@ fail validation.
 					<li><code>net.ipv4.ip_unprivileged_port_start</code></li>
 					<li><code>net.ipv4.tcp_syncookies</code></li>
 					<li><code>net.ipv4.ping_group_range</code></li>
+					<li><code>net.ipv4.ip_local_reserved_ports</code> (since Kubernetes 1.27)</li>
+					<li><code>net.ipv4.tcp_keepalive_time</code> (since Kubernetes 1.29)</li>
+					<li><code>net.ipv4.tcp_fin_timeout</code> (since Kubernetes 1.29)</li>
+					<li><code>net.ipv4.tcp_keepalive_intvl</code> (since Kubernetes 1.29)</li>
+					<li><code>net.ipv4.tcp_keepalive_probes</code> (since Kubernetes 1.29)</li>
 				</ul>
 			</td>
 		</tr>
@@ -327,7 +331,7 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap">Privilege Escalation (v1.8+)</td>
 			<td>
-				<p>Privilege escalation (such as via set-user-ID or set-group-ID file mode) should not be allowed.</p>
+				<p>Privilege escalation (such as via set-user-ID or set-group-ID file mode) should not be allowed. <em><a href="#os-specific-policy-controls">This is Linux only policy</a> in v1.25+ <code>(spec.os.name != windows)</code></em></p>
 				<p><strong>Restricted Fields</strong></p>
 				<ul>
 					<li><code>spec.containers[*].securityContext.allowPrivilegeEscalation</code></li>
@@ -368,7 +372,7 @@ fail validation.
 				<p><strong>Restricted Fields</strong></p>
 				<ul>
 					<li><code>spec.securityContext.runAsUser</code></li>
-					<li><code>spec.containers[*].securityContext.runAsUser</code></li>
+				    <li><code>spec.containers[*].securityContext.runAsUser</code></li>
 					<li><code>spec.initContainers[*].securityContext.runAsUser</code></li>
 					<li><code>spec.ephemeralContainers[*].securityContext.runAsUser</code></li>
 				</ul>
@@ -382,7 +386,7 @@ fail validation.
 		<tr>
   			<td style="white-space: nowrap">Seccomp (v1.19+)</td>
   			<td>
-  				<p>Seccomp profile must be explicitly set to one of the allowed values. Both the <code>Unconfined</code> profile and the <em>absence</em> of a profile are prohibited.</p>
+  				<p>Seccomp profile must be explicitly set to one of the allowed values. Both the <code>Unconfined</code> profile and the <em>absence</em> of a profile are prohibited. <em><a href="#os-specific-policy-controls">This is Linux only policy</a> in v1.25+ <code>(spec.os.name != windows)</code></em></p>
   				<p><strong>Restricted Fields</strong></p>
 				<ul>
 					<li><code>spec.securityContext.seccompProfile.type</code></li>
@@ -408,7 +412,7 @@ fail validation.
 			<td>
 				<p>
 					Containers must drop <code>ALL</code> capabilities, and are only permitted to add back
-					the <code>NET_BIND_SERVICE</code> capability.
+ 					the <code>NET_BIND_SERVICE</code> capability. <em><a href="#os-specific-policy-controls">This is Linux only policy</a> in v1.25+ <code>(.spec.os.name != "windows")</code></em>
 				</p>
 				<p><strong>Restricted Fields</strong></p>
 				<ul>
@@ -452,11 +456,45 @@ of individual policies are not defined here.
 - {{< example file="security/podsecurity-baseline.yaml" >}}Baseline namespace{{< /example >}}
 - {{< example file="security/podsecurity-restricted.yaml" >}}Restricted namespace{{< /example >}}
 
-[**PodSecurityPolicy**](/docs/concepts/policy/pod-security-policy/) (Deprecated)
+### Alternatives
 
-- {{< example file="policy/privileged-psp.yaml" >}}Privileged{{< /example >}}
-- {{< example file="policy/baseline-psp.yaml" >}}Baseline{{< /example >}}
-- {{< example file="policy/restricted-psp.yaml" >}}Restricted{{< /example >}}
+{{% thirdparty-content %}}
+
+Other alternatives for enforcing policies are being developed in the Kubernetes ecosystem, such as: 
+
+- [Kubewarden](https://github.com/kubewarden)
+- [Kyverno](https://kyverno.io/policies/pod-security/)
+- [OPA Gatekeeper](https://github.com/open-policy-agent/gatekeeper)
+
+## Pod OS field
+
+Kubernetes lets you use nodes that run either Linux or Windows. You can mix both kinds of
+node in one cluster.
+Windows in Kubernetes has some limitations and differentiators from Linux-based
+workloads. Specifically, many of the Pod `securityContext` fields
+[have no effect on Windows](/docs/concepts/windows/intro/#compatibility-v1-pod-spec-containers-securitycontext).
+
+{{< note >}}
+Kubelets prior to v1.24 don't enforce the pod OS field, and if a cluster has nodes on versions earlier than v1.24 the restricted policies should be pinned to a version prior to v1.25.
+{{< /note >}}
+
+### Restricted Pod Security Standard changes
+Another important change, made in Kubernetes v1.25 is that the  _restricted_ Pod security
+has been updated to use the `pod.spec.os.name` field. Based on the OS name, certain policies that are specific
+to a particular OS can be relaxed for the other OS.
+
+
+#### OS-specific policy controls
+Restrictions on the following controls are only required if `.spec.os.name` is not `windows`:
+- Privilege Escalation
+- Seccomp
+- Linux Capabilities
+
+## User namespaces
+
+User Namespaces are a Linux-only feature to run workloads with increased
+isolation. How they work together with Pod Security Standards is described in
+the [documentation](/docs/concepts/workloads/pods/user-namespaces#integration-with-pod-security-admission-checks) for Pods that use user namespaces.
 
 ## FAQ
 
@@ -478,32 +516,9 @@ in the Pod manifest, and represent parameters to the container runtime.
 
 Security profiles are control plane mechanisms to enforce specific settings in the Security Context,
 as well as other related parameters outside the Security Context. As of July 2021, 
-[Pod Security Policies](/docs/concepts/profile/pod-security-profile/) are deprecated in favor of the
+[Pod Security Policies](/docs/concepts/security/pod-security-policy/) are deprecated in favor of the
 built-in [Pod Security Admission Controller](/docs/concepts/security/pod-security-admission/). 
 
-{{% thirdparty-content %}}
-
-Other alternatives for enforcing security profiles are being developed in the Kubernetes
-ecosystem, such as: 
-- [OPA Gatekeeper](https://github.com/open-policy-agent/gatekeeper).
-- [Kubewarden](https://github.com/kubewarden).
-- [Kyverno](https://kyverno.io/policies/pod-security/).
-
-### What profiles should I apply to my Windows Pods?
-
-Windows in Kubernetes has some limitations and differentiators from standard Linux-based
-workloads. Specifically, many of the Pod SecurityContext fields [have no effect on
-Windows](/docs/setup/production-environment/windows/intro-windows-in-kubernetes/#v1-podsecuritycontext). As
-such, no standardized Pod Security profiles currently exist.
-
-If you apply the restricted profile for a Windows pod, this **may** have an impact on the pod
-at runtime. The restricted profile requires enforcing Linux-specific restrictions (such as seccomp
-profile, and disallowing privilege escalation). If the kubelet and / or its container runtime ignore
-these Linux-specific values, then the Windows pod should still work normally within the restricted
-profile. However, the lack of enforcement means that there is no additional restriction, for Pods
-that use Windows containers, compared to the baseline profile.
-
-The use of the HostProcess flag to create a HostProcess pod should only be done in alignment with the privileged policy. Creation of a Windows HostProcess pod is blocked under the baseline and restricted policies, so any HostProcess pod should be considered privileged.
 
 ### What about sandboxed Pods?
 
@@ -517,3 +532,4 @@ kernel. This allows for workloads requiring heightened permissions to still be i
 
 Additionally, the protection of sandboxed workloads is highly dependent on the method of
 sandboxing. As such, no single recommended profile is recommended for all sandboxed workloads.
+

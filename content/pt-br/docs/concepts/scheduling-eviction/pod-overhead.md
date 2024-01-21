@@ -188,6 +188,6 @@ mas é esperado em uma próxima versão. Os usuários necessitarão entretanto c
 
 
 * [RuntimeClass](/docs/concepts/containers/runtime-class/)
-* [PodOverhead Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
+* [PodOverhead Design](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)
 
 

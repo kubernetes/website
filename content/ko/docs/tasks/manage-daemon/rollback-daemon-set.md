@@ -1,4 +1,6 @@
 ---
+# reviewers:
+# - janetkuo
 title: 데몬셋(DaemonSet)에서 롤백 수행
 content_type: task
 weight: 20

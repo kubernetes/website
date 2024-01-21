@@ -3,7 +3,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference conent, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -34,16 +34,17 @@ certs                        Certificate generation
   /sa                          Generate a private key for signing service account tokens along with its public key
 kubeconfig                   Generate all kubeconfig files necessary to establish the control plane and the admin kubeconfig file
   /admin                       Generate a kubeconfig file for the admin to use and for kubeadm itself
+  /super-admin                 Generate a kubeconfig file for the super-admin
   /kubelet                     Generate a kubeconfig file for the kubelet to use *only* for cluster bootstrapping purposes
   /controller-manager          Generate a kubeconfig file for the controller manager to use
   /scheduler                   Generate a kubeconfig file for the scheduler to use
-kubelet-start                Write kubelet settings and (re)start the kubelet
+etcd                         Generate static Pod manifest file for local etcd
+  /local                       Generate the static Pod manifest file for a local, single-node local etcd instance
 control-plane                Generate all static Pod manifest files necessary to establish the control plane
   /apiserver                   Generates the kube-apiserver static Pod manifest
   /controller-manager          Generates the kube-controller-manager static Pod manifest
   /scheduler                   Generates the kube-scheduler static Pod manifest
-etcd                         Generate static Pod manifest file for local etcd
-  /local                       Generate the static Pod manifest file for a local, single-node local etcd instance
+kubelet-start                Write kubelet settings and (re)start the kubelet
 upload-config                Upload the kubeadm and kubelet configuration to a ConfigMap
   /kubeadm                     Upload the kubeadm ClusterConfiguration to a ConfigMap
   /kubelet                     Upload the kubelet component config to a ConfigMap
@@ -55,6 +56,7 @@ kubelet-finalize             Updates settings relevant to the kubelet after TLS 
 addon                        Install required addons for passing conformance tests
   /coredns                     Install the CoreDNS addon to a Kubernetes cluster
   /kube-proxy                  Install the kube-proxy addon to a Kubernetes cluster
+show-join-command            Show the join command for control-plane and worker node
 ```
 
 
@@ -103,7 +105,7 @@ kubeadm init [flags]
 <td colspan="2">--certificate-key string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Key used to encrypt the control-plane certificates in the kubeadm-certs Secret.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Key used to encrypt the control-plane certificates in the kubeadm-certs Secret. The certificate key is a hex encoded string that is an AES key of size 32 bytes.</p></td>
 </tr>
 
 <tr>
@@ -138,7 +140,7 @@ kubeadm init [flags]
 <td colspan="2">--feature-gates string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A set of key=value pairs that describe feature gates for various features. Options are:<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)<br/>UnversionedKubeletConfigMap=true|false (ALPHA - default=false)</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A set of key=value pairs that describe feature gates for various features. Options are:<br/>EtcdLearnerMode=true|false (BETA - default=true)<br/>PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)<br/>UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - default=false)</p></td>
 </tr>
 
 <tr>
@@ -156,7 +158,7 @@ kubeadm init [flags]
 </tr>
 
 <tr>
-<td colspan="2">--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "k8s.gcr.io"</td>
+<td colspan="2">--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "registry.k8s.io"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Choose a container registry to pull control plane images from</p></td>
@@ -180,7 +182,7 @@ kubeadm init [flags]
 <td colspan="2">--patches string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a directory that contains files named &quot;target[suffix][+patchtype].extension&quot;. For example, &quot;kube-apiserver0+merge.yaml&quot; or just &quot;etcd.json&quot;. &quot;target&quot; can be one of &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;. &quot;patchtype&quot; can be one of &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot; and they match the patch formats supported by kubectl. The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&quot; must be either &quot;json&quot; or &quot;yaml&quot;. &quot;suffix&quot; is an optional string that can be used to determine which patches are applied first alpha-numerically.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a directory that contains files named &quot;target[suffix][+patchtype].extension&quot;. For example, &quot;kube-apiserver0+merge.yaml&quot; or just &quot;etcd.json&quot;. &quot;target&quot; can be one of &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;, &quot;kubeletconfiguration&quot;. &quot;patchtype&quot; can be one of &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot; and they match the patch formats supported by kubectl. The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&quot; must be either &quot;json&quot; or &quot;yaml&quot;. &quot;suffix&quot; is an optional string that can be used to determine which patches are applied first alpha-numerically.</p></td>
 </tr>
 
 <tr>

@@ -2,7 +2,7 @@
 title: QoS Class
 id: qos-class
 date: 2019-04-15
-full_link: 
+full_link: /docs/concepts/workloads/pods/pod-qos/
 short_description: >
   QoS Class (Quality of Service Class) provides a way for Kubernetes to classify pods within the cluster into several classes and make decisions about scheduling and eviction.
 

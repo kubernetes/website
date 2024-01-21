@@ -2,6 +2,7 @@
 title: 소스 IP 주소 이용하기
 content_type: tutorial
 min-kubernetes-server-version: v1.5
+weight: 40
 ---
 
 <!-- overview -->
@@ -48,7 +49,7 @@ min-kubernetes-server-version: v1.5
 작은 nginx 웹 서버를 이용한다. 다음과 같이 생성할 수 있다.
 
 ```shell
-kubectl create deployment source-ip-app --image=k8s.gcr.io/echoserver:1.4
+kubectl create deployment source-ip-app --image=registry.k8s.io/echoserver:1.4
 ```
 출력은 다음과 같다.
 ```
@@ -119,7 +120,7 @@ clusterip    ClusterIP   10.0.170.92   <none>        80/TCP    51s
 그리고 동일한 클러스터의 파드에서 `클러스터IP`를 치면:
 
 ```shell
-kubectl run busybox -it --image=busybox --restart=Never --rm
+kubectl run busybox -it --image=busybox:1.28 --restart=Never --rm
 ```
 출력은 다음과 같다.
 ```
@@ -204,24 +205,12 @@ client_address=10.240.0.3
 * 파드의 응답은 node2로 다시 라우팅된다.
 * 파드의 응답은 클라이언트로 다시 전송된다.
 
-시각적으로
+이를 그림으로 표현하면 다음과 같다.
 
-{{< mermaid >}}
-graph LR;
-  client(client)-->node2[Node 2];
-  node2-->client;
-  node2-. SNAT .->node1[Node 1];
-  node1-. SNAT .->node2;
-  node1-->endpoint(Endpoint);
-
-  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
-  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-  class node1,node2,endpoint k8s;
-  class client plain;
-{{</ mermaid >}}
+{{< figure src="/docs/images/tutor-service-nodePort-fig01.svg" alt="source IP nodeport figure 01" class="diagram-large" caption="그림. Source IP Type=NodePort using SNAT" link="https://mermaid.live/edit#pako:eNqNkV9rwyAUxb-K3LysYEqS_WFYKAzat9GHdW9zDxKvi9RoMIZtlH732ZjSbE970cu5v3s86hFqJxEYfHjRNeT5ZcUtIbXRaMNN2hZ5vrYRqt52cSXV-4iMSuwkZiYtyX739EqWaahMQ-V1qPxDVLNOvkYrO6fj2dupWMR2iiT6foOKdEZoS5Q2hmVSStoH7w7IMqXUVOefWoaG3XVftHbGeZYVRbH6ZXJ47CeL2-qhxvt_ucTe1SUlpuMN6CX12XeGpLdJiaMMFFr0rdAyvvfxjHEIDbbIgcVSohKDCRy4PUV06KQIuJU6OA9MCdMjBTEEt_-2NbDgB7xAGy3i97VJPP0ABRmcqg" >}}
 
 이를 피하기 위해 쿠버네티스는
-[클라이언트 소스 IP 주소를 보존](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)하는 기능이 있다.
+[클라이언트 소스 IP 주소를 보존](/ko/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)하는 기능이 있다.
 `service.spec.externalTrafficPolicy` 의 값을 `Local` 로 하면
 오직 로컬 엔드포인트로만 프록시 요청하고
 다른 노드로 트래픽 전달하지 않는다. 이 방법은 원본
@@ -260,20 +249,9 @@ client_address=104.132.1.79
 * 클라이언트는 패킷을 엔드포인트를 가진 `node1:nodePort` 보낸다.
 * node1은 패킷을 올바른 소스 IP 주소로 엔드포인트로 라우팅 한다.
 
-시각적으로
+이를 시각적으로 표현하면 다음과 같다.
 
-{{< mermaid >}}
-graph TD;
-  client --> node1[Node 1];
-  client(client) --x node2[Node 2];
-  node1 --> endpoint(endpoint);
-  endpoint --> node1;
-
-  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
-  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-  class node1,node2,endpoint k8s;
-  class client plain;
-{{</ mermaid >}}
+{{< figure src="/docs/images/tutor-service-nodePort-fig02.svg" alt="source IP nodeport figure 02" class="diagram-large" caption="그림. Source IP Type=NodePort preserves client source IP address" link="" >}}
 
 
 
@@ -324,7 +302,7 @@ client_address=10.240.0.5
 강제로 로드밸런싱 트래픽을 받을 수 있는 노드 목록에서
 자신을 스스로 제거한다.
 
-시각적으로:
+이를 그림으로 표현하면 다음과 같다.
 
 ![Source IP with externalTrafficPolicy](/images/docs/sourceip-externaltrafficpolicy.svg)
 
@@ -346,10 +324,10 @@ kubectl get svc loadbalancer -o yaml | grep -i healthCheckNodePort
 ```
 
 `service.spec.healthCheckNodePort` 필드는 `/healthz`에서 헬스 체크를 제공하는
-모든 노드의 포트를 가르킨다. 이것을 테스트할 수 있다.
+모든 노드의 포트를 가리킨다. 이것을 테스트할 수 있다.
 
 ```shell
-kubectl get pod -o wide -l run=source-ip-app
+kubectl get pod -o wide -l app=source-ip-app
 ```
 출력은 다음과 유사하다.
 ```
@@ -438,5 +416,5 @@ kubectl delete deployment source-ip-app
 
 ## {{% heading "whatsnext" %}}
 
-* [서비스를 통한 애플리케이션 연결하기](/ko/docs/concepts/services-networking/connect-applications-service/)를 더 자세히 본다.
-* [외부 로드밸런서 생성](/docs/tasks/access-application-cluster/create-external-load-balancer/) 방법을 본다.
+* [서비스를 통한 애플리케이션 연결하기](/ko/docs/tutorials/services/connect-applications-service/)를 더 자세히 본다.
+* [외부 로드밸런서 생성](/ko/docs/tasks/access-application-cluster/create-external-load-balancer/) 방법을 본다.

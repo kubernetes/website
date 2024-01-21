@@ -1,7 +1,7 @@
 ---
 title: Finalizers
 content_type: concept
-weight: 60
+weight: 80
 ---
 
 <!-- overview -->
@@ -9,8 +9,8 @@ weight: 60
 {{<glossary_definition term_id="finalizer" length="long">}}
 
 You can use finalizers to control {{<glossary_tooltip text="garbage collection" term_id="garbage-collection">}}
-of resources by alerting {{<glossary_tooltip text="controllers" term_id="controller">}} to perform specific cleanup tasks before
-deleting the target resource. 
+of {{< glossary_tooltip text="objects" term_id="object" >}} by alerting {{<glossary_tooltip text="controllers" term_id="controller">}}
+to perform specific cleanup tasks before deleting the target resource.
 
 Finalizers don't usually specify the code to execute. Instead, they are
 typically lists of keys on a specific resource similar to annotations.
@@ -26,7 +26,7 @@ and does the following:
 
   * Modifies the object to add a `metadata.deletionTimestamp` field with the
     time you started the deletion.
-  * Prevents the object from being removed until its `metadata.finalizers` field is empty.
+  * Prevents the object from being removed until all items are removed from its `metadata.finalizers` field
   * Returns a `202` status code (HTTP "Accepted")
 
 The controller managing that finalizer notices the update to the object setting the
@@ -44,6 +44,16 @@ try to delete the `PersistentVolume`, it enters a `Terminating` status, but the
 controller can't delete it because the finalizer exists. When the Pod stops
 using the `PersistentVolume`, Kubernetes clears the `pv-protection` finalizer,
 and the controller deletes the volume.
+
+{{<note>}}
+* When you `DELETE` an object, Kubernetes adds the deletion timestamp for that object and then
+immediately starts to restrict changes to the `.metadata.finalizers` field for the object that is
+now pending deletion. You can remove existing finalizers (deleting an entry from the `finalizers`
+list) but you cannot add a new finalizer. You also cannot modify the `deletionTimestamp` for an
+object once it is set.
+
+* After the deletion is requested, you can not resurrect this object. The only way is to delete it and make a new similar object.
+{{</note>}}
 
 ## Owner references, labels, and finalizers {#owners-labels-finalizers}
 

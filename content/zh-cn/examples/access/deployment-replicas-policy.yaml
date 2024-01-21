@@ -1,0 +1,19 @@
+apiVersion: admissionregistration.k8s.io/v1alpha1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: "deploy-replica-policy.example.com"
+spec:
+  paramKind:
+    apiVersion: rules.example.com/v1
+    kind: ReplicaLimit
+  matchConstraints:
+    resourceRules:
+    - apiGroups:   ["apps"]
+      apiVersions: ["v1"]
+      operations:  ["CREATE", "UPDATE"]
+      resources:   ["deployments"]
+  validations:
+  - expression: "object.spec.replicas <= params.maxReplicas"
+    messageExpression: "'object.spec.replicas must be no greater than ' + string(params.maxReplicas)"
+    reason: Invalid
+

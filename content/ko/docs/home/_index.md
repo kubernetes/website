@@ -1,12 +1,12 @@
 ---
-
-
+# approvers:
+# - chenopis
 title: 쿠버네티스 문서
 noedit: true
 cid: docsHome
 layout: docsportal_home
 class: gridPage gridPageHome
-linkTitle: "홈"
+linkTitle: "문서"
 main_menu: true
 weight: 10
 hide_feedback: true
@@ -60,7 +60,7 @@ cards:
   title: K8s 릴리스 노트
   description: 쿠버네티스를 설치하거나 최신의 버전으로 업그레이드하는 경우, 현재 릴리스 노트를 참고한다.
   button: "쿠버네티스 다운로드"
-  button_path: "/docs/setup/release/notes"
+  button_path: "/releases/download"
 - name: about
   title: 문서에 대하여
   description: 이 웹사이트는 현재 버전과 이전 4개 버전의 쿠버네티스 문서를 포함한다.

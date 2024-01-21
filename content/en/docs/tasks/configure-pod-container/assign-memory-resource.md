@@ -69,7 +69,7 @@ In this exercise, you create a Pod that has one Container. The Container has a m
 request of 100 MiB and a memory limit of 200 MiB. Here's the configuration file
 for the Pod:
 
-{{< codenew file="pods/resource/memory-request-limit.yaml" >}}
+{{% code_sample file="pods/resource/memory-request-limit.yaml" %}}
 
 The `args` section in the configuration file provides arguments for the Container when it starts.
 The `"--vm-bytes", "150M"` arguments tell the Container to attempt to allocate 150 MiB of memory.
@@ -139,7 +139,7 @@ In this exercise, you create a Pod that attempts to allocate more memory than it
 Here is the configuration file for a Pod that has one Container with a
 memory request of 50 MiB and a memory limit of 100 MiB:
 
-{{< codenew file="pods/resource/memory-request-limit-2.yaml" >}}
+{{% code_sample file="pods/resource/memory-request-limit-2.yaml" %}}
 
 In the `args` section of the configuration file, you can see that the Container
 will attempt to allocate 250 MiB of memory, which is well above the 100 MiB limit.
@@ -171,7 +171,7 @@ kubectl get pod memory-demo-2 --output=yaml --namespace=mem-example
 
 The output shows that the Container was killed because it is out of memory (OOM):
 
-```shell
+```yaml
 lastState:
    terminated:
      containerID: 65183c1877aaec2e8427bc95609cc52677a454b56fcb24340dbd22917c23b10f
@@ -248,7 +248,7 @@ capacity of any Node in your cluster. Here is the configuration file for a Pod t
 Container with a request for 1000 GiB of memory, which likely exceeds the capacity
 of any Node in your cluster.
 
-{{< codenew file="pods/resource/memory-request-limit-3.yaml" >}}
+{{% code_sample file="pods/resource/memory-request-limit-3.yaml" %}}
 
 Create the Pod:
 
@@ -278,7 +278,7 @@ kubectl describe pod memory-demo-3 --namespace=mem-example
 
 The output shows that the Container cannot be scheduled because of insufficient memory on the Nodes:
 
-```shell
+```
 Events:
   ...  Reason            Message
        ------            -------
@@ -291,8 +291,8 @@ The memory resource is measured in bytes. You can express memory as a plain inte
 fixed-point integer with one of these suffixes: E, P, T, G, M, K, Ei, Pi, Ti, Gi, Mi, Ki.
 For example, the following represent approximately the same value:
 
-```shell
-128974848, 129e6, 129M , 123Mi
+```
+128974848, 129e6, 129M, 123Mi
 ```
 
 Delete your Pod:
@@ -358,7 +358,4 @@ kubectl delete namespace mem-example
 
 * [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
 
-
-
-
-
+* [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/)

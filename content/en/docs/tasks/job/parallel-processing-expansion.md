@@ -43,7 +43,7 @@ pip install --user jinja2
 First, download the following template of a Job to a file called `job-tmpl.yaml`.
 Here's what you'll download:
 
-{{< codenew file="application/job/job-tmpl.yaml" >}}
+{{% code_sample file="application/job/job-tmpl.yaml" %}}
 
 ```shell
 # Use curl to download job-tmpl.yaml
@@ -201,7 +201,7 @@ spec:
     spec:
       containers:
       - name: c
-        image: busybox
+        image: busybox:1.28
         command: ["sh", "-c", "echo Processing URL {{ url }} && sleep 5"]
       restartPolicy: Never
 {% endfor %}

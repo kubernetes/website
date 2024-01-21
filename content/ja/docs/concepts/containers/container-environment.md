@@ -29,12 +29,12 @@ Kubernetesはコンテナにいくつかの重要なリソースを提供しま�
 Podの名前と名前空間は[downward API](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)を通じて環境変数として利用可能です。
 
 Pod定義からのユーザー定義の環境変数もコンテナで利用できます。
-Dockerイメージで静的に指定されている環境変数も同様です。
+コンテナイメージで静的に指定されている環境変数も同様です。
 
 ### クラスター情報
 
 コンテナの作成時に実行されていたすべてのサービスのリストは、環境変数として使用できます。
-これらの環境変数はDockerリンクの構文と一致します。
+このリストは、新しいコンテナのPodおよびKubernetesコントロールプレーンサービスと同じ名前空間のサービスに制限されます。
 
 *bar* という名前のコンテナに対応する *foo* という名前のサービスの場合、以下の変数が定義されています。
 
@@ -43,7 +43,7 @@ FOO_SERVICE_HOST=<サービスが実行されているホスト>
 FOO_SERVICE_PORT=<サービスが実行されているポート>
 ```
 
-サービスは専用のIPアドレスを持ち、[DNSアドオン](http://releases.k8s.io/{{< param "fullversion" >}}/cluster/addons/dns/)が有効の場合、DNSを介してコンテナで利用可能です。
+サービスは専用のIPアドレスを持ち、[DNSアドオン](http://releases.k8s.io/v{{< skew currentPatchVersion >}}/cluster/addons/dns/)が有効の場合、DNSを介してコンテナで利用可能です。
 
 
 

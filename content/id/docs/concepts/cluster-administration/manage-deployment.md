@@ -17,7 +17,7 @@ Kamu telah melakukan _deploy_ pada aplikasimu dan mengeksposnya melalui sebuah _
 
 Banyak aplikasi memerlukan beberapa _resource_, seperti Deployment dan Service. Pengelolaan beberapa _resource_ dapat disederhanakan dengan mengelompokkannya dalam berkas yang sama (dengan pemisah `---` pada YAML). Contohnya:
 
-{{< codenew file="application/nginx-app.yaml" >}}
+{{% codenew file="application/nginx-app.yaml" %}}
 
 Beberapa _resource_ dapat dibuat seolah-olah satu _resource_:
 
@@ -319,7 +319,7 @@ Saat beban aplikasi naik maupun turun, mudah untuk mengubah kapasitas dengan `ku
 kubectl scale deployment/my-nginx --replicas=1
 ```
 ```shell
-deployment.extensions/my-nginx scaled
+deployment.apps/my-nginx scaled
 ```
 
 Sekarang kamu hanya memiliki satu _pod_ yang dikelola oleh deployment.

@@ -1,12 +1,12 @@
 ---
-
-
+# reviewers:
+# - lavalamp
 title: 쿠버네티스 컴포넌트
 content_type: concept
 description: >
   쿠버네티스 클러스터는 컴퓨터 집합인 노드 컴포넌트와 컨트롤 플레인
   컴포넌트로 구성된다.
-weight: 20
+weight: 30
 card:
   name: concepts
   weight: 20
@@ -28,7 +28,7 @@ card:
 
 컨트롤 플레인 컴포넌트는 클러스터 내 어떠한 머신에서든지 동작할 수 있다. 그러나
 간결성을 위하여, 구성 스크립트는 보통 동일 머신 상에 모든 컨트롤 플레인 컴포넌트를 구동시키고,
-사용자 컨테이너는 해당 머신 상에 동작시키지 않는다. 여러 VM에서
+사용자 컨테이너는 해당 머신 상에 동작시키지 않는다. 여러 머신에서
 실행되는 컨트롤 플레인 설정의 예제를 보려면
 [kubeadm을 사용하여 고가용성 클러스터 만들기](/docs/setup/production-environment/tools/kubeadm/high-availability/)를 확인해본다.
 
@@ -51,10 +51,10 @@ card:
 이들 컨트롤러는 다음을 포함한다.
 
   * 노드 컨트롤러: 노드가 다운되었을 때 통지와 대응에 관한 책임을 가진다.
-  * 레플리케이션 컨트롤러: 시스템의 모든 레플리케이션 컨트롤러 오브젝트에 대해 알맞은 수의 파드들을
-  유지시켜 주는 책임을 가진다.
-  * 엔드포인트 컨트롤러: 엔드포인트 오브젝트를 채운다(즉, 서비스와 파드를 연결시킨다.)
-  * 서비스 어카운트 & 토큰 컨트롤러: 새로운 네임스페이스에 대한 기본 계정과 API 접근 토큰을 생성한다.
+  * 잡 컨트롤러: 일회성 작업을 나타내는 잡 오브젝트를 감시한 다음, 해당 작업을
+    완료할 때까지 동작하는 파드를 생성한다.
+  * 엔드포인트슬라이스 컨트롤러: (서비스와 파드 사이의 연결고리를 제공하기 위해) 엔드포인트슬라이스(EndpointSlice) 오브젝트를 채운다
+  * 서비스어카운트 컨트롤러: 새로운 네임스페이스에 대한 기본 서비스어카운트(ServiceAccount)를 생성한다.
 
 ### cloud-controller-manager
 
@@ -114,7 +114,7 @@ kube-controller-manager와 마찬가지로 cloud-controller-manager는 논리적
 
 ### 컨테이너 리소스 모니터링
 
-[컨테이너 리소스 모니터링](/ko/docs/tasks/debug-application-cluster/resource-usage-monitoring/)은
+[컨테이너 리소스 모니터링](/ko/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)은
 중앙 데이터베이스 내의 컨테이너들에 대한 포괄적인 시계열 매트릭스를 기록하고 그 데이터를 열람하기 위한 UI를 제공해 준다.
 
 ### 클러스터-레벨 로깅

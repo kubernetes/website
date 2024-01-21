@@ -2,7 +2,7 @@
 title: Documentation Style Guide
 linktitle: Style guide
 content_type: concept
-weight: 10
+weight: 40
 ---
 
 <!-- overview -->
@@ -14,8 +14,8 @@ For additional information on creating new content for the Kubernetes
 documentation, read the [Documentation Content Guide](/docs/contribute/style/content-guide/).
 
 Changes to the style guide are made by SIG Docs as a group. To propose a change
-or addition, [add it to the agenda](https://bit.ly/sig-docs-agenda) for an upcoming SIG Docs meeting, and attend the meeting to participate in the
-discussion.
+or addition, [add it to the agenda](https://bit.ly/sig-docs-agenda) for an upcoming
+SIG Docs meeting, and attend the meeting to participate in the discussion.
 
 <!-- body -->
 
@@ -42,15 +42,17 @@ The English-language documentation uses U.S. English spelling and grammar.
 
 ### Use upper camel case for API objects
 
-When you refer specifically to interacting with an API object, use [UpperCamelCase](https://en.wikipedia.org/wiki/Camel_case), also known as Pascal case. You may see different capitalization, such as "configMap", in the [API Reference](/docs/reference/kubernetes-api/). When writing general documentation, it's better to use upper camel case, calling it "ConfigMap" instead.
+When you refer specifically to interacting with an API object, use
+[UpperCamelCase](https://en.wikipedia.org/wiki/Camel_case), also known as
+Pascal case. You may see different capitalization, such as "configMap",
+in the [API Reference](/docs/reference/kubernetes-api/). When writing
+general documentation, it's better to use upper camel case, calling it "ConfigMap" instead.
 
-When you are generally discussing an API object, use [sentence-style capitalization](https://docs.microsoft.com/en-us/style-guide/text-formatting/using-type/use-sentence-style-capitalization).
+When you are generally discussing an API object, use
+[sentence-style capitalization](https://docs.microsoft.com/en-us/style-guide/text-formatting/using-type/use-sentence-style-capitalization).
 
-You may use the word "resource", "API", or "object" to clarify a Kubernetes resource type in a sentence.
-
-Don't split an API object name into separate words. For example, use PodTemplateList, not Pod Template List.
-
-The following examples focus on capitalization. For more information about formatting API object names, review the related guidance on [Code Style](#code-style-inline-code).
+The following examples focus on capitalization. For more information about formatting
+API object names, review the related guidance on [Code Style](#code-style-inline-code).
 
 {{< table caption = "Do and Don't - Use Pascal case for API objects" >}}
 Do | Don't
@@ -134,7 +136,9 @@ Remove trailing spaces in the code. | Add trailing spaces in the code, where the
 {{< /table >}}
 
 {{< note >}}
-The website supports syntax highlighting for code samples, but specifying a language is optional. Syntax highlighting in the code block should conform to the [contrast guidelines.](https://www.w3.org/WAI/WCAG21/quickref/?versions=2.0&showtechniques=141%2C143#contrast-minimum)
+The website supports syntax highlighting for code samples, but specifying a language
+is optional. Syntax highlighting in the code block should conform to the
+[contrast guidelines.](https://www.w3.org/WAI/WCAG21/quickref/?versions=2.0&showtechniques=141%2C143#contrast-minimum)
 {{< /note >}}
 
 ### Use code style for object field names and namespaces
@@ -187,6 +191,45 @@ Set the value of `image` to nginx:1.16. | Set the value of `image` to `nginx:1.1
 Set the value of the `replicas` field to 2. | Set the value of the `replicas` field to `2`.
 {{< /table >}}
 
+## Referring to Kubernetes API resources
+
+This section talks about how we reference API resources in the documentation.
+
+### Clarification about "resource"
+
+Kubernetes uses the word "resource" to refer to API resources, such as `pod`,
+`deployment`, and so on. We also use "resource" to talk about CPU and memory
+requests and limits. Always refer to API resources as "API resources" to avoid
+confusion with CPU and memory resources.
+
+### When to use Kubernetes API terminologies
+
+The different Kubernetes API terminologies are:
+
+- Resource type: the name used in the API URL (such as `pods`, `namespaces`)
+- Resource: a single instance of a resource type (such as `pod`, `secret`)
+- Object: a resource that serves as a "record of intent". An object is a desired
+  state for a specific part of your cluster, which the Kubernetes control plane tries to maintain.
+
+Always use "resource" or "object" when referring to an API resource in docs.
+For example, use "a `Secret` object" over just "a `Secret`".
+
+### API resource names
+
+Always format API resource names using [UpperCamelCase](https://en.wikipedia.org/wiki/Camel_case),
+also known as PascalCase, and code formatting.
+
+For inline code in an HTML document, use the `<code>` tag. In a Markdown document, use the backtick (`` ` ``).
+
+Don't split an API object name into separate words. For example, use `PodTemplateList`, not Pod Template List.
+
+For more information about PascalCase and code formatting, please review the related guidance on
+[Use upper camel case for API objects](/docs/contribute/style/style-guide/#use-upper-camel-case-for-api-objects)
+and [Use code style for inline code, commands, and API objects](/docs/contribute/style/style-guide/#code-style-inline-code).
+
+For more information about Kubernetes API terminologies, please review the related
+guidance on [Kubernetes API terminology](/docs/reference/using-api/api-concepts/#standard-api-terminology).
+
 ## Code snippet formatting
 
 ### Don't include the command prompt
@@ -214,17 +257,23 @@ nginx    1/1       Running   0          13s    10.200.0.4   worker0
 
 ### Versioning Kubernetes examples
 
-Code examples and configuration examples that include version information should be consistent with the accompanying text.
+Code examples and configuration examples that include version information should
+be consistent with the accompanying text.
 
-If the information is version specific, the Kubernetes version needs to be defined in the `prerequisites` section of the [Task template](/docs/contribute/style/page-content-types/#task) or the [Tutorial template](/docs/contribute/style/page-content-types/#tutorial). Once the page is saved, the `prerequisites` section is shown as **Before you begin**.
+If the information is version specific, the Kubernetes version needs to be defined
+in the `prerequisites` section of the [Task template](/docs/contribute/style/page-content-types/#task)
+or the [Tutorial template](/docs/contribute/style/page-content-types/#tutorial).
+Once the page is saved, the `prerequisites` section is shown as **Before you begin**.
 
-To specify the Kubernetes version for a task or tutorial page, include `min-kubernetes-server-version` in the front matter of the page.
+To specify the Kubernetes version for a task or tutorial page, include
+`min-kubernetes-server-version` in the front matter of the page.
 
 If the example YAML is in a standalone file, find and review the topics that include it as a reference.
 Verify that any topics using the standalone YAML have the appropriate version information defined.
 If a stand-alone YAML file is not referenced from any topics, consider deleting it instead of updating it.
 
-For example, if you are writing a tutorial that is relevant to Kubernetes version 1.8, the front-matter of your markdown file should look something like:
+For example, if you are writing a tutorial that is relevant to Kubernetes version 1.8,
+the front-matter of your markdown file should look something like:
 
 ```yaml
 ---
@@ -257,7 +306,10 @@ On-premises | On-premises or On-prem rather than On-premise or other variations.
 
 ## Shortcodes
 
-Hugo [Shortcodes](https://gohugo.io/content-management/shortcodes) help create different rhetorical appeal levels. Our documentation supports three different shortcodes in this category: **Note** `{{</* note */>}}`, **Caution** `{{</* caution */>}}`, and **Warning** `{{</* warning */>}}`.
+Hugo [Shortcodes](https://gohugo.io/content-management/shortcodes) help create
+different rhetorical appeal levels. Our documentation supports three different
+shortcodes in this category: **Note** `{{</* note */>}}`,
+**Caution** `{{</* caution */>}}`, and **Warning** `{{</* warning */>}}`.
 
 1. Surround the text with an opening and closing shortcode.
 
@@ -359,29 +411,6 @@ The output is:
 Beware.
 {{< /warning >}}
 
-### Katacoda Embedded Live Environment
-
-This button lets users run Minikube in their browser using the [Katacoda Terminal](https://www.katacoda.com/embed/panel).
-It lowers the barrier of entry by allowing users to use Minikube with one click instead of going through the complete
-Minikube and Kubectl installation process locally.
-
-The Embedded Live Environment is configured to run `minikube start` and lets users complete tutorials in the same window
-as the documentation.
-
-{{< caution >}}
-The session is limited to 15 minutes.
-{{< /caution >}}
-
-For example:
-
-```
-{{</* kat-button */>}}
-```
-
-The output is:
-
-{{< kat-button >}}
-
 ## Common Shortcode Issues
 
 ### Ordered Lists
@@ -393,7 +422,7 @@ For example:
     1. Preheat oven to 350˚F
 
     1. Prepare the batter, and pour into springform pan.
-       `{{</* note */>}}Grease the pan for best results.{{</* /note */>}}`
+       {{</* note */>}}Grease the pan for best results.{{</* /note */>}}
 
     1. Bake for 20-25 minutes or until set.
 
@@ -409,7 +438,8 @@ The output is:
 
 ### Include Statements
 
-Shortcodes inside include statements will break the build. You must insert them in the parent document, before and after you call the include. For example:
+Shortcodes inside include statements will break the build. You must insert them
+in the parent document, before and after you call the include. For example:
 
 ```
 {{</* note */>}}
@@ -421,11 +451,28 @@ Shortcodes inside include statements will break the build. You must insert them 
 
 ### Line breaks
 
-Use a single newline to separate block-level content like headings, lists, images, code blocks, and others. The exception is second-level headings, where it should be two newlines. Second-level headings follow the first-level (or the title) without any preceding paragraphs or texts. A two line spacing helps visualize the overall structure of content in a code editor better.
+Use a single newline to separate block-level content like headings, lists, images,
+code blocks, and others. The exception is second-level headings, where it should
+be two newlines. Second-level headings follow the first-level (or the title) without
+any preceding paragraphs or texts. A two line spacing helps visualize the overall
+structure of content in a code editor better.
 
-### Headings
+Manually wrap paragraphs in the Markdown source when appropriate. Since the git
+tool and the GitHub website generate file diffs on a line-by-line basis,
+manually wrapping long lines helps the reviewers to easily find out the changes
+made in a PR and provide feedback. It also helps the downstream localization
+teams where people track the upstream changes on a per-line basis.  Line
+wrapping can happen at the end of a sentence or a punctuation character, for
+example. One exception to this is that a Markdown link or a shortcode is
+expected to be in a single line.
 
-People accessing this documentation may use a screen reader or other assistive technology (AT). [Screen readers](https://en.wikipedia.org/wiki/Screen_reader) are linear output devices, they output items on a page one at a time. If there is a lot of content on a page, you can use headings to give the page an internal structure. A good page structure helps all readers to easily navigate the page or filter topics of interest.
+### Headings and titles {#headings}
+
+People accessing this documentation may use a screen reader or other assistive technology (AT).
+[Screen readers](https://en.wikipedia.org/wiki/Screen_reader) are linear output devices,
+they output items on a page one at a time. If there is a lot of content on a page, you can
+use headings to give the page an internal structure. A good page structure helps all readers
+to easily navigate the page or filter topics of interest.
 
 {{< table caption = "Do and Don't - Headings" >}}
 Do | Don't
@@ -433,7 +480,8 @@ Do | Don't
 Update the title in the front matter of the page or blog post. | Use first level heading, as Hugo automatically converts the title in the front matter of the page into a first-level heading.
 Use ordered headings to provide a meaningful high-level outline of your content. | Use headings level 4 through 6, unless it is absolutely necessary. If your content is that detailed, it may need to be broken into separate articles.
 Use pound or hash signs (`#`) for non-blog post content. | Use underlines (`---` or `===`) to designate first-level headings.
-Use sentence case for headings. For example, **Extend kubectl with plugins** | Use title case for headings. For example, **Extend Kubectl With Plugins**
+Use sentence case for headings in the page body. For example, **Extend kubectl with plugins** | Use title case for headings in the page body. For example, **Extend Kubectl With Plugins**
+Use title case for the page title in the front matter. For example, `title: Kubernetes API Server Bypass Risks` | Use sentence case for page titles in the front matter. For example, don't use `title: Kubernetes API server bypass risks`
 {{< /table >}}
 
 ### Paragraphs
@@ -456,12 +504,20 @@ Write Markdown-style links: `[link text](URL)`. For example: `[Hugo shortcodes](
 
 ### Lists
 
-Group items in a list that are related to each other and need to appear in a specific order or to indicate a correlation between multiple items. When a screen reader comes across a list—whether it is an ordered or unordered list—it will be announced to the user that there is a group of list items. The user can then use the arrow keys to move up and down between the various items in the list.
-Website navigation links can also be marked up as list items; after all they are nothing but a group of related links.
+Group items in a list that are related to each other and need to appear in a specific
+order or to indicate a correlation between multiple items. When a screen reader comes
+across a list—whether it is an ordered or unordered list—it will be announced to the
+user that there is a group of list items. The user can then use the arrow keys to move
+up and down between the various items in the list. Website navigation links can also be
+marked up as list items; after all they are nothing but a group of related links.
 
-- End each item in a list with a period if one or more items in the list are complete sentences. For the sake of consistency, normally either all items or none should be complete sentences.
+- End each item in a list with a period if one or more items in the list are complete
+  sentences. For the sake of consistency, normally either all items or none should be complete sentences.
 
-  {{< note >}} Ordered lists that are part of an incomplete introductory sentence can be in lowercase and punctuated as if each item was a part of the introductory sentence.{{< /note >}}
+  {{< note >}}
+  Ordered lists that are part of an incomplete introductory sentence can be in lowercase
+  and punctuated as if each item was a part of the introductory sentence.
+  {{< /note >}}
 
 - Use the number one (`1.`) for ordered lists.
 
@@ -471,11 +527,15 @@ Website navigation links can also be marked up as list items; after all they are
 
 - Indent nested lists with four spaces (for example, ⋅⋅⋅⋅).
 
-- List items may consist of multiple paragraphs. Each subsequent paragraph in a list item must be indented by either four spaces or one tab.
+- List items may consist of multiple paragraphs. Each subsequent paragraph in a list
+  item must be indented by either four spaces or one tab.
 
 ### Tables
 
-The semantic purpose of a data table is to present tabular data. Sighted users can quickly scan the table but a screen reader goes through line by line. A table caption is used to create a descriptive title for a data table. Assistive technologies (AT) use the HTML table caption element to identify the table contents to the user within the page structure.
+The semantic purpose of a data table is to present tabular data. Sighted users can
+quickly scan the table but a screen reader goes through line by line. A table caption
+is used to create a descriptive title for a data table. Assistive technologies (AT)
+use the HTML table caption element to identify the table contents to the user within the page structure.
 
 - Add table captions using [Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/#table-captions) for tables.
 
@@ -600,8 +660,15 @@ You can remove ... | You can easily remove ...
 These steps ... | These simple steps ...
 {{< /table >}}
 
+### EditorConfig file
+The Kubernetes project maintains an EditorConfig file that sets common style preferences in text editors
+such as VS Code. You can use this file if you want to ensure that your contributions are consistent with
+the rest of the project. To view the file, refer to
+[`.editorconfig`](https://github.com/kubernetes/website/blob/main/.editorconfig) in the repository root.
+
 ## {{% heading "whatsnext" %}}
 
 * Learn about [writing a new topic](/docs/contribute/style/write-new-topic/).
 * Learn about [using page templates](/docs/contribute/style/page-content-types/).
+* Learn about [custom hugo shortcodes](/docs/contribute/style/hugo-shortcodes/).
 * Learn about [creating a pull request](/docs/contribute/new-content/open-a-pr/).

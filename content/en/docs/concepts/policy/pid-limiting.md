@@ -73,13 +73,6 @@ The value you specified declares that the specified number of process IDs will
 be reserved for the system as a whole and for Kubernetes system daemons
 respectively.
 
-{{< note >}}
-Before Kubernetes version 1.20, PID resource limiting with Node-level
-reservations required enabling the [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/)
-`SupportNodePidsLimit` to work.
-{{< /note >}}
-
 ## Pod PID limits
 
 Kubernetes allows you to limit the number of processes running in a Pod. You
@@ -88,12 +81,6 @@ limit for a particular Pod. Each Node can have a different PID limit.
 To configure the limit, you can specify the command line parameter `--pod-max-pids`
 to the kubelet, or set `PodPidsLimit` in the kubelet
 [configuration file](/docs/tasks/administer-cluster/kubelet-config-file/).
-
-{{< note >}}
-Before Kubernetes version 1.20, PID resource limiting for Pods required enabling
-the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-`SupportPodPidsLimit` to work.
-{{< /note >}}
 
 ## PID based eviction
 
@@ -110,7 +97,7 @@ Eviction signal value is calculated periodically and does NOT enforce the limit.
 PID limiting - per Pod and per Node sets the hard limit.
 Once the limit is hit, workload will start experiencing failures when trying to get a new PID.
 It may or may not lead to rescheduling of a Pod,
-depending on how workload reacts on these failures and how liveleness and readiness
+depending on how workload reacts on these failures and how liveness and readiness
 probes are configured for the Pod. However, if limits were set correctly,
 you can guarantee that other Pods workload and system processes will not run out of PIDs
 when one Pod is misbehaving.

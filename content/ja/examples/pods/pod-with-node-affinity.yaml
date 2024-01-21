@@ -8,11 +8,11 @@ spec:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: kubernetes.io/e2e-az-name
+          - key: topology.kubernetes.io/zone
             operator: In
             values:
-            - e2e-az1
-            - e2e-az2
+            - antarctica-east1
+            - antarctica-west1
       preferredDuringSchedulingIgnoredDuringExecution:
       - weight: 1
         preference:
@@ -23,4 +23,4 @@ spec:
             - another-node-label-value
   containers:
   - name: with-node-affinity
-    image: k8s.gcr.io/pause:2.0
+    image: registry.k8s.io/pause:2.0

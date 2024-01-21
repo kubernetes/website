@@ -3,7 +3,6 @@ layout: blog
 title: "Atualizado: Perguntas frequentes (FAQ) sobre a remoção do Dockershim"
 date: 2022-02-17
 slug: dockershim-faq
-aliases: [ '/dockershim' ]
 ---
 
 **Esta é uma atualização do artigo original [FAQ sobre a depreciação do Dockershim](/blog/2020/12/02/dockershim-faq/),
@@ -16,7 +15,7 @@ como parte do lançamento do Kubernetes v1.20. Para obter mais detalhes sobre
 o que isso significa, confira a postagem do blog
 [Não entre em pânico: Kubernetes e Docker](/pt-br/blog/2020/12/02/dont-panic-kubernetes-and-docker/).
 
-Além disso, você pode ler [verifique se a remoção do dockershim afeta você](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)
+Além disso, você pode ler [verifique se a remoção do dockershim afeta você](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/)
 para determinar qual impacto a remoção do _dockershim_ teria para você
 ou para sua organização.
 
@@ -144,7 +143,7 @@ terá um desempenho estritamente melhor e menos sobrecarga. No entanto, nós enc
 explorar todas as opções do [cenário CNCF], pois outro agente de execução de contêiner
 pode funcionar ainda melhor para o seu ambiente.
 
-[cenário CNCF]: https://landscape.cncf.io/card-mode?category=container-runtime&grouping=category
+[cenário CNCF]: https://landscape.cncf.io/?group=projects-and-products&view-mode=card#runtime--container-runtime
 
 ### O que devo ficar atento ao mudar a minha implementação de CRI utilizada?
 
@@ -171,7 +170,7 @@ contêiner assim que possível.
 Outro aspecto a ser observado é que ferramentas para manutenção do sistema ou execuções dentro de um
 contêiner no momento da criação de imagens podem não funcionar mais. Para o primeiro, a ferramenta 
 [`crictl`][cr] pode ser utilizada como um substituto natural (veja 
-[migrando do docker cli para o crictl](https://kubernetes.io/docs/tasks/debug-application-cluster/crictl/#mapping-from-docker-cli-to-crictl))
+[migrando do docker cli para o crictl](https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/#mapping-from-docker-cli-to-crictl))
 e para o último, você pode usar novas opções de construções de contêiner, como [img], [buildah],
 [kaniko], ou [buildkit-cli-for-kubectl] que não requerem Docker.
 

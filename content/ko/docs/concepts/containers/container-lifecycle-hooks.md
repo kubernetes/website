@@ -1,10 +1,10 @@
 ---
-
-
-
+# reviewers:
+# - mikedanese
+# - thockin
 title: 컨테이너 라이프사이클 훅(Hook)
 content_type: concept
-weight: 30
+weight: 40
 ---
 
 <!-- overview -->
@@ -99,28 +99,28 @@ TERM 신호를 보내기 전에 실행을 완료해야 한다. 실행 중에 `Pr
 예를 들어, 훅을 전송하는 도중에 kubelet이 재시작된다면,
 Kubelet이 구동된 후에 해당 훅은 재전송될 것이다.
 
-### 디버깅 훅 핸들러
+### 훅 핸들러 디버깅
 
 훅 핸들러의 로그는 파드 이벤트로 노출되지 않는다.
 만약 핸들러가 어떠한 이유로 실패하면, 핸들러는 이벤트를 방송한다.
-`PostStart`의 경우, 이것은 `FailedPostStartHook` 이벤트이며,
-`PreStop`의 경우, 이것은 `FailedPreStopHook` 이벤트이다.
-이 이벤트는 `kubectl describe pod <파드_이름>`를 실행하면 볼 수 있다.
-다음은 이 커맨드 실행을 통한 이벤트 출력의 몇 가지 예다.
+`PostStart`의 경우 `FailedPostStartHook` 이벤트이며,
+`PreStop`의 경우 `FailedPreStopHook` 이벤트이다.
+실패한 `FailedPostStartHook` 이벤트를 직접 생성하려면, [lifecycle-events.yaml](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/pods/lifecycle-events.yaml) 파일을 수정하여 postStart 명령을 "badcommand"로 변경하고 이를 적용한다.
+다음은 `kubectl describe pod lifecycle-demo` 를 실행하여 볼 수 있는 이벤트 출력 예시이다.
 
 ```
 Events:
-  FirstSeen  LastSeen  Count  From                                                   SubObjectPath          Type      Reason               Message
-  ---------  --------  -----  ----                                                   -------------          --------  ------               -------
-  1m         1m        1      {default-scheduler }                                                          Normal    Scheduled            Successfully assigned test-1730497541-cq1d2 to gke-test-cluster-default-pool-a07e5d30-siqd
-  1m         1m        1      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Normal    Pulling              pulling image "test:1.0"
-  1m         1m        1      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Normal    Created              Created container with docker id 5c6a256a2567; Security:[seccomp=unconfined]
-  1m         1m        1      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Normal    Pulled               Successfully pulled image "test:1.0"
-  1m         1m        1      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Normal    Started              Started container with docker id 5c6a256a2567
-  38s        38s       1      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Normal    Killing              Killing container with docker id 5c6a256a2567: PostStart handler: Error executing in Docker Container: 1
-  37s        37s       1      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Normal    Killing              Killing container with docker id 8df9fdfd7054: PostStart handler: Error executing in Docker Container: 1
-  38s        37s       2      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}                         Warning   FailedSync           Error syncing pod, skipping: failed to "StartContainer" for "main" with RunContainerError: "PostStart handler: Error executing in Docker Container: 1"
-  1m         22s       2      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Warning   FailedPostStartHook
+  Type     Reason               Age              From               Message
+  ----     ------               ----             ----               -------
+  Normal   Scheduled            7s               default-scheduler  Successfully assigned default/lifecycle-demo to ip-XXX-XXX-XX-XX.us-east-2...
+  Normal   Pulled               6s               kubelet            Successfully pulled image "nginx" in 229.604315ms
+  Normal   Pulling              4s (x2 over 6s)  kubelet            Pulling image "nginx"
+  Normal   Created              4s (x2 over 5s)  kubelet            Created container lifecycle-demo-container
+  Normal   Started              4s (x2 over 5s)  kubelet            Started container lifecycle-demo-container
+  Warning  FailedPostStartHook  4s (x2 over 5s)  kubelet            Exec lifecycle hook ([badcommand]) for Container "lifecycle-demo-container" in Pod "lifecycle-demo_default(30229739-9651-4e5a-9a32-a8f1688862db)" failed - error: command 'badcommand' exited with 126: , message: "OCI runtime exec failed: exec failed: container_linux.go:380: starting container process caused: exec: \"badcommand\": executable file not found in $PATH: unknown\r\n"
+  Normal   Killing              4s (x2 over 5s)  kubelet            FailedPostStartHook
+  Normal   Pulled               4s               kubelet            Successfully pulled image "nginx" in 215.66395ms
+  Warning  BackOff              2s (x2 over 3s)  kubelet            Back-off restarting failed container
 ```
 
 

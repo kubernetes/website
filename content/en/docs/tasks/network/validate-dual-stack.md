@@ -16,7 +16,7 @@ This document shares how to validate IPv4/IPv6 dual-stack enabled Kubernetes clu
 
 
 * Provider support for dual-stack networking (Cloud provider or otherwise must be able to provide Kubernetes nodes with routable IPv4/IPv6 network interfaces)
-* A [network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) that supports dual-stack (such as Calico, Cilium or Kubenet)
+* A [network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) that supports dual-stack networking.
 * [Dual-stack enabled](/docs/concepts/services-networking/dual-stack/) cluster
 
 {{< version-check >}}
@@ -39,7 +39,7 @@ kubectl get nodes k8s-linuxpool1-34450317-0 -o go-template --template='{{range .
 ```
 ```
 10.244.1.0/24
-a00:100::/24
+2001:db8::/64
 ```
 There should be one IPv4 block and one IPv6 block allocated.
 
@@ -50,8 +50,8 @@ kubectl get nodes k8s-linuxpool1-34450317-0 -o go-template --template='{{range .
 ```
 ```
 Hostname: k8s-linuxpool1-34450317-0
-InternalIP: 10.240.0.5
-InternalIP: 2001:1234:5678:9abc::5
+InternalIP: 10.0.0.5
+InternalIP: 2001:db8:10::5
 ```
 
 ### Validate Pod addressing
@@ -63,7 +63,7 @@ kubectl get pods pod01 -o go-template --template='{{range .status.podIPs}}{{prin
 ```
 ```
 10.244.1.4
-a00:100::4
+2001:db8::4
 ```
 
 You can also validate Pod IPs using the Downward API via the `status.podIPs` fieldPath. The following snippet demonstrates how you can expose the Pod IPs via an environment variable called `MY_POD_IPS` within a container.
@@ -82,7 +82,7 @@ The following command prints the value of the `MY_POD_IPS` environment variable 
 kubectl exec -it pod01 -- set | grep MY_POD_IPS
 ```
 ```
-MY_POD_IPS=10.244.1.4,a00:100::4
+MY_POD_IPS=10.244.1.4,2001:db8::4
 ```
 
 The Pod's IP addresses will also be written to `/etc/hosts` within a container. The following command executes a cat on `/etc/hosts` on a dual stack Pod. From the output you can verify both the IPv4 and IPv6 IP address for the Pod.
@@ -99,14 +99,14 @@ fe00::0    ip6-mcastprefix
 fe00::1    ip6-allnodes
 fe00::2    ip6-allrouters
 10.244.1.4    pod01
-a00:100::4    pod01
+2001:db8::4    pod01
 ```
 
 ## Validate Services
 
 Create the following Service that does not explicitly define `.spec.ipFamilyPolicy`. Kubernetes will assign a cluster IP for the Service from the first configured `service-cluster-ip-range` and set the `.spec.ipFamilyPolicy` to `SingleStack`.
 
-{{< codenew file="service/networking/dual-stack-default-svc.yaml" >}}
+{{% code_sample file="service/networking/dual-stack-default-svc.yaml" %}}
 
 Use `kubectl` to view the YAML for the Service.
 
@@ -134,7 +134,7 @@ spec:
     protocol: TCP
     targetPort: 9376
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   sessionAffinity: None
   type: ClusterIP
 status:
@@ -143,7 +143,7 @@ status:
 
 Create the following Service that explicitly defines `IPv6` as the first array element in `.spec.ipFamilies`. Kubernetes will assign a cluster IP for the Service from the IPv6 range configured `service-cluster-ip-range` and set the `.spec.ipFamilyPolicy` to `SingleStack`.
 
-{{< codenew file="service/networking/dual-stack-ipfamilies-ipv6.yaml" >}}
+{{% code_sample file="service/networking/dual-stack-ipfamilies-ipv6.yaml" %}}
 
 Use `kubectl` to view the YAML for the Service.
 
@@ -158,12 +158,12 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   name: my-service
 spec:
-  clusterIP: fd00::5118
+  clusterIP: 2001:db8:fd00::5118
   clusterIPs:
-  - fd00::5118
+  - 2001:db8:fd00::5118
   ipFamilies:
   - IPv6
   ipFamilyPolicy: SingleStack
@@ -172,7 +172,7 @@ spec:
     protocol: TCP
     targetPort: 80
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   sessionAffinity: None
   type: ClusterIP
 status:
@@ -181,13 +181,13 @@ status:
 
 Create the following Service that explicitly defines `PreferDualStack` in `.spec.ipFamilyPolicy`. Kubernetes will assign both IPv4 and IPv6 addresses (as this cluster has dual-stack enabled) and select the `.spec.ClusterIP` from the list of `.spec.ClusterIPs` based on the address family of the first element in the `.spec.ipFamilies` array.
 
-{{< codenew file="service/networking/dual-stack-preferred-svc.yaml" >}}
+{{% code_sample file="service/networking/dual-stack-preferred-svc.yaml" %}}
 
 {{< note >}}
 The `kubectl get svc` command will only show the primary IP in the `CLUSTER-IP` field.
 
 ```shell
-kubectl get svc -l app=MyApp
+kubectl get svc -l app.kubernetes.io/name=MyApp
 
 NAME         TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
 my-service   ClusterIP   10.0.216.242   <none>        80/TCP    5s
@@ -197,20 +197,20 @@ my-service   ClusterIP   10.0.216.242   <none>        80/TCP    5s
 Validate that the Service gets cluster IPs from the IPv4 and IPv6 address blocks using `kubectl describe`. You may then validate access to the service via the IPs and ports.
 
 ```shell
-kubectl describe svc -l app=MyApp
+kubectl describe svc -l app.kubernetes.io/name=MyApp
 ```
 
 ```
 Name:              my-service
 Namespace:         default
-Labels:            app=MyApp
+Labels:            app.kubernetes.io/name=MyApp
 Annotations:       <none>
-Selector:          app=MyApp
+Selector:          app.kubernetes.io/name=MyApp
 Type:              ClusterIP
 IP Family Policy:  PreferDualStack
 IP Families:       IPv4,IPv6
 IP:                10.0.216.242
-IPs:               10.0.216.242,fd00::af55
+IPs:               10.0.216.242,2001:db8:fd00::af55
 Port:              <unset>  80/TCP
 TargetPort:        9376/TCP
 Endpoints:         <none>
@@ -220,21 +220,21 @@ Events:            <none>
 
 ### Create a dual-stack load balanced Service
 
-If the cloud provider supports the provisioning of IPv6 enabled external load balancers, create the following Service with `PreferDualStack` in `.spec.ipFamilyPolicy`, `IPv6` as the first element of the `.spec.ipFamilies` array and the `type` field set to `LoadBalancer`. 
+If the cloud provider supports the provisioning of IPv6 enabled external load balancers, create the following Service with `PreferDualStack` in `.spec.ipFamilyPolicy`, `IPv6` as the first element of the `.spec.ipFamilies` array and the `type` field set to `LoadBalancer`.
 
-{{< codenew file="service/networking/dual-stack-prefer-ipv6-lb-svc.yaml" >}}
+{{% code_sample file="service/networking/dual-stack-prefer-ipv6-lb-svc.yaml" %}}
 
 Check the Service:
 
 ```shell
-kubectl get svc -l app=MyApp
+kubectl get svc -l app.kubernetes.io/name=MyApp
 ```
 
 Validate that the Service receives a `CLUSTER-IP` address from the IPv6 address block along with an `EXTERNAL-IP`. You may then validate access to the service via the IP and port.
 
 ```shell
-NAME         TYPE           CLUSTER-IP   EXTERNAL-IP        PORT(S)        AGE
-my-service   LoadBalancer   fd00::7ebc   2603:1030:805::5   80:30790/TCP   35s
+NAME         TYPE           CLUSTER-IP            EXTERNAL-IP        PORT(S)        AGE
+my-service   LoadBalancer   2001:db8:fd00::7ebc   2603:1030:805::5   80:30790/TCP   35s
 ```
 
 

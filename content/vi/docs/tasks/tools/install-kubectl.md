@@ -28,15 +28,15 @@ Bạn cần phải sử dụng phiên bản kubectl sai lệch không quá một
 1. Tải về phiên bản mới nhất với câu lệnh:
 
     ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+    curl -LO https://dl.k8s.io/release/`curl -LS https://dl.k8s.io/release/stable.txt`/bin/linux/amd64/kubectl
     ```
 
-    Để tải về phiên bản cụ thể, hãy thay thế phần `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` trong câu lệnh với một phiên bản cụ thể.
+    Để tải về phiên bản cụ thể, hãy thay thế phần `$(curl -LS https://dl.k8s.io/release/stable.txt)` trong câu lệnh với một phiên bản cụ thể.
 
-    Ví dụ như, để tải về phiên bản {{< param "fullversion" >}} trên Linux, hãy nhập như sau:
+    Ví dụ như, để tải về phiên bản {{< skew currentPatchVersion >}} trên Linux, hãy nhập như sau:
     
     ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
+    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/amd64/kubectl
     ```
 
 2. Tạo kubectl binary thực thi.
@@ -73,7 +73,7 @@ baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
 enabled=1
 gpgcheck=1
 repo_gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
 yum install -y kubectl
 {{< /tab >}}
@@ -103,15 +103,15 @@ Nếu bạn đang sử dụng Ubuntu hoặc distro Linux khác hỗ trợ trình
 1. Tải về phiên bản mới nhất:
 
     ```		 
-    curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl"
+    curl -LO "https://dl.k8s.io/release/$(curl -LS https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl"
     ```
 
-    Để tải về phiên bản cụ thể, hãy thay thế phần `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` trong câu lệnh với phiên bản cụ thể. 
+    Để tải về phiên bản cụ thể, hãy thay thế phần `$(curl -LS https://dl.k8s.io/release/stable.txt)` trong câu lệnh với phiên bản cụ thể. 
 
-    Ví dụ, để tải về phiên bản {{< param "fullversion" >}} trên macOS, gõ:
+    Ví dụ, để tải về phiên bản {{< skew currentPatchVersion >}} trên macOS, gõ:
 		  
     ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl
+    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/darwin/amd64/kubectl
     ```
 
 2. Tạo kubectl binary thực thi.
@@ -173,15 +173,15 @@ Nếu bạn đang trên macOS và sử dụng trình quản lý gói [Macports](
 
 ### Cài đặt kubectl binary với curl trên Windows
 
-1. Tải về phiên bản mới nhất {{< param "fullversion" >}} từ [đường dẫn này](https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
+1. Tải về phiên bản mới nhất {{< skew currentPatchVersion >}} từ [đường dẫn này](https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe).
 
     Hoặc nếu bạn đã cài đặt `curl`, hãy sử dụng câu lệnh sau:
 
     ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe
+    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe
     ```
 
-    Để tìm ra phiên bản ổn định mới nhất, hãy xem [https://storage.googleapis.com/kubernetes-release/release/stable.txt](https://storage.googleapis.com/kubernetes-release/release/stable.txt).
+    Để tìm ra phiên bản ổn định mới nhất, hãy xem [https://dl.k8s.io/release/stable.txt](https://dl.k8s.io/release/stable.txt).
 
 2. Đưa bản binary vào biến môi trường PATH của bạn.
 3. Kiểm tra chắn chắn phiên bản `kubectl` giống với bản đã tải về:

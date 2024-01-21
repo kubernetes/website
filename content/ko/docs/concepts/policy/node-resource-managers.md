@@ -1,8 +1,8 @@
 ---
-
-
-
-title: 노드 리소스 매니저 
+# reviewers:
+# - derekwaynecarr
+# - klueska
+title: 노드 리소스 매니저
 content_type: 개념
 weight: 50
 ---

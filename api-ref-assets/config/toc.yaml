@@ -63,12 +63,21 @@ parts:
   - name: HorizontalPodAutoscaler
     group: autoscaling
     version: v2
-  - name: HorizontalPodAutoscaler
-    group: autoscaling
-    version: v2beta2
   - name: PriorityClass
     group: scheduling.k8s.io
     version: v1
+  - name: PodSchedulingContext
+    group: resource.k8s.io
+    version: v1alpha2
+  - name: ResourceClaim
+    group: resource.k8s.io
+    version: v1alpha2
+  - name: ResourceClaimTemplate
+    group: resource.k8s.io
+    version: v1alpha2
+  - name: ResourceClass
+    group: resource.k8s.io
+    version: v1alpha2
 - name: Service Resources
   chapters:
   - name: Service
@@ -124,7 +133,7 @@ parts:
     version: v1
   - name: CSIStorageCapacity
     group: storage.k8s.io
-    version: v1beta1
+    version: v1
 - name: Authentication Resources
   chapters:
   - name: ServiceAccount
@@ -138,6 +147,12 @@ parts:
     version: v1
   - name: CertificateSigningRequest
     group: certificates.k8s.io
+    version: v1
+  - name: ClusterTrustBundle
+    group: certificates.k8s.io
+    version: v1alpha1
+  - name: SelfSubjectReview
+    group: authentication.k8s.io
     version: v1
 - name: Authorization Resources
   chapters:
@@ -179,9 +194,9 @@ parts:
   - name: PodDisruptionBudget
     group: policy
     version: v1
-  - name: PodSecurityPolicy
-    group: policy
-    version: v1beta1
+  - name: IPAddress
+    group: networking.k8s.io
+    version: v1alpha1
 - name: Extend Resources
   chapters:
   - name: CustomResourceDefinition
@@ -198,6 +213,12 @@ parts:
   - name: ValidatingWebhookConfiguration
     group: admissionregistration.k8s.io
     version: v1
+  - name: ValidatingAdmissionPolicy
+    group: admissionregistration.k8s.io
+    version: v1beta1
+    otherDefinitions:
+    - ValidatingAdmissionPolicyList
+    - ValidatingAdmissionPolicyBinding
 - name: Cluster Resources
   chapters:
   - name: Node
@@ -220,16 +241,19 @@ parts:
     version: v1
   - name: FlowSchema
     group: flowcontrol.apiserver.k8s.io
-    version: v1beta2
+    version: v1beta3
   - name: PriorityLevelConfiguration
     group: flowcontrol.apiserver.k8s.io
-    version: v1beta2
+    version: v1beta3
   - name: Binding
     group: ""
     version: v1
   - name: ComponentStatus
     group: ""
     version: v1
+  - name: ClusterCIDR
+    group: networking.k8s.io
+    version: v1alpha1
 - name: Common Definitions
   chapters:
   - name: DeleteOptions

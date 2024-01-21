@@ -1,7 +1,7 @@
 ---
 title: ストレージ容量
 content_type: concept
-weight: 45
+weight: 80
 ---
 
 <!-- overview -->
@@ -37,7 +37,7 @@ weight: 45
 
 volume binding modeが`Immediate`のボリュームの場合、ストレージドライバーはボリュームを使用するPodとは関係なく、ボリュームを作成する場所を決定します。次に、スケジューラーはボリュームが作成された後、Podをボリュームが利用できるノードにスケジューリングします。
 
-[CSI ephemeral volumes](/docs/concepts/storage/volumes/#csi)の場合、スケジューリングは常にストレージ容量を考慮せずに行われます。このような動作になっているのは、このボリュームタイプはノードローカルな特別なCSIドライバーでのみ使用され、そこでは特に大きなリソースが必要になることはない、という想定に基づいています。
+[CSI ephemeral volumes](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes)の場合、スケジューリングは常にストレージ容量を考慮せずに行われます。このような動作になっているのは、このボリュームタイプはノードローカルな特別なCSIドライバーでのみ使用され、そこでは特に大きなリソースが必要になることはない、という想定に基づいています。
 
 ## 再スケジューリング
 
@@ -53,7 +53,7 @@ Kubernetesは古い容量の情報をもとにノードを選択する場合が�
 
 ## ストレージ容量の追跡を有効にする {#enabling-storage-capacity-tracking}
 
-ストレージ容量の追跡は*アルファ機能*であり、`CSIStorageCapacity`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)と`storage.k8s.io/v1alpha1` {{< glossary_tooltip text="API group" term_id="api-group" >}}を有効にした場合にのみ、有効化されます。詳細については、`--feature-gates`および`--runtime-config` [kube-apiserverパラメータ](/docs/reference/command-line-tools-reference/kube-apiserver/)を参照してください。
+ストレージ容量の追跡は*アルファ機能*であり、`CSIStorageCapacity`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)と`storage.k8s.io/v1alpha1` {{< glossary_tooltip text="API group" term_id="api-group" >}}を有効にした場合にのみ、有効化されます。詳細については、`--feature-gates`および`--runtime-config` [kube-apiserverパラメーター](/docs/reference/command-line-tools-reference/kube-apiserver/)を参照してください。
 
 Kubernetesクラスターがこの機能をサポートしているか簡単に確認するには、以下のコマンドを実行して、CSIStorageCapacityオブジェクトを一覧表示します。
 

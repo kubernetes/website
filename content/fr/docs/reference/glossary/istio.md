@@ -2,7 +2,7 @@
 title: Istio
 id: istio
 date: 2018-04-12
-full_link: https://istio.io/docs/concepts/what-is-istio/overview.html
+full_link: https://istio.io/latest/about/service-mesh/#what-is-istio
 short_description: >
   Une plate-forme ouverte (non spécifique à Kubernetes) qui fournit un moyen uniforme d'intégrer des microservices, de gérer des flux de trafic, d'appliquer des règles et d'agréger des données télémétriques.
 

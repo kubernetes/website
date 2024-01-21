@@ -16,17 +16,16 @@ API or the `kube-*` components from the upstream code, see the following instruc
 - [Generating Reference Documentation for the Kubernetes API](/docs/contribute/generate-ref-docs/kubernetes-api/)
 - [Generating Reference Documentation for the Kubernetes Components and Tools](/docs/contribute/generate-ref-docs/kubernetes-components/)
 
-
-
 ## {{% heading "prerequisites" %}}
-
 
 - You need to have these tools installed:
 
   - [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-  - [Golang](https://golang.org/doc/install) version 1.13+
+  - [Golang](https://go.dev/doc/install) version 1.13+
   - [Docker](https://docs.docker.com/engine/installation/)
   - [etcd](https://github.com/coreos/etcd/)
+  - [make](https://www.gnu.org/software/make/)
+  - [gcc compiler/linker](https://gcc.gnu.org/)
 
 - Your `GOPATH` environment variable must be set, and the location of `etcd`
   must be in your `PATH` environment variable.
@@ -35,8 +34,6 @@ API or the `kube-*` components from the upstream code, see the following instruc
   Typically, this involves creating a fork of the repository.
   For more information, see [Creating a Pull Request](https://help.github.com/articles/creating-a-pull-request/)
   and [GitHub Standard Fork & Pull Request Workflow](https://gist.github.com/Chaser324/ce0505fbed06b947d962).
-
-
 
 <!-- steps -->
 
@@ -49,7 +46,7 @@ from the source code in the [upstream Kubernetes](https://github.com/kubernetes/
 When you see bugs in the generated documentation, you may want to consider
 creating a patch to fix it in the upstream project.
 
-## Cloning the Kubernetes repository
+## Clone the Kubernetes repository
 
 If you don't already have the kubernetes/kubernetes repository, get it now:
 
@@ -62,16 +59,16 @@ go get github.com/kubernetes/kubernetes
 Determine the base directory of your clone of the
 [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) repository.
 For example, if you followed the preceding step to get the repository, your
-base directory is `$GOPATH/src/github.com/kubernetes/kubernetes.`
+base directory is `$GOPATH/src/github.com/kubernetes/kubernetes`.
 The remaining steps refer to your base directory as `<k8s-base>`.
 
 Determine the base directory of your clone of the
 [kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs) repository.
 For example, if you followed the preceding step to get the repository, your
-base directory is `$GOPATH/src/github.com/kubernetes-sigs/reference-docs.`
+base directory is `$GOPATH/src/github.com/kubernetes-sigs/reference-docs`.
 The remaining steps refer to your base directory as `<rdocs-base>`.
 
-## Editing the Kubernetes source code
+## Edit the Kubernetes source code
 
 The Kubernetes API reference documentation is automatically generated from
 an OpenAPI spec, which is generated from the Kubernetes source code. If you
@@ -82,10 +79,10 @@ The documentation for the `kube-*` components is also generated from the upstrea
 source code. You must change the code related to the component
 you want to fix in order to fix the generated documentation.
 
-### Making changes to the upstream source code
+### Make changes to the upstream source code
 
 {{< note >}}
-The following steps are an example, not a general procedure. Details 
+The following steps are an example, not a general procedure. Details
 will be different in your situation.
 {{< /note >}}
 
@@ -121,19 +118,18 @@ On branch master
     modified:   staging/src/k8s.io/api/apps/v1/types.go
 ```
 
-### Committing your edited file
+### Commit your edited file
 
 Run `git add` and `git commit` to commit the changes you have made so far. In the next step,
 you will do a second commit. It is important to keep your changes separated into two commits.
 
-### Generating the OpenAPI spec and related files
+### Generate the OpenAPI spec and related files
 
 Go to `<k8s-base>` and run these scripts:
 
 ```shell
-hack/update-generated-swagger-docs.sh
-hack/update-openapi-spec.sh
-hack/update-generated-protobuf.sh
+./hack/update-codegen.sh
+./hack/update-openapi-spec.sh
 ```
 
 Run `git status` to see what was generated.
@@ -142,8 +138,9 @@ Run `git status` to see what was generated.
 On branch master
 ...
     modified:   api/openapi-spec/swagger.json
+    modified:   api/openapi-spec/v3/apis__apps__v1_openapi.json
+    modified:   pkg/generated/openapi/zz_generated.openapi.go
     modified:   staging/src/k8s.io/api/apps/v1/generated.proto
-    modified:   staging/src/k8s.io/api/apps/v1/types.go
     modified:   staging/src/k8s.io/api/apps/v1/types_swagger_doc_generated.go
 ```
 
@@ -177,7 +174,7 @@ repository and in related repositories, such as
 [kubernetes/apiserver](https://github.com/kubernetes/apiserver/blob/master/README.md).
 {{< /note >}}
 
-### Cherry picking your commit into a release branch
+### Cherry pick your commit into a release branch
 
 In the preceding section, you edited a file in the master branch and then ran scripts
 to generate an OpenAPI spec and related files. Then you submitted your changes in a pull request
@@ -187,7 +184,7 @@ Kubernetes version {{< skew latestVersion >}}, and you want to backport your cha
 release-{{< skew prevMinorVersion >}} branch.
 
 Recall that your pull request has two commits: one for editing `types.go`
-and one for the files generated by scripts. The next step is to propose a cherry pick of your first 
+and one for the files generated by scripts. The next step is to propose a cherry pick of your first
 commit into the release-{{< skew prevMinorVersion >}} branch. The idea is to cherry pick the commit
 that edited `types.go`, but not the commit that has the results of running the scripts. For instructions, see
 [Propose a Cherry Pick](https://git.k8s.io/community/contributors/devel/sig-release/cherry-picks.md).
@@ -203,10 +200,8 @@ release-{{< skew prevMinorVersion >}} branch, the next step is to run these scri
 release-{{< skew prevMinorVersion >}} branch of your local environment.
 
 ```shell
-hack/update-generated-swagger-docs.sh
-hack/update-openapi-spec.sh
-hack/update-generated-protobuf.sh
-hack/update-api-reference-docs.sh
+./hack/update-codegen.sh
+./hack/update-openapi-spec.sh
 ```
 
 Now add a commit to your cherry-pick pull request that has the recently generated OpenAPI spec
@@ -220,7 +215,7 @@ the same as the generated files in the master branch. The generated files in the
 contain API elements only from Kubernetes {{< skew prevMinorVersion >}}. The generated files in the master branch might contain
 API elements that are not in {{< skew prevMinorVersion >}}, but are under development for {{< skew latestVersion >}}.
 
-## Generating the published reference docs
+## Generate the published reference docs
 
 The preceding section showed how to edit a source file and then generate
 several files, including `api/openapi-spec/swagger.json` in the
@@ -228,16 +223,13 @@ several files, including `api/openapi-spec/swagger.json` in the
 The `swagger.json` file is the OpenAPI definition file to use for generating
 the API reference documentation.
 
-You are now ready to follow the [Generating Reference Documentation for the Kubernetes API](/docs/contribute/generate-ref-docs/kubernetes-api/) guide to generate the
+You are now ready to follow the
+[Generating Reference Documentation for the Kubernetes API](/docs/contribute/generate-ref-docs/kubernetes-api/)
+guide to generate the
 [published Kubernetes API reference documentation](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/).
 
-
-
 ## {{% heading "whatsnext" %}}
-
 
 * [Generating Reference Documentation for the Kubernetes API](/docs/contribute/generate-ref-docs/kubernetes-api/)
 * [Generating Reference Docs for Kubernetes Components and Tools](/docs/contribute/generate-ref-docs/kubernetes-components/)
 * [Generating Reference Documentation for kubectl Commands](/docs/contribute/generate-ref-docs/kubectl/)
-
-

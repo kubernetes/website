@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
 #
 # This a link checker for Kubernetes documentation website.
-# - We cover the following cases for the language you provide via `-l`, which
-#   defaults to 'en'.
-# - If the language specified is not English (`en`), we check if you are
-#   actually using the localized links. For example, if you specify `zh` as
-#   the language, and for link target `/docs/foo/bar`, we check if the English
-#   version exists AND if the Chinese version exists as well. A checking record
-#   is produced if the link can use the localized version.
+#
+# If the language to check is not English (`en`), we check if you are actually
+# using the localized links. For example, if you checking
+# `content/zh-cn/docs/foo/bar`, we check if the English version exists AND if the
+# Chinese version exists as well.  A checking record is produced if the link
+# can use the localized version.
 #
 # Usage: linkchecker.py -h
 #
@@ -34,6 +33,10 @@
 #   + /docs/bar/_index.md      : exists for current lang, or
 #   + /docs/bar                : is a redirect entry, or
 #   + /docs/bar                : is something we don't understand
+#
+# + [foo](<lang>/docs/bar/...) : leading slash missing for absolute path
+#
+# + [foo](docs/bar/...)        : leading slash missing for absolute path
 #
 # + {{ < api-reference page="" anchor="" ... > }}
 # + {{ < api-reference page="" > }}
@@ -64,18 +67,23 @@ BAD_LINK_TYPES = {
 C_RED = "\033[31m"
 C_GREEN = "\033[32m"
 C_YELLOW = "\033[33m"
-C_GRAY  = "\033[90m"
+C_GRAY = "\033[90m"
 C_CYAN = "\033[36m"
 C_END = "\033[0m"
 
 # Command line arguments shared across functions
 ARGS = None
+# Command line parser
+PARSER = None
+# Language as parsed from the file path
+LANG = None
 # Global result dictionary keyed by page examined
 RESULT = {}
 # Cached redirect entries
 REDIRECTS = {}
 # Cached anchors in target pages
 ANCHORS = {}
+
 
 def new_record(level, message, target):
     """Create new checking record.
@@ -89,7 +97,7 @@ def new_record(level, message, target):
     global ARGS
 
     # Skip info when verbose
-    if ARGS.verbose == False and level == "INFO":
+    if ARGS.verbose is False and level == "INFO":
         return None
 
     result = None
@@ -98,9 +106,9 @@ def new_record(level, message, target):
     else:
         target = C_GRAY + target + C_END
         if level == "INFO":
-            result =  target + ": " + C_GREEN  + message + C_END 
+            result = target + ": " + C_GREEN + message + C_END
         elif level == "WARNING":
-            result = target + ": " + C_YELLOW+ message + C_END
+            result = target + ": " + C_YELLOW + message + C_END
         else:  # default to error
             result = target + ": " + C_RED + message + C_END
 
@@ -286,7 +294,7 @@ def check_target(page, anchor, target):
 
     # link to English or localized page
     if (target.startswith("/docs/") or
-            target.startswith("/" + ARGS.lang + "/docs/")):
+            target.startswith("/" + LANG + "/docs/")):
 
         # target is shared reference (kubectl or kubernetes-api?
         if (target.find("/docs/reference/generated/kubectl/") >= 0 or
@@ -305,22 +313,23 @@ def check_target(page, anchor, target):
         if ok:
             # We do't do additional checks for English site even if it has
             # links to a non-English page
-            if ARGS.lang == "en":
+            if LANG == "en":
                 return None
 
             # If we are already checking localized link, fine
-            if target.startswith("/" + ARGS.lang + "/docs/"):
+            if target.startswith("/" + LANG + "/docs/"):
                 return None
 
             # additional check for localization even if English target exists
-            base = os.path.join(ROOT, "content", ARGS.lang)
+            base = os.path.join(ROOT, "content", LANG)
             found = check_file_exists(base, target)
             if not found:
                 # Still to be translated
                 return None
             msg = ("Localized page detected, please append '/%s' to the target"
-                   % ARGS.lang)
-            return new_record("ERROR", "Link not using localized page", target)
+                   % LANG)
+
+            return new_record("ERROR", msg, target)
 
         # taget might be a redirect entry
         real_target = get_redirect(target)
@@ -330,18 +339,24 @@ def check_target(page, anchor, target):
             return new_record("WARNING", msg, target)
         return new_record("ERROR", "Missing link for [%s]" % anchor, target)
 
+    # absolute link missing leading slash
+    if (target.startswith("docs/") or target.startswith(LANG + "/docs/")):
+        return new_record("ERROR", "Missing leading slash. Try \"/%s\"" %
+                                   target, target)
+
     msg = "Link may be wrong for the anchor [%s]" % anchor
     return new_record("WARNING", msg, target)
 
-def check_anchor(target_page, anchor):
+
+def check_anchor(target, anchor):
     """Check if an anchor is defined in the target page
 
-    :param target_page: The target page to check
+    :param target: The target page to check
     :param anchor: Anchor string to find in the target page
     """
-    if target_page not in ANCHORS:
+    if target not in ANCHORS:
         try:
-            with open(target_page, "r") as f:
+            with open(target, "r") as f:
                 data = f.readlines()
         except Exception as ex:
             print("[Error] failed in reading markdown file: " + str(ex))
@@ -351,8 +366,9 @@ def check_anchor(target_page, anchor):
         regex1 = re.compile(anchor_pattern1)
         anchor_pattern2 = r"{#(.*?)}"
         regex2 = re.compile(anchor_pattern2)
-        ANCHORS[target_page] = regex1.findall(content) + regex2.findall(content)
-    return anchor in ANCHORS[target_page]
+        ANCHORS[target] = regex1.findall(content) + regex2.findall(content)
+    return anchor in ANCHORS[target]
+
 
 def check_apiref_target(target, anchor):
     """Check a link to an API reference page.
@@ -360,7 +376,8 @@ def check_apiref_target(target, anchor):
     :param target: The link target string to check
     :param anchor: Anchor string from the content page
     """
-    base = os.path.join(ROOT, "content", "en", "docs", "reference", "kubernetes-api")
+    base = os.path.join(ROOT, "content", "en", "docs", "reference",
+                        "kubernetes-api")
     ok = check_file_exists(base + "/", target)
     if not ok:
         return new_record("ERROR", "API reference page not found", target)
@@ -370,9 +387,11 @@ def check_apiref_target(target, anchor):
 
     target_page = os.path.join(base, target)+".md"
     if not check_anchor(target_page, anchor):
-        return new_record("ERROR", "Anchor not found in API reference page", target+"#"+anchor)
+        return new_record("ERROR", "Anchor not found in API reference page",
+                          target+"#"+anchor)
 
-def validate_links(page):
+
+def validate_links(page, in_place_edit):
     """Find and validate links on a content page.
 
     The checking records are consolidated into the global variable RESULT.
@@ -392,14 +411,38 @@ def validate_links(page):
 
     matches = regex.findall(content)
     records = []
+    target_records = []
     for m in matches:
         r = check_target(page, m[0], m[1])
         if r:
             records.append(r)
+            target_records.append(m[1])
+
+    # if multiple records are the same they need not be checked repeatedly
+    # remove paths that are not relative too
+    target_records = {item for item in target_records
+                         if not item.startswith("http") and
+                          not item.startswith(f"/{LANG}")}
+
+    # English-language pages don't have "en" in their path
+    if in_place_edit and target_records and LANG != "en":
+        updated_data = []
+        for line in data:
+            if any(rec in line for rec in target_records):
+                for rec in target_records:
+                    line = line.replace(
+                        f"({rec})",
+                        # assumes unlocalized links are in "/docs/..." format
+                        f"(/{LANG}{rec})")
+            updated_data.append(line)
+
+        with open(page, "w") as f:
+            for line in updated_data:
+                f.write(line)
 
     # searches for pattern: {{< api-reference page="" anchor=""
-    apiref_pattern = r"{{ *< *api-reference page=\"([^\"]*?)\" *anchor=\"(.*?)\""
-    regex = re.compile(apiref_pattern)
+    apiref_re = r"{{ *< *api-reference page=\"([^\"]*?)\" *anchor=\"(.*?)\""
+    regex = re.compile(apiref_re)
 
     matches = regex.findall(content)
     for m in matches:
@@ -408,8 +451,8 @@ def validate_links(page):
             records.append(r)
 
     # searches for pattern: {{< api-reference page=""
-    apiref_pattern = r"{{ *< *api-reference page=\"([^\"]*?)\""
-    regex = re.compile(apiref_pattern)
+    apiref_re = r"{{ *< *api-reference page=\"([^\"]*?)\""
+    regex = re.compile(apiref_re)
 
     matches = regex.findall(content)
     for m in matches:
@@ -426,31 +469,41 @@ def parse_arguments():
 
     Result is returned and saved into global variable ARGS.
     """
-    parser = argparse.ArgumentParser(description="Links checker for docs.")
-    parser.add_argument("-l", dest="lang", default="en", metavar="<LANG>",
-                        help=("two letter language code, e.g. 'zh'. "
-                              "(default='en')"))
-    parser.add_argument("-v", dest="verbose", action="store_true",
-                        help="switch on verbose level")
-    parser.add_argument("-f", dest="filter", default="/docs/**/*.md",
-                        metavar="<FILTER>",
-                        help=("File pattern to scan, e.g. '/docs/foo.md'. "
-                              "(default='/docs/**/*.md')"))
-    parser.add_argument("-n", "--no-color", action="store_true",
-                        help="Suppress colored printing.")
+    global PARSER
 
-    return parser.parse_args()
+    PARSER = argparse.ArgumentParser(description="Links checker for docs.")
+    PARSER.add_argument("-v", dest="verbose", action="store_true",
+                        help="switch on verbose level")
+    PARSER.add_argument("-n", "--no-color", action="store_true",
+                        help="Suppress colored printing.")
+    PARSER.add_argument("-f", dest="filter", default="content/en/docs/**/*.md",
+                        metavar="<FILTER>",
+                        help=("File pattern to scan. "
+                              "(default='content/en/docs/**/*.md')"))
+    PARSER.add_argument("-w", dest="in_place_edit", action="store_true",
+                        help="[EXPERIMENTAL] Turns on in-place replacement "
+                             "for localized content.")
+
+    return PARSER.parse_args()
 
 
 def main():
     """The main entry of the program."""
-    global ARGS, ROOT, REDIRECTS
+    global ARGS, ROOT, REDIRECTS, PARSER, LANG
 
     ARGS = parse_arguments()
-    print("Language: " + ARGS.lang)
     ROOT = os.path.join(os.path.dirname(__file__), '..')
-    content_dir = os.path.join(ROOT, 'content')
-    lang_dir = os.path.join(content_dir, ARGS.lang)
+
+    print(ARGS.filter)
+    parts = ARGS.filter.split("/", 2)
+    if len(parts) != 3 or parts[0] != "content":
+        print("ERROR:\nPlease specify file pattern in the format "
+              "'content/<lang>/<path-pattern>', for example:\n"
+              "'content/zh-cn/docs/concepts/**/*.md'\n")
+        PARSER.print_help()
+        sys.exit(-1)
+
+    LANG = parts[1]
 
     # read redirects data
     redirects_fn = os.path.join(ROOT, "static", "_redirects")
@@ -473,9 +526,9 @@ def main():
         print("[Error] failed in reading redirects file: " + str(ex))
         return
 
-    folders = [f for f in glob.glob(lang_dir + ARGS.filter, recursive=True)]
+    folders = [f for f in glob.glob(ARGS.filter, recursive=True)]
     for page in folders:
-        validate_links(page)
+        validate_links(page, ARGS.in_place_edit)
 
     dump_result()
 

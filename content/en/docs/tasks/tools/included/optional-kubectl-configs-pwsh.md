@@ -2,6 +2,10 @@
 title: "PowerShell auto-completion"
 description: "Some optional configuration for powershell auto-completion."
 headless: true
+_build:
+  list: never
+  render: never
+  publishResources: false
 ---
 
 The kubectl completion script for PowerShell can be generated with the command `kubectl completion powershell`.

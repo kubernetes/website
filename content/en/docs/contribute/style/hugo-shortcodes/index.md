@@ -1,6 +1,7 @@
 ---
 title: Custom Hugo Shortcodes
 content_type: concept
+weight: 120
 ---
 
 <!-- overview -->
@@ -47,6 +48,24 @@ feature state version by passing the `for_k8s_version` shortcode parameter. For 
 Renders to:
 
 {{< feature-state for_k8s_version="v1.10" state="beta" >}}
+
+## Feature gate description
+
+In a Markdown page (`.md` file) on this site, you can add a shortcode to
+display the description for a shortcode.
+
+### Feature gate description demo
+
+Below is a demo of the feature state snippet, which displays the feature as
+stable in the latest Kubernetes version.
+
+```
+{{</* feature-gate-description name="DryRun" */>}}
+```
+
+Renders to:
+
+{{< feature-gate-description name="DryRun" >}}
 
 ## Glossary
 
@@ -194,12 +213,12 @@ The tab **name** in a `tabs` definition must be unique within a content page.
 
 ```go-text-template
 {{</* tabs name="tab_with_code" >}}
-{{{< tab name="Tab 1" codelang="bash" >}}
+{{< tab name="Tab 1" codelang="bash" >}}
 echo "This is tab 1."
 {{< /tab >}}
 {{< tab name="Tab 2" codelang="go" >}}
 println "This is tab 2."
-{{< /tab >}}}
+{{< /tab >}}
 {{< /tabs */>}}
 ```
 
@@ -270,6 +289,36 @@ Renders to:
 {{< tab name="JSON File" include="podtemplate.json" />}}
 {{< /tabs >}}
 
+## Source code files
+
+You can use the `{{%/* code_sample */%}}` shortcode to embed the contents of file in a code block to allow users to download or copy its content to their clipboard. This shortcode is used when the contents of the sample file is generic and reusable, and you want the users to try it out themselves.
+
+This shortcode takes in two named parameters: `language` and `file`. The mandatory parameter `file` is used to specify the path to the file being displayed. The optional parameter `language` is used to specify the programming language of the file. If the `language` parameter is not provided, the shortcode will attempt to guess the language based on the file extension.
+
+For example:
+
+```none
+{{%/* code_sample language="yaml" file="application/deployment-scale.yaml" */%}}
+```
+
+The output is:
+
+{{% code_sample language="yaml" file="application/deployment-scale.yaml" %}}
+
+When adding a new sample file, such as a YAML file, create the file in one of the `<LANG>/examples/` subdirectories where `<LANG>` is the language for the page. In the markdown of your page, use the `code` shortcode:
+
+```none
+{{%/* code_sample file="<RELATIVE-PATH>/example-yaml>" */%}}
+```
+where `<RELATIVE-PATH>` is the path to the sample file to include, relative to the `examples` directory. The following shortcode references a YAML file located at `/content/en/examples/configmap/configmaps.yaml`.
+
+```none
+{{%/* code_sample file="configmap/configmaps.yaml" */%}}
+```
+
+The legacy `{{%/* codenew */%}}` shortcode is being replaced by `{{%/* code_sample */%}}`.
+Use `{{%/* code_sample */%}}` (not `{{%/* codenew */%}}` or `{{%/* code */%}}`) in new documentation.
+
 ## Third party content marker
 
 Running Kubernetes requires third-party software. For example: you
@@ -306,12 +355,11 @@ Add the shortcode:
 
 before the item, or just below the heading for the specific item.
 
-
 ## Version strings
 
 To generate a version string for inclusion in the documentation, you can choose from
 several version shortcodes. Each version shortcode displays a version string derived from
-the value of a version parameter found in the site configuration file, `config.toml`.
+the value of a version parameter found in the site configuration file, `hugo.toml`.
 The two most commonly used version parameters are `latest` and `version`.
 
 ### `{{</* param "version" */>}}`
@@ -371,6 +419,7 @@ Renders to:
 
 {{< latest-release-notes >}}
 
+
 ## {{% heading "whatsnext" %}}
 
 * Learn about [Hugo](https://gohugo.io/).
@@ -378,4 +427,3 @@ Renders to:
 * Learn about [page content types](/docs/contribute/style/page-content-types/).
 * Learn about [opening a pull request](/docs/contribute/new-content/open-a-pr/).
 * Learn about [advanced contributing](/docs/contribute/advanced/).
-

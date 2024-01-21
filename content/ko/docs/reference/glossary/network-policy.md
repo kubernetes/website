@@ -2,7 +2,7 @@
 title: 네트워크 폴리시(Network Policy)
 id: network-policy
 date: 2018-04-12
-full_link: /docs/concepts/services-networking/network-policies/
+full_link: /ko/docs/concepts/services-networking/network-policies/
 short_description: >
   파드 그룹들이 서로에 대한 그리고 다른 네트워크 엔드포인트에 대한 통신이 어떻게 허용되는지에 대한 명세이다.
 

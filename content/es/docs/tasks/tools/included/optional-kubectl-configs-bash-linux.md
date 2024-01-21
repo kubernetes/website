@@ -44,7 +44,7 @@ Si tiene un alias para kubectl, puede extender el completado del shell para trab
 
 ```bash
 echo 'alias k=kubectl' >>~/.bashrc
-echo 'complete -F __start_kubectl k' >>~/.bashrc
+echo 'complete -o default -F __start_kubectl k' >>~/.bashrc
 ```
 
 {{< note >}}

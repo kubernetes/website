@@ -1,6 +1,7 @@
 ---
 title: Limit Storage Consumption
 content_type: task
+weight: 240
 ---
 
 <!-- overview -->

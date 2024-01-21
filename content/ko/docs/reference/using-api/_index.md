@@ -1,7 +1,11 @@
 ---
 title: API 개요
+# reviewers:
+# - erictune
+# - lavalamp
+# - jbeda
 content_type: concept
-weight: 10
+weight: 20
 no_list: true
 card:
   name: 레퍼런스
@@ -35,7 +39,7 @@ JSON과 Protobuf 직렬화 스키마 모두 스키마 변경에 대해서
 동일한 가이드라인을 따른다. 이후 설명에서는 이 형식 모두를 다룬다.
 
 API 버전 규칙과 소프트웨어 버전 규칙은 간접적으로 연관된다.
-[API와 릴리스 버전 부여에 관한 제안](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md)에는
+[API와 릴리스 버전 부여에 관한 제안](https://git.k8s.io/sig-release/release-engineering/versioning.md)에는
 API 버전 규칙과 소프트웨어 버전 규칙 간의 관계가 기술되어 있다.
 
 API 버전의 차이는 수준의 안정성과 지원의 차이를 나타낸다.
@@ -46,27 +50,31 @@ API 버전의 차이는 수준의 안정성과 지원의 차이를 나타낸다.
 
 - 알파(Alpha):
   - 버전 이름에 `alpha`가 포함된다(예: `v1alpha1`).
+  - 빌트인 알파 API 버전은 기본적으로 활성화되지 않으며, 활성화하기 위해서는 `kube-apiserver` 설정에 반드시 명시해야 한다.
   - 버그가 있을 수도 있다. 이 기능을 활성화하면 버그에 노출될 수 있다.
-    기본적으로 비활성화되어 있다.
-  - 기능에 대한 기술 지원이 언제든 공지 없이 중단될 수 있다.
+  - 알파 API에 대한 기술 지원이 언제든 공지 없이 중단될 수 있다.
   - 다음 소프트웨어를 릴리스할 때 공지 없이 API의 호환성이 깨지는 방식으로 변경될 수 있다.
   - 버그에 대한 위험이 높고 장기간 지원되지 않으므로
     단기간 테스트 용도의 클러스터에서만 사용하기를 권장한다.
 
 - 베타(Beta):
   - 버전 이름에 `beta`가 포함된다(예: `v2beta3`).
+  - 빌트인 베타 API 버전은 기본적으로 활성화되지 않으며, 활성화하기 위해서는 `kube-apiserver` 설정에 반드시 명시해야 한다.
+    (**예외사항** 쿠버네티스 1.22 버전 이전의 베타 API들은 기본적으로 활성화되어 있다.)
+  - 빌트인 베타 API 버전이 더 이상 지원되지 않기까지는 9달 또는 3번의 마이너 릴리스(둘 중 더 긴 것을 기준으로 함)가 걸린다.
+    그리고 지원되지 않은 시점에서 제거되기까지는 다시 9달 또는 3번의 마이너 릴리스(둘 중 더 긴 것을 기준으로 함)가 걸린다.
   - 코드가 잘 테스트 되었다. 이 기능을 활성화해도 안전하다.
-    기본적으로 활성화되어 있다.
   - 구체적인 내용이 바뀔 수는 있지만, 전반적인 기능에 대한 기술 지원이 중단되지 않는다.
 
-  - 오브젝트에 대한 스키마나 문법이 다음 베타 또는 안정화 릴리스에서
+  - 오브젝트에 대한 스키마나 문법이 다음 베타 또는 안정화 API 버전에서
     호환되지 않는 방식으로 바뀔 수도 있다. 이런 경우, 다음 버전으로
-    이관할 수 있는 가이드가 제공된다. 스키마 변경은 API 오브젝트의 삭제, 편집 또는 재생성이
-    필요할 수도 있다. 편집 절차는 좀 생각해볼 필요가 있다.
+    이관할 수 있는 가이드가 제공된다. 다음 베타 또는 안정화 API 버전을 적용하는 것은
+    API 오브젝트의 편집 또는 재생성이 필요할 수도 있으며, 그렇게 쉬운 일만은 아닐 것이다.
     이 기능에 의존하고 있는 애플리케이션은 다운타임이 필요할 수도 있다.
   - 이 소프트웨어는 프로덕션 용도로 권장하지 않는다. 이후 여러 버전에서
-    호환되지 않는 변경 사항이 적용될 수 있다. 복수의 클러스터를 가지고 있어서
-    독립적으로 업그레이드할 수 있다면, 이런 제약에서 벗어날 수도 있다.
+    호환되지 않는 변경 사항이 적용될 수 있다. 
+    베타 API 버전이 더 이상 지원되지 않는 경우, 후속 베타 또는 안정화 API 버전으로 전환하기 위해서는
+    베타 API 버전을 사용해야 한다.
 
   {{< note >}}
   베타 기능을 사용해보고 피드백을 제공하자. 기능이 베타 수준을 벗어난 이후에는
@@ -75,12 +83,13 @@ API 버전의 차이는 수준의 안정성과 지원의 차이를 나타낸다.
 
 - 안정화(Stable):
   - 버전 이름이 `vX`이고 `X` 는 정수다.
-  - 안정화 버전의 기능은 이후 여러 버전에 걸쳐서 소프트웨어 릴리스에 포함된다.
+  - 안정화된 API 버전은 이후의 모든 쿠버네티스 메이저 버전에서 사용 가능하며,
+    현재로써 쿠버네티스 메이저 버전에서 안정화된 API를 제거하려는 계획은 없다.
 
 ## API 그룹
 
-[API 그룹](https://git.k8s.io/community/contributors/design-proposals/api-machinery/api-group.md)은
-쿠버네티스 API를 더 쉽게 확장하게 해준다.
+[API 그룹](https://git.k8s.io/design-proposals-archive/api-machinery/api-group.md)은
+쿠버네티스 API를 더 쉽게 확장할 수 있도록 해 준다.
 API 그룹은 REST 경로와 직렬화된 오브젝트의 `apiVersion` 필드에
 명시된다.
 
@@ -104,6 +113,7 @@ API 그룹은 REST 경로와 직렬화된 오브젝트의 `apiVersion` 필드에
 
  - `batch/v1` 을 비활성화하려면, `--runtime-config=batch/v1=false` 로 설정
  - `batch/v2alpha1` 을 활성화하려면, `--runtime-config=batch/v2alpha1` 으로 설정
+ - 예를 들어 `storage.k8s.io/v1beta1/csistoragecapacities`와 같이 특정 버전의 API를 활성화하려면, `--runtime-config=storage.k8s.io/v1beta1/csistoragecapacities`와 같이 설정
 
 {{< note >}}
 그룹이나 리소스를 활성화 또는 비활성화하려면, apiserver와 controller-manager를 재시작하여
@@ -118,5 +128,5 @@ API 그룹은 REST 경로와 직렬화된 오브젝트의 `apiVersion` 필드에
 ## {{% heading "whatsnext" %}}
 
 - [API 규칙](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#api-conventions)에 대해 자세히 알아보기
-- [애그리게이터(aggregator)](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/aggregated-api-servers.md)에
+- [애그리게이터(aggregator)](https://git.k8s.io/design-proposals-archive/api-machinery/aggregated-api-servers.md)에
   대한 디자인 문서 읽기

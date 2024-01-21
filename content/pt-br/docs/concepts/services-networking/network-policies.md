@@ -220,7 +220,7 @@ comportamento padrão nesse namespace.
 Você pode criar uma política padrão de isolamento para um namespace criando um objeto `NetworkPolicy` 
 que seleciona todos os pods mas não permite o tráfego de entrada para esses pods.
 
-{{< codenew file="service/networking/network-policy-default-deny-ingress.yaml" >}}
+{{% codenew file="service/networking/network-policy-default-deny-ingress.yaml" %}}
 
 Isso garante que mesmo pods que não são selecionados por nenhuma outra política de rede ainda 
 serão isolados. Essa política não muda o comportamento padrão de isolamento de tráfego de saída 
@@ -232,7 +232,7 @@ Se você deseja permitir todo o tráfego de todos os pods em um namespace (mesmo
 sejam adicionadas faça com que alguns pods sejam tratados como "isolados"), você pode criar 
 uma política que permite explicitamente todo o tráfego naquele namespace.
 
-{{< codenew file="service/networking/network-policy-allow-all-ingress.yaml" >}}
+{{% codenew file="service/networking/network-policy-allow-all-ingress.yaml" %}}
 
 ### Bloqueio padrão de todo tráfego de saída
 
@@ -240,7 +240,7 @@ Você pode criar uma política de isolamento de saída padrão para um namespace
 política de redes que selecione todos os pods, mas não permita o tráfego de saída a partir 
 de nenhum desses pods.
 
-{{< codenew file="service/networking/network-policy-default-deny-egress.yaml" >}}
+{{% codenew file="service/networking/network-policy-default-deny-egress.yaml" %}}
 
 Isso garante que mesmo pods que não são selecionados por outra política de rede não seja permitido 
 tráfego de saída. Essa política não muda o comportamento padrão de tráfego de entrada.
@@ -251,14 +251,14 @@ Caso você queira permitir todo o tráfego de todos os pods em um namespace (mes
 adicionadas e cause com que alguns pods sejam tratados como "isolados"), você pode criar uma 
 política explicita que permite todo o tráfego de saída no namespace.
 
-{{< codenew file="service/networking/network-policy-allow-all-egress.yaml" >}}
+{{% codenew file="service/networking/network-policy-allow-all-egress.yaml" %}}
 
 ### Bloqueio padrão de todo tráfego de entrada e saída
 
 Você pode criar uma política padrão em um namespace que previne todo o tráfego de entrada 
 E saída criando a política a seguir no namespace.
 
-{{< codenew file="service/networking/network-policy-default-deny-all.yaml" >}}
+{{% codenew file="service/networking/network-policy-default-deny-all.yaml" %}}
 
 Isso garante que mesmo pods que não são selecionados por nenhuma outra política de redes não 
 possuam permissão de tráfego de entrada ou saída.

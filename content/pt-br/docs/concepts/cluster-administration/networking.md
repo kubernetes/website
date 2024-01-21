@@ -247,4 +247,4 @@ documentação em [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes
 
 Design inicial do modelo de conectividade do Kubernetes e alguns planos futuros 
 estão descritos com maiores detalhes no 
-[documento de design de redes](https://git.k8s.io/community/contributors/design-proposals/network/networking.md).
+[documento de design de redes](https://git.k8s.io/design-proposals-archive/network/networking.md).

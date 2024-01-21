@@ -1,8 +1,12 @@
 ---
 title: 인그레스 컨트롤러
-reviewers:
+description: >-
+  클러스터 내의 [인그레스](/ko/docs/concepts/services-networking/ingress/)가 작동하려면,
+  인그레스 컨트롤러가 실행되고 있어야 한다.
+  적어도 하나의 인그레스 컨트롤러를 선택하고 이를 클러스터 내에 설치한다.
+  이 페이지는 배포할 수 있는 일반적인 인그레스 컨트롤러를 나열한다.
 content_type: concept
-weight: 40
+weight: 50
 ---
 
 <!-- overview -->
@@ -23,7 +27,7 @@ weight: 40
 
 {{% thirdparty-content %}}
 
-* [AKS 애플리케이션 게이트웨이 인그레스 컨트롤러](https://azure.github.io/application-gateway-kubernetes-ingress/)는 [Azure 애플리케이션 게이트웨이](https://docs.microsoft.com)를 구성하는 인그레스 컨트롤러다.
+* [AKS 애플리케이션 게이트웨이 인그레스 컨트롤러](https://docs.microsoft.com/azure/application-gateway/tutorial-ingress-controller-add-on-existing?toc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Faks%2Ftoc.json&bc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Fbread%2Ftoc.json)는 [Azure 애플리케이션 게이트웨이](https://docs.microsoft.com/azure/application-gateway/overview)를 구성하는 인그레스 컨트롤러다.
 * [Ambassador](https://www.getambassador.io/) API 게이트웨이는 [Envoy](https://www.envoyproxy.io) 기반 인그레스
   컨트롤러다.
 * [Apache APISIX 인그레스 컨트롤러](https://github.com/apache/apisix-ingress-controller)는 [Apache APISIX](https://github.com/apache/apisix) 기반의 인그레스 컨트롤러이다.
@@ -33,7 +37,7 @@ weight: 40
   Citrix 애플리케이션 딜리버리 컨트롤러에서 작동한다.
 * [Contour](https://projectcontour.io/)는 [Envoy](https://www.envoyproxy.io/) 기반 인그레스 컨트롤러다.
 * [EnRoute](https://getenroute.io/)는 인그레스 컨트롤러로 실행할 수 있는 [Envoy](https://www.envoyproxy.io) 기반 API 게이트웨이다.
-* [Easegress IngressController](https://github.com/megaease/easegress/blob/main/doc/ingresscontroller.md)는 인그레스 컨트롤러로 실행할 수 있는 [Easegress](https://megaease.com/easegress/) 기반 API 게이트웨이다.
+* [Easegress IngressController](https://github.com/megaease/easegress/blob/main/doc/reference/ingresscontroller.md)는 인그레스 컨트롤러로서 실행할 수 있는 [Easegress](https://megaease.com/easegress/) 기반 API 게이트웨이다.
 * F5 BIG-IP [쿠버네티스 용 컨테이너 인그레스 서비스](https://clouddocs.f5.com/containers/latest/userguide/kubernetes/)를
   이용하면 인그레스를 사용하여 F5 BIG-IP 가상 서버를 구성할 수 있다.
 * [Gloo](https://gloo.solo.io)는 API 게이트웨이 기능을 제공하는 [Envoy](https://www.envoyproxy.io) 기반의
@@ -46,8 +50,10 @@ weight: 40
   기반 인그레스 컨트롤러다.
 * [쿠버네티스 용 Kong 인그레스 컨트롤러](https://github.com/Kong/kubernetes-ingress-controller#readme)는 [Kong 게이트웨이](https://konghq.com/kong/)를
   구동하는 인그레스 컨트롤러다.
+* [Kusk 게이트웨이](https://kusk.kubeshop.io/)는 OpenAPI 중심의 [Envoy](https://www.envoyproxy.io) 기반 인그레스 컨트롤러다.
 * [쿠버네티스 용 NGINX 인그레스 컨트롤러](https://www.nginx.com/products/nginx-ingress-controller/)는 [NGINX](https://www.nginx.com/resources/glossary/nginx/)
   웹서버(프록시로 사용)와 함께 작동한다.
+* [Pomerium 인그레스 컨트롤러](https://www.pomerium.com/docs/k8s/ingress.html)는 [Pomerium](https://pomerium.com/) 기반 인그레스 컨트롤러이며, 상황 인지 접근 정책을 제공한다.
 * [Skipper](https://opensource.zalando.com/skipper/kubernetes/ingress-controller/)는 사용자의 커스텀 프록시를 구축하기 위한 라이브러리로 설계된 쿠버네티스 인그레스와 같은 유스케이스를 포함한 서비스 구성을 위한 HTTP 라우터 및 역방향 프록시다.
 * [Traefik 쿠버네티스 인그레스 제공자](https://doc.traefik.io/traefik/providers/kubernetes-ingress/)는
   [Traefik](https://traefik.io/traefik/) 프록시 용 인그레스 컨트롤러다.
@@ -57,12 +63,11 @@ weight: 40
 
 ## 여러 인그레스 컨트롤러 사용
 
-하나의 클러스터 내에 [여러 개의 인그레스 컨트롤러](https://git.k8s.io/ingress-nginx/docs/user-guide/multiple-ingress.md#multiple-ingress-controllers)를 배포할 수 있다.
-인그레스를 생성할 때,  클러스터 내에 둘 이상의 인그레스 컨트롤러가 존재하는 경우
-어떤 인그레스 컨트롤러를 사용해야 하는지 표시해주는 적절한 [`ingress.class`](https://git.k8s.io/ingress-gce/docs/faq/README.md#how-do-i-run-multiple-ingress-controllers-in-the-same-cluster)
-어노테이션을 각각의 인그레스에 달아야 한다.
+하나의 클러스터 내에 [인그레스 클래스](/ko/docs/concepts/services-networking/ingress/#ingress-class)를 이용하여 여러 개의 인그레스 컨트롤러를 배포할 수 있다.
+`.metadata.name` 필드를 확인해둔다. 인그레스를 생성할 때 인그레스 오브젝트([IngressSpec v1 참고](/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec))의 `ingressClassName` 필드에 해당 이름을 명시해야 한다. `ingressClassName`은 이전 [어노테이션 방식](/ko/docs/concepts/services-networking/ingress/#사용중단-deprecated-어노테이션)의 대체 수단이다.
 
-만약 클래스를 정의하지 않으면, 클라우드 제공자는 기본 인그레스 컨트롤러를 사용할 수 있다.
+인그레스에 대한 인그레스 클래스를 설정하지 않았고, 클러스터에 기본으로 설정된 인그레스 클래스가 정확히 하나만 존재하는 경우, 쿠버네티스는 클러스터의 기본 인그레스 클래스를 인그레스에 [적용](/ko/docs/concepts/services-networking/ingress/#default-ingress-class)한다.
+인그레스 클래스에 [`ingressclass.kubernetes.io/is-default-class` 어노테이션](/ko/docs/reference/labels-annotations-taints/#ingressclass-kubernetes-io-is-default-class)을 문자열 값 `"true"`로 설정하여, 해당 인그레스 클래스를 기본으로 설정할 수 있다.
 
 이상적으로는 모든 인그레스 컨트롤러가 이 사양을 충족해야 하지만,
 다양한 인그레스 컨트롤러는 약간 다르게 작동한다.

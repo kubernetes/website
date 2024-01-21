@@ -91,7 +91,7 @@ spec:
  Seperti layaknya *resource* Kubernetes yang lain, sebuah Ingress membutuhkan *field* `apiVersion`, `kind`, dan `metadata`.
  Untuk informasi umum soal bagaimana cara bekerja dengan menggunakan berkas konfigurasi, silahkan merujuk pada [melakukan deploy aplikasi](/docs/tasks/run-application/run-stateless-application-deployment/), [konfigurasi kontainer](/id/docs/tasks/configure-pod-container/configure-pod-configmap/), [mengatur *resource*](/id/docs/concepts/cluster-administration/manage-deployment/).
  Ingress seringkali menggunakan anotasi untuk melakukan konfigurasi beberapa opsi yang ada bergantung pada kontroler Ingress yang digunakan, sebagai contohnya
- adalah [anotasi rewrite-target](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md).
+ adalah [anotasi rewrite-target](https://github.com/kubernetes/ingress-nginx/blob/main/docs/examples/rewrite/README.md).
  [Kontroler Ingress](/id/docs/concepts/services-networking/ingress-controllers) yang berbeda memiliki jenis anotasi yang berbeda. Pastikan kamu sudah terlebih dahulu memahami dokumentasi
  kontroler Ingress yang akan kamu pakai untuk mengetahui jenis anotasi apa sajakah yang disediakan.
 
@@ -132,7 +132,7 @@ akan diarahkan pada *backend default*.
 Terdapat konsep Kubernetes yang memungkinkan kamu untuk mengekspos sebuah Service, lihat [alternatif lain](#alternatif-lain).
 Kamu juga bisa membuat spesifikasi Ingress dengan  *backend default* yang tidak memiliki *rules*.
 
-{{< codenew file="service/networking/ingress.yaml" >}}
+{{% codenew file="service/networking/ingress.yaml" %}}
 
 Jika kamu menggunakan `kubectl apply -f` kamu dapat melihat:
 

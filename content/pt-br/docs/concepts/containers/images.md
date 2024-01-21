@@ -2,7 +2,6 @@
 reviewers:
 - femrtnz
 - jcjesus
-- hugopfeffer
 title: Imagens
 content_type: concept
 weight: 10
@@ -88,7 +87,7 @@ Essa abordagem é adequada se você puder controlar a configuração do nó.
 
 {{< note >}}
 O Kubernetes padrão é compatível apenas com as seções `auths` e` HttpHeaders` na configuração do Docker.
-Auxiliares de credencial do Docker (`credHelpers` ou` credsStore`) não são suportados.
+Auxiliares de credencial do Docker (`credHelpers` ou `credsStore`) não são suportados.
 {{< /note >}}
 
 Docker armazena chaves de registros privados no arquivo `$HOME/.dockercfg` ou `$HOME/.docker/config.json`. Se você colocar o mesmo arquivo na lista de caminhos de pesquisa abaixo, o kubelet o usa como provedor de credenciais ao obter imagens.

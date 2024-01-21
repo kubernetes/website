@@ -1,8 +1,8 @@
 ---
-
-
-
-
+# reviewers:
+# - brendandburns
+# - erictune
+# - mikedanese
 title: 시작하기
 main_menu: true
 weight: 20
@@ -26,6 +26,13 @@ card:
 
 [쿠버네티스를 다운로드](/releases/download/)하여 
 로컬 머신에, 클라우드에, 데이터센터에 쿠버네티스 클러스터를 구축할 수 있다.
+
+{{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}}나 {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}와 같은 몇몇 [쿠버네티스 컴포넌트](/releases/download/)들은
+클러스터 내에서 [컨테이너 이미지](/releases/download/#container-images)를 통해 배포할 수 있다.
+
+쿠버네티스 컴포넌트들은 가급적 컨테이너 이미지로 실행하는 것을 **추천**하며,
+이를 통해 쿠버네티스가 해당 컴포넌트들을 관리하도록 한다.
+컨테이너를 구동하는 컴포넌트(특히 kubelet)는 여기에 속하지 않는다.
 
 쿠버네티스 클러스터를 직접 관리하고 싶지 않다면, [인증된 플랫폼](/ko/docs/setup/production-environment/turnkey-solutions/)과 
 같은 매니지드 서비스를 선택할 수도 있다.
@@ -60,4 +67,5 @@ card:
 쿠버네티스의 {{< glossary_tooltip term_id="control-plane" text="컨트롤 플레인" >}}은 
 리눅스에서 실행되도록 설계되었다. 클러스터 내에서는 리눅스 또는 
 다른 운영 체제(예: 윈도우)에서 애플리케이션을 실행할 수 있다.
-- [윈도우 노드를 포함하는 클러스터 구성하기](/ko/docs/setup/production-environment/windows/)를 살펴본다.
+
+- [윈도우 노드를 포함하는 클러스터 구성하기](/ko/docs/concepts/windows/)를 살펴본다.

@@ -56,12 +56,13 @@ Here are links to some of the popular cloud providers' security documentation:
 IaaS Provider        | Link |
 -------------------- | ------------ |
 Alibaba Cloud | https://www.alibabacloud.com/trust-center |
-Amazon Web Services | https://aws.amazon.com/security/ |
-Google Cloud Platform | https://cloud.google.com/security/ |
+Amazon Web Services | https://aws.amazon.com/security |
+Google Cloud Platform | https://cloud.google.com/security |
+Huawei Cloud | https://www.huaweicloud.com/intl/en-us/securecenter/overallsafety |
 IBM Cloud | https://www.ibm.com/cloud/security |
 Microsoft Azure | https://docs.microsoft.com/en-us/azure/security/azure-security |
-Oracle Cloud Infrastructure | https://www.oracle.com/security/ |
-VMWare VSphere | https://www.vmware.com/security/hardening-guides.html |
+Oracle Cloud Infrastructure | https://www.oracle.com/security |
+VMware vSphere | https://www.vmware.com/security/hardening-guides |
 
 {{< /table >}}
 
@@ -123,7 +124,7 @@ Area of Concern for Containers | Recommendation |
 Container Vulnerability Scanning and OS Dependency Security | As part of an image build step, you should scan your containers for known vulnerabilities.
 Image Signing and Enforcement | Sign container images to maintain a system of trust for the content of your containers.
 Disallow privileged users | When constructing containers, consult your documentation for how to create users inside of the containers that have the least level of operating system privilege necessary in order to carry out the goal of the container.
-Use container runtime with stronger isolation | Select [container runtime classes](/docs/concepts/containers/runtime-class/) that provide stronger isolation
+Use container runtime with stronger isolation | Select [container runtime classes](/docs/concepts/containers/runtime-class/) that provide stronger isolation.
 
 ## Code
 
@@ -141,7 +142,7 @@ Access over TLS only | If your code needs to communicate by TCP, perform a TLS h
 Limiting port ranges of communication | This recommendation may be a bit self-explanatory, but wherever possible you should only expose the ports on your service that are absolutely essential for communication or metric gathering. |
 3rd Party Dependency Security | It is a good practice to regularly scan your application's third party libraries for known security vulnerabilities. Each programming language has a tool for performing this check automatically. |
 Static Code Analysis | Most languages provide a way for a snippet of code to be analyzed for any potentially unsafe coding practices. Whenever possible you should perform checks using automated tooling that can scan codebases for common security errors. Some of the tools can be found at: https://owasp.org/www-community/Source_Code_Analysis_Tools |
-Dynamic probing attacks | There are a few automated tools that you can run against your service to try some of the well known service attacks. These include SQL injection, CSRF, and XSS. One of the most popular dynamic analysis tools is the [OWASP Zed Attack proxy](https://owasp.org/www-project-zap/) tool. |
+Dynamic probing attacks | There are a few automated tools that you can run against your service to try some of the well known service attacks. These include SQL injection, CSRF, and XSS. One of the most popular dynamic analysis tools is the [OWASP Zed Attack proxy](https://www.zaproxy.org/) tool. |
 
 {{< /table >}}
 

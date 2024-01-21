@@ -19,7 +19,7 @@ To run node conformance test, a node must satisfy the same prerequisites as a
 standard Kubernetes node. At a minimum, the node should have the following
 daemons installed:
 
-* Container Runtime (Docker)
+* CRI-compatible container runtimes such as  Docker, Containerd and CRI-O
 * Kubelet
 
 ## Running Node Conformance Test
@@ -30,8 +30,6 @@ To run the node conformance test, perform the following steps:
     Because the test framework starts a local control plane to test the kubelet,
     use `http://localhost:8080` as the URL of the API server.
     There are some other kubelet command line parameters you may want to use:
-  * `--pod-cidr`: If you are using `kubenet`, you should specify an arbitrary CIDR
-    to Kubelet, for example `--pod-cidr=10.180.0.0/24`.
   * `--cloud-provider`: If you are using `--cloud-provider=gce`, you should
     remove the flag to run the test.
 
@@ -42,7 +40,7 @@ To run the node conformance test, perform the following steps:
 # $LOG_DIR is the test output path.
 sudo docker run -it --rm --privileged --net=host \
   -v /:/rootfs -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
-  k8s.gcr.io/node-test:0.2
+  registry.k8s.io/node-test:0.2
 ```
 
 ## Running Node Conformance Test for Other Architectures
@@ -65,7 +63,7 @@ regular expression of tests you want to run.
 sudo docker run -it --rm --privileged --net=host \
   -v /:/rootfs:ro -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
   -e FOCUS=MirrorPod \ # Only run MirrorPod test
-  k8s.gcr.io/node-test:0.2
+  registry.k8s.io/node-test:0.2
 ```
 
 To skip specific tests, overwrite the environment variable `SKIP` with the
@@ -75,7 +73,7 @@ regular expression of tests you want to skip.
 sudo docker run -it --rm --privileged --net=host \
   -v /:/rootfs:ro -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
   -e SKIP=MirrorPod \ # Run all conformance tests but skip MirrorPod test
-  k8s.gcr.io/node-test:0.2
+  registry.k8s.io/node-test:0.2
 ```
 
 Node conformance test is a containerized version of [node e2e test](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/e2e-node-tests.md).

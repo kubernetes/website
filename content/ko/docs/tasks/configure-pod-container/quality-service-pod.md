@@ -107,7 +107,7 @@ kubectl delete pod qos-demo --namespace=qos-example
 다음의 경우 파드에 Burstable QoS 클래스가 부여된다.
 
 * 파드가 Guaranteed QoS 클래스 기준을 만족하지 않는다.
-* 파드 내에서 최소한 하나의 컨테이너가 메모리 또는 CPU 요청량을 가진다.
+* 파드 내에서 최소한 하나의 컨테이너가 메모리 또는 CPU 요청량/상한을 가진다.
 
 컨테이너가 하나인 파드의 구성 파일은 다음과 같다. 컨테이너는
 200MiB의 메모리 상한과 100MiB의 메모리 요청량을 가진다.
@@ -254,7 +254,7 @@ kubectl delete namespace qos-example
 
 * [컨테이너 및 파드 메모리 리소스 할당](/ko/docs/tasks/configure-pod-container/assign-memory-resource/)
 
-* [컨테이너 및 파드 CPU 리소스 할당](/docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [컨테이너 및 파드 CPU 리소스 할당](/ko/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
 ### 클러스터 관리자를 위한 문서
 

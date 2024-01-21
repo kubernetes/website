@@ -23,7 +23,7 @@ of Containers for each.
 
 - Fetch all Pods in all namespaces using `kubectl get pods --all-namespaces`
 - Format the output to include only the list of Container image names
-  using `-o jsonpath={.items[*].spec.containers[*].image}`.  This will recursively parse out the
+  using `-o jsonpath={.items[*].spec['initContainers', 'containers'][*].image}`.  This will recursively parse out the
   `image` field from the returned json.
   - See the [jsonpath reference](/docs/reference/kubectl/jsonpath/)
     for further information on how to use jsonpath.
@@ -33,29 +33,16 @@ of Containers for each.
   - Use `uniq` to aggregate image counts
 
 ```shell
-kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" |\
+kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec['initContainers', 'containers'][*].image}" |\
 tr -s '[[:space:]]' '\n' |\
 sort |\
 uniq -c
 ```
-
-The above command will recursively return all fields named `image`
-for all items returned.
-
-As an alternative, it is possible to use the absolute path to the image
-field within the Pod.  This ensures the correct field is retrieved
-even when the field name is repeated,
-e.g. many fields are called `name` within a given item:
-
-```shell
-kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}"
-```
-
 The jsonpath is interpreted as follows:
 
 - `.items[*]`: for each returned value
 - `.spec`: get the spec
-- `.containers[*]`: for each container
+- `['initContainers', 'containers'][*]`: for each container
 - `.image`: get the image
 
 {{< note >}}
@@ -94,7 +81,7 @@ kubectl get pods --namespace kube-system -o jsonpath="{.items[*].spec.containers
 
 ## List Container images using a go-template instead of jsonpath
 
-As an alternative to jsonpath, Kubectl supports using [go-templates](https://golang.org/pkg/text/template/)
+As an alternative to jsonpath, Kubectl supports using [go-templates](https://pkg.go.dev/text/template)
 for formatting the output:
 
 ```shell
@@ -106,5 +93,4 @@ kubectl get pods --all-namespaces -o go-template --template="{{range .items}}{{r
 ### Reference
 
 * [Jsonpath](/docs/reference/kubectl/jsonpath/) reference guide
-* [Go template](https://golang.org/pkg/text/template/) reference guide
-
+* [Go template](https://pkg.go.dev/text/template) reference guide

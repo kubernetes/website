@@ -33,10 +33,10 @@ Existen los siguientes métodos para instalar kubectl en Linux:
    {{< note >}}
 Para descargar una versión específica, reemplace la parte de `$(curl -L -s https://dl.k8s.io/release/stable.txt)` del comando con la versión específica.
 
-Por ejemplo, para descargar la versión {{< param "fullversion" >}} en Linux, escriba:
+Por ejemplo, para descargar la versión {{< skew currentPatchVersion >}} en Linux, escriba:
 
    ```bash
-   curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
+   curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/amd64/kubectl
    ```
    {{< /note >}}
 
@@ -45,13 +45,13 @@ Por ejemplo, para descargar la versión {{< param "fullversion" >}} en Linux, es
    Descargue el archivo de comprobación de kubectl:
 
    ```bash
-   curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
    ```
 
    Valide el binario kubectl con el archivo de comprobación:
 
    ```bash
-   echo "$(<kubectl.sha256)  kubectl" | sha256sum --check
+   echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
    ```
 
    Si es válido, la salida es:
@@ -132,7 +132,7 @@ Por ejemplo, para descargar la versión {{< param "fullversion" >}} en Linux, es
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
 enabled=1
 gpgcheck=1
 repo_gpgcheck=1
@@ -199,13 +199,13 @@ A continuación, se muestran los procedimientos para configurar el autocompletad
    Descargue el archivo de comprobación kubectl-convert:
 
    ```bash
-   curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert.sha256"
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert.sha256"
    ```
 
    Valide el binario kubectl-convert con el archivo de comprobación:
 
    ```bash
-   echo "$(<kubectl-convert.sha256) kubectl-convert" | sha256sum --check
+   echo "$(cat kubectl-convert.sha256) kubectl-convert" | sha256sum --check
    ```
 
    Si es válido, la salida es:

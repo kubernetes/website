@@ -67,7 +67,7 @@ AppArmorを利用すれば、コンテナに許可することを制限したり
 KubeletのバージョンがAppArmorサポートに対応しているもの(>= v1.4)である限り、Kubeletは必要条件を1つでも満たさないAppArmorオプションが付けられたPodをリジェクトします。また、ノード上のAppArmorのサポートは、次のようにready conditionのメッセージで確認することもできます(ただし、この機能は将来のリリースで削除される可能性があります)。
 
 ```shell
-kubectl get nodes -o=jsonpath=$'{range .items[*]}{@.metadata.name}: {.status.conditions[?(@.reason=="KubeletReady")].message}\n{end}'
+kubectl get nodes -o=jsonpath='{range .items[*]}{@.metadata.name}: {.status.conditions[?(@.reason=="KubeletReady")].message}{"\n"}{end}'
 ```
 ```
 gke-test-default-pool-239f5d02-gyn2: kubelet is posting ready status. AppArmor enabled
@@ -111,7 +111,7 @@ kubectl get events | grep Created
 proc attrを調べることで、コンテナのルートプロセスが正しいプロファイルで実行されているかどうかを直接確認することもできます。
 
 ```shell
-kubectl exec <pod_name> cat /proc/1/attr/current
+kubectl exec <pod_name> -- cat /proc/1/attr/current
 ```
 ```
 k8s-apparmor-example-deny-write (enforce)
@@ -161,7 +161,7 @@ done
 
 次に、deny-writeプロファイルを使用した単純な "Hello AppArmor" Podを実行します。
 
-{{< codenew file="pods/security/hello-apparmor.yaml" >}}
+{{% codenew file="pods/security/hello-apparmor.yaml" %}}
 
 ```shell
 kubectl create -f ./hello-apparmor.yaml
@@ -289,7 +289,7 @@ PodのステータスはPendingとなり、`Pod Cannot enforce AppArmor: profile
 
 ### PodSecurityPolicyを使用したプロファイルの制限
 
-PodSecurityPolicy extensionが有効になっている場合、クラスタ全体でAppArmorn制限が適用されます。PodSecurityPolicyを有効にするには、`apiserver`上で次のフラグを設定する必要があります。
+PodSecurityPolicy extensionが有効になっている場合、クラスター全体でAppArmorn制限が適用されます。PodSecurityPolicyを有効にするには、`apiserver`上で次のフラグを設定する必要があります。
 
 ```
 --enable-admission-plugins=PodSecurityPolicy[,others...]
@@ -306,7 +306,7 @@ defaultProfileNameオプションには、何も指定されなかった場合�
 
 ### AppArmorの無効化
 
-クラスタ上でAppArmorを利用可能にしたくない場合、次のコマンドラインフラグで無効化できます。
+クラスター上でAppArmorを利用可能にしたくない場合、次のコマンドラインフラグで無効化できます。
 
 ```
 --feature-gates=AppArmor=false
@@ -316,7 +316,7 @@ defaultProfileNameオプションには、何も指定されなかった場合�
 
 ### AppArmorを使用するKubernetes v1.4にアップグレードする
 
-クラスタをv1.4にアップグレードするために、AppArmorに関する操作は必要ありません。ただし、既存のPodがAppArmorのアノテーションを持っている場合、検証(またはPodSecurityPolicy admission)は行われません。もしpermissiveなプロファイルがノードに読み込まれていた場合、悪意のあるユーザーがPodの権限を上述のdocker-defaultより昇格させるために、permissiveなプロファイルを再適用する恐れがあります。これが問題となる場合、`apparmor.security.beta.kubernetes.io`のアノテーションを含むすべてのPodのクラスターをクリーンアップすることを推奨します。
+クラスターをv1.4にアップグレードするために、AppArmorに関する操作は必要ありません。ただし、既存のPodがAppArmorのアノテーションを持っている場合、検証(またはPodSecurityPolicy admission)は行われません。もしpermissiveなプロファイルがノードに読み込まれていた場合、悪意のあるユーザーがPodの権限を上述のdocker-defaultより昇格させるために、permissiveなプロファイルを再適用する恐れがあります。これが問題となる場合、`apparmor.security.beta.kubernetes.io`のアノテーションを含むすべてのPodのクラスターをクリーンアップすることを推奨します。
 
 ### 一般利用可能(General Availability)への更新パス {#upgrade-path-to-general-availability}
 

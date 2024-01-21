@@ -1,40 +1,276 @@
 # i18n strings for the Russian (main) site.
-
-[deprecation_warning]
-other = " документация больше не поддерживается. Версия, которую вы сейчас просматриваете, является статической. Актуальную документацию вы можете найти "
-
-[deprecation_file_warning]
-other = "Устаревшая"
-
-[objectives_heading]
-other = "Цели"
+# NOTE: Please keep the entries in alphabetical order when editing
+[caution]
+other = "Внимание:"
 
 [cleanup_heading]
 other = "Очистка"
 
-[prerequisites_heading]
-other = "Подготовка к работе"
+[community_events_calendar]
+other = "Календарь событий"
 
-[subscribe_button]
-other = "Подписаться"
+[community_forum_name]
+other = "Форум"
 
-[whatsnext_heading]
-other = "Что дальше"
+[community_github_name]
+other = "GitHub"
+
+[community_slack_name]
+other = "Slack"
+
+[community_stack_overflow_name]
+other = "Stack Overflow"
+
+[community_twitter_name]
+other = "Twitter"
+
+[community_youtube_name]
+other = "YouTube"
+
+[deprecation_title]
+other = "Вы просматриваете документацию для Kubernetes версии:"
+
+[deprecation_warning]
+other = " документация больше не поддерживается. Версия, которую вы сейчас просматриваете, является статической. Для актуальной документации см. "
+
+[deprecation_file_warning]
+other = "Устаревшая"
+
+[dockershim_message]
+other = """Dockershim удалён из проекта Kubernetes в релизе 1.24. См. подробности в <a href="/dockershim">Dockershim Removal FAQ</a>."""
+
+[docs_label_browse]
+other = "Просмотр документации"
+
+[docs_label_contributors]
+other = "Участники сообщества"
+
+[docs_label_i_am]
+other = "Я ..."
+
+[docs_label_users]
+other = "Пользователи"
+
+[docs_version_current]
+other = "(эта документация)"
+
+[docs_version_latest_heading]
+other = "Последняя версия"
+
+[docs_version_other_heading]
+other = "Старые версии"
+
+[end_of_life]
+other = "Конец жизни:"
+
+[envvars_heading]
+other = "Переменные окружения"
+
+[error_404_were_you_looking_for]
+other = "Возможно, вы искали:"
+
+[examples_heading]
+other = "Примеры"
+
+[feature_state]
+other = "СТАТУС ФИЧИ:"
 
 [feedback_heading]
 other = "Обратная связь"
 
+[feedback_no]
+other = "Нет"
+
 [feedback_question]
-other = "Была ли эта страница полезной?"
+other = "Эта страница была полезна?"
 
 [feedback_yes]
 other = "Да"
 
-[feedback_no]
-other = "Нет"
+[inline_list_separator]
+other = ","
+
+[input_placeholder_email_address]
+other = "адрес электронной почты"
+
+[javascript_required]
+other = "Для просмотра этого содержимого необходимо [включить](https://www.enable-javascript.com/) JavaScript"
+
+[katacoda_message]
+other = """<h4>Отключение интерактивных руководств</h4>
+<p>Интерактивные руководства на этом сайте перестали функционировать. Участники
+проекта Kubernetes надеются, что в долгосрочной перспективе подобная интерактивная
+возможность для обучения появится вновь.</p>
+<p>Отключение стало следствием <a
+href="https://www.oreilly.com/content/oreilly-acquires-katacoda-and-a-new-way-for-2-5m-customers-to-learn/">приобретения</a>
+Katacoda компанией O'Reilly Media в 2019 году.</p>
+<p>Сообщество Kubernetes благодарит O'Reilly и Katacoda за долгие годы помощи
+пользователям, которые делали свои первые шаги в обучении Kubernetes.</p>
+<p>Руководства перестали функционировать <b>31 марта 2023 года</b>. Больше
+информации можно найти в публикации в блоге под названием
+"<a href="/blog/2023/02/14/kubernetes-katacoda-tutorials-stop-from-2023-03-31/">Free Katacoda Kubernetes Tutorials Are Shutting Down</a>."</p>"""
+
+[latest_release]
+other = "Последний релиз:"
 
 [latest_version]
-other = "последняя версия."
+other = "последнюю версию."
+
+[layouts_blog_pager_prev]
+other = "<< Назад"
+
+[layouts_blog_pager_next]
+other = "Вперёд >>"
+
+[layouts_case_studies_list_tell]
+other = "Расскажите свою историю"
+
+[layouts_docs_glossary_aka]
+other = "Также известный как"
+
+[layouts_docs_glossary_description]
+other = "Данный глоссарий должен стать исчерпывающим стандартизированным списком терминологии в Kubernetes. Он включает технические термины, специфичные для Kubernetes, а также более общие термины, которые полезно знать."
+
+[layouts_docs_glossary_deselect_all]
+other = "Отменить выбор всех тегов"
+
+[layouts_docs_glossary_click_details_after]
+other = "для получения более подробного объяснения по интересующему термину."
+
+[layouts_docs_glossary_click_details_before]
+other = "Нажмите на значок"
+
+[layouts_docs_glossary_filter]
+other = "Фильтрация терминов по тегам"
+
+[layouts_docs_glossary_select_all]
+other = "Выбрать всё"
+
+[layouts_docs_partials_feedback_improvement]
+other = "предложить улучшение"
+
+[layouts_docs_partials_feedback_issue]
+other = "Создайте issue в репозитории GitHub, если вы хотите "
+
+[layouts_docs_partials_feedback_or]
+other = "или"
+
+[layouts_docs_partials_feedback_problem]
+other = "сообщить о проблеме"
+
+[layouts_docs_partials_feedback_thanks]
+other = "Спасибо за обратную связь! Если у вас есть конкретный вопрос об использовании Kubernetes, спросите на"
+
+[layouts_docs_search_fetching]
+other = "Получение результатов..."
+
+[main_by]
+other = "от"
+
+[main_cncf_project]
+other = """Мы являемся проектом <a href="https://cncf.io/">CNCF</a></p>"""
+
+[main_community_explore]
+other = "Познакомиться с сообществом"
+
+[main_contribute]
+other = "Помочь проекту"
+
+[main_copyright_notice]
+other = """The Linux Foundation &reg;. Все права защищены. The Linux Foundation является зарегистрированной торговой маркой. Список торговых марок The Linux Foundation приведён на странице <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">использования торговых марок</a>"""
+
+[main_documentation_license]
+other = """Авторы Kubernetes | Документация распространяется под лицензией <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
+
+[main_github_invite]
+other = "Хотите взломать ядро кодовой базы Kubernetes?"
+
+[main_github_view_on]
+other = "Посмотреть на GitHub"
+
+[main_kubernetes_features]
+other = "Возможности Kubernetes"
+
+[main_kubeweekly_baseline]
+other = "Интересуетесь последними новостями Kubernetes? Подпишитесь на KubeWeekly."
+
+[main_kubernetes_past_link]
+other = "Посмотреть последние новостные выпуски"
+
+[main_kubeweekly_signup]
+other = "Подписаться"
+
+[main_page_history]
+other ="История страницы"
+
+[main_page_last_modified_on]
+other = "Последний раз страница редактировалась"
+
+[main_read_about]
+other = "Прочитать о"
+
+[main_read_more]
+other = "Узнать больше"
+
+[not_applicable]
+# Localization teams: it's OK to use a longer text here
+other = "н/д"
+
+[note]
+other = "Примечание:"
+
+[objectives_heading]
+other = "Цели"
+
+[options_heading]
+other = "Опции"
+
+[outdated_blog__message]
+other = "Это статье больше одного года. Такие статьи могут содержать устаревшую информацию. Перепроверяйте информацию на странице, поскольку она могла стать некорректной с момента её публикации."
+
+[post_create_issue]
+other = "Создать issue"
+
+[prerequisites_heading]
+other = "Подготовка к работе"
+
+[previous_patches]
+other = "Патч-релизы:"
+
+[release_date_after]
+other = ")"
+
+[release_date_before]
+other = "(дата релиза: "
+
+# See https://gohugo.io/functions/format/#gos-layout-string
+# Use a suitable format for your locale
+[release_date_format]
+other = "2006-01-02"
+
+[seealso_heading]
+other = "См. также"
+
+[subscribe_button]
+other = "Подписаться"
+
+[synopsis_heading]
+other = "Краткое описание"
+
+[thirdparty_message]
+other = """Этот раздел ссылается на сторонние проекты, реализующие функциональность, которая требуется Kubernetes. Авторы Kubernetes не несут ответственность за проекты, представленные здесь в алфавитном порядке. Чтобы добавить проект к этому списку, ознакомьтесь с <a href="/docs/contribute/style/content-guide/#third-party-content">руководством по контенту</a> перед публикацией изменений. <a href="#third-party-content-disclaimer">Подробнее</a>."""
+
+[thirdparty_message_edit_disclaimer]
+other="""Рекомендация по стороннему контенту"""
+
+[thirdparty_message_single_item]
+other = """&#128711; Здесь дана ссылка на сторонний проект или продукт, который не является частью самого Kubernetes. <a class="alert-more-info" href="#third-party-content-disclaimer">Подробнее</a>"""
+
+[thirdparty_message_disclaimer]
+other = """<p>Объекты этой страницы ссылаются на сторонние продукты или проекты, реализующие функциональность, которая требуется Kubernetes. Авторы Kubernetes не несут ответственность за эти сторонние продукты или проекты. Подробнее читайте в <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">инструкциях по сайту CNCF</a>.</p><p>Перед тем, как предлагать изменения, которые добавят новую стороннюю ссылку, необходимо прочитать <a href="/docs/contribute/style/content-guide/#third-party-content">руководство по контенту</a>.</p>"""
+
+[ui_search_placeholder]
+other = "Поиск"
 
 [version_check_mustbe]
 other = "Ваш сервер Kubernetes должен быть версии "
@@ -45,157 +281,11 @@ other = "Ваш сервер Kubernetes должен быть версии ил�
 [version_check_tocheck]
 other = "Чтобы проверить версию, введите "
 
-[caution]
-other = "Внимание:"
-
-[note]
-other = "Заметка:"
+[version_menu]
+other = "Версии"
 
 [warning]
 other = "Предупреждение:"
 
-[main_read_about]
-other = "Прочитать о"
-
-[main_read_more]
-other = "Прочитать больше"
-
-[main_github_invite]
-other = "Хотите взломать ядро кодовой базы Kubernetes?"
-
-[main_github_view_on]
-other = "Посмотреть на GitHub"
-
-[main_github_create_an_issue]
-other = "Сообщить о проблеме"
-
-[main_community_explore]
-other = "Познакомиться с сообществом"
-
-[main_kubernetes_features]
-other = "Возможности Kubernetes"
-
-[main_cncf_project]
-other = """Мы являемся проектом <a href="https://cncf.io/">CNCF</a></p>"""
-
-[main_kubeweekly_baseline]
-other = "Интересуетесь последними новостями Kubernetes? Зарегистрируйтесь в KubeWeekly."
-
-[main_kubernetes_past_link]
-other = "Посмотреть последние новости"
-
-[main_kubeweekly_signup]
-other = "Подписаться"
-
-[main_contribute]
-other = "Помочь проекту"
-
-[main_edit_this_page]
-other = "Редактировать эту страницу"
-
-[main_page_history]
-other ="История страницы"
-
-[main_page_last_modified_on]
-other = "Последний раз страница редактировалась"
-
-[main_by]
-other = "by"
-
-[main_documentation_license]
-other = """Авторы Kubernetes | Документация распространяется под лицензией <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
-
-[main_copyright_notice]
-other = """The Linux Foundation &reg;. Все права защищены. The Linux Foundation является зарегистрированной торговой маркой. Список торговых марок The Linux Foundation приведен на странице <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">использования торговых марок</a>"""
-
-# Labels for the docs portal home page.
-[docs_label_browse]
-other = "Просмотр документации"
-
-[docs_label_contributors]
-other = "Участники сообщества"
-
-[docs_label_users]
-other = "Пользователи"
-
-[docs_label_i_am]
-other = "Я ..."
-
-# layouts > blog > pager
-
-[layouts_blog_pager_prev]
-other = "<< Назад"
-
-[layouts_blog_pager_next]
-other = "Вперёд >>"
-
-# layouts > blog > list
-
-[layouts_case_studies_list_tell]
-other = "Расскажите свою историю"
-
-# layouts > docs > glossary
-
-[layouts_docs_glossary_description]
-other = "Данный глоссарий должен стать исчерпывающим стандартизированным списком терминологии в Kubernetes. Он включает технические термины, специфичные для K8s, а также более общие термины, которые полезно знать."
-
-[layouts_docs_glossary_filter]
-other = "Фильтрация терминов по тегам"
-
-[layouts_docs_glossary_select_all]
-other = "Выделить всё"
-
-[layouts_docs_glossary_deselect_all]
-other = "Отменить выбор всех тегов"
-
-[layouts_docs_glossary_aka]
-other = "Также известный как"
-
-[layouts_docs_glossary_click_details_before]
-other = "Нажмите на значок"
-
-[layouts_docs_glossary_click_details_after]
-other = "для получения более подробное объяснения по интересующему термину."
-
-# layouts > docs > search
-
-[layouts_docs_search_fetching]
-other = "Получение результатов.."
-
-# layouts > partial > feedback
-
-[layouts_docs_partials_feedback_thanks]
-other = "Спасибо за отзыв! Если у вас есть конкретный вопрос об использовании Kubernetes, спрашивайте"
-
-[layouts_docs_partials_feedback_issue]
-other = "Сообщите о проблеме в репозитории GitHub, если вы хотите "
-
-[layouts_docs_partials_feedback_problem]
-other = "сообщить о проблеме"
-
-[layouts_docs_partials_feedback_or]
-other = "или"
-
-[layouts_docs_partials_feedback_improvement]
-other = "предложить улучшение"
-
-# Community links
-[community_twitter_name]
-other = "Twitter"
-[community_github_name]
-other = "GitHub"
-[community_slack_name]
-other = "Slack"
-[community_stack_overflow_name]
-other = "Stack Overflow"
-[community_forum_name]
-other = "Форум"
-[community_events_calendar]
-other = "Календарь событий"
-
-# UI elements
-[ui_search_placeholder]
-other = "Поиск"
-
-[input_placeholder_email_address]
-other = "адрес электронной почты"
+[whatsnext_heading]
+other = "Что дальше"

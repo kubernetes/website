@@ -53,6 +53,7 @@ Provedor IaaS        | Link |
 Alibaba Cloud | https://www.alibabacloud.com/trust-center |
 Amazon Web Services | https://aws.amazon.com/security/ |
 Google Cloud Platform | https://cloud.google.com/security/ |
+Huawei Cloud | https://www.huaweicloud.com/intl/pt-br/securecenter/overallsafety |
 IBM Cloud | https://www.ibm.com/cloud/security |
 Microsoft Azure | https://docs.microsoft.com/en-us/azure/security/azure-security |
 Oracle Cloud Infrastructure | https://www.oracle.com/security/ |
@@ -103,7 +104,7 @@ vulnerável a um ataque de exaustão de recursos e, por consequência, o risco d
 Autorização RBAC (acesso à API Kubernetes) | https://kubernetes.io/docs/reference/access-authn-authz/rbac/
 Autenticação | https://kubernetes.io/docs/concepts/security/controlling-access/
 Gerenciamento de segredos na aplicação (e encriptando-os no etcd em repouso) | https://kubernetes.io/docs/concepts/configuration/secret/ <br> https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/
-Políticas de segurança do Pod | https://kubernetes.io/docs/concepts/policy/pod-security-policy/
+Garantir que os Pods atendem aos padrões de segurança do Pod | https://kubernetes.io/docs/concepts/security/pod-security-standards/#policy-instantiation
 Qualidade de serviço (e gerenciamento de recursos de cluster) | https://kubernetes.io/docs/tasks/configure-pod-container/quality-service-pod/
 Políticas de Rede | https://kubernetes.io/docs/concepts/services-networking/network-policies/
 TLS para Kubernetes Ingress | https://kubernetes.io/docs/concepts/services-networking/ingress/#tls
@@ -136,7 +137,7 @@ Acesso só através de TLS | Se seu código precisar se comunicar por TCP, execu
 Limitando intervalos de porta de comunicação | Essa recomendação pode ser um pouco autoexplicativa, mas, sempre que possível, você só deve expor as portas em seu serviço que são absolutamente essenciais para a comunicação ou coleta de métricas. |
 Segurança na Dependência de Terceiros | É uma boa prática verificar regularmente as bibliotecas de terceiros de sua aplicação em busca de vulnerabilidades de segurança. Cada linguagem de programação possui uma ferramenta para realizar essa verificação automaticamente. |
 Análise de Código Estático | A maioria das linguagens fornece uma maneira para analisar um extrato do código referente a quaisquer práticas de codificação potencialmente inseguras. Sempre que possível, você deve automatizar verificações usando ferramentas que podem verificar as bases de código em busca de erros de segurança comuns. Algumas das ferramentas podem ser encontradas em [OWASP Source Code Analysis Tools](https://owasp.org/www-community/Source_Code_Analysis_Tools). |
-Ataques de sondagem dinâmica | Existem algumas ferramentas automatizadas que você pode executar contra seu serviço para tentar alguns dos ataques mais conhecidos. Isso inclui injeção de SQL, CSRF e XSS. Uma das ferramentas de análise dinâmica mais populares é o [OWASP Zed Attack proxy](https://owasp.org/www-project-zap/). |
+Ataques de sondagem dinâmica | Existem algumas ferramentas automatizadas que você pode executar contra seu serviço para tentar alguns dos ataques mais conhecidos. Isso inclui injeção de SQL, CSRF e XSS. Uma das ferramentas de análise dinâmica mais populares é o [OWASP Zed Attack proxy](https://www.zaproxy.org/). |
 
 {{< /table >}}
 

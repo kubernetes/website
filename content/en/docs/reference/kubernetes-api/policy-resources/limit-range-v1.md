@@ -66,11 +66,6 @@ LimitRangeSpec defines a min/max usage limit for resources that match on kind.
   - **limits.type** (string), required
 
     Type of resource that this limit applies to.
-    
-    Possible enum values:
-     - `"Container"` Limit that applies to all containers in a namespace
-     - `"PersistentVolumeClaim"` Limit that applies to all persistent volume claims in a namespace
-     - `"Pod"` Limit that applies to all pods in a namespace
 
   - **limits.default** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
@@ -218,6 +213,11 @@ GET /api/v1/namespaces/{namespace}/limitranges
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -284,6 +284,11 @@ GET /api/v1/limitranges
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -594,6 +599,11 @@ DELETE /api/v1/namespaces/{namespace}/limitranges
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer

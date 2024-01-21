@@ -4,7 +4,7 @@ type: docs
 auto_generated: true
 ---
 
-<!-- THIS CONTENT IS AUTO-GENERATED via ./scripts/releng/update-release-info.sh in k/website -->
+<!-- THIS CONTENT IS AUTO-GENERATED via ./scripts/releng/update-release-info.sh in kubernetes/website -->
 
 {{< warning >}}
 This content is auto-generated and links may not function. The source of the document is located [here](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/release.md).
@@ -17,9 +17,9 @@ create an enhancement, issue, or pull request which targets a specific release
 milestone.
 
 - [TL;DR](#tldr)
-  - [Normal Dev (Weeks 1-8)](#normal-dev-weeks-1-8)
-  - [Code Freeze (Weeks 9-11)](#code-freeze-weeks-9-11)
-  - [Post-Release (Weeks 11+)](#post-release-weeks-11)
+  - [Normal Dev (Weeks 1-11)](#normal-dev-weeks-1-11)
+  - [Code Freeze (Weeks 12-14)](#code-freeze-weeks-12-14)
+  - [Post-Release (Weeks 14+)](#post-release-weeks-14+)
 - [Definitions](#definitions)
 - [The Release Cycle](#the-release-cycle)
 - [Removal Of Items From The Milestone](#removal-of-items-from-the-milestone)
@@ -54,14 +54,14 @@ requirements exist when the target milestone is a prior release (see
 If you want your PR to get merged, it needs the following required labels and
 milestones, represented here by the Prow /commands it would take to add them:
 
-### Normal Dev (Weeks 1-8)
+### Normal Dev (Weeks 1-11)
 
 - /sig {name}
 - /kind {type}
 - /lgtm
 - /approved
 
-### [Code Freeze][code-freeze] (Weeks 9-11)
+### [Code Freeze][code-freeze] (Weeks 12-14)
 
 - /milestone {v1.y}
 - /sig {name}
@@ -69,7 +69,7 @@ milestones, represented here by the Prow /commands it would take to add them:
 - /lgtm
 - /approved
 
-### Post-Release (Weeks 11+)
+### Post-Release (Weeks 14+)
 
 Return to 'Normal Dev' phase requirements:
 
@@ -90,43 +90,43 @@ The general labeling process should be consistent across artifact types.
 
 ## Definitions
 
-- _issue owners_: Creator, assignees, and user who moved the issue into a
+- *issue owners*: Creator, assignees, and user who moved the issue into a
   release milestone
 
-- _Release Team_: Each Kubernetes release has a team doing project management
+- *Release Team*: Each Kubernetes release has a team doing project management
   tasks described [here][release-team].
 
   The contact info for the team associated with any given release can be found
   [here](https://git.k8s.io/sig-release/releases/).
 
-- _Y days_: Refers to business days
+- *Y days*: Refers to business days
 
-- _enhancement_: see "[Is My Thing an Enhancement?](https://git.k8s.io/enhancements/README.md#is-my-thing-an-enhancement)"
+- *enhancement*: see "[Is My Thing an Enhancement?](https://git.k8s.io/enhancements/README.md#is-my-thing-an-enhancement)"
 
-- _[Enhancements Freeze][enhancements-freeze]_:
+- *[Enhancements Freeze][enhancements-freeze]*:
   the deadline by which [KEPs][keps] have to be completed in order for
   enhancements to be part of the current release
 
-- _[Exception Request][exceptions]_:
+- *[Exception Request][exceptions]*:
   The process of requesting an extension on the deadline for a particular
   Enhancement
 
-- _[Code Freeze][code-freeze]_:
+- *[Code Freeze][code-freeze]*:
   The period of ~4 weeks before the final release date, during which only
   critical bug fixes are merged into the release.
 
-- _[Pruning](https://git.k8s.io/sig-release/releases/release_phases.md#pruning)_:
+- *[Pruning](https://git.k8s.io/sig-release/releases/release_phases.md#pruning)*:
   The process of removing an Enhancement from a release milestone if it is not
   fully implemented or is otherwise considered not stable.
 
-- _release milestone_: semantic version string or
+- *release milestone*: semantic version string or
   [GitHub milestone](https://help.github.com/en/github/managing-your-work-on-github/associating-milestones-with-issues-and-pull-requests)
   referring to a release MAJOR.MINOR `vX.Y` version.
 
   See also
-  [release versioning](/contributors/design-proposals/release/versioning.md).
+  [release versioning](https://git.k8s.io/sig-release/release-engineering/versioning.md).
 
-- _release branch_: Git branch `release-X.Y` created for the `vX.Y` milestone.
+- *release branch*: Git branch `release-X.Y` created for the `vX.Y` milestone.
 
   Created at the time of the `vX.Y-rc.0` release and maintained after the
   release for approximately 12 months with `vX.Y.Z` patch releases.
@@ -136,9 +136,9 @@ The general labeling process should be consistent across artifact types.
 
 ## The Release Cycle
 
-![Image of one Kubernetes release cycle](release-cycle.png)
+![Image of one Kubernetes release cycle](/images/releases/release-cycle.jpg)
 
-Kubernetes releases currently happen approximately four times per year.
+Kubernetes releases currently happen approximately three times per year.
 
 The release process can be thought of as having three main phases:
 
@@ -161,7 +161,7 @@ conjunction with the Release Team's [Enhancements Lead](https://git.k8s.io/sig-r
 
 After Enhancements Freeze, tracking milestones on PRs and issues is important.
 Items within the milestone are used as a punchdown list to complete the
-release. _On issues_, milestones must be applied correctly, via triage by the
+release. *On issues*, milestones must be applied correctly, via triage by the
 SIG, so that [Release Team][release-team] can track bugs and enhancements (any
 enhancement-related issue needs a milestone).
 
@@ -189,7 +189,7 @@ under that automation umbrella should be have a milestone applied.
 Implementation and bug fixing is ongoing across the cycle, but culminates in a
 code freeze period.
 
-**[Code Freeze][code-freeze]** starts in week ~10 and continues for ~2 weeks.
+**[Code Freeze][code-freeze]** starts in week ~12 and continues for ~2 weeks.
 Only critical bug fixes are accepted into the release codebase during this
 time.
 
@@ -204,7 +204,7 @@ back to the release branch. The release is built from the release branch.
 
 Each release is part of a broader Kubernetes lifecycle:
 
-![Image of Kubernetes release lifecycle spanning three releases](release-lifecycle.png)
+![Image of Kubernetes release lifecycle spanning three releases](/images/releases/release-lifecycle.jpg)
 
 ## Removal Of Items From The Milestone
 
@@ -281,7 +281,7 @@ Issues are marked as targeting a milestone via the Prow "/milestone" command.
 The Release Team's [Bug Triage Lead](https://git.k8s.io/sig-release/release-team/role-handbooks/bug-triage/README.md)
 and overall community watch incoming issues and triage them, as described in
 the contributor guide section on
-[issue triage](/contributors/guide/issue-triage.md).
+[issue triage](https://k8s.dev/docs/guide/issue-triage/).
 
 Marking issues with the milestone provides the community better visibility
 regarding when an issue was observed and by when the community feels it must be
@@ -355,11 +355,11 @@ issue kind labels must be set:
 - `kind/feature`: New functionality.
 - `kind/flake`: CI test case is showing intermittent failures.
 
-[cherry-picks]: /community/blob/master/contributors/devel/sig-release/cherry-picks.md
+[cherry-picks]: https://git.k8s.io/community/contributors/devel/sig-release/cherry-picks.md
 [code-freeze]: https://git.k8s.io/sig-release/releases/release_phases.md#code-freeze
 [enhancements-freeze]: https://git.k8s.io/sig-release/releases/release_phases.md#enhancements-freeze
 [exceptions]: https://git.k8s.io/sig-release/releases/release_phases.md#exceptions
 [keps]: https://git.k8s.io/enhancements/keps
-[release-managers]: https://git.k8s.io/sig-release/release-managers.md
+[release-managers]: /releases/release-managers/
 [release-team]: https://git.k8s.io/sig-release/release-team
-[sig-list]: /sig-list.md
+[sig-list]: https://k8s.dev/sigs

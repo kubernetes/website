@@ -6,7 +6,7 @@ weight: 100
 
 <!-- overview -->
 
-Horizontal Pod Autoscalerは、Deployment、ReplicaSetまたはStatefulSetといったレプリケーションコントローラ内のPodの数を、観測されたCPU使用率（もしくはベータサポートの、アプリケーションによって提供されるその他のメトリクス）に基づいて自動的にスケールさせます。
+Horizontal Pod Autoscalerは、Deployment、ReplicaSetまたはStatefulSetといったレプリケーションコントローラー内のPodの数を、観測されたCPU使用率（もしくはベータサポートの、アプリケーションによって提供されるその他のメトリクス）に基づいて自動的にスケールさせます。
 
 このドキュメントはphp-apacheサーバーに対しHorizontal Pod Autoscalerを有効化するという例に沿ってウォークスルーで説明していきます。Horizontal Pod Autoscalerの動作についてのより詳細な情報を知りたい場合は、[Horizontal Pod Autoscalerユーザーガイド](/docs/tasks/run-application/horizontal-pod-autoscale/)をご覧ください。
 
@@ -48,7 +48,7 @@ RUN chmod a+rx index.php
 まず最初に、イメージを動かすDeploymentを起動し、Serviceとして公開しましょう。
 下記の設定を使います。
 
-{{< codenew file="application/php-apache.yaml" >}}
+{{% codenew file="application/php-apache.yaml" %}}
 
 以下のコマンドを実行してください。
 
@@ -390,7 +390,7 @@ Events:
 
 `kubectl autoscale`コマンドを使って命令的にHorizontalPodAutoscalerを作るかわりに、下記のファイルを使って宣言的に作成することができます。
 
-{{< codenew file="application/hpa/php-apache.yaml" >}}
+{{% codenew file="application/hpa/php-apache.yaml" %}}
 
 下記のコマンドを実行してAutoscalerを作成します。
 

@@ -1,7 +1,7 @@
 ---
 title: JSONPathのサポート
 content_type: concept
-weight: 25
+weight: 40
 ---
 
 <!-- overview -->
@@ -107,6 +107,6 @@ JSONPathの正規表現はサポートされていません。正規表現を利
 kubectl get pods -o jsonpath='{.items[?(@.metadata.name=~/^test$/)].metadata.name}'
 
 # 上のコマンドに期待される結果が欲しい場合、以下のコマンドを使うとよい
-kubectl get pods -o json | jq -r '.items[] | select(.metadata.name | test("test-")).spec.containers[].image'
+kubectl get pods -o json | jq -r '.items[] | select(.metadata.name | test("test-")).metadata.name'
 ```
 {{< /note >}}

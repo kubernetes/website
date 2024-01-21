@@ -3,7 +3,7 @@ title: Other Tools
 reviewers:
 - janetkuo
 content_type: concept
-weight: 80
+weight: 150
 no_list: true
 ---
 
@@ -29,9 +29,6 @@ resources itself.
 
 [Helm](https://helm.sh/) is a tool for managing packages of pre-configured
 Kubernetes resources. These packages are known as _Helm charts_.
-
-Helm is a third party managed tool for managing packages of pre-configured
-Kubernetes resources, aka Kubernetes charts.
 
 Use Helm to:
 

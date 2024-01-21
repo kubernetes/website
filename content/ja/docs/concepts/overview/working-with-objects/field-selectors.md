@@ -1,6 +1,7 @@
 ---
 title: フィールドセレクター(Field Selectors)
-weight: 60
+content_type: concept
+weight: 70
 ---
 
 _フィールドセレクター(Field Selectors)_ は、1つかそれ以上のリソースフィールドの値を元に[Kubernetesリソースを選択](/ja/docs/concepts/overview/working-with-objects/kubernetes-objects)するためのものです。  

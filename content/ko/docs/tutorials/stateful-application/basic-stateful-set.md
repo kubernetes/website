@@ -1,11 +1,11 @@
 ---
-
-
-
-
-
-
-
+# reviewers:
+# - enisoc
+# - erictune
+# - foxish
+# - janetkuo
+# - kow3ns
+# - smarterclayton
 title: 스테이트풀셋 기본
 content_type: tutorial
 weight: 10
@@ -127,8 +127,14 @@ web-1     0/1       ContainerCreating   0         0s
 web-1     1/1       Running   0         18s
 ```
 
-참고로 `web-1` 파드는 `web-0` 파드가 _Running_ ([파드의 단계](/ko/docs/concepts/workloads/pods/pod-lifecycle/#파드의-단계) 참고)
-및 _Ready_ ([파드의 컨디션](/ko/docs/concepts/workloads/pods/pod-lifecycle/#파드의-컨디션)에서 `type` 참고) 상태가 되기 전에 시작하지 않음을 주의하자.
+참고로 `web-1` 파드는 `web-0` 파드가
+_Running_ ([파드의 단계](/ko/docs/concepts/workloads/pods/pod-lifecycle/#파드의-단계) 참고)
+및 _Ready_ ([파드의 컨디션](/ko/docs/concepts/workloads/pods/pod-lifecycle/#파드의-컨디션)에서 `type` 참고) 상태가 되기 전에는 시작되지 않음에 주의한다.
+
+{{< note >}}
+스테이트풀셋에서 각 파드에 할당되는 정수값의 순서를 설정하려면,
+[시작 순서](/ko/docs/concepts/workloads/controllers/statefulset/#시작-순서)를 확인한다.
+{{< /note >}}
 
 ## 스테이트풀셋 안에 파드
 
@@ -214,6 +220,8 @@ kubectl get pod -w -l app=nginx
 
 ```shell
 kubectl delete pod -l app=nginx
+```
+```
 pod "web-0" deleted
 pod "web-1" deleted
 ```
@@ -334,8 +342,9 @@ web-1
 
 {{< note >}}
 위에 curl 명령어로 **403 Forbidden** 아닌 응답을 보려면
-다음을 실행해서 `volumeMounts`로 마운트된 디렉터리의 퍼미션을 수정해야 한다
-([hostPath 볼륨을 사용할 때에 버그](https://github.com/kubernetes/kubernetes/issues/2630)로 인함).
+다음을 실행하여 `volumeMounts`로 마운트된 디렉터리의 퍼미션을 수정해야 한다
+([hostPath 볼륨을 사용할 때의 버그](https://github.com/kubernetes/kubernetes/issues/2630)로 
+인함).
 
 `for i in 0 1; do kubectl exec web-$i -- chmod 755 /usr/share/nginx/html; done`
 
@@ -521,7 +530,8 @@ www-web-4   Bound     pvc-e11bb5f8-b508-11e6-932f-42010a800002   1Gi        RWO 
 
 ### 롤링 업데이트
 
-`RollingUpdate` 업데이트 전략은 스테이트풀셋을 보장하면서 스테이트풀셋 내에 파드를 역순으로 업데이트합니다.
+`RollingUpdate` 업데이트 전략은 스테이트풀셋의 보장사항을 유지하면서
+스테이트풀셋 내의 모든 파드를 역순으로 업데이트한다.
 
 스테이트풀셋 `web`의 업데이트 전략을 `RollingUpdate`으로 패치하자.
 
@@ -601,9 +611,9 @@ web-0     1/1       Running   0         10s
 for p in 0 1 2; do kubectl get pod "web-$p" --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'; echo; done
 ```
 ```
-k8s.gcr.io/nginx-slim:0.8
-k8s.gcr.io/nginx-slim:0.8
-k8s.gcr.io/nginx-slim:0.8
+registry.k8s.io/nginx-slim:0.8
+registry.k8s.io/nginx-slim:0.8
+registry.k8s.io/nginx-slim:0.8
 
 ```
 
@@ -630,10 +640,10 @@ kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpda
 statefulset.apps/web patched
 ```
 
-컨테이너의 이미지를 바꾸도록 스테이트풀셋을 또 패치하자.
+컨테이너의 이미지를 바꾸도록 스테이트풀셋을 다시 패치한다.
 
 ```shell
-kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"k8s.gcr.io/nginx-slim:0.7"}]'
+kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"registry.k8s.io/nginx-slim:0.7"}]'
 ```
 ```
 statefulset.apps/web patched
@@ -667,7 +677,7 @@ web-2     1/1       Running   0         18s
 kubectl get pod web-2 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
 ```
 ```
-k8s.gcr.io/nginx-slim:0.8
+registry.k8s.io/nginx-slim:0.8
 ```
 
 비록 업데이트 전략이 `RollingUpdate`이지만 스테이트풀셋은
@@ -708,7 +718,7 @@ web-2     1/1       Running   0         18s
 kubectl get po web-2 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
 ```
 ```
-k8s.gcr.io/nginx-slim:0.7
+registry.k8s.io/nginx-slim:0.7
 
 ```
 
@@ -751,13 +761,14 @@ web-1     1/1       Running   0         18s
 kubectl get pod web-1 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
 ```
 ```
-k8s.gcr.io/nginx-slim:0.8
+registry.k8s.io/nginx-slim:0.8
 ```
 
 `web-1` 는 원래 환경설정으로 복원되었는데
 이는 파드의 순번이 partition보다 작기 때문이다.
-스테이트풀셋의 `.spec.template`이 갱신되면, 지정된 partition 이상의 순번을
-가진 모든 파드는 업데이트된다. 미만의 순번을 가진 파드라면 삭제되거나
+스테이트풀셋의 `.spec.template`이 갱신되면,
+지정된 partition 이상의 순번을 가진 모든 파드는 업데이트된다.
+미만의 순번을 가진 파드라면 삭제되거나
 종료되어 원래 환경설정으로 복원된다.
 
 #### 단계적 롤아웃
@@ -807,10 +818,9 @@ web-0     1/1       Running   0         3s
 for p in 0 1 2; do kubectl get pod "web-$p" --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'; echo; done
 ```
 ```
-k8s.gcr.io/nginx-slim:0.7
-k8s.gcr.io/nginx-slim:0.7
-k8s.gcr.io/nginx-slim:0.7
-
+registry.k8s.io/nginx-slim:0.7
+registry.k8s.io/nginx-slim:0.7
+registry.k8s.io/nginx-slim:0.7
 ```
 
 `partition`을 `0`으로 이동하여 스테이트풀셋에서 계속해서
@@ -819,9 +829,11 @@ k8s.gcr.io/nginx-slim:0.7
 ### 삭제 시 동작
 
 `OnDelete` 업데이트 전략은 예전 동작(1.6 이하)으로,
-이 업데이트 전략을 선택하면 스테이트풀셋 컨트롤러는 스테이트풀셋의
+이 업데이트 전략을 선택하면,
+스테이트풀셋 컨트롤러는 스테이트풀셋의
 `.spec.template` 필드에 수정 사항이 발생해도 자동으로 파드를 업데이트하지 않는다.
 이 전략은 `.spec.template.updateStrategy.type`을 `OnDelete`로 설정하여 선택할 수 있다.
+
 
 ## 스테이트풀셋 삭제하기
 
@@ -1195,12 +1207,54 @@ web-3     0/1       Terminating   0         9m
 kubectl delete svc nginx
 ```
 
+이 튜토리얼에서 퍼시스턴트볼륨으로 사용했던 영구 스토리지를 삭제한다.
 
+```shell
+kubectl get pvc
+```
+```
+NAME        STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+www-web-0   Bound    pvc-2bf00408-d366-4a12-bad0-1869c65d0bee   1Gi        RWO            standard       25m
+www-web-1   Bound    pvc-ba3bfe9c-413e-4b95-a2c0-3ea8a54dbab4   1Gi        RWO            standard       24m
+www-web-2   Bound    pvc-cba6cfa6-3a47-486b-a138-db5930207eaf   1Gi        RWO            standard       15m
+www-web-3   Bound    pvc-0c04d7f0-787a-4977-8da3-d9d3a6d8d752   1Gi        RWO            standard       15m
+www-web-4   Bound    pvc-b2c73489-e70b-4a4e-9ec1-9eab439aa43e   1Gi        RWO            standard       14m
+```
+
+```shell
+kubectl get pv
+```
+```
+NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM               STORAGECLASS   REASON   AGE
+pvc-0c04d7f0-787a-4977-8da3-d9d3a6d8d752   1Gi        RWO            Delete           Bound    default/www-web-3   standard                15m
+pvc-2bf00408-d366-4a12-bad0-1869c65d0bee   1Gi        RWO            Delete           Bound    default/www-web-0   standard                25m
+pvc-b2c73489-e70b-4a4e-9ec1-9eab439aa43e   1Gi        RWO            Delete           Bound    default/www-web-4   standard                14m
+pvc-ba3bfe9c-413e-4b95-a2c0-3ea8a54dbab4   1Gi        RWO            Delete           Bound    default/www-web-1   standard                24m
+pvc-cba6cfa6-3a47-486b-a138-db5930207eaf   1Gi        RWO            Delete           Bound    default/www-web-2   standard                15m
+```
+
+```shell
+kubectl delete pvc www-web-0 www-web-1 www-web-2 www-web-3 www-web-4
+```
+
+```
+persistentvolumeclaim "www-web-0" deleted
+persistentvolumeclaim "www-web-1" deleted
+persistentvolumeclaim "www-web-2" deleted
+persistentvolumeclaim "www-web-3" deleted
+persistentvolumeclaim "www-web-4" deleted
+```
+
+```shell
+kubectl get pvc
+```
+
+```
+No resources found in default namespace.
+```
 {{< note >}}
 이 튜토리얼에서 사용된 퍼시턴트볼륨을 위한
 퍼시스턴트 스토리지 미디어도 삭제해야 한다.
-
-
 모든 스토리지를 반환하도록 환경, 스토리지 설정과
 프로비저닝 방법에 따른 단계를 따르자.
 {{< /note >}}

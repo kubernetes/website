@@ -3,7 +3,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference conent, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -15,7 +15,7 @@ Upload certificates to kubeadm-certs
 ### Synopsis
 
 
-This command is not meant to be run on its own. See list of available subcommands.
+Upload control plane certificates to the kubeadm-certs Secret
 
 ```
 kubeadm init phase upload-certs [flags]
@@ -34,7 +34,7 @@ kubeadm init phase upload-certs [flags]
 <td colspan="2">--certificate-key string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Key used to encrypt the control-plane certificates in the kubeadm-certs Secret.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Key used to encrypt the control-plane certificates in the kubeadm-certs Secret. The certificate key is a hex encoded string that is an AES key of size 32 bytes.</p></td>
 </tr>
 
 <tr>
@@ -42,6 +42,13 @@ kubeadm init phase upload-certs [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a kubeadm configuration file.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--dry-run</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Don't apply any changes; just output what would be done.</p></td>
 </tr>
 
 <tr>

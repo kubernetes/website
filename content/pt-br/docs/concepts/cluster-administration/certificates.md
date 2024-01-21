@@ -21,7 +21,7 @@ manualmente através `easyrsa`, `openssl` ou `cfssl`.
 
 1.  Baixe, descompacte e inicialize a versão corrigida do easyrsa3.
 
-        curl -LO https://storage.googleapis.com/kubernetes-release/easy-rsa/easy-rsa.tar.gz
+        curl -LO https://dl.k8s.io/easy-rsa/easy-rsa.tar.gz
         tar xzf easy-rsa.tar.gz
         cd easy-rsa-master/easyrsa3
         ./easyrsa init-pki
@@ -103,7 +103,7 @@ manualmente através `easyrsa`, `openssl` ou `cfssl`.
 
         openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key \
         -CAcreateserial -out server.crt -days 10000 \
-        -extensions v3_ext -extfile csr.conf
+        -extensions v3_ext -extfile csr.conf -sha256
 1.  Veja o certificado:
 
         openssl x509  -noout -text -in ./server.crt
@@ -164,7 +164,7 @@ Por fim, adicione os mesmos parâmetros nos parâmetros iniciais do Servidor de 
             "OU": "<organization unit>"
           }]
         }
-1.  Gere a chave CA (`ca-key.pem`) e o certificado (` ca.pem`):
+1.  Gere a chave CA (`ca-key.pem`) e o certificado (`ca.pem`):
 
         ../cfssl gencert -initca ca-csr.json | ../cfssljson -bare ca
 1.  Crie um arquivo de configuração JSON para gerar chaves e certificados para o Servidor de API, por exemplo, `server-csr.json`. Certifique-se de substituir os valores entre colchetes angulares por valores reais que você deseja usar. O `MASTER_CLUSTER_IP` é o IP do serviço do cluster para o servidor da API, conforme descrito na subseção anterior. O exemplo abaixo também assume que você está usando `cluster.local` como DNS de domínio padrão

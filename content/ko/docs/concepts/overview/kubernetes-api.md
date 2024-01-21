@@ -1,9 +1,9 @@
 ---
-
-
+# reviewers:
+# - chenopis
 title: 쿠버네티스 API
 content_type: concept
-weight: 30
+weight: 40
 description: >
   쿠버네티스 API를 사용하면 쿠버네티스 오브젝트들의 상태를 쿼리하고 조작할 수 있다.
   쿠버네티스 컨트롤 플레인의 핵심은 API 서버와 그것이 노출하는 HTTP API이다. 사용자와 클러스터의 다른 부분 및 모든 외부 컴포넌트는 API 서버를 통해 서로 통신한다.
@@ -22,7 +22,7 @@ card:
 쿠버네티스 API를 사용하면 쿠버네티스의 API 오브젝트(예:
 파드(Pod), 네임스페이스(Namespace), 컨피그맵(ConfigMap) 그리고 이벤트(Event))를 질의(query)하고 조작할 수 있다.
 
-대부분의 작업은 [kubectl](/ko/docs/reference/kubectl/overview/)
+대부분의 작업은 [kubectl](/ko/docs/reference/kubectl/)
 커맨드 라인 인터페이스 또는 API를 사용하는
 [kubeadm](/ko/docs/reference/setup-tools/kubeadm/)과
 같은 다른 커맨드 라인 도구를 통해 수행할 수 있다.
@@ -76,24 +76,51 @@ card:
 
 쿠버네티스는 주로 클러스터 내부 통신을 위해 대안적인
 Protobuf에 기반한 직렬화 형식을 구현한다. 이 형식에 대한
-자세한 내용은 [쿠버네티스 Protobuf 직렬화](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md) 디자인 제안과
+자세한 내용은 [쿠버네티스 Protobuf 직렬화](https://git.k8s.io/design-proposals-archive/api-machinery/protobuf.md) 디자인 제안과
 API 오브젝트를 정의하는 Go 패키지에 들어있는 각각의 스키마에 대한
 IDL(인터페이스 정의 언어) 파일을 참고한다.
 
 ### OpenAPI V3
 
-{{< feature-state state="alpha"  for_k8s_version="v1.23" >}}
+{{< feature-state state="beta"  for_k8s_version="v1.24" >}}
 
-쿠버네티스 v1.23은 OpenAPI v3 API 발행(publishing)에 대한 초기 지원을 제공한다. 
-이는 알파 기능이며 기본적으로 비활성화되어 있다.
+쿠버네티스 {{< param "version" >}} 버전은 OpenAPI v3 API 발행(publishing)에 대한 베타 지원을 제공한다. 
+이는 베타 기능이며 기본적으로 활성화되어 있다.
 kube-apiserver 구성 요소에 
-`OpenAPIV3` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 이용하여 
-이 알파 기능을 활성화할 수 있다.
+`OpenAPIV3` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 비활성화하여 
+이 베타 기능을 비활성화할 수 있다.
 
-이 기능이 활성화되면, 쿠버네티스 API 서버는 
-통합된(aggregated) OpenAPI v3 스펙을 쿠버네티스 그룹 버전별로 
-`/openapi/v3/apis/<group>/<version>` 엔드포인트에 제공한다. 
-사용할 수 있는 요청 헤더는 아래의 표를 참고한다.
+`/openapi/v3` 디스커버리 엔드포인트는 사용 가능한 모든 
+그룹/버전의 목록을 제공한다. 이 엔드포인트는 JSON 만을 반환한다.
+이러한 그룹/버전은 다음과 같은 형식으로 제공된다.
+
+```yaml
+{
+    "paths": {
+        ...,
+        "api/v1": {
+            "serverRelativeURL": "/openapi/v3/api/v1?hash=CC0E9BFD992D8C59AEC98A1E2336F899E8318D3CF4C68944C3DEC640AF5AB52D864AC50DAA8D145B3494F75FA3CFF939FCBDDA431DAD3CA79738B297795818CF"
+        },
+        "apis/admissionregistration.k8s.io/v1": {
+            "serverRelativeURL": "/openapi/v3/apis/admissionregistration.k8s.io/v1?hash=E19CC93A116982CE5422FC42B590A8AFAD92CDE9AE4D59B5CAAD568F083AD07946E6CB5817531680BCE6E215C16973CD39003B0425F3477CFD854E89A9DB6597"
+        },
+        ....
+    }
+}
+```
+<!-- for editors: intentionally use yaml instead of json here, to prevent syntax highlight error. -->
+
+위의 상대 URL은 변경 불가능한(immutable) OpenAPI 상세를 가리키고 있으며, 
+이는 클라이언트에서의 캐싱을 향상시키기 위함이다. 
+같은 목적을 위해 API 서버는 적절한 HTTP 캐싱 헤더를 
+설정한다(`Expires`를 1년 뒤로, `Cache-Control`을 `immutable`). 
+사용 중단된 URL이 사용되면, API 서버는 최신 URL로의 리다이렉트를 반환한다.
+
+쿠버네티스 API 서버는 
+쿠버네티스 그룹 버전에 따른 OpenAPI v3 스펙을 
+`/openapi/v3/apis/<group>/<version>?hash=<hash>` 엔드포인트에 게시한다.
+
+사용 가능한 요청 헤더 목록은 아래의 표를 참고한다.
 
 <table>
   <caption style="display:none"> OpenAPI v3 질의에 사용할 수 있는 유효한 요청 헤더 값</caption>
@@ -126,9 +153,6 @@ kube-apiserver 구성 요소에
   </tbody>
 </table>
 
-`/openapi/v3` 디스커버리 엔드포인트는 사용 가능한 모든 
-그룹/버전의 목록을 제공한다. 이 엔드포인트는 JSON 만을 반환한다.
-
 ## 지속성
 
 쿠버네티스는 오브젝트의 직렬화된 상태를
@@ -156,9 +180,10 @@ API 리소스는 API 그룹, 리소스 유형, 네임스페이스
 동일한 기본 데이터를 제공할 수 있다.
 
 예를 들어, 동일한 리소스에 대해  `v1` 과 `v1beta1` 이라는 두 가지 API 버전이
-있다고 가정한다. 원래 API의 `v1beta1` 버전을 사용하여 오브젝트를
-만든 경우, 나중에 `v1beta1` 또는 `v1` API 버전을 사용하여 해당 오브젝트를
-읽거나, 업데이트하거나, 삭제할 수 있다.
+있다고 가정하자. API의 `v1beta1` 버전을 사용하여 오브젝트를 만든 경우,
+`v1beta1` 버전이 사용 중단(deprecated)되고 제거될 때까지는
+`v1beta1` 또는 `v1` API 버전을 사용하여 해당 오브젝트를 읽거나, 업데이트하거나, 삭제할 수 있다.
+그 이후부터는 `v1` API를 사용하여 계속 오브젝트에 접근하고 수정할 수 있다.
 
 ## API 변경 사항
 
@@ -173,14 +198,18 @@ API 리소스는 API 그룹, 리소스 유형, 네임스페이스
 
 쿠버네티스는 일반적으로 API 버전 `v1` 에서 안정 버전(GA)에 도달하면, 공식 쿠버네티스 API에
 대한 호환성 유지를 강력하게 이행한다. 또한,
-쿠버네티스는 가능한 경우 _베타_ API 버전에서도 호환성을 유지한다.
-베타 API를 채택하면 기능이 안정된 후에도 해당 API를 사용하여 클러스터와
-계속 상호 작용할 수 있다.
+쿠버네티스는 공식 쿠버네티스 API의 _베타_ API 버전으로 만들어진 데이터와도 호환성을 유지하며,
+해당 기능이 안정화되었을 때 해당 데이터가 안정 버전(GA)의 API 버전들에 의해 변환되고 접근될 수 있도록 보장한다.
+
+만약 베타 API 버전을 사용했다면, 해당 API가 승급했을 때 후속 베타 버전 혹은 안정된 버전의 API로 전환해야 한다.
+해당 작업은 오브젝트 접근을 위해 두 API 버전 모두 사용할 수 있는 베타 API의 사용 중단(deprecation) 시기일 때 진행하는 것이 최선이다.
+베타 API의 사용 중단(deprecation) 시기가 끝나고 더 이상 사용될 수 없다면 반드시 대체 API 버전을 사용해야 한다.
 
 {{< note >}}
-쿠버네티스는 또한 _알파_ API 버전에 대한 호환성을 유지하는 것을 목표로 하지만, 일부
-상황에서는 호환성이 깨진다. 알파 API 버전을 사용하는 경우, API가 변경된 경우 클러스터를
-업그레이드할 때 쿠버네티스에 대한 릴리스 정보를 확인한다.
+비록 쿠버네티스는 _알파_ API 버전에 대한 호환성을 유지하는 것을 목표로 하지만, 일부
+상황에서 이는 불가능하다. 알파 API 버전을 사용하는 경우, 클러스터를 업그레이드해야 할 때에는 
+API 변경으로 인해 호환성이 깨지고 업그레이드 전에 기존 오브젝트를 전부 제거해야 하는 상황에 대비하기 위해
+쿠버네티스의 릴리스 정보를 확인하자.
 {{< /note >}}
 
 API 버전 수준 정의에 대한 자세한 내용은

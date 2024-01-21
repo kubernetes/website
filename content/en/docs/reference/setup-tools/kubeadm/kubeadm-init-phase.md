@@ -58,6 +58,7 @@ You can create all required kubeconfig files by calling the `all` subcommand or 
 {{< tab name="kubelet" include="generated/kubeadm_init_phase_kubeconfig_kubelet.md" />}}
 {{< tab name="controller-manager" include="generated/kubeadm_init_phase_kubeconfig_controller-manager.md" />}}
 {{< tab name="scheduler" include="generated/kubeadm_init_phase_kubeconfig_scheduler.md" />}}
+{{< tab name="super-admin" include="generated/kubeadm_init_phase_kubeconfig_super-admin.md" />}}
 {{< /tabs >}}
 
 ## kubeadm init phase control-plane {#cmd-phase-control-plane}
@@ -105,7 +106,7 @@ By default the certs and encryption key expire after two hours.
 
 ## kubeadm init phase mark-control-plane {#cmd-phase-mark-control-plane}
 
-Use the following phase to label and taint the node with the `node-role.kubernetes.io/master=""` key-value pair.
+Use the following phase to label and taint the node as a control plane node.
 
 {{< tabs name="tab-mark-control-plane" >}}
 {{< tab name="mark-control-plane" include="generated/kubeadm_init_phase_mark-control-plane.md" />}}

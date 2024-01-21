@@ -58,9 +58,9 @@ You can also follow this tutorial if you've installed [Minikube locally](/docs/t
 -->
 У цьому навчальному матеріалі ми використовуємо образ контейнера, зібраний із наступних файлів:
 
-{{< codenew language="js" file="minikube/server.js" >}}
+{{% codenew language="js" file="minikube/server.js" %}}
 
-{{< codenew language="conf" file="minikube/Dockerfile" >}}
+{{% codenew language="conf" file="minikube/Dockerfile" %}}
 
 <!--For more information on the `docker build` command, read the [Docker documentation](https://docs.docker.com/engine/reference/commandline/build/).
 -->
@@ -119,7 +119,7 @@ Pod runs a Container based on the provided Docker image.
 1. За допомогою команди `kubectl create` створіть Deployment, який керуватиме Pod'ом. Pod запускає контейнер на основі наданого Docker образу.
 
     ```shell
-    kubectl create deployment hello-node --image=k8s.gcr.io/echoserver:1.4
+    kubectl create deployment hello-node --image=registry.k8s.io/echoserver:1.4
     ```
 
 <!--2. View the Deployment:

@@ -1,6 +1,6 @@
 ---
 title: API 접근 제어
-weight: 15
+weight: 30
 no_list: true
 ---
 
@@ -10,7 +10,7 @@ no_list: true
 참조 문헌
 
 - [인증](/docs/reference/access-authn-authz/authentication/)
-   - [부트스트랩 토큰 인증](/docs/reference/access-authn-authz/bootstrap-tokens/)
+   - [부트스트랩 토큰 인증](/ko/docs/reference/access-authn-authz/bootstrap-tokens/)
 - [승인 컨트롤러](/docs/reference/access-authn-authz/admission-controllers/)
    - [동적 승인 제어](/docs/reference/access-authn-authz/extensible-admission-controllers/)
 - [인가](/ko/docs/reference/access-authn-authz/authorization/)
@@ -24,3 +24,5 @@ no_list: true
 - 서비스 어카운트
   - [개발자 가이드](/docs/tasks/configure-pod-container/configure-service-account/)
   - [관리](/ko/docs/reference/access-authn-authz/service-accounts-admin/)
+- [kubelet 인증과 인가](/ko/docs/reference/access-authn-authz/kubelet-authn-authz/)
+  - kubelet [TLS 부트스트래핑](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)을 포함함

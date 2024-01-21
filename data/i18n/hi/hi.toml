@@ -1,195 +1,303 @@
-# i18n strings for the English (main) site.
+# i18n strings for Hindi version of the site.
+# NOTE: Please keep the entries in alphabetical order when editing
 
-[deprecation_warning]
-other = " documentation is no longer actively maintained. The version you are currently viewing is a static snapshot. For up-to-date documentation, see the "
-
-[deprecation_file_warning]
-other = "Deprecated"
-
-[objectives_heading]
-other = "Objectives"
-
-[cleanup_heading]
-other = "Cleaning up"
-
-[prerequisites_heading]
-other = "Before you begin"
-
-[whatsnext_heading]
-other = "What's next"
-
-[feedback_heading]
-other = "Feedback"
-
-[feedback_question]
-other = "Was this page helpful?"
-
-[feedback_yes]
-other = "Yes"
-
-[feedback_no]
-other = "No"
-
-[latest_version]
-other = "latest version."
-
-[version_check_mustbe]
-other = "Your Kubernetes server must be version "
-
-[version_check_mustbeorlater]
-other = "Your Kubernetes server must be at or later than version "
-
-[version_check_tocheck]
-other = "To check the version, enter "
+# Avoid using conjunction_1.
+# Must match the context in layouts/shortcodes/release-data.html
+# Appears on https://kubernetes.io/releases/
+# For example the "and" in "Complete 1.25 Schedule and Changelog"
+[conjunction_1]
+other = "और"
 
 [caution]
-other = "Caution:"
+other = "सावधान:"
 
-[note]
-other = "Note:"
+[cleanup_heading]
+other = "सफाई करना"
 
-[warning]
-other = "Warning:"
+[community_events_calendar]
+other = "घटनाक्रम कैलेंडर"
 
-[main_read_about]
-other = "Read about"
+[community_forum_name]
+other = "फोरम"
 
-[main_read_more]
-other = "Read more"
-
-[main_github_invite]
-other = "Interested in hacking on the core Kubernetes code base?"
-
-[main_github_view_on]
-other = "View On GitHub"
-
-[main_github_create_an_issue]
-other = "Create an Issue"
-
-[main_community_explore]
-other = "Explore the community"
-
-[main_kubernetes_features]
-other = "Kubernetes Features"
-
-[main_cncf_project]
-other = """We are a <a href="https://cncf.io/">CNCF</a> graduated project</p>"""
-
-[main_kubeweekly_baseline]
-other = "Interested in receiving the latest Kubernetes news? Sign up for KubeWeekly."
-
-[main_kubernetes_past_link]
-other = "View past newsletters"
-
-[main_kubeweekly_signup]
-other = "Subscribe"
-
-[main_contribute]
-other = "Contribute"
-
-[main_edit_this_page]
-other = "Edit This Page"
-
-[main_page_history]
-other ="Page History"
-
-[main_page_last_modified_on]
-other = "Page last modified on"
-
-[main_by]
-other = "by"
-
-[main_documentation_license]
-other = """The Kubernetes Authors | Documentation Distributed under <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
-
-[main_copyright_notice]
-other = """The Linux Foundation &reg;. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Trademark Usage page</a>"""
-
-# Labels for the docs portal home page.
-[docs_label_browse]
-other = "Browse Docs"
-
-[docs_label_contributors]
-other = "Contributors"
-
-[docs_label_users]
-other = "Users"
-
-[docs_label_i_am]
-other = "I AM..."
-
-# layouts > blog > pager
-
-[layouts_blog_pager_prev]
-other = "<< Prev"
-
-[layouts_blog_pager_next]
-other = "Next >>"
-
-# layouts > blog > list
-
-[layouts_case_studies_list_tell]
-other = "Tell your story"
-
-# layouts > docs > glossary
-
-[layouts_docs_glossary_description]
-other = "This glossary is intended to be a comprehensive, standardized list of Kubernetes terminology. It includes technical terms that are specific to K8s, as well as more general terms that provide useful context."
-
-[layouts_docs_glossary_filter]
-other = "Filter terms according to their tags"
-
-[layouts_docs_glossary_select_all]
-other = "Select all"
-
-[layouts_docs_glossary_deselect_all]
-other = "Deselect all"
-
-[layouts_docs_glossary_aka]
-other = "Also known as"
-
-[layouts_docs_glossary_click_details_before]
-other = "Click on the"
-
-[layouts_docs_glossary_click_details_after]
-other = "indicators below to get a longer explanation for any particular term."
-
-# layouts > docs > search
-
-[layouts_docs_search_fetching]
-other = "Fetching results.."
-
-# layouts > partial > feedback
-
-[layouts_docs_partials_feedback_thanks]
-other = "Thanks for the feedback. If you have a specific, answerable question about how to use Kubernetes, ask it on"
-
-[layouts_docs_partials_feedback_issue]
-other = "Open an issue in the GitHub repo if you want to "
-
-[layouts_docs_partials_feedback_problem]
-other = "report a problem"
-
-[layouts_docs_partials_feedback_or]
-other = "or"
-
-[layouts_docs_partials_feedback_improvement]
-other = "suggest an improvement"
-
-# Community links
-[community_twitter_name]
-other = "Twitter"
 [community_github_name]
 other = "GitHub"
+
 [community_slack_name]
 other = "Slack"
+
 [community_stack_overflow_name]
 other = "Stack Overflow"
-[community_forum_name]
-other = "Forum"
-[community_events_calendar]
-other = "Events Calendar"
 
-# UI elements
+[community_twitter_name]
+other = "Twitter"
+
+[community_youtube_name]
+other = "YouTube"
+
+[deprecation_title]
+other = "आप इस कुबेरनेट्स संस्करण के लिए प्रलेखन देख रहे हैं:"
+
+[deprecation_warning]
+other = " प्रलेखन अब सक्रिय रूप से मेंटेन नहीं है। वर्तमान में आप जो संस्करण देख रहे हैं वह एक स्टैटिक स्नैपशॉट है। अप-टू-डेट प्रलेखन के लिए, देखें "
+
+[deprecation_file_warning]
+other = "डेप्रिकेटेड"
+
+[dockershim_message]
+other = """1.24 संस्करण के बाद से Dockershim को कुबेरनेट्स परियोजना से हटा दिया गया हैं। अधिक जानकारी के लिए <a href="/dockershim">Dockershim रिमूवल एफएक्यू</a> पढ़ें।"""
+
+[docs_label_browse]
+other = "प्रलेखन ब्राउज़ करें"
+
+[docs_label_contributors]
+other = "योगदानकर्ता"
+
+[docs_label_i_am]
+other = "मैं हूँ..."
+
+[docs_label_users]
+other = "उपयोगकर्ता"
+
+[docs_version_current]
+other = "(यह प्रलेखन)"
+
+[docs_version_latest_heading]
+other = "नवीनतम संस्करण"
+
+[docs_version_other_heading]
+other = "पुराने संस्करण"
+
+[end_of_life]
+other = "जीवनकाल का समापन:"
+
+[envvars_heading]
+other = "एनवायरनमेंट वैरिएबल"
+
+[error_404_were_you_looking_for]
+other = "क्या आप यह ढूँढ रहे थें:"
+
+[examples_heading]
+other = "उदाहरण"
+
+[feature_state]
+other = "फ़ीचर स्थिति:"
+
+[feedback_heading]
+other = "प्रतिक्रिया"
+
+[feedback_no]
+other = "नहीं"
+
+[feedback_question]
+other = "क्या यह पृष्ठ उपयोगी था?"
+
+[feedback_yes]
+other = "हाँ"
+
+[inline_list_separator]
+other = ","
+
+[input_placeholder_email_address]
+other = "ईमेल ऐड्रेस"
+
+[javascript_required]
+other = "इस विषय को देखने के लिए जावास्क्रिप्ट [सक्रिय](https://www.enable-javascript.com/) होना चाहिए।"
+
+[latest_release]
+other = "नवीनतम रिलीज़:"
+
+[latest_version]
+other = "नवीनतम संस्करण।"
+
+[layouts_blog_pager_prev]
+other = "<< पिछला"
+
+[layouts_blog_pager_next]
+other = "अगला >>"
+
+[layouts_case_studies_list_tell]
+other = "अपनी कहानी बतायें"
+
+[layouts_docs_glossary_aka]
+other = "के रूप में भी जाना जाता है"
+
+[layouts_docs_glossary_description]
+other = "इस शब्दावली का उद्देश्य कुबेरनेट्स शब्दावली की एक व्यापक, मानकीकृत सूची है। इसमें कुबेरनेट्स के लिए विशिष्ट तकनीकी शब्द और उपयोगी संदर्भ प्रदान करने वाले सामान्य शब्द शामिल हैं।"
+
+[layouts_docs_glossary_deselect_all]
+other = "सभी को अचयनित करें"
+
+[layouts_docs_glossary_click_details_after]
+other = "किसी विशेष शब्द के लिए लंबी व्याख्या प्राप्त करने के लिए नीचे दिए गए संकेतक।"
+
+[layouts_docs_glossary_click_details_before]
+other = "पर क्लिक करें"
+
+[layouts_docs_glossary_filter]
+other = "शब्दों को उनके टैग के अनुसार फ़िल्टर करें"
+
+[layouts_docs_glossary_select_all]
+other = "सभी का चयन करे"
+
+[layouts_docs_partials_feedback_improvement]
+other = "सुधार का सुझाव दें"
+
+[layouts_docs_partials_feedback_issue]
+other = "यदि आप चाहते हैं तो GitHub रेपो में एक issue खोलें "
+
+[layouts_docs_partials_feedback_or]
+other = "या"
+
+[layouts_docs_partials_feedback_problem]
+other = "समस्या के बारे में बताएं"
+
+[layouts_docs_partials_feedback_thanks]
+other = "प्रतिक्रिया के लिए धन्यवाद। यदि आपके पास कुबेरनेट्स का उपयोग करने के तरीके के बारे में कोई विशिष्ट, जवाबदेह प्रश्न है, तो इस पर पूछें"
+
+[layouts_docs_search_fetching]
+other = "परिणाम लाए जा रहे हैं.."
+
+[main_by]
+other = "द्वारा"
+
+[main_cncf_project]
+other = """हम एक <a href="https://cncf.io/">CNCF</a> स्नातक परियोजना हैं</p>"""
+
+[main_community_explore]
+other = "समुदाय का अन्वेषण करें"
+
+[main_contribute]
+other = "योगदान करें"
+
+[main_copyright_notice]
+other = """The Linux Foundation &reg;। सभी अधिकार सुरक्षित। The Linux Foundation ने ट्रेडमार्क पंजीकृत किया है और ट्रेडमार्क का उपयोग करता है। Linux Foundation के ट्रेडमार्क की सूची के लिए, कृपया हमारा <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">ट्रेडमार्क उपयोग पृष्ठ</a> देखें।"""
+
+[main_documentation_license]
+other = """कुबेरनेट्स लेखक | <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a> के अंतर्गत वितरित दस्तावेज़"""
+
+[main_edit_this_page]
+other = "इस पृष्ठ को संपादित करें"
+
+[main_github_create_an_issue]
+other = "issue बनाएं"
+
+[main_github_invite]
+other = "कोर कुबेरनेट्स कोड बेस पर हैकिंग के इच्छुक हैं?"
+
+[main_github_view_on]
+other = "GitHub पर देखें"
+
+[main_kubernetes_features]
+other = "कुबेरनेट्स की विशेषताएं"
+
+[main_kubeweekly_baseline]
+other = "नवीनतम कुबेरनेट्स समाचार प्राप्त करने के इच्छुक हैं? KubeWeekly के लिए साइन अप करें।"
+
+[main_kubernetes_past_link]
+other = "पिछले न्यूज़लेटर देखें"
+
+[main_kubeweekly_signup]
+other = "सब्सक्राइब करें"
+
+[main_page_history]
+other ="पृष्ठ का इतिहास"
+
+[main_page_last_modified_on]
+other = "पृष्ठ अंतिम बार संशोधित किया गया"
+
+[main_read_about]
+other = "के बारे में पढ़ें"
+
+[main_read_more]
+other = "अधिक पढ़ें"
+
+[not_applicable]
+other = "उपलब्ध नहीं हैं"
+
+[note]
+other = "टिप्पणी:"
+
+[objectives_heading]
+other = "उद्देश्य"
+
+[options_heading]
+other = "विकल्प"
+
+[outdated_blog__message]
+other = "यह लेख एक वर्ष से अधिक पुराना है। पुराने लेखों में पुरानी सामग्री हो सकती है। जाँच करें कि प्रकाशन के बाद से पृष्ठ पर दी गई जानकारी गलत तो नहीं है।"
+
+[post_create_issue]
+other = "issue बनाएं"
+
+[prerequisites_heading]
+other = "शुरू करने से पहले"
+
+[previous_patches]
+other = "पिछले पैच:"
+
+[release_date_after]
+other = ")"
+
+[release_date_before]
+other = "(रिलीज़ड: "
+
+# See https://gohugo.io/functions/format/#gos-layout-string
+# For a suitable format
+[release_date_format]
+other = "2006-01-02"
+
+# Deprecated. Planned for removal in a future release.
+# Use [release_full_details_initial_text] instead.
+
+# Replace [release_complete] with [release_full_details_initial_text]
+[release_full_details_initial_text]
+other = "पूर्ण"
+
+[release_schedule]
+other = "अनुसूची"
+
+[release_changelog]
+other = "बदलाव के अभिलेख"
+
+[seealso_heading]
+other = "यह भी देखें"
+
+[subscribe_button]
+other = "सब्स्क्राइब करें"
+
+[synopsis_heading]
+other = "संक्षेप में"
+
+[thirdparty_message]
+other = """यह खंड अन्य पक्ष परियोजनाओं से जुड़ा है जो कुबेरनेट्स द्वारा आवश्यक कार्यक्षमता प्रदान करते हैं। कुबेरनेट्स परियोजना के लेखक इन परियोजनाओं के लिए जिम्मेदार नहीं हैं। यह पृष्ठ <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF वेबसाइट दिशानिर्देश</a> का अनुसरण करते हुए परियोजनाओं को वर्णानुक्रम में सूचीबद्ध करता है। इस सूची में कोई नई परियोजना जोड़ने से पहले यह <a href="/docs/contribute/style/content-guide/#third-party-content">विषय मार्गदर्शक</a> पृष्ट पढ़के ही परिवर्तन करें।"""
+
+[thirdparty_message_edit_disclaimer]
+other="""अन्य पक्ष के विषयों की सलहा"""
+
+[thirdparty_message_single_item]
+other = """&#128711; यह वस्तु कोई अन्य पक्ष की परियोजना या उत्पाद से जुड़ा है जो कुबेरनेट्स का हिस्सा नहीं हैं। <a class="alert-more-info" href="#third-party-content-disclaimer">अधिक जानकारी के लिए पढ़ें</a>"""
+
+[thirdparty_message_disclaimer]
+other = """<p>इस पृष्ठ की वस्तुओं अन्य पक्ष के उत्पादों या परियोजनाओं से जुड़ा है जो कुबेरनेट्स द्वारा आवश्यक कार्यक्षमता प्रदान करते हैं। कुबेरनेट्स परियोजना के लेखक इन अन्य पक्ष के उत्पादों या परियोजनाओं के लिए जिम्मेदार नहीं हैं। अधिक जानकारी के लिए यह <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF वेबसाइट दिशानिर्देश</a> पृष्ठ पढ़े।"</p><p>कोई नई अतिरिक्त अन्य पक्ष लिंक जोड़ने से पहले यह पृष्ठ <a href="/docs/contribute/style/content-guide/#third-party-content">विषय मार्गदर्शक</a> पृष्ठ पढ़के ही परिवर्तन का प्रस्ताव प्रस्तुत करें।</p>"""
+
 [ui_search_placeholder]
-other = "Search"
+other = "खोजें"
+
+[version_check_mustbe]
+other = "आपके कुबेरनेट्स सर्वर का संस्करण होना चाहिए "
+
+[version_check_mustbeorlater]
+other = "आपका कुबेरनेट्स सर्वर इसपर या इसके बाद के संस्करण पर होना चाहिए "
+
+[version_check_tocheck]
+other = "संस्करण की जांच करने के लिए, लिखें "
+
+[version_menu]
+other = "संस्करण"
+
+[warning]
+other = "चेतावनी:"
+
+[whatsnext_heading]
+other = "आगे क्या है"

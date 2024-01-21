@@ -100,7 +100,7 @@ En quelques étapes, nous vous emmenons de Docker Compose à Kubernetes. Tous do
       services:
 
         redis-master:
-          image: k8s.gcr.io/redis:e2e
+          image: registry.k8s.io/redis:e2e
           ports:
             - "6379"
 
@@ -121,22 +121,7 @@ En quelques étapes, nous vous emmenons de Docker Compose à Kubernetes. Tous do
             kompose.service.type: LoadBalancer
       ```
 
-2.  Lancez la commande `kompose up` pour déployer directement sur Kubernetes, ou passez plutôt à l'étape suivante pour générer un fichier à utiliser avec `kubectl`.
-
-      ```bash
-      $ kompose up
-      We are going to create Kubernetes Deployments, Services and PersistentVolumeClaims for your Dockerized application.
-      If you need different kind of resources, use the 'kompose convert' and 'kubectl apply -f' commands instead.
-
-      INFO Successfully created Service: redis          
-      INFO Successfully created Service: web            
-      INFO Successfully created Deployment: redis       
-      INFO Successfully created Deployment: web         
-
-      Your application has been deployed to Kubernetes. You can run 'kubectl get deployment,svc,pods,pvc' for details.
-      ```
-
-3.  Pour convertir le fichier `docker-compose.yml` en fichiers que vous pouvez utiliser avec `kubectl`, lancez `kompose convert` et ensuite `kubectl apply -f <output file>`.
+2.  Pour convertir le fichier `docker-compose.yml` en fichiers que vous pouvez utiliser avec `kubectl`, lancez `kompose convert` et ensuite `kubectl apply -f <output file>`.
 
       ```bash
       $ kompose convert                           
@@ -160,7 +145,7 @@ En quelques étapes, nous vous emmenons de Docker Compose à Kubernetes. Tous do
 
       Vos déploiements fonctionnent sur Kubernetes.
 
-4.  Accédez à votre application.
+3.  Accédez à votre application.
 
       Si vous utilisez déjà `minikube` pour votre processus de développement :
 
@@ -201,10 +186,7 @@ En quelques étapes, nous vous emmenons de Docker Compose à Kubernetes. Tous do
 
 - CLI
   - [`kompose convert`](#kompose-convert)
-  - [`kompose up`](#kompose-up)
-  - [`kompose down`](#kompose-down)
 - Documentation
-  - [Construire et pousser des images de docker](#build-and-push-docker-images)
   - [Conversions alternatives](#alternative-conversions)
   - [Etiquettes](#labels)
   - [Redémarrage](#restart)
@@ -300,152 +282,6 @@ INFO OpenShift file "foo-buildconfig.yaml" created
 {{< note >}}
 Si vous poussez manuellement les artefacts OpenShift en utilisant ``oc create -f``, vous devez vous assurer que vous poussez l'artefact imagestream avant l'artefact buildconfig, pour contourner ce problème OpenShift : https://github.com/openshift/origin/issues/4518 .
 {{< /note >}}
-
-## `kompose up`
-
-Kompose propose un moyen simple de déployer votre application "composée" sur Kubernetes ou OpenShift via `kompose up`.
-
-
-### Kubernetes
-```sh
-$ kompose --file ./examples/docker-guestbook.yml up
-We are going to create Kubernetes deployments and services for your Dockerized application.
-If you need different kind of resources, use the 'kompose convert' and 'kubectl apply -f' commands instead.
-
-INFO Successfully created service: redis-master   
-INFO Successfully created service: redis-slave    
-INFO Successfully created service: frontend       
-INFO Successfully created deployment: redis-master
-INFO Successfully created deployment: redis-slave
-INFO Successfully created deployment: frontend    
-
-Your application has been deployed to Kubernetes. You can run 'kubectl get deployment,svc,pods' for details.
-
-$ kubectl get deployment,svc,pods
-NAME                                              DESIRED       CURRENT       UP-TO-DATE   AVAILABLE   AGE
-deployment.extensions/frontend                    1             1             1            1           4m
-deployment.extensions/redis-master                1             1             1            1           4m
-deployment.extensions/redis-slave                 1             1             1            1           4m
-
-NAME                         TYPE               CLUSTER-IP    EXTERNAL-IP   PORT(S)      AGE
-service/frontend             ClusterIP          10.0.174.12   <none>        80/TCP       4m
-service/kubernetes           ClusterIP          10.0.0.1      <none>        443/TCP      13d
-service/redis-master         ClusterIP          10.0.202.43   <none>        6379/TCP     4m
-service/redis-slave          ClusterIP          10.0.1.85     <none>        6379/TCP     4m
-
-NAME                                READY         STATUS        RESTARTS     AGE
-pod/frontend-2768218532-cs5t5       1/1           Running       0            4m
-pod/redis-master-1432129712-63jn8   1/1           Running       0            4m
-pod/redis-slave-2504961300-nve7b    1/1           Running       0            4m
-```
-
-**Note**:
-
-- Vous devez avoir un cluster Kubernetes en cours d'exécution avec kubectl pré-configuré.
-- Seuls les déploiements et les services sont générés et déployés dans Kubernetes. Si vous avez besoin d'autres types de ressources, utilisez les commandes `kompose convert` et `kubectl apply -f` à la place.
-
-### OpenShift
-```sh
-$ kompose --file ./examples/docker-guestbook.yml --provider openshift up
-We are going to create OpenShift DeploymentConfigs and Services for your Dockerized application.
-If you need different kind of resources, use the 'kompose convert' and 'oc create -f' commands instead.
-
-INFO Successfully created service: redis-slave    
-INFO Successfully created service: frontend       
-INFO Successfully created service: redis-master   
-INFO Successfully created deployment: redis-slave
-INFO Successfully created ImageStream: redis-slave
-INFO Successfully created deployment: frontend    
-INFO Successfully created ImageStream: frontend   
-INFO Successfully created deployment: redis-master
-INFO Successfully created ImageStream: redis-master
-
-Your application has been deployed to OpenShift. You can run 'oc get dc,svc,is' for details.
-
-$ oc get dc,svc,is
-NAME               REVISION                              DESIRED       CURRENT    TRIGGERED BY
-dc/frontend        0                                     1             0          config,image(frontend:v4)
-dc/redis-master    0                                     1             0          config,image(redis-master:e2e)
-dc/redis-slave     0                                     1             0          config,image(redis-slave:v1)
-NAME               CLUSTER-IP                            EXTERNAL-IP   PORT(S)    AGE
-svc/frontend       172.30.46.64                          <none>        80/TCP     8s
-svc/redis-master   172.30.144.56                         <none>        6379/TCP   8s
-svc/redis-slave    172.30.75.245                         <none>        6379/TCP   8s
-NAME               DOCKER REPO                           TAGS          UPDATED
-is/frontend        172.30.12.200:5000/fff/frontend                     
-is/redis-master    172.30.12.200:5000/fff/redis-master                 
-is/redis-slave     172.30.12.200:5000/fff/redis-slave    v1  
-```
-
-**Note**:
-
-- Vous devez avoir un cluster OpenShift en cours d'exécution avec `oc` pré-configuré (`oc login`)
-
-## `kompose down`
-
-Une fois que vous avez déployé l'application "composée" sur Kubernetes, `$ kompose down` vous
-facilitera la suppression de l'application en supprimant ses déploiements et services. Si vous avez besoin de supprimer d'autres ressources, utilisez la commande 'kubectl'.
-
-```sh
-$ kompose --file docker-guestbook.yml down
-INFO Successfully deleted service: redis-master   
-INFO Successfully deleted deployment: redis-master
-INFO Successfully deleted service: redis-slave    
-INFO Successfully deleted deployment: redis-slave
-INFO Successfully deleted service: frontend       
-INFO Successfully deleted deployment: frontend
-```
-
-**Note**:
-
-- Vous devez avoir un cluster Kubernetes en cours d'exécution avec kubectl pré-configuré.
-
-## Construire et pousser des images de docker
-
-Kompose permet de construire et de pousser des images Docker. Lorsque vous utilisez la clé `build` dans votre fichier Docker Compose, votre image sera :
-
-  - Automatiquement construite avec le Docker en utilisant la clé "image" spécifiée dans votre fichier
-  - Être poussé vers le bon dépôt Docker en utilisant les identifiants locaux (situés dans  `.docker/config`)
-
-Utilisation d'un [exemple de fichier Docker Compose](https://raw.githubusercontent.com/kubernetes/kompose/master/examples/buildconfig/docker-compose.yml):
-
-```yaml
-version: "2"
-
-services:
-    foo:
-        build: "./build"
-        image: docker.io/foo/bar
-```
-
-En utilisant `kompose up` avec une clé `build` :
-
-```none
-$ kompose up
-INFO Build key detected. Attempting to build and push image 'docker.io/foo/bar'
-INFO Building image 'docker.io/foo/bar' from directory 'build'
-INFO Image 'docker.io/foo/bar' from directory 'build' built successfully
-INFO Pushing image 'foo/bar:latest' to registry 'docker.io'
-INFO Attempting authentication credentials 'https://index.docker.io/v1/
-INFO Successfully pushed image 'foo/bar:latest' to registry 'docker.io'
-INFO We are going to create Kubernetes Deployments, Services and PersistentVolumeClaims for your Dockerized application. If you need different kind of resources, use the 'kompose convert' and 'kubectl apply -f' commands instead.
-
-INFO Deploying application in "default" namespace
-INFO Successfully created Service: foo            
-INFO Successfully created Deployment: foo         
-
-Your application has been deployed to Kubernetes. You can run 'kubectl get deployment,svc,pods,pvc' for details.
-```
-
-Afin de désactiver cette fonctionnalité, ou de choisir d'utiliser la génération de BuildConfig (avec OpenShift) `--build (local|build-config|none)` peut être passé.
-
-```sh
-# Désactiver la construction/poussée d'images Docker
-$ kompose up --build none
-
-# Générer des artefacts de Build Config pour OpenShift
-$ kompose up --provider openshift --build build-config
-```
 
 ## Autres conversions
 

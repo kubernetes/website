@@ -37,7 +37,7 @@ Kamu bisa definisikan DaemonSet dalam berkas YAML. Contohnya, berkas
 `daemonset.yaml` di bawah mendefinisikan DaemonSet yang menjalankan _image_ Docker
 fluentd-elasticsearch:
 
-{{< codenew file="controllers/daemonset.yaml" >}}
+{{% codenew file="controllers/daemonset.yaml" %}}
 
 * Buat DaemonSet berdasarkan berkas YAML:
 ```
@@ -106,7 +106,7 @@ membuat Pod pada semua Node.
 
 ### Dijadwalkan oleh _default scheduler_
 
-{{< feature-state state="stable" for-kubernetes-version="1.17" >}}
+{{< feature-state for_k8s_version="1.17" state="stable" >}}
 
 DaemonSet memastikan bahwa semua Node yang memenuhi syarat menjalankan salinan
 Pod. Normalnya, Node yang menjalankan Pod dipilih oleh _scheduler_ Kubernetes.

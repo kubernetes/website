@@ -158,7 +158,7 @@ Kubernetesの認証局は、そのままでは機能しません。
 
 ビルトインサイナーを有効にするには、`--cluster-signing-cert-file`と`--cluster-signing-key-file`フラグを渡す必要があります。
 
-新しいクラスターを作成する場合は、kubeadm[設定ファイル](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3)を使用します。
+新しいクラスターを作成する場合は、kubeadm[設定ファイル](https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3)を使用します。
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta3
@@ -224,13 +224,13 @@ serverTLSBootstrap: true
 
 すでにクラスターを作成している場合は、以下の手順で適応させる必要があります。
 
- - kube-system` ネームスペースにある `kubelet-config-{{< skew latestVersion >}}` ConfigMapを見つけて編集します。
+ - `kube-system`ネームスペースにある`kubelet-config-{{< skew currentVersion >}}` ConfigMapを見つけて編集します。
 
 そのConfigMapの`kubelet`キーの値として[KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)ドキュメントを指定します。KubeletConfigurationドキュメントを編集し、`serverTLSBootstrap: true`を設定します。
 
 - 各ノードで、`/var/lib/kubelet/config.yaml`に`serverTLSBootstrap: true`フィールドを追加し、`systemctl restart kubelet`でkubeletを再起動します。
 
-`serverTLSBootstrap: true`フィールドは、kubeleサービングのブートストラップを有効にします。
+`serverTLSBootstrap: true`フィールドは、kubeletサービングのブートストラップを有効にします。
 証明書を`certificates.k8s.io`APIにリクエストすることで、証明書を発行することができます。
 
 既知の制限事項として、これらの証明書のCSR(Certificate Signing Requests)はkube-controller-managerのデフォルトサイナーによって自動的に承認されないことがあります。

@@ -3,9 +3,17 @@ layout: blog
 title: "Don't Panic: Kubernetes and Docker"
 date: 2020-12-02
 slug: dont-panic-kubernetes-and-docker
+evergreen: true
+---
+
+**Update:** _Kubernetes support for Docker via `dockershim` is now removed.
+For more information, read the [removal FAQ](/dockershim).
+You can also discuss the deprecation via a dedicated [GitHub issue](https://github.com/kubernetes/kubernetes/issues/106917)._
+
 ---
 
 **Authors:** Jorge Castro, Duffie Cooley, Kat Cosgrove, Justin Garrison, Noah Kantrowitz, Bob Killen, Rey Lejano, Dan “POP” Papandrea, Jeffrey Sica, Davanum “Dims” Srinivas
+
 
 Kubernetes is [deprecating
 Docker](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.20.md#deprecation)
@@ -24,7 +32,7 @@ shouldn’t, use Docker as a development tool anymore. Docker is still a useful
 tool for building containers, and the images that result from running `docker
 build` can still run in your Kubernetes cluster. 
  
-If you’re using a managed Kubernetes service like GKE, EKS, or AKS (which [defaults to containerd](https://github.com/Azure/AKS/releases/tag/2020-11-16)) you will need to
+If you’re using a managed Kubernetes service like AKS, EkS or GKE, you will need to
 make sure your worker nodes are using a supported container runtime before
 Docker support is removed in a future version of Kubernetes. If you have node
 customizations you may need to update them based on your environment and runtime
@@ -33,8 +41,8 @@ testing and planning.
 
 If you’re rolling your own clusters, you will also need to make changes to avoid
 your clusters breaking. At v1.20, you will get a deprecation warning for Docker.
-When Docker runtime support is removed in a future release (currently planned
-for the 1.22 release in late 2021) of Kubernetes it will no longer be supported
+When Docker runtime support is removed in a future release (<del>currently planned
+for the 1.22 release in late 2021</del>) of Kubernetes it will no longer be supported
 and you will need to switch to one of the other compliant container runtimes,
 like containerd or CRI-O. Just make sure that the runtime you choose supports
 the docker daemon configurations you currently use (e.g. logging).

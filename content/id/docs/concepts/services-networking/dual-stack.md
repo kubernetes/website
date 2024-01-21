@@ -96,24 +96,24 @@ Kubernetes akan mengalokasikan alamat IP (atau yang dikenal juga sebagai
 "_cluster IP_") dari `service-cluster-ip-range` yang dikonfigurasi pertama kali
 untuk Service ini.
 
-{{< codenew file="service/networking/dual-stack-default-svc.yaml" >}}
+{{% codenew file="service/networking/dual-stack-default-svc.yaml" %}}
 
 Spesifikasi Service berikut memasukkan bagian `ipFamily`. Sehingga Kubernetes
 akan mengalokasikan alamat IPv6 (atau yang dikenal juga sebagai "_cluster IP_") 
 dari `service-cluster-ip-range` yang dikonfigurasi untuk Service ini.
 
-{{< codenew file="service/networking/dual-stack-ipv6-svc.yaml" >}}
+{{% codenew file="service/networking/dual-stack-ipv6-svc.yaml" %}}
 
 Sebagai perbandingan, spesifikasi Service berikut ini akan dialokasikan sebuah alamat
 IPv4 (atau yang dikenal juga sebagai "_cluster IP_") dari `service-cluster-ip-range` 
 yang dikonfigurasi untuk Service ini.
 
-{{< codenew file="service/networking/dual-stack-ipv4-svc.yaml" >}}
+{{% codenew file="service/networking/dual-stack-ipv4-svc.yaml" %}}
 
 ### Tipe _LoadBalancer_
 
 Penyedia layanan _cloud_ yang mendukung IPv6 untuk pengaturan beban eksternal,
-Mengatur bagian `type` menjadi` LoadBalancer` sebagai tambahan terhadap mengatur bagian 
+Mengatur bagian `type` menjadi `LoadBalancer` sebagai tambahan terhadap mengatur bagian 
 `ipFamily` menjadi `IPv6` menyediakan sebuah _cloud load balancer_ untuk Service kamu.
 
 ## Lalu lintas _egress_

@@ -1,6 +1,7 @@
 ---
 title: 쿠버네티스 API를 사용하여 클러스터에 접근하기
 content_type: task
+weight: 60
 ---
 
 <!-- overview -->
@@ -31,7 +32,7 @@ kubectl config view
 ```
 
 많은 [예제](https://github.com/kubernetes/examples/tree/master/)는 kubectl 사용에 대한 소개를
-제공한다. 전체 문서는 [kubectl 매뉴얼](/ko/docs/reference/kubectl/overview/)에 있다.
+제공한다. 전체 문서는 [kubectl 매뉴얼](/ko/docs/reference/kubectl/)에 있다.
 
 ### REST API에 직접 접근
 
@@ -95,8 +96,25 @@ export CLUSTER_NAME="some_server_name"
 # 클러스터 이름을 참조하는 API 서버를 가리킨다.
 APISERVER=$(kubectl config view -o jsonpath="{.clusters[?(@.name==\"$CLUSTER_NAME\")].cluster.server}")
 
+# 기본 서비스 어카운트용 토큰을 보관할 시크릿을 생성한다.
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Secret
+metadata:
+  name: default-token
+  annotations:
+    kubernetes.io/service-account.name: default
+type: kubernetes.io/service-account-token
+EOF
+
+# 토큰 컨트롤러가 해당 시크릿에 토큰을 기록할 때까지 기다린다.
+while ! kubectl describe secret default-token | grep -E '^token' >/dev/null; do
+  echo "waiting for token..." >&2
+  sleep 1
+done
+
 # 토큰 값을 얻는다
-TOKEN=$(kubectl get secrets -o jsonpath="{.items[?(@.metadata.annotations['kubernetes\.io/service-account\.name']=='default')].data.token}"|base64 --decode)
+TOKEN=$(kubectl get secret default-token -o jsonpath='{.data.token}' | base64 --decode)
 
 # TOKEN으로 API 탐색
 curl -X GET $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
@@ -105,26 +123,6 @@ curl -X GET $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 출력은 다음과 비슷하다.
 
 ```json
-{
-  "kind": "APIVersions",
-  "versions": [
-    "v1"
-  ],
-  "serverAddressByClientCIDRs": [
-    {
-      "clientCIDR": "0.0.0.0/0",
-      "serverAddress": "10.0.1.149:443"
-    }
-  ]
-}
-```
-
-`jsonpath` 방식을 사용한다.
-
-```shell
-APISERVER=$(kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}')
-TOKEN=$(kubectl get secret $(kubectl get serviceaccount default -o jsonpath='{.secrets[0].name}') -o jsonpath='{.data.token}' | base64 --decode )
-curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 {
   "kind": "APIVersions",
   "versions": [
@@ -153,7 +151,7 @@ http 클라이언트가 루트 인증서를 사용하도록 하려면 특별한 
 
 ### API에 프로그래밍 방식으로 접근
 
-쿠버네티스는 공식적으로 [Go](#go-client), [Python](#python-client), [Java](#java-client), [dotnet](#dotnet-client), [Javascript](#javascript-client) 및 [Haskell](#haskell-client) 용 클라이언트 라이브러리를 지원한다. 쿠버네티스 팀이 아닌 작성자가 제공하고 유지 관리하는 다른 클라이언트 라이브러리가 있다. 다른 언어에서 API에 접근하고 인증하는 방법에 대해서는 [클라이언트 라이브러리](/ko/docs/reference/using-api/client-libraries/)를 참고한다.
+쿠버네티스는 공식적으로 [Go](#go-client), [Python](#python-client), [Java](#java-client), [dotnet](#dotnet-client), [JavaScript](#javascript-client) 및 [Haskell](#haskell-client) 용 클라이언트 라이브러리를 지원한다. 쿠버네티스 팀이 아닌 작성자가 제공하고 유지 관리하는 다른 클라이언트 라이브러리가 있다. 다른 언어에서 API에 접근하고 인증하는 방법에 대해서는 [클라이언트 라이브러리](/ko/docs/reference/using-api/client-libraries/)를 참고한다.
 
 #### Go 클라이언트 {#go-client}
 

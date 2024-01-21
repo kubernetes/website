@@ -9,7 +9,7 @@ card:
 ---
 
 <!-- overview -->
-Kubernetesのコマンドラインツールである[kubectl](/ja/docs/reference/kubectl/overview/)を使用して、Kubernetesクラスターに対してコマンドを実行することができます。kubectlによってアプリケーションのデプロイや、クラスターのリソース管理、検査およびログの表示を行うことができます。kubectlの操作に関する完全なリストは、[kubectlの概要](/ja/docs/reference/kubectl/overview/)を参照してください。
+Kubernetesのコマンドラインツールである[kubectl](/ja/docs/reference/kubectl/kubectl)を使用して、Kubernetesクラスターに対してコマンドを実行することができます。kubectlによってアプリケーションのデプロイや、クラスターのリソース管理、検査およびログの表示を行うことができます。kubectlの操作に関する完全なリストは、[kubectlリファレンスドキュメント](/ja/docs/reference/kubectl/)を参照してください。
 
 
 ## {{% heading "prerequisites" %}}
@@ -26,15 +26,15 @@ kubectlのバージョンは、クラスターのマイナーバージョンと�
 1. 次のコマンドにより、最新リリースをダウンロードしてください:
 
     ```
-    curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+    curl -LO "https://dl.k8s.io/release/$(curl -LS https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
     ```
 
-    特定のバージョンをダウンロードする場合、コマンドの`$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)`の部分を特定のバージョンに書き換えてください。
+    特定のバージョンをダウンロードする場合、コマンドの`$(curl -LS https://dl.k8s.io/release/stable.txt)`の部分を特定のバージョンに書き換えてください。
 
-    たとえば、Linuxへ{{< param "fullversion" >}}のバージョンをダウンロードするには、次のコマンドを入力します:
+    たとえば、Linuxへ{{< skew currentPatchVersion >}}のバージョンをダウンロードするには、次のコマンドを入力します:
 
     ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
+    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/amd64/kubectl
     ```
 
 2. kubectlバイナリを実行可能にしてください。
@@ -72,7 +72,7 @@ baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
 enabled=1
 gpgcheck=1
 repo_gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
 yum install -y kubectl
 {{< /tab >}}
@@ -108,15 +108,15 @@ kubectl version --client
 1. 最新リリースをダウンロードしてください:
 
    ```bash
-   curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl"
+   curl -LO "https://dl.k8s.io/release/$(curl -LS https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl"
    ```
 
-   特定のバージョンをダウンロードする場合、コマンドの`$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)`の部分を特定のバージョンに書き換えてください。
+   特定のバージョンをダウンロードする場合、コマンドの`$(curl -LS https://dl.k8s.io/release/stable.txt)`の部分を特定のバージョンに書き換えてください。
 
-   たとえば、macOSへ{{< param "fullversion" >}}のバージョンをダウンロードするには、次のコマンドを入力します:
+   たとえば、macOSへ{{< skew currentPatchVersion >}}のバージョンをダウンロードするには、次のコマンドを入力します:
 
    ```bash
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl
+    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/darwin/amd64/kubectl
    ```
 
 2. kubectlバイナリを実行可能にしてください。
@@ -178,15 +178,15 @@ macOSで[MacPorts](https://macports.org/)パッケージマネージャーを使
 
 ### curlを使用してWindowsへkubectlのバイナリをインストールする
 
-1. [こちらのリンク](https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe)から、最新リリースである{{< param "fullversion" >}}をダウンロードしてください。
+1. [こちらのリンク](https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe)から、最新リリースである{{< skew currentPatchVersion >}}をダウンロードしてください。
 
    または、`curl`をインストールされていれば、次のコマンドも使用できます:
 
     ```bash
-   curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe
+   curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe
    ```
 
-   最新の安定版を入手する際は(たとえばスクリプトで使用する場合)、[https://storage.googleapis.com/kubernetes-release/release/stable.txt](https://storage.googleapis.com/kubernetes-release/release/stable.txt)を参照してください。
+   最新の安定版を入手する際は(たとえばスクリプトで使用する場合)、[https://dl.k8s.io/release/stable.txt](https://dl.k8s.io/release/stable.txt)を参照してください。
 
 2. バイナリをPATHに追加します
 3. `kubectl`のバージョンがダウンロードしたものと同じであることを確認してください:

@@ -52,7 +52,7 @@ spec:
 
 Kemudian tambahkan sebuah `nodeSelector` seperti berikut:
 
-{{< codenew file="pods/pod-nginx.yaml" >}}
+{{% codenew file="pods/pod-nginx.yaml" %}}
 
 Ketika kamu menjalankan perintah `kubectl apply -f https://k8s.io/examples/pods/pod-nginx.yaml`, pod tersebut akan dijadwalkan pada node yang memiliki label yang dirinci. Kamu dapat memastikan penambahan nodeSelector berhasil dengan menjalankan `kubectl get pods -o wide` dan melihat "NODE" tempat Pod ditugaskan.
 
@@ -110,7 +110,7 @@ Afinitas node dinyatakan sebagai _field_ `nodeAffinity` dari _field_ `affinity` 
 
 Berikut ini contoh dari pod yang menggunakan afinitas node:
 
-{{< codenew file="pods/pod-with-node-affinity.yaml" >}}
+{{% codenew file="pods/pod-with-node-affinity.yaml" %}}
 
 Aturan afinitas node tersebut menyatakan pod hanya bisa ditugaskan pada node dengan label yang memiliki kunci `kubernetes.io/e2e-az-name` dan bernilai `e2e-az1` atau `e2e-az2`. Selain itu, dari semua node yang memenuhi kriteria tersebut, mode dengan label dengan kunci `another-node-label-key` and bernilai `another-node-label-value` harus lebih diutamakan.
 
@@ -151,7 +151,7 @@ Afinitas antar pod dinyatakan sebagai _field_ `podAffinity` dari _field_ `affini
 
 #### Contoh pod yang menggunakan pod affinity:
 
-{{< codenew file="pods/pod-with-pod-affinity.yaml" >}}
+{{% codenew file="pods/pod-with-pod-affinity.yaml" %}}
 
 Afinitas pada pod tersebut menetapkan sebuah aturan afinitas pod dan aturan anti-afinitas pod. Pada contoh ini, `podAffinity` adalah `requiredDuringSchedulingIgnoredDuringExecution`
 sementara `podAntiAffinity` adalah `preferredDuringSchedulingIgnoredDuringExecution`. Aturan afinitas pod menyatakan bahwa pod dapat dijadwalkan pada node hanya jika node tersebut berada pada zona yang sama dengan minimal satu pod yang sudah berjalan yang memiliki label dengan kunci "security" dan bernilai "S1". (Lebih detail, pod dapat berjalan pada node N jika node N memiliki label dengan kunci `failure-domain.beta.kubernetes.io/zone`dan nilai V sehingga ada minimal satu node dalam klaster dengan kunci `failure-domain.beta.kubernetes.io/zone` dan bernilai V yang menjalankan pod yang memiliki label dengan kunci "security" dan bernilai "S1".) Aturan anti-afinitas pod menyatakan bahwa pod memilih untuk tidak dijadwalkan pada sebuah node jika node tersebut sudah menjalankan pod yang memiliki label dengan kunci "security" dan bernilai "S2". (Jika `topologyKey` adalah `failure-domain.beta.kubernetes.io/zone` maka dapat diartikan bahwa pod tidak dapat dijadwalkan pada node jika node berada pada zona yang sama dengan pod yang memiliki label dengan kunci "security" dan bernilai "S2".) Lihat [design doc](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md) untuk lebih banyak contoh afinitas dan anti-afinitas pod, baik `requiredDuringSchedulingIgnoredDuringExecution`
@@ -279,7 +279,7 @@ web-server-1287567482-s330j    1/1       Running   0          7m        10.192.3
 ##### Tidak akan pernah ditempatkan bersamaan dalam node yang sama
 
 
-Contoh di atas menggunakan aturan `PodAntiAffinity` dengan` topologyKey: "kubernetes.io/hostname"` untuk melakukan deploy klaster redis sehingga tidak ada dua instance terletak pada hos yang sama.
+Contoh di atas menggunakan aturan `PodAntiAffinity` dengan `topologyKey: "kubernetes.io/hostname"` untuk melakukan deploy klaster redis sehingga tidak ada dua instance terletak pada hos yang sama.
 Lihat [tutorial ZooKeeper](/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure)  untuk contoh dari konfigurasi StatefulSet dengan anti-afinitas untuk ketersediaan tinggi, menggunakan teknik yang sama.
 
 Untuk informasi lebih lanjut tentang afinitas/anti-afinitas antar pod, lihat [design doc](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md).

@@ -1,7 +1,10 @@
 ---
+# reviewers:
+# - erictune
+# - lavalamp
 title: 쿠버네티스 API 접근 제어하기
 content_type: concept
-weight: 5
+weight: 50
 ---
 
 <!-- overview -->
@@ -20,14 +23,17 @@ weight: 5
 
 ## 전송 보안
 
-일반적인 쿠버네티스 클러스터에서 API는 443번 포트에서 서비스한다.
+기본적으로 쿠버네티스 API 서버는 TLS에 의해 보호되는 첫번째 non-localhost 네트워크 인터페이스의 6443번 포트에서 수신을 대기한다. 일반적인 쿠버네티스 클러스터에서 API는 443번 포트에서 서비스한다. 포트번호는 `--secure-port` 플래그를 통해, 수신 대기 IP 주소는 `--bind-address` 플래그를 통해 변경될 수 있다.
+
 API 서버는 인증서를 제시한다.
-이 인증서는 종종 자체 서명되기 때문에 일반적으로 사용자 머신의 `$USER/.kube/config`는
-API 서버의 인증서에 대한 루트 인증서를 포함하며,
-시스템 기본 루트 인증서 대신 사용된다.
-`kube-up.sh`을 사용하여 클러스터를 직접 생성할 때
-이 인증서는 일반적으로 `$USER/.kube/config`에 자동으로 기록된다.
-클러스터에 여러 명의 사용자가 있는 경우, 작성자는 인증서를 다른 사용자와 공유해야 한다.
+이러한 인증서는 사설 인증 기관(CA)에 기반하여 서명되거나, 혹은 공인 CA와 연결된 공개키 인프라스트럭처에 기반한다.
+인증서와 그에 해당하는 개인키는 각각 `--tls-cert-file`과 `--tls-private-key-file` 플래그를 통해 지정한다.
+
+만약 클러스터가 사설 인증 기관을 사용한다면,
+해당 CA 인증서를 복사하여 클라이언트의 `~/.kube/config` 안에 구성함으로써
+연결을 신뢰하고 누군가 중간에 가로채지 않았음을 보장해야 한다.
+
+클라이언트는 이 단계에서 TLS 클라이언트 인증서를 제시할 수 있다.
 
 ## 인증
 
@@ -35,7 +41,8 @@ TLS가 설정되면 HTTP 요청이 인증 단계로 넘어간다.
 이는 다이어그램에 **1**단계로 표시되어 있다.
 클러스터 생성 스크립트 또는 클러스터 관리자는
 API 서버가 하나 이상의 인증기 모듈을 실행하도록 구성한다.
-인증기는 [여기](/docs/reference/access-authn-authz/authentication/)에서 더 자세히 서술한다.
+인증기에 대해서는 
+[인증](/docs/reference/access-authn-authz/authentication/)에서 더 자세히 서술한다.
 
 인증 단계로 들어가는 것은 온전한 HTTP 요청이지만
 일반적으로 헤더 그리고/또는 클라이언트 인증서를 검사한다.
@@ -45,8 +52,6 @@ JWT 토큰(서비스 어카운트에 사용됨)을 포함한다.
 
 여러 개의 인증 모듈을 지정할 수 있으며,
 이 경우 하나의 인증 모듈이 성공할 때까지 각 모듈을 순차적으로 시도한다.
-
-GCE에서는 클라이언트 인증서, 암호, 일반 토큰 및 JWT 토큰이 모두 사용 가능하다.
 
 요청을 인증할 수 없는 경우 HTTP 상태 코드 401과 함께 거부된다.
 이 외에는 사용자가 특정 `username`으로 인증되며,
@@ -126,36 +131,34 @@ Bob이 `projectCaribou` 네임스페이스에 있는 오브젝트에 쓰기(`cre
 요청이 모든 어드미션 제어 모듈을 통과하면 유효성 검사 루틴을 사용하여 해당 API 오브젝트를 검증한 후
 오브젝트 저장소에 기록(**4**단계)된다.
 
+## 감사(Auditing)
 
-## API 서버 포트와 IP
+쿠버네티스 감사는 클러스터에서 발생하는 일들의 순서를 문서로 기록하여, 보안과 관련되어 있고 시간 순서로 정리된 기록을 제공한다.
+클러스터는 사용자, 쿠버네티스 API를 사용하는 애플리케이션, 그리고 컨트롤 플레인 자신이 생성한 활동을 감사한다.
 
-이전의 논의는 (일반적인 경우) API 서버의 보안 포트로 전송되는 요청에 적용된다.
-API 서버는 실제로 다음과 같이 2개의 포트에서 서비스할 수 있다.
+더 많은 정보는 [감사](/ko/docs/tasks/debug/debug-cluster/audit/)를 참고한다.
 
-기본적으로, 쿠버네티스 API 서버는 2개의 포트에서 HTTP 서비스를 한다.
+## {{% heading "whatsnext" %}}
 
-  1. `로컬호스트 포트`:
+인증 및 인가 그리고 API 접근 제어에 대한 추가적인 문서는 아래에서 찾을 수 있다.
 
-      - 테스트 및 부트스트랩을 하기 위한 것이며 마스터 노드의 다른 구성요소
-        (스케줄러, 컨트롤러 매니저)가 API와 통신하기 위한 것이다.
-      - TLS가 없다.
-      - 기본 포트는 8080이다.
-      - 기본 IP는 로컬호스트(localhost)이며, `--insecure-bind-address` 플래그를 사용하여 변경한다.
-      - 요청이 인증 및 인가 모듈을 **우회한다**.
-      - 요청이 어드미션 제어 모듈(들)에 의해 처리된다.
-      - 호스트 접근 요구로부터 보호를 받는다.
+- [인증하기](/docs/reference/access-authn-authz/authentication/)
+   - [부트스트랩 토큰(bootstrap token)으로 인증하기](/ko/docs/reference/access-authn-authz/bootstrap-tokens/)
+- [어드미션 컨트롤러(admission controller)](/docs/reference/access-authn-authz/admission-controllers/)
+   - [동적 어드미션(admission) 제어](/docs/reference/access-authn-authz/extensible-admission-controllers/)
+- [인가](/ko/docs/reference/access-authn-authz/authorization/)
+   - [역할 기반 접근 제어(role based access control)](/docs/reference/access-authn-authz/rbac/)
+   - [속성 기반 접근 제어(attribute based access control)](/docs/reference/access-authn-authz/abac/)
+   - [노드 인가](/docs/reference/access-authn-authz/node/)
+   - [웹훅(webhook) 인가](/docs/reference/access-authn-authz/webhook/)
+- [인증서 서명 요청(Certificate Signing Request)](/docs/reference/access-authn-authz/certificate-signing-requests/)
+   - [CSR 승인](/docs/reference/access-authn-authz/certificate-signing-requests/#approval-rejection) 및
+     [인증서 서명](/docs/reference/access-authn-authz/certificate-signing-requests/#signing) 포함하기
+- 서비스 어카운트
+  - [개발자 가이드](/docs/tasks/configure-pod-container/configure-service-account/)
+  - [운영](/ko/docs/reference/access-authn-authz/service-accounts-admin/)
 
-  2. `보안 포트`:
-
-      - 가능한 항상 사용하는 것이 좋다.
-      - TLS를 사용한다. `--tls-cert-file` 플래그로 인증서를 지정하고 `--tls-private-key-file` 플래그로 키를 지정한다.
-      - 기본 포트는 6443이며, `--secure-port` 플래그를 사용하여 변경한다.
-      - 기본 IP는 로컬호스트가 아닌 첫 번째 네트워크 인터페이스이며, `--bind-address` 플래그를 사용하여 변경한다.
-      - 요청이 인증 및 인가 모듈에 의해 처리된다.
-      - 요청이 어드미션 제어 모듈(들)에 의해 처리된다.
-      - 인증 및 인가 모듈을 실행한다.
-
-GCE(구글 컴퓨트 엔진) 및 다른 클라우드 제공자에서 `kube-up.sh`로 클러스터를 생성하면
-API 서버는 포트 443에서 서비스한다.
-GCE에서는 외부 HTTPS가 API에 접근할 수 있도록 프로젝트에서 방화벽 규칙이 구성된다.
-이외에 클러스터 설정 방법은 다양하다.
+또한, 다음 사항을 익힐 수 있다.
+- 파드가 API 크리덴셜(credential)을 얻기 위해
+  [시크릿(Secret)](/ko/docs/concepts/configuration/secret/#service-accounts-automatically-create-and-attach-secrets-with-api-credentials)
+  을 사용하는 방법.

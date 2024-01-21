@@ -33,7 +33,7 @@ The name Kubernetes originates from Greek, meaning helmsman or pilot. Google ope
 <!--
 Let's take a look at why Kubernetes is so useful by going back in time.
 -->
-Давайте повернемось назад у часі та дізнаємось, завдяки чому Kubernetes став таким корисним.
+Повернімось назад у часі та дізнаємось, завдяки чому Kubernetes став таким корисним.
 
 ![Еволюція розгортання](/images/docs/Container_Evolution.svg)
 
@@ -60,7 +60,7 @@ Each VM is a full machine running all the components, including its own operatin
 <!--
 **Container deployment era:** Containers are similar to VMs, but they have relaxed isolation properties to share the Operating System (OS) among the applications. Therefore, containers are considered lightweight. Similar to a VM, a container has its own filesystem, CPU, memory, process space, and more. As they are decoupled from the underlying infrastructure, they are portable across clouds and OS distributions.
 -->
-**Ера розгортання контейнерів:** Контейнери схожі на VM, але мають спрощений варіант ізоляції і використовують спільну операційну систему для усіх застосунків. Саму тому контейнери вважаються легковісними. Подібно до VM, контейнер має власну файлову систему, ЦПУ, пам'ять, простір процесів тощо. Оскільки контейнери вивільнені від підпорядкованої інфраструктури, їх можна легко переміщати між хмарними провайдерами чи дистрибутивами операційних систем.
+**Ера розгортання контейнерів:** Контейнери схожі на VM, але мають спрощений варіант ізоляції і використовують спільну операційну систему для усіх застосунків. Саме тому контейнери вважаються "легкими", в порівнянні з віртуалками. Подібно до VM, контейнер має власну файлову систему, ЦПУ, пам'ять, простір процесів тощо. Оскільки контейнери вивільнені від підпорядкованої інфраструктури, їх можна легко переміщати між хмарними провайдерами чи дистрибутивами операційних систем.
 <!--
 Containers have become popular because they provide extra benefits, such as:
 -->
@@ -93,7 +93,7 @@ Containers have become popular because they provide extra benefits, such as:
 <!--
 ## Why you need Kubernetes and what can it do
 -->
-## Чому вам потрібен Kebernetes і що він може робити
+## Чому вам потрібен Kubernetes і що він може робити
 
 <!--
 Containers are a good way to bundle and run your applications. In a production environment, you need to manage the containers that run the applications and ensure that there is no downtime. For example, if a container goes down, another container needs to start. Wouldn't it be easier if this behavior was handled by a system?

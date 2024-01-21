@@ -22,9 +22,11 @@ weight: 20
 - Установленные инструменты:
 
   - [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-  - [Golang](https://golang.org/doc/install) версии 1.13+
+  - [Golang](https://go.dev/doc/install) версии 1.13+
   - [Docker](https://docs.docker.com/engine/installation/)
   - [etcd](https://github.com/coreos/etcd/)
+  - [make](https://www.gnu.org/software/make/)
+  - [gcc compiler/linker](https://gcc.gnu.org/)
 
 - Созданная переменная окружения `GOPATH`, а путь к `etcd` должен быть прописан в переменной окружения `PATH`.
 
@@ -121,8 +123,9 @@ hack/update-generated-protobuf.sh
 On branch master
 ...
     modified:   api/openapi-spec/swagger.json
+    modified:   api/openapi-spec/v3/apis__apps__v1_openapi.json
+    modified:   pkg/generated/openapi/zz_generated.openapi.go
     modified:   staging/src/k8s.io/api/apps/v1/generated.proto
-    modified:   staging/src/k8s.io/api/apps/v1/types.go
     modified:   staging/src/k8s.io/api/apps/v1/types_swagger_doc_generated.go
 ```
 

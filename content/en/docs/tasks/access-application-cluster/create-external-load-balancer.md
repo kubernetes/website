@@ -164,7 +164,7 @@ With each target weighted equally in terms of sending traffic to Nodes, external
 traffic is not equally load balanced across different Pods. The external load balancer
 is unaware of the number of Pods on each node that are used as a target.
 
-Where `NumServicePods <<  _NumNodes` or `NumServicePods >> NumNodes`, a fairly close-to-equal
+Where `NumServicePods <<  NumNodes` or `NumServicePods >> NumNodes`, a fairly close-to-equal
 distribution will be seen, even without weights.
 
 Internal pod to pod traffic should behave similar to ClusterIP services, with equal probability across all pods.
@@ -198,6 +198,6 @@ balancer, the control plane looks up that external IP address and populates it i
 
 ## {{% heading "whatsnext" %}}
 
+* Follow the [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial
 * Read about [Service](/docs/concepts/services-networking/service/)
 * Read about [Ingress](/docs/concepts/services-networking/ingress/)
-* Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)

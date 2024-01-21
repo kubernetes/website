@@ -1,12 +1,12 @@
 ---
 title: 쿠버네티스 오브젝트 관리
 content_type: concept
-weight: 15
+weight: 20
 ---
 
 <!-- overview -->
 `kubectl` 커맨드라인 툴은 쿠버네티스 오브젝트를 생성하고 관리하기 위한
-몇 가지 상이한 방법을 지원한다. 이 문서는 여러가지 접근법에 대한 개요을
+몇 가지 상이한 방법을 지원한다. 이 문서는 여러가지 접근법에 대한 개요를
 제공한다. Kubectl로 오브젝트 관리하기에 대한 자세한 설명은
 [Kubectl 서적](https://kubectl.docs.kubernetes.io)에서 확인한다.
 
@@ -169,9 +169,9 @@ kubectl apply -R -f configs/
 ## {{% heading "whatsnext" %}}
 
 - [명령형 커맨드를 이용한 쿠버네티스 오브젝트 관리하기](/ko/docs/tasks/manage-kubernetes-objects/imperative-command/)
-- [오브젝트 구성을 이용한 쿠버네티스 오브젝트 관리하기(명령형)](/ko/docs/tasks/manage-kubernetes-objects/imperative-config/)
-- [오브젝트 구성을 이용한 쿠버네티스 오브젝트 관리하기(선언형)](/ko/docs/tasks/manage-kubernetes-objects/declarative-config/)
-- [Kustomize를 사용한 쿠버네티스 오브젝트 관리하기(선언형)](/ko/docs/tasks/manage-kubernetes-objects/kustomization/)
+- [구성파일을 이용한 명령형 쿠버네티스 오브젝트 관리](/ko/docs/tasks/manage-kubernetes-objects/imperative-config/)
+- [구성 파일을 이용한 쿠버네티스 오브젝트의 선언형 관리](/ko/docs/tasks/manage-kubernetes-objects/declarative-config/)
+- [Kustomize를 이용한 쿠버네티스 오브젝트의 선언형 관리](/ko/docs/tasks/manage-kubernetes-objects/kustomization/)
 - [Kubectl 커맨드 참조](/docs/reference/generated/kubectl/kubectl-commands/)
 - [Kubectl 서적](https://kubectl.docs.kubernetes.io)
 - [쿠버네티스 API 참조](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)

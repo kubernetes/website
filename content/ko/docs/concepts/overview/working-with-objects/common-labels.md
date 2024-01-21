@@ -1,6 +1,7 @@
 ---
 title: 권장 레이블
 content_type: concept
+weight: 100
 ---
 
 <!-- overview -->
@@ -40,11 +41,11 @@ kubectl과 대시보드와 같은 많은 도구들로 쿠버네티스 오브젝�
 | `app.kubernetes.io/component`       | 아키텍처 내 구성요소 | `database` | 문자열 |
 | `app.kubernetes.io/part-of`         | 이 애플리케이션의 전체 이름 | `wordpress` | 문자열 |
 | `app.kubernetes.io/managed-by`      | 애플리케이션의 작동을 관리하는 데 사용되는 도구 | `helm` | 문자열 |
-| `app.kubernetes.io/created-by`      | 이 리소스를 만든 컨트롤러/사용자 | `controller-manager` | 문자열 |
 
-위 레이블의 실제 예시는 다음 스테이트풀셋 오브젝트를 고려한다.
+위 레이블의 실제 예시는 다음 {{< glossary_tooltip text="스테이트풀셋" term_id="statefulset" >}} 오브젝트를 고려한다.
 
 ```yaml
+# 아래는 전체 명세의 일부분이다
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -55,7 +56,6 @@ metadata:
     app.kubernetes.io/component: database
     app.kubernetes.io/part-of: wordpress
     app.kubernetes.io/managed-by: helm
-    app.kubernetes.io/created-by: controller-manager
 ```
 
 ## 애플리케이션과 애플리케이션 인스턴스

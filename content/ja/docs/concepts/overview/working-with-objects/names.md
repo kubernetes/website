@@ -2,7 +2,7 @@
 reviewers:
 title: オブジェクトの名前とID
 content_type: concept
-weight: 20
+weight: 30
 ---
 
 <!-- overview -->
@@ -76,4 +76,4 @@ UUIDは、ISO/IEC 9834-8およびITU-T X.667として標準化されています
 
 ## {{% heading "whatsnext" %}}
 * Kubernetesの[ラベル](/ja/docs/concepts/overview/working-with-objects/labels/)についてお読みください。
-* [Kubernetesの識別子と名前](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md)デザインドキュメントをご覧ください。
+* [Kubernetesの識別子と名前](https://git.k8s.io/design-proposals-archive/architecture/identifiers.md)デザインドキュメントをご覧ください。

@@ -1,5 +1,5 @@
 ---
-title: Kops로 쿠버네티스 설치하기
+title: kOps로 쿠버네티스 설치하기
 content_type: task
 weight: 20
 ---
@@ -7,14 +7,14 @@ weight: 20
 <!-- overview -->
 
 이곳 빠른 시작에서는 사용자가 얼마나 쉽게 AWS에 쿠버네티스 클러스터를 설치할 수 있는지 보여준다.
-[`kops`](https://github.com/kubernetes/kops)라는 이름의 툴을 이용할 것이다.
+[`kOps`](https://github.com/kubernetes/kops)라는 이름의 툴을 이용할 것이다.
 
-kops는 자동화된 프로비저닝 시스템인데,
+kOps는 자동화된 프로비저닝 시스템인데,
 
 * 완전 자동화된 설치
 * DNS를 통해 클러스터들의 신원 확인
 * 자체 복구: 모든 자원이 Auto-Scaling Groups에서 실행
-* 다양한 OS 지원(Debian, Ubuntu 16.04 supported, CentOS & RHEL, Amazon Linux and CoreOS) - [images.md](https://github.com/kubernetes/kops/blob/master/docs/operations/images.md) 보기
+* 다양한 OS 지원(Amazon Linux, Debian, Flatcar, RHEL, Rocky and Ubuntu) - [images.md](https://github.com/kubernetes/kops/blob/master/docs/operations/images.md) 보기
 * 고가용성 지원 - [high_availability.md](https://github.com/kubernetes/kops/blob/master/docs/operations/high_availability.md) 보기
 * 직접 프로비저닝 하거나 또는 할 수 있도록 terraform 매니페스트를 생성 - [terraform.md](https://github.com/kubernetes/kops/blob/master/docs/terraform.md) 보기
 
@@ -231,7 +231,7 @@ kops는 클러스터에 사용될 설정을 생성할것이다. 여기서 주의
 ## {{% heading "whatsnext" %}}
 
 
-* 쿠버네티스 [개념](/ko/docs/concepts/) 과 [`kubectl`](/ko/docs/reference/kubectl/overview/)에 대해 더 알아보기.
-* 튜토리얼, 모범사례 및 고급 구성 옵션에 대한 `kops` [고급 사용법](https://kops.sigs.k8s.io/)에 대해 더 자세히 알아본다.
-* 슬랙(Slack)에서 `kops` 커뮤니티 토론을 할 수 있다: [커뮤니티 토론](https://github.com/kubernetes/kops#other-ways-to-communicate-with-the-contributors)
-* 문제를 해결하거나 이슈를 제기하여 `kops` 에 기여한다. [깃헙 이슈](https://github.com/kubernetes/kops/issues)
+* 쿠버네티스 [개념](/ko/docs/concepts/) 과 [`kubectl`](/ko/docs/reference/kubectl/)에 대해 더 알아보기.
+* 튜토리얼, 모범사례 및 고급 구성 옵션에 대한 `kOps` [고급 사용법](https://kops.sigs.k8s.io/)에 대해 더 자세히 알아본다.
+* 슬랙(Slack)에서 `kOps` 커뮤니티 토론을 할 수 있다: [커뮤니티 토론](https://github.com/kubernetes/kops#other-ways-to-communicate-with-the-contributors)
+* 문제를 해결하거나 이슈를 제기하여 `kOps` 에 기여한다. [깃헙 이슈](https://github.com/kubernetes/kops/issues)

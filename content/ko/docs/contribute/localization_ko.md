@@ -19,7 +19,7 @@ content_type: concept
 위한 팀 마일스톤과 개발 브랜치를 관리한다. 본 섹션은 한글화팀의 팀 마일스톤 관리에 특화된
 내용을 다룬다.
 
-한글화팀은 `master` 브랜치에서 분기한 개발 브랜치를 사용한다. 개발 브랜치 이름은 다음과 같은
+한글화팀은 `main` 브랜치에서 분기한 개발 브랜치를 사용한다. 개발 브랜치 이름은 다음과 같은
 구조를 갖는다.
 
 `dev-<소스 버전>-ko.<팀 마일스톤>`
@@ -46,7 +46,7 @@ content_type: concept
 - [CLA 서명 없음, 병합할 수 없음](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+label%3A%22cncf-cla%3A+no%22+-label%3Ado-not-merge+label%3Alanguage%2Fko)
 - [LGTM 필요](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Aopen+is%3Apr+-label%3Ado-not-merge+label%3Alanguage%2Fko+-label%3Algtm+)
 - [LGTM 보유, 문서 승인 필요](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+-label%3Ado-not-merge+label%3Alanguage%2Fko+label%3Algtm)
-- [퀵윈(Quick Wins)](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Apr+is%3Aopen+base%3Amaster+-label%3A%22do-not-merge%2Fwork-in-progress%22+-label%3A%22do-not-merge%2Fhold%22+label%3A%22cncf-cla%3A+yes%22+label%3A%22size%2FXS%22+label%3A%22language%2Fko%22+)
+- [퀵윈(Quick Wins)](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Apr+is%3Aopen+base%3Amain+-label%3A%22do-not-merge%2Fwork-in-progress%22+-label%3A%22do-not-merge%2Fhold%22+label%3A%22cncf-cla%3A+yes%22+label%3A%22size%2FXS%22+label%3A%22language%2Fko%22+)
 
 팀 마일스톤 일정과 PR 랭글러는 커뮤니티 슬랙 내 [#kubernetes-docs-ko 채널](https://kubernetes.slack.com/archives/CA1MMR86S)에 공지된다.
 
@@ -89,21 +89,21 @@ content_type: concept
 즉, 원문이 한 문단을 줄바꿈하지 않고 한 행에 길게 기술했다면 한글화 시에도 한 행에 길게 기술하고, 원문이 한 문단을
 줄바꿈해서 여러 행으로 기술한 경우에는 한글화 시에도 가로폭을 원문과 비슷하게 유지한다.
 
-### 리뷰어 삭제
+### 리뷰어 주석 처리
 
 때때로 원문의 코드 상단에 리뷰어가 명시되어 있는 경우가 있다. 일반적으로 원문 페이지의 리뷰어가 한글화 된 페이지를 리뷰하기 어려우므로 리소스 메타데이터에서 리뷰어 관련 코드를
-삭제한다.
+주석 처리한다.
 
-아래는 리뷰어 관련 코드를 삭제하는 예시를 보여준다.
+아래는 리뷰어 관련 코드를 주석 처리하는 예시를 보여준다.
 
 ```diff
 - reviews:
 - - reviewer1
 - - reviewer
 - title: Kubernetes Components
-+
-+
-+
++ # reviews:
++ # - reviewer1
++ # - reviewer
 + title: 쿠버네티스 컴포넌트
 content_type: concept
 weight: 10
@@ -221,7 +221,7 @@ API 오브젝트의 필드 이름, 파일 이름, 경로와 같은 내용은 독
 
 한글화 용어집의 개선(추가, 수정, 삭제 등)을 위한 과정은 다음과 같다.
 
-1. 컨트리뷰터가 개선이 필요한 용어을 파악하면, ISSUE를 생성하여 개선 필요성을 공유하거나 `master` 브랜치에
+1. 컨트리뷰터가 개선이 필요한 용어을 파악하면, ISSUE를 생성하여 개선 필요성을 공유하거나 `main` 브랜치에
 PR을 생성하여 개선된 용어를 제안한다.
 
 1. 개선 제안에 대한 논의는 ISSUE 및 PR을 통해서 이루어지며, 한글화팀 회의를 통해 확정한다.
@@ -260,6 +260,7 @@ beta | 베타 |
 Binding | 바인딩(Binding) | API 오브젝트인 경우
 boilerplate | 상용구 |
 Boot | 부트 |
+Bootstrap | 부트스트랩 |
 Build | 빌드 |
 Cache | 캐시 |
 Calico | 캘리코(Calico) |
@@ -321,6 +322,7 @@ extension | 익스텐션(extension) |
 Failed | Failed | 파드의 상태에 한함
 Federation | 페더레이션 |
 field | 필드 |
+finalizer | 파이널라이저(finalizer) |
 Flannel | 플란넬(Flannel) |
 form | 형식 |
 Google Compute Engine | Google Compute Engine |
@@ -379,10 +381,13 @@ NetworkPolicy | 네트워크폴리시(NetworkPolicy) | API 오브젝트인 경�
 Node | 노드(Node) | API 오브젝트인 경우
 node lease | 노드 리스(lease)
 Object | 오브젝트 |
+observability | 가시성(observability) |
+Operator | 오퍼레이터 | [쿠버네티스의 소프트웨어 익스텐션](https://kubernetes.io/ko/docs/concepts/extend-kubernetes/operator/)을 의미하는 경우
 Orchestrate | 오케스트레이션하다 |
 Output | 출력 |
 parameter | 파라미터 |
 patch | 패치 |
+payload | 페이로드(payload) |
 Pending | Pending | 파드, 클레임의 상태에 한함
 PersistentVolume | 퍼시스턴트볼륨(PersistentVolume) | API 오브젝트인 경우
 PersistentVolumeClaim | 퍼시스턴트볼륨클레임(PersistentVolumeClaim) | API 오브젝트인 경우
@@ -445,6 +450,7 @@ Session | 세션 |
 Session Affinity | 세션 어피니티(Affinity) |
 Setting | 세팅 |
 Shell | 셸 |
+sidecar | 사이드카(sidecar) |
 Sign In | 로그인 |
 Sign Out | 로그아웃 |
 skew | 차이(skew) |
@@ -462,6 +468,7 @@ Surge | 증가율 | 롤링업데이트 전략에 한함
 System | 시스템 |
 taint | 테인트(taint) |
 Task | 태스크 |
+telepresence | 텔레프레즌스(telepresence) |
 Terminated | Terminated | 파드의 상태에 한함
 TokenReview | 토큰리뷰(TokenReview) | API 오브젝트인 경우
 tolerations | 톨러레이션(toleration) |

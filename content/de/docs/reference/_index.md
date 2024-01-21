@@ -56,6 +56,6 @@ Offiziell unterstützte Clientbibliotheken:
 
 ## Design Dokumentation
 
-Ein Archiv der Designdokumente für Kubernetes-Funktionalität. Gute Ansatzpunkte sind [Kubernetes Architektur](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) und [Kubernetes Design Übersicht](https://git.k8s.io/community/contributors/design-proposals).
+Ein Archiv der Designdokumente für Kubernetes-Funktionalität. Gute Ansatzpunkte sind [Kubernetes Architektur](https://git.k8s.io/design-proposals-archive/architecture/architecture.md) und [Kubernetes Design Übersicht](https://git.k8s.io/community/contributors/design-proposals).
 
 

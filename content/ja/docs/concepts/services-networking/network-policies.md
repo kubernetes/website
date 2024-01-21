@@ -1,12 +1,12 @@
 ---
 title: ネットワークポリシー
 content_type: concept
-weight: 50
+weight: 70
 ---
 
 <!-- overview -->
 
-IPアドレスまたはポートのレベル(OSI参照モデルのレイヤ3または4)でトラフィックフローを制御したい場合、クラスター内の特定のアプリケーションにKubernetesのネットワークポリシーを使用することを検討してください。ネットワークポリシーはアプリケーション中心の構造であり、{{<glossary_tooltip text="Pod" term_id="pod">}}がネットワークを介して多様な「エンティティ」(「Endpoint」や「Service」のようなKubernetesに含まれる特定の意味を持つ共通の用語との重複を避けるため、ここではエンティティという単語を使用します。)と通信する方法を指定できます。
+IPアドレスまたはポートのレベル(OSI参照モデルのレイヤー3または4)でトラフィックフローを制御したい場合、クラスター内の特定のアプリケーションにKubernetesのネットワークポリシーを使用することを検討してください。ネットワークポリシーはアプリケーション中心の構造であり、{{<glossary_tooltip text="Pod" term_id="pod">}}がネットワークを介して多様な「エンティティ」(「Endpoint」や「Service」のようなKubernetesに含まれる特定の意味を持つ共通の用語との重複を避けるため、ここではエンティティという単語を使用します。)と通信する方法を指定できます。
 
 Podが通信できるエンティティは以下の3つの識別子の組み合わせによって識別されます。
 
@@ -160,7 +160,7 @@ __ipBlock__: 特定のIPのCIDRの範囲を選択して、ingressの送信元ま
 
 すべてのPodを選択して、そのPodへのすべての内向きのトラフィックを許可しないNetworkPolicyを作成すると、その名前空間に対する「デフォルト」の分離ポリシーを作成できます。
 
-{{< codenew file="service/networking/network-policy-default-deny-ingress.yaml" >}}
+{{% codenew file="service/networking/network-policy-default-deny-ingress.yaml" %}}
 
 このポリシーを利用すれば、他のいかなるNetworkPolicyにも選択されなかったPodでも分離されることを保証できます。このポリシーは、デフォルトの外向きの分離の振る舞いを変更しません。
 
@@ -168,13 +168,13 @@ __ipBlock__: 特定のIPのCIDRの範囲を選択して、ingressの送信元ま
 
 (たとえPodを「分離されたもの」として扱うポリシーが追加された場合でも)名前空間内のすべてのPodへのすべてのトラフィックを許可したい場合には、その名前空間内のすべてのトラフィックを明示的に許可するポリシーを作成できます。
 
-{{< codenew file="service/networking/network-policy-allow-all-ingress.yaml" >}}
+{{% codenew file="service/networking/network-policy-allow-all-ingress.yaml" %}}
 
 ### デフォルトで外向きのすべてのトラフィックを拒否する
 
 すべてのPodを選択して、そのPodからのすべての外向きのトラフィックを許可しないNetworkPolicyを作成すると、その名前空間に対する「デフォルト」の外向きの分離ポリシーを作成できます。
 
-{{< codenew file="service/networking/network-policy-default-deny-egress.yaml" >}}
+{{% codenew file="service/networking/network-policy-default-deny-egress.yaml" %}}
 
 このポリシーを利用すれば、他のいかなるNetworkPolicyにも選択されなかったPodでも、外向きのトラフィックが許可されないことを保証できます。このポリシーは、デフォルトの内向きの分離の振る舞いを変更しません。
 
@@ -182,13 +182,13 @@ __ipBlock__: 特定のIPのCIDRの範囲を選択して、ingressの送信元ま
 
 (たとえPodを「分離されたもの」として扱うポリシーが追加された場合でも)名前空間内のすべてのPodからのすべてのトラフィックを許可したい場合には、その名前空間内のすべての外向きのトラフィックを明示的に許可するポリシーを作成できます。
 
-{{< codenew file="service/networking/network-policy-allow-all-egress.yaml" >}}
+{{% codenew file="service/networking/network-policy-allow-all-egress.yaml" %}}
 
 ### デフォルトで内向きと外向きのすべてのトラフィックを拒否する
 
 名前空間内に以下のNetworkPolicyを作成すると、その名前空間で内向きと外向きのすべてのトラフィックを拒否する「デフォルト」のポリシーを作成できます。
 
-{{< codenew file="service/networking/network-policy-default-deny-all.yaml" >}}
+{{% codenew file="service/networking/network-policy-default-deny-all.yaml" %}}
 
 このポリシーを利用すれば、他のいかなるNetworkPolicyにも選択されなかったPodでも、内向きと外向きのトラフィックが許可されないことを保証できます。
 
@@ -206,11 +206,11 @@ SCTPプロトコルのネットワークポリシーをサポートする{{< glo
 ## ネットワークポリシーでできないこと(少なくともまだ)
 
 Kubernetes1.20現在、ネットワークポリシーAPIに以下の機能は存在しません。
-しかし、オペレーティングシステムのコンポーネント(SELinux、OpenVSwitch、IPTablesなど)、レイヤ7の技術(Ingressコントローラー、サービスメッシュ実装)、もしくはアドミッションコントローラーを使用して回避策を実装できる場合があります。
+しかし、オペレーティングシステムのコンポーネント(SELinux、OpenVSwitch、IPTablesなど)、レイヤー7の技術(Ingressコントローラー、サービスメッシュ実装)、もしくはアドミッションコントローラーを使用して回避策を実装できる場合があります。
 Kubernetesのネットワークセキュリティを初めて使用する場合は、ネットワークポリシーAPIを使用して以下のユーザーストーリーを(まだ)実装できないことに注意してください。これらのユーザーストーリーの一部(全てではありません)は、ネットワークポリシーAPIの将来のリリースで活発に議論されています。
 
 - クラスター内トラフィックを強制的に共通ゲートウェイを通過させる(これは、サービスメッシュもしくは他のプロキシで提供するのが最適な場合があります)。
-- TLS関連のもの(これにはサービスメッシュまたはIngressコントローラを使用します)。
+- TLS関連のもの(これにはサービスメッシュまたはIngressコントローラーを使用します)。
 - ノードの固有のポリシー(これらにはCIDR表記を使用できますが、Kubernetesのアイデンティティでノードを指定することはできません)。
 - 名前空間またはサービスを名前で指定する(ただし、Podまたは名前空間を{{< glossary_tooltip text="ラベル" term_id="label" >}}で指定することができます。これは多くの場合で実行可能な回避策です)。
 - サードパーティによって実行される「ポリシー要求」の作成または管理

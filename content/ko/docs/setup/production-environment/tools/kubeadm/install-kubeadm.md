@@ -12,8 +12,7 @@ card:
 
 <img src="/images/kubeadm-stacked-color.png" align="right" width="150px"></img>
 이 페이지에서는 `kubeadm` 툴박스 설치 방법을 보여준다.
-이 설치 프로세스를 수행한 후 kubeadm으로 클러스터를 만드는 방법에 대한 자세한 내용은 [kubeadm을 사용하여 클러스터 생성하기](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) 페이지를 참고한다.
-
+이 설치 프로세스를 수행한 후 kubeadm으로 클러스터를 만드는 방법에 대한 자세한 내용은 [kubeadm으로 클러스터 생성하기](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) 페이지를 참고한다.
 
 
 ## {{% heading "prerequisites" %}}
@@ -46,83 +45,71 @@ card:
 네트워크 어댑터가 두 개 이상이고, 쿠버네티스 컴포넌트가 디폴트 라우트(default route)에서 도달할 수 없는
 경우, 쿠버네티스 클러스터 주소가 적절한 어댑터를 통해 이동하도록 IP 경로를 추가하는 것이 좋다.
 
-## iptables가 브리지된 트래픽을 보게 하기
-
-`br_netfilter` 모듈이 로드되었는지 확인한다. `lsmod | grep br_netfilter` 를 실행하면 된다. 명시적으로 로드하려면 `sudo modprobe br_netfilter` 를 실행한다.
-
-리눅스 노드의 iptables가 브리지된 트래픽을 올바르게 보기 위한 요구 사항으로, `sysctl` 구성에서 `net.bridge.bridge-nf-call-iptables` 가 1로 설정되어 있는지 확인해야 한다. 다음은 예시이다.
-
-```bash
-cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
-br_netfilter
-EOF
-
-cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
-net.bridge.bridge-nf-call-ip6tables = 1
-net.bridge.bridge-nf-call-iptables = 1
-EOF
-sudo sysctl --system
-```
-
-자세한 내용은 [네트워크 플러그인 요구 사항](/ko/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#네트워크-플러그인-요구-사항) 페이지를 참고한다.
-
 ## 필수 포트 확인 {#check-required-ports}
-[필수 포트들](/ko/docs/reference/ports-and-protocols/)은
+[필수 포트들](/ko/docs/reference/networking/ports-and-protocols/)은
 쿠버네티스 컴포넌트들이 서로 통신하기 위해서 열려 있어야
-한다. 다음과 같이 telnet 명령을 이용하여 포트가 열려 있는지 확인해 볼 수 있다.
+한다. 다음과 같이 netcat과 같은 도구를 이용하여 포트가 열려 있는지 확인해 볼 수 있다.
 
 ```shell
-telnet 127.0.0.1 6443
+nc 127.0.0.1 6443
 ```
 
-사용자가 사용하는 파드 네트워크 플러그인(아래 참조)은 특정 포트를 열어야 할 수도
+사용자가 사용하는 파드 네트워크 플러그인은 특정 포트를 열어야 할 수도
 있다. 이것은 각 파드 네트워크 플러그인마다 다르므로, 필요한 포트에 대한
 플러그인 문서를 참고한다.
 
-## 런타임 설치 {#installing-runtime}
+## 컨테이너 런타임 설치 {#installing-runtime}
 
 파드에서 컨테이너를 실행하기 위해, 쿠버네티스는
 {{< glossary_tooltip term_id="container-runtime" text="컨테이너 런타임" >}}을 사용한다.
-
-{{< tabs name="container_runtime" >}}
-{{% tab name="리눅스 노드" %}}
 
 기본적으로, 쿠버네티스는
 {{< glossary_tooltip term_id="cri" text="컨테이너 런타임 인터페이스">}}(CRI)를
 사용하여 사용자가 선택한 컨테이너 런타임과 인터페이스한다.
 
-런타임을 지정하지 않으면, kubeadm은 잘 알려진 유닉스 도메인 소켓 목록을 검색하여
+런타임을 지정하지 않으면, kubeadm은 잘 알려진 엔드포인트를 스캐닝하여 
 설치된 컨테이너 런타임을 자동으로 감지하려고 한다.
-다음 표에는 컨테이너 런타임 및 관련 소켓 경로가 나열되어 있다.
 
-{{< table caption = "컨테이너 런타임과 소켓 경로" >}}
-| 런타임       | 유닉스 도메인 소켓 경로                |
-|------------|-----------------------------------|
-| 도커        | `/var/run/dockershim.sock`            |
-| containerd | `/run/containerd/containerd.sock` |
-| CRI-O      | `/var/run/crio/crio.sock`         |
+컨테이너 런타임이 여러 개 감지되거나 하나도 감지되지 않은 경우, 
+kubeadm은 에러를 반환하고 사용자가 어떤 것을 사용할지를 명시하도록 요청할 것이다.
+
+더 많은 정보는 
+[컨테이너 런타임](/ko/docs/setup/production-environment/container-runtimes/)을 참고한다.
+
+{{< note >}}
+도커 엔진은 컨테이너 런타임이 쿠버네티스와 호환되기 위한 요구 사항인 
+[CRI](/ko/docs/concepts/architecture/cri/)를 만족하지 않는다. 
+이러한 이유로, 추가 서비스인 [cri-dockerd](https://github.com/Mirantis/cri-dockerd)가 설치되어야 한다. 
+cri-dockerd는 쿠버네티스 버전 1.24부터 kubelet에서 [제거](/dockershim/)된 
+기존 내장 도커 엔진 지원을 기반으로 한 프로젝트이다.
+{{< /note >}}
+
+아래 표는 지원 운영 체제에 대한 알려진 엔드포인트를 담고 있다.
+
+{{< tabs name="container_runtime" >}}
+{{% tab name="리눅스" %}}
+
+{{< table caption="리눅스 컨테이너 런타임" >}}
+| 런타임                            | 유닉스 도메인 소켓 경로                   |
+|------------------------------------|----------------------------------------------|
+| containerd                         | `unix:///var/run/containerd/containerd.sock` |
+| CRI-O                              | `unix:///var/run/crio/crio.sock`             |
+| 도커 엔진 (cri-dockerd 사용)  | `unix:///var/run/cri-dockerd.sock`           |
 {{< /table >}}
 
-<br />
-도커와 containerd가 모두 감지되면 도커가 우선시된다. 이것이 필요한 이유는 도커 18.09에서
-도커만 설치한 경우에도 containerd와 함께 제공되므로 둘 다 감지될 수 있기
-때문이다.
-다른 두 개 이상의 런타임이 감지되면, kubeadm은 오류와 함께 종료된다.
-
-kubelet은 빌트인 `dockershim` CRI 구현을 통해 도커와 통합된다.
-
-자세한 내용은 [컨테이너 런타임](/ko/docs/setup/production-environment/container-runtimes/)을
-참고한다.
 {{% /tab %}}
-{{% tab name="다른 운영 체제" %}}
-기본적으로, kubeadm은 컨테이너 런타임으로 {{< glossary_tooltip term_id="docker" >}}를 사용한다.
-kubelet은 빌트인 `dockershim` CRI 구현을 통해 도커와 통합된다.
 
-자세한 내용은 [컨테이너 런타임](/ko/docs/setup/production-environment/container-runtimes/)을
-참고한다.
+{{% tab name="윈도우" %}}
+
+{{< table caption="윈도우 컨테이너 런타임" >}}
+| 런타임                            | 윈도우 네임드 파이프(named pipe) 경로                   |
+|------------------------------------|----------------------------------------------|
+| containerd                         | `npipe:////./pipe/containerd-containerd`     |
+| 도커 엔진 (cri-dockerd 사용)  | `npipe:////./pipe/cri-dockerd`               |
+{{< /table >}}
+
 {{% /tab %}}
 {{< /tabs >}}
-
 
 ## kubeadm, kubelet 및 kubectl 설치
 
@@ -169,13 +156,13 @@ kubeadm은 `kubelet` 또는 `kubectl` 을 설치하거나 관리하지 **않으�
 2. 구글 클라우드의 공개 사이닝 키를 다운로드 한다.
 
    ```shell
-   sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
    ```
 
 3. 쿠버네티스 `apt` 리포지터리를 추가한다.
 
    ```shell
-   echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
    ```
 
 4. `apt` 패키지 색인을 업데이트하고, kubelet, kubeadm, kubectl을 설치하고 해당 버전을 고정한다.
@@ -185,6 +172,10 @@ kubeadm은 `kubelet` 또는 `kubectl` 을 설치하거나 관리하지 **않으�
    sudo apt-get install -y kubelet kubeadm kubectl
    sudo apt-mark hold kubelet kubeadm kubectl
    ```
+{{< note >}}
+Debian 12 및 Ubuntu 22.04 이전 릴리스에서는 `/etc/apt/keyring`이 기본적으로 존재하지 않는다.
+필요한 경우 이 디렉토리를 생성하여, 누구나 읽을 수 있지만 관리자만 쓸 수 있도록 만들 수 있다.
+{{< /note >}}
 
 {{% /tab %}}
 {{% tab name="레드햇 기반 배포판" %}}
@@ -195,7 +186,6 @@ name=Kubernetes
 baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
 enabled=1
 gpgcheck=1
-repo_gpgcheck=1
 gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 exclude=kubelet kubeadm kubectl
 EOF
@@ -217,33 +207,38 @@ sudo systemctl enable --now kubelet
 
   - 구성 방법을 알고 있는 경우 SELinux를 활성화된 상태로 둘 수 있지만 kubeadm에서 지원하지 않는 설정이 필요할 수 있다.
 
+  - 사용 중인 레드햇 배포판이 `basearch`를 해석하지 못하여 `baseurl`이 실패하면, `\$basearch`를 당신의 컴퓨터의 아키텍처로 치환한다.
+    `uname -m` 명령을 실행하여 해당 값을 확인한다.
+    예를 들어, `x86_64`에 대한 `baseurl` URL은 `https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64` 이다.
+
 {{% /tab %}}
 {{% tab name="패키지 매니저를 사용하지 않는 경우" %}}
 CNI 플러그인 설치(대부분의 파드 네트워크에 필요)
 
 ```bash
-CNI_VERSION="v0.8.2"
+CNI_PLUGINS_VERSION="v1.1.1"
 ARCH="amd64"
-sudo mkdir -p /opt/cni/bin
-curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-linux-${ARCH}-${CNI_VERSION}.tgz" | sudo tar -C /opt/cni/bin -xz
+DEST="/opt/cni/bin"
+sudo mkdir -p "$DEST"
+curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_PLUGINS_VERSION}/cni-plugins-linux-${ARCH}-${CNI_PLUGINS_VERSION}.tgz" | sudo tar -C "$DEST" -xz
 ```
 
 명령어 파일을 다운로드할 디렉터리 정의
 
 {{< note >}}
 `DOWNLOAD_DIR` 변수는 쓰기 가능한 디렉터리로 설정되어야 한다.
-Flatcar Container Linux를 실행 중인 경우, `DOWNLOAD_DIR=/opt/bin` 을 설정한다.
+Flatcar Container Linux를 실행 중인 경우, `DOWNLOAD_DIR="/opt/bin"` 을 설정한다.
 {{< /note >}}
 
 ```bash
-DOWNLOAD_DIR=/usr/local/bin
-sudo mkdir -p $DOWNLOAD_DIR
+DOWNLOAD_DIR="/usr/local/bin"
+sudo mkdir -p "$DOWNLOAD_DIR"
 ```
 
 crictl 설치(kubeadm / Kubelet 컨테이너 런타임 인터페이스(CRI)에 필요)
 
 ```bash
-CRICTL_VERSION="v1.22.0"
+CRICTL_VERSION="v1.25.0"
 ARCH="amd64"
 curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
 ```
@@ -254,7 +249,7 @@ curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL
 RELEASE="$(curl -sSL https://dl.k8s.io/release/stable.txt)"
 ARCH="amd64"
 cd $DOWNLOAD_DIR
-sudo curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/${ARCH}/{kubeadm,kubelet,kubectl}
+sudo curl -L --remote-name-all https://dl.k8s.io/release/${RELEASE}/bin/linux/${ARCH}/{kubeadm,kubelet,kubectl}
 sudo chmod +x {kubeadm,kubelet,kubectl}
 
 RELEASE_VERSION="v0.4.0"

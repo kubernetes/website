@@ -1,6 +1,6 @@
 ---
-
-
+# reviewers:
+# - zparnold
 title: 클라우드 네이티브 보안 개요
 description: >
   클라우드 네이티브 보안 관점에서 쿠버네티스 보안을 생각해보기 위한 모델
@@ -56,12 +56,13 @@ weight: 1
 IaaS 공급자        | 링크 |
 -------------------- | ------------ |
 Alibaba Cloud | https://www.alibabacloud.com/trust-center |
-Amazon Web Services | https://aws.amazon.com/security/ |
-Google Cloud Platform | https://cloud.google.com/security/ |
+Amazon Web Services | https://aws.amazon.com/security |
+Google Cloud Platform | https://cloud.google.com/security |
+Huawei Cloud | https://www.huaweicloud.com/securecenter/overallsafety |
 IBM Cloud | https://www.ibm.com/cloud/security |
 Microsoft Azure | https://docs.microsoft.com/en-us/azure/security/azure-security |
-Oracle Cloud Infrastructure | https://www.oracle.com/security/ |
-VMWare VSphere | https://www.vmware.com/security/hardening-guides.html |
+Oracle Cloud Infrastructure | https://www.oracle.com/security |
+VMware vSphere | https://www.vmware.com/security/hardening-guides.html |
 
 {{< /table >}}
 
@@ -149,7 +150,7 @@ TLS를 통한 접근 | 코드가 TCP를 통해 통신해야 한다면, 미리 �
 
 쿠버네티스 보안 주제에 관련한 내용들을 배워보자.
 
-* [파드 보안 표준](/docs/concepts/security/pod-security-standards/)
+* [파드 보안 표준](/ko/docs/concepts/security/pod-security-standards/)
 * [파드에 대한 네트워크 정책](/ko/docs/concepts/services-networking/network-policies/)
 * [쿠버네티스 API 접근 제어하기](/ko/docs/concepts/security/controlling-access)
 * [클러스터 보안](/docs/tasks/administer-cluster/securing-a-cluster/)

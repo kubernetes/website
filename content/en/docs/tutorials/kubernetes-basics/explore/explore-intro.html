@@ -1,6 +1,10 @@
 ---
 title: Viewing Pods and Nodes
 weight: 10
+description: |-
+  Learn how to troubleshoot Kubernetes applications using
+  kubectl get, kubectl describe, kubectl logs and
+  kubectl exec.
 ---
 
 <!DOCTYPE html>
@@ -8,9 +12,6 @@ weight: 10
 <html lang="en">
 
 <body>
-
-<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
-
 
 <div class="layout" id="top">
 
@@ -108,12 +109,12 @@ weight: 10
         <div class="row">
             <div class="col-md-8">
                 <h2>Troubleshooting with kubectl</h2>
-                <p>In Module <a href="/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">2</a>, you used Kubectl command-line interface. You'll continue to use it in Module 3 to get information about deployed applications and their environments. The most common operations can be done with the following kubectl commands:</p>
+                <p>In Module <a href="/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">2</a>, you used the kubectl command-line interface. You'll continue to use it in Module 3 to get information about deployed applications and their environments. The most common operations can be done with the following kubectl subcommands:</p>
                 <ul>
-                    <li><b>kubectl get</b> - list resources</li>
-                    <li><b>kubectl describe</b> - show detailed information about a resource</li>
-                    <li><b>kubectl logs</b> - print the logs from a container in a pod</li>
-                    <li><b>kubectl exec</b> - execute a command on a container in a pod</li>
+                    <li><tt><b>kubectl get</b></tt> - list resources</li>
+                    <li><tt><b>kubectl describe</b></tt> - show detailed information about a resource</li>
+                    <li><tt><b>kubectl logs</b></tt> - print the logs from a container in a pod</li>
+                    <li><tt><b>kubectl exec</b></tt> - execute a command on a container in a pod</li>
                 </ul>
 
                 <p>You can use these commands to see when applications were deployed, what their current statuses are, where they are running and what their configurations are.</p>
@@ -127,13 +128,71 @@ weight: 10
                 </div>
             </div>
         </div>
-        <br>
 
         <div class="row">
             <div class="col-md-12">
-                <a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/explore/explore-interactive/" role="button">Start Interactive Tutorial <span class="btn__next">›</span></a>
+                <h3>Check application configuration</h3>
+                <p>Let's verify that the application we deployed in the previous scenario is running. We'll use the <code>kubectl get</code> command and look for existing Pods:</p>
+                <p><b><code>kubectl get pods</code></b></p>
+                <p>If no pods are running, please wait a couple of seconds and list the Pods again. You can continue once you see one Pod running.</p>
+                <p>Next, to view what containers are inside that Pod and what images are used to build those containers we run the <code>kubectl describe pods</code> command:</p>
+                <p><b><code>kubectl describe pods</code></b></p>
+                <p>We see here details about the Pod’s container: IP address, the ports used and a list of events related to the lifecycle of the Pod.</p>
+                <p>The output of the <tt>describe</tt> subcommand is extensive and covers some concepts that we didn’t explain yet, but don’t worry, they will become familiar by the end of this bootcamp.</p>
+                <p><em><strong>Note:</strong> the <tt>describe</tt> subcommand can be used to get detailed information about most of the Kubernetes primitives, including Nodes, Pods, and Deployments. The describe output is designed to be human readable, not to be scripted against.</em></p>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Show the app in the terminal</h3>
+                <p>Recall that Pods are running in an isolated, private network - so we need to proxy access
+                to them so we can debug and interact with them. To do this, we'll use the <code>kubectl proxy</code> command to run a proxy in a <strong>second terminal</strong>. Open a new terminal window, and in that new terminal, run:</p>
+                <p><code><b>kubectl proxy</b></code></p>
+                <p>Now again, we'll get the Pod name and query that pod directly through the proxy.
+                To get the Pod name and store it in the <tt>POD_NAME</tt> environment variable:</p>
+                <p><code><b>export POD_NAME="$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')"</b></code><br />
+                <code><b>echo Name of the Pod: $POD_NAME</b></code></p>
+                <p>To see the output of our application, run a <code>curl</code> request:</p>
+                <p><code><b>curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME:8080/proxy/</b></code></p>
+                <p>The URL is the route to the API of the Pod.</p>
+           </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>View the container logs</h3>
+                <p>Anything that the application would normally send to standard output becomes logs for the container within the Pod. We can retrieve these logs using the <code>kubectl logs</code> command:</p>
+                <p><code><b>kubectl logs "$POD_NAME"</b></code></p>
+                <p><em><strong>Note:</strong> We don't need to specify the container name, because we only have one container inside the pod.</em></p>
+           </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Executing command on the container</h3>
+                <p>We can execute commands directly on the container once the Pod is up and running.
+                For this, we use the <code>exec</code> subcommand and use the name of the Pod as a parameter. Let’s list the environment variables:</p>
+                <p><code><b>kubectl exec "$POD_NAME" -- env</b></code></p>
+                <p>Again, it's worth mentioning that the name of the container itself can be omitted since we only have a single container in the Pod.</p>
+                <p>Next let’s start a bash session in the Pod’s container:</p>
+                <p><code><b>kubectl exec -ti $POD_NAME -- bash</b></code></p>
+                <p>We have now an open console on the container where we run our NodeJS application.  The source code of the app is in the <tt>server.js</tt> file:</p>
+                <p><code><b>cat server.js</b></code></p>
+                <p>You can check that the application is up by running a <tt>curl</tt> command:</p>
+                <p><code><b>curl http://localhost:8080</b></code></p>
+                <p><em><strong>Note:</strong> here we used <tt>localhost</tt> because we executed the command inside the NodeJS Pod. If you cannot connect to localhost:8080, check to make sure you have run the <code>kubectl exec</code> command and are launching the command from within the Pod</em></p>
+                <p>To close your container connection, type <code><b>exit</b></code>.</p>
+           </div>
+        </div>
+
+
+      <div class="row">
+          <p>
+            Once you're ready, move on to <a href="/docs/tutorials/kubernetes-basics/expose/expose-intro/" title="Using A Service To Expose Your App">Using A Service To Expose Your App</a>.
+          </p>
+      </div>
+
 
     </main>
 

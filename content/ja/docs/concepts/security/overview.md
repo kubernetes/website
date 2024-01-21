@@ -2,7 +2,7 @@
 reviewers:
 title: クラウドネイティブセキュリティの概要
 content_type: concept
-weight: 10
+weight: 1
 ---
 
 <!-- overview -->
@@ -42,6 +42,7 @@ IaaSプロバイダー        | リンク |
 Alibaba Cloud | https://www.alibabacloud.com/trust-center |
 Amazon Web Services | https://aws.amazon.com/security/ |
 Google Cloud Platform | https://cloud.google.com/security/ |
+Huawei Cloud | https://www.huaweicloud.com/intl/ja-jp/securecenter/overallsafety.html |
 IBM Cloud | https://www.ibm.com/cloud/security |
 Microsoft Azure | https://docs.microsoft.com/en-us/azure/security/azure-security |
 Oracle Cloud Infrastructure | https://www.oracle.com/security/ |
@@ -116,7 +117,7 @@ TLS経由のアクセスのみ | コードがTCP通信を必要とする場合�
 通信ポートの範囲制限 | この推奨事項は一目瞭然かもしれませんが、可能なかぎり、通信とメトリクス収集に必要不可欠なサービスのポートのみを公開します。 |
 サードパティに依存するセキュリティ | 既知の脆弱性についてアプリケーションのサードパーティ製ライブラリーを定期的にスキャンすることを推奨します。それぞれの言語は自動でこのチェックを実行するツールを持っています。 |
 静的コード解析 | ほとんどの言語ではコードのスニペットを解析して、安全でない可能性のあるコーディングを分析する方法が提供しています。可能な限り、コードベースでスキャンして、よく起こるセキュリティエラーを検出できる自動ツールを使用してチェックを実行すべきです。一部のツールはここで紹介されています。 https://owasp.org/www-community/Source_Code_Analysis_Tools |
-動的プロービング攻撃 | よく知られているいくつかのサービス攻撃をサービスに対して試すことができる自動ツールがいくつかあります。これにはSQLインジェクション、CSRF、そしてXSSが含まれます。よく知られている動的解析ツールは[OWASP Zed Attack proxy](https://owasp.org/www-project-zap/)toolです。 |
+動的プロービング攻撃 | よく知られているいくつかのサービス攻撃をサービスに対して試すことができる自動ツールがいくつかあります。これにはSQLインジェクション、CSRF、そしてXSSが含まれます。よく知られている動的解析ツールは[OWASP Zed Attack proxy](https://www.zaproxy.org/)toolです。 |
 
 {{< /table >}}
 
@@ -125,7 +126,7 @@ TLS経由のアクセスのみ | コードがTCP通信を必要とする場合�
 関連するKubernetesセキュリティについて学びます。
 
 * [Podセキュリティの標準](/ja/docs/concepts/security/pod-security-standards/)
-* [Podのネットワークポリシー]](/ja/docs/concepts/services-networking/network-policies/)
+* [Podのネットワークポリシー](/ja/docs/concepts/services-networking/network-policies/)
 * [Kubernetes APIへのアクセスを制御する](/docs/concepts/security/controlling-access)
 * [クラスターの保護](/docs/tasks/administer-cluster/securing-a-cluster/)
 * コントロールプレーンとの[通信時のデータ暗号化](/docs/tasks/tls/managing-tls-in-a-cluster/)

@@ -113,10 +113,10 @@ kubectl kustomize ./
 ```yaml
 apiVersion: v1
 data:
-    FOO=Bar
+  FOO: Bar
 kind: ConfigMap
 metadata:
-  name: example-configmap-1-8mbdf7882g
+  name: example-configmap-1-42cfbf598f
 ```
 
 {{< note >}}
@@ -748,8 +748,8 @@ spec:
 커맨드 인수 내에 서비스 네임을 하드 코딩하는 것을 권장하지 않는다. 이 용도에서 Kustomize는 `vars`를 통해 containers에 서비스 네임을 삽입할 수 있다.
 
 ```shell
-# deployment.yaml 파일 생성
-cat <<EOF > deployment.yaml
+# deployment.yaml 파일 생성(문서 구분 기호를 따옴표로 감쌈)
+cat <<'EOF' > deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -893,14 +893,14 @@ EOF
 ```shell
 mkdir dev
 cat <<EOF > dev/kustomization.yaml
-bases:
+resources:
 - ../base
 namePrefix: dev-
 EOF
 
 mkdir prod
 cat <<EOF > prod/kustomization.yaml
-bases:
+resources:
 - ../base
 namePrefix: prod-
 EOF

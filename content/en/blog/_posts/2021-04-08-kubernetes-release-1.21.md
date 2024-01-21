@@ -55,7 +55,7 @@ What's next? We're developing a new built-in mechanism to help limit Pod privile
 
 ### TopologyKeys Deprecation
 The Service field `topologyKeys` is now deprecated; all the component features that used this field were previously alpha, and are now also deprecated.
-We've replaced `topologyKeys` with a way to implement topology-aware routing, called topology-aware hints.  Topology-aware hints are an alpha feature in Kubernetes 1.21. You can read more details about the replacement feature in [Topology Aware Hints](/docs/concepts/services-networking/service-topology/); the related [KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-network/2433-topology-aware-hints/README.md) explains the context for why we switched.
+We've replaced `topologyKeys` with a way to implement topology-aware routing, called topology-aware hints.  Topology-aware hints are an alpha feature in Kubernetes 1.21. You can read more details about the replacement feature in [Topology Aware Hints](/docs/concepts/services-networking/topology-aware-hints/); the related [KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-network/2433-topology-aware-hints/README.md) explains the context for why we switched.
 
 ## Other Updates
 

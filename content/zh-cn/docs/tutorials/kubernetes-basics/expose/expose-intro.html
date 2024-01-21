@@ -1,0 +1,351 @@
+---
+title: 使用 Service 暴露你的应用
+weight: 10
+description: |-
+    了解 Kubernetes 中的 Service。
+    理解标签和选择算符如何关联到 Service。
+    在 Kubernetes 集群外暴露应用。
+---
+
+<!--
+---
+title: Using a Service to Expose Your App
+weight: 10
+description: |-
+    Learn about a Service in Kubernetes.
+    Understand how labels and selectors relate to a Service.
+    Expose an application outside a Kubernetes cluster.
+---
+-->
+
+<!DOCTYPE html>
+
+<html lang="zh">
+
+<body>
+
+<div class="layout" id="top">
+
+	<main class="content">
+
+		<div class="row">
+			<div class="col-md-8">
+			<!-- <h3>Objectives</h3>-->
+			<h3>目标</h3>
+				<ul>
+					<!--
+					<li>Learn about a Service in Kubernetes</li>
+					<li>Understand how labels and selectors relate to a Service</li>
+					<li>Expose an application outside a Kubernetes cluster using a Service</li>
+					-->
+					<li>了解 Kubernetes 中的 Service </li>
+					<li>了解标签（Label）和选择算符（Selector）如何与 Service 关联</li>
+					<li>在 Kubernetes 集群外用 Service 暴露应用</li>
+				</ul>
+			</div>
+
+			<div class="col-md-8">
+			<!-- <h3>Overview of Kubernetes Services</h3> -->
+			<h3>Kubernetes Service 总览</h3>
+
+			<!--
+			<p>Kubernetes <a href="/docs/concepts/workloads/pods/">Pods</a> are mortal. Pods have a <a href="/docs/concepts/workloads/pods/pod-lifecycle/">lifecycle</a>. When a worker node dies, the Pods running on the Node are also lost. A <a href="/docs/concepts/workloads/controllers/replicaset/">ReplicaSet</a> might then dynamically drive the cluster back to the desired state via the creation of new Pods to keep your application running. As another example, consider an image-processing backend with 3 replicas. Those replicas are exchangeable; the front-end system should not care about backend replicas or even if a Pod is lost and recreated. That said, each Pod in a Kubernetes cluster has a unique IP address, even Pods on the same Node, so there needs to be a way of automatically reconciling changes among Pods so that your applications continue to function.</p>
+			-->
+
+			<p> Kubernetes <a href="/zh-cn/docs/concepts/workloads/pods/">Pod</a> 是转瞬即逝的。 Pod 拥有 <a href="/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/">生命周期</a>。
+			当一个工作节点挂掉后, 在节点上运行的 Pod 也会消亡。 <a href="/zh-cn/docs/concepts/workloads/controllers/replicaset/">ReplicaSet</a> 会自动地通过创建新的 Pod 驱动集群回到目标状态，以保证应用正常运行。
+			换一个例子，考虑一个具有 3 个副本的用作图像处理的后端程序。
+			这些副本是可替换的。前端系统不应该关心后端副本，即使某个 Pod 丢失或被重新创建。
+			此外，Kubernetes 集群中的每个 Pod 都有一个唯一的 IP 地址，即使是在同一个 Node 上的 Pod 也是如此，
+			因此需要一种方法来自动协调 Pod 之间的变化，以便应用保持运行。</p>
+
+			<!--
+			<p>A Service in Kubernetes is an abstraction which defines a logical set of Pods and a policy by which to access them. Services enable a loose coupling between dependent Pods. A Service is defined using YAML or JSON, like all Kubernetes object manifests. The set of Pods targeted by a Service is usually determined by a <i>label selector</i> (see below for why you might want a Service without including a <code>selector</code> in the spec).</p>
+			-->
+			<p> Kubernetes 中的服务（Service）是一种抽象概念，它定义了 Pod 的逻辑集和访问 Pod 的协议。
+			Service 使从属 Pod 之间的松耦合成为可能。
+			和所有 Kubernetes 对象清单一样, Service 用 YAML 或者 JSON 来定义。
+			Service 下的一组 Pod 通常由一个 <i>标签选择算符</i> 来标记
+			（请参阅下面的说明为什么你可能想要一个 spec 中不包含 <code>selector</code> 的 Service）。</p>
+
+			<!--
+			<p>Although each Pod has a unique IP address, those IPs are not exposed outside the cluster without a Service. Services allow your applications to receive traffic. Services can be exposed in different ways by specifying a <code>type</code> in the <tt>spec</tt> of the Service:</p>
+			-->
+			<p>尽管每个 Pod 都有一个唯一的 IP 地址，但是如果没有 Service，这些 IP 不会被公开到集群外部。
+			Service 允许你的应用接收流量。
+			通过设置 Service 的 <code>spec</code> 中的 <code>type</code>，你可以用不同的方式公开 Service：</p>
+			<ul>
+				<!--
+				<li><i>ClusterIP</i> (default) - Exposes the Service on an internal IP in the cluster. This type makes the Service only reachable from within the cluster.</li>
+				<li><i>NodePort</i> - Exposes the Service on the same port of each selected Node in the cluster using NAT. Makes a Service accessible from outside the cluster using <code>&lt;NodeIP&gt;:&lt;NodePort&gt;</code>. Superset of ClusterIP.</li>
+				<li><i>LoadBalancer</i> - Creates an external load balancer in the current cloud (if supported) and assigns a fixed, external IP to the Service. Superset of NodePort.</li>
+				<li><i>ExternalName</i> - Maps the Service to the contents of the <code>externalName</code> field (e.g. <code>foo.bar.example.com</code>), by returning a <code>CNAME</code> record with its value. No proxying of any kind is set up. This type requires v1.7 or higher of <code>kube-dns</code>, or CoreDNS version 0.0.8 or higher.</li>
+				-->
+				<li><i>ClusterIP</i>（默认）- 在集群的内部 IP 上公开 Service。这种类型使得 Service 只能从集群内访问。</li>
+				<li><i>NodePort</i> - 使用 NAT 在集群中每个选定 Node 的相同端口上公开 Service 。使用<code>&lt;NodeIP&gt;:&lt;NodePort&gt;</code> 从集群外部访问 Service。是 ClusterIP 的超集。</li>
+				<li><i>LoadBalancer</i> - 在当前云中创建一个外部负载均衡器（如果支持的话），并为 Service 分配一个固定的外部IP。是 NodePort 的超集。</li>
+				<li><i>ExternalName</i> - 将 Service 映射到 <code>externalName</code> 字段的内容（例如 <code>foo.bar.example.com</code>），通过返回带有该名称的 <code>CNAME</code> 记录实现。不设置任何类型的代理。这种类型需要 <code>kube-dns</code> 的 v1.7 或更高版本，或者 CoreDNS 的 0.8 或更高版本。</li>
+			</ul>
+			<!--
+			<p>More information about the different types of Services can be found in the <a href="/docs/tutorials/services/source-ip/">Using Source IP</a> tutorial. Also see <a href="/docs/tutorials/services/connect-applications-service/">Connecting Applications with Services</a>.</p>
+			-->
+			<p>关于不同 Service 类型的更多信息可以在<a href="/zh-cn/docs/tutorials/services/source-ip/">使用源 IP </a> 教程找到。
+			也请参阅 <a href="/zh-cn/docs/tutorials/services/connect-applications-service/">使用 Service 连接到应用</a>。</p>
+			<!--
+			<p>Additionally, note that there are some use cases with Services that involve not defining a <code>selector</code> in the spec. A Service created without <code>selector</code> will also not create the corresponding Endpoints object. This allows users to manually map a Service to specific endpoints. Another possibility why there may be no selector is you are strictly using <code>type: ExternalName</code>.</p>
+			-->
+			<p>另外，需要注意的是有一些 Service 的用例不需要在 spec 中定义 <code>selector</code>。
+			一个创建时未设置 <code>selector</code> 的 Service 也不会创建相应的 Endpoint 对象。
+			这允许用户手动将 Service 映射到特定的端点。
+			没有 selector 的另一种可能是你在严格使用 <code>type: ExternalName</code> 服务。</p>
+			</div>
+			<div class="col-md-4">
+				<div class="content__box content__box_lined">
+					<!-- <h3>Summary</h3> -->
+					<h3>总结</h3>
+					<ul>
+						<!--
+						<li>Exposing Pods to external traffic</li>
+						<li>Load balancing traffic across multiple Pods</li>
+						<li>Using labels</li>
+						-->
+						<li>将 Pod 暴露给外部通信</li>
+						<li>跨多个 Pod 的负载均衡</li>
+						<li>使用标签（Label）</li>
+					</ul>
+				</div>
+				<div class="content__box content__box_fill">
+						<!--
+						<p><i>A Kubernetes Service is an abstraction layer which defines a logical set of Pods and enables external traffic exposure, load balancing and service discovery for those Pods.</i></p>
+						-->
+						<p><i>Kubernetes 的 Service 是一个抽象层，它定义了一组 Pod 的逻辑集，并为这些 Pod 支持外部流量暴露、负载平衡和服务发现。</i></p>
+				</div>
+			</div>
+		</div>
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+				<!-- <h3>Services and Labels</h3> -->
+				<h3>Service 和 Label</h3>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-8">
+				<!--
+				<p>A Service routes traffic across a set of Pods. Services are the abstraction that allows pods to die and replicate in Kubernetes without impacting your application. Discovery and routing among dependent Pods (such as the frontend and backend components in an application) are handled by Kubernetes Services.</p>
+				-->
+				<p>Service 为一组 Pod 提供流量路由。Service 是一种抽象，允许 Kubernetes 中的 Pod 死亡和复制，而不会影响应用。
+				在依赖的 Pod（如应用中的前端和后端组件）之间进行发现和路由是由 Kubernetes Service 处理的。</p>
+				<!--
+				<p>Services match a set of Pods using <a href="/docs/concepts/overview/working-with-objects/labels">labels and selectors</a>, a grouping primitive that allows logical operation on objects in Kubernetes. Labels are key/value pairs attached to objects and can be used in any number of ways:</p>
+				-->
+				<p>Service 通过<a href="/zh-cn/docs/concepts/overview/working-with-objects/labels">标签和选择算符</a>来匹配一组 Pod，
+				它们是允许对 Kubernetes 中的对象进行逻辑操作的一种分组原语。
+				标签是附加在对象上的键/值对，可以以多种方式使用：</p>
+				<ul>
+					<!--
+					<li>Designate objects for development, test, and production</li>
+					<li>Embed version tags</li>
+					<li>Classify an object using tags</li>
+					-->
+					<li>指定用于开发、测试和生产的对象</li>
+					<li>嵌入版本标记</li>
+					<li>使用标记将对象分类</li>
+				</ul>
+			</div>
+
+		</div>
+
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p><img src="/docs/tutorials/kubernetes-basics/public/images/module_04_labels.svg"></p>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-8">
+				<!--
+				<p>Labels can be attached to objects at creation time or later on. They can be modified at any time. Let's expose our application now using a Service and apply some labels.</p>
+				-->
+				<p>标签可以在对象创建时或之后附加到对象上。它们可以随时被修改。现在使用 Service 发布我们的应用并添加一些标签。</p>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-12">
+				<!-- <h3>Step 1: Creating a new Service</h3> -->
+				<h3>第一步：创建新 Service</h3>
+				<!--
+				<p>Let’s verify that our application is running. We’ll use the <code>kubectl get</code> command and look for existing Pods:</p>
+				-->
+				<p>让我们来验证我们的应用正在运行。我们将使用 <code>kubectl get</code> 命令并查找现有的 Pod：</p>
+				<p><code><b>kubectl get pods</b></code></p>
+				<!--
+				<p>If no Pods are running then it means the objects from the previous tutorials were cleaned up. In this case, go back and recreate the deployment from the <a href="/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro#deploy-an-app">Using kubectl to create a Deployment</a> tutorial.
+          Please wait a couple of seconds and list the Pods again. You can continue once you see the one Pod running.</p>
+				<p>Next, let’s list the current Services from our cluster:</p>
+				-->
+				<p>如果没有 Pod 正在运行，则意味着之前教程中的对象已被清理。这时，
+				请返回并参考 <a href="/zh-cn/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro#deploy-an-app">使用 kubectl 创建 Deployment</a> 教程重新创建 Deployment。
+					 请等待几秒钟，然后再次列举 Pod。一旦看到一个 Pod 正在运行，你就可以继续了。</p>
+				<p>接下来，让我们列举当前集群中的 Service：</p>
+				<p><code><b>kubectl get services</b></code></p>
+				<!--
+				<p>We have a Service called <tt>kubernetes</tt> that is created by default when minikube starts the cluster.
+				To create a new service and expose it to external traffic we'll use the expose command with NodePort as parameter.</p>
+				-->
+				<p>我们有一个名为 <tt>kubernetes</tt> 的 Service ，它在 minikube 启动集群时默认创建。
+				要创建一个新的 Service 然后暴露给外部流量，我们将使用 <code>expose</code> 命令，并将 NodePort 作为参数。</p>
+				<p><code><b>kubectl expose deployment/kubernetes-bootcamp --type="NodePort" --port 8080</b></code></p>
+				<!--
+				<p>Let's run again the <code>get services</code> subcommand:</p>
+				-->
+				<p>让我们再次运行 <code>get services</code> 子命令：</p>
+				<p><code><b>kubectl get services</b></code></p>
+				<!--
+				<p>We have now a running Service called kubernetes-bootcamp. Here we see that the Service received a unique cluster-IP, an internal port and an external-IP (the IP of the Node).</p>
+				<p>To find out what port was opened externally (for the <tt>type: NodePort</tt> Service) we’ll run the <code>describe service</code> subcommand:</p>
+				-->
+				<p>我们现在有一个运行中的 Service 名为 kubernetes-bootcamp。
+				这里我们看到 Service 收到了一个唯一的集群内 IP（cluster-IP），一个内部端口和一个外部 IP
+				（external-IP）（Node 的 IP）。</p>
+				<p>要得到外部打开的端口号（对于 <tt>type: NodePort</tt> 的服务），我们需要运行 <code>describe service</code> 子命令：</p>
+				<p><code><b>kubectl describe services/kubernetes-bootcamp</b></code></p>
+				<!--
+				<p>Create an environment variable called <tt>NODE_PORT</tt> that has the value of the Node port assigned:</p>
+				-->
+				<p>创建一个名为 <tt>NODE_PORT</tt> 的环境变量，它的值为所分配的 Node 端口：</p>
+				<p><code><b>export NODE_PORT="$(kubectl get services/kubernetes-bootcamp -o go-template='{{(index .spec.ports 0).nodePort}}')"</b></code><br />
+				<code><b>echo "NODE_PORT=$NODE_PORT"</b></code></p>
+				<!--
+				<p>Now we can test that the app is exposed outside of the cluster using <code>curl</code>, the IP address of the Node and the externally exposed port:</p>
+				-->
+				<p>现在我们可以使用 <code>curl</code>、Node 的 IP 地址和对外暴露的端口，来测试应用是否已经被公开到了集群外部：</p>
+				<p><code><b>curl http://"$(minikube ip):$NODE_PORT"</b></code></p>
+				<!--
+				{{< note >}}<p>If you're running minikube with Docker Desktop as the container driver, a minikube tunnel is needed. This is because containers inside Docker Desktop are isolated from your host computer.<br>
+				<p>In a separate terminal window, execute:<br>
+				<code><b>minikube service kubernetes-bootcamp --url</b></code></p>
+				<p>The output looks like this:
+				<pre><b>http://127.0.0.1:51082<br>!  Because you are using a Docker driver on darwin, the terminal needs to be open to run it.</b></pre></p>
+				<p>Then use the given URL to access the app:<br>
+				<code><b>curl 127.0.0.1:51082</b></code></p>
+				{{< /note >}}
+				<p>And we get a response from the server. The Service is exposed.</p>
+				-->
+				{{< note >}}<p>如果你正在使用 Docker Desktop 作为容器驱动来运行 minikube, 需要使用 minikube tunnel。
+				这是因为 Docker Desktop 内部的容器和宿主机是隔离的。<br>
+				<p>在另一个终端窗口中，执行：<br>
+				<code><b>minikube service kubernetes-bootcamp --url</b></code></p>
+				<p>输出结果如下：
+				<pre><b>http://127.0.0.1:51082<br>!  Because you are using a Docker driver on darwin, the terminal needs to be open to run it.</b></pre></p>
+				<p>然后使用提供的 URL 访问应用：<br>
+				<code><b>curl 127.0.0.1:51082</b></code></p>
+				{{< /note >}}
+				<p>然后我们就会收到服务器的响应。Service 已经被暴露。</p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<!-- <h3>Step 2: Using labels</h3> -->
+				<h3>第二步：使用标签</h3>
+				<div class="content">
+				<!--
+				<p>The Deployment created automatically a label for our Pod. With the <code>describe deployment</code> subcommand you can see the name (the <em>key</em>) of that label:</p>
+			-->
+				<p>Deployment 自动给我们的 Pod 创建了一个标签。通过 <code>describe deployment</code> 子命令你可以看到那个标签的名称（对应 <em>key</em>）：</p>
+				<p><code><b>kubectl describe deployment</b></code></p>
+				<!--
+				<p>Let’s use this label to query our list of Pods. We’ll use the <code>kubectl get pods</code> command with <tt>-l</tt> as a parameter, followed by the label values:</p>
+				-->
+				<p>让我们使用这个标签来查询 Pod 列表。我们将使用 <code>kubectl get pods</code> 命令和 <tt>-l</tt> 参数，后面给出标签值：</p>
+				<p><code><b>kubectl get pods -l app=kubernetes-bootcamp</b></code></p>
+				<!--
+				<p>You can do the same to list the existing Services:</p>
+				-->
+				<p>你可以用同样的方法列出现有的 Service:</p>
+				<p><code><b>kubectl get services -l app=kubernetes-bootcamp</b></code></p>
+				<!--
+				<p>Get the name of the Pod and store it in the <tt>POD_NAME</tt> environment variable:</p>
+				-->
+				<p>获取 Pod 的名称，然后存放到 <tt>POD_NAME</tt> 环境变量：</p>
+				<p><code><b>export POD_NAME="$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')"</b></code><br />
+				   <code><b>echo "Name of the Pod: $POD_NAME"</b></code></p>
+				<!--
+				<p>To apply a new label we use the <code>label</code> subcommand followed by the object type, object name and the new label:</p>
+				-->
+				<p>要应用一个新的标签，我们使用 <code>label</code> 子命令，接着是对象类型、对象名称和新的标签：</p>
+				<p><code><b>kubectl label pods "$POD_NAME" version=v1</b></code></p>
+				<!--
+				<p>This will apply a new label to our Pod (we pinned the application version to the Pod), and we can check it with the describe pod command:</p>
+				-->
+				<p>这将会在我们的 Pod 上应用一个新标签（我们把应用版本锁定到 Pod 上），然后我们可以通过 <code>describe pods</code> 命令检查它：</p>
+				<p><code><b>kubectl describe pods "$POD_NAME"</b></code></p>
+				<!--
+				<p>We see here that the label is attached now to our Pod. And we can query now the list of pods using the new label:</p>
+				-->
+				<p>我们可以看到现在标签已经被附加到我们的 Pod 上。我们可以通过新的标签来查询 Pod 列表：</p>
+				<p><code><b>kubectl get pods -l version=v1</b></code></p>
+				<!--
+				<p>And we see the Pod.</p>
+				-->
+				<p>我们看到了对应的 Pod。</p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<!-- <h3>Step 3: Deleting a service</h3> -->
+				<h3>第三步：删除一个 Service</h3>
+				<!--
+				<p>To delete Services you can use the <code>delete service</code> subcommand. Labels can be used also here:</p>
+				-->
+				<p>要删除一个 Service 你可以使用 <code>delete service</code> 子命令。这里也可以使用标签：</p>
+				<p><code><b>kubectl delete service -l app=kubernetes-bootcamp</b></code></p>
+				<!--
+				<p>Confirm that the Service is gone:</p>
+				-->
+				<p>确认对应的 Service 已经消失：</p>
+				<p><code><b>kubectl get services</b></code></p>
+				<!--
+				<p>This confirms that our Service was removed. To confirm that route is not exposed anymore you can <tt>curl</tt> the previously exposed IP and port:</p>
+				-->
+				<p>这里确认了我们的 Service 已经被删除。要确认路由已经不再被公开，你可以 <tt>curl</tt> 之前公开的 IP 和端口：</p>
+				<p><code><b>curl http://"$(minikube ip):$NODE_PORT"</b></code></p>
+				<!--
+				<p>This proves that the application is not reachable anymore from outside of the cluster.
+				You can confirm that the app is still running with a <tt>curl</tt> from inside the pod:</p>
+				-->
+				<p>这证明了集群外部已经不再可以访问应用。
+				你可以通过在 Pod 内部运行 <tt>curl</tt> 确认应用仍在运行：</p>
+				<p><code><b>kubectl exec -ti $POD_NAME -- curl http://localhost:8080</b></code></p>
+				<!--
+				<p>We see here that the application is up. This is because the Deployment is managing the application. To shut down the application, you would need to delete the Deployment as well.</p>
+				-->
+				<p>这里我们看到应用是运行状态。这是因为 Deployment 正在管理应用。
+				要关闭应用，你还需要删除 Deployment。</p>
+			</div>
+		</div>
+				<div class="row">
+				<!--
+				<p>
+					Once you're ready, move on to <a href="/docs/tutorials/kubernetes-basics/scale/scale-intro/" title="Running Multiple Instances of Your App">Running Multiple Instances of Your App</a>.</p>
+				</p>
+				-->
+				<p>
+					准备好之后，继续学习<a href="/zh-cn/docs/tutorials/kubernetes-basics/scale/scale-intro/" title="运行应用的多个实例">运行应用的多个实例</a>。
+				</p>
+
+				</div>
+
+		</div>
+	</main>
+</div>
+
+</body>
+</html>

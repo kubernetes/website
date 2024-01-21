@@ -91,7 +91,7 @@ Użycie Deploymentu to rekomendowana metoda zarządzania tworzeniem i skalowanie
 wykorzystując podany obraz Dockera.
 
     ```shell
-    kubectl create deployment hello-node --image=k8s.gcr.io/echoserver:1.4
+    kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.39 -- /agnhost netexec --http-port=808
     ```
 
 2. Sprawdź stan Deploymentu:
@@ -133,7 +133,7 @@ wykorzystując podany obraz Dockera.
     ```
 
     {{< note >}}
-    Więcej informacji na temat polecenia `kubectl` znajdziesz w [przeglądzie kubectl](/docs/reference/kubectl/overview/).
+    Więcej informacji na temat polecenia `kubectl` znajdziesz w [przeglądzie kubectl](/docs/reference/kubectl/).
     {{< /note >}}
 
 ## Stwórz Serwis
@@ -152,7 +152,7 @@ jako [*Serwis*](/docs/concepts/services-networking/service/) Kubernetes.
     Opcja `--type=LoadBalancer` wskazuje, że chcesz udostępnić swój Serwis
     na zewnątrz klastra.
 
-    Aplikacja, która jest umieszczona w obrazie kontenera `k8s.gcr.io/echoserver`, nasłuchuje jedynie na porcie TCP 8080. Jeśli użyłeś
+    Aplikacja, która jest umieszczona w obrazie kontenera `registry.k8s.io/echoserver`, nasłuchuje jedynie na porcie TCP 8080. Jeśli użyłeś
     `kubectl expose` do wystawienia innego portu, aplikacje klienckie mogą nie móc się podłączyć do tamtego innego portu.
 
 2. Sprawdź Serwis, który właśnie utworzyłeś:
@@ -171,7 +171,7 @@ jako [*Serwis*](/docs/concepts/services-networking/service/) Kubernetes.
 
     U dostawców usług chmurowych, którzy obsługują *load balancers*,
     zostanie przydzielony zewnętrzny adres IP na potrzeby serwisu.
-    W minikube, typ `LoadBalancer` udostępnia serwis poprzez polecenie
+    W minikube, serwis typu `LoadBalancer` można udostępnić poprzez polecenie
     `minikube service`.
 
 3. Uruchom poniższe polecenie:

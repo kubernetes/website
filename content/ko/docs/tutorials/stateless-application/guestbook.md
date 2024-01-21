@@ -1,8 +1,8 @@
 ---
 title: "예시: Redis를 사용한 PHP 방명록 애플리케이션 배포하기"
-
-
-
+# reviewers:
+# - ahmetb
+# - jimangel
 content_type: tutorial
 weight: 20
 card:
@@ -418,5 +418,5 @@ Google Compute Engine 또는 Google Kubernetes Engine
 
 * [쿠버네티스 기초](/ko/docs/tutorials/kubernetes-basics/) 튜토리얼을 완료
 * [MySQL과 Wordpress을 위한 퍼시스턴트 볼륨](/ko/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)을 사용하여 블로그 생성하는데 쿠버네티스 이용하기
-* [애플리케이션 접속](/ko/docs/concepts/services-networking/connect-applications-service/)에 대해 더 알아보기
+* [애플리케이션과 서비스 연결하기](/ko/docs/tutorials/services/connect-applications-service/)에 대해 더 알아보기
 * [자원 관리](/ko/docs/concepts/cluster-administration/manage-deployment/#효과적인-레이블-사용)에 대해 더 알아보기

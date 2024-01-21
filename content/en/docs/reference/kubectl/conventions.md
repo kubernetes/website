@@ -3,6 +3,7 @@ title: kubectl Usage Conventions
 reviewers:
 - janetkuo
 content_type: concept
+weight: 60
 ---
 
 <!-- overview -->
@@ -18,6 +19,18 @@ For a stable output in a script:
 * Request one of the machine-oriented output forms, such as `-o name`, `-o json`, `-o yaml`, `-o go-template`, or `-o jsonpath`.
 * Fully-qualify the version. For example, `jobs.v1.batch/myjob`. This will ensure that kubectl does not use its default version that can change over time.
 * Don't rely on context, preferences, or other implicit states.
+
+## Subresources
+
+* You can use the `--subresource` beta flag for kubectl commands like `get`, `patch`,
+`edit` and `replace` to fetch and update subresources for all resources that
+support them. Currently, only the `status` and `scale` subresources are supported.
+  * For `kubectl edit`, the `scale` subresource is not supported. If you use  `--subresource` with
+    `kubectl edit` and specify `scale` as the subresource, the command will error out.
+* The API contract against a subresource is identical to a full resource. While updating the
+`status` subresource to a new value, keep in mind that the subresource could be potentially
+reconciled by a controller to a different value.
+
 
 ## Best Practices
 

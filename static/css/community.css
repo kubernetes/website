@@ -1,19 +1,486 @@
-div.community_main h1, h2, h3 {
-  border-bottom: 1px solid #cccccc;
-  margin-bottom: 30px;
-  padding-bottom: 10px;
-  padding-top: 10px;
+body.cid-community #banner {
+  aspect-ratio: 1500 / 293; /* match source image */
+  display: block;
+  width: 100%;
+  margin: 0 0 2.5em 0;
+  max-height: min(calc(2.5vw + min(24em, calc(2 * 293px))), 50vh);
+  object-fit: cover;
+  overflow: clip;
+  min-height: 240px;
 }
 
-div.community_main {
-  padding: 50px 100px;
+body.cid-community .community-section #h2 {
+  font-weight: 200;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  text-align: center;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
 }
 
-div.community_main ul, 
-div.community_main li {
-  list-style: disc;
-  list-style-position: inside;
-  padding: 10px 0;
-  font-size: 16px;
+/* -------------------------------------
+ * Line through styles of Headings
+ ------------------------------------- */
+body.cid-community .community-section h2 {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  white-space: nowrap;
+  margin-bottom: 2rem;
+}
+
+body.cid-community .community-section h2:before,
+body.cid-community .community-section h2:after {
+  background-color: #aaa;
+  content: "";
+  display: inline-block;
+  height: 1px;
+  position: relative;
+  vertical-align: middle;
+  width: 100%;
+}
+
+body.cid-community .community-section h2:before {
+  margin-right: 0.5em;
+}
+
+body.cid-community .community-section h2:after {
+  margin-left: 0.5em;
+}
+
+/* -------------------------------------
+ * Containers and blocks of sections
+ ------------------------------------- */
+body.cid-community .community-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: space-between;
+
+  min-height: 24em;
+
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding: 60px;
+
+  text-align: center; /* overridden for paragraphs */
+}
+
+body.cid-community .community-section:first-child {
+  padding-top: max(3vh, 1.5em);
+}
+
+body.cid-community .community-section > * {
+  max-width: 1200px;
+}
+
+/* -------------------------------------
+ * Containers and blocks of sections: Navigation
+ ------------------------------------- */
+body.cid-community .community-section, body.cid-community #navigation-items {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body.cid-community #navigation-items {
+  /*
+    Padding on two sides = (total width - max width) / 2
+
+    If padding on two sides smaller then 60px, then use 60px,
+    otherwise uses the calculated value for padding.
+  */
+  padding: 8px max(calc((100% - 1200px)/2), 60px);
+
+  width: 100%;
+
+  margin-top: 2.5em;
+  margin-bottom: 2.5em;
+
+  gap: 1.25em;
+
+  border-bottom: 1px solid #aaaaaa;
+  border-top: 1px solid #aaaaaa;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+body.cid-community #navigation-items .community-nav-item {
+  flex-grow: 1;
+  text-align: center;
+  letter-spacing: 0.08em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  word-spacing: initial;
+  text-decoration: none;
+  text-transform: uppercase;
   font-weight: 400;
+  color: #303030;
+  background: #ffffff;
+  font-size: 1.1em;
+  padding: 0.2em;
+  margin: 0;
+  max-width: 75vw;
+  min-width: 10%;
+  min-height: 2em;
+}
+
+body.cid-community #navigation-items .community-nav-item a {
+  transition: color 0.2s ease;
+}
+
+body.cid-community .community-section > p:not(.community-simple) {
+  line-height: 1.5em;
+  text-align: initial;
+}
+
+/* -------------------------------------
+ * Containers and blocks of sections - Introduction
+ ------------------------------------- */
+body.cid-community .community-section#introduction,
+body.cid-community .community-section#introduction > p {
+  line-height: 1.75em;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+}
+
+body.cid-community .community-section#introduction {
+  padding: 0 60px;
+  min-height: unset;
+}
+
+/* -------------------------------------
+ * Containers and blocks of sections - Conference gallery
+ ------------------------------------- */
+body.cid-community #gallery {
+  max-width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 0.75rem;
+}
+
+body.cid-community #gallery img {
+  display: block;
+  flex-basis: 0;
+  flex-grow: 0;
+  height: min(20em, 90vh);
+}
+
+/* see media queries later in file */
+body.cid-community #gallery img.community-gallery-mobile {
+  display: none;
+}
+
+/* -------------------------------------
+ * Containers and blocks of sections - Events
+ ------------------------------------- */
+body.cid-community .community-section#events {
+  width: 100%;
+  margin-bottom: 0;
+
+  /* no events
+  background-image: url('/images/community/event-bg.jpg');
+  background-size: 100% auto;
+  background-position: center;
+  color: #fff;
+  */
+  display: none;
+}
+
+/* -------------------------------------
+ * Containers and blocks of sections - Community Values
+ ------------------------------------- */
+body.cid-community .community-section#values {
+  width: 100%;
+  color: #fff;
+  background-image: url('/images/community/event-bg.jpg');
+}
+
+/* -------------------------------------
+ * Containers and blocks of sections - Meetups
+ ------------------------------------- */
+body.cid-community .community-section#meetups {
+  width: 100%;
+  min-height: min(24em,50vh);
+  margin-top: 0;
+  color: #fff;
+  background: url('/images/community/kubernetes-community-final.jpg'), url('/images/community/kubernetes-community-column.png');
+  background-position: 80% center, left center;
+  background-repeat: no-repeat, repeat;
+  background-size: auto 100%, cover;
+}
+
+/* -------------------------------------
+ * Containers and blocks of sections - News
+ ------------------------------------- */
+body.cid-community .community-section#news {
+  padding: 12px 12px;
+}
+
+body.cid-community a.community-cta-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 3em;
+  min-width: max(5vw, 9em);
+  margin: 0.75em auto 0 auto; /* gap before button */
+  padding: 0.75em 1.5em;
+
+  color: white;
+  background-color: #0662EE;
+  border-radius: 6px;
+
+  text-align: center;
+  appearance: button;
+  transition: background-color 0.2s ease;
+}
+
+body.cid-community a.community-cta-button:hover { background-color: #2357b0; }
+
+body.cid-community a.community-cta-button > span.community-cta {
+  color: inherit;
+  background: transparent;
+
+  letter-spacing: 0.02em;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+body.cid-community .fullbutton {
+  appearance: button;
+  display: inline-block;
+  margin: auto;
+  margin-top: 2rem;
+  background-color: #0662EE;
+  color: white;
+  font-size: 1.5em;
+  border-radius: 0.3333em;
+  padding: 0.5em;
+  letter-spacing: 0.07em;
+  font-weight: bold;
+}
+
+/* -------------------------------------
+ * Containers and blocks of sections - Videos
+ ------------------------------------- */
+body.cid-community #videos {
+  width: 100%;
+  background-color: #eeeeee;
+}
+
+body.cid-community #videos .container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: max(12px, 2em);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+body.cid-community .video {
+  width: min(80vw, max(31%, 24em));
+  flex-basis: 31%;
+  flex-shrink: 1;
+}
+
+body.cid-community .video .videocta {
+  display: block;
+  margin: 0.25em 0 0em 0;
+  text-align: center;
+  padding: 0.25em;
+  padding-bottom: 2em;
+  text-align: center;
+  color: #0662EE;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 0.06em;
+  line-height: 1.25em;
+  clear: both;
+}
+body.cid-community .video .videocta:hover {
+  color: #0e58a7;
+}
+body.cid-community .video iframe {
+  min-width: 95%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+}
+
+/* -------------------------------------
+ * Containers and blocks of sections - Discussions
+ ------------------------------------- */
+body.cid-community #resources .container {
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 2em;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+body.cid-community #resources .container > .community-resource {
+  flex-basis: auto;
+  width: 100%;
+  flex-shrink: 1;
+}
+
+body.cid-community #resources .container > .community-resource img {
+  max-height: min(6em, 50vh);
+  width: auto;
+  display: block;
+  margin: 1em auto 0.75em auto;
+}
+
+body.cid-community #resources .container > .community-resource a {
+  text-transform: uppercase;
+  transition: color 0.2s ease;
+}
+
+body.cid-community .resourcebox {
+  height: 100%;
+  min-height: 370px;
+}
+
+body.cid-community .community-section.community-frame {
+  width: 100%;
+}
+
+body.cid-community .community-section.community-frame .twittercol1 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+body.cid-community details > summary {
+  color: #303030;
+}
+
+body.cid-community #cncf-code-of-conduct-intro,
+body.cid-community #cncf-code-of-conduct {
+  max-width: min(90vw, 100em);
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body.cid-community #cncf-code-of-conduct {
+  padding-bottom: 8em;
+  padding-top: 0.25em;
+  margin-top: 0;
+}
+
+/* duplication not needed */
+body.cid-community #values-legacy h1 {
+  display: none;
+}
+
+body.cid-community #values-legacy h2,
+body.cid-community #cncf-code-of-conduct h2 {
+  margin-top: 0.25em;
+  margin-bottom: 1em;
+  color: #0662EE;
+}
+
+body.cid-community #values-legacy h2:before,
+body.cid-community #values-legacy h2:after,
+body.cid-community #cncf-code-of-conduct h2:before,
+body.cid-community #cncf-code-of-conduct h2:after {
+  display: none; /* skip decoration */
+}
+
+
+@media only screen and (max-width: 640px) {
+  body.cid-community #navigation-items {
+    justify-content: flex-start;
+    text-align: left;
+    gap: min(2px, 0.125em);
+    padding: 8px 30px;
+  }
+  body.cid-community #navigation-items div.community-nav-item {
+    width: 100%;
+    text-align: left;
+    min-height: initial;
+    flex-shrink: 0;
+  }
+  body.cid-community .video {
+    max-width: 80vw;
+    flex-basis: auto;
+  }
+  body.cid-community #resources .container {
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+  }
+  body.cid-community #resources .container .community-resource {
+    max-width: min(80vw, 24rem);
+  }
+  body.cid-community a.community-cta-button {
+    font-size: 1.5rem;
+  }
+  body.cid-community a.community-cta-button {
+    padding: 0.5rem 1rem;
+    min-height: 2rem;
+    min-width: 5rem;
+    font-size: 1rem;
+  }
+  body.cid-community .community-section {
+    padding: 30px;
+  }
+  body.cid-community .community-section h2 {
+    /* Smaller title size when screen is small */
+    font-size: 24px;
+  }
+  body.cid-community .community-section#introduction {
+    padding: 0 30px;
+  }
+  body.cid-community .community-section#gallery {
+    min-height: unset;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  body.cid-community #gallery img.community-gallery-desktop {
+    display: none;
+  }
+  body.cid-community #gallery img.community-gallery-mobile {
+    display: initial;
+    max-width: 95vw;
+    height: auto;
+  }
+  body.cid-community .video {
+    flex-basis: max(30em, 80vw);
+    max-width: max(32em, 75vw);
+  }
+  body.cid-community .video .videocta {
+    padding-bottom: 0.5em;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  body.cid-community br.optional {
+    display: none;
+  }
+  body.cid-community .community-section:not(:first-of-type) {
+    min-height: max(20em, 18vh);
+  }
+  body.cid-community .community-section#meetups p:last-of-type {
+   margin-bottom: 6em; /* extra space for background */
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  body.cid-community .community-section h2:before,
+  body.cid-community .community-section h2:after {
+    display: none;
+  }
 }

@@ -36,7 +36,7 @@ Vous pouvez de plus déclarer un alias pour `kubectl` qui fonctionne aussi avec 
 
 ```bash
 alias k=kubectl
-complete -F __start_kubectl k
+complete -o default -F __start_kubectl k
 ```
 
 ### ZSH
@@ -359,8 +359,8 @@ Exemples utilisant `-o=custom-columns` :
 # Toutes les images s'exécutant dans un cluster
 kubectl get pods -A -o=custom-columns='DATA:spec.containers[*].image'
 
- # Toutes les images excepté "k8s.gcr.io/coredns:1.6.2"
-kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.io/coredns:1.6.2")].image'
+ # Toutes les images excepté "registry.k8s.io/coredns:1.6.2"
+kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="registry.k8s.io/coredns:1.6.2")].image'
 
 # Tous les champs dans metadata quel que soit leur nom
 kubectl get pods -A -o=custom-columns='DATA:metadata.*'

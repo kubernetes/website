@@ -73,15 +73,15 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
 
   - **scaleTargetRef.kind** (string), required
 
-    Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+    kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
   - **scaleTargetRef.name** (string), required
 
-    Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+    name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 
   - **scaleTargetRef.apiVersion** (string)
 
-    API version of the referent
+    apiVersion is the API version of the referent
 
 - **minReplicas** (int32)
 
@@ -112,15 +112,15 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
 
       - **behavior.scaleDown.policies.type** (string), required
 
-        Type is used to specify the scaling policy.
+        type is used to specify the scaling policy.
 
       - **behavior.scaleDown.policies.value** (int32), required
 
-        Value contains the amount of change which is permitted by the policy. It must be greater than zero
+        value contains the amount of change which is permitted by the policy. It must be greater than zero
 
       - **behavior.scaleDown.policies.periodSeconds** (int32), required
 
-        PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
+        periodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
 
     - **behavior.scaleDown.selectPolicy** (string)
 
@@ -128,7 +128,7 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
 
     - **behavior.scaleDown.stabilizationWindowSeconds** (int32)
 
-      StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
+      stabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
 
   - **behavior.scaleUp** (HPAScalingRules)
 
@@ -151,15 +151,15 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
 
       - **behavior.scaleUp.policies.type** (string), required
 
-        Type is used to specify the scaling policy.
+        type is used to specify the scaling policy.
 
       - **behavior.scaleUp.policies.value** (int32), required
 
-        Value contains the amount of change which is permitted by the policy. It must be greater than zero
+        value contains the amount of change which is permitted by the policy. It must be greater than zero
 
       - **behavior.scaleUp.policies.periodSeconds** (int32), required
 
-        PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
+        periodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
 
     - **behavior.scaleUp.selectPolicy** (string)
 
@@ -167,7 +167,7 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
 
     - **behavior.scaleUp.stabilizationWindowSeconds** (int32)
 
-      StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
+      stabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
 
 - **metrics** ([]MetricSpec)
 
@@ -281,15 +281,15 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
 
       - **metrics.object.describedObject.kind** (string), required
 
-        Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+        kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
       - **metrics.object.describedObject.name** (string), required
 
-        Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+        name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 
       - **metrics.object.describedObject.apiVersion** (string)
 
-        API version of the referent
+        apiVersion is the API version of the referent
 
     - **metrics.object.metric** (MetricIdentifier), required
 
@@ -478,7 +478,7 @@ HorizontalPodAutoscalerStatus describes the current status of a horizontal pod a
 
     - **currentMetrics.containerResource.container** (string), required
 
-      Container is the name of the container in the pods of the scaling target
+      container is the name of the container in the pods of the scaling target
 
     - **currentMetrics.containerResource.current** (MetricValueStatus), required
 
@@ -501,7 +501,7 @@ HorizontalPodAutoscalerStatus describes the current status of a horizontal pod a
 
     - **currentMetrics.containerResource.name** (string), required
 
-      Name is the name of the resource in question.
+      name is the name of the resource in question.
 
   - **currentMetrics.external** (ExternalMetricStatus)
 
@@ -579,15 +579,15 @@ HorizontalPodAutoscalerStatus describes the current status of a horizontal pod a
 
       - **currentMetrics.object.describedObject.kind** (string), required
 
-        Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+        kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
       - **currentMetrics.object.describedObject.name** (string), required
 
-        Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+        name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 
       - **currentMetrics.object.describedObject.apiVersion** (string)
 
-        API version of the referent
+        apiVersion is the API version of the referent
 
     - **currentMetrics.object.metric** (MetricIdentifier), required
 
@@ -673,7 +673,7 @@ HorizontalPodAutoscalerStatus describes the current status of a horizontal pod a
 
     - **currentMetrics.resource.name** (string), required
 
-      Name is the name of the resource in question.
+      name is the name of the resource in question.
 
 - **currentReplicas** (int32)
 
@@ -849,6 +849,11 @@ GET /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -915,6 +920,11 @@ GET /apis/autoscaling/v2/horizontalpodautoscalers
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -1340,6 +1350,11 @@ DELETE /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer

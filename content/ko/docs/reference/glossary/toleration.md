@@ -2,7 +2,7 @@
 title: 톨러레이션(Toleration)
 id: toleration
 date: 2019-01-11
-full_link: /docs/concepts/scheduling-eviction/taint-and-toleration/
+full_link: /ko/docs/concepts/scheduling-eviction/taint-and-toleration/
 short_description: >
   세 가지 필수 속성: 키(key), 값(value), 효과(effect)로 구성된 코어 오브젝트. 톨러레이션은 매칭되는 테인트(taint)를 가진 노드나 노드 그룹에 파드가 스케줄링되는 것을 활성화한다.
 

@@ -1,6 +1,6 @@
 ---
 reviewers:
-- 
+-
 title: リソースの管理
 content_type: concept
 weight: 40
@@ -21,7 +21,7 @@ weight: 40
 多くのアプリケーションではDeploymentやServiceなど複数のリソースの作成を要求します。複数のリソースの管理は、同一のファイルにひとまとめにしてグループ化すると簡単になります(YAMLファイル内で`---`で区切る)。
 例えば:
 
-{{< codenew file="application/nginx-app.yaml" >}}
+{{% codenew file="application/nginx-app.yaml" %}}
 
 複数のリソースは単一のリソースと同様の方法で作成できます。
 
@@ -157,7 +157,7 @@ deployment.apps/my-deployment created
 persistentvolumeclaim/my-pvc created
 ```
 
-`kubectl`についてさらに知りたい場合は、[kubectlの概要](/ja/docs/reference/kubectl/overview/)を参照してください。
+`kubectl`についてさらに知りたい場合は、[コマンドラインツール(kubectl)](/ja/docs/reference/kubectl/)を参照してください。
 
 ## ラベルを有効に使う
 
@@ -368,7 +368,7 @@ deployment.apps/my-nginx configured
 
 注意として、前回の変更適用時からの設定の変更内容を決めるため、`kubectl apply`はリソースに対してアノテーションを割り当てます。変更が実施されると`kubectl apply`は、1つ前の設定内容と、今回変更しようとする入力内容と、現在のリソースの設定との3つの間で変更内容の差分をとります。
 
-現在、リソースはこのアノテーションなしで作成されました。そのため、最初の`kubectl paply`の実行においては、与えられたにゅうチョクト、現在のリソースの設定の2つの間の差分が取られ、フォールバックします。この最初の実行の間、リソースが作成された時にプロパティーセットの削除を検知できません。この理由により、プロパティーの削除はされません。
+現在、リソースはこのアノテーションなしで作成されました。そのため、最初の`kubectl paply`の実行においては、与えられた入力と、現在のリソースの設定の2つの間の差分が取られ、フォールバックします。この最初の実行の間、リソースが作成された時にプロパティーセットの削除を検知できません。この理由により、プロパティーの削除はされません。
 
 `kubectl apply`の実行後の全ての呼び出しや、`kubectl replace`や`kubectl edit`などの設定を変更する他のコマンドではアノテーションを更新します。`kubectl apply`した後の全ての呼び出しにおいて3-wayの差分取得によってプロパティの検知と削除を実施します。
 
@@ -449,6 +449,5 @@ kubectl edit deployment/my-nginx
 
 ## {{% heading "whatsnext" %}}
 
-- [アプリケーションの調査とデバッグのための`kubectl`の使用方法](/docs/tasks/debug-application-cluster/debug-application-introspection/)について学んでください。
+- [アプリケーションの調査とデバッグのための`kubectl`の使用方法](/ja/docs/tasks/debug/debug-application/debug-running-pod/)について学んでください。
 - [設定のベストプラクティスとTIPS](/ja/docs/concepts/configuration/overview/)を参照してください。
-

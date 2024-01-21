@@ -94,7 +94,7 @@ Kubernetes APIは現在2タイプのセレクターをサポートしていま�
 そしてセレクターを使うAPIタイプは、それらのセレクターの妥当性とそれらが示す意味をドキュメントに記載するべきです。
 
 {{< note >}}
-ReplicaSetなど、いくつかのAPIタイプにおいて、2つのインスタンスのラベルセレクターは単一の名前空間において重複してはいけません。重複していると、コントローラがそれらのラベルセレクターがコンフリクトした操作とみなし、どれだけの数のレプリカを稼働させるべきか決めることができなくなります。
+ReplicaSetなど、いくつかのAPIタイプにおいて、2つのインスタンスのラベルセレクターは単一の名前空間において重複してはいけません。重複していると、コントローラーがそれらのラベルセレクターがコンフリクトした操作とみなし、どれだけの数のレプリカを稼働させるべきか決めることができなくなります。
 {{< /note >}}
 
 {{< caution >}}
@@ -130,7 +130,7 @@ metadata:
 spec:
   containers:
     - name: cuda-test
-      image: "k8s.gcr.io/cuda-vector-add:v0.1"
+      image: "registry.k8s.io/cuda-vector-add:v0.1"
       resources:
         limits:
           nvidia.com/gpu: 1
@@ -167,7 +167,7 @@ partition
 
 ### LISTとWATCHによるフィルタリング
 
-LISTとWATCHオペレーションは、単一のクエリパラメータを使うことによって返されるオブジェクトのセットをフィルターするためのラベルセレクターを指定できます。  
+LISTとWATCHオペレーションは、単一のクエリパラメーターを使うことによって返されるオブジェクトのセットをフィルターするためのラベルセレクターを指定できます。  
 *集合ベース* と*等価ベース* のどちらの要件も許可されています(ここでは、URLクエリストリング内で出現します)。  
 
   * *等価ベース* での要件: `?labelSelector=environment%3Dproduction,tier%3Dfrontend`
@@ -192,7 +192,7 @@ kubectl get pods -l 'environment in (production),tier in (frontend)'
 kubectl get pods -l 'environment in (production, qa)'
 ```
 
-もしくは、_exists_ オペレーターを介して、否定マッチングによる制限もできます。  
+もしくは、_notin_ オペレーターを介して、否定マッチングによる制限もできます。  
 
 ```shell
 kubectl get pods -l 'environment,environment notin (frontend)'

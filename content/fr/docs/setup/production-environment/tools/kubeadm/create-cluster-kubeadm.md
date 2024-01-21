@@ -1,6 +1,6 @@
 ---
-title: Création d'un Cluster a master unique avec kubeadm
-description: Création d'un Cluster a master unique avec kubeadm
+title: Création d'un Cluster à master unique avec kubeadm
+description: Création d'un Cluster à master unique avec kubeadm
 content_type: task
 weight: 30
 ---
@@ -9,7 +9,7 @@ weight: 30
 
 <img src="https://raw.githubusercontent.com/cncf/artwork/master/projects/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">**kubeadm** vous aide à démarrer un cluster Kubernetes minimum,
 viable et conforme aux meilleures pratiques. Avec kubeadm, votre cluster
-doit passer les [tests de Conformance Kubernetes](https://kubernetes.io/blog/2017/10/software-conformance-certification).
+doit passer les [tests de Conformité Kubernetes](https://kubernetes.io/blog/2017/10/software-conformance-certification).
  Kubeadm prend également en charge d'autres fonctions du cycle de vie, telles que les mises
  à niveau, la rétrogradation et la gestion des
  [bootstrap tokens](/docs/reference/access-authn-authz/bootstrap-tokens/).
@@ -243,7 +243,7 @@ Alternativement, si vous êtes `root`, vous pouvez exécuter:
 export KUBECONFIG=/etc/kubernetes/admin.conf
 ```
 
-Faites un enregistrement du retour de la commande `kubeadm join` que` kubeadm init` génère. Vous avez
+Faites un enregistrement du retour de la commande `kubeadm join` que `kubeadm init` génère. Vous avez
 besoin de cette commande pour [joindre des noeuds à votre cluster](#join-nodes).
 
 Le jeton est utilisé pour l'authentification mutuelle entre le master et les nœuds qui veulent le rejoindre.
@@ -284,7 +284,7 @@ car cela pourrait entraîner des problèmes.
 Si vous constatez une collision entre le réseau de pod de votre plug-in de réseau et certains
 de vos réseaux hôtes,
 vous devriez penser à un remplacement de CIDR approprié et l'utiliser lors de `kubeadm init` avec
-` --pod-network-cidr` et en remplacement du YAML de votre plugin réseau.
+ `--pod-network-cidr` et en remplacement du YAML de votre plugin réseau.
 Vous pouvez installer un add-on réseau de pod avec la commande suivante:
 
 ```bash
@@ -304,8 +304,8 @@ Pour plus d'informations sur l'utilisation de Calico, voir
 [Installation de Calico pour les netpols ( network policies ) et le réseau](https://docs.projectcalico.org/latest/getting-started/kubernetes/installation/calico), ainsi que d'autres resources liées à ce sujet.
 
 Pour que Calico fonctionne correctement, vous devez passer `--pod-network-cidr = 192.168.0.0 / 16`
-à` kubeadm init` ou mettre à jour le fichier `calico.yml` pour qu'il corresponde à votre réseau de Pod.
-Notez que Calico fonctionne uniquement sur `amd64`,` arm64`, `ppc64le` et` s390x`.
+à `kubeadm init` ou mettre à jour le fichier `calico.yml` pour qu'il corresponde à votre réseau de Pod.
+Notez que Calico fonctionne uniquement sur `amd64`, `arm64`, `ppc64le` et `s390x`.
 
 ```shell
 kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml
@@ -317,7 +317,7 @@ Canal utilise Calico pour les netpols et Flannel pour la mise en réseau. Report
 documentation Calico pour obtenir le [guide de démarrage officiel](https://docs.projectcalico.org/latest/getting-started/kubernetes/installation/flannel).
 
 Pour que Canal fonctionne correctement, `--pod-network-cidr = 10.244.0.0 / 16` doit être passé à
-` kubeadm init`. Notez que Canal ne fonctionne que sur `amd64`.
+`kubeadm init`. Notez que Canal ne fonctionne que sur `amd64`.
 
 ```shell
 kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/canal.yaml
@@ -353,14 +353,14 @@ cilium-drxkl   1/1     Running   0          18m
 {{% /tab %}}
 {{% tab name="Flannel" %}}
 
-Pour que `flannel` fonctionne correctement, vous devez passer` --pod-network-cidr = 10.244.0.0 / 16` à `kubeadm init`.
+Pour que `flannel` fonctionne correctement, vous devez passer `--pod-network-cidr = 10.244.0.0 / 16` à `kubeadm init`.
 Paramétrez `/proc/sys/net/bridge/bridge-nf-call-iptables` à «1» en exécutant
-` sysctl net.bridge.bridge-nf-call-iptables = 1`
+ `sysctl net.bridge.bridge-nf-call-iptables = 1`
 passez le trafic IPv4 bridged à iptables. Ceci est nécessaire pour que certains plugins CNI
 fonctionnent, pour plus d'informations
 allez voir [ici](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
-Notez que `flannel` fonctionne sur` amd64`, `arm`,` arm64`, `ppc64le` et` s390x` sous Linux.
+Notez que `flannel` fonctionne sur `amd64`, `arm`, `arm64`, `ppc64le` et `s390x` sous Linux.
 Windows (`amd64`) est annoncé comme supporté dans la v0.11.0 mais son utilisation n’est pas
 documentée.
 
@@ -378,7 +378,7 @@ Ceci est nécessaire pour que certains plugins CNI fonctionnent, pour plus d'inf
 s'il vous plaît allez voir [ici](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
 Kube-router s'appuie sur kube-controller-manager pour allouer le pod CIDR aux nœuds. Par conséquent,
-utilisez `kubeadm init` avec l'option` --pod-network-cidr`.
+utilisez `kubeadm init` avec l'option `--pod-network-cidr`.
 
 Kube-router fournit un réseau de pod, une stratégie réseau et un proxy de service basé sur un
 IP Virtual Server (IPVS) / Linux Virtual Server (LVS) hautement performant.
@@ -388,7 +388,7 @@ veuillez consulter le [guide d'installation](https://github.com/cloudnativelabs/
 {{% /tab %}}
 
 {{% tab name="Romana" %}}
-Paramétrez `/proc/sys/net/bridge/bridge-nf-call-iptables` à` 1` en exécutant
+Paramétrez `/proc/sys/net/bridge/bridge-nf-call-iptables` à `1` en exécutant
 `sysctl net.bridge.bridge-nf-call-iptables = 1`
 Cette commande indiquera de passer le trafic IPv4 bridged à iptables. Ceci est nécessaire pour que certains plugins CNI fonctionnent,
 pour plus d'informations
@@ -404,13 +404,13 @@ kubectl apply -f https://raw.githubusercontent.com/romana/romana/master/containe
 {{% /tab %}}
 
 {{% tab name="Weave Net" %}}
-Paramétrez `/proc/sys/net/bridge/bridge-nf-call-iptables` à «1» en exécutant` sysctl net.bridge.bridge-nf-call-iptables = 1`
+Paramétrez `/proc/sys/net/bridge/bridge-nf-call-iptables` à «1» en exécutant `sysctl net.bridge.bridge-nf-call-iptables = 1`
 Cette commande indiquera de passer le trafic IPv4 bridged à iptables. Ceci est nécessaire pour que certains plugins CNI fonctionnent, pour plus d'informations
 s'il vous plaît allez voir [ici](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
 Le guide de configuration officiel de Weave Net est [ici](https://www.weave.works/docs/net/latest/kube-addon/).
 
-Weave Net fonctionne sur `amd64`,` arm`, `arm64` et` ppc64le` sans aucune action supplémentaire requise.
+Weave Net fonctionne sur `amd64`, `arm`, `arm64` et `ppc64le` sans aucune action supplémentaire requise.
 Weave Net paramètre le mode hairpin par défaut. Cela permet aux pods de se connecter via leur adresse IP de service
 s'ils ne connaissent pas leur Pod IP.
 
@@ -597,7 +597,7 @@ Si vous souhaitez réinitialiser les tables IPVS, vous devez exécuter la comman
 ipvsadm -C
 ```
 
-Si vous souhaitez recommencer Il suffit de lancer `kubeadm init` ou` kubeadm join` avec les
+Si vous souhaitez recommencer Il suffit de lancer `kubeadm init` ou `kubeadm join` avec les
 arguments appropriés.
 Plus d'options et d'informations sur la
 [`commande de réinitialisation de kubeadm`](/docs/reference/setup-tools/kubeadm/kubeadm-reset/).
@@ -676,7 +676,7 @@ si le master est irrécupérable, votre cluster peut perdre ses données et peut
 partir de zéro. L'ajout du support HA (plusieurs serveurs etcd, plusieurs API servers, etc.)
 à kubeadm est encore en cours de developpement.
 
-   Contournement: régulièrement [sauvegarder etcd](https://coreos.com/etcd/docs/latest/admin_guide.html).
+   Contournement: régulièrement [sauvegarder etcd](https://etcd.io/docs/v3.5/op-guide/recovery/).
 le répertoire des données etcd configuré par kubeadm se trouve dans `/var/lib/etcd` sur le master.
 
 ## Diagnostic {#troubleshooting}

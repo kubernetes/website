@@ -117,7 +117,7 @@ To achieve the best possible isolation, each function call would have to happen 
 By using Landlock, we could isolate function calls from each other within the same container, making a temporary file created by one function call inaccessible to the next function call, for example. Integration between Landlock and technologies like Kubernetes-based serverless frameworks would be a ripe area for further exploration.  
 
 ## Auditing kubectl-exec with eBPF
-In Kubernetes 1.7 the [audit proposal](/docs/tasks/debug-application-cluster/audit/) started making its way in. It's currently pre-stable with plans to be stable in the 1.10 release. As the name implies, it allows administrators to log and audit events that take place in a Kubernetes cluster.   
+In Kubernetes 1.7 the [audit proposal](/docs/tasks/debug/debug-cluster/audit/) started making its way in. It's currently pre-stable with plans to be stable in the 1.10 release. As the name implies, it allows administrators to log and audit events that take place in a Kubernetes cluster.   
 
 While these events log Kubernetes events, they don't currently provide the level of visibility that some may require. For example, while we can see that someone has used `kubectl exec` to enter a container, we are not able to see what commands were executed in that session. With eBPF one can attach a BPF program that would record any commands executed in the `kubectl exec` session and pass those commands to a user-space program that logs those events. We could then play that session back and know the exact sequence of events that took place.
 ## Learn more about eBPF

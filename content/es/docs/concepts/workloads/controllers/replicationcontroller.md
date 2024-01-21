@@ -49,7 +49,7 @@ de un Pod indefinidamente. Un caso de uso más complejo es ejecutar varias répl
 
 Esta configuración de un ReplicationController de ejemplo ejecuta tres copias del servidor web nginx.
 
-{{< codenew file="controllers/replication.yaml" >}}
+{{% codenew file="controllers/replication.yaml" %}}
 
 Ejecuta el ejemplo descargando el archivo de ejemplo y ejecutando este comando:
 

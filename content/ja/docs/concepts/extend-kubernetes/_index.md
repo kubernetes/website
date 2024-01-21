@@ -19,14 +19,11 @@ Kubernetesは柔軟な設定が可能で、高い拡張性を持っています�
 
 *設定ファイル* と *フラグ* はオンラインドキュメントのリファレンスセクションの中の、各項目に記載されています:
 
-* [kubelet](/docs/admin/kubelet/)
-* [kube-apiserver](/docs/admin/kube-apiserver/)
-* [kube-controller-manager](/docs/admin/kube-controller-manager/)
-* [kube-scheduler](/docs/admin/kube-scheduler/)
 * [kubelet](/docs/reference/command-line-tools-reference/kubelet/)
+* [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/)
 * [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)
 * [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
-* [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/)
+* [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/).
 
 ホスティングされたKubernetesサービスやマネージドなKubernetesでは、フラグと設定ファイルが常に変更できるとは限りません。変更可能な場合でも、通常はクラスターの管理者のみが変更できます。また、それらは将来のKubernetesバージョンで変更される可能性があり、設定変更にはプロセスの再起動が必要になるかもしれません。これらの理由により、この方法は他の選択肢が無いときにのみ利用するべきです。
 
@@ -75,7 +72,7 @@ Webhookのモデルでは、Kubernetesは外部のサービスを呼び出しま
 1.   ユーザーは頻繁に`kubectl`を使って、Kubernetes APIとやり取りをします。[Kubectlプラグイン](/docs/tasks/extend-kubectl/kubectl-plugins/)は、kubectlのバイナリを拡張します。これは個別ユーザーのローカル環境のみに影響を及ぼすため、サイト全体にポリシーを強制することはできません。
 2.   APIサーバーは全てのリクエストを処理します。APIサーバーのいくつかの拡張ポイントは、リクエストを認可する、コンテキストに基づいてブロックする、リクエストを編集する、そして削除を処理することを可能にします。これらは[APIアクセス拡張](/docs/concepts/extend-kubernetes/#api-access-extensions)セクションに記載されています。
 3.   APIサーバーは様々な種類の *リソース* を扱います。`Pod`のような *ビルトインリソース* はKubernetesプロジェクトにより定義され、変更できません。ユーザーも、自身もしくは、他のプロジェクトで定義されたリソースを追加することができます。それは *カスタムリソース* と呼ばれ、[カスタムリソース](/docs/concepts/extend-kubernetes/#user-defined-types)セクションに記載されています。カスタムリソースは度々、APIアクセス拡張と一緒に使われます。
-4.   KubernetesのスケジューラーはPodをどのノードに配置するかを決定します。スケジューリングを拡張するには、いくつかの方法があります。それらは[スケジューラー拡張](/docs/concepts/extend-kubernetes/#scheduler-extensions)セクションに記載されています。
+4.   KubernetesのスケジューラーはPodをどのノードに配置するかを決定します。スケジューリングを拡張するには、いくつかの方法があります。それらは[スケジューラー拡張](#scheduling-extensions)セクションに記載されています。
 5.   Kubernetesにおける多くの振る舞いは、APIサーバーのクライアントであるコントローラーと呼ばれるプログラムに実装されています。コントローラーは度々、カスタムリソースと共に使われます。
 6.   kubeletはサーバー上で実行され、Podが仮想サーバーのようにクラスターネットワーク上にIPを持った状態で起動することをサポートします。[ネットワークプラグイン](/docs/concepts/extend-kubernetes/#network-plugins)がPodのネットワーキングにおける異なる実装を適用することを可能にします。
 7.   kubeletはまた、コンテナのためにボリュームをマウント、アンマウントします。新しい種類のストレージは[ストレージプラグイン](/docs/concepts/extend-kubernetes/#storage-plugins)を通じてサポートされます。
@@ -142,7 +139,7 @@ Kubernetesはいくつかのビルトイン認証方式と、それらが要件�
 
 他のネットワークファブリックが[ネットワークプラグイン](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)を通じてサポートされます。
 
-### スケジューラー拡張
+### スケジューラー拡張 {#scheduling-extensions}
 
 スケジューラーは特別な種類のコントローラーで、Podを監視し、Podをノードに割り当てます。デフォルトのコントローラーを完全に置き換えることもできますが、他のKubernetesのコンポーネントの利用を継続する、または[複数のスケジューラー](/docs/tasks/extend-kubernetes/configure-multiple-schedulers/)を同時に動かすこともできます。
 

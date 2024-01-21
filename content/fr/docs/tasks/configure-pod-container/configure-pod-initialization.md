@@ -24,7 +24,7 @@ Dans cet exercice, vous allez créer un Pod qui a un conteneur d'application et 
 
 Voici le fichier de configuration du Pod :
 
-{{< codenew file="pods/init-containers.yaml" >}}
+{{% codenew file="pods/init-containers.yaml" %}}
 
 Dans le fichier de configuration, vous pouvez voir que le Pod a un Volume que le conteneur d'initialisation et le conteneur d'application partagent.
 
@@ -81,7 +81,7 @@ La sortie montre que nginx sert la page web qui a été écrite par le conteneur
 [communiquer entre conteneurs fonctionnant dans le même Pod](/docs/tasks/access-application-cluster/communicate-containers-same-pod-shared-volume/).
 * Pour en savoir plus sur [Init Conteneurs](/docs/concepts/workloads/pods/init-containers/).
 * Pour en savoir plus sur [Volumes](/docs/concepts/storage/volumes/).
-* Pour en savoir plus sur [Débogage des Init Conteneurs](/docs/tasks/debug-application-cluster/debug-init-containers/)
+* Pour en savoir plus sur [Débogage des Init Conteneurs](/docs/tasks/debug/debug-application/debug-init-containers/)
 
 
 

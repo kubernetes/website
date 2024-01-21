@@ -2,8 +2,10 @@
 reviewers:
 - mml
 - wojtek-t
+- jpbetz
 title: Operating etcd clusters for Kubernetes
 content_type: task
+weight: 270
 ---
 
 <!-- overview -->
@@ -12,7 +14,11 @@ content_type: task
 
 ## {{% heading "prerequisites" %}}
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+You need to have a Kubernetes cluster, and the kubectl command-line tool must
+be configured to communicate with your cluster. It is recommended to run this
+task on a cluster with at least two nodes that are not acting as control plane
+nodes . If you do not already have a cluster, you can create one by using
+[minikube](https://minikube.sigs.k8s.io/docs/tutorials/multi_node/).
 
 <!-- steps -->
 
@@ -36,7 +42,7 @@ content_type: task
   clusters. Therefore, run etcd clusters on dedicated machines or isolated
   environments for [guaranteed resource requirements](https://etcd.io/docs/current/op-guide/hardware/).
 
-* The minimum recommended version of etcd to run in production is `3.2.10+`.
+* The minimum recommended etcd versions to run in production are `3.4.22+` and `3.5.6+`.
 
 ## Resource requirements
 
@@ -150,7 +156,7 @@ access to clients with the certificate `k8sclient.cert`.
 
 Once etcd is configured correctly, only clients with valid certificates can
 access it. To give Kubernetes API servers the access, configure them with the
-flags `--etcd-certfile=k8sclient.cert`,`--etcd-keyfile=k8sclient.key` and
+flags `--etcd-certfile=k8sclient.cert`, `--etcd-keyfile=k8sclient.key` and
 `--etcd-cafile=ca.cert`.
 
 {{< note >}}
@@ -187,7 +193,21 @@ replace it with `member4=http://10.0.0.4`.
    fd422379fda50e48, started, member3, http://10.0.0.3:2380, http://10.0.0.3:2379
    ```
 
-2. Remove the failed member:
+1. Do either of the following:
+
+   1. If each Kubernetes API server is configured to communicate with all etcd
+      members, remove the failed member from the `--etcd-servers` flag, then
+      restart each Kubernetes API server.
+   1. If each Kubernetes API server communicates with a single etcd member,
+      then stop the Kubernetes API server that communicates with the failed
+      etcd.
+
+1. Stop the etcd server on the broken node. It is possible that other 
+   clients besides the Kubernetes API server is causing traffic to etcd 
+   and it is desirable to stop all traffic to prevent writes to the data
+   dir.
+
+1. Remove the failed member:
 
    ```shell
    etcdctl member remove 8211f1d0f64f3269
@@ -199,7 +219,7 @@ replace it with `member4=http://10.0.0.4`.
    Removed member 8211f1d0f64f3269 from cluster
    ```
 
-3. Add the new member:
+1. Add the new member:
 
    ```shell
    etcdctl member add member4 --peer-urls=http://10.0.0.4:2380
@@ -211,7 +231,7 @@ replace it with `member4=http://10.0.0.4`.
    Member 2be1eb8f84b7f63e added to cluster ef37ad9dc622a7c4
    ```
 
-4. Start the newly added member on a machine with the IP `10.0.0.4`:
+1. Start the newly added member on a machine with the IP `10.0.0.4`:
 
    ```shell
    export ETCD_NAME="member4"
@@ -220,13 +240,16 @@ replace it with `member4=http://10.0.0.4`.
    etcd [flags]
    ```
 
-5. Do either of the following:
+1. Do either of the following:
 
-   1. Update the `--etcd-servers` flag for the Kubernetes API servers to make
-      Kubernetes aware of the configuration changes, then restart the
-      Kubernetes API servers.
-   2. Update the load balancer configuration if a load balancer is used in the
-      deployment.
+   1. If each Kubernetes API server is configured to communicate with all etcd
+      members, add the newly added member to the `--etcd-servers` flag, then
+      restart each Kubernetes API server.
+   1. If each Kubernetes API server communicates with a single etcd member,
+      start the Kubernetes API server that was stopped in step 2. Then
+      configure Kubernetes API server clients to again route requests to the
+      Kubernetes API server that was stopped. This can often be done by
+      configuring a load balancer.
 
 For more information on cluster reconfiguration, see
 [etcd reconfiguration documentation](https://etcd.io/docs/current/op-guide/runtime-configuration/#remove-a-member).
@@ -252,16 +275,16 @@ that is not currently used by an etcd process. Taking the snapshot will
 not affect the performance of the member.
 
 Below is an example for taking a snapshot of the keyspace served by
-`$ENDPOINT` to the file `snapshotdb`:
+`$ENDPOINT` to the file `snapshot.db`:
 
 ```shell
-ETCDCTL_API=3 etcdctl --endpoints $ENDPOINT snapshot save snapshotdb
+ETCDCTL_API=3 etcdctl --endpoints $ENDPOINT snapshot save snapshot.db
 ```
 
 Verify the snapshot:
 
 ```shell
-ETCDCTL_API=3 etcdctl --write-out=table snapshot status snapshotdb
+ETCDCTL_API=3 etcdctl --write-out=table snapshot status snapshot.db
 ```
 
 ```console
@@ -296,11 +319,11 @@ ETCDCTL_API=3 etcdctl --endpoints=https://127.0.0.1:2379 \
 ```
 where `trusted-ca-file`, `cert-file` and `key-file` can be obtained from the description of the etcd Pod.
 
-## Scaling up etcd clusters
+## Scaling out etcd clusters
 
-Scaling up etcd clusters increases availability by trading off performance.
+Scaling out etcd clusters increases availability by trading off performance.
 Scaling does not increase cluster performance nor capability. A general rule
-is not to scale up or down etcd clusters. Do not configure any auto scaling
+is not to scale out or in etcd clusters. Do not configure any auto scaling
 groups for etcd clusters. It is highly recommended to always run a static
 five-member etcd cluster for production Kubernetes clusters at any officially
 supported scale.
@@ -319,15 +342,26 @@ employed to recover the data of a failed cluster.
 
 Before starting the restore operation, a snapshot file must be present. It can
 either be a snapshot file from a previous backup operation, or from a remaining
-[data directory]( https://etcd.io/docs/current/op-guide/configuration/#--data-dir).
+[data directory](https://etcd.io/docs/current/op-guide/configuration/#--data-dir).
+
 Here is an example:
 
 ```shell
-ETCDCTL_API=3 etcdctl --endpoints 10.2.0.9:2379 snapshot restore snapshotdb
+ETCDCTL_API=3 etcdctl --endpoints 10.2.0.9:2379 snapshot restore snapshot.db
 ```
-Another example for restoring using etcdctl options:
+
+Another example for restoring using `etcdctl` options:
+
 ```shell
-ETCDCTL_API=3 etcdctl --data-dir <data-dir-location> snapshot restore snapshotdb
+ETCDCTL_API=3 etcdctl --data-dir <data-dir-location> snapshot restore snapshot.db
+```
+where `<data-dir-location>` is a directory that will be created during the restore process.
+
+Yet another example would be to first export the `ETCDCTL_API` environment variable:
+
+```shell
+export ETCDCTL_API=3
+etcdctl --data-dir <data-dir-location> snapshot restore snapshot.db
 ```
 
 For more information and examples on restoring a cluster from a snapshot file, see
@@ -369,4 +403,21 @@ For more details on etcd upgrade, please refer to the [etcd upgrades](https://et
 
 {{< note >}}
 Before you start an upgrade, please back up your etcd cluster first.
+{{< /note >}}
+
+## Maintaining etcd clusters
+
+For more details on etcd maintenance, please refer to the [etcd maintenance](https://etcd.io/docs/latest/op-guide/maintenance/) documentation.
+
+{{% thirdparty-content single="true" %}}
+
+{{< note >}}
+Defragmentation is an expensive operation, so it should be executed as infrequent
+as possible. On the other hand, it's also necessary to make sure any etcd member
+will not run out of the storage quota. The Kubernetes project recommends that when
+you perform defragmentation, you use a tool such as [etcd-defrag](https://github.com/ahrtr/etcd-defrag).
+
+You can also run the defragmentation tool as a Kubernetes CronJob, to make sure that
+defragmentation happens regularly. See [`etcd-defrag-cronjob.yaml`](https://github.com/ahrtr/etcd-defrag/blob/main/doc/etcd-defrag-cronjob.yaml)
+for details. 
 {{< /note >}}

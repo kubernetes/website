@@ -18,7 +18,7 @@ weight: 20
 
 1.  パッチを当てたバージョンのeasyrsa3をダウンロードして解凍し、初期化します。
 
-        curl -LO https://storage.googleapis.com/kubernetes-release/easy-rsa/easy-rsa.tar.gz
+        curl -LO https://dl.k8s.io/easy-rsa/easy-rsa.tar.gz
         tar xzf easy-rsa.tar.gz
         cd easy-rsa-master/easyrsa3
         ./easyrsa init-pki
@@ -105,7 +105,7 @@ weight: 20
 
         openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key \
         -CAcreateserial -out server.crt -days 10000 \
-        -extensions v3_ext -extfile csr.conf
+        -extensions v3_ext -extfile csr.conf -sha256
 1.  証明書を表示します。
 
         openssl x509  -noout -text -in ./server.crt

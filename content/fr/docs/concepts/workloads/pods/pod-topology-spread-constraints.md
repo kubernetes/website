@@ -62,6 +62,7 @@ metadata:
 spec:
   topologySpreadConstraints:
     - maxSkew: <integer>
+      minDomains: <integer>
       topologyKey: <string>
       whenUnsatisfiable: <string>
       labelSelector: <object>
@@ -94,7 +95,7 @@ Supposons que vous ayez un cluster de 4 noeuds où 3 Pods étiquettés `foo:bar`
 
 Si nous voulons qu'un nouveau Pod soit uniformément réparti avec les Pods existants à travers les zones, la spec peut être :
 
-{{< codenew file="pods/topology-spread-constraints/one-constraint.yaml" >}}
+{{% codenew file="pods/topology-spread-constraints/one-constraint.yaml" %}}
 
 `topologyKey: zone` implique que la distribution uniforme sera uniquement appliquée pour les noeuds ayant le label "zone:&lt;any value&gt;" présent. `whenUnsatisfiable: DoNotSchedule` indique au scheduler de laisser le Pod dans l'état Pending si le Pod entrant ne peut pas satisfaire la contrainte.
 
@@ -132,7 +133,7 @@ Cela s'appuie sur l'exemple précédent. Supposons que vous ayez un cluster de 4
 
 Vous pouvez utiliser 2 TopologySpreadConstraints pour contrôler la répartition des Pods aussi bien dans les zones que dans les noeuds :
 
-{{< codenew file="pods/topology-spread-constraints/two-constraints.yaml" >}}
+{{% codenew file="pods/topology-spread-constraints/two-constraints.yaml" %}}
 
 Dans ce cas, pour satisfaire la première contrainte, le Pod entrant peut uniquement être placé dans "zoneB" ; alors que pour satisfaire la seconde contrainte, le Pod entrant peut uniquement être placé dans "node4". Le résultat étant l'intersection des résultats des 2 contraintes, l'unique option possible est de placer le Pod entrant dans "node4".
 
@@ -181,7 +182,7 @@ Il existe quelques conventions implicites qu'il est intéressant de noter ici :
 
     et vous savez que "zoneC" doit être exclue. Dans ce cas, vous pouvez écrire le yaml ci-dessous, pour que "mypod" soit placé dans "zoneB" plutôt que dans "zoneC". `spec.nodeSelector` est pris en compte de la même manière.
 
-    {{< codenew file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" >}}
+    {{% codenew file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" %}}
 
 ### Contraintes par défaut au niveau du cluster
 
@@ -205,6 +206,7 @@ apiVersion: kubescheduler.config.k8s.io/v1alpha2
 kind: KubeSchedulerConfiguration
 
 profiles:
+  - schedulerName: default-scheduler
   - pluginConfig:
       - name: PodTopologySpread
         args:

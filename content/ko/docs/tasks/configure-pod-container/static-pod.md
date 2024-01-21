@@ -1,6 +1,6 @@
 ---
-
-
+# reviewers:
+# - jsafrane
 title: 스태틱(static) 파드 생성하기
 weight: 170
 content_template: task
@@ -38,11 +38,15 @@ API 서버에서 제어될 수는 없다.
 {{< glossary_tooltip text="시크릿" term_id="secret" >}}, 등)가 참조할 수 없다.
 {{< /note >}}
 
+{{< note >}}
+스태틱 파드는 [임시 컨테이너](/ko/docs/concepts/workloads/pods/ephemeral-containers/)를 지원하지 않는다.
+{{< /note >}}
+
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-이 페이지는 파드를 실행하기 위해 {{< glossary_tooltip term_id="docker" >}}를 사용하며,
+이 페이지는 파드를 실행하기 위해 {{< glossary_tooltip term_id="cri-o" >}}를 사용하며,
 노드에서 Fedora 운영 체제를 구동하고 있다고 가정한다.
 다른 배포판이나 쿠버네티스 설치 지침과는 다소 상이할 수 있다.
 
@@ -67,12 +71,12 @@ Kubelet 이 특정 디렉터리를 스캔할 때 점(.)으로 시작하는 단�
     ssh my-node1
     ```
 
-2. `/etc/kubelet.d` 와 같은 디렉터리를 선택하고 웹 서버 파드의 정의를 해당 위치에, 예를 들어 `/etc/kubelet.d/static-web.yaml` 에 배치한다.  
+2. `/etc/kubernetes/manifests` 와 같은 디렉터리를 선택하고 웹 서버 파드의 정의를 해당 위치에, 예를 들어 `/etc/kubernetes/manifests/static-web.yaml` 에 배치한다.  
 
     ```shell
 	  # kubelet 이 동작하고 있는 노드에서 이 명령을 수행한다.
-    mkdir /etc/kubelet.d/
-    cat <<EOF >/etc/kubelet.d/static-web.yaml
+    mkdir -p /etc/kubernetes/manifests/
+    cat <<EOF >/etc/kubernetes/manifests/static-web.yaml
     apiVersion: v1
     kind: Pod
     metadata:
@@ -90,10 +94,10 @@ Kubelet 이 특정 디렉터리를 스캔할 때 점(.)으로 시작하는 단�
     EOF
     ```
 
-3. 노드에서 kubelet 실행 시에 `--pod-manifest-path=/etc/kubelet.d/` 와 같이 인자를 제공하여 해당 디렉터리를 사용하도록 구성한다. Fedora 의 경우 이 줄을 포함하기 위하여 `/etc/kubernetes/kubelet` 파일을 다음과 같이 수정한다.
+3. 노드에서 kubelet 실행 시에 `--pod-manifest-path=/etc/kubernetes/manifests/` 와 같이 인자를 제공하여 해당 디렉터리를 사용하도록 구성한다. Fedora 의 경우 이 줄을 포함하기 위하여 `/etc/kubernetes/kubelet` 파일을 다음과 같이 수정한다.
 
    ```
-   KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubelet.d/"
+   KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubernetes/manifests/"
    ```
    혹은 [kubelet 구성 파일](/docs/reference/config-api/kubelet-config.v1beta1/)에 
    `staticPodPath: <the directory>` 필드를 추가한다.
@@ -156,15 +160,20 @@ Kubelet 을 시작하면, 정의된 모든 스태틱 파드가 자동으로 시�
 (노드에서) 구동되고 있는 (스태틱 파드를 포함한) 컨테이너들을 볼 수 있다.
 ```shell
 # kubelet 이 동작하고 있는 노드에서 이 명령을 수행한다.
-docker ps
+crictl ps
 ```
 
 결과는 다음과 유사하다.
 
+```console
+CONTAINER       IMAGE                                 CREATED           STATE      NAME    ATTEMPT    POD ID
+129fd7d382018   docker.io/library/nginx@sha256:...    11 minutes ago    Running    web     0          34533c6729106
 ```
-CONTAINER ID IMAGE         COMMAND  CREATED        STATUS         PORTS     NAMES
-f6d05272b57e nginx:latest  "nginx"  8 minutes ago  Up 8 minutes             k8s_web.6f802af4_static-web-fk-node1_default_67e24ed9466ba55986d120c867395f3c_378e5f3c
-```
+
+{{< note >}}
+`crictl`은 이미지 URI와 SHA-256 체크섬을 출력한다. `NAME`은 다음과 같을 것이다.
+`docker.io/library/nginx@sha256:0d17b565c37bcbd895e9d92315a05c1c3c9a29f762b011a10c54a66cd53c9b31`
+{{< /note >}}
 
 API 서버에서 미러 파드를 볼 수 있다.
 
@@ -172,15 +181,13 @@ API 서버에서 미러 파드를 볼 수 있다.
 kubectl get pods
 ```
 ```
-NAME                       READY     STATUS    RESTARTS   AGE
-static-web-my-node1        1/1       Running   0          2m
+NAME         READY   STATUS    RESTARTS        AGE
+static-web   1/1     Running   0               2m
 ```
 
 {{< note >}}
-Kubelet에 API 서버에서 미러 파드를 생성할 수 있는 권한이 있는지 미리 확인해야 한다. 그렇지 않을 경우 API 서버에 의해서 생성 요청이 거부된다.
-[파드시큐리티폴리시(PodSecurityPolicy)](/ko/docs/concepts/policy/pod-security-policy/) 에 대해 보기.
+API 서버에서 미러 파드를 생성할 수 있는 권한이 kubelet에게 있는지 미리 확인해야 한다. 그렇지 않을 경우 API 서버에 의해서 생성 요청이 거부된다.
 {{< /note >}}
-
 
 스태틱 파드에 있는 {{< glossary_tooltip term_id="label" text="레이블" >}} 은
 미러 파드로 전파된다.  {{< glossary_tooltip term_id="selector" text="셀렉터" >}} 등을
@@ -190,53 +197,52 @@ Kubelet에 API 서버에서 미러 파드를 생성할 수 있는 권한이 있�
 kubelet 은 스태틱 파드를 지우지 _않는다._
 
 ```shell
-kubectl delete pod static-web-my-node1
+kubectl delete pod static-web
 ```
 ```
-pod "static-web-my-node1" deleted
+pod "static-web" deleted
 ```
 파드가 여전히 구동 중인 것을 볼 수 있다.
 ```shell
 kubectl get pods
 ```
 ```
-NAME                       READY     STATUS    RESTARTS   AGE
-static-web-my-node1        1/1       Running   0          12s
+NAME         READY   STATUS    RESTARTS   AGE
+static-web   1/1     Running   0          4s
 ```
 
-kubelet 이 구동 중인 노드로 돌아가서 도커 컨테이너를 수동으로
-중지할 수 있다.
+kubelet 이 구동 중인 노드로 돌아가서 컨테이너를 수동으로 중지할 수 있다.
 일정 시간이 지나면, kubelet이 파드를 자동으로 인식하고 다시 시작하는
 것을 볼 수 있다.
 
 ```shell
 # kubelet 이 동작하고 있는 노드에서 이 명령을 수행한다.
-docker stop f6d05272b57e # 예제를 수행하는 사용자의 컨테이너 ID로 변경한다.
+crictl stop 129fd7d382018 # 예제를 수행하는 사용자의 컨테이너 ID로 변경한다.
 sleep 20
-docker ps
+crictl ps
 ```
-```
-CONTAINER ID        IMAGE         COMMAND                CREATED       ...
-5b920cbaf8b1        nginx:latest  "nginx -g 'daemon of   2 seconds ago ...
+```console
+CONTAINER       IMAGE                                 CREATED           STATE      NAME    ATTEMPT    POD ID
+89db4553e1eeb   docker.io/library/nginx@sha256:...    19 seconds ago    Running    web     1          34533c6729106
 ```
 
 ## 스태틱 파드의 동적 추가 및 제거
 
-실행 중인 kubelet 은 주기적으로, 설정된 디렉터리(예제에서는 `/etc/kubelet.d`)에서 변경 사항을 스캔하고, 이 디렉터리에 새로운 파일이 생성되거나 삭제될 경우, 파드를 생성/삭제 한다.
+실행 중인 kubelet 은 주기적으로, 설정된 디렉터리(예제에서는 `/etc/kubernetes/manifests`)에서 변경 사항을 스캔하고, 이 디렉터리에 새로운 파일이 생성되거나 삭제될 경우, 파드를 생성/삭제 한다.
 
 ```shell
 # 예제를 수행하는 사용자가 파일시스템이 호스팅하는 스태틱 파드 설정을 사용한다고 가정한다.
 # kubelet 이 동작하고 있는 노드에서 이 명령을 수행한다.
 #
-mv /etc/kubelet.d/static-web.yaml /tmp
+mv /etc/kubernetes/manifests/static-web.yaml /tmp
 sleep 20
-docker ps
+crictl ps
 # 구동 중인 nginx 컨테이너가 없는 것을 확인한다.
-mv /tmp/static-web.yaml  /etc/kubelet.d/
+mv /tmp/static-web.yaml  /etc/kubernetes/manifests/
 sleep 20
-docker ps
+crictl ps
 ```
-```
-CONTAINER ID        IMAGE         COMMAND                CREATED           ...
-e7a62e3427f1        nginx:latest  "nginx -g 'daemon of   27 seconds ago
+```console
+CONTAINER       IMAGE                                 CREATED           STATE      NAME    ATTEMPT    POD ID
+f427638871c35   docker.io/library/nginx@sha256:...    19 seconds ago    Running    web     1          34533c6729106
 ```

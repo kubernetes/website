@@ -85,7 +85,7 @@ f017f405ff4b        gcr.io/google\_containers/hyperkube-arm:v1.1.2   "/hyperkube
 
 When that’s looking good we’re able to access the master node of the Kubernetes cluster with kubectl. Kubectl for ARM can be downloaded from googleapis storage. kubectl get nodes shows which cluster nodes are registered with its status. The master node is named 127.0.0.1.
 ```
-$ curl -fsSL -o /usr/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v1.1.2/bin/linux/arm/kubectl
+$ curl -fsSL -o /usr/bin/kubectl https://dl.k8s.io/release/v1.1.2/bin/linux/arm/kubectl
 
 $ kubectl get nodes
 

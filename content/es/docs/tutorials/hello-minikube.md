@@ -17,7 +17,7 @@ card:
 
 Este tutorial muestra como ejecutar una aplicación Node.js Hola Mundo en Kubernetes utilizando 
 [Minikube](/docs/setup/learning-environment/minikube) y Katacoda.
-Katacoda provee un ambiente de Kubernetes desde el navegador.
+Katacoda provee un entorno de Kubernetes desde el navegador.
 
 {{< note >}}
 También se puede  seguir este tutorial si se ha instalado [Minikube localmente](/docs/tasks/tools/install-minikube/).
@@ -39,9 +39,9 @@ También se puede  seguir este tutorial si se ha instalado [Minikube localmente]
 
 Este tutorial provee una imagen de contenedor construida desde los siguientes archivos:
 
-{{< codenew language="js" file="minikube/server.js" >}}
+{{% codenew language="js" file="minikube/server.js" %}}
 
-{{< codenew language="conf" file="minikube/Dockerfile" >}}
+{{% codenew language="conf" file="minikube/Dockerfile" %}}
 
 Para más información sobre el comando `docker build`, lea la [documentación de Docker ](https://docs.docker.com/engine/reference/commandline/build/).
 
@@ -63,9 +63,9 @@ Para más información sobre el comando `docker build`, lea la [documentación d
     minikube dashboard
     ```
 
-3. Solo en el ambiente de Katacoda: En la parte superior de la terminal, haz clic en el símbolo + y luego clic en **Select port to view on Host 1**.
+3. Solo en el entorno de Katacoda: En la parte superior de la terminal, haz clic en el símbolo + y luego clic en **Select port to view on Host 1**.
 
-4. Solo en el ambiente de Katacoda: Escribir `30000`, y hacer clic en **Display Port**.
+4. Solo en el entorno de Katacoda: Escribir `30000`, y hacer clic en **Display Port**.
 
 ## Crear un Deployment
 
@@ -76,7 +76,7 @@ Un [*Deployment*](/docs/concepts/workloads/controllers/deployment/) en Kubernete
 1. Ejecutar el comando `kubectl create` para crear un Deployment que maneje un Pod. El Pod ejecuta un contenedor basado en la imagen proveida por Docker.
 
     ```shell
-    kubectl create deployment hello-node --image=k8s.gcr.io/echoserver:1.4
+    kubectl create deployment hello-node --image=registry.k8s.io/echoserver:1.4
     ```
 
 2. Ver el Deployment:
@@ -154,15 +154,15 @@ Por defecto, el Pod es accedido por su dirección IP interna dentro del clúster
     minikube service hello-node
     ```
 
-4. Solo en el ambiente de Katacoda: Hacer clic sobre el símbolo +, y luego en **Select port to view on Host 1**.
+4. Solo en el entorno de Katacoda: Hacer clic sobre el símbolo +, y luego en **Select port to view on Host 1**.
 
-5. Solo en el ambiente de Katacoda: Anotar el puerto de 5 dígitos ubicado al lado del valor de `8080` en el resultado de servicios. Este número de puerto es generado aleatoriamente y puede ser diferente al indicado en el ejemplo. Escribir el número de puerto en el cuadro de texto y hacer clic en Display Port. Usando el ejemplo anterior, usted escribiría `30369`.
+5. Solo en el entorno de Katacoda: Anotar el puerto de 5 dígitos ubicado al lado del valor de `8080` en el resultado de servicios. Este número de puerto es generado aleatoriamente y puede ser diferente al indicado en el ejemplo. Escribir el número de puerto en el cuadro de texto y hacer clic en Display Port. Usando el ejemplo anterior, usted escribiría `30369`.
 
     Esto abre una ventana de navegador que contiene la aplicación y muestra el mensaje "Hello World".
 
 ## Habilitar Extensiones
 
-Minikube tiene un conjunto  de {{< glossary_tooltip text="Extensiones" term_id="addons" >}} que pueden ser habilitados y desahabilitados en el ambiente local de Kubernetes.
+Minikube tiene un conjunto  de {{< glossary_tooltip text="Extensiones" term_id="addons" >}} que pueden ser habilitados y desahabilitados en el entorno local de Kubernetes.
 
 1. Listar las extensiones soportadas actualmente:
 

@@ -7,11 +7,12 @@
 | `test_examples.sh`      | This script tests whether a change affects example files bundled in the website.                                                      |
 | `check-headers-file.sh` | This script checks the headers if you are in a production environment.                                                                |
 | `diff_l10n_branches.py` | This script generates a report of outdated contents in `content/<l10n-lang>` directory by comparing two l10n team milestone branches. |
-| `hash-files.sh` | This script emits as hash for the files listed in $@ |
-| `linkchecker.py` | This a link checker for Kubernetes documentation website. |
-| `lsync.sh` | This script checks if the English version of a page has changed since a localized page has been committed. |
-| `replace-capture.sh` | This script sets K8S_WEBSITE in your env to your docs website root or rely on this script to determine it automatically |
-| `check-ctrlcode.py` | This script finds control-code(0x00-0x1f) in text files. |
+| `hash-files.sh`         | This script emits as hash for the files listed in $@                                                                                  |
+| `linkchecker.py`        | This a link checker for Kubernetes documentation website.                                                                             |
+| `lsync.sh`              | This script checks if the English version of a page has changed since a localized page has been committed.                            |
+| `replace-capture.sh`    | This script sets K8S_WEBSITE in your env to your docs website root or rely on this script to determine it automatically               |
+| `check-ctrlcode.py`     | This script finds control-code(0x00-0x1f) in text files.                                                                              |
+| `ja/verify-spelling.sh` | This script finds Japanese words that are against the guideline.                                                                      |
 
 
 
@@ -103,14 +104,17 @@ This script emits as hash for the files listed in $@.
 ## linkchecker.py
 
 This a link checker for Kubernetes documentation website.
-- We cover the following cases for the language you provide via `-l`, which
-  defaults to 'en'.
-- If the language specified is not English (`en`), we check if you are
-  actually using the localized links. For example, if you specify `zh` as
-  the language, and for link target `/docs/foo/bar`, we check if the English
-  version exists AND if the Chinese version exists as well. A checking record
-  is produced if the link can use the localized version.
-
+- If the language for the files scanned is not English (`en`), we check if you
+  are actually using the localized links. For example, if you specify a filter
+  similar to as `content/zh-cn/docs/**/*.md`, we check if the English version
+  exists AND if the Chinese version exists as well. A checking record is
+  produced if the link can use the localized version.
+- If the language specified is not English (`en`), a checking record is produced,
+  and the `-w` switch is used, the script will perform in-place substitutions
+  for links that have the format `/docs` and currently have a localized version
+  available. This is an experimental feature and aims to reduce the amount of
+  work required to update links to point to localized content. It currently
+  works for Markdown files only.
 ```
 
 Usage: linkchecker.py -h
@@ -139,6 +143,10 @@ Cases handled:
   + /docs/bar                : is a redirect entry, or
   + /docs/bar                : is something we don't understand
 
++ [foo](<lang>/docs/bar/...) : leading slash missing for absolute path
+
++ [foo](docs/bar/...)        : leading slash missing for absolute path
+
 ```
 ## lsync.sh
 
@@ -147,11 +155,11 @@ since a localized version has been committed.
 
 The following example checks a single file:
 
-    ./scripts/lsync.sh content/zh/docs/concepts/_index.md
+    ./scripts/lsync.sh content/zh-cn/docs/concepts/_index.md
 
 The following command checks a subdirectory:
 
-    ./scripts/lsync.sh content/zh/docs/concepts/
+    ./scripts/lsync.sh content/zh-cn/docs/concepts/
 
 ## check-ctrlcode.py
 
@@ -177,4 +185,13 @@ The output is following format.
   {2} : The column number that a control-code exists.
   {3} : The found control-code.
   {4} : The one-line strings in the file.
+```
+
+## ja/verify-spelling.sh
+
+This script finds Japanese words that are against the guideline[1]
+[1] https://kubernetes.io/ja/docs/contribute/localization/#%E9%A0%BB%E5%87%BA%E5%8D%98%E8%AA%9E
+
+```
+Usage: ./ja/verify-spelling.sh
 ```

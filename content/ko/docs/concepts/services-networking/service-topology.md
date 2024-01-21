@@ -1,10 +1,10 @@
 ---
-
-
-
+# reviewers:
+# - johnbelamaric
+# - imroc
 title: 토폴로지 키를 사용하여 토폴로지-인지 트래픽 라우팅
 content_type: concept
-weight: 10
+weight: 150
 ---
 
 
@@ -16,9 +16,8 @@ weight: 10
 
 이 기능, 특히 알파 `topologyKeys` API는 쿠버네티스 v1.21부터
 더 이상 사용되지 않는다.
-쿠버네티스 v1.21에 도입된 [토폴로지 인지 힌트](/docs/concepts/services-networking/topology-aware-hints/)는
+쿠버네티스 v1.21에 도입된 [토폴로지 인지 힌트](/ko/docs/concepts/services-networking/topology-aware-hints/)는
 유사한 기능을 제공한다.
-
 {{</ note >}}
 
 _서비스 토폴로지_ 를 활성화 하면 서비스는 클러스터의 노드 토폴로지를
@@ -195,11 +194,7 @@ spec:
     - "*"
 ```
 
-
-
-
 ## {{% heading "whatsnext" %}}
 
-
-* [서비스 토폴로지 활성화하기](/docs/tasks/administer-cluster/enabling-service-topology)를 읽어보기.
-* [서비스와 애플리케이션 연결하기](/ko/docs/concepts/services-networking/connect-applications-service/)를 읽어보기.
+* [토폴로지 인지 힌트](/ko/docs/concepts/services-networking/topology-aware-hints/)를 읽어보기.
+* [서비스와 애플리케이션 연결하기](/ko/docs/tutorials/services/connect-applications-service/)를 읽어보기.

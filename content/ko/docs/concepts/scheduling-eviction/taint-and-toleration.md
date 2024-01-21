@@ -1,11 +1,11 @@
 ---
-
-
-
-
+# reviewers:
+# - davidopp
+# - kevin-wangzefeng
+# - bsalamat
 title: 테인트(Taints)와 톨러레이션(Tolerations)
 content_type: concept
-weight: 40
+weight: 50
 ---
 
 
@@ -13,16 +13,16 @@ weight: 40
 [_노드 어피니티_](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#어피니티-affinity-와-안티-어피니티-anti-affinity)는
 {{< glossary_tooltip text="노드" term_id="node" >}} 셋을
 (기본 설정 또는 어려운 요구 사항으로) *끌어들이는* {{< glossary_tooltip text="파드" term_id="pod" >}}의 속성이다.
-_테인트_ 는 그 반대로, 노드가 파드 셋을 제외할 수 있다.
+_테인트_ 는 그 반대로, 노드가 파드 셋을 제외시킬 수 있다.
 
-_톨러레이션_ 은 파드에 적용되며, 파드를 일치하는 테인트가 있는 노드에
-스케줄되게 하지만 필수는 아니다.
+_톨러레이션_ 은 파드에 적용된다. 톨러레이션을 통해 스케줄러는 그와 일치하는 테인트가 있는 파드를 스케줄할 수 있다.
+톨러레이션은 스케줄을 허용하지만 보장하지는 않는다.
+스케줄러는 그 기능의 일부로서
+[다른 매개변수를](/ko/docs/concepts/scheduling-eviction/pod-priority-preemption/) 고려한다.
 
 테인트와 톨러레이션은 함께 작동하여 파드가 부적절한 노드에 스케줄되지
-않게 한다. 하나 이상의 테인트가 노드에 적용된다. 이것은
-노드가 테인트를 용인하지 않는 파드를 수용해서는 안 되는 것을 나타낸다.
-
-
+않게 한다. 하나 이상의 테인트가 노드에 적용되는데, 이것은
+노드가 테인트를 용인하지 않는 파드를 수용해서는 안 된다는 것을 나타낸다.
 
 <!-- body -->
 
@@ -38,7 +38,7 @@ kubectl taint nodes node1 key1=value1:NoSchedule
 `node1` 노드에 테인트을 배치한다. 테인트에는 키 `key1`, 값 `value1` 및 테인트 이펙트(effect) `NoSchedule` 이 있다.
 이는 일치하는 톨러레이션이 없으면 파드를 `node1` 에 스케줄할 수 없음을 의미한다.
 
-위의 명령으로 추가한 테인트를 제거하려면, 다음을 실행한다.
+위에서 추가했던 테인트를 제거하려면, 다음을 실행한다.
 ```shell
 kubectl taint nodes node1 key1=value1:NoSchedule-
 ```
@@ -68,7 +68,7 @@ tolerations:
 
 지정하지 않으면 `operator` 의 기본값은 `Equal` 이다.
 
-톨러레이션은 키가 동일하고 이펙트가 동일한 경우, 테인트와 "일치"한다. 그리고 다음의 경우에도 마찬가지다.
+톨러레이션은, 키와 이펙트가 동일한 경우에 테인트와 "일치"한다. 그리고 다음의 경우에도 마찬가지다.
 
 * `operator` 가 `Exists` 인 경우(이 경우 `value` 를 지정하지 않아야 함), 또는
 * `operator` 는 `Equal` 이고 `value` 는 `value` 로 같다.
@@ -267,7 +267,8 @@ tolerations:
 ## 컨디션(condition)을 기준으로 노드 테인트하기
 
 컨트롤 플레인은 노드 {{<glossary_tooltip text="컨트롤러" term_id="controller">}}를 이용하여 
-[노드 컨디션](/ko/docs/concepts/scheduling-eviction/node-pressure-eviction/#node-conditions)에 대한 `NoSchedule` 효과를 사용하여 자동으로 테인트를 생성한다.
+[노드 컨디션](/ko/docs/concepts/scheduling-eviction/node-pressure-eviction/#node-conditions)에 대한
+`NoSchedule` 효과를 사용하여 자동으로 테인트를 생성한다.
 
 스케줄러는 스케줄링 결정을 내릴 때 노드 컨디션을 확인하는 것이 아니라 테인트를 확인한다. 
 이렇게 하면 노드 컨디션이 스케줄링에 직접적인 영향을 주지 않는다.
@@ -298,5 +299,6 @@ tolerations:
 
 ## {{% heading "whatsnext" %}}
 
-* [노드-압박(node-pressure) 축출](/ko/docs/concepts/scheduling-eviction/node-pressure-eviction/)과 어떻게 구성하는지에 대해 알아보기
+* [노드-압박(node-pressure) 축출](/ko/docs/concepts/scheduling-eviction/node-pressure-eviction/)과
+어떻게 구성하는지에 대해 알아보기
 * [파드 우선순위](/ko/docs/concepts/scheduling-eviction/pod-priority-preemption/)에 대해 알아보기

@@ -17,8 +17,6 @@ components.
 The cloud-controller-manager is structured using a plugin
 mechanism that allows different cloud providers to integrate their platforms with Kubernetes.
 
-
-
 <!-- body -->
 
 ## Design
@@ -48,10 +46,10 @@ when new servers are created in your cloud infrastructure. The node controller o
 hosts running inside your tenancy with the cloud provider. The node controller performs the following functions:
 
 1. Update a Node object with the corresponding server's unique identifier obtained from the cloud provider API.
-2. Annotating and labelling the Node object with cloud-specific information, such as the region the node
+1. Annotating and labelling the Node object with cloud-specific information, such as the region the node
    is deployed into and the resources (CPU, memory, etc) that it has available.
-3. Obtain the node's hostname and network addresses.
-4. Verifying the node's health. In case a node becomes unresponsive, this controller checks with
+1. Obtain the node's hostname and network addresses.
+1. Verifying the node's health. In case a node becomes unresponsive, this controller checks with
    your cloud provider's API to see if the server has been deactivated / deleted / terminated.
    If the node has been deleted from the cloud, the controller deletes the Node object from your Kubernetes
    cluster.
@@ -88,13 +86,13 @@ to read and modify Node objects.
 
 `v1/Node`:
 
-- Get
-- List
-- Create
-- Update
-- Patch
-- Watch
-- Delete
+- get
+- list
+- create
+- update
+- patch
+- watch
+- delete
 
 ### Route controller {#authorization-route-controller}
 
@@ -103,37 +101,42 @@ routes appropriately. It requires Get access to Node objects.
 
 `v1/Node`:
 
-- Get
+- get
 
 ### Service controller {#authorization-service-controller}
 
-The service controller listens to Service object Create, Update and Delete events and then configures Endpoints for those Services appropriately.
+The service controller watches for Service object **create**, **update** and **delete** events and then
+configures Endpoints for those Services appropriately (for EndpointSlices, the
+kube-controller-manager manages these on demand).
 
-To access Services, it requires List, and Watch access. To update Services, it requires Patch and Update access.
+To access Services, it requires **list**, and **watch** access. To update Services, it requires
+**patch** and **update** access.
 
-To set up Endpoints resources for the Services, it requires access to Create, List, Get, Watch, and Update.
+To set up Endpoints resources for the Services, it requires access to **create**, **list**,
+**get**, **watch**, and **update**.
 
 `v1/Service`:
 
-- List
-- Get
-- Watch
-- Patch
-- Update
+- list
+- get
+- watch
+- patch
+- update
 
 ### Others {#authorization-miscellaneous}
 
-The implementation of the core of the cloud controller manager requires access to create Event objects, and to ensure secure operation, it requires access to create ServiceAccounts.
+The implementation of the core of the cloud controller manager requires access to create Event
+objects, and to ensure secure operation, it requires access to create ServiceAccounts.
 
 `v1/Event`:
 
-- Create
-- Patch
-- Update
+- create
+- patch
+- update
 
 `v1/ServiceAccount`:
 
-- Create
+- create
 
 The {{< glossary_tooltip term_id="rbac" text="RBAC" >}} ClusterRole for the cloud
 controller manager looks like:
@@ -203,15 +206,21 @@ rules:
 
 ## {{% heading "whatsnext" %}}
 
-[Cloud Controller Manager Administration](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager)
-has instructions on running and managing the cloud controller manager.
+* [Cloud Controller Manager Administration](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager)
+  has instructions on running and managing the cloud controller manager.
 
-To upgrade a HA control plane to use the cloud controller manager, see [Migrate Replicated Control Plane To Use Cloud Controller Manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/).
+* To upgrade a HA control plane to use the cloud controller manager, see 
+  [Migrate Replicated Control Plane To Use Cloud Controller Manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/).
 
-Want to know how to implement your own cloud controller manager, or extend an existing project?
+* Want to know how to implement your own cloud controller manager, or extend an existing project?
 
-The cloud controller manager uses Go interfaces to allow implementations from any cloud to be plugged in. Specifically, it uses the `CloudProvider` interface defined in [`cloud.go`](https://github.com/kubernetes/cloud-provider/blob/release-1.21/cloud.go#L42-L69) from [kubernetes/cloud-provider](https://github.com/kubernetes/cloud-provider).
-
-The implementation of the shared controllers highlighted in this document (Node, Route, and Service), and some scaffolding along with the shared cloudprovider interface, is part of the Kubernetes core. Implementations specific to cloud providers are outside the core of Kubernetes and implement the `CloudProvider` interface.
-
-For more information about developing plugins, see [Developing Cloud Controller Manager](/docs/tasks/administer-cluster/developing-cloud-controller-manager/).
+  - The cloud controller manager uses Go interfaces, specifically, `CloudProvider` interface defined in
+    [`cloud.go`](https://github.com/kubernetes/cloud-provider/blob/release-1.21/cloud.go#L42-L69)
+    from [kubernetes/cloud-provider](https://github.com/kubernetes/cloud-provider) to allow
+    implementations from any cloud to be plugged in.
+  - The implementation of the shared controllers highlighted in this document (Node, Route, and Service),
+    and some scaffolding along with the shared cloudprovider interface, is part of the Kubernetes core.
+    Implementations specific to cloud providers are outside the core of Kubernetes and implement
+    the `CloudProvider` interface.
+  - For more information about developing plugins,
+    see [Developing Cloud Controller Manager](/docs/tasks/administer-cluster/developing-cloud-controller-manager/).

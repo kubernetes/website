@@ -6,20 +6,26 @@ weight: 30
 
 <!-- overview -->
 
-이 가이드는 [Kubespray](https://github.com/kubernetes-sigs/kubespray)를 이용하여 GCE, Azure, OpenStack, AWS, vSphere, Packet(베어메탈), Oracle Cloud infrastructure(실험적) 또는 베어메탈 등에서 운영되는 쿠버네티스 클러스터를 설치하는 과정을 보여준다.
+이 가이드는 [Kubespray](https://github.com/kubernetes-sigs/kubespray)를 이용하여 GCE, Azure, OpenStack, AWS, vSphere, Equinix Metal(전 Packet), Oracle Cloud infrastructure(실험적) 또는 베어메탈 등에서 운영되는 쿠버네티스 클러스터를 설치하는 과정을 보여준다.
 
-Kubespray는 [Ansible](https://docs.ansible.com/) 플레이북, [인벤토리](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md), 프로비저닝 도구와 일반적인 운영체제, 쿠버네티스 클러스터의 설정 관리 작업에 대한 도메인 지식의 결합으로 만들어졌다. Kubespray는 아래와 같은 기능을 제공한다.
+Kubespray는 [Ansible](https://docs.ansible.com/) 플레이북, [인벤토리](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md#inventory), 프로비저닝 도구와 일반적인 운영체제, 쿠버네티스 클러스터의 설정 관리 작업에 대한 도메인 지식의 결합으로 만들어졌다. Kubespray는 아래와 같은 기능을 제공한다.
 
+Kubespray 지원 사항
 * 고가용성을 지닌 클러스터
-* 구성할 수 있는 속성들
+* 구성 가능 (인스턴스를 위한 네트워크 플러그인 선택)
 * 대부분의 인기있는 리눅스 배포판들에 대한 지원
-    * Ubuntu 16.04, 18.04, 20.04
-    * CentOS/RHEL/Oracle Linux 7, 8
-    * Debian Buster, Jessie, Stretch, Wheezy
-    * Fedora 31, 32
-    * Fedora CoreOS
-    * openSUSE Leap 15
-    * Flatcar Container Linux by Kinvolk
+  - Flatcar Container Linux by Kinvolk
+  - Debian Bullseye, Buster, Jessie, Stretch
+  - Ubuntu 16.04, 18.04, 20.04, 22.04
+  - CentOS/RHEL 7, 8, 9
+  - Fedora 35, 36
+  - Fedora CoreOS
+  - openSUSE Leap 15.x/Tumbleweed
+  - Oracle Linux 7, 8, 9
+  - Alma Linux 8, 9
+  - Rocky Linux 8, 9
+  - Kylin Linux Advanced Server V10
+  - Amazon Linux 2
 * 지속적인 통합 (CI) 테스트
 
 클러스터를 설치해 줄 도구로 유스케이스와 가장 잘 맞는 것을 고르고 싶다면, kubespray를 [kubeadm](/ko/docs/reference/setup-tools/kubeadm/), [kops](/ko/docs/setup/production-environment/tools/kops/)와 [비교한 글](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/comparisons.md)을 읽어보자.
@@ -33,20 +39,20 @@ Kubespray는 [Ansible](https://docs.ansible.com/) 플레이북, [인벤토리](h
 
 언더레이(underlay) [요건](https://github.com/kubernetes-sigs/kubespray#requirements)을 만족하는 프로비전 한다.
 
-* **Ansible의 명령어를 실행하기 위해 Ansible v 2.9와 Python netaddr 라이브러리가 머신에 설치되어 있어야 한다**
-* **Ansible 플레이북을 실행하기 위해 2.11 (혹은 그 이상) 버전의 Jinja가 필요하다**
-* 타겟 서버들은 docker 이미지를 풀(pull) 하기 위해 반드시 인터넷에 접속할 수 있어야 한다. 아니라면, 추가적인 설정을 해야 한다 ([오프라인 환경 확인하기](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/offline-environment.md))
-* 타겟 서버들의 **IPv4 포워딩**이 활성화되어야 한다
-* **SSH 키**가 인벤토리의 모든 서버들에 복사되어야 한다
-* **방화벽은 kubespray에 의해 관리되지 않는다**. 사용자는 필요에 따라 적절한 규칙을 구현해야 한다. 디플로이먼트 과정에서의 문제를 방지하려면 방화벽을 비활성화해야 한다
-* 만약 kubespray가 루트가 아닌 사용자 계정에서 실행되었다면, 타겟 서버에서 알맞은 권한 확대 방법이 설정되어야 하며, `ansible_become` 플래그나 커맨드 파라미터들, `--become` 또는 `-b` 가 명시되어야 한다
+* **쿠버네티스는 최소한 v1.22 이상의 버전이 필요하다.**
+* **Ansible의 명령어를 실행하기 위해 Ansible v2.11+, Jinja 2.11+와 Python netaddr 라이브러리가 머신에 설치되어 있어야 한다**.
+* 타겟 서버들은 docker 이미지를 풀(pull) 하기 위해 반드시 **인터넷에 접속**할 수 있어야 한다. 아니라면, 추가적인 설정을 해야 한다 ([오프라인 환경 확인하기](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/offline-environment.md))
+* 타겟 서버들의 **IPv4 포워딩**이 활성화되어야 한다.
+* 파드와 서비스에서 IPv6를 이용한다면, 대상 서버도 **IPv6 포워딩**이 활성화되어야 한다.
+* **방화벽은 kubespray가 관리하지 않는다**. 사용자는 기존 방식으로 자신의 규칙을 구현해야 한다. 배포 중에 만날 문제를 예방하려면 방화벽을 비활성화해야 한다.
+* 만약 kubespray가 루트가 아닌 사용자 계정에서 실행되었다면, 타겟 서버에서 알맞은 권한 상승 방법이 설정되어야 한다. 그 후에 `ansible_become` 플래그나 커맨드 파라미터들, `--become` 또는 `-b` 가 명시되어야 한다
 
 Kubespray는 환경에 맞는 프로비저닝을 돕기 위해 아래와 같은 서비스를 제공한다:
 
 * 아래 클라우드 제공 업체를 위한 [Terraform](https://www.terraform.io/) 스크립트:
   * [AWS](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/aws)
   * [OpenStack](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/openstack)
-  * [Packet](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/packet)
+  * [Equinix Metal](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/metal)
 
 ### (2/5) 인벤토리 파일 구성하기
 
@@ -93,7 +99,8 @@ Kubespray는 클러스터를 관리하기 위한 추가적인 플레이북, _sca
 
 ### 클러스터 스케일링하기
 
-scale 플레이북을 실행해 클러스터에 워커 노드를 추가할 수 있다. 더 자세히 알고 싶다면, "[노드 추가하기](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#adding-nodes)" 문서를 확인하자. remove-node 플레이북을 실행하면 클러스터로부터 워커 노드를 제거할 수 있다. 더 알고 싶다면 "[노드 제거하기](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#remove-nodes)" 문서를 확인하자.
+scale 플레이북을 실행해 클러스터에 워커 노드를 추가할 수 있다. 더 자세히 알고 싶다면, "[노드 추가하기](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#adding-nodes)" 문서를 확인하자.
+remove-node 플레이북을 실행하면 클러스터로부터 워커 노드를 제거할 수 있다. 더 알고 싶다면 "[노드 제거하기](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#remove-nodes)" 문서를 확인하자.
 
 ### 클러스터 업그레이드 하기
 
@@ -114,5 +121,5 @@ reset 플레이북을 실행할 때, 실수로 프로덕션 클러스터를 타�
 
 ## {{% heading "whatsnext" %}}
 
-
-Kubespray의 [로드맵](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/roadmap.md)에서 계획중인 작업을 확인해보자.
+* Kubespray의 [로드맵](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/roadmap.md)에서 계획중인 작업을 확인해보자.
+* [Kubespray](https://github.com/kubernetes-sigs/kubespray)를 더 알아보자.

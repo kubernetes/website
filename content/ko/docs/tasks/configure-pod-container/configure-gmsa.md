@@ -10,20 +10,19 @@ weight: 20
 
 이 페이지는 윈도우 노드에서 실행되는 파드와 컨테이너용으로 [그룹 관리 서비스 어카운트(Group Managed Service Accounts,](https://docs.microsoft.com/ko-kr/windows-server/security/group-managed-service-accounts/group-managed-service-accounts-overview) GMSA)를 구성하는 방법을 소개한다. 그룹 관리 서비스 어카운트는 자동 암호 관리, 단순화된 서비스 사용자 이름(service principal name, SPN) 관리, 여러 서버에 걸쳐 다른 관리자에게 관리를 위임하는 기능을 제공하는 특정한 유형의 액티브 디렉터리(Active Directory) 계정이다.
 
-쿠버네티스에서 GMSA 자격 증명 사양은 쿠버네티스 클러스터 전체 범위에서 사용자 정의 리소스(Custom Resources)로 구성된다. 윈도우 파드 및 파드 내의 개별 컨테이너들은 다른 윈도우 서비스와 상호 작용할 때 도메인 기반 기능(예: Kerberos 인증)에 GMSA를 사용하도록 구성할 수 있다. v1.16부터 도커 런타임은 윈도우 워크로드용 GMSA를 지원한다.
-
-
+쿠버네티스에서 GMSA 자격 증명 사양은 쿠버네티스 클러스터 전체 범위에서 사용자 정의 리소스(Custom Resources)로 구성된다. 윈도우 파드 및 파드 내의 개별 컨테이너들은 다른 윈도우 서비스와 상호 작용할 때 도메인 기반 기능(예: Kerberos 인증)에 GMSA를 사용하도록 구성할 수 있다.
 
 ## {{% heading "prerequisites" %}}
 
 쿠버네티스 클러스터가 있어야 하며 클러스터와 통신하도록 `kubectl` 커맨드라인 툴을 구성해야 한다. 클러스터에는 윈도우 워커 노드가 있어야 한다. 이 섹션에서는 각 클러스터에 대해 한 번씩 필요한 일련의 초기 단계를 다룬다.
 
-
 ### GMSACredentialSpec CRD 설치
+
 GMSA 자격 증명 사양 리소스에 대한 [커스텀리소스데피니션(CustomResourceDefinition,](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/) CRD)을 클러스터에서 구성하여 사용자 정의 리소스 유형 `GMSACredentialSpec`을 정의해야 한다. GMSA CRD [YAML](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/gmsa-crd.yml)을 다운로드하고 gmsa-crd.yaml로 저장한다.
 다음, `kubectl apply -f gmsa-crd.yaml` 로 CRD를 설치한다.
 
 ### GMSA 사용자를 검증하기 위해 웹훅 설치
+
 쿠버네티스 클러스터에서 두 개의 웹훅을 구성하여 파드 또는 컨테이너 수준에서 GMSA 자격 증명 사양 참조를 채우고 검증한다.
 
 1. 변형(mutating) 웹훅은 (파드 사양의 이름별로) GMSA에 대한 참조를 파드 사양 내 JSON 형식의 전체 자격 증명 사양으로 확장한다.
@@ -44,14 +43,14 @@ GMSA 자격 증명 사양 리소스에 대한 [커스텀리소스데피니션(Cu
 
 스크립트에서 사용하는 [YAML 템플릿](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/gmsa-webhook.yml.tpl)을 사용하여 웹훅 및 (파라미터를 적절히 대체하여) 관련 오브젝트를 수동으로 배포할 수도 있다. 
 
-
-
 <!-- steps -->
 
 ## 액티브 디렉터리에서 GMSA 및 윈도우 노드 구성
+
 쿠버네티스의 파드가 GMSA를 사용하도록 구성되기 전에 [윈도우 GMSA 문서](https://docs.microsoft.com/ko-kr/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#BKMK_Step1)에 설명된 대로 액티브 디렉터리에서 원하는 GMSA를 프로비저닝해야 한다. [윈도우 GMSA 문서](https://docs.microsoft.com/ko-kr/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#to-add-member-hosts-using-the-set-adserviceaccount-cmdlet)에 설명된 대로 원하는 GMSA와 연결된 시크릿 자격 증명에 접근하려면 (쿠버네티스 클러스터의 일부인) 윈도우 워커 노드를 액티브 디렉터리에서 구성해야 한다.
 
 ## GMSA 자격 증명 사양 리소스 생성
+
 (앞에서 설명한 대로) GMSACredentialSpec CRD를 설치하면 GMSA 자격 증명 사양이 포함된 사용자 정의 리소스를 구성할 수 있다. GMSA 자격 증명 사양에는 시크릿 또는 민감한 데이터가 포함되어 있지 않다. 이것은 컨테이너 런타임이 원하는 윈도우 컨테이너 GMSA를 설명하는 데 사용할 수 있는 정보이다. GMSA 자격 증명 사양은 [PowerShell 스크립트](https://github.com/kubernetes-sigs/windows-gmsa/tree/master/scripts/GenerateCredentialSpecResource.ps1) 유틸리티를 사용하여 YAML 형식으로 생성할 수 있다.
 
 다음은 JSON 형식으로 GMSA 자격 증명 사양 YAML을 수동으로 생성한 다음 변환하는 단계이다.
@@ -67,7 +66,7 @@ GMSA 자격 증명 사양 리소스에 대한 [커스텀리소스데피니션(Cu
 다음 YAML 구성은 `gmsa-WebApp1`이라는 GMSA 자격 증명 사양을 설명한다.
 
 ```yaml
-apiVersion: windows.k8s.io/v1alpha1
+apiVersion: windows.k8s.io/v1
 kind: GMSACredentialSpec
 metadata:
   name: gmsa-WebApp1  #임의의 이름이지만 참조로 사용된다.
@@ -92,6 +91,7 @@ credspec:
 위의 자격 증명 사양 리소스는 `gmsa-Webapp1-credspec.yaml`로 저장되고 `kubectl apply -f gmsa-Webapp1-credspec.yml`을 사용하여 클러스터에 적용될 수 있다.
 
 ## 특정 GMSA 자격 증명 사양에서 RBAC를 활성화하도록 cluster role 구성
+
 각 GMSA 자격 증명 사양 리소스에 대해 cluster role을 정의해야 한다. 이것은 일반적으로 서비스 어카운트인 주체에 의해 특정 GMSA 리소스에 대한 `use` 동사를 승인한다. 다음 예는 위에서 `gmsa-WebApp1` 자격 증명 사양의 사용을 승인하는 클러스터 롤(cluster role)을 보여준다. 파일을 gmsa-webapp1-role.yaml로 저장하고 `kubectl apply -f gmsa-webapp1-role.yaml`을 사용하여 적용한다.
 
 ```yaml
@@ -108,6 +108,7 @@ rules:
 ```
 
 ## 특정 GMSA credspecs를 사용하도록 서비스 어카운트에 롤 할당
+
 (파드가 사용하게 되는) 서비스 어카운트는 위에서 생성한 클러스터 롤에 바인딩되어야 한다. 이렇게 하면 서비스 어카운트가 원하는 GMSA 자격 증명 사양 리소스를 사용할 수 있다. 다음은 위에서 생성한 `gmsa-WebApp1` 자격 증명 사양 리소스를 사용하기 위해 `webapp1-role` 클러스터 롤에 바인딩되는 기본(default) 서비스 어카운트이다.
 
 ```yaml
@@ -127,6 +128,7 @@ roleRef:
 ```
 
 ## 파드 사양에서 GMSA 자격 증명 사양 참조 구성
+
 파드 사양 필드 `securityContext.windowsOptions.gmsaCredentialSpecName`은 파드 사양에서 원하는 GMSA 자격 증명 사양 사용자 정의 리소스에 대한 참조를 지정하는 데 사용된다. 이렇게 하면 지정된 GMSA를 사용하도록 파드 사양의 모든 컨테이너가 구성된다. 다음은 `gmsa-WebApp1`을 참조하도록 채워진 어노테이션이 있는 샘플 파드 사양이다.
 
 ```yaml
@@ -197,55 +199,17 @@ spec:
 
 1. 컨테이너 런타임은 컨테이너가 액티브 디렉터리에서 GMSA의 ID를 가정하고 해당 ID를 사용하여 도메인의 서비스에 접근할 수 있도록 지정된 GMSA 자격 증명 사양으로 각 윈도우 컨테이너를 구성한다.
 
-## Containerd 
+## 호스트네임 또는 FQDN을 사용하는 경우에 네트워크 공유에 인증하기
 
-윈도우 서버 2019에서 containerd와 함께 GMSA를 사용하려면 패치 [KB5000822](https://support.microsoft.com/ko-kr/topic/2021년-3월-9일-kb5000822-os-빌드-17763-1817-2eb6197f-e3b1-4f42-ab51-84345e063564)된 OS Build 17763.1817 (또는 이후 버전)을 실행해야 한다.
+파드에서 호스트네임 또는 FQDN을 사용하여 SMB 공유에 연결할 때 문제를 겪고 있으나, IPv4 주소로는 해당 공유에 접속이 가능한 상황이라면, 윈도우 노드에 다음 레지스트리 키를 등록했는지 확인한다.
 
-또한 파드에서 SMB 공유에 연결하려고 할 때 발생하는 containerd와 관련된 알려진 문제가 있다. GMSA를 구성하면 파드가 hostname 또는 FQDN을 사용하여 공유에 연결할 수 없지만, IP 주소를 사용하여 공유에 연결하면 예상대로 작동한다.
-
-```PowerShell
-ping adserver.ad.local
-```
-hostname을 IPv4 주소로 올바르게 변환한다. 출력은 다음과 유사하다.
-
-```
-Pinging adserver.ad.local [192.168.111.18] with 32 bytes of data:
-Reply from 192.168.111.18: bytes=32 time=6ms TTL=124
-Reply from 192.168.111.18: bytes=32 time=5ms TTL=124
-Reply from 192.168.111.18: bytes=32 time=5ms TTL=124
-Reply from 192.168.111.18: bytes=32 time=5ms TTL=124
+```cmd
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\hns\State" /v EnableCompartmentNamespace /t REG_DWORD /d 1
 ```
 
-그러나 hostname을 사용하여 디렉터리를 탐색하려고 할 때
-
-```PowerShell
-cd \\adserver.ad.local\test
-```
-
-대상 공유가 존재하지 않음을 암시하는 오류가 표시된다.
-
-```
-cd : Cannot find path '\\adserver.ad.local\test' because it does not exist.
-At line:1 char:1
-+ cd \\adserver.ad.local\test
-+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    + CategoryInfo          : ObjectNotFound: (\\adserver.ad.local\test:String) [Set-Location], ItemNotFoundException
-    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.SetLocationCommand
-```
-
-그러나 IPv4 주소를 대신 사용하여 공유를 탐색하면 오류가 사라진다. 다음은 예시이다.
-
-```PowerShell
-cd \\192.168.111.18\test
-```
-
-공유 내의 디렉터리로 변경하면 다음과 유사한 프롬프트가 표시된다.
-
-```
-Microsoft.PowerShell.Core\FileSystem::\\192.168.111.18\test>
-```
-
-동작을 수정하려면 노드에서 `reg add "HKLM\SYSTEM\CurrentControlSet\Services\hns\State" /v EnableCompartmentNamespace /t REG_DWORD /d 1`을 실행하여 필요한 레지스트리 키를 추가해야 한다. 이 노드 변경 사항은 새로 생성된 파드에만 적용되는데, SMB 공유에 액세스해야 하는 실행 중인 파드를 다시 생성해야 하는 것을 의미한다.
+그런 다음 동작 변경 사항을 적용하려면 실행 중인 파드를 다시 생성해야 한다.
+이 레지스트리 키가 어떻게 사용되는지에 대한 자세한 정보는 
+[여기](https://github.com/microsoft/hcsshim/blob/885f896c5a8548ca36c88c4b87fd2208c8d16543/internal/uvm/create.go#L74-L83)에서 볼 수 있다.
 
 ## 문제 해결
 
@@ -258,8 +222,10 @@ GMSA가 사용자 환경에서 작동하도록 하는 데 어려움이 있는 �
 ```PowerShell
 kubectl exec -it iis-auth-7776966999-n5nzr powershell.exe
 ```
+
 `nltest.exe /parentdomain` 는 다음과 같은 오류를 발생시킨다.
-```
+
+```output
 Getting parent domain failed: Status = 1722 0x6ba RPC_S_SERVER_UNAVAILABLE
 ```
 
@@ -278,7 +244,8 @@ nltest.exe /query
 ```
 
 결과는 다음과 같다.
-```
+
+```output
 I_NetLogonControl failed: Status = 1722 0x6ba RPC_S_SERVER_UNAVAILABLE
 ```
 
@@ -289,7 +256,8 @@ nltest /sc_reset:domain.example
 ```
 
 명령이 성공하면 다음과 유사한 출력이 표시된다.
-```
+
+```output
 Flags: 30 HAS_IP  HAS_TIMESERV
 Trusted DC Name \\dc10.domain.example
 Trusted DC Connection Status Status = 0 0x0 NERR_Success

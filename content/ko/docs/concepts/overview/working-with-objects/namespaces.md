@@ -1,11 +1,11 @@
 ---
-
-
-
-
+# reviewers:
+# - derekwaynecarr
+# - mikedanese
+# - thockin
 title: 네임스페이스
 content_type: concept
-weight: 30
+weight: 45
 ---
 
 <!-- overview -->
@@ -32,10 +32,30 @@ weight: 30
 구별하기 위해 {{< glossary_tooltip text="레이블" term_id="label" >}}을
 사용한다.
 
+{{< note >}}
+프로덕션 클러스터의 경우, `default` 네임스페이스를 _사용하지 않는_ 것을 고려한다. 대신에, 다른 네임스페이스를 만들어 사용한다.
+{{< /note >}}
+
+## 초기 네임스페이스
+
+쿠버네티스는 처음에 네 개의 초기 네임스페이스를 갖는다.
+
+`default`
+: 쿠버네티스에는 이 네임스페이스가 포함되어 있으므로 먼저 네임스페이스를 생성하지 않고도 새 클러스터를 사용할 수 있다.
+
+`kube-node-lease`
+: 이 네임스페이스는 각 노드와 연관된 [리스](/docs/reference/kubernetes-api/cluster-resources/lease-v1/) 오브젝트를 갖는다. 노드 리스는 kubelet이 [하트비트](/ko/docs/concepts/architecture/nodes/#하트비트)를 보내서 컨트롤 플레인이 노드의 장애를 탐지할 수 있게 한다.
+
+`kube-public`
+: 이 네임스페이스는 **모든** 클라이언트(인증되지 않은 클라이언트 포함)가 읽기 권한으로 접근할 수 있다. 이 네임스페이스는 주로 전체 클러스터 중에 공개적으로 드러나서 읽을 수 있는 리소스를 위해 예약되어 있다. 이 네임스페이스의 공개적인 성격은 단지 관례이지 요구 사항은 아니다.
+
+`kube-system`
+: 쿠버네티스 시스템에서 생성한 오브젝트를 위한 네임스페이스.
+
 ## 네임스페이스 다루기
 
 네임스페이스의 생성과 삭제는
-[네임스페이스 관리자 가이드 문서](/docs/tasks/administer-cluster/namespaces/)에 기술되어 있다.
+[네임스페이스 관리자 가이드 문서](/ko/docs/tasks/administer-cluster/namespaces/)에 기술되어 있다.
 
 {{< note >}}
     `kube-` 접두사로 시작하는 네임스페이스는 쿠버네티스 시스템용으로 예약되어 있으므로, 사용자는 이러한 네임스페이스를 생성하지 않는다.
@@ -55,16 +75,6 @@ kube-node-lease   Active   1d
 kube-public       Active   1d
 kube-system       Active   1d
 ```
-
-쿠버네티스는 처음에 네 개의 초기 네임스페이스를 갖는다.
-
-   * `default` 다른 네임스페이스가 없는 오브젝트를 위한 기본 네임스페이스
-   * `kube-system` 쿠버네티스 시스템에서 생성한 오브젝트를 위한 네임스페이스
-   * `kube-public` 이 네임스페이스는 자동으로 생성되며 모든 사용자(인증되지 않은 사용자 포함)가 읽기 권한으로 접근할 수 있다. 이 네임스페이스는 주로 전체 클러스터 중에 공개적으로 드러나서 읽을 수 있는 리소스를 위해 예약되어 있다. 이 네임스페이스의 공개적인 성격은 단지 관례이지 요구 사항은 아니다.
-   * `kube-node-lease` 클러스터가 스케일링될 때 노드 하트비트의 성능을 향상시키는 각 노드와 관련된 리스(lease) 오브젝트에 대한 네임스페이스
-   * `kube-node-lease` 이 네임스페이스는 각 노드와 연관된 [리스](/docs/reference/kubernetes-api/cluster-resources/lease-v1/)
-      오브젝트를 갖는다. 노드 리스는 kubelet이 [하트비트](/ko/docs/concepts/architecture/nodes/#하트비트)를
-      보내서 컨트롤 플레인이 노드의 장애를 탐지할 수 있게 한다.
 
 ### 요청에 네임스페이스 설정하기
 
@@ -95,14 +105,33 @@ kubectl config view --minify | grep namespace:
 이 엔트리는 `<서비스-이름>.<네임스페이스-이름>.svc.cluster.local`의 형식을 갖는데,
 이는 컨테이너가 `<서비스-이름>`만 사용하는 경우, 네임스페이스 내에 국한된 서비스로 연결된다.
 개발, 스테이징, 운영과 같이 여러 네임스페이스 내에서 동일한 설정을 사용하는 경우에 유용하다.
-네임스페이스를 넘어서 접근하기 위해서는, 전체 주소 도메인 이름(FQDN)을 사용해야 한다.
+네임스페이스를 넘어서 접근하기 위해서는, 
+전체 주소 도메인 이름(FQDN)을 사용해야 한다.
+
+그렇기 때문에, 모든 네임스페이스 이름은 유효한 
+[RFC 1123 DNS 레이블](/ko/docs/concepts/overview/working-with-objects/names/#dns-label-names)이어야 한다.
+
+{{< warning >}}
+네임스페이스의 이름을 [공개 최상위 도메인](https://data.iana.org/TLD/tlds-alpha-by-domain.txt) 중 하나와 동일하게 만들면, 
+해당 네임스페이스 내의 서비스의 짧은 DNS 이름이 공개 DNS 레코드와 겹칠 수 있다. 
+어떠한 네임스페이스 내의 워크로드가 
+[접미점(trailing dot)](https://datatracker.ietf.org/doc/html/rfc1034#page-8) 없이 DNS 룩업을 수행하면 
+공개 DNS 레코드보다 우선하여 해당 서비스로 리다이렉트될 것이다.
+
+이를 방지하기 위해, 신뢰하는 사용자만 네임스페이스를 
+생성할 수 있도록 권한을 제한한다. 
+필요한 경우, 추가적으로 써드파티 보안 컨트롤을 구성할 수 있으며, 
+예를 들어 [어드미션 웹훅](/docs/reference/access-authn-authz/extensible-admission-controllers/)을 이용하여 
+[공개 TLD](https://data.iana.org/TLD/tlds-alpha-by-domain.txt)와 
+동일한 이름의 네임스페이스 생성을 금지시킬 수 있다.
+{{< /warning >}}
 
 ## 모든 오브젝트가 네임스페이스에 속하지는 않음
 
 대부분의 쿠버네티스 리소스(예를 들어, 파드, 서비스, 레플리케이션 컨트롤러 외)는
 네임스페이스에 속한다. 하지만 네임스페이스 리소스 자체는 네임스페이스에 속하지 않는다.
 그리고 [노드](/ko/docs/concepts/architecture/nodes/)나
-퍼시스턴트 볼륨과 같은 저수준 리소스는 어느
+[퍼시스턴트 볼륨](/ko/docs/concepts/storage/persistent-volumes/)과 같은 저수준 리소스는 어느
 네임스페이스에도 속하지 않는다.
 
 다음은 네임스페이스에 속하지 않는 쿠버네티스 리소스를 조회하는 방법이다.
@@ -127,5 +156,5 @@ kubectl api-resources --namespaced=false
 
 ## {{% heading "whatsnext" %}}
 
-* [신규 네임스페이스 생성](/docs/tasks/administer-cluster/namespaces/#creating-a-new-namespace)에 대해 더 배우기.
-* [네임스페이스 삭제](/docs/tasks/administer-cluster/namespaces/#deleting-a-namespace)에 대해 더 배우기.
+* [신규 네임스페이스 생성](/ko/docs/tasks/administer-cluster/namespaces/#새-네임스페이스-생성하기)에 대해 더 배우기.
+* [네임스페이스 삭제](/ko/docs/tasks/administer-cluster/namespaces/#네임스페이스-삭제하기)에 대해 더 배우기.

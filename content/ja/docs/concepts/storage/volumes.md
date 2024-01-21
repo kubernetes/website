@@ -76,7 +76,7 @@ metadata:
   name: test-ebs
 spec:
   containers:
-  - image: k8s.gcr.io/test-webserver
+  - image: registry.k8s.io/test-webserver
     name: test-container
     volumeMounts:
     - mountPath: /test-ebs
@@ -163,7 +163,7 @@ metadata:
   name: test-cinder
 spec:
   containers:
-  - image: k8s.gcr.io/test-webserver
+  - image: registry.k8s.io/test-webserver
     name: test-cinder-container
     volumeMounts:
     - mountPath: /test-cinder
@@ -274,7 +274,7 @@ metadata:
   name: test-pd
 spec:
   containers:
-  - image: k8s.gcr.io/test-webserver
+  - image: registry.k8s.io/test-webserver
     name: test-container
     volumeMounts:
     - mountPath: /cache
@@ -349,7 +349,7 @@ metadata:
   name: test-pd
 spec:
   containers:
-  - image: k8s.gcr.io/test-webserver
+  - image: registry.k8s.io/test-webserver
     name: test-container
     volumeMounts:
     - mountPath: /test-pd
@@ -369,7 +369,7 @@ spec:
 
 #### リージョンPD PersistentVolumeを手動でプロビジョニングする
 
-[GCE PDのStorageClass](/docs/concepts/storage/storage-classes/#gce)を使用して動的プロビジョニングが可能です。
+[GCE PDのStorageClass](/docs/concepts/storage/storage-classes/#gce-pd)を使用して動的プロビジョニングが可能です。
 SPDPersistentVolumeを作成する前に、永続ディスクを作成する必要があります。
 
 ```shell
@@ -507,7 +507,7 @@ metadata:
   name: test-pd
 spec:
   containers:
-  - image: k8s.gcr.io/test-webserver
+  - image: registry.k8s.io/test-webserver
     name: test-container
     volumeMounts:
     - mountPath: /test-pd
@@ -536,7 +536,7 @@ metadata:
 spec:
   containers:
   - name: test-webserver
-    image: k8s.gcr.io/test-webserver:latest
+    image: registry.k8s.io/test-webserver:latest
     volumeMounts:
     - mountPath: /var/local/aaa
       name: mydir
@@ -666,7 +666,7 @@ metadata:
   name: test-portworx-volume-pod
 spec:
   containers:
-  - image: k8s.gcr.io/test-webserver
+  - image: registry.k8s.io/test-webserver
     name: test-container
     volumeMounts:
     - mountPath: /mnt
@@ -848,7 +848,7 @@ metadata:
   name: test-vmdk
 spec:
   containers:
-  - image: k8s.gcr.io/test-webserver
+  - image: registry.k8s.io/test-webserver
     name: test-container
     volumeMounts:
     - mountPath: /test-vmdk
@@ -899,7 +899,7 @@ spec:
 
 Portworxの`CSIMigration`機能が追加されましたが、Kubernetes 1.23ではAlpha状態であるため、デフォルトで無効になっています。
 すべてのプラグイン操作を既存のツリー内プラグインから`pxd.portworx.com`Container Storage Interface(CSI)ドライバーにリダイレクトします。
-[Portworx CSIドライバー](https://docs.portworx.com/portworx-install-with-kubernetes/storage-operations/csi/)をクラスターにインストールする必要があります。
+[Portworx CSIドライバー](https://docs.portworx.com/portworx-enterprise/operations/operate-kubernetes/storage-operations/csi)をクラスターにインストールする必要があります。
 この機能を有効にするには、kube-controller-managerとkubeletで`CSIMigrationPortworx=true`を設定します。
 
 ## subPathの使用 {#using-subpath}
@@ -1018,8 +1018,8 @@ CSI互換のボリュームドライバーがKubernetesクラスター上に展�
 `csi`ボリュームはPodで3つの異なる方法によって使用することができます。
 
 * [PersistentVolumeClaim](#persistentvolumeclaim)の参照を通して
-* [一般的なエフェメラルボリューム](/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volume)(alpha機能)で
-* ドライバーがそれをサポートしている場合は、[CSIエフェメラルボリューム](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume)(beta機能)を使って
+* [一般的なエフェメラルボリューム](/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volumes)(alpha機能)で
+* ドライバーがそれをサポートしている場合は、[CSIエフェメラルボリューム](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes)(beta機能)を使って
 
 ストレージ管理者は、CSI永続ボリュームを構成するために次のフィールドを使用できます。
 
@@ -1046,7 +1046,7 @@ CSI固有の変更を行うことなく、通常どおり、[rawブロックボ�
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
-Pod仕様内でCSIボリュームを直接構成できます。この方法で指定されたボリュームは一時的なものであり、Podを再起動しても持続しません。詳細については[エフェメラルボリューム](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume)を参照してください。
+Pod仕様内でCSIボリュームを直接構成できます。この方法で指定されたボリュームは一時的なものであり、Podを再起動しても持続しません。詳細については[エフェメラルボリューム](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes)を参照してください。
 
 CSIドライバーの開発方法の詳細については[kubernetes-csiドキュメント](https://kubernetes-csi.github.io/docs/)を参照してください。
 

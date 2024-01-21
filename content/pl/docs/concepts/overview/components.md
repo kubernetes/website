@@ -4,7 +4,7 @@ content_type: concept
 description: >
   Klaster Kubernetesa tworzą: komponenty warstwy sterowania
   oraz zbiór maszyn nazywanych węzłami.
-weight: 20
+weight: 30
 card: 
   name: concepts
   weight: 20
@@ -24,7 +24,7 @@ W tym dokumencie opisujemy składniki niezbędne do zbudowania kompletnego, popr
 
 Komponenty warstwy sterowania podejmują ogólne decyzje dotyczące klastra (np. zlecanie zadań), a także wykrywają i reagują na zdarzenia w klastrze (przykładowo, start nowego {{< glossary_tooltip text="poda" term_id="pod">}}, kiedy wartość `replicas` dla deploymentu nie zgadza się z faktyczną liczbą replik).
 
-Komponenty warstwy sterowania mogą być uruchomione na dowolnej maszynie w klastrze. Dla uproszczenia jednak skrypty instalacyjne zazwyczaj startują wszystkie składniki na tej samej maszynie i jednocześnie nie pozwalają na uruchamianie na niej kontenerów użytkowników. Na stronie [Creating Highly Available clusters with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/) znajdziesz opis konfiguracji warstwy sterowania działającej na wielu maszynach wirtualnych.
+Komponenty warstwy sterowania mogą być uruchomione na dowolnej maszynie w klastrze. Dla uproszczenia jednak skrypty instalacyjne zazwyczaj startują wszystkie składniki na tej samej maszynie, a jednocześnie nie pozwalają na uruchamianie na niej kontenerów użytkowników. Na stronie [Creating Highly Available clusters with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/) znajdziesz opis konfiguracji warstwy sterowania działającej na wielu maszynach.
 
 ### kube-apiserver
 
@@ -47,8 +47,8 @@ Przykładowe kontrolery:
 * Node controller: Odpowiada za rozpoznawanie i reagowanie na sytuacje, kiedy węzeł staje się z jakiegoś powodu niedostępny.
 * Job controller: Czeka na obiekty typu *Job*, które definiują zadania uruchamiane jednorazowo
   i startuje Pody, odpowiadające za ich wykonanie tych zadań.
-* Endpoints controller: Dostarcza informacji do obiektów typu *Endpoints* (tzn. łączy ze sobą Serwisy i Pody).
-* Service Account & Token controllers: Tworzy domyślne konta i tokeny dostępu API dla nowych przestrzeni nazw (*namespaces*).
+* EndpointSlice controller: Dostarcza informacji do obiektów typu *EndpointSlice* (aby zapewnić połaczenie pomiędzy Serwisami i Podami).
+* ServiceAccount controllers: Tworzy domyślne konta dla nowych przestrzeni nazw (*namespaces*).
 
 ### cloud-controller-manager
 
@@ -104,7 +104,7 @@ Kontenery uruchomione przez Kubernetes automatycznie przeszukują ten serwer DNS
 
 ### Monitorowanie zasobów w kontenerach
 
-[Container Resource Monitoring](/docs/tasks/debug-application-cluster/resource-usage-monitoring/) zapisuje serie czasowe podstawowych metryk kontenerów w centralnej bazie danych i oferuje interfejs użytkownika do przeglądania tych danych.
+[Container Resource Monitoring](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/) zapisuje serie czasowe podstawowych metryk kontenerów w centralnej bazie danych i oferuje interfejs użytkownika do przeglądania tych danych.
 
 ### Logowanie na poziomie klastra
 

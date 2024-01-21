@@ -1,10 +1,14 @@
 ---
-
-
-
+# reviewers:
+# - jbelamaric
+# - bowei
+# - thockin
 title: 서비스 및 파드용 DNS
 content_type: concept
-weight: 20
+weight: 80
+description: >-
+  워크로드는 DNS를 사용하여 클러스터 내의 서비스들을 발견할 수 있다;
+  이 페이지는 이것이 어떻게 동작하는지를 설명한다.
 ---
 <!-- overview -->
 
@@ -13,13 +17,11 @@ weight: 20
 
 <!-- body -->
 
-## 소개
+쿠버네티스는 DNS를 설정 하기 위해 사용되는
+파드와 서비스에 대한 정보를 발행한다. Kubelet은 실행 중인 컨테이너가
+IP가 아닌 이름으로 서비스를 검색할 수 있도록 파드의 DNS를 설정한다.
 
-쿠버네티스 DNS는 클러스터의 서비스와 DNS 파드를 관리하며,
-개별 컨테이너들이 DNS 네임을 해석할 때
-DNS 서비스의 IP를 사용하도록 kubelets를 구성한다.
-
-클러스터 내의 모든 서비스(DNS 서버 자신도 포함하여)에는 DNS 네임이 할당된다.
+클러스터 내의 서비스에는 DNS 네임이 할당된다.
 기본적으로 클라이언트 파드의 DNS 검색 리스트는 파드 자체의 네임스페이스와
 클러스터의 기본 도메인을 포함한다.
 
@@ -49,8 +51,8 @@ search <namespace>.svc.cluster.local svc.cluster.local cluster.local
 options ndots:5
 ```
 
-요약하면, _test_ 네임스페이스에 있는 파드는 `data.prod` 또는
-`data.prod.svc.cluster.local` 중 하나를 통해 성공적으로 해석될 수 있다.
+요약하면, _test_ 네임스페이스에 있는 파드는, `prod` 네임스페이스에 있는 `data` 파드를 가리키는 도메인 이름인
+`data.prod` 또는 `data.prod.svc.cluster.local` 을 성공적으로 해석할 수 있다.
 
 ### DNS 레코드
 
@@ -69,29 +71,28 @@ options ndots:5
 
 ### A/AAAA 레코드
 
-"노멀"(헤드리스가 아닌) 서비스는 서비스 IP 계열에 따라
+"노멀"(헤드리스가 아닌) 서비스는 서비스의 IP family 혹은 IP families 에 따라
 `my-svc.my-namespace.svc.cluster-domain.example`
 형식의 이름을 가진 DNS A 또는 AAAA 레코드가 할당된다. 이는 서비스의 클러스터
 IP로 해석된다.
 
-"헤드리스"(클러스터 IP가 없는) 서비스 또한 서비스 IP 계열에 따라
-`my-svc.my-namespace.svc.cluster-domain.example`
-형식의 이름을 가진 DNS A 또는 AAAA 레코드가 할당된다.
-노멀 서비스와는 다르게 이는 서비스에 의해 선택된 파드들의 IP 집합으로 해석된다.
+[헤드리스 서비스](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스)
+(클러스터 IP가 없는) 또한 `my-svc.my-namespace.svc.cluster-domain.example`
+형식의 이름을 가진 DNS A 또는 AAAA 레코드가 할당된다. 노멀 서비스와는 달리
+이는 서비스에 의해 선택된 파드들의 IP 집합으로 해석된다.
 클라이언트는 해석된 IP 집합에서 IP를 직접 선택하거나 표준 라운드로빈을
 통해 선택할 수 있다.
 
 ### SRV 레코드
 
-SRV 레코드는 노멀 서비스 또는
-[헤드리스 서비스](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스)에
-속하는 네임드 포트를 위해 만들어졌다. 각각의 네임드 포트에 대해서 SRV 레코드는 다음과 같은 형식을 가질 수 있다.
-`_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster-domain.example`.
-정규 서비스의 경우, 이는 포트 번호와 도메인 네임으로 해석된다.
+SRV 레코드는 노멀 서비스 또는 헤드리스 서비스에 속하는 네임드 포트를 위해 만들어졌다.
+각각의 네임드 포트에 대해서 SRV 레코드는 다음과 같은 형식을 갖는다.
+`_port-name._port-protocol.my-svc.my-namespace.svc.cluster-domain.example`.
+정규 서비스의 경우, 이는 포트 번호와 도메인 네임으로 해석된다:
 `my-svc.my-namespace.svc.cluster-domain.example`.
 헤드리스 서비스의 경우, 서비스를 지원하는 각 파드에 대해 하나씩 복수 응답으로 해석되며 이 응답은 파드의
 포트 번호와 도메인 이름을 포함한다.
-`auto-generated-name.my-svc.my-namespace.svc.cluster-domain.example`.
+`hostname.my-svc.my-namespace.svc.cluster-domain.example`.
 
 ## 파드
 
@@ -106,24 +107,31 @@ SRV 레코드는 노멀 서비스 또는
 
 `172-17-0-3.default.pod.cluster.local`.
 
-서비스에 의해 노출된 디플로이먼트(Deployment)나 데몬셋(DaemonSet)에 의해 생성된
-모든 파드는 다음과 같은 DNS 주소를 갖는다.
+서비스에 의해 노출된 모든 파드는 다음과 같은 DNS 주소를 갖는다.
 
-`pod-ip-address.deployment-name.my-namespace.svc.cluster-domain.example`.
+`pod-ip-address.service-name.my-namespace.svc.cluster-domain.example`.
 
 ### 파드의 hostname 및 subdomain 필드
 
-파드가 생성되면 hostname은 해당 파드의 `metadata.name` 값이 된다.
+파드가 생성되면 hostname(파드 내부에서 확인된 것 처럼)은
+해당 파드의 `metadata.name` 값이 된다.
 
-파드 스펙(Pod spec)에는 선택적 필드인 `hostname`이 있다.
-이 필드는 파드의 호스트네임을 지정할 수 있다.
-`hostname` 필드가 지정되면, 파드의 이름보다 파드의 호스트네임이 우선시된다.
-예를 들어 `hostname` 필드가 "`my-host`"로 설정된 파드는 호스트네임이 "`my-host`"로 설정된다.
+파드 스펙(Pod spec)에는 선택적 필드인 `hostname`이 있다. 이 필드는
+다른 호스트네임을 지정할 수 있다. `hostname` 필드가 지정되면, 파드의 이름보다
+파드의 호스트네임이 우선시된다.(역시 파드 내에서 확인된 것 처럼) 예를 들어,
+`spec.hostname` 필드가 "`my-host`"로 설정된 파드는
+호스트네임이 "`my-host`"로 설정된다.
 
-또한, 파드 스펙에는 선택적 필드인 `subdomain`이 있다. 이 필드는 서브도메인을 지정할 수 있다.
-예를 들어 "`my-namespace`" 네임스페이스에서, `hostname` 필드가 "`foo`"로 설정되고,
-`subdomain` 필드가 "`bar`"로 설정된 파드는 전체 주소 도메인 네임(FQDN)을 가지게 된다.
-"`foo.bar.my-namespace.svc.cluster-domain.example`".
+또한, 파드 스펙에는 선택적 필드인 `subdomain`이 있다. 이 필드는 파드가 네임스페이스의
+서브 그룹의 일부임을 나타낼 수 있다. 예를 들어 "`my-namespace`" 네임스페이스에서, `spec.hostname` 필드가
+"`foo`"로 설정되고, `spec.subdomain` 필드가 "`bar`"로 설정된 파드는
+전체 주소 도메인 네임(FQDN)을 가지게 된다.
+"`foo.bar.my-namespace.svc.cluster-domain.example`" (다시 한 번, 파드 내부 에서
+확인된 것 처럼).
+
+파드와 동일한 네임스페이스 내에 같은 서브도메인 이름을 가진
+헤드리스 서비스가 있다면, 클러스터의 DNS 서버는
+파드의 전체 주소 호스트네임(fully qualified hostname)인 A 또는 AAAA 레코드를 반환한다.
 
 예시:
 
@@ -131,15 +139,14 @@ SRV 레코드는 노멀 서비스 또는
 apiVersion: v1
 kind: Service
 metadata:
-  name: default-subdomain
+  name: busybox-subdomain
 spec:
   selector:
     name: busybox
   clusterIP: None
   ports:
-  - name: foo # 사실 포트는 필요하지 않다.
+  - name: foo # 단일 포트 서비스에 이름은 필수사항이 아니다.
     port: 1234
-    targetPort: 1234
 ---
 apiVersion: v1
 kind: Pod
@@ -149,7 +156,7 @@ metadata:
     name: busybox
 spec:
   hostname: busybox-1
-  subdomain: default-subdomain
+  subdomain: busy-subdomain
   containers:
   - image: busybox:1.28
     command:
@@ -165,7 +172,7 @@ metadata:
     name: busybox
 spec:
   hostname: busybox-2
-  subdomain: default-subdomain
+  subdomain: busy-subdomain
   containers:
   - image: busybox:1.28
     command:
@@ -174,24 +181,20 @@ spec:
     name: busybox
 ```
 
-파드와 동일한 네임스페이스 내에 같은 서브도메인 이름을 가진 헤드리스 서비스가 있다면,
-클러스터의 DNS 서버는 파드의 전체 주소 호스트네임(fully qualified hostname)인 A 또는 AAAA 레코드를 반환한다.
-예를 들어 호스트네임이 "`busybox-1`"이고,
-서브도메인이 "`default-subdomain`"이고,
-같은 네임스페이스 내 헤드리스 서비스의 이름이 "`default-subdomain`"이면,
-파드는 다음과 같이 자기 자신의 FQDN을 얻게 된다.
-"`busybox-1.default-subdomain.my-namespace.svc.cluster-domain.example`".
-DNS는 위 FQDN에 대해 파드의 IP를 가리키는 A 또는 AAAA 레코드를 제공한다.
-"`busybox1`"와 "`busybox2`" 파드 모두 각 파드를 구분 가능한 A 또는 AAAA 레코드를 가지고 있다.
+위의 주어진 서비스 "`busybox-subdomain`"과 `spec.subdomain`이
+"`busybox-subdomain`"으로 설정된 파드에서, 첫번째 파드는 다음과 같은 자기 자신의 FQDN을 확인하게 된다.
+"`busybox-1.busybox-subdomain.my-namespace.svc.cluster-domain.example`". DNS는
+위 FQDN에 대해 파드의 IP를 가리키는 A 또는 AAAA 레코드를 제공한다. "`busybox1`"와
+"`busybox2`" 파드 모두 각 파드의 주소 레코드를 갖게 된다.
 
-엔드포인트 오브젝트는 `hostname` 필드를
-임의의 엔드포인트 IP 주소로 지정할 수 있다.
+{{<glossary_tooltip term_id="endpoint-slice" text="엔드포인트슬라이스(EndpointSlice)">}}는
+임의의 엔드포인트 주소에 대해 해당 IP와 함께 DNS 호스트 네임을 지정할 수 있다.
 
 {{< note >}}
-A 또는 AAAA 레코드는 파드의 이름으로 생성되지 않기 때문에
+A 와 AAAA 레코드는 파드의 이름으로 생성되지 않기 때문에
 파드의 A 또는 AAAA 레코드를 생성하기 위해서는 `hostname` 필드를 작성해야 한다.
 `hostname` 필드는 없고 `subdomain` 필드만 있는 파드는 파드의 IP 주소를 가리키는 헤드리스 서비스의
-A 또는 AAAA 레코드만 생성할 수 있다. (`default-subdomain.my-namespace.svc.cluster-domain.example`)
+A 또는 AAAA 레코드만 생성할 수 있다. (`busybox-subdomain.my-namespace.svc.cluster-domain.example`)
 또한 서비스에서 `publishNotReadyAddresses=True` 를 설정하지 않았다면, 파드가 준비 상태가 되어야 레코드를 가질 수 있다.
 {{< /note >}}
 
@@ -199,7 +202,11 @@ A 또는 AAAA 레코드만 생성할 수 있다. (`default-subdomain.my-namespac
 
 {{< feature-state for_k8s_version="v1.22" state="stable" >}}
 
-파드가 전체 주소 도메인 이름(FQDN)을 갖도록 구성된 경우, 해당 호스트네임은 짧은 호스트네임이다. 예를 들어, 전체 주소 도메인 이름이 `busybox-1.default-subdomain.my-namespace.svc.cluster-domain.example` 인 파드가 있는 경우, 기본적으로 해당 파드 내부의 `hostname` 명령어는 `busybox-1` 을 반환하고 `hostname --fqdn` 명령은 FQDN을 반환한다.
+파드가 전체 주소 도메인 이름(FQDN)을 갖도록 구성된 경우,
+해당 호스트네임은 짧은 호스트네임이다.
+예를 들어, 전체 주소 도메인 이름이 `busybox-1.busybox-subdomain.my-namespace.svc.cluster-domain.example` 인 파드가 있는 경우,
+기본적으로 해당 파드 내부의 `hostname` 명령어는 `busybox-1` 을 반환하고
+`hostname --fqdn` 명령은 FQDN을 반환한다.
 
 파드 명세에서 `setHostnameAsFQDN: true` 를 설정하면, kubelet은 파드의 FQDN을 해당 파드 네임스페이스의 호스트네임에 기록한다. 이 경우, `hostname` 과 `hostname --fqdn` 은 모두 파드의 FQDN을 반환한다.
 
@@ -215,18 +222,21 @@ DNS 정책은 파드별로 설정할 수 있다.
 현재 쿠버네티스는 다음과 같은 파드별 DNS 정책을 지원한다.
 이 정책들은 파드 스펙의 `dnsPolicy` 필드에서 지정할 수 있다.
 
-- "`Default`": 파드는 파드가 실행되고 있는 노드로부터 네임 해석 설정(the name resolution configuration)을 상속받는다.
-  자세한 내용은
-  [관련 논의](/ko/docs/tasks/administer-cluster/dns-custom-nameservers)에서
+- "`Default`": 파드는 파드가 실행되고 있는 노드로부터
+  네임 해석 설정(the name resolution configuration)을 상속받는다.
+  자세한 내용은 [관련 논의](/ko/docs/tasks/administer-cluster/dns-custom-nameservers)에서
   확인할 수 있다.
 - "`ClusterFirst`": "`www.kubernetes.io`"와 같이 클러스터 도메인 suffix 구성과
-  일치하지 않는 DNS 쿼리는 노드에서 상속된 업스트림 네임서버로 전달된다.
+  일치하지 않는 DNS 쿼리는 DNS 서버에 의해 업스트림 네임서버로 전달된다.
   클러스터 관리자는 추가 스텁-도메인(stub-domain)과 업스트림 DNS 서버를 구축할 수 있다.
   그러한 경우 DNS 쿼리를 어떻게 처리하는지에 대한 자세한 내용은
   [관련 논의](/ko/docs/tasks/administer-cluster/dns-custom-nameservers)에서
   확인할 수 있다.
 - "`ClusterFirstWithHostNet`": hostNetwork에서 running 상태인 파드의 경우 DNS 정책인
-  "`ClusterFirstWithHostNet`"을 명시적으로 설정해야 한다.
+  "`ClusterFirstWithHostNet`"을 명시적으로 설정해야 한다. 그렇지 않으면,
+  hostNetwork와 `"ClusterFirst"`로 실행되고 있는 파드는
+  `"Default"` 정책으로 동작한다.
+  - 참고: 윈도우에서는 지원되지 않는다.상세 정보는 [아래](#dns-windows)에서 확인한다.
 - "`None`": 이 정책은 파드가 쿠버네티스 환경의 DNS 설정을 무시하도록 한다.
   모든 DNS 설정은 파드 스펙 내에 `dnsConfig`필드를 사용하여 제공해야 한다.
   아래 절인 [파드의 DNS 설정](#pod-dns-config)에서
@@ -307,36 +317,50 @@ IPv6 셋업을 위해서 검색 경로와 네임 서버 셋업은 다음과 같�
 kubectl exec -it dns-example -- cat /etc/resolv.conf
 ```
 출력은 다음과 같은 형식일 것이다.
-```shell
-nameserver fd00:79:30::a
+```
+nameserver 2001:db8:30::a
 search default.svc.cluster-domain.example svc.cluster-domain.example cluster-domain.example
 options ndots:5
 ```
 
-#### 확장된 DNS 환경 설정
+## DNS 탐색 도메인 리스트 제한
 
-{{< feature-state for_k8s_version="1.22" state="alpha" >}}
+{{< feature-state for_k8s_version="1.26" state="beta" >}}
 
-쿠버네티스는 파드의 DNS 환경 설정을 위해 기본적으로 최대 6개의 탐색 도메인과 
-최대 256자의 탐색 도메인 목록을 허용한다.
+쿠버네티스는 탐색 도메인 리스트가 32개를 넘거나 모든 탐색 도메인의 길이가 2048자를
+초과할 때까지 DNS Config에 자체적인 제한을 하지 않는다.
+이 제한은 노드의 resolver 설정 파일, 파드의 DNS Config,
+그리고 합쳐진 DNS Config에 각각 적용된다.
 
-kube-apiserver와 kubelet에 `ExpandedDNSConfig` 기능 게이트가 활성화되어 있으면, 
-쿠버네티스는 최대 32개의 탐색 도메인과 
-최대 2048자의 탐색 도메인 목록을 허용한다.
+{{< note >}}
+이전 버전의 일부 컨테이너 런타임은 DNS 탐색 도메인 수에 대해
+자체적인 제한을 가지고 있을 수 있다. 컨테이너 런타임 환경에 따라
+많은 수의 DNS 검색 도메인을 갖는 파드는
+pending 상태로 고착될 수 있다.
 
-### 기능 가용성
+containerd v1.5.5 혹은 그 이전 그리고 CRI-O v1.21 혹은 그 이전에서 이러한 문제가
+발생하는 것으로 알려졌다.
+{{< /note >}}
 
-파드 DNS 환경 설정 기능과 DNS 정책 "`None`" 기능의 쿠버네티스 버전별 가용성은 다음과 같다.
+## 윈도우 노드에서 DNS 해석(resolution) {#dns-windows}
 
-| 쿠버네티스 버전 | 기능 지원 |
-| :---------: |:-----------:|
-| 1.14 | 안정 |
-| 1.10 | 베타 (기본값으로 켜져 있음)|
-| 1.9 | 알파 |
-
-
+- ClusterFirstWithHostNet은 윈도우 노드에서 구동 중인 파드에는 지원되지 않는다.
+  윈도우는 `.`를 포함한 모든 네임(주소)을 FQDN으로 취급하여 FQDN 해석을 생략한다.
+- 윈도우에는 여러 DNS 해석기가 사용될 수 있다. 이러한 해석기는
+  각자 조금씩 다르게 동작하므로, 네임 쿼리 해석을 위해서
+  [`Resolve-DNSName`](https://docs.microsoft.com/powershell/module/dnsclient/resolve-dnsname)
+  파워쉘(powershell) cmdlet을 사용하는 것을 추천한다.
+- 리눅스에는 DNS 접미사 목록이 있는데, 이는 네임이 완전한 주소가 아니어서 주소
+  해석에 실패한 경우 사용한다.
+  윈도우에서는 파드의 네임스페이스(예: `mydns.svc.cluster.local`)와 연계된
+  하나의 DNS 접미사만 가질 수 있다. 윈도우는 이러한 단일 접미사 통해 해석될 수 있는
+  FQDNs, 서비스, 또는 네트워크 네임을 해석할 수 있다. 예를 들어, `default`에
+  소속된 파드는 DNS 접미사 `default.svc.cluster.local`를 가진다.
+  윈도우 파드 내부에서는 `kubernetes.default.svc.cluster.local`와
+  `kubernetes`를 모두 해석할 수 있다. 그러나, 일부에만 해당(partially qualified)하는 네임(`kubernetes.default` 또는
+  `kubernetes.default.svc`)은 해석할 수 없다.
+  
 ## {{% heading "whatsnext" %}}
-
 
 DNS 구성 관리에 대한 지침은
 [DNS 서비스 구성](/ko/docs/tasks/administer-cluster/dns-custom-nameservers/)에서 확인할 수 있다.

@@ -1,6 +1,6 @@
 ---
 title: "스케줄링, 선점(Preemption), 축출(Eviction)"
-weight: 90
+weight: 95
 content_type: concept
 description: >
   쿠버네티스에서, 스케줄링은 kubelet이 파드를 실행할 수 있도록 
@@ -23,10 +23,13 @@ no_list: true
 * [쿠버네티스 스케줄러](/ko/docs/concepts/scheduling-eviction/kube-scheduler/)
 * [노드에 파드 할당하기](/ko/docs/concepts/scheduling-eviction/assign-pod-node/)
 * [파드 오버헤드](/ko/docs/concepts/scheduling-eviction/pod-overhead/)
+* [파드 토폴로지 분배 제약 조건](/ko/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 * [테인트(Taints)와 톨러레이션(Tolerations)](/ko/docs/concepts/scheduling-eviction/taint-and-toleration/)
 * [스케줄링 프레임워크](/docs/concepts/scheduling-eviction/scheduling-framework/)
+* [동적 리소스 할당](/docs/concepts/scheduling-eviction/dynamic-resource-allocation)
 * [스케줄러 성능 튜닝](/ko/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
 * [확장된 리소스를 위한 리소스 빈 패킹(bin packing)](/ko/docs/concepts/scheduling-eviction/resource-bin-packing/)
+* [파드 스케줄링 준비성(readiness)](/ko/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)
 
 ## 파드 중단(disruption)
 

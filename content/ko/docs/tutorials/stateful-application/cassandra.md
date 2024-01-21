@@ -1,5 +1,7 @@
 ---
 title: "예시: 카산드라를 스테이트풀셋으로 배포하기"
+# reviewers:
+# - ahmetb
 content_type: tutorial
 weight: 30
 ---
@@ -93,7 +95,7 @@ cassandra   ClusterIP   None         <none>        9042/TCP   45s
 ```
 
 `cassandra` 서비스가 보이지 않는다면, 이와 다른 응답이라면 서비스 생성에 실패한 것이다. 일반적인 문제에 대한
-[서비스 디버깅하기](/docs/tasks/debug-application-cluster/debug-service/)를
+[서비스 디버깅하기](/ko/docs/tasks/debug/debug-application/debug-service/)를
 읽어보자.
 
 ## 카산드라 링을 생성하는 스테이트풀셋 이용하기

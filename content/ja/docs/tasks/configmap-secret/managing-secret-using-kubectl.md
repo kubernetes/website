@@ -59,7 +59,7 @@ kubectl create secret generic db-user-pass \
 
 ```shell
 kubectl create secret generic db-user-pass \
-  --from-literal=username=devuser \
+  --from-literal=username=admin \
   --from-literal=password='S!B\*d$zDsb='
 ```
 

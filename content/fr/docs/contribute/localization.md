@@ -45,7 +45,7 @@ cd website
 ```
 
 {{< note >}}
-Les contributeurs de `k/website` doivent [créer un fork](/docs/contribute/start/#improve-existing-content) à partir duquel les pull requests seront ouvertes.
+Les contributeurs de `kubernetes/website` doivent [créer un fork](/docs/contribute/start/#improve-existing-content) à partir duquel les pull requests seront ouvertes.
 Pour les localisations, nous demandons en outre que :
 
 1. Les approbateurs d'équipe ouvrent des branches de développement directement à partir de https://github.com/kubernetes/website.
@@ -67,10 +67,10 @@ These instructions use the [ISO 639-1](https://www.loc.gov/standards/iso639-2/ph
 ### Modifier la configuration du site
 
 Le site web de Kubernetes utilise Hugo comme son web framework.
-La configuration Hugo du site Web se trouve dans le fichier [`config.toml`](https://github.com/kubernetes/website/tree/master/config.toml).
-Pour prendre en charge une nouvelle localisation, vous devrez modifier `config.toml`.
+La configuration Hugo du site Web se trouve dans le fichier [`hugo.toml`](https://github.com/kubernetes/website/tree/master/hugo.toml).
+Pour prendre en charge une nouvelle localisation, vous devrez modifier `hugo.toml`.
 
-Ajoutez un bloc de configuration pour la nouvelle langue dans `config.toml`, sous le bloc `[languages]` existant.
+Ajoutez un bloc de configuration pour la nouvelle langue dans `hugo.toml`, sous le bloc `[languages]` existant.
 Le bloc allemand, par exemple, ressemble à :
 
 ```toml
@@ -97,7 +97,7 @@ mkdir content/de
 
 ### Ajouter un README localisé
 
-Pour guider les autres contributeurs à la localisation, ajoutez un nouveau [`README-**.md`](https://help.github.com/articles/about-readmes/) au plus haut niveau de k/website, où `**` est le code de langue à deux lettres.
+Pour guider les autres contributeurs à la localisation, ajoutez un nouveau [`README-**.md`](https://help.github.com/articles/about-readmes/) au plus haut niveau de kubernetes/website, où `**` est le code de langue à deux lettres.
 Par exemple, un fichier README allemand serait `README-de.md`.
 
 Fournir des conseils aux contributeurs à la localisation dans le fichier localisé `README-**.md`.
@@ -147,7 +147,7 @@ La dernière version est **{{< latest-version >}}**, donc la branche de la relea
 
 ### Chaînes de sites en i18n/
 
-Les localisations doivent inclure le contenu des éléments suivants [`i18n/en.toml`](https://github.com/kubernetes/website/blob/master/i18n/en.toml) dans un nouveau fichier spécifique à la langue.
+Les localisations doivent inclure le contenu des éléments suivants [`i18n/en.toml`](https://github.com/kubernetes/website/blob/main/i18n/en.toml) dans un nouveau fichier spécifique à la langue.
 Prenons l'allemand comme exemple : `i18n/de.toml`.
 
 Ajouter un nouveau fichier de localisation dans `i18n/`. Par exemple, avec l'allemand (de) :
@@ -192,7 +192,7 @@ Pour collaborer sur une branche de développement:
 
     `dev-<source version>-<language code>.<team milestone>`
 
-    Par exemple, un approbateur d'une équipe de localisation allemande ouvre la branche développement `dev-1.12-de.1` directement contre le dépôt k/website, basé sur la branche source pour Kubernetes v1.12.
+    Par exemple, un approbateur d'une équipe de localisation allemande ouvre la branche développement `dev-1.12-de.1` directement contre le dépôt kubernetes/website, basé sur la branche source pour Kubernetes v1.12.
 
 2. Les contributeurs individuels ouvrent des branches de fonctionnalités basées sur la branche de développement.
 
@@ -230,5 +230,3 @@ Une fois qu'une traduction répond aux exigences de logistique et à une couvert
 
 - Activer la sélection de la langue sur le site Web
 - Publier la disponibilité de la traduction via les canaux de la [Cloud Native Computing Foundation](https://www.cncf.io/), y compris sur le blog de [Kubernetes](https://kubernetes.io/blog/).
-
-

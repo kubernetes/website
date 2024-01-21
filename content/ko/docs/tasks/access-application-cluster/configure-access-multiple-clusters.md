@@ -22,7 +22,8 @@ card:
 
 
 {{< warning >}}
-신뢰할 수 있는 소스의 kubeconfig 파일만 사용해야 한다. 특수 제작된 kubeconfig 파일은 악성코드를 실행하거나 파일을 노출시킬 수 있다.
+신뢰할 수 있는 소스의 kubeconfig 파일만 사용해야 한다.
+특수 제작된 kubeconfig 파일은 악성코드를 실행하거나 파일을 노출시킬 수 있다.
 신뢰할 수 없는 kubeconfig 파일을 꼭 사용해야 한다면, 셸 스크립트를 사용하는 경우처럼 신중한 검사가 선행되어야 한다.
 {{< /warning>}}
 
@@ -40,12 +41,12 @@ card:
 
 ## 클러스터, 사용자, 컨텍스트 정의
 
-당신이 개발 작업을 위한 클러스터와 스크래치 작업을 위한 클러스터를 가지고 있다고 가정해보자.
+당신이 개발 작업을 위한 클러스터와 테스트 작업을 위한 클러스터를 가지고 있다고 가정해보자.
 `development` 클러스터에서는 프런트 엔드 개발자들이 `frontend`라는 네임스페이스에서
 작업을 하고 있고, 스토리지 개발자들은 `storage`라는 네임스페이스에서 작업을 하고 있다.
-`scratch` 클러스터에서는 개발자들이 default 네임스페이스에서 개발하거나 필요에 따라 보조
+`test` 클러스터에서는 개발자들이 default 네임스페이스에서 개발하거나 필요에 따라 보조
 네임스페이스들을 생성하고 있다. development 클러스터에 접근하려면 인증서로 인증을 해야 하고,
-scratch 클러스터에 접근하려면 사용자네임과 패스워드로 인증을 해야 한다.
+test 클러스터에 접근하려면 사용자네임과 패스워드로 인증을 해야 한다.
 
 `config-exercise`라는 디렉터리를 생성한다. `config-exercise` 디렉터리에
 다음 내용을 가진 `config-demo`라는 파일을 생성한다.
@@ -59,7 +60,7 @@ clusters:
 - cluster:
   name: development
 - cluster:
-  name: scratch
+  name: test
 
 users:
 - name: developer
@@ -71,7 +72,7 @@ contexts:
 - context:
   name: dev-storage
 - context:
-  name: exp-scratch
+  name: exp-test
 ```
 
 구성 파일은 클러스터들, 사용자들, 컨텍스트들을 기술한다. `config-demo` 파일은 두 클러스터들과
@@ -82,10 +83,14 @@ contexts:
 
 ```shell
 kubectl config --kubeconfig=config-demo set-cluster development --server=https://1.2.3.4 --certificate-authority=fake-ca-file
-kubectl config --kubeconfig=config-demo set-cluster scratch --server=https://5.6.7.8 --insecure-skip-tls-verify
+kubectl config --kubeconfig=config-demo set-cluster test --server=https://5.6.7.8 --insecure-skip-tls-verify
 ```
 
 사용자의 세부사항들을 구성 파일에 추가한다.
+
+{{< caution >}}
+쿠버네티스 클라이언트 구성에 암호를 저장하는 것은 위험하다. 자격 증명 플러그인을 사용하여 별도로 저장하는 것이 더 나은 대안이다.  [client-go 자격증명 플러그인](/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins)을 참고한다.
+{{< /caution >}}
 
 ```shell
 kubectl config --kubeconfig=config-demo set-credentials developer --client-certificate=fake-cert-file --client-key=fake-key-seefile
@@ -103,7 +108,7 @@ kubectl config --kubeconfig=config-demo set-credentials experimenter --username=
 ```shell
 kubectl config --kubeconfig=config-demo set-context dev-frontend --cluster=development --namespace=frontend --user=developer
 kubectl config --kubeconfig=config-demo set-context dev-storage --cluster=development --namespace=storage --user=developer
-kubectl config --kubeconfig=config-demo set-context exp-scratch --cluster=scratch --namespace=default --user=experimenter
+kubectl config --kubeconfig=config-demo set-context exp-test --cluster=test --namespace=default --user=experimenter
 ```
 
 `config-demo` 파일을 열어서 세부사항들이 추가되었는지 확인한다. `config-demo` 파일을 열어보는
@@ -125,7 +130,7 @@ clusters:
 - cluster:
     insecure-skip-tls-verify: true
     server: https://5.6.7.8
-  name: scratch
+  name: test
 contexts:
 - context:
     cluster: development
@@ -138,10 +143,10 @@ contexts:
     user: developer
   name: dev-storage
 - context:
-    cluster: scratch
+    cluster: test
     namespace: default
     user: experimenter
-  name: exp-scratch
+  name: exp-test
 current-context: ""
 kind: Config
 preferences: {}
@@ -152,6 +157,11 @@ users:
     client-key: fake-key-file
 - name: experimenter
   user:
+    # 문서 참고 사항 (이 설명은 명령 출력의 일부가 아니다.)
+    # 쿠버네티스 클라이언트 구성에 암호를 저장하는 것은 위험하다.
+    # 자격 증명 플러그인을 사용하여
+    # 자격 증명을 별도로 저장하는 것이 더 나은 대안이다.
+    # 다음을 참고하자. https://kubernetes.io/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins
     password: some-password
     username: exp
 ```
@@ -210,19 +220,19 @@ users:
     client-key: fake-key-file
 ```
 
-이제 당신이 잠시 scratch 클러스터에서 작업하려고 한다고 가정해보자.
+이제 당신이 잠시 test 클러스터에서 작업하려고 한다고 가정해보자.
 
-현재 컨텍스트를 `exp-scratch`로 변경한다.
+현재 컨텍스트를 `exp-test`로 변경한다.
 
 ```shell
-kubectl config --kubeconfig=config-demo use-context exp-scratch
+kubectl config --kubeconfig=config-demo use-context exp-test
 ```
 
-이제 당신이 실행하는 모든 `kubectl` 커맨드는 `scratch` 클러스터의
-default 네임스페이스에 적용되며 `exp-scratch` 컨텍스트에 나열된
+이제 당신이 실행하는 모든 `kubectl` 커맨드는 `test` 클러스터의
+default 네임스페이스에 적용되며 `exp-test` 컨텍스트에 나열된
 사용자의 자격증명을 사용할 것이다.
 
-현재의 컨텍스트인 `exp-scratch`에 관련된 설정을 보자.
+현재의 컨텍스트인 `exp-test`에 관련된 설정을 보자.
 
 ```shell
 kubectl config --kubeconfig=config-demo view --minify
@@ -271,7 +281,7 @@ contexts:
 ### 리눅스
 
 ```shell
-export KUBECONFIG_SAVED=$KUBECONFIG
+export KUBECONFIG_SAVED="$KUBECONFIG"
 ```
 
 ### 윈도우 PowerShell
@@ -290,7 +300,7 @@ $Env:KUBECONFIG_SAVED=$ENV:KUBECONFIG
 ### 리눅스
 
 ```shell
-export KUBECONFIG=$KUBECONFIG:config-demo:config-demo-2
+export KUBECONFIG="${KUBECONFIG}:config-demo:config-demo-2"
 ```
 
 ### 윈도우 PowerShell
@@ -328,10 +338,10 @@ contexts:
     user: developer
   name: dev-storage
 - context:
-    cluster: scratch
+    cluster: test
     namespace: default
     user: experimenter
-  name: exp-scratch
+  name: exp-test
 ```
 
 kubeconfig 파일들을 어떻게 병합하는지에 대한 상세정보는
@@ -356,7 +366,7 @@ kubeconfig 파일들을 어떻게 병합하는지에 대한 상세정보는
 ### 리눅스
 
 ```shell
-export KUBECONFIG=$KUBECONFIG:$HOME/.kube/config
+export KUBECONFIG="${KUBECONFIG}:${HOME}/.kube/config"
 ```
 
 ### 윈도우 Powershell
@@ -379,7 +389,7 @@ kubectl config view
 ### 리눅스
 
 ```shell
-export KUBECONFIG=$KUBECONFIG_SAVED
+export KUBECONFIG="$KUBECONFIG_SAVED"
 ```
 
 ### 윈도우 PowerShell
@@ -387,6 +397,17 @@ export KUBECONFIG=$KUBECONFIG_SAVED
 ```powershell
 $Env:KUBECONFIG=$ENV:KUBECONFIG_SAVED
 ```
+
+## kubeconfig에 의해 표시된 제목을 확인하기
+
+클러스터 인증 후 어떤 속성(사용자 이름, 그룹)을 얻을 수 있는지 항상 명확하지는 않다.
+동시에 두 개 이상의 클러스터를 관리하는 경우 훨씬 더 어려울 수 있다.
+
+선택되어 있는 쿠버네티스 컨텍스트의 사용자 이름 등에 대한,
+주체 속성을 확인하기 위한 'kubectl' 알파 하위 명령 `kubectl alpha auth whoami`이 있다. 
+
+더 자세한 내용은 [클라이언트의 인증 정보에 대한 API 액세스](/docs/reference/access-authn-authz/authentication/#self-subject-review)
+를 확인한다.
 
 ## {{% heading "whatsnext" %}}
 

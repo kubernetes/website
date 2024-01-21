@@ -4,7 +4,7 @@
 # change is that the Hugo version is now an overridable argument rather than a fixed
 # environment variable.
 
-FROM golang:1.16-alpine
+FROM docker.io/library/golang:1.20-alpine
 
 LABEL maintainer="Luc Perkins <lperkins@linuxfoundation.org>"
 
@@ -24,19 +24,21 @@ RUN mkdir $HOME/src && \
     cd "hugo-${HUGO_VERSION}" && \
     go install --tags extended
 
-FROM golang:1.16-alpine
+FROM docker.io/library/golang:1.20-alpine
 
 RUN apk add --no-cache \
+    runuser \
     git \
     openssh-client \
     rsync \
     npm && \
     npm install -D autoprefixer postcss-cli
 
-RUN mkdir -p /usr/local/src && \
-    cd /usr/local/src && \
+RUN mkdir -p /var/hugo && \
     addgroup -Sg 1000 hugo && \
-    adduser -Sg hugo -u 1000 -h /src hugo
+    adduser -Sg hugo -u 1000 -h /var/hugo hugo && \
+    chown -R hugo: /var/hugo && \
+    runuser -u hugo -- git config --global --add safe.directory /src
 
 COPY --from=0 /go/bin/hugo /usr/local/bin/hugo
 

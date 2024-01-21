@@ -14,14 +14,9 @@ weight: 50
 사용할 수 있다. 이것은 레디스(Redis)와 같은 키-값 저장소나
 데이터베이스와 같은 스테이트풀 애플리케이션에 매우 중요하다.
 
-
-
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
-
 
 <!-- steps -->
 
@@ -37,71 +32,71 @@ weight: 50
 
 1. 파드 생성
 
-    ```shell
-    kubectl apply -f https://k8s.io/examples/pods/storage/redis.yaml
-    ```
+   ```shell
+   kubectl apply -f https://k8s.io/examples/pods/storage/redis.yaml
+   ```
 
 1. 파드의 컨테이너가 Running 중인지 확인하고, 파드의 변경사항을
 지켜본다.
 
-    ```shell
-    kubectl get pod redis --watch
-    ```
+   ```shell
+   kubectl get pod redis --watch
+   ```
 
-    출력은 이와 유사하다.
+   출력은 이와 유사하다.
 
-    ```shell
-    NAME      READY     STATUS    RESTARTS   AGE
-    redis     1/1       Running   0          13s
-    ```
+   ```shell
+   NAME      READY     STATUS    RESTARTS   AGE
+   redis     1/1       Running   0          13s
+   ```
 
 1. 다른 터미널에서 실행 중인 컨테이너의 셸을 획득한다.
 
-    ```shell
-    kubectl exec -it redis -- /bin/bash
-    ```
+   ```shell
+   kubectl exec -it redis -- /bin/bash
+   ```
 
 1. 셸에서 `/data/redis` 로 이동하고, 파일을 생성한다.
 
-    ```shell
-    root@redis:/data# cd /data/redis/
-    root@redis:/data/redis# echo Hello > test-file
-    ```
+   ```shell
+   root@redis:/data# cd /data/redis/
+   root@redis:/data/redis# echo Hello > test-file
+   ```
 
 1. 셸에서 실행 중인 프로세스 목록을 확인한다.
 
-    ```shell
-    root@redis:/data/redis# apt-get update
-    root@redis:/data/redis# apt-get install procps
-    root@redis:/data/redis# ps aux
-    ```
+   ```shell
+   root@redis:/data/redis# apt-get update
+   root@redis:/data/redis# apt-get install procps
+   root@redis:/data/redis# ps aux
+   ```
 
-    출력은 이와 유사하다.
+   출력은 이와 유사하다.
 
-    ```shell
-    USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
-    redis        1  0.1  0.1  33308  3828 ?        Ssl  00:46   0:00 redis-server *:6379
-    root        12  0.0  0.0  20228  3020 ?        Ss   00:47   0:00 /bin/bash
-    root        15  0.0  0.0  17500  2072 ?        R+   00:48   0:00 ps aux
-    ```
+   ```shell
+   USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+   redis        1  0.1  0.1  33308  3828 ?        Ssl  00:46   0:00 redis-server *:6379
+   root        12  0.0  0.0  20228  3020 ?        Ss   00:47   0:00 /bin/bash
+   root        15  0.0  0.0  17500  2072 ?        R+   00:48   0:00 ps aux
+   ```
 
 1. 셸에서 Redis 프로세스를 강제종료(kill)한다.
 
-    ```shell
-    root@redis:/data/redis# kill <pid>
-    ```
+   ```shell
+   root@redis:/data/redis# kill <pid>
+   ```
 
-    여기서 `<pid>`는 Redis 프로세스 ID(PID) 이다.
+   여기서 `<pid>`는 Redis 프로세스 ID(PID) 이다.
 
 1. 원래 터미널에서, Redis 파드의 변경을 지켜본다. 결국,
-다음과 유사한 것을 보게 될 것이다.
+   다음과 유사한 것을 보게 될 것이다.
 
-    ```shell
-    NAME      READY     STATUS     RESTARTS   AGE
-    redis     1/1       Running    0          13s
-    redis     0/1       Completed  0         6m
-    redis     1/1       Running    1         6m
-    ```
+   ```shell
+   NAME      READY     STATUS     RESTARTS   AGE
+   redis     1/1       Running    0          13s
+   redis     0/1       Completed  0         6m
+   redis     1/1       Running    1         6m
+   ```
 
 이때, 컨테이너는 종료되고 재시작된다. 이는
 Redis 파드의
@@ -110,27 +105,25 @@ Redis 파드의
 
 1. 재시작된 컨테이너의 셸을 획득한다.
 
-    ```shell
-    kubectl exec -it redis -- /bin/bash
-    ```
+   ```shell
+   kubectl exec -it redis -- /bin/bash
+   ```
 
 1. 셸에서 `/data/redis` 로 이동하고, `test-file` 이 여전히 존재하는지 확인한다.
-    ```shell
-    root@redis:/data/redis# cd /data/redis/
-    root@redis:/data/redis# ls
-    test-file
-    ```
+
+   ```shell
+   root@redis:/data/redis# cd /data/redis/
+   root@redis:/data/redis# ls
+   test-file
+   ```
 
 1. 이 연습을 위해 생성한 파드를 삭제한다.
 
-    ```shell
-    kubectl delete pod redis
-    ```
-
-
+   ```shell
+   kubectl delete pod redis
+   ```
 
 ## {{% heading "whatsnext" %}}
-
 
 * [볼륨](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core)을 참고한다.
 
@@ -141,7 +134,3 @@ Redis 파드의
 네트워크 연결 스토리지(NAS) 솔루션을 지원하며,
 노드의 디바이스 마운트, 언마운트와 같은 세부사항을 처리한다.
 자세한 내용은 [볼륨](/ko/docs/concepts/storage/volumes/)을 참고한다.
-
-
-
-

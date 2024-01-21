@@ -1,7 +1,7 @@
 ---
 title: Turnkey Cloud Solutions
 content_type: concept
-weight: 30
+weight: 40
 ---
 <!-- overview -->
 
@@ -11,4 +11,4 @@ ready clusters.
 
 <!-- body -->
 
-{{< cncf-landscape helpers=true category="certified-kubernetes-hosted" >}}
+{{< cncf-landscape helpers=true category="platform--certified-kubernetes-hosted" >}}

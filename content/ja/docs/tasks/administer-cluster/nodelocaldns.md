@@ -2,6 +2,7 @@
 reviewers:
 title: KubernetesクラスターでNodeLocal DNSキャッシュを使用する
 content_type: task
+weight: 390
 ---
  
 <!-- overview -->
@@ -20,12 +21,12 @@ content_type: task
 
 ## イントロダクション
 
-NodeLocal DNSキャッシュは、クラスターノード上でDNSキャッシュエージェントをDaemonSetで稼働させることで、クラスターのDNSパフォーマンスを向上させます。現在のアーキテクチャーにおいて、ClusterFirstのDNSモードでのPodは、DNSクエリー用にkube-dnsのService IPに疎通します。これにより、kube-proxyによって追加されたiptablesを介してkube-dns/CoreDNSのエンドポイントへ変換されます。この新しいアーキテクチャーによって、Podは同じノード上で稼働するDNSキャッシュエージェントに対して疎通し、それによってiptablesのDNATルールとコネクショントラッキングを回避します。ローカルのキャッシュエージェントはクラスターのホスト名(デフォルトではcluster.localというサフィックス)に対するキャッシュミスがあるときはkube-dnsサービスへ問い合わせます。
+NodeLocal DNSキャッシュは、クラスターノード上でDNSキャッシュエージェントをDaemonSetで稼働させることで、クラスターのDNSパフォーマンスを向上させます。現在のアーキテクチャにおいて、ClusterFirstのDNSモードでのPodは、DNSクエリー用にkube-dnsのService IPに疎通します。これにより、kube-proxyによって追加されたiptablesを介してkube-dns/CoreDNSのエンドポイントへ変換されます。この新しいアーキテクチャによって、Podは同じノード上で稼働するDNSキャッシュエージェントに対して疎通し、それによってiptablesのDNATルールとコネクショントラッキングを回避します。ローカルのキャッシュエージェントはクラスターのホスト名(デフォルトではcluster.localというサフィックス)に対するキャッシュミスがあるときはkube-dnsサービスへ問い合わせます。
 
 
 ## 動機
 
-* 現在のDNSアーキテクチャーでは、ローカルのkube-dns/CoreDNSがないとき、DNSへの秒間クエリー数が最も高いPodは他のノードへ疎通する可能性があります。ローカルでキャッシュを持つことにより、この状況におけるレイテンシーの改善に役立ちます。
+* 現在のDNSアーキテクチャでは、ローカルのkube-dns/CoreDNSがないとき、DNSへの秒間クエリー数が最も高いPodは他のノードへ疎通する可能性があります。ローカルでキャッシュを持つことにより、この状況におけるレイテンシーの改善に役立ちます。
 
 * iptables DNATとコネクショントラッキングをスキップすることは[conntrackの競合](https://github.com/kubernetes/kubernetes/issues/56903)を減らし、UDPでのDNSエントリーがconntrackテーブルを満杯にすることを避けるのに役立ちます。
 
@@ -37,7 +38,7 @@ NodeLocal DNSキャッシュは、クラスターノード上でDNSキャッシ�
 
 * DNSの不在応答のキャッシュも再度有効にされ、それによりkube-dnsサービスに対するクエリー数を減らします。
 
-## アーキテクチャー図
+## アーキテクチャ図
 
 この図はNodeLocal DNSキャッシュが有効にされた後にDNSクエリーがあったときの流れとなります。
 
@@ -45,7 +46,7 @@ NodeLocal DNSキャッシュは、クラスターノード上でDNSキャッシ�
 {{< figure src="/images/docs/nodelocaldns.svg" alt="NodeLocal DNSCache flow" title="Nodelocal DNSCacheのフロー" caption="この図は、NodeLocal DNSキャッシュがDNSクエリーをどう扱うかを表したものです。" >}}
 
 ## 設定
-{{< note >}} NodeLocal DNSキャッシュ用のローカルに待ち受けているIPアドレスは、169.254.20.0/16の範囲のIPか、既存のIPと衝突しないことが保証されている他のIPとなります。このドキュメントでは例として169.254.10を使用します。
+{{< note >}} NodeLocal DNSキャッシュのローカルリッスン用のIPアドレスは、クラスター内の既存のIPと衝突しないことが保証できるものであれば、どのようなアドレスでもかまいません。例えば、IPv4のリンクローカル範囲169.254.0.0/16やIPv6のユニークローカルアドレス範囲fd00::/8から、ローカルスコープのアドレスを使用することが推奨されています。
 {{< /note >}}
 
 この機能は、下記の手順により有効化できます。
@@ -73,7 +74,7 @@ NodeLocal DNSキャッシュは、クラスターノード上でDNSキャッシ�
   * kube-proxyがIPVSモードで稼働中のとき:
 
     ``` bash
-     sed -i "s/__PILLAR__LOCAL__DNS__/$localdns/g; s/__PILLAR__DNS__DOMAIN__/$domain/g; s/,__PILLAR__DNS__SERVER__//g; s/__PILLAR__CLUSTER__DNS__/$kubedns/g" nodelocaldns.yaml
+     sed -i "s/__PILLAR__LOCAL__DNS__/$localdns/g; s/__PILLAR__DNS__DOMAIN__/$domain/g; s/__PILLAR__DNS__SERVER__//g; s/__PILLAR__CLUSTER__DNS__/$kubedns/g" nodelocaldns.yaml
     ```
      このモードでは、node-local-dns Podは`<node-local-address>`上のみで待ち受けます。node-local-dnsのインターフェースはkube-dnsのクラスターIPをバインドしません。なぜならばIPVSロードバランシング用に使われているインターフェースは既にこのアドレスを使用しているためです。
      `__PILLAR__UPSTREAM__SERVERS__` はnode-local-dns Podにより生成されます。

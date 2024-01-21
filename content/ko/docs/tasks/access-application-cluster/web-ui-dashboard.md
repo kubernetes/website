@@ -1,7 +1,9 @@
 ---
-
-
-
+# reviewers:
+# - floreks
+# - maciaszczykm
+# - shu-mutou
+# - mikedanese
 title: 쿠버네티스 대시보드를 배포하고 접속하기
 description: >-
   웹 UI(쿠버네티스 대시보드)를 배포하고 접속한다.
@@ -35,7 +37,7 @@ card:
 대시보드 UI는 기본으로 배포되지 않는다. 배포하려면 다음 커맨드를 실행한다.
 
 ```
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.4.0/aio/deploy/recommended.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.6.1/aio/deploy/recommended.yaml
 ```
 
 ## 대시보드 UI 접근
@@ -72,7 +74,7 @@ Kubeconfig 인증 방법은 외부 아이덴티티 프로바이더
 초기 클러스터 대시보드에 접근하면, 환영 페이지를 볼 수 있다.
 이 페이지는 첫 애플리케이션을 배포하는 버튼이 있을 뿐만 아니라, 이 문서의 링크를 포함하고 있다.
 게다가, 대시보드가 있는 클러스터에서 기본적으로 `kube-system`
-[네임스페이스](/docs/tasks/administer-cluster/namespaces/)이 동작중인 시스템 애플리케이션을 볼 수 있다.
+[네임스페이스](/ko/docs/tasks/administer-cluster/namespaces/)이 동작중인 시스템 애플리케이션을 볼 수 있다.
 
 ![Kubernetes Dashboard welcome page](/images/docs/ui-dashboard-zerostate.png)
 
@@ -91,7 +93,7 @@ Kubeconfig 인증 방법은 외부 아이덴티티 프로바이더
   [레이블](/ko/docs/concepts/overview/working-with-objects/labels/) 이름은
   배포할 모든 디플로이먼트와 서비스에 추가되어야 한다.
 
-  애플리케이션 이름은 선택된 쿠버네티스 [네임스페이스](/docs/tasks/administer-cluster/namespaces/) 안에서 유일해야 한다.
+  애플리케이션 이름은 선택된 쿠버네티스 [네임스페이스](/ko/docs/tasks/administer-cluster/namespaces/) 안에서 유일해야 한다.
   소문자로 시작해야 하며, 소문자 또는 숫자로 끝나고,
   소문자, 숫자 및 대쉬(-)만을 포함해야 한다. 24 문자만을 제한한다.
   처음과 끝의 스페이스는 무시된다.
@@ -144,7 +146,7 @@ Kubeconfig 인증 방법은 외부 아이덴티티 프로바이더
   ```
 
 - **네임스페이스**: 쿠버네티스는 동일한 물리 클러스터를 바탕으로 여러 가상의 클러스터를 제공한다.
-  이러한 가상 클러스터들을 [네임스페이스](/docs/tasks/administer-cluster/namespaces/)라고 부른다.
+  이러한 가상 클러스터들을 [네임스페이스](/ko/docs/tasks/administer-cluster/namespaces/)라고 부른다.
   논리적으로 명명된 그룹으로 리소스들을 분할할 수 있다.
 
   대시보드는 드롭다운 리스트로 가능한 모든 네임스페이스를 제공하고, 새로운 네임스페이스를 생성할 수 있도록 한다.
@@ -218,8 +220,8 @@ Kubeconfig 인증 방법은 외부 아이덴티티 프로바이더
 #### 워크로드
 
 선택된 네임스페이스에서 구동되는 모든 애플리케이션을 보여준다.
-애플리케이션의 워크로드 종류(예시: 디플로이먼트, 레플리카셋(ReplicaSet), 스테이트풀셋(StatefulSet))를 보여주고
-각각의 워크로드 종류는 따로 보여진다.
+해당 뷰는 애플리케이션의 워크로드 종류(예시: 디플로이먼트, 레플리카셋(ReplicaSet), 스테이트풀셋(StatefulSet))를 보여준다.
+각각의 워크로드 종류는 분리하여 볼 수 있다.
 리스트는 예를 들어 레플리카셋에서 준비된 파드의 숫자 또는 파드의 현재 메모리 사용량과 같은
 워크로드에 대한 실용적인 정보를 요약한다.
 

@@ -71,6 +71,7 @@ metadata:
 spec:
   topologySpreadConstraints:
   - maxSkew: <integer>
+    minDomains: <integer>
     topologyKey: <string>
     whenUnsatisfiable: <string>
     labelSelector: <object>
@@ -113,7 +114,7 @@ node2 dan node3 (`P` merepresentasikan Pod):
 Jika kita ingin Pod baru akan disebar secara merata berdasarkan Pod yang telah ada pada semua zona,
 maka _spec_ bernilai sebagai berikut:
 
-{{< codenew file="pods/topology-spread-constraints/one-constraint.yaml" >}}
+{{% codenew file="pods/topology-spread-constraints/one-constraint.yaml" %}}
 
 `topologyKey: zone` berarti persebaran merata hanya akan digunakan pada Node dengan pasangan label 
 "zone: <nilai apapun>". `whenUnsatisfiable: DoNotSchedule` memberitahukan penjadwal untuk membiarkan
@@ -160,7 +161,7 @@ Ini dibuat berdasarkan contoh sebelumnya. Misalkan kamu memiliki klaster dengan 
 
 Kamu dapat menggunakan 2 TopologySpreadConstraint untuk mengatur persebaran Pod pada zona dan Node:
 
-{{< codenew file="pods/topology-spread-constraints/two-constraints.yaml" >}}
+{{% codenew file="pods/topology-spread-constraints/two-constraints.yaml" %}}
 
 Dalam contoh ini, untuk memenuhi batasan pertama, Pod yang baru hanya akan ditempatkan pada "zoneB",
 sedangkan untuk batasan kedua, Pod yang baru hanya akan ditempatkan pada "node4". Maka hasil dari 
@@ -223,7 +224,7 @@ sesuai dengan nilai tersebut akan dilewatkan.
     berkas yaml seperti di bawah, jadi "mypod" akan ditempatkan pada "zoneB", bukan "zoneC".
     Demikian juga `spec.nodeSelector` akan digunakan.
 
-    {{< codenew file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" >}}
+    {{% codenew file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" %}}
     
 ### Batasan _default_ pada tingkat klaster
 

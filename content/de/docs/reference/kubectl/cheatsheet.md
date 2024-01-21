@@ -322,7 +322,7 @@ Ausgabeformat | Beschreibung
 
 ### Kubectl Ausgabe Ausführlichkeit und Debugging
 
-Die Ausführlichkeit von Kubectl wird mit den Flags `-v` oder `--v ` gesteuert, gefolgt von einer Ganzzahl, die die Protokollebene darstellt. Allgemeine Protokollierungskonventionen für Kubernetes und die zugehörigen Protokollebenen werden [hier](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md) beschrieben.
+Die Ausführlichkeit von Kubectl wird mit den Flags `-v` oder `--v` gesteuert, gefolgt von einer Ganzzahl, die die Protokollebene darstellt. Allgemeine Protokollierungskonventionen für Kubernetes und die zugehörigen Protokollebenen werden [hier](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md) beschrieben.
 
 Ausführlichkeit | Beschreibung
 --------------| -----------

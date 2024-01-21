@@ -4,7 +4,7 @@ reviewers:
 - pmorie
 title: Configure a Pod to Use a Projected Volume for Storage
 content_type: task
-weight: 70
+weight: 100
 ---
 
 <!-- overview -->
@@ -29,7 +29,7 @@ In this exercise, you create username and password {{< glossary_tooltip text="Se
 
 Here is the configuration file for the Pod:
 
-{{< codenew file="pods/storage/projected.yaml" >}}
+{{% code_sample file="pods/storage/projected.yaml" %}}
 
 1. Create the Secrets:
 
@@ -83,5 +83,5 @@ kubectl delete secret user pass
 ## {{% heading "whatsnext" %}}
 
 * Learn more about [`projected`](/docs/concepts/storage/volumes/#projected) volumes.
-* Read the [all-in-one volume](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/all-in-one-volume.md) design document.
+* Read the [all-in-one volume](https://git.k8s.io/design-proposals-archive/node/all-in-one-volume.md) design document.
 

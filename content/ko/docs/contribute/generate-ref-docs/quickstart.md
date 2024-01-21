@@ -1,7 +1,9 @@
 ---
-title: 퀵스타트 가이드
+title: 레퍼런스 문서 퀵스타트 가이드
+linkTitle: Quickstart
 content_type: task
-weight: 40
+weight: 10
+hide_summary: true
 ---
 
 <!-- overview -->
@@ -114,7 +116,7 @@ repos:
 `generate-command` 필드의 내용은 수정하지 말아야 한다.
 대부분의 경우 `reference.yml` 을 직접 수정해야 할 필요는 없다.
 때때로, 업스트림 소스코드 업데이트 때문에 이 환경설정 파일을 수정해야 할 수도 있다. 
-(예: Golang 버전 의존성, 서드파티 라이브러리 변경 등)
+(예: Golang 버전 의존성, 써드파티 라이브러리 변경 등)
 만약 스크립트 사용 시 빌드 문제가 있다면, 
 [쿠버네티스 슬랙의 #sig-docs 채널](https://kubernetes.slack.com/archives/C1J0BPD2M)에서 SIG-Docs 팀에 문의하면 된다.
 

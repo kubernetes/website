@@ -53,7 +53,7 @@ GitHub 팀과 OWNERS 파일이다.
 GitHub의 SIG Docs [팀]에는 두 분류가 있다.
 
 - 승인자와 리더를 위한 `@sig-docs-{language}-owners`
-- 리뷰어를 위한 `@sig-docs-{language}-reviewers`
+- 리뷰어를 위한 `@sig-docs-{language}-reviews`
 
 그룹의 전원과 의사소통하기 위해서
 각각 GitHub 코멘트에서 그룹의 `@name`으로 참조할 수 있다.
@@ -93,9 +93,8 @@ PR 소유자에게 조언하는데 활용된다.
 
 ## 병합 작업 방식
 
-풀 리퀘스트 요청이 콘텐츠를 발행하는데 사용하는
-브랜치에 병합되면, 해당 콘텐츠는 https://kubernetes.io 에 공개된다. 게시된 콘텐츠의
-품질을 높히기 위해 SIG Docs 승인자가 풀 리퀘스트를 병합하는 것을 제한한다.
+풀 리퀘스트 요청이 콘텐츠를 발행하는데 사용하는 브랜치에 병합되면, 해당 콘텐츠는 https://kubernetes.io 에 공개된다.
+게시된 콘텐츠의 품질을 높히기 위해 SIG Docs 승인자가 풀 리퀘스트를 병합하는 것을 제한한다.
 작동 방식은 다음과 같다.
 
 - 풀 리퀘스트에 `lgtm` 과 `approve` 레이블이 있고, `hold` 레이블이 없고,

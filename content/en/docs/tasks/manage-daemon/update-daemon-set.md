@@ -40,13 +40,13 @@ You may want to set
 [`.spec.minReadySeconds`](/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec)
 (default to 0) and
 [`.spec.updateStrategy.rollingUpdate.maxSurge`](/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec)
-(a beta feature and defaults to 0) as well.
+(defaults to 0) as well.
 
 ### Creating a DaemonSet with `RollingUpdate` update strategy
 
 This YAML file specifies a DaemonSet with an update strategy as 'RollingUpdate'
 
-{{< codenew file="controllers/fluentd-daemonset.yaml" >}}
+{{% code_sample file="controllers/fluentd-daemonset.yaml" %}}
 
 After verifying the update strategy of the DaemonSet manifest, create the DaemonSet:
 
@@ -79,7 +79,7 @@ kubectl apply -f https://k8s.io/examples/controllers/fluentd-daemonset.yaml --dr
 
 The output from both commands should be:
 
-```shell
+```
 RollingUpdate
 ```
 
@@ -92,7 +92,7 @@ manifest accordingly.
 Any updates to a `RollingUpdate` DaemonSet `.spec.template` will trigger a rolling
 update. Let's update the DaemonSet by applying a new YAML file. This can be done with several different `kubectl` commands.
 
-{{< codenew file="controllers/fluentd-daemonset-update.yaml" >}}
+{{% code_sample file="controllers/fluentd-daemonset-update.yaml" %}}
 
 #### Declarative commands
 

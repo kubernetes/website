@@ -53,7 +53,7 @@ Here's a manifest for an example {{< glossary_tooltip text="LimitRange" term_id=
 The manifest specifies a default memory
 request and a default memory limit.
 
-{{< codenew file="admin/resource/memory-defaults.yaml" >}}
+{{% code_sample file="admin/resource/memory-defaults.yaml" %}}
 
 Create the LimitRange in the default-mem-example namespace:
 
@@ -70,7 +70,7 @@ applies default values: a memory request of 256MiB and a memory limit of 512MiB.
 Here's an example manifest for a Pod that has one container. The container
 does not specify a memory request and limit.
 
-{{< codenew file="admin/resource/memory-defaults-pod.yaml" >}}
+{{% code_sample file="admin/resource/memory-defaults-pod.yaml" %}}
 
 Create the Pod.
 
@@ -110,7 +110,7 @@ kubectl delete pod default-mem-demo --namespace=default-mem-example
 Here's a manifest for a Pod that has one container. The container
 specifies a memory limit, but not a request:
 
-{{< codenew file="admin/resource/memory-defaults-pod-2.yaml" >}}
+{{% code_sample file="admin/resource/memory-defaults-pod-2.yaml" %}}
 
 Create the Pod:
 
@@ -141,7 +141,7 @@ resources:
 Here's a manifest for a Pod that has one container. The container
 specifies a memory request, but not a limit:
 
-{{< codenew file="admin/resource/memory-defaults-pod-3.yaml" >}}
+{{% code_sample file="admin/resource/memory-defaults-pod-3.yaml" %}}
 
 Create the Pod:
 
@@ -167,12 +167,20 @@ resources:
     memory: 128Mi
 ```
 
+{{< note >}}
+
+A `LimitRange` does **not** check the consistency of the default values it applies. This means that a default value for the _limit_ that is set by `LimitRange` may be less than the _request_ value specified for the container in the spec that a client submits to the API server. If that happens, the final Pod will not be scheduleable.
+See [Constraints on resource limits and requests](/docs/concepts/policy/limit-range/#constraints-on-resource-limits-and-requests) for more details.
+
+{{< /note >}}
+
+
 ## Motivation for default memory limits and requests
 
 If your namespace has a memory {{< glossary_tooltip text="resource quota" term_id="resource-quota" >}}
 configured,
 it is helpful to have a default value in place for memory limit.
-Here are two of the restrictions that a resource quota imposes on a namespace:
+Here are three of the restrictions that a resource quota imposes on a namespace:
 
 * For every Pod that runs in the namespace, the Pod and each of its containers must have a memory limit.
   (If you specify a memory limit for every container in a Pod, Kubernetes can infer the Pod-level memory

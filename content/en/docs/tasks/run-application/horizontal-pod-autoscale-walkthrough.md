@@ -37,7 +37,7 @@ httpd running some PHP code.
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}} If you're running an older
 release of Kubernetes, refer to the version of the documentation for that release (see
-[available documentation versions](/docs/home/supported-doc-versions/).
+[available documentation versions](/docs/home/supported-doc-versions/)).
 
 To follow this walkthrough, you also need to use a cluster that has a
 [Metrics Server](https://github.com/kubernetes-sigs/metrics-server#readme) deployed and configured.
@@ -50,38 +50,21 @@ new kinds of resource that represent metric readings.
 To learn how to deploy the Metrics Server, see the
 [metrics-server documentation](https://github.com/kubernetes-sigs/metrics-server#deployment).
 
+If you are running {{< glossary_tooltip term_id="minikube" >}}, run the following command to enable metrics-server:
+
+```shell
+minikube addons enable metrics-server
+```
+
 <!-- steps -->
 
 ## Run and expose php-apache server
 
-To demonstrate a HorizontalPodAutoscaler, you will first make a custom container image that uses
-the `php-apache` image from Docker Hub as its starting point. The `Dockerfile` is ready-made for you,
-and has the following content:
-
-```dockerfile
-FROM php:5-apache
-COPY index.php /var/www/html/index.php
-RUN chmod a+rx index.php
-```
-
-This code defines a simple `index.php` page that performs some CPU intensive computations,
-in order to simulate load in your cluster.
-
-```php
-<?php
-  $x = 0.0001;
-  for ($i = 0; $i <= 1000000; $i++) {
-    $x += sqrt($x);
-  }
-  echo "OK!";
-?>
-```
-
-Once you have made that container image, start a Deployment that runs a container using the
-image you made, and expose it as a {{< glossary_tooltip term_id="service">}}
+To demonstrate a HorizontalPodAutoscaler, you will first start a Deployment that runs a container using the
+`hpa-example` image, and expose it as a {{< glossary_tooltip term_id="service">}}
 using the following manifest:
 
-{{< codenew file="application/php-apache.yaml" >}}
+{{% code_sample file="application/php-apache.yaml" %}}
 
 To do so, run the following command:
 
@@ -152,7 +135,7 @@ runs in an infinite loop, sending queries to the php-apache service.
 ```shell
 # Run this in a separate terminal
 # so that the load generation continues and you can carry on with the rest of the steps
-kubectl run -i --tty load-generator --rm --image=busybox --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://php-apache; done"
+kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://php-apache; done"
 ```
 
 Now run:
@@ -521,7 +504,7 @@ between `1` and `1500m`, or `1` and `1.5` when written in decimal notation.
 Instead of using `kubectl autoscale` command to create a HorizontalPodAutoscaler imperatively we
 can use the following manifest to create it declaratively:
 
-{{< codenew file="application/hpa/php-apache.yaml" >}}
+{{% code_sample file="application/hpa/php-apache.yaml" %}}
 
 Then, create the autoscaler by executing the following command:
 

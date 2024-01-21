@@ -1,123 +1,132 @@
 ---
-title: kubesprayを使ったオンプレミス/クラウドプロバイダへのKubernetesのインストール
+title: kubesprayを使ったKubernetesのインストール
 content_type: concept
 weight: 30
 ---
 
 <!-- overview -->
 
-This quickstart helps to install a Kubernetes cluster hosted on GCE, Azure, OpenStack, AWS, vSphere, Packet (bare metal), Oracle Cloud Infrastructure (Experimental) or Baremetal with [Kubespray](https://github.com/kubernetes-sigs/kubespray).
+このクイックスタートは、[Kubespray](https://github.com/kubernetes-sigs/kubespray)を使用して、GCE、Azure、OpenStack、AWS、vSphere、Equinix Metal(以前のPacket)、Oracle Cloud Infrastructure(実験的)またはベアメタルにホストされたKubernetesクラスターをインストールするためのものです。
 
-Kubespray is a composition of [Ansible](https://docs.ansible.com/) playbooks, [inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md), provisioning tools, and domain knowledge for generic OS/Kubernetes clusters configuration management tasks. Kubespray provides:
+Kubesprayは、汎用的なOSやKubernetesクラスターの構成管理タスクのための[Ansible](https://docs.ansible.com/)プレイブック、[インベントリー](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md#inventory)、プロビジョニングツール、ドメインナレッジをまとめたものです。
 
-* a highly available cluster
-* composable attributes
-* support for most popular Linux distributions
-  * Container Linux by CoreOS
-  * Debian Buster, Jessie, Stretch, Wheezy
-  * Ubuntu 16.04, 18.04
-  * CentOS/RHEL/Oracle Linux 7
-  * Fedora 28
-  * openSUSE Leap 15
-* continuous integration tests
+Kubesprayは次を提供します:
 
-To choose a tool which best fits your use case, read [this comparison](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/comparisons.md) to
-[kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) and [kops](/ja/docs/setup/production-environment/tools/kops/).
+* 高可用性クラスター。
+* 構成可能(例えばネットワークプラグインの選択)。
+* 最もポピュラーなLinuxディストリビューションのサポート:
+  - Flatcar Container Linux by Kinvolk
+  - Debian Bullseye, Buster, Jessie, Stretch
+  - Ubuntu 16.04, 18.04, 20.04, 22.04
+  - CentOS/RHEL 7, 8, 9
+  - Fedora 35, 36
+  - Fedora CoreOS
+  - openSUSE Leap 15.x/Tumbleweed
+  - Oracle Linux 7, 8, 9
+  - Alma Linux 8, 9
+  - Rocky Linux 8, 9
+  - Kylin Linux Advanced Server V10
+  - Amazon Linux 2
+* 継続的インテグレーションテスト。
+
+あなたのユースケースに最適なツールの選択には、[kubeadm](/docs/reference/setup-tools/kubeadm/)や[kops](/docs/setup/production-environment/tools/kops/)と[比較したドキュメント](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/comparisons.md)を参照してください。
 
 
 
 <!-- body -->
 
-## クラスタの作成
+## クラスターの作成
 
 ### (1/5) 下地の要件の確認
 
-Provision servers with the following [requirements](https://github.com/kubernetes-sigs/kubespray#requirements):
+次の[要件](https://github.com/kubernetes-sigs/kubespray#requirements)に従ってサーバーをプロビジョニングします:
 
-* **Ansible v2.7.8 and python-netaddr is installed on the machine that will run Ansible commands**
-* **Jinja 2.9 (or newer) is required to run the Ansible Playbooks**
-* The target servers must have access to the Internet in order to pull docker images. Otherwise, additional configuration is required ([See Offline Environment](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/offline-environment.md))
-* The target servers are configured to allow **IPv4 forwarding**
-* **Your ssh key must be copied** to all the servers part of your inventory
-* The **firewalls are not managed**, you'll need to implement your own rules the way you used to. in order to avoid any issue during deployment you should disable your firewall
-* If kubespray is ran from non-root user account, correct privilege escalation method should be configured in the target servers. Then the `ansible_become` flag or command parameters `--become` or `-b` should be specified
+* **Kubernetesの最低必要バージョンはv1.22**
+* **Ansibleのコマンドを実行するマシン上にAnsible v2.11+、Jinja 2.11+とpython-netaddrがインストールされていること**
+* ターゲットサーバーはdockerイメージをpullするために**インターネットにアクセスできる**必要があります。そうでは無い場合は追加の構成が必要です([オフライン環境](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/offline-environment.md)を参照)
+* ターゲットのサーバーは**IPv4フォワーディング**ができるように構成されていること。
+* PodとServiceにIPv6を使用している場合は、ターゲットサーバーは**IPv6フォワーディング**ができるように構成されていること。
+* **ファイアウォールは管理されないため**、従来のように独自のルールを実装しなければなりません。デプロイ中の問題を避けるためには、ファイアウォールを無効にすべきです
+* root以外のユーザーアカウントでkubesprayを実行する場合は、ターゲットサーバー上で特権昇格の方法を正しく構成されている必要があります。そして、`ansible_become`フラグ、またはコマンドパラメーター`--become`、`-b`を指定する必要があります
 
-Kubespray provides the following utilities to help provision your environment:
+Kubesprayは環境のプロビジョニングを支援するために次のユーティリティを提供します:
 
-* [Terraform](https://www.terraform.io/) scripts for the following cloud providers:
+* 下記のクラウドプロバイダー用の[Terraform](https://www.terraform.io/)スクリプト:
   * [AWS](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/aws)
   * [OpenStack](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/openstack)
-  * [Packet](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/packet)
+  * [Equinix Metal](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/equinix)
 
-### (2/5) インベントリファイルの用意
 
-After you provision your servers, create an [inventory file for Ansible](https://docs.ansible.com/ansible/latest/network/getting_started/first_inventory.html). You can do this manually or via a dynamic inventory script. For more information, see "[Building your own inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory)".
+### (2/5) インベントリーファイルの用意
 
-### (3/5) クラスタ作成の計画
+サーバーをプロビジョニングした後、[Ansibleのインベントリーファイル](https://docs.ansible.com/ansible/latest/network/getting_started/first_inventory.html)を作成します。これは手動またはダイナミックインベントリースクリプトによって行うことができます。詳細については、"[独自のインベントリーを構築する](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory)"を参照してください。
 
-Kubespray provides the ability to customize many aspects of the deployment:
+### (3/5) クラスター作成の計画
 
-* Choice deployment mode: kubeadm or non-kubeadm
-* CNI (networking) plugins
-* DNS configuration
-* Choice of control plane: native/binary or containerized
-* Component versions
-* Calico route reflectors
-* Component runtime options
+Kubesprayは多くの点でデプロイメントをカスタマイズする機能を提供します:
+
+* デプロイメントモードの選択: kubeadmまたはnon-kubeadm
+* CNI(ネットワーク)プラグイン
+* DNS設定
+* コントロールプレーンの選択: ネイティブ/バイナリまたはコンテナ化
+* コンポーネントバージョン
+* Calicoルートリフレクター
+* コンポーネントランタイムオプション
   * {{< glossary_tooltip term_id="docker" >}}
   * {{< glossary_tooltip term_id="containerd" >}}
   * {{< glossary_tooltip term_id="cri-o" >}}
-* Certificate generation methods
+* 証明書の生成方法
 
-Kubespray customizations can be made to a [variable file](https://docs.ansible.com/ansible/playbooks_variables.html). If you are just getting started with Kubespray, consider using the Kubespray defaults to deploy your cluster and explore Kubernetes.
+Kubesprayは[variableファイル](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html)によってカスタマイズできます。Kubesprayを使い始めたばかりであれば、Kubesprayのデフォルト設定を使用してクラスターをデプロイし、Kubernetesを探索することを検討してください。
 
-### (4/5) クラスタのデプロイ
+### (4/5) クラスターのデプロイ
 
-Next, deploy your cluster:
+次にクラスターをデプロイします:
 
-Cluster deployment using [ansible-playbook](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#starting-custom-deployment).
+クラスターのデプロイメントには[ansible-playbook](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#starting-custom-deployment)を使用します。
 
 ```shell
 ansible-playbook -i your/inventory/inventory.ini cluster.yml -b -v \
   --private-key=~/.ssh/private_key
 ```
 
-Large deployments (100+ nodes) may require [specific adjustments](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/large-deployments.md) for best results.
+大規模なデプロイメント(100以上のノード)では、最適な結果を得るために[個別の調整](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/large-deployments.md)が必要な場合があります。
 
 ### (5/5) デプロイの確認
 
-Kubespray provides a way to verify inter-pod connectivity and DNS resolve with [Netchecker](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/netcheck.md). Netchecker ensures the netchecker-agents pods can resolve DNS requests and ping each over within the default namespace. Those pods mimic similar behavior of the rest of the workloads and serve as cluster health indicators.
+Kubesprayは、[Netchecker](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/netcheck.md)によるPod間の接続とDNSの解決の検証を行う機能を提供します。Netcheckerは、netchecker-agents Podがdefault名前空間内でDNSリクエストを解決し、互いにpingを送信できることを確かめます。これらのPodは他のワークロードと同様の動作を再現し、クラスターの健全性を示す指標として機能します。
 
-## クラスタの操作
+## クラスターの操作
 
-Kubespray provides additional playbooks to manage your cluster: _scale_ and _upgrade_.
+Kubesprayはクラスターを管理する追加のプレイブックを提供します: _scale_ と _upgrade_。
 
-### クラスタのスケール
+### クラスターのスケール
 
-You can add worker nodes from your cluster by running the scale playbook. For more information, see "[Adding nodes](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#adding-nodes)".
-You can remove worker nodes from your cluster by running the remove-node playbook. For more information, see "[Remove nodes](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#remove-nodes)".
+scaleプレイブックを実行することで、クラスターにワーカーノードを追加することができます。詳細については、"[ノードの追加](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#adding-nodes)"を参照してください。
+remove-nodeプレイブックを実行することで、クラスターからワーカーノードを削除することができます。詳細については、"[ノードの削除](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#remove-nodes)"を参照してください。
 
-### クラスタのアップグレード
+### クラスターのアップグレード
 
-You can upgrade your cluster by running the upgrade-cluster playbook. For more information, see "[Upgrades](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/upgrades.md)".
+upgrade-clusterプレイブックを実行することで、クラスターのアップグレードができます。詳細については、"[アップグレード](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/upgrades.md)"を参照してください。
 
 ## クリーンアップ
 
-You can reset your nodes and wipe out all components installed with Kubespray via the [reset playbook](https://github.com/kubernetes-sigs/kubespray/blob/master/reset.yml).
+
+[resetプレイブック](https://github.com/kubernetes-sigs/kubespray/blob/master/reset.yml)を使用して、ノードをリセットし、Kubesprayでインストールした全てのコンポーネントを消すことができます。
 
 {{< caution >}}
-When running the reset playbook, be sure not to accidentally target your production cluster!
+resetプレイブックを実行する際は、誤ってプロダクションのクラスターを対象にしないように気をつけること!
 {{< /caution >}}
 
 ## フィードバック
 
-* Slack Channel: [#kubespray](https://kubernetes.slack.com/messages/kubespray/) (You can get your invite [here](https://slack.k8s.io/))
-* [GitHub Issues](https://github.com/kubernetes-sigs/kubespray/issues)
+* Slackチャンネル: [#kubespray](https://kubernetes.slack.com/messages/kubespray/) ([ここ](https://slack.k8s.io/)から招待をもらうことができます)。
+* [GitHub Issues](https://github.com/kubernetes-sigs/kubespray/issues)。
 
 
 
 ## {{% heading "whatsnext" %}}
 
 
-Check out planned work on Kubespray's [roadmap](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/roadmap.md).
-
+* Kubesprayの[ロードマップ](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/roadmap.md)にある作業計画を確認してください。
+* [Kubespray](https://github.com/kubernetes-sigs/kubespray)についてさらに学ぶ。

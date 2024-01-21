@@ -1,0 +1,15 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+approvers:
+  - committee-security-response
+  - sig-security-leads
+
+reviewers:
+  - committee-security-response
+  - sig-security-leads
+
+labels:
+  - sig/security
+  - sig/docs
+  - area/security
+  - committee/security-response

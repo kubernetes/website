@@ -26,15 +26,15 @@ Kamu harus menggunakan kubectl dengan perbedaan maksimal satu versi minor dengan
 1. Unduh versi terbarunya dengan perintah:
 
     ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+    curl -LO https://dl.k8s.io/release/`curl -LS https://dl.k8s.io/release/stable.txt`/bin/linux/amd64/kubectl
     ```
 
-    Untuk mengunduh versi spesifik, ganti bagian `curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt` dengan versi yang diinginkan.
+    Untuk mengunduh versi spesifik, ganti bagian `curl -LS https://dl.k8s.io/release/stable.txt` dengan versi yang diinginkan.
 
-    Misalnya, untuk mengunduh versi {{< param "fullversion" >}} di Linux, ketik:
+    Misalnya, untuk mengunduh versi {{< skew currentPatchVersion >}} di Linux, ketik:
     
     ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
+    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/amd64/kubectl
     ```
 
 2. Jadikan program `kubectl` dapat dieksekusi.
@@ -71,7 +71,7 @@ baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
 enabled=1
 gpgcheck=1
 repo_gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
 yum install -y kubectl
 {{< /tab >}}
@@ -106,15 +106,15 @@ kubectl version --client
 1. Unduh versi terbarunya dengan perintah:
 
     ```		 
-    curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl"
+    curl -LO "https://dl.k8s.io/release/$(curl -LS https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl"
     ```
 
-    Untuk mengunduh versi spesifik, ganti bagian `curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt` dengan versi yang diinginkan.
+    Untuk mengunduh versi spesifik, ganti bagian `curl -LS https://dl.k8s.io/release/stable.txt` dengan versi yang diinginkan.
 
-    Misalnya, untuk mengunduh versi {{< param "fullversion" >}} pada macOS, ketik:
+    Misalnya, untuk mengunduh versi {{< skew currentPatchVersion >}} pada macOS, ketik:
 		  
     ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl
+    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/darwin/amd64/kubectl
     ```
 
 2. Buat agar program `kubectl` dapat dijalankan.
@@ -176,15 +176,15 @@ Jika kamu menggunakan macOS dan manajer paket [Macports](https://macports.org/),
 
 ### Menginstal program kubectl dengan curl pada Windows
 
-1. Unduh versi terbarunya {{< param "fullversion" >}} dari [tautan ini](https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
+1. Unduh versi terbarunya {{< skew currentPatchVersion >}} dari [tautan ini](https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe).
 
     Atau jika sudah ada `curl` pada mesin kamu, jalankan perintah ini:
 
     ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe
+    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe
     ```
 
-    Untuk mendapatkan versi stabil terakhir (misalnya untuk _scripting_), lihat di [https://storage.googleapis.com/kubernetes-release/release/stable.txt](https://storage.googleapis.com/kubernetes-release/release/stable.txt).
+    Untuk mendapatkan versi stabil terakhir (misalnya untuk _scripting_), lihat di [https://dl.k8s.io/release/stable.txt](https://dl.k8s.io/release/stable.txt).
 
 2. Tambahkan program yang sudah diunduh tersebut ke PATH kamu.
 3. Pastikan instalasinya sudah berhasil dengan melakukan pengecekan versi:

@@ -1,19 +1,19 @@
 ---
 title: 노드-압박 축출
 content_type: concept
-weight: 60
+weight: 100
 ---
 
 {{<glossary_definition term_id="node-pressure-eviction" length="short">}}</br>
 
 {{<glossary_tooltip term_id="kubelet" text="kubelet">}}은 
-클러스터 노드의 CPU, 메모리, 디스크 공간, 파일시스템 inode와 같은 자원을 모니터링한다.
+클러스터 노드의 메모리, 디스크 공간, 파일시스템 inode와 같은 자원을 모니터링한다.
 이러한 자원 중 하나 이상이 특정 소모 수준에 도달하면, 
 kubelet은 하나 이상의 파드를 능동적으로 중단시켜 
 자원을 회수하고 고갈 상황을 방지할 수 있다.
 
 노드-압박 축출 과정에서, kubelet은 축출할 파드의 `PodPhase`를 
-`Failed`로 설정한다. 이로써 파드가 종료된다.
+`Failed`로 설정함으로써 파드가 종료된다.
 
 노드-압박 축출은 
 [API를 이용한 축출](/ko/docs/concepts/scheduling-eviction/api-eviction/)과는 차이가 있다.
@@ -32,7 +32,7 @@ kubelet은 이전에 설정된 `eviction-max-pod-grace-period` 값을 따른다.
 {{<note>}}
 kubelet은 최종 사용자 파드를 종료하기 전에 
 먼저 [노드 수준 자원을 회수](#reclaim-node-resources)하려고 시도한다. 
-예를 들어, 디스크 자원이 부족하면 먼저 사용하지 않는 컨테이너 이미지를 제거한다.
+예를 들어, 디스크 자원이 부족하면 사용하지 않는 컨테이너 이미지를 먼저 제거한다.
 {{</note>}}
 
 kubelet은 축출 결정을 내리기 위해 다음과 같은 다양한 파라미터를 사용한다.
@@ -44,11 +44,11 @@ kubelet은 축출 결정을 내리기 위해 다음과 같은 다양한 파라�
 ### 축출 신호 {#eviction-signals}
 
 축출 신호는 특정 시점에서 특정 자원의 현재 상태이다. 
-Kubelet은 노드에서 사용할 수 있는 리소스의 최소량인 
+kubelet은 노드에서 사용할 수 있는 리소스의 최소량인 
 축출 임계값과 축출 신호를 비교하여 
 축출 결정을 내린다.
 
-Kubelet은 다음과 같은 축출 신호를 사용한다.
+kubelet은 다음과 같은 축출 신호를 사용한다.
 
 | 축출 신호      | 설명                                                                           |
 |----------------------|---------------------------------------------------------------------------------------|
@@ -61,7 +61,7 @@ Kubelet은 다음과 같은 축출 신호를 사용한다.
 
 이 표에서, `설명` 열은 kubelet이 축출 신호 값을 계산하는 방법을 나타낸다. 
 각 축출 신호는 백분율 또는 숫자값을 지원한다. 
-Kubelet은 총 용량 대비 축출 신호의 백분율 값을 
+kubelet은 총 용량 대비 축출 신호의 백분율 값을 
 계산한다.
 
 `memory.available` 값은 `free -m`과 같은 도구가 아니라 cgroupfs로부터 도출된다. 
@@ -82,13 +82,18 @@ kubelet은 다음과 같은 파일시스템 파티션을 지원한다.
 1. `imagefs`: 컨테이너 런타임이 컨테이너 이미지 및 
    컨테이너 쓰기 가능 레이어를 저장하는 데 사용하는 선택적 파일시스템이다.
 
-Kubelet은 이러한 파일시스템을 자동으로 검색하고 다른 파일시스템은 무시한다. 
-Kubelet은 다른 구성은 지원하지 않는다.
+kubelet은 이러한 파일시스템을 자동으로 검색하고 다른 파일시스템은 무시한다. 
+kubelet은 다른 구성은 지원하지 않는다.
 
-{{<note>}}
-일부 kubelet 가비지 수집 기능은 더 이상 사용되지 않으며 축출로 대체되었다.
-사용 중지된 기능의 목록은 [kubelet 가비지 수집 사용 중단](/ko/docs/concepts/cluster-administration/kubelet-garbage-collection/#사용-중단-deprecation)을 참조한다.
-{{</note>}}
+아래의 kubelet 가비지 수집 기능은 더 이상 사용되지 않으며 축출로 대체되었다.
+
+| 기존 플래그 | 새로운 플래그 | 이유 |
+| ------------- | -------- | --------- |
+| `--image-gc-high-threshold` | `--eviction-hard` 또는 `--eviction-soft` | 기존의 축출 신호가 이미지 가비지 수집을 트리거할 수 있음 |
+| `--image-gc-low-threshold` | `--eviction-minimum-reclaim` | 축출 회수도 동일한 작업을 수행 |
+| `--maximum-dead-containers` | - | 오래된 로그들이 컨테이너의 컨텍스트 외부에 저장된 이후로 사용되지 않음 |
+| `--maximum-dead-containers-per-container` | - | 오래된 로그들이 컨테이너의 컨텍스트 외부에 저장된 이후로 사용되지 않음 |
+| `--minimum-container-ttl-duration` | - | 오래된 로그들이 컨테이너의 컨텍스트 외부에 저장된 이후로 사용되지 않음 |
 
 ### 축출 임계값
 
@@ -148,6 +153,12 @@ kubelet은 다음과 같은 하드 축출 임계값을 기본적으로 설정하
 * `nodefs.available<10%`
 * `imagefs.available<15%`
 * `nodefs.inodesFree<5%` (리눅스 노드)
+
+이러한 하드 축출 임계값의 기본값은 
+매개변수가 변경되지 않은 경우에만 설정된다. 어떤 매개변수의 값을 변경한 경우,
+다른 매개변수의 값은 기본값으로 상속되지 않고
+0으로 설정된다. 사용자 지정 값을 제공하려면,
+모든 임계값을 각각 제공해야 한다.
 
 ### 축출 모니터링 시간 간격
 
@@ -235,7 +246,7 @@ QoS는 EphemeralStorage 요청에 적용되지 않으므로,
 `Guaranteed` 파드는 모든 컨테이너에 대해 자원 요청량과 제한이 명시되고 
 그 둘이 동일할 때에만 보장(guaranteed)된다. 다른 파드의 자원 사용으로 인해 
 `Guaranteed` 파드가 축출되는 일은 발생하지 않는다. 만약 시스템 데몬(예: 
-`kubelet`, `docker`, `journald`)이 `system-reserved` 또는 `kube-reserved` 
+`kubelet`, `journald`)이 `system-reserved` 또는 `kube-reserved` 
 할당을 통해 예약된 것보다 더 많은 자원을 소비하고, 노드에는 요청량보다 적은 양의 
 자원을 사용하고 있는 `Guaranteed` / `Burstable` 파드만 존재한다면, 
 kubelet은 노드 안정성을 유지하고 자원 고갈이 다른 파드에 미칠 영향을 통제하기 위해 
@@ -396,7 +407,7 @@ kubelet의 `memcg` 알림 API가 임계값을 초과할 때 즉시 알림을 받
 상태로 간주하고 노드가 메모리 압박을 겪고 있다고 테인트를 표시할 수 있으며, 이는 
 파드 축출을 유발한다.
 
-더 자세한 사항은 [https://github.com/kubernetes/kubernetes/issues/43916](https://github.com/kubernetes/kubernetes/issues/43916)를 참고한다.
+자세한 사항은 [https://github.com/kubernetes/kubernetes/issues/43916](https://github.com/kubernetes/kubernetes/issues/43916)를 참고한다.
 
 집중적인 I/O 작업을 수행할 가능성이 있는 컨테이너에 대해 메모리 제한량 및 메모리 
 요청량을 동일하게 설정하여 이 문제를 해결할 수 있다. 해당 컨테이너에 대한 최적의 

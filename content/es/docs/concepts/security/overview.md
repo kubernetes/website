@@ -52,6 +52,7 @@ Proveedor IaaS        | Link |
 Alibaba Cloud | https://www.alibabacloud.com/trust-center |
 Amazon Web Services | https://aws.amazon.com/security/ |
 Google Cloud Platform | https://cloud.google.com/security/ |
+Huawei Cloud | https://www.huaweicloud.com/intl/es-us/securecenter/overallsafety |
 IBM Cloud | https://www.ibm.com/cloud/security |
 Microsoft Azure | https://docs.microsoft.com/en-us/azure/security/azure-security |
 Oracle Cloud Infrastructure | https://www.oracle.com/security/ |
@@ -135,7 +136,7 @@ Acceso solo a través de TLS | Si su código necesita comunicarse a través de T
 Limitación de rangos de puertos de comunicación | Esta recomendación puede ser un poco evidente, pero siempre que sea posible, solo debe exponer los puertos de su servicio que son absolutamente esenciales para la comunicación o la recopilación de métricas. |
 Seguridad en dependencia de terceros | Es una buena práctica comprobar periódicamente las bibliotecas de terceros de su aplicación en busca de vulnerabilidades de seguridad. Cada lenguaje de programación tiene una herramienta para realizar esta verificación de forma automática. |
 Análisis de código estático | La mayoría de los lenguajes proporcionan una forma de analizar el código en busca de prácticas de codificación potencialmente inseguras. Siempre que sea posible, debe automatizar los escaneos utilizando herramientas que puedan escanear las bases del código en busca de errores de seguridad comunes. Algunas de las herramientas se pueden encontrar en [OWASP Source Code Analysis Tools](https://owasp.org/www-community/Source_Code_Analysis_Tools). |
-Ataques de sondeo dinámico | Existen algunas herramientas automatizadas que puede ejecutar en su servicio para explorar algunos de los ataques más conocidos. Esto incluye la inyección de SQL, CSRF y XSS. Una de las herramientas de análisis dinámico más populares es la [OWASP Zed Attack proxy](https://owasp.org/www-project-zap/). |
+Ataques de sondeo dinámico | Existen algunas herramientas automatizadas que puede ejecutar en su servicio para explorar algunos de los ataques más conocidos. Esto incluye la inyección de SQL, CSRF y XSS. Una de las herramientas de análisis dinámico más populares es la [OWASP Zed Attack proxy](https://www.zaproxy.org/). |
 
 {{< /table >}}
 

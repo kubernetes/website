@@ -9,7 +9,7 @@ slug: pod-security-admission-beta
 
 With the release of Kubernetes v1.23, [Pod Security admission](/docs/concepts/security/pod-security-admission/) has now entered beta. Pod Security is a [built-in](/docs/reference/access-authn-authz/admission-controllers/) admission controller that evaluates pod specifications against a predefined set of [Pod Security Standards](/docs/concepts/security/pod-security-standards/) and determines whether to `admit` or `deny` the pod from running.
 
-Pod Security is the successor to [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/) which was deprecated in the v1.21 release, and will be removed in Kubernetes v1.25. In this article, we cover the key concepts of Pod Security along with how to use it. We hope that cluster administrators and developers alike will use this new mechanism to enforce secure defaults for their workloads.
+Pod Security is the successor to [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/) which was deprecated in the v1.21 release, and will be removed in Kubernetes v1.25. In this article, we cover the key concepts of Pod Security along with how to use it. We hope that cluster administrators and developers alike will use this new mechanism to enforce secure defaults for their workloads.
 
 ## Why Pod Security
 

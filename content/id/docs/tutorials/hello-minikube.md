@@ -38,9 +38,9 @@ Kamupun bisa mengikuti tutorial ini kalau sudah instalasi minikube di lokal. Sil
 
 Tutorial ini menyediakan image Kontainer yang dibuat melalui barisan kode berikut:
 
-{{< codenew language="js" file="minikube/server.js" >}}
+{{% codenew language="js" file="minikube/server.js" %}}
 
-{{< codenew language="conf" file="minikube/Dockerfile" >}}
+{{% codenew language="conf" file="minikube/Dockerfile" %}}
 
 Untuk info lebih lanjut tentang perintah `docker build`, baca [dokumentasi Docker](https://docs.docker.com/engine/reference/commandline/build/).
 
@@ -77,7 +77,7 @@ Pod kamu dan melakukan <i>restart</i> saat Kontainer di dalam Pod tersebut mati.
 Pod menjalankan Kontainer sesuai dengan image Docker yang telah diberikan.
 
     ```shell
-    kubectl create deployment hello-node --image=k8s.gcr.io/echoserver:1.4
+    kubectl create deployment hello-node --image=registry.k8s.io/echoserver:1.4
     ```
 
 2. Lihat Deployment:

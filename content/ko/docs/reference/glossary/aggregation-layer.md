@@ -2,7 +2,7 @@
 title: 애그리게이션 레이어(Aggregation Layer)
 id: aggregation-layer
 date: 2018-10-08
-full_link: /docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/
+full_link: /ko/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/
 short_description: >
   애그리게이션 레이어를 이용하면 사용자가 추가로 쿠버네티스 형식의 API를 클러스터에 설치할 수 있다.
 

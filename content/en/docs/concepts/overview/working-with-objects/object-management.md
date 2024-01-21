@@ -1,12 +1,12 @@
 ---
 title: Kubernetes Object Management
 content_type: concept
-weight: 15
+weight: 20
 ---
 
 <!-- overview -->
 The `kubectl` command-line tool supports several different ways to create and manage
-Kubernetes objects. This document provides an overview of the different
+Kubernetes {{< glossary_tooltip text="objects" term_id="object" >}}. This document provides an overview of the different
 approaches. Read the [Kubectl book](https://kubectl.docs.kubernetes.io) for
 details of managing objects by Kubectl.
 
@@ -169,9 +169,9 @@ Disadvantages compared to imperative object configuration:
 ## {{% heading "whatsnext" %}}
 
 - [Managing Kubernetes Objects Using Imperative Commands](/docs/tasks/manage-kubernetes-objects/imperative-command/)
-- [Managing Kubernetes Objects Using Object Configuration (Imperative)](/docs/tasks/manage-kubernetes-objects/imperative-config/)
-- [Managing Kubernetes Objects Using Object Configuration (Declarative)](/docs/tasks/manage-kubernetes-objects/declarative-config/)
-- [Managing Kubernetes Objects Using Kustomize (Declarative)](/docs/tasks/manage-kubernetes-objects/kustomization/)
+- [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/imperative-config/)
+- [Declarative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/declarative-config/)
+- [Declarative Management of Kubernetes Objects Using Kustomize](/docs/tasks/manage-kubernetes-objects/kustomization/)
 - [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl-commands/)
 - [Kubectl Book](https://kubectl.docs.kubernetes.io)
 - [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)

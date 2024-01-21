@@ -46,7 +46,7 @@ C'est pourquoi Kubernetes a également été conçu pour servir de plate-forme e
 
 De plus, le [plan de contrôle Kubernetes (control
 plane)](/docs/concepts/overview/components/) est construit sur les mêmes [APIs](/docs/reference/using-api/api-overview/) que celles accessibles aux développeurs et utilisateurs.
-Les utilisateurs peuvent écrire leurs propres contrôleurs (controllers), tels que les [ordonnanceurs (schedulers)](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/devel/scheduler.md),
+Les utilisateurs peuvent écrire leurs propres contrôleurs (controllers), tels que les [ordonnanceurs (schedulers)](https://github.com/kubernetes/community/blob/master/contributors/devel/scheduler.md),
 avec [leurs propres APIs](/docs/concepts/api-extension/custom-resources/) qui peuvent être utilisés par un [outil en ligne de commande](/docs/user-guide/kubectl-overview/).
 
 Ce choix de [conception](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) a permis de construire un ensemble d'autres systèmes par dessus Kubernetes.
@@ -67,7 +67,7 @@ Si l'application peut fonctionner dans un conteneur, elle devrait fonctionner co
 Ces composants peuvent être lancés dans Kubernetes et/ou être accessibles à des applications tournant dans Kubernetes via des mécaniques d'intermédiation tel que Open Service Broker.
 - N'impose pas de solutions de logging, monitoring, ou alerting.
 Kubernetes fournit quelques intégrations primaires et des mécanismes de collecte et export de métriques.
-- Ne fournit ou n'impose un langague/système de configuration (e.g., [jsonnet](https://github.com/google/jsonnet)).
+- Ne fournit ou n'impose pas un langage/système de configuration (e.g., [jsonnet](https://github.com/google/jsonnet)).
 Il fournit une API déclarative qui peut être ciblée par n'importe quelle forme de spécifications déclaratives.
 - Ne fournit ou n'adopte aucune mécanique de configuration des machines, de maintenance, de gestion ou de contrôle de la santé des systèmes.
 
@@ -103,7 +103,7 @@ Résumé des bénéfices des conteneurs :
 - **Création et déploiement agile d'applications** :
   Augmente la simplicité et l'efficacité de la création d'images par rapport à l'utilisation d'images de VM.
 - **Développement, intégration et déploiement Continus**:
-  Fournit un processus pour constuire et déployer fréquemment et de façon fiable avec la capacité de faire des rollbacks rapides et simples (grâce à l'immuabilité de l'image).
+  Fournit un processus pour construire et déployer fréquemment et de façon fiable avec la capacité de faire des rollbacks rapides et simples (grâce à l'immuabilité de l'image).
 - **Séparation des besoins entre Dev et Ops**:
   Création d'images applicatives au moment du build plutôt qu'au déploiement, tout en séparant l'application de l'infrastructure.
 - **Observabilité**

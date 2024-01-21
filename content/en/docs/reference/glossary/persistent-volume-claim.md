@@ -2,7 +2,7 @@
 title: Persistent Volume Claim
 id: persistent-volume-claim
 date: 2018-04-12
-full_link: /docs/concepts/storage/persistent-volumes/
+full_link: /docs/concepts/storage/persistent-volumes/#persistentvolumeclaims
 short_description: >
   Claims storage resources defined in a PersistentVolume so that it can be mounted as a volume in a container.
 

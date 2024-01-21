@@ -1,0 +1,22 @@
+apiVersion: admissionregistration.k8s.io/v1alpha1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: "demo-policy.example.com"
+spec:
+  failurePolicy: Fail
+  matchConstraints:
+    resourceRules:
+      - apiGroups:   ["*"]
+        apiVersions: ["*"]
+        operations:  ["CREATE", "UPDATE"]
+        resources:   ["*"]
+  matchConditions:
+    - name: 'exclude-leases' # 每个匹配条件必须有一个唯一的名称
+      expression: '!(request.resource.group == "coordination.k8s.io" && request.resource.resource == "leases")' # 匹配非租约资源
+    - name: 'exclude-kubelet-requests'
+      expression: '!("system:nodes" in request.userInfo.groups)' # 匹配非节点用户发出的请求
+    - name: 'rbac' # 跳过 RBAC 请求
+      expression: 'request.resource.group != "rbac.authorization.k8s.io"'
+  validations:
+    - expression: "!object.metadata.name.contains('demo') || object.metadata.namespace == 'demo'"
+

@@ -66,7 +66,7 @@ handler: myconfiguration  # Nome da configuração CRI correspondente
 ```
 
 O nome de um objeto RuntimeClass deve ser um 
-[nome de subdomínio DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) válido.
+[nome de subdomínio DNS](/pt-br/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) válido.
 
 {{< note >}}
 É recomendado que operações de escrita no objeto RuntimeClass (criar/atualizar/patch/apagar)
@@ -116,7 +116,7 @@ Agentes de execução são configurados através da configuração do containerd
 ```
 
 Veja a documentação de configuração do containerd para maiores detalhes:
-https://github.com/containerd/cri/blob/master/docs/config.md
+https://github.com/containerd/containerd/blob/main/docs/cri/config.md
 
 #### {{< glossary_tooltip term_id="cri-o" >}}
 
@@ -176,4 +176,4 @@ Pods utilizando-se desse Runtimeclass e assim contabilizar esses recursos para o
 - [RuntimeClass Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md)
 - [RuntimeClass Scheduling Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md#runtimeclass-scheduling)
 - Leia mais sobre [Sobrecarga de Pods](/docs/concepts/scheduling-eviction/pod-overhead/)
-- [PodOverhead Feature Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
+- [PodOverhead Feature Design](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)

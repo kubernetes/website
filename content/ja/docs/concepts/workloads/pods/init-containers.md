@@ -22,7 +22,10 @@ Initコンテナは下記の項目をのぞいて、通常のコンテナと全�
 
 もしあるPodの単一のInitコンテナが失敗した場合、Kubeletは成功するまで何度もそのInitコンテナを再起動します。しかし、もしそのPodの`restartPolicy`がNeverで、そのPodの起動時にInitコンテナが失敗した場合、KubernetesはそのPod全体を失敗として扱います。
 
-PodにInitコンテナを指定するためには、Podの仕様にそのアプリケーションの`containers`配列と並べて、`initContainers`フィールドを[Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)型のオブジェクトの配列として指定してください。
+PodにInitコンテナを指定するためには、[Podの仕様](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)に`initContainers`フィールドを`container`アイテムの配列として追加してください(アプリケーションの`containers`フィールドとそのコンテンツに似ています)。
+詳細については、APIリファレンスの[Container](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)を参照してください。
+
+
 Initコンテナのステータスは、`.status.initContainerStatuses`フィールドにコンテナのステータスの配列として返されます(`.status.containerStatuses`と同様)。
 
 ### 通常のコンテナとの違い {#differences-from-regular-containers}
@@ -49,7 +52,7 @@ Initコンテナを活用する方法について、いくつかのアイデア�
 
 * シェルコマンドを使って単一の{{< glossary_tooltip text="Service" term_id="service">}}が作成されるのを待機する。
   ```shell
-  for i in {1..100}; do sleep 1; if dig myservice; then exit 0; fi; done; exit 1
+  for i in {1..100}; do sleep 1; if nslookup myservice; then exit 0; fi; done; exit 1
   ```
 
 * 以下のようなコマンドを使って下位のAPIからPodの情報をリモートサーバに登録する。
@@ -77,7 +80,7 @@ kind: Pod
 metadata:
   name: myapp-pod
   labels:
-    app: myapp
+    app.kubernetes.io/name: MyApp
 spec:
   containers:
   - name: myapp-container
@@ -97,6 +100,7 @@ spec:
 ```shell
 kubectl apply -f myapp.yaml
 ```
+実行結果は下記のようになります。
 ```
 pod/myapp-pod created
 ```
@@ -105,6 +109,7 @@ pod/myapp-pod created
 ```shell
 kubectl get -f myapp.yaml
 ```
+実行結果は下記のようになります。
 ```
 NAME        READY     STATUS     RESTARTS   AGE
 myapp-pod   0/1       Init:0/2   0          6m
@@ -114,11 +119,12 @@ myapp-pod   0/1       Init:0/2   0          6m
 ```shell
 kubectl describe -f myapp.yaml
 ```
+実行結果は下記のようになります。
 ```
 Name:          myapp-pod
 Namespace:     default
 [...]
-Labels:        app=myapp
+Labels:        app.kubernetes.io/name=MyApp
 Status:        Pending
 [...]
 Init Containers:
@@ -187,6 +193,7 @@ spec:
 ```shell
 kubectl apply -f services.yaml
 ```
+実行結果は下記のようになります。
 ```
 service/myservice created
 service/mydb created
@@ -196,28 +203,34 @@ Initコンテナが完了し、`myapp-pod`というPodがRunning状態に移行�
 
 ```shell
 kubectl get -f myapp.yaml
+```
+実行結果は下記のようになります。
+```
 NAME        READY     STATUS    RESTARTS   AGE
 myapp-pod   1/1       Running   0          9m
 ```
 
-このシンプルな例を独自のInitコンテナを作成する際の参考にしてください。[次の項目](#whats-next)にさらに詳細な使用例に関するリンクがあります。
+このシンプルな例を独自のInitコンテナを作成する際の参考にしてください。[次の項目](#what-s-next)にさらに詳細な使用例に関するリンクがあります。
 
 ## Initコンテナのふるまいに関する詳細 {#detailed-behavior}
 
-Podの起動時は各Initコンテナが起動状態となるまで、kubeletはネットワーキングおよびストレージを利用可能な状態にしません。また、kubeletはPodのspecに定義された順番に従ってPodのInitコンテナを起動します。各Initコンテナは次のInitコンテナが起動する前に正常に終了しなくてはなりません。もしあるInitコンテナがランタイムもしくはエラーにより起動失敗した場合、そのPodの`restartPolicy`の値に従ってリトライされます。しかし、もしPodの`restartPolicy`が`Always`に設定されていた場合、Initコンテナの`restartPolicy`は`OnFailure`が適用されます。
+Podの起動時に、kubeletはネットワークおよびストレージの準備が整うまで、Initコンテナを実行可能な状態にしません。また、kubeletはPodのspecに定義された順番に従ってPodのInitコンテナを起動します。
+
+各Initコンテナは次のInitコンテナが起動する前に正常に終了しなくてはなりません。もしあるInitコンテナがランタイムにより起動失敗した場合、もしくはエラーで終了した場合、そのPodの`restartPolicy`の値に従ってリトライされます。しかし、もしPodの`restartPolicy`が`Always`に設定されていた場合、Initコンテナの`restartPolicy`は`OnFailure`が適用されます。
 
 Podは全てのInitコンテナが完了するまで`Ready`状態となりません。Initコンテナ上のポートはServiceによって集約されません。初期化中のPodのステータスは`Pending`となりますが、`Initialized`という値はtrueとなります。
 
-もしそのPodが[再起動](#pod-restart-reasons)されたとき、全てのInitコンテナは必ず再度実行されます。
+もしそのPodを[再起動](#pod-restart-reasons)するとき、または再起動されたとき、全てのInitコンテナは必ず再度実行されます。
 
 Initコンテナの仕様の変更は、コンテナイメージのフィールドのみに制限されています。
 Initコンテナのイメージフィールド値を変更すると、そのPodは再起動されます。
 
-Initコンテナは何度も再起動およびリトライ可能なため、べき等(Idempotent)である必要があります。特に、`EmptyDirs`にファイルを書き込むコードは、書き込み先のファイルがすでに存在している可能性を考慮に入れる必要があります。
+Initコンテナは何度も再起動、リトライおよび再実行可能なため、べき等(Idempotent)である必要があります。特に、`EmptyDirs`にファイルを書き込むコードは、書き込み先のファイルがすでに存在している可能性を考慮に入れる必要があります。
 
 Initコンテナはアプリケーションコンテナの全てのフィールドを持っています。しかしKubernetesは、Initコンテナが完了と異なる状態を定義できないため`readinessProbe`が使用されることを禁止しています。これはバリデーションの際に適用されます。
 
-Initコンテナがずっと失敗し続けたままの状態を防ぐために、Podに`activeDeadlineSeconds`を、コンテナに`livenessProbe`をそれぞれ設定してください。`activeDeadlineSeconds`の設定はInitコンテナが実行中の時間にも適用されます。
+Initコンテナがずっと失敗し続けたままの状態を防ぐために、Podに`activeDeadlineSeconds`を設定してください。`activeDeadlineSeconds`の設定はInitコンテナが実行中の時間にも適用されます。しかし`activeDeadlineSeconds`はInitコンテナが終了した後でも効果があるため、チームがアプリケーションをJobとしてデプロイする場合にのみ使用することが推奨されています。
+すでに正しく動作しているPodは`activeDeadlineSeconds`を設定すると強制終了されます。
 
 Pod内の各アプリケーションコンテナとInitコンテナの名前はユニークである必要があります。他のコンテナと同じ名前を共有していた場合、バリデーションエラーが返されます。
 
@@ -225,7 +238,7 @@ Pod内の各アプリケーションコンテナとInitコンテナの名前は�
 
 Initコンテナの順序と実行を考えるとき、リソースの使用に関して下記のルールが適用されます。
 
-* 全てのInitコンテナの中で定義された最も高いリソースリクエストとリソースリミットが、*有効なinitリクエスト／リミット* になります。
+* 全てのInitコンテナの中で定義された最も高いリソースリクエストとリソースリミットが、*有効なinitリクエスト／リミット* になります。いずれかのリソースでリミットが設定されていない場合、これが最上級のリミットとみなされます。
 * Podのリソースの*有効なリクエスト／リミット* は、下記の2つの中のどちらか高い方となります。
   * リソースに対する全てのアプリケーションコンテナのリクエスト／リミットの合計
   * リソースに対する有効なinitリクエスト／リミット
@@ -240,13 +253,12 @@ Podレベルのコントロールグループ(cgroups)は、スケジューラ�
 
 以下の理由によりPodは再起動し、Initコンテナの再実行も引き起こす可能性があります。
 
-* ユーザーが、そのPodのInitコンテナのイメージを変更するようにPodの仕様を更新する場合。アプリケーションコンテナのイメージの変更はそのアプリケーションコンテナの再起動のみ行われます。
 * そのPodのインフラストラクチャーコンテナが再起動された場合。これはあまり起きるものでなく、Nodeに対するルート権限を持ったユーザーにより行われることがあります。
-* `restartPolicy`が`Always`と設定されているPod内の全てのコンテナが停止され、再起動が行われた場合。およびガーベージコレクションによりInitコンテナの完了記録が失われた場合。
+* `restartPolicy`が`Always`と設定されているPod内の全てのコンテナが停止され、強制的に再起動が行われたことで、ガベージコレクションによりInitコンテナの完了記録が失われた場合。
 
+Kubernetes v1.20以降では、initコンテナのイメージが変更されたり、ガベージコレクションによってinitコンテナの完了記録が失われたりした場合でも、Podは再起動されません。以前のバージョンを使用している場合は、対応バージョンのドキュメントを参照してください。
 
-## {{% heading "whatsnext" %}}
+## {{% heading "whatsnext" %}} {#what-s-next}
 
 * [Initコンテナを含むPodの作成](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container)方法について学ぶ。
-* [Initコンテナのデバッグ](/ja/docs/tasks/debug-application-cluster/debug-init-containers/)を行う方法について学ぶ。
-
+* [Initコンテナのデバッグ](/ja/docs/tasks/debug/debug-application/debug-init-containers/)を行う方法について学ぶ。

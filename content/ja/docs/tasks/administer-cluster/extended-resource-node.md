@@ -1,6 +1,7 @@
 ---
 title: 拡張リソースをNodeにアドバタイズする
 content_type: task
+weight: 70
 ---
 
 <!-- overview -->

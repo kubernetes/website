@@ -15,7 +15,7 @@ Cette page montre comment générer automatiquement des pages de référence pou
 
 * Vous devez avoir [Git](https://git-scm.com/book/fr/v2/D%C3%A9marrage-rapide-Installation-de-Git) installé.
 
-* Vous devez avoir [Golang](https://golang.org/doc/install) version 1.9.1 ou ultérieur installé, et votre variable d'environnement `$GOPATH` doit être définie.
+* Vous devez avoir [Golang](https://go.dev/doc/install) version 1.9.1 ou ultérieur installé, et votre variable d'environnement `$GOPATH` doit être définie.
 
 * Vous devez avoir [Docker](https://docs.docker.com/engine/installation/) installé.
 
@@ -48,7 +48,7 @@ cd <fed-base>
 hack/update-federation-api-reference-docs.sh
 ```
 
-Le script exécute le [k8s.gcr.io/gen-swagger-docs](https://console.cloud.google.com/gcr/images/google-containers/GLOBAL/gen-swagger-docs?gcrImageListquery=%255B%255D&gcrImageListpage=%257B%2522t%2522%253A%2522%2522%252C%2522i%2522%253A0%257D&gcrImageListsize=50&gcrImageListsort=%255B%257B%2522p%2522%253A%2522uploaded%2522%252C%2522s%2522%253Afalse%257D%255D) image pour générer cet ensemble de documents de référence:
+Le script exécute le [registry.k8s.io/gen-swagger-docs](https://console.cloud.google.com/gcr/images/google-containers/GLOBAL/gen-swagger-docs?gcrImageListquery=%255B%255D&gcrImageListpage=%257B%2522t%2522%253A%2522%2522%252C%2522i%2522%253A0%257D&gcrImageListsize=50&gcrImageListsort=%255B%257B%2522p%2522%253A%2522uploaded%2522%252C%2522s%2522%253Afalse%257D%255D) image pour générer cet ensemble de documents de référence:
 
 * /docs/api-reference/extensions/v1beta1/operations.html
 * /docs/api-reference/extensions/v1beta1/definitions.html

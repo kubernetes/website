@@ -32,11 +32,11 @@ weight: 10
 kube-scheduler는 원하거나 필요에 따라 자체 스케줄링 컴포넌트를
 만들고 대신 사용할 수 있도록 설계되었다.
 
-새로 생성된 모든 파드 또는 예약되지 않은 다른 파드에 대해 kube-scheduler는
-실행할 최적의 노드를 선택한다. 그러나 파드의 모든 컨테이너에는
-리소스에 대한 요구사항이 다르며 모든 파드에도
-요구사항이 다르다. 따라서 기존 노드들은
-특정 스케줄링 요구사항에 따라 필터링 되어야 한다.
+kube-scheduler는 새로 생성되었거나 아직 
+예약되지 않은(스케줄링되지 않은) 파드를 실행할 최적의 노드를 선택한다. 파드의 컨테이너와 파드 자체는 
+서로 다른 요구사항을 가질 수 있으므로, 스케줄러는 파드의 특정 스케줄링 요구사항을 
+충족하지 않는 모든 노드를 필터링한다. 또는 API를 사용하면 파드를 생성할 때 노드를 지정할 수 있지만, 이는 드문 경우이며 
+특별한 경우에만 수행된다.
 
 클러스터에서 파드에 대한 스케줄링 요구사항을 충족하는 노드를
 _실행 가능한(feasible)_ 노드라고 한다. 적합한 노드가 없으면 스케줄러가
@@ -83,10 +83,10 @@ _스코어링_ 단계에서 스케줄러는 목록에 남아있는 노드의 순
 ## {{% heading "whatsnext" %}}
 
 * [스케줄러 성능 튜닝](/ko/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)에 대해 읽기
-* [파드 토폴로지 분배 제약 조건](/ko/docs/concepts/workloads/pods/pod-topology-spread-constraints/)에 대해 읽기
+* [파드 토폴로지 분배 제약 조건](/ko/docs/concepts/scheduling-eviction/topology-spread-constraints/)에 대해 읽기
 * kube-scheduler의 [레퍼런스 문서](/docs/reference/command-line-tools-reference/kube-scheduler/) 읽기
 * [kube-scheduler 구성(v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/) 레퍼런스 읽기
-* [멀티 스케줄러 구성하기](/docs/tasks/extend-kubernetes/configure-multiple-schedulers/)에 대해 배우기
+* [멀티 스케줄러 구성하기](/ko/docs/tasks/extend-kubernetes/configure-multiple-schedulers/)에 대해 배우기
 * [토폴로지 관리 정책](/docs/tasks/administer-cluster/topology-manager/)에 대해 배우기
 * [파드 오버헤드](/ko/docs/concepts/scheduling-eviction/pod-overhead/)에 대해 배우기
 * 볼륨을 사용하는 파드의 스케줄링에 대해 배우기

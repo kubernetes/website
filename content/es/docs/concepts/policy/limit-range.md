@@ -58,7 +58,7 @@ Ni la contención ni los cambios en un LimitRange afectarán a los recursos ya c
 
 ## {{% heading "whatsnext" %}}
 
-Consulte el [documento de diseño del LimitRanger](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md) para más información.
+Consulte el [documento de diseño del LimitRanger](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_limit_range.md) para más información.
 
 Los siguientes ejemplos utilizan límites y están pendientes de su traducción:
 

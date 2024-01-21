@@ -76,6 +76,6 @@ Um eine Pull-Anfrage zu schließen, hinterlasse einen `/close`-Kommentar zu dem 
 
 {{< note >}}
 
-Der [`fejta-bot`](https://github.com/fejta-bot) Bot markiert Themen nach 90 Tagen Inaktivität als veraltet. Nach weiteren 30 Tagen markiert er Issues als faul und schließt sie.  PR-Beauftragte sollten Themen nach 14-30 Tagen Inaktivität schließen.
+Der [`k8s-ci-robot`](https://github.com/k8s-ci-robot) Bot markiert Themen nach 90 Tagen Inaktivität als veraltet. Nach weiteren 30 Tagen markiert er Issues als faul und schließt sie.  PR-Beauftragte sollten Themen nach 14-30 Tagen Inaktivität schließen.
 
 {{< /note >}}

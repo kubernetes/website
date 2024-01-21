@@ -492,7 +492,7 @@ dan `scp` menggunakan pengguna lain tersebut.
 Berkas `admin.conf` memberikan penggunanya privilese (_privilege_) _superuser_ terhadap klaster.
 Berkas ini harus digunakan seperlunya. Untuk pengguna biasa, direkomendasikan
 untuk membuat kredensial unik dengan privilese _whitelist_. Kamu dapat melakukan
-ini dengan perintah `kubeadm alpha kubeconfig user --client-name <CN>`. 
+ini dengan perintah `kubeadm kubeconfig user --client-name <CN>`. 
 Perintah tersebut akan mencetak berkas KubeConfig ke STDOUT yang harus kamu simpan
 ke dalam sebuah berkas dan mendistribusikannya pada para pengguna. Setelah itu, whitelist
 privilese menggunakan `kubectl create (cluster)rolebinding`.
@@ -614,7 +614,7 @@ data dan mungkin harus dibuat kembali dari awal.
 
 Solusi:
 
-* Lakukan [back up etcd](https://coreos.com/etcd/docs/latest/admin_guide.html) secara reguler. Direktori data
+* Lakukan [back up etcd](https://etcd.io/docs/v3.5/op-guide/recovery/) secara reguler. Direktori data
   etcd yang dikonfigurasi oleh kubeadm berada di `/var/lib/etcd` pada Node _control-plane_.
 
 * Gunakan banyak Node _control-plane_. Kamu dapat membaca

@@ -28,7 +28,7 @@ pero con diferentes parámetros y/o diferentes peticiones de CPU y memoria segú
 
 Un DaemonSet se describe por medio de un archivo YAML. Por ejemplo, el archivo `daemonset.yaml` de abajo describe un DaemonSet que ejecuta la imagen Docker de fluentd-elasticsearch:
 
-{{< codenew file="controllers/daemonset.yaml" >}}
+{{% codenew file="controllers/daemonset.yaml" %}}
 
 * Crear un DaemonSet basado en el archivo YAML:
 ```

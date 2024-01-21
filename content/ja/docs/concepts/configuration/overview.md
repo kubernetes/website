@@ -44,7 +44,7 @@ weight: 10
 
   *これは順序付けの必要性を意味します* - `Pod`がアクセスしたい`Service`は`Pod`自身の前に作らなければならず、そうしないと環境変数は注入されません。DNSにはこの制限はありません。
 
-- （強くお勧めしますが）[クラスターアドオン](/ja/docs/concepts/cluster-administration/addons/)の1つの選択肢はDNSサーバーです。DNSサーバーは、新しい`Service`についてKubernetes APIを監視し、それぞれに対して一連のDNSレコードを作成します。クラスタ全体でDNSが有効になっている場合は、すべての`Pod`が自動的に`Services`の名前解決を行えるはずです。
+- （強くお勧めしますが）[クラスターアドオン](/ja/docs/concepts/cluster-administration/addons/)の1つの選択肢はDNSサーバーです。DNSサーバーは、新しい`Service`についてKubernetes APIを監視し、それぞれに対して一連のDNSレコードを作成します。クラスター全体でDNSが有効になっている場合は、すべての`Pod`が自動的に`Services`の名前解決を行えるはずです。
 
 - どうしても必要な場合以外は、Podに`hostPort`を指定しないでください。Podを`hostPort`にバインドすると、Podがスケジュールできる場所の数を制限します、それぞれの<`hostIP`、 `hostPort`、`protocol`>の組み合わせはユニークでなければならないからです。`hostIP`と`protocol`を明示的に指定しないと、Kubernetesはデフォルトの`hostIP`として`0.0.0.0`を、デフォルトの `protocol`として`TCP`を使います。
 
@@ -62,7 +62,7 @@ weight: 10
 
 セレクターからリリース固有のラベルを省略することで、Serviceを複数のDeploymentにまたがるように作成できます。 [Deployment](/ja/docs/concepts/workloads/controllers/deployment/)により、ダウンタイムなしで実行中のサービスを簡単に更新できます。
 
-オブジェクトの望ましい状態はDeploymentによって記述され、その仕様への変更が _適用_ されると、Deploymentコントローラは制御された速度で実際の状態を望ましい状態に変更します。
+オブジェクトの望ましい状態はDeploymentによって記述され、その仕様への変更が _適用_ されると、Deploymentコントローラーは制御された速度で実際の状態を望ましい状態に変更します。
 
 - デバッグ用にラベルを操作できます。Kubernetesコントローラー（ReplicaSetなど）とServiceはセレクターラベルを使用してPodとマッチするため、Podから関連ラベルを削除すると、コントローラーによって考慮されたり、Serviceによってトラフィックを処理されたりすることがなくなります。既存のPodのラベルを削除すると、そのコントローラーはその代わりに新しいPodを作成します。これは、「隔離」環境で以前の「ライブ」Podをデバッグするのに便利な方法です。対話的にラベルを削除または追加するには、[`kubectl label`](/docs/reference/generated/kubectl/kubectl-commands#label)を使います。
 

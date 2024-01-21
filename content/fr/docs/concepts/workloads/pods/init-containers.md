@@ -69,7 +69,7 @@ Voici plusieurs idées pour utiliser les init containers :
 * Attendre qu'un {{< glossary_tooltip text="Service" term_id="service">}} soit créé,
   en utilisant une commande shell d'une ligne telle que :
   ```shell
-  for i in {1..100}; do sleep 1; if dig myservice; then exit 0; fi; done; exit 1
+  for i in {1..100}; do sleep 1; if nslookup myservice; then exit 0; fi; done; exit 1
   ```
 
 * Enregistrer ce Pod à un serveur distant depuis l'API downward avec une commande telle que :
@@ -102,7 +102,7 @@ kind: Pod
 metadata:
   name: myapp-pod
   labels:
-    app: myapp
+    app.kubernetes.io/name: MyApp
 spec:
   containers:
   - name: myapp-container
@@ -167,7 +167,7 @@ kubectl describe -f myapp.yaml
 Name:          myapp-pod
 Namespace:     default
 [...]
-Labels:        app=myapp
+Labels:        app.kubernetes.io/name=MyApp
 Status:        Pending
 [...]
 Init Containers:
@@ -325,6 +325,6 @@ redémarrage du conteneur d'application.
 
 
 * Lire à propos de la [création d'un Pod ayant un init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container)
-* Apprendre à [debugger les init containers](/docs/tasks/debug-application-cluster/debug-init-containers/)
+* Apprendre à [debugger les init containers](/docs/tasks/debug/debug-application/debug-init-containers/)
 
 

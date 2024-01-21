@@ -146,7 +146,7 @@ alias kubectl-user='kubectl --as=system:serviceaccount:psp-example:fake-user -n 
 
 Beri definisi objek contoh PodSecurityPolicy dalam sebuah berkas. Ini adalah kebijakan yang mencegah pembuatan Pod-Pod yang _privileged_.
 
-{{< codenew file="policy/example-psp.yaml" >}}
+{{% codenew file="policy/example-psp.yaml" %}}
 
 Dan buatlah PodSecurityPolicy tersebut dengan `kubectl`:
 
@@ -165,7 +165,7 @@ metadata:
 spec:
   containers:
     - name:  pause
-      image: k8s.gcr.io/pause
+      image: registry.k8s.io/pause
 EOF
 Error from server (Forbidden): error when creating "STDIN": pods "pause" is forbidden: unable to validate against any pod security policy: []
 ```
@@ -210,7 +210,7 @@ metadata:
 spec:
   containers:
     - name:  pause
-      image: k8s.gcr.io/pause
+      image: registry.k8s.io/pause
 EOF
 pod "pause" created
 ```
@@ -226,7 +226,7 @@ metadata:
 spec:
   containers:
     - name:  pause
-      image: k8s.gcr.io/pause
+      image: registry.k8s.io/pause
       securityContext:
         privileged: true
 EOF
@@ -244,7 +244,7 @@ kubectl-user delete pod pause
 Mari coba lagi, dengan cara yang sedikit berbeda:
 
 ```shell
-kubectl-user run pause --image=k8s.gcr.io/pause
+kubectl-user run pause --image=registry.k8s.io/pause
 deployment "pause" created
 
 kubectl-user get pods
@@ -297,11 +297,11 @@ podsecuritypolicy "example" deleted
 
 Berikut adalah kebijakan dengan batasan paling sedikit yang dapat kamu buat, ekuivalen dengan tidak menggunakan _admission controller_ Pod Security Policy:
 
-{{< codenew file="policy/privileged-psp.yaml" >}}
+{{% codenew file="policy/privileged-psp.yaml" %}}
 
 Berikut adalah sebuah contoh kebijakan yang restriktif yang mengharuskan pengguna-pengguna untuk berjalan sebagai pengguna yang _unprivileged_, memblokir kemungkinan eskalasi menjadi _root_, dan mengharuskan penggunaan beberapa mekanisme keamanan.
 
-{{< codenew file="policy/restricted-psp.yaml" >}}
+{{% codenew file="policy/restricted-psp.yaml" %}}
 
 ## Referensi Kebijakan
 

@@ -17,7 +17,7 @@ and are in no way a direct recommendation from the Kubernetes community or autho
 
 USA's National Security Agency (NSA) and the Cybersecurity and Infrastructure
 Security Agency (CISA)
-released, "[Kubernetes Hardening Guidance](https://media.defense.gov/2021/Aug/03/2002820425/-1/-1/1/CTR_KUBERNETES%20HARDENING%20GUIDANCE.PDF)"
+released Kubernetes Hardening Guidance
 on August 3rd, 2021. The guidance details threats to Kubernetes environments
 and provides secure configuration guidance to minimize risk.
 
@@ -28,6 +28,14 @@ anything new to the existing content.
 _Note_: This blog post is not a substitute for reading the guide. Reading the published 
 guidance is recommended before proceeding as the following content is 
 complementary.
+
+{{% pageinfo color="primary" %}}
+**Update, November 2023:**
+
+The National Security Agency (NSA) and the Cybersecurity and Infrastructure Security Agency (CISA) released the 1.0 version of the Kubernetes hardening guide in August 2021 and updated it based on industry feedback in March 2022 (version 1.1).
+
+The most recent version of the Kubernetes hardening guidance was released in August 2022 with corrections and clarifications. Version 1.2 outlines a number of recommendations for [hardening Kubernetes clusters](https://media.defense.gov/2022/Aug/29/2003066362/-1/-1/0/CTR_KUBERNETES_HARDENING_GUIDANCE_1.2_20220829.PDF).
+{{% /pageinfo %}}
 
 ## Introduction and Threat Model
 
@@ -175,7 +183,7 @@ require internet access to update the vulnerability database.
 
 ### Pod Security Policies
 
-Since Kubernetes v1.21, the [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/) 
+Since Kubernetes v1.21, the [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/) 
 API and related features are [deprecated](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/),
 but some of the guidance in this section will still apply for the next few years, until cluster operators
 upgrade their clusters to newer Kubernetes versions.
@@ -317,7 +325,7 @@ RequestResponse's including metadata and request / response bodies. While helpfu
 
 Each organization needs to evaluate their
 own threat model and build an audit policy that complements or helps troubleshooting incident response. Think
-about how someone would attack your organization and what audit trail could identify it. Review more advanced options for tuning audit logs in the official [audit logging documentation](/docs/tasks/debug-application-cluster/audit/#audit-policy).
+about how someone would attack your organization and what audit trail could identify it. Review more advanced options for tuning audit logs in the official [audit logging documentation](/docs/tasks/debug/debug-cluster/audit/#audit-policy).
 It's crucial to tune your audit logs to only include events that meet your threat model. A minimal audit policy that logs everything at `metadata` level can also be a good starting point. 
 
 Audit logging configurations can also be tested with

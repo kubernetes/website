@@ -46,7 +46,7 @@ To run the link checker:
 2. Run the following command:
 
   ```
-  make docker-internal-linkcheck
+  make container-internal-linkcheck
   ```
 
 ## Understanding the output

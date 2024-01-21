@@ -29,7 +29,7 @@ Dans cet exercice, vous créez un pod qui contient un seul conteneur. Ce Pod a u
 [emptyDir](/fr/docs/concepts/storage/volumes/#emptydir) qui dure toute la vie du Pod, même si le conteneur se termine et redémarre.
 Voici le fichier de configuration du Pod :
 
-{{< codenew file="pods/storage/redis.yaml" >}}
+{{% codenew file="pods/storage/redis.yaml" %}}
 
 1. Créez le Pod :
 
@@ -45,7 +45,7 @@ Voici le fichier de configuration du Pod :
 
     La sortie ressemble à ceci :
 
-    ```shell
+    ```console
     NAME      READY     STATUS    RESTARTS   AGE
     redis     1/1       Running   0          13s
     ```
@@ -73,7 +73,7 @@ Voici le fichier de configuration du Pod :
 
     La sortie ressemble à ceci :
 
-    ```shell
+    ```console
     USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
     redis        1  0.1  0.1  33308  3828 ?        Ssl  00:46   0:00 redis-server *:6379
     root        12  0.0  0.0  20228  3020 ?        Ss   00:47   0:00 /bin/bash
@@ -91,7 +91,7 @@ Voici le fichier de configuration du Pod :
 1. Dans votre terminal initial, surveillez les changements apportés au Pod de Redis. Éventuellement,
 vous verrez quelque chose comme ça :
 
-    ```shell
+    ```console
     NAME      READY     STATUS     RESTARTS   AGE
     redis     1/1       Running    0          13s
     redis     0/1       Completed  0         6m

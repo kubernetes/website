@@ -37,7 +37,7 @@ OSから信頼されているローカルツールを使用することで、外
 
 以下はユーザー名とパスワードを保持するSecretを作成するために使用できる設定ファイルです:
 
-{{< codenew file="pods/inject/secret.yaml" >}}
+{{% codenew file="pods/inject/secret.yaml" %}}
 
 1. Secret を作成する
 
@@ -97,7 +97,7 @@ kubectl create secret generic test-secret --from-literal='username=my-app' --fro
 
 これはPodの作成に使用できる設定ファイルです。
 
-{{< codenew file="pods/inject/secret-pod.yaml" >}}
+{{% codenew file="pods/inject/secret-pod.yaml" %}}
 
 1. Podを作成する:
 
@@ -161,7 +161,7 @@ kubectl create secret generic test-secret --from-literal='username=my-app' --fro
 
 *  Secretで定義された`backend-username`の値をPodの環境変数`SECRET_USERNAME`に割り当てます。
 
-   {{< codenew file="pods/inject/pod-single-secret-env-variable.yaml" >}}
+   {{% codenew file="pods/inject/pod-single-secret-env-variable.yaml" %}}
 
 *  Podを作成する:
 
@@ -191,7 +191,7 @@ kubectl create secret generic test-secret --from-literal='username=my-app' --fro
 
 *  Podの中で環境変数を定義する:
 
-   {{< codenew file="pods/inject/pod-multiple-secret-env-variable.yaml" >}}
+   {{% codenew file="pods/inject/pod-multiple-secret-env-variable.yaml" %}}
 
 *  Podを作成する:
 
@@ -225,7 +225,7 @@ kubectl create secret generic test-secret --from-literal='username=my-app' --fro
 
 *  envFromを使用してSecretのすべてのデータをコンテナの環境変数として定義します。SecretのキーがPodの環境変数名になります。
 
-    {{< codenew file="pods/inject/pod-secret-envFrom.yaml" >}}
+    {{% codenew file="pods/inject/pod-secret-envFrom.yaml" %}}
 
 *  Podを作成する:
 

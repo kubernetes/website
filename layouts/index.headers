@@ -13,7 +13,7 @@
   {{- end -}}
 {{- range $pages }}
 {{- if or (.Params.deprecated) (eq .Params.class "gridPage") (.Params.case_study_styles) (.Params.css) (.Params.js) }}
-{{ .URL }}
+{{ .RelPermalink }}
   {{- if eq .Params.class "gridPage" }}
   Link: </css/gridpage.css>; rel=preload; as=style
   {{- end -}}

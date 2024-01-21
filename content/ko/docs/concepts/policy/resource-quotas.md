@@ -1,6 +1,6 @@
 ---
-
-
+# reviewers:
+# - derekwaynecarr
 title: 리소스 쿼터
 content_type: concept
 weight: 20
@@ -22,8 +22,7 @@ weight: 20
 
 리소스 쿼터는 다음과 같이 작동한다.
 
-- 다른 팀은 다른 네임스페이스에서 작동한다. 현재 이것은 자발적이지만 ACL을 통해 이 필수 사항을
-  적용하기 위한 지원이 계획되어 있다.
+- 다른 팀은 다른 네임스페이스에서 작업한다. 이것은 [RBAC](/docs/reference/access-authn-authz/rbac/)으로 설정할 수 있다.
 
 - 관리자는 각 네임스페이스에 대해 하나의 리소스쿼터를 생성한다.
 
@@ -39,6 +38,18 @@ weight: 20
 
   이 문제를 회피하는 방법에 대한 예제는
   [연습](/ko/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)을 참고하길 바란다.
+
+{{< note >}}
+- 리소스쿼터는 `cpu` 및 `memory` 리소스의 경우, 해당 네임스페이스의 **모든**
+(신규) 파드가 해당 리소스에 대한 제한을 설정하도록 강제한다.
+네임스페이스에서 `cpu` 또는 `memory`에 대해 리소스 할당량을 적용하는 경우,
+사용자와 다른 클라이언트는 **반드시** 제출하는 모든 새 파드에 대해
+해당 리소스에 `requests` 또는 `limits` 중 하나를 지정해야 한다.
+그렇지 않으면 컨트롤 플레인이 해당 파드에 대한 어드미션을 거부할 수 있다.
+- 다른 리소스의 경우: 리소스쿼터는 작동하며 해당 리소스에 대한 제한이나 요청을 설정하지 않고 네임스페이스의 파드를 무시한다. 즉, 리소스 쿼터가 이 네임스페이스의 임시 스토리지를 제한하는 경우 임시 스토리지를 제한/요청하지 않고 새 파드를 생성할 수 있다.
+[리밋 레인지(Limit Range)](/ko/docs/concepts/policy/limit-range/)를 사용하여
+이러한 리소스에 대한 기본 요청을 자동으로 설정할 수 있다.
+{{< /note >}}
 
 리소스쿼터 오브젝트의 이름은 유효한
 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names#dns-서브도메인-이름)이어야 한다.
@@ -104,7 +115,7 @@ GPU 리소스를 다음과 같이 쿼터를 정의할 수 있다.
 
 지정된 네임스페이스에서 요청할 수 있는 총 [스토리지 리소스](/ko/docs/concepts/storage/persistent-volumes/) 합을 제한할 수 있다.
 
-또한 연관된 ​​스토리지 클래스를 기반으로 스토리지 리소스 사용을 제한할 수 있다.
+또한 연관된 스토리지 클래스를 기반으로 스토리지 리소스 사용을 제한할 수 있다.
 
 | 리소스 이름 | 설명        |
 | --------------------- | ----------------------------------------------------------- |
@@ -442,7 +453,7 @@ pods        0     10
 
 ### 네임스페이스 간 파드 어피니티 쿼터
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 오퍼레이터는 네임스페이스를 교차하는 어피니티가 있는 파드를 가질 수 있는 네임스페이스를
 제한하기 위해 `CrossNamespacePodAffinity` 쿼터 범위를 사용할 수 있다. 특히, 파드 어피니티 용어의
@@ -492,10 +503,6 @@ plugins:
 위의 구성을 사용하면, 파드는 생성된 네임스페이스에 `CrossNamespaceAffinity` 범위가 있는 리소스 쿼터 오브젝트가 있고,
 해당 필드를 사용하는 파드 수보다 크거나 같은 하드 제한이 있는 경우에만
 파드 어피니티에서 `namespaces` 및 `namespaceSelector` 를 사용할 수 있다.
-
-이 기능은 베타이며 기본으로 활성화되어 있다. kube-apiserver 및 kube-scheduler 모두에서
-[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)
-`PodAffinityNamespaceSelector` 를 사용하여 비활성화할 수 있다.
 
 ## 요청과 제한의 비교 {#requests-vs-limits}
 
@@ -702,7 +709,7 @@ resourcequota/pods-cluster-services created
 
 ## {{% heading "whatsnext" %}}
 
-- 자세한 내용은 [리소스쿼터 디자인 문서](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md)를 참고한다.
+- 자세한 내용은 [리소스쿼터 디자인 문서](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_resource_quota.md)를 참고한다.
 - [리소스 쿼터를 사용하는 방법에 대한 자세한 예](/docs/tasks/administer-cluster/quota-api-object/)를 참고한다.
-- [우선 순위 클래스에 대한 쿼터 지원 디자인 문서](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/pod-priority-resourcequota.md)를 읽는다.
+- [우선 순위 클래스에 대한 쿼터 지원 디자인 문서](https://git.k8s.io/design-proposals-archive/scheduling/pod-priority-resourcequota.md)를 읽는다.
 - [제한된 자원](https://github.com/kubernetes/kubernetes/pull/36765)을 참고한다.

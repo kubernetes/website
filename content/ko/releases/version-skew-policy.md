@@ -1,11 +1,11 @@
 ---
-
-
-
-
-
-
-
+# reviewers:
+# - sig-api-machinery
+# - sig-architecture
+# - sig-cli
+# - sig-cluster-lifecycle
+# - sig-node
+# - sig-release
 title: 버전 차이(skew) 정책
 type: docs
 description: >
@@ -21,16 +21,16 @@ description: >
 ## 지원되는 버전
 
 쿠버네티스 버전은 **x.y.z** 로 표현되는데, 여기서 **x** 는 메이저 버전, **y** 는 마이너 버전, **z** 는 패치 버전을 의미하며, 이는 [시맨틱 버전](https://semver.org/) 용어에 따른 것이다.
-자세한 내용은 [쿠버네티스 릴리스 버전](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/release/versioning.md#kubernetes-release-versioning)을 참조한다.
+자세한 내용은 [쿠버네티스 릴리스 버전](https://git.k8s.io/sig-release/release-engineering/versioning.md#kubernetes-release-versioning)을 참조한다.
 
-쿠버네티스 프로젝트는 최근 세 개의 마이너 릴리스 ({{< skew latestVersion >}}, {{< skew prevMinorVersion >}}, {{< skew oldestMinorVersion >}}) 에 대한 릴리스 분기를 유지한다. 쿠버네티스 1.19 이상은 약 1년간의 패치 지원을 받는다. 쿠버네티스 1.18 이상은 약 9개월의 패치 지원을 받는다.
+쿠버네티스 프로젝트는 최근 세 개의 마이너 릴리스 ({{< skew latestVersion >}}, {{< skew prevMinorVersion >}}, {{< skew oldestMinorVersion >}}) 에 대한 릴리스 분기를 유지한다. 쿠버네티스 1.19 이상은 약 [1년간의 패치 지원](/releases/patch-releases/#support-period)을 받는다. 쿠버네티스 1.18 이상은 약 9개월의 패치 지원을 받는다.
 
 보안 수정사항을 포함한 해당 수정사항은 심각도와 타당성에 따라 세 개의 릴리스 브랜치로 백포트(backport) 될 수 있다.
-패치 릴리스는 각 브랜치별로 [정기적인 주기](https://git.k8s.io/sig-release/releases/patch-releases.md#cadence)로 제공하며, 필요한 경우 추가 긴급 릴리스도 추가한다.
+패치 릴리스는 각 브랜치별로 [정기적인 주기](/releases/patch-releases/#cadence)로 제공하며, 필요한 경우 추가 긴급 릴리스도 추가한다.
 
-[릴리스 관리자](https://git.k8s.io/sig-release/release-managers.md) 그룹이 이러한 결정 권한을 가진다.
+[릴리스 관리자](/releases/release-managers/) 그룹이 이러한 결정 권한을 가진다.
 
-자세한 내용은 쿠버네티스 [패치 릴리스](https://git.k8s.io/sig-release/releases/patch-releases.md) 페이지를 참조한다.
+자세한 내용은 쿠버네티스 [패치 릴리스](/releases/patch-releases/) 페이지를 참조한다.
 
 ## 지원되는 버전 차이
 
@@ -103,6 +103,19 @@ HA 클러스터의 `kube-apiserver` 인스턴스 간에 버전 차이가 있으�
 구성요소 간 지원되는 버전 차이는 구성요소를 업그레이드하는 순서에 영향을 준다.
 이 섹션에서는 기존 클러스터를 버전 **{{< skew prevMinorVersion >}}** 에서 버전 **{{< skew latestVersion >}}** 로 전환하기 위해 구성 요소를 업그레이드하는 순서를 설명한다.
 
+선택적으로, 업그레이드를 준비할 때, 쿠버네티스 프로젝트는 
+업그레이드 중 가능한 많은 회귀 분석 및 버그 수정의 이점을 얻기 위해 
+다음을 수행할 것을 권장한다.
+
+*  구성 요소가 현재 마이너 버전의 
+   최신 패치 버전에 있는지 확인한다.
+*  구성 요소를 대상 마이너 버전의 
+   최신 패치 버전으로 업그레이드 한다.
+
+예를 들어, 만약 {{<skew currentVersionAddMinor -1>}} 버전을 실행 중인 경우, 
+최신 패치 버전을 사용 중인지 확인한다. 그런 다음, 최신 패치 버전인 {{<skew currentVersion>}}로 
+업그레이드 한다.
+
 ### kube-apiserver
 
 사전 요구 사항:
@@ -127,9 +140,13 @@ HA 클러스터의 `kube-apiserver` 인스턴스 간에 버전 차이가 있으�
 
 사전 요구 사항:
 
-* `kube-apiserver` 인스턴스는 **{{< skew latestVersion >}}** 이여야 한다(HA 클러스터에서 `kube-apiserver` 인스턴스와 통신할 수 있는 구성 요소를 업그레이드 전에 모든 `kube-apiserver` 인스턴스는 업그레이드되어야 한다).
+* `kube-apiserver` 인스턴스는 **{{< skew currentVersion >}}** 이여야 한다(HA 클러스터에서 `kube-apiserver` 인스턴스와 통신할 수 있는 구성 요소를 업그레이드 전에 모든 `kube-apiserver` 인스턴스는 업그레이드되어야 한다).
 
-`kube-controller-manager`, `kube-scheduler` 및 `cloud-controller-manager` 를 **{{< skew latestVersion >}}** 으로 업그레이드한다.
+`kube-controller-manager`, `kube-scheduler` 및 `cloud-controller-manager` 를 
+**{{< skew currentVersion >}}** 으로 업그레이드한다. `kube-controller-manager`, `kube-scheduler` 및 `cloud-controller-manager` 사이에는 
+업그레이드에 우선순위가 없다. 이 구성 요소들을 
+임의의 순서 또는 심지어 동시에 
+업그레이드해도 된다.
 
 ### kubelet
 

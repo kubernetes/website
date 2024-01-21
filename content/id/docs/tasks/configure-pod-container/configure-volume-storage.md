@@ -25,7 +25,7 @@ _Filesystem_ dari sebuah Container hanya hidup selama Container itu juga hidup. 
 Pada latihan ini, kamu membuat sebuah Pod yang menjalankan sebuah Container. Pod ini memiliki sebuah Volume dengan tipe [emptyDir](/id/docs/concepts/storage/volumes/#emptydir)
 yang tetap bertahan, meski Container berakhir dan dimulai ulang. Berikut berkas konfigurasi untuk Pod:
 
-{{< codenew file="pods/storage/redis.yaml" >}}
+{{% codenew file="pods/storage/redis.yaml" %}}
 
 1. Membuat Pod:
 
@@ -41,7 +41,7 @@ yang tetap bertahan, meski Container berakhir dan dimulai ulang. Berikut berkas 
     
     Hasil keluaran seperti ini:
 
-    ```shell
+    ```console
     NAME      READY     STATUS    RESTARTS   AGE
     redis     1/1       Running   0          13s
     ```
@@ -69,7 +69,7 @@ yang tetap bertahan, meski Container berakhir dan dimulai ulang. Berikut berkas 
 
     Keluarannya mirip seperti ini:
 
-    ```shell
+    ```console
     USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
     redis        1  0.1  0.1  33308  3828 ?        Ssl  00:46   0:00 redis-server *:6379
     root        12  0.0  0.0  20228  3020 ?        Ss   00:47   0:00 /bin/bash
@@ -86,7 +86,7 @@ yang tetap bertahan, meski Container berakhir dan dimulai ulang. Berikut berkas 
 
 2. Di dalam terminal awal, amati perubahan terhadap Pod Redis. Sampai akhirnya kamu akan melihat hal seperti ini:
 
-    ```shell
+    ```console
     NAME      READY     STATUS     RESTARTS   AGE
     redis     1/1       Running    0          13s
     redis     0/1       Completed  0         6m

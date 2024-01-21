@@ -3,6 +3,7 @@ layout: blog
 title: 'Kubernetes 1.11: In-Cluster Load Balancing and CoreDNS Plugin Graduate to General Availability'
 date:  2018-06-27
 slug: kubernetes-1.11-release-announcement
+evergreen: true
 ---
 
 **Author**: Kubernetes 1.11 [Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.11/release_team.md)
@@ -25,7 +26,7 @@ In this release, [IPVS-based in-cluster service load balancing](https://github.c
 
 ## Dynamic Kubelet Configuration Moves to Beta
 
-This feature makes it possible for new Kubelet configurations to be rolled out in a live cluster.  Currently, Kubelets are configured via command-line flags, which makes it difficult to update Kubelet configurations in a running cluster. With this beta feature, [users can configure Kubelets in a live cluster](/docs/tasks/administer-cluster/reconfigure-kubelet/) via the API server.
+This feature makes it possible for new Kubelet configurations to be rolled out in a live cluster. Currently, Kubelets are configured via command-line flags, which makes it difficult to update Kubelet configurations in a running cluster. With this beta feature, users can configure Kubelets in a live cluster via the API server.
 
 ## Custom Resource Definitions Can Now Define Multiple Versions
 

@@ -1,8 +1,8 @@
 ---
-
-
-
-
+# reviewers:
+# - erictune
+# - foxish
+# - davidopp
 title: 중단(disruption)
 content_type: concept
 weight: 60
@@ -72,7 +72,7 @@ weight: 60
 - 파드가 필요로 하는 [리소스를 요청](/ko/docs/tasks/configure-pod-container/assign-memory-resource/)하는지 확인한다.
 - 고가용성이 필요한 경우 애플리케이션을 복제한다.
   (복제된 [스테이트리스](/ko/docs/tasks/run-application/run-stateless-application-deployment/) 및
-  [스테이트풀](/docs/tasks/run-application/run-replicated-stateful-application/) 애플리케이션에 대해 알아보기.)
+  [스테이트풀](/ko/docs/tasks/run-application/run-replicated-stateful-application/) 애플리케이션에 대해 알아보기.)
 - 복제된 애플리케이션의 구동 시 훨씬 더 높은 가용성을 위해 랙 전체
   ([안티-어피니티](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#파드간-어피니티와-안티-어피니티) 이용)
   또는 영역 간
@@ -226,6 +226,52 @@ drain 커멘드는 `pod-b` 를 축출하는데 성공했다.
 - 새 인스턴스를 시작하는데 소요되는 시간
 - 컨트롤러의 유형
 - 클러스터의 리소스 용량
+
+## 파드 중단 조건 {#pod-disruption-conditions}
+
+{{< feature-state for_k8s_version="v1.26" state="beta" >}}
+
+{{< note >}}
+만약 쿠버네티스 {{< skew currentVersion >}} 보다 낮은 버전을 사용하고 있다면,
+해당 버전의 문서를 참조하자.
+{{< /note >}}
+
+{{< note >}}
+클러스터에서 이 동작을 사용하려면 `PodDisruptionConditions`
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 
+활성화해야 한다.
+{{< /note >}}
+
+이 기능이 활성화되면, 파드 전용 `DisruptionTarget` [컨디션](/ko/docs/concepts/workloads/pods/pod-lifecycle/#파드의-컨디션)이 추가되어
+{{<glossary_tooltip term_id="disruption" text="중단(disruption)">}}으로 인해 파드가 삭제될 예정임을 나타낸다.
+추가로 컨디션의 `reason` 필드는
+파드 종료에 대한 다음 원인 중 하나를 나타낸다.
+
+`PreemptionByKubeScheduler`
+: 파드는 더 높은 우선순위를 가진 새 파드를 수용하기 위해 스케줄러에 의해 {{<glossary_tooltip term_id="preemption" text="선점(preempted)">}}된다. 자세한 내용은 [파드 우선순위(priority)와 선점(preemption)](/ko/docs/concepts/scheduling-eviction/pod-priority-preemption/)을 참조해보자.
+
+`DeletionByTaintManager`
+: 허용하지 않는 `NoExecute` 테인트(taint) 때문에 파드가 테인트 매니저(`kube-controller-manager` 내의 노드 라이프사이클 컨트롤러의 일부)에 의해 삭제될 예정이다. {{<glossary_tooltip term_id="taint" text="taint">}} 기반 축출을 참조해보자.
+
+`EvictionByEvictionAPI`
+: 파드에 {{<glossary_tooltip term_id="api-eviction" text="쿠버네티스 API를 이용한 축출">}}이 표시되었다.
+
+`DeletionByPodGC`
+: 더 이상 존재하지 않는 노드에 바인딩된 파드는 [파드의 가비지 콜렉션](/ko/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)에 의해 삭제될 예정이다.
+
+`TerminationByKubelet`
+: {{<glossary_tooltip term_id="node-pressure-eviction" text="노드 압박-축출">}} 또는 [그레이스풀 노드 셧다운](/ko/docs/concepts/architecture/nodes/#graceful-node-shutdown)으로 인해 kubelet이 파드를 종료시켰다.
+
+{{< note >}}
+파드 중단은 중단될 수 있다. 컨트롤 플레인은 동일한 파드의 중단을 
+계속 다시 시도하지만, 파드의 중단이 보장되지는 않는다. 결과적으로,
+`DisruptionTarget` 컨디션이 파드에 추가될 수 있지만, 해당 파드는 사실상 
+삭제되지 않았을 수 있다. 이러한 상황에서는, 일정 시간이 지난 뒤에
+파드 중단 상태가 해제된다.
+{{< /note >}}
+
+잡(또는 크론잡(CronJob))을 사용할 때, 이러한 파드 중단 조건을 잡의 
+[파드 실패 정책](/ko/docs/concepts/workloads/controllers/job#pod-failure-policy)의 일부로 사용할 수 있다.
 
 ## 클러스터 소유자와 애플리케이션 소유자의 역할 분리
 

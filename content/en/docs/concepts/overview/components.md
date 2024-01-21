@@ -4,10 +4,11 @@ reviewers:
 title: Kubernetes Components
 content_type: concept
 description: >
-  A Kubernetes cluster consists of the components that represent the control plane
-  and a set of machines called nodes.
-weight: 20
+  A Kubernetes cluster consists of the components that are a part of the control
+  plane and a set of machines called nodes.
+weight: 30
 card: 
+  title: Components of a cluster
   name: concepts
   weight: 20
 ---
@@ -24,7 +25,10 @@ a complete and working Kubernetes cluster.
 <!-- body -->
 ## Control Plane Components
 
-The control plane's components make global decisions about the cluster (for example, scheduling), as well as detecting and responding to cluster events (for example, starting up a new {{< glossary_tooltip text="pod" term_id="pod">}} when a deployment's `replicas` field is unsatisfied).
+The control plane's components make global decisions about the cluster (for example, scheduling),
+as well as detecting and responding to cluster events (for example, starting up a new
+{{< glossary_tooltip text="pod" term_id="pod">}} when a Deployment's
+`{{< glossary_tooltip text="replicas" term_id="replica" >}}` field is unsatisfied).
 
 Control plane components can be run on any machine in the cluster. However,
 for simplicity, set up scripts typically start all control plane components on
@@ -48,13 +52,15 @@ for an example control plane setup that runs across multiple machines.
 
 {{< glossary_definition term_id="kube-controller-manager" length="all" >}}
 
-Some types of these controllers are:
+There are many different types of controllers. Some examples of them are:
 
   * Node controller: Responsible for noticing and responding when nodes go down.
   * Job controller: Watches for Job objects that represent one-off tasks, then creates
     Pods to run those tasks to completion.
-  * Endpoints controller: Populates the Endpoints object (that is, joins Services & Pods).
-  * Service Account & Token controllers: Create default accounts and API access tokens for new namespaces.
+  * EndpointSlice controller: Populates EndpointSlice objects (to provide a link between Services and Pods).
+  * ServiceAccount controller: Create default ServiceAccounts for new namespaces.
+
+The above is not an exhaustive list.
 
 ### cloud-controller-manager
 
@@ -102,19 +108,24 @@ see [Addons](/docs/concepts/cluster-administration/addons/).
 
 ### DNS
 
-While the other addons are not strictly required, all Kubernetes clusters should have [cluster DNS](/docs/concepts/services-networking/dns-pod-service/), as many examples rely on it.
+While the other addons are not strictly required, all Kubernetes clusters should have
+[cluster DNS](/docs/concepts/services-networking/dns-pod-service/), as many examples rely on it.
 
-Cluster DNS is a DNS server, in addition to the other DNS server(s) in your environment, which serves DNS records for Kubernetes services.
+Cluster DNS is a DNS server, in addition to the other DNS server(s) in your environment,
+which serves DNS records for Kubernetes services.
 
 Containers started by Kubernetes automatically include this DNS server in their DNS searches.
 
 ### Web UI (Dashboard)
 
-[Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/) is a general purpose, web-based UI for Kubernetes clusters. It allows users to manage and troubleshoot applications running in the cluster, as well as the cluster itself.
+[Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/) is a general purpose,
+web-based UI for Kubernetes clusters. It allows users to manage and troubleshoot applications
+running in the cluster, as well as the cluster itself.
 
 ### Container Resource Monitoring
 
-[Container Resource Monitoring](/docs/tasks/debug-application-cluster/resource-usage-monitoring/) records generic time-series metrics
+[Container Resource Monitoring](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
+records generic time-series metrics
 about containers in a central database, and provides a UI for browsing that data.
 
 ### Cluster-level Logging
@@ -122,10 +133,21 @@ about containers in a central database, and provides a UI for browsing that data
 A [cluster-level logging](/docs/concepts/cluster-administration/logging/) mechanism is responsible for
 saving container logs to a central log store with search/browsing interface.
 
+### Network Plugins
+
+[Network plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins) are software
+components that implement the container network interface (CNI) specification. They are responsible for
+allocating IP addresses to pods and enabling them to communicate with each other within the cluster.
+
 
 ## {{% heading "whatsnext" %}}
 
-* Learn about [Nodes](/docs/concepts/architecture/nodes/)
-* Learn about [Controllers](/docs/concepts/architecture/controller/)
-* Learn about [kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/)
-* Read etcd's official [documentation](https://etcd.io/docs/)
+Learn more about the following:
+   * [Nodes](/docs/concepts/architecture/nodes/) and [their communication](/docs/concepts/architecture/control-plane-node-communication/)
+     with the control plane.
+   * Kubernetes [controllers](/docs/concepts/architecture/controller/).
+   * [kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/) which is the default scheduler for Kubernetes.
+   * Etcd's official [documentation](https://etcd.io/docs/).
+   * Several [container runtimes](/docs/setup/production-environment/container-runtimes/) in Kubernetes.
+   * Integrating with cloud providers using [cloud-controller-manager](/docs/concepts/architecture/cloud-controller/).
+   * [kubectl](/docs/reference/generated/kubectl/kubectl-commands) commands.

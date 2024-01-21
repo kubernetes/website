@@ -14,7 +14,7 @@ weight: 50
 
 Los objetos de tipo {{< glossary_tooltip text="Secret" term_id="secret" >}} en Kubernetes te permiten almacenar y administrar información confidencial, como
 contraseñas, tokens OAuth y llaves ssh.  Poniendo esta información en un Secret
-es más seguro y más flexible que ponerlo en la definición de un {{< glossary_tooltip term_id="pod" >}} o en un {{< glossary_tooltip text="container image" term_id="image" >}}. Ver [Secrets design document](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md) para más información.
+es más seguro y más flexible que ponerlo en la definición de un {{< glossary_tooltip term_id="pod" >}} o en un {{< glossary_tooltip text="container image" term_id="image" >}}. Ver [Secrets design document](https://git.k8s.io/design-proposals-archive/auth/secrets.md) para más información.
 
 <!-- body -->
 
@@ -239,7 +239,7 @@ Las llaves de data y stringData deben consistir en caracteres alfanuméricos,
 
 **Nota de codificación:** Los valores serializados JSON y YAML  de los datos secretos estan codificadas como cadenas base64.  Las nuevas lineas no son válidas dentro de esa cadena y debe ser omitido.  Al usar `base64` en Darwin/macOS, los usuarios deben evitar el uso de la opción `-b` para dividir líneas largas. Por lo contratio los usuarios de Linux *deben* añadir la opción `-w 0` a los comandos `base64` o al pipeline `base64 | tr -d '\n'` si la opción `-w` no esta disponible.
 
-#### Creaando un Secret a partir de Generador
+#### Creando un Secret a partir de Generador
 Kubectl soporta [managing objects using Kustomize](/docs/tasks/manage-kubernetes-objects/kustomization/)
 desde 1.14. Con esta nueva característica,
 puedes tambien crear un Secret a partir de un generador y luego aplicarlo para crear el objeto en el Apiserver. Los generadores deben ser especificados en un   `kustomization.yaml` dentro de un directorio.
@@ -345,7 +345,7 @@ echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
 ## Usando Secrets
 
 Los Secrets se pueden montar como volúmenes de datos o ser expuestos como 
-{{< glossary_tooltip text="variables de ambiente" term_id="container-env-variables" >}}
+{{< glossary_tooltip text="variables de entorno" term_id="container-env-variables" >}}
 para ser usados por un contenedor en un pod.  También pueden ser utilizados por otras partes del sistema, 
 sin estar directamente expuesto en el pod.  Por ejemplo, pueden tener credenciales que otras partes del sistema usan para interactuar con sistemas externos en su nombre.
 
@@ -520,7 +520,7 @@ Cuando se actualiza un Secret que ya se está consumiendo en un volumen, las cla
 Kubelet está verificando si el Secret montado esta actualizado en cada sincronización periódica.
 Sin embargo, está usando su caché local para obtener el valor actual del Secret.
 El tipo de caché es configurable usando el  (campo `ConfigMapAndSecretChangeDetectionStrategy`  en
-[KubeletConfiguration struct](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go)).
+[KubeletConfiguration struct](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/kubelet/config/v1beta1/types.go)).
 Puede ser propagado por el reloj (default), ttl-based, o simplemente redirigiendo
 todas las solicitudes a kube-apiserver directamente.
 Como resultado, el retraso total desde el momento en que se actualiza el Secret hasta el momento en que se proyectan las nuevas claves en el Pod puede ser tan largo como el periodo de sincronización de kubelet + retraso de 
@@ -840,7 +840,7 @@ spec:
       secretName: dotfile-secret
   containers:
   - name: dotfile-test-container
-    image: k8s.gcr.io/busybox
+    image: registry.k8s.io/busybox
     command:
     - ls
     - "-l"
@@ -862,7 +862,7 @@ tu debes usar `ls -la` para verlos al enumerar los contenidos del directorio.
 
 ### Caso de uso: Secret visible para un contenedor en un pod
 
-Considere un programa que necesita manejar solicitudes HTTP, hacer una lógicca empresarial compleja y luego firmar algunos mensajes con un HMAC. Debido a que tiene una lógica de aplicación compleja, puede haber una vulnerabilidad de lectura remota de archivos inadvertida en el servidor, lo que podría exponer la clave privada a un atacante.
+Considere un programa que necesita manejar solicitudes HTTP, hacer una lógica empresarial compleja y luego firmar algunos mensajes con un HMAC. Debido a que tiene una lógica de aplicación compleja, puede haber una vulnerabilidad de lectura remota de archivos inadvertida en el servidor, lo que podría exponer la clave privada a un atacante.
 
 Esto podría dividirse en dos procesos en dos contenedores: un contenedor de frontend que maneja la interacción del usuario y la lógica empresarial. pero que no puede ver la clave privada; y un contenedor de firmante que puede ver la clave privada, y responde a solicitudes de firma simples del frontend (ejemplo, a través de redes de localhost).
 
@@ -899,7 +899,7 @@ Un Secret solo se envía a un nodo si un pod en ese nodo lo requiere. Kubelet al
 
 Puede haber Secrets para varios Pods en el mismo nodo. Sin embargo, solo los Secrets que solicita un Pod son potencialmente visibles dentro de sus contenedores. Por lo tanto, un Pod no tiene acceso a los Secrets de otro Pod.
 
-Puede haver varios contenedores en un Pod. Sin embargo, cada contenedor en un pod tiene que solicitar el volumen del Secret en su 
+Puede haber varios contenedores en un Pod. Sin embargo, cada contenedor en un pod tiene que solicitar el volumen del Secret en su 
 `volumeMounts` para que sea visible dentro del contenedor. Esto se puede usar para construir particiones de seguridad útiles en el Pod level](#use-case-secret-visible-to-one-container-in-a-pod).
 
 En la mayoría de las distribuciones Kubernetes-project-maintained, la comunicación entre usuario a el apiserver, y del apiserver a kubelets, ista protegido por SSL/TLS.

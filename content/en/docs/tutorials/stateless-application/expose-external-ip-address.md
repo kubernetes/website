@@ -31,7 +31,7 @@ external IP address.
 
 1. Run a Hello World application in your cluster:
 
-   {{< codenew file="service/load-balancer-example.yaml" >}}
+   {{% code_sample file="service/load-balancer-example.yaml" %}}
 
    ```shell
    kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml
@@ -46,116 +46,116 @@ external IP address.
 
 1. Display information about the Deployment:
 
-    ```shell
-    kubectl get deployments hello-world
-    kubectl describe deployments hello-world
-    ```
+   ```shell
+   kubectl get deployments hello-world
+   kubectl describe deployments hello-world
+   ```
 
 1. Display information about your ReplicaSet objects:
 
-    ```shell
-    kubectl get replicasets
-    kubectl describe replicasets
-    ```
+   ```shell
+   kubectl get replicasets
+   kubectl describe replicasets
+   ```
 
 1. Create a Service object that exposes the deployment:
 
-    ```shell
-    kubectl expose deployment hello-world --type=LoadBalancer --name=my-service
-    ```
+   ```shell
+   kubectl expose deployment hello-world --type=LoadBalancer --name=my-service
+   ```
 
 1. Display information about the Service:
 
-    ```shell
-    kubectl get services my-service
-    ```
+   ```shell
+   kubectl get services my-service
+   ```
 
-    The output is similar to:
+   The output is similar to:
 
-    ```console
-    NAME         TYPE           CLUSTER-IP     EXTERNAL-IP      PORT(S)    AGE
-    my-service   LoadBalancer   10.3.245.137   104.198.205.71   8080/TCP   54s
-    ```
+   ```console
+   NAME         TYPE           CLUSTER-IP     EXTERNAL-IP      PORT(S)    AGE
+   my-service   LoadBalancer   10.3.245.137   104.198.205.71   8080/TCP   54s
+   ```
 
-    {{< note >}}
+   {{< note >}}
 
-    The `type=LoadBalancer` service is backed by external cloud providers, which is not covered in this example, please refer to [this page](/docs/concepts/services-networking/service/#loadbalancer) for the details.
+   The `type=LoadBalancer` service is backed by external cloud providers, which is not covered in this example, please refer to [this page](/docs/concepts/services-networking/service/#loadbalancer) for the details.
 
-    {{< /note >}}
+   {{< /note >}}
 
-    {{< note >}}
+   {{< note >}}
 
-    If the external IP address is shown as \<pending\>, wait for a minute and enter the same command again.
+   If the external IP address is shown as \<pending\>, wait for a minute and enter the same command again.
 
-    {{< /note >}}
+   {{< /note >}}
 
 1. Display detailed information about the Service:
 
-    ```shell
-    kubectl describe services my-service
-    ```
+   ```shell
+   kubectl describe services my-service
+   ```
 
-    The output is similar to:
+   The output is similar to:
 
-    ```console
-    Name:           my-service
-    Namespace:      default
-    Labels:         app.kubernetes.io/name=load-balancer-example
-    Annotations:    <none>
-    Selector:       app.kubernetes.io/name=load-balancer-example
-    Type:           LoadBalancer
-    IP:             10.3.245.137
-    LoadBalancer Ingress:   104.198.205.71
-    Port:           <unset> 8080/TCP
-    NodePort:       <unset> 32377/TCP
-    Endpoints:      10.0.0.6:8080,10.0.1.6:8080,10.0.1.7:8080 + 2 more...
-    Session Affinity:   None
-    Events:         <none>
-    ```
+   ```console
+   Name:           my-service
+   Namespace:      default
+   Labels:         app.kubernetes.io/name=load-balancer-example
+   Annotations:    <none>
+   Selector:       app.kubernetes.io/name=load-balancer-example
+   Type:           LoadBalancer
+   IP:             10.3.245.137
+   LoadBalancer Ingress:   104.198.205.71
+   Port:           <unset> 8080/TCP
+   NodePort:       <unset> 32377/TCP
+   Endpoints:      10.0.0.6:8080,10.0.1.6:8080,10.0.1.7:8080 + 2 more...
+   Session Affinity:   None
+   Events:         <none>
+   ```
 
-    Make a note of the external IP address (`LoadBalancer Ingress`) exposed by
-    your service. In this example, the external IP address is 104.198.205.71.
-    Also note the value of `Port` and `NodePort`. In this example, the `Port`
-    is 8080 and the `NodePort` is 32377.
+   Make a note of the external IP address (`LoadBalancer Ingress`) exposed by
+   your service. In this example, the external IP address is 104.198.205.71.
+   Also note the value of `Port` and `NodePort`. In this example, the `Port`
+   is 8080 and the `NodePort` is 32377.
 
 1. In the preceding output, you can see that the service has several endpoints:
    10.0.0.6:8080,10.0.1.6:8080,10.0.1.7:8080 + 2 more. These are internal
    addresses of the pods that are running the Hello World application. To
    verify these are pod addresses, enter this command:
 
-    ```shell
-    kubectl get pods --output=wide
-    ```
+   ```shell
+   kubectl get pods --output=wide
+   ```
 
-    The output is similar to:
+   The output is similar to:
 
-    ```console
-    NAME                         ...  IP         NODE
-    hello-world-2895499144-1jaz9 ...  10.0.1.6   gke-cluster-1-default-pool-e0b8d269-1afc
-    hello-world-2895499144-2e5uh ...  10.0.1.8   gke-cluster-1-default-pool-e0b8d269-1afc
-    hello-world-2895499144-9m4h1 ...  10.0.0.6   gke-cluster-1-default-pool-e0b8d269-5v7a
-    hello-world-2895499144-o4z13 ...  10.0.1.7   gke-cluster-1-default-pool-e0b8d269-1afc
-    hello-world-2895499144-segjf ...  10.0.2.5   gke-cluster-1-default-pool-e0b8d269-cpuc
-    ```
+   ```console
+   NAME                         ...  IP         NODE
+   hello-world-2895499144-1jaz9 ...  10.0.1.6   gke-cluster-1-default-pool-e0b8d269-1afc
+   hello-world-2895499144-2e5uh ...  10.0.1.8   gke-cluster-1-default-pool-e0b8d269-1afc
+   hello-world-2895499144-9m4h1 ...  10.0.0.6   gke-cluster-1-default-pool-e0b8d269-5v7a
+   hello-world-2895499144-o4z13 ...  10.0.1.7   gke-cluster-1-default-pool-e0b8d269-1afc
+   hello-world-2895499144-segjf ...  10.0.2.5   gke-cluster-1-default-pool-e0b8d269-cpuc
+   ```
 
 1. Use the external IP address (`LoadBalancer Ingress`) to access the Hello
    World application:
 
-    ```shell
-    curl http://<external-ip>:<port>
-    ```
+   ```shell
+   curl http://<external-ip>:<port>
+   ```
 
-    where `<external-ip>` is the external IP address (`LoadBalancer Ingress`)
-    of your Service, and `<port>` is the value of `Port` in your Service
-    description.
-    If you are using minikube, typing `minikube service my-service` will
-    automatically open the Hello World application in a browser.
+   where `<external-ip>` is the external IP address (`LoadBalancer Ingress`)
+   of your Service, and `<port>` is the value of `Port` in your Service
+   description.
+   If you are using minikube, typing `minikube service my-service` will
+   automatically open the Hello World application in a browser.
 
-    The response to a successful request is a hello message:
+   The response to a successful request is a hello message:
 
-    ```shell
-    Hello Kubernetes!
-    ```
+   ```shell
+   Hello Kubernetes!
+   ```
 
 ## {{% heading "cleanup" %}}
 
@@ -175,4 +175,4 @@ kubectl delete deployment hello-world
 ## {{% heading "whatsnext" %}}
 
 Learn more about
-[connecting applications with services](/docs/concepts/services-networking/connect-applications-service/).
+[connecting applications with services](/docs/tutorials/services/connect-applications-service/).

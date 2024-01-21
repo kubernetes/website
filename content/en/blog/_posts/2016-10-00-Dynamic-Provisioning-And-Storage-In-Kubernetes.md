@@ -143,7 +143,7 @@ When a default StorageClass exists and a user creates a PersistentVolumeClaim wi
 
 
 
-Kubernetes 1.4 maintains backwards compatibility with the alpha version of the dynamic provisioning feature to allow for a smoother transition to the beta version. The alpha behavior is triggered by the existance of the alpha dynamic provisioning annotation (volume. **alpha**.kubernetes.io/storage-class). Keep in mind that if the beta annotation (volume. **beta**.kubernetes.io/storage-class) is present, it takes precedence, and triggers the beta behavior.
+Kubernetes 1.4 maintains backwards compatibility with the alpha version of the dynamic provisioning feature to allow for a smoother transition to the beta version. The alpha behavior is triggered by the existence of the alpha dynamic provisioning annotation (volume. **alpha**.kubernetes.io/storage-class). Keep in mind that if the beta annotation (volume. **beta**.kubernetes.io/storage-class) is present, it takes precedence, and triggers the beta behavior.
 
 
 

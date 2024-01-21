@@ -32,13 +32,13 @@ ObjectMeta is metadata that all persisted resources must have, which includes al
 
 - **name** (string)
 
-  Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+  Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
 
 - **generateName** (string)
 
   GenerateName is an optional prefix, used by the server, to generate a unique name ONLY IF the Name field has not been provided. If this field is used, the name returned to the client will be different than the name passed. This value will also be combined with a unique suffix. The provided value has the same validation rules as the Name field, and may be truncated by the length of the suffix required to make the value unique on the server.
   
-  If this field is specified and the generated name exists, the server will NOT return a 409 - instead, it will either return 201 Created or 500 with Reason ServerTimeout indicating a unique name could not be found in the time allotted, and the client should retry (optionally after the time indicated in the Retry-After header).
+  If this field is specified and the generated name exists, the server will return a 409.
   
   Applied only if Name is not specified. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#idempotency
 
@@ -46,15 +46,15 @@ ObjectMeta is metadata that all persisted resources must have, which includes al
 
   Namespace defines the space within which each name must be unique. An empty namespace is equivalent to the "default" namespace, but "default" is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.
   
-  Must be a DNS_LABEL. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/namespaces
+  Must be a DNS_LABEL. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces
 
 - **labels** (map[string]string)
 
-  Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
+  Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels
 
 - **annotations** (map[string]string)
 
-  Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
+  Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations
 
 
 
@@ -105,7 +105,7 @@ ObjectMeta is metadata that all persisted resources must have, which includes al
 
   - **managedFields.time** (Time)
 
-    Time is timestamp of when these fields were set. It should always be empty if Operation is 'Apply'
+    Time is the timestamp of when the ManagedFields entry was added. The timestamp will also be updated if a field is added, the manager changes any of the owned fields value or removes a field. The timestamp does not update when a field is removed from the entry because another manager took it over.
 
     <a name="Time"></a>
     *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
@@ -129,15 +129,15 @@ ObjectMeta is metadata that all persisted resources must have, which includes al
 
   - **ownerReferences.name** (string), required
 
-    Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+    Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
 
   - **ownerReferences.uid** (string), required
 
-    UID of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+    UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
 
   - **ownerReferences.blockOwnerDeletion** (boolean)
 
-    If true, AND if the owner has the "foregroundDeletion" finalizer, then the owner cannot be deleted from the key-value store until this reference is removed. Defaults to false. To set this field, a user needs "delete" permission of the owner, otherwise 422 (Unprocessable Entity) will be returned.
+    If true, AND if the owner has the "foregroundDeletion" finalizer, then the owner cannot be deleted from the key-value store until this reference is removed. See https://kubernetes.io/docs/concepts/architecture/garbage-collection/#foreground-deletion for how the garbage collector interacts with this field and enforces the foreground deletion. Defaults to false. To set this field, a user needs "delete" permission of the owner, otherwise 422 (Unprocessable Entity) will be returned.
 
   - **ownerReferences.controller** (boolean)
 
@@ -180,22 +180,13 @@ ObjectMeta is metadata that all persisted resources must have, which includes al
 
 - **selfLink** (string)
 
-  SelfLink is a URL representing this object. Populated by the system. Read-only.
-  
-  DEPRECATED Kubernetes will stop propagating this field in 1.20 release and the field is planned to be removed in 1.21 release.
+  Deprecated: selfLink is a legacy read-only field that is no longer populated by the system.
 
 - **uid** (string)
 
   UID is the unique in time and space value for this object. It is typically generated by the server on successful creation of a resource and is not allowed to change on PUT operations.
   
-  Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
-
-### Ignored {#Ignored}
-
-
-- **clusterName** (string)
-
-  The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now and apiserver is going to ignore it if set in create or update request.
+  Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
 
 
 

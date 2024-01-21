@@ -87,7 +87,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
       - name: nginx
-        image: k8s.gcr.io/nginx-slim:0.8
+        image: registry.k8s.io/nginx-slim:0.8
         ports:
         - containerPort: 80
           name: web
@@ -154,7 +154,7 @@ Domain klaster akan diatur menjadi `cluster.local` kecuali
 
 Kubernetes membuat sebuah [PersistentVolume](/id/docs/concepts/storage/persistent-volumes/) untuk setiap 
 VolumeClaimTemplate. Pada contoh nginx di atas, setiap Pod akan menerima sebuah PersistentVolume
-dengan StorageClass `my-storage-class` dan penyimpanan senilai 1 Gib yang sudah di-_provisioning_. Jika tidak ada StorageClass
+dengan StorageClass `my-storage-class` dan penyimpanan senilai 1 GiB yang sudah di-_provisioning_. Jika tidak ada StorageClass
 yang dispesifikasikan, maka StorageClass _default_ akan digunakan. Ketika sebuah Pod dilakukan _(re)schedule_
 pada sebuah Node, `volumeMounts` akan me-_mount_ PersistentVolumes yang terkait dengan 
 PersistentVolume Claim-nya. Perhatikan bahwa, PersistentVolume yang terkait dengan 
@@ -273,6 +273,5 @@ StatefulSet akan mulai membuat Pod dengan templat konfigurasi yang sudah di-_rev
 
 * Ikuti contoh yang ada pada [bagaimana cara melakukan deployi aplikasi stateful](/docs/tutorials/stateful-application/basic-stateful-set/).
 * Ikuti contoh yang ada pada [bagaimana cara melakukan deploy Cassandra dengan StatefulSets](/docs/tutorials/stateful-application/cassandra/).
-
 
 

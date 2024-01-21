@@ -8,85 +8,47 @@ cid: partners
 ---
 
 <section id="users">
-    <main>
-        <h5>Kubernetes travaille avec des partenaires pour créer une base de code forte et dynamique prenant en charge un large éventail de plates-formes complémentaires.</h5>
-        <div class="col-container">
-          <div class="col-nav">
-            <center>
-              <h5>
-                <b>Fournisseurs de services certifiés Kubernetes</b>
-              </h5>
-              <br>Des fournisseurs de services aguerris ayant une expérience approfondie dans l'aide aux entreprises pour l'adoption de Kubernetes.
-              <br><br><br>
-              <button id="kcsp" class="button" onClick="updateSrc(this.id)">Voir les partenaires KCSP</button>
-              <br><br>Intéressé à devenir un <a href="https://www.cncf.io/certification/kcsp/">KCSP</a>?
-            </center>
-          </div>
-          <div class="col-nav">
-            <center>
-              <h5>
-                <b>Distributions Kubernetes, plates-formes hébergées et installateurs certifiés</b>
-              </h5>La conformité logicielle garantit que chaque version de Kubernetes du fournisseur prend en charge les API requises.
-              <br><br><br>
-              <button id="conformance" class="button" onClick="updateSrc(this.id)">Voir les partenaires de conformité</button>
-              <br><br>Intéressé à devenir <a href="https://www.cncf.io/certification/software-conformance/">Agréé Kubernetes</a>?
-            </center>
-          </div>
-          <div class="col-nav">
-            <center>
-              <h5><b>Formateurs Partenaires sur Kubernetes</b></h5>
-              <br>Fournisseurs de formation sélectionnés ayant une expérience approfondie de la formation aux technologies cloud natives.
-              <br><br><br><br>
-              <button id="ktp" class="button" onClick="updateSrc(this.id)">Voir les partenaires KTP</button>
-              <br><br>Intéressé à devenir un <a href="https://www.cncf.io/certification/training/">KTP</a>?
-            </center>
-          </div>
-        </div>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<script type="text/javascript">
-
-			var defaultLink = "https://landscape.cncf.io/category=kubernetes-certified-service-provider&format=card-mode&grouping=category&embed=yes";
-			var firstLink = "https://landscape.cncf.io/category=certified-kubernetes-distribution,certified-kubernetes-hosted,certified-kubernetes-installer&format=card-mode&grouping=category&embed=yes";
-      var secondLink = "https://landscape.cncf.io/category=kubernetes-training-partner&format=card-mode&grouping=category&embed=yes";
-
-      function updateSrc(buttonId) {
-	if (buttonId == "kcsp") {
-			$("#landscape").attr("src",defaultLink);
-            window.location.hash = "#kcsp";
-        }
-        if (buttonId == "conformance") {
-			$("#landscape").attr("src",firstLink);
-            window.location.hash = "#conformance";
-        }
-        if (buttonId == "ktp") {
-			$("#landscape").attr("src",secondLink);
-            window.location.hash = "#ktp";
-        }
-      }
-
-      // Automatically load the correct iframe based on the URL fragment
-      document.addEventListener('DOMContentLoaded', function() {
-        var showContent = "kcsp";
-        if (window.location.hash) {
-          console.log('hash is:', window.location.hash.substring(1));
-          showContent = window.location.hash.substring(1);
-        }
-        updateSrc(showContent);
-      });
-</script>
-<body>
-    <div id="frameHolder">
-      <iframe id="landscape" frameBorder="0" scrolling="no" style="width: 1px; min-width: 100%" src=""></iframe>
-      <script src="https://landscape.cncf.io/iframeResizer.js"></script>
+    <h5>Kubernetes travaille avec des partenaires pour créer une base de code forte et dynamique prenant en charge un large éventail de plates-formes complémentaires.</h5>
+    <div class="col-container">
+      <div class="col-nav">
+        <center>
+          <h5>
+            <b>Fournisseurs de services certifiés Kubernetes</b>
+          </h5>
+          <br>Des fournisseurs de services aguerris ayant une expérience approfondie dans l'aide aux entreprises pour l'adoption de Kubernetes.
+          <br><br><br>
+          <button class="button landscape-trigger landscape-default" data-landscape-types="special--kubernetes-certified-service-provider" id="kcsp">Voir les partenaires KCSP</button>
+          <br><br>Intéressé par devenir un
+          <a href="https://www.cncf.io/certification/kcsp/">KCSP</a> ?
+        </center>
+      </div>
+      <div class="col-nav">
+        <center>
+          <h5>
+            <b>Distributions Kubernetes, plates-formes hébergées et installateurs certifiés</b>
+          </h5>La conformité logicielle garantit que chaque version de Kubernetes du fournisseur prend en charge les API requises.
+          <br><br><br>
+          <button class="button landscape-trigger" data-landscape-types="platform" id="conformance">Voir les partenaires de conformité</button>
+          <br><br>Intéressé par devenir
+          <a href="https://www.cncf.io/certification/software-conformance/">Agréé Kubernetes</a> ?
+        </center>
+      </div>
+      <div class="col-nav">
+        <center>
+          <h5>
+            <b>Formateurs Partenaires sur Kubernetes</b>
+          </h5>
+          <br>Fournisseurs de formation sélectionnés ayant une expérience approfondie de la formation aux technologies cloud natives.
+          <br><br><br>
+          <button class="button landscape-trigger" data-landscape-types="special--kubernetes-training-partner" id="ktp">Voir les partenaires KTP</button>
+          <br><br>Intéressé par devenir un
+          <a href="https://www.cncf.io/certification/training/">KTP</a> ?
+        </center>
+      </div>
     </div>
-</body>
-    </main>
+    {{< cncf-landscape helpers=true >}}
 </section>
 
 <style>
     {{< include "partner-style.css" >}}
 </style>
-
-<script>
-    {{< include "partner-script.js" >}}
-</script>

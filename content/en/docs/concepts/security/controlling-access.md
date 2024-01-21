@@ -4,11 +4,11 @@ reviewers:
 - lavalamp
 title: Controlling Access to the Kubernetes API
 content_type: concept
+weight: 50
 ---
 
 <!-- overview -->
 This page provides an overview of controlling access to the Kubernetes API.
-
 
 <!-- body -->
 Users access the [Kubernetes API](/docs/concepts/overview/kubernetes-api/) using `kubectl`,
@@ -22,10 +22,15 @@ following diagram:
 
 ## Transport security
 
-In a typical Kubernetes cluster, the API serves on port 443, protected by TLS.
+By default, the Kubernetes API server listens on port 6443 on the first non-localhost
+network interface, protected by TLS. In a typical production Kubernetes cluster, the
+API serves on port 443. The port can be changed with the `--secure-port`, and the
+listening IP address with the `--bind-address` flag.
+
 The API server presents a certificate. This certificate may be signed using
 a private certificate authority (CA), or based on a public key infrastructure linked
-to a generally recognized CA.
+to a generally recognized CA. The certificate and corresponding private key can be set
+by using the `--tls-cert-file` and `--tls-private-key-file` flags.
 
 If your cluster uses a private certificate authority, you need a copy of that CA
 certificate configured into your `~/.kube/config` on the client, so that you can
@@ -63,9 +68,12 @@ users in its API.
 
 ## Authorization
 
-After the request is authenticated as coming from a specific user, the request must be authorized. This is shown as step **2** in the diagram.
+After the request is authenticated as coming from a specific user, the request must
+be authorized. This is shown as step **2** in the diagram.
 
-A request must include the username of the requester, the requested action, and the object affected by the action. The request is authorized if an existing policy declares that the user has permissions to complete the requested action.
+A request must include the username of the requester, the requested action, and
+the object affected by the action. The request is authorized if an existing policy
+declares that the user has permissions to complete the requested action.
 
 For example, if Bob has the policy below, then he can read pods only in the namespace `projectCaribou`:
 
@@ -81,7 +89,9 @@ For example, if Bob has the policy below, then he can read pods only in the name
     }
 }
 ```
-If Bob makes the following request, the request is authorized because he is allowed to read objects in the `projectCaribou` namespace:
+
+If Bob makes the following request, the request is authorized because he is
+allowed to read objects in the `projectCaribou` namespace:
 
 ```json
 {
@@ -97,14 +107,25 @@ If Bob makes the following request, the request is authorized because he is allo
   }
 }
 ```
-If Bob makes a request to write (`create` or `update`) to the objects in the `projectCaribou` namespace, his authorization is denied. If Bob makes a request to read (`get`) objects in a different namespace such as `projectFish`, then his authorization is denied.
 
-Kubernetes authorization requires that you use common REST attributes to interact with existing organization-wide or cloud-provider-wide access control systems. It is important to use REST formatting because these control systems might interact with other APIs besides the Kubernetes API.
+If Bob makes a request to write (`create` or `update`) to the objects in the
+`projectCaribou` namespace, his authorization is denied. If Bob makes a request
+to read (`get`) objects in a different namespace such as `projectFish`, then his authorization is denied.
 
-Kubernetes supports multiple authorization modules, such as ABAC mode, RBAC Mode, and Webhook mode. When an administrator creates a cluster, they configure the authorization modules that should be used in the API server. If more than one authorization modules are configured, Kubernetes checks each module, and if any module authorizes the request, then the request can proceed. If all of the modules deny the request, then the request is denied (HTTP status code 403).
+Kubernetes authorization requires that you use common REST attributes to interact
+with existing organization-wide or cloud-provider-wide access control systems.
+It is important to use REST formatting because these control systems might
+interact with other APIs besides the Kubernetes API.
 
-To learn more about Kubernetes authorization, including details about creating policies using the supported authorization modules, see [Authorization](/docs/reference/access-authn-authz/authorization/).
+Kubernetes supports multiple authorization modules, such as ABAC mode, RBAC Mode,
+and Webhook mode. When an administrator creates a cluster, they configure the
+authorization modules that should be used in the API server. If more than one
+authorization modules are configured, Kubernetes checks each module, and if
+any module authorizes the request, then the request can proceed. If all of
+the modules deny the request, then the request is denied (HTTP status code 403).
 
+To learn more about Kubernetes authorization, including details about creating
+policies using the supported authorization modules, see [Authorization](/docs/reference/access-authn-authz/authorization/).
 
 ## Admission control
 
@@ -129,34 +150,12 @@ The available Admission Control modules are described in [Admission Controllers]
 Once a request passes all admission controllers, it is validated using the validation routines
 for the corresponding API object, and then written to the object store (shown as step **4**).
 
+## Auditing
 
-## API server ports and IPs
+Kubernetes auditing provides a security-relevant, chronological set of records documenting the sequence of actions in a cluster.
+The cluster audits the activities generated by users, by applications that use the Kubernetes API, and by the control plane itself.
 
-The previous discussion applies to requests sent to the secure port of the API server
-(the typical case).  The API server can actually serve on 2 ports:
-
-By default, the Kubernetes API server serves HTTP on 2 ports:
-
-  1. `localhost` port:
-
-      - is intended for testing and bootstrap, and for other components of the master node
-        (scheduler, controller-manager) to talk to the API
-      - no TLS
-      - default is port 8080
-      - default IP is localhost, change with `--insecure-bind-address` flag.
-      - request **bypasses** authentication and authorization modules.
-      - request handled by admission control module(s).
-      - protected by need to have host access
-
-  2. “Secure port”:
-
-      - use whenever possible
-      - uses TLS.  Set cert with `--tls-cert-file` and key with `--tls-private-key-file` flag.
-      - default is port 6443, change with `--secure-port` flag.
-      - default IP is first non-localhost network interface, change with `--bind-address` flag.
-      - request handled by authentication and authorization modules.
-      - request handled by admission control module(s).
-      - authentication and authorization modules run.
+For more information, see [Auditing](/docs/tasks/debug/debug-cluster/audit/).
 
 ## {{% heading "whatsnext" %}}
 

@@ -1,9 +1,9 @@
 ---
-
-
-
-
-
+# reviewers:
+# - erictune
+# - lavalamp
+# - deads2k
+# - liggitt
 title: 인가 개요
 content_type: concept
 weight: 60
@@ -74,10 +74,12 @@ PUT       | update
 PATCH     | patch
 DELETE    | delete(개별 리소스), deletecollection(리소스 모음)
 
+{{< caution >}}
+`get`, `list`, `watch` 요청은 모두 리소스의 전체 세부 내용을 반환할 수 있다. 반환된 데이터의 관점으론 모두 동일하다. 예를 들어 `secrets`에 대해 `list` 요청은 반환된 리소스의 `data` 속성을 여전히 드러낼 것이다.
+{{< /caution >}}
+
 쿠버네티스는 종종 전문 동사를 사용하여 부가적인 권한 인가를 확인한다. 예를 들면,
 
-* [파드시큐리티폴리시(PodSecurityPolicy)](/ko/docs/concepts/policy/pod-security-policy/)
-  * `policy` API 그룹의 `podsecuritypolicies` 리소스에 대한 `use` 동사.
 * [RBAC](/docs/reference/access-authn-authz/rbac/#privilege-escalation-prevention-and-bootstrapping)
   * `rbac.authorization.k8s.io` API 그룹의 `roles` 및 `clusterroles` 리소스에 대한 `bind` 동사.
 * [인증](/docs/reference/access-authn-authz/authentication/)
@@ -87,7 +89,7 @@ DELETE    | delete(개별 리소스), deletecollection(리소스 모음)
 
 쿠버네티스 API 서버는 몇 가지 인가 모드 중 하나를 사용하여 요청을 승인할 수 있다.
 
- * **Node** - 실행되도록 스케줄된 파드에 따라 kubelet에게 권한을 부여하는 특수 목적 인가 모드. Node 인가 모드 사용에 대한 자세한 내용은 [Node 인가](/docs/reference/access-authn-authz/node/)을 참조한다.
+ * **Node** - 실행되도록 스케줄된 파드에 따라 kubelet에게 권한을 부여하는 특수 목적 인가 모드. Node 인가 모드 사용에 대한 자세한 내용은 [Node 인가](/docs/reference/access-authn-authz/node/)를 참조한다.
  * **ABAC** - 속성 기반 접근 제어 (ABAC, Attribute-based access control)는 속성과 결합한 정책의 사용을 통해 사용자에게 접근 권한을 부여하는 접근 제어 패러다임을 말한다. 이 정책은 모든 유형의 속성(사용자 속성, 리소스 속성, 오브젝트, 환경 속성 등)을 사용할 수 있다. ABAC 모드 사용에 대한 자세한 내용은 [ABAC 모드](/docs/reference/access-authn-authz/abac/)를 참조한다.
  * **RBAC** - 역할 기반 접근 제어(RBAC, Role-based access control)는 기업 내 개별 사용자의 역할을 기반으로 컴퓨터나 네트워크 리소스에 대한 접근을 규제하는 방식이다. 이 맥락에서 접근은 개별 사용자가 파일을 보거나 만들거나 수정하는 것과 같은 특정 작업을 수행할 수 있는 능력이다. RBAC 모드 사용에 대한 자세한 내용은 [RBAC 모드](/docs/reference/access-authn-authz/rbac/)를 참조한다.
    * 지정된 RBAC(역할 기반 접근 제어)이 인가 결정을 위해 `rbac.authorization.k8s.io` API 그룹을 사용하면, 관리자가 쿠버네티스 API를 통해 권한 정책을 동적으로 구성할 수 있다.
@@ -96,7 +98,7 @@ DELETE    | delete(개별 리소스), deletecollection(리소스 모음)
 
 #### API 접근 확인
 
-`kubectl`은 API 인증 계층을 신속하게 쿼리하기 위한 "auth can-i" 하위 명령어를 제공한다.
+`kubectl`은 API 인증 계층을 신속하게 쿼리하기 위한 `auth can-i` 하위 명령어를 제공한다.
 이 명령은 현재 사용자가 지정된 작업을 수행할 수 있는지 여부를 알아내기 위해 `SelfSubjectAccessReview` API를 사용하며,
 사용되는 인가 모드에 관계없이 작동한다.
 
@@ -134,7 +136,7 @@ kubectl auth can-i list secrets --namespace dev --as dave
 no
 ```
 
-유사하게, `dev` 네임스페이스의 `dev-sa` 서비스어카운트가 
+유사하게, `dev` 네임스페이스의 `dev-sa` 서비스어카운트가
 `target` 네임스페이스의 파드 목록을 볼 수 있는지 확인하려면 다음을 실행한다.
 
 ```bash
@@ -209,7 +211,7 @@ status:
 
 ## 워크로드 생성 및 수정을 통한 권한 확대 {#privilege-escalation-via-pod-creation}
 
-네임스페이스에서 파드를 직접, 또는 오퍼레이터와 같은 [컨트롤러](/ko/docs/concepts/architecture/controller/)를 통해 생성/수정할 수 있는 사용자는 
+네임스페이스에서 파드를 직접, 또는 오퍼레이터와 같은 [컨트롤러](/ko/docs/concepts/architecture/controller/)를 통해 생성/수정할 수 있는 사용자는
 해당 네임스페이스 안에서 자신의 권한을 확대할 수 있다.
 
 {{< caution >}}
@@ -230,8 +232,8 @@ status:
   - 다른 워크로드를 위한 정보의 획득 및 수정에 사용될 수 있음
 
 {{< caution >}}
-시스템 관리자는 위와 같은 영역을 수정하는 CRD를 배포할 때 주의를 기울여야 한다. 
-이들은 의도하지 않은 권한 확대 경로를 노출할 수 있다. 
+시스템 관리자는 위와 같은 영역을 수정하는 CRD를 배포할 때 주의를 기울여야 한다.
+이들은 의도하지 않은 권한 확대 경로를 노출할 수 있다.
 RBAC 제어에 대해 결정할 때 이와 같은 사항을 고려해야 한다.
 {{< /caution >}}
 

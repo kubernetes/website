@@ -3,6 +3,7 @@ layout: blog
 title: "Kubernetes 1.15: Extensibility and Continuous Improvement"
 date: 2019-06-19
 slug: kubernetes-1-15-release-announcement
+evergreen: true
 ---
 **Authors:** The 1.15 [Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.15/release_team.md)
 

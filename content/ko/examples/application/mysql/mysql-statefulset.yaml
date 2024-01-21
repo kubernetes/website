@@ -6,12 +6,14 @@ spec:
   selector:
     matchLabels:
       app: mysql
+      app.kubernetes.io/name: mysql
   serviceName: mysql
   replicas: 3
   template:
     metadata:
       labels:
         app: mysql
+        app.kubernetes.io/name: mysql
     spec:
       initContainers:
       - name: init-mysql
@@ -22,7 +24,7 @@ spec:
         - |
           set -ex
           # 파드의 원래 인덱스에서 mysql server-id를 생성.
-          [[ `hostname` =~ -([0-9]+)$ ]] || exit 1
+          [[ $HOSTNAME =~ -([0-9]+)$ ]] || exit 1
           ordinal=${BASH_REMATCH[1]}
           echo [mysqld] > /mnt/conf.d/server-id.cnf
           # 예약된 server-id=0 값을 피하기 위해 오프셋 추가.

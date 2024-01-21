@@ -2,7 +2,7 @@
 title: 고급 기여
 slug: advanced
 content_type: concept
-weight: 98
+weight: 100
 ---
 
 <!-- overview -->
@@ -86,6 +86,7 @@ SIG Docs [승인자](/ko/docs/contribute/participate/roles-and-responsibilities/
 - 문서 리포지터리에 대한 처음 몇 번의 PR을 통해 새로운 기여자를 멘토링한다.
 - 새로운 기여자가 쿠버네티스 멤버가 되기 위해 필요한 보다 복잡한 PR을 작성하도록 지원한다.
 - 쿠버네티스 멤버 가입을 위해 [기여자를 후원](/ko/docs/contribute/advanced/#새로운-기여자-후원)한다.
+- 월간 미팅을 개최하여 새로운 기여자에게 도움을 주고 조언을 해 준다.
 
 현재 새로운 기여자 홍보대사는 각 SIG-Docs 회의와 [쿠버네티스 #sig-docs 채널](https://kubernetes.slack.com)에서 발표된다.
 
@@ -110,15 +111,13 @@ SIG Docs [리뷰어](/ko/docs/contribute/participate/roles-and-responsibilities/
 
 ## SIG 공동 의장으로 봉사
 
-SIG Docs [승인자](/ko/docs/contribute/participate/roles-and-responsibilities/#승인자)는
+SIG Docs [멤버](/ko/docs/contribute/participate/roles-and-responsibilities/#멤버)는
 SIG Docs의 공동 의장 역할을 할 수 있다.
 
 ### 전제 조건
 
-승인자는 공동 의장이 되려면 다음의 요구 사항을 충족해야 한다.
+쿠버네티스 멤버가 공동 의장이 되려면 다음의 요구 사항을 충족해야 한다.
 
-- 6개월 이상 SIG Docs 승인자로 활동한다.
-- [쿠버네티스 문서 릴리스 주도](/ko/docs/contribute/advanced/#쿠버네티스-릴리스를-위한-문서-조정) 또는 두 개의 릴리스에서 섀도잉을 수행한다.
 - SIG Docs 워크플로와 툴링을 이해한다(git, Hugo, 현지화, 블로그 하위 프로젝트).
 - [k/org의 팀](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml),
   [k/community의 프로세스](https://github.com/kubernetes/community/tree/master/sig-docs),
@@ -126,6 +125,8 @@ SIG Docs의 공동 의장 역할을 할 수 있다.
   [SIG 아키텍처](https://github.com/kubernetes/community/tree/master/sig-architecture)의
   역할을 포함하여 다른 쿠버네티스 SIG와 리포지터리가 SIG Docs 워크플로에 미치는
   영향을 이해한다.
+  추가로, [쿠버네티스 문서 릴리스 프로세스](/ko/docs/contribute/advanced/#쿠버네티스-릴리스를-위한-문서-조정)가 어떻게 동작하는지 이해한다.
+- SIG Docs 커뮤니티에 이해 직접적으로 또는 lazy consensus(특정 기간 내에 아무런 의견이 없으면 통과)를 통해 승인된다.
 - 최소 6개월 동안 일주일에 5시간 이상(대부분 더)을 역할에 책임진다.
 
 ### 책임
@@ -135,7 +136,7 @@ SIG Docs의 공동 의장 역할을 할 수 있다.
 다음과 같은 책임을 가진다.
 
 - SIG Docs가 우수한 문서화를 통해 개발자의 행복을 극대화하는 데 집중한다.
-- 스스로가 [커뮤니티 행동 강령](https://github.com/cncf/foundation/blob/master/code-of-conduct-languages/ko.md)을 준수하여 예를 보이고, SIG 멤버들이 지킬 수 있도록 책임을 진다.
+- 스스로가 [커뮤니티 행동 강령](https://github.com/cncf/foundation/blob/main/code-of-conduct-languages/ko.md)을 준수하여 예를 보이고, SIG 멤버들이 지킬 수 있도록 책임을 진다.
 - 기여에 대한 새로운 지침을 확인하여 SIG에 대한 모범 사례를 배우고 설정한다.
 - SIG 회의를 예약하고 진행한다. 주간 상태 업데이트, 브랜치별 회고/기획 세션과 필요에 따라 그 외 세션을 진행한다.
 - KubeCon 이벤트 및 기타 컨퍼런스에서 문서 스프린트를 스케줄링하고 진행한다.

@@ -1,6 +1,12 @@
 ---
+# reviewers:
+# - jsafrane
+# - saad-ali
+# - msau42
+# - xing-yang
 title: 볼륨 헬스 모니터링
 content_type: concept
+weight: 100
 ---
 
 <!-- overview -->
@@ -19,7 +25,7 @@ CSI 드라이버가 컨트롤러 측의 볼륨 헬스 모니터링 기능을 지
 
 외부 헬스 모니터 {{< glossary_tooltip text="컨트롤러" term_id="controller" >}}는 노드 장애 이벤트도 감시한다. `enable-node-watcher` 플래그를 true로 설정하여 노드 장애 모니터링을 활성화할 수 있다. 외부 헬스 모니터가 노드 장애 이벤트를 감지하면, 컨트롤러는 이 PVC를 사용하는 파드가 장애 상태인 노드에 있음을 나타내는 이벤트가 PVC에 보고된다고 알린다.
 
-CSI 드라이버가 노드 측에서 볼륨 헬스 모니터링 기능을 지원하는 경우, CSI 볼륨에서 비정상적인 볼륨 상태가 감지되면 PVC를 사용하는 모든 파드에서 이벤트가 보고된다.
+CSI 드라이버가 노드 측에서 볼륨 헬스 모니터링 기능을 지원하는 경우, CSI 볼륨에서 비정상적인 볼륨 상태가 감지되면 PVC를 사용하는 모든 파드에서 이벤트가 보고된다. 그리고, 볼륨 헬스 정보는 kubelet VolumeStats 메트릭 형태로 노출된다. 새로운 kubelet_volume_stats_health_status_abnormal 메트릭이 추가되었다. 이 메트릭은 `namespace` 및 `persistentvolumeclaim` 2개의 레이블을 포함한다. 카운터는 1 또는 0이다. 카운터가 1이면 볼륨이 정상적이지 않음을, 0이면 정상적임을 의미한다. 더 많은 정보는 [KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/1432-volume-health-monitor#kubelet-metrics-changes)를 참고한다.
 
 {{< note >}}
 노드 측에서 이 기능을 사용하려면 `CSIVolumeHealth` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 한다.

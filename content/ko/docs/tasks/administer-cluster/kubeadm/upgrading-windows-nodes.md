@@ -9,7 +9,7 @@ weight: 40
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
-이 페이지는 [kubeadm으로 생성된](/ko/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes) 윈도우 노드를 업그레이드하는 방법을 설명한다.
+이 페이지는 [kubeadm으로 생성된](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) 윈도우 노드를 업그레이드하는 방법을 설명한다.
 
 
 
@@ -33,8 +33,8 @@ weight: 40
 1.  윈도우 노드에서, kubeadm을 업그레이드한다.
 
     ```powershell
-    # replace {{< param "fullversion" >}} with your desired version
-    curl.exe -Lo C:\k\kubeadm.exe https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubeadm.exe
+    # {{< skew currentPatchVersion >}}을 사용 중인 쿠버네티스 버전으로 변경한다.
+    curl.exe -Lo <kubeadm.exe을 저장할 경로> "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubeadm.exe"
     ```
 
 ### 노드 드레인
@@ -62,15 +62,27 @@ weight: 40
     kubeadm upgrade node
     ```
 
-### kubelet 업그레이드
+### kubelet 및 kube-proxy 업그레이드
 
 1.  윈도우 노드에서, kubelet을 업그레이드하고 다시 시작한다.
 
     ```powershell
     stop-service kubelet
-    curl.exe -Lo C:\k\kubelet.exe https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubelet.exe
+    curl.exe -Lo <kubelet.exe을 저장할 경로> "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubelet.exe"
     restart-service kubelet
     ```
+
+2. 윈도우 노드에서, kube-proxy를 업그레이드하고 다시 시작한다.
+
+    ```powershell
+    stop-service kube-proxy
+    curl.exe -Lo <kube-proxy.exe을 저장할 경로> "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kube-proxy.exe"
+    restart-service kube-proxy
+    ```
+
+{{< note >}}
+만약 kube-proxy를 윈도우 서비스로 실행중이지 않고 파드 내의 HostProcess 컨테이너에서 실행중이라면, 새로운 버전의 kube-proxy 매니페스트를 적용함으로써 업그레이드할 수 있다.
+{{< /note >}}
 
 ### 노드에 적용된 cordon 해제
 
@@ -81,14 +93,3 @@ weight: 40
     # <node-to-drain>을 노드의 이름으로 바꾼다
     kubectl uncordon <node-to-drain>
     ```
-### kube-proxy 업그레이드
-
-1. 쿠버네티스 API에 접근할 수 있는 머신에서, 다음을 실행하여,
-{{< param "fullversion" >}}을 원하는 버전으로 다시 바꾼다.
-
-    ```shell
-    curl -L https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/kube-proxy.yml | sed 's/VERSION/{{< param "fullversion" >}}/g' | kubectl apply -f -
-    ```
-
-
-

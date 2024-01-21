@@ -1,7 +1,7 @@
 ---
 title: Configure RunAsUserName for Windows pods and containers
 content_type: task
-weight: 20
+weight: 40
 ---
 
 <!-- overview -->
@@ -29,7 +29,7 @@ The Windows security context options that you specify for a Pod apply to all Con
 
 Here is a configuration file for a Windows Pod that has the `runAsUserName` field set:
 
-{{< codenew file="windows/run-as-username-pod.yaml" >}}
+{{% code_sample file="windows/run-as-username-pod.yaml" %}}
 
 Create the Pod:
 
@@ -57,7 +57,7 @@ echo $env:USERNAME
 
 The output should be:
 
-```shell
+```
 ContainerUser
 ```
 
@@ -69,7 +69,7 @@ The Windows security context options that you specify for a Container apply only
 
 Here is the configuration file for a Pod that has one Container, and the `runAsUserName` field is set at the Pod level and the Container level:
 
-{{< codenew file="windows/run-as-username-container.yaml" >}}
+{{% code_sample file="windows/run-as-username-container.yaml" %}}
 
 Create the Pod:
 
@@ -97,7 +97,7 @@ echo $env:USERNAME
 
 The output should be:
 
-```shell
+```
 ContainerAdministrator
 ```
 
@@ -120,7 +120,7 @@ For more information about these limtations, check [here](https://support.micros
 ## {{% heading "whatsnext" %}}
 
 
-* [Guide for scheduling Windows containers in Kubernetes](/docs/setup/production-environment/windows/user-guide-windows-containers/)
-* [Managing Workload Identity with Group Managed Service Accounts (GMSA)](/docs/setup/production-environment/windows/user-guide-windows-containers/#managing-workload-identity-with-group-managed-service-accounts)
+* [Guide for scheduling Windows containers in Kubernetes](/docs/concepts/windows/user-guide/)
+* [Managing Workload Identity with Group Managed Service Accounts (GMSA)](/docs/concepts/windows/user-guide/#managing-workload-identity-with-group-managed-service-accounts)
 * [Configure GMSA for Windows pods and containers](/docs/tasks/configure-pod-container/configure-gmsa/)
 

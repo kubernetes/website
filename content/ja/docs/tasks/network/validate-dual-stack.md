@@ -32,7 +32,7 @@ kubectl get nodes k8s-linuxpool1-34450317-0 -o go-template --template='{{range .
 ```
 ```
 10.244.1.0/24
-a00:100::/24
+2001:db8::/64
 ```
 
 IPv4ブロックとIPv6ブロックがそれぞれ1つずつ割り当てられているはずです。
@@ -44,8 +44,8 @@ kubectl get nodes k8s-linuxpool1-34450317-0 -o go-template --template='{{range .
 ```
 ```
 Hostname: k8s-linuxpool1-34450317-0
-InternalIP: 10.240.0.5
-InternalIP: 2001:1234:5678:9abc::5
+InternalIP: 10.0.0.5
+InternalIP: 2001:db8:10::5
 ```
 
 ### Podアドレスの検証
@@ -57,7 +57,7 @@ kubectl get pods pod01 -o go-template --template='{{range .status.podIPs}}{{prin
 ```
 ```
 10.244.1.4
-a00:100::4
+2001:db8::4
 ```
 
 Downward APIを使用して、`status.podIPs`のfieldPath経由でPod IPを検証することもできます。次のスニペットは、Pod IPを`MY_POD_IPS`という名前の環境変数経由でコンテナ内に公開する方法を示しています。
@@ -76,7 +76,7 @@ Downward APIを使用して、`status.podIPs`のfieldPath経由でPod IPを検�
 kubectl exec -it pod01 -- set | grep MY_POD_IPS
 ```
 ```
-MY_POD_IPS=10.244.1.4,a00:100::4
+MY_POD_IPS=10.244.1.4,2001:db8::4
 ```
 
 PodのIPアドレスは、コンテナ内の`/etc/hosts`にも書き込まれます。次のコマンドは、デュアルスタックのPod上で`/etc/hosts`に対してcatコマンドを実行します。出力を見ると、Pod用のIPv4およびIPv6のIPアドレスの両方が確認できます。
@@ -93,14 +93,14 @@ fe00::0    ip6-mcastprefix
 fe00::1    ip6-allnodes
 fe00::2    ip6-allrouters
 10.244.1.4    pod01
-a00:100::4    pod01
+2001:db8::4    pod01
 ```
 
 ## Serviceの検証
 
 `.spec.isFamilyPolicy`を明示的に定義していない、以下のようなServiceを作成してみます。Kubernetesは最初に設定した`service-cluster-ip-range`の範囲からServiceにcluster IPを割り当てて、`.spec.ipFamilyPolicy`を`SingleStack`に設定します。
 
-{{< codenew file="service/networking/dual-stack-default-svc.yaml" >}}
+{{% codenew file="service/networking/dual-stack-default-svc.yaml" %}}
 
 `kubectl`を使ってServiceのYAMLを表示します。
 
@@ -137,7 +137,7 @@ status:
 
 `.spec.ipFamilies`内の配列の1番目の要素に`IPv6`を明示的に指定した、次のようなServiceを作成してみます。Kubernetesは`service-cluster-ip-range`で設定したIPv6の範囲からcluster IPを割り当てて、`.spec.ipFamilyPolicy`を`SingleStack`に設定します。
 
-{{< codenew file="service/networking/dual-stack-ipfamilies-ipv6.yaml" >}}
+{{% codenew file="service/networking/dual-stack-ipfamilies-ipv6.yaml" %}}
 
 `kubectl`を使ってServiceのYAMLを表示します。
 
@@ -155,9 +155,9 @@ metadata:
     app: MyApp
   name: my-service
 spec:
-  clusterIP: fd00::5118
+  clusterIP: 2001:db8:fd00::5118
   clusterIPs:
-  - fd00::5118
+  -  2001:db8:fd00::5118
   ipFamilies:
   - IPv6
   ipFamilyPolicy: SingleStack
@@ -175,7 +175,7 @@ status:
 
 `.spec.ipFamiliePolicy`に`PreferDualStack`を明示的に指定した、次のようなServiceを作成してみます。Kubernetesは(クラスターでデュアルスタックを有効化しているため)IPv4およびIPv6のアドレスの両方を割り当て、`.spec.ClusterIPs`のリストから、`.spec.ipFamilies`配列の最初の要素のアドレスファミリーに基づいた`.spec.ClusterIP`を設定します。
 
-{{< codenew file="service/networking/dual-stack-preferred-svc.yaml" >}}
+{{% codenew file="service/networking/dual-stack-preferred-svc.yaml" %}}
 
 {{< note >}}
 `kubectl get svc`コマンドは、`CLUSTER-IP`フィールドにプライマリーのIPだけしか表示しません。
@@ -204,7 +204,7 @@ Type:              ClusterIP
 IP Family Policy:  PreferDualStack
 IP Families:       IPv4,IPv6
 IP:                10.0.216.242
-IPs:               10.0.216.242,fd00::af55
+10.0.216.242,2001:db8:fd00::af55
 Port:              <unset>  80/TCP
 TargetPort:        9376/TCP
 Endpoints:         <none>
@@ -216,7 +216,7 @@ Events:            <none>
 
 クラウドプロバイダーがIPv6を有効化した外部ロードバランサーのプロビジョニングをサポートする場合、`.spec.ipFamilyPolicy`に`PreferDualStack`を指定し、`.spec.ipFamilies`の最初の要素を`IPv6`にして、`type`フィールドに`LoadBalancer`を指定したServiceを作成できます。
 
-{{< codenew file="service/networking/dual-stack-prefer-ipv6-lb-svc.yaml" >}}
+{{% codenew file="service/networking/dual-stack-prefer-ipv6-lb-svc.yaml" %}}
 
 Serviceを確認します。
 
@@ -227,6 +227,6 @@ kubectl get svc -l app=MyApp
 ServiceがIPv6アドレスブロックから`CLUSTER-IP`のアドレスと`EXTERNAL-IP`を割り当てられていることを検証します。その後、IPとポートを用いたServiceへのアクセスを検証することもできます。
 
 ```shell
-NAME         TYPE           CLUSTER-IP   EXTERNAL-IP        PORT(S)        AGE
-my-service   LoadBalancer   fd00::7ebc   2603:1030:805::5   80:30790/TCP   35s
+NAME         TYPE           CLUSTER-IP            EXTERNAL-IP        PORT(S)        AGE
+my-service   LoadBalancer   2001:db8:fd00::7ebc   2603:1030:805::5   80:30790/TCP   35s
 ```

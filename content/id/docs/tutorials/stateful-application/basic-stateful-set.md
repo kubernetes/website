@@ -59,7 +59,7 @@ Contoh ini menciptakan sebuah
 [Service _headless_](/id/docs/concepts/services-networking/service/#service-headless), 
 `nginx`, untuk mempublikasikan alamat IP Pod di dalam StatefulSet, `web`.
 
-{{< codenew file="application/web/web.yaml" >}}
+{{% codenew file="application/web/web.yaml" %}}
 
 Unduh contoh di atas, dan simpan ke dalam berkas dengan nama `web.yaml`.
 
@@ -245,8 +245,8 @@ web-0
 web-1
 ```
 selanjutnya, jalankan:
-```
-kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm /bin/sh
+```shell
+kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm
 ```
 perintah itu akan menjalankan _shell_ baru.
 Di dalam _shell_ yang baru jalankan:
@@ -606,9 +606,9 @@ Dapatkan Pod untuk melihat _image_ Container-nya:
 for p in 0 1 2; do kubectl get pod "web-$p" --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'; echo; done
 ```
 ```
-k8s.gcr.io/nginx-slim:0.8
-k8s.gcr.io/nginx-slim:0.8
-k8s.gcr.io/nginx-slim:0.8
+registry.k8s.io/nginx-slim:0.8
+registry.k8s.io/nginx-slim:0.8
+registry.k8s.io/nginx-slim:0.8
 
 ```
 
@@ -640,7 +640,7 @@ statefulset.apps/web patched
 Lakukan _patch_ terhadap StatefulSet lagi, untuk mengubah _image_ Container:
 
 ```shell
-kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"k8s.gcr.io/nginx-slim:0.7"}]'
+kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"registry.k8s.io/nginx-slim:0.7"}]'
 ```
 ```
 statefulset.apps/web patched
@@ -674,7 +674,7 @@ Dapatkan _image_ Container Pod:
 kubectl get pod web-2 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
 ```
 ```
-k8s.gcr.io/nginx-slim:0.8
+registry.k8s.io/nginx-slim:0.8
 ```
 
 Perhatikan, walaupun strategi pembaruan yang digunakan adalah `RollingUpdate`,
@@ -714,7 +714,7 @@ Dapatkan _image_ Container Pod:
 kubectl get pod web-2 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
 ```
 ```
-k8s.gcr.io/nginx-slim:0.7
+registry.k8s.io/nginx-slim:0.7
 
 ```
 
@@ -757,7 +757,7 @@ Dapatkan _image_ Container dari Pod `web-1`:
 kubectl get pod web-1 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
 ```
 ```
-k8s.gcr.io/nginx-slim:0.8
+registry.k8s.io/nginx-slim:0.8
 ```
 
 `web-1` dikembalikan ke konfigurasinya yang semula karena urutan Pod lebih kecil
@@ -813,9 +813,9 @@ Dapatkan detail _image_ Container dari Pod pada StatefulSet:
 for p in 0 1 2; do kubectl get pod "web-$p" --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'; echo; done
 ```
 ```
-k8s.gcr.io/nginx-slim:0.7
-k8s.gcr.io/nginx-slim:0.7
-k8s.gcr.io/nginx-slim:0.7
+registry.k8s.io/nginx-slim:0.7
+registry.k8s.io/nginx-slim:0.7
+registry.k8s.io/nginx-slim:0.7
 ```
 
 Dengan mengubah nilai `partition` menjadi `0`, kamu mengizinkan StatefulSet
@@ -1075,7 +1075,7 @@ menjalankan atau mengakhiri semua Pod secara bersamaan (paralel), dan tidak menu
 suatu Pod menjadi Running dan Ready atau benar-benar berakhir sebelum menjalankan atau 
 mengakhiri Pod yang lain.
 
-{{< codenew file="application/web/web-parallel.yaml" >}}
+{{% codenew file="application/web/web-parallel.yaml" %}}
 
 Unduh contoh di atas, dan simpan ke sebuah berkas dengan nama `web-parallel.yaml`.
 

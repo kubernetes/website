@@ -1,6 +1,6 @@
 ---
-
-
+# reviewers:
+# - derekwaynecarr
 title: HugePages 관리
 content_type: task
 description: 클러스터에서 huge page를 스케줄할 수 있는 리소스로 구성하고 관리한다.

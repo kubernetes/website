@@ -1,5 +1,7 @@
 ---
 title: I componenti di Kubernetes
+description: >
+  Un cluster di Kubernetes è costituito da un insieme di componenti che sono, come minimo, un Control Plane e uno o più sistemi di elaborazione, detti nodi.
 content_type: concept
 weight: 20
 card: 
@@ -26,7 +28,7 @@ Questo è un diagramma di un cluster Kubernetes con tutti i componenti e le loro
 I componenti del Control Plane sono responsabili di tutte le decisioni globali sul cluster (ad esempio, lo scheduling) oltre che a rilevare e rispondere agli eventi del cluster (ad esempio, l'avvio di un nuovo {{< glossary_tooltip text="pod" term_id="pod">}} quando il valore `replicas` di un deployment non è soddisfatto).
 
 I componenti della Control Plane possono essere eseguiti su qualsiasi nodo del cluster stesso. Solitamente, per semplicità, gli script di installazione tendono a eseguire tutti i componenti della Control Plane sulla stessa macchina, separando la Control Plane dai workload dell'utente.
-Vedi [creare un cluster in High-Availability](/docs/admin/high-availability/) per un esempio di un'installazione multi-master.
+Vedi [creare un cluster in High-Availability](/docs/setup/production-environment/tools/kubeadm/high-availability/) per un esempio di un'installazione multi-master.
 
 ### kube-apiserver
 

@@ -21,9 +21,18 @@
     padding: 0 30px 0 0;
     margin-bottom: 50px;
     min-height: 152px;
+  
+}
+/* 
+ * Remove the height of the H2 element pseudo-class and set the appropriate spacing 
+ * to avoid mistakenly overriding the styles of other elements 
+ */
+.launch-card h2::before {
+    margin-top: 1rem ;
+    height: 0 ;
 }
 
-.gridPage p {
+.gridPage p:not(.announcement-main > p) {
     color: rgb(26,26,26);
     margin-left: 0 !important;
     padding-left: 0 !important;

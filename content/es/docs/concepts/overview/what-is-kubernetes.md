@@ -60,7 +60,7 @@ APIs](/docs/concepts/api-extension/custom-resources/)
 desde una [herramienta de línea de comandos](/docs/user-guide/kubectl-overview/).
 
 Este
-[diseño](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md)
+[diseño](https://git.k8s.io/design-proposals-archive/architecture/architecture.md)
 ha permitido que otros sistemas sean construidos sobre Kubernetes.
 
 ## Lo que Kubernetes no es

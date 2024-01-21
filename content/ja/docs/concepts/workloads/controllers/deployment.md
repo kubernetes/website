@@ -40,7 +40,7 @@ Deploymentによって作成されたReplicaSetを管理しないでください
 
 以下はDeploymentの例です。これは`nginx`Podのレプリカを3つ持つReplicaSetを作成します。
 
-{{< codenew file="controllers/nginx-deployment.yaml" >}}
+{{% codenew file="controllers/nginx-deployment.yaml" %}}
 
 この例では、
 
@@ -68,16 +68,11 @@ Deploymentによって作成されたReplicaSetを管理しないでください
   kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
   ```
 
-  {{< note >}}
-  実行したコマンドを`kubernetes.io/change-cause`というアノテーションに記録するために`--record`フラグを指定できます。
-  これは将来的な問題の調査のために有効です。例えば、各Deploymentのリビジョンにおいて実行されたコマンドを見るときに便利です。
-  {{< /note >}}
-
 
 2. Deploymentが作成されたことを確認するために、`kubectl get deployments`を実行してください。
 
   Deploymentがまだ作成中の場合、コマンドの実行結果は以下のとおりです。
-  ```shell
+  ```
   NAME               READY   UP-TO-DATE   AVAILABLE   AGE
   nginx-deployment   0/3     0            0           1s
   ```
@@ -100,14 +95,14 @@ Deploymentによって作成されたReplicaSetを管理しないでください
 
 4. 数秒後、再度`kubectl get deployments`を実行してください。
   コマンドの実行結果は以下のとおりです。
-  ```shell
+  ```
   NAME               READY   UP-TO-DATE   AVAILABLE   AGE
   nginx-deployment   3/3     3            3           18s
   ```
   Deploymentが3つ全てのレプリカを作成して、全てのレプリカが最新(Podが最新のPodテンプレートを含んでいる)になり、利用可能となっていることを確認してください。
 
 5. Deploymentによって作成されたReplicaSet(`rs`)を確認するには`kubectl get rs`を実行してください。コマンドの実行結果は以下のとおりです:
-  ```shell
+  ```
   NAME                          DESIRED   CURRENT   READY   AGE
   nginx-deployment-75675f5897   3         3         3       18s
   ```
@@ -123,11 +118,11 @@ Deploymentによって作成されたReplicaSetを管理しないでください
 
 6. 各Podにラベルが自動的に付けられるのを確認するには`kubectl get pods --show-labels`を実行してください。
   コマンドの実行結果は以下のとおりです:
-  ```shell
+  ```
   NAME                                READY     STATUS    RESTARTS   AGE       LABELS
-  nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
-  nginx-deployment-75675f5897-kzszj   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
-  nginx-deployment-75675f5897-qqcnn   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
+  nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=75675f5897
+  nginx-deployment-75675f5897-kzszj   1/1       Running   0          18s       app=nginx,pod-template-hash=75675f5897
+  nginx-deployment-75675f5897-qqcnn   1/1       Running   0          18s       app=nginx,pod-template-hash=75675f5897
   ```
   作成されたReplicaSetは`nginx`Podを3つ作成することを保証します。
 
@@ -150,7 +145,7 @@ Deploymentに対して適切なセレクターとPodテンプレートのラベ�
 ## Deploymentの更新 {#updating-a-deployment}
 
 {{< note >}}
-Deploymentのロールアウトは、DeploymentのPodテンプレート(この場合`.spec.template`)が変更された場合にのみトリガーされます。例えばテンプレートのラベルもしくはコンテナーイメージが更新された場合です。Deploymentのスケールのような更新では、ロールアウトはトリガーされません。
+Deploymentのロールアウトは、DeploymentのPodテンプレート(この場合`.spec.template`)が変更された場合にのみトリガーされます。例えばテンプレートのラベルもしくはコンテナイメージが更新された場合です。Deploymentのスケールのような更新では、ロールアウトはトリガーされません。
 {{< /note >}}
 
 Deploymentを更新するには以下のステップに従ってください。
@@ -158,12 +153,12 @@ Deploymentを更新するには以下のステップに従ってください。
 1. nginxのPodで、`nginx:1.14.2`イメージの代わりに`nginx:1.16.1`を使うように更新します。
 
     ```shell
-    kubectl --record deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
+    kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
     ```
     または単に次のコマンドを使用します。
 
     ```shell
-    kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1 --record
+    kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1
     ```
 
     実行結果は以下のとおりです。
@@ -235,7 +230,7 @@ Deploymentを更新するには以下のステップに従ってください。
 
     次にPodを更新させたいときは、DeploymentのPodテンプレートを再度更新するだけです。
 
-    Deploymentは、Podが更新されている間に特定の数のPodのみ停止状態になることを保証します。デフォルトでは、目標とするPod数の少なくとも25%が停止状態になることを保証します(25% max unavailable)。
+    Deploymentは、Podが更新されている間に特定の数のPodのみ停止状態になることを保証します。デフォルトでは、目標とするPod数の少なくとも75%が稼働状態であることを保証します(25% max unavailable)。
 
     また、DeploymentはPodが更新されている間に、目標とするPod数を特定の数まで超えてPodを稼働させることを保証します。デフォルトでは、目標とするPod数に対して最大でも125%を超えてPodを稼働させることを保証します(25% max surge)。
 
@@ -317,7 +312,7 @@ Deploymentのリビジョンは、Deploymentのロールアウトがトリガー
 * `nginx:1.16.1`の代わりに`nginx:1.161`というイメージに更新して、Deploymentの更新中にタイプミスをしたと仮定します。
 
     ```shell
-    kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.161 --record=true
+    kubectl set image deployment/nginx-deployment nginx=nginx:1.161
     ```
 
     実行結果は以下のとおりです。
@@ -368,7 +363,7 @@ Deploymentのリビジョンは、Deploymentのロールアウトがトリガー
     ```
 
     {{< note >}}
-    Deploymentコントローラーは、この悪い状態のロールアウトを自動的に停止し、新しいReplicaSetのスケールアップを止めます。これはユーザーが指定したローリングアップデートに関するパラメータ(特に`maxUnavailable`)に依存します。デフォルトではKubernetesがこの値を25%に設定します。
+    Deploymentコントローラーは、この悪い状態のロールアウトを自動的に停止し、新しいReplicaSetのスケールアップを止めます。これはユーザーが指定したローリングアップデートに関するパラメーター(特に`maxUnavailable`)に依存します。デフォルトではKubernetesがこの値を25%に設定します。
     {{< /note >}}
 
 * Deploymentの詳細情報を取得します。
@@ -431,15 +426,14 @@ Deploymentのリビジョンは、Deploymentのロールアウトがトリガー
     ```
     deployments "nginx-deployment"
     REVISION    CHANGE-CAUSE
-    1           kubectl apply --filename=https://k8s.io/examples/controllers/nginx-deployment.yaml --record=true
-    2           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1 --record=true
-    3           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.161 --record=true
+    1           kubectl apply --filename=https://k8s.io/examples/controllers/nginx-deployment.yaml
+    2           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
+    3           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.161
     ```
 
     `CHANGE-CAUSE`はリビジョンの作成時にDeploymentの`kubernetes.io/change-cause`アノテーションからリビジョンにコピーされます。以下の方法により`CHANGE-CAUSE`メッセージを指定できます。
 
     * `kubectl annotate deployment.v1.apps/nginx-deployment kubernetes.io/change-cause="image updated to 1.16.1"`の実行によりアノテーションを追加します。
-    * リソースの変更時に`kubectl`コマンドの内容を記録するために`--record`フラグを追加します。
     * リソースのマニフェストを手動で編集します。
 
 2. 各リビジョンの詳細を確認するためには以下のコマンドを実行してください。
@@ -452,7 +446,7 @@ Deploymentのリビジョンは、Deploymentのロールアウトがトリガー
     deployments "nginx-deployment" revision 2
       Labels:       app=nginx
               pod-template-hash=1159050644
-      Annotations:  kubernetes.io/change-cause=kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1 --record=true
+      Annotations:  kubernetes.io/change-cause=kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
       Containers:
        nginx:
         Image:      nginx:1.16.1
@@ -512,7 +506,7 @@ Deploymentのリビジョンは、Deploymentのロールアウトがトリガー
     CreationTimestamp:      Sun, 02 Sep 2018 18:17:55 -0500
     Labels:                 app=nginx
     Annotations:            deployment.kubernetes.io/revision=4
-                            kubernetes.io/change-cause=kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1 --record=true
+                            kubernetes.io/change-cause=kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
     Selector:               app=nginx
     Replicas:               3 desired | 3 updated | 3 total | 3 available | 0 unavailable
     StrategyType:           RollingUpdate
@@ -809,7 +803,7 @@ echo $?
 * リソースリミットのレンジ
 * アプリケーションランタイムの設定の不備
 
-このような状況を検知する1つの方法として、Deploymentのリソース定義でデッドラインのパラメータを指定します([`.spec.progressDeadlineSeconds`](#progress-deadline-seconds))。`.spec.progressDeadlineSeconds`はDeploymentの更新が停止したことを示す前にDeploymentコントローラーが待つ秒数を示します。
+このような状況を検知する1つの方法として、Deploymentのリソース定義でデッドラインのパラメーターを指定します([`.spec.progressDeadlineSeconds`](#progress-deadline-seconds))。`.spec.progressDeadlineSeconds`はDeploymentの更新が停止したことを示す前にDeploymentコントローラーが待つ秒数を示します。
 
 以下の`kubectl`コマンドでリソース定義に`progressDeadlineSeconds`を設定します。これはDeploymentの更新が止まってから10分後に、コントローラーが失敗を通知させるためです。
 
@@ -905,7 +899,7 @@ Conditions:
   Progressing   True    NewReplicaSetAvailable
 ```
 
-`Status=True`の`Type=Available`は、Deploymentが最小可用性の状態であることを意味します。最小可用性は、Deploymentの更新戦略において指定されているパラメータにより決定されます。`Status=True`の`Type=Progressing`は、Deploymentのロールアウトの途中で、更新処理が進行中であるか、更新処理が完了し、必要な最小数のレプリカが利用可能であることを意味します(各TypeのReason項目を確認してください。このケースでは、`Reason=NewReplicaSetAvailable`はDeploymentの更新が完了したことを意味します)。
+`Status=True`の`Type=Available`は、Deploymentが最小可用性の状態であることを意味します。最小可用性は、Deploymentの更新戦略において指定されているパラメーターにより決定されます。`Status=True`の`Type=Progressing`は、Deploymentのロールアウトの途中で、更新処理が進行中であるか、更新処理が完了し、必要な最小数のレプリカが利用可能であることを意味します(各TypeのReason項目を確認してください。このケースでは、`Reason=NewReplicaSetAvailable`はDeploymentの更新が完了したことを意味します)。
 
 `kubectl rollout status`を実行してDeploymentが更新に失敗したかどうかを確認できます。`kubectl rollout status`はDeploymentが更新処理のデッドラインを超えたときに0以外の終了コードを返します。
 
@@ -944,7 +938,7 @@ Deploymentを使って一部のユーザーやサーバーに対してリリー�
 ## Deployment Specの記述
 
 他の全てのKubernetesの設定と同様に、Deploymentは`.apiVersion`、`.kind`や`.metadata`フィールドを必要とします。
-設定ファイルの利用に関する情報は[アプリケーションのデプロイ](/ja/docs/tasks/run-application/run-stateless-application-deployment/)を参照してください。コンテナーの設定に関しては[リソースを管理するためのkubectlの使用](/ja/docs/concepts/overview/working-with-objects/object-management/)を参照してください。
+設定ファイルの利用に関する情報は[アプリケーションのデプロイ](/ja/docs/tasks/run-application/run-stateless-application-deployment/)を参照してください。コンテナの設定に関しては[リソースを管理するためのkubectlの使用](/ja/docs/concepts/overview/working-with-objects/object-management/)を参照してください。
 Deploymentオブジェクトの名前は、有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)でなければなりません。
 Deploymentは[`.spec`セクション](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)も必要とします。
 
@@ -952,7 +946,7 @@ Deploymentは[`.spec`セクション](https://git.k8s.io/community/contributors/
 
 `.spec.template`と`.spec.selector`は`.spec`における必須のフィールドです。
 
-`.spec.template`は[Podテンプレート](/docs/concepts/workloads/pods/#pod-templates)です。これは.spec内でネストされていないことと、`apiVersion`や`kind`を持たないことを除いては{{< glossary_tooltip text="Pod" term_id="pod" >}}と同じスキーマとなります。
+`.spec.template`は[Podテンプレート](/ja/docs/concepts/workloads/pods/#pod-templates)です。これは.spec内でネストされていないことと、`apiVersion`や`kind`を持たないことを除いては{{< glossary_tooltip text="Pod" term_id="pod" >}}と同じスキーマとなります。
 
 Podの必須フィールドに加えて、Deployment内のPodテンプレートでは適切なラベルと再起動ポリシーを設定しなくてはなりません。ラベルは他のコントローラーと重複しないようにしてください。ラベルについては、[セレクター](#selector)を参照してください。
 
@@ -1014,7 +1008,7 @@ Deploymentのセレクターに一致するラベルを持つPodを直接作成�
 
 ### Min Ready Seconds {#min-ready-seconds}
 
-`.spec.minReadySeconds`はオプションのフィールドで、新しく作成されたPodが利用可能となるために、最低どれくらいの秒数コンテナーがクラッシュすることなく稼働し続ければよいかを指定するものです。デフォルトでは0です(Podは作成されるとすぐに利用可能と判断されます)。Podが利用可能と判断された場合についてさらに学ぶために[Container Probes](/ja/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)を参照してください。
+`.spec.minReadySeconds`はオプションのフィールドで、新しく作成されたPodが利用可能となるために、最低どれくらいの秒数コンテナがクラッシュすることなく稼働し続ければよいかを指定するものです。デフォルトでは0です(Podは作成されるとすぐに利用可能と判断されます)。Podが利用可能と判断された場合についてさらに学ぶために[Container Probes](/ja/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)を参照してください。
 
 ### リビジョン履歴の保持上限
 

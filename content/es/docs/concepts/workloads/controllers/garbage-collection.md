@@ -30,7 +30,7 @@ de forma manual indicando el valor del campo `ownerReference`.
 
 Aquí se muestra un archivo de configuración para un ReplicaSet que tiene tres Pods:
 
-{{< codenew file="controllers/replicaset.yaml" >}}
+{{% codenew file="controllers/replicaset.yaml" %}}
 
 Si se crea el ReplicaSet y entonces se muestra los metadatos del Pod, se puede 
 observar el campo OwnerReferences:
@@ -170,7 +170,7 @@ Seguimiento en [#26120](https://github.com/kubernetes/kubernetes/issues/26120)
 ## {{% heading "whatsnext" %}}
 
 
-[Documento de Diseño 1](https://git.k8s.io/community/contributors/design-proposals/api-machinery/garbage-collection.md)
+[Documento de Diseño 1](https://git.k8s.io/design-proposals-archive/api-machinery/garbage-collection.md)
 
-[Documento de Diseño 2](https://git.k8s.io/community/contributors/design-proposals/api-machinery/synchronous-garbage-collection.md)
+[Documento de Diseño 2](https://git.k8s.io/design-proposals-archive/api-machinery/synchronous-garbage-collection.md)
 

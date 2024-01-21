@@ -1,7 +1,7 @@
 ---
 title: ストレージにProjectedボリュームを使用するようPodを設定する
 content_type: task
-weight: 70
+weight: 100
 ---
 
 <!-- overview -->
@@ -26,7 +26,7 @@ weight: 70
 
 以下にPodの設定ファイルを示します:
 
-{{< codenew file="pods/storage/projected.yaml" >}}
+{{% codenew file="pods/storage/projected.yaml" %}}
 
 1. Secretを作成します:
 

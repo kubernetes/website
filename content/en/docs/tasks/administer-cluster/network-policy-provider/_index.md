@@ -1,4 +1,4 @@
 ---
 title: Install a Network Policy Provider
-weight: 30
+weight: 50
 ---

@@ -3,7 +3,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference conent, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -20,8 +20,6 @@ Generate the certificate for etcd nodes to communicate with each other, and save
 Default SANs are localhost, 127.0.0.1, 127.0.0.1, ::1
 
 If both files already exist, kubeadm skips the generation step and existing files will be used.
-
-Alpha Disclaimer: this command is currently alpha.
 
 ```
 kubeadm init phase certs etcd-peer [flags]
@@ -48,6 +46,13 @@ kubeadm init phase certs etcd-peer [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a kubeadm configuration file.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--dry-run</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Don't apply any changes; just output what would be done.</p></td>
 </tr>
 
 <tr>

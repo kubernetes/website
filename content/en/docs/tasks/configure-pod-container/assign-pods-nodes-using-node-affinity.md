@@ -2,7 +2,7 @@
 title: Assign Pods to Nodes using Node Affinity
 min-kubernetes-server-version: v1.10
 content_type: task
-weight: 120
+weight: 160
 ---
 
 <!-- overview -->
@@ -34,7 +34,7 @@ Kubernetes cluster.
     worker1   Ready     <none>   1d      v1.13.0        ...,kubernetes.io/hostname=worker1
     worker2   Ready     <none>   1d      v1.13.0        ...,kubernetes.io/hostname=worker2
     ```
-1. Chose one of your nodes, and add a label to it:
+1. Choose one of your nodes, and add a label to it:
 
     ```shell
     kubectl label nodes <your-node-name> disktype=ssd
@@ -64,7 +64,7 @@ Kubernetes cluster.
 This manifest describes a Pod that has a `requiredDuringSchedulingIgnoredDuringExecution` node affinity,`disktype: ssd`. 
 This means that the pod will get scheduled only on a node that has a `disktype=ssd` label. 
 
-{{< codenew file="pods/pod-nginx-required-affinity.yaml" >}}
+{{% code_sample file="pods/pod-nginx-required-affinity.yaml" %}}
 
 1. Apply the manifest to create a Pod that is scheduled onto your
    chosen node:
@@ -91,7 +91,7 @@ This means that the pod will get scheduled only on a node that has a `disktype=s
 This manifest describes a Pod that has a `preferredDuringSchedulingIgnoredDuringExecution` node affinity,`disktype: ssd`. 
 This means that the pod will prefer a node that has a `disktype=ssd` label. 
 
-{{< codenew file="pods/pod-nginx-preferred-affinity.yaml" >}}
+{{% code_sample file="pods/pod-nginx-preferred-affinity.yaml" %}}
 
 1. Apply the manifest to create a Pod that is scheduled onto your
    chosen node:

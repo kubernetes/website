@@ -77,7 +77,7 @@ export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
 
     ```bash
     echo 'alias k=kubectl' >>~/.bash_profile
-    echo 'complete -F __start_kubectl k' >>~/.bash_profile
+    echo 'complete -o default -F __start_kubectl k' >>~/.bash_profile
     ```
 
 - Homebrew로 kubectl을 설치한 경우([여기](/ko/docs/tasks/tools/install-kubectl-macos/#install-with-homebrew-on-macos)의 설명을 참고), kubectl 자동 완성 스크립트가 이미 `/usr/local/etc/bash_completion.d/kubectl` 에 있을 것이다. 이 경우, 아무 것도 할 필요가 없다.

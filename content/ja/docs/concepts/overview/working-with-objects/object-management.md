@@ -1,7 +1,7 @@
 ---
 title: Kubernetesオブジェクト管理
 content_type: concept
-weight: 15
+weight: 20
 ---
 
 <!-- overview -->
@@ -52,7 +52,7 @@ kubectl create deployment nginx --image nginx
 オブジェクト設定手法に対する長所:
 
 - コマンドは簡潔、簡単に学ぶことができ、そして覚えやすいです
-- コマンドではクラスタの設定を変えるのに、わずか1ステップしか必要としません
+- コマンドではクラスターの設定を変えるのに、わずか1ステップしか必要としません
 
 オブジェクト設定手法に対する短所:
 

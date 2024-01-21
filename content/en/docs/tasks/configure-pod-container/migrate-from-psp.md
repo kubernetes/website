@@ -5,6 +5,7 @@ reviewers:
 - liggitt
 content_type: task
 min-kubernetes-server-version: v1.22
+weight: 260
 ---
 
 <!-- overview -->
@@ -17,7 +18,10 @@ admission controller. This can be done effectively using a combination of dry-ru
 
 {{% version-check %}}
 
-- Ensure the `PodSecurity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) is enabled.
+If you are currently running a version of Kubernetes other than
+{{< skew currentVersion >}}, you may want to switch to viewing this
+page in the documentation for the version of Kubernetes that you
+are actually running.
 
 This page assumes you are already familiar with the basic [Pod Security Admission](/docs/concepts/security/pod-security-admission/)
 concepts.
@@ -197,7 +201,7 @@ For each updated PodSecurityPolicy:
 3. Create the new PodSecurityPolicies. If any Roles or ClusterRoles are granting `use` on all PSPs
    this could cause the new PSPs to be used instead of their mutating counter-parts.
 4. Update your authorization to grant access to the new PSPs. In RBAC this means updating any Roles
-   or ClusterRoles that grant the `use` permision on the original PSP to also grant it to the
+   or ClusterRoles that grant the `use` permission on the original PSP to also grant it to the
    updated PSP.
 5. Verify: after some soak time, rerun the command from step 1 to see if any pods are still using
    the original PSPs. Note that pods need to be recreated after the new policies have been rolled
@@ -312,7 +316,7 @@ appropriate Pod Security profile is applied to new namespaces.
 
 You can also statically configure the Pod Security admission controller to set a default enforce,
 audit, and/or warn level for unlabeled namespaces. See
-[Configure the Admission Controller](docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller)
+[Configure the Admission Controller](/docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller)
 for more information.
 
 ## 5. Disable PodSecurityPolicy {#disable-psp}
@@ -323,7 +327,7 @@ configuration of the API server:
 
 To verify that the PodSecurityPolicy admission controller is no longer enabled, you can manually run
 a test by impersonating a user without access to any PodSecurityPolicies (see the
-[PodSecurityPolicy example](/docs/concepts/policy/pod-security-policy/#example)), or by verifying in
+[PodSecurityPolicy example](/docs/concepts/security/pod-security-policy/#example)), or by verifying in
 the API server logs. At startup, the API server outputs log lines listing the loaded admission
 controller plugins:
 

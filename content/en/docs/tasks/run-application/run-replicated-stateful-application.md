@@ -14,7 +14,7 @@ weight: 30
 <!-- overview -->
 
 This page shows how to run a replicated stateful application using a
-[StatefulSet](/docs/concepts/workloads/controllers/statefulset/) controller.
+{{< glossary_tooltip term_id="statefulset" >}}.
 This application is a replicated MySQL database. The example topology has a
 single primary server and multiple replicas, using asynchronous row-based
 replication.
@@ -24,34 +24,26 @@ replication.
 on general patterns for running stateful applications in Kubernetes.
 {{< /note >}}
 
-
-
 ## {{% heading "prerequisites" %}}
 
-
-* {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-* {{< include "default-storage-class-prereqs.md" >}}
-* This tutorial assumes you are familiar with
+- {{< include "task-tutorial-prereqs.md" >}}
+- {{< include "default-storage-class-prereqs.md" >}}
+- This tutorial assumes you are familiar with
   [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)
   and [StatefulSets](/docs/concepts/workloads/controllers/statefulset/),
   as well as other core concepts like [Pods](/docs/concepts/workloads/pods/),
   [Services](/docs/concepts/services-networking/service/), and
   [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/).
-* Some familiarity with MySQL helps, but this tutorial aims to present
+- Some familiarity with MySQL helps, but this tutorial aims to present
   general patterns that should be useful for other systems.
-* You are using the default namespace or another namespace that does not contain any conflicting objects.
-
-
+- You are using the default namespace or another namespace that does not contain any conflicting objects.
 
 ## {{% heading "objectives" %}}
 
-
-* Deploy a replicated MySQL topology with a StatefulSet controller.
-* Send MySQL client traffic.
-* Observe resistance to downtime.
-* Scale the StatefulSet up and down.
-
-
+- Deploy a replicated MySQL topology with a StatefulSet.
+- Send MySQL client traffic.
+- Observe resistance to downtime.
+- Scale the StatefulSet up and down.
 
 <!-- lessoncontent -->
 
@@ -60,18 +52,18 @@ on general patterns for running stateful applications in Kubernetes.
 The example MySQL deployment consists of a ConfigMap, two Services,
 and a StatefulSet.
 
-### ConfigMap
+### Create a ConfigMap {#configmap}
 
 Create the ConfigMap from the following YAML configuration file:
 
-{{< codenew file="application/mysql/mysql-configmap.yaml" >}}
+{{% code_sample file="application/mysql/mysql-configmap.yaml" %}}
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/mysql/mysql-configmap.yaml
 ```
 
 This ConfigMap provides `my.cnf` overrides that let you independently control
-configuration on the primary MySQL server and replicas.
+configuration on the primary MySQL server and its replicas.
 In this case, you want the primary server to be able to serve replication logs to replicas
 and you want replicas to reject any writes that don't come via replication.
 
@@ -80,37 +72,38 @@ portions to apply to different Pods.
 Each Pod decides which portion to look at as it's initializing,
 based on information provided by the StatefulSet controller.
 
-### Services
+### Create Services {#services}
 
 Create the Services from the following YAML configuration file:
 
-{{< codenew file="application/mysql/mysql-services.yaml" >}}
+{{% code_sample file="application/mysql/mysql-services.yaml" %}}
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/mysql/mysql-services.yaml
 ```
 
-The Headless Service provides a home for the DNS entries that the StatefulSet
-controller creates for each Pod that's part of the set.
-Because the Headless Service is named `mysql`, the Pods are accessible by
+The headless Service provides a home for the DNS entries that the StatefulSet
+{{< glossary_tooltip text="controllers" term_id="controller" >}} creates for each
+Pod that's part of the set.
+Because the headless Service is named `mysql`, the Pods are accessible by
 resolving `<pod-name>.mysql` from within any other Pod in the same Kubernetes
 cluster and namespace.
 
-The Client Service, called `mysql-read`, is a normal Service with its own
+The client Service, called `mysql-read`, is a normal Service with its own
 cluster IP that distributes connections across all MySQL Pods that report
 being Ready. The set of potential endpoints includes the primary MySQL server and all
 replicas.
 
-Note that only read queries can use the load-balanced Client Service.
+Note that only read queries can use the load-balanced client Service.
 Because there is only one primary MySQL server, clients should connect directly to the
-primary MySQL Pod (through its DNS entry within the Headless Service) to execute
+primary MySQL Pod (through its DNS entry within the headless Service) to execute
 writes.
 
-### StatefulSet
+### Create the StatefulSet {#statefulset}
 
 Finally, create the StatefulSet from the following YAML configuration file:
 
-{{< codenew file="application/mysql/mysql-statefulset.yaml" >}}
+{{% code_sample file="application/mysql/mysql-statefulset.yaml" %}}
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/mysql/mysql-statefulset.yaml
@@ -122,7 +115,7 @@ You can watch the startup progress by running:
 kubectl get pods -l app=mysql --watch
 ```
 
-After a while, you should see all 3 Pods become Running:
+After a while, you should see all 3 Pods become `Running`:
 
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -132,8 +125,11 @@ mysql-2   2/2       Running   0          1m
 ```
 
 Press **Ctrl+C** to cancel the watch.
+
+{{< note >}}
 If you don't see any progress, make sure you have a dynamic PersistentVolume
-provisioner enabled as mentioned in the [prerequisites](#before-you-begin).
+provisioner enabled, as mentioned in the [prerequisites](#before-you-begin).
+{{< /note >}}
 
 This manifest uses a variety of techniques for managing stateful Pods as part of
 a StatefulSet. The next section highlights some of these techniques to explain
@@ -155,10 +151,10 @@ properties to perform orderly startup of MySQL replication.
 ### Generating configuration
 
 Before starting any of the containers in the Pod spec, the Pod first runs any
-[Init Containers](/docs/concepts/workloads/pods/init-containers/)
+[init containers](/docs/concepts/workloads/pods/init-containers/)
 in the order defined.
 
-The first Init Container, named `init-mysql`, generates special MySQL config
+The first init container, named `init-mysql`, generates special MySQL config
 files based on the ordinal index.
 
 The script determines its own ordinal index by extracting it from the end of
@@ -166,8 +162,7 @@ the Pod name, which is returned by the `hostname` command.
 Then it saves the ordinal (with a numeric offset to avoid reserved values)
 into a file called `server-id.cnf` in the MySQL `conf.d` directory.
 This translates the unique, stable identity provided by the StatefulSet
-controller into the domain of MySQL server IDs, which require the same
-properties.
+into the domain of MySQL server IDs, which require the same properties.
 
 The script in the `init-mysql` container also applies either `primary.cnf` or
 `replica.cnf` from the ConfigMap by copying the contents into `conf.d`.
@@ -187,7 +182,7 @@ logs might not go all the way back to the beginning of time.
 These conservative assumptions are the key to allow a running StatefulSet
 to scale up and down over time, rather than being fixed at its initial size.
 
-The second Init Container, named `clone-mysql`, performs a clone operation on
+The second init container, named `clone-mysql`, performs a clone operation on
 a replica Pod the first time it starts up on an empty PersistentVolume.
 That means it copies all existing data from another running Pod,
 so its local state is consistent enough to begin replicating from the primary server.
@@ -202,10 +197,10 @@ Ready before starting Pod `N+1`.
 
 ### Starting replication
 
-After the Init Containers complete successfully, the regular containers run.
+After the init containers complete successfully, the regular containers run.
 The MySQL Pods consist of a `mysql` container that runs the actual `mysqld`
 server, and an `xtrabackup` container that acts as a
-[sidecar](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns).
+[sidecar](/blog/2015/06/the-distributed-system-toolkit-patterns).
 
 The `xtrabackup` sidecar looks at the cloned data files and determines if
 it's necessary to initialize MySQL replication on the replica.
@@ -291,13 +286,13 @@ endpoint might be selected upon each connection attempt:
 You can press **Ctrl+C** when you want to stop the loop, but it's useful to keep
 it running in another window so you can see the effects of the following steps.
 
-## Simulating Pod and Node downtime
+## Simulate Pod and Node failure {#simulate-pod-and-node-downtime}
 
 To demonstrate the increased availability of reading from the pool of replicas
 instead of a single server, keep the `SELECT @@server_id` loop from above
 running while you force a Pod out of the Ready state.
 
-### Break the Readiness Probe
+### Break the Readiness probe
 
 The [readiness probe](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-readiness-probes)
 for the `mysql` container runs the command `mysql -h 127.0.0.1 -e 'SELECT 1'`
@@ -371,14 +366,18 @@ NAME      READY     STATUS    RESTARTS   AGE       IP            NODE
 mysql-2   2/2       Running   0          15m       10.244.5.27   kubernetes-node-9l2t
 ```
 
-Then drain the Node by running the following command, which cordons it so
+Then, drain the Node by running the following command, which cordons it so
 no new Pods may schedule there, and then evicts any existing Pods.
 Replace `<node-name>` with the name of the Node you found in the last step.
 
-This might impact other applications on the Node, so it's best to
-**only do this in a test cluster**.
+{{< caution >}}
+Draining a Node can impact other workloads and applications
+running on the same node. Only perform the following step in a test
+cluster.
+{{< /caution >}}
 
 ```shell
+# See above advice about impact on other workloads
 kubectl drain <node-name> --force --delete-emptydir-data --ignore-daemonsets
 ```
 
@@ -413,8 +412,9 @@ kubectl uncordon <node-name>
 
 ## Scaling the number of replicas
 
-With MySQL replication, you can scale your read query capacity by adding replicas.
-With StatefulSet, you can do this with a single command:
+When you use MySQL replication, you can scale your read query capacity by
+adding replicas.
+For a StatefulSet, you can achieve this with a single command:
 
 ```shell
 kubectl scale statefulset mysql  --replicas=5
@@ -453,10 +453,13 @@ Scaling back down is also seamless:
 kubectl scale statefulset mysql --replicas=3
 ```
 
-Note, however, that while scaling up creates new PersistentVolumeClaims
+{{< note >}}
+Although scaling up creates new PersistentVolumeClaims
 automatically, scaling down does not automatically delete these PVCs.
+
 This gives you the choice to keep those initialized PVCs around to make
 scaling back up quicker, or to extract data before deleting them.
+{{< /note >}}
 
 You can see this by running:
 
@@ -483,10 +486,7 @@ kubectl delete pvc data-mysql-3
 kubectl delete pvc data-mysql-4
 ```
 
-
-
 ## {{% heading "cleanup" %}}
-
 
 1. Cancel the `SELECT @@server_id` loop by pressing **Ctrl+C** in its terminal,
    or running the following from another terminal:
@@ -527,17 +527,11 @@ kubectl delete pvc data-mysql-4
    Some dynamic provisioners (such as those for EBS and PD) also release the
    underlying resources upon deleting the PersistentVolumes.
 
-
-
 ## {{% heading "whatsnext" %}}
 
-* Learn more about [scaling a StatefulSet](/docs/tasks/run-application/scale-stateful-set/).
-* Learn more about [debugging a StatefulSet](/docs/tasks/debug-application-cluster/debug-stateful-set/).
-* Learn more about [deleting a StatefulSet](/docs/tasks/run-application/delete-stateful-set/).
-* Learn more about [force deleting StatefulSet Pods](/docs/tasks/run-application/force-delete-stateful-set-pod/).
-* Look in the [Helm Charts repository](https://artifacthub.io/)
+- Learn more about [scaling a StatefulSet](/docs/tasks/run-application/scale-stateful-set/).
+- Learn more about [debugging a StatefulSet](/docs/tasks/debug/debug-application/debug-statefulset/).
+- Learn more about [deleting a StatefulSet](/docs/tasks/run-application/delete-stateful-set/).
+- Learn more about [force deleting StatefulSet Pods](/docs/tasks/run-application/force-delete-stateful-set-pod/).
+- Look in the [Helm Charts repository](https://artifacthub.io/)
   for other stateful application examples.
-
-
-
-

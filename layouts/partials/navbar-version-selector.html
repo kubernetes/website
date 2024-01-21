@@ -3,7 +3,7 @@
 </a>
 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
 	{{ $p := . }}
-	<a class="dropdown-item" href="/releases">Release Information</a>
+	<a class="dropdown-item" href="{{ "releases" | relLangURL }}">{{ i18n "release_information_navbar" . }}</a>
 	{{ range .Site.Params.versions }}
 	<a class="dropdown-item" href="{{ .url }}{{ $p.RelPermalink }}">{{ .version }}</a>
 	{{ end }}

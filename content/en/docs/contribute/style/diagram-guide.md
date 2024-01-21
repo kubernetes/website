@@ -2,13 +2,13 @@
 title: Diagram Guide
 linktitle: Diagram guide
 content_type: concept
-weight: 15
+weight: 60
 ---
 
 <!--Overview-->
 
 This guide shows you how to create, edit and share diagrams using the Mermaid
-Javascript library. Mermaid.js allows you to generate diagrams using a simple
+JavaScript library. Mermaid.js allows you to generate diagrams using a simple
 markdown-like syntax inside Markdown files. You can also use Mermaid to
 generate `.svg` or `.png` image files that you can add to your documentation.
 
@@ -242,7 +242,7 @@ Figure 17. A to B
 more text
 ```
 {{< note >}}
-You must include the `{{</*  mermaid */>}}`, `{{</* /mermaid */>}}` shortcode
+You must include the Hugo Mermaid shortcode
 tags at the start and end of the Mermaid code block. You should add a diagram
 caption below the diagram. 
 {{< /note >}}
@@ -260,7 +260,8 @@ You should use the [local](/docs/contribute/new-content/open-a-pr/#preview-local
 and Netlify previews to verify the diagram is properly rendered. 
 
 {{< caution >}}
-The Mermaid live editor feature set may not support the K8s/website Mermaid feature set. 
+The Mermaid live editor feature set may not support the [kubernetes/website](https://github.com/kubernetes/website) Mermaid feature set.  
+And please, note that contributors can mention `kubernetes/website` as `k/website`.
 You might see a syntax error or a blank screen after the Hugo build.
 If that is the case, consider using the Mermaid+SVG method. 
 {{< /caution >}}
@@ -342,7 +343,7 @@ The following lists advantages of the Mermaid+SVG method:
 
 * Live editor tool.
 * Live editor tool supports the most current Mermaid feature set.  
-* Employ existing K8s/website methods for handling `.svg` image files.
+* Employ existing [kubernetes/website](https://github.com/kubernetes/website) methods for handling `.svg` image files.
 * Environment doesn't require Mermaid support.
 
 Be sure to check that your diagram renders properly using the
@@ -429,7 +430,7 @@ Don't forget to check that your diagram renders correctly using the
 This section shows several examples of Mermaid diagrams. 
 
 {{< note >}}
-The code block examples omit the Hugo  `{{</*  mermaid */>}}`, `{{</* /mermaid */>}}`
+The code block examples omit the Hugo Mermaid
 shortcode tags. This allows you to copy the code block into the live editor
 to experiment on your own.
 Note that the live editor doesn't recognize Hugo shortcodes. 
@@ -438,7 +439,7 @@ Note that the live editor doesn't recognize Hugo shortcodes.
 ### Example 1 - Pod topology spread constraints
 
 Figure 6 shows the diagram appearing in the
-[Pod topology pread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/#node-labels)
+[Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/#node-labels)
 page.
 
 {{< mermaid >}}
@@ -623,7 +624,7 @@ caption and the diagram referral.
 flowchart
 A[Diagram<br><br>Inline Mermaid or<br>SVG image files]
 B[Diagram Caption<br><br>Add Figure Number. and<br>Caption Text]
-C[Diagram Referral<br><br>Referenence Figure Number<br>in text]
+C[Diagram Referral<br><br>Reference Figure Number<br>in text]
 
     classDef box fill:#fff,stroke:#000,stroke-width:1px,color:#000;
     class A,B,C box
