@@ -1,6 +1,6 @@
 ---
 title: कॉन्फ़िगमैप का उपयोग करके रेडिस को कॉन्फ़िगर करना
-content_type: ट्यूटोरियल
+content_type: tutorial
 ---
 
 <!-- overview -->
