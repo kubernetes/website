@@ -19,7 +19,8 @@ This page explains the custom Hugo shortcodes that can be used in Kubernetes Mar
 <!--
 Read more about shortcodes in the [Hugo documentation](https://gohugo.io/content-management/shortcodes).
 -->
-关于短代码的更多信息可参见 [Hugo 文档](https://gohugo.io/content-management/shortcodes)。
+关于短代码的更多信息可参见
+[Hugo 文档](https://gohugo.io/content-management/shortcodes)。
 
 <!-- body -->
 
@@ -85,6 +86,37 @@ Renders to:
 会转换为：
 
 {{< feature-state for_k8s_version="v1.10" state="beta" >}}
+
+<!--
+## Feature gate description
+
+In a Markdown page (`.md` file) on this site, you can add a shortcode to
+display the description for a shortcode.
+-->
+## 特性门控介绍
+
+在此站点上的 Markdown 页面（`.md` 文件）中，你可以添加短代码来显示短代码的描述。
+
+<!--
+### Feature gate description demo
+
+Below is a demo of the feature state snippet, which displays the feature as
+stable in the latest Kubernetes version.
+-->
+### 特性门控 Demo 演示
+
+下面是特性状态片段的 Demo，它显示该特性在最新的 Kubernetes 版本中处于稳定状态。
+
+```
+{{</* feature-gate-description name="DryRun" */>}}
+```
+
+<!--
+Renders to:
+-->
+渲染到：
+
+{{< feature-gate-description name="DryRun" >}}
 
 <!--
 ## Glossary
@@ -184,7 +216,6 @@ The content of the `page` parameter is the suffix of the URL of the API referenc
 -->
 本语句中 `page` 参数的内容是 API 参考页面的 URL 后缀。
 
-
 <!--
 You can link to a specific place into a page by specifying an `anchor`
 parameter, for example to the {{< api-reference page="workload-resources/pod-v1" anchor="PodSpec" >}}
@@ -208,14 +239,12 @@ example by linking to the
 {{< api-reference page="workload-resources/pod-v1" anchor="environment-variables" text="Environment Variables">}}
 section of the page:
 -->
-你可以通过指定 `text` 参数来更改链接的文本，例如通过链接到页面的
-{{< api-reference page="workload-resources/pod-v1" anchor="environment-variables" text="环境变量">}}
-部分：
+你可以通过指定 `text` 参数来更改链接的文本，
+例如通过链接到页面的{{< api-reference page="workload-resources/pod-v1" anchor="environment-variables" text="环境变量">}}部分：
 
 ```
 {{</* api-reference page="workload-resources/pod-v1" anchor="environment-variables" text="环境变量" */>}}
 ```
-
 
 <!--
 ## Table captions
@@ -285,8 +314,8 @@ after the opening `<table>` element:
 <caption style="display: none;">Configuration parameters</caption>
 ```
 -->
-如果你查看表格的 HTML 输出结果，你会看到 `<table>` 元素
-后面紧接着下面的元素：
+如果你查看表格的 HTML 输出结果，你会看到 `<table>`
+元素后面紧接着下面的元素：
 
 ```html
 <caption style="display: none;">配置参数</caption>
@@ -390,7 +419,7 @@ println "This is tab 2."
 ```go-html-template
 {{</* tabs name="tab_with_md" >}}
 {{% tab name="Markdown" %}}
-这是 **一些 markdown。**
+这是**一些 markdown。**
 {{< note >}}
 它甚至可以包含短代码。
 {{< /note >}}
@@ -411,7 +440,7 @@ Renders to:
 
 {{< tabs name="tab_with_md" >}}
 {{% tab name="Markdown" %}}
-这是 **一些 markdown。**
+这是**一些 markdown。**
 {{< note >}}
 它甚至可以包含短代码。
 {{< /note >}}
@@ -493,7 +522,7 @@ the page. In the markdown of your page, use the `code` shortcode:
 -->
 添加新的示例文件（例如 YAML 文件）时，在 `<LANG>/examples/`
 子目录之一中创建该文件，其中 `<LANG>` 是页面的语言。
-在你的页面的 markdown 文本中，使用 `code` 短代码：
+在你的页面的 Markdown 文本中，使用 `code` 短代码：
 
 ```none
 {{%/* code_sample file="<RELATIVE-PATH>/example-yaml>" */%}}
@@ -661,7 +690,8 @@ Renders to:
 -->
 ### `{{</* latest-semver */>}}`
 
-`{{</* latest-semver */>}}` 短代码可以生成站点参数 `latest` 不含前缀 `v` 的版本号取值。
+`{{</* latest-semver */>}}` 短代码可以生成站点参数 `latest` 不含前缀
+`v` 的版本号取值。
 
 转换为：
 
