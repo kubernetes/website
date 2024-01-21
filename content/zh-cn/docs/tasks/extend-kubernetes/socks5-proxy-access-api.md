@@ -165,8 +165,8 @@ clusters:
 - cluster:
     certificate-authority-data: LRMEMMW2 # 简化以便阅读
     # “Kubernetes API”服务器，换言之，kubernetes-remote-server.example 的 IP 地址
-    server: https://<API_SERVER_IP_ADRESS>:6443
-    # 上图中的“SSH SOCKS5代理”（内置 DNS 解析）
+    server: https://<API_SERVER_IP_ADDRESS>:6443
+    # 上图中的 “SSH SOCKS5代理”（内置 DNS 解析）
     proxy-url: socks5://localhost:1080
   name: default
 contexts:
