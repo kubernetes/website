@@ -81,7 +81,7 @@ Pour vérifier que le Secret a été créé et pour décoder les données du Sec
 Pour certains cas, vous pouvez
 utiliser le champ `stringData` à la place. Ce
 champ vous permet d'ajouter du texte non encodé directement dans le Secret,
-et il sera encodée pour vous lors de la création ou de la mise à jour du Secret.
+et il sera encodé pour vous lors de la création ou de la mise à jour du Secret.
 
 Un exemple pratique de ce besoin pourrait être lorsque vous déployez une application
 qui utilise un Secret pour stocker un fichier de configuration, et vous voulez configurer
