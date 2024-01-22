@@ -109,7 +109,7 @@ Le résutat est similaire à :
 echo 'UyFCXCpkJHpEc2I9' | base64 --decode
 ```
 
-Le résutat est similaire à :
+Le résultat est similaire à :
 
 ```
 S!B\*d$zDsb=
