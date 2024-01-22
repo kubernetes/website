@@ -25,7 +25,7 @@ des valeurs littérales. Par exemple, les instructions suivantes créent un fich
 pour le nom d'utilisateur `admin` et le mot de passe `1f2d1e2e67df`.
 
 {{< note >}}
-Le champ `stringData` pour un Secret ne fonctionne pas bien avec le traitement coté serveur.
+Le champ `stringData` pour un Secret ne fonctionne pas bien avec le traitement des modifications coté serveur (Server Side Apply).
 {{< /note >}}
 
 ### Créer le fichier Kustomization
