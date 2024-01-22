@@ -111,7 +111,7 @@ stringData:
 ```
 
 {{< note >}}
-Le champ `stringData` pour un Secret ne fonctionne pas bien avec le traitement coté serveur (Server Side Apply).
+Le champ `stringData` pour un Secret ne fonctionne pas bien avec le traitement des modifications coté serveur (Server Side Apply).
 {{< /note >}}
 
 Lorsque vous récupérez les données du Secret, la commande retourne les valeurs encodées,
@@ -158,7 +158,7 @@ stringData:
 ```
 
 {{< note >}}
-Le champ `stringData` pour un Secret ne fonctionne pas bien avec le traitement coté serveur (Server Side Apply).
+Le champ `stringData` pour un Secret ne fonctionne pas bien avec le traitement des modifications coté serveur (Server Side Apply).
 {{< /note >}}
 
 L'objet `Secret` sera créé comme ceci :
