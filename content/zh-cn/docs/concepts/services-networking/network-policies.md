@@ -54,7 +54,7 @@ The entities that a Pod can communicate with are identified through a combinatio
 -->
 Pod 可以与之通信的实体是通过如下三个标识符的组合来辩识的：
 
-1. 其他被允许的 Pods（例外：Pod 无法阻塞对自身的访问）
+1. 其他被允许的 Pod（例外：Pod 无法阻塞对自身的访问）
 2. 被允许的名字空间
 3. IP 组块（例外：与 Pod 运行所在的节点的通信总是被允许的，
    无论 Pod 或节点的 IP 地址）
@@ -68,6 +68,7 @@ Meanwhile, when IP based NetworkPolicies are created, we define policies based o
 -->
 在定义基于 Pod 或名字空间的 NetworkPolicy 时，
 你会使用{{< glossary_tooltip text="选择算符" term_id="selector">}}来设定哪些流量可以进入或离开与该算符匹配的 Pod。
+
 另外，当创建基于 IP 的 NetworkPolicy 时，我们基于 IP 组块（CIDR 范围）来定义策略。
 
 <!-- body -->
@@ -106,13 +107,15 @@ By default, a pod is non-isolated for egress; all outbound connections are allow
 A pod is isolated for egress if there is any NetworkPolicy that both selects the pod and has
 "Egress" in its `policyTypes`; we say that such a policy applies to the pod for egress.
 When a pod is isolated for egress, the only allowed connections from the pod are those allowed by
-the `egress` list of some NetworkPolicy that applies to the pod for egress.
+the `egress` list of some NetworkPolicy that applies to the pod for egress. Reply traffic for those
+allowed connections will also be implicitly allowed.
 The effects of those `egress` lists combine additively.
 -->
 默认情况下，一个 Pod 的出口是非隔离的，即所有外向连接都是被允许的。如果有任何的 NetworkPolicy
 选择该 Pod 并在其 `policyTypes` 中包含 “Egress”，则该 Pod 是出口隔离的，
 我们称这样的策略适用于该 Pod 的出口。当一个 Pod 的出口被隔离时，
 唯一允许的来自 Pod 的连接是适用于出口的 Pod 的某个 NetworkPolicy 的 `egress` 列表所允许的连接。
+针对那些允许连接的应答流量也将被隐式允许。
 这些 `egress` 列表的效果是相加的。
 
 <!--
@@ -121,13 +124,14 @@ A pod is isolated for ingress if there is any NetworkPolicy that both selects th
 has "Ingress" in its `policyTypes`; we say that such a policy applies to the pod for ingress.
 When a pod is isolated for ingress, the only allowed connections into the pod are those from
 the pod's node and those allowed by the `ingress` list of some NetworkPolicy that applies to
-the pod for ingress. The effects of those `ingress` lists combine additively.
+the pod for ingress. Reply traffic for those allowed connections will also be implicitly allowed.
+The effects of those `ingress` lists combine additively.
 -->
 默认情况下，一个 Pod 对入口是非隔离的，即所有入站连接都是被允许的。如果有任何的 NetworkPolicy
 选择该 Pod 并在其 `policyTypes` 中包含 “Ingress”，则该 Pod 被隔离入口，
 我们称这种策略适用于该 Pod 的入口。当一个 Pod 的入口被隔离时，唯一允许进入该 Pod
 的连接是来自该 Pod 节点的连接和适用于入口的 Pod 的某个 NetworkPolicy 的 `ingress`
-列表所允许的连接。这些 `ingress` 列表的效果是相加的。
+列表所允许的连接。针对那些允许连接的应答流量也将被隐式允许。这些 `ingress` 列表的效果是相加的。
 
 <!--
 Network policies do not conflict; they are additive. If any policy or policies apply to a given
@@ -142,8 +146,8 @@ either side does not allow the connection, it will not happen.
 Pod 在对应方向所允许的连接是适用的网络策略所允许的集合。
 因此，评估的顺序不影响策略的结果。
 
-要允许从源 Pod 到目的 Pod 的连接，源 Pod 的出口策略和目的 Pod 的入口策略都需要允许连接。
-如果任何一方不允许连接，建立连接将会失败。
+要允许从源 Pod 到目的 Pod 的某个连接，源 Pod 的出口策略和目的 Pod 的入口策略都需要允许此连接。
+如果任何一方不允许此连接，则连接将会失败。
 
 <!--
 ## The NetworkPolicy resource {#networkpolicy-resource}
@@ -158,7 +162,7 @@ An example NetworkPolicy might look like this:
 参阅 [NetworkPolicy](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#networkpolicy-v1-networking-k8s-io)
 来了解资源的完整定义。
 
-下面是一个 NetworkPolicy 的示例:
+下面是一个 NetworkPolicy 的示例：
 
 {{< code_sample file="service/networking/networkpolicy.yaml" >}}
 
@@ -167,7 +171,7 @@ An example NetworkPolicy might look like this:
 POSTing this to the API server for your cluster will have no effect unless your chosen networking
 solution supports network policy.
 -->
-除非选择支持网络策略的网络解决方案，否则将上述示例发送到API服务器没有任何效果。
+除非选择支持网络策略的网络解决方案，否则将上述示例发送到 API 服务器没有任何效果。
 {{< /note >}}
 
 <!--
@@ -245,7 +249,7 @@ So, the example NetworkPolicy:
 See the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/)
 walkthrough for further examples.
 -->
-所以，该网络策略示例:
+所以，该网络策略示例：
 
 1. 隔离 `default` 名字空间下 `role=db` 的 Pod （如果它们不是已经被隔离的话）。
 2. （Ingress 规则）允许以下 Pod 连接到 `default` 名字空间下的带有 `role=db`
@@ -469,7 +473,7 @@ creating the following NetworkPolicy in that namespace.
 -->
 ### 默认拒绝所有入站和所有出站流量   {#default-deny-all-ingress-and-all-egress-traffic}
 
-你可以为名字空间创建“默认”策略，以通过在该名字空间中创建以下 NetworkPolicy
+你可以为名字空间创建 “default” 策略，以通过在该名字空间中创建以下 NetworkPolicy
 来阻止所有入站和出站流量。
 
 {{< code_sample file="service/networking/network-policy-default-deny-all.yaml" >}}
@@ -573,20 +577,20 @@ NetworkPolicy 规约中使用 `endPort` 字段。
 In this scenario, your `Egress` NetworkPolicy targets more than one namespace using their
 label names. For this to work, you need to label the target namespaces. For example:
 -->
-## 按标签选择多个命名空间   {#targeting-multiple-namespaces-by-label}
+## 按标签选择多个名字空间   {#targeting-multiple-namespaces-by-label}
 
 在这种情况下，你的 `Egress` NetworkPolicy 使用名字空间的标签名称来将多个名字空间作为其目标。
 为此，你需要为目标名字空间设置标签。例如：
 
 ```shell
- kubectl label namespace frontend namespace=frontend
- kubectl label namespace backend namespace=backend
+kubectl label namespace frontend namespace=frontend
+kubectl label namespace backend namespace=backend
 ```
 
 <!--
 Add the labels under `namespaceSelector` in your NetworkPolicy document. For example:
 -->
-在 NetworkPolicy 文档中的 namespaceSelector 下添加标签。例如：
+在 NetworkPolicy 文档中的 `namespaceSelector` 下添加标签。例如：
 
 ```yaml
 apiVersion: networking.k8s.io/v1
@@ -614,9 +618,9 @@ It is not possible to directly specify the name of the namespaces in a NetworkPo
 You must use a `namespaceSelector` with `matchLabels` or `matchExpressions` to select the
 namespaces based on their labels.
 -->
-你不可以在 NetworkPolicy 中直接指定命名空间的名称。
+你不可以在 NetworkPolicy 中直接指定名字空间的名称。
 你必须使用带有 `matchLabels` 或 `matchExpressions` 的 `namespaceSelector`
-来根据标签选择命名空间。
+来根据标签选择名字空间。
 {{< /note >}}
 
 <!--
@@ -834,13 +838,32 @@ implemented using the NetworkPolicy API.
 - The ability to prevent loopback or incoming host traffic (Pods cannot currently block localhost
   access, nor do they have the ability to block access from their resident node).
 -->
-- 实现适用于所有名字空间或 Pods 的默认策略（某些第三方 Kubernetes 发行版本或项目可以做到这点）；
+- 实现适用于所有名字空间或 Pod 的默认策略（某些第三方 Kubernetes 发行版本或项目可以做到这点）；
 - 高级的策略查询或者可达性相关工具；
 - 生成网络安全事件日志的能力（例如，被阻塞或接收的连接请求）；
 - 显式地拒绝策略的能力（目前，NetworkPolicy 的模型默认采用拒绝操作，
   其唯一的能力是添加允许策略）；
 - 禁止本地回路或指向宿主的网络流量（Pod 目前无法阻塞 localhost 访问，
   它们也无法禁止来自所在节点的访问请求）。
+
+<!--
+## NetworkPolicy's impact on existing connections
+
+When the set of NetworkPolicies that applies to an existing connection changes - this could happen
+either due to a change in NetworkPolicies or if the relevant labels of the namespaces/pods selected by the
+policy (both subject and peers) are changed in the middle of an existing connection - it is
+implementation defined as to whether the change will take effect for that existing connection or not.
+Example: A policy is created that leads to denying a previously allowed connection, the underlying network plugin
+implementation is responsible for defining if that new policy will close the existing connections or not.
+It is recommended not to modify policies/pods/namespaces in ways that might affect existing connections.
+-->
+## NetworkPolicy 对现有连接的影响   {#networkpolicys-impact-on-existing-connections}
+
+当应用到现有连接的 NetworkPolicy 集合发生变化时，这可能是由于 NetworkPolicy
+发生变化或者在现有连接过程中（主体和对等方）策略所选择的名字空间或 Pod 的相关标签发生变化，
+此时是否对该现有连接生效是由实现定义的。例如：某个策略的创建导致之前允许的连接被拒绝，
+底层网络插件的实现负责定义这个新策略是否会关闭现有的连接。
+建议不要以可能影响现有连接的方式修改策略、Pod 或名字空间。
 
 ## {{% heading "whatsnext" %}}
 
