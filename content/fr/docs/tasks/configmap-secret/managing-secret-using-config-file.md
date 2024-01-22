@@ -74,7 +74,7 @@ L'exemple suivant stocke deux chaînes de caractères dans un Secret en utilisan
    ```
 
 Pour vérifier que le Secret a été créé et pour décoder les données du Secret, référez-vous à la page sur la 
-[Gestion des secrets à l'aide de kubectl](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#verify-the-secret).
+[Gestion des secrets à l'aide de kubectl](/fr/docs/tasks/configmap-secret/managing-secret-using-kubectl/#verify-the-secret).
 
 ### Spécifier des données non encodées lors de la création d'un Secret
 
