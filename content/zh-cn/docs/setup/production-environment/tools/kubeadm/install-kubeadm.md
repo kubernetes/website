@@ -340,13 +340,13 @@ These instructions are for Kubernetes {{< skew currentVersion >}}.
    curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    ```
 
-   {{< note >}}
-   <!--
-   In releases older than Debian 12 and Ubuntu 22.04, folder `/etc/apt/keyrings` does not exist by default, and it should be created before the curl command.
-   -->
-   在低于 Debian 12 和 Ubuntu 22.04 的发行版本中，`/etc/apt/keyrings` 默认不存在。
-   应在 curl 命令之前创建它。
-   {{< /note >}}
+{{< note >}}
+<!--
+In releases older than Debian 12 and Ubuntu 22.04, folder `/etc/apt/keyrings` does not exist by default, and it should be created before the curl command.
+-->
+在低于 Debian 12 和 Ubuntu 22.04 的发行版本中，`/etc/apt/keyrings` 默认不存在。
+应在 curl 命令之前创建它。
+{{< /note >}}
 
 <!--
 3. Add the appropriate Kubernetes `apt` repository. Please note that this repository have packages
