@@ -41,7 +41,7 @@ Vous devez utiliser des guillemets simples `''` pour échapper les caractères s
 interprétera ces caractères.
 
 {{< note >}}
-Le champ `stringData` pour un Secret ne fonctionne pas bien avec le traitement coté serveur (Server Side Apply).
+Le champ `stringData` pour un Secret ne fonctionne pas bien avec le traitement des modifications coté serveur (Server Side Apply).
 {{< /note >}}
 
 ### Utiliser des fichiers sources
