@@ -201,6 +201,6 @@ kubectl delete secret db-user-pass
 
 ## {{% heading "whatsnext" %}}
 
-- En savoir plus sur le [concept de Secret](/docs/concepts/configuration/secret/)
-- Apprendre comment [gérer les Secrets avec des fichiers de configuration](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
-- Apprendre à [gérer les Secrets avec kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
+- En savoir plus sur le [concept de Secret](/fr/docs/concepts/configuration/secret/)
+- Apprendre comment [gérer les Secrets avec des fichiers de configuration](/fr/docs/tasks/configmap-secret/managing-secret-using-config-file/)
+- Apprendre à [gérer les Secrets avec kustomize](/fr/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
