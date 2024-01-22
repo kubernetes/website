@@ -84,7 +84,7 @@ champ vous permet d'ajouter du texte non encodé directement dans le Secret,
 et il sera encodé pour vous lors de la création ou de la mise à jour du Secret.
 
 Un exemple pratique de ce besoin pourrait être lorsque vous déployez une application
-qui utilise un Secret pour stocker un fichier de configuration, et vous voulez configurer
+qui utilise un Secret pour stocker un fichier de configuration, et que vous voulez configurer
 certaines parties de ce fichier de configuration pendant votre processus de déploiement.
 
 Par exemple, si votre application utilise le fichier de configuration suivant :
