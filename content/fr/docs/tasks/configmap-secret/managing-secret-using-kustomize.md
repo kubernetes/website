@@ -122,7 +122,7 @@ Pour en savor plus, consultez
 ## Modifier un Secret {#edit-secret}
 
 1.  Dans votre fichier `kustomization.yaml`, modifiez les données, par exemple `password`.
-1.  Appliquez le dossier contenant le fichier kustomization :
+2.  Appliquez le dossier contenant le fichier kustomization :
 
     ```shell
     kubectl apply -k <directory-path>
