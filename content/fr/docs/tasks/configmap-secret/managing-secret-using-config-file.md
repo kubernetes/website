@@ -35,7 +35,7 @@ L'exemple suivant stocke deux chaînes de caractères dans un Secret en utilisan
    ```
 
    {{< note >}}
-   Les valeurs JSON et YAML sérialisées des données du Secret sont encodées en base64. Les sauts de ligne ne sont pas valides à l'intérieur de ces chaînes et doivent être omis. Lors de l'utilisation de l'utilitaire `base64` sur Darwin/macOS, les utilisateurs doivent éviter d'utiliser l'option `-b` pour diviser les lignes longues. En revanche, les utilisateurs Linux *doivent* ajouter l'option `-w 0` à la commande `base64` ou alors utiliser `base64 | tr -d '\n'` si l'option `-w` n'est pas disponible.
+   Les valeurs JSON et YAML du Secret sont sérialisées puis encodées en base64. Les sauts de ligne ne sont pas valides à l'intérieur de ces chaînes et doivent être omis. Lors de l'utilisation de l'utilitaire `base64` sur Darwin/macOS, les utilisateurs doivent éviter d'utiliser l'option `-b` pour diviser les lignes longues. En revanche, les utilisateurs Linux *doivent* ajouter l'option `-w 0` à la commande `base64` ou alors utiliser `base64 | tr -d '\n'` si l'option `-w` n'est pas disponible.
    {{< /note >}}
 
    Le résultat sera similaire à :
