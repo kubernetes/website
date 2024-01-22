@@ -243,6 +243,6 @@ kubectl delete secret mysecret
 
 ## {{% heading "whatsnext" %}}
 
-- En savoir plus sur les [Secrets](/docs/concepts/configuration/secret/)
-- Apprendre comment [gérer les Secrets avec kubectl](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
-- Apprendre à [gérer les Secrets avec kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
+- En savoir plus sur les [Secrets](/fr/docs/concepts/configuration/secret/)
+- Apprendre comment [gérer les Secrets avec kubectl](/fr/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- Apprendre à [gérer les Secrets avec kustomize](/fr/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
