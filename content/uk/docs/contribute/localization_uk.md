@@ -20,7 +20,7 @@ anchors:
 
 ## Загальний процес
 
-1. Виберіть одне з [найбільш витребуваних ішьюзів](https://github.com/kubernetes-i18n-ukrainian/website/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+no%3Aassignee+label%3A%22most+wanted%22) або [будь-яке ішью](https://github.com/kubernetes-i18n-ukrainian/website/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+no%3Aassignee) і залиште в ньому коментар на кшталт "Працюю над цим". Ми надішлемо вам запрошення до організації  та закріпимо цей ішьюз за вами.</sup>
+1. Виберіть одне з [найбільш витребуваних ішьюзів](https://github.com/kubernetes-i18n-ukrainian/website/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+no%3Aassignee+label%3A%22most+wanted%22) або [будь-яке ішью](https://github.com/kubernetes-i18n-ukrainian/website/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+no%3Aassignee) і залиште в ньому коментар на кшталт "Працюю над цим". Ми надішлемо вам запрошення до організації та закріпимо цей ішьюз за вами.</sup>
 2. Зробіть форк [k/website](https://github.com/kubernetes/website).
 3. Прочитайте цей документ.
 4. Перекладіть
