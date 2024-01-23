@@ -70,7 +70,7 @@ container and no startup probe defined, or as a result of its `startupProbe` suc
 
 ### Jobs with sidecar containers
 
-If you define a Jobs that uses sidecar using Kubernetes-style init containers,
+If you define a Job that uses sidecar using Kubernetes-style init containers,
 the sidecar container in each Pod does not prevent the Job from completing after the
 main container has finished.
 
