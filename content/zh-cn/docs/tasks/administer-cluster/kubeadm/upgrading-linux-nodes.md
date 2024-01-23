@@ -105,9 +105,11 @@ Prepare the node for maintenance by marking it unschedulable and evicting the wo
 将节点标记为不可调度并驱逐所有负载，准备节点的维护：
 
 <!--
+# execute this command on a control plane node
 # replace <node-to-drain> with the name of your node you are draining
 -->
 ```shell
+# 在控制平面节点上执行此命令
 # 将 <node-to-drain> 替换为你正腾空的节点的名称
 kubectl drain <node-to-drain> --ignore-daemonsets
 ```
@@ -164,9 +166,11 @@ Bring the node back online by marking it schedulable:
 通过将节点标记为可调度，让节点重新上线：
 
 <!--
+# execute this command on a control plane node
 # replace <node-to-uncordon> with the name of your node
 -->
 ```shell
+# 在控制平面节点上执行此命令
 # 将 <node-to-uncordon> 替换为你的节点名称
 kubectl uncordon <node-to-uncordon>
 ```

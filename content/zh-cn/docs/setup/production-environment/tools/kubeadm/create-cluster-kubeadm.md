@@ -285,11 +285,11 @@ for more details.
 这个步骤是可选的，只适用于你希望 `kubeadm init` 和 `kubeadm join` 不去下载存放在
 `registry.k8s.io` 上的默认容器镜像的情况。
 
-当你在离线的节点上创建一个集群的时候，Kubeadm 有一些命令可以帮助你预拉取所需的镜像。
+当你在离线的节点上创建一个集群的时候，kubeadm 有一些命令可以帮助你预拉取所需的镜像。
 阅读[离线运行 kubeadm](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init#without-internet-connection)
 获取更多的详情。
 
-Kubeadm 允许你给所需要的镜像指定一个自定义的镜像仓库。
+kubeadm 允许你给所需要的镜像指定一个自定义的镜像仓库。
 阅读[使用自定义镜像](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init#custom-images)获取更多的详情。
 
 <!--
@@ -487,18 +487,34 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 
 {{< warning >}}
 <!--
-Kubeadm signs the certificate in the `admin.conf` to have `Subject: O = system:masters, CN = kubernetes-admin`.
-`system:masters` is a break-glass, super user group that bypasses the authorization layer (e.g. RBAC).
-Do not share the `admin.conf` file with anyone and instead grant users custom permissions by generating
-them a kubeconfig file using the `kubeadm kubeconfig user` command. For more details see
-[Generating kubeconfig files for additional users](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#kubeconfig-additional-users).
+The kubeconfig file `admin.conf` that `kubeadm init` generates contains a certificate with
+`Subject: O = kubeadm:cluster-admins, CN = kubernetes-admin`. The group `kubeadm:cluster-admins`
+is bound to the built-in `cluster-admin` ClusterRole.
+Do not share the `admin.conf` file with anyone.
 -->
-kubeadm 对 `admin.conf` 中的证书进行签名时，将其配置为
-`Subject: O = system:masters, CN = kubernetes-admin`。
-`system:masters` 是一个例外的、超级用户组，可以绕过鉴权层（例如 RBAC）。
-不要将 `admin.conf` 文件与任何人共享，应该使用 `kubeadm kubeconfig user`
-命令为其他用户生成 kubeconfig 文件，完成对他们的定制授权。
-更多细节请参见[为其他用户生成 kubeconfig 文件](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#kubeconfig-additional-users)。
+`kubeadm init` 生成的 kubeconfig 文件 `admin.conf`
+包含一个带有 `Subject: O = kubeadm:cluster-admins, CN = kubernetes-admin` 的证书。
+`kubeadm:cluster-admins` 组被绑定到内置的 `cluster-admin` ClusterRole 上。
+不要与任何人共享 `admin.conf` 文件。
+
+<!--
+`kubeadm init` generates another kubeconfig file `super-admin.conf` that contains a certificate with
+`Subject: O = system:masters, CN = kubernetes-super-admin`.
+`system:masters` is a break-glass, super user group that bypasses the authorization layer (for example RBAC).
+Do not share the `super-admin.conf` file with anyone. It is recommended to move the file to a safe location.
+-->
+`kubeadm init` 生成另一个 kubeconfig 文件 `super-admin.conf`，
+其中包含带有 `Subject: O = system:masters, CN = kubernetes-super-admin` 的证书。
+`system:masters` 是一个紧急访问、超级用户组，可以绕过授权层（例如 RBAC）。
+不要与任何人共享 `super-admin.conf` 文件，建议将其移动到安全位置。
+
+<!--
+See
+[Generating kubeconfig files for additional users](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#kubeconfig-additional-users)
+on how to use `kubeadm kubeconfig user` to generate kubeconfig files for additional users.
+-->
+有关如何使用 `kubeadm kubeconfig user` 为其他用户生成 kubeconfig
+文件，请参阅[为其他用户生成 kubeconfig 文件](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#kubeconfig-additional-users)。
 {{< /warning >}}
 
 <!--
@@ -1104,12 +1120,14 @@ version as kubeadm or one version older.
 <!--
 Example:
 * kubeadm is at {{< skew currentVersion >}}
-* kubelet on the host must be at {{< skew currentVersion >}} or {{< skew currentVersionAddMinor -1 >}}
+* kubelet on the host must be at {{< skew currentVersion >}}, {{< skew currentVersionAddMinor -1 >}},
+  {{< skew currentVersionAddMinor -2 >}} or {{< skew currentVersionAddMinor -3 >}}
 -->
 例子：
 
 * kubeadm 的版本为 {{< skew currentVersion >}}。
-* 主机上的 kubelet 必须为 {{< skew currentVersion >}} 或者 {{< skew currentVersionAddMinor -1 >}}。
+* 主机上的 kubelet 必须为 {{< skew currentVersion >}}、{{< skew currentVersionAddMinor -1 >}}、
+  {{< skew currentVersionAddMinor -2 >}} 或 {{< skew currentVersionAddMinor -3 >}}。
 
 <!--
 ### kubeadm's skew against kubeadm

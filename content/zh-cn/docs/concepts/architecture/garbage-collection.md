@@ -221,13 +221,13 @@ to override this behaviour, see [Delete owner objects and orphan dependents](/do
 ## Garbage collection of unused containers and images {#containers-images}
 
 The {{<glossary_tooltip text="kubelet" term_id="kubelet">}} performs garbage
-collection on unused images every five minutes and on unused containers every
+collection on unused images every two minutes and on unused containers every
 minute. You should avoid using external garbage collection tools, as these can
 break the kubelet behavior and remove containers that should exist.
 -->
 ## 未使用容器和镜像的垃圾收集     {#containers-images}
 
-{{<glossary_tooltip text="kubelet" term_id="kubelet">}} 会每五分钟对未使用的镜像执行一次垃圾收集，
+{{<glossary_tooltip text="kubelet" term_id="kubelet">}} 会每两分钟对未使用的镜像执行一次垃圾收集，
 每分钟对未使用的容器执行一次垃圾收集。
 你应该避免使用外部的垃圾收集工具，因为外部工具可能会破坏 kubelet
 的行为，移除应该保留的容器。
@@ -272,6 +272,36 @@ until disk usage reaches the `LowThresholdPercent` value.
 磁盘用量超出所配置的 `HighThresholdPercent` 值时会触发垃圾收集，
 垃圾收集器会基于镜像上次被使用的时间来按顺序删除它们，首先删除的是最近未使用的镜像。
 kubelet 会持续删除镜像，直到磁盘用量到达 `LowThresholdPercent` 值为止。
+
+<!--
+#### Garbage collection for unused container images {#image-maximum-age-gc}
+-->
+#### 未使用容器镜像的垃圾收集     {#image-maximum-age-gc}
+
+{{< feature-state for_k8s_version="v1.29" state="alpha" >}}
+
+<!--
+As an alpha feature, you can specify the maximum time a local image can be unused for,
+regardless of disk usage. This is a kubelet setting that you configure for each node.
+-->
+这是一个 Alpha 特性，不论磁盘使用情况如何，你都可以指定本地镜像未被使用的最长时间。
+这是一个可以为每个节点配置的 kubelet 设置。
+
+<!--
+To configure the setting, enable the `ImageMaximumGCAge`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the kubelet,
+and also set a value for the `ImageMaximumGCAge` field in the kubelet configuration file.
+-->
+请为 kubelet 启用 `ImageMaximumGCAge` 
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
+并在 kubelet 配置文件中为 `ImageMaximumGCAge` 字段赋值来配置该设置。
+
+<!--
+The value is specified as a Kubernetes _duration_; for example, you can set the configuration
+field to `3d12h`, which means 3 days and 12 hours.
+-->
+该值应遵循 Kubernetes __持续时间（Duration）__ 格式；例如，你可以将配置字段设置为 `3d12h`，
+代表 3 天 12 小时。
 
 <!--
 ### Container garbage collection {#container-image-garbage-collection}
