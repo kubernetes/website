@@ -126,19 +126,26 @@ kubeadmは`kubelet`や`kubectl`をインストールまたは管理**しない**
 
    ```shell
    sudo apt-get update
+   # apt-transport-httpsはダミーパッケージの可能性があります。その場合、そのパッケージはスキップできます
    sudo apt-get install -y apt-transport-https ca-certificates curl
    ```
 
 2. Kubernetesパッケージリポジトリの公開署名キーをダウンロードします。すべてのリポジトリに同じ署名キーが使用されるため、URL内のバージョンは無視できます。:
 
    ```shell
+   # `/etc/apt/keyrings`フォルダーが存在しない場合は、curlコマンドの前に作成する必要があります。下記の備考を参照してください。
+   # sudo mkdir -p -m 755 /etc/apt/keyrings
    curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    ```
 
-3. 適切なKubernetesaptリポジトリを追加します。このリポジトリには、Kubernetes {{< skew currentVersion >}}用のパッケージのみがあることに注意してください。他のKubernetesマイナーバージョンの場合は、目的のマイナーバージョンに一致するようにURL内のKubernetesマイナーバージョンを変更する必要があります(インストールする予定のKubernetesバージョンのドキュメントも読んでください)。:
+{{< note >}}
+Debian 12とUbuntu 22.04より古いリリースでは、`/etc/apt/keyrings`フォルダーはデフォルトでは存在しないため、curlコマンドの前に作成する必要があります。
+{{< /note >}}
+
+3. 適切なKubernetes `apt`リポジトリを追加します。このリポジトリには、Kubernetes {{< skew currentVersion >}}用のパッケージのみがあることに注意してください。他のKubernetesマイナーバージョンの場合は、目的のマイナーバージョンに一致するようにURL内のKubernetesマイナーバージョンを変更する必要があります(インストールする予定のKubernetesバージョンのドキュメントも読んでください)。:
 
    ```shell
-   # This overwrites any existing configuration in /etc/apt/sources.list.d/kubernetes.list
+   # これにより、/etc/apt/sources.list.d/kubernetes.listにある既存の設定が上書きされます
    echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
    ```
 
