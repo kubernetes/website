@@ -21,7 +21,7 @@ API 服务器为 REST 操作提供服务，并为集群的共享状态提供前�
 kube-apiserver [flags]
 ```
 
-## {{% heading "options" %}}
+## {{% heading "options" %}}   {#options}
 
 <table style="width: 100%; table-layout: fixed;">
 <colgroup>
