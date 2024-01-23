@@ -146,11 +146,11 @@ if suitable credentials are passed, or through a kubectl proxy at, for example:
 `http://localhost:8080/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`。
 
 <!--
-See [Access Clusters Using the Kubernetes API](/docs/tasks/administer-cluster/access-cluster-api/#accessing-the-cluster-api)
+See [Access Clusters Using the Kubernetes API](/docs/tasks/administer-cluster/access-cluster-api/#accessing-the-kubernetes-api)
 for how to pass credentials or use kubectl proxy.
 -->
 {{< note >}}
-请参阅[使用 Kubernetes API 访问集群](/zh-cn/docs/tasks/administer-cluster/access-cluster-api/#accessing-the-cluster-api)
+请参阅[使用 Kubernetes API 访问集群](/zh-cn/docs/tasks/administer-cluster/access-cluster-api/#accessing-the-kubernetes-api)
 了解如何传递凭据或如何使用 `kubectl proxy`。
 {{< /note >}}
 

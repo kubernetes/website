@@ -82,7 +82,7 @@ APF 适用于 **watch** 请求。当 APF 被禁用时，**watch** 请求不受 `
 <!--
 The API Priority and Fairness feature is controlled by a command-line flag
 and is enabled by default.  See 
-[Options](/docs/reference/command-line-tools-reference/kube-apiserver/options/)
+[Options](/docs/reference/command-line-tools-reference/kube-apiserver/#options)
 for a general explanation of the available kube-apiserver command-line 
 options and how to enable and disable them.  The name of the 
 command-line option for APF is "--enable-priority-and-fairness".  This feature
@@ -94,7 +94,7 @@ disable the API group beta version `v1beta3` by adding the
 -->
 API 优先级与公平性（APF）特性由命令行标志控制，默认情况下启用。
 有关可用 kube-apiserver 命令行参数以及如何启用和禁用的说明，
-请参见[参数](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/options/)。
+请参见[参数](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/#options)。
 APF 的命令行参数是 "--enable-priority-and-fairness"。
 此特性也与某个 {{< glossary_tooltip term_id="api-group" text="API 组" >}}相关：
 (a) 稳定的 `v1` 版本，在 1.29 中引入，默认启用；
