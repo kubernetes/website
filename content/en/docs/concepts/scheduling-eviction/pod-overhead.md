@@ -71,13 +71,13 @@ spec:
     stdin: true
     tty: true
     resources:
-      limits:
+      requests:
         cpu: 500m
         memory: 100Mi
   - name: nginx-ctr
     image: nginx
     resources:
-      limits:
+      requests:
         cpu: 1500m
         memory: 100Mi
 ```
