@@ -28,7 +28,7 @@ A _CronJob_ creates {{< glossary_tooltip term_id="job" text="Jobs" >}} on a repe
 
 CronJob is meant for performing regular scheduled actions such as backups, report generation,
 and so on. One CronJob object is like one line of a _crontab_ (cron table) file on a
-Unix system. It runs a job periodically on a given schedule, written in
+Unix system. It runs a Job periodically on a given schedule, written in
 [Cron](https://en.wikipedia.org/wiki/Cron) format.
 -->
 **CronJob** 创建基于时隔重复调度的 {{< glossary_tooltip term_id="job" text="Job" >}}。
@@ -102,9 +102,9 @@ The `.spec.schedule` field is required. The value of that field follows the [Cro
 # │ ┌───────────── hour (0 - 23)
 # │ │ ┌───────────── day of the month (1 - 31)
 # │ │ │ ┌───────────── month (1 - 12)
-# │ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday;
-# │ │ │ │ │                                   7 is also Sunday on some systems)
+# │ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday)
 # │ │ │ │ │                                   OR sun, mon, tue, wed, thu, fri, sat
+# │ │ │ │ │                                   
 # │ │ │ │ │
 # * * * * *
 ```
@@ -114,8 +114,8 @@ The `.spec.schedule` field is required. The value of that field follows the [Cro
 # │ ┌───────────── 小时 (0 - 23)
 # │ │ ┌───────────── 月的某天 (1 - 31)
 # │ │ │ ┌───────────── 月份 (1 - 12)
-# │ │ │ │ ┌───────────── 周的某天 (0 - 6)（周日到周一；在某些系统上，7 也是星期日）
-# │ │ │ │ │                          或者是 sun，mon，tue，web，thu，fri，sat
+# │ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday)
+# │ │ │ │ │                             或者是 sun、mon、tue、wed、thu、fri、sat
 # │ │ │ │ │
 # │ │ │ │ │
 # * * * * *
@@ -203,14 +203,14 @@ For information about writing a Job `.spec`, see [Writing a Job Spec](/docs/conc
 请参考[编写 Job 规约](/zh-cn/docs/concepts/workloads/controllers/job/#writing-a-job-spec)。
 
 <!--
-### Deadline for delayed job start {#starting-deadline}
+### Deadline for delayed Job start {#starting-deadline}
 
 The `.spec.startingDeadlineSeconds` field is optional.
 This field defines a deadline (in whole seconds) for starting the Job, if that Job misses its scheduled time
 for any reason.
 
 After missing the deadline, the CronJob skips that instance of the Job (future occurrences are still scheduled).
-For example, if you have a backup job that runs twice a day, you might allow it to start up to 8 hours late,
+For example, if you have a backup Job that runs twice a day, you might allow it to start up to 8 hours late,
 but no later, because a backup taken any later wouldn't be useful: you would instead prefer to wait for
 the next scheduled run.
 -->
@@ -228,10 +228,10 @@ For Jobs that miss their configured deadline, Kubernetes treats them as failed J
 If you don't specify `startingDeadlineSeconds` for a CronJob, the Job occurrences have no deadline.
 
 If the `.spec.startingDeadlineSeconds` field is set (not null), the CronJob
-controller measures the time between when a job is expected to be created and
+controller measures the time between when a Job is expected to be created and
 now. If the difference is higher than that limit, it will skip this execution.
 
-For example, if it is set to `200`, it allows a job to be created for up to 200
+For example, if it is set to `200`, it allows a Job to be created for up to 200
 seconds after the actual schedule.
 -->
 对于错过已配置的最后期限的 Job，Kubernetes 将其视为失败的任务。
@@ -247,17 +247,17 @@ CronJob 控制器将会计算从预期创建 Job 到当前时间的时间差。
 ### Concurrency policy
 
 The `.spec.concurrencyPolicy` field is also optional.
-It specifies how to treat concurrent executions of a job that is created by this CronJob.
+It specifies how to treat concurrent executions of a Job that is created by this CronJob.
 The spec may specify only one of the following concurrency policies:
 
-* `Allow` (default): The CronJob allows concurrently running jobs
-* `Forbid`: The CronJob does not allow concurrent runs; if it is time for a new job run and the
-  previous job run hasn't finished yet, the CronJob skips the new job run
-* `Replace`: If it is time for a new job run and the previous job run hasn't finished yet, the
-  CronJob replaces the currently running job run with a new job run
+* `Allow` (default): The CronJob allows concurrently running Jobs
+* `Forbid`: The CronJob does not allow concurrent runs; if it is time for a new Job run and the
+  previous Job run hasn't finished yet, the CronJob skips the new Job run
+* `Replace`: If it is time for a new Job run and the previous Job run hasn't finished yet, the
+  CronJob replaces the currently running Job run with a new Job run
 
-Note that concurrency policy only applies to the jobs created by the same cron job.
-If there are multiple CronJobs, their respective jobs are always allowed to run concurrently.
+Note that concurrency policy only applies to the Jobs created by the same cron Job.
+If there are multiple CronJobs, their respective Jobs are always allowed to run concurrently.
 -->
 ### 并发性规则 {#concurrency-policy}
 
@@ -294,9 +294,9 @@ you unsuspend the CronJob.
 
 {{< caution >}}
 <!--
-Executions that are suspended during their scheduled time count as missed jobs.
+Executions that are suspended during their scheduled time count as missed Jobs.
 When `.spec.suspend` changes from `true` to `false` on an existing CronJob without a
-[starting deadline](#starting-deadline), the missed jobs are scheduled immediately.
+[starting deadline](#starting-deadline), the missed Jobs are scheduled immediately.
 -->
 在调度时间内挂起的执行都会被统计为错过的任务。当现有的 CronJob 将 `.spec.suspend` 从 `true` 改为 `false` 时，
 且没有[开始的最后期限](#starting-deadline)，错过的任务会被立即调度。
@@ -306,11 +306,11 @@ When `.spec.suspend` changes from `true` to `false` on an existing CronJob witho
 ### Jobs history limits
 
 The `.spec.successfulJobsHistoryLimit` and `.spec.failedJobsHistoryLimit` fields are optional.
-These fields specify how many completed and failed jobs should be kept.
-By default, they are set to 3 and 1 respectively.  Setting a limit to `0` corresponds to keeping
-none of the corresponding kind of jobs after they finish.
+These fields specify how many completed and failed Jobs should be kept.
+By default, they are set to 3 and 1 respectively. Setting a limit to `0` corresponds to keeping
+none of the corresponding kind of Jobs after they finish.
 
-For another way to clean up jobs automatically, see [Clean up finished jobs automatically](/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically).
+For another way to clean up Jobs automatically, see [Clean up finished Jobs automatically](/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically).
 -->
 ### 任务历史限制 {#jobs-history-limits}
 
@@ -362,26 +362,24 @@ Go 标准库中的时区数据库包含在二进制文件中，并用作备用�
 ### 不支持的时区规范   {#unsupported-timezone-spec}
 
 <!--
-The implementation of the CronJob API in Kubernetes {{< skew currentVersion >}} lets you set
-the `.spec.schedule` field to include a timezone; for example: `CRON_TZ=UTC * * * * *`
-or `TZ=UTC * * * * *`.
+Specifying a timezone using `CRON_TZ` or `TZ` variables inside `.spec.schedule`
+is **not officially supported** (and never has been).
 -->
-Kubernetes {{< skew currentVersion >}} 中的 CronJob API 实现允许你设置
-`.spec.schedule` 字段，在其中包括时区信息；
-例如 `CRON_TZ=UTC * * * * *` 或 `TZ=UTC * * * * *`。
+在 `.spec.schedule` 中使用 `CRON_TZ` 或 `TZ`
+变量指定时区是**未正式支持的**（而且也从未正式支持过）。
 
 <!--
-Specifying a timezone that way is **not officially supported** (and never has been).
-
-If you try to set a schedule that includes `TZ` or `CRON_TZ` timezone specification,
-Kubernetes reports a [warning](/blog/2020/09/03/warnings/) to the client.
-Future versions of Kubernetes will prevent setting the unofficial timezone mechanism entirely.
+Starting with Kubernetes 1.29 if you try to set a schedule that includes `TZ` or `CRON_TZ`
+timezone specification, Kubernetes will fail to create the resource with a validation
+error.
+Updates to CronJobs already using `TZ` or `CRON_TZ` will continue to report a
+[warning](/blog/2020/09/03/warnings/) to the client.
 -->
-以这种方式指定时区是 **未正式支持的**（而且也从未正式支持过）。
+从 Kubernetes 1.29 开始，如果你尝试设置包含 `TZ` 或
+`CRON_TZ` 时区规范的调度，Kubernetes 将无法创建资源并出现验证错误。
 
-如果你尝试设置包含 `TZ` 或 `CRON_TZ` 时区规范的排期表，
-Kubernetes 会向客户端报告一条[警告](/blog/2020/09/03/warnings/)。
-后续的 Kubernetes 版本将完全阻止设置非正式的时区机制。
+对已使用 `TZ` 或 `CRON_TZ` 的 CronJob
+的更新将继续向客户端发送[警告](/blog/2020/09/03/warnings/)。
 
 <!--
 ### Modifying a CronJob
@@ -397,7 +395,7 @@ That is, the CronJob does _not_ update existing Jobs, even if those remain runni
 按照设计，CronJob 包含一个用于**新** Job 的模板。
 如果你修改现有的 CronJob，你所做的更改将应用于修改完成后开始运行的新任务。
 已经开始的任务（及其 Pod）将继续运行而不会发生任何变化。
-也就是说，CronJob **不** 会更新现有任务，即使这些任务仍在运行。
+也就是说，CronJob **不**会更新现有任务，即使这些任务仍在运行。
 
 <!--
 ### Job creation
@@ -412,11 +410,11 @@ the Jobs that you define should be _idempotent_.
 
 CronJob 根据其计划编排，在每次该执行任务的时候大约会创建一个 Job。
 我们之所以说 "大约"，是因为在某些情况下，可能会创建两个 Job，或者不会创建任何 Job。
-我们试图使这些情况尽量少发生，但不能完全杜绝。因此，Job 应该是 **幂等的**。
+我们试图使这些情况尽量少发生，但不能完全杜绝。因此，Job 应该是**幂等的**。
 
 <!--
 If `startingDeadlineSeconds` is set to a large value or left unset (the default)
-and if `concurrencyPolicy` is set to `Allow`, the jobs will always run
+and if `concurrencyPolicy` is set to `Allow`, the Jobs will always run
 at least once.
 -->
 如果 `startingDeadlineSeconds` 设置为很大的数值或未设置（默认），并且
@@ -424,14 +422,17 @@ at least once.
 
 {{< caution >}}
 <!--
-If `startingDeadlineSeconds` is set to a value less than 10 seconds, the CronJob may not be scheduled. This is because the CronJob controller checks things every 10 seconds.
+If `startingDeadlineSeconds` is set to a value less than 10 seconds, the CronJob may not be scheduled.
+This is because the CronJob controller checks things every 10 seconds.
 -->
 如果 `startingDeadlineSeconds` 的设置值低于 10 秒钟，CronJob 可能无法被调度。
 这是因为 CronJob 控制器每 10 秒钟执行一次检查。
 {{< /caution >}}
 
 <!--
-For every CronJob, the CronJob {{< glossary_tooltip term_id="controller" >}} checks how many schedules it missed in the duration from its last scheduled time until now. If there are more than 100 missed schedules, then it does not start the job and logs the error.
+For every CronJob, the CronJob {{< glossary_tooltip term_id="controller" >}} checks how many schedules
+it missed in the duration from its last scheduled time until now. If there are more than 100 missed schedules,
+then it does not start the Job and logs the error.
 -->
 对于每个 CronJob，CronJob {{< glossary_tooltip term_text="控制器" term_id="controller" >}}
 检查从上一次调度的时间点到现在所错过了调度次数。如果错过的调度次数超过 100 次，
@@ -442,14 +443,19 @@ Cannot determine if job needs to be started. Too many missed start time (> 100).
 ```
 
 <!--
-It is important to note that if the `startingDeadlineSeconds` field is set (not `nil`), the controller counts how many missed jobs occurred from the value of `startingDeadlineSeconds` until now rather than from the last scheduled time until now. For example, if `startingDeadlineSeconds` is `200`, the controller counts how many missed jobs occurred in the last 200 seconds.
+It is important to note that if the `startingDeadlineSeconds` field is set (not `nil`),
+the controller counts how many missed Jobs occurred from the value of `startingDeadlineSeconds`
+until now rather than from the last scheduled time until now. For example, if `startingDeadlineSeconds` is `200`,
+the controller counts how many missed Jobs occurred in the last 200 seconds.
 -->
 需要注意的是，如果 `startingDeadlineSeconds` 字段非空，则控制器会统计从
 `startingDeadlineSeconds` 设置的值到现在而不是从上一个计划时间到现在错过了多少次 Job。
 例如，如果 `startingDeadlineSeconds` 是 `200`，则控制器会统计在过去 200 秒中错过了多少次 Job。
 
 <!--
-A CronJob is counted as missed if it has failed to be created at its scheduled time. For example, if `concurrencyPolicy` is set to `Forbid` and a CronJob was attempted to be scheduled when there was a previous schedule still running, then it would count as missed.
+A CronJob is counted as missed if it has failed to be created at its scheduled time.
+For example, if `concurrencyPolicy` is set to `Forbid` and a CronJob was attempted
+to be scheduled when there was a previous schedule still running, then it would count as missed.
 -->
 如果未能在调度时间内创建 CronJob，则计为错过。
 例如，如果 `concurrencyPolicy` 被设置为 `Forbid`，并且当前有一个调度仍在运行的情况下，
@@ -458,7 +464,7 @@ A CronJob is counted as missed if it has failed to be created at its scheduled t
 <!--
 For example, suppose a CronJob is set to schedule a new Job every one minute beginning at `08:30:00`, and its
 `startingDeadlineSeconds` field is not set. If the CronJob controller happens to
-be down from `08:29:00` to `10:21:00`, the job will not start as the number of missed jobs which missed their schedule is greater than 100.
+be down from `08:29:00` to `10:21:00`, the Job will not start as the number of missed Jobs which missed their schedule is greater than 100.
 -->
 例如，假设一个 CronJob 被设置为从 `08:30:00` 开始每隔一分钟创建一个新的 Job，
 并且它的 `startingDeadlineSeconds` 字段未被设置。如果 CronJob 控制器从
@@ -468,7 +474,9 @@ be down from `08:29:00` to `10:21:00`, the job will not start as the number of m
 <!--
 To illustrate this concept further, suppose a CronJob is set to schedule a new Job every one minute beginning at `08:30:00`, and its
 `startingDeadlineSeconds` is set to 200 seconds. If the CronJob controller happens to
-be down for the same period as the previous example (`08:29:00` to `10:21:00`,) the Job will still start at 10:22:00. This happens as the controller now checks how many missed schedules happened in the last 200 seconds (i.e., 3 missed schedules), rather than from the last scheduled time until now.
+be down for the same period as the previous example (`08:29:00` to `10:21:00`,) the Job will still start at 10:22:00.
+This happens as the controller now checks how many missed schedules happened in the last 200 seconds (i.e., 3 missed schedules),
+rather than from the last scheduled time until now.
 -->
 为了进一步阐述这个概念，假设将 CronJob 设置为从 `08:30:00` 开始每隔一分钟创建一个新的 Job，
 并将其 `startingDeadlineSeconds` 字段设置为 200 秒。
