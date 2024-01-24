@@ -16,14 +16,15 @@ weight: 60
 {{< feature-state for_k8s_version="v1.19" state="stable" >}}
 
 <!--
-The scheduling framework is a pluggable architecture for the Kubernetes scheduler.
-It adds a new set of "plugin" APIs to the existing scheduler. Plugins are compiled into the scheduler. The APIs allow most scheduling features to be implemented as plugins, while keeping the
-scheduling "core" lightweight and maintainable. Refer to the [design proposal of the
-scheduling framework][kep] for more technical information on the design of the
-framework.
+The _scheduling framework_ is a pluggable architecture for the Kubernetes scheduler.
+It consists of a set of "plugin" APIs that are compiled directly into the scheduler.
+These APIs allow most scheduling features to be implemented as plugins,
+while keeping the scheduling "core" lightweight and maintainable. Refer to the
+[design proposal of the scheduling framework][kep] for more technical information on
+the design of the framework.
 -->
-调度框架是面向 Kubernetes 调度器的一种插件架构，
-它为现有的调度器添加了一组新的“插件” API。插件会被编译到调度器之中。
+**调度框架**是面向 Kubernetes 调度器的一种插件架构，
+它由一组直接编译到调度程序中的“插件” API 组成。
 这些 API 允许大多数调度功能以插件的形式实现，同时使调度“核心”保持简单且可维护。
 请参考[调度框架的设计提案](https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/624-scheduling-framework/README.md)
 获取框架设计的更多技术信息。
@@ -33,9 +34,9 @@ framework.
 <!-- body -->
 
 <!--
-# Framework workflow
+## Framework workflow
 -->
-# 框架工作流程   {#framework-workflow}
+## 框架工作流程   {#framework-workflow}
 
 <!--
 The Scheduling Framework defines a few extension points. Scheduler plugins
@@ -46,15 +47,15 @@ can change the scheduling decisions and some are informational only.
 这些插件中的一些可以改变调度决策，而另一些仅用于提供信息。
 
 <!--
-Each attempt to schedule one Pod is split into two phases, the **scheduling
-cycle** and the **binding cycle**.
+Each attempt to schedule one Pod is split into two phases, the
+**scheduling cycle** and the **binding cycle**.
 -->
-每次调度一个 Pod 的尝试都分为两个阶段，即 **调度周期** 和 **绑定周期**。
+每次调度一个 Pod 的尝试都分为两个阶段，即**调度周期**和**绑定周期**。
 
 <!--
-## Scheduling Cycle & Binding Cycle
+### Scheduling Cycle & Binding Cycle
 -->
-## 调度周期和绑定周期   {#scheduling-cycle-and-binding-cycle}
+### 调度周期和绑定周期   {#scheduling-cycle-and-binding-cycle}
 
 <!--
 The scheduling cycle selects a node for the Pod, and the binding cycle applies
@@ -95,7 +96,7 @@ stateful tasks.
 一个插件可能实现多个接口，以执行更为复杂或有状态的任务。
 
 <!--
-Some interfaces match the scheduler extension points which can be configured through 
+Some interfaces match the scheduler extension points which can be configured through
 [Scheduler Configuration](/docs/reference/scheduling/config/#extension-points).
 -->
 某些接口与可以通过[调度器配置](/zh-cn/docs/reference/scheduling/config/#extension-points)来设置的调度器扩展点匹配。
@@ -131,21 +132,21 @@ For more details about how internal scheduler queues work, read
 ### EnqueueExtension
 
 <!--
-EnqueueExtension is the interface where the plugin can control 
+EnqueueExtension is the interface where the plugin can control
 whether to retry scheduling of Pods rejected by this plugin, based on changes in the cluster.
 Plugins that implement PreEnqueue, PreFilter, Filter, Reserve or Permit should implement this interface.
 -->
-EnqueueExtension 作为一个接口，插件可以在此接口之上根据集群中的变化来控制是否重新尝试调度被此插件拒绝的 Pod。
-实现 PreEnqueue、PreFilter、Filter、Reserve 或 Permit 的插件应实现此接口。
+EnqueueExtension 作为一个接口，插件可以在此接口之上根据集群中的变化来控制是否重新尝试调度被此插件拒绝的
+Pod。实现 PreEnqueue、PreFilter、Filter、Reserve 或 Permit 的插件应实现此接口。
 
-#### QueueingHint
+### QueueingHint
 
 {{< feature-state for_k8s_version="v1.28" state="beta" >}}
 
 <!--
-QueueingHint is a callback function for deciding whether a Pod can be requeued to the active queue or backoff queue. 
+QueueingHint is a callback function for deciding whether a Pod can be requeued to the active queue or backoff queue.
 It's executed every time a certain kind of event or change happens in the cluster.
-When the QueueingHint finds that the event might make the Pod schedulable, 
+When the QueueingHint finds that the event might make the Pod schedulable,
 the Pod is put into the active queue or the backoff queue
 so that the scheduler will retry the scheduling of the Pod.
 -->
@@ -228,7 +229,7 @@ will not be called. A typical PostFilter implementation is preemption, which
 tries to make the pod schedulable by preempting other Pods.
 -->
 这些插件在 Filter 阶段后调用，但仅在该 Pod 没有可行的节点时调用。
-插件按其配置的顺序调用。如果任何 PostFilter 插件标记节点为“Schedulable”，
+插件按其配置的顺序调用。如果任何 PostFilter 插件标记节点为 "Schedulable"，
 则其余的插件不会调用。典型的 PostFilter 实现是抢占，试图通过抢占其他 Pod
 的资源使该 Pod 可以调度。
 
@@ -242,7 +243,7 @@ These plugins are used to perform "pre-scoring" work, which generates a sharable
 state for Score plugins to use. If a PreScore plugin returns an error, the
 scheduling cycle is aborted.
 -->
-这些插件用于执行 “前置评分（pre-scoring）” 工作，即生成一个可共享状态供 Score 插件使用。
+这些插件用于执行“前置评分（pre-scoring）”工作，即生成一个可共享状态供 Score 插件使用。
 如果 PreScore 插件返回错误，则调度周期将终止。
 
 <!--
@@ -274,8 +275,8 @@ called with the [Score](#scoring) results from the same plugin. This is called
 once per plugin per scheduling cycle.
 -->
 这些插件用于在调度器计算 Node 排名之前修改分数。
-在此扩展点注册的插件被调用时会使用同一插件的 [Score](#scoring) 结果。
-每个插件在每个调度周期调用一次。
+在此扩展点注册的插件被调用时会使用同一插件的 [Score](#scoring)
+结果。每个插件在每个调度周期调用一次。
 
 <!--
 For example, suppose a plugin `BlinkingLightScorer` ranks Nodes based on how
@@ -334,7 +335,7 @@ on a node are being reserved and unreserved for a given Pod.
 -->
 实现了 Reserve 接口的插件，拥有两个方法，即 `Reserve` 和 `Unreserve`，
 他们分别支持两个名为 Reserve 和 Unreserve 的信息传递性质的调度阶段。
-维护运行时状态的插件（又称 "有状态插件"）应该使用这两个阶段，
+维护运行时状态的插件（又称"有状态插件"）应该使用这两个阶段，
 以便在节点上的资源被保留和解除保留给特定的 Pod 时，得到调度器的通知。
 
 <!--
@@ -378,8 +379,8 @@ state, it will either trigger [Unreserve](#unreserve) plugins (on failure) or
 [PostBind](#post-bind) plugins (on success) at the end of the binding cycle.
 -->
 这个是调度周期的最后一步。
-一旦 Pod 处于保留状态，它将在绑定周期结束时触发 [Unreserve](#unreserve) 插件
-（失败时）或 [PostBind](#post-bind) 插件（成功时）。
+一旦 Pod 处于保留状态，它将在绑定周期结束时触发 [Unreserve](#unreserve) 插件（失败时）或
+[PostBind](#post-bind) 插件（成功时）。
 
 <!--
 ### Permit
@@ -391,7 +392,7 @@ _Permit_ plugins are invoked at the end of the scheduling cycle for each Pod, to
 prevent or delay the binding to the candidate node. A permit plugin can do one of
 the three things:
 -->
-_Permit_ 插件在每个 Pod 调度周期的最后调用，用于防止或延迟 Pod 的绑定。
+**Permit** 插件在每个 Pod 调度周期的最后调用，用于防止或延迟 Pod 的绑定。
 一个允许插件可以做以下三件事之一：
 
 <!--
@@ -418,22 +419,22 @@ _Permit_ 插件在每个 Pod 调度周期的最后调用，用于防止或延迟
     and the Pod is returned to the scheduling queue, triggering the
     Unreserve phase in [Reserve plugins](#reserve).
 -->
-3.  **等待**（带有超时）\
-    如果一个 Permit 插件返回 “等待” 结果，则 Pod 将保持在一个内部的 “等待中”
+3. **等待**（带有超时）\
+    如果一个 Permit 插件返回“等待”结果，则 Pod 将保持在一个内部的“等待中”
     的 Pod 列表，同时该 Pod 的绑定周期启动时即直接阻塞直到得到批准。
-    如果超时发生，**等待** 变成 **拒绝**，并且 Pod
-    将返回调度队列，从而触发 [Reserve 插件](#reserve)中的 Unreserve 阶段。
+    如果超时发生，**等待**变成**拒绝**，并且 Pod 将返回调度队列，从而触发
+    [Reserve 插件](#reserve)中的 Unreserve 阶段。
 
 {{< note >}}
 <!--
 While any plugin can access the list of "waiting" Pods and approve them
-(see [`FrameworkHandle`](https://git.k8s.io/enhancements/keps/sig-scheduling/624-scheduling-framework#frameworkhandle)), we expect only the permit
-plugins to approve binding of reserved Pods that are in "waiting" state. Once a Pod
-is approved, it is sent to the [PreBind](#pre-bind) phase.
+(see [`FrameworkHandle`](https://git.k8s.io/enhancements/keps/sig-scheduling/624-scheduling-framework#frameworkhandle)),
+we expect only the permit plugins to approve binding of reserved Pods that are in "waiting" state.
+Once a Pod is approved, it is sent to the [PreBind](#pre-bind) phase.
 -->
-尽管任何插件可以访问 “等待中” 状态的 Pod 列表并批准它们
-(查看 [`FrameworkHandle`](https://git.k8s.io/enhancements/keps/sig-scheduling/624-scheduling-framework#frameworkhandle))。
-我们期望只有允许插件可以批准处于 “等待中” 状态的预留 Pod 的绑定。
+尽管任何插件可以访问“等待中”状态的 Pod 列表并批准它们
+（查看 [`FrameworkHandle`](https://git.k8s.io/enhancements/keps/sig-scheduling/624-scheduling-framework#frameworkhandle)）。
+我们期望只有允许插件可以批准处于“等待中”状态的预留 Pod 的绑定。
 一旦 Pod 被批准了，它将发送到 [PreBind](#pre-bind) 阶段。
 {{< /note >}}
 
@@ -486,7 +487,6 @@ to clean up associated resources.
 这是个信息传递性质的接口。
 PostBind 插件在 Pod 成功绑定后被调用。这是绑定周期的结尾，可用于清理相关的资源。
 
-
 <!--
 ## Plugin API
 -->
@@ -531,8 +531,7 @@ enabled by default.
 -->
 你可以在调度器配置中启用或禁用插件。
 如果你在使用 Kubernetes v1.18 或更高版本，
-大部分调度[插件](/zh-cn/docs/reference/scheduling/config/#scheduling-plugins)
-都在使用中且默认启用。
+大部分调度[插件](/zh-cn/docs/reference/scheduling/config/#scheduling-plugins)都在使用中且默认启用。
 
 <!--
 In addition to default plugins, you can also implement your own scheduling
