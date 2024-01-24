@@ -6,15 +6,15 @@ content_type: concept
 
 <!-- overview -->
 
-Esse tópico fala sobre diversas maneiras de interagir com clusters..
+Esse tópico fala sobre diversas maneiras de interagir com clusters.
 
 <!-- body -->
 
 ## Acessando pela primeira vez com kubectl
 
-Se tiver acessando o Kubernetes API pela primeira vez, recomendamos usar o Kubernetes CLI, `kubectl`.
+Se estiver acessando o Kubernetes API pela primeira vez, recomendamos usar a CLI do Kubernetes, `kubectl`.
 
-Para acessar um cluster, precisa saber a localização do cluster e ter credenciais para acessá-lo. Geralmente, isso é configurado automaticamente quando você trabalha com um [Guia de introdução](/docs/setup/) [Guia de introdução] ou outra pessoa configurou o cluster e forneceu a você credenciais e uma localização. 
+Para acessar um cluster, você precisa saber a localização do cluster e ter credenciais para acessá-lo. Geralmente, isso é configurado automaticamente quando você trabalha com um [Guia de instalação](/pt-br/docs/setup/) ou outra pessoa configurou o cluster e forneceu a você credenciais e uma localização. 
 
 Verifique o local e as credenciais que o kubectl conhece com esse comando:
 
@@ -22,24 +22,24 @@ Verifique o local e as credenciais que o kubectl conhece com esse comando:
 kubectl config view
 ```
 
-Muitos dos [exemplos](/docs/reference/kubectl/quick-reference/) fornecem uma introdução ao uso do `kubectl`, e a documentação completa pode ser encontrada na [kubectl referência](/docs/reference/kubectl/).
+Muitos dos [exemplos](/docs/reference/kubectl/quick-reference/) fornecem uma introdução ao uso do `kubectl` e a documentação completa pode ser encontrada no [guia de referência do kubectl](/docs/reference/kubectl/).
 
-## Acessando diretamente a API REST
+## Acessando diretamente a API REST {#directly-accessing-the-rest-api}
 
-O Kubectl lida com a localização e a autenticação no apiserver.
+O Kubectl lida com a localização e a autenticação no servidor de API.
 Se você quiser acessar diretamente a API REST com um cliente http como
 curl ou wget, ou um navegador, há várias maneiras de localizar e autenticar:
 
-- executar o kubectl no modo proxy.
-  - método recomendado.
-  - Usa o local guardado do apiserver.
-  - Verifica a identidade do apiserver usando um certificado autoassinado. Não há possibilidade de MITM (Man-In-The-Middle) ataque.
-  - Autentica-se no apiserver.
-  - No futuro, poderá fazer client-side load-balancing inteligente, e transferência em caso de falha.
+- Executar o kubectl no modo proxy.
+  - Método recomendado.
+  - Usa a localização previamente armazenada do servidor da API.
+  - Verifica a identidade do apiserver usando um certificado autoassinado. Não há possibilidade de ataque MITM (_Man-In-The-Middle_).
+  - Autentica-se no servidor da API.
+  - No futuro, poderá fazer balanceamento de carga inteligente  no lado do cliente, e transferência em caso de falha.
 - Forneça o local e as credenciais diretamente para o cliente http.
-  - método alternativo.
+  - Método alternativo.
   - Funciona com alguns tipos de código de cliente que são confundidos pelo uso de um proxy.
-  - Necessidade de importar um certificado raiz em seu navegador para se proteger contra ataque MITM (Man-In-The-Middle).
+  - É necessário importar um certificado raiz em seu navegador para se proteger contra ataque MITM (_Man-In-The-Middle_).
 
 ### Usando o kubectl proxy
 
@@ -156,56 +156,56 @@ O resultado é semelhante a este:
 }
 ```
 
-Os exemplos acima usam a opção `--insecure`. Isso o deixa sujeito a ataques MITM. 
+Os exemplos acima usam a opção `--insecure`. Isso deixa o cluster sujeito a ataques MITM. 
 Quando o kubectl acessa o cluster, ele usa um certificado raiz guardado
 e certificados de cliente para acessar o servidor. (Esses certificados são instalados no diretório
 `~/.kube`). Como os certificados do cluster normalmente são autoassinados, pode ser necessária uma
 configuração especial para que seu cliente http use o certificado raiz.
 
-Em alguns clusters, o apiserver não requer autenticação; ele pode servir
+Em alguns clusters, o servidor da API não requer autenticação; ele pode servir
 no localhost ou estar protegido por um firewall. Não há um padrão
-para isso. [Controle de acesso à API](/docs/concepts/security/controlling-access) 
+para isso. A página [Controlando Acesso à API do Kubernetes](/pt-br/docs/concepts/security/controlling-access)  
 descreve como um administrador de cluster pode configurar isso.
 
 ## Acesso programático à API
 
 O Kubernetes suporta oficialmente as bibliotecas de clientes [Go](#go-client) e [Python](#python-client).
 
-### Biblioteca Go client
+### Cliente Go
 
 * Para obter a biblioteca, execute o seguinte comando: `go get k8s.io/client-go@kubernetes-<kubernetes-version-number>`,
   consulte [INSTALL.md](https://github.com/kubernetes/client-go/blob/master/INSTALL.md#for-the-casual-user)
   para obter instruções detalhadas de instalação. Consulte
   [https://github.com/kubernetes/client-go](https://github.com/kubernetes/client-go#compatibility-matrix)
   para ver quais versões são compatíveis.
-* Escreva um aplicativo utilizando a biblioteca Go Client. Observe que ela define seus próprios objetos de API,
-  portanto, se necessário, importe as definições de API da biblioteca Go Client em vez de importá-las do repositório principal.
+* Escreva um aplicativo utilizando o cliente Go. Observe que ela define seus próprios objetos de API,
+  portanto, se necessário, importe as definições de API do cliente Go em vez de importá-las do repositório principal.
   Por exemplo, `import "k8s.io/client-go/kubernetes"` está correto.
 
-A biblioteca Go Client pode usar o mesmo arquivo [kubeconfig] (/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+O cliente Go pode usar o mesmo arquivo [kubeconfig](/pt-br/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 como a CLI do kubectl faz, para localizar e autenticar ao apiserver. Veja esse
 [exemplo](https://git.k8s.io/client-go/examples/out-of-cluster-client-configuration/main.go).
 
-Se o aplicativo for disponibilizado como um pod no cluster, consulte a [próxima seção] (#acessar-o-api-deum-pod).
+Se o aplicativo for disponibilizado como um pod no cluster, consulte a [próxima seção](#acessar-o-api-deum-pod).
 
-### Biblioteca Python client
+### Cliente Python
 
 Para usar o [cliente Python](https://github.com/kubernetes-client/python), execute o seguinte comando:
 `pip install kubernetes`. Consulte [a página Python Client Library](https://github.com/kubernetes-client/python)
 para obter mais opções de instalação.
 
 O cliente Python pode usar o mesmo arquivo [kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
-como a CLI do kubectl faz, para localizar e autenticar ao apiserver. Veja esse
+que a ferramenta kubectl utiliza para localizar e autenticar ao servidor da API. Veja esse
 [exemplo](https://github.com/kubernetes-client/python/tree/master/examples).
 
 ### Outras bibliotecas
 
-Existem [bibliotecas de clientes](/docs/reference/using-api/client-libraries/) para acessar a API de outras linguagens.
+Existem [bibliotecas de clientes](/docs/reference/using-api/client-libraries/) para acessar a API utilizando outras linguagens.
 Consulte a documentação de outras bibliotecas para saber como elas se autenticam.
 
 ## Acessando a API a partir de um pod
 
-Ao acessar a API de um pod, a localização e a autenticação
+Ao acessar a API a partir de um pod, a localização e a autenticação
 para o servidor de API são um pouco diferentes.
 
 Consulte [Acessando a API a partir de um pod](/docs/tasks/run-application/access-api-from-pod/)
@@ -215,7 +215,7 @@ para obter mais detalhes.
 
 A seção anterior descreve como se conectar ao servidor da API do Kubernetes.
 Para obter informações sobre como se conectar a outros serviços em execução em um cluster do Kubernetes, consulte
-[Acessando cluster serviços](/docs/tasks/access-application-cluster/access-cluster-services/).
+[Acessando cluster  em execução em clusters](/pt-br/docs/tasks/access-application-cluster/access-cluster-services/).
 
 ## Solicitação de redirecionamentos
 
@@ -228,42 +228,42 @@ Há vários proxies diferentes que você pode encontrar ao usar o Kubernetes:
 1. O [kubectl proxy](#directly-accessing-the-rest-api):
 
    - é executado no computador de um usuário ou em um pod
-   - configure proxy de um endereço localhost para o apiserver do Kubernetes
-   - cliente para proxy usa HTTP
-   - proxy para o apiserver usa HTTPS
+   - cria um proxy de um endereço localhost para o servidor da API do Kubernetes
+   - a conexão do cliente para o proxy usa HTTP
+   - a conexão do proxy para o servidor da API usa HTTPS
    - localiza o apiserver
-   - adiciona headers de autenticação
+   - adiciona cabeçalhos de autenticação
 
-2. O [apiserver proxy](/docs/tasks/access-application-cluster/access-cluster-services/#discovering-builtin-services):
+2. O [proxy do servidor da API](/pt-br/docs/tasks/access-application-cluster/access-cluster-services/#descobrindo-serviços-integrados):
 
    - é um bastião incorporado ao apiserver
    - conecta um usuário fora do cluster aos IPs do cluster que, de outra forma, poderiam não ser acessíveis
-   - é executado no processo do apiserver
-   - cliente para proxy usa HTTPS (ou http se o apiserver estiver configurado dessa forma)
-   - O proxy para o alvo pode usar HTTP ou HTTPS, conforme escolhido pelo proxy usando as informações disponíveis
+   - é executado no processo do servidor da API
+   - cliente para proxy usa HTTPS (ou http se o servidor da API estiver configurado dessa forma)
+   - a conexão do proxy para o destino pode usar HTTP ou HTTPS, conforme escolhido pelo proxy usando as informações disponíveis
    - pode ser usado para acessar um Nó, Pod ou Serviço
-   - faz o load balancing quando usado para acessar um serviço
+   - faz o balanceamento de carga quando usado para acessar um serviço
 
 3. O [kube proxy](/docs/concepts/services-networking/service/#ips-and-vips):
 
    - é executado em cada nó
    - proxy de UDP e TCP
    - não entende HTTP
-   - fornece load balancing
+   - fornece balanceamento de carga
    - é usado apenas para acessar serviços
 
-4. Um Proxy/Load-balancer na frente do(s) apiserver(es):
+4. Um Proxy/balanceador de carga na frente do(s) servidor(es) da API:
 
    - a existência e a implementação variam de cluster para cluster (por exemplo, nginx)
-   - fica entre todos os clientes e um ou mais apiservers
-   - atua como load balancer se houver vários apiservers.
+   - fica entre todos os clientes e um ou mais servidores da API
+   - atua como um balanceador de carga se houver vários servidores da API.
 
-5. Cloud Load Balancers em serviços externos:
+6. Balanceadores de carga de provedor de nuvem em serviços externos:
 
-   - são fornecidos por alguns provedores de Cloud (por exemplo, AWS ELB, Google Cloud Load Balancer)
+   - são fornecidos por alguns provedores de nuvem computacional (por exemplo, AWS ELB, Google Cloud Load Balancer)
    - são criados automaticamente quando o serviço Kubernetes tem o tipo `LoadBalancer`
    - usam somente UDP/TCP
-   - A implementação varia de acordo com o provedor de Cloud.
+   - a implementação varia de acordo com o provedor de nuvem.
 
 Normalmente, os usuários do Kubernetes não precisam se preocupar com nada além dos dois primeiros tipos. O administrador do cluster
 normalmente garantirá que os últimos tipos sejam configurados corretamente.
