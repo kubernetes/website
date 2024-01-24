@@ -330,9 +330,23 @@ These instructions are for Kubernetes {{< skew currentVersion >}}.
 -->
 2. 下载用于 Kubernetes 软件包仓库的公共签名密钥。所有仓库都使用相同的签名密钥，因此你可以忽略URL中的版本：
 
+   <!--
+   # If the folder `/etc/apt/keyrings` does not exist, it should be created before the curl command, read the note below.
+   # sudo mkdir -p -m 755 /etc/apt/keyrings 
+   -->
    ```shell
+   # 如果 `/etc/apt/keyrings` 目录不存在，则应在 curl 命令之前创建它，请阅读下面的注释。
+   # sudo mkdir -p -m 755 /etc/apt/keyrings
    curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    ```
+
+{{< note >}}
+<!--
+In releases older than Debian 12 and Ubuntu 22.04, folder `/etc/apt/keyrings` does not exist by default, and it should be created before the curl command.
+-->
+在低于 Debian 12 和 Ubuntu 22.04 的发行版本中，`/etc/apt/keyrings` 默认不存在。
+应在 curl 命令之前创建它。
+{{< /note >}}
 
 <!--
 3. Add the appropriate Kubernetes `apt` repository. Please note that this repository have packages
@@ -361,15 +375,6 @@ These instructions are for Kubernetes {{< skew currentVersion >}}.
    sudo apt-get install -y kubelet kubeadm kubectl
    sudo apt-mark hold kubelet kubeadm kubectl
    ```
-
-{{< note >}}
-<!--
-In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default;
-you can create it by running `sudo mkdir -m 755 /etc/apt/keyrings`
--->
-在 Debian 12 和 Ubuntu 22.04 之前的早期版本中，默认情况下不存在 `/etc/apt/keyrings` 目录；
-你可以通过运行 `sudo mkdir -m 755 /etc/apt/keyrings` 来创建它。
-{{< /note >}}
 
 {{% /tab %}}
 
@@ -538,12 +543,12 @@ systemctl enable --now kubelet
 <!--
 The Flatcar Container Linux distribution mounts the `/usr` directory as a read-only filesystem.
 Before bootstrapping your cluster, you need to take additional steps to configure a writable directory.
-See the [Kubeadm Troubleshooting guide](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#usr-mounted-read-only/)
+See the [Kubeadm Troubleshooting guide](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#usr-mounted-read-only)
 to learn how to set up a writable directory.
 -->
 Flatcar Container Linux 发行版会将 `/usr/` 目录挂载为一个只读文件系统。
 在启动引导你的集群之前，你需要执行一些额外的操作来配置一个可写入的目录。
-参见 [kubeadm 故障排查指南](/zh-cn/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#usr-mounted-read-only/)
+参见 [kubeadm 故障排查指南](/zh-cn/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#usr-mounted-read-only)
 以了解如何配置一个可写入的目录。
 {{< /note >}}
 
