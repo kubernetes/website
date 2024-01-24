@@ -34,10 +34,10 @@ picking a Node with the highest score among the feasible ones to run
 the Pod. The scheduler then notifies the API server about this decision
 in a process called _Binding_.
 -->
-在一个集群中，满足一个 Pod 调度请求的所有 Node 称之为 _可调度_ Node。
+在一个集群中，满足一个 Pod 调度请求的所有 Node 称之为**可调度** Node。
 调度器先在集群中找到一个 Pod 的可调度 Node，然后根据一系列函数对这些可调度 Node 打分，
 之后选出其中得分最高的 Node 来运行 Pod。
-最后，调度器将这个调度决定告知 kube-apiserver，这个过程叫做 _绑定（Binding）_。
+最后，调度器将这个调度决定告知 kube-apiserver，这个过程叫做**绑定（Binding）**。
 
 <!--
 This page explains performance tuning optimizations that are relevant for
@@ -55,7 +55,7 @@ accuracy (the scheduler rarely makes poor placement decisions).
 You configure this tuning setting via kube-scheduler setting
 `percentageOfNodesToScore`. This KubeSchedulerConfiguration setting determines
 a threshold for scheduling nodes in your cluster.
- -->
+-->
 在大规模集群中，你可以调节调度器的表现来平衡调度的延迟（新 Pod 快速就位）
 和精度（调度器很少做出糟糕的放置决策）。
 
@@ -64,7 +64,7 @@ a threshold for scheduling nodes in your cluster.
 
 <!--
 ### Setting the threshold
- -->
+-->
 ### 设置阈值
 
 <!--
@@ -73,7 +73,7 @@ and 100. The value 0 is a special number which indicates that the kube-scheduler
 should use its compiled-in default.
 If you set `percentageOfNodesToScore` above 100, kube-scheduler acts as if you
 had set a value of 100.
- -->
+-->
 `percentageOfNodesToScore` 选项接受从 0 到 100 之间的整数值。
 0 值比较特殊，表示 kube-scheduler 应该使用其编译后的默认值。
 如果你设置 `percentageOfNodesToScore` 的值超过了 100，
@@ -81,17 +81,17 @@ kube-scheduler 的表现等价于设置值为 100。
 
 <!--
 To change the value, edit the
-[kube-scheduler configuration file](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
+[kube-scheduler configuration file](/docs/reference/config-api/kube-scheduler-config.v1/)
 and then restart the scheduler.
 In many cases, the configuration file can be found at `/etc/kubernetes/config/kube-scheduler.yaml`.
- -->
-要修改这个值，先编辑 [kube-scheduler 的配置文件](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/)
-然后重启调度器。
+-->
+要修改这个值，先编辑
+[kube-scheduler 的配置文件](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)然后重启调度器。
 大多数情况下，这个配置文件是 `/etc/kubernetes/config/kube-scheduler.yaml`。
 
 <!--
 After you have made this change, you can run
- -->
+-->
 修改完成后，你可以执行
 
 ```bash
@@ -100,19 +100,19 @@ kubectl get pods -n kube-system | grep kube-scheduler
 
 <!--
 to verify that the kube-scheduler component is healthy.
- -->
+-->
 来检查该 kube-scheduler 组件是否健康。
 
 <!--
 ## Node scoring threshold {#percentage-of-nodes-to-score}
- -->
+-->
 ## 节点打分阈值 {#percentage-of-nodes-to-score}
 
 <!--
 To improve scheduling performance, the kube-scheduler can stop looking for
 feasible nodes once it has found enough of them. In large clusters, this saves
 time compared to a naive approach that would consider every node.
- -->
+-->
 要提升调度性能，kube-scheduler 可以在找到足够的可调度节点之后停止查找。
 在大规模集群中，比起考虑每个节点的简单方法相比可以节省时间。
 
@@ -123,7 +123,7 @@ integer number of nodes. During scheduling, if the kube-scheduler has identified
 enough feasible nodes to exceed the configured percentage, the kube-scheduler
 stops searching for more feasible nodes and moves on to the
 [scoring phase](/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler-implementation).
- -->
+-->
 你可以使用整个集群节点总数的百分比作为阈值来指定需要多少节点就足够。
 kube-scheduler 会将它转换为节点数的整数值。在调度期间，如果
 kube-scheduler 已确认的可调度节点数足以超过了配置的百分比数量，
@@ -133,19 +133,19 @@ kube-scheduler 将停止继续查找可调度节点并继续进行
 <!--
 [How the scheduler iterates over Nodes](#how-the-scheduler-iterates-over-nodes)
 describes the process in detail.
- -->
-[调度器如何遍历节点](#how-the-scheduler-iterates-over-nodes) 详细介绍了这个过程。
+-->
+[调度器如何遍历节点](#how-the-scheduler-iterates-over-nodes)详细介绍了这个过程。
 
 <!--
 ### Default threshold
- -->
+-->
 ### 默认阈值
 
 <!--
 If you don't specify a threshold, Kubernetes calculates a figure using a
 linear formula that yields 50% for a 100-node cluster and yields 10%
 for a 5000-node cluster. The lower bound for the automatic value is 5%.
- -->
+-->
 如果你不指定阈值，Kubernetes 使用线性公式计算出一个比例，在 100-节点集群
 下取 50%，在 5000-节点的集群下取 10%。这个自动设置的参数的最低值是 5%。
 
@@ -153,18 +153,18 @@ for a 5000-node cluster. The lower bound for the automatic value is 5%.
 This means that, the kube-scheduler always scores at least 5% of your cluster no
 matter how large the cluster is, unless you have explicitly set
 `percentageOfNodesToScore` to be smaller than 5.
- -->
+-->
 这意味着，调度器至少会对集群中 5% 的节点进行打分，除非用户将该参数设置的低于 5。
 
 <!--
 If you want the scheduler to score all nodes in your cluster, set
 `percentageOfNodesToScore` to 100.
- -->
+-->
 如果你想让调度器对集群内所有节点进行打分，则将 `percentageOfNodesToScore` 设置为 100。
 
 <!--
 ## Example
- -->
+-->
 ## 示例
 
 <!--
@@ -213,8 +213,8 @@ scheduler's performance significantly.
 当集群中的可调度节点少于 50 个时，调度器仍然会去检查所有的 Node，
 因为可调度节点太少，不足以停止调度器最初的过滤选择。
 
-同理，在小规模集群中，如果你将 `percentageOfNodesToScore` 设置为
-一个较低的值，则没有或者只有很小的效果。
+同理，在小规模集群中，如果你将 `percentageOfNodesToScore`
+设置为一个较低的值，则没有或者只有很小的效果。
 
 如果集群只有几百个节点或者更少，请保持这个配置的默认值。
 改变基本不会对调度器的性能有明显的提升。
@@ -300,7 +300,6 @@ After going over all the Nodes, it goes back to Node 1.
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Check the [kube-scheduler configuration reference (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
+* Check the [kube-scheduler configuration reference (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
 -->
-
-* 参见 [kube-scheduler 配置参考 (v1beta3)](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/)
+* 参见 [kube-scheduler 配置参考（v1）](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)

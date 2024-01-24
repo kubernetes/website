@@ -168,8 +168,8 @@ your cluster. Those fields are:
 - **maxSkew** 描述这些 Pod 可能被不均匀分布的程度。你必须指定此字段且该数值必须大于零。
   其语义将随着 `whenUnsatisfiable` 的值发生变化：
 
-  - 如果你选择 `whenUnsatisfiable: DoNotSchedule`，则 `maxSkew` 定义目标拓扑中匹配 Pod 的数量与
-    **全局最小值**（符合条件的域中匹配的最小 Pod 数量，如果符合条件的域数量小于 MinDomains 则为零）
+  - 如果你选择 `whenUnsatisfiable: DoNotSchedule`，则 `maxSkew` 定义目标拓扑中匹配 Pod
+    的数量与**全局最小值**（符合条件的域中匹配的最小 Pod 数量，如果符合条件的域数量小于 MinDomains 则为零）
     之间的最大允许差值。例如，如果你有 3 个可用区，分别有 2、2 和 1 个匹配的 Pod，则 `MaxSkew` 设为 1，
     且全局最小值为 1。
   - 如果你选择 `whenUnsatisfiable: ScheduleAnyway`，则该调度器会更为偏向能够降低偏差值的拓扑域。
@@ -210,7 +210,7 @@ your cluster. Those fields are:
 
   - 指定的 `minDomains` 值必须大于 0。你可以结合 `whenUnsatisfiable: DoNotSchedule` 仅指定 `minDomains`。
   - 当符合条件的、拓扑键匹配的域的数量小于 `minDomains` 时，拓扑分布将“全局最小值”（global minimum）设为 0，
-    然后进行 `skew` 计算。“全局最小值” 是一个符合条件的域中匹配 Pod 的最小数量，
+    然后进行 `skew` 计算。“全局最小值”是一个符合条件的域中匹配 Pod 的最小数量，
     如果符合条件的域的数量小于 `minDomains`，则全局最小值为零。
   - 当符合条件的拓扑键匹配域的个数等于或大于 `minDomains` 时，该值对调度没有影响。
   - 如果你未指定 `minDomains`，则约束行为类似于 `minDomains` 等于 1。
@@ -751,7 +751,8 @@ There are some implicit conventions worth noting here:
   present. This implies that:
 
   1. any Pods located on those bypassed nodes do not impact `maxSkew` calculation - in the
-     above example, suppose the node `node1` does not have a label "zone", then the 2 Pods will
+     above [example](#example-conflicting-topologyspreadconstraints), suppose the node `node1`
+     does not have a label "zone", then the 2 Pods will
      be disregarded, hence the incoming Pod will be scheduled into zone `A`.
   2. the incoming Pod has no chances to be scheduled onto this kind of nodes -
      in the above example, suppose a node `node5` has the **mistyped** label `zone-typo: zoneC`
@@ -766,10 +767,11 @@ There are some implicit conventions worth noting here:
 
 - 调度器会忽略没有任何 `topologySpreadConstraints[*].topologyKey` 的节点。这意味着：
 
-  1. 位于这些节点上的 Pod 不影响 `maxSkew` 计算，在上面的例子中，假设节点 `node1` 没有标签 "zone"，
-     则 2 个 Pod 将被忽略，因此新来的 Pod 将被调度到可用区 `A` 中。
+  1. 位于这些节点上的 Pod 不影响 `maxSkew` 计算，在上面的[例子](#example-conflicting-topologyspreadconstraints)中，
+     假设节点 `node1` 没有标签 "zone"，则 2 个 Pod 将被忽略，因此新来的
+     Pod 将被调度到可用区 `A` 中。
   2. 新的 Pod 没有机会被调度到这类节点上。在上面的例子中，
-     假设节点 `node5` 带有 **拼写错误的** 标签 `zone-typo: zoneC`（且没有设置 `zone` 标签）。
+     假设节点 `node5` 带有**拼写错误的**标签 `zone-typo: zoneC`（且没有设置 `zone` 标签）。
      节点 `node5` 接入集群之后，该节点将被忽略且针对该工作负载的 Pod 不会被调度到那里。
 
 <!--
@@ -879,7 +881,7 @@ instead of using the Kubernetes defaults.
 对于分布约束中所指定的拓扑键而言，`PodTopologySpread` 插件不会为不包含这些拓扑键的节点评分。
 这可能导致在使用默认拓扑约束时，其行为与原来的 `SelectorSpread` 插件的默认行为不同。
 
-如果你的节点不会 **同时** 设置 `kubernetes.io/hostname` 和 `topology.kubernetes.io/zone` 标签，
+如果你的节点不会**同时**设置 `kubernetes.io/hostname` 和 `topology.kubernetes.io/zone` 标签，
 你应该定义自己的约束而不是使用 Kubernetes 的默认约束。
 {{< /note >}}
 
