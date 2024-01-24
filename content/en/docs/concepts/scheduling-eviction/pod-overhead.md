@@ -71,13 +71,14 @@ spec:
     stdin: true
     tty: true
     resources:
-      requests:
+      # Note: If only limits are specified, kubelet will deduce requests from those limits and set them to be the same as the limits.
+      limits:
         cpu: 500m
         memory: 100Mi
   - name: nginx-ctr
     image: nginx
     resources:
-      requests:
+      limits:
         cpu: 1500m
         memory: 100Mi
 ```
