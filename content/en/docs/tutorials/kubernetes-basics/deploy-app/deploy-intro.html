@@ -27,6 +27,13 @@ description: |-
 
             <div class="col-md-8">
                 <h3>Kubernetes Deployments</h3>
+
+                {{< note >}}
+                <p>This tutorial uses a container that requires the AMD64 architecture. If you are using
+                minikube on a computer with a different CPU architecture, you could try using minikube with
+                a driver that can emulate AMD64. For example, the Docker Desktop driver can do this.</p>
+                {{< /note >}}
+
                 <p>
                 Once you have a <a href="/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/">running Kubernetes cluster</a>, you can deploy your containerized applications on top of it.
                 To do so, you create a Kubernetes <b>Deployment</b>. The Deployment instructs Kubernetes

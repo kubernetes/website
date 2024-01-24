@@ -99,7 +99,7 @@ The name of a ConfigMap object must be a valid
 -->
 其中，`<映射名称>` 是为 ConfigMap 指定的名称，`<数据源>` 是要从中提取数据的目录、
 文件或者字面值。ConfigMap 对象的名称必须是合法的
-[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 
 <!--
 When you are creating a ConfigMap based on a file, the key in the \<data-source> defaults to
@@ -140,7 +140,7 @@ If you use `kubectl create configmap` with a directory where any of the file nam
 an unacceptable character, the `kubectl` command may fail.
 -->
 用于创建 ConfigMap 的每个文件名必须由可接受的字符组成，即：字母（`A` 到 `Z` 和
-`a` 到 `z`）、数字（`0` 到 `9`）、'-'、'_'或'.'。
+`a` 到 `z`）、数字（`0` 到 `9`）、'-'、'_' 或 '.'。
 如果在一个目录中使用 `kubectl create configmap`，而其中任一文件名包含不可接受的字符，
 则 `kubectl` 命令可能会失败。
 
@@ -241,7 +241,7 @@ kubectl get configmaps game-config -o yaml
 <!--
 The output is similar to this:
 -->
-输出类似以下内容:
+输出类似以下内容：
 
 ```yaml
 apiVersion: v1
@@ -289,7 +289,7 @@ kubectl create configmap game-config-2 --from-file=configure-pod-container/confi
 <!--
 would produce the following ConfigMap:
 -->
-将产生以下 ConfigMap:
+将产生以下 ConfigMap：
 
 ```shell
 kubectl describe configmaps game-config-2
@@ -298,7 +298,7 @@ kubectl describe configmaps game-config-2
 <!--
 where the output is similar to this:
 -->
-输出类似以下内容:
+输出类似以下内容：
 
 ```
 Name:         game-config-2
@@ -341,7 +341,7 @@ kubectl describe configmaps game-config-2
 <!--
 The output is similar to this:
 -->
-输出类似以下内容:
+输出类似以下内容：
 
 ```
 Name:         game-config-2
@@ -466,7 +466,7 @@ kubectl create configmap config-multi-env-files \
 <!--
 would produce the following ConfigMap:
 -->
-将产生以下 ConfigMap:
+将产生以下 ConfigMap：
 
 ```shell
 kubectl get configmap config-multi-env-files -o yaml
@@ -475,7 +475,7 @@ kubectl get configmap config-multi-env-files -o yaml
 <!--
 where the output is similar to this:
 -->
-输出类似以下内容:
+输出类似以下内容：
 
 ```yaml
 apiVersion: v1
@@ -524,7 +524,7 @@ location of the data source file you want the key to represent.
 <!--
 For example:
 -->
-例如:
+例如：
 
 ```shell
 kubectl create configmap game-config-3 --from-file=game-special-key=configure-pod-container/configmap/game.properties
@@ -533,7 +533,7 @@ kubectl create configmap game-config-3 --from-file=game-special-key=configure-po
 <!--
 would produce the following ConfigMap:
 -->
-将产生以下 ConfigMap:
+将产生以下 ConfigMap：
 
 ```shell
 kubectl get configmaps game-config-3 -o yaml
@@ -592,7 +592,7 @@ kubectl get configmaps special-config -o yaml
 <!--
 The output is similar to this:
 -->
-输出类似以下内容:
+输出类似以下内容：
 
 ```yaml
 apiVersion: v1
@@ -834,7 +834,7 @@ section, and learn how to use these objects with Pods.
 <!--
 1. Define an environment variable as a key-value pair in a ConfigMap:
 -->
-1. 在 ConfigMap 中将环境变量定义为键值对:
+1. 在 ConfigMap 中将环境变量定义为键值对：
 
    ```shell
    kubectl create configmap special-config --from-literal=special.how=very
@@ -879,7 +879,7 @@ Here is the manifest you will use:
 <!--
 * Create the ConfigMap:
 -->
-* 创建 ConfigMap:
+* 创建 ConfigMap：
 
   ```shell
   kubectl create -f https://kubernetes.io/examples/configmap/configmaps.yaml
@@ -1000,7 +1000,8 @@ kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-env-var-valu
 <!--
 That pod produces the following output from the `test-container` container:
 -->
-此 Pod 在 `test-container` 容器中产生以下输出:
+此 Pod 在 `test-container` 容器中产生以下输出：
+
 ```shell
 kubectl logs dapi-test-pod
 ```
@@ -1161,11 +1162,21 @@ kubectl delete pod dapi-test-pod --now
 <!--
 ### Project keys to specific paths and file permissions
 
-You can project keys to specific paths and specific permissions on a per-file
-basis. The
-[Secrets](/docs/concepts/configuration/secret/#using-secrets-as-files-from-a-pod)
-guide explains the syntax.
+You can project keys to specific paths.
+Refer to the corresponding section in the
+[Secrets](/docs/tasks/inject-data-application/distribute-credentials-secure/#project-secret-keys-to-specific-file-paths)
+guide for the syntax.  
+You can set POSIX permissions for keys.
+Refer to the corresponding section in the
+[Secrets](/docs/tasks/inject-data-application/distribute-credentials-secure/#set-posix-permissions-for-secret-keys)
+guide for the syntax.
 -->
+你可以将密钥投射到特定路径，语法请参阅
+[Secret](/zh-cn/docs/tasks/inject-data-application/distribute-credentials-secure/#project-secret-keys-to-specific-file-paths)
+指南中的相应部分。
+你可以设置密钥的 POSIX 权限，语法请参阅
+[Secret](/docs/tasks/inject-data-application/distribute-credentials-secure/#set-posix-permissions-for-secret-keys)
+指南中的相应部分。
 
 ### 映射键到指定路径并设置文件访问权限    {#project-keys-to-specific-paths-and-file-permissions}
 
@@ -1211,7 +1222,7 @@ can trigger an immediate refresh by updating one of the pod's annotations.
 Kubelet 在每次定期同步时都会检查所挂载的 ConfigMap 是否是最新的。
 然而，它使用其基于 TTL 机制的本地缓存来获取 ConfigMap 的当前值。
 因此，从 ConfigMap 更新到新键映射到 Pod 的总延迟可能与 kubelet
-同步周期（默认为1分钟）+ kubelet 中 ConfigMap 缓存的 TTL（默认为1分钟）一样长。
+同步周期（默认为 1 分钟）+ kubelet 中 ConfigMap 缓存的 TTL（默认为 1 分钟）一样长。
 你可以通过更新 Pod 的一个注解来触发立即刷新。
 
 {{< note >}}
@@ -1437,7 +1448,7 @@ spec:
 -->
 - 如果你使用 `envFrom` 来基于 ConfigMap 定义环境变量，那么无效的键将被忽略。
   Pod 可以被启动，但无效名称将被记录在事件日志中（`InvalidVariableNames`）。
-  日志消息列出了每个被跳过的键。例如:
+  日志消息列出了每个被跳过的键。例如：
 
   ```shell
   kubectl get events

@@ -88,7 +88,7 @@ run. However, stopping the pod generates an error similar to:
 Pod 可能可以运行。但是，停止 Pod 时会产生类似于以下错误：
 
 ```
-ERRO[2022-04-26T00:43:24.518165483Z] StopPodSandbox for "b" failed
+ERROR[2022-04-26T00:43:24.518165483Z] StopPodSandbox for "b" failed
 error="failed to destroy network for sandbox \"bbc85f891eaf060c5a879e27bba9b6b06450210161dfdecfbb2732959fb6500a\": invalid version \"\": the version is empty"
 ```
 
@@ -149,7 +149,7 @@ following upgrade operations:
   - 如果你正在运行 CNI 插件，请将它们升级到最新版本。
   - 如果你使用的是非 CNI 插件，请将它们替换为 CNI 插件，并使用最新版本的插件。
   - 更新插件配置文件以指定或匹配 CNI 规范支持的插件版本，
-    如后文["containerd 配置文件示例"](#an-example-containerd-configuration-file)章节所示。
+    如后文 ["containerd 配置文件示例"](#an-example-containerd-configuration-file)章节所示。
   - 对于 `containerd`，请确保你已安装 CNI loopback 插件的最新版本（v1.0.0 或更高版本）。
   - 将节点组件（例如 kubelet）升级到 Kubernetes v1.24
   - 升级到或安装最新版本的容器运行时。
@@ -191,11 +191,11 @@ version of the `loopback` plugin must be v1.0.0 or later when this newer version
 `containerd` is started.
 -->
 
-在 Kubernetes 中，作为其默认行为，containerd 运行时为 Pod 添加一个本地回路接口，`lo`。
+在 Kubernetes 中，作为其默认行为，containerd 运行时为 Pod 添加一个本地回路接口：`lo`。
 containerd 运行时通过 CNI 插件 `loopback` 配置本地回路接口。  
 `loopback` 插件作为 `containerd` 发布包的一部分，扮演 `cni` 角色。
 `containerd` v1.6.0 及更高版本包括与 CNI v1.0.0 兼容的 loopback 插件以及其他默认 CNI 插件。
-loopback 插件的配置由 containerd 内部完成， 并被设置为使用 CNI v1.0.0。
+loopback 插件的配置由 containerd 内部完成，并被设置为使用 CNI v1.0.0。
 这也意味着当这个更新版本的 `containerd` 启动时，`loopback` 插件的版本必然是 v1.0.0 或更高版本。
 
 <!--
@@ -249,6 +249,4 @@ EOF
 Update the IP address ranges in the preceding example with ones that are based
 on your use case and network addressing plan.
 -->
-
 基于你的用例和网络地址规划，将前面示例中的 IP 地址范围更新为合适的值。
-

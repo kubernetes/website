@@ -81,7 +81,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/main/conte
 Examine the contents of the Redis pod manifest and note the following:
 
 * A volume named `config` is created by `spec.volumes[1]`
-* The `key` and `path` under `spec.volumes[1].items[0]` exposes the `redis-config` key from the 
+* The `key` and `path` under `spec.volumes[1].configMap.items[0]` exposes the `redis-config` key from the
   `example-redis-config` ConfigMap as a file named `redis.conf` on the `config` volume.
 * The `config` volume is then mounted at `/redis-master` by `spec.containers[0].volumeMounts[1]`.
 
@@ -91,7 +91,7 @@ ConfigMap above as `/redis-master/redis.conf` inside the Pod.
 检查 Redis pod 清单的内容，并注意以下几点：
 
 * 由 `spec.volumes[1]` 创建一个名为 `config` 的卷。
-* `spec.volumes[1].items[0]` 下的 `key` 和 `path` 会将来自 `example-redis-config`
+* `spec.volumes[1].configMap.items[0]` 下的 `key` 和 `path` 会将来自 `example-redis-config`
   ConfigMap 中的 `redis-config` 键公开在 `config` 卷上一个名为 `redis.conf` 的文件中。
 * 然后 `config` 卷被 `spec.containers[0].volumeMounts[1]` 挂载在 `/redis-master`。
 
