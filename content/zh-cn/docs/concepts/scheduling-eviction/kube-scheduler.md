@@ -16,7 +16,7 @@ In Kubernetes, _scheduling_ refers to making sure that {{< glossary_tooltip text
 are matched to {{< glossary_tooltip text="Nodes" term_id="node" >}} so that
 {{< glossary_tooltip term_id="kubelet" >}} can run them.
 -->
-在 Kubernetes 中，**调度** 是指将 {{< glossary_tooltip text="Pod" term_id="pod" >}}
+在 Kubernetes 中，**调度**是指将 {{< glossary_tooltip text="Pod" term_id="pod" >}}
 放置到合适的{{< glossary_tooltip text="节点" term_id="node" >}}上，以便对应节点上的
 {{< glossary_tooltip term_id="kubelet" >}} 能够运行这些 Pod。
 
@@ -80,7 +80,7 @@ In a cluster, Nodes that meet the scheduling requirements for a Pod
 are called _feasible_ nodes. If none of the nodes are suitable, the pod
 remains unscheduled until the scheduler is able to place it.
 -->
-在一个集群中，满足一个 Pod 调度请求的所有节点称之为 **可调度节点**。
+在一个集群中，满足一个 Pod 调度请求的所有节点称之为**可调度节点**。
 如果没有任何一个节点能满足 Pod 的资源请求，
 那么这个 Pod 将一直停留在未调度状态直到调度器能够找到合适的 Node。
 
@@ -92,7 +92,7 @@ the API server about this decision in a process called _binding_.
 -->
 调度器先在集群中找到一个 Pod 的所有可调度节点，然后根据一系列函数对这些可调度节点打分，
 选出其中得分最高的节点来运行 Pod。之后，调度器将这个调度决定通知给
-kube-apiserver，这个过程叫做 **绑定**。
+kube-apiserver，这个过程叫做**绑定**。
 
 <!--
 Factors that need to be taken into account for scheduling decisions include
@@ -173,7 +173,7 @@ of the scheduler:
 * Read about [scheduler performance tuning](/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
 * Read about [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 * Read the [reference documentation](/docs/reference/command-line-tools-reference/kube-scheduler/) for kube-scheduler
-* Read the [kube-scheduler config (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/) reference
+* Read the [kube-scheduler config (v1)](/docs/reference/config-api/kube-scheduler-config.v1/) reference
 * Learn about [configuring multiple schedulers](/docs/tasks/extend-kubernetes/configure-multiple-schedulers/)
 * Learn about [topology management policies](/docs/tasks/administer-cluster/topology-manager/)
 * Learn about [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/)
@@ -185,7 +185,7 @@ of the scheduler:
 * 阅读关于[调度器性能调优](/zh-cn/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
 * 阅读关于 [Pod 拓扑分布约束](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 * 阅读关于 kube-scheduler 的[参考文档](/zh-cn/docs/reference/command-line-tools-reference/kube-scheduler/)
-* 阅读 [kube-scheduler 配置参考 (v1beta3)](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/)
+* 阅读 [kube-scheduler 配置参考（v1）](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)
 * 了解关于[配置多个调度器](/zh-cn/docs/tasks/extend-kubernetes/configure-multiple-schedulers/) 的方式
 * 了解关于[拓扑结构管理策略](/zh-cn/docs/tasks/administer-cluster/topology-manager/)
 * 了解关于 [Pod 开销](/zh-cn/docs/concepts/scheduling-eviction/pod-overhead/)

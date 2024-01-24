@@ -86,7 +86,7 @@ The available configuration options for `swapBehavior` are:
 
 <!--
 - `UnlimitedSwap` (default): Kubernetes workloads can use as much swap memory as they request, up to the system limit.
-- `LimitedSwap`: The utilization of swap memory by Kubernetes workloads is subject to limitations. Only Pods of [Burstable](docs/concepts/workloads/pods/pod-qos/#burstable) QoS are permitted to employ swap.
+- `LimitedSwap`: The utilization of swap memory by Kubernetes workloads is subject to limitations. Only Pods of [Burstable](/docs/concepts/workloads/pods/pod-qos/#burstable) QoS are permitted to employ swap.
 -->
 - `UnlimitedSwap`（默认）：Kubernetes 工作负载可以根据请求使用尽可能多的交换内存，最多可达到系统限制。
 - `LimitedSwap`：Kubernetes 工作负载对交换内存的使用受到限制。
@@ -261,9 +261,9 @@ Swap configuration on a node is exposed to a cluster admin via the [`memorySwap`
 作为集群管理员，你可以通过设置 `memorySwap.swapBehavior` 来指定存在交换内存时节点的行为。
 
 <!--
-The kubelet [employs the CRI](https://kubernetes.io/docs/concepts/architecture/cri/) (container runtime interface) API to direct the CRI to configure specific cgroup v2 parameters (such as `memory.swap.max`) in a manner that will enable the desired swap configuration for a container. The CRI is then responsible to write these settings to the container-level cgroup.
+The kubelet [employs the CRI](/docs/concepts/architecture/cri/) (container runtime interface) API to direct the CRI to configure specific cgroup v2 parameters (such as `memory.swap.max`) in a manner that will enable the desired swap configuration for a container. The CRI is then responsible to write these settings to the container-level cgroup.
 -->
-kubelet [使用 CRI](/zh-cn/docs/concepts/architecture/cri)
+kubelet [使用 CRI](/zh-cn/docs/concepts/architecture/cri/)
 （容器运行时接口）API 来指示 CRI 配置特定的 cgroup v2 参数（例如 `memory.swap.max`），
 配置方式要支持容器所期望的交换内存配置。接下来，CRI 负责将这些设置写入容器级的 cgroup。
 
