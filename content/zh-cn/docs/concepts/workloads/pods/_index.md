@@ -213,17 +213,17 @@ Init containers run and complete before the app containers are started.
 {{< glossary_tooltip text="应用容器" term_id="app-container" >}}。
 Init 容器会在启动应用容器之前运行并完成。
 
-{{< feature-state for_k8s_version="v1.28" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.29" state="beta" >}}
 
 <!--
-Enabling the `SidecarContainers` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+Enabled by default, the `SidecarContainers` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 allows you to specify `restartPolicy: Always` for init containers.
 Setting the `Always` restart policy ensures that the init containers where you set it are
 kept running during the entire lifetime of the Pod.
 See [Sidecar containers and restartPolicy](/docs/concepts/workloads/pods/init-containers/#sidecar-containers-and-restartpolicy)
 for more details.
 -->
-启用 `SidecarContainers` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)允许你为
+启用 `SidecarContainers` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)（默认启用）允许你为
 Init 容器指定 `restartPolicy: Always`。设置重启策略为 `Always` 会确保 Init 容器在 Pod 的整个生命周期内保持运行。
 更多细节参阅[边车容器和重启策略](/zh-cn/docs/concepts/workloads/pods/init-containers/#sidecar-containers-and-restartpolicy)
 
