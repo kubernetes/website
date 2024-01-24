@@ -194,7 +194,7 @@ You must manually configure these administrator account and service accounts:
 |-------------------------|----------------------------|-------------------------------------|------------------------|
 | admin.conf              | default-admin              | kubernetes-admin                    | `<admin-group>`        |
 | super-admin.conf        | default-super-admin        | kubernetes-super-admin              | system:masters         |
-| kubelet.conf            | default-auth               | system:node:`<nodeName>` (see note) | system:nodes           |
+| kubelet.conf            | system:node:`<nodeName>`   | system:node:`<nodeName>` (see note) | system:nodes           |
 | controller-manager.conf | default-controller-manager | system:kube-controller-manager      |                        |
 | scheduler.conf          | default-scheduler          | system:kube-scheduler               |                        |
 
