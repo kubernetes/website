@@ -276,54 +276,57 @@ cases precedence will be given first to the longest matching path. If two paths
 are still equally matched, precedence will be given to paths with an exact path
 type over prefix path type.
 
-## Hostname wildcards
+## comodines Hostname
 
-Hosts can be precise matches (for example “`foo.bar.com`”) or a wildcard (for
-example “`*.foo.com`”). Precise matches require that the HTTP `host` header
-matches the `host` field. Wildcard matches require the HTTP `host` header is
-equal to the suffix of the wildcard rule.
+Los anfitriones pueden ser coincidencias exactas
+(por ejemplo “`foo.bar.com`”) o un comodín (por ejemplo “`*.bar.com`”).
+Las coincidencias precisas requieren que el encabezado `host` coincida con el
+campo `host`.
+Las coincidencias de comodín requieren the el encabezado `host` sea igual al
+sufijo de la regla del comodín.
 
-| Host        | Host header       | Match?                                            |
-|-------------|-------------------|---------------------------------------------------|
-| `*.foo.com` | `bar.foo.com`     | Matches based on shared suffix                    |
-| `*.foo.com` | `baz.bar.foo.com` | No match, wildcard only covers a single DNS label |
-| `*.foo.com` | `foo.com`         | No match, wildcard only covers a single DNS label |
+| Anfitrión   | Encabezado Anfitrión | ¿Coincidencia?                                      |
+|-------------|----------------------|-----------------------------------------------------|
+| `*.foo.com` | `bar.foo.com`        | Coincide basado en el sufijo común                  |
+| `*.foo.com` | `baz.bar.foo.com`    | No coincide, el comodín solo cubre una etiqueta DNS |
+| `*.foo.com` | `foo.com`            | No coincide, el comodín solo cubre una etiqueta DNS |
 
 {{% code_sample file="service/networking/ingress-wildcard-host.yaml" %}}
 
-## Ingress class
+## Clase Ingress
 
-Ingresses can be implemented by different controllers, often with different
-configuration. Each Ingress should specify a class, a reference to an
-IngressClass resource that contains additional configuration including the name
-of the controller that should implement the class.
+Los Ingress pueden ser implementados por distintos controladores,
+comúnmente con una configuración distinta.
+Cada Ingress debería especificar una clase,
+una referencia a un recurso IngressClass que contiene información adicional
+incluyendo el nombre del controlador que debería implementar la clase.
 
 {{% code_sample file="service/networking/external-lb.yaml" %}}
 
-The `.spec.parameters` field of an IngressClass lets you reference another
-resource that provides configuration related to that IngressClass.
+El campo `.spec.parameters` de un IngressClass te permite hacer referencia a
+otro recurso que proporciona la configuración relacionada con esa IngressClass.
 
-The specific type of parameters to use depends on the ingress controller
-that you specify in the `.spec.controller` field of the IngressClass.
+El tipo específico de parámetros a usar depende del controlador de Ingress que
+especificas en el campo `spec.controller` de la IngressClass.
 
-### IngressClass scope
+### Alcance de IngressClass
 
-Depending on your ingress controller, you may be able to use parameters
-that you set cluster-wide, or just for one namespace.
+Dependiendo de tu controlador de ingress, podrías ser capaz de usar parámetros
+que se establecen en todo el clúster, o solamente para un namespace.
 
 {{< tabs name="tabs_ingressclass_parameter_scope" >}}
 {{% tab name="Cluster" %}}
-The default scope for IngressClass parameters is cluster-wide.
+El alcance por defecto de los parámetros IngressClass es para todo el clúster.
 
-If you set the `.spec.parameters` field and don't set
-`.spec.parameters.scope`, or if you set `.spec.parameters.scope` to
-`Cluster`, then the IngressClass refers to a cluster-scoped resource.
-The `kind` (in combination the `apiGroup`) of the parameters
-refers to a cluster-scoped API (possibly a custom resource), and
-the `name` of the parameters identifies a specific cluster scoped
-resource for that API.
+Si estableces el campo `spec.parameters` y no estableces el
+campo `spec.parameters.scope`,
+entonces el IngressClass se refiere al recurso cuyo alcance es todo el clúster.
+El atributo `kind` (en combinación con el `apiGroup`)
+de los parámetros se refiere a la API con alcance a todo el clúster
+(posiblemente un recurso personalizado), y el `name` de los parámetros
+identifica al recurso del clúster específico para esa API.
 
-For example:
+Por ejemplo:
 
 ```yaml
 ---
@@ -334,10 +337,10 @@ metadata:
 spec:
   controller: example.com/ingress-controller
   parameters:
-    # The parameters for this IngressClass are specified in a
-    # ClusterIngressParameter (API group k8s.example.net) named
-    # "external-config-1". This definition tells Kubernetes to
-    # look for a cluster-scoped parameter resource.
+    # Los parámetros para este IngressClass se especifican en un
+    # ClusterIngressParameter (API group k8s.example.net) llamado
+    # "external-config-1". Esta definición le indica a Kubernetes 
+    # de buscar por un parámetro de recurso con alcance a todo el clúster.
     scope: Cluster
     apiGroup: k8s.example.net
     kind: ClusterIngressParameter
@@ -348,31 +351,34 @@ spec:
 {{% tab name="Namespaced" %}}
 {{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
-If you set the `.spec.parameters` field and set
-`.spec.parameters.scope` to `Namespace`, then the IngressClass refers
-to a namespaced-scoped resource. You must also set the `namespace`
-field within `.spec.parameters` to the namespace that contains
-the parameters you want to use.
+Si estableces el campo `spec.parameters` y el `spec.parameters.scope`
+al `Namespace`,
+entonces el IngressClass se refiere al recurso cuyo alcance es el namespace.
+También debes establecer el campo `namespace` dentro de `spec.parameters` con el
+namespace que contiene los parámetros que quieres usar.
 
-The `kind` (in combination the `apiGroup`) of the parameters
-refers to a namespaced API (for example: ConfigMap), and
-the `name` of the parameters identifies a specific resource
-in the namespace you specified in `namespace`.
+El atributo `kind` (en combinación con `apiGroup`)
+de los parámetros se refiere a la API del namespace (por ejemplo:
+ConfigMap), y el `name` de los parámetros identifica al recurso específico en el
+namespace que has especificado en `namespace`.
 
-Namespace-scoped parameters help the cluster operator delegate control over the
-configuration (for example: load balancer settings, API gateway definition)
-that is used for a workload. If you used a cluster-scoped parameter then either:
+Los parámetros con alcance al namespace ayudan al operador del clúster a delegar
+el control sobre la configuración
+(por ejemplo, ajustes del balanceador de cargas, definición de una API gateway)
+que se usa para una carga de trabajo.
+Si utilizas un parámetro con alcance al namespace entonces:
 
-- the cluster operator team needs to approve a different team's changes every
-  time there's a new configuration change being applied.
-- the cluster operator must define specific access controls, such as
-  [RBAC](/docs/reference/access-authn-authz/rbac/) roles and bindings, that let
-  the application team make changes to the cluster-scoped parameters resource.
+- El equipo operador del clúster necesita aprobar los cambios de un equipo
+  distinto cada vez que se aplica un nuevo cambio a la configuración.
+- O el equipo operador del clúster debe definir específicamente estos controles
+  de acceso, tales como asociaciones de
+  roles [RBAC](/docs/reference/access-authn-authz/rbac/) y mapeos, que permitan
+  a la aplicación hacer cambios al recurso de parámetros con alcance al clúster.
 
-The IngressClass API itself is always cluster-scoped.
+La API de la IngressClass por sí misma siempre tiene alcance al clúster.
 
-Here is an example of an IngressClass that refers to parameters that are
-namespaced:
+Aquí hay un ejemplo de una IngressClass que hace referencia a parámetros que
+están en el namespace:
 
 ```yaml
 ---
@@ -383,9 +389,9 @@ metadata:
 spec:
   controller: example.com/ingress-controller
   parameters:
-    # The parameters for this IngressClass are specified in an
-    # IngressParameter (API group k8s.example.com) named "external-config",
-    # that's in the "external-configuration" namespace.
+    # Los parámetros para esta IngressClass se especifican en un 
+    # IngressParameter (API group k8s.example.com) llamado "external-config",
+    # que está en el namespace "external-configuration".
     scope: Namespace
     apiGroup: k8s.example.com
     kind: IngressParameter
@@ -396,57 +402,64 @@ spec:
 {{% /tab %}}
 {{< /tabs >}}
 
-### Deprecated annotation
+### Anotación Deprecada
 
-Before the IngressClass resource and `ingressClassName` field were added in
-Kubernetes 1.18, Ingress classes were specified with a
-`kubernetes.io/ingress.class` annotation on the Ingress. This annotation was
-never formally defined, but was widely supported by Ingress controllers.
+Antes que el recuerdo IngressClass y el campo `ingressClassName` se añadieran en
+Kubernetes
+1.18,
+las clases Ingres se especificaban con una
+anotación `kubernetes.io/ingress.class` en el Ingress.
+Esta anotación nunca se definió formalmente,
+pero era ampliamente soportada por los controladores de Ingress.
 
-The newer `ingressClassName` field on Ingresses is a replacement for that
-annotation, but is not a direct equivalent. While the annotation was generally
-used to reference the name of the Ingress controller that should implement the
-Ingress, the field is a reference to an IngressClass resource that contains
-additional Ingress configuration, including the name of the Ingress controller.
+El nuevo campo `ingressClassName` en los recursos Ingress es un reemplazo para
+esa anotación, pero no es un equivalente directo.
+Mientras que la anotación se utilizaba generalmente para hacer referencia al
+nombre del controlador de Ingress que debería implementar el Ingress, el campo
+es una referencia aun recursos IngressClass que contiene configuración adicional
+del Ingress, incluyendo el nombre del controlador Ingress.
 
-### Default IngressClass {#default-ingress-class}
+### IngressClass por defecto {#default-ingress-class}
 
-You can mark a particular IngressClass as default for your cluster. Setting the
-`ingressclass.kubernetes.io/is-default-class` annotation to `true` on an
-IngressClass resource will ensure that new Ingresses without an
-`ingressClassName` field specified will be assigned this default IngressClass.
+Puedes marcar un ingressClass en particular por defecto para tu clúster.
+Establecer la anotación `ingressclass.kubernetes.io/is-default-class` a `true`
+en un recurso IngressClass
+asegurará que los nuevos Ingress sin un campo `ingressClassName` especificado
+sean asignados a esta ingressClass por defecto.
 
 {{< caution >}}
-If you have more than one IngressClass marked as the default for your cluster,
-the admission controller prevents creating new Ingress objects that don't have
-an `ingressClassName` specified. You can resolve this by ensuring that at most 1
-IngressClass is marked as default in your cluster.
+Si tienes más de una IngressClass marcada por defecto en tu clúster,
+el controlador de admisión impide crear objetos que no tienen
+un `ingressClassName` especificado.
+Puedes resolver esto asegurándote que como máximo 1 IngressClass está marcado
+como el predeterminado en tu clúster.
 {{< /caution >}}
 
-There are some ingress controllers, that work without the definition of a
-default `IngressClass`. For example, the Ingress-NGINX controller can be
-configured with
-a [flag](https://kubernetes.github.io/ingress-nginx/#what-is-the-flag-watch-ingress-without-class)
-`--watch-ingress-without-class`. It
-is [recommended](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do)
-though, to specify the
-default `IngressClass`:
+Existen algunos controladores de ingress,
+que funcionan sin una definición de una `ingressClass`.
+Por ejemplo, el controlador Ingress-NGINX se puede configurar con
+una [bandera](https://kubernetes.github.io/ingress-nginx/#what-is-the-flag-watch-ingress-without-class)
+`--watch-ingress-without-class`.
+Sin embargo,
+se [recomienda](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do)
+especificar el `IngressClass` predeterminado:
 
 {{% code_sample file="service/networking/default-ingressclass.yaml" %}}
 
-## Types of Ingress
+## Tipos de Ingress
 
-### Ingress backed by a single Service {#single-service-ingress}
+### Ingress respaldado por un único servicio {#single-service-ingress}
 
-There are existing Kubernetes concepts that allow you to expose a single Service
-(see [alternatives](#alternatives)). You can also do this with an Ingress by
-specifying a
-*default backend* with no rules.
+Existen conceptos existentes de Kubernetes que te permiten exponer un Service
+único
+(mirar [alternativas](#alternatives)).
+También puedes hacerlo con un Ingress especificando un *backend predeterminado*
+sin reglas.
 
 {{% code_sample file="service/networking/test-ingress.yaml" %}}
 
-If you create it using `kubectl apply -f` you should be able to view the state
-of the Ingress you added:
+Si lo creas usando `kubectl apply -f` podrías mirar el estado del Ingress que
+has creado:
 
 ```bash
 kubectl get ingress test-ingress
@@ -457,32 +470,32 @@ NAME           CLASS         HOSTS   ADDRESS         PORTS   AGE
 test-ingress   external-lb   *       203.0.113.123   80      59s
 ```
 
-Where `203.0.113.123` is the IP allocated by the Ingress controller to satisfy
-this Ingress.
+Donde `203.0.113.123` es la IP asignada por el controlador Ingress para
+satisfacer este Ingress.
 
 {{< note >}}
-Ingress controllers and load balancers may take a minute or two to allocate an
-IP address.
-Until that time, you often see the address listed as `<pending>`.
+Los controladores de Ingress y los balanceadores de carga pueden tardar un
+minuto o dos en asignar una dirección IP.
+Hasta entonces, se podrá ver la dirección marcada como `<pending>`.
 {{< /note >}}
 
-### Simple fanout
+### Abanico Simple
 
-A fanout configuration routes traffic from a single IP address to more than one
-Service,
-based on the HTTP URI being requested. An Ingress allows you to keep the number
-of load balancers
-down to a minimum. For example, a setup like:
+Una configuración de abanico enruta el tráfico de una única dirección IP a más
+de un Sesrvice,
+basado en la URI HTTP solicitada.
+Un Ingress te permite tener el número de balanceadores de carga al mínimo.
+Por ejemplo, una configuración como:
 
 {{< figure src="/docs/images/ingressFanOut.svg" alt="ingress-fanout-diagram"
 class="diagram-large" caption="Figure. Ingress Fan Out"
 link="https://mermaid.live/edit#pako:eNqNUslOwzAQ_RXLvYCUhMQpUFzUUzkgcUBwbHpw4klr4diR7bCo8O8k2FFbFomLPZq3jP00O1xpDpjijWHtFt09zAuFUCUFKHey8vf6NE7QrdoYsDZumGIb4Oi6NAskNeOoZJKpCgxK4oXwrFVgRyi7nCVXWZKRPMlysv5yD6Q4Xryf1Vq_WzDPooJs9egLNDbolKTpT03JzKgh3zWEztJZ0Niu9L-qZGcdmAMfj4cxvWmreba613z9C0B-AMQD-V_AdA-A4j5QZu0SatRKJhSqhZR0wjmPrDP6CeikrutQxy-Cuy2dtq9RpaU2dJKm6fzI5Glmg0VOLio4_5dLjx27hFSC015KJ2VZHtuQvY2fuHcaE43G0MaCREOow_FV5cMxHZ5-oPX75UM5avuXhXuOI9yAaZjg_aLuBl6B3RYaKDDtSw4166QrcKE-emrXcubghgunDaY1kxYizDqnH99UhakzHYykpWD9hjS--fEJoIELqQ" >}}
 
-It would require an Ingress such as:
+Requeriría un Ingress como este:
 
 {{% code_sample file="service/networking/simple-fanout-example.yaml" %}}
 
-When you create the Ingress with `kubectl apply -f`:
+Cuando creas el Ingress con `kubectl apply -f`:
 
 ```shell
 kubectl describe ingress simple-fanout-example
@@ -505,62 +518,63 @@ Events:
   Normal   ADD     22s                loadbalancer-controller  default/test
 ```
 
-The Ingress controller provisions an implementation-specific load balancer
-that satisfies the Ingress, as long as the Services (`service1`, `service2`)
-exist.
-When it has done so, you can see the address of the load balancer at the
-Address field.
+El controlador de Ingress aprovisiona un balanceador de cargas específico para
+la implementación que satisface al Ingress,
+tanto tiempo como los Services (`service1`, `service2`) existan.
+
+Cuando sea así,
+podrás ver la dirección del balanceador de cargas en el campo de dirección.
 
 {{< note >}}
-Depending on
-the [Ingress controller](/docs/concepts/services-networking/ingress-controllers/)
-you are using, you may need to create a default-http-backend
-[Service](/docs/concepts/services-networking/service/).
+Dependiendo
+del [controlador de Ingress](/docs/concepts/services-networking/ingress-controllers/)
+que uses, puede que necesites crear
+un [Service](/docs/concepts/services-networking/service/) default-http-backend.
 {{< /note >}}
 
-### Name based virtual hosting
+### Hospedaje virtual basado en nombre
 
-Name-based virtual hosts support routing HTTP traffic to multiple host names at
-the same IP address.
+Los hospedajes virtuales basados en el nombre soportan enrutado de tráfico HTTP
+a nombres anfitriones múltiples con la misma dirección IP.
 
 {{< figure src="/docs/images/ingressNameBased.svg" alt="
-ingress-namebase-diagram" class="diagram-large" caption="Figure. Ingress Name
-Based Virtual hosting"
+ingress-namebase-diagram" class="diagram-large" caption="Figure.
+Ingress Name Based Virtual hosting"
 link="https://mermaid.live/edit#pako:eNqNkl9PwyAUxb8KYS-atM1Kp05m9qSJJj4Y97jugcLtRqTQAPVPdN_dVlq3qUt8gZt7zvkBN7xjbgRgiteW1Rt0_zjLNUJcSdD-ZBn21WmcoDu9tuBcXDHN1iDQVWHnSBkmUMEU0xwsSuK5DK5l745QejFNLtMkJVmSZmT1Re9NcTz_uDXOU1QakxTMJtxUHw7ss-SQLhehQEODTsdH4l20Q-zFyc84-Y67pghv5apxHuweMuj9eS2_NiJdPhix-kMgvwQShOyYMNkJoEUYM3PuGkpUKyY1KqVSdCSEiJy35gnoqCzLvo5fpPAbOqlfI26UsXQ0Ho9nB5CnqesRGTnncPYvSqsdUvqp9KRdlI6KojjEkB0mnLgjDRONhqENBYm6oXbLV5V1y6S7-l42_LowlIN2uFm_twqOcAW2YlK0H_i9c-bYb6CCHNO2FFCyRvkc53rbWptaMA83QnpjMS2ZchBh1nizeNMcU28bGEzXkrV_pArN7Sc0rBTu" >}}
 
-The following Ingress tells the backing load balancer to route requests based on
-the [Host header](https://tools.ietf.org/html/rfc7230#section-5.4).
+El siguiente Ingress le dice al balanceador de cargas de respaldo de enrutar las
+peticiones basadas en
+el [encabezado del Host ](https://tools.ietf.org/html/rfc7230#section-5.4).
 
 {{% code_sample file="service/networking/name-virtual-host-ingress.yaml" %}}
 
-If you create an Ingress resource without any hosts defined in the rules, then
-any
-web traffic to the IP address of your Ingress controller can be matched without
-a name based
-virtual host being required.
+Si creas un recurso Ingress sin ningún anfitrión definido en las reglas,
+luego cualquier tráfico web a la dirección IP de tu controlador Ingress puede
+coincidir sin requerir un anfitrión virtual basado en el nombre.
 
-For example, the following Ingress routes traffic
-requested for `first.bar.com` to `service1`, `second.bar.com` to `service2`,
-and any traffic whose request host header doesn't match `first.bar.com`
-and `second.bar.com` to `service3`.
+Por ejemplo, el siguiente Ingress enruta el tráfico solicitado
+para `first.bar.com` a `service1`, `second.bar.com` a `service2`,
+y cualquier tráfico cuyo encabezado de petición del anfitrión no coincida
+con `first.bar.com` y `second.bar.com` a `service3`.
 
 {{% code_sample file="
 service/networking/name-virtual-host-ingress-no-third-host.yaml" %}}
 
 ### TLS
 
-You can secure an Ingress by specifying a {{< glossary_tooltip term_id="
-secret" >}}
-that contains a TLS private key and certificate. The Ingress resource only
-supports a single TLS port, 443, and assumes TLS termination at the ingress
-point
-(traffic to the Service and its Pods is in plaintext).
-If the TLS configuration section in an Ingress specifies different hosts, they
-are
-multiplexed on the same port according to the hostname specified through the
-SNI TLS extension (provided the Ingress controller supports SNI). The TLS secret
-must contain keys named `tls.crt` and `tls.key` that contain the certificate
-and private key to use for TLS. For example:
+Puedes segurizar un Ingress especificando un {{< glossary_tooltip term_id="
+secret" >}} que contiene una clave privada TLS y un certificado.
+El recurso Ingress solo soporta un puerto TLS,
+el 443,
+y asume la terminación TLS en el punto del ingress
+(El tráfico al Service y sus Pods es en texto plano).
+Si la sección de configuración TLS especifica anfitriones diferentes,
+se multiplexan en el mismo puerto de acuerdo con el hostname especificado a
+través de la extensión TLS SNI (teniendo el cuenta que el controlador de Ingress
+soporte SNI).
+El secreto TLS debe contener claves llamadas `tls.crt` y `tls.key` que contiene
+el certificado y llave privad para usar TLS.
+Por ejemplo:
 
 ```yaml
 apiVersion: v1
@@ -574,53 +588,56 @@ data:
 type: kubernetes.io/tls
 ```
 
-Referencing this secret in an Ingress tells the Ingress controller to
-secure the channel from the client to the load balancer using TLS. You need to
-make
-sure the TLS secret you created came from a certificate that contains a Common
-Name (CN), also known as a Fully Qualified Domain Name (FQDN)
-for `https-example.foo.com`.
+Al hacer referencia a este secreto en un Ingress le indica al controlador
+Ingress de segurizar el canal desde el cliente al balanceador de cargas usando
+TLS.
+Necesitas asegurarte the el secret que has creado viene de un certificado que
+contiene un nombre común (CN), también conocido como Nombre de dominio
+calificado (FQDN en inglés)
+para `https-example.foo.com`.
 
 {{< note >}}
-Keep in mind that TLS will not work on the default rule because the
-certificates would have to be issued for all the possible sub-domains.
-Therefore,
-`hosts` in the `tls` section need to explicitly match the `host` in the `rules`
-section.
+Ten en cuenta que TLS no funcionara en la regla predeterminada porque los
+certificados estarían emitidos para todos los sub-dominios posibles.
+Por lo tanto, los `hosts` en la sección `tls` tienen que coincidir
+explícitamente con el `host` en la sección `rules`.
 {{< /note >}}
 
 {{% code_sample file="service/networking/tls-example-ingress.yaml" %}}
 
 {{< note >}}
-There is a gap between TLS features supported by various Ingress
-controllers. Please refer to documentation on
-[nginx](https://kubernetes.github.io/ingress-nginx/user-guide/tls/),
-[GCE](https://git.k8s.io/ingress-gce/README.md#frontend-https), or any other
-platform specific Ingress controller to understand how TLS works in your
-environment.
+Hay una diferencia entre las características TLS soportadas por varios
+controladores Ingress.
+Mira la documentación
+en [nginx](https://kubernetes.github.io/ingress-nginx/user-guide/tls/), [GCE](https://git.k8s.io/ingress-gce/README.md#frontend-https),
+o cualquier otro controlador Ingress específico de plataforma para entender como
+funciona el TLS en tu entorno.
 {{< /note >}}
 
-### Load balancing {#load-balancing}
+### Balanceo de cargas {#load-balancing}
 
-An Ingress controller is bootstrapped with some load balancing policy settings
-that it applies to all Ingress, such as the load balancing algorithm, backend
-weight scheme, and others. More advanced load balancing concepts
-(e.g. persistent sessions, dynamic weights) are not yet exposed through the
-Ingress. You can instead get these features through the load balancer used for
-a Service.
+Un controlador de Ingress está configurado por defecto con algunos ajustes de
+política de balanceo de cargas que aplica a todos los Ingress, como los
+algoritmos de balanceo de cargas, esquema de pesos del backend, y otros.
+Otros conceptos más avanzados de balanceo de cargas (ej, sesiones persistentes,
+pesos dinámicos) no están expuestos todavía a través del Ingress.
+En su lugar, obtienes estas características a través del balanceador de cargas
+usado por un Service.
 
-It's also worth noting that even though health checks are not exposed directly
-through the Ingress, there exist parallel concepts in Kubernetes such as
-[readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
-that allow you to achieve the same end result. Please review the controller
-specific documentation to see how they handle health checks (for example:
-[nginx](https://git.k8s.io/ingress-nginx/README.md), or
-[GCE](https://git.k8s.io/ingress-gce/README.md#health-checks)).
+Merece la pena apuntar que aunque las revisiones de salud no se exponen
+directamente a través del Ingress, existen conceptos paralelos en Kubernetes
+tales
+como [readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
+que permiten lograr el mismo resultado final.
+Revisa la documentación específica del controlador para mirar cómo manejar estas
+revisiones de salud (por ejemplo:
+[nginx](https://git.k8s.io/ingress-nginx/README.md),
+o [GCE](https://git.k8s.io/ingress-gce/README.md#health-checks)).
 
-## Updating an Ingress
+## Actualizando un Ingress
 
-To update an existing Ingress to add a new Host, you can update it by editing
-the resource:
+Para actualizar un Ingress existente a un nuevo Anfitrión,
+puedes actualizarlo editando el recurso:
 
 ```shell
 kubectl describe ingress test
@@ -648,8 +665,9 @@ Events:
 kubectl edit ingress test
 ```
 
+Esto muestra un editor con la configuración existente en formato YAML.
+Modifícalo para incluir el nuevo Anfitrión:
 This pops up an editor with the existing configuration in YAML format.
-Modify it to include the new Host:
 
 ```yaml
 spec:
@@ -677,11 +695,11 @@ spec:
   ..
 ```
 
-After you save your changes, kubectl updates the resource in the API server,
-which tells the
-Ingress controller to reconfigure the load balancer.
+Luego de guardar tus cambios,
+kubectl actualiza el recurso en el servidor API, que le indica al controlador
+Ingress de reconfigurar el balanceador de cargas.
 
-Verify this:
+Verifica esto:
 
 ```shell
 kubectl describe ingress test
