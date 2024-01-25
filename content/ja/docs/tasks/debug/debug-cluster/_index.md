@@ -223,7 +223,7 @@ status:
 以下は、関連するログファイルの場所です。
 (systemdベースのシステムでは、代わりに`journalctl`を使う必要があるかもしれないことに注意してください)
 
-### マスターノード
+### コントロールプレーンノード
 
 * `/var/log/kube-apiserver.log` - APIの提供を担当するAPIサーバーのログ
 * `/var/log/kube-scheduler.log` - スケジューリング決定責任者であるスケジューラーのログ
