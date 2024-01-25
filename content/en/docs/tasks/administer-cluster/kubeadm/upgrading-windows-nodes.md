@@ -22,15 +22,6 @@ upgrade the control plane nodes before upgrading your Windows nodes.
 
 ## Upgrading worker nodes
 
-### Upgrade kubeadm
-
-1.  From the Windows node, upgrade kubeadm:
-
-    ```powershell
-    # replace {{< skew currentPatchVersion >}} with your desired version
-    curl.exe -Lo <path-to-kubeadm.exe>  "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubeadm.exe"
-    ```
-
 ### Drain the node
 
 1.  From a machine with access to the Kubernetes API,
@@ -46,6 +37,15 @@ upgrade the control plane nodes before upgrading your Windows nodes.
     ```
     node/ip-172-31-85-18 cordoned
     node/ip-172-31-85-18 drained
+    ```
+
+### Upgrade kubeadm
+
+1.  From the Windows node, upgrade kubeadm:
+
+    ```powershell
+    # replace {{< skew currentPatchVersion >}} with your desired version
+    curl.exe -Lo <path-to-kubeadm.exe>  "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubeadm.exe"
     ```
 
 ### Upgrade the kubelet configuration
