@@ -26,9 +26,10 @@ aliases:
     - bene2k1
     - rlenferink
   sig-docs-en-owners: # Admins for English content
+    - celestehorgan
     - divya-mohan0209
-    - katcosgrove # RT 1.30 Lead
     - drewhagen # RT 1.30 Docs Lead
+    - katcosgrove # RT 1.30 Lead
     - natalisucks
     - nate-double-u
     - onlydole
