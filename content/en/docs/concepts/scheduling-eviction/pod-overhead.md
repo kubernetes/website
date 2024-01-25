@@ -71,7 +71,6 @@ spec:
     stdin: true
     tty: true
     resources:
-      # Note: If only limits are specified, kubelet will deduce requests from those limits and set them to be the same as the limits.
       limits:
         cpu: 500m
         memory: 100Mi
@@ -100,6 +99,10 @@ The output is:
 ```
 map[cpu:250m memory:120Mi]
 ```
+
+{{< note >}}
+If only `limits` are specified, kubelet will deduce `requests` from those limits and set them to be the same as the defined `limits`.
+{{< /note >}}
 
 If a [ResourceQuota](/docs/concepts/policy/resource-quotas/) is defined, the sum of container requests as well as the
 `overhead` field are counted.
