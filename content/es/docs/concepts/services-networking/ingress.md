@@ -222,59 +222,66 @@ Annotations:  <none>
 Events:       <none>
 ```
 
-### Path types
+### Tipos de ruta
 
-Each path in an Ingress is required to have a corresponding path type. Paths
-that do not include an explicit `pathType` will fail validation. There are three
-supported path types:
+Se requiere que cada ruta de un Ingress tenga un tipo de ruta correspondiente.
+Las Rutas que no incluyen un `pathType` explícito fallarán la validación.
+Hay 3 tipos de rutas soportadas:
 
-* `ImplementationSpecific`: With this path type, matching is up to the
-  IngressClass. Implementations can treat this as a separate `pathType` or treat
-  it identically to `Prefix` or `Exact` path types.
+* `ImplementationSpecific`: Con este tipo de ruta, la coincidencia depende de la
+  IngressClass.
+  Las implementaciones pueden tratar esto como un `pathType` separado o
+  tratarlas de forma idéntica a los tipos de ruta `Prefix` o `Exact`.
 
-* `Exact`: Matches the URL path exactly and with case sensitivity.
+* `Exact`: Coincide la ruta de la URL exactamente con sensibilidad a mayúsculas
+  y minúsculas.
 
-* `Prefix`: Matches based on a URL path prefix split by `/`. Matching is case
-  sensitive and done on a path element by element basis. A path element refers
-  to the list of labels in the path split by the `/` separator. A request is a
-  match for path _p_ if every _p_ is an element-wise prefix of _p_ of the
-  request path.
+* `Prefix`: Coincide basado en el prefijo de una ruta URL dividida por `/`.
+  La coincidencia es sensible a mayúsculas y minúsculas y hecha en un elemento
+  de la ruta por elemento.
+  Un elemento de la ruta refiere a la lista de etiquetas in la ruta dividida por
+  el separador `/`.
+  Una petición es una coincidencia para la ruta _p_ si cada _p_ es un elemento
+  prefijo de _p_ de la ruta requerida.
 
-  {{< note >}}
-  If the last element of the path is a substring of the last
-  element in request path, it is not a match (for example: `/foo/bar`
-  matches `/foo/bar/baz`, but does not match `/foo/barbaz`).
-  {{< /note >}}
+{{< note >}}
+Si el último elemento de una ruta es una cadena de caracteres del último
+elemento de la ruta elemento, no es una coincidencia
+(por ejemplo: `/foo/bar`
+coincide con `/foo/bar/baz`, pero no coincide con `/foo/barbaz`).
+{{< /note >}}
 
-### Examples
+### Ejemplos
 
-| Kind   | Path(s)                         | Request path(s) | Matches?                         |
-|--------|---------------------------------|-----------------|----------------------------------|
-| Prefix | `/`                             | (all paths)     | Yes                              |
-| Exact  | `/foo`                          | `/foo`          | Yes                              |
-| Exact  | `/foo`                          | `/bar`          | No                               |
-| Exact  | `/foo`                          | `/foo/`         | No                               |
-| Exact  | `/foo/`                         | `/foo`          | No                               |
-| Prefix | `/foo`                          | `/foo`, `/foo/` | Yes                              |
-| Prefix | `/foo/`                         | `/foo`, `/foo/` | Yes                              |
-| Prefix | `/aaa/bb`                       | `/aaa/bbb`      | No                               |
-| Prefix | `/aaa/bbb`                      | `/aaa/bbb`      | Yes                              |
-| Prefix | `/aaa/bbb/`                     | `/aaa/bbb`      | Yes, ignores trailing slash      |
-| Prefix | `/aaa/bbb`                      | `/aaa/bbb/`     | Yes,  matches trailing slash     |
-| Prefix | `/aaa/bbb`                      | `/aaa/bbb/ccc`  | Yes, matches subpath             |
-| Prefix | `/aaa/bbb`                      | `/aaa/bbbxyz`   | No, does not match string prefix |
-| Prefix | `/`, `/aaa`                     | `/aaa/ccc`      | Yes, matches `/aaa` prefix       |
-| Prefix | `/`, `/aaa`, `/aaa/bbb`         | `/aaa/bbb`      | Yes, matches `/aaa/bbb` prefix   |
-| Prefix | `/`, `/aaa`, `/aaa/bbb`         | `/ccc`          | Yes, matches `/` prefix          |
-| Prefix | `/aaa`                          | `/ccc`          | No, uses default backend         |
-| Mixed  | `/foo` (Prefix), `/foo` (Exact) | `/foo`          | Yes, prefers Exact               |
+| Tipo     | Ruta(s)                           | Ruta de la(s) peticion(es) | ¿Coincide?                             |
+|----------|-----------------------------------|----------------------------|----------------------------------------|
+| Prefijo  | `/`                               | (todas las rutas)          | Si                                     |
+| Exacto   | `/foo`                            | `/foo`                     | Si                                     |
+| Exacto   | `/foo`                            | `/bar`                     | No                                     |
+| Exacto   | `/foo`                            | `/foo/`                    | No                                     |
+| Exacto   | `/foo/`                           | `/foo`                     | No                                     |
+| Prefijo  | `/foo`                            | `/foo`, `/foo/`            | Si                                     |
+| Prefijo  | `/foo/`                           | `/foo`, `/foo/`            | Si                                     |
+| Prefijo  | `/aaa/bb`                         | `/aaa/bbb`                 | No                                     |
+| Prefijo  | `/aaa/bbb`                        | `/aaa/bbb`                 | Si                                     |
+| Prefijo  | `/aaa/bbb/`                       | `/aaa/bbb`                 | Si, ignora la barra diagonal           |
+| Prefijo  | `/aaa/bbb`                        | `/aaa/bbb/`                | Si,  coincide con barra diagonal       |
+| Prefijo  | `/aaa/bbb`                        | `/aaa/bbb/ccc`             | Si, coincide con la sub ruta           |
+| Prefijo  | `/aaa/bbb`                        | `/aaa/bbbxyz`              | No, does not match string prefijo      |
+| Prefijo  | `/`, `/aaa`                       | `/aaa/ccc`                 | Si, coincide con el  prefijo  `/aaa`   |
+| Prefijo  | `/`, `/aaa`, `/aaa/bbb`           | `/aaa/bbb`                 | Si, coincide con el prefijo `/aaa/bbb` |
+| Prefijo  | `/`, `/aaa`, `/aaa/bbb`           | `/ccc`                     | Si, coincide con el prefijo`/`         |
+| Prefijo  | `/aaa`                            | `/ccc`                     | No, usa el backend predeterminado      |
+| Mezclado | `/foo` (Prefijo), `/foo` (Exacto) | `/foo`                     | Si, prefiere la coincidencia exacta    |
 
-#### Multiple matches
+#### Múltiples coincidencias
 
-In some cases, multiple paths within an Ingress will match a request. In those
-cases precedence will be given first to the longest matching path. If two paths
-are still equally matched, precedence will be given to paths with an exact path
-type over prefix path type.
+En algunos casos,
+muchas rutas dentro de un Ingress coincidirán con una petición.
+En esos casos,
+la precedencia se le dará al primero con la ruta más larga que coincide.
+Si dos rutas todavía coinciden por igual, se le dará precedencia a las rutas con
+una coincidencia de ruta exacta sobre las rutas que contienen prefijos.
 
 ## comodines Hostname
 
@@ -619,7 +626,7 @@ funciona el TLS en tu entorno.
 Un controlador de Ingress está configurado por defecto con algunos ajustes de
 política de balanceo de cargas que aplica a todos los Ingress, como los
 algoritmos de balanceo de cargas, esquema de pesos del backend, y otros.
-Otros conceptos más avanzados de balanceo de cargas (ej, sesiones persistentes,
+Otros conceptos más avanzados de balanceo de cargas (ej., sesiones persistentes,
 pesos dinámicos) no están expuestos todavía a través del Ingress.
 En su lugar, obtienes estas características a través del balanceador de cargas
 usado por un Service.
@@ -692,7 +699,7 @@ spec:
                   number: 80
             path: /foo
             pathType: Prefix
-  ..
+  #..
 ```
 
 Luego de guardar tus cambios,
@@ -725,35 +732,31 @@ Events:
   Normal   ADD     45s                loadbalancer-controller  default/test
 ```
 
-You can achieve the same outcome by invoking `kubectl replace -f` on a modified
-Ingress YAML file.
+Puedes lograr el mismo resultado invocando `kubectl replace -f` en un fichero
+YAML de Ingress.
 
-## Failing across availability zones
+## Fallos a través de zonas de disponibilidad
 
-Techniques for spreading traffic across failure domains differ between cloud
-providers.
-Please check the documentation of the
-relevant [Ingress controller](/docs/concepts/services-networking/ingress-controllers)
-for details.
+LLas técnicas para distribuir el tráfico entre dominios de falla difieren entre
+los proveedores de la nube.
+Revisa la documentación
+del [Ingress controller](/docs/concepts/services-networking/ingress-controllers)
+relevante para detalles.
 
-## Alternatives
+## Alternativas
 
-You can expose a Service in multiple ways that don't directly involve the
-Ingress resource:
+Puedes exponer un Service de muchas maneras que no involucran directamente el
+recurso Ingress:
 
-*
-
-Use [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer)
-
-*
-
-Use [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport)
+* Usa
+  un[Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer)
+* Usa
+  un [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport)
 
 ## {{% heading "whatsnext" %}}
 
-* Learn about
-  the [Ingress](/docs/reference/kubernetes-api/service-resources/ingress-v1/)
-  API
-* Learn
-  about [Ingress controllers](/docs/concepts/services-networking/ingress-controllers/)
-* [Set up Ingress on Minikube with the NGINX Controller](/docs/tasks/access-application-cluster/ingress-minikube/)
+* Aprende sobre la API
+  del [Ingress](/docs/reference/kubernetes-api/service-resources/ingress-v1/)
+* Aprende
+  sobre [Ingress controllers](/docs/concepts/services-networking/ingress-controllers/)
+* [Configurar un Ingress en Minikube con el controlador NGINX](/docs/tasks/access-application-cluster/ingress-minikube/)
