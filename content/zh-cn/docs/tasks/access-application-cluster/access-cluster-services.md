@@ -252,7 +252,8 @@ You may be able to put an apiserver proxy URL into the address bar of a browser.
 你或许能够将 API 服务器代理的 URL 放入浏览器的地址栏，然而：
 
 <!--
-- Web browsers cannot usually pass tokens, so you may need to use basic (password) auth. Apiserver can be configured to accept basic auth,
+- Web browsers cannot usually pass tokens, so you may need to use basic (password) auth.
+  Apiserver can be configured to accept basic auth,
   but your cluster may not be configured to accept basic auth.
 - Some web apps may not work, particularly those with client side javascript that construct URLs in a
   way that is unaware of the proxy path prefix.
