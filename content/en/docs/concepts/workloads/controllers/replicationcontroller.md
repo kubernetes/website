@@ -44,7 +44,7 @@ service, such as web servers.
 
 This example ReplicationController config runs three copies of the nginx web server.
 
-{{% code file="controllers/replication.yaml" %}}
+{{% code_sample file="controllers/replication.yaml" %}}
 
 Run the example job by downloading the example file and then running this command:
 

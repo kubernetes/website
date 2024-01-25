@@ -1,23 +1,11 @@
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
 <!-- 
 Generate the self-signed Kubernetes CA to provision identities for other Kubernetes components 
 -->
-生成自签名的 Kubernetes CA 以便为其他 Kubernetes 组件提供身份标识
+生成自签名的 Kubernetes CA 以便为其他 Kubernetes 组件提供身份标识。
 
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
@@ -33,7 +21,7 @@ If both files already exist, kubeadm skips the generation step and existing file
 <!--
 Alpha Disclaimer: this command is currently alpha.
 -->
-Alpha 免责声明：此命令当前为 Alpha 功能。
+Alpha 免责声明：此命令目前处于 Alpha 阶段。
 
 ```
 kubeadm init phase certs ca [flags]
@@ -42,7 +30,6 @@ kubeadm init phase certs ca [flags]
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -103,7 +90,7 @@ Don't apply any changes; just output what would be done.
 <!--
 <p>help for ca</p>
 -->
-<p>ca 操作的帮助命令</p>
+<p>ca 操作的帮助命令。</p>
 </td>
 </tr>
 
@@ -130,7 +117,6 @@ Don't apply any changes; just output what would be done.
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 继承于父命令的选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -155,4 +141,3 @@ Don't apply any changes; just output what would be done.
 
 </tbody>
 </table>
-

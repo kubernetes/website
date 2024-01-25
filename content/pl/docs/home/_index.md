@@ -4,7 +4,7 @@ noedit: true
 cid: docsHome
 layout: docsportal_home
 class: gridPage gridPageHome
-linkTitle: "Strona główna"
+linkTitle: "Dokumentacja"
 main_menu: true
 weight: 10
 hide_feedback: true
@@ -39,24 +39,26 @@ cards:
   description: "Wyszukaj popularne zadania i dowiedz się, jak sobie z nimi efektywnie poradzić."
   button: "Przegląd zadań"
   button_path: "/docs/tasks"
-- name: training
-  title: "Szkolenia"
-  description: "Uzyskaj certyfikat Kubernetes i spraw, aby Twoje projekty cloud native zakończyły się sukcesem!"
-  button: "Oferta szkoleń"
-  button_path: "/training"
 - name: reference
   title: Dokumentacja źródłowa
   description: Zapoznaj się z terminologią, składnią poleceń, typami zasobów API i dokumentacją narzędzi instalacyjnych.
   button: Zajrzyj do źródeł
   button_path: /docs/reference
 - name: contribute
-  title: Weź udział w tworzeniu dokumentacji
-  description: Każdy może przyczynić się do tworzenia dokumentacji - zarówno nowicjusze, jak i starzy wyjadacze.
-  button: Weź udział
+  title: Weź udział w tworzeniu Kubernetesa
+  description: Każdy może pomóc - zarówno nowicjusze, jak i starzy wyjadacze.
+  button: Zobacz, jak możesz pomóc
   button_path: /docs/contribute
-- name: release-notes
-  title: Informacje o wydaniu K8s
-  description: Jeśli instalujesz lub aktualizujesz Kubernetesa, zajrzyj do informacji o najnowszym wydaniu.
+- name: training
+  title: "Szkolenia"
+  description: "Uzyskaj certyfikat Kubernetes i spraw, aby Twoje projekty cloud native zakończyły się sukcesem!"
+  button: "Oferta szkoleń"
+  button_path: "/training"
+- name: Download
+  title: Pobierz Kubernetesa
+  description: Zainstaluj Kubernetes lub zakutalizuj do najnowszej wersji.
+  button: "Pobierz Kubernetesa"
+  button_path: "/releases/download"
 - name: about
   title: O dokumentacji
   description: Tu znajdziesz dokumentację bieżącej i czterech poprzednich wersji Kubernetes.

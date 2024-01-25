@@ -5,6 +5,7 @@ aliases:
     - onlydole
     - sftim
   sig-docs-blog-reviewers: # Reviewers for blog content
+    - Gauravpadam
     - mrbobbytables
     - nate-double-u
     - onlydole
@@ -12,8 +13,6 @@ aliases:
   sig-docs-localization-owners: # Admins for localization content
     - a-mccarthy
     - divya-mohan0209
-    - jimangel
-    - kbhawkey
     - natalisucks
     - onlydole
     - reylejano
@@ -22,26 +21,22 @@ aliases:
     - tengqm
   sig-docs-de-owners: # Admins for German content
     - bene2k1
-    - mkorbi
     - rlenferink
   sig-docs-de-reviews: # PR reviews for German content
     - bene2k1
-    - mkorbi
     - rlenferink
   sig-docs-en-owners: # Admins for English content
-    - annajung
-    - bradtopol
     - divya-mohan0209
-    - kbhawkey
+    - katcosgrove # RT 1.29 Docs Lead
     - natalisucks
     - nate-double-u
     - onlydole
     - reylejano
-    - Rishit-dagli # 1.28 Release Team Docs Lead
     - sftim
     - tengqm
   sig-docs-en-reviews: # PR reviews for English content
     - bradtopol
+    - dipesh-rawat
     - divya-mohan0209
     - kbhawkey
     - mehabhalodiya
@@ -53,6 +48,7 @@ aliases:
     - sftim
     - shannonxtreme
     - tengqm
+    - windsonsea
   sig-docs-es-owners: # Admins for Spanish content
     - 92nqb
     - krol3
@@ -110,26 +106,23 @@ aliases:
     - atoato88
     - bells17
     - kakts
-    - ptux
     - t-inu
   sig-docs-ko-owners: # Admins for Korean content
     - gochist
-    - ianychoi
     - jihoon-seo
     - seokho-son
     - yoonian
     - ysyukr
   sig-docs-ko-reviews: # PR reviews for Korean content
     - gochist
-    - ianychoi
     - jihoon-seo
     - jmyung
+    - jongwooo
     - seokho-son
     - yoonian
     - ysyukr
   sig-docs-leads: # Website chairs and tech leads
     - divya-mohan0209
-    - kbhawkey
     - natalisucks
     - onlydole
     - reylejano
@@ -150,7 +143,6 @@ aliases:
   sig-docs-zh-reviews: # PR reviews for Chinese content
     - asa3311
     - chenrui333
-    - chenxuc
     - howieyuen
     # idealhack
     - kinzhi
@@ -205,22 +197,19 @@ aliases:
     - Arhell
     - idvoretskyi
     - MaxymVlasov
-    - Potapy4
   sig-docs-ar-owners: # Admins for Arabic content
     - mboukhalfa
-    - oxPraGa
   sig-docs-ar-reviews: # PR reviews for Arabic content
     - mboukhalfa
-    - oxPraGa
   # authoritative source: git.k8s.io/community/OWNERS_ALIASES
   committee-steering: # provide PR approvals for announcements
-    - cblecker
-    - cpanato
     - bentheelder
     - justaugustus
     - mrbobbytables
+    - pacoxu
     - palnabarun
-    - tpepper
+    - pohly
+    - soltysh
   # authoritative source: https://git.k8s.io/sig-release/OWNERS_ALIASES
   sig-release-leads:
     - cpanato # SIG Technical Lead

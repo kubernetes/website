@@ -8,11 +8,10 @@ weight: 20
 This tutorial applies only for new clusters.
 {{% /alert %}}
 
-Pod Security admission (PSA) is enabled by default in v1.23 and later, as it
-[graduated to beta](/blog/2021/12/09/pod-security-admission-beta/). Pod Security Admission
-is an admission controller that applies 
+Pod Security Admission is an admission controller that applies 
 [Pod Security Standards](/docs/concepts/security/pod-security-standards/) 
-when pods are created. In this tutorial, you will enforce the `baseline` Pod Security Standard,
+when pods are created.  It is a feature GA'ed in v1.25.
+In this tutorial, you will enforce the `baseline` Pod Security Standard,
 one namespace at a time.
 
 You can also apply Pod Security Standards to multiple namespaces at once at the cluster
@@ -23,12 +22,12 @@ level. For instructions, refer to
 
 Install the following on your workstation:
 
-- [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
+- [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
 - [kubectl](/docs/tasks/tools/)
 
 ## Create cluster
 
-1. Create a `KinD` cluster as follows:
+1. Create a `kind` cluster as follows:
 
    ```shell
    kind create cluster --name psa-ns-level
@@ -151,7 +150,7 @@ kind delete cluster --name psa-ns-level
   [shell script](/examples/security/kind-with-namespace-level-baseline-pod-security.sh)
   to perform all the preceding steps all at once.
 
-  1. Create KinD cluster
+  1. Create kind cluster
   2. Create new namespace
   3. Apply `baseline` Pod Security Standard in `enforce` mode while applying
      `restricted` Pod Security Standard also in `warn` and `audit` mode.

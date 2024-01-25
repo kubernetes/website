@@ -94,6 +94,8 @@ Kubernetes networking addresses four concerns:
   to be reachable from outside your cluster.
   - [Ingress](/docs/concepts/services-networking/ingress/) provides extra functionality
     specifically for exposing HTTP applications, websites and APIs.
+  - [Gateway API](/docs/concepts/services-networking/gateway/) is an {{<glossary_tooltip text="add-on" term_id="addons">}}
+    that provides an expressive, extensible, and role-oriented family of API kinds for modeling service networking.
 - You can also use Services to
   [publish services only for consumption inside your cluster](/docs/concepts/services-networking/service-traffic-policy/).
 -->
@@ -106,6 +108,9 @@ Kubernetes 网络解决四方面的问题：
   以支持来自于集群外部的访问。
   - [Ingress](/zh-cn/docs/concepts/services-networking/ingress/)
     提供专门用于暴露 HTTP 应用程序、网站和 API 的额外功能。
+  - [Gateway API](/zh-cn/docs/concepts/services-networking/gateway/)
+    是一个{{<glossary_tooltip text="插件" term_id="addons">}}，
+    为服务网络建模提供富有表现力、可扩展和面向角色的 API 系列类别。
 - 你也可以使用 Service
   来[发布仅供集群内部使用的服务](/zh-cn/docs/concepts/services-networking/service-traffic-policy/)。
 

@@ -1,18 +1,7 @@
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
 <!-- 
 Generates the kube-scheduler static Pod manifest
 -->
-生成 kube-scheduler 静态 Pod 清单
+生成 kube-scheduler 静态 Pod 清单。
 
 <!-- 
 ### Synopsis
@@ -22,7 +11,7 @@ Generates the kube-scheduler static Pod manifest
 <!--
 Generates the kube-scheduler static Pod manifest
 -->
-生成 kube-scheduler 静态 Pod 清单
+生成 kube-scheduler 静态 Pod 清单。
 
 ```
 kubeadm init phase control-plane scheduler [flags]
@@ -89,7 +78,7 @@ kubeadm init phase control-plane scheduler [flags]
 <!--
 <p>help for scheduler</p>
 -->
-<p>scheduler 操作的帮助命令</p>
+<p>scheduler 操作的帮助命令。</p>
 </td>
 </tr>
 
@@ -106,7 +95,7 @@ kubeadm init phase control-plane scheduler [flags]
 <!--
 <p>Choose a container registry to pull control plane images from</p>
 -->
-<p>选择要从中拉取控制平面镜像的容器仓库</p>
+<p>选择要从中拉取控制平面镜像的容器仓库。</p>
 </td>
 </tr>
 
@@ -156,8 +145,7 @@ kubeadm init phase control-plane scheduler [flags]
 <!--
 <p>A set of extra flags to pass to the Scheduler or override default ones in form of &lt;flagname&gt;=&lt;value&gt;</p>
 -->
-<p>一组 &lt;flagname&gt;=&lt;value&gt; 形式的额外参数，用来传递给调度器
-或者覆盖其默认参数配置</p>
+<p>一组 &lt;flagname&gt;=&lt;value&gt; 形式的额外参数，用来传递给调度器或者覆盖其默认参数配置。</p>
 </td>
 </tr>
 
@@ -190,4 +178,3 @@ kubeadm init phase control-plane scheduler [flags]
 
 </tbody>
 </table>
-

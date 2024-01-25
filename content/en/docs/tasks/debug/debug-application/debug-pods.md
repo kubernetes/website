@@ -69,6 +69,34 @@ There are three things to check:
 * Try to manually pull the image to see if the image can be pulled. For example,
   if you use Docker on your PC, run `docker pull <image>`.
 
+
+#### My pod stays terminating
+
+If a Pod is stuck in the `Terminating` state, it means that a deletion has been
+issued for the Pod, but the control plane is unable to delete the Pod object.
+
+This typically happens if the Pod has a [finalizer](/docs/concepts/overview/working-with-objects/finalizers/)
+and there is an [admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)
+installed in the cluster that prevents the control plane from removing the
+finalizer.
+
+To identify this scenario, check if your cluster has any
+ValidatingWebhookConfiguration or MutatingWebhookConfiguration that target
+`UPDATE` operations for `pods` resources.
+
+If the webhook is provided by a third-party:
+- Make sure you are using the latest version.
+- Disable the webhook for `UPDATE` operations.
+- Report an issue with the corresponding provider.
+
+If you are the author of the webhook:
+- For a mutating webhook, make sure it never changes immutable fields on
+  `UPDATE` operations. For example, changes to containers are usually not allowed.
+- For a validating webhook, make sure that your validation policies only apply
+  to new changes. In other words, you should allow Pods with existing violations
+  to pass validation. This allows Pods that were created before the validating
+  webhook was installed to continue running.
+
 #### My pod is crashing or otherwise unhealthy
 
 Once your pod has been scheduled, the methods described in
@@ -81,15 +109,15 @@ If your pod is not behaving as you expected, it may be that there was an error i
 pod description (e.g. `mypod.yaml` file on your local machine), and that the error
 was silently ignored when you created the pod.  Often a section of the pod description
 is nested incorrectly, or a key name is typed incorrectly, and so the key is ignored.
-For example, if you misspelled `command` as `commnd` then the pod will be created but
+For example, if you misspelled `command` as `command` then the pod will be created but
 will not use the command line you intended it to use.
 
 The first thing to do is to delete your pod and try creating it again with the `--validate` option.
 For example, run `kubectl apply --validate -f mypod.yaml`.
-If you misspelled `command` as `commnd` then will give an error like this:
+If you misspelled `command` as `command` then will give an error like this:
 
 ```shell
-I0805 10:43:25.129850   46757 schema.go:126] unknown field: commnd
+I0805 10:43:25.129850   46757 schema.go:126] unknown field: command
 I0805 10:43:25.129973   46757 schema.go:129] this may be a false alarm, see https://github.com/kubernetes/kubernetes/issues/6842
 pods/mypod
 ```

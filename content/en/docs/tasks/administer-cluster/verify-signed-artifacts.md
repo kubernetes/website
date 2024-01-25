@@ -15,7 +15,7 @@ You will need to have the following tools installed:
 
 - `cosign` ([install guide](https://docs.sigstore.dev/cosign/installation/))
 - `curl` (often provided by your operating system)
-- `jq` ([download jq](https://stedolan.github.io/jq/download/))
+- `jq` ([download jq](https://jqlang.github.io/jq/download/))
 
 ## Verifying binary signatures
 
@@ -51,11 +51,11 @@ cosign verify-blob "$BINARY" \
 {{< note >}}
 Cosign 2.0 requires the `--certificate-identity` and `--certificate-oidc-issuer` options.
 
-To learn more about keyless signing, please refer to [Keyless Signatures](https://docs.sigstore.dev/cosign/keyless).
+To learn more about keyless signing, please refer to [Keyless Signatures](https://docs.sigstore.dev/signing/overview/).
 
 Previous versions of Cosign required that you set `COSIGN_EXPERIMENTAL=1`.
 
-For additional information, plase refer to the [sigstore Blog](https://blog.sigstore.dev/cosign-2-0-released/)
+For additional information, please refer to the [sigstore Blog](https://blog.sigstore.dev/cosign-2-0-released/)
 {{< /note >}}
 
 ## Verifying image signatures
@@ -116,3 +116,32 @@ Here are some helpful resources to get started with `policy-controller`:
 
 - [Installation](https://github.com/sigstore/helm-charts/tree/main/charts/policy-controller)
 - [Configuration Options](https://github.com/sigstore/policy-controller/tree/main/config)
+
+## Verify the Software Bill Of Materials
+
+You can verify the Kubernetes Software Bill of Materials (SBOM) by using the
+sigstore certificate and signature, or the corresponding SHA files:
+
+```shell
+# Retrieve the latest available Kubernetes release version
+VERSION=$(curl -Ls https://dl.k8s.io/release/stable.txt)
+
+# Verify the SHA512 sum
+curl -Ls "https://sbom.k8s.io/$VERSION/release" -o "$VERSION.spdx"
+echo "$(curl -Ls "https://sbom.k8s.io/$VERSION/release.sha512") $VERSION.spdx" | sha512sum --check
+
+# Verify the SHA256 sum
+echo "$(curl -Ls "https://sbom.k8s.io/$VERSION/release.sha256") $VERSION.spdx" | sha256sum --check
+
+# Retrieve sigstore signature and certificate
+curl -Ls "https://sbom.k8s.io/$VERSION/release.sig" -o "$VERSION.spdx.sig"
+curl -Ls "https://sbom.k8s.io/$VERSION/release.cert" -o "$VERSION.spdx.cert"
+
+# Verify the sigstore signature
+cosign verify-blob \
+    --certificate "$VERSION.spdx.cert" \
+    --signature "$VERSION.spdx.sig" \
+    --certificate-identity krel-staging@k8s-releng-prod.iam.gserviceaccount.com \
+    --certificate-oidc-issuer https://accounts.google.com \
+    "$VERSION.spdx"
+```

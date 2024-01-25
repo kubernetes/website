@@ -196,6 +196,36 @@ or using a custom mechanism such as an [authentication webhook](/docs/reference/
 You can also use TokenRequest to obtain short-lived tokens for your external application.
 {{< /note >}}
 
+### Restricting access to Secrets {#enforce-mountable-secrets}
+
+Kubernetes provides an annotation called `kubernetes.io/enforce-mountable-secrets`
+that you can add to your ServiceAccounts. When this annotation is applied,
+the ServiceAccount's secrets can only be mounted on specified types of resources,
+enhancing the security posture of your cluster.
+
+You can add the annotation to a ServiceAccount using a manifest:
+
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    kubernetes.io/enforce-mountable-secrets: "true"
+  name: my-serviceaccount
+  namespace: my-namespace
+```
+When this annotation is set to "true", the Kubernetes control plane ensures that
+the Secrets from this ServiceAccount are subject to certain mounting restrictions.
+
+1. The name of each Secret that is mounted as a volume in a Pod must appear in the `secrets` field of the
+   Pod's ServiceAccount.
+1. The name of each Secret referenced using `envFrom` in a Pod must also appear in the `secrets`
+   field of the Pod's ServiceAccount.
+1. The name of each Secret referenced using `imagePullSecrets` in a Pod must also appear in the `secrets`
+   field of the Pod's ServiceAccount.
+
+By understanding and enforcing these restrictions, cluster administrators can maintain a tighter security profile and ensure that secrets are accessed only by the appropriate resources.
+
 ## Authenticating service account credentials {#authenticating-credentials}
 
 ServiceAccounts use signed
@@ -217,7 +247,8 @@ request. The API server checks the validity of that bearer token as follows:
 
 The TokenRequest API produces _bound tokens_ for a ServiceAccount. This
 binding is linked to the lifetime of the client, such as a Pod, that is acting
-as that ServiceAccount.
+as that ServiceAccount.  See [Token Volume Projection](/docs/tasks/configure-pod-container/configure-service-account/#serviceaccount-token-volume-projection)
+for an example of a bound pod service account token's JWT schema and payload.
 
 For tokens issued using the `TokenRequest` API, the API server also checks that
 the specific object reference that is using the ServiceAccount still exists,
@@ -239,7 +270,7 @@ account credentials, you can use the following methods:
 
 The Kubernetes project recommends that you use the TokenReview API, because
 this method invalidates tokens that are bound to API objects such as Secrets,
-ServiceAccounts, and Pods when those objects are deleted. For example, if you
+ServiceAccounts, Pods or Nodes when those objects are deleted. For example, if you
 delete the Pod that contains a projected ServiceAccount token, the cluster
 invalidates that token immediately and a TokenReview immediately fails.
 If you use OIDC validation instead, your clients continue to treat the token

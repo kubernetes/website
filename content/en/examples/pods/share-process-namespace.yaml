@@ -9,6 +9,7 @@ spec:
     image: nginx
   - name: shell
     image: busybox:1.28
+    command: ["sleep", "3600"]
     securityContext:
       capabilities:
         add:

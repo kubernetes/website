@@ -39,7 +39,7 @@ weight: 10
 
 1. クラスターにてHello Worldアプリケーションを実行してください。
 
-{{< codenew file="service/load-balancer-example.yaml" >}}
+{{% codenew file="service/load-balancer-example.yaml" %}}
 
 ```shell
 kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml

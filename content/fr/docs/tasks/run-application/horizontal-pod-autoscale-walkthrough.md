@@ -53,7 +53,9 @@ Pour apprendre comment déployer le Metrics Server, consultez la [documentation 
 Pour démontrer un HorizontalPodAutoscaler, vous commencerez par démarrer un 
 Deployment qui exécute un conteneur utilisant l'image `hpa-example`
 et l'expose en tant que {{< glossary_tooltip term_id="service">}} en utilisant le 
-manifeste suivant: {{< codenew file="application/php-apache.yaml" >}} 
+manifeste suivant:
+
+{{% codenew file="application/php-apache.yaml" %}} 
 
 Pour créer les ressources, exécutez la commande suivante:
 ```shell
@@ -505,7 +507,7 @@ Cela signifie que vous pouvez voir la valeur de votre métrique fluctuer entre `
 Au lieu d'utiliser la commande `kubectl autoscale` pour créer un HorizontalPodAutoscaler de manière impérative, 
 nous pouvons utiliser le manifeste suivant pour le créer de manière déclarative :
 
-{{< codenew file=application/hpa/php-apache.yaml >}}
+{{% codenew file=application/hpa/php-apache.yaml %}}
 
 Ensuite, créez l'autoscaler en exécutant la commande suivante :
 

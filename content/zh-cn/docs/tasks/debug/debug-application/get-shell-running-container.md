@@ -28,7 +28,7 @@ runs the nginx image. Here is the configuration file for the Pod:
 -->
 在本练习中，你将创建包含一个容器的 Pod。容器运行 nginx 镜像。下面是 Pod 的配置文件：
 
-{{< codenew file="application/shell-demo.yaml" >}}
+{{% code_sample file="application/shell-demo.yaml" %}}
 
 <!--
 Create the Pod:
@@ -161,7 +161,7 @@ variables in the running container:
 在普通的命令窗口（而不是 shell）中，打印环境运行容器中的变量：
 
 ```shell
-kubectl exec shell-demo env
+kubectl exec shell-demo -- env
 ```
 
 <!--

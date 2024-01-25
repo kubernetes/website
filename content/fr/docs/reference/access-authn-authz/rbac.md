@@ -1228,7 +1228,7 @@ comprend des recommandations pour restreindre cet accès dans les clusters exist
 Si vous souhaitez que les nouveaux clusters conservent ce niveau d'accès dans les rôles agrégés,
 vous pouvez créer le ClusterRole suivant :
 
-{{< codenew file="access/endpoints-aggregated.yaml" >}}
+{{% codenew file="access/endpoints-aggregated.yaml" %}}
 
 ## Mise à niveau à partir d'ABAC
 

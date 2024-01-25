@@ -52,7 +52,7 @@ tolerations:
 
 tolerationを設定したPodの例を示します。
 
-{{< codenew file="pods/pod-with-toleration.yaml" >}}
+{{% codenew file="pods/pod-with-toleration.yaml" %}}
 
 `operator`のデフォルトは`Equal`です。
 

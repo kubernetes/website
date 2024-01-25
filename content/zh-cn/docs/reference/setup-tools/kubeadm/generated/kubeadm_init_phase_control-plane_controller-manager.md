@@ -1,18 +1,7 @@
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
 <!-- 
 Generates the kube-controller-manager static Pod manifest 
 -->
-生成 kube-controller-manager 静态 Pod 清单
+生成 kube-controller-manager 静态 Pod 清单。
 
 <!--
 ### Synopsis
@@ -22,7 +11,7 @@ Generates the kube-controller-manager static Pod manifest
 <!--
 Generates the kube-controller-manager static Pod manifest
 -->
-生成 kube-controller-manager 静态 Pod 清单
+生成 kube-controller-manager 静态 Pod 清单。
 
 ```
 kubeadm init phase control-plane controller-manager [flags]
@@ -98,7 +87,7 @@ Don't apply any changes; just output what would be done.
 <!--
 <p>help for controller-manager</p>
 -->
-<p>controller-manager 操作的帮助命令</p>
+<p>controller-manager 操作的帮助命令。</p>
 </td>
 </tr>
 
@@ -115,7 +104,7 @@ Don't apply any changes; just output what would be done.
 <!--
 <p>Choose a container registry to pull control plane images from</p>
 -->
-<p>选择要从中拉取控制平面镜像的容器仓库</p>
+<p>选择要从中拉取控制平面镜像的容器仓库。</p>
 </td>
 </tr>
 
@@ -195,4 +184,3 @@ Don't apply any changes; just output what would be done.
 
 </tbody>
 </table>
-

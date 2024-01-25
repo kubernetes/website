@@ -77,7 +77,7 @@ the start of the clip.
 
 Here is a sample Job manifest that uses `Indexed` completion mode:
 
-{{% code language="yaml" file="application/job/indexed-job.yaml" %}}
+{{% code_sample language="yaml" file="application/job/indexed-job.yaml" %}}
 
 In the example above, you use the builtin `JOB_COMPLETION_INDEX` environment
 variable set by the Job controller for all containers. An [init container](/docs/concepts/workloads/pods/init-containers/)
@@ -92,7 +92,7 @@ Alternatively, you can directly [use the downward API to pass the annotation
 value as a volume file](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/#store-pod-fields),
 like shown in the following example:
 
-{{% code language="yaml" file="application/job/indexed-job-vol.yaml" %}}
+{{% code_sample language="yaml" file="application/job/indexed-job-vol.yaml" %}}
 
 ## Running the Job
 

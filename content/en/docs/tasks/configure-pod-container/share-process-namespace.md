@@ -29,7 +29,7 @@ include debugging utilities like a shell.
 Process namespace sharing is enabled using the `shareProcessNamespace` field of
 `.spec` for a Pod. For example:
 
-{{% code file="pods/share-process-namespace.yaml" %}}
+{{% code_sample file="pods/share-process-namespace.yaml" %}}
 
 1. Create the pod `nginx` on your cluster:
 

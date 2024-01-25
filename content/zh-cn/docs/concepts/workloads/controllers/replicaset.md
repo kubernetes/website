@@ -64,13 +64,13 @@ ReplicaSet 是通过一组字段来定义的，包括一个用来识别可获得
 进而实现其存在价值。当 ReplicaSet 需要创建新的 Pod 时，会使用所提供的 Pod 模板。
 
 <!--
-A ReplicaSet is linked to its Pods via the Pods' [metadata.ownerReferences](/docs/concepts/architecture/garbage-collection/#owners-and-dependents)
+A ReplicaSet is linked to its Pods via the Pods' [metadata.ownerReferences](/docs/concepts/architecture/garbage-collection/#owners-dependents)
 field, which specifies what resource the current object is owned by. All Pods acquired by a ReplicaSet have their owning
 ReplicaSet's identifying information within their ownerReferences field. It's through this link that the ReplicaSet
 knows of the state of the Pods it is maintaining and plans accordingly.
 -->
 ReplicaSet 通过 Pod 上的
-[metadata.ownerReferences](/zh-cn/docs/concepts/architecture/garbage-collection/#owners-and-dependents)
+[metadata.ownerReferences](/zh-cn/docs/concepts/architecture/garbage-collection/#owners-dependents)
 字段连接到附属 Pod，该字段给出当前对象的属主资源。
 ReplicaSet 所获得的 Pod 都在其 ownerReferences 字段中包含了属主 ReplicaSet
 的标识信息。正是通过这一连接，ReplicaSet 知道它所维护的 Pod 集合的状态，
@@ -113,7 +113,7 @@ Deployment，并在 spec 部分定义你的应用。
 -->
 ## 示例    {#example}
 
-{{< codenew file="controllers/frontend.yaml" >}}
+{{% code_sample file="controllers/frontend.yaml" %}}
 
 <!--
 Saving this manifest into `frontend.yaml` and submitting it to a Kubernetes cluster will
@@ -263,7 +263,7 @@ Pod，它还可以像前面小节中所描述的那样获得其他 Pod。
 
 以前面的 frontend ReplicaSet 为例，并在以下清单中指定这些 Pod：
 
-{{< codenew file="pods/pod-rs.yaml" >}}
+{{% code_sample file="pods/pod-rs.yaml" %}}
 
 <!--
 As those Pods do not have a Controller (or any object) as their owner reference and match the selector of the frontend
@@ -602,11 +602,11 @@ annotation, users can set a preference regarding which pods to remove first when
 注解，用户可以对 ReplicaSet 缩容时要先删除哪些 Pod 设置偏好。
 
 <!--
-The annotation should be set on the pod, the range is [-2147483647, 2147483647]. It represents the cost of
+The annotation should be set on the pod, the range is [-2147483648, 2147483647]. It represents the cost of
 deleting a pod compared to other pods belonging to the same ReplicaSet. Pods with lower deletion
 cost are preferred to be deleted before pods with higher deletion cost. 
 -->
-此注解要设置到 Pod 上，取值范围为 [-2147483647, 2147483647]。
+此注解要设置到 Pod 上，取值范围为 [-2147483648, 2147483647]。
 所代表的是删除同一 ReplicaSet 中其他 Pod 相比较而言的开销。
 删除开销较小的 Pod 比删除开销较高的 Pod 更容易被删除。
 
@@ -668,7 +668,7 @@ ReplicaSet 也可以作为[水平的 Pod 扩缩器 (HPA)](/zh-cn/docs/tasks/run-
 的目标。也就是说，ReplicaSet 可以被 HPA 自动扩缩。
 以下是 HPA 以我们在前一个示例中创建的副本集为目标的示例。
 
-{{< codenew file="controllers/hpa-rs.yaml" >}}
+{{% code_sample file="controllers/hpa-rs.yaml" %}}
 
 <!--
 Saving this manifest into `hpa-rs.yaml` and submitting it to a Kubernetes cluster should

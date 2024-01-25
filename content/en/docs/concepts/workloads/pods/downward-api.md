@@ -44,7 +44,7 @@ You can pass information from available Container-level fields using
 
 ### Information available via `fieldRef` {#downwardapi-fieldRef}
 
-For most Pod-level fields, you can provide them to a container either as
+For some Pod-level fields, you can provide them to a container either as
 an environment variable or using a `downwardAPI` volume. The fields available
 via either mechanism are:
 
@@ -75,8 +75,15 @@ The following information is available through environment variables
 `status.hostIP`
 : the primary IP address of the node to which the Pod is assigned
 
+`status.hostIPs`
+: the IP addresses is a dual-stack version of `status.hostIP`, the first is always the same as `status.hostIP`.
+  The field is available if you enable the `PodHostIPs` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+
 `status.podIP`
 : the pod's primary IP address (usually, its IPv4 address)
+
+`status.podIPs`
+: the IP addresses is a dual-stack version of `status.podIP`, the first is always the same as `status.podIP`
 
 The following information is available through a `downwardAPI` volume 
 `fieldRef`, **but not as environment variables**:

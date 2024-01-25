@@ -28,7 +28,7 @@ weight: 30
 この課題では、1つのコンテナを実行するPodを作成します。
 設定ファイルには、コンテナの開始時に実行されるコマンドを指定します。
 
-{{< codenew file="debug/termination.yaml" >}}
+{{% codenew file="debug/termination.yaml" %}}
 
 1. YAML設定ファイルに基づいてPodを作成します:
 

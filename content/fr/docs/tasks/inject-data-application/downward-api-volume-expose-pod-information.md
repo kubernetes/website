@@ -35,7 +35,7 @@ et vous allez projeter les champs d'informations du Pod à l'intérieur du
 container via des fichiers dans le container.
 Voici le fichier de configuration du Pod:
 
-{{< codenew file="pods/inject/dapi-volume.yaml" >}}
+{{% codenew file="pods/inject/dapi-volume.yaml" %}}
 
 Dans la configuration, on peut voir que le Pod a un volume de type `downward API`, et que le container monte ce volume sur le chemin `/etc/podinfo`.
 
@@ -154,7 +154,7 @@ qui appartiennent au
 [container](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container), plutôt qu'au Pod.
 Voici un fichier de configuration pour un Pod qui n'a qu'un seul container:
 
-{{< codenew file="pods/inject/dapi-volume-resources.yaml" >}}
+{{% codenew file="pods/inject/dapi-volume-resources.yaml" %}}
 
 Dans cette configuration, on peut voir que le Pod a un volume de type
 [`downwardAPI`](/docs/concepts/storage/volumes/#downwardapi),

@@ -5,6 +5,12 @@ content_type: concept
 description: >
   关于创建和管理 Kubernetes 集群的底层细节。
 no_list: true
+card:
+  name: setup
+  weight: 60
+  anchors:
+  - anchor: "#securing-a-cluster"
+    title: 保护集群
 ---
 <!--
 title: Cluster Administration
@@ -16,6 +22,12 @@ content_type: concept
 description: >
   Lower-level detail relevant to creating or administering a Kubernetes cluster.
 no_list: true
+card:
+  name: setup
+  weight: 60
+  anchors:
+  - anchor: "#securing-a-cluster"
+    title: Securing a cluster
 -->
 
 <!-- overview -->

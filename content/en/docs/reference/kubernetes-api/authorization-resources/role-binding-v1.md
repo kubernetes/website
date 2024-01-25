@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "RoleBinding references a role, but does not contain it."
 title: "RoleBinding"
-weight: 9
+weight: 8
 auto_generated: true
 ---
 
@@ -44,7 +44,7 @@ RoleBinding references a role, but does not contain it.  It can reference a Role
 
 - **roleRef** (RoleRef), required
 
-  RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+  RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
 
   <a name="RoleRef"></a>
   *RoleRef contains information that points to the role being used*

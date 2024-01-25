@@ -32,7 +32,7 @@ Dans cette partie de l'exercice, vous allez créer un Pod qui a un container,
 et vous allez projeter les champs d'informations du Pod à l'intérieur du
 container comme variables d'environnement.
 
-{{< codenew file="pods/inject/dapi-envars-pod.yaml" >}}
+{{% codenew file="pods/inject/dapi-envars-pod.yaml" %}}
 
 Dans ce fichier de configuration, on trouve cinq variables d'environnement.
 Le champ `env` est une liste de variables d'environnement.
@@ -113,7 +113,7 @@ qui est exécuté à l'intérieur du Pod.
 Voici un fichier de configuration pour un autre Pod qui ne contient qu'un seul 
 container:
 
-{{< codenew file="pods/inject/dapi-envars-container.yaml" >}}
+{{% codenew file="pods/inject/dapi-envars-container.yaml" %}}
 
 Dans ce fichier, vous pouvez voir 4 variables d'environnement.
 Le champ `env` est une liste de variables d'environnement.

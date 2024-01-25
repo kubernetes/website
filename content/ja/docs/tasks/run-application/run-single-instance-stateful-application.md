@@ -42,8 +42,8 @@ Kubernetes Deploymentを作成し、PersistentVolumeClaimを使用して既存�
 
 注：パスワードはYAMLファイル内に定義されており、これは安全ではありません。安全な解決策については[Kubernetes Secret](/docs/concepts/configuration/secret/)を参照してください 。
 
-{{< codenew file="application/mysql/mysql-deployment.yaml" >}}
-{{< codenew file="application/mysql/mysql-pv.yaml" >}}
+{{% codenew file="application/mysql/mysql-deployment.yaml" %}}
+{{% codenew file="application/mysql/mysql-pv.yaml" %}}
 
 1. YAMLファイルに記述されたPVとPVCをデプロイします。
 

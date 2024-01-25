@@ -1,0 +1,628 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 794.6667 1122.6667"
+   version="1.1"
+   id="svg3201"
+   sodipodi:docname="flow.svg"
+   inkscape:version="1.3 (0e150ed, 2023-07-21)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview3203"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="1.2281537"
+     inkscape:cx="422.17843"
+     inkscape:cy="834.58609"
+     inkscape:window-width="1920"
+     inkscape:window-height="1027"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg3201" />
+  <defs
+     id="defs3005">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="o" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="p" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="q" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="r" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="s" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="t" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="u" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="v" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="b" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="d" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="e" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="h" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="i" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="j" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="l" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="m" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="c" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="a" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="f" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="g" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="k" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="n" />
+  </defs>
+  <path
+     style="fill:#326ce5;fill-opacity:1;fill-rule:nonzero;stroke:#fff;stroke-width:1.93243;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 294.473,196.602 351.344,139.73 294.473,82.863 237.602,139.73 Z"
+     transform="scale(1.33333)"
+     id="path3007" />
+  <path
+     style="fill:#326ce5;fill-opacity:1;fill-rule:nonzero;stroke:#fff;stroke-width:1.93243;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="m 304.066,704.547 52.793,-52.789 -52.793,-52.793 -52.789,52.793 z"
+     transform="scale(1.33333)"
+     id="path5645" />
+  <path
+     style="fill:#326ce5;fill-opacity:1;fill-rule:nonzero;stroke:#fff;stroke-width:1.93243;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="m 256.48,442.438 54.075,-54.075 -54.075,-54.078 -54.078,54.078 z"
+     transform="scale(1.33333)"
+     id="path5643" />
+  <path
+     d="m297.4997 77.2499-2.7844 5.8518-3.0126-5.7381z"
+     style="fill:#333;fill-opacity:1;fill-rule:nonzero;stroke:#333;stroke-width:.579728;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     clip-path="url(#a)"
+     transform="scale(1.33333)"
+     id="path3011" />
+  <path
+     d="m267.898 170.027-7.55 8.375c-7.547 8.371-22.645 25.121-30.192 39.977-7.551 14.859-7.551 27.82-7.551 39.816v50.969c0 4.992 0 9.02 2.633 16.137 2.637 7.117 7.903 17.328 10.535 22.433l2.637 5.106"
+     style="fill:none;stroke:#333;stroke-width:.966214;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     transform="scale(1.33333)"
+     id="path3013" />
+  <path
+     d="m238.328 346.359.082 6.481-5.234-3.824z"
+     style="fill:#333;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     clip-path="url(#b)"
+     transform="scale(1.33333)"
+     id="path3015" />
+  <path
+     d="m238.3283 346.3596.0814 6.48-5.2334-3.8246z"
+     style="fill:none;stroke:#333;stroke-width:.579728;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     clip-path="url(#c)"
+     transform="scale(1.33333)"
+     id="path3017" />
+  <path
+     d="m236.191 422.148-4.55 7.329c-4.551 7.324-13.649 21.98-18.2 33.25-4.55 11.273-4.55 19.164-4.55 23.109v3.945"
+     style="fill:none;stroke:#333;stroke-width:.966214;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     transform="scale(1.33333)"
+     id="path3019" />
+  <path
+     d="m211.789 483.984-2.898 5.797-2.899-5.797z"
+     style="fill:#333;fill-opacity:1;fill-rule:nonzero;stroke:#333;stroke-width:.579728;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     clip-path="url(#d)"
+     transform="scale(1.33333)"
+     id="path3021" />
+  <path
+     d="M208.891 508.625v47.344"
+     style="fill:none;stroke:#333;stroke-width:.966214;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.44932,1.44932;stroke-dashoffset:0;stroke-opacity:1"
+     transform="scale(1.33333)"
+     id="path3023" />
+  <path
+     d="M208.891 574.809v2.011c0 2.016 0 6.039 10.671 15.34 10.672 9.297 32.012 23.867 42.684 31.156l10.668 7.286"
+     style="fill:none;stroke:#333;stroke-width:.966214;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     transform="scale(1.33333)"
+     id="path3025" />
+  <path
+     d="m269.762 624.938 3.152 5.664-6.422-.875z"
+     style="fill:#333;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     clip-path="url(#e)"
+     transform="scale(1.33333)"
+     id="path3027" />
+  <path
+     d="m269.7622 624.9374 3.1518 5.6634-6.4216-.8744z"
+     style="fill:none;stroke:#333;stroke-width:.579728;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     clip-path="url(#f)"
+     transform="scale(1.33333)"
+     id="path3029" />
+  <path
+     d="m277.254 422.148 4.469 7.329c4.468 7.324 13.406 21.98 17.875 34.82 4.468 12.844 4.468 23.875 4.468 34.906v64.254c0 9.098 0 16.266.043 21.898.039 5.637.121 9.747.161 11.797l.039 2.055"
+     style="fill:none;stroke:#333;stroke-width:.966214;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     transform="scale(1.33333)"
+     id="path3031" />
+  <path
+     d="m307.0934 593.3512-2.7843 5.8559-3.0117-5.7422z"
+     style="fill:#333;fill-opacity:1;fill-rule:nonzero;stroke:#333;stroke-width:.579728;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     clip-path="url(#g)"
+     transform="scale(1.33333)"
+     id="path3033" />
+  <path
+     d="m283.652 684.133-4.168 6.379c-4.168 6.383-12.507 19.148-16.675 28.508-4.168 9.359-4.168 15.32-4.168 18.296v2.981"
+     style="fill:none;stroke:#333;stroke-width:.966214;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     transform="scale(1.33333)"
+     id="path3035" />
+  <path
+     d="m261.539 734.5-2.898 5.797-2.899-5.797z"
+     style="fill:#333;fill-opacity:1;fill-rule:nonzero;stroke:#333;stroke-width:.579728;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     clip-path="url(#h)"
+     transform="scale(1.33333)"
+     id="path3037" />
+  <path
+     d="M258.641 759.137v24.156"
+     style="fill:none;stroke:#333;stroke-width:.966214;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.44932,1.44932;stroke-dashoffset:0;stroke-opacity:1"
+     transform="scale(1.33333)"
+     id="path3039" />
+  <path
+     d="m333.727 675.371 9.878 7.844c9.875 7.84 29.633 23.523 39.512 34.344 9.879 10.82 9.879 16.781 9.879 19.757v2.981"
+     style="fill:none;stroke:#333;stroke-width:.966214;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     transform="scale(1.33333)"
+     id="path3041" />
+  <path
+     d="m395.895 734.5-2.899 5.797-2.898-5.797z"
+     style="fill:#333;fill-opacity:1;fill-rule:nonzero;stroke:#333;stroke-width:.579728;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     clip-path="url(#i)"
+     transform="scale(1.33333)"
+     id="path3043" />
+  <path
+     d="m326.656 164.898 11.84 9.231c11.836 9.226 35.512 27.687 47.352 43.398 11.836 15.711 11.836 28.672 11.836 40.668v305.262c0 9.098 0 16.266-10.364 27.098-10.367 10.832-31.097 25.332-41.461 32.586l-10.367 7.25"
+     style="fill:none;stroke:#333;stroke-width:.966214;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     transform="scale(1.33333)"
+     id="path3045" />
+  <path
+     d="m341.906 629.441-6.414.95 3.09-5.7z"
+     style="fill:#333;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     clip-path="url(#j)"
+     transform="scale(1.33333)"
+     id="path3047" />
+  <path
+     d="m341.906 629.4418-6.4133.949 3.089-5.6993z"
+     style="fill:none;stroke:#333;stroke-width:.579728;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     clip-path="url(#k)"
+     transform="scale(1.33333)"
+     id="path3049" />
+  <path
+     d="m294.715 196.844-.043 3.902c-.039 3.906-.117 11.715-.16 19.566-.039 7.852-.039 15.743-.039 19.688v3.945"
+     style="fill:none;stroke:#333;stroke-width:.966214;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     transform="scale(1.33333)"
+     id="path3051"
+     clip-path="none" />
+  <path
+     d="m297.371 238.148-2.898 5.797-2.899-5.797z"
+     style="fill:#333;fill-opacity:1;fill-rule:nonzero;stroke:#333;stroke-width:.579728;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     clip-path="url(#l)"
+     transform="scale(1.33333)"
+     id="path3053" />
+  <path
+     id="path506"
+     clip-path="none"
+     style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     d="M 198.75467 286.45709 L 198.75467 295.47759 L 198.75467 296.00054 L 246.4617 296.00054 L 246.4617 295.47759 L 246.4617 286.45709 L 198.75467 286.45709 z "
+     transform="matrix(1.3333333,0,0,1.3333333,0.546513,0.182228)" />
+  <path
+     id="path520"
+     clip-path="none"
+     style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     d="M 174.00028 454.51568 L 174.00028 463.00006 L 173.65604 463.00006 L 173.65604 463.53473 L 173.65604 472.55524 L 173.65604 473.00055 L 244.1326 473.00055 L 244.1326 463.00006 L 243.9993 463.00006 L 243.9993 454.51568 L 174.00028 454.51568 z "
+     transform="matrix(1.3333333,0,0,1.3333333,0.546513,0.182228)" />
+  <path
+     id="path556"
+     clip-path="none"
+     style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     d="M 265.17655 520.70251 L 265.17655 529.72301 L 265.17655 529.99987 L 283.46805 529.99987 L 283.46805 538.60143 L 283.87967 538.60143 L 283.87967 538.73913 L 324.25809 538.73913 L 324.25809 529.99987 L 342.96561 529.99987 L 342.96561 529.72301 L 342.97294 529.72301 L 342.97294 520.70251 L 342.96561 520.70251 L 265.17655 520.70251 z "
+     transform="matrix(1.3333333,0,0,1.3333333,0.546513,13.130399)" />
+  <path
+     d="m 252.336,716.625 h 12.609 v 9.02 h -12.609 z"
+     style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path586"
+     clip-path="none"
+     transform="matrix(1.3333333,0,0,1.3333333,0.546513,0.182228)" />
+  <g
+     id="g1390"
+     transform="matrix(1.3333333,0,0,1.3333333,0.546513,0.182228)"
+     style="fill:#ffffff;fill-opacity:1">
+    <path
+       d="m 252.336,716.625 h 12.617 V 726 h -12.617 z"
+       id="path1388"
+       style="fill:#ffffff;fill-opacity:1" />
+  </g>
+  <path
+     id="path608"
+     clip-path="none"
+     style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     d="M 388.05442 716.62458 L 388.05442 725.64509 L 388.05442 725.99958 L 397.93333 725.99958 L 397.93333 725.64509 L 397.93333 716.62458 L 388.05442 716.62458 z "
+     transform="matrix(1.3333333,0,0,1.3333333,-6.665649,0.182228)" />
+  <path
+     d="m 329.992,382.566 h 135.383 v 9.02 H 329.992 Z"
+     style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path630"
+     clip-path="none"
+     transform="matrix(1.3333333,0,0,1.3333333,0.546513,0.182228)" />
+  <path
+     d="m 440.53584,510.27022 h 180.52132 v 12.57866 H 440.53584 Z"
+     id="path1422"
+     style="stroke-width:1.33333;stroke:none;fill:#ffffff;fill-opacity:1"
+     clip-path="none" />
+  <path
+     id="path652"
+     clip-path="none"
+     style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-opacity:1"
+     d="M 254.0701 208.67974 L 254.0701 217.70025 L 254.0701 218.00054 L 259.2454 218.00054 L 259.2454 228.09185 L 328.87821 228.09185 L 328.87821 226.7149 L 329.28837 226.7149 L 329.28837 218.00054 L 334.87967 218.00054 L 334.87967 217.70025 L 334.88553 217.70025 L 334.88553 208.67974 L 254.0701 208.67974 z "
+     transform="matrix(1.3333333,0,0,1.3333333,0.546513,0.182228)" />
+  <path
+     d="M294.473 274.383v34.781c0 4.992 0 9.02-3.004 16.371-3.004 7.356-9.012 18.039-12.016 23.379l-3.004 5.34"
+     style="fill:none;stroke:#333;stroke-width:.966214;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     transform="scale(1.33333)"
+     id="path3055" />
+  <path
+     d="m281.816 350.621-5.367 3.633.317-6.473z"
+     style="fill:#333;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     clip-path="url(#m)"
+     transform="scale(1.33333)"
+     id="path3057" />
+  <path
+     d="m281.8166 350.6206-5.3676 3.6338.317-6.4731z"
+     style="fill:none;stroke:#333;stroke-width:.579728;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     clip-path="url(#n)"
+     transform="scale(1.33333)"
+     id="path3059" />
+  <path
+     d="M198.754 286.457h47.707v9.02h-47.707z"
+     style="fill:#fff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     clip-path="url(#o)"
+     transform="scale(1.33333)"
+     id="path3061" />
+  <path
+     d="M174.504 454.516h68.77v9.02h-68.77z"
+     style="fill:#fff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     clip-path="url(#p)"
+     transform="scale(1.33333)"
+     id="path3067" />
+  <path
+     d="M173.656 463.535h70.469v9.02h-70.469z"
+     style="fill:#fff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     clip-path="url(#q)"
+     transform="scale(1.33333)"
+     id="path3073" />
+  <path
+     d="M265.176 520.703h77.797v9.02h-77.797z"
+     style="fill:#fff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     clip-path="url(#r)"
+     transform="scale(1.33333)"
+     id="path3079" />
+  <path
+     d="M252.336 716.625h12.609v9.02h-12.609z"
+     style="fill:#fff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     clip-path="url(#s)"
+     transform="scale(1.33333)"
+     id="path3091" />
+  <path
+     d="M388.055 716.625h9.879v9.02h-9.879z"
+     style="fill:#fff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     clip-path="url(#t)"
+     transform="translate(-7.2122) scale(1.33333)"
+     id="path3097" />
+  <path
+     d="M329.992 382.566h135.383v9.02H329.992Z"
+     style="fill:#fff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     clip-path="url(#u)"
+     transform="scale(1.33333)"
+     id="path3103" />
+  <path
+     d="M254.07 208.68h80.816v9.02H254.07Z"
+     style="fill:#fff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     clip-path="url(#v)"
+     transform="scale(1.33333)"
+     id="path3109" />
+  <path
+     d="M289.75 39.863h9.445c5.2 0 9.422 4.223 9.422 9.422 0 5.199-4.222 9.422-9.422 9.422h-9.445c-5.199 0-9.422-4.223-9.422-9.422 0-5.199 4.223-9.422 9.422-9.422z"
+     style="fill:#ddd;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path3121"
+     transform="scale(1.33333)" />
+  <path
+     d="M289.75 39.863h9.445c5.2 0 9.422 4.223 9.422 9.422 0 5.199-4.222 9.422-9.422 9.422h-9.445c-5.199 0-9.422-4.223-9.422-9.422 0-5.199 4.223-9.422 9.422-9.422z"
+     style="fill:none;stroke:none;stroke-width:1.93243;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     transform="scale(1.33333)"
+     id="path3123" />
+  <path
+     id="path3153"
+     style="fill:#dddddd;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2.12791;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="m 222.22459,653.03906 c -4.72804,0 -8.5684,5.63053 -8.5684,12.5625 l 0.004,17.69727 c 0,6.93198 3.84036,12.5625 8.56839,12.5625 h 125.21677 c 4.72894,0 8.56972,-5.63052 8.56972,-12.5625 l -0.004,-17.69727 c 0,-6.93197 -3.83946,-12.5625 -8.5684,-12.5625 z"
+     sodipodi:nodetypes="sccssccss" />
+  <path
+     d="M 203.61115,741.29015 H 355.4657 v 25.11993 H 203.61115 Z"
+     style="fill:#dddddd;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2.46357;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     id="path3159" />
+  <path
+     d="M 274.29244,987.0602 H 416.273 c 5.79681,0 10.50337,5.63065 10.50337,12.56263 0,6.93197 -4.70656,12.55727 -10.50337,12.55727 H 274.29244 c -5.7957,0 -10.49891,-5.6253 -10.49891,-12.55727 0,-6.93198 4.70321,-12.56263 10.49891,-12.56263 z"
+     style="fill:#dddddd;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2.35594;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     id="path3173" />
+  <path
+     d="m 273.31697,1044.3881 h 151.99776 v 25.1199 H 273.31697 Z"
+     style="fill:#dddddd;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2.46473;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     id="path3179" />
+  <path
+     d="M365.316 740.297h55.36c5.199 0 9.418 4.223 9.418 9.422 0 5.199-4.219 9.418-9.418 9.418h-55.36c-5.199 0-9.418-4.219-9.418-9.418 0-5.199 4.219-9.422 9.418-9.422z"
+     style="fill:#ddd;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.93243;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     transform="scale(1.33333)"
+     id="path3185" />
+  <path
+     d="M258.852 243.945h71.242c8.398 0 15.218 6.821 15.218 15.219s-6.82 15.219-15.218 15.219h-71.242c-8.399 0-15.219-6.821-15.219-15.219s6.82-15.219 15.219-15.219z"
+     style="fill:#ddd;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.93243;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     transform="scale(1.33333)"
+     id="path3191" />
+  <path
+     d="M294.473 58.707v2.012c0 2.011 0 6.039.039 10.105.043 4.067.121 8.172.16 10.227l.043 2.051"
+     style="fill:none;stroke:#333;stroke-width:.966214;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     transform="scale(1.33333)"
+     id="path3009" />
+  <text
+     xml:space="preserve"
+     style="font-size:12px;font-family:simsun;-inkscape-font-specification:simsun;text-align:center;text-anchor:middle;fill:#ffffff"
+     x="393.47815"
+     y="69.944885"
+     id="text1"><tspan
+       sodipodi:role="line"
+       id="tspan1"
+       x="393.47815"
+       y="69.944885"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:'Microsoft Sans Serif';-inkscape-font-specification:'Microsoft Sans Serif';fill:#000000">开始</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:10.6667px;font-family:simsun;-inkscape-font-specification:simsun;text-align:center;text-anchor:middle;fill:#ffffff"
+     x="393.72043"
+     y="289.07455"
+     id="text1-7"><tspan
+       sodipodi:role="line"
+       id="tspan1-1"
+       x="393.72043"
+       y="289.07455"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:'Microsoft Sans Serif';-inkscape-font-specification:'Microsoft Sans Serif';fill:#000000">托管控制平面,</tspan><tspan
+       sodipodi:role="line"
+       x="393.72043"
+       y="302.55234"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:'Microsoft Sans Serif';-inkscape-font-specification:'Microsoft Sans Serif';fill:#000000"
+       id="tspan2">自行管理节点</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:10.6667px;font-family:simsun;-inkscape-font-specification:simsun;text-align:center;text-anchor:middle;fill:#ffffff"
+     x="297.50977"
+     y="392.06464"
+     id="text1-7-1"><tspan
+       sodipodi:role="line"
+       x="297.50977"
+       y="392.06464"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:'Microsoft Sans Serif';-inkscape-font-specification:'Microsoft Sans Serif';fill:#000000"
+       id="tspan2-9">自行管理</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:10.6667px;font-family:simsun;-inkscape-font-specification:simsun;text-align:center;text-anchor:middle;fill:#ffffff"
+     x="397.8544"
+     y="182.64034"
+     id="text1-7-1-3"><tspan
+       sodipodi:role="line"
+       x="397.8544"
+       y="182.64034"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:'Microsoft Sans Serif';-inkscape-font-specification:'Microsoft Sans Serif';fill:#ffffff"
+       id="tspan2-9-1">你有什么类型的</tspan><tspan
+       sodipodi:role="line"
+       x="397.8544"
+       y="196.1181"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:'Microsoft Sans Serif';-inkscape-font-specification:'Microsoft Sans Serif';fill:#ffffff"
+       id="tspan9">Kubernetes 集群？</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:10.6667px;font-family:simsun;-inkscape-font-specification:simsun;text-align:center;text-anchor:middle;fill:#ffffff"
+     x="530.94269"
+     y="521.22168"
+     id="text1-7-1-7"><tspan
+       sodipodi:role="line"
+       x="530.94269"
+       y="521.22168"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:'Microsoft Sans Serif';-inkscape-font-specification:'Microsoft Sans Serif';fill:#000000"
+       id="tspan4">完全托管的控制平面和节点</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:10.6667px;font-family:simsun;-inkscape-font-specification:simsun;text-align:center;text-anchor:middle;fill:#ffffff"
+     x="291.19717"
+     y="615.73657"
+     id="text1-7-1-7-7"><tspan
+       sodipodi:role="line"
+       x="291.19717"
+       y="615.73657"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:'Microsoft Sans Serif';-inkscape-font-specification:'Microsoft Sans Serif';fill:#000000"
+       id="tspan4-3">基于 Debian 的 Linux</tspan><tspan
+       sodipodi:role="line"
+       x="291.19717"
+       y="629.21436"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:'Microsoft Sans Serif';-inkscape-font-specification:'Microsoft Sans Serif';fill:#000000"
+       id="tspan5">或基于 RPM 的 Linux</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:10.6667px;font-family:simsun;-inkscape-font-specification:simsun;text-align:center;text-anchor:middle;fill:#ffffff"
+     x="409.77176"
+     y="716.8902"
+     id="text1-7-1-7-7-0"><tspan
+       sodipodi:role="line"
+       x="409.77176"
+       y="716.8902"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:'Microsoft Sans Serif';-inkscape-font-specification:'Microsoft Sans Serif';fill:#000000"
+       id="tspan5-4">基于容器的</tspan><tspan
+       sodipodi:role="line"
+       x="409.77176"
+       y="730.36798"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:'Microsoft Sans Serif';-inkscape-font-specification:'Microsoft Sans Serif';fill:#000000"
+       id="tspan6">Linux 或 Windows</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:10.6667px;font-family:simsun;-inkscape-font-specification:simsun;text-align:center;text-anchor:middle;fill:#ffffff"
+     x="278.41437"
+     y="757.70905"
+     id="text1-7-1-7-7-0-0"><tspan
+       sodipodi:role="line"
+       x="278.41437"
+       y="757.70905"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:'Microsoft Sans Serif';-inkscape-font-specification:'Microsoft Sans Serif';fill:#000000"
+       id="tspan6-3">参阅 https://k8s.io/linuxrepos</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:10.6667px;font-family:simsun;-inkscape-font-specification:simsun;text-align:center;text-anchor:middle;fill:#ffffff"
+     x="284.05017"
+     y="673.20203"
+     id="text1-7-1-7-7-0-0-5"><tspan
+       sodipodi:role="line"
+       x="284.05017"
+       y="673.20203"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:'Microsoft Sans Serif';-inkscape-font-specification:'Microsoft Sans Serif';fill:#000000"
+       id="tspan6-3-8">你可能需要在你的 Linux</tspan><tspan
+       sodipodi:role="line"
+       x="284.05017"
+       y="686.67981"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:'Microsoft Sans Serif';-inkscape-font-specification:'Microsoft Sans Serif';fill:#000000"
+       id="tspan8">节点上更新软件包管理器</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:10.6667px;font-family:simsun;-inkscape-font-specification:simsun;text-align:center;text-anchor:middle;fill:#ffffff"
+     x="393.73514"
+     y="342.20291"
+     id="text1-7-9"><tspan
+       sodipodi:role="line"
+       x="393.73514"
+       y="342.20291"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:'Microsoft Sans Serif';-inkscape-font-specification:'Microsoft Sans Serif';fill:#000000"
+       id="tspan2-3">你可能需要更新</tspan><tspan
+       sodipodi:role="line"
+       x="393.73514"
+       y="355.68069"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:'Microsoft Sans Serif';-inkscape-font-specification:'Microsoft Sans Serif';fill:#000000"
+       id="tspan3">你自己管理的节点</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:10.6667px;font-family:simsun;-inkscape-font-specification:simsun;text-align:center;text-anchor:middle;fill:#ffffff"
+     x="348.42569"
+     y="964.71185"
+     id="text1-7-1-7-7-0-0-2"><tspan
+       sodipodi:role="line"
+       x="348.42569"
+       y="964.71185"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:'Microsoft Sans Serif';-inkscape-font-specification:'Microsoft Sans Serif';fill:#000000"
+       id="tspan6-3-6">是</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:10.6667px;font-family:simsun;-inkscape-font-specification:simsun;text-align:center;text-anchor:middle;fill:#ffffff"
+     x="345.97446"
+     y="1002.6387"
+     id="text1-7-1-7-7-0-0-2-3"><tspan
+       sodipodi:role="line"
+       x="345.97446"
+       y="1002.6387"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:'Microsoft Sans Serif';-inkscape-font-specification:'Microsoft Sans Serif';fill:#000000"
+       id="tspan6-3-6-2">你可能需要更新你的 Linux PC</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:10.6667px;font-family:simsun;-inkscape-font-specification:simsun;text-align:center;text-anchor:middle;fill:#ffffff"
+     x="529.7934"
+     y="1003.3387"
+     id="text1-7-1-7-7-0-0-2-3-9"><tspan
+       sodipodi:role="line"
+       x="529.7934"
+       y="1003.3387"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:'Microsoft Sans Serif';-inkscape-font-specification:'Microsoft Sans Serif';fill:#000000"
+       id="tspan6-3-6-2-6">你可以开始了！</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:10.6667px;font-family:simsun;-inkscape-font-specification:simsun;text-align:center;text-anchor:middle;fill:#ffffff"
+     x="515.82007"
+     y="966.39655"
+     id="text1-7-1-7-7-0-0-2-0"><tspan
+       sodipodi:role="line"
+       x="515.82007"
+       y="966.39655"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:'Microsoft Sans Serif';-inkscape-font-specification:'Microsoft Sans Serif';fill:#000000"
+       id="tspan6-3-6-3">否</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:10.6667px;font-family:simsun;-inkscape-font-specification:simsun;text-align:center;text-anchor:middle;fill:#ffffff"
+     x="349.11469"
+     y="1060.1289"
+     id="text1-7-1-7-7-0-0-6"><tspan
+       sodipodi:role="line"
+       x="349.11469"
+       y="1060.1289"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:'Microsoft Sans Serif';-inkscape-font-specification:'Microsoft Sans Serif';fill:#000000"
+       id="tspan6-3-0">参阅 https://k8s.io/linuxrepos</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:10.6667px;font-family:simsun;-inkscape-font-specification:simsun;text-align:center;text-anchor:middle;fill:#ffffff"
+     x="341.17676"
+     y="517.49091"
+     id="text1-7-1-3-6"><tspan
+       sodipodi:role="line"
+       x="341.17676"
+       y="517.49091"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:'Microsoft Sans Serif';-inkscape-font-specification:'Microsoft Sans Serif';fill:#ffffff"
+       id="tspan2-9-1-1">你有什么类型</tspan><tspan
+       sodipodi:role="line"
+       x="341.17676"
+       y="530.96869"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:'Microsoft Sans Serif';-inkscape-font-specification:'Microsoft Sans Serif';fill:#ffffff"
+       id="tspan9-9">的操作系统？</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:10.6667px;font-family:simsun;-inkscape-font-specification:simsun;text-align:center;text-anchor:middle;fill:#ffffff"
+     x="405.92184"
+     y="864.33911"
+     id="text1-7-1-3-6-1"><tspan
+       sodipodi:role="line"
+       x="405.92184"
+       y="864.33911"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:'Microsoft Sans Serif';-inkscape-font-specification:'Microsoft Sans Serif';fill:#ffffff"
+       id="tspan11">你的 PC 使用的是</tspan><tspan
+       sodipodi:role="line"
+       x="405.92184"
+       y="877.81689"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:'Microsoft Sans Serif';-inkscape-font-specification:'Microsoft Sans Serif';fill:#ffffff"
+       id="tspan14">Linux  操作系统吗？</tspan></text>
+</svg>

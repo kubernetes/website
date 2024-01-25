@@ -30,7 +30,7 @@ for the postStart and preStop events.
 
 Here is the configuration file for the Pod:
 
-{{% code file="pods/lifecycle-events.yaml" %}}
+{{% code_sample file="pods/lifecycle-events.yaml" %}}
 
 In the configuration file, you can see that the postStart command writes a `message`
 file to the Container's `/usr/share` directory. The preStop command shuts down

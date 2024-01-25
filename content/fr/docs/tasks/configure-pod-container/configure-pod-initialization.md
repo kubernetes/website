@@ -24,7 +24,7 @@ Dans cet exercice, vous allez créer un Pod qui a un conteneur d'application et 
 
 Voici le fichier de configuration du Pod :
 
-{{< codenew file="pods/init-containers.yaml" >}}
+{{% codenew file="pods/init-containers.yaml" %}}
 
 Dans le fichier de configuration, vous pouvez voir que le Pod a un Volume que le conteneur d'initialisation et le conteneur d'application partagent.
 

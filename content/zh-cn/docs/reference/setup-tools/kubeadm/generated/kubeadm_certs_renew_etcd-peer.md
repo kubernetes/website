@@ -1,19 +1,7 @@
 <!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
-
-<!--
 Renew the certificate for etcd nodes to communicate with each other
 -->
-续订 etcd 节点间用来相互通信的证书
+续订 etcd 节点间用来相互通信的证书。
 
 <!--
 ### Synopsis
@@ -39,7 +27,7 @@ Renewal by default tries to use the certificate authority in the local PKI manag
 <!--
 After renewal, in order to make changes effective, is is required to restart control-plane components and eventually re-distribute the renewed certificate in case the file is used elsewhere.
 -->
-续订后，为了使更改生效，需要重新启动控制平面组件，并最终重新分发更新的证书，以防证书文件在其他地方使用。
+续订后，为了使更改生效，需要重新启动控制平面组件，并最终重新分发续订的证书，以防证书文件在其他地方使用。
 
 ```
 kubeadm certs renew etcd-peer [flags]
@@ -98,7 +86,7 @@ kubeadm 配置文件的路径。
 <!--
 help for etcd-peer
 -->
-etcd-peer 操作的帮助命令
+etcd-peer 操作的帮助命令。
 </td>
 </tr>
 

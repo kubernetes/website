@@ -147,7 +147,7 @@ Windowsワーカーノードの(管理者)権限を持つPowerShell環境で実�
 
    ```PowerShell
    curl.exe -LO https://raw.githubusercontent.com/kubernetes-sigs/sig-windows-tools/master/kubeadm/scripts/PrepareNode.ps1
-   .\PrepareNode.ps1 -KubernetesVersion {{% param "fullversion" %}}
+   .\PrepareNode.ps1 -KubernetesVersion v{{% skew currentPatchVersion %}}
    ```
 
 1. `kubeadm`を実行してノードに参加します

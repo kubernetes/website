@@ -66,12 +66,20 @@ kubeadm 支持在执行 `kubeadm init` 时，传递一个 `KubeletConfiguration`
 
 <!-- 
 In v1.22 and later, if the user does not set the `cgroupDriver` field under `KubeletConfiguration`,
-+kubeadm defaults it to `systemd`.
+kubeadm defaults it to `systemd`.
+
+In Kubernetes v1.28, you can enable automatic detection of the
+cgroup driver as an alpha feature.
+See [systemd cgroup driver](/docs/setup/production-environment/container-runtimes/#systemd-cgroup-driver)
+for more details.
 -->
 
 {{< note >}}
 在版本 1.22 及更高版本中，如果用户没有在 `KubeletConfiguration` 中设置 `cgroupDriver` 字段，
 `kubeadm` 会将它设置为默认值 `systemd`。
+
+在 Kubernetes v1.28 中，你可以以 Alpha 功能启用 cgroup 驱动的自动检测。
+有关更多详情，请查看 [systemd cgroup 驱动](/zh-cn/docs/setup/production-environment/container-runtimes/#systemd-cgroup-driver)。
 {{< /note >}}
 
 <!-- 

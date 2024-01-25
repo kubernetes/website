@@ -47,7 +47,7 @@ API.
 Kubernetes 1.0 was released on 10 July 2015 without any mechanism to restrict the
 security context and sensitive options of workloads, other than an alpha-quality
 SecurityContextDeny admission plugin (then known as `scdeny`).
-The [SecurityContextDeny plugin](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#securitycontextdeny)
+The [SecurityContextDeny plugin](/docs/reference/access-authn-authz/admission-controllers/#securitycontextdeny)
 is still in Kubernetes today (as an alpha feature) and creates an admission controller that
 prevents the usage of some fields in the security context.
 

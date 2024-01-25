@@ -83,18 +83,18 @@ tmpfs、overlayfs。
 <!--
 In addition, support is needed in the
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
-to use this feature with Kubernetes stateless pods:
+to use this feature with Kubernetes pods:
 
 * CRI-O: version 1.25 (and later) supports user namespaces for containers.
 -->
 
 此外，需要在{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}提供支持，
-才能在 Kubernetes 无状态 Pod 中使用这一功能：
+才能在 Kubernetes Pod 中使用这一功能：
 
 * CRI-O：1.25（及更高）版本支持配置容器的用户命名空间。
 
 <!--
-containerd v1.7 is not compatible with the userns support in Kubernetes v{{< skew currentVersion >}}.
+containerd v1.7 is not compatible with the userns support in Kubernetes v1.27 to v{{< skew latestVersion >}}.
 Kubernetes v1.25 and v1.26 used an earlier implementation that **is** compatible with containerd v1.7,
 in terms of userns support.
 If you are using a version of Kubernetes other than {{< skew currentVersion >}},
@@ -105,7 +105,8 @@ documentation for compatibility information.
 You can see the status of user namespaces support in cri-dockerd tracked in an [issue][CRI-dockerd-issue]
 on GitHub.
 -->
-containerd v1.7 与 Kubernetes v{{< skew currentVersion >}} 中的用户命名空间不兼容。
+containerd v1.7 与 Kubernetes v1.27 至 v{{< skew currentVersion >}}
+版本中的用户命名空间不兼容。
 Kubernetes v1.25 和 v1.26 使用了早期的实现，在用户命名空间方面与 containerd v1.7 兼容。
 如果你使用的 Kubernetes 版本不是 {{< skew currentVersion >}}，请查看该版本 Kubernetes
 的文档以获取更准确的信息。
@@ -134,7 +135,7 @@ to `false`.
 
 <!--
 The kubelet will pick host UIDs/GIDs a pod is mapped to, and will do so in a way
-to guarantee that no two stateless pods on the same node use the same mapping.
+to guarantee that no two pods on the same node use the same mapping.
 
 The `runAsUser`, `runAsGroup`, `fsGroup`, etc. fields in the `pod.spec` always
 refer to the user inside the container.
@@ -143,7 +144,7 @@ The valid UIDs/GIDs when this feature is enabled is the range 0-65535. This
 applies to files and processes (`runAsUser`, `runAsGroup`, etc.).
 -->
 kubelet 将挑选 Pod 所映射的主机 UID/GID，
-并将以保证同一节点上没有两个无状态 Pod 使用相同的映射的方式进行。
+并以此保证同一节点上没有两个 Pod 使用相同的方式进行映射。
 
 `pod.spec` 中的 `runAsUser`、`runAsGroup`、`fsGroup` 等字段总是指的是容器内的用户。
 启用该功能时，有效的 UID/GID 在 0-65535 范围内。这以限制适用于文件和进程（`runAsUser`、`runAsGroup` 等）。
@@ -166,9 +167,9 @@ if user namespaces is activated.
 在用户命名空间被启用时，应该可以继续正常运行，不需要做任何改变。
 
 <!--
-## Understanding user namespaces for stateless pods
+## Understanding user namespaces for pods {#pods-and-userns}
 -->
-## 了解无状态 Pod 的用户命名空间 {#understanding-user-namespaces-for-stateless-pods}
+## 了解 Pod 的用户命名空间 {#pods-and-userns}
 
 <!--
 Several container runtimes with their default configuration (like Docker Engine,
@@ -279,6 +280,50 @@ Pod 的 UID/GID 不会与主机的文件所有者/组相匹配。
 [CVE-2021-25741]: https://github.com/kubernetes/kubernetes/issues/104980
 
 <!--
+## Integration with Pod security admission checks
+-->
+## 与 Pod 安全准入检查的集成   {#integration-with-pod-security-admission-checks}
+
+{{< feature-state state="alpha" for_k8s_version="v1.29" >}}
+
+<!--
+For Linux Pods that enable user namespaces, Kubernetes relaxes the application of
+[Pod Security Standards](/docs/concepts/security/pod-security-standards) in a controlled way.
+This behavior can be controlled by the [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/)
+`UserNamespacesPodSecurityStandards`, which allows an early opt-in for end
+users. Admins have to ensure that user namespaces are enabled by all nodes
+within the cluster if using the feature gate.
+-->
+对于启用了用户命名空间的 Linux Pod，Kubernetes 会以受控方式放宽
+[Pod 安全性标准](/zh-cn/docs/concepts/security/pod-security-standards)的应用。
+这种行为可以通过[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/) 
+`UserNamespacesPodSecurityStandards` 进行控制，可以让最终用户提前尝试此特性。
+如果管理员启用此特性门控，必须确保群集中的所有节点都启用了用户命名空间。
+
+<!--
+If you enable the associated feature gate and create a Pod that uses user
+namespaces, the following fields won't be constrained even in contexts that enforce the
+_Baseline_ or _Restricted_ pod security standard. This behavior does not
+present a security concern because `root` inside a Pod with user namespaces
+actually refers to the user inside the container, that is never mapped to a
+privileged user on the host. Here's the list of fields that are **not** checks for Pods in those
+circumstances:
+-->
+如果你启用相关特性门控并创建了使用用户命名空间的 Pod，以下的字段不会被限制，
+即使在执行了 _Baseline_ 或 _Restricted_ Pod 安全性标准的上下文中。这种行为不会带来安全问题，
+因为带有用户命名空间的 Pod 内的 `root` 实际上指的是容器内的用户，绝不会映射到主机上的特权用户。
+以下是在这种情况下**不进行**检查的 Pod 字段列表：
+
+- `spec.securityContext.runAsNonRoot`
+- `spec.containers[*].securityContext.runAsNonRoot`
+- `spec.initContainers[*].securityContext.runAsNonRoot`
+- `spec.ephemeralContainers[*].securityContext.runAsNonRoot`
+- `spec.securityContext.runAsUser`
+- `spec.containers[*].securityContext.runAsUser`
+- `spec.initContainers[*].securityContext.runAsUser`
+
+<!--
 ## Limitations
 -->
 ## 限制 {#limitations}
@@ -298,25 +343,6 @@ allowed to set any of:
 * `hostNetwork: true`
 * `hostIPC: true`
 * `hostPID: true`
-
-<!--
-The pod is allowed to use no volumes at all or, if using volumes, only these
-volume types are allowed:
-
- * configmap
- * secret
- * projected
- * downwardAPI
- * emptyDir
--->
-
-Pod 完全不使用卷是被允许的；如果使用卷，只允许使用以下卷类型：
-
-* configmap
-* secret
-* projected
-* downwardAPI
-* emptyDir
 
 ## {{% heading "whatsnext" %}}
 

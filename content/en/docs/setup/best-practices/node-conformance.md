@@ -19,7 +19,7 @@ To run node conformance test, a node must satisfy the same prerequisites as a
 standard Kubernetes node. At a minimum, the node should have the following
 daemons installed:
 
-* Container Runtime (Docker)
+* CRI-compatible container runtimes such as  Docker, Containerd and CRI-O
 * Kubelet
 
 ## Running Node Conformance Test

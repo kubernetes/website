@@ -37,8 +37,8 @@ Remarque: le mot de passe MySQL est défini dans le fichier de configuration YAM
 Voir les [secrets Kubernetes](/docs/concepts/configuration/secret/)
 pour une approche sécurisée.
 
-{{< codenew file="application/mysql/mysql-deployment.yaml" >}}
-{{< codenew file="application/mysql/mysql-pv.yaml" >}}
+{{% codenew file="application/mysql/mysql-deployment.yaml" %}}
+{{% codenew file="application/mysql/mysql-pv.yaml" %}}
 
 1. Déployez le PV et le PVC du fichier YAML:
 

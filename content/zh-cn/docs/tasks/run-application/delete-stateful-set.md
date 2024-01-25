@@ -62,10 +62,10 @@ You may need to delete the associated headless service separately after the Stat
 kubectl delete service <service-name>
 ```
 -->
-删除 StatefulSet 之后，你可能需要单独删除关联的无头服务。
+删除 StatefulSet 之后，你可能需要单独删除关联的无头服务（Headless Service）。
 
 ```shell
-kubectl delete service <服务名称>
+kubectl delete service <Service 名称>
 ```
 
 <!--

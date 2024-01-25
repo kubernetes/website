@@ -27,11 +27,11 @@ tags:
  A {{< glossary_tooltip text="pod" term_id="pod" >}} object that a kubelet uses
  to represent a {{< glossary_tooltip text="static pod" term_id="static-pod" >}}
 -->
-镜像 Pod（Mirror Pod）是被 kubelet 用来代表{{< glossary_tooltip text="静态 Pod" term_id="static-pod" >}} 的
-{{< glossary_tooltip text="pod" term_id="pod" >}} 对象。
+镜像 Pod（Mirror Pod）是被 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}
+用来代表{{< glossary_tooltip text="静态 Pod" term_id="static-pod" >}} 的
+{{< glossary_tooltip text="Pod" term_id="pod" >}} 对象。
 
 <!--more-->
-<!--更多-->
 
 <!--
 When the kubelet finds a static pod in its configuration, it automatically tries to

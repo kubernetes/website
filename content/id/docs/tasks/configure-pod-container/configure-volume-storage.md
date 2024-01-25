@@ -25,7 +25,7 @@ _Filesystem_ dari sebuah Container hanya hidup selama Container itu juga hidup. 
 Pada latihan ini, kamu membuat sebuah Pod yang menjalankan sebuah Container. Pod ini memiliki sebuah Volume dengan tipe [emptyDir](/id/docs/concepts/storage/volumes/#emptydir)
 yang tetap bertahan, meski Container berakhir dan dimulai ulang. Berikut berkas konfigurasi untuk Pod:
 
-{{< codenew file="pods/storage/redis.yaml" >}}
+{{% codenew file="pods/storage/redis.yaml" %}}
 
 1. Membuat Pod:
 

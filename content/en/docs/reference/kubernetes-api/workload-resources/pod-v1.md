@@ -430,7 +430,7 @@ PodSpec is a description of a pod.
 
     - **securityContext.seccompProfile.localhostProfile** (string)
 
-      localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
+      localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must be set if type is "Localhost". Must NOT be set for any other type.
 
   - **securityContext.seLinuxOptions** (SELinuxOptions)
 
@@ -487,7 +487,7 @@ PodSpec is a description of a pod.
 
     - **securityContext.windowsOptions.hostProcess** (boolean)
 
-      HostProcess determines if a container should be run as a 'Host Process' container. This field is alpha-level and will only be honored by components that enable the WindowsHostProcessContainers feature flag. Setting this field without the feature flag will result in errors when validating the Pod. All of a Pod's containers must have the same effective HostProcess value (it is not allowed to have a mix of HostProcess containers and non-HostProcess containers).  In addition, if HostProcess is true then HostNetwork must also be set to true.
+      HostProcess determines if a container should be run as a 'Host Process' container. All of a Pod's containers must have the same effective HostProcess value (it is not allowed to have a mix of HostProcess containers and non-HostProcess containers). In addition, if HostProcess is true then HostNetwork must also be set to true.
 
     - **securityContext.windowsOptions.runAsUserName** (string)
 
@@ -536,9 +536,7 @@ PodSpec is a description of a pod.
 
       ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this pod.
       
-      The template will be used to create a new ResourceClaim, which will be bound to this pod. When this pod is deleted, the ResourceClaim will also be deleted. The name of the ResourceClaim will be \<pod name>-\<resource name>, where \<resource name> is the PodResourceClaim.Name. Pod validation will reject the pod if the concatenated name is not valid for a ResourceClaim (e.g. too long).
-      
-      An existing ResourceClaim with that name that is not owned by the pod will not be used for the pod to avoid using an unrelated resource by mistake. Scheduling and pod startup are then blocked until the unrelated ResourceClaim is removed.
+      The template will be used to create a new ResourceClaim, which will be bound to this pod. When this pod is deleted, the ResourceClaim will also be deleted. The pod name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in pod.status.resourceClaimStatuses.
       
       This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
 
@@ -903,6 +901,10 @@ A single application container that you want to run within a pod.
 
   StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
 
+- **restartPolicy** (string)
+
+  RestartPolicy defines the restart behavior of individual containers in a pod. This field may only be set for init containers, and the only allowed value is "Always". For non-init containers or when this field is not specified, the restart behavior is defined by the Pod's restart policy and the container type. Setting the RestartPolicy as "Always" for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy "Always" will be shut down. This lifecycle differs from normal init containers and is often referred to as a "sidecar" container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
+
 ### Security Context
 
 
@@ -971,7 +973,7 @@ A single application container that you want to run within a pod.
 
     - **securityContext.seccompProfile.localhostProfile** (string)
 
-      localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
+      localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must be set if type is "Localhost". Must NOT be set for any other type.
 
   - **securityContext.seLinuxOptions** (SELinuxOptions)
 
@@ -1013,7 +1015,7 @@ A single application container that you want to run within a pod.
 
     - **securityContext.windowsOptions.hostProcess** (boolean)
 
-      HostProcess determines if a container should be run as a 'Host Process' container. This field is alpha-level and will only be honored by components that enable the WindowsHostProcessContainers feature flag. Setting this field without the feature flag will result in errors when validating the Pod. All of a Pod's containers must have the same effective HostProcess value (it is not allowed to have a mix of HostProcess containers and non-HostProcess containers).  In addition, if HostProcess is true then HostNetwork must also be set to true.
+      HostProcess determines if a container should be run as a 'Host Process' container. All of a Pod's containers must have the same effective HostProcess value (it is not allowed to have a mix of HostProcess containers and non-HostProcess containers). In addition, if HostProcess is true then HostNetwork must also be set to true.
 
     - **securityContext.windowsOptions.runAsUserName** (string)
 
@@ -1284,6 +1286,10 @@ To add an ephemeral container, use the ephemeralcontainers subresource of an exi
 
   Indicate how the termination message should be populated. File will use the contents of terminationMessagePath to populate the container status message on both success and failure. FallbackToLogsOnError will use the last chunk of container log output if the termination message file is empty and the container exited with an error. The log output is limited to 2048 bytes or 80 lines, whichever is smaller. Defaults to File. Cannot be updated.
 
+- **restartPolicy** (string)
+
+  Restart policy for the container to manage the restart behavior of each container within a pod. This may only be set for init containers. You cannot set this field on ephemeral containers.
+
 ### Debugging
 
 
@@ -1367,7 +1373,7 @@ To add an ephemeral container, use the ephemeralcontainers subresource of an exi
 
     - **securityContext.seccompProfile.localhostProfile** (string)
 
-      localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
+      localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must be set if type is "Localhost". Must NOT be set for any other type.
 
   - **securityContext.seLinuxOptions** (SELinuxOptions)
 
@@ -1409,7 +1415,7 @@ To add an ephemeral container, use the ephemeralcontainers subresource of an exi
 
     - **securityContext.windowsOptions.hostProcess** (boolean)
 
-      HostProcess determines if a container should be run as a 'Host Process' container. This field is alpha-level and will only be honored by components that enable the WindowsHostProcessContainers feature flag. Setting this field without the feature flag will result in errors when validating the Pod. All of a Pod's containers must have the same effective HostProcess value (it is not allowed to have a mix of HostProcess containers and non-HostProcess containers).  In addition, if HostProcess is true then HostNetwork must also be set to true.
+      HostProcess determines if a container should be run as a 'Host Process' container. All of a Pod's containers must have the same effective HostProcess value (it is not allowed to have a mix of HostProcess containers and non-HostProcess containers). In addition, if HostProcess is true then HostNetwork must also be set to true.
 
     - **securityContext.windowsOptions.runAsUserName** (string)
 
@@ -1554,7 +1560,7 @@ LifecycleHandler defines a specific action that should be taken in a lifecycle h
 
     - **httpGet.httpHeaders.name** (string), required
 
-      The header field name
+      The header field name. This will be canonicalized upon output, so case-variant names will be understood as the same header.
 
     - **httpGet.httpHeaders.value** (string), required
 
@@ -1826,7 +1832,7 @@ Probe describes a health check to be performed against a container to determine 
 
     - **httpGet.httpHeaders.name** (string), required
 
-      The header field name
+      The header field name. This will be canonicalized upon output, so case-variant names will be understood as the same header.
 
     - **httpGet.httpHeaders.value** (string), required
 
@@ -1915,7 +1921,22 @@ PodStatus represents information about the status of a pod. Status may trail the
 
 - **hostIP** (string)
 
-  IP address of the host to which the pod is assigned. Empty if not yet scheduled.
+  hostIP holds the IP address of the host to which the pod is assigned. Empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns mean that HostIP will not be updated even if there is a node is assigned to pod
+
+- **hostIPs** ([]HostIP)
+
+  *Patch strategy: merge on key `ip`*
+  
+  *Atomic: will be replaced during a merge*
+  
+  hostIPs holds the IP addresses allocated to the host. If this field is specified, the first entry must match the hostIP field. This list is empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns means that HostIPs will not be updated even if there is a node is assigned to this pod.
+
+  <a name="HostIP"></a>
+  *HostIP represents a single IP address allocated to the host.*
+
+  - **hostIPs.ip** (string)
+
+    IP is the IP address assigned to the host
 
 - **startTime** (Time)
 
@@ -1942,7 +1963,7 @@ PodStatus represents information about the status of a pod. Status may trail the
 
 - **podIP** (string)
 
-  IP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.
+  podIP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.
 
 - **podIPs** ([]PodIP)
 
@@ -1951,13 +1972,11 @@ PodStatus represents information about the status of a pod. Status may trail the
   podIPs holds the IP addresses allocated to the pod. If this field is specified, the 0th entry must match the podIP field. Pods may be allocated at most 1 value for each of IPv4 and IPv6. This list is empty if no IPs have been allocated yet.
 
   <a name="PodIP"></a>
-  *IP address information for entries in the (plural) PodIPs field. Each entry includes:
-  
-  	IP: An IP address allocated to the pod. Routable at least within the cluster.*
+  *PodIP represents a single IP address allocated to the pod.*
 
   - **podIPs.ip** (string)
 
-    ip is an IP address (IPv4 or IPv6) assigned to the pod
+    IP is the IP address assigned to the pod
 
 - **conditions** ([]PodCondition)
 
@@ -2022,6 +2041,25 @@ PodStatus represents information about the status of a pod. Status may trail the
 
   <a name="ContainerStatus"></a>
   *ContainerStatus contains details for the current status of this container.*
+
+- **resourceClaimStatuses** ([]PodResourceClaimStatus)
+
+  *Patch strategies: retainKeys, merge on key `name`*
+  
+  *Map: unique values on key name will be kept during a merge*
+  
+  Status of resource claims.
+
+  <a name="PodResourceClaimStatus"></a>
+  *PodResourceClaimStatus is stored in the PodStatus for each PodResourceClaim which references a ResourceClaimTemplate. It stores the generated name for the corresponding ResourceClaim.*
+
+  - **resourceClaimStatuses.name** (string), required
+
+    Name uniquely identifies this resource claim inside the pod. This must match the name of an entry in pod.spec.resourceClaims, which implies that the string must be a DNS_LABEL.
+
+  - **resourceClaimStatuses.resourceClaimName** (string)
+
+    ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod. It this is unset, then generating a ResourceClaim was not necessary. The pod.spec.resourceClaims entry can be ignored in this case.
 
 - **resize** (string)
 

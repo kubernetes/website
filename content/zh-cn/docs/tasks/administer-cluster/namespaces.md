@@ -49,30 +49,35 @@ List the current namespaces in a cluster using:
 kubectl get namespaces
 ```
 ```console
-NAME          STATUS    AGE
-default       Active    11d
-kube-system   Active    11d
-kube-public   Active    11d
+NAME              STATUS   AGE
+default           Active   11d
+kube-node-lease   Active   11d
+kube-public       Active   11d
+kube-system       Active   11d
 ```
 
 <!--
-Kubernetes starts with three initial namespaces:
+Kubernetes starts with four initial namespaces:
 -->
-初始状态下，Kubernetes 具有三个名字空间：
+初始状态下，Kubernetes 具有四个名字空间：
 
 <!--
 * `default` The default namespace for objects with no other namespace
-* `kube-system` The namespace for objects created by the Kubernetes system
+* `kube-node-lease` This namespace holds [Lease](/docs/concepts/architecture/leases/) objects associated with each node. Node leases allow the kubelet to send [heartbeats](/docs/concepts/architecture/nodes/#heartbeats) so that the control plane can detect node failure.
 * `kube-public` This namespace is created automatically and is readable by all users
   (including those not authenticated). This namespace is mostly reserved for cluster usage,
   in case that some resources should be visible and readable publicly throughout the whole cluster.
   The public aspect of this namespace is only a convention, not a requirement.
+* `kube-system` The namespace for objects created by the Kubernetes system
 -->
 * `default` 无名字空间对象的默认名字空间
-* `kube-system` 由 Kubernetes 系统创建的对象的名字空间
+* `kube-node-lease` 此名字空间保存与每个节点关联的[租约（Lease）](/zh-cn/docs/concepts/architecture/leases/)对象。
+  节点租约允许 kubelet 发送[心跳](/zh-cn/docs/concepts/architecture/nodes/#heartbeats），
+  以便控制平面可以检测节点故障。
 * `kube-public` 自动创建且被所有用户可读的名字空间（包括未经身份认证的）。
   此名字空间通常在某些资源在整个集群中可见且可公开读取时被集群使用。
   此名字空间的公共方面只是一个约定，而不是一个必要条件。
+* `kube-system` 由 Kubernetes 系统创建的对象的名字空间
 
 <!--
 You can also get the summary of a specific namespace using:

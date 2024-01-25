@@ -47,7 +47,7 @@ The manifest for that Pod specifies a command that runs when the container start
 在本练习中，你将创建运行一个容器的 Pod。
 配置文件指定在容器启动时要运行的命令。
 
-{{< codenew file="debug/termination.yaml" >}}
+{{% code_sample file="debug/termination.yaml" %}}
 
 <!--
 1. Create a Pod based on the YAML configuration file:
@@ -210,4 +210,3 @@ is empty and the container exited with an error. The log output is limited to
   资源的 `terminationMessagePath` 字段。
 * 了解[检索日志](/zh-cn/docs/concepts/cluster-administration/logging/)。
 * 了解 [Go 模板](https://pkg.go.dev/text/template)。
-

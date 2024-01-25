@@ -27,7 +27,7 @@ ayant deux instances en cours d'exécution.
 
 Voici le fichier de configuration pour le déploiement de l'application :
 
-{{< codenew file="service/access/hello-application.yaml" >}}
+{{% codenew file="service/access/hello-application.yaml" %}}
 
 1. Exécutez une application Hello World dans votre cluster :
    Créez le déploiement de l'application en utilisant le fichier ci-dessus :

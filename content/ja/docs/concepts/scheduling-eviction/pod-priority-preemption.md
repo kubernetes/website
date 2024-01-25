@@ -51,7 +51,7 @@ PriorityClassオブジェクトのメタデータの`name`フィールドにて�
 値が大きいほど、高い優先度を示します。
 PriorityClassオブジェクトの名称は[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)として適切であり、かつ`system-`から始まってはいけません。
 
-PriorityClassオブジェクトは10億以下の任意の32ビットの整数値を持つことができます。
+PriorityClassオブジェクトは10億以下の任意の32ビットの整数値を持つことができます。これは、PriorityClassオブジェクトの値の範囲が-2147483648から1000000000までであることを意味します。
 それよりも大きな値は通常はプリエンプトや追い出すべきではない重要なシステム用のPodのために予約されています。
 クラスターの管理者は割り当てたい優先度に対して、PriorityClassオブジェクトを1つずつ作成すべきです。
 

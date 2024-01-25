@@ -78,7 +78,7 @@ To allow creating a CertificateSigningRequest and retrieving any CertificateSign
 
 For example:
 
-{{% code file="access/certificate-signing-request/clusterrole-create.yaml" %}}
+{{% code_sample file="access/certificate-signing-request/clusterrole-create.yaml" %}}
 
 To allow approving a CertificateSigningRequest:
 
@@ -88,7 +88,7 @@ To allow approving a CertificateSigningRequest:
 
 For example:
 
-{{% code file="access/certificate-signing-request/clusterrole-approve.yaml" %}}
+{{% code_sample file="access/certificate-signing-request/clusterrole-approve.yaml" %}}
 
 To allow signing a CertificateSigningRequest:
 
@@ -96,7 +96,7 @@ To allow signing a CertificateSigningRequest:
 * Verbs: `update`, group: `certificates.k8s.io`, resource: `certificatesigningrequests/status`
 * Verbs: `sign`, group: `certificates.k8s.io`, resource: `signers`, resourceName: `<signerNameDomain>/<signerNamePath>` or `<signerNameDomain>/*`
 
-{{% code file="access/certificate-signing-request/clusterrole-sign.yaml" %}}
+{{% code_sample file="access/certificate-signing-request/clusterrole-sign.yaml" %}}
 
 
 ## Signers
@@ -371,7 +371,7 @@ you like. If you want to add a note for human consumption, use the
 {{< feature-state for_k8s_version="v1.27" state="alpha" >}}
 
 {{< note >}}
-In Kubernetes {{< skew currentVersion >}}, you must enable the `ClusterTrustBundles`
+In Kubernetes {{< skew currentVersion >}}, you must enable the `ClusterTrustBundle`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 _and_ the `certificates.k8s.io/v1alpha1`
 {{< glossary_tooltip text="API group" term_id="api-group" >}} in order to use
@@ -438,7 +438,7 @@ controller in the cluster, so they have several security features:
   `<signerNameDomain>/*`.
 * Signer-linked ClusterTrustBundles **must** be named with a prefix derived from
   their `spec.signerName` field.  Slashes (`/`) are replaced with colons (`:`),
-  and a final colon is appended.  This is followed by an arbitary name.  For
+  and a final colon is appended.  This is followed by an arbitrary name.  For
   example, the signer `example.com/mysigner` can be linked to a
   ClusterTrustBundle `example.com:mysigner:<arbitrary-name>`.
 
@@ -472,6 +472,12 @@ such as role-based access control.
 To distinguish them from signer-linked ClusterTrustBundles, the names of
 signer-unlinked ClusterTrustBundles **must not** contain a colon (`:`).
 
+### Accessing ClusterTrustBundles from pods {#ctb-projection}
+
+{{<feature-state for_k8s_version="v1.29" state="alpha" >}}
+
+The contents of ClusterTrustBundles can be injected into the container filesystem, similar to ConfigMaps and Secrets.  See the [clusterTrustBundle projected volume source](/docs/concepts/storage/projected-volumes#clustertrustbundle) for more details.
+
 <!-- TODO this should become a task page -->
 ## How to issue a certificate for a user {#normal-user}
 
@@ -488,7 +494,7 @@ O is the group that this user will belong to. You can refer to
 
 ```shell
 openssl genrsa -out myuser.key 2048
-openssl req -new -key myuser.key -out myuser.csr
+openssl req -new -key myuser.key -out myuser.csr -subj "/CN=myuser"
 ```
 
 ### Create a CertificateSigningRequest {#create-certificatessigningrequest}

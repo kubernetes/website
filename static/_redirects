@@ -23,12 +23,15 @@
 /zh-cn/docs/     /zh-cn/docs/home/ 301!
 /blog/2018/03/kubernetes-1.10-stabilizing-storage-security-networking/     /blog/2018/03/26/kubernetes-1.10-stabilizing-storage-security-networking/     301!
 /blog/2020/08/25/kubernetes-release-1.19-accentuate-the-paw-sitive/     /blog/2020/08/26/kubernetes-release-1.19-accentuate-the-paw-sitive/     301!
+/blog/2023/01/20/security-bahavior-analysis/     /blog/2023/01/20/security-behavior-analysis/
 
 /docs/api/     /docs/concepts/overview/kubernetes-api/ 301
 
 /docs/api-reference/labels-annotations-taints/     /docs/reference/labels-annotations-taints/ 301
 /docs/reference/using-api/api-overview/     /docs/reference/using-api/ 301
 /docs/reference/access-authn-authz/controlling-access/   /docs/concepts/security/controlling-access/ 301
+/docs/reference/kubectl/cheatsheet/   /docs/reference/kubectl/quick-reference/ 301
+/kubectlguide /docs/reference/kubectl/quick-reference/ 302
 
 /docs/concepts/abstractions/controllers/garbage-collection/     /docs/concepts/workloads/controllers/garbage-collection/ 301
 /docs/concepts/abstractions/controllers/statefulsets/     /docs/concepts/workloads/controllers/statefulset/ 301
@@ -344,7 +347,7 @@
 /docs/tutorials/stateless-application/run-stateless-ap-replication-controller/     /docs/tasks/run-application/run-stateless-application-deployment/ 301
 /docs/tutorials/stateless-application/run-stateless-application-deployment/     /docs/tasks/run-application/run-stateless-application-deployment/ 301
 
-/cheatsheet /docs/reference/kubectl/cheatsheet/ 302
+/cheatsheet /docs/reference/kubectl/quick-reference/ 302
 
 /docs/whatisk8s/     /docs/concepts/overview/what-is-kubernetes/ 301
 /events/     /docs/community     301
@@ -370,6 +373,9 @@
 
 /dockershim /blog/2022/02/17/dockershim-faq/ 302
 /dockershim/ /blog/2022/02/17/dockershim-faq/ 302
+
+/linuxrepos /blog/2023/08/31/legacy-package-repository-deprecation/ 302
+/linuxrepos/ /blog/2023/08/31/legacy-package-repository-deprecation/ 302
 
 /image-registry-redirect  /blog/2023/03/10/image-registry-redirect/ 302
 /image-registry-redirect/ /blog/2022/02/10/image-registry-redirect/ 302
@@ -433,3 +439,4 @@
 
 /docs/concepts/overview/what-is-kubernetes/      /docs/concepts/overview/ 301
 /docs/tasks/administer-cluster/verify-signed-images/     /docs/tasks/administer-cluster/verify-signed-artifacts/   301
+

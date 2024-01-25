@@ -39,7 +39,7 @@ kubectl create namespace quota-pod-example
 
 Here is an example manifest for a ResourceQuota:
 
-{{% code file="admin/resource/quota-pod.yaml" %}}
+{{% code_sample file="admin/resource/quota-pod.yaml" %}}
 
 Create the ResourceQuota:
 
@@ -69,7 +69,7 @@ status:
 
 Here is an example manifest for a {{< glossary_tooltip term_id="deployment" >}}:
 
-{{% code file="admin/resource/quota-pod-deployment.yaml" %}}
+{{% code_sample file="admin/resource/quota-pod-deployment.yaml" %}}
 
 In that manifest, `replicas: 3` tells Kubernetes to attempt to create three new Pods, all
 running the same application.

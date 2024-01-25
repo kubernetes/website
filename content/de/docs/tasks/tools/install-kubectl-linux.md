@@ -51,7 +51,7 @@ Um kubectl auf Linux zu installieren, gibt es die folgenden Möglichkeiten:
    Download der kubectl Checksum-Datei:
 
    ```bash
-   curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
    ```
 
    Kubectl Binary mit der Checksum-Datei validieren:
@@ -236,7 +236,7 @@ Untenstehend ist beschrieben, wie die Autovervollständigungen für Fish und Zsh
    Download der kubectl-convert Checksum-Datei:
 
    ```bash
-   curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert.sha256"
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert.sha256"
    ```
 
    Kubectl-convert Binary mit der Checksum-Datei validieren:

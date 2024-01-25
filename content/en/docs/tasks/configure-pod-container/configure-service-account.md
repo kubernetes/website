@@ -1,6 +1,6 @@
 ---
 reviewers:
-- bprashanth
+- enj
 - liggitt
 - thockin
 title: Configure Service Accounts for Pods
@@ -47,7 +47,7 @@ kubectl get pods/<podname> -o yaml
 ```
 
 In the output, you see a field `spec.serviceAccountName`.
-Kubernetes [automatically](/docs/concepts/overview/working-with-objects/object-management/)
+Kubernetes automatically
 sets that value if you don't specify it when you create a Pod.
 
 An application running inside a Pod can access the Kubernetes API using
@@ -184,6 +184,16 @@ ServiceAccount. You can request a specific token duration using the `--duration`
 command line argument to `kubectl create token` (the actual duration of the issued
 token might be shorter, or could even be longer).
 
+When the `ServiceAccountTokenNodeBinding` and `ServiceAccountTokenNodeBindingValidation`
+features are enabled and the `KUBECTL_NODE_BOUND_TOKENS` environment variable is set to `true`,
+it is possible to create a service account token that is directly bound to a `Node`:
+
+```shell
+KUBECTL_NODE_BOUND_TOKENS=true kubectl create token build-robot --bound-object-kind Node --bound-object-name node-001 --bound-object-uid 123...456
+```
+
+The token will be valid until it expires or either the associated `Node` or service account are deleted.
+
 {{< note >}}
 Versions of Kubernetes before v1.22 automatically created long term credentials for
 accessing the Kubernetes API. This older mechanism was based on creating token Secrets
@@ -262,6 +272,16 @@ Secret somewhere that your terminal / computer screen could be seen by an onlook
 When you delete a ServiceAccount that has an associated Secret, the Kubernetes
 control plane automatically cleans up the long-lived token from that Secret.
 
+{{< note >}}
+If you view the ServiceAccount using:
+
+` kubectl get serviceaccount build-robot -o yaml`
+
+You can't see the `build-robot-secret` Secret in the ServiceAccount API objects
+[`.secrets`](/docs/reference/kubernetes-api/authentication-resources/service-account-v1/) field
+because that field is only populated with auto-generated Secrets.
+{{< /note >}}
+
 ## Add ImagePullSecrets to a service account
 
 First, [create an imagePullSecret](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
@@ -271,7 +291,7 @@ Next, verify it has been created. For example:
   [Specifying ImagePullSecrets on a Pod](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
 
   ```shell
-  kubectl create secret docker-registry myregistrykey --docker-server=DUMMY_SERVER \
+  kubectl create secret docker-registry myregistrykey --docker-server=<registry name> \
           --docker-username=DUMMY_USERNAME --docker-password=DUMMY_DOCKER_PASSWORD \
           --docker-email=DUMMY_DOCKER_EMAIL
   ```
@@ -341,7 +361,7 @@ Now, when a new Pod is created in the current namespace and using the default
 ServiceAccount, the new Pod has its `spec.imagePullSecrets` field set automatically:
 
 ```shell
-kubectl run nginx --image=nginx --restart=Never
+kubectl run nginx --image=<registry name>/nginx --restart=Never
 kubectl get pod nginx -o=jsonpath='{.spec.imagePullSecrets[0].name}{"\n"}'
 ```
 
@@ -398,12 +418,45 @@ You can configure this behavior for the `spec` of a Pod using a
 [projected volume](/docs/concepts/storage/volumes/#projected) type called
 `ServiceAccountToken`.
 
+The token from this projected volume is a {{<glossary_tooltip term_id="jwt" text="JSON Web Token">}}  (JWT).
+The JSON payload of this token follows a well defined schema - an example payload for a pod bound token:
+
+```yaml
+{
+  "aud": [  # matches the requested audiences, or the API server's default audiences when none are explicitly requested
+    "https://kubernetes.default.svc"
+  ],
+  "exp": 1731613413,
+  "iat": 1700077413,
+  "iss": "https://kubernetes.default.svc",  # matches the first value passed to the --service-account-issuer flag
+  "jti": "ea28ed49-2e11-4280-9ec5-bc3d1d84661a",  # ServiceAccountTokenJTI feature must be enabled for the claim to be present
+  "kubernetes.io": {
+    "namespace": "kube-system",
+    "node": {  # ServiceAccountTokenPodNodeInfo feature must be enabled for the API server to add this node reference claim
+      "name": "127.0.0.1",
+      "uid": "58456cb0-dd00-45ed-b797-5578fdceaced"
+    },
+    "pod": {
+      "name": "coredns-69cbfb9798-jv9gn",
+      "uid": "778a530c-b3f4-47c0-9cd5-ab018fb64f33"
+    },
+    "serviceaccount": {
+      "name": "coredns",
+      "uid": "a087d5a0-e1dd-43ec-93ac-f13d89cd13af"
+    },
+    "warnafter": 1700081020
+  },
+  "nbf": 1700077413,
+  "sub": "system:serviceaccount:kube-system:coredns"
+}
+```
+
 ### Launch a Pod using service account token projection
 
 To provide a Pod with a token with an audience of `vault` and a validity duration
 of two hours, you could define a Pod manifest that is similar to:
 
-{{% code file="pods/pod-projected-svc-token.yaml" %}}
+{{% code_sample file="pods/pod-projected-svc-token.yaml" %}}
 
 Create the Pod:
 
@@ -486,7 +539,7 @@ See also:
   - or learn to [distribute credentials securely using Secrets](/docs/tasks/inject-data-application/distribute-credentials-secure/)
   - but also bear in mind that using Secrets for authenticating as a ServiceAccount
     is deprecated. The recommended alternative is
-    [ServiceAccount token volume projection](#service-account-token-volume-projection).
+    [ServiceAccount token volume projection](#serviceaccount-token-volume-projection).
 - Read about [projected volumes](/docs/tasks/configure-pod-container/configure-projected-volume-storage/).
 - For background on OIDC discovery, read the
   [ServiceAccount signing key retrieval](https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/1393-oidc-discovery)
