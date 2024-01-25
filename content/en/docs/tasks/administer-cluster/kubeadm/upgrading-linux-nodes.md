@@ -28,6 +28,16 @@ document.
 
 ## Upgrading worker nodes
 
+### Drain the node
+
+Prepare the node for maintenance by marking it unschedulable and evicting the workloads:
+
+```shell
+# execute this command on a control plane node
+# replace <node-to-drain> with the name of your node you are draining
+kubectl drain <node-to-drain> --ignore-daemonsets
+```
+
 ### Upgrade kubeadm
 
 Upgrade kubeadm:
@@ -55,16 +65,6 @@ For worker nodes this upgrades the local kubelet configuration:
 
 ```shell
 sudo kubeadm upgrade node
-```
-
-### Drain the node
-
-Prepare the node for maintenance by marking it unschedulable and evicting the workloads:
-
-```shell
-# execute this command on a control plane node
-# replace <node-to-drain> with the name of your node you are draining
-kubectl drain <node-to-drain> --ignore-daemonsets
 ```
 
 ### Upgrade kubelet and kubectl
