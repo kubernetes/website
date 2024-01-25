@@ -1,13 +1,11 @@
 ---
 reviewers:
-- bprashanth
+  - bprashanth
 title: Ingress
 content_type: concept
 description: >-
-  Make your HTTP (or HTTPS) network service available using a protocol-aware configuration
-  mechanism, that understands web concepts like URIs, hostnames, paths, and more.
-  The Ingress concept lets you map traffic to different backends based on rules you define
-  via the Kubernetes API.
+  Permite que sean accesibles los servicios de red HTTP (o HTTPS) usando un mecanismo de configuración consciente del protocolo, que entiende conceptos como URIs, nombres de host, rutas y más.
+  El concepto de Ingress te permite mapear el tráfico a diferentes backend basado en las reglas que defines a través de la API de Kubernetes.
 weight: 30
 ---
 
@@ -16,7 +14,11 @@ weight: 30
 {{< glossary_definition term_id="ingress" length="all" >}}
 
 {{< note >}}
-Ingress is frozen. New features are being added to the [Gateway API](/docs/concepts/services-networking/gateway/).
+EL recurso Ingress está congelado.
+Las nuevas características se añaden
+al [API del Gateway](/docs/concepts/services-networking/gateway/)
+Ingress is frozen. New features are being added o
+the [Gateway API](/docs/concepts/services-networking/gateway/).
 {{< /note >}}
 
 <!-- body -->
@@ -28,111 +30,166 @@ Para mayor claridad, esta guía define los siguientes términos:
 * Nodo: Una máquina worker en Kubernetes, parte de un clúster.
 * Clúster: Un conjunto de Nodos que ejecutan aplicaciones en contenedores,
   administrados por Kubernetes.
-  Para este ejemplo, y para los despliegues más comunes de Kubernetes, los nodos en el clúster no son parte del internet público.
-* Enrutador Edge: un enrutador que refuerza la política de seguridad del cortafuegos para tu clúster. 
-  Esto podría ser una puerta de entrada adminsitrada por un proveedor de la nube o una pieza física de hardware.
+  Para este ejemplo, y para los despliegues más comunes de Kubernetes, los nodos
+  en el clúster no son parte del internet público.
+* Enrutador Edge: un enrutador que refuerza la política de seguridad del
+  cortafuegos para tu clúster.
+  Esto podría ser una puerta de entrada administrada por un proveedor de la nube
+  o una pieza física de hardware.
 * Red del clúster: un conjunto de enlaces, lógicos o físicos,
-  que facilitan la comunicatión dentro de un clúster de acuerdo con el [modelo de redes](/docs/concepts/cluster-administration/networking/) de Kubernetes.
+  que facilitan la comunicación dentro de un clúster de acuerdo con
+  el [modelo de redes](/docs/concepts/cluster-administration/networking/) de
+  Kubernetes.
 * Service: Un {{< glossary_tooltip term_id="service" >}} que identifica
-  un conjunto de Pods que utilizan selectors de {{< glossary_tooltip text="label" term_id="label" >}}.
-  A menos que se indique de otra manera, Los Services se asumen que tienen IPs virtuales que solo se pueden enrutar dentro de la red del clúster.
+  un conjunto de Pods que utilizan selectors de {{< glossary_tooltip text="
+  label" term_id="label" >}}.
+  A menos que se indique de otra manera, Los Services se asumen que tienen IPs
+  virtuales que solo se pueden enrutar dentro de la red del clúster.
 
 ## Qué es un Ingress?
 
-Un [Ingress](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1-networking-k8s-io)
-expone las rutas HTTP y HTTPS desde el exterior del clúster a los 
-{{< link text="services" url="/docs/concepts/services-networking/service/" >}} dentro del clúster.
-El enrutamiento del tráfico es controlado por las reglas definidas en el recurso Ingress.
+Un [Ingress](/docs/reference/generated/kubernetes-api/{{< param "version" >
+}}/#ingress-v1-networking-k8s-io)
+expone las rutas HTTP y HTTPS desde el exterior del clúster a los
+{{< link text="services" url="/docs/concepts/services-networking/service/" >}}
+dentro del clúster.
+El enrutamiento del tráfico es controlado por las reglas definidas en el recurso
+Ingress.
 
-Aquí tienes un ejemplo simple de un Ingress que envía todo su tráfico a un Service:
+Aquí tienes un ejemplo simple de un Ingress que envía todo su tráfico a un
+Service:
 
-{{< figure src="/docs/images/ingress.svg" alt="ingress-diagram" class="diagram-large" caption="Figure. Ingress" link="https://mermaid.live/edit#pako:eNqNkstuwyAQRX8F4U0r2VHqPlSRKqt0UamLqlnaWWAYJygYLB59KMm_Fxcix-qmGwbuXA7DwAEzzQETXKutof0Ovb4vaoUQkwKUu6pi3FwXM_QSHGBt0VFFt8DRU2OWSGrKUUMlVQwMmhVLEV1Vcm9-aUksiuXRaO_CEhkv4WjBfAgG1TrGaLa-iaUw6a0DcwGI-WgOsF7zm-pN881fvRx1UDzeiFq7ghb1kgqFWiElyTjnuXVG74FkbdumefEpuNuRu_4rZ1pqQ7L5fL6YQPaPNiFuywcG9_-ihNyUkm6YSONWkjVNM8WUIyaeOJLO3clTB_KhL8NQDmVe-OJjxgZM5FhFiiFTK5zjDkxHBQ9_4zB4a-x20EGNSZhyaKmXrg7f5hSsvufUwTMXThtMWiot5Jh6p9ffimHijIezaSVoeN0uiqcfMJvf7w" >}}
+{{< figure src="/docs/images/ingress.svg" alt="ingress-diagram" class="
+diagram-large" caption="Figure. Ingress"
+link="https://mermaid.live/edit#pako:eNqNkstuwyAQRX8F4U0r2VHqPlSRKqt0UamLqlnaWWAYJygYLB59KMm_Fxcix-qmGwbuXA7DwAEzzQETXKutof0Ovb4vaoUQkwKUu6pi3FwXM_QSHGBt0VFFt8DRU2OWSGrKUUMlVQwMmhVLEV1Vcm9-aUksiuXRaO_CEhkv4WjBfAgG1TrGaLa-iaUw6a0DcwGI-WgOsF7zm-pN881fvRx1UDzeiFq7ghb1kgqFWiElyTjnuXVG74FkbdumefEpuNuRu_4rZ1pqQ7L5fL6YQPaPNiFuywcG9_-ihNyUkm6YSONWkjVNM8WUIyaeOJLO3clTB_KhL8NQDmVe-OJjxgZM5FhFiiFTK5zjDkxHBQ9_4zB4a-x20EGNSZhyaKmXrg7f5hSsvufUwTMXThtMWiot5Jh6p9ffimHijIezaSVoeN0uiqcfMJvf7w" >}}
 
-Un Ingress se puede configurar para otorgar URLs a los Services que son accesibles desde el exterior,
-para hacer balance de cargas del tráfico, finalizar SSL/TLS, y ofrecer alojamiento virtual basado en nombres.
+Un Ingress se puede configurar para otorgar URLs a los Services que son
+accesibles desde el exterior,
+para hacer balance de cargas del tráfico, finalizar SSL/TLS, y ofrecer
+alojamiento virtual basado en nombres.
 
-Un [controlador Ingress](/docs/concepts/services-networking/ingress-controllers) es responsable de complementar el Ingress,
+Un [controlador de Ingress](/docs/concepts/services-networking/ingress-controllers)
+es responsable de complementar el Ingress,
 comúnmente con un balanceador de cargas,
-aunque también puede configurar tu enrutador edge con frontends adicionales para ayudar a manejar el tráfico.
+aunque también puede configurar tu enrutador edge con frontends adicionales para
+ayudar a manejar el tráfico.
 
-Un Ingress no expone puertos o protocolos arbitrariamente. Exponer servicios de otra manera que por HTTP o HTTPS al internet usa un servicio de tipo [Service.Type=NodePort](/docs/concepts/services-networking/service/#type-nodeport) o [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer).
+Un Ingress no expone puertos o protocolos arbitrariamente. Exponer servicios de
+otra manera que por HTTP o HTTPS al internet usa un servicio de
+tipo [Service.Type=NodePort](/docs/concepts/services-networking/service/#type-nodeport)
+o [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer).
 
-## Prerequisites
+## Prerrequisitos
 
-You must have an [Ingress controller](/docs/concepts/services-networking/ingress-controllers)
-to satisfy an Ingress. Only creating an Ingress resource has no effect.
+Debes tener
+un [controlador de Ingress](/docs/concepts/services-networking/ingress-controllers)
+para satisfacer a un Ingress.
+Crear únicamente un recurso Ingress no tiene ningún efecto.
 
-You may need to deploy an Ingress controller such as [ingress-nginx](https://kubernetes.github.io/ingress-nginx/deploy/).
-You can choose from a number of [Ingress controllers](/docs/concepts/services-networking/ingress-controllers).
+Puede que necesites desplegar un controlador Ingress controller tal como
+el [ingress-nginx](https://kubernetes.github.io/ingress-nginx/deploy/).
+Puedes elegir de un número
+de [controladores de Ingress](/docs/concepts/services-networking/ingress-controllers).
 
-Ideally, all Ingress controllers should fit the reference specification. In reality, the various Ingress
-controllers operate slightly differently.
+Idealmente,
+todos los controladores de Ingress deberían encajar con la especificación de
+referencia.
+En realidad, los distintos controladores de Ingress operan ligeramente
+diferente.
 
 {{< note >}}
-Make sure you review your Ingress controller's documentation to understand the caveats of choosing it.
+Asegúrate de revisar la documentación del controlador de Ingress para entender
+las precauciones de usarlo.
 {{< /note >}}
 
-## The Ingress resource
+## El recurso Ingress
 
-A minimal Ingress resource example:
+Un ejemplo mínimo de un recurso Ingress:
 
 {{% code_sample file="service/networking/minimal-ingress.yaml" %}}
 
-An Ingress needs `apiVersion`, `kind`, `metadata` and `spec` fields.
-The name of an Ingress object must be a valid
-[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
-For general information about working with config files, see [deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/), [configuring containers](/docs/tasks/configure-pod-container/configure-pod-configmap/), [managing resources](/docs/concepts/cluster-administration/manage-deployment/).
-Ingress frequently uses annotations to configure some options depending on the Ingress controller, an example of which
-is the [rewrite-target annotation](https://github.com/kubernetes/ingress-nginx/blob/main/docs/examples/rewrite/README.md).
-Different [Ingress controllers](/docs/concepts/services-networking/ingress-controllers) support different annotations.
-Review the documentation for your choice of Ingress controller to learn which annotations are supported.
+Un Ingress necesita los campos `apiVersion`, `kind`, `metadata` y `spec`.
+El nombre del objeto Ingress debe ser un
+The name of an Ingress object must be a
+valid [nombre de subdominio DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)
+válido.
+Para información general sobre cómo trabajar con ficheros de configuración,
+mira [desplegando aplicaciones](/docs/tasks/run-application/run-stateless-application-deployment/),
+[configurando contenedores](/docs/tasks/configure-pod-container/configure-pod-configmap/),
+[administrando recursos](/docs/concepts/cluster-administration/manage-deployment/).
 
-The [Ingress spec](/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec)
-has all the information needed to configure a load balancer or proxy server. Most importantly, it
-contains a list of rules matched against all incoming requests. Ingress resource only supports rules
-for directing HTTP(S) traffic.
+Los Ingress usan anotaciones frecuentemente para configurar algunas opciones
+dependiendo del controlador de Ingress,
+un ejemplo de ello es
+la [anotación rewrite-target](https://github.com/kubernetes/ingress-nginx/blob/main/docs/examples/rewrite/README.md).
+Distintos [controladores de Ingress](/docs/concepts/services-networking/ingress-controllers)
+soportan anotaciones diferentes.
+Revisa la documentación para tu elección del controlador de Ingress para saber
+qué anotaciones son soportadas.
 
-If the `ingressClassName` is omitted, a [default Ingress class](#default-ingress-class)
-should be defined.
+La [especificación Ingress](/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec)
+tiene toda la información que necesitas para configurar un balanceador de cargas
+o un servidor proxy.
+Mucho más importante, contiene un listado de reglas que emparejan contra todas
+las peticiones entrantes.
+El recurso Ingress solo soporta reglas para dirigir el tráfico HTTP(S).
 
-There are some ingress controllers, that work without the definition of a
-default `IngressClass`. For example, the Ingress-NGINX controller can be
-configured with a [flag](https://kubernetes.github.io/ingress-nginx/user-guide/k8s-122-migration/#what-is-the-flag-watch-ingress-without-class)
-`--watch-ingress-without-class`. It is [recommended](https://kubernetes.github.io/ingress-nginx/user-guide/k8s-122-migration/#i-have-only-one-ingress-controller-in-my-cluster-what-should-i-do) though, to specify the
-default `IngressClass` as shown [below](#default-ingress-class).
+Si se omite la `ingressClassName`, se define
+una [clase Ingress por defecto](#default-ingress-class).
 
-### Ingress rules
+Existen algunos controladores de Ingress,
+que trabajan sin la definición de una `IngressClass` por defecto.
+Por ejemplo, el controlador Ingress-NGINX se puede configurar con
+una [bandera](https://kubernetes.github.io/ingress-nginx/user-guide/k8s-122-migration/#what-is-the-flag-watch-ingress-without-class)
+`--watch-ingress-without-class`.
+Sin embargo,
+se [recomienda](https://kubernetes.github.io/ingress-nginx/user-guide/k8s-122-migration/#i-have-only-one-ingress-controller-in-my-cluster-what-should-i-do)
+especificar el `IngressClass` por defecto como se
+muestra [abajo](#default-ingress-class).
 
-Each HTTP rule contains the following information:
+### Reglas Ingress
 
-* An optional host. In this example, no host is specified, so the rule applies to all inbound
-  HTTP traffic through the IP address specified. If a host is provided (for example,
-  foo.bar.com), the rules apply to that host.
-* A list of paths (for example, `/testpath`), each of which has an associated
-  backend defined with a `service.name` and a `service.port.name` or
-  `service.port.number`. Both the host and path must match the content of an
-  incoming request before the load balancer directs traffic to the referenced
-  Service.
-* A backend is a combination of Service and port names as described in the
-  [Service doc](/docs/concepts/services-networking/service/) or a [custom resource backend](#resource-backend)
-  by way of a {{< glossary_tooltip term_id="CustomResourceDefinition" text="CRD" >}}. HTTP (and HTTPS) requests to the
-  Ingress that match the host and path of the rule are sent to the listed backend.
+Cada regla HTTP contiene la siguiente información:
 
-A `defaultBackend` is often configured in an Ingress controller to service any requests that do not
-match a path in the spec.
+* Un anfitrión opcional.
+  En este ejemplo,
+  no se define un anfitrión así que la regla se aplica a todo el tráfico de
+  entrada HTTP a través de la dirección IP especificada.
+  Cuando se proporciona un anfitrión (por ejemplo, foo.barr.com), las reglas se
+  aplican a ese anfitrión.
+* Un listado de rutas (por ejemplo, `/testpath`), cada una de las cuales tiene
+  un backend asociado con un `service.name` y un `service.port.name` o
+  un `service.port.number`. Tanto el anfitrión como la ruta deben coincidir el
+  contenido de una petición de entrada antes que el balanceador de cargas dirija
+  el tráfico al Service referenciado.
+* Un backend es una combinación de un Service y un puerto como se describe en la
+  [documentación del Service](/docs/concepts/services-networking/service/) o
+  un [recurso personalizado backend](#resource-backend)
+  a través de un {{< glossary_tooltip term_id="CustomResourceDefinition"
+  text=" CRD" >}}.
+  Las peticiones HTTP (y HTTPS)  al Ingress que coinciden con el anfitrión y la
+  ruta de la regla se envían al backend del listado.
+
+Un  `defaultBackend` se configura frecuentemente en un controlador de Ingress
+para dar servicio a cualquier petición que no coincide con una ruta en la
+especificación.
 
 ### DefaultBackend {#default-backend}
 
-An Ingress with no rules sends all traffic to a single default backend and `.spec.defaultBackend`
+An Ingress with no rules sends all traffic to a single default backend
+and `.spec.defaultBackend`
 is the backend that should handle requests in that case.
 The `defaultBackend` is conventionally a configuration option of the
 [Ingress controller](/docs/concepts/services-networking/ingress-controllers) and
 is not specified in your Ingress resources.
 If no `.spec.rules` are specified, `.spec.defaultBackend` must be specified.
-If `defaultBackend` is not set, the handling of requests that do not match any of the rules will be up to the
-ingress controller (consult the documentation for your ingress controller to find out how it handles this case).
+If `defaultBackend` is not set, the handling of requests that do not match any
+of the rules will be up to the
+ingress controller (consult the documentation for your ingress controller to
+find out how it handles this case).
 
-If none of the hosts or paths match the HTTP request in the Ingress objects, the traffic is
+If none of the hosts or paths match the HTTP request in the Ingress objects, the
+traffic is
 routed to your default backend.
 
 ### Resource backends {#resource-backend}
@@ -191,26 +248,26 @@ supported path types:
 
 ### Examples
 
-| Kind   | Path(s)                         | Request path(s)               | Matches?                           |
-|--------|---------------------------------|-------------------------------|------------------------------------|
-| Prefix | `/`                             | (all paths)                   | Yes                                |
-| Exact  | `/foo`                          | `/foo`                        | Yes                                |
-| Exact  | `/foo`                          | `/bar`                        | No                                 |
-| Exact  | `/foo`                          | `/foo/`                       | No                                 |
-| Exact  | `/foo/`                         | `/foo`                        | No                                 |
-| Prefix | `/foo`                          | `/foo`, `/foo/`               | Yes                                |
-| Prefix | `/foo/`                         | `/foo`, `/foo/`               | Yes                                |
-| Prefix | `/aaa/bb`                       | `/aaa/bbb`                    | No                                 |
-| Prefix | `/aaa/bbb`                      | `/aaa/bbb`                    | Yes                                |
-| Prefix | `/aaa/bbb/`                     | `/aaa/bbb`                    | Yes, ignores trailing slash        |
-| Prefix | `/aaa/bbb`                      | `/aaa/bbb/`                   | Yes,  matches trailing slash       |
-| Prefix | `/aaa/bbb`                      | `/aaa/bbb/ccc`                | Yes, matches subpath               |
-| Prefix | `/aaa/bbb`                      | `/aaa/bbbxyz`                 | No, does not match string prefix   |
-| Prefix | `/`, `/aaa`                     | `/aaa/ccc`                    | Yes, matches `/aaa` prefix         |
-| Prefix | `/`, `/aaa`, `/aaa/bbb`         | `/aaa/bbb`                    | Yes, matches `/aaa/bbb` prefix     |
-| Prefix | `/`, `/aaa`, `/aaa/bbb`         | `/ccc`                        | Yes, matches `/` prefix            |
-| Prefix | `/aaa`                          | `/ccc`                        | No, uses default backend           |
-| Mixed  | `/foo` (Prefix), `/foo` (Exact) | `/foo`                        | Yes, prefers Exact                 |
+| Kind   | Path(s)                         | Request path(s) | Matches?                         |
+|--------|---------------------------------|-----------------|----------------------------------|
+| Prefix | `/`                             | (all paths)     | Yes                              |
+| Exact  | `/foo`                          | `/foo`          | Yes                              |
+| Exact  | `/foo`                          | `/bar`          | No                               |
+| Exact  | `/foo`                          | `/foo/`         | No                               |
+| Exact  | `/foo/`                         | `/foo`          | No                               |
+| Prefix | `/foo`                          | `/foo`, `/foo/` | Yes                              |
+| Prefix | `/foo/`                         | `/foo`, `/foo/` | Yes                              |
+| Prefix | `/aaa/bb`                       | `/aaa/bbb`      | No                               |
+| Prefix | `/aaa/bbb`                      | `/aaa/bbb`      | Yes                              |
+| Prefix | `/aaa/bbb/`                     | `/aaa/bbb`      | Yes, ignores trailing slash      |
+| Prefix | `/aaa/bbb`                      | `/aaa/bbb/`     | Yes,  matches trailing slash     |
+| Prefix | `/aaa/bbb`                      | `/aaa/bbb/ccc`  | Yes, matches subpath             |
+| Prefix | `/aaa/bbb`                      | `/aaa/bbbxyz`   | No, does not match string prefix |
+| Prefix | `/`, `/aaa`                     | `/aaa/ccc`      | Yes, matches `/aaa` prefix       |
+| Prefix | `/`, `/aaa`, `/aaa/bbb`         | `/aaa/bbb`      | Yes, matches `/aaa/bbb` prefix   |
+| Prefix | `/`, `/aaa`, `/aaa/bbb`         | `/ccc`          | Yes, matches `/` prefix          |
+| Prefix | `/aaa`                          | `/ccc`          | No, uses default backend         |
+| Mixed  | `/foo` (Prefix), `/foo` (Exact) | `/foo`          | Yes, prefers Exact               |
 
 #### Multiple matches
 
@@ -227,7 +284,7 @@ matches the `host` field. Wildcard matches require the HTTP `host` header is
 equal to the suffix of the wildcard rule.
 
 | Host        | Host header       | Match?                                            |
-| ----------- |-------------------| --------------------------------------------------|
+|-------------|-------------------|---------------------------------------------------|
 | `*.foo.com` | `bar.foo.com`     | Matches based on shared suffix                    |
 | `*.foo.com` | `baz.bar.foo.com` | No match, wildcard only covers a single DNS label |
 | `*.foo.com` | `foo.com`         | No match, wildcard only covers a single DNS label |
@@ -368,8 +425,11 @@ IngressClass is marked as default in your cluster.
 
 There are some ingress controllers, that work without the definition of a
 default `IngressClass`. For example, the Ingress-NGINX controller can be
-configured with a [flag](https://kubernetes.github.io/ingress-nginx/#what-is-the-flag-watch-ingress-without-class)
-`--watch-ingress-without-class`. It is [recommended](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do)  though, to specify the
+configured with
+a [flag](https://kubernetes.github.io/ingress-nginx/#what-is-the-flag-watch-ingress-without-class)
+`--watch-ingress-without-class`. It
+is [recommended](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do)
+though, to specify the
 default `IngressClass`:
 
 {{% code_sample file="service/networking/default-ingressclass.yaml" %}}
@@ -379,7 +439,8 @@ default `IngressClass`:
 ### Ingress backed by a single Service {#single-service-ingress}
 
 There are existing Kubernetes concepts that allow you to expose a single Service
-(see [alternatives](#alternatives)). You can also do this with an Ingress by specifying a
+(see [alternatives](#alternatives)). You can also do this with an Ingress by
+specifying a
 *default backend* with no rules.
 
 {{% code_sample file="service/networking/test-ingress.yaml" %}}
@@ -400,17 +461,22 @@ Where `203.0.113.123` is the IP allocated by the Ingress controller to satisfy
 this Ingress.
 
 {{< note >}}
-Ingress controllers and load balancers may take a minute or two to allocate an IP address.
+Ingress controllers and load balancers may take a minute or two to allocate an
+IP address.
 Until that time, you often see the address listed as `<pending>`.
 {{< /note >}}
 
 ### Simple fanout
 
-A fanout configuration routes traffic from a single IP address to more than one Service,
-based on the HTTP URI being requested. An Ingress allows you to keep the number of load balancers
+A fanout configuration routes traffic from a single IP address to more than one
+Service,
+based on the HTTP URI being requested. An Ingress allows you to keep the number
+of load balancers
 down to a minimum. For example, a setup like:
 
-{{< figure src="/docs/images/ingressFanOut.svg" alt="ingress-fanout-diagram" class="diagram-large" caption="Figure. Ingress Fan Out" link="https://mermaid.live/edit#pako:eNqNUslOwzAQ_RXLvYCUhMQpUFzUUzkgcUBwbHpw4klr4diR7bCo8O8k2FFbFomLPZq3jP00O1xpDpjijWHtFt09zAuFUCUFKHey8vf6NE7QrdoYsDZumGIb4Oi6NAskNeOoZJKpCgxK4oXwrFVgRyi7nCVXWZKRPMlysv5yD6Q4Xryf1Vq_WzDPooJs9egLNDbolKTpT03JzKgh3zWEztJZ0Niu9L-qZGcdmAMfj4cxvWmreba613z9C0B-AMQD-V_AdA-A4j5QZu0SatRKJhSqhZR0wjmPrDP6CeikrutQxy-Cuy2dtq9RpaU2dJKm6fzI5Glmg0VOLio4_5dLjx27hFSC015KJ2VZHtuQvY2fuHcaE43G0MaCREOow_FV5cMxHZ5-oPX75UM5avuXhXuOI9yAaZjg_aLuBl6B3RYaKDDtSw4166QrcKE-emrXcubghgunDaY1kxYizDqnH99UhakzHYykpWD9hjS--fEJoIELqQ" >}}
+{{< figure src="/docs/images/ingressFanOut.svg" alt="ingress-fanout-diagram"
+class="diagram-large" caption="Figure. Ingress Fan Out"
+link="https://mermaid.live/edit#pako:eNqNUslOwzAQ_RXLvYCUhMQpUFzUUzkgcUBwbHpw4klr4diR7bCo8O8k2FFbFomLPZq3jP00O1xpDpjijWHtFt09zAuFUCUFKHey8vf6NE7QrdoYsDZumGIb4Oi6NAskNeOoZJKpCgxK4oXwrFVgRyi7nCVXWZKRPMlysv5yD6Q4Xryf1Vq_WzDPooJs9egLNDbolKTpT03JzKgh3zWEztJZ0Niu9L-qZGcdmAMfj4cxvWmreba613z9C0B-AMQD-V_AdA-A4j5QZu0SatRKJhSqhZR0wjmPrDP6CeikrutQxy-Cuy2dtq9RpaU2dJKm6fzI5Glmg0VOLio4_5dLjx27hFSC015KJ2VZHtuQvY2fuHcaE43G0MaCREOow_FV5cMxHZ5-oPX75UM5avuXhXuOI9yAaZjg_aLuBl6B3RYaKDDtSw4166QrcKE-emrXcubghgunDaY1kxYizDqnH99UhakzHYykpWD9hjS--fEJoIELqQ" >}}
 
 It would require an Ingress such as:
 
@@ -440,29 +506,37 @@ Events:
 ```
 
 The Ingress controller provisions an implementation-specific load balancer
-that satisfies the Ingress, as long as the Services (`service1`, `service2`) exist.
+that satisfies the Ingress, as long as the Services (`service1`, `service2`)
+exist.
 When it has done so, you can see the address of the load balancer at the
 Address field.
 
 {{< note >}}
-Depending on the [Ingress controller](/docs/concepts/services-networking/ingress-controllers/)
+Depending on
+the [Ingress controller](/docs/concepts/services-networking/ingress-controllers/)
 you are using, you may need to create a default-http-backend
 [Service](/docs/concepts/services-networking/service/).
 {{< /note >}}
 
 ### Name based virtual hosting
 
-Name-based virtual hosts support routing HTTP traffic to multiple host names at the same IP address.
+Name-based virtual hosts support routing HTTP traffic to multiple host names at
+the same IP address.
 
-{{< figure src="/docs/images/ingressNameBased.svg" alt="ingress-namebase-diagram" class="diagram-large" caption="Figure. Ingress Name Based Virtual hosting" link="https://mermaid.live/edit#pako:eNqNkl9PwyAUxb8KYS-atM1Kp05m9qSJJj4Y97jugcLtRqTQAPVPdN_dVlq3qUt8gZt7zvkBN7xjbgRgiteW1Rt0_zjLNUJcSdD-ZBn21WmcoDu9tuBcXDHN1iDQVWHnSBkmUMEU0xwsSuK5DK5l745QejFNLtMkJVmSZmT1Re9NcTz_uDXOU1QakxTMJtxUHw7ss-SQLhehQEODTsdH4l20Q-zFyc84-Y67pghv5apxHuweMuj9eS2_NiJdPhix-kMgvwQShOyYMNkJoEUYM3PuGkpUKyY1KqVSdCSEiJy35gnoqCzLvo5fpPAbOqlfI26UsXQ0Ho9nB5CnqesRGTnncPYvSqsdUvqp9KRdlI6KojjEkB0mnLgjDRONhqENBYm6oXbLV5V1y6S7-l42_LowlIN2uFm_twqOcAW2YlK0H_i9c-bYb6CCHNO2FFCyRvkc53rbWptaMA83QnpjMS2ZchBh1nizeNMcU28bGEzXkrV_pArN7Sc0rBTu" >}}
+{{< figure src="/docs/images/ingressNameBased.svg" alt="
+ingress-namebase-diagram" class="diagram-large" caption="Figure. Ingress Name
+Based Virtual hosting"
+link="https://mermaid.live/edit#pako:eNqNkl9PwyAUxb8KYS-atM1Kp05m9qSJJj4Y97jugcLtRqTQAPVPdN_dVlq3qUt8gZt7zvkBN7xjbgRgiteW1Rt0_zjLNUJcSdD-ZBn21WmcoDu9tuBcXDHN1iDQVWHnSBkmUMEU0xwsSuK5DK5l745QejFNLtMkJVmSZmT1Re9NcTz_uDXOU1QakxTMJtxUHw7ss-SQLhehQEODTsdH4l20Q-zFyc84-Y67pghv5apxHuweMuj9eS2_NiJdPhix-kMgvwQShOyYMNkJoEUYM3PuGkpUKyY1KqVSdCSEiJy35gnoqCzLvo5fpPAbOqlfI26UsXQ0Ho9nB5CnqesRGTnncPYvSqsdUvqp9KRdlI6KojjEkB0mnLgjDRONhqENBYm6oXbLV5V1y6S7-l42_LowlIN2uFm_twqOcAW2YlK0H_i9c-bYb6CCHNO2FFCyRvkc53rbWptaMA83QnpjMS2ZchBh1nizeNMcU28bGEzXkrV_pArN7Sc0rBTu" >}}
 
 The following Ingress tells the backing load balancer to route requests based on
 the [Host header](https://tools.ietf.org/html/rfc7230#section-5.4).
 
 {{% code_sample file="service/networking/name-virtual-host-ingress.yaml" %}}
 
-If you create an Ingress resource without any hosts defined in the rules, then any
-web traffic to the IP address of your Ingress controller can be matched without a name based
+If you create an Ingress resource without any hosts defined in the rules, then
+any
+web traffic to the IP address of your Ingress controller can be matched without
+a name based
 virtual host being required.
 
 For example, the following Ingress routes traffic
@@ -470,15 +544,19 @@ requested for `first.bar.com` to `service1`, `second.bar.com` to `service2`,
 and any traffic whose request host header doesn't match `first.bar.com`
 and `second.bar.com` to `service3`.
 
-{{% code_sample file="service/networking/name-virtual-host-ingress-no-third-host.yaml" %}}
+{{% code_sample file="
+service/networking/name-virtual-host-ingress-no-third-host.yaml" %}}
 
 ### TLS
 
-You can secure an Ingress by specifying a {{< glossary_tooltip term_id="secret" >}}
+You can secure an Ingress by specifying a {{< glossary_tooltip term_id="
+secret" >}}
 that contains a TLS private key and certificate. The Ingress resource only
-supports a single TLS port, 443, and assumes TLS termination at the ingress point
+supports a single TLS port, 443, and assumes TLS termination at the ingress
+point
 (traffic to the Service and its Pods is in plaintext).
-If the TLS configuration section in an Ingress specifies different hosts, they are
+If the TLS configuration section in an Ingress specifies different hosts, they
+are
 multiplexed on the same port according to the hostname specified through the
 SNI TLS extension (provided the Ingress controller supports SNI). The TLS secret
 must contain keys named `tls.crt` and `tls.key` that contain the certificate
@@ -497,13 +575,16 @@ type: kubernetes.io/tls
 ```
 
 Referencing this secret in an Ingress tells the Ingress controller to
-secure the channel from the client to the load balancer using TLS. You need to make
+secure the channel from the client to the load balancer using TLS. You need to
+make
 sure the TLS secret you created came from a certificate that contains a Common
-Name (CN), also known as a Fully Qualified Domain Name (FQDN) for `https-example.foo.com`.
+Name (CN), also known as a Fully Qualified Domain Name (FQDN)
+for `https-example.foo.com`.
 
 {{< note >}}
 Keep in mind that TLS will not work on the default rule because the
-certificates would have to be issued for all the possible sub-domains. Therefore,
+certificates would have to be issued for all the possible sub-domains.
+Therefore,
 `hosts` in the `tls` section need to explicitly match the `host` in the `rules`
 section.
 {{< /note >}}
@@ -515,7 +596,8 @@ There is a gap between TLS features supported by various Ingress
 controllers. Please refer to documentation on
 [nginx](https://kubernetes.github.io/ingress-nginx/user-guide/tls/),
 [GCE](https://git.k8s.io/ingress-gce/README.md#frontend-https), or any other
-platform specific Ingress controller to understand how TLS works in your environment.
+platform specific Ingress controller to understand how TLS works in your
+environment.
 {{< /note >}}
 
 ### Load balancing {#load-balancing}
@@ -537,7 +619,8 @@ specific documentation to see how they handle health checks (for example:
 
 ## Updating an Ingress
 
-To update an existing Ingress to add a new Host, you can update it by editing the resource:
+To update an existing Ingress to add a new Host, you can update it by editing
+the resource:
 
 ```shell
 kubectl describe ingress test
@@ -571,30 +654,31 @@ Modify it to include the new Host:
 ```yaml
 spec:
   rules:
-  - host: foo.bar.com
-    http:
-      paths:
-      - backend:
-          service:
-            name: service1
-            port:
-              number: 80
-        path: /foo
-        pathType: Prefix
-  - host: bar.baz.com
-    http:
-      paths:
-      - backend:
-          service:
-            name: service2
-            port:
-              number: 80
-        path: /foo
-        pathType: Prefix
-..
+    - host: foo.bar.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: service1
+                port:
+                  number: 80
+            path: /foo
+            pathType: Prefix
+    - host: bar.baz.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: service2
+                port:
+                  number: 80
+            path: /foo
+            pathType: Prefix
+  ..
 ```
 
-After you save your changes, kubectl updates the resource in the API server, which tells the
+After you save your changes, kubectl updates the resource in the API server,
+which tells the
 Ingress controller to reconfigure the load balancer.
 
 Verify this:
@@ -623,22 +707,35 @@ Events:
   Normal   ADD     45s                loadbalancer-controller  default/test
 ```
 
-You can achieve the same outcome by invoking `kubectl replace -f` on a modified Ingress YAML file.
+You can achieve the same outcome by invoking `kubectl replace -f` on a modified
+Ingress YAML file.
 
 ## Failing across availability zones
 
-Techniques for spreading traffic across failure domains differ between cloud providers.
-Please check the documentation of the relevant [Ingress controller](/docs/concepts/services-networking/ingress-controllers) for details.
+Techniques for spreading traffic across failure domains differ between cloud
+providers.
+Please check the documentation of the
+relevant [Ingress controller](/docs/concepts/services-networking/ingress-controllers)
+for details.
 
 ## Alternatives
 
-You can expose a Service in multiple ways that don't directly involve the Ingress resource:
+You can expose a Service in multiple ways that don't directly involve the
+Ingress resource:
 
-* Use [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer)
-* Use [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport)
+*
+
+Use [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer)
+
+*
+
+Use [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport)
 
 ## {{% heading "whatsnext" %}}
 
-* Learn about the [Ingress](/docs/reference/kubernetes-api/service-resources/ingress-v1/) API
-* Learn about [Ingress controllers](/docs/concepts/services-networking/ingress-controllers/)
+* Learn about
+  the [Ingress](/docs/reference/kubernetes-api/service-resources/ingress-v1/)
+  API
+* Learn
+  about [Ingress controllers](/docs/concepts/services-networking/ingress-controllers/)
 * [Set up Ingress on Minikube with the NGINX Controller](/docs/tasks/access-application-cluster/ingress-minikube/)
