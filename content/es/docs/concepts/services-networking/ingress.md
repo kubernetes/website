@@ -21,42 +21,41 @@ Ingress is frozen. New features are being added to the [Gateway API](/docs/conce
 
 <!-- body -->
 
-## Terminology
+## Terminología
 
-For clarity, this guide defines the following terms:
+Para mayor claridad, esta guía define los siguientes términos:
 
-* Node: A worker machine in Kubernetes, part of a cluster.
-* Cluster: A set of Nodes that run containerized applications managed by Kubernetes.
-  For this example, and in most common Kubernetes deployments, nodes in the cluster
-  are not part of the public internet.
-* Edge router: A router that enforces the firewall policy for your cluster. This
-  could be a gateway managed by a cloud provider or a physical piece of hardware.
-* Cluster network: A set of links, logical or physical, that facilitate communication
-  within a cluster according to the Kubernetes [networking model](/docs/concepts/cluster-administration/networking/).
-* Service: A Kubernetes {{< glossary_tooltip term_id="service" >}} that identifies
-  a set of Pods using {{< glossary_tooltip text="label" term_id="label" >}} selectors.
-  Unless mentioned otherwise, Services are assumed to have virtual IPs only routable within the cluster network.
+* Nodo: Una máquina worker en Kubernetes, parte de un clúster.
+* Clúster: Un conjunto de Nodos que ejecutan aplicaciones en contenedores,
+  administrados por Kubernetes.
+  Para este ejemplo, y para los despliegues más comunes de Kubernetes, los nodos en el clúster no son parte del internet público.
+* Enrutador Edge: un enrutador que refuerza la política de seguridad del cortafuegos para tu clúster. 
+  Esto podría ser una puerta de entrada adminsitrada por un proveedor de la nube o una pieza física de hardware.
+* Red del clúster: un conjunto de enlaces, lógicos o físicos,
+  que facilitan la comunicatión dentro de un clúster de acuerdo con el [modelo de redes](/docs/concepts/cluster-administration/networking/) de Kubernetes.
+* Service: Un {{< glossary_tooltip term_id="service" >}} que identifica
+  un conjunto de Pods que utilizan selectors de {{< glossary_tooltip text="label" term_id="label" >}}.
+  A menos que se indique de otra manera, Los Services se asumen que tienen IPs virtuales que solo se pueden enrutar dentro de la red del clúster.
 
-## What is Ingress?
+## Qué es un Ingress?
 
-[Ingress](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1-networking-k8s-io)
-exposes HTTP and HTTPS routes from outside the cluster to
-{{< link text="services" url="/docs/concepts/services-networking/service/" >}} within the cluster.
-Traffic routing is controlled by rules defined on the Ingress resource.
+Un [Ingress](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1-networking-k8s-io)
+expone las rutas HTTP y HTTPS desde el exterior del clúster a los 
+{{< link text="services" url="/docs/concepts/services-networking/service/" >}} dentro del clúster.
+El enrutamiento del tráfico es controlado por las reglas definidas en el recurso Ingress.
 
-Here is a simple example where an Ingress sends all its traffic to one Service:
+Aquí tienes un ejemplo simple de un Ingress que envía todo su tráfico a un Service:
 
 {{< figure src="/docs/images/ingress.svg" alt="ingress-diagram" class="diagram-large" caption="Figure. Ingress" link="https://mermaid.live/edit#pako:eNqNkstuwyAQRX8F4U0r2VHqPlSRKqt0UamLqlnaWWAYJygYLB59KMm_Fxcix-qmGwbuXA7DwAEzzQETXKutof0Ovb4vaoUQkwKUu6pi3FwXM_QSHGBt0VFFt8DRU2OWSGrKUUMlVQwMmhVLEV1Vcm9-aUksiuXRaO_CEhkv4WjBfAgG1TrGaLa-iaUw6a0DcwGI-WgOsF7zm-pN881fvRx1UDzeiFq7ghb1kgqFWiElyTjnuXVG74FkbdumefEpuNuRu_4rZ1pqQ7L5fL6YQPaPNiFuywcG9_-ihNyUkm6YSONWkjVNM8WUIyaeOJLO3clTB_KhL8NQDmVe-OJjxgZM5FhFiiFTK5zjDkxHBQ9_4zB4a-x20EGNSZhyaKmXrg7f5hSsvufUwTMXThtMWiot5Jh6p9ffimHijIezaSVoeN0uiqcfMJvf7w" >}}
 
-An Ingress may be configured to give Services externally-reachable URLs,
-load balance traffic, terminate SSL / TLS, and offer name-based virtual hosting.
-An [Ingress controller](/docs/concepts/services-networking/ingress-controllers)
-is responsible for fulfilling the Ingress, usually with a load balancer, though
-it may also configure your edge router or additional frontends to help handle the traffic.
+Un Ingress se puede configurar para otorgar URLs a los Services que son accesibles desde el exterior,
+para hacer balance de cargas del tráfico, finalizar SSL/TLS, y ofrecer alojamiento virtual basado en nombres.
 
-An Ingress does not expose arbitrary ports or protocols. Exposing services other than HTTP and HTTPS to the internet typically
-uses a service of type [Service.Type=NodePort](/docs/concepts/services-networking/service/#type-nodeport) or
-[Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer).
+Un [controlador Ingress](/docs/concepts/services-networking/ingress-controllers) es responsable de complementar el Ingress,
+comúnmente con un balanceador de cargas,
+aunque también puede configurar tu enrutador edge con frontends adicionales para ayudar a manejar el tráfico.
+
+Un Ingress no expone puertos o protocolos arbitrariamente. Exponer servicios de otra manera que por HTTP o HTTPS al internet usa un servicio de tipo [Service.Type=NodePort](/docs/concepts/services-networking/service/#type-nodeport) o [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer).
 
 ## Prerequisites
 
