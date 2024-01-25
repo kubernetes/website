@@ -7,7 +7,6 @@ description: |-
 ---
 
 <!DOCTYPE html>
-
 <html lang="en">
 
 <body>
@@ -150,7 +149,7 @@ description: |-
                 <p><b><code>curl http://localhost:8001/version</code></b></p>
                 <div class="alert alert-info note callout" role="alert"><strong>Note:</strong> If port 8001 is not accessible, ensure that the <code>kubectl proxy</code> that you started above is running in the second terminal.</div>
                 <p>The API server will automatically create an endpoint for each pod, based on the pod name, that is also accessible through the proxy.</p>
-                <p>First we need to get the Pod name, and we'll store in the environment variable <tt>POD_NAME</tt>:</p>
+                <p>First we need to get the Pod name, and we'll store it in the environment variable <tt>POD_NAME</tt>:</p>
                 <p><b><code>export POD_NAME=$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')</code></b><br />
                    <b><code>echo Name of the Pod: $POD_NAME</code></b></p>
                 <p>You can access the Pod through the proxied API, by running:</p>
