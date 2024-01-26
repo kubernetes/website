@@ -344,13 +344,7 @@ Before starting the restore operation, a snapshot file must be present. It can
 either be a snapshot file from a previous backup operation, or from a remaining
 [data directory](https://etcd.io/docs/current/op-guide/configuration/#--data-dir).
 
-Here is an example:
-
-```shell
-ETCDCTL_API=3 etcdctl --endpoints 10.2.0.9:2379 snapshot restore snapshot.db
-```
-
-Another example for restoring using `etcdctl` options:
+When restoring the cluster, use the `--data-dir` option to specify to which folder the cluster should be restored:
 
 ```shell
 ETCDCTL_API=3 etcdctl --data-dir <data-dir-location> snapshot restore snapshot.db
@@ -363,6 +357,8 @@ Yet another example would be to first export the `ETCDCTL_API` environment varia
 export ETCDCTL_API=3
 etcdctl --data-dir <data-dir-location> snapshot restore snapshot.db
 ```
+
+If `<data-dir-location>` is the same folder as before, delete it and stop etcd process before restoring the cluster. Else change etcd configuration and restart the etcd process after restoration to make it use the new data directory.
 
 For more information and examples on restoring a cluster from a snapshot file, see
 [etcd disaster recovery documentation](https://etcd.io/docs/current/op-guide/recovery/#restoring-a-cluster).
