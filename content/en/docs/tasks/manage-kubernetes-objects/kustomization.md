@@ -25,7 +25,7 @@ kubectl apply -k <kustomization_directory>
 ```
 
 {{< note >}}
-Note, that Kubectl embeds Kustomize, that's why, whenever something is not working, you should check it with Kustomize alone, to verify if it is version related or not, there is a chance that your Kubectl has an old version of Kustomize embedded.
+Kubectl embeds Kustomize, that's why, whenever something is not working, you should check it with Kustomize alone, to verify if it is version related or not, there is a chance that your Kubectl has an old version of Kustomize embedded.
 {{</ note >}}
 
 ## {{% heading "prerequisites" %}}
