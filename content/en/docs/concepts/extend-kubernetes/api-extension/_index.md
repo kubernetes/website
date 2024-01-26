@@ -12,7 +12,7 @@ Custom resources are extensions of the Kubernetes API. Kubernetes provides two w
   create new types of resources for your cluster without writing and running a custom API server. 
 - The [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
   sits behind the primary API server, which acts as a proxy.
-  This arrangement is called API Aggregation(AA), which allows you to provide
+  This arrangement is called API Aggregation (AA), which allows you to provide
   specialized implementations for your custom resources by writing and
   deploying your own API server.
   The main API server delegates requests to your API server for the custom APIs that you specify,
