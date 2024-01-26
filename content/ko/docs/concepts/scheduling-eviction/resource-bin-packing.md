@@ -100,10 +100,10 @@ kube-scheduler 플래그 `--config=/path/to/config/file` 을 사용하여
 
 ```yaml
 shape:
- - utilization: 0
-   score: 0
- - utilization: 100
-   score: 10
+  - utilization: 0
+    score: 0
+  - utilization: 100
+    score: 10
 ```
 
 위의 인수는 `utilization` 이 0%인 경우 `score` 는 0, `utilization` 이
@@ -120,7 +120,7 @@ shape:
 
 `resources` 는 기본적으로 다음과 같이 설정되는 선택적인 파라미터이다.
 
-``` yaml
+```yaml
 resources:
   - name: cpu
     weight: 1
@@ -251,4 +251,3 @@ NodeScore   =  (5 * 5) + (7 * 1) + (10 * 3) / (5 + 1 + 3)
 
 - [스케줄링 프레임워크](/docs/concepts/scheduling-eviction/scheduling-framework/)에 대해 더 읽어본다.
 - [스케줄러 구성](/ko/docs/reference/scheduling/config/)에 대해 더 읽어본다.
-

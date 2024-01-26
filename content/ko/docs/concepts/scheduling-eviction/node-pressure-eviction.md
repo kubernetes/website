@@ -8,11 +8,11 @@ weight: 100
 
 {{<glossary_tooltip term_id="kubelet" text="kubelet">}}은 
 클러스터 노드의 메모리, 디스크 공간, 파일시스템 inode와 같은 자원을 모니터링한다.
-이러한 자원 중 하나 이상이 특정 소모 수준에 도달하면, 
-kubelet은 하나 이상의 파드를 능동적으로 중단시켜 
+이러한 자원 중 하나 이상이 특정 소모 수준에 도달하면,
+kubelet은 하나 이상의 파드를 능동적으로 중단시켜
 자원을 회수하고 고갈 상황을 방지할 수 있다.
 
-노드-압박 축출 과정에서, kubelet은 축출할 파드의 `PodPhase`를 
+노드-압박 축출 과정에서, kubelet은 축출할 파드의 `PodPhase`를
 `Failed`로 설정함으로써 파드가 종료된다.
 
 노드-압박 축출은 
@@ -23,7 +23,7 @@ kubelet은 이전에 설정된 `PodDisruptionBudget` 값이나 파드의 `termin
 kubelet은 이전에 설정된 `eviction-max-pod-grace-period` 값을 따른다. 
 [하드 축출 임계값](#hard-eviction-thresholds)을 사용하는 경우, 파드 종료 시 `0s` 만큼 기다린 후 종료한다(즉, 기다리지 않고 바로 종료한다).
 
-실패한 파드를 새로운 파드로 교체하는 
+실패한 파드를 새로운 파드로 교체하는
 {{< glossary_tooltip text="워크로드" term_id="workload" >}} 리소스(예: 
 {{< glossary_tooltip text="스테이트풀셋(StatefulSet)" term_id="statefulset" >}} 또는 
 {{< glossary_tooltip text="디플로이먼트(Deployment)" term_id="deployment" >}})가 파드를 관리하는 경우, 
@@ -37,9 +37,9 @@ kubelet은 최종 사용자 파드를 종료하기 전에
 
 kubelet은 축출 결정을 내리기 위해 다음과 같은 다양한 파라미터를 사용한다.
 
-  * 축출 신호
-  * 축출 임계값
-  * 모니터링 간격
+- 축출 신호
+- 축출 임계값
+- 모니터링 간격
 
 ### 축출 신호 {#eviction-signals}
 
@@ -59,13 +59,13 @@ kubelet은 다음과 같은 축출 신호를 사용한다.
 | `imagefs.inodesFree` | `imagefs.inodesFree` := `node.stats.runtime.imagefs.inodesFree`                       |
 | `pid.available`      | `pid.available` := `node.stats.rlimit.maxpid` - `node.stats.rlimit.curproc`           |
 
-이 표에서, `설명` 열은 kubelet이 축출 신호 값을 계산하는 방법을 나타낸다. 
-각 축출 신호는 백분율 또는 숫자값을 지원한다. 
-kubelet은 총 용량 대비 축출 신호의 백분율 값을 
+이 표에서, `설명` 열은 kubelet이 축출 신호 값을 계산하는 방법을 나타낸다.
+각 축출 신호는 백분율 또는 숫자값을 지원한다.
+kubelet은 총 용량 대비 축출 신호의 백분율 값을
 계산한다.
 
-`memory.available` 값은 `free -m`과 같은 도구가 아니라 cgroupfs로부터 도출된다. 
-이는 `free -m`이 컨테이너 안에서는 동작하지 않고, 또한 사용자가 
+`memory.available` 값은 `free -m`과 같은 도구가 아니라 cgroupfs로부터 도출된다.
+이는 `free -m`이 컨테이너 안에서는 동작하지 않고, 또한 사용자가
 [node allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) 
 기능을 사용하는 경우 자원 부족에 대한 결정은 루트 노드뿐만 아니라 
 cgroup 계층 구조의 최종 사용자 파드 부분에서도 지역적으로 이루어지기 때문에 중요하다. 
@@ -102,10 +102,10 @@ kubelet이 축출 결정을 내릴 때 사용하는 축출 임계값을
 
 축출 임계값은 `[eviction-signal][operator][quantity]` 형태를 갖는다.
 
-* `eviction-signal`에는 사용할 [축출 신호](#eviction-signals)를 적는다.
-* `operator`에는 [관계연산자](https://ko.wikipedia.org/wiki/관계연산자#표준_관계연산자)를 
+- `eviction-signal`에는 사용할 [축출 신호](#eviction-signals)를 적는다.
+- `operator`에는 [관계연산자](https://ko.wikipedia.org/wiki/관계연산자#표준_관계연산자)를 
   적는다(예: `<` - 미만)
-* `quantity`에는 `1Gi`와 같이 축출 임계값 수치를 적는다. 
+- `quantity`에는 `1Gi`와 같이 축출 임계값 수치를 적는다. 
   `quantity`에 들어가는 값은 쿠버네티스가 사용하는 수치 표현 방식과 맞아야 한다. 
   숫자값 또는 백분율(`%`)을 사용할 수 있다.
 
@@ -131,11 +131,11 @@ kubelet은 축출된 파드를 유예 시간 없이 즉시 종료한다.
 
 소프트 축출 임계값을 설정할 때 다음과 같은 플래그를 사용할 수 있다.
 
-* `eviction-soft`: 축출 임계값(예: `memory.available<1.5Gi`)의 집합이며, 
+- `eviction-soft`: 축출 임계값(예: `memory.available<1.5Gi`)의 집합이며, 
   지정된 유예 시간동안 이 축출 임계값 조건이 충족되면 파드 축출이 트리거된다.
-* `eviction-soft-grace-period`: 축출 유예 시간의 집합이며, 
+- `eviction-soft-grace-period`: 축출 유예 시간의 집합이며, 
   소프트 축출 임계값 조건이 이 유예 시간동안 충족되면 파드 축출이 트리거된다.
-* `eviction-max-pod-grace-period`: '최대 허용 파드 종료 유예 시간(단위: 초)'이며, 
+- `eviction-max-pod-grace-period`: '최대 허용 파드 종료 유예 시간(단위: 초)'이며, 
   소프트 축출 임계값 조건이 충족되어 파드를 종료할 때 사용한다.
 
 #### 하드 축출 임계값 {#hard-eviction-thresholds}
@@ -144,17 +144,17 @@ kubelet은 축출된 파드를 유예 시간 없이 즉시 종료한다.
 kubelet은 고갈된 자원을 회수하기 위해 파드를 유예 시간 없이 
 즉시 종료한다.
 
-`eviction-hard` 플래그를 사용하여 하드 축출 
+`eviction-hard` 플래그를 사용하여 하드 축출
 임계값(예: `memory.available<1Gi`)을 설정할 수 있다.
 
 kubelet은 다음과 같은 하드 축출 임계값을 기본적으로 설정하고 있다.
 
-* `memory.available<100Mi`
-* `nodefs.available<10%`
-* `imagefs.available<15%`
-* `nodefs.inodesFree<5%` (리눅스 노드)
+- `memory.available<100Mi`
+- `nodefs.available<10%`
+- `imagefs.available<15%`
+- `nodefs.inodesFree<5%` (리눅스 노드)
 
-이러한 하드 축출 임계값의 기본값은 
+이러한 하드 축출 임계값의 기본값은
 매개변수가 변경되지 않은 경우에만 설정된다. 어떤 매개변수의 값을 변경한 경우,
 다른 매개변수의 값은 기본값으로 상속되지 않고
 0으로 설정된다. 사용자 지정 값을 제공하려면,
@@ -167,8 +167,8 @@ kubelet은 `housekeeping-interval`에 설정된 시간 간격(기본값: `10s`)�
 
 ### 노드 컨디션 {#node-conditions}
 
-kubelet은 하드/소프트 축출 임계값 조건이 충족되어 
-노드 압박이 발생했다는 것을 알리기 위해, 
+kubelet은 하드/소프트 축출 임계값 조건이 충족되어
+노드 압박이 발생했다는 것을 알리기 위해,
 설정된 유예 시간과는 관계없이 노드 컨디션을 보고한다.
 
 kubelet은 다음과 같이 노드 컨디션과 축출 신호를 매핑한다.
@@ -179,7 +179,7 @@ kubelet은 다음과 같이 노드 컨디션과 축출 신호를 매핑한다.
 | `DiskPressure`    | `nodefs.available`, `nodefs.inodesFree`, `imagefs.available`, 또는 `imagefs.inodesFree` | 노드의 루트 파일시스템 또는 이미지 파일시스템의 가용 디스크 공간 또는 inode의 수가 축출 임계값에 도달함 |
 | `PIDPressure`     | `pid.available`                                                                       | (리눅스) 노드의 가용 프로세스 ID(PID)가 축출 임계값 이하로 내려옴                                   |
 
-kubelet은 `--node-status-update-frequency`에 설정된 
+kubelet은 `--node-status-update-frequency`에 설정된
 시간 간격(기본값: `10s`)마다 노드 컨디션을 업데이트한다.
 
 #### 노드 컨디션 진동(oscillation)
@@ -204,10 +204,10 @@ kubelet은 노드의 파일시스템을 기반으로 노드-수준 자원을 회
 컨테이너 런타임이 사용할 전용 `imagefs` 파일시스템이 노드에 있으면, 
 kubelet은 다음 작업을 수행한다.
 
-  * `nodefs` 파일시스템이 축출 임계값 조건을 충족하면, 
-    kubelet은 종료된 파드와 컨테이너에 대해 가비지 수집을 수행한다.
-  * `imagefs` 파일시스템이 축출 임계값 조건을 충족하면, 
-    kubelet은 모든 사용중이지 않은 이미지를 삭제한다.
+- `nodefs` 파일시스템이 축출 임계값 조건을 충족하면, 
+  kubelet은 종료된 파드와 컨테이너에 대해 가비지 수집을 수행한다.
+- `imagefs` 파일시스템이 축출 임계값 조건을 충족하면, 
+  kubelet은 모든 사용중이지 않은 이미지를 삭제한다.
 
 #### `imagefs`가 없는 경우
 
@@ -351,9 +351,9 @@ kubelet에 축출 정책을 설정할 때, 만약 어떤 파드 배치가 즉시
 
 다음 시나리오를 가정한다.
 
-* 노드 메모리 용량: `10Gi`
-* 운영자는 시스템 데몬(커널, `kubelet` 등)을 위해 메모리 용량의 10%를 확보해 놓고 싶어 한다.
-* 운영자는 시스템 OOM 발생을 줄이기 위해 메모리 사용률이 95%인 상황에서 파드를 축출하고 싶어한다.
+- 노드 메모리 용량: `10Gi`
+- 운영자는 시스템 데몬(커널, `kubelet` 등)을 위해 메모리 용량의 10%를 확보해 놓고 싶어 한다.
+- 운영자는 시스템 OOM 발생을 줄이기 위해 메모리 사용률이 95%인 상황에서 파드를 축출하고 싶어한다.
 
 이것이 실현되도록, kubelet이 다음과 같이 실행된다.
 
