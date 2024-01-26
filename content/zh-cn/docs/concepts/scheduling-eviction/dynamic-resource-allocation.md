@@ -184,6 +184,7 @@ spec:
     source:
       resourceClaimTemplateName: large-black-cat-claim-template
 ```
+
 <!-- 
 ## Scheduling
 -->
@@ -251,6 +252,20 @@ set aside for it.
 除非 Pod 的所有资源都已分配和保留，否则 Pod 不会被调度到节点，这是一个重要特性。
 这避免了 Pod 被调度到一个节点但无法在那里运行的情况，
 这种情况很糟糕，因为被挂起 Pod 也会阻塞为其保留的其他资源，如 RAM 或 CPU。
+
+{{< note >}}
+<!--
+Scheduling of pods which use ResourceClaims is going to be slower because of
+the additional communication that is required. Beware that this may also impact
+pods that don't use ResourceClaims because only one pod at a time gets
+scheduled, blocking API calls are made while handling a pod with
+ResourceClaims, and thus scheduling the next pod gets delayed.
+-->
+由于需要额外的通信，使用 ResourceClaim 的 Pod 的调度将会变慢。
+请注意，这也可能会影响不使用 ResourceClaim 的 Pod，因为一次仅调度一个
+Pod，在使用 ResourceClaim 处理 Pod 时会进行阻塞 API 调用，
+从而推迟调度下一个 Pod。
+{{< /note >}}
 
 <!-- 
 ## Monitoring resources
@@ -333,7 +348,7 @@ term_id="api-group" >}} are enabled. For details on that, see the
 parameters](/docs/reference/command-line-tools-reference/kube-apiserver/).
 kube-scheduler, kube-controller-manager and kubelet also need the feature gate.
 -->
-动态资源分配是一个 **alpha 特性**，只有在启用 `DynamicResourceAllocation`
+动态资源分配是一个 **Alpha 特性**，只有在启用 `DynamicResourceAllocation`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 和 `resource.k8s.io/v1alpha1`
 {{< glossary_tooltip text="API 组" term_id="api-group" >}} 时才启用。
