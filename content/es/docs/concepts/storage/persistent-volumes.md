@@ -1024,7 +1024,7 @@ Dado que los pobladores de volúmenes son componentes externos, los intentos de 
 
 Puedes instalar el controlador [volume data source validator](https://github.com/kubernetes-csi/volume-data-source-validator) en tu clúster. Este controlador genera eventos de advertencia en una PVC en caso de que no haya ningún poblador registrado para manejar ese tipo de fuente de datos. Cuando se instala un poblador adecuado para una PVC, es responsabilidad de ese controlador de poblador informar sobre eventos relacionados con la creación del volumen y problemas durante el proceso. Esto proporciona información útil para los usuarios y administradores del clúster sobre el estado y los problemas relacionados con las PVC que utilizan pobladores de volúmenes.
 
-### Uso de una fuente de datos de volumen entre espacios de nombres
+### Uso de una fuente de datos de volumen entre Namespaces
 
 {{< feature-state for_k8s_version="v1.26" state="alpha" >}}
 
