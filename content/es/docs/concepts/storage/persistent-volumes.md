@@ -953,7 +953,7 @@ spec:
 
 ## Pobladores de Volúmenes y Fuentes de Datos
 
-{{< feature-state for_k8s_version="v1.29" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="beta" >}}
 
 Kubernetes admite pobladores de volúmenes personalizados.
 Para utilizar pobladores de volúmenes personalizados, debes habilitar la característica `AnyVolumeDataSource`
