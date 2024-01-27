@@ -629,7 +629,7 @@ Kubernetes utiliza modos de acceso de volumen para hacer coincidir las solicitud
 
 ### Clase
 
-Un PV puede tener una clase, que se especifica configurando el atributo `storageClassName` con el nombre de una [StorageClass](/docs/concepts/storage/storage-classes/). Un PV de una clase particular solo puede vincularse a PVC que soliciten esa clase. Un PV sin `storageClassName` no tiene clase y solo puede vincularse a PVC que no soliciten una clase en particular.
+Un PV puede tener una clase, que se especifica configurando el atributo `storageClassName` con el nombre de una [StorageClass](/es/docs/concepts/storage/storage-classes/). Un PV de una clase particular solo puede vincularse a PVC que soliciten esa clase. Un PV sin `storageClassName` no tiene clase y solo puede vincularse a PVC que no soliciten una clase en particular.
 
 En el pasado, en lugar del atributo `storageClassName`, se utilizaba la anotación `volume.beta.kubernetes.io/storage-class`. Esta anotación todavía funciona; sin embargo, quedará completamente en desuso en una versión futura de Kubernetes.
 
@@ -669,7 +669,7 @@ En el pasado, en lugar del atributo `mountOptions`, se utilizaba la anotación `
 
 {{< note >}}
 Para la mayoría de los tipos de volumen, no es necesario establecer este campo.
-Debes establecer esto explícitamente para los volúmenes [locales](/docs/concepts/storage/volumes/#local).
+Debes establecer esto explícitamente para los volúmenes [locales](/es/docs/concepts/storage/volumes/#local).
 {{< /note >}}
 
 Un PV puede especificar la afinidad de nodos para definir restricciones que limiten desde qué nodos se puede acceder a este volumen. Los Pods que utilizan un PV solo se programarán en nodos seleccionados por la afinidad de nodos. Para especificar la afinidad de nodos, configura `nodeAffinity` en `.spec` de un PV. La referencia de API de [PersistentVolume](/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/#PersistentVolumeSpec) tiene más detalles sobre este campo.
@@ -728,11 +728,11 @@ spec:
 
 ### Modos de Acceso
 
-Las solicitudes utilizan [las mismas convenciones que los volúmenes](#access-modes) al solicitar almacenamiento con modos de acceso específicos.
+Las solicitudes utilizan [las mismas convenciones que los volúmenes](#modos-de-acceso) al solicitar almacenamiento con modos de acceso específicos.
 
 ### Modos de Volumen
 
-Las solicitudes utilizan [la misma convención que los volúmenes](#volume-mode) para indicar el consumo del volumen como un sistema de archivos o un dispositivo de bloque.
+Las solicitudes utilizan [la misma convención que los volúmenes](#modo-de-volumen) para indicar el consumo del volumen como un sistema de archivos o un dispositivo de bloque.
 
 ### Recursos
 
@@ -740,7 +740,7 @@ Las solicitudes, al igual que los Pods, pueden solicitar cantidades específicas
 
 ### Selector
 
-Las solicitudes pueden especificar un [selector de etiqueta](/docs/concepts/overview/working-with-objects/labels/#label-selectors) para filtrar aún más el conjunto de volúmenes. Solo los volúmenes cuyas etiquetas coincidan con el selector pueden vincularse a la solicitud. El selector puede constar de dos campos:
+Las solicitudes pueden especificar un [selector de etiqueta](/es/docs/concepts/overview/working-with-objects/labels/#label-selectors) para filtrar aún más el conjunto de volúmenes. Solo los volúmenes cuyas etiquetas coincidan con el selector pueden vincularse a la solicitud. El selector puede constar de dos campos:
 
 - `matchLabels` (coincidencia de etiquetas) - el volumen debe tener una etiqueta con este valor.
 - `matchExpressions` (expresiones de coincidencia) - una lista de requisitos especificados por clave, lista de valores y operador que relaciona la clave y los valores. Los operadores válidos incluyen In, NotIn, Exists y DoesNotExist.
@@ -749,7 +749,7 @@ Todos los requisitos, tanto de `matchLabels` como de `matchExpressions`, se comb
 
 ### Clase
 
-Una solicitud puede solicitar una clase en particular especificando el nombre de una [StorageClass](/docs/concepts/storage/storage-classes/) utilizando el atributo `storageClassName`. Solo los PV de la clase solicitada, es decir, aquellos con el mismo `storageClassName` que el PVC, pueden vincularse al PVC.
+Una solicitud puede solicitar una clase en particular especificando el nombre de una [StorageClass](/es/docs/concepts/storage/storage-classes/) utilizando el atributo `storageClassName`. Solo los PV de la clase solicitada, es decir, aquellos con el mismo `storageClassName` que el PVC, pueden vincularse al PVC.
 
 Las PVC no necesariamente tienen que solicitar una clase. Una PVC con su `storageClassName` configurado igual a `""` siempre se interpreta como una solicitud de un PV sin clase, por lo que solo puede vincularse a PV sin clase (sin anotación o con `""` configurado). Una PVC sin `storageClassName` no es exactamente lo mismo y se trata de manera diferente por parte del clúster, dependiendo de si el plugin de admisión [`DefaultStorageClass`](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass) está activado.
 
@@ -909,7 +909,7 @@ Solo se admiten volúmenes provisionados estáticamente en la versión alfa. Los
 
 ## Soporte para Instantáneas de Volúmenes y Restauración de Volúmenes desde Instantáneas
 
-{{< feature-state for_k8s_version="v1.29" state="stable" >}}
+{{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
 Las instantáneas de volúmenes solo admiten los complementos de volumen CSI fuera del árbol. Para obtener más detalles, consulta [Instantáneas de Volúmenes](/docs/concepts/storage/volume-snapshots/). Los complementos de volumen dentro del árbol están obsoletos. Puedes obtener información sobre los complementos de volumen obsoletos en el [FAQ de Complementos de Volumen](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md).
 
@@ -959,7 +959,7 @@ spec:
 
 ## Pobladores de Volúmenes y Fuentes de Datos
 
-{{< feature-state for_k8s_version="v1.29" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="beta" >}}
 
 Kubernetes admite pobladores de volúmenes personalizados.
 Para utilizar pobladores de volúmenes personalizados, debes habilitar la característica `AnyVolumeDataSource`
