@@ -726,7 +726,7 @@ Las solicitudes utilizan [las mismas convenciones que los volúmenes](#modos-de-
 
 ### Modos de Volumen
 
-Las solicitudes utilizan [la misma convención que los volúmenes](#volume-mode) para indicar el consumo del volumen como un sistema de archivos o un dispositivo de bloque.
+Las solicitudes utilizan [la misma convención que los volúmenes](#modo-de-volumen) para indicar el consumo del volumen como un sistema de archivos o un dispositivo de bloque.
 
 ### Recursos
 
