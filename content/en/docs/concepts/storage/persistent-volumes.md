@@ -358,7 +358,7 @@ spec:
   ...
 ```
 
-This is useful if you want to consume PersistentVolumes that have their `claimPolicy` set
+This is useful if you want to consume PersistentVolumes that have their `persistentVolumeReclaimPolicy` set
 to `Retain`, including cases where you are reusing an existing PV.
 
 ### Expanding Persistent Volumes Claims
