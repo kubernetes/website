@@ -98,7 +98,7 @@ y el PersistentVolumeClaim.
 Las solicitudes permanecerán sin unir indefinidamente si no existe un volumen coincidente.
 Las solicitudes se unirán a medida que los volúmenes coincidentes estén disponibles. Por ejemplo, un
 clúster aprovisionado con muchos PVs de 50Gi no coincidirá con un PVC que solicite 100Gi.
-El PVC puede unirse cuando se agregue un PV de 100Gi al cluster.
+El PVC puede unirse cuando se agregue un PV de 100Gi al clúster.
 
 ### Uso
 
