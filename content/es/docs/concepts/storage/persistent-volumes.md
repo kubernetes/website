@@ -565,7 +565,7 @@ Kubernetes admite dos `volumeModes` (modos de volumen) para PersistentVolumes: `
 
 Un volumen con `volumeMode: Filesystem` se _monta_ en Pods en un directorio. Si el volumen está respaldado por un dispositivo de bloque y el dispositivo está vacío, Kubernetes crea un sistema de archivos en el dispositivo antes de montarlo por primera vez.
 
-Puedes establecer el valor de `volumeMode` en `Block` para utilizar un volumen como un dispositivo de bloque sin formato. Este tipo de volumen se presenta en un Pod como un dispositivo de bloque, sin ningún sistema de archivos en él. Este modo es útil para proporcionar al Pod la forma más rápida posible de acceder a un volumen, sin ninguna capa de sistema de archivos entre el Pod y el volumen. Por otro lado, la aplicación que se ejecuta en el Pod debe saber cómo manejar un dispositivo de bloque sin formato. Consulta [Soporte para Volumen de Bloque sin Formato](#soporte-para-volumen-de-bloque-sin-formato) para ver un ejemplo de cómo usar un volumen con `volumeMode: Block` en un Pod.
+Puedes establecer el valor de `volumeMode` en `Block` para utilizar un volumen como un dispositivo de bloque sin formato. Este tipo de volumen se presenta en un Pod como un dispositivo de bloque, sin ningún sistema de archivos en él. Este modo es útil para proporcionar al Pod la forma más rápida posible de acceder a un volumen, sin ninguna capa de sistema de archivos entre el Pod y el volumen. Por otro lado, la aplicación que se ejecuta en el Pod debe saber cómo manejar un dispositivo de bloque sin formato. Consulta [Soporte para Volúmenes en Bloque sin Procesar](#soporte-para-volumenes-en-bloque-sin-procesar) para ver un ejemplo de cómo usar un volumen con `volumeMode: Block` en un Pod.
 
 ### Modos de Acceso
 
