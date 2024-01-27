@@ -663,7 +663,7 @@ En el pasado, en lugar del atributo `mountOptions`, se utilizaba la anotación `
 
 {{< note >}}
 Para la mayoría de los tipos de volumen, no es necesario establecer este campo.
-Debes establecer esto explícitamente para los volúmenes [locales](/docs/concepts/storage/volumes/#local).
+Debes establecer esto explícitamente para los volúmenes [locales](/es/docs/concepts/storage/volumes/#local).
 {{< /note >}}
 
 Un PV puede especificar la afinidad de nodos para definir restricciones que limiten desde qué nodos se puede acceder a este volumen. Los Pods que utilizan un PV solo se programarán en nodos seleccionados por la afinidad de nodos. Para especificar la afinidad de nodos, configura `nodeAffinity` en `.spec` de un PV. La referencia de API de [PersistentVolume](/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/#PersistentVolumeSpec) tiene más detalles sobre este campo.
