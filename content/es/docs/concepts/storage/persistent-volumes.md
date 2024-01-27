@@ -190,7 +190,7 @@ la misma definición de recurso de almacenamiento.
 Para los plugins de volumen que soportan la política de reclamación `Delete`, la eliminación remueve
 tanto el objeto PersistentVolume de Kubernetes, como el recurso de almacenamiento asociado
 en la infraestructura externa. Los volúmenes que fueron aprovisionados dinámicamente
-heredan la [política de reclamación de su StorageClass](#reclaim-policy), que
+heredan la [política de reclamación de su StorageClass](#politica-de-reclamacion), que
 por defecto es `Delete`. El administrador debe configurar la StorageClass
 de acuerdo con las expectativas de los usuarios; de lo contrario, el PV debe ser editado o
 modificado después de que se haya creado. Consulta
