@@ -67,7 +67,7 @@ API de Kubernetes y están disponibles para su consumo.
 #### Dinámico
 
 Cuando ninguno de los PVs estáticos creados por el administrador coincide con un PersistentVolumeClaim de un usuario,
-el cluster puede intentar aprovisionar dinámicamente un volumen especialmente para el PVC.
+el clúster puede intentar aprovisionar dinámicamente un volumen especialmente para el PVC.
 Este aprovisionamiento se basa en StorageClasses: el PVC debe solicitar una
 [clase de almacenamiento](/es/docs/concepts/storage/storage-classes/) y
 el administrador debe haber creado y configurado esa clase para que ocurra el aprovisionamiento
