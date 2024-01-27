@@ -903,7 +903,7 @@ Solo se admiten volúmenes provisionados estáticamente en la versión alfa. Los
 
 ## Soporte para Instantáneas de Volúmenes y Restauración de Volúmenes desde Instantáneas
 
-{{< feature-state for_k8s_version="v1.29" state="stable" >}}
+{{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
 Las instantáneas de volúmenes solo admiten los complementos de volumen CSI fuera del árbol. Para obtener más detalles, consulta [Instantáneas de Volúmenes](/docs/concepts/storage/volume-snapshots/). Los complementos de volumen dentro del árbol están obsoletos. Puedes obtener información sobre los complementos de volumen obsoletos en el [FAQ de Complementos de Volumen](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md).
 
