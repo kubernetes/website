@@ -314,7 +314,7 @@ el finalizador `kubernetes.io/pv-controller` se reemplaza por el finalizador
 ### Reservando un PersistentVolume
 
 El plano de control puede [unir PersistentVolumeClaims a PersistentVolumes correspondientes](#binding)
-en el cluster. Sin embargo, si quieres que un PVC se una a un PV específico, necesitas pre-unirlos.
+en el clúster. Sin embargo, si quieres que un PVC se una a un PV específico, necesitas pre-unirlos.
 
 Al especificar un PersistentVolume en un PersistentVolumeClaim, declaras una unión
 entre ese PV y PVC específicos. Si el PersistentVolume existe y no ha reservado
