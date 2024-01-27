@@ -22,7 +22,7 @@ y [VolumeAttributesClasses](/docs/concepts/storage/volume-attributes-classes/).
 
 ## Introducción
 
-La gestión del almacenamiento es un problema distinto de la gestión de instancias de cómputo.
+La gestión del almacenamiento es un problema distinto al de la gestión de instancias de cómputo.
 El subsistema PersistentVolume proporciona una API para usuarios y administradores
 que abstrae los detalles de cómo se proporciona el almacenamiento de cómo se consume.
 Para hacer esto, introducimos dos nuevos recursos de API: PersistentVolume y PersistentVolumeClaim.
