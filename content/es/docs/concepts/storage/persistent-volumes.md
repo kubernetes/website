@@ -435,7 +435,7 @@ El redimensionamiento de FlexVolume es posible solo cuando el controlador subyac
 
 #### Recuperación de fallos al expandir volúmenes
 
-Si un usuario especifica un nuevo tamaño que es demasiado grande para ser satisfecho por el sistema de almacenamiento subyacente, la expansión del PVC será reintentada continuamente hasta que el usuario o el administrador del cluster tomen alguna acción. Esto puede ser indeseable y por lo tanto Kubernetes proporciona los siguientes métodos de recuperación de tales fallos.
+Si un usuario especifica un nuevo tamaño que es demasiado grande para ser satisfecho por el sistema de almacenamiento subyacente, la expansión del PVC será reintentada continuamente hasta que el usuario o el administrador del clúster tomen alguna acción. Esto puede ser indeseable y por lo tanto Kubernetes proporciona los siguientes métodos de recuperación de tales fallos.
 
 {{< tabs name="recovery_methods" >}}
 {{% tab name="Manualmente con acceso de Administrador del Cluster" %}}
