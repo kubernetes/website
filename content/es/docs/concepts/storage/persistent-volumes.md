@@ -734,7 +734,7 @@ Las solicitudes, al igual que los Pods, pueden solicitar cantidades específicas
 
 ### Selector
 
-Las solicitudes pueden especificar un [selector de etiqueta](/docs/concepts/overview/working-with-objects/labels/#label-selectors) para filtrar aún más el conjunto de volúmenes. Solo los volúmenes cuyas etiquetas coincidan con el selector pueden vincularse a la solicitud. El selector puede constar de dos campos:
+Las solicitudes pueden especificar un [selector de etiqueta](/es/docs/concepts/overview/working-with-objects/labels/#label-selectors) para filtrar aún más el conjunto de volúmenes. Solo los volúmenes cuyas etiquetas coincidan con el selector pueden vincularse a la solicitud. El selector puede constar de dos campos:
 
 - `matchLabels` (coincidencia de etiquetas) - el volumen debe tener una etiqueta con este valor.
 - `matchExpressions` (expresiones de coincidencia) - una lista de requisitos especificados por clave, lista de valores y operador que relaciona la clave y los valores. Los operadores válidos incluyen In, NotIn, Exists y DoesNotExist.
