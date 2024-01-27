@@ -545,7 +545,7 @@ spec:
 ```
 
 {{< note >}}
-Es posible que se requieran programas auxiliares relacionados con el tipo de volumen para el uso de un PersistentVolume dentro de un clúster. En este ejemplo, el PersistentVolume es de tipo NFS y se requiere el programa auxiliar /sbin/mount.nfs para admitir el montaje de sistemas de archivos NFS.
+Es posible que se requieran programas auxiliares relacionados con el tipo de volumen para el uso de un PersistentVolume dentro de un clúster. En este ejemplo, el PersistentVolume es de tipo NFS y se requiere el programa auxiliar /sbin/mount.nfs para permitir el montaje de sistemas de archivos NFS.
 {{< /note >}}
 
 ### Capacidad
