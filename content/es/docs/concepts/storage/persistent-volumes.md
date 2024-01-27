@@ -440,7 +440,7 @@ Si un usuario especifica un nuevo tamaño que es demasiado grande para ser satis
 {{< tabs name="recovery_methods" >}}
 {{% tab name="Manualmente con acceso de Administrador del Clúster" %}}
 
-Si la expansión del almacenamiento subyacente falla, el administrador del cluster puede recuperar manualmente
+Si la expansión del almacenamiento subyacente falla, el administrador del clúster puede recuperar manualmente
 el estado del Persistent Volume Claim (PVC) y cancelar las solicitudes de redimensionamiento.
 De lo contrario, las solicitudes de redimensionamiento son reintentadas continuamente por el controlador sin
 intervención del administrador.
