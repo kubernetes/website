@@ -102,7 +102,7 @@ El PVC puede unirse cuando se agregue un PV de 100Gi al clúster.
 
 ### Uso
 
-Los Pods usan las solicitudes como volúmenes. El cluster inspecciona la solicitud para encontrar el volumen unido
+Los Pods usan las solicitudes como volúmenes. El clúster inspecciona la solicitud para encontrar el volumen unido
 y monta ese volumen para un Pod. Para los volúmenes que admiten múltiples modos de acceso, el usuario especifica qué modo desea cuando utiliza su solicitud como volumen en un Pod.
 
 Una vez que un usuario tiene una solicitud y esa solicitud está unida, el PV unido pertenece al
