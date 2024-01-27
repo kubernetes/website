@@ -722,7 +722,7 @@ spec:
 
 ### Modos de Acceso
 
-Las solicitudes utilizan [las mismas convenciones que los volúmenes](#access-modes) al solicitar almacenamiento con modos de acceso específicos.
+Las solicitudes utilizan [las mismas convenciones que los volúmenes](#modos-de-acceso) al solicitar almacenamiento con modos de acceso específicos.
 
 ### Modos de Volumen
 
