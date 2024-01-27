@@ -79,7 +79,7 @@ necesita habilitar el controlador de admisión `DefaultStorageClass`
 [admission controller](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)
 en el servidor API. Esto se puede hacer, por ejemplo, asegurándose de que `DefaultStorageClass` esté
 entre la lista de valores delimitados por comas y ordenados para la bandera `--enable-admission-plugins` del
-componente del servidor API. Para más información sobre las banderas de línea de comandos del servidor API,
+componente del servidor API. Para más información sobre las opciones de línea de comandos del servidor API,
 consulta la documentación de [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/).
 
 ### Binding
