@@ -806,7 +806,7 @@ Los PersistentVolumes de tipo `hostPath` utilizan un archivo o directorio en el 
 
 ## Soporte para Volúmenes en Bloque sin Procesar
 
-{{< feature-state for_k8s_version="v1.29" state="stable" >}}
+{{< feature-state for_k8s_version="v1.18" state="stable" >}}
 
 Los siguientes complementos de volumen admiten volúmenes en bloque sin procesar, incluida la provisión dinámica cuando corresponda:
 
