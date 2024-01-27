@@ -456,7 +456,7 @@ intervención del administrador.
 {{% feature-state for_k8s_version="v1.23" state="alpha" %}}
 
 {{< note >}}
-La recuperación de la expansión fallida de PVC por parte de los usuarios está disponible como una característica alfa desde Kubernetes 1.23. La funcionalidad `RecoverVolumeExpansionFailure` debe estar habilitada para que esta característica funcione. Consulta la documentación de [puertas de características](/docs/reference/command-line-tools-reference/feature-gates/) para más información.
+La recuperación de la expansión fallida de PVC por parte de los usuarios está disponible como una característica alfa desde Kubernetes 1.23. La funcionalidad `RecoverVolumeExpansionFailure` debe estar habilitada para que esta característica funcione. Consulta la documentación de [feature gates](/docs/reference/command-line-tools-reference/feature-gates/) para más información.
 {{< /note >}}
 
 Si las puertas de características `RecoverVolumeExpansionFailure` están habilitadas en tu cluster, y la expansión ha fallado para un PVC, puedes intentar nuevamente la expansión con un tamaño menor al valor previamente solicitado. Para solicitar un nuevo intento de expansión con un tamaño propuesto menor, edita `.spec.resources` para ese PVC y elige un valor que sea menor al valor que intentaste previamente.
