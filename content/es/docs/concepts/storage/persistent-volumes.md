@@ -935,7 +935,7 @@ spec:
 
 ## Clonación de Volúmenes
 
-[Clonación de Volúmenes](/docs/concepts/storage/volume-pvc-datasource/)
+[Clonación de Volúmenes](/es/docs/concepts/storage/volume-pvc-datasource/)
 solo está disponible para complementos de volumen CSI.
 
 ### Crear una PersistentVolumeClaim desde una PVC existente {#create-persistent-volume-claim-from-an-existing-pvc}
