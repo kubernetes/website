@@ -43,7 +43,7 @@ ReadWriteMany o ReadWriteOncePod, ver [Modos de Acceso](#modos-de-acceso)).
 
 Aunque los PersistentVolumeClaims permiten a un usuario consumir recursos de almacenamiento abstractos,
 es común que los usuarios necesiten PersistentVolumes con propiedades variadas, tales como
-rendimiento, para diferentes problemas. Los administradores del cluster necesitan poder
+rendimiento, para diferentes problemas. Los administradores del clúster necesitan poder
 ofrecer una variedad de PersistentVolumes que difieran en más aspectos que el tamaño y los modos de acceso, sin exponer a los usuarios a los detalles de cómo se implementan esos volúmenes.
 Para estas necesidades, existe el recurso _StorageClass_.
 
