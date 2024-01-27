@@ -770,7 +770,7 @@ En el pasado, en lugar del atributo `storageClassName`, se utilizaba la anotaci�
 
 #### Asignación retroactiva de StorageClass predeterminada
 
-{{< feature-state for_k8s_version="v1.29" state="stable" >}}
+{{< feature-state for_k8s_version="v1.28" state="stable" >}}
 
 Puedes crear una PersistentVolumeClaim sin especificar un `storageClassName` para la nueva PVC, incluso cuando no exista una StorageClass predeterminada en tu clúster. En este caso, la nueva PVC se crea tal como la definiste, y el `storageClassName` de esa PVC permanece sin configurar hasta que esté disponible la predeterminada.
 
