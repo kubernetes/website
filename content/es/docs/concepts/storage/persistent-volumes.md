@@ -623,7 +623,7 @@ Kubernetes utiliza modos de acceso de volumen para hacer coincidir las solicitud
 
 ### Clase
 
-Un PV puede tener una clase, que se especifica configurando el atributo `storageClassName` con el nombre de una [StorageClass](/docs/concepts/storage/storage-classes/). Un PV de una clase particular solo puede vincularse a PVC que soliciten esa clase. Un PV sin `storageClassName` no tiene clase y solo puede vincularse a PVC que no soliciten una clase en particular.
+Un PV puede tener una clase, que se especifica configurando el atributo `storageClassName` con el nombre de una [StorageClass](/es/docs/concepts/storage/storage-classes/). Un PV de una clase particular solo puede vincularse a PVC que soliciten esa clase. Un PV sin `storageClassName` no tiene clase y solo puede vincularse a PVC que no soliciten una clase en particular.
 
 En el pasado, en lugar del atributo `storageClassName`, se utilizaba la anotación `volume.beta.kubernetes.io/storage-class`. Esta anotación todavía funciona; sin embargo, quedará completamente en desuso en una versión futura de Kubernetes.
 
