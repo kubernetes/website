@@ -699,7 +699,7 @@ Puedes ver el nombre de la PVC vinculada al PV utilizando `kubectl describe pers
 El campo `.status` de un PersistentVolume puede incluir un campo `lastPhaseTransitionTime` en versión alfa. Este campo registra la marca de tiempo de la última transición de fase del volumen. Para volúmenes recién creados, la fase se establece en `Pending` (Pendiente) y `lastPhaseTransitionTime` se establece en el tiempo actual.
 
 {{< note >}}
-Debes habilitar la [característica de puerta](/docs/reference/command-line-tools-reference/feature-gates/) `PersistentVolumeLastPhaseTransitionTime` para poder usar o ver el campo `lastPhaseTransitionTime`.
+Debes habilitar la [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `PersistentVolumeLastPhaseTransitionTime` para poder usar o ver el campo `lastPhaseTransitionTime`.
 {{< /note >}}
 
 ## PersistentVolumeClaims
