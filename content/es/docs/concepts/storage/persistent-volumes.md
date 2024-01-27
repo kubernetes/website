@@ -74,7 +74,7 @@ el administrador debe haber creado y configurado esa clase para que ocurra el ap
 dinámico. Las solicitudes que piden la clase `""` efectivamente desactivan
 el aprovisionamiento dinámico para sí mismas.
 
-Para habilitar el aprovisionamiento dinámico de almacenamiento basado en clases de almacenamiento, el administrador del cluster
+Para habilitar el aprovisionamiento dinámico de almacenamiento basado en clases de almacenamiento, el administrador del clúster
 necesita habilitar el controlador de admisión `DefaultStorageClass`
 [admission controller](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)
 en el servidor API. Esto se puede hacer, por ejemplo, asegurándose de que `DefaultStorageClass` esté
