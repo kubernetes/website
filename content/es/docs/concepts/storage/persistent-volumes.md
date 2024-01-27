@@ -1028,7 +1028,7 @@ Puedes instalar el controlador [volume data source validator](https://github.com
 
 {{< feature-state for_k8s_version="v1.26" state="alpha" >}}
 
-Crea un ReferenceGrant para permitir que el propietario del espacio de nombres acepte la referencia.
+Crea un ReferenceGrant para permitir que el propietario del Namespace acepte la referencia.
 Define un volumen poblado especificando una fuente de datos de volumen entre espacios de nombres utilizando el campo `dataSourceRef`. Debes tener un ReferenceGrant válido en el espacio de nombres de origen previamente:
 
 ```yaml
