@@ -51,7 +51,7 @@ Vea el [tutorial detallado con ejemplos prácticos](/docs/tasks/configure-pod-co
 
 ## Ciclo de vida de un volumen y una solicitud
 
-Los PVs son recursos en el cluster. Los PVCs son solicitudes para esos recursos y también actúan
+Los PVs son recursos en el clúster. Los PVCs son solicitudes para esos recursos y también actúan
 como comprobantes de reclamo al recurso. La interacción entre PVs y PVCs sigue este ciclo de vida:
 
 ### Aprovisionamiento
