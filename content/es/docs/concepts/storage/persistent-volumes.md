@@ -994,8 +994,8 @@ Hay dos diferencias importantes entre el campo `dataSourceRef` y el campo `dataS
 
 Cuando se habilita la característica `CrossNamespaceVolumeDataSource`, existen diferencias adicionales:
 
-- El campo `dataSource` solo permite objetos locales, mientras que el campo `dataSourceRef` permite objetos en cualquier espacio de nombres.
-- Cuando se especifica un espacio de nombres, `dataSource` y `dataSourceRef` no están sincronizados.
+- El campo `dataSource` solo permite objetos locales, mientras que el campo `dataSourceRef` permite objetos en cualquier Namespaces.
+- Cuando se especifica un Namespace, `dataSource` y `dataSourceRef` no están sincronizados.
 
 Los usuarios siempre deben utilizar `dataSourceRef` en clústeres que tengan habilitada la puerta de enlace de características y recurrir a `dataSource` en clústeres que no la tengan habilitada. No es necesario mirar ambos campos bajo ninguna circunstancia. Los valores duplicados con semántica ligeramente diferente existen solo por compatibilidad con versiones anteriores. En particular, una mezcla de controladores más antiguos y más nuevos pueden interoperar porque los campos son iguales.
 
