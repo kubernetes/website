@@ -500,11 +500,11 @@ Esto significa que el soporte aún está disponible, pero se eliminará en una f
 
 Versiones anteriores de Kubernetes también soportaban los siguientes tipos de PersistentVolume integrados:
 
-- [`awsElasticBlockStore`](/docs/concepts/storage/volumes/#awselasticblockstore) - AWS Elastic Block Store (EBS)
+- [`awsElasticBlockStore`](/es/docs/concepts/storage/volumes/#awselasticblockstore) - AWS Elastic Block Store (EBS)
   (**no disponible** en v1.27)
-- [`azureDisk`](/docs/concepts/storage/volumes/#azuredisk) - Disco Azure
+- [`azureDisk`](/es/docs/concepts/storage/volumes/#azuredisk) - Disco Azure
   (**no disponible** en v1.27)
-- [`cinder`](/docs/concepts/storage/volumes/#cinder) - Cinder (almacenamiento en bloque de OpenStack)
+- [`cinder`](/es/docs/concepts/storage/volumes/#cinder) - Cinder (almacenamiento en bloque de OpenStack)
   (**no disponible** en v1.26)
 - `photonPersistentDisk` - Disco persistente del controlador Photon.
   (**no disponible** a partir de v1.15)
