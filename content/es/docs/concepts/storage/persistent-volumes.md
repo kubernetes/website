@@ -891,7 +891,7 @@ Cuando agregas un dispositivo en bloque sin procesar para un Pod, especificas la
 
 Si un usuario solicita un volumen en bloque sin procesar indicándolo mediante el campo `volumeMode` en la especificación de PersistentVolumeClaim, las reglas de vinculación difieren ligeramente de versiones anteriores que no consideraban este modo como parte de la especificación. A continuación, se muestra una tabla de las posibles combinaciones que el usuario y el administrador pueden especificar para solicitar un dispositivo en bloque sin procesar. La tabla indica si el volumen se vinculará o no dadas las combinaciones: Matriz de vinculación de volumen para volúmenes provisionados estáticamente:
 
-| PV volumeMode | PVC volumeMode |  Result |
+| PV volumeMode | PVC volumeMode |  Resultado |
 | ------------- | :------------: | ------: |
 | unspecified   |  unspecified   |    BIND |
 | unspecified   |     Block      | NO BIND |
