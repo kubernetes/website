@@ -743,7 +743,7 @@ Todos los requisitos, tanto de `matchLabels` como de `matchExpressions`, se comb
 
 ### Clase
 
-Una solicitud puede solicitar una clase en particular especificando el nombre de una [StorageClass](/docs/concepts/storage/storage-classes/) utilizando el atributo `storageClassName`. Solo los PV de la clase solicitada, es decir, aquellos con el mismo `storageClassName` que el PVC, pueden vincularse al PVC.
+Una solicitud puede solicitar una clase en particular especificando el nombre de una [StorageClass](/es/docs/concepts/storage/storage-classes/) utilizando el atributo `storageClassName`. Solo los PV de la clase solicitada, es decir, aquellos con el mismo `storageClassName` que el PVC, pueden vincularse al PVC.
 
 Las PVC no necesariamente tienen que solicitar una clase. Una PVC con su `storageClassName` configurado igual a `""` siempre se interpreta como una solicitud de un PV sin clase, por lo que solo puede vincularse a PV sin clase (sin anotación o con `""` configurado). Una PVC sin `storageClassName` no es exactamente lo mismo y se trata de manera diferente por parte del clúster, dependiendo de si el plugin de admisión [`DefaultStorageClass`](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass) está activado.
 
