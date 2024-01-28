@@ -79,6 +79,7 @@
 /docs/concepts/jobs/run-to-completion-finite-workloads/      /docs/concepts/workloads/controllers/job/ 301
 /id/docs/concepts/jobs/run-to-completion-finite-workloads/      /id/docs/concepts/workloads/controllers/job/ 301
 /docs/concepts/nodes/node/     /docs/concepts/architecture/nodes/ 301
+/docs/storage-force-detach-on-timeout/ /docs/concepts/architecture/nodes/#storage-force-detach-on-timeout 302
 /docs/concepts/services-networking/connect-applications-service/    /docs/tutorials/services/connect-applications-service/   301
 /docs/concepts/object-metadata/annotations/     /docs/concepts/overview/working-with-objects/annotations/ 301
 /docs/concepts/overview/     /docs/concepts/overview/what-is-kubernetes/ 301
