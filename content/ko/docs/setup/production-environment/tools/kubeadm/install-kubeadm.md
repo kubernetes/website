@@ -25,7 +25,7 @@ card:
 * 모든 노드에 대해 고유한 호스트 이름, MAC 주소 및 product_uuid. 자세한 내용은 [여기](#verify-mac-address)를 참고한다.
 * 컴퓨터의 특정 포트들 개방. 자세한 내용은 [여기](#check-required-ports)를 참고한다.
 * 스왑의 비활성화. kubelet이 제대로 작동하게 하려면 **반드시** 스왑을 사용하지 않도록 설정한다.
-
+  * kubelet이 swap을 사용하도록 적절히 설정되어있지 않다면 **반드시** swap을 비활성화해야한다. 예를 들어, `sudo swapoff -a`는 swap을 일시적으로 비활성화한다. 재부팅 이후에도 이 변경을 유지하기 위해서는 시스템에서 swap이 설정된 방법에따라 `/etc/fstab`, `systemd.swap`과 같은 설정파일에서 swap이 비활성화되어있는지 확인해야한다. 
 
 
 <!-- steps -->
