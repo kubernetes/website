@@ -198,44 +198,56 @@ Debian 12 및 Ubuntu 22.04 이전 릴리스에서는 `/etc/apt/keyring`이 기�
 
 {{% /tab %}}
 {{% tab name="레드햇 기반 배포판" %}}
-```bash
-cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
-[kubernetes]
-name=Kubernetes
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
-enabled=1
-gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
-exclude=kubelet kubeadm kubectl
-EOF
 
-# permissive 모드로 SELinux 설정(효과적으로 비활성화)
-sudo setenforce 0
-sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+1. SELinux를 `permissive` mode로 변경한다.:
 
-sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+    These instructions are for Kubernetes {{< skew currentVersion >}}.
 
-sudo systemctl enable --now kubelet
-```
+    ```shell
+    # Set SELinux in permissive mode (effectively disabling it)
+    sudo setenforce 0
+    sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+    ```
 
-  **참고:**
+{{< caution >}}
+- `setenforce 0` 및 `sed ...` 를 실행하여 permissive 모드로 SELinux를 설정하면 효과적으로 비활성화된다.
+  컨테이너가 호스트 파일시스템(예를 들어, 파드 네트워크에 필요한)에 접근하도록 허용하는 데 필요하다.
+  kubelet에서 SELinux 지원이 개선될 때까지 이 작업을 수행해야 한다.
+- 구성 방법을 알고 있는 경우 SELinux를 활성화된 상태로 둘 수 있지만 kubeadm에서 지원하지 않는 설정이 필요할 수 있다.
+{{< /caution >}}
 
-  - `setenforce 0` 및 `sed ...` 를 실행하여 permissive 모드로 SELinux를 설정하면 효과적으로 비활성화된다.
-    컨테이너가 호스트 파일시스템(예를 들어, 파드 네트워크에 필요한)에 접근하도록 허용하는 데 필요하다.
-    kubelet에서 SELinux 지원이 개선될 때까지 이 작업을 수행해야 한다.
 
-  - 구성 방법을 알고 있는 경우 SELinux를 활성화된 상태로 둘 수 있지만 kubeadm에서 지원하지 않는 설정이 필요할 수 있다.
+2. Kubernetes 'yum' 저장소를 추가한다. 저장소 definition의 'exclude' 매개 변수는 Kubernetes 업그레이드를 위해 따라야 하는 특별한 절차가 있으므로 'yum update' 실행 시 Kubernetes 관련 패키지가 업그레이드되지 않도록 한다.
+   이 저장소에는 Kubernetes {{< skew currentVersion >}}에 대한 패키지만 있으므로 다른 Kubernetes 마이너 버전의 경우  
+   URL의 Kubernetes 마이너 버전을 원하는 마이너 버전으로 바꿔야한다. (설치하려는 Kubernetes 버전의 설명서를 읽고 있는지도 확인해야 합니다.) .
 
-  - 사용 중인 레드햇 배포판이 `basearch`를 해석하지 못하여 `baseurl`이 실패하면, `\$basearch`를 당신의 컴퓨터의 아키텍처로 치환한다.
-    `uname -m` 명령을 실행하여 해당 값을 확인한다.
-    예를 들어, `x86_64`에 대한 `baseurl` URL은 `https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64` 이다.
+   ```shell
+   # This overwrites any existing configuration in /etc/yum.repos.d/kubernetes.repo
+   cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
+   [kubernetes]
+   name=Kubernetes
+   baseurl=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/
+   enabled=1
+   gpgcheck=1
+   gpgkey=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/repodata/repomd.xml.key
+   exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
+   EOF
+   ```
+
+3. kublet, kubebedm 및 kubectl을 설치하고 kublet을 활성화하여 시작 시 자동으로 시작되도록 합니다:
+
+   ```shell
+   sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+   sudo systemctl enable --now kubelet
+   ```
+
 
 {{% /tab %}}
 {{% tab name="패키지 매니저를 사용하지 않는 경우" %}}
 CNI 플러그인 설치(대부분의 파드 네트워크에 필요)
 
 ```bash
-CNI_PLUGINS_VERSION="v1.1.1"
+CNI_PLUGINS_VERSION="v1.3.0"
 ARCH="amd64"
 DEST="/opt/cni/bin"
 sudo mkdir -p "$DEST"
@@ -253,11 +265,10 @@ Flatcar Container Linux를 실행 중인 경우, `DOWNLOAD_DIR="/opt/bin"` 을 �
 DOWNLOAD_DIR="/usr/local/bin"
 sudo mkdir -p "$DOWNLOAD_DIR"
 ```
-
 crictl 설치(kubeadm / Kubelet 컨테이너 런타임 인터페이스(CRI)에 필요)
 
 ```bash
-CRICTL_VERSION="v1.25.0"
+CRICTL_VERSION="v1.28.0"
 ARCH="amd64"
 curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
 ```
@@ -268,14 +279,20 @@ curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL
 RELEASE="$(curl -sSL https://dl.k8s.io/release/stable.txt)"
 ARCH="amd64"
 cd $DOWNLOAD_DIR
-sudo curl -L --remote-name-all https://dl.k8s.io/release/${RELEASE}/bin/linux/${ARCH}/{kubeadm,kubelet,kubectl}
-sudo chmod +x {kubeadm,kubelet,kubectl}
+sudo curl -L --remote-name-all https://dl.k8s.io/release/${RELEASE}/bin/linux/${ARCH}/{kubeadm,kubelet}
+sudo chmod +x {kubeadm,kubelet}
 
-RELEASE_VERSION="v0.4.0"
-curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service
+RELEASE_VERSION="v0.16.2"
+curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/krel/templates/latest/kubelet/kubelet.service" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service
 sudo mkdir -p /etc/systemd/system/kubelet.service.d
-curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/krel/templates/latest/kubeadm/10-kubeadm.conf" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
 ```
+
+{{< note >}}
+`glibc`를 기본적으로 포함하지 않은 리눅스 배포판을 위해서는 [Before you begin](#before-you-begin) 섹션을 참고한다. 
+{{< /note >}}
+
+[Install Tools page](/docs/tasks/tools/#kubectl)의 지침을 따라 `kubectl`을 설치한다.
 
 `kubelet` 활성화 및 시작
 
@@ -288,6 +305,7 @@ Flatcar Container Linux 배포판은 `/usr` 디렉터리를 읽기 전용 파일
 클러스터를 부트스트랩하기 전에, 쓰기 가능한 디렉터리를 구성하기 위한 추가 단계를 수행해야 한다.
 쓰기 가능한 디렉터리를 설정하는 방법을 알아 보려면 [Kubeadm 문제 해결 가이드](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#usr-mounted-read-only/)를 참고한다.
 {{< /note >}}
+
 {{% /tab %}}
 {{< /tabs >}}
 
