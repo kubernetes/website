@@ -513,6 +513,29 @@ During a non-graceful shutdown, Pods are terminated in the two phases:
   recovered since the user was the one who originally added the taint.
 {{< /note >}}
 
+### Disable force detach on timeout {#disable-force-detach-on-timeout}
+
+With the advent of the "Non-graceful node shutdown" feature, users might opt
+to disable force detach on timeout in
+[kube controller manager](/docs/reference/command-line-tools-reference/kube-controller-manager/).
+
+Force detach on timeout can be disabled by setting the `disable-force-detach-on-timeout`
+flag in `kube controller manager`; this means that a volume that is hosted on a node that
+is unhealthy for more than 6 minutes will not have its associated
+[Volume Attachment](/docs/reference/kubernetes-api/config-and-storage-resources/volume-attachment-v1/)
+deleted.
+
+If this behavior is disabled, then data corruption might be avoided in certain cases.
+
+However, manual mitigations might be required to repair the pod in question:
+* The user might opt to manually taint the underlying node via the
+[Non-Graceful Node Shutdown](#non-graceful-node-shutdown) procedure mentioned above if the node is
+truly detached.
+* If using the `Non-Graceful Node Shutdown` procedure is not an option, the user might opt to
+manually delete the necessary
+[Volume Attachment](/docs/reference/kubernetes-api/config-and-storage-resources/volume-attachment-v1/)
+objects after manually unmounting and unstaging the volumes in question.
+
 ## Swap memory management {#swap-memory}
 
 {{< feature-state state="beta" for_k8s_version="v1.28" >}}
