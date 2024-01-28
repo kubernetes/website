@@ -14,6 +14,7 @@ card:
 이 페이지에서는 `kubeadm` 툴박스 설치 방법을 보여준다.
 이 설치 프로세스를 수행한 후 kubeadm으로 클러스터를 만드는 방법에 대한 자세한 내용은 [kubeadm으로 클러스터 생성하기](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) 페이지를 참고한다.
 
+{{< doc-versions-list "installation guide" >}}
 
 ## {{% heading "prerequisites" %}}
 
@@ -143,39 +144,57 @@ kubeadm은 `kubelet` 또는 `kubectl` 을 설치하거나 관리하지 **않으�
 * 쿠버네티스 [버전 및 버전-차이 정책](/ko/releases/version-skew-policy/)
 * Kubeadm 관련 [버전 차이 정책](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
 
+{{% legacy-repos-deprecation %}}
+
+{{< note >}}
+kubernetes 마이너 버전마다 전용 패키지 저장소가 있다. {{< skew currentVersion >}} 이외의 마이너 버전을 설치하기 위해선
+원하는 마이너 버전의 설치 가이드를 참고한다. 
+{{< /note >}}
+
 {{< tabs name="k8s_install" >}}
 {{% tab name="데비안 기반 배포판" %}}
+
+아래 지침은 Kubernetes {{< skew currentVersion >}}를 위한 것이다.
 
 1. `apt` 패키지 색인을 업데이트하고, 쿠버네티스 `apt` 리포지터리를 사용하는 데 필요한 패키지를 설치한다.
 
    ```shell
    sudo apt-get update
-   sudo apt-get install -y apt-transport-https ca-certificates curl
+   # apt-transport- https는 더미 패키지일 수 있다. 그렇다면 해당 패키지를 건너뛸 수 있다
+   sudo apt-get install -y apt-transport-https ca-certificates curl gpg
    ```
 
-2. 구글 클라우드의 공개 사이닝 키를 다운로드 한다.
+2. Kubernetes 패키지 저장소에 대한 공개 서명 키를 다운로드한다. 
+   모든 리포지토리에 동일한 서명 키가 사용되므로 URL의 버전을 무시할 수 있다:
 
    ```shell
-   sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   # '/etc/apt/keyrings' 폴더가 존재하지 않는 경우 curl 명령 전에 생성해야 한다. 아래의 참고 사항을 읽어보십시오.
+   # sudo mkdir -p -m 755 /etc/apt/keyrings
+   curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    ```
 
-3. 쿠버네티스 `apt` 리포지터리를 추가한다.
+{{< note >}}
+Debian 12 및 Ubuntu 22.04 이전 릴리스에서는 `/etc/apt/keyring`이 기본적으로 존재하지 않는다.
+필요한 경우 이 디렉토리를 생성하여, 누구나 읽을 수 있지만 관리자만 쓸 수 있도록 만들 수 있다.
+{{< /note >}}
+
+3. 적절한 Kubernetes 'apt' 리포지토리를 추가한다. 
+   이 리포지토리에는 Kubernetes {{< skew currentVersion >}}에 대한 패키지만 있다. 
+   다른 Kubernetes 마이너 버전의 경우 URL에서 Kubernetes 마이너 버전을 원하는 마이너 버전에 맞게 변경해야 한다
+   (설치하려는 Kubernetes 버전의 설명서를 읽고 있는지도 확인해야 한다).
 
    ```shell
-   echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   # 아래 명령은 /etc/apt/sources.list.d/kubernetes.list 의 현재 설정을 덮어씌운다.
+   echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
    ```
 
-4. `apt` 패키지 색인을 업데이트하고, kubelet, kubeadm, kubectl을 설치하고 해당 버전을 고정한다.
+4. 'apt' 패키지 인덱스를 업데이트하고 kublet, kubebedm 및 kubectl을 설치한 후 해당 버전을 고정한다:
 
    ```shell
    sudo apt-get update
    sudo apt-get install -y kubelet kubeadm kubectl
    sudo apt-mark hold kubelet kubeadm kubectl
    ```
-{{< note >}}
-Debian 12 및 Ubuntu 22.04 이전 릴리스에서는 `/etc/apt/keyring`이 기본적으로 존재하지 않는다.
-필요한 경우 이 디렉토리를 생성하여, 누구나 읽을 수 있지만 관리자만 쓸 수 있도록 만들 수 있다.
-{{< /note >}}
 
 {{% /tab %}}
 {{% tab name="레드햇 기반 배포판" %}}
