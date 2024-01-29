@@ -398,12 +398,12 @@ You should only create a ServiceAccount token Secret
 if you can't use the `TokenRequest` API to obtain a token,
 and the security exposure of persisting a non-expiring token credential
 in a readable API object is acceptable to you. For instructions, see
-[Manually create a long-lived API token for a ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/#manually-create-a-service-account-api-token).
+[Manually create a long-lived API token for a ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/#manually-create-an-api-token-for-a-serviceaccount).
 -->
 只有在你无法使用 `TokenRequest` API 来获取令牌，
 并且你能够接受因为将永不过期的令牌凭据写入到可读取的 API 对象而带来的安全风险时，
 才应该创建 ServiceAccount 令牌 Secret。
-更多细节参阅[为 ServiceAccount 手动创建长期有效的 API 令牌](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#manually-create-a-service-account-api-token)。
+更多细节参阅[为 ServiceAccount 手动创建长期有效的 API 令牌](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#manually-create-an-api-token-for-a-serviceaccount)。
 {{< /note >}}
 
 <!--

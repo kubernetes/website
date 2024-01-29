@@ -894,21 +894,21 @@ Pod 时，挂载到 StatefulSet 的 Pod 的 PersistentVolume 卷不会被删除�
 ## 更新 StatefulSet   {#updating-statefulsets}
 
 <!--
-In Kubernetes 1.7 and later, the StatefulSet controller supports automated updates.  The
+The StatefulSet controller supports automated updates.  The
 strategy used is determined by the `spec.updateStrategy` field of the
-StatefulSet API Object. This feature can be used to upgrade the container
+StatefulSet API object. This feature can be used to upgrade the container
 images, resource requests and/or limits, labels, and annotations of the Pods in a
-StatefulSet. There are two valid update strategies, `RollingUpdate` and
-`OnDelete`.
+StatefulSet.
 -->
-从 Kubernetes 1.7 版本开始，StatefulSet 控制器支持自动更新。
+StatefulSet 控制器支持自动更新。
 更新策略由 StatefulSet API 对象的 `spec.updateStrategy` 字段决定。这个特性能够用来更新一个
-StatefulSet 中 Pod 的的容器镜像、资源请求和限制、标签和注解。
+StatefulSet 中 Pod 的容器镜像、资源请求和限制、标签和注解。
 
 <!--
-`RollingUpdate` update strategy is the default for StatefulSets.
+There are two valid update strategies, `RollingUpdate` (the default) and
+`OnDelete`.
 -->
-`RollingUpdate` 更新策略是 StatefulSet 默认策略。
+有两个有效的更新策略：`RollingUpdate`（默认）和 `OnDelete`。
 
 <!--
 ### RollingUpdate {#rolling-update}
@@ -923,16 +923,16 @@ reverse ordinal order, while respecting the StatefulSet guarantees.
 Pod，采用与序号索引相反的顺序并遵循 StatefulSet 的保证。
 
 <!--
-Patch the `web` StatefulSet to apply the `RollingUpdate` update strategy:
--->
-对 `web` StatefulSet 应用 Patch 操作来应用 `RollingUpdate` 更新策略：
+You can split updates to a StatefulSet that uses the `RollingUpdate` strategy
+into _partitions_, by specifying `.spec.updateStrategy.rollingUpdate.partition`.
+You'll practice that later in this tutorial.
 
-```shell
-kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpdate"}}}'
-```
-```
-statefulset.apps/web patched
-```
+First, try a simple rolling update.
+-->
+你可以通过指定 `.spec.updateStrategy.rollingUpdate.partition` 将使用 `RollingUpdate`
+策略的 StatefulSet 的更新拆分为多个**分区** 。你将在本教程中稍后练习此操作。
+
+首先，尝试一个简单的滚动更新。
 
 <!--
 In one terminal window, patch the `web` StatefulSet to change the container
@@ -1010,12 +1010,12 @@ StatefulSet controller terminates each Pod, and waits for it to transition to Ru
 Ready prior to updating the next Pod. Note that, even though the StatefulSet
 controller will not proceed to update the next Pod until its ordinal successor
 is Running and Ready, it will restore any Pod that fails during the update to
-its current version.
+that Pod's existing version.
 -->
 StatefulSet 里的 Pod 采用和序号相反的顺序更新。在更新下一个 Pod 前，StatefulSet
 控制器终止每个 Pod 并等待它们变成 Running 和 Ready。
 请注意，虽然在顺序后继者变成 Running 和 Ready 之前 StatefulSet 控制器不会更新下一个
-Pod，但它仍然会重建任何在更新过程中发生故障的 Pod，使用的是它们当前的版本。
+Pod，但它仍然会重建任何在更新过程中发生故障的 Pod，使用的是它们现有的版本。
 
 <!--
 Pods that have already received the update will be restored to the updated version,
@@ -1060,21 +1060,44 @@ StatefulSet 的滚动更新状态。
 #### 分段更新   {#staging-an-update}
 
 <!--
-You can stage an update to a StatefulSet by using the `partition` parameter of
-the `RollingUpdate` update strategy. A staged update will keep all of the Pods
-in the StatefulSet at the current version while allowing mutations to the
-StatefulSet's `.spec.template`.
+You can split updates to a StatefulSet that uses the `RollingUpdate` strategy
+into _partitions_, by specifying `.spec.updateStrategy.rollingUpdate.partition`.
 -->
-你可以使用 `RollingUpdate` 更新策略的 `partition` 参数来分段更新一个 StatefulSet。
-分段的更新将会使 StatefulSet 中的其余所有 Pod 保持当前版本的同时允许改变
-StatefulSet 的 `.spec.template`。
+你可以通过指定 `.spec.updateStrategy.rollingUpdate.partition` 将使用 `RollingUpdate` 策略的
+StatefulSet 的更新拆分为多个**分区** 。
 
 <!--
-Patch the `web` StatefulSet to add a partition to the `updateStrategy` field:
+For more context, you can read [Partitioned rolling updates](/docs/concepts/workloads/controllers/statefulset/#partitions)
+in the StatefulSet concept page.
 -->
-对 `web` StatefulSet 执行 Patch 操作为 `updateStrategy` 字段添加一个分区：
+有关更多上下文，你可以阅读 StatefulSet
+概念页面中的[分区滚动更新](/zh-cn/docs/concepts/workloads/controllers/statefulset/#partitions)。
 
+<!--
+You can stage an update to a StatefulSet by using the `partition` field within
+`.spec.updateStrategy.rollingUpdate`.
+For this update, you will keep the existing Pods in the StatefulSet
+unchanged whilst you change the pod template for the StatefulSet.
+Then you - or, outside of a tutorial, some external automation - can
+trigger that prepared update.
+-->
+你可以使用 `.spec.updateStrategy.rollingUpdate` 中的 `partition` 字段对 StatefulSet 执行更新的分段操作。
+对于此更新，你将保持 StatefulSet 中现有 Pod 不变，同时更改 StatefulSet 的 Pod 模板。
+然后，你（或通过教程之外的一些外部自动化工具）可以触发准备好的更新。
+
+<!--
+First, patch the `web` StatefulSet to add a partition to the `updateStrategy` field:
+-->
+对 `web` StatefulSet 执行 Patch 操作，为 `updateStrategy` 字段添加一个分区：
+
+<!--
+# The value of "partition" determines which ordinals a change applies to
+# Make sure to use a number bigger than the last ordinal for the
+# StatefulSet
+-->
 ```shell
+# "partition" 的值决定更改适用于哪些序号
+# 确保使用比 StatefulSet 的最后一个序号更大的数字
 kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":3}}}}'
 ```
 ```
@@ -1082,9 +1105,10 @@ statefulset.apps/web patched
 ```
 
 <!--
-Patch the StatefulSet again to change the container's image:
+Patch the StatefulSet again to change the container image that this
+StatefulSet uses:
 -->
-再次 Patch StatefulSet 来改变容器镜像：
+再次 Patch StatefulSet 来改变此 StatefulSet 使用的容器镜像：
 
 ```shell
 kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"registry.k8s.io/nginx-slim:0.7"}]'
@@ -1106,9 +1130,9 @@ pod "web-2" deleted
 ```
 
 <!--
-Wait for the Pod to be Running and Ready.
+Wait for the replacement `web-2` Pod to be Running and Ready:
 -->
-等待 Pod 变成 Running 和 Ready。
+等待替代的 Pod 变成 Running 和 Ready。
 
 <!--
 # End the watch when you see that web-2 is healthy
@@ -1139,11 +1163,11 @@ registry.k8s.io/nginx-slim:0.8
 
 <!--
 Notice that, even though the update strategy is `RollingUpdate` the StatefulSet
-restored the Pod with its original container. This is because the
+restored the Pod with the original container image. This is because the
 ordinal of the Pod is less than the `partition` specified by the
 `updateStrategy`.
 -->
-请注意，虽然更新策略是 `RollingUpdate`，StatefulSet 还是会使用原始的容器恢复 Pod。
+请注意，虽然更新策略是 `RollingUpdate`，StatefulSet 还是会使用原始的容器镜像恢复 Pod。
 这是因为 Pod 的序号比 `updateStrategy` 指定的 `partition` 更小。
 
 <!--
@@ -1152,11 +1176,16 @@ ordinal of the Pod is less than the `partition` specified by the
 #### 金丝雀发布   {#rolling-out-a-canary}
 
 <!--
-You can roll out a canary to test a modification by decrementing the `partition`
+You're now going to try a [canary rollout](https://glossary.cncf.io/canary-deployment/)
+of that staged change.
+-->
+现在，你将尝试对分段的变更进行[金丝雀发布](https://glossary.cncf.io/canary-deployment/)。
+
+<!--
+You can roll out a canary (to test the modified template) by decrementing the `partition`
 you specified [above](#staging-an-update).
 -->
-你可以通过减少[上文](#staging-an-update)指定的
-`partition` 来进行金丝雀发布，以此来测试你的程序的改动。
+你可以通过减少[上文](#staging-an-update)指定的 `partition` 来进行金丝雀发布，以测试修改后的模板。
 
 <!--
 Patch the StatefulSet to decrement the partition:
@@ -1168,7 +1197,7 @@ Patch the StatefulSet to decrement the partition:
 # the StatefulSet
 -->
 ```shell
-# “partition” 的值应与 StatefulSet 现有的最高序数相匹配
+# “partition” 的值应与 StatefulSet 现有的最高序号相匹配
 kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":2}}}}'
 ```
 ```
@@ -1176,9 +1205,13 @@ statefulset.apps/web patched
 ```
 
 <!--
-Wait for `web-2` to be Running and Ready.
+The control plane triggers replacement for `web-2` (implemented by
+a graceful **delete** followed by creating a new Pod once the deletion
+is complete).
+Wait for the new `web-2` Pod to be Running and Ready.
 -->
-等待 `web-2` 变成 Running 和 Ready。
+控制平面会触发 `web-2` 的替换（先优雅地 **删除** 现有 Pod，然后在删除完成后创建一个新的 Pod）。
+等待新的 `web-2` Pod 变成 Running 和 Ready。
 
 <!--
 # This should already be running
@@ -1205,7 +1238,6 @@ kubectl get pod web-2 --template '{{range $i, $c := .spec.containers}}{{$c.image
 ```
 ```
 registry.k8s.io/nginx-slim:0.7
-
 ```
 
 <!--
@@ -1374,14 +1406,30 @@ continue the update process.
 ### OnDelete 策略   {#on-delete}
 
 <!--
-The `OnDelete` update strategy implements the legacy (1.6 and prior) behavior,
-When you select this update strategy, the StatefulSet controller will not
-automatically update Pods when a modification is made to the StatefulSet's
-`.spec.template` field. This strategy can be selected by setting the
+You select this update strategy for a StatefulSet by setting the
 `.spec.template.updateStrategy.type` to `OnDelete`.
+
+Patch the `web` StatefulSet to use the `OnDelete` update strategy:
 -->
-`OnDelete` 更新策略实现了传统（1.7 之前）行为，它也是默认的更新策略。
+通过将 `.spec.template.updateStrategy.type` 设置为 `OnDelete`，你可以为 StatefulSet 选择此更新策略。
+
+对 `web` StatefulSet 执行 patch 操作，以使用 `OnDelete` 更新策略：
+
+```shell
+kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"OnDelete"}}}'
+```
+```
+statefulset.apps/web patched
+```
+
+<!--
+When you select this update strategy, the StatefulSet controller does not
+automatically update Pods when a modification is made to the StatefulSet's
+`.spec.template` field. You need to manage the rollout yourself - either
+manually, or using separate automation.
+-->
 当你选择这个更新策略并修改 StatefulSet 的 `.spec.template` 字段时，StatefulSet 控制器将不会自动更新 Pod。
+你需要自己手动管理发布，或使用单独的自动化工具来管理发布。
 
 <!--
 ## Deleting StatefulSets
@@ -1389,12 +1437,20 @@ automatically update Pods when a modification is made to the StatefulSet's
 ## 删除 StatefulSet   {#deleting-statefulsets}
 
 <!--
-StatefulSet supports both Non-Cascading and Cascading deletion. In a
-Non-Cascading Delete, the StatefulSet's Pods are not deleted when the StatefulSet is deleted. In a Cascading Delete, both the StatefulSet and its Pods are
-deleted.
+StatefulSet supports both _non-cascading_ and _cascading_ deletion. In a
+non-cascading **delete**, the StatefulSet's Pods are not deleted when the
+StatefulSet is deleted. In a cascading **delete**, both the StatefulSet and
+its Pods are deleted.
 -->
-StatefulSet 同时支持级联和非级联删除。使用非级联方式删除 StatefulSet 时，StatefulSet
-的 Pod 不会被删除。使用级联删除时，StatefulSet 和它的 Pod 都会被删除。
+StatefulSet 同时支持**非级联**和**级联**删除。使用非级联方式**删除** StatefulSet 时，StatefulSet
+的 Pod 不会被删除。使用级联**删除**时，StatefulSet 和它的 Pod 都会被删除。
+
+<!--
+Read [Use Cascading Deletion in a Cluster](/docs/tasks/administer-cluster/use-cascading-deletion/)
+to learn about cascading deletion generally.
+-->
+阅读[在集群中使用级联删除](/zh-cn/docs/tasks/administer-cluster/use-cascading-deletion/)，
+以了解通用的级联删除。
 
 <!--
 ### Non-cascading delete
@@ -1418,11 +1474,11 @@ kubectl get pods --watch -l app=nginx
 Use [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands/#delete) to delete the
 StatefulSet. Make sure to supply the `--cascade=orphan` parameter to the
 command. This parameter tells Kubernetes to only delete the StatefulSet, and to
-not delete any of its Pods.
+**not** delete any of its Pods.
 -->
 使用 [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands/#delete)
 删除 StatefulSet。请确保提供了 `--cascade=orphan` 参数给命令。这个参数告诉
-Kubernetes 只删除 StatefulSet 而不要删除它的任何 Pod。
+Kubernetes 只删除 StatefulSet 而**不要**删除它的任何 Pod。
 
 ```shell
 kubectl delete statefulset web --cascade=orphan
@@ -1556,10 +1612,10 @@ StatefulSet 会接收这个 Pod。由于你重新创建的 StatefulSet 的 `repl
 一旦 `web-0` 被重新创建并且 `web-1` 被认为已经处于 Running 和 Ready 状态时，`web-2` 将会被终止。
 
 <!--
-Let's take another look at the contents of the `index.html` file served by the
+Now take another look at the contents of the `index.html` file served by the
 Pods' webservers:
 -->
-让我们再看看被 Pod 的 Web 服务器加载的 `index.html` 的内容：
+现在再看看被 Pod 的 Web 服务器加载的 `index.html` 的内容：
 
 ```shell
 for i in 0 1; do kubectl exec -i -t "web-$i" -- curl http://localhost/; done
@@ -1654,10 +1710,10 @@ the Pod's successor to be completely terminated.
 {{< note >}}
 <!--
 Although a cascading delete removes a StatefulSet together with its Pods,
-the cascade does not delete the headless Service associated with the StatefulSet.
+the cascade does **not** delete the headless Service associated with the StatefulSet.
 You must delete the `nginx` Service manually.
 -->
-尽管级联删除会删除 StatefulSet 及其 Pod，但级联不会删除与 StatefulSet
+尽管级联删除会删除 StatefulSet 及其 Pod，但级联**不会**删除与 StatefulSet
 关联的 Headless Service。你必须手动删除 `nginx` Service。
 {{< /note >}}
 
@@ -1740,13 +1796,19 @@ statefulset "web" deleted
 <!--
 For some distributed systems, the StatefulSet ordering guarantees are
 unnecessary and/or undesirable. These systems require only uniqueness and
-identity. To address this, in Kubernetes 1.7, we introduced
-`.spec.podManagementPolicy` to the StatefulSet API Object.
+identity.
 -->
 对于某些分布式系统来说，StatefulSet 的顺序性保证是不必要和/或者不应该的。
-这些系统仅仅要求唯一性和身份标志。为了解决这个问题，在 Kubernetes 1.7
-中我们针对 StatefulSet API 对象引入了 `.spec.podManagementPolicy`。
-此选项仅影响扩缩操作的行为。更新不受影响。
+这些系统仅仅要求唯一性和身份标志。
+
+<!--
+You can specify a Pod management policy to avoid this strict ordering;
+either [`OrderedReady`](/docs/concepts/workloads/controllers/statefulset/#orderedready-pod-management) (the default)
+or [`Parallel`](/docs/concepts/workloads/controllers/statefulset/#parallel-pod-management).
+-->
+你可以指定 Pod 管理策略以避免这个严格的顺序；
+你可以选择 [`OrderedReady`](/zh-cn/docs/concepts/workloads/controllers/statefulset/#orderedready-pod-management)（默认）或
+[`Parallel`](/zh-cn/docs/concepts/workloads/controllers/statefulset/#parallel-pod-management)。
 
 <!--
 ### OrderedReady Pod management
@@ -1775,7 +1837,7 @@ Pod. This option only affects the behavior for scaling operations. Updates are n
 `Parallel` Pod 管理策略告诉 StatefulSet 控制器并行的终止所有 Pod，
 在启动或终止另一个 Pod 前，不必等待这些 Pod 变成 Running 和 Ready 或者完全终止状态。
 
-{{{% code_sample file="application/web/web-parallel.yaml" %}}
+{{% code_sample file="application/web/web-parallel.yaml" %}}
 
 <!--
 This manifest is identical to the one you downloaded above except that the `.spec.podManagementPolicy`
@@ -1835,9 +1897,10 @@ web-1     1/1       Running   0         10s
 ```
 
 <!--
-The StatefulSet controller launched both `web-0` and `web-1` at the same time.
+The StatefulSet controller launched both `web-0` and `web-1` at almost the
+same time.
 -->
-StatefulSet 控制器同时启动了 `web-0` 和 `web-1`。
+StatefulSet 控制器几乎同时启动了 `web-0` 和 `web-1`。
 
 <!--
 Keep the second terminal open, and, in another terminal window scale the

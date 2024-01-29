@@ -7,7 +7,6 @@ approvers:
 - sig-docs-en-owners # Defined in OWNERS_ALIASES
 
 emeritus_approvers:
-# - celestehorgan, commented out to disable PR assignments
 # - chenopis, commented out to disable PR assignments
 # - irvifa, commented out to disable PR assignments
 # - jaredbhatti, commented out to disable PR assignments
