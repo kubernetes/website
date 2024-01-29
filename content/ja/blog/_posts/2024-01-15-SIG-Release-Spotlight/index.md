@@ -25,9 +25,9 @@ Kubernetesの新バージョンのリリースプロセスは、十分に構造�
 - **機能の成熟段階**： 通常、コミュニティからのフィードバックを集めるため、実験的な新機能を含むアルファ・リリースを2、3回行い、その後、機能がより安定し、バグの修正が中心となるベータ・リリースを2、3回行います。この段階でのユーザーからのフィードバックは非常に重要で、この段階で発生する可能性のあるバグやその他の懸念に対処するために、追加のベータ・リリースをカットしなければならないこともあります。これがクリアされると、実際のリリースの前にリリース候補（RC）をカットします。このサイクルを通じて、リリースノートやユーザーガイドなどのドキュメントの更新や改善に努めます。
 - **安定化段階**： 新リリースの数週間前にコードフリーズを実施し、この時点以降は新機能の追加を禁止します。メインリリースと並行して、私たちはKubernetesの古い公式サポートバージョンのパッチを毎月カットし続けているので、Kubernetesバージョンのライフサイクルはその後数ヶ月に及ぶと言えます。完全なリリースサイクル全体を通して、リリースノートやユーザーガイドを含むドキュメントの更新と改善に努めます。
 
-![https://github.com/kubernetes/website/raw/41e9d2b489c8627f21af18ed1f6e2a210edf9ba7/content/en/blog/_posts/2024-01-15-SIG-Release-Spotlight/sig-release-overview.png](https://github.com/kubernetes/website/raw/41e9d2b489c8627f21af18ed1f6e2a210edf9ba7/content/en/blog/_posts/2024-01-15-SIG-Release-Spotlight/sig-release-overview.png)
+![SIGリリースの概要](sig-release-overview.png)
 
-2. 各リリースで安定性と新機能の導入のバランスをどのように扱っていますか？どのような基準で、どの機能をリリースに含めるかを決定するのですか？
+1. 各リリースで安定性と新機能の導入のバランスをどのように扱っていますか？どのような基準で、どの機能をリリースに含めるかを決定するのですか？
 
 終わりのないミッションですが、重要なのは私たちのプロセスとガイドラインを尊重することだと考えています。私たちのガイドラインは、このプロジェクトに豊富な知識と経験をもたらしてくれるコミュニティの何十人ものメンバーから、何時間にもわたって議論とフィードバックを重ねた結果です。もし厳格なガイドラインがなかったら、私たちの注意を必要とするもっと生産的なトピックに時間を使う代わりに、同じ議論を何度も繰り返してしまうでしょう。すべての重要な例外は、チームメンバーの大半のコンセンサスを必要とするため、品質を確保することができる。
 
@@ -51,9 +51,9 @@ Kubernetesの新バージョンのリリースプロセスは、十分に構造�
 
 経験豊富な貢献者は皆、かつてあなたのような立場にあったことを忘れないでください。遠慮せずに質問し、議論に参加し、貢献するための小さな一歩を踏み出しましょう。
 
-![https://github.com/kubernetes/website/raw/41e9d2b489c8627f21af18ed1f6e2a210edf9ba7/content/en/blog/_posts/2024-01-15-SIG-Release-Spotlight/sig-release-meetings.png](https://github.com/kubernetes/website/raw/41e9d2b489c8627f21af18ed1f6e2a210edf9ba7/content/en/blog/_posts/2024-01-15-SIG-Release-Spotlight/sig-release-meetings.png)
+![SIGリリース ミーティング](sig-release-meetings.png)
 
-5. リリースシャドウプログラムとは何ですか？また、他の様々なSIGに含まれるシャドウプログラムとの違いは何ですか？
+1. リリースシャドウプログラムとは何ですか？また、他の様々なSIGに含まれるシャドウプログラムとの違いは何ですか？
 
 リリースシャドウプログラムは、Kubernetesのリリースサイクルを通して、リリースチームの経験豊富なメンバーをシャドウイングする機会を提供します。これは、Kubernetesのリリースに必要な、サブチームにまたがるすべてのハードワークを見るまたとないチャンスです。多くの人は、私たちの仕事は3ヶ月ごとにリリースを切ることだけだと思っていますが、それは氷山の一角にすぎません。
 
@@ -73,7 +73,7 @@ Kubernetesの新バージョンのリリースプロセスは、十分に構造�
 
 リリースチームはSIGリリースに参加する方法の1つですが、私たちは常に手伝ってくれる人を探しています。繰り返しになりますが、一定の技術的な能力に加えて、私たちが最も求めている特性は、信頼できる人であり、それには時間が必要です。
 
-![https://github.com/kubernetes/website/raw/41e9d2b489c8627f21af18ed1f6e2a210edf9ba7/content/en/blog/_posts/2024-01-15-SIG-Release-Spotlight/sig-release-motivation.png](https://github.com/kubernetes/website/raw/41e9d2b489c8627f21af18ed1f6e2a210edf9ba7/content/en/blog/_posts/2024-01-15-SIG-Release-Spotlight/sig-release-motivation.png)
+![SIGリリースのモチベーション](sig-release-motivation.png)
 
 8. リリースチームがKubernetes v1.28に特に期待している進行中の取り組みや今後の機能について教えてください。これらの進歩は、Kubernetesの長期的なビジョンとどのように整合しているのでしょうか？
 
