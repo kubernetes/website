@@ -85,18 +85,45 @@ to either:
 <!-- steps -->
 
 <!--
-## Configuration and determining whether encryption at rest is already enabled
+## Determine whether encryption at rest is already enabled {#determining-whether-encryption-at-rest-is-already-enabled}
 
-The `kube-apiserver` process accepts an argument `--encryption-provider-config`
-that controls how API data is encrypted in etcd.
-The configuration is provided as an API named
-[`EncryptionConfiguration`](/docs/reference/config-api/apiserver-encryption.v1/). An example configuration is provided below.
+By default, the API server stores plain-text representations of resources into etcd, with
+no at-rest encryption.
 -->
-## 配置并确定是否已启用静态数据加密   {#configuration-and-determing-wheter-encryption-at-rest-is-already-enabled}
+## 确定是否已启用静态数据加密   {#determining-whether-encryption-at-rest-is-already-enabled}
 
-`kube-apiserver` 的参数 `--encryption-provider-config` 控制 API 数据在 etcd 中的加密方式。
-该配置作为一个名为 [`EncryptionConfiguration`](/zh-cn/docs/reference/config-api/apiserver-encryption.v1/)
-的 API 提供。下面提供了一个示例配置。
+默认情况下，API 服务器将资源的明文表示存储在 etcd 中，没有静态加密。
+
+<!--
+The `kube-apiserver` process accepts an argument `--encryption-provider-config`
+that specifies a path to a configuration file. The contents of that file, if you specify one,
+control how Kubernetes API data is encrypted in etcd.
+If you are running the kube-apiserver without the `--encryption-provider-config` command line
+argument, you do not have encryption at rest enabled. If you are running the kube-apiserver
+with the `--encryption-provider-config` command line argument, and the file that it references
+specifies the `identity` provider as the first encryption provider in the list, then you
+do not have at-rest encryption enabled
+(**the default `identity` provider does not provide any confidentiality protection.**)
+-->
+`kube-apiserver` 进程使用 `--encryption-provider-config` 参数指定配置文件的路径，
+所指定的配置文件的内容将控制 Kubernetes API 数据在 etcd 中的加密方式。
+如果你在运行 kube-apiserver 时没有使用 `--encryption-provider-config` 命令行参数，
+则你未启用静态加密。如果你在运行 kube-apiserver 时使用了 `--encryption-provider-config`
+命令行参数，并且此参数所引用的文件指定 `identity` 提供程序作为加密提供程序列表中的第一个，
+则你未启用静态加密（**默认的 `identity` 提供程序不提供任何机密性保护**）。
+
+<!--
+If you are running the kube-apiserver
+with the `--encryption-provider-config` command line argument, and the file that it references
+specifies a provider other than `identity` as the first encryption provider in the list, then
+you already have at-rest encryption enabled. However, that check does not tell you whether
+a previous migration to encrypted storage has succeeded. If you are not sure, see
+[ensure all relevant data are encrypted](#ensure-all-secrets-are-encrypted).
+-->
+如果你在运行 kube-apiserver 时使用了 `--encryption-provider-config` 命令行参数，
+并且此参数所引用的文件指定一个不是 `identity` 的提供程序作为加密提供程序列表中的第一个，
+则你已启用静态加密。然而此项检查并未告知你先前向加密存储的迁移是否成功。如果你不确定，
+请参阅[确保所有相关数据都已加密](#ensure-all-secrets-are-encrypted)。
 
 {{< caution >}}
 <!--
@@ -113,20 +140,65 @@ decrypt data stored in the etcd.
 -->
 ## 理解静态数据加密    {#understanding-the-encryption-at-rest-configuration}
 
-<!--
-# CAUTION: this is an example configuration.
-#          Do not use this for your own cluster!
-# This configuration does not provide data confidentiality. The first
-# configured provider is specifying the "identity" mechanism, which
-# stores resources as plain text.
-# plain text, in other words NO encryption
-# do not encrypt Events even though *.* is specified below
-# wildcard match requires Kubernetes 1.27 or later
-# wildcard match requires Kubernetes 1.27 or later
--->
 <!-- note to localizers: the highlight is to make the initial comment obvious -->
 <!-- you can use as many lines as makes sense for your target localization    -->
 
+<!--
+{{< highlight yaml "linenos=false,hl_lines=2-5" >}}
+---
+#
+# CAUTION: this is an example configuration.
+#          Do not use this for your own cluster!
+#
+apiVersion: apiserver.config.k8s.io/v1
+kind: EncryptionConfiguration
+resources:
+  - resources:
+      - secrets
+      - configmaps
+      - pandas.awesome.bears.example # a custom resource API
+    providers:
+      # This configuration does not provide data confidentiality. The first
+      # configured provider is specifying the "identity" mechanism, which
+      # stores resources as plain text.
+      #
+      - identity: {} # plain text, in other words NO encryption
+      - aesgcm:
+          keys:
+            - name: key1
+              secret: c2VjcmV0IGlzIHNlY3VyZQ==
+            - name: key2
+              secret: dGhpcyBpcyBwYXNzd29yZA==
+      - aescbc:
+          keys:
+            - name: key1
+              secret: c2VjcmV0IGlzIHNlY3VyZQ==
+            - name: key2
+              secret: dGhpcyBpcyBwYXNzd29yZA==
+      - secretbox:
+          keys:
+            - name: key1
+              secret: YWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXoxMjM0NTY=
+  - resources:
+      - events
+    providers:
+      - identity: {} # do not encrypt Events even though *.* is specified below
+  - resources:
+      - '*.apps' # wildcard match requires Kubernetes 1.27 or later
+    providers:
+      - aescbc:
+          keys:
+          - name: key2
+            secret: c2VjcmV0IGlzIHNlY3VyZSwgb3IgaXMgaXQ/Cg==
+  - resources:
+      - '*.*' # wildcard match requires Kubernetes 1.27 or later
+    providers:
+      - aescbc:
+          keys:
+          - name: key3
+            secret: c2VjcmV0IGlzIHNlY3VyZSwgSSB0aGluaw==
+{{< /highlight  >}}
+-->
 {{< highlight yaml "linenos=false,hl_lines=2-5" >}}
 ---
 #
@@ -549,7 +621,7 @@ The following steps assume that you are not using KMS, and therefore the steps a
 assume that you need to generate an encryption key. If you already have an encryption key,
 skip to [Write an encryption configuration file](#write-an-encryption-configuration-file).
 -->
-以下步骤假设你没有使用 KMS，因此这些步骤还假设您需要生成加密密钥。
+以下步骤假设你没有使用 KMS，因此这些步骤还假设你需要生成加密密钥。
 如果你已有加密密钥，请跳至[编写加密配置文件](#write-an-encryption-configuration-file)。
 
 {{< caution >}}
@@ -654,7 +726,7 @@ so that you're relying on KMS encryption.
 使用安全的文件传输机制，将该加密密钥的副本提供给所有其他控制平面主机。
 
 至少，使用传输加密 - 例如，安全 shell（SSH）。为了提高安全性，
-请在主机之间使用非对称加密，或更改您正在使用的方法，以便依赖 KMS 加密。
+请在主机之间使用非对称加密，或更改你正在使用的方法，以便依赖 KMS 加密。
 
 <!--
 ## Write an encryption configuration file
@@ -679,9 +751,24 @@ Create a new encryption configuration file. The contents should be similar to:
 创建一个新的加密配置文件。其内容应类似于：
 
 <!--
-# See the following text for more details about the secret value
-# this fallback allows reading unencrypted secrets;
-# for example, during initial migration
+```yaml
+---
+apiVersion: apiserver.config.k8s.io/v1
+kind: EncryptionConfiguration
+resources:
+  - resources:
+      - secrets
+      - configmaps
+      - pandas.awesome.bears.example
+    providers:
+      - aescbc:
+          keys:
+            - name: key1
+              # See the following text for more details about the secret value
+              secret: <BASE 64 ENCODED SECRET>
+      - identity: {} # this fallback allows reading unencrypted secrets;
+                     # for example, during initial migration
+```
 -->
 ```yaml
 ---
@@ -980,7 +1067,6 @@ When you have configured encryption at rest for an API (for example: the API kin
 that all those resources in this cluster really are encrypted at rest. Check this before
 you carry on with the next steps.
 -->
-
 此更改可防止 API 服务器检索标记为静态加密但实际上以明文形式存储的资源。
 
 当你为某个 API 配置静态加密时（例如：API 种类 `Secret`，代表核心 API 组中的 `secrets` 资源），
@@ -995,7 +1081,20 @@ part of the encryption configuration. For example:
 一旦集群中的所有 Secret 都被加密，你就可以删除加密配置中的 `identity` 部分。例如：
 
 <!--
-# REMOVE THIS LINE
+{{< highlight yaml "linenos=false,hl_lines=12" >}}
+---
+apiVersion: apiserver.config.k8s.io/v1
+kind: EncryptionConfiguration
+resources:
+  - resources:
+      - secrets
+    providers:
+      - aescbc:
+          keys:
+            - name: key1
+              secret: <BASE 64 ENCODED SECRET>
+      - identity: {} # REMOVE THIS LINE
+{{< /highlight >}}
 -->
 {{< highlight yaml "linenos=false,hl_lines=12" >}}
 ---
@@ -1019,7 +1118,7 @@ from accessing a plain-text Secret, even by accident.
 …然后依次重新启动每个 API 服务器。此更改可防止 API 服务器访问纯文本 Secret，即使是意外访问也是如此。
 
 <!--
-## Rotating a decryption key
+## Rotate a decryption key {#rotating-a-decryption-key}
 
 Changing an encryption key for Kubernetes without incurring downtime requires a multi-step operation,
 especially in the presence of a highly-available deployment where multiple `kube-apiserver` processes
@@ -1033,8 +1132,8 @@ are running.
    need to delete all the resources were encrypted under the lost key, and workloads may not
    operate as expected during the time that at-rest encryption is broken.
 1. Make the new key the first entry in the `keys` array so that it is used for encryption-at-rest
-   for new config
-1.  Restart all `kube-apiserver` processes to ensure each control plane host now encrypts using the new key
+   for new writes
+1. Restart all `kube-apiserver` processes to ensure each control plane host now encrypts using the new key
 1. As a privileged user, run `kubectl get secrets --all-namespaces -o json | kubectl replace -f -`
    to encrypt all existing Secrets with the new key
 1. After you have updated all existing Secrets to use the new key and have made a secure backup of the
@@ -1049,7 +1148,7 @@ are running.
 1. 重新启动所有 `kube-apiserver` 进程以确保每台服务器都可以使用新密钥加密任何数据
 1. 对新的加密密钥进行安全备份。如果你丢失了此密钥的所有副本，则需要删除用已丢失的密钥加密的所有资源，
    并且在静态加密被破坏期间，工作负载可能无法按预期运行。
-1. 将新密钥设置为 `keys` 数组中的第一个条目，以便将其用于新配置的静态加密
+1. 将新密钥设置为 `keys` 数组中的第一个条目，以便将其用于新编写的静态加密
 1. 重新启动所有 `kube-apiserver` 进程，以确保每个控制平面主机现在使用新密钥进行加密
 1. 作为特权用户，运行 `kubectl get secrets --all-namespaces -o json | kubectl replace -f -`
    以用新密钥加密所有现有的 Secret
@@ -1071,9 +1170,23 @@ entry in your encryption configuration file:
 要禁用静态加密，请将 `identity` 提供程序作为加密配置文件中的第一个条目：
 
 <!--
-# list any other resources here that you previously were encrypting at rest
-# add this line
-# keep this in place make sure it comes after "identity"
+```yaml
+---
+apiVersion: apiserver.config.k8s.io/v1
+kind: EncryptionConfiguration
+resources:
+  - resources:
+      - secrets
+      # list any other resources here that you previously were
+      # encrypting at rest
+    providers:
+      - identity: {} # add this line
+      - aescbc:
+          keys:
+            - name: key1
+              secret: <BASE 64 ENCODED SECRET> # keep this in place
+                                               # make sure it comes after "identity"
+```
 -->
 ```yaml
 ---
