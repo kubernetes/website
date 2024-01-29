@@ -25,6 +25,7 @@ card:
 -->
 
 <!-- overview -->
+
 <!--
 When you deploy Kubernetes, you get a cluster.
 {{ < glossary_definition term_id="cluster" length="all" prepend="A Kubernetes cluster consists of">}}
@@ -47,13 +48,16 @@ a complete and working Kubernetes cluster.
 <!--
 ## Control Plane Components
 
-The control plane's components make global decisions about the cluster (for example, scheduling), as well as detecting and responding to cluster events (for example, starting up a new {{< glossary_tooltip text="pod" term_id="pod">}} when a deployment's `replicas` field is unsatisfied).
+The control plane's components make global decisions about the cluster (for example, scheduling),
+as well as detecting and responding to cluster events (for example, starting up a new
+{{< glossary_tooltip text="pod" term_id="pod">}} when a deployment's
+`{{< glossary_tooltip text="replicas" term_id="replica" >}}` field is unsatisfied).
  -->
 ## 控制平面组件（Control Plane Components）    {#control-plane-components}
 
 控制平面组件会为集群做出全局决策，比如资源的调度。
-以及检测和响应集群事件，例如当不满足部署的 `replicas` 字段时，
-要启动新的 {{< glossary_tooltip text="pod" term_id="pod">}}）。
+以及检测和响应集群事件，例如当不满足部署的 `{{< glossary_tooltip text="replicas" term_id="replica" >}}`
+字段时，要启动新的 {{< glossary_tooltip text="Pod" term_id="pod">}}）。
 
 <!--
 Control plane components can be run on any machine in the cluster. However,
@@ -98,7 +102,7 @@ The above is not an exhaustive list.
 有许多不同类型的控制器。以下是一些例子：
 
 * 节点控制器（Node Controller）：负责在节点出现故障时进行通知和响应
-* 任务控制器（Job Controller）：监测代表一次性任务的 Job 对象，然后创建 Pods 来运行这些任务直至完成
+* 任务控制器（Job Controller）：监测代表一次性任务的 Job 对象，然后创建 Pod 来运行这些任务直至完成
 * 端点分片控制器（EndpointSlice controller）：填充端点分片（EndpointSlice）对象（以提供 Service 和 Pod 之间的链接）。
 * 服务账号控制器（ServiceAccount controller）：为新的命名空间创建默认的服务账号（ServiceAccount）。
 
@@ -187,9 +191,11 @@ see [Addons](/docs/concepts/cluster-administration/addons/).
 <!--
 ### DNS
 
-While the other addons are not strictly required, all Kubernetes clusters should have [cluster DNS](/docs/concepts/services-networking/dns-pod-service/), as many examples rely on it.
+While the other addons are not strictly required, all Kubernetes clusters should have
+[cluster DNS](/docs/concepts/services-networking/dns-pod-service/), as many examples rely on it.
 
-Cluster DNS is a DNS server, in addition to the other DNS server(s) in your environment, which serves DNS records for Kubernetes services.
+Cluster DNS is a DNS server, in addition to the other DNS server(s) in your environment,
+which serves DNS records for Kubernetes services.
 
 Containers started by Kubernetes automatically include this DNS server in their DNS searches.
 -->
@@ -206,7 +212,9 @@ Kubernetes 启动的容器自动将此 DNS 服务器包含在其 DNS 搜索列�
 <!--
 ### Web UI (Dashboard)
 
-[Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/) is a general purpose, web-based UI for Kubernetes clusters. It allows users to manage and troubleshoot applications running in the cluster, as well as the cluster itself.
+[Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/) is a general purpose,
+web-based UI for Kubernetes clusters. It allows users to manage and troubleshoot applications
+running in the cluster, as well as the cluster itself.
 -->
 ### Web 界面（仪表盘）   {#web-ui-dashboard}
 
@@ -218,7 +226,8 @@ Kubernetes 启动的容器自动将此 DNS 服务器包含在其 DNS 搜索列�
 <!--
 ### Container Resource Monitoring
 
-[Container Resource Monitoring](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/) records generic time-series metrics
+[Container Resource Monitoring](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
+records generic time-series metrics
 about containers in a central database, and provides a UI for browsing that data.
 -->
 ### 容器资源监控   {#container-resource-monitoring}
@@ -254,7 +263,8 @@ allocating IP addresses to pods and enabling them to communicate with each other
 
 <!--
 Learn more about the following:
-   * [Nodes](/docs/concepts/architecture/nodes/) and [their communication](/docs/concepts/architecture/control-plane-node-communication/) with the control plane.
+   * [Nodes](/docs/concepts/architecture/nodes/) and [their communication](/docs/concepts/architecture/control-plane-node-communication/)
+     with the control plane.
    * Kubernetes [controllers](/docs/concepts/architecture/controller/).
    * [kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/) which is the default scheduler for Kubernetes.
    * Etcd's official [documentation](https://etcd.io/docs/).

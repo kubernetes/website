@@ -51,14 +51,22 @@ The tutorial provides a container image that uses NGINX to echo back all the req
 
 <!--
 This tutorial assumes that you have already set up `minikube`.
-See [minikube start](https://minikube.sigs.k8s.io/docs/start/) for installation instructions.
+See __Step 1__ in [minikube start](https://minikube.sigs.k8s.io/docs/start/) for installation instructions.
+-->
+本教程假设你已经安装了 `minikube`。
+有关安装说明，请参阅 [minikube start](https://minikube.sigs.k8s.io/docs/start/) 的**步骤 1**。
 
+{{< note >}}
+<!--
+Only execute the instructions in __Step 1, Installation__. The rest is covered on this page.
+-->
+仅执行**步骤 1：安装**中的说明，其余内容均包含在本页中。
+{{< /note >}}
+
+<!--
 You also need to install `kubectl`.
 See [Install tools](/docs/tasks/tools/#kubectl) for installation instructions.
 -->
-本教程假设你已经安装了 `minikube`。
-有关安装说明，请参阅 [minikube start](https://minikube.sigs.k8s.io/docs/start/)。
-
 你还需要安装 `kubectl`。
 有关安装说明，请参阅[安装工具](/zh-cn/docs/tasks/tools/#kubectl)。
 
@@ -394,7 +402,7 @@ Minikube 有一组内置的{{< glossary_tooltip text="插件" term_id="addons" >
    ```
 
 <!--
-2. Enable an addon, for example, `metrics-server`:
+1. Enable an addon, for example, `metrics-server`:
 -->
 2. 启用插件，例如 `metrics-server`：
 
@@ -413,7 +421,7 @@ Minikube 有一组内置的{{< glossary_tooltip text="插件" term_id="addons" >
    ```
 
 <!--
-3. View the Pod and Service you created by installing that addon:
+1. View the Pod and Service you created by installing that addon:
 -->
 3. 查看通过安装该插件所创建的 Pod 和 Service：
 
@@ -449,9 +457,37 @@ Minikube 有一组内置的{{< glossary_tooltip text="插件" term_id="addons" >
    ```
 
 <!--
-4. Disable `metrics-server`:
+1. Check the output from `metrics-server`:
 -->
-4. 禁用 `metrics-server`：
+4. 检查 `metrics-server` 的输出：
+
+   ```shell
+   kubectl top pods
+   ```
+
+   <!--
+   The output is similar to:
+   -->
+   输出类似于：
+
+   ```
+   NAME                         CPU(cores)   MEMORY(bytes)   
+   hello-node-ccf4b9788-4jn97   1m           6Mi             
+   ```
+
+   <!--
+   If you see the following message, wait, and try again:
+   -->
+   如果你看到以下消息，请等待并重试：
+
+   ```
+   error: Metrics API not available
+   ```
+
+<!--
+1. Disable `metrics-server`:
+--->
+5. 禁用 `metrics-server`：
 
    ```shell
    minikube addons disable metrics-server
@@ -504,6 +540,15 @@ minikube delete
 If you want to use minikube again to learn more about Kubernetes, you don't need to delete it.
 -->
 如果你还想使用 Minikube 进一步学习 Kubernetes，那就不需要删除 Minikube。
+
+<!--
+## Conclusion
+
+This page covered the basic aspects to get a minikube cluster up and running. You are now ready to deploy applications.
+-->
+## 结论
+
+本页介绍了启动和运行 minikube 集群的基本知识，现在部署应用的准备工作已经完成。
 
 ## {{% heading "whatsnext" %}}
 
