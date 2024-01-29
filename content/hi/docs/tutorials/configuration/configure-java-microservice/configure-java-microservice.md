@@ -12,7 +12,7 @@ weight: 10
 
 ## {{% heading "prerequisites" %}}
 
-### Creating Kubernetes ConfigMaps & Secrets
+### कुबेरनेट्स कॉन्फ़िगमैप्स और सीक्रेट बनाना
 
 कुबेरनेट्स में डॉकर कंटेनर के लिए एनवायरनमेंट वेरिएबल सेट करने के कई तरीके हैं,
 इसमें शामिल हैं: Dockerfile, kubernetes.yml, Kubernetes configMaps, और Kubernetes Secrets.
@@ -33,7 +33,7 @@ weight: 10
 रहस्य, आप दस्तावेज़ [यहां](/docs/concepts/configuration/secret/) पा सकते हैं।
 
 
-### Externalizing Config from Code
+### कोड से कॉन्फ़िग को इक्स्टर्नलाइज़ बनाना
 
 बाहरी एप्लिकेशन कॉन्फ़िगरेशन उपयोगी है क्योंकि कॉन्फ़िगरेशन आमतौर पर इसके आधार पर बदलता रहता है
 आपके एनवायरनमेंट पर इसे पूरा करने के लिए, हम जावा के संदर्भ और निर्भरता का उपयोग करेंगे
@@ -63,6 +63,6 @@ weight: 10
 
 <!-- lessoncontent -->
 
-## Example: Externalizing config using MicroProfile, ConfigMaps and Secrets
+## उदाहरण: माइक्रोप्रोफाइल, कॉन्फिगमैप्स और सीक्रेट्स का उपयोग करके कॉन्फिगरेशन को इक्स्टर्नलाइज़ बनाना
 
 [इंटरैक्टिव ट्यूटोरियल प्रारंभ करें](/docs/tutorials/configuration/configure-java-microservice/configure-java-microservice-interactive/) 
