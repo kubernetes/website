@@ -1,6 +1,6 @@
 ---
 reviewers:
-  - bprashanth
+  - raelga
 title: Ingress
 content_type: concept
 description: >-
@@ -151,15 +151,15 @@ muestra [abajo](#default-ingress-class).
 
 Cada regla HTTP contiene la siguiente información:
 
-* Un anfitrión opcional.
+* Un host opcional.
   En este ejemplo,
-  no se define un anfitrión así que la regla se aplica a todo el tráfico de
+  no se define un host así que la regla se aplica a todo el tráfico de
   entrada HTTP a través de la dirección IP especificada.
-  Cuando se proporciona un anfitrión (por ejemplo, foo.bar.com), las reglas se
-  aplican a ese anfitrión.
+  Cuando se proporciona un host (por ejemplo, foo.bar.com), las reglas se
+  aplican a ese host.
 * Un listado de rutas (por ejemplo, `/testpath`), cada una de las cuales tiene
   un backend asociado con un `service.name` y un `service.port.name` o
-  un `service.port.number`. Tanto el anfitrión como la ruta deben coincidir el
+  un `service.port.number`. Tanto el host como la ruta deben coincidir el
   contenido de una petición de entrada antes que el balanceador de cargas dirija
   el tráfico al Service referenciado.
 * Un backend es una combinación de un Service y un puerto como se describe en la
@@ -167,7 +167,7 @@ Cada regla HTTP contiene la siguiente información:
   un [recurso personalizado backend](#resource-backend)
   a través de un {{< glossary_tooltip term_id="CustomResourceDefinition"
   text=" CRD" >}}.
-  Las peticiones HTTP (y HTTPS)  al Ingress que coinciden con el anfitrión y la
+  Las peticiones HTTP (y HTTPS)  al Ingress que coinciden con el host y la
   ruta de la regla se envían al backend del listado.
 
 Un  `defaultBackend` se configura frecuentemente en un controlador de Ingress
@@ -184,7 +184,7 @@ del [controlador Ingress ](/docs/concepts/services-networking/ingress-controller
 y no se especifica en tus recursos del Ingress.
 Si no se especifican reglas `.spec.rules`, se debe
 especificar `.spec.defaultBackend`.
-Si no se establece el `defaultBackend`, las peticiones que no coincidan con
+Si no se establece un `defaultBackend`, las peticiones que no coincidan con
 ninguna de las reglas las decidirá el controlador ingress (consulta la
 documentación de tu controlador de ingress para saber cómo maneja este caso).
 
@@ -287,24 +287,24 @@ la precedencia se le dará al primero con la ruta más larga que coincide.
 Si dos rutas todavía coinciden por igual, se le dará precedencia a las rutas con
 una coincidencia de ruta exacta sobre las rutas que contienen prefijos.
 
-## comodines Hostname
+## Comodines Hostname
 
-Los anfitriones pueden ser coincidencias exactas
+Los hosts pueden ser coincidencias exactas
 (por ejemplo “`foo.bar.com`”) o un comodín (por ejemplo “`*.bar.com`”).
 Las coincidencias precisas requieren que el encabezado `host` coincida con el
 campo `host`.
 Las coincidencias de comodín requieren the el encabezado `host` sea igual al
 sufijo de la regla del comodín.
 
-| Anfitrión   | Encabezado Anfitrión | ¿Coincidencia?                                      |
-|-------------|----------------------|-----------------------------------------------------|
-| `*.foo.com` | `bar.foo.com`        | Coincide basado en el sufijo común                  |
-| `*.foo.com` | `baz.bar.foo.com`    | No coincide, el comodín solo cubre una etiqueta DNS |
-| `*.foo.com` | `foo.com`            | No coincide, el comodín solo cubre una etiqueta DNS |
+| Host        | Encabezado Host   | ¿Coincidencia?                                      |
+|-------------|-------------------|-----------------------------------------------------|
+| `*.foo.com` | `bar.foo.com`     | Coincide basado en el sufijo común                  |
+| `*.foo.com` | `baz.bar.foo.com` | No coincide, el comodín solo cubre una etiqueta DNS |
+| `*.foo.com` | `foo.com`         | No coincide, el comodín solo cubre una etiqueta DNS |
 
 {{% code_sample file="service/networking/ingress-wildcard-host.yaml" %}}
 
-## Clase Ingress
+## La Clase Ingress
 
 Los Ingress pueden ser implementados por distintos controladores,
 comúnmente con una configuración distinta.
@@ -537,6 +537,7 @@ Cuando sea así,
 podrás ver la dirección del balanceador de cargas en el campo de dirección.
 
 {{< note >}}
+
 Dependiendo
 del [controlador de Ingress](/docs/concepts/services-networking/ingress-controllers/)
 que uses, puede que necesites crear
@@ -546,7 +547,7 @@ un [Service](/docs/concepts/services-networking/service/) default-http-backend.
 ### Hospedaje virtual basado en nombre
 
 Los hospedajes virtuales basados en el nombre soportan enrutado de tráfico HTTP
-a nombres anfitriones múltiples con la misma dirección IP.
+a nombres hosts múltiples con la misma dirección IP.
 
 {{< figure src="/docs/images/ingressNameBased.svg" alt="
 ingress-namebase-diagram" class="diagram-large" caption="Figure.
@@ -559,13 +560,13 @@ el [encabezado del Host ](https://tools.ietf.org/html/rfc7230#section-5.4).
 
 {{% code_sample file="service/networking/name-virtual-host-ingress.yaml" %}}
 
-Si creas un recurso Ingress sin ningún anfitrión definido en las reglas,
+Si creas un recurso Ingress sin ningún host definido en las reglas,
 luego cualquier tráfico web a la dirección IP de tu controlador Ingress puede
-coincidir sin requerir un anfitrión virtual basado en el nombre.
+coincidir sin requerir un host virtual basado en el nombre.
 
 Por ejemplo, el siguiente Ingress enruta el tráfico solicitado
 para `first.bar.com` a `service1`, `second.bar.com` a `service2`,
-y cualquier tráfico cuyo encabezado de petición del anfitrión no coincida
+y cualquier tráfico cuyo encabezado de petición del host no coincida
 con `first.bar.com` y `second.bar.com` a `service3`.
 
 {{% code_sample file="
@@ -579,7 +580,7 @@ El recurso Ingress solo soporta un puerto TLS,
 el 443,
 y asume la terminación TLS en el punto del ingress
 (El tráfico al Service y sus Pods es en texto plano).
-Si la sección de configuración TLS especifica anfitriones diferentes,
+Si la sección de configuración TLS especifica hosts diferentes,
 se multiplexan en el mismo puerto de acuerdo con el hostname especificado a
 través de la extensión TLS SNI (teniendo el cuenta que el controlador de Ingress
 soporte SNI).
@@ -647,7 +648,7 @@ o [GCE](https://git.k8s.io/ingress-gce/README.md#health-checks)).
 
 ## Actualizando un Ingress
 
-Para actualizar un Ingress existente a un nuevo Anfitrión,
+Para actualizar un Ingress existente a un nuevo Host,
 puedes actualizarlo editando el recurso:
 
 ```shell
@@ -677,8 +678,7 @@ kubectl edit ingress test
 ```
 
 Esto muestra un editor con la configuración existente en formato YAML.
-Modifícalo para incluir el nuevo Anfitrión:
-This pops up an editor with the existing configuration in YAML format.
+Modifícalo para incluir el nuevo Host:
 
 ```yaml
 spec:
