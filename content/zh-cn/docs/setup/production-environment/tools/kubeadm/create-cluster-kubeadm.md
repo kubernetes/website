@@ -614,10 +614,10 @@ support [Network Policy](/docs/concepts/services-networking/network-policies/).
 
 <!--
 See a list of add-ons that implement the
-[Kubernetes networking model](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model).
+[Kubernetes networking model](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-network-model).
 -->
 请参阅实现
-[Kubernetes 网络模型](/zh-cn/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model)的附加组件列表。
+[Kubernetes 网络模型](/zh-cn/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-network-model)的附加组件列表。
 
 <!--
 You can install a Pod network add-on with the following command on the
