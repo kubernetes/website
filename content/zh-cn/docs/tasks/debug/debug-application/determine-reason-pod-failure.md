@@ -202,11 +202,18 @@ is empty and the container exited with an error. The log output is limited to
 <!--
 * See the `terminationMessagePath` field in
   [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core).
+* See [ImagePullBackOff](/docs/concepts/containers/images/#imagepullbackoff) in [Images](/docs/concepts/containers/images/).
 * Learn about [retrieving logs](/docs/concepts/cluster-administration/logging/).
 * Learn about [Go templates](https://pkg.go.dev/text/template).
+* Learn about [Pod status](/docs/tasks/debug/debug-application/debug-init-containers/#understanding-pod-status) and [Pod phase](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase).
+* Learn about [container states](/docs/concepts/workloads/pods/pod-lifecycle/#container-states).
 -->
 
 * 参考 [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
   资源的 `terminationMessagePath` 字段。
+* 参考[镜像](/zh-cn/docs/concepts/containers/images/)中的 [ImagePullBackOff](/zh-cn/docs/concepts/containers/images/#imagepullbackoff)。
 * 了解[检索日志](/zh-cn/docs/concepts/cluster-administration/logging/)。
 * 了解 [Go 模板](https://pkg.go.dev/text/template)。
+* 了解 [Pod 状态](/zh-cn/docs/tasks/debug/debug-application/debug-init-containers/#understanding-pod-status)和
+  [Pod 阶段](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)。
+* 了解[容器状态](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#container-states)。
