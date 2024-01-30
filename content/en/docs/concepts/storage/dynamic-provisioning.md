@@ -119,8 +119,7 @@ When a default `StorageClass` exists in a cluster and a user creates a
 `DefaultStorageClass` admission controller automatically adds the
 `storageClassName` field pointing to the default storage class.
 
-Note that If you set the
-[`storageclass.kubernetes.io/is-default-class`](/docs/reference/labels-annotations-taints/#ingressclass-kubernetes-io-is-default-class)
+Note that If you set the `storageclass.kubernetes.io/is-default-class`
 annotation to true on more than one StorageClass in your cluster, and you then
 create a `PersistentVolumeClaim` with no `storageClassName` set, Kubernetes
 uses the most recently created default StorageClass.
