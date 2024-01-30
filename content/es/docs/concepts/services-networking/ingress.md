@@ -39,27 +39,21 @@ Para mayor claridad, esta guía define los siguientes términos:
   el [modelo de redes](/docs/concepts/cluster-administration/networking/) de
   Kubernetes.
 * Service: Un {{< glossary_tooltip term_id="service" >}} que identifica
-  un conjunto de Pods que utilizan selectors de {{< glossary_tooltip text="
-  label" term_id="label" >}}.
+  un conjunto de Pods que utilizan selectors de {{< glossary_tooltip text=" label" term_id="label" >}}.
   A menos que se indique de otra manera, Los Services se asumen que tienen IPs
   virtuales que solo se pueden enrutar dentro de la red del clúster.
 
 ## Qué es un Ingress?
 
-Un [Ingress](/docs/reference/generated/kubernetes-api/{{< param "version" >
-}}/#ingress-v1-networking-k8s-io)
-expone las rutas HTTP y HTTPS desde el exterior del clúster a los
-{{< link text="services" url="/docs/concepts/services-networking/service/" >}}
-dentro del clúster.
-El enrutamiento del tráfico es controlado por las reglas definidas en el recurso
-Ingress.
+[Ingress](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1-networking-k8s-io)
+exposes HTTP and HTTPS routes from outside the cluster to
+{{< link text="services" url="/docs/concepts/services-networking/service/" >}} within the cluster.
+Traffic routing is controlled by rules defined on the Ingress resource.
 
 Aquí tienes un ejemplo simple de un Ingress que envía todo su tráfico a un
 Service:
 
-{{< figure src="/docs/images/ingress.svg" alt="ingress-diagram" class="
-diagram-large" caption="Figure. Ingress"
-link="https://mermaid.live/edit#pako:eNqNkstuwyAQRX8F4U0r2VHqPlSRKqt0UamLqlnaWWAYJygYLB59KMm_Fxcix-qmGwbuXA7DwAEzzQETXKutof0Ovb4vaoUQkwKUu6pi3FwXM_QSHGBt0VFFt8DRU2OWSGrKUUMlVQwMmhVLEV1Vcm9-aUksiuXRaO_CEhkv4WjBfAgG1TrGaLa-iaUw6a0DcwGI-WgOsF7zm-pN881fvRx1UDzeiFq7ghb1kgqFWiElyTjnuXVG74FkbdumefEpuNuRu_4rZ1pqQ7L5fL6YQPaPNiFuywcG9_-ihNyUkm6YSONWkjVNM8WUIyaeOJLO3clTB_KhL8NQDmVe-OJjxgZM5FhFiiFTK5zjDkxHBQ9_4zB4a-x20EGNSZhyaKmXrg7f5hSsvufUwTMXThtMWiot5Jh6p9ffimHijIezaSVoeN0uiqcfMJvf7w" >}}
+{{< figure src="/docs/images/ingress.svg" alt="ingress-diagram" class="diagram-large" caption="Figure. Ingress" link="https://mermaid.live/edit#pako:eNqNkstuwyAQRX8F4U0r2VHqPlSRKqt0UamLqlnaWWAYJygYLB59KMm_Fxcix-qmGwbuXA7DwAEzzQETXKutof0Ovb4vaoUQkwKUu6pi3FwXM_QSHGBt0VFFt8DRU2OWSGrKUUMlVQwMmhVLEV1Vcm9-aUksiuXRaO_CEhkv4WjBfAgG1TrGaLa-iaUw6a0DcwGI-WgOsF7zm-pN881fvRx1UDzeiFq7ghb1kgqFWiElyTjnuXVG74FkbdumefEpuNuRu_4rZ1pqQ7L5fL6YQPaPNiFuywcG9_-ihNyUkm6YSONWkjVNM8WUIyaeOJLO3clTB_KhL8NQDmVe-OJjxgZM5FhFiiFTK5zjDkxHBQ9_4zB4a-x20EGNSZhyaKmXrg7f5hSsvufUwTMXThtMWiot5Jh6p9ffimHijIezaSVoeN0uiqcfMJvf7w" >}}
 
 Un Ingress se puede configurar para otorgar URLs a los Services que son
 accesibles desde el exterior,
@@ -163,8 +157,7 @@ Cada regla HTTP contiene la siguiente información:
 * Un backend es una combinación de un Service y un puerto como se describe en la
   [documentación del Service](/docs/concepts/services-networking/service/) o
   un [recurso personalizado backend](#resource-backend)
-  a través de un {{< glossary_tooltip term_id="CustomResourceDefinition"
-  text=" CRD" >}}.
+  a través de un {{< glossary_tooltip term_id="CustomResourceDefinition" text=" CRD" >}}.
   Las peticiones HTTP (y HTTPS)  al Ingress que coinciden con el host y la
   ruta de la regla se envían al backend del listado.
 
@@ -186,11 +179,9 @@ Si no se establece un `defaultBackend`, las peticiones que no coincidan con
 ninguna de las reglas las decidirá el controlador ingress (consulta la
 documentación de tu controlador de ingress para saber cómo maneja este caso).
 
-Si ninguno de los hosts o rutas coinciden con la petición HTTP en los objetos
-del Ingress,
-el tráfico se redirige a tu backend por defecto.
+Si ninguno de los hosts o rutas coincide con la petición HTTP en los objetos Ingress,
+el tráfico será enrutado a tu backend predeterminado.
 
-### Recursos backends {#resource-backend}
 
 Un recurso `Resource` backend es una referencia de objeto
 (ObjectRef en inglés)
@@ -496,9 +487,7 @@ basado en la URI HTTP solicitada.
 Un Ingress te permite tener el número de balanceadores de carga al mínimo.
 Por ejemplo, una configuración como:
 
-{{< figure src="/docs/images/ingressFanOut.svg" alt="ingress-fanout-diagram"
-class="diagram-large" caption="Figure. Ingress Fan Out"
-link="https://mermaid.live/edit#pako:eNqNUslOwzAQ_RXLvYCUhMQpUFzUUzkgcUBwbHpw4klr4diR7bCo8O8k2FFbFomLPZq3jP00O1xpDpjijWHtFt09zAuFUCUFKHey8vf6NE7QrdoYsDZumGIb4Oi6NAskNeOoZJKpCgxK4oXwrFVgRyi7nCVXWZKRPMlysv5yD6Q4Xryf1Vq_WzDPooJs9egLNDbolKTpT03JzKgh3zWEztJZ0Niu9L-qZGcdmAMfj4cxvWmreba613z9C0B-AMQD-V_AdA-A4j5QZu0SatRKJhSqhZR0wjmPrDP6CeikrutQxy-Cuy2dtq9RpaU2dJKm6fzI5Glmg0VOLio4_5dLjx27hFSC015KJ2VZHtuQvY2fuHcaE43G0MaCREOow_FV5cMxHZ5-oPX75UM5avuXhXuOI9yAaZjg_aLuBl6B3RYaKDDtSw4166QrcKE-emrXcubghgunDaY1kxYizDqnH99UhakzHYykpWD9hjS--fEJoIELqQ" >}}
+{{< figure src="/docs/images/ingressFanOut.svg" alt="ingress-fanout-diagram" class="diagram-large" caption="Figure. Ingress Fan Out" link="https://mermaid.live/edit#pako:eNqNUslOwzAQ_RXLvYCUhMQpUFzUUzkgcUBwbHpw4klr4diR7bCo8O8k2FFbFomLPZq3jP00O1xpDpjijWHtFt09zAuFUCUFKHey8vf6NE7QrdoYsDZumGIb4Oi6NAskNeOoZJKpCgxK4oXwrFVgRyi7nCVXWZKRPMlysv5yD6Q4Xryf1Vq_WzDPooJs9egLNDbolKTpT03JzKgh3zWEztJZ0Niu9L-qZGcdmAMfj4cxvWmreba613z9C0B-AMQD-V_AdA-A4j5QZu0SatRKJhSqhZR0wjmPrDP6CeikrutQxy-Cuy2dtq9RpaU2dJKm6fzI5Glmg0VOLio4_5dLjx27hFSC015KJ2VZHtuQvY2fuHcaE43G0MaCREOow_FV5cMxHZ5-oPX75UM5avuXhXuOI9yAaZjg_aLuBl6B3RYaKDDtSw4166QrcKE-emrXcubghgunDaY1kxYizDqnH99UhakzHYykpWD9hjS--fEJoIELqQ" >}}
 
 Requeriría un Ingress como este:
 
@@ -547,10 +536,7 @@ un [Service](/docs/concepts/services-networking/service/) default-http-backend.
 Los hospedajes virtuales basados en el nombre soportan enrutado de tráfico HTTP
 a nombres hosts múltiples con la misma dirección IP.
 
-{{< figure src="/docs/images/ingressNameBased.svg" alt="
-ingress-namebase-diagram" class="diagram-large" caption="Figure.
-Ingress Name Based Virtual hosting"
-link="https://mermaid.live/edit#pako:eNqNkl9PwyAUxb8KYS-atM1Kp05m9qSJJj4Y97jugcLtRqTQAPVPdN_dVlq3qUt8gZt7zvkBN7xjbgRgiteW1Rt0_zjLNUJcSdD-ZBn21WmcoDu9tuBcXDHN1iDQVWHnSBkmUMEU0xwsSuK5DK5l745QejFNLtMkJVmSZmT1Re9NcTz_uDXOU1QakxTMJtxUHw7ss-SQLhehQEODTsdH4l20Q-zFyc84-Y67pghv5apxHuweMuj9eS2_NiJdPhix-kMgvwQShOyYMNkJoEUYM3PuGkpUKyY1KqVSdCSEiJy35gnoqCzLvo5fpPAbOqlfI26UsXQ0Ho9nB5CnqesRGTnncPYvSqsdUvqp9KRdlI6KojjEkB0mnLgjDRONhqENBYm6oXbLV5V1y6S7-l42_LowlIN2uFm_twqOcAW2YlK0H_i9c-bYb6CCHNO2FFCyRvkc53rbWptaMA83QnpjMS2ZchBh1nizeNMcU28bGEzXkrV_pArN7Sc0rBTu" >}}
+{{< figure src="/docs/images/ingressNameBased.svg" alt="ingress-namebase-diagram" class="diagram-large" caption="Figure. Ingress Name Based Virtual hosting" link="https://mermaid.live/edit#pako:eNqNkl9PwyAUxb8KYS-atM1Kp05m9qSJJj4Y97jugcLtRqTQAPVPdN_dVlq3qUt8gZt7zvkBN7xjbgRgiteW1Rt0_zjLNUJcSdD-ZBn21WmcoDu9tuBcXDHN1iDQVWHnSBkmUMEU0xwsSuK5DK5l745QejFNLtMkJVmSZmT1Re9NcTz_uDXOU1QakxTMJtxUHw7ss-SQLhehQEODTsdH4l20Q-zFyc84-Y67pghv5apxHuweMuj9eS2_NiJdPhix-kMgvwQShOyYMNkJoEUYM3PuGkpUKyY1KqVSdCSEiJy35gnoqCzLvo5fpPAbOqlfI26UsXQ0Ho9nB5CnqesRGTnncPYvSqsdUvqp9KRdlI6KojjEkB0mnLgjDRONhqENBYm6oXbLV5V1y6S7-l42_LowlIN2uFm_twqOcAW2YlK0H_i9c-bYb6CCHNO2FFCyRvkc53rbWptaMA83QnpjMS2ZchBh1nizeNMcU28bGEzXkrV_pArN7Sc0rBTu" >}}
 
 El siguiente Ingress le dice al balanceador de cargas de respaldo de enrutar las
 peticiones basadas en
@@ -567,13 +553,11 @@ para `first.bar.com` a `service1`, `second.bar.com` a `service2`,
 y cualquier tráfico cuyo encabezado de petición del host no coincida
 con `first.bar.com` y `second.bar.com` a `service3`.
 
-{{% code_sample file="
-service/networking/name-virtual-host-ingress-no-third-host.yaml" %}}
+{{% code_sample file="service/networking/name-virtual-host-ingress-no-third-host.yaml" %}}
 
 ### TLS
 
-Puedes segurizar un Ingress especificando un {{< glossary_tooltip term_id="
-secret" >}} que contiene una clave privada TLS y un certificado.
+Puedes segurizar un Ingress especificando un {{< glossary_tooltip term_id="secret" >}} que contiene una clave privada TLS y un certificado.
 El recurso Ingress solo soporta un puerto TLS,
 el 443,
 y asume la terminación TLS en el punto del ingress
