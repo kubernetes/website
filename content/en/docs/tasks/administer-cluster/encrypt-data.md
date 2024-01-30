@@ -168,19 +168,31 @@ encrypt all resources, even custom resources that are added after API server sta
 since part of the configuration would be ineffective. The `resources` list's processing order and precedence
 are determined by the order it's listed in the configuration. {{< /note >}}
 
-Opting out of encryption for specific resources while wildcard is enabled can be achieved by adding a new
-`resources` array item with the resource name, followed by the `providers` array item with the `identity` provider.
-For example, if '`*.*`' is enabled and you want to opt-out encryption for the `events` resource, add a new item
-to the `resources` array with `events` as the resource name, followed by the providers array item with `identity`.
-The new item should look like this:
+If you have a wildcard covering resources and want to opt out of at-rest encryption for a particular kind
+of resource, you achieve that by adding a separate `resources` array item with the name of the resource that
+you want to exempt, followed by a `providers` array item where you specify the `identity` provider. You add
+this item to the list so that it appears earlier than the configuration where you do specify encryption
+(a provider that is not `identity`).
+
+For example, if '`*.*`' is enabled and you want to opt out of encryption for Events and ConfigMaps, add a
+new **earlier** item to the `resources`, followed by the providers array item with `identity` as the
+provider. The more specific entry must come before the wildcard entry.
+
+The new item would look similar to:
 
 ```yaml
-- resources:
-    - events
-  providers:
-    - identity: {}
+  ...
+  - resources:
+      - configmaps. # specifically from the core API group,
+                    # because of trailing "."
+      - events
+    providers:
+      - identity: {}
+  # and then other entries in resources
 ```
-Ensure that the new item is listed before the wildcard '`*.*`' item in the resources array to give it precedence.
+
+Ensure that the exemption is listed _before_ the wildcard '`*.*`' item in the resources array
+to give it precedence.
 
 For more detailed information about the `EncryptionConfiguration` struct, please refer to the
 [encryption configuration API](/docs/reference/config-api/apiserver-encryption.v1/).
