@@ -17,8 +17,6 @@ weight: 30
 EL recurso Ingress está congelado.
 Las nuevas características se añaden
 al [API del Gateway](/docs/concepts/services-networking/gateway/)
-Ingress is frozen. New features are being added o
-the [Gateway API](/docs/concepts/services-networking/gateway/).
 {{< /note >}}
 
 <!-- body -->
