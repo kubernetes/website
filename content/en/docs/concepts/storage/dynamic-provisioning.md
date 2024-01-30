@@ -125,8 +125,6 @@ annotation to true on more than one StorageClass in your cluster, and you then
 create a `PersistentVolumeClaim` with no `storageClassName` set, Kubernetes
 uses the most recently created default StorageClass.
 
-If you set the storageclass.kubernetes.io/is-default-class annotation to true on more than one StorageClass in your cluster, and you then create a PersistentVolumeClaim with no storageClassName set, Kubernetes uses the most recently created default StorageClass.
-
 ## Topology Awareness
 
 In [Multi-Zone](/docs/setup/best-practices/multiple-zones/) clusters, Pods can be spread across
