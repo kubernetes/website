@@ -18,7 +18,7 @@ Um arquivo usado para configurar o acesso a um cluster às vezes é chamado de a
 
 
 {{< warning >}}
-Use somente arquivos kubeconfig de fontes confiáveis. O uso de um arquivo kubeconfig especialmente criado, pode resultar em execução de código malicioso ou exposição de arquivos. Se você preciso usar um arquivo kubeconfig não confiável, inspecione-o cuidadosamente antes, da mesma forma que faria com um script de shell.
+Use somente arquivos kubeconfig de fontes confiáveis. O uso de um arquivo kubeconfig artificialmente criado, pode resultar em execução de código malicioso ou exposição de arquivos. Se você preciso usar um arquivo kubeconfig não-confiável, inspecione-o cuidadosamente antes, da mesma forma que faria com um script de shell.
 {{< /warning>}}
 
 
@@ -27,13 +27,13 @@ Use somente arquivos kubeconfig de fontes confiáveis. O uso de um arquivo kubec
 {{< include "task-tutorial-prereqs.md" >}}
 
 Para verificar se {{< glossary_tooltip text="kubectl" term_id="kubectl" >}} está instalado,
-execute `kubectl version --client`. A versão do kubectl deve ser [dentro de uma versão secundária](/releases/version-skew-policy/#kubectl) do servidor de API do seu cluster.
+execute `kubectl version --client`. A versão do kubectl deve ter [no máximo uma versão menor de diferença](/releases/version-skew-policy/#kubectl) da versão do servidor de API do seu cluster.
 
 <!-- steps -->
 
 ## Defina clusters, usuários e contextos
 
-Suponha que você tenha dois clusters, um para o trabalho de desenvolvimento e outro para o trabalho de teste.
+Suponha que você tenha dois clusters, um para o trabalho de desenvolvimento, chamado `development`, e outro para o trabalho de teste, chamado `test`.
 No cluster `development`, seus desenvolvedores de front-end trabalham em um namespace chamado `frontend`,
 e os desenvolvedores de armazenamento trabalham em um namespace chamado `storage`. Em seu cluster `test`,
 os desenvolvedores trabalham no namespace padrão ou criam namespaces auxiliares conforme
@@ -67,7 +67,7 @@ contexts:
   name: exp-test
 ```
 
-Um arquivo de configuração descreve clusters, usuários e contextos. Seu arquivo `config-demo
+Um arquivo de configuração descreve clusters, usuários e contextos. Seu arquivo `config-demo`
 tem a estrutura para descrever dois clusters, dois usuários e três contextos.
 
 Vá para o diretório `config-exercise`. Digite estes comandos para adicionar detalhes do cluster ao
@@ -81,7 +81,7 @@ kubectl config --kubeconfig=config-demo set-cluster test --server=https://5.6.7.
 Adicione detalhes do usuário ao seu arquivo de configuração:
 
 {{< caution >}}
-O salvamento de senhas na configuração do cliente do Kubernetes é arriscado. Uma alternativa melhor seria usar um plug-in de credenciais e salvá-las separadamente. Veja: [client-go credential plugins](/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins)
+O armazenamento de senhas na configuração do cliente do Kubernetes é arriscado. Uma alternativa melhor seria usar um plug-in de credenciais e salvá-las separadamente. Veja: [plugins de credenciais client-go](/pt-br/docs/reference/access-authn-authz/authentication/#plugins-de-credenciais-client-go)
 {{< /caution >}}
 
 ```shell
@@ -90,9 +90,9 @@ kubectl config --kubeconfig=config-demo set-credentials experimenter --username=
 ```
 
 {{< note >}}
-- Para excluir um usuário, é possível executar `kubectl --kubeconfig=config-demo config unset users.<name>`
-- Para remover um cluster, é possível executar `kubectl --kubeconfig=config-demo config unset clusters.<name>`
-- Para remover um contexto,  é possível executar `kubectl --kubeconfig=config-demo config unset contexts.<name>`
+- Para excluir um usuário, você pode executar `kubectl --kubeconfig=config-demo config unset users.<name>`
+- Para remover um cluster, você pode executar `kubectl --kubeconfig=config-demo config unset clusters.<name>`
+- Para remover um contexto,  você pode executar `kubectl --kubeconfig=config-demo config unset contexts.<name>`
 {{< /note >}}
 
 Adicione detalhes de contexto ao seu arquivo de configuração:
@@ -148,11 +148,11 @@ users:
     client-key: fake-key-file
 - name: experimenter
   user:
-    # Documentation note (this comment is NOT part of the command output).
-    # Storing passwords in Kubernetes client config is risky.
-    # A better alternative would be to use a credential plugin
-    # and store the credentials separately.
-    # See https://kubernetes.io/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins
+    # Nota de documentação (este comentário NÃO faz parte da saída do comando).
+    # Armazenar senhas na configuração do cliente Kubernetes é arriscado.
+    # Uma alternativa melhor seria usar um plugin de credenciais
+    # e armazenar as credenciais separadamente.
+    # Veja https://kubernetes.io/pt-br/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins
     password: some-password
     username: exp
 ```
@@ -180,7 +180,7 @@ e ao namespace listados no contexto `dev-frontend`. E o comando usará
 as credenciais do usuário listado no contexto `dev-frontend`.
 
 Para ver apenas as informações de configuração associadas ao
-o contexto atual, use o sinalizador `--minify`.
+o contexto atual, use a opção `--minify`.
 
 ```shell
 kubectl config --kubeconfig=config-demo view --minify
@@ -330,7 +330,7 @@ contexts:
 ```
 
 Para obter mais informações sobre como os arquivos kubeconfig são mesclados, consulte
-[Organizando o acesso ao cluster usando arquivos kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+[Organizando o acesso ao cluster usando arquivos kubeconfig](/pt-br/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 
 ## Explore o diretório $HOME/.kube
 
@@ -395,6 +395,6 @@ para saber mais sobre isso em detalhes.
 
 ## {{% heading "whatsnext" %}}
 
-* [Organizando o acesso ao cluster usando arquivos kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+* [Organizando o acesso ao cluster usando arquivos kubeconfig](/pt-br/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 * [kubectl config](/docs/reference/generated/kubectl/kubectl-commands#config)
 
