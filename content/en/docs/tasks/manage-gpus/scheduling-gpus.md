@@ -95,7 +95,7 @@ You also need a plugin for NFD that adds appropriate labels to your nodes; these
 labels or they could be vendor specific. Your GPU vendor may provide a third party
 plugin for NFD; check their documentation for more details.
 
-{{< highlight yaml "linenos=false,hl_lines=6-20" >}}
+{{< highlight yaml "linenos=false,hl_lines=6-18" >}}
 apiVersion: v1
 kind: Pod
 metadata:
