@@ -187,8 +187,11 @@ script and use it in the theme. Assign "language name in latin script" to
 `languageNameLatinScript`. For example, `languageNameLatinScript ="Korean"` or
 `languageNameLatinScript = "Deutsch"`.
 
-When assigning a `weight` parameter for your block, find the language block with
-the highest weight and add 1 to that value.
+The `weight` parameter determines the order of languages in the language selection bar.
+A lower weight takes precedence, resulting in the language appearing first. 
+When assigning the `weight` parameter, it is important to examine the existing languages 
+block and adjust their weights to ensure they are in a sorted order relative to all languages,
+including any newly added language.
 
 For more information about Hugo's multilingual support, see
 "[Multilingual Mode](https://gohugo.io/content-management/multilingual/)".
