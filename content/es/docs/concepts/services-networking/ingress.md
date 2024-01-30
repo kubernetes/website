@@ -155,7 +155,7 @@ Cada regla HTTP contiene la siguiente información:
   En este ejemplo,
   no se define un anfitrión así que la regla se aplica a todo el tráfico de
   entrada HTTP a través de la dirección IP especificada.
-  Cuando se proporciona un anfitrión (por ejemplo, foo.barr.com), las reglas se
+  Cuando se proporciona un anfitrión (por ejemplo, foo.bar.com), las reglas se
   aplican a ese anfitrión.
 * Un listado de rutas (por ejemplo, `/testpath`), cada una de las cuales tiene
   un backend asociado con un `service.name` y un `service.port.name` o
@@ -176,33 +176,37 @@ especificación.
 
 ### DefaultBackend {#default-backend}
 
-An Ingress with no rules sends all traffic to a single default backend
-and `.spec.defaultBackend`
-is the backend that should handle requests in that case.
-The `defaultBackend` is conventionally a configuration option of the
-[Ingress controller](/docs/concepts/services-networking/ingress-controllers) and
-is not specified in your Ingress resources.
-If no `.spec.rules` are specified, `.spec.defaultBackend` must be specified.
-If `defaultBackend` is not set, the handling of requests that do not match any
-of the rules will be up to the
-ingress controller (consult the documentation for your ingress controller to
-find out how it handles this case).
+Un Ingress sin reglas envía todo el tráfico a un único backend
+y `.spec.defaultBackend` está en el backend que debería manejar las peticiones
+en ese caso.
+El `defaultBackend` es una opción de configuración convencional
+del [controlador Ingress ](/docs/concepts/services-networking/ingress-controllers)
+y no se especifica en tus recursos del Ingress.
+Si no se especifican reglas `.spec.rules`, se debe
+especificar `.spec.defaultBackend`.
+Si no se establece el `defaultBackend`, las peticiones que no coincidan con
+ninguna de las reglas las decidirá el controlador ingress (consulta la
+documentación de tu controlador de ingress para saber cómo maneja este caso).
 
-If none of the hosts or paths match the HTTP request in the Ingress objects, the
-traffic is
-routed to your default backend.
+Si ninguno de los hosts o rutas coinciden con la petición HTTP en los objetos
+del Ingress,
+el tráfico se redirige a tu backend por defecto.
 
-### Resource backends {#resource-backend}
+### Recursos backends {#resource-backend}
 
-A `Resource` backend is an ObjectRef to another Kubernetes resource within the
-same namespace as the Ingress object. A `Resource` is a mutually exclusive
-setting with Service, and will fail validation if both are specified. A common
-usage for a `Resource` backend is to ingress data to an object storage backend
-with static assets.
+Un recurso `Resource` backend es una referencia de objeto
+(ObjectRef en inglés)
+a otro recurso de Kubernetes dentro del mismo espacio de nombres que el objeto
+Ingress.
+Este `Resource` es mutuamente exclusivo con el Service,
+y la validación fallará si ambos se especifican.
+Un uso común para un `Resource` backend es para ingresar datos a un backend de almacenamiento de datos con activos estáticos.
 
 {{% code_sample file="service/networking/ingress-resource-backend.yaml" %}}
 
-After creating the Ingress above, you can view it with the following command:
+Luego de crear el Ingress mencionado arriba,
+puedes verlo con el siguiente comando:
+
 
 ```bash
 kubectl describe ingress ingress-resource-backend
