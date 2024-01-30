@@ -12,7 +12,7 @@ weight: 10
 
 ## {{% heading "prerequisites" %}}
 
-### कुबेरनेट्स कॉन्फ़िगमैप्स और सीक्रेट बनाना
+### कुबेरनेट्स कॉन्फ़िगमैप्स और सीक्रेट बनाना {#creating-kubernetes-configmaps-secrets}
 
 कुबेरनेट्स में डॉकर कंटेनर के लिए एनवायरनमेंट वेरिएबल सेट करने के कई तरीके हैं,
 इसमें शामिल हैं: Dockerfile, kubernetes.yml, Kubernetes configMaps, और Kubernetes Secrets.
