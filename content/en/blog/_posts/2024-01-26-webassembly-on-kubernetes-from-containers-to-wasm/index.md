@@ -33,9 +33,9 @@ You can refer to this table for a detailed comparison between WebAssembly and co
 
 ## Run Wasm modules in Linux containers
 
-An easy way to run Wasm modules in the container ecosystems is to embed the Wasm bytecode file in the Linux container image. Precisely, you can trim down the Linux OS inside the container to the point where it is just enough to support the Wasm runtime. Since Wasm modules are housed in standard containers, they can be integrated seamlessly with any existing container ecosystems.
+An easy method to execute Wasm modules within container ecosystems is to incorporate the Wasm bytecode into the Linux container image. Specifically, the Linux OS inside the container can be pared down to only the components necessary to support the Wasm runtime. Since Wasm modules are housed in standard containers, they can be integrated seamlessly with any existing container ecosystems.
 
-Compared to a regular Linux OS, the attack surface of the slimmed Linux OS is dramatically reduced. Nonetheless, this approach still necessitates the launching of a Linux container. Although the Linux OS is trimmed down, it still takes up 80% of the container's image size.
+The slimmed Linux OS presents a much smaller attack surface versus a regular Linux OS. Nonetheless, this approach still necessitates the launching of a Linux container. Although the Linux OS is trimmed down, it still takes up 80% of the container's image size.
 
 ## Run Wasm modules in container runtimes that have Wasm support
 
