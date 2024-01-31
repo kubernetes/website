@@ -59,7 +59,7 @@ PDB の `spec.unhealthyPodEvictionPolicy` フィールドを `AlwaysAllow` に�
 これはアルファ機能であり、kube-apiserver に対してコマンドライン引数 `--feature-gates=PDBUnhealthyPodEvictionPolicy=true` を指定して
 `PDBUnhealthyPodEvictionPolicy` [フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にする必要があることを意味します。
 
-ここに例を示します。 クラスターで機能ゲートを有効にし、プレーンな Web サーバーを実行する Deployment をすでに定義していると仮定します。
+ここに例を示します。 クラスターでフィーチャーゲートを有効にし、プレーンな Web サーバーを実行する Deployment をすでに定義していると仮定します。
 その Deployment の Pod に `app: nginx` というラベルを付けました。
 回避可能な中断を制限したいと考えており、このアプリにはベストエフォートの可用性で十分であることがわかっています。
 Web サーバー Pod が正常でない場合でも、退避を許可することにしました。
