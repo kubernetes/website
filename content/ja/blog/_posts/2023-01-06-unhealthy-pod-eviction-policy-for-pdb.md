@@ -19,7 +19,7 @@ API によって開始されるPodの退避では、PodDisruptionBudgets (PDB) �
 これは、退避による Pod への[自発的な中断](/ja/docs/concepts/scheduling-eviction/#pod-disruption)の要求は保護されたアプリケーションを中断してはならず、
 PDB の `.status.currentHealthy` が `.status.desiredHealthy` を下回ってはいけないことを意味します。
 [Unhealthy](/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod)な実行中の Pod は PDB ステータスにはカウントされませんが、
-これらの削除はアプリケーションが中断されない場合にのみ可能です。
+これらの退避はアプリケーションが中断されない場合にのみ可能です。
 これにより、中断されたアプリケーションやまだ開始されていないアプリケーションが、退避によって追加のダウンタイムが発生することなく、できるだけ早く可用性を達成できるようになります。
 
 残念ながら、これは手動の介入なしでノードをドレインしたいクラスター管理者にとって問題を引き起こします。
