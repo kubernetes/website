@@ -100,7 +100,7 @@ spec:
 ```
 
 <!--
-## Clusters containing different types of GPUs
+## Manage clusters with different types of GPUs
 
 If different nodes in your cluster have different types of GPUs, then you
 can use [Node Labels and Node Selectors](/docs/tasks/configure-pod-container/assign-pods-nodes/)
@@ -108,7 +108,7 @@ to schedule pods to appropriate nodes.
 
 For example:
 -->
-## 集群内存在不同类型的 GPU  {#clusters-containing-different-types-of-gpus}
+## 管理配有不同类型 GPU 的集群   {#manage-clusters-with-different-types-of-gpus}
 
 如果集群内部的不同节点上有不同类型的 NVIDIA GPU，
 那么你可以使用[节点标签和节点选择器](/zh-cn/docs/tasks/configure-pod-container/assign-pods-nodes/)来将
@@ -116,6 +116,13 @@ Pod 调度到合适的节点上。
 
 例如：
 
+<!--
+```shell
+# Label your nodes with the accelerator type they have.
+kubectl label nodes node1 accelerator=example-gpu-x100
+kubectl label nodes node2 accelerator=other-gpu-k915
+```
+-->
 ```shell
 # 为你的节点加上它们所拥有的加速器类型的标签
 kubectl label nodes node1 accelerator=example-gpu-x100
@@ -134,18 +141,92 @@ a different label key if you prefer.
 ## 自动节点标签  {#node-labeller}
 
 <!--
-If you're using AMD GPU devices, you can deploy
-[Node Labeller](https://github.com/RadeonOpenCompute/k8s-device-plugin/tree/master/cmd/k8s-node-labeller).
-Node Labeller is a {{< glossary_tooltip text="controller" term_id="controller" >}} that automatically
-labels your nodes with GPU device properties.
-
-Similar functionality for NVIDIA is provided by
-[GPU feature discovery](https://github.com/NVIDIA/gpu-feature-discovery/blob/main/README.md).
+As an administrator, you can automatically discover and label all your GPU enabled nodes
+by deploying Kubernetes [Node Feature Discovery](https://github.com/kubernetes-sigs/node-feature-discovery) (NFD).
+NFD detects the hardware features that are available on each node in a Kubernetes cluster.
+Typically, NFD is configured to advertise those features as node labels, but NFD can also add extended resources, annotations, and node taints.
+NFD is compatible with all [supported versions](/releases/version-skew-policy/#supported-versions) of Kubernetes.
+By default NFD create the [feature labels](https://kubernetes-sigs.github.io/node-feature-discovery/master/usage/features.html) for the detected features.
+Administrators can leverage NFD to also taint nodes with specific features, so that only pods that request those features can be scheduled on those nodes.
 -->
-如果你在使用 AMD GPU，你可以部署
-[Node Labeller](https://github.com/RadeonOpenCompute/k8s-device-plugin/tree/master/cmd/k8s-node-labeller)，
-它是一个 {{< glossary_tooltip text="控制器" term_id="controller" >}}，
-会自动给节点打上 GPU 设备属性标签。
+作为管理员，你可以通过部署 Kubernetes
+[Node Feature Discovery](https://github.com/kubernetes-sigs/node-feature-discovery) (NFD)
+来自动发现所有启用 GPU 的节点并为其打标签。NFD 检测 Kubernetes 集群中每个节点上可用的硬件特性。
+通常，NFD 被配置为以节点标签广告这些特性，但 NFD 也可以添加扩展的资源、注解和节点污点。
+NFD 兼容所有[支持版本](/zh-cn/releases/version-skew-policy/#supported-versions)的 Kubernetes。
+NFD 默认会为检测到的特性创建[特性标签](https://kubernetes-sigs.github.io/node-feature-discovery/master/usage/features.html)。
+管理员可以利用 NFD 对具有某些具体特性的节点添加污点，以便只有请求这些特性的 Pod 可以被调度到这些节点上。
 
-对于 NVIDIA GPU，[GPU feature discovery](https://github.com/NVIDIA/gpu-feature-discovery/blob/main/README.md)
-提供了类似功能。
+<!--
+You also need a plugin for NFD that adds appropriate labels to your nodes; these might be generic
+labels or they could be vendor specific. Your GPU vendor may provide a third party
+plugin for NFD; check their documentation for more details.
+-->
+你还需要一个 NFD 插件，将适当的标签添加到你的节点上；
+这些标签可以是通用的，也可以是供应商特定的。你的 GPU 供应商可能会为 NFD 提供第三方插件；
+更多细节请查阅他们的文档。
+
+<!--
+{{< highlight yaml "linenos=false,hl_lines=6-18" >}}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: example-vector-add
+spec:
+  # You can use Kubernetes node affinity to schedule this Pod onto a node
+  # that provides the kind of GPU that its container needs in order to work
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: "gpu.gpu-vendor.example/installed-memory"
+            operator: Gt # (greater than)
+            values: ["40535"]
+          - key: "feature.node.kubernetes.io/pci-10.present" # NFD Feature label
+            values: ["true"] # (optional) only schedule on nodes with PCI device 10
+  restartPolicy: OnFailure
+  containers:
+    - name: example-vector-add
+      image: "registry.example/example-vector-add:v42"
+      resources:
+        limits:
+          gpu-vendor.example/example-gpu: 1 # requesting 1 GPU
+{{< /highlight >}}
+-->
+{{< highlight yaml "linenos=false,hl_lines=6-18" >}}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: example-vector-add
+spec:
+  # 你可以使用 Kubernetes 节点亲和性将此 Pod 调度到提供其容器所需的那种 GPU 的节点上
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: "gpu.gpu-vendor.example/installed-memory"
+            operator: Gt #（大于）
+            values: ["40535"]
+          - key: "feature.node.kubernetes.io/pci-10.present" # NFD 特性标签
+            values: ["true"] #（可选）仅调度到具有 PCI 设备 10 的节点上
+  restartPolicy: OnFailure
+  containers:
+    - name: example-vector-add
+      image: "registry.example/example-vector-add:v42"
+      resources:
+        limits:
+          gpu-vendor.example/example-gpu: 1 # 请求 1 个 GPU
+{{< /highlight >}}
+
+<!--
+#### GPU vendor implementations
+
+- [Intel](https://intel.github.io/intel-device-plugins-for-kubernetes/cmd/gpu_plugin/README.html)
+- [NVIDIA](https://github.com/NVIDIA/gpu-feature-discovery/#readme)
+-->
+#### GPU 供应商实现
+
+- [Intel](https://intel.github.io/intel-device-plugins-for-kubernetes/cmd/gpu_plugin/README.html)
+- [NVIDIA](https://github.com/NVIDIA/gpu-feature-discovery/#readme)
