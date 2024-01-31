@@ -16,7 +16,7 @@ _不健全なPodの退避ポリシー_ を指定して、ノード管理操作�
 ## これはどのような問題を解決しますか？{#what-problem-does-this-solve}
 
 API によって開始されるPodの退避では、PodDisruptionBudgets (PDB) が考慮されます。
-これは、退避による Pod への[自発的な中断](https://kubernetes.io/docs/concepts/scheduling-eviction/#pod-disruption)の要求は保護されたアプリケーションを中断してはならず、
+これは、退避による Pod への[自発的な中断](/ja/docs/concepts/scheduling-eviction/#pod-disruption)の要求は保護されたアプリケーションを中断してはならず、
 PDB の `.status.currentHealthy` が `.status.desiredHealthy` を下回ってはいけないことを意味します。
 [Unhealthy](/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod)な実行中の Pod は PDB ステータスにはカウントされませんが、
 これらの削除はアプリケーションが中断されない場合にのみ可能です。
