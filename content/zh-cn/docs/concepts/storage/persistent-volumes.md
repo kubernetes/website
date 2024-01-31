@@ -596,10 +596,10 @@ spec:
 ```
 
 <!--
-This is useful if you want to consume PersistentVolumes that have their `claimPolicy` set
+This is useful if you want to consume PersistentVolumes that have their `persistentVolumeReclaimPolicy` set
 to `Retain`, including cases where you are reusing an existing PV.
 -->
-如果你想要使用 `claimPolicy` 属性设置为 `Retain` 的 PersistentVolume 卷时，
+如果你想要使用 `persistentVolumeReclaimPolicy` 属性设置为 `Retain` 的 PersistentVolume 卷时，
 包括你希望复用现有的 PV 卷时，这点是很有用的
 
 <!--

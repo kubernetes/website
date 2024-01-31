@@ -609,29 +609,23 @@ etcd 支持从 [major.minor](http://semver.org/) 或其他不同 patch 版本的
 Before starting the restore operation, a snapshot file must be present. It can
 either be a snapshot file from a previous backup operation, or from a remaining
 [data directory](https://etcd.io/docs/current/op-guide/configuration/#--data-dir).
-Here is an example:
 -->
 在启动还原操作之前，必须有一个快照文件。它可以是来自以前备份操作的快照文件，
 也可以是来自剩余[数据目录](https://etcd.io/docs/current/op-guide/configuration/#--data-dir)的快照文件。
-例如：
-
-```shell
-ETCDCTL_API=3 etcdctl --endpoints 10.2.0.9:2379 snapshot restore snapshot.db
-```
 
 <!--
-Another example for restoring using `etcdctl` options:
+When restoring the cluster, use the `--data-dir` option to specify to which folder the cluster should be restored:
 -->
-恢复时使用 `etcdctl` 选项的另一个示例：
+在恢复集群时，使用 `--data-dir` 选项来指定集群应被恢复到哪个文件夹。
 
 ```shell
-ETCDCTL_API=3 etcdctl snapshot restore --data-dir <data-dir-location> snapshot.db
+ETCDCTL_API=3 etcdctl --data-dir <data-dir-location> snapshot restore snapshot.db
 ```
 
 <!--
 where `<data-dir-location>` is a directory that will be created during the restore process.
 
-Yet another example would be to first export the `ETCDCTL_API` environment variable
+Yet another example would be to first export the `ETCDCTL_API` environment variable:
 -->
 其中 `<data-dir-location>` 是将在恢复过程中创建的目录。
 
@@ -639,8 +633,14 @@ Yet another example would be to first export the `ETCDCTL_API` environment varia
 
 ```shell
 export ETCDCTL_API=3
-etcdctl snapshot restore --data-dir <data-dir-location> snapshot.db
+etcdctl --data-dir <data-dir-location> snapshot restore snapshot.db
 ```
+
+<!--
+If `<data-dir-location>` is the same folder as before, delete it and stop etcd process before restoring the cluster. Else change etcd configuration and restart the etcd process after restoration to make it use the new data directory.
+-->
+如果 `<data-dir-location>` 与之前的文件夹相同，请先删除此文件夹并停止 etcd 进程，再恢复集群。
+否则，需要在恢复后更改 etcd 配置并重新启动 etcd 进程才能使用新的数据目录。
 
 <!--
 For more information and examples on restoring a cluster from a snapshot file, see
