@@ -46,7 +46,7 @@ API によって開始される退避は、Pod の安全な終了をトリガー
 `IfHealthyBudget` と `AlwaysAllow` の 2つのポリシーから選択できます。
 
 前者の `IfHealthyBudget` は、従来の動作に従って、デフォルトで得られる最高の可用性を実現します。
-不健全な Pod は、アプリケーションが利用可能な最小数の `.status.desiredHealthy` Pod がある場合にのみ中断できます。
+不健全な Pod は、アプリケーションが利用可能な最小数の `.status.desiredHealthy`だけPod がある場合にのみ中断できます。
 
 PDB の `spec.unhealthyPodEvictionPolicy` フィールドを `AlwaysAllow` に設定することにより、アプリケーションにとってベストエフォートの可用性を選択することになります。
 このポリシーを使用すると、不健全なポッドをいつでも削除できます。 これにより、クラスターの保守とアップグレードが容易になります。
