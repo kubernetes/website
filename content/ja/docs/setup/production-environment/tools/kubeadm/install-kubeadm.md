@@ -122,7 +122,7 @@ kubeadmは`kubelet`や`kubectl`をインストールまたは管理**しない**
 
 {{< tabs name="k8s_install" >}}
 {{% tab name="Ubuntu、Debian、またはHypriotOS" %}}
-1. `apt`のパッケージ一覧を更新し、Kubernetesの`apt`リポジトリを利用するのに必要なパッケージをインストールします:
+1. `apt`のパッケージ一覧を更新し、Kubernetesの`apt`リポジトリーを利用するのに必要なパッケージをインストールします:
 
    ```shell
    sudo apt-get update
@@ -130,7 +130,7 @@ kubeadmは`kubelet`や`kubectl`をインストールまたは管理**しない**
    sudo apt-get install -y apt-transport-https ca-certificates curl gpg
    ```
 
-2. Kubernetesパッケージリポジトリの公開署名キーをダウンロードします。すべてのリポジトリに同じ署名キーが使用されるため、URL内のバージョンは無視できます:
+2. Kubernetesパッケージリポジトリーの公開署名キーをダウンロードします。すべてのリポジトリーに同じ署名キーが使用されるため、URL内のバージョンは無視できます:
 
    ```shell
    # `/etc/apt/keyrings`フォルダーが存在しない場合は、curlコマンドの前に作成する必要があります。下記の備考を参照してください。
@@ -142,7 +142,7 @@ kubeadmは`kubelet`や`kubectl`をインストールまたは管理**しない**
 Debian 12とUbuntu 22.04より古いリリースでは、`/etc/apt/keyrings`フォルダーはデフォルトでは存在しないため、curlコマンドの前に作成する必要があります。
 {{< /note >}}
 
-3. 適切なKubernetes `apt`リポジトリを追加します。このリポジトリには、Kubernetes {{< skew currentVersion >}}用のパッケージのみがあることに注意してください。他のKubernetesマイナーバージョンの場合は、目的のマイナーバージョンに一致するようにURL内のKubernetesマイナーバージョンを変更する必要があります(インストールする予定のKubernetesバージョンのドキュメントも読んでください):
+3. 適切なKubernetes `apt`リポジトリーを追加します。このリポジトリーには、Kubernetes {{< skew currentVersion >}}用のパッケージのみがあることに注意してください。他のKubernetesマイナーバージョンの場合は、目的のマイナーバージョンに一致するようにURL内のKubernetesマイナーバージョンを変更する必要があります(インストールする予定のKubernetesバージョンのドキュメントも読んでください):
 
    ```shell
    # これにより、/etc/apt/sources.list.d/kubernetes.listにある既存の設定が上書きされます
