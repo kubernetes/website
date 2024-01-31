@@ -67,23 +67,17 @@ CEL is configured with the following options, libraries and language features, i
 
 | CEL option, library or language feature             | Included                                                                                                        | Availablity                |
 | --------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | -------------------------- |
-| [Standard macros](stdmacros)                        | `has`, `all`, `exists`, `exists_one`, `map`, `filter`                                                           | All Kubernetes versions    |
-| [Standard functions](stdlib)                        | See [official list of standard definitions](stdlib)                                                             | All Kubernetes versions    |
-| [Homogeneous Aggregate Literals](opt1)              |                                                                                                                 | All Kubernetes versions    |
-| [Default UTC Time Zone](opt2)                       |                                                                                                                 | All Kubernetes versions    |
-| [Eagerly Validate Declarations](opt3)               |                                                                                                                 | All Kubernetes versions    |
-| [extended strings library](stringsgodoc), Version 1 | `charAt`, `indexOf`, `lastIndexOf`, `lowerAscii`, `upperAscii`, `replace`, `split`, `join`, `substring`, `trim` | All Kubernetes versions    |
+| [Standard macros](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#macros)                        | `has`, `all`, `exists`, `exists_one`, `map`, `filter`                                                           | All Kubernetes versions    |
+| [Standard functions](https://github.com/google/cel-spec/blob/master/doc/langdef.md#list-of-standard-definitions)                        | See [official list of standard definitions](stdlib)                                                             | All Kubernetes versions    |
+| [Homogeneous Aggregate Literals](https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#HomogeneousAggregateLiterals)              |                                                                                                                 | All Kubernetes versions    |
+| [Default UTC Time Zone](https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#DefaultUTCTimeZone)                       |                                                                                                                 | All Kubernetes versions    |
+| [Eagerly Validate Declarations](https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#EagerlyValidateDeclarations)               |                                                                                                                 | All Kubernetes versions    |
+| [extended strings library](https://pkg.go.dev/github.com/google/cel-go/ext#Strings), Version 1 | `charAt`, `indexOf`, `lastIndexOf`, `lowerAscii`, `upperAscii`, `replace`, `split`, `join`, `substring`, `trim` | All Kubernetes versions    |
 | Kubernetes list library                             | See [Kubernetes list library](#kubernetes-list-library)                                                         | All Kubernetes versions    |
 | Kubernetes regex library                            | See [Kubernetes regex library](#kubernetes-regex-library)                                                       | All Kubernetes versions    |
 | Kubernetes URL library                              | See [Kubernetes URL library](#kubernetes-url-library)                                                           | All Kubernetes versions    |
 | Kubernetes authorizer library                       | See [Kubernetes authorizer library](#kubernetes-authorizer-library)                                             | All Kubernetes versions    |
 
-[stdmacros]: https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#macros
-[stdlib]: https://github.com/google/cel-spec/blob/master/doc/langdef.md#list-of-standard-definitions
-[stringsgodoc]: https://pkg.go.dev/github.com/google/cel-go/ext#Strings
-[opt1]: https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#HomogeneousAggregateLiterals
-[opt2]: https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#DefaultUTCTimeZone
-[opt3]: https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#EagerlyValidateDeclarations
 [opt4]: https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#OptionalTypes
 [opt5]: https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#CrossTypeNumericComparisons
 
