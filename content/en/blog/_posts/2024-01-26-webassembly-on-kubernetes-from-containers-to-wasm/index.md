@@ -19,7 +19,7 @@ WebAssembly is a universal bytecode technology that allows programs written in v
 
 WebAssembly is designed from the ground up to solve the performance problem of JavaScript. With WebAssembly, developers can compile code to a low-level binary format that can be executed by modern web browsers at near-native speeds.
 
-In March 2019, Mozilla announced the WebAssembly System Interface (_WASI_), an API specification that defines a standard interface between WebAssembly modules and their host environments. WASI allows Wasm modules to access system resources securely, including the network, filesystem, etc. This extremely expanded Webassembly's potential by enabling it to work not only in browsers but also on servers.
+In March 2019, Mozilla announced the _WebAssembly System Interface (_WASI_),_ an API specification that defines a standard interface between WebAssembly modules and their host environments. WASI allows Wasm modules to access system resources securely, including the network, filesystem, etc. This extremely expanded Webassembly's potential by enabling it to work not only in browsers but also on servers.
 
 ## The advantages of WebAssembly
 
@@ -43,7 +43,7 @@ The advantage of embedding the Wasm modules into the Linux container is that it 
 
 Generally, container runtimes can be categorized into two levels: high-level runtimes and low-level runtimes.
 - **Low-level Container Runtime**: This refers to OCI-compliant implementations that can receive a runnable filesystem (rootfs) and a configuration file (config.json) to execute isolated processes. Low-level container runtimes directly manage and run containers, such as runc, crun, youki, gvisor, and kata.
-- **High-level Container Runtime**: This is responsible for the transport and management of container images, unpacking the image, and passing it off to the low-level runtime to run the container. High-level container runtimes simplify container management by abstracting the complexities of low-level runtime, which allows users to manage various low-level runtimes via the same high-level runtime. Containerd and CRI-O are two popular high-level container runtimes.
+- **High-level Container Runtime**: This is responsible for the transport and management of container images, unpacking the image, and passing it off to the low-level runtime to run the container. High-level container runtimes simplify container management by abstracting the complexities of low-level runtime, which allows users to manage various low-level runtimes through the same high-level runtime. Containerd and CRI-O are two popular high-level container runtimes.
 
 {{< figure src="02-high-level-and-low-level-container-runtimes.svg" alt="The diagram illustrates high-level runtimes like containerd and CRI-O receiving API requests from container management platforms like Kubernetes and Docker, and calling low-level runtimes conforming to OCI specification such as crun and youki, which directly manage containers." caption="Figure 2: High-level and low-level container runtimes" >}}
 
