@@ -1,11 +1,9 @@
 ---
-reviewers: []
 title: Autoscaling Workloads
 description: >-
-  With Autoscaling, you can automatically update your workloads or infrastructure in one way or another. This allows your cluster to react to changes in resource demand more elastically and efficiently.
+  With autoscaling, you can automatically update your workloads in one way or another. This allows your cluster to react to changes in resource demand more elastically and efficiently.
 content_type: concept
 weight: 40
-hide_summary: true # Listed separately in section index
 ---
 
 <!-- overview -->
@@ -25,22 +23,20 @@ The first option is referred to as _horizontal scaling_, while the second is ref
 
 <!-- body -->
 
-## Scaling Workloads Horizontally
+## Scaling workloads horizontally
 
 In Kubernetes, you can scale a workload horizontally using a _HorizontalPodAutoscaler_ (HPA).
 It is implemented as a Kubernetes API resource and a {{< glossary_tooltip text="controller" term_id="controller" >}}
 and periodically adjusts the number of {{< glossary_tooltip text="replicas" term_id="replica" >}}
 in a workload to match observed resource utilization such as CPU or memory usage.
 
-There is a [walkthrough example](../../../tasks/run-application/horizontal-pod-autoscale-walkthrough.md) of configuring a HorizontalPodAutoscaler for a Deployment.
+There is a [walkthrough example](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough) of configuring a HorizontalPodAutoscaler for a Deployment.
 
-## Scaling Workloads Vertically
+## Scaling workloads vertically
 
 _tba_ about VerticalPodAutoscaler
 
-## Scaling the Cluster
-
-_tba_ about Cluster Autoscaler and Karpenter
+##
 
 ## Advanced Scenarios
 
