@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Kubernetes 1.26: PodDisruptionBudgets によって保護された不健全なPodに対する退避ポリシー"
+title: "Kubernetes 1.26: PodDisruptionBudgetsによって保護された不健全なPodに対する退避ポリシー"
 date: 2023-01-06
 slug: "unhealthy-pod-eviction-policy-for-pdbs"
 ---
