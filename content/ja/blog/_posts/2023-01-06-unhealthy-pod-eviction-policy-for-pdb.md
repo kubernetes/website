@@ -57,7 +57,7 @@ PDB の `spec.unhealthyPodEvictionPolicy` フィールドを `AlwaysAllow` に�
 ## どのように利用できますか？{#how-do-i-use-it}
 
 これはアルファ機能であり、kube-apiserver に対してコマンドライン引数 `--feature-gates=PDBUnhealthyPodEvictionPolicy=true` を指定して
-`PDBUnhealthyPodEvictionPolicy` [機能ゲート](/docs/reference/command-line-tools-reference/feature-gates/)を有効にする必要があることを意味します。
+`PDBUnhealthyPodEvictionPolicy` [フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にする必要があることを意味します。
 
 ここに例を示します。 クラスターで機能ゲートを有効にし、プレーンな Web サーバーを実行する Deployment をすでに定義していると仮定します。
 その Deployment の Pod に `app: nginx` というラベルを付けました。
