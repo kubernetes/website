@@ -54,7 +54,7 @@ The former, `IfHealthyBudget`, follows the existing behavior to achieve the best
 that you get by default. Unhealthy pods can be disrupted only if their application
 has a minimum available `.status.desiredHealthy` number of pods.
 
-By setting the `spec.unhealthyPodEvictionPolicy` field of your PDB to `AlwaysAllow`,
+By setting the `.spec.unhealthyPodEvictionPolicy` field of your PDB to `AlwaysAllow`,
 you are choosing the best effort availability for your application.
 With this policy it is always possible to evict unhealthy pods.
 This will make it easier to maintain and upgrade your clusters.
@@ -104,4 +104,3 @@ spec:
 ## How do I get involved?
 
 If you have any feedback, please reach out to us in the [#sig-apps](https://kubernetes.slack.com/archives/C18NZM5K9) channel on Slack (visit https://slack.k8s.io/ for an invitation if you need one), or on the SIG Apps mailing list: kubernetes-sig-apps@googlegroups.com
-
