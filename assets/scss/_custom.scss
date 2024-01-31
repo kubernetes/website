@@ -680,6 +680,11 @@ main.content {
   }
 }
 
+.td-blog .header-hero h1, .td-blog .header-hero h2 {
+  font-size: 2.25rem; // match rest of site, even if it is actually h2
+  margin-bottom: 20px;
+}
+
 /* CASE-STUDIES */
 
 // Many of the case studies have small variations in markup and styles;
@@ -819,7 +824,8 @@ body.td-documentation {
   }
 }
 
-#announcement + .header-hero.filler {
+/* don't display the hero header for some pages when there is a banner active */
+#announcement + .header-hero.filler, .td-page.td-blog #announcement + .header-hero {
   display: none;
 }
 
