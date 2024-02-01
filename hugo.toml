@@ -305,6 +305,19 @@ i18nDir = "./data/i18n"
 [languages.en.params]
 description = "Production-Grade Container Orchestration"
 
+[languages.bn]
+title = "Kubernetes"
+weight = 2
+languageName = "বাংলা (Bengali)"
+contentDir = "content/bn"
+languagedirection = "ltr"
+
+[languages.bn.params]
+time_format_blog = "01.02.2006"
+language_alternatives = ["en"]
+description = "প্রোডাকশন-গ্রেড কন্টেইনার অর্কেস্ট্রেশন"
+languageNameLatinScript = "বাংলা"
+
 [languages.zh-cn]
 title = "Kubernetes"
 languageName = "中文 (Chinese)"
@@ -511,15 +524,3 @@ languagedirection = "ltr"
 languageNameLatinScript = "Tiếng Việt"
 description = "Giải pháp điều phối container trong môi trường production"
 
-
-[languages.bn]
-title = "Kubernetes"
-description = "প্রোডাকশন-গ্রেড কন্টেইনার অর্কেস্ট্রেশন"
-languageName = "বাংলা Bengali"
-weight = 15
-contentDir = "content/bn"
-languagedirection = "ltr"
-
-[languages.bn.params]
-time_format_blog = "01.02.2006"
-language_alternatives = ["en"]
