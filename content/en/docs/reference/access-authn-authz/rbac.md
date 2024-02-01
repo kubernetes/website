@@ -114,7 +114,7 @@ The name of a Role or a ClusterRole object must be a valid
 
 ### RoleBinding and ClusterRoleBinding
 
-A role binding grants the permissions defined in a role to a user or set of users.
+A RoleBinding grants the permissions defined in a role to a user or set of users.
 It holds a list of *subjects* (users, groups, or service accounts), and a reference to the
 role being granted.
 A RoleBinding grants permissions within a specific namespace whereas a ClusterRoleBinding
