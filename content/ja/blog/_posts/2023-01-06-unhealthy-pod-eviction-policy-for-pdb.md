@@ -9,7 +9,7 @@ slug: "unhealthy-pod-eviction-policy-for-pdbs"
 
 
 アプリケーションの中断がその可用性に影響を与えないようにすることは、簡単な作業ではありません。
-先月リリースされたKubernetes v1.26では、[PodDisruptionBudgets](/docs/concepts/workloads/pods/disruptions/#pod-disruption-budgets) (PDB) に
+先月リリースされたKubernetes v1.26では、[PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/#pod-disruption-budgets) (PDB) に
 _不健全なPodの退避ポリシー_ を指定して、ノード管理操作中に可用性を維持できるようになりました。
 この記事では、アプリケーション所有者が中断をより柔軟に管理できるようにするために、PDBにどのような変更が導入されたのかを詳しく説明します。
 
