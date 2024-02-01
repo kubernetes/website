@@ -81,11 +81,18 @@ The upgrade workflow at high level is the following:
   first drain the node (or nodes) that you are upgrading. In the case of control plane nodes,
   they could be running CoreDNS Pods or other critical workloads. For more information see
   [Draining nodes](/docs/tasks/administer-cluster/safely-drain-node/).
+- The Kubernetes project recommends that you match your kubelet and kubeadm versions.
+  You can instead use an a version of kubelet that is older than kubeadm, provided it is within the
+  range of supported versions.
+  For more details, please visit [kubeadm's skew against the kubelet](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#kubeadm-s-skew-against-the-kubelet).
 - All containers are restarted after upgrade, because the container spec hash value is changed.
 -->
 - 下述说明了在升级过程中何时腾空每个节点。如果你正在对任何 kubelet 进行小版本升级，
   你需要先腾空待升级的节点（或多个节点）。对于控制面节点，其上可能运行着 CoreDNS Pod
   或者其它非常重要的负载。更多信息见[腾空节点](/zh-cn/docs/tasks/administer-cluster/safely-drain-node/)。
+- Kubernetes 项目推荐你使用版本匹配的 kubelet 和 kubeadm。
+  但你也可以使用比 kubeadm 版本更低的 kubelet 版本，前提是该版本仍处于支持的版本范围内。
+  欲了解更多信息，请访问 [kubeadm 与 kubelet 的版本差异](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#kubeadm-s-skew-against-the-kubelet)。
 - 升级后，因为容器规约的哈希值已更改，所有容器都会被重新启动。
 
 <!--
