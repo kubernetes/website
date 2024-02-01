@@ -45,7 +45,7 @@ cards:
   button: "प्रशिक्षण देखें"
   button_path: "/hi/training"
 - name: reference
-  title: संदर्भ जानकारी देखें 
+  title: संदर्भ मे दी गई जानकारी को देखें
   description: शब्दावली, कमांड लाइन सिंटैक्स, API संसाधनो के प्रकार और टूल सेटअप करने के प्रलेखन। 
   button: संदर्भ देखें 
   button_path: /docs/reference
