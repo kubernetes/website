@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Kubernetes 1.26: PodDisruptionBudgetsによって保護された不健全なPodに対する退避ポリシー"
+title: "Kubernetes 1.26: PodDisruptionBudgetによって保護された不健全なPodに対する退避ポリシー"
 date: 2023-01-06
 slug: "unhealthy-pod-eviction-policy-for-pdbs"
 ---
@@ -82,8 +82,8 @@ spec:
 
 
 - KEPを読んでください: [Unhealthy Pod Eviction Policy for PDBs](https://github.com/kubernetes/enhancements/tree/master/keps/sig-apps/3017-pod-healthy-policy-for-pdb)
-- PodDisruptionBudgetsについてのドキュメントを読んでください: [Unhealthy Pod Eviction Policy](/docs/tasks/run-application/configure-pdb/#unhealthy-pod-eviction-policy)
-- [PodDisruptionBudgets](/docs/concepts/workloads/pods/disruptions/#pod-disruption-budgets)、[draining of Nodes](/docs/tasks/administer-cluster/safely-drain-node/)および[evictions](/ja/docs/concepts/scheduling-eviction/api-eviction/)についてKubernetesドキュメントを確認してください
+- PodDisruptionBudgetについてのドキュメントを読んでください: [Unhealthy Pod Eviction Policy](/docs/tasks/run-application/configure-pdb/#unhealthy-pod-eviction-policy)
+- [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/#pod-disruption-budgets)、[draining of Nodes](/docs/tasks/administer-cluster/safely-drain-node/)および[evictions](/ja/docs/concepts/scheduling-eviction/api-eviction/)についてKubernetesドキュメントを確認してください
 
 
 ## どうすれば参加できますか？{#how-do-i-get-involved}
