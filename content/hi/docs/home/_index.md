@@ -41,7 +41,7 @@ cards:
   button_path: "/docs/tasks"
 - name: training
   title: "प्रशिक्षण"
-  description: "कुबेरनेट्स में प्रमाणित हो कर अपने क्लाउड नेटिव प्रोजेक्ट सफल बनाएं!"
+  description: "कुबेरनेट्स में प्रमाणित हो कर अपने क्लाउड नेटिव प्रोजेक्ट को सफल बनाएं!"
   button: "प्रशिक्षण देखें"
   button_path: "/hi/training"
 - name: reference
