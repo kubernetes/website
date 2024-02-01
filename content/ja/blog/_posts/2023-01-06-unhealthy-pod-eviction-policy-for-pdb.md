@@ -88,4 +88,4 @@ spec:
 
 ## どうすれば参加できますか？{#how-do-i-get-involved}
 
-フィードバックがある場合は、Slackの[#sig-apps](https://kubernetes.slack.com/archives/C18NZM5K9) チャンネル (必要な場合は https://slack.k8s.io/ にアクセスして招待を受けてください)、またはSIG Appsメーリングリストにご連絡ください。 kubernetes-sig-apps@googlegroups.com
+フィードバックがある場合は、Slackの[#sig-apps](https://kubernetes.slack.com/archives/C18NZM5K9) チャンネル(必要な場合は https://slack.k8s.io/ にアクセスして招待を受けてください)、またはSIG Appsメーリングリストにご連絡ください。kubernetes-sig-apps@googlegroups.com
