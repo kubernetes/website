@@ -11,8 +11,9 @@ no_list: true
 
 _Pods_ are the smallest deployable units of computing that you can create and manage in Kubernetes.
 
-A _Pod_ (as in a pod of whales or pea pod) is a group of one or more
-{{< glossary_tooltip text="containers" term_id="container" >}}, with shared storage and network resources, and a specification for how to run the containers. A Pod's contents are always co-located and
+A _Pod_, reminiscent of a pod of whales or pea pod, encompasses a group of one or more
+{{< glossary_tooltip text="containers" term_id="container" >}},that share storage and network resources, along with an integrated specification detailing the containers' operational guidelines.
+A Pod's contents are always co-located and
 co-scheduled, and run in a shared context. A Pod models an
 application-specific "logical host": it contains one or more application
 containers which are relatively tightly coupled.
