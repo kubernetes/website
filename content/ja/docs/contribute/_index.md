@@ -130,7 +130,7 @@ class first,second white
 {{</ mermaid >}}
 図2. はじめての貢献のための準備。
 
-- 貢献のための複数の方法について学ぶために[貢献の概要](/ja/docs/contribute/new-content/overview/)を読んでください。
+- 貢献のための複数の方法について学ぶために[貢献の概要](/ja/docs/contribute/new-content/)を読んでください。
 - 良い開始地点を探すために[`kubernetes/website` issueリスト](https://github.com/kubernetes/website/issues/)を確認してください。
 - 既存のドキュメントに対して[GitHubを使ってプルリクエストをオープン](/docs/contribute/new-content/open-a-pr/#changes-using-github)し、GitHubへのissueの登録について学んでください。
 - 正確さと言語の校正のため、他のKubernetesコミュニティメンバーから[プルリクエストのレビュー](/docs/contribute/review/reviewing-prs/)を受けてください。
