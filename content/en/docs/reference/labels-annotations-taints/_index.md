@@ -119,7 +119,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 Type: Label
 
-Example: ` kubernetes.io/bootstrapping=rbac-defaults`
+Example: `kubernetes.io/bootstrapping: rbac-defaults`
 
 Used on: ClusterRoles and ClusterRoleBindings  
 
