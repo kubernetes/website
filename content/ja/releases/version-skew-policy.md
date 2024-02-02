@@ -1,6 +1,6 @@
 ---
 title: Kubernetesバージョンとバージョンスキューサポートポリシー
-content_type: concept
+type: docs
 weight: 30
 ---
 
