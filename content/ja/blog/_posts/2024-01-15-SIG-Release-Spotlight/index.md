@@ -13,7 +13,7 @@ SIG ReleaseはKubernetesの開発と進化において重要な役割を担っ�
 
 さらに読み進める前に、SIG Releaseにはリリース・エンジニアリングとリリース・チームという2つのサブプロジェクトがあることに注意してください。
 
-このブログ記事では、[Nitish Kumar](https://twitter.com/nitishfy) が SIG Release のテクニカル・リーダーである Verónica López (PlanetScale) にインタビューし、Release Team サブプロジェクトにスポットライトを当て、リリース・プロセスがどのように見えるか、そして参加する方法について説明します。
+このブログ記事では、[Nitish Kumar](https://twitter.com/nitishfy)がSIG Releaseのテクニカル・リーダーであるVerónica López (PlanetScale)にインタビューし、Release Teamサブプロジェクトにスポットライトを当て、リリース・プロセスがどのように見えるか、そして参加する方法について説明します。
 
 1. **最初の計画から最終的なリリースまで、Kubernetesの新バージョンの典型的なリリースプロセスはどのようなものですか？スムーズなリリースを保証するために使用している特定の方法論やツールはありますか？**
 
