@@ -58,6 +58,9 @@ other = "私は..."
 [docs_label_users]
 other = "ユーザー"
 
+[end_of_life]
+other = "サポート終了日"
+
 [feedback_heading]
 other = "フィードバック"
 
@@ -72,6 +75,9 @@ other = "はい"
 
 [input_placeholder_email_address]
 other = "メールアドレス"
+
+[latest_release]
+other = "最新リリース"
 
 [latest_version]
 other = "最新バージョン"
@@ -167,7 +173,7 @@ other = "過去のニュースレターを見る"
 other = "登録"
 
 [main_page_history]
-other ="ページ履歴"
+other = "ページ履歴"
 
 [main_page_last_modified_on]
 other = "ページの最終更新"
@@ -186,6 +192,15 @@ other = "目標"
 
 [prerequisites_heading]
 other = "始める前に"
+
+[previous_patches]
+other = "パッチリリース"
+
+[release_date_after]
+other = ")"
+
+[release_date_before]
+other = "(リリース日: "
 
 [subscribe_button]
 other = "購読する"
