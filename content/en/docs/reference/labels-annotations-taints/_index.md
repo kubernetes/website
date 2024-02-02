@@ -115,6 +115,16 @@ The name of a higher-level application this object is part of.
 
 One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
 
+### kubernetes.io/bootstrapping
+
+Type: Label
+
+Example: ` kubernetes.io/bootstrapping=rbac-defaults`
+
+Used on: ClusterRoles and ClusterRoleBindings  
+
+The cluster roles and bindings can be viewed using this annotation.
+
 ### app.kubernetes.io/version
 
 Type: Label
