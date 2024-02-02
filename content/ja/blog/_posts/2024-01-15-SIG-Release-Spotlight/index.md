@@ -3,7 +3,6 @@ layout: blog
 title: "SIG Releaseスポットライト(リリース・チーム・サブプロジェクト)"
 date: 2024-01-15
 slug: sig-release-spotlight-2023
-canonicalUrl: https://www.kubernetes.dev/blog/2024/01/15/sig-release-spotlight-2023/
 ---
 
 **筆者:** Nitish Kumar
