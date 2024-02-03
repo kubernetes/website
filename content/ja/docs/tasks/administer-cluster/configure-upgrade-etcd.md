@@ -10,8 +10,7 @@ weight: 270
 
 ## {{% heading "prerequisites" %}}
 
-このタスクを行うには、Kubernetesクラスターが必要で、
-kubectlコマンドラインツールがクラスターと通信できるように設定されている必要があります。
+このタスクを行うには、Kubernetesクラスターが必要で、kubectlコマンドラインツールがクラスターと通信できるように設定されている必要があります。
 コントロールプレーンノード以外に少なくとも2つのノードを持つクラスターでこのタスクを実行することを推奨します。
 まだクラスターを持っていない場合は、[minikube](https://minikube.sigs.k8s.io/docs/tutorials/multi_node/)を使用して作成することができます。
 
@@ -41,8 +40,7 @@ kubectlコマンドラインツールがクラスターと通信できるよう�
 
 限られたリソースでetcdを運用するのはテスト目的にのみ適しています。
 本番環境へのデプロイには、高度なハードウェア構成が必要です。
-本番環境へetcdをデプロイする前に、
-[リソース要件](https://etcd.io/docs/current/op-guide/hardware/#example-hardware-configurations)を確認してください。
+本番環境へetcdをデプロイする前に、[リソース要件](https://etcd.io/docs/current/op-guide/hardware/#example-hardware-configurations)を確認してください。
 
 ## etcdクラスターの起動
 
@@ -100,23 +98,17 @@ etcdクラスターは、静的なメンバー情報、または動的な検出�
 etcdへのアクセスはクラスター内でのルート権限に相当するため、理想的にはAPIサーバーのみがアクセスできるようにするべきです。
 データの機密性を考慮して、etcdクラスターへのアクセス権を必要とするノードのみに付与することが推奨されます。
 
-etcdをセキュアにするためには、ファイアウォールのルールを設定するか、
-etcdによって提供されるセキュリティ機能を使用します。
+etcdをセキュアにするためには、ファイアウォールのルールを設定するか、etcdによって提供されるセキュリティ機能を使用します。
 etcdのセキュリティ機能はx509公開鍵基盤(PKI)に依存します。
 この機能を使用するには、キーと証明書のペアを生成して、セキュアな通信チャンネルを確立します。
-例えば、etcdメンバー間の通信をセキュアにするために`peer.key`と`peer.cert`のキーペアを使用し、
-etcdとそのクライアント間の通信をセキュアにするために`client.key`と`client.cert`を使用します。
+例えば、etcdメンバー間の通信をセキュアにするために`peer.key`と`peer.cert`のキーペアを使用し、etcdとそのクライアント間の通信をセキュアにするために`client.key`と`client.cert`を使用します。
 クライアント認証用のキーペアとCAファイルを生成するには、etcdプロジェクトによって提供されている[サンプルスクリプト](https://github.com/coreos/etcd/tree/master/hack/tls-setup)を参照してください。
 
 ### 通信のセキュリティ確保
 
-セキュアなピア通信を持つetcdを構成するためには、
-`--peer-key-file=peer.key`および`--peer-cert-file=peer.cert`
-フラグを指定し、URLスキーマとしてHTTPSを使用します。
+セキュアなピア通信を持つetcdを構成するためには、`--peer-key-file=peer.key`および`--peer-cert-file=peer.cert`フラグを指定し、URLスキーマとしてHTTPSを使用します。
 
-同様に、セキュアなクライアント通信を持つetcdを構成するためには、
-`--key-file=k8sclient.key`および`--cert-file=k8sclient.cert`
-フラグを指定し、URLスキーマとしてHTTPSを使用します。
+同様に、セキュアなクライアント通信を持つetcdを構成するためには、`--key-file=k8sclient.key`および`--cert-file=k8sclient.cert`フラグを指定し、URLスキーマとしてHTTPSを使用します。
 セキュアな通信を使用するクライアントコマンドの例は以下の通りです:
 
 ```
@@ -129,26 +121,19 @@ ETCDCTL_API=3 etcdctl --endpoints 10.2.0.9:2379 \
 
 ### etcdクラスターへのアクセス制限
 
-セキュアな通信を構成した後、
-etcdクラスターへのアクセスをKubernetes APIサーバーのみに制限します。
+セキュアな通信を構成した後、etcdクラスターへのアクセスをKubernetes APIサーバーのみに制限します。
 これを行うためにはTLS認証を使用します。
 
 例えば、CA `etcd.ca`によって信頼されるキーペア`k8sclient.key`と`k8sclient.cert`を考えてみます。
-`--client-cert-auth`とTLSを使用してetcdが構成されている場合、
-etcdは`--trusted-ca-file`フラグで渡されたCAまたはシステムのCAを使用してクライアントからの証明書を検証します。
-`--client-cert-auth=true`および`--trusted-ca-file=etcd.ca`フラグを指定することで、
-証明書`k8sclient.cert`を持つクライアントのみにアクセスを制限します。
+`--client-cert-auth`とTLSを使用してetcdが構成されている場合、etcdは`--trusted-ca-file`フラグで渡されたCAまたはシステムのCAを使用してクライアントからの証明書を検証します。
+`--client-cert-auth=true`および`--trusted-ca-file=etcd.ca`フラグを指定することで、証明書`k8sclient.cert`を持つクライアントのみにアクセスを制限します。
 
-etcdが正しく構成されると、
-有効な証明書を持つクライアントのみがアクセスできます。
-Kubernetes APIサーバーにアクセス権を与えるためには、
-`--etcd-certfile=k8sclient.cert`、
-`--etcd-keyfile=k8sclient.key`および`--etcd-cafile=ca.cert`フラグで構成します。
+etcdが正しく構成されると、有効な証明書を持つクライアントのみがアクセスできます。
+Kubernetes APIサーバーにアクセス権を与えるためには、`--etcd-certfile=k8sclient.cert`、`--etcd-keyfile=k8sclient.key`および`--etcd-cafile=ca.cert`フラグで構成します。
 
 {{< note >}}
 Kubernetesによるetcd認証は現在サポートされていません。
-詳細については関連するIssue
-[Support Basic Auth for Etcd v2](https://github.com/kubernetes/kubernetes/issues/23398)を参照してください。
+詳細については関連するIssue[Support Basic Auth for Etcd v2](https://github.com/kubernetes/kubernetes/issues/23398)を参照してください。
 {{< /note >}}
 
 ## 障害が発生したetcdメンバーの交換
@@ -179,14 +164,11 @@ URLが`member1=http://10.0.0.1`、`member2=http://10.0.0.2`、そして`member3=
 
 1. 以下のいずれかを行います:
 
-   1. 各Kubernetes APIサーバーが全てのetcdメンバーと通信するように構成されている場合、
-    `--etcd-servers` フラグから障害が発生したメンバーを削除し、各Kubernetes APIサーバーを再起動します。
-   1. 各Kubernetes APIサーバーが単一のetcdメンバーと通信している場合、
-    障害が発生したetcdと通信しているKubernetes APIサーバーを停止します。
+   1. 各Kubernetes APIサーバーが全てのetcdメンバーと通信するように構成されている場合、`--etcd-servers` フラグから障害が発生したメンバーを削除し、各Kubernetes APIサーバーを再起動します。
+   1. 各Kubernetes APIサーバーが単一のetcdメンバーと通信している場合、障害が発生したetcdと通信しているKubernetes APIサーバーを停止します。
 
 1. 壊れたノード上のetcdサーバーを停止します。
-   Kubernetes APIサーバー以外のクライアントからetcdにトラフィックが流れている可能性があり、
-   データディレクトリへの書き込みを防ぐためにすべてのトラフィックを停止することが望ましいです。
+   Kubernetes APIサーバー以外のクライアントからetcdにトラフィックが流れている可能性があり、データディレクトリへの書き込みを防ぐためにすべてのトラフィックを停止することが望ましいです。
 
 1. メンバーを削除します:
 
@@ -223,34 +205,26 @@ URLが`member1=http://10.0.0.1`、`member2=http://10.0.0.2`、そして`member3=
 
 1. 以下のいずれかを行います:
 
-   1. 各Kubernetes APIサーバーが全てのetcdメンバーと通信するように構成されている場合、
-    `--etcd-servers`フラグに新たに追加されたメンバーを加え、
-    各Kubernetes APIサーバーを再起動します。
-   1. 各Kubernetes APIサーバーが単一のetcdメンバーと通信している場合、
-    ステップ2で停止したKubernetes APIサーバーを起動します。
-    その後、Kubernetes APIサーバークライアントを再度構成して、
-    停止されたKubernetes APIサーバーへのリクエストをルーティングします。
+   1. 各Kubernetes APIサーバーが全てのetcdメンバーと通信するように構成されている場合、`--etcd-servers`フラグに新たに追加されたメンバーを加え、各Kubernetes APIサーバーを再起動します。
+   1. 各Kubernetes APIサーバーが単一のetcdメンバーと通信している場合、ステップ2で停止したKubernetes APIサーバーを起動します。
+    その後、Kubernetes APIサーバークライアントを再度構成して、停止されたKubernetes APIサーバーへのリクエストをルーティングします。
     これはロードバランサーを構成することで、多くの場合行われます。
 
-クラスターの再構成に関する詳細については、
-[etcd再構成ドキュメント](https://etcd.io/docs/current/op-guide/runtime-configuration/#remove-a-member)を参照してください。
+クラスターの再構成に関する詳細については、[etcd再構成ドキュメント](https://etcd.io/docs/current/op-guide/runtime-configuration/#remove-a-member)を参照してください。
 
 ## etcdクラスターのバックアップ
 
 すべてのKubernetesオブジェクトはetcdに保存されています。
-定期的にetcdクラスターのデータをバックアップすることは、
-すべてのコントロールプレーンノードを失うなどの災害シナリオでKubernetesクラスターを復旧するために重要です。
+定期的にetcdクラスターのデータをバックアップすることは、すべてのコントロールプレーンノードを失うなどの災害シナリオでKubernetesクラスターを復旧するために重要です。
 スナップショットファイルには、すべてのKubernetesの状態と重要な情報が含まれています。
-機密性の高いKubernetesデータを安全に保つために、
-スナップショットファイルを暗号化してください。
+機密性の高いKubernetesデータを安全に保つために、スナップショットファイルを暗号化してください。
 
 etcdクラスターのバックアップは、etcdのビルトインスナップショットとボリュームスナップショットの2つの方法で実現できます。
 
 ### ビルトインスナップショット
 
 etcdはビルトインスナップショットをサポートしています。
-スナップショットは、`etcdctl snapshot save`コマンドを使用してライブメンバーから、
-あるいはetcdプロセスによって現在使用されていない[データディレクトリ](https://etcd.io/docs/current/op-guide/configuration/#--data-dir)から`member/snap/db`ファイルをコピーして取得できます。
+スナップショットは、`etcdctl snapshot save`コマンドを使用してライブメンバーから、あるいはetcdプロセスによって現在使用されていない[データディレクトリ](https://etcd.io/docs/current/op-guide/configuration/#--data-dir)から`member/snap/db`ファイルをコピーして取得できます。
 スナップショットを取得しても、メンバーのパフォーマンスに影響はありません。
 
 以下は、`$ENDPOINT`によって提供されるキースペースのスナップショットを`snapshot.db`ファイルに取る例です:
@@ -275,8 +249,7 @@ ETCDCTL_API=3 etcdctl --write-out=table snapshot status snapshot.db
 
 ### ボリュームスナップショット
 
-etcdがAmazon Elastic Block Storeのようなバックアップをサポートするストレージボリューム上で実行されている場合、
-ストレージボリュームのスナップショットを取ることによってetcdデータをバックアップします。
+etcdがAmazon Elastic Block Storeのようなバックアップをサポートするストレージボリューム上で実行されている場合、ストレージボリュームのスナップショットを取ることによってetcdデータをバックアップします。
 
 ### etcdctlオプションを使用したスナップショット
 
@@ -303,8 +276,7 @@ etcdクラスターのスケールアウトは、パフォーマンスとのト�
 スケーリングはクラスターのパフォーマンスや能力を高めるものではありません。
 一般的なルールとして、etcdクラスターをスケールアウトまたはスケールインすることはありません。
 etcdクラスターに自動スケーリンググループを設定しないでください。
-公式にサポートされるどんなスケールのプロダクション環境のKubernetesクラスターにおいても、
-常に静的な5つのメンバーのetcdクラスターを運用することを強く推奨します。
+公式にサポートされるどんなスケールのプロダクション環境のKubernetesクラスターにおいても、常に静的な5つのメンバーのetcdクラスターを運用することを強く推奨します。
 
 合理的なスケーリングは、より高い信頼性が求められる場合に、3つのメンバーで構成されるクラスターを5つのメンバーにアップグレードすることです。
 既存のクラスターにメンバーを追加する方法については、[etcdの再構成ドキュメント](https://etcd.io/docs/current/op-guide/runtime-configuration/#remove-a-member)を参照してください。
@@ -342,11 +314,9 @@ etcdctl --data-dir <data-dir-location> snapshot restore snapshot.db
 スナップショットファイルからクラスターを復元する方法と例についての詳細は、[etcd災害復旧ドキュメント](https://etcd.io/docs/current/op-guide/recovery/#restoring-a-cluster)を参照してください。
 
 復元されたクラスターのアクセスURLが前のクラスターと異なる場合、Kubernetes APIサーバーをそれに応じて再設定する必要があります。
-この場合、`--etcd-servers=$OLD_ETCD_CLUSTER`のフラグの代わりに、
-`--etcd-servers=$NEW_ETCD_CLUSTER`のフラグでKubernetes APIサーバーを再起動します。
+この場合、`--etcd-servers=$OLD_ETCD_CLUSTER`のフラグの代わりに、`--etcd-servers=$NEW_ETCD_CLUSTER`のフラグでKubernetes APIサーバーを再起動します。
 `$NEW_ETCD_CLUSTER`と`$OLD_ETCD_CLUSTER`をそれぞれのIPアドレスに置き換えてください。
-etcdクラスターの前にロードバランサーを使用している場合、
-ロードバランサーを更新する必要があるかもしれません。
+etcdクラスターの前にロードバランサーを使用している場合、ロードバランサーを更新する必要があるかもしれません。
 
 etcdメンバーの過半数が永続的に失敗した場合、etcdクラスターは失敗と見なされます。
 このシナリオでは、Kubernetesは現在の状態に対して変更を加えることができません。
