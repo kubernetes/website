@@ -1,5 +1,5 @@
----
-title: zsh অটোকমপ্লিসন" 
+--- 
+title: "zsh অটোকমপ্লিসন" 
 description: "zsh অটোকমপ্লিসনের জন্য কিছু ঐচ্ছিক কনফিগারেশন।"
 headless: true
 _build:
