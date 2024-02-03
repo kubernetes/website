@@ -108,7 +108,7 @@ etcdのセキュリティ機能はx509公開鍵基盤(PKI)に依存します。
 etcdとそのクライアント間の通信をセキュアにするために`client.key`と`client.cert`を使用します。
 クライアント認証用のキーペアとCAファイルを生成するための[サンプルスクリプト](https://github.com/coreos/etcd/tree/master/hack/tls-setup)はetcdプロジェクトによって提供されています。
 
-### 通信のセキュリティ強化
+### 通信のセキュリティ確保
 
 セキュアなピア通信を持つetcdを構成するためには、
 `--peer-key-file=peer.key`および`--peer-cert-file=peer.cert`
