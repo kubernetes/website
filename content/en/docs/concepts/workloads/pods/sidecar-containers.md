@@ -69,7 +69,7 @@ and restarted independently of regular containers. This means you can update, sc
 maintain sidecar containers without affecting the primary application.
 
 Sidecar containers share the same network and storage namespaces with the primary
-container This co-location allows them to interact closely and share resources.
+container. This co-location allows them to interact closely and share resources.
 
 ## Differences from init containers
 
