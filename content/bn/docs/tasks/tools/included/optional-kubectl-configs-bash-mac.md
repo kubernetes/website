@@ -1,6 +1,6 @@
 ---
-title: "macOS এ ব্যাশ অটোকমপ্লিট"
-description: "macOS-এ ব্যাশ অটোকমপ্লিট এর জন্য কিছু ঐচ্ছিক কনফিগারেশন।"
+title: "macOS এ ব্যাশ স্বয়ংক্রিয় সমাপ্তি"
+description: "macOS-এ ব্যাশ স্বয়ংক্রিয় সমাপ্তি এর জন্য কিছু ঐচ্ছিক কনফিগারেশন।"
 headless: true
 _build:
   list: never

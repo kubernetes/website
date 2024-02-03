@@ -1,6 +1,6 @@
----
-title: zsh অটোকমপ্লিসন" 
-description: "zsh অটোকমপ্লিসনের জন্য কিছু ঐচ্ছিক কনফিগারেশন।"
+--- 
+title: "zsh স্বয়ংক্রিয় সমাপ্তি" 
+description: "zsh স্বয়ংক্রিয় সমাপ্তি এর জন্য কিছু ঐচ্ছিক কনফিগারেশন।"
 headless: true
 _build:
   list: never
