@@ -57,7 +57,29 @@ There is a [walkthrough tutorial](/docs/tasks/run-application/horizontal-pod-aut
 
 ### Scaling workloads vertically
 
-_tbd_
+You can automatically scale a workload vertically using a _VerticalPodAutoscaler_ (VPA).
+Different to the HPA, the VPA doesn't come with Kubernetes by default, but is a separate project
+that can be found [on GitHub](https://github.com/kubernetes/autoscaler/tree/9f87b78df0f1d6e142234bb32e8acbd71295585a/vertical-pod-autoscaler).
+
+Once installed, it allows you to create {{< glossary_tooltip text="CustomResourceDefinitions" term_id="customresourcedefinition" >}}
+(CRDs) for your workloads which define _how_ and _when_ to scale the resources of the managed replicas.
+
+{{< note >}}
+The current default version of the HPA (**v0.14.0**) requires **Kubernetes version 1.25** or later.
+You will also need to have the [Metrics Server](https://github.com/kubernetes-sigs/metrics-server)
+installed to your cluster.
+{{< /note >}}
+
+At the moment, the VPA operates can operate in four different modes:
+
+{{< table caption="Different modes of the VPA" >}}
+Mode | Description
+:----|:-----------
+`Auto` | Currently `Recreate`, might change to in-place updates in the future
+`Recreate` | The VPA assigns resource requests on pod creation as well as updates them on existing pods by evicting them when the requested resources differ significantly from the new recommendation
+`Initial` | The VPA only assigns resource requests on pod creation and never changes them later.
+`Off` | The VPA does not automatically change the resource requirements of the pods. The recommendations are calculated and can be inspected in the VPA object.
+{{< /table >}}
 
 ### Event driven Autoscaling
 
