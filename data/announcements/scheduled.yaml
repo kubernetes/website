@@ -210,9 +210,12 @@ announcements:
 
 - name: Legacy package repositories shutdown
   startTime: 2023-11-27T00:00:00
-  endTime: 2024-02-01T00:00:00
+  endTime: 2024-03-01T00:00:00
   style: "background: #d95e00"
   title: Changes to the location of Linux packages for Kubernetes
+  dismissParameters:
+    dismissible: true
+    showDismissedAnnouncementAfterDays: 7
   message: |
     The legacy Linux package repositories (`apt.kubernetes.io` and `yum.kubernetes.io` AKA `packages.cloud.google.com`)<br/>
     have been frozen starting from September 13, 2023 **and are going away in January 2024**, users *must* migrate.<br/>

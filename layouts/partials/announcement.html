@@ -25,7 +25,7 @@
         {{ end }}
         <p>{{ .message | markdownify }}</p>
         {{- if eq .dismissParameters.dismissible true -}}
-        <button  id="banner-dismiss" class="button" style="display: none;" data-ttl={{ .dismiss_params.showDismissedAnnouncementAfterDays }}>{{ T "banner_acknowledgement" }}</button> <!-- Only JS enabled users will see this button -->
+        <button  id="banner-dismiss" class="button" style="display: none;" data-ttl={{ .dismissParameters.showDismissedAnnouncementAfterDays }}>{{ T "banner_acknowledgement" }}</button> <!-- Only JS enabled users will see this button -->
         {{- end -}}      
       </div>
     </aside>
