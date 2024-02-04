@@ -20,32 +20,15 @@ There are manual and automatic ways to scale your workloads, depending on your u
 Kubernetes supports _manual scaling_ of workloads, either by changing the number of
 {{< glossary_tooltip text="replicas" term_id="replica">}} defined for an object that manages a set of
 {{< glossary_tooltip text="Pods" term_id="pod" >}} (for example a {{< glossary_tooltip text="Deployment" term_id="deployment" >}}),
-or by adjusting the provided resources of each Replica (for example CPU or memory).
+or by adjusting the resource requests and limits of the replicas managed by the workload
+(for example CPU or memory):
 
-### Manual changes to replica count
-
-You can use the `kubectl scale` command to increase or decrease the number of replicas for a workload:
-
-```shell
-kubectl scale deployment <deployment-name> --replicas=<desired-count>
-```
-
-See also this [example of scaling a Deployment](/docs/concepts/workloads/controllers/deployment/#scaling-a-deployment) in the `Deployment` documentation.
-
-### Resizing workloads in-place
-
-Instead of scaling the number of replicas of a workload, you can also adjust the provided resources
-for a particular pod or set of pods, in-place. You do this by patching the entries in one or both of the following
-fields of the `Pod` or [pod template](/docs/concepts/workloads/pods/#pod-templates) you want to resize:
-
-- `spec.containers[*].resources.requests`
-- `spec.containers[*].resources.limits`
+- [Running multiple instances of your app](/docs/tutorials/kubernetes-basics/scale/scale-intro/)
+- [Resizing CPU and memory resources assigned to containers](/docs/tasks/configure-pod-container/resize-container-resources)
 
 {{< note >}}
 Resizing a workload in-place **without** restarting the Pods or its Containers requires Kubernetes version 1.27 or later.
 {{< /note >}}
-
-See also this task about [resizing CPU and memory resources](/docs/tasks/configure-pod-container/resize-container-resources) assigned to Containers.
 
 ## Scaling workloads automatically
 
