@@ -334,8 +334,8 @@ See a list of add-ons that implement the
 [Kubernetes networking model](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-network-model).
 
 
-Please refer to the Installing Addons page for a non-exhaustive list of networking 
-addons supported by Kubernetes You can install a Pod network add-on with the following 
+Please refer to the [Installing Addons](/docs/concepts/cluster-administration/addons/#networking-and-network-policy) page for a non-exhaustive list of networking 
+addons supported by Kubernetes. You can install a Pod network add-on with the following 
 command on the control-plane node or a node that has the kubeconfig credentials:
 
 ```bash
