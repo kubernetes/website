@@ -18,32 +18,32 @@ There are manual and automatic ways to scale your workloads, depending on your u
 ## Scaling workloads manually
 
 Kubernetes supports _manual scaling_ of workloads, either by changing the number of
-{{< glossary_tooltip text="Replicas" term_id="replica">}} of an object that manages a set of
+{{< glossary_tooltip text="replicas" term_id="replica">}} defined for an object that manages a set of
 {{< glossary_tooltip text="Pods" term_id="pod" >}} (for example a {{< glossary_tooltip text="Deployment" term_id="deployment" >}}),
 or by adjusting the provided resources of each Replica (for example CPU or memory).
 
-### Scaling the number of Replicas of a workload
+### Manual changes to replica count
 
-You can use the `kubectl scale` command to increase or decrease the number of Replicas of a workload:
+You can use the `kubectl scale` command to increase or decrease the number of replicas for a workload:
 
 ```shell
-kubectl scale deployment <deployment-name> --replicas=<desired-replicas>
+kubectl scale deployment <deployment-name> --replicas=<desired-count>
 ```
 
 See also this [example of scaling a Deployment](/docs/concepts/workloads/controllers/deployment/#scaling-a-deployment) in the `Deployment` documentation.
 
 ### Resizing workloads in-place
 
-Instead of scaling the number of Replicas of a workload, you can also adjust the provided resources
-of each Replica, in-place. You do this by patching the entries in one or both of the following
-fields of the `Pod` or [PodTemplate](/docs/concepts/workloads/pods/#pod-templates) you want to resize:
+Instead of scaling the number of replicas of a workload, you can also adjust the provided resources
+for a particular pod or set of pods, in-place. You do this by patching the entries in one or both of the following
+fields of the `Pod` or [pod template](/docs/concepts/workloads/pods/#pod-templates) you want to resize:
 
 - `spec.containers[*].resources.requests`
 - `spec.containers[*].resources.limits`
 
-{{< caution >}}
+{{< note >}}
 Resizing a workload in-place **without** restarting the Pods or its Containers requires Kubernetes version 1.27 or later.
-{{< /caution >}}
+{{< /note >}}
 
 See also this task about [resizing CPU and memory resources](/docs/tasks/configure-pod-container/resize-container-resources) assigned to Containers.
 
@@ -66,10 +66,10 @@ The first option is referred to as _horizontal scaling_, while the second is ref
 In Kubernetes, you can automatically scale a workload horizontally using a _HorizontalPodAutoscaler_ (HPA).
 
 It is implemented as a Kubernetes API resource and a {{< glossary_tooltip text="controller" term_id="controller" >}}
-and periodically adjusts the number of {{< glossary_tooltip text="Replicas" term_id="replica" >}}
+and periodically adjusts the number of {{< glossary_tooltip text="replicas" term_id="replica" >}}
 in a workload to match observed resource utilization such as CPU or memory usage.
 
-There is a [walkthrough example](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough) of configuring a HorizontalPodAutoscaler for a Deployment.
+There is a [walkthrough tutorial](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough) of configuring a HorizontalPodAutoscaler for a Deployment.
 
 ### Scaling workloads vertically
 
