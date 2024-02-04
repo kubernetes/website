@@ -11,38 +11,39 @@ weight: 40
 In Kubernetes, you can _scale_ a workload depending on the current demand of resources.
 This allows your cluster to react to changes in resource demand more elastically and efficiently.
 
+When you scale a workload, you can either increase or decrease the number of replicas managed by
+the workload, or adjust the resources available to the replicas in-place.
+
+The first approach is referred to as _horizontal scaling_, while the second is referred to as
+_vertical scaling_.
+
 There are manual and automatic ways to scale your workloads, depending on your use case.
 
 <!-- body -->
 
 ## Scaling workloads manually
 
-Kubernetes supports _manual scaling_ of workloads, either by changing the number of
-{{< glossary_tooltip text="replicas" term_id="replica">}} defined for an object that manages a set of
-{{< glossary_tooltip text="Pods" term_id="pod" >}} (for example a {{< glossary_tooltip text="Deployment" term_id="deployment" >}}),
-or by adjusting the resource requests and limits of the replicas managed by the workload
-(for example CPU or memory):
+Kubernetes supports _manual scaling_ of workloads. Horizontal scaling can be done
+using the `kubectl` CLI.
+For vertical scaling, you need to _patch_ the resource definition of your workload.
 
-- [Running multiple instances of your app](/docs/tutorials/kubernetes-basics/scale/scale-intro/)
-- [Resizing CPU and memory resources assigned to containers](/docs/tasks/configure-pod-container/resize-container-resources)
+See below for examples of both strategies.
+
+- **Horizontal scaling**: [Running multiple instances of your app](/docs/tutorials/kubernetes-basics/scale/scale-intro/)
+- **Vertical scaling**: [Resizing CPU and memory resources assigned to containers](/docs/tasks/configure-pod-container/resize-container-resources)
 
 {{< note >}}
-Resizing a workload in-place **without** restarting the Pods or its Containers requires Kubernetes version 1.27 or later.
+Resizing a workload in-place **without** restarting the {{< glossary_tooltip text="Pods" term_id="pod" >}}
+or its {{< glossary_tooltip text="Containers" term_id="container" >}} requires Kubernetes version 1.27 or later.
 {{< /note >}}
 
 ## Scaling workloads automatically
 
 Kubernetes also supports _automatic scaling_ of workloads, which is the focus of this page.
 
-The concept of _Autoscaling_ in Kubernetes refers to the ability to automatically update the workloads of your cluster. This can be either an object that manages a set of Pods (for example a
-{{< glossary_tooltip text="Deployment" term_id="deployment" >}} or Pods or PodTemplates themselves.
-
-Depending on _what_ is being scaled, there are also different options for _how_ to scale:
-
-- scale the number of available instances (such as Replicas in a Deployment)
-- scale the available resources on existing instances themselves (such as CPU or memory of a {{< glossary_tooltip text="Container" term_id="container" >}} in a Pod)
-
-The first option is referred to as _horizontal scaling_, while the second is referred to as _vertical scaling_.
+The concept of _Autoscaling_ in Kubernetes refers to the ability to automatically update an
+object that manages a set of Pods (for example a
+{{< glossary_tooltip text="Deployment" term_id="deployment" >}}.
 
 ### Scaling workloads horizontally
 
