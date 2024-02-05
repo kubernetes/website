@@ -1,5 +1,5 @@
 ---
-title: एग्रीगेशन लेयर
+title: Aggregation Layer
 id: aggregation-layer
 date: 2018-10-08
 full_link: /docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/

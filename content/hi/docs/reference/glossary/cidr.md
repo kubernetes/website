@@ -1,5 +1,5 @@
 ---
-title: सीआईडीआर (CIDR)
+title: CIDR
 id: cidr
 date: 2019-11-12
 full_link:

@@ -1,5 +1,5 @@
 ---
-title: ऍप्लिकेशन्स (Applications)
+title: Applications
 id: applications
 date: 2019-01-11
 full_link: 

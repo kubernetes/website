@@ -1,5 +1,5 @@
 ---
-title: एप्लिकेशन डेवलपर (Application Developer)
+title: Application Developer
 id: application-developer
 date: 2018-04-12
 full_link:
