@@ -118,7 +118,7 @@ Azure File CSI driver does not support using same volume with different fsgroups
 To disable the `azureFile` storage plugin from being loaded by the controller manager
 and the kubelet, set the `InTreePluginAzureFileUnregister` flag to `true`.
 
-### cephfs
+### cephfs (deprecated)
 {{< feature-state for_k8s_version="v1.28" state="deprecated" >}}
 
 {{< note >}}
