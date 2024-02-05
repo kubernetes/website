@@ -376,9 +376,9 @@ spec:
     image: images.my-company.example/app:v4
     resources:
       requests:
-        ephemeral-storage: "2Gi"
+        ephemeral-storage: "2Mi"
       limits:
-        ephemeral-storage: "4Gi"
+        ephemeral-storage: "4Mi"
     volumeMounts:
     - name: ephemeral
       mountPath: "/tmp"
@@ -386,9 +386,9 @@ spec:
     image: images.my-company.example/log-aggregator:v6
     resources:
       requests:
-        ephemeral-storage: "2Gi"
+        ephemeral-storage: "2Mi"
       limits:
-        ephemeral-storage: "4Gi"
+        ephemeral-storage: "4Mi"
     volumeMounts:
     - name: ephemeral
       mountPath: "/tmp"
