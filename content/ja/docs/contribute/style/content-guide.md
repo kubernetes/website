@@ -19,7 +19,7 @@ Kubernetesドキュメントの新しいコンテンツの作成に関する情�
 
 ## 概要
 
-ドキュメントを含むKubernetesのウェブサイトのソースは、[kubernetes/website](https://github.com/kubernetes/website)リポジトリに置かれています。
+ドキュメントを含むKubernetesのウェブサイトのソースは、[kubernetes/website](https://github.com/kubernetes/website)リポジトリーに置かれています。
 
 Kubernetesの主要なドキュメントは`kubernetes/website/content/<language_code>/docs`フォルダに置かれており、これらは[Kubernetesプロジェクト](https://github.com/kubernetes/kubernetes)を対象としています。
 

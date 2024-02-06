@@ -36,7 +36,7 @@ Kubernetesドキュメントコントリビューターは
 
 ## はじめに
 
-どなたでも、問題を説明するissueや、ドキュメントの改善を求めるissueを作成し、[`kubernetes/website` GitHub リポジトリ](https://github.com/kubernetes/website)に対するプルリクエスト(PR)を用いて変更に貢献することができます。
+どなたでも、問題を説明するissueや、ドキュメントの改善を求めるissueを作成し、[`kubernetes/website` GitHub リポジトリー](https://github.com/kubernetes/website)に対するプルリクエスト(PR)を用いて変更に貢献することができます。
 Kubernetesコミュニティで効果的に働くためには、[git](https://git-scm.com/)と[GitHub](https://skills.github.com/)を基本的に使いこなせる必要があります。
 
 ドキュメンテーションに関わるには:
@@ -62,7 +62,7 @@ end
 subgraph second[レビュー]
 direction TB
    T[ ] -.-
-   D[kubernetes/website <br>リポジトリを確認する] --- E[静的サイトジェネレータ <br>Hugoを確認する]
+   D[kubernetes/website <br>リポジトリーを確認する] --- E[静的サイトジェネレータ <br>Hugoを確認する]
    E --- F[基本的なGitHubの <br>コマンドを理解する]
    F --- G[オープンした <br>プルリクエストを確認し <br>レビュープロセスを見直す]
 end
@@ -143,7 +143,7 @@ class first,second white
 
 ## 次のステップ
 
-- リポジトリの[ローカルクローンでの作業](/docs/contribute/new-content/open-a-pr/#fork-the-repo)について学んでください。
+- リポジトリーの[ローカルクローンでの作業](/docs/contribute/new-content/open-a-pr/#fork-the-repo)について学んでください。
 - [リリース機能](/docs/contribute/new-content/new-features/)について記載してください。
 - [SIG Docs](/ja/docs/contribute/participate/)に参加し、[memberやreviewer](/docs/contribute/participate/roles-and-responsibilities/)になってください。
 - [国際化](/ja/docs/contribute/localization/)を始めたり、支援したりしてください。

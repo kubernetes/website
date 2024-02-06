@@ -10,7 +10,7 @@ weight: 110
 
 クラウドプロバイダーはKubernetesプロジェクトとは異なるペースで開発およびリリースされるため、プロバイダー固有のコードを{{< glossary_tooltip text="`cloud-controller-manager`" term_id="cloud-controller-manager" >}}バイナリに抽象化することでクラウドベンダーはKubernetesのコアのコードとは独立して開発が可能となりました。
 
-`cloud-controller-manager`は、[cloudprovider.Interface](https://github.com/kubernetes/cloud-provider/blob/master/cloud.go)を満たす任意のクラウドプロバイダーと接続できます。下位互換性のためにKubernetesのコアプロジェクトで提供される[cloud-controller-manager](https://github.com/kubernetes/kubernetes/tree/master/cmd/cloud-controller-manager)は`kube-controller-manager`と同じクラウドライブラリを使用します。Kubernetesのコアリポジトリですでにサポートされているクラウドプロバイダーは、Kubernetesリポジトリにあるcloud-controller-managerを使用してKubernetesのコアから移行することが期待されています。
+`cloud-controller-manager`は、[cloudprovider.Interface](https://github.com/kubernetes/cloud-provider/blob/master/cloud.go)を満たす任意のクラウドプロバイダーと接続できます。下位互換性のためにKubernetesのコアプロジェクトで提供される[cloud-controller-manager](https://github.com/kubernetes/kubernetes/tree/master/cmd/cloud-controller-manager)は`kube-controller-manager`と同じクラウドライブラリを使用します。Kubernetesのコアリポジトリーですでにサポートされているクラウドプロバイダーは、Kubernetesリポジトリーにあるcloud-controller-managerを使用してKubernetesのコアから移行することが期待されています。
 
 
 
@@ -44,16 +44,16 @@ cloud-controller-managerを正常に実行するにはクラスター構成に�
 * ノードコントローラー - クラウドAPIを使用してkubernetesノードを更新し、クラウドで削除されたkubernetesノードを削除します。
 * サービスコントローラー - タイプLoadBalancerのサービスに対応してクラウド上のロードバランサーを操作します。
 * ルートコントローラー - クラウド上でネットワークルートを設定します。
-* Kubernetesリポジトリの外部にあるプロバイダーを実行している場合はその他の機能の実装。
+* Kubernetesリポジトリーの外部にあるプロバイダーを実行している場合はその他の機能の実装。
 
 
 ## 例
 
 現在Kubernetesのコアでサポートされているクラウドを使用していて、クラウドコントローラーマネージャーを利用する場合は、[kubernetesのコアのクラウドコントローラーマネージャー](https://github.com/kubernetes/kubernetes/tree/master/cmd/cloud-controller-manager)を参照してください。
 
-Kubernetesのコアリポジトリにないクラウドコントローラーマネージャーの場合、クラウドベンダーまたはsigリードが管理するリポジトリでプロジェクトを見つけることができます。
+Kubernetesのコアリポジトリーにないクラウドコントローラーマネージャーの場合、クラウドベンダーまたはsigリードが管理するリポジトリーでプロジェクトを見つけることができます。
 
-すでにKubernetesのコアリポジトリにあるプロバイダーの場合、クラスター内でデーモンセットとしてKubernetesリポジトリ内部のクラウドコントローラーマネージャーを実行できます。以下をガイドラインとして使用してください。
+すでにKubernetesのコアリポジトリーにあるプロバイダーの場合、クラスター内でデーモンセットとしてKubernetesリポジトリー内部のクラウドコントローラーマネージャーを実行できます。以下をガイドラインとして使用してください。
 
 {{% codenew file="admin/cloud/ccm-example.yaml" %}}
 
@@ -64,7 +64,7 @@ Kubernetesのコアリポジトリにないクラウドコントローラーマ�
 
 ### ボリュームのサポート
 
-ボリュームの統合にはkubeletとの調整も必要になるためクラウドコントローラーマネージャーは`kube-controller-manager`にあるボリュームコントローラーを実装しません。CSI(コンテナストレージインターフェイス)が進化してFlexボリュームプラグインの強力なサポートが追加されるにつれ、クラウドがボリュームと完全に統合できるようクラウドコントローラーマネージャーに必要なサポートが追加されます。Kubernetesリポジトリの外部にあるCSIボリュームプラグインの詳細については[こちら](https://github.com/kubernetes/features/issues/178)をご覧ください。
+ボリュームの統合にはkubeletとの調整も必要になるためクラウドコントローラーマネージャーは`kube-controller-manager`にあるボリュームコントローラーを実装しません。CSI(コンテナストレージインターフェイス)が進化してFlexボリュームプラグインの強力なサポートが追加されるにつれ、クラウドがボリュームと完全に統合できるようクラウドコントローラーマネージャーに必要なサポートが追加されます。Kubernetesリポジトリーの外部にあるCSIボリュームプラグインの詳細については[こちら](https://github.com/kubernetes/features/issues/178)をご覧ください。
 
 ### スケーラビリティ
 

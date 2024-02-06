@@ -59,7 +59,7 @@ volumeBindingMode: Immediate
 | PortworxVolume       | &#x2713;            | [Portworx Volume](#portworx-volume)  |
 | Local                | -                   | [Local](#local)                      |
 
-ここにリストされている「内部」プロビジョナー(名前には「kubernetes.io」というプレフィックスが付いており、Kubernetesと共に出荷されます)を指定することに制限はありません。Kubernetesによって定義された[仕様](https://git.k8s.io/design-proposals-archive/storage/volume-provisioning.md)に従う独立したプログラムである外部プロビジョナーを実行して指定することもできます。外部プロビジョナーの作成者は、コードの保存場所、プロビジョナーの出荷方法、実行方法、使用するボリュームプラグイン(Flexを含む)などについて完全な裁量権を持っています。リポジトリ[kubernetes-sigs/sig-storage-lib-external-provisioner](https://github.com/kubernetes-sigs/sig-storage-lib-external-provisioner)には、仕様の大部分を実装する外部プロビジョナーを作成するためのライブラリが含まれています。一部の外部プロビジョナーは、リポジトリ[kubernetes-sigs/sig-storage-lib-external-provisioner](https://github.com/kubernetes-sigs/sig-storage-lib-external-provisioner)の下にリストされています。
+ここにリストされている「内部」プロビジョナー(名前には「kubernetes.io」というプレフィックスが付いており、Kubernetesと共に出荷されます)を指定することに制限はありません。Kubernetesによって定義された[仕様](https://git.k8s.io/design-proposals-archive/storage/volume-provisioning.md)に従う独立したプログラムである外部プロビジョナーを実行して指定することもできます。外部プロビジョナーの作成者は、コードの保存場所、プロビジョナーの出荷方法、実行方法、使用するボリュームプラグイン(Flexを含む)などについて完全な裁量権を持っています。リポジトリー[kubernetes-sigs/sig-storage-lib-external-provisioner](https://github.com/kubernetes-sigs/sig-storage-lib-external-provisioner)には、仕様の大部分を実装する外部プロビジョナーを作成するためのライブラリが含まれています。一部の外部プロビジョナーは、リポジトリー[kubernetes-sigs/sig-storage-lib-external-provisioner](https://github.com/kubernetes-sigs/sig-storage-lib-external-provisioner)の下にリストされています。
 
 たとえば、NFSは内部プロビジョナーを提供しませんが、外部プロビジョナーを使用できます。サードパーティのストレージベンダーが独自の外部プロビジョナーを提供する場合もあります。
 
@@ -341,7 +341,7 @@ vSphereストレージクラスのプロビジョナーには2つのタイプが
 
 #### CSIプロビジョナー {#vsphere-provisioner-csi}
 
-vSphere CSI StorageClassプロビジョナーは、Tanzu Kubernetesクラスターと連携します。例については、[vSphere CSIリポジトリ](https://github.com/kubernetes-sigs/vsphere-csi-driver/blob/master/example/vanilla-k8s-RWM-filesystem-volumes/example-sc.yaml)を参照してください。
+vSphere CSI StorageClassプロビジョナーは、Tanzu Kubernetesクラスターと連携します。例については、[vSphere CSIリポジトリー](https://github.com/kubernetes-sigs/vsphere-csi-driver/blob/master/example/vanilla-k8s-RWM-filesystem-volumes/example-sc.yaml)を参照してください。
 
 #### vCPプロビジョナー {#vcp-provisioner}
 

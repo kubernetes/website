@@ -127,7 +127,7 @@ journalctl -u docker
 
 `kubeadm init`の直後には、これらの状態ではPodは存在しないはずです。
 
-- `kubeadm init`の _直後_ にこれらの状態のいずれかにPodがある場合は、kubeadmのリポジトリにIssueを立ててください。ネットワークソリューションをデプロイするまでは`coredns`(または`kube-dns`)は`Pending`状態でなければなりません。
+- `kubeadm init`の _直後_ にこれらの状態のいずれかにPodがある場合は、kubeadmのリポジトリーにIssueを立ててください。ネットワークソリューションをデプロイするまでは`coredns`(または`kube-dns`)は`Pending`状態でなければなりません。
 - ネットワークソリューションをデプロイしても`coredns`(または`kube-dns`)に何も起こらない場合にRunContainerError`、`CrashLoopBackOff`、`Error`の状態でPodが表示された場合は、インストールしたPodネットワークソリューションが壊れている可能性が高いです。より多くのRBACの特権を付与するか、新しいバージョンを使用する必要があるかもしれません。PodネットワークプロバイダのイシュートラッカーにIssueを出して、そこで問題をトリアージしてください。
 - 1.12.1よりも古いバージョンのDockerをインストールした場合は、`systemd`で`dockerd`を起動する際に`MountFlags=slave`オプションを削除して`docker`を再起動してください。マウントフラグは`/usr/lib/systemd/system/docker.service`で確認できます。MountFlagsはKubernetesがマウントしたボリュームに干渉し、Podsを`CrashLoopBackOff`状態にすることがあります。このエラーは、Kubernetesが`var/run/secrets/kubernetes.io/serviceaccount`ファイルを見つけられない場合に発生します。
 

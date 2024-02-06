@@ -12,7 +12,7 @@ weight: 30
 `crictl`はCRI互換のコンテナランタイム用のコマンドラインインターフェイスです。
 
 これを使って、Kubernetesノード上のコンテナランタイムやアプリケーションの検査やデバッグを行うことができます。
-`crictl`とそのソースコードは[cri-tools](https://github.com/kubernetes-sigs/cri-tools)リポジトリにホストされています。
+`crictl`とそのソースコードは[cri-tools](https://github.com/kubernetes-sigs/cri-tools)リポジトリーにホストされています。
 
 ## {{% heading "prerequisites" %}}
 
@@ -126,7 +126,7 @@ k8s-gcrio.azureedge.net/pause-amd64       3.1                 da86e6ba6ca19     
 nginx                                     latest              cd5239a0906a6       109MB
 ```
 
-イメージをリポジトリでリストアップします:
+イメージをリポジトリーでリストアップします:
 
 ```shell
 crictl images nginx
@@ -385,7 +385,7 @@ docker cli | crictl | 説明 | サポートされていない機能
 -- | -- | -- | --
 `create` | `create` | 新しいコンテナを作成します |  
 `kill` | `stop` (timeout = 0) | 1つ以上の実行中のコンテナを停止します | `--signal`
-`pull` | `pull` | レジストリーからイメージやリポジトリをプルします | `--all-tags`, `--disable-content-trust`
+`pull` | `pull` | レジストリーからイメージやリポジトリーをプルします | `--all-tags`, `--disable-content-trust`
 `rm` | `rm` | 1つまたは複数のコンテナを削除します |  
 `rmi` | `rmi` | 1つまたは複数のイメージを削除します |  
 `run` | `run` | 新しいコンテナでコマンドを実行 |  

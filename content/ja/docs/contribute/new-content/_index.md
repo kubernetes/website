@@ -87,4 +87,4 @@ pull requestはPRごとに1つの言語に限定してください。複数の�
 
 ## コントリビューターのためのツール
 
-`kubernetes/website`リポジトリ内の[doc contributors tools](https://github.com/kubernetes/website/tree/master/content/en/docs/doc-contributor-tools)ディレクトリには、コントリビューターとしての旅を楽にしてくれるツールがあります。
+`kubernetes/website`リポジトリー内の[doc contributors tools](https://github.com/kubernetes/website/tree/master/content/en/docs/doc-contributor-tools)ディレクトリには、コントリビューターとしての旅を楽にしてくれるツールがあります。

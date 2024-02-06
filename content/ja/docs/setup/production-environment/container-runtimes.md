@@ -263,7 +263,7 @@ pause_image="registry.k8s.io/pause:3.6"
 
 1. 各ノードに、使用しているLinuxディストリビューション用のDockerを[Docker Engineのインストール](https://docs.docker.com/engine/install/#server)に従ってインストールします。
 
-2. [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd)をリポジトリ内の指示に従ってインストールします。
+2. [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd)をリポジトリー内の指示に従ってインストールします。
 
 `cri-dockerd`の場合、CRIソケットはデフォルトで`/run/cri-dockerd.sock`になります。
 

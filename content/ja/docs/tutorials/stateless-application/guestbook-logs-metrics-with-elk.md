@@ -88,7 +88,7 @@ NAME                                 READY   STATUS    RESTARTS   AGE
 kube-state-metrics-89d656bf8-vdthm   1/1     Running     0          21s
 ```
 
-## GitHubリポジトリのElasticの例をクローンする
+## GitHubリポジトリーのElasticの例をクローンする
 
 ```shell
 git clone https://github.com/elastic/examples.git

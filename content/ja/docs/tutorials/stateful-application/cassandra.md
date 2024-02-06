@@ -248,7 +248,7 @@ StatefulSetに関連するすべてのリソースを自動的に破棄するよ
 
 このチュートリアルのPodでは、Googleの[コンテナレジストリ](https://cloud.google.com/container-registry/docs/)の[`gcr.io/google-samples/cassandra:v13`](https://github.com/kubernetes/examples/blob/master/cassandra/image/Dockerfile)イメージを使用しました。このDockerイメージは[debian-base](https://github.com/kubernetes/release/tree/master/images/build/debian-base)をベースにしており、OpenJDK 8が含まれています。
 
-このイメージには、Apache Debianリポジトリの標準のCassandraインストールが含まれます。
+このイメージには、Apache Debianリポジトリーの標準のCassandraインストールが含まれます。
 環境変数を利用すると、`cassandra.yaml`に挿入された値を変更できます。
 
 | 環境変数                  | デフォルト値      |

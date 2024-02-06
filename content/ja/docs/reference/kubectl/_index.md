@@ -124,7 +124,7 @@ kubectl config set-context --current --namespace=<namespace-name>
 `explain`    | `kubectl explain  [--recursive=false] [flags]` | 様々なリソースのドキュメントを取得します。例えば、Pod、Node、Serviceなどです。
 `expose`        | <code>kubectl expose (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [--port=port] [--protocol=TCP&#124;UDP] [--target-port=number-or-name] [--name=name] [--external-ip=external-ip-of-service] [--type=type] [flags]</code> | ReplicationController、Service、Podを、新しいKubernetesサービスとして公開します。
 `get`        | <code>kubectl get (-f FILENAME &#124; TYPE [NAME &#124; /NAME &#124; -l label]) [--watch] [--sort-by=FIELD] [[-o &#124; --output]=OUTPUT_FORMAT] [flags]</code> | 1つ以上のリソースを表示します。
-`kustomize`    | `kubectl kustomize <dir> [flags] [options]` | kustomization.yamlファイル内の指示から生成されたAPIリソースのセットを一覧表示します。引数はファイルを含むディレクトリのPath，またはリポジトリルートに対して同じ場所を示すパスサフィックス付きのgitリポジトリのURLを指定しなければなりません。
+`kustomize`    | `kubectl kustomize <dir> [flags] [options]` | kustomization.yamlファイル内の指示から生成されたAPIリソースのセットを一覧表示します。引数はファイルを含むディレクトリのPath，またはリポジトリールートに対して同じ場所を示すパスサフィックス付きのgitリポジトリーのURLを指定しなければなりません。
 `label`        | <code>kubectl label (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--overwrite] [--all] [--resource-version=version] [flags]</code> | 1つ以上のリソースのラベルを、追加または更新します。
 `logs`        | `kubectl logs POD [-c CONTAINER] [--follow] [flags]` | Pod内のコンテナのログを表示します。
 `options`    | `kubectl options` | すべてのコマンドに適用されるグローバルコマンドラインオプションを一覧表示します。
