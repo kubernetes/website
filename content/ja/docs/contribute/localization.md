@@ -76,6 +76,7 @@ Aggregation Layer | アグリゲーションレイヤー
 architecture | アーキテクチャ
 binary | バイナリ
 cluster|クラスター
+computer | コンピューター
 community | コミュニティ
 container | コンテナ
 controller | コントローラー
@@ -83,14 +84,18 @@ Deployment/Deploy|KubernetesリソースとしてのDeploymentはママ表記、
 directory | ディレクトリ
 For more information|さらなる情報(一時的)
 GitHub | GitHub (ママ表記)
+interface | インターフェース
 Issue | Issue (ママ表記)
+memory | メモリー
 operator | オペレーター
 orchestrate(動詞)|オーケストレーションする
 Persistent Volume|KubernetesリソースとしてのPersistentVolumeはママ表記、一般的な用語としての場合は、永続ボリューム
 prefix | プレフィックス
+proxy | プロキシ
 Pull Request | Pull Request (ママ表記)
 Quota|クォータ
 registry | レジストリ
+repository | リポジトリー
 secure | セキュア
 a set of ~ | ～の集合
 stacked | 積層(例: stacked etcd clusterは積層etcdクラスター)
