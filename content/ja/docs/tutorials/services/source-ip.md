@@ -219,7 +219,7 @@ graph LR;
   class client plain;
 {{</ mermaid >}}
 
-クライアントのIPが失われることを回避するために、Kubernetesには[クライアントの送信元IPを保持する](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)機能があります。`service.spec.externalTrafficPolicy`の値を`Local`に設定すると、kube-proxyはローカルに存在するエンドポイントへのプロキシーリクエストだけをプロキシーし、他のノードへはトラフィックを転送しなくなります。このアプローチでは、オリジナルの送信元IPアドレスが保持されます。ローカルにエンドポイントが存在しない場合には、そのノードに送信されたパケットは損失します。そのため、エンドポイントに到達するパケットに適用する可能性のあるパケット処理ルールでは、送信元IPが正しいことを信頼できます。
+クライアントのIPが失われることを回避するために、Kubernetesには[クライアントの送信元IPを保持する](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)機能があります。`service.spec.externalTrafficPolicy`の値を`Local`に設定すると、kube-proxyはローカルに存在するエンドポイントへのプロキシリクエストだけをプロキシし、他のノードへはトラフィックを転送しなくなります。このアプローチでは、オリジナルの送信元IPアドレスが保持されます。ローカルにエンドポイントが存在しない場合には、そのノードに送信されたパケットは損失します。そのため、エンドポイントに到達するパケットに適用する可能性のあるパケット処理ルールでは、送信元IPが正しいことを信頼できます。
 
 次のようにして`service.spec.externalTrafficPolicy`フィールドを設定します。
 
@@ -389,9 +389,9 @@ client_address=198.51.100.79
 
 `Type=LoadBalancer`を使用したServiceで送信元IPを保持する機能を提供しているのは一部のクラウドプロバイダだけです。実行しているクラウドプロバイダによっては、以下のように異なる方法でリクエストを満たす場合があります。
 
-1. クライアントとのコネクションをプロキシーが終端し、ノードやエンドポイントとの接続には新しいコネクションが開かれる。このような場合、送信元IPは常にクラウドのロードバランサーのものになり、クライアントのIPにはなりません。
+1. クライアントとのコネクションをプロキシが終端し、ノードやエンドポイントとの接続には新しいコネクションが開かれる。このような場合、送信元IPは常にクラウドのロードバランサーのものになり、クライアントのIPにはなりません。
 
-2. クライアントからロードバランサーのVIPに送信されたリクエストが、中間のプロキシーではなく、クライアントの送信元IPとともにノードまで到達するようなパケット転送が使用される。
+2. クライアントからロードバランサーのVIPに送信されたリクエストが、中間のプロキシではなく、クライアントの送信元IPとともにノードまで到達するようなパケット転送が使用される。
 
 1つめのカテゴリーのロードバランサーの場合、真のクライアントIPと通信するために、 HTTPの[Forwarded](https://tools.ietf.org/html/rfc7239#section-5.2)ヘッダーや[X-FORWARDED-FOR](https://ja.wikipedia.org/wiki/X-Forwarded-For)ヘッダー、[proxy protocol](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)などの、ロードバランサーとバックエンドの間で合意されたプロトコルを使用する必要があります。2つ目のカテゴリーのロードバランサーの場合、Serviceの`service.spec.healthCheckNodePort`フィールドに保存されたポートを指すHTTPのヘルスチェックを作成することで、上記の機能を活用できます。
 

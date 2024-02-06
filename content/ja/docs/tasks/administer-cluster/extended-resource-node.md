@@ -43,7 +43,7 @@ Host: k8s-master:8080
 
 Kubernetesは、ドングルとは何かも、ドングルが何に利用できるのかを知る必要もないことに注意してください。上のPATCHリクエストは、ただNodeが4つのドングルと呼ばれるものを持っているとKubernetesに教えているだけです。
 
-Kubernetes APIサーバーに簡単にリクエストを送れるように、プロキシーを実行します。
+Kubernetes APIサーバーに簡単にリクエストを送れるように、プロキシを実行します。
 
 ```shell
 kubectl proxy
@@ -132,7 +132,7 @@ Host: k8s-master:8080
 ]
 ```
 
-Kubernetes APIサーバーに簡単にリクエストを送れるように、プロキシーを実行します。
+Kubernetes APIサーバーに簡単にリクエストを送れるように、プロキシを実行します。
 
 ```shell
 kubectl proxy
