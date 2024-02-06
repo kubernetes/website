@@ -60,7 +60,7 @@ kubectl get pods -l run=my-nginx -o yaml | grep podIP
 コンテナはノードでポート80を使用**していない**ことに注意してください。
 また、Podにトラフィックをルーティングする特別なNATルールもありません。
 つまり、同じcontainerPortを使用して同じノードで複数のnginx Podを実行し、IPを使用してクラスター内の他のPodやノードからそれらにアクセスできます。
-Dockerと同様に、ポートは引き続きホストノードのインターフェイスに公開できますが、ネットワークモデルにより、この必要性は根本的に減少します。
+Dockerと同様に、ポートは引き続きホストノードのインターフェースに公開できますが、ネットワークモデルにより、この必要性は根本的に減少します。
 
 興味があれば、これを[どのように達成するか](/ja/docs/concepts/cluster-administration/networking/#how-to-achieve-this)について詳しく読むことができます。
 
