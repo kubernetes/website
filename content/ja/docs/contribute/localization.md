@@ -112,6 +112,10 @@ ServiceやDeploymentなどのKubernetesのAPIオブジェクトや技術仕様�
 - Node
 - Pod
 
+ただし、ノード(Node)に関しては明確にKubernetesとしてのNodeリソース(例: `kind: Node`や`kubectl get nodes`)を指していないのであれば、「ノード」と訳してください。
+
+参考: https://kubernetes.slack.com/archives/CAG2M83S8/p1565142891078200 辺りのやりとり
+
 外部サイトへの参照の記事タイトルは翻訳しましょう。(一時的)
 
 ### 頻出表記（日本語）
