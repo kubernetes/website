@@ -11,7 +11,7 @@ content_type: task
 ## {{% heading "prerequisites" %}}
 
 
-* プロバイダーがデュアルスタックのネットワークをサポートしていること (クラウドプロバイダーか、ルーティングできるIPv4/IPv6ネットワークインターフェイスを持つKubernetesノードが提供できること)
+* プロバイダーがデュアルスタックのネットワークをサポートしていること (クラウドプロバイダーか、ルーティングできるIPv4/IPv6ネットワークインターフェースを持つKubernetesノードが提供できること)
 * (KubenetやCalicoなど)デュアルスタックをサポートする[ネットワークプラグイン](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
 * [デュアルスタックを有効化](/ja/docs/concepts/services-networking/dual-stack/)したクラスター
 
@@ -37,7 +37,7 @@ kubectl get nodes k8s-linuxpool1-34450317-0 -o go-template --template='{{range .
 
 IPv4ブロックとIPv6ブロックがそれぞれ1つずつ割り当てられているはずです。
 
-ノードが検出されたIPv4とIPv6のインターフェイスを持っていることを検証します。ノード名は自分のクラスター内の有効なノード名に置換してください。この例では、ノード名は`k8s-linuxpool1-34450317-0`になっています。
+ノードが検出されたIPv4とIPv6のインターフェースを持っていることを検証します。ノード名は自分のクラスター内の有効なノード名に置換してください。この例では、ノード名は`k8s-linuxpool1-34450317-0`になっています。
 
 ```shell
 kubectl get nodes k8s-linuxpool1-34450317-0 -o go-template --template='{{range .status.addresses}}{{printf "%s: %s\n" .type .address}}{{end}}'

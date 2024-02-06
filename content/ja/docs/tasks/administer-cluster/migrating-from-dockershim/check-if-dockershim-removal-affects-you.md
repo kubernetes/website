@@ -33,7 +33,7 @@ Kubernetesの組み込みコンポーネントである`dockershim`はリリー�
 
 [コンテナランタイム](/ja/docs/concepts/containers/#container-runtimes)とは、Kubernetes Podを構成するコンテナを実行できるソフトウェアです。
 
-KubernetesはPodのオーケストレーションとスケジューリングを担当し、各ノードでは{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}がコンテナランタイムインターフェイスを抽象化して使用するので、互換性があればどのコンテナランタイムでも使用することができます。
+KubernetesはPodのオーケストレーションとスケジューリングを担当し、各ノードでは{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}がコンテナランタイムインターフェースを抽象化して使用するので、互換性があればどのコンテナランタイムでも使用することができます。
 初期のリリースでは、Kubernetesは1つのコンテナランタイムと互換性を提供していました: Dockerです。
 その後、Kubernetesプロジェクトの歴史の中で、クラスター運用者は追加のコンテナランタイムを採用することを希望しました。
 CRIはこのような柔軟性を可能にするために設計され、kubeletはCRIのサポートを開始しました。

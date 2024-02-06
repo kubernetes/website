@@ -93,7 +93,7 @@ cgroupとインターフェースするために、kubeletおよびコンテナ�
 ### cgroupfsドライバー {#cgroupfs-cgroup-driver}
 
 `cgroupfs`ドライバーは、kubeletのデフォルトのcgroupドライバーです。
-`cgroupfs`ドライバーを使用すると、kubeletとコンテナランタイムはcgroupファイルシステムと直接インターフェイスし、cgroupを設定します。
+`cgroupfs`ドライバーを使用すると、kubeletとコンテナランタイムはcgroupファイルシステムと直接インターフェースし、cgroupを設定します。
 
 [systemd](https://www.freedesktop.org/wiki/Software/systemd/)がinitシステムである場合、`cgroupfs`ドライバーは推奨**されません**。
 なぜなら、systemdはシステム上のcgroupマネージャーが単一であると想定しているからです。
