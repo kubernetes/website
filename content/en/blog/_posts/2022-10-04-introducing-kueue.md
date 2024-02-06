@@ -71,7 +71,7 @@ Kueue defines new APIs to address the requirements mentioned at the beginning of
 - LocalQueue: a namespaced API for grouping and managing single tenant jobs. In its simplest form, a LocalQueue is a pointer to the ClusterQueue 
   that the tenant (modeled as a namespace) can use to start their jobs.
 
-For more details, take a look at the [API concepts documentation](https://sigs.k8s.io/kueue/docs/concepts). While the three APIs may look overwhelming, 
+For more details, take a look at the [API concepts documentation](https://kueue.sigs.k8s.io/docs/concepts/). While the three APIs may look overwhelming, 
 most of Kueue’s operations are centered around ClusterQueue; the ResourceFlavor and LocalQueue APIs are mainly organizational wrappers.
 
 ### Example use case
