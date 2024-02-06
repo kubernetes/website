@@ -70,7 +70,7 @@ make sure your `reference-docs` fork is up-to-date with the `kubernetes-sigs/ref
 remote on Github (`main` branch), and clone your `reference-docs` fork.
 
 ```shell
-cd $GOPATH/src
+cd $GOPATH/src/k8s.io
 git clone git@github.com:<your_github_username>/reference-docs.git
 ```
 
