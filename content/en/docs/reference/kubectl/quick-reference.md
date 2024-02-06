@@ -265,6 +265,7 @@ kubectl get deployment nginx-deployment --subresource=status
 
 ```bash
 kubectl set image deployment/frontend www=image:v2               # Rolling update "www" containers of "frontend" deployment, updating the image
+kubectl annotate deployment/frontend kubernetes.io/change-cause="set image to image:v2" --overwrite=true               # Update kubernetes.io/change-cause annotation to set the change cause
 kubectl rollout history deployment/frontend                      # Check the history of deployments including the revision
 kubectl rollout undo deployment/frontend                         # Rollback to the previous deployment
 kubectl rollout undo deployment/frontend --to-revision=2         # Rollback to a specific revision
