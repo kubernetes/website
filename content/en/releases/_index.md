@@ -33,5 +33,5 @@ for the upcoming **{{< skew nextMinorVersion >}}** Kubernetes release!
 
 ## Helpful Resources
 
-Refer the [Kubernetes Release Team](https://github.com/kubernetes/sig-release/tree/master/release-team) resources 
+Refer to the [Kubernetes Release Team](https://github.com/kubernetes/sig-release/tree/master/release-team) resources 
 for key information on roles and the release process.
