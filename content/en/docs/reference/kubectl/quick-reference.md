@@ -112,11 +112,11 @@ Kubernetes manifests can be defined in YAML or JSON. The file extension `.yaml`,
 `.yml`, and `.json` can be used.
 
 ```bash
-kubectl apply -f ./my-manifest.yaml            # create resource(s)
-kubectl apply -f ./my1.yaml -f ./my2.yaml      # create from multiple files
-kubectl apply -f ./dir                         # create resource(s) in all manifest files in dir
-kubectl apply -f https://git.io/vPieo          # create resource(s) from url
-kubectl create deployment nginx --image=nginx  # start a single instance of nginx
+kubectl apply -f ./my-manifest.yaml                 # create resource(s)
+kubectl apply -f ./my1.yaml -f ./my2.yaml           # create from multiple files
+kubectl apply -f ./dir                              # create resource(s) in all manifest files in dir
+kubectl apply -f https://example.com/manifest.yaml  # create resource(s) from url (Note: this is an example domain and does not contain a valid manifest)
+kubectl create deployment nginx --image=nginx       # start a single instance of nginx
 
 # create a Job which prints "Hello World"
 kubectl create job hello --image=busybox:1.28 -- echo "Hello World"
