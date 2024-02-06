@@ -14,19 +14,19 @@ card:
 
 <!-- body -->
 
-## ドキュメントを日本語に翻訳するまでの流れ
+## ドキュメントを日本語に翻訳するまでの流れ {#translate-flow}
 
 翻訳を行うための基本的な流れについて説明します。不明点がある場合は[Kubernetes公式Slack](http://slack.kubernetes.io/)の`#kubernetes-docs-ja`チャンネルにてお気軽にご質問ください。
 
-### 前提知識
+### 前提知識 {#prerequisite}
 
 翻訳作業は全て[GitHubのIssue](https://github.com/kubernetes/website/issues?q=is%3Aissue+is%3Aopen+label%3Alanguage%2Fja)によって管理されています。翻訳作業を行いたい場合は、Issueの一覧をまず最初にご確認ください。
 
 また、Kubernetes傘下のリポジトリでは`CLA`と呼ばれる同意書に署名しないと、Pull Requestをマージすることができません。詳しくは[英語のドキュメント](https://github.com/kubernetes/community/blob/master/CLA.md)や、[Qiitaに有志の方が書いてくださった日本語のまとめ](https://qiita.com/jlandowner/items/d14d9bc8797a62b65e67)をご覧ください。
 
-### 翻訳を始めるまで
+### 翻訳を始めるまで {#start-translation}
 
-#### 翻訳を希望するページのIssueが存在しない場合
+#### 翻訳を希望するページのIssueが存在しない場合 {#no-issue}
 
 1. [こちらのサンプル](https://github.com/kubernetes/website/issues/22340)に従う形でIssueを作成する
 2. 自分自身を翻訳作業に割り当てたい場合は、Issueのメッセージまたはコメントに`/assign`と書く
@@ -34,12 +34,12 @@ card:
 
 **不明点がある場合は[Kubernetes公式Slack](http://slack.kubernetes.io/)の`#kubernetes-docs-ja`チャンネルにてお気軽にご質問ください。**
 
-#### 翻訳を希望するページのIssueが存在する場合
+#### 翻訳を希望するページのIssueが存在する場合 {#exist-issue}
 
 1. 自分自身を翻訳作業に割り当てるために、Issueのコメントに`/assign`と書く
 2. [新規ページを翻訳する場合](#translate-new-page)のステップに進む
 
-### Pull Requestを送るまで
+### Pull Requestを送るまで {#create-pull-request}
 
 #### 新規ページを翻訳する場合の手順 {#translate-new-page}
 
@@ -48,16 +48,16 @@ card:
 3. `content/en`のディレクトリから必要なファイルを`content/ja`にコピーし、翻訳する
 4. `main`ブランチに向けてPull Requestを作成する
 
-#### 既存のページの誤字脱字や古い記述を修正する場合の手順
+#### 既存のページの誤字脱字や古い記述を修正する場合の手順 {#fix-existing-page}
 
 1. `kubernetes/website`リポジトリをフォークする
 2. `main`から任意の名前でブランチを作成する
 3. `content/ja`のディレクトリから必要なファイルを編集する
 4. `main`ブランチに向けてPull Requestを作成する
 
-## 翻訳スタイルガイド
+## 翻訳スタイルガイド {#style-guide}
 
-### 基本方針
+### 基本方針 {#basic-policy}
 
 - 本文を、敬体（ですます調）で統一
     - 特に、「〜になります」「〜となります」という表現は「〜です」の方が適切な場合が多いため注意
@@ -67,7 +67,7 @@ card:
 - スペースと括弧 `()` 、コロン `:` は半角、それ以外の記号類は全角で表記
 - 英単語と日本語の間に半角スペースは不要
 
-### 頻出単語
+### 頻出単語 {#frequent-words}
 
 英語 | 日本語
 --------- | ---------
@@ -100,7 +100,7 @@ secure | セキュア
 a set of ~ | ～の集合
 stacked | 積層(例: stacked etcd clusterは積層etcdクラスター)
 
-### 備考
+### 備考 {#note}
 
 ServiceやDeploymentなどのKubernetesのAPIオブジェクトや技術仕様的な固有名詞は、無理に日本語訳せずそのまま書いてください。
 
@@ -118,7 +118,7 @@ ServiceやDeploymentなどのKubernetesのAPIオブジェクトや技術仕様�
 
 外部サイトへの参照の記事タイトルは翻訳しましょう。(一時的)
 
-### 頻出表記（日本語）
+### 頻出表記（日本語） {#frequent-phrases}
 
 よくある表記 | あるべき形
 --------- | ---------
@@ -126,7 +126,7 @@ ServiceやDeploymentなどのKubernetesのAPIオブジェクトや技術仕様�
 （あいうえお。）| （あいうえお）。
 〇,〇,〇|〇、〇、〇（※今回列挙はすべて読点で統一）
 
-### 単語末尾に長音記号(「ー」)を付けるかどうか
+### 単語末尾に長音記号(「ー」)を付けるかどうか {#long-vowel}
 
 「サーバー」「ユーザー」など英単語をカタカナに訳すときに、末尾の「ー」を付けるかどうか。
 
@@ -135,17 +135,17 @@ ServiceやDeploymentなどのKubernetesのAPIオブジェクトや技術仕様�
 
 参考: https://kubernetes.slack.com/archives/CAG2M83S8/p1554096635015200 辺りのやりとり
 
-### cron jobの訳し方に関して
+### cron jobの訳し方に関して {#cron-job}
 
 混同を避けるため、cron jobはcronジョブと訳し、CronJobはリソース名としてのままにする。
 cron「の」ジョブは、「の」が続く事による解釈の難から基本的にはつけないものとする。
 
-### その他基本方針など
+### その他基本方針など {#other-basic-policy}
 
 - 意訳と直訳で迷った場合は「直訳」で訳す
 - 訳で難しい・わからないと感じたらSlackの#kubernetes-docs-jaでみんなに聞く
 - できることを挙手制で、できないときは早めに報告
 
-## アップストリームのコントリビューター
+## アップストリームのコントリビューター {#upstream-contributor}
 
 SIG Docsでは、英語のソースに対する[アップストリームへのコントリビュートや誤りの訂正](/docs/contribute/intermediate#localize-content)を歓迎しています。
