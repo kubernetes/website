@@ -30,6 +30,7 @@ TARGET_WORDS="${TARGET_WORDS} レイヤ[^ー]:レイヤー"
 TARGET_WORDS="${TARGET_WORDS} クラスタ[^ーリ]:クラスター" # 例外的にクラスタリングはクラスターリングにしない
 TARGET_WORDS="${TARGET_WORDS} バイナリー:バイナリ"
 TARGET_WORDS="${TARGET_WORDS} インターフェイス:インターフェース"
+TARGET_WORDS="${TARGET_WORDS} インタフェース:インターフェース"
 TARGET_WORDS="${TARGET_WORDS} メモリ[^ー]:メモリー"
 TARGET_WORDS="${TARGET_WORDS} プロキシー:プロキシ"
 TARGET_WORDS="${TARGET_WORDS} リポジトリ[^ー]:リポジトリー"
