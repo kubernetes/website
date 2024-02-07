@@ -194,8 +194,7 @@ keyed with `log_level`.
 
 {{< note >}}
 
-* You must create a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)
-  before you can use it.
+* You must [create a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/#create-a-configmap) before you can use it.
 
 * A ConfigMap is always mounted as `readOnly`.
 
