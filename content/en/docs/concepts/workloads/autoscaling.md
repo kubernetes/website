@@ -83,11 +83,12 @@ Mode | Description
 
 ### Event driven Autoscaling
 
-_tbd_
+It is also possible to scale workloads based on events, for example using the
+[_Kubernetes Event Driven Autoscaler_ (**KEDA**)](https://keda.sh/).
 
-### Autoscaling based on cluster size
-
-_tbd_
+KEDA is a CNCF graduated enabling you to scale your workloads based on the number
+of events to be processed, for example the amount of messages in a queue. There exists
+a wide range of adapters for different event sources to choose from.
 
 ### Autoscaling based on schedules
 
