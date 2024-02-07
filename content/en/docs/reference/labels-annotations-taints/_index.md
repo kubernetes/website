@@ -1005,7 +1005,7 @@ Used on: Service
 
 The control plane adds this label to an Endpoints object when the owning Service is headless.
 
-A headless service does not have a cluster IP assigned to it. Instead of providing a single 
+A headless service does not have a clusterIP assigned to it. Instead of providing a single 
 virtual IP address for the service, a headless service creates a DNS record for each pod 
 associated with the service and you can access each pod associated with the service through DNS. 
 
