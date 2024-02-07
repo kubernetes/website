@@ -171,7 +171,7 @@ descreve como um administrador de cluster pode configurar isso.
 
 O Kubernetes suporta oficialmente as bibliotecas de clientes [Go](#go-client) e [Python](#python-client).
 
-### Cliente Go
+### Cliente Go{#go-client}
 
 * Para obter a biblioteca, execute o seguinte comando: `go get k8s.io/client-go@kubernetes-<kubernetes-version-number>`,
   consulte [INSTALL.md](https://github.com/kubernetes/client-go/blob/master/INSTALL.md#for-the-casual-user)
@@ -186,9 +186,9 @@ O cliente Go pode usar o mesmo arquivo [kubeconfig](/pt-br/docs/concepts/configu
 como a CLI do kubectl faz, para localizar e autenticar ao apiserver. Veja esse
 [exemplo](https://git.k8s.io/client-go/examples/out-of-cluster-client-configuration/main.go).
 
-Se o aplicativo for disponibilizado como um pod no cluster, consulte a [próxima seção](#acessar-o-api-deum-pod).
+Se o aplicativo for disponibilizado como um pod no cluster, consulte a [próxima seção](#acessando-a-api-a-partir-de-um-pod).
 
-### Cliente Python
+### Cliente Python{#python-client}
 
 Para usar o [cliente Python](https://github.com/kubernetes-client/python), execute o seguinte comando:
 `pip install kubernetes`. Consulte [a página Python Client Library](https://github.com/kubernetes-client/python)
@@ -215,7 +215,7 @@ para obter mais detalhes.
 
 A seção anterior descreve como se conectar ao servidor da API do Kubernetes.
 Para obter informações sobre como se conectar a outros serviços em execução em um cluster do Kubernetes, consulte
-[Acessando cluster  em execução em clusters](/pt-br/docs/tasks/access-application-cluster/access-cluster-services/).
+[Acessando serviços em execução em clusters](/pt-br/docs/tasks/access-application-cluster/access-cluster-services/).
 
 ## Solicitação de redirecionamentos
 
