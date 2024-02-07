@@ -152,7 +152,7 @@ users:
     # Armazenar senhas na configuração do cliente Kubernetes é arriscado.
     # Uma alternativa melhor seria usar um plugin de credenciais
     # e armazenar as credenciais separadamente.
-    # Veja https://kubernetes.io/pt-br/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins
+    # Veja https://kubernetes.io/pt-br/docs/reference/access-authn-authz/authentication/#plugins-de-credenciais-client-go
     password: some-password
     username: exp
 ```
