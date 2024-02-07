@@ -81,6 +81,15 @@ Mode | Description
 `Off` | The VPA does not automatically change the resource requirements of the pods. The recommendations are calculated and can be inspected in the VPA object.
 {{< /table >}}
 
+### Autoscaling based on cluster size
+
+For workloads that need to be scaled based on the size of the cluster (for example
+`cluster-dns` or other system components), you can use the _Cluster Proportional Autoscaler_.<br />
+Just like the VPA, it is not part of the Kubernetes core, but hosted in its
+own repository [on GitHub](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler).
+
+The Cluster Proportional Autoscaler watches the number of schedulable {{< glossary_tooltip text="nodes" term_id="node" >}} and cores and scales the number of replicas of the target workload accordingly.
+
 ### Event driven Autoscaling
 
 It is also possible to scale workloads based on events, for example using the
