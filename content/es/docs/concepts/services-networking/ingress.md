@@ -248,7 +248,7 @@ coincide con `/foo/bar/baz`, pero no coincide con `/foo/barbaz`).
 
 | Tipo     | Ruta(s)                           | Ruta de la(s) peticion(es) | ¿Coincide?                             |
 |----------|-----------------------------------|----------------------------|----------------------------------------|
-| Prefijo  | `/`                               | (todas las rutas)          | Si                                     |
+| Prefijo  | `/`                               | (todas las rutas)          | Sí                                     |
 | Exacto   | `/foo`                            | `/foo`                     | Si                                     |
 | Exacto   | `/foo`                            | `/bar`                     | No                                     |
 | Exacto   | `/foo`                            | `/foo/`                    | No                                     |
