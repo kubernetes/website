@@ -723,7 +723,7 @@ YAML de Ingress.
 
 ## Fallos a través de zonas de disponibilidad
 
-LLas técnicas para distribuir el tráfico entre dominios de falla difieren entre
+Las técnicas para distribuir el tráfico entre dominios de falla difieren entre
 los proveedores de la nube.
 Revisa la documentación
 del [Ingress controller](/docs/concepts/services-networking/ingress-controllers)
