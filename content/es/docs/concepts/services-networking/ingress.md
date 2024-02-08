@@ -585,7 +585,7 @@ type: kubernetes.io/tls
 Al hacer referencia a este secreto en un Ingress le indica al controlador
 Ingress de segurizar el canal desde el cliente al balanceador de cargas usando
 TLS.
-Necesitas asegurarte the el secret que has creado viene de un certificado que
+Necesitas asegurarte que el secreto TLS que has creado viene de un certificado que
 contiene un nombre común (CN), también conocido como Nombre de dominio
 calificado (FQDN en inglés)
 para `https-example.foo.com`.
