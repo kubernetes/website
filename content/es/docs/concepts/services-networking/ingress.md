@@ -416,7 +416,7 @@ El nuevo campo `ingressClassName` en los recursos Ingress es un reemplazo para
 esa anotación, pero no es un equivalente directo.
 Mientras que la anotación se utilizaba generalmente para hacer referencia al
 nombre del controlador de Ingress que debería implementar el Ingress, el campo
-es una referencia aun recursos IngressClass que contiene configuración adicional
+es una referencia a un recurso IngressClass que contiene configuración adicional
 del Ingress, incluyendo el nombre del controlador Ingress.
 
 ### IngressClass por defecto {#default-ingress-class}
