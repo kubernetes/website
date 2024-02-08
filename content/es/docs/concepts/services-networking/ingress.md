@@ -407,7 +407,7 @@ spec:
 Antes que el recurso IngressClass y el campo `ingressClassName` se añadieran en
 Kubernetes
 1.18,
-las clases Ingres se especificaban con una
+las clases Ingress se especificaban con una
 anotación `kubernetes.io/ingress.class` en el Ingress.
 Esta anotación nunca se definió formalmente,
 pero era ampliamente soportada por los controladores de Ingress.
