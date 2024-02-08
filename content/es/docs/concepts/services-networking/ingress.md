@@ -40,7 +40,7 @@ Para mayor claridad, esta guía define los siguientes términos:
   Kubernetes.
 * Service: Un {{< glossary_tooltip term_id="service" >}} que identifica
   un conjunto de Pods que utilizan selectores de {{< glossary_tooltip text=" label" term_id="label" >}}.
-  A menos que se indique de otra manera, Los Services se asumen que tienen IPs
+  A menos que se indique de otra manera, los Services se asumen que tienen IPs
   virtuales que solo se pueden enrutar dentro de la red del clúster.
 
 ## Qué es un Ingress?
