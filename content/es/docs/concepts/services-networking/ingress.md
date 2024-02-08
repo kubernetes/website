@@ -591,7 +591,7 @@ calificado (FQDN en inglés)
 para `https-example.foo.com`.
 
 {{< note >}}
-Ten en cuenta que TLS no funcionara en la regla predeterminada porque los
+Ten en cuenta que TLS no funcionará en la regla predeterminada porque los
 certificados estarían emitidos para todos los sub-dominios posibles.
 Por lo tanto, los `hosts` en la sección `tls` tienen que coincidir
 explícitamente con el `host` en la sección `rules`.
