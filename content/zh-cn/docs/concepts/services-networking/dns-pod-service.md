@@ -184,9 +184,9 @@ SRV 记录格式为 `_port-name._port-protocol.my-svc.my-namespace.svc.cluster-d
 <!--
 ### A/AAAA records
 
-In general a Pod has the following DNS resolution:
+Kube-DNS versions, prior to the implementation of the [DNS specification](https://github.com/kubernetes/dns/blob/master/docs/specification.md), had the following DNS resolution:
 
-`pod-ip-address.my-namespace.pod.cluster-domain.example`.
+`pod-ipv4-address.my-namespace.pod.cluster-domain.example`.
 
 For example, if a Pod in the `default` namespace has the IP address 172.17.0.3,
 and the domain name for your cluster is `cluster.local`, then the Pod has a DNS name:
@@ -195,13 +195,14 @@ and the domain name for your cluster is `cluster.local`, then the Pod has a DNS 
 
 Any Pods exposed by a Service have the following DNS resolution available:
 
-`pod-ip-address.service-name.my-namespace.svc.cluster-domain.example`.
+`pod-ipv4-address.service-name.my-namespace.svc.cluster-domain.example`.
 -->
 ### A/AAAA 记录 {#a-aaaa-records}
 
-一般而言，Pod 会对应如下 DNS 名字解析：
+在实现 [DNS 规范](https://github.com/kubernetes/dns/blob/master/docs/specification.md)之前，
+Kube-DNS 版本使用以下 DNS 解析：
 
-`pod-ip-address.my-namespace.pod.cluster-domain.example`
+`pod-ipv4-address.my-namespace.pod.cluster-domain.example`
 
 例如，对于一个位于 `default` 名字空间，IP 地址为 172.17.0.3 的 Pod，
 如果集群的域名为 `cluster.local`，则 Pod 会对应 DNS 名称：
@@ -210,7 +211,7 @@ Any Pods exposed by a Service have the following DNS resolution available:
 
 通过 Service 暴露出来的所有 Pod 都会有如下 DNS 解析名称可用：
 
-`pod-ip-address.service-name.my-namespace.svc.cluster-domain.example`
+`pod-ipv4-address.service-name.my-namespace.svc.cluster-domain.example`
 
 <!--
 ### Pod's hostname and subdomain fields

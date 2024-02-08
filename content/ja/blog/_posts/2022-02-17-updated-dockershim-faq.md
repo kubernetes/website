@@ -87,7 +87,7 @@ Kubernetes v1.24以降を実行している場合は、[Docker Engineを引き�
 しかし、他の選択のほうがあなたの環境により適合する場合もありますので、
 [CNCF landscape]にあるすべての選択肢を検討されることをおすすめします。
 
-[CNCF landscape]: https://landscape.cncf.io/card-mode?category=container-runtime&grouping=category
+[CNCF landscape]: https://landscape.cncf.io/?group=projects-and-products&view-mode=card#runtime--container-runtime
 
 #### Docker Engineを引き続きコンテナランタイムとして利用できますか？ {#can-i-still-use-docker-engine-as-my-container-runtime}
 

@@ -56,14 +56,14 @@ following steps:
    APIServer 证书将为任何 `--apiserver-cert-extra-sans` 参数值提供附加的 SAN 条目，必要时将其小写。
 
 <!--
-1. Writes kubeconfig files in `/etc/kubernetes/`  for
-   the kubelet, the controller-manager and the scheduler to use to connect to the
-   API server, each with its own identity, as well as an additional
-   kubeconfig file for administration named `admin.conf`.
+1. Writes kubeconfig files in `/etc/kubernetes/` for the kubelet, the controller-manager and the
+   scheduler to use to connect to the API server, each with its own identity. Also
+   additional kubeconfig files are written, for kubeadm as administrative entity (`admin.conf`)
+   and for a super admin user that can bypass RBAC (`super-admin.conf`).
 -->
 3. 将 kubeconfig 文件写入 `/etc/kubernetes/` 目录以便 kubelet、控制器管理器和调度器用来连接到
-   API 服务器，它们每一个都有自己的身份标识，同时生成一个名为 `admin.conf` 的独立的 kubeconfig
-   文件，用于管理操作。
+   API 服务器，它们每一个都有自己的身份标识。再编写额外的 kubeconfig 文件，将 kubeadm
+   作为管理实体（`admin.conf`）和可以绕过 RBAC 的超级管理员用户（`super-admin.conf`）。
 
 <!--
 1. Generates static Pod manifests for the API server,
@@ -303,17 +303,17 @@ List of feature gates:
 {{< table caption="kubeadm feature gates" >}}
 Feature | Default | Alpha | Beta | GA
 :-------|:--------|:------|:-----|:----
+`EtcdLearnerMode` | `true` | 1.27 | 1.29 | -
 `PublicKeysECDSA` | `false` | 1.19 | - | -
 `RootlessControlPlane` | `false` | 1.22 | - | -
-`EtcdLearnerMode` | `false` | 1.27 | - | -
 {{< /table >}}
 -->
 {{< table caption="kubeadm 特性门控" >}}
 特性 | 默认值 | Alpha | Beta | GA
 :-------|:--------|:------|:-----|:----
+`EtcdLearnerMode` | `true` | 1.27 | 1.29 | -
 `PublicKeysECDSA` | `false` | 1.19 | - | -
 `RootlessControlPlane` | `false` | 1.22 | - | -
-`EtcdLearnerMode` | `false` | 1.27 | - | -
 {{< /table >}}
 
 {{< note >}}
@@ -327,6 +327,15 @@ Once a feature gate goes GA its value becomes locked to `true` by default.
 Feature gate descriptions:
 -->
 特性门控的描述：
+
+<!--
+`EtcdLearnerMode`
+: With this feature gate enabled, when joining a new control plane node, a new etcd member will be created
+as a learner and promoted to a voting member only after the etcd data are fully aligned.
+-->
+`EtcdLearnerMode`
+: 启用此特性门控后，当加入新的控制平面节点时，将创建一个新的 etcd
+  成员作为学习者（learner），并仅在 etcd 数据完全对齐后进级为投票成员（voting member）。
 
 <!--
 `PublicKeysECDSA`
@@ -353,28 +362,19 @@ you upgrade to a newer version of Kubernetes.
   你可以在升级到更新版本的 Kubernetes 之前更改此特性门控的值。
 
 <!--
-`EtcdLearnerMode`
-: With this feature gate enabled, when joining a new control plane node, a new etcd member will be created
-as a learner and promoted to a voting member only after the etcd data are fully aligned.
--->
-`EtcdLearnerMode`
-: 启用此特性门控后，当加入新的控制平面节点时，将创建一个新的 etcd
-  成员作为学习者（learner），并仅在 etcd 数据完全对齐后进级为投票成员（voting member）。
-
-<!--
 List of deprecated feature gates:
 -->
 已弃用特性门控的列表：
 
 <!--
 {{< table caption="kubeadm deprecated feature gates" >}}
-Feature | Default 
+Feature | Default
 :-------|:--------
 `UpgradeAddonsBeforeControlPlane` | `false`
 {{< /table >}}
 -->
 {{< table caption="kubeadm 弃用的特性门控" >}}
-特性     | 默认值 
+特性     | 默认值
 :-------|:--------
 `UpgradeAddonsBeforeControlPlane` | `false`
 {{< /table >}}
@@ -429,16 +429,30 @@ List of removed feature gates:
 {{< table caption="kubeadm removed feature gates" >}}
 Feature | Alpha | Beta | GA | Removed
 :-------|:------|:-----|:---|:-------
-`UnversionedKubeletConfigMap` | 1.22 | 1.23 | 1.25 | 1.26
 `IPv6DualStack` | 1.16 | 1.21 | 1.23 | 1.24
+`UnversionedKubeletConfigMap` | 1.22 | 1.23 | 1.25 | 1.26
 {{< /table >}}
 -->
 {{< table caption="kubeadm 已移除的特性门控" >}}
 特性 | Alpha | Beta | GA | 移除
 :-------|:------|:-----|:---|:-------
-`UnversionedKubeletConfigMap` | 1.22 | 1.23 | 1.25 | 1.26
 `IPv6DualStack` | 1.16 | 1.21 | 1.23 | 1.24
+`UnversionedKubeletConfigMap` | 1.22 | 1.23 | 1.25 | 1.26
 {{< /table >}}
+
+<!--
+Feature gate descriptions:
+-->
+特性门控的描述：
+
+<!--
+`IPv6DualStack`
+: This flag helps to configure components dual stack when the feature is in progress. For more details on Kubernetes
+dual-stack support see [Dual-stack support with kubeadm](/docs/setup/production-environment/tools/kubeadm/dual-stack-support/).
+-->
+`IPv6DualStack`
+: 在 IP 双栈特性处于开发过程中时，此标志有助于配置组件的双栈支持。有关 Kubernetes
+  双栈支持的更多详细信息，请参阅 [kubeadm 的双栈支持](/zh-cn/docs/setup/production-environment/tools/kubeadm/dual-stack-support/)。
 
 <!--
 `UnversionedKubeletConfigMap`
@@ -462,15 +476,6 @@ if that does not succeed, kubeadm falls back to using the legacy (versioned) nam
   当读取此 ConfigMap 时（在执行 `kubeadm join`、`kubeadm reset`、`kubeadm upgrade` 等操作期间），
   kubeadm 尝试首先使用无版本（后缀）的 ConfigMap 名称；
   如果不成功，kubeadm 将回退到使用该 ConfigMap 的旧（带版本号的）名称。
-
-<!--
-`IPv6DualStack`
-: This flag helps to configure components dual stack when the feature is in progress. For more details on Kubernetes
-dual-stack support see [Dual-stack support with kubeadm](/docs/setup/production-environment/tools/kubeadm/dual-stack-support/).
--->
-`IPv6DualStack`
-: 当前此特性正在推进时，此标志有助于配置组件的 IP 双栈。有关 Kubernetes
-  双栈支持的更多详细信息，请参阅 [kubeadm 的双栈支持](/zh-cn/docs/setup/production-environment/tools/kubeadm/dual-stack-support/)。
 
 <!--
 ### Adding kube-proxy parameters {#kube-proxy}
@@ -771,11 +776,15 @@ DNS name or an address of a load balancer.
    ```
 
 <!--
-Once the cluster is up, you can grab the admin credentials from the control-plane node
-at `/etc/kubernetes/admin.conf` and use that to talk to the cluster.
+Once the cluster is up, you can use the `/etc/kubernetes/admin.conf` file from
+a control-plane node to talk to the cluster with administrator credentials or
+[Generating kubeconfig files for additional users](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#kubeconfig-additional-users).
 -->
 一旦集群启动起来，你就可以从控制平面节点的 `/etc/kubernetes/admin.conf` 文件获取管理凭证，
 并使用这个凭证同集群通信。
+
+一旦集群启动起来，你就可以从控制平面节点中的 `/etc/kubernetes/admin.conf`
+文件获取管理凭证或通过[为其他用户生成的 kubeconfig 文件](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#kubeconfig-additional-users)与集群通信。
 
 <!--
 Note that this style of bootstrap has some relaxed security guarantees because

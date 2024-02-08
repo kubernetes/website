@@ -78,14 +78,14 @@ cards:
   button_path: /zh-cn/docs/reference
 # - name: contribute
 #   title: Contribute to the Kubernetes
-#   description: Anyone can contribute, whether you’re new to the project or you’ve been around a long time.
-#   button: Find out how to help
-#   button_path: /docs/contribute
+#   description: Find out how you can help make Kubernetes better.
+#   button: See Ways to Contribute
+#   button_path: "/docs/contribute"
 - name: contribute
   title: 为 Kubernetes 作贡献
-  description: 任何人，无论对该项目熟悉与否，都能贡献自己的力量。
-  button: 了解如何提供帮助
-  button_path: /zh-cn/docs/contribute
+  description: 了解如何帮助改善 Kubernetes。
+  button: 查看贡献方式
+  button_path: "/zh-cn/docs/contribute"
 # - name: training
 #   title: "Training"
 #   description: "Get certified in Kubernetes and make your cloud native projects successful!"

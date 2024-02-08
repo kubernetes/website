@@ -115,6 +115,39 @@ other = "Were you looking for:"
 [examples_heading]
 other = "Examples"
 
+[feature_gate_stage_alpha]
+other = "Alpha"
+
+[feature_gate_stage_beta]
+other = "Beta"
+
+[feature_gate_stage_stable]
+other = "GA"
+
+[feature_gate_stage_deprecated]
+other = "Deprecated"
+
+[feature_gate_table_header_default]
+other = "Default"
+
+[feature_gate_table_header_feature]
+other = "Feature"
+
+[feature_gate_table_header_from]
+other = "From"
+
+[feature_gate_table_header_since]
+other = "Since"
+
+[feature_gate_table_header_stage]
+other = "Stage"
+
+[feature_gate_table_header_to]
+other = "To"
+
+[feature_gate_table_header_until]
+other = "Until"
+
 [feature_state]
 other = "FEATURE STATE:"
 

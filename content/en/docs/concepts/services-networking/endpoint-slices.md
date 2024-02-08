@@ -210,7 +210,7 @@ perfectly full distribution of EndpointSlices. As an example, if there are 10
 new endpoints to add and 2 EndpointSlices with room for 5 more endpoints each,
 this approach will create a new EndpointSlice instead of filling up the 2
 existing EndpointSlices. In other words, a single EndpointSlice creation is
-preferrable to multiple EndpointSlice updates.
+preferable to multiple EndpointSlice updates.
 
 With kube-proxy running on each Node and watching EndpointSlices, every change
 to an EndpointSlice becomes relatively expensive since it will be transmitted to

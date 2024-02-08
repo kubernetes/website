@@ -2,19 +2,16 @@ aliases:
   sig-docs-blog-owners: # Approvers for blog content
     - mrbobbytables
     - nate-double-u
-    - onlydole
     - sftim
   sig-docs-blog-reviewers: # Reviewers for blog content
+    - Gauravpadam
     - mrbobbytables
     - nate-double-u
-    - onlydole
     - sftim
   sig-docs-localization-owners: # Admins for localization content
     - a-mccarthy
     - divya-mohan0209
-    - kbhawkey
     - natalisucks
-    - onlydole
     - reylejano
     - sftim
     - seokho-son
@@ -26,12 +23,12 @@ aliases:
     - bene2k1
     - rlenferink
   sig-docs-en-owners: # Admins for English content
+    - celestehorgan
     - divya-mohan0209
-    - katcosgrove # RT 1.29 Docs Lead
-    - kbhawkey
+    - drewhagen # RT 1.30 Docs Lead
+    - katcosgrove # RT 1.30 Lead
     - natalisucks
     - nate-double-u
-    - onlydole
     - reylejano
     - sftim
     - tengqm
@@ -44,7 +41,6 @@ aliases:
     - mengjiao-liu
     - natalisucks
     - nate-double-u
-    - onlydole
     - reylejano
     - sftim
     - shannonxtreme
@@ -124,9 +120,7 @@ aliases:
     - ysyukr
   sig-docs-leads: # Website chairs and tech leads
     - divya-mohan0209
-    - kbhawkey
     - natalisucks
-    - onlydole
     - reylejano
     - sftim
     - tengqm
@@ -231,7 +225,7 @@ aliases:
     - jimangel # Release Manager Associate
     - jrsapi # Release Manager Associate
     - salaxander # Release Manager Associate
-# authoritative source: https://github.com/kubernetes/committee-security-response/blob/main/OWNERS_ALIASES
+  # authoritative source: https://github.com/kubernetes/committee-security-response/blob/main/OWNERS_ALIASES
   committee-security-response:
     - cjcullen
     - cji
@@ -241,7 +235,7 @@ aliases:
     - ritazh
     - SaranBalaji90
     - tabbysable
-# authoritative source: https://github.com/kubernetes/sig-security/blob/main/OWNERS_ALIASES
+  # authoritative source: https://github.com/kubernetes/sig-security/blob/main/OWNERS_ALIASES
   sig-security-leads:
     - IanColdwater
     - tabbysable

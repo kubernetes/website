@@ -21,10 +21,10 @@ files by setting the `KUBECONFIG` environment variable or by setting the
 
 This overview covers `kubectl` syntax, describes the command operations, and provides common examples.
 For details about each command, including all the supported flags and subcommands, see the
-[kubectl](/docs/reference/generated/kubectl/kubectl-commands/) reference documentation.
+[kubectl](/docs/reference/kubectl/generated/kubectl/) reference documentation.
 
 For installation instructions, see [Installing kubectl](/docs/tasks/tools/#kubectl);
-for a quick guide, see the [cheat sheet](/docs/reference/kubectl/cheatsheet/).
+for a quick guide, see the [cheat sheet](/docs/reference/kubectl/quick-reference/).
 If you're used to using the `docker` command-line tool,
 [`kubectl` for Docker Users](/docs/reference/kubectl/docker-cli-to-kubectl/) explains some equivalent commands for Kubernetes.
 
@@ -171,7 +171,7 @@ Operation       | Syntax    |       Description
 `scale`        | <code>kubectl scale (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) --replicas=COUNT [--resource-version=version] [--current-replicas=count] [flags]</code> | Update the size of the specified replication controller.
 `set`    | `kubectl set SUBCOMMAND [options]` | Configure application resources.
 `taint`    | `kubectl taint NODE NAME KEY_1=VAL_1:TAINT_EFFECT_1 ... KEY_N=VAL_N:TAINT_EFFECT_N [options]` | Update the taints on one or more nodes.
-`top`    | `kubectl top (POD | NODE) [flags] [options]` | Display Resource (CPU/Memory/Storage) usage of pod or node.
+`top`    | <code>kubectl top (POD &#124; NODE) [flags] [options]</code> | Display Resource (CPU/Memory/Storage) usage of pod or node.
 `uncordon`    | `kubectl uncordon NODE [options]` | Mark node as schedulable.
 `version`        | `kubectl version [--client] [flags]` | Display the Kubernetes version running on the client and server.
 `wait`    | <code>kubectl wait ([-f FILENAME] &#124; resource.group/resource.name &#124; resource.group [(-l label &#124; --all)]) [--for=delete&#124;--for condition=available] [options]</code> | Experimental: Wait for a specific condition on one or many resources.
@@ -582,7 +582,7 @@ Current user: plugins-user
 
 * Read the `kubectl` reference documentation:
   * the kubectl [command reference](/docs/reference/kubectl/kubectl/)
-  * the [command line arguments](/docs/reference/generated/kubectl/kubectl-commands/) reference
+  * the [command line arguments](/docs/reference/kubectl/generated/kubectl/) reference
 * Learn about [`kubectl` usage conventions](/docs/reference/kubectl/conventions/)
 * Read about [JSONPath support](/docs/reference/kubectl/jsonpath/) in kubectl
 * Read about how to [extend kubectl with plugins](/docs/tasks/extend-kubectl/kubectl-plugins)

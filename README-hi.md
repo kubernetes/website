@@ -3,7 +3,7 @@
 [![Build Status](https://api.travis-ci.org/kubernetes/website.svg?branch=master)](https://travis-ci.org/kubernetes/website)
 [![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
 
-स्वागत है! इस रिपॉजिटरी में [कुबरनेट्स वेबसाइट और दस्तावेज़](https://kubernetes.io/) बनाने के लिए आवश्यक सभी संपत्तियां हैं। हम बहुत खुश हैं कि आप योगदान करना चाहते हैं!
+स्वागत है! इस रिपॉजिटरी में [कुबरनेट्स वेबसाइट और दस्तावेज](https://kubernetes.io/) बनाने के लिए आवश्यक सभी संपत्तियाँ हैं। हम बहुत खुश हैं कि आप योगदान करना चाहते हैं!
 
 ## डॉक्स में योगदान देना
 

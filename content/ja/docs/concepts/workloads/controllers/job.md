@@ -339,7 +339,7 @@ Pod失敗ポリシーまたはPod失敗のバックオフポリシーのいず�
     - `Count`: Podがデフォルトの方法で処理されるべきであることを示します。`.spec.backoffLimit`のカウンターが加算されます。
 
 {{< note >}}
-`PodFailurePolicy`を使用すると、Jobコントローラは`Failed`フェーズのPodのみにマッチします。削除タイムスタンプを持つPodで、終了フェーズ(`Failed`または`Succeeded`)にないものは、まだ終了中と見なされます。これは、終了中Podは終了フェーズに達するまで[追跡ファイナライザー](#job-tracking-with-finalizers)を保持することを意味します。Kubernetes 1.27以降、Kubeletは削除されたPodを終了フェーズに遷移させます(参照:[Podのフェーズ](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase))。これにより、削除されたPodはJobコントローラーによってファイナライザーが削除されます。
+`PodFailurePolicy`を使用すると、Jobコントローラーは`Failed`フェーズのPodのみにマッチします。削除タイムスタンプを持つPodで、終了フェーズ(`Failed`または`Succeeded`)にないものは、まだ終了中と見なされます。これは、終了中Podは終了フェーズに達するまで[追跡ファイナライザー](#job-tracking-with-finalizers)を保持することを意味します。Kubernetes 1.27以降、Kubeletは削除されたPodを終了フェーズに遷移させます(参照:[Podのフェーズ](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase))。これにより、削除されたPodはJobコントローラーによってファイナライザーが削除されます。
 {{< /note >}}
 
 ## Jobの終了とクリーンアップ  {#job-termination-and-cleanup}
@@ -634,7 +634,7 @@ spec:
 `JobTrackingWithFinalizers`機能が無効になっている時に作成されたJobについては、コントロールプレーンを1.26にアップグレードしても、ファイナライザーを使用してJobを追跡しません。
 {{< /note >}}
 
-コントロールプレーンは任意のJobに属するPodを追跡し、そのPodがAPIサーバーから削除されたかどうか認識します。そのためJobコントローラはファイナライザー`batch.kubernetes.io/job-tracking`を持つPodを作成します。コントローラーがファイナライザーを削除するのは、PodがJobステータスに反映された後なので、他のコントローラーやユーザがPodを削除することができます。
+コントロールプレーンは任意のJobに属するPodを追跡し、そのPodがAPIサーバーから削除されたかどうか認識します。そのためJobコントローラーはファイナライザー`batch.kubernetes.io/job-tracking`を持つPodを作成します。コントローラーがファイナライザーを削除するのは、PodがJobステータスに反映された後なので、他のコントローラーやユーザがPodを削除することができます。
 
 Kubernetes 1.26にアップグレードする前、またはフィーチャーゲート`JobTrackingWithFinalizers`が有効になる前に作成されたJobは、Podファイナライザーを使用せずに追跡されます。Job{{< glossary_tooltip term_id="controller" text="コントローラー" >}}は、クラスタに存在するPodのみに基づいて、`succeeded`Podと`failed`Podのステータスカウンタを更新します。クラスタからPodが削除されると、コントロールプレーンはJobの進捗を見失う可能性があります。
 

@@ -680,6 +680,11 @@ main.content {
   }
 }
 
+.td-blog .header-hero h1, .td-blog .header-hero h2 {
+  font-size: 2.25rem; // match rest of site, even if it is actually h2
+  margin-bottom: 20px;
+}
+
 /* CASE-STUDIES */
 
 // Many of the case studies have small variations in markup and styles;
@@ -819,7 +824,8 @@ body.td-documentation {
   }
 }
 
-#announcement + .header-hero.filler {
+/* don't display the hero header for some pages when there is a banner active */
+#announcement + .header-hero.filler, .td-page.td-blog #announcement + .header-hero {
   display: none;
 }
 
@@ -1002,4 +1008,33 @@ div.alert > em.javascript-required {
         padding: 0.5em;
         margin: 0.25em;
     }
+}
+
+// Adjust Search-bar search-icon
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid #4c4c4c;
+  border-radius: 20px; 
+  vertical-align: middle;
+  flex-grow: 1;
+  overflow-x: hidden;
+  width: auto;
+}
+
+.search-bar:focus-within {
+  border: 2.5px solid rgba(47, 135, 223, 0.7);
+}
+
+.search-bar i.search-icon {
+  padding: .5em .5em .5em .75em;
+  opacity: .75;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: .5em 0 .5em 0;
 }

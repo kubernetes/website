@@ -225,7 +225,7 @@ pod1             1/1     Running   0          36s
 pod2             1/1     Running   0          36s
 ```
 
-In this manner, a ReplicaSet can own a non-homogenous set of Pods
+In this manner, a ReplicaSet can own a non-homogeneous set of Pods
 
 ## Writing a ReplicaSet manifest
 

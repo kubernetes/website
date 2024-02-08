@@ -218,12 +218,21 @@ CPU 资源总是设置为资源的绝对数量而非相对数量值。
 {{< note >}}
 <!--
 Kubernetes doesn't allow you to specify CPU resources with a precision finer than
-`1m`. Because of this, it's useful to specify CPU units less than `1.0` or `1000m` using
-the milliCPU form; for example, `5m` rather than `0.005`.
+`1m` or `0.001` CPU. To avoid accidentally using an invalid CPU quantity, it's useful to specify CPU units using the milliCPU form 
+instead of the decimal form when using less than 1 CPU unit. 
+
+For example, you have a Pod that uses `5m` or `0.005` CPU and would like to decrease
+its CPU resources. By using the decimal form, it's harder to spot that `0.0005` CPU
+is an invalid value, while by using the milliCPU form, it's easier to spot that
+`0.5m` is an invalid value.
 -->
-Kubernetes 不允许设置精度小于 `1m` 的 CPU 资源。
-因此，当 CPU 单位小于 `1` 或 `1000m` 时，使用毫核的形式是有用的；
-例如 `5m` 而不是 `0.005`。
+Kubernetes 不允许设置精度小于 `1m` 或 `0.001` 的 CPU 资源。
+为了避免意外使用无效的 CPU 数量，当使用少于 1 个 CPU 单元时，使用
+milliCPU 形式而不是十进制形式指定 CPU 单元非常有用。
+
+例如，你有一个使用 `5m` 或 `0.005` 核 CPU 的 Pod，并且希望减少其 CPU 资源。
+通过使用十进制形式，更难发现 `0.0005` CPU 是无效值，而通过使用 milliCPU 形式，
+更容易发现 `0.5m` 是无效值。
 {{< /note >}}
 
 <!--
@@ -1021,14 +1030,14 @@ Cluster-level extended resources are not tied to nodes. They are usually managed
 by scheduler extenders, which handle the resource consumption and resource quota.
 
 You can specify the extended resources that are handled by scheduler extenders
-in [scheduler configuration](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
+in [scheduler configuration](/docs/reference/config-api/kube-scheduler-config.v1/)
 -->
 #### 集群层面的扩展资源   {#cluster-level-extended-resources}
 
 集群层面的扩展资源并不绑定到具体节点。
 它们通常由调度器扩展程序（Scheduler Extenders）管理，这些程序处理资源消耗和资源配额。
 
-你可以在[调度器配置](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/)
+你可以在[调度器配置](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)
 中指定由调度器扩展程序处理的扩展资源。
 
 <!--
@@ -1393,7 +1402,7 @@ memory limit (and possibly request) for that container.
 * Read how the API reference defines a [container](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)
   and its [resource requirements](/docs/reference/kubernetes-api/workload-resources/pod-v1/#resources)
 * Read about [project quotas](https://www.linux.org/docs/man8/xfs_quota.html) in XFS
-* Read more about the [kube-scheduler configuration reference (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
+* Read more about the [kube-scheduler configuration reference (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
 * Read more about [Quality of Service classes for Pods](/docs/concepts/workloads/pods/pod-qos/)
 -->
 * 获取[分配内存资源给容器和 Pod](/zh-cn/docs/tasks/configure-pod-container/assign-memory-resource/) 的实践经验
@@ -1401,5 +1410,5 @@ memory limit (and possibly request) for that container.
 * 阅读 API 参考如何定义[容器](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)
   及其[资源请求](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#resources)。
 * 阅读 XFS 中[项目配额](https://www.linux.org/docs/man8/xfs_quota.html)的文档
-* 进一步阅读 [kube-scheduler 配置参考 (v1beta3)](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/)
+* 进一步阅读 [kube-scheduler 配置参考（v1）](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)
 * 进一步阅读 [Pod 的服务质量等级](/zh-cn/docs/concepts/workloads/pods/pod-qos/)
