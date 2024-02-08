@@ -482,7 +482,7 @@ Hasta entonces, se podrá ver la dirección marcada como `<pending>`.
 ### Abanico Simple
 
 Una configuración de abanico enruta el tráfico de una única dirección IP a más
-de un Sesrvice,
+de un Service,
 basado en la URI HTTP solicitada.
 Un Ingress te permite tener el número de balanceadores de carga al mínimo.
 Por ejemplo, una configuración como:
