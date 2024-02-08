@@ -315,7 +315,7 @@ Dependiendo de tu controlador de ingress, podrías ser capaz de usar parámetros
 que se establecen en todo el clúster, o solamente para un namespace.
 
 {{< tabs name="tabs_ingressclass_parameter_scope" >}}
-{{% tab name="Cluster" %}}
+{{% tab name="Clúster" %}}
 El alcance por defecto de los parámetros IngressClass es para todo el clúster.
 
 Si estableces el campo `spec.parameters` y no estableces el
