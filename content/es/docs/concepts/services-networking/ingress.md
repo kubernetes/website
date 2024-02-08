@@ -425,7 +425,7 @@ Puedes marcar un ingressClass en particular por defecto para tu clúster.
 Establecer la anotación `ingressclass.kubernetes.io/is-default-class` a `true`
 en un recurso IngressClass
 asegurará que los nuevos Ingress sin un campo `ingressClassName` especificado
-sean asignados a esta ingressClass por defecto.
+sean asignados a esta IngressClass por defecto.
 
 {{< caution >}}
 Si tienes más de una IngressClass marcada por defecto en tu clúster,
