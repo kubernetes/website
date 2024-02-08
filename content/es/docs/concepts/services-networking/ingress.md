@@ -39,7 +39,7 @@ Para mayor claridad, esta guía define los siguientes términos:
   el [modelo de redes](/docs/concepts/cluster-administration/networking/) de
   Kubernetes.
 * Service: Un {{< glossary_tooltip term_id="service" >}} que identifica
-  un conjunto de Pods que utilizan selectors de {{< glossary_tooltip text=" label" term_id="label" >}}.
+  un conjunto de Pods que utilizan selectores de {{< glossary_tooltip text=" label" term_id="label" >}}.
   A menos que se indique de otra manera, Los Services se asumen que tienen IPs
   virtuales que solo se pueden enrutar dentro de la red del clúster.
 
