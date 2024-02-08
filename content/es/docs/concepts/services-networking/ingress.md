@@ -452,7 +452,7 @@ especificar el `IngressClass` predeterminado:
 
 Existen conceptos existentes de Kubernetes que te permiten exponer un Service
 único
-(mirar [alternativas](#alternatives)).
+(mirar [alternativas](#alternativas)).
 También puedes hacerlo con un Ingress especificando un *backend predeterminado*
 sin reglas.
 
