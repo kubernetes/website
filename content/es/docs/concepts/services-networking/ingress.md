@@ -612,7 +612,7 @@ funciona el TLS en tu entorno.
 
 Un controlador de Ingress está configurado por defecto con algunos ajustes de
 política de balanceo de cargas que aplica a todos los Ingress, como los
-algoritmos de balanceo de cargas, esquema de pesos del backend, y otros.
+algoritmos de balanceo de cargas, esquema de pesos del backend y otros.
 Otros conceptos más avanzados de balanceo de cargas (ej., sesiones persistentes,
 pesos dinámicos) no están expuestos todavía a través del Ingress.
 En su lugar, obtienes estas características a través del balanceador de cargas
