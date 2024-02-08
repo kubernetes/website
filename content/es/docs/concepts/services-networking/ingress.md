@@ -518,7 +518,7 @@ Events:
 
 El controlador de Ingress aprovisiona un balanceador de cargas específico para
 la implementación que satisface al Ingress,
-tanto tiempo como los Services (`service1`, `service2`) existan.
+mientras los Services (`service1`, `service2`) existan.
 
 Cuando sea así,
 podrás ver la dirección del balanceador de cargas en el campo de dirección.
