@@ -528,7 +528,7 @@ podrás ver la dirección del balanceador de cargas en el campo de dirección.
 Dependiendo
 del [controlador de Ingress](/docs/concepts/services-networking/ingress-controllers/)
 que uses, puede que necesites crear
-un [Service](/docs/concepts/services-networking/service/) default-http-backend.
+un [Service](/es/docs/concepts/services-networking/service/) default-http-backend.
 {{< /note >}}
 
 ### Hospedaje virtual basado en nombre
