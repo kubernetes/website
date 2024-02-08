@@ -604,7 +604,7 @@ Hay una diferencia entre las características TLS soportadas por varios
 controladores Ingress.
 Mira la documentación
 en [nginx](https://kubernetes.github.io/ingress-nginx/user-guide/tls/), [GCE](https://git.k8s.io/ingress-gce/README.md#frontend-https),
-o cualquier otro controlador Ingress específico de plataforma para entender como
+o cualquier otro controlador Ingress específico de plataforma para entender cómo
 funciona el TLS en tu entorno.
 {{< /note >}}
 
