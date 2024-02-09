@@ -383,6 +383,14 @@ This will remove the `node-role.kubernetes.io/control-plane:NoSchedule` taint
 from any nodes that have it, including the control plane nodes, meaning that the
 scheduler will then be able to schedule Pods everywhere.
 
+Additionally, you can execute the following command to remove the
+[`node.kubernetes.io/exclude-from-external-load-balancers`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-exclude-from-external-load-balancers) label
+from the control plane node, which excludes it from the list of backend servers:
+
+```bash
+kubectl label nodes --all node.kubernetes.io/exclude-from-external-load-balancers-
+```
+
 ### Joining your nodes {#join-nodes}
 
 The nodes are where your workloads (containers and Pods, etc) run. To add new nodes to your cluster do the following for each machine:
