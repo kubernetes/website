@@ -32,11 +32,6 @@ See below for examples of both strategies.
 - **Horizontal scaling**: [Running multiple instances of your app](/docs/tutorials/kubernetes-basics/scale/scale-intro/)
 - **Vertical scaling**: [Resizing CPU and memory resources assigned to containers](/docs/tasks/configure-pod-container/resize-container-resources)
 
-{{< note >}}
-Resizing a workload in-place **without** restarting the {{< glossary_tooltip text="Pods" term_id="pod" >}}
-or its {{< glossary_tooltip text="Containers" term_id="container" >}} requires Kubernetes version 1.27 or later.
-{{< /note >}}
-
 ## Scaling workloads automatically
 
 Kubernetes also supports _automatic scaling_ of workloads, which is the focus of this page.
@@ -57,6 +52,8 @@ There is a [walkthrough tutorial](/docs/tasks/run-application/horizontal-pod-aut
 
 ### Scaling workloads vertically
 
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
+
 You can automatically scale a workload vertically using a _VerticalPodAutoscaler_ (VPA).
 Different to the HPA, the VPA doesn't come with Kubernetes by default, but is a separate project
 that can be found [on GitHub](https://github.com/kubernetes/autoscaler/tree/9f87b78df0f1d6e142234bb32e8acbd71295585a/vertical-pod-autoscaler).
@@ -65,12 +62,11 @@ Once installed, it allows you to create {{< glossary_tooltip text="CustomResourc
 (CRDs) for your workloads which define _how_ and _when_ to scale the resources of the managed replicas.
 
 {{< note >}}
-The current default version of the HPA (**v0.14.0**) requires **Kubernetes version 1.25** or later.
-You will also need to have the [Metrics Server](https://github.com/kubernetes-sigs/metrics-server)
-installed to your cluster.
+You will need to have the [Metrics Server](https://github.com/kubernetes-sigs/metrics-server)
+installed to your cluster for the HPA to work.
 {{< /note >}}
 
-At the moment, the VPA operates can operate in four different modes:
+At the moment, the VPA can operate in four different modes:
 
 {{< table caption="Different modes of the VPA" >}}
 Mode | Description
@@ -81,6 +77,16 @@ Mode | Description
 `Off` | The VPA does not automatically change the resource requirements of the pods. The recommendations are calculated and can be inspected in the VPA object.
 {{< /table >}}
 
+#### Requirements for in-place resizing
+
+{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+
+Resizing a workload in-place **without** restarting the {{< glossary_tooltip text="Pods" term_id="pod" >}}
+or its {{< glossary_tooltip text="Containers" term_id="container" >}} requires Kubernetes version 1.27 or later.<br />
+Additionally, the `InPlaceVerticalScaling` feature gate needs to be enabled.
+
+{{< feature-gate-description name="InPlacePodVerticalScaling" >}}
+
 ### Autoscaling based on cluster size
 
 For workloads that need to be scaled based on the size of the cluster (for example
@@ -88,7 +94,8 @@ For workloads that need to be scaled based on the size of the cluster (for examp
 Just like the VPA, it is not part of the Kubernetes core, but hosted in its
 own repository [on GitHub](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler).
 
-The Cluster Proportional Autoscaler watches the number of schedulable {{< glossary_tooltip text="nodes" term_id="node" >}} and cores and scales the number of replicas of the target workload accordingly.
+The Cluster Proportional Autoscaler watches the number of schedulable {{< glossary_tooltip text="nodes" term_id="node" >}}
+and cores and scales the number of replicas of the target workload accordingly.
 
 ### Event driven Autoscaling
 
@@ -101,20 +108,30 @@ a wide range of adapters for different event sources to choose from.
 
 ### Autoscaling based on schedules
 
-_tbd_
+Another strategy for scaling your workloads is to **schedule** the scaling operations, for example in order to
+reduce resource consumption during off-peak hours.
+
+Similar to event driven autoscaling, such behavior can be achieved using KEDA in conjunction with
+its [`Cron` scaler](https://keda.sh/docs/2.13/scalers/cron/). The `Cron` scaler allows you to define schedules
+(and time zones) for scaling your workloads in or out.
 
 ## Scaling cluster infrastructure
 
-_tbd_, short summary
+If scaling workloads isn't enough to meet your needs, you can also scale your cluster infrastructure itself.
 
-## Third-party Autoscalers
+Scaling the cluster infrastructure normally means adding or removing {{< glossary_tooltip text="nodes" term_id="node" >}}.
+This can be done using one of two available autoscalers:
 
-_tbd_, short summary of KEDA and KNative autoscalers
+- [**Cluster Autoscaler**](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler)
+- [**Karpenter**](https://github.com/kubernetes-sigs/karpenter?tab=readme-ov-file)
+
+Both scalers work by watching for pods marked as _unschedulable_ or _underutilized_ nodes and then adding or
+removing nodes as needed.
 
 ## {{% heading "whatsnext" %}}
 
-- item 1
-- item 2
-  - subitem 1
-  - subitem 2
-- item 3
+- Learn more about scaling horizontally
+  - [Scale a StatefulSet](/docs/tasks/run-application/scale-stateful-set/)
+  - [HorizontalPodAutoscaler Walkthrough](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
+- [Resize Container Resources In-Place](/docs/tasks/configure-pod-container/resize-container-resources/)
+- [Autoscale the DNS Service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)
