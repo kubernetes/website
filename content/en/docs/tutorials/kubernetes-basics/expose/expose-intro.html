@@ -130,7 +130,7 @@ description: |-
 			<div class="col-md-12">
 				<h3>Step 2: Using labels</h3>
 				<div class="content">
-				<p>The Deployment created automatically a label for our Pod. With the <code>describe deployment</code> subcommand you can see the name (the <em>key</em>) of that label:</p>
+				<p>The Deployment automatically created a label for our Pod. With the <code>describe deployment</code> subcommand you can see the name (the <em>key</em>) of that label:</p>
 				<p><code><b>kubectl describe deployment</b></code></p>
 				<p>Let’s use this label to query our list of Pods. We’ll use the <code>kubectl get pods</code> command with <tt>-l</tt> as a parameter, followed by the label values:</p>
 				<p><code><b>kubectl get pods -l app=kubernetes-bootcamp</b></code></p>
