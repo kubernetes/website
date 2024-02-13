@@ -1,13 +1,10 @@
 ---
-# title: API server
-title: API-сервер
+title: API server
 id: kube-apiserver
 date: 2018-04-12
-full_link: /docs/reference/generated/kube-apiserver/
-# short_description: >
-#  Control plane component that serves the Kubernetes API.
+full_link: /docs/concepts/overview/components/#kube-apiserver
 short_description: >
-  Компонент площини управління, що надає доступ до API Kubernetes.
+  Компоент панелі управління, що обслуговує API Kubernetes.
 
 aka:
 - kube-apiserver
@@ -15,15 +12,8 @@ tags:
 - architecture
 - fundamental
 ---
-<!-- The API server is a component of the Kubernetes
-{{< glossary_tooltip text="control plane" term_id="control-plane" >}} that exposes the Kubernetes API.
-The API server is the front end for the Kubernetes control plane.
--->
-API-сервер є компонентом {{< glossary_tooltip text="площини управління" term_id="control-plane" >}} Kubernetes, через який можна отримати доступ до API Kubernetes. API-сервер є фронтендом площини управління Kubernetes.
+Сервер API є компонентом {{< glossary_tooltip text="панелі управління" term_id="control-plane" >}} Kubernetes, який надає доступ до API Kubernetes. Сервер API є фронтендом для панелі управління Kubernetes.
 
 <!--more-->
 
-<!-- The main implementation of a Kubernetes API server is [kube-apiserver](/docs/reference/generated/kube-apiserver/). -->
-<!-- kube-apiserver is designed to scale horizontally&mdash;that is, it scales by deploying more instances. -->
-<!-- You can run several instances of kube-apiserver and balance traffic between those instances. -->
-Основною реалізацією Kubernetes API-сервера є [kube-apiserver](/docs/reference/generated/kube-apiserver/). kube-apiserver підтримує горизонтальне масштабування, тобто масштабується за рахунок збільшення кількості інстансів. kube-apiserver можна запустити на декількох інстансах, збалансувавши між ними трафік.
+Основна реалізація сервера API Kubernetes — [kube-apiserver](/docs/reference/generated/kube-apiserver/). kube-apiserver спроєктований для горизонтального масштабування, тобто масштабується за допомогою розгортання додаткових екземплярів. Ви можете запустити кілька екземплярів kube-apiserver та балансувати трафік між ними.
