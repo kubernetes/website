@@ -244,11 +244,11 @@ To help with debugging issues on nodes, Kubernetes v1.27 introduced a feature th
 running on the node. To use the feature, ensure that the `NodeLogQuery`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled for that node, and that the
 kubelet configuration options `enableSystemLogHandler` and `enableSystemLogQuery` are both set to true. On Linux
-we assume that service logs are available via journald. On Windows we assume that service logs are available
-in the application log provider. On both operating systems, logs are also available by reading files within
+the assumption is that service logs are available via journald. On Windows the assumption is that service logs are
+available in the application log provider. On both operating systems, logs are also available by reading files within
 `/var/log/`.
 
-Provided you are authorized to interact with node objects, you can try out this alpha feature on all your nodes or
+Provided you are authorized to interact with node objects, you can try out this feature on all your nodes or
 just a subset. Here is an example to retrieve the kubelet service logs from a node:
 
 ```shell
@@ -293,4 +293,4 @@ kubectl get --raw "/api/v1/nodes/node-1.example/proxy/logs/?query=kubelet&patter
 * Read about [Contextual Logging](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/3077-contextual-logging)
 * Read about [deprecation of klog flags](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)
 * Read about the [Conventions for logging severity](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)
-
+* Read about [Log Query](https://kep.k8s.io/2258)
