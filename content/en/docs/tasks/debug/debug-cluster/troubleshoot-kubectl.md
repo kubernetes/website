@@ -133,7 +133,7 @@ notAfter=Feb 10 06:02:47 2034 GMT
 ```
 
 ```shell
-kubectl config view --flatten --output 'jsonpath={.users[0].user.client-certificate-data}'|base64 -d | openssl x509 -noout -dates
+kubectl config view --flatten --output 'jsonpath={.users[0].user.client-certificate-data}'| base64 -d | openssl x509 -noout -dates
 ```
 
 output:
