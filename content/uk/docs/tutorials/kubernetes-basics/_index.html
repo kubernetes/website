@@ -1,10 +1,10 @@
 ---
-title: Дізнатися про основи Kubernetes
-linkTitle: Основи Kubernetes
+title: Ознайомлення з основами Kubernetes
+linkTitle: Ознайомлення з основами Kubernetes
 no_list: true
 weight: 10
 card:
-  name: навчальні матеріали
+  name: tutorials
   weight: 20
   title: Знайомство з основами
 ---
@@ -15,40 +15,22 @@ card:
 
 <body>
 
-  <link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
-
 <div class="layout" id="top">
 
   <main class="content">
 
     <div class="row">
       <div class="col-md-9">
-        <!--<h2>Kubernetes Basics</h2>
-        -->
         <h2>Основи Kubernetes</h2>
-        <!--<p>This tutorial provides a walkthrough of the basics of the Kubernetes cluster orchestration system. Each module contains some background information on major Kubernetes features and concepts, and includes an interactive online tutorial. These interactive tutorials let you manage a simple cluster and its containerized applications for yourself.</p>
-        -->
-        <p>Цей навчальний матеріал ознайомить вас з основами системи оркестрації Kubernetes кластера. Кожен модуль містить загальну інформацію щодо основної функціональності і концепцій Kubernetes, а також інтерактивний онлайн-урок. Завдяки цим інтерактивним урокам ви зможете самостійно керувати простим кластером і розгорнутими в ньому контейнеризованими застосунками.</p>
-        <!--<p>Using the interactive tutorials, you can learn to:</p>
-        -->
-        <p>З інтерактивних уроків ви дізнаєтесь:</p>
-        <ul>
-        <!--<li>Deploy a containerized application on a cluster.</li>
-        -->
-        <li>як розгорнути контейнеризований застосунок у кластері.</li>
-        <!--<li>Scale the deployment.</li>
-        -->
-        <li>як масштабувати Deployment.</li>
-        <!--<li>Update the containerized application with a new software version.</li>
-        -->
-        <li>як розгорнути нову версію контейнеризованого застосунку.</li>
-        <!--<li>Debug the containerized application.</li>
-        -->
-        <li>як відлагодити контейнеризований застосунок.</li>
-        </ul>
-        <!--<p>The tutorials use Katacoda to run a virtual terminal in your web browser that runs Minikube, a small-scale local deployment of Kubernetes that can run anywhere. There's no need to install any software or configure anything; each interactive tutorial runs directly out of your web browser itself.</p>
-        -->
-        <p>Навчальні матеріали використовують Katacoda для запуску у вашому браузері віртуального термінала, в якому запущено Minikube - невеликий локально розгорнутий Kubernetes, що може працювати будь-де. Вам не потрібно встановлювати або налаштовувати жодне програмне забезпечення: кожен інтерактивний урок запускається просто у вашому браузері.</p>
+          <p>Цей посібник надає інструкції з основ системи оркестрування кластерів Kubernetes. Кожний модуль містить деяку вступну інформацію про основні функції та концепції Kubernetes, а також практичний посібник, за яким ви можете вчитися.</p>
+          <p>За допомогою цих посібників ви дізнаєтесь:</p>
+          <ul>
+            <li>як розгорнути контейнеризований застосунок в кластері.</li>
+            <li>як масштабувати Deployment.</li>
+            <li>як розгорнути нову версію контейнеризованого застосунку.</li>
+            <li>як налагодити контейнеризований застосунок.</li>
+          </ul>
+
       </div>
     </div>
 
@@ -56,21 +38,15 @@ card:
 
     <div class="row">
       <div class="col-md-9">
-        <!--<h2>What can Kubernetes do for you?</h2>
-        -->
         <h2>Чим Kubernetes може бути корисний для вас?</h2>
-        <!--<p>With modern web services, users expect applications to be available 24/7, and developers expect to deploy new versions of those applications several times a day. Containerization helps package software to serve these goals, enabling applications to be released and updated in an easy and fast way without downtime. Kubernetes helps you make sure those containerized applications run where and when you want, and helps them find the resources and tools they need to work. Kubernetes is a production-ready, open source platform designed with Google's accumulated experience in container orchestration, combined with best-of-breed ideas from the community.</p>
-        -->
-        <p>Від сучасних вебсервісів користувачі очікують доступності 24/7, а розробники - можливості розгортати нові версії цих застосунків по кілька разів на день. Контейнеризація, що допомагає упакувати програмне забезпечення, якнайкраще сприяє цим цілям. Вона дозволяє випускати і оновлювати застосунки легко, швидко та без простою. Із Kubernetes ви можете бути певні, що ваші контейнеризовані застосунки запущені там і тоді, де ви цього хочете, а також забезпечені усіма необхідними для роботи ресурсами та інструментами. Kubernetes - це висококласна платформа з відкритим вихідним кодом, в основі якої - накопичений досвід оркестрації контейнерів від Google, поєднаний із найкращими ідеями і практиками від спільноти.</p>
+          <p>З сучасними вебсервісами користувачі очікують доступності застосунків 24/7, а розробники прагнуть розгортати нові версії цих застосунків кілька разів на день. Контейнеризація допомагає упаковувати програмне забезпечення для досягнення цих цілей, дозволяючи випускати оновлення застосунків без перерви в роботі. Kubernetes допомагає забезпечити те, що контейнеризовані застосунки працюватимуть там і тоді, де це потрібно, та надає їм необхідні ресурси та інструменти для ефективної роботи. Kubernetes — це готова до використання, відкрита платформа, розроблена на основі здобутого Google досвіду в оркеструванні контейнерів, поєднаного з найкращими ідеями та практиками спільноти.</p>
       </div>
     </div>
 
     <br>
     
     <div id="basics-modules" class="content__modules">
-      <!--<h2>Kubernetes Basics Modules</h2>
-      -->
-      <h2>Навчальні модулі "Основи Kubernetes"</h2>
+            <h2>Навчальні модулі «Основи Kubernetes»</h2>
       <div class="row">
         <div class="col-md-12">
           <div class="row">
@@ -78,7 +54,7 @@ card:
               <div class="thumbnail">
                 <a href="/uk/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/"><img src="/docs/tutorials/kubernetes-basics/public/images/module_01.svg?v=1469803628347" alt=""></a>
                 <div class="caption">
-                  <a href="/uk/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/"><h5>1. Створення Kubernetes кластера</h5></a>
+                  <a href="/uk/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/"><h5>1. Створення кластера Kubernetes</h5></a>
                 </div>
               </div>
             </div>
@@ -94,7 +70,7 @@ card:
               <div class="thumbnail">
                 <a href="/uk/docs/tutorials/kubernetes-basics/explore/explore-intro/"><img src="/docs/tutorials/kubernetes-basics/public/images/module_03.svg?v=1469803628347" alt=""></a>
                 <div class="caption">
-                  <a href="/uk/docs/tutorials/kubernetes-basics/explore/explore-intro/"><h5>3. Вивчення застосунку</h5></a>
+                  <a href="/uk/docs/tutorials/kubernetes-basics/explore/explore-intro/"><h5>3. Дослідить свій застосунок</h5></a>
                 </div>
               </div>
             </div>
