@@ -2,25 +2,25 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/be93b718-a6df-402a-b4a4-855ba186c97d/deploy-status)](https://app.netlify.com/sites/kubernetes-io-main-staging/deploys) [![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
 
-このリポジトリには、[KubernetesのWebサイトとドキュメント](https://kubernetes.io/)をビルドするために必要な全アセットが格納されています。貢献に興味を持っていただきありがとうございます！
+このリポジトリーには、[KubernetesのWebサイトとドキュメント](https://kubernetes.io/)をビルドするために必要な全アセットが格納されています。貢献に興味を持っていただきありがとうございます！
 
 - [ドキュメントに貢献する](#contributing-to-the-docs)
 - [翻訳された`README.md`一覧](#localization-readmemds)
 
-# リポジトリの使い方
+# リポジトリーの使い方
 
 Hugo(Extended version)を使用してWebサイトをローカルで実行することも、コンテナランタイムで実行することもできます。コンテナランタイムを使用することを強くお勧めします。これにより、本番Webサイトとのデプロイメントの一貫性が得られます。
 
 ## 前提条件
 
-このリポジトリを使用するには、以下をローカルにインストールする必要があります。
+このリポジトリーを使用するには、以下をローカルにインストールする必要があります。
 
 - [npm](https://www.npmjs.com/)
 - [Go](https://go.dev/)
 - [Hugo(Extended version)](https://gohugo.io/)
 - [Docker](https://www.docker.com/)などのコンテナランタイム
 
-開始する前に、依存関係をインストールしてください。リポジトリのクローンを作成し、ディレクトリに移動します。
+開始する前に、依存関係をインストールしてください。リポジトリーのクローンを作成し、ディレクトリに移動します。
 
 ```
 git clone https://github.com/kubernetes/website.git
@@ -43,7 +43,7 @@ make container-image
 make container-serve
 ```
 
-お使いのブラウザにて http://localhost:1313 にアクセスしてください。リポジトリ内のソースファイルに変更を加えると、HugoがWebサイトの内容を更新してブラウザに反映します。
+お使いのブラウザにて http://localhost:1313 にアクセスしてください。リポジトリー内のソースファイルに変更を加えると、HugoがWebサイトの内容を更新してブラウザに反映します。
 
 ## Hugoを使ってローカル環境でWebサイトを動かす
 
@@ -57,7 +57,7 @@ npm ci
 make serve
 ```
 
-これで、Hugoのサーバーが1313番ポートを使って開始します。お使いのブラウザにて http://localhost:1313 にアクセスしてください。リポジトリ内のソースファイルに変更を加えると、HugoがWebサイトの内容を更新してブラウザに反映します。
+これで、Hugoのサーバーが1313番ポートを使って開始します。お使いのブラウザにて http://localhost:1313 にアクセスしてください。リポジトリー内のソースファイルに変更を加えると、HugoがWebサイトの内容を更新してブラウザに反映します。
 
 ## API reference pagesをビルドする
 
@@ -149,7 +149,7 @@ sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
 
 ## ドキュメントに貢献する {#contributing-to-the-docs}
 
-GitHubの画面右上にある**Fork**ボタンをクリックすると、お使いのGitHubアカウントに紐付いた本リポジトリのコピーが作成され、このコピーのことを*フォーク*と呼びます。フォークリポジトリの中ではお好きなように変更を加えていただいて構いません。加えた変更をこのリポジトリに追加したい任意のタイミングにて、フォークリポジトリからPull Reqeustを作成してください。
+GitHubの画面右上にある**Fork**ボタンをクリックすると、お使いのGitHubアカウントに紐付いた本リポジトリーのコピーが作成され、このコピーのことを*フォーク*と呼びます。フォークリポジトリーの中ではお好きなように変更を加えていただいて構いません。加えた変更をこのリポジトリーに追加したい任意のタイミングにて、フォークリポジトリーからPull Reqeustを作成してください。
 
 Pull Requestが作成されると、レビュー担当者が責任を持って明確かつ実用的なフィードバックを返します。Pull Requestの所有者は作成者であるため、**ご自身で作成したPull Requestを編集し、フィードバックに対応するのはご自身の役目です。**
 

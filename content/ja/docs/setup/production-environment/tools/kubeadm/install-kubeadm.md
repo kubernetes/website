@@ -122,7 +122,7 @@ kubeadmは`kubelet`や`kubectl`をインストールまたは管理**しない**
 
 {{< tabs name="k8s_install" >}}
 {{% tab name="Ubuntu、Debian、またはHypriotOS" %}}
-1. `apt`のパッケージ一覧を更新し、Kubernetesの`apt`リポジトリを利用するのに必要なパッケージをインストールします:
+1. `apt`のパッケージ一覧を更新し、Kubernetesの`apt`リポジトリーを利用するのに必要なパッケージをインストールします:
 
    ```shell
    sudo apt-get update
@@ -135,7 +135,7 @@ kubeadmは`kubelet`や`kubectl`をインストールまたは管理**しない**
    curl -fsSL https://dl.k8s.io/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
    ```
 
-3. Kubernetesの`apt`リポジトリを追加します:
+3. Kubernetesの`apt`リポジトリーを追加します:
 
    ```shell
    echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list

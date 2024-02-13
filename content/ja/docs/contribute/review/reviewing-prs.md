@@ -7,7 +7,7 @@ weight: 10
 
 <!-- overview -->
 
-ドキュメントのプルリクエストは誰でもレビューすることができます。Kubernetesのwebsiteリポジトリで[pull requests](https://github.com/kubernetes/website/pulls)のセクションに移動し、open状態のプルリクエストを確認してください。
+ドキュメントのプルリクエストは誰でもレビューすることができます。Kubernetesのwebsiteリポジトリーで[pull requests](https://github.com/kubernetes/website/pulls)のセクションに移動し、open状態のプルリクエストを確認してください。
 
 ドキュメントのプルリクエストのレビューは、Kubernetesコミュニティに自分を知ってもらうためのよい方法の1つです。コードベースについて学んだり、他のコントリビューターとの信頼関係を築く助けともなるはずです。
 

@@ -12,7 +12,7 @@ card:
 SIG Docsは、Kubernetesプロジェクト内の 
 [special interest groups](https://github.com/kubernetes/community/blob/master/sig-list.md)の1つであり、
 Kubernetes全体のドキュメントの作成、更新、および保守に重点を置いています。 
-SIGの詳細については、[SIG DocsのGithubリポジトリ](https://github.com/kubernetes/community/blob/master/sig-list.md)を参照してください。
+SIGの詳細については、[SIG DocsのGithubリポジトリー](https://github.com/kubernetes/community/blob/master/sig-list.md)を参照してください。
 
 SIG Docsは、すべての寄稿者からのコンテンツとレビューを歓迎します。
 誰でもPull Request(PR)を開くことができ、コンテンツに関するissueを提出したり、進行中のPull Requestにコメントしたりできます。
@@ -61,16 +61,16 @@ ProwチームとGitHub teamsが完全に一致せずに重複する場合があ�
 ### OWNERSファイルとfront-matter
 
 Kubernetesプロジェクトは、GitHubのissueとPull Requestに関連する自動化のためにprowと呼ばれる自動化ツールを使用します。 
-[Kubernetes Webサイトリポジトリ](https://github.com/kubernetes/website) 
+[Kubernetes Webサイトリポジトリー](https://github.com/kubernetes/website) 
 は、2つの[prowプラグイン](https://github.com/kubernetes/test-infra/tree/master/prow/plugins)を使用します：
 
 - blunderbuss
 - approve
 
-これらの2つのプラグインは`kubernetes.website`のGithubリポジトリのトップレベルにある
+これらの2つのプラグインは`kubernetes.website`のGithubリポジトリーのトップレベルにある
 [OWNERS](https://github.com/kubernetes/website/blob/main/OWNERS)ファイルと、
 [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS_ALIASES)ファイルを使用して、
-リポジトリ内でのprowの動作を制御します。
+リポジトリー内でのprowの動作を制御します。
 
 OWNERSファイルには、SIG Docsのレビュー担当者および承認者であるユーザーのリストが含まれています。 
 OWNERSファイルはサブディレクトリに存在することもでき、そのサブディレクトリとその子孫のファイルのレビュー担当者または承認者として機能できるユーザーを上書きできます。

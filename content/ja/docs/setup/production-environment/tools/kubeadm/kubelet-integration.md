@@ -134,5 +134,5 @@ Kubernetesに同梱されるDEB、RPMのパッケージは以下の通りです�
 | `kubeadm`    | `/usr/bin/kubeadm`CLIツールと、[kubelet用のsystemdファイル](#the-kubelet-drop-in-file-for-systemd)をインストールします。 |
 | `kubelet`    | kubeletバイナリを`/usr/bin`に、CNIバイナリを`/opt/cni/bin`にインストールします。 |
 | `kubectl`    | `/usr/bin/kubectl`バイナリをインストールします。 |
-| `cri-tools` | `/usr/bin/crictl`バイナリを[cri-tools gitリポジトリ](https://github.com/kubernetes-incubator/cri-tools)からインストールします。 |
+| `cri-tools` | `/usr/bin/crictl`バイナリを[cri-tools gitリポジトリー](https://github.com/kubernetes-incubator/cri-tools)からインストールします。 |
 

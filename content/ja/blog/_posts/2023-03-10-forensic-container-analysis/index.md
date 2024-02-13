@@ -239,7 +239,7 @@ checkpoint/pages-2.img:RANDOM_1432_KEY
 #### さらなる分析のためにgdbを使用する
 
 チェックポイントイメージを見るための他の方法は`gdb`です。
-CRIUリポジトリは、チェックポイントをコアダンプファイルに変換する[coredump][criu-coredump]スクリプトを含んでいます。
+CRIUリポジトリーは、チェックポイントをコアダンプファイルに変換する[coredump][criu-coredump]スクリプトを含んでいます。
 
 ```console
 $ /home/criu/coredump/coredump-python3

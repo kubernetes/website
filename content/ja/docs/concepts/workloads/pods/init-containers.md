@@ -65,7 +65,7 @@ Initコンテナを活用する方法について、いくつかのアイデア�
   sleep 60
   ```
 
-* gitリポジトリを{{< glossary_tooltip text="Volume" term_id="volume" >}}にクローンする。
+* gitリポジトリーを{{< glossary_tooltip text="Volume" term_id="volume" >}}にクローンする。
 
 * いくつかの値を設定ファイルに配置し、メインのアプリケーションコンテナのための設定ファイルを動的に生成するためのテンプレートツールを実行する。例えば、そのPodの`POD_IP`の値を設定ファイルに配置し、Jinjaを使ってメインのアプリケーションコンテナの設定ファイルを生成する。
 
