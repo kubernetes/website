@@ -1,6 +1,8 @@
 ---
-title: Виконання послідовного оновлення (rolling update)
+title: Виконання поступового оновлення
 weight: 10
+description: |-
+    Виконання поетапного оновлення застосунку (rolling update) за допомогою kubectl.
 ---
 
 <!DOCTYPE html>
@@ -9,160 +11,183 @@ weight: 10
 
 <body>
 
-    <link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
-
-
-<div class="layout" id="top">
-
-    <main class="content">
-
-        <div class="row">
-
-     <div class="col-md-8">
-          <!--<h3>Objectives</h3>
-          -->
-          <h3>Цілі</h3>
-                <ul>
-                    <!--<li>Perform a rolling update using kubectl.</li>
-                    -->
-                    <li>Виконати послідовне оновлення, використовуючи kubectl.</li>
-                </ul>
-            </div>
-
-            <div class="col-md-8">
-            <!--<h3>Updating an application</h3>
-            -->
-            <h3>Оновлення застосунку</h3>
-
-            <!--<p>Users expect applications to be available all the time and developers are expected to deploy new versions of them several times a day. In Kubernetes this is done with rolling updates. <b>Rolling updates</b> allow Deployments' update to take place with zero downtime by incrementally updating Pods instances with new ones. The new Pods will be scheduled on Nodes with available resources.</p>
-            -->
-            <p>Користувачі очікують від застосунків високої доступності у будь-який час, а розробники - оновлення цих застосунків декілька разів на день. У Kubernetes це стає можливим завдяки послідовному оновленню. <b>Послідовні оновлення</b> дозволяють оновити Deployment без простою, шляхом послідовної заміни одних Pod'ів іншими. Нові Pod'и розподіляються по вузлах з доступними ресурсами.</p>
-
-            <!--<p>In the previous module we scaled our application to run multiple instances. This is a requirement for performing updates without affecting application availability. By default, the maximum number of Pods that can be unavailable during the update and the maximum number of new Pods that can be created, is one. Both options can be configured to either numbers or percentages (of Pods).
-            In Kubernetes, updates are versioned and any Deployment update can be reverted to a previous (stable) version.</p>
-            -->
-            <p>У попередньому модулі ми масштабували наш застосунок, запустивши його на декількох Pod'ах. Масштабування - необхідна умова для проведення оновлень без шкоди для доступності застосунку. За типовими налаштуваннями, максимальна кількість Pod'ів, недоступних під час оновлення, і максимальна кількість нових Pod'ів, які можуть бути створені, дорівнює одиниці. Обидві опції можна налаштувати в числовому або відсотковому (від кількості Pod'ів) еквіваленті.
-            У Kubernetes оновлення версіонуються, тому кожне оновлення Deployment'а можна відкотити до попередньої (стабільної) версії.</p>
-
-            </div>
-            <div class="col-md-4">
-                <div class="content__box content__box_lined">
-                    <!--<h3>Summary:</h3>
-                    -->
-                    <h3>Зміст:</h3>
+    <div class="layout" id="top">
+    
+        <main class="content">
+    
+            <div class="row">
+    
+         <div class="col-md-8">
+              <h3>Мета</h3>
                     <ul>
-                        <!--<li>Updating an app</li>
-                        -->
-                        <li>Оновлення застосунку</li>
+                        <li>Виконати розгортання з оновленням за допомогою kubectl.</li>
                     </ul>
                 </div>
-                <div class="content__box content__box_fill">
-                    <!--<p><i>Rolling updates allow Deployments' update to take place with zero downtime by incrementally updating Pods instances with new ones. </i></p>
-                    -->
-                    <p><i>Послідовне оновлення дозволяє оновити Deployment без простою шляхом послідовної заміни одних Pod'ів іншими. </i></p>
+    
+                <div class="col-md-8">
+                <h3>Оновлення застосунку</h3>
+    
+                <p>Користувачі очікують, що застосунки будуть доступні цілодобово, і очікується, що розробники розгортатимуть нові версії кілька разів на день. У Kubernetes це робиться за допомогою розгортань з поступовим оновленням. <b>Поступове оновлення (rolling update)</b> дозволяє виконати оновлення Deployment без перерви в роботі застосунку. Це досягається поетапною заміною поточних Podʼів новими. Нові Podʼи призначаються вузлам з вільними ресурсами, а Kubernetes чекає, доки ці нові Podʼи не почнуть працювати, перш ніж вилучити старі Podʼи.</p>
+    
+                <p>У попередньому розділі ми масштабували наш застосунок для запуску кількох екземплярів. Це є вимогою для виконання оновлень без впливу на доступність застосунку. Стандартно максимальна кількість Podʼів, які можуть бути недоступні під час оновлення, та максимальна кількість нових Podʼів, які можуть бути створені, дорівнює одному. Обидві опції можуть бути налаштовані як у вигляді точної кількості, так і у відсотках (від усіх Podʼів).
+                У Kubernetes оновлення мають версії, і будь-яке оновлення Deployment може бути повернуте до попередньої (стабільної) версії.</p>
+    
                 </div>
-            </div>
-        </div>
-        <br>
-
-        <div class="row">
-            <div class="col-md-8">
-                <h2 style="color: #3771e3;">Загальна інформація про послідовне оновлення</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-8">
-                <div id="myCarousel" class="carousel" data-ride="carousel" data-interval="3000">
-                    <ol class="carousel-indicators">
-                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                        <li data-target="#myCarousel" data-slide-to="1"></li>
-                        <li data-target="#myCarousel" data-slide-to="2"></li>
-                        <li data-target="#myCarousel" data-slide-to="3"></li>
-                    </ol>
-                      <div class="carousel-inner" role="listbox">
-                        <div class="item carousel-item active">
-                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates1.svg" >
-                        </div>
-
-                        <div class="item carousel-item">
-                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates2.svg">
-                        </div>
-
-                        <div class="item carousel-item">
-                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates3.svg">
-                        </div>
-
-                        <div class="item carousel-item">
-                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates4.svg">
-                        </div>
-                      </div>
-
-                      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                        <span class="sr-only ">Попередня</span>
-                      </a>
-                      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                        <span class="sr-only">Наступна</span>
-                      </a>
-
+                <div class="col-md-4">
+                    <div class="content__box content__box_lined">
+                        <h3>Зміст:</h3>
+                        <ul>
+                            <li>Оновлення застосунку</li>
+                        </ul>
                     </div>
-            </div>
-        </div>
-        <br>
-
-        <div class="row">
-            <div class="col-md-8">
-
-                <!--<p>Similar to application Scaling, if a Deployment is exposed publicly, the Service will load-balance the traffic only to available Pods during the update. An available Pod is an instance that is available to the users of the application.</p>
-                -->
-                <p>Як і у випадку з масштабуванням, якщо Deployment "відкритий у світ", то під час оновлення Service розподілятиме трафік лише на доступні Pod'и. Під доступним мається на увазі Pod, готовий до експлуатації користувачами застосунку.</p>
-
-                <!--<p>Rolling updates allow the following actions:</p>
-                -->
-                <p>Послідовне оновлення дозволяє вам:</p>
-                <ul>
-                    <!--<li>Promote an application from one environment to another (via container image updates)</li>
-                    -->
-                    <li>Просувати застосунок з одного оточення в інше (шляхом оновлення образу контейнера)</li>
-                    <!--<li>Rollback to previous versions</li>
-                    -->
-                    <li>Відкочуватися до попередніх версій</li>
-                    <!--<li>Continuous Integration and Continuous Delivery of applications with zero downtime</li>
-                    -->
-                    <li>Здійснювати безперервну інтеграцію та розгортання застосунків без простою</li>
-
-                </ul>
-
-            </div>
-            <div class="col-md-4">
-                <div class="content__box content__box_fill">
-                    <!--<p><i>If a Deployment is exposed publicly, the Service will load-balance the traffic only to available Pods during the update. </i></p>
-                    -->
-                    <p><i>Якщо Deployment "відкритий у світ", то під час оновлення Service розподілятиме трафік лише на доступні Pod'и. </i></p>
+                    <div class="content__box content__box_fill">
+                        <p><i>Поступові оновлення дозволяють виконувати оновлення Deployment без зупинки роботи застосунку за допомогою поетапного оновлення екземплярів Podʼів. </i></p>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <br>
-
-        <div class="row">
-            <div class="col-md-8">
-                <!--<p> In the following interactive tutorial, we'll update our application to a new version, and also perform a rollback.</p>
-                -->
-                <p> В інтерактивному уроці ми оновимо наш застосунок до нової версії, а потім відкотимося до попередньої.</p>
+            <br>
+    
+            <div class="row">
+                <div class="col-md-8">
+                    <h2 style="color: #3771e3;">Огляд поступового оновлення</h2>
+                </div>
             </div>
-        </div>
-        <br>
-
-        <div class="row">
-            <div class="col-md-12">
-                <a class="btn btn-lg btn-success" href="/uk/docs/tutorials/kubernetes-basics/update/update-interactive/" role="button">Почати інтерактивний урок <span class="btn__next">›</span></a>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-8">
+                    <div id="myCarousel" class="carousel" data-ride="carousel" data-interval="3000">
+                        <ol class="carousel-indicators">
+                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#myCarousel" data-slide-to="1"></li>
+                            <li data-target="#myCarousel" data-slide-to="2"></li>
+                            <li data-target="#myCarousel" data-slide-to="3"></li>
+                        </ol>
+                          <div class="carousel-inner" role="listbox">
+                            <div class="item carousel-item active">
+                              <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates1.svg" >
+                            </div>
+    
+                            <div class="item carousel-item">
+                              <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates2.svg">
+                            </div>
+    
+                            <div class="item carousel-item">
+                              <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates3.svg">
+                            </div>
+    
+                            <div class="item carousel-item">
+                              <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates4.svg">
+                            </div>
+                          </div>
+    
+                          <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                            <span class="sr-only ">Попередня</span>
+                          </a>
+                          <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                            <span class="sr-only">Наступна</span>
+                          </a>
+    
+                        </div>
+                </div>
             </div>
-        </div>
-
-    </main>
-
-</div>
-
+            <br>
+    
+            <div class="row">
+                <div class="col-md-8">
+    
+                    <p>Аналогічно масштабуванню застосунку, якщо Deployment є публічно доступним, Service буде балансувати трафік лише на доступні Podʼи під час оновлення. Доступний Pod — це екземпляр, який доступний користувачам застосунку.</p>
+    
+                    <p>Поступові оновлення дозволяють виконувати наступні дії:</p>
+                    <ul>
+                        <li>Просування застосунку з одного середовища в інше (за допомогою оновлень образів контейнерів)</li>
+                        <li>Відкат до попередніх версій</li>
+                        <li>Неперервна інтеграція та постійна доставка застосунків без перерви в роботі</li>
+                    </ul>
+    
+                </div>
+                <div class="col-md-4">
+                    <div class="content__box content__box_fill">
+                        <p><i>Якщо Deployment публічно доступний, Service буде балансувати трафік лише на доступні Podʼи під час оновлення.</i></p>
+                    </div>
+                </div>
+            </div>
+    
+            <br>
+    
+            <div class="row">
+                <div class="col-md-8">
+                    <p> У наступному інтерактивному практикумі ми оновимо наш застосунок до нової версії та виконаємо відкат.</p>
+                </div>
+            </div>
+            <br>
+    
+            <div class="row">
+                <div class="col-md-12">
+                   <h3>Оновлення версії застосунку</h3>
+                   <p>Для виведення списку Deploymentʼів виконайте команду <code>get deployments</code>:
+                   <code><b>kubectl get deployments</b></code></p>
+                   <p>Для виведення списку запущених Podʼів виконайте команду <code>get pods</code>:</p>
+                   <p><code><b>kubectl get pods</b></code></p>
+                   <p>Для перегляду поточної версії образу застосунку виконайте команду <code>describe pods</code> та шукайте поле <code>Image</code>:</p>
+                   <p><code><b>kubectl describe pods</b></code></p>
+                   <p>Для оновлення образу застосунку до версії 2 використовуйте команду <code>set image</code>, за якою йде назва Deployment та нова версія образу:</p>
+                   <p><code><b>kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=jocatalin/kubernetes-bootcamp:v2</b></code></p>
+                   <p>Команда повідомляє Deployment про використання іншого образу для вашого застосунку та запускає поступове оновлення. Перевірте стан нових Podʼів та перегляньте той, що відключається, використовуючи команду <code>get pods</code>:</p>
+                   <p><code><b>kubectl get pods</b></code></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                   <h3>Перевірка оновлення</h3>
+                   <p>Спочатку перевірте, чи застосунок працює. Для знаходження зовнішньої IP-адреси та порту виконайте команду <code>describe service</code>:</p>
+                   <p><code><b>kubectl describe services/kubernetes-bootcamp</b></code></p>
+                   <p>Створіть змінну середовища з іменем <tt>NODE_PORT</tt> зі значенням призначеного порту вузла:</p>
+                   <p><code><b>export NODE_PORT="$(kubectl get services/kubernetes-bootcamp -o go-template='{{(index .spec.ports 0).nodePort}}')"</b></code><br />
+                      <code><b>echo "NODE_PORT=$NODE_PORT"</b></code></p>
+                   <p>Потім виконайте <code>curl</code> з зовнішньою IP-адресою та портом:</p>
+                   <p><code><b>curl http://"$(minikube ip):$NODE_PORT"</b></code></p>
+                   <p>Кожен раз, коли ви виконуєте команду <code>curl</code>, ви попадете на різні Podʼи. Зверніть увагу, що всі Podʼи зараз працюють на останній версії (v2).</p>
+                   <p>Ви також можете підтвердити оновлення, використовуючи команду <code>rollout status</code>:</p>
+                   <p><code><b>kubectl rollout status deployments/kubernetes-bootcamp</b></code></p>
+                   <p>Для перегляду поточної версії образу застосунку виконайте команду <code>describe pods</code>:</p>
+                   <p><code><b>kubectl describe pods</b></code></p>
+                   <p>У полі <code>Image</code> перевірите, що ви використовуєте останню версію образу (v2).</p>
+                </div>
+            </div>
+    
+            <div class="row">
+                <div class="col-md-12">
+                   <h3>Відкат оновлення</h3>
+                   <p>Виконаймо ще одне оновлення та спробуємо розгорнути образ з теґом <code>v10</code>:</p>
+                   <p><code><b>kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=gcr.io/google-samples/kubernetes-bootcamp:v10</b></code></p>
+                   <p>Використовуйте <code>get deployments</code>, щоб переглянути стан розгортання:</p>
+                   <p><code><b>kubectl get deployments</b></code></p>
+                   <p>Зверніть увагу, що вивід не вказує бажану кількість доступних Podʼів. Використайте команду <code>get pods</code>, щоб вивести список всіх Podʼів:</p>
+                   <p><code><b>kubectl get pods</b></code></p>
+                   <p>Зверніть увагу, що деякі Podʼи мають статус <tt>ImagePullBackOff</tt>.</p>
+                   <p>Щоб отримати більше відомостей про проблему, використовуйте команду <code>describe pods</code>:</p>
+                   <p><code><b>kubectl describe pods</b></code></p>
+                   <p>У розділі <code>Events</code> виводу для проблемних Podʼів, зверніть увагу, що версії образу <code>v10</code> немає в репозиторії.</p>
+                   <p>Щоб відкотити розгортання до попередньої робочої версії, використовуйте команду <code>rollout undo</code>:</p>
+                   <p><code><b>kubectl rollout undo deployments/kubernetes-bootcamp</b></code></p>
+                   <p>Команда <code>rollout undo</code> повертає розгортання до попередньо відомого стану (v2 образу). Оновлення мають версії, і ви можете повернутися до будь-якого раніше відомого стану розгортання.</p>
+                   <p>Використайте команду <code>get pods</code>, щоб знову вивести список Podʼів:</p>
+                   <p><code><b>kubectl get pods</b></code></p>
+                   <p>Чотири Podʼи працюють. Щоб перевірити образ, розгорнутий на цих Podʼах, використайте команду <code>describe pods</code>:</p>
+                   <p><code><b>kubectl describe pods</b></code></p>
+                   <p>Розгортання знову використовує стабільну версію застосунку (v2). Відкат був успішним.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p>Не забудьте очистити свій локальний кластер</p>
+                    <p><code><b>kubectl delete deployments/kubernetes-bootcamp services/kubernetes-bootcamp</b></code>
+                </div>
+            </div>
+    
+        </main>
+    
+    </div>
+    
 </body>
 </html>
