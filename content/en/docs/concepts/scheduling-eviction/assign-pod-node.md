@@ -391,21 +391,22 @@ metadata:
 ...
 spec:
   template:
-    affinity:
-      podAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-        - labelSelector:
-            matchExpressions:
-            - key: app
-              operator: In
-              values:
-              - database
-          topologyKey: topology.kubernetes.io/zone
-          # Only Pods from a given rollout are taken into consideration when calculating pod affinity.
-          # If you update the Deployment, the replacement Pods follow their own affinity rules
-          # (if there are any defined in the new Pod template)
-          matchLabelKeys: 
-          - pod-template-hash
+    spec:
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - database
+            topologyKey: topology.kubernetes.io/zone
+            # Only Pods from a given rollout are taken into consideration when calculating pod affinity.
+            # If you update the Deployment, the replacement Pods follow their own affinity rules
+            # (if there are any defined in the new Pod template)
+            matchLabelKeys: 
+            - pod-template-hash
 ```
 
 #### mismatchLabelKeys
