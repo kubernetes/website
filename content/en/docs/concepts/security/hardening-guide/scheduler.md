@@ -45,4 +45,10 @@ A misconfigured Scheduler can have security implications. Such a scheduler can t
 {{</table>}}
 
 ## Scheduling configurations
-The cluster administrator needs be careful with the [queueSort, filter, and reserve plugins](/docs/reference/scheduling/config/#scheduling-plugins). These plugins are essential for configuring the scheduler. Incorrect setup can lead to unfair node selection for pod placement.
+The cluster administrator needs be careful with the plugins that use the [queueSort, filter, and permit extension points](/docs/reference/scheduling/config/#extension-points). Scheduling happens in a series of stages that are exposed through the extension points. Plugins that define their own extension points can be enabled. This can affect the defined scheduling process of the kube-scheduler of the cluster.
+
+Exactly one plugin that uses the `queueSort` extension point can be enabled at a time. Any other plugins that use `queueSort` should be scrutinized.
+
+Plugins that implement the `filter` extension point can potentially mark all nodes as unschedulable. This can bring scheduling of new pods to a halt.
+
+Plugins that implement the `permit` extension point  can prevent or delay the binding of a Pod. Such plugins should be thoroughly reviewed by the cluster administrator.
