@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: violation-pod
+  labels:
+    app: violation-pod
+  annotations:
+    seccomp.security.alpha.kubernetes.io/pod: localhost/profiles/violation.json
+spec:
+  containers:
+  - name: test-container
+    image: hashicorp/http-echo:0.2.3
+    args:
+    - "-text=just made some syscalls!"
+    securityContext:
+      allowPrivilegeEscalation: false

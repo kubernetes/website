@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hello-apparmor
+  annotations:
+    # Накажіть Kubernetes застосувати профіль AppArmor "k8s-apparmor-example-deny-write".
+    # Зверніть увагу, що це ігнорується, якщо вузол Kubernetes не працює на версії 1.4 або вище.
+    container.apparmor.security.beta.kubernetes.io/hello: localhost/k8s-apparmor-example-deny-write
+spec:
+  containers:
+  - name: hello
+    image: busybox:1.28
+    command: [ "sh", "-c", "echo 'Hello AppArmor!' && sleep 1h" ]
