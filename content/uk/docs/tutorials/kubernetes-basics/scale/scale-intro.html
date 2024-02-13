@@ -1,6 +1,8 @@
 ---
-title: Запуск вашого застосунку на декількох Pod'ах
+title: Запуск кількох екземплярів вашого застосунку
 weight: 10
+description: |- 
+    Масштабування застосунку вручну за допомогою kubectl.
 ---
 
 <!DOCTYPE html>
@@ -9,137 +11,187 @@ weight: 10
 
 <body>
 
-<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
-
-<div class="layout" id="top">
-
-    <main class="content">
-
-        <div class="row">
-
-     <div class="col-md-8">
-          <!--<h3>Objectives</h3>
-          -->
-          <h3>Цілі</h3>
-                <ul>
-                    <!--<li>Scale an app using kubectl.</li>
-                    -->
-                    <li>Масштабувати застосунок за допомогою kubectl.</li>
-                </ul>
-            </div>
-
-            <div class="col-md-8">
-       <!--<h3>Scaling an application</h3>
-       -->
-       <h3>Масштабування застосунку</h3>
-
-            <!--<p>In the previous modules we created a <a href="/docs/concepts/workloads/controllers/deployment/">Deployment</a>, and then exposed it publicly via a <a href="/docs/concepts/services-networking/service/">Service</a>. The Deployment created only one Pod for running our application.  When traffic increases, we will need to scale the application to keep up with  user demand.</p>
-            -->
-            <p>У попередніх модулях ми створили <a href="/docs/concepts/workloads/controllers/deployment/">Deployment</a> і відкрили його для зовнішнього трафіка за допомогою <a href="/docs/concepts/services-networking/service/">Service</a>. Deployment створив лише один Pod для запуску нашого застосунку. Коли трафік збільшиться, нам доведеться масштабувати застосунок, аби задовольнити вимоги користувачів.</p>
-
-            <!--<p><b>Scaling</b> is accomplished by changing the number of replicas in a Deployment</p>
-            -->
-            <p><b>Масштабування</b> досягається шляхом зміни кількості реплік у Deployment'і.</p>
-
-            </div>
-            <div class="col-md-4">
-                <div class="content__box content__box_lined">
-                    <!--<h3>Summary:</h3>
-                    -->
-                    <h3>Зміст:</h3>
+    <div class="layout" id="top">
+    
+        <main class="content">
+    
+            <div class="row">
+    
+         <div class="col-md-8">
+              <h3>Мета</h3>
                     <ul>
-                        <!--<li>Scaling a Deployment</li>
-                        -->
-                        <li>Масштабування Deployment'а</li>
+                        <li>Масштабування застосунку за допомогою kubectl.</li>
                     </ul>
                 </div>
-                <div class="content__box content__box_fill">
-                    <!--<p><i> You can create from the start a Deployment with multiple instances using the --replicas parameter for the kubectl run command </i></p>
-                    -->
-                    <p><i> Кількість Pod'ів можна вказати одразу при створенні Deployment'а за допомогою параметра --replicas, під час запуску команди kubectl run </i></p>
+    
+                <div class="col-md-8">
+           <h3>Масштабування Застосунку</h3>
+    
+                <p>Раніше ми створили <a href="/uk/docs/concepts/workloads/controllers/deployment/">Deployment</a>, а потім робили його загальнодоступним за допомогою <a href="/uk/docs/concepts/services-networking/service/">Service</a>. Deployment створив лише один Pod для запуску нашого pfcnjceyre. Зі збільшенням трафіку, нам потрібно масштабувати застосунок, щоб відповідати зростаючим вимогам користувачів.</p>
+                <p>Якщо ви ще не працювали над попередніми розділами, почніть з <a href="/uk/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/">Використання minikube для створення кластера</a>.</p>
+    
+                <p><em>Масштабування</em> досягається зміною кількості реплік в Deployment</p>
+                  {{< note >}}
+                <p>Якщо ви виконуєте це завдання після <a href="/uk/docs/tutorials/kubernetes-basics/expose/expose-intro/">попереднього розділу</a>, можливо, ви видалили Service, що надавав доступ до Deploymentʼу. У цьому випадку, будь ласка, надайте доступ до Deploymentʼу командою:</p><p><code><b>kubectl expose deployment/kubernetes-bootcamp --type="NodePort" --port 8080</b></code></p>
+                  {{< /note >}}
                 </div>
-            </div>
-        </div>
-        <br>
-
-        <div class="row">
-            <div class="col-md-8">
-                <h2 style="color: #3771e3;">Загальна інформація про масштабування</h2>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-8">
-                <div id="myCarousel" class="carousel" data-ride="carousel" data-interval="3000">
-                    <ol class="carousel-indicators">
-                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                        <li data-target="#myCarousel" data-slide-to="1"></li>
-                    </ol>
-                      <div class="carousel-inner" role="listbox">
-                        <div class="item carousel-item active">
-                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling1.svg">
-                        </div>
-
-                        <div class="item carousel-item">
-                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling2.svg">
-                        </div>
-                      </div>
-
-                      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                        <span class="sr-only ">Previous</span>
-                      </a>
-                      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                        <span class="sr-only">Next</span>
-                      </a>
-
+                <div class="col-md-4">
+                    <div class="content__box content__box_lined">
+                        <h3>Зміст:</h3>
+                        <ul>
+                            <li>Масштабування Deployment</li>
+                        </ul>
                     </div>
-            </div>
-        </div>
-
-        <br>
-
-        <div class="row">
-            <div class="col-md-8">
-
-                <!--<p>Scaling out a Deployment will ensure new Pods are created and scheduled to Nodes with available resources. Scaling will increase the number of Pods to the new desired state. Kubernetes also supports <a href="/docs/user-guide/horizontal-pod-autoscaling/">autoscaling</a> of Pods, but it is outside of the scope of this tutorial. Scaling to zero is also possible, and it will terminate all Pods of the specified Deployment.</p>
-                -->
-                <p>Масштабування Deployment'а забезпечує створення нових Pod'ів і їх розподілення по вузлах з доступними ресурсами. Масштабування збільшить кількість Pod'ів відповідно до нового бажаного стану. Kubernetes також підтримує <a href="/docs/user-guide/horizontal-pod-autoscaling/">автоматичне масштабування</a>, однак це виходить за межі даного матеріалу. Масштабування до нуля також можливе - це призведе до видалення всіх Pod'ів у визначеному Deployment'і.</p>
-
-                <!--<p>Running multiple instances of an application will require a way to distribute the traffic to all of them. Services have an integrated load-balancer that will distribute network traffic to all Pods of an exposed Deployment. Services will monitor continuously the running Pods using endpoints, to ensure the traffic is sent only to available Pods.</p>
-                -->
-                <p>Запустивши застосунок на декількох Pod'ах, необхідно розподілити між ними трафік. Services мають інтегрований балансувальник навантаження, що розподіляє мережевий трафік між усіма Pod'ами відкритого Deployment'а. Services безперервно моніторять запущені Pod'и за допомогою кінцевих точок, для того щоб забезпечити надходження трафіка лише на доступні Pod'и.</p>
-
-            </div>
-            <div class="col-md-4">
-                <div class="content__box content__box_fill">
-                    <!--p><i>Scaling is accomplished by changing the number of replicas in a Deployment.</i></p>
-                    -->
-                    <p><i>Масштабування досягається шляхом зміни кількості реплік у Deployment'і.</i></p>
+                    <div class="content__box content__box_fill">
+                        <p><i>Ви можете створити Deployment з початку з декількома екземплярами, використовуючи параметр <tt>--replicas</tt> для команди створення Deployment kubectl</i></p>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <br>
-
-        <div class="row">
-            <div class="col-md-8">
-                <!--<p> Once you have multiple instances of an Application running, you would be able to do Rolling updates without downtime. We'll cover that in the next module. Now, let's go to the online terminal and scale our application.</p>
-                -->
-                <p> Після запуску декількох примірників застосунку ви зможете виконувати послідовне оновлення без шкоди для доступності системи. Ми розповімо вам про це у наступному модулі. А зараз давайте повернемось до онлайн термінала і масштабуємо наш застосунок.</p>
+            <br>
+    
+            <div class="row">
+                <div class="col-md-8">
+                    <h2 style="color: #3771e3;">Огляд масштабування</h2>
+                </div>
             </div>
-        </div>
-        <br>
-
-        <div class="row">
-            <div class="col-md-12">
-                <a class="btn btn-lg btn-success" href="/uk/docs/tutorials/kubernetes-basics/scale/scale-interactive/" role="button">Почати інтерактивний урок <span class="btn__next">›</span></a>
+    
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-8">
+                    <div id="myCarousel" class="carousel" data-ride="carousel" data-interval="3000">
+                        <ol class="carousel-indicators">
+                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#myCarousel" data-slide-to="1"></li>
+                        </ol>
+                          <div class="carousel-inner" role="listbox">
+                            <div class="item carousel-item active">
+                              <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling1.svg">
+                            </div>
+    
+                            <div class="item carousel-item">
+                              <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling2.svg">
+                            </div>
+                          </div>
+    
+                          <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                            <span class="sr-only ">Попередня</span>
+                          </a>
+                          <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                            <span class="sr-only">Наступна</span>
+                          </a>
+    
+                        </div>
+                </div>
             </div>
-        </div>
-
-    </main>
-
-</div>
-
+    
+            <br>
+    
+            <div class="row">
+                <div class="col-md-8">
+    
+                    <p>Масштабування Deployment гарантує створення нових Podʼів і їх призначення на Вузли з вільними ресурсами. Масштабування збільшить кількість Podʼів до нового бажаного стану. Kubernetes також підтримує <a href="/uk/docs/tasks/run-application/horizontal-pod-autoscale/">автоматичне масштабування</a> Podʼів, але це виходить за рамки цього посібника. Також можливе масштабування до нуля, і це призведе до завершення всіх Podʼів вказаного Deployment.</p>
+    
+                    <p>Запуск кількох екземплярів застосунку вимагає засобів для розподілу трафіку між ними. У Service є вбудований балансер навантаження, який розподілить мережевий трафік на всі Podʼи, що виставлені Deployment. Service будуть постійно відстежувати робочі Podʼи, використовуючи кінцеві точки, щоб гарантувати, що трафік направляється лише на доступні Podʼи.</p>
+    
+                </div>
+                <div class="col-md-4">
+                    <div class="content__box content__box_fill">
+                        <p><i>Масштабування досягається зміною кількості реплік в Deployment.</i></p>
+                    </div>
+                </div>
+            </div>
+    
+            <br>
+    
+            <div class="row">
+                <div class="col-md-8">
+                    <p> Якщо у вас є кілька екземплярів застосунку, ви зможете робити оновлення без перерв. Ми розглянемо це в наступному розділі посібника. Тепер перейдемо до термінала та масштабуємо наш застосунок.</p>
+                </div>
+            </div>
+    
+            <div class="row">
+                <div class="col-md-12">
+                   <h3>Масштабування Deployment</h3>
+                   <p>Щоб переглянути свій Deployment, використовуйте команду <code>get deployments</code>:</p>
+                   <p><code><b>kubectl get deployments</b></code></p>
+                   <p>Вивід повинен бути схожий на:</p>
+    <pre>
+    NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
+    kubernetes-bootcamp   1/1     1            1           11m
+    </pre>
+                   <p>Маємо 1 Pod. Якщо цього немає, виконайте команду ще раз. Тут маємо:</p>
+                   <ul>
+                   <li><em>NAME</em> — назви Deployment в кластері.</li>
+                   <li><em>READY</em> — показує співвідношення поточних/бажаних реплік</li>
+                   <li><em>UP-TO-DATE</em> — показує кількість реплік, які були оновлені для досягнення бажаного стану.</li>
+                   <li><em>AVAILABLE</em> — показує, скільки реплік застосунку доступні користувачам.</li>
+                   <li><em>AGE</em> — показує час, протягом якого застосунок працює.</li>
+                   </ul>
+                   <p>Щоб переглянути ReplicaSet, створений Deployment, виконайте:</p>
+                   <p><code><b>kubectl get rs</b></code></p>
+                   <p>Зверніть увагу, що назва ReplicaSet завжди форматується як <tt>[DEPLOYMENT-NAME]-[ВИПАДКОВИЙ-РЯДОК]</tt>. Випадковий рядок генерується випадковим чином та використовує <em>pod-template-hash</em> як основу для створеня.</p>
+                   <p>Два важливі стовпці цього виводу:</p>
+                   <ul>
+                   <li><em>DESIRED</em> — показує бажану кількість реплік застосунку, яку ви визначаєте під час створення Deployment. Це бажаний стан.</li>
+                   <li><em>CURRENT</em> — показує, скільки реплік в цей час працюють.</li>
+                   </ul>
+                   <p>Далі масштабуймо Deployment до 4 реплік. Ми використаємо команду <code>kubectl scale</code>, за якою слідує тип Deployment, назва та бажана кількість екземплярів:</p>
+                   <p><code><b>kubectl scale deployments/kubernetes-bootcamp --replicas=4</b></code></p>
+                   <p>Щоб знову переглянути свої Deployment, використовуйте <code>get deployments</code>:</p>
+                   <p><code><b>kubectl get deployments</b></code></p>
+                   <p>Зміни були застосовані, і у нас є 4 екземпляри застосунку. Далі перевірмо, чи змінилася кількість Podʼів:</p>
+                   <p><code><b>kubectl get pods -o wide</b></code></p>
+                   <p>Тепер є 4 Podʼа з різними IP-адресами. Зміна була зареєстрована в журналі подій Deployment. Щоб перевірити це, використовуйте команду describe:</p>
+                   <p><code><b>kubectl describe deployments/kubernetes-bootcamp</b></code></p>
+                   <p>Ви також можете побачити, що у виводі цієї команди тепер є 4 репліки.</p>
+                </div>
+            </div>
+    
+            <div class="row">
+                <div class="col-md-12">
+                   <h3>Балансування навантаження</h3>
+                   <p>Перевіримо, чи Service балансує трафік. Щоб дізнатися зовнішній IP та порт, ми можемо використовувати команду describe, як ми дізнались в попередній частині посібника:</p>
+                   <p><code><b>kubectl describe services/kubernetes-bootcamp</b></code></p>
+                   <p>Створіть змінну середовища з іменем <tt>NODE_PORT</tt>, яка має значення як порт Вузла:</p>
+                   <p><code><b>export NODE_PORT="$(kubectl get services/kubernetes-bootcamp -o go-template='{{(index .spec.ports 0).nodePort}}')"</b></code><br />
+                   <p><code><b>echo NODE_PORT=$NODE_PORT</b></code></p>
+                   <p>Далі ми запустимо <code>curl</code> з зовнішньою IP-адресою та портом. Виконайте команду кілька разів:</p>
+                   <p><code><b>curl http://"$(minikube ip):$NODE_PORT"</b></b></b></code></p>
+                   <p>Ми потрапляємо на різні Podʼи при кожному запиті. Це демонструє, що балансування навантаження працює.</p>
+                   {{< note >}}<p>Якщо ви використовуєте minikube з Docker Desktop як драйвер контейнера, потрібен тунель minikube. Це через те, що контейнери всередині Docker Desktop ізольовані від вашого компʼютера-хосту.<br>
+                    <p>В окремому вікні термінала виконайте:<br>
+                      <code><b>minikube service kubernetes-bootcamp --url</b></code></p>
+                    <p>Вивід виглядає так:
+                      <pre><b>http://127.0.0.1:51082<br>!  Оскільки ви використовуєте драйвер Docker на darwin, термінал повинен бути відкритий для його запуску.</b></pre></p>
+                    <p>Потім використовуйте наданий URL для доступу до застосунку:<br>
+                      <code><b>curl 127.0.0.1:51082</b></code></p>
+                   {{< /note >}}
+                </div>
+            </div>
+    
+            <div class="row">
+                <div class="col-md-12">
+                   <h3>Зменшення розгортання</h3>
+                   <p>Щоб зменшити Deployment до 2 реплік, знову запустіть команду <code>scale</code>:</p>
+                   <p><code><b>kubectl scale deployments/kubernetes-bootcamp --replicas=2</b></code></p>
+                   <p>Перевірте Deployment, щоб переконатися, що зміни були застосовані, за допомогою команди <code>get deployments</code>:</p>
+                   <p><code><b>kubectl get deployments</b></code></p>
+                   <p>Кількість реплік зменшилася до 2. Перегляньте кількість Podʼів за допомогою <code>get pods</code>:</p>
+                   <p><code><b>kubectl get pods -o wide</b></code></p>
+                   <p>Це підтверджує, що роботу двох Podʼів було завершено.</p>
+                </div>
+            </div>
+    
+          <div class="row">
+              <p>
+                Якщо ви готові, переходьте до <a href="/uk/docs/tutorials/kubernetes-basics/update/update-intro/" title="Виконання поступового оновлення">Виконання поступового оновлення</a>.
+              </p>
+          </div>
+    
+        </main>
+    
+    </div>
+    
 </body>
+    
 </html>
