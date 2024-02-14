@@ -609,8 +609,7 @@ Example:
 ### kubeadm's skew against the kubelet
 
 Similarly to the Kubernetes version, kubeadm can be used with a kubelet version that is
-the same version as kubeadm or three minor versions older. (kubeadm < 1.29 may only be
-up to one minor versions newer than kubelet).
+the same version as kubeadm or three versions older.
 
 Example:
 * kubeadm is at {{< skew currentVersion >}}
