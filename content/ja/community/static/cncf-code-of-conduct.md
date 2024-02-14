@@ -72,4 +72,4 @@ CNCFの憲章と一貫して、この行動規範に対する実質的な変更�
 
 ## 謝辞
 
-本行動規範は、コントリビューター行動規範 (http://contributor-covenant.org) に基づいています。 バージョン2.0はこちらから参照可能です。 http://contributor-covenant.org/version/2/0/code_of_conduct/
+本行動規範は、コントリビューター行動規範(http://contributor-covenant.org)に基づいています。 バージョン2.0はこちらから参照可能です。 http://contributor-covenant.org/version/2/0/code_of_conduct/
