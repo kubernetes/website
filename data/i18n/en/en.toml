@@ -151,6 +151,12 @@ other = "Until"
 [feature_state]
 other = "FEATURE STATE:"
 
+[feature_state_kubernetes_label]
+other = "Kubernetes"
+
+[feature_state_feature_gate_tooltip]
+other = "Feature Gate:"
+
 [feedback_heading]
 other = "Feedback"
 
