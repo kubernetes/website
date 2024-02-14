@@ -56,7 +56,7 @@ CNCFコミュニティはオープンであり、包括的であり、敬意を�
 
 Kubernetesコミュニティにて問題が発生した場合には、<conduct@kubernetes.io>から[Kubernetes Code of Conduct Committee](https://git.k8s.io/community/committee-code-of-conduct)(行動規範委員会)までご連絡ください。通常3営業日以内に返信致します。
 
-その他のプロジェクトや複数のプロジェクトに影響を与えるインシデントにつきましては、[CNCFの行動規範委員会]((https://www.cncf.io/conduct/committee/)) (email: <conduct@cncf.io>) までご連絡ください。あるいは、[CNCFの行動規範委員会]((https://www.cncf.io/conduct/committee/))の個別のメンバーに報告することもできます。報告の手順や匿名での報告方法など、より詳細な情報は、[インシデント解決手順](https://www.cncf.io/conduct/procedures/)をご覧ください。通常3営業日以内に返信致します。
+その他のプロジェクトや複数のプロジェクトに影響を与えるインシデントにつきましては、[CNCFの行動規範委員会]((https://www.cncf.io/conduct/committee/))(email: <conduct@cncf.io>)までご連絡ください。あるいは、[CNCFの行動規範委員会]((https://www.cncf.io/conduct/committee/))の個別のメンバーに報告することもできます。報告の手順や匿名での報告方法など、より詳細な情報は、[インシデント解決手順](https://www.cncf.io/conduct/procedures/)をご覧ください。通常3営業日以内に返信致します。
 
 Linux Foundationが制作するCNCFイベントでのインシデントについては、<eventconduct@cncf.io> にご連絡ください。
 
