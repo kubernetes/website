@@ -83,7 +83,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   annotations: batch.kubernetes.io/job-tracking: ""
-             ...  
+             ...
   creationTimestamp: "2022-11-10T17:53:53Z"
   generation: 1
   labels:
@@ -334,7 +334,7 @@ Pod失敗ポリシーまたはPod失敗のバックオフポリシーのいず�
   - `spec.podFailurePolicy.rules`で指定したPod失敗ポリシーのルールが順番に評価されます。あるPodの失敗がルールに一致すると、残りのルールは無視されます。Pod失敗に一致するルールがない場合は、デフォルトの処理が適用されます。
   - `spec.podFailurePolicy.rules[*].onExitCodes.containerName`を指定することで、ルールを特定のコンテナに制限することができます。指定しない場合、ルールはすべてのコンテナに適用されます。指定する場合は、Pod テンプレート内のコンテナ名または`initContainer`名のいずれかに一致する必要があります。
   - Pod失敗ポリシーが`spec.podFailurePolicy.rules[*].action`にマッチしたときに実行されるアクションを指定できます。指定可能な値は以下のとおりです。
-    - `FailJob`: PodのJobを`Failed`としてマークし、実行中の Pod をすべて終了させる必要があることを示します。 
+    - `FailJob`: PodのJobを`Failed`としてマークし、実行中の Pod をすべて終了させる必要があることを示します。
     - `Ignore`: `.spec.backoffLimit`のカウンターは加算されず、代替のPodが作成すべきであることを示します。
     - `Count`: Podがデフォルトの方法で処理されるべきであることを示します。`.spec.backoffLimit`のカウンターが加算されます。
 
@@ -574,7 +574,7 @@ Events:
 
 この機能により、Jobが開始する前にスケジューリング命令を更新でき、カスタムキューコントローラーがPodの配置に影響を与えることができるようになります。同時に実際のPodからNodeへの割り当てをkube-schedulerにオフロードする能力を提供します。これは一時停止されたJobの中で、一度も一時停止解除されたことのないJobに対してのみ許可されます。
 
-JobのPodテンプレートで更新可能なフィールドはnodeAffinity、nodeSelector、tolerations、labelsとannotations、[スケジューリングゲート](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)です。 
+JobのPodテンプレートで更新可能なフィールドはnodeAffinity、nodeSelector、tolerations、labelsとannotations、[スケジューリングゲート](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)です。
 
 ### 独自のPodセレクターを指定  {#specifying-your-own-pod-selector}
 
@@ -636,7 +636,7 @@ spec:
 
 コントロールプレーンは任意のJobに属するPodを追跡し、そのPodがAPIサーバーから削除されたかどうか認識します。そのためJobコントローラーはファイナライザー`batch.kubernetes.io/job-tracking`を持つPodを作成します。コントローラーがファイナライザーを削除するのは、PodがJobステータスに反映された後なので、他のコントローラーやユーザがPodを削除することができます。
 
-Kubernetes 1.26にアップグレードする前、またはフィーチャーゲート`JobTrackingWithFinalizers`が有効になる前に作成されたJobは、Podファイナライザーを使用せずに追跡されます。Job{{< glossary_tooltip term_id="controller" text="コントローラー" >}}は、クラスタに存在するPodのみに基づいて、`succeeded`Podと`failed`Podのステータスカウンタを更新します。クラスタからPodが削除されると、コントロールプレーンはJobの進捗を見失う可能性があります。
+Kubernetes 1.26にアップグレードする前、またはフィーチャーゲート`JobTrackingWithFinalizers`が有効になる前に作成されたJobは、Podファイナライザーを使用せずに追跡されます。Job{{< glossary_tooltip term_id="controller" text="コントローラー" >}}は、クラスターに存在するPodのみに基づいて、`succeeded`Podと`failed`Podのステータスカウンタを更新します。クラスターからPodが削除されると、コントロールプレーンはJobの進捗を見失う可能性があります。
 
 Jobが`batch.kubernetes.io/job-tracking`というアノテーションを持っているかどうかをチェックすることで、コントロールプレーンがPodファイナライザーを使ってJobを追跡しているかどうかを判断できます。Jobからこのアノテーションを手動で追加したり削除したりしては**いけません**。代わりに、JobがPodファイナライザーを使用して追跡されていることを確認するために、Jobを再作成することができます。
 
@@ -652,7 +652,7 @@ Jobが`batch.kubernetes.io/job-tracking`というアノテーションを持っ�
 
 ### 単なるPod  {#bare-pods}
 
-Podが動作しているノードが再起動または故障した場合、Podは終了し、再起動されません。しかし、終了したPodを置き換えるため、Jobが新しいPodを作成します。このため、たとえアプリケーションが1つのPodしか必要としない場合でも、単なるPodではなくJobを使用することをお勧めします。 
+Podが動作しているノードが再起動または故障した場合、Podは終了し、再起動されません。しかし、終了したPodを置き換えるため、Jobが新しいPodを作成します。このため、たとえアプリケーションが1つのPodしか必要としない場合でも、単なるPodではなくJobを使用することをお勧めします。
 
 ### Replication Controller  {#replication-controller}
 
