@@ -17,23 +17,19 @@ description: |-
 
         <div class="row">
 
-     <div class="col-md-8">
-          <h3>Objectives</h3>
-                <ul>
-                    <li>Scale an app using kubectl.</li>
-                </ul>
-            </div>
-
             <div class="col-md-8">
+
+              <h3>Objectives</h3>
+              <ul>
+                  <li>Scale an app using kubectl.</li>
+              </ul>
+
        <h3>Scaling an application</h3>
 
             <p>Previously we created a <a href="/docs/concepts/workloads/controllers/deployment/"> Deployment</a>, and then exposed it publicly via a <a href="/docs/concepts/services-networking/service/">Service</a>. The Deployment created only one Pod for running our application.  When traffic increases, we will need to scale the application to keep up with user demand.</p>
             <p>If you haven't worked through the earlier sections, start from <a href="/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/">Using minikube to create a cluster</a>.</p>
 
-            <p><em>Scaling</em> is accomplished by changing the number of replicas in a Deployment</p>
-              {{< note >}}
-            <p>If you are trying this after <a href="/docs/tutorials/kubernetes-basics/expose/expose-intro/">the previous section</a>, you may have deleted the Service exposing the Deployment. In that case, please expose the Deployment again using the following command:</p><p><code><b>kubectl expose deployment/kubernetes-bootcamp --type="NodePort" --port 8080</b></code></p>
-              {{< /note >}}
+            <p><em>Scaling</em> is accomplished by changing the number of replicas in a Deployment.</p>
             </div>
             <div class="col-md-4">
                 <div class="content__box content__box_lined">
@@ -47,7 +43,14 @@ description: |-
                 </div>
             </div>
         </div>
-        <br>
+
+        <div class="row">
+          <div class="col-md-12">
+            {{< note >}}
+            <p>If you are trying this after <a href="/docs/tutorials/kubernetes-basics/expose/expose-intro/">the previous section</a>, you may have deleted the Service exposing the Deployment. In that case, please expose the Deployment again using the following command:</p><p><code><b>kubectl expose deployment/kubernetes-bootcamp --type="NodePort" --port 8080</b></code></p>
+            {{< /note >}}
+          </div>
+        </div>
 
         <div class="row">
             <div class="col-md-8">
