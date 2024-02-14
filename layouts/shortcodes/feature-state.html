@@ -2,10 +2,56 @@
 {{ $state := .Get "state" }}
 {{ $for_k8s_version := .Get "for_k8s_version" | default (.Page.Param "version")}}
 {{ $is_valid := strings.Contains $valid_states $state }}
-{{ if not $is_valid }}
-{{ errorf "%q is not a valid feature-state, use one of %q" $state $valid_states }}
-{{ else }}
-<div style="margin-top: 10px; margin-bottom: 10px;">
-  <b>{{ T "feature_state" }}</b> <code>Kubernetes {{ $for_k8s_version }} [{{ $state }}]</code>
-</div>
+{{ $feature_gate_name := .Get "feature_gate_name" }}
+
+ <!-- When 'feature_gate_name' parameter is not specified, continue with the values provided. -->
+{{ if not $feature_gate_name }}
+  {{ if not $is_valid }}
+    {{ errorf "%q is not a valid feature-state, use one of %q" $state $valid_states }}
+  {{ else }}
+    <div class="my-2 feature-state-notice feature-{{ $state }}">
+      <b>{{ T "feature_state" }}</b> <code>{{T "feature_state_kubernetes_label" }} {{ $for_k8s_version }} [{{ $state }}]</code>
+    </div>
+  {{ end }}
+
+{{- else -}}
+  <!-- When 'feature_gate_name' is specified, the following code block extracts the status of the feature gate from the description file. -->
+
+  <!-- Set the path for feature gate description files -->
+  {{- $featureGateDescriptionFilesPath := "/docs/reference/command-line-tools-reference/feature-gates" -}}
+
+  <!-- Access the 'English' site and get the feature gate description pages -->
+  {{- with index (where .Site.Sites "Language.Lang" "eq" "en") 0 -}}
+    {{- with .GetPage $featureGateDescriptionFilesPath -}}
+
+      <!-- Sort Feature gate pages list -->
+      {{- $sortedFeatureGates := sort (.Resources.ByType "page") -}}
+      {{- $featureGateFound := false -}}
+
+      <!-- Iterate through feature gate files -->
+      {{- range $featureGateFile := $sortedFeatureGates -}}
+        {{- $featureGateNameFromFile := $featureGateFile.Params.Title -}}
+        
+        {{- if eq $featureGateNameFromFile $feature_gate_name -}}
+          <!-- Extract information from the final stage of the feature gate -->
+          {{- $currentStage := index $featureGateFile.Params.stages (sub (len $featureGateFile.Params.stages) 1) -}}
+          {{- with $currentStage -}}  
+           
+          <!-- Display feature state information  -->
+            <div class="my-2 feature-state-notice feature-{{ .stage }}" title="{{ printf "%s %s" (T "feature_state_feature_gate_tooltip") $feature_gate_name }}">
+              <b>{{ T "feature_state" }}</b> <code>{{T "feature_state_kubernetes_label" }} v{{ .fromVersion }} [{{ .stage }}]</code>
+            </div>       
+
+            {{- $featureGateFound = true -}}        
+          {{- end -}}        
+        {{- end -}}
+      {{- end -}}
+
+      <!-- Check if specified feature gate is not found -->
+      {{- if not $featureGateFound -}}
+        {{- errorf "Invalid feature gate: '%s' is not recognized or lacks a matching description file in '%s'" $feature_gate_name  (print "en" $featureGateDescriptionFilesPath) -}}
+      {{- end -}}
+
+    {{- end -}}
+  {{- end -}}
 {{ end }}

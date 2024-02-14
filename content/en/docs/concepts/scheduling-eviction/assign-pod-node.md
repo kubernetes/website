@@ -360,7 +360,7 @@ null `namespaceSelector` matches the namespace of the Pod where the rule is defi
 
 #### matchLabelKeys
 
-{{< feature-state for_k8s_version="v1.29" state="alpha" >}}
+{{< feature-state feature_gate_name="MatchLabelKeysInPodAffinity" >}}
 
 {{< note >}}
 <!-- UPDATE THIS WHEN PROMOTING TO BETA -->
@@ -411,7 +411,7 @@ spec:
 
 #### mismatchLabelKeys
 
-{{< feature-state for_k8s_version="v1.29" state="alpha" >}}
+{{< feature-state feature_gate_name="MatchLabelKeysInPodAffinity" >}}
 
 {{< note >}}
 <!-- UPDATE THIS WHEN PROMOTING TO BETA -->
