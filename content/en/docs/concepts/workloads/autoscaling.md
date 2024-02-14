@@ -90,12 +90,21 @@ Additionally, the `InPlaceVerticalScaling` feature gate needs to be enabled.
 ### Autoscaling based on cluster size
 
 For workloads that need to be scaled based on the size of the cluster (for example
-`cluster-dns` or other system components), you can use the _Cluster Proportional Autoscaler_.<br />
-Just like the VPA, it is not part of the Kubernetes core, but hosted in its
-own repository [on GitHub](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler).
+`cluster-dns` or other system components), you can use the
+[_Cluster Proportional Autoscaler_](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler).<br />
+Just like the VPA, it is not part of the Kubernetes core, but hosted as its
+own project on GitHub.
 
 The Cluster Proportional Autoscaler watches the number of schedulable {{< glossary_tooltip text="nodes" term_id="node" >}}
 and cores and scales the number of replicas of the target workload accordingly.
+
+If the number of replicas should stay the same, you can scale your workloads vertically according to the cluster size using
+the [_Cluster Proportional Vertical Autoscaler_](https://github.com/kubernetes-sigs/cluster-proportional-vertical-autoscaler).
+The project is **currently in beta** and can be found on GitHub.
+
+While the Cluster Proportional Autoscaler scales the number of replicas of a workload, the Cluster Proportional Vertical Autoscaler
+adjusts the resource requests for a workload (for example a Deployment or DaemonSet) based on the number of nodes and/or cores
+in the cluster.
 
 ### Event driven Autoscaling
 
