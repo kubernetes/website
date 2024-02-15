@@ -104,7 +104,7 @@ alias kn='f() { [ "$1" ] && kubectl config set-context --current --namespace $1 
 
 ## Kubectl apply
 
-`apply` manages applications through files defining Kubernetes resources. It creates and updates resources in a cluster through running `kubectl apply`. This is the recommended way of managing Kubernetes applications on production. See [Kubectl Book](https://kubectl.docs.kubernetes.io).
+`apply` manages applications through files defining Kubernetes resources. It creates and updates resources in a cluster through running `kubectl apply`. This is the recommended way of managing Kubernetes applications in production. See [Kubectl Book](https://kubectl.docs.kubernetes.io).
 
 ## Creating objects
 
