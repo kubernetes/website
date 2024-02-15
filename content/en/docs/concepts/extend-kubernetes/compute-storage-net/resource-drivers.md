@@ -177,7 +177,7 @@ When you deploy a resource driver, you typically also define at least one Resour
 
 ## API compatibility
 
-Kubernetes Dynamic Resource Allocation support is in alpha. The API may change before stabilization,
+Kubernetes dynamic resource allocation support is in alpha. The API may change before stabilization,
 in incompatible ways. As a project, Kubernetes recommends that resource driver developers:
 
 * Watch for changes in future releases.
