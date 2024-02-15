@@ -40,8 +40,7 @@ There are two common ways of communication between the controller and a kubelet 
 - through custom resource objects that use
   {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinitions">}}
  provided by the vendor or project behind the resource driver
-- through a ResourceHandle which is a part of an `AllocationResult` provided by the controller in case of
-  successful allocation
+- through a `ResourceHandle` that is a part of an `AllocationResult` provided by the controller in case of
 
 General recommendations:
 
