@@ -11,7 +11,7 @@ tags:
 - fundamental
 ---
  Abstract object that links {{< glossary_tooltip term_id="ResourceClaim" text="ResourceClaims">}}
-and {{< glossary_tooltip term_id="resource-driver" text="Resource Drivers">}}.
+and {{< glossary_tooltip term_id="resource-driver" text="resource drivers">}}.
 
 <!--more-->
 
