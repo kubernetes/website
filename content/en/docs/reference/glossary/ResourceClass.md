@@ -21,7 +21,7 @@ that will perform the allocation, in `driverName` field, and optionally
 {{< glossary_tooltip term_id="ResourceClassParameters" text="ResourceClassParameters">}}
 reference to provide Resource Driver with further allocation process customization.
 
-Same Resource Driver can be referenced in many ResourceClasses, typically in such case, ResourceClasses
+The same resource driver can be referenced in many ResourceClasses. Typically in such cases, the ResourceClasses
 have different {{< glossary_tooltip term_id="ResourceClassParameters" text="ResourceClassParameters">}}
 telling driver to do the allocation differently for each of them. For instance, one class can be
 used to allocate shared resources, another - to allocate resources exclusively.
