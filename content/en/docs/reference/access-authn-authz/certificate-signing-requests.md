@@ -45,7 +45,7 @@ value for this field is `600`, i.e. ten minutes.
 Once created, a CertificateSigningRequest must be approved before it can be signed.
 Depending on the signer selected, a CertificateSigningRequest may be automatically approved
 by a {{< glossary_tooltip text="controller" term_id="controller" >}}.
-Otherwise, a CertificateSigningRequest must be manually approved either via the REST API - the most common
+Otherwise, a CertificateSigningRequest must be manually approved via the REST API - the most common
 methods for making these API requests include kubectl (by running `kubectl certificate approve`)
 and the Kubernetes go client library [client-go](https://github.com/kubernetes/client-go). Likewise, a CertificateSigningRequest may also be denied,
 which tells the configured signer that it must not sign the request.
