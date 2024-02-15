@@ -41,7 +41,7 @@ evaluated on its merits.
 - [ ] A process exists for periodic access review, and reviews occur no more
   than 24 months apart.
 - [ ] The [Role Based Access Control Good Practices](/docs/concepts/security/rbac-good-practices/)
-  is followed for guidance related to authentication and authorization.
+  are followed for guidance related to authentication and authorization.
 
 After bootstrapping, neither users nor components should authenticate to the
 Kubernetes API as `system:masters`. Similarly, running all of
