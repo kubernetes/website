@@ -1,5 +1,5 @@
 ---
-title: JobManagedByLabel
+title: JobManagedBy
 content_type: feature_gate
 
 _build:
@@ -7,7 +7,7 @@ _build:
   render: false
 
 stages:
-  - stage: beta
+  - stage: alpha
     defaultValue: false
     fromVersion: "1.30"
 ---
