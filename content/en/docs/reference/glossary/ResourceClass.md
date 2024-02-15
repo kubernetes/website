@@ -4,7 +4,7 @@ id: ResourceClass
 date: 2023-10-16
 full_link: /docs/concepts/scheduling-eviction/dynamic-resource-allocation/
 short_description: >
-  Describes the type of resources the Resource Driver can allocate.
+  Describes the type of resources that a resource driver can allocate.
 aka:
 tags:
 - core-object
