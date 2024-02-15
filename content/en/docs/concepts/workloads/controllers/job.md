@@ -1006,6 +1006,27 @@ status:
   terminating: 3 # three Pods are terminating and have not yet reached the Failed phase
 ```
 
+### Delegation of managing a Job object to external controller
+
+{{< feature-state for_k8s_version="v1.30" state="alpha" >}}
+
+This feature allows you to disable the built-in Job controller, for a specific
+Job, and delegate reconciliation of the Job to an external controller.
+
+By setting a custom value of the `spec.managedBy` field - any value
+other than `kubernetes.io/job-controller` - you indicate the controller which
+reconciles the Job. The value of the field is immutable.
+
+{{< note >}}
+When using this feature make sure the controller indicated by the field is
+installed, otherwise the Job may not be reconciled at all.
+{{< /note >}}
+
+{{< note >}}
+When developing an external Job controller make sure it does not use the
+`batch.kubernetes.io/job-tracking` finalizer, reserved for the built-in controller.
+{{< /note >}}
+
 ## Alternatives
 
 ### Bare Pods
