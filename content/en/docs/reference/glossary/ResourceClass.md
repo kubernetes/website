@@ -23,7 +23,7 @@ reference to provide Resource Driver with further allocation process customizati
 
 The same resource driver can be referenced in many ResourceClasses. Typically in such cases, the ResourceClasses
 have different {{< glossary_tooltip term_id="ResourceClassParameters" text="ResourceClassParameters">}}
-telling driver to do the allocation differently for each of them. For instance, one class can be
+that configure the driver to do the allocation differently for each of them. For instance, one class can be
 used to allocate shared resources, another - to allocate resources exclusively.
 
 Typically managed by the cluster admin.
