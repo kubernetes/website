@@ -385,7 +385,7 @@ omit the `CAP_` portion of the constant.
 For example, to add `CAP_SYS_TIME`, include `SYS_TIME` in your list of capabilities.
 {{< /note >}}
 
-### Limitations of Linux Capabilities for Non-Root Containers
+### Limitations of Linux capabilities for non-root containers
 
 When running containers as non-root users, it's important to be aware that Linux capabilities might not be fully granted due to the security model of Linux. This limitation can prevent non-root containers from performing operations that require specific capabilities, even if those capabilities are explicitly granted in the container's security context.
 
