@@ -389,7 +389,7 @@ For example, to add `CAP_SYS_TIME`, include `SYS_TIME` in your list of capabilit
 
 When running containers as non-root users, it's important to be aware that Linux capabilities might not be fully granted due to the security model of Linux. This limitation can prevent non-root containers from performing operations that require specific capabilities, even if those capabilities are explicitly granted in the container's security context.
 
-One workaround for this limitation involves setting capabilities directly on the binary within the container image. However, this approach is not ideal and may have security implications. Kubernetes is actively working on better solutions to support ambient capabilities, allowing for a more secure and straightforward way to grant necessary privileges to containers. For more information on this effort, refer to [KEP-2763: Support Ambient Capabilities](https://github.com/kubernetes/enhancements/blob/master/keps/sig-security/2763-ambient-capabilities/README.md).
+One workaround for this limitation involves setting capabilities directly on the binary within the container image. However, this approach is not ideal and may have security implications.
 
 ## Set the Seccomp Profile for a Container
 
