@@ -62,22 +62,30 @@ Upgrade kubeadm:
 {{< tabs name="k8s_install_kubeadm_worker_nodes" >}}
 {{% tab name="Ubuntu、Debian 或 HypriotOS" %}}
 <!--
+```shell
 # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
+sudo apt-mark unhold kubeadm && \
+sudo apt-get update && sudo apt-get install -y kubeadm='{{< skew currentVersion >}}.x-*' && \
+sudo apt-mark hold kubeadm
+```
 -->
 ```shell
 # 将 {{< skew currentVersion >}}.x-* 中的 x 替换为最新的补丁版本
-apt-mark unhold kubeadm && \
-apt-get update && apt-get install -y kubeadm='{{< skew currentVersion >}}.x-*' && \
-apt-mark hold kubeadm
+sudo apt-mark unhold kubeadm && \
+sudo apt-get update && sudo apt-get install -y kubeadm='{{< skew currentVersion >}}.x-*' && \
+sudo apt-mark hold kubeadm
 ```
 {{% /tab %}}
 {{% tab name="CentOS、RHEL 或 Fedora" %}}
 <!--
+```shell
 # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
+sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
+```
 -->
 ```shell
 # 将 {{< skew currentVersion >}}.x-* 中的 x 替换为最新的补丁版本
-yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
+sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
 ```
 {{% /tab %}}
 {{< /tabs >}}
@@ -105,8 +113,11 @@ Prepare the node for maintenance by marking it unschedulable and evicting the wo
 将节点标记为不可调度并驱逐所有负载，准备节点的维护：
 
 <!--
+```shell
 # execute this command on a control plane node
 # replace <node-to-drain> with the name of your node you are draining
+kubectl drain <node-to-drain> --ignore-daemonsets
+```
 -->
 ```shell
 # 在控制平面节点上执行此命令
@@ -126,22 +137,30 @@ kubectl drain <node-to-drain> --ignore-daemonsets
    {{< tabs name="k8s_kubelet_and_kubectl" >}}
    {{% tab name="Ubuntu、Debian 或 HypriotOS" %}}
    <!--
+   ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
+   sudo apt-mark unhold kubelet kubectl && \
+   sudo apt-get update && sudo apt-get install -y kubelet='{{< skew currentVersion >}}.x-*' kubectl='{{< skew currentVersion >}}.x-*' && \
+   sudo apt-mark hold kubelet kubectl
+   ```
    -->
    ```shell
    # 将 {{< skew currentVersion >}}.x-* 中的 x 替换为最新的补丁版本
-   apt-mark unhold kubelet kubectl && \
-   apt-get update && apt-get install -y kubelet='{{< skew currentVersion >}}.x-*' kubectl='{{< skew currentVersion >}}.x-*' && \
-   apt-mark hold kubelet kubectl
+   sudo apt-mark unhold kubelet kubectl && \
+   sudo apt-get update && sudo apt-get install -y kubelet='{{< skew currentVersion >}}.x-*' kubectl='{{< skew currentVersion >}}.x-*' && \
+   sudo apt-mark hold kubelet kubectl
    ```
    {{% /tab %}}
    {{% tab name="CentOS、RHEL 或 Fedora" %}}
    <!--
+   ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
+   sudo yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
+   ```
    -->
    ```shell
    # 将 {{< skew currentVersion >}}.x-* 中的 x 替换为最新的补丁版本
-   yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
+   sudo yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
    ```
    {{% /tab %}}
    {{< /tabs >}}
@@ -166,8 +185,11 @@ Bring the node back online by marking it schedulable:
 通过将节点标记为可调度，让节点重新上线：
 
 <!--
+```shell
 # execute this command on a control plane node
 # replace <node-to-uncordon> with the name of your node
+kubectl uncordon <node-to-uncordon>
+```
 -->
 ```shell
 # 在控制平面节点上执行此命令
