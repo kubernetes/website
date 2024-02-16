@@ -84,6 +84,21 @@ Here's an example of a Job with two containers, one of which is a sidecar:
 
 {{% code_sample language="yaml" file="application/job/job-sidecar.yaml" %}}
 
+### Restarting sidecar containers during Pod termination
+
+{{< feature-state for_k8s_version="v1.31" state="alpha" >}}
+
+Normally during Pod termination, all activities supporting containers are
+disabled. This includes ConfigMaps and Secrets refreshes, probes and
+restarts.
+
+With the feature gate `RestartContainerDuringTermination` you can enable
+these activities for init containers with `restartPolicy: Always` set, allowing
+them to restart during Pod termination.
+
+This ensures that the sidecar containers are continuously running and provide
+their support to main application containers until the Pod is deleted.
+
 ## Differences from application containers
 
 Sidecar containers run alongside _app containers_ in the same pod. However, they do not
