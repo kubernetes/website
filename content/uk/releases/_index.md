@@ -26,6 +26,6 @@ notoc: true
 
 ## Майбутні випуски
 
-Ознайомтесь з [графіком](<https://github.com/kubernetes/sig-release/tree/master/releases/release-{{>< skew nextMinorVersion >}}) виходу майбутнього випуску **{{< skew nextMinorVersion >}}** Kubernetes!
+Ознайомтесь з [графіком](https://github.com/kubernetes/sig-release/tree/master/releases/release-{{< skew nextMinorVersion >}}) виходу майбутнього випуску **{{< skew nextMinorVersion >}}** Kubernetes!
 
 ## Додаткові ресурси
