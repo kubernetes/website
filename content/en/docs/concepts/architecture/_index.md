@@ -1,5 +1,5 @@
 ---
-title: "Cluster Architecture"
+title: "ProPulse Architecture"
 weight: 30
 description: >
   The architectural concepts behind Kubernetes.
