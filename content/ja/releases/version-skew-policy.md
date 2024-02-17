@@ -1,5 +1,5 @@
 ---
-title: Kubernetesバージョンとバージョンスキューサポートポリシー
+title: バージョンスキューポリシー
 type: docs
 weight: 30
 ---
