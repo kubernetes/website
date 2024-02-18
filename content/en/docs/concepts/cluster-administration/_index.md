@@ -52,6 +52,7 @@ Before choosing a guide, here are some considerations:
 ## Managing a cluster
 
 * Learn how to [manage nodes](/docs/concepts/architecture/nodes/).
+  * Read about [cluster autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/).
 
 * Learn how to set up and manage the [resource quota](/docs/concepts/policy/resource-quotas/) for shared clusters.
 
