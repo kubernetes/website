@@ -130,7 +130,7 @@ etcdが正しく構成されると、有効な証明書を持つクライアン�
 Kubernetes APIサーバーにアクセス権を与えるためには、`--etcd-certfile=k8sclient.cert`、`--etcd-keyfile=k8sclient.key`および`--etcd-cafile=ca.cert`フラグで構成します。
 
 {{< note >}}
-Kubernetesによるetcd認証は現在サポートされていません。
+etcd認証は、Kubernetesでは現在サポートされていません。
 詳細については関連するIssue[Support Basic Auth for Etcd v2](https://github.com/kubernetes/kubernetes/issues/23398)を参照してください。
 {{< /note >}}
 
