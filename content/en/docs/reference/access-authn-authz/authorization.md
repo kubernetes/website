@@ -4,7 +4,7 @@ reviewers:
 - lavalamp
 - deads2k
 - liggitt
-title: Authorization Overview
+title: Authorization
 content_type: concept
 weight: 30
 description: >
