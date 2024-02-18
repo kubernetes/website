@@ -56,8 +56,7 @@ weight: 270
       --advertise-client-urls=http://$PRIVATE_IP:2379
    ```
 
-2. Kubernetes APIサーバーをフラグ
-   `--etcd-servers=$PRIVATE_IP:2379`で起動します。
+2. Kubernetes APIサーバーをフラグ`--etcd-servers=$PRIVATE_IP:2379`で起動します。
 
    `PRIVATE_IP`がetcdクライアントIPに設定されていることを確認してください。
 
