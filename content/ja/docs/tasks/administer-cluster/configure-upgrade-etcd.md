@@ -310,7 +310,7 @@ etcdctl --data-dir <data-dir-location> snapshot restore snapshot.db
 `$NEW_ETCD_CLUSTER`と`$OLD_ETCD_CLUSTER`をそれぞれのIPアドレスに置き換えてください。
 etcdクラスターの前にロードバランサーを使用している場合、代わりにロードバランサーを更新する必要があるかもしれません。
 
-etcdメンバーの過半数が永続的に失敗した場合、etcdクラスターは失敗と見なされます。
+etcdメンバーの過半数に永続的な障害が発生した場合、etcdクラスターは故障したと見なされます。
 このシナリオでは、Kubernetesは現在の状態に対して変更を加えることができません。
 スケジュールされたPodは引き続き実行されるかもしれませんが、新しいPodはスケジュールできません。
 このような場合、etcdクラスターを復旧し、必要に応じてKubernetes APIサーバーを再設定して問題を修正します。
