@@ -38,7 +38,7 @@ Kubernetes also supports _automatic scaling_ of workloads, which is the focus of
 
 The concept of _Autoscaling_ in Kubernetes refers to the ability to automatically update an
 object that manages a set of Pods (for example a
-{{< glossary_tooltip text="Deployment" term_id="deployment" >}}.
+{{< glossary_tooltip text="Deployment" term_id="deployment" >}}).
 
 ### Scaling workloads horizontally
 
@@ -55,7 +55,7 @@ There is a [walkthrough tutorial](/docs/tasks/run-application/horizontal-pod-aut
 {{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 You can automatically scale a workload vertically using a _VerticalPodAutoscaler_ (VPA).
-Different to the HPA, the VPA doesn't come with Kubernetes by default, but is a separate project
+Unlike the HPA, the VPA doesn't come with Kubernetes by default, but is a separate project
 that can be found [on GitHub](https://github.com/kubernetes/autoscaler/tree/9f87b78df0f1d6e142234bb32e8acbd71295585a/vertical-pod-autoscaler).
 
 Once installed, it allows you to create {{< glossary_tooltip text="CustomResourceDefinitions" term_id="customresourcedefinition" >}}
@@ -71,7 +71,7 @@ At the moment, the VPA can operate in four different modes:
 {{< table caption="Different modes of the VPA" >}}
 Mode | Description
 :----|:-----------
-`Auto` | Currently `Recreate`, might change to in-place updates in the future
+`Auto` | Currently, `Recreate` might change to in-place updates in the future
 `Recreate` | The VPA assigns resource requests on pod creation as well as updates them on existing pods by evicting them when the requested resources differ significantly from the new recommendation
 `Initial` | The VPA only assigns resource requests on pod creation and never changes them later.
 `Off` | The VPA does not automatically change the resource requirements of the pods. The recommendations are calculated and can be inspected in the VPA object.
@@ -82,7 +82,7 @@ Mode | Description
 {{< feature-state for_k8s_version="v1.27" state="alpha" >}}
 
 Resizing a workload in-place **without** restarting the {{< glossary_tooltip text="Pods" term_id="pod" >}}
-or its {{< glossary_tooltip text="Containers" term_id="container" >}} requires Kubernetes version 1.27 or later.<br />
+or its {{< glossary_tooltip text="Containers" term_id="container" >}} requires Kubernetes version 1.27 or later.
 Additionally, the `InPlaceVerticalScaling` feature gate needs to be enabled.
 
 {{< feature-gate-description name="InPlacePodVerticalScaling" >}}
@@ -91,7 +91,7 @@ Additionally, the `InPlaceVerticalScaling` feature gate needs to be enabled.
 
 For workloads that need to be scaled based on the size of the cluster (for example
 `cluster-dns` or other system components), you can use the
-[_Cluster Proportional Autoscaler_](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler).<br />
+[_Cluster Proportional Autoscaler_](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler).
 Just like the VPA, it is not part of the Kubernetes core, but hosted as its
 own project on GitHub.
 
