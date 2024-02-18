@@ -6,7 +6,7 @@ reviewers:
 title: Using RBAC Authorization
 content_type: concept
 aliases: [/rbac/]
-weight: 70
+weight: 33
 ---
 
 <!-- overview -->
