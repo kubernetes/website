@@ -2,9 +2,6 @@
 title: কন্টেইনার
 weight: 40
 description: রানটাইম নির্ভরতা সহ একটি অ্যাপ্লিকেশন প্যাকেজ করার প্রযুক্তি।
-reviewers:
-- erictune
-- thockin
 content_type: concept
 card:
   name: concepts
