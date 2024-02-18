@@ -6,7 +6,7 @@ reviewers:
 - liggitt
 title: Authorization Overview
 content_type: concept
-weight: 60
+weight: 30
 ---
 
 <!-- overview -->
