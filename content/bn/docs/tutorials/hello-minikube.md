@@ -1,4 +1,4 @@
- ---
+---
 title: হ্যালো Minikube (Hello Minikube)
 content_type: tutorial
 weight: 5
@@ -283,6 +283,8 @@ minikube delete
 
 ## {{% heading "whatsnext" %}}
 
+
+* _[kubectl এর সাথে কুবারনেটিসে আপনার প্রথম অ্যাপ স্থাপন](/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/)_ করার টিউটোরিয়াল। 
 * [Deployment objects](/docs/concepts/workloads/controllers/deployment/) এর ব্যাপারে আরো জানুন।
 * [Deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/) এর ব্যাপারে আরো জানুন।
 * [Service objects](/docs/concepts/services-networking/service/) এর ব্যাপারে আরো জানুন।
