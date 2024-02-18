@@ -288,14 +288,7 @@ etcdは、[major.minor](http://semver.org/)バージョンのetcdプロセスか
 復元操作を開始する前に、スナップショットファイルが存在している必要があります。
 これは、以前のバックアップ操作からのスナップショットファイル、または残っている[データディレクトリ](https://etcd.io/docs/current/op-guide/configuration/#--data-dir)からのものである可能性があります。
 
-以下に例を示します:
-
-```shell
-ETCDCTL_API=3 etcdctl --endpoints 10.2.0.9:2379 snapshot restore snapshot.db
-```
-
-`etcdctl` オプションを使用して復元する別の例を示します:
-
+クラスターを復元する場合は、`--data-dir`オプションを使用して、クラスターをどのフォルダーに復元するかを指定します:
 ```shell
 ETCDCTL_API=3 etcdctl --data-dir <data-dir-location> snapshot restore snapshot.db
 ```
