@@ -301,6 +301,7 @@ ETCDCTL_API=3 etcdctl --data-dir <data-dir-location> snapshot restore snapshot.d
 export ETCDCTL_API=3
 etcdctl --data-dir <data-dir-location> snapshot restore snapshot.db
 ```
+`<data-dir-location>`が以前と同じフォルダーである場合は、クラスターを復元する前にそれを削除してetcdプロセスを停止します。そうでない場合は、etcdの構成を変更し、復元後にetcdプロセスを再起動して新しいデータディレクトリを使用するようにします。
 
 スナップショットファイルからクラスターを復元する方法と例についての詳細は、[etcd災害復旧ドキュメント](https://etcd.io/docs/current/op-guide/recovery/#restoring-a-cluster)を参照してください。
 
