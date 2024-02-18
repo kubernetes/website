@@ -308,7 +308,7 @@ etcdctl --data-dir <data-dir-location> snapshot restore snapshot.db
 復元されたクラスターのアクセスURLが前のクラスターと異なる場合、Kubernetes APIサーバーをそれに応じて再設定する必要があります。
 この場合、`--etcd-servers=$OLD_ETCD_CLUSTER`のフラグの代わりに、`--etcd-servers=$NEW_ETCD_CLUSTER`のフラグでKubernetes APIサーバーを再起動します。
 `$NEW_ETCD_CLUSTER`と`$OLD_ETCD_CLUSTER`をそれぞれのIPアドレスに置き換えてください。
-etcdクラスターの前にロードバランサーを使用している場合、ロードバランサーを更新する必要があるかもしれません。
+etcdクラスターの前にロードバランサーを使用している場合、代わりにロードバランサーを更新する必要があるかもしれません。
 
 etcdメンバーの過半数が永続的に失敗した場合、etcdクラスターは失敗と見なされます。
 このシナリオでは、Kubernetesは現在の状態に対して変更を加えることができません。
