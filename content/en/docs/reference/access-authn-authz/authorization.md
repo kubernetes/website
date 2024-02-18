@@ -116,13 +116,26 @@ the Kubernetes API.
 
 The Kubernetes API server may authorize a request using one of several authorization modes:
 
-* **AlwaysAllow** - This mode allows all requests. Use this authorization mode only if you do not require authorization for your API requests (for example, for testing).
-* **AlwaysDeny** - This mode blocks all requests. Use this authorization mode only for testing.
-* **ABAC** - [Attribute-Based Access Control](/docs/reference/access-authn-authz/abac/) (ABAC) mode defines an access control paradigm whereby access rights are granted to users through the use of policies which combine attributes together. The policies can use any type of attributes (user attributes, resource attributes, object, environment attributes, etc).
-* **RBAC** - [Role-based access control](/docs/reference/access-authn-authz/rbac/) (RBAC) is a method of regulating access to computer or network resources based on the roles of individual users within an enterprise. In this context, access is the ability of an individual user to perform a specific task, such as view, create, or modify a file.
-  * Kubernetes RBAC uses the `rbac.authorization.k8s.io` API group to drive authorization decisions, allowing you to dynamically configure permission policies through the Kubernetes API.
-* **Node** - A special-purpose authorization mode that grants permissions to kubelets based on the pods they are scheduled to run. To learn more about the Node authorization mode, see [Node Authorization](/docs/reference/access-authn-authz/node/).
-* **Webhook** - Kubernetes [webhook mode](/docs/reference/access-authn-authz/webhook/) for authorization makes a synchronous HTTP callout, blocking the request until the remote HTTP service responds to the query.
+`AlwaysAllow`
+: This mode allows all requests, which brings [security risks](#warning-always-allow). Use this authorization mode only if you do not require authorization for your API requests (for example, for testing).
+
+`AlwaysDeny`
+: This mode blocks all requests. Use this authorization mode only for testing.
+
+`ABAC` ([attribute-based access control](/docs/reference/access-authn-authz/abac/))
+: Kubernetes ABAC mode defines an access control paradigm whereby access rights are granted to users through the use of policies which combine attributes together. The policies can use any type of attributes (user attributes, resource attributes, object, environment attributes, etc).
+
+`RBAC` ([role-based access control](/docs/reference/access-authn-authz/rbac/))
+: Kubernetes RBAC is a method of regulating access to computer or network resources based on the roles of individual users within an enterprise. In this context, access is the ability of an individual user to perform a specific task, such as view, create, or modify a file.  
+  In this mode, Kubernetes uses the `rbac.authorization.k8s.io` API group to drive authorization decisions, allowing you to dynamically configure permission policies through the Kubernetes API.
+
+`Node`
+: A special-purpose authorization mode that grants permissions to kubelets based on the pods they are scheduled to run. To learn more about the Node authorization mode, see [Node Authorization](/docs/reference/access-authn-authz/node/).
+
+`Webhook`
+: Kubernetes [webhook mode](/docs/reference/access-authn-authz/webhook/) for authorization makes a synchronous HTTP callout, blocking the request until the remote HTTP service responds to the query.You can write your own software to handle the callout, or use solutions from the ecosystem.
+
+<a id="warning-always-allow" />
 
 {{< warning >}}
 Enabling the `AlwaysAllow` mode bypasses authorization; do not use this on a cluster where
@@ -158,10 +171,10 @@ You can use the following modes:
 
 * `--authorization-mode=ABAC` (Attribute-based access control mode)
 * `--authorization-mode=RBAC` (Role-based access control mode)
-* `--authorization-mode=Webhook` (Webhook authorization mode)
 * `--authorization-mode=Node` (Node authorizer)
+* `--authorization-mode=Webhook` (Webhook authorization mode)
+* `--authorization-mode=AlwaysAllow` (always allows requests; carries [security risks](#warning-always-allow))
 * `--authorization-mode=AlwaysDeny` (always denies requests)
-* `--authorization-mode=AlwaysAllow` (always allows requests; carries security risks)
 
 You can choose more than one authorization mode; for example:
 `--authorization-mode=Node,Webhook`
