@@ -192,7 +192,7 @@ URLが`member1=http://10.0.0.1`、`member2=http://10.0.0.2`、そして`member3=
    Member 2be1eb8f84b7f63e added to cluster ef37ad9dc622a7c4
    ```
 
-1. IP`10.0.0.4`のマシン上で新たに追加されたメンバーを起動します:
+1. IP `10.0.0.4`のマシン上で新たに追加されたメンバーを起動します:
 
    ```shell
    export ETCD_NAME="member4"
