@@ -364,7 +364,7 @@ allows you to specify `restartPolicy: Always` for init containers.
 Setting the `Always` restart policy ensures that the containers where you set it are
 treated as _sidecars_ that are kept running during the entire lifetime of the Pod.
 Containers that you explicitly define as sidecar containers
-start up before the main application Pod and remain running until the Pod is
+start up alongside the main application container within a pod and remain running until the Pod is
 shut down.
 
 
