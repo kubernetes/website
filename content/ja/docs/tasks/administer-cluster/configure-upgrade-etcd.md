@@ -206,7 +206,7 @@ URLが`member1=http://10.0.0.1`、`member2=http://10.0.0.2`、そして`member3=
    1. 各Kubernetes APIサーバーが全てのetcdメンバーと通信するように構成されている場合、`--etcd-servers`フラグに新たに追加されたメンバーを加え、各Kubernetes APIサーバーを再起動します。
    1. 各Kubernetes APIサーバーが単一のetcdメンバーと通信している場合、ステップ2で停止したKubernetes APIサーバーを起動します。
     その後、Kubernetes APIサーバークライアントを再度構成して、停止されたKubernetes APIサーバーへのリクエストをルーティングします。
-    これはロードバランサーを構成することで、多くの場合行われます。
+    これは多くの場合、ロードバランサーを構成することで行われます。
 
 クラスターの再構成に関する詳細については、[etcd再構成ドキュメント](https://etcd.io/docs/current/op-guide/runtime-configuration/#remove-a-member)を参照してください。
 
