@@ -8,7 +8,9 @@ weight: 90
 ---
 
 <!-- overview -->
-[kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler) is one of the critical components of the control plane. Generally, it the of the top consideration for the security of the Control Plane. 
+The Kubernetes {{< glossary_tooltip text="scheduler" term_id="kube-scheduler" >}} is
+one of the critical components of the
+{{< glossary_tooltip text="control plane" term_id="control-plane" >}}.
 
 In this document we explain the effects of a misconfigured scheduler and how we can make the scheduler more secure.
 
@@ -21,19 +23,19 @@ A misconfigured Scheduler can have security implications. Such a scheduler can t
 {{<table caption="Authentication and Authorization Configurations">}}
 | Configuration | Description | Security Hardening Advice |
 | --- | :--- | --- |
-|`authentication-kubeconfig`|kubeconfig file pointing at the 'core' kubernetes server with enough rights to create tokenreviews.authentication.k8s.io. This is optional. If empty, all token requests are considered to be anonymous and no client CA is looked up in the cluster. |Make sure that a proper to provide a proper kubeconfig so that the server calls are secure. This kubeconfig file should also maintained securely.|
+|`authentication-kubeconfig`|kubeconfig file pointing at the 'core' kubernetes server with enough rights to create tokenreviews.authentication.k8s.io. This is optional. If empty, all token requests are considered to be anonymous and no client CA is looked up in the cluster. |Make sure to provide a proper kubeconfig so that the server calls are secure. This kubeconfig file should also maintained securely.|
 |`authentication-tolerate-lookup-failure`| If true, failures to look up missing authentication configuration from the cluster are not considered fatal. Note that this can result in authentication that treats all requests as anonymous. |Set to `false` to make sure invalid authentication configurations do not lead to requests passing off as anonymous |
 |`authentication-skip-lookup`| If false, the authentication-kubeconfig will be used to lookup missing authentication configuration from the cluster. |This should be set to `false` to make sure all missing authentication configuration falls back to the authentication kubeconfig.|
-|`authorization-always-allow-paths`| A list of HTTP paths to skip during authorization, i.e. these are authorized without contacting the 'core' kubernetes server. |These paths should respond with data that is appropriate for anonymous authorization. Defaults to `"/healthz,/readyz,/livez"`.|
+|`authorization-always-allow-paths`| A list of HTTP paths to skip during authorization, i.e. these are authorized without contacting the 'core' kubernetes server. |These paths should respond with data that is appropriate for anonymous authorization. Defaults to `/healthz,/readyz,/livez`.|
 {{</table>}}
 
 ### Address configuration options
 {{<table caption="Address Configurations">}}
 | Configuration | Description | Security Hardening Advice |
 | --- | --- | --- |
-|`bind-address`| The IP address on which to listen for the --secure-port port. The associated interface(s) must be reachable by the rest of the cluster, and by CLI/web clients. If blank or an unspecified address (0.0.0.0 or ::), all interfaces and IP address families will be used. |In most cases, kube-scheduler does not need to be externally accessible. Setting the bind address to `localhost` is a secure practice.|
-|`permit-address-sharing`|If true, SO_REUSEADDR will be used when binding the port. This allows binding to wildcard IPs like 0.0.0.0 and specific IPs in parallel, and it avoids waiting for the kernel to release sockets in TIME_WAIT state.|Default `false`. Setting it to  `true` will enable connection sharing through `SO_REUSEADDR`. Caution: `SO_REUSEADDR` can reuse terminated connections and are in `TIME_WAIT` state.|
-|`permit-port-sharing`|If true, SO_REUSEPORT will be used when binding the port, which allows more than one instance to bind on the same address and port.|Default `false`. Should be only enabled after careful deliberation and with `permit-address-sharing`.|
+|`bind-address`| The IP address on which to listen for the `--secure-port` port (mainly used for metrics and health checks). The associated interface(s) must be reachable by the rest of the cluster, and by CLI/web clients. If blank or an unspecified address (`0.0.0.0` for IPv4 or `::` for IPv6), all interfaces and IP address families will be used. |In most cases, the kube-scheduler does not need to be externally accessible. Setting the bind address to `localhost` is a secure practice.|
+|`permit-address-sharing` | If true, the kube-scheduler uses the `SO_REUSEADDR` socket option when binding its listening port, which allows more than one kube-scheduler process to bind on the same address and port. This allows binding to wildcard IP addresses (such as 0.0.0.0), or binding to specific IP addresess in parallel, and it avoids waiting for the kernel to release sockets in `TIME_WAIT` state.|Default `false`. Setting it to  `true` will enable connection sharing through `SO_REUSEADDR`. Caution: `SO_REUSEADDR` can lead to reuse of terminated connections that are in `TIME_WAIT` state.|
+|`permit-port-sharing`|If true, the kube-scheduler uses the `SO_REUSEPORT` socket option when binding its listening port, which allows more than one kube-scheduler process to bind on the same address and port.|Default `false`. Use the default unless you are confident you understand the security implications.|
 {{</table>}}
 
 ### TLS configuration options
@@ -47,7 +49,7 @@ A misconfigured Scheduler can have security implications. Such a scheduler can t
 ## Scheduling configurations
 The cluster administrator needs be careful with the plugins that use the [queueSort, filter, and permit extension points](/docs/reference/scheduling/config/#extension-points). Scheduling happens in a series of stages that are exposed through the extension points. Plugins that define their own extension points can be enabled. This can affect the defined scheduling process of the kube-scheduler of the cluster.
 
-Exactly one plugin that uses the `queueSort` extension point can be enabled at a time. Any other plugins that use `queueSort` should be scrutinized.
+Exactly one plugin that uses the `queueSort` extension point can be enabled at a time. Any plugins that use `queueSort` should be scrutinized.
 
 Plugins that implement the `filter` extension point can potentially mark all nodes as unschedulable. This can bring scheduling of new pods to a halt.
 
