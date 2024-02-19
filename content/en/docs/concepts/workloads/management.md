@@ -1,5 +1,5 @@
 ---
-title: Managing Resources
+title: Managing Workloads
 content_type: concept
 reviewers:
 - janetkuo
