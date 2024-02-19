@@ -672,7 +672,7 @@ Unprefixed names are reserved for end-users.
 
 {{< feature-state feature_gate_name="LoadBalancerIPMode" >}}
 
-Starting as Alpha in Kubernetes 1.29, 
+As a Beta feature in Kubernetes 1.30,
 a [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) 
 named `LoadBalancerIPMode` allows you to set the `.status.loadBalancer.ingress.ipMode` 
 for a Service with `type` set to `LoadBalancer`. 
