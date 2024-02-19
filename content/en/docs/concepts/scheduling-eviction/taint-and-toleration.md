@@ -84,7 +84,7 @@ An empty `effect` matches all effects with key `key1`.
 
 {{< /note >}}
 
-The above example used `effect` of `NoSchedule`. Alternatively, you can use `effect` of `PreferNoSchedule`.
+The above example used the `effect` of `NoSchedule`. Alternatively, you can use the `effect` of `PreferNoSchedule`.
 
 
 The allowed values for the `effect` field are:
@@ -227,7 +227,7 @@ are true. The following taints are built in:
  * `node.kubernetes.io/network-unavailable`: Node's network is unavailable.
  * `node.kubernetes.io/unschedulable`: Node is unschedulable.
  * `node.cloudprovider.kubernetes.io/uninitialized`: When the kubelet is started
-    with "external" cloud provider, this taint is set on a node to mark it
+    with an "external" cloud provider, this taint is set on a node to mark it
     as unusable. After a controller from the cloud-controller-manager initializes
     this node, the kubelet removes this taint.
 

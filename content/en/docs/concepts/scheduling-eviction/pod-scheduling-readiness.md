@@ -59,7 +59,7 @@ The output is:
 ```
 
 To inform scheduler this Pod is ready for scheduling, you can remove its `schedulingGates` entirely
-by re-applying a modified manifest:
+by reapplying a modified manifest:
 
 {{% code_sample file="pods/pod-without-scheduling-gates.yaml" %}}
 

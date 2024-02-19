@@ -254,13 +254,13 @@ the node label that the system uses to denote the domain. For examples, see
 [Well-Known Labels, Annotations and Taints](/docs/reference/labels-annotations-taints/).
 
 {{< note >}}
-Inter-pod affinity and anti-affinity require substantial amount of
+Inter-pod affinity and anti-affinity require substantial amounts of
 processing which can slow down scheduling in large clusters significantly. We do
 not recommend using them in clusters larger than several hundred nodes.
 {{< /note >}}
 
 {{< note >}}
-Pod anti-affinity requires nodes to be consistently labelled, in other words,
+Pod anti-affinity requires nodes to be consistently labeled, in other words,
 every node in the cluster must have an appropriate label matching `topologyKey`.
 If some or all nodes are missing the specified `topologyKey` label, it can lead
 to unintended behavior.
@@ -364,7 +364,7 @@ null `namespaceSelector` matches the namespace of the Pod where the rule is defi
 
 {{< note >}}
 <!-- UPDATE THIS WHEN PROMOTING TO BETA -->
-The `matchLabelKeys` field is a alpha-level field and is disabled by default in
+The `matchLabelKeys` field is an alpha-level field and is disabled by default in
 Kubernetes {{< skew currentVersion >}}.
 When you want to use it, you have to enable it via the
 `MatchLabelKeysInPodAffinity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
@@ -415,7 +415,7 @@ spec:
 
 {{< note >}}
 <!-- UPDATE THIS WHEN PROMOTING TO BETA -->
-The `mismatchLabelKeys` field is a alpha-level field and is disabled by default in
+The `mismatchLabelKeys` field is an alpha-level field and is disabled by default in
 Kubernetes {{< skew currentVersion >}}.
 When you want to use it, you have to enable it via the
 `MatchLabelKeysInPodAffinity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
@@ -561,7 +561,7 @@ where each web server is co-located with a cache, on three separate nodes.
 | *webserver-1* | *webserver-2* | *webserver-3* |
 |   *cache-1*   |   *cache-2*   |   *cache-3*   |
 
-The overall effect is that each cache instance is likely to be accessed by a single client, that
+The overall effect is that each cache instance is likely to be accessed by a single client that
 is running on the same node. This approach aims to minimize both skew (imbalanced load) and latency.
 
 You might have other reasons to use Pod anti-affinity.
@@ -589,7 +589,7 @@ Some of the limitations of using `nodeName` to select nodes are:
 {{< note >}}
 `nodeName` is intended for use by custom schedulers or advanced use cases where
 you need to bypass any configured schedulers. Bypassing the schedulers might lead to
-failed Pods if the assigned Nodes get oversubscribed. You can use [node affinity](#node-affinity) or a the [`nodeselector` field](#nodeselector) to assign a Pod to a specific Node without bypassing the schedulers.
+failed Pods if the assigned Nodes get oversubscribed. You can use the [node affinity](#node-affinity) or the [`nodeselector` field](#nodeselector) to assign a Pod to a specific Node without bypassing the schedulers.
 {{</ note >}}
 
 Here is an example of a Pod spec using the `nodeName` field:
