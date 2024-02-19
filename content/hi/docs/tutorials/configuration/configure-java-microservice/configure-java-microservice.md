@@ -63,6 +63,6 @@ weight: 10
 
 <!-- lessoncontent -->
 
-## उदाहरण: माइक्रोप्रोफाइल, कॉन्फिगमैप्स और सीक्रेट्स का उपयोग करके कॉन्फिगरेशन को इक्स्टर्नलाइज़ बनाना
+## उदाहरण: MicroProfile, ConfigMaps और Secrets का उपयोग करके config को Externalizing बनाना
 
 [इंटरैक्टिव ट्यूटोरियल प्रारंभ करें](/docs/tutorials/configuration/configure-java-microservice/configure-java-microservice-interactive/) 
