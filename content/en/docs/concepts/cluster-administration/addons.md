@@ -82,7 +82,7 @@ installation instructions. The list does not try to be exhaustive.
 * [Spiderpool](https://github.com/spidernet-io/spiderpool) is an underlay and RDMA
   networking solution for Kubernetes. Spiderpool is supported on bare metal, virtual machines,
   and public cloud environments.
-* [Weave Net](https://github.com/weaveworks/weave )
+* [Weave Net](https://github.com/weaveworks/weave)
   provides networking and network policy, will carry on working on both sides
   of a network partition, and does not require an external database.
 
