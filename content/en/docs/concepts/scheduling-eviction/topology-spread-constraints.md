@@ -99,7 +99,7 @@ your cluster. Those fields are:
   {{< note >}}
   The `MinDomainsInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
   enables `minDomains` for pod topology spread. Starting from v1.28,
-  the `MinDomainsInPodTopologySpread` gate 
+  the `MinDomainsInPodTopologySpread` gate
   is enabled by default. In older Kubernetes clusters it might be explicitly
   disabled or the field might not be available.
   {{< /note >}}
