@@ -9,9 +9,9 @@
   {{ if not $is_valid }}
     {{ errorf "%q is not a valid feature-state, use one of %q" $state $valid_states }}
   {{ else }}
-    <div class="my-2 feature-state-notice feature-{{ $state }}">
-      <b>{{ T "feature_state" }}</b> <code>{{T "feature_state_kubernetes_label" }} {{ $for_k8s_version }} [{{ $state }}]</code>
-    </div>
+  <div class="my-2 feature-state-notice feature-{{ $state }}">
+    <b>{{ T "feature_state" }}</b> <code>{{T "feature_state_kubernetes_label" }} {{ $for_k8s_version }} [{{ $state }}]</code>
+  </div>
   {{ end }}
 
 {{- else -}}
@@ -38,9 +38,9 @@
           {{- with $currentStage -}}  
            
           <!-- Display feature state information  -->
-            <div class="my-2 feature-state-notice feature-{{ .stage }}" title="{{ printf "%s %s" (T "feature_state_feature_gate_tooltip") $feature_gate_name }}">
-              <b>{{ T "feature_state" }}</b> <code>{{T "feature_state_kubernetes_label" }} v{{ .fromVersion }} [{{ .stage }}]</code>
-            </div>       
+          <div class="my-2 feature-state-notice feature-{{ .stage }}" title="{{ printf "%s %s" (T "feature_state_feature_gate_tooltip") $feature_gate_name }}">
+            <b>{{ T "feature_state" }}</b> <code>{{T "feature_state_kubernetes_label" }} v{{ .fromVersion }} [{{ .stage }}]</code>
+          </div>       
 
             {{- $featureGateFound = true -}}        
           {{- end -}}        
