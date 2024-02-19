@@ -64,7 +64,7 @@ and it cannot be prefixed with `system-`.
 
 A PriorityClass object can have any 32-bit integer value smaller than or equal
 to 1 billion. This means that the range of values for a PriorityClass object is
-from -2147483648 to 1000000000 inclusive. Larger numbers are reserved for 
+from -2147483648 to 1000000000 inclusive. Larger numbers are reserved for
 built-in PriorityClasses that represent critical system Pods. A cluster
 admin should create one PriorityClass object for each such mapping that they want.
 
@@ -256,9 +256,9 @@ the Node is not considered for preemption.
 
 If a pending Pod has inter-pod {{< glossary_tooltip text="affinity" term_id="affinity" >}}
 to one or more of the lower-priority Pods on the Node, the inter-Pod affinity
-rule cannot be satisfied in the absence of those lower-priority Pods. In this case, 
+rule cannot be satisfied in the absence of those lower-priority Pods. In this case,
 the scheduler does not preempt any Pods on the Node. Instead, it looks for another
-Node. The scheduler might find a suitable Node or it might not. There is no 
+Node. The scheduler might find a suitable Node or it might not. There is no
 guarantee that the pending Pod can be scheduled.
 
 Our recommended solution for this problem is to create inter-Pod affinity only
@@ -361,7 +361,7 @@ to get evicted. The kubelet ranks pods for eviction based on the following facto
 
   1. Whether the starved resource usage exceeds requests
   1. Pod Priority
-  1. Amount of resource usage relative to requests 
+  1. Amount of resource usage relative to requests
 
 See [Pod selection for kubelet eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/#pod-selection-for-kubelet-eviction)
 for more details.

@@ -57,8 +57,8 @@ the `NodeResourcesFit` score function can be controlled by the
 Within the `scoringStrategy` field, you can configure two parameters: `requestedToCapacityRatio` and
 `resources`. The `shape` in the `requestedToCapacityRatio`
 parameter allows the user to tune the function as least requested or most
-requested based on `utilization` and `score` values. The `resources` parameter 
-comprises both the `name` of the resource to be considered during scoring and 
+requested based on `utilization` and `score` values. The `resources` parameter
+comprises both the `name` of the resource to be considered during scoring and
 its corresponding `weight`, which specifies the weight of each resource.
 
 Below is an example configuration that sets

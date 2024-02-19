@@ -96,7 +96,7 @@ define. Some of the benefits of affinity and anti-affinity include:
 The affinity feature consists of two types of affinity:
 
 - *Node affinity* functions like the `nodeSelector` field but is more expressive and
-  allows you to specify soft rules. 
+  allows you to specify soft rules.
 - *Inter-pod affinity/anti-affinity* allows you to constrain Pods against labels
   on other Pods.
 
@@ -305,22 +305,22 @@ Pod affinity rule uses the "hard"
 `requiredDuringSchedulingIgnoredDuringExecution`, while the anti-affinity rule
 uses the "soft" `preferredDuringSchedulingIgnoredDuringExecution`.
 
-The affinity rule specifies that the scheduler is allowed to place the example Pod 
+The affinity rule specifies that the scheduler is allowed to place the example Pod
 on a node only if that node belongs to a specific [zone](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
-where other Pods have been labeled with `security=S1`. 
-For instance, if we have a cluster with a designated zone, let's call it "Zone V," 
-consisting of nodes labeled with `topology.kubernetes.io/zone=V`, the scheduler can 
-assign the Pod to any node within Zone V, as long as there is at least one Pod within 
-Zone V already labeled with `security=S1`. Conversely, if there are no Pods with `security=S1` 
+where other Pods have been labeled with `security=S1`.
+For instance, if we have a cluster with a designated zone, let's call it "Zone V,"
+consisting of nodes labeled with `topology.kubernetes.io/zone=V`, the scheduler can
+assign the Pod to any node within Zone V, as long as there is at least one Pod within
+Zone V already labeled with `security=S1`. Conversely, if there are no Pods with `security=S1`
 labels in Zone V, the scheduler will not assign the example Pod to any node in that zone.
 
-The anti-affinity rule specifies that the scheduler should try to avoid scheduling the Pod 
+The anti-affinity rule specifies that the scheduler should try to avoid scheduling the Pod
 on a node if that node belongs to a specific [zone](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
-where other Pods have been labeled with `security=S2`. 
-For instance, if we have a cluster with a designated zone, let's call it "Zone R," 
-consisting of nodes labeled with `topology.kubernetes.io/zone=R`, the scheduler should avoid 
-assigning the Pod to any node within Zone R, as long as there is at least one Pod within 
-Zone R already labeled with `security=S2`. Conversely, the anti-affinity rule does not impact 
+where other Pods have been labeled with `security=S2`.
+For instance, if we have a cluster with a designated zone, let's call it "Zone R,"
+consisting of nodes labeled with `topology.kubernetes.io/zone=R`, the scheduler should avoid
+assigning the Pod to any node within Zone R, as long as there is at least one Pod within
+Zone R already labeled with `security=S2`. Conversely, the anti-affinity rule does not impact
 scheduling into Zone R if there are no Pods with `security=S2` labels.
 
 To get yourself more familiar with the examples of Pod affinity and anti-affinity,
@@ -371,12 +371,12 @@ When you want to use it, you have to enable it via the
 {{< /note >}}
 
 Kubernetes includes an optional `matchLabelKeys` field for Pod affinity
-or anti-affinity. The field specifies keys for the labels that should  match with the incoming Pod's labels, 
+or anti-affinity. The field specifies keys for the labels that should  match with the incoming Pod's labels,
 when satisfying the Pod (anti)affinity.
 
 The keys are used to look up values from the pod labels; those key-value labels are combined
 (using `AND`) with the match restrictions defined using the `labelSelector` field. The combined
-filtering selects the set of existing pods that will be taken into Pod (anti)affinity calculation. 
+filtering selects the set of existing pods that will be taken into Pod (anti)affinity calculation.
 
 A common use case is to use `matchLabelKeys` with `pod-template-hash` (set on Pods
 managed as part of a Deployment, where the value is unique for each revision).
@@ -405,7 +405,7 @@ spec:
             # Only Pods from a given rollout are taken into consideration when calculating pod affinity.
             # If you update the Deployment, the replacement Pods follow their own affinity rules
             # (if there are any defined in the new Pod template)
-            matchLabelKeys: 
+            matchLabelKeys:
             - pod-template-hash
 ```
 
@@ -422,7 +422,7 @@ When you want to use it, you have to enable it via the
 {{< /note >}}
 
 Kubernetes includes an optional `mismatchLabelKeys` field for Pod affinity
-or anti-affinity. The field specifies keys for the labels that should **not** match with the incoming Pod's labels, 
+or anti-affinity. The field specifies keys for the labels that should **not** match with the incoming Pod's labels,
 when satisfying the Pod (anti)affinity.
 
 One example use case is to ensure Pods go to the topology domain (node, zone, etc) where only Pods from the same tenant or team are scheduled in.
@@ -438,22 +438,22 @@ metadata:
 ...
 spec:
   affinity:
-    podAffinity:      
+    podAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
       # ensure that pods associated with this tenant land on the correct node pool
       - matchLabelKeys:
           - tenant
         topologyKey: node-pool
-    podAntiAffinity:  
+    podAntiAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
       # ensure that pods associated with this tenant can't schedule to nodes used for another tenant
       - mismatchLabelKeys:
-        - tenant # whatever the value of the "tenant" label for this Pod, prevent  
+        - tenant # whatever the value of the "tenant" label for this Pod, prevent
                  # scheduling to nodes in any pool where any Pod from a different
                  # tenant is running.
         labelSelector:
           # We have to have the labelSelector which selects only Pods with the tenant label,
-          # otherwise this Pod would hate Pods from daemonsets as well, for example, 
+          # otherwise this Pod would hate Pods from daemonsets as well, for example,
           # which aren't supposed to have the tenant label.
           matchExpressions:
           - key: tenant
@@ -633,13 +633,13 @@ The following operators can only be used with `nodeAffinity`.
 
 |    Operator    |    Behaviour    |
 | :------------: | :-------------: |
-| `Gt` | The supplied value will be parsed as an integer, and that integer is less than the integer that results from parsing the value of a label named by this selector | 
-| `Lt` | The supplied value will be parsed as an integer, and that integer is greater than the integer that results from parsing the value of a label named by this selector | 
+| `Gt` | The supplied value will be parsed as an integer, and that integer is less than the integer that results from parsing the value of a label named by this selector |
+| `Lt` | The supplied value will be parsed as an integer, and that integer is greater than the integer that results from parsing the value of a label named by this selector |
 
 
 {{<note>}}
-`Gt` and `Lt` operators will not work with non-integer values. If the given value 
-doesn't parse as an integer, the pod will fail to get scheduled. Also, `Gt` and `Lt` 
+`Gt` and `Lt` operators will not work with non-integer values. If the given value
+doesn't parse as an integer, the pod will fail to get scheduled. Also, `Gt` and `Lt`
 are not available for `podAffinity`.
 {{</note>}}
 
