@@ -229,7 +229,7 @@ the API server will send any `BOOKMARK` event even when requested.
 
 ## Streaming lists
 
-{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+{{< feature-state feature_gate_name="WatchList" >}}
 
 On large clusters, retrieving the collection of some resource types may result in
 a significant increase of resource usage (primarily RAM) on the control plane.
@@ -287,7 +287,7 @@ Content-Type: application/json
 
 ## Response compression
 
-{{< feature-state for_k8s_version="v1.16" state="beta" >}}
+{{< feature-state feature_gate_name="APIResponseCompression" >}}
 
 `APIResponseCompression` is an option that allows the API server to compress the responses for **get**
 and **list** requests, reducing the network bandwidth and improving the performance of large-scale clusters.
@@ -317,7 +317,7 @@ The `content-encoding` header indicates that the response is compressed with `gz
 
 ## Retrieving large results sets in chunks
 
-{{< feature-state for_k8s_version="v1.29" state="stable" >}}
+{{< feature-state feature_gate_name="APIListChunking" >}}
 
 On large clusters, retrieving the collection of some resource types may result in
 very large responses that can impact the server and client. For instance, a cluster
@@ -787,7 +787,7 @@ These situations are:
 
 ### Validation for unrecognized or duplicate fields {#setting-the-field-validation-level}
 
-{{< feature-state for_k8s_version="v1.27" state="stable" >}}
+{{< feature-state feature_gate_name="ServerSideFieldValidation" >}}
 
 From 1.25 onward, unrecognized or duplicate fields in an object are detected via
 validation on the server when you use HTTP verbs that can submit data (`POST`, `PUT`, and `PATCH`). Possible levels of
@@ -846,7 +846,7 @@ a boolean flag.
 
 ## Dry-run
 
- {{< feature-state for_k8s_version="v1.18" state="stable" >}}
+{{< feature-state feature_gate_name="DryRun" >}}
 
 When you use HTTP verbs that can modify resources (`POST`, `PUT`, `PATCH`, and
 `DELETE`), you can submit your request in a _dry run_ mode. Dry run mode helps to
