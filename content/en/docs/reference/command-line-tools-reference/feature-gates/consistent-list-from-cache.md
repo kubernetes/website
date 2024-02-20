@@ -9,6 +9,10 @@ stages:
   - stage: alpha
     defaultValue: false
     fromVersion: "1.28"
+    toVersion: "1.29"
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.30"
 ---
 Allow the API server to serve consistent lists from cache.
 

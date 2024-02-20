@@ -1131,6 +1131,8 @@ a known `resourceVersion` is preferable since it can achieve better performance 
 of your cluster than leaving `resourceVersion` and `resourceVersionMatch` unset, which requires
 quorum read to be served.
 
+TODO: Document consistent read from cache
+
 Setting the `resourceVersionMatch` parameter without setting `resourceVersion` is not valid.
 
 

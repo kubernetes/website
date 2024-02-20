@@ -1,6 +1,6 @@
 ---
 title: "ツールのインストール"
-description: Kubernetesのツールをローカルのコンピュータ上にセットアップします。
+description: Kubernetesのツールをローカルのコンピューター上にセットアップします。
 weight: 10
 no_list: true
 ---

@@ -39,7 +39,7 @@ Figure 1 represents what you're going to achieve in this task.
 graph LR;
 
   subgraph local[Local client machine]
-  client([client])-- local <br> traffic .->  local_ssh[Local SSH <br> SOCKS5 proxy];
+  client([client])-. local <br> traffic .->  local_ssh[Local SSH <br> SOCKS5 proxy];
   end
   local_ssh[SSH <br>SOCKS5 <br> proxy]-- SSH Tunnel -->sshd
   
