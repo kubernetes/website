@@ -49,6 +49,21 @@ Renders to:
 
 {{< feature-state for_k8s_version="v1.10" state="beta" >}}
 
+### Feature state retrieval from description file
+
+To dynamically determine the state of the feature, make use of the `feature_gate_name`
+shortcode parameter. The feature state details will be extracted from the corresponding feature gate 
+description file located in `content/en/docs/reference/command-line-tools-reference/feature-gates/`.
+For example:
+
+```
+{{</* feature-state feature_gate_name="NodeSwap" */>}}
+```
+
+Renders to:
+
+{{< feature-state feature_gate_name="NodeSwap" >}}
+
 ## Feature gate description
 
 In a Markdown page (`.md` file) on this site, you can add a shortcode to

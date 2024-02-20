@@ -5,7 +5,7 @@ title: Pod Security Standards
 description: >
   A detailed look at the different policy levels defined in the Pod Security Standards.
 content_type: concept
-weight: 10
+weight: 15
 ---
 
 <!-- overview -->

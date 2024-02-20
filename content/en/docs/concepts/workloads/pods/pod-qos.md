@@ -87,7 +87,7 @@ Containers in a Pod can request other resources (not CPU or memory) and still be
 
 ## Memory QoS with cgroup v2
 
-{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+{{< feature-state feature-gate-name="MemoryQoS" >}}
 
 Memory QoS uses the memory controller of cgroup v2 to guarantee memory resources in Kubernetes.
 Memory requests and limits of containers in pod are used to set specific interfaces `memory.min`
