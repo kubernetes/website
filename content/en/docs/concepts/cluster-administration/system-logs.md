@@ -238,7 +238,7 @@ The `logrotate` tool rotates logs daily, or once the log size is greater than 10
 
 ## Log query
 
-{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+{{< feature-state feature_gate_name="NodeLogQuery" >}}
 
 To help with debugging issues on nodes, Kubernetes v1.27 introduced a feature that allows viewing logs of services
 running on the node. To use the feature, ensure that the `NodeLogQuery`

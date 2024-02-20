@@ -65,27 +65,21 @@ Example CEL expressions:
 
 CEL is configured with the following options, libraries and language features, introduced at the specified Kubernetes versions:
 
-| CEL option, library or language feature             | Included                                                                                                        | Availablity                |
-| --------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | -------------------------- |
-| [Standard macros](stdmacros)                        | `has`, `all`, `exists`, `exists_one`, `map`, `filter`                                                           | All Kubernetes versions    |
-| [Standard functions](stdlib)                        | See [official list of standard definitions](stdlib)                                                             | All Kubernetes versions    |
-| [Homogeneous Aggregate Literals](opt1)              |                                                                                                                 | All Kubernetes versions    |
-| [Default UTC Time Zone](opt2)                       |                                                                                                                 | All Kubernetes versions    |
-| [Eagerly Validate Declarations](opt3)               |                                                                                                                 | All Kubernetes versions    |
-| [extended strings library](stringsgodoc), Version 1 | `charAt`, `indexOf`, `lastIndexOf`, `lowerAscii`, `upperAscii`, `replace`, `split`, `join`, `substring`, `trim` | All Kubernetes versions    |
-| Kubernetes list library                             | See [Kubernetes list library](#kubernetes-list-library)                                                         | All Kubernetes versions    |
-| Kubernetes regex library                            | See [Kubernetes regex library](#kubernetes-regex-library)                                                       | All Kubernetes versions    |
-| Kubernetes URL library                              | See [Kubernetes URL library](#kubernetes-url-library)                                                           | All Kubernetes versions    |
-| Kubernetes authorizer library                       | See [Kubernetes authorizer library](#kubernetes-authorizer-library)                                             | All Kubernetes versions    |
-
-[stdmacros]: https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#macros
-[stdlib]: https://github.com/google/cel-spec/blob/master/doc/langdef.md#list-of-standard-definitions
-[stringsgodoc]: https://pkg.go.dev/github.com/google/cel-go/ext#Strings
-[opt1]: https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#HomogeneousAggregateLiterals
-[opt2]: https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#DefaultUTCTimeZone
-[opt3]: https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#EagerlyValidateDeclarations
-[opt4]: https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#OptionalTypes
-[opt5]: https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#CrossTypeNumericComparisons
+| CEL option, library or language feature                                                                                | Included                                                                                                                                  | Availablity               |
+|------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|
+| [Standard macros](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#macros)                                | `has`, `all`, `exists`, `exists_one`, `map`, `filter`                                                                                     | All Kubernetes versions   |
+| [Standard functions](https://github.com/google/cel-spec/blob/master/doc/langdef.md#list-of-standard-definitions)       | See [official list of standard definitions](https://github.com/google/cel-spec/blob/master/doc/langdef.md#list-of-standard-definitions)   | All Kubernetes versions   |
+| [Homogeneous Aggregate Literals](https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#HomogeneousAggregateLiterals) |                                                                                                                                           | All Kubernetes versions   |
+| [Default UTC Time Zone](https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#DefaultUTCTimeZone)                    |                                                                                                                                           | All Kubernetes versions   |
+| [Eagerly Validate Declarations](https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#EagerlyValidateDeclarations)   |                                                                                                                                           | All Kubernetes versions   |
+| [extended strings library](https://pkg.go.dev/github.com/google/cel-go/ext#Strings), Version 1                         | `charAt`, `indexOf`, `lastIndexOf`, `lowerAscii`, `upperAscii`, `replace`, `split`, `join`, `substring`, `trim`                           | All Kubernetes versions   |
+| Kubernetes list library                                                                                                | See [Kubernetes list library](#kubernetes-list-library)                                                                                   | All Kubernetes versions   |
+| Kubernetes regex library                                                                                               | See [Kubernetes regex library](#kubernetes-regex-library)                                                                                 | All Kubernetes versions   |
+| Kubernetes URL library                                                                                                 | See [Kubernetes URL library](#kubernetes-url-library)                                                                                     | All Kubernetes versions   |
+| Kubernetes authorizer library                                                                                          | See [Kubernetes authorizer library](#kubernetes-authorizer-library)                                                                       | All Kubernetes versions   |
+| Kubernetes quantity library                                                                                            | See [Kubernetes quantity library](#kubernetes-quantity-library)                                                                           | Kubernetes versions 1.29+ |
+| CEL optional types                                                                                                     | See [CEL optional types](https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#OptionalTypes)                                           | Kubernetes versions 1.29+ |
+| CEL CrossTypeNumericComparisons                                                                                        | See [CEL CrossTypeNumericComparisons](https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#CrossTypeNumericComparisons)                | Kubernetes versions 1.29+ |
 
 CEL functions, features and language settings support Kubernetes control plane
 rollbacks. For example, _CEL Optional Values_ was introduced at Kubernetes 1.29
@@ -206,6 +200,50 @@ To perform an authorization check for a service account:
 
 See the [Kubernetes Authz library](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz)
 godoc for more information.
+
+### Kubernetes quantity library
+
+Kubernetes 1.28 adds support for manipulating quantity strings (ex 1.5G, 512k, 20Mi)
+
+- `isQuantity(string)` checks if a string is a valid Quantity according to [Kubernetes'
+  resource.Quantity](https://pkg.go.dev/k8s.io/apimachinery/pkg/api/resource#Quantity). 
+- `quantity(string) Quantity` converts a string to a Quantity or results in an error if the
+  string is not a valid quantity.
+
+Once parsed via the `quantity` function, the resulting Quantity object has the 
+following library of member functions:
+
+{{< table caption="Available member functions of a Quantity" >}}
+| Member Function               | CEL Return Value  | Description                                                                                                                                                          |
+|-------------------------------|-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `isInteger()`                 | bool              | returns true if and only if asInteger is safe to call without an error                                                                                               |
+| `asInteger()`                 | int               | returns a representation of the current value as an int64 if possible or results in an error if conversion would result in overflow or loss of precision.             |
+| `asApproximateFloat()`        | float              | returns a float64 representation of the quantity which may lose precision. If the value of the quantity is outside the range of a float64 +Inf/-Inf will be returned.  |
+| `sign()`                      | int               | Returns `1` if the quantity is positive, `-1` if it is negative. `0` if it is zero                                                                                   |
+| `add(<Quantity>)`             | Quantity          | Returns sum of two quantities                                                                                                                                        |
+| `add(<int>)`                  | Quantity          | Returns sum of quantity and an integer                                                                                                                               | 
+| `sub(<Quantity>)`             | Quantity          | Returns difference between two quantities                                                                                                                            |
+| `sub(<int>)`                  | Quantity          | Returns difference between a quantity and an integer                                                                                                                 |
+| `isLessThan(<Quantity>)`      | bool              | Returns true if and only if the receiver is less than the operand                                                                                                    |
+| `isGreaterThan(<Quantity>)`   | bool              | Returns true if and only if the receiver is greater than the operand                                                                                                 |
+| `compareTo(<Quantity>)`       | int               | Compares receiver to operand and returns 0 if they are equal, 1 if the receiver is greater, or -1 if the receiver is less than the operand                           |
+{{< /table >}}
+
+Examples:
+
+{{< table caption="Examples of CEL expressions using URL library functions" >}}
+| CEL Expression                                                            | Purpose                                               |
+|---------------------------------------------------------------------------|-------------------------------------------------------|
+| `quantity("500000G").isInteger()`                                         | Test if conversion to integer would throw an error    |
+| `quantity("50k").asInteger()`                                             | Precise conversion to integer                         |
+| `quantity("9999999999999999999999999999999999999G").asApproximateFloat()` | Lossy conversion to float                              |
+| `quantity("50k").add("20k")`                                              | Add two quantities                                    |
+| `quantity("50k").sub(20000)`                                              | Subtract an integer from a quantity                   |
+| `quantity("50k").add(20).sub(quantity("100k")).sub(-50000)`               | Chain adding and subtracting integers and quantities  |
+| `quantity("200M").compareTo(quantity("0.2G"))`                            | Compare two quantities                                |
+| `quantity("150Mi").isGreaterThan(quantity("100Mi"))`                      | Test if a quantity is greater than the receiver       |
+| `quantity("50M").isLessThan(quantity("100M"))`                            | Test if a quantity is less than the receiver          |
+{{< /table >}}
 
 ## Type checking
 

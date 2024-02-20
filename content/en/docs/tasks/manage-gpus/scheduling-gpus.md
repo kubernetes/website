@@ -95,12 +95,13 @@ You also need a plugin for NFD that adds appropriate labels to your nodes; these
 labels or they could be vendor specific. Your GPU vendor may provide a third party
 plugin for NFD; check their documentation for more details.
 
-{{< highlight yaml "linenos=false,hl_lines=6-18" >}}
+{{< highlight yaml "linenos=false,hl_lines=7-18" >}}
 apiVersion: v1
 kind: Pod
 metadata:
   name: example-vector-add
 spec:
+  restartPolicy: OnFailure
   # You can use Kubernetes node affinity to schedule this Pod onto a node
   # that provides the kind of GPU that its container needs in order to work
   affinity:
@@ -113,7 +114,6 @@ spec:
             values: ["40535"]
           - key: "feature.node.kubernetes.io/pci-10.present" # NFD Feature label
             values: ["true"] # (optional) only schedule on nodes with PCI device 10
-  restartPolicy: OnFailure
   containers:
     - name: example-vector-add
       image: "registry.example/example-vector-add:v42"
