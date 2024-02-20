@@ -440,7 +440,7 @@ To assign SELinux labels, the SELinux security module must be loaded on the host
 
 ### Efficient SELinux volume relabeling
 
-{{< feature-state for_k8s_version="v1.27" state="beta" >}}
+{{< feature-state feature_gate_name="ReadWriteOncePod" >}}
 
 By default, the container runtime recursively assigns SELinux label to all
 files on all Pod volumes. To speed up this process, Kubernetes can change the

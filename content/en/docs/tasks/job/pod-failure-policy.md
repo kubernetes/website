@@ -5,7 +5,7 @@ min-kubernetes-server-version: v1.25
 weight: 60
 ---
 
-{{< feature-state for_k8s_version="v1.26" state="beta" >}}
+{{< feature-state feature_gate_name="JobPodFailurePolicy" >}}
 
 <!-- overview -->
 

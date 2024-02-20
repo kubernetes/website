@@ -8,7 +8,7 @@ weight: 30
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.4" state="beta" >}}
+{{< feature-state feature_gate_name="AppArmor" >}}
 
 
 AppArmor is a Linux kernel security module that supplements the standard Linux user and group based

@@ -211,7 +211,7 @@ so an earlier module has higher priority to allow or deny a request.
 
 ## Configuring the API Server using an Authorization Config File
 
-{{< feature-state state="alpha" for_k8s_version="v1.29" >}}
+{{< feature-state feature_gate_name="StructuredAuthorizationConfiguration" >}}
 
 The Kubernetes API server's authorizer chain can be configured using a
 configuration file.
