@@ -24,6 +24,7 @@ aliases:
     - rlenferink
   sig-docs-en-owners: # Admins for English content
     - celestehorgan
+    - dipesh-rawat
     - divya-mohan0209
     - drewhagen # RT 1.30 Docs Lead
     - katcosgrove # RT 1.30 Lead
@@ -33,12 +34,12 @@ aliases:
     - sftim
     - tengqm
   sig-docs-en-reviews: # PR reviews for English content
-    - bradtopol
+    - celestehorgan
     - dipesh-rawat
     - divya-mohan0209
     - kbhawkey
-    - mehabhalodiya
     - mengjiao-liu
+    - mickeyboxell
     - natalisucks
     - nate-double-u
     - reylejano
