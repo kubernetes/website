@@ -1,15 +1,4 @@
 <!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
-<!--
 Interact with container images used by kubeadm
 -->
 与 kubeadm 使用的容器镜像交互
@@ -17,13 +6,11 @@ Interact with container images used by kubeadm
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
 Interact with container images used by kubeadm.
 -->
-
 与 kubeadm 使用的容器镜像交互。
 
 ```
@@ -33,7 +20,6 @@ kubeadm config images [flags]
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -52,14 +38,13 @@ kubeadm config images [flags]
 help for images
 -->
 <p>
-images 的帮助命令
+images 的帮助命令。
 </p>
 </td>
 </tr>
 
 </tbody>
 </table>
-
 
 <!--
 ### Options inherited from parent commands

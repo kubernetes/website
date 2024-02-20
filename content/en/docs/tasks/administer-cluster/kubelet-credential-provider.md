@@ -3,7 +3,6 @@ title: Configure a kubelet image credential provider
 reviewers:
 - liggitt
 - cheftako
-description: Configure the kubelet's image credential provider plugin
 content_type: task
 min-kubernetes-server-version: v1.26
 weight: 120

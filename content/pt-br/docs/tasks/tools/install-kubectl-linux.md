@@ -44,7 +44,7 @@ Por exemplo, para fazer download da versão {{< skew currentPatchVersion >}} no 
    Faça download do arquivo checksum de verificação do kubectl:
 
    ```bash
-   curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
    ```
 
    Valide o binário kubectl em relação ao arquivo de verificação:
@@ -215,7 +215,7 @@ Abaixo estão os procedimentos para configurar o autocompletar para Bash, Fish e
    Faça download do arquivo checksum de verificação do kubectl-convert:
 
    ```bash
-   curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert.sha256"
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert.sha256"
    ```
 
    Valide o binário kubectl-convert com o arquivo de verificação:

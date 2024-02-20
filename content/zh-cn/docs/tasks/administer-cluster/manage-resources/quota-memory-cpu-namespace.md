@@ -65,7 +65,7 @@ Here is a manifest for an example ResourceQuota:
 
 下面是 ResourceQuota 的示例清单：
 
-{{% code file="admin/resource/quota-mem-cpu.yaml" %}}
+{{% code_sample file="admin/resource/quota-mem-cpu.yaml" %}}
 
 <!--
 Create the ResourceQuota:
@@ -116,7 +116,7 @@ Here is a manifest for an example Pod:
 
 以下是 Pod 的示例清单：
 
-{{% code file="admin/resource/quota-mem-cpu-pod.yaml" %}}
+{{% code_sample file="admin/resource/quota-mem-cpu-pod.yaml" %}}
 
 <!--
 Create the Pod:
@@ -186,7 +186,7 @@ Here is a manifest for a second Pod:
 
 以下为第二个 Pod 的清单：
 
-{{% code file="admin/resource/quota-mem-cpu-pod-2.yaml" %}}
+{{% code_sample file="admin/resource/quota-mem-cpu-pod-2.yaml" %}}
 
 <!--
 In the manifest, you can see that the Pod has a memory request of 700 MiB.
@@ -289,4 +289,3 @@ kubectl delete namespace quota-mem-cpu-example
 * [为容器和 Pod 分配内存资源](/zh-cn/docs/tasks/configure-pod-container/assign-memory-resource/)
 * [为容器和 Pod 分配 CPU 资源](/zh-cn/docs/tasks/configure-pod-container/assign-cpu-resource/)
 * [为 Pod 配置服务质量](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/)
-

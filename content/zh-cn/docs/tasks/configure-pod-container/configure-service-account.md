@@ -5,7 +5,7 @@ weight: 120
 ---
 <!--
 reviewers:
-- bprashanth
+- enj
 - liggitt
 - thockin
 title: Configure Service Accounts for Pods
@@ -33,7 +33,7 @@ server, you identify yourself as a particular _user_. Kubernetes recognises
 the concept of a user, however, Kubernetes itself does **not** have a User
 API.
 -->
-**服务账号（Service Account）**为 Pod 中运行的进程提供身份标识，
+**服务账号（Service Account）** 为 Pod 中运行的进程提供身份标识，
 并映射到 ServiceAccount 对象。当你向 API 服务器执行身份认证时，
 你会将自己标识为某个**用户（User）**。Kubernetes 能够识别用户的概念，
 但是 Kubernetes 自身**并不**提供 User API。
@@ -72,8 +72,8 @@ You can fetch the details for a Pod you have created. For example:
 ServiceAccount。
 
 每个 Kubernetes 名字空间至少包含一个 ServiceAccount：也就是该名字空间的默认服务账号，
-名为 `default`。如果你在创建 Pod 时没有指定 ServiceAccount，Kubernetes 会自动将该名字空间中
-名为 `default` 的 ServiceAccount 分配给该 Pod。
+名为 `default`。如果你在创建 Pod 时没有指定 ServiceAccount，Kubernetes 会自动将该名字空间中名为
+`default` 的 ServiceAccount 分配给该 Pod。
 
 你可以检视你刚刚创建的 Pod 的细节。例如：
 
@@ -83,7 +83,7 @@ kubectl get pods/<podname> -o yaml
 
 <!--
 In the output, you see a field `spec.serviceAccountName`.
-Kubernetes [automatically](/docs/concepts/overview/working-with-objects/object-management/)
+Kubernetes automatically
 sets that value if you don't specify it when you create a Pod.
 
 An application running inside a Pod can access the Kubernetes API using
@@ -91,8 +91,7 @@ automatically mounted service account credentials.
 See [accessing the Cluster](/docs/tasks/access-application-cluster/access-cluster/) to learn more.
 -->
 在输出中，你可以看到字段 `spec.serviceAccountName`。当你在创建 Pod 时未设置该字段时，
-Kubernetes [自动](/zh-cn/docs/concepts/overview/working-with-objects/object-management/)为
-Pod 设置这一属性的取值。
+Kubernetes 自动为 Pod 设置这一属性的取值。
 
 Pod 中运行的应用可以使用这一自动挂载的服务账号凭据来访问 Kubernetes API。
 参阅[访问集群](/zh-cn/docs/tasks/access-application-cluster/access-cluster/)以进一步了解。
@@ -133,6 +132,7 @@ metadata:
 automountServiceAccountToken: false
 ...
 ```
+
 <!--
 You can also opt out of automounting API credentials for a particular Pod:
 -->
@@ -203,7 +203,7 @@ The name of a ServiceAccount object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 -->
 ServiceAccount 对象的名字必须是一个有效的
-[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 
 <!--
 If you get a complete dump of the service account object, like this:
@@ -285,7 +285,7 @@ You can get a time-limited API token for that ServiceAccount using `kubectl`:
 ## 手动为 ServiceAccount 创建 API 令牌 {#manually-create-an-api-token-for-a-serviceaccount}
 
 假设你已经有了一个前文所提到的名为 "build-robot" 的服务账号。
-你可以使用 `kubectl` 为该 ServiceAccount 获得一个时间上受限的 API 令牌：
+你可以使用 `kubectl` 为该 ServiceAccount 获得一个有时限的 API 令牌：
 
 ```shell
 kubectl create token build-robot
@@ -300,6 +300,24 @@ token might be shorter, or could even be longer).
 这一命令的输出是一个令牌，你可以使用该令牌来将身份认证为对应的 ServiceAccount。
 你可以使用 `kubectl create token` 命令的 `--duration` 参数来请求特定的令牌有效期
 （实际签发的令牌的有效期可能会稍短一些，也可能会稍长一些）。
+
+<!--
+When the `ServiceAccountTokenNodeBinding` and `ServiceAccountTokenNodeBindingValidation`
+features are enabled and the `KUBECTL_NODE_BOUND_TOKENS` environment variable is set to `true`,
+it is possible to create a service account token that is directly bound to a `Node`:
+-->
+当启用了 `ServiceAccountTokenNodeBinding` 和 `ServiceAccountTokenNodeBindingValidation`
+特性，并将 `KUBECTL_NODE_BOUND_TOKENS` 环境变量设置为 `true` 时，
+可以创建一个直接绑定到 `Node` 的服务账号令牌：
+
+```shell
+KUBECTL_NODE_BOUND_TOKENS=true kubectl create token build-robot --bound-object-kind Node --bound-object-name node-001 --bound-object-uid 123...456
+```
+
+<!--
+The token will be valid until it expires or either the associated `Node` or service account are deleted.
+-->
+此令牌将有效直至其过期或关联的 `Node` 或服务账户被删除。
 
 {{< note >}}
 <!--
@@ -421,6 +439,24 @@ control plane automatically cleans up the long-lived token from that Secret.
 当你删除一个与某 Secret 相关联的 ServiceAccount 时，Kubernetes 的控制面会自动清理该
 Secret 中长期有效的令牌。
 
+{{< note >}}
+<!--
+If you view the ServiceAccount using:
+
+` kubectl get serviceaccount build-robot -o yaml`
+
+You can't see the `build-robot-secret` Secret in the ServiceAccount API objects
+[`.secrets`](/docs/reference/kubernetes-api/authentication-resources/service-account-v1/) field
+because that field is only populated with auto-generated Secrets.
+-->
+如果你使用以下命令查看 ServiceAccount:
+
+` kubectl get serviceaccount build-robot -o yaml`
+
+在 ServiceAccount API 对象中看不到 `build-robot-secret` Secret，
+[`.secrets`](/zh-cn/docs/reference/kubernetes-api/authentication-resources/service-account-v1/) 字段，
+因为该字段只会填充自动生成的 Secret。
+{{< /note >}}
 <!--
 ## Add ImagePullSecrets to a service account
 
@@ -440,7 +476,7 @@ Next, verify it has been created. For example:
   所描述的，生成一个镜像拉取 Secret：
 
   ```shell
-  kubectl create secret docker-registry myregistrykey --docker-server=DUMMY_SERVER \
+  kubectl create secret docker-registry myregistrykey --docker-server=<registry name> \
           --docker-username=DUMMY_USERNAME --docker-password=DUMMY_DOCKER_PASSWORD \
           --docker-email=DUMMY_DOCKER_EMAIL
   ```
@@ -542,7 +578,7 @@ ServiceAccount, the new Pod has its `spec.imagePullSecrets` field set automatica
 新 Pod 的 `spec.imagePullSecrets` 会被自动设置。
 
 ```shell
-kubectl run nginx --image=nginx --restart=Never
+kubectl run nginx --image=<registry name>/nginx --restart=Never
 kubectl get pod nginx -o=jsonpath='{.spec.imagePullSecrets[0].name}{"\n"}'
 ```
 
@@ -558,7 +594,7 @@ myregistrykey
 <!--
 ## ServiceAccount token volume projection
 -->
-## 服务账号令牌卷投射   {#service-account-token-volume-projection}
+## 服务账号令牌卷投射   {#serviceaccount-token-volume-projection}
 
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
@@ -643,8 +679,76 @@ You can configure this behavior for the `spec` of a Pod using a
 [projected volume](/docs/concepts/storage/volumes/#projected) type called
 `ServiceAccountToken`.
 -->
-你可以使用类型为 `ServiceAccountToken` 的[投射卷](/zh-cn/docs/concepts/storage/volumes/#projected)
-来为 Pod 的 `spec` 配置此行为。
+你可以使用类型为 `ServiceAccountToken` 的[投射卷](/zh-cn/docs/concepts/storage/volumes/#projected)来为
+Pod 的 `spec` 配置此行为。
+
+<!--
+The token from this projected volume is a {{<glossary_tooltip term_id="jwt" text="JSON Web Token">}}  (JWT).
+The JSON payload of this token follows a well defined schema - an example payload for a pod bound token:
+-->
+来自此投射卷的令牌是一个 {{<glossary_tooltip term_id="jwt" text="JSON Web Token">}} (JWT)。
+此令牌的 JSON 载荷遵循明确定义的模式，绑定到 Pod 的令牌的示例载荷如下：
+
+<!--
+```yaml
+{
+  "aud": [  # matches the requested audiences, or the API server's default audiences when none are explicitly requested
+    "https://kubernetes.default.svc"
+  ],
+  "exp": 1731613413,
+  "iat": 1700077413,
+  "iss": "https://kubernetes.default.svc",  # matches the first value passed to the --service-account-issuer flag
+  "jti": "ea28ed49-2e11-4280-9ec5-bc3d1d84661a",  # ServiceAccountTokenJTI feature must be enabled for the claim to be present
+  "kubernetes.io": {
+    "namespace": "kube-system",
+    "node": {  # ServiceAccountTokenPodNodeInfo feature must be enabled for the API server to add this node reference claim
+      "name": "127.0.0.1",
+      "uid": "58456cb0-dd00-45ed-b797-5578fdceaced"
+    },
+    "pod": {
+      "name": "coredns-69cbfb9798-jv9gn",
+      "uid": "778a530c-b3f4-47c0-9cd5-ab018fb64f33"
+    },
+    "serviceaccount": {
+      "name": "coredns",
+      "uid": "a087d5a0-e1dd-43ec-93ac-f13d89cd13af"
+    },
+    "warnafter": 1700081020
+  },
+  "nbf": 1700077413,
+  "sub": "system:serviceaccount:kube-system:coredns"
+}
+```
+-->
+```yaml
+{
+  "aud": [  # 匹配请求的受众，或当没有明确请求时匹配 API 服务器的默认受众
+    "https://kubernetes.default.svc"
+  ],
+  "exp": 1731613413,
+  "iat": 1700077413,
+  "iss": "https://kubernetes.default.svc",  # 匹配传递到 --service-account-issuer 标志的第一个值
+  "jti": "ea28ed49-2e11-4280-9ec5-bc3d1d84661a",  # ServiceAccountTokenJTI 特性必须被启用才能出现此申领
+  "kubernetes.io": {
+    "namespace": "kube-system",
+    "node": {  # ServiceAccountTokenPodNodeInfo 特性必须被启用，API 服务器才会添加此节点引用申领
+      "name": "127.0.0.1",
+      "uid": "58456cb0-dd00-45ed-b797-5578fdceaced"
+    },
+    "pod": {
+      "name": "coredns-69cbfb9798-jv9gn",
+      "uid": "778a530c-b3f4-47c0-9cd5-ab018fb64f33"
+    },
+    "serviceaccount": {
+      "name": "coredns",
+      "uid": "a087d5a0-e1dd-43ec-93ac-f13d89cd13af"
+    },
+    "warnafter": 1700081020
+  },
+  "nbf": 1700077413,
+  "sub": "system:serviceaccount:kube-system:coredns"
+}
+```
 
 <!--
 ### Launch a Pod using service account token projection
@@ -657,7 +761,7 @@ of two hours, you could define a Pod manifest that is similar to:
 要为某 Pod 提供一个受众为 `vault` 并且有效期限为 2 小时的令牌，你可以定义一个与下面类似的
 Pod 清单：
 
-{{% code file="pods/pod-projected-svc-token.yaml" %}}
+{{% code_sample file="pods/pod-projected-svc-token.yaml" %}}
 
 <!--
 Create the Pod:
@@ -690,7 +794,7 @@ often good enough for the application to load the token on a schedule
 <!--
 ## Service Account Issuer Discovery
 -->
-## 发现服务账号分发者
+## 发现服务账号分发者 {#service-account-issuer-discovery}
 
 {{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
@@ -804,7 +908,7 @@ See also:
   - or learn to [distribute credentials securely using Secrets](/docs/tasks/inject-data-application/distribute-credentials-secure/)
   - but also bear in mind that using Secrets for authenticating as a ServiceAccount
     is deprecated. The recommended alternative is
-    [ServiceAccount token volume projection](#service-account-token-volume-projection).
+    [ServiceAccount token volume projection](#serviceaccount-token-volume-projection).
 -->
 另请参见：
 
@@ -813,7 +917,7 @@ See also:
 - 阅读 [Secret](/zh-cn/docs/concepts/configuration/secret/) 的概念
   - 或者学习[使用 Secret 来安全地分发凭据](/zh-cn/docs/tasks/inject-data-application/distribute-credentials-secure/)
   - 不过也要注意，使用 Secret 来完成 ServiceAccount 身份验证的做法已经过时。
-    建议的替代做法是执行 [ServiceAccount 令牌卷投射](#service-account-token-volume-projection)。
+    建议的替代做法是执行 [ServiceAccount 令牌卷投射](#serviceaccount-token-volume-projection)。
 <!--
 - Read about [projected volumes](/docs/tasks/configure-pod-container/configure-projected-volume-storage/).
 - For background on OIDC discovery, read the

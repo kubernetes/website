@@ -28,6 +28,14 @@ array (which describes app containers).
 你可以在 Pod 的规约中与用来描述应用容器的 `containers` 数组平行的位置指定
 Init 容器。
 
+<!--
+In Kubernetes, a [sidecar container](/docs/concepts/workloads/pods/sidecar-containers/) is a container that
+starts before the main application container and _continues to run_. This document is about init containers:
+containers that run to completion during Pod initialization.
+-->
+在 Kubernetes 中，[边车容器](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/)
+是在主应用容器之前启动并**持续运行**的容器。本文介绍 Init 容器：在 Pod 初始化期间完成运行的容器。
+
 <!-- body -->
 
 <!--
@@ -87,28 +95,68 @@ Init 容器的状态在 `status.initContainerStatuses` 字段中以容器状态�
 Init containers support all the fields and features of app containers,
 including resource limits, [volumes](/docs/concepts/storage/volumes/), and security settings. However, the
 resource requests and limits for an init container are handled differently,
-as documented in [Resources](#resources).
-
-Also, init containers do not support `lifecycle`, `livenessProbe`, `readinessProbe`, or
-`startupProbe` because they must run to completion before the Pod can be ready.
-
-If you specify multiple init containers for a Pod, kubelet runs each init
-container sequentially. Each init container must succeed before the next can run.
-When all of the init containers have run to completion, kubelet initializes
-the application containers for the Pod and runs them as usual.
+as documented in [Resource sharing within containers](#resource-sharing-within-containers).
 -->
 ### 与普通容器的不同之处   {#differences-from-regular-containers}
 
 Init 容器支持应用容器的全部字段和特性，包括资源限制、
 [数据卷](/zh-cn/docs/concepts/storage/volumes/)和安全设置。
-然而，Init 容器对资源请求和限制的处理稍有不同，在下面[资源](#resources)节有说明。
+然而，Init 容器对资源请求和限制的处理稍有不同，
+在下面[容器内的资源共享](#resource-sharing-within-containers)节有说明。
 
-同时 Init 容器不支持 `lifecycle`、`livenessProbe`、`readinessProbe` 和 `startupProbe`，
-因为它们必须在 Pod 就绪之前运行完成。
+<!--
+Regular init containers (in other words: excluding sidecar containers) do not support the
+`lifecycle`, `livenessProbe`, `readinessProbe`, or `startupProbe` fields. Init containers
+must run to completion before the Pod can be ready; sidecar containers continue running
+during a Pod's lifetime, and _do_ support some probes. See [sidecar container](/docs/concepts/workloads/pods/sidecar-containers/)
+for further details about sidecar containers.
+-->
+常规的 Init 容器（即不包括边车容器）不支持 `lifecycle`、`livenessProbe`、`readinessProbe` 或
+`startupProbe` 字段。Init 容器必须在 Pod 准备就绪之前完成运行；而边车容器在 Pod 的生命周期内继续运行，
+它支持一些探针。有关边车容器的细节请参阅[边车容器](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/)。
 
+<!--
+If you specify multiple init containers for a Pod, kubelet runs each init
+container sequentially. Each init container must succeed before the next can run.
+When all of the init containers have run to completion, kubelet initializes
+the application containers for the Pod and runs them as usual.
+-->
 如果为一个 Pod 指定了多个 Init 容器，这些容器会按顺序逐个运行。
 每个 Init 容器必须运行成功，下一个才能够运行。当所有的 Init 容器运行完成时，
 Kubernetes 才会为 Pod 初始化应用容器并像平常一样运行。
+
+<!--
+### Differences from sidecar containers
+
+Init containers run and complete their tasks before the main application container starts.
+Unlike [sidecar containers](/docs/concepts/workloads/pods/sidecar-containers),
+init containers are not continuously running alongside the main containers.
+-->
+### 与边车容器的不同之处   {#differences-from-sidecar-containers}
+
+Init 容器在主应用容器启动之前运行并完成其任务。
+与[边车容器](/zh-cn/docs/concepts/workloads/pods/sidecar-containers)不同，
+Init 容器不会持续与主容器一起运行。
+
+<!--
+Init containers run to completion sequentially, and the main container does not start
+until all the init containers have successfully completed.
+
+init containers do not support `lifecycle`, `livenessProbe`, `readinessProbe`, or
+`startupProbe` whereas sidecar containers support all these [probes](/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe) to control their lifecycle.
+-->
+Init 容器按顺序完成运行，等到所有 Init 容器成功完成之后，主容器才会启动。
+
+Init 容器不支持 `lifecycle`、`livenessProbe`、`readinessProbe` 或 `startupProbe`，
+而边车容器支持所有这些[探针](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe)以控制其生命周期。
+
+<!--
+Init containers share the same resources (CPU, memory, network) with the main application
+containers but do not interact directly with them. They can, however, use shared volumes
+for data exchange.
+-->
+Init 容器与主应用容器共享资源（CPU、内存、网络），但不直接与主应用容器进行交互。
+不过这些容器可以使用共享卷进行数据交换。
 
 <!--
 ## Using init containers
@@ -492,14 +540,14 @@ Init 容器一直重复失败。
 与任何其它容器共享同一个名称，会在校验时抛出错误。
 
 <!--
-### Resources
+#### Resource sharing within containers
 
-Given the ordering and execution for init containers, the following rules
+Given the order of execution for init, sidecar and app containers, the following rules
 for resource usage apply:
 -->
-### 资源 {#resources}
+#### 容器内的资源共享   {#resource-sharing-within-containers}
 
-在给定的 Init 容器执行顺序下，资源使用适用于如下规则：
+在给定的 Init、边车和应用容器执行顺序下，资源使用适用于如下规则：
 
 <!--
 * The highest of any particular resource request or limit defined on all init
@@ -525,11 +573,15 @@ for resource usage apply:
 * Pod 的 **有效 QoS 层**，与 Init 容器和应用容器的一样。
 
 <!--
-Quota and limits are applied based on the effective Pod request and limit.
-Pod level control groups (cgroups) are based on the effective Pod request and limit, the same as the scheduler.
+Quota and limits are applied based on the effective Pod request and
+limit.
+
+Pod level control groups (cgroups) are based on the effective Pod request and
+limit, the same as the scheduler.
 -->
 配额和限制适用于有效 Pod 的请求和限制值。
-Pod 级别的 cgroups 是基于有效 Pod 的请求和限制值，和调度器相同。
+
+Pod 级别的控制组（Cgroup）是基于 Pod 的有效 request 和 limit，与调度器相同。
 
 <!--
 ### Pod restart reasons
@@ -540,6 +592,15 @@ reasons:
 ### Pod 重启的原因  {#pod-restart-reasons}
 
 Pod 重启会导致 Init 容器重新执行，主要有如下几个原因：
+
+{{< comment >}}
+<!--
+This section also present under [sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/) page.
+If you're editing this section, change both places.
+-->
+这部分内容也出现在[边车容器](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/)页面上。
+如果你正在编辑这部分内容，请同时修改两处。
+{{< /comment >}}
 
 <!--
 * The Pod infrastructure container is restarted. This is uncommon and would
@@ -568,14 +629,19 @@ Pod 不会被重启。这一行为适用于 Kubernetes v1.20 及更新版本。
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Read about [creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)
-* Learn how to [debug init containers](/docs/tasks/debug/debug-application/debug-init-containers/)
-* Read about an overview of [kubelet](/docs/reference/command-line-tools-reference/kubelet/) and [kubectl](/docs/reference/kubectl/)
-* Learn about the [types of probes](/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe): liveness, readiness, startup probe.
+Learn more about the following:
+* [Creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container).
+* [Debug init containers](/docs/tasks/debug/debug-application/debug-init-containers/).
+* Overview of [kubelet](/docs/reference/command-line-tools-reference/kubelet/) and [kubectl](/docs/reference/kubectl/).
+* [Types of probes](/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe): liveness, readiness, startup probe.
+* [Sidecar containers](/docs/concepts/workloads/pods/sidecar-containers).
 -->
-* 阅读[创建包含 Init 容器的 Pod](/zh-cn/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)
-* 学习如何[调试 Init 容器](/zh-cn/docs/tasks/debug/debug-application/debug-init-containers/)
-* 阅读 [kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/) 和 
+进一步了解以下内容：
+
+* [创建包含 Init 容器的 Pod](/zh-cn/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)
+* [调试 Init 容器](/zh-cn/docs/tasks/debug/debug-application/debug-init-containers/)
+* [kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/) 和
   [kubectl](/zh-cn/docs/reference/kubectl/) 的概述。
-* 了解探针的[类型](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe)：
+* [探针类型](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe)：
   存活态探针、就绪态探针、启动探针。
+* [边车容器](/zh-cn/docs/concepts/workloads/pods/sidecar-containers)。

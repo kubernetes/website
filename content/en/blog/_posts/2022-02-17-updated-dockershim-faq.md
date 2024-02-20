@@ -99,7 +99,7 @@ will have strictly better performance and less overhead. However, we encourage y
 to explore all the options from the [CNCF landscape] in case another would be an
 even better fit for your environment.
 
-[CNCF landscape]: https://landscape.cncf.io/card-mode?category=container-runtime&grouping=category
+[CNCF landscape]: https://landscape.cncf.io/?group=projects-and-products&view-mode=card#runtime--container-runtime
 
 #### Can I still use Docker Engine as my container runtime?
 

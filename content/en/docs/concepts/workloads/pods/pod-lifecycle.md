@@ -150,11 +150,22 @@ the `Terminated` state.
 The `spec` of a Pod has a `restartPolicy` field with possible values Always, OnFailure,
 and Never. The default value is Always.
 
-The `restartPolicy` applies to all containers in the Pod. `restartPolicy` only
-refers to restarts of the containers by the kubelet on the same node. After containers
-in a Pod exit, the kubelet restarts them with an exponential back-off delay (10s, 20s,
-40s, …), that is capped at five minutes. Once a container has executed for 10 minutes
-without any problems, the kubelet resets the restart backoff timer for that container.
+The `restartPolicy` for a Pod applies to {{< glossary_tooltip text="app containers" term_id="app-container" >}}
+in the Pod and to regular [init containers](/docs/concepts/workloads/pods/init-containers/).
+[Sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/)
+ignore the Pod-level `restartPolicy` field: in Kubernetes, a sidecar is defined as an
+entry inside `initContainers` that has its container-level `restartPolicy` set to `Always`.
+For init containers that exit with an error, the kubelet restarts the init container if
+the Pod level `restartPolicy` is either `OnFailure` or `Always`.
+
+When the kubelet is handling container restarts according to the configured restart
+policy, that only applies to restarts that make replacement containers inside the
+same Pod and running on the same node. After containers in a Pod exit, the kubelet
+restarts them with an exponential back-off delay (10s, 20s, 40s, …), that is capped at
+five minutes. Once a container has executed for 10 minutes without any problems, the
+kubelet resets the restart backoff timer for that container.
+[Sidecar containers and Pod lifecycle](/docs/concepts/workloads/pods/sidecar-containers/#sidecar-containers-and-pod-lifecycle)
+explains the behaviour of `init containers` when specify `restartpolicy` field on it.
 
 ## Pod conditions
 
@@ -164,7 +175,7 @@ through which the Pod has or has not passed. Kubelet manages the following
 PodConditions:
 
 * `PodScheduled`: the Pod has been scheduled to a node.
-* `PodHasNetwork`: (alpha feature; must be [enabled explicitly](#pod-has-network)) the
+* `PodReadyToStartContainers`: (beta feature; enabled by [default](#pod-has-network)) the
   Pod sandbox has been successfully created and networking configured.
 * `ContainersReady`: all containers in the Pod are ready.
 * `Initialized`: all [init containers](/docs/concepts/workloads/pods/init-containers/)
@@ -242,17 +253,23 @@ When a Pod's containers are Ready but at least one custom condition is missing o
 
 ### Pod network readiness {#pod-has-network}
 
-{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.29" state="beta" >}}
 
-After a Pod gets scheduled on a node, it needs to be admitted by the Kubelet and
-have any volumes mounted. Once these phases are complete, the Kubelet works with
+{{< note >}}
+During its early development, this condition was named `PodHasNetwork`.
+{{< /note >}}
+
+After a Pod gets scheduled on a node, it needs to be admitted by the kubelet and
+to have any required storage volumes mounted. Once these phases are complete,
+the kubelet works with
 a container runtime (using {{< glossary_tooltip term_id="cri" >}}) to set up a
-runtime sandbox and configure networking for the Pod. If the `PodHasNetworkCondition`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled,
-Kubelet reports whether a Pod has reached this initialization milestone through
-the `PodHasNetwork` condition in the `status.conditions` field of a Pod.
+runtime sandbox and configure networking for the Pod. If the
+`PodReadyToStartContainersCondition`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled
+(it is enabled by default for Kubernetes {{< skew currentVersion >}}), the
+`PodReadyToStartContainers` condition will be added to the `status.conditions` field of a Pod.
 
-The `PodHasNetwork` condition is set to `False` by the Kubelet when it detects a
+The `PodReadyToStartContainers` condition is set to `False` by the Kubelet when it detects a
 Pod does not have a runtime sandbox with networking configured. This occurs in
 the following scenarios:
 
@@ -264,10 +281,10 @@ the following scenarios:
     sandbox virtual machine rebooting, which then requires creating a new sandbox and
     fresh container network configuration.
 
-The `PodHasNetwork` condition is set to `True` by the kubelet after the
+The `PodReadyToStartContainers` condition is set to `True` by the kubelet after the
 successful completion of sandbox creation and network configuration for the Pod
 by the runtime plugin. The kubelet can start pulling container images and create
-containers after `PodHasNetwork` condition has been set to `True`.
+containers after `PodReadyToStartContainers` condition has been set to `True`.
 
 For a Pod with init containers, the kubelet sets the `Initialized` condition to
 `True` after the init containers have successfully completed (which happens
@@ -431,13 +448,12 @@ before the Pod is allowed to be forcefully killed. With that forceful shutdown t
 place, the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} attempts graceful
 shutdown.
 
-Typically, the container runtime sends a TERM signal to the main process in each
-container. Many container runtimes respect the `STOPSIGNAL` value defined in the container
-image and send this instead of TERM.
-Once the grace period has expired, the KILL signal is sent to any remaining processes, and the Pod
-is then deleted from the {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}.
-If the kubelet or the container runtime's management service is restarted while waiting for
-processes to terminate, the cluster retries from the start including the full original grace period.
+Typically, with this graceful termination of the pod, kubelet makes requests to the container runtime to attempt to stop the containers in the pod by first sending a TERM (aka. SIGTERM) signal, with a grace period timeout, to the main process in each container. The requests to stop the containers are processed by the container runtime asynchronously. There is no guarantee to the order of processing for these requests. Many container runtimes respect the `STOPSIGNAL` value defined in the container image and, if different, send the container image configured STOPSIGNAL instead of TERM.
+Once the grace period has expired, the KILL signal is sent to any remaining
+processes, and the Pod is then deleted from the
+{{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}. If the kubelet or the
+container runtime's management service is restarted while waiting for processes to terminate, the
+cluster retries from the start including the full original grace period.
 
 An example flow:
 
@@ -499,6 +515,22 @@ in your cluster (the gate is on by default from Kubernetes 1.22, and locked to d
 then the Kubernetes control plane removes a Pod from any relevant EndpointSlices as soon as the Pod's
 termination grace period _begins_. The behavior above is described when the
 feature gate `EndpointSliceTerminatingCondition` is enabled.
+{{</note>}}
+
+{{<note>}}
+Beginning with Kubernetes 1.29, if your Pod includes one or more sidecar containers
+(init containers with an Always restart policy), the kubelet will delay sending
+the TERM signal to these sidecar containers until the last main container has fully terminated.
+The sidecar containers will be terminated in the reverse order they are defined in the Pod spec.
+This ensures that sidecar containers continue serving the other containers in the Pod until they are no longer needed.
+
+Note that slow termination of a main container will also delay the termination of the sidecar containers.
+If the grace period expires before the termination process is complete, the Pod may enter emergency termination.
+In this case, all remaining containers in the Pod will be terminated simultaneously with a short grace period.
+
+Similarly, if the Pod has a preStop hook that exceeds the termination grace period, emergency termination may occur.
+In general, if you have used preStop hooks to control the termination order without sidecar containers, you can now
+remove them and allow the kubelet to manage sidecar termination automatically.
 {{</note>}}
 
 1. When the grace period expires, the kubelet triggers forcible shutdown. The container runtime sends
@@ -578,6 +610,8 @@ for more details.
   [configuring Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
 
 * Learn more about [container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/).
+
+* Learn more about [sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/).
 
 * For detailed information about Pod and container status in the API, see
   the API reference documentation covering

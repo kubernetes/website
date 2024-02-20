@@ -589,13 +589,12 @@ needs of your cluster's workloads:
   [API 服务器](/zh-cn/docs/setup/production-environment/tools/kubeadm/ha-topology/)这些功能组件配置高可用能力。
 <!--
 - Choose from [kubeadm](/docs/setup/production-environment/tools/kubeadm/),
-  [kops](/docs/setup/production-environment/tools/kops/) or
-  [Kubespray](/docs/setup/production-environment/tools/kubespray/)
-  deployment methods.
+  [kops](https://kops.sigs.k8s.io/) or
+  [Kubespray](https://kubespray.io/) deployment methods.
 -->
 - 选择使用 [kubeadm](/zh-cn/docs/setup/production-environment/tools/kubeadm/)、
-  [kops](/zh-cn/docs/setup/production-environment/tools/kops/) 或
-  [Kubespray](/zh-cn/docs/setup/production-environment/tools/kubespray/) 作为部署方法。
+  [kops](https://kops.sigs.k8s.io/) 或
+  [Kubespray](https://kubespray.io/) 作为部署方法。
 <!--
 - Configure user management by determining your
   [Authentication](/docs/reference/access-authn-authz/authentication/) and

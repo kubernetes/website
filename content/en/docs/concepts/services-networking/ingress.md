@@ -15,6 +15,10 @@ weight: 30
 {{< feature-state for_k8s_version="v1.19" state="stable" >}}
 {{< glossary_definition term_id="ingress" length="all" >}}
 
+{{< note >}}
+Ingress is frozen. New features are being added to the [Gateway API](/docs/concepts/services-networking/gateway/).
+{{< /note >}}
+
 <!-- body -->
 
 ## Terminology
@@ -73,7 +77,7 @@ Make sure you review your Ingress controller's documentation to understand the c
 
 A minimal Ingress resource example:
 
-{{% code file="service/networking/minimal-ingress.yaml" %}}
+{{% code_sample file="service/networking/minimal-ingress.yaml" %}}
 
 An Ingress needs `apiVersion`, `kind`, `metadata` and `spec` fields.
 The name of an Ingress object must be a valid
@@ -84,7 +88,7 @@ is the [rewrite-target annotation](https://github.com/kubernetes/ingress-nginx/b
 Different [Ingress controllers](/docs/concepts/services-networking/ingress-controllers) support different annotations.
 Review the documentation for your choice of Ingress controller to learn which annotations are supported.
 
-The Ingress [spec](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)
+The [Ingress spec](/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec)
 has all the information needed to configure a load balancer or proxy server. Most importantly, it
 contains a list of rules matched against all incoming requests. Ingress resource only supports rules
 for directing HTTP(S) traffic.
@@ -94,8 +98,8 @@ should be defined.
 
 There are some ingress controllers, that work without the definition of a
 default `IngressClass`. For example, the Ingress-NGINX controller can be
-configured with a [flag](https://kubernetes.github.io/ingress-nginx/#what-is-the-flag-watch-ingress-without-class)
-`--watch-ingress-without-class`. It is [recommended](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do)  though, to specify the
+configured with a [flag](https://kubernetes.github.io/ingress-nginx/user-guide/k8s-122-migration/#what-is-the-flag-watch-ingress-without-class)
+`--watch-ingress-without-class`. It is [recommended](https://kubernetes.github.io/ingress-nginx/user-guide/k8s-122-migration/#i-have-only-one-ingress-controller-in-my-cluster-what-should-i-do) though, to specify the
 default `IngressClass` as shown [below](#default-ingress-class).
 
 ### Ingress rules
@@ -140,7 +144,7 @@ setting with Service, and will fail validation if both are specified. A common
 usage for a `Resource` backend is to ingress data to an object storage backend
 with static assets.
 
-{{% code file="service/networking/ingress-resource-backend.yaml" %}}
+{{% code_sample file="service/networking/ingress-resource-backend.yaml" %}}
 
 After creating the Ingress above, you can view it with the following command:
 
@@ -229,7 +233,7 @@ equal to the suffix of the wildcard rule.
 | `*.foo.com` | `baz.bar.foo.com` | No match, wildcard only covers a single DNS label |
 | `*.foo.com` | `foo.com`         | No match, wildcard only covers a single DNS label |
 
-{{% code file="service/networking/ingress-wildcard-host.yaml" %}}
+{{% code_sample file="service/networking/ingress-wildcard-host.yaml" %}}
 
 ## Ingress class
 
@@ -238,7 +242,7 @@ configuration. Each Ingress should specify a class, a reference to an
 IngressClass resource that contains additional configuration including the name
 of the controller that should implement the class.
 
-{{% code file="service/networking/external-lb.yaml" %}}
+{{% code_sample file="service/networking/external-lb.yaml" %}}
 
 The `.spec.parameters` field of an IngressClass lets you reference another
 resource that provides configuration related to that IngressClass.
@@ -369,7 +373,7 @@ configured with a [flag](https://kubernetes.github.io/ingress-nginx/#what-is-the
 `--watch-ingress-without-class`. It is [recommended](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do)  though, to specify the
 default `IngressClass`:
 
-{{% code file="service/networking/default-ingressclass.yaml" %}}
+{{% code_sample file="service/networking/default-ingressclass.yaml" %}}
 
 ## Types of Ingress
 
@@ -379,7 +383,7 @@ There are existing Kubernetes concepts that allow you to expose a single Service
 (see [alternatives](#alternatives)). You can also do this with an Ingress by specifying a
 *default backend* with no rules.
 
-{{% code file="service/networking/test-ingress.yaml" %}}
+{{% code_sample file="service/networking/test-ingress.yaml" %}}
 
 If you create it using `kubectl apply -f` you should be able to view the state
 of the Ingress you added:
@@ -411,7 +415,7 @@ down to a minimum. For example, a setup like:
 
 It would require an Ingress such as:
 
-{{% code file="service/networking/simple-fanout-example.yaml" %}}
+{{% code_sample file="service/networking/simple-fanout-example.yaml" %}}
 
 When you create the Ingress with `kubectl apply -f`:
 
@@ -456,7 +460,7 @@ Name-based virtual hosts support routing HTTP traffic to multiple host names at 
 The following Ingress tells the backing load balancer to route requests based on
 the [Host header](https://tools.ietf.org/html/rfc7230#section-5.4).
 
-{{% code file="service/networking/name-virtual-host-ingress.yaml" %}}
+{{% code_sample file="service/networking/name-virtual-host-ingress.yaml" %}}
 
 If you create an Ingress resource without any hosts defined in the rules, then any
 web traffic to the IP address of your Ingress controller can be matched without a name based
@@ -467,7 +471,7 @@ requested for `first.bar.com` to `service1`, `second.bar.com` to `service2`,
 and any traffic whose request host header doesn't match `first.bar.com`
 and `second.bar.com` to `service3`.
 
-{{% code file="service/networking/name-virtual-host-ingress-no-third-host.yaml" %}}
+{{% code_sample file="service/networking/name-virtual-host-ingress-no-third-host.yaml" %}}
 
 ### TLS
 
@@ -505,7 +509,7 @@ certificates would have to be issued for all the possible sub-domains. Therefore
 section.
 {{< /note >}}
 
-{{% code file="service/networking/tls-example-ingress.yaml" %}}
+{{% code_sample file="service/networking/tls-example-ingress.yaml" %}}
 
 {{< note >}}
 There is a gap between TLS features supported by various Ingress

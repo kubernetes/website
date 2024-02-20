@@ -66,7 +66,7 @@ set to `NotRequired` for all Containers in the Pod.
 {{< /note >}}
 
 Below example shows a Pod whose Container's CPU can be resized without restart, but
-memory resize memory requires the container to be restarted.
+resizing memory requires the container to be restarted.
 
 ```yaml
 apiVersion: v1
@@ -107,7 +107,7 @@ class pod by specifying requests and/or limits for a pod's containers.
 
 Consider the following manifest for a Pod that has one Container.
 
-{{% code file="pods/qos/qos-pod-5.yaml" %}}
+{{% code_sample file="pods/qos/qos-pod-5.yaml" %}}
 
 Create the pod in the `qos-example` namespace:
 

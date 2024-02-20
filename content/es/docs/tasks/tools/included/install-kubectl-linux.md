@@ -45,7 +45,7 @@ Por ejemplo, para descargar la versión {{< skew currentPatchVersion >}} en Linu
    Descargue el archivo de comprobación de kubectl:
 
    ```bash
-   curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
    ```
 
    Valide el binario kubectl con el archivo de comprobación:
@@ -199,7 +199,7 @@ A continuación, se muestran los procedimientos para configurar el autocompletad
    Descargue el archivo de comprobación kubectl-convert:
 
    ```bash
-   curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert.sha256"
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert.sha256"
    ```
 
    Valide el binario kubectl-convert con el archivo de comprobación:

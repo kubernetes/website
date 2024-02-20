@@ -72,18 +72,76 @@ Any commands under `kubeadm alpha` are, by definition, supported on an alpha lev
 
 ### Preparing the hosts
 
+#### Component installation
+
 Install a {{< glossary_tooltip term_id="container-runtime" text="container runtime" >}} and kubeadm on all the hosts.
 For detailed instructions and other prerequisites, see [Installing kubeadm](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
 
 {{< note >}}
-If you have already installed kubeadm, run
-`apt-get update && apt-get upgrade` or
-`yum update` to get the latest version of kubeadm.
+If you have already installed kubeadm, see the first two steps of the
+[Upgrading Linux nodes](/docs/tasks/administer-cluster/kubeadm/upgrading-linux-nodes) document for instructions on how to upgrade kubeadm.
 
 When you upgrade, the kubelet restarts every few seconds as it waits in a crashloop for
 kubeadm to tell it what to do. This crashloop is expected and normal.
 After you initialize your control-plane, the kubelet runs normally.
 {{< /note >}}
+
+#### Network setup
+
+kubeadm similarly to other Kubernetes components tries to find a usable IP on
+the network interfaces associated with a default gateway on a host. Such
+an IP is then used for the advertising and/or listening performed by a component.
+
+To find out what this IP is on a Linux host you can use:
+
+```shell
+ip route show # Look for a line starting with "default via"
+```
+
+{{< note >}}
+If two or more default gateways are present on the host, a Kubernetes component will
+try to use the first one it encounters that has a suitable global unicast IP address.
+While making this choice, the exact ordering of gateways might vary between different
+operating systems and kernel versions.
+{{< /note >}}
+
+Kubernetes components do not accept custom network interface as an option,
+therefore a custom IP address must be passed as a flag to all components instances
+that need such a custom configuration.
+
+{{< note >}}
+If the host does not have a default gateway and if a custom IP address is not passed
+to a Kubernetes component, the component may exit with an error.
+{{< /note >}}
+
+To configure the API server advertise address for control plane nodes created with both
+`init` and `join`, the flag `--apiserver-advertise-address` can be used.
+Preferably, this option can be set in the [kubeadm API](/docs/reference/config-api/kubeadm-config.v1beta3)
+as `InitConfiguration.localAPIEndpoint` and `JoinConfiguration.controlPlane.localAPIEndpoint`.
+
+For kubelets on all nodes, the `--node-ip` option can be passed in
+`.nodeRegistration.kubeletExtraArgs` inside a kubeadm configuration file
+(`InitConfiguration` or `JoinConfiguration`).
+
+For dual-stack see
+[Dual-stack support with kubeadm](/docs/setup/production-environment/tools/kubeadm/dual-stack-support).
+
+The IP addresses that you assign to control plane components become part of their X.509 certificates'
+subject alternative name fields. Changing these IP addresses would require
+signing new certificates and restarting the affected components, so that the change in
+certificate files is reflected. See
+[Manual certificate renewal](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#manual-certificate-renewal)
+for more details on this topic.
+
+{{< warning >}}
+The Kubernetes project recommends against this approach (configuring all component instances
+with custom IP addresses). Instead, the Kubernetes maintainers recommend to setup the host network,
+so that the default gateway IP is the one that Kubernetes components auto-detect and use.
+On Linux nodes, you can use commands such as `ip route` to configure networking; your operating
+system might also provide higher level network management tools. If your node's default gateway
+is a public IP address, you should configure packet filtering or other security measures that
+protect the nodes and your cluster.
+{{< /warning >}}
 
 ### Preparing the required container images
 
@@ -118,11 +176,6 @@ a provider-specific value. See [Installing a Pod network add-on](#pod-network).
 known endpoints. To use different container runtime or if there are more than one installed
 on the provisioned node, specify the `--cri-socket` argument to `kubeadm`. See
 [Installing a runtime](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime).
-1. (Optional) Unless otherwise specified, `kubeadm` uses the network interface associated
-with the default gateway to set the advertise address for this particular control-plane node's API server.
-To use a different network interface, specify the `--apiserver-advertise-address=<ip-address>` argument
-to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, you
-must specify an IPv6 address, for example `--apiserver-advertise-address=2001:db8::101`
 
 To initialize the control-plane node run:
 
@@ -212,11 +265,19 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 ```
 
 {{< warning >}}
-Kubeadm signs the certificate in the `admin.conf` to have `Subject: O = system:masters, CN = kubernetes-admin`.
-`system:masters` is a break-glass, super user group that bypasses the authorization layer (e.g. RBAC).
-Do not share the `admin.conf` file with anyone and instead grant users custom permissions by generating
-them a kubeconfig file using the `kubeadm kubeconfig user` command. For more details see
-[Generating kubeconfig files for additional users](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#kubeconfig-additional-users).
+The kubeconfig file `admin.conf` that `kubeadm init` generates contains a certificate with
+`Subject: O = kubeadm:cluster-admins, CN = kubernetes-admin`. The group `kubeadm:cluster-admins`
+is bound to the built-in `cluster-admin` ClusterRole.
+Do not share the `admin.conf` file with anyone.
+
+`kubeadm init` generates another kubeconfig file `super-admin.conf` that contains a certificate with
+`Subject: O = system:masters, CN = kubernetes-super-admin`.
+`system:masters` is a break-glass, super user group that bypasses the authorization layer (for example RBAC).
+Do not share the `super-admin.conf` file with anyone. It is recommended to move the file to a safe location.
+
+See
+[Generating kubeconfig files for additional users](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#kubeconfig-additional-users)
+on how to use `kubeadm kubeconfig user` to generate kubeconfig files for additional users.
 {{< /warning >}}
 
 Make a record of the `kubeadm join` command that `kubeadm init` outputs. You
@@ -270,9 +331,12 @@ Several external projects provide Kubernetes Pod networks using CNI, some of whi
 support [Network Policy](/docs/concepts/services-networking/network-policies/).
 
 See a list of add-ons that implement the
-[Kubernetes networking model](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model).
+[Kubernetes networking model](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-network-model).
 
-You can install a Pod network add-on with the following command on the
+
+Please refer to the [Installing Addons](/docs/concepts/cluster-administration/addons/#networking-and-network-policy)
+page for a non-exhaustive list of networking addons supported by Kubernetes. 
+You can install a Pod network add-on with the following command on the 
 control-plane node or a node that has the kubeconfig credentials:
 
 ```bash
@@ -318,6 +382,14 @@ node "test-01" untainted
 This will remove the `node-role.kubernetes.io/control-plane:NoSchedule` taint
 from any nodes that have it, including the control plane nodes, meaning that the
 scheduler will then be able to schedule Pods everywhere.
+
+Additionally, you can execute the following command to remove the
+[`node.kubernetes.io/exclude-from-external-load-balancers`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-exclude-from-external-load-balancers) label
+from the control plane node, which excludes it from the list of backend servers:
+
+```bash
+kubectl label nodes --all node.kubernetes.io/exclude-from-external-load-balancers-
+```
 
 ### Joining your nodes {#join-nodes}
 
@@ -496,37 +568,6 @@ reference documentation for more information about this subcommand and its
 options.
 
 
-
-<!-- discussion -->
-
-## What's next {#whats-next}
-
-* Verify that your cluster is running properly with [Sonobuoy](https://github.com/heptio/sonobuoy)
-* <a id="lifecycle" />See [Upgrading kubeadm clusters](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
-  for details about upgrading your cluster using `kubeadm`.
-* Learn about advanced `kubeadm` usage in the [kubeadm reference documentation](/docs/reference/setup-tools/kubeadm/)
-* Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/reference/kubectl/).
-* See the [Cluster Networking](/docs/concepts/cluster-administration/networking/) page for a bigger list
-  of Pod network add-ons.
-* <a id="other-addons" />See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to
-  explore other add-ons, including tools for logging, monitoring, network policy, visualization &amp;
-  control of your Kubernetes cluster.
-* Configure how your cluster handles logs for cluster events and from
-  applications running in Pods.
-  See [Logging Architecture](/docs/concepts/cluster-administration/logging/) for
-  an overview of what is involved.
-
-### Feedback {#feedback}
-
-* For bugs, visit the [kubeadm GitHub issue tracker](https://github.com/kubernetes/kubeadm/issues)
-* For support, visit the
-  [#kubeadm](https://kubernetes.slack.com/messages/kubeadm/) Slack channel
-* General SIG Cluster Lifecycle development Slack channel:
-  [#sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle/)
-* SIG Cluster Lifecycle [SIG information](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle#readme)
-* SIG Cluster Lifecycle mailing list:
-  [kubernetes-sig-cluster-lifecycle](https://groups.google.com/forum/#!forum/kubernetes-sig-cluster-lifecycle)
-
 ## Version skew policy {#version-skew-policy}
 
 While kubeadm allows version skew against some components that it manages, it is recommended that you
@@ -547,12 +588,12 @@ Example:
 
 ### kubeadm's skew against the kubelet
 
-Similarly to the Kubernetes version, kubeadm can be used with a kubelet version that is the same
-version as kubeadm or one version older.
+Similarly to the Kubernetes version, kubeadm can be used with a kubelet version that is
+the same version as kubeadm or three versions older.
 
 Example:
 * kubeadm is at {{< skew currentVersion >}}
-* kubelet on the host must be at {{< skew currentVersion >}} or {{< skew currentVersionAddMinor -1 >}}
+* kubelet on the host must be at {{< skew currentVersion >}}, {{< skew currentVersionAddMinor -1 >}}, {{< skew currentVersionAddMinor -2 >}} or {{< skew currentVersionAddMinor -3 >}}
 
 ### kubeadm's skew against kubeadm
 
@@ -614,3 +655,33 @@ supports your chosen platform.
 If you are running into difficulties with kubeadm, please consult our
 [troubleshooting docs](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
 
+
+<!-- discussion -->
+
+## What's next {#whats-next}
+
+* Verify that your cluster is running properly with [Sonobuoy](https://github.com/heptio/sonobuoy)
+* <a id="lifecycle" />See [Upgrading kubeadm clusters](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
+  for details about upgrading your cluster using `kubeadm`.
+* Learn about advanced `kubeadm` usage in the [kubeadm reference documentation](/docs/reference/setup-tools/kubeadm/)
+* Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/reference/kubectl/).
+* See the [Cluster Networking](/docs/concepts/cluster-administration/networking/) page for a bigger list
+  of Pod network add-ons.
+* <a id="other-addons" />See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to
+  explore other add-ons, including tools for logging, monitoring, network policy, visualization &amp;
+  control of your Kubernetes cluster.
+* Configure how your cluster handles logs for cluster events and from
+  applications running in Pods.
+  See [Logging Architecture](/docs/concepts/cluster-administration/logging/) for
+  an overview of what is involved.
+
+### Feedback {#feedback}
+
+* For bugs, visit the [kubeadm GitHub issue tracker](https://github.com/kubernetes/kubeadm/issues)
+* For support, visit the
+  [#kubeadm](https://kubernetes.slack.com/messages/kubeadm/) Slack channel
+* General SIG Cluster Lifecycle development Slack channel:
+  [#sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle/)
+* SIG Cluster Lifecycle [SIG information](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle#readme)
+* SIG Cluster Lifecycle mailing list:
+  [kubernetes-sig-cluster-lifecycle](https://groups.google.com/forum/#!forum/kubernetes-sig-cluster-lifecycle)

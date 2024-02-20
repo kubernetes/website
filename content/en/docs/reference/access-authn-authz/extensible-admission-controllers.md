@@ -721,14 +721,9 @@ The `matchPolicy` for an admission webhooks defaults to `Equivalent`.
 
 ### Matching requests: `matchConditions`
 
-{{< feature-state state="alpha" for_k8s_version="v1.27" >}}
+{{< feature-state state="beta" for_k8s_version="v1.28" >}}
 
-{{< note >}}
-Use of `matchConditions` requires the [featuregate](/docs/reference/command-line-tools-reference/feature-gates/)
-`AdmissionWebhookMatchConditions` to be explicitly enabled on the kube-apiserver before this feature can be used.
-{{< /note >}}
-
-You can define _match conditions_for webhooks if you need fine-grained request filtering. These
+You can define _match conditions_ for webhooks if you need fine-grained request filtering. These
 conditions are useful if you find that match rules, `objectSelectors` and `namespaceSelectors` still
 doesn't provide the filtering you want over when to call out over HTTP. Match conditions are
 [CEL expressions](/docs/reference/using-api/cel/). All match conditions must evaluate to true for the
@@ -754,6 +749,7 @@ webhooks:
         namespace: my-namespace
         name: my-webhook
       caBundle: '<omitted>'
+    # You can have up to 64 matchConditions per webhook
     matchConditions:
       - name: 'exclude-leases' # Each match condition must have a unique name
         expression: '!(request.resource.group == "coordination.k8s.io" && request.resource.resource == "leases")' # Match non-lease resources.
@@ -779,12 +775,17 @@ webhooks:
         namespace: my-namespace
         name: my-webhook
       caBundle: '<omitted>'
+    # You can have up to 64 matchConditions per webhook
     matchConditions:
       - name: 'breakglass'
         # Skip requests made by users authorized to 'breakglass' on this webhook.
         # The 'breakglass' API verb does not need to exist outside this check.
         expression: '!authorizer.group("admissionregistration.k8s.io").resource("validatingwebhookconfigurations").name("my-webhook.example.com").check("breakglass").allowed()'
 ```
+
+{{< note >}}
+You can define up to 64 elements in the `matchConditions` field per webhook.
+{{< /note >}}
 
 Match conditions have access to the following CEL variables:
 

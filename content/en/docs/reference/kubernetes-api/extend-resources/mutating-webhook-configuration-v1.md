@@ -132,7 +132,7 @@ MutatingWebhookConfiguration describes the configuration of and admission webhoo
          - If failurePolicy=Fail, reject the request
          - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
     
-    This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+    This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
 
     <a name="MatchCondition"></a>
     *MatchCondition represents a condition which must by fulfilled for a request to be sent to a webhook.*

@@ -37,7 +37,7 @@ Kamu bisa definisikan DaemonSet dalam berkas YAML. Contohnya, berkas
 `daemonset.yaml` di bawah mendefinisikan DaemonSet yang menjalankan _image_ Docker
 fluentd-elasticsearch:
 
-{{< codenew file="controllers/daemonset.yaml" >}}
+{{% codenew file="controllers/daemonset.yaml" %}}
 
 * Buat DaemonSet berdasarkan berkas YAML:
 ```

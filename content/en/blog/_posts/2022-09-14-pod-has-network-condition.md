@@ -23,6 +23,13 @@ per container characteristics like image size or payload) can utilize the
 the `PodHasNetwork` condition to optimize the set of actions performed when pods
 repeatedly fail to come up.
 
+### Updates for Kubernetes 1.28
+
+The `PodHasNetwork` condition has been renamed to `PodReadyToStartContainers`.
+Alongside that change, the feature gate `PodHasNetworkCondition` has been replaced by
+`PodReadyToStartContainersCondition`. You need to set `PodReadyToStartContainersCondition`
+to true in order to use the new feature in v1.28.0 and later.
+
 ### How is this different from the existing Initialized condition reported for pods?
 
 The kubelet sets the status of the existing `Initialized` condition reported in

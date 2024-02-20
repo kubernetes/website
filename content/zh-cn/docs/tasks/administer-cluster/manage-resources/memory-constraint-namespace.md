@@ -66,7 +66,7 @@ Here's an example manifest for a LimitRange:
 
 下面是 LimitRange 的示例清单：
 
-{{% code file="admin/resource/memory-constraints.yaml" %}}
+{{% code_sample file="admin/resource/memory-constraints.yaml" %}}
 
 <!--
 Create the LimitRange:
@@ -132,7 +132,7 @@ minimum and maximum memory constraints imposed by the LimitRange.
 以下为包含一个容器的 Pod 清单。该容器声明了 600 MiB 的内存请求和 800 MiB 的内存限制，
 这些满足了 LimitRange 施加的最小和最大内存约束。
 
-{{% code file="admin/resource/memory-constraints-pod.yaml" %}}
+{{% code_sample file="admin/resource/memory-constraints-pod.yaml" %}}
 
 <!--
 Create the Pod:
@@ -196,7 +196,7 @@ memory request of 800 MiB and a memory limit of 1.5 GiB.
 
 以下为包含一个容器的 Pod 的清单。这个容器声明了 800 MiB 的内存请求和 1.5 GiB 的内存限制。
 
-{{% code file="admin/resource/memory-constraints-pod-2.yaml" %}}
+{{% code_sample file="admin/resource/memory-constraints-pod-2.yaml" %}}
 
 <!--
 Attempt to create the Pod:
@@ -228,7 +228,7 @@ memory request of 100 MiB and a memory limit of 800 MiB.
 
 以下为只有一个容器的 Pod 的清单。这个容器声明了 100 MiB 的内存请求和 800 MiB 的内存限制。
 
-{{% code file="admin/resource/memory-constraints-pod-3.yaml" %}}
+{{% code_sample file="admin/resource/memory-constraints-pod-3.yaml" %}}
 
 <!--
 Attempt to create the Pod:
@@ -260,7 +260,7 @@ specify a memory request, and it does not specify a memory limit.
 
 以下为只有一个容器的 Pod 清单。该容器没有声明内存请求，也没有声明内存限制。
 
-{{% code file="admin/resource/memory-constraints-pod-4.yaml" %}}
+{{% code_sample file="admin/resource/memory-constraints-pod-4.yaml" %}}
 
 <!--
 Create the Pod:

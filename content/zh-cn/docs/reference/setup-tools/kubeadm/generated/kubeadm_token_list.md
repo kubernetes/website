@@ -1,29 +1,16 @@
 <!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
-<!--
 List bootstrap tokens on the server
 -->
-列出服务器上的引导令牌
+列出服务器上的引导令牌。
 
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
 This command will list all bootstrap tokens for you.
 -->
-
 此命令将为你列出所有的引导令牌。
 
 ```
@@ -33,7 +20,6 @@ kubeadm token list [flags]
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -85,7 +71,7 @@ Output format. One of: text|json|yaml|go-template|go-template-file|template|temp
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!-- help for list -->
 <p>
-list 操作的帮助命令
+list 操作的帮助命令。
 </p>
 </td>
 </tr>
@@ -96,7 +82,9 @@ list 操作的帮助命令
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
-<!-- If true, keep the managedFields when printing objects in JSON or YAML format. -->
+<!--
+If true, keep the managedFields when printing objects in JSON or YAML format.
+-->
 如果为 true，则在以 JSON 或 YAML 格式打印对象时保留 managedFields。
 </p>
 </td>
@@ -105,11 +93,9 @@ list 操作的帮助命令
 </tbody>
 </table>
 
-
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 从父命令继承的选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -125,8 +111,10 @@ list 操作的帮助命令
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
-<!-- Whether to enable dry-run mode or not -->
-是否启用 `dry-run` 模式
+<!--
+Whether to enable dry-run mode or not
+-->
+是否启用 `dry-run` 模式。
 </p>
 </td>
 </tr>
@@ -164,4 +152,3 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 
 </tbody>
 </table>
-

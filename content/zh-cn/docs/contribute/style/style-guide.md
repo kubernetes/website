@@ -553,7 +553,7 @@ To specify the Kubernetes version for a task or tutorial page, include
 [任务模板](/zh-cn/docs/contribute/style/page-content-types/#task)
 或[教程模板](/zh-cn/docs/contribute/style/page-content-types/#tutorial)
 的 `prerequisites` 小节定义 Kubernetes 版本。
-页面保存之后，`prerequisites` 小节会显示为 **开始之前**。
+页面保存之后，`prerequisites` 小节会显示为**开始之前**。
 
 如果要为任务或教程页面指定 Kubernetes 版本，可以在文件的前言部分包含
 `min-kubernetes-server-version` 信息。
@@ -700,7 +700,7 @@ The output is:
 
 使用短代码 `{{</* note */>}}` 来突出显示某种提示或者有助于读者的信息。
 
-例如:
+例如：
 
 ```
 {{</* note */>}}
@@ -714,7 +714,7 @@ The output is:
 <!--
 You can _still_ use Markdown inside these callouts.
 -->
-在这类短代码中仍然 _可以_ 使用 Markdown 语法。
+在这类短代码中仍然**可以**使用 Markdown 语法。
 {{< /note >}}
 
 <!--
@@ -762,12 +762,13 @@ The output is:
 
 1. 在列表中使用 note 短代码
 
-1. 带嵌套 note 的第二个条目
+2. 带嵌套 note 的第二个条目
 
-    {{< note >}}
     <!--
     Warning, Caution, and Note shortcodes, embedded in lists, need to be indented four spaces. See [Common Shortcode Issues](#common-shortcode-issues).
     -->
+    
+    {{< note >}}
     警告、小心和注释短代码可以嵌套在列表中，但是要缩进四个空格。
     参见[常见短代码问题](#common-shortcode-issues)。
     {{< /note >}}
@@ -777,9 +778,9 @@ The output is:
 
 1. A fourth item in a list
 -->
-1. 列表中第三个条目
+3. 列表中第三个条目
 
-1. 列表中第四个条目
+4. 列表中第四个条目
 
 <!--
 ### Caution
@@ -945,6 +946,21 @@ structure of content in a code editor better.
 二级标题紧随一级标题（或标题），中间没有段落或文字。
 
 两行的留白有助于在代码编辑器中查看整个内容的结构组织。
+
+<!--
+Manually wrap paragraphs in the Markdown source when appropriate. Since the git
+tool and the GitHub website generate file diffs on a line-by-line basis,
+manually wrapping long lines helps the reviewers to easily find out the changes
+made in a PR and provide feedback. It also helps the downstream localization
+teams where people track the upstream changes on a per-line basis.  Line
+wrapping can happen at the end of a sentence or a punctuation character, for
+example. One exception to this is that a Markdown link or a shortcode is
+expected to be in a single line.
+-->
+适当时在 Markdown 文档中手动换行。由于 git 工具和 GitHub
+网站是逐行生成文件差异的，手动换行可以帮助审阅者轻松找到 PR 中所做的更改并提供反馈。
+它还可以帮助下游本地化团队，使其按行跟踪上游更改。例如，换行可以发生在句子或标点符号的末尾。
+一个例外是 Markdown 链接或短代码应位于一行中。
 
 <!--
 ### Headings and titles {#headings}
@@ -1234,8 +1250,7 @@ This page teaches you how to use pods. | In this page, we are going to learn abo
 
 ### 避免使用“我们”
 
-在句子中使用“我们”会让人感到困惑，因为读者可能不知道这里的
-“我们”指的是谁。
+在句子中使用“我们”会让人感到困惑，因为读者可能不知道这里的“我们”指的是谁。
 
 {{< table caption = "要避免的模式" >}}
 可以 | 不可以
@@ -1283,7 +1298,7 @@ is the [Deprecated API migration guide](/docs/reference/using-api/deprecation-gu
 ### 避免关于将来的陈述
 
 要避免对将来作出承诺或暗示。如果你需要讨论的是 Alpha 功能特性，
-可以将相关文字放在一个单独的标题下，标示为 Alpha 版本信息。
+可以将相关文字放在一个单独的标题下，标识为 Alpha 版本信息。
 
 此规则的一个例外是对未来版本中计划移除的已废弃功能选项的文档。
 此类文档的例子之一是[已弃用 API 迁移指南](/zh-cn/docs/reference/using-api/deprecation-guide/)。
@@ -1340,6 +1355,20 @@ These steps ... | These simple steps ...
 你可以移除... | 你可以很容易地移除...
 这些步骤... | 这些简单的步骤...
 {{< /table >}}
+
+<!--
+### EditorConfig file
+The Kubernetes project maintains an EditorConfig file that sets common style preferences in text editors
+such as VS Code. You can use this file if you want to ensure that your contributions are consistent with
+the rest of the project. To view the file, refer to
+[`.editorconfig`](https://github.com/kubernetes/website/blob/main/.editorconfig) in the repository root.
+-->
+### 编辑器配置文件
+
+Kubernetes 项目维护一个 EditorConfig 文件，用于设置文本编辑器（例如 VS Code）中的常见样式首选项。
+如果你想确保你的贡献与项目的其余部分样式保持一致，则可以使用此文件。
+要查看该文件，请参阅项目仓库根目录的
+[`.editorconfig`](https://github.com/kubernetes/website/blob/main/.editorconfig)。
 
 ## {{% heading "whatsnext" %}}
 

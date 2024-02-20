@@ -54,7 +54,7 @@ Here is a configuration file for a Windows Pod that has the `runAsUserName` fiel
 
 这儿有一个已经设置了 `runAsUserName` 字段的 Windows Pod 的配置文件：
 
-{{% code file="windows/run-as-username-pod.yaml" %}}
+{{% code_sample file="windows/run-as-username-pod.yaml" %}}
 
 <!--
 Create the Pod:
@@ -134,7 +134,7 @@ Here is the configuration file for a Pod that has one Container, and the `runAsU
 
 这里有一个 Pod 的配置文件，其中只有一个容器，并且在 Pod 级别和容器级别都设置了 `runAsUserName`：
 
-{{% code file="windows/run-as-username-container.yaml" %}}
+{{% code_sample file="windows/run-as-username-container.yaml" %}}
 
 <!--
 Create the Pod:
@@ -184,7 +184,9 @@ ContainerAdministrator
 <!--
 ## Windows Username limitations
 
-In order to use this feature, the value set in the `runAsUserName` field must be a valid username. It must have the following format: `DOMAIN\USER`, where `DOMAIN\` is optional. Windows user names are case insensitive. Additionally, there are some restrictions regarding the `DOMAIN` and `USER`:
+In order to use this feature, the value set in the `runAsUserName` field must be a valid username.
+It must have the following format: `DOMAIN\USER`, where `DOMAIN\` is optional. Windows user names
+are case insensitive. Additionally, there are some restrictions regarding the `DOMAIN` and `USER`:
 -->
 ## Windows Username 的局限性    {#windows-username-limitations}
 
@@ -203,7 +205,7 @@ Windows 用户名不区分大小写。此外，关于 `DOMAIN` 和 `USER` 还有
 - `DOMAIN` 必须是 NetBios 名称或 DNS 名称，每种名称都有各自的局限性：
   - NetBios 名称：最多 15 个字符，不能以 `.`（点）开头，并且不能包含以下字符：`\ / : * ? " < > |`
   - DNS 名称：最多 255 个字符，只能包含字母、数字、点和中划线，并且不能以 `.`（点）或 `-`（中划线）开头和结尾。
-- `USER` 最多不超过 20 个字符，不能 **只** 包含点或空格，并且不能包含以下字符：`" / \ [ ] : ; | = , + * ? < > @`
+- `USER` 最多不超过 20 个字符，不能**只**包含点或空格，并且不能包含以下字符：`" / \ [ ] : ; | = , + * ? < > @`
 
 <!--
 Examples of acceptable values for the `runAsUserName` field: `ContainerAdministrator`, `ContainerUser`, `NT AUTHORITY\NETWORK SERVICE`, `NT AUTHORITY\LOCAL SERVICE`.
@@ -224,4 +226,4 @@ For more information about these limtations, check [here](https://support.micros
 -->
 * [Kubernetes 中调度 Windows 容器的指南](/zh-cn/docs/concepts/windows/user-guide/)
 * [使用组托管服务帐户（GMSA）管理工作负载身份](/zh-cn/docs/concepts/windows/user-guide/#managing-workload-identity-with-group-managed-service-accounts)
-* [Windows 下 pod 和容器的 GMSA 配置](/zh-cn/docs/tasks/configure-pod-container/configure-gmsa/)
+* [Windows 下 Pod 和容器的 GMSA 配置](/zh-cn/docs/tasks/configure-pod-container/configure-gmsa/)

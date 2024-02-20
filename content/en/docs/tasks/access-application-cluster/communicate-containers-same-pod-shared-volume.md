@@ -23,7 +23,7 @@ In this exercise, you create a Pod that runs two Containers. The two containers
 share a Volume that they can use to communicate. Here is the configuration file
 for the Pod:
 
-{{% code file="pods/two-container-pod.yaml" %}}
+{{% code_sample file="pods/two-container-pod.yaml" %}}
 
 In the configuration file, you can see that the Pod has a Volume named
 `shared-data`.

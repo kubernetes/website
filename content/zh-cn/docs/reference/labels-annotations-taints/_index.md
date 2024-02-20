@@ -3,12 +3,24 @@ title: 众所周知的标签、注解和污点
 content_type: concept
 weight: 40
 no_list: true
+card:
+  name: reference
+  weight: 30
+  anchors:
+  - anchor: "#labels-annotations-and-taints-used-on-api-objects"
+    title: 标签、注解和污点
 ---
 <!--
 title: Well-Known Labels, Annotations and Taints
 content_type: concept
 weight: 40
 no_list: true
+card:
+  name: reference
+  weight: 30
+  anchors:
+  - anchor: "#labels-annotations-and-taints-used-on-api-objects"
+    title: Labels, annotations and taints
 -->
 
 <!-- overview -->
@@ -25,7 +37,36 @@ Kubernetes 将所有标签和注解保留在 `kubernetes.io` 和 `k8s.io `名字
 
 <!--
 ## Labels, annotations and taints used on API objects
+-->
+## API 对象上使用的标签、注解和污点   {#labels-annotations-and-taints-used-on-api-objects}
 
+### apf.kubernetes.io/autoupdate-spec
+
+<!--
+Type: Annotation
+
+Example: `apf.kubernetes.io/autoupdate-spec: "true"`
+
+Used on: [`FlowSchema` and `PriorityLevelConfiguration` Objects](/docs/concepts/cluster-administration/flow-control/#defaults)
+
+If this annotation is set to true on a FlowSchema or PriorityLevelConfiguration, the `spec` for that object
+is managed by the kube-apiserver. If the API server does not recognize an APF object, and you annotate it
+for automatic update, the API server deletes the entire object. Otherwise, the API server does not manage the
+object spec.
+For more details, read  [Maintenance of the Mandatory and Suggested Configuration Objects](/docs/concepts/cluster-administration/flow-control/#maintenance-of-the-mandatory-and-suggested-configuration-objects).
+-->
+类别：注解
+
+例子：`apf.kubernetes.io/autoupdate-spec: "true"`
+
+用于：[`FlowSchema` 和 `PriorityLevelConfiguration` 对象](/zh-cn/docs/concepts/cluster-administration/flow-control/#defaults)
+
+如果在 FlowSchema 或 PriorityLevelConfiguration 上将此注解设置为 true，
+那么该对象的 `spec` 将由 kube-apiserver 进行管理。如果 API 服务器不识别 APF 对象，
+并且你对其添加了自动更新的注解，则 API 服务器将删除整个对象。否则，API 服务器不管理对象规约。
+更多细节参阅[维护强制性和建议的配置对象](/zh-cn/docs/concepts/cluster-administration/flow-control/#maintenance-of-the-mandatory-and-suggested-configuration-objects)
+
+<!--
 ### app.kubernetes.io/component
 
 Type: Label
@@ -38,8 +79,6 @@ The component within the application architecture.
 
 One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
 -->
-## API 对象上使用的标签、注解和污点   {#labels-annotations-and-taints-used-on-api-objects}
-
 ### app.kubernetes.io/component {#app-kubernetes-io-component}
 
 类别：标签
@@ -449,6 +488,37 @@ The value must be in the format `<toolname>/<semver>`.
 工具应该拒绝改变属于其他工具 ApplySets。
 该值必须采用 `<toolname>/<semver>` 格式。
 
+### apps.kubernetes.io/pod-index (beta) {#apps-kubernetes.io-pod-index}
+
+<!--
+Type: Label
+
+Example: `apps.kubernetes.io/pod-index: "0"`
+
+Used on: Pod
+
+When a StatefulSet controller creates a Pod for the StatefulSet, it sets this label on that Pod. 
+The value of the label is the ordinal index of the pod being created.
+
+See [Pod Index Label](/docs/concepts/workloads/controllers/statefulset/#pod-index-label)
+in the StatefulSet topic for more details.
+Note the [PodIndexLabel](/docs/reference/command-line-tools-reference/feature-gates/)
+feature gate must be enabled for this label to be added to pods.
+-->
+类别：标签
+
+例子：`apps.kubernetes.io/pod-index: "0"`
+
+用于：Pod
+
+当 StatefulSet 控制器为 StatefulSet 创建 Pod 时，该控制器会在 Pod 上设置这个标签。
+标签的值是正在创建的 Pod 的序号索引。
+
+更多细节参阅 StatefulSet 主题中的
+[Pod 索引标签](/zh-cn/docs/concepts/workloads/controllers/statefulset/#pod-index-label)。
+请注意，[PodIndexLabel](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
+特性门控必须被启用，才能将此标签添加到 Pod 上。
+
 <!--
 ### cluster-autoscaler.kubernetes.io/safe-to-evict
 
@@ -514,6 +584,35 @@ For example, Kustomize removes objects with this annotation from its final build
 
 该注解是 Kubernetes 资源模型 (KRM) 函数规范的一部分，被 Kustomize 和其他类似的第三方工具使用。
 例如，Kustomize 会从其最终构建输出中删除带有此注解的对象。
+
+### container.apparmor.security.beta.kubernetes.io/* (beta) {#container-apparmor-security-beta-kubernetes-io}
+
+<!--
+Type: Annotation
+
+Example: `container.apparmor.security.beta.kubernetes.io/my-container: my-custom-profile`
+
+Used on: Pods
+
+This annotation allows you to specify the AppArmor security profile for a container within a
+Kubernetes pod. 
+To learn more, see the [AppArmor](/docs/tutorials/security/apparmor/) tutorial.
+The tutorial illustrates using AppArmor to restrict a container's abilities and access.
+
+The profile specified dictates the set of rules and restrictions that the containerized process must
+adhere to. This helps enforce security policies and isolation for your containers.
+-->
+类别：注解
+
+例子：`container.apparmor.security.beta.kubernetes.io/my-container: my-custom-profile`
+
+用于：Pod
+
+此注解允许你为 Kubernetes Pod 中的容器指定 AppArmor 安全配置文件。
+更多细节参阅 [AppArmor](/zh-cn/docs/tutorials/security/apparmor/) 教程。
+该教程演示了如何使用 AppArmor 限制容器的权能和访问权限。
+
+所指定的配置文件定义了容器进程必须遵守的规则集和限制集。这有助于针对容器实施安全策略和隔离措施。
 
 <!--
 ### internal.config.kubernetes.io/* (reserved prefix) {#internal.config.kubernetes.io-reserved-wildcard}
@@ -1724,6 +1823,74 @@ The control plane adds this label to an Endpoints object when the owning Service
 当拥有的 Service 是无头类型时，控制平面将此标签添加到 Endpoints 对象。
 
 <!--
+### service.kubernetes.io/topology-aware-hints (deprecated) {#servicekubernetesiotopology-aware-hints}
+
+Example: `service.kubernetes.io/topology-aware-hints: "Auto"`
+
+Used on: Service
+-->
+### service.kubernetes.io/topology-aware-hints（已弃用） {#servicekubernetesiotopology-aware-hints}
+
+例子：`service.kubernetes.io/topology-aware-hints: "Auto"`
+
+用于：Service
+
+<!--
+This annotation was used for enabling _topology aware hints_ on Services. Topology aware
+hints have since been renamed: the concept is now called
+[topology aware routing](/docs/concepts/services-networking/topology-aware-routing/).
+Setting the annotation to `Auto`, on a Service, configured the Kubernetes control plane to
+add topology hints on EndpointSlices associated with that Service. You can also explicitly
+set the annotation to `Disabled`.
+
+If you are running a version of Kubernetes older than {{< skew currentVersion >}},
+check the documentation for that Kubernetes version to see how topology aware routing
+works in that release.
+
+There are no other valid values for this annotation. If you don't want topology aware hints
+for a Service, don't add this annotation.
+-->
+此注解曾用于在 Service 中启用**拓扑感知提示（topology aware hints）**。
+然而，拓扑感知提示已经做了更名操作，
+此概念现在名为[拓扑感知路由（topology aware routing）](/zh-cn/docs/concepts/services-networking/topology-aware-routing/)。
+在 Service 上将该注解设置为 `Auto` 会配置 Kubernetes 控制平面，
+以将拓扑提示添加到该 Service 关联的 EndpointSlice 上。你也可以显式地将该注解设置为 `Disabled`。
+
+如果你使用的是早于 {{< skew currentVersion >}} 的 Kubernetes 版本，
+请查阅该版本对应的文档，了解其拓扑感知路由的工作方式。
+
+此注解没有其他有效值。如果你不希望为 Service 启用拓扑感知提示，不要添加此注解。
+
+### service.kubernetes.io/topology-mode
+
+<!--
+Type: Annotation
+
+Example: `service.kubernetes.io/topology-mode: Auto`
+
+Used on: Service
+
+This annotation provides a way to define how Services handle network topology;
+for example, you can configure a Service so that Kubernetes prefers keeping traffic between
+a client and server within a single topology zone.
+In some cases this can help reduce costs or improve network performance.
+
+See [Topology Aware Routing](/docs/concepts/services-networking/topology-aware-routing/)
+for more details.
+-->
+类别：注解
+
+例子：`service.kubernetes.io/topology-mode: Auto`
+
+用于：Service
+
+此注解提供了一种定义 Service 如何处理网络拓扑的方式；
+例如，你可以配置 Service，以便 Kubernetes 更倾向于将客户端和服务器之间的流量保持在同一拓扑区域内。
+在某些情况下，这有助于降低成本或提高网络性能。
+
+更多细节参阅[拓扑感知路由](/zh-cn/docs/concepts/services-networking/topology-aware-routing/)。
+
+<!--
 ### kubernetes.io/service-name {#kubernetesioservice-name}
 
 Type: Label
@@ -1989,7 +2156,7 @@ resource without a class specified will be assigned this default class.
 
 类别：注解
 
-例子：`ingressclass.kubernetes.io/is-default-class: "true"`
+例子：`storageclass.kubernetes.io/is-default-class: "true"`
 
 用于：StorageClass
 
@@ -2005,7 +2172,7 @@ Example: `alpha.kubernetes.io/provided-node-ip: "10.0.0.1"`
 
 Used on: Node
 
-The kubelet can set this annotation on a Node to denote its configured IPv4 address.
+The kubelet can set this annotation on a Node to denote its configured IPv4 and/or IPv6 address.
 
 When kubelet is started with the `--cloud-provider` flag set to any value (includes both external
 and legacy in-tree cloud providers), it sets this annotation on the Node to denote an IP address
@@ -2020,7 +2187,7 @@ by the cloud-controller-manager.
 
 用于：Node
 
-kubelet 可以在 Node 上设置此注解来表示其配置的 IPv4 地址。
+kubelet 可以在 Node 上设置此注解来表示其配置的 IPv4 与/或 IPv6 地址。
 
 如果 kubelet 被启动时 `--cloud-provider` 标志设置为任一云驱动（包括外部云驱动和传统树内云驱动）
 kubelet 会在 Node 上设置此注解以表示从命令行标志（`--node-ip`）设置的 IP 地址。
@@ -2029,18 +2196,18 @@ kubelet 会在 Node 上设置此注解以表示从命令行标志（`--node-ip`�
 <!--
 ### batch.kubernetes.io/job-completion-index
 
-Type: Annotation
+Type: Annotation, Label
 
 Example: `batch.kubernetes.io/job-completion-index: "3"`
 
 Used on: Pod
 
-The Job controller in the kube-controller-manager sets this annotation for Pods
+The Job controller in the kube-controller-manager sets this as a label and annotation for Pods
 created with Indexed [completion mode](/docs/concepts/workloads/controllers/job/#completion-mode).
 -->
 ### batch.kubernetes.io/job-completion-index {#batch-kubernetes-io-job-completion-index}
 
-类别：注解
+类别：注解、标签
 
 例子：`batch.kubernetes.io/job-completion-index: "3"`
 
@@ -2048,7 +2215,39 @@ created with Indexed [completion mode](/docs/concepts/workloads/controllers/job/
 
 kube-controller-manager 中的 Job 控制器为使用 Indexed
 [完成模式](/zh-cn/docs/concepts/workloads/controllers/job/#completion-mode)创建的 Pod
-设置此注解。
+设置此标签和注解。
+
+<!--
+Note the [PodIndexLabel](/docs/reference/command-line-tools-reference/feature-gates/)
+feature gate must be enabled for this to be added as a pod **label**,
+otherwise it will just be an annotation.
+-->
+请注意，[PodIndexLabel](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
+特性门控必须被启用，才能将其添加为 Pod 的**标签**，否则它只会用作注解。
+
+### batch.kubernetes.io/cronjob-scheduled-timestamp
+
+<!--
+Type: Annotation
+
+Example: `batch.kubernetes.io/cronjob-scheduled-timestamp: "2016-05-19T03:00:00-07:00"`
+
+Used on: Jobs and Pods controlled by CronJobs
+
+This annotation is used to record the original (expected) creation timestamp for a Job,
+when that Job is part of a CronJob.
+The control plane sets the value to that timestamp in RFC3339 format. If the Job belongs to a CronJob
+with a timezone specified, then the timestamp is in that timezone. Otherwise, the timestamp is in controller-manager's local time.
+-->
+类别：注解
+
+例子：`batch.kubernetes.io/cronjob-scheduled-timestamp: "2016-05-19T03:00:00-07:00"`
+
+用于：CronJob 所控制的 Job 和 Pod
+
+此注解在 Job 是 CronJob 的一部分时用于记录 Job 的原始（预期）创建时间戳。
+控制平面会将该值设置为 RFC3339 格式的时间戳。如果 Job 属于设置了时区的 CronJob，
+则时间戳以该时区为基准。否则，时间戳以 controller-manager 的本地时间为准。
 
 <!--
 ### kubectl.kubernetes.io/default-container
@@ -2101,6 +2300,34 @@ annotation instead. Kubernetes versions 1.25 and newer ignore this annotation.
 Kubernetes v1.25 及更高版本将忽略此注解。
 {{< /note >}}
 
+### kubectl.kubernetes.io/last-applied-configuration
+
+<!--
+Type: Annotation
+
+Example: _see following snippet_
+-->
+类别：注解
+
+例子：**参见以下代码片段**
+
+```yaml
+    kubectl.kubernetes.io/last-applied-configuration: >
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"example","namespace":"default"},"spec":{"selector":{"matchLabels":{"app.kubernetes.io/name":foo}},"template":{"metadata":{"labels":{"app.kubernetes.io/name":"foo"}},"spec":{"containers":[{"image":"container-registry.example/foo-bar:1.42","name":"foo-bar","ports":[{"containerPort":42}]}]}}}}
+```
+
+<!--
+Used on: all objects
+
+The kubectl command line tool uses this annotation as a legacy mechanism
+to track changes. That mechanism has been superseded by
+[Server-side apply](/docs/reference/using-api/server-side-apply/).
+-->
+用于：所有对象
+
+kubectl 命令行工具使用此注解作为一种旧的机制来跟踪变更。
+该机制已被[服务器端应用](/zh-cn/docs/reference/using-api/server-side-apply/)取代。
+
 <!--
 ### endpoints.kubernetes.io/over-capacity
 
@@ -2132,6 +2359,49 @@ If the number of backend endpoints falls below 1000, the control plane removes t
 此注解表示 Endpoints 对象已超出容量，并且已将 Endpoints 数截断为 1000。
 
 如果后端端点的数量低于 1000，则控制平面将移除此注解。
+
+<!--
+### control-plane.alpha.kubernetes.io/leader (deprecated) {#control-plane-alpha-kubernetes-io-leader}
+
+Type: Annotation
+
+Example: `control-plane.alpha.kubernetes.io/leader={"holderIdentity":"controller-0","leaseDurationSeconds":15,"acquireTime":"2023-01-19T13:12:57Z","renewTime":"2023-01-19T13:13:54Z","leaderTransitions":1}`
+
+Used on: Endpoints
+-->
+### control-plane.alpha.kubernetes.io/leader（已弃用） {#control-plane-alpha-kubernetes-io-leader}
+
+类别：注解
+
+例子：`control-plane.alpha.kubernetes.io/leader={"holderIdentity":"controller-0","leaseDurationSeconds":15,"acquireTime":"2023-01-19T13:12:57Z","renewTime":"2023-01-19T13:13:54Z","leaderTransitions":1}`
+
+用于：Endpoints
+
+<!--
+The {{< glossary_tooltip text="control plane" term_id="control-plane" >}} previously set annotation on
+an [Endpoints](/docs/concepts/services-networking/service/#endpoints) object. This annotation provided
+the following detail:
+
+- Who is the current leader.
+- The time when the current leadership was acquired.
+- The duration of the lease (of the leadership) in seconds.
+- The time the current lease (the current leadership) should be renewed.
+- The number of leadership transitions that happened in the past.
+
+Kubernetes now uses [Leases](/docs/concepts/architecture/leases/) to
+manage leader assignment for the Kubernetes control plane.
+-->
+{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}先前在
+[Endpoints](/zh-cn/docs/concepts/services-networking/service/#endpoints)
+对象上设置此注解。此注解提供以下细节：
+
+- 当前的领导者是谁。
+- 获取当前领导权的时间。
+- 租约（领导权）的持续时间，以秒为单位。
+- 当前租约（当前领导权）应被续约的时间。
+- 过去发生的领导权转换次数。
+
+Kubernetes 现在使用[租约](/zh-cn/docs/concepts/architecture/leases/)来管理 Kubernetes 控制平面的领导者分配。
 
 <!--
 ### batch.kubernetes.io/job-tracking (deprecated) {#batch-kubernetes-io-job-tracking}
@@ -2718,15 +2988,38 @@ NFD uses this for an internal mechanism. You should not edit this annotation you
 管理的以逗号分隔的[扩展资源](/zh-cn/docs/concepts/configuration/manage-resources-containers/#extended-resources)列表。
 NFD 将其用于内部机制。你不应该自己编辑这个注解。
 
+### nfd.node.kubernetes.io/node-name
+
+<!--
+Type: Label
+
+Example: `nfd.node.kubernetes.io/node-name: node-1`
+
+Used on: Nodes
+
+It specifies which node the NodeFeature object is targeting.
+Creators of NodeFeature objects must set this label and 
+consumers of the objects are supposed to use the label for 
+filtering features designated for a certain node.
+-->
+类别：标签
+
+例子：`nfd.node.kubernetes.io/node-name: node-1`
+
+用于：Node
+
+此标签指定哪个节点是 NodeFeature 对象的目标节点。
+NodeFeature 对象的创建者必须设置此标签，而此对象的使用者应该使用此标签过滤为某个节点指定的特性。
+
 {{< note >}}
 <!--
-These annotations only applies to nodes where NFD is running.
-To learn more about NFD and its components go to its official
-[documentation](https://kubernetes-sigs.github.io/node-feature-discovery/stable/get-started/).
+These Node Feature Discovery (NFD) labels or annotations only apply to 
+the nodes where NFD is running. To learn more about NFD and 
+its components go to its official [documentation](https://kubernetes-sigs.github.io/node-feature-discovery/stable/get-started/).
 -->
-这些注解仅适用于运行 NFD 的节点。
-要了解更多关于 NFD 及其组件的信息，请访问其官方
-[文档](https://kubernetes-sigs.github.io/node-feature-discovery/stable/get-started/).
+这些节点特性发现（Node Feature Discovery, NFD）的标签或注解仅适用于运行 NFD 的节点。
+要了解关于 NFD 及其组件的信息，请访问官方
+[文档](https://kubernetes-sigs.github.io/node-feature-discovery/stable/get-started/)。
 {{< /note >}}
 
 ### service.beta.kubernetes.io/aws-load-balancer-access-log-emit-interval (beta) {#service-beta-kubernetes-io-aws-load-balancer-access-log-emit-interval}
@@ -3289,6 +3582,45 @@ in the AWS load balancer controller documentation.
 
 [AWS 负载均衡器控制器](https://kubernetes-sigs.github.io/aws-load-balancer-controller/)使用此注解。
 参见 AWS 负载均衡器控制器文档中的[注解](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/service/annotations/)。
+
+<!--
+### service.beta.kubernetes.io/aws-load-balancer-security-groups (deprecated) {#service-beta-kubernetes-io-aws-load-balancer-security-groups}
+
+Example: `service.beta.kubernetes.io/aws-load-balancer-security-groups: "sg-53fae93f,sg-8725gr62r"`
+
+Used on: Service
+-->
+### service.beta.kubernetes.io/aws-load-balancer-security-groups（已弃用） {#service-beta-kubernetes-io-aws-load-balancer-security-groups}
+
+例子：`service.beta.kubernetes.io/aws-load-balancer-security-groups: "sg-53fae93f,sg-8725gr62r"`
+
+用于：Service
+
+<!--
+The AWS load balancer controller uses this annotation to specify a comma seperated list
+of security groups you want to attach to an AWS load balancer. Both name and ID of security
+are supported where name matches a `Name` tag, not the `groupName` attribute.
+
+When this annotation is added to a Service, the load-balancer controller attaches the security groups
+referenced by the annotation to the load balancer. If you omit this annotation, the AWS load balancer
+controller automatically creates a new security group and attaches it to the load balancer.
+-->
+AWS 负载均衡器控制器使用此注解来指定要附加到 AWS 负载均衡器的安全组的逗号分隔列表。
+安全名称和 ID 均被支持，其中名称匹配 `Name` 标记，而不是 `groupName` 属性。
+
+当将此注解添加到 Service 时，负载均衡器控制器会将注解引用的安全组附加到负载均衡器上。
+如果你省略了此注解，AWS 负载均衡器控制器会自动创建一个新的安全组并将其附加到负载均衡器上。
+
+{{< note >}}
+<!--
+Kubernetes v1.27 and later do not directly set or read this annotation. However, the AWS
+load balancer controller (part of the Kubernetes project) does still use the
+`service.beta.kubernetes.io/aws-load-balancer-security-groups` annotation.
+-->
+Kubernetes v1.27 及更高版本不直接设置或读取此注解。然而，AWS 负载均衡器控制器
+（作为 Kubernetes 项目的一部分）仍在使用
+`service.beta.kubernetes.io/aws-load-balancer-security-groups` 注解。
+{{< /note >}}
 
 ### service.beta.kubernetes.io/load-balancer-source-ranges (deprecated) {#service-beta-kubernetes-io-load-balancer-source-ranges}
 

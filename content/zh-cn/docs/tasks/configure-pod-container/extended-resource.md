@@ -54,7 +54,7 @@ Here is the configuration file for a Pod that has one Container:
 
 下面是包含一个容器的 Pod 配置文件：
 
-{{% code file="pods/resource/extended-resource-pod.yaml" %}}
+{{% code_sample file="pods/resource/extended-resource-pod.yaml" %}}
 
 <!--
 In the configuration file, you can see that the Container requests 3 dongles.
@@ -109,7 +109,7 @@ two dongles.
 
 下面是包含一个容器的 Pod 配置文件，容器请求了 2 个 dongles。
 
-{{% code file="pods/resource/extended-resource-pod-2.yaml" %}}
+{{% code_sample file="pods/resource/extended-resource-pod-2.yaml" %}}
 
 <!--
 Kubernetes will not be able to satisfy the request for two dongles, because the first Pod

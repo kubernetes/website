@@ -1,37 +1,22 @@
 <!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
-
-<!--
 Print default join configuration, that can be used for 'kubeadm join'
 -->
-打印默认的节点添加配置，该配置可用于 'kubeadm join' 命令
+打印默认的节点添加配置，该配置可用于 'kubeadm join' 命令。
 
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
 This command prints objects such as the default join configuration that is used for 'kubeadm join'.
 -->
-
 此命令打印对象，例如用于 'kubeadm join' 的默认 join 配置对象。
 
 <!--
 Note that sensitive values like the Bootstrap Token fields are replaced with placeholder values like "abcdef.0123456789abcdef" in order to pass validation but
 not perform the real computation for creating a token.
 -->
-
 请注意，诸如启动引导令牌字段之类的敏感值已替换为 "abcdef.0123456789abcdef" 之类的占位符值以通过验证，
 但不执行创建令牌的实际计算。
 
@@ -42,7 +27,6 @@ kubeadm config print join-defaults [flags]
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -61,7 +45,8 @@ kubeadm config print join-defaults [flags]
 A comma-separated list for component config API objects to print the default values for. Available values: [KubeProxyConfiguration KubeletConfiguration]. If this flag is not set, no component configs will be printed.
 -->
 <p>
-组件配置 API 对象的逗号分隔列表，打印其默认值。可用值：[KubeProxyConfiguration KubeletConfiguration]。如果未设置此参数，则不会打印任何组件配置。
+以逗号分隔的组件配置 API 对象的列表，打印其默认值。可用值：[KubeProxyConfiguration KubeletConfiguration]。
+如果未设置此参数，则不会打印任何组件配置。
 </p>
 </td>
 </tr>
@@ -75,7 +60,7 @@ A comma-separated list for component config API objects to print the default val
 help for join-defaults
 -->
 <p>
-join-defaults 操作的帮助命令
+join-defaults 操作的帮助命令。
 </p>
 </td>
 </tr>
@@ -86,7 +71,6 @@ join-defaults 操作的帮助命令
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 从父命令继承的选项
 
    <table style="width: 100%; table-layout: fixed;">

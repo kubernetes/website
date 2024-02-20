@@ -96,6 +96,20 @@ other = "адрес электронной почты"
 [javascript_required]
 other = "Для просмотра этого содержимого необходимо [включить](https://www.enable-javascript.com/) JavaScript"
 
+[katacoda_message]
+other = """<h4>Отключение интерактивных руководств</h4>
+<p>Интерактивные руководства на этом сайте перестали функционировать. Участники
+проекта Kubernetes надеются, что в долгосрочной перспективе подобная интерактивная
+возможность для обучения появится вновь.</p>
+<p>Отключение стало следствием <a
+href="https://www.oreilly.com/content/oreilly-acquires-katacoda-and-a-new-way-for-2-5m-customers-to-learn/">приобретения</a>
+Katacoda компанией O'Reilly Media в 2019 году.</p>
+<p>Сообщество Kubernetes благодарит O'Reilly и Katacoda за долгие годы помощи
+пользователям, которые делали свои первые шаги в обучении Kubernetes.</p>
+<p>Руководства перестали функционировать <b>31 марта 2023 года</b>. Больше
+информации можно найти в публикации в блоге под названием
+"<a href="/blog/2023/02/14/kubernetes-katacoda-tutorials-stop-from-2023-03-31/">Free Katacoda Kubernetes Tutorials Are Shutting Down</a>."</p>"""
+
 [latest_release]
 other = "Последний релиз:"
 

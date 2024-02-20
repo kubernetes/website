@@ -636,14 +636,14 @@ which caused the conversion. All other changes are ignored.
 ### Deploy the conversion webhook service
 
 Documentation for deploying the conversion webhook is the same as for the
-[admission webhook example service](/docs/reference/access-authn-authz/extensible-admission-controllers/#deploy_the_admission_webhook_service).
+[admission webhook example service](/docs/reference/access-authn-authz/extensible-admission-controllers/#deploy-the-admission-webhook-service).
 The assumption for next sections is that the conversion webhook server is deployed to a service
 named `example-conversion-webhook-server` in `default` namespace and serving traffic on path `/crdconvert`.
 -->
 ### 部署转换 Webhook 服务   {#deploy-the-conversion-webhook-service}
 
 用于部署转换 Webhook
-的文档与[准入 Webhook 服务示例](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#deploy_the_admission_webhook_service)相同。
+的文档与[准入 Webhook 服务示例](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#deploy-the-admission-webhook-service)相同。
 这里的假设是转换 Webhook 服务器被部署为 `default` 名字空间中名为
 `example-conversion-webhook-server` 的服务，并在路径 `/crdconvert`
 上处理请求。

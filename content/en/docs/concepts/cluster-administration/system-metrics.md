@@ -21,7 +21,7 @@ This format is structured plain text, designed so that people and machines can b
 ## Metrics in Kubernetes
 
 In most cases metrics are available on `/metrics` endpoint of the HTTP server. For components that
-doesn't expose endpoint by default it can be enabled using `--bind-address` flag.
+don't expose endpoint by default, it can be enabled using `--bind-address` flag.
 
 Examples of those components:
 
@@ -119,21 +119,6 @@ If you're upgrading from release `1.12` to `1.13`, but still depend on a metric 
 `1.12`, you should set hidden metrics via command line: `--show-hidden-metrics=1.12` and remember
 to remove this metric dependency before upgrading to `1.14`
 
-## Disable accelerator metrics
-
-The kubelet collects accelerator metrics through cAdvisor. To collect these metrics, for
-accelerators like NVIDIA GPUs, kubelet held an open handle on the driver. This meant that in order
-to perform infrastructure changes (for example, updating the driver), a cluster administrator
-needed to stop the kubelet agent.
-
-The responsibility for collecting accelerator metrics now belongs to the vendor rather than the
-kubelet. Vendors must provide a container that collects metrics and exposes them to the metrics
-service (for example, Prometheus).
-
-The [`DisableAcceleratorUsageMetrics` feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-disables metrics collected by the kubelet, with a
-[timeline for enabling this feature by default](https://github.com/kubernetes/enhancements/tree/411e51027db842355bd489691af897afc1a41a5e/keps/sig-node/1867-disable-accelerator-usage-metrics#graduation-criteria).
-
 ## Component metrics
 
 ### kube-controller-manager metrics
@@ -217,10 +202,23 @@ Here is an example:
 --allow-label-value number_count_metric,odd_number='1,3,5', number_count_metric,even_number='2,4,6', date_gauge_metric,weekend='Saturday,Sunday'
 ```
 
+In addition to specifying this from the CLI, this can also be done within a configuration file. You
+can specify the path to that configuration file using the `--allow-metric-labels-manifest` command
+line argument to a component. Here's an example of the contents of that configuration file:
+
+```yaml
+allow-list:
+- "metric1,label2": "v1,v2,v3"
+- "metric2,label1": "v1,v2,v3"
+```
+
+Additionally, the `cardinality_enforcement_unexpected_categorizations_total` meta-metric records the
+count of unexpected categorizations during cardinality enforcement, that is, whenever a label value
+is encountered that is not allowed with respect to the allow-list constraints.
+
 ## {{% heading "whatsnext" %}}
 
 * Read about the [Prometheus text format](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md#text-based-format)
   for metrics
 * See the list of [stable Kubernetes metrics](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml)
 * Read about the [Kubernetes deprecation policy](/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)
-

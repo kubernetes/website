@@ -47,8 +47,7 @@ different purposes:
   [secret](/docs/concepts/storage/volumes/#secret): inject different
   kinds of Kubernetes data into a Pod
 - [CSI ephemeral volumes](#csi-ephemeral-volumes):
-  similar to the previous volume kinds, but provided by special
-  [CSI drivers](https://github.com/container-storage-interface/spec/blob/master/spec.md)
+  similar to the previous volume kinds, but provided by special {{< glossary_tooltip text="CSI" term_id="csi" >}} drivers
   which specifically [support this feature](https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html)
 - [generic ephemeral volumes](#generic-ephemeral-volumes), which
   can be provided by all storage drivers that also support persistent volumes
@@ -192,7 +191,7 @@ spec:
 ### Lifecycle and PersistentVolumeClaim
 
 The key design idea is that the
-[parameters for a volume claim](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ephemeralvolumesource-v1alpha1-core)
+[parameters for a volume claim](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ephemeralvolumesource-v1-core)
 are allowed inside a volume source of the Pod. Labels, annotations and
 the whole set of fields for a PersistentVolumeClaim are supported. When such a Pod gets
 created, the ephemeral volume controller then creates an actual PersistentVolumeClaim
@@ -224,7 +223,7 @@ volume.
 ### PersistentVolumeClaim naming
 
 Naming of the automatically created PVCs is deterministic: the name is
-a combination of Pod name and volume name, with a hyphen (`-`) in the
+a combination of the Pod name and volume name, with a hyphen (`-`) in the
 middle. In the example above, the PVC name will be
 `my-app-scratch-volume`.  This deterministic naming makes it easier to
 interact with the PVC because one does not have to search for it once

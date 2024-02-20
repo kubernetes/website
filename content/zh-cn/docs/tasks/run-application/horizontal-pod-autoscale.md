@@ -46,7 +46,7 @@ the HorizontalPodAutoscaler instructs the workload resource (the Deployment, Sta
 or other similar resource) to scale back down.
 -->
 水平扩缩意味着对增加的负载的响应是部署更多的 {{< glossary_tooltip text="Pod" term_id="pod" >}}。
-这与 “垂直（Vertical）” 扩缩不同，对于 Kubernetes，
+这与“垂直（Vertical）”扩缩不同，对于 Kubernetes，
 垂直扩缩意味着将更多资源（例如：内存或 CPU）分配给已经为工作负载运行的 Pod。
 
 如果负载减少，并且 Pod 的数量高于配置的最小值，
@@ -131,7 +131,8 @@ Kubernetes 将水平 Pod 自动扩缩实现为一个间歇运行的控制回路�
 Once during each period, the controller manager queries the resource utilization against the
 metrics specified in each HorizontalPodAutoscaler definition. The controller manager
 finds the target resource defined by the `scaleTargetRef`,
-then selects the pods based on the target resource's `.spec.selector` labels, and obtains the metrics from either the resource metrics API (for per-pod resource metrics),
+then selects the pods based on the target resource's `.spec.selector` labels,
+and obtains the metrics from either the resource metrics API (for per-pod resource metrics),
 or the custom metrics API (for all other metrics).
 -->
 在每个时间段内，控制器管理器都会根据每个 HorizontalPodAutoscaler 定义中指定的指标查询资源利用率。
@@ -277,8 +278,8 @@ When scaling on CPU, if any pod has yet to become ready (it's still
 initializing, or possibly is unhealthy) _or_ the most recent metric point for
 the pod was before it became ready, that pod is set aside as well.
 -->
-当使用 CPU 指标来扩缩时，任何还未就绪（还在初始化，或者可能是不健康的）状态的 Pod **或**
-最近的指标度量值采集于就绪状态前的 Pod，该 Pod 也会被搁置。
+当使用 CPU 指标来扩缩时，任何还未就绪（还在初始化，或者可能是不健康的）状态的 Pod
+**或**最近的指标度量值采集于就绪状态前的 Pod，该 Pod 也会被搁置。
 
 <!--
 Due to technical constraints, the HorizontalPodAutoscaler controller
@@ -286,10 +287,12 @@ cannot exactly determine the first time a pod becomes ready when
 determining whether to set aside certain CPU metrics. Instead, it
 considers a Pod "not yet ready" if it's unready and transitioned to
 ready within a short, configurable window of time since it started.
-This value is configured with the `--horizontal-pod-autoscaler-initial-readiness-delay` flag, and its default is 30
-seconds. Once a pod has become ready, it considers any transition to
+This value is configured with the `--horizontal-pod-autoscaler-initial-readiness-delay`
+flag, and its default is 30 seconds.
+Once a pod has become ready, it considers any transition to
 ready to be the first if it occurred within a longer, configurable time
-since it started. This value is configured with the `--horizontal-pod-autoscaler-cpu-initialization-period` flag, and its
+since it started. This value is configured with the
+`--horizontal-pod-autoscaler-cpu-initialization-period` flag, and its
 default is 5 minutes.
 -->
 由于技术限制，HorizontalPodAutoscaler 控制器在确定是否保留某些 CPU 指标时无法准确确定 Pod 首次就绪的时间。
@@ -340,7 +343,7 @@ back via the HorizontalPodAutoscaler status, without factoring in the
 not-yet-ready pods or missing metrics, even when the new usage ratio is
 used.
 -->
-注意，平均利用率的 **原始** 值是通过 HorizontalPodAutoscaler 状态体现的，
+注意，平均利用率的**原始**值是通过 HorizontalPodAutoscaler 状态体现的，
 而不考虑尚未准备好的 Pod 或缺少的指标，即使使用新的使用率也是如此。
 
 <!--
@@ -362,7 +365,8 @@ the current value.
 <!--
 Finally, right before HPA scales the target, the scale recommendation is recorded. The
 controller considers all recommendations within a configurable window choosing the
-highest recommendation from within that window. This value can be configured using the `--horizontal-pod-autoscaler-downscale-stabilization` flag, which defaults to 5 minutes.
+highest recommendation from within that window. This value can be configured using the
+`--horizontal-pod-autoscaler-downscale-stabilization` flag, which defaults to 5 minutes.
 This means that scaledowns will occur gradually, smoothing out the impact of rapidly
 fluctuating metric values.
 -->
@@ -439,7 +443,7 @@ replicas, the StatefulSet directly manages its set of Pods (there is no intermed
 similar to ReplicaSet).
 -->
 如果你对一个副本个数被自动扩缩的 StatefulSet 执行滚动更新，该 StatefulSet
-会直接管理它的 Pod 集合 （不存在类似 ReplicaSet 这样的中间资源）。
+会直接管理它的 Pod 集合（不存在类似 ReplicaSet 这样的中间资源）。
 
 <!--
 ## Support for resource metrics
@@ -452,7 +456,7 @@ like this:
 -->
 ## 对资源指标的支持   {#support-for-resource-metrics}
 
-HPA 的任何目标资源都可以基于其中的 Pods 的资源用量来实现扩缩。
+HPA 的任何目标资源都可以基于其中的 Pod 的资源用量来实现扩缩。
 在定义 Pod 规约时，类似 `cpu` 和 `memory` 这类资源请求必须被设定。
 这些设定值被用来确定资源利用量并被 HPA 控制器用来对目标资源完成扩缩操作。
 要使用基于资源利用率的扩缩，可以像下面这样指定一个指标源：
@@ -614,8 +618,8 @@ HorizontalPodAutoscaler 采用为每个指标推荐的最大比例，
 <!--
 ## Support for metrics APIs
 
-By default, the HorizontalPodAutoscaler controller retrieves metrics from a series of APIs. In order for it to access these
-APIs, cluster administrators must ensure that:
+By default, the HorizontalPodAutoscaler controller retrieves metrics from a series of APIs.
+In order for it to access these APIs, cluster administrators must ensure that:
 -->
 ## 对 Metrics API 的支持   {#support-for-metrics-apis}
 
@@ -627,26 +631,31 @@ APIs, cluster administrators must ensure that:
 
 * The corresponding APIs are registered:
 
-   * For resource metrics, this is the `metrics.k8s.io` API, generally provided by [metrics-server](https://github.com/kubernetes-sigs/metrics-server).
-    It can be launched as a cluster add-on.
+   * For resource metrics, this is the `metrics.k8s.io` [API](/docs/reference/external-api/metrics.v1beta1/),
+     generally provided by [metrics-server](https://github.com/kubernetes-sigs/metrics-server).
+     It can be launched as a cluster add-on.
 
-   * For custom metrics, this is the `custom.metrics.k8s.io` API.  It's provided by "adapter" API servers provided by metrics solution vendors.
-    Check with your metrics pipeline to see if there is a Kubernetes metrics adapter available.
+   * For custom metrics, this is the `custom.metrics.k8s.io` [API](/docs/reference/external-api/metrics.v1beta1/).
+     It's provided by "adapter" API servers provided by metrics solution vendors.
+     Check with your metrics pipeline to see if there is a Kubernetes metrics adapter available.
 
-   * For external metrics, this is the `external.metrics.k8s.io` API.  It may be provided by the custom metrics adapters provided above.
+   * For external metrics, this is the `external.metrics.k8s.io` [API](/docs/reference/external-api/metrics.v1beta1/).
+     It may be provided by the custom metrics adapters provided above.
 -->
 * 启用了 [API 聚合层](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
 
 * 相应的 API 已注册：
 
-  * 对于资源指标，将使用 `metrics.k8s.io` API，一般由 [metrics-server](https://github.com/kubernetes-incubator/metrics-server) 提供。
-     它可以作为集群插件启动。
+  * 对于资源指标，将使用 `metrics.k8s.io` [API](/zh-cn/docs/reference/external-api/metrics.v1beta1/)，
+    一般由 [metrics-server](https://github.com/kubernetes-incubator/metrics-server) 提供。
+    它可以作为集群插件启动。
 
-  * 对于自定义指标，将使用 `custom.metrics.k8s.io` API。
-     它由其他度量指标方案厂商的“适配器（Adapter）” API 服务器提供。
-     检查你的指标管道以查看是否有可用的 Kubernetes 指标适配器。
+  * 对于自定义指标，将使用 `custom.metrics.k8s.io` [API](/zh-cn/docs/reference/external-api/metrics.v1beta1/)。
+    它由其他度量指标方案厂商的“适配器（Adapter）” API 服务器提供。
+    检查你的指标管道以查看是否有可用的 Kubernetes 指标适配器。
 
-  * 对于外部指标，将使用 `external.metrics.k8s.io` API。可能由上面的自定义指标适配器提供。
+  * 对于外部指标，将使用 `external.metrics.k8s.io` [API](/zh-cn/docs/reference/external-api/metrics.v1beta1/)。
+    可能由上面的自定义指标适配器提供。
 
 <!--
 For more information on these different metrics paths and how they differ please see the relevant design proposals for
@@ -660,7 +669,8 @@ and [external.metrics.k8s.io](https://git.k8s.io/design-proposals-archive/instru
 [external.metrics.k8s.io](https://git.k8s.io/design-proposals-archive/instrumentation/external-metrics-api.md)。
 
 <!--
-For examples of how to use them see [the walkthrough for using custom metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics)
+For examples of how to use them see
+[the walkthrough for using custom metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics)
 and [the walkthrough for using external metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-metrics-not-related-to-kubernetes-objects).
 -->
 关于如何使用它们的示例，
@@ -696,7 +706,7 @@ the replica count for a scaling target. Scaling policies also let you control th
 rate of change of replicas while scaling.
 -->
 
-你可以指定一个 “稳定窗口”，以防止扩缩目标的副本计数发生[波动](#flapping)。
+你可以指定一个“稳定窗口”，以防止扩缩目标的副本计数发生[波动](#flapping)。
 扩缩策略还允许你在扩缩时控制副本的变化率。
 
 <!--

@@ -54,12 +54,12 @@ A `LimitRange` does **not** check the consistency of the default values it appli
 
 For example, you define a `LimitRange` with this manifest:
 
-{{% code file="concepts/policy/limit-range/problematic-limit-range.yaml" %}}
+{{% code_sample file="concepts/policy/limit-range/problematic-limit-range.yaml" %}}
 
 
 along with a Pod that declares a CPU resource request of `700m`, but not a limit:
 
-{{% code file="concepts/policy/limit-range/example-conflict-with-limitrange-cpu.yaml" %}}
+{{% code_sample file="concepts/policy/limit-range/example-conflict-with-limitrange-cpu.yaml" %}}
 
 
 then that Pod will not be scheduled, failing with an error similar to:
@@ -69,7 +69,7 @@ Pod "example-conflict-with-limitrange-cpu" is invalid: spec.containers[0].resour
 
 If you set both `request` and `limit`, then that new Pod will be scheduled successfully even with the same `LimitRange` in place:
 
-{{% code file="concepts/policy/limit-range/example-no-conflict-with-limitrange-cpu.yaml" %}}
+{{% code_sample file="concepts/policy/limit-range/example-no-conflict-with-limitrange-cpu.yaml" %}}
 
 ## Example resource constraints
 

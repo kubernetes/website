@@ -1,17 +1,17 @@
 <!--
 Upgrade the kubelet configuration for this node
 -->
-升级此节点的 kubelet 配置
+升级此节点的 kubelet 配置。
 
-<!-- ### Synopsis -->
-
+<!--
+### Synopsis
+-->
 ### 概要
 
 <!--
 Download the kubelet configuration from the kubelet-config ConfigMap stored in the cluster
 -->
-
-从集群中 ConfigMap kubelet-config 下载 kubelet 配置
+从集群中 ConfigMap kubelet-config 下载 kubelet 配置。
 
 ```
 kubeadm upgrade node phase kubelet-config [flags]
@@ -20,7 +20,6 @@ kubeadm upgrade node phase kubelet-config [flags]
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -39,7 +38,7 @@ kubeadm upgrade node phase kubelet-config [flags]
 Do not change any state, just output the actions that would be performed.
 -->
 <p>
-不改变任何状态，只输出将要执行的操作
+不改变任何状态，只输出将要执行的操作。
 </p>
 </td>
 </tr>
@@ -53,7 +52,7 @@ Do not change any state, just output the actions that would be performed.
 help for kubelet-config
 -->
 <p>
-kubelet-config 操作的帮助信息
+kubelet-config 操作的帮助命令。
 </p>
 </td>
 </tr>
@@ -72,7 +71,7 @@ kubelet-config 操作的帮助信息
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
 <p>
-用于和集群通信的 KubeConfig 文件。如果它没有被设置，那么 kubeadm 将会搜索一个已经存在于标准路径的 KubeConfig 文件。
+用于和集群通信的 kubeconfig 文件。如果它没有被设置，那么 kubeadm 将会搜索一个已经存在于标准路径的 kubeconfig 文件。
 </p>
 </td>
 </tr>
@@ -97,12 +96,10 @@ Path to a directory that contains files named &quot;target[suffix][+patchtype].e
 </tbody>
 </table>
 
-
-### 从父命令继承的选项
-
 <!--
 ### Options inherited from parent commands
 -->
+### 从父命令继承的选项
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -127,4 +124,3 @@ Path to a directory that contains files named &quot;target[suffix][+patchtype].e
 
 </tbody>
 </table>
-

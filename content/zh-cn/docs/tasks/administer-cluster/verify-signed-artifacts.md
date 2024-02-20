@@ -22,13 +22,13 @@ You will need to have the following tools installed:
 
 - `cosign` ([install guide](https://docs.sigstore.dev/cosign/installation/))
 - `curl` (often provided by your operating system)
-- `jq` ([download jq](https://stedolan.github.io/jq/download/))
+- `jq` ([download jq](https://jqlang.github.io/jq/download/))
 -->
 你需要安装以下工具：
 
 - `cosign`（[安装指南](https://docs.sigstore.dev/cosign/installation/)）
 - `curl`（通常由你的操作系统提供）
-- `jq`（[下载 jq](https://stedlan.github.io/jq/download/)）
+- `jq`（[下载 jq](https://jqlang.github.io/jq/download/)）
 
 
 <!-- 
@@ -77,16 +77,16 @@ cosign verify-blob "$BINARY" \
 <!-- 
 Cosign 2.0 requires the `--certificate-identity` and `--certificate-oidc-issuer` options.
 
-To learn more about keyless signing, please refer to [Keyless Signatures](https://docs.sigstore.dev/cosign/keyless).
+To learn more about keyless signing, please refer to [Keyless Signatures](https://docs.sigstore.dev/signing/overview/).
 
 Previous versions of Cosign required that you set `COSIGN_EXPERIMENTAL=1`.
 
-For additional information, plase refer to the [sigstore Blog](https://blog.sigstore.dev/cosign-2-0-released/)
+For additional information, please refer to the [sigstore Blog](https://blog.sigstore.dev/cosign-2-0-released/)
 -->
 Cosign 2.0 需要指定 `--certificate-identity` 和 `--certificate-oidc-issuer` 选项。
 
 想要进一步了解无密钥签名，请参考
-[Keyless Signatures](https://github.com/sigstore/cosign/blob/main/KEYLESS.md#keyless-signatures)。
+[Keyless Signatures](https://docs.sigstore.dev/signing/overview/)。
 
 Cosign 的早期版本还需要设置 `COSIGN_EXPERIMENTAL=1`。
 
@@ -182,3 +182,49 @@ Here are some helpful resources to get started with `policy-controller`:
 
 - [安装](https://github.com/sigstore/helm-charts/tree/main/charts/policy-controller)
 - [配置选项](https://github.com/sigstore/policy-controller/tree/main/config)
+
+<!--
+## Verify the Software Bill Of Materials
+
+You can verify the Kubernetes Software Bill of Materials (SBOM) by using the
+sigstore certificate and signature, or the corresponding SHA files:
+-->
+## 验证软件物料清单   {#verify-the-software-bill-of-materials}
+
+你可以使用 sigstore 证书和签名或相应的 SHA 文件来验证 Kubernetes 软件物料清单（SBOM）：
+
+<!--
+# Retrieve the latest available Kubernetes release version
+
+# Verify the SHA512 sum
+
+# Verify the SHA256 sum
+
+# Retrieve sigstore signature and certificate
+
+# Verify the sigstore signature
+-->
+
+```shell
+# 检索最新可用的 Kubernetes 发行版本
+VERSION=$(curl -Ls https://dl.k8s.io/release/stable.txt)
+
+# 验证 SHA512 sum
+curl -Ls "https://sbom.k8s.io/$VERSION/release" -o "$VERSION.spdx"
+echo "$(curl -Ls "https://sbom.k8s.io/$VERSION/release.sha512") $VERSION.spdx" | sha512sum --check
+
+# 验证 SHA256 sum
+echo "$(curl -Ls "https://sbom.k8s.io/$VERSION/release.sha256") $VERSION.spdx" | sha256sum --check
+
+# 检索 sigstore 签名和证书
+curl -Ls "https://sbom.k8s.io/$VERSION/release.sig" -o "$VERSION.spdx.sig"
+curl -Ls "https://sbom.k8s.io/$VERSION/release.cert" -o "$VERSION.spdx.cert"
+
+# 验证 sigstore 签名
+cosign verify-blob \
+    --certificate "$VERSION.spdx.cert" \
+    --signature "$VERSION.spdx.sig" \
+    --certificate-identity krel-staging@k8s-releng-prod.iam.gserviceaccount.com \
+    --certificate-oidc-issuer https://accounts.google.com \
+    "$VERSION.spdx"
+```

@@ -164,7 +164,7 @@ announcements:
   message: |
     4 days of incredible opportunities to collaborate, learn + share with the entire community!<br />
     April 18 - April 21, 2023.
-    
+
 - name: Redirecting k8s.gcr.io - After
   startTime: 2023-03-27T00:00:00 # This should run after the redirect begins
   endTime: 2023-05-31T00:00:00
@@ -174,3 +174,61 @@ announcements:
     k8s.gcr.io image registry is gradually being redirected to registry.k8s.io (since Monday March 20th).<br>
     All images available in k8s.gcr.io are available at registry.k8s.io.</br>
     Please read our [announcement](/blog/2023/03/10/image-registry-redirect/) for more details.
+
+- name: Freezing the legacy package repositories - Before
+  startTime: 2023-09-01T00:00:00
+  endTime: 2023-09-13T19:59:59
+  style: "background: #d95e00"
+  title: Changes to the location of Linux packages for Kubernetes
+  message: |
+    The legacy Linux package repositories (`apt.kubernetes.io` and `yum.kubernetes.io`)<br/>
+    have been deprecated and will be frozen starting from September 13, 2023.<br/>
+    Please read our [announcement](/blog/2023/08/31/legacy-package-repository-deprecation/) for more details.
+
+- name: Freezing the legacy package repositories - After
+  startTime: 2023-09-13T20:00:00
+  endTime: 2023-10-01T00:00:00
+  style: "background: #d95e00"
+  title: Changes to the location of Linux packages for Kubernetes
+  message: |
+    The legacy Linux package repositories (`apt.kubernetes.io` and `yum.kubernetes.io`)<br/>
+    have been frozen starting from September 13, 2023.<br/>
+    Please read our [announcement](/blog/2023/08/31/legacy-package-repository-deprecation/) for more details.
+
+- name: Kubecon 2023 NA
+  startTime: 2023-10-20T00:00:00  #Added in https://github.com/kubernetes/website/pull/43565
+  endTime: 2023-11-09T18:00:00
+  style: >-
+    background: linear-gradient(90deg, rgba(55,38,93,1) 0%, rgba(85,53,125,1) 65%, rgba(33,70,139,1) 100%);
+    color: #fffff;
+  title: |
+    <img src ="/images/announcements/kccnc-na-2023-white.svg" style="float: right; height: 80px;" />
+    <a href= "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/">KubeCon + CloudNativeCon NA 2023</a> <em> Chicago, Illinois + Virtual</em>.
+  message: |
+    4 days of incredible opportunities to collaborate, learn + share with the entire community!<br />
+    November 6 - November 9, 2023.
+
+- name: Legacy package repositories shutdown
+  startTime: 2023-11-27T00:00:00
+  endTime: 2024-02-01T00:00:00
+  style: "background: #d95e00"
+  title: Changes to the location of Linux packages for Kubernetes
+  message: |
+    The legacy Linux package repositories (`apt.kubernetes.io` and `yum.kubernetes.io` AKA `packages.cloud.google.com`)<br/>
+    have been frozen starting from September 13, 2023 **and are going away in January 2024**, users *must* migrate.<br/>
+    Please read our [announcement](/blog/2023/08/31/legacy-package-repository-deprecation/) for more details.
+
+- name: KubeCon 2024 EU
+  startTime: 2024-02-16T00:00:00  #Added in https://github.com/kubernetes/website/pull/44828
+  endTime: 2024-03-22T18:00:00
+  style: >-
+    background: linear-gradient(90deg, rgba(67,53,105,1) 0%, rgba(89,187,234,1) 100%);
+    color: #fffff;
+  title: |
+    <img src ="/images/announcements/kccnc-eu-2024-white.svg" style="float: right; height: 80px;" />
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/">KubeCon + CloudNativeCon Europe 2024</a>
+  message: |
+    Join us for four days of incredible opportunities to collaborate, learn and share with the cloud native community.<br/> 
+    <a href= "https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/register/?utm_source=kubernetes&utm_medium=all&utm_campaign=kubeconeu24&utm_content=slim-banner">
+    Buy your ticket now! 19 - 22 March | Paris, France
+    </a> 

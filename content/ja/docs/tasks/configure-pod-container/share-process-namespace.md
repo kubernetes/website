@@ -30,7 +30,7 @@ weight: 200
 プロセス名前空間の共有は、`v1.PodSpec`の`shareProcessNamespace`フィールドを使用して有効にします。
 例:
 
-{{< codenew file="pods/share-process-namespace.yaml" >}}
+{{% codenew file="pods/share-process-namespace.yaml" %}}
 
 1. クラスターにPod `nginx`を作成します:
 

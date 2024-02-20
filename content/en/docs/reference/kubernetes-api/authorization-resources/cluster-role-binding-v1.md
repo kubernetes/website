@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ClusterRoleBinding references a ClusterRole, but not contain it."
 title: "ClusterRoleBinding"
-weight: 7
+weight: 6
 auto_generated: true
 ---
 
@@ -44,7 +44,7 @@ ClusterRoleBinding references a ClusterRole, but not contain it.  It can referen
 
 - **roleRef** (RoleRef), required
 
-  RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+  RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
 
   <a name="RoleRef"></a>
   *RoleRef contains information that points to the role being used*

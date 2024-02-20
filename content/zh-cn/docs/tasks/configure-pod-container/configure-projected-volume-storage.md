@@ -52,7 +52,7 @@ Here is the configuration file for the Pod:
 
 下面是 Pod 的配置文件：
 
-{{% code file="pods/storage/projected.yaml" %}}
+{{% code_sample file="pods/storage/projected.yaml" %}}
 
 1. <!--Create the Secrets:-->
    创建 Secret：

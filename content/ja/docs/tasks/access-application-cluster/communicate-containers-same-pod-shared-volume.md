@@ -28,7 +28,7 @@ weight: 120
 2つのコンテナは、通信に使用できるボリュームを共有します。
 これがPodの設定ファイルです:
 
-{{< codenew file="pods/two-container-pod.yaml" >}}
+{{% codenew file="pods/two-container-pod.yaml" %}}
 
 設定ファイルで、Podに`shared-data`という名前のボリュームがあることがわかります。
 

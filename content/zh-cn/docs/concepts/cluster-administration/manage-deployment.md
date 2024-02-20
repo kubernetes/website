@@ -16,15 +16,9 @@ weight: 40
 <!--
 You've deployed your application and exposed it via a service. Now what? Kubernetes provides a
 number of tools to help you manage your application deployment, including scaling and updating.
-Among the features that we will discuss in more depth are
-[configuration files](/docs/concepts/configuration/overview/) and
-[labels](/docs/concepts/overview/working-with-objects/labels/).
 -->
 你已经部署了应用并通过服务暴露它。然后呢？
 Kubernetes 提供了一些工具来帮助管理你的应用部署，包括扩缩容和更新。
-我们将更深入讨论的特性包括
-[配置文件](/zh-cn/docs/concepts/configuration/overview/)和
-[标签](/zh-cn/docs/concepts/overview/working-with-objects/labels/)。
 
 <!-- body -->
 
@@ -262,99 +256,19 @@ If you're interested in learning more about `kubectl`, go ahead and read
 如果你有兴趣进一步学习关于 `kubectl` 的内容，请阅读[命令行工具（kubectl）](/zh-cn/docs/reference/kubectl/)。
 
 <!--
-## Using labels effectively
-
-The examples we've used so far apply at most a single label to any resource. There are many
-scenarios where multiple labels should be used to distinguish sets from one another.
--->
-## 有效地使用标签  {#using-labels-effectively}
-
-到目前为止我们使用的示例中的资源最多使用了一个标签。
-在许多情况下，应使用多个标签来区分集合。
-
-<!--
-For instance, different applications would use different values for the `app` label, but a
-multi-tier application, such as the [guestbook example](https://github.com/kubernetes/examples/tree/master/guestbook/),
-would additionally need to distinguish each tier. The frontend could carry the following labels:
--->
-例如，不同的应用可能会为 `app` 标签设置不同的值。
-但是，类似 [guestbook 示例](https://github.com/kubernetes/examples/tree/master/guestbook/)
-这样的多层应用，还需要区分每一层。前端可以带以下标签：
-
-```yaml
-     labels:
-        app: guestbook
-        tier: frontend
-```
-
-<!--
-while the Redis master and slave would have different `tier` labels, and perhaps even an
-additional `role` label:
--->
-Redis 的主节点和从节点会有不同的 `tier` 标签，甚至还有一个额外的 `role` 标签：
-
-```yaml
-     labels:
-        app: guestbook
-        tier: backend
-        role: master
-```
-
-<!--
-and
--->
-以及
-
-```yaml
-     labels:
-        app: guestbook
-        tier: backend
-        role: slave
-```
-
-<!--
-The labels allow us to slice and dice our resources along any dimension specified by a label:
--->
-标签允许我们按照标签指定的任何维度对我们的资源进行切片和切块：
-
-```shell
-kubectl apply -f examples/guestbook/all-in-one/guestbook-all-in-one.yaml
-kubectl get pods -Lapp -Ltier -Lrole
-```
-
-```none
-NAME                           READY     STATUS    RESTARTS   AGE       APP         TIER       ROLE
-guestbook-fe-4nlpb             1/1       Running   0          1m        guestbook   frontend   <none>
-guestbook-fe-ght6d             1/1       Running   0          1m        guestbook   frontend   <none>
-guestbook-fe-jpy62             1/1       Running   0          1m        guestbook   frontend   <none>
-guestbook-redis-master-5pg3b   1/1       Running   0          1m        guestbook   backend    master
-guestbook-redis-slave-2q2yf    1/1       Running   0          1m        guestbook   backend    slave
-guestbook-redis-slave-qgazl    1/1       Running   0          1m        guestbook   backend    slave
-my-nginx-divi2                 1/1       Running   0          29m       nginx       <none>     <none>
-my-nginx-o0ef1                 1/1       Running   0          29m       nginx       <none>     <none>
-```
-
-```shell
-kubectl get pods -lapp=guestbook,role=slave
-```
-
-```none
-NAME                          READY     STATUS    RESTARTS   AGE
-guestbook-redis-slave-2q2yf   1/1       Running   0          3m
-guestbook-redis-slave-qgazl   1/1       Running   0          3m
-```
-
-<!--
 ## Canary deployments
+-->
+## 金丝雀部署（Canary Deployments）   {#canary-deployments}
 
+<!--TODO: make a task out of this for canary deployment, ref #42786-->
+
+<!--
 Another scenario where multiple labels are needed is to distinguish deployments of different
 releases or configurations of the same component. It is common practice to deploy a *canary* of a
 new application release (specified via image tag in the pod template) side by side with the
 previous release so that the new release can receive live production traffic before fully rolling
 it out.
 -->
-## 金丝雀部署（Canary Deployments）   {#canary-deployments}
-
 另一个需要多标签的场景是用来区分同一组件的不同版本或者不同配置的多个部署。
 常见的做法是部署一个使用*金丝雀发布*来部署新应用版本
 （在 Pod 模板中通过镜像标签指定），保持新旧版本应用同时运行。
@@ -431,61 +345,6 @@ For a more concrete example, check the
 -->
 想要了解更具体的示例，请查看
 [Ghost 部署教程](https://github.com/kelseyhightower/talks/tree/master/kubecon-eu-2016/demo#deploy-a-canary)。
-
-<!--
-## Updating labels
-
-Sometimes existing pods and other resources need to be relabeled before creating new resources.
-This can be done with `kubectl label`.
-For example, if you want to label all your nginx pods as frontend tier, run:
--->
-## 更新标签  {#updating-labels}
-
-有时，现有的 pod 和其它资源需要在创建新资源之前重新标记。
-这可以用 `kubectl label` 完成。
-例如，如果想要将所有 nginx pod 标记为前端层，运行：
-
-```shell
-kubectl label pods -l app=nginx tier=fe
-```
-
-```none
-pod/my-nginx-2035384211-j5fhi labeled
-pod/my-nginx-2035384211-u2c7e labeled
-pod/my-nginx-2035384211-u3t6x labeled
-```
-
-<!--
-This first filters all pods with the label "app=nginx", and then labels them with the "tier=fe".
-To see the pods you labeled, run:
--->
-首先用标签 "app=nginx" 过滤所有的 Pod，然后用 "tier=fe" 标记它们。
-想要查看你刚才标记的 Pod，请运行：
-
-```shell
-kubectl get pods -l app=nginx -L tier
-```
-
-```none
-NAME                        READY     STATUS    RESTARTS   AGE       TIER
-my-nginx-2035384211-j5fhi   1/1       Running   0          23m       fe
-my-nginx-2035384211-u2c7e   1/1       Running   0          23m       fe
-my-nginx-2035384211-u3t6x   1/1       Running   0          23m       fe
-```
-
-<!--
-This outputs all "app=nginx" pods, with an additional label column of pods' tier (specified with
-`-L` or `--label-columns`).
-
-For more information, please see [labels](/docs/concepts/overview/working-with-objects/labels/)
-and [kubectl label](/docs/reference/generated/kubectl/kubectl-commands/#label).
--->
-这将输出所有 "app=nginx" 的 Pod，并有一个额外的描述 Pod 的 tier 的标签列
-（用参数 `-L` 或者 `--label-columns` 标明）。
-
-想要了解更多信息，请参考[标签](/zh-cn/docs/concepts/overview/working-with-objects/labels/)和
-[`kubectl label`](/docs/reference/generated/kubectl/kubectl-commands/#label)
-命令文档。
 
 <!--
 ## Updating annotations

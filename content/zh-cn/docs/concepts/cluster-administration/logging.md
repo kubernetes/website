@@ -69,7 +69,7 @@ Kubernetes 从正在运行的 Pod 中捕捉每个容器的日志。
 
 此示例使用带有一个容器的 `Pod` 的清单，该容器每秒将文本写入标准输出一次。
 
-{{% code file="debug/counter-pod.yaml" %}}
+{{% code_sample file="debug/counter-pod.yaml" %}}
 
 <!--
 To run this pod, use the following command:
@@ -463,7 +463,7 @@ manifest for the Pod:
 例如，某 Pod 中运行一个容器，且该容器使用两个不同的格式写入到两个不同的日志文件。
 下面是这个 Pod 的清单：
 
-{{% code file="admin/logging/two-files-counter-pod.yaml" %}}
+{{% code_sample file="admin/logging/two-files-counter-pod.yaml" %}}
 
 <!--
 It is not recommended to write log entries with different formats to the same log
@@ -481,7 +481,7 @@ Here's a manifest for a pod that has two sidecar containers:
 -->
 下面是运行两个边车容器的 Pod 的清单：
 
-{{% code file="admin/logging/two-files-counter-pod-streaming-sidecar.yaml" %}}
+{{% code_sample file="admin/logging/two-files-counter-pod-streaming-sidecar.yaml" %}}
 
 <!--
 Now when you run this pod, you can access each log stream separately by
@@ -619,7 +619,7 @@ to configure fluentd.
 第一个文件包含用来配置 fluentd 的
 [ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)。
 
-{{% code file="admin/logging/fluentd-sidecar-config.yaml" %}}
+{{% code_sample file="admin/logging/fluentd-sidecar-config.yaml" %}}
 
 {{< note >}}
 <!--
@@ -636,7 +636,7 @@ The pod mounts a volume where fluentd can pick up its configuration data.
 第二个清单描述了一个运行 fluentd 边车容器的 Pod。
 该 Pod 挂载一个卷，flutend 可以从这个卷上拣选其配置数据。
 
-{{% code file="admin/logging/two-files-counter-pod-agent-sidecar.yaml" %}}
+{{% code_sample file="admin/logging/two-files-counter-pod-agent-sidecar.yaml" %}}
 
 <!--
 ### Exposing logs directly from the application

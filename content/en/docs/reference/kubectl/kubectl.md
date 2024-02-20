@@ -369,6 +369,14 @@ kubectl [flags]
 </td>
 </tr>
 
+<tr>
+<td colspan="2">KUBECTL_REMOTE_COMMAND_WEBSOCKETS</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">When set to true, the kubectl exec, cp, and attach commands will attempt to stream using the websockets protocol. If the upgrade to websockets fails, the commands will fallback to use the current SPDY protocol.
+</td>
+</tr>
+
 </tbody>
 </table>
 

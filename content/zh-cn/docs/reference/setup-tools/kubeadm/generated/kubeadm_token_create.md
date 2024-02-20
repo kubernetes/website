@@ -1,23 +1,11 @@
 <!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
-<!--
 Create bootstrap tokens on the server
 -->
-在服务器上创建引导令牌
+在服务器上创建引导令牌。
 
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
@@ -28,7 +16,6 @@ The [token] is the actual token to write.
 This should be a securely generated random token of the form "[a-z0-9]{6}.[a-z0-9]{16}".
 If no [token] is given, kubeadm will generate a random token instead.
 -->
-
 这个命令将为你创建一个引导令牌。
 你可以设置此令牌的用途，"有效时间" 和可选的人性化的描述。
 
@@ -43,7 +30,6 @@ kubeadm token create [token]
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -110,7 +96,7 @@ A human friendly description of how this token is used.
 Extra groups that this token will authenticate as when used for authentication. Must match "\\Asystem:bootstrappers:[a-z0-9:-]{0,255}[a-z0-9]\\z"
 -->
 <p>
-此令牌用于身份验证时将进行身份验证的其他组。必须匹配  "\\Asystem:bootstrappers:[a-z0-9:-]{0,255}[a-z0-9]\\z"
+此令牌用于身份验证时将对其他组进行身份验证。必须匹配 "\\Asystem:bootstrappers:[a-z0-9:-]{0,255}[a-z0-9]\\z"
 </p>
 </td>
 </tr>
@@ -124,7 +110,7 @@ Extra groups that this token will authenticate as when used for authentication. 
 help for create
 -->
 <p>
-create 操作的帮助命令
+create 操作的帮助命令。
 </p>
 </td>
 </tr>
@@ -157,7 +143,7 @@ Instead of printing only the token, print the full 'kubeadm join' flag needed to
 The duration before the token is automatically deleted (e.g. 1s, 2m, 3h). If set to '0', the token will never expire
 -->
 <p>
-令牌有效时间，超过该时间令牌被自动删除。(例如： 1s, 2m, 3h)。如果设置为 '0'，令牌将永远不过期。
+令牌有效时间，超过该时间令牌被自动删除。(例如：1s, 2m, 3h)。如果设置为 '0'，令牌将永远不过期。
 </p>
 </td>
 </tr>
@@ -205,7 +191,7 @@ Describes the ways in which this token can be used. You can pass --usages multip
 Whether to enable dry-run mode or not
 -->
 <p>
-是否启用 `dry-run` 运行模式
+是否启用 `dry-run` 运行模式。
 </p>
 </td>
 </tr>
@@ -224,7 +210,7 @@ Whether to enable dry-run mode or not
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
 <p>
-用于和集群通信的 KubeConfig 文件。如果它没有被设置，那么 kubeadm 将会搜索一个已经存在于标准路径的 KubeConfig 文件。
+用于和集群通信的 kubeconfig 文件。如果它没有被设置，那么 kubeadm 将会搜索一个已经存在于标准路径的 kubeconfig 文件。
 </p>
 </td>
 </tr>
@@ -245,4 +231,3 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 
 </tbody>
 </table>
-
