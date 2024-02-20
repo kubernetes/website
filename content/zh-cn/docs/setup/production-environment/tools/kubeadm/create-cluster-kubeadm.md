@@ -620,9 +620,15 @@ See a list of add-ons that implement the
 [Kubernetes 网络模型](/zh-cn/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-network-model)的附加组件列表。
 
 <!--
+Please refer to the [Installing Addons](/docs/concepts/cluster-administration/addons/#networking-and-network-policy)
+page for a non-exhaustive list of networking addons supported by Kubernetes. 
+
 You can install a Pod network add-on with the following command on the
 control-plane node or a node that has the kubeconfig credentials:
 -->
+请参阅[安装插件](/zh-cn/docs/concepts/cluster-administration/addons/#networking-and-network-policy)页面，
+了解 Kubernetes 支持的网络插件的非详尽列表。
+
 你可以使用以下命令在控制平面节点或具有 kubeconfig 凭据的节点上安装 Pod 网络附加组件：
 
 ```bash
@@ -706,6 +712,19 @@ scheduler will then be able to schedule Pods everywhere.
 这将从任何拥有 `node-role.kubernetes.io/control-plane:NoSchedule`
 污点的节点（包括控制平面节点）上移除该污点。
 这意味着调度程序将能够在任何地方调度 Pod。
+
+<!--
+Additionally, you can execute the following command to remove the
+[`node.kubernetes.io/exclude-from-external-load-balancers`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-exclude-from-external-load-balancers) label
+from the control plane node, which excludes it from the list of backend servers:
+-->
+此外，你可以执行以下命令从控制平面节点中删除
+[`node.kubernetes.io/exclude-from-external-load-balancers`](/zh-cn/docs/reference/labels-annotations-taints/#node-kubernetes-io-exclude-from-external-load-balancers)
+标签，这会将其从后端服务器列表中排除：
+
+```bash
+kubectl label nodes --all node.kubernetes.io/exclude-from-external-load-balancers-
+```
 
 <!--
 ### Joining your nodes {#join-nodes}
@@ -1006,64 +1025,6 @@ options.
 有关此子命令及其选项的更多信息，请参见
 [`kubeadm reset`](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-reset/) 参考文档。
 
-<!-- discussion -->
-
-<!--
-## What's next {#whats-next}
--->
-## 下一步 {#whats-next}
-
-<!--
-* Verify that your cluster is running properly with [Sonobuoy](https://github.com/heptio/sonobuoy)
-* <a id="lifecycle" />See [Upgrading kubeadm clusters](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
-  for details about upgrading your cluster using `kubeadm`.
-* Learn about advanced `kubeadm` usage in the [kubeadm reference documentation](/docs/reference/setup-tools/kubeadm/)
-* Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/reference/kubectl/).
-* See the [Cluster Networking](/docs/concepts/cluster-administration/networking/) page for a bigger list
-  of Pod network add-ons.
-* <a id="other-addons" />See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to
-  explore other add-ons, including tools for logging, monitoring, network policy, visualization &amp;
-  control of your Kubernetes cluster.
-* Configure how your cluster handles logs for cluster events and from
-  applications running in Pods.
-  See [Logging Architecture](/docs/concepts/cluster-administration/logging/) for
-  an overview of what is involved.
--->
-* 使用 [Sonobuoy](https://github.com/heptio/sonobuoy) 验证集群是否正常运行。
-* <a id="lifecycle"/>有关使用 kubeadm 升级集群的详细信息，
-  请参阅[升级 kubeadm 集群](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)。
-* 在 [kubeadm 参考文档](/zh-cn/docs/reference/setup-tools/kubeadm/)中了解有关 `kubeadm` 进阶用法的信息。
-* 了解有关 Kubernetes [概念](/zh-cn/docs/concepts/)和 [`kubectl`](/zh-cn/docs/reference/kubectl/)的更多信息。
-* 有关 Pod 网络附加组件的更多列表，请参见[集群网络](/zh-cn/docs/concepts/cluster-administration/networking/)页面。
-* <a id="other-addons" />请参阅[附加组件列表](/zh-cn/docs/concepts/cluster-administration/addons/)以探索其他附加组件，
-  包括用于 Kubernetes 集群的日志记录、监视、网络策略、可视化和控制的工具。
-* 配置集群如何处理集群事件的日志以及在 Pod 中运行的应用程序。
-  有关所涉及内容的概述，请参见[日志架构](/zh-cn/docs/concepts/cluster-administration/logging/)。
-
-<!--
-### Feedback {#feedback}
--->
-### 反馈 {#feedback}
-
-<!--
-* For bugs, visit the [kubeadm GitHub issue tracker](https://github.com/kubernetes/kubeadm/issues)
-* For support, visit the
-  [#kubeadm](https://kubernetes.slack.com/messages/kubeadm/) Slack channel
-* General SIG Cluster Lifecycle development Slack channel:
-  [#sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle/)
-* SIG Cluster Lifecycle [SIG information](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle#readme)
-* SIG Cluster Lifecycle mailing list:
-  [kubernetes-sig-cluster-lifecycle](https://groups.google.com/forum/#!forum/kubernetes-sig-cluster-lifecycle)
--->
-* 有关漏洞，访问 [kubeadm GitHub issue tracker](https://github.com/kubernetes/kubeadm/issues)
-* 有关支持，访问
-  [#kubeadm](https://kubernetes.slack.com/messages/kubeadm/) Slack 频道
-* 常规的 SIG Cluster Lifecycle 开发 Slack 频道：
-  [#sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle/)
-* SIG Cluster Lifecycle 的 [SIG 资料](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle#readme)
-* SIG Cluster Lifecycle 邮件列表：
-  [kubernetes-sig-cluster-lifecycle](https://groups.google.com/forum/#!forum/kubernetes-sig-cluster-lifecycle)
-
 <!--
 ## Version skew policy {#version-skew-policy}
 -->
@@ -1260,3 +1221,61 @@ If you are running into difficulties with kubeadm, please consult our
 -->
 如果你在使用 kubeadm 时遇到困难，
 请查阅我们的[故障排除文档](/zh-cn/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)。
+
+<!-- discussion -->
+
+<!--
+## What's next {#whats-next}
+-->
+## 下一步 {#whats-next}
+
+<!--
+* Verify that your cluster is running properly with [Sonobuoy](https://github.com/heptio/sonobuoy)
+* <a id="lifecycle" />See [Upgrading kubeadm clusters](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
+  for details about upgrading your cluster using `kubeadm`.
+* Learn about advanced `kubeadm` usage in the [kubeadm reference documentation](/docs/reference/setup-tools/kubeadm/)
+* Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/reference/kubectl/).
+* See the [Cluster Networking](/docs/concepts/cluster-administration/networking/) page for a bigger list
+  of Pod network add-ons.
+* <a id="other-addons" />See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to
+  explore other add-ons, including tools for logging, monitoring, network policy, visualization &amp;
+  control of your Kubernetes cluster.
+* Configure how your cluster handles logs for cluster events and from
+  applications running in Pods.
+  See [Logging Architecture](/docs/concepts/cluster-administration/logging/) for
+  an overview of what is involved.
+-->
+* 使用 [Sonobuoy](https://github.com/heptio/sonobuoy) 验证集群是否正常运行。
+* <a id="lifecycle"/>有关使用 kubeadm 升级集群的详细信息，
+  请参阅[升级 kubeadm 集群](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)。
+* 在 [kubeadm 参考文档](/zh-cn/docs/reference/setup-tools/kubeadm/)中了解有关 `kubeadm` 进阶用法的信息。
+* 了解有关 Kubernetes [概念](/zh-cn/docs/concepts/)和 [`kubectl`](/zh-cn/docs/reference/kubectl/)的更多信息。
+* 有关 Pod 网络附加组件的更多列表，请参见[集群网络](/zh-cn/docs/concepts/cluster-administration/networking/)页面。
+* <a id="other-addons" />请参阅[附加组件列表](/zh-cn/docs/concepts/cluster-administration/addons/)以探索其他附加组件，
+  包括用于 Kubernetes 集群的日志记录、监视、网络策略、可视化和控制的工具。
+* 配置集群如何处理集群事件的日志以及在 Pod 中运行的应用程序。
+  有关所涉及内容的概述，请参见[日志架构](/zh-cn/docs/concepts/cluster-administration/logging/)。
+
+<!--
+### Feedback {#feedback}
+-->
+### 反馈 {#feedback}
+
+<!--
+* For bugs, visit the [kubeadm GitHub issue tracker](https://github.com/kubernetes/kubeadm/issues)
+* For support, visit the
+  [#kubeadm](https://kubernetes.slack.com/messages/kubeadm/) Slack channel
+* General SIG Cluster Lifecycle development Slack channel:
+  [#sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle/)
+* SIG Cluster Lifecycle [SIG information](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle#readme)
+* SIG Cluster Lifecycle mailing list:
+  [kubernetes-sig-cluster-lifecycle](https://groups.google.com/forum/#!forum/kubernetes-sig-cluster-lifecycle)
+-->
+* 有关漏洞，访问 [kubeadm GitHub issue tracker](https://github.com/kubernetes/kubeadm/issues)
+* 有关支持，访问
+  [#kubeadm](https://kubernetes.slack.com/messages/kubeadm/) Slack 频道
+* 常规的 SIG Cluster Lifecycle 开发 Slack 频道：
+  [#sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle/)
+* SIG Cluster Lifecycle 的 [SIG 资料](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle#readme)
+* SIG Cluster Lifecycle 邮件列表：
+  [kubernetes-sig-cluster-lifecycle](https://groups.google.com/forum/#!forum/kubernetes-sig-cluster-lifecycle)

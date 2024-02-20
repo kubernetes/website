@@ -43,7 +43,7 @@ The upgrade workflow at high level is the following:
   they could be running CoreDNS Pods or other critical workloads. For more information see
   [Draining nodes](/docs/tasks/administer-cluster/safely-drain-node/).
 - The Kubernetes project recommends that you match your kubelet and kubeadm versions.
-  You can instead use an a version of kubelet that is older than kubeadm, provided it is within the
+  You can instead use a version of kubelet that is older than kubeadm, provided it is within the
   range of supported versions.
   For more details, please visit [kubeadm's skew against the kubelet](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#kubeadm-s-skew-against-the-kubelet).
 - All containers are restarted after upgrade, because the container spec hash value is changed.
@@ -75,8 +75,8 @@ Find the latest patch release for Kubernetes {{< skew currentVersion >}} using t
 ```shell
 # Find the latest {{< skew currentVersion >}} version in the list.
 # It should look like {{< skew currentVersion >}}.x-*, where x is the latest patch.
-apt update
-apt-cache madison kubeadm
+sudo apt update
+sudo apt-cache madison kubeadm
 ```
 
 {{% /tab %}}
@@ -85,7 +85,7 @@ apt-cache madison kubeadm
 ```shell
 # Find the latest {{< skew currentVersion >}} version in the list.
 # It should look like {{< skew currentVersion >}}.x-*, where x is the latest patch.
-yum list --showduplicates kubeadm --disableexcludes=kubernetes
+sudo yum list --showduplicates kubeadm --disableexcludes=kubernetes
 ```
 
 {{% /tab %}}
@@ -107,9 +107,9 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
 
    ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-   apt-mark unhold kubeadm && \
-   apt-get update && apt-get install -y kubeadm='{{< skew currentVersion >}}.x-*' && \
-   apt-mark hold kubeadm
+   sudo apt-mark unhold kubeadm && \
+   sudo apt-get update && sudo apt-get install -y kubeadm='{{< skew currentVersion >}}.x-*' && \
+   sudo apt-mark hold kubeadm
    ```
 
    {{% /tab %}}
@@ -117,7 +117,7 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
 
    ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-   yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
+   sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
    ```
 
    {{% /tab %}}
@@ -132,7 +132,7 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
 1. Verify the upgrade plan:
 
    ```shell
-   kubeadm upgrade plan
+   sudo kubeadm upgrade plan
    ```
 
    This command checks that your cluster can be upgraded, and fetches the versions you can upgrade to.
@@ -221,9 +221,9 @@ kubectl drain <node-to-drain> --ignore-daemonsets
 
    ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-   apt-mark unhold kubelet kubectl && \
-   apt-get update && apt-get install -y kubelet='{{< skew currentVersion >}}.x-*' kubectl='{{< skew currentVersion >}}.x-*' && \
-   apt-mark hold kubelet kubectl
+   sudo apt-mark unhold kubelet kubectl && \
+   sudo apt-get update && sudo apt-get install -y kubelet='{{< skew currentVersion >}}.x-*' kubectl='{{< skew currentVersion >}}.x-*' && \
+   sudo apt-mark hold kubelet kubectl
    ```
 
    {{% /tab %}}
@@ -231,7 +231,7 @@ kubectl drain <node-to-drain> --ignore-daemonsets
 
    ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-   yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
+   sudo yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
    ```
 
    {{% /tab %}}
@@ -279,7 +279,7 @@ The `STATUS` column should show `Ready` for all your nodes, and the version numb
 If `kubeadm upgrade` fails and does not roll back, for example because of an unexpected shutdown during execution, you can run `kubeadm upgrade` again.
 This command is idempotent and eventually makes sure that the actual state is the desired state you declare.
 
-To recover from a bad state, you can also run `kubeadm upgrade apply --force` without changing the version that your cluster is running.
+To recover from a bad state, you can also run `sudo kubeadm upgrade apply --force` without changing the version that your cluster is running.
 
 During upgrade kubeadm writes the following backup folders under `/etc/kubernetes/tmp`:
 
