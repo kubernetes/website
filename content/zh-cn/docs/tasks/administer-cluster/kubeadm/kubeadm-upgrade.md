@@ -82,7 +82,7 @@ The upgrade workflow at high level is the following:
   they could be running CoreDNS Pods or other critical workloads. For more information see
   [Draining nodes](/docs/tasks/administer-cluster/safely-drain-node/).
 - The Kubernetes project recommends that you match your kubelet and kubeadm versions.
-  You can instead use an a version of kubelet that is older than kubeadm, provided it is within the
+  You can instead use a version of kubelet that is older than kubeadm, provided it is within the
   range of supported versions.
   For more details, please visit [kubeadm's skew against the kubelet](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#kubeadm-s-skew-against-the-kubelet).
 - All containers are restarted after upgrade, because the container spec hash value is changed.
@@ -139,28 +139,37 @@ Find the latest patch release for Kubernetes {{< skew currentVersion >}} using t
 使用操作系统的包管理器找到最新的补丁版本 Kubernetes {{< skew currentVersion >}}：
 
 {{< tabs name="k8s_install_versions" >}}
-{{% tab name="Ubuntu, Debian or HypriotOS" %}}
+{{% tab name="Ubuntu、Debian 或 HypriotOS" %}}
+
 <!--
+```shell
 # Find the latest {{< skew currentVersion >}} version in the list.
 # It should look like {{< skew currentVersion >}}.x-*, where x is the latest patch.
+sudo apt update
+sudo apt-cache madison kubeadm
+```
 -->
 ```shell
 # 在列表中查找最新的 {{< skew currentVersion >}} 版本
 # 它看起来应该是 {{< skew currentVersion >}}.x-*，其中 x 是最新的补丁版本
-apt update
-apt-cache madison kubeadm
+sudo apt update
+sudo apt-cache madison kubeadm
 ```
 
 {{% /tab %}}
-{{% tab name="CentOS, RHEL or Fedora" %}}
+{{% tab name="CentOS、RHEL 或 Fedora" %}}
+
 <!--
+```shell
 # Find the latest {{< skew currentVersion >}} version in the list.
 # It should look like {{< skew currentVersion >}}.x-*, where x is the latest patch.
+sudo yum list --showduplicates kubeadm --disableexcludes=kubernetes
+```
 -->
 ```shell
 # 在列表中查找最新的 {{< skew currentVersion >}} 版本
 # 它看起来应该是 {{< skew currentVersion >}}.x-*，其中 x 是最新的补丁版本
-yum list --showduplicates kubeadm --disableexcludes=kubernetes
+sudo yum list --showduplicates kubeadm --disableexcludes=kubernetes
 ```
 
 {{% /tab %}}
@@ -195,27 +204,35 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
 1. 升级 kubeadm：
 
    {{< tabs name="k8s_install_kubeadm_first_cp" >}}
-   {{% tab name="Ubuntu, Debian or HypriotOS" %}}
+   {{% tab name="Ubuntu、Debian 或 HypriotOS" %}}
 
    <!--
+   ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
+   sudo apt-mark unhold kubeadm && \
+   sudo apt-get update && sudo apt-get install -y kubeadm='{{< skew currentVersion >}}.x-*' && \
+   sudo apt-mark hold kubeadm
+   ```
    -->
    ```shell
    # 用最新的补丁版本号替换 {{< skew currentVersion >}}.x-* 中的 x
-   apt-mark unhold kubeadm && \
-   apt-get update && apt-get install -y kubeadm='{{< skew currentVersion >}}.x-*' && \
-   apt-mark hold kubeadm
+   sudo apt-mark unhold kubeadm && \
+   sudo apt-get update && sudo apt-get install -y kubeadm='{{< skew currentVersion >}}.x-*' && \
+   sudo apt-mark hold kubeadm
    ```
 
    {{% /tab %}}
-   {{% tab name="CentOS, RHEL or Fedora" %}}
+   {{% tab name="CentOS、RHEL 或 Fedora" %}}
 
    <!--
+   ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
+   sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
+   ```
    -->
    ```shell
    # 用最新的补丁版本号替换 {{< skew currentVersion >}}.x-* 中的 x
-   yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
+   sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
    ```
 
    {{% /tab %}}
@@ -236,7 +253,7 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
 3. 验证升级计划：
 
    ```shell
-   kubeadm upgrade plan
+   sudo kubeadm upgrade plan
    ```
 
    <!--
@@ -402,27 +419,35 @@ kubectl drain <node-to-drain> --ignore-daemonsets
 1. 升级 kubelet 和 kubectl：
 
    {{< tabs name="k8s_install_kubelet" >}}
-   {{% tab name="Ubuntu, Debian or HypriotOS" %}}
+   {{% tab name="Ubuntu、Debian 或 HypriotOS" %}}
 
    <!--
+   ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
+   sudo apt-mark unhold kubelet kubectl && \
+   sudo apt-get update && sudo apt-get install -y kubelet='{{< skew currentVersion >}}.x-*' kubectl='{{< skew currentVersion >}}.x-*' && \
+   sudo apt-mark hold kubelet kubectl
+   ```
    -->
    ```shell
    # 用最新的补丁版本替换 {{< skew currentVersion >}}.x-* 中的 x
-   apt-mark unhold kubelet kubectl && \
-   apt-get update && apt-get install -y kubelet='{{< skew currentVersion >}}.x-*' kubectl='{{< skew currentVersion >}}.x-*' && \
-   apt-mark hold kubelet kubectl
+   sudo apt-mark unhold kubelet kubectl && \
+   sudo apt-get update && sudo apt-get install -y kubelet='{{< skew currentVersion >}}.x-*' kubectl='{{< skew currentVersion >}}.x-*' && \
+   sudo apt-mark hold kubelet kubectl
    ```
 
    {{% /tab %}}
-   {{% tab name="CentOS, RHEL or Fedora" %}}
+   {{% tab name="CentOS、RHEL 或 Fedora" %}}
 
    <!--
+   ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
+   sudo yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
+   ```
    -->
    ```shell
    # 用最新的补丁版本号替换 {{< skew currentVersion >}}.x-* 中的 x
-   yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
+   sudo yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
    ```
 
    {{% /tab %}}
@@ -517,9 +542,9 @@ This command is idempotent and eventually makes sure that the actual state is th
 此命令是幂等的，并最终确保实际状态是你声明的期望状态。
 
 <!--
-To recover from a bad state, you can also run `kubeadm upgrade apply --force` without changing the version that your cluster is running.
+To recover from a bad state, you can also run `sudo kubeadm upgrade apply --force` without changing the version that your cluster is running.
 -->
-要从故障状态恢复，你还可以运行 `kubeadm upgrade apply --force` 而无需更改集群正在运行的版本。
+要从故障状态恢复，你还可以运行 `sudo kubeadm upgrade apply --force` 而无需更改集群正在运行的版本。
 
 <!--
 During upgrade kubeadm writes the following backup folders under `/etc/kubernetes/tmp`:
