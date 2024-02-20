@@ -64,7 +64,7 @@ Figure 1 represents what you're going to achieve in this task.
 graph LR;
 
   subgraph local[Local client machine]
-  client([client])-- local <br> traffic .->  local_ssh[Local SSH <br> SOCKS5 proxy];
+  client([client])-. local <br> traffic .->  local_ssh[Local SSH <br> SOCKS5 proxy];
   end
   local_ssh[SSH <br>SOCKS5 <br> proxy]-- SSH Tunnel --\>sshd
 
@@ -86,9 +86,9 @@ graph LR;
 graph LR;
 
   subgraph local[本地客户端机器]
-  client([客户端])-- 本地 <br> 流量.->  local_ssh[本地 SSH <br> SOCKS5 代理];
+  client([客户端])-. 本地 <br> 流量.->  local_ssh[本地 SSH <br> SOCKS5 代理];
   end
-  ocal_ssh[SSH <br>SOCKS5 <br> 代理]-- SSH 隧道 -->sshd
+  local_ssh[SSH <br>SOCKS5 <br> 代理]-- SSH 隧道 -->sshd
   
   subgraph remote[远程服务器]
   sshd[SSH <br> 服务器]-- 本地流量 -->service1;
