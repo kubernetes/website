@@ -82,7 +82,7 @@ root@nginx:~# curl localhost
 
 ## {{% heading "whatsnext" %}}
 
-* [同じPod内で実行されているコンテナ間の通信](/docs/tasks/access-application-cluster/communicate-containers-same-pod-shared-volume/)についてもっと学ぶ。
-* [Initコンテナ](/docs/concepts/workloads/pods/init-containers/)についてもっと学ぶ。
-* [ボリューム](/docs/concepts/storage/volumes/)についてもっと学ぶ。
-* [Initコンテナのデバッグ](/docs/tasks/debug/debug-application/debug-init-containers/)についてもっと学ぶ。
+* [同じPod内で実行されているコンテナ間の通信](/ja/docs/tasks/access-application-cluster/communicate-containers-same-pod-shared-volume/)についてもっと学ぶ。
+* [Initコンテナ](/ja/docs/concepts/workloads/pods/init-containers/)についてもっと学ぶ。
+* [ボリューム](/ja/docs/concepts/storage/volumes/)についてもっと学ぶ。
+* [Initコンテナのデバッグ](/ja/docs/tasks/debug/debug-application/debug-init-containers/)についてもっと学ぶ。
