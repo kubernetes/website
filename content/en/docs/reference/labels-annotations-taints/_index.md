@@ -310,6 +310,9 @@ Used on: Pods
 
 This annotation allows you to specify the AppArmor security profile for a container within a
 Kubernetes pod. 
+The name of the container is the part of the annotation key after the `/` and (following Kubernetes
+conventions) is all lowercase.
+
 
 Example: `container.apparmor.security.beta.kubernetes.io/defaultProfileName: my-custom-profile`
 
