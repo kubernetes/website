@@ -12,7 +12,9 @@ weight: 30
 <!-- overview -->
 
 <!--
-This page demonstrates how can you run {{<glossary_tooltip term_id="pod" text="Pods">}} on only some {{<glossary_tooltip term_id="node" text="Nodes">}} as part of a {{<glossary_tooltip term_id="daemonset" text="DaemonSet">}}
+This page demonstrates how can you run {{<glossary_tooltip term_id="pod" text="Pods">}}
+on only some {{<glossary_tooltip term_id="node" text="Nodes">}} as part of a
+{{<glossary_tooltip term_id="daemonset" text="DaemonSet">}}
 -->
 本页演示了你如何能够仅在某些{{<glossary_tooltip term_id="node" text="节点">}}上作为
 {{<glossary_tooltip term_id="daemonset" text="DaemonSet">}}
@@ -51,7 +53,8 @@ kubectl label nodes example-node-1 example-node-2 ssd=true
 <!--
 ### Step 2: Create the manifest
 
-Let's create a {{<glossary_tooltip term_id="daemonset" text="DaemonSet">}} which will provision the daemon pods on the SSD labeled {{<glossary_tooltip term_id="node" text="nodes">}} only.
+Let's create a {{<glossary_tooltip term_id="daemonset" text="DaemonSet">}} which
+will provision the daemon pods on the SSD labeled {{<glossary_tooltip term_id="node" text="nodes">}} only.
 
 Next, use a `nodeSelector` to ensure that the DaemonSet only runs Pods on nodes
 with the `ssd` label set to `"true"`.
@@ -63,7 +66,7 @@ with the `ssd` label set to `"true"`.
 
 接下来，使用 `nodeSelector` 确保 DaemonSet 仅在 `ssd` 标签设为 `"true"` 的节点上运行 Pod。
 
-{{<codenew file="controllers/daemonset-label-selector.yaml">}}
+{{% code_sample file="controllers/daemonset-label-selector.yaml" %}}
 
 <!--
 ### Step 3: Create the DaemonSet

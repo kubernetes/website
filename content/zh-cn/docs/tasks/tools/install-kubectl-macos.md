@@ -2,10 +2,6 @@
 title: 在 macOS 系统上安装和设置 kubectl
 content_type: task
 weight: 10
-card:
-  name: tasks
-  weight: 20
-  title: 在 macOS 系统上安装 kubectl
 ---
 <!-- 
 reviewers:
@@ -13,10 +9,6 @@ reviewers:
 title: Install and Set Up kubectl on macOS
 content_type: task
 weight: 10
-card:
-  name: tasks
-  weight: 20
-  title: Install kubectl on macOS
 -->
 
 ## {{% heading "prerequisites" %}}
@@ -193,23 +185,6 @@ The following methods exist for installing kubectl on macOS:
    kubectl version --client
    ```
 
-   {{< note >}}
-   <!--
-   The above command will generate a warning:
-   -->
-   上面的命令会产生一个警告：
-
-   ```
-   WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.
-   ```
-   
-   <!--
-   You can ignore this warning. You are only checking the version of `kubectl` that you
-   have installed.
-   -->
-   你可以忽略这个警告。你只检查你所安装的 `kubectl` 的版本。
-   {{< /note >}}
-
    <!--
    Or use this for detailed view of version:
    -->
@@ -220,12 +195,12 @@ The following methods exist for installing kubectl on macOS:
    ```
 
 <!--
-1. After installing the plugin, clean up the installation files:
+1. After installing and validating kubectl, delete the checksum file:
 -->
-1. 安装插件后，清理安装文件：
+1. 安装并验证 kubectl 后，删除校验和文件：
 
    ```bash
-   rm kubectl kubectl.sha256
+   rm kubectl.sha256
    ```
 <!-- 
 ### Install with Homebrew on macOS
@@ -423,7 +398,7 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
    <!--
    Make sure `/usr/local/bin` is in your PATH environment variable.
    -->
-   确保你的 PATH 环境变量中存在 `/usr/local/bin`
+   确保你的 PATH 环境变量中存在 `/usr/local/bin`。
    {{< /note >}}
 
 <!--
@@ -468,7 +443,7 @@ Depending on how you installed `kubectl`, use one of the following methods.
 1. 找到你系统上的 `kubectl` 可执行文件：
 
    ```bash
-   where kubectl
+   which kubectl
    ```
 
 <!--

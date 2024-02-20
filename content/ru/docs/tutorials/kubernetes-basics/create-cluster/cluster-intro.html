@@ -1,15 +1,17 @@
 ---
-title: Использование Minikube для создания кластера
+title: Использование minikube для создания кластера
 weight: 10
+description: |-
+  Узнайте, что такое кластер Kubernetes.
+  Узнайте, что такое minikube.
+  Запустите Kubernetes-кластер.
 ---
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="ru">
 
 <body>
-
-    <link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
 
 <div class="layout" id="top">
 
@@ -18,11 +20,11 @@ weight: 10
         <div class="row">
 
       <div class="col-md-8">
-          <h3>Темы</h3>
+          <h3>Цели</h3>
                 <ul>
-                    <li>Узнать, что такое кластер Kubernetes.</li>
-                    <li>Узнать, что такое Minikube.</li>
-                    <li>Запуск кластера Kubernetes через онлайн-терминал.</li>
+                    <li>Узнать, что такое кластер Kubernetes</li>
+                    <li>Узнать, что такое minikube</li>
+                    <li>Запустить кластер Kubernetes</li>
                 </ul>
             </div>
 
@@ -85,17 +87,15 @@ weight: 10
             <div class="col-md-8">
                 <p>При развертывании приложений в Kubernetes вы сообщаете ведущему узлу запускать контейнеры приложений. Ведущий узел планирует выполнение контейнеров на узлах кластера. <b>Узлы взаимодействуют с ведущим узлом посредством <a href="/docs/concepts/overview/kubernetes-api/">API Kubernetes</a></b>, который предлагает ведущий узел. Кроме этого, конечные пользователи могут напрямую использовать API Kubernetes для работы с кластером.</p>
 
-                <p>Kubernetes-кластер может быть развернут на физических или виртуальных машинах. Чтобы начать работать с Kubernetes, можно использовать Minikube. Minikube — это упрощённая реализация Kubernetes, которая создает виртуальную машину на вашем локальном компьютере и разворачивает простой кластер с одним узлом. Minikube доступен для Linux, macOS и Windows. В CLI-инструменте Minikube есть основные операции для инициализации кластера, включая запуск, завершение, просмотра состояния и удаления кластера. Однако в этом уроке вы будете использовать онлайн-терминал с уже установленным Minikube.</p>
+                <p>Kubernetes-кластер может быть развернут на физических или виртуальных машинах. Чтобы начать работать с Kubernetes, можно использовать minikube. Minikube — это упрощённая реализация Kubernetes, которая создает виртуальную машину на вашем локальном компьютере и разворачивает простой кластер с одним узлом. Minikube доступен для Linux, macOS и Windows. В CLI-инструмент minikube встроены все необходимые функции для инициализации кластера и работы с ним, включая запуск, остановку, просмотр состояния и удаление кластера.</p>
+                
+                <p>Теперь, когда вы знаете больше о том, что такое Kubernetes, перейдите к руководству <a href="/ru/docs/tutorials/hello-minikube/">Привет, minikube</a> на своём компьютере.</p>
 
-                <p>Теперь, когда вы знаете, что такое Kubernetes, можно перейти к онлайн-уроку, где вы запустите ваш первый кластер!</p>
             </div>
         </div>
-        <br>
 
         <div class="row">
-            <div class="col-md-12">
-                <a class="btn btn-lg btn-success" href="/ru/docs/tutorials/kubernetes-basics/create-cluster/cluster-interactive/" role="button">Начать интерактивный урок <span class="btn__next">›</span></a>
-            </div>
+            <p>А после этого переходите к <a href="/ru/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">Использованию <tt>kubectl</tt> для развёртывания приложения</a>.</p>
         </div>
 
     </main>

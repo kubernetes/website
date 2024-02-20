@@ -63,7 +63,7 @@ weight: 160
 
 以下に示すマニフェストには、`requiredDuringSchedulingIgnoredDuringExecution`に`disktype: ssd`というnode affinityを使用したPodが書かれています。このように書くと、Podは`disktype=ssd`というラベルを持つノードにだけスケジューリングされるようになります。
 
-{{< codenew file="pods/pod-nginx-required-affinity.yaml" >}}
+{{% codenew file="pods/pod-nginx-required-affinity.yaml" %}}
 
 1. マニフェストを適用して、選択したノード上にスケジューリングされるPodを作成します。
     
@@ -88,7 +88,7 @@ weight: 160
 
 以下に示すマニフェストには、`preferredDuringSchedulingIgnoredDuringExecution`に`disktype: ssd`というnode affinityを使用したPodが書かれています。このように書くと、Podは`disktype=ssd`というラベルを持つノードに優先的にスケジューリングされるようになります。
 
-{{< codenew file="pods/pod-nginx-preferred-affinity.yaml" >}}
+{{% codenew file="pods/pod-nginx-preferred-affinity.yaml" %}}
 
 1. マニフェストを適用して、選択したノード上にスケジューリングされるPodを作成します。
     

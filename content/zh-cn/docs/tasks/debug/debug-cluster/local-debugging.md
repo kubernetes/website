@@ -45,11 +45,11 @@ running on a remote cluster locally.
 <!--
 * Kubernetes cluster is installed
 * `kubectl` is configured to communicate with the cluster
-* [Telepresence](https://www.telepresence.io/docs/latest/install/) is installed
+* [Telepresence](https://www.telepresence.io/docs/latest/quick-start/) is installed
 -->
 * Kubernetes 集群安装完毕
 * 配置好 `kubectl` 与集群交互
-* [Telepresence](https://www.telepresence.io/docs/latest/install/) 安装完毕
+* [Telepresence](https://www.telepresence.io/docs/latest/quick-start/) 安装完毕
 
 <!-- steps -->
 

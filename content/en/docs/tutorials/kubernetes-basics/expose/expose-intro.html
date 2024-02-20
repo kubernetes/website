@@ -94,7 +94,7 @@ description: |-
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				<h3>Create a new Service</h3>
+				<h3>Step 1: Creating a new Service</h3>
 				<p>Let’s verify that our application is running. We’ll use the <code>kubectl get</code> command and look for existing Pods:</p>
 				<p><code><b>kubectl get pods</b></code></p>
 				<p>If no Pods are running then it means the objects from the previous tutorials were cleaned up. In this case, go back and recreate the deployment from the <a href="/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro#deploy-an-app">Using kubectl to create a Deployment</a> tutorial.
@@ -114,6 +114,14 @@ description: |-
 				<code><b>echo "NODE_PORT=$NODE_PORT"</b></code></p>
 				<p>Now we can test that the app is exposed outside of the cluster using <code>curl</code>, the IP address of the Node and the externally exposed port:</p>
 				<p><code><b>curl http://"$(minikube ip):$NODE_PORT"</b></code></p>
+        {{< note >}}<p>If you're running minikube with Docker Desktop as the container driver, a minikube tunnel is needed. This is because containers inside Docker Desktop are isolated from your host computer.<br>
+				<p>In a separate terminal window, execute:<br>
+				<code><b>minikube service kubernetes-bootcamp --url</b></code></p>
+				<p>The output looks like this:
+				<pre><b>http://127.0.0.1:51082<br>!  Because you are using a Docker driver on darwin, the terminal needs to be open to run it.</b></pre></p>
+				<p>Then use the given URL to access the app:<br>
+				<code><b>curl 127.0.0.1:51082</b></code></p>
+				{{< /note >}}
 				<p>And we get a response from the server. The Service is exposed.</p>
 			</div>
 		</div>
@@ -143,7 +151,7 @@ description: |-
 
 		<div class="row">
 			<div class="col-md-12">
-				<h3>Deleting a service</h3>
+				<h3>Step 3: Deleting a service</h3>
 				<p>To delete Services you can use the <code>delete service</code> subcommand. Labels can be used also here:</p>
 				<p><code><b>kubectl delete service -l app=kubernetes-bootcamp</b></code></p>
 				<p>Confirm that the Service is gone:</p>
@@ -158,7 +166,7 @@ description: |-
 		</div>
 				<div class="row">
 				<p>
-					Once you're ready, move on to <a href="/docs/tutorials/kubernetes-basics/scale/scale-intro/" title="Running Multiple Instances of Your App">Running Multiple Instances of Your App</a>.</p>
+					Once you're ready, move on to <a href="/docs/tutorials/kubernetes-basics/scale/scale-intro/" title="Running Multiple Instances of Your App">Running Multiple Instances of Your App</a>.
 				</p>
 				</div>
 

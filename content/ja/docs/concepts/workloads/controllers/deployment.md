@@ -40,7 +40,7 @@ Deploymentによって作成されたReplicaSetを管理しないでください
 
 以下はDeploymentの例です。これは`nginx`Podのレプリカを3つ持つReplicaSetを作成します。
 
-{{< codenew file="controllers/nginx-deployment.yaml" >}}
+{{% codenew file="controllers/nginx-deployment.yaml" %}}
 
 この例では、
 

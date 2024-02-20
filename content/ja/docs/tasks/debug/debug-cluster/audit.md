@@ -67,7 +67,7 @@ Kubernetesの監査はクラスター内の一連の行動を記録するセキ�
 
 以下は監査ポリシーファイルの例です:
 
-{{< codenew file="audit/audit-policy.yaml" >}}
+{{% codenew file="audit/audit-policy.yaml" %}}
 
 最小限の監査ポリシーファイルを使用して、すべてのリクエストを `Metadata`レベルで記録することができます。
 

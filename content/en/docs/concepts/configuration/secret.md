@@ -6,8 +6,8 @@ content_type: concept
 feature:
   title: Secret and configuration management
   description: >
-    Deploy and update secrets and application configuration without rebuilding your image
-    and without exposing secrets in your stack configuration.
+    Deploy and update Secrets and application configuration without rebuilding your image
+    and without exposing Secrets in your stack configuration.
 weight: 30
 ---
 
@@ -24,7 +24,7 @@ Because Secrets can be created independently of the Pods that use them, there
 is less risk of the Secret (and its data) being exposed during the workflow of
 creating, viewing, and editing Pods. Kubernetes, and applications that run in
 your cluster, can also take additional precautions with Secrets, such as avoiding
-writing secret data to nonvolatile storage.
+writing sensitive data to nonvolatile storage.
 
 Secrets are similar to {{< glossary_tooltip text="ConfigMaps" term_id="configmap" >}}
 but are specifically intended to hold confidential data.
@@ -68,7 +68,7 @@ help automate node registration.
 ### Use case: dotfiles in a secret volume
 
 You can make your data "hidden" by defining a key that begins with a dot.
-This key represents a dotfile or "hidden" file. For example, when the following secret
+This key represents a dotfile or "hidden" file. For example, when the following Secret
 is mounted into a volume, `secret-volume`, the volume will contain a single file,
 called `.secret-file`, and the `dotfile-test-container` will have this file
 present at the path `/etc/secret-volume/.secret-file`.
@@ -78,35 +78,7 @@ Files beginning with dot characters are hidden from the output of `ls -l`;
 you must use `ls -la` to see them when listing directory contents.
 {{< /note >}}
 
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: dotfile-secret
-data:
-  .secret-file: dmFsdWUtMg0KDQo=
----
-apiVersion: v1
-kind: Pod
-metadata:
-  name: secret-dotfiles-pod
-spec:
-  volumes:
-    - name: secret-volume
-      secret:
-        secretName: dotfile-secret
-  containers:
-    - name: dotfile-test-container
-      image: registry.k8s.io/busybox
-      command:
-        - ls
-        - "-l"
-        - "/etc/secret-volume"
-      volumeMounts:
-        - name: secret-volume
-          readOnly: true
-          mountPath: "/etc/secret-volume"
-```
+{{% code language="yaml" file="secret/dotfile-secret.yaml" %}}
 
 ### Use case: Secret visible to one container in a Pod
 
@@ -135,8 +107,8 @@ Here are some of your options:
   [ServiceAccount](/docs/reference/access-authn-authz/authentication/#service-account-tokens)
   and its tokens to identify your client.
 - There are third-party tools that you can run, either within or outside your cluster,
-  that provide secrets management. For example, a service that Pods access over HTTPS,
-  that reveals a secret if the client correctly authenticates (for example, with a ServiceAccount
+  that manage sensitive data. For example, a service that Pods access over HTTPS,
+  that reveals a Secret if the client correctly authenticates (for example, with a ServiceAccount
   token).
 - For authentication, you can implement a custom signer for X.509 certificates, and use
   [CertificateSigningRequests](/docs/reference/access-authn-authz/certificate-signing-requests/)
@@ -182,16 +154,16 @@ Kubernetes doesn't impose any constraints on the type name. However, if you
 are using one of the built-in types, you must meet all the requirements defined
 for that type.
 
-If you are defining a type of secret that's for public use, follow the convention
-and structure the secret type to have your domain name before the name, separated
+If you are defining a type of Secret that's for public use, follow the convention
+and structure the Secret type to have your domain name before the name, separated
 by a `/`. For example: `cloud-hosting.example.net/cloud-api-credentials`.
 
-### Opaque secrets
+### Opaque Secrets
 
-`Opaque` is the default Secret type if omitted from a Secret configuration file.
-When you create a Secret using `kubectl`, you will use the `generic`
-subcommand to indicate an `Opaque` Secret type. For example, the following
-command creates an empty Secret of type `Opaque`.
+`Opaque` is the default Secret type if you don't explicitly specify a type in
+a Secret manifest. When you create a Secret using `kubectl`, you must use the
+`generic` subcommand to indicate an `Opaque` Secret type. For example, the
+following command creates an empty Secret of type `Opaque`:
 
 ```shell
 kubectl create secret generic empty-secret
@@ -208,119 +180,91 @@ empty-secret   Opaque   0      2m6s
 The `DATA` column shows the number of data items stored in the Secret.
 In this case, `0` means you have created an empty Secret.
 
-### Service account token Secrets
+### ServiceAccount token Secrets
 
 A `kubernetes.io/service-account-token` type of Secret is used to store a
 token credential that identifies a
-{{< glossary_tooltip text="service account" term_id="service-account" >}}.
+{{< glossary_tooltip text="ServiceAccount" term_id="service-account" >}}. This
+is a legacy mechanism that provides long-lived ServiceAccount credentials to
+Pods.
+
+In Kubernetes v1.22 and later, the recommended approach is to obtain a
+short-lived, automatically rotating ServiceAccount token by using the
+[`TokenRequest`](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
+API instead. You can get these short-lived tokens using the following methods:
+
+* Call the `TokenRequest` API either directly or by using an API client like
+  `kubectl`. For example, you can use the
+  [`kubectl create token`](/docs/reference/generated/kubectl/kubectl-commands#-em-token-em-)
+  command.
+* Request a mounted token in a
+  [projected volume](/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume)
+  in your Pod manifest. Kubernetes creates the token and mounts it in the Pod.
+  The token is automatically invalidated when the Pod that it's mounted in is
+  deleted. For details, see
+  [Launch a Pod using service account token projection](/docs/tasks/configure-pod-container/configure-service-account/#launch-a-pod-using-service-account-token-projection).
 
 {{< note >}}
-Versions of Kubernetes before v1.22 automatically created credentials for
-accessing the Kubernetes API. This older mechanism was based on creating token
-Secrets that could then be mounted into running Pods.
-In more recent versions, including Kubernetes v{{< skew currentVersion >}}, API
-credentials are obtained directly by using the
-[TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
-API, and are mounted into Pods using a
-[projected volume](/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume).
-The tokens obtained using this method have bounded lifetimes, and are
-automatically invalidated when the Pod they are mounted into is deleted.
-
-You can still
-[manually create](/docs/tasks/configure-pod-container/configure-service-account/#manually-create-a-service-account-api-token)
-a service account token Secret; for example, if you need a token that never
-expires. However, using the
-[TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
-subresource to obtain a token to access the API is recommended instead.
-You can use the
-[`kubectl create token`](/docs/reference/generated/kubectl/kubectl-commands#-em-token-em-)
-command to obtain a token from the `TokenRequest` API.
-{{< /note >}}
-
-You should only create a service account token Secret object
+You should only create a ServiceAccount token Secret
 if you can't use the `TokenRequest` API to obtain a token,
 and the security exposure of persisting a non-expiring token credential
-in a readable API object is acceptable to you.
+in a readable API object is acceptable to you. For instructions, see
+[Manually create a long-lived API token for a ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/#manually-create-an-api-token-for-a-serviceaccount).
+{{< /note >}}
 
 When using this Secret type, you need to ensure that the
 `kubernetes.io/service-account.name` annotation is set to an existing
-service account name. If you are creating both the ServiceAccount and
+ServiceAccount name. If you are creating both the ServiceAccount and
 the Secret objects, you should create the ServiceAccount object first.
 
 After the Secret is created, a Kubernetes {{< glossary_tooltip text="controller" term_id="controller" >}}
 fills in some other fields such as the `kubernetes.io/service-account.uid` annotation, and the
 `token` key in the `data` field, which is populated with an authentication token.
 
-The following example configuration declares a service account token Secret:
+The following example configuration declares a ServiceAccount token Secret:
 
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: secret-sa-sample
-  annotations:
-    kubernetes.io/service-account.name: "sa-name"
-type: kubernetes.io/service-account-token
-data:
-  # You can include additional key value pairs as you do with Opaque Secrets
-  extra: YmFyCg==
-```
+{{% code language="yaml" file="secret/serviceaccount-token-secret.yaml" %}}
 
 After creating the Secret, wait for Kubernetes to populate the `token` key in the `data` field.
 
-See the [ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/)
-documentation for more information on how service accounts work.
+See the [ServiceAccount](/docs/concepts/security/service-accounts/)
+documentation for more information on how ServiceAccounts work.
 You can also check the `automountServiceAccountToken` field and the
 `serviceAccountName` field of the
 [`Pod`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
-for information on referencing service account credentials from within Pods.
+for information on referencing ServiceAccount credentials from within Pods.
 
 ### Docker config Secrets
 
-You can use one of the following `type` values to create a Secret to
-store the credentials for accessing a container image registry:
+If you are creating a Secret to store credentials for accessing a container image registry,
+you must use one of the following `type` values for that Secret:
 
-- `kubernetes.io/dockercfg`
-- `kubernetes.io/dockerconfigjson`
-
-The `kubernetes.io/dockercfg` type is reserved to store a serialized
-`~/.dockercfg` which is the legacy format for configuring Docker command line.
-When using this Secret type, you have to ensure the Secret `data` field
-contains a `.dockercfg` key whose value is content of a `~/.dockercfg` file
-encoded in the base64 format.
-
-The `kubernetes.io/dockerconfigjson` type is designed for storing a serialized
-JSON that follows the same format rules as the `~/.docker/config.json` file
-which is a new format for `~/.dockercfg`.
-When using this Secret type, the `data` field of the Secret object must
-contain a `.dockerconfigjson` key, in which the content for the
-`~/.docker/config.json` file is provided as a base64 encoded string.
+- `kubernetes.io/dockercfg`: store a serialized `~/.dockercfg` which is the
+  legacy format for configuring Docker command line. The Secret
+  `data` field contains a `.dockercfg` key whose value is the content of a
+  base64 encoded `~/.dockercfg` file.
+- `kubernetes.io/dockerconfigjson`: store a serialized JSON that follows the
+  same format rules as the `~/.docker/config.json` file, which is a new format
+  for `~/.dockercfg`. The Secret `data` field must contain a
+  `.dockerconfigjson` key for which the value is the content of a base64
+  encoded `~/.docker/config.json` file.
 
 Below is an example for a `kubernetes.io/dockercfg` type of Secret:
 
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: secret-dockercfg
-type: kubernetes.io/dockercfg
-data:
-  .dockercfg: |
-    "<base64 encoded ~/.dockercfg file>"
-```
+{{% code language="yaml" file="secret/dockercfg-secret.yaml" %}}
 
 {{< note >}}
 If you do not want to perform the base64 encoding, you can choose to use the
 `stringData` field instead.
 {{< /note >}}
 
-When you create these types of Secrets using a manifest, the API
+When you create Docker config Secrets using a manifest, the API
 server checks whether the expected key exists in the `data` field, and
 it verifies if the value provided can be parsed as a valid JSON. The API
 server doesn't validate if the JSON actually is a Docker config file.
 
-When you do not have a Docker config file, or you want to use `kubectl`
-to create a Secret for accessing a container registry, you can do:
+You can also use `kubectl` to create a Secret for accessing a container
+registry, such as when you don't have a Docker configuration file:
 
 ```shell
 kubectl create secret docker-registry secret-tiger-docker \
@@ -330,15 +274,16 @@ kubectl create secret docker-registry secret-tiger-docker \
   --docker-server=my-registry.example:5000
 ```
 
-That command creates a Secret of type `kubernetes.io/dockerconfigjson`.
-If you dump the `.data.dockerconfigjson` field from that new Secret and then
-decode it from base64:
+This command creates a Secret of type `kubernetes.io/dockerconfigjson`.
+
+Retrieve the `.data.dockerconfigjson` field from that new Secret and decode the
+data:
 
 ```shell
 kubectl get secret secret-tiger-docker -o jsonpath='{.data.*}' | base64 -d
 ```
 
-then the output is equivalent to this JSON document (which is also a valid
+The output is equivalent to the following JSON document (which is also a valid
 Docker configuration file):
 
 ```json
@@ -354,10 +299,12 @@ Docker configuration file):
 }
 ```
 
-{{< note >}}
+{{< caution >}}
 The `auth` value there is base64 encoded; it is obscured but not secret.
 Anyone who can read that Secret can learn the registry access bearer token.
-{{< /note >}}
+
+It is suggested to use [credential providers](/docs/tasks/administer-cluster/kubelet-credential-provider/) to dynamically and securely provide pull secrets on-demand.
+{{< /caution >}}
 
 ### Basic authentication Secret
 
@@ -368,22 +315,17 @@ Secret must contain one of the following two keys:
 - `username`: the user name for authentication
 - `password`: the password or token for authentication
 
-Both values for the above two keys are base64 encoded strings. You can, of
-course, provide the clear text content using the `stringData` for Secret
-creation.
+Both values for the above two keys are base64 encoded strings. You can
+alternatively provide the clear text content using the `stringData` field in the
+Secret manifest.
 
 The following manifest is an example of a basic authentication Secret:
 
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: secret-basic-auth
-type: kubernetes.io/basic-auth
-stringData:
-  username: admin # required field for kubernetes.io/basic-auth
-  password: t0p-Secret # required field for kubernetes.io/basic-auth
-```
+{{% code language="yaml" file="secret/basicauth-secret.yaml" %}}
+
+{{< note >}}
+The `stringData` field for a Secret does not work well with server-side apply.
+{{< /note >}}
 
 The basic authentication Secret type is provided only for convenience.
 You can create an `Opaque` type for credentials used for basic authentication.
@@ -392,7 +334,7 @@ people to understand the purpose of your Secret, and sets a convention for what 
 to expect.
 The Kubernetes API verifies that the required keys are set for a Secret of this type.
 
-### SSH authentication secrets
+### SSH authentication Secrets
 
 The builtin type `kubernetes.io/ssh-auth` is provided for storing data used in
 SSH authentication. When using this Secret type, you will have to specify a
@@ -402,24 +344,14 @@ as the SSH credential to use.
 The following manifest is an example of a Secret used for SSH public/private
 key authentication:
 
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: secret-ssh-auth
-type: kubernetes.io/ssh-auth
-data:
-  # the data is abbreviated in this example
-  ssh-privatekey: |
-    MIIEpQIBAAKCAQEAulqb/Y ...
-```
+{{% code language="yaml" file="secret/ssh-auth-secret.yaml" %}}
 
-The SSH authentication Secret type is provided only for user's convenience.
-You could instead create an `Opaque` type Secret for credentials used for SSH authentication.
+The SSH authentication Secret type is provided only for convenience.
+You can create an `Opaque` type for credentials used for SSH authentication.
 However, using the defined and public Secret type (`kubernetes.io/ssh-auth`) helps other
 people to understand the purpose of your Secret, and sets a convention for what key names
 to expect.
-and the API server does verify if the required keys are provided in a Secret configuration.
+The Kubernetes API verifies that the required keys are set for a Secret of this type.
 
 {{< caution >}}
 SSH private keys do not establish trusted communication between an SSH client and
@@ -427,41 +359,33 @@ host server on their own. A secondary means of establishing trust is needed to
 mitigate "man in the middle" attacks, such as a `known_hosts` file added to a ConfigMap.
 {{< /caution >}}
 
-### TLS secrets
+### TLS Secrets
 
-Kubernetes provides a builtin Secret type `kubernetes.io/tls` for storing
+The `kubernetes.io/tls` Secret type is for storing
 a certificate and its associated key that are typically used for TLS.
 
-One common use for TLS secrets is to configure encryption in transit for
+One common use for TLS Secrets is to configure encryption in transit for
 an [Ingress](/docs/concepts/services-networking/ingress/), but you can also use it
 with other resources or directly in your workload.
 When using this type of Secret, the `tls.key` and the `tls.crt` key must be provided
 in the `data` (or `stringData`) field of the Secret configuration, although the API
 server doesn't actually validate the values for each key.
 
+As an alternative to using `stringData`, you can use the `data` field to provide
+the base64 encoded certificate and private key. For details, see
+[Constraints on Secret names and data](#restriction-names-data).
+
 The following YAML contains an example config for a TLS Secret:
 
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: secret-tls
-type: kubernetes.io/tls
-data:
-  # the data is abbreviated in this example
-  tls.crt: |
-    MIIC2DCCAcCgAwIBAgIBATANBgkqh ...
-  tls.key: |
-    MIIEpgIBAAKCAQEA7yn3bRHQ5FHMQ ...
-```
+{{% code language="yaml" file="secret/tls-auth-secret.yaml" %}}
 
-The TLS Secret type is provided for user's convenience. You can create an `Opaque`
-for credentials used for TLS server and/or client. However, using the builtin Secret
-type helps ensure the consistency of Secret format in your project; the API server
-does verify if the required keys are provided in a Secret configuration.
+The TLS Secret type is provided only for convenience.
+You can create an `Opaque` type for credentials used for TLS authentication.
+However, using the defined and public Secret type (`kubernetes.io/tls`)
+helps ensure the consistency of Secret format in your project. The API server
+verifies if the required keys are set for a Secret of this type.
 
-When creating a TLS Secret using `kubectl`, you can use the `tls` subcommand
-as shown in the following example:
+To create a TLS Secret using `kubectl`, use the `tls` subcommand:
 
 ```shell
 kubectl create secret tls my-tls-secret \
@@ -469,26 +393,12 @@ kubectl create secret tls my-tls-secret \
   --key=path/to/key/file
 ```
 
-The public/private key pair must exist before hand. The public key certificate
-for `--cert` must be DER format as per
-[Section 5.1 of RFC 7468](https://datatracker.ietf.org/doc/html/rfc7468#section-5.1),
-and must match the given private key for `--key` (PKCS #8 in DER format;
-[Section 11 of RFC 7468](https://datatracker.ietf.org/doc/html/rfc7468#section-11)).
-
-{{< note >}}
-A kubernetes.io/tls Secret stores the Base64-encoded DER data for keys and
-certificates. If you're familiar with PEM format for private keys and for certificates,
-the base64 data are the same as that format except that you omit
-the initial and the last lines that are used in PEM.
-
-For example, for a certificate, you do **not** include `--------BEGIN CERTIFICATE-----`
-and `-------END CERTIFICATE----`.
-{{< /note >}}
+The public/private key pair must exist before hand. The public key certificate for `--cert` must be .PEM encoded
+and must match the given private key for `--key`.
 
 ### Bootstrap token Secrets
 
-A bootstrap token Secret can be created by explicitly specifying the Secret
-`type` to `bootstrap.kubernetes.io/token`. This type of Secret is designed for
+The `bootstrap.kubernetes.io/token` Secret type is for
 tokens used during the node bootstrap process. It stores tokens used to sign
 well-known ConfigMaps.
 
@@ -499,26 +409,12 @@ string of the token ID.
 As a Kubernetes manifest, a bootstrap token Secret might look like the
 following:
 
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: bootstrap-token-5emitj
-  namespace: kube-system
-type: bootstrap.kubernetes.io/token
-data:
-  auth-extra-groups: c3lzdGVtOmJvb3RzdHJhcHBlcnM6a3ViZWFkbTpkZWZhdWx0LW5vZGUtdG9rZW4=
-  expiration: MjAyMC0wOS0xM1QwNDozOToxMFo=
-  token-id: NWVtaXRq
-  token-secret: a3E0Z2lodnN6emduMXAwcg==
-  usage-bootstrap-authentication: dHJ1ZQ==
-  usage-bootstrap-signing: dHJ1ZQ==
-```
+{{% code language="yaml" file="secret/bootstrap-token-secret-base64.yaml" %}}
 
-A bootstrap type Secret has the following keys specified under `data`:
+A bootstrap token Secret has the following keys specified under `data`:
 
 - `token-id`: A random 6 character string as the token identifier. Required.
-- `token-secret`: A random 16 character string as the actual token secret. Required.
+- `token-secret`: A random 16 character string as the actual token Secret. Required.
 - `description`: A human-readable string that describes what the token is
   used for. Optional.
 - `expiration`: An absolute UTC time using [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) specifying when the token
@@ -528,29 +424,14 @@ A bootstrap type Secret has the following keys specified under `data`:
 - `auth-extra-groups`: A comma-separated list of group names that will be
   authenticated as in addition to the `system:bootstrappers` group.
 
-The above YAML may look confusing because the values are all in base64 encoded
-strings. In fact, you can create an identical Secret using the following YAML:
+You can alternatively provide the values in the `stringData` field of the Secret
+without base64 encoding them:
 
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  # Note how the Secret is named
-  name: bootstrap-token-5emitj
-  # A bootstrap token Secret usually resides in the kube-system namespace
-  namespace: kube-system
-type: bootstrap.kubernetes.io/token
-stringData:
-  auth-extra-groups: "system:bootstrappers:kubeadm:default-node-token"
-  expiration: "2020-09-13T04:39:10Z"
-  # This token ID is used in the name
-  token-id: "5emitj"
-  token-secret: "kq4gihvszzgn1p0r"
-  # This token can be used for authentication
-  usage-bootstrap-authentication: "true"
-  # and it can be used for signing
-  usage-bootstrap-signing: "true"
-```
+{{% code language="yaml" file="secret/bootstrap-token-secret-literal.yaml" %}}
+
+{{< note >}}
+The `stringData` field for a Secret does not work well with server-side apply.
+{{< /note >}}
 
 ## Working with Secrets
 
@@ -581,9 +462,9 @@ precedence.
 
 #### Size limit {#restriction-data-size}
 
-Individual secrets are limited to 1MiB in size. This is to discourage creation
-of very large secrets that could exhaust the API server and kubelet memory.
-However, creation of many smaller secrets could also exhaust memory. You can
+Individual Secrets are limited to 1MiB in size. This is to discourage creation
+of very large Secrets that could exhaust the API server and kubelet memory.
+However, creation of many smaller Secrets could also exhaust memory. You can
 use a [resource quota](/docs/concepts/policy/resource-quotas/) to limit the
 number of Secrets (or other resources) in a namespace.
 
@@ -626,25 +507,7 @@ When you reference a Secret in a Pod, you can mark the Secret as _optional_,
 such as in the following example. If an optional Secret doesn't exist,
 Kubernetes ignores it.
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: mypod
-spec:
-  containers:
-  - name: mypod
-    image: redis
-    volumeMounts:
-    - name: foo
-      mountPath: "/etc/foo"
-      readOnly: true
-  volumes:
-  - name: foo
-    secret:
-      secretName: mysecret
-      optional: true
-```
+{{% code language="yaml" file="secret/optional-secret.yaml" %}}
 
 By default, Secrets are required. None of a Pod's containers will start until
 all non-optional Secrets are available.
@@ -721,17 +584,17 @@ LASTSEEN   FIRSTSEEN   COUNT     NAME            KIND      SUBOBJECT            
 0s         0s          1         dapi-test-pod   Pod                                         Warning   InvalidEnvironmentVariableNames   kubelet, 127.0.0.1      Keys [1badkey, 2alsobad] from the EnvFrom secret default/mysecret were skipped since they are considered invalid environment variable names.
 ```
 
-### Container image pull secrets {#using-imagepullsecrets}
+### Container image pull Secrets {#using-imagepullsecrets}
 
 If you want to fetch container images from a private repository, you need a way for
 the kubelet on each node to authenticate to that repository. You can configure
-_image pull secrets_ to make this possible. These secrets are configured at the Pod
+_image pull Secrets_ to make this possible. These Secrets are configured at the Pod
 level.
 
 #### Using imagePullSecrets
 
-The `imagePullSecrets` field is a list of references to secrets in the same namespace.
-You can use an `imagePullSecrets` to pass a secret that contains a Docker (or other) image registry
+The `imagePullSecrets` field is a list of references to Secrets in the same namespace.
+You can use an `imagePullSecrets` to pass a Secret that contains a Docker (or other) image registry
 password to the kubelet. The kubelet uses this information to pull a private image on behalf of your Pod.
 See the [PodSpec API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
 for more information about the `imagePullSecrets` field.
@@ -800,7 +663,7 @@ Secrets it expects to interact with, other apps within the same namespace can
 render those assumptions invalid.
 
 A Secret is only sent to a node if a Pod on that node requires it.
-For mounting secrets into Pods, the kubelet stores a copy of the data into a `tmpfs`
+For mounting Secrets into Pods, the kubelet stores a copy of the data into a `tmpfs`
 so that the confidential data is not written to durable storage.
 Once the Pod that depends on the Secret is deleted, the kubelet deletes its local copy
 of the confidential data from the Secret.
@@ -813,6 +676,13 @@ container in order to provide access to any other Secret.
 There may be Secrets for several Pods on the same node. However, only the
 Secrets that a Pod requests are potentially visible within its containers.
 Therefore, one Pod does not have access to the Secrets of another Pod.
+
+### Configure least-privilege access to Secrets
+
+To enhance the security measures around Secrets, Kubernetes provides a mechanism: you can
+annotate a ServiceAccount as `kubernetes.io/enforce-mountable-secrets: "true"`.
+
+For more information, you can refer to the [documentation about this annotation](/docs/concepts/security/service-accounts/#enforce-mountable-secrets).
 
 {{< warning >}}
 Any containers that run with `privileged: true` on a node can access all

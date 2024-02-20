@@ -13,8 +13,8 @@ weight: 130
 
 <!--
 This page shows how to create a Pod that uses a
-{{< glossary_tooltip text="Secret" term_id="secret" >}} to pull an image 
-from a private container image registry or repository. There are many private 
+{{< glossary_tooltip text="Secret" term_id="secret" >}} to pull an image
+from a private container image registry or repository. There are many private
 registries in use. This task uses [Docker Hub](https://www.docker.com/products/docker-hub)
 as an example registry.
 -->
@@ -32,8 +32,8 @@ as an example registry.
 <!--
 * To do this exercise, you need the `docker` command line tool, and a
   [Docker ID](https://docs.docker.com/docker-id/) for which you know the password.
-* If you are using a different private container registry, you need the command 
-  line tool for that registry and any login information for the registry. 
+* If you are using a different private container registry, you need the command
+  line tool for that registry and any login information for the registry.
 -->
 * 要进行此练习，你需要 `docker` 命令行工具和一个知道密码的
   [Docker ID](https://docs.docker.com/docker-id/)。
@@ -66,7 +66,8 @@ docker login
 When prompted, enter your Docker ID, and then the credential you want to use (access token,
 or the password for your Docker ID).
 
-The login process creates or updates a `config.json` file that holds an authorization token. Review [how Kubernetes interprets this file](/docs/concepts/containers/images#config-json). 
+The login process creates or updates a `config.json` file that holds an authorization token.
+Review [how Kubernetes interprets this file](/docs/concepts/containers/images#config-json).
 
 View the `config.json` file:
 -->
@@ -99,7 +100,9 @@ The output contains a section similar to this:
 {{< note >}}
 <!--
 If you use a Docker credentials store, you won't see that `auth` entry but a `credsStore` entry with the name of the store as value.
-In that case, you can create a secret directly. See [Create a Secret by providing credentials on the command line](#create-a-secret-by-providing-credentials-on-the-command-line).
+In that case, you can create a secret directly. 
+See [Create a Secret by providing credentials on the command line](#create-a-secret-by-providing-credentials-on-the-command-line).
+
 -->
 如果使用 Docker 凭据仓库，则不会看到 `auth` 条目，看到的将是以仓库名称作为值的 `credsStore` 条目。
 在这种情况下，你可以直接创建一个 Secret。
@@ -313,7 +316,7 @@ Here is a manifest for an example Pod that needs access to your Docker credentia
 
 下面是一个 Pod 配置清单示例，该示例中 Pod 需要访问你的 Docker 凭据 `regcred`：
 
-{{% code file="pods/private-reg-pod.yaml" %}}
+{{% code_sample file="pods/private-reg-pod.yaml" %}}
 
 <!-- 
 Download the above file onto your computer:
@@ -353,9 +356,20 @@ kubectl get pod private-reg
 
 {{< note >}}
 <!--
-In case the Pod fails to start with the status `ImagePullBackOff`, view the Pod events:
+To use image pull secrets for a Pod (or a Deployment, or other object that
+has a pod template that you are using), you need to make sure that the appropriate
+Secret does exist in the right namespace. The namespace to use is the same
+namespace where you defined the Pod.
 -->
-如果 Pod 以状态 `ImagePullBackOff` 启动失败，查看 Pod 事件：
+要为 Pod（或 Deployment，或其他有 Pod 模板的对象）使用镜像拉取 Secret，
+你需要确保合适的 Secret 确实存在于正确的名字空间中。
+要使用的是你定义 Pod 时所用的名字空间。
+{{< /note >}}
+
+<!--
+Also, in case the Pod fails to start with the status `ImagePullBackOff`, view the Pod events:
+-->
+此外，如果 Pod 启动失败，状态为 `ImagePullBackOff`，查看 Pod 事件：
 
 ```shell
 kubectl describe pod private-reg
@@ -382,8 +396,6 @@ Events:
        ------                                -------
   ...  FailedToRetrieveImagePullSecret  ...  Unable to retrieve some image pull secrets (<regcred>); attempting to pull the image may not succeed.
 ```
-
-{{< /note >}}
 
 ## {{% heading "whatsnext" %}}
 

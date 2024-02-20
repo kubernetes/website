@@ -467,7 +467,7 @@ source for this page).
 下面的示例展示如何实现这点（查看本页的 Markdown 源码）：
 
 ```none
-{{</* codenew file="pods/storage/gce-volume.yaml" */>}}
+{{</* alert color="warning" >}}This is a warning.{{< /alert */>}}
 ```
 
 <!--

@@ -1,24 +1,11 @@
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
-
 <!-- 
 Generate the certificate for liveness probes to healthcheck etcd 
 -->
-生成用于 etcd 健康检查的活跃性探针的证书
+生成用于 etcd 健康检查的活跃性探针的证书。
 
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
@@ -34,7 +21,7 @@ If both files already exist, kubeadm skips the generation step and existing file
 <!--
 Alpha Disclaimer: this command is currently alpha.
 -->
-Alpha 免责声明：此命令当前为 alpha 功能。
+Alpha 免责声明：此命令当前为 Alpha 功能。
 
 ```
 kubeadm init phase certs etcd-healthcheck-client [flags]
@@ -43,7 +30,6 @@ kubeadm init phase certs etcd-healthcheck-client [flags]
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -104,7 +90,7 @@ Don't apply any changes; just output what would be done.
 <!--
 <p>help for etcd-healthcheck-client</p>
 -->
-<p>etcd-healthcheck-client 操作的帮助命令</p>
+<p>etcd-healthcheck-client 操作的帮助命令。</p>
 </td>
 </tr>
 
@@ -131,7 +117,6 @@ Don't apply any changes; just output what would be done.
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 继承于父命令的选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -155,4 +140,3 @@ Don't apply any changes; just output what would be done.
 
 </tbody>
 </table>
-

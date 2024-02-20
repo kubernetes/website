@@ -56,7 +56,7 @@ In cases where a workload requires powerful permissions, consider the following 
   [Taints and Toleration](/docs/concepts/scheduling-eviction/taint-and-toleration/),
   [NodeAffinity](/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity), or
   [PodAntiAffinity](/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)
-  to ensure pods don't run alongside untrusted or less-trusted Pods. Pay especial attention to
+  to ensure pods don't run alongside untrusted or less-trusted Pods. Pay special attention to
   situations where less-trustworthy Pods are not meeting the **Restricted** Pod Security Standard.
 
 ### Hardening
@@ -130,8 +130,8 @@ reading data from other containers, and abusing the credentials of system servic
 
 You should only allow access to create PersistentVolume objects for:
 
-- users (cluster operators) that need this access for their work, and who you trust,
-- the Kubernetes control plane components which creates PersistentVolumes based on PersistentVolumeClaims
+- Users (cluster operators) that need this access for their work, and who you trust.
+- The Kubernetes control plane components which creates PersistentVolumes based on PersistentVolumeClaims
   that are configured for automatic provisioning.
   This is usually setup by the Kubernetes provider or by the operator when installing a CSI driver.
 

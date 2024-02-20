@@ -88,10 +88,10 @@ documentation for that Container Runtime, for example:
 
 <!--
 For specific information about how to install and manage a CNI plugin, see the documentation for
-that plugin or [networking provider](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model).
+that plugin or [networking provider](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-network-model).
 -->
 要了解如何安装和管理 CNI 插件的具体信息，可参阅对应的插件或
-[网络驱动（Networking Provider）](/zh-cn/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model)
+[网络驱动（Networking Provider）](/zh-cn/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-network-model)
 的文档。
 
 <!--
@@ -267,3 +267,12 @@ metadata:
 ```
 
 ## {{% heading "whatsnext" %}}
+
+<!--
+- Learn more about [Cluster Networking](/docs/concepts/cluster-administration/networking/)
+- Learn more about [Network Policies](/docs/concepts/services-networking/network-policies/)
+- Learn about the [Troubleshooting CNI plugin-related errors](/docs/tasks/administer-cluster/migrating-from-dockershim/troubleshooting-cni-plugin-related-errors/)
+-->
+- 进一步了解关于[集群网络](/zh-cn/docs/concepts/cluster-administration/networking/)的信息
+- 进一步了解关于[网络策略](/zh-cn/docs/concepts/services-networking/network-policies/)的信息
+- 进一步了解关于[排查 CNI 插件相关错误](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/troubleshooting-cni-plugin-related-errors/)的信息

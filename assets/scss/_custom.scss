@@ -317,20 +317,63 @@ footer {
 /* DOCS */
 
 .launch-cards {
-  button {
-    cursor: pointer;
-    box-sizing: border-box;
-    background: none;
-    margin: 0;
-    border: 0;
-  }
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 1em;
+  .launch-card {
+    display: flex;
+    padding: 0 30px 0 0;
+    .card-content{
+      width: fit-content;
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      row-gap: 1em;
+      h2 {
+        font-size: 1.75em;
+        padding: 0.5em 0;
+        margin: 0;
+        a {
+          display: none;
+        }
+      }
+  
+      p {
+        margin: 0;
+      }
+  
+      ul {
+        list-style: none;
+        height: fit-content;
+        line-height: 1.6;
+        padding: 0;
+        margin-block-end: auto;
+      }
+  
+      br {
+        display: none;
+      }
+  
+      button {
+        height: min-content;
+        width: auto;
+        padding: .5em 1em;
+        cursor: pointer;
+        box-sizing: border-box;
+      }
+    }
+    }
 
-  ul,
-  li {
-    list-style: none;
-    padding-left: 0;
-  }
+  @media only screen and (max-width: 1000px) {
+    grid-template-columns: 1fr;
+  
+    .launch-card {
+      width: 100%;
+    }
 }
+}
+
 
 // table of contents
 .td-toc {
@@ -349,52 +392,63 @@ footer {
 }
 
 main {
-  .td-content table code,
-  .td-content>table td {
-    word-break: break-word;
+
+/* SCSS Related to the Metrics list */
+
+  div.metric:nth-of-type(odd) { // Look & Feel , Aesthetics
+    background-color: $light-grey;
   }
 
-/* SCSS Related to the Metrics Table */
+  div.metrics {
 
-    @media (max-width: 767px) { // for mobile devices, Display the names, Stability levels & types
-
-     table.metrics { 
-      th:nth-child(n + 4),
-      td:nth-child(n + 4) {
+    .metric {
+      div:empty{
         display: none;
       }
 
-      td.metric_type{
-        min-width: 7em;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      gap: .75em;
+      padding:.75em .75em .75em .75em;
+  
+      .metric_name{
+        font-size: large;
+        font-weight: bold;
+        word-break: break-word;
       }
-      td.metric_stability_level{
-        min-width: 6em;
+  
+      label{
+        font-weight: bold;
+        margin-right: .5em;
       }
-    }
+      ul {
+        li:empty{
+          display: none;
+        }
+        display: flex;
+        flex-direction: column;
+        gap: .75em;
+        flex-wrap: wrap;
+        li.metric_labels_varying{
+          span{
+                display: inline-block;
+                background-color: rgb(240, 239, 239);
+                padding: 0 0.5em;
+                margin-right: .35em;
+                font-family: monospace;
+                border: 1px solid rgb(230 , 230 , 230);
+                border-radius: 5%;
+                margin-bottom: .35em;
+          }
+        }
+  
+      }
+      
     }
 
-    table.metrics tbody{ // Tested dimensions to improve overall aesthetic of the table
-      tr {
-        td {
-          font-size: smaller;
-        }
-        td.metric_labels_varying{
-          min-width: 9em;
-        }
-        td.metric_type{
-          min-width: 9em;
-        }
-        td.metric_description{
-          min-width: 10em;
-        }
-    
-      }
-    }
 
-  table.no-word-break td,
-  table.no-word-break code {
-    word-break: normal;
-}
+  }
 }
 
 // blockquotes and callouts
@@ -626,17 +680,9 @@ main.content {
   }
 }
 
-/* COMMUNITY legacy styles */
-/* Leave these in place until localizations are caught up */
-
-.newcommunitywrapper {
-  .news {
-    margin-left: 0;
-
-    @media screen and (min-width: 768px) {
-      margin-left: 10%;
-    }
-  }
+.td-blog .header-hero h1, .td-blog .header-hero h2 {
+  font-size: 2.25rem; // match rest of site, even if it is actually h2
+  margin-bottom: 20px;
 }
 
 /* CASE-STUDIES */
@@ -778,7 +824,8 @@ body.td-documentation {
   }
 }
 
-#announcement + .header-hero.filler {
+/* don't display the hero header for some pages when there is a banner active */
+#announcement + .header-hero.filler, .td-page.td-blog #announcement + .header-hero {
   display: none;
 }
 
@@ -943,6 +990,16 @@ div.alert > em.javascript-required {
 #bing-results-container {
     padding: 1em;
 }
+.bing-result {
+  margin-bottom: 1em;
+}
+.bing-result-url {
+  font-size: 14px;
+}
+.bing-result-snippet {
+  color: #666666;
+  font-size: 14px;
+}
 #bing-pagination-container {
     padding: 1em;
     margin-bottom: 1em;
@@ -951,4 +1008,33 @@ div.alert > em.javascript-required {
         padding: 0.5em;
         margin: 0.25em;
     }
+}
+
+// Adjust Search-bar search-icon
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid #4c4c4c;
+  border-radius: 20px; 
+  vertical-align: middle;
+  flex-grow: 1;
+  overflow-x: hidden;
+  width: auto;
+}
+
+.search-bar:focus-within {
+  border: 2.5px solid rgba(47, 135, 223, 0.7);
+}
+
+.search-bar i.search-icon {
+  padding: .5em .5em .5em .75em;
+  opacity: .75;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: .5em 0 .5em 0;
 }

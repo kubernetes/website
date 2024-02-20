@@ -32,13 +32,13 @@ container starts.
 
 Here is the configuration file for the Pod:
 -->
-## 创建一个包含 Init 容器的 Pod  {#creating-a-pod-that-has-an-init-container}
+## 创建一个包含 Init 容器的 Pod  {#create-a-pod-that-has-an-init-container}
 
 本例中你将创建一个包含一个应用容器和一个 Init 容器的 Pod。Init 容器在应用容器启动前运行完成。
 
 下面是 Pod 的配置文件：
 
-{{% code file="pods/init-containers.yaml" %}}
+{{% code_sample file="pods/init-containers.yaml" %}}
 
 <!--
 In the configuration file, you can see that the Pod has a Volume that the init

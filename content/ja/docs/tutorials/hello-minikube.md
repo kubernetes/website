@@ -15,10 +15,10 @@ card:
 
 <!-- overview -->
 
-このチュートリアルでは、[Minikube](/ja/docs/setup/learning-environment/minikube)とKatacodaを使用して、Kubernetes上でサンプルアプリケーションを動かす方法を紹介します。Katacodaはブラウザで無償のKubernetes環境を提供します。
+このチュートリアルでは、[minikube](/ja/docs/setup/learning-environment/minikube)とKatacodaを使用して、Kubernetes上でサンプルアプリケーションを動かす方法を紹介します。Katacodaはブラウザで無償のKubernetes環境を提供します。
 
 {{< note >}}
-[Minikubeをローカルにインストール](https://minikube.sigs.k8s.io/docs/start/)している場合もこのチュートリアルを進めることが可能です。
+[minikubeをローカルにインストール](https://minikube.sigs.k8s.io/docs/start/)している場合もこのチュートリアルを進めることが可能です。
 {{< /note >}}
 
 
@@ -26,7 +26,7 @@ card:
 ## {{% heading "objectives" %}}
 
 
-* Minikubeへのサンプルアプリケーションのデプロイ
+* minikubeへのサンプルアプリケーションのデプロイ
 * アプリケーションの実行
 * アプリケーションログの確認
 
@@ -43,14 +43,14 @@ card:
 
 <!-- lessoncontent -->
 
-## Minikubeクラスターの作成
+## minikubeクラスターの作成
 
 1. **Launch Terminal** をクリックしてください
 
     {{< kat-button >}}
 
 {{< note >}}
-    Minikubeをローカルにインストール済みの場合は、`minikube start`を実行してください。
+    minikubeをローカルにインストール済みの場合は、`minikube start`を実行してください。
 {{< /note >}}
 
 2. ブラウザーでKubernetesダッシュボードを開いてください:
@@ -142,7 +142,7 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/) は、コンテナの管
     ```
 
     ロードバランサーをサポートするクラウドプロバイダーでは、Serviceにアクセスするための外部IPアドレスが提供されます。
-    Minikube では、`LoadBalancer`タイプは`minikube service`コマンドを使用した接続可能なServiceを作成します。    
+    minikube では、`LoadBalancer`タイプは`minikube service`コマンドを使用した接続可能なServiceを作成します。    
 
 3. 次のコマンドを実行します:
 
@@ -158,7 +158,7 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/) は、コンテナの管
 
 ## アドオンの有効化
 
-Minikubeはビルトインの{{< glossary_tooltip text="アドオン" term_id="addons" >}}があり、有効化、無効化、あるいはローカルのKubernetes環境に公開することができます。
+minikubeはビルトインの{{< glossary_tooltip text="アドオン" term_id="addons" >}}があり、有効化、無効化、あるいはローカルのKubernetes環境に公開することができます。
 
 1. サポートされているアドオンをリストアップします:
 
@@ -250,13 +250,13 @@ kubectl delete service hello-node
 kubectl delete deployment hello-node
 ```
 
-(オプション)Minikubeの仮想マシン(VM)を停止します:
+(オプション)minikubeの仮想マシン(VM)を停止します:
 
 ```shell
 minikube stop
 ```
 
-(オプション)MinikubeのVMを削除します:
+(オプション)minikubeのVMを削除します:
 
 ```shell
 minikube delete

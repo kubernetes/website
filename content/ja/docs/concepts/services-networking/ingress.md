@@ -49,7 +49,7 @@ Ingressコントローラーのドキュメントを確認して、選択する�
 
 Ingressリソースの最小構成の例は以下のとおりです。
 
-{{< codenew file="service/networking/minimal-ingress.yaml" >}}
+{{% codenew file="service/networking/minimal-ingress.yaml" %}}
 
 Ingressには`apiVersion`、`kind`、`metadata`や`spec`フィールドが必要です。Ingressオブジェクトの名前は、有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。設定ファイルに関する一般的な情報は、[アプリケーションのデプロイ](/ja/docs/tasks/run-application/run-stateless-application-deployment/)、[コンテナの設定](/ja/docs/tasks/configure-pod-container/configure-pod-configmap/)、[リソースの管理](/ja/docs/concepts/cluster-administration/manage-deployment/)を参照してください。Ingressでは、Ingressコントローラーに依存しているいくつかのオプションの設定をするためにアノテーションを一般的に使用します。例としては、[rewrite-targetアノテーション](https://github.com/kubernetes/ingress-nginx/blob/main/docs/examples/rewrite/README.md)などがあります。[Ingressコントローラー](/ja/docs/concepts/services-networking/ingress-controllers)の種類が異なれば、サポートするアノテーションも異なります。サポートされているアノテーションについて学ぶためには、使用するIngressコントローラーのドキュメントを確認してください。
 
@@ -82,7 +82,7 @@ HTTPリクエストがIngressオブジェクトのホスト名とパスの条件
 `Resource`はServiceの設定とは排他であるため、両方を指定するとバリデーションに失敗します。
 `Resource`バックエンドの一般的な用途は、静的なアセットが入ったオブジェクトストレージバックエンドにデータを導入することです。
 
-{{< codenew file="service/networking/ingress-resource-backend.yaml" >}}
+{{% codenew file="service/networking/ingress-resource-backend.yaml" %}}
 
 上記のIngressを作成した後に、次のコマンドで参照することができます。
 
@@ -157,14 +157,14 @@ Ingressのそれぞれのパスは対応するパスのタイプを持ちます�
 | `*.foo.com` | `baz.bar.foo.com` | 一致しない。ワイルドカードは単一のDNSラベルのみを対象とする |
 | `*.foo.com` | `foo.com`         | 一致しない。ワイルドカードは単一のDNSラベルのみを対象とする |
 
-{{< codenew file="service/networking/ingress-wildcard-host.yaml" >}}
+{{% codenew file="service/networking/ingress-wildcard-host.yaml" %}}
 
 ## Ingress Class
 
 Ingressは異なったコントローラーで実装されうるため、しばしば異なった設定を必要とします。
 各Ingressはクラス、つまりIngressClassリソースへの参照を指定する必要があります。IngressClassリソースには、このクラスを実装するコントローラーの名前などの追加設定が含まれています。
 
-{{< codenew file="service/networking/external-lb.yaml" >}}
+{{% codenew file="service/networking/external-lb.yaml" %}}
 
 IngressClassの`.spec.parameters`フィールドを使って、そのIngressClassに関連する設定を持っている別のリソースを参照することができます。
 
@@ -257,7 +257,7 @@ IngressClassリソースの`ingressclass.kubernetes.io/is-default-class`アノ�
 Ingressコントローラーの中には、デフォルトの`IngressClass`を定義しなくても動作するものがあります。 例えば、Ingress-NGINXコントローラーは[フラグ](https://kubernetes.github.io/ingress-nginx/#what-is-the-flag-watch-ingress-without-class)
 `--watch-ingress-without-class`で設定することができます。ただし、デフォルト`IngressClass`を指定することを[推奨します](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do):
 
-{{< codenew file="service/networking/default-ingressclass.yaml" >}}
+{{% codenew file="service/networking/default-ingressclass.yaml" %}}
 
 ## Ingressのタイプ
 
@@ -265,7 +265,7 @@ Ingressコントローラーの中には、デフォルトの`IngressClass`を�
 
 Kubernetesには、単一のServiceを公開できるようにする既存の概念があります（[Ingressの代替案](#alternatives)を参照してください）。ルールなしで*デフォルトのバックエンド* を指定することにより、Ingressでこれを実現することもできます。
 
-{{< codenew file="service/networking/test-ingress.yaml" >}}
+{{% codenew file="service/networking/test-ingress.yaml" %}}
 
 `kubectl apply -f`を実行してIngressを作成すると、その作成したIngressの状態を確認することができます。
 
@@ -292,7 +292,7 @@ IngressコントローラーとロードバランサーがIPアドレス割り�
 
 Ingressを以下のように設定します。
 
-{{< codenew file="service/networking/simple-fanout-example.yaml" >}}
+{{% codenew file="service/networking/simple-fanout-example.yaml" %}}
 
 Ingressを`kubectl apply -f`によって作成したとき:
 
@@ -332,13 +332,13 @@ IngressコントローラーはService(`service1`、`service2`)が存在する�
 
 以下のIngress設定は、ロードバランサーに対して、[Hostヘッダー](https://tools.ietf.org/html/rfc7230#section-5.4)に基づいてリクエストを転送するように指示するものです。
 
-{{< codenew file="service/networking/name-virtual-host-ingress.yaml" >}}
+{{% codenew file="service/networking/name-virtual-host-ingress.yaml" %}}
 
 rules項目でのホストの設定がないIngressを作成すると、IngressコントローラーのIPアドレスに対するwebトラフィックは、要求されている名前ベースのバーチャルホストなしにマッチさせることができます。
 
 例えば、以下のIngressは`first.bar.com`に対するトラフィックを`service1`へ、`second.foo.com`に対するトラフィックを`service2`へ、リクエストにおいてホスト名が指定されていない(リクエストヘッダーがないことを意味します)トラフィックは`service3`へ転送します。
 
-{{< codenew file="service/networking/name-virtual-host-ingress-no-third-host.yaml" >}}
+{{% codenew file="service/networking/name-virtual-host-ingress-no-third-host.yaml" %}}
 
 ### TLS
 
@@ -364,7 +364,7 @@ IngressでこのSecretを参照すると、クライアントとロードバラ�
 そのため、`tls`セクションの`hosts`は`rules`セクションの`host`と明示的に一致する必要があります。
 {{< /note >}}
 
-{{< codenew file="service/networking/tls-example-ingress.yaml" >}}
+{{% codenew file="service/networking/tls-example-ingress.yaml" %}}
 
 {{< note >}}
 サポートされるTLSの機能はIngressコントローラーによって違いがあります。利用する環境でTLSがどのように動作するかを理解するためには、[nginx](https://kubernetes.github.io/ingress-nginx/user-guide/tls/)や、[GCE](https://git.k8s.io/ingress-gce/README.md#frontend-https)、または他のプラットフォーム固有のIngressコントローラーのドキュメントを確認してください。

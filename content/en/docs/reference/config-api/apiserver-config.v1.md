@@ -12,7 +12,6 @@ auto_generated: true
 
 - [AdmissionConfiguration](#apiserver-config-k8s-io-v1-AdmissionConfiguration)
   
-    
 
 ## `AdmissionConfiguration`     {#apiserver-config-k8s-io-v1-AdmissionConfiguration}
     

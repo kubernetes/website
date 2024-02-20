@@ -1,18 +1,7 @@
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
 <!-- 
 Print default init configuration, that can be used for 'kubeadm init' 
 -->
-打印用于 'kubeadm init' 的默认 init 配置
+打印用于 'kubeadm init' 的默认 init 配置。
 
 <!--
 ### Synopsis
@@ -22,15 +11,14 @@ Print default init configuration, that can be used for 'kubeadm init'
 <!--
 This command prints objects such as the default init configuration that is used for 'kubeadm init'.
 -->
-
 此命令打印对象，例如用于 'kubeadm init' 的默认 init 配置对象。
 
 <!--
-<p>Note that sensitive values like the Bootstrap Token fields are replaced with placeholder values like "abcdef.0123456789abcdef" in order to pass validation but
+Note that sensitive values like the Bootstrap Token fields are replaced with placeholder values like "abcdef.0123456789abcdef" in order to pass validation but
 not perform the real computation for creating a token.
 -->
-
-<p>请注意，Bootstrap Token 字段之类的敏感值已替换为 "abcdef.0123456789abcdef" 之类的占位符值以通过验证，但不执行创建令牌的实际计算。
+请注意，Bootstrap Token 字段之类的敏感值已替换为 "abcdef.0123456789abcdef"
+之类的占位符值以通过验证，但不执行创建令牌的实际计算。
 
 ```
 kubeadm config print init-defaults [flags]
@@ -39,7 +27,6 @@ kubeadm config print init-defaults [flags]
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -57,7 +44,8 @@ kubeadm config print init-defaults [flags]
 <!--
 <p>A comma-separated list for component config API objects to print the default values for. Available values: [KubeProxyConfiguration KubeletConfiguration]. If this flag is not set, no component configs will be printed.</p>
 -->
-<p>组件配置 API 对象的逗号分隔列表，打印其默认值。可用值：[KubeProxyConfiguration KubeletConfiguration]。如果未设置此参数，则不会打印任何组件配置。</p>
+<p>以逗号分隔的组件配置 API 对象的列表，打印其默认值。可用值：[KubeProxyConfiguration KubeletConfiguration]。
+如果未设置此参数，则不会打印任何组件配置。</p>
 </td>
 </tr>
 
@@ -69,7 +57,7 @@ kubeadm config print init-defaults [flags]
 <!--
 <p>help for init-defaults</p>
 -->
-<p>init-defaults 操作的帮助命令</p>
+<p>init-defaults 操作的帮助命令。</p>
 </td>
 </tr>
 
@@ -79,7 +67,6 @@ kubeadm config print init-defaults [flags]
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 从父命令继承的选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -120,4 +107,3 @@ kubeadm config print init-defaults [flags]
 
 </tbody>
 </table>
-

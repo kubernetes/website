@@ -37,7 +37,7 @@ is a Pod that has one container:
 
 下面是具有两个副本的 Deployment 的配置文件。每个副本是一个 Pod，有一个容器：
 
-{{% code file="application/deployment-patch.yaml" %}}
+{{% code_sample file="application/deployment-patch.yaml" %}}
 
 <!--
 Create the Deployment:
@@ -418,7 +418,7 @@ Here's the configuration file for a Deployment that uses the `RollingUpdate` str
 -->
 ## 使用带 retainKeys 策略的策略合并 patch 更新 Deployment    {#use-strategic-merge-patch-to-update-a-deployment-using-the-retainkeys-strategy}
 
-{{% code file="application/deployment-retainkeys.yaml" %}}
+{{% code_sample file="application/deployment-retainkeys.yaml" %}}
 
 <!--
 Create the deployment:
@@ -651,7 +651,7 @@ Deployment 是支持这些子资源的其中一个例子。
 
 下面是有两个副本的 Deployment 的清单。
 
-{{% code file="application/deployment.yaml" %}}
+{{% code_sample file="application/deployment.yaml" %}}
 
 <!--
 Create the Deployment:
@@ -794,4 +794,3 @@ Strategic merge patch is not supported for custom resources.
 * [使用指令式命令管理 Kubernetes 对象](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-command/)
 * [使用配置文件对 Kubernetes 对象进行命令式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-config/)
 * [使用配置文件对 Kubernetes 对象进行声明式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/)
-

@@ -79,7 +79,7 @@ The manifest specifies a default CPU request and a default CPU limit.
 以下为 {{< glossary_tooltip text="LimitRange" term_id="limitrange" >}} 的示例清单。
 清单中声明了默认 CPU 请求和默认 CPU 限制。
 
-{{% code file="admin/resource/cpu-defaults.yaml" %}}
+{{% code_sample file="admin/resource/cpu-defaults.yaml" %}}
 
 <!--
 Create the LimitRange in the default-cpu-example namespace:
@@ -105,7 +105,7 @@ does not specify a CPU request and limit.
 
 以下为只包含一个容器的 Pod 的清单。该容器没有声明 CPU 请求和限制。
 
-{{% code file="admin/resource/cpu-defaults-pod.yaml" %}}
+{{% code_sample file="admin/resource/cpu-defaults-pod.yaml" %}}
 
 <!--
 Create the Pod.
@@ -155,7 +155,7 @@ specifies a CPU limit, but not a request:
 
 以下为只包含一个容器的 Pod 的清单。该容器声明了 CPU 限制，而没有声明 CPU 请求。
 
-{{% code file="admin/resource/cpu-defaults-pod-2.yaml" %}}
+{{% code_sample file="admin/resource/cpu-defaults-pod-2.yaml" %}}
 
 <!--
 Create the Pod:
@@ -200,7 +200,7 @@ specifies a CPU request, but not a limit:
 
 这里给出了包含一个容器的 Pod 的示例清单。该容器声明了 CPU 请求，而没有声明 CPU 限制。
 
-{{% code file="admin/resource/cpu-defaults-pod-3.yaml" %}}
+{{% code_sample file="admin/resource/cpu-defaults-pod-3.yaml" %}}
 
 <!--
 Create the Pod:

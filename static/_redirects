@@ -30,6 +30,8 @@
 /docs/api-reference/labels-annotations-taints/     /docs/reference/labels-annotations-taints/ 301
 /docs/reference/using-api/api-overview/     /docs/reference/using-api/ 301
 /docs/reference/access-authn-authz/controlling-access/   /docs/concepts/security/controlling-access/ 301
+/docs/reference/kubectl/cheatsheet/   /docs/reference/kubectl/quick-reference/ 301
+/kubectlguide /docs/reference/kubectl/quick-reference/ 302
 
 /docs/concepts/abstractions/controllers/garbage-collection/     /docs/concepts/workloads/controllers/garbage-collection/ 301
 /docs/concepts/abstractions/controllers/statefulsets/     /docs/concepts/workloads/controllers/statefulset/ 301
@@ -167,6 +169,7 @@
 
 /docs/reference/deprecation-policy/     /docs/reference/using-api/deprecation-policy/ 301
 
+/docs/reference/generated/kubectl/kubectl-commands/     /docs/reference/kubectl/ 301
 /docs/reference/generated/cloud-controller-manager/     /docs/reference/command-line-tools-reference/cloud-controller-manager/ 301
 /docs/reference/generated/kubelet/     /docs/reference/command-line-tools-reference/kubelet/ 301
 /docs/reference/generated/kube-apiserver/     /docs/reference/command-line-tools-reference/kube-apiserver/ 301
@@ -198,6 +201,7 @@
 
 /docs/reporting-security-issues/     /docs/reference/issues-security/security/ 301
 /security/ /docs/reference/issues-security/security/ 302
+/docs/concepts/security/overview/ /docs/concepts/security/ 301
 
 /docs/roadmap/     https://github.com/kubernetes/kubernetes/milestones/ 301
 /docs/samples/     /docs/tutorials/ 301
@@ -345,7 +349,7 @@
 /docs/tutorials/stateless-application/run-stateless-ap-replication-controller/     /docs/tasks/run-application/run-stateless-application-deployment/ 301
 /docs/tutorials/stateless-application/run-stateless-application-deployment/     /docs/tasks/run-application/run-stateless-application-deployment/ 301
 
-/cheatsheet /docs/reference/kubectl/cheatsheet/ 302
+/cheatsheet /docs/reference/kubectl/quick-reference/ 302
 
 /docs/whatisk8s/     /docs/concepts/overview/what-is-kubernetes/ 301
 /events/     /docs/community     301
@@ -371,6 +375,9 @@
 
 /dockershim /blog/2022/02/17/dockershim-faq/ 302
 /dockershim/ /blog/2022/02/17/dockershim-faq/ 302
+
+/linuxrepos /blog/2023/08/31/legacy-package-repository-deprecation/ 302
+/linuxrepos/ /blog/2023/08/31/legacy-package-repository-deprecation/ 302
 
 /image-registry-redirect  /blog/2023/03/10/image-registry-redirect/ 302
 /image-registry-redirect/ /blog/2022/02/10/image-registry-redirect/ 302

@@ -91,7 +91,7 @@ To submit a blog post, follow these steps:
 - Blog posts should be relevant to Kubernetes users.
 
   - Topics related to participation in or results of Kubernetes SIGs activities are always on
-    topic (see the work in the [Contributor Comms Team](https://github.com/kubernetes/community/blob/master/communication/contributor-comms/storytelling-resources/blog-guidelines.md#upstream-marketing-blog-guidelines)
+    topic (see the work in the [Contributor Comms Team](https://github.com/kubernetes/community/blob/master/communication/contributor-comms/blogging-resources/blog-guidelines.md#contributor-comms-blog-guidelines)
     for support on these posts). 
   - The components of Kubernetes are purposely modular, so tools that use existing integration
     points like CNI and CSI are on topic. 
@@ -123,6 +123,10 @@ To submit a blog post, follow these steps:
 Submissions need to be in Markdown format to be used by the [Hugo](https://gohugo.io/) generator
 for the blog. There are [many resources available](https://gohugo.io/documentation/) on how to use
 this technology stack.
+
+For illustrations, diagrams or charts, the [figure shortcode](https://gohugo.io/content-management/shortcodes/#figure)
+can be used. For other images, we strongly encourage use of alt attributes; if an image doesn't
+need any alt attrribute, maybe it's not needed in the article at all.
 
 We recognize that this requirement makes the process more difficult for less-familiar folks to
 submit, and we're constantly looking at solutions to lower this bar. If you have ideas on how to

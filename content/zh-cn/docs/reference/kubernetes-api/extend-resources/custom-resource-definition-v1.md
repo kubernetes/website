@@ -41,9 +41,10 @@ CustomResourceDefinition 表示应在 API 服务器上公开的资源。其名�
   <!--
   Standard object's metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
-  标准的对象元数据，更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  标准的对象元数据，更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinitionSpec" >}}">CustomResourceDefinitionSpec</a>), <!--required-->必需
+- **spec** (<a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinitionSpec" >}}">CustomResourceDefinitionSpec</a>)，<!--required-->必需
   <!--
   spec describes how the user wants the resources to appear
   -->
@@ -298,7 +299,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
     schema describes the schema used for validation, pruning, and defaulting of this version of the custom resource.
     -->
 
-    schema 描述了用于验证、精简和默认此版本的自定义资源的模式。  
+    schema 描述了用于验证、精简和默认此版本的自定义资源的模式。
 
     <a name="CustomResourceValidation"></a>
     <!--
@@ -321,7 +322,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
     subresources specify what subresources this version of the defined custom resource have.
     -->
 
-    subresources 指定此版本已定义的自定义资源具有哪些子资源。  
+    subresources 指定此版本已定义的自定义资源具有哪些子资源。
 
     <a name="CustomResourceSubresources"></a>
     <!--
@@ -461,7 +462,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
       clientConfig is the instructions for how to call the webhook if strategy is `Webhook`.
       -->
 
-      如果 strategy 是 `Webhook`， 那么 clientConfig 是关于如何调用 Webhook 的说明。
+      如果 strategy 是 `Webhook`，那么 clientConfig 是关于如何调用 Webhook 的说明。
 
       <a name="WebhookClientConfig"></a>
       <!--
@@ -581,7 +582,8 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
   preserveUnknownFields 表示将对象写入持久性存储时应保留 OpenAPI 模式中未规定的对象字段。
   apiVersion、kind、元数据（metadata）和元数据中的已知字段始终保留。不推荐使用此字段，而建议在
   `spec.versions[*].schema.openAPIV3Schema` 中设置 `x-preserve-unknown-fields` 为 true。
-  更多详细信息参见： https://kubernetes.io/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning
+  更多详细信息参见：
+  https://kubernetes.io/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning
 
 ## JSONSchemaProps {#JSONSchemaProps}
 
@@ -689,7 +691,7 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
   - hostname：互联网主机名的有效表示，由 RFC 1034 第 3.1 节 [RFC1034] 定义
   - ipv4：由 Go 语言 net.ParseIP 解析得到的 IPv4 协议的 IP
   - ipv6：由 Go 语言 net.ParseIP 解析得到的 IPv6 协议的 IP
-  - cidr: 由 Go 语言 net.ParseCIDR 解析得到的 CIDR
+  - cidr：由 Go 语言 net.ParseCIDR 解析得到的 CIDR
   - mac：由 Go 语言 net.ParseMAC 解析得到的一个 MAC 地址
   - uuid：UUID，允许大写字母，满足正则表达式 (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$
   - uuid3：UUID3，允许大写字母，满足正则表达式 (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?3[0-9a-f]{3}-?[0-9a-f]{4}-?[0-9a-f]{12}$
@@ -697,13 +699,15 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
   - uuid5：UUID5，允许大写字母，满足正则表达式 (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?5[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$
   - isbn：一个 ISBN10 或 ISBN13 数字字符串，如 "0321751043" 或 "978-0321751041"
   - isbn10：一个 ISBN10 数字字符串，如 "0321751043"
-  - isbn13: 一个 ISBN13 号码字符串，如 "978-0321751041"
-  - creditcard：信用卡号码，满足正则表达式 ^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$，其中混合任意非数字字符
+  - isbn13：一个 ISBN13 号码字符串，如 "978-0321751041"
+  - creditcard：信用卡号码，满足正则表达式
+    ^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$，
+    其中混合任意非数字字符
   - ssn：美国社会安全号码，满足正则表达式 ^\d{3}[- ]?\d{2}[- ]?\d{4}$
   - hexcolor：一个十六进制的颜色编码，如 "#FFFFFF"，满足正则表达式 ^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$
   - rgbcolor：一个 RGB 颜色编码 例如 "rgb(255,255,255)"
   - byte：base64 编码的二进制数据
-  - password: 任何类型的字符串
+  - password：任何类型的字符串
   - date：类似 "2006-01-02" 的日期字符串，由 RFC3339 中的完整日期定义
   - duration：由 Go 语言 time.ParseDuration 解析的持续时长字符串，如 "22 ns"，或与 Scala 持续时间格式兼容。
   - datetime：一个日期时间字符串，如 "2014-12-15T19:30:20.000Z"，由 RFC3339 中的 date-time 定义。
@@ -808,7 +812,7 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
   <!--
   x-kubernetes-list-type annotates an array to further describe its topology. This extension must only be used on lists and may have 3 possible values:
   -->
-  x-kubernetes-list-type 注解一个数组以进一步描述其拓扑。此扩展名只能用于列表，并且可能有 3 个可能的值：  
+  x-kubernetes-list-type 注解一个数组以进一步描述其拓扑。此扩展名只能用于列表，并且可能有 3 个可能的值：
 
   <!--
   1) `atomic`: the list is treated as a single entity, like a scalar.
@@ -840,7 +844,7 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
   <!--
   x-kubernetes-map-type annotates an object to further describe its topology. This extension must only be used when type is object and may have 2 possible values:
   -->
-  x-kubernetes-map-type 注解一个对象以进一步描述其拓扑。此扩展只能在 type 为 object 时使用，并且可能有 2 个可能的值：  
+  x-kubernetes-map-type 注解一个对象以进一步描述其拓扑。此扩展只能在 type 为 object 时使用，并且可能有 2 个可能的值：
 
   <!--
   1) `granular`:
@@ -895,7 +899,10 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
   - **x-kubernetes-validations.rule** (string)，必需
 
     <!--
-    Rule represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec The Rule is scoped to the location of the x-kubernetes-validations extension in the schema. The `self` variable in the CEL expression is bound to the scoped value. Example: - Rule scoped to the root of a resource with a status subresource: {"rule": "self.status.actual \<= self.spec.maxDesired"}
+    Rule represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec.
+    The Rule is scoped to the location of the x-kubernetes-validations extension in the schema.
+    The `self` variable in the CEL expression is bound to the scoped value.
+    Example: - Rule scoped to the root of a resource with a status subresource: {"rule": "self.status.actual \<= self.spec.maxDesired"}
     -->
 
     rule 表示将由 CEL 评估的表达式。参考： https://github.com/google/cel-spec。
@@ -984,10 +991,35 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
     - 'map'：`X + Y` 执行合并，保留 `X` 中所有键的数组位置，但当 `X` 和 `Y` 的键集相交时，会被 `Y` 中的值覆盖。
       添加 `Y` 中具有不相交键的元素，保持其局顺序。
 
+  - **x-kubernetes-validations.fieldPath** (string)
+
+    <!--
+    fieldPath represents the field path returned when the validation fails. 
+    It must be a relative JSON path (i.e. with array notation) scoped to the location of this
+    x-kubernetes-validations extension in the schema and refer to an existing field.
+    e.g. when validation checks if a specific attribute `foo` under a map `testMap`, the fieldPath could be set to `.testMap.foo`
+    If the validation checks two lists must have unique attributes, the fieldPath could be set to either of the list: e.g. `.testList`
+    It does not support list numeric index. It supports child operation to refer to an existing field currently.
+    Refer to [JSONPath support in Kubernetes](https://kubernetes.io/docs/reference/kubectl/jsonpath/) for more info.
+    Numeric index of array is not supported. For field name which contains special characters, use `['specialName']` to refer the field name.
+    e.g. for attribute `foo.34$` appears in a list `testList`, the fieldPath could be set to `.testList['foo.34$']`
+    -->
+
+    fieldPath 表示验证失败时返回的字段路径。
+    它必须是相对 JSON 路径（即，支持数组表示法），范围仅限于此 x-kubernetes-validations
+    扩展在模式的位置，并引用现有字段。
+    例如，当验证检查 `testMap` 映射下是否有 `foo` 属性时，可以将 fieldPath 设置为 `.testMap.foo`。
+    如果验证需要确保两个列表具有各不相同的属性，则可以将 fieldPath 设置到其中任一列表，例如 `.testList`。
+    它支持使用子操作引用现有字段，而不支持列表的数字索引。
+    有关更多信息，请参阅 [Kubernetes 中的 JSONPath 支持](https://kubernetes.io/docs/reference/kubectl/jsonpath/)。
+    因为其不支持数组的数字索引，所以对于包含特殊字符的字段名称，请使用 `['specialName']` 来引用字段名称。
+    例如，对于出现在列表 `testList` 中的属性 `foo.34$`，fieldPath 可以设置为 `.testList['foo.34$']`。
+
   - **x-kubernetes-validations.message** (string)
 
     <!--
-    Message represents the message displayed when validation fails. The message is required if the Rule contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host"
+    Message represents the message displayed when validation fails. The message is required if the Rule contains line breaks.
+    The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host"
     -->
 
     message 表示验证失败时显示的消息。如果规则包含换行符，则需要该消息。消息不能包含换行符。
@@ -996,8 +1028,17 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
   - **x-kubernetes-validations.messageExpression** (string)
 
     <!--
-    MessageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a rule, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the rule; the only difference is the return type. Example: "x must be less than max ("+string(self.max)+")"
+    MessageExpression declares a CEL expression that evaluates to the validation failure message that
+    is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string.
+    If both message and messageExpression are present on a rule, then messageExpression will be used if validation fails.
+    If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is
+    produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string
+    with only spaces, or a string that contains line breaks, then the validation failure message will also be produced
+    as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string
+    with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the rule;
+    the only difference is the return type. Example: "x must be less than max ("+string(self.max)+")"
     -->
+
     messageExpression 声明一个 CEL 表达式，其计算结果是此规则失败时返回的验证失败消息。
     由于 messageExpression 用作失败消息，因此它的值必须是一个字符串。
     如果在规则中同时存在 message 和 messageExpression，则在验证失败时使用 messageExpression。
@@ -1007,6 +1048,24 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
     并记录 messageExpression 生成空字符串/只包含空格的字符串/包含换行符的字符串的事实。
     messageExpression 可以访问的变量与规则相同；唯一的区别是返回类型。
     例如："x must be less than max ("+string(self.max)+")"。
+
+  - **x-kubernetes-validations.reason** (string)
+
+    <!--
+    reason provides a machine-readable validation failure reason that is returned to the caller
+    when a request fails this validation rule. The HTTP status code returned to the caller will
+    match the reason of the reason of the first failed validation rule.
+    The currently supported reasons are: "FieldValueInvalid", "FieldValueForbidden", "FieldValueRequired",
+    "FieldValueDuplicate". If not set, default to use "FieldValueInvalid".
+    All future added reasons must be accepted by clients when reading this value and unknown
+    reasons should be treated as FieldValueInvalid.
+    -->
+
+    reason 提供机器可读的验证失败原因，当请求未通过此验证规则时，该原因会返回给调用者。
+    返回给调用者的 HTTP 状态代码将与第一个失败的验证规则的原因相匹配。
+    目前支持的原因有：`FieldValueInvalid`、`FieldValueForbidden`、`FieldValueRequired`、`FieldValueDuplicate`。
+    如果未设置，则默认使用 `FieldValueInvalid`。
+    所有未来添加的原因在读取该值时必须被客户端接受，未知原因应被视为 `FieldValueInvalid`。
 
 ## CustomResourceDefinitionStatus {#CustomResourceDefinitionStatus}
 
@@ -1066,7 +1125,7 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
     listKind is the serialized kind of the list for this resource. Defaults to "`kind`List".
     -->
 
-    listKind 是此资源列表的序列化类型。默认为 "`<kind>List`"。  
+    listKind 是此资源列表的序列化类型。默认为 "`<kind>List`"。
 
   - **acceptedNames.shortNames** ([]string)
 
@@ -1074,7 +1133,7 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
     shortNames are short names for the resource, exposed in API discovery documents, and used by clients to support invocations like `kubectl get \<shortname>`. It must be all lowercase.
     -->
 
-    shortNames 是资源的短名称，在 API 发现文档中公开，并支持客户端调用，如 `kubectl get <shortname>`。必须全部小写。  
+    shortNames 是资源的短名称，在 API 发现文档中公开，并支持客户端调用，如 `kubectl get <shortname>`。必须全部小写。
 
   - **acceptedNames.singular** (string)
 
@@ -1205,7 +1264,8 @@ CustomResourceDefinitionList 是 CustomResourceDefinition 对象的列表。
   Standard object's metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
   -->
 
-  标准的对象元数据，更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  标准的对象元数据，更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 ## Operations {#Operations}
 
@@ -1372,7 +1432,7 @@ POST /apis/apiextensions.k8s.io/v1/customresourcedefinitions
 -->
 #### 参数
 
-- **body**: <a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinition" >}}">CustomResourceDefinition</a>，必需
+- **body**：<a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinition" >}}">CustomResourceDefinition</a>，必需
 
 - **dryRun** <!--(*in query*):-->（**查询参数**）：string
 
@@ -1429,7 +1489,7 @@ PUT /apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}
 
   CustomResourceDefinition 的名称。
 
-- **body**: <a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinition" >}}">CustomResourceDefinition</a>，必需
+- **body**：<a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinition" >}}">CustomResourceDefinition</a>，必需
 
 - **dryRun** <!--(*in query*):-->（**查询参数**）：string
 
@@ -1484,7 +1544,7 @@ PUT /apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}/status
 
   CustomResourceDefinition 的名称。
 
-- **body**: <a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinition" >}}">CustomResourceDefinition</a>，必需
+- **body**：<a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinition" >}}">CustomResourceDefinition</a>，必需
 
 - **dryRun** <!--(*in query*):-->（**查询参数**）：string
 
@@ -1539,7 +1599,7 @@ PATCH /apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}
 
   CustomResourceDefinition 的名称。
 
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
+- **body**：<a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
 
 - **dryRun** <!--(*in query*):-->（**查询参数**）：string
 
@@ -1598,7 +1658,7 @@ PATCH /apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}/status
 
   CustomResourceDefinition 的名称。
 
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
+- **body**：<a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
 
 - **dryRun** <!--(*in query*):-->（**查询参数**）：string
 
@@ -1655,7 +1715,7 @@ DELETE /apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}
   
   CustomResourceDefinition 的名称。
 
-- **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
+- **body**：<a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
 - **dryRun** <!--(*in query*):-->（**查询参数**）：string
 
@@ -1700,7 +1760,7 @@ DELETE /apis/apiextensions.k8s.io/v1/customresourcedefinitions
 -->
 #### 参数
 
-- **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
+- **body**：<a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
 - **continue** <!--(*in query*):-->（**查询参数**）：string
 

@@ -5,7 +5,7 @@ date: 2022-12-15
 slug: dynamic-resource-allocation
 ---
 
- **Authors:** Patrick Ohly (Intel), Kevin Klues (NVIDIA)
+**Authors:** Patrick Ohly (Intel), Kevin Klues (NVIDIA)
 
 Dynamic resource allocation is a new API for requesting resources. It is a
 generalization of the persistent volumes API for generic resources, making it possible to:
@@ -19,11 +19,11 @@ Third-party resource drivers are responsible for interpreting these parameters
 as well as tracking and allocating resources as requests come in.
 
 Dynamic resource allocation is an *alpha feature* and only enabled when the
-`DynamicResourceAllocation` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/) and the
-`resource.k8s.io/v1alpha1` {{< glossary_tooltip text="API group"
-term_id="api-group" >}} are enabled. For details, see the
-`--feature-gates` and `--runtime-config` [kube-apiserver
+`DynamicResourceAllocation`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and the
+`resource.k8s.io/v1alpha1`
+{{< glossary_tooltip text="API group" term_id="api-group" >}} are enabled. For details,
+see the `--feature-gates` and `--runtime-config` [kube-apiserver
 parameters](/docs/reference/command-line-tools-reference/kube-apiserver/).
 The kube-scheduler, kube-controller-manager and kubelet components all need
 the feature gate enabled as well.
@@ -39,8 +39,8 @@ for end-to-end testing, but also can be run manually. See
 
 ## API
 
-The new `resource.k8s.io/v1alpha1` {{< glossary_tooltip text="API group"
-term_id="api-group" >}} provides four new types:
+The new `resource.k8s.io/v1alpha1` {{< glossary_tooltip text="API group" term_id="api-group" >}}
+provides four new types:
 
 ResourceClass
 : Defines which resource driver handles a certain kind of
@@ -77,7 +77,7 @@ this `.spec` (for example, inside a Deployment or StatefulSet) share the same
 ResourceClaim instance. When referencing a ResourceClaimTemplate, each Pod gets
 its own ResourceClaim instance.
 
-For a container defined within a Pod, the  `resources.claims` list 
+For a container defined within a Pod, the `resources.claims` list
 defines whether that container gets
 access to these resource instances, which makes it possible to share resources
 between one or more containers inside the same Pod. For example, an init container could
@@ -89,7 +89,7 @@ will get created for this Pod and each container gets access to one of them.
 Assuming a resource driver called `resource-driver.example.com` was installed
 together with the following resource class:
 
-```
+```yaml
 apiVersion: resource.k8s.io/v1alpha1
 kind: ResourceClass
 name: resource.example.com
@@ -151,8 +151,7 @@ spec:
 
 In contrast to native resources (such as CPU or RAM) and
 [extended resources](/docs/concepts/configuration/manage-resources-containers/#extended-resources)
-(managed by a
-device plugin, advertised by kubelet), the scheduler has no knowledge of what
+(managed by a device plugin, advertised by kubelet), the scheduler has no knowledge of what
 dynamic resources are available in a cluster or how they could be split up to
 satisfy the requirements of a specific ResourceClaim. Resource drivers are
 responsible for that. Drivers mark ResourceClaims as _allocated_ once resources
@@ -227,8 +226,8 @@ It is up to the driver developer to decide how these two components
 communicate. The [KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/3063-dynamic-resource-allocation/README.md) outlines an [approach using
 CRDs](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/3063-dynamic-resource-allocation#implementing-a-plugin-for-node-resources).
 
-Within SIG Node, we also plan to provide a complete [example
-driver](https://github.com/kubernetes-sigs/dra-example-driver) that can serve
+Within SIG Node, we also plan to provide a complete
+[example driver](https://github.com/kubernetes-sigs/dra-example-driver) that can serve
 as a template for other drivers.
 
 ## Running the test driver
@@ -236,7 +235,7 @@ as a template for other drivers.
 The following steps bring up a local, one-node cluster directly from the
 Kubernetes source code. As a prerequisite, your cluster must have nodes with a container
 runtime that supports the
-[Container Device Interface](https://github.com/container-orchestrated-devices/container-device-interface) 
+[Container Device Interface](https://github.com/container-orchestrated-devices/container-device-interface)
 (CDI). For example, you can run CRI-O [v1.23.2](https://github.com/cri-o/cri-o/releases/tag/v1.23.2) or later.
 Once containerd v1.7.0 is released, we expect that you can run that or any later version.
 In the example below, we use CRI-O.
@@ -259,15 +258,16 @@ $ RUNTIME_CONFIG=resource.k8s.io/v1alpha1 \
   PATH=$(pwd)/third_party/etcd:$PATH \
   ./hack/local-up-cluster.sh -O
 ...
-To start using your cluster, you can open up another terminal/tab and run:
-
-  export KUBECONFIG=/var/run/kubernetes/admin.kubeconfig
-...
 ```
 
-Once the cluster is up, in another
-terminal run the test driver controller. `KUBECONFIG` must be set for all of
-the following commands.
+To start using your cluster, you can open up another terminal/tab and run:
+
+```console
+$ export KUBECONFIG=/var/run/kubernetes/admin.kubeconfig
+```
+
+Once the cluster is up, in another terminal run the test driver controller.
+`KUBECONFIG` must be set for all of the following commands.
 
 ```console
 $ go run ./test/e2e/dra/test-driver --feature-gates ContextualLogging=true -v=5 controller
@@ -319,7 +319,7 @@ user_a='b'
 ## Next steps
 
 - See the
-[Dynamic Resource Allocation](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/3063-dynamic-resource-allocation/README.md)
+  [Dynamic Resource Allocation](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/3063-dynamic-resource-allocation/README.md)
   KEP for more information on the design.
 - Read [Dynamic Resource Allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)
   in the official Kubernetes documentation.
@@ -328,6 +328,6 @@ user_a='b'
   and / or the [CNCF Container Orchestrated Device Working Group](https://github.com/cncf/tag-runtime/blob/master/wg/COD.md).
 - You can view or comment on the [project board](https://github.com/orgs/kubernetes/projects/95/views/1)
   for dynamic resource allocation.
- - In order to move this feature towards beta, we need feedback from hardware
-   vendors, so here's a call to action: try out this feature, consider how it can help
-   with problems that your users are having, and write resource drivers…
+- In order to move this feature towards beta, we need feedback from hardware
+  vendors, so here's a call to action: try out this feature, consider how it can help
+  with problems that your users are having, and write resource drivers…

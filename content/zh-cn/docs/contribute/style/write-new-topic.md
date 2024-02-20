@@ -59,7 +59,7 @@ that you write. The docs site provides templates or
 new content pages. To create a new type of page, run `hugo new` with the path to the file
 you want to create. For example:
 -->
-### 创建一个新页面{#creating-a-new-page}
+### 创建一个新页面    {#creating-a-new-page}
 
 为每个新页面选择其[内容类型](/zh-cn/docs/contribute/style/page-content-types/)。
 文档站提供了模板或 [Hugo Archetypes](https://gohugo.io/content-management/archetypes/) 来创建新的内容页面。
@@ -84,7 +84,7 @@ URL for the topic, for example:
 
 选择一个标题，确保其中包含希望搜索引擎发现的关键字。
 确定文件名时请使用标题中的单词，由连字符分隔。
-例如，标题为[Using an HTTP Proxy to Access Kubernetes API](/zh-cn/docs/tasks/extend-kubernetes/http-proxy-access-api/)
+例如，标题为[使用 HTTP 代理访问 Kubernetes API](/zh-cn/docs/tasks/extend-kubernetes/http-proxy-access-api/)
 的主题的文件名为 `http-proxy-access-api.md`。
 你不需要在文件名中加上 "kubernetes"，因为 "kubernetes" 已经在主题的 URL 中了，
 例如：
@@ -186,7 +186,7 @@ following cases (not an exhaustive list):
 - The code is not generic enough for users to try out. As an example, you can
   embed the YAML
   file for creating a Pod which depends on a specific
-  [FlexVolume](/docs/concepts/storage/volumes#flexvolume) implementation.
+  [FlexVolume](/docs/concepts/storage/volumes/#flexvolume) implementation.
 - The code is an incomplete example because its purpose is to highlight a
   portion of a larger file. For example, when describing ways to
   customize a [RoleBinding](/docs/reference/access-authn-authz/rbac/#role-binding-examples),
@@ -199,7 +199,7 @@ following cases (not an exhaustive list):
 
 - 代码显示来自命令的输出，例如 `kubectl get deploy mydeployment -o json | jq '.status'`。
 - 代码不够通用，用户无法验证。例如，你可以嵌入 YAML 文件来创建一个依赖于特定
-  [FlexVolume](/zh-cn/docs/concepts/storage/volumes#flexvolume) 实现的 Pod。
+  [FlexVolume](/zh-cn/docs/concepts/storage/volumes/#flexvolume) 实现的 Pod。
 - 该代码是一个不完整的示例，因为其目的是突出展现某个大文件中的部分内容。
   例如，在描述
   [RoleBinding](/zh-cn/docs/reference/access-authn-authz/rbac/#role-binding-examples)
@@ -225,13 +225,13 @@ reusable, and you want the reader to try it out themselves.
 <!--
 When adding a new standalone sample file, such as a YAML file, place the code in
 one of the `<LANG>/examples/` subdirectories where `<LANG>` is the language for
-the topic. In your topic file, use the `codenew` shortcode:
+the topic. In your topic file, use the `code_sample` shortcode:
 -->
 添加新的独立示例文件（如 YAML 文件）时，将代码放在 `<LANG>/examples/` 的某个子目录中，
-其中 `<LANG>` 是该主题的语言。在主题文件中使用 `codenew` 短代码：
+其中 `<LANG>` 是该主题的语言。在主题文件中使用 `code_sample` 短代码：
 
 ```none
-{{</* codenew file="<RELPATH>/my-example-yaml>" */>}}
+{{%/* code_sample file="<RELPATH>/my-example-yaml>" */%}}
 ```
 
 <!--
@@ -245,18 +245,8 @@ file located at `/content/en/examples/pods/storage/gce-volume.yaml`.
 文件。
 
 ```none
-{{</* codenew file="pods/storage/gce-volume.yaml" */>}}
+{{%/* code_sample file="pods/storage/gce-volume.yaml" */%}}
 ```
-
-<!--
-To show raw Hugo shortcodes as in the above example and prevent Hugo
-from interpreting them, use C-style comments directly after the `<` and before
-the `>` characters. View the code for this page for an example.
--->
-{{< note >}}
-要展示上述示例中的原始 Hugo 短代码并避免 Hugo 对其进行解释，
-请直接在 `<` 字符之后和 `>` 字符之前使用 C 样式注释。请查看此页面的代码。
-{{< /note >}}
 
 <!--
 ## Showing how to create an API object from a configuration file
@@ -278,13 +268,13 @@ In your topic, show this command:
 kubectl create -f https://k8s.io/examples/pods/storage/gce-volume.yaml
 ```
 
+{{< note >}}
 <!--
 When adding new YAML files to the `<LANG>/examples` directory, make
 sure the file is also included into the `<LANG>/examples_test.go` file. The
 Travis CI for the Website automatically runs this test case when PRs are
 submitted to ensure all examples pass the tests.
 -->
-{{< note >}}
 将新的 YAML 文件添加到 `<LANG>/examples` 目录时，请确保该文件也在
 `<LANG>/examples_test.go` 文件中被引用。
 当提交拉取请求时，网站的 Travis CI 会自动运行此测试用例，以确保所有示例都通过测试。
@@ -294,8 +284,8 @@ submitted to ensure all examples pass the tests.
 For an example of a topic that uses this technique, see
 [Running a Single-Instance Stateful Application](/docs/tasks/run-application/run-single-instance-stateful-application/).
 -->
-有关使用此技术的主题的示例，请参见
-[运行单实例有状态的应用](/zh-cn/docs/tasks/run-application/run-single-instance-stateful-application/)。
+有关使用此技术的主题的示例，
+请参见[运行单实例有状态的应用](/zh-cn/docs/tasks/run-application/run-single-instance-stateful-application/)。
 
 <!--
 ## Adding images to a topic
@@ -312,6 +302,5 @@ Put image files in the `/images` directory. The preferred image format is SVG.
 * Learn about [using page content types](/docs/contribute/style/page-content-types/).
 * Learn about [creating a pull request](/docs/contribute/new-content/open-a-pr/).
 -->
-* 了解[使用页面内容类型](/zh-cn/docs/contribute/style/page-content-types/).
-* 了解[创建 PR](/zh-cn/docs/contribute/new-content/open-a-pr/).
-
+* 了解[使用页面内容类型](/zh-cn/docs/contribute/style/page-content-types/)。
+* 了解[创建 PR](/zh-cn/docs/contribute/new-content/open-a-pr/)。

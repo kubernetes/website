@@ -297,7 +297,10 @@ kubeadm certs renew all
 
 {{< note >}}
 <!--
-Clusters built with kubeadm often copy the `admin.conf` certificate into `$HOME/.kube/config`, as instructed in [Creating a cluster with kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/). On such a system, to update the contents of `$HOME/.kube/config` after renewing the `admin.conf` you must run the following commands:
+Clusters built with kubeadm often copy the `admin.conf` certificate into
+`$HOME/.kube/config`, as instructed in [Creating a cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
+On such a system, to update the contents of `$HOME/.kube/config`
+after renewing the `admin.conf`, you must run the following commands:
 -->
 使用 kubeadm 构建的集群通常会将 `admin.conf` 证书复制到 `$HOME/.kube/config` 中，
 如[使用 kubeadm 创建集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)中所指示的那样。
@@ -604,13 +607,14 @@ IP 或域名请求服务证书。
 During cluster creation, kubeadm signs the certificate in the `admin.conf` to have
 `Subject: O = system:masters, CN = kubernetes-admin`.
 [`system:masters`](/docs/reference/access-authn-authz/rbac/#user-facing-roles)
-is a break-glass, super user group that bypasses the authorization layer (e.g. RBAC).
+is a break-glass, super user group that bypasses the authorization layer (for example,
+[RBAC](/docs/reference/access-authn-authz/rbac/)).
 Sharing the `admin.conf` with additional users is **not recommended**!
 -->
 在集群创建过程中，kubeadm 对 `admin.conf` 中的证书进行签名时，将其配置为
 `Subject: O = system:masters, CN = kubernetes-admin`。
 [`system:masters`](/zh-cn/docs/reference/access-authn-authz/rbac/#user-facing-roles)
-是一个例外的超级用户组，可以绕过鉴权层（例如 RBAC）。
+是一个例外的超级用户组，可以绕过鉴权层（例如 [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/)）。
 强烈建议不要将 `admin.conf` 文件与任何人共享。
 
 <!--

@@ -73,7 +73,7 @@ The general usage flow for an admission controller based verification is:
 <!--
 {{< figure src="/blog/2023/06/29/container-image-signature-verification/flow.svg" alt="Create an instance of the policy and annotate the namespace to validate the signatures. Then create the pod. The controller evaluates the policy and if it passes, then it does the image pull if necessary. If the policy evaluation fails, then it will not admit the pod." >}}
 -->
-{{< figure src="/blog/2023/06/29/container-image-signature-verification/flow.svg" alt="创建一个策略的实例，并对命名空间添加注解以验证签名。然后创建 Pod。控制器会评估策略，如果评估通过，则根据需要执行镜像拉取。如果策略评估失败，则不允许该 Pod 运行。" >}}
+{{< figure src="/zh-cn/blog/2023/06/29/container-image-signature-verification/flow.svg" alt="创建一个策略的实例，并对命名空间添加注解以验证签名。然后创建 Pod。控制器会评估策略，如果评估通过，则根据需要执行镜像拉取。如果策略评估失败，则不允许该 Pod 运行。" >}}
 
 <!--
 A key benefit of this architecture is simplicity: A single instance within the

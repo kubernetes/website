@@ -39,7 +39,7 @@ Kubernetes captures logs from each container in a running Pod.
 This example uses a manifest for a `Pod` with a container
 that writes text to the standard output stream, once per second.
 
-{{% code file="debug/counter-pod.yaml" %}}
+{{% code_sample file="debug/counter-pod.yaml" %}}
 
 To run this pod, use the following command:
 
@@ -255,7 +255,7 @@ For example, a pod runs a single container, and the container
 writes to two different log files using two different formats. Here's a
 manifest for the Pod:
 
-{{% code file="admin/logging/two-files-counter-pod.yaml" %}}
+{{% code_sample file="admin/logging/two-files-counter-pod.yaml" %}}
 
 It is not recommended to write log entries with different formats to the same log
 stream, even if you managed to redirect both components to the `stdout` stream of
@@ -265,7 +265,7 @@ the logs to its own `stdout` stream.
 
 Here's a manifest for a pod that has two sidecar containers:
 
-{{% code file="admin/logging/two-files-counter-pod-streaming-sidecar.yaml" %}}
+{{% code_sample file="admin/logging/two-files-counter-pod-streaming-sidecar.yaml" %}}
 
 Now when you run this pod, you can access each log stream separately by
 running the following commands:
@@ -332,7 +332,7 @@ Here are two example manifests that you can use to implement a sidecar container
 The first manifest contains a [`ConfigMap`](/docs/tasks/configure-pod-container/configure-pod-configmap/)
 to configure fluentd.
 
-{{% code file="admin/logging/fluentd-sidecar-config.yaml" %}}
+{{% code_sample file="admin/logging/fluentd-sidecar-config.yaml" %}}
 
 {{< note >}}
 In the sample configurations, you can replace fluentd with any logging agent, reading
@@ -342,7 +342,7 @@ from any source inside an application container.
 The second manifest describes a pod that has a sidecar container running fluentd.
 The pod mounts a volume where fluentd can pick up its configuration data.
 
-{{% code file="admin/logging/two-files-counter-pod-agent-sidecar.yaml" %}}
+{{% code_sample file="admin/logging/two-files-counter-pod-agent-sidecar.yaml" %}}
 
 ### Exposing logs directly from the application
 

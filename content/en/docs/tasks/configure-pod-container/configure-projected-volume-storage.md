@@ -29,7 +29,7 @@ In this exercise, you create username and password {{< glossary_tooltip text="Se
 
 Here is the configuration file for the Pod:
 
-{{% code file="pods/storage/projected.yaml" %}}
+{{% code_sample file="pods/storage/projected.yaml" %}}
 
 1. Create the Secrets:
 

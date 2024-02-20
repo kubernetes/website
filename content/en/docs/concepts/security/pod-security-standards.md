@@ -5,7 +5,7 @@ title: Pod Security Standards
 description: >
   A detailed look at the different policy levels defined in the Pod Security Standards.
 content_type: concept
-weight: 10
+weight: 15
 ---
 
 <!-- overview -->
@@ -271,6 +271,11 @@ fail validation.
 					<li><code>net.ipv4.ip_unprivileged_port_start</code></li>
 					<li><code>net.ipv4.tcp_syncookies</code></li>
 					<li><code>net.ipv4.ping_group_range</code></li>
+					<li><code>net.ipv4.ip_local_reserved_ports</code> (since Kubernetes 1.27)</li>
+					<li><code>net.ipv4.tcp_keepalive_time</code> (since Kubernetes 1.29)</li>
+					<li><code>net.ipv4.tcp_fin_timeout</code> (since Kubernetes 1.29)</li>
+					<li><code>net.ipv4.tcp_keepalive_intvl</code> (since Kubernetes 1.29)</li>
+					<li><code>net.ipv4.tcp_keepalive_probes</code> (since Kubernetes 1.29)</li>
 				</ul>
 			</td>
 		</tr>
@@ -484,6 +489,12 @@ Restrictions on the following controls are only required if `.spec.os.name` is n
 - Privilege Escalation
 - Seccomp
 - Linux Capabilities
+
+## User namespaces
+
+User Namespaces are a Linux-only feature to run workloads with increased
+isolation. How they work together with Pod Security Standards is described in
+the [documentation](/docs/concepts/workloads/pods/user-namespaces#integration-with-pod-security-admission-checks) for Pods that use user namespaces.
 
 ## FAQ
 

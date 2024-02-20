@@ -98,9 +98,9 @@ of the form `hostname.my-svc.my-namespace.svc.cluster-domain.example`.
 
 ### A/AAAA records
 
-In general a Pod has the following DNS resolution:
+Kube-DNS versions, prior to the implementation of the [DNS specification](https://github.com/kubernetes/dns/blob/master/docs/specification.md), had the following DNS resolution:
 
-`pod-ip-address.my-namespace.pod.cluster-domain.example`.
+`pod-ipv4-address.my-namespace.pod.cluster-domain.example`.
 
 For example, if a Pod in the `default` namespace has the IP address 172.17.0.3,
 and the domain name for your cluster is `cluster.local`, then the Pod has a DNS name:
@@ -109,7 +109,7 @@ and the domain name for your cluster is `cluster.local`, then the Pod has a DNS 
 
 Any Pods exposed by a Service have the following DNS resolution available:
 
-`pod-ip-address.service-name.my-namespace.svc.cluster-domain.example`.
+`pod-ipv4-address.service-name.my-namespace.svc.cluster-domain.example`.
 
 ### Pod's hostname and subdomain fields
 
@@ -213,7 +213,7 @@ When you set `setHostnameAsFQDN: true` in the Pod spec, the kubelet writes the P
 {{< note >}}
 In Linux, the hostname field of the kernel (the `nodename` field of `struct utsname`) is limited to 64 characters.
 
-If a Pod enables this feature and its FQDN is longer than 64 character, it will fail to start. The Pod will remain in `Pending` status (`ContainerCreating` as seen by `kubectl`) generating error events, such as Failed to construct FQDN from Pod hostname and cluster domain, FQDN `long-FQDN` is too long (64 characters is the max, 70 characters requested). One way of improving user experience for this scenario is to create an [admission webhook controller](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks) to control FQDN size when users create top level objects, for example, Deployment.
+If a Pod enables this feature and its FQDN is longer than 64 character, it will fail to start. The Pod will remain in `Pending` status (`ContainerCreating` as seen by `kubectl`) generating error events, such as Failed to construct FQDN from Pod hostname and cluster domain, FQDN `long-FQDN` is too long (64 characters is the max, 70 characters requested). One way of improving user experience for this scenario is to create an [admission webhook controller](/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks) to control FQDN size when users create top level objects, for example, Deployment.
 {{< /note >}}
 
 ### Pod's DNS Policy
@@ -292,7 +292,7 @@ Below are the properties a user can specify in the `dnsConfig` field:
   This property is optional. When specified, the provided list will be merged
   into the base search domain names generated from the chosen DNS policy.
   Duplicate domain names are removed.
-  Kubernetes allows for at most 6 search domains.
+  Kubernetes allows up to 32 search domains.
 - `options`: an optional list of objects where each object may have a `name`
   property (required) and a `value` property (optional). The contents in this
   property will be merged to the options generated from the specified DNS policy.
@@ -300,7 +300,7 @@ Below are the properties a user can specify in the `dnsConfig` field:
 
 The following is an example Pod with custom DNS settings:
 
-{{% code file="service/networking/custom-dns.yaml" %}}
+{{% code_sample file="service/networking/custom-dns.yaml" %}}
 
 When the Pod above is created, the container `test` gets the following contents
 in its `/etc/resolv.conf` file:
@@ -325,7 +325,7 @@ options ndots:5
 
 ## DNS search domain list limits
 
-{{< feature-state for_k8s_version="1.26" state="beta" >}}
+{{< feature-state for_k8s_version="1.28" state="stable" >}}
 
 Kubernetes itself does not limit the DNS Config until the length of the search
 domain list exceeds 32 or the total length of all search domains exceeds 2048.

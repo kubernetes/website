@@ -42,7 +42,6 @@ following Kubernetes concepts:
 * [Headless Services](/docs/concepts/services-networking/service/#headless-services)
 * [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)
 * [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/)
-* [StatefulSets](/docs/concepts/workloads/controllers/statefulset/)
 * The [kubectl](/docs/reference/kubectl/kubectl/) command line tool
 -->
 * [Pod](/zh-cn/docs/concepts/workloads/pods/)
@@ -50,18 +49,39 @@ following Kubernetes concepts:
 * [Headless Service](/zh-cn/docs/concepts/services-networking/service/#headless-services)
 * [PersistentVolumes](/zh-cn/docs/concepts/storage/persistent-volumes/)
 * [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/)
-* [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/)
 * [kubectl](/zh-cn/docs/reference/kubectl/kubectl/) 命令行工具
+
+{{% include "task-tutorial-prereqs.md" %}}
+<!--
+You should configure `kubectl` to use a context that uses the `default`
+namespace.
+If you are using an existing cluster, make sure that it's OK to use that
+cluster's default namespace to practice. Ideally, practice in a cluster
+that doesn't run any real workloads.
+
+It's also useful to read the concept page about [StatefulSets](/docs/concepts/workloads/controllers/statefulset/).
+-->
+你应该配置 `kubectl` 的上下文使用 `default` 命名空间。
+如果你使用的是现有集群，请确保可以使用该集群的 `default` 命名空间进行练习。
+理想情况下，在没有运行任何实际工作负载的集群中进行练习。
+
+阅读有关 [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/)
+的概念页面也很有用。
 
 {{< note >}}
 <!--
 This tutorial assumes that your cluster is configured to dynamically provision
-PersistentVolumes. If your cluster is not configured to do so, you
+PersistentVolumes. You'll also need to have a [default StorageClass](/docs/concepts/storage/storage-classes/#default-storageclass).
+If your cluster is not configured to provision storage dynamically, you
 will have to manually provision two 1 GiB volumes prior to starting this
-tutorial.
+tutorial and
+set up your cluster so that those PersistentVolumes map to the
+PersistentVolumeClaim templates that the StatefulSet defines.
 -->
-本教程假设你的集群被配置为动态制备 PersistentVolume 卷。
-如果没有这样配置，在开始本教程之前，你需要手动准备 2 个 1 GiB 的存储卷。
+本教程假设你的集群被配置为动态制备 PersistentVolume 卷，
+且有一个[默认 StorageClass](/zh-cn/docs/concepts/storage/storage-classes/#default-storageclass)。
+如果没有这样配置，在开始本教程之前，你需要手动准备 2 个 1 GiB 的存储卷，
+以便这些 PersistentVolume 可以映射到 StatefulSet 定义的 PersistentVolumeClaim 模板。
 {{< /note >}}
 
 ## {{% heading "objectives" %}}
@@ -114,36 +134,37 @@ It creates a [headless Service](/docs/concepts/services-networking/service/#head
 它创建了一个 [Headless Service](/zh-cn/docs/concepts/services-networking/service/#headless-services)
 `nginx` 用来发布 StatefulSet `web` 中的 Pod 的 IP 地址。
 
-{{< codenew file="application/web/web.yaml" >}}
+{{% code_sample file="application/web/web.yaml" %}}
 
 <!--
-Download the example above, and save it to a file named `web.yaml`
--->
-下载上面的例子并保存为文件 `web.yaml`。
-
-<!--
-You will need to use two terminal windows. In the first terminal, use
+You will need to use at least two terminal windows. In the first terminal, use
 [`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get) to watch the creation
 of the StatefulSet's Pods.
 -->
-你需要使用两个终端窗口。在第一个终端中，使用
+你需要使用至少两个终端窗口。在第一个终端中，使用
 [`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get)
 来监视 StatefulSet 的 Pod 的创建情况。
 
+<!--
+# use this terminal to run commands that specify --watch
+# end this watch when you are asked to start a new watch
+-->
 ```shell
-kubectl get pods -w -l app=nginx
+# 使用此终端运行指定 --watch 的命令
+# 当你被要求开始一个新的 watch 时结束这个 watch
+kubectl get pods --watch -l app=nginx
 ```
 
 <!--
 In the second terminal, use
 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply) to create the
-headless Service and StatefulSet defined in `web.yaml`.
+headless Service and StatefulSet.
 -->
 在另一个终端中，使用 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply)
-来创建定义在 `web.yaml` 中的 Headless Service 和 StatefulSet。
+来创建 Headless Service 和 StatefulSet。
 
 ```shell
-kubectl apply -f web.yaml
+kubectl apply -f https://k8s.io/examples/application/web/web.yaml
 ```
 ```
 service/nginx created
@@ -179,7 +200,7 @@ web       2         1         20s
 ```
 
 <!--
-### Ordered Pod Creation
+### Ordered Pod creation
 -->
 ### 顺序创建 Pod   {#ordered-pod-creation}
 
@@ -192,8 +213,14 @@ look like the example below.
 对于一个拥有 **n** 个副本的 StatefulSet，Pod 被部署时是按照 **{0..n-1}** 的序号顺序创建的。
 在第一个终端中使用 `kubectl get` 检查输出。这个输出最终将看起来像下面的样子。
 
+<!--
+# Do not start a new watch;
+# this should already be running
+-->
 ```shell
-kubectl get pods -w -l app=nginx
+# 不要开始一个新的 watch
+# 这应该已经处于 Running 状态
+kubectl get pods --watch -l app=nginx
 ```
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -237,7 +264,7 @@ Pods in a StatefulSet have a unique ordinal index and a stable network identity.
 StatefulSet 中的每个 Pod 拥有一个唯一的顺序索引和稳定的网络身份标识。
 
 <!--
-### Examining the Pod's Ordinal Index
+### Examining the Pod's ordinal Index
 -->
 ### 检查 Pod 的顺序索引   {#examining-the-pod-s-ordinal-index}
 
@@ -272,7 +299,7 @@ Pod 名称的格式为 `<statefulset 名称>-<序号索引>`。
 `web` StatefulSet 拥有两个副本，所以它创建了两个 Pod：`web-0` 和 `web-1`。
 
 <!--
-### Using Stable Network Identities
+### Using Stable network Identities
 -->
 ### 使用稳定的网络身份标识   {#using-stable-network-identities}
 
@@ -347,7 +374,7 @@ The CNAME of the headless service points to SRV records (one for each Pod that
 is Running and Ready). The SRV records point to A record entries that
 contain the Pods' IP addresses.
 -->
-headless service 的 CNAME 指向 SRV 记录（记录每个 Running 和 Ready 状态的 Pod）。
+Headless service 的 CNAME 指向 SRV 记录（记录每个 Running 和 Ready 状态的 Pod）。
 SRV 记录指向一个包含 Pod IP 地址的记录表项。
 
 <!--
@@ -355,8 +382,14 @@ In one terminal, watch the StatefulSet's Pods:
 -->
 在一个终端中监视 StatefulSet 的 Pod：
 
+<!--
+# Start a new watch
+# End this watch when you've seen that the delete is finished
+-->
 ```shell
-kubectl get pod -w -l app=nginx
+# 启动一个新的 watch
+# 当你看到删除完成后结束这个 watch
+kubectl get pod --watch -l app=nginx
 ```
 
 <!--
@@ -382,8 +415,12 @@ Running and Ready:
 -->
 等待 StatefulSet 重启它们，并且两个 Pod 都变成 Running 和 Ready 状态：
 
+<!--
+# This should already be running
+-->
 ```shell
-kubectl get pod -w -l app=nginx
+# 这应该已经处于 Running 状态
+kubectl get pod --watch -l app=nginx
 ```
 ```
 NAME      READY     STATUS              RESTARTS   AGE
@@ -467,6 +504,11 @@ Pod 的序号、主机名、SRV 条目和记录名称没有改变，但和 Pod �
 StatefulSet 中 Pod 的 IP 地址进行连接，这点很重要。
 
 <!--
+#### Discovery for specific Pods in a StatefulSet
+-->
+#### 发现 StatefulSet 中特定的 Pod   {#discovery-for-specific-pods-in-a-statefulset}
+
+<!--
 If you need to find and connect to the active members of a StatefulSet, you
 should query the CNAME of the headless Service
 (`nginx.default.svc.cluster.local`). The SRV records associated with the
@@ -490,7 +532,7 @@ to Running and Ready.
 Pod 的状态变为 Running 和 Ready 时，你的应用就能够发现它们的地址。
 
 <!--
-### Writing to Stable Storage
+### Writing to stable Storage
 -->
 ### 写入稳定的存储   {#writing-to-stable-storage}
 
@@ -591,8 +633,14 @@ In a second terminal, delete all of the StatefulSet's Pods:
 -->
 在另一个终端删除 StatefulSet 所有的 Pod：
 
+<!--
+# End this watch when you've reached the end of the section.
+# At the start of "Scaling a StatefulSet" you'll start a new watch.
+-->
 ```shell
-kubectl delete pod -l app=nginx
+# 当你到达该部分的末尾时结束此 watch
+# 在开始“扩展 StatefulSet” 时，你将启动一个新的 watch。
+kubectl get pod --watch -l app=nginx
 ```
 ```
 pod "web-0" deleted
@@ -605,8 +653,12 @@ for all of the Pods to transition to Running and Ready.
 -->
 在第一个终端里检查 `kubectl get` 命令的输出，等待所有 Pod 变成 Running 和 Ready 状态。
 
+<!--
+# This should already be running
+-->
 ```shell
-kubectl get pod -w -l app=nginx
+# 这应该已经处于 Running 状态
+kubectl get pod --watch -l app=nginx
 ```
 ```
 NAME      READY     STATUS              RESTARTS   AGE
@@ -659,7 +711,7 @@ This is accomplished by updating the `replicas` field. You can use either
 或者 [`kubectl patch`](/docs/reference/generated/kubectl/kubectl-commands/#patch) 来扩容/缩容一个 StatefulSet。
 
 <!--
-### Scaling Up
+### Scaling up
 -->
 ### 扩容   {#scaling-up}
 
@@ -668,8 +720,16 @@ In one terminal window, watch the Pods in the StatefulSet:
 -->
 在一个终端窗口监视 StatefulSet 的 Pod：
 
+<!--
+# If you already have a watch running, you can continue using that.
+# Otherwise, start one.
+# End this watch when there are 5 healthy Pods for the StatefulSet
+-->
 ```shell
-kubectl get pods -w -l app=nginx
+# 如果你已经有一个正在运行的 wach，你可以继续使用它。
+# 否则，就启动一个。
+# 当 StatefulSet 有 5 个健康的 Pod 时结束此 watch
+kubectl get pods --watch -l app=nginx
 ```
 
 <!--
@@ -691,8 +751,12 @@ for the three additional Pods to transition to Running and Ready.
 -->
 在第一个 终端中检查 `kubectl get` 命令的输出，等待增加的 3 个 Pod 的状态变为 Running 和 Ready。
 
+<!--
+# This should already be running
+-->
 ```shell
-kubectl get pods -w -l app=nginx
+# 这应该已经处于 Running 状态
+kubectl get pod --watch -l app=nginx
 ```
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -725,7 +789,7 @@ StatefulSet 控制器扩展了副本的数量。
 Pod，并且会等待前一个 Pod 变为 Running 和 Ready 才会启动下一个 Pod。
 
 <!--
-### Scaling Down
+### Scaling down
 -->
 ### 缩容   {#scaling-down}
 
@@ -734,8 +798,13 @@ In one terminal, watch the StatefulSet's Pods:
 -->
 在一个终端监视 StatefulSet 的 Pod：
 
+<!--
+# End this watch when there are only 3 Pods for the StatefulSet
+-->
 ```shell
 kubectl get pods -w -l app=nginx
+# 当 StatefulSet 只有 3 个 Pod 时结束此 watch
+kubectl get pod --watch -l app=nginx
 ```
 
 <!--
@@ -756,8 +825,13 @@ Wait for `web-4` and `web-3` to transition to Terminating.
 -->
 等待 `web-4` 和 `web-3` 状态变为 Terminating。
 
+<!--
+# This should already be running
+-->
 ```shell
 kubectl get pods -w -l app=nginx
+# 这应该已经处于 Running 状态
+kubectl get pods --watch -l app=nginx
 ```
 ```
 NAME      READY     STATUS              RESTARTS   AGE
@@ -775,7 +849,7 @@ web-3     1/1       Terminating   0         42s
 ```
 
 <!--
-### Ordered Pod Termination
+### Ordered Pod termination
 -->
 ### 顺序终止 Pod   {#ordered-pod-termination}
 
@@ -805,7 +879,9 @@ www-web-4   Bound     pvc-e11bb5f8-b508-11e6-932f-42010a800002   1Gi        RWO 
 
 <!--
 There are still five PersistentVolumeClaims and five PersistentVolumes.
-When exploring a Pod's [stable storage](#writing-to-stable-storage), we saw that the PersistentVolumes mounted to the Pods of a StatefulSet are not deleted when the StatefulSet's Pods are deleted. This is still true when Pod deletion is caused by scaling the StatefulSet down.
+When exploring a Pod's [stable storage](#writing-to-stable-storage), we saw that the PersistentVolumes
+mounted to the Pods of a StatefulSet are not deleted when the StatefulSet's Pods are deleted.
+This is still true when Pod deletion is caused by scaling the StatefulSet down.
 -->
 五个 PersistentVolumeClaims 和五个 PersistentVolume 卷仍然存在。
 查看 Pod 的[稳定存储](#stable-storage)，我们发现当删除 StatefulSet 的
@@ -818,24 +894,24 @@ Pod 时，挂载到 StatefulSet 的 Pod 的 PersistentVolume 卷不会被删除�
 ## 更新 StatefulSet   {#updating-statefulsets}
 
 <!--
-In Kubernetes 1.7 and later, the StatefulSet controller supports automated updates.  The
+The StatefulSet controller supports automated updates.  The
 strategy used is determined by the `spec.updateStrategy` field of the
-StatefulSet API Object. This feature can be used to upgrade the container
+StatefulSet API object. This feature can be used to upgrade the container
 images, resource requests and/or limits, labels, and annotations of the Pods in a
-StatefulSet. There are two valid update strategies, `RollingUpdate` and
+StatefulSet.
+-->
+StatefulSet 控制器支持自动更新。
+更新策略由 StatefulSet API 对象的 `spec.updateStrategy` 字段决定。这个特性能够用来更新一个
+StatefulSet 中 Pod 的容器镜像、资源请求和限制、标签和注解。
+
+<!--
+There are two valid update strategies, `RollingUpdate` (the default) and
 `OnDelete`.
 -->
-从 Kubernetes 1.7 版本开始，StatefulSet 控制器支持自动更新。
-更新策略由 StatefulSet API 对象的 `spec.updateStrategy` 字段决定。这个特性能够用来更新一个
-StatefulSet 中 Pod 的的容器镜像、资源请求和限制、标签和注解。
+有两个有效的更新策略：`RollingUpdate`（默认）和 `OnDelete`。
 
 <!--
-`RollingUpdate` update strategy is the default for StatefulSets.
--->
-`RollingUpdate` 更新策略是 StatefulSet 默认策略。
-
-<!--
-### Rolling Update
+### RollingUpdate {#rolling-update}
 -->
 ### 滚动更新   {#rolling-update}
 
@@ -847,16 +923,16 @@ reverse ordinal order, while respecting the StatefulSet guarantees.
 Pod，采用与序号索引相反的顺序并遵循 StatefulSet 的保证。
 
 <!--
-Patch the `web` StatefulSet to apply the `RollingUpdate` update strategy:
--->
-对 `web` StatefulSet 应用 Patch 操作来应用 `RollingUpdate` 更新策略：
+You can split updates to a StatefulSet that uses the `RollingUpdate` strategy
+into _partitions_, by specifying `.spec.updateStrategy.rollingUpdate.partition`.
+You'll practice that later in this tutorial.
 
-```shell
-kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpdate"}}}'
-```
-```
-statefulset.apps/web patched
-```
+First, try a simple rolling update.
+-->
+你可以通过指定 `.spec.updateStrategy.rollingUpdate.partition` 将使用 `RollingUpdate`
+策略的 StatefulSet 的更新拆分为多个**分区** 。你将在本教程中稍后练习此操作。
+
+首先，尝试一个简单的滚动更新。
 
 <!--
 In one terminal window, patch the `web` StatefulSet to change the container
@@ -876,8 +952,16 @@ In another terminal, watch the Pods in the StatefulSet:
 -->
 在另一个终端监控 StatefulSet 中的 Pod：
 
+<!--
+# End this watch when the rollout is complete
+#
+# If you're not sure, leave it running one more minute
+-->
 ```shell
-kubectl get pod -l app=nginx -w
+# 滚动完成后结束此 watch
+#
+# 如果你不确定，请让它再运行一分钟
+kubectl get pod -l app=nginx --watch
 ```
 
 <!--
@@ -926,12 +1010,12 @@ StatefulSet controller terminates each Pod, and waits for it to transition to Ru
 Ready prior to updating the next Pod. Note that, even though the StatefulSet
 controller will not proceed to update the next Pod until its ordinal successor
 is Running and Ready, it will restore any Pod that fails during the update to
-its current version.
+that Pod's existing version.
 -->
 StatefulSet 里的 Pod 采用和序号相反的顺序更新。在更新下一个 Pod 前，StatefulSet
 控制器终止每个 Pod 并等待它们变成 Running 和 Ready。
 请注意，虽然在顺序后继者变成 Running 和 Ready 之前 StatefulSet 控制器不会更新下一个
-Pod，但它仍然会重建任何在更新过程中发生故障的 Pod，使用的是它们当前的版本。
+Pod，但它仍然会重建任何在更新过程中发生故障的 Pod，使用的是它们现有的版本。
 
 <!--
 Pods that have already received the update will be restored to the updated version,
@@ -971,26 +1055,49 @@ StatefulSet 的滚动更新状态。
 {{< /note >}}
 
 <!--
-#### Staging an Update
+#### Staging an update
 -->
 #### 分段更新   {#staging-an-update}
 
 <!--
-You can stage an update to a StatefulSet by using the `partition` parameter of
-the `RollingUpdate` update strategy. A staged update will keep all of the Pods
-in the StatefulSet at the current version while allowing mutations to the
-StatefulSet's `.spec.template`.
+You can split updates to a StatefulSet that uses the `RollingUpdate` strategy
+into _partitions_, by specifying `.spec.updateStrategy.rollingUpdate.partition`.
 -->
-你可以使用 `RollingUpdate` 更新策略的 `partition` 参数来分段更新一个 StatefulSet。
-分段的更新将会使 StatefulSet 中的其余所有 Pod 保持当前版本的同时允许改变
-StatefulSet 的 `.spec.template`。
+你可以通过指定 `.spec.updateStrategy.rollingUpdate.partition` 将使用 `RollingUpdate` 策略的
+StatefulSet 的更新拆分为多个**分区** 。
 
 <!--
-Patch the `web` StatefulSet to add a partition to the `updateStrategy` field:
+For more context, you can read [Partitioned rolling updates](/docs/concepts/workloads/controllers/statefulset/#partitions)
+in the StatefulSet concept page.
 -->
-对 `web` StatefulSet 执行 Patch 操作为 `updateStrategy` 字段添加一个分区：
+有关更多上下文，你可以阅读 StatefulSet
+概念页面中的[分区滚动更新](/zh-cn/docs/concepts/workloads/controllers/statefulset/#partitions)。
 
+<!--
+You can stage an update to a StatefulSet by using the `partition` field within
+`.spec.updateStrategy.rollingUpdate`.
+For this update, you will keep the existing Pods in the StatefulSet
+unchanged whilst you change the pod template for the StatefulSet.
+Then you - or, outside of a tutorial, some external automation - can
+trigger that prepared update.
+-->
+你可以使用 `.spec.updateStrategy.rollingUpdate` 中的 `partition` 字段对 StatefulSet 执行更新的分段操作。
+对于此更新，你将保持 StatefulSet 中现有 Pod 不变，同时更改 StatefulSet 的 Pod 模板。
+然后，你（或通过教程之外的一些外部自动化工具）可以触发准备好的更新。
+
+<!--
+First, patch the `web` StatefulSet to add a partition to the `updateStrategy` field:
+-->
+对 `web` StatefulSet 执行 Patch 操作，为 `updateStrategy` 字段添加一个分区：
+
+<!--
+# The value of "partition" determines which ordinals a change applies to
+# Make sure to use a number bigger than the last ordinal for the
+# StatefulSet
+-->
 ```shell
+# "partition" 的值决定更改适用于哪些序号
+# 确保使用比 StatefulSet 的最后一个序号更大的数字
 kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":3}}}}'
 ```
 ```
@@ -998,9 +1105,10 @@ statefulset.apps/web patched
 ```
 
 <!--
-Patch the StatefulSet again to change the container's image:
+Patch the StatefulSet again to change the container image that this
+StatefulSet uses:
 -->
-再次 Patch StatefulSet 来改变容器镜像：
+再次 Patch StatefulSet 来改变此 StatefulSet 使用的容器镜像：
 
 ```shell
 kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"registry.k8s.io/nginx-slim:0.7"}]'
@@ -1022,12 +1130,16 @@ pod "web-2" deleted
 ```
 
 <!--
-Wait for the Pod to be Running and Ready.
+Wait for the replacement `web-2` Pod to be Running and Ready:
 -->
-等待 Pod 变成 Running 和 Ready。
+等待替代的 Pod 变成 Running 和 Ready。
 
+<!--
+# End the watch when you see that web-2 is healthy
+-->
 ```shell
-kubectl get pod -l app=nginx -w
+# 当你看到 web-2 运行正常时结束 watch
+kubectl get pod -l app=nginx --watch
 ```
 ```
 NAME      READY     STATUS              RESTARTS   AGE
@@ -1051,31 +1163,41 @@ registry.k8s.io/nginx-slim:0.8
 
 <!--
 Notice that, even though the update strategy is `RollingUpdate` the StatefulSet
-restored the Pod with its original container. This is because the
+restored the Pod with the original container image. This is because the
 ordinal of the Pod is less than the `partition` specified by the
 `updateStrategy`.
 -->
-请注意，虽然更新策略是 `RollingUpdate`，StatefulSet 还是会使用原始的容器恢复 Pod。
+请注意，虽然更新策略是 `RollingUpdate`，StatefulSet 还是会使用原始的容器镜像恢复 Pod。
 这是因为 Pod 的序号比 `updateStrategy` 指定的 `partition` 更小。
 
 <!--
-#### Rolling Out a Canary
+#### Rolling Out a canary
 -->
 #### 金丝雀发布   {#rolling-out-a-canary}
 
 <!--
-You can roll out a canary to test a modification by decrementing the `partition`
+You're now going to try a [canary rollout](https://glossary.cncf.io/canary-deployment/)
+of that staged change.
+-->
+现在，你将尝试对分段的变更进行[金丝雀发布](https://glossary.cncf.io/canary-deployment/)。
+
+<!--
+You can roll out a canary (to test the modified template) by decrementing the `partition`
 you specified [above](#staging-an-update).
 -->
-你可以通过减少[上文](#staging-an-update)指定的
-`partition` 来进行金丝雀发布，以此来测试你的程序的改动。
+你可以通过减少[上文](#staging-an-update)指定的 `partition` 来进行金丝雀发布，以测试修改后的模板。
 
 <!--
 Patch the StatefulSet to decrement the partition:
 -->
 通过 patch 命令修改 StatefulSet 来减少分区：
 
+<!--
+# The value of "partition" should match the highest existing ordinal for
+# the StatefulSet
+-->
 ```shell
+# “partition” 的值应与 StatefulSet 现有的最高序号相匹配
 kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":2}}}}'
 ```
 ```
@@ -1083,12 +1205,20 @@ statefulset.apps/web patched
 ```
 
 <!--
-Wait for `web-2` to be Running and Ready.
+The control plane triggers replacement for `web-2` (implemented by
+a graceful **delete** followed by creating a new Pod once the deletion
+is complete).
+Wait for the new `web-2` Pod to be Running and Ready.
 -->
-等待 `web-2` 变成 Running 和 Ready。
+控制平面会触发 `web-2` 的替换（先优雅地 **删除** 现有 Pod，然后在删除完成后创建一个新的 Pod）。
+等待新的 `web-2` Pod 变成 Running 和 Ready。
 
+<!--
+# This should already be running
+-->
 ```shell
-kubectl get pod -l app=nginx -w
+# 这应该已经处于 Running 状态
+kubectl get pod -l app=nginx --watch
 ```
 ```
 NAME      READY     STATUS              RESTARTS   AGE
@@ -1108,7 +1238,6 @@ kubectl get pod web-2 --template '{{range $i, $c := .spec.containers}}{{$c.image
 ```
 ```
 registry.k8s.io/nginx-slim:0.7
-
 ```
 
 <!--
@@ -1136,8 +1265,12 @@ Wait for the `web-1` Pod to be Running and Ready.
 -->
 等待 `web-1` 变成 Running 和 Ready。
 
+<!--
+# This should already be running
+-->
 ```shell
-kubectl get pod -l app=nginx -w
+# 这应该已经处于 Running 状态
+kubectl get pod -l app=nginx --watch
 ```
 
 <!--
@@ -1184,7 +1317,7 @@ StatefulSet 的 `.spec.template`，则所有序号大于或等于分区的 Pod �
 如果一个序号小于分区的 Pod 被删除或者终止，它将被按照原来的配置恢复。
 
 <!--
-#### Phased Roll Outs
+#### Phased Roll outs
 -->
 #### 分阶段的发布   {#phased-roll-outs}
 
@@ -1202,7 +1335,7 @@ update.
 <!--
 The partition is currently set to `2`. Set the partition to `0`:
 -->
-分区当前为 `2`。请将分区设置为 `0`：
+分区当前为 `2`，请将其设置为 `0`：
 
 ```shell
 kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":0}}}}'
@@ -1216,8 +1349,12 @@ Wait for all of the Pods in the StatefulSet to become Running and Ready.
 -->
 等待 StatefulSet 中的所有 Pod 变成 Running 和 Ready。
 
+<!--
+# This should already be running
+-->
 ```shell
-kubectl get pod -l app=nginx -w
+# 这应该已经处于 Running 状态
+kubectl get pod -l app=nginx --watch
 ```
 
 <!--
@@ -1264,19 +1401,35 @@ continue the update process.
 将 `partition` 改变为 `0` 以允许 StatefulSet 继续更新过程。
 
 <!--
-### On Delete
+### OnDelete {#on-delete}
 -->
 ### OnDelete 策略   {#on-delete}
 
 <!--
-The `OnDelete` update strategy implements the legacy (1.6 and prior) behavior,
-When you select this update strategy, the StatefulSet controller will not
-automatically update Pods when a modification is made to the StatefulSet's
-`.spec.template` field. This strategy can be selected by setting the
+You select this update strategy for a StatefulSet by setting the
 `.spec.template.updateStrategy.type` to `OnDelete`.
+
+Patch the `web` StatefulSet to use the `OnDelete` update strategy:
 -->
-`OnDelete` 更新策略实现了传统（1.7 之前）行为，它也是默认的更新策略。
+通过将 `.spec.template.updateStrategy.type` 设置为 `OnDelete`，你可以为 StatefulSet 选择此更新策略。
+
+对 `web` StatefulSet 执行 patch 操作，以使用 `OnDelete` 更新策略：
+
+```shell
+kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"OnDelete"}}}'
+```
+```
+statefulset.apps/web patched
+```
+
+<!--
+When you select this update strategy, the StatefulSet controller does not
+automatically update Pods when a modification is made to the StatefulSet's
+`.spec.template` field. You need to manage the rollout yourself - either
+manually, or using separate automation.
+-->
 当你选择这个更新策略并修改 StatefulSet 的 `.spec.template` 字段时，StatefulSet 控制器将不会自动更新 Pod。
+你需要自己手动管理发布，或使用单独的自动化工具来管理发布。
 
 <!--
 ## Deleting StatefulSets
@@ -1284,15 +1437,23 @@ automatically update Pods when a modification is made to the StatefulSet's
 ## 删除 StatefulSet   {#deleting-statefulsets}
 
 <!--
-StatefulSet supports both Non-Cascading and Cascading deletion. In a
-Non-Cascading Delete, the StatefulSet's Pods are not deleted when the StatefulSet is deleted. In a Cascading Delete, both the StatefulSet and its Pods are
-deleted.
+StatefulSet supports both _non-cascading_ and _cascading_ deletion. In a
+non-cascading **delete**, the StatefulSet's Pods are not deleted when the
+StatefulSet is deleted. In a cascading **delete**, both the StatefulSet and
+its Pods are deleted.
 -->
-StatefulSet 同时支持级联和非级联删除。使用非级联方式删除 StatefulSet 时，StatefulSet
-的 Pod 不会被删除。使用级联删除时，StatefulSet 和它的 Pod 都会被删除。
+StatefulSet 同时支持**非级联**和**级联**删除。使用非级联方式**删除** StatefulSet 时，StatefulSet
+的 Pod 不会被删除。使用级联**删除**时，StatefulSet 和它的 Pod 都会被删除。
 
 <!--
-### Non-Cascading Delete
+Read [Use Cascading Deletion in a Cluster](/docs/tasks/administer-cluster/use-cascading-deletion/)
+to learn about cascading deletion generally.
+-->
+阅读[在集群中使用级联删除](/zh-cn/docs/tasks/administer-cluster/use-cascading-deletion/)，
+以了解通用的级联删除。
+
+<!--
+### Non-cascading delete
 -->
 ### 非级联删除   {#non-cascading-delete}
 
@@ -1301,19 +1462,23 @@ In one terminal window, watch the Pods in the StatefulSet.
 -->
 在一个终端窗口监视 StatefulSet 中的 Pod。
 
+<!--
+# End this watch when there are no Pods for the StatefulSet
+-->
 ```
-kubectl get pods -w -l app=nginx
+# 当 StatefulSet 没有 Pod 时结束此 watch
+kubectl get pods --watch -l app=nginx
 ```
 
 <!--
 Use [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands/#delete) to delete the
 StatefulSet. Make sure to supply the `--cascade=orphan` parameter to the
 command. This parameter tells Kubernetes to only delete the StatefulSet, and to
-not delete any of its Pods.
+**not** delete any of its Pods.
 -->
 使用 [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands/#delete)
 删除 StatefulSet。请确保提供了 `--cascade=orphan` 参数给命令。这个参数告诉
-Kubernetes 只删除 StatefulSet 而不要删除它的任何 Pod。
+Kubernetes 只删除 StatefulSet 而**不要**删除它的任何 Pod。
 
 ```shell
 kubectl delete statefulset web --cascade=orphan
@@ -1375,8 +1540,12 @@ In one terminal, watch the StatefulSet's Pods.
 -->
 在一个终端监控 StatefulSet 的 Pod。
 
+<!--
+# Leave this watch running until the next time you start a watch
+-->
 ```shell
-kubectl get pods -w -l app=nginx
+# 让 watch 一直运行到你下次启动 watch 为止
+kubectl get pods --watch -l app=nginx
 ```
 
 <!--
@@ -1388,7 +1557,7 @@ an error indicating that the Service already exists.
 Service（你不应该这样做），你将会看到一个错误，提示 Service 已经存在。
 
 ```shell
-kubectl apply -f web.yaml
+kubectl apply -f https://k8s.io/examples/application/web/web.yaml
 ```
 ```
 statefulset.apps/web created
@@ -1399,7 +1568,7 @@ service/nginx unchanged
 Ignore the error. It only indicates that an attempt was made to create the _nginx_
 headless Service even though that Service already exists.
 -->
-请忽略这个错误。它仅表示 kubernetes 进行了一次创建 **nginx** headless Service
+请忽略这个错误。它仅表示 kubernetes 进行了一次创建 **nginx** Headless Service
 的尝试，尽管那个 Service 已经存在。
 
 <!--
@@ -1407,8 +1576,12 @@ Examine the output of the `kubectl get` command running in the first terminal.
 -->
 在第一个终端中运行并检查 `kubectl get` 命令的输出。
 
+<!--
+# This should already be running
+-->
 ```shell
-kubectl get pods -w -l app=nginx
+# 这应该已经处于 Running 状态
+kubectl get pods --watch -l app=nginx
 ```
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -1439,10 +1612,10 @@ StatefulSet 会接收这个 Pod。由于你重新创建的 StatefulSet 的 `repl
 一旦 `web-0` 被重新创建并且 `web-1` 被认为已经处于 Running 和 Ready 状态时，`web-2` 将会被终止。
 
 <!--
-Let's take another look at the contents of the `index.html` file served by the
+Now take another look at the contents of the `index.html` file served by the
 Pods' webservers:
 -->
-让我们再看看被 Pod 的 Web 服务器加载的 `index.html` 的内容：
+现在再看看被 Pod 的 Web 服务器加载的 `index.html` 的内容：
 
 ```shell
 for i in 0 1; do kubectl exec -i -t "web-$i" -- curl http://localhost/; done
@@ -1465,7 +1638,7 @@ PersistentVolume was remounted.
 当你重建这个 StatefulSet 并且重新启动了 `web-0` 时，它原本的 PersistentVolume 卷会被重新挂载。
 
 <!--
-### Cascading Delete
+### Cascading delete
 -->
 ### 级联删除   {#cascading-delete}
 
@@ -1474,15 +1647,19 @@ In one terminal window, watch the Pods in the StatefulSet.
 -->
 在一个终端窗口监视 StatefulSet 里的 Pod。
 
+<!--
+# Leave this running until the next page section
+-->
 ```shell
-kubectl get pods -w -l app=nginx
+# 让它运行直到下一页部分
+kubectl get pods --watch -l app=nginx
 ```
 
 <!--
 In another terminal, delete the StatefulSet again. This time, omit the
 `--cascade=orphan` parameter.
 -->
-在另一个窗口中再次删除这个 StatefulSet。这次省略 `--cascade=orphan` 参数。
+在另一个窗口中再次删除这个 StatefulSet，这次省略 `--cascade=orphan` 参数。
 
 ```shell
 kubectl delete statefulset web
@@ -1498,8 +1675,12 @@ and wait for all of the Pods to transition to Terminating.
 -->
 在第一个终端检查 `kubectl get` 命令的输出，并等待所有的 Pod 变成 Terminating 状态。
 
+<!--
+# This should already be running
+-->
 ```shell
-kubectl get pods -w -l app=nginx
+# 这应该已经处于 Running 状态
+kubectl get pods --watch -l app=nginx
 ```
 
 ```
@@ -1529,10 +1710,10 @@ the Pod's successor to be completely terminated.
 {{< note >}}
 <!--
 Although a cascading delete removes a StatefulSet together with its Pods,
-the cascade does not delete the headless Service associated with the StatefulSet.
+the cascade does **not** delete the headless Service associated with the StatefulSet.
 You must delete the `nginx` Service manually.
 -->
-尽管级联删除会删除 StatefulSet 及其 Pod，但级联不会删除与 StatefulSet
+尽管级联删除会删除 StatefulSet 及其 Pod，但级联**不会**删除与 StatefulSet
 关联的 Headless Service。你必须手动删除 `nginx` Service。
 {{< /note >}}
 
@@ -1547,10 +1728,10 @@ service "nginx" deleted
 <!--
 Recreate the StatefulSet and headless Service one more time:
 -->
-再一次重新创建 StatefulSet 和 headless Service：
+再一次重新创建 StatefulSet 和 Headless Service：
 
 ```shell
-kubectl apply -f web.yaml
+kubectl apply -f https://k8s.io/examples/application/web/web.yaml
 ```
 
 ```
@@ -1584,7 +1765,7 @@ PersistentVolume 卷，并且 `web-0` 和 `web-1` 将继续使用它的主机名
 <!--
 Finally, delete the `nginx` Service...
 -->
-最后删除 `nginx` service
+最后删除 `nginx` Service：
 
 ```shell
 kubectl delete service nginx
@@ -1597,7 +1778,7 @@ service "nginx" deleted
 <!--
 ...and the `web` StatefulSet:
 -->
-并且删除 `web` StatefulSet:
+并且删除 `web` StatefulSet：
 
 ```shell
 kubectl delete statefulset web
@@ -1608,23 +1789,29 @@ statefulset "web" deleted
 ```
 
 <!--
-## Pod Management Policy
+## Pod Management policy
 -->
 ## Pod 管理策略   {#pod-management-policy}
 
 <!--
 For some distributed systems, the StatefulSet ordering guarantees are
 unnecessary and/or undesirable. These systems require only uniqueness and
-identity. To address this, in Kubernetes 1.7, we introduced
-`.spec.podManagementPolicy` to the StatefulSet API Object.
+identity.
 -->
 对于某些分布式系统来说，StatefulSet 的顺序性保证是不必要和/或者不应该的。
-这些系统仅仅要求唯一性和身份标志。为了解决这个问题，在 Kubernetes 1.7 中
-我们针对 StatefulSet API 对象引入了 `.spec.podManagementPolicy`。
-此选项仅影响扩缩操作的行为。更新不受影响。
+这些系统仅仅要求唯一性和身份标志。
 
 <!--
-### OrderedReady Pod Management
+You can specify a Pod management policy to avoid this strict ordering;
+either [`OrderedReady`](/docs/concepts/workloads/controllers/statefulset/#orderedready-pod-management) (the default)
+or [`Parallel`](/docs/concepts/workloads/controllers/statefulset/#parallel-pod-management).
+-->
+你可以指定 Pod 管理策略以避免这个严格的顺序；
+你可以选择 [`OrderedReady`](/zh-cn/docs/concepts/workloads/controllers/statefulset/#orderedready-pod-management)（默认）或
+[`Parallel`](/zh-cn/docs/concepts/workloads/controllers/statefulset/#parallel-pod-management)。
+
+<!--
+### OrderedReady Pod management
 -->
 ### OrderedReady Pod 管理策略   {#orderedready-pod-management}
 
@@ -1637,7 +1824,7 @@ above.
 StatefulSet 控制器遵循上文展示的顺序性保证。
 
 <!--
-### Parallel Pod Management
+### Parallel Pod management
 -->
 ### Parallel Pod 管理策略   {#parallel-pod-management}
 
@@ -1650,12 +1837,7 @@ Pod. This option only affects the behavior for scaling operations. Updates are n
 `Parallel` Pod 管理策略告诉 StatefulSet 控制器并行的终止所有 Pod，
 在启动或终止另一个 Pod 前，不必等待这些 Pod 变成 Running 和 Ready 或者完全终止状态。
 
-{{< codenew file="application/web/web-parallel.yaml" >}}
-
-<!--
-Download the example above, and save it to a file named `web-parallel.yaml`
--->
-下载上面的例子并保存为 `web-parallel.yaml`。
+{{% code_sample file="application/web/web-parallel.yaml" %}}
 
 <!--
 This manifest is identical to the one you downloaded above except that the `.spec.podManagementPolicy`
@@ -1669,8 +1851,12 @@ In one terminal, watch the Pods in the StatefulSet.
 -->
 在一个终端窗口监视 StatefulSet 中的 Pod。
 
+<!--
+# Leave this watch running until the end of the section
+-->
 ```shell
-kubectl get pod -l app=nginx -w
+# 让 watch 一直运行直到本节结束
+kubectl get pod -l app=nginx --watch
 ```
 
 <!--
@@ -1679,7 +1865,7 @@ In another terminal, create the StatefulSet and Service in the manifest:
 在另一个终端窗口创建清单中的 StatefulSet 和 Service：
 
 ```shell
-kubectl apply -f web-parallel.yaml
+kubectl apply -f https://k8s.io/examples/application/web/web-parallel.yaml
 ```
 ```
 service/nginx created
@@ -1691,8 +1877,12 @@ Examine the output of the `kubectl get` command that you executed in the first t
 -->
 查看你在第一个终端中运行的 `kubectl get` 命令的输出。
 
+<!--
+# This should already be running
+-->
 ```shell
-kubectl get pod -l app=nginx -w
+# 这应该已经处于 Running 状态
+kubectl get pod -l app=nginx --watch
 ```
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -1707,9 +1897,10 @@ web-1     1/1       Running   0         10s
 ```
 
 <!--
-The StatefulSet controller launched both `web-0` and `web-1` at the same time.
+The StatefulSet controller launched both `web-0` and `web-1` at almost the
+same time.
 -->
-StatefulSet 控制器同时启动了 `web-0` 和 `web-1`。
+StatefulSet 控制器几乎同时启动了 `web-0` 和 `web-1`。
 
 <!--
 Keep the second terminal open, and, in another terminal window scale the
@@ -1760,10 +1951,14 @@ kubectl delete sts web
 <!--
 You can watch `kubectl get` to see those Pods being deleted.
 -->
-你可以监视 `kubectl get` 来查看那些 Pod 被删除
+你可以监视 `kubectl get` 来查看那些 Pod 被删除：
 
+<!--
+# end the watch when you've seen what you need to
+-->
 ```shell
-kubectl get pod -l app=nginx -w
+# 当你看到需要的内容后结束 watch
+kubectl get pod -l app=nginx --watch
 ```
 ```
 web-3     1/1       Terminating   0         9m
@@ -1812,7 +2007,8 @@ kubectl delete svc nginx
 Delete the persistent storage media for the PersistentVolumes used in this tutorial.
 -->
 
-删除本教程中用到的 PersistentVolume 卷的持久化存储介质。
+删除本教程中用到的 PersistentVolume 卷的持久化存储介质：
+
 ```shell
 kubectl get pvc
 ```

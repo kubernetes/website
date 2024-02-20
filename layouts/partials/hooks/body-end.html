@@ -5,7 +5,7 @@
 <!-- scripts for algolia docsearch -->
 {{ end }}
 {{/* copy-and-paste helper for codenew shortcode */}}
-{{- if or (.HasShortcode "code") (.HasShortcode "codenew") -}}
+{{- if or (.HasShortcode "code_sample") (.HasShortcode "code") (.HasShortcode "codenew") -}}
 <script async src="{{ "js/sweetalert-2.1.2.min.js" | relURL }}"></script>
 <script type="text/javascript">
 function copyCode(elem){

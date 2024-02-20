@@ -6,7 +6,6 @@ weight: 70
 content_type: concept
 no_list: true
 ---
-
 <!--
 title: Reference
 approvers:
@@ -42,7 +41,7 @@ This section of the Kubernetes documentation contains references.
 
 * [术语表](/zh-cn/docs/reference/glossary/) —— 一个全面的、标准化的 Kubernetes 术语表
 * [Kubernetes API 参考](/zh-cn/docs/reference/kubernetes-api/)
-* [Kubernetes API 单页参考 {{< param "version" >}}](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)。
+* [Kubernetes API 单页参考 {{< param "version" >}}](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 * [使用 Kubernetes API ](/zh-cn/docs/reference/using-api/) —— Kubernetes 的 API 概述
 * [API 的访问控制](/zh-cn/docs/reference/access-authn-authz/) —— 关于 Kubernetes 如何控制 API 访问的详细信息
 * [常见的标签、注解和污点](/zh-cn/docs/reference/labels-annotations-taints/)
@@ -149,7 +148,6 @@ operator to use or manage a cluster.
 * [kubelet credential providers (v1alpha1)](/docs/reference/config-api/kubelet-credentialprovider.v1alpha1/),
   [kubelet credential providers (v1beta1)](/docs/reference/config-api/kubelet-credentialprovider.v1beta1/) and
   [kubelet credential providers (v1)](/docs/reference/config-api/kubelet-credentialprovider.v1/)
-* [kube-scheduler configuration (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/),
   [kube-scheduler configuration (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/) and
   [kube-scheduler configuration (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
 * [kube-controller-manager configuration (v1alpha1)](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/)
@@ -179,7 +177,6 @@ operator to use or manage a cluster.
 * [kubelet 凭据驱动 (v1alpha1)](/zh-cn/docs/reference/config-api/kubelet-credentialprovider.v1alpha1/)、
   [kubelet 凭据驱动 (v1beta1)](/zh-cn/docs/reference/config-api/kubelet-credentialprovider.v1beta1/) 和
   [kubelet 凭据驱动 (v1)](/zh-cn/docs/reference/config-api/kubelet-credentialprovider.v1/)
-* [kube-scheduler 配置 (v1beta2)](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta2/)、
   [kube-scheduler 配置 (v1beta3)](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/) 和
   [kube-scheduler 配置 (v1)](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)
 * [kube-controller-manager 配置 (v1alpha1)](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/)
@@ -194,10 +191,30 @@ operator to use or manage a cluster.
 ## Config API for kubeadm
 
 * [v1beta3](/docs/reference/config-api/kubeadm-config.v1beta3/)
+* [v1beta4](/docs/reference/config-api/kubeadm-config.v1beta4/)
 -->
 ## kubeadm 的配置 API   {#config-api-for-kubeadm}
 
 * [v1beta3](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)
+* [v1beta4](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)
+
+<!--
+## External APIs
+
+These are the APIs defined by the Kubernetes project, but are not implemented
+by the core project:
+
+* [Metrics API (v1beta1)](/docs/reference/external-api/metrics.v1beta1/)
+* [Custom Metrics API (v1beta2)](/docs/reference/external-api/custom-metrics.v1beta2)
+* [External Metrics API (v1beta1)](/docs/reference/external-api/external-metrics.v1beta1)
+-->
+## 外部 API    {#external-apis}
+
+这些是 Kubernetes 项目所定义的 API，但不是由核心项目实现的：
+
+* [指标 API (v1beta1)](/zh-cn/docs/reference/external-api/metrics.v1beta1/)
+* [自定义指标 API (v1beta2)](/zh-cn/docs/reference/external-api/custom-metrics.v1beta2)
+* [外部指标 API (v1beta1)](/zh-cn/docs/reference/external-api/external-metrics.v1beta1)
 
 <!--
 ## Design Docs
@@ -211,4 +228,3 @@ An archive of the design docs for Kubernetes functionality. Good starting points
 Kubernetes 功能的设计文档归档，不妨考虑从
 [Kubernetes 架构](https://git.k8s.io/design-proposals-archive/architecture/architecture.md)和
 [Kubernetes 设计概述](https://git.k8s.io/design-proposals-archive)开始阅读。
-

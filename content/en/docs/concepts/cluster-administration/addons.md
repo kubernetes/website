@@ -37,7 +37,7 @@ installation instructions. The list does not try to be exhaustive.
   network policies on L3-L7 using an identity-based security model that is
   decoupled from network addressing. Cilium can act as a replacement for
   kube-proxy; it also offers additional, opt-in observability and security features.
-  Cilium is a [CNCF project at the Incubation level](https://www.cncf.io/projects/cilium/).
+  Cilium is a [CNCF project at the Graduated level](https://www.cncf.io/projects/cilium/).
 * [CNI-Genie](https://github.com/cni-genie/CNI-Genie) enables Kubernetes to seamlessly
   connect to a choice of CNI plugins, such as Calico, Canal, Flannel, or Weave.
   CNI-Genie is a [CNCF project at the Sandbox level](https://www.cncf.io/projects/cni-genie/).
@@ -54,6 +54,9 @@ installation instructions. The list does not try to be exhaustive.
   and bare metal workloads.
 * [Flannel](https://github.com/flannel-io/flannel#deploying-flannel-manually) is
   an overlay network provider that can be used with Kubernetes.
+* [Gateway API](/docs/concepts/services-networking/gateway/) is an open source project managed by
+  the [SIG Network](https://github.com/kubernetes/community/tree/master/sig-network) community and
+  provides an expressive, extensible, and role-oriented API for modeling service networking.
 * [Knitter](https://github.com/ZTE/Knitter/) is a plugin to support multiple network
   interfaces in a Kubernetes pod.
 * [Multus](https://github.com/k8snetworkplumbingwg/multus-cni) is a Multi plugin for
@@ -76,6 +79,9 @@ installation instructions. The list does not try to be exhaustive.
   Pods and non-Kubernetes environments with visibility and security monitoring.
 * [Romana](https://github.com/romana) is a Layer 3 networking solution for pod
   networks that also supports the [NetworkPolicy](/docs/concepts/services-networking/network-policies/) API.
+* [Spiderpool](https://github.com/spidernet-io/spiderpool) is an underlay and RDMA
+  networking solution for Kubernetes. Spiderpool is supported on bare metal, virtual machines,
+  and public cloud environments.
 * [Weave Net](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/)
   provides networking and network policy, will carry on working on both sides
   of a network partition, and does not require an external database.

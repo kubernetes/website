@@ -169,7 +169,7 @@ Create the following Service that does not explicitly define `.spec.ipFamilyPoli
 Kubernetes 将从首个配置的 `service-cluster-ip-range` 给 Service 分配集群 IP，
 并将 `.spec.ipFamilyPolicy` 设置为 `SingleStack`。
 
-{{%code file="service/networking/dual-stack-default-svc.yaml" %}}
+{{% code_sample file="service/networking/dual-stack-default-svc.yaml" %}}
 
 <!-- 
 Use `kubectl` to view the YAML for the Service.
@@ -219,7 +219,7 @@ Create the following Service that explicitly defines `IPv6` as the first array e
 Kubernetes 将 `service-cluster-ip-range` 配置的 IPv6 地址范围给 Service 分配集群 IP，
 并将 `.spec.ipFamilyPolicy` 设置为 `SingleStack`。
 
-{{% code file="service/networking/dual-stack-ipfamilies-ipv6.yaml" %}}
+{{% code_sample file="service/networking/dual-stack-ipfamilies-ipv6.yaml" %}}
 
 <!-- 
 Use `kubectl` to view the YAML for the Service.
@@ -271,7 +271,7 @@ Kubernetes 将分配 IPv4 和 IPv6 地址（因为该集群启用了双栈），
 并根据 `.spec.ipFamilies` 数组中第一个元素的地址族，
 从 `.spec.ClusterIPs` 列表中选择 `.spec.ClusterIP`。
 
-{{% code file="service/networking/dual-stack-preferred-svc.yaml" %}}
+{{% code_sample file="service/networking/dual-stack-preferred-svc.yaml" %}}
 
 {{< note >}}
 <!--
@@ -326,7 +326,7 @@ If the cloud provider supports the provisioning of IPv6 enabled external load ba
 `.spec.ipFamilyPolicy` 设置为 `PreferDualStack`, 并将 `spec.ipFamilies` 字段
 的第一个元素设置为 `IPv6`，将 `type` 字段设置为 `LoadBalancer`：
 
-{{% code file="service/networking/dual-stack-prefer-ipv6-lb-svc.yaml" %}}
+{{% code_sample file="service/networking/dual-stack-prefer-ipv6-lb-svc.yaml" %}}
 
 <!--
 Check the Service:

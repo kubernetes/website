@@ -1,23 +1,11 @@
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
 <!-- 
 Manage configuration for a kubeadm cluster persisted in a ConfigMap in the cluster 
 -->
-管理持久化在 ConfigMap 中的 kubeadm 集群的配置
+管理持久化在 ConfigMap 中的 kubeadm 集群的配置。
 
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
@@ -28,10 +16,9 @@ initialized your cluster using kubeadm v1.7.x or lower, you must use the 'config
 command to create this ConfigMap. This is required so that 'kubeadm upgrade' can configure
 your upgraded cluster correctly.
 -->
-
 kube-system 命名空间里有一个名为 "kubeadm-config" 的 ConfigMap，kubeadm 用它来存储有关集群的内部配置。
 kubeadm CLI v1.8.0+ 通过一个配置自动创建该 ConfigMap，这个配置是和 'kubeadm init' 共用的。
-但是您如果使用 kubeadm v1.7.x 或更低的版本初始化集群，那么必须使用 'config upload' 命令创建该 ConfigMap。
+但是你如果使用 kubeadm v1.7.x 或更低的版本初始化集群，那么必须使用 'config upload' 命令创建此 ConfigMap。
 这是必要的操作，目的是使 'kubeadm upgrade' 能够正确地配置升级后的集群。
 
 ```
@@ -41,7 +28,6 @@ kubeadm config [flags]
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -59,7 +45,7 @@ kubeadm config [flags]
 <!-- 
 <p>help for config</p>
 -->
-<p>config 操作的帮助命令</p>
+<p>config 操作的帮助命令。</p>
 </td>
 </tr>
 
@@ -77,7 +63,7 @@ kubeadm config [flags]
 <p>The kubeconfig file to use when talking to the cluster.
 If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</p>
 -->
-<p>用于和集群通信的 kubeconfig 文件。如果它没有被设置，那么 kubeadm 将会搜索一个已经存在于标准路径的 kubeconfig 文件
+<p>用于和集群通信的 kubeconfig 文件。如果它没有被设置，那么 kubeadm 将会搜索一个已经存在于标准路径的 kubeconfig 文件。</p>
 </td>
 </tr>
 
@@ -87,7 +73,6 @@ If the flag is not set, a set of standard locations can be searched for an exist
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 从父命令继承的选项
 
    <table style="width: 100%; table-layout: fixed;">

@@ -41,7 +41,7 @@ kubectl create namespace default-mem-example
 
 以下は、{{< glossary_tooltip text="LimitRange" term_id="limitrange" >}}のマニフェストの例です。このマニフェストでは、デフォルトのメモリー要求とデフォルトのメモリー制限を指定しています。
 
-{{< codenew file="admin/resource/memory-defaults.yaml" >}}
+{{% codenew file="admin/resource/memory-defaults.yaml" %}}
 
 default-mem-exampleネームスペースにLimitRangeを作成します:
 
@@ -53,7 +53,7 @@ default-mem-exampleネームスペースでPodを作成し、そのPod内のコ�
 
 以下は、コンテナを1つ持つPodのマニフェストの例です。コンテナは、メモリー要求とメモリー制限を指定していません。
 
-{{< codenew file="admin/resource/memory-defaults-pod.yaml" >}}
+{{% codenew file="admin/resource/memory-defaults-pod.yaml" %}}
 
 Podを作成します:
 
@@ -92,7 +92,7 @@ kubectl delete pod default-mem-demo --namespace=default-mem-example
 
 以下は1つのコンテナを持つPodのマニフェストです。コンテナはメモリー制限を指定しますが、メモリー要求は指定しません。
 
-{{< codenew file="admin/resource/memory-defaults-pod-2.yaml" >}}
+{{% codenew file="admin/resource/memory-defaults-pod-2.yaml" %}}
 
 Podを作成します:
 
@@ -122,7 +122,7 @@ resources:
 
 1つのコンテナを持つPodのマニフェストです。コンテナはメモリー要求を指定しますが、メモリー制限は指定しません。
 
-{{< codenew file="admin/resource/memory-defaults-pod-3.yaml" >}}
+{{% codenew file="admin/resource/memory-defaults-pod-3.yaml" %}}
 
 Podを作成します:
 

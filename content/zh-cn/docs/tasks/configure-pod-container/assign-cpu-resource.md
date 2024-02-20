@@ -97,7 +97,7 @@ in the Container resource manifest. To specify a CPU limit, include `resources:l
 In this exercise, you create a Pod that has one container. The container has a request
 of 0.5 CPU and a limit of 1 CPU. Here is the configuration file for the Pod:
 
-{{% code file="pods/resource/cpu-request-limit.yaml" %}}
+{{% code_sample file="pods/resource/cpu-request-limit.yaml" %}}
 
 The `args` section of the configuration file provides arguments for the container when it starts.
 The `-cpus "2"` argument tells the Container to attempt to use 2 CPUs.
@@ -112,7 +112,7 @@ Create the Pod:
 在本练习中，你将创建一个具有一个容器的 Pod。容器将会请求 0.5 个 CPU，而且最多限制使用 1 个 CPU。
 这是 Pod 的配置文件：
 
-{{% code file="pods/resource/cpu-request-limit.yaml" %}}
+{{% code_sample file="pods/resource/cpu-request-limit.yaml" %}}
 
 配置文件的 `args` 部分提供了容器启动时的参数。
 `-cpus "2"` 参数告诉容器尝试使用 2 个 CPU。
@@ -250,7 +250,7 @@ the capacity of any Node in your cluster. Here is the configuration file for a P
 that has one Container. The Container requests 100 CPU, which is likely to exceed the
 capacity of any Node in your cluster.
 
-{{% code file="pods/resource/cpu-request-limit-2.yaml" %}}
+{{% code_sample file="pods/resource/cpu-request-limit-2.yaml" %}}
 
 Create the Pod:
 -->
@@ -266,7 +266,7 @@ Pod 调度是基于资源请求值来进行的。
 在本练习中，你将创建一个 Pod，该 Pod 的 CPU 请求对于集群中任何节点的容量而言都会过大。
 下面是 Pod 的配置文件，其中有一个容器。容器请求 100 个 CPU，这可能会超出集群中任何节点的容量。
 
-{{< codenew file="pods/resource/cpu-request-limit-2.yaml" >}}
+{{% code_sample file="pods/resource/cpu-request-limit-2.yaml" %}}
 
 创建 Pod：
 

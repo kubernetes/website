@@ -74,7 +74,7 @@ You can perform a graceful pod deletion with the following command:
 -->
 ## 删除 Pod   {#delete-pods}
 
-你可以使用下面的命令执行体面地删除 Pod:
+你可以使用下面的命令执行体面地删除 Pod：
 
 ```shell
 kubectl delete pods <pod>
@@ -187,7 +187,7 @@ kubectl delete pods <pod> --grace-period=0
 If even after these commands the pod is stuck on `Unknown` state, use the following command to
 remove the pod from the cluster:
 -->
-如果在执行这些命令后 Pod 仍处于 `Unknown` 状态，请使用以下命令从集群中删除 Pod:
+如果在执行这些命令后 Pod 仍处于 `Unknown` 状态，请使用以下命令从集群中删除 Pod：
 
 ```shell
 kubectl patch pod <pod> -p '{"metadata":{"finalizers":null}}'

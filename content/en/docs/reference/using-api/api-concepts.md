@@ -34,7 +34,7 @@ API concepts:
 
 * A *resource type* is the name used in the URL (`pods`, `namespaces`, `services`)
 * All resource types have a concrete representation (their object schema) which is called a *kind*
-* A list of instances of a resource is known as a *collection*
+* A list of instances of a resource type is known as a *collection*
 * A single instance of a resource type is called a *resource*, and also usually represents an *object*
 * For some resource types, the API includes one or more *sub-resources*, which are represented as URI paths below the resource
 
@@ -75,6 +75,7 @@ Kubernetes calls this a **watch** and not a **get** (see
 For PUT requests, Kubernetes internally classifies these as either **create** or **update**
 based on the state of the existing object. An **update** is different from a **patch**; the
 HTTP verb for a **patch** is PATCH.
+
 
 ## Resource URIs
 
@@ -147,7 +148,7 @@ For example:
 
 1. List all of the pods in a given namespace.
 
-   ```console
+   ```
    GET /api/v1/namespaces/test/pods
    ---
    200 OK
@@ -162,7 +163,7 @@ For example:
    ```
 
 2. Starting from resource version 10245, receive notifications of any API operations
-   (such as **create**, **delete**, **apply** or **update**) that affect Pods in the
+   (such as **create**, **delete**, **patch** or **update**) that affect Pods in the
    _test_ namespace. Each change notification is a JSON document. The HTTP response body
    (served as `application/json`) consists a series of JSON documents.
 
@@ -203,7 +204,7 @@ to a given `resourceVersion` the client is requesting have already been sent. Th
 document representing the `BOOKMARK` event is of the type requested by the request,
 but only includes a `.metadata.resourceVersion` field. For example:
 
-```console
+```
 GET /api/v1/namespaces/test/pods?watch=1&resourceVersion=10245&allowWatchBookmarks=true
 ---
 200 OK
@@ -261,7 +262,7 @@ is 10245 and there are two pods: `foo` and `bar`. Then sending the following req
 _consistent read_ by setting empty resource version using `resourceVersion=`) could result
 in the following sequence of events:
 
-```console
+```
 GET /api/v1/namespaces/test/pods?watch=1&sendInitialEvents=true&allowWatchBookmarks=true&resourceVersion=&resourceVersionMatch=NotOlderThan
 ---
 200 OK
@@ -302,7 +303,7 @@ can be saved and the latency can be reduced.
 To verify if `APIResponseCompression` is working, you can send a **get** or **list** request to the
 API server with an `Accept-Encoding` header, and check the response size and headers. For example:
 
-```console
+```
 GET /api/v1/pods
 Accept-Encoding: gzip
 ---
@@ -316,7 +317,7 @@ The `content-encoding` header indicates that the response is compressed with `gz
 
 ## Retrieving large results sets in chunks
 
-{{< feature-state for_k8s_version="v1.9" state="beta" >}}
+{{< feature-state for_k8s_version="v1.29" state="stable" >}}
 
 On large clusters, retrieving the collection of some resource types may result in
 very large responses that can impact the server and client. For instance, a cluster
@@ -324,9 +325,7 @@ may have tens of thousands of Pods, each of which is equivalent to roughly 2 KiB
 encoded JSON. Retrieving all pods across all namespaces may result in a very large
 response (10-20MB) and consume a large amount of server resources.
 
-Provided that you don't explicitly disable the `APIListChunking`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/), the
-Kubernetes API server supports the ability to break a single large collection request
+The Kubernetes API server supports the ability to break a single large collection request
 into many smaller chunks while preserving the consistency of the total request. Each
 chunk can be returned sequentially which reduces both the total size of the request and
 allows user-oriented clients to display results incrementally to improve responsiveness.
@@ -355,7 +354,7 @@ of 500 pods at a time, request those chunks as follows:
 
 1. List all of the pods on a cluster, retrieving up to 500 pods each time.
 
-   ```console
+   ```
    GET /api/v1/pods?limit=500
    ---
    200 OK
@@ -376,7 +375,7 @@ of 500 pods at a time, request those chunks as follows:
 
 2. Continue the previous call, retrieving the next set of 500 pods.
 
-   ```console
+   ```
    GET /api/v1/pods?limit=500&continue=ENCODED_CONTINUE_TOKEN
    ---
    200 OK
@@ -397,7 +396,7 @@ of 500 pods at a time, request those chunks as follows:
 
 3. Continue the previous call, retrieving the last 253 pods.
 
-   ```console
+   ```
    GET /api/v1/pods?limit=500&continue=ENCODED_CONTINUE_TOKEN_2
    ---
    200 OK
@@ -541,7 +540,7 @@ type.
 
 For example, list all of the pods on a cluster in the Table format.
 
-```console
+```
 GET /api/v1/pods
 Accept: application/json;as=Table;g=meta.k8s.io;v=v1
 ---
@@ -562,7 +561,7 @@ For API resource types that do not have a custom Table definition known to the c
 plane, the API server returns a default Table response that consists of the resource's
 `name` and `creationTimestamp` fields.
 
-```console
+```
 GET /apis/crd.example.com/v1alpha1/namespaces/default/resources
 ---
 200 OK
@@ -597,7 +596,7 @@ uses the Table information and must work against all resource types, including
 extensions, you should make requests that specify multiple content types in the
 `Accept` header. For example:
 
-```console
+```
 Accept: application/json;as=Table;g=meta.k8s.io;v=v1, application/json
 ```
 
@@ -625,7 +624,7 @@ For example:
 
 1. List all of the pods on a cluster in Protobuf format.
 
-   ```console
+   ```
    GET /api/v1/pods
    Accept: application/vnd.kubernetes.protobuf
    ---
@@ -638,7 +637,7 @@ For example:
 1. Create a pod by sending Protobuf encoded data to the server, but request a response
    in JSON.
 
-   ```console
+   ```
    POST /api/v1/namespaces/test/pods
    Content-Type: application/vnd.kubernetes.protobuf
    Accept: application/json
@@ -663,7 +662,7 @@ As a client, if you might need to work with extension types you should specify m
 content types in the request `Accept` header to support fallback to JSON.
 For example:
 
-```console
+```
 Accept: application/vnd.kubernetes.protobuf, application/json
 ```
 
@@ -676,7 +675,7 @@ describes the encoding and type of the underlying object and then contains the o
 
 The wrapper format is:
 
-```console
+```
 A four byte magic number prefix:
   Bytes 0-3: "k8s\x00" [0x6b, 0x38, 0x73, 0x00]
 
@@ -723,13 +722,13 @@ When you **delete** a resource this takes place in two phases.
   "kind": "ConfigMap",
   "apiVersion": "v1",
   "metadata": {
-    "finalizers": {"url.io/neat-finalization", "other-url.io/my-finalizer"},
+    "finalizers": ["url.io/neat-finalization", "other-url.io/my-finalizer"],
     "deletionTimestamp": nil,
   }
 }
 ```
 
-When a client first sends a **delete** to request removal of a resource, the `.metadata.deletionTimestamp` is set to the current time.
+When a client first sends a **delete** to request the removal of a resource, the `.metadata.deletionTimestamp` is set to the current time.
 Once the `.metadata.deletionTimestamp` is set, external controllers that act on finalizers
 may start performing their cleanup work at any time, in any order.
 
@@ -750,7 +749,7 @@ Once the last finalizer is removed, the resource is actually removed from etcd.
 
 ## Single resource API
 
-The Kubernetes API verbs **get**, **create**, **apply**, **update**, **patch**,
+The Kubernetes API verbs **get**, **create**, **update**, **patch**,
 **delete** and **proxy** support single resources only.
 These verbs with single resource support have no support for submitting multiple
 resources together in an ordered or unordered list or transaction.
@@ -786,9 +785,9 @@ These situations are:
    fields via `x-kubernetes-preserve-unknown-fields`).
 2. The field is duplicated in the object.
 
-### Validation for unrecognized or duplicate fields (#setting-the-field-validation-level)
+### Validation for unrecognized or duplicate fields {#setting-the-field-validation-level}
 
-  {{< feature-state for_k8s_version="v1.27" state="stable" >}}
+{{< feature-state for_k8s_version="v1.27" state="stable" >}}
 
 From 1.25 onward, unrecognized or duplicate fields in an object are detected via
 validation on the server when you use HTTP verbs that can submit data (`POST`, `PUT`, and `PATCH`). Possible levels of
@@ -894,7 +893,7 @@ effects on any request marked as dry runs.
 
 Here is an example dry-run request that uses `?dryRun=All`:
 
-```console
+```
 POST /api/v1/namespaces/test/pods?dryRun=All
 Content-Type: application/json
 Accept: application/json
@@ -937,16 +936,142 @@ rules:
 
 See [Authorization Overview](/docs/reference/access-authn-authz/authorization/).
 
-## Server Side Apply
+## Updates to existing resources {#patch-and-apply}
+
+Kubernetes provides several ways to update existing objects.
+You can read [choosing an update mechanism](#update-mechanism-choose) to
+learn about which approach might be best for your use case.
+
+You can overwrite (**update**) an existing resource - for example, a ConfigMap -
+using an HTTP PUT. For a PUT request, it is the client's responsibility to specify
+the `resourceVersion` (taking this from the object being updated). Kubernetes uses
+that `resourceVersion` information so that the API server can detect lost updates
+and reject requests made by a client that is out of date with the cluster.
+In the event that the resource has changed (the `resourceVersion` the client
+provided is stale), the API server returns a `409 Conflict` error response.
+
+Instead of sending a PUT request, the client can send an instruction to the API
+server to **patch** an existing resource. A **patch** is typically appropriate
+if the change that the client wants to make isn't conditional on the existing data. Clients that need effective detection of lost updates should consider
+making their request conditional on the existing `resourceVersion` (either HTTP PUT or HTTP PATCH),
+and then handle any retries that are needed in case there is a conflict.
+
+The Kubernetes API supports four different PATCH operations, determined by their
+corresponding HTTP `Content-Type` header:
+
+`application/apply-patch+yaml`
+: Server Side Apply YAML (a Kubernetes-specific extension, based on YAML).
+  All JSON documents are valid YAML, so you can also submit JSON using this
+  media type. See [Server Side Apply serialization](/docs/reference/using-api/server-side-apply/#serialization)
+  for more details.  
+  To Kubernetes, this is a **create** operation if the object does not exist,
+  or a **patch** operation if the object already exists.
+
+`application/json-patch+json`
+: JSON Patch, as defined in [RFC6902](https://tools.ietf.org/html/rfc6902).
+  A JSON patch is a sequence of operations that are executed on the resource;
+  for example `{"op": "add", "path": "/a/b/c", "value": [ "foo", "bar" ]}`.  
+  To Kubernetes, this is a **patch** operation.
+  
+  A **patch** using `application/json-patch+json` can include conditions to
+  validate consistency, allowing the operation to fail if those conditions
+  are not met (for example, to avoid a lost update).
+
+`application/merge-patch+json`
+: JSON Merge Patch, as defined in [RFC7386](https://tools.ietf.org/html/rfc7386).
+  A JSON Merge Patch is essentially a partial representation of the resource.
+  The submitted JSON is combined with the current resource to create a new one,
+  then the new one is saved.  
+  To Kubernetes, this is a **patch** operation.
+
+`application/strategic-merge-patch+json`
+: Strategic Merge Patch (a Kubernetes-specific extension based on JSON).
+  Strategic Merge Patch is a custom implementation of JSON Merge Patch.
+  You can only use Strategic Merge Patch with built-in APIs, or with aggregated
+  API servers that have special support for it. You cannot use
+  `application/strategic-merge-patch+json` with any API
+  defined using a {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}.
+  
+  {{< note >}}
+  The Kubernetes _server side apply_ mechanism has superseded Strategic Merge
+  Patch.
+  {{< /note >}}
+
 
 Kubernetes' [Server Side Apply](/docs/reference/using-api/server-side-apply/)
 feature allows the control plane to track managed fields for newly created objects.
 Server Side Apply provides a clear pattern for managing field conflicts,
-offers server-side `Apply` and `Update` operations, and replaces the
+offers server-side **apply** and **update** operations, and replaces the
 client-side functionality of `kubectl apply`.
 
-The API verb for Server-Side Apply is **apply**.
+For Server-Side Apply, Kubernetes treats the request as a **create** if the object
+does not yet exist, and a **patch** otherwise. For other requests that use PATCH
+at the HTTP level, the logical Kubernetes operation is always **patch**.
+
 See [Server Side Apply](/docs/reference/using-api/server-side-apply/) for more details.
+
+### Choosing an update mechanism {#update-mechanism-choose}
+
+#### HTTP PUT to replace existing resource {#update-mechanism-update}
+
+The **update** (HTTP `PUT`) operation is simple to implement and flexible,
+but has drawbacks:
+
+* You need to handle conflicts where the `resourceVersion` of the object changes
+  between your client reading it and trying to write it back. Kubernetes always
+  detects the conflict, but you as the client author need to implement retries.
+* You might accidentally drop fields if you decode an object locally (for example,
+  using client-go, you could receive fields that your client does not know how to
+  handle - and then drop them as part of your update.
+* If there's a lot of contention on the object (even on a field, or set of fields,
+  that you're not trying to edit), you might have trouble sending the update.
+  The problem is worse for larger objects and for objects with many fields.
+
+#### HTTP PATCH using JSON Patch {#update-mechanism-json-patch}
+
+A **patch** update is helpful, because:
+
+* As you're only sending differences, you have less data to send in the `PATCH`
+  request.
+* You can make changes that rely on existing values, such as copying the
+  value of a particular field into an annotation.
+* Unlike with an **update** (HTTP `PUT`), making your change can happen right away
+  even if there are frequent changes to unrelated fields): you usually would
+  not need to retry.
+  * You might still need to specify the `resourceVersion` (to match an existing object)
+    if you want to be extra careful to avoid lost updates
+  * It's still good practice to write in some retry logic in case of errors.
+* You can use test conditions to careful craft specific update conditions.
+  For example, you can increment a counter without reading it if the existing
+  value matches what you expect. You can do this with no lost update risk,
+  even if the object has changed in other ways since you last wrote to it.
+  (If the test condition fails, you can fall back to reading the current value
+  and then write back the changed number).
+
+However:
+
+* you need more local (client) logic to build the patch; it helps a lot if you have
+  a library implementation of JSON Patch, or even for making a JSON Patch specifically against Kubernetes
+* as the author of client software, you need to be careful when building the patch
+  (the HTTP request body) not to drop fields (the order of operations matters)
+
+#### HTTP PATCH using Server-Side Apply {#update-mechanism-server-side-apply}
+
+Server-Side Apply has some clear benefits:
+
+* A single round trip: it rarely requires making a `GET` request first.
+  * and you can still detect conflicts for unexpected changes
+  * you have the option to force override a conflict, if appropriate
+* Client implementations are easy to make
+* You get an atomic create-or-update operation without extra effort
+  (similar to `UPSERT` in some SQL dialects)
+
+However:
+
+* Server-Side Apply does not work at all for field changes that depend on a current value of the object
+* You can only apply updates to objects. Some resources in the Kubernetes HTTP API are
+  not objects (they do not have a `.metadata` field), and Server-Side Apply
+  is only relevant for Kubernetes objects.
 
 ## Resource versions
 

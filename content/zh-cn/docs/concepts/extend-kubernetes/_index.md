@@ -296,7 +296,8 @@ several types of extensions.
 注意，某些方案可能需要同时采用几种类型的扩展。
 
 <!-- image source for flowchart: https://docs.google.com/drawings/d/1sdviU6lDz4BpnzJNHfNpQrqI9F19QZ07KnhnxVrp2yg/edit -->
-{{< figure src="/zh-cn/docs/concepts/extend-kubernetes/flowchart.png"
+
+{{< figure src="/zh-cn/docs/concepts/extend-kubernetes/flowchart.svg"
     alt="附带使用场景问题和实现指南的流程图。绿圈表示是；红圈表示否。"
     class="diagram-large" caption="选择一个扩展方式的流程图指导" >}}
 
@@ -445,8 +446,8 @@ allows calling out to custom code that makes an authorization decision.
 换言之，它不会基于对象的特定字段作出不同的判决。
 
 如果内置的鉴权选项无法满足你的需要，
-你可以使用[鉴权 Webhook](/zh-cn/docs/reference/access-authn-authz/webhook/) 来调用用户提供的代码，
-执行定制的鉴权决定。
+你可以使用[鉴权 Webhook](/zh-cn/docs/reference/access-authn-authz/webhook/)
+来调用用户提供的代码，执行定制的鉴权决定。
 
 <!--
 ### Dynamic admission control
@@ -499,7 +500,7 @@ a way to extend Kubernetes with supports for new kinds of volumes. The volumes c
 durable external storage, or provide ephemeral storage, or they might offer a read-only interface
 to information using a filesystem paradigm.
 
-Kubernetes also includes support for [FlexVolume](/docs/concepts/storage/volumes/#flexvolume-deprecated) plugins,
+Kubernetes also includes support for [FlexVolume](/docs/concepts/storage/volumes/#flexvolume) plugins,
 which are deprecated since Kubernetes v1.23 (in favour of CSI).
 -->
 ### 存储插件  {#storage-plugins}
@@ -508,7 +509,7 @@ which are deprecated since Kubernetes v1.23 (in favour of CSI).
 Kubernetes 的方式使其支持新类别的卷。
 这些卷可以由持久的外部存储提供支持，可以提供临时存储，还可以使用文件系统范型为信息提供只读接口。
 
-Kubernetes 还包括对 [FlexVolume](/zh-cn/docs/concepts/storage/volumes/#flexvolume-deprecated)
+Kubernetes 还包括对 [FlexVolume](/zh-cn/docs/concepts/storage/volumes/#flexvolume)
 插件的支持，该插件自 Kubernetes v1.23 起被弃用（被 CSI 替代）。
 
 <!--
@@ -645,4 +646,3 @@ not available through the webhook integration.
 * 进一步了解[扩展 API 服务器](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
 * 进一步了解[动态准入控制](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)
 * 进一步了解 [Operator 模式](/zh-cn/docs/concepts/extend-kubernetes/operator/)
-

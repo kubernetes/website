@@ -52,7 +52,8 @@ This example demonstrates how to use Kubernetes namespaces to subdivide your clu
 This example assumes the following:
 
 1. You have an [existing Kubernetes cluster](/docs/setup/).
-2. You have a basic understanding of Kubernetes {{< glossary_tooltip text="Pods" term_id="pod" >}}, {{< glossary_tooltip term_id="service" text="Services" >}}, and {{< glossary_tooltip text="Deployments" term_id="deployment" >}}.
+2. You have a basic understanding of Kubernetes {{< glossary_tooltip text="Pods" term_id="pod" >}},
+{{< glossary_tooltip term_id="service" text="Services" >}}, and {{< glossary_tooltip text="Deployments" term_id="deployment" >}}.
 -->
 ## 环境准备   {#prerequisites}
 
@@ -133,7 +134,7 @@ Use the file [`namespace-dev.yaml`](/examples/admin/namespace-dev.yaml) which de
 -->
 文件 [`namespace-dev.yaml`](/examples/admin/namespace-dev.yaml) 描述了 `development` 名字空间:
 
-{{% code language="yaml" file="admin/namespace-dev.yaml" %}}
+{{% code_sample language="yaml" file="admin/namespace-dev.yaml" %}}
 
 <!--
 Create the `development` namespace using kubectl.
@@ -151,7 +152,7 @@ Save the following contents into file [`namespace-prod.yaml`](/examples/admin/na
 将下列的内容保存到文件 [`namespace-prod.yaml`](/examples/admin/namespace-prod.yaml) 中，
 这些内容是对 `production` 名字空间的描述：
 
-{{% code language="yaml" file="admin/namespace-prod.yaml" %}}
+{{% code_sample language="yaml" file="admin/namespace-prod.yaml" %}}
 
 <!--
 And then let's create the `production` namespace using kubectl.
@@ -239,7 +240,8 @@ lithe-cocoa-92103_kubernetes
 ```
 
 <!--
-The next step is to define a context for the kubectl client to work in each namespace. The value of "cluster" and "user" fields are copied from the current context.
+The next step is to define a context for the kubectl client to work in each namespace.
+he value of "cluster" and "user" fields are copied from the current context.
 -->
 下一步是为 kubectl 客户端定义一个上下文，以便在每个名字空间中工作。
 "cluster" 和 "user" 字段的值将从当前上下文中复制。
@@ -339,7 +341,7 @@ Let's create some contents.
 -->
 让我们创建一些内容。
 
-{{% code file="admin/snowflake-deployment.yaml" %}}
+{{% code_sample file="admin/snowflake-deployment.yaml" %}}
 
 <!--
 Apply the manifest to create a Deployment 
@@ -351,7 +353,8 @@ kubectl apply -f https://k8s.io/examples/admin/snowflake-deployment.yaml
 ```
 
 <!--
-We have created a deployment whose replica size is 2 that is running the pod called `snowflake` with a basic container that serves the hostname.
+We have created a deployment whose replica size is 2 that is running the pod called
+`snowflake` with a basic container that serves the hostname.
 -->
 我们创建了一个副本大小为 2 的 Deployment，该 Deployment 运行名为 `snowflake` 的 Pod，
 其中包含一个仅提供主机名服务的基本容器。
@@ -374,7 +377,8 @@ snowflake-3968820950-vgc4n   1/1       Running   0          2m
 ```
 
 <!--
-And this is great, developers are able to do what they want, and they do not have to worry about affecting content in the `production` namespace.
+And this is great, developers are able to do what they want, and they do not have 
+o worry about affecting content in the `production` namespace.
 -->
 这很棒，开发人员可以做他们想要的事情，而不必担心影响 `production` 名字空间中的内容。
 

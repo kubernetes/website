@@ -156,7 +156,7 @@ Run the process as a DaemonSet in the `kube-system` namespace. | Run the process
 {{< table caption = "Do and Don't - Use code style for Kubernetes command tool and component names" >}}
 Do | Don't
 :--| :-----
-The kubelet preserves node stability. | The `kubelet` preserves node stability.
+The `kubelet` preserves node stability. | The kubelet preserves node stability.
 The `kubectl` handles locating and authenticating to the API server. | The kubectl handles locating and authenticating to the apiserver.
 Run the process with the certificate, `kube-apiserver --client-ca-file=FILENAME`. | Run the process with the certificate, kube-apiserver --client-ca-file=FILENAME. |
 {{< /table >}}
@@ -456,6 +456,15 @@ code blocks, and others. The exception is second-level headings, where it should
 be two newlines. Second-level headings follow the first-level (or the title) without
 any preceding paragraphs or texts. A two line spacing helps visualize the overall
 structure of content in a code editor better.
+
+Manually wrap paragraphs in the Markdown source when appropriate. Since the git
+tool and the GitHub website generate file diffs on a line-by-line basis,
+manually wrapping long lines helps the reviewers to easily find out the changes
+made in a PR and provide feedback. It also helps the downstream localization
+teams where people track the upstream changes on a per-line basis.  Line
+wrapping can happen at the end of a sentence or a punctuation character, for
+example. One exception to this is that a Markdown link or a shortcode is
+expected to be in a single line.
 
 ### Headings and titles {#headings}
 

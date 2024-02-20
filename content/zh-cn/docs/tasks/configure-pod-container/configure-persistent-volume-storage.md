@@ -161,7 +161,7 @@ Here is the configuration file for the hostPath PersistentVolume:
 
 下面是 hostPath PersistentVolume 的配置文件：
 
-{{% code file="pods/storage/pv-volume.yaml" %}}
+{{% code_sample file="pods/storage/pv-volume.yaml" %}}
 
 <!--
 The configuration file specifies that the volume is at `/mnt/data` on the
@@ -177,6 +177,16 @@ PersistentVolumeClaim requests to this PersistentVolume.
 此配置文件还在 PersistentVolume 中定义了
 [StorageClass 的名称](/zh-cn/docs/concepts/storage/persistent-volumes/#class)为 `manual`。
 它将用于将 PersistentVolumeClaim 的请求绑定到此 PersistentVolume。
+
+{{< note >}}
+<!--
+This example uses the `ReadWriteOnce` access mode, for simplicity. For
+production use, the Kubernetes project recommends using the `ReadWriteOncePod`
+access mode instead.
+-->
+为了简化，本示例采用了 `ReadWriteOnce` 访问模式。然而对于生产环境，
+Kubernetes 项目建议改用 `ReadWriteOncePod` 访问模式。
+{{< /note >}}
 
 <!--
 Create the PersistentVolume:
@@ -227,7 +237,7 @@ Pod 使用 PersistentVolumeClaim 来请求物理存储。
 
 下面是 PersistentVolumeClaim 的配置文件：
 
-{{% code file="pods/storage/pv-claim.yaml" %}}
+{{% code_sample file="pods/storage/pv-claim.yaml" %}}
 
 <!--
 Create the PersistentVolumeClaim:
@@ -299,7 +309,7 @@ Here is the configuration file for the Pod:
 
 下面是此 Pod 的配置文件：
 
-{{% code file="pods/storage/pv-pod.yaml" %}}
+{{% code_sample file="pods/storage/pv-pod.yaml" %}}
 
 <!--
 Notice that the Pod's configuration file specifies a PersistentVolumeClaim, but
@@ -414,7 +424,7 @@ You can now close the shell to your Node.
 -->
 ## 在两个地方挂载相同的 persistentVolume   {#mounting-the-same-pv-in-two-places}
 
-{{% code file="pods/storage/pv-duplicate.yaml" %}}
+{{% code_sample file="pods/storage/pv-duplicate.yaml" %}}
 
 <!--
 You can perform 2 volume mounts on your nginx container:

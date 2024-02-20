@@ -33,7 +33,7 @@ Let's create a {{<glossary_tooltip term_id="daemonset" text="DaemonSet">}} which
 Next, use a `nodeSelector` to ensure that the DaemonSet only runs Pods on nodes
 with the `ssd` label set to `"true"`.
 
-{{% code file="controllers/daemonset-label-selector.yaml" %}}
+{{% code_sample file="controllers/daemonset-label-selector.yaml" %}}
 
 ### Step 3: Create the DaemonSet
 

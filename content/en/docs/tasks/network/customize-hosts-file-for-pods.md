@@ -69,7 +69,7 @@ For example: to resolve `foo.local`, `bar.local` to `127.0.0.1` and `foo.remote`
 `bar.remote` to `10.1.2.3`, you can configure HostAliases for a Pod under
 `.spec.hostAliases`:
 
-{{% code file="service/networking/hostaliases-pod.yaml" %}}
+{{% code_sample file="service/networking/hostaliases-pod.yaml" %}}
 
 You can start a Pod with that configuration by running:
 

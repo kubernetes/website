@@ -97,8 +97,11 @@ your cluster. Those fields are:
   nodes match the node selector.
 
   {{< note >}}
-  The `minDomains` field is a beta field and disabled by default in 1.25. You can enable it by enabling the
-  `MinDomainsInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+  The `MinDomainsInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  enables `minDomains` for pod topology spread. Starting from v1.28,
+  the `MinDomainsInPodTopologySpread` gate 
+  is enabled by default. In older Kubernetes clusters it might be explicitly
+  disabled or the field might not be available.
   {{< /note >}}
 
   - The value of `minDomains` must be greater than 0, when specified.
@@ -284,7 +287,7 @@ graph BT
 If you want an incoming Pod to be evenly spread with existing Pods across zones, you
 can use a manifest similar to:
 
-{{% code file="pods/topology-spread-constraints/one-constraint.yaml" %}}
+{{% code_sample file="pods/topology-spread-constraints/one-constraint.yaml" %}}
 
 From that manifest, `topologyKey: zone` implies the even distribution will only be applied
 to nodes that are labelled `zone: <any value>` (nodes that don't have a `zone` label
@@ -377,7 +380,7 @@ graph BT
 You can combine two topology spread constraints to control the spread of Pods both
 by node and by zone:
 
-{{% code file="pods/topology-spread-constraints/two-constraints.yaml" %}}
+{{% code_sample file="pods/topology-spread-constraints/two-constraints.yaml" %}}
 
 In this case, to match the first constraint, the incoming Pod can only be placed onto
 nodes in zone `B`; while in terms of the second constraint, the incoming Pod can only be
@@ -466,7 +469,7 @@ and you know that zone `C` must be excluded. In this case, you can compose a man
 as below, so that Pod `mypod` will be placed into zone `B` instead of zone `C`.
 Similarly, Kubernetes also respects `spec.nodeSelector`.
 
-{{% code file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" %}}
+{{% code_sample file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" %}}
 
 ## Implicit conventions
 
@@ -478,7 +481,8 @@ There are some implicit conventions worth noting here:
   present. This implies that:
 
   1. any Pods located on those bypassed nodes do not impact `maxSkew` calculation - in the
-     above example, suppose the node `node1` does not have a label "zone", then the 2 Pods will
+     above [example](#example-conflicting-topologyspreadconstraints), suppose the node `node1`
+     does not have a label "zone", then the 2 Pods will
      be disregarded, hence the incoming Pod will be scheduled into zone `A`.
   2. the incoming Pod has no chances to be scheduled onto this kind of nodes -
      in the above example, suppose a node `node5` has the **mistyped** label `zone-typo: zoneC`
@@ -525,13 +529,6 @@ profiles:
               whenUnsatisfiable: ScheduleAnyway
           defaultingType: List
 ```
-
-{{< note >}}
-The [`SelectorSpread` plugin](/docs/reference/scheduling/config/#scheduling-plugins)
-is disabled by default. The Kubernetes project recommends using `PodTopologySpread`
-to achieve similar behavior.
-{{< /note >}}
-
 ### Built-in default constraints {#internal-default-constraints}
 
 {{< feature-state for_k8s_version="v1.24" state="stable" >}}

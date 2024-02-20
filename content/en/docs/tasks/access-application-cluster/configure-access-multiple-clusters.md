@@ -4,7 +4,8 @@ content_type: task
 weight: 30
 card:
   name: tasks
-  weight: 40
+  weight: 25
+  title: Configure access to clusters
 ---
 
 <!-- overview -->

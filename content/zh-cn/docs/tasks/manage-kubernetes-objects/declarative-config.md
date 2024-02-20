@@ -135,7 +135,7 @@ Here's an example of an object configuration file:
 -->
 下面是一个对象配置文件示例：
 
-{{% code file="application/simple_deployment.yaml" %}}
+{{% code_sample file="application/simple_deployment.yaml" %}}
 
 <!--
 Run `kubectl diff` to print the object that will be created:
@@ -277,7 +277,7 @@ Here's an example configuration file:
 -->
 下面是一个配置文件示例：
 
-{{% code file="application/simple_deployment.yaml" %}}
+{{% code_sample file="application/simple_deployment.yaml" %}}
 
 <!--
 Create the object using `kubectl apply`:
@@ -444,7 +444,7 @@ Update the `simple_deployment.yaml` configuration file to change the image from
 现在更新 `simple_deployment.yaml` 配置文件，将镜像文件从
 `nginx:1.14.2` 更改为 `nginx:1.16.1`，同时删除`minReadySeconds` 字段：
 
-{{% code file="application/update_deployment.yaml" %}}
+{{% code_sample file="application/update_deployment.yaml" %}}
 
 <!--
 Apply the changes made to the configuration file:
@@ -872,7 +872,7 @@ Here's an example. Suppose this is the configuration file for a Deployment objec
 
 下面是一个例子。假定此文件是某 Deployment 对象的配置文件：
 
-{{% code file="application/update_deployment.yaml" %}}
+{{% code_sample file="application/update_deployment.yaml" %}}
 
 <!--
 Also, suppose this is the live configuration for the same Deployment object:
@@ -1426,7 +1426,7 @@ API 服务器会在对象创建时其中某些字段未设置的情况下在现�
 
 下面是一个 Deployment 的配置文件。文件未设置 `strategy`：
 
-{{% code file="application/simple_deployment.yaml" %}}
+{{% code_sample file="application/simple_deployment.yaml" %}}
 
 <!--
 Create the object using `kubectl apply`:

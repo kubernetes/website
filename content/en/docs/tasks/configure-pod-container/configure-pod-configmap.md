@@ -526,7 +526,7 @@ Before proceeding, clean up some of the ConfigMaps you made:
 ```bash
 kubectl delete configmap special-config
 kubectl delete configmap env-config
-kubectl delete configmap -l 'game-config in (config-4,config-5)’
+kubectl delete configmap -l 'game-config in (config-4,config-5)'
 ```
 
 Now that you have learned to define ConfigMaps, you can move on to the next
@@ -547,7 +547,7 @@ section, and learn how to use these objects with Pods.
 2. Assign the `special.how` value defined in the ConfigMap to the `SPECIAL_LEVEL_KEY`
    environment variable in the Pod specification.
 
-   {{% code file="pods/pod-single-configmap-env-variable.yaml" %}}
+   {{% code_sample file="pods/pod-single-configmap-env-variable.yaml" %}}
 
    Create the Pod:
 
@@ -562,7 +562,7 @@ section, and learn how to use these objects with Pods.
 As with the previous example, create the ConfigMaps first.
 Here is the manifest you will use:
 
-{{% code file="configmap/configmaps.yaml" %}}
+{{% code_sample file="configmap/configmaps.yaml" %}}
 
 * Create the ConfigMap:
 
@@ -572,7 +572,7 @@ Here is the manifest you will use:
 
 * Define the environment variables in the Pod specification.
 
-  {{% code file="pods/pod-multiple-configmap-env-variable.yaml" %}}
+  {{% code_sample file="pods/pod-multiple-configmap-env-variable.yaml" %}}
 
   Create the Pod:
 
@@ -591,7 +591,7 @@ Here is the manifest you will use:
 
 * Create a ConfigMap containing multiple key-value pairs.
 
-  {{% code file="configmap/configmap-multikeys.yaml" %}}
+  {{% code_sample file="configmap/configmap-multikeys.yaml" %}}
 
   Create the ConfigMap:
 
@@ -602,7 +602,7 @@ Here is the manifest you will use:
 * Use `envFrom` to define all of the ConfigMap's data as container environment variables. The
   key from the ConfigMap becomes the environment variable name in the Pod.
 
-  {{% code file="pods/pod-configmap-envFrom.yaml" %}}
+  {{% code_sample file="pods/pod-configmap-envFrom.yaml" %}}
 
   Create the Pod:
 
@@ -624,7 +624,7 @@ using the `$(VAR_NAME)` Kubernetes substitution syntax.
 
 For example, the following Pod manifest:
 
-{{% code file="pods/pod-configmap-env-var-valueFrom.yaml" %}}
+{{% code_sample file="pods/pod-configmap-env-var-valueFrom.yaml" %}}
 
 Create that Pod, by running:
 
@@ -633,6 +633,9 @@ kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-env-var-valu
 ```
 
 That pod produces the following output from the `test-container` container:
+```shell
+kubectl logs dapi-test-pod
+```
 
 ```
 very charm
@@ -651,7 +654,7 @@ the ConfigMap. The file contents become the key's value.
 
 The examples in this section refer to a ConfigMap named `special-config`:
 
-{{% code file="configmap/configmap-multikeys.yaml" %}}
+{{% code_sample file="configmap/configmap-multikeys.yaml" %}}
 
 Create the ConfigMap:
 
@@ -666,7 +669,7 @@ This adds the ConfigMap data to the directory specified as `volumeMounts.mountPa
 case, `/etc/config`). The `command` section lists directory files with names that match the
 keys in ConfigMap.
 
-{{% code file="pods/pod-configmap-volume.yaml" %}}
+{{% code_sample file="pods/pod-configmap-volume.yaml" %}}
 
 Create the Pod:
 
@@ -700,7 +703,7 @@ kubectl delete pod dapi-test-pod --now
 Use the `path` field to specify the desired file path for specific ConfigMap items.
 In this case, the `SPECIAL_LEVEL` item will be mounted in the `config-volume` volume at `/etc/config/keys`.
 
-{{% code file="pods/pod-configmap-volume-specific-key.yaml" %}}
+{{% code_sample file="pods/pod-configmap-volume-specific-key.yaml" %}}
 
 Create the Pod:
 
@@ -725,10 +728,8 @@ kubectl delete pod dapi-test-pod --now
 
 ### Project keys to specific paths and file permissions
 
-You can project keys to specific paths and specific permissions on a per-file
-basis. The
-[Secrets](/docs/concepts/configuration/secret/#using-secrets-as-files-from-a-pod)
-guide explains the syntax.
+You can project keys to specific paths. Refer to the corresponding section in the [Secrets](/docs/tasks/inject-data-application/distribute-credentials-secure/#project-secret-keys-to-specific-file-paths) guide for the syntax.  
+You can set POSIX permissions for keys. Refer to the corresponding section in the [Secrets](/docs/tasks/inject-data-application/distribute-credentials-secure/#set-posix-permissions-for-secret-keys) guide for the syntax.
 
 ### Optional references
 
@@ -907,7 +908,7 @@ kubectl delete pod dapi-test-pod --now
 
 # You might already have removed the next set
 kubectl delete configmaps/special-config configmaps/env-config
-kubectl delete configmap -l 'game-config in (config-4,config-5)’
+kubectl delete configmap -l 'game-config in (config-4,config-5)'
 ```
 
 If you created a directory `configure-pod-container` and no longer need it, you should remove that too,

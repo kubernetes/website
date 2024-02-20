@@ -81,7 +81,7 @@ This example ReplicationController config runs three copies of the nginx web ser
 
 这个示例 ReplicationController 配置运行 nginx Web 服务器的三个副本。
 
-{{% code file="controllers/replication.yaml" %}}
+{{% code_sample file="controllers/replication.yaml" %}}
 
 <!--
 Run the example job by downloading the example file and then running this command:
@@ -384,15 +384,21 @@ Pods may be removed from a ReplicationController's target set by changing their 
 <!--
 ### Rescheduling
 
-As mentioned above, whether you have 1 pod you want to keep running, or 1000, a ReplicationController will ensure that the specified number of pods exists, even in the event of node failure or pod termination (for example, due to an action by another control agent).
+As mentioned above, whether you have 1 pod you want to keep running, or 1000, a
+ReplicationController will ensure that the specified number of pods exists, even
+in the event of node failure or pod termination (for example, due to an action
+by another control agent).
 -->
 ### 重新调度   {#rescheduling}
 
-如上所述，无论你想要继续运行 1 个 Pod 还是 1000 个 Pod，一个 ReplicationController 都将确保存在指定数量的 Pod，即使在节点故障或 Pod 终止(例如，由于另一个控制代理的操作)的情况下也是如此。
+如上所述，无论你想要继续运行 1 个 Pod 还是 1000 个 Pod，一个
+ReplicationController 都将确保存在指定数量的 Pod，即使在节点故障或
+Pod 终止（例如，由于另一个控制代理的操作）的情况下也是如此。
 <!--
 ### Scaling
 
-The ReplicationController enables scaling the number of replicas up or down, either manually or by an auto-scaling control agent, by updating the `replicas` field.
+The ReplicationController enables scaling the number of replicas up or down,
+either manually or by an auto-scaling control agent, by updating the `replicas` field.
 -->
 ### 扩缩容   {#scaling}
 
@@ -419,9 +425,11 @@ Ideally, the rolling update controller would take application readiness into acc
 
 The two ReplicationControllers would need to create pods with at least one differentiating label, such as the image tag of the primary container of the pod, since it is typically image updates that motivate rolling updates.
 -->
-理想情况下，滚动更新控制器将考虑应用程序的就绪情况，并确保在任何给定时间都有足够数量的 Pod 有效地提供服务。
+理想情况下，滚动更新控制器将考虑应用程序的就绪情况，并确保在任何给定时间都有足够数量的
+Pod 有效地提供服务。
 
-这两个 ReplicationController 将需要创建至少具有一个不同标签的 Pod，比如 Pod 主要容器的镜像标签，因为通常是镜像更新触发滚动更新。
+这两个 ReplicationController 将需要创建至少具有一个不同标签的 Pod，
+比如 Pod 主要容器的镜像标签，因为通常是镜像更新触发滚动更新。
 
 <!--
 ### Multiple release tracks
@@ -555,7 +563,8 @@ because they are declarative, server-side, and have additional features.
 -->
 ### Deployment （推荐）
 
-[`Deployment`](/zh-cn/docs/concepts/workloads/controllers/deployment/) 是一种更高级别的 API 对象，用于更新其底层 ReplicaSet 及其 Pod。
+[`Deployment`](/zh-cn/docs/concepts/workloads/controllers/deployment/)
+是一种更高级别的 API 对象，用于更新其底层 ReplicaSet 及其 Pod。
 如果你想要这种滚动更新功能，那么推荐使用 Deployment，因为它们是声明式的、服务端的，并且具有其它特性。
 
 <!--

@@ -64,6 +64,7 @@ in a majority of cases, and the most intuitive location; other constants paths a
   - `controller-manager.conf`
   - `scheduler.conf`
   - `admin.conf` for the cluster admin and kubeadm itself
+  - `super-admin.conf` for the cluster super-admin that can bypass RBAC
 
 - Names of certificates and key files :
 
@@ -209,12 +210,21 @@ Kubeadm generates kubeconfig files with identities for control plane components:
   This client cert should have the CN `system:kube-scheduler`, as defined by default
   [RBAC core components roles](/docs/reference/access-authn-authz/rbac/#core-component-roles)
 
-Additionally, a kubeconfig file for kubeadm itself and the admin is generated and saved into the
-`/etc/kubernetes/admin.conf` file.  The "admin" here is defined as the actual person(s) that is
-administering the cluster and wants to have full control (**root**) over the cluster.  The
-embedded client certificate for admin should be in the `system:masters` organization, as defined
-by default [RBAC user facing role bindings](/docs/reference/access-authn-authz/rbac/#user-facing-roles).
-It should also include a CN. Kubeadm uses the `kubernetes-admin` CN.
+Additionally, a kubeconfig file for kubeadm as an administrative entity is generated and stored
+in `/etc/kubernetes/admin.conf`. This file includes a certificate with
+`Subject: O = kubeadm:cluster-admins, CN = kubernetes-admin`. `kubeadm:cluster-admins`
+is a group managed by kubeadm. It is bound to the `cluster-admin` ClusterRole during `kubeadm init`,
+by using the `super-admin.conf` file, which does not require RBAC.
+This `admin.conf` file must remain on control plane nodes and not be shared with additional users.
+
+During `kubeadm init` another kubeconfig file is generated and stored in `/etc/kubernetes/super-admin.conf`.
+This file includes a certificate with `Subject: O = system:masters, CN = kubernetes-super-admin`.
+`system:masters` is a super user group that bypasses RBAC and makes `super-admin.conf` useful in case
+of an emergency where a cluster is locked due to RBAC misconfiguration.
+The `super-admin.conf` file can be stored in a safe location and not shared with additional users.
+
+See [RBAC user facing role bindings](/docs/reference/access-authn-authz/rbac/#user-facing-roles)
+for additional information RBAC and built-in ClusterRoles and groups.
 
 Please note that:
 

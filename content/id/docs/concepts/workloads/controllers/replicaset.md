@@ -29,7 +29,7 @@ Hal ini berarti kamu boleh jadi tidak akan membutuhkan manipulasi objek ReplicaS
 
 ## Contoh
 
-{{< codenew file="controllers/frontend.yaml" >}}
+{{% codenew file="controllers/frontend.yaml" %}}
 
 Menyimpan _manifest_ ini dalam `frontend.yaml` dan mengirimkannya ke klaster Kubernetes akan membuat ReplicaSet yang telah didefinisikan beserta dengan Pod yang dikelola.
 
@@ -131,7 +131,7 @@ Walaupun kamu bisa membuat Pod biasa tanpa masalah, sangat direkomendasikan untu
 
 Mengambil contoh ReplicaSet _frontend_ sebelumnya, dan Pod yang ditentukan pada _manifest_ berikut: 
 
-{{< codenew file="pods/pod-rs.yaml" >}}
+{{% codenew file="pods/pod-rs.yaml" %}}
 
 Karena Pod tersebut tidak memiliki Controller (atau objek lain) sebagai referensi pemilik yang sesuai dengan selektor dari ReplicaSet _frontend_, Pod tersebut akan langsung diakuisisi oleh ReplicaSet.
 
@@ -257,7 +257,7 @@ Jumlah Pod pada ReplicaSet dapat diatur dengan mengubah nilai dari _field_ `.spe
 
 Pengaturan jumlah Pod pada ReplicaSet juga dapat dilakukan mengunakan [Horizontal Pod Autoscalers (HPA)](/docs/tasks/run-application/horizontal-pod-autoscale/). Berikut adalah contoh HPA terhadap ReplicaSet yang telah dibuat pada contoh sebelumnya.
 
-{{< codenew file="controllers/hpa-rs.yaml" >}}
+{{% codenew file="controllers/hpa-rs.yaml" %}}
 
 Menyimpan _manifest_ ini dalam `hpa-rs.yaml` dan mengirimkannya ke klaster Kubernetes akan membuat HPA tersebut yang akan mengatur jumlah Pod pada ReplicaSet yang telah didefinisikan bergantung terhadap penggunaan CPU dari Pod yang direplikasi.
 

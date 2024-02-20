@@ -40,7 +40,7 @@ kubectl create namespace quota-object-example
 
 Here is the configuration file for a ResourceQuota object:
 
-{{% code file="admin/resource/quota-objects.yaml" %}}
+{{% code_sample file="admin/resource/quota-objects.yaml" %}}
 
 Create the ResourceQuota:
 
@@ -74,7 +74,7 @@ status:
 
 Here is the configuration file for a PersistentVolumeClaim object:
 
-{{% code file="admin/resource/quota-objects-pvc.yaml" %}}
+{{% code_sample file="admin/resource/quota-objects-pvc.yaml" %}}
 
 Create the PersistentVolumeClaim:
 
@@ -99,7 +99,7 @@ pvc-quota-demo   Pending
 
 Here is the configuration file for a second PersistentVolumeClaim:
 
-{{% code file="admin/resource/quota-objects-pvc-2.yaml" %}}
+{{% code_sample file="admin/resource/quota-objects-pvc-2.yaml" %}}
 
 Attempt to create the second PersistentVolumeClaim:
 

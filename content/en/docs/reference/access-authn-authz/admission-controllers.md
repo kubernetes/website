@@ -24,7 +24,7 @@ Kubernetes API server prior to persistence of the object, but after the request
 is authenticated and authorized.
 
 Admission controllers may be _validating_, _mutating_, or both. Mutating
-controllers may modify related objects to the requests they admit; validating controllers may not.
+controllers may modify objects related to the requests they admit; validating controllers may not.
 
 Admission controllers limit requests to create, delete, modify objects. Admission
 controllers can also block custom verbs, such as a request connect to a Pod via
@@ -844,6 +844,10 @@ This admission controller implements automation for
 The Kubernetes project strongly recommends enabling this admission controller.
 You should enable this admission controller if you intend to make any use of Kubernetes
 `ServiceAccount` objects.
+
+Regarding the annotation `kubernetes.io/enforce-mountable-secrets`: While the annotation's name suggests it only concerns the mounting of Secrets,
+its enforcement also extends to other ways Secrets are used in the context of a Pod.
+Therefore, it is crucial to ensure that all the referenced secrets are correctly specified in the ServiceAccount.
 
 ### StorageObjectInUseProtection
 
