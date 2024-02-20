@@ -280,7 +280,7 @@ If you want to explicitly reserve resources for non-Pod processes, see
 
 ## Node topology
 
-{{< feature-state state="stable" for_k8s_version="v1.27" >}}
+{{< feature-state feature_gate_name="TopologyManager" >}}
 
 If you have enabled the `TopologyManager`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/), then
@@ -290,7 +290,7 @@ for more information.
 
 ## Graceful node shutdown {#graceful-node-shutdown}
 
-{{< feature-state state="beta" for_k8s_version="v1.21" >}}
+{{< feature-state feature_gate_name="GracefulNodeShutdown" >}}
 
 The kubelet attempts to detect node system shutdown and terminates pods running on the node.
 
@@ -374,7 +374,7 @@ Message:        Pod was terminated in response to imminent node shutdown.
 
 ### Pod Priority based graceful node shutdown {#pod-priority-graceful-node-shutdown}
 
-{{< feature-state state="beta" for_k8s_version="v1.24" >}}
+{{< feature-state feature_gate_name="GracefulNodeShutdownBasedOnPodPriority" >}}
 
 To provide more flexibility during graceful node shutdown around the ordering
 of pods during shutdown, graceful node shutdown honors the PriorityClass for
@@ -471,7 +471,7 @@ are emitted under the kubelet subsystem to monitor node shutdowns.
 
 ## Non-graceful node shutdown handling {#non-graceful-node-shutdown}
 
-{{< feature-state state="stable" for_k8s_version="v1.28" >}}
+{{< feature-state feature_gate_name="NodeOutOfServiceVolumeDetach" >}}
 
 A node shutdown action may not be detected by kubelet's Node Shutdown Manager,
 either because the command does not trigger the inhibitor locks mechanism used by
@@ -515,7 +515,7 @@ During a non-graceful shutdown, Pods are terminated in the two phases:
 
 ## Swap memory management {#swap-memory}
 
-{{< feature-state state="beta" for_k8s_version="v1.28" >}}
+{{< feature-state feature_gate_name="NodeSwap" >}}
 
 To enable swap on a node, the `NodeSwap` feature gate must be enabled on
 the kubelet, and the `--fail-swap-on` command line flag or `failSwapOn`
