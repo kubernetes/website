@@ -46,10 +46,10 @@ Alternatively, you can download the [tarball](https://github.com/kubernetes/komp
 {{% /tab %}}
 {{% tab name="Build from source" %}}
 
-Installing using `go get` pulls from the master branch with the latest development changes.
+Installing using `go install` pulls from the master branch with the latest development changes.
 
 ```sh
-go get -u github.com/kubernetes/kompose
+go install github.com/kubernetes/kompose@latest
 ```
 
 {{% /tab %}}
