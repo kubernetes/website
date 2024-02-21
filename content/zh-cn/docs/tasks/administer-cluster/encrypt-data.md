@@ -314,28 +314,57 @@ are determined by the order it's listed in the configuration.
 {{< /note >}}
 
 <!--
-Opting out of encryption for specific resources while wildcard is enabled can be achieved by adding a new
-`resources` array item with the resource name, followed by the `providers` array item with the `identity` provider.
-For example, if '`*.*`' is enabled and you want to opt-out encryption for the `events` resource, add a new item
-to the `resources` array with `events` as the resource name, followed by the providers array item with `identity`.
-The new item should look like this:
+If you have a wildcard covering resources and want to opt out of at-rest encryption for a particular kind
+of resource, you achieve that by adding a separate `resources` array item with the name of the resource that
+you want to exempt, followed by a `providers` array item where you specify the `identity` provider. You add
+this item to the list so that it appears earlier than the configuration where you do specify encryption
+(a provider that is not `identity`).
 -->
-如果启用了通配符，但想要针对特定资源退出加密，则可以通过添加带有资源名称的新 `resources` 数组项，
-后跟附带 `identity` 提供商的 `providers` 数组项。例如，如果启用了 “`*.*`”，
-但想要排除对 `events` 资源的加密，则应向 `resources` 数组添加一个新项（以 `events` 为资源名称），
-后跟包含 `identity` 的提供程序数组。新项应如下所示：
+如果你有一个涵盖资源（resource）的通配符，并且想要过滤掉静态加密的特定类型资源，
+则可以通过添加一个单独的 `resources` 数组项来实现此目的，
+其中包含要豁免的资源的名称，还可以在其后跟一个 `providers` 数组项来指定 `identity` 提供商。
+你可以将此数组项添加到列表中，以便它早于你指定加密的配置（不是 `identity` 的提供商）出现。
 
+<!--
+For example, if '`*.*`' is enabled and you want to opt out of encryption for Events and ConfigMaps, add a
+new **earlier** item to the `resources`, followed by the providers array item with `identity` as the
+provider. The more specific entry must come before the wildcard entry.
+
+The new item would look similar to:
+-->
+例如，如果启用了 '`*.*`'，并且你想要选择不加密 Event 和 ConfigMap，
+请在 `resources` 中**靠前**的位置添加一个新的条目，后跟带有 `identity`
+的 providers 数组项作为提供程序。较为特定的条目必须位于通配符条目之前。
+
+新项目看起来类似于：
+
+<!--
 ```yaml
-- resources:
-    - events
-  providers:
-    - identity: {}
+  ...
+  - resources:
+      - configmaps. # specifically from the core API group,
+                    # because of trailing "."
+      - events
+    providers:
+      - identity: {}
+  # and then other entries in resources
+```
+-->
+```yaml
+  ...
+  - resources:
+      - configmaps. # 特定于来自核心 API 组的资源，因为结尾是 “.”
+      - events
+    providers:
+      - identity: {}
+  # 然后是资源中的其他条目
 ```
 
 <!--
-Ensure that the new item is listed before the wildcard '`*.*`' item in the resources array to give it precedence.
+Ensure that the new item is listed _before_ the wildcard '`*.*`' item in the resources array
+to give it precedence.
 -->
-确保新项列在资源数组中的通配符 “`*.*`” 项之前，使新项优先。
+确保新项列在资源数组中的通配符 “`*.*`” 项**之前**，使新项优先。
 
 <!--
 For more detailed information about the `EncryptionConfiguration` struct, please refer to the
@@ -396,7 +425,9 @@ Kubernetes 静态数据加密的提供程序
   <tr>
   <td colspan="4">
   <!--
-  Resources written as-is without encryption. When set as the first provider, the resource will be decrypted as new values are written. Existing encrypted resources are <strong>not</strong> automatically overwritten with the plaintext data.
+  Resources written as-is without encryption. When set as the first provider,
+  the resource will be decrypted as new values are written.
+  Existing encrypted resources are <strong>not</strong> automatically overwritten with the plaintext data.
   The <tt>identity</tt> provider is the default if you do not specify otherwise.
   -->
   不加密写入的资源。当设置为第一个提供程序时，已加密的资源将在新值写入时被解密。
