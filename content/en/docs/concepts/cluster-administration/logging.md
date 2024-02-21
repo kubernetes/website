@@ -150,7 +150,7 @@ If systemd is not present, the kubelet and container runtime write to `.log` fil
 run the kubelet via a helper tool, `kube-log-runner`, and use that tool to redirect
 kubelet logs to a directory that you choose.
 
-The kubelet always directs your container runtime to write logs into directories within
+By default, kubelet directs your container runtime to write logs into directories within
 `/var/log/pods`.
 
 For more information on `kube-log-runner`, read [System Logs](/docs/concepts/cluster-administration/system-logs/#klog).
@@ -168,7 +168,7 @@ If you want to have logs written elsewhere, you can indirectly
 run the kubelet via a helper tool, `kube-log-runner`, and use that tool to redirect
 kubelet logs to a directory that you choose.
 
-However, the kubelet always directs your container runtime to write logs within the
+However, by default, kubelet directs your container runtime to write logs within the
 directory `C:\var\log\pods`.
 
 For more information on `kube-log-runner`, read [System Logs](/docs/concepts/cluster-administration/system-logs/#klog).
@@ -181,6 +181,22 @@ For Kubernetes cluster components that run in pods, these write to files inside
 the `/var/log` directory, bypassing the default logging mechanism (the components
 do not write to the systemd journal). You can use Kubernetes' storage mechanisms
 to map persistent storage into the container that runs the component.
+
+Kubelet allows changing the pod logs directory from default `/var/log/pods`
+to a custom path. This adjustment can be made by configuring the `podLogsDir`
+parameter in the kubelet's configuration file.
+
+{{< caution >}}
+It's important to note that the default location `/var/log/pods` has been in use for
+an extended period and certain processes might implicitly assume this path.
+Therefore, altering this parameter must be approached with caution and at your own risk.
+
+Another caveat to keep in mind is that the kubelet supports the location being on the same
+disk as `/var`. Otherwise, if the logs are on a separate filesystem from `/var`,
+then the kubelet will not track that filesystem's usage, potentially leading to issues if
+it fills up.
+
+{{< /caution >}}
 
 For details about etcd and its logs, view the [etcd documentation](https://etcd.io/docs/).
 Again, you can use Kubernetes' storage mechanisms to map persistent storage into
