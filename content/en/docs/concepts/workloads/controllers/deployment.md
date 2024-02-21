@@ -646,6 +646,11 @@ The output is similar to this:
 deployment.apps/nginx-deployment scaled
 ```
 
+{{< note >}}
+Scaling may be partial if the `TerminationComplete` [pod replacement policy](#pod-replacement-policy)
+is used and there are terminating Deployment Pods. Scaling will complete once these Pods have terminated.
+{{< /note >}}
+
 ### Proportional scaling
 
 RollingUpdate Deployments support running multiple versions of an application at the same time. When you
@@ -1164,9 +1169,10 @@ All existing Pods are killed before new ones are created when `.spec.strategy.ty
 {{< note >}}
 This will only guarantee Pod termination previous to creation for upgrades. If you upgrade a Deployment, all Pods
 of the old revision will be terminated immediately. Successful removal is awaited before any Pod of the new
-revision is created. If you manually delete a Pod, the lifecycle is controlled by the ReplicaSet and the
-replacement will be created immediately (even if the old Pod is still in a Terminating state). If you need an
-"at most" guarantee for your Pods, you should consider using a
+revision is created (unless you used the `TerminationStarted` [pod replacement policy](#pod-replacement-policy)).
+If you manually delete a Pod, the lifecycle is controlled by the ReplicaSet and the replacement will be created
+immediately (even if the old Pod is still in a Terminating state). If you need an "at most" guarantee for your
+Pods, you should consider using a
 [StatefulSet](/docs/concepts/workloads/controllers/statefulset/).
 {{< /note >}}
 
@@ -1299,6 +1305,15 @@ spec:
 {{% /tab %}}
 {{< /tabs >}}
 
+{{< note >}}
+If you use the `TerminationComplete` [pod replacement policy](#pod-replacement-policy), the Deployment may not fully
+use the `maxUnavailable` and `maxSurge` capacity that you configure.
+
+Using the `TerminationComplete`pod replacement policy can result in fewer (or no) surge
+Pods, and slower rollouts overall.
+{{< /note >}}
+
+
 ### Progress Deadline Seconds
 
 `.spec.progressDeadlineSeconds` is an optional field that specifies the number of seconds you want
@@ -1316,6 +1331,48 @@ If specified, this field needs to be greater than `.spec.minReadySeconds`.
 created Pod should be ready without any of its containers crashing, for it to be considered available.
 This defaults to 0 (the Pod will be considered available as soon as it is ready). To learn more about when
 a Pod is considered ready, see [Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
+
+### Pod replacement policy
+
+{{< feature-state feature_gate_name="DeploymentPodReplacementPolicy" >}}
+
+This feature is disabled by default. You can enable it by setting the `DeploymentPodReplacementPolicy`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
+and on the [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
+
+Pods that belong to a Deployment can become terminating due to deletion, usually during
+the rollout or an update to the scale of an existing Deployment.
+After a change to a Deployment, some pods may take a long time to terminate and may consume
+additional resources during that period. As a result, the total number of all pods can temporarily exceed
+`.spec.replicas` (or `.spec.replicas` + `.spec.strategy.rollingUpdate.maxSurge` for RollingUpdate Deployments).
+A `.spec.podReplacementPolicy` field can be used to control when a Deployment should create new pods.
+
+Policies:
+
+`TerminationStarted`
+: This policy creates replacement Pods when the old Pods start terminating (has a
+`.metadata.deletionTimestamp`). The total number of Deployment Pods can be greater than specified by the
+Deployment's `.spec.replicas` and the DeploymentStrategy. It can increase the speed of rollouts, but it will
+result in a temporarily higher resource consumption.
+
+`TerminationComplete`
+: This policy creates replacement Pods only when the old Pods are fully terminated (reach `Succeeded` or
+`Failed` phase). The old Pods are subsequently removed. The total number of the Deployment Pods is limited by
+the Deployment's `.spec.replicas` and the DeploymentStrategy. It can slow down the speed of rollouts, but
+prevents spikes in resource consumption.
+
+If you don't specify a pod replacement policy, the behavior of that Deployment depends on
+the DeploymentStrategy:
+* Recreate strategy uses `TerminationComplete` behavior when recreating the deployment,
+  but uses `TerminationStarted` when scaling the deployment.
+* RollingUpdate strategy uses `TerminationStarted` behavior for both rolling out and
+  scaling the deployments.
+
+If you manually delete a Pod, the lifecycle of that Pod and its replacement is controlled by the associated ReplicaSet;
+a replacement will be created immediately. When you delete a Pod manually, and the deleted Pod was owned by a
+ReplicaSet, the ReplicaSet creates a new Pod as soon as you trigger deletion (even if the old Pod is still in a Terminating state).
+Setting a pod replacement policy for a Deployment only has an effect on Deployment rollouts and changes to the scale.
 
 ### Revision History Limit
 
