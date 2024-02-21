@@ -67,6 +67,16 @@ card:
 - 記号類は感嘆符と疑問符だけ全角、それ以外は半角で表記
 - 英単語と日本語の間に半角スペースは不要
 
+### 用語の表記 {#terminology}
+
+Kubernetesのリソース名や技術用語などは、原則としてそのままの表記を使用します。
+例えば、PodやService、Deploymentなどは翻訳せずにそのままの表記を使用します。
+
+ただし、ノード(Node)に関しては明確にKubernetesとしてのNodeリソース(例: `kind: Node`や`kubectl get nodes`)を指していないのであれば、「ノード」と表記してください。
+
+またこれらの単語は、単数系を用いてください。
+例えば、原文に"pods"と表記されている場合でも、日本語訳では"Pod"と表記してください。
+
 ### 頻出単語 {#frequent-words}
 
 英語 | 日本語
@@ -99,24 +109,6 @@ repository | リポジトリー
 secure | セキュア
 a set of ~ | ～の集合
 stacked | 積層(例: stacked etcd clusterは積層etcdクラスター)
-
-### 備考 {#note}
-
-ServiceやDeploymentなどのKubernetesのAPIオブジェクトや技術仕様的な固有名詞は、無理に日本語訳せずそのまま書いてください。
-
-また、日本語では名詞を複数形にする意味はあまりないので、英語の名詞を利用する場合は原則として単数形で表現してください。
-
-例:
-
-- Kubernetes Service
-- Node
-- Pod
-
-ただし、ノード(Node)に関しては明確にKubernetesとしてのNodeリソース(例: `kind: Node`や`kubectl get nodes`)を指していないのであれば、「ノード」と訳してください。
-
-参考: https://kubernetes.slack.com/archives/CAG2M83S8/p1565142891078200 辺りのやりとり
-
-外部サイトへの参照の記事タイトルは翻訳しましょう。(一時的)
 
 ### 頻出表記(日本語) {#frequent-phrases}
 
