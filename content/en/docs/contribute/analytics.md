@@ -14,9 +14,9 @@ This page contains information about the kubernetes.io analytics dashboard.
 
 <!-- body -->
 
-[View the dashboard](https://datastudio.google.com/reporting/fede2672-b2fd-402a-91d2-7473bdb10f04).
+[View the dashboard](https://lookerstudio.google.com/u/0/reporting/fe615dc5-59b0-4db5-8504-ef9eacb663a9/page/4VDGB/).
 
-This dashboard is built using Google Data Studio and shows information collected on kubernetes.io using Google Analytics.
+This dashboard is built using [Google Looker Studio](https://lookerstudio.google.com/overview) and shows information collected on kubernetes.io using Google Analytics 4 since August 2022. 
 
 ### Using the dashboard
 
