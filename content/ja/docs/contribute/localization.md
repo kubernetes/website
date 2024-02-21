@@ -77,39 +77,6 @@ Kubernetesのリソース名や技術用語などは、原則としてそのま�
 またこれらの単語は、単数系を用いてください。
 例えば、原文に"pods"と表記されている場合でも、日本語訳では"Pod"と表記してください。
 
-### 頻出単語 {#frequent-words}
-
-英語 | 日本語
---------- | ---------
-Addon/Add-on|アドオン
-Aggregation Layer | アグリゲーションレイヤー
-architecture | アーキテクチャ
-binary | バイナリ
-cluster|クラスター
-computer | コンピューター
-community | コミュニティ
-container | コンテナ
-controller | コントローラー
-Deployment/Deploy|KubernetesリソースとしてのDeploymentはママ表記、一般的な用語としてのdeployの場合は、デプロイ
-directory | ディレクトリ
-For more information|さらなる情報(一時的)
-GitHub | GitHub (ママ表記)
-interface | インターフェース
-Issue | Issue (ママ表記)
-memory | メモリー
-operator | オペレーター
-orchestrate(動詞)|オーケストレーションする
-Persistent Volume|KubernetesリソースとしてのPersistentVolumeはママ表記、一般的な用語としての場合は、永続ボリューム
-prefix | プレフィックス
-proxy | プロキシ
-Pull Request | Pull Request (ママ表記)
-Quota|クォータ
-registry | レジストリ
-repository | リポジトリー
-secure | セキュア
-a set of ~ | ～の集合
-stacked | 積層(例: stacked etcd clusterは積層etcdクラスター)
-
 ### 頻出表記(日本語) {#frequent-phrases}
 
 よくある表記 | あるべき形
@@ -137,6 +104,22 @@ stacked | 積層(例: stacked etcd clusterは積層etcdクラスター)
 - バイナリ
 - プロキシ
 - リポジトリ
+
+### その他の表記 {#other-notation}
+
+その他の表記については、以下の表を参考にしてください。
+
+英語 | 日本語
+--------- | ---------
+Addon/Add-on|アドオン
+interface | インターフェース
+operator | オペレーター
+orchestrate(動詞)|オーケストレーションする
+Persistent Volume|KubernetesリソースとしてのPersistentVolumeはママ表記、一般的な用語としての場合は、永続ボリューム
+prefix | プレフィックス
+Quota|クォータ
+a set of ~ | ～の集合
+stacked | 積層(例: stacked etcd clusterは積層etcdクラスター)
 
 ### cron jobの訳し方に関して {#cron-job}
 
