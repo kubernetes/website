@@ -64,17 +64,17 @@ card:
 - 句読点は「、」と「。」を使用
 - 漢字、ひらがな、カタカナは全角で表記
 - 数字とアルファベットは半角で表記
-- 記号類は感嘆符と疑問符だけ全角、それ以外は半角で表記
+- 記号類は感嘆符「！」と疑問符「？」だけ全角、それ以外は半角で表記
 - 英単語と日本語の間に半角スペースは不要
 
 ### 用語の表記 {#terminology}
 
 Kubernetesのリソース名や技術用語などは、原則としてそのままの表記を使用します。
-例えば、PodやService、Deploymentなどは翻訳せずにそのままの表記を使用します。
+例えば、PodやService、Deploymentなどは翻訳せずにそのまま表記してください。
 
 ただし、ノード(Node)に関しては明確にKubernetesとしてのNodeリソース(例: `kind: Node`や`kubectl get nodes`)を指していないのであれば、「ノード」と表記してください。
 
-またこれらの単語は、単数系を用いてください。
+またこれらの単語は、複数形ではなく単数系を用います。
 例えば、原文に"pods"と表記されている場合でも、日本語訳では"Pod"と表記してください。
 
 ### 頻出表記(日本語) {#frequent-phrases}
@@ -87,7 +87,7 @@ Kubernetesのリソース名や技術用語などは、原則としてそのま�
 
 ### 長音の有無 {#long-vowel}
 
-カタカナ語に長音を表記するべきかは、以下の原則に従ってください。
+カタカナ語に長音を付加するべきかは、以下の原則に従ってください。
 
 参考: [mozilla-japan/translation Editorial Guideline#カタカナ語の表記](https://github.com/mozilla-japan/translation/wiki/Editorial-Guideline#カタカナ語の表記)
 
@@ -123,13 +123,13 @@ stacked | 積層(例: stacked etcd clusterは積層etcdクラスター)
 
 ### cron jobの訳し方に関して {#cron-job}
 
-混同を避けるため、cron jobはcronジョブと訳し、CronJobはリソース名としてのままにする。
-cron「の」ジョブは、「の」が続く事による解釈の難から基本的にはつけないものとする。
+混同を避けるため、cron jobはcronジョブと訳し、CronJobはリソース名としてそのまま表記します。
+cron「の」ジョブは、「の」が続く事による解釈の難から基本的にはつけないものとします。
 
 ### その他基本方針など {#other-basic-policy}
 
 - 意訳と直訳で迷った場合は「直訳」で訳す
-- 訳で難しい・わからないと感じたらSlackの#kubernetes-docs-jaでみんなに聞く
+- 訳で難しい・わからないと感じたらSlackの`#kubernetes-docs-ja`でみんなに聞く
 - できることを挙手制で、できないときは早めに報告
 
 ## アップストリームのコントリビューター {#upstream-contributor}
