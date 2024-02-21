@@ -18,7 +18,7 @@ weight: 50
 
 デフォルトでKubernetes 1.29に有効化された[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)という機能は、
 `SidecarContainers`と名付けられ、Podの`initContainers`フィールドに記載されているコンテナの`restartPolicy`を指定することができます。
-これらの再起動可能な_サイドカー_コンテナは、
+これらの再起動可能な _サイドカー_ コンテナは、
 同じポッド内の他の[initコンテナ](/docs/concepts/workloads/pods/init-containers/)やメインのアプリケーションコンテナとは独立しています。
 これらは、メインアプリケーションコンテナや他のinitコンテナに影響を与えることなく、開始、停止、または再起動することができます。
 
