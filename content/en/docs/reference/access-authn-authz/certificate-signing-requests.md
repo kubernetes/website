@@ -368,7 +368,7 @@ you like. If you want to add a note for human consumption, use the
 
 ## Cluster trust bundles {#cluster-trust-bundles}
 
-{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.30" state="beta" >}}
 
 {{< note >}}
 In Kubernetes {{< skew currentVersion >}}, you must enable the `ClusterTrustBundle`
