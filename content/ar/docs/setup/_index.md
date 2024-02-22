@@ -49,4 +49,4 @@ card:
 
 تم تصميم كوبرناتيز {{< glossary_tooltip term_id="مستوى-التحكم" text="control plane" >}} ليعمل علي أنظمه لينكس. بإمكانك تشغيل أنظمة أخرى (مثل ويندوز) داخل العنقود بعد إعداده.
 
-- تعرف على كيفية [إعداد عناقيد مع عُقد ويندوز](/docs/setup/production-environment/windows/user-guide-windows-containers/).
+- تعرف على كيفية [تشغيل نظام ويندوز داخل حاويات كوبرناتيز](/docs/setup/production-environment/windows/user-guide-windows-containers/).
