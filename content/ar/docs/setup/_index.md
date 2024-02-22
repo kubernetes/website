@@ -20,7 +20,7 @@ card:
 
 يمكنك [تحميل كوبرناتيز](/releases/download/) وتثبيت عنقود كوبرناتيز على جهازك المحلي، أو في السحابة، أو  على مركز البيانات الخاص بك.
 
-يمكن أيضًا تشغيل عدة مكونات [كوبرناتيز](/docs/concepts/overview/components/) مثل {{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}} أو {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}} [كصور الحاويات](/releases/download/#container-images) داخل العنقود.
+يمكن أيضًا تشغيل عدة مكونات [كوبرناتيز](/docs/concepts/overview/components/) مثل {{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}} أو {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}} [في الحاويات](/releases/download/#container-images) داخل العنقود.
 
 **من المستحسن** تشغيل مكونات كوبرناتيز كصور حاويات أينما كان ذلك ممكنًا، والسماح لكوبرناتيز بإدارة تلك المكونات. بينما المكونات المسؤولة عن تشغيل الحاويات على سبيل المثال، kubelet، لا يمكن تضمينها في هذه الفئة.
 
