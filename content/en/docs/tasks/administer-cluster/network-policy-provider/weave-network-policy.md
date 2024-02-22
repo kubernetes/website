@@ -22,7 +22,7 @@ You need to have a Kubernetes cluster. Follow the
 Follow the [Integrating Kubernetes via the Addon](https://github.com/weaveworks/weave/blob/master/site/kubernetes/kube-addon.md#-installation) guide.
 
 The Weave Net addon for Kubernetes comes with a
-[Network Policy Controller](https://github.com/weaveworks/weave/blob/master/docs/weavenpc-design.md)
+[Network Policy Controller](https://github.com/weaveworks/weave/blob/master/site/kubernetes/kube-addon.md#network-policy)
 that automatically monitors Kubernetes for any NetworkPolicy annotations on all
 namespaces and configures `iptables` rules to allow or block traffic as directed by the policies.
 
