@@ -619,6 +619,83 @@ You can integrate with [Gateway](https://gateway-api.sigs.k8s.io/) rather than S
 can define your own (provider specific) annotations on the Service that specify the equivalent detail.
 {{< /note >}}
 
+#### Node liveness impact on load balancer traffic
+
+Load balancer health checks are critical to modern applications. They are used to
+determine which server (virtual machine, or IP address) the load balancer should
+dispatch traffic to. The Kubernetes APIs do not define how health checks have to be
+implemented for Kubernetes managed load balancers, instead it's the cloud providers
+(and the people implementing integration code) who decide on the behavior. Load
+balancer health checks are extensively used within the context of supporting the
+`externalTrafficPolicy` field for Services. If `Cluster` is specified all nodes are
+eligible load balancing targets _as long as_ the node is not being deleted and kube-proxy
+is healthy. In this mode: load balancer health checks are configured to target the
+service proxy's readiness port and path. In the case of kube-proxy this evaluates
+to: `${NODE_IP}:10256/healthz`. kube-proxy will return either an HTTP code 200 or 503.
+kube-proxy's load balancer health check endpoint returns 200 if:
+
+1. kube-proxy is healthy, meaning:
+   - it's able to progress programming the network and isn't timing out while doing
+     so (the timeout is defined to be: **2 × `iptables.syncPeriod`**); and
+2. the node is not being deleted (there is no deletion timestamp set for the Node).
+
+The reason why kube-proxy returns 503 and marks the node as not
+eligible when it's being deleted, is because kube-proxy supports connection
+draining for terminating nodes. A couple of important things occur from the point
+of view of a Kubernetes-managed load balancer when a node _is being_ / _is_ deleted.
+
+While deleting:
+
+* kube-proxy will start failing its readiness probe and essentially mark the
+   node as not eligible for load balancer traffic. The load balancer health
+   check failing causes load balancers which support connection draining to
+   allow existing connections to terminate, and block new connections from
+   establishing.
+
+When deleted:
+
+* The service controller in the Kubernetes cloud controller manager removes the
+  node from the referenced set of eligible targets. Removing any instance from
+  the load balancer's set of backend targets immediately terminates all
+  connections. This is also the reason kube-proxy first fails the health check
+  while the node is deleting.
+
+It's important to note for Kubernetes vendors that if any vendor configures the
+kube-proxy readiness probe as a liveness probe: that kube-proxy will start
+restarting continuously when a node is deleting until it has been fully deleted.
+
+Users deploying kube-proxy can inspect both the readiness / liveness state by
+evaluating the metrics: `proxy_livez_total` / `proxy_healthz_total`. Both
+metrics publish two series, one with the 200 label and one with the 503 one.
+
+For Services of `externalTrafficPolicy: Local`:  kube-proxy will return 200 if
+
+1. kube-proxy is healthy/ready, and
+2. has a local endpoint on the node in question.
+
+Node deletion does **not** have an impact on kube-proxy's return
+code for what concerns load balancer health checks. The reason for this is:
+deleting nodes could end up causing an ingress outage should all endpoints
+simultaneously be running on said nodes.
+
+It's important to note that the configuration of load balancer health checks is
+specific to each cloud provider, meaning: different cloud providers configure
+the health check in different ways. The three main cloud providers do so in the
+following way:
+
+* AWS: if ELB; probes the first NodePort defined on the service spec
+* Azure: probes all NodePort defined on the service spec.
+* GCP: probes port 10256 (kube-proxy's healthz port)
+
+There are drawbacks and benefits to each method, so none can be considered fully
+right, but it is important to mention that connection draining using kube-proxy
+can therefore only occur for cloud providers which configure the health checks to
+target kube-proxy. Also note that configuring health checks to target the application
+might cause ingress downtime should the application experience issues which
+are unrelated to networking problems. The recommendation is therefore that cloud
+providers configure the load balancer health checks to target the service
+proxy's healthz port.
+
 #### Load balancers with mixed protocol types
 
 {{< feature-state feature_gate_name="MixedProtocolLBService" >}}
