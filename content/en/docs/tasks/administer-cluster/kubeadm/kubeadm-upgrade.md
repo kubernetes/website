@@ -85,6 +85,7 @@ sudo apt-cache madison kubeadm
 ```shell
 # Find the latest {{< skew currentVersion >}} version in the list.
 # It should look like {{< skew currentVersion >}}.x-*, where x is the latest patch.
+sudo yum clean all --disablerepo="*" --enablerepo=kubernetes
 sudo yum list --showduplicates kubeadm --disableexcludes=kubernetes
 ```
 
