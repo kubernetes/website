@@ -47,6 +47,6 @@ card:
 - اختيار [بيئة تشغيل الحاويات](/docs/setup/production-environment/container-runtimes/) لعنقودك الجديد.
 - التعرف على [أفضل الممارسات](/docs/concepts/overview/what-is-kubernetes/) لكوبرناتيز.
 
-تم تصميم كوبرنتس {{< glossary_tooltip term_id="مستوى-التحكم" text="control plane" >}} لتعمل علي انظمه لينكس. يمكنك تشغيل تطبيقات علي انظمه الأخري، مثل ويندوز داخل عنقود كوبرناتيز،
+تم تصميم كوبرناتيز {{< glossary_tooltip term_id="مستوى-التحكم" text="control plane" >}} ليعمل علي أنظمه لينكس. بإمكانك تشغيل أنظمة أخرى (مثل ويندوز) داخل العنقود بعد إعداده.
 
 - تعرف على كيفية [إعداد عناقيد مع عُقد ويندوز](/docs/setup/production-environment/windows/user-guide-windows-containers/).
