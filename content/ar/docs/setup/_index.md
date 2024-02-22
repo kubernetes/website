@@ -38,7 +38,7 @@ card:
 
 عند تقييم الحل  [لبيئة الإنتاج](/docs/setup/production-environment/)، ضع في اعتبارك الجوانب التي تريد إدارتها بنفسك والتي تفضل تسليمها إلى مزود الخدمة.
 
-لعنقود تديره بنفسك، أداة النشر المدعومة رسميًا لكوبرناتيز هي [kubeadm](/docs/setup/production-environment/tools/kubeadm/).
+لإدارة العنقود بنفسك، ينصح استخدام أداة النشر المدعومة رسميًا لكوبرناتيز وهي [kubeadm](/docs/setup/production-environment/tools/kubeadm/).
 
 ## {{% heading "الخطوات القادمه" %}}
 
