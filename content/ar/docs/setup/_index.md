@@ -43,7 +43,7 @@ card:
 ## {{% heading "الخطوات القادمه" %}}
 
 - [تحميل كوبرناتيز](/releases/download/)
-- [تثبيت الأدوات](/docs/tasks/tools/) بما فيهم `kubectl`
+- [تثبيت الأدوات](/docs/tasks/tools/) بما فيها `kubectl`
 - اختيار [بيئة تشغيل الحاوية](/docs/setup/production-environment/container-runtimes/) لعنقودك الجديد.
 - التعرف على [أفضل الممارسات](/docs/concepts/overview/what-is-kubernetes/) لكوبرناتيز.
 
