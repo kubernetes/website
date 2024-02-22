@@ -207,3 +207,5 @@ Participation in the Kubernetes community is governed by the [CNCF Code of Condu
 ## Thank you
 
 Kubernetes thrives on community participation, and we appreciate your contributions to our website and our documentation!
+
+Placeholder for KEP-4427 doc updates
