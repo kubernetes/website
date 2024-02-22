@@ -363,6 +363,10 @@ relative to their scheduling requests are killed first.
 Unlike pod eviction, if a container is OOM killed, the kubelet can restart it
 based on its `restartPolicy`.
 
+## Garbage collection in split filesystem {#garbage-collection-in-split-filesystem}
+
+WIP
+
 ## Good practices {#node-pressure-eviction-good-practices}
 
 The following sections describe good practice for eviction configuration.
