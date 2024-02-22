@@ -6,6 +6,7 @@ full_link: /docs/concepts/workloads/pods/disruptions/
 short_description: >
   Подія, що призводить до виходу з ладу Pod(ів)
 aka:
+- Disruption
 tags:
 - fundamental
 ---
