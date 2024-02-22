@@ -44,7 +44,7 @@ card:
 
 - [تحميل كوبرناتيز](/releases/download/)
 - [تثبيت الأدوات](/docs/tasks/tools/) بما فيها `kubectl`
-- اختيار [بيئة تشغيل الحاوية](/docs/setup/production-environment/container-runtimes/) لعنقودك الجديد.
+- اختيار [بيئة تشغيل الحاويات](/docs/setup/production-environment/container-runtimes/) لعنقودك الجديد.
 - التعرف على [أفضل الممارسات](/docs/concepts/overview/what-is-kubernetes/) لكوبرناتيز.
 
 تم تصميم كوبرنتس {{< glossary_tooltip term_id="مستوى-التحكم" text="control plane" >}} لتعمل علي انظمه لينكس. يمكنك تشغيل تطبيقات علي انظمه الأخري، مثل ويندوز داخل عنقود كوبرناتيز،
