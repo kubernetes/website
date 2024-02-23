@@ -1072,11 +1072,11 @@ Example:
 ### kubeadm 中 kubelet 的版本偏差 {#kubeadm-s-skew-against-the-kubelet}
 
 <!--
-Similarly to the Kubernetes version, kubeadm can be used with a kubelet version that is the same
-version as kubeadm or one version older.
+Similarly to the Kubernetes version, kubeadm can be used with a kubelet version that is
+the same version as kubeadm or three version older.
 -->
 与 Kubernetes 版本类似，kubeadm 可以使用与 kubeadm 相同版本的 kubelet，
-或者比 kubeadm 老一个版本的 kubelet。
+或者比 kubeadm 老三个版本的 kubelet。
 
 <!--
 Example:
