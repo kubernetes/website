@@ -227,7 +227,7 @@ before CoreDNS may be deployed fully. Hence the `Pending` state before the netwo
 -->
 ## `coredns` 停滞在 `Pending` 状态
 
-这一行为是 **预期之中** 的，因为系统就是这么设计的。kubeadm 的网络供应商是中立的，
+这一行为是**预期之中**的，因为系统就是这么设计的。kubeadm 的网络供应商是中立的，
 因此管理员应该选择[安装 Pod 的网络插件](/zh-cn/docs/concepts/cluster-administration/addons/)。
 你必须完成 Pod 的网络配置，然后才能完全部署 CoreDNS。
 在网络被配置好之前，DNS 组件会一直处于 `Pending` 状态。
@@ -258,8 +258,8 @@ or use `HostNetwork=true`.
 有关更多信息，请参考 [CNI portmap 文档](https://github.com/containernetworking/plugins/blob/master/plugins/meta/portmap/README.md).
 
 如果你的网络提供商不支持 portmap CNI 插件，你或许需要使用
-[NodePort 服务的功能](/zh-cn/docs/concepts/services-networking/service/#type-nodeport)
-或者使用 `HostNetwork=true`。
+[NodePort 服务的功能](/zh-cn/docs/concepts/services-networking/service/#type-nodeport)或者使用
+`HostNetwork=true`。
 
 <!--
 ## Pods are not accessible via their Service IP
@@ -284,7 +284,8 @@ or use `HostNetwork=true`.
 
 - 如果你正在使用 VirtualBox (直接使用或者通过 Vagrant 使用)，你需要
   确保 `hostname -i` 返回一个可路由的 IP 地址。默认情况下，第一个接口连接不能路由的仅主机网络。
-  解决方法是修改 `/etc/hosts`，请参考示例 [Vagrantfile](https://github.com/errordeveloper/k8s-playground/blob/22dd39dfc06111235620e6c4404a96ae146f26fd/Vagrantfile#L11)。
+  解决方法是修改 `/etc/hosts`，请参考示例
+  [Vagrantfile](https://github.com/errordeveloper/k8s-playground/blob/22dd39dfc06111235620e6c4404a96ae146f26fd/Vagrantfile#L11)。
 
 <!--
 ## TLS certificate errors
@@ -359,7 +360,7 @@ in kube-apiserver logs. To fix the issue you must follow these steps:
    `kubeadm kubeconfig user --org system:nodes --client-name system:node:$NODE > kubelet.conf`.
    `$NODE` must be set to the name of the existing failed node in the cluster.
    Modify the resulted `kubelet.conf` manually to adjust the cluster name and server endpoint,
-   or pass `kubeconfig user --config` (it accepts `InitConfiguration`). If your cluster does not have
+   (see [Generating kubeconfig files for additional users](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#kubeconfig-additional-users)). If your cluster does not have
    the `ca.key` you must sign the embedded certificates in the `kubelet.conf` externally.
 -->
 1. 从故障节点备份和删除 `/etc/kubernetes/kubelet.conf` 和 `/var/lib/kubelet/pki/kubelet-client*`。
@@ -367,7 +368,8 @@ in kube-apiserver logs. To fix the issue you must follow these steps:
    执行 `kubeadm kubeconfig user --org system:nodes --client-name system:node:$NODE > kubelet.conf`。
    `$NODE` 必须设置为集群中现有故障节点的名称。
    手动修改生成的 `kubelet.conf` 以调整集群名称和服务器端点，
-   或传递 `kubeconfig user --config`（此命令接受 `InitConfiguration`）。
+   或传递 `kubeconfig user --config`
+  （请参阅[为其他用户生成 kubeconfig 文件](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#kubeconfig-additional-users)）。
    如果你的集群没有 `ca.key`，你必须在外部对 `kubelet.conf` 中的嵌入式证书进行签名。
 <!--
 1. Copy this resulted `kubelet.conf` to `/etc/kubernetes/kubelet.conf` on the failed node.
@@ -681,7 +683,7 @@ for the feature to work.
 在支持 [FlexVolume](https://github.com/kubernetes/community/blob/ab55d85/contributors/devel/sig-storage/flexvolume.md) 时，
 类似 kubelet 和 kube-controller-manager 这类 Kubernetes 组件使用默认路径
 `/usr/libexec/kubernetes/kubelet-plugins/volume/exec/`，
-而 FlexVolume 的目录 **必须是可写入的**，该功能特性才能正常工作。
+而 FlexVolume 的目录**必须是可写入的**，该功能特性才能正常工作。
 
 {{< note >}}
 <!--

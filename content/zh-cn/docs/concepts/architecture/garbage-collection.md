@@ -278,7 +278,7 @@ kubelet 会持续删除镜像，直到磁盘用量到达 `LowThresholdPercent` �
 -->
 #### 未使用容器镜像的垃圾收集     {#image-maximum-age-gc}
 
-{{< feature-state for_k8s_version="v1.29" state="alpha" >}}
+{{< feature-state feature_gate_name="ImageMaximumGCAge" >}}
 
 <!--
 As an alpha feature, you can specify the maximum time a local image can be unused for,
@@ -344,7 +344,7 @@ they are older than `MinAge`.
 除以上变量之外，kubelet 还会垃圾收集除无标识的以及已删除的容器，通常从最近未使用的容器开始。
 
 当保持每个 Pod 的最大数量的容器（`MaxPerPodContainer`）会使得全局的已死亡容器个数超出上限
-（`MaxContainers`）时，`MaxPerPodContainers` 和 `MaxContainers` 之间可能会出现冲突。
+（`MaxContainers`）时，`MaxPerPodContainer` 和 `MaxContainers` 之间可能会出现冲突。
 在这种情况下，kubelet 会调整 `MaxPerPodContainer` 来解决这一冲突。
 最坏的情形是将 `MaxPerPodContainer` 降格为 `1`，并驱逐最近未使用的容器。
 此外，当隶属于某已被删除的 Pod 的容器的年龄超过 `MinAge` 时，它们也会被删除。
