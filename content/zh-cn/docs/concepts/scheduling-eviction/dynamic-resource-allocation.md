@@ -350,7 +350,7 @@ kube-scheduler, kube-controller-manager and kubelet also need the feature gate.
 -->
 动态资源分配是一个 **Alpha 特性**，只有在启用 `DynamicResourceAllocation`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-和 `resource.k8s.io/v1alpha1`
+和 `resource.k8s.io/v1alpha2`
 {{< glossary_tooltip text="API 组" term_id="api-group" >}} 时才启用。
 有关详细信息，参阅 `--feature-gates` 和 `--runtime-config`
 [kube-apiserver 参数](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)。
