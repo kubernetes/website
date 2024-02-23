@@ -102,7 +102,7 @@ Book Club's reach and impact in the community.
 
 ## Joining the Book Club
 
-FSM: For anyone wanting to join, what should they do?
+**FSM**: For anyone wanting to join, what should they do?
 
 **CS**: There are three steps to join:
 
