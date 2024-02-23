@@ -12,4 +12,15 @@ description: >
 
 <!-- body -->
 
- 
+## এপিআই (API) অবজেক্ট ব্যবহার করে পলিসি প্রয়োগ করুন 
+
+ কিছু এপিআই অবজেক্ট নীতি হিসাবে কাজ করে। এখানে কিছু উদাহরণ দেওয়া হল:
+* [নেটওয়ার্ক নীতি](/docs/concepts/services-networking/network-policies/) একটি কাজের চাপের জন্য প্রবেশ এবং প্রস্থানে ট্র্যাফিক সীমাবদ্ধ করতে ব্যবহার করা যেতে পারে।
+* [লিমিটরেঞ্জস](/docs/concepts/policy/limit-range/) বিভিন্ন বস্তুর ধরণের জুড়ে রিসোর্স বরাদ্দের সীমাবদ্ধতা পরিচালনা করে। 
+* [রিসোর্সকোটাস](/docs/concepts/policy/resource-quotas/) একটি জন্য সম্পদ খরচ সীমাবদ্ধ করুন {{< glossary_tooltip text="namespace" term_id="namespace" >}}
+
+  ## ভর্তি নিয়ন্ত্রক ব্যবহার করে নীতিমালা প্রয়োগ করুন
+
+  একটি {{< glossary_tooltip text="admission controller" term_id="admission-controller" >}}
+  এপিআই সার্ভারে চলে
+  উদাহরণস্বরূপ, [অলওয়েজইমেজপুল](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) অ্যাডমিশন কন্ট্রোলার ইমেজ পুল পলিসি 'অলওয়েজ' এ সেট করতে একটি নতুন পড সংশোধন করে।
