@@ -60,7 +60,7 @@ spec:
   # Configure a topology spread constraint
   topologySpreadConstraints:
     - maxSkew: <integer>
-      minDomains: <integer> # optional; GA since v1.30
+      minDomains: <integer> # optional
       topologyKey: <string>
       whenUnsatisfiable: <string>
       labelSelector: <object>
@@ -95,14 +95,6 @@ your cluster. Those fields are:
 - **minDomains** indicates a minimum number of eligible domains. This field is optional.
   A domain is a particular instance of a topology. An eligible domain is a domain whose
   nodes match the node selector.
-
-  {{< note >}}
-  The `MinDomainsInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  enables `minDomains` for pod topology spread. From v1.28 to v1.29,
-  the `MinDomainsInPodTopologySpread` gate 
-  is enabled by default. 
-  And, at v1.30, this feature graduated to stable and the feature gate and the gate doesn't support the disablement anymore.
-  {{< /note >}}
 
   - The value of `minDomains` must be greater than 0, when specified.
     You can only specify `minDomains` in conjunction with `whenUnsatisfiable: DoNotSchedule`.
