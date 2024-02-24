@@ -37,22 +37,22 @@ y puede llevar a pérdida de datos (por ejemplo, escenario de cerebro dividido e
 
 ## Eliminar Pods
 
-Puedes realizar una eliminación de pod grácil con el siguiente comando:
+Puedes realizar una eliminación de pod paulatina con el siguiente comando:
 
 ```shell
 kubectl delete pods <pod>
 ```
 
-Para que lo anterior conduzca a una terminación grácil, el Pod no debe especificar un
+Para que lo anterior conduzca a una terminación paulatina, el Pod no debe especificar un
 `pod.Spec.TerminationGracePeriodSeconds` de 0. La práctica de establecer un
 `pod.Spec.TerminationGracePeriodSeconds` de 0 segundos es insegura y se desaconseja fuertemente
-para los Pods de StatefulSet. La eliminación grácil es segura y garantizará que el Pod
-se apague de [manera grácil](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination), antes de que el kubelet elimine el nombre del apiserver.
+para los Pods de StatefulSet. La eliminación paulatina es segura y garantizará que el Pod
+se apague de [manera paulatina](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination), antes de que el kubelet elimine el nombre del apiserver.
 
 Un Pod no se elimina automáticamente cuando un nodo no es accesible.
 Los Pods que se ejecutan en un Nodo inaccesible entran en el estado 'Terminating' o 'Unknown' después de un
 [tiempo de espera](/docs/concepts/architecture/nodes/#condition).
-Los Pods también pueden entrar en estos estados cuando el usuario intenta la eliminación grácil de un Pod
+Los Pods también pueden entrar en estos estados cuando el usuario intenta la eliminación paulatina de un Pod
 en un Nodo inaccesible.
 Las únicas formas en que un Pod en tal estado puede ser eliminado del apiserver son las siguientes:
 
