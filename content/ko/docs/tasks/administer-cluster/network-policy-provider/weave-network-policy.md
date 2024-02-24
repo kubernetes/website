@@ -19,12 +19,12 @@ weight: 50
 
 ## Weave Net 애드온을 설치한다
 
-[애드온을 통한 쿠버네티스 통합하기](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/) 가이드를 따른다.
+[애드온을 통한 쿠버네티스 통합하기](https://github.com/weaveworks/weave/blob/master/site/kubernetes/kube-addon.md#-installation) 가이드를 따른다.
 
 쿠버네티스의 위브넷 애드온은 쿠버네티스의 모든 네임스페이스의
 네크워크 정책 어노테이션을 자동으로 모니터링하며,
 정책에 따라 트래픽을 허용하고 차단하는 `iptables` 규칙을 구성하는
-[네트워크 폴리시 컨트롤러](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/#npc)와 함께 제공된다.
+[네트워크 폴리시 컨트롤러](https://github.com/weaveworks/weave/blob/master/site/kubernetes/kube-addon.md#network-policy)와 함께 제공된다.
 
 ## 설치 시험
 
