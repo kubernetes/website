@@ -965,7 +965,7 @@ Kubernetes admite pobladores de volúmenes personalizados.
 Para utilizar pobladores de volúmenes personalizados, debes habilitar la característica `AnyVolumeDataSource`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) para el kube-apiserver y kube-controller-manager.
 
-Los pobladores de volúmenes aprovechan un campo de especificación de PVC llamado `dataSourceRef`. A diferencia del campo `dataSource`, que solo puede contener una referencia a otra PersistentVolumeClaim o a un VolumeSnapshot, el campo `dataSourceRef` puede contener una referencia a cualquier objeto en el mismo espacio de nombres, excepto los objetos principales que no sean PVC. Para los clústeres que tienen habilitada la característica, se prefiere el uso de `dataSourceRef` en lugar de `dataSource`.
+Los pobladores de volúmenes aprovechan un campo de especificación de PVC llamado `dataSourceRef`. A diferencia del campo `dataSource`, que solo puede contener una referencia a otra PersistentVolumeClaim o a un VolumeSnapshot, el campo `dataSourceRef` puede contener una referencia a cualquier objeto en el mismo Namespace, excepto los objetos principales que no sean PVC. Para los clústeres que tienen habilitada la característica, se prefiere el uso de `dataSourceRef` en lugar de `dataSource`.
 
 ## Fuentes de Datos entre Espacios de Nombres
 
