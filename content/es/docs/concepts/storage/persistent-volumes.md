@@ -175,7 +175,7 @@ La política de reclamación `Retain` permite la recuperación manual del recurs
 Cuando se elimina el PersistentVolumeClaim, el PersistentVolume todavía existe
 y el volumen se considera "liberado". Pero aún no está disponible para
 otra solicitud porque los datos del reclamante anterior permanecen en el volumen.
-Un administrador puede recuperar manualmente el volumen con los siguientes pasos.
+Un administrador puede reclamar manualmente el volumen con los siguientes pasos.
 
 1. Eliminar el PersistentVolume. El recurso de almacenamiento asociado en la infraestructura externa
    todavía existe después de que se haya eliminado el PV.
