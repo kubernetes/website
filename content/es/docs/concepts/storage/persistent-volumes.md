@@ -307,7 +307,7 @@ Source:
 Events:                <none>
 ```
 
-Cuando la bandera de función `CSIMigration{provider}` está habilitada para un plugin de volumen integrado específico,
+Cuando la bandera de funcionalidad `CSIMigration{provider}` está habilitada para un plugin de volumen integrado específico,
 el finalizador `kubernetes.io/pv-controller` se reemplaza por el finalizador
 `external-provisioner.volume.kubernetes.io/finalizer`.
 
