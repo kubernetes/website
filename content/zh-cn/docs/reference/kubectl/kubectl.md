@@ -542,15 +542,15 @@ When set to true, external plugins can be used as subcommands for builtin comman
 </tr>
 
 <tr>
-<td colspan="2">KUBECTL_INTERACTIVE_DELETE</td>
+<td colspan="2">KUBECTL_REMOTE_COMMAND_WEBSOCKETS</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-When set to true, the --interactive flag in the kubectl delete command will be activated, allowing users to preview and confirm resources before proceeding to delete by passing this flag.
+When set to true, the kubectl exec, cp, and attach commands will attempt to stream using the websockets protocol. If the upgrade to websockets fails, the commands will fallback to use the current SPDY protocol.
 -->
-当设置为 true 时，`kubectl delete` 命令中的 `--interactive` 标志将被激活，
-允许用户在通过传递此标志进行删除之前预览并确认资源。
+当设置为 true 时，kubectl exec、cp 和 attach 命令将尝试使用 WebSocket 协议进行流式传输。
+如果升级到 WebSocket 失败，这些命令将回退为使用当前的 SPDY 协议。
 </td>
 </tr>
 

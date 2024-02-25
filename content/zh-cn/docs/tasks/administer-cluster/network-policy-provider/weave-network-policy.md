@@ -35,20 +35,20 @@ You need to have a Kubernetes cluster. Follow the
 <!--
 ## Install the Weave Net addon
 
-Follow the [Integrating Kubernetes via the Addon](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/) guide.
+Follow the [Integrating Kubernetes via the Addon](https://github.com/weaveworks/weave/blob/master/site/kubernetes/kube-addon.md#-installation) guide.
 
 The Weave Net addon for Kubernetes comes with a
-[Network Policy Controller](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/#npc)
+[Network Policy Controller](https://github.com/weaveworks/weave/blob/master/site/kubernetes/kube-addon.md#network-policy)
 that automatically monitors Kubernetes for any NetworkPolicy annotations on all
 namespaces and configures `iptables` rules to allow or block traffic as directed by the policies.
 -->
 ## 安装 Weave Net 插件 {#install-the-weave-net-addon}
 
-按照[通过插件集成 Kubernetes](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/)
+按照[通过插件集成 Kubernetes](https://github.com/weaveworks/weave/blob/master/site/kubernetes/kube-addon.md#-installation)
 指南执行安装。
 
 Kubernetes 的 Weave Net 插件带有
-[网络策略控制器](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/#npc)，
+[网络策略控制器](https://github.com/weaveworks/weave/blob/master/site/kubernetes/kube-addon.md#network-policy)，
 可自动监控 Kubernetes 所有名字空间的 NetworkPolicy 注释，
 配置 `iptables` 规则以允许或阻止策略指示的流量。
 
