@@ -60,7 +60,7 @@ Hay dos formas en que los PVs pueden ser aprovisionados: estáticamente o dinám
 
 #### Estático
 
-Un administrador del cluster crea un número de PVs. Llevan los detalles del
+Un administrador del clúster crea un número de PVs. Llevan los detalles del
 almacenamiento real, que está disponible para uso de los usuarios del cluster. Existen en la
 API de Kubernetes y están disponibles para su consumo.
 
