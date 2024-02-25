@@ -164,7 +164,7 @@ Events:            <none>
 
 ### Reclamación
 
-Cuando un usuario ha terminado con su volumen, puede eliminar los objetos PVC de la
+Cuando un usuario ha concluido con el uso de su volumen, puede eliminar los objetos PVC de la
 API que permite la recuperación del recurso. La política de reclamación para un PersistentVolume
 le dice al clúster que hacer con el volumen después de que ha sido liberado de su solicitud.
 Actualmente, los volúmenes pueden ser Retenidos, Reciclados o Eliminados.
