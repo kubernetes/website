@@ -973,7 +973,7 @@ Los pobladores de volúmenes aprovechan un campo de especificación de PVC llama
 
 Kubernetes admite fuentes de datos de volúmenes entre espacios de nombres.
 Para utilizar fuentes de datos de volúmenes entre espacios de nombres, debes habilitar las características `AnyVolumeDataSource` y `CrossNamespaceVolumeDataSource`
-[feature gates](/docs/reference/command-line-tools-reference/feature-gates/) para el kube-apiserver y kube-controller-manager.
+[Interruptores de funcionalidades (feature gates)](/docs/reference/command-line-tools-reference/feature-gates/) para el kube-apiserver y kube-controller-manager.
 Además, debes habilitar la característica `CrossNamespaceVolumeDataSource` para el csi-provisioner.
 
 Al habilitar la característica `CrossNamespaceVolumeDataSource`, puedes especificar un espacio de nombres en el campo dataSourceRef.
