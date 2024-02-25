@@ -979,7 +979,7 @@ Además, debes habilitar la característica `CrossNamespaceVolumeDataSource` par
 Al habilitar la característica `CrossNamespaceVolumeDataSource`, puedes especificar un Namespace en el campo dataSourceRef.
 
 {{< note >}}
-Cuando especificas un espacio de nombres para una fuente de datos de volumen, Kubernetes verifica la existencia de un ReferenceGrant en el otro espacio de nombres antes de aceptar la referencia. ReferenceGrant forma parte de las API de extensiones de `gateway.networking.k8s.io`. Consulta [ReferenceGrant](https://gateway-api.sigs.k8s.io/api-types/referencegrant/) en la documentación de la API de Gateway para obtener detalles. Esto significa que debes extender tu clúster de Kubernetes con al menos ReferenceGrant de la API de Gateway antes de poder utilizar este mecanismo.
+Cuando especificas un Namespace para una fuente de datos de volumen, Kubernetes verifica la existencia de un ReferenceGrant en el otro Namespace antes de aceptar la referencia. ReferenceGrant forma parte de las API de extensiones de `gateway.networking.k8s.io`. Consulta [ReferenceGrant](https://gateway-api.sigs.k8s.io/api-types/referencegrant/) en la documentación de la API de Gateway para obtener detalles. Esto significa que debes extender tu clúster de Kubernetes con al menos ReferenceGrant de la API de Gateway antes de poder utilizar este mecanismo.
 {{< /note >}}
 
 ## Las referencias a fuentes de datos
