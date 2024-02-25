@@ -6,7 +6,7 @@ metadata:
     app: guestbook
     tier: frontend
 spec:
-  # modify replicas according to your case
+  # змініть кількість реплік відповідно до ваших потреб
   replicas: 3
   selector:
     matchLabels:
