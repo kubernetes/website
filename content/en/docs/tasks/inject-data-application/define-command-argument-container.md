@@ -31,7 +31,7 @@ the `args` field in the configuration file. The command and arguments that
 you define cannot be changed after the Pod is created.
 
 The command and arguments that you define in the configuration file
-override the default command and arguments provided by the container image.（which are CMD and ENTRYPOINT）
+override the default command and arguments provided by the container image.（which are CMD and ENTRYPOINT in Dockerfile image syntax.）
 If you define args, but do not define a command, the default command is used
 with your new arguments.
 
