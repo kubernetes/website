@@ -56,7 +56,7 @@ Los Pods también pueden entrar en estos estados cuando el usuario intenta la el
 en un Nodo inaccesible.
 Las únicas formas en que un Pod en tal estado puede ser eliminado del apiserver son las siguientes:
 
-- El objeto Node es eliminado (ya sea por ti, o por el [Controlador de Nodo](/docs/concepts/architecture/nodes/#node-controller)).).
+- El objeto Node es eliminado (ya sea por ti, o por el [Controlador de Nodo](/es/docs/concepts/architecture/nodes/#controlador-de-nodos)).).
 - El kubelet en el Nodo no responsivo comienza a responder, mata el Pod y elimina la entrada del apiserver.
 - Eliminación forzada del Pod por el usuario.
 - 
