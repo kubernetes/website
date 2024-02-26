@@ -8,7 +8,7 @@ weight: 70
 
 <!-- overview -->
 Esta página muestra cómo eliminar Pods que son parte de un
-{{< glossary_tooltip text="stateful set" term_id="StatefulSet" >}},
+{{< glossary_tooltip text="StatefulSet" term_id="StatefulSet" >}},
 y explica las consideraciones a tener en cuenta al hacerlo.
 
 ## {{% heading "prerequisitos" %}}
