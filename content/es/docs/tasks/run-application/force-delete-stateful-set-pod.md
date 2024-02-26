@@ -47,7 +47,7 @@ Para que lo anterior conduzca a una terminación paulatina, el Pod no debe espec
 `pod.Spec.TerminationGracePeriodSeconds` de 0. La práctica de establecer un
 `pod.Spec.TerminationGracePeriodSeconds` de 0 segundos es insegura y se desaconseja rotundamente
 para los Pods de StatefulSet. La eliminación paulatina es segura y garantizará que el Pod
-se apague de [manera paulatina](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination), antes de que el kubelet elimine el nombre del apiserver.
+se apague de [manera paulatina](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination), antes de que kubelet elimine el nombre en el apiserver.
 
 Un Pod no se elimina automáticamente cuando un nodo no es accesible.
 Los Pods que se ejecutan en un Nodo inaccesible entran en el estado 'Terminating' o 'Unknown' después de un
