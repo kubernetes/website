@@ -60,7 +60,7 @@ Las únicas formas en que un Pod en tal estado puede ser eliminado del apiserver
 - Kubelet, en el nodo no responsivo, comienza a responder, mata el Pod y elimina la entrada del apiserver.
 - Eliminación forzada del Pod por el usuario.
 - 
-La mejor práctica recomendada es usar el primer o segundo enfoque. Si un Nodo está confirmado
+La mejor práctica recomendada es usar el primer o segundo enfoque. Si un nodo está confirmado
 como muerto (por ejemplo, desconectado permanentemente de la red, apagado, etc.), entonces elimina
 el objeto Node. Si el nodo es afectado de una partición de red, entonces trata de resolver esto
 o espera a que se resuelva. Cuando la partición se solucione, kubelet completará la eliminación
