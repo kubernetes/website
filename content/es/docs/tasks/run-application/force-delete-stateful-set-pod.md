@@ -22,7 +22,7 @@ y explica las consideraciones a tener en cuenta al hacerlo.
 ## Consideraciones de StatefulSet
 
 En la operación normal de un StatefulSet, **nunca** hay necesidad de eliminar forzosamente un Pod de StatefulSet.
-El [controlador de StatefulSet](/docs/concepts/workloads/controllers/statefulset/) es responsable de
+El [controlador de StatefulSet](/es/docs/concepts/workloads/controllers/statefulset/) es responsable de
 crear, escalar y eliminar miembros del StatefulSet. Intenta asegurar que el número especificado
 de Pods, desde el ordinal 0 hasta N-1, estén vivos y listos. StatefulSet asegura que, en cualquier momento,
 exista como máximo un Pod con una identidad dada, corriendo en un clúster. Esto se refiere a la semántica de
