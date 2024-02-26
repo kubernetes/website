@@ -71,7 +71,7 @@ el nodo es eliminado por un administrador. Puedes anular esto forzando la elimin
 
 ### Eliminación Forzosa
 
-Las eliminaciones forzosas **no** esperan confirmación del kubelet de que el Pod ha sido terminado.
+Las eliminaciones forzosas **no** esperan confirmación de kubelet de que el Pod ha sido terminado.
 Independientemente de si una eliminación forzosa tiene éxito en matar un Pod, inmediatamente
 liberará el nombre del apiserver. Esto permitiría que el controlador de StatefulSet cree un Pod de reemplazo
 con esa misma identidad; esto puede llevar a la duplicación de un Pod que aún está en ejecución,
