@@ -25,7 +25,7 @@ En la operación normal de un StatefulSet, **nunca** hay necesidad de eliminar f
 El [controlador de StatefulSet](/docs/concepts/workloads/controllers/statefulset/) es responsable de
 crear, escalar y eliminar miembros del StatefulSet. Intenta asegurar que el número especificado
 de Pods, desde el ordinal 0 hasta N-1, estén vivos y listos. StatefulSet asegura que, en cualquier momento,
-hay como máximo un Pod con una identidad dada corriendo en un clúster. Esto se refiere a la semántica de
+exista como máximo un Pod con una identidad dada, corriendo en un clúster. Esto se refiere a la semántica de
 *como máximo uno* proporcionada por un StatefulSet.
 
 La eliminación forzada manual debe realizarse con precaución, ya que tiene el potencial de violar la
