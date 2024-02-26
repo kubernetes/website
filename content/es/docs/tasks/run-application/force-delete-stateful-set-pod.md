@@ -29,7 +29,7 @@ exista como máximo un Pod con una identidad dada, corriendo en un clúster. Est
 *como máximo uno* proporcionada por un StatefulSet.
 
 La eliminación manual forzada debe realizarse con precaución, ya que tiene el potencial de violar la
-semántica de como máximo uno inherente a StatefulSet. Los StatefulSets pueden usarse para ejecutar aplicaciones distribuidas y
+semántica de como máximo uno, inherente a StatefulSet. Los StatefulSets pueden usarse para ejecutar aplicaciones distribuidas y
 agrupadas que necesitan una identidad de red estable y almacenamiento estable.
 Estas aplicaciones a menudo tienen configuraciones que dependen de un conjunto de un número fijo de
 miembros con identidades fijas. Tener múltiples miembros con la misma identidad puede ser desastroso
