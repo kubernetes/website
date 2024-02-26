@@ -283,18 +283,17 @@ The **v1.29** release deprecated/removed the following feature gates:
    <td>GA</td>
    <td>1.29</td>
 </tr>
-
 </tbody>
 </table>
 
-####Other Deprecations
+<h4>Other Deprecations</h4>
 
-#####CLI's
+<h5>CLI's</h5>
 
 * `Kube-controller-manager`: Deprecate `--volume-host-cidr-denylist` and `--volume-host-allow-local-loopback` flags (Note this is actually 1.28
 but is included here as an example)
 
 
-#####Annotations
+<h5>Annotations</h5>
 
 * `kubectl prune v2`: The annotation `contains-group-resources` will be deprecated in favor of `contains-group-kinds`.
