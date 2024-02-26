@@ -96,7 +96,7 @@ kubectl delete pods <pod> --grace-period=0
 ```
 
 Si incluso después de estos comandos el pod está atascado en el estado `Unknown`, usa el siguiente comando para
-eliminar el pod del clúster:
+eliminar el Pod del clúster:
 
 ```shell
 kubectl patch pod <pod> -p '{"metadata":{"finalizers":null}}'
