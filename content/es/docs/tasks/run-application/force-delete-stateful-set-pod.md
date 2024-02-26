@@ -66,8 +66,8 @@ el objeto Node. Si el Nodo está sufriendo de una partición de red, entonces tr
 o espera a que se resuelva. Cuando la partición se cure, el kubelet completará la eliminación
 del Pod y liberará su nombre en el apiserver.
 
-Normalmente, el sistema completa la eliminación una vez que el Pod ya no se está ejecutando en un Nodo, o
-el Nodo es eliminado por un administrador. Puedes anular esto forzando la eliminación del Pod.
+Normalmente, el sistema completa la eliminación una vez que el Pod ya no se está ejecutando en un nodo, o
+el nodo es eliminado por un administrador. Puedes anular esto forzando la eliminación del Pod.
 
 ### Eliminación Forzosa
 
