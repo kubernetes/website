@@ -37,7 +37,7 @@ y puede llevar a pérdida de datos (por ejemplo, escenario de cerebro dividido e
 
 ## Eliminar Pods
 
-Puedes realizar una eliminación de pod paulatina con el siguiente comando:
+Puedes realizar una eliminación de Pod paulatina con el siguiente comando:
 
 ```shell
 kubectl delete pods <pod>
