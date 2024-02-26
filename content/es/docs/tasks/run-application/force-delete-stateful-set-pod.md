@@ -57,7 +57,7 @@ en un nodo inaccesible.
 Las únicas formas en que un Pod en tal estado puede ser eliminado del apiserver son las siguientes:
 
 - El objeto Node es eliminado (ya sea por ti, o por el [Controlador de Nodo](/es/docs/concepts/architecture/nodes/#controlador-de-nodos)).).
-- El kubelet en el Nodo no responsivo comienza a responder, mata el Pod y elimina la entrada del apiserver.
+- Kubelet, en el nodo no responsivo, comienza a responder, mata el Pod y elimina la entrada del apiserver.
 - Eliminación forzada del Pod por el usuario.
 - 
 La mejor práctica recomendada es usar el primer o segundo enfoque. Si un Nodo está confirmado
