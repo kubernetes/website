@@ -63,7 +63,7 @@ Las únicas formas en que un Pod en tal estado puede ser eliminado del apiserver
 La mejor práctica recomendada es usar el primer o segundo enfoque. Si un Nodo está confirmado
 como muerto (por ejemplo, desconectado permanentemente de la red, apagado, etc.), entonces elimina
 el objeto Node. Si el Nodo está sufriendo de una partición de red, entonces trata de resolver esto
-o espera a que se resuelva. Cuando la partición se cure, el kubelet completará la eliminación
+o espera a que se resuelva. Cuando la partición se solucione, kubelet completará la eliminación
 del Pod y liberará su nombre en el apiserver.
 
 Normalmente, el sistema completa la eliminación una vez que el Pod ya no se está ejecutando en un nodo, o
