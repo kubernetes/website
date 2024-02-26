@@ -78,7 +78,7 @@ con esa misma identidad; esto puede llevar a la duplicación de un Pod que aún 
 y si dicho Pod todavía puede comunicarse con los otros miembros del StatefulSet,
 violará la semántica de como máximo uno que StatefulSet está diseñado para garantizar.
 
-Cuando eliminas forzosamente un pod de StatefulSet, estás afirmando que el Pod en cuestión nunca
+Cuando eliminas forzosamente un Pod de StatefulSet, estás afirmando que el Pod en cuestión nunca
 volverá a hacer contacto con otros Pods en el StatefulSet y su nombre puede ser liberado de forma segura para que
 se cree un reemplazo.
 
