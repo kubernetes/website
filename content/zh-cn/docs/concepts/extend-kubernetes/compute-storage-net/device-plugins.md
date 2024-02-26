@@ -845,7 +845,7 @@ Here are some examples of device plugin implementations:
 -->
 下面是一些设备插件实现的示例：
 
-* [AMD GPU 设备插件](https://github.com/RadeonOpenCompute/k8s-device-plugin)
+* [AMD GPU 设备插件](https://github.com/ROCm/k8s-device-plugin)
 * 适用于通用 Linux 设备和 USB 设备的[通用设备插件](https://github.com/squat/generic-device-plugin)
 * [Intel 设备插件](https://github.com/intel/intel-device-plugins-for-kubernetes)支持
   Intel GPU、FPGA、QAT、VPU、SGX、DSA、DLB 和 IAA 设备
