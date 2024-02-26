@@ -14,7 +14,7 @@ y explica las consideraciones a tener en cuenta al hacerlo.
 ## {{% heading "prerequisitos" %}}
 
 - Esta es una tarea bastante avanzada y tiene el potencial de violar algunas de las propiedades
-  inherentes a StatefulSet.
+  inherentes de StatefulSet.
 - Antes de proceder, familiarízate con las consideraciones enumeradas a continuación.
 
 <!-- steps -->
