@@ -51,7 +51,7 @@ se apague de [manera paulatina](/docs/concepts/workloads/pods/pod-lifecycle/#pod
 
 Un Pod no se elimina automáticamente cuando un nodo no es accesible.
 Los Pods que se ejecutan en un Nodo inaccesible entran en el estado 'Terminating' o 'Unknown' después de un
-[tiempo de espera](/docs/concepts/architecture/nodes/#condition).
+[tiempo de espera](es/docs/concepts/architecture/nodes/#Estados).
 Los Pods también pueden entrar en estos estados cuando el usuario intenta la eliminación paulatina de un Pod
 en un nodo inaccesible.
 Las únicas formas en que un Pod en tal estado puede ser eliminado del apiserver son las siguientes:
