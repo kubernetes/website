@@ -45,7 +45,7 @@ kubectl delete pods <pod>
 
 Para que lo anterior conduzca a una terminación paulatina, el Pod no debe especificar un
 `pod.Spec.TerminationGracePeriodSeconds` de 0. La práctica de establecer un
-`pod.Spec.TerminationGracePeriodSeconds` de 0 segundos es insegura y se desaconseja fuertemente
+`pod.Spec.TerminationGracePeriodSeconds` de 0 segundos es insegura y se desaconseja rotundamente
 para los Pods de StatefulSet. La eliminación paulatina es segura y garantizará que el Pod
 se apague de [manera paulatina](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination), antes de que el kubelet elimine el nombre del apiserver.
 
