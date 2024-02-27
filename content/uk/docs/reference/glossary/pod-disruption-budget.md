@@ -1,14 +1,12 @@
 ---
-title: Обмеження переривання роботи Podʼів
+title: PodDisruptionBudget
 id: pod-disruption-budget
 full-link: /docs/concepts/workloads/pods/disruptions/
 date: 2019-02-12
 short_description: >
  Обʼєкт, який обмежує кількість {{< glossary_tooltip text="Podʼів" term_id="pod" >}} реплікованого застосунку, які можуть бути вимкнені одночасно з причини добровільного переривання роботи.
-
 aka:
  - PDB
- - Pod Disruption Budget
 related:
  - pod
  - container

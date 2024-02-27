@@ -6,6 +6,8 @@ short_description: >
   Наданий клієнтом рядок, який посилається на обʼєкт в URL ресурсу, наприклад `/api/v1/pods/some-name`.
 
 aka: 
+- назва
+- імʼя
 tags:
 - fundamental
 ---

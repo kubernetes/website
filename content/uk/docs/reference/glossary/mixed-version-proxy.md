@@ -1,5 +1,5 @@
 ---
-title: Mixed Version Proxy (MVP)
+title: Проксі для змішаних версій API-сервера
 id: mvp
 date: 2023-07-24
 short_description: >
