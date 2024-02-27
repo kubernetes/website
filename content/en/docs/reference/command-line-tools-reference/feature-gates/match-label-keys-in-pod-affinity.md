@@ -14,5 +14,5 @@ stages:
     defaultValue: true
     fromVersion: "1.30"
 ---
-Enable the `matchLabelKeys` and `mismatchLabelKeys` field for
+Enable the `matchLabelKeys` and `mismatchLabelKeys` fields for
 [pod (anti)affinity](/docs/concepts/scheduling-eviction/assign-pod-node/).
