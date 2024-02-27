@@ -1,19 +1,19 @@
 ---
-title: Imperative Management of Kubernetes Objects Using Configuration Files
+title: Administración imperativa de objetos de Kubernetes mediante archivos de configuración
 content_type: task
 weight: 40
 ---
 
 <!-- overview -->
-Kubernetes objects can be created, updated, and deleted by using the `kubectl`
-command-line tool along with an object configuration file written in YAML or JSON.
-This document explains how to define and manage objects using configuration files.
+Los objetos de Kubernetes se pueden crear, actualizar y eliminar utilizando la herramienta 
+de línea de comandos `kubectl` junto con un archivo de configuración de objetos escrito en YAML o JSON. 
+Este documento explica cómo definir y gestionar objetos utilizando archivos de configuración.
 
 
 ## {{% heading "prerequisites" %}}
 
 
-Install [`kubectl`](/docs/tasks/tools/).
+Instalar [`kubectl`](/docs/tasks/tools/).
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -21,54 +21,49 @@ Install [`kubectl`](/docs/tasks/tools/).
 
 <!-- steps -->
 
-## Trade-offs
+## Opciones
 
-The `kubectl` tool supports three kinds of object management:
+La herramienta `kubectl` admite tres tipos de administración de objetos:
 
-* Imperative commands
-* Imperative object configuration
-* Declarative object configuration
+* Comandos imperativos
+* Configuración de objeto imperativo.
+* Configuración de objeto declarativo
 
-See [Kubernetes Object Management](/docs/concepts/overview/working-with-objects/object-management/)
-for a discussion of the advantages and disadvantage of each kind of object management.
+Consulte [Administración de objetos de Kubernetes](/docs/concepts/overview/working-with-objects/object-management/)
+para una discusión de las ventajas y desventajas de cada tipo de administración de objetos.
 
-## How to create objects
 
-You can use `kubectl create -f` to create an object from a configuration file.
-Refer to the [kubernetes API reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
-for details.
+## Cómo crear objetos
+
+Puede usar `kubectl create -f` para crear un objeto a partir de un archivo de configuración.
+Consulte la [referencia de la API de Kubernetes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
+para detalles.
 
 * `kubectl create -f <filename|url>`
 
-## How to update objects
-
+## Cómo actualizar objetos
 {{< warning >}}
-Updating objects with the `replace` command drops all
-parts of the spec not specified in the configuration file.  This
-should not be used with objects whose specs are partially managed
-by the cluster, such as Services of type `LoadBalancer`, where
-the `externalIPs` field is managed independently from the configuration
-file.  Independently managed fields must be copied to the configuration
-file to prevent `replace` from dropping them.
+
+La actualización de objetos con el comando `replace` elimina todas las partes de la especificación no especificadas en el archivo de configuración. Esto no debe usarse con objetos cuyas especificaciones son administradas parcialmente por el clúster, como Servicios de tipo `LoadBalancer`, donde el campo `externalIPs` se administra independientemente de la configuración.
+archivo. Los campos administrados de forma independiente deben copiarse en el archivo de configuración para evitar que `replace` los elimine.
+
 {{< /warning >}}
 
-You can use `kubectl replace -f` to update a live object according to a
-configuration file.
+
+Puede usar `kubectl replace -f` para actualizar un objeto en activo de acuerdo con un archivo de configuración.
+
 
 * `kubectl replace -f <filename|url>`
 
-## How to delete objects
+## Cómo eliminar objetos
 
-You can use `kubectl delete -f` to delete an object that is described in a
-configuration file.
+Puede usar `kubectl delete -f` para eliminar un objeto que se describe en un
+archivo de configuración.
 
 * `kubectl delete -f <filename|url>`
 
 {{< note >}}
-If configuration file has specified the `generateName` field in the `metadata`
-section instead of the `name` field, you cannot delete the object using
-`kubectl delete -f <filename|url>`.
-You will have to use other flags for deleting the object. For example:
+Si el archivo de configuración especifica el campo `generateName` en la sección `metadata` en lugar del campo `name`, no puede eliminar el objeto usando `kubectl delete -f <filename|url>`. Tendrás que usar otras banderas para eliminar el objeto. Por ejemplo:
 
 ```shell
 kubectl delete <type> <name>
@@ -76,74 +71,68 @@ kubectl delete <type> -l <label>
 ```
 {{< /note >}}
 
-## How to view an object
+## Cómo ver un objeto
 
-You can use `kubectl get -f` to view information about an object that is
-described in a configuration file.
+Puede usar `kubectl get -f` para ver información sobre un objeto que está
+descrito en un archivo de configuración.
 
 * `kubectl get -f <filename|url> -o yaml`
 
-The `-o yaml` flag specifies that the full object configuration is printed.
-Use `kubectl get -h` to see a list of options.
+La bandera `-o yaml` especifica que se imprime la configuración completa del objeto. Utilice `kubectl get -h` para ver una lista de opciones.
 
-## Limitations
 
-The `create`, `replace`, and `delete` commands work well when each object's
-configuration is fully defined and recorded in its configuration
-file. However when a live object is updated, and the updates are not merged
-into its configuration file, the updates will be lost the next time a `replace`
-is executed. This can happen if a controller, such as
-a HorizontalPodAutoscaler, makes updates directly to a live object. Here's
-an example:
+## Limitaciones
 
-1. You create an object from a configuration file.
-1. Another source updates the object by changing some field.
-1. You replace the object from the configuration file. Changes made by
-the other source in step 2 are lost.
+Los comandos `create`, `replace`, y `delete` funcionan bien cuando la configuración de cada objeto está completamente definida y registrada en su archivo de configuración. Sin embargo, cuando se actualiza un objeto activo y las actualizaciones no se combinan en su archivo de configuración las actualizaciones se perderán la próxima vez que se ejecute un `replace`. Esto puede suceder si un controlador, como un HorizontalPodAutoscaler, realiza actualizaciones directamente a un objeto en activo. 
 
-If you need to support multiple writers to the same object, you can use
-`kubectl apply` to manage the object.
+He aquí un ejemplo:
 
-## Creating and editing an object from a URL without saving the configuration
+1. Creas un objeto a partir de un archivo de configuración.
+1. Otra fuente actualiza el objeto cambiando algún campo.
+1. Reemplaza el objeto del archivo de configuración. Cambios hechos por
+la otra fuente en el paso 2 se pierden.
 
-Suppose you have the URL of an object configuration file. You can use
-`kubectl create --edit` to make changes to the configuration before the
-object is created. This is particularly useful for tutorials and tasks
-that point to a configuration file that could be modified by the reader.
+Si necesita admitir varios escritores en el mismo objeto, puede usar `kubectl apply` para administrar el objeto.
+
+## Crear y editar un objeto desde una URL sin guardar la configuración
+
+Supongamos que tiene la URL de un archivo de configuración de objeto. Puedes usar
+`kubectl create --edit` para realizar cambios en la configuración antes de que el objeto es creado. Esto es particularmente útil para tutoriales y tareas
+que apuntan a un archivo de configuración que podría ser modificado por el lector.
+
 
 ```shell
 kubectl create -f <url> --edit
 ```
 
-## Migrating from imperative commands to imperative object configuration
+## Migración de comandos imperativos a configuración de objetos imperativos
 
-Migrating from imperative commands to imperative object configuration involves
-several manual steps.
+La migración de comandos imperativos a la configuración de objetos imperativos implica varios pasos manuales.
 
-1. Export the live object to a local object configuration file:
+1. Exporte el objeto en vivo a un archivo de configuración de objeto local:.
 
     ```shell
     kubectl get <kind>/<name> -o yaml > <kind>_<name>.yaml
     ```
 
-1. Manually remove the status field from the object configuration file.
+1. Elimine manualmente el campo de estado del archivo de configuración del objeto.
 
-1. For subsequent object management, use `replace` exclusively.
+1. Para la gestión posterior de objetos, utilice `replace` exclusivamente.
 
     ```shell
     kubectl replace -f <kind>_<name>.yaml
     ```
 
-## Defining controller selectors and PodTemplate labels
+## Definiendo selectores de controlador y etiquetas PodTemplate
 
 {{< warning >}}
-Updating selectors on controllers is strongly discouraged.
+Se desaconseja encarecidamente actualizar los selectores de los controladores.
 {{< /warning >}}
 
-The recommended approach is to define a single, immutable PodTemplate label
-used only by the controller selector with no other semantic meaning.
 
-Example label:
+El enfoque recomendado es definir una etiqueta PodTemplate única e inmutable utilizada únicamente por el selector del controlador sin ningún otro significado semántico.
+
+Etiqueta de ejemplo:
 
 ```yaml
 selector:
@@ -160,9 +149,9 @@ template:
 ## {{% heading "whatsnext" %}}
 
 
-* [Managing Kubernetes Objects Using Imperative Commands](/docs/tasks/manage-kubernetes-objects/imperative-command/)
-* [Declarative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/declarative-config/)
-* [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl-commands/)
+* [Administración de objetos de Kubernetes mediante comandos imperativos](/docs/tasks/manage-kubernetes-objects/imperative-command/)
+* [Gestión declarativa de objetos de Kubernetes mediante archivos de configuración](/docs/tasks/manage-kubernetes-objects/declarative-config/)
+* [Referencia de comandos de Kubectl](/docs/reference/generated/kubectl/kubectl-commands/)
 * [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 
 
