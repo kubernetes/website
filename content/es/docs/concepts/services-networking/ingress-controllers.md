@@ -21,7 +21,7 @@ Kubernetes es un proyecto que soporta y mantiene los controladores Ingress de [A
 
 ## Controladores adiccionales
 
-{{% contenido de terceros %}}
+{{% thirdparty-content %}}
 
 * [AKS Application Gateway Ingress Controller](https://docs.microsoft.com/azure/application-gateway/tutorial-ingress-controller-add-on-existing?toc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Faks%2Ftoc.json&bc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Fbread%2Ftoc.json) es un controlador Ingress que controla la configuración de [Azure Application Gateway](https://docs.microsoft.com/azure/application-gateway/overview).
 * [Alibaba Cloud MSE Ingress](https://www.alibabacloud.com/help/en/mse/user-guide/overview-of-mse-ingress-gateways) es un controlador Ingress que controla la configuración de [Alibaba Cloud Native Gateway](https://www.alibabacloud.com/help/en/mse/product-overview/cloud-native-gateway-overview?spm=a2c63.p38356.0.0.20563003HJK9is), el cual es una versión comercial de [Higress](https://github.com/alibaba/higress).
@@ -77,7 +77,7 @@ Asegúrate de revisar la documentación de tu controlador de entrada para entend
 
 
 
-## {{% sección "lo siguiente" %}}
+## {{% heading "whatsnext" %}}
 
 
 * Más información [Ingress](/docs/concepts/services-networking/ingress/).
