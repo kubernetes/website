@@ -15,7 +15,7 @@ You might argue that Kubernetes is not intended for this purpose and why not sim
 
 Why complicate things? - after all, Kubernetes already has everything needed to run tenant Kubernetes clusters at this point.
 
-I want to share with you our experience in developing a cloud platform based on Kubernetes. To shed light on the open-source projects that we use ourselves and believe deserve your attention.
+I want to share with you our experience in developing a cloud platform based on Kubernetes, highlighting the open-source projects that we use ourselves and believe deserve your attention.
 
 In this series of articles, I will tell you our story about how we prepare managed Kubernetes from bare metal using only open-source technologies. Starting from the basic level of data center preparation, running virtual machines, isolating networks, setting up fault-tolerant storage to provisioning full-featured Kubernetes clusters with dynamic volume provisioning, load balancers, and autoscaling.
 
@@ -41,7 +41,7 @@ Kubernetes offers convenient abstractions that work the same everywhere, allowin
 
 In the cloud, you always have several separate entities: the Kubernetes control plane, virtual machines, persistent volumes, and load balancers as distinct entities. Using these entities, you can create highly dynamic environments.
 
-Thanks to Kubernetes, virtual machines are now only seen as a utility entity for utilizing cloud resources. You no longer store data inside virtual machines. You can delete all your virtual machines at any moment and recreate them without breaking your application. The Kubernetes control plane will continue to hold information about what should run in your cluster. The load balancer will keep sending traffic to your workload, simply changing the endpoint to send traffic to a new node. And your data will be safely stored in external persistent volumes provided by cloyd.
+Thanks to Kubernetes, virtual machines are now only seen as a utility entity for utilizing cloud resources. You no longer store data inside virtual machines. You can delete all your virtual machines at any moment and recreate them without breaking your application. The Kubernetes control plane will continue to hold information about what should run in your cluster. The load balancer will keep sending traffic to your workload, simply changing the endpoint to send traffic to a new node. And your data will be safely stored in external persistent volumes provided by cloud.
 
 This approach is fundamental when using Kubernetes in clouds. The reason for it is quite obvious: the simpler the system, the more stable it is, and for this simplicity you go buying Kubernetes in the cloud.
 
@@ -64,7 +64,7 @@ So, suppose you've decided to build your own cloud. To start somewhere, you need
 
 Of course you can use standard distributions like **Ubuntu** or **Debian**, or you can consider specialized ones like **Flatcar Container Linux**, **Fedora Core**, and **Talos Linux**. Each has its advantages and disadvantages.
 
-What about us. We use quite a few specific kernel modules like ZFS, DRBD, and OpenvSwitch, so we decided to go the route of forming a system image with all the necessary modules in advance. In this case, Talos Linux turned out to be the most convenient for us. For example, such a config is enough to build a system image with all the necessary kernel modules:
+What about us? We use quite a few specific kernel modules like ZFS, DRBD, and OpenvSwitch, so we decided to go the route of forming a system image with all the necessary modules in advance. In this case, Talos Linux turned out to be the most convenient for us. For example, such a config is enough to build a system image with all the necessary kernel modules:
 
 ```yaml
 arch: amd64
@@ -119,9 +119,9 @@ At this stage, you already have a Kubernetes cluster capable of running various 
 
 Traditionally, this is solved by installing **Helm charts** into your cluster. You can do this by running `helm install` commands locally, but this approach becomes inconvenient when you want to track updates, and if you have multiple clusters and you want to keep them uniform. In fact, there are plenty of ways to do this declaratively. To solve this, I recommend using best GitOps practices. I mean tools like **ArgoCD** and **FluxCD**.
 
-While ArgoCD is more convenient for dev purposes with its graphical interface and a central control plane, FluxCD, on the other hand, is better suited for creating a Kubernetes distributions. With FluxCD, you can specify which charts with what parameters should be launched and describe dependencies. Then, FluxCD will take care of everything for you.
+While ArgoCD is more convenient for dev purposes with its graphical interface and a central control plane, FluxCD, on the other hand, is better suited for creating Kubernetes distributions. With FluxCD, you can specify which charts with what parameters should be launched and describe dependencies. Then, FluxCD will take care of everything for you.
 
-It is suggested to perform a one-time installation of FluxCD in your newly created cluster and provide it with the configuration. This will install everything necessary, bringing the cluster to the expected state. For example, after installing Cozystack, you receive the following set of pre-installed Helm charts:
+It is suggested to perform a one-time installation of FluxCD in your newly created cluster and provide it with the configuration. This will install everything necessary, bringing the cluster to the expected state.
 
 By carrying out a single installation of FluxCD in your newly minted cluster and configuring it accordingly, you enable it to automatically deploy all the essentials. This will allow your cluster to upgrade itself into the desired state. For example, after installing our platform you'll see the next pre-configured Helm charts with system components:
 
@@ -153,6 +153,6 @@ cozy-telepresence                telepresence                4m1s   True    Rele
 cozy-victoria-metrics-operator   victoria-metrics-operator   4m1s   True    Release reconciliation succeeded
 ```
 
-As a result, you achieve a highly repeatable environment that you can provide to anyone, confident that it operates exactly as intended. This is actually what the [**Cozystack**](https://github.com/aenix-io/cozystack) project does, which you can try out for yourself absolutely free.
+As a result, you achieve a highly repeatable environment that you can provide to anyone, knowing that it operates exactly as intended. This is actually what the [**Cozystack**](https://github.com/aenix-io/cozystack) project does, which you can try out for yourself absolutely free.
 
 In the following articles, I will discuss how to prepare Kubernetes for running virtual machines and how to run Kubernetes clusters at the click of a button. Stay tuned, it'll be fun!
