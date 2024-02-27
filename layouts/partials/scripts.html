@@ -42,6 +42,22 @@
     }
   }
 
+  const checkboxDark = document.getElementById("checkbox-dark")
+  checkboxDark.addEventListener("change", () => {
+    document.body.classList.toggle("dark")
+    $("#oceanNodes").toggleClass("dark");
+    $("#features").toggleClass("dark");
+    $("#talkToUs").toggleClass("dark");
+    $("#cncf").toggleClass("dark");
+    $("#kubeweekly").toggleClass("dark");
+  })
+
+  var pathName=window.location.pathname;
+  $("#div-darkmode").hide();
+  if(pathName == "" || pathName == "/"){
+  	$("#div-darkmode").show();
+  }
+
   const screenWidthMediaQuery = window.matchMedia("(min-width: 768px)");
 
   const eleNav = document.getElementById("sidebarnav");

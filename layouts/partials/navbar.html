@@ -24,6 +24,16 @@
 				{{ partial "navbar-lang-selector.html" . }}
 			</li>
 			{{ end }}
+			<li class="nav-item mr-2 mb-lg-0">
+				<div id="div-darkmode" style="padding-top:10px;">
+				  <input type="checkbox" class="checkbox-dark" id="checkbox-dark">
+				  <label for="checkbox-dark" class="checkbox-label">
+				    <i class="fas fa-moon"></i>
+				    <i class="fas fa-sun"></i>
+				    <span class="ball"></span>
+				  </label>
+				</div>
+      		</li>
 		</ul>
 	</div>
 	<button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
