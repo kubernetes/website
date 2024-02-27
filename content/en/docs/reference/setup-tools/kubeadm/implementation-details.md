@@ -109,8 +109,6 @@ The user can skip specific preflight checks or all of them with the `--ignore-pr
 - [warning] if firewalld is active
 - [error] if API server bindPort or ports 10250/10251/10252 are used
 - [Error] if `/etc/kubernetes/manifest` folder already exists and it is not empty
-- [Error] if `/proc/sys/net/bridge/bridge-nf-call-iptables` file does not exist/does not contain 1
-- [Error] if advertise address is ipv6 and `/proc/sys/net/bridge/bridge-nf-call-ip6tables` does not exist/does not contain 1.
 - [Error] if swap is on
 - [Error] if `conntrack`, `ip`, `iptables`, `mount`, `nsenter` commands are not present in the command path
 - [warning] if `ebtables`, `ethtool`, `socat`, `tc`, `touch`, `crictl` commands are not present in the command path
