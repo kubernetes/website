@@ -65,7 +65,7 @@ The **flowcontrol.apiserver.k8s.io/v1beta2** API version of FlowSchema and Prior
 
 The **v1.29** release deprecated/removed the following feature gates:
 
-<table class="sortable-table" data-sort-order="asc">
+{{ <table class="sortable-table" data-sort-order="asc">
 <caption style="display:none">Feature Gates for Graduated or Deprecated Features</caption>
 <thead>
    <tr>
@@ -284,7 +284,7 @@ The **v1.29** release deprecated/removed the following feature gates:
    <td>1.29</td>
 </tr>
 </tbody>
-</table>
+</table> }}
 
 <h4>Other Deprecations</h4>
 
@@ -297,3 +297,7 @@ but is included here as an example)
 <h5>Annotations</h5>
 
 * `kubectl prune v2`: The annotation `contains-group-resources` will be deprecated in favor of `contains-group-kinds`.
+
+### v1.28
+
+...
