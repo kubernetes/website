@@ -42,16 +42,19 @@ para detalles.
 * `kubectl create -f <filename|url>`
 
 ## Cómo actualizar objetos
+
 {{< warning >}}
-
-La actualización de objetos con el comando `replace` elimina todas las partes de la especificación no especificadas en el archivo de configuración. Esto no debe usarse con objetos cuyas especificaciones son administradas parcialmente por el clúster, como Servicios de tipo `LoadBalancer`, donde el campo `externalIPs` se administra independientemente de la configuración.
-archivo. Los campos administrados de forma independiente deben copiarse en el archivo de configuración para evitar que `replace` los elimine.
-
+La actualización de objetos con el comando `replace` 
+elimina todas las partes de la especificación no 
+especificadas en el archivo de configuración. Esto no debe 
+usarse con objetos cuyas especificaciones son administradas 
+parcialmente por el clúster, como Servicios de tipo `LoadBalancer`, donde el 
+campo `externalIPs` se administra independientemente de la configuración.
+archivo. Los campos administrados de forma independiente deben copiarse en 
+el archivo de configuración para evitar que `replace` los elimine.
 {{< /warning >}}
 
-
 Puede usar `kubectl replace -f` para actualizar un objeto en activo de acuerdo con un archivo de configuración.
-
 
 * `kubectl replace -f <filename|url>`
 
@@ -80,12 +83,11 @@ descrito en un archivo de configuración.
 
 La bandera `-o yaml` especifica que se imprime la configuración completa del objeto. Utilice `kubectl get -h` para ver una lista de opciones.
 
-
 ## Limitaciones
 
 Los comandos `create`, `replace`, y `delete` funcionan bien cuando la configuración de cada objeto está completamente definida y registrada en su archivo de configuración. Sin embargo, cuando se actualiza un objeto activo y las actualizaciones no se combinan en su archivo de configuración las actualizaciones se perderán la próxima vez que se ejecute un `replace`. Esto puede suceder si un controlador, como un HorizontalPodAutoscaler, realiza actualizaciones directamente a un objeto en activo. 
 
-He aquí un ejemplo:
+Ejemplo:
 
 1. Creas un objeto a partir de un archivo de configuración.
 1. Otra fuente actualiza el objeto cambiando algún campo.
