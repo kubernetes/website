@@ -11,7 +11,7 @@ Esta página muestra cómo eliminar Pods que son parte de un
 {{< glossary_tooltip text="StatefulSet" term_id="StatefulSet" >}},
 y explica las consideraciones a tener en cuenta al hacerlo.
 
-## {{% heading "prerequisitos" %}}
+## {{% heading "prerequisites" %}}
 
 - Esta es una tarea bastante avanzada y tiene el potencial de violar algunas de las propiedades
   inherentes de StatefulSet.
