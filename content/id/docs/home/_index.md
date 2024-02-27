@@ -50,6 +50,8 @@ cards:
 - name: download
   title: Unduh Kubernetes
   description: Untuk instalasi atau pembaharuan Kubernetes ke versi terbaru, lihat catatan rilis saat ini.
+  button: Unduh Kubernetes Sekarang
+  button_path: /releases/download/
 - name: about
   title: Tentang dokumentasi
   description: Situs ini merupakan dokumentasi dari Kubernetes versi saat ini dan 4 versi sebelumnya.

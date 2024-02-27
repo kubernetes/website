@@ -19,10 +19,10 @@ containers which are relatively tightly coupled.
 In non-cloud contexts, applications executed on the same physical or virtual machine are analogous to cloud applications executed on the same logical host.
 
 As well as application containers, a Pod can contain
-[init containers](/docs/concepts/workloads/pods/init-containers/) that run
+{{< glossary_tooltip text="init containers" term_id="init-container" >}} that run
 during Pod startup. You can also inject
-[ephemeral containers](/docs/concepts/workloads/pods/ephemeral-containers/)
-for debugging if your cluster offers this.
+{{< glossary_tooltip text="ephemeral containers" term_id="ephemeral-container" >}}
+for debugging a running Pod.
 
 <!-- body -->
 
@@ -38,6 +38,26 @@ potentially other facets of isolation - the same things that isolate a {{< gloss
 further sub-isolations applied.
 
 A Pod is similar to a set of containers with shared namespaces and shared filesystem volumes.
+
+Pods in a Kubernetes cluster are used in two main ways:
+
+* **Pods that run a single container**. The "one-container-per-Pod" model is the
+  most common Kubernetes use case; in this case, you can think of a Pod as a
+  wrapper around a single container; Kubernetes manages Pods rather than managing
+  the containers directly.
+* **Pods that run multiple containers that need to work together**. A Pod can
+  encapsulate an application composed of
+  [multiple co-located containers](#how-pods-manage-multiple-containers) that are
+  tightly coupled and need to share resources. These co-located containers
+  form a single cohesive unit.
+
+  Grouping multiple co-located and co-managed containers in a single Pod is a
+  relatively advanced use case. You should use this pattern only in specific
+  instances in which your containers are tightly coupled.
+
+  You don't need to run multiple containers to provide replication (for resilience
+  or capacity); if you need multiple replicas, see
+  [Workload management](/docs/concepts/workloads/controllers/).
 
 ## Using Pods
 
@@ -61,26 +81,6 @@ term_id="deployment" >}} or {{< glossary_tooltip text="Job" term_id="job" >}}.
 If your Pods need to track state, consider the
 {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}} resource.
 
-Pods in a Kubernetes cluster are used in two main ways:
-
-* **Pods that run a single container**. The "one-container-per-Pod" model is the
-  most common Kubernetes use case; in this case, you can think of a Pod as a
-  wrapper around a single container; Kubernetes manages Pods rather than managing
-  the containers directly.
-* **Pods that run multiple containers that need to work together**. A Pod can
-  encapsulate an application composed of multiple co-located containers that are
-  tightly coupled and need to share resources. These co-located containers
-  form a single cohesive unit of service—for example, one container serving data
-  stored in a shared volume to the public, while a separate _sidecar_ container
-  refreshes or updates those files.
-  The Pod wraps these containers, storage resources, and an ephemeral network
-  identity together as a single unit.
-
-  {{< note >}}
-  Grouping multiple co-located and co-managed containers in a single Pod is a
-  relatively advanced use case. You should use this pattern only in specific
-  instances in which your containers are tightly coupled.
-  {{< /note >}}
 
 Each Pod is meant to run a single instance of a given application. If you want to
 scale your application horizontally (to provide more overall resources by running
@@ -93,35 +93,9 @@ See [Pods and controllers](#pods-and-controllers) for more information on how
 Kubernetes uses workload resources, and their controllers, to implement application
 scaling and auto-healing.
 
-### How Pods manage multiple containers
-
-Pods are designed to support multiple cooperating processes (as containers) that form
-a cohesive unit of service. The containers in a Pod are automatically co-located and
-co-scheduled on the same physical or virtual machine in the cluster. The containers
-can share resources and dependencies, communicate with one another, and coordinate
-when and how they are terminated.
-
-For example, you might have a container that
-acts as a web server for files in a shared volume, and a separate "sidecar" container
-that updates those files from a remote source, as in the following diagram:
-
-{{< figure src="/images/docs/pod.svg" alt="Pod creation diagram" class="diagram-medium" >}}
-
-Some Pods have {{< glossary_tooltip text="init containers" term_id="init-container" >}}
-as well as {{< glossary_tooltip text="app containers" term_id="app-container" >}}.
-By default, init containers run and complete before the app containers are started.
-
-{{< feature-state for_k8s_version="v1.29" state="beta" >}}
-
-Enabled by default, the `SidecarContainers` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-allows you to specify `restartPolicy: Always` for init containers.
-Setting the `Always` restart policy ensures that the init containers where you set it are
-kept running during the entire lifetime of the Pod.
-See [Sidecar containers and restartPolicy](/docs/concepts/workloads/pods/init-containers/#sidecar-containers-and-restartpolicy)
-for more details.
-
 Pods natively provide two kinds of shared resources for their constituent containers:
 [networking](#pod-networking) and [storage](#pod-storage).
+
 
 ## Working with Pods
 
@@ -342,6 +316,57 @@ The `spec` of a static Pod cannot refer to other API objects
 {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}},
 {{< glossary_tooltip text="Secret" term_id="secret" >}}, etc).
 {{< /note >}}
+
+## Pods with multiple containers {#how-pods-manage-multiple-containers}
+
+Pods are designed to support multiple cooperating processes (as containers) that form
+a cohesive unit of service. The containers in a Pod are automatically co-located and
+co-scheduled on the same physical or virtual machine in the cluster. The containers
+can share resources and dependencies, communicate with one another, and coordinate
+when and how they are terminated.
+
+<!--intentionally repeats some text from earlier in the page, with more detail -->
+Pods in a Kubernetes cluster are used in two main ways:
+
+* **Pods that run a single container**. The "one-container-per-Pod" model is the
+  most common Kubernetes use case; in this case, you can think of a Pod as a
+  wrapper around a single container; Kubernetes manages Pods rather than managing
+  the containers directly.
+* **Pods that run multiple containers that need to work together**. A Pod can
+  encapsulate an application composed of
+  multiple co-located containers that are
+  tightly coupled and need to share resources. These co-located containers
+  form a single cohesive unit of service—for example, one container serving data
+  stored in a shared volume to the public, while a separate
+  {{< glossary_tooltip text="sidecar container" term_id="sidecar-container" >}}
+  refreshes or updates those files.
+  The Pod wraps these containers, storage resources, and an ephemeral network
+  identity together as a single unit.
+
+For example, you might have a container that
+acts as a web server for files in a shared volume, and a separate
+[sidecar container](/docs/concepts/workloads/pods/sidecar-containers/)
+that updates those files from a remote source, as in the following diagram:
+
+{{< figure src="/images/docs/pod.svg" alt="Pod creation diagram" class="diagram-medium" >}}
+
+Some Pods have {{< glossary_tooltip text="init containers" term_id="init-container" >}}
+as well as {{< glossary_tooltip text="app containers" term_id="app-container" >}}.
+By default, init containers run and complete before the app containers are started.
+
+You can also have [sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/)
+that provide auxiliary services to the main application Pod (for example: a service mesh).
+
+{{< feature-state for_k8s_version="v1.29" state="beta" >}}
+
+Enabled by default, the `SidecarContainers` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+allows you to specify `restartPolicy: Always` for init containers.
+Setting the `Always` restart policy ensures that the containers where you set it are
+treated as _sidecars_ that are kept running during the entire lifetime of the Pod.
+Containers that you explicitly define as sidecar containers
+start up before the main application Pod and remain running until the Pod is
+shut down.
+
 
 ## Container probes
 

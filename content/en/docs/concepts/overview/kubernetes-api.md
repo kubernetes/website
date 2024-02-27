@@ -82,7 +82,7 @@ packages that define the API objects.
 
 ### OpenAPI V3
 
-{{< feature-state state="stable"  for_k8s_version="v1.27" >}}
+{{< feature-state feature_gate_name="OpenAPIV3" >}}
 
 Kubernetes supports publishing a description of its APIs as OpenAPI v3.
 
@@ -167,7 +167,7 @@ cluster.
 
 ### Aggregated Discovery
 
-{{< feature-state state="beta"  for_k8s_version="v1.27" >}}
+{{< feature-state feature_gate_name="AggregatedDiscoveryEndpoint" >}}
 
 Kubernetes offers beta support for aggregated discovery, publishing
 all resources supported by a cluster through two endpoints (`/api` and
