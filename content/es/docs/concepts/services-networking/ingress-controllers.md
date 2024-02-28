@@ -1,25 +1,25 @@
 ---
 title: Controladores Ingress
 description: >-
-  Para que un [Ingress](/docs/concepts/services-networking/ingress/) funcione en su cluster,
+  Para que un [Ingress](/docs/concepts/services-networking/ingress/) funcione en tu clúster,
   debe haber un _ingress controller_ en ejecución.
-  Debe seleccionar al menos un controlador Ingress y asegurarse de que está configurado en su clúster.  
+  Debe seleccionar al menos un controlador Ingress y asegurarte de que está configurado en tu clúster.  
   En esta página se enumeran los controladores Ingress más comunes que se pueden implementar.
 content_type: concept
 weight: 50
 ---
 
 <!-- overview -->
-Para el recurso Ingress funcionar, el cluster necesita tener un controlador Ingress corriendo.
+Para que el recurso Ingress funcione, el clúster necesita tener un controlador Ingress corriendo.
 
-Mientras otros tipos de controladores que corren como parte del binario de `kube-controller-manager`, los controladores Ingress no son automaticamente iniciados dentro del cluster. Usa esta página para elegir la mejor implementación de controlador Ingress que funcione mejor para tu cluster.
+Mientras otros tipos de controladores que corren como parte del binario de `kube-controller-manager`, los controladores Ingress no son automaticamente iniciados dentro del clúster. Usa esta página para elegir la mejor implementación del controlador Ingress que funcione mejor para tu clúster.
 
-Kubernetes es un proyecto que soporta y mantiene los controladores Ingress de [AWS](https://github.com/kubernetes-sigs/aws-load-balancer-controller#readme), [GCE](https://git.k8s.io/ingress-gce/README.md#readme), y
+Kubernetes es un proyecto que soporta y mantiene los controladores Ingress de [AWS](https://github.com/kubernetes-sigs/aws-load-balancer-controller#readme), [GCE](https://git.k8s.io/ingress-gce/README.md#readme) y
   [nginx](https://git.k8s.io/ingress-nginx/README.md#readme).
 
 <!-- body -->
 
-## Controladores adiccionales
+## Controladores adicionales
 
 {{% thirdparty-content %}}
 
@@ -50,8 +50,8 @@ Kubernetes es un proyecto que soporta y mantiene los controladores Ingress de [A
   es un controlador Ingress que controla [Kong Gateway](https://konghq.com/kong/).
 * [Kusk Gateway](https://kusk.kubeshop.io/) es un controlador Ingress OpenAPI-driven basado en [Envoy](https://www.envoyproxy.io).
 * El [NGINX Ingress Controller for Kubernetes](https://www.nginx.com/products/nginx-ingress-controller/)
-  trabaja con el servidor web  (es un proxy) [NGINX](https://www.nginx.com/resources/glossary/nginx/).
-* El [ngrok Kubernetes Ingress Controller](https://github.com/ngrok/kubernetes-ingress-controller) es un controlador de código abierto para añadir acceso público seguro a sus servicios k8s utilizando la [plataforma ngrok](https://ngrok.com).
+  trabaja con el servidor web  (como un proxy) [NGINX](https://www.nginx.com/resources/glossary/nginx/).
+* El [ngrok Kubernetes Ingress Controller](https://github.com/ngrok/kubernetes-ingress-controller) es un controlador de código abierto para añadir acceso público seguro a sus servicios K8s utilizando la [plataforma ngrok](https://ngrok.com).
 * El [OCI Native Ingress Controller](https://github.com/oracle/oci-native-ingress-controller#readme) es un controlador Ingress para Oracle Cloud Infrastructure el cual te permite manejar el [balanceador de cargas OCI](https://docs.oracle.com/en-us/iaas/Content/Balance/home.htm).
 * El [Pomerium Ingress Controller](https://www.pomerium.com/docs/k8s/ingress.html) esta basado en [Pomerium](https://pomerium.com/), que ofrece una política de acceso sensible al contexto.
 * [Skipper](https://opensource.zalando.com/skipper/kubernetes/ingress-controller/) es un enrutador HTTP y proxy inverso para la composición de servicios, incluyendo casos de uso como Kubernetes Ingress, diseñado como una biblioteca para construir su proxy personalizado.
@@ -63,16 +63,16 @@ Kubernetes es un proyecto que soporta y mantiene los controladores Ingress de [A
 
 ## Uso de varios controladores Ingress
 
-Puede desplegar cualquier número de controladores Ingress utilizando [clase ingress](/docs/concepts/services-networking/ingress/#ingress-class)
-dentro de un cluster. Tenga en cuenta el `.metadata.name` de su recurso de clase de entrada. Cuando cree un ingress, necesitará ese nombre para especificar el campo `ingressClassName` de su objeto Ingress (consulte [referencia IngressSpec v1](/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec)). `ingressClassName`sustituye el antiguo [método de anotación](/docs/concepts/services-networking/ingress/#deprecated-annotation).
+Puedes desplegar cualquier número de controladores Ingress utilizando [clase ingress](/docs/concepts/services-networking/ingress/#ingress-class)
+dentro de un clúster. Ten en cuenta el `.metadata.name` de tu recurso de clase de entrada. Cuando creas un Ingress, necesitarás ese nombre para especificar el campo `ingressClassName` de su objeto Ingress (consulta [referencia IngressSpec v1](/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec)). `ingressClassName` sustituye el antiguo [método de anotación](/docs/concepts/services-networking/ingress/#deprecated-annotation).
 
-Si no especifica una IngressClass para un Ingress, y su clúster tiene exactamente una IngressClass marcada como predeterminada, Kubernetes [aplica](/docs/concepts/services-networking/ingress/#default-ingress-class) la IngressClass predeterminada del clúster al Ingress.
-Se marca una IngressClass como predeterminada estableciendo la anotación [`ingressclass.kubernetes.io/is-default-class` annotation](/docs/reference/labels-annotations-taints/#ingressclass-kubernetes-io-is-default-class) en esa IngressClass, con el valor de cadena `"true"`.
+Si no especificas una IngressClass para un Ingress, y tu clúster tiene exactamente una IngressClass marcada como predeterminada, Kubernetes [aplica](/docs/concepts/services-networking/ingress/#default-ingress-class) la IngressClass predeterminada del clúster al Ingress.
+Se marca una IngressClass como predeterminada estableciendo la anotación [anotación `ingressclass.kubernetes.io/is-default-class`](/docs/reference/labels-annotations-taints/#ingressclass-kubernetes-io-is-default-class) en esa IngressClass, con el valor de cadena `"true"`.
 
 Lo ideal sería que todos los controladores Ingress cumplieran esta especificación, pero los distintos controladores Ingress funcionan de forma ligeramente diferente.
 
 {{< note >}}
-Asegúrate de revisar la documentación de tu controlador de entrada para entender las advertencias de su elección.
+Asegúrate de revisar la documentación de tu controlador de entrada para entender las advertencias de tu elección.
 {{< /note >}}
 
 
