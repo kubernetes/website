@@ -30,6 +30,7 @@ Update the taints on one or more nodes.
   *  The value is optional. If given, it must begin with a letter or number, and may contain letters, numbers, hyphens, dots, and underscores, up to 63 characters.
   *  The effect must be NoSchedule, PreferNoSchedule or NoExecute.
   *  Currently taint can only apply to node.
+  *  Note that if you manually schedule a pod by defining a node name in your workload yaml spec file like a pod, deployments, etc. it will override the usual scheduling mechanism, hence, bypassing the taint.
 
 ```
 kubectl taint NODE NAME KEY_1=VAL_1:TAINT_EFFECT_1 ... KEY_N=VAL_N:TAINT_EFFECT_N
