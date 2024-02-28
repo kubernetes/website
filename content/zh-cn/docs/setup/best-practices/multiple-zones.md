@@ -185,21 +185,25 @@ such as Deployment, StatefulSet, or Job.
 <!--
 ## Storage access for zones
 
-When persistent volumes are created, the `PersistentVolumeLabel`
-[admission controller](/docs/reference/access-authn-authz/admission-controllers/)
-automatically adds zone labels to any PersistentVolumes that are linked to a specific
-zone. The {{< glossary_tooltip text="scheduler" term_id="kube-scheduler" >}} then ensures,
+When persistent volumes are created, Kubernetes automatically adds zone labels 
+to any PersistentVolumes that are linked to a specific zone.
+The {{< glossary_tooltip text="scheduler" term_id="kube-scheduler" >}} then ensures,
 through its `NoVolumeZoneConflict` predicate, that pods which claim a given PersistentVolume
 are only placed into the same zone as that volume.
+
+Please note that the method of adding zone labels can depend on your 
+cloud provider and the storage provisioner you’re using. Always refer to the specific 
+documentation for your environment to ensure correct configuration.
 -->
 ## 跨区的存储访问
 
-当创建持久卷时，`PersistentVolumeLabel` 
-[准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)
-会自动向那些链接到特定区的 PersistentVolume 添加区标签。
+当创建持久卷时，Kubernetes 会自动向那些链接到特定区的 PersistentVolume 添加区标签。。
 {{< glossary_tooltip text="调度器" term_id="kube-scheduler" >}}通过其
 `NoVolumeZoneConflict` 断言确保申领给定 PersistentVolume 的 Pods 只会
 被调度到该卷所在的可用区。
+
+请注意，添加区标签的方法可能会根据你所使用的云提供商和存储制备器而有所不同。
+为确保配置正确，请始终参阅你的环境的特定文档。
 
 <!--
 You can specify a {{< glossary_tooltip text="StorageClass" term_id="storage-class" >}}
