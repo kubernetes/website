@@ -49,17 +49,17 @@ aliases:
     - windsonsea
   sig-docs-es-owners: # Admins for Spanish content
     - 92nqb
-    - krol3
     - electrocucaracha
+    - krol3
     - raelga
     - ramrodo
   sig-docs-es-reviews: # PR reviews for Spanish content
     - 92nqb
-    - krol3
     - electrocucaracha
+    - jossemarGT
+    - krol3
     - raelga
     - ramrodo
-    - jossemarGT
   sig-docs-fr-owners: # Admins for French content
     - awkif
     - feloy
