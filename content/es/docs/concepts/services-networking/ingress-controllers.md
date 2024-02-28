@@ -67,7 +67,8 @@ Puedes desplegar cualquier número de controladores Ingress utilizando [clase in
 dentro de un clúster. Ten en cuenta el `.metadata.name` de tu recurso de clase de entrada. Cuando creas un Ingress, necesitarás ese nombre para especificar el campo `ingressClassName` de su objeto Ingress (consulta [referencia IngressSpec v1](/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec)). `ingressClassName` sustituye el antiguo [método de anotación](/docs/concepts/services-networking/ingress/#deprecated-annotation).
 
 Si no especificas una IngressClass para un Ingress, y tu clúster tiene exactamente una IngressClass marcada como predeterminada, Kubernetes [aplica](/docs/concepts/services-networking/ingress/#default-ingress-class) la IngressClass predeterminada del clúster al Ingress.
-Se marca una IngressClass como predeterminada estableciendo la anotación [anotación `ingressclass.kubernetes.io/is-default-class`](/docs/reference/labels-annotations-taints/#ingressclass-kubernetes-io-is-default-class) en esa IngressClass, con el valor de cadena `"true"`.
+Se marca una IngressClass como predeterminada estableciendo la [anotación `ingressclass.kubernetes.io/is-default-class`](/docs/reference/labels-annotations-taints/#ingressclass-kubernetes-io-is-default-class) en esa IngressClass, con el valor de cadena `"true"`.
+
 
 Lo ideal sería que todos los controladores Ingress cumplieran esta especificación, pero los distintos controladores Ingress funcionan de forma ligeramente diferente.
 
