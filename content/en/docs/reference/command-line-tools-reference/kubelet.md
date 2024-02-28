@@ -416,7 +416,7 @@ KubeletPodResourcesGet=true|false (ALPHA - default=false)<br/>
 KubeletSeparateDiskGC=true|false (ALPHA - default=false)<br/>
 KubeletTracing=true|false (BETA - default=true)<br/>
 LegacyServiceAccountTokenCleanUp=true|false (BETA - default=true)<br/>
-LoadBalancerIPMode=true|false (ALPHA - default=false)<br/>
+LoadBalancerIPMode=true|false (BETA - default=true)<br/>
 LocalStorageCapacityIsolationFSQuotaMonitoring=true|false (ALPHA - default=false)<br/>
 LogarithmicScaleDown=true|false (BETA - default=true)<br/>
 LoggingAlphaOptions=true|false (ALPHA - default=false)<br/>
