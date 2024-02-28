@@ -219,6 +219,10 @@ Submissions need to be in Markdown format to be used by the [Hugo](https://gohug
 for the blog. There are [many resources available](https://gohugo.io/documentation/) on how to use
 this technology stack.
 
+For illustrations, diagrams or charts, the [figure shortcode](https://gohugo.io/content-management/shortcodes/#figure)
+can be used. For other images, we strongly encourage use of alt attributes; if an image doesn't
+need any alt attrribute, maybe it's not needed in the article at all.
+
 We recognize that this requirement makes the process more difficult for less-familiar folks to
 submit, and we're constantly looking at solutions to lower this bar. If you have ideas on how to
 lower the barrier, please volunteer to help out. 
@@ -227,6 +231,10 @@ lower the barrier, please volunteer to help out.
 
 所提交的内容应该是 Markdown 格式的，以便能够被 [Hugo](https://gohugo.io/) 生成器来处理。
 关于如何使用相关技术，有[很多可用的资源](https://gohugo.io/documentation/)。
+
+对于插图、表格或图表，可以使用 [figure shortcode](https://gohugo.io/content-management/shortcodes/#figure)。
+对于其他图片，我们强烈建议使用 alt 属性；如果一张图片不需要任何 alt 属性，
+那么这张图片在文章中就不是必需的。
 
 我们知道这一需求可能给那些对此过程不熟悉的朋友们带来不便，
 我们也一直在寻找降低难度的解决方案。
