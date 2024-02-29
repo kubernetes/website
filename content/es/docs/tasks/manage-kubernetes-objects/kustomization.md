@@ -908,7 +908,7 @@ Nota que `-k` debe apuntar a un directorio de kustomization, tal como:
 kubectl apply -k <kustomization directory>/
 ```
 
-Dando como resultado el siguiente`kustomization.yaml`,
+Dando como resultado el siguiente `kustomization.yaml`,
 
 ```shell
 # Crea un archivo deployment.yaml 
