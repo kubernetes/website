@@ -299,7 +299,7 @@ metadata:
 type: Opaque
 ```
 
-Al igual que los ConfigMaps, los Secrets generados pueden utilizarse en Despliegues refiriéndose al nombre del secretGenerator.
+Al igual que los ConfigMaps, los Secrets generados pueden utilizarse en Deployments refiriéndose al nombre del secretGenerator.
 
 
 ```shell
