@@ -1100,7 +1100,7 @@ can define your own (provider specific) annotations on the Service that specify 
 -->
 #### 混合协议类型的负载均衡器
 
-{{< feature-state for_k8s_version="v1.26" state="stable" >}}
+{{< feature-state feature_gate_name="MixedProtocolLBService" >}}
 
 <!--
 By default, for LoadBalancer type of Services, when there is more than one port defined, all
@@ -1197,7 +1197,7 @@ Unprefixed names are reserved for end-users.
 -->
 #### 指定负载均衡器状态的 IPMode    {#load-balancer-ip-mode}
 
-{{< feature-state for_k8s_version="v1.29" state="alpha" >}}
+{{< feature-state feature_gate_name="LoadBalancerIPMode" >}}
 
 <!--
 Starting as Alpha in Kubernetes 1.29, 
