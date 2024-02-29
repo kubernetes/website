@@ -955,7 +955,7 @@ resources:
 EOF
 ```
 
-Ejecuta el siguiente comando para aplicar el objeto de Despliegue `dev-my-nginx`:
+Ejecuta el siguiente comando para aplicar el objeto de Deployment `dev-my-nginx`:
 
 ```shell
 > kubectl apply -k ./
