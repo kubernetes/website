@@ -1,5 +1,5 @@
 ---
-title: Manejo Declarativo de Objectos de Kubernetes usando Kustomize
+title: Manejo Declarativo de Objetos de Kubernetes usando Kustomize
 content_type: task
 weight: 20
 ---
