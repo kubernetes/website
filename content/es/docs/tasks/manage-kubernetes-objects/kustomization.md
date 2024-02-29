@@ -746,7 +746,7 @@ spec:
 
 A veces, la aplicación que se ejecuta en un Pod puede necesitar usar valores de configuración de otros objetos. Por ejemplo, un Pod de un objeto de Deployment necesita leer el nombre del Service correspondiente desde Env o como un argumento de comando.
 
-Dado que el nombre del Servicio puede cambiar a medida que se agrega `namePrefix` o `nameSuffix` en el archivo `kustomization.yaml`. No se recomienda codificar de manera fija el nombre del Service en el argumento del comando. Para este uso, Kustomize puede inyectar el nombre del Service en los contenedores a través de vars.
+Dado que el nombre del Service puede cambiar a medida que se agrega `namePrefix` o `nameSuffix` en el archivo `kustomization.yaml`. No se recomienda codificar de manera fija el nombre del Service en el argumento del comando. Para este uso, Kustomize puede inyectar el nombre del Service en los contenedores a través de vars.
 
 ```shell
 # Create a deployment.yaml file (quoting the here doc delimiter)
