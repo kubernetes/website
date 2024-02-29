@@ -347,7 +347,6 @@ EOF
 
 Los ConfigMaps y Secrets generados tienen un sufijo de hash de contenido añadido. Esto asegura que se genere un nuevo ConfigMap o Secret cuando se cambian los contenidos. Para desactivar el comportamiento de añadir un sufijo, se puede utilizar `generatorOptions`. Además, es posible especificar opciones transversales para los ConfigMaps y Secrets generados.
 
-
 ```shell
 cat <<EOF >./kustomization.yaml
 configMapGenerator:
