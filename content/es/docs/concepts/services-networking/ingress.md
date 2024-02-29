@@ -105,7 +105,7 @@ El nombre del objeto Ingress debe ser un
 The name of an Ingress object must be a
 valid [nombre de subdominio DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)
 válido.
-Para información general sobre cómo trabajar con ficheros de configuración,
+Para información general sobre cómo trabajar con archivos de configuración,
 mira [desplegando aplicaciones](/docs/tasks/run-application/run-stateless-application-deployment/),
 [configurando contenedores](/docs/tasks/configure-pod-container/configure-pod-configmap/),
 [administrando recursos](/docs/concepts/cluster-administration/manage-deployment/).
