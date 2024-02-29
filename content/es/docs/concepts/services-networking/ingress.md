@@ -132,7 +132,7 @@ una [clase Ingress por defecto](#default-ingress-class).
 Existen algunos controladores de Ingress,
 que trabajan sin la definición de una `IngressClass` por defecto.
 Por ejemplo, el controlador Ingress-NGINX se puede configurar con
-una [bandera](https://kubernetes.github.io/ingress-nginx/user-guide/k8s-122-migration/#what-is-the-flag-watch-ingress-without-class)
+una [opción](https://kubernetes.github.io/ingress-nginx/user-guide/k8s-122-migration/#what-is-the-flag-watch-ingress-without-class)
 `--watch-ingress-without-class`.
 Sin embargo,
 se [recomienda](https://kubernetes.github.io/ingress-nginx/user-guide/k8s-122-migration/#i-have-only-one-ingress-controller-in-my-cluster-what-should-i-do)
