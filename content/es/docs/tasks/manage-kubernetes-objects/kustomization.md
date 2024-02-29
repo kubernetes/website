@@ -148,7 +148,7 @@ metadata:
   name: example-configmap-2-g2hdhfc6tk
 ```
 
-Para usar un ConfigMap generado en un Despliegue, refiérelo por el nombre del configMapGenerator. Kustomize reemplazará automáticamente este nombre con el nombre generado.
+Para usar un ConfigMap generado en un Deployment, refiérelo por el nombre del configMapGenerator. Kustomize reemplazará automáticamente este nombre con el nombre generado.
 
 Este es un ejemplo de un despliegue que utiliza un ConfigMap generado:
 
