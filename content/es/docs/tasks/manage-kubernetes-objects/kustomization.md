@@ -519,7 +519,7 @@ resources:
 EOF
 ```
 
-Los Recursos de `kubectl kustomize ./` contienen tanto los objetos de Despliegue como los de Servicio.
+Los Recursos de `kubectl kustomize ./` contienen tanto los objetos de Deployment como los de Servicio.
 
 #### Personalizando
 
