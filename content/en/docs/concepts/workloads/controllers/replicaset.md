@@ -99,7 +99,7 @@ Pod Template:
   Labels:  tier=frontend
   Containers:
    nginx:
-    Image:        nginx
+    Image:        nginx:1.14.2
     Port:         <none>
     Host Port:    <none>
     Environment:  <none>
