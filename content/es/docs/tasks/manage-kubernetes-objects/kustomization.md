@@ -15,7 +15,7 @@ Desde la versión 1.14, Kubectl también admite la gestión de objetos de Kubern
 kubectl kustomize <directorio_de_kustomización>
 ```
 
-Para aplicar esos Recursos, ejecute `kubectl apply` con la bandera `--kustomize` o `-k` :
+Para aplicar esos Recursos, ejecuta `kubectl apply` con la bandera `--kustomize` o `-k` :
 
 ```shell
 kubectl apply -k <directorio_de_kustomización>
