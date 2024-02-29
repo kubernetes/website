@@ -735,7 +735,7 @@ Puedes exponer un Service de muchas maneras que no involucran directamente el
 recurso Ingress:
 
 * Usa
-  un[Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer)
+  un [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer)
 * Usa
   un [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport)
 
