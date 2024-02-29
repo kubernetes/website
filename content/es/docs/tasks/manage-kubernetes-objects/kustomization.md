@@ -909,7 +909,7 @@ EOF
 
 Usa `--kustomize` o `-k` en comandos de `kubectl` para reconocer Recursos gestionados por 
 `kustomization.yaml`.
-Nota que `-k` debe apuntar a un directorio de kustomization, tal como
+Nota que `-k` debe apuntar a un directorio de kustomization, tal como:
 
 ```shell
 kubectl apply -k <kustomization directory>/
