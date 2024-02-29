@@ -14,7 +14,7 @@ weight: 30
 {{< glossary_definition term_id="ingress" length="all" >}}
 
 {{< note >}}
-EL recurso Ingress está congelado.
+El recurso Ingress está congelado.
 Las nuevas características se añaden
 al [API del Gateway](/docs/concepts/services-networking/gateway/)
 {{< /note >}}
