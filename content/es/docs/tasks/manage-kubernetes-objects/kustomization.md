@@ -202,7 +202,7 @@ Genera el ConfigMap y Deployment:
 kubectl kustomize ./
 ```
 
-El Deployment generado hara referencia al  ConfigMap generado por nombre:
+El Deployment generado hara referencia al ConfigMap generado por nombre:
 
 ```yaml
 apiVersion: v1
