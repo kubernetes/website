@@ -150,7 +150,7 @@ metadata:
 
 Para usar un ConfigMap generado en un Deployment, refiérelo por el nombre del configMapGenerator. Kustomize reemplazará automáticamente este nombre con el nombre generado.
 
-Este es un ejemplo de un despliegue que utiliza un ConfigMap generado:
+Este es un ejemplo de un deployment que utiliza un ConfigMap generado:
 
 ```yaml
 # Crear un archivo application.properties
