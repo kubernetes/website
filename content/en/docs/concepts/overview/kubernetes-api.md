@@ -144,7 +144,9 @@ kubectl to fetch the list of resources supported by a cluster.
 
 <!-- body -->
 
-## OpenAPI Specification
+<a id="#api-specification" />
+
+## OpenAPI interface definition
 
 For details about the OpenAPI specifications, see the [OpenAPI documentation](https://www.openapis.org/).
 
