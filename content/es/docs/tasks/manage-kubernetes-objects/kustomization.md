@@ -6,7 +6,7 @@ weight: 20
 
 <!-- overview -->
 
-[Kustomize](https://github.com/kubernetes-sigs/kustomize) es una herramienta independiente para personalizar objetos de Kubernetes a travez  [archivo de kustomization](https://kubectl.docs.kubernetes.io/references/kustomize/glossary/#kustomization).
+[Kustomize](https://github.com/kubernetes-sigs/kustomize) es una herramienta independiente para personalizar objetos de Kubernetes a través de un  [archivo de kustomization](https://kubectl.docs.kubernetes.io/references/kustomize/glossary/#kustomization).
 
 Desde la versión 1.14, Kubectl también admite la gestión de objetos de Kubernetes utilizando un archivo de kustomización. Para ver Recursos encontrados en un directorio que contiene un archivo de kustomización, ejecute el siguiente comando:
 
