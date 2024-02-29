@@ -974,7 +974,7 @@ Ejecuta el siguiente comando para eliminar el objeto de Deployment  `dev-my-ngin
 deployment.apps "dev-my-nginx" deleted
 ```
 
-## Kustomize Feature List
+## Lista de funciones de Kustomize
 
 | Campo                 | Tipo                                                                                                         | Explicación                                                                        |
 |-----------------------|--------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------|
