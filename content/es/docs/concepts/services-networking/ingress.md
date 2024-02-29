@@ -623,7 +623,7 @@ directamente a través del Ingress, existen conceptos paralelos en Kubernetes
 tales
 como [readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
 que permiten lograr el mismo resultado final.
-Revisa la documentación específica del controlador para mirar cómo manejar estas
+Revisa la documentación específica del controlador para conocer cómo manejar estas
 revisiones de salud (por ejemplo:
 [nginx](https://git.k8s.io/ingress-nginx/README.md),
 o [GCE](https://git.k8s.io/ingress-gce/README.md#health-checks)).
