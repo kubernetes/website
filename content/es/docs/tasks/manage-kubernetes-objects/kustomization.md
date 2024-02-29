@@ -285,7 +285,6 @@ EOF
 
 El Secret generado se verá de la siguiente manera:
 
-
 ```yaml
 apiVersion: v1
 data:
