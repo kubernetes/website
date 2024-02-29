@@ -978,7 +978,7 @@ deployment.apps "dev-my-nginx" deleted
 
 | Campo                 | Tipo                                                                                                         | Explicación                                                                        |
 |-----------------------|--------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------|
-| namespace             | string                                                                                                       | Agregar namespace a todos los recursos                                             |
+| namespace             | string                                                                                                       | Agrega Namespace a todos los recursos                                             |
 | namePrefix            | string                                                                                                       | El valor de este campo se antepone a los nombres de todos los recursos             |
 | nameSuffix            | string                                                                                                       | El valor de este campo se añade al final de los nombres de todos los recursos      |
 | commonLabels          | map[string]string                                                                                            | Etiquetas para agregar a los recursos y selectores.                               |
