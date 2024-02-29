@@ -951,7 +951,7 @@ Ejecuta el siguiente comando para aplicar el objeto de Deployment `dev-my-nginx`
 deployment.apps/dev-my-nginx created
 ```
 
-Ejecuta uno de los siguientes comandos para ver el objeto de Deployment  `dev-my-nginx`:
+Ejecuta uno de los siguientes comandos para ver el objeto de Deployment `dev-my-nginx`:
 
 ```shell
 kubectl get -k ./
