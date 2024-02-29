@@ -43,7 +43,7 @@ Para mayor claridad, esta guía define los siguientes términos:
   A menos que se indique de otra manera, los Services se asumen que tienen IPs
   virtuales que solo se pueden enrutar dentro de la red del clúster.
 
-## Qué es un Ingress?
+## ¿Qué es un Ingress?
 
 [Ingress](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1-networking-k8s-io)
 exposes HTTP and HTTPS routes from outside the cluster to
