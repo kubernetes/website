@@ -78,21 +78,7 @@ The **autoscaling/v2beta2** API version of HorizontalPodAutoscaler is no longer 
 
 * Migrate manifests and API clients to use the **autoscaling/v2** API version, available since v1.23.
 * Notable changes in **autoscaling/v2**
-  * **targetAverageUtilization** field is no longer supported. Use `target` object instead
-    * From this 
-      ```yaml
-          - resource:
-            name: memory
-            targetAverageUtilization: 75
-      ```
-    * Change to this
-      ```yaml
-          - resource:
-            name: memory
-            target:
-              averageUtilization: 75
-              type: Utilization
-      ```
+  * **targetAverageUtilization** field is no longer supported. Use [target](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#metrictarget-v2-autoscaling) object instead. Check [Resource metrics](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-resource-metrics) for more details
 
 ### v1.25
 
@@ -145,21 +131,7 @@ The **autoscaling/v2beta1** API version of HorizontalPodAutoscaler is no longer 
 
 * Migrate manifests and API clients to use the **autoscaling/v2** API version, available since v1.23.
 * Notable changes in **autoscaling/v2**
-  * **targetAverageUtilization** field is no longer supported. Use `target` object instead
-    * From this 
-      ```yaml
-          - resource:
-            name: memory
-            targetAverageUtilization: 75
-      ```
-    * Change to this
-      ```yaml
-          - resource:
-            name: memory
-            target:
-              averageUtilization: 75
-              type: Utilization
-      ```
+  * **targetAverageUtilization** field is no longer supported. Use [target](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#metrictarget-v2-autoscaling) object instead. Check [Resource metrics](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-resource-metrics) for more details
 
 #### PodDisruptionBudget {#poddisruptionbudget-v125}
 
