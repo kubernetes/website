@@ -837,7 +837,6 @@ Kustomize tiene los conceptos de **bases** y **overlays**. Una **base** es un di
 
 Aquí hay un ejemplo de una base:
 
-
 ```shell
 
 # Crea un directorio que tendrá la **base**
