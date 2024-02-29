@@ -377,7 +377,7 @@ metadata:
   name: example-configmap-3
 ```
 
-### Setting cross-cutting fields
+### Establecer campos transversales
 
 Es bastante común establecer campos transversales para todos los recursos de Kubernetes en un proyecto.
 Algunos casos de uso para establecer campos transversales:
