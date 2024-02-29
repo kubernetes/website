@@ -387,7 +387,6 @@ Algunos casos de uso para establecer campos transversales:
 * Agregar el mismo conjunto de etiquetas
 * Agregar el mismo conjunto de anotaciones
 
-
 Aquí hay un ejemplo:
 
 ```shell
