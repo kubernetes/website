@@ -526,7 +526,6 @@ Los Recursos de `kubectl kustomize ./` contienen tanto los objetos de Deployment
 
 Los parches pueden usarse para aplicar diferentes personalizaciones a los Recursos. Kustomize admite diferentes mecanismos de parcheo a través de `patchesStrategicMerge` y `patchesJson6902`. `patchesStrategicMerge` es una lista de rutas de archivo. Cada archivo debe resolverse en un [parche de fusión estratégica](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-api-machinery/strategic-merge-patch.md). Los nombres dentro de los parches deben coincidir con los nombres de Recursos que ya están cargados. Se recomiendan pequeños parches que hagan una sola cosa. Por ejemplo, crear un parche para aumentar el número de réplicas del deployment y otro parche para establecer el límite de memoria.
 
-
 ```shell
 # Crea un archivo deployment.yaml
 cat <<EOF > deployment.yaml
