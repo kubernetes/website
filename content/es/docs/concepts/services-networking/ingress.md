@@ -618,7 +618,7 @@ pesos dinámicos) no están expuestos todavía a través del Ingress.
 En su lugar, obtienes estas características a través del balanceador de cargas
 usado por un Service.
 
-Merece la pena apuntar que aunque las revisiones de salud no se exponen
+Vale la pena apuntar que aunque las revisiones de salud no se exponen
 directamente a través del Ingress, existen conceptos paralelos en Kubernetes
 tales
 como [readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
