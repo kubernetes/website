@@ -69,7 +69,7 @@ The API is available both aggregated and unaggregated form. The aggregated
 discovery serves two endpoints while the unaggregated discovery serves a
 separate endpoint for each group version.
 
-### Aggregated Discovery
+### Aggregated discovery
 
 {{< feature-state state="beta" for_k8s_version="v1.27" >}}
 
