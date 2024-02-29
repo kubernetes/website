@@ -889,7 +889,6 @@ EOF
 
 Esta **base** puede ser utilizada en múltiples **overlays**. Puedes agregar diferentes `namePrefix` u otros campos transversales en diferentes **overlays**. Aquí hay dos **overlays** utilizando la misma **base**.
 
-
 ```shell
 mkdir dev
 cat <<EOF > dev/kustomization.yaml
