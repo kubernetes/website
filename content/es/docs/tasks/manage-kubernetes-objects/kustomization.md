@@ -662,7 +662,7 @@ patchesJson6902:
 EOF
 ```
 
-Ejecuta `kubectl kustomize ./` para ver que el campo  `replicas`  está actualizado:
+Ejecuta `kubectl kustomize ./` para ver que el campo `replicas` está actualizado:
 
 ```yaml
 apiVersion: apps/v1
