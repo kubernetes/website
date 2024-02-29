@@ -438,7 +438,7 @@ como el predeterminado en tu clúster.
 Existen algunos controladores de ingress,
 que funcionan sin una definición de una `ingressClass`.
 Por ejemplo, el controlador Ingress-NGINX se puede configurar con
-una [bandera](https://kubernetes.github.io/ingress-nginx/#what-is-the-flag-watch-ingress-without-class)
+una [opción](https://kubernetes.github.io/ingress-nginx/#what-is-the-flag-watch-ingress-without-class)
 `--watch-ingress-without-class`.
 Sin embargo,
 se [recomienda](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do)
