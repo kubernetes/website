@@ -19,17 +19,15 @@ weight: 270
 
 ## {{% heading "prerequisites" %}}
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
 <!--
 You need to have a Kubernetes cluster, and the kubectl command-line tool must
-be configured to communicate with your cluster. It is recommended to run this
-task on a cluster with at least two nodes that are not acting as control plane
-nodes . If you do not already have a cluster, you can create one by using
+be configured to communicate with your cluster. It is recommended to follow this
+guide on a cluster with at least two nodes that are not acting as control plane
+nodes. If you do not already have a cluster, you can create one by using
 [minikube](https://minikube.sigs.k8s.io/docs/tutorials/multi_node/).
 -->
 你需要有一个 Kubernetes 集群，并且必须配置 kubectl 命令行工具以与你的集群通信。
-建议在至少有两个不充当控制平面的节点上运行此任务。如果你还没有集群，
+建议参照本指南在至少有两个不充当控制平面的节点上运行此任务。如果你还没有集群，
 你可以使用 [minikube](https://minikube.sigs.k8s.io/docs/tutorials/multi_node/) 创建一个。
 
 <!-- steps -->
@@ -42,7 +40,14 @@ nodes . If you do not already have a cluster, you can create one by using
 * etcd is a leader-based distributed system. Ensure that the leader
   periodically send heartbeats on time to all followers to keep the cluster
   stable.
+-->
+## 先决条件    {#prerequisites}
 
+* 运行的 etcd 集群个数成员为奇数。
+
+* etcd 是一个基于领导者（Leader-Based）的分布式系统。确保主节点定期向所有从节点发送心跳，以保持集群稳定。
+
+<!--
 * Ensure that no resource starvation occurs.
 
   Performance and stability of the cluster is sensitive to network and disk
@@ -50,25 +55,20 @@ nodes . If you do not already have a cluster, you can create one by using
   of the cluster. An unstable etcd indicates that no leader is elected. Under
   such circumstances, a cluster cannot make any changes to its current state,
   which implies no new pods can be scheduled.
-
-* Keeping etcd clusters stable is critical to the stability of Kubernetes
-  clusters. Therefore, run etcd clusters on dedicated machines or isolated
-  environments for [guaranteed resource requirements](https://etcd.io/docs/current/op-guide/hardware/).
-
-* The minimum recommended etcd versions to run in production are `3.4.22+` and `3.5.6+`.
 -->
-## 先决条件    {#prerequisites}
-
-* 运行的 etcd 集群个数成员为奇数。
-
-* etcd 是一个 leader-based 分布式系统。确保主节点定期向所有从节点发送心跳，以保持集群稳定。
-
 * 确保不发生资源不足。
 
   集群的性能和稳定性对网络和磁盘 I/O 非常敏感。任何资源匮乏都会导致心跳超时，
   从而导致集群的不稳定。不稳定的情况表明没有选出任何主节点。
   在这种情况下，集群不能对其当前状态进行任何更改，这意味着不能调度新的 Pod。
 
+<!--
+* Keeping etcd clusters stable is critical to the stability of Kubernetes
+  clusters. Therefore, run etcd clusters on dedicated machines or isolated
+  environments for [guaranteed resource requirements](https://etcd.io/docs/current/op-guide/hardware/).
+
+* The minimum recommended etcd versions to run in production are `3.4.22+` and `3.5.6+`.
+-->
 * 保持 etcd 集群的稳定对 Kubernetes 集群的稳定性至关重要。
   因此，请在专用机器或隔离环境上运行 etcd 集群，
   以满足[所需资源需求](https://etcd.io/docs/current/op-guide/hardware/)。
@@ -100,7 +100,7 @@ This section covers starting a single-node and multi-node etcd cluster.
 <!--
 ### Single-node etcd cluster
 
-Use a single-node etcd cluster only for testing purpose.
+Use a single-node etcd cluster only for testing purposes.
 
 1. Run the following:
 
@@ -272,10 +272,10 @@ ETCDCTL_API=3 etcdctl --endpoints 10.2.0.9:2379 \
 ### 限制 etcd 集群的访问    {#limiting-access-of-etcd-clusters}
 
 <!--
-After configuring secure communication, restrict the access of etcd cluster to
-only the Kubernetes API servers. Use TLS authentication to do so.
+After configuring secure communication, restrict the access of the etcd cluster to
+only the Kubernetes API servers using TLS authentication.
 -->
-配置安全通信后，限制只有 Kubernetes API 服务器可以访问 etcd 集群。使用 TLS 身份验证来完成此任务。
+配置安全通信后，使用 TLS 身份验证来限制只有 Kubernetes API 服务器可以访问 etcd 集群。
 
 <!--
 For example, consider key pairs `k8sclient.key` and `k8sclient.cert` that are
@@ -301,12 +301,9 @@ flags `--etcd-certfile=k8sclient.cert`, `--etcd-keyfile=k8sclient.key` and
 
 {{< note >}}
 <!--
-etcd authentication is not currently supported by Kubernetes. For more
-information, see the related issue
-[Support Basic Auth for Etcd v2](https://github.com/kubernetes/kubernetes/issues/23398).
+etcd authentication is not planned for Kubernetes.
 -->
-Kubernetes 目前不支持 etcd 身份验证。
-想要了解更多信息，请参阅相关的问题[支持 etcd v2 的基本认证](https://github.com/kubernetes/kubernetes/issues/23398)。
+Kubernetes 没有为 etcd 提供身份验证的计划。
 {{< /note >}}
 
 <!--
@@ -356,7 +353,7 @@ replace it with `member4=http://10.0.0.4`.
    fd422379fda50e48, started, member3, http://10.0.0.3:2380, http://10.0.0.3:2379
    ```
 <!--
-2. Do either of the following:
+1. Do either of the following:
 
    1. If each Kubernetes API server is configured to communicate with all etcd
       members, remove the failed member from the `--etcd-servers` flag, then
@@ -373,16 +370,16 @@ replace it with `member4=http://10.0.0.4`.
       则停止与失败的 etcd 通信的 Kubernetes API 服务器。
 
 <!-- 
-3. Stop the etcd server on the broken node. It is possible that other 
-   clients besides the Kubernetes API server is causing traffic to etcd 
+1. Stop the etcd server on the broken node. It is possible that other 
+   clients besides the Kubernetes API server are causing traffic to etcd 
    and it is desirable to stop all traffic to prevent writes to the data
-   dir.
+   directory.
 -->
 3. 停止故障节点上的 etcd 服务器。除了 Kubernetes API 服务器之外的其他客户端可能会造成流向 etcd 的流量，
    可以停止所有流量以防止写入数据目录。
 
 <!--
-4. Remove the failed member:
+1. Remove the failed member:
 -->
 4. 移除失败的成员：
 
@@ -400,7 +397,7 @@ replace it with `member4=http://10.0.0.4`.
    ```
 
 <!--
-5. Add the new member:
+1. Add the new member:
 -->
 5. 增加新成员：
 
@@ -418,7 +415,7 @@ replace it with `member4=http://10.0.0.4`.
    ```
 
 <!--
-6. Start the newly added member on a machine with the IP `10.0.0.4`:
+1. Start the newly added member on a machine with the IP `10.0.0.4`:
 -->
 6. 在 IP 为 `10.0.0.4` 的机器上启动新增加的成员：
 
@@ -430,7 +427,7 @@ replace it with `member4=http://10.0.0.4`.
    ```
 
 <!--
-7. Do either of the following:
+1. Do either of the following:
 
    1. If each Kubernetes API server is configured to communicate with all etcd
       members, add the newly added member to the `--etcd-servers` flag, then
@@ -459,10 +456,10 @@ For more information on cluster reconfiguration, see
 <!--
 ## Backing up an etcd cluster
 
-All Kubernetes objects are stored on etcd. Periodically backing up the etcd
+All Kubernetes objects are stored in etcd. Periodically backing up the etcd
 cluster data is important to recover Kubernetes clusters under disaster
 scenarios, such as losing all control plane nodes. The snapshot file contains
-all the Kubernetes states and critical information. In order to keep the
+all the Kubernetes state and critical information. In order to keep the
 sensitive Kubernetes data safe, encrypt the snapshot files.
 
 Backing up an etcd cluster can be accomplished in two ways: etcd built-in
@@ -470,7 +467,7 @@ snapshot and volume snapshot.
 -->
 ## 备份 etcd 集群    {#backing-up-an-etcd-cluster}
 
-所有 Kubernetes 对象都存储在 etcd 上。
+所有 Kubernetes 对象都存储在 etcd 中。
 定期备份 etcd 集群数据对于在灾难场景（例如丢失所有控制平面节点）下恢复 Kubernetes 集群非常重要。
 快照文件包含所有 Kubernetes 状态和关键信息。为了保证敏感的 Kubernetes 数据的安全，可以对快照文件进行加密。
 
@@ -482,22 +479,22 @@ snapshot and volume snapshot.
 ### 内置快照    {#built-in-snapshot}
 
 <!--
-etcd supports built-in snapshot. A snapshot may either be taken from a live
+etcd supports built-in snapshot. A snapshot may either be created from a live
 member with the `etcdctl snapshot save` command or by copying the
 `member/snap/db` file from an etcd
 [data directory](https://etcd.io/docs/current/op-guide/configuration/#--data-dir)
-that is not currently used by an etcd process. Taking the snapshot will
+that is not currently used by an etcd process. Creating the snapshot will
 not affect the performance of the member.
 -->
-etcd 支持内置快照。快照可以从使用 `etcdctl snapshot save` 命令的活动成员中获取，
+etcd 支持内置快照。快照可以从使用 `etcdctl snapshot save` 命令的活动成员中创建，
 也可以通过从 etcd [数据目录](https://etcd.io/docs/current/op-guide/configuration/#--data-dir)
-复制 `member/snap/db` 文件，该 etcd 数据目录目前没有被 etcd 进程使用。获取快照不会影响成员的性能。
+复制 `member/snap/db` 文件，该 etcd 数据目录目前没有被 etcd 进程使用。创建快照不会影响成员的性能。
 
 <!--
-Below is an example for taking a snapshot of the keyspace served by
+Below is an example for creating a snapshot of the keyspace served by
 `$ENDPOINT` to the file `snapshot.db`:
 -->
-下面是一个示例，用于获取 `$ENDPOINT` 所提供的键空间的快照到文件 `snapshot.db`：
+下面是一个示例，用于创建 `$ENDPOINT` 所提供的键空间的快照到文件 `snapshot.db`：
 
 ```shell
 ETCDCTL_API=3 etcdctl --endpoints $ENDPOINT snapshot save snapshot.db
@@ -527,11 +524,11 @@ ETCDCTL_API=3 etcdctl --write-out=table snapshot status snapshot.db
 
 <!--
 If etcd is running on a storage volume that supports backup, such as Amazon
-Elastic Block Store, back up etcd data by taking a snapshot of the storage
+Elastic Block Store, back up etcd data by creating a snapshot of the storage
 volume.
 -->
 如果 etcd 运行在支持备份的存储卷（如 Amazon Elastic Block
-存储）上，则可以通过获取存储卷的快照来备份 etcd 数据。
+存储）上，则可以通过创建存储卷的快照来备份 etcd 数据。
 
 <!--
 ### Snapshot using etcdctl options
@@ -539,7 +536,7 @@ volume.
 ### 使用 etcdctl 选项的快照    {#snapshot-using-etcdctl-options}
 
 <!--
-We can also take the snapshot using various options given by etcdctl. For example 
+We can also create the snapshot using various options given by etcdctl. For example: 
 -->
 我们还可以使用 etcdctl 提供的各种选项来制作快照。例如：
 
@@ -548,10 +545,10 @@ ETCDCTL_API=3 etcdctl -h
 ```
 
 <!--
-will list various options available from etcdctl. For example, you can take a snapshot by specifying
-the endpoint, certificates etc as shown below:
+will list various options available from etcdctl. For example, you can create a snapshot by specifying
+the endpoint, certificates and key as shown below:
 -->
-列出 etcdctl 可用的各种选项。例如，你可以通过指定端点、证书等来制作快照，如下所示：
+列出 etcdctl 可用的各种选项。例如，你可以通过指定端点、证书和密钥来制作快照，如下所示：
 
 ```shell
 ETCDCTL_API=3 etcdctl --endpoints=https://127.0.0.1:2379 \
@@ -573,7 +570,7 @@ where `trusted-ca-file`, `cert-file` and `key-file` can be obtained from the des
 Scaling out etcd clusters increases availability by trading off performance.
 Scaling does not increase cluster performance nor capability. A general rule
 is not to scale out or in etcd clusters. Do not configure any auto scaling
-groups for etcd clusters. It is highly recommended to always run a static
+groups for etcd clusters. It is strongly recommended to always run a static
 five-member etcd cluster for production Kubernetes clusters at any officially
 supported scale.
 -->
@@ -599,7 +596,7 @@ for information on how to add members into an existing cluster.
 <!--
 etcd supports restoring from snapshots that are taken from an etcd process of
 the [major.minor](http://semver.org/) version. Restoring a version from a
-different patch version of etcd also is supported. A restore operation is
+different patch version of etcd is also supported. A restore operation is
 employed to recover the data of a failed cluster.
 -->
 etcd 支持从 [major.minor](http://semver.org/) 或其他不同 patch 版本的 etcd 进程中获取的快照进行恢复。
@@ -637,7 +634,7 @@ etcdctl --data-dir <data-dir-location> snapshot restore snapshot.db
 ```
 
 <!--
-If `<data-dir-location>` is the same folder as before, delete it and stop etcd process before restoring the cluster. Else change etcd configuration and restart the etcd process after restoration to make it use the new data directory.
+If `<data-dir-location>` is the same folder as before, delete it and stop the etcd process before restoring the cluster. Otherwise, change etcd configuration and restart the etcd process after restoration to have it use the new data directory.
 -->
 如果 `<data-dir-location>` 与之前的文件夹相同，请先删除此文件夹并停止 etcd 进程，再恢复集群。
 否则，需要在恢复后更改 etcd 配置并重新启动 etcd 进程才能使用新的数据目录。
@@ -650,7 +647,7 @@ For more information and examples on restoring a cluster from a snapshot file, s
 [etcd 灾难恢复文档](https://etcd.io/docs/current/op-guide/recovery/#restoring-a-cluster)。
 
 <!--
-If the access URLs of the restored cluster is changed from the previous
+If the access URLs of the restored cluster are changed from the previous
 cluster, the Kubernetes API server must be reconfigured accordingly. In this
 case, restart Kubernetes API servers with the flag
 `--etcd-servers=$NEW_ETCD_CLUSTER` instead of the flag
@@ -730,13 +727,13 @@ For more details on etcd maintenance, please refer to the [etcd maintenance](htt
 
 {{< note >}}
 <!--
-Defragmentation is an expensive operation, so it should be executed as infrequent
+Defragmentation is an expensive operation, so it should be executed as infrequently
 as possible. On the other hand, it's also necessary to make sure any etcd member
-will not run out of the storage quota. The Kubernetes project recommends that when
+will not exceed the storage quota. The Kubernetes project recommends that when
 you perform defragmentation, you use a tool such as [etcd-defrag](https://github.com/ahrtr/etcd-defrag).
 -->
 碎片整理是一种昂贵的操作，因此应尽可能少地执行此操作。
-另一方面，也有必要确保任何 etcd 成员都不会用尽存储配额。
+另一方面，也有必要确保任何 etcd 成员都不会超过存储配额。
 Kubernetes 项目建议在执行碎片整理时，
 使用诸如 [etcd-defrag](https://github.com/ahrtr/etcd-defrag) 之类的工具。
 {{< /note >}}
