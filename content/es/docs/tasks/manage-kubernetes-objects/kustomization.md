@@ -245,7 +245,7 @@ spec:
 Puedes generar Secrets a partir de archivos o pares clave-valor literales. Para generar un Secret a partir de un archivo, añade una entrada a la lista `files` en `secretGenerator`. Aquí tienes un ejemplo de cómo generar un Secret con un elemento de datos de un archivo.
 
 ```shell
-# Create a password.txt file
+# Crea un archivo password.txt
 cat <<EOF >./password.txt
 username=admin
 password=secret
