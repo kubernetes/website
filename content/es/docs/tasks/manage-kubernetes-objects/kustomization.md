@@ -804,7 +804,6 @@ vars:
 EOF
 ```
 
-Run `kubectl kustomize ./` to see that the Service name injected into containers is `dev-my-nginx-001`:
 Ejecuta `kubectl kustomize ./` para ver que el nombre del Service inyectado en la seccion de contaierns es `dev-my-nginx-001`:
 
 ```yaml
