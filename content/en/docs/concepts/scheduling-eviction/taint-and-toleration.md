@@ -315,7 +315,11 @@ tolerations to all daemons, to prevent DaemonSets from breaking.
 Adding these tolerations ensures backward compatibility. You can also add
 arbitrary tolerations to DaemonSets.
 
-> **Note:** If you manually schedule a pod by defining a node name in your workload yaml spec file like a pod, deployments, etc. it will override the usual scheduling mechanism, hence, bypassing the taint.
+{{< note >}}
+If you manually schedule a pod by defining a node name in your workload yaml spec
+file like a pod, deployments, etc. it will override the usual scheduling mechanism,
+hence, bypassing the taint.
+{{< /note >}}
 
 ## {{% heading "whatsnext" %}}
 
