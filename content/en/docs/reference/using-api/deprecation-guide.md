@@ -77,7 +77,22 @@ The **flowcontrol.apiserver.k8s.io/v1beta1** API version of FlowSchema and Prior
 The **autoscaling/v2beta2** API version of HorizontalPodAutoscaler is no longer served as of v1.26.
 
 * Migrate manifests and API clients to use the **autoscaling/v2** API version, available since v1.23.
-* All existing persisted objects are accessible via the new API
+* Notable changes in **autoscaling/v2**
+  * **targetAverageUtilization** field is no longer supported. Use `target` object instead
+    * From this 
+      ```yaml
+          - resource:
+            name: memory
+            targetAverageUtilization: 75
+      ```
+    * Change to this
+      ```yaml
+          - resource:
+            name: memory
+            target:
+              averageUtilization: 75
+              type: Utilization
+      ```
 
 ### v1.25
 
@@ -129,7 +144,22 @@ The **events.k8s.io/v1beta1** API version of Event is no longer served as of v1.
 The **autoscaling/v2beta1** API version of HorizontalPodAutoscaler is no longer served as of v1.25.
 
 * Migrate manifests and API clients to use the **autoscaling/v2** API version, available since v1.23.
-* All existing persisted objects are accessible via the new API
+* Notable changes in **autoscaling/v2**
+  * **targetAverageUtilization** field is no longer supported. Use `target` object instead
+    * From this 
+      ```yaml
+          - resource:
+            name: memory
+            targetAverageUtilization: 75
+      ```
+    * Change to this
+      ```yaml
+          - resource:
+            name: memory
+            target:
+              averageUtilization: 75
+              type: Utilization
+      ```
 
 #### PodDisruptionBudget {#poddisruptionbudget-v125}
 
