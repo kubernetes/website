@@ -298,7 +298,6 @@ type: Opaque
 
 Al igual que los ConfigMaps, los Secrets generados pueden utilizarse en Deployments refiriéndose al nombre del secretGenerator.
 
-
 ```shell
 # Crea un archivo password.txt 
 cat <<EOF >./password.txt
