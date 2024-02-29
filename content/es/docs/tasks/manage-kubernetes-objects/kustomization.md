@@ -34,7 +34,7 @@ Instala [`kubectl`](/docs/tasks/tools/).
 
 <!-- steps -->
 
-## Overview of Kustomize
+## Descripción General de Kustomize
 
 Kustomize es una herramienta para personalizar configuraciones de Kubernetes. Ofrece características para manejar archivos de configuración de aplicaciones, tales como:
 
