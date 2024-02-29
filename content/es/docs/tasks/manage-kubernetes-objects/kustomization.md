@@ -44,7 +44,7 @@ Kustomize es una herramienta para personalizar configuraciones de Kubernetes. Of
 
 ### Generando Recursos
 
-ConfigMaps y Secrets almacenan configuración o datos sensibles utilizados por otros objetos de Kubernetes, como los Pods. La fuente de verdad de los ConfigMaps o Secrets suele ser externa a un clúster, como un archivo `.properties` o un archivo de clave SSH.
+ConfigMaps y Secrets almacenan configuración o datos sensibles utilizados por otros objetos de Kubernetes, como los Pods. La unica fuente fiable de los ConfigMaps o Secrets suele ser externa a un clúster, como un archivo `.properties` o un archivo de clave SSH.
 Kustomize tiene `secretGenerator` y `configMapGenerator`, que generan Secret y ConfigMap a partir de archivos o literales.
 
 #### configMapGenerator
