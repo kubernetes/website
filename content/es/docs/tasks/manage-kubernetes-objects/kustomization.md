@@ -824,7 +824,7 @@ spec:
         name: my-nginx
 ```
 
-## Bases and Overlays
+## Bases y Overlays
 
 
 Kustomize tiene los conceptos de **bases** y **overlays**. Una **base** es un directorio con un `kustomization.yaml`, que contiene un conjunto de recursos y personalización asociada. Una **base** puede ser un directorio local o un directorio de un repositorio remoto, siempre que haya un ``kustomization.yaml`` presente dentro. Un **overlay** es un directorio con un ``kustomization.yaml`` que se refiere a otros directorios de kustomization como sus `bases`. Una **base** no tiene conocimiento de un **overlay** y puede ser utilizada en múltiples **overlays**. Un **overlay** puede tener múltiples **bases** y compone todos los recursos de las **bases** y también puede tener personalizaciones encima de ellos.
