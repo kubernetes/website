@@ -77,6 +77,7 @@ The **flowcontrol.apiserver.k8s.io/v1beta1** API version of FlowSchema and Prior
 The **autoscaling/v2beta2** API version of HorizontalPodAutoscaler is no longer served as of v1.26.
 
 * Migrate manifests and API clients to use the **autoscaling/v2** API version, available since v1.23.
+* All existing persisted objects are accessible via the new API
 * Notable changes:
   * `targetAverageUtilization` is replaced with `target.averageUtilization` and `target.type: Utilization`. See [Autoscaling on multiple metrics and custom metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics).
 ### v1.25
@@ -129,6 +130,7 @@ The **events.k8s.io/v1beta1** API version of Event is no longer served as of v1.
 The **autoscaling/v2beta1** API version of HorizontalPodAutoscaler is no longer served as of v1.25.
 
 * Migrate manifests and API clients to use the **autoscaling/v2** API version, available since v1.23.
+* All existing persisted objects are accessible via the new API
 * Notable changes:
   * `targetAverageUtilization` is replaced with `target.averageUtilization` and `target.type: Utilization`. See [Autoscaling on multiple metrics and custom metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics).
 
