@@ -1,21 +1,21 @@
 ---
-title: Manejo Declarativo de Objetos de Kubernetes usando Kustomize
+title: Manejo Declarativo de Objectos de Kubernetes usando Kustomize
 content_type: task
 weight: 20
 ---
 
 <!-- overview -->
 
-[Kustomize](https://github.com/kubernetes-sigs/kustomize) es una herramienta independiente para personalizar objetos de Kubernetes a través de un [archivo de kustomization](https://kubectl.docs.kubernetes.io/references/kustomize/glossary/#kustomization).
+[Kustomize](https://github.com/kubernetes-sigs/kustomize) es una herramienta independiente para personalizar objetos de Kubernetes a través de un  [archivo de kustomization](https://kubectl.docs.kubernetes.io/references/kustomize/glossary/#kustomization).
 
-Desde la versión 1.14, Kubectl también admite la gestión de objetos de Kubernetes utilizando un archivo de kustomización. Para ver recursos encontrados en un directorio que contiene un archivo de kustomización, ejecuta el siguiente comando:
+Desde la versión 1.14, Kubectl también admite la gestión de objetos de Kubernetes utilizando un archivo de kustomización. Para ver Recursos encontrados en un directorio que contiene un archivo de kustomización, ejecuta el siguiente comando:
 
 
 ```shell
 kubectl kustomize <directorio_de_kustomización>
 ```
 
-Para aplicar esos recursos, ejecuta `kubectl apply` con la bandera `--kustomize` o `-k` :
+Para aplicar esos Recursos, ejecuta `kubectl apply` con la bandera `--kustomize` o `-k` :
 
 ```shell
 kubectl apply -k <directorio_de_kustomización>
@@ -44,7 +44,7 @@ Kustomize es una herramienta para personalizar configuraciones de Kubernetes. Of
 
 ### Generando Recursos
 
-ConfigMaps y Secrets almacenan configuración o datos sensibles utilizados por otros objetos de Kubernetes, como los Pods. La unica fuente fiable de los ConfigMaps o Secrets suele ser externa a un clúster, como un archivo `.properties` o un archivo de clave SSH.
+ConfigMaps y Secrets almacenan configuración o datos sensibles utilizados por otros objetos de Kubernetes, como los Pods. La fuente de verdad de los ConfigMaps o Secrets suele ser externa a un clúster, como un archivo `.properties` o un archivo de clave SSH.
 Kustomize tiene `secretGenerator` y `configMapGenerator`, que generan Secret y ConfigMap a partir de archivos o literales.
 
 #### configMapGenerator
@@ -908,7 +908,7 @@ Nota que `-k` debe apuntar a un directorio de kustomization, tal como:
 kubectl apply -k <kustomization directory>/
 ```
 
-Dando como resultado el siguiente `kustomization.yaml`,
+Dando como resultado el siguiente`kustomization.yaml`,
 
 ```shell
 # Crea un archivo deployment.yaml 
@@ -951,7 +951,7 @@ Ejecuta el siguiente comando para aplicar el objeto de Deployment `dev-my-nginx`
 deployment.apps/dev-my-nginx created
 ```
 
-Ejecuta uno de los siguientes comandos para ver el objeto de Deployment `dev-my-nginx`:
+Ejecuta uno de los siguientes comandos para ver el objeto de Deployment  `dev-my-nginx`:
 
 ```shell
 kubectl get -k ./
@@ -974,14 +974,14 @@ Ejecuta el siguiente comando para eliminar el objeto de Deployment  `dev-my-ngin
 deployment.apps "dev-my-nginx" deleted
 ```
 
-## Lista de funciones de Kustomize
+## Kustomize Feature List
 
 | Campo                 | Tipo                                                                                                         | Explicación                                                                        |
 |-----------------------|--------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------|
-| namespace             | string                                                                                                       | Agrega Namespace a todos los recursos                                             |
+| namespace             | string                                                                                                       | Agregar namespace a todos los recursos                                             |
 | namePrefix            | string                                                                                                       | El valor de este campo se antepone a los nombres de todos los recursos             |
 | nameSuffix            | string                                                                                                       | El valor de este campo se añade al final de los nombres de todos los recursos      |
-| commonLabels          | map[string]string                                                                                            | Etiquetas para agregar a los recursos y selectores.                               |
+| commonLabels          | map[string]string                                                                                            | Etiquetas para agregar a los  recursos y selectores.                               |
 | commonAnnotations     | map[string]string                                                                                            | Anotaciones para agregar a todos los recursos                                      |
 | resources             | []string                                                                                                     | Cada entrada en esta lista debe resolverse en un archivo de configuración de recurso existente |
 | configMapGenerator    | [][ConfigMapArgs](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/configmapargs.go#L7)    | Cada entrada en esta lista genera un ConfigMap                                     |
