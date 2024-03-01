@@ -78,8 +78,7 @@ The **autoscaling/v2beta2** API version of HorizontalPodAutoscaler is no longer 
 
 * Migrate manifests and API clients to use the **autoscaling/v2** API version, available since v1.23.
 * Notable changes:
-  * `targetAverageUtilization` is replaced with `target.averageUtilization` and `target.type=Utilization`. See [Metric Target](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#metrictarget-v2-autoscaling).
-
+  * `targetAverageUtilization` is replaced with `target.averageUtilization` and `target.type: Utilization`. See [Autoscaling on multiple metrics and custom metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics).
 ### v1.25
 
 The **v1.25** release stopped serving the following deprecated API versions:
@@ -131,7 +130,7 @@ The **autoscaling/v2beta1** API version of HorizontalPodAutoscaler is no longer 
 
 * Migrate manifests and API clients to use the **autoscaling/v2** API version, available since v1.23.
 * Notable changes:
-  * `targetAverageUtilization` is replaced with `target.averageUtilization` and `target.type=Utilization`. See [Metric Target](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#metrictarget-v2-autoscaling).
+  * `targetAverageUtilization` is replaced with `target.averageUtilization` and `target.type: Utilization`. See [Autoscaling on multiple metrics and custom metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics).
 
 #### PodDisruptionBudget {#poddisruptionbudget-v125}
 
