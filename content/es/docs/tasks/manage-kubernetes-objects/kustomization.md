@@ -742,7 +742,7 @@ A veces, la aplicación que se ejecuta en un Pod puede necesitar usar valores de
 Dado que el nombre del Service puede cambiar a medida que se agrega `namePrefix` o `nameSuffix` en el archivo `kustomization.yaml`. No se recomienda codificar de manera fija el nombre del Service en el argumento del comando. Para este uso, Kustomize puede inyectar el nombre del Service en los contenedores a través de vars.
 
 ```shell
-# Create a deployment.yaml file (quoting the here doc delimiter)
+# Crea un archivo deployment.yaml (citando el delimitador de documento aquí)
 cat <<'EOF' > deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
