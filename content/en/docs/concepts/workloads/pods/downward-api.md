@@ -77,7 +77,6 @@ The following information is available through environment variables
 
 `status.hostIPs`
 : the IP addresses is a dual-stack version of `status.hostIP`, the first is always the same as `status.hostIP`.
-  The field is available if you enable the `PodHostIPs` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 
 `status.podIP`
 : the pod's primary IP address (usually, its IPv4 address)
