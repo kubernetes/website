@@ -28,7 +28,7 @@ of operating system.
 -->
 在许多组织中，所运行的很大一部分服务和应用是 Windows 应用。
 [Windows 容器](https://aka.ms/windowscontainers)提供了一种封装进程和包依赖项的方式，
-从而简化了 DevOps 实践，令 Windows 应用程序同样遵从云原生模式。
+从而简化了 DevOps 实践，令 Windows 应用同样遵从云原生模式。
 
 对于同时投入基于 Windows 应用和 Linux 应用的组织而言，他们不必寻找不同的编排系统来管理其工作负载，
 使其跨部署的运营效率得以大幅提升，而不必关心所用的操作系统。
@@ -48,7 +48,7 @@ multiple operating systems.
 While you can only run the {{< glossary_tooltip text="control plane" term_id="control-plane" >}} on Linux,
 you can deploy worker nodes running either Windows or Linux.
 -->
-## Kubernetes 中的 Windows 节点 {#windows-nodes-in-k8s}
+## Kubernetes 中的 Windows 节点   {#windows-nodes-in-k8s}
 
 若要在 Kubernetes 中启用对 Windows 容器的编排，可以在现有的 Linux 集群中包含 Windows 节点。
 在 Kubernetes 上调度 {{< glossary_tooltip text="Pod" term_id="pod" >}} 中的 Windows 容器与调度基于 Linux 的容器类似。
@@ -60,13 +60,14 @@ you can deploy worker nodes running either Windows or Linux.
 <!--
 Windows {{< glossary_tooltip text="nodes" term_id="node" >}} are
 [supported](#windows-os-version-support) provided that the operating system is
-Windows Server 2019.
+Windows Server 2019 or Windows Server 2022.
 
 This document uses the term *Windows containers* to mean Windows containers with
 process isolation. Kubernetes does not support running Windows containers with
 [Hyper-V isolation](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container).
 -->
-支持 Windows {{< glossary_tooltip text="节点" term_id="node" >}}的前提是操作系统为 Windows Server 2019。
+支持 Windows {{< glossary_tooltip text="节点" term_id="node" >}}的前提是操作系统为
+Windows Server 2019 或 Windows Server 2022。
 
 本文使用术语 **Windows 容器**表示具有进程隔离能力的 Windows 容器。
 Kubernetes 不支持使用
@@ -85,7 +86,7 @@ including:
   [HostProcess Containers](/docs/tasks/configure-pod-container/create-hostprocess-pod/) offer similar functionality.
 * TerminationGracePeriod: requires containerD
 -->
-## 兼容性与局限性 {#limitations}
+## 兼容性与局限性   {#limitations}
 
 某些节点层面的功能特性仅在使用特定[容器运行时](#container-runtime)时才可用；
 另外一些特性则在 Windows 节点上不可用，包括：
@@ -109,7 +110,8 @@ functionality which are outlined in this section.
 Windows 节点并不支持共享命名空间的所有功能特性。
 有关更多详细信息，请参考 [API 兼容性](#api)。
 
-有关 Kubernetes 测试时所使用的 Windows 版本的详细信息，请参考 [Windows 操作系统版本兼容性](#windows-os-version-support)。
+有关 Kubernetes 测试时所使用的 Windows 版本的详细信息，请参考
+[Windows 操作系统版本兼容性](#windows-os-version-support)。
 
 从 API 和 kubectl 的角度来看，Windows 容器的行为与基于 Linux 的容器非常相似。
 然而，在本节所概述的一些关键功能上，二者存在一些显著差异。
@@ -120,7 +122,7 @@ Windows 节点并不支持共享命名空间的所有功能特性。
 Key Kubernetes elements work the same way in Windows as they do in Linux. This
 section refers to several key workload abstractions and how they map to Windows.
 -->
-### 与 Linux 比较 {#comparison-with-Linux-similarities}
+### 与 Linux 比较   {#comparison-with-Linux-similarities}
 
 Kubernetes 关键组件在 Windows 上的工作方式与在 Linux 上相同。
 本节介绍几个关键的工作负载抽象及其如何映射到 Windows。
@@ -140,6 +142,7 @@ Kubernetes 关键组件在 Windows 上的工作方式与在 Linux 上相同。
   你不可以在同一个 Pod 中部署 Windows 和 Linux 容器。
   Pod 中的所有容器都调度到同一 Node 上，每个 Node 代表一个特定的平台和体系结构。
   Windows 容器支持以下 Pod 能力、属性和事件：
+
   <!--
   * Single or multiple containers per Pod with process isolation and volume sharing
   * Pod `status` fields
@@ -257,7 +260,7 @@ Pod、工作负载资源和 Service 是在 Kubernetes 上管理 Windows 工作�
 
 Some kubelet command line options behave differently on Windows, as described below:
 -->
-### kubelet 的命令行选项 {#kubelet-compatibility}
+### kubelet 的命令行选项   {#kubelet-compatibility}
 
 某些 kubelet 命令行选项在 Windows 上的行为不同，如下所述：
 
@@ -296,7 +299,7 @@ and container runtime. Some workload properties were designed for Linux, and fai
 
 At a high level, these OS concepts are different:
 -->
-### API 兼容性 {#api}
+### API 兼容性   {#api}
 
 由于操作系统和容器运行时的缘故，Kubernetes API 在 Windows 上的工作方式存在细微差异。
 某些工作负载属性是为 Linux 设计的，无法在 Windows 上运行。
@@ -367,7 +370,7 @@ work between Windows and Linux:
   node. They should be applied to all containers as a best practice if the operator
   wants to avoid overprovisioning entirely.
 -->
-#### 容器规约的字段兼容性 {#compatibility-v1-pod-spec-containers}
+#### 容器规约的字段兼容性   {#compatibility-v1-pod-spec-containers}
 
 以下列表记录了 Pod 容器规约在 Windows 和 Linux 之间的工作方式差异：
 
@@ -437,7 +440,7 @@ The following list documents differences between how Pod specifications work bet
   which are not implemented on Windows. Windows cannot share process namespaces or
   the container's root filesystem. Only the network can be shared.
 -->
-#### Pod 规约的字段兼容性 {#compatibility-v1-pod}
+#### Pod 规约的字段兼容性   {#compatibility-v1-pod}
 
 以下列表记录了 Pod 规约在 Windows 和 Linux 之间的工作方式差异：
 
@@ -446,7 +449,7 @@ The following list documents differences between how Pod specifications work bet
 * `dnsPolicy` - Windows 不支持将 Pod `dnsPolicy` 设为 `ClusterFirstWithHostNet`，
   因为未提供主机网络。Pod 始终用容器网络运行。
 * `podSecurityContext` [参见下文](#compatibility-v1-pod-spec-containers-securitycontext)
-* `shareProcessNamespace` - 这是一个 beta 版功能特性，依赖于 Windows 上未实现的 Linux 命名空间。
+* `shareProcessNamespace` - 这是一个 Beta 版功能特性，依赖于 Windows 上未实现的 Linux 命名空间。
   Windows 无法共享进程命名空间或容器的根文件系统（root filesystem）。
   只能共享网络。
 <!--
@@ -471,7 +474,7 @@ The following list documents differences between how Pod specifications work bet
   最后使用正常的 Windows 关机行为终止所有进程。
   5 秒默认值实际上位于[容器内](https://github.com/moby/moby/issues/25982#issuecomment-426441183)的
   Windows 注册表中，因此在构建容器时可以覆盖这个值。
-* `volumeDevices` - 这是一个 beta 版功能特性，未在 Windows 上实现。
+* `volumeDevices` - 这是一个 Beta 版功能特性，未在 Windows 上实现。
   Windows 无法将原始块设备挂接到 Pod。
 * `volumes`
   * 如果你定义一个 `emptyDir` 卷，则你无法将卷源设为 `memory`。
@@ -485,7 +488,7 @@ The following list documents differences between how Pod specifications work bet
 The kubelet can now request that pods running on Windows nodes use the host's network namespace instead
 of creating a new pod network namespace. To enable this functionality pass `--feature-gates=WindowsHostNetwork=true` to the kubelet.
 -->
-#### hostNetwork 的字段兼容性 {#compatibility-v1-pod-spec-containers-hostnetwork}
+#### hostNetwork 的字段兼容性   {#compatibility-v1-pod-spec-containers-hostnetwork}
 
 {{< feature-state for_k8s_version="v1.26" state="alpha" >}}
 
@@ -505,9 +508,9 @@ This functionality requires a container runtime that supports this functionality
 Only the `securityContext.runAsNonRoot` and `securityContext.windowsOptions` from the Pod
 [`securityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context) fields work on Windows.
 -->
-#### Pod 安全上下文的字段兼容性 {#compatibility-v1-pod-spec-containers-securitycontext}
+#### Pod 安全上下文的字段兼容性   {#compatibility-v1-pod-spec-containers-securitycontext}
 
-Pod 的 [`securityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)
+Pod 的 [`securityContext`](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)
 中只有 `securityContext.runAsNonRoot` 和 `securityContext.windowsOptions` 字段在 Windows 上生效。
 
 <!--
@@ -518,7 +521,7 @@ The node problem detector (see
 has preliminary support for Windows.
 For more information, visit the project's [GitHub page](https://github.com/kubernetes/node-problem-detector#windows).
 -->
-## 节点问题检测器 {#node-problem-detector}
+## 节点问题检测器   {#node-problem-detector}
 
 节点问题检测器（参考[节点健康监测](/zh-cn/docs/tasks/debug/debug-cluster/monitor-node-health/)）初步支持 Windows。
 有关更多信息，请访问该项目的 [GitHub 页面](https://github.com/kubernetes/node-problem-detector#windows)。
@@ -534,7 +537,7 @@ containers, share a common network endpoint (same IPv4 and / or IPv6 address, sa
 network port spaces). Kubernetes uses pause containers to allow for worker containers
 crashing or restarting without losing any of the networking configuration.
 -->
-## Pause 容器 {#pause-container}
+## Pause 容器   {#pause-container}
 
 在 Kubernetes Pod 中，首先创建一个基础容器或 “pause” 容器来承载容器。
 在 Linux 中，构成 Pod 的 cgroup 和命名空间维持持续存在需要一个进程；
@@ -577,7 +580,7 @@ into each node in the cluster so that Pods can run there.
 
 The following container runtimes work with Windows:
 -->
-## 容器运行时 {#container-runtime}
+## 容器运行时   {#container-runtime}
 
 你需要将{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}安装到集群中的每个节点，
 这样 Pod 才能在这些节点上运行。
@@ -596,7 +599,7 @@ as the container runtime for Kubernetes nodes that run Windows.
 
 Learn how to [install ContainerD on a Windows node](/docs/setup/production-environment/container-runtimes/#containerd).
 -->
-### ContainerD {#containerd}
+### ContainerD
 
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
@@ -624,7 +627,7 @@ is available as a container runtime for all Windows Server 2019 and later versio
 
 See [Install MCR on Windows Servers](https://docs.mirantis.com/mcr/20.10/install/mcr-windows.html) for more information.
 -->
-### Mirantis 容器运行时 {#mcr}
+### Mirantis 容器运行时   {#mcr}
 
 [Mirantis 容器运行时](https://docs.mirantis.com/mcr/20.10/overview.html)（MCR）
 可作为所有 Windows Server 2019 和更高版本的容器运行时。
@@ -641,7 +644,7 @@ operating system of Windows Server 2019 are fully supported.
 For Kubernetes v{{< skew currentVersion >}}, operating system compatibility for Windows nodes (and Pods)
 is as follows:
 -->
-## Windows 操作系统版本兼容性 {#windows-os-version-support}
+## Windows 操作系统版本兼容性   {#windows-os-version-support}
 
 在 Windows 节点上，如果主机操作系统版本必须与容器基础镜像操作系统版本匹配，
 则会应用严格的兼容性规则。
@@ -654,12 +657,78 @@ Windows Server LTSC release
 : Windows Server 2022
 
 Windows Server SAC release
-:  Windows Server version 20H2
+: Windows Server version 20H2
 
 <!--
 The Kubernetes [version-skew policy](/docs/setup/release/version-skew-policy/) also applies.
 -->
 也适用 Kubernetes [版本偏差策略](/zh-cn/releases/version-skew-policy/)。
+
+<!--
+## Hardware recommendations and considerations {#windows-hardware-recommendations}
+-->
+## 硬件建议和注意事项   {#windows-hardware-recommendations}
+
+{{% thirdparty-content %}}
+
+{{< note >}}
+<!--
+The following hardware specifications outlined here should be regarded as sensible default values. 
+They are not intended to represent minimum requirements or specific recommendations for production environments.
+Depending on the requirements for your workload these values may need to be adjusted.
+-->
+这里列出的硬件规格应被视为合理的默认值。
+它们并不代表生产环境的最低要求或具体推荐。
+根据你的工作负载要求，这些值可能需要进行调整。
+{{< /note >}}
+
+<!--
+- 64-bit processor 4 CPU cores or more, capable of supporting virtualization
+- 8GB or more of RAM
+- 50GB or more of free disk space
+-->
+- 64 位处理器，4 核或更多的 CPU，能够支持虚拟化
+- 8GB 或更多的 RAM
+- 50GB 或更多的可用磁盘空间
+
+<!--
+Refer to
+[Hardware requirements for Windows Server Microsoft documentation](https://learn.microsoft.com/en-us/windows-server/get-started/hardware-requirements)
+for the most up-to-date information on minimum hardware requirements. For guidance on deciding on resources for
+production worker nodes refer to [Production worker nodes Kubernetes documentation](https://kubernetes.io/docs/setup/production-environment/#production-worker-nodes).
+-->
+有关最新的最低硬件要求信息，
+请参考[微软文档：Windows Server 的硬件要求](https://learn.microsoft.com/zh-cn/windows-server/get-started/hardware-requirements)。
+有关决定生产工作节点资源的指导信息，
+请参考 [Kubernetes 文档：生产用工作节点](https://kubernetes.io/zh-cn/docs/setup/production-environment/#production-worker-nodes)。
+
+<!--
+To optimize system resources, if a graphical user interface is not required,
+it may be preferable to use a Windows Server OS installation that excludes
+the [Windows Desktop Experience](https://learn.microsoft.com/en-us/windows-server/get-started/install-options-server-core-desktop-experience)
+installation option, as this configuration typically frees up more system 
+resources.
+-->
+为了优化系统资源，如果图形用户界面不是必需的，最好选择一个不包含
+[Windows 桌面体验](https://learn.microsoft.com/zh-cn/windows-server/get-started/install-options-server-core-desktop-experience)安装选项的
+Windows Server 操作系统安装包，因为这种配置通常会释放更多的系统资源。
+
+<!--
+In assessing disk space for Windows worker nodes, take note that Windows container images are typically larger than
+Linux container images, with container image sizes ranging
+from [300MB to over 10GB](https://techcommunity.microsoft.com/t5/containers/nano-server-x-server-core-x-server-which-base-image-is-the-right/ba-p/2835785)
+for a single image. Additionally, take note that the `C:` drive in Windows containers represents a virtual free size of
+20GB by default, which is not the actual consumed space, but rather the disk size for which a single container can grow
+to occupy when using local storage on the host.
+See [Containers on Windows - Container Storage Documentation](https://learn.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/container-storage#storage-limits)
+for more detail.
+-->
+在估算 Windows 工作节点的磁盘空间时，需要注意 Windows 容器镜像通常比 Linux 容器镜像更大，
+单个镜像的容器大小范围从 [300MB 到超过 10GB](https://techcommunity.microsoft.com/t5/containers/nano-server-x-server-core-x-server-which-base-image-is-the-right/ba-p/2835785)。
+此外，需要注意 Windows 容器中的 `C:` 驱动器默认呈现的虚拟剩余空间为 20GB，
+这不是实际的占用空间，而是使用主机上的本地存储时单个容器可以最多占用的磁盘大小。
+有关更多详细信息，
+请参见[在 Windows 上运行容器 - 容器存储文档](https://learn.microsoft.com/zh-cn/virtualization/windowscontainers/manage-containers/container-storage#storage-limits)。
 
 <!--
 ## Getting help and troubleshooting {#troubleshooting}
@@ -675,7 +744,7 @@ troubleshooting assistance from other contributors. Follow the
 instructions in the
 SIG Windows [contributing guide on gathering logs](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#gathering-logs).
 -->
-## 获取帮助和故障排查 {#troubleshooting}
+## 获取帮助和故障排查   {#troubleshooting}
 
 对 Kubernetes 集群进行故障排查的主要帮助来源应始于[故障排查](/zh-cn/docs/tasks/debug/)页面。
 
@@ -695,14 +764,12 @@ reported previously and comment with your experience on the issue and add additi
 logs. SIG Windows channel on the Kubernetes Slack is also a great avenue to get some initial support and
 troubleshooting ideas prior to creating a ticket.
 -->
-### 报告问题和功能请求 {#report-issue-and-feature-request}
+### 报告问题和功能请求   {#report-issue-and-feature-request}
 
 如果你发现疑似 bug，或者你想提出功能请求，请按照
 [SIG Windows 贡献指南](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#reporting-issues-and-feature-requests)
-新建一个 Issue。
-你应该先搜索 issue 列表，以防之前报告过这个问题，凭你对该问题的经验添加评论，
-并随附日志信息。
-Kubernetes Slack 上的 SIG Windows 频道也是一个很好的途径，
+新建一个 Issue。你应该先搜索 Issue 列表，以防之前报告过这个问题，凭你对该问题的经验添加评论，
+并随附日志信息。Kubernetes Slack 上的 SIG Windows 频道也是一个很好的途径，
 可以在创建工单之前获得一些初始支持和故障排查思路。
 
 ## {{% heading "whatsnext" %}}
@@ -715,7 +782,7 @@ plane to manage the cluster it, and nodes to run your workloads.
 
 The Kubernetes [cluster API](https://cluster-api.sigs.k8s.io/) project also provides means to automate deployment of Windows nodes.
 -->
-## 部署工具 {#deployment-tools}
+## 部署工具   {#deployment-tools}
 
 kubeadm 工具帮助你部署 Kubernetes 集群，提供管理集群的控制平面以及运行工作负载的节点。
 
@@ -732,7 +799,7 @@ Information on the different Windows Server servicing channels
 including their support models can be found at
 [Windows Server servicing channels](https://docs.microsoft.com/en-us/windows-server/get-started/servicing-channels-comparison).
 -->
-## Windows 分发渠道 {#windows-distribution-channels}
+## Windows 分发渠道   {#windows-distribution-channels}
 
 有关 Windows 分发渠道的详细阐述，请参考
 [Microsoft 文档](https://docs.microsoft.com/zh-cn/windows-server/get-started-19/servicing-channels-19)。
