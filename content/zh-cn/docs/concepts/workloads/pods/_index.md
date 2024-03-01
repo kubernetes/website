@@ -39,15 +39,14 @@ Pod 所建模的是特定于应用的 “逻辑主机”，其中包含一个或
 
 <!--
 As well as application containers, a Pod can contain
-[init containers](/docs/concepts/workloads/pods/init-containers/) that run
+{{< glossary_tooltip text="init containers" term_id="init-container" >}} that run
 during Pod startup. You can also inject
-[ephemeral containers](/docs/concepts/workloads/pods/ephemeral-containers/)
-for debugging if your cluster offers this.
+{{< glossary_tooltip text="ephemeral containers" term_id="ephemeral-container" >}}
+for debugging a running Pod.
 -->
 除了应用容器，Pod 还可以包含在 Pod 启动期间运行的
-[Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)。
-你也可以在集群支持[临时性容器](/zh-cn/docs/concepts/workloads/pods/ephemeral-containers/)的情况下，
-为调试的目的注入临时性容器。
+{{< glossary_tooltip text="Init 容器" term_id="init-container" >}}。
+你也可以注入{{< glossary_tooltip text="临时性容器" term_id="ephemeral-container" >}}来调试正在运行的 Pod。
 
 <!-- body -->
 
@@ -77,6 +76,42 @@ Pod 的共享上下文包括一组 Linux 名字空间、控制组（cgroup）和
 在 Pod 的上下文中，每个独立的应用可能会进一步实施隔离。
 
 Pod 类似于共享名字空间并共享文件系统卷的一组容器。
+
+<!--
+Pods in a Kubernetes cluster are used in two main ways:
+
+* **Pods that run a single container**. The "one-container-per-Pod" model is the
+  most common Kubernetes use case; in this case, you can think of a Pod as a
+  wrapper around a single container; Kubernetes manages Pods rather than managing
+  the containers directly.
+* **Pods that run multiple containers that need to work together**. A Pod can
+  encapsulate an application composed of
+  [multiple co-located containers](#how-pods-manage-multiple-containers) that are
+  tightly coupled and need to share resources. These co-located containers
+  form a single cohesive unit.
+-->
+Kubernetes 集群中的 Pod 主要有两种用法：
+
+* **运行单个容器的 Pod**。"每个 Pod 一个容器"模型是最常见的 Kubernetes 用例；
+  在这种情况下，可以将 Pod 看作单个容器的包装器，并且 Kubernetes 直接管理 Pod，而不是容器。
+* **运行多个协同工作的容器的 Pod**。
+  Pod 可以封装由紧密耦合且需要共享资源的[多个并置容器](#how-pods-manage-multiple-containers)组成的应用。
+  这些位于同一位置的容器构成一个内聚单元。
+
+  <!--
+  Grouping multiple co-located and co-managed containers in a single Pod is a
+  relatively advanced use case. You should use this pattern only in specific
+  instances in which your containers are tightly coupled.
+  
+  You don't need to run multiple containers to provide replication (for resilience
+  or capacity); if you need multiple replicas, see
+  [Workload management](/docs/concepts/workloads/controllers/).
+  -->
+  将多个并置、同管的容器组织到一个 Pod 中是一种相对高级的使用场景。
+  只有在一些场景中，容器之间紧密关联时你才应该使用这种模式。
+
+  你不需要运行多个容器来扩展副本（为了弹性或容量）；
+  如果你需要多个副本，请参阅[工作负载管理](/zh-cn/docs/concepts/workloads/controllers/)。
 
 <!--
 ## Using Pods
@@ -116,48 +151,12 @@ create them using workload resources such as {{< glossary_tooltip text="Deployme
 term_id="deployment" >}} or {{< glossary_tooltip text="Job" term_id="job" >}}.
 If your Pods need to track state, consider the
 {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}} resource.
-
-Pods in a Kubernetes cluster are used in two main ways:
 -->
 通常你不需要直接创建 Pod，甚至单实例 Pod。相反，你会使用诸如
 {{< glossary_tooltip text="Deployment" term_id="deployment" >}} 或
 {{< glossary_tooltip text="Job" term_id="job" >}} 这类工作负载资源来创建 Pod。
 如果 Pod 需要跟踪状态，可以考虑
 {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}} 资源。
-
-Kubernetes 集群中的 Pod 主要有两种用法：
-
-<!--
-* **Pods that run a single container**. The "one-container-per-Pod" model is the
-  most common Kubernetes use case; in this case, you can think of a Pod as a
-  wrapper around a single container; Kubernetes manages Pods rather than managing
-  the containers directly.
-* **Pods that run multiple containers that need to work together**. A Pod can
-  encapsulate an application composed of multiple co-located containers that are
-  tightly coupled and need to share resources. These co-located containers
-  form a single cohesive unit of service—for example, one container serving data
-  stored in a shared volume to the public, while a separate _sidecar_ container
-  refreshes or updates those files.  
-  The Pod wraps these containers, storage resources, and an ephemeral network
-  identity together as a single unit.
--->
-* **运行单个容器的 Pod**。"每个 Pod 一个容器" 模型是最常见的 Kubernetes 用例；
-  在这种情况下，可以将 Pod 看作单个容器的包装器，并且 Kubernetes 直接管理 Pod，而不是容器。
-* **运行多个协同工作的容器的 Pod**。
-  Pod 可能封装由多个紧密耦合且需要共享资源的共处容器组成的应用程序。
-  这些位于同一位置的容器可能形成单个内聚的服务单元 —— 一个容器将文件从共享卷提供给公众，
-  而另一个单独的 “边车”（sidecar）容器则刷新或更新这些文件。
-  Pod 将这些容器和存储资源打包为一个可管理的实体。
-
-  {{< note >}}
-  <!--
-  Grouping multiple co-located and co-managed containers in a single Pod is a
-  relatively advanced use case. You should use this pattern only in specific
-  instances in which your containers are tightly coupled.
-  -->
-  将多个并置、同管的容器组织到一个 Pod 中是一种相对高级的使用场景。
-  只有在一些场景中，容器之间紧密关联时你才应该使用这种模式。  
-  {{< /note >}}
 
 <!--
 Each Pod is meant to run a single instance of a given application. If you want to
@@ -178,54 +177,6 @@ scaling and auto-healing.
 
 参见 [Pod 和控制器](#pods-and-controllers)以了解 Kubernetes
 如何使用工作负载资源及其控制器以实现应用的扩缩和自动修复。
-
-<!--
-### How Pods manage multiple containers
-
-Pods are designed to support multiple cooperating processes (as containers) that form
-a cohesive unit of service. The containers in a Pod are automatically co-located and
-co-scheduled on the same physical or virtual machine in the cluster. The containers
-can share resources and dependencies, communicate with one another, and coordinate
-when and how they are terminated.
--->
-### Pod 怎样管理多个容器   {#how-pods-manage-multiple-containers}
-
-Pod 被设计成支持形成内聚服务单元的多个协作过程（形式为容器）。
-Pod 中的容器被自动安排到集群中的同一物理机或虚拟机上，并可以一起进行调度。
-容器之间可以共享资源和依赖、彼此通信、协调何时以及何种方式终止自身。
-
-<!--
-For example, you might have a container that
-acts as a web server for files in a shared volume, and a separate "sidecar" container
-that updates those files from a remote source, as in the following diagram:
--->
-例如，你可能有一个容器，为共享卷中的文件提供 Web 服务器支持，以及一个单独的
-"边车 (sidercar)" 容器负责从远端更新这些文件，如下图所示：
-
-{{< figure src="/zh-cn/docs/images/pod.svg" alt="Pod 创建示意图" class="diagram-medium" >}}
-
-<!--
-Some Pods have {{< glossary_tooltip text="init containers" term_id="init-container" >}}
-as well as {{< glossary_tooltip text="app containers" term_id="app-container" >}}.
-Init containers run and complete before the app containers are started.
--->
-有些 Pod 具有 {{< glossary_tooltip text="Init 容器" term_id="init-container" >}}和
-{{< glossary_tooltip text="应用容器" term_id="app-container" >}}。
-Init 容器会在启动应用容器之前运行并完成。
-
-{{< feature-state for_k8s_version="v1.29" state="beta" >}}
-
-<!--
-Enabled by default, the `SidecarContainers` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-allows you to specify `restartPolicy: Always` for init containers.
-Setting the `Always` restart policy ensures that the init containers where you set it are
-kept running during the entire lifetime of the Pod.
-See [Sidecar containers and restartPolicy](/docs/concepts/workloads/pods/init-containers/#sidecar-containers-and-restartpolicy)
-for more details.
--->
-启用 `SidecarContainers` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)（默认启用）允许你为
-Init 容器指定 `restartPolicy: Always`。设置重启策略为 `Always` 会确保 Init 容器在 Pod 的整个生命周期内保持运行。
-更多细节参阅[边车容器和重启策略](/zh-cn/docs/concepts/workloads/pods/init-containers/#sidecar-containers-and-restartpolicy)
 
 <!--
 Pods natively provide two kinds of shared resources for their constituent containers:
@@ -649,6 +600,95 @@ The `spec` of a static Pod cannot refer to other API objects
 {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}、
 {{< glossary_tooltip text="Secret" term_id="secret" >}} 等）。
 {{< /note >}}
+
+<!--
+### Pods manage multiple containers  {#how-pods-manage-multiple-containers}
+
+Pods are designed to support multiple cooperating processes (as containers) that form
+a cohesive unit of service. The containers in a Pod are automatically co-located and
+co-scheduled on the same physical or virtual machine in the cluster. The containers
+can share resources and dependencies, communicate with one another, and coordinate
+when and how they are terminated.
+-->
+### Pod 管理多个容器   {#how-pods-manage-multiple-containers}
+
+Pod 被设计成支持构造内聚的服务单元的多个协作进程（形式为容器）。
+Pod 中的容器被自动并置到集群中的同一物理机或虚拟机上，并可以一起进行调度。
+容器之间可以共享资源和依赖、彼此通信、协调何时以及何种方式终止自身。
+
+<!--intentionally repeats some text from earlier in the page, with more detail -->
+
+<!--
+Pods in a Kubernetes cluster are used in two main ways:
+
+* **Pods that run a single container**. The "one-container-per-Pod" model is the
+  most common Kubernetes use case; in this case, you can think of a Pod as a
+  wrapper around a single container; Kubernetes manages Pods rather than managing
+  the containers directly.
+* **Pods that run multiple containers that need to work together**. A Pod can
+  encapsulate an application composed of
+  multiple co-located containers that are
+  tightly coupled and need to share resources. These co-located containers
+  form a single cohesive unit of service—for example, one container serving data
+  stored in a shared volume to the public, while a separate
+  {{< glossary_tooltip text="sidecar container" term_id="sidecar-container" >}}
+  refreshes or updates those files.
+  The Pod wraps these containers, storage resources, and an ephemeral network
+  identity together as a single unit.
+-->
+Kubernetes 集群中的 Pod 主要有两种用法：
+
+* **运行单个容器的 Pod**。"每个 Pod 一个容器" 模型是最常见的 Kubernetes 用例；
+  在这种情况下，可以将 Pod 看作单个容器的包装器。Kubernetes 直接管理 Pod，而不是容器。
+* **运行多个需要协同工作的容器的 Pod**。
+  Pod 可以封装由多个紧密耦合且需要共享资源的并置容器组成的应用。
+  这些位于同一位置的容器可能形成单个内聚的服务单元 —— 一个容器将文件从共享卷提供给公众，
+  而另一个单独的{{< glossary_tooltip text="边车容器" term_id="sidecar-container" >}}则刷新或更新这些文件。
+  Pod 将这些容器和存储资源打包为一个可管理的实体。
+
+<!--
+For example, you might have a container that
+acts as a web server for files in a shared volume, and a separate
+[sidecar container](/docs/concepts/workloads/pods/sidecar-containers/)
+that updates those files from a remote source, as in the following diagram:
+-->
+例如，你可能有一个容器，为共享卷中的文件提供 Web 服务器支持，以及一个单独的
+[边车（Sidercar）](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/)
+容器负责从远端更新这些文件，如下图所示：
+
+{{< figure src="/zh-cn/docs/images/pod.svg" alt="Pod 创建示意图" class="diagram-medium" >}}
+
+<!--
+Some Pods have {{< glossary_tooltip text="init containers" term_id="init-container" >}}
+as well as {{< glossary_tooltip text="app containers" term_id="app-container" >}}.
+By default, init containers run and complete before the app containers are started.
+-->
+有些 Pod 具有 {{< glossary_tooltip text="Init 容器" term_id="init-container" >}}和
+{{< glossary_tooltip text="应用容器" term_id="app-container" >}}。
+Init 容器默认会在启动应用容器之前运行并完成。
+
+<!--
+You can also have [sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/)
+that provide auxiliary services to the main application Pod (for example: a service mesh).
+-->
+你还可以拥有为主应用 Pod 提供辅助服务的
+[边车容器](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/)（例如：服务网格）。
+
+
+{{< feature-state for_k8s_version="v1.29" state="beta" >}}
+
+<!--
+Enabled by default, the `SidecarContainers` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+allows you to specify `restartPolicy: Always` for init containers.
+Setting the `Always` restart policy ensures that the init containers where you set it are
+treated as _sidecars_ that are kept running during the entire lifetime of the Pod.
+See [Sidecar containers and restartPolicy](/docs/concepts/workloads/pods/init-containers/#sidecar-containers-and-restartpolicy)
+for more details.
+-->
+启用 `SidecarContainers` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)（默认启用）允许你为
+Init 容器指定 `restartPolicy: Always`。设置重启策略为 `Always` 会确保设置的 Init 容器被视为**边车**，
+并在 Pod 的整个生命周期内保持运行。
+更多细节参阅[边车容器和重启策略](/zh-cn/docs/concepts/workloads/pods/init-containers/#sidecar-containers-and-restartpolicy)
 
 <!--
 ## Container probes
