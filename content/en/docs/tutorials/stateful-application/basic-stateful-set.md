@@ -637,13 +637,13 @@ Get the Pods to view their container images:
 for p in 0 1 2; do kubectl get pod "web-$p" --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'; echo; done
 ```
 ```
-registry.k8s.io/nginx-slim:0.8
-registry.k8s.io/nginx-slim:0.8
-registry.k8s.io/nginx-slim:0.8
+gcr.io/google_containers/nginx-slim:0.8
+gcr.io/google_containers/nginx-slim:0.8
+gcr.io/google_containers/nginx-slim:0.8
 
 ```
 
-All the Pods in the StatefulSet are now running the previous container image.
+All the Pods in the StatefulSet are now running the updated container image.
 
 {{< note >}}
 You can also use `kubectl rollout status sts/<name>` to view
