@@ -120,7 +120,7 @@ metadata:
 Cada variable en el archivo `.env` se convierte en una clave separada en el ConfigMap que generas. Esto es diferente del ejemplo anterior, que incorpora un archivo llamado `application.properties` (y todas sus entradas) como el valor para una única clave.
 {{< /note >}}
 
-Los ConfigMaps también pueden generarse a partir de pares clave-valor literales. Para generar un ConfigMap a partir de un par clave-valor literal, añade una entrada a la lista `literals` en configMapGenerator. Aquí hay un ejemplo de cómo generar un ConfigMap con un elemento de datos de un par clave-valor:
+Los ConfigMaps también pueden generarse a partir de pares clave-valor literales. Para generar un ConfigMap a partir de una literal clave-valor, añade una entrada a la lista `literals` en configMapGenerator. Aquí hay un ejemplo de cómo generar un ConfigMap con un elemento de datos de un par clave-valor:
 
 ```shell
 cat <<EOF >./kustomization.yaml
