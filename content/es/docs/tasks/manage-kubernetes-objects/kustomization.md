@@ -271,7 +271,7 @@ metadata:
 type: Opaque
 ```
 
-Para generar un Secret a partir de un par clave-valor literal, añade una entrada a la lista `literals` en `secretGenerator`. Aquí tienes un ejemplo de cómo generar un Secret con un elemento de datos de un par clave-valor.
+Para generar un Secret a partir de una literal clave-valor, añade una entrada a la lista `literals` en `secretGenerator`. Aquí tienes un ejemplo de cómo generar un Secret con un elemento de datos de un par clave-valor.
 
 ```shell
 cat <<EOF >./kustomization.yaml
