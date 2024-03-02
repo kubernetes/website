@@ -900,7 +900,7 @@ EOF
 
 ## Cómo aplicar/ver/eliminar objetos usando Kustomize
 
-Usa `--kustomize` o `-k` en comandos de `kubectl` para reconocer Recursos gestionados por 
+Usa `--kustomize` o `-k` en comandos de `kubectl` para reconocer recursos gestionados por 
 `kustomization.yaml`.
 Nota que `-k` debe apuntar a un directorio de kustomization, tal como:
 
