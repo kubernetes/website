@@ -455,7 +455,7 @@ spec:
 
 ### Componiendo y Personalizando Recursos
 
-Es común componer un conjunto de Recursos en un proyecto y gestionarlos dentro del mismo archivo o directorio.
+Es común componer un conjunto de recursos en un proyecto y gestionarlos dentro del mismo archivo o directorio.
 
 Kustomize ofrece la composición de Recursos desde diferentes archivos y la aplicación de parches u otras personalizaciones a ellos.
 
