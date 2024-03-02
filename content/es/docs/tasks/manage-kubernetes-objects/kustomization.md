@@ -83,7 +83,7 @@ metadata:
   name: example-configmap-1-8mbdf7882g
 ```
 
-Para generar un ConfigMap desde un archivo env, añade una entrada en la lista de  `envs` en `configMapGenerator`. Aquí tienes un ejemplo de cómo generar un ConfigMap con un elemento de datos de un archivo `.env`:
+Para generar un ConfigMap desde un archivo env, añade una entrada en la lista de `envs` en `configMapGenerator`. Aquí tienes un ejemplo de cómo generar un ConfigMap con un elemento de datos de un archivo `.env`:
 
 ```shell
 # Crear un archivo .env
