@@ -29,28 +29,12 @@ kubeadm config print reset-defaults [flags]
 -->
 ### 选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
 </colgroup>
 <tbody>
-
-<tr>
-<td colspan="2">--component-configs strings</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
-<!--
-A comma-separated list for component config API objects to print the default values for. Available values: [KubeProxyConfiguration KubeletConfiguration]. If this flag is not set, no component configs will be printed.
--->
-组件配置 API 对象的逗号分隔列表，打印其默认值。
-可用值：[KubeProxyConfiguration KubeletConfiguration]。
-如果此参数未被设置，则不会打印任何组件配置。
-</p>
-</td>
-</tr>
 
 <tr>
 <td colspan="2">-h, --help</td>
@@ -74,7 +58,7 @@ reset-defaults 操作的帮助命令。
 -->
 ### 从父命令继承的选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
