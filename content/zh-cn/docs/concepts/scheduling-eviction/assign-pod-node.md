@@ -29,7 +29,7 @@ the Pod deploys to, for example, to ensure that a Pod ends up on a node with an 
 or to co-locate Pods from two different services that communicate a lot into the same availability zone.
 -->
 你可以约束一个 {{< glossary_tooltip text="Pod" term_id="pod" >}}
-以便 **限制** 其只能在特定的{{< glossary_tooltip text="节点" term_id="node" >}}上运行，
+以便**限制**其只能在特定的{{< glossary_tooltip text="节点" term_id="node" >}}上运行，
 或优先在特定的节点上运行。有几种方法可以实现这点，推荐的方法都是用
 [标签选择算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/)来进行选择。
 通常这样的约束不是必须的，因为调度器将自动进行合理的放置（比如，将 Pod 分散到节点上，
@@ -278,7 +278,7 @@ to repel Pods from specific nodes.
 If you specify both `nodeSelector` and `nodeAffinity`, *both* must be satisfied
 for the Pod to be scheduled onto a node.
 -->
-如果你同时指定了 `nodeSelector` 和 `nodeAffinity`，**两者** 必须都要满足，
+如果你同时指定了 `nodeSelector` 和 `nodeAffinity`，**两者**必须都要满足，
 才能将 Pod 调度到候选节点上。
 
 <!--
@@ -676,7 +676,7 @@ null `namespaceSelector` matches the namespace of the Pod where the rule is defi
 
 #### matchLabelKeys
 
-{{< feature-state for_k8s_version="v1.29" state="alpha" >}}
+{{< feature-state feature_gate_name="MatchLabelKeysInPodAffinity" >}}
 
 {{< note >}}
 <!-- UPDATE THIS WHEN PROMOTING TO BETA -->
@@ -730,26 +730,27 @@ metadata:
 ...
 spec:
   template:
-    affinity:
-      podAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-        - labelSelector:
-            matchExpressions:
-            - key: app
-              operator: In
-              values:
-              - database
-          topologyKey: topology.kubernetes.io/zone
-          # 只有在计算 Pod 亲和性时，才考虑指定上线的 Pod。
-          # 如果你更新 Deployment，替代的 Pod 将遵循它们自己的亲和性规则
-          # （如果在新的 Pod 模板中定义了任何规则）。
-          matchLabelKeys: 
-          - pod-template-hash
+    spec:
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - database
+            topologyKey: topology.kubernetes.io/zone
+            # 只有在计算 Pod 亲和性时，才考虑指定上线的 Pod。
+            # 如果你更新 Deployment，替代的 Pod 将遵循它们自己的亲和性规则
+            # （如果在新的 Pod 模板中定义了任何规则）。
+            matchLabelKeys:
+            - pod-template-hash
 ```
 
 #### mismatchLabelKeys
 
-{{< feature-state for_k8s_version="v1.29" state="alpha" >}}
+{{< feature-state feature_gate_name="MatchLabelKeysInPodAffinity" >}}
 
 {{< note >}}
 <!-- UPDATE THIS WHEN PROMOTING TO BETA -->
@@ -773,7 +774,7 @@ One example use case is to ensure Pods go to the topology domain (node, zone, et
 In other words, you want to avoid running Pods from two different tenants on the same topology domain at the same time.
 -->
 Kubernetes 为 Pod 亲和性或反亲和性提供了一个可选的 `mismatchLabelKeys` 字段。
-此字段指定了在满足 Pod（反）亲和性时，**不** 应与传入 Pod 的标签匹配的键。
+此字段指定了在满足 Pod（反）亲和性时，**不**应与传入 Pod 的标签匹配的键。
 
 一个示例用例是确保 Pod 进入指定的拓扑域（节点、区域等），在此拓扑域中只调度来自同一租户或团队的 Pod。
 换句话说，你想要避免在同一拓扑域中同时运行来自两个不同租户的 Pod。
@@ -976,7 +977,7 @@ where each web server is co-located with a cache, on three separate nodes.
 The overall effect is that each cache instance is likely to be accessed by a single client, that
 is running on the same node. This approach aims to minimize both skew (imbalanced load) and latency.
 -->
-总体效果是每个缓存实例都非常可能被在同一个节点上运行的某个客户端访问。
+总体效果是每个缓存实例都非常可能被在同一个节点上运行的某个客户端访问，
 这种方法旨在最大限度地减少偏差（负载不平衡）和延迟。
 
 <!--
@@ -1027,7 +1028,8 @@ Some of the limitations of using `nodeName` to select nodes are:
 <!--
 `nodeName` is intended for use by custom schedulers or advanced use cases where
 you need to bypass any configured schedulers. Bypassing the schedulers might lead to
-failed Pods if the assigned Nodes get oversubscribed. You can use [node affinity](#node-affinity) or a the [`nodeselector` field](#nodeselector) to assign a Pod to a specific Node without bypassing the schedulers.
+failed Pods if the assigned Nodes get oversubscribed. You can use [node affinity](#node-affinity) or a the
+[`nodeselector` field](#nodeselector) to assign a Pod to a specific Node without bypassing the schedulers.
 -->
 `nodeName` 旨在供自定义调度器或需要绕过任何已配置调度器的高级场景使用。
 如果已分配的 Node 负载过重，绕过调度器可能会导致 Pod 失败。
