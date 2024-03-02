@@ -167,12 +167,13 @@ plugin for NFD; check their documentation for more details.
 更多细节请查阅他们的文档。
 
 <!--
-{{< highlight yaml "linenos=false,hl_lines=6-18" >}}
+{{< highlight yaml "linenos=false,hl_lines=7-18" >}}
 apiVersion: v1
 kind: Pod
 metadata:
   name: example-vector-add
 spec:
+  restartPolicy: OnFailure
   # You can use Kubernetes node affinity to schedule this Pod onto a node
   # that provides the kind of GPU that its container needs in order to work
   affinity:
@@ -185,7 +186,6 @@ spec:
             values: ["40535"]
           - key: "feature.node.kubernetes.io/pci-10.present" # NFD Feature label
             values: ["true"] # (optional) only schedule on nodes with PCI device 10
-  restartPolicy: OnFailure
   containers:
     - name: example-vector-add
       image: "registry.example/example-vector-add:v42"
@@ -194,12 +194,13 @@ spec:
           gpu-vendor.example/example-gpu: 1 # requesting 1 GPU
 {{< /highlight >}}
 -->
-{{< highlight yaml "linenos=false,hl_lines=6-18" >}}
+{{< highlight yaml "linenos=false,hl_lines=7-18" >}}
 apiVersion: v1
 kind: Pod
 metadata:
   name: example-vector-add
 spec:
+  restartPolicy: OnFailure
   # 你可以使用 Kubernetes 节点亲和性将此 Pod 调度到提供其容器所需的那种 GPU 的节点上
   affinity:
     nodeAffinity:
@@ -211,7 +212,6 @@ spec:
             values: ["40535"]
           - key: "feature.node.kubernetes.io/pci-10.present" # NFD 特性标签
             values: ["true"] #（可选）仅调度到具有 PCI 设备 10 的节点上
-  restartPolicy: OnFailure
   containers:
     - name: example-vector-add
       image: "registry.example/example-vector-add:v42"
