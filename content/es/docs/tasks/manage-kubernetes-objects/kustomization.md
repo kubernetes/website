@@ -797,7 +797,7 @@ vars:
 EOF
 ```
 
-Ejecuta `kubectl kustomize ./` para ver que el nombre del Service inyectado en la seccion de contaierns es `dev-my-nginx-001`:
+Ejecuta `kubectl kustomize ./` para ver que el nombre del Service inyectado en la sección de contaierns es `dev-my-nginx-001`:
 
 ```yaml
 apiVersion: apps/v1
