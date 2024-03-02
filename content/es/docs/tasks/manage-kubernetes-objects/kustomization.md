@@ -605,7 +605,7 @@ spec:
             memory: 512Mi
 ```
 
-No todos los Recursos o campos admiten parches de fusión estratégica. Para admitir la modificación de campos arbitrarios en Recursos arbitrarios,
+No todos los recursos o campos admiten parches de fusión estratégica. Para admitir la modificación de campos arbitrarios en recursos arbitrarios,
 Kustomize ofrece la implementacion a través de  [JSON patch](https://tools.ietf.org/html/rfc6902) `patchesJson6902`.
 Para encontrar el Recurso correcto para un parche Json, el grupo, versión, tipo y nombre de ese Recurso necesitan ser especificados en `kustomization.yaml`. Por ejemplo, aumentar el número de réplicas de un objeto de Deployment también se puede hacer a través de  `patchesJson6902`.
 
