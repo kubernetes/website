@@ -404,7 +404,7 @@ spec:
 
 ### Anotación deprecada
 
-Antes que el recurso IngressClass y el campo `ingressClassName` se añadieran en
+Antes que el recurso IngressClass y el campo `ingressClassName` se añadieran a
 Kubernetes
 1.18,
 las clases Ingress se especificaban con una
