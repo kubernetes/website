@@ -57,19 +57,19 @@ Service:
 
 Un Ingress se puede configurar para otorgar URLs a los Services que son
 accesibles desde el exterior,
-para hacer balance de cargas del tráfico, finalizar SSL/TLS, y ofrecer
+para hacer balance de cargas del tráfico, finalizar SSL/TLS y ofrecer
 alojamiento virtual basado en nombres.
 
 Un [controlador de Ingress](/docs/concepts/services-networking/ingress-controllers)
 es responsable de complementar el Ingress,
 comúnmente con un balanceador de cargas,
-aunque también puede configurar tu enrutador edge con frontends adicionales para
+aunque también puedes configurar tu enrutador edge con frontends adicionales para
 ayudar a manejar el tráfico.
 
-Un Ingress no expone puertos o protocolos arbitrariamente. Exponer servicios de
-otra manera que por HTTP o HTTPS al internet usa un servicio de
-tipo [Service.Type=NodePort](/docs/concepts/services-networking/service/#type-nodeport)
-o [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer).
+Un Ingress no expone puertos o protocolos arbitrariamente. Exponer servicios
+distintos de HTTP o HTTPS al internet usa un servicio de
+tipo [Service.Type=NodePort](/es/docs/concepts/services-networking/service/#tipo-nodeport)
+o [Service.Type=LoadBalancer](/es/docs/concepts/services-networking/service/#loadbalancer).
 
 ## Prerrequisitos
 
@@ -102,11 +102,10 @@ Un ejemplo mínimo de un recurso Ingress:
 
 Un Ingress necesita los campos `apiVersion`, `kind`, `metadata` y `spec`.
 El nombre del objeto Ingress debe ser un
-The name of an Ingress object must be a
-valid [nombre de subdominio DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)
+[nombre de subdominio DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)
 válido.
 Para información general sobre cómo trabajar con archivos de configuración,
-mira [desplegando aplicaciones](/docs/tasks/run-application/run-stateless-application-deployment/),
+mira [desplegando aplicaciones](/es/docs/tasks/run-application/run-stateless-application-deployment/),
 [configurando contenedores](/docs/tasks/configure-pod-container/configure-pod-configmap/),
 [administrando recursos](/docs/concepts/cluster-administration/manage-deployment/).
 
@@ -139,7 +138,7 @@ se [recomienda](https://kubernetes.github.io/ingress-nginx/user-guide/k8s-122-mi
 especificar el `IngressClass` por defecto como se
 muestra [abajo](#default-ingress-class).
 
-### Reglas Ingress
+### Reglas del Ingress
 
 Cada regla HTTP contiene la siguiente información:
 
@@ -151,17 +150,17 @@ Cada regla HTTP contiene la siguiente información:
   aplican a ese host.
 * Un listado de rutas (por ejemplo, `/testpath`), cada una de las cuales tiene
   un backend asociado con un `service.name` y un `service.port.name` o
-  un `service.port.number`. Tanto el host como la ruta deben coincidir el
+  un `service.port.number`. Tanto el host como la ruta deben coincidir con el
   contenido de una petición de entrada antes que el balanceador de cargas dirija
   el tráfico al Service referenciado.
 * Un backend es una combinación de un Service y un puerto como se describe en la
-  [documentación del Service](/docs/concepts/services-networking/service/) o
+  [documentación del Service](/es/docs/concepts/services-networking/service/) o
   un [recurso personalizado backend](#resource-backend)
   a través de un {{< glossary_tooltip term_id="CustomResourceDefinition" text=" CRD" >}}.
-  Las peticiones HTTP (y HTTPS)  al Ingress que coinciden con el host y la
+  Las peticiones HTTP (y HTTPS) al Ingress que coinciden con el host y la
   ruta de la regla se envían al backend del listado.
 
-Un  `defaultBackend` se configura frecuentemente en un controlador de Ingress
+Un `defaultBackend` se configura frecuentemente en un controlador de Ingress
 para dar servicio a cualquier petición que no coincide con una ruta en la
 especificación.
 
@@ -182,8 +181,9 @@ documentación de tu controlador de ingress para saber cómo maneja este caso).
 Si ninguno de los hosts o rutas coincide con la petición HTTP en los objetos Ingress,
 el tráfico será enrutado a tu backend predeterminado.
 
+### Resource backends {#resource-backend}
 
-Un recurso `Resource` backend es una referencia de objeto
+Un `Resource` backend es una referencia de objeto
 (ObjectRef en inglés)
 a otro recurso de Kubernetes dentro del mismo espacio de nombres que el objeto
 Ingress.
@@ -230,16 +230,16 @@ Hay 3 tipos de rutas soportadas:
   y minúsculas.
 
 * `Prefix`: Coincide basado en el prefijo de una ruta URL dividida por `/`.
-  La coincidencia es sensible a mayúsculas y minúsculas y hecha en un elemento
+  La coincidencia es sensible a mayúsculas y minúsculas, y hecha en un elemento
   de la ruta por elemento.
-  Un elemento de la ruta refiere a la lista de etiquetas in la ruta dividida por
+  Un elemento de la ruta refiere a la lista de etiquetas en la ruta dividida por
   el separador `/`.
   Una petición es una coincidencia para la ruta _p_ si cada _p_ es un elemento
   prefijo de _p_ de la ruta requerida.
 
 {{< note >}}
-Si el último elemento de una ruta es una cadena de caracteres del último
-elemento de la ruta elemento, no es una coincidencia
+Si el último elemento de una ruta es una subcadena de caracteres del último
+elemento de la solicitud de ruta, no es una coincidencia
 (por ejemplo: `/foo/bar`
 coincide con `/foo/bar/baz`, pero no coincide con `/foo/barbaz`).
 {{< /note >}}
@@ -258,10 +258,10 @@ coincide con `/foo/bar/baz`, pero no coincide con `/foo/barbaz`).
 | Prefijo  | `/aaa/bb`                         | `/aaa/bbb`                 | No                                     |
 | Prefijo  | `/aaa/bbb`                        | `/aaa/bbb`                 | Si                                     |
 | Prefijo  | `/aaa/bbb/`                       | `/aaa/bbb`                 | Si, ignora la barra diagonal           |
-| Prefijo  | `/aaa/bbb`                        | `/aaa/bbb/`                | Si,  coincide con barra diagonal       |
-| Prefijo  | `/aaa/bbb`                        | `/aaa/bbb/ccc`             | Si, coincide con la sub ruta           |
+| Prefijo  | `/aaa/bbb`                        | `/aaa/bbb/`                | Si, coincide con barra diagonal       |
+| Prefijo  | `/aaa/bbb`                        | `/aaa/bbb/ccc`             | Si, coincide con la subruta           |
 | Prefijo  | `/aaa/bbb`                        | `/aaa/bbbxyz`              | No, no coincide con el prefijo de cadena      |
-| Prefijo  | `/`, `/aaa`                       | `/aaa/ccc`                 | Si, coincide con el  prefijo  `/aaa`   |
+| Prefijo  | `/`, `/aaa`                       | `/aaa/ccc`                 | Si, coincide con el prefijo  `/aaa`   |
 | Prefijo  | `/`, `/aaa`, `/aaa/bbb`           | `/aaa/bbb`                 | Si, coincide con el prefijo `/aaa/bbb` |
 | Prefijo  | `/`, `/aaa`, `/aaa/bbb`           | `/ccc`                     | Si, coincide con el prefijo`/`         |
 | Prefijo  | `/aaa`                            | `/ccc`                     | No, usa el backend predeterminado      |
@@ -279,10 +279,10 @@ una coincidencia de ruta exacta sobre las rutas que contienen prefijos.
 ## Comodines Hostname
 
 Los hosts pueden ser coincidencias exactas
-(por ejemplo “`foo.bar.com`”) o un comodín (por ejemplo “`*.bar.com`”).
+(por ejemplo “`foo.bar.com`”) o un comodín (por ejemplo “`*.foo.com`”).
 Las coincidencias precisas requieren que el encabezado `host` coincida con el
 campo `host`.
-Las coincidencias de comodín requieren the el encabezado `host` sea igual al
+Las coincidencias de comodín requieren que el encabezado `host` sea igual al
 sufijo de la regla del comodín.
 
 | Host        | Encabezado Host   | ¿Coincidencia?                                      |
@@ -355,18 +355,18 @@ Si estableces el campo `spec.parameters` y el `spec.parameters.scope`
 al `Namespace`,
 entonces el IngressClass se refiere al recurso cuyo alcance es el namespace.
 También debes establecer el campo `namespace` dentro de `spec.parameters` con el
-namespace que contiene los parámetros que quieres usar.
+Namespace que contiene los parámetros que quieres usar.
 
 El atributo `kind` (en combinación con `apiGroup`)
-de los parámetros se refiere a la API del namespace (por ejemplo:
+de los parámetros se refiere a la API restringida por un Namespace (por ejemplo:
 ConfigMap), y el `name` de los parámetros identifica al recurso específico en el
 namespace que has especificado en `namespace`.
 
-Los parámetros con alcance al namespace ayudan al operador del clúster a delegar
+Los parámetros con alcance al Namespace ayudan al operador del clúster a delegar
 el control sobre la configuración
 (por ejemplo, ajustes del balanceador de cargas, definición de una API gateway)
 que se usa para una carga de trabajo.
-Si utilizas un parámetro con alcance al namespace entonces:
+Si utilizas un parámetro con alcance al Namespace entonces:
 
 - El equipo operador del clúster necesita aprobar los cambios de un equipo
   distinto cada vez que se aplica un nuevo cambio a la configuración.
@@ -378,7 +378,7 @@ Si utilizas un parámetro con alcance al namespace entonces:
 La API de la IngressClass por sí misma siempre tiene alcance al clúster.
 
 Aquí hay un ejemplo de una IngressClass que hace referencia a parámetros que
-están en el namespace:
+están restringidos por un Namespace:
 
 ```yaml
 ---
@@ -402,7 +402,7 @@ spec:
 {{% /tab %}}
 {{< /tabs >}}
 
-### Anotación Deprecada
+### Anotación deprecada
 
 Antes que el recurso IngressClass y el campo `ingressClassName` se añadieran en
 Kubernetes
