@@ -164,7 +164,7 @@ CPU request 时，Pod 才是 `BestEffort`。Pod 中的容器可以请求（除 C
 -->
 ## 使用 cgroup v2 的内存 QoS   {#memory-qos-with-cgroup-v2}
 
-{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+{{< feature-state feature-gate-name="MemoryQoS" >}}
 
 <!--
 Memory QoS uses the memory controller of cgroup v2 to guarantee memory resources in Kubernetes.
