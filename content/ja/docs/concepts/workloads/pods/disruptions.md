@@ -1,22 +1,22 @@
 ---
-title: 中断
+title: Disruption
 content_type: concept
 weight: 70
 ---
 
 
 <!-- overview -->
-このガイドは、高可用性アプリケーションを構築したいと考えており、そのために、Podに対してどのような種類の中断(disruption)が発生する可能性があるか理解する必要がある、アプリケーション所有者を対象としたものです。
+このガイドは、高可用性アプリケーションを構築したいと考えており、そのために、Podに対してどのような種類のDisruptionが発生する可能性があるか理解する必要がある、アプリケーション所有者を対象としたものです。
 
 また、クラスターのアップグレードやオートスケーリングなどのクラスターの操作を自動化したいクラスター管理者も対象にしています。
 
 <!-- body -->
 
-## 自発的中断、非自発的中断
+## 自発的Disruptionと非自発的Disruption
 
 Podは誰か(人やコントローラー)が破壊するか、避けることができないハードウェアまたはシステムソフトウェアエラーが発生するまで、消えることはありません。
 
-これらの不可避なケースをアプリケーションに対する*非自発的な中断*と呼びます。
+これらの不可避なケースをアプリケーションに対する*非自発的なDisruption*と呼びます。
 例えば:
 
 - ノードのバックエンドの物理マシンのハードウェア障害
@@ -29,7 +29,7 @@ Podは誰か(人やコントローラー)が破壊するか、避けることが
 リソース不足を除いて、これら条件は全て、大半のユーザーにとって馴染みのあるものでしょう。
 これらはKubernetesに固有のものではありません。
 
-それ以外のケースのことを*自発的な中断*と呼びます。
+それ以外のケースのことを*自発的なDisruption*と呼びます。
 これらはアプリケーションの所有者によって起こされたアクションと、クラスター管理者によって起こされたアクションの両方を含みます。
 典型的なアプリケーションの所有者によるアクションには次のものがあります:
 
@@ -45,39 +45,39 @@ Podは誰か(人やコントローラー)が破壊するか、避けることが
 
 これらのアクションはクラスター管理者によって直接実行されるか、クラスター管理者やクラスターをホスティングしているプロバイダーによって自動的に実行される可能性があります。
 
-クラスターに対して自発的な中断の要因となるものが有効になっているかどうかについては、クラスター管理者に聞くか、クラウドプロバイダーに相談または配布文書を参照してください。
+クラスターに対して自発的なDisruptionの要因となるものが有効になっているかどうかについては、クラスター管理者に聞くか、クラウドプロバイダーに相談または配布文書を参照してください。
 有効になっているものが何もなければ、Pod Disruption Budgetの作成はスキップすることができます。
 
 {{< caution >}}
-全ての自発的な中断がPod Disruption Budgetによる制約を受けるわけではありません。
+全ての自発的なDisruptionがPod Disruption Budgetによる制約を受けるわけではありません。
 例えばDeploymentやPodの削除はPod Disruption Budgetをバイパスします。
 {{< /caution >}}
 
-## 中断への対応
+## Disruptionへの対応
 
-非自発的中断を軽減する方法をいくつか紹介します:
+非自発的Disruptionを軽減する方法をいくつか紹介します:
 
 - Podは必要な[リソースを要求](/ja/docs/tasks/configure-pod-container/assign-memory-resource)するようにする。
 - 高可用性が必要な場合はアプリケーションをレプリケートする。(レプリケートされた[ステートレス](/ja/docs/tasks/run-application/run-stateless-application-deployment/)および[ステートフル](/ja/docs/tasks/run-application/run-replicated-stateful-application/)アプリケーションの実行について学ぶ。)
 - レプリケートされたアプリケーションを実行する際にさらに高い可用性を得るには、([アンチアフィニティ](/ja/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)を使って)ラックを横断して、または([マルチゾーンクラスター](/ja/docs/setup/multiple-zones)を使用している場合には)ゾーンを横断してアプリケーションを分散させる。
 
-自発的な中断の頻度は様々です。
-基本的なKubernetesクラスターでは、自動で発生する自発的な中断はありません(ユーザーによってトリガーされたものだけです)。
-しかし、クラスター管理者やホスティングプロバイダーが何か追加のサービスを実行して自発的な中断が発生する可能性があります。
-例えば、ノード上のソフトウェアアップデートのロールアウトは自発的な中断の原因となります。
-また、クラスター(ノード)自動スケーリングの実装の中には、ノードのデフラグとコンパクト化のために自発的な中断を伴うものがあります。
-クラスタ管理者やホスティングプロバイダーは、自発的な中断がある場合、どの程度の中断が予想されるかを文書化しているはずです。
-Podのspecの中で[PriorityClassesを使用している](/ja/docs/concepts/scheduling-eviction/pod-priority-preemption/)場合など、特定の設定オプションによっても自発的(および非自発的)な中断を引き起こす可能性があります。
+自発的なDisruptionの頻度は様々です。
+基本的なKubernetesクラスターでは、自動で発生する自発的なDisruptionはありません(ユーザーによってトリガーされたものだけです)。
+しかし、クラスター管理者やホスティングプロバイダーが何か追加のサービスを実行して自発的なDisruptionが発生する可能性があります。
+例えば、ノード上のソフトウェアアップデートのロールアウトは自発的なDisruptionの原因となります。
+また、クラスター(ノード)自動スケーリングの実装の中には、ノードのデフラグとコンパクト化のために自発的なDisruptionを伴うものがあります。
+クラスタ管理者やホスティングプロバイダーは、自発的なDisruptionがある場合、どの程度のDisruptionが予想されるかを文書化しているはずです。
+Podのspecの中で[PriorityClassesを使用している](/ja/docs/concepts/scheduling-eviction/pod-priority-preemption/)場合など、特定の設定オプションによっても自発的(および非自発的)なDisruptionを引き起こす可能性があります。
 
 
 ## Pod Disruption Budget
 
 {{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
-Kubernetesは、自発的な中断が頻繁に発生する場合でも、可用性の高いアプリケーションの運用を支援する機能を提供しています。
+Kubernetesは、自発的なDisruptionが頻繁に発生する場合でも、可用性の高いアプリケーションの運用を支援する機能を提供しています。
 
 アプリケーションの所有者として、各アプリケーションに対してPodDisruptionBudget (PDB)を作成することができます。
-PDBは、レプリケートされたアプリケーションのうち、自発的な中断によって同時にダウンするPodの数を制限します。
+PDBは、レプリケートされたアプリケーションのうち、自発的なDisruptionによって同時にダウンするPodの数を制限します。
 例えば、クォーラムベースのアプリケーションでは、実行中のレプリカの数がクォーラムに必要な数を下回らないようにする必要があります。
 Webフロントエンドは、負荷に対応するレプリカの数が、全体に対して一定の割合を下回らないようにしたいかもしれません。
 
@@ -89,17 +89,17 @@ Webフロントエンドは、負荷に対応するレプリカの数が、全�
 
 PDBはアプリケーションの意図したレプリカ数に対して、許容できるレプリカの数を指定します。
 例えば`.spec.replicas: 5`を持つDeploymentは常に5つのPodを持つことが想定されます。
-PDBが同時に4つまでを許容する場合、Eviction APIは1度に(2つではなく)1つのPodの自発的な中断を許可します。
+PDBが同時に4つまでを許容する場合、Eviction APIは1度に(2つではなく)1つのPodの自発的なDisruptionを許可します。
 
 アプリケーションを構成するPodのグループは、アプリケーションのコントローラー(Deployment、StatefulSetなど)が使用するものと同じラベルセレクターを使用して指定されます。
 
 "意図した"Podの数は、これらのPodを管理するワークロードリソースの`.spec.replicas`から計算されます。
 コントロールプレーンはPodの`.metadata.ownerReferences`を調べることで、所有しているワークロードリソースを見つけます。
 
-[非自発的中断](#voluntary-and-involuntary-disruptions)はPDBによって防ぐことができません;
+[非自発的Disruption](#voluntary-and-involuntary-disruptions)はPDBによって防ぐことができません;
 しかし、予算にはカウントされます。
 
-アプリケーションのローリングアップデートによって削除または利用できなくなったPodは中断の予算にカウントされますが、ローリングアップグレードを実行している時は(DeploymentやStatefulSetなどの)ワークロードリソースはPDBによって制限されません。
+アプリケーションのローリングアップデートによって削除または利用できなくなったPodはDisruptionの予算にカウントされますが、ローリングアップグレードを実行している時は(DeploymentやStatefulSetなどの)ワークロードリソースはPDBによって制限されません。
 代わりに、アプリケーションのアップデート中の障害のハンドリングは、個々のワークロードリソースに対するspecで設定されます。
 
 ノードのドレイン中に動作がおかしくなったアプリケーションの退避をサポートするために、[Unhealthy Pod Eviction Policy](/docs/tasks/run-application/configure-pdb/#unhealthy-pod-eviction-policy)に`AlwaysAllow`を設定することを推奨します。
@@ -109,7 +109,7 @@ Eviction APIを使用してPodを退避した場合、[PodSpec](/docs/reference/
 
 ## PodDisruptionBudge の例 {#pdb-example}
 
-`node-1`から`node-3`まで3ノードあるクラスターを考えます。
+`node-1`から`node-3`まで3つのノードがあるクラスターを考えます。
 クラスターにはいくつかのアプリケーションが動いています。
 それらのうちの1つは3つのレプリカを持ち、最初は`pod-a`、`pod-b`そして`pod-c`と名前が付いています。
 もう一つ、これとは独立したPDBなしの`pod-x`と呼ばれるものもあります。
@@ -183,7 +183,7 @@ Deploymentは`pod-b`の代わりとして`pod-e`を作成します。
 
 この時点で、クラスター管理者はアップグレードを継続するためにクラスターにノードを追加する必要があります。
 
-Kubernetesがどのように中断の発生率を変化させているかについては、次のようなものから知ることができます:
+KubernetesがどのようにDisruptionの発生率を変化させているかについては、次のようなものから知ることができます:
 
 - いくつのレプリカをアプリケーションが必要としているか
 - インスタンスのグレースフルシャットダウンにどれくらいの時間がかかるか
@@ -191,7 +191,7 @@ Kubernetesがどのように中断の発生率を変化させているかにつ�
 - コントローラーの種類
 - クラスターリソースのキャパシティ
 
-## Pod中断条件 {#pod-disruption-conditions}
+## Pod Disruption Condition {#pod-disruption-conditions}
 
 {{< feature-state for_k8s_version="v1.26" state="beta" >}}
 
@@ -200,7 +200,7 @@ Kubernetesがどのように中断の発生率を変化させているかにつ�
 {{< /note >}}
 
 有効にすると、専用のPod `DisruptionTarget` [Condition](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)が追加されます。
-これはPodが{{<glossary_tooltip term_id="disruption" text="中断">}}によって削除されようとしていることを示すものです。
+これはPodが{{<glossary_tooltip term_id="disruption" text="Disruption">}}によって削除されようとしていることを示すものです。
 Conditionの`reason`フィールドにて、追加で以下のいずれかをPodの終了の理由として示します:
 
 `PreemptionByScheduler`
@@ -221,16 +221,16 @@ Conditionの`reason`フィールドにて、追加で以下のいずれかをPod
 : {{<glossary_tooltip term_id="node-pressure-eviction" text="node-pressureによる退避">}}または[Graceful Node Shutdown](/ja/docs/concepts/architecture/nodes/#graceful-node-shutdown)のため、Podはkubeletによって終了させられました。
 
 {{< note >}}
-Podの中断は一時停止する場合があります。
-コントロールプレーンは同じPodに対する中断を継続するために再試行するかもしれませんが、保証はされていません。
-その結果、`DisruptionTarget`条件はPodに付与されるかもしれませんが、実際にはPodは削除されていない可能性があります。
-そのような状況の場合、しばらくすると、Pod中断条件はクリアされます。
+PodのDisruptionは一時停止する場合があります。
+コントロールプレーンは同じPodに対するDisruptionを継続するために再試行するかもしれませんが、保証はされていません。
+その結果、`DisruptionTarget` ConditionはPodに付与されるかもしれませんが、実際にはPodは削除されていない可能性があります。
+そのような状況の場合、しばらくすると、Pod Disruption Conditionはクリアされます。
 {{< /note >}}
 
 フィーチャーゲート`PodDisruptionConditions`を有効にすると、Podのクリーンアップと共に、Podガベージコレクタ(PodGC)が非終了フェーズにあるPodを失敗とマークします。
 ([Podガベージコレクション](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)も参照してください)。
 
-Job(またはCronJob)を使用している場合、Jobの[Pod失敗ポリシー](/ja/docs/concepts/workloads/controllers/job#pod-failure-policy)の一部としてこれらのPod中断条件を使用したいと思うかもしれません。
+Job(またはCronJob)を使用している場合、Jobの[Pod失敗ポリシー](/ja/docs/concepts/workloads/controllers/job#pod-failure-policy)の一部としてこれらのPod Disruption Conditionを使用したいと思うかもしれません。
 
 ## クラスターオーナーとアプリケーションオーナーロールの分離
 
@@ -240,7 +240,7 @@ Job(またはCronJob)を使用している場合、Jobの[Pod失敗ポリシー]
 - 多くのアプリケーションチームでKubernetesクラスターを共有していて、役割の専門化が自然に行われている場合
 - クラスター管理を自動化するためにサードパーティのツールやサービスを使用している場合
 
-Pod Disruption Budgetはロール間のインターフェイスを提供することによって、この役割の分離をサポートします。
+Pod Disruption Budgetはロール間のインターフェースを提供することによって、この役割の分離をサポートします。
 
 もしあなたの組織でこのような責任の分担がなされていない場合は、Pod Disruption Budgetを使用する必要はないかもしれません。
 
@@ -251,11 +251,11 @@ Pod Disruption Budgetはロール間のインターフェイスを提供する�
 - アップグレードの間のダウンタイムを許容する。
 - もう一つの完全なレプリカクラスターにフェールオーバーする。
    - ダウンタイムはありませんが、重複するノードと、切り替えを調整する人的労力の両方のコストがかかる可能性があります。
-- 中断に耐性のあるアプリケーションを書き、PDBを使用する。
+- Disruptionに耐性のあるアプリケーションを書き、PDBを使用する。
    - ダウンタイムはありません。
    - リソースの重複は最小限です。
    - クラスター管理をより自動化できます。
-   - 中断に耐えうるアプリケーションを書くことは大変ですが、自発的な中断に耐えうるようにするための作業は、非自発的な中断に耐えうるために必要な作業とほぼ重複しています。
+   - Disruptionに耐えうるアプリケーションを書くことは大変ですが、自発的なDisruptionに耐えうるようにするための作業は、非自発的なDisruptionに耐えうるために必要な作業とほぼ重複しています。
 
 
 
@@ -267,4 +267,4 @@ Pod Disruption Budgetはロール間のインターフェイスを提供する�
 
 * [ノードのドレイン](/docs/tasks/administer-cluster/safely-drain-node/)について学んでください。
 
-* ロールアウト中の可用性を維持するためのステップなど、[deploymentの更新](/ja/docs/concepts/workloads/controllers/deployment/#updating-a-deployment)について学んでください。
+* ロールアウト中の可用性を維持するためのステップなど、[Deploymentの更新](/ja/docs/concepts/workloads/controllers/deployment/#updating-a-deployment)について学んでください。
