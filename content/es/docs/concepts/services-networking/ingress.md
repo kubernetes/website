@@ -45,10 +45,10 @@ Para mayor claridad, esta guía define los siguientes términos:
 
 ## ¿Qué es un Ingress?
 
-[Ingress](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1-networking-k8s-io)
-exposes HTTP and HTTPS routes from outside the cluster to
-{{< link text="services" url="/docs/concepts/services-networking/service/" >}} within the cluster.
-Traffic routing is controlled by rules defined on the Ingress resource.
+Un [Ingress](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1-networking-k8s-io)
+expone rutas HTTP y HTTPS desde el exterior del clúster a los
+{{< link text="servicios" url="es/docs/concepts/services-networking/service/" >}} dentro del clúster.
+El control del tráfico es controlado por las reglas definidas en el recurso Ingress.
 
 Aquí tienes un ejemplo simple de un Ingress que envía todo su tráfico a un
 Service:
@@ -102,7 +102,7 @@ Un ejemplo mínimo de un recurso Ingress:
 
 Un Ingress necesita los campos `apiVersion`, `kind`, `metadata` y `spec`.
 El nombre del objeto Ingress debe ser un
-[nombre de subdominio DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)
+[nombre de subdominio DNS](es/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)
 válido.
 Para información general sobre cómo trabajar con archivos de configuración,
 mira [desplegando aplicaciones](/es/docs/tasks/run-application/run-stateless-application-deployment/),
@@ -735,9 +735,9 @@ Puedes exponer un Service de muchas maneras que no involucran directamente el
 recurso Ingress:
 
 * Usa
-  un [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer)
+  un [Service.Type=LoadBalancer](es/docs/concepts/services-networking/service/#loadbalancer)
 * Usa
-  un [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport)
+  un [Service.Type=NodePort](es/docs/concepts/services-networking/service/#nodeport)
 
 ## {{% heading "whatsnext" %}}
 
