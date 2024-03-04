@@ -6,9 +6,9 @@
   <body class="td-{{ .Kind }}{{ with .Page.Params.body_class }} {{ . }}{{ end }}">
     <header>
       {{ partial "navbar.html" . }}
-      {{ partial "announcement.html" . }}
-      {{ block "hero" . }}
-      {{ end }}
+      {{- block "announcement" . -}}
+        {{ partialCached "announcement.html" . }}
+      {{- end -}}
     </header>
     <div class="container-fluid td-outer">
       <div class="td-main">
@@ -34,22 +34,22 @@
             {{ end }}
             {{ block "main" . }}{{ end }}
             {{/* Partial "docs/api-reference-links" determines API reference links for 'partial/page-meta-links.html' */}}
-              {{ partial "docs/api-reference-links" . }}
+            {{ partial "docs/api-reference-links" . }}
             {{- if .HasShortcode "thirdparty-content" -}}
-            {{ block "thirdparty-disclaimer" . }}
-              {{ partial "docs/thirdparty-disclaimer.html" . }}
-            {{- end -}}
+              {{- block "thirdparty-disclaimer" . -}}
+                {{ partial "docs/thirdparty-disclaimer.html" . }}
+              {{- end -}}
             {{- end -}}
             {{- if (.Param "auto_generated") -}}
-            {{ block "auto-generated-pageinfo" . }}
-              {{ partial "docs/auto-generated-pageinfo.html" . }}
-            {{- end -}}
+              {{- block "auto-generated-pageinfo" . -}}
+                {{ partial "docs/auto-generated-pageinfo.html" . }}
+              {{- end -}}
             {{- end -}}
           </main>
         </div>
       </div>
     </div>
-    {{ partial "footer.html" . }}
-    {{ partial "scripts.html" . }}
+    {{- partial "footer.html" . }}
+    {{- partial "scripts.html" . }}
   </body>
 </html>
