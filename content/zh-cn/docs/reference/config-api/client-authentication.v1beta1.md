@@ -290,7 +290,7 @@ exec 插件本身至少应通过文件访问许可来实施保护。</p>
 
   
 <tr><td><code>expirationTimestamp</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#time-v1-meta"><code>meta/v1.Time</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
    <!-- ExpirationTimestamp indicates a time when the provided credentials expire. -->
