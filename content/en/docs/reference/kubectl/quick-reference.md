@@ -78,7 +78,11 @@ kubectl config view --raw
 kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 
 # get the certificate for the e2e user
+<<<<<<< HEAD
 kubectl config view --raw -ojsonpath='{.users[?(.name == 'e2e')].user.client-certificate-data}' | base64 -d
+=======
+kubectl config view --raw -o jsonpath="{.users[?(.name == 'e2e')].user.client-certificate-data}" | base64 -d
+>>>>>>> 908a1cca4c (added commands to cheatsheet.md)
 
 kubectl config view -o jsonpath='{.users[].name}'    # display the first user
 kubectl config view -o jsonpath='{.users[*].name}'   # get a list of users
