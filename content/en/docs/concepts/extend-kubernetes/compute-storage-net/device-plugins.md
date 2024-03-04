@@ -114,7 +114,7 @@ The general workflow of a device plugin includes the following steps:
          // informed allocation decision when possible.
          rpc GetPreferredAllocation(PreferredAllocationRequest) returns (PreferredAllocationResponse) {}
 
-         // PreStartContainer is called, if indicated by Device Plugin during registeration phase,
+         // PreStartContainer is called, if indicated by Device Plugin during registration phase,
          // before each container start. Device plugin can run device specific operations
          // such as resetting the device before making devices available to the container.
          rpc PreStartContainer(PreStartContainerRequest) returns (PreStartContainerResponse) {}
@@ -346,7 +346,7 @@ update and Kubelet needs to be restarted to reflect the correct resource capacit
 {{< /note >}}
 
 ```gRPC
-// AllocatableResourcesResponses contains informations about all the devices known by the kubelet
+// AllocatableResourcesResponses contains information about all the devices known by the kubelet
 message AllocatableResourcesResponse {
     repeated ContainerDevices devices = 1;
     repeated int64 cpu_ids = 2;
@@ -454,7 +454,7 @@ pluginapi.Device{ID: "25102017", Health: pluginapi.Healthy, Topology:&pluginapi.
 
 Here are some examples of device plugin implementations:
 
-* The [AMD GPU device plugin](https://github.com/RadeonOpenCompute/k8s-device-plugin)
+* The [AMD GPU device plugin](https://github.com/ROCm/k8s-device-plugin)
 * The [generic device plugin](https://github.com/squat/generic-device-plugin) for generic Linux devices and USB devices
 * The [Intel device plugins](https://github.com/intel/intel-device-plugins-for-kubernetes) for
   Intel GPU, FPGA, QAT, VPU, SGX, DSA, DLB and IAA devices

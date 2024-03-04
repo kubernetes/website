@@ -481,7 +481,8 @@ There are some implicit conventions worth noting here:
   present. This implies that:
 
   1. any Pods located on those bypassed nodes do not impact `maxSkew` calculation - in the
-     above example, suppose the node `node1` does not have a label "zone", then the 2 Pods will
+     above [example](#example-conflicting-topologyspreadconstraints), suppose the node `node1`
+     does not have a label "zone", then the 2 Pods will
      be disregarded, hence the incoming Pod will be scheduled into zone `A`.
   2. the incoming Pod has no chances to be scheduled onto this kind of nodes -
      in the above example, suppose a node `node5` has the **mistyped** label `zone-typo: zoneC`

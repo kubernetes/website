@@ -808,7 +808,7 @@ O recurso `CSIMigration` para Portworx foi adicionado, mas desativado por padrã
 
 ## Utilizando subPath {#using-subpath}
 
-Às vezes, é útil compartilhar um volume para múltiplos usos em um único pod. A propriedade `volumeMounts.subPath` especifica um sub caminho dentro do volume referenciado em vez de sua raiz.
+Às vezes, é útil compartilhar um volume para múltiplos usos em um único pod. A propriedade `volumeMounts[*].subPath` especifica um sub caminho dentro do volume referenciado em vez de sua raiz.
 
 O exemplo a seguir mostra como configurar um Pod com um ambiente LAMP (Linux, Apache, MySQL e PHP) usando um único volume compartilhado. Esta exemplo de configuração `subPath` não é recomendada para uso em produção.
 
@@ -972,7 +972,7 @@ Os mantenedores do driver FlexVolume devem implementar um driver CSI e ajudar a 
 
 A propagação de montagem permite compartilhar volumes montados por um contêiner para outros contêineres no mesmo pod, ou mesmo para outros pods no mesmo nó.
 
-A propagação de montagem de um volume é controlada pelo campo `mountPropagation` na propriedade `Container.volumeMounts`. Os seus valores são:
+A propagação de montagem de um volume é controlada pelo campo `mountPropagation` na propriedade `containers[*].volumeMounts`. Os seus valores são:
 
 * `None` - Este volume de montagem não receberá do host nenhuma montagem posterior que seja montada para este volume ou qualquer um de seus subdiretórios. De forma semelhante, nenhum ponto de montagem criado pelo contêiner será visível no host. Este é o modo padrão.
   
