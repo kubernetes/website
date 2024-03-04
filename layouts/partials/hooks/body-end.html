@@ -1,11 +1,5 @@
-{{ if .HasShortcode "kat-button" }}
-<div id="katacoda-environment" data-katacoda-ondemand="true" data-katacoda-port="30000" data-katacoda-env="minikube:1.20" data-katacoda-command="start.sh" data-katacoda-ui="panel"></div>
-{{ end }}
-{{ with .Site.Params.algolia_docsearch }}
-<!-- scripts for algolia docsearch -->
-{{ end }}
-{{/* copy-and-paste helper for codenew shortcode */}}
-{{- if or (.HasShortcode "code_sample") (.HasShortcode "code") (.HasShortcode "codenew") -}}
+{{/* copy-and-paste helper for code_sample shortcode */}}
+{{- if .HasShortcode "code_sample" -}}
   {{- if hugo.IsProduction -}}
     {{- $sweetAlert :=  resources.Get "js/sweetalert-2.1.2.min.js" | minify | fingerprint -}}
 <script async src="{{ $sweetAlert.RelPermalink }}" integrity="{{ $sweetAlert.Data.Integrity }}" crossorigin="anonymous"></script>

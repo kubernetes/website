@@ -1,9 +1,8 @@
 {{ define "side-menu" }}
-    {{ partial "docs/side-menu.html" . }}
+	{{ partial "docs/side-menu.html" . }}
 {{ end }}
 
 {{ define "main" }}
-{{ partial "deprecation-warning.html" . }}
 <h1>{{ .Title }}</h1>
 <p>{{ T "layouts_docs_glossary_description" }}</p>
 <div id="tag-container">
@@ -39,14 +38,14 @@
 	
 	<li class="{{ $.Scratch.Get "tag_classes" }} hide" data-show-count="0">
 		<div id="{{ $term_identifier }}" class="term-anchor"></div>
-		<div class="term-name" data-pagefind-index-attrs="term"><span class="glossary-term-name">{{ .Title }}</span><a href="{{ printf "#%s" $term_identifier }}" class="permalink">
+		<div class="term-name" data-pagefind-index-attrs="term"><span class="glossary-term-name">{{ .Title }}</span><a href="{{ printf "#%s" $term_identifier }}" class="permalink hide">
 		{{- with resources.Get "icons/link.svg" -}}
 		{{- .Content | safeHTML -}}
 		{{- end -}}
 		</a></div>
 		<div class="term-definition">
 			{{ with .Params.aka }}
-                        {{ T "layouts_docs_glossary_aka" }}: <span class="glossary-aka">{{ delimit . ", " }}</span>
+			{{ T "layouts_docs_glossary_aka" }}: <span class="glossary-aka">{{ delimit . ", " }}</span>
 			<br />
 			{{ end }}
 			<span class="preview-text">{{ .Summary }} <a href="javascript:void(0)" class="click-controller no-underline" data-target="{{ .Params.id }}">[+]</a></span>
