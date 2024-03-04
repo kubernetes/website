@@ -7,7 +7,8 @@ date: 2024-01-22
 
 **Author**: Andrei Kvapil (Ænix)
 
-*We have a deep affection for Kubernetes and dream that all modern technologies will soon start utilizing its remarkable patterns.*
+At Ænix, we have a deep affection for Kubernetes and dream that all modern technologies will soon
+start utilizing its remarkable patterns.
 
 Have you ever thought about building your own cloud? I bet you have. But is it possible to do this using only modern technologies and approaches, without leaving the cozy Kubernetes ecosystem? Our experience in developing Cozystack required us to delve deeply into it.
 
@@ -31,15 +32,15 @@ To begin with, let's understand the main advantage of Kubernetes and how it has 
 
 It is important to understand that the use of Kubernetes in the cloud and on bare metal differs.
 
-### Kubernetes in the Cloud
+### Kubernetes in the cloud
 
 When you operate Kubernetes in the cloud, you don't worry about persistent volumes, cloud load balancers, or the process of provisioning nodes. All of this is handled by your cloud provider, who accepts your requests in the form of Kubernetes objects. In other words, the server side is completely hidden from you, and you don't really want to know how exactly the cloud provider implements as it's not in your area of responsibility.
 
-![kubernetes in the cloud illustration](cloud.svg)
+![A diagram showing cloud Kubernetes, with load balancing done outside the cluster](cloud.svg)
 
 Kubernetes offers convenient abstractions that work the same everywhere, allowing you to deploy your application on any Kubernetes in any cloud.
 
-In the cloud, you always have several separate entities: the Kubernetes control plane, virtual machines, persistent volumes, and load balancers as distinct entities. Using these entities, you can create highly dynamic environments.
+In the cloud, you very commonly have several separate entities: the Kubernetes control plane, virtual machines, persistent volumes, and load balancers as distinct entities. Using these entities, you can create highly dynamic environments.
 
 Thanks to Kubernetes, virtual machines are now only seen as a utility entity for utilizing cloud resources. You no longer store data inside virtual machines. You can delete all your virtual machines at any moment and recreate them without breaking your application. The Kubernetes control plane will continue to hold information about what should run in your cluster. The load balancer will keep sending traffic to your workload, simply changing the endpoint to send traffic to a new node. And your data will be safely stored in external persistent volumes provided by cloud.
 
@@ -51,7 +52,14 @@ Using Kubernetes in the clouds is really simple and convenient, which cannot be 
 
 ![kubernetes on bare metal illustration](baremetal.svg)
 
-Judge for yourself: in the cloud, to update a node, you simply delete the virtual machine and create a new one from a new image. It will join the cluster and just work as a new node, a very simple and commonly used pattern in the Kubernetes world. Many order new virtual machines every few minutes, simply because they can use cheaper spot instances. However, when you have a physical server, you can't just delete and recreate it, firstly because it often runs some cluster services, stores data, and its update process is significantly more complicated.
+Judge for yourself: in the cloud, to update a node, you typically delete the virtual machine
+(or even use `kubectl delete node`) and you let your node management tooling create a new
+one, based on an immutable image. The new node will join the cluster and ”just work” as a  node;
+following a very simple and commonly used pattern in the Kubernetes world. 
+Many clusters order new virtual machines every few minutes, simply because they can use
+cheaper spot instances. However, when you have a physical server, you can't just delete and
+recreate it, firstly because it often runs some cluster services, stores data, and its update process
+is significantly more complicated.
 
 There are different approaches to solving this problem, ranging from in-place updates, as done by kubeadm, kubespray, and k3s, to full automation of provisioning physical nodes through Cluster API and Metal3.
 
@@ -62,7 +70,7 @@ This approach minimizes unnecessary impact on cluster services when updating bar
 
 So, suppose you've decided to build your own cloud. To start somewhere, you need a base layer. You need to think not only about how you will install Kubernetes on your servers but also about how you will update and maintain it. Consider the fact that you will have to think about things like updating the kernel, installing necessary modules, as well packages and security patches. Now you have to think much more that you don't have to worry about when using a ready-made Kubernetes in the cloud.
 
-Of course you can use standard distributions like **Ubuntu** or **Debian**, or you can consider specialized ones like **Flatcar Container Linux**, **Fedora Core**, and **Talos Linux**. Each has its advantages and disadvantages.
+Of course you can use standard distributions like Ubuntu or Debian, or you can consider specialized ones like Flatcar Container Linux, Fedora Core, and Talos Linux. Each has its advantages and disadvantages.
 
 What about us? We use quite a few specific kernel modules like ZFS, DRBD, and OpenvSwitch, so we decided to go the route of forming a system image with all the necessary modules in advance. In this case, Talos Linux turned out to be the most convenient for us. For example, such a config is enough to build a system image with all the necessary kernel modules:
 
@@ -93,31 +101,40 @@ output:
   outFormat: raw
 ```
 
-Then you run simple docker command to build it into ready-made image:
+Then we use the `docker` command line tool to build an OS image:
 
 ```
 cat config.yaml | docker run --rm -i -v /dev:/dev --privileged "ghcr.io/siderolabs/imager:v1.6.4" - 
 ```
 
-And as a result, you will get an image with everything you need, which you can use to install Talos Linux on your servers. This image will contain all the necessary firmware and kernel modules.
+And as a result, we get a Docker container image with everything we need, which we can use to install
+Talos Linux on our servers. You can do the same; this image will contain all the necessary firmware
+and kernel modules.
 
 But the question arises, how do you deliver the freshly formed image to your nodes?
 
-I have been contemplating the idea of PXE booting for quite some time. For example, the **Kubefarm** project that I [wrote an article about](https://kubernetes.io/blog/2021/12/22/kubernetes-in-kubernetes-and-pxe-bootable-server-farm/) two years ago was entirely built using this approach. But unfortunately, it does help you to deploy your very first parent cluster that will hold the others. So now you have prepared a simple solution that will help you do this the same using PXE approach.
+I have been contemplating the idea of PXE booting for quite some time. For example, the
+**Kubefarm** project that I wrote an
+[article](/blog/2021/12/22/kubernetes-in-kubernetes-and-pxe-bootable-server-farm/) about
+two years ago was entirely built using this approach. But unfortunately, it does help you to
+deploy your very first parent cluster that will hold the others. So now you have prepared a
+solution that will help you do this the same using PXE approach.
 
-Essentially, all you need to do is [run temporary](https://cozystack.io/docs/get-started/) **DHCP** and **PXE** servers in Docker containers. Then your nodes will boot from your image, and you can use a simple Debian-like script to help you bootstrap your nodes.
+Essentially, all you need to do is [run temporary](https://cozystack.io/docs/get-started/)
+**DHCP** and **PXE** servers inside containers. Then your nodes will boot from your
+image, and you can use a simple Debian-flavored script to help you bootstrap your nodes.
 
-[![asciicast](https://asciinema.org/a/627123.svg)](https://asciinema.org/a/627123)
+[![asciicast](asciicast.svg)](https://asciinema.org/a/627123)
 
-Source of this [talos-bootstrap](https://github.com/aenix-io/talos-bootstrap/) script is available on GitHub
+The [source](https://github.com/aenix-io/talos-bootstrap/) for that `talos-bootstrap` script is available on GitHub.
 
 This script allows you to deploy Kubernetes on bare metal in five minutes and obtain a kubeconfig for accessing it. However, many unresolved issues still lie ahead.
 
-### Delivering System Components
+### Delivering system components
 
-At this stage, you already have a Kubernetes cluster capable of running various workloads. However, it is not fully functional yet. In other words, you need to set up networking and storage, as well as install necessary cluster extensions, like **KubeVirt** to run virtual machines, as well the monitoring stack and other system-wide components.
+At this stage, you already have a Kubernetes cluster capable of running various workloads. However, it is not fully functional yet. In other words, you need to set up networking and storage, as well as install necessary cluster extensions, like KubeVirt to run virtual machines, as well the monitoring stack and other system-wide components.
 
-Traditionally, this is solved by installing **Helm charts** into your cluster. You can do this by running `helm install` commands locally, but this approach becomes inconvenient when you want to track updates, and if you have multiple clusters and you want to keep them uniform. In fact, there are plenty of ways to do this declaratively. To solve this, I recommend using best GitOps practices. I mean tools like **ArgoCD** and **FluxCD**.
+Traditionally, this is solved by installing **Helm charts** into your cluster. You can do this by running `helm install` commands locally, but this approach becomes inconvenient when you want to track updates, and if you have multiple clusters and you want to keep them uniform. In fact, there are plenty of ways to do this declaratively. To solve this, I recommend using best GitOps practices. I mean tools like ArgoCD and FluxCD.
 
 While ArgoCD is more convenient for dev purposes with its graphical interface and a central control plane, FluxCD, on the other hand, is better suited for creating Kubernetes distributions. With FluxCD, you can specify which charts with what parameters should be launched and describe dependencies. Then, FluxCD will take care of everything for you.
 
@@ -153,6 +170,6 @@ cozy-telepresence                telepresence                4m1s   True    Rele
 cozy-victoria-metrics-operator   victoria-metrics-operator   4m1s   True    Release reconciliation succeeded
 ```
 
-As a result, you achieve a highly repeatable environment that you can provide to anyone, knowing that it operates exactly as intended. This is actually what the [**Cozystack**](https://github.com/aenix-io/cozystack) project does, which you can try out for yourself absolutely free.
+As a result, you achieve a highly repeatable environment that you can provide to anyone, knowing that it operates exactly as intended. This is actually what the [Cozystack](https://github.com/aenix-io/cozystack) project does, which you can try out for yourself absolutely free.
 
 In the following articles, I will discuss how to prepare Kubernetes for running virtual machines and how to run Kubernetes clusters at the click of a button. Stay tuned, it'll be fun!
