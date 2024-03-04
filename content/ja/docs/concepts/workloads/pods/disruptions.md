@@ -12,7 +12,7 @@ weight: 70
 
 <!-- body -->
 
-## 自発的Disruptionと非自発的Disruption
+## 自発的なDisruptionと非自発的なDisruption
 
 Podは誰か(人やコントローラー)が破壊するか、避けることができないハードウェアまたはシステムソフトウェアエラーが発生するまで、消えることはありません。
 
@@ -55,7 +55,7 @@ Podは誰か(人やコントローラー)が破壊するか、避けることが
 
 ## Disruptionへの対応
 
-非自発的Disruptionを軽減する方法をいくつか紹介します:
+非自発的なDisruptionを軽減する方法をいくつか紹介します:
 
 - Podは必要な[リソースを要求](/ja/docs/tasks/configure-pod-container/assign-memory-resource)するようにする。
 - 高可用性が必要な場合はアプリケーションをレプリケートする。(レプリケートされた[ステートレス](/ja/docs/tasks/run-application/run-stateless-application-deployment/)および[ステートフル](/ja/docs/tasks/run-application/run-replicated-stateful-application/)アプリケーションの実行について学ぶ。)
@@ -96,7 +96,7 @@ PDBが同時に4つまでを許容する場合、Eviction APIは1度に(2つで�
 "意図した"Podの数は、これらのPodを管理するワークロードリソースの`.spec.replicas`から計算されます。
 コントロールプレーンはPodの`.metadata.ownerReferences`を調べることで、所有しているワークロードリソースを見つけます。
 
-[非自発的Disruption](#voluntary-and-involuntary-disruptions)はPDBによって防ぐことができません;
+[非自発的なDisruption](#voluntary-and-involuntary-disruptions)はPDBによって防ぐことができません;
 しかし、予算にはカウントされます。
 
 アプリケーションのローリングアップデートによって削除または利用できなくなったPodはDisruptionの予算にカウントされますが、ローリングアップグレードを実行している時は(DeploymentやStatefulSetなどの)ワークロードリソースはPDBによって制限されません。
