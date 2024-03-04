@@ -303,7 +303,7 @@ token might be shorter, or could even be longer).
 
 <!--
 When the `ServiceAccountTokenNodeBinding` and `ServiceAccountTokenNodeBindingValidation`
-features are enabled and the `KUBECTL_NODE_BOUND_TOKENS` enviroment variable is set to `true`,
+features are enabled and the `KUBECTL_NODE_BOUND_TOKENS` environment variable is set to `true`,
 it is possible to create a service account token that is directly bound to a `Node`:
 -->
 当启用了 `ServiceAccountTokenNodeBinding` 和 `ServiceAccountTokenNodeBindingValidation`
@@ -315,7 +315,7 @@ KUBECTL_NODE_BOUND_TOKENS=true kubectl create token build-robot --bound-object-k
 ```
 
 <!--
-The token will be valid until it expires or either the assocaited `Node` or service account are deleted.
+The token will be valid until it expires or either the associated `Node` or service account are deleted.
 -->
 此令牌将有效直至其过期或关联的 `Node` 或服务账户被删除。
 
@@ -476,7 +476,7 @@ Next, verify it has been created. For example:
   所描述的，生成一个镜像拉取 Secret：
 
   ```shell
-  kubectl create secret docker-registry myregistrykey --docker-server=DUMMY_SERVER \
+  kubectl create secret docker-registry myregistrykey --docker-server=<registry name> \
           --docker-username=DUMMY_USERNAME --docker-password=DUMMY_DOCKER_PASSWORD \
           --docker-email=DUMMY_DOCKER_EMAIL
   ```
@@ -578,7 +578,7 @@ ServiceAccount, the new Pod has its `spec.imagePullSecrets` field set automatica
 新 Pod 的 `spec.imagePullSecrets` 会被自动设置。
 
 ```shell
-kubectl run nginx --image=nginx --restart=Never
+kubectl run nginx --image=<registry name>/nginx --restart=Never
 kubectl get pod nginx -o=jsonpath='{.spec.imagePullSecrets[0].name}{"\n"}'
 ```
 
@@ -594,7 +594,7 @@ myregistrykey
 <!--
 ## ServiceAccount token volume projection
 -->
-## 服务账号令牌卷投射   {#service-account-token-volume-projection}
+## 服务账号令牌卷投射   {#serviceaccount-token-volume-projection}
 
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
@@ -794,7 +794,7 @@ often good enough for the application to load the token on a schedule
 <!--
 ## Service Account Issuer Discovery
 -->
-## 发现服务账号分发者
+## 发现服务账号分发者 {#service-account-issuer-discovery}
 
 {{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
@@ -908,7 +908,7 @@ See also:
   - or learn to [distribute credentials securely using Secrets](/docs/tasks/inject-data-application/distribute-credentials-secure/)
   - but also bear in mind that using Secrets for authenticating as a ServiceAccount
     is deprecated. The recommended alternative is
-    [ServiceAccount token volume projection](#service-account-token-volume-projection).
+    [ServiceAccount token volume projection](#serviceaccount-token-volume-projection).
 -->
 另请参见：
 
@@ -917,7 +917,7 @@ See also:
 - 阅读 [Secret](/zh-cn/docs/concepts/configuration/secret/) 的概念
   - 或者学习[使用 Secret 来安全地分发凭据](/zh-cn/docs/tasks/inject-data-application/distribute-credentials-secure/)
   - 不过也要注意，使用 Secret 来完成 ServiceAccount 身份验证的做法已经过时。
-    建议的替代做法是执行 [ServiceAccount 令牌卷投射](#service-account-token-volume-projection)。
+    建议的替代做法是执行 [ServiceAccount 令牌卷投射](#serviceaccount-token-volume-projection)。
 <!--
 - Read about [projected volumes](/docs/tasks/configure-pod-container/configure-projected-volume-storage/).
 - For background on OIDC discovery, read the

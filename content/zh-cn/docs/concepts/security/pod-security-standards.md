@@ -316,6 +316,10 @@ fail validation.
 					<li><code>net.ipv4.tcp_syncookies</code></li>
 					<li><code>net.ipv4.ping_group_range</code></li>
 					<li><code>net.ipv4.ip_local_reserved_ports</code><!-- (since Kubernetes 1.27)-->（从 Kubernetes 1.27 开始）</li>
+					<li><code>net.ipv4.tcp_keepalive_time</code><!-- (since Kubernetes 1.29)-->（从 Kubernetes 1.29 开始）</li>
+					<li><code>net.ipv4.tcp_fin_timeout</code><!-- (since Kubernetes 1.29)-->（从 Kubernetes 1.29 开始）</li>
+					<li><code>net.ipv4.tcp_keepalive_intvl</code><!-- (since Kubernetes 1.29)-->（从 Kubernetes 1.29 开始）</li>
+					<li><code>net.ipv4.tcp_keepalive_probes</code><!-- (since Kubernetes 1.29)-->（从 Kubernetes 1.29 开始）</li>
 				</ul>
 			</td>
 		</tr>
@@ -593,6 +597,21 @@ Restrictions on the following controls are only required if `.spec.os.name` is n
 - 特权提升
 - Seccomp
 - Linux 权能
+
+<!--
+## User namespaces
+
+User Namespaces are a Linux-only feature to run workloads with increased
+isolation. How they work together with Pod Security Standards is described in
+the [documentation](/docs/concepts/workloads/pods/user-namespaces#integration-with-pod-security-admission-checks) for Pods that use user namespaces.
+-->
+## 用户命名空间    {#user-namespaces}
+
+用户命名空间是 Linux 特有的功能，可在运行工作负载时提高隔离度。
+关于用户命名空间如何与 PodSecurityStandard 协同工作，
+请参阅
+[文档](/zh-cn/docs/concepts/workloads/pods/user-namespaces#integration-with-pod-security-admission-checks)
+了解 Pod 如何使用用户命名空间。
 
 <!--
 ## FAQ

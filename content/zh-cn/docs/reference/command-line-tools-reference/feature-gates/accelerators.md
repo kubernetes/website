@@ -6,6 +6,17 @@ content_type: feature_gate
 _build:
   list: never
   render: false
+
+stages:
+  - stage: alpha 
+    defaultValue: false
+    fromVersion: "1.6"
+    toVersion: "1.10"
+  - stage: deprecated
+    fromVersion: "1.11"
+    toVersion: "1.11"
+
+removed: true
 ---
 
 <!--

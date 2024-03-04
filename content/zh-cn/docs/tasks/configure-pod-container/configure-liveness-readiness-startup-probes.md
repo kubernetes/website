@@ -369,7 +369,7 @@ kubectl describe pod goproxy
 <!--
 ## Define a gRPC liveness probe
 -->
-## 定义 gRPC 存活探针
+## 定义 gRPC 存活探针 {#define-a-grpc-liveness-probe}
 
 {{< feature-state for_k8s_version="v1.27" state="stable" >}}
 
@@ -486,7 +486,6 @@ For example:
 ports:
 - name: liveness-port
   containerPort: 8080
-  hostPort: 8080
 
 livenessProbe:
   httpGet:
@@ -520,7 +519,6 @@ So, the previous example would become:
 ports:
 - name: liveness-port
   containerPort: 8080
-  hostPort: 8080
 
 livenessProbe:
   httpGet:
@@ -883,7 +881,6 @@ spec:
     ports:
     - name: liveness-port
       containerPort: 8080
-      hostPort: 8080
 
     livenessProbe:
       httpGet:

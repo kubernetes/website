@@ -4,6 +4,15 @@ content_type: feature_gate
 _build:
   list: never
   render: false
+
+stages:
+  - stage: beta
+    defaultValue: false
+    fromVersion: "1.27"
+    toVersion: "1.27"
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.28"
 ---
 Enables improved discovery of mounted volumes during kubelet
 startup. Since this code has been significantly refactored, we allow to opt-out in case kubelet

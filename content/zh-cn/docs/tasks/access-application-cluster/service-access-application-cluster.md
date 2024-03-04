@@ -134,10 +134,10 @@ Here is the configuration file for the application Deployment:
    ```
 
    <!--
-   Make a note of the NodePort value for the service. For example,
+   Make a note of the NodePort value for the Service. For example,
    in the preceding output, the NodePort value is 31496.
    -->
-   注意服务中的 NodePort 值。例如在上面的输出中，NodePort 值是 31496。
+   注意 Service 中的 NodePort 值。例如在上面的输出中，NodePort 值是 31496。
 
 <!--
 1. List the pods that are running the Hello World application:

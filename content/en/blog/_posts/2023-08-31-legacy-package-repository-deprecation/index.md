@@ -98,6 +98,13 @@ we'll only publish packages to the new package repositories (`pkgs.k8s.io`).
 Kubernetes 1.29 and onwards will have packages published **only** to the
 community-owned repositories (`pkgs.k8s.io`).
 
+### What releases are available in the new community-owned package repositories?
+
+Linux packages for releases starting from Kubernetes v1.24.0 are available in the 
+Kubernetes package repositories (`pkgs.k8s.io`). Kubernetes does not have official
+Linux packages available for earlier releases of Kubernetes; however, your Linux
+distribution may provide its own packages.
+
 ## Can I continue to use the legacy package repositories?
 
 ~~The existing packages in the legacy repositories will be available for the foreseeable
@@ -105,7 +112,7 @@ future. However, the Kubernetes project can't provide _any_ guarantees on how lo
 is that going to be. The deprecated legacy repositories, and their contents, might
 be removed at any time in the future and without a further notice period.~~
 
-**UPDATE**: The legacy packages are expected to go away in January 2024.
+**UPDATE**: The legacy packages are expected to go away by the end of February 2024.
 
 The Kubernetes project **strongly recommends** migrating to the new community-owned
 repositories **as soon as possible**.
