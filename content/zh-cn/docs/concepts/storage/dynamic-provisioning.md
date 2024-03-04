@@ -197,12 +197,14 @@ When a default `StorageClass` exists in a cluster and a user creates a
 `DefaultStorageClass` 准入控制器会自动向其中添加指向默认存储类的 `storageClassName` 字段。
 
 <!--
-Note that there can be at most one *default* storage class on a cluster, or
-a `PersistentVolumeClaim` without `storageClassName` explicitly specified cannot
-be created.
+Note that if you set the `storageclass.kubernetes.io/is-default-class`
+annotation to true on more than one StorageClass in your cluster, and you then
+create a `PersistentVolumeClaim` with no `storageClassName` set, Kubernetes
+uses the most recently created default StorageClass.
 -->
-请注意，集群上最多只能有一个 **默认** 存储类，否则无法创建没有明确指定
-`storageClassName` 的 `PersistentVolumeClaim`。
+请注意，如果你在集群的多个 StorageClass 设置 `storageclass.kubernetes.io/is-default-class` 注解为 true，
+并之后创建了未指定 `storageClassName` 的 `PersistentVolumeClaim`，
+Kubernetes 会使用最新创建的默认 StorageClass。
 
 <!--
 ## Topology Awareness
