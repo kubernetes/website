@@ -1,4 +1,21 @@
 <link rel="manifest" href="/manifest.webmanifest">
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "url": "https://kubernetes.io",
+    "logo": "https://kubernetes.io/images/favicon.png",
+{{- if not .Site.Params.deprecated }}
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {{ printf "%s%s" ("search/" | absURL) "?q={search_term_string}" }},
+      "query-input": "required name=search_term_string"
+    }
+{{ end }}
+  }
+</script>
+
+<meta name="theme-color" content="#326ce5">
 
 {{- if or (.HasShortcode "table")  (.HasShortcode "feature-gate-table") -}}
   {{- if hugo.IsProduction -}}
@@ -35,14 +52,6 @@
   {{- end -}}
 {{- end -}}
 
-{{- if eq .Layout "glossary" -}}
-  {{- with resources.Get "js/glossary.js" -}}
-  <script defer src="{{ .RelPermalink }}"></script>
-  {{- else -}}
-    {{- errorf "Unable to find the glossary helper script" -}}
-  {{- end -}}
-{{- end -}}
-
 {{- if .HasShortcode "release-binaries" -}}
   {{- if hugo.IsProduction -}}
     {{- $releaseBinariesJs :=  resources.Get "js/release_binaries.js" | minify | fingerprint -}}
@@ -52,3 +61,44 @@
 <script defer src="{{ $releaseBinariesJs.RelPermalink }}"></script>
   {{- end -}}
 {{- end -}}
+
+{{- if eq .Layout "glossary" -}}
+  {{- with resources.Get "js/glossary.js" -}}
+  <script defer src="{{ .RelPermalink }}"></script>
+  {{- else -}}
+    {{- errorf "Unable to find the glossary helper script" -}}
+  {{- end -}}
+  {{- with resources.Get "css/glossary.css" -}}
+    <link href="{{ .RelPermalink }}" rel="stylesheet">
+  {{- end -}}
+{{- end -}}
+
+{{- if eq (lower .Params.cid) "community" -}}
+<script defer src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+{{- end -}}
+
+{{- if eq .Layout "search" -}}
+  {{- $searchJs :=  resources.Get "js/search.js" | minify | fingerprint -}}
+<script src="{{ $searchJs.RelPermalink }}" integrity="{{ $searchJs.Data.Integrity }}" crossorigin="anonymous"></script>
+{{- end -}}
+
+<!-- Content for social media sharing previews -->
+<!-- Facebook uses the og: stuff, while Twitter and others use twitter: -->
+<meta name="description" content="{{ if .Params.description }}{{ .Params.description }}{{ else }}{{ .Summary }}{{ end }}">
+<meta property="og:description" content="{{ if .Params.description }}{{ .Params.description }}{{ else }}{{ .Summary }}{{ end }}">
+<meta name="twitter:description" content="{{ if .Params.description }}{{ .Params.description }}{{ else }}{{ .Summary }}{{ end }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:title" content="{{ if .Params.title }}{{ .Title }}{{ else }}{{ .Summary | truncate 10 }}{{ end }}">
+<meta name="twitter:title" content="{{ if .Params.title }}{{ .Title }}{{ else }}{{ .Summary | truncate 10 }}{{ end }}">
+<meta name="twitter:image" content="https://kubernetes.io/images/favicon.png" />
+<!-- Alt text for the site image -->
+<meta name="twitter:image:alt" content="{{ site.Title }}">
+{{- if ( eq .Section "blog" ) -}}
+{{ with findRE "<img.*?>" .Content 1 }}
+<meta property="og:image" content="{{ index . 0 | replaceRE ".*src=\"(.+?)\".*" "$1" }}">
+{{ end }}
+<meta property="og:type" content="article">
+{{ else }}
+<meta property="og:image" content="{{ "/images/kubernetes-horizontal-color.png" | relURL }}">
+<meta property="og:type" content="website">
+{{ end }}

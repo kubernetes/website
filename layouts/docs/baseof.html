@@ -1,61 +1,42 @@
+{{- partial "docs/api-reference-links" $ -}}
 <!doctype html>
 <html lang="{{ .Site.Language.Lang }}" class="no-js">
   <head>
     {{ partial "head.html" . }}
-    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{ . }} | {{ end }}{{ .Site.Title }}{{ end }}</title>
   </head>
   <body class="td-{{ .Kind }}{{ with .Page.Params.body_class }} {{ . }}{{ end }}">
     <header>
       {{ partial "navbar.html" . }}
-      {{ partial "announcement.html" . }}
-      {{ block "hero" . }}
-        <section class="header-hero filler">
-        </section>
-         {{ block "hero-more" . }}{{ end }}
-      {{ end }}
     </header>
     <div class="container-fluid td-outer">
       <div class="td-main">
-        <div class="row flex-column flex-md-row">
-          <div id="sidebarnav" class="split td-sidebar d-print-none">
+        <div class="row flex-xl-nowrap">
+          <aside class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
             {{ partial "sidebar.html" . }}
-          </div>
-          <div id="maindoc" class="split pl-md-5 row">
-          <!--main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main"-->
-          <main role="main" class="col-xl-8" {{ if ne .Params.cid "docsHome" }}data-pagefind-body{{ end }}{{ if (and .IsPage .Params.description ) }} data-pagefind-meta="description:{{ .Params.description }}"{{ end }}>
-              {{ if not .Site.Params.ui.breadcrumb_disable }}{{ partial "breadcrumb.html" . }}{{ end }}
-              {{ block "outdated_content" . }}
-                {{ partial "docs/outdated_content.html" . }}
-              {{ end }}
-
-              {{ block "main" . }}{{ end }}
-              {{- if .HasShortcode "thirdparty-content" -}}
-                {{ block "thirdparty-disclaimer" . }}
-                  {{ partial "docs/thirdparty-disclaimer.html" . }}
-                {{- end -}}
+          </aside>
+          <aside class="d-none d-xl-block col-xl-2 td-sidebar-toc d-print-none">
+            {{ partial "page-meta-links.html" . }}
+            {{ partial "toc.html" . }}
+            {{ partial "taxonomy_terms_clouds.html" . }}
+          </aside>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            {{ partial "version-banner.html" . }}
+            {{ if not .Site.Params.ui.breadcrumb_disable }}{{ partial "breadcrumb.html" . }}{{ end }}
+            {{ partial "deprecation-warning.html" . }}
+            {{ block "outdated_content" . }}
+              {{ partial "docs/outdated_content.html" . }}
+            {{ end }}
+            {{ block "main" . }}{{ end }}
+            {{- if .HasShortcode "thirdparty-content" -}}
+              {{ block "thirdparty-disclaimer" . }}
+                {{ partial "docs/thirdparty-disclaimer.html" . }}
               {{- end -}}
-              {{- if (.Param "auto_generated") -}}
-                {{ block "auto-generated-pageinfo" . }}
-                  {{ partial "docs/auto-generated-pageinfo.html" . }}
-                {{- end -}}
-              {{- end -}}
-              {{ if (and (not .Params.hide_feedback) (.Site.Params.ui.feedback.enable) (.Site.Config.Services.GoogleAnalytics.ID)) }}
-                {{ partial "feedback.html" .Site.Params.ui.feedback }}
-              {{ end }}
-              {{ partial "page-meta-lastmod.html" . }}
-              {{ if (.Site.Config.Services.Disqus.Shortname) }}
-                <br />
-                {{ partial "disqus-comment.html" . }}
-              {{ end }}
-            </main>
-            <div class="d-none d-xl-block td-toc d-print-none col-xl-4">
-              {{ partial "toc.html" . }}
-            </div>
-          </div> <!--end of main-content-->
+            {{- end -}}
+          </main>
         </div>
       </div>
+      {{ partial "footer.html" . }}
     </div>
-    {{ partial "footer.html" . }}
     {{ partial "scripts.html" . }}
   </body>
 </html>

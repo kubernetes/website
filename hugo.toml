@@ -128,14 +128,11 @@ copyright_k8s = "The Kubernetes Authors"
 copyright_linux = "Copyright © 2020 The Linux Foundation ®."
 
 contribution_guidelines_url = "https://www.kubernetes.dev/docs/contributor-cheatsheet/"
+
 # privacy_policy = "https://policies.google.com/privacy"
 
 # First one is picked as the Twitter card image if not set on page.
 # images = ["images/project-illustration.png"]
-
-# Menu title if your navbar has a versions selector to access old versions of your site.
-# This menu appears only if you have at least one [params.versions] set.
-version_menu = "Versions"
 
 time_format_blog = "Monday, January 02, 2006"
 time_format_default = "January 02, 2006 at 3:04 PM PST"
@@ -157,9 +154,6 @@ githubWebsiteRaw = "raw.githubusercontent.com/kubernetes/website"
 
 # GitHub repository link for editing a page and opening issues.
 github_repo = "https://github.com/kubernetes/website"
-
-# Searching
-k8s_search = true
 
 # The following search parameters are specific to Docsy's implementation. Kubernetes implementes its own search-related partials and scripts.
 
@@ -216,6 +210,8 @@ url = "https://v1-27.docs.kubernetes.io"
 
 # User interface configuration
 [params.ui]
+# Searching (eg via Google / Bing). Customized from Docsy's usual search.
+search = true
 # Enable to show the side bar menu in its compact state.
 sidebar_menu_compact = false
 # Show expand/collapse icon for sidebar sections.
@@ -246,7 +242,7 @@ no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY
 [[params.links.user]]
 	name_key = "community_youtube_name"
 	url = "https://youtube.com/kubernetescommunity"
-	icon = "fab fa-youtube"
+	icon = "fa fa-youtube"
 
 [[params.links.user]]
 	name_key = "community_forum_name"
@@ -261,8 +257,7 @@ no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY
 [[params.links.user]]
 	name_key = "community_x_name"
 	url = "https://twitter.com/kubernetesio"
-	icon = "fab fa-twitter"
-# Replace with fa-x-twitter once available
+	icon = "fab fa-x-twitter"
 
 # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
 [[params.links.developer]]

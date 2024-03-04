@@ -1,33 +1,41 @@
-{{ $cover := .HasShortcode "blocks/cover" }}
-<nav class="js-navbar-scroll navbar navbar-expand navbar-dark {{ if $cover}} td-navbar-cover {{ end }} flex-column flex-md-row td-navbar" data-auto-burger="primary">
-        <a class="navbar-brand img-fluid" href="{{ .Site.Home.RelPermalink }}"></a>
+{{- $announcementActive := false -}}
+{{ $cover := (or $announcementActive (and (.HasShortcode "blocks/cover") (not .Site.Params.ui.navbar_translucent_over_cover_disable) ) ) }}
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark {{ if $cover}} td-navbar-cover {{ end }}flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="{{ .Site.Home.RelPermalink }}">
+            {{ if .Site.Params.ui.navbar_logo }}<span class="navbar-logo">{{ with resources.Get "icons/logo-title.svg" }}{{ ( . | minify).Content | safeHTML }}{{else}}{{errorf "Logo image not found"}}{{ end }}</span>{{ else }}<span class="font-weight-bold">{{ .Site.Title }}</span>{{end}}
+	</a>
 	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
-		
 		<ul class="navbar-nav mt-2 mt-lg-0">
 			{{ $p := . }}
-			{{ $sections := slice "docs" "blog" "training" "partners" "community" "case-studies" }}
-			{{ range $sections }}
-			{{ with site.GetPage "section" . }}
-			<li class="nav-item mr-2 mb-lg-0">
-				{{ $active := eq .Section $.Section }}
-				<a class="nav-link{{if $active }} active{{end}}" href="{{ .RelPermalink }}" >{{ .Title }}</a>
+			{{ range .Site.Menus.main }}
+			<li class="nav-item">
+				{{ $active := or ($p.IsMenuCurrent "main" .) ($p.HasMenuCurrent "main" .) }}
+				{{ with .Page }}
+				{{ $active = or $active ( $.IsDescendant .)  }}
+				{{ end }}
+				{{ $pre := .Pre }}
+				{{ $post := .Post }}
+				{{ $url := urls.Parse .URL }}
+				{{ $baseurl := urls.Parse $.Site.Params.Baseurl }}
+				<a class="nav-link{{if $active }} active{{end}}" href="{{ with .Page }}{{ .RelPermalink }}{{ else }}{{ .URL | relLangURL }}{{ end }}" {{ if ne $url.Host $baseurl.Host }}target="_blank" {{ end }}>{{ with .Pre}}{{ $pre }}{{ end }}<span{{if $active }} class="active"{{end}}>{{ .Name }}</span>{{ with .Post}}{{ $post }}{{ end }}</a>
 			</li>
 			{{ end }}
-			{{ end }}
 			{{ if  .Site.Params.versions }}
-			<li class="nav-item mr-n3 mr-lg-0 dropdown">
+			<li class="nav-item dropdown d-none d-lg-block">
 				{{ partial "navbar-version-selector.html" . }}
 			</li>
 			{{ end }}
 			{{ if  (gt (len .Site.Home.Translations) 0) }}
-			<li class="nav-item mr-n4 mr-lg-0  dropdown">
+			<li class="nav-item dropdown d-none d-lg-block">
 				{{ partial "navbar-lang-selector.html" . }}
 			</li>
 			{{ end }}
-			<li class="search-item nav-item mr-n4 mr-lg-0">
-				{{ partial "search-input.html" . }}
-			</li>
 		</ul>
 	</div>
-	<button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
+	{{- if  .Site.Params.navbar_search -}}
+	<div class="navbar-nav d-none d-lg-block">{{ partial "search-form.html" . }}</div>
+	{{- end -}}
 </nav>
+{{ block "announcement" . }}
+   {{ partial "announcement.html" . }}
+{{ end }}
