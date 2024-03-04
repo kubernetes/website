@@ -1,14 +1,14 @@
 {{- define "main" -}}
 <section class="case-study-header">
 	<div class="banner {{ if .Params.use_gradient_overlay }}overlay{{ end }}" {{ if isset .Params "heading_background" }}style="background-image: url({{ .Params.heading_background }});"{{ end }}>
-		<h2>
+		<h1>
 			{{- .Params.title_prefix | default ( T "case_study_prefix" ) -}}&nbsp;
 			{{- if isset .Params "heading_title_logo" -}}
 				<img class="heading-logo" src="{{ .Params.heading_title_logo}}" />
 			{{- else if isset .Params "heading_title_text" -}}
 				{{- .Params.heading_title_text -}}
 			{{- end -}}
-		</h2>
+		</h1>
 		<span class="subheading">{{ .Params.subheading }}</span>
 	</div>
 	<!-- Details -->

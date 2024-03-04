@@ -6,17 +6,21 @@
 {{- $id_fallback := ( printf "td-block-%d" .Ordinal ) -}}
 {{- $id := .Get "id" | default (printf "%s%s" $id_fallback "-section" ) -}}
 {{- $class := .Get "class" -}}
-{{- $bg := .Get "background-image" -}}
-{{- if $bg -}}
-  {{- template "shortcodes-blocks_getimage" (dict "name" $bg "ctx" . "target" "bg") }}
-{{- end -}}
 {{/* special case Kubernetes overview */}}
 {{- if eq $class "k8s-overview" -}}
  {{- partial "kubernetes-overview.html" (dict "id" $id "class" $class "inner" $.Inner ) -}}
 {{- else -}}
+{{- $backgroundImage := false -}}
+{{- with (.Get "background-image") -}}
+  {{- with resources.Get (printf "images/site-blocks/%s.jpeg" . ) -}}
+    {{- $backgroundImage = . -}}
+  {{- else -}}
+    {{- errorf "Section background image %q not found" $.name -}}
+  {{- end -}}
+{{- else -}}
+{{- end -}}
 <a id="{{ $id_fallback }}" class="td-offset-anchor"></a>
-{{- $image := $.Scratch.Get "bg" -}}
-<section id="{{ $id }}" class="row td-box td-box--{{ $col_id }} td-box--gradient td-box--height-{{ $height }}{{ with $class }} {{ . }}{{ end }}{{ with $image }} section-with-bgimage {{ end }}" style="{{ with $image }}background-image: url({{ .Permalink }}); {{ end }}{{ with $style }}{{ . | safeCSS }}{{ end }}">
+<section id="{{ $id }}" class="row td-box td-box--{{ $col_id }} td-box--gradient td-box--height-{{ $height }}{{ with $class }} {{ . }}{{ end }}{{ with $backgroundImage }} section-with-bgimage {{ end }}" style="{{ with $backgroundImage }}background-image: url({{ .Permalink }}); {{ end }}{{ with $style }}{{ . | safeCSS }}{{ end }}">
 	<div class="col">
 		<div class="row {{ $type }}">
 			{{ if eq .Page.File.Ext "md" }}

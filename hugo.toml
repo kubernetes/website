@@ -130,10 +130,6 @@ contribution_guidelines_url = "https://www.kubernetes.dev/docs/contributor-cheat
 # First one is picked as the Twitter card image if not set on page.
 # images = ["images/project-illustration.png"]
 
-# Menu title if your navbar has a versions selector to access old versions of your site.
-# This menu appears only if you have at least one [params.versions] set.
-version_menu = "Versions"
-
 time_format_blog = "Monday, January 02, 2006"
 time_format_default = "January 02, 2006 at 3:04 PM PST"
 
@@ -214,6 +210,8 @@ url = "https://v1-31.docs.kubernetes.io"
 
 # User interface configuration
 [params.ui]
+# Searching (eg via Google / Bing). Customized from Docsy's usual search.
+search = true
 # Enable to show the side bar menu in its compact state.
 sidebar_menu_compact = false
 # Show this many levels in compact mode
@@ -230,6 +228,8 @@ sidebar_search_disable = false
 navbar_logo = true
 # Set to true to disable the About link in the site footer
 footer_about_disable = false
+# Enable search in navbar
+navbar_search = true
 
 # Adds a H2 section titled "Feedback" to the bottom of each doc. The responses are sent to Google Analytics as events.
 # This feature depends on [services.googleAnalytics] and will be disabled if "services.googleAnalytics.id" is not set.

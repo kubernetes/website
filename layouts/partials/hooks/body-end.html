@@ -1,6 +1,3 @@
-{{ with .Site.Params.algolia_docsearch }}
-<!-- scripts for algolia docsearch -->
-{{ end }}
 {{/* sidebar splitter */}}
 <!--script src="https://unpkg.com/split.js/dist/split.min.js"></script-->
 <script src="/js/split-1.6.0.js" integrity="sha384-0blL3GqHy6+9fw0cyY2Aoiwg4onHAtslAs4OkqZY7UQBrR65/K4gI+hxLdWDrjpz"></script>
@@ -34,12 +31,8 @@
 
 {{/* copy-and-paste helper for codenew shortcode */}}
 {{- if or (.HasShortcode "code_sample") (.HasShortcode "code") (.HasShortcode "codenew") -}}
-  {{- $toastrJs := resources.Get "js/toastr-2.1.4.min.js" | minify | fingerprint -}}
-  {{- if hugo.IsProduction -}}
-    <script async src="{{ $toastrJs.RelPermalink }}"></script>
-  {{- else -}}
-    <script async src="{{ $toastrJs.RelPermalink }}"></script>
-  {{- end -}}
+{{- $toastrJs := resources.Get "js/toastr-2.1.4.min.js" -}}
+<script async src="{{ $toastrJs.RelPermalink }}"></script>
 
 <script type="text/javascript">
 function copyCode(elem) {
@@ -50,10 +43,10 @@ function copyCode(elem) {
           toastr.options = {
             closeButton: true,
             progressBar: true,
-            positionClass: "toast-bottom-center", 
-            timeOut: 2000, 
-            preventDuplicates: true,   
-            newestOnTop: true          
+            positionClass: "toast-bottom-center",
+            timeOut: 2000,
+            preventDuplicates: true,
+            newestOnTop: true
           };
           toastr.success("{{i18n "toast_success_copycode"}}" + elem, "{{i18n "success_copy_to_clipboard"}}");
         },
@@ -61,10 +54,10 @@ function copyCode(elem) {
           toastr.options = {
             closeButton: true,
             progressBar: true,
-            positionClass: "toast-bottom-center", 
-            timeOut: 2000, 
-            preventDuplicates: true,  
-            newestOnTop: true         
+            positionClass: "toast-bottom-center",
+            timeOut: 2000,
+            preventDuplicates: true,
+            newestOnTop: true
           };
           toastr.error("{{i18n "toast_failure_copycode"}}" + elem, "{{i18n "error_copy_to_clipboard"}}");
         }
@@ -73,10 +66,10 @@ function copyCode(elem) {
       toastr.options = {
         closeButton: true,
         progressBar: true,
-        positionClass: "toast-bottom-center", 
+        positionClass: "toast-bottom-center",
         timeOut: 2000,
-        preventDuplicates: true,  
-        newestOnTop: true         
+        preventDuplicates: true,
+        newestOnTop: true
       };
       toastr.warning("{{i18n "browser_clipboard_support_warning"}}", "{{i18n "warning_copy_to_clipboard"}}");
     }
@@ -84,12 +77,11 @@ function copyCode(elem) {
 }
 </script>
 {{- end -}}
-
 {{/* JavaScript detector */}}
 {{- if hugo.IsProduction -}}
   {{- $jsDetect :=  resources.Get "js/detect-js.js" | minify | fingerprint -}}
 <script defer src="{{ $jsDetect.RelPermalink }}" integrity="{{ $jsDetect.Data.Integrity }}" crossorigin="anonymous"></script>
 {{- else -}}
-  {{- $jsDetect := resources.Get "js/detect-js.js" -}}
+    {{- $jsDetect := resources.Get "js/detect-js.js" -}}
 <script defer src="{{ $jsDetect.RelPermalink }}"></script>
 {{- end -}}
