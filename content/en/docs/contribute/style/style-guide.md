@@ -116,17 +116,20 @@ The copy is called a "fork". | The copy is called a "fork."
 
 ## Inline code formatting
 
-### Use code style for inline code, commands, and API objects {#code-style-inline-code}
+### Use code style for inline code, commands {#code-style-inline-code}
 
 For inline code in an HTML document, use the `<code>` tag. In a Markdown
-document, use the backtick (`` ` ``).
+document, use the backtick (`` ` ``). However, API kinds such as StatefulSet
+or ConfigMap are written verbatim (no backticks); this allows using possessive
+apostrophes.
 
 {{< table caption = "Do and Don't - Use code style for inline code, commands, and API objects" >}}
 Do | Don't
 :--| :-----
-The `kubectl run` command creates a `Pod`. | The "kubectl run" command creates a pod.
-The kubelet on each node acquires a `Lease`… | The kubelet on each node acquires a lease…
-A `PersistentVolume` represents durable storage… | A Persistent Volume represents durable storage…
+The `kubectl run` command creates a Pod. | The "kubectl run" command creates a Pod.
+The kubelet on each node acquires a Lease… | The kubelet on each node acquires a `Lease`…
+A PersistentVolume represents durable storage… | A `PersistentVolume` represents durable storage…
+The CustomResourceDefinition's `.spec.group` field… | The `CustomResourceDefinition.spec.group` field…
 For declarative management, use `kubectl apply`. | For declarative management, use "kubectl apply".
 Enclose code samples with triple backticks. (\`\`\`)| Enclose code samples with any other syntax.
 Use single backticks to enclose inline code. For example, `var example = true`. | Use two asterisks (`**`) or an underscore (`_`) to enclose inline code. For example, **var example = true**.
@@ -191,37 +194,60 @@ Set the value of `image` to nginx:1.16. | Set the value of `image` to `nginx:1.1
 Set the value of the `replicas` field to 2. | Set the value of the `replicas` field to `2`.
 {{< /table >}}
 
+However, consider quoting values where there is a risk that readers might confuse the value
+with an API kind.
+
 ## Referring to Kubernetes API resources
 
 This section talks about how we reference API resources in the documentation.
 
 ### Clarification about "resource"
 
-Kubernetes uses the word "resource" to refer to API resources, such as `pod`,
-`deployment`, and so on. We also use "resource" to talk about CPU and memory
-requests and limits. Always refer to API resources as "API resources" to avoid
-confusion with CPU and memory resources.
+Kubernetes uses the word _resource_ to refer to API resources. For example,
+the URL path `/apis/apps/v1/namespaces/default/deployments/my-app` represents a
+Deployment named "my-app" in the "default"
+{{< glossary_tooltip text="namespace" term_id="namespace" >}}. In HTTP jargon,
+{{< glossary_tooltip text="namespace" term_id="namespace" >}} is a resource -
+the same way that all web URLs identify a resource.
+
+Kubernetes documentation also uses "resource" to talk about CPU and memory
+requests and limits. It's very often a good idea to refer to API resources
+as "API resources"; that helps to avoid confusion with CPU and memory resources,
+or with other kinds of resource.
+
+If you are using the lowercase plural form of a resource name, such as
+`deployments` or `configmaps`, provide extra written context to help readers
+understand what you mean. If you are using the term in a context where the
+UpperCamelCase name could work too, and there is a risk of ambiguity,
+consider using the API kind in UpperCamelCase.
 
 ### When to use Kubernetes API terminologies
 
 The different Kubernetes API terminologies are:
 
-- Resource type: the name used in the API URL (such as `pods`, `namespaces`)
-- Resource: a single instance of a resource type (such as `pod`, `secret`)
-- Object: a resource that serves as a "record of intent". An object is a desired
+- _API kinds_: the name used in the API URL (such as `pods`, `namespaces`).
+  API kinds are sometimes also called _resource types_.
+- _API resource_: a single instance of an API kind (such as `pod`, `secret`).
+- _Object_: a resource that serves as a "record of intent". An object is a desired
   state for a specific part of your cluster, which the Kubernetes control plane tries to maintain.
+  All objects in the Kubernetes API are also resources.
 
-Always use "resource" or "object" when referring to an API resource in docs.
-For example, use "a `Secret` object" over just "a `Secret`".
+For clarity, you can add "resource" or "object" when referring to an API resource in Kubernetes
+documentation.
+An example: write "a Secret object" instead of "a Secret".
+If it is clear just from the capitalization, you don't need to add the extra word.
+
+Consider rephrasing when that change helps avoid misunderstandings. A common situation is
+when you want to start a sentence with an API kind, such as “Secret”; because English
+and other languages capitalize at the start of sentences, readers cannot tell whether you
+mean the API kind or the general concept. Rewording can help.
 
 ### API resource names
 
 Always format API resource names using [UpperCamelCase](https://en.wikipedia.org/wiki/Camel_case),
-also known as PascalCase, and code formatting.
+also known as PascalCase. Do not write API kinds with code formatting.
 
-For inline code in an HTML document, use the `<code>` tag. In a Markdown document, use the backtick (`` ` ``).
-
-Don't split an API object name into separate words. For example, use `PodTemplateList`, not Pod Template List.
+Don't split an API object name into separate words. For example, use PodTemplateList, not Pod Template List.
 
 For more information about PascalCase and code formatting, please review the related guidance on
 [Use upper camel case for API objects](/docs/contribute/style/style-guide/#use-upper-camel-case-for-api-objects)
@@ -237,7 +263,7 @@ guidance on [Kubernetes API terminology](/docs/reference/using-api/api-concepts/
 {{< table caption = "Do and Don't - Don't include the command prompt" >}}
 Do | Don't
 :--| :-----
-kubectl get pods | $ kubectl get pods
+`kubectl get pods` | `$ kubectl get pods`
 {{< /table >}}
 
 ### Separate commands from output
