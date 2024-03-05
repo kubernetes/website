@@ -81,9 +81,9 @@ throughout the lifecycle of the pod and can be started and stopped independently
 main container. Unlike [init containers](/docs/concepts/workloads/pods/init-containers/),
 sidecar containers support [probes](/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe) to control their lifecycle.
 
-These containers can interact directly with the main application containers, sharing
-the same network namespace, filesystem, and environment variables. They work closely
-together to provide additional functionality.
+Sidecar containers can interact directly with the main application containers, sharing
+the same network namespace, and filesystem. They work closely together to
+provide additional functionality.
 
 ## Resource sharing within containers
 
