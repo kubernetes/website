@@ -97,15 +97,13 @@ The usual way to access this is by running `kubectl logs`.
 
 {{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
-You can configure the kubelet to rotate logs automatically.
-
-If you configure rotation, the kubelet is responsible for rotating container logs and managing the
+The kubelet is responsible for rotating container logs and managing the
 logging directory structure.
 The kubelet sends this information to the container runtime (using CRI),
 and the runtime writes the container logs to the given location.
 
 You can configure two kubelet [configuration settings](/docs/reference/config-api/kubelet-config.v1beta1/),
-`containerLogMaxSize` and `containerLogMaxFiles`,
+`containerLogMaxSize` (default 10Mi) and `containerLogMaxFiles` (default 5),
 using the [kubelet configuration file](/docs/tasks/administer-cluster/kubelet-config-file/).
 These settings let you configure the maximum size for each log file and the maximum number of
 files allowed for each container respectively.
