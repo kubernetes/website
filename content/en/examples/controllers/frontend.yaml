@@ -3,7 +3,7 @@ kind: ReplicaSet
 metadata:
   name: frontend
   labels:
-    app: nginx
+    app: guestbook
     tier: frontend
 spec:
   # modify replicas according to your case
@@ -17,5 +17,5 @@ spec:
         tier: frontend
     spec:
       containers:
-      - name: nginx
-        image: nginx:1.14.2
+      - name: php-redis
+        image: us-docker.pkg.dev/google-samples/containers/gke/gb-frontend:v5
