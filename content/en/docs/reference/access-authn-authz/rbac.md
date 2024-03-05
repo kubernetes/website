@@ -1052,19 +1052,19 @@ Grants a Role or ClusterRole within a specific namespace. Examples:
 * Within the namespace "acme", grant the permissions in the "admin" ClusterRole to a user named "bob":
 
   ```shell
-  kubectl create rolebinding bob-admin-binding --clusterrole=admin --user=bob --namespace=acme
+  kubectl create rolebinding bob-admin-binding --role=admin --user=bob --namespace=acme
   ```
 
 * Within the namespace "acme", grant the permissions in the "view" ClusterRole to the service account in the namespace "acme" named "myapp":
 
   ```shell
-  kubectl create rolebinding myapp-view-binding --clusterrole=view --serviceaccount=acme:myapp --namespace=acme
+  kubectl create rolebinding myapp-view-binding --role=view --serviceaccount=acme:myapp --namespace=acme
   ```
 
 * Within the namespace "acme", grant the permissions in the "view" ClusterRole to a service account in the namespace "myappnamespace" named "myapp":
 
   ```shell
-  kubectl create rolebinding myappnamespace-myapp-view-binding --clusterrole=view --serviceaccount=myappnamespace:myapp --namespace=acme
+  kubectl create rolebinding myappnamespace-myapp-view-binding --role=view --serviceaccount=myappnamespace:myapp --namespace=acme
   ```
 
 ### `kubectl create clusterrolebinding`
