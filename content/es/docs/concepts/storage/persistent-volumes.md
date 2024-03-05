@@ -782,7 +782,7 @@ Este comportamiento ayuda a los administradores a cambiar la StorageClass predet
 
 ## Solicitudes como Volúmenes
 
-Los Pods acceden al almacenamiento utilizando la solicitud como un volumen. Las solicitudes deben existir en el mismo espacio de nombres (namespace) que el Pod que utiliza la solicitud. El clúster encuentra la solicitud en el espacio de nombres del Pod y la utiliza para obtener el PersistentVolume que respalda la solicitud. Luego, el volumen se monta en el host y dentro del Pod.
+Los Pods acceden al almacenamiento utilizando la solicitud como un volumen. Las solicitudes deben existir en el mismo Namespace que el Pod que utiliza la solicitud. El clúster encuentra la solicitud en el Namespace del Pod y la utiliza para obtener el PersistentVolume que respalda la solicitud. Luego, el volumen se monta en el host y dentro del Pod.
 
 ```yaml
 apiVersion: v1
