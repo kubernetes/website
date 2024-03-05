@@ -514,7 +514,7 @@ Pada kasus tersebut, _file_ yang dihasilkan pada `/etc/foo/my-group/my-username`
 _permission_ `0777`. Karena terdapat batasan pada representasi JSON, maka kamu 
 harus memberikan spesifikasi mode _permission_ dalam bentuk notasi desimal.
 
-Perhatikan bahwa _permission_ ini bida saja ditampilkan dalam bentuk notasi desimal, 
+Perhatikan bahwa _permission_ ini bisa saja ditampilkan dalam bentuk notasi desimal, 
 hal ini akan ditampilkan pada bagian selanjutnya.
 
 **Mengonsumsi _Value_ dari Secret melalui Volume**
