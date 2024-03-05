@@ -45,6 +45,10 @@ Each day in a week-long shift as PR Wrangler:
     - Using style fixups as good first issues is a good way to ensure a supply of easier tasks
       to help onboard new contributors.
 
+{{< note >}}
+PR Wrangler duties apply to English language PRs. Localization teams have their own processes and teams for reviewing their language PRs. However if you have time during your shift, its often helpful to make sure language PRs are labeled correctly, review small non-language dependent PRs (like a link update), or tag reviewers or contributors in long running PRs (ones opened more than 6 months ago and have not been updated in a month or more). 
+{{< /note >}}
+
 
 ### Helpful GitHub queries for wranglers
 
