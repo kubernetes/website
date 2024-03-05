@@ -90,7 +90,7 @@ And you will see output similar to:
 Name:         frontend
 Namespace:    default
 Selector:     tier=frontend
-Labels:       app=nginx
+Labels:       app=guestbook
               tier=frontend
 Annotations:  <none>
 Replicas:     3 current / 3 desired
@@ -98,8 +98,8 @@ Pods Status:  3 Running / 0 Waiting / 0 Succeeded / 0 Failed
 Pod Template:
   Labels:  tier=frontend
   Containers:
-   nginx:
-    Image:        nginx:1.14.2
+   php-redis:
+    Image:        us-docker.pkg.dev/google-samples/containers/gke/gb-frontend:v5
     Port:         <none>
     Host Port:    <none>
     Environment:  <none>
