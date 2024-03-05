@@ -590,7 +590,7 @@ Los modos de acceso son:
 
 `ReadWriteOncePod`
 : {{< feature-state for_k8s_version="v1.29" state="stable" >}}
-el volumen puede montarse como lectura-escritura por un solo Pod. Utiliza el modo de acceso ReadWriteOncePod si deseas garantizar que solo un pod en todo el clúster pueda leer ese PVC o escribir en él.
+el volumen puede montarse como lectura-escritura por un solo Pod. Utiliza el modo de acceso ReadWriteOncePod si deseas garantizar que solo un Pod en todo el clúster pueda leer ese PVC o escribir en él.
 
 {{< note >}}
 El modo de acceso `ReadWriteOncePod` solo es compatible con los volúmenes {{< glossary_tooltip text="CSI" term_id="csi" >}} y Kubernetes versión 1.22+. Para utilizar esta función, deberás actualizar los siguientes [CSI sidecars](https://kubernetes-csi.github.io/docs/sidecar-containers.html) a estas versiones o superiores:
