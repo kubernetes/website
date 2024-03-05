@@ -580,7 +580,7 @@ Por ejemplo, NFS puede admitir múltiples clientes de lectura/escritura, pero un
 Los modos de acceso son:
 
 `ReadWriteOnce`
-: el volumen puede montarse como lectura-escritura por un solo nodo. El modo de acceso ReadWriteOnce aún puede permitir que varios pods accedan al volumen cuando los pods se ejecutan en el mismo nodo. Para el acceso de un solo pod, consulta ReadWriteOncePod.
+: el volumen puede montarse como lectura-escritura por un solo nodo. El modo de acceso ReadWriteOnce aún puede permitir que varios Pods accedan al volumen cuando los Pods se ejecutan en el mismo nodo. Para el acceso de un solo Pod, consulta ReadWriteOncePod.
 
 `ReadOnlyMany`
 : el volumen puede montarse como solo lectura por muchos nodos.
