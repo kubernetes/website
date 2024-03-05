@@ -239,25 +239,28 @@ The copy is called a "fork". | The copy is called a "fork."
 <!--
 ## Inline code formatting
 
-### Use code style for inline code, commands, and API objects {#code-style-inline-code}
+### Use code style for inline code, commands {#code-style-inline-code}
 
 For inline code in an HTML document, use the `<code>` tag. In a Markdown
-document, use the backtick (`` ` ``).
+document, use the backtick (`` ` ``). However, API kinds such as StatefulSet
+or ConfigMap are written verbatim (no backticks); this allows using possessive
+apostrophes.
 -->
 ## 行间代码格式    {#inline-code-formatting}
 
-### 为行间代码、命令与 API 对象使用代码样式  {#code-style-inline-code}
+### 为行间代码、命令使用代码样式  {#code-style-inline-code}
 
-对于 HTML 文档中的行间代码，使用 `<code>` 标记。
-在 Markdown 文档中，使用反引号（`` ` ``）。
+对于 HTML 文档中的行间代码，使用 `<code>` 标记。在 Markdown 文档中，使用反引号（`` ` ``）。
+然而，StatefulSet 或 ConfigMap 这些 API 类别是直接书写的（不用反引号）；这样允许使用表示所有格的撇号。
 
 <!--
-{{< table caption = "Do and Don't - Use code style for inline code, commands and API objects" >}}
+{{< table caption = "Do and Don't - Use code style for inline code, commands, and API objects" >}}
 Do | Don't
 :--| :-----
-The `kubectl run` command creates a `Pod`. | The "kubectl run" command creates a pod.
-The kubelet on each node acquires a `Lease`… | The kubelet on each node acquires a lease…
-A `PersistentVolume` represents durable storage… | A Persistent Volume represents durable storage…
+The `kubectl run` command creates a Pod. | The "kubectl run" command creates a Pod.
+The kubelet on each node acquires a Lease… | The kubelet on each node acquires a `Lease`…
+A PersistentVolume represents durable storage… | A `PersistentVolume` represents durable storage…
+The CustomResourceDefinition's `.spec.group` field… | The `CustomResourceDefinition.spec.group` field…
 For declarative management, use `kubectl apply`. | For declarative management, use "kubectl apply".
 Enclose code samples with triple backticks. (\`\`\`)| Enclose code samples with any other syntax.
 Use single backticks to enclose inline code. For example, `var example = true`. | Use two asterisks (`**`) or an underscore (`_`) to enclose inline code. For example, **var example = true**.
@@ -269,9 +272,10 @@ Remove trailing spaces in the code. | Add trailing spaces in the code, where the
 {{< table caption = "行间代码、命令和 API 对象约定" >}}
 可以 | 不可以
 :--| :-----
-`kubectl run` 命令会创建一个 `Pod` | "kubectl run" 命令会创建一个 Pod。
-每个节点上的 kubelet 都会获得一个 `Lease` | 每个节点上的 kubelet 都会获得一个 lease…
-一个 `PersistentVolume` 代表持久存储 | 一个 Persistent Volume 代表持久存储…
+`kubectl run` 命令会创建一个 Pod。 | "kubectl run" 命令会创建一个 Pod。
+每个节点上的 kubelet 都会获得一个 Lease… | 每个节点上的 kubelet 都会获得一个 `Lease`…
+一个 PersistentVolume 代表持久存储… | 一个 `PersistentVolume` 代表持久存储…
+CustomResourceDefinition 的 `.spec.group` 字段… | `CustomResourceDefinition.spec.group` 字段…
 在声明式管理中，使用 `kubectl apply`。 | 在声明式管理中，使用 "kubectl apply"。
 用三个反引号来（\`\`\`）标示代码示例 | 用其他语法来标示代码示例。
 使用单个反引号来标示行间代码。例如：`var example = true`。 | 使用两个星号（`**`）或者一个下划线（`_`）来标示行间代码。例如：**var example = true**。
@@ -396,16 +400,24 @@ Set the value of the `replicas` field to 2. | Set the value of the `replicas` fi
 {{< /table >}}
 
 <!--
+However, consider quoting values where there is a risk that readers might confuse the value
+with an API kind.
+-->
+然而，在读者可能会将某些值与 API 类别混淆时，请考虑为这些值添加引号。
+
+<!--
 ## Referring to Kubernetes API resources
 
 This section talks about how we reference API resources in the documentation.
 
 ### Clarification about "resource"
 
-Kubernetes uses the word "resource" to refer to API resources, such as `pod`,
-`deployment`, and so on. We also use "resource" to talk about CPU and memory
-requests and limits. Always refer to API resources as "API resources" to avoid
-confusion with CPU and memory resources.
+Kubernetes uses the word _resource_ to refer to API resources. For example,
+the URL path `/apis/apps/v1/namespaces/default/deployments/my-app` represents a
+Deployment named "my-app" in the "default"
+{{< glossary_tooltip text="namespace" term_id="namespace" >}}. In HTTP jargon,
+{{< glossary_tooltip text="namespace" term_id="namespace" >}} is a resource -
+the same way that all web URLs identify a resource.
 -->
 ## 引用 Kubernetes API 资源   {#referring-to-kubernetes-api-resources}
 
@@ -413,44 +425,83 @@ confusion with CPU and memory resources.
 
 ### 有关 “资源” 的阐述
 
-Kubernetes 使用 “resource” 一词来指代 API 资源，例如 `pod`、`deployment` 等。
-我们还使用 “resource” 来谈论 CPU 和内存请求和限制。
-所以始终将 API 资源称为 “API resources” 以避免与 CPU 和内存资源混淆。
+Kubernetes 使用单词 _resource_ 一词来指代 API 资源。
+例如，URL 路径 `/apis/apps/v1/namespaces/default/deployments/my-app` 表示 "default"
+{{< glossary_tooltip text="名字空间" term_id="namespace" >}}中名为 "my-app" 的 Deployment。
+在 HTTP 的术语中，{{< glossary_tooltip text="名字空间" term_id="namespace" >}}是一个资源，
+就像所有 Web URL 都标识一个资源。
+
+<!--
+Kubernetes documentation also uses "resource" to talk about CPU and memory
+requests and limits. It's very often a good idea to refer to API resources
+as "API resources"; that helps to avoid confusion with CPU and memory resources,
+or with other kinds of resource.
+-->
+Kubernetes 文档在讨论 CPU 和内存请求以及限制也使用“资源（resource）”一词。
+将 API 资源称为 "API 资源" 往往是一个好的做法；这有助于避免与 CPU 和内存资源或其他类别的资源混淆。
+
+<!--
+If you are using the lowercase plural form of a resource name, such as
+`deployments` or `configmaps`, provide extra written context to help readers
+understand what you mean. If you are using the term in a context where the
+UpperCamelCase name could work too, and there is a risk of ambiguity,
+consider using the API kind in UpperCamelCase.
+-->
+如果你使用资源名称的小写复数形式，例如 `deployments` 或 `configmaps`，
+请提供额外的书面上下文来帮助读者理解你的用意。
+如果你使用术语时所处的上下文中使用驼峰编码（UpperCamelCase）的名称也可行，且术语存在歧义的风险，
+应该考虑使用 UpperCamelCase 形式的 API 类别。
 
 <!--
 ### When to use Kubernetes API terminologies
 
 The different Kubernetes API terminologies are:
 
-- Resource type: the name used in the API URL (such as `pods`, `namespaces`)
-- Resource: a single instance of a resource type (such as `pod`, `secret`)
-- Object: a resource that serves as a "record of intent". An object is a desired
+- _API kinds_: the name used in the API URL (such as `pods`, `namespaces`).
+  API kinds are sometimes also called _resource types_.
+- _API resource_: a single instance of an API kind (such as `pod`, `secret`).
+- _Object_: a resource that serves as a "record of intent". An object is a desired
   state for a specific part of your cluster, which the Kubernetes control plane tries to maintain.
-
-Always use "resource" or "object" when referring to an API resource in docs.
-For example, use "a `Secret` object" over just "a `Secret`".
+  All objects in the Kubernetes API are also resources.
 -->
 ### 何时使用 Kubernetes API 术语
 
 不同 Kubernetes API 术语的说明如下：
 
-- 资源类型：API URL 中使用的名称（如 `pods`、`namespaces`）
-- 资源：资源类型的单个实例（如 `pod`、`secret`）
-- 对象：作为 “意向记录” 的资源。对象是集群特定部分的期望状态，
+- **API 类别** ：API URL 中使用的名称（如 `pods`、`namespaces`）。
+  API 类别有时也称为 **资源类型** 。
+- **API 资源** ：API 类别的单个实例（如 `pod`、`secret`）
+- **对象** ：作为 “意向记录” 的资源。对象是集群特定部分的期望状态，
   该状态由 Kubernetes 控制平面负责维护。
+  Kubernetes API 中的所有对象也都是资源。
 
-在文档中引用 API 资源时始终使用 “资源” 或 “对象”。
-例如，使用 “一个 `Secret` 对象” 而不是 “一个 `Secret`”。
+<!--
+For clarity, you can add "resource" or "object" when referring to an API resource in Kubernetes
+documentation.
+An example: write "a Secret object" instead of "a Secret".
+If it is clear just from the capitalization, you don't need to add the extra word.
+
+Consider rephrasing when that change helps avoid misunderstandings. A common situation is
+when you want to start a sentence with an API kind, such as “Secret”; because English
+and other languages capitalize at the start of sentences, readers cannot tell whether you
+mean the API kind or the general concept. Rewording can help.
+-->
+为了清晰起见，在 Kubernetes 文档中引用 API 资源时可以使用 "资源" 或 "对象"。
+例如：写成 "Secret 对象" 而不是 "Secret"。
+如果仅大写就能明确含义，那么无需添加额外的单词。
+
+当修改有助于避免误解时，那就考虑修改表述。
+一个常见的情况是当你想要某个句子以 "Secret" 这种 API 类别开头时；
+因为英语和其他几种语言会对句首的第一个字母大写，所以读者无法确定你说的是 API 类别还是一般概念。
+此时重新构词有助于让句子更清晰。
 
 <!--
 ### API resource names
 
 Always format API resource names using [UpperCamelCase](https://en.wikipedia.org/wiki/Camel_case),
-also known as PascalCase, and code formatting.
+also known as PascalCase. Do not write API kinds with code formatting.
 
-For inline code in an HTML document, use the `<code>` tag. In a Markdown document, use the backtick (`` ` ``).
-
-Don't split an API object name into separate words. For example, use `PodTemplateList`, not Pod Template List.
+Don't split an API object name into separate words. For example, use PodTemplateList, not Pod Template List.
 
 For more information about PascalCase and code formatting, please review the related guidance on
 [Use upper camel case for API objects](/docs/contribute/style/style-guide/#use-upper-camel-case-for-api-objects)
@@ -462,13 +513,10 @@ guidance on [Kubernetes API terminology](/docs/reference/using-api/api-concepts/
 ### API 资源名称
 
 始终使用[大写驼峰式命名法](https://zh.wikipedia.org/wiki/%E9%A7%9D%E5%B3%B0%E5%BC%8F%E5%A4%A7%E5%B0%8F%E5%AF%AB)
-（PascalCase）和代码格式来表达 API 资源名称。
-
-对于 HTML 文档中的内联代码，请使用 `<code>` 标记。
-在 Markdown 文档中，使用反引号 (`` ` ``)。
+（也称为 PascalCase）来表达 API 资源名称。不要使用代码格式书写 API 类别。
 
 不要将 API 对象的名称切分成多个单词。
-例如请使用 `PodTemplateList` 而非 `Pod Template List`。
+例如请使用 PodTemplateList 而非 Pod Template List。
 
 有关 PascalCase 和代码格式的更多信息，
 请查看[对 API 对象使用大写驼峰式命名法](/zh-cn/docs/contribute/style/style-guide/#use-upper-camel-case-for-api-objects)
@@ -485,7 +533,7 @@ guidance on [Kubernetes API terminology](/docs/reference/using-api/api-concepts/
 {{< table caption = "Do and Don't - Don't include the command prompt" >}}
 Do | Don't
 :--| :-----
-kubectl get pods | $ kubectl get pods
+`kubectl get pods` | `$ kubectl get pods`
 {{< /table >}}
 -->
 ## 代码段格式   {#code-snippet-formatting}
@@ -495,7 +543,7 @@ kubectl get pods | $ kubectl get pods
 {{< table caption = "命令行提示符约定" >}}
 可以 | 不可以
 :--| :-----
-kubectl get pods | $ kubectl get pods
+`kubectl get pods` | `$ kubectl get pods`
 {{< /table >}}
 
 <!--
