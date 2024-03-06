@@ -62,10 +62,10 @@ route, we recommend you add IP route(s) so Kubernetes cluster addresses go via t
 
 These [required ports](/docs/reference/networking/ports-and-protocols/)
 need to be open in order for Kubernetes components to communicate with each other.
-You can use tools like netcat to check if a port is open. For example:
+You can use tools like [netcat](https://netcat.sourceforge.net) to check if a port is open. For example:
 
 ```shell
-nc 127.0.0.1 6443
+nc 127.0.0.1 6443 -v
 ```
 
 The pod network plugin you use may also require certain ports to be
