@@ -10,7 +10,7 @@ weight: 50
 -->
 
 <!-- overview -->
-{{< feature-state for_k8s_version="v1.28" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.29" state="beta" >}}
 
 <!--
 Sidecar containers are the secondary containers that run along with the main
@@ -28,7 +28,7 @@ security, or data synchronization, without directly altering the primary applica
 <!--
 ## Enabling sidecar containers
 
-Starting with Kubernetes 1.28, a
+Enabled by default with Kubernetes 1.29, a
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) named
 `SidecarContainers` allows you to specify a `restartPolicy` for containers listed in a
 Pod's `initContainers` field. These restartable _sidecar_ containers are independent with
@@ -38,7 +38,7 @@ without effecting the main application container and other init containers.
 -->
 ## 启用边车容器   {#enabling-sidecar-containers}
 
-从 Kubernetes 1.28 开始，一个名为 `SidecarContainers`
+Kubernetes 1.29 默认启用，一个名为 `SidecarContainers`
 的[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)允许你为
 Pod 的 `initContainers` 字段中列出的容器指定 `restartPolicy`。这些可重启的**边车**容器与同一
 Pod 内的其他 [Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)及主应用容器相互独立。
@@ -104,14 +104,6 @@ Here's an example of a Job with two containers, one of which is a sidecar:
 以下是一个具有两个容器的 Job 示例，其中一个是边车：
 
 {{% code_sample language="yaml" file="application/job/job-sidecar.yaml" %}}
-
-<!--
-By default, this feature is not available in Kubernetes. To avail this feature, you
-need to enable the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-named `SidecarContainers`.
--->
-Kubernetes 默认不提供此特性。要使用此特性，你需要启用名为 `SidecarContainers`
-的[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 
 <!--
 ## Differences from regular containers

@@ -486,7 +486,6 @@ For example:
 ports:
 - name: liveness-port
   containerPort: 8080
-  hostPort: 8080
 
 livenessProbe:
   httpGet:
@@ -520,7 +519,6 @@ So, the previous example would become:
 ports:
 - name: liveness-port
   containerPort: 8080
-  hostPort: 8080
 
 livenessProbe:
   httpGet:
@@ -883,7 +881,6 @@ spec:
     ports:
     - name: liveness-port
       containerPort: 8080
-      hostPort: 8080
 
     livenessProbe:
       httpGet:
