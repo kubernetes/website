@@ -342,7 +342,7 @@ For nodes there are two forms of heartbeats:
 
 Kubernetes 节点发送的心跳帮助你的集群确定每个节点的可用性，并在检测到故障时采取行动。
 
-对于节点，有两种形式的心跳:
+对于节点，有两种形式的心跳：
 
 <!--
 * Updates to the [`.status`](/docs/reference/node/node-status/) of a Node.
@@ -442,7 +442,7 @@ the same time:
 - Otherwise, the eviction rate is reduced to `--secondary-node-eviction-rate`
   (default 0.01) per second.
 -->
-- 如果不健康节点的比例超过 `--unhealthy-zone-threshold` （默认为 0.55），
+- 如果不健康节点的比例超过 `--unhealthy-zone-threshold`（默认为 0.55），
   驱逐速率将会降低。
 - 如果集群较小（意即小于等于 `--large-cluster-size-threshold` 个节点 - 默认为 50），
   驱逐操作将会停止。
@@ -534,7 +534,7 @@ If you want to explicitly reserve resources for non-Pod processes, see
 -->
 ## 节点拓扑  {#node-topology}
 
-{{< feature-state state="stable" for_k8s_version="v1.27" >}}
+{{< feature-state feature_gate_name="TopologyManager" >}}
 
 <!--
 If you have enabled the `TopologyManager`
@@ -552,7 +552,7 @@ for more information.
 -->
 ## 节点体面关闭 {#graceful-node-shutdown}
 
-{{< feature-state state="beta" for_k8s_version="v1.21" >}}
+{{< feature-state feature_gate_name="GracefulNodeShutdown" >}}
 
 <!-- 
 The kubelet attempts to detect node system shutdown and terminates pods running on the node.
@@ -707,7 +707,7 @@ Message:        Pod was terminated in response to imminent node shutdown.
 -->
 ### 基于 Pod 优先级的节点体面关闭    {#pod-priority-graceful-node-shutdown}
 
-{{< feature-state state="beta" for_k8s_version="v1.24" >}}
+{{< feature-state feature_gate_name="GracefulNodeShutdownBasedOnPodPriority" >}}
 
 <!--
 To provide more flexibility during graceful node shutdown around the ordering
@@ -868,7 +868,7 @@ kubelet 子系统中会生成 `graceful_shutdown_start_time_seconds` 和
 -->
 ## 处理节点非体面关闭 {#non-graceful-node-shutdown}
 
-{{< feature-state state="stable" for_k8s_version="v1.28" >}}
+{{< feature-state feature_gate_name="NodeOutOfServiceVolumeDetach" >}}
 
 <!--
 A node shutdown action may not be detected by kubelet's Node Shutdown Manager,
@@ -955,7 +955,7 @@ During a non-graceful shutdown, Pods are terminated in the two phases:
 -->
 ## 交换内存管理 {#swap-memory}
 
-{{< feature-state state="beta" for_k8s_version="v1.28" >}}
+{{< feature-state feature_gate_name="NodeSwap" >}}
 
 <!--
 To enable swap on a node, the `NodeSwap` feature gate must be enabled on
@@ -979,7 +979,7 @@ of Secret objects that were written to tmpfs now could be swapped to disk.
 A user can also optionally configure `memorySwap.swapBehavior` in order to
 specify how a node will use swap memory. For example,
 -->
-用户还可以选择配置 `memorySwap.swapBehavior` 以指定节点使用交换内存的方式。例如:
+用户还可以选择配置 `memorySwap.swapBehavior` 以指定节点使用交换内存的方式。例如：
 
 ```yaml
 memorySwap:
@@ -1051,7 +1051,7 @@ see the blog-post about [Kubernetes 1.28: NodeSwap graduates to Beta1](/blog/202
 [KEP-2400](https://github.com/kubernetes/enhancements/issues/4128) and its
 [design proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2400-node-swap/README.md).
 -->
-只有 **cgroup v2** 支持交换空间，cgroup v1 不支持。
+只有 **Cgroup v2** 支持交换空间，Cgroup v1 不支持。
 
 如需了解更多信息、协助测试和提交反馈，请参阅关于
 [Kubernetes 1.28：NodeSwap 进阶至 Beta1](/zh-cn/blog/2023/08/24/swap-linux-beta/) 的博客文章、

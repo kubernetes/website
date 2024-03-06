@@ -11,6 +11,8 @@ spec:
       operations:  ["CREATE", "UPDATE"]
       resources:   ["deployments"]
   validations:
-    - key: "high-replica-count"
-      expression: "object.spec.replicas > 50"
+    - expression: "object.spec.replicas > 50"
       messageExpression: "'Deployment spec.replicas set to ' + string(object.spec.replicas)"
+  auditAnnotations:
+    - key: "high-replica-count"
+      valueExpression: "'Deployment spec.replicas set to ' + string(object.spec.replicas)"
