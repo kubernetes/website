@@ -100,7 +100,7 @@ Pod Template:
   Labels:  tier=frontend
   Containers:
    php-redis:
-    Image:        gcr.io/google_samples/gb-frontend:v3
+    Image:        docker.io/corelab/gb-frontend:v3
     Port:         <none>
     Host Port:    <none>
     Environment:  <none>

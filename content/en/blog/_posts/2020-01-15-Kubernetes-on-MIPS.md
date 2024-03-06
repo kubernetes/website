@@ -95,9 +95,9 @@ Here are some of the images we built：
 - `docker.io/library/perl:5.26`
 - `docker.io/library/httpd:2.4.38-alpine`
 - `docker.io/library/redis:5.0.5-alpine`
+- `docker.io/corelab/gb-frontend:v6`
 - `gcr.io/google-containers/conformance:v1.16.2`
 - `gcr.io/google-containers/hyperkube:v1.16.2`
-- `gcr.io/google-samples/gb-frontend:v6`
 - `gcr.io/kubernetes-e2e-test-images/agnhost:2.6`
 - `gcr.io/kubernetes-e2e-test-images/apparmor-loader:1.0`
 - `gcr.io/kubernetes-e2e-test-images/dnsutils:1.1`

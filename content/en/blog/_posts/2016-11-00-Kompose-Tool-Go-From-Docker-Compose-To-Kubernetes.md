@@ -58,7 +58,7 @@ services:
 
   frontend:
 
-    image: gcr.io/google-samples/gb-frontend:v4
+    image: docker.io/corelab/gb-frontend:v4
 
     ports:
 
