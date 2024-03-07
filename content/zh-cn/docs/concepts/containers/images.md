@@ -305,7 +305,7 @@ Kubernetes 会增加每次尝试之间的延迟，直到达到编译限制，即
 -->
 ### 基于运行时类的镜像拉取  {#image-pull-per-runtime-class}
 
-{{< feature-state for_k8s_version="v1.29" state="alpha" >}}
+{{< feature-state feature_gate_name="RuntimeClassInImageCriApi" >}}
 
 <!--
 Kubernetes includes alpha support for performing image pulls based on the RuntimeClass of a Pod.
