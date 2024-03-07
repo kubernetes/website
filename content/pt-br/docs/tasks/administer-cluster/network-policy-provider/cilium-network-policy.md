@@ -1,7 +1,4 @@
 ---
-reviewers:
-- danwent
-- aanm
 title: Utilize o Cilium para NetworkPolicy
 content_type: task
 weight: 30
@@ -10,7 +7,7 @@ weight: 30
 <!-- overview -->
 Essa página mostra como utilizar o Cilium para NetworkPolicy.
 
-Para saber mais sobre o Cilium, leia o artigo [Introduction to Cilium](https://docs.cilium.io/en/stable/overview/intro).
+Para saber mais sobre o Cilium, leia o artigo [Introdução ao Cilium (em inglês)](https://docs.cilium.io/en/stable/overview/intro).
 
 
 ## {{% heading "prerequisites" %}}
@@ -23,7 +20,7 @@ Para saber mais sobre o Cilium, leia o artigo [Introduction to Cilium](https://d
 <!-- steps -->
 ## Fazendo o Deploy do Cilium no Minikube para Testes Básicos
 
-Para familiarizar-se com o Cilium você poderá seguir o guia [Cilium Kubernetes Getting Started Guide](https://docs.cilium.io/en/stable/gettingstarted/k8s-install-default/) e realizar uma instalação básica do Cilium através de um DaemonSet no minikube.
+Para familiarizar-se com o Cilium você poderá seguir o guia [Guia de Primeiros Passos do Cilium no Kubernetes (em inglês)](https://docs.cilium.io/en/stable/gettingstarted/k8s-install-default/) e realizar uma instalação básica do Cilium através de um DaemonSet no minikube.
 
 Inicie o minikube, a versão mínima exigida é >= v1.5.2, com os seguintes argumentos:
 
@@ -66,14 +63,14 @@ Os componentes são:
 - ConfigMap.
 - Um agente DaemonSet e um Operator Deployment.
 
-Após a instalação, você podera visualizar o status geral do deployment do Cilium com o comando `cilium status`.
+Após a instalação, você podera visualizar o status geral do Deployment do Cilium com o comando `cilium status`.
 Confira a saída esperada da opção `status` [aqui](https://docs.cilium.io/en/stable/gettingstarted/k8s-install-default/#validate-the-installation). 
 
-O restante do guia "Getting Started" utiliza como base uma aplicação de exemplo para explicar como aplicar políticas de segurança tanto para L3/L4 (como endereço de IP + porta), quanto para L7 (como HTTP).
+O restante do guia de primeiros passos utiliza como base uma aplicação de exemplo para explicar como aplicar políticas de segurança tanto para L3/L4 (como endereço de IP + porta), quanto para L7 (como HTTP).
 
 ## Fazendo o deploy do Cilium para uso em produção
 
-Para instruções detalhadas de como fazer o deploy do Cilium em produção, acesse: [Cilium Kubernetes Installation Guide](https://docs.cilium.io/en/stable/network/kubernetes/concepts/).
+Para instruções detalhadas de como fazer o deploy do Cilium em produção, acesse: [Guia de Instalação do Cilium no Kubernetes (em inglês)](https://docs.cilium.io/en/stable/network/kubernetes/concepts/).
 
 Essa documentação inclui detalhes sobre os requisitos, instruções e exemplos de DaemonSet para produção.
 
@@ -102,7 +99,7 @@ Um Pod `cilium` roda em cada um dos nós do seu cluster e garante as políticas 
 
 ## {{% heading "whatsnext" %}}
 
-Uma vez que seu cluster estiver rodando, você pode seguir o artigo [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/) para testar as políticas NetworkPolicy do Kubernetes com o Cilium.
+Uma vez que seu cluster estiver rodando, você pode seguir o artigo [Declarar uma Network Policy](/docs/tasks/administer-cluster/declare-network-policy/) para testar as políticas de NetworkPolicy do Kubernetes com o Cilium.
 Divirta-se! Se tiver dúvidas, nos contate usando o [Canal Slack do Cilium](https://cilium.herokuapp.com/).
 
 
