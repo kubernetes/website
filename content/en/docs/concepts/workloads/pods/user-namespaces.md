@@ -46,7 +46,26 @@ tmpfs, Secrets use a tmpfs, etc.)
 Some popular filesystems that support idmap mounts in Linux 6.3 are: btrfs,
 ext4, xfs, fat, tmpfs, overlayfs.
 
-In addition, support is needed in the 
+In addition, the container runtime and its underlying OCI runtime must support
+user namespaces. The following OCI runtimes offer support:
+
+* [crun](https://github.com/containers/crun) version 1.9 or greater (it's recommend version 1.13+).
+
+<!-- ideally, update this if a newer minor release of runc comes out, whether or not it includes the idmap support -->
+{{< note >}}
+Many OCI runtimes do not include the support needed for using user namespaces in
+Linux pods. If you use a managed Kubernetes, or have downloaded it from packages
+and set it up, it's likely that nodes in your cluster use a runtime that doesn't
+include this support. For example, the most widely used OCI runtime is `runc`,
+and version `1.1.z` of runc doesn't support all the features needed by the
+Kubernetes implementation of user namespaces.
+
+If there is a newer release of runc than 1.1 available for use, check its
+documentation and release notes for compatibility (look for idmap mounts support
+in particular, because that is the missing feature).
+{{< /note >}}
+
+To use user namespaces with Kubernetes, you also need to use a CRI
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
 to use this feature with Kubernetes pods:
 
