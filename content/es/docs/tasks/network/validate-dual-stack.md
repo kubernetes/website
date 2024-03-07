@@ -232,7 +232,7 @@ Consulta el Servicio:
 kubectl get svc -l app.kubernetes.io/name=MyApp
 ```
 
-Validar que el Servicio reciba una dirección `CLUSTER-IP` del bloque de direcciones IPv6 junto con una `EXTERNAL-IP`. Luego podrá validar el acceso al servicio a través de la IP y el puerto.
+Validar que el Servicio reciba una dirección  `CLUSTER-IP` del bloque de direcciones IPv6 junto con una `EXTERNAL-IP`. Luego podrá validar el acceso al servicio a través de la IP y el puerto.
 
 ```shell
 NAME         TYPE           CLUSTER-IP            EXTERNAL-IP        PORT(S)        AGE
