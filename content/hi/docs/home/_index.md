@@ -55,7 +55,7 @@ cards:
   button: प्रलेखन में योगदान करें 
   button_path: /docs/contribute
 - name: release-notes
-  title: कुबेरनेट्स रिलीज नोट्स 
+  title: कुबेरनेट्स डाउनलोड करें
   description: यदि आप कुबेरनेट्स इंस्टॉल कर रहे हैं या नवीनतम संस्करण में अपग्रेड कर रहे हैं, तो वर्तमान रिलीज़ नोट्स देखें।
   button: कुबेरनेट्स डाउनलोड करें
   button_path: "/docs/setup/release/notes"
