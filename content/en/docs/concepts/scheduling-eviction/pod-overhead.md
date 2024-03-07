@@ -50,6 +50,8 @@ overhead:
     cpu: "250m"
 ```
 
+The prefix "kata" derived from the word 'Kata Containers' an open source project designed for light and fast container virtualization and providing stronger workload isolation. The suffix "fc" indicates integration of the Firecracker VMM(Virtual Machine Montior), which provides security and isolation of the virtual machines. This involves evaluating the performance impact of various runtimes, considering factors like resource utilization, startup times, and overall efficiency. With runtimeClass configured in Kubernetes as well as in CRI-O/containerd, end users can select the type of isolation they’d like on a per-workload basis.
+
 Workloads which are created which specify the `kata-fc` RuntimeClass handler will take the memory and
 cpu overheads into account for resource quota calculations, node scheduling, as well as Pod cgroup sizing.
 
