@@ -36,7 +36,7 @@ You need to make sure a `RuntimeClass` is utilized which defines the `overhead` 
 
 The "kata" prefix from the 'Kata Containers' project, designed for lightweight container virtualization, with the "fc" suffix 
 representing the integration of the 'Firecracker' VMM (Virtual Machine Monitor). "kata-fc" is employed as an illustrative example to
-spotlight potential overhead associated with a specific runtime configuration. This involves evaluating the performance impact of 
+highlight potential overhead associated with a specific runtime configuration. This involves evaluating the performance impact of 
 various runtimes, considering factors like resource utilization, startup times, and overall efficiency.
 
 ## Usage example
