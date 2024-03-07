@@ -46,7 +46,11 @@ Each day in a week-long shift as PR Wrangler:
       to help onboard new contributors.
 
 {{< note >}}
-PR wrangler duties do not apply to localization PRs (non-English PRs). Localization teams have their own processes and teams for reviewing their language PRs. However, if you have time during your shift, it's often helpful to ensure language PRs are labeled correctly, review small non-language dependent PRs (like a link update), or tag reviewers or contributors in long-running PRs (ones opened more than 6 months ago and have not been updated in a month or more).
+PR wrangler duties do not apply to localization PRs (non-English PRs). 
+Localization teams have their own processes and teams for reviewing their language PRs. 
+However, it's often helpful to ensure language PRs are labeled correctly, 
+review small non-language dependent PRs (like a link update), 
+or tag reviewers or contributors in long-running PRs (ones opened more than 6 months ago and have not been updated in a month or more).
 {{< /note >}}
 
 
