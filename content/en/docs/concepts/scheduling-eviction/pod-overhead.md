@@ -38,6 +38,7 @@ The "kata" prefix from the 'Kata Containers' project, designed for lightweight c
 representing the integration of the 'Firecracker' VMM (Virtual Machine Monitor). "kata-fc" is employed as an illustrative example to
 spotlight potential overhead associated with a specific runtime configuration. This involves evaluating the performance impact of 
 various runtimes, considering factors like resource utilization, startup times, and overall efficiency.
+
 ## Usage example
 
 To work with Pod overhead, you need a RuntimeClass that defines the `overhead` field. As
