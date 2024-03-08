@@ -1011,7 +1011,7 @@ status:
 {{< feature-state for_k8s_version="v1.30" state="alpha" >}}
 
 {{< note >}}
-You can only set `ManagedBy` field on Jobs if you enable the `JobManagedBy`
+You can only set the `managedBy` field on Jobs if you enable the `JobManagedBy`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 (disabled by default).
 {{< /note >}}
@@ -1019,12 +1019,12 @@ You can only set `ManagedBy` field on Jobs if you enable the `JobManagedBy`
 This feature allows you to disable the built-in Job controller, for a specific
 Job, and delegate reconciliation of the Job to an external controller.
 
-By setting a custom value of the `spec.managedBy` field - any value
-other than `kubernetes.io/job-controller` - you indicate the controller which
-reconciles the Job. The value of the field is immutable.
+You indicate the controller that reconciles the Job by setting a custom value
+for the `spec.managedBy` field - any value
+other than `kubernetes.io/job-controller`. The value of the field is immutable.
 
 {{< note >}}
-When using this feature make sure the controller indicated by the field is
+When using this feature, make sure the controller indicated by the field is
 installed, otherwise the Job may not be reconciled at all.
 {{< /note >}}
 
@@ -1043,8 +1043,8 @@ Finally, when developing an external Job controller make sure it does not use th
 
 {{< warning >}}
 If you are considering to disable the `JobManagedBy` feature gate, or to
-downgrade the cluster to a version without the feature gate enabled, inspect
-there are no jobs with a custom value of the `spec.managedBy` field. If there
+downgrade the cluster to a version without the feature gate enabled, check if
+there are jobs with a custom value of the `spec.managedBy` field. If there
 are such jobs, there is a risk that they might be reconciled by two controllers
 after the operation: the built-in Job controller and the external controller
 indicated by the field value.
