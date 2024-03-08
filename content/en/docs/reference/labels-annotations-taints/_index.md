@@ -300,7 +300,7 @@ which is used by Kustomize and similar third-party tools.
 For example, Kustomize removes objects with this annotation from its final build output.
 
 
-### container.apparmor.security.beta.kubernetes.io/* (beta) {#container-apparmor-security-beta-kubernetes-io}
+### container.apparmor.security.beta.kubernetes.io/* (deprecated) {#container-apparmor-security-beta-kubernetes-io}
 
 Type: Annotation
 
@@ -309,7 +309,7 @@ Example: `container.apparmor.security.beta.kubernetes.io/my-container: my-custom
 Used on: Pods
 
 This annotation allows you to specify the AppArmor security profile for a container within a
-Kubernetes pod. 
+Kubernetes pod. As of Kubernetes v1.30, this should be set with the `appArmorProfile` field instead.
 To learn more, see the [AppArmor](/docs/tutorials/security/apparmor/) tutorial.
 The tutorial illustrates using AppArmor to restrict a container's abilities and access.
 
