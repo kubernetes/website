@@ -91,6 +91,10 @@
 <script defer src="{{ "js/release_binaries.js" | relURL }}"></script>
 {{- end -}}
 
+{{- if .HasShortcode "cncf-landscape" -}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.9/iframeResizer.min.js" integrity="sha384-hHTwgxzjpO1G1NI0wMHWQYUxnGtpWyDjVSZrFnDrlWa5OL+DFY57qnDWw/5WSJOl" crossorigin="anonymous"></script>
+{{- end -}}
+
 {{- if eq (lower .Params.cid) "community" -}}
 {{- if eq .Params.community_styles_migrated true -}}
 <link href="/css/community.css" rel="stylesheet"><!-- legacy styles -->
