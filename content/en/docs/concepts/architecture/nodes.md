@@ -117,7 +117,7 @@ As mentioned in the [Node name uniqueness](#node-name-uniqueness) section,
 when Node configuration needs to be updated, it is a good practice to re-register
 the node with the API server. For example, if the kubelet is being restarted with
 a new set of `--node-labels`, but the same Node name is used, the change will
-not take effect, as labels are only set (or reset) upon Node registration with the API server.
+not take effect, as labels are only set (or modified) upon Node registration with the API server.
 
 Pods already scheduled on the Node may misbehave or cause issues if the Node
 configuration will be changed on kubelet restart. For example, already running
