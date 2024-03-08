@@ -30,7 +30,7 @@ applications and cluster from other angles as well.
 ## {{% heading "objectives" %}}
 
 
-* See an example of how to load a profile on a node
+* See an example of how to load a profile on a Node
 * Learn how to enforce the profile on a Pod
 * Learn how to check that the profile is loaded
 * See what happens when a profile is violated
@@ -42,7 +42,7 @@ applications and cluster from other angles as well.
 
 
 AppArmor is an optional kernel module and Kubernetes feature, so verify it is supported on your
-nodes before proceeding:
+Nodes before proceeding:
 
 1. AppArmor kernel module is enabled -- For the Linux kernel to enforce an AppArmor profile, the
    AppArmor kernel module must be installed and enabled. Several distributions enable the module by
@@ -54,16 +54,16 @@ nodes before proceeding:
    Y
    ```
 
-   The Kubelet will verify that AppArmor is enabled on the host before admitting a pod with AppArmor
+   The Kubelet verifies that AppArmor is enabled on the host before admitting a pod with AppArmor
    explicitly configured.
 
-3. Container runtime supports AppArmor -- Currently all common Kubernetes-supported container
+3. Container runtime supports AppArmor -- All common Kubernetes-supported container
    runtimes should support AppArmor, including {{< glossary_tooltip term_id="containerd" >}} and
    {{< glossary_tooltip term_id="cri-o" >}}. Please refer to the corresponding runtime
    documentation and verify that the cluster fulfills the requirements to use AppArmor.
 
 4. Profile is loaded -- AppArmor is applied to a Pod by specifying an AppArmor profile that each
-   container should be run with. If any of the specified profiles is not already loaded in the
+   container should be run with. If any of the specified profiles are not loaded in the
    kernel, the Kubelet will reject the Pod. You can view which profiles are loaded on a
    node by checking the `/sys/kernel/security/apparmor/profiles` file. For example:
 
@@ -97,7 +97,7 @@ container.apparmor.security.beta.kubernetes.io/<container_name>: <profile_ref>
 ```
 
 Where `<container_name>` is the name of the container to apply the profile to, and `<profile_ref>`
-specifies the profile to apply. The `profile_ref` can be one of:
+specifies the profile to apply. The `<profile_ref>` can be one of:
 
 * `runtime/default` to apply the runtime's default profile
 * `localhost/<profile_name>` to apply the profile loaded on the host with the name `<profile_name>`
@@ -122,7 +122,7 @@ k8s-apparmor-example-deny-write (enforce)
 
 *This example assumes you have already set up a cluster with AppArmor support.*
 
-First, we need to load the profile we want to use onto our nodes. This profile denies all file writes:
+First, load the profile you want to use onto your Nodes. This profile denies all file writes:
 
 ```
 #include <tunables/global>
@@ -137,8 +137,8 @@ profile k8s-apparmor-example-deny-write flags=(attach_disconnected) {
 }
 ```
 
-Since we don't know where the Pod will be scheduled, we'll need to load the profile on all our
-nodes. For this example we'll use SSH to install the profiles, but other approaches are
+The profile needs to loaded onto all nodes, since you don't know where the pod will be scheduled.
+For this example you can use SSH to install the profiles, but other approaches are
 discussed in [Setting up nodes with profiles](#setting-up-nodes-with-profiles).
 
 ```shell
@@ -160,7 +160,7 @@ EOF'
 done
 ```
 
-Next, we'll run a simple "Hello AppArmor" pod with the deny-write profile:
+Next, run a simple "Hello AppArmor" Pod with the deny-write profile:
 
 {{% code_sample file="pods/security/hello-apparmor.yaml" %}}
 
@@ -168,16 +168,18 @@ Next, we'll run a simple "Hello AppArmor" pod with the deny-write profile:
 kubectl create -f hello-apparmor.yaml
 ```
 
-We can verify that the container is actually running with that profile by checking its proc attr:
+You can verify that the container is actually running with that profile by checking `/proc/1/attr/current`:
 
 ```shell
 kubectl exec hello-apparmor -- cat /proc/1/attr/current
 ```
+
+The output should be:
 ```
 k8s-apparmor-example-deny-write (enforce)
 ```
 
-Finally, we can see what happens if we try to violate the profile by writing to a file:
+Finally, you can see what happens if you violate the profile by writing to a file:
 
 ```shell
 kubectl exec hello-apparmor -- touch /tmp/test
@@ -187,7 +189,7 @@ touch: /tmp/test: Permission denied
 error: error executing remote command: command terminated with non-zero exit code: Error executing in Docker Container: 1
 ```
 
-To wrap up, let's look at what happens if we try to specify a profile that hasn't been loaded:
+To wrap up, see what happens if you try to specify a profile that hasn't been loaded:
 
 ```shell
 kubectl create -f /dev/stdin <<EOF
@@ -208,7 +210,7 @@ EOF
 pod/hello-apparmor-2 created
 ```
 
-Although the pod was created successfully, further examination will show that it is stuck in pending:
+Although the Pod was created successfully, further examination will show that it is stuck in pending:
 
 ```shell
 kubectl describe pod hello-apparmor-2
@@ -232,24 +234,24 @@ Events:
   Normal   Pulled     7s               kubelet            Successfully pulled image "busybox:1.28" in 90.980331ms (91.005869ms including waiting)
 ```
 
-An event provides the error message with the reason. Note that the specific wording is runtime-dependent:
+An Event provides the error message with the reason, the specific wording is runtime-dependent:
 ```
   Warning  Failed     7s (x2 over 8s)  kubelet            Error: failed to get container spec opts: failed to generate apparmor spec opts: apparmor profile not found 
 ```
 
 ## Administration
 
-### Setting up nodes with profiles
+### Setting up Nodes with profiles
 
 Kubernetes does not currently provide any built-in mechanisms for loading AppArmor profiles onto
-nodes. Profiles can be loaded through custom infrastructure or tools like the
+Nodes. Profiles can be loaded through custom infrastructure or tools like the
 [Kubernetes Security Profiles Operator](https://github.com/kubernetes-sigs/security-profiles-operator).
 
-The scheduler is not aware of which profiles are loaded onto which node, so the full set of profiles
-must be loaded onto every node.  An alternative approach is to add a node label for each profile (or
-class of profiles) on the node, and use a
+The scheduler is not aware of which profiles are loaded onto which Node, so the full set of profiles
+must be loaded onto every Node.  An alternative approach is to add a Node label for each profile (or
+class of profiles) on the Node, and use a
 [node selector](/docs/concepts/scheduling-eviction/assign-pod-node/) to ensure the Pod is run on a
-node with the required profile.
+Node with the required profile.
 
 ## Authoring Profiles
 
