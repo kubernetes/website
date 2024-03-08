@@ -9,7 +9,7 @@ weight: 90
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.14" state="stable" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 [Pods](/docs/concepts/workloads/pods/) can have _priority_. Priority indicates the
 importance of a Pod relative to other Pods. If a Pod cannot be scheduled, the
@@ -186,6 +186,8 @@ its scheduling requirements are met. If such Pod cannot be scheduled, the
 scheduler will continue and try to schedule other lower priority Pods.
 
 ## Preemption
+
+{{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
 When Pods are created, they go to a queue and wait to be scheduled. The
 scheduler picks a Pod from the queue and tries to schedule it on a Node. If no
