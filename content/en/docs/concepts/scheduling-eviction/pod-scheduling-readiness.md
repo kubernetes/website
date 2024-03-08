@@ -9,7 +9,7 @@ weight: 40
 {{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
 Pods were considered ready for scheduling once created. Kubernetes scheduler
-does its due diligence to find nodes to place all pending Pods. However, in a 
+does its due diligence to find nodes to place all pending Pods. However, in a
 real-world case, some Pods may stay in a "miss-essential-resources" state for a long period.
 These Pods actually churn the scheduler (and downstream integrators like Cluster AutoScaler)
 in an unnecessary manner.
@@ -59,7 +59,7 @@ The output is:
 ```
 
 To inform scheduler this Pod is ready for scheduling, you can remove its `schedulingGates` entirely
-by re-applying a modified manifest:
+by reapplying a modified manifest:
 
 {{% code_sample file="pods/pod-without-scheduling-gates.yaml" %}}
 
@@ -79,7 +79,7 @@ Given the test-pod doesn't request any CPU/memory resources, it's expected that 
 transited from previous `SchedulingGated` to `Running`:
 
 ```none
-NAME       READY   STATUS    RESTARTS   AGE   IP         NODE  
+NAME       READY   STATUS    RESTARTS   AGE   IP         NODE
 test-pod   1/1     Running   0          15s   10.0.0.4   node-2
 ```
 
@@ -94,8 +94,8 @@ scheduling. You can use `scheduler_pending_pods{queue="gated"}` to check the met
 {{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
 You can mutate scheduling directives of Pods while they have scheduling gates, with certain constraints.
-At a high level, you can only tighten the scheduling directives of a Pod. In other words, the updated 
-directives would cause the Pods to only be able to be scheduled on a subset of the nodes that it would 
+At a high level, you can only tighten the scheduling directives of a Pod. In other words, the updated
+directives would cause the Pods to only be able to be scheduled on a subset of the nodes that it would
 previously match. More concretely, the rules for updating a Pod's scheduling directives are as follows:
 
 1. For `.spec.nodeSelector`, only additions are allowed. If absent, it will be allowed to be set.
@@ -107,8 +107,8 @@ previously match. More concretely, the rules for updating a Pod's scheduling dir
    or `fieldExpressions` are allowed, and no changes to existing `matchExpressions`
    and `fieldExpressions` will be allowed. This is because the terms in
    `.requiredDuringSchedulingIgnoredDuringExecution.NodeSelectorTerms`, are ORed
-   while the expressions in `nodeSelectorTerms[].matchExpressions` and 
-   `nodeSelectorTerms[].fieldExpressions` are ANDed. 
+   while the expressions in `nodeSelectorTerms[].matchExpressions` and
+   `nodeSelectorTerms[].fieldExpressions` are ANDed.
 
 4. For `.preferredDuringSchedulingIgnoredDuringExecution`, all updates are allowed.
    This is because preferred terms are not authoritative, and so policy controllers
