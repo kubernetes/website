@@ -93,7 +93,7 @@ for more information.
 {{< note >}}
 Docker Engine does not implement the [CRI](/docs/concepts/architecture/cri/)
 which is a requirement for a container runtime to work with Kubernetes.
-For that reason, an additional service [cri-dockerd](https://github.com/Mirantis/cri-dockerd)
+For that reason, an additional service [cri-dockerd](https://mirantis.github.io/cri-dockerd/)
 has to be installed. cri-dockerd is a project based on the legacy built-in
 Docker Engine support that was [removed](/dockershim) from the kubelet in version 1.24.
 {{< /note >}}
@@ -186,7 +186,7 @@ These instructions are for Kubernetes {{< skew currentVersion >}}.
    # sudo mkdir -p -m 755 /etc/apt/keyrings
    curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    ```
-   
+
 {{< note >}}
 In releases older than Debian 12 and Ubuntu 22.04, folder `/etc/apt/keyrings` does not exist by default, and it should be created before the curl command.
 {{< /note >}}
