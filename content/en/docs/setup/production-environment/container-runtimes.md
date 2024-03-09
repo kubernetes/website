@@ -325,15 +325,14 @@ This config option supports live configuration reload to apply this change: `sys
 
 {{< note >}}
 These instructions assume that you are using the
-[`cri-dockerd`](https://github.com/Mirantis/cri-dockerd) adapter to integrate
+[`cri-dockerd`](https://mirantis.github.io/cri-dockerd/) adapter to integrate
 Docker Engine with Kubernetes.
 {{< /note >}}
 
 1. On each of your nodes, install Docker for your Linux distribution as per
   [Install Docker Engine](https://docs.docker.com/engine/install/#server).
 
-2. Install [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd), following
-   the instructions in that source code repository.
+2. Install [`cri-dockerd`](https://mirantis.github.io/cri-dockerd/usage/install), following the directions in the install section of the documentation.
 
 For `cri-dockerd`, the CRI socket is `/run/cri-dockerd.sock` by default.
 
@@ -343,7 +342,7 @@ For `cri-dockerd`, the CRI socket is `/run/cri-dockerd.sock` by default.
 available container runtime that was formerly known as Docker Enterprise Edition.
 
 You can use Mirantis Container Runtime with Kubernetes using the open source
-[`cri-dockerd`](https://github.com/Mirantis/cri-dockerd) component, included with MCR.
+[`cri-dockerd`](https://mirantis.github.io/cri-dockerd/) component, included with MCR.
 
 To learn more about how to install Mirantis Container Runtime,
 visit [MCR Deployment Guide](https://docs.mirantis.com/mcr/20.10/install.html).
