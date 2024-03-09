@@ -71,12 +71,19 @@ KUBECONFIG=~/.kube/config:~/.kube/kubconfig2
 
 kubectl config view
 
+# Show merged kubeconfig settings and raw certificate data and exposed secrets
+kubectl config view --raw 
+
 # get the password for the e2e user
 kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
+
+# get the certificate for the e2e user
+kubectl config view --raw -o jsonpath='{.users[?(.name == 'e2e')].user.client-certificate-data}' | base64 -d
 
 kubectl config view -o jsonpath='{.users[].name}'    # display the first user
 kubectl config view -o jsonpath='{.users[*].name}'   # get a list of users
 kubectl config get-contexts                          # display list of contexts
+kubectl config get-contexts -o name                  # get all context names
 kubectl config current-context                       # display the current-context
 kubectl config use-context my-cluster-name           # set the default context to my-cluster-name
 
