@@ -1,9 +1,10 @@
-# कुबरनेट्स प्रलेखन
+
+# कुबरनेट्स डॉक्युमेंटेशन
 
 [![Build Status](https://api.travis-ci.org/kubernetes/website.svg?branch=master)](https://travis-ci.org/kubernetes/website)
 [![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
 
-स्वागत है! इस रिपॉजिटरी में [कुबरनेट्स वेबसाइट और दस्तावेज](https://kubernetes.io/) बनाने के लिए आवश्यक सभी संपत्तियाँ हैं। हम बहुत खुश हैं कि आप योगदान करना चाहते हैं!
+नमस्ते! इस रिपॉजिटरी में [कुबरनेट्स वेबसाइट और दस्तावेज](https://kubernetes.io/) बनाने के लिए आवश्यक सभी संपत्तियाँ हैं। हम बहुत खुश हैं कि आप योगदान करना चाहते हैं!
 
 ## डॉक्स में योगदान देना
 
@@ -21,7 +22,9 @@
 * [प्रलेखन शैली गाइड](http://kubernetes.io/docs/contribute/style/style-guide/)
 * [स्थानीयकरण कुबरनेट्स प्रलेखन](https://kubernetes.io/docs/contribute/localization/)
 
-## `README.md`'s स्थानीयकरण कुबरनेट्स प्रलेखन
+## `README.md`'s स्थानीयकर
+
+ण कुबरनेट्स प्रलेखन
 
 आप हिंदी स्थानीयकरण के मैन्टेनरों तक पहुँच सकते हैं:
 
@@ -67,7 +70,9 @@ make serve
 
 ## समुदाय, चर्चा, योगदान और समर्थन
 
-[Community page](http://kubernetes.io/community/) पर कुबरनेट्स समुदाय के साथ जुड़ना सीखें।
+[Community page](http://kubernetes.io/community/) पर कुबरनेट्स सम
+
+ुदाय के साथ जुड़ना सीखें।
 
 आप इस परियोजना के स्थानीयकरण तक पहुँच सकते हैं:
 
