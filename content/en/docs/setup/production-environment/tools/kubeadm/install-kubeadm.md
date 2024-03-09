@@ -161,14 +161,14 @@ For more information on version skews, see:
 
 {{< note >}}
 There's a dedicated package repository for each Kubernetes minor version. If you want to install
-a minor version other than {{< skew currentVersion >}}, please see the installation guide for
+a minor version other than v{{< skew currentVersion >}}, please see the installation guide for
 your desired minor version.
 {{< /note >}}
 
 {{< tabs name="k8s_install" >}}
 {{% tab name="Debian-based distributions" %}}
 
-These instructions are for Kubernetes {{< skew currentVersion >}}.
+These instructions are for Kubernetes v{{< skew currentVersion >}}.
 
 1. Update the `apt` package index and install packages needed to use the Kubernetes `apt` repository:
 
@@ -182,13 +182,13 @@ These instructions are for Kubernetes {{< skew currentVersion >}}.
    The same signing key is used for all repositories so you can disregard the version in the URL:
 
    ```shell
-   # If the folder `/etc/apt/keyrings` does not exist, it should be created before the curl command, read the note below.
+   # If the directory `/etc/apt/keyrings` does not exist, it should be created before the curl command, read the note below.
    # sudo mkdir -p -m 755 /etc/apt/keyrings
    curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    ```
 
 {{< note >}}
-In releases older than Debian 12 and Ubuntu 22.04, folder `/etc/apt/keyrings` does not exist by default, and it should be created before the curl command.
+In releases older than Debian 12 and Ubuntu 22.04, directory `/etc/apt/keyrings` does not exist by default, and it should be created before the curl command.
 {{< /note >}}
 
 3. Add the appropriate Kubernetes `apt` repository. Please note that this repository have packages
@@ -208,6 +208,12 @@ In releases older than Debian 12 and Ubuntu 22.04, folder `/etc/apt/keyrings` do
    sudo apt-get update
    sudo apt-get install -y kubelet kubeadm kubectl
    sudo apt-mark hold kubelet kubeadm kubectl
+   ```
+
+5. (Optional) Enable the kubelet service before running kubeadm:
+
+   ```shell
+   sudo systemctl enable --now kubelet
    ```
 
 {{% /tab %}}
@@ -255,10 +261,15 @@ settings that are not supported by kubeadm.
    EOF
    ```
 
-3. Install kubelet, kubeadm and kubectl, and enable kubelet to ensure it's automatically started on startup:
+3. Install kubelet, kubeadm and kubectl:
 
    ```shell
    sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+   ```
+
+4. (Optional) Enable the kubelet service before running kubeadm:
+
+   ```shell
    sudo systemctl enable --now kubelet
    ```
 
@@ -294,7 +305,7 @@ ARCH="amd64"
 curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
 ```
 
-Install `kubeadm`, `kubelet`, `kubectl` and add a `kubelet` systemd service:
+Install `kubeadm`, `kubelet` and add a `kubelet` systemd service:
 
 ```bash
 RELEASE="$(curl -sSL https://dl.k8s.io/release/stable.txt)"
@@ -316,10 +327,10 @@ that do not include `glibc` by default.
 
 Install `kubectl` by following the instructions on [Install Tools page](/docs/tasks/tools/#kubectl).
 
-Enable and start `kubelet`:
+Optionally, enable the kubelet service before running kubeadm:
 
 ```bash
-systemctl enable --now kubelet
+sudo systemctl enable --now kubelet
 ```
 
 {{< note >}}
