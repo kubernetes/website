@@ -33,7 +33,7 @@ When designing authorization policies, it is imperative to adhere to the princip
 - Each group should be granted access only to the resources essential for its operations. Groups must not have permission to view or modify resources belonging to other groups.
 - Users, user groups, and service accounts should be limited to interacting with and accessing resources within predefined namespaces. This ensures a focused and controlled access scope.
 - It is crucial to refrain from using the AlwaysAllow value in the --authorization-mode flag. This value effectively disables all authorization modes, compromising the ability to enforce the principle of least privilege.
-- Assigning rights using the system:masters group should always be avoided, as it possesses hardcoded cluster-admin rights. These rights cannot be revoked due to their hardcoded nature in the source code. Users with `system:masters` rights will always have administrative privileges. The groups who genuinely require cluster-admin rights should be provided a binding to the cluster-admin clusterrole.
+- Assigning rights using the `system:masters` group should always be avoided, as it possesses hardcoded cluster-admin rights. These rights cannot be revoked due to their hardcoded nature in the source code. Users with `system:masters` rights will always have administrative privileges. The groups who genuinely require cluster-admin rights should be provided a binding to the cluster-admin clusterrole.
 
 ### Resources to restrict to prevent privilege escalation
 
