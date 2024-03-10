@@ -9,7 +9,7 @@ no_list: true
 
 * [CSI](/ja/docs/concepts/storage/volumes/#csi)および[FlexVolume](/ja/docs/concepts/storage/volumes/#flexvolume)ストレージプラグイン
 
-  {{< glossary_tooltip text="Container Storage Interface" term_id="csi" >}}(CSI)プラグインは、新しい種類のボリュームをサポートするためのKubernetesの拡張方法を提供します。
+  {{< glossary_tooltip text="Container Storage Interface" term_id="csi" >}} (CSI)プラグインは、新しい種類のボリュームをサポートするためのKubernetesの拡張方法を提供します。
   これらのボリュームは、耐久性のある外部のストレージによってバックアップされることがあります。また、一時的なストレージを提供することも、ファイルシステムのパラダイムを使用して、情報への読み取り専用のインターフェースを提供することもあります。
 
   Kubernetesには、Kubernetes v1.23から非推奨とされている(CSIに置き換えられる)[FlexVolume](/docs/concepts/storage/volumes/#flexvolume)プラグインへのサポートも含まれています。
