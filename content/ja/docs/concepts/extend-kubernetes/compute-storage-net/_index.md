@@ -27,6 +27,6 @@ no_list: true
 * [ネットワークプラグイン](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
 
   ネットワークプラグインにより、Kubernetesはさまざまなネットワーキングのトポロジーや技術を扱うことができます。
-  動作するPodネットワークを持ち、Kubernetesネットワークモデルの他の側面をサポートするためには、Kubernetesクラスターに_ネットワークプラグイン_が必要です。
+  動作するPodネットワークを持ち、Kubernetesネットワークモデルの他の側面をサポートするためには、Kubernetesクラスターに _ネットワークプラグイン_ が必要です。
 
   Kubernetes {{< skew currentVersion >}}は、{{< glossary_tooltip text="CNI" term_id="cni" >}}ネットワークプラグインと互換性があります。
