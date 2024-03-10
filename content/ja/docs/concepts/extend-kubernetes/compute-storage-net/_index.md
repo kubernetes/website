@@ -7,7 +7,7 @@ no_list: true
 このセクションでは、Kubernetes自体の一部としては提供されていない、クラスターへの拡張について説明します。
 これらの拡張を使用して、クラスター内のノードを強化したり、Pod同士をつなぐネットワークファブリックを提供したりすることができます。
 
-* [CSI](/docs/concepts/storage/volumes/#csi)および[FlexVolume](/docs/concepts/storage/volumes/#flexvolume)ストレージプラグイン
+* [CSI](/ja/docs/concepts/storage/volumes/#csi)および[FlexVolume](/ja/docs/concepts/storage/volumes/#flexvolume)ストレージプラグイン
 
   {{< glossary_tooltip text="Container Storage Interface" term_id="csi" >}}(CSI)プラグインは、新しい種類のボリュームをサポートするためのKubernetesの拡張方法を提供します。
   これらのボリュームは、耐久性のある外部のストレージによってバックアップされることがあります。また、一時的なストレージを提供することも、ファイルシステムのパラダイムを使用して、情報への読み取り専用のインターフェースを提供することもあります。
