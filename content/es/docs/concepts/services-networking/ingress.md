@@ -531,7 +531,7 @@ que uses, puede que necesites crear
 un [Service](/es/docs/concepts/services-networking/service/) default-http-backend.
 {{< /note >}}
 
-### Hospedaje virtual basado en nombre
+### Hosting virtual basado en nombre
 
 Los hospedajes virtuales basados en el nombre soportan enrutado de tráfico HTTP
 a nombres hosts múltiples con la misma dirección IP.
