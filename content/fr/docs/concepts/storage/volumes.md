@@ -972,7 +972,7 @@ Plus d'exemples sont disponibles [ici](https://github.com/kubernetes/examples/tr
 ## Utilisation de subPath
 
 Parfois, il est utile de partager un volume pour plusieurs utilisations dans un même Pod.
-La propriété `volumeMounts.subPath` peut être utilisée pour spécifier un sous-chemin à l'intérieur du volume référencé au lieu de sa racine.
+La propriété `volumeMounts[*].subPath` peut être utilisée pour spécifier un sous-chemin à l'intérieur du volume référencé au lieu de sa racine.
 
 Voici un exemple d'un Pod avec une stack LAMP (Linux Apache Mysql PHP) utilisant un unique volume partagé.
 Le contenu HTML est mappé à son dossier `html` et les bases de données seront stockées dans son dossier `mysql` :
