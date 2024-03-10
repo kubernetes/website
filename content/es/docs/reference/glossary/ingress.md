@@ -16,5 +16,5 @@ Un objeto de la API que administra el acceso externo a los servicios en un clús
 
 <!--more--> 
 
-Un Ingress podría proveer balanceo de cargas, terminación SSL y hospedaje virtual basado en nombres.
+Un Ingress podría proveer balanceo de cargas, terminación SSL y hosting virtual basado en nombres.
 
