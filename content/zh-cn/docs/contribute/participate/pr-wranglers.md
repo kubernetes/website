@@ -92,6 +92,20 @@ Each day in a week-long shift as PR Wrangler:
   - 将风格修复事项标记为 `good first issue` 可以很好地确保向新加入的贡献者分派一些比较简单的任务，
     这有助于接纳新的贡献者。
 
+{{< note >}}
+<!--
+PR wrangler duties do not apply to localization PRs (non-English PRs). 
+Localization teams have their own processes and teams for reviewing their language PRs. 
+However, it's often helpful to ensure language PRs are labeled correctly, 
+review small non-language dependent PRs (like a link update), 
+or tag reviewers or contributors in long-running PRs (ones opened more than 6 months ago and have not been updated in a month or more).
+-->
+PR 管理者的职责不适用于本地化 PR（非英语 PR）。
+本地化团队有自己的流程和团队来审查其语言 PR。
+但是，其对于确保被语言 PR 被正确标记，审查与语言无关的小型 PR（如链接更新），或为长期搁置的
+PR（已打开超过 6 个月且一个月或更长时间未更新的）添加审阅者或贡献者标签通常很有帮助。
+{{< /note >}}
+
 <!--
 ### Helpful GitHub queries for wranglers
 
