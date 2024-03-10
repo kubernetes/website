@@ -62,7 +62,15 @@ tolerations:
   effect: "NoSchedule"
 ```
 
-Here's an example of a pod that uses tolerations:
+The default Kubernetes scheduler takes taints and tolerations into account when
+selecting a node to run a particular Pod. However, if you manually specify the
+`.spec.nodeName` for a Pod, that action bypasses the scheduler; the Pod is then
+bound onto on the node where you assigned it, even if there are `NoSchedule`
+taints on that node that you selected.
+If this happens and the node also has a `NoExecute` taint set, the kubelet will
+eject the Pod unless there is an appropriate toleration set.
+
+Here's an example of a pod that has some tolerations defined:
 
 {{% code_sample file="pods/pod-with-toleration.yaml" %}}
 
@@ -314,10 +322,6 @@ tolerations to all daemons, to prevent DaemonSets from breaking.
 
 Adding these tolerations ensures backward compatibility. You can also add
 arbitrary tolerations to DaemonSets.
-
-{{< note >}}
-If the `nodeName` for a Pod manifest is manually specified, the scheduler will assign the Pod to the node specified, regardless of any taints or tolerations.
-{{< /note >}}
 
 ## {{% heading "whatsnext" %}}
 
