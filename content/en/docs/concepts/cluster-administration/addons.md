@@ -109,6 +109,10 @@ installation instructions. The list does not try to be exhaustive.
   [Events](/docs/reference/kubernetes-api/cluster-resources/event-v1/) or
   [Node conditions](/docs/concepts/architecture/nodes/#condition).
 
+## Instrumentation
+
+* [kube-state-metrics](/docs/concepts/cluster-administration/kube-state-metrics)
+
 ## Legacy Add-ons
 
 There are several other add-ons documented in the deprecated
