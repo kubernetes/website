@@ -311,6 +311,10 @@ third party storage driver instead.
 The `gitRepo` volume type is deprecated. To provision a container with a git repo, mount an
 [EmptyDir](#emptydir) into an InitContainer that clones the repo using git, then mount the
 [EmptyDir](#emptydir) into the Pod's container.
+
+---
+You can restrict the use of `gitRepo` volumes in your cluster using [policies](https://kubernetes.io/docs/concepts/policy/) like [ValidatingAdmissionPolicy](docs/reference/access-authn-authz/validating-admission-policy/). For example, following Common Expression Language (CEL) expression can be used to restrict pods that uses `gitRepo` volumes: `has(object.spec.volumes) && !object.spec.volumes.exists(v, has(v.gitRepo))`.
+
 {{< /warning >}}
 
 A `gitRepo` volume is an example of a volume plugin. This plugin
