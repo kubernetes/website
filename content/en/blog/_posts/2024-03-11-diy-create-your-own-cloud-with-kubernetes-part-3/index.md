@@ -21,14 +21,14 @@ The main goal of the Cluster API is to provide a unified interface for describin
 
 Within the context of Cluster API, there are two terms: **management cluster** and **tenant clusters**.
 
-- **Management cluster** is a Kubernetes cluster used to deploy and manage other clusters. This cluster contains all the necessary Cluster API components and is responsible for describing, creating, and updating tenant clusters. Often it is used just for this purpose.
-- **Tenant clusters** are the user clusters or clusters deployed using the Cluster API. Their creation occurs by describing the relevant resources in the management cluster. They are then used for deploying applications and services by end-users.
+- **Management cluster** is a Kubernetes cluster used to deploy and manage other clusters. This cluster contains all the necessary Cluster API components and is responsible for describing, creating, and updating tenant clusters. It is often used just for this purpose.
+- **Tenant clusters** are the user clusters or clusters deployed using the Cluster API. They are created by describing the relevant resources in the management cluster. They are then used for deploying applications and services by end-users.
 
 It's important to understand that physically, tenant clusters do not necessarily have to run on the same infrastructure with the management cluster; more often, they are running elsewhere.
 
 {{< figure src="clusterapi1.svg" caption="A diagram showing interaction of management Kubernetes cluster and tenant Kubernetes clusters using Cluster API" alt="A diagram showing interaction of management Kubernetes cluster and tenant Kubernetes clusters using Cluster API" >}}
 
-For its operation, Cluster API utilizes the concept of providers which are separate controllers responsible for specific components of the cluster being created. Within Cluster API, there are several types of providers. The main ones are:
+For its operation, Cluster API utilizes the concept of _providers_ which are separate controllers responsible for specific components of the cluster being created. Within Cluster API, there are several types of providers. The major ones are:
 
  - **Infrastructure Provider**, which is responsible for providing the computing infrastructure, such as virtual machines or physical servers.
  - **Control Plane Provider**, which provides the Kubernetes control plane, namely the components kube-apiserver, kube-scheduler, and kube-controller-manager.
@@ -38,11 +38,12 @@ To get started, you will need to install the Cluster API itself and one provider
 
 For installation, you can use the `clusterctl` utility, or [Cluster API Operator](https://github.com/kubernetes-sigs/cluster-api-operator) as the more declarative method.
 
-## Our choice
+## Choosing providers
 
 ### Infrastructure provider
 
-We have chosen [KubeVirt](https://github.com/kubernetes-sigs/cluster-api-provider-uratioclusterctlnubevirt) as our Infrastructure Provider because we use KubeVirt and want to run virtual machines for workers directly inside our management cluster.
+To run Kubernetes clusters using KubeVirt, the [KubeVirt Infrastructure Provider](https://github.com/kubernetes-sigs/cluster-api-provider-kubevirt) must be installed.
+It enables the deployment of virtual machines for worker nodes in the same management cluster, where the Cluster API operates.
 
 ### Control plane provider
 
@@ -56,17 +57,20 @@ The [Kamaji](https://github.com/clastix/kamaji) project offers a ready solution 
 
 [Kubeadm](https://github.com/kubernetes-sigs/cluster-api/tree/main/bootstrap) as the Bootstrap Provider - as the standard method for preparing clusters in Cluster API. This provider is developed as part of the Cluster API itself. It requires only a prepared system image with kubelet and kubeadm installed and allows generating configs in the cloud-init and ignition formats.
 
-*Overall, we hesitated quite a bit between choosing Talos Linux and Kamaji+Kubeadm for running clusters in Cluster API, but ultimately decided in favor of the latter solution. Primarily because of the ability to run the control plane in containers, rather than in separate virtual machines.*
+It's worth noting that Talos Linux also supports provisioning via the Cluster API and [has](https://github.com/siderolabs/cluster-api-bootstrap-provider-talos) [providers](https://github.com/siderolabs/cluster-api-bootstrap-provider-talos) for this.
+Although previous articles discussed using Talos Linux to set up a management cluster on bare-metal nodes, to provision tenant clusters the Kamaji+Kubeadm approach has more advantages.
+It facilitates the deployment of Kubernetes control planes in containers, thus removing the need for separate virtual machines for control plane instances. This simplifies the management and reduces costs.
 
-### How it works
 
-The primary object in Cluster API is the `Cluster` resource, which acts as the parent for all others. Typically, this resource references two others: a resource describing the **control plane** and a resource describing the **infrastructure**, each managed by a separate provider.
+## How it works
+
+The primary object in Cluster API is the `Cluster` resource, which acts as the parent for all the others. Typically, this resource references two others: a resource describing the **control plane** and a resource describing the **infrastructure**, each managed by a separate provider.
 
 Unlike the Cluster, these two resources are not standardized, and their `kind` depends on the specific provider you are using:
 
 {{< figure src="clusterapi2.svg" caption="A diagram showing the relationship of a `Cluster` resource and the resources it links to in Cluster API" alt="A diagram showing the relationship of a Cluster resource and the resources it links to in Cluster API" >}}
 
-Within Cluster API, there is also a resource named MachineDeployment, which describes a group of nodes, whether they are physical servers or virtual machines. This resource functions similarly to standard Kubernetes resources such as Deployment, ReplicaSet, and Pod, providing a mechanism for the declarative description of a group of nodes and automatic scaling.
+Within Cluster API, there is also a resource named `MachineDeployment`, which describes a group of nodes, whether they are physical servers or virtual machines. This resource functions similarly to standard Kubernetes resources such as Deployment, ReplicaSet, and Pod, providing a mechanism for the declarative description of a group of nodes and automatic scaling.
 
 In other words, the `MachineDeployment` resource allows you to declaratively describe nodes for your cluster, automating their creation, deletion, and updating according to specified parameters and the requested number of replicas.
 
@@ -141,7 +145,7 @@ The KubeVirt CSI Driver acts as a proxy for ordering volumes. When a PVC is crea
 
 The [Cluster Autoscaler](https://github.com/kubernetes/autoscaler) is a versatile component that can work with various cloud APIs, and its integration with Cluster-API is just one of the available functions. For proper configuration, it requires access to two clusters: the tenant cluster, to track pods and determine the need for adding new nodes, and the managing Kubernetes cluster (management kubernetes cluster), where it interacts with the MachineDeployment resource and adjusts the number of replicas.
 
-Although Cluster Autoscaler is usually run inside the tenant Kubernetes cluster, in this situation, we suggest installing it outside for the same reasons described before. This approach is simpler to maintain and more secure as it prevents users of tenant clusters from accessing the management API of the management cluster.
+Although Cluster Autoscaler usually runs inside the tenant Kubernetes cluster, in this situation, it is suggested to install it outside for the same reasons described before. This approach is simpler to maintain and more secure as it prevents users of tenant clusters from accessing the management API of the management cluster.
 
 {{< figure src="components4.svg" caption="A diagram showing a Cluster Autoscaler installed outside of a tenant Kubernetes cluster on a scheme of nested Kubernetes clusters" alt="A diagram showing a Cloud Controller Manager installed outside of a tenant Kubernetes cluster on a scheme of nested Kubernetes clusters" >}}
 
