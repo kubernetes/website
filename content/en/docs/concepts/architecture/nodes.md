@@ -521,7 +521,7 @@ To enable swap on a node, the `NodeSwap` feature gate must be enabled on
 the kubelet (default is true), and the `--fail-swap-on` command line flag or `failSwapOn`
 [configuration setting](/docs/reference/config-api/kubelet-config.v1beta1/)
 must be set to false. 
-To allow Pods to utilize swap, `swapBehavior` should be set to `LimitedSwap` in the kubelet config.
+To allow Pods to utilize swap, `swapBehavior` should not be set to `NoSwap` (which is the default behavior) in the kubelet config.
 
 {{< warning >}}
 When the memory swap feature is turned on, Kubernetes data such as the content
