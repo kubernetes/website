@@ -17,10 +17,12 @@ aliases:
     - seokho-son
     - tengqm
   sig-docs-bn-owners: # Admins for Bengali content
+    - asem-hamid
     - Imtiaz1234
     - mitul3737
     - rajibmitra
   sig-docs-bn-reviews: # PR reviews for Bengali content
+    - asem-hamid
     - Imtiaz1234
     - mitul3737
     - rajibmitra
