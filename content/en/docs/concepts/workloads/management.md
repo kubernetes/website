@@ -1,5 +1,5 @@
 ---
-title: Managing Resources
+title: Managing Workloads
 content_type: concept
 reviewers:
 - janetkuo
@@ -8,14 +8,14 @@ weight: 40
 
 <!-- overview -->
 
-You've deployed your application and exposed it via a service. Now what? Kubernetes provides a
+You've deployed your application and exposed it via a Service. Now what? Kubernetes provides a
 number of tools to help you manage your application deployment, including scaling and updating.
 
 <!-- body -->
 
 ## Organizing resource configurations
 
-Many applications require multiple resources to be created, such as a Deployment and a Service.
+Many applications require multiple resources to be created, such as a Deployment along with a Service.
 Management of multiple resources can be simplified by grouping them together in the same file
 (separated by `---` in YAML). For example:
 
@@ -32,9 +32,9 @@ service/my-nginx-svc created
 deployment.apps/my-nginx created
 ```
 
-The resources will be created in the order they appear in the file. Therefore, it's best to
-specify the service first, since that will ensure the scheduler can spread the pods associated
-with the service as they are created by the controller(s), such as Deployment.
+The resources will be created in the order they appear in the manifest. Therefore, it's best to
+specify the Service first, since that will ensure the scheduler can spread the pods associated
+with the Service as they are created by the controller(s), such as Deployment.
 
 `kubectl apply` also accepts multiple `-f` arguments:
 
@@ -50,7 +50,7 @@ directory. If the tiers of your application bind to each other using DNS, you ca
 the components of your stack together.
 
 A URL can also be specified as a configuration source, which is handy for deploying directly from
-configuration files checked into GitHub:
+manifests in your source control system:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
@@ -59,6 +59,27 @@ kubectl apply -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
 ```none
 deployment.apps/my-nginx created
 ```
+
+If you need to define more manifests, such as adding a ConfigMap, you can do that too.
+
+### External tools
+
+This section lists only the most common tools used for managing workloads on Kubernetes. To see a larger list, view
+[Application definition and image build](https://landscape.cncf.io/guide#app-definition-and-development--application-definition-image-build)
+in the {{< glossary_tooltip text="CNCF" term_id="cncf" >}} Landscape.
+
+#### Helm {#external-tool-helm}
+
+{{% thirdparty-content single="true" %}}
+
+[Helm](https://helm.sh/) is a tool for managing packages of pre-configured
+Kubernetes resources. These packages are known as _Helm charts_.
+
+#### Kustomize {#external-tool-kustomize}
+
+[Kustomize](https://kustomize.io/) traverses a Kubernetes manifest to add, remove or update configuration options.
+It is available both as a standalone binary and as a [native feature](/docs/tasks/manage-kubernetes-objects/kustomization/)
+of kubectl.
 
 ## Bulk operations in kubectl
 
@@ -94,26 +115,32 @@ deployment.apps "my-nginx" deleted
 service "my-nginx-svc" deleted
 ```
 
+### Chaining and filtering
+
 Because `kubectl` outputs resource names in the same syntax it accepts, you can chain operations
 using `$()` or `xargs`:
 
 ```shell
-kubectl get $(kubectl create -f docs/concepts/cluster-administration/nginx/ -o name | grep service)
-kubectl create -f docs/concepts/cluster-administration/nginx/ -o name | grep service | xargs -i kubectl get {}
+kubectl get $(kubectl create -f docs/concepts/cluster-administration/nginx/ -o name | grep service/ )
+kubectl create -f docs/concepts/cluster-administration/nginx/ -o name | grep service/ | xargs -i kubectl get '{}'
 ```
+
+The output might be similar to:
 
 ```none
 NAME           TYPE           CLUSTER-IP   EXTERNAL-IP   PORT(S)      AGE
 my-nginx-svc   LoadBalancer   10.0.0.208   <pending>     80/TCP       0s
 ```
 
-With the above commands, we first create resources under `examples/application/nginx/` and print
+With the above commands, first you create resources under `examples/application/nginx/` and print
 the resources created with `-o name` output format (print each resource as resource/name).
-Then we `grep` only the "service", and then print it with `kubectl get`.
+Then you `grep` only the Service, and then print it with [`kubectl get`](/docs/reference/kubectl/generated/kubectl_get/).
+
+### Recursive operations on local files
 
 If you happen to organize your resources across several subdirectories within a particular
 directory, you can recursively perform the operations on the subdirectories also, by specifying
-`--recursive` or `-R` alongside the `--filename,-f` flag.
+`--recursive` or `-R` alongside the `--filename`/`-f` argument.
 
 For instance, assume there is a directory `project/k8s/development` that holds all of the
 {{< glossary_tooltip text="manifests" term_id="manifest" >}} needed for the development environment,
@@ -130,7 +157,7 @@ project/k8s/development
 ```
 
 By default, performing a bulk operation on `project/k8s/development` will stop at the first level
-of the directory, not processing any subdirectories. If we had tried to create the resources in
+of the directory, not processing any subdirectories. If you had tried to create the resources in
 this directory using the following command, we would have encountered an error:
 
 ```shell
@@ -141,7 +168,7 @@ kubectl apply -f project/k8s/development
 error: you must provide one or more resources by argument or filename (.json|.yaml|.yml|stdin)
 ```
 
-Instead, specify the `--recursive` or `-R` flag with the `--filename,-f` flag as such:
+Instead, specify the `--recursive` or `-R` command line argument along with the `--filename`/`-f` argument:
 
 ```shell
 kubectl apply -f project/k8s/development --recursive
@@ -153,10 +180,10 @@ deployment.apps/my-deployment created
 persistentvolumeclaim/my-pvc created
 ```
 
-The `--recursive` flag works with any operation that accepts the `--filename,-f` flag such as:
-`kubectl {create,get,delete,describe,rollout}` etc.
+The `--recursive` argument works with any operation that accepts the `--filename`/`-f` argument such as:
+`kubectl create`, `kubectl get`, `kubectl delete`, `kubectl describe`, or even `kubectl rollout`.
 
-The `--recursive` flag also works when multiple `-f` arguments are provided:
+The `--recursive` argument also works when multiple `-f` arguments are provided:
 
 ```shell
 kubectl apply -f project/k8s/namespaces -f project/k8s/development --recursive
@@ -172,6 +199,90 @@ persistentvolumeclaim/my-pvc created
 
 If you're interested in learning more about `kubectl`, go ahead and read
 [Command line tool (kubectl)](/docs/reference/kubectl/).
+
+## Updating your application without an outage
+
+At some point, you'll eventually need to update your deployed application, typically by specifying
+a new image or image tag. `kubectl` supports several update operations, each of which is applicable
+to different scenarios.
+
+You can run multiple copies of your app, and use a _rollout_ to gradually shift the traffic to
+new healthy Pods. Eventually, all the running Pods would have the new software.
+
+This section of the page guides you through how to create and update applications with Deployments.
+
+Let's say you were running version 1.14.2 of nginx:
+
+```shell
+kubectl create deployment my-nginx --image=nginx:1.14.2
+```
+
+```none
+deployment.apps/my-nginx created
+```
+
+Ensure that there is 1 replica:
+
+```shell
+kubectl scale --replicas 1 deployments/my-nginx --subresource='scale' --type='merge' -p '{"spec":{"replicas": 1}}'
+```
+
+```none
+deployment.apps/my-nginx scaled
+```
+
+and allow Kubernetes to add more temporary replicas during a rollout, by setting a _surge maximum_ of
+100%:
+
+```shell
+kubectl patch --type='merge' -p '{"spec":{"strategy":{"rollingUpdate":{"maxSurge": "100%" }}}}'
+```
+
+```none
+deployment.apps/my-nginx patched
+```
+
+To update to version 1.16.1, change `.spec.template.spec.containers[0].image` from `nginx:1.14.2`
+to `nginx:1.16.1` using `kubectl edit`:
+
+```shell
+kubectl edit deployment/my-nginx
+# Change the manifest to use the newer container image, then save your changes
+```
+
+That's it! The Deployment will declaratively update the deployed nginx application progressively
+behind the scene. It ensures that only a certain number of old replicas may be down while they are
+being updated, and only a certain number of new replicas may be created above the desired number
+of pods. To learn more details about how this happens,
+visit [Deployment](/docs/concepts/workloads/controllers/deployment/).
+
+You can use rollouts with DaemonSets, Deployments, or StatefulSets.
+
+### Managing rollouts
+
+You can use [`kubectl rollout`](/docs/reference/kubectl/generated/kubectl_rollout/) to manage a
+progressive update of an existing application.
+
+For example:
+
+```shell
+kubectl apply -f my-deployment.yaml
+
+# wait for rollout to finish
+kubectl rollout status deployment/my-deployment --timeout 10m # 10 minute timeout
+```
+
+or
+
+```shell
+kubectl apply -f backing-stateful-component.yaml
+
+# don't wait for rollout to finish, just check the status
+kubectl rollout status statefulsets/backing-stateful-component --watch=false
+```
+
+You can also pause, resume or cancel a rollout.
+Visit [`kubectl rollout`](/docs/reference/kubectl/generated/kubectl_rollout/) to learn more.
 
 ## Canary deployments
 
@@ -229,13 +340,10 @@ each release that will receive live production traffic (in this case, 3:1).
 Once you're confident, you can update the stable track to the new application release and remove
 the canary one.
 
-For a more concrete example, check the
-[tutorial of deploying Ghost](https://github.com/kelseyhightower/talks/tree/master/kubecon-eu-2016/demo#deploy-a-canary).
-
 ## Updating annotations
 
 Sometimes you would want to attach annotations to resources. Annotations are arbitrary
-non-identifying metadata for retrieval by API clients such as tools, libraries, etc.
+non-identifying metadata for retrieval by API clients such as tools or libraries.
 This can be done with `kubectl annotate`. For example:
 
 ```shell
@@ -253,7 +361,7 @@ metadata:
 ```
 
 For more information, see [annotations](/docs/concepts/overview/working-with-objects/annotations/)
-and [kubectl annotate](/docs/reference/generated/kubectl/kubectl-commands/#annotate) document.
+and [kubectl annotate](/docs/reference/kubectl/generated/kubectl_annotate/).
 
 ## Scaling your application
 
@@ -283,6 +391,7 @@ To have the system automatically choose the number of nginx replicas as needed,
 ranging from 1 to 3, do:
 
 ```shell
+# This requires an existing source of container and Pod metrics
 kubectl autoscale deployment/my-nginx --min=1 --max=3
 ```
 
@@ -292,8 +401,8 @@ horizontalpodautoscaler.autoscaling/my-nginx autoscaled
 
 Now your nginx replicas will be scaled up and down as needed, automatically.
 
-For more information, please see [kubectl scale](/docs/reference/generated/kubectl/kubectl-commands/#scale),
-[kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands/#autoscale) and
+For more information, please see [kubectl scale](/docs/reference/kubectl/generated/kubectl_scale/),
+[kubectl autoscale](/docs/reference/kubectl/generated/kubectl_autoscale/) and
 [horizontal pod autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/) document.
 
 ## In-place updates of resources
@@ -305,7 +414,7 @@ Sometimes it's necessary to make narrow, non-disruptive updates to resources you
 It is suggested to maintain a set of configuration files in source control
 (see [configuration as code](https://martinfowler.com/bliki/InfrastructureAsCode.html)),
 so that they can be maintained and versioned along with the code for the resources they configure.
-Then, you can use [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply)
+Then, you can use [`kubectl apply`](/docs/reference/kubectl/generated/kubectl_apply/)
 to push your configuration changes to the cluster.
 
 This command will compare the version of the configuration that you're pushing with the previous
@@ -320,23 +429,11 @@ kubectl apply -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
 deployment.apps/my-nginx configured
 ```
 
-Note that `kubectl apply` attaches an annotation to the resource in order to determine the changes
-to the configuration since the previous invocation. When it's invoked, `kubectl apply` does a
-three-way diff between the previous configuration, the provided input and the current
-configuration of the resource, in order to determine how to modify the resource.
-
-Currently, resources are created without this annotation, so the first invocation of `kubectl
-apply` will fall back to a two-way diff between the provided input and the current configuration
-of the resource. During this first invocation, it cannot detect the deletion of properties set
-when the resource was created. For this reason, it will not remove them.
-
-All subsequent calls to `kubectl apply`, and other commands that modify the configuration, such as
-`kubectl replace` and `kubectl edit`, will update the annotation, allowing subsequent calls to
-`kubectl apply` to detect and perform deletions using a three-way diff.
+To learn more about the underlying mechanism, read [server-side apply](/docs/reference/using-api/server-side-apply/).
 
 ### kubectl edit
 
-Alternatively, you may also update resources with `kubectl edit`:
+Alternatively, you may also update resources with [`kubectl edit`](/docs/reference/kubectl/generated/kubectl_edit/):
 
 ```shell
 kubectl edit deployment/my-nginx
@@ -359,15 +456,17 @@ rm /tmp/nginx.yaml
 This allows you to do more significant changes more easily. Note that you can specify the editor
 with your `EDITOR` or `KUBE_EDITOR` environment variables.
 
-For more information, please see [kubectl edit](/docs/reference/generated/kubectl/kubectl-commands/#edit) document.
+For more information, please see [kubectl edit](/docs/reference/kubectl/generated/kubectl_edit/).
 
 ### kubectl patch
 
-You can use `kubectl patch` to update API objects in place. This command supports JSON patch,
-JSON merge patch, and strategic merge patch. See
+You can use [`kubectl patch`](/docs/reference/kubectl/generated/kubectl_patch/) to update API objects in place.
+This subcommand supports JSON patch,
+JSON merge patch, and strategic merge patch.
+
+See
 [Update API Objects in Place Using kubectl patch](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)
-and
-[kubectl patch](/docs/reference/generated/kubectl/kubectl-commands/#patch).
+for more details.
 
 ## Disruptive updates
 
@@ -385,48 +484,7 @@ deployment.apps/my-nginx deleted
 deployment.apps/my-nginx replaced
 ```
 
-## Updating your application without a service outage
-
-At some point, you'll eventually need to update your deployed application, typically by specifying
-a new image or image tag, as in the canary deployment scenario above. `kubectl` supports several
-update operations, each of which is applicable to different scenarios.
-
-We'll guide you through how to create and update applications with Deployments.
-
-Let's say you were running version 1.14.2 of nginx:
-
-```shell
-kubectl create deployment my-nginx --image=nginx:1.14.2
-```
-
-```none
-deployment.apps/my-nginx created
-```
-
-with 3 replicas (so the old and new revisions can coexist):
-
-```shell
-kubectl scale deployment my-nginx --current-replicas=1 --replicas=3
-```
-
-```none
-deployment.apps/my-nginx scaled
-```
-
-To update to version 1.16.1, change `.spec.template.spec.containers[0].image` from `nginx:1.14.2`
-to `nginx:1.16.1` using the previous kubectl commands.
-
-```shell
-kubectl edit deployment/my-nginx
-```
-
-That's it! The Deployment will declaratively update the deployed nginx application progressively
-behind the scene. It ensures that only a certain number of old replicas may be down while they are
-being updated, and only a certain number of new replicas may be created above the desired number
-of pods. To learn more details about it, visit [Deployment page](/docs/concepts/workloads/controllers/deployment/).
 
 ## {{% heading "whatsnext" %}}
 
 - Learn about [how to use `kubectl` for application introspection and debugging](/docs/tasks/debug/debug-application/debug-running-pod/).
-- See [Configuration Best Practices and Tips](/docs/concepts/configuration/overview/).
-
