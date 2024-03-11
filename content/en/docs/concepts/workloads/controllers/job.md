@@ -1033,8 +1033,8 @@ When developing an external Job controller be aware that your controller needs
 to operate in a fashion conformant with the definitions of the API spec and
 status fields of the Job object.
 
-Please review these in detail the [Job API](/docs/reference/kubernetes-api/workload-resources/job-v1/).
-We also recommend you running the e2e conformance tests for the Job object to
+Please review these in detail in the [Job API](/docs/reference/kubernetes-api/workload-resources/job-v1/).
+We also recommend that you run the e2e conformance tests for the Job object to
 verify your implementation.
 
 Finally, when developing an external Job controller make sure it does not use the
