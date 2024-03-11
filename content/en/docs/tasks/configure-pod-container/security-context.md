@@ -477,6 +477,58 @@ runtime  recursively changes the SELinux label for all inodes (files and directo
 in the volume.
 The more files and directories in the volume, the longer that relabelling takes.
 
+## Managing access to the `/proc` filesystem {#proc-access}
+
+{{< feature-state feature_gate_name="ProcMountType" >}}
+
+For runtimes that follow the OCI runtime specification, containers default to running in a mode where
+there are multiple paths that are both masked and read-only.
+The result of this is the container has these paths present inside the container's mount namespace, and they can function similarly to if
+the container was an isolated host, but the container process cannot write to
+them. The list of masked and read-only paths are as follows:
+
+- Masked Paths:
+  - `/proc/asound`
+  - `/proc/acpi`
+  - `/proc/kcore`
+  - `/proc/keys`
+  - `/proc/latency_stats`
+  - `/proc/timer_list`
+  - `/proc/timer_stats`
+  - `/proc/sched_debug`
+  - `/proc/scsi`
+  - `/sys/firmware`
+
+- Read-Only Paths:
+  - `/proc/bus`
+  - `/proc/fs`
+  - `/proc/irq`
+  - `/proc/sys`
+  - `/proc/sysrq-trigger`
+
+
+For some Pods, you might want to bypass that default masking of paths.
+The most common context for wanting this is if you are trying to run containers within
+a Kubernetes container (within a pod).
+
+The `securityContext` field `procMount` allows a user to request a container's `/proc`
+be `Unmasked`, or be mounted as read-write by the container process. This also
+applies to `/sys/firmware` which is not in `/proc`.
+
+```yaml
+...
+securityContext:
+  procMount: Unmasked
+```
+
+{{< note >}}
+Setting `procMount` to Unmasked requires the `spec.hostUsers` value in the pod
+spec to be `false`. In other words: a container that wishes to have an Unmasked
+`/proc` or unmasked `/sys` must also be in a
+[user namespace](/docs/concepts/workloads/pods/user-namespaces/).
+Kubernetes v1.12 to v1.29 did not enforce that requirement.
+{{< /note >}}
+
 ## Discussion
 
 The security context for a Pod applies to the Pod's Containers and also to
@@ -523,3 +575,7 @@ kubectl delete pod security-context-demo-4
 * For more information about security mechanisms in Linux, see
   [Overview of Linux Kernel Security Features](https://www.linux.com/learn/overview-linux-kernel-security-features)
   (Note: Some information is out of date)
+* Read about [User Namespaces](/docs/concepts/workloads/pods/user-namespaces.md)
+  for Linux pods.
+* [Masked Paths in the OCI Runtime
+  Specification](https://github.com/opencontainers/runtime-spec/blob/f66aad47309/config-linux.md#masked-paths)
