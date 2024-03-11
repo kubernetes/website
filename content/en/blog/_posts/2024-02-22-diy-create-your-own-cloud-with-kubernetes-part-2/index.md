@@ -19,7 +19,7 @@ Although the situation improves year by year, we often encounter vulnerabilities
 
 On the other hand, Kubernetes was not originally designed to be multi-tenant system, meaning the basic usage pattern involves creating a separate Kubernetes cluster for every independent project and development team.
 
-Virtual machines are the primary means of isolating tenants from each other in a cloud. In virtual machines, users are allowed to run any code with administrative rights, but this don't affect other tenants or the cloud system itself. In other words, virtual machines allows to achieve [hard multi-tenancy isolation](https://kubernetes.io/docs/concepts/security/multi-tenancy/#isolation), and run in environments where tenants do not trust each other.
+Virtual machines are the primary means of isolating tenants from each other in a cloud. In virtual machines, users are allowed to run any code with administrative rights, but this don't affect other tenants or the cloud system itself. In other words, virtual machines allows to achieve [hard multi-tenancy isolation](/docs/concepts/security/multi-tenancy/#isolation), and run in environments where tenants do not trust each other.
 
 ## Virtualization technologies in Kubernetes
 
@@ -28,12 +28,12 @@ are the most popular ones. But you should know that they work differently.
 
 **Kata Containers** implements the CRI (Container Runtime Interface) and provides an additional level of isolation for standard containers by running them in virtual machines. But they work in a same single Kubernetes-cluster.
 
-![Simplified diagram of Kata-Containers](kata-containers.svg)
+{{< figure src="kata-containers.svg" caption="A diagram showing how container isolation is ensured by running containers in virtual machines with Kata Containers" alt="A diagram showing how container isolation is ensured by running containers in virtual machines with Kata Containers" >}}
 
 **KubeVirt** allows to run of traditional virtual machines using the Kubernetes API. KubeVirt virtual machines are run as regular linux processes in containers. In other words, in KubeVirt a container used simple as a sandbox for running virtual machine (QEMU) processes.
 This can be clearly seen by looking at how live migration of virtual machines is implemented in KubeVirt. When migration is needed, the virtual machine moved from one container to another.
 
-![Live migration of a virtual machine in KubeVirt](kubevirt-migration.svg)
+{{< figure src="kubevirt-migration.svg" caption="A diagram showing live migration of a virtual machine from one container to another in KubeVirt" alt="A diagram showing live migration of a virtual machine from one container to another in KubeVirt" >}}
 
 There is also an alternative project - [Virtink](https://github.com/smartxworks/virtink), which implements lightweight virtualization using [Cloud-Hypervisor](https://github.com/cloud-hypervisor/cloud-hypervisor) and is initially focused on running virtual Kubernetes clusters using the Cluster API.
 
@@ -58,15 +58,15 @@ Using block devices for virtual machines eliminates the need for an additional a
 
 The storage system can be external or internal (in the case of hyper-converged infrastructure). Using external storage in many cases makes the whole system more stable, as your data is stored on separately from compute nodes.
 
-![external data storage](storage-external.svg)
+{{< figure src="storage-external.svg" caption="A diagram showing external data storage communication with the compute nodes" alt="A diagram showing external data storage communication with the compute nodes" >}}
 
 External storage solutions are often popular in enterprise systems because such storage is frequently provided by an external vendor, that takes care of its operations. The integration with Kubernetes involves only a small component installed in the cluster - the CSI driver. This driver is responsible for provisioning volumes in this storage and attaching them to pods run by Kubernetes. However, such storage solutions can also be implemented using purely open-source technologies. One of the popular solutions is [TrueNAS](https://www.truenas.com/) powered by [democratic-csi](https://github.com/democratic-csi/democratic-csi) driver.
 
-![local data storage](storage-local.svg)
+{{< figure src="storage-local.svg" caption="A diagram showing local data storage running on the compute nodes" alt="A diagram showing local data storage running on the compute nodes" >}}
 
 On the other hand, hyper-converged systems are often implemented using local storage (when you do not need replication) and with software-defined storages, often installed directly in Kubernetes, such as [Rook/Ceph](https://rook.io/), [OpenEBS](https://openebs.io/), [Longhorn](https://longhorn.io/), [LINSTOR](https://linbit.com/linstor/), and others.
 
-![clustered data storage](storage-clustered.svg)
+{{< figure src="storage-clustered.svg" caption="A diagram showing clustered data storage running on the compute nodes" alt="A diagram showing clustered data storage running on the compute nodes" >}}
 
 A hyper-converged system has its advantages, e.g. data locality: when your data is stored locally, access to such data is faster, but there are disadvantages as such a system is usually more difficult to manage and maintain.
 
@@ -85,7 +85,7 @@ Despite having the similar interface - CNI. The network architecture in Kubernet
 
 The network through which nodes are interconnected with each other. This network is usually not managed by Kubernetes, but it is an important because without it, nothing would work. In practice, the bare metal infrastructure usually have more than one of such networks e.g. one for node-to-node communication, second for storage replication, third for external access, etc.
 
-![network of nodes (data center network)](net-nodes.svg)
+{{< figure src="net-nodes.svg" caption="A diagram showing the role of the node network (data center network) on the Kubernetes networking scheme" alt="A diagram showing the role of the node network (data center network) on the Kubernetes networking scheme" >}}
 
 Configuring the physical network interaction between nodes goes beyond the scope of this article, as in most situations, Kubernetes utilizes already existing network infrastructure.
 
@@ -93,7 +93,7 @@ Configuring the physical network interaction between nodes goes beyond the scope
 
 This is the network provided by your CNI plugin. The task of the CNI plugin is to ensure transparent connectivity between all containers and nodes in the cluster. Most CNI plugins implement a flat network from which separate blocks of IP addresses are allocated for use on each node.
 
-![pod network (CNI-plugin)](net-pods.svg)
+{{< figure src="net-pods.svg" caption="A diagram showing the role of the pod network (CNI-plugin) on the Kubernetes network scheme" alt="A diagram showing the role of the pod network (CNI-plugin) on the Kubernetes network scheme" >}}
 
 In practice, your cluster can have several CNI plugins managed by [Multus](https://github.com/k8snetworkplumbingwg/multus-cni). This approach is often used in virtualization solutions based on KubeVirt - [Rancher](https://www.rancher.com/) and [OpenShift](https://www.redhat.com/en/technologies/cloud-computing/openshift/virtualization). The primary CNI plugin is used for integration with Kubernetes services, while additional CNI plugins are used to implement private networks (VPC) and integration with the physical networks of your data center.
 
@@ -112,7 +112,8 @@ Contrary to traditional virtual machines, Kubernetes originally designed to run 
 And the services network provides a convenient abstraction (stable IP addresses and DNS names) that will always direct traffic to the correct pod.
 The same approach is also commonly used with virtual machines in clouds despite the fact that their IPs are usually static.
 
-![services network (services network plugin)](net-services.svg)
+{{< figure src="net-services.svg" caption="A diagram showing the role of the services network (services network plugin) on the Kubernetes network scheme" alt="A diagram showing the role of the services network (services network plugin) on the Kubernetes network scheme" >}}
+
 
 The implementation of the services network in Kubernetes is handled by the services network plugin, The standard implementation is called **kube-proxy** and is used in most clusters.
 But nowadays this functionality might be provided as part of the CNI plugin. The most advanced implementation is offered by the [Cilium](https://cilium.io/) project, which can be run in kube-proxy replacement mode.
@@ -131,7 +132,7 @@ For bare metal Kubernetes clusters, there are several load balancers available: 
 The role of a external load balancer is to provide a stable address available externally and direct external traffic to the services network.
 The services network plugin will direct it to your pods and virtual machines as usual.
 
-![external loadbalancer](net-loadbalancer.svg)
+{{< figure src="net-services.svg" caption="A diagram showing the role of the external load balancer on the Kubernetes network scheme" alt="The role of the external load balancer on the Kubernetes network scheme" >}}
 
 In most cases, setting up a load balancer on bare metal is achieved by creating floating IP address on the nodes within the cluster, and announce it externally using ARP/NDP or BGP protocols.
 
