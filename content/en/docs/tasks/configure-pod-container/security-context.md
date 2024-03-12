@@ -440,7 +440,17 @@ To assign SELinux labels, the SELinux security module must be loaded on the host
 
 ### Efficient SELinux volume relabeling
 
-{{< feature-state for_k8s_version="v1.27" state="beta" >}}
+{{< feature-state feature_gate_name="SELinuxMountReadWriteOncePod" >}}
+
+{{< note >}}
+Kubernetes v1.27 introduced an early limited form of this behavior that was only applicable
+to volumes (and PersistentVolumeClaims) using the `ReadWriteOncePod` access mode.
+
+As an alpha feature, you can enable the `SELinuxMount`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to widen that
+performance improvement to other kinds of PersistentVolumeClaims, as explained in detail
+below.
+{{< /note >}}
 
 By default, the container runtime recursively assigns SELinux label to all
 files on all Pod volumes. To speed up this process, Kubernetes can change the
@@ -451,7 +461,9 @@ To benefit from this speedup, all these conditions must be met:
 
 * The [feature gates](/docs/reference/command-line-tools-reference/feature-gates/) `ReadWriteOncePod`
   and `SELinuxMountReadWriteOncePod` must be enabled.
-* Pod must use PersistentVolumeClaim with `accessModes: ["ReadWriteOncePod"]`.
+* Pod must use PersistentVolumeClaim with applicable `accessModes` and [feature gates](/docs/reference/command-line-tools-reference/feature-gates/):
+  * Either the volume has `accessModes: ["ReadWriteOncePod"]`, and feature gate `SELinuxMountReadWriteOncePod` is enabled.
+  * Or the volume can use any other access modes and both feature gates `SELinuxMountReadWriteOncePod` and `SELinuxMount` must be enabled.
 * Pod (or all its Containers that use the PersistentVolumeClaim) must
   have `seLinuxOptions` set.
 * The corresponding PersistentVolume must be either:
@@ -464,15 +476,6 @@ For any other volume types, SELinux relabelling happens another way: the contain
 runtime  recursively changes the SELinux label for all inodes (files and directories)
 in the volume.
 The more files and directories in the volume, the longer that relabelling takes.
-
-{{< note >}}
-<!-- remove after Kubernetes v1.30 is released -->
-If you are running Kubernetes v1.25, refer to the v1.25 version of this task page:
-[Configure a Security Context for a Pod or Container](https://v1-25.docs.kubernetes.io/docs/tasks/configure-pod-container/security-context/) (v1.25).  
-There is an important note in that documentation about a situation where the kubelet
-can lose track of volume labels after restart. This deficiency has been fixed
-in Kubernetes 1.26.
-{{< /note >}}
 
 ## Discussion
 
