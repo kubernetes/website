@@ -1008,7 +1008,7 @@ status:
 
 ### Delegation of managing a Job object to external controller
 
-{{< feature-state for_k8s_version="v1.30" state="alpha" >}}
+{{< feature-state feature_gate_name="JobManagedBy" >}}
 
 {{< note >}}
 You can only set the `managedBy` field on Jobs if you enable the `JobManagedBy`
@@ -1033,8 +1033,8 @@ When developing an external Job controller be aware that your controller needs
 to operate in a fashion conformant with the definitions of the API spec and
 status fields of the Job object.
 
-Please review these in detail the [Job API](/docs/reference/kubernetes-api/workload-resources/job-v1/).
-We also recommend you running the e2e conformance tests for the Job object to
+Please review these in detail in the [Job API](/docs/reference/kubernetes-api/workload-resources/job-v1/).
+We also recommend that you run the e2e conformance tests for the Job object to
 verify your implementation.
 
 Finally, when developing an external Job controller make sure it does not use the
