@@ -1008,7 +1008,7 @@ status:
 
 ### Delegation of managing a Job object to external controller
 
-{{< feature-state for_k8s_version="v1.30" state="alpha" >}}
+{{< feature-state feature_gate_name="JobManagedBy" >}}
 
 {{< note >}}
 You can only set the `managedBy` field on Jobs if you enable the `JobManagedBy`
