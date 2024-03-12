@@ -518,9 +518,10 @@ During a non-graceful shutdown, Pods are terminated in the two phases:
 {{< feature-state feature_gate_name="NodeSwap" >}}
 
 To enable swap on a node, the `NodeSwap` feature gate must be enabled on
-the kubelet, and the `--fail-swap-on` command line flag or `failSwapOn`
+the kubelet (default is true), and the `--fail-swap-on` command line flag or `failSwapOn`
 [configuration setting](/docs/reference/config-api/kubelet-config.v1beta1/)
-must be set to false.
+must be set to false. 
+To allow Pods to utilize swap, `swapBehavior` should not be set to `NoSwap` (which is the default behavior) in the kubelet config.
 
 {{< warning >}}
 When the memory swap feature is turned on, Kubernetes data such as the content
@@ -532,17 +533,16 @@ specify how a node will use swap memory. For example,
 
 ```yaml
 memorySwap:
-  swapBehavior: UnlimitedSwap
+  swapBehavior: LimitedSwap
 ```
 
-- `UnlimitedSwap` (default): Kubernetes workloads can use as much swap memory as they
-  request, up to the system limit.
+- `NoSwap` (default): Kubernetes workloads will not use swap.
 - `LimitedSwap`: The utilization of swap memory by Kubernetes workloads is subject to limitations.
   Only Pods of Burstable QoS are permitted to employ swap.
 
 If configuration for `memorySwap` is not specified and the feature gate is
 enabled, by default the kubelet will apply the same behaviour as the
-`UnlimitedSwap` setting.
+`NoSwap` setting.
 
 With `LimitedSwap`, Pods that do not fall under the Burstable QoS classification (i.e.
 `BestEffort`/`Guaranteed` Qos Pods) are prohibited from utilizing swap memory.
