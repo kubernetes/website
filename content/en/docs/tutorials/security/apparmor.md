@@ -178,7 +178,7 @@ k8s-apparmor-example-deny-write (enforce)
 
 ## Ephemeral containers
 
-The `container.apparmor.security.beta.kubernetes.io/*` annotations don't apply to Ephemeral containers. When an ephemeral container runs in [privileged mode](/docs/concepts/workloads/pods/#privileged-mode-for-containers), it disables AppArmor on the container. Otherwise, the ephemeral container runs with the default runtime profile.
+ The `container.apparmor.security.beta.kubernetes.io/*` annotations don't apply to ephemeral containers. When an ephemeral container runs in [privileged mode](/docs/concepts/workloads/pods/#privileged-mode-for-containers), the kubelet does not apply any AppArmor restrictions to the ephemeral container. Otherwise, the kubelet will attempt to run the ephemeral container with the default runtime profile.
 
 ## Example
 
