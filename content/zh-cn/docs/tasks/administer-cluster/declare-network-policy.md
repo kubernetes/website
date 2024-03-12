@@ -85,7 +85,7 @@ The above commands create a Deployment with an nginx Pod and expose the Deployme
 -->
 上述命令创建了一个带有一个 nginx 的 Deployment，并将之通过名为 `nginx` 的
 Service 暴露出来。名为 `nginx` 的 Pod 和 Deployment 都位于 `default`
-名字空间内。
+命名空间内。
 
 ```shell
 kubectl get svc,pod
@@ -153,7 +153,7 @@ NetworkPolicy includes a `podSelector` which selects the grouping of Pods to whi
 NetworkPolicy 中包含选择策略所适用的 Pods 集合的 `podSelector`。
 你可以看到上面的策略选择的是带有标签 `app=nginx` 的 Pods。
 此标签是被自动添加到 `nginx` Deployment 中的 Pod 上的。
-如果 `podSelector` 为空，则意味着选择的是名字空间中的所有 Pods。
+如果 `podSelector` 为空，则意味着选择的是命名空间中的所有 Pods。
 {{< /note >}}
 
 <!--

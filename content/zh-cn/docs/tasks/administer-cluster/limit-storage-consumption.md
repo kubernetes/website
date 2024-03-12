@@ -14,7 +14,7 @@ weight: 240
 <!--
 This example demonstrates how to limit the amount of storage consumed in a namespace
 -->
-此示例演示如何限制一个名字空间中的存储使用量。
+此示例演示如何限制一个命名空间中的存储使用量。
 
 <!--
 The following resources are used in the demonstration: [ResourceQuota](/docs/concepts/policy/resource-quotas/),
@@ -40,7 +40,7 @@ and [PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/).
 The cluster-admin is operating a cluster on behalf of a user population and the admin wants to control
 how much storage a single namespace can consume in order to control cost.
 -->
-集群管理员代表用户群操作集群，该管理员希望控制单个名字空间可以消耗多少存储空间以控制成本。
+集群管理员代表用户群操作集群，该管理员希望控制单个命名空间可以消耗多少存储空间以控制成本。
 
 <!--
 The admin would like to limit:
@@ -52,9 +52,9 @@ The admin would like to limit:
 2. The amount of storage each claim can request
 3. The amount of cumulative storage the namespace can have
 -->
-1. 名字空间中持久卷申领（persistent volume claims）的数量
+1. 命名空间中持久卷申领（persistent volume claims）的数量
 2. 每个申领（claim）可以请求的存储量
-3. 名字空间可以具有的累计存储量
+3. 命名空间可以具有的累计存储量
 
 <!--
 ## LimitRange to limit requests for storage
@@ -64,7 +64,7 @@ The admin would like to limit:
 <!--
 Adding a `LimitRange` to a namespace enforces storage request sizes to a minimum and maximum. Storage is requested via `PersistentVolumeClaim`. The admission controller that enforces limit ranges will reject any PVC that is above or below the values set by the admin.
 -->
-将 `LimitRange` 添加到名字空间会为存储请求大小强制设置最小值和最大值。
+将 `LimitRange` 添加到命名空间会为存储请求大小强制设置最小值和最大值。
 存储是通过 `PersistentVolumeClaim` 来发起请求的。
 执行限制范围控制的准入控制器会拒绝任何高于或低于管理员所设阈值的 PVC。
 
@@ -103,7 +103,7 @@ AWS EBS volumes have a 1Gi minimum requirement.
 Admins can limit the number of PVCs in a namespace as well as the cumulative capacity of those PVCs. New PVCs that exceed
 either maximum value will be rejected.
 -->
-管理员可以限制某个名字空间中的 PVC 个数以及这些 PVC 的累计容量。
+管理员可以限制某个命名空间中的 PVC 个数以及这些 PVC 的累计容量。
 如果 PVC 的数目超过任一上限值，新的 PVC 将被拒绝。
 
 <!--
@@ -111,10 +111,10 @@ In this example, a 6th PVC in the namespace would be rejected because it exceeds
 a 5Gi maximum quota when combined with the 2Gi max limit above, cannot have 3 PVCs where each has 2Gi. That would be 6Gi requested
  for a namespace capped at 5Gi.
 -->
-在此示例中，名字空间中的第 6 个 PVC 将被拒绝，因为它超过了最大计数 5。
+在此示例中，命名空间中的第 6 个 PVC 将被拒绝，因为它超过了最大计数 5。
 或者，当与上面的 2Gi 最大容量限制结合在一起时，
 意味着 5Gi 的最大配额不能支持 3 个都是 2Gi 的 PVC。
-后者实际上是向名字空间请求 6Gi 容量，而该名字空间已经设置上限为 5Gi。
+后者实际上是向命名空间请求 6Gi 容量，而该命名空间已经设置上限为 5Gi。
 
 ```yaml
 apiVersion: v1
@@ -138,6 +138,6 @@ cluster's storage budget without risk of any one project going over their allotm
 ## 小结
 
 限制范围对象可以用来设置可请求的存储量上限，而资源配额对象则可以通过申领计数和
-累计存储容量有效地限制名字空间耗用的存储量。
+累计存储容量有效地限制命名空间耗用的存储量。
 这两种机制使得集群管理员能够规划其集群存储预算而不会发生任一项目超量分配的风险。
 

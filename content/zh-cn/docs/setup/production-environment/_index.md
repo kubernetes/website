@@ -402,7 +402,7 @@ more accounts with different levels of access to different namespaces.
 
 在生产环境中，情况可能不再是你或者一小组人在访问集群，而是几十上百人需要访问集群。
 在学习环境或者平台原型环境中，你可能具有一个可以执行任何操作的管理账号。
-在生产环境中，你会需要对不同名字空间具有不同访问权限级别的很多账号。
+在生产环境中，你会需要对不同命名空间具有不同访问权限级别的很多账号。
 
 <!--
 Taking on a production-quality cluster means deciding how you
@@ -450,7 +450,7 @@ are asking (authorization):
   -->
   - **基于角色的访问控制**（[RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/)）：
     让你通过为通过身份认证的用户授权特定的许可集合来控制集群访问。
-    访问许可可以针对某特定名字空间（Role）或者针对整个集群（ClusterRole）。
+    访问许可可以针对某特定命名空间（Role）或者针对整个集群（ClusterRole）。
     通过使用 RoleBinding 和 ClusterRoleBinding 对象，这些访问许可可以被关联到特定的用户身上。
   <!--
   - *Attribute-based access control* ([ABAC](/docs/reference/access-authn-authz/abac/)): Lets you
@@ -501,7 +501,7 @@ As someone setting up authentication and authorization on your production Kubern
 -->
 - **创建组合属性的策略（ABAC）**：如果你在使用 ABAC 鉴权，
   你可以设置属性组合以构造策略对所选用户或用户组执行鉴权，
-  判定他们是否可访问特定的资源（例如 Pod）、名字空间或者 apiGroup。
+  判定他们是否可访问特定的资源（例如 Pod）、命名空间或者 apiGroup。
   进一步的详细信息可参阅[示例](/zh-cn/docs/reference/access-authn-authz/abac/#examples)。
 <!--
 - *Consider Admission Controllers*: Additional forms of authorization for
@@ -535,9 +535,9 @@ needs of your cluster's workloads:
   [Hierarchical Namespaces](/blog/2020/08/14/introducing-hierarchical-namespaces/)
   for inheriting limits.
 -->
-- **设置名字空间限制**：为每个名字空间的内存和 CPU 设置配额。
+- **设置命名空间限制**：为每个命名空间的内存和 CPU 设置配额。
   参阅[管理内存、CPU 和 API 资源](/zh-cn/docs/tasks/administer-cluster/manage-resources/)以了解细节。
-  你也可以设置[层次化名字空间](/blog/2020/08/14/introducing-hierarchical-namespaces/)来继承这类约束。
+  你也可以设置[层次化命名空间](/blog/2020/08/14/introducing-hierarchical-namespaces/)来继承这类约束。
 <!--
 - *Prepare for DNS demand*: If you expect workloads to massively scale up,
   your DNS service must be ready to scale up as well. See
@@ -552,8 +552,8 @@ needs of your cluster's workloads:
   See [Managing Service Accounts](/docs/reference/access-authn-authz/service-accounts-admin/)
   for information on creating a new service account. For example, you might want to:
 -->
-- **创建额外的服务账户**：用户账户决定用户可以在集群上执行的操作，服务账号则定义的是在特定名字空间中
-  Pod 的访问权限。默认情况下，Pod 使用所在名字空间中的 default 服务账号。
+- **创建额外的服务账户**：用户账户决定用户可以在集群上执行的操作，服务账号则定义的是在特定命名空间中
+  Pod 的访问权限。默认情况下，Pod 使用所在命名空间中的 default 服务账号。
   参阅[管理服务账号](/zh-cn/docs/reference/access-authn-authz/service-accounts-admin/)以了解如何创建新的服务账号。
   例如，你可能需要：
   <!--

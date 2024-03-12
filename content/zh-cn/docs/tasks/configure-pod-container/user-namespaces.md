@@ -1,5 +1,5 @@
 ---
-title: 为 Pod 配置用户名字空间
+title: 为 Pod 配置用户命名空间
 reviewers:
 content_type: task
 weight: 210

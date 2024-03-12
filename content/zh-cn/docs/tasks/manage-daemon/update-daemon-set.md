@@ -321,7 +321,7 @@ Delete DaemonSet from a namespace:
 -->
 ## 清理    {#clean-up}
 
-从名字空间中删除 DaemonSet：
+从命名空间中删除 DaemonSet：
 
 ```shell
 kubectl delete ds fluentd-elasticsearch -n kube-system

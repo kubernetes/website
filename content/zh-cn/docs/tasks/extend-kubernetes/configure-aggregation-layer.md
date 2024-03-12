@@ -453,7 +453,7 @@ in the `kube-system` namespace which can be assigned.
 也有一些实现可能支持使用命令行选项来覆盖这些配置。
 
 为了具有检索 configmap 的权限，扩展 apiserver 需要适当的角色。
-在 `kube-system` 名字空间中有一个默认角色
+在 `kube-system` 命名空间中有一个默认角色
 `extension-apiserver-authentication-reader` 可用于设置。
 
 <!--
@@ -625,7 +625,7 @@ spec:
   groupPriorityMinimum: <APIService 对应组的优先级, 参考 API 文档>
   versionPriority: <版本在组中的优先排序, 参考 API 文档>
   service:
-    namespace: <拓展 Apiserver 服务的名字空间>
+    namespace: <拓展 Apiserver 服务的命名空间>
     name: <拓展 Apiserver 服务的名称>
   caBundle: <PEM 编码的 CA 证书，用于对 Webhook 服务器的证书签名>
 ```
@@ -656,7 +656,7 @@ and to verify the TLS connection against the ServerName
 它需要知道如何调用它。
 
 `service` 部分是对扩展 apiserver 的服务的引用。
-服务的名字空间和名字是必需的。端口是可选的，默认为 443。
+服务的命名空间和名字是必需的。端口是可选的，默认为 443。
 
 下面是一个扩展 apiserver 的配置示例，它被配置为在端口 `1234` 上调用。
 并针对 ServerName `my-service-name.my-service-namespace.svc`

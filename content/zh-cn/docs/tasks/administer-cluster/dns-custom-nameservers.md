@@ -201,7 +201,7 @@ Corefile 配置包括以下 CoreDNS [插件](https://coredns.io/plugins/)：
   -->
 
   - `pods insecure` 选项是为了与 kube-dns 向后兼容。
-  - 你可以使用 `pods verified` 选项，该选项使得仅在相同名字空间中存在具有匹配 IP 的 Pod 时才返回 A 记录。
+  - 你可以使用 `pods verified` 选项，该选项使得仅在相同命名空间中存在具有匹配 IP 的 Pod 时才返回 A 记录。
   - 如果你不使用 Pod 记录，则可以使用 `pods disabled` 选项。
 
 <!-- 

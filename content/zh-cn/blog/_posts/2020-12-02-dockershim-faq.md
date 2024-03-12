@@ -62,7 +62,7 @@ as cgroups v2 and user namespaces are being implemented in these newer CRI
 runtimes. Removing support for the dockershim will allow further development in
 those areas.
 -->
-此外，与 dockershim 不兼容的一些特性，例如：控制组（cgoups）v2 和用户名字空间（user namespace），已经在新的 CRI 运行时中被实现。
+此外，与 dockershim 不兼容的一些特性，例如：控制组（cgoups）v2 和用户命名空间（user namespace），已经在新的 CRI 运行时中被实现。
 移除对 dockershim 的支持将加速这些领域的发展。
 
 [drkep]: https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2221-remove-dockershim

@@ -480,7 +480,7 @@ by the number of Pods before being compared to the target. The following example
 representation of the `requests-per-second` metric.
 -->
 第二种可选的度量指标类型是对象 **（Object）度量指标**。
-这些度量指标用于描述在相同名字空间中的别的对象，而非 Pod。
+这些度量指标用于描述在相同命名空间中的别的对象，而非 Pod。
 请注意这些度量指标不一定来自某对象，它们仅用于描述这些对象。
 对象度量指标支持的 `target` 类型包括 `Value` 和 `AverageValue`。
 如果是 `Value` 类型，`target` 值将直接与 API 返回的度量指标比较，
@@ -635,7 +635,7 @@ with *external metrics*.
 
 运行在 Kubernetes 上的应用程序可能需要基于与 Kubernetes
 集群中的任何对象没有明显关系的度量指标进行自动扩缩，
-例如那些描述与任何 Kubernetes 名字空间中的服务都无直接关联的度量指标。
+例如那些描述与任何 Kubernetes 命名空间中的服务都无直接关联的度量指标。
 在 Kubernetes 1.10 及之后版本中，你可以使用外部度量指标（external metrics）。
 
 <!--

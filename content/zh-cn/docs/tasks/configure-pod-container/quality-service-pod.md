@@ -41,7 +41,7 @@ Kubernetes 创建 Pod 时，会将如下 QoS 类之一设置到 Pod 上：
 <!--
 You also need to be able to create and delete namespaces.
 -->
-你还需要能够创建和删除名字空间。
+你还需要能够创建和删除命名空间。
 
 <!-- steps -->
 

@@ -97,7 +97,7 @@ Alternatively, you can use an existing 3rd party solution, such as [apiserver-bu
 -->
 14. 创建一个 Kubernetes apiservice。
     上述的 CA 证书应该使用 base64 编码，剥离新行并用作 apiservice 中的 spec.caBundle。
-    该资源不应放到任何名字空间。如果使用了
+    该资源不应放到任何命名空间。如果使用了
     [kube-aggregator API](https://github.com/kubernetes/kube-aggregator/)，那么只需要传入
     PEM 编码的 CA 绑定，因为 base 64 编码已经完成了。
 15. 使用 kubectl 来获得你的资源。

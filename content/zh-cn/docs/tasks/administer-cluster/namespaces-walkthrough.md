@@ -1,5 +1,5 @@
 ---
-title: 名字空间演练
+title: 命名空间演练
 content_type: task
 weight: 260
 ---

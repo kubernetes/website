@@ -39,7 +39,7 @@ intends to replace the deprecated PodSecurityPolicies.
 <!--
 ### Configure all cluster namespaces
 -->
-### 配置所有集群名字空间    {#configure-all-cluster-namespaces}
+### 配置所有集群命名空间    {#configure-all-cluster-namespaces}
 
 <!--
 Namespaces that lack any configuration at all should be considered significant gaps in your cluster
@@ -47,17 +47,17 @@ security model. We recommend taking the time to analyze the types of workloads o
 namespace, and by referencing the Pod Security Standards, decide on an appropriate level for
 each of them. Unlabeled namespaces should only indicate that they've yet to be evaluated.
 -->
-完全未经配置的名字空间应该被视为集群安全模型中的重大缺陷。
-我们建议花一些时间来分析在每个名字空间中执行的负载的类型，
+完全未经配置的命名空间应该被视为集群安全模型中的重大缺陷。
+我们建议花一些时间来分析在每个命名空间中执行的负载的类型，
 并通过引用 Pod 安全性标准来确定每个负载的合适级别。
-未设置标签的名字空间应该视为尚未被评估。
+未设置标签的命名空间应该视为尚未被评估。
 
 <!--
 In the scenario that all workloads in all namespaces have the same security requirements,
 we provide an [example](/docs/tasks/configure-pod-container/enforce-standards-namespace-labels/#applying-to-all-namespaces)
 that illustrates how the PodSecurity labels can be applied in bulk.
 -->
-针对所有名字空间中的所有负载都具有相同的安全性需求的场景，
+针对所有命名空间中的所有负载都具有相同的安全性需求的场景，
 我们提供了一个[示例](/zh-cn/docs/tasks/configure-pod-container/enforce-standards-namespace-labels/#applying-to-all-namespaces)
 用来展示如何批量应用 Pod 安全性标签。
 
@@ -70,7 +70,7 @@ privileges for legitimate reasons.
 -->
 ### 拥抱最小特权原则
 
-在一个理想环境中，每个名字空间中的每个 Pod 都会满足 `restricted` 策略的需求。
+在一个理想环境中，每个命名空间中的每个 Pod 都会满足 `restricted` 策略的需求。
 不过，这既不可能也不现实，某些负载会因为合理的原因而需要特权上的提升。
 
 <!--
@@ -79,8 +79,8 @@ privileges for legitimate reasons.
   security requirements. If at all possible, consider how those requirements could be further
   constrained.
 -->
-- 允许 `privileged` 负载的名字空间需要建立并实施适当的访问控制机制。
-- 对于运行在特权宽松的名字空间中的负载，需要维护其独特安全性需求的文档。
+- 允许 `privileged` 负载的命名空间需要建立并实施适当的访问控制机制。
+- 对于运行在特权宽松的命名空间中的负载，需要维护其独特安全性需求的文档。
   如果可能的话，要考虑如何进一步约束这些需求。
 
 <!--
@@ -101,7 +101,7 @@ this phase can guide you toward that state. If you expect workload authors to ma
 within the desired level, enable the `warn` mode. If you expect to use audit logs to monitor/drive
 changes to fit within the desired level, enable the `audit` mode.
 -->
-针对所有名字空间启用这些模式是一种好的实践，将它们设置为你最终打算 `enforce` 的
+针对所有命名空间启用这些模式是一种好的实践，将它们设置为你最终打算 `enforce` 的
  _期望的_ 级别和版本。这一阶段中所生成的警告和审计注解信息可以帮助你到达这一状态。
 如果你期望负载的作者能够作出变更以便适应期望的级别，可以启用 `warn` 模式。
 如果你希望使用审计日志了监控和驱动变更，以便负载能够适应期望的级别，可以启用 `audit` 模式。
@@ -121,7 +121,7 @@ few different ways:
 
 - 通过将 `warn` 设置为 `enforce` 相同的级别，客户可以在尝试创建无法通过合法检查的 Pod
   （或者包含 Pod 模板的资源）时收到警告信息。这些信息会帮助于更新资源使其合规。
-- 在将 `enforce` 锁定到特定的非最新版本的名字空间中，将 `audit` 和 `warn`
+- 在将 `enforce` 锁定到特定的非最新版本的命名空间中，将 `audit` 和 `warn`
   模式设置为 `enforce` 一样的级别而非 `latest` 版本，
   这样可以方便看到之前版本所允许但当前最佳实践中被禁止的设置。
 

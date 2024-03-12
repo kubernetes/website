@@ -97,7 +97,7 @@ actions a client might want to perform. It is recommended that you use the
 一旦通过身份认证，每个 API 的调用都将通过鉴权检查。
 Kubernetes 集成[基于角色的访问控制（RBAC）](/zh-cn/docs/reference/access-authn-authz/rbac/)组件，
 将传入的用户或组与一组绑定到角色的权限匹配。
-这些权限将动作（get、create、delete）和资源（Pod、Service、Node）进行组合，并可在名字空间或者集群范围生效。
+这些权限将动作（get、create、delete）和资源（Pod、Service、Node）进行组合，并可在命名空间或者集群范围生效。
 Kubernetes 提供了一组可直接使用的角色，这些角色根据客户可能希望执行的操作提供合理的责任划分。
 建议你同时使用 [Node](/zh-cn/docs/reference/access-authn-authz/node/) 和
 [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/) 两个鉴权组件，再与
@@ -111,7 +111,7 @@ more users interact with the cluster, it may become necessary to separate teams 
 -->
 与身份验证一样，简单而广泛的角色可能适合于较小的集群，但是随着更多的用户与集群交互，
 可能需要将团队划分到有更多角色限制的、
-单独的{{< glossary_tooltip text="名字空间" term_id="namespace" >}}中去。
+单独的{{< glossary_tooltip text="命名空间" term_id="namespace" >}}中去。
 
 <!--
 With authorization, it is important to understand how updates on one object may cause actions in
@@ -180,8 +180,8 @@ reserved resources like memory, or to provide default limits when none are speci
 ### 限制集群上的资源使用
 
 [资源配额（Resource Quota）](/zh-cn/docs/concepts/policy/resource-quotas/)限制了赋予命名空间的资源的数量或容量。
-资源配额通常用于限制名字空间可以分配的 CPU、内存或持久磁盘的数量，
-但也可以控制每个名字空间中存在多少个 Pod、Service 或 Volume。
+资源配额通常用于限制命名空间可以分配的 CPU、内存或持久磁盘的数量，
+但也可以控制每个命名空间中存在多少个 Pod、Service 或 Volume。
 
 [限制范围（Limit Range）](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 限制上述某些资源的最大值或者最小值，以防止用户使用类似内存这样的通用保留资源时请求不合理的过高或过低的值，
@@ -206,7 +206,7 @@ Pod 定义包含了一个[安全上下文](/zh-cn/docs/tasks/configure-pod-conta
 以特权形式运行，访问主机网络，以及一些在宿主节点上不受约束地运行的其它控制权限等等。
 
 你可以配置 [Pod 安全准入](/zh-cn/docs/concepts/security/pod-security-admission/)来在某个
-{{< glossary_tooltip text="名字空间" term_id="namespace" >}}中
+{{< glossary_tooltip text="命名空间" term_id="namespace" >}}中
 强制实施特定的
 [Pod 安全标准（Pod Security Standard）](/zh-cn/docs/concepts/security/pod-security-standards/)，
 或者检查安全上的缺陷。
@@ -284,8 +284,8 @@ now respect network policy.
 -->
 ### 限制网络访问
 
-基于名字空间的[网络策略](/zh-cn/docs/tasks/administer-cluster/declare-network-policy/)
-允许应用程序作者限制其它名字空间中的哪些 Pod 可以访问自身名字空间内的 Pod 和端口。
+基于命名空间的[网络策略](/zh-cn/docs/tasks/administer-cluster/declare-network-policy/)
+允许应用程序作者限制其它命名空间中的哪些 Pod 可以访问自身命名空间内的 Pod 和端口。
 现在已经有许多支持网络策略的
 [Kubernetes 网络驱动](/zh-cn/docs/concepts/cluster-administration/networking/)。
 
@@ -348,9 +348,9 @@ Kubernetes 给最终用户提供了
 以及[基于污点的 Pod 放置和驱逐](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)。
 对于许多集群，使用这些策略来分离工作负载可以作为一种约定，要求作者遵守或者通过工具强制。
 
-对于管理员，Beta 阶段的准入插件 `PodNodeSelector` 可用于强制某名字空间中的 Pod
+对于管理员，Beta 阶段的准入插件 `PodNodeSelector` 可用于强制某命名空间中的 Pod
 使用默认的或特定的节点选择算符。
-如果最终用户无法改变名字空间，这一机制可以有效地限制特定工作负载中所有 Pod 的放置位置。
+如果最终用户无法改变命名空间，这一机制可以有效地限制特定工作负载中所有 Pod 的放置位置。
 
 <!--
 ## Protecting cluster components from compromise
@@ -458,9 +458,9 @@ or run with elevated permissions if those service accounts are granted access to
 启用集成时，在授予访问权限之前，你应该始终检查扩展所请求的权限。
 例如，许多安全性集成中可能要求查看集群上的所有 Secret 的访问权限，
 本质上该组件便成为了集群的管理员。
-当有疑问时，如果可能的话，将要集成的组件限制在某指定名字空间中运行。
+当有疑问时，如果可能的话，将要集成的组件限制在某指定命名空间中运行。
 
-如果执行 Pod 创建操作的组件能够在 `kube-system` 这类名字空间中创建 Pod，
+如果执行 Pod 创建操作的组件能够在 `kube-system` 这类命名空间中创建 Pod，
 则这类组件也可能获得意外的权限，因为这些 Pod 可以访问服务账户的 Secret，
 或者，如果对应服务帐户被授权访问宽松的
 [PodSecurityPolicy](/zh-cn/docs/concepts/security/pod-security-policy/)，
@@ -472,7 +472,7 @@ any component to create Pods within a namespace that permits privileged Pods, th
 be able to escape their containers and use this widened access to elevate their privileges.
 -->
 如果你使用 [Pod 安全准入](/zh-cn/docs/concepts/security/pod-security-admission/)，
-并且允许任何组件在一个允许执行特权 Pod 的名字空间中创建 Pod，这些 Pod
+并且允许任何组件在一个允许执行特权 Pod 的命名空间中创建 Pod，这些 Pod
 就可能从所在的容器中逃逸，利用被拓宽的访问权限来实现特权提升。
 
 <!--
@@ -480,8 +480,8 @@ You should not allow untrusted components to create Pods in any system namespace
 names that start with `kube-`) nor in any namespace where that access grant allows the possibility
 of privilege escalation.
 -->
-你不应该允许不可信的组件在任何系统名字空间（名字以 `kube-` 开头）中创建 Pod，
-也不允许它们在访问权限授权可被利用来提升特权的名字空间中创建 Pod。
+你不应该允许不可信的组件在任何系统命名空间（名字以 `kube-` 开头）中创建 Pod，
+也不允许它们在访问权限授权可被利用来提升特权的命名空间中创建 Pod。
 
 <!--
 ### Encrypt secrets at rest

@@ -55,7 +55,7 @@ Use that manifest to create a Pod:
 {{< codenew file="admin/dns/dnsutils.yaml" >}}
 
 {{< note >}}
-此示例在 `default` 名字空间创建 Pod。
+此示例在 `default` 命名空间创建 Pod。
 服务的 DNS 名字解析取决于 Pod 的名字空间。
 详细信息请查阅 [Pod 与 Service 的 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names)。
 {{< /note >}}

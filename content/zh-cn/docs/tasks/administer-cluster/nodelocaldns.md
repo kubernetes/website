@@ -253,7 +253,7 @@ be available on a per-node basis.
 You can disable this feature by removing the DaemonSet, using `kubectl delete -f <manifest>`.
 You should also revert any changes you made to the kubelet configuration.
 -->
-启用后，`node-local-dns` Pod 将在每个集群节点上的 `kube-system` 名字空间中运行。
+启用后，`node-local-dns` Pod 将在每个集群节点上的 `kube-system` 命名空间中运行。
 此 Pod 在缓存模式下运行 [CoreDNS](https://github.com/coredns/coredns)，
 因此每个节点都可以使用不同插件公开的所有 CoreDNS 指标。
 
@@ -273,7 +273,7 @@ The `node-local-dns` ConfigMap can also be modified directly with the stubDomain
 in the Corefile format. Some cloud providers might not allow modifying `node-local-dns` ConfigMap directly.
 In those cases, the `kube-dns` ConfigMap can be updated.
 -->
-`node-local-dns` Pod 能够自动读取 `kube-system` 名字空间中 `kube-dns` ConfigMap
+`node-local-dns` Pod 能够自动读取 `kube-system` 命名空间中 `kube-dns` ConfigMap
 中保存的 StubDomains 和上游服务器信息。ConfigMap
 中的内容需要遵从[此示例](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers/#example-1)中所给的格式。
 `node-local-dns` ConfigMap 也可被直接修改，使用 Corefile 格式设置 stubDomain 配置。

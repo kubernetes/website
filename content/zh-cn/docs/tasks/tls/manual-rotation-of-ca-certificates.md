@@ -260,7 +260,7 @@ If any Pods are started before new CA is used by API servers, the new Pods get t
 1. If your cluster is using bootstrap tokens to join nodes, update the ConfigMap `cluster-info` in the `kube-public`
    namespace with new CA.
 -->
-10. 如果你的集群使用启动引导令牌来添加节点，则需要更新 `kube-public` 名字空间下的
+10. 如果你的集群使用启动引导令牌来添加节点，则需要更新 `kube-public` 命名空间下的
     ConfigMap `cluster-info`，使之包含新的 CA 证书。
 
     ```shell

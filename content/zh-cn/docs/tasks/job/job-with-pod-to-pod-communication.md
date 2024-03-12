@@ -82,7 +82,7 @@ the pods running your Job.
 -->
 1. 对于 Job 所创建的那些 Pod，
    使用一个有效的标签选择算符创建[无头服务](/zh-cn/docs/concepts/services-networking/service/#headless-services)。
-   该无头服务必须位于与该 Job 相同的名字空间内。
+   该无头服务必须位于与该 Job 相同的命名空间内。
    实现这一目的的一种简单的方式是使用 `job-name: <任务名称>` 作为选择算符，
    因为 `job-name` 标签将由 Kubernetes 自动添加。
    此配置将触发 DNS 系统为运行 Job 的 Pod 创建其主机名的记录。
@@ -108,8 +108,8 @@ The Job is completed only after all pods successfully ping each other using host
 In the Bash script executed on each pod in the example below, the pod hostnames can be prefixed
 by the namespace as well  if the pod needs to be reached from outside the namespace.
 -->
-在以下示例中的每个 Pod 中执行的 Bash 脚本中，如果需要从名字空间外到达 Pod，
-Pod 主机名也可以带有该名字空间作为前缀。
+在以下示例中的每个 Pod 中执行的 Bash 脚本中，如果需要从命名空间外到达 Pod，
+Pod 主机名也可以带有该命名空间作为前缀。
 {{</note>}}
 
 ```yaml

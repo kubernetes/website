@@ -222,7 +222,7 @@ for policy/v1 an empty selector matches every pod in the namespace.
 -->
 `policy/v1beta1` 和 `policy/v1` API 中 PodDisruptionBudget 的空选择算符的行为
 略有不同。在 `policy/v1beta1` 中，空的选择算符不会匹配任何 Pod，而
-`policy/v1` 中，空的选择算符会匹配名字空间中所有 Pod。
+`policy/v1` 中，空的选择算符会匹配命名空间中所有 Pod。
 {{< /note >}}
 
 <!--
@@ -355,7 +355,7 @@ Use kubectl to check that your PDB is created.
 Assuming you don't actually have pods matching `app: zookeeper` in your namespace,
 then you'll see something like this:
 -->
-假设用户的名字空间下没有匹配 `app: zookeeper` 的 Pod，用户会看到类似下面的信息：
+假设用户的命名空间下没有匹配 `app: zookeeper` 的 Pod，用户会看到类似下面的信息：
 
 ```shell
 kubectl get poddisruptionbudgets
