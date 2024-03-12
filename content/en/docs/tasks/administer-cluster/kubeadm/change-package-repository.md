@@ -136,7 +136,7 @@ This step should be done upon upgrading from one to another Kubernetes minor
 release in order to get access to the packages of the desired Kubernetes minor
 version.
 
-{{< tabs name="k8s_install_versions" >}}
+{{< tabs name="k8s_upgrade_versions" >}}
 {{% tab name="Ubuntu, Debian or HypriotOS" %}}
 
 1. Open the file that defines the Kubernetes `apt` repository using a text editor of your choice:
