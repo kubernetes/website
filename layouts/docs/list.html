@@ -6,6 +6,7 @@
 {{- end -}}
 {{- end -}}
     <div class="td-content">
+        {{- partial "deprecation-warning.html" . -}}
         {{ $hasContent := false }}
         {{ with .File }}
             {{ if ne .Filename "" }}
