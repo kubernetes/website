@@ -719,12 +719,13 @@ crontab "my-new-cron-object" created
 ```
 ### Validation ratcheting
 
-{{< feature-state state="alpha" for_k8s_version="v1.28" >}}
+{{< feature-state feature_gate_name="CRDValidationRatcheting" >}}
 
-You need to enable the `CRDValidationRatcheting`
+If you are using a version of Kubernetes older than v1.30, you need to explicitly
+enable the `CRDValidationRatcheting`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
 use this behavior, which then applies to all CustomResourceDefinitions in your
-cluster.
+cluster. 
 
 Provided you enabled the feature gate, Kubernetes implements _validation racheting_
 for CustomResourceDefinitions. The API server is willing to accept updates to resources that
@@ -751,10 +752,12 @@ validations are not supported by ratcheting under the implementation in Kubernet
 - `x-kubernetes-validations`
   For Kubernetes 1.28, CRD validation rules](#validation-rules) are ignored by
   ratcheting. Starting with Alpha 2 in Kubernetes 1.29, `x-kubernetes-validations`
-  are ratcheted.
+  are ratcheted only if they do not refer to `oldSelf`.
 
   Transition Rules are never ratcheted: only errors raised by rules that do not 
-  use `oldSelf` will be automatically ratcheted if  their values are unchanged.
+  use `oldSelf` will be automatically ratcheted if their values are unchanged.
+
+  To write custom ratcheting logic for CEL expressions, check out [optionalOldSelf](#field-optional-oldself).
 - `x-kubernetes-list-type`
   Errors arising from changing the list type of a subschema will not be 
   ratcheted. For example adding `set` onto a list with duplicates will always 
@@ -772,8 +775,10 @@ validations are not supported by ratcheting under the implementation in Kubernet
   To remove a previously specified `additionalProperties` validation will not be
   ratcheted.
 - `metadata`
-  Errors arising from changes to fields within an object's `metadata` are not
-  ratcheted.
+  Errors that come from Kubernetes' built-in validation of an object's `metadata` 
+  are not ratcheted (such as object name, or characters in a label value). 
+  If you specify your own additional rules for the metadata of a custom resource, 
+  that additional validation will be ratcheted.
 
 ### Validation rules
 
@@ -1177,10 +1182,11 @@ Setting `fieldPath` is optional.
 
 #### The `optionalOldSelf` field {#field-optional-oldself}
 
-{{< feature-state state="alpha" for_k8s_version="v1.29" >}}
+{{< feature-state feature_gate_name="CRDValidationRatcheting" >}}
 
-The feature [CRDValidationRatcheting](#validation-ratcheting) must be enabled in order to 
-make use of this field.
+If your cluster does not have [CRD validation ratcheting](#validation-ratcheting) enabled, 
+the CustomResourceDefinition API doesn't include this field, and trying to set it may result
+in an error.
 
 The `optionalOldSelf` field is a boolean field that alters the behavior of [Transition Rules](#transition-rules) described
 below. Normally, a transition rule will not evaluate if `oldSelf` cannot be determined:
