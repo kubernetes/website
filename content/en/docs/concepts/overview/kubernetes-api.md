@@ -71,22 +71,22 @@ separate endpoint for each group version.
 
 ### Aggregated discovery
 
-{{< feature-state state="beta" for_k8s_version="v1.27" >}}
+{{< feature-state state="stable" for_k8s_version="v1.27" >}}
 
-Kubernetes offers beta support for aggregated discovery, publishing
+Kubernetes offers stable support for aggregated discovery, publishing
 all resources supported by a cluster through two endpoints (`/api` and
 `/apis`). Requesting this
 endpoint drastically reduces the number of requests sent to fetch the
 discovery data from the cluster. You can access the data by
 requesting the respective endpoints with an `Accept` header indicating
 the aggregated discovery resource:
-`Accept: application/json;v=v2beta1;g=apidiscovery.k8s.io;as=APIGroupDiscoveryList`.
+`Accept: application/json;v=v2;g=apidiscovery.k8s.io;as=APIGroupDiscoveryList`.
 
 Without indicating the resource type using the `Accept` header, the default
 response for the `/api` and `/apis` endpoint is an unaggregated discovery
 document.
 
-The [discovery document](https://github.com/kubernetes/kubernetes/blob/release-v{{< skew currentVersion >}}/api/discovery/aggregated_v2beta1.json)
+The [discovery document](https://github.com/kubernetes/kubernetes/blob/release-v{{< skew currentVersion >}}/api/discovery/aggregated_v2.json)
 for the built-in resources can be found in the Kubernetes GitHub repository.
 This Github document can be used as a reference of the base set of the available resources
 if a Kubernetes cluster is not available to query.
@@ -295,14 +295,14 @@ cluster.
 
 {{< feature-state feature_gate_name="AggregatedDiscoveryEndpoint" >}}
 
-Kubernetes offers beta support for aggregated discovery, publishing
+Kubernetes offers stable support for aggregated discovery, publishing
 all resources supported by a cluster through two endpoints (`/api` and
 `/apis`) compared to one for every group version. Requesting this
 endpoint drastically reduces the number of requests sent to fetch the
 discovery for the average Kubernetes cluster. This may be accessed by
 requesting the respective endpoints with an Accept header indicating
 the aggregated discovery resource:
-`Accept: application/json;v=v2beta1;g=apidiscovery.k8s.io;as=APIGroupDiscoveryList`.
+`Accept: application/json;v=v2;g=apidiscovery.k8s.io;as=APIGroupDiscoveryList`.
 
 The endpoint also supports ETag and protobuf encoding.
 
