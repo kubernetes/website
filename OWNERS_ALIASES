@@ -197,6 +197,8 @@ aliases:
     - Arhell
     - idvoretskyi
     - MaxymVlasov
+  sig-docs-ar-owners: # Admins for Arabic content
+    - mboukhalfa
   # authoritative source: git.k8s.io/community/OWNERS_ALIASES
   committee-steering: # provide PR approvals for announcements
     - bentheelder
