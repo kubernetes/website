@@ -351,7 +351,13 @@ kubectl [flags]
 <td></td><td style="line-height: 130%; word-wrap: break-word;">When set to false, turns off extra HTTP headers detailing invoked kubectl command (Kubernetes version v1.22 or later)</td>
 </tr>
 
-
+<tr>
+<td colspan="2">KUBECTL_DEBUG_CUSTOM_PROFILE</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">When set to true, custom flag will be enabled in kubectl debug. This flag is used to customize the pre-defined profiles.
+</td>
+</tr>
 
 <tr>
 <td colspan="2">KUBECTL_EXPLAIN_OPENAPIV3</td>
@@ -374,14 +380,6 @@ kubectl [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">When set to true, the kubectl exec, cp, and attach commands will attempt to stream using the websockets protocol. If the upgrade to websockets fails, the commands will fallback to use the current SPDY protocol.
-</td>
-</tr>
-
-<tr>
-<td colspan="2">KUBECTL_DEBUG_CUSTOM_PROFILE</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">When set to true, custom flag will be enabled in kubectl debug. This flag is used to customize the pre-defined profiles.
 </td>
 </tr>
 
