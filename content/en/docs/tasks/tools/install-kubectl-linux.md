@@ -137,7 +137,7 @@ The following methods exist for installing kubectl on Linux:
 
    ```shell
    curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-   sudo chmod 644 /etc/apt/keyrings/kubernetes-apt-keyring.gpg   # Needed so that _apt user can read it
+   sudo chmod 644 /etc/apt/keyrings/kubernetes-apt-keyring.gpg # allow unprivileged APT programs to read this keyring
    ```
 
 3. Add the appropriate Kubernetes `apt` repository. If you want to use Kubernetes version different than {{< param "version" >}},
