@@ -201,6 +201,7 @@
 
 /docs/reporting-security-issues/     /docs/reference/issues-security/security/ 301
 /security/ /docs/reference/issues-security/security/ 302
+/docs/concepts/security/overview/ /docs/concepts/security/ 301
 
 /docs/roadmap/     https://github.com/kubernetes/kubernetes/milestones/ 301
 /docs/samples/     /docs/tutorials/ 301

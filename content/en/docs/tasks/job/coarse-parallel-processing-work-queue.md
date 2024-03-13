@@ -48,14 +48,14 @@ Start RabbitMQ as follows:
 
 ```shell
 # make a Service for the StatefulSet to use
-kubectl create -f https://kubernetes.io/examples/application/job/rabbitmq-service.yaml
+kubectl create -f https://kubernetes.io/examples/application/job/rabbitmq/rabbitmq-service.yaml
 ```
 ```
 service "rabbitmq-service" created
 ```
 
 ```shell
-kubectl create -f https://kubernetes.io/examples/application/job/rabbitmq-statefulset.yaml
+kubectl create -f https://kubernetes.io/examples/application/job/rabbitmq/rabbitmq-statefulset.yaml
 ```
 ```
 statefulset "rabbitmq" created

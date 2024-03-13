@@ -62,12 +62,14 @@ a different volume.
 
 Kubernetes supports several types of volumes.
 
-### awsElasticBlockStore (removed) {#awselasticblockstore}
+### awsElasticBlockStore (deprecated) {#awselasticblockstore}
 
 <!-- maintenance note: OK to remove all mention of awsElasticBlockStore once the v1.27 release of
 Kubernetes has gone out of support -->
 
-Kubernetes {{< skew currentVersion >}} does not include a `awsElasticBlockStore` volume type.
+In Kubernetes {{< skew currentVersion >}}, all operations for the in-tree `awsElasticBlockStore` type
+are redirected to the `ebs.csi.aws.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} driver.
+
 
 The AWSElasticBlockStore in-tree storage driver was deprecated in the Kubernetes v1.19 release
 and then removed entirely in the v1.27 release.
@@ -75,12 +77,13 @@ and then removed entirely in the v1.27 release.
 The Kubernetes project suggests that you use the [AWS EBS](https://github.com/kubernetes-sigs/aws-ebs-csi-driver) third party
 storage driver instead.
 
-### azureDisk (removed) {#azuredisk}
+### azureDisk (deprecated) {#azuredisk}
 
 <!-- maintenance note: OK to remove all mention of azureDisk once the v1.27 release of
 Kubernetes has gone out of support -->
 
-Kubernetes {{< skew currentVersion >}} does not include a `azureDisk` volume type.
+In Kubernetes {{< skew currentVersion >}}, all operations for the in-tree `azureDisk` type
+are redirected to the `disk.csi.azure.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} driver.
 
 The AzureDisk in-tree storage driver was deprecated in the Kubernetes v1.19 release
 and then removed entirely in the v1.27 release.
@@ -118,7 +121,7 @@ Azure File CSI driver does not support using same volume with different fsgroups
 To disable the `azureFile` storage plugin from being loaded by the controller manager
 and the kubelet, set the `InTreePluginAzureFileUnregister` flag to `true`.
 
-### cephfs
+### cephfs (deprecated) {#cephfs}
 {{< feature-state for_k8s_version="v1.28" state="deprecated" >}}
 
 {{< note >}}
@@ -139,12 +142,13 @@ You must have your own Ceph server running with the share exported before you ca
 
 See the [CephFS example](https://github.com/kubernetes/examples/tree/master/volumes/cephfs/) for more details.
 
-### cinder (removed) {#cinder}
+### cinder (deprecated) {#cinder}
 
 <!-- maintenance note: OK to remove all mention of cinder once the v1.26 release of
 Kubernetes has gone out of support -->
 
-Kubernetes {{< skew currentVersion >}} does not include a `cinder` volume type.
+In Kubernetes {{< skew currentVersion >}}, all operations for the in-tree `cinder` type
+are redirected to the `cinder.csi.openstack.org` {{< glossary_tooltip text="CSI" term_id="csi" >}} driver.
 
 The OpenStack Cinder in-tree storage driver was deprecated in the Kubernetes v1.11 release
 and then removed entirely in the v1.26 release.
@@ -194,7 +198,7 @@ keyed with `log_level`.
 
 {{< note >}}
 
-* You must create a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)
+* You must [create a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/#create-a-configmap)
   before you can use it.
 
 * A ConfigMap is always mounted as `readOnly`.
@@ -295,9 +299,10 @@ beforehand so that Kubernetes hosts can access them.
 See the [fibre channel example](https://github.com/kubernetes/examples/tree/master/staging/volumes/fibre_channel)
 for more details.
 
-### gcePersistentDisk (removed) {#gcepersistentdisk}
+### gcePersistentDisk (deprecated) {#gcepersistentdisk}
 
-Kubernetes {{< skew currentVersion >}} does not include a `gcePersistentDisk` volume type.
+In Kubernetes {{< skew currentVersion >}}, all operations for the in-tree `gcePersistentDisk` type
+are redirected to the `pd.csi.storage.gke.io` {{< glossary_tooltip text="CSI" term_id="csi" >}} driver.
 
 The `gcePersistentDisk` in-tree storage driver was deprecated in the Kubernetes v1.17 release
 and then removed entirely in the v1.28 release.
@@ -859,7 +864,7 @@ To turn off the `vsphereVolume` plugin from being loaded by the controller manag
 ## Using subPath {#using-subpath}
 
 Sometimes, it is useful to share one volume for multiple uses in a single pod.
-The `volumeMounts.subPath` property specifies a sub-path inside the referenced volume
+The `volumeMounts[*].subPath` property specifies a sub-path inside the referenced volume
 instead of its root.
 
 The following example shows how to configure a Pod with a LAMP stack (Linux Apache MySQL PHP)
@@ -1162,7 +1167,7 @@ Mount propagation allows for sharing volumes mounted by a container to
 other containers in the same pod, or even to other pods on the same node.
 
 Mount propagation of a volume is controlled by the `mountPropagation` field
-in `Container.volumeMounts`. Its values are:
+in `containers[*].volumeMounts`. Its values are:
 
 * `None` - This volume mount will not receive any subsequent mounts
   that are mounted to this volume or any of its subdirectories by the host.

@@ -301,6 +301,31 @@ which is 300 seconds (5 minutes).
 Kubernetes 会增加每次尝试之间的延迟，直到达到编译限制，即 300 秒（5 分钟）。
 
 <!--
+### Image pull per runtime class
+-->
+### 基于运行时类的镜像拉取  {#image-pull-per-runtime-class}
+
+{{< feature-state for_k8s_version="v1.29" state="alpha" >}}
+
+<!--
+Kubernetes includes alpha support for performing image pulls based on the RuntimeClass of a Pod.
+-->
+Kubernetes 包含了根据 Pod 的 RuntimeClass 来执行镜像拉取的 Alpha 支持。
+
+<!--
+If you enable the `RuntimeClassInImageCriApi` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
+the kubelet references container images by a tuple of (image name, runtime handler) rather than just the
+image name or digest. Your {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
+may adapt its behavior based on the selected runtime handler.
+Pulling images based on runtime class will be helpful for VM based containers like windows hyperV containers.
+-->
+如果你启用了 `RuntimeClassInImageCriApi` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
+kubelet 会通过一个元组（镜像名称，运行时处理程序）而不仅仅是镜像名称或镜像摘要来引用容器镜像。
+你的{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}
+可能会根据选定的运行时处理程序调整其行为。
+基于运行时类来拉取镜像对于基于 VM 的容器（如 Windows Hyper-V 容器）会有帮助。
+
+<!--
 ## Serial and parallel image pulls
 -->
 ## 串行和并行镜像拉取  {#serial-and-parallel-image-pulls}

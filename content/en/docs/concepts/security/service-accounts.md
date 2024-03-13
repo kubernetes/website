@@ -3,7 +3,7 @@ title: Service Accounts
 description: >
   Learn about ServiceAccount objects in Kubernetes.
 content_type: concept
-weight: 10
+weight: 25
 ---
 
 <!-- overview -->
