@@ -21,7 +21,6 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
@@ -365,7 +364,7 @@ func walkConfigFiles(inDir string, t *testing.T, fn func(name, path string, data
 
 		file := filepath.Base(path)
 		if ext := filepath.Ext(file); ext == ".json" || ext == ".yaml" {
-			data, err := ioutil.ReadFile(path)
+			data, err := os.ReadFile(path)
 			if err != nil {
 				return err
 			}
