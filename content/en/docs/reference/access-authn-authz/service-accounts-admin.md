@@ -67,14 +67,14 @@ This can be used to tie the validity of a token to the existence of another API 
 Supported object types are as follows:
 
 * Pod (used for projected volume mounts, see below)
-* Secret (used when generating legacy service account tokens)
+* Secret (can be used to allow revoking a token by deleting the Secret)
 * Node (beta in v1.30)
 
-When a token is bound to an object, the objects `metadata.name` and `metadata.uid` are
+When a token is bound to an object, the object's `metadata.name` and `metadata.uid` are
 stored as extra 'private claims' in the issued JWT.
 
 When a bound token is presented to the kube-apiserver, the service account authenticator
-will extra and verify these claims.
+will extract and verify these claims.
 If the referenced object no longer exists (or its `metadata.uid` does not match),
 the request will not be authenticated.
 
@@ -83,11 +83,12 @@ the request will not be authenticated.
 {{< feature-state feature_gate_name="ServiceAccountTokenPodNodeInfo" >}}
 
 When a service account token is bound to a Pod object, additional metadata is also
-embedded into the token that indicates the name of the Node that the Pod is scheduled to.
+embedded into the token that indicates the value of the bound pod's `spec.nodeName` field,
+and the uid of that Node, if available.
 
-This node information is **not** verified by the kube-apiserver, and is included to
-avoid integrators needing having to retrieve a full `Pod` object from the apiserver
-when inspecting a JWT.
+This node information is **not** verified by the kube-apiserver when the token is used for authentication.
+It is included so integrators do not have to fetch Pod or Node API objects to check the associated Node name
+and uid when inspecting a JWT.
 
 ### Verifying and inspecting private claims
 
