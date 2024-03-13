@@ -1105,13 +1105,11 @@ Example: `kubernetes.io/legacy-token-invalid-since: 2023-10-27`
 Used on: Secret
 
 The control plane automatically adds this label to auto-generated Secrets that
-have the type `kubernetes.io/service-account-token`, provided that you have the
-`LegacyServiceAccountTokenCleanUp` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled. Kubernetes {{< skew currentVersion >}} enables that behavior by default.
-This label marks the Secret-based token as invalid for authentication. The value
-of this label records the date (ISO 8601 format, UTC time zone) when the control
-plane detects that the auto-generated Secret has not been used for a specified
-duration (defaults to one year).
+have the type `kubernetes.io/service-account-token`. This label marks the
+Secret-based token as invalid for authentication. The value of this label
+records the date (ISO 8601 format, UTC time zone) when the control plane detects
+that the auto-generated Secret has not been used for a specified duration
+(defaults to one year).
 
 ### endpointslice.kubernetes.io/managed-by {#endpointslicekubernetesiomanaged-by}
 
@@ -2255,7 +2253,8 @@ Starting in v1.16, this annotation was removed in favor of
 - [`pod-security.kubernetes.io/audit-violations`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-audit-violations)
 - [`pod-security.kubernetes.io/enforce-policy`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-enforce-policy)
 - [`pod-security.kubernetes.io/exempt`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-exempt)
-
+- [`validation.policy.admission.k8s.io/validation_failure`](/docs/reference/labels-annotations-taints/audit-annotations/#validation-policy-admission-k8s-io-validation-failure)
+  
 See more details on [Audit Annotations](/docs/reference/labels-annotations-taints/audit-annotations/).
 
 ## kubeadm

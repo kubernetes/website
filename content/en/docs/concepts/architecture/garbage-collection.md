@@ -139,7 +139,7 @@ until disk usage reaches the `LowThresholdPercent` value.
 
 #### Garbage collection for unused container images {#image-maximum-age-gc}
 
-{{< feature-state for_k8s_version="v1.29" state="alpha" >}}
+{{< feature-state feature_gate_name="ImageMaximumGCAge" >}}
 
 As an alpha feature, you can specify the maximum time a local image can be unused for,
 regardless of disk usage. This is a kubelet setting that you configure for each node.

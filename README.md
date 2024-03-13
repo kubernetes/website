@@ -99,10 +99,9 @@ To update the reference pages for a new Kubernetes release follow these steps:
    make api-reference
    ```
 
-   You can test the results locally by making and serving the site from a container image:
+   You can test the results locally by building and serving the site from a container:
 
    ```bash
-   make container-image
    make container-serve
    ```
 

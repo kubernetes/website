@@ -546,7 +546,7 @@ kubectl label pods my-pod new-label=awesome                      # Add a Label
 kubectl label pods my-pod new-label-                             # Remove a label
 kubectl label pods my-pod new-label=new-value --overwrite        # Overwrite an existing value
 kubectl annotate pods my-pod icon-url=http://goo.gl/XXBTWq       # Add an annotation
-kubectl annotate pods my-pod icon-                               # Remove annotation
+kubectl annotate pods my-pod icon-url-                           # Remove annotation
 kubectl autoscale deployment foo --min=2 --max=10                # Auto scale a deployment "foo"
 ```
 -->
@@ -573,7 +573,7 @@ kubectl label pods my-pod new-label=awesome                      # 添加标签
 kubectl label pods my-pod new-label-                             # 移除标签
 kubectl label pods my-pod new-label=new-value --overwrite        # 覆盖现有的值
 kubectl annotate pods my-pod icon-url=http://goo.gl/XXBTWq       # 添加注解
-kubectl annotate pods my-pod icon-                               # 移除注解
+kubectl annotate pods my-pod icon-url-                           # 移除注解
 kubectl autoscale deployment foo --min=2 --max=10                # 对 "foo" Deployment 自动扩缩容
 ```
 

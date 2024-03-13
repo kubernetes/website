@@ -360,7 +360,7 @@ null `namespaceSelector` matches the namespace of the Pod where the rule is defi
 
 #### matchLabelKeys
 
-{{< feature-state for_k8s_version="v1.29" state="alpha" >}}
+{{< feature-state feature_gate_name="MatchLabelKeysInPodAffinity" >}}
 
 {{< note >}}
 <!-- UPDATE THIS WHEN PROMOTING TO BETA -->
@@ -391,26 +391,27 @@ metadata:
 ...
 spec:
   template:
-    affinity:
-      podAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-        - labelSelector:
-            matchExpressions:
-            - key: app
-              operator: In
-              values:
-              - database
-          topologyKey: topology.kubernetes.io/zone
-          # Only Pods from a given rollout are taken into consideration when calculating pod affinity.
-          # If you update the Deployment, the replacement Pods follow their own affinity rules
-          # (if there are any defined in the new Pod template)
-          matchLabelKeys: 
-          - pod-template-hash
+    spec:
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - database
+            topologyKey: topology.kubernetes.io/zone
+            # Only Pods from a given rollout are taken into consideration when calculating pod affinity.
+            # If you update the Deployment, the replacement Pods follow their own affinity rules
+            # (if there are any defined in the new Pod template)
+            matchLabelKeys: 
+            - pod-template-hash
 ```
 
 #### mismatchLabelKeys
 
-{{< feature-state for_k8s_version="v1.29" state="alpha" >}}
+{{< feature-state feature_gate_name="MatchLabelKeysInPodAffinity" >}}
 
 {{< note >}}
 <!-- UPDATE THIS WHEN PROMOTING TO BETA -->

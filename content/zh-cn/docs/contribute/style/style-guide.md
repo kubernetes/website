@@ -317,7 +317,7 @@ Run the process as a DaemonSet in the `kube-system` namespace. | Run the process
 {{< table caption = "Do and Don't - Use code style for Kubernetes command tool and component names" >}}
 Do | Don't
 :--| :-----
-The kubelet preserves node stability. | The `kubelet` preserves node stability.
+The `kubelet` preserves node stability. | The `kubelet` preserves node stability.
 The `kubectl` handles locating and authenticating to the API server. | The kubectl handles locating and authenticating to the apiserver.
 Run the process with the certificate, `kube-apiserver --client-ca-file=FILENAME`. | Run the process with the certificate, kube-apiserver --client-ca-file=FILENAME. |
 {{< /table >}}

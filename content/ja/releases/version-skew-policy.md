@@ -1,7 +1,8 @@
 ---
-title: Kubernetesバージョンとバージョンスキューサポートポリシー
-content_type: concept
-weight: 30
+title: バージョンスキューポリシー
+type: docs
+description: >
+  さまざまなKubernetesコンポーネント間でサポートされる最大のバージョンスキュー。
 ---
 
 <!-- overview -->

@@ -621,7 +621,7 @@ can define your own (provider specific) annotations on the Service that specify 
 
 #### Load balancers with mixed protocol types
 
-{{< feature-state for_k8s_version="v1.26" state="stable" >}}
+{{< feature-state feature_gate_name="MixedProtocolLBService" >}}
 
 By default, for LoadBalancer type of Services, when there is more than one port defined, all
 ports must have the same protocol, and the protocol must be one which is supported
@@ -670,9 +670,9 @@ Unprefixed names are reserved for end-users.
 
 #### Specifying IPMode of load balancer status {#load-balancer-ip-mode}
 
-{{< feature-state for_k8s_version="v1.29" state="alpha" >}}
+{{< feature-state feature_gate_name="LoadBalancerIPMode" >}}
 
-Starting as Alpha in Kubernetes 1.29, 
+As a Beta feature in Kubernetes 1.30,
 a [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) 
 named `LoadBalancerIPMode` allows you to set the `.status.loadBalancer.ingress.ipMode` 
 for a Service with `type` set to `LoadBalancer`. 

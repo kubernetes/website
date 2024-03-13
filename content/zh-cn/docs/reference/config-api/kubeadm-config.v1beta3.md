@@ -496,7 +496,7 @@ for, so other administrators can know its purpose.
 </td>
 </tr>
 <tr><td><code>expires</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#time-v1-meta"><code>meta/v1.Time</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
    <!--
@@ -579,7 +579,7 @@ of view and as an authentication method for the node in the bootstrap phase of
 ## `ClusterConfiguration`     {#kubeadm-k8s-io-v1beta3-ClusterConfiguration}
 
 <!--
-<p>ClusterConfiguration contains cluster-wide configuration for a kubeadm cluster</p>
+<p>ClusterConfiguration contains cluster-wide configuration for a kubeadm cluster.</p>
 -->
 <p>ClusterConfiguration 包含一个 kubeadm 集群的集群范围配置信息。</p>
 
@@ -818,10 +818,12 @@ interface and use that, but in case that process fails you may set the desired v
 <td>
    <!--
    <p><code>certificateKey</code> sets the key with which certificates and keys are encrypted prior to being
-uploaded in a Secret in the cluster during the <code>uploadcerts init</code> phase.</p>
+uploaded in a Secret in the cluster during the <code>uploadcerts init</code> phase.
+The certificate key is a hex encoded string that is an AES key of size 32 bytes.</p>
    -->
    <p><code>certificateKey</code> 用来设置一个密钥，该密钥将对 <code>uploadcerts init</code>
-阶段上传到集群中某 Secret 内的密钥和证书加密。</p>
+阶段上传到集群中某 Secret 内的密钥和证书加密。
+证书密钥是十六进制编码的字符串，是长度为 32 字节的 AES 密钥。</p>
 </td>
 </tr>
 <tr><td><code>skipPhases</code><br/>
@@ -1074,7 +1076,7 @@ APIServer 包含集群中 API 服务器部署所必需的设置。
 
 <p>
 <!--
-BootstrapTokenDiscovery is used to set the options for bootstrap token based discovery
+BootstrapTokenDiscovery is used to set the options for bootstrap token based discovery.
 -->
 BootstrapTokenDiscovery 用来设置基于引导令牌的服务发现选项。
 </p>
@@ -1529,7 +1531,7 @@ HostPathMount contains elements describing volumes that are mounted from the hos
 </td>
 </tr>
 <tr><td><code>pathType</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
 </td>
 <td>
    <!--
@@ -1627,9 +1629,11 @@ deployed on this node.
    <code>certificateKey</code> is the key that is used for decryption of certificates after
 they are downloaded from the secret upon joining a new control plane node.
 The corresponding encryption key is in the InitConfiguration.
+The certificate key is a hex encoded string that is an AES key of size 32 bytes.
    -->
    <p><code>certificateKey</code> 是在添加新的控制面节点时用来解密所下载的
-Secret 中的证书的密钥。对应的加密密钥在 InitConfiguration 结构中。</p>
+Secret 中的证书的密钥。对应的加密密钥在 InitConfiguration 结构中。
+证书密钥是十六进制编码的字符串，是长度为 32 字节的 AES 密钥。</p>
 </td>
 </tr>
 </tbody>
@@ -1645,7 +1649,7 @@ Secret 中的证书的密钥。对应的加密密钥在 InitConfiguration 结构
 - [Etcd](#kubeadm-k8s-io-v1beta3-Etcd)
 
 <!--
-LocalEtcd describes that kubeadm should run an etcd cluster locally
+LocalEtcd describes that kubeadm should run an etcd cluster locally.
 -->
 <p>LocalEtcd 描述的是 kubeadm 要使用的本地 etcd 集群。</p>
 
@@ -1729,7 +1733,7 @@ signing certificate.
 - [ClusterConfiguration](#kubeadm-k8s-io-v1beta3-ClusterConfiguration)
 
 <!--
-Networking contains elements describing cluster's networking configuration
+Networking contains elements describing cluster's networking configuration.
 -->
 <p>Networking 中包含描述集群网络配置的元素。</p>
 
@@ -1784,7 +1788,7 @@ Networking contains elements describing cluster's networking configuration
 
 <!--
 NodeRegistrationOptions holds fields that relate to registering a new control-plane or
-node to the cluster, either via &quot;kubeadm init&quot; or &quot;kubeadm join&quot;
+node to the cluster, either via <code>kubeadm init</code> or <code>kubeadm join</code>.
 -->
 <p>NodeRegistrationOptions 包含向集群中注册新的控制面或节点所需要的信息；
 节点注册可能通过 &quot;kubeadm init&quot; 或 &quot;kubeadm join&quot; 完成。</p>
@@ -1823,7 +1827,7 @@ This information will be annotated to the Node API object, for later re-use.
 </td>
 </tr>
 <tr><td><code>taints</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    <!--
@@ -1876,7 +1880,7 @@ the current node is registered, e.g.
 </td>
 </tr>
 <tr><td><code>imagePullPolicy</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
 </td>
 <td>
    <!--
