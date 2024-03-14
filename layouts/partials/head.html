@@ -83,6 +83,10 @@
 <!--script src="https://unpkg.com/split.js/dist/split.min.js"></script-->
 <script src="/js/split-1.6.0.js" intregrity="sha384-0blL3GqHy6+9fw0cyY2Aoiwg4onHAtslAs4OkqZY7UQBrR65/K4gI+hxLdWDrjpz"></script>
 
+<!--Script for dismissing banners/notices-->
+<script defer src="{{ "js/dismiss_banner.js" | relURL }}"></script>
+
+
 {{- if or (.HasShortcode "table")  (.HasShortcode "feature-gate-table") -}}
 <script defer src="{{ "js/sortable-table.js" | relURL }}"></script>
 {{- end -}}
