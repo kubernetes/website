@@ -10,8 +10,7 @@ evergreen: true
 
 The wave of database containerization is on the rise, as clearly shown in Fig.1. Databases and analytics are now a major part of the tech scene. Yet, a common dilemma persists: Does containerization impact database performance? If yes, what factors come into play? How can we tackle performance and stability issues brought about by containerization?
 
-<img src='https://kubeblocks.io/images/Usage-of-containerized-workloads-by-category.png'  alt="Usage of containerized workloads by category<sup>[4]</sup>"  width='80%' style={{margin: "0 10%"}} />
-<div style={{ display: "flex", justifyContent: "center", margin: "-6px 0 10px", fontSize: "12px" }}>Fig. 1. Usage of containerized workloads by category<sup>[4]</sup></div>
+![Usage-of-containerized-workloads-by-category](Usage-of-containerized-workloads-by-category.png)
 
 ## Advantages and technical principles of containerization
 
@@ -50,9 +49,7 @@ According to resource isolation and virtualization methods, mainstream virtualiz
 3. Microkernel Containers, which employ hypervisors like Firecracker and Kata-Container, comply with OCI specification too, and use either runC or runv as their runtime, striking a balance among security, isolation, and performance, sitting somewhere between standard containers and user-space kernel containers.
 4. Virtual Machines, including KVM, Xen, VMWare, form the foundational virtualization layer for major cloud providers' servers, typically acting as Nodes in K8s, and operate at a more fundamental level than containers.
 
-<img src='https://kubeblocks.io/images/Comparison-of-system-architecture.png'  alt="Comparison of system architecture of various lightweight virtualization methods"  width='80%' style={{margin: "0 10%"}} />
-<div style={{ display: "flex", justifyContent: "center", margin: "-6px 0 10px", fontSize: "12px" }}>Fig. 2. Comparison of system architecture of various lightweight virtualization methods. Orange for kernel space, green for user space.<sup>[2]</sup></div>
-
+![Comparison-of-system-architecture](Comparison-of-system-architecture.png)
 
 #### Exploring OCI-compliant containerization technologies
 
@@ -67,8 +64,7 @@ The following paragraphs analyze several mainstream containerization technologie
    While runC's isolation approach does introduce some overhead, such overhead is confined to namespace mapping, constraints check, and certain accounting procedures, which is theoretically minimal. Furthermore, the accounting overhead can be ignored when syscalls involve lengthy operations. In general, the Namespace+Cgroup-based isolation approach has minimal impact on the CPU, memory, and I/O performance.
 
 
-<img src='https://kubeblocks.io/images/Architecture-of-runc.png'  alt="Architecture of  RunC"  width='80%' style={{margin: "0 10%"}} />
-<div style={{ display: "flex", justifyContent: "center", margin: "-6px 0 10px", fontSize: "12px" }}>Fig. 3. Architecture of RunC</div>
+![Architecture-of-runc](Architecture-of-runc.png)
 
 2. Kata Containers
 
@@ -76,9 +72,7 @@ The following paragraphs analyze several mainstream containerization technologie
 
    Each container gets its own virtual machine, complete with a unique kernel and user space, ensuring that applications are kept in their own secure compartments. This approach ramps up isolation, making it tough for containerized apps to peek into the host's resources. But there's a trade-off: the extra steps of booting up and managing these virtual machines might slow down syscalls and I/O operations a bit when compared to the classic container runtimes.
 
-<img src='https://kubeblocks.io/images/Architecture-of-Kata-Containers.png'  alt="Architecture of Kata Containers"  width='80%' style={{margin: "0 10%"}} />
-<div style={{ display: "flex", justifyContent: "center", margin: "-6px 0 10px", fontSize: "12px" }}>Fig. 4. Architecture of Kata Containers
-</div>
+![Architecture-of-Kata-Containers](Architecture-of-Kata-Containers.png)
 
 3. gVisor
 
@@ -86,9 +80,7 @@ The following paragraphs analyze several mainstream containerization technologie
 
    This clever design ensures that containerized applications are kept separate from the Host Kernel, preventing them from directly meddling with or accessing the host's resources. Although this approach significantly boosts security, it's worth noting that it might also lead to an increase in syscalls and I/O performance overhead when compared to standard container runtimes.
 
-<img src='https://kubeblocks.io/images/Architecture-of-gVisor.png'  alt="Architecture of gVisor"  width='80%' style={{margin: "0 10%"}} />
-<div style={{ display: "flex", justifyContent: "center", margin: "-6px 0 10px", fontSize: "12px" }}>Fig. 5. Architecture of gVisor
-</div>
+![Architecture-of-gVisor](Architecture-of-gVisor.png)
 
 4. Firecracker
 
@@ -96,9 +88,7 @@ The following paragraphs analyze several mainstream containerization technologie
    
    At its core, Firecracker uses KVM (Kernel-based Virtual Machine) for virtualization. Every container runs in its own VM, with its own kernel and root filesystem, and it interacts with the host system through separate virtual device emulators. This approach ensures a higher level of security and isolation. However, when compared to conventional container runtimes, Firecracker might result in a higher overhead for syscalls and I/O operations.
 
-<img src='https://kubeblocks.io/images/Architecture-of-Firecracker.png'  alt="Architecture of Firecracker"  width='80%' style={{margin: "0 10%"}} />
-<div style={{ display: "flex", justifyContent: "center", margin: "-6px 0 10px", fontSize: "12px" }}>Fig. 6. Architecture of Firecracker
-</div>
+![Architecture-of-Firecracker](Architecture-of-Firecracker.png)
 
 #### Comparing the fundamentals
 
@@ -161,8 +151,7 @@ Result: The CPU performance across different containers shows negligible differe
 
 Analysis: The observed 4% drop in performance is likely due to the CPU restrictions imposed by Cgroup. When the number of concurrent processes in Sysbench matches the number of Hyper Threads, there's a significant chance of Cgroup throttling. In such cases, the process must wait for a CFS period(100ms by default) due to the throttle. Cgroup allocates resources based on jiffies rather than seconds, making it nearly impossible for a container with 4 vCPUs to achieve 400% utilization. Some performance loss is expected, and the frequency of this throttling can be tracked in the cpu.stat file within the Cgroup.
 
-<img src='https://kubeblocks.io/images/CPU-performance-Sysbench-benchmark.png'  alt="CPU performance (Sysbench benchmark)"  width='80%' style={{margin: "0 10%"}} />
-<div style={{ display: "flex", justifyContent: "center", margin: "-6px 0 10px", fontSize: "12px" }}>Fig. 7. CPU performance (Sysbench benchmark) (Xingyu Wang 2022)</div>
+![CPU-performance-Sysbench-benchmark](CPU-performance-Sysbench-benchmark.png)
 
 Case: Video decoding is performed using Davi1d, and the video files are several hundred megabytes in size. This test involves a considerable amount of syscalls because it's necessary to read data from the disk. These syscalls can affect the performance of the application to some extent.
 
@@ -170,8 +159,7 @@ Result: The performance of runC and Kata-QEMU shows a decline of around 4%, whic
 
 Analysis: Video decoding involves sequential reading, and Linux has read-ahead optimization for sequential reads. Therefore, the majority of I/O operations directly read data from the page cache. RunC is primarily constrained by Cgroup limitations, while the other three solutions are more affected by how syscalls are executed. The paper does not further analyze the differences between gVisor-ptrace and gVisor-KVM. gVisor employs a component called gofer for file system operations, which comes with its unique caching approach. Further analysis may need to focus on gVisor's syscall processes and its caching mechanisms.
 
-<img src='https://kubeblocks.io/images/CPU-performance-Dav1d-benchmark.png'  alt="CPU performance (Dav1d benchmark)"  width='80%' style={{margin: "0 10%"}} />
-<div style={{ display: "flex", justifyContent: "center", margin: "-6px 0 10px", fontSize: "12px" }}>Fig. 8. CPU performance (Dav1d benchmark) (Xingyu Wang 2022)</div>
+![CPU-performance-Dav1d-benchmark](CPU-performance-Dav1d-benchmark.png)
 
 #### Memory
 
@@ -181,9 +169,7 @@ Result: The performance of various solutions is similar.
 
 Analysis: Once memory is allocated and page fault is handled, in theory, containerization should not have a significant impact on memory access. The real factors that affect memory performance are syscalls such as mmap and brk. However, in this test, the proportion of such syscalls is minimal.
 
-<img src='https://kubeblocks.io/images/Memory-access-performance.png'  alt="Memory access performance"  width='80%' style={{margin: "0 10%"}} />
-<div style={{ display: "flex", justifyContent: "center", margin: "-6px 0 10px", fontSize: "12px" }}>Fig. 9. Memory access performance (Xingyu Wang 2022)
-</div>
+![Memory-access-performance](Memory-access-performance.png)
 
 Case: Redis-Benchmark with sub-scenarios (GET, SET, LPUSH, LPOP, SADD).
 
@@ -191,8 +177,7 @@ Result: K8s+containerization has minimal impact on runC and Kata-QEMU, while gVi
 
 Analysis: Redis operates a single-threaded application with heavy network I/O. All network I/O operations are performed through syscalls, which significantly hampers gVisor's performance. The original paper mistakenly attributed the performance loss mainly to memory allocation. However, Redis internally uses jemalloc, the user-space memory management tool. Jemalloc leverages mmap syscalls to request large blocks of memory from the operating system and then allocates smaller blocks locally. Due to jemalloc's mature memory allocation and caching mechanisms, the frequency of mmap syscalls is minimal. When Redis is under full load, CPU sys usage for network I/O is around 70%. Thus, the main reason for gVisor's performance issues in this context is the overhead from intercepting syscalls and its internal network stack, known as netstack. This evaluation also suggests that gVisor is not an ideal choice for environments with intensive network I/O demands.
 
-<img src='https://kubeblocks.io/images/Redis-performance-for-different-container-runtimes.png'  alt="Redis performance for different container runtimes"  width='80%' style={{margin: "0 10%"}} />
-<div style={{ display: "flex", justifyContent: "center", margin: "-6px 0 10px", fontSize: "12px" }}>Fig. 10. Redis performance for different container runtimes (Xingyu Wang 2022)</div>
+![Redis-performance-for-different-container-runtimes](Redis-performance-for-different-container-runtimes.png)
 
 #### Disk I/O
 
@@ -202,8 +187,7 @@ Result: K8s + containerization shows negligible effects on sequential read and w
 
 Analysis: Reading and writing large blocks of data is, in essence, a sequential process. As previously discussed, sequential reading is enhanced by the operating system's ability to anticipate and prepare data in advance, with the bulk of sequential reading and writing tasks being handled by the page cache. The original study examined the effects on Kata-QEMU and identified the virtio-9p file system as the source of these impacts. The virtio-9p system was originally created for network applications and lacks tailored optimizations for use in virtual environments.
 
-<img src='https://kubeblocks.io/images/Disk-read-and-write-performance.png'  alt="Disk read and write performance"  width='80%' style={{margin: "0 10%"}} />
-<div style={{ display: "flex", justifyContent: "center", margin: "-6px 0 10px", fontSize: "12px" }}>Fig. 11. Disk read and write performance (Xingyu Wang 2022)</div>
+![Disk-read-and-write-performance](Disk-read-and-write-performance.png)
 
 Case: Conducting tests on tmpfs (a temporary file storage in shared memory) to isolate and assess the effects of syscalls and memory copying on performance.
 
@@ -211,8 +195,7 @@ Result: Except for gVisor, the performance of other solutions is similar.
 
 Analysis: gVisor incurs higher syscall overhead, resulting in similar performance degradation as observed in the redis-benchmark scenario.
 
-<img src='https://kubeblocks.io/images/Disk-read-and-write-performance-tmpfs-overlay.png'  alt="Disk read and write performance (tmpfs overlay)"  width='80%' style={{margin: "0 10%"}} />
-<div style={{ display: "flex", justifyContent: "center", margin: "-6px 0 10px", fontSize: "12px" }}>Fig. 12. Disk read and write performance (tmpfs overlay) (Xingyu Wang 2022)</div>
+![Disk-read-and-write-performance-tmpfs-overlay](Disk-read-and-write-performance-tmpfs-overlay.png)
 
 Case: A single-threaded SQLite data insertion benchmark, where shorter execution time is preferred.
 
@@ -220,8 +203,7 @@ Result: RunC performs similarly to bare metal, Kata has a 17% increase in execut
 
 Analysis: Database workloads are complex and involve a combination of CPU, memory, network, and disk I/O. They also frequently make syscall calls. In such intricate environments, gVisor may not be the optimal choice.
 
-<img src='https://kubeblocks.io/images/Database-record-insertion-performance%20.png'  alt="Database record insertion performance"  width='80%' style={{margin: "0 10%"}} />
-<div style={{ display: "flex", justifyContent: "center", margin: "-6px 0 10px", fontSize: "12px" }}>Fig. 13. Database record insertion performance (Xingyu Wang 2022)</div>
+![Database-record-insertion-performance](Database-record-insertion-performance.png)
 
 #### Network I/O
 
@@ -231,15 +213,13 @@ Result: gVisor exhibits poorer network performance, similar to what was observed
 
 Analysis: gVisor is limited by its syscall mechanism and netstack implementation, resulting in overall lower throughput.
 
-<img src='https://kubeblocks.io/images/TCP_STREAM-network-performance.png'  alt="TCP_STREAM network performance"  width='80%' style={{margin: "0 10%"}} />
-<div style={{ display: "flex", justifyContent: "center", margin: "-6px 0 10px", fontSize: "12px" }}>Fig. 14. TCP_STREAM network performance (Xingyu Wang 2022)</div>
+![TCP_STREAM-network-performance.png](TCP_STREAM-network-performance.png)
 
 Case: This case evaluates TCP_RR, TCP_CRR, and UDP_RR. RR stands for request and response, where the TCP connection is established only once and reused for subsequent requests. CRR indicates creating a new TCP connection for each test. TCP_RR corresponds to a long connection scenario, while TCP_CRR corresponds to a short connection scenario.
 
 Result: RunC performs similarly to bare metal; Kata experiences a small loss; gVisor still suffers from a substantial performance decline, the underlying principles of which are the same as mentioned before.
 
-<img src='https://kubeblocks.io/images/TCP_RR-TCP_CRR-and-UDP_RR-performance.png'  alt="TCP_RR, TCP_CRR and UDP_RR performance"  width='80%' style={{margin: "0 10%"}} />
-<div style={{ display: "flex", justifyContent: "center", margin: "-6px 0 10px", fontSize: "12px" }}>Fig. 15. TCP_RR, TCP_CRR and UDP_RR performance (Xingyu Wang 2022)</div>
+![TCP_RR-TCP_CRR-and-UDP_RR-performance](TCP_RR-TCP_CRR-and-UDP_RR-performance.png)
 
 #### CNI network
 
@@ -257,9 +237,7 @@ eBPF-based host-routing：
 
 In the new eBPF-based routing mode, Cilium no longer relies on iptables. Instead, it leverages the extended Berkeley Packet Filter (eBPF) of the Linux kernel for packet filtering and forwarding. eBPF host-routing allows bypassing all iptables and upper stack overhead within the host namespace, as well as reducing some context switch overhead during traversal of virtual network interfaces. Network packets are captured early from the network device facing network and directly delivered into the network namespace of the K8s Pod. For outgoing traffic, packets continue to pass through a veth pair, but are swiftly captured by eBPF and sent straight to the external network interface. eBPF directly consults the routing tables, ensuring that this enhancement is fully transparent and seamlessly integrates with any other routing services operating on the system.
 
-<img src='https://kubeblocks.io/images/Comparison-of-legacy-and-eBPF-container-networking.png'  alt="Comparison of legacy and eBPF container networking"  width='80%' style={{margin: "0 10%"}} />
-<div style={{ display: "flex", justifyContent: "center", margin: "-6px 0 10px", fontSize: "12px" }}>Fig. 16. Comparison of legacy and eBPF container networking<sup>[6]</sup>
-</div>
+![Comparison-of-legacy-and-eBPF-container-networking](Comparison-of-legacy-and-eBPF-container-networking.png)
 
 Test environment:
 
@@ -291,22 +269,15 @@ Result:
 
 Legacy host-routing with iptables:
 
-<img src='https://kubeblocks.io/images/Redis-benchmark-under-legacy-host-routing-with-iptables.png'  alt="Redis benchmark under legacy host-routing with iptables"  width='80%' style={{margin: "0 10%"}} />
-<div style={{ display: "flex", justifyContent: "center", margin: "-6px 0 10px", fontSize: "12px" }}>Fig. 17. Redis benchmark under legacy host-routing with iptables</div>
+![Redis-benchmark-under-legacy-host-routing-with-iptables](Redis-benchmark-under-legacy-host-routing-with-iptables.png)
 
-<img src='https://kubeblocks.io/images/Comparison-between-Host-network-and-Pod-network-under-legacy-host-routing.png'  alt="Comparison between Host network and Pod network under legacy host-routing"  width='80%' style={{margin: "0 10%"}} />
-<div style={{ display: "flex", justifyContent: "center", margin: "-6px 0 10px", fontSize: "12px" }}>Fig. 18. Comparison between Host network and Pod network under legacy host-routing
-</div>
+![Comparison-between-Host-network-and-Pod-network-under-legacy-host-routing](Comparison-between-Host-network-and-Pod-network-under-legacy-host-routing.png)
 
 eBPF-based host-routing:
 
-<img src='https://kubeblocks.io/images/Redis-benchmark-under-eBPF-based-host-routing.png'  alt="Redis benchmark under eBPF-based host-routing"  width='80%' style={{margin: "0 10%"}} />
-<div style={{ display: "flex", justifyContent: "center", margin: "-6px 0 10px", fontSize: "12px" }}>Fig. 19. Redis benchmark under eBPF-based host-routing
-</div>
+![Redis-benchmark-under-eBPF-based-host-routing](Redis-benchmark-under-eBPF-based-host-routing.png)
 
-<img src='https://kubeblocks.io/images/Comparison-between-Host-network-and-Pod-network-under-eBPF-based-host-routing.png'  alt="Comparison between Host network and Pod network under eBPF-based host-routing"  width='80%' style={{margin: "0 10%"}} />
-<div style={{ display: "flex", justifyContent: "center", margin: "-6px 0 10px", fontSize: "12px" }}>Fig. 20. Comparison between Host network and Pod network under eBPF-based host-routing
-</div>
+![Comparison-between-Host-network-and-Pod-network-under-eBPF-based-host-routing](Comparison-between-Host-network-and-Pod-network-under-eBPF-based-host-routing.png)
 
 Analysis: Traditional host-routing methods can drag down network efficiency, creating a substantial 40% performance gap between Pod networks and host networks. However, using eBPF for host-routing can significantly level the playing field, bringing the response times of Pod and host networks much closer together. This improvement holds up no matter how complex the routing rules are, effectively closing the performance rift between the two types of networks. This advancement is a game-changer, especially for applications that rely heavily on network performance, such as Redis.
 
