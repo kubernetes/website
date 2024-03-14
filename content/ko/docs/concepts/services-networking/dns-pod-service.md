@@ -306,7 +306,7 @@ spec:
 컨테이너 `test`의 `/etc/resolv.conf` 파일에는 다음과 같은 내용이 추가된다.
 
 ```
-nameserver 1.2.3.4
+nameserver 192.0.2.1
 search ns1.svc.cluster-domain.example my.dns.search.suffix
 options ndots:2 edns0
 ```
