@@ -84,7 +84,6 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
 
    cat << EOF > /etc/systemd/system/kubelet.service.d/20-etcd-service-manager.conf
    [Service]
-   ExecStart=
    ExecStart=/usr/bin/kubelet --config=/etc/systemd/system/kubelet.service.d/kubelet.conf
    Restart=always
    EOF

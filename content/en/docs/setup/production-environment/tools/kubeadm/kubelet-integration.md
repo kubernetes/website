@@ -184,7 +184,6 @@ EnvironmentFile=-/var/lib/kubelet/kubeadm-flags.env
 # the user should use the .NodeRegistration.KubeletExtraArgs object in the configuration files instead.
 # KUBELET_EXTRA_ARGS should be sourced from this file.
 EnvironmentFile=-/etc/default/kubelet
-ExecStart=
 ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_CONFIG_ARGS $KUBELET_KUBEADM_ARGS $KUBELET_EXTRA_ARGS
 ```
 
