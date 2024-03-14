@@ -511,7 +511,7 @@ description = "Довершена система оркестрації конт
 languageNameLatinScript = "Ukrainian"
 
 [languages.ar]
-title = "كوبرنيتيز"
+title = "كوبيرنيتيس"
 languageName = "العربية (Arabic)"
 weight = 17
 contentDir = "content/ar"
