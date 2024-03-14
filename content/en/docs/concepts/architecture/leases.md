@@ -1,5 +1,8 @@
 ---
 title: Leases
+api_metadata:
+- apiVersion: "coordination.k8s.io/v1"
+  kind: "Lease"
 content_type: concept
 weight: 30
 ---
