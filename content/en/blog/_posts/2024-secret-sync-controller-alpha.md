@@ -1,4 +1,3 @@
-
 ---
 layout: blog
 title: "Introducing Secret Sync Controller Alpha for Kubernetes "
