@@ -180,7 +180,6 @@ Vous pouvez utiliser un [ContainerPort](/docs/reference/generated/kubernetes-api
 ports:
 - name: liveness-port
   containerPort: 8080
-  hostPort: 8080
 
 livenessProbe:
   httpGet:
@@ -200,7 +199,6 @@ Ainsi, l'exemple précédent deviendrait :
 ports:
 - name: liveness-port
   containerPort: 8080
-  hostPort: 8080
 
 livenessProbe:
   httpGet:
