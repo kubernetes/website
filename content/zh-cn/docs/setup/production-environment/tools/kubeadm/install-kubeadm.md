@@ -116,15 +116,15 @@ route, we recommend you add IP route(s) so Kubernetes cluster addresses go via t
 These
 These [required ports](/docs/reference/networking/ports-and-protocols/)
 need to be open in order for Kubernetes components to communicate with each other.
-You can use tools like netcat to check if a port is open. For example:
+You can use tools like [netcat](https://netcat.sourceforge.net) to check if a port is open. For example:
 -->
 ## 检查所需端口{#check-required-ports}
 
 启用这些[必要的端口](/zh-cn/docs/reference/networking/ports-and-protocols/)后才能使 Kubernetes 的各组件相互通信。
-可以使用 netcat 之类的工具来检查端口是否启用，例如：
+可以使用 [netcat](https://netcat.sourceforge.net) 之类的工具来检查端口是否开放，例如：
 
 ```shell
-nc 127.0.0.1 6443
+nc 127.0.0.1 6443 -v
 ```
 
 <!--
