@@ -13,8 +13,7 @@ one of the critical components of the
 
 This document covers how to improve the security posture of the Schduler.
 
-A misconfigured Scheduler can have security implications. Such a scheduler can target specific nodes and evict the services sharing the node. This can aid an attacker with a [Yo-Yo attack](https://arxiv.org/abs/2105.00542) which is an attack on a vulnerable autoscaler.
-
+A misconfigured scheduler can have security implications. Such a scheduler can target specific nodes and evict the workloads or applications that are sharing the node and its resources. This can aid an attacker with a [Yo-Yo attack](https://arxiv.org/abs/2105.00542): an attack on a vulnerable autoscaler.
 <!-- body -->
 ## kube-scheduler configurations
 
@@ -78,4 +77,9 @@ profiles:
         disabled:
         - name: '*'
 ```
-This creates 2 scheduler profiles `default-scheduler` and ` my-custom-scheduler`. Whenever a podSpec does not have `.spec.schedulerName`, the kube-apiserver will use default plugin. The other option for pods would be to use `my-custom-scheduler` which has `queueSort`, `filter` and `permit` extension points disabled.
+This creates two scheduler profiles: `default-scheduler` and ` my-custom-scheduler`.
+Whenever the `.spec` of a Pod does not have a value for `.spec.schedulerName`,
+the kube-scheduler runs for that Pod, using its main configuration, and default plugin.
+If you define a Pod with `.spec.schedulerName` set to `my-custom-scheduler`, the
+kube-scheduler also runs but with a custom configuration; in that custom configuration, the  `queueSort`, `filter` and `permit` extension points are disabled.
+If you use this kube-scheduler configuration, and don't run any custom scheduler, and you then define a Pod with  `.spec.schedulerName` set to `nonexistent-scheduler` (or any other scheduler name that doesn't exist in your cluster), then the Pod stays pending scheduling. You would see a `FailedScheduling` event for the Pod and could manually remove that Pod using `kubectl delete`.
