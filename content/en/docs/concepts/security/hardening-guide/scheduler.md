@@ -19,29 +19,29 @@ A misconfigured scheduler can have security implications. Such a scheduler can t
 
 ### Scheduler Authentication & Authorization configuration options
 {{<table caption="Authentication and Authorization Configurations">}}
-| Configuration | Description | Security hardening advice |
-| --- | :--- | --- |
-|`--authentication-kubeconfig`|kubeconfig file pointing at the 'core' kubernetes server with enough rights to create tokenreviews.authentication.k8s.io. This is optional. If empty, all token requests are considered to be anonymous and no client CA is looked up in the cluster. |Make sure to provide a proper kubeconfig so that the server calls are secure. This kubeconfig file should also maintained securely.|
-|`--authentication-tolerate-lookup-failure`| If true, failures to look up missing authentication configuration from the cluster are not considered fatal. Note that this can result in authentication that treats all requests as anonymous. |Set to `false` to make sure invalid authentication configurations do not lead to requests passing off as anonymous |
-|`--authentication-skip-lookup`| If true, kube-scheduler will not lookup any authentication configuration from the provided kube-config. |This should be set to `false` to make sure all missing authentication configuration falls back to the authentication kubeconfig.|
-|`--authorization-always-allow-paths`| A list of HTTP paths to skip during authorization, i.e. these are authorized without contacting the 'core' kubernetes server. |These paths should respond with data that is appropriate for anonymous authorization. Defaults to `/healthz,/readyz,/livez`.|
+| Configuration | Security hardening advice |
+| --- | --- |
+|`--authentication-kubeconfig` | Make sure to provide a proper kubeconfig so that the server calls are secure. This kubeconfig file should also maintained securely.|
+|`--authentication-tolerate-lookup-failure` | Set to `false` to make sure invalid authentication configurations do not lead to requests passing off as anonymous |
+|`--authentication-skip-lookup` | This should be set to `false` to make sure all missing authentication configuration falls back to the authentication kubeconfig.|
+|`--authorization-always-allow-paths` | These paths should respond with data that is appropriate for anonymous authorization. Defaults to `/healthz,/readyz,/livez`.|
 {{</table>}}
 
 ### Address configuration options
 {{<table caption="Address Configurations">}}
-| Configuration | Description | Security hardening advice |
-| --- | --- | --- |
-|`--bind-address`| The IP address on which to listen for the `--secure-port` port (mainly used for metrics and health checks). If blank or an unspecified address (`0.0.0.0` for IPv4 or `::` for IPv6), all interfaces and IP address families will be used. |In most cases, the kube-scheduler does not need to be externally accessible. Setting the bind address to `localhost` is a secure practice.|
-|`--permit-address-sharing` |If true, the kube-scheduler uses the `SO_REUSEADDR` socket option when binding its listening port, which allows more than one kube-scheduler process to bind on the same address and port. This allows binding to wildcard IP addresses (such as 0.0.0.0), or binding to specific IP addresess in parallel, and it avoids waiting for the kernel to release sockets in `TIME_WAIT` state.|Set this configuration to `false` to  disable connection sharing through `SO_REUSEADDR`. `SO_REUSEADDR` can lead to reuse of terminated connections that are in `TIME_WAIT` state.|
-|`--permit-port-sharing`|If true, the kube-scheduler uses the `SO_REUSEPORT` socket option when binding its listening port, which allows more than one kube-scheduler process to bind on the same address and port.|Default `false`. Use the default unless you are confident you understand the security implications.|
+| Configuration | Security hardening advice |
+| --- | --- |
+|`--bind-address`| In most cases, the kube-scheduler does not need to be externally accessible. Setting the bind address to `localhost` is a secure practice.|
+|`--permit-address-sharing` | Set this configuration to `false` to  disable connection sharing through `SO_REUSEADDR`. `SO_REUSEADDR` can lead to reuse of terminated connections that are in `TIME_WAIT` state.|
+|`--permit-port-sharing`| Default `false`. Use the default unless you are confident you understand the security implications.|
 {{</table>}}
 
 ### TLS configuration options
 {{<table caption="Address Configurations">}}
-| Configuration | Description | Security hardening advice |
-| --- | --- | --- |
-|`--requestheader-client-ca-file`|Root certificate bundle to use to verify client certificates on incoming requests before trusting usernames in headers specified by --requestheader-username-headers.|Generally do not depend on authorization being already done for incoming requests. Always provide the root certificate bundle. This allows authorization to happen on each incoming request through `requestheader-allowed-names`.|
-|`--tls-cipher-suites strings`|Comma-separated list of cipher suites for the server. If omitted, the default Go cipher suites will be used.|Always provide a list of preferred cipher suites. This ensures encryption never happens with insecure cipher suites.|
+| Configuration | Security hardening advice |
+| --- | --- |
+|`--requestheader-client-ca-file` | Generally do not depend on authorization being already done for incoming requests. Always provide the root certificate bundle. This allows authorization to happen on each incoming request through `requestheader-allowed-names`.|
+|`--tls-cipher-suites strings` | Always provide a list of preferred cipher suites. This ensures encryption never happens with insecure cipher suites.|
 {{</table>}}
 
 ## Scheduling configurations
