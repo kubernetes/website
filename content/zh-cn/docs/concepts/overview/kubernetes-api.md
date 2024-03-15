@@ -43,39 +43,222 @@ Kubernetes API 使你可以在 Kubernetes 中查询和操纵 API 对象
 （例如 Pod、Namespace、ConfigMap 和 Event）的状态。
 
 <!--
-Most operations can be performed through the
-[kubectl](/docs/reference/kubectl/) command-line interface or other
-command-line tools, such as
-[kubeadm](/docs/reference/setup-tools/kubeadm/), which in turn use the
-API. However, you can also access the API directly using REST calls.
-
-Consider using one of the [client libraries](/docs/reference/using-api/client-libraries/)
-if you are writing an application using the Kubernetes API.
+Most operations can be performed through the [kubectl](/docs/reference/kubectl/)
+command-line interface or other command-line tools, such as
+[kubeadm](/docs/reference/setup-tools/kubeadm/), which in turn use the API.
+However, you can also access the API directly using REST calls. Kubernetes
+provides a set of [client libraries](/docs/reference/using-api/client-libraries/)
+for those looking to
+write applications using the Kubernetes API.
 -->
 大部分操作都可以通过 [kubectl](/zh-cn/docs/reference/kubectl/) 命令行接口或类似
 [kubeadm](/zh-cn/docs/reference/setup-tools/kubeadm/) 这类命令行工具来执行，
 这些工具在背后也是调用 API。不过，你也可以使用 REST 调用来访问这些 API。
+Kubernetes 为那些希望使用 Kubernetes API
+编写应用的开发者提供一组[客户端库](/zh-cn/docs/reference/using-api/client-libraries/)。
 
-如果你正在编写程序来访问 Kubernetes API，
-可以考虑使用[客户端库](/zh-cn/docs/reference/using-api/client-libraries/)之一。
+<!--
+Each Kubernetes cluster publishes the specification of the APIs that the cluster serves.
+There are two mechanisms that Kubernetes uses to publish these API specifications; both are useful
+to enable automatic interoperability. For example, the `kubectl` tool fetches and caches the API
+specification for enabling command-line completion and other features.
+The two supported mechanisms are as follows:
+-->
+每个 Kubernetes 集群都会发布集群所使用的 API 规范。
+Kubernetes 使用两种机制来发布这些 API 规范；这两种机制都有助于实现自动互操作。
+例如，`kubectl` 工具获取并缓存 API 规范，以实现命令行补全和其他特性。所支持的两种机制如下：
+
+<!--
+- [The Discovery API](#discovery-api) provides information about the Kubernetes APIs:
+  API names, resources, versions, and supported operations. This is a Kubernetes
+  specific term as it is a separate API from the Kubernetes OpenAPI.
+  It is intended to be a brief summary of the available resources and it does not
+  detail specific schema for the resources. For reference about resource schemas,
+  please refer to the OpenAPI document.
+-->
+- [发现 API](#discovery-api) 提供有关 Kubernetes API 的信息：API 名称、资源、版本和支持的操作。
+  此 API 是特定于 Kubernetes 的一个术语，因为它是一个独立于 Kubernetes OpenAPI 的 API。
+  其目的是为可用的资源提供简要总结，不详细说明资源的具体模式。有关资源模式的参考，请参阅 OpenAPI 文档。
+
+<!--
+- The [Kubernetes OpenAPI Document](#openapi-specification) provides (full)
+  [OpenAPI v2.0 and 3.0 schemas](https://www.openapis.org/) for all Kubernetes API
+endpoints.
+  The OpenAPI v3 is the preferred method for accessing OpenAPI as it
+provides
+  a more comprehensive and accurate view of the API. It includes all the available
+  API paths, as well as all resources consumed and produced for every operations
+  on every endpoints. It also includes any extensibility components that a cluster supports.
+  The data is a complete specification and is significantly larger than that from the
+  Discovery API.
+-->
+- [Kubernetes OpenAPI 文档](#openapi-specification)为所有 Kubernetes API 端点提供（完整的）
+  [OpenAPI v2.0 和 v3.0 模式](https://www.openapis.org/)。OpenAPI v3 是访问 OpenAPI 的首选方法，
+  因为它提供了更全面和准确的 API 视图。其中包括所有可用的 API 路径，以及每个端点上每个操作所接收和生成的所有资源。
+  它还包括集群支持的所有可扩展组件。这些数据是完整的规范，比 Discovery API 提供的规范要大得多。
+
+<!--
+## Discovery API
+
+Kubernetes publishes a list of all group versions and resources supported via
+the Discovery API. This includes the following for each resource:
+-->
+## Discovery API
+
+Kubernetes 通过 Discovery API 发布集群所支持的所有组版本和资源列表。对于每个资源，包括以下内容：
+
+<!--
+- Name
+- Cluster or namespaced scope
+- Endpoint URL and supported verbs
+- Alternative names
+- Group, version, kind
+-->
+- 名称
+- 集群作用域还是名字空间作用域
+- 端点 URL 和所支持的动词
+- 别名
+- 组、版本、类别
+
+<!--
+The API is available both aggregated and unaggregated form. The aggregated
+discovery serves two endpoints while the unaggregated discovery serves a
+separate endpoint for each group version.
+-->
+API 以聚合和非聚合形式提供。聚合的发现提供两个端点，而非聚合的发现为每个组版本提供单独的端点。
+
+<!--
+### Aggregated discovery
+-->
+### 聚合的发现   {#aggregated-discovery}
+
+{{< feature-state state="beta" for_k8s_version="v1.27" >}}
+
+<!--
+Kubernetes offers beta support for aggregated discovery, publishing
+all resources supported by a cluster through two endpoints (`/api` and
+`/apis`). Requesting this
+endpoint drastically reduces the number of requests sent to fetch the
+discovery data from the cluster. You can access the data by
+requesting the respective endpoints with an `Accept` header indicating
+the aggregated discovery resource:
+`Accept: application/json;v=v2beta1;g=apidiscovery.k8s.io;as=APIGroupDiscoveryList`.
+-->
+Kubernetes 为聚合的发现提供了 Beta 支持，通过两个端点（`/api` 和 `/apis`）发布集群所支持的所有资源。
+请求这个端点会大大减少从集群获取发现数据时发送的请求数量。你可以通过带有
+`Accept` 头（`Accept: application/json;v=v2beta1;g=apidiscovery.k8s.io;as=APIGroupDiscoveryList`）
+的请求发送到不同端点，来指明聚合发现的资源。
+
+<!--
+Without indicating the resource type using the `Accept` header, the default
+response for the `/api` and `/apis` endpoint is an unaggregated discovery
+document.
+-->
+如果没有使用 `Accept` 头指示资源类型，对于 `/api` 和 `/apis` 端点的默认响应将是一个非聚合的发现文档。
+
+<!--
+The [discovery document](https://github.com/kubernetes/kubernetes/blob/release-v{{< skew currentVersion >}}/api/discovery/aggregated_v2beta1.json)
+for the built-in resources can be found in the Kubernetes GitHub repository.
+This Github document can be used as a reference of the base set of the available resources
+if a Kubernetes cluster is not available to query.
+
+The endpoint also supports ETag and protobuf encoding.
+-->
+内置资源的[发现文档](https://github.com/kubernetes/kubernetes/blob/release-v{{< skew currentVersion >}}/api/discovery/aggregated_v2beta1.json)可以在
+Kubernetes GitHub 代码仓库中找到。如果手头没有 Kubernetes 集群可供查询，
+此 Github 文档可用作可用资源的基础集合的参考。端点还支持 ETag 和 protobuf 编码。
+
+<!--
+### Unaggregated discovery
+
+Without discovery aggregation, discovery is published in levels, with the root
+endpoints publishing discovery information for downstream documents.
+
+A list of all group versions supported by a cluster is published at
+the `/api` and `/apis` endpoints. Example:
+-->
+### 非聚合的发现   {#unaggregated-discovery}
+
+在不使用聚合发现的情况下，发现 API 以不同级别发布，同时根端点为下游文档发布发现信息。
+
+集群支持的所有组版本列表发布在 `/api` 和 `/apis` 端点。例如：
+
+```
+{
+  "kind": "APIGroupList",
+  "apiVersion": "v1",
+  "groups": [
+    {
+      "name": "apiregistration.k8s.io",
+      "versions": [
+        {
+          "groupVersion": "apiregistration.k8s.io/v1",
+          "version": "v1"
+        }
+      ],
+      "preferredVersion": {
+        "groupVersion": "apiregistration.k8s.io/v1",
+        "version": "v1"
+      }
+    },
+    {
+      "name": "apps",
+      "versions": [
+        {
+          "groupVersion": "apps/v1",
+          "version": "v1"
+        }
+      ],
+      "preferredVersion": {
+        "groupVersion": "apps/v1",
+        "version": "v1"
+      }
+    },
+    ...
+}
+```
+
+<!--
+Additional requests are needed to obtain the discovery document for each group version at
+`/apis/<group>/<version>` (for example:
+`/apis/rbac.authorization.k8s.io/v1alpha1`), which advertises the list of
+resources served under a particular group version. These endpoints are used by
+kubectl to fetch the list of resources supported by a cluster.
+-->
+用户需要发出额外的请求才能在 `/apis/<group>/<version>`（例如 `/apis/rbac.authorization.k8s.io/v1alpha1`）
+获取每个组版本的发现文档。这些发现文档会公布在特定组版本下所提供的资源列表。
+kubectl 使用这些端点来获取某集群所支持的资源列表。
 
 <!-- body -->
 
+<a id="#api-specification" />
+
 <!--
-## OpenAPI specification {#api-specification}
+## OpenAPI interface definition
 
-Complete API details are documented using [OpenAPI](https://www.openapis.org/).
+For details about the OpenAPI specifications, see the [OpenAPI documentation](https://www.openapis.org/).
 
+Kubernetes serves both OpenAPI v2.0 and OpenAPI v3.0. OpenAPI v3 is the
+preferred method of accessing the OpenAPI because it offers a more comprehensive
+(lossless) representation of Kubernetes resources. Due to limitations of OpenAPI
+version 2, certain fields are dropped from the published OpenAPI including but not
+limited to `default`, `nullable`, `oneOf`.
+-->
+## OpenAPI 接口定义   {#openapi-interface-definition}
+
+有关 OpenAPI 规范的细节，参阅 [OpenAPI 文档](https://www.openapis.org/)。
+
+Kubernetes 同时提供 OpenAPI v2.0 和 OpenAPI v3.0。OpenAPI v3 是访问 OpenAPI 的首选方法，
+因为它提供了对 Kubernetes 资源更全面（无损）的表示。由于 OpenAPI v2 的限制，
+所公布的 OpenAPI 中会丢弃掉一些字段，包括但不限于 `default`、`nullable`、`oneOf`。
+
+<!--
 ### OpenAPI V2
 
 The Kubernetes API server serves an aggregated OpenAPI v2 spec via the
 `/openapi/v2` endpoint. You can request the response format using
 request headers as follows:
 -->
-## OpenAPI 规范     {#api-specification}
-
-完整的 API 细节是用 [OpenAPI](https://www.openapis.org/) 来表述的。
-
 ### OpenAPI v2
 
 Kubernetes API 服务器通过 `/openapi/v2` 端点提供聚合的 OpenAPI v2 规范。
@@ -144,21 +327,9 @@ Kubernetes API 服务器通过 `/openapi/v2` 端点提供聚合的 OpenAPI v2 �
   </tbody>
 </table>
 
-<!--
-Kubernetes implements an alternative Protobuf based serialization format that
-is primarily intended for intra-cluster communication. For more information
-about this format, see the [Kubernetes Protobuf serialization](https://git.k8s.io/design-proposals-archive/api-machinery/protobuf.md) design proposal and the
-Interface Definition Language (IDL) files for each schema located in the Go
-packages that define the API objects.
--->
-Kubernetes 为 API 实现了一种基于 Protobuf 的序列化格式，主要用于集群内部通信。
-关于此格式的详细信息，可参考
-[Kubernetes Protobuf 序列化](https://git.k8s.io/design-proposals-archive/api-machinery/protobuf.md)设计提案。
-每种模式对应的接口描述语言（IDL）位于定义 API 对象的 Go 包中。
-
 ### OpenAPI v3
 
-{{< feature-state state="stable"  for_k8s_version="v1.27" >}}
+{{< feature-state feature_gate_name="OpenAPIV3" >}}
 
 <!--
 Kubernetes supports publishing a description of its APIs as OpenAPI v3.
@@ -245,9 +416,34 @@ Kubernetes API 服务器会在端点 `/openapi/v3/apis/<group>/<version>?hash=<h
 </table>
 
 <!--
-A Golang implementation to fetch the OpenAPI V3 is provided in the package `k8s.io/client-go/openapi3`.
+A Golang implementation to fetch the OpenAPI V3 is provided in the package
+[`k8s.io/client-go/openapi3`](https://pkg.go.dev/k8s.io/client-go/openapi3).
+
+Kubernetes {{< skew currentVersion >}} publishes
+OpenAPI v2.0 and v3.0; there are no plans to support 3.1 in the near future.
 -->
-`k8s.io/client-go/openapi3` 包中提供了获取 OpenAPI v3 的 Golang 实现。
+[`k8s.io/client-go/openapi3`](https://pkg.go.dev/k8s.io/client-go/openapi3)
+包中提供了获取 OpenAPI v3 的 Golang 实现。
+
+Kubernetes {{< skew currentVersion >}} 发布了 OpenAPI v2.0 和 v3.0；
+近期没有支持 v3.1 的计划。
+
+<!--
+### Protobuf serialization
+
+Kubernetes implements an alternative Protobuf based serialization format that
+is primarily intended for intra-cluster communication. For more information
+about this format, see the [Kubernetes Protobuf serialization](https://git.k8s.io/design-proposals-archive/api-machinery/protobuf.md)
+design proposal and the
+Interface Definition Language (IDL) files for each schema located in the Go
+packages that define the API objects.
+-->
+### Protobuf 序列化   {#protobuf-serialization}
+
+Kubernetes 为 API 实现了一种基于 Protobuf 的序列化格式，主要用于集群内部通信。
+关于此格式的详细信息，可参考
+[Kubernetes Protobuf 序列化](https://git.k8s.io/design-proposals-archive/api-machinery/protobuf.md)设计提案。
+每种模式对应的接口描述语言（IDL）位于定义 API 对象的 Go 包中。
 
 <!--
 ## Persistence

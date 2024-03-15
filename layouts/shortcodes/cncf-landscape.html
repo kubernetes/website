@@ -57,7 +57,6 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 {{- end -}}
 <div id="frameHolder">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.9/iframeResizer.min.js"></script>
   {{ if ( .Get "category" ) }}
   <iframe id="iframe-landscape" src="https://landscape.cncf.io/embed/embed.html?key={{ .Get "category" }}&headers=false&style=shadowed&size=md&bg-color=%233371e3&fg-color=%23ffffff&iframe-resizer=true" style="width: 1px; min-width: 100%; min-height: 100px; border: 0;"></iframe>
   <script>
