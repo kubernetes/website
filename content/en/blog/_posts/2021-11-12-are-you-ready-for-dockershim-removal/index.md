@@ -64,7 +64,7 @@ time to review the [dockershim migration documentation](/docs/tasks/administer-c
 and consult your Kubernetes hosting vendor (if you have one) what container runtime options are available for you.
 Read up [container runtime documentation with instructions on how to use containerd and CRI-O](/docs/setup/production-environment/container-runtimes/#container-runtimes)
 to help prepare you when you're ready to upgrade to 1.24. CRI-O, containerd, and
-Docker with [Mirantis cri-dockerd](https://github.com/Mirantis/cri-dockerd) are
+Docker with [Mirantis cri-dockerd](https://mirantis.github.io/cri-dockerd/) are
 not the only container runtime options, we encourage you to explore the [CNCF landscape on container runtimes](https://landscape.cncf.io/?group=projects-and-products&view-mode=card#runtime--container-runtime)
 in case another suits you better.
 
