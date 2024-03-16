@@ -368,7 +368,7 @@ The **extensions/v1beta1**, **apps/v1beta1**, and **apps/v1beta2** API versions 
 
 The **extensions/v1beta1** API version of PodSecurityPolicy is no longer served as of v1.16.
 
-* Migrate manifests and API client to use the **policy/v1beta1** API version, available since v1.10.
+* Migrate manifests and API clients to use the **policy/v1beta1** API version, available since v1.10.
 * Note that the **policy/v1beta1** API version of PodSecurityPolicy will be removed in v1.25.
 
 ## What to do
