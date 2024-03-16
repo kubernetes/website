@@ -1,6 +1,4 @@
 ---
-reviewers:
-- erictune
 title: Pods
 content_type: concept
 weight: 10
