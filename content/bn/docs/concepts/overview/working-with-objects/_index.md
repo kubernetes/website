@@ -115,7 +115,7 @@ Pod API রেফারেন্স এর জন্য।
 প্রতিটি Pod এর জন্য, `.spec` ক্ষেত্রটি পড এবং তার কাঙ্ক্ষিত অবস্থা (যেমন সেই পডের মধ্যে প্রতিটি কন্টেইনারের জন্য কন্টেইনার ইমেজের নাম) 
 নির্দিষ্ট করে৷
 আরও একটি অবজেক্ট স্পেসিফিকেশনের উদাহরণ হল
-[`spec` ফিল্ড](/docs/reference/kubernetes-api/workload-resources/stateful-set-v1/#StatefulSetSpec)
+[`spec` ফিল্ড](/bn/docs/reference/kubernetes-api/workload-resources/stateful-set-v1/#StatefulSetSpec)
 StatefulSet API এর জন্য। StatefulSet এর জন্য, `.spec` ফিল্ড নির্দিষ্ট করে এবং সেট করে
 এর অবস্থা।
 StatefulSet এর `.spec` এর মধ্যে একটি [টেমপ্লেট](/bn/docs/concepts/workloads/pods/#pod-templates)
