@@ -320,7 +320,7 @@ Pod 级别的 `restartPolicy` 字段：在 Kubernetes 中，Sidecar 被定义为
 When the kubelet is handling container restarts according to the configured restart
 policy, that only applies to restarts that make replacement containers inside the
 same Pod and running on the same node. After containers in a Pod exit, the kubelet
-restarts them with an exponential back-off delay (10s, 20s,40s, …), that is capped at
+restarts them with an exponential back-off delay (10s, 20s, 40s, …), that is capped at
 five minutes. Once a container has executed for 10 minutes without any problems, the
 kubelet resets the restart backoff timer for that container.
 [Sidecar containers and Pod lifecycle](/docs/concepts/workloads/pods/sidecar-containers/#sidecar-containers-and-pod-lifecycle)

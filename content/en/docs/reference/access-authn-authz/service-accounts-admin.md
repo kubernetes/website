@@ -62,7 +62,7 @@ for a number of reasons:
 
 ## Bound service account token volume mechanism {#bound-service-account-token-volume}
 
-{{< feature-state for_k8s_version="v1.22" state="stable" >}}
+{{< feature-state feature_gate_name="BoundServiceAccountTokenVolume" >}}
 
 By default, the Kubernetes control plane (specifically, the
 [ServiceAccount admission controller](#serviceaccount-admission-controller)) 
@@ -249,7 +249,7 @@ it does the following when a Pod is created:
 
 ### Legacy ServiceAccount token tracking controller
 
-{{< feature-state for_k8s_version="v1.28" state="stable" >}}
+{{< feature-state feature_gate_name="LegacyServiceAccountTokenTracking" >}}
 
 This controller generates a ConfigMap called
 `kube-system/kube-apiserver-legacy-service-account-token-tracking` in the
@@ -258,7 +258,7 @@ account tokens began to be monitored by the system.
 
 ### Legacy ServiceAccount token cleaner
 
-{{< feature-state for_k8s_version="v1.29" state="beta" >}}
+{{< feature-state feature_gate_name="LegacyServiceAccountTokenCleanUp" >}}
 
 The legacy ServiceAccount token cleaner runs as part of the
 `kube-controller-manager` and checks every 24 hours to see if any auto-generated

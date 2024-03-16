@@ -367,26 +367,22 @@ Go 标准库中的时区数据库包含在二进制文件中，并用作备用�
 ### 不支持的时区规范   {#unsupported-timezone-spec}
 
 <!--
-The implementation of the CronJob API in Kubernetes {{< skew currentVersion >}} lets you set
-the `.spec.schedule` field to include a timezone; for example: `CRON_TZ=UTC * * * * *`
-or `TZ=UTC * * * * *`.
+Specifying a timezone using `CRON_TZ` or `TZ` variables inside `.spec.schedule`
+is **not officially supported** (and never has been).
 -->
-Kubernetes {{< skew currentVersion >}} 中的 CronJob API 实现允许你设置
-`.spec.schedule` 字段，在其中包括时区信息；
-例如 `CRON_TZ=UTC * * * * *` 或 `TZ=UTC * * * * *`。
+在 `.spec.schedule` 中通过 `CRON_TZ` 或 `TZ` 变量来指定时区**并未得到官方支持**（而且从未支持过）。
 
 <!--
-Specifying a timezone that way is **not officially supported** (and never has been).
-
-If you try to set a schedule that includes `TZ` or `CRON_TZ` timezone specification,
-Kubernetes reports a [warning](/blog/2020/09/03/warnings/) to the client.
-Future versions of Kubernetes will prevent setting the unofficial timezone mechanism entirely.
+Starting with Kubernetes 1.29 if you try to set a schedule that includes `TZ` or `CRON_TZ`
+timezone specification, Kubernetes will fail to create the resource with a validation
+error.
+Updates to CronJobs already using `TZ` or `CRON_TZ` will continue to report a
+[warning](/blog/2020/09/03/warnings/) to the client.
 -->
-以这种方式指定时区是 **未正式支持的**（而且也从未正式支持过）。
-
-如果你尝试设置包含 `TZ` 或 `CRON_TZ` 时区规范的排期表，
-Kubernetes 会向客户端报告一条[警告](/blog/2020/09/03/warnings/)。
-后续的 Kubernetes 版本将完全阻止设置非正式的时区机制。
+从 Kubernetes 1.29 版本开始，如果你尝试设定包含 `TZ` 或 `CRON_TZ` 时区规范的排期表，
+Kubernetes 将无法创建该资源，并会报告验证错误。
+对已经设置 `TZ` 或 `CRON_TZ` 的 CronJob 进行更新时，
+系统会继续向客户端发送[警告](/zh-cn/blog/2020/09/03/warnings/)。
 
 <!--
 ### Modifying a CronJob

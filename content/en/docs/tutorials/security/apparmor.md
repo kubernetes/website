@@ -11,7 +11,7 @@ weight: 30
 {{< feature-state for_k8s_version="v1.4" state="beta" >}}
 
 
-AppArmor is a Linux kernel security module that supplements the standard Linux user and group based
+[AppArmor](https://apparmor.net/) is a Linux kernel security module that supplements the standard Linux user and group based
 permissions to confine programs to a limited set of resources. AppArmor can be configured for any
 application to reduce its potential attack surface and provide greater in-depth defense. It is
 configured through profiles tuned to allow the access needed by a specific program or container,
@@ -19,7 +19,7 @@ such as Linux capabilities, network access, file permissions, etc. Each profile 
 *enforcing* mode, which blocks access to disallowed resources, or *complain* mode, which only reports
 violations.
 
-AppArmor can help you to run a more secure deployment by restricting what containers are allowed to
+On Kubernetes, AppArmor can help you to run a more secure deployment by restricting what containers are allowed to
 do, and/or provide better auditing through system logs. However, it is important to keep in mind
 that AppArmor is not a silver bullet and can only do so much to protect against exploits in your
 application code. It is important to provide good, restrictive profiles, and harden your
@@ -30,7 +30,7 @@ applications and cluster from other angles as well.
 ## {{% heading "objectives" %}}
 
 
-* See an example of how to load a profile on a node
+* See an example of how to load a profile on a Node
 * Learn how to enforce the profile on a Pod
 * Learn how to check that the profile is loaded
 * See what happens when a profile is violated
@@ -41,23 +41,10 @@ applications and cluster from other angles as well.
 ## {{% heading "prerequisites" %}}
 
 
-Make sure:
+AppArmor is an optional kernel module and Kubernetes feature, so verify it is supported on your
+Nodes before proceeding:
 
-1. Kubernetes version is at least v1.4 -- Kubernetes support for AppArmor was added in
-   v1.4. Kubernetes components older than v1.4 are not aware of the new AppArmor annotations, and
-   will **silently ignore** any AppArmor settings that are provided. To ensure that your Pods are
-   receiving the expected protections, it is important to verify the Kubelet version of your nodes:
-
-   ```shell
-   kubectl get nodes -o=jsonpath=$'{range .items[*]}{@.metadata.name}: {@.status.nodeInfo.kubeletVersion}\n{end}'
-   ```
-   ```
-   gke-test-default-pool-239f5d02-gyn2: v1.4.0
-   gke-test-default-pool-239f5d02-x1kf: v1.4.0
-   gke-test-default-pool-239f5d02-xwux: v1.4.0
-   ```
-
-2. AppArmor kernel module is enabled -- For the Linux kernel to enforce an AppArmor profile, the
+1. AppArmor kernel module is enabled -- For the Linux kernel to enforce an AppArmor profile, the
    AppArmor kernel module must be installed and enabled. Several distributions enable the module by
    default, such as Ubuntu and SUSE, and many others provide optional support. To check whether the
    module is enabled, check the `/sys/module/apparmor/parameters/enabled` file:
@@ -67,24 +54,17 @@ Make sure:
    Y
    ```
 
-   If the Kubelet contains AppArmor support (>= v1.4), it will refuse to run a Pod with AppArmor
-   options if the kernel module is not enabled.
+   The Kubelet verifies that AppArmor is enabled on the host before admitting a pod with AppArmor
+   explicitly configured.
 
-  {{< note >}}
-  Ubuntu carries many AppArmor patches that have not been merged into the upstream Linux
-  kernel, including patches that add additional hooks and features. Kubernetes has only been
-  tested with the upstream version, and does not promise support for other features.
-  {{< /note >}}
-
-3. Container runtime supports AppArmor -- Currently all common Kubernetes-supported container
-   runtimes should support AppArmor, like {{< glossary_tooltip term_id="docker">}},
-   {{< glossary_tooltip term_id="cri-o" >}} or {{< glossary_tooltip term_id="containerd" >}}.
-   Please refer to the corresponding runtime documentation and verify that the cluster fulfills
-   the requirements to use AppArmor.
+3. Container runtime supports AppArmor -- All common Kubernetes-supported container
+   runtimes should support AppArmor, including {{< glossary_tooltip term_id="containerd" >}} and
+   {{< glossary_tooltip term_id="cri-o" >}}. Please refer to the corresponding runtime
+   documentation and verify that the cluster fulfills the requirements to use AppArmor.
 
 4. Profile is loaded -- AppArmor is applied to a Pod by specifying an AppArmor profile that each
-   container should be run with. If any of the specified profiles is not already loaded in the
-   kernel, the Kubelet (>= v1.4) will reject the Pod. You can view which profiles are loaded on a
+   container should be run with. If any of the specified profiles are not loaded in the
+   kernel, the Kubelet will reject the Pod. You can view which profiles are loaded on a
    node by checking the `/sys/kernel/security/apparmor/profiles` file. For example:
 
    ```shell
@@ -99,22 +79,6 @@ Make sure:
 
    For more details on loading profiles on nodes, see
    [Setting up nodes with profiles](#setting-up-nodes-with-profiles).
-
-As long as the Kubelet version includes AppArmor support (>= v1.4), the Kubelet will reject a Pod
-with AppArmor options if any of the prerequisites are not met. You can also verify AppArmor support
-on nodes by checking the node ready condition message (though this is likely to be removed in a
-later release):
-
-```shell
-kubectl get nodes -o=jsonpath='{range .items[*]}{@.metadata.name}: {.status.conditions[?(@.reason=="KubeletReady")].message}{"\n"}{end}'
-```
-```
-gke-test-default-pool-239f5d02-gyn2: kubelet is posting ready status. AppArmor enabled
-gke-test-default-pool-239f5d02-x1kf: kubelet is posting ready status. AppArmor enabled
-gke-test-default-pool-239f5d02-xwux: kubelet is posting ready status. AppArmor enabled
-```
-
-
 
 <!-- lessoncontent -->
 
@@ -133,7 +97,7 @@ container.apparmor.security.beta.kubernetes.io/<container_name>: <profile_ref>
 ```
 
 Where `<container_name>` is the name of the container to apply the profile to, and `<profile_ref>`
-specifies the profile to apply. The `profile_ref` can be one of:
+specifies the profile to apply. The `<profile_ref>` can be one of:
 
 * `runtime/default` to apply the runtime's default profile
 * `localhost/<profile_name>` to apply the profile loaded on the host with the name `<profile_name>`
@@ -141,24 +105,15 @@ specifies the profile to apply. The `profile_ref` can be one of:
 
 See the [API Reference](#api-reference) for the full details on the annotation and profile name formats.
 
-Kubernetes AppArmor enforcement works by first checking that all the prerequisites have been
-met, and then forwarding the profile selection to the container runtime for enforcement. If the
-prerequisites have not been met, the Pod will be rejected, and will not run.
-
-To verify that the profile was applied, you can look for the AppArmor security option listed in the container created event:
-
-```shell
-kubectl get events | grep Created
-```
-```
-22s        22s         1         hello-apparmor     Pod       spec.containers{hello}   Normal    Created     {kubelet e2e-test-stclair-node-pool-31nt}   Created container with docker id 269a53b202d3; Security:[seccomp=unconfined apparmor=k8s-apparmor-example-deny-write]
-```
-
-You can also verify directly that the container's root process is running with the correct profile by checking its proc attr:
+To verify that the profile was applied, you can check that the container's root process is
+running with the correct profile by examining its proc attr:
 
 ```shell
 kubectl exec <pod_name> -- cat /proc/1/attr/current
 ```
+
+The output should look something like this:
+
 ```
 k8s-apparmor-example-deny-write (enforce)
 ```
@@ -167,9 +122,9 @@ k8s-apparmor-example-deny-write (enforce)
 
 *This example assumes you have already set up a cluster with AppArmor support.*
 
-First, we need to load the profile we want to use onto our nodes. This profile denies all file writes:
+First, load the profile you want to use onto your Nodes. This profile denies all file writes:
 
-```shell
+```
 #include <tunables/global>
 
 profile k8s-apparmor-example-deny-write flags=(attach_disconnected) {
@@ -182,16 +137,14 @@ profile k8s-apparmor-example-deny-write flags=(attach_disconnected) {
 }
 ```
 
-Since we don't know where the Pod will be scheduled, we'll need to load the profile on all our
-nodes. For this example we'll use SSH to install the profiles, but other approaches are
+The profile needs to loaded onto all nodes, since you don't know where the pod will be scheduled.
+For this example you can use SSH to install the profiles, but other approaches are
 discussed in [Setting up nodes with profiles](#setting-up-nodes-with-profiles).
 
 ```shell
-NODES=(
-    # The SSH-accessible domain names of your nodes
-    gke-test-default-pool-239f5d02-gyn2.us-central1-a.my-k8s
-    gke-test-default-pool-239f5d02-x1kf.us-central1-a.my-k8s
-    gke-test-default-pool-239f5d02-xwux.us-central1-a.my-k8s)
+# This example assumes that node names match host names, and are reachable via SSH.
+NODES=($(kubectl get nodes -o name))
+
 for NODE in ${NODES[*]}; do ssh $NODE 'sudo apparmor_parser -q <<EOF
 #include <tunables/global>
 
@@ -207,38 +160,26 @@ EOF'
 done
 ```
 
-Next, we'll run a simple "Hello AppArmor" pod with the deny-write profile:
+Next, run a simple "Hello AppArmor" Pod with the deny-write profile:
 
 {{% code_sample file="pods/security/hello-apparmor.yaml" %}}
 
 ```shell
-kubectl create -f ./hello-apparmor.yaml
+kubectl create -f hello-apparmor.yaml
 ```
 
-If we look at the pod events, we can see that the Pod container was created with the AppArmor
-profile "k8s-apparmor-example-deny-write":
-
-```shell
-kubectl get events | grep hello-apparmor
-```
-```
-14s        14s         1         hello-apparmor   Pod                                Normal    Scheduled   {default-scheduler }                           Successfully assigned hello-apparmor to gke-test-default-pool-239f5d02-gyn2
-14s        14s         1         hello-apparmor   Pod       spec.containers{hello}   Normal    Pulling     {kubelet gke-test-default-pool-239f5d02-gyn2}   pulling image "busybox"
-13s        13s         1         hello-apparmor   Pod       spec.containers{hello}   Normal    Pulled      {kubelet gke-test-default-pool-239f5d02-gyn2}   Successfully pulled image "busybox"
-13s        13s         1         hello-apparmor   Pod       spec.containers{hello}   Normal    Created     {kubelet gke-test-default-pool-239f5d02-gyn2}   Created container with docker id 06b6cd1c0989; Security:[seccomp=unconfined apparmor=k8s-apparmor-example-deny-write]
-13s        13s         1         hello-apparmor   Pod       spec.containers{hello}   Normal    Started     {kubelet gke-test-default-pool-239f5d02-gyn2}   Started container with docker id 06b6cd1c0989
-```
-
-We can verify that the container is actually running with that profile by checking its proc attr:
+You can verify that the container is actually running with that profile by checking `/proc/1/attr/current`:
 
 ```shell
 kubectl exec hello-apparmor -- cat /proc/1/attr/current
 ```
+
+The output should be:
 ```
 k8s-apparmor-example-deny-write (enforce)
 ```
 
-Finally, we can see what happens if we try to violate the profile by writing to a file:
+Finally, you can see what happens if you violate the profile by writing to a file:
 
 ```shell
 kubectl exec hello-apparmor -- touch /tmp/test
@@ -248,12 +189,10 @@ touch: /tmp/test: Permission denied
 error: error executing remote command: command terminated with non-zero exit code: Error executing in Docker Container: 1
 ```
 
-To wrap up, let's look at what happens if we try to specify a profile that hasn't been loaded:
+To wrap up, see what happens if you try to specify a profile that hasn't been loaded:
 
 ```shell
 kubectl create -f /dev/stdin <<EOF
-```
-```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -266,8 +205,12 @@ spec:
     image: busybox:1.28
     command: [ "sh", "-c", "echo 'Hello AppArmor!' && sleep 1h" ]
 EOF
+```
+```
 pod/hello-apparmor-2 created
 ```
+
+Although the Pod was created successfully, further examination will show that it is stuck in pending:
 
 ```shell
 kubectl describe pod hello-apparmor-2
@@ -275,92 +218,40 @@ kubectl describe pod hello-apparmor-2
 ```
 Name:          hello-apparmor-2
 Namespace:     default
-Node:          gke-test-default-pool-239f5d02-x1kf/
+Node:          gke-test-default-pool-239f5d02-x1kf/10.128.0.27
 Start Time:    Tue, 30 Aug 2016 17:58:56 -0700
 Labels:        <none>
 Annotations:   container.apparmor.security.beta.kubernetes.io/hello=localhost/k8s-apparmor-example-allow-write
 Status:        Pending
-Reason:        AppArmor
-Message:       Pod Cannot enforce AppArmor: profile "k8s-apparmor-example-allow-write" is not loaded
-IP:
-Controllers:   <none>
-Containers:
-  hello:
-    Container ID:
-    Image:     busybox
-    Image ID:
-    Port:
-    Command:
-      sh
-      -c
-      echo 'Hello AppArmor!' && sleep 1h
-    State:              Waiting
-      Reason:           Blocked
-    Ready:              False
-    Restart Count:      0
-    Environment:        <none>
-    Mounts:
-      /var/run/secrets/kubernetes.io/serviceaccount from default-token-dnz7v (ro)
-Conditions:
-  Type          Status
-  Initialized   True
-  Ready         False
-  PodScheduled  True
-Volumes:
-  default-token-dnz7v:
-    Type:    Secret (a volume populated by a Secret)
-    SecretName:    default-token-dnz7v
-    Optional:   false
-QoS Class:      BestEffort
-Node-Selectors: <none>
-Tolerations:    <none>
+... 
 Events:
-  FirstSeen    LastSeen    Count    From                        SubobjectPath    Type        Reason        Message
-  ---------    --------    -----    ----                        -------------    --------    ------        -------
-  23s          23s         1        {default-scheduler }                         Normal      Scheduled     Successfully assigned hello-apparmor-2 to e2e-test-stclair-node-pool-t1f5
-  23s          23s         1        {kubelet e2e-test-stclair-node-pool-t1f5}             Warning        AppArmor    Cannot enforce AppArmor: profile "k8s-apparmor-example-allow-write" is not loaded
+  Type     Reason     Age              From               Message
+  ----     ------     ----             ----               -------
+  Normal   Scheduled  10s              default-scheduler  Successfully assigned default/hello-apparmor to gke-test-default-pool-239f5d02-x1kf
+  Normal   Pulled     8s               kubelet            Successfully pulled image "busybox:1.28" in 370.157088ms (370.172701ms including waiting)
+  Normal   Pulling    7s (x2 over 9s)  kubelet            Pulling image "busybox:1.28"
+  Warning  Failed     7s (x2 over 8s)  kubelet            Error: failed to get container spec opts: failed to generate apparmor spec opts: apparmor profile not found k8s-apparmor-example-allow-write
+  Normal   Pulled     7s               kubelet            Successfully pulled image "busybox:1.28" in 90.980331ms (91.005869ms including waiting)
 ```
 
-Note the pod status is Pending, with a helpful error message: `Pod Cannot enforce AppArmor: profile
-"k8s-apparmor-example-allow-write" is not loaded`. An event was also recorded with the same message.
+An Event provides the error message with the reason, the specific wording is runtime-dependent:
+```
+  Warning  Failed     7s (x2 over 8s)  kubelet            Error: failed to get container spec opts: failed to generate apparmor spec opts: apparmor profile not found 
+```
 
 ## Administration
 
-### Setting up nodes with profiles
+### Setting up Nodes with profiles
 
-Kubernetes does not currently provide any native mechanisms for loading AppArmor profiles onto
-nodes. There are lots of ways to set up the profiles though, such as:
+Kubernetes does not currently provide any built-in mechanisms for loading AppArmor profiles onto
+Nodes. Profiles can be loaded through custom infrastructure or tools like the
+[Kubernetes Security Profiles Operator](https://github.com/kubernetes-sigs/security-profiles-operator).
 
-* Through a [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) that runs a Pod on each node to
-  ensure the correct profiles are loaded. An example implementation can be found
-  [here](https://git.k8s.io/kubernetes/test/images/apparmor-loader).
-* At node initialization time, using your node initialization scripts (e.g. Salt, Ansible, etc.) or
-  image.
-* By copying the profiles to each node and loading them through SSH, as demonstrated in the
-  [Example](#example).
-
-The scheduler is not aware of which profiles are loaded onto which node, so the full set of profiles
-must be loaded onto every node.  An alternative approach is to add a node label for each profile (or
-class of profiles) on the node, and use a
+The scheduler is not aware of which profiles are loaded onto which Node, so the full set of profiles
+must be loaded onto every Node.  An alternative approach is to add a Node label for each profile (or
+class of profiles) on the Node, and use a
 [node selector](/docs/concepts/scheduling-eviction/assign-pod-node/) to ensure the Pod is run on a
-node with the required profile.
-
-### Disabling AppArmor
-
-If you do not want AppArmor to be available on your cluster, it can be disabled by a command-line flag:
-
-```
---feature-gates=AppArmor=false
-```
-
-When disabled, any Pod that includes an AppArmor profile will fail validation with a "Forbidden"
-error.
-
-{{<note>}}
-Even if the Kubernetes feature is disabled, runtimes may still enforce the default profile. The
-option to disable the AppArmor feature will be removed when AppArmor graduates to general
-availability (GA).
-{{</note>}}
+Node with the required profile.
 
 ## Authoring Profiles
 
@@ -393,8 +284,7 @@ Specifying the profile a container will run with:
 ### Profile Reference
 
 - `runtime/default`: Refers to the default runtime profile.
-  - Equivalent to not specifying a profile, except it still
-    requires AppArmor to be enabled.
+  - Equivalent to not specifying a profile, except it still requires AppArmor to be enabled.
   - In practice, many container runtimes use the same OCI default profile, defined here:
     https://github.com/containers/common/blob/main/pkg/apparmor/apparmor_linux_template.go
 - `localhost/<profile_name>`: Refers to a profile loaded on the node (localhost) by name.

@@ -161,7 +161,7 @@ which is 300 seconds (5 minutes).
 
 ### Image pull per runtime class
 
-{{< feature-state for_k8s_version="v1.29" state="alpha" >}}
+{{< feature-state feature_gate_name="RuntimeClassInImageCriApi" >}}
 Kubernetes includes alpha support for performing image pulls based on the RuntimeClass of a Pod.
 
 If you enable the `RuntimeClassInImageCriApi` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/),

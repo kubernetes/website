@@ -39,7 +39,7 @@ FormatOptions 包含为不同日志格式提供的选项。
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
 
-<tr><td><code>json</code> <B>[必需]</B><br/>
+<tr><td><code>json</code> <B><!-- [Required] -->[必需]</B><br/>
 <a href="#JSONOptions"><code>JSONOptions</code></a>
 </td>
 <td>
@@ -47,7 +47,7 @@ FormatOptions 包含为不同日志格式提供的选项。
    [Alpha] JSON contains options for logging format &quot;json&quot;.
 Only available when the LoggingAlphaOptions feature gate is enabled.
    -->
-   <p>[Alpha] json 包含 &quot;json&quot; 日志格式的选项。
+   <p>[Alpha] <code>json</code> 包含 &quot;json&quot; 日志格式的选项。
 只有 LoggingAlphaOptions 特性门控被启用时才可用。</p>
 </td>
 </tr>
@@ -73,12 +73,13 @@ JSONOptions 包含为 &quot;json&quot; 日志格式提供的选项。
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-<tr><td><code>splitStream</code> <B>[必需]</B><br/>
+<tr><td><code>splitStream</code> <B><!-- [Required] -->[必需]</B><br/>
 <code>bool</code>
 </td>
 <td>
    <p>
-   <!--[Alpha] SplitStream redirects error messages to stderr while
+   <!--
+   [Alpha] SplitStream redirects error messages to stderr while
 info messages go to stdout, with buffering. The default is to write
 both to stdout, without buffering. Only available when
 the LoggingAlphaOptions feature gate is enabled.
@@ -91,7 +92,7 @@ the LoggingAlphaOptions feature gate is enabled.
 </td>
 </tr>
 
-<tr><td><code>infoBufferSize</code> <B>[必需]</B><br/>
+<tr><td><code>infoBufferSize</code> <B><!-- [Required] -->[必需]</B><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/api/resource#QuantityValue"><code>k8s.io/apimachinery/pkg/api/resource.QuantityValue</code></a>
 </td>
 <td>
@@ -135,7 +136,7 @@ LoggingConfiguration 包含日志选项。
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
 
-<tr><td><code>format</code> <B>[必需]</B><br/>
+<tr><td><code>format</code> <B><!-- [Required] -->[必需]</B><br/>
 <code>string</code>
 </td>
 <td>
@@ -149,7 +150,7 @@ default value of format is `text`
 </td>
 </tr>
 
-<tr><td><code>flushFrequency</code> <B>[必需]</B><br/>
+<tr><td><code>flushFrequency</code> <B><!-- [Required] -->[必需]</B><br/>
 <a href="#TimeOrMetaDuration"><code>TimeOrMetaDuration</code></a>
 </td>
 <td>
@@ -168,7 +169,7 @@ Ignored if the selected logging backend writes log messages without buffering.
 </td>
 </tr>
 
-<tr><td><code>verbosity</code> <B>[必需]</B><br/>
+<tr><td><code>verbosity</code> <B><!-- [Required] -->[必需]</B><br/>
 <a href="#VerbosityLevel"><code>VerbosityLevel</code></a>
 </td>
 <td>
@@ -185,7 +186,7 @@ are always logged.
 </td>
 </tr>
 
-<tr><td><code>vmodule</code> <B>[必需]</B><br/>
+<tr><td><code>vmodule</code> <B><!-- [Required] -->[必需]</B><br/>
 <a href="#VModuleConfiguration"><code>VModuleConfiguration</code></a>
 </td>
 <td>
@@ -200,7 +201,7 @@ Only supported for &quot;text&quot; log format.
 </td>
 </tr>
 
-<tr><td><code>options</code> <B>[必需]</B><br/>
+<tr><td><code>options</code> <B><!-- [Required] -->[必需]</B><br/>
 <a href="#FormatOptions"><code>FormatOptions</code></a>
 </td>
 <td>
@@ -324,12 +325,10 @@ TracingConfiguration provides versioned configuration for OpenTelemetry tracing 
 -->
 <p>TracingConfiguration 为 OpenTelemetry 追踪客户端提供版本化的配置信息。</p>
 
-
 <table class="table">
 <thead><tr><th width="30%">字段</th><th>描述</th></tr></thead>
 <tbody>
-    
-  
+
 <tr><td><code>endpoint</code><br/>
 <code>string</code>
 </td>
@@ -352,7 +351,7 @@ Recommended is unset, and endpoint is the otlp grpc default, localhost:4317.
 Recommended is unset. If unset, sampler respects its parent span's sampling
 rate, but otherwise never samples.
    -->
-   <p>samplingRatePerMillion 是每百万 span 要采集的样本数。推荐不设置。
+   <p><code>samplingRatePerMillion</code> 是每百万 span 要采集的样本数。推荐不设置。
 如果不设置，则采样器优先使用其父级 span 的采样率，否则不采样。</p>
 </td>
 </tr>
@@ -412,11 +411,10 @@ Kubelet 从磁盘上读取这些配置信息，并根据 CredentialProvider 类�
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
+
 <tr><td><code>apiVersion</code><br/>string</td><td><code>kubelet.config.k8s.io/v1beta1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>CredentialProviderConfig</code></td></tr>
-    
-  
+
 <tr><td><code>providers</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#kubelet-config-k8s-io-v1beta1-CredentialProvider"><code>[]CredentialProvider</code></a>
 </td>
@@ -452,7 +450,7 @@ KubeletConfiguration 中包含 Kubelet 的配置。
 
 <tr><td><code>apiVersion</code><br/>string</td><td><code>kubelet.config.k8s.io/v1beta1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>KubeletConfiguration</code></td></tr>
-<tr><td><code>enableServer</code> <B>[必需]</B><br/>
+<tr><td><code>enableServer</code> <B><!-- [Required] -->[必需]</B><br/>
 <code>bool</code>
 </td>
 <td>
@@ -622,7 +620,8 @@ Default:&quot;quot;
 <code>string</code>
 </td>
 <td>
-   <!--tlsPrivateKeyFile is the file containing x509 private key matching tlsCertFile.
+   <!--
+   tlsPrivateKeyFile is the file containing x509 private key matching tlsCertFile.
 Default: &quot;&quot;
    -->
    <p><code>tlsPrivateKeyFile</code> 是一个包含与 <code>tlsCertFile</code>
@@ -638,12 +637,12 @@ Default: &quot;&quot;
    <!--
    tlsCipherSuites is the list of allowed cipher suites for the server.
    Note that TLS 1.3 ciphersuites are not configurable.
-   Values are from tls package constants (https://golang.org/pkg/crypto/tls/#pkg-constants).
+   Values are from tls package constants (https://pkg.go.dev/crypto/tls#pkg-constants).
    Default: nil
    -->
    <p><code>tlsCipherSuites</code> 是一个字符串列表，其中包含服务器所接受的加密包名称。
    请注意，TLS 1.3 密码套件是不可配置的。
-   列表中的每个值来自于 <code>tls</code> 包中定义的常数（https://golang.org/pkg/crypto/tls/#pkg-constants）。</p>
+   列表中的每个值来自于 <code>tls</code> 包中定义的常数（https://pkg.go.dev/crypto/tls#pkg-constants）。</p>
   <p>默认值：nil</p>
 </td>
 </tr>
@@ -652,12 +651,13 @@ Default: &quot;&quot;
 <code>string</code>
 </td>
 <td>
-   <!--tlsMinVersion is the minimum TLS version supported.
-Values are from tls package constants (https://golang.org/pkg/crypto/tls/#pkg-constants).
+   <!--
+   tlsMinVersion is the minimum TLS version supported.
+Values are from tls package constants (https://pkg.go.dev/crypto/tls#pkg-constants).
 Default: &quot;&quot;
    -->
    <p><code>tlsMinVersion</code> 给出所支持的最小 TLS 版本。
-字段取值来自于 <code>tls</code> 包中的常数定义（https://golang.org/pkg/crypto/tls/#pkg-constants）。</p>
+字段取值来自于 <code>tls</code> 包中的常数定义（https://pkg.go.dev/crypto/tls#pkg-constants）。</p>
   <p>默认值：&quot;&quot;</p>
 </td>
 </tr>
@@ -666,7 +666,8 @@ Default: &quot;&quot;
 <code>bool</code>
 </td>
 <td>
-   <!--rotateCertificates enables client certificate rotation. The Kubelet will request a
+   <!--
+   rotateCertificates enables client certificate rotation. The Kubelet will request a
 new certificate from the certificates.k8s.io API. This requires an approver to approve the
 certificate signing requests.
 Default: false
@@ -1005,12 +1006,31 @@ Default: 40
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
-   <!--imageMinimumGCAge is the minimum age for an unused image before it is
+   <!--
+   imageMinimumGCAge is the minimum age for an unused image before it is
 garbage collected. 
 Default: &quot;2m&quot;
    -->
-   <p><code>imageMinimumGCAge</code> 是对未使用镜像进行垃圾搜集之前允许其存在的时长。</p>
+   <p><code>imageMinimumGCAge</code> 是对未使用镜像进行垃圾收集之前允许其存在的时长。</p>
    <p>默认值：&quot;2m&quot;</p>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>imageMaximumGCAge</code><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <!--
+   imageMaximumGCAge is the maximum age an image can be unused before it is garbage collected.
+The default of this field is &quot;0s&quot;, which disables this field--meaning images won't be garbage
+collected based on being unused for too long.
+Default: &quot;0s&quot; (disabled)
+   -->
+   <p><code>imageMaximumGCAge</code> 是对未使用镜像进行垃圾收集之前允许其存在的时长。
+   此字段的默认值为 &quot;0s&quot;，表示禁用此字段，这意味着镜像不会因为过长时间不使用而被垃圾收集。
+   默认值：&quot;0s&quot;（已禁用）</p>
 </td>
 </tr>
 
@@ -1180,7 +1200,8 @@ Default: nil
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
-   <!--cpuManagerReconcilePeriod is the reconciliation period for the CPU Manager.
+   <!--
+   cpuManagerReconcilePeriod is the reconciliation period for the CPU Manager.
 Requires the CPUManager feature gate to be enabled.
 Default: &quot;10s&quot;
    -->
@@ -1333,7 +1354,7 @@ themselves if they should try to access their own Service. Values:</p>
    Generally, one must set <code>--hairpin-mode=hairpin-veth to</code> achieve hairpin NAT,
 because promiscuous-bridge assumes the existence of a container bridge named cbr0.
 Default: &quot;promiscuous-bridge&quot;
-    -->
+   -->
    <p>一般而言，用户必须设置 <code>--hairpin-mode=hairpin-veth</code> 才能实现发夹模式的网络地址转译
 （NAT），因为混杂模式的网桥要求存在一个名为 <code>cbr0</code> 的容器网桥。</p>
    <p>默认值：&quot;promiscuous-bridge&quot;</p>
@@ -1393,8 +1414,7 @@ If set to the empty string, will override the default and effectively disable DN
 Default: &quot;/etc/resolv.conf&quot;
    -->
    <p><code>resolvConf</code> 是一个域名解析配置文件，用作容器 DNS 解析配置的基础。</p>
-   <p>如果此值设置为空字符串，则会覆盖 DNS 解析的默认配置，
-本质上相当于禁用了 DNS 查询。</p>
+   <p>如果此值设置为空字符串，则会覆盖 DNS 解析的默认配置，本质上相当于禁用了 DNS 查询。</p>
    <p>默认值：&quot;/etc/resolv.conf&quot;</p>
 </td>
 </tr>
@@ -1582,7 +1602,8 @@ Default:
 <code>map[string]string</code>
 </td>
 <td>
-   <!--evictionSoft is a map of signal names to quantities that defines soft eviction thresholds.
+   <!--
+   evictionSoft is a map of signal names to quantities that defines soft eviction thresholds.
 For example: <code>{&quot;memory.available&quot;: &quot;300Mi&quot;}</code>.
 Default: nil
    -->
@@ -1596,7 +1617,8 @@ Default: nil
 <code>map[string]string</code>
 </td>
 <td>
-   <!--evictionSoftGracePeriod is a map of signal names to quantities that defines grace
+   <!--
+   evictionSoftGracePeriod is a map of signal names to quantities that defines grace
 periods for each soft eviction signal. For example: <code>{&quot;memory.available&quot;: &quot;30s&quot;}</code>.
 Default: nil
    -->
@@ -1892,12 +1914,12 @@ Default: nil
    <p><code>kubeReserved</code> 是一组<code>资源名称=资源数量</code>对，
 用来描述为 Kubernetes 系统组件预留的资源（例如：'cpu=200m,memory=150G'）。
 目前支持 CPU、内存和根文件系统的本地存储。
-更多细节可参见 https://kubernetes.io/zh/docs/concepts/configuration/manage-resources-containers/。</p>
+更多细节可参见 https://kubernetes.io/zh-cn/docs/concepts/configuration/manage-resources-containers/。</p>
    <p>默认值：Nil</p>
 </td>
 </tr>
 
-<tr><td><code>reservedSystemCPUs</code> <B>[必需]</B><br/>
+<tr><td><code>reservedSystemCPUs</code> <B><!-- [Required] -->[必需]</B><br/>
 <code>string</code>
 </td>
 <td>
@@ -2069,7 +2091,7 @@ memcg 通知机制来确定是否超出内存逐出阈值，而不是使用轮�
 </td>
 </tr>
 
-<tr><td><code>logging</code> <B>[必需]</B><br/>
+<tr><td><code>logging</code> <B><!-- [Required] -->[必需]</B><br/>
 <a href="#LoggingConfiguration"><code>LoggingConfiguration</code></a>
 </td>
 <td>
@@ -2080,7 +2102,7 @@ for more information.
 Default:
   Format: text
    -->
-   <p><code>logging</code>设置日志机制选项。更多的详细信息科参阅
+   <p><code>logging</code>设置日志机制选项。更多的详细信息可参阅
 <a href="https://github.com/kubernetes/component-base/blob/master/logs/options.go">日志选项</a>。</p>
    <p>默认值：</p>
    <code><pre>Format: text</pre></code>
@@ -2118,7 +2140,8 @@ EnableSystemLogHandler has to be enabled in addition for this feature to work.
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
-   <!--shutdownGracePeriod specifies the total duration that the node should delay the
+   <!--
+   shutdownGracePeriod specifies the total duration that the node should delay the
 shutdown and total grace period for pod termination during a node shutdown.
 Default: &quot;0s&quot;
    -->
@@ -2132,7 +2155,8 @@ Pod 提供的宽限期限的总时长。</p>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
-   <!--shutdownGracePeriodCriticalPods specifies the duration used to terminate critical
+   <!--
+   shutdownGracePeriodCriticalPods specifies the duration used to terminate critical
 pods during a node shutdown. This should be less than shutdownGracePeriod.
 For example, if shutdownGracePeriod=30s, and shutdownGracePeriodCriticalPods=10s,
 during a node shutdown the first 20 seconds would be reserved for gracefully
@@ -2309,7 +2333,7 @@ Default: 0.8
 </tr>
 
 <tr><td><code>registerWithTaints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    <!--
@@ -2341,8 +2365,10 @@ Default: true
 <a href="#TracingConfiguration"><code>TracingConfiguration</code></a>
 </td>
 <td>
-   <!-- Tracing specifies the versioned configuration for OpenTelemetry tracing clients.
-See https://kep.k8s.io/2832 for more details. -->
+   <!--
+   Tracing specifies the versioned configuration for OpenTelemetry tracing clients.
+See https://kep.k8s.io/2832 for more details.
+   -->
    <p>tracing 为 OpenTelemetry 追踪客户端设置版本化的配置信息。
 参阅 https://kep.k8s.io/2832 了解更多细节。</p>
 </td>
@@ -2370,7 +2396,7 @@ Default: true
 默认值：true</p>
 </td>
 </tr>
-<tr><td><code>containerRuntimeEndpoint</code> <B>[必需]</B><br/>
+<tr><td><code>containerRuntimeEndpoint</code> <B><!-- [Required] -->[必需]</B><br/>
 <code>string</code>
 </td>
 <td>
@@ -2422,7 +2448,7 @@ SerializedNodeConfigSource 允许对 `v1.NodeConfigSource` 执行序列化操作
 <tr><td><code>kind</code><br/>string</td><td><code>SerializedNodeConfigSource</code></td></tr>
 
 <tr><td><code>source</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
 </td>
 <td>
    <!--
@@ -2488,9 +2514,9 @@ and URL path.
 <!--
 Each entry in matchImages is a pattern which can optionally contain a port and a path.
 Globs can be used in the domain, but not in the port or the path. Globs are supported
-as subdomains like '&ast;.k8s.io' or 'k8s.&ast;.io', and top-level-domains such as 'k8s.&ast;'.
-Matching partial subdomains like 'app&ast;.k8s.io' is also supported. Each glob can only match
-a single subdomain segment, so &ast;.io does not match &ast;.k8s.io.
+as subdomains like '<em>.k8s.io' or 'k8s.</em>.io', and top-level-domains such as 'k8s.<em>'.
+Matching partial subdomains like 'app</em>.k8s.io' is also supported. Each glob can only match
+a single subdomain segment, so *.io does not match *.k8s.io.
 -->
 <p><code>matchImages</code> 中的每个条目都是一个模式字符串，其中可以包含端口号和路径。
 域名部分可以包含统配符，但端口或路径部分不可以。通配符可以用作子域名，例如
@@ -2896,7 +2922,7 @@ MemoryReservation 为每个 NUMA 节点设置不同类型的内存预留。
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
 
-<tr><td><code>numaNode</code> <B>[必需]</B><br/>
+<tr><td><code>numaNode</code> <B><!-- [Required] -->[必需]</B><br/>
 <code>int32</code>
 </td>
 <td>
@@ -2905,8 +2931,8 @@ MemoryReservation 为每个 NUMA 节点设置不同类型的内存预留。
 </td>
 </tr>
 
-<tr><td><code>limits</code> <B>[必需]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
+<tr><td><code>limits</code> <B><!-- [Required] -->[必需]</B><br/>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
 </td>
 <td>
    <!--span class="text-muted">No description provided.</span-->
@@ -2987,7 +3013,7 @@ ShutdownGracePeriodByPodPriority 基于 Pod 关联的优先级类数值来为其
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
 
-<tr><td><code>priority</code> <B>[必需]</B><br/>
+<tr><td><code>priority</code> <B><!-- [Required] -->[必需]</B><br/>
 <code>int32</code>
 </td>
 <td>
@@ -2998,7 +3024,7 @@ ShutdownGracePeriodByPodPriority 基于 Pod 关联的优先级类数值来为其
 </td>
 </tr>
 
-<tr><td><code>shutdownGracePeriodSeconds</code> <B>[必需]</B><br/>
+<tr><td><code>shutdownGracePeriodSeconds</code> <B><!-- [Required] -->[必需]</B><br/>
 <code>int64</code>
 </td>
 <td>

@@ -71,12 +71,19 @@ KUBECONFIG=~/.kube/config:~/.kube/kubconfig2
 
 kubectl config view
 
+# Show merged kubeconfig settings and raw certificate data and exposed secrets
+kubectl config view --raw 
+
 # get the password for the e2e user
 kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
+
+# get the certificate for the e2e user
+kubectl config view --raw -o jsonpath='{.users[?(.name == 'e2e')].user.client-certificate-data}' | base64 -d
 
 kubectl config view -o jsonpath='{.users[].name}'    # display the first user
 kubectl config view -o jsonpath='{.users[*].name}'   # get a list of users
 kubectl config get-contexts                          # display list of contexts
+kubectl config get-contexts -o name                  # get all context names
 kubectl config current-context                       # display the current-context
 kubectl config use-context my-cluster-name           # set the default context to my-cluster-name
 
@@ -112,11 +119,11 @@ Kubernetes manifests can be defined in YAML or JSON. The file extension `.yaml`,
 `.yml`, and `.json` can be used.
 
 ```bash
-kubectl apply -f ./my-manifest.yaml            # create resource(s)
-kubectl apply -f ./my1.yaml -f ./my2.yaml      # create from multiple files
-kubectl apply -f ./dir                         # create resource(s) in all manifest files in dir
-kubectl apply -f https://git.io/vPieo          # create resource(s) from url
-kubectl create deployment nginx --image=nginx  # start a single instance of nginx
+kubectl apply -f ./my-manifest.yaml                 # create resource(s)
+kubectl apply -f ./my1.yaml -f ./my2.yaml           # create from multiple files
+kubectl apply -f ./dir                              # create resource(s) in all manifest files in dir
+kubectl apply -f https://example.com/manifest.yaml  # create resource(s) from url (Note: this is an example domain and does not contain a valid manifest)
+kubectl create deployment nginx --image=nginx       # start a single instance of nginx
 
 # create a Job which prints "Hello World"
 kubectl create job hello --image=busybox:1.28 -- echo "Hello World"
@@ -287,7 +294,7 @@ kubectl label pods my-pod new-label=awesome                      # Add a Label
 kubectl label pods my-pod new-label-                             # Remove a label
 kubectl label pods my-pod new-label=new-value --overwrite        # Overwrite an existing value
 kubectl annotate pods my-pod icon-url=http://goo.gl/XXBTWq       # Add an annotation
-kubectl annotate pods my-pod icon-                               # Remove annotation
+kubectl annotate pods my-pod icon-url-                           # Remove annotation
 kubectl autoscale deployment foo --min=2 --max=10                # Auto scale a deployment "foo"
 ```
 

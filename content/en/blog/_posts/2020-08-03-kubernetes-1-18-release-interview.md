@@ -62,7 +62,7 @@ It was actually just making— again, startup, small company, small team, so rea
 
 **ADAM GLICK: What time frame was this?**
 
-JORGE ALARCÓN: Three, four years ago, so definitely not 1.13. That's the best guesstimate that I can give at this point. But I wasn't able to find any good examples, any tutorials. The only book that I was able to get my hands on was the one written by Joe Beda, Kelsey Hightower, and I forget the other author. But what is it? "[Kubernetes— Up and Running](](http://shop.oreilly.com/product/0636920223788.do))"?
+JORGE ALARCÓN: Three, four years ago, so definitely not 1.13. That's the best guesstimate that I can give at this point. But I wasn't able to find any good examples, any tutorials. The only book that I was able to get my hands on was the one written by Joe Beda, Kelsey Hightower, and I forget the other author. But what is it? "[Kubernetes— Up and Running](http://shop.oreilly.com/product/0636920223788.do)"?
 
 And in general, right now I use it as reference— it's really good. But as a beginner, I still was lost. They give all these amazing examples, they provide the applications, but I had no idea why someone might need a Pod, why someone might need a Deployment. So my last resort was to try and find someone who actually knew Kubernetes.
 

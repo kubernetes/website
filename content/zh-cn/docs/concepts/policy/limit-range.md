@@ -78,7 +78,7 @@ LimitRange 的名称必须是合法的
 
 - 管理员在一个命名空间内创建一个 `LimitRange` 对象。
 - 用户在此命名空间内创建（或尝试创建） Pod 和 PersistentVolumeClaim 等对象。
-- 首先，`LimitRanger` 准入控制器对所有没有设置计算资源需求的所有 Pod（及其容器）设置默认请求值与限制值。
+- 首先，`LimitRange` 准入控制器对所有没有设置计算资源需求的所有 Pod（及其容器）设置默认请求值与限制值。
 - 其次，`LimitRange` 跟踪其使用量以保证没有超出命名空间中存在的任意 `LimitRange` 所定义的最小、最大资源使用量以及使用量比值。
 - 若尝试创建或更新的对象（Pod 和 PersistentVolumeClaim）违反了 `LimitRange` 的约束，
   向 API 服务器的请求会失败，并返回 HTTP 状态码 `403 Forbidden` 以及描述哪一项约束被违反的消息。

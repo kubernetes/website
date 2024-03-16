@@ -151,7 +151,7 @@ Kubernetes 默认提供访问权限并非是每个集群都需要的。
 It is vital to periodically review the Kubernetes RBAC settings for redundant entries and
 possible privilege escalations.
 If an attacker is able to create a user account with the same name as a deleted user,
-they can automatically inherit all the rights of the deleted user, especially the
+they can automatically inherit all the rights of the deleted user, specially the
 rights assigned to that user.
  -->
 ### 定期检查  {#periodic-review}
@@ -260,8 +260,8 @@ You should only allow access to create PersistentVolume objects for:
 你应该只允许以下实体具有创建 PersistentVolume 对象的访问权限：
 
 <!--
-- users (cluster operators) that need this access for their work, and who you trust,
-- the Kubernetes control plane components which creates PersistentVolumes based on PersistentVolumeClaims
+- Users (cluster operators) that need this access for their work, and who you trust,
+- The Kubernetes control plane components which creates PersistentVolumes based on PersistentVolumeClaims
   that are configured for automatic provisioning.
   This is usually setup by the Kubernetes provider or by the operator when installing a CSI driver.
 -->
