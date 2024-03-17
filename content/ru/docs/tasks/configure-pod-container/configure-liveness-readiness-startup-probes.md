@@ -213,7 +213,6 @@ kubectl describe pod goproxy
 ports:
 - name: liveness-port
   containerPort: 8080
-  hostPort: 8080
 
 livenessProbe:
   httpGet:
@@ -234,8 +233,7 @@ livenessProbe:
 ports:
 - name: liveness-port
   containerPort: 8080
-  hostPort: 8080
-
+  
 livenessProbe:
   httpGet:
     path: /healthz

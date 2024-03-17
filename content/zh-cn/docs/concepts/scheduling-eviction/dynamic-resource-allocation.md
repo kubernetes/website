@@ -63,14 +63,14 @@ ResourceClass
   driver.
 
 ResourceClaim
-: Defines a particular resource instances that is required by a
+: Defines a particular resource instance that is required by a
   workload. Created by a user (lifecycle managed manually, can be shared
   between different Pods) or for individual Pods by the control plane based on
   a ResourceClaimTemplate (automatic lifecycle, typically used by just one
   Pod).
 
 ResourceClaimTemplate
-: Defines the spec and some meta data for creating
+: Defines the spec and some metadata for creating
   ResourceClaims. Created by a user when deploying a workload.
 
 PodSchedulingContext
