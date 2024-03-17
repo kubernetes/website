@@ -31,7 +31,7 @@ no_list: True
 * [পড শিডিউলিং এর সাধনযোগ্যতা](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)
 * [ডিশেডিউলার](https://github.com/kubernetes-sigs/descheduler#descheduler-for-kubernetes)
 
-## পডস এর বিঘ্নিত হওয়া
+## পডস এর ভাঙ্গন
 
 {{<glossary_definition term_id="pod-disruption" length="all">}}
 
