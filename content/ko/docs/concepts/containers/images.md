@@ -14,9 +14,8 @@ hide_summary: true # 섹션의 목차에 별도로 기재
 나타낸다. 컨테이너 이미지는 독립적으로 실행할 수 있고 런타임 환경에 대해
 잘 정의된 가정을 만드는 실행 가능한 소프트웨어 번들이다.
 
-일반적으로 {{< glossary_tooltip text="파드" term_id="pod" >}}에서
-참조하기 전에 애플리케이션의 컨테이너 이미지를
-생성해서 레지스트리로 푸시한다.
+일반적으로 컨테이너 이미지는 {{< glossary_tooltip text="파드" term_id="pod" >}}에서 사용되기 전에 
+사용자가 애플리케이션의 컨테이너 이미지를 생성하고 레지스트리로 푸시하는 과정을 거친다.
 
 이 페이지는 컨테이너 이미지 개념의 개요를 제공한다.
 
@@ -97,7 +96,11 @@ hide_summary: true # 섹션의 목차에 별도로 기재
 `<image-name>:<tag>`를 `<image-name>@<digest>`로 교체한다.
 (예를 들어, `image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`).
 
-이미지 태그를 사용하는 경우, 이미지 레지스트리에서 한 이미지를 나타내는 태그에 코드를 변경하게 되면, 기존 코드와 신규 코드를 구동하는 파드가 섞이게 되고 만다. 이미지 다이제스트를 통해 이미지의 특정 버전을 유일하게 식별할 수 있기 때문에, 쿠버네티스는 매번 해당 이미지 이름과 다이제스트가 명시된 컨테이너를 기동해서 같은 코드를 구동한다. 이미지를 다이제스트로 명시하면 구동할 코드를 고정시켜서 레지스트리에서의 변경으로 인해 버전이 섞이는 일이 발생하지 않도록 해 준다.
+이미지 태그를 사용하는 경우, 이미지 레지스트리에서 한 이미지를 나타내는 태그에 코드를 변경하게 되면, 
+기존 코드와 신규 코드를 구동하는 파드가 섞이게 되고 만다. 
+이미지 다이제스트를 통해 이미지의 특정 버전을 유일하게 식별할 수 있기 때문에, 
+쿠버네티스는 매번 해당 이미지 이름과 다이제스트가 명시된 컨테이너를 기동해서 같은 코드를 구동한다. 
+이미지를 다이제스트로 명시하면 구동할 코드를 고정시켜서 레지스트리에서의 변경으로 인해 버전이 섞이는 일이 발생하지 않도록 해 준다.
 
 파드(및 파드 템플릿)가 생성될 때 구동 중인 워크로드가 
 태그가 아닌 이미지 다이제스트를 통해 정의되도록 조작해주는
@@ -137,8 +140,8 @@ hide_summary: true # 섹션의 목차에 별도로 기재
   그러면 사용자가 파드를 요청할 때 쿠버네티스가 정책을 `Always`로 설정한다.
 - `imagePullPolicy`와 사용할 이미지의 태그를 생략한다.
   그러면 사용자가 파드를 요청할 때 쿠버네티스가 정책을 `Always`로 설정한다.
-- [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) 어드미션 컨트롤러를 활성화 한다.
-
+- [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) 
+  어드미션 컨트롤러를 활성화 한다.
 
 ### 이미지풀백오프(ImagePullBackOff)
 
@@ -154,6 +157,48 @@ kubelet이 컨테이너 런타임을 사용하여 파드의 컨테이너 생성�
 쿠버네티스는 시간 간격을 늘려가면서 시도를 계속하며, 시간 간격의 상한은 쿠버네티스 코드에 
 300초(5분)로 정해져 있다.
 
+## 순차 및 병렬 이미지 풀
+
+기본적으로, kubelet은 이미지를 순차적으로 풀링한다. 
+다르게 말하면, kubelet은 이미지 서비스에 이미지 풀 요청을 한 번에 하나씩만 보낸다. 
+현재 처리 중인 요청이 완료될 때까지 다른 이미지 풀 요청은 기다려야 한다.
+
+각 노드는 이미지 풀 결정을 독립적으로 수행한다. 
+순차 이미지 풀링을 사용하더라도, 서로 다른 두 노드가 동일한 이미지를 병렬적으로 풀링할 수 있다.
+
+병렬 이미지 풀을 활성화하고 싶다면, [kubelet 구성](/docs/reference/config-api/kubelet-config.v1beta1/)의 
+`serializeImagePulls` 필드를 false로 설정할 수 있다. 
+`serializeImagePulls` 필드가 false로 설정되어 있으면, 
+이미지 풀 요청이 이미지 서비스로 즉시 전송되며, 여러 이미지가 동시에 풀링될 것이다.
+
+병렬 이미지 풀을 활성화할 때, 
+사용 중인 컨테이너 런타임의 이미지 서비스가 병렬 이미지 풀을 처리할 수 있는지 확인한다.
+
+kubelet은 단일 파드에 대해 여러 이미지를 병렬로 풀링하지는 않을 것이다. 
+예를 들어, 초기화 컨테이너와 애플리케이션 컨테이너로 이루어지는 파드가 있다면, 
+두 컨테이너에 대한 이미지 풀은 병렬로 진행되지 않을 것이다. 
+그러나, 서로 다른 이미지를 사용하는 두 파드가 있고, 병렬 이미지 풀이 활성화되어 있다면, 
+kubelet은 서로 다른 두 파드에 대해 이미지 풀을 병렬로 수행한다. 
+
+### 최대 병렬 이미지 풀
+
+{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+
+`serializeImagePulls`가 false로 설정되어 있으면, 
+kubelet은 기본적으로는 동시에 풀링할 수 있는 이미지의 수에 제한을 두지 않는다. 
+병렬 이미지 풀 수에 제한을 설정하고 싶으면, 
+kubelet 구성 내의 `maxParallelImagePulls` 필드를 설정할 수 있다. 
+`maxParallelImagePulls`를 _n_ 으로 설정하면, 동시에 _n_ 개의 이미지만 풀링할 수 있으며, 
+이를 초과하는 이미지 풀은 현재 진행 중인 이미지 풀이 완료되기를 기다려야 한다.
+
+병렬 이미지 풀이 활성화되어 있는 경우에, 병렬 이미지 풀의 수를 제한하여 
+이미지 풀 작업이 네트워크 대역폭이나 디스크 입출력을 지나치게 많이 차지하는 것을 방지할 수 있다.
+
+`maxParallelImagePulls`의 값은 1 이상의 양수로 설정할 수 있다. 
+`maxParallelImagePulls`를 2 이상의 값으로 지정했다면, 
+`serializeImagePulls`는 false로 설정해야 한다. 
+`maxParallelImagePulls`가 올바르게 설정되어 있지 않으면 kubelet은 시작에 실패할 것이다.
+
 ## 이미지 인덱스가 있는 다중 아키텍처 이미지
 
 바이너리 이미지를 제공할 뿐만 아니라, 컨테이너 레지스트리는 
@@ -163,35 +208,39 @@ kubelet이 컨테이너 런타임을 사용하여 파드의 컨테이너 생성�
 아이디어는 이미지의 이름(예를 들어, `pause`, `example/mycontainer`, `kube-apiserver`)을 가질 수 있다는 것이다. 
 그래서 다른 시스템들이 사용하고 있는 컴퓨터 아키텍처에 적합한 바이너리 이미지를 가져올 수 있다.
 
-쿠버네티스 자체는 일반적으로 `-$(ARCH)` 접미사로 컨테이너 이미지의 이름을 지정한다. 이전 버전과의 호환성을 위해, 
-접미사가 있는 오래된 이미지를 생성한다. 아이디어는 모든 아키텍처에 대한 매니페스트가 있는 `pause` 이미지와 이전 구성 
-또는 이전에 접미사로 이미지를 하드 코딩한 YAML 파일과 호환되는 `pause-amd64` 라고 하는 이미지를 생성한다.
+쿠버네티스 자체는 일반적으로 `-$(ARCH)` 접미사로 컨테이너 이미지의 이름을 지정한다. 
+이전 버전과의 호환성을 위해, 접미사가 있는 오래된 이미지를 생성한다. 
+이에 대한 아이디어는, 모든 아키텍처에 대한 매니페스트가 있는 `pause` 이미지와 
+이전 구성 또는 이전에 접미사로 이미지를 하드 코딩한 YAML 파일과 호환되는 
+`pause-amd64` 라고 하는 이미지를 생성하는 것이다.
 
 ## 프라이빗 레지스트리 사용
 
 프라이빗 레지스트리는 해당 레지스트리에서 이미지를 읽을 수 있는 키를 요구할 것이다.
 자격 증명(credential)은 여러 가지 방법으로 제공될 수 있다.
-  - 프라이빗 레지스트리에 대한 인증을 위한 노드 구성
-    - 모든 파드는 구성된 프라이빗 레지스트리를 읽을 수 있음
-    - 클러스터 관리자에 의한 노드 구성 필요
-  - Kubelet 자격증명 제공자(Credential Provider)를 통해 프라이빗 레지스트리로부터 동적으로 자격증명을 가져오기
-    - kubelet은 특정 프라이빗 레지스트리에 대해 자격증명 제공자 실행 
-      플러그인(credential provider exec plugin)을 사용하도록 설정될 수 있다.
-  - 미리 내려받은(pre-pulled) 이미지
-    - 모든 파드는 노드에 캐시된 모든 이미지를 사용 가능
-    - 셋업을 위해서는 모든 노드에 대해서 root 접근이 필요
-  - 파드에 ImagePullSecrets을 명시
-    - 자신의 키를 제공하는 파드만 프라이빗 레지스트리에 접근 가능
-  - 공급 업체별 또는 로컬 확장
-    - 사용자 정의 노드 구성을 사용하는 경우, 사용자(또는 클라우드
-      제공자)가 컨테이너 레지스트리에 대한 노드 인증 메커니즘을
-      구현할 수 있다.
+
+- 프라이빗 레지스트리에 대한 인증을 위한 노드 구성
+  - 모든 파드는 구성된 프라이빗 레지스트리를 읽을 수 있음
+  - 클러스터 관리자에 의한 노드 구성 필요
+- Kubelet 자격증명 제공자(Credential Provider)를 통해 프라이빗 레지스트리로부터 동적으로 자격증명을 가져오기
+  - kubelet은 특정 프라이빗 레지스트리에 대해 자격증명 제공자 실행 
+    플러그인(credential provider exec plugin)을 사용하도록 설정될 수 있다.
+- 미리 내려받은(pre-pulled) 이미지
+  - 모든 파드는 노드에 캐시된 모든 이미지를 사용 가능
+  - 셋업을 위해서는 모든 노드에 대해서 root 접근이 필요
+- 파드에 ImagePullSecrets을 명시
+  - 자신의 키를 제공하는 파드만 프라이빗 레지스트리에 접근 가능
+- 공급 업체별 또는 로컬 확장
+  - 사용자 정의 노드 구성을 사용하는 경우, 사용자(또는 클라우드
+    제공자)가 컨테이너 레지스트리에 대한 노드 인증 메커니즘을
+    구현할 수 있다.
 
 이들 옵션은 아래에서 더 자세히 설명한다.
 
 ### 프라이빗 레지스트리에 인증하도록 노드 구성
 
-크리덴셜 설정에 대한 상세 지침은 사용하는 컨테이너 런타임 및 레지스트리에 따라 다르다. 가장 정확한 정보는 솔루션 설명서를 참조해야 한다.
+크리덴셜 설정에 대한 상세 지침은 사용하는 컨테이너 런타임 및 레지스트리에 따라 다르다. 
+가장 정확한 정보는 솔루션 설명서를 참조해야 한다.
 
 프라이빗 컨테이너 이미지 레지스트리 구성 예시를 보려면, 
 [프라이빗 레지스트리에서 이미지 가져오기](/ko/docs/tasks/configure-pod-container/pull-image-private-registry/)를 참조한다. 
@@ -276,7 +325,6 @@ kubelet은 인식된 모든 크리덴셜을 순차적으로 이용하여 이미�
 이미지를 풀 해야 한다고 명시하면,
 kubelet은 크리덴셜을 순차적으로 사용하여 풀을 시도한다.
 
-
 ### 미리 내려받은 이미지 {#pre-pulled-images}
 
 {{< note >}}
@@ -292,7 +340,8 @@ kubelet은 크리덴셜을 순차적으로 사용하여 풀을 시도한다.
 레지스트리 인증의 대안으로 미리 풀 된 이미지에 의존하고 싶다면,
 클러스터의 모든 노드가 동일한 미리 내려받은 이미지를 가지고 있는지 확인해야 한다.
 
-이것은 특정 이미지를 속도를 위해 미리 로드하거나 프라이빗 레지스트리에 대한 인증의 대안으로 사용될 수 있다.
+이것은 특정 이미지를 속도를 위해 미리 로드하거나 
+프라이빗 레지스트리에 대한 인증의 대안으로 사용될 수 있다.
 
 모든 파드는 미리 내려받은 이미지에 대해 읽기 접근 권한을 가질 것이다.
 
@@ -314,13 +363,18 @@ kubelet은 크리덴셜을 순차적으로 사용하여 풀을 시도한다.
 대문자 값을 적절히 대체하여, 다음 커맨드를 실행한다.
 
 ```shell
-kubectl create secret docker-registry <name> --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-password=DOCKER_PASSWORD --docker-email=DOCKER_EMAIL
+kubectl create secret docker-registry <name> \
+  --docker-server=DOCKER_REGISTRY_SERVER \
+  --docker-username=DOCKER_USER \
+  --docker-password=DOCKER_PASSWORD \
+  --docker-email=DOCKER_EMAIL
 ```
 
 만약 도커 자격 증명 파일이 이미 존재한다면, 위의 명령을 사용하지 않고,
 자격 증명 파일을 쿠버네티스 {{< glossary_tooltip text="시크릿" term_id="secret" >}}으로
 가져올 수 있다.
-[기존 도커 자격 증명으로 시크릿 생성](/ko/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials)에서 관련 방법을 설명하고 있다.
+[기존 도커 자격 증명으로 시크릿 생성](/ko/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials)에서 
+관련 방법을 설명하고 있다.
 
 `kubectl create secret docker-registry`는
 하나의 프라이빗 레지스트리에서만 작동하는 시크릿을 생성하기 때문에,
@@ -333,8 +387,9 @@ kubectl create secret docker-registry <name> --docker-server=DOCKER_REGISTRY_SER
 
 #### 파드의 imagePullSecrets 참조
 
-이제, `imagePullSecrets` 섹션을 파드의 정의에 추가함으로써 해당 시크릿을
-참조하는 파드를 생성할 수 있다.
+이제, `imagePullSecrets` 섹션을 파드의 정의에 추가함으로써 
+해당 시크릿을 참조하는 파드를 생성할 수 있다. `imagePullSecrets` 배열의 각 항목으로는 
+해당 파드와 동일한 네임스페이스에 있는 시크릿만 참조할 수 있다.
 
 예를 들면 다음과 같다.
 
@@ -364,7 +419,8 @@ EOF
 그러나, 이 필드의 셋팅은 [서비스 어카운트](/docs/tasks/configure-pod-container/configure-service-account/) 리소스에
 imagePullSecrets을 셋팅하여 자동화할 수 있다.
 
-자세한 지침을 위해서는 [서비스 어카운트에 ImagePullSecrets 추가](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)를 확인한다.
+자세한 지침을 위해서는 
+[서비스 어카운트에 ImagePullSecrets 추가](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)를 확인한다.
 
 이것은 노드 당 `.docker/config.json`와 함께 사용할 수 있다. 자격 증명은
 병합될 것이다.
@@ -377,7 +433,8 @@ imagePullSecrets을 셋팅하여 자동화할 수 있다.
 1. 비소유 이미지(예를 들어, 오픈소스)만 실행하는 클러스터의 경우. 이미지를 숨길 필요가 없다.
    - 퍼블릭 레지스트리의 퍼블릭 이미지를 사용한다.
      - 설정이 필요 없다.
-     - 일부 클라우드 제공자는 퍼블릭 이미지를 자동으로 캐시하거나 미러링하므로, 가용성이 향상되고 이미지를 가져오는 시간이 줄어든다.
+     - 일부 클라우드 제공자는 퍼블릭 이미지를 자동으로 캐시하거나 미러링하므로, 
+       가용성이 향상되고 이미지를 가져오는 시간이 줄어든다.
 1. 모든 클러스터 사용자에게는 보이지만, 회사 외부에는 숨겨야하는 일부 독점 이미지를
    실행하는 클러스터의 경우.
    - 호스트된 프라이빗 레지스트리를 사용한다.
@@ -388,16 +445,32 @@ imagePullSecrets을 셋팅하여 자동화할 수 있다.
      - 그것은 수동 노드 구성에 비해서 클러스터 오토스케일링과 더 잘 동작할 것이다.
    - 또는, 노드의 구성 변경이 불편한 클러스터에서는, `imagePullSecrets`를 사용한다.
 1. 독점 이미지를 가진 클러스터로, 그 중 일부가 더 엄격한 접근 제어를 필요로 하는 경우.
-   - [AlwaysPullImages 어드미션 컨트롤러](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)가 활성화되어 있는지 확인한다. 그렇지 않으면, 모든 파드가 잠재적으로 모든 이미지에 접근 권한을 가진다.
+   - [AlwaysPullImages 어드미션 컨트롤러](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)가 활성화되어 있는지 확인한다. 
+     그렇지 않으면, 모든 파드가 잠재적으로 모든 이미지에 접근 권한을 가진다.
    - 민감한 데이터는 이미지 안에 포장하는 대신, "시크릿" 리소스로 이동한다.
 1. 멀티-테넌트 클러스터에서 각 테넌트가 자신의 프라이빗 레지스트리를 필요로 하는 경우.
-   - [AlwaysPullImages 어드미션 컨트롤러](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)가 활성화되어 있는지 확인한다. 그렇지 않으면, 모든 파드가 잠재적으로 모든 이미지에 접근 권한을 가진다.
+   - [AlwaysPullImages 어드미션 컨트롤러](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)가 활성화되어 있는지 확인한다. 
+     그렇지 않으면, 모든 파드가 잠재적으로 모든 이미지에 접근 권한을 가진다.
    - 인가가 요구되도록 프라이빗 레지스트리를 실행한다.
-   - 각 테넌트에 대한 레지스트리 자격 증명을 생성하고, 시크릿에 넣고, 각 테넌트 네임스페이스에 시크릿을 채운다.
+   - 각 테넌트에 대한 레지스트리 자격 증명을 생성하고, 시크릿에 넣고, 
+     각 테넌트 네임스페이스에 시크릿을 채운다.
    - 테넌트는 해당 시크릿을 각 네임스페이스의 imagePullSecrets에 추가한다.
 
-
 다중 레지스트리에 접근해야 하는 경우, 각 레지스트리에 대해 하나의 시크릿을 생성할 수 있다.
+
+## 레거시 내장 kubelet 자격 증명 공급자
+
+이전 버전의 Kubernetes에서, kubelet은 클라우드 공급자 자격 증명과 직접 통합되어 있었다. 
+이로 인해 이미지 레지스트리용 자격 증명을 동적으로 가져올 수 있었다.
+
+이러한 kubelet 자격 증명 공급자 통합의 내장 구현은 
+ACR (Azure Container Registry), ECR (Elastic Container Registry), GCR (Google Container Registry) 의 3종이 있었다.
+
+레거시 메카니즘에 대한 더 많은 정보는 현재 사용 중인 쿠버네티스 버전의 문서를 참고한다. 
+쿠버네티스 v1.26부터 v{{< skew latestVersion >}}까지는 레거시 메카니즘를 포함하고 있지 않으므로, 
+다음 중 한 가지 방법을 사용해야 한다.
+- kubelet 이미지 자격 증명 공급자를 각 노드에 대해 구성한다
+- `imagePullSecrets` 및 하나 이상의 시크릿을 사용하여 이미지 풀 자격 증명을 지정한다
 
 ## {{% heading "whatsnext" %}}
 
