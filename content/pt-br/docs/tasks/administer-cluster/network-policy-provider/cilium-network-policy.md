@@ -27,7 +27,7 @@ Inicie o minikube, a versão mínima exigida é >= v1.5.2, com os seguintes argu
 ```shell
 minikube version
 ```
-```console
+```
 minikube version: v1.5.2
 ```
 
@@ -63,7 +63,7 @@ Os componentes são:
 - ConfigMap.
 - Um agente DaemonSet e um Operator Deployment.
 
-Após a instalação, você podera visualizar o status geral do Deployment do Cilium com o comando `cilium status`.
+Após a instalação, você poderá visualizar o status geral do Deployment do Cilium com o comando `cilium status`.
 Confira a saída esperada da opção `status` [aqui](https://docs.cilium.io/en/stable/gettingstarted/k8s-install-default/#validate-the-installation). 
 
 O restante do guia de primeiros passos utiliza como base uma aplicação de exemplo para explicar como aplicar políticas de segurança tanto para L3/L4 (como endereço de IP + porta), quanto para L7 (como HTTP).
@@ -85,7 +85,7 @@ Ao realizar o deploy do Cilium no cluster, Pods são adicionados ao namespace `k
 kubectl get pods --namespace=kube-system -l k8s-app=cilium
 ```
 
-Você verá uma lista de Pods similar a essa::
+Você verá uma lista de Pods similar a essa:
 
 ```console
 NAME           READY   STATUS    RESTARTS   AGE
@@ -99,8 +99,7 @@ Um Pod `cilium` roda em cada um dos nós do seu cluster e garante as políticas 
 
 ## {{% heading "whatsnext" %}}
 
-Uma vez que seu cluster estiver rodando, você pode seguir o artigo [Declarar uma Network Policy](/docs/tasks/administer-cluster/declare-network-policy/) para testar as políticas de NetworkPolicy do Kubernetes com o Cilium.
+Uma vez que seu cluster estiver rodando, você pode seguir o artigo [Declarar uma Network Policy (em inglês)](/docs/tasks/administer-cluster/declare-network-policy/) para testar as políticas de NetworkPolicy do Kubernetes com o Cilium.
 Divirta-se! Se tiver dúvidas, nos contate usando o [Canal Slack do Cilium](https://cilium.herokuapp.com/).
-
 
 
