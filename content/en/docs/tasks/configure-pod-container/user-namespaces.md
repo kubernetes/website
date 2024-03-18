@@ -57,10 +57,6 @@ If you have a mixture of nodes and only some of the nodes provide user namespace
 Pods, you also need to ensure that the user namespace Pods are
 [scheduled](/docs/concepts/scheduling-eviction/assign-pod-node/) to suitable nodes.
 
-Please note that **if your container runtime doesn't support user namespaces, the
-`hostUsers` field in the pod spec will be silently ignored and the pod will be
-created without user namespaces.**
-
 <!-- steps -->
 
 ## Run a Pod that uses a user namespace {#create-pod}
