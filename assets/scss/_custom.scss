@@ -240,8 +240,11 @@ body.td-404 main .error-details {
 }
 
 .search-item.nav-item {
-    input, input::placeholder {
+    input {
       color: black;
+  }
+  input::placeholder {
+      color: $medium-grey;
   }
 }
 
