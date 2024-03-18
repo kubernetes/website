@@ -2,7 +2,7 @@
 title: শুরু করা যাক
 main_menu: true
 weight: 20
-content_type: concept
+content_type: ধারণা
 no_list: true
 card:
   name: setup
@@ -22,6 +22,10 @@ card:
 
 আপনি একটি কুবারনেটিস ক্লাস্টার স্থাপন করতে [কুবারনেটিস ডাউনলোড](/releases/download/) করতে পারেন
 একটি স্থানীয় মেশিনে, ক্লাউডে বা আপনার নিজস্ব ডেটাসেন্টারের জন্য।
+
+বেশ কিছু [কুবারনেটস উপাদান](/docs/concepts/overview/components/) যেমন {{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}} বা {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}} [কন্টেইনার ইমেজ](/releases/download/#container-images) হিসাবেও ক্লাস্টারের মধ্যে স্থাপন করা যায়। 
+
+যেখানেই সম্ভব কুবারনেটিস উপাদানগুলি কন্টেইনার ইমেজ হিসাবে চালানোর , এবং কুবারনেটিস দ্বারা সেই উপাদানগুলি পরিচালনা করার **সুপারিশ** করা হয়েছে । যে উপাদানগুলি কন্টেইনার রান করে - বিশেষভাবে, কিউবলেট - সেগুলিকে এই বিভাগে অন্তর্ভুক্ত করা যায় না।
 
 আপনি যদি নিজে একটি কুবারনেটিস ক্লাস্টার পরিচালনা করতে না চান, তাহলে আপনি একটি পরিচালিত পরিষেবা বাছাই করতে পারেন, যার মধ্যে রয়েছে
 [প্রত্যয়িত প্ল্যাটফর্ম](/docs/setup/production-environment/turnkey-solutions/)।
