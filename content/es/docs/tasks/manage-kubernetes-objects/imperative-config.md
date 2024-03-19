@@ -32,7 +32,6 @@ La herramienta `kubectl` admite tres tipos de administración de objetos:
 Consulte [Administración de objetos de Kubernetes](/docs/concepts/overview/working-with-objects/object-management/)
 para una discusión de las ventajas y desventajas de cada tipo de administración de objetos.
 
-
 ## Cómo crear objetos
 
 Puede usar `kubectl create -f` para crear un objeto a partir de un archivo de configuración.
@@ -44,9 +43,8 @@ para detalles.
 ## Cómo actualizar objetos
 
 {{< warning >}}
-La actualización de objetos con el comando `replace` 
-elimina todas las partes de la especificación no 
-especificadas en el archivo de configuración. Esto no debe 
+La actualización de objetos con el comando `replace` elimina todas las 
+partes de la especificación no especificadas en el archivo de configuración. Esto no debe 
 usarse con objetos cuyas especificaciones son administradas 
 parcialmente por el clúster, como Servicios de tipo `LoadBalancer`, donde el 
 campo `externalIPs` se administra independientemente de la configuración.
