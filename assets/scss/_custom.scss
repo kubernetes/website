@@ -239,11 +239,17 @@ body.td-404 main .error-details {
   }
 }
 
+.search-item.nav-item {
+    input, input::placeholder {
+      color: black;
+  }
+}
+
 .flip-nav .search-item {
-  .td-search-input {
+  .td-search-input, .search-bar {
     background-color: $medium-grey;
   }
-  input, textarea {
+  input, input::placeholder, .search-icon {
     color: white;
   }
   textarea:focus, input:focus {
