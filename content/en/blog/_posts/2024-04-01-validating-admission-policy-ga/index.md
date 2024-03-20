@@ -6,7 +6,7 @@ date: 2024-04-01
 canonicalUrl: https://www.k8s.dev/blog/2024/04/01/validating-admission-policy/
 ---
 
-** Author **: Jiahui Feng (Google)
+**Author:** Jiahui Feng (Google)
 
 We are excited to announce that Validating Admission Policy has reached its General Availability
 as part of Kubernetes 1.30 release. If you have not yet read about this new declarative alternative to
