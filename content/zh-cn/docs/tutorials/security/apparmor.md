@@ -66,7 +66,7 @@ applications and cluster from other angles as well.
 AppArmor is an optional kernel module and Kubernetes feature, so verify it is supported on your
 Nodes before proceeding:
 -->
-AppArmor 是一个可选的内核模块和 Kubernetes 特性，因此请在继续之前验证您的节点是否支持它：
+AppArmor 是一个可选的内核模块和 Kubernetes 特性，因此请在继续之前验证你的节点是否支持它：
 
 <!--
 1. AppArmor kernel module is enabled -- For the Linux kernel to enforce an AppArmor profile, the
