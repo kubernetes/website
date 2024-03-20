@@ -1,8 +1,5 @@
 ---
 title: ক্লাস্টার প্রশাসন
-reviewers:
-- davidopp
-- lavalamp
 weight: 100
 content_type: concept
 description: >
@@ -38,7 +35,7 @@ card:
 - আপনি কি আপনার কম্পিউটারে কুবারনেটিস ব্যবহার করে দেখতে চান, বা আপনি একটি উচ্চ-উপলব্ধতা(availability) তৈরি করতে চান,
   মাল্টি-নোড ক্লাস্টার ? আপনার প্রয়োজনের জন্য সবচেয়ে উপযুক্ত ডিস্ট্রো বেছে নিন।
 - আপনি কি ব্যবহার করবেন **হোস্ট করা কুবারনেটিস ক্লাস্টার** , যেমন
-  [গুগল কুবারনেটিস ইঞ্জিন](https://cloud.google.com/kubernetes-engine/), অথবা **আপনার নিজস্ব ক্লাস্টার হোস্ট করছেন** ?
+  [গুগল কুবারনেটিস ইঞ্জিন](https://cloud.google.com/kubernetes-engine/), অথবা **আপনার নিজস্ব ক্লাস্টার হোস্ট করছেন**?
 - আপনার ক্লাস্টার কি **অন-প্রিমিসেস**, বা **ক্লাউডে (IaaS)** হবে ? কুবারনেটিস হাইব্রিড ক্লাস্টারগুলিকে
   সরাসরি সমর্থন করে না। এর পরিবর্তে, আপনি একাধিক ক্লাস্টার সেট আপ করতে পারেন।
 - **যদি আপনি কুবারনেটিস অন-প্রিমিসেস কনফিগার করছেন**, তাহলে বিবেচনা করুন
@@ -49,3 +46,50 @@ card:
   পছন্দের একটি বৃহত্তর বৈচিত্র অফার করে।
 - একটি ক্লাস্টার চালানোর জন্য প্রয়োজনীয় [উপাদান](/bn/docs/concepts/overview/components/) এর সাথে নিজেকে পরিচিত করুন৷
 
+## একটি ক্লাস্টার পরিচালনা করা
+
+* শিখুন কিভাবে [নোড পরিচালনা করবেন](/bn/docs/concepts/architecture/nodes/)।
+
+* কিভাবে সেট আপ এবং পরিচালনা করতে হয় [রিসোর্স কোটা](/bn/docs/concepts/policy/resource-quotas/) শেয়ার্ড ক্লাস্টারগুলির জন্য তা শিখুন।
+
+## একটি ক্লাস্টার সুরক্ষিত করা
+
+* [জেনারেট সার্টিফিকেট](/bn/docs/tasks/administer-cluster/certificates/) বিভিন্ন টুল চেইন ব্যবহার করে সার্টিফিকেট
+  তৈরি করার ধাপগুলি বর্ণনা করে।
+
+* [কুবারনেটিস কন্টেইনার এনভায়রনমেন্ট](/bn/docs/concepts/containers/container-environment/) একটি কুবারনেটিস
+  নোডে Kubelet পরিচালিত কন্টেইনারগুলির পরিবেশ বর্ণনা করে।
+  
+* [Kubernetes API-তে অ্যাক্সেস নিয়ন্ত্রণ](/bn/docs/concepts/security/controlling-access) বর্ণনা করে
+  কিভাবে কুবারনেটিস তার নিজস্ব API এর জন্য অ্যাক্সেস নিয়ন্ত্রণ প্রয়োগ করে।
+
+* [যাচাইকরণ](/bn/docs/reference/access-authn-authz/authentication/) বিভিন্ন যাচাইকরণ বিকল্প সহ,
+  কুবারনেটিসে যাচাইকরণের ব্যাখ্যা দেয়।
+
+* [অথোরাইজেশন](/bn/docs/reference/access-authn-authz/authorization/) যাচাইকরণ থেকে আলাদা,
+  এবং HTTP কলগুলি কীভাবে পরিচালনা করা হয় তা নিয়ন্ত্রণ করে।
+
+* [ভর্তি নিয়ন্ত্রকদের ব্যবহার](/bn/docs/reference/access-authn-authz/admission-controllers/)
+  প্লাগ-ইনগুলি ব্যাখ্যা করে যা যাচাইকরণ এবং অনুমোদনের পরে কুবারনেটস API সার্ভারে 
+  অনুরোধগুলিকে বাধা দেয়।
+
+* [কুবারনেটিস ক্লাস্টারে Sysctls ব্যবহার ](/bn/docs/tasks/administer-cluster/sysctl-cluster/)
+  একজন প্রশাসকের কাছে বর্ণনা করে যে কীভাবে কার্নেল প্যারামিটার সেট করতে `sysctl` কমান্ড-লাইন টুল ব্যবহার করতে হয়
+।
+
+* [অডিটিং](/bn/docs/tasks/debug/debug-cluster/audit/) বর্ণনা করে কিভাবে কুবারনেটিসের অডিট লগের সাথে
+  যোগাযোগ করতে হয়।
+
+### Kubelet সুরক্ষিত করা
+
+* [কন্ট্রোল প্লেন-নোড কমিউনিকেশন](/bn/docs/concepts/architecture/control-plane-node-communication/)
+* [TLS বুটস্ট্র্যাপিং](/bn/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
+* [Kubelet যাচাইকরণ/অনুমোদন](/bn/docs/reference/access-authn-authz/kubelet-authn-authz/)
+
+## ঐচ্ছিক ক্লাস্টার সার্ভিস
+
+* [DNS ইন্টিগ্রেশন](/bn/docs/concepts/services-networking/dns-pod-service/) বর্ণনা করে কিভাবে সরাসরি কুবারনেটিস পরিষেবাতে
+  একটি DNS নাম সমাধান করা যায়।
+
+* [লগিং এবং মনিটরিং ক্লাস্টার অ্যাক্টিভিটি](/bn/docs/concepts/cluster-administration/logging/)
+  ব্যাখ্যা করে কিভাবে কুবারনেটিসে লগিং কাজ করে এবং কিভাবে এটি বাস্তবায়ন করা যায়।
