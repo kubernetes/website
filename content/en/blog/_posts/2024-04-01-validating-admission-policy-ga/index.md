@@ -21,27 +21,28 @@ enforce `runAsNonRoot`, `readOnlyRootFilesystem`, `allowPrivilegeEscalation`, an
 
 ```go
 func verifyDeployment(deploy *appsv1.Deployment) error {
+	var errs []error
 	for i, c := range deploy.Spec.Template.Spec.Containers {
 		if c.Name == "" {
 			return fmt.Errorf("container %d has no name", i)
 		}
 		if c.SecurityContext == nil {
-			return fmt.Errorf("container %q does not have SecurityContext", c.Name)
+			errs = append(errs, fmt.Errorf("container %q does not have SecurityContext", c.Name))
 		}
 		if c.SecurityContext.RunAsNonRoot == nil || !*c.SecurityContext.RunAsNonRoot {
-			return fmt.Errorf("container %q must set RunAsNonRoot to true in its SecurityContext", c.Name)
+			errs = append(errs, fmt.Errorf("container %q must set RunAsNonRoot to true in its SecurityContext", c.Name))
 		}
 		if c.SecurityContext.ReadOnlyRootFilesystem == nil || !*c.SecurityContext.ReadOnlyRootFilesystem {
-			return fmt.Errorf("container %q must set ReadOnlyRootFilesystem to true in its SecurityContext", c.Name)
+			errs = append(errs, fmt.Errorf("container %q must set ReadOnlyRootFilesystem to true in its SecurityContext", c.Name))
 		}
 		if c.SecurityContext.AllowPrivilegeEscalation != nil && *c.SecurityContext.AllowPrivilegeEscalation {
-			return fmt.Errorf("container %q must NOT set AllowPrivilegeEscalation to true in its SecurityContext", c.Name)
+			errs = append(errs, fmt.Errorf("container %q must NOT set AllowPrivilegeEscalation to true in its SecurityContext", c.Name))
 		}
 		if c.SecurityContext.Privileged != nil && *c.SecurityContext.Privileged {
-			return fmt.Errorf("container %q must NOT set Privileged to true in its SecurityContext", c.Name)
+			errs = append(errs, fmt.Errorf("container %q must NOT set Privileged to true in its SecurityContext", c.Name))
 		}
 	}
-	return nil
+	return errors.NewAggregate(errs)
 }
 ```
 
@@ -162,9 +163,9 @@ EOF
 ```text
 Warning: Validation failed for ValidatingAdmissionPolicy 'pod-security.policy.example.com' with binding 'pod-security.policy-binding.example.com': all containers must set runAsNonRoot to true
 Warning: Validation failed for ValidatingAdmissionPolicy 'pod-security.policy.example.com' with binding 'pod-security.policy-binding.example.com': all containers must set readOnlyRootFilesystem to true
-Warning: Validation failed for ValidatingAdmissionPolicy 'pod-security.policy.example.com' with binding 'pod-security.policy-binding.example.com': all containers must NOT set allowPrivilegeEscalation to true
-Warning: Validation failed for ValidatingAdmissionPolicy 'pod-security.policy.example.com' with binding 'pod-security.policy-binding.example.com': all containers must NOT set privileged to true
-Error from server: error when creating "STDIN": admission webhook "webhook.example.com" denied the request: container "nginx" must set RunAsNonRoot to true in its SecurityContext
+Warning: Validation failed for ValidatingAdmissionPolicy 'pod-security.policy.example.com' with binding 'pod-security.policy-binding.example.com': all containers must set allowPrivilegeEscalation to false
+Warning: Validation failed for ValidatingAdmissionPolicy 'pod-security.policy.example.com' with binding 'pod-security.policy-binding.example.com': all containers must set privileged to false
+Error from server: error when creating "STDIN": admission webhook "cel-shim.example.com" denied the request: [container "nginx" must set RunAsNonRoot to true in its SecurityContext, container "nginx" must set ReadOnlyRootFilesystem to true in its SecurityContext, container "nginx" must NOT set AllowPrivilegeEscalation to true in its SecurityContext, container "nginx" must NOT set Privileged to true in its SecurityContext]
 ```
 Not quite the exact same behavior but good enough. After a few other cases, when we are confident with our policy, maybe it is time for some refactoring.
 With Variable Composition introduced in beta, we can extract repeated sub-expressions into their own variables.
