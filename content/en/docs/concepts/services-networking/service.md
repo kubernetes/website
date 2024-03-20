@@ -967,6 +967,35 @@ to control how Kubernetes routes traffic to healthy (“ready”) backends.
 
 See [Traffic Policies](/docs/reference/networking/virtual-ips/#traffic-policies) for more details.
 
+### Trafic distribution
+
+{{< feature-state feature_gate_name="ServiceTrafficDistribution" >}}
+
+The `.spec.trafficDistribution` field provides another way to influence traffic
+routing within a Kubernetes Service. While traffic policies focus on strict
+semantic guarantees, traffic distribution allows you to express _preferences_
+(such as routing to topologically closer endpoints). This can help optimize for
+performance, cost, or reliability. This optional field can be used if you have
+enabled the `ServiceTrafficDistribution` [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/) for your
+cluster and all of its nodes. In Kubernetes {{< skew currentVersion >}}, the
+following field value is supported: 
+
+`PreferClose`
+: Indicates a preference for routing traffic to endpoints that are topologically
+  proximate to the client. The interpretation of "topologically proximate" may
+  vary across implementations and could encompass endpoints within the same
+  node, rack, zone, or even region. Setting this value gives implementations
+  permission to make different tradeoffs, e.g. optimizing for proximity rather
+  than equal distribution of load. Users should not set this value if such
+  tradeoffs are not acceptable.
+
+If the field is not set, the implementation will apply its default routing strategy.
+
+See [Traffic
+Distribution](/docs/reference/networking/virtual-ips/#traffic-distribution) for
+more details
+
 ### Session stickiness
 
 If you want to make sure that connections from a particular client are passed to
