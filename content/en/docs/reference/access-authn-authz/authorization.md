@@ -211,7 +211,7 @@ so an earlier module has higher priority to allow or deny a request.
 
 ## Configuring the API Server using an Authorization Config File
 
-{{< feature-state state="beta" for_k8s_version="v1.30" >}}
+{{< feature-state feature_gate_name="StructuredAuthorizationConfiguration" >}}
 
 The Kubernetes API server's authorizer chain can be configured using a
 configuration file.
@@ -220,7 +220,7 @@ This feature enables the creation of authorization chains with multiple webhooks
 
 You must specify the path to the authorization configuration using the `--authorization-config`command line argument. If you want to keep using command line flags instead of a configuration file, those will continue to work as-is. To gain access to new authorization webhook capabilities like multiple webhooks, failure policy, and pre-filter rules, switch to putting options in an `--authorization-config` file. 
 
-Starting Kubernetes 1.30, the configuration file format is
+Starting Kubernetes v{{< skew currentVersion >}}, the configuration file format is
 beta-level, and only requires specifying `--authorization-config` since the `StructuredAuthorizationConfiguration` feature gate is enabled by default.
 
 {{< caution >}}
