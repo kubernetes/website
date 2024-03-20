@@ -12,7 +12,6 @@ We are excited to announce that Validating Admission Policy has reached its Gene
 as part of Kubernetes 1.30 release. If you have not yet read about this new declarative alternative to
 validating admission webhooks, it may be interesting to read our
 [previous post](/blog/2022/12/20/validating-admission-policies-alpha/) about the new feature.
-
 If you have already heard about Validating Admission Policy and you are eager to try it out, there is no better way to
 start using it by replacing an existing webhook. 
 
@@ -50,7 +49,7 @@ Check out [the doc](https://kubernetes.io/docs/reference/access-authn-authz/exte
 for a refresher on how admission webhooks work. Or, see the [full code](https://gist.github.com/jiahuif/2653f2ce41fe6a2e5739ea7cd76b182b) of this webhook to follow along this tutorial. 
 
 # The Policy
-Now let's try to recreate the validation with a ValidatingAdmissionPolicy.
+Now let's try to recreate the validation faithfully with a ValidatingAdmissionPolicy.
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingAdmissionPolicy
@@ -70,9 +69,9 @@ spec:
   - expression: object.spec.template.spec.containers.all(c, has(c.securityContext) && has(c.securityContext.readOnlyRootFilesystem) && c.securityContext.readOnlyRootFilesystem)
     message: 'all containers must set readOnlyRootFilesystem to true'
   - expression: object.spec.template.spec.containers.all(c, !has(c.securityContext) || !has(c.securityContext.allowPrivilegeEscalation) || !c.securityContext.allowPrivilegeEscalation)
-    message: 'all containers must set allowPrivilegeEscalation to false'
+    message: 'all containers must NOT set allowPrivilegeEscalation to true'
   - expression: object.spec.template.spec.containers.all(c, !has(c.securityContext) || !has(c.securityContext.Privileged) || !c.securityContext.Privileged)
-    message: 'all containers must set privileged to false'
+    message: 'all containers must NOT set privileged to true'
 ```
 Create the policy with `kubectl`. Great, no complain so far. But let's take a look at its status.
 ```yaml
@@ -109,9 +108,9 @@ spec:
   - expression: object.spec.template.spec.containers.all(c, has(c.securityContext) && has(c.securityContext.readOnlyRootFilesystem) && c.securityContext.readOnlyRootFilesystem)
     message: 'all containers must set readOnlyRootFilesystem to true'
   - expression: object.spec.template.spec.containers.all(c, !has(c.securityContext) || !has(c.securityContext.allowPrivilegeEscalation) || !c.securityContext.allowPrivilegeEscalation)
-    message: 'all containers must set allowPrivilegeEscalation to false'
+    message: 'all containers must NOT set allowPrivilegeEscalation to true'
   - expression: object.spec.template.spec.containers.all(c, !has(c.securityContext) || !has(c.securityContext.privileged) || !c.securityContext.privileged)
-    message: 'all containers must set privileged to false'
+    message: 'all containers must NOT set privileged to true'
 ```
 Check its status again, and you should see all warnings cleared.
 
@@ -163,8 +162,8 @@ EOF
 ```text
 Warning: Validation failed for ValidatingAdmissionPolicy 'pod-security.policy.example.com' with binding 'pod-security.policy-binding.example.com': all containers must set runAsNonRoot to true
 Warning: Validation failed for ValidatingAdmissionPolicy 'pod-security.policy.example.com' with binding 'pod-security.policy-binding.example.com': all containers must set readOnlyRootFilesystem to true
-Warning: Validation failed for ValidatingAdmissionPolicy 'pod-security.policy.example.com' with binding 'pod-security.policy-binding.example.com': all containers must set allowPrivilegeEscalation to false
-Warning: Validation failed for ValidatingAdmissionPolicy 'pod-security.policy.example.com' with binding 'pod-security.policy-binding.example.com': all containers must set privileged to false
+Warning: Validation failed for ValidatingAdmissionPolicy 'pod-security.policy.example.com' with binding 'pod-security.policy-binding.example.com': all containers must NOT set allowPrivilegeEscalation to true
+Warning: Validation failed for ValidatingAdmissionPolicy 'pod-security.policy.example.com' with binding 'pod-security.policy-binding.example.com': all containers must NOT set privileged to true
 Error from server: error when creating "STDIN": admission webhook "webhook.example.com" denied the request: container "nginx" must set RunAsNonRoot to true in its SecurityContext
 ```
 Not quite the exact same behavior but good enough. After a few other cases, when we are confident with our policy, maybe it is time for some refactoring.
@@ -195,7 +194,7 @@ spec:
   - expression: variables.securityContexts.all(c, c.?readOnlyRootFilesystem == optional.of(true))
     message: 'all containers must set readOnlyRootFilesystem to true'
   - expression: variables.securityContexts.all(c, c.?allowPrivilegeEscalation != optional.of(true))
-    message: 'all containers must set allowPrivilegeEscalation to false'
+    message: 'all containers must NOT set allowPrivilegeEscalation to true'
   - expression: variables.securityContexts.all(c, c.?privileged != optional.of(true))
-    message: 'all containers must set privileged to false'
+    message: 'all containers must NOT set privileged to true'
 ```
