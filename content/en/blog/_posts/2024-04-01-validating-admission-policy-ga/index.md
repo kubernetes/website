@@ -168,7 +168,9 @@ Warning: Validation failed for ValidatingAdmissionPolicy 'pod-security.policy.ex
 Error from server: error when creating "STDIN": admission webhook "webhook.example.com" denied the request: container "nginx" must set RunAsNonRoot to true in its SecurityContext
 ```
 Not quite the exact same behavior but good enough. After a few other cases, when we are confident with our policy, maybe it is time for some refactoring.
-We can extract repeated sub-expressions into their own variables.
+With Variable Composition introduced in beta, we can extract repeated sub-expressions into their own variables.
+Also, In Kubernetes 1.28, the CEL library added support for [CEL optionals](https://github.com/google/cel-spec/wiki/proposal-246).
+The final result is as follows.
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingAdmissionPolicy
@@ -186,14 +188,14 @@ spec:
   - name: containers
     expression: object.spec.template.spec.containers
   - name: securityContexts
-    expression: 'variables.containers.map(c, has(c.securityContext) ? c.securityContext : {})'
+    expression: 'variables.containers.map(c, c.?securityContext)'
   validations:
-  - expression: variables.securityContexts.all(c, has(c.runAsNonRoot) && c.runAsNonRoot)
+  - expression: variables.securityContexts.all(c, c.?runAsNonRoot == optional.of(true))
     message: 'all containers must set runAsNonRoot to true'
-  - expression: variables.securityContexts.all(c, has(c.readOnlyRootFilesystem) && c.readOnlyRootFilesystem)
+  - expression: variables.securityContexts.all(c, c.?readOnlyRootFilesystem == optional.of(true))
     message: 'all containers must set readOnlyRootFilesystem to true'
-  - expression: variables.securityContexts.all(c, !has(c.allowPrivilegeEscalation) || !c.allowPrivilegeEscalation)
+  - expression: variables.securityContexts.all(c, c.?allowPrivilegeEscalation != optional.of(true))
     message: 'all containers must set allowPrivilegeEscalation to false'
-  - expression: variables.securityContexts.all(c, !has(c.privileged) || !c.privileged)
+  - expression: variables.securityContexts.all(c, c.?privileged != optional.of(true))
     message: 'all containers must set privileged to false'
 ```
