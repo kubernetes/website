@@ -245,7 +245,7 @@ ETCDCTL_API=3 etcdctl --write-out=table snapshot status snapshot.db
 
 ### ボリュームスナップショット
 
-etcdがAmazon Elastic Block Storeのようなバックアップをサポートするストレージボリューム上で実行されている場合、ストレージボリュームのスナップショットを取ることによってetcdデータをバックアップします。
+etcdがAmazon Elastic Block Storeのようなバックアップをサポートするストレージボリューム上で実行されている場合、ストレージボリュームのスナップショットを作成することによってetcdデータをバックアップします。
 
 ### etcdctlオプションを使用したスナップショット
 
