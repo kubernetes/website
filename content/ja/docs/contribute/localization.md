@@ -110,7 +110,7 @@ Kubernetesのリソース名や技術用語などは、原則としてそのま�
 --------- | ---------
 interface | インターフェース
 proxy | プロキシ
-Quota|クォータ
+quota|クォータ
 stacked | 積層
 
 ### cron jobの訳し方に関して {#cron-job}
