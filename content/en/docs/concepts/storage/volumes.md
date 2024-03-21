@@ -313,7 +313,13 @@ The `gitRepo` volume type is deprecated. To provision a container with a git rep
 [EmptyDir](#emptydir) into the Pod's container.
 
 ---
-You can restrict the use of `gitRepo` volumes in your cluster using [policies](https://kubernetes.io/docs/concepts/policy/) like [ValidatingAdmissionPolicy](docs/reference/access-authn-authz/validating-admission-policy/). For example, following Common Expression Language (CEL) expression can be used to restrict pods that uses `gitRepo` volumes: `has(object.spec.volumes) && !object.spec.volumes.exists(v, has(v.gitRepo))`.
+
+You can restrict the use of `gitRepo` volumes in your cluster using
+[policies](/docs/concepts/policy/) such as
+[ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/).
+Here is an example of a Common Expression Language (CEL) expression that you can use as
+part of a policy to reject use of `gitRepo` volumes:
+`!has(object.spec.volumes) || !object.spec.volumes.exists(v, has(v.gitRepo))`.
 
 {{< /warning >}}
 
