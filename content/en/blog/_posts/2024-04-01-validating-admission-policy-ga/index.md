@@ -175,11 +175,11 @@ Looks great! The policy and the webhook give equivalent results.
 After a few other cases, when we are confident with our policy, maybe it is time to do some cleanup.
 
 - For every expression, we repeat access to `object.spec.template.spec.containers` and each `securityContext` in every expression;
-- There is a pattern of checking presence of a field and then access it, which looks a bit verbose.
+- There is a pattern of checking presence of a field and then accessing it, which looks a bit verbose.
 
 Fortunately, with the release of Kubernetes 1.28, we have new solutions for both issues.
 Variable Composition allows us to extract repeated sub-expressions into their own variables.
-CEL library has also added support for [CEL optionals](https://github.com/google/cel-spec/wiki/proposal-246), which are excellent to work with fields that are, well, optional. 
+CEL library has also added support for [optionals](https://github.com/google/cel-spec/wiki/proposal-246), which are excellent to work with fields that are, well, optional. 
 
 With both features in mind, let's refactor the policy a bit.
 ```yaml
