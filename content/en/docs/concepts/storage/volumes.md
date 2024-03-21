@@ -309,7 +309,8 @@ third party storage driver instead.
 
 {{< warning >}}
 The `gitRepo` volume type is deprecated. To provision a container with a git repo, mount an
-[EmptyDir](#emptydir) into an InitContainer that clones the repo using git, then mount the
+[`emptyDir`](#emptydir) volume into an [init container](/docs/concepts/workloads/pods/init-containers/) that
+clones the repo using Git, then mount the
 [EmptyDir](#emptydir) into the Pod's container.
 
 ---
