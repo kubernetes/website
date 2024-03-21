@@ -12,7 +12,7 @@ weight: 270
 
 Kubernetesクラスターが必要で、kubectlコマンドラインツールがクラスターと通信できるように設定されている必要があります。
 コントロールプレーンノード以外に少なくとも2つのノードを持つクラスターで、このガイドに従うことを推奨します。
-まだクラスターを持っていない場合は、[minikube](https://minikube.sigs.k8s.io/docs/tutorials/multi_node/)を使用して作成することができます。
+まだクラスターを用意していない場合は、[minikube](https://minikube.sigs.k8s.io/docs/tutorials/multi_node/)を使用して作成することができます。
 
 <!-- steps -->
 
