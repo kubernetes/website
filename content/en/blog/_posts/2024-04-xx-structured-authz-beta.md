@@ -7,7 +7,7 @@ slug: multi-webhook-authorization-made-easy
 
 **Authors:** [Rita Zhang](https://github.com/ritazh) (Microsoft), [Jordan
 Liggitt](https://github.com/liggitt) (Google), [Nabarun
-Pal](https://github.com/palnabarun) (VMware)
+Pal](https://github.com/palnabarun) (VMware) [Leigh Capili](https://github.com/stealthybox) (VMware)
 
 # Enhancing Kubernetes Authorization with Multiple Webhooks and Structured Configuration
 
@@ -82,7 +82,7 @@ authorizers:
       failurePolicy: Deny
       connectionInfo:
         type: KubeConfig
-        kubeConfigFile: /kube-system-authz-webhook.yaml
+        kubeConfigFile: /files/kube-system-authz-webhook.yaml
       matchConditions:
       # only send resource requests to the webhook
       - expression: has(request.resourceAttributes)
@@ -120,7 +120,7 @@ authorizers:
       failurePolicy: Deny
       connectionInfo:
         type: KubeConfig
-        kubeConfigFile: /kube-system-authz-webhook.yaml
+        kubeConfigFile: /files/kube-system-authz-webhook.yaml
       matchConditions:
       # only send resource requests to the webhook
       - expression: has(request.resourceAttributes)
@@ -140,7 +140,7 @@ authorizers:
       failurePolicy: Deny
       connectionInfo:
         type: KubeConfig
-        kubeConfigFile: /opa-default-authz-webhook.yaml
+        kubeConfigFile: /files/opa-default-authz-webhook.yaml
       matchConditions:
       # only send resource requests to the webhook
       - expression: has(request.resourceAttributes)
@@ -169,6 +169,36 @@ authorization configuration using the `--authorization-config` command line
 argument. From Kubernetes 1.30, the feature is in beta and enabled by default.
 If you want to keep using command line flags instead of a configuration file,
 those will continue to work as-is. 
+
+The following kind Cluster configuration sets that command argument on the 
+APIserver to load an AuthorizationConfiguration from a file
+(`authorization_config.yaml`) in the files folder.
+Any needed kubeconfig and certificate files can also be put in the files
+directory.
+```yaml
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+featureGates:
+  StructuredAuthorizationConfiguration: true  # enabled by default in v1.30
+kubeadmConfigPatches:
+  - |
+    kind: ClusterConfiguration
+    metadata:
+      name: config
+    apiServer:
+      extraArgs:
+        authorization-config: "/files/authorization_config.yaml"
+      extraVolumes:
+      - name: files
+        hostPath: "/files"
+        mountPath: "/files"
+        readOnly: true
+nodes:
+- role: control-plane
+  extraMounts:
+  - hostPath: files
+    containerPath: /files
+```
 
 We would love to hear your feedback on this feature. In particular, we would
 like feedback from Kubernetes cluster administrators and authorization webhook
