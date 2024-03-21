@@ -12,11 +12,12 @@ We are excited to announce that Validating Admission Policy has reached its Gene
 as part of Kubernetes 1.30 release. If you have not yet read about this new declarative alternative to
 validating admission webhooks, it may be interesting to read our
 [previous post](/blog/2022/12/20/validating-admission-policies-alpha/) about the new feature.
-If you have already heard about Validating Admission Policy and you are eager to try it out, there is no better way to
-start using it by replacing an existing webhook. 
+If you have already heard about Validating Admission Policy and you are eager to try it out, there is no better time to do it now.
+
+Let's have a taste of Validating Admission Policy by replacing a simple webhook. 
 
 # The Webhook
-First, let's take a look at an example of a webhook that can be a good candidate. Here is an excerpt from a webhook that
+First, let's take a look at an example of a simple webhook. Here is an excerpt from a webhook that
 enforce `runAsNonRoot`, `readOnlyRootFilesystem`, `allowPrivilegeEscalation`, and `privileged` to be set to the least permissive values.
 
 ```go
@@ -47,7 +48,7 @@ func verifyDeployment(deploy *appsv1.Deployment) error {
 ```
 
 Check out [the doc](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks)
-for a refresher on how admission webhooks work. Or, see the [full code](https://gist.github.com/jiahuif/2653f2ce41fe6a2e5739ea7cd76b182b) of this webhook to follow along this tutorial. 
+for a refresher on how admission webhooks work. Or, see the [full code](https://gist.github.com/jiahuif/2653f2ce41fe6a2e5739ea7cd76b182b) of this webhook to follow along this walkthrough. 
 
 # The Policy
 Now let's try to recreate the validation faithfully with a ValidatingAdmissionPolicy.
@@ -75,6 +76,9 @@ spec:
     message: 'all containers must NOT set privileged to true'
 ```
 Create the policy with `kubectl`. Great, no complain so far. But let's get the policy object back and take a look at its status.
+```shell
+kubectl get -oyaml validatingadmissionpolicies/pod-security.policy.example.com
+```
 ```yaml
   status:
     typeChecking:
@@ -169,7 +173,7 @@ Warning: Validation failed for ValidatingAdmissionPolicy 'pod-security.policy.ex
 Warning: Validation failed for ValidatingAdmissionPolicy 'pod-security.policy.example.com' with binding 'pod-security.policy-binding.example.com': all containers must set readOnlyRootFilesystem to true
 Warning: Validation failed for ValidatingAdmissionPolicy 'pod-security.policy.example.com' with binding 'pod-security.policy-binding.example.com': all containers must NOT set allowPrivilegeEscalation to true
 Warning: Validation failed for ValidatingAdmissionPolicy 'pod-security.policy.example.com' with binding 'pod-security.policy-binding.example.com': all containers must NOT set privileged to true
-Error from server: error when creating "STDIN": admission webhook "cel-shim.example.com" denied the request: [container "nginx" must set RunAsNonRoot to true in its SecurityContext, container "nginx" must set ReadOnlyRootFilesystem to true in its SecurityContext, container "nginx" must NOT set AllowPrivilegeEscalation to true in its SecurityContext, container "nginx" must NOT set Privileged to true in its SecurityContext]
+Error from server: error when creating "STDIN": admission webhook "webhook.example.com" denied the request: [container "nginx" must set RunAsNonRoot to true in its SecurityContext, container "nginx" must set ReadOnlyRootFilesystem to true in its SecurityContext, container "nginx" must NOT set AllowPrivilegeEscalation to true in its SecurityContext, container "nginx" must NOT set Privileged to true in its SecurityContext]
 ```
 Looks great! The policy and the webhook give equivalent results.
 After a few other cases, when we are confident with our policy, maybe it is time to do some cleanup.
