@@ -254,7 +254,7 @@ storage](/docs/concepts/configuration/manage-resources-containers/#setting-reque
 If that is filled up from another source (for example, log files or image
 overlays), the `emptyDir` may run out of capacity before this limit.
 
-#### Before using memory backed `emptyDir`
+#### Considerations for memory backed `emptyDir` volumes {#emptydir-memory-backed}
 
 {{< note >}}
 You can specify a size for memory backed volumes, provided that the `SizeMemoryBackedVolumes`
