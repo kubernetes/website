@@ -161,7 +161,7 @@ URLが`member1=http://10.0.0.1`、`member2=http://10.0.0.2`、そして`member3=
 
 1. 以下のいずれかを行います:
 
-   1. 各Kubernetes APIサーバーが全てのetcdメンバーと通信するように構成されている場合、`--etcd-servers` フラグから障害が発生したメンバーを削除し、各Kubernetes APIサーバーを再起動します。
+   1. 各Kubernetes APIサーバーが全てのetcdメンバーと通信するように構成されている場合、`--etcd-servers`フラグから障害が発生したメンバーを削除し、各Kubernetes APIサーバーを再起動します。
    1. 各Kubernetes APIサーバーが単一のetcdメンバーと通信している場合、障害が発生したetcdと通信しているKubernetes APIサーバーを停止します。
 
 1. 壊れたノード上のetcdサーバーを停止します。
