@@ -119,8 +119,7 @@ ETCDCTL_API=3 etcdctl --endpoints 10.2.0.9:2379 \
 
 ### etcdクラスターへのアクセス制限
 
-セキュアな通信を構成した後、etcdクラスターへのアクセスをKubernetes APIサーバーのみに制限します。
-これを行うためにはTLS認証を使用します。
+セキュアな通信を構成した後、TLS認証を使用して、etcdクラスターへのアクセスをKubernetes APIサーバーのみに制限します。
 
 例えば、CA `etcd.ca`によって信頼されるキーペア`k8sclient.key`と`k8sclient.cert`を考えてみます。
 `--client-cert-auth`とTLSを使用してetcdが構成されている場合、etcdは`--trusted-ca-file`フラグで渡されたCAまたはシステムのCAを使用してクライアントからの証明書を検証します。
