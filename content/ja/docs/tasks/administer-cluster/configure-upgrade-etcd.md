@@ -131,7 +131,6 @@ Kubernetes APIサーバーにアクセス権を与えるためには、`--etcd-c
 
 {{< note >}}
 etcd認証は、Kubernetesでは現在サポートされていません。
-詳細については関連するIssue[Support Basic Auth for Etcd v2](https://github.com/kubernetes/kubernetes/issues/23398)を参照してください。
 {{< /note >}}
 
 ## 障害が発生したetcdメンバーの交換
