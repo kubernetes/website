@@ -7,7 +7,8 @@ slug: multi-webhook-authorization-made-easy
 
 **Authors:** [Rita Zhang](https://github.com/ritazh) (Microsoft), [Jordan
 Liggitt](https://github.com/liggitt) (Google), [Nabarun
-Pal](https://github.com/palnabarun) (VMware) [Leigh Capili](https://github.com/stealthybox) (VMware)
+Pal](https://github.com/palnabarun) (VMware), [Leigh
+Capili](https://github.com/stealthybox) (VMware)
 
 # Enhancing Kubernetes Authorization with Multiple Webhooks and Structured Configuration
 
