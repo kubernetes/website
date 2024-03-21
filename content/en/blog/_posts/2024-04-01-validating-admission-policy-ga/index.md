@@ -74,7 +74,7 @@ spec:
   - expression: object.spec.template.spec.containers.all(c, !has(c.securityContext) || !has(c.securityContext.Privileged) || !c.securityContext.Privileged)
     message: 'all containers must NOT set privileged to true'
 ```
-Create the policy with `kubectl`. Great, no complain so far. But let's take a look at its status.
+Create the policy with `kubectl`. Great, no complain so far. But let's get the policy object back and take a look at its status.
 ```yaml
   status:
     typeChecking:
@@ -89,7 +89,11 @@ Create the policy with `kubectl`. Great, no complain so far. But let's take a lo
            | ...............................................................................................................................^
 
 ```
-Ah, seems like a copy-paste error. Let's correct it real quick.
+The policy was checked against its matched type, which is `apps/v1.Deployment`.
+Looking at the `fieldRef`, the problem was with the 3rd expression (index starts with 0)
+The expression in question accessed an undefined `Privileged` field.
+Ahh, looks like it was a copy-and-paste error. The field name should be in lowercase.
+
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingAdmissionPolicy
@@ -167,10 +171,17 @@ Warning: Validation failed for ValidatingAdmissionPolicy 'pod-security.policy.ex
 Warning: Validation failed for ValidatingAdmissionPolicy 'pod-security.policy.example.com' with binding 'pod-security.policy-binding.example.com': all containers must set privileged to false
 Error from server: error when creating "STDIN": admission webhook "cel-shim.example.com" denied the request: [container "nginx" must set RunAsNonRoot to true in its SecurityContext, container "nginx" must set ReadOnlyRootFilesystem to true in its SecurityContext, container "nginx" must NOT set AllowPrivilegeEscalation to true in its SecurityContext, container "nginx" must NOT set Privileged to true in its SecurityContext]
 ```
-Not quite the exact same behavior but good enough. After a few other cases, when we are confident with our policy, maybe it is time for some refactoring.
-With Variable Composition introduced in beta, we can extract repeated sub-expressions into their own variables.
-Also, In Kubernetes 1.28, the CEL library added support for [CEL optionals](https://github.com/google/cel-spec/wiki/proposal-246).
-The final result is as follows.
+Looks great! The policy and the webhook give equivalent results.
+After a few other cases, when we are confident with our policy, maybe it is time to do some cleanup.
+
+- For every expression, we repeat access to `object.spec.template.spec.containers` and each `securityContext` in every expression;
+- There is a pattern of checking presence of a field and then access it, which looks a bit verbose.
+
+Fortunately, with the release of Kubernetes 1.28, we have new solutions for both issues.
+Variable Composition allows us to extract repeated sub-expressions into their own variables.
+CEL library has also added support for [CEL optionals](https://github.com/google/cel-spec/wiki/proposal-246), which are excellent to work with fields that are, well, optional. 
+
+With both features in mind, let's refactor the policy a bit.
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingAdmissionPolicy
