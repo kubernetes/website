@@ -84,8 +84,8 @@ Within the `scoringStrategy` field, you can configure two parameters: `requested
 `resources`. The `shape` in the `requestedToCapacityRatio`
 parameter allows the user to tune the function as least requested or most
 requested based on `utilization` and `score` values. The `resources` parameter
-consists of `name` of the resource to be considered during scoring and `weight`
-specify the weight of each resource.
+comprises both the `name` of the resource to be considered during scoring and
+its corresponding `weight`, which specifies the weight of each resource.
 -->
 ## 使用 RequestedToCapacityRatio 策略来启用资源装箱 {#enabling-bin-packing-using-requestedtocapacityratio}
 
@@ -97,7 +97,8 @@ specify the weight of each resource.
 字段来控制。在 `scoringStrategy` 字段中，你可以配置两个参数：
 `requestedToCapacityRatio` 和 `resources`。`requestedToCapacityRatio` 参数中的 `shape`
 设置使得用户能够调整函数的算法，基于 `utilization` 和 `score` 值计算最少请求或最多请求。
-`resources` 参数中包含计分过程中需要考虑的资源的 `name`，以及用来设置每种资源权重的 `weight`。
+`resources` 参数中包含计分过程中需要考虑的资源的 `name`，以及对应的 `weight`，
+后者指定了每个资源的权重。
 
 <!--
 Below is an example configuration that sets
