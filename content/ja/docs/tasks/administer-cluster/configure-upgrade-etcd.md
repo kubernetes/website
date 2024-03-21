@@ -221,10 +221,10 @@ etcdクラスターのバックアップは、etcdのビルトインスナップ
 ### ビルトインスナップショット
 
 etcdはビルトインスナップショットをサポートしています。
-スナップショットは、`etcdctl snapshot save`コマンドを使用してライブメンバーから、あるいはetcdプロセスによって現在使用されていない[データディレクトリ](https://etcd.io/docs/current/op-guide/configuration/#--data-dir)から`member/snap/db`ファイルをコピーして取得できます。
-スナップショットを取得しても、メンバーのパフォーマンスに影響はありません。
+スナップショットは、`etcdctl snapshot save`コマンドを使用してライブメンバーから、あるいはetcdプロセスによって現在使用されていない[データディレクトリ](https://etcd.io/docs/current/op-guide/configuration/#--data-dir)から`member/snap/db`ファイルをコピーして作成できます。
+スナップショットを作成しても、メンバーのパフォーマンスに影響はありません。
 
-以下は、`$ENDPOINT`によって提供されるキースペースのスナップショットを`snapshot.db`ファイルに取る例です:
+以下は、`$ENDPOINT`によって提供されるキースペースのスナップショットを`snapshot.db`ファイルに作成する例です:
 
 ```shell
 ETCDCTL_API=3 etcdctl --endpoints $ENDPOINT snapshot save snapshot.db
