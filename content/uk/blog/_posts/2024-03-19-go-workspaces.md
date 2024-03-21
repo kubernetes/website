@@ -3,7 +3,6 @@ layout: blog
 title: 'Використання робочих просторів Go в Kubernetes'
 date: 2024-03-19T08:30:00-08:00
 slug: go-workspaces-in-kubernetes
-canonicalUrl: https://www.kubernetes.dev/blog/2024/03/19/go-workspaces-in-kubernetes/
 ---
 
 **Автор:** Тім Хокін [Tim Hockin] (Google)  
