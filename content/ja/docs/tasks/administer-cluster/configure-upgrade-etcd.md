@@ -250,7 +250,7 @@ etcdがAmazon Elastic Block Storeのようなバックアップをサポート�
 
 ### etcdctlオプションを使用したスナップショット
 
-etcdctlによって提供されるさまざまなオプションを使用してスナップショットを取ることもできます。例えば
+etcdctlによって提供されるさまざまなオプションを使用してスナップショットを作成することもできます。例えば
 
 ```shell
 ETCDCTL_API=3 etcdctl -h
