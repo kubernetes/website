@@ -359,7 +359,7 @@ Return to this step once you've created a valid `config.toml` configuration file
 要在系统上安装 containerd，请按照[开始使用 containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md)
 的说明进行操作。创建有效的 `config.toml` 配置文件后返回此步骤。
 
-{{< tabs name="找到 config.toml 文件" >}}
+{{< tabs name="finding-your-config-toml-file" >}}
 {{% tab name="Linux" %}}
 <!--
 You can find this file under the path `/etc/containerd/config.toml`.
