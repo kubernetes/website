@@ -74,7 +74,7 @@ En esta página se listan algunos de los complementos disponibles con sus respec
   Pods y entornos no Kubernetes con visibilidad y supervisión de la seguridad.
 * [Romana](https://github.com/romana) es una solución de red de capa 3 para las redes de Pods
   que también son compatibles con la API de [NetworkPolicy](/docs/concepts/services-networking/network-policies/).
-* [Weave Net](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/)
+* [Weave Net](https://github.com/rajch/weave#using-weave-on-kubernetes)
   proporciona redes y políticas de red, funciona en ambos lados de una partición de 
   red y no requiere una base de datos externa.
 
