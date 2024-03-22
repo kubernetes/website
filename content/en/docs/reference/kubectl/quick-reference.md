@@ -371,6 +371,7 @@ kubectl port-forward my-pod 5000:6000               # Listen on port 5000 on the
 kubectl exec my-pod -- ls /                         # Run command in existing pod (1 container case)
 kubectl exec --stdin --tty my-pod -- /bin/sh        # Interactive shell access to a running pod (1 container case)
 kubectl exec my-pod -c my-container -- ls /         # Run command in existing pod (multi-container case)
+kubectl top pod                                     # Show metrics for all pods in the default namespace
 kubectl top pod POD_NAME --containers               # Show metrics for a given pod and its containers
 kubectl top pod POD_NAME --sort-by=cpu              # Show metrics for a given pod and sort it by 'cpu' or 'memory'
 ```
@@ -411,6 +412,7 @@ kubectl exec deploy/my-deployment -- ls                   # run command in first
 kubectl cordon my-node                                                # Mark my-node as unschedulable
 kubectl drain my-node                                                 # Drain my-node in preparation for maintenance
 kubectl uncordon my-node                                              # Mark my-node as schedulable
+kubectl top node                                                      # Show metrics for all nodes
 kubectl top node my-node                                              # Show metrics for a given node
 kubectl cluster-info                                                  # Display addresses of the master and services
 kubectl cluster-info dump                                             # Dump current cluster state to stdout
