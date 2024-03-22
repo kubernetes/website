@@ -1,0 +1,78 @@
+# Copyright 2025 The Kubernetes Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# This file related to the article "DevSecOps in Action: Kubernetes Secrets"
+# https://kubernetes.io/blog/2025/01/15/devsecops-in-action-k8s-secrets/
+
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base/
+
+secretGenerator:
+  - name: demo-secret
+    envs:
+      - secrets/default.env
+    options:
+      disableNameSuffixHash: true
+
+images:
+  - name: IMAGE
+    newName: demo-secret
+    newTag: stage-03
+
+patches:
+- target:
+    kind: Pod
+  patch: |-
+
+    - op: add
+      path: "/spec/containers/0/envFrom"
+      value:
+        - secretRef:
+            name: demo-secret
+
+    - op: add
+      path: "/spec/containers/0/volumeMounts"
+      value:
+        - name: demo-secret
+          mountPath: /secrets
+
+    - op: add
+      path: "/spec/volumes"
+      value:
+        - name: demo-secret
+          emptyDir: {}
+
+    - op: add
+      path: "/spec/initContainers"
+      value:
+        - name: secret-injector
+          image: alpine:3.19
+          command: ["sh", "-c", "test ${DEMO_SECRET__PASSWD##file://*} || cat /dev/urandom | base64 -w 0 | fold -w 16 | head -1 > ${DEMO_SECRET__PASSWD#file://}"]
+          volumeMounts:
+            - name: demo-secret
+              mountPath: /secrets
+          envFrom:
+           - secretRef:
+               name: demo-secret
+
+    - op: add
+      path: "/spec/containers/0/lifecycle"
+      value:
+        postStart:
+          exec:
+            command: ["sh", "-c", "(test -f ${DEMO_SECRET__PASSWD##file://} && wget -qO- localhost:8080/readiness && echo > ${DEMO_SECRET__PASSWD##file://}) || exit 0"]
