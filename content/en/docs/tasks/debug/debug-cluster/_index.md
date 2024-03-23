@@ -203,7 +203,7 @@ status:
     type: PIDPressure
   - lastHeartbeatTime: "2022-02-17T22:20:15Z"
     lastTransitionTime: "2022-02-17T22:15:15Z"
-    message: kubelet is posting ready status. AppArmor enabled
+    message: kubelet is posting ready status
     reason: KubeletReady
     status: "True"
     type: Ready
@@ -330,4 +330,3 @@ This is an incomplete list of things that could go wrong, and how to adjust your
 * Use `crictl` to [debug Kubernetes nodes](/docs/tasks/debug/debug-cluster/crictl/)
 * Get more information about [Kubernetes auditing](/docs/tasks/debug/debug-cluster/audit/)
 * Use `telepresence` to [develop and debug services locally](/docs/tasks/debug/debug-cluster/local-debugging/)
-
