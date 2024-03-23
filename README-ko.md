@@ -65,7 +65,7 @@ make container-serve
   npm ci
   make serve
   ```
-- 윈도우, 파워셀 (Windows, PowerShell)
+- 윈도우 (파워셸)
   ```powershell
   npm ci
   hugo.exe server --buildFuture --environment development
