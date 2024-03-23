@@ -60,7 +60,7 @@ make container-serve
 
 사이트를 로컬에서 빌드하고 테스트하려면, 다음을 실행합니다.
 
-- 리눅스와 맥OS (macOS and Linux)
+- macOS와 리눅스
   ```bash
   npm ci
   make serve
