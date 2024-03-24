@@ -63,7 +63,7 @@ graphroot = "/var/lib/containers/storage"
 
 - `graphroot`
   - コンテナランタイムから保存される永続データを指します
-  - SELinuxが有効になっている場合、これは `/var/lib/containers/storage` と一致させる必要があります
+  - SELinuxが有効になっている場合、これは`/var/lib/containers/storage`と一致させる必要があります
 - `runroot`
   - コンテナに対する一時的な読み書きアクセスを提供します
   - これは一時ファイルシステムに配置することを推奨します
