@@ -18,7 +18,7 @@ description: >
 কুবারনেটিস যেকোন নেটওয়ার্কিং বাস্তবায়নে নিম্নলিখিত মৌলিক প্রয়োজনীয়তাগুলো আরোপ করে 
 (যেকোনো ইচ্ছাকৃত নেটওয়ার্ক বিভাজন নীতি ব্যতীত):
 
-   * পড NAT ছাড়া অন্য কোনো [নোডে](/docs/concepts/architecture/nodes/)
+   * পড NAT ছাড়া অন্য কোনো [নোডে](/bn/docs/concepts/architecture/nodes/)
      অন্য সব পডের সঙ্গে যোগাযোগ করতে পারে
    * একটি নোডের এজেন্ট (যেমন system daemons, kubelet) সেই নোডের সমস্ত
      পডের সাথে যোগাযোগ করতে পারে
@@ -50,13 +50,13 @@ description: >
 - লুপব্যাকের মাধ্যমে একটি পডের মধ্যে কন্টেইনার [যোগাযোগের জন্য নেটওয়ার্কিং ব্যবহার করে](/bn/docs/concepts/services-networking/dns-pod-service/) ।
 - ক্লাস্টার নেটওয়ার্কিং বিভিন্ন পডের মধ্যে যোগাযোগ প্রদান করে।
 - [পরিষেবা](/bn/docs/concepts/services-networking/service/) API আপনাকে আপনার ক্লাস্টারের
-   বাইরে থেকে পৌঁছানোর জন্য [পডসে চলমান একটি অ্যাপ্লিকেশন প্রকাশ](/docs/tutorials/services/connect-applications-service/)
+   বাইরে থেকে পৌঁছানোর জন্য [পডসে চলমান একটি অ্যাপ্লিকেশন প্রকাশ](/bn/docs/tutorials/services/connect-applications-service/)
    করতে দেয় ।
   - [ইনগ্রেস](/bn/docs/concepts/services-networking/ingress/) বিশেষত HTTP অ্যাপ্লিকেশন, ওয়েবসাইট
     এবং এপিআই প্রকাশ করার জন্য অতিরিক্ত কার্যকারিতা প্রদান করে।
   - [গেটওয়ে API](/bn/docs/concepts/services-networking/gateway/) হলো একটি {{<glossary_tooltip text="অ্যাড-অন" term_id="addons">}}
     যেটি মডেলিং পরিষেবা নেটওয়ার্কিংয়ের জন্য API ধরণের একটি অভিব্যক্তিপূর্ণ (expressive), এক্সটেনসিবল, এবং ভূমিকা-ভিত্তিক পরিবার প্রদান করে।
-- এছাড়া আপনি [শুধুমাত্র আপনার ক্লাস্টারের মধ্যে ব্যবহারের জন্য পরিষেবাগুলো প্রকাশ করতে](/docs/concepts/services-networking/service-traffic-policy/)
+- এছাড়া আপনি [শুধুমাত্র আপনার ক্লাস্টারের মধ্যে ব্যবহারের জন্য পরিষেবাগুলো প্রকাশ করতে](/bn/docs/concepts/services-networking/service-traffic-policy/)
   পরিষেবাগুলো ব্যবহার করতে পারেন ।
 
 [কানেক্টিং অ্যাপ্লিকেশানস উইথ সার্ভিস](/bn/docs/tutorials/services/connect-applications-service/) টিউটোরিয়াল আপনাকে একটি হ্যান্ডস-অন উদাহরণ সহ পরিষেবা এবং কুবারনেটিস নেটওয়ার্কিং সম্পর্কে শিখতে দেয়।
