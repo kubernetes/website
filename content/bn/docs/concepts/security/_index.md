@@ -110,7 +110,7 @@ VMware vSphere | https://www.vmware.com/security/hardening-guides |
 * [ট্রানজিটে ডেটা এনক্রিপশন](/bn/docs/tasks/tls/managing-tls-in-a-cluster/) কন্ট্রোল প্লেনের জন্য
 * [ডেটা এনক্রিপশন এট রেস্ট](/bn/docs/tasks/administer-cluster/encrypt-data/)
 * [কুবারনেটিস API অ্যাক্সেস নিয়ন্ত্রণ](/bn/docs/concepts/security/controlling-access)
-* [নেটওয়ার্ক পলিসি](/bn/bn/docs/concepts/services-networking/network-policies/) পড এর জন্য
+* [নেটওয়ার্ক পলিসি](/bn/docs/concepts/services-networking/network-policies/) পড এর জন্য
 * [কুবারনেটিসে সিক্রেট](/bn/docs/concepts/configuration/secret/)
 * [পডগুলির নিরাপত্তা স্ট্যান্ডার্ডস](/bn/docs/concepts/security/pod-security-standards/)
 * [RuntimeClasses](/bn/docs/concepts/containers/runtime-class)
