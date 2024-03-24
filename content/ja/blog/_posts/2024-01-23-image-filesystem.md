@@ -87,7 +87,7 @@ containerdストレージの関連フィールドは、`root`と`state`です。
   - また、OSがそれを要求する場合は、ルートにSELinuxラベルも必要です
 - `state`
   - containerdの一時データ
-  - デフォルトは、`/run/containerd` です
+  - デフォルトは、`/run/containerd`です
 
 ## Kubernetesノードの圧迫による退避
 
