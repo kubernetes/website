@@ -94,7 +94,7 @@ containerdストレージの関連フィールドは、`root`と`state`です。
 Kubernetesは、コンテナファイルシステムがノードファイルシステムと分離されているかどうかを自動的に検出します。ファイルシステムを分離する場合、Kubernetesはノードファイルシステムとコンテナランタイムファイルシステムの両方を監視する責任があります。Kubernetesドキュメントでは、ノードファイルシステムとコンテナランタイムファイルシステムをそれぞれnodefsとimagefsと呼んでいます。nodefsまたはimagefsのいずれかがディスク容量不足になると、ノード全体がディスク圧迫があると見なされます。Kubernetesは、まず未使用のコンテナやイメージを削除してスペースを回収し、その後にポッドを追い出すことでスペースを再利用します。nodefsとimagefsの両方を持つノードでは、kubeletはimagefs上の未使用のコンテナイメージを[ガベージコレクト](/ja/docs/concepts/architecture/garbage-collection/#containers-images)し、nodefsからは終了したポッドとそれらのコンテナを削除します。nodefsのみが存在する場合、Kubernetesのガベージコレクションには、終了したコンテナ、ポッド、そして未使用のイメージが含まれます。
 
 Kubernetesでは、ディスクがいっぱいかどうかを判断するためのより多くの構成が可能です。
-kubelet内の退避マネージャには、関連する閾値を制御するいくつかの構成設定があります。ファイルシステムの場合、関連する測定値は`nodefs.available`、`nodefs.inodesfree`、`imagefs.available`、および`imagefs.inodesfree`です。コンテナランタイム用に専用のディスクがない場合、imagefsは無視されます。
+kubelet内の退避マネージャーには、関連する閾値を制御するいくつかの構成設定があります。ファイルシステムの場合、関連する測定値は`nodefs.available`、`nodefs.inodesfree`、`imagefs.available`、および`imagefs.inodesfree`です。コンテナランタイム用に専用のディスクがない場合、imagefsは無視されます。
 
 ユーザーは、既存のデフォルト値を使用できます:
 
