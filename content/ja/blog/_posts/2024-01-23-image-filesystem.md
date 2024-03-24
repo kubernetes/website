@@ -83,7 +83,7 @@ containerdストレージの関連フィールドは、`root`と`state`です。
 
 - `root`
   - containerdのメタデータのルートディレクトリ
-  - デフォルトは `/var/lib/containerd` です
+  - デフォルトは`/var/lib/containerd`です
   - また、OSがそれを要求する場合は、ルートにSELinuxラベルも必要です
 - `state`
   - containerdの一時データ
