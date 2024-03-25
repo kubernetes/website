@@ -181,6 +181,13 @@ Users with control over `validatingwebhookconfigurations` or `mutatingwebhookcon
 can control webhooks that can read any object admitted to the cluster, and in the case of
 mutating webhooks, also mutate admitted objects.
 
+### Namespace modification
+
+Users who can perform `patch` operations on `namespace` objects through a namespaced rolebinding can modify 
+labels on that namespace. In clusters where Pod Security Admission is used, this may allow a user to configure the namespace
+for a more permissive policy than intended by the administrators. For clusters where network policy is used, users may be 
+able to gain access to services intended to be blocked.  
+
 ## Kubernetes RBAC - denial of service risks {#denial-of-service-risks}
 
 ### Object creation denial-of-service {#object-creation-dos}
