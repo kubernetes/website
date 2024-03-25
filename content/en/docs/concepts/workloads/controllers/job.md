@@ -560,31 +560,30 @@ You can only configure a success policy for an Indexed Job if you have the
 enabled in your cluster.
 {{< /note >}}
 
-When you run an indexed Job, a success policy defined with the `spec.successPolicy` field,
-allows you to define when a Job can be declared as succeeded based on the number of succeeded pods.
+When creating an Indexed Job, you can define when a Job can be declared as succeeded using a `.spec.successPolicy`,
+based on the pods that succeeded.
 
-In some situations, you may want to have a better control when handling Pod
-successes than the control provided by the `.spec.completins`.
-There are some examples of use cases:
+By default, a Job succeeds when the number of succeeded Pods equals `.spec.completions`.
+These are some situations where you might want additional control for declaring a Job succeeded:
 
-* To optimize costs of running workloads by avoiding unnecessary Pod running,
-  you can terminate a Job as soon as one of its Pods succeeds.
-* To care only about a leader index in determining the success or failure of a Job
-  in a batch workloads such as MPI and PyTorch etc.
+* When running simulations with different parameters, 
+  you might not need all the simulations to succeed for the overall Job to be successful.
+* When following a leader-worker pattern, only the success of the leader determines the success or
+  failure of a Job. Examples of this are frameworks like MPI and PyTorch etc.
 
 You can configure a success policy, in the `.spec.successPolicy` field,
 to meet the above use cases. This policy can handle Job successes based on the
-number of succeeded pods. After the Job meet success policy, the lingering Pods
-are terminated by the Job controller.
+succeeded pods. After the Job meet success policy, the job controller terminates the lingering Pods.
+A success policy is defined by rules. Each rule can take one of the following forms:
 
-* When you specify the only `.spec.successPolicy.rules[*].succeededIndexes`,
-once all indexes specified in the `succeededIndexes` succeeded, the Job is marked as succeeded.
-The `succeededIndexes` must be a list of intervals between 0 and `.spec.completions-1`.
-* When you specify the only `spec.successPolicy.rules[*].succeededCount`,
-once the number of succeeded indexes reaches the `succeededCount`, the Job is marked as succeeded.
+* When you specify the `succeededIndexes` only,
+  once all indexes specified in the `succeededIndexes` succeeded, the Job is marked as succeeded.
+  The `succeededIndexes` must be a list of intervals between 0 and `.spec.completions-1`.
+* When you specify the `succeededCount` only,
+  once the number of succeeded indexes reaches the `succeededCount`, the Job is marked as succeeded.
 * When you specify both `succeededIndexes` and `succeededCount`,
-once the number of succeeded indexes specified in the `succeededIndexes` reaches the `succeededCount`,
-the Job is marked as succeeded.
+  once the number of succeeded indexes specified in the `succeededIndexes` reaches the `succeededCount`,
+  the Job is marked as succeeded.
 
 Note that when you specify multiple rules in the `.spec.succeessPolicy.rules`,
 the rules are evaluated in order. Once the Job meets a rule, the remaining rules are ignored.
@@ -602,7 +601,7 @@ The number are listed in represented by the first and last element of the series
 
 {{< note >}}
 When you specify both a success policy and some terminating policies such as `.spec.backoffLimit` and `.spec.podFailurePolicy`,
-once the Job meets both policies, the terminating policies are respected and a success policy is ignored.
+once the Job meets either policy, the job controller respects the terminating policy and ignores the success policy.
 {{< /note >}}
 
 ## Job termination and cleanup
