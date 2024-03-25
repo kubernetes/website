@@ -1,5 +1,13 @@
 <!-- Fetch release_binaries.json from kubernetes-sigs/downloadkubernetes to render in table -->
 {{ $response := getJSON "https://raw.githubusercontent.com/kubernetes-sigs/downloadkubernetes/master/dist/release_binaries.json" }}
+{{ if eq $response nil }}
+  {{- if eq hugo.Environment "production" }}
+    {{ errorf "Unable to load release_binaries.json. Aborting build." }}
+  {{- else -}}
+    {{ warnf "Cannot load release_binaries.json." }}
+  {{- end -}}
+{{ end }}
+
 
 {{ $currentVersion := site.Params.version }}
 
@@ -21,7 +29,7 @@
 {{ end }}
 
 
-<!-- The below <div> defines an alternate content to be displayed only 
+<!-- The below <div> defines an alternate content to be displayed only
      when Javascript is disabled or when user's browser doesn't support Javascript -->
 <div class="downloadbinaries-nojs">
         <p>{{ T "release_binary_alternate_links" | markdownify }}</p>
@@ -38,10 +46,10 @@
     <div class="alert alert-info note callout" role="alert">
         <strong>{{ T "note" }}</strong>
         {{ $releaseBinarySectionNote := T "release_binary_section_note" }}
-        {{ $releaseBinarySectionNote = replace $releaseBinarySectionNote "<current-changelog-url>" (replace $currentVersion "v" "") }}    
+        {{ $releaseBinarySectionNote = replace $releaseBinarySectionNote "<current-changelog-url>" (replace $currentVersion "v" "") }}
         {{ $releaseBinarySectionNote = replace $releaseBinarySectionNote "<current-version>" $currentVersion }}
         {{ $releaseBinarySectionNote | markdownify }}
-    </div>    
+    </div>
     <details>
         <summary>{{ T "release_binary_options" }}</summary>
         <div class="text-center w-100">

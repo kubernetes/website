@@ -17,6 +17,9 @@ disableBrowserError = true
 
 disableKinds = ["taxonomy"]
 
+# For offline build we need to ignore getJson error and handle nil returned instead. All getJson usages should be covered with warns
+ignoreErrors = ["error-remote-getjson"]
+
 ignoreFiles = [ "(?:^|/)OWNERS$", "README[-]+[a-z]*\\.md", "^node_modules$", "content/en/docs/doc-contributor-tools" ]
 
 timeout = "180s"
@@ -348,7 +351,7 @@ languageNameLatinScript = "Deutsch"
 
 [languages.hi]
 title = "Kubernetes"
-languageName = "हिन्दी (Hindi)"  
+languageName = "हिन्दी (Hindi)"
 weight = 5
 contentDir = "content/hi"
 languagedirection = "ltr"
