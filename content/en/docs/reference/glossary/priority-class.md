@@ -12,9 +12,9 @@ tags:
 A PriorityClass is a named class for the scheduling priority that should be assigned to a Pod
 in that class.
 
-<!-- more -->
-The PriorityClass is a non-namespaced object mapping a name to an integer priority. The name is 
-specified in the name field, and the priority value in the value field. Priorities range from 
+<!--more-->
+The PriorityClass is a non-namespaced object mapping a name to an integer priority. The name is
+specified in the `metadata.name` field, and the priority value in the `value` field. Priorities range from
 -2147483648 to 1000000000 inclusive. Higher values indicate higher priority.
 
 * [PriorityClass in the Kubernetes documentation](/docs/concepts/scheduling-eviction/pod-priority-preemption/#how-to-use-priority-and-preemption)
