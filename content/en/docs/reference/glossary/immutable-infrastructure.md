@@ -9,7 +9,6 @@ short_description: >
 aka: 
 tags:
 - architecture
-- storage
 ---
  Immutable Infrastructure refers to computer infrastructure (virtual machines, containers, network appliances) that cannot be changed once deployed.
 
