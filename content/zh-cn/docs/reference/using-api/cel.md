@@ -30,7 +30,7 @@ control plane's API server component remains available.
 [通用表达式语言 (Common Expression Language, CEL)](https://github.com/google/cel-go)
 用于声明 Kubernetes API 的验证规则、策略规则和其他限制或条件。
 
-CEL 表达式在{{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}中直接进行评估，
+CEL 表达式在 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}中直接进行处理，
 这使得 CEL 成为许多可扩展性用例的便捷替代方案，而无需使用类似 Webhook 这种进程外机制。
 只要控制平面的 API 服务器组件保持可用状态，你的 CEL 表达式就会继续执行。
 
@@ -49,7 +49,7 @@ single expression that evaluates to a single value. CEL expressions are
 typically short "one-liners" that inline well into the string fields of Kubernetes
 API resources.
 -->
-## 语言概述 {#language-overview}
+## 语言概述   {#language-overview}
 
 [CEL 语言](https://github.com/google/cel-spec/blob/master/doc/langdef.md)的语法直观简单，
 类似于 C、C++、Java、JavaScript 和 Go 中的表达式。
@@ -68,7 +68,7 @@ different variables. See the API documentation of the API fields to learn which
 variables are available for that field.
 -->
 对 CEL 程序的输入是各种 “变量”。包含 CEL 的每个 Kubernetes API 字段都在 API
-文档中声明了字段可使用哪些变量。例如，在 CustomResourceDefinitions 的
+文档中声明了字段可使用哪些变量。例如，在 CustomResourceDefinition 的
 `x-kubernetes-validations[i].rules` 字段中，`self` 和 `oldSelf` 变量可用，
 并且分别指代要由 CEL 表达式验证的自定义资源数据的前一个状态和当前状态。
 其他 Kubernetes API 字段可能声明不同的变量。请查阅 API 字段的 API 文档以了解该字段可使用哪些变量。
@@ -112,23 +112,60 @@ CEL 表达式示例：
 {{< /table >}}
 
 <!--
-## CEL community libraries
+## CEL options, language features, and libraries
 
-Kubernetes CEL expressions have access to the following CEL community libraries:
+CEL is configured with the following options, libraries and language features, introduced at the specified Kubernetes versions:
 -->
-## CEL 社区库 {#cel-community-libraries}
+## CEL 选项、语言特性和库   {#cel-options-language-features-and-libraries}
 
-Kubernetes CEL 表达式能够访问以下 CEL 社区库：
+CEL 配置了以下选项、库和语言特性，这些特性是在所列的 Kubernetes 版本中引入的：
 
 <!--
-- CEL standard functions, defined in the [list of standard definitions](https://github.com/google/cel-spec/blob/master/doc/langdef.md#list-of-standard-definitions)
-- CEL standard [macros](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#macros)
-- CEL [extended string function library](https://pkg.go.dev/github.com/google/cel-go/ext#Strings)
+| CEL option, library or language feature                                                                                | Included                                                                                                                                  | Availablity               |
+|------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|
+| [Standard macros](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#macros)                                | `has`, `all`, `exists`, `exists_one`, `map`, `filter`                                                                                     | All Kubernetes versions   |
+| [Standard functions](https://github.com/google/cel-spec/blob/master/doc/langdef.md#list-of-standard-definitions)       | See [official list of standard definitions](https://github.com/google/cel-spec/blob/master/doc/langdef.md#list-of-standard-definitions)   | All Kubernetes versions   |
+| [Homogeneous Aggregate Literals](https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#HomogeneousAggregateLiterals) |                                                                                                                                           | All Kubernetes versions   |
+| [Default UTC Time Zone](https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#DefaultUTCTimeZone)                    |                                                                                                                                           | All Kubernetes versions   |
+| [Eagerly Validate Declarations](https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#EagerlyValidateDeclarations)   |                                                                                                                                           | All Kubernetes versions   |
+| [extended strings library](https://pkg.go.dev/github.com/google/cel-go/ext#Strings), Version 1                         | `charAt`, `indexOf`, `lastIndexOf`, `lowerAscii`, `upperAscii`, `replace`, `split`, `join`, `substring`, `trim`                           | All Kubernetes versions   |
+| Kubernetes list library                                                                                                | See [Kubernetes list library](#kubernetes-list-library)                                                                                   | All Kubernetes versions   |
+| Kubernetes regex library                                                                                               | See [Kubernetes regex library](#kubernetes-regex-library)                                                                                 | All Kubernetes versions   |
+| Kubernetes URL library                                                                                                 | See [Kubernetes URL library](#kubernetes-url-library)                                                                                     | All Kubernetes versions   |
+| Kubernetes authorizer library                                                                                          | See [Kubernetes authorizer library](#kubernetes-authorizer-library)                                                                       | All Kubernetes versions   |
+| Kubernetes quantity library                                                                                            | See [Kubernetes quantity library](#kubernetes-quantity-library)                                                                           | Kubernetes versions 1.29+ |
+| CEL optional types                                                                                                     | See [CEL optional types](https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#OptionalTypes)                                           | Kubernetes versions 1.29+ |
+| CEL CrossTypeNumericComparisons                                                                                        | See [CEL CrossTypeNumericComparisons](https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#CrossTypeNumericComparisons)                | Kubernetes versions 1.29+ |
 -->
-- [标准定义列表](https://github.com/google/cel-spec/blob/master/doc/langdef.md#list-of-standard-definitions)中定义的
-  CEL 标准函数
-- CEL 标准[宏](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#macros)
-- CEL [扩展字符串函数库](https://pkg.go.dev/github.com/google/cel-go/ext#Strings)
+| CEL 选项、库或语言特性 | 包含的内容 | 可用性 |
+| ------------------- | -------- | ----- |
+| [标准宏](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#macros)  | `has`、`all`、`exists`、`exists_one`、`map`、`filter` | 所有 Kubernetes 版本 |
+| [标准函数](https://github.com/google/cel-spec/blob/master/doc/langdef.md#list-of-standard-definitions)   | 参见[官方标准定义列表](https://github.com/google/cel-spec/blob/master/doc/langdef.md#list-of-standard-definitions) | 所有 Kubernetes 版本 |
+| [同质聚合字面量](https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#HomogeneousAggregateLiterals)   | | 所有 Kubernetes 版本 |
+| [默认 UTC 时区](https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#DefaultUTCTimeZone) | | 所有 Kubernetes 版本 |
+| [迫切验证声明](https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#EagerlyValidateDeclarations)    | | 所有 Kubernetes 版本 |
+| [扩展字符串库](https://pkg.go.dev/github.com/google/cel-go/ext#Strings)，v1 | `charAt`、`indexOf`、`lastIndexOf`、`lowerAscii`、`upperAscii`、`replace`、`split`、`join`、`substring`、`trim` | 所有 Kubernetes 版本 |
+| Kubernetes 列表库 | 参见 [Kubernetes 列表库](#kubernetes-list-library) | 所有 Kubernetes 版本 |
+| Kubernetes 正则表达式库 | 参见 [Kubernetes 正则表达式库](#kubernetes-regex-library) | 所有 Kubernetes 版本 |
+| [Kubernetes URL 库] | 参见 [Kubernetes URL 库](#kubernetes-url-library) | 所有 Kubernetes 版本 |
+| Kubernetes 鉴权组件库 | 参见 [Kubernetes 鉴权组件库](#kubernetes-authorizer-library) | 所有 Kubernetes 版本 |
+| Kubernetes 数量库 | 参见 [Kubernetes 数量库](#kubernetes-quantity-library) | Kubernetes v1.29+ |
+| CEL 可选类型 | 参见 [CEL 可选类型](https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#OptionalTypes) | Kubernetes v1.29+ |
+| CEL CrossTypeNumericComparisons | 参见 [CEL CrossTypeNumericComparisons](https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#CrossTypeNumericComparisons) | Kubernetes v1.29+ |
+
+<!--
+CEL functions, features and language settings support Kubernetes control plane
+rollbacks. For example, _CEL Optional Values_ was introduced at Kubernetes 1.29
+and so only API servers at that version or newer will accept write requests to
+CEL expressions that use _CEL Optional Values_. However, when a cluster is
+rolled back to Kubernetes 1.28 CEL expressions using "CEL Optional Values" that
+are already stored in API resources will continue to evaluate correctly.
+-->
+CEL 函数、特性和语言设置支持 Kubernetes 控制平面回滚。
+例如，__CEL 可选值（Optional Values）__ 是在 Kubernetes 1.29 引入的，因此只有该版本或更新的
+API 服务器才会接受使用 __CEL Optional Values__ 的 CEL 表达式的写入请求。
+但是，当集群回滚到 Kubernetes 1.28 时，已经存储在 API 资源中的使用了
+"CEL Optional Values" 的 CEL 表达式将继续正确评估。
 
 <!--
 ## Kubernetes CEL libraries
@@ -136,7 +173,7 @@ Kubernetes CEL 表达式能够访问以下 CEL 社区库：
 In additional to the CEL community libraries, Kubernetes includes CEL libraries
 that are available everywhere CEL is used in Kubernetes.
 -->
-## Kubernetes CEL 库 {#kubernetes-cel-libraries}
+## Kubernetes CEL 库   {#kubernetes-cel-libraries}
 
 除了 CEL 社区库之外，Kubernetes 还包括在 Kubernetes 中使用 CEL 时所有可用的 CEL 库。
 
@@ -151,7 +188,7 @@ The list library also includes `min`, `max` and `sum`. Sum is supported on all
 number types as well as the duration type. Min and max are supported on all
 comparable types.
 -->
-### Kubernetes 列表库 {#kubernetes-list-library}
+### Kubernetes 列表库   {#kubernetes-list-library}
 
 列表库包括 `indexOf` 和 `lastIndexOf`，这两个函数的功能类似于同名的字符串函数。
 这些函数返回提供的元素在列表中的第一个或最后一个位置索引。
@@ -205,7 +242,7 @@ regex operations.
 
 Examples:
 -->
-### Kubernetes 正则表达式库 {#kubernete-regex-library}
+### Kubernetes 正则表达式库   {#kubernete-regex-library}
 
 除了 CEL 标准库提供的 `matches` 函数外，正则表达式库还提供了 `find` 和 `findAll`，
 使得更多种类的正则表达式运算成为可能。
@@ -245,7 +282,7 @@ To make it easier and safer to process URLs, the following functions have been a
 - `url(string) URL` converts a string to a URL or results in an error if the
   string is not a valid URL.
 -->
-### Kubernetes URL 库 {#kubernetes-url-library}
+### Kubernetes URL 库   {#kubernetes-url-library}
 
 为了更轻松、更安全地处理 URL，添加了以下函数：
 
@@ -296,7 +333,7 @@ the authorizer may be used to perform authorization checks for the principal
 
 API resource checks are performed as follows:
 -->
-### Kubernetes 鉴权组件库
+### Kubernetes 鉴权组件库   {#kubernetes-authorizer-library}
 
 在 API 中使用 CEL 表达式，可以使用类型为 `Authorizer` 的变量，
 这个鉴权组件可用于对请求的主体（已认证用户）执行鉴权检查。
@@ -318,7 +355,7 @@ API 资源检查的过程如下：
    注意这些函数将返回接收者的类型，并且可以串接起来：
    - `ResourceCheck.subresource(string) ResourceCheck`
    - `ResourceCheck.namespace(string) ResourceCheck`
-   - `ResourceCheck.name(string) ResourceCheck` 
+   - `ResourceCheck.name(string) ResourceCheck`
 3. 调用 `ResourceCheck.check(verb string) Decision` 来执行鉴权检查。
 4. 调用 `allowed() bool` 或 `reason() string` 来查验鉴权检查的结果。
 
@@ -331,7 +368,7 @@ Non-resource authorization performed are used as follows:
 -->
 对非资源访问的鉴权过程如下：
 
-1. 仅指定路径：`Authorizer.path(string) PathCheck`
+1. 仅指定路径：`Authorizer.path(string) PathCheck`。
 1. 调用 `PathCheck.check(httpVerb string) Decision` 来执行鉴权检查。
 1. 调用 `allowed() bool` 或 `reason() string` 来查验鉴权检查的结果。
 
@@ -367,6 +404,98 @@ godoc for more information.
 [Kubernetes Authz library](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz)。
 
 <!--
+### Kubernetes quantity library
+
+Kubernetes 1.28 adds support for manipulating quantity strings (ex 1.5G, 512k, 20Mi)
+-->
+### Kubernetes 数量库   {#kubernetes-quantity-library}
+
+Kubernetes 1.28 添加了对数量字符串（例如 1.5G、512k、20Mi）的操作支持。
+
+<!--
+- `isQuantity(string)` checks if a string is a valid Quantity according to [Kubernetes'
+  resource.Quantity](https://pkg.go.dev/k8s.io/apimachinery/pkg/api/resource#Quantity). 
+- `quantity(string) Quantity` converts a string to a Quantity or results in an error if the
+  string is not a valid quantity.
+-->
+- `isQuantity(string)` 根据 [Kubernetes 的 resource.Quantity](https://pkg.go.dev/k8s.io/apimachinery/pkg/api/resource#Quantity)，
+  检查字符串是否是有效的 Quantity。
+- `quantity(string) Quantity` 将字符串转换为 Quantity，如果字符串不是有效的数量，则会报错。
+
+<!--
+Once parsed via the `quantity` function, the resulting Quantity object has the 
+following library of member functions:
+-->
+一旦通过 `quantity` 函数解析，得到的 Quantity 对象将具有以下成员函数库：
+
+<!--
+{{< table caption="Available member functions of a Quantity" >}}
+| Member Function               | CEL Return Value  | Description                                                                                                                                                          |
+|-------------------------------|-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `isInteger()`                 | bool              | returns true if and only if asInteger is safe to call without an error                                                                                               |
+| `asInteger()`                 | int               | returns a representation of the current value as an int64 if possible or results in an error if conversion would result in overflow or loss of precision.             |
+| `asApproximateFloat()`        | float              | returns a float64 representation of the quantity which may lose precision. If the value of the quantity is outside the range of a float64 +Inf/-Inf will be returned.  |
+| `sign()`                      | int               | Returns `1` if the quantity is positive, `-1` if it is negative. `0` if it is zero                                                                                   |
+| `add(<Quantity>)`             | Quantity          | Returns sum of two quantities                                                                                                                                        |
+| `add(<int>)`                  | Quantity          | Returns sum of quantity and an integer                                                                                                                               | 
+| `sub(<Quantity>)`             | Quantity          | Returns difference between two quantities                                                                                                                            |
+| `sub(<int>)`                  | Quantity          | Returns difference between a quantity and an integer                                                                                                                 |
+| `isLessThan(<Quantity>)`      | bool              | Returns true if and only if the receiver is less than the operand                                                                                                    |
+| `isGreaterThan(<Quantity>)`   | bool              | Returns true if and only if the receiver is greater than the operand                                                                                                 |
+| `compareTo(<Quantity>)`       | int               | Compares receiver to operand and returns 0 if they are equal, 1 if the receiver is greater, or -1 if the receiver is less than the operand                           |
+{{< /table >}}
+-->
+{{< table caption="Quantity 的可用成员函数" >}}
+| 成员函数                  | CEL 返回值 | 描述 |
+| ------------------------ | --------- | --- |
+| `isInteger()`            | bool      | 仅当 asInteger 可以被安全调用且不出错时，才返回 true |
+| `asInteger()`            | int       | 将当前值作为 int64 的表示返回，如果转换会导致溢出或精度丢失，则会报错 |
+| `asApproximateFloat()`   | float     | 返回数量的 float64 表示，可能会丢失精度。如果数量的值超出了 float64 的范围，则返回 +Inf/-Inf |
+| `sign()`                 | int       | 如果数量为正，则返回 1；如果数量为负，则返回 -1；如果数量为零，则返回 0 |
+| `add(<Quantity>)`        | Quantity  | 返回两个数量的和 |
+| `add(<int>)`             | Quantity  | 返回数量和整数的和 |
+| `sub(<Quantity>)`        | Quantity  | 返回两个数量的差 |
+| `sub(<int>)`             | Quantity  | 返回数量减去整数的差 |
+| `isLessThan(<Quantity>)` | bool      | 如果接收值小于操作数，则返回 true |
+| `isGreaterThan(<Quantity>)`| bool    | 如果接收值大于操作数，则返回 true |
+| `compareTo(<Quantity>)`  | int       | 将接收值与操作数进行比较，如果它们相等，则返回 0；如果接收值大于操作数，则返回 1；如果接收值小于操作数，则返回 -1 |
+{{< /table >}}
+
+<!--
+Examples:
+-->
+例如：
+
+<!--
+{{< table caption="Examples of CEL expressions using URL library functions" >}}
+| CEL Expression                                                            | Purpose                                               |
+|---------------------------------------------------------------------------|-------------------------------------------------------|
+| `quantity("500000G").isInteger()`                                         | Test if conversion to integer would throw an error    |
+| `quantity("50k").asInteger()`                                             | Precise conversion to integer                         |
+| `quantity("9999999999999999999999999999999999999G").asApproximateFloat()` | Lossy conversion to float                              |
+| `quantity("50k").add("20k")`                                              | Add two quantities                                    |
+| `quantity("50k").sub(20000)`                                              | Subtract an integer from a quantity                   |
+| `quantity("50k").add(20).sub(quantity("100k")).sub(-50000)`               | Chain adding and subtracting integers and quantities  |
+| `quantity("200M").compareTo(quantity("0.2G"))`                            | Compare two quantities                                |
+| `quantity("150Mi").isGreaterThan(quantity("100Mi"))`                      | Test if a quantity is greater than the receiver       |
+| `quantity("50M").isLessThan(quantity("100M"))`                            | Test if a quantity is less than the receiver          |
+{{< /table >}}
+-->
+{{< table caption="使用 URL 库函数的 CEL 表达式示例" >}}
+| CEL 表达式                                                                 | 用途                  |
+|---------------------------------------------------------------------------| -------------------- |
+| `quantity("500000G").isInteger()`                                         | 测试转换为整数是否会报错 |
+| `quantity("50k").asInteger()`                                             | 精确转换为整数         |
+| `quantity("9999999999999999999999999999999999999G").asApproximateFloat()` | 松散转换为浮点数        |
+| `quantity("50k").add("20k")`                                              | 两个数量相加           |
+| `quantity("50k").sub(20000)`                                              | 从数量中减去整数        |
+| `quantity("50k").add(20).sub(quantity("100k")).sub(-50000)`               | 链式相加和减去整数和数量 |
+| `quantity("200M").compareTo(quantity("0.2G"))`                            | 比较两个数量           |
+| `quantity("150Mi").isGreaterThan(quantity("100Mi"))`                      | 测试数量是否大于接收值   |
+| `quantity("50M").isLessThan(quantity("100M"))`                            | 测试数量是否小于接收值   |
+{{< /table >}}
+
+<!--
 ## Type checking
 
 CEL is a [gradually typed language](https://github.com/google/cel-spec/blob/master/doc/langdef.md#gradual-type-checking).
@@ -376,16 +505,16 @@ example, [CustomResourceDefinitions Validation
 Rules](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-rules)
 are fully type checked.
 -->
-## 类型检查 {#type-checking}
+## 类型检查   {#type-checking}
 
 CEL 是一种[逐渐类型化的语言](https://github.com/google/cel-spec/blob/master/doc/langdef.md#gradual-type-checking)。
 
 一些 Kubernetes API 字段包含完全经过类型检查的 CEL 表达式。
-例如，[CustomResourceDefinitions 验证规则](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-rules)就是完全经过类型检查的。
+例如，[CustomResourceDefinition 验证规则](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-rules)就是完全经过类型检查的。
 
 <!--
 Some Kubernetes API fields contain partially type checked CEL expressions. A
-partially type checked expression is an experessions where some of the variables
+partially type checked expression is an expressions where some of the variables
 are statically typed but others are dynamically typed. For example, in the CEL
 expressions of
 [ValidatingAdmissionPolicies](/docs/reference/access-authn-authz/validating-admission-policy/)
@@ -397,7 +526,7 @@ that `object` refers to, because `object` is dynamically typed.
 -->
 一些 Kubernetes API 字段包含部分经过类型检查的 CEL 表达式。
 部分经过类型检查的表达式是指一些变量是静态类型，而另一些变量是动态类型的表达式。
-例如在 [ValidatingAdmissionPolicies](/zh-cn/docs/reference/access-authn-authz/validating-admission-policy/)
+例如在 [ValidatingAdmissionPolicy](/zh-cn/docs/reference/access-authn-authz/validating-admission-policy/)
 的 CEL 表达式中，`request` 变量是有类型的，但 `object` 变量是动态类型的。
 因此，包含 `request.namex` 的表达式将无法通过类型检查，因为 `namex` 字段未定义。
 然而，即使对于 `object` 所引用的资源种类没有定义 `namex` 字段，
@@ -418,7 +547,7 @@ has(object.namex) ? object.namex == 'special' : request.name == 'special'
 <!--
 ## Type system integration
 -->
-## 类型系统集成 {#type-system-integration}
+## 类型系统集成   {#type-system-integration}
 
 <!--
 {{< table caption="Table showing the relationship between OpenAPIv3 types and CEL types" >}}
@@ -511,7 +640,7 @@ Only Kubernetes resource property names of the form
 names are escaped according to the following rules when accessed in the
 expression:
 -->
-## 转义 {#escaping}
+## 转义   {#escaping}
 
 仅形如 `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` 的 Kubernetes 资源属性名可以从 CEL 中访问。
 当在表达式中访问可访问的属性名时，会根据以下规则进行转义：
@@ -578,7 +707,7 @@ excessive resource consumption during evaluation. CEL's resource constraint
 features are used to prevent CEL evaluation from consuming excessive API server
 resources.
 -->
-## 资源约束 {#resource-constraints}
+## 资源约束   {#resource-constraints}
 
 CEL 不是图灵完备的，提供了多种生产安全控制手段来限制执行时间。
 CEL 的**资源约束**特性提供了关于表达式复杂性的反馈，并帮助保护 API 服务器免受过度的资源消耗。
@@ -625,7 +754,7 @@ expression. If the CEL interpreter executes too many instructions, the runtime
 cost budget will be exceeded, execution of the expressions will be halted, and
 an error will result.
 -->
-### 运行时成本预算 {#runtime-cost-budget}
+### 运行时成本预算   {#runtime-cost-budget}
 
 所有由 Kubernetes 评估的 CEL 表达式都受到运行时成本预算的限制。
 运行时成本预算是通过在解释 CEL 表达式时增加成本单元计数器来计算实际 CPU 利用率的估算值。
@@ -657,7 +786,7 @@ expression to the API resources. This feature offers a stronger assurance that
 CEL expressions written to the API resource will be evaluate at runtime without
 exceeding the runtime cost budget.
 -->
-### 估算的成本限制 {#estimated-cost-limits}
+### 估算的成本限制   {#estimated-cost-limits}
 
 对于某些 Kubernetes 资源，API 服务器还可能检查 CEL 表达式的最坏情况估计运行时间是否过于昂贵而无法执行。
 如果是，则 API 服务器会拒绝包含 CEL 表达式的创建或更新操作，以防止 CEL 表达式被写入 API 资源。

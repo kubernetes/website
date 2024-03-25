@@ -156,7 +156,7 @@ For more information about the `TracingConfiguration` struct, see
 -->
 ### kubelet 追踪   {#kubelet-traces}
 
-{{< feature-state for_k8s_version="v1.27" state="beta" >}}
+{{< feature-state feature_gate_name="KubeletTracing" >}}
 
 <!--
 The kubelet CRI interface and authenticated http servers are instrumented to generate

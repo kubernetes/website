@@ -227,7 +227,6 @@ dengan nama untuk melakukan pemeriksaan _liveness_ HTTP atau TCP:
 ports:
 - name: liveness-port
   containerPort: 8080
-  hostPort: 8080
 
 livenessProbe:
   httpGet:
@@ -251,7 +250,6 @@ Sehingga, contoh sebelumnya menjadi:
 ports:
 - name: liveness-port
   containerPort: 8080
-  hostPort: 8080
 
 livenessProbe:
   httpGet:

@@ -15,9 +15,9 @@ weight: 270
 ## {{% heading "prerequisites" %}}
 
 You need to have a Kubernetes cluster, and the kubectl command-line tool must
-be configured to communicate with your cluster. It is recommended to run this
-task on a cluster with at least two nodes that are not acting as control plane
-nodes . If you do not already have a cluster, you can create one by using
+be configured to communicate with your cluster. It is recommended to follow this
+guide on a cluster with at least two nodes that are not acting as control plane
+nodes. If you do not already have a cluster, you can create one by using
 [minikube](https://minikube.sigs.k8s.io/docs/tutorials/multi_node/).
 
 <!-- steps -->
@@ -57,7 +57,7 @@ This section covers starting a single-node and multi-node etcd cluster.
 
 ### Single-node etcd cluster
 
-Use a single-node etcd cluster only for testing purpose.
+Use a single-node etcd cluster only for testing purposes.
 
 1. Run the following:
 
@@ -144,8 +144,8 @@ ETCDCTL_API=3 etcdctl --endpoints 10.2.0.9:2379 \
 
 ### Limiting access of etcd clusters
 
-After configuring secure communication, restrict the access of etcd cluster to
-only the Kubernetes API servers. Use TLS authentication to do so.
+After configuring secure communication, restrict the access of the etcd cluster to
+only the Kubernetes API servers using TLS authentication.
 
 For example, consider key pairs `k8sclient.key` and `k8sclient.cert` that are
 trusted by the CA `etcd.ca`. When etcd is configured with `--client-cert-auth`
@@ -160,9 +160,7 @@ flags `--etcd-certfile=k8sclient.cert`, `--etcd-keyfile=k8sclient.key` and
 `--etcd-cafile=ca.cert`.
 
 {{< note >}}
-etcd authentication is not currently supported by Kubernetes. For more
-information, see the related issue
-[Support Basic Auth for Etcd v2](https://github.com/kubernetes/kubernetes/issues/23398).
+etcd authentication is not planned for Kubernetes.
 {{< /note >}}
 
 ## Replacing a failed etcd member
@@ -203,9 +201,9 @@ replace it with `member4=http://10.0.0.4`.
       etcd.
 
 1. Stop the etcd server on the broken node. It is possible that other 
-   clients besides the Kubernetes API server is causing traffic to etcd 
+   clients besides the Kubernetes API server are causing traffic to etcd 
    and it is desirable to stop all traffic to prevent writes to the data
-   dir.
+   directory.
 
 1. Remove the failed member:
 
@@ -256,10 +254,10 @@ For more information on cluster reconfiguration, see
 
 ## Backing up an etcd cluster
 
-All Kubernetes objects are stored on etcd. Periodically backing up the etcd
+All Kubernetes objects are stored in etcd. Periodically backing up the etcd
 cluster data is important to recover Kubernetes clusters under disaster
 scenarios, such as losing all control plane nodes. The snapshot file contains
-all the Kubernetes states and critical information. In order to keep the
+all the Kubernetes state and critical information. In order to keep the
 sensitive Kubernetes data safe, encrypt the snapshot files.
 
 Backing up an etcd cluster can be accomplished in two ways: etcd built-in
@@ -267,14 +265,14 @@ snapshot and volume snapshot.
 
 ### Built-in snapshot
 
-etcd supports built-in snapshot. A snapshot may either be taken from a live
+etcd supports built-in snapshot. A snapshot may either be created from a live
 member with the `etcdctl snapshot save` command or by copying the
 `member/snap/db` file from an etcd
 [data directory](https://etcd.io/docs/current/op-guide/configuration/#--data-dir)
-that is not currently used by an etcd process. Taking the snapshot will
+that is not currently used by an etcd process. Creating the snapshot will
 not affect the performance of the member.
 
-Below is an example for taking a snapshot of the keyspace served by
+Below is an example for creating a snapshot of the keyspace served by
 `$ENDPOINT` to the file `snapshot.db`:
 
 ```shell
@@ -298,19 +296,19 @@ ETCDCTL_API=3 etcdctl --write-out=table snapshot status snapshot.db
 ### Volume snapshot
 
 If etcd is running on a storage volume that supports backup, such as Amazon
-Elastic Block Store, back up etcd data by taking a snapshot of the storage
+Elastic Block Store, back up etcd data by creating a snapshot of the storage
 volume.
 
 ### Snapshot using etcdctl options
 
-We can also take the snapshot using various options given by etcdctl. For example 
+We can also create the snapshot using various options given by etcdctl. For example: 
 
 ```shell
 ETCDCTL_API=3 etcdctl -h 
 ``` 
 
-will list various options available from etcdctl. For example, you can take a snapshot by specifying
-the endpoint, certificates etc as shown below:
+will list various options available from etcdctl. For example, you can create a snapshot by specifying
+the endpoint, certificates and key as shown below:
 
 ```shell
 ETCDCTL_API=3 etcdctl --endpoints=https://127.0.0.1:2379 \
@@ -324,7 +322,7 @@ where `trusted-ca-file`, `cert-file` and `key-file` can be obtained from the des
 Scaling out etcd clusters increases availability by trading off performance.
 Scaling does not increase cluster performance nor capability. A general rule
 is not to scale out or in etcd clusters. Do not configure any auto scaling
-groups for etcd clusters. It is highly recommended to always run a static
+groups for etcd clusters. It is strongly recommended to always run a static
 five-member etcd cluster for production Kubernetes clusters at any officially
 supported scale.
 
@@ -337,7 +335,7 @@ for information on how to add members into an existing cluster.
 
 etcd supports restoring from snapshots that are taken from an etcd process of
 the [major.minor](http://semver.org/) version. Restoring a version from a
-different patch version of etcd also is supported. A restore operation is
+different patch version of etcd is also supported. A restore operation is
 employed to recover the data of a failed cluster.
 
 Before starting the restore operation, a snapshot file must be present. It can
@@ -358,12 +356,12 @@ export ETCDCTL_API=3
 etcdctl --data-dir <data-dir-location> snapshot restore snapshot.db
 ```
 
-If `<data-dir-location>` is the same folder as before, delete it and stop etcd process before restoring the cluster. Else change etcd configuration and restart the etcd process after restoration to make it use the new data directory.
+If `<data-dir-location>` is the same folder as before, delete it and stop the etcd process before restoring the cluster. Otherwise, change etcd configuration and restart the etcd process after restoration to have it use the new data directory.
 
 For more information and examples on restoring a cluster from a snapshot file, see
 [etcd disaster recovery documentation](https://etcd.io/docs/current/op-guide/recovery/#restoring-a-cluster).
 
-If the access URLs of the restored cluster is changed from the previous
+If the access URLs of the restored cluster are changed from the previous
 cluster, the Kubernetes API server must be reconfigured accordingly. In this
 case, restart Kubernetes API servers with the flag
 `--etcd-servers=$NEW_ETCD_CLUSTER` instead of the flag
@@ -408,9 +406,9 @@ For more details on etcd maintenance, please refer to the [etcd maintenance](htt
 {{% thirdparty-content single="true" %}}
 
 {{< note >}}
-Defragmentation is an expensive operation, so it should be executed as infrequent
+Defragmentation is an expensive operation, so it should be executed as infrequently
 as possible. On the other hand, it's also necessary to make sure any etcd member
-will not run out of the storage quota. The Kubernetes project recommends that when
+will not exceed the storage quota. The Kubernetes project recommends that when
 you perform defragmentation, you use a tool such as [etcd-defrag](https://github.com/ahrtr/etcd-defrag).
 
 You can also run the defragmentation tool as a Kubernetes CronJob, to make sure that

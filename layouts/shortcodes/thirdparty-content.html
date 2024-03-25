@@ -2,7 +2,7 @@
 {{- $vendor_message := .Get "vendor" | default "false" -}}
 <div class="alert alert-secondary callout third-party-content" role="alert">
 {{- if not (eq $single "true" ) -}}
-  <strong>{{ T "note" | safeHTML }}</strong>
+  <strong>{{ T "note" | safeHTML }}</strong>&puncsp;
   {{- if (eq $vendor_message "true" ) -}}
     {{ T "thirdparty_message_vendor" | safeHTML }}
   {{- else -}}
