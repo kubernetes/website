@@ -362,7 +362,7 @@ argument to the kube-apiserver. An example of the structured authentication conf
 
 {{< note >}}
 If you specify `--authentication-config` along with any of the `--oidc-*` command line arguments, this is
-a misconfiguration. In this situation, the API server reports an errors and then immediately exits.
+a misconfiguration. In this situation, the API server reports an error and then immediately exits.
 If you want to switch to using structured authentication configuration, you have to remove the `--oidc-*`
 command line arguments, and use the configuration file instead.
 {{< /note >}}
