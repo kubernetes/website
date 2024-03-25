@@ -148,7 +148,7 @@ Add-on 扩展了 Kubernetes 的功能。
 * [Spiderpool](https://github.com/spidernet-io/spiderpool) is an underlay and RDMA
   networking solution for Kubernetes. Spiderpool is supported on bare metal, virtual machines,
   and public cloud environments.
-* [Weave Net](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/)
+* [Weave Net](https://github.com/rajch/weave#using-weave-on-kubernetes)
   provides networking and network policy, will carry on working on both sides
   of a network partition, and does not require an external database.
 -->
@@ -161,7 +161,7 @@ Add-on 扩展了 Kubernetes 的功能。
   [NetworkPolicy](/zh-cn/docs/concepts/services-networking/network-policies/) API。
 * [Spiderpool](https://github.com/spidernet-io/spiderpool) 为 Kubernetes
   提供了下层网络和 RDMA 高速网络解决方案，兼容裸金属、虚拟机和公有云等运行环境。
-* [Weave Net](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/)
+* [Weave Net](https://github.com/rajch/weave#using-weave-on-kubernetes)
   提供在网络分组两端参与工作的联网和网络策略，并且不需要额外的数据库。
 
 <!--
