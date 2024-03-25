@@ -577,17 +577,12 @@ to meet the above use cases. This policy can handle Job successes based on the
 number of succeeded pods. After the Job meet success policy, the lingering Pods
 are terminated by the Job controller.
 
-When you specify the only `.spec.successPolicy.rules[*].succeededIndexes`,
+* When you specify the only `.spec.successPolicy.rules[*].succeededIndexes`,
 once all indexes specified in the `succeededIndexes` succeeded, the Job is marked as succeeded.
-The `succeededIndexes` must be a list within 0 to `.spec.completions-1` and
-must not contain duplicate indexes. The `succeededIndexes` is represented as intervals separated by a hyphen.
-The number are listed in represented by the first and last element of the series, separated by a hyphen.
-For example, if you want to specify 1, 3, 4, 5 and 7, the `succeededIndexes` is represented as `1,3-5,7`.
-
-When you specify the only `spec.successPolicy.rules[*].succeededCount`,
+The `succeededIndexes` must be a list of intervals between 0 and `.spec.completions-1`.
+* When you specify the only `spec.successPolicy.rules[*].succeededCount`,
 once the number of succeeded indexes reaches the `succeededCount`, the Job is marked as succeeded.
-
-When you specify both `succeededIndexes` and `succeededCount`,
+* When you specify both `succeededIndexes` and `succeededCount`,
 once the number of succeeded indexes specified in the `succeededIndexes` reaches the `succeededCount`,
 the Job is marked as succeeded.
 
@@ -600,7 +595,10 @@ Here is a manifest for a Job with `successPolicy`:
 
 In the example above, the rule of the success policy specifies that
 the Job should be marked succeeded and terminate the lingering Pods
-if one of the 0, 1, and 2 indexes succeeded.
+if one of the 0, 2, and 3 indexes succeeded.
+
+Note that the `succeededIndexes` is represented as intervals separated by a hyphen.
+The number are listed in represented by the first and last element of the series, separated by a hyphen.
 
 {{< note >}}
 When you specify both a success policy and some terminating policies such as `.spec.backoffLimit` and `.spec.podFailurePolicy`,

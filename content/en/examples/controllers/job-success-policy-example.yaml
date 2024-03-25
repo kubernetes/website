@@ -6,7 +6,7 @@ spec:
   completionMode: Indexed # Required for the feature
   successPolicy:
     rules:
-      - succeededIndexes: 0-2
+      - succeededIndexes: 0,2-3
         succeededCount: 1
   template:
     spec:
@@ -14,12 +14,12 @@ spec:
       - name: main
         image: python
         command:          # The jobs succeed as there is one succeeded index
-                          # among indexes 0, 1, and 2.
+                          # among indexes 0, 2, and 3.
           - python3
           - -c
           - |
             import os, sys
-            if os.environ.get("JOB_COMPLETION_INDEX") == "1":
+            if os.environ.get("JOB_COMPLETION_INDEX") == "2":
               sys.exit(0)
             else:
               sys.exit(1)
