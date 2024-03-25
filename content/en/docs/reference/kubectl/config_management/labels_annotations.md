@@ -1,6 +1,7 @@
 ---
 title: "Labels and Annotations"
 linkTitle: "Labels and Annotations"
+draft: true
 weight: 6
 type: docs
 description: >
@@ -9,8 +10,11 @@ description: >
 
 
 {{< alert color="success" title="TL;DR" >}}
+
 - Set Labels for all Resources declared within a Project with `commonLabels`
+
 - Set Annotations for all Resources declared within a Project with `commonAnnotations`
+
 {{< /alert >}}
 
 # Setting Labels and Annotations

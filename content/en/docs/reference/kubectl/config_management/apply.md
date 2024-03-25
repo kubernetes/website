@@ -9,8 +9,11 @@ description: >
 
 
 {{< alert color="success" title="TL;DR" >}}
+
 - Apply Creates and Updates Resources in a cluster through running `kubectl apply` on Resource Config.
+
 - Apply manages complexity such as ordering of operations and merging user defined and cluster defined state.
+
 {{< /alert >}}
 
 # Apply

@@ -2,6 +2,7 @@
 title: "Container Images"
 linkTitle: "Container Images"
 weight: 4
+draft: true
 type: docs
 description: >
     Dealing with Application Containers
@@ -9,7 +10,9 @@ description: >
 
 
 {{< alert color="success" title="TL;DR" >}}
+
 - Override or set the Name and Tag for Container Images
+
 {{< /alert >}}
 
 # Container Images

@@ -1,7 +1,7 @@
 ---
 title: "Introduction"
 linkTitle: "Introduction"
-weight: 1
+draft: true
 type: docs
 description: >
     Introduction to App Management
@@ -10,8 +10,11 @@ description: >
 
 
 {{< alert color="success" title="TL;DR" >}}
+
 - Apply manages Applications through files defining Kubernetes Resources (i.e. Resource Config)
+
 - Kustomize is used to author Resource Config
+
 {{< /alert >}}
 
 
