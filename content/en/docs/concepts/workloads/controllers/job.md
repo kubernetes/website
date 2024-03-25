@@ -595,6 +595,8 @@ Here is a manifest for a Job with `successPolicy`:
 In the example above, the rule of the success policy specifies that
 the Job should be marked succeeded and terminate the lingering Pods
 if one of the 0, 2, and 3 indexes succeeded.
+The Job that met the success policy gets the `SuccessCriteriaMet` condition. 
+After the removal of the lingering Pods is issued, the Job gets the `Complete` condition.
 
 Note that the `succeededIndexes` is represented as intervals separated by a hyphen.
 The number are listed in represented by the first and last element of the series, separated by a hyphen.
