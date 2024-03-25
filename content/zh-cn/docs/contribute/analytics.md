@@ -26,13 +26,13 @@ This page contains information about the kubernetes.io analytics dashboard.
 <!-- body -->
 
 <!-- 
-[View the dashboard](https://datastudio.google.com/reporting/fede2672-b2fd-402a-91d2-7473bdb10f04).
+[View the dashboard](https://lookerstudio.google.com/u/0/reporting/fe615dc5-59b0-4db5-8504-ef9eacb663a9/page/4VDGB/).
 
-This dashboard is built using Google Data Studio and shows information collected on kubernetes.io using Google Analytics.
+This dashboard is built using [Google Looker Studio](https://lookerstudio.google.com/overview) and shows information collected on kubernetes.io using Google Analytics 4 since August 2022. 
 -->
-[查看仪表板](https://datastudio.google.com/reporting/fede2672-b2fd-402a-91d2-7473bdb10f04)。
+[查看仪表板](https://lookerstudio.google.com/u/0/reporting/fe615dc5-59b0-4db5-8504-ef9eacb663a9/page/4VDGB/)。
 
-此仪表板使用 Google Data Studio 构建，显示使用 Google Analytics 在 kubernetes.io 上收集的信息。
+此仪表板使用 [Google Looker Studio](https://lookerstudio.google.com/overview) 构建，并显示自 2022 年 8 月以来使用 Google Analytics 4 在 kubernetes.io 上收集的信息。
 
 <!-- 
 ### Using the dashboard
@@ -41,7 +41,7 @@ By default, the dashboard shows all collected analytics for the past 30 days. Us
 
  If you notice an issue with this dashboard, or would like to request any improvements, please [open an issue](https://github.com/kubernetes/website/issues/new/choose).
 -->
-### 使用仪表板
+### 使用仪表板 {#using-the-dashboard}
 
 默认情况下，仪表板显示过去 30 天收集的所有分析。
 使用日期选择器查看来自不同日期范围的数据。
