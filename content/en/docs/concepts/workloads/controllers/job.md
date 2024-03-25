@@ -572,21 +572,21 @@ These are some situations where you might want additional control for declaring 
   failure of a Job. Examples of this are frameworks like MPI and PyTorch etc.
 
 You can configure a success policy, in the `.spec.successPolicy` field,
-to meet the above use cases. This policy can handle Job successes based on the
+to meet the above use cases. This policy can handle Job success based on the
 succeeded pods. After the Job meet success policy, the job controller terminates the lingering Pods.
 A success policy is defined by rules. Each rule can take one of the following forms:
 
 * When you specify the `succeededIndexes` only,
-  once all indexes specified in the `succeededIndexes` succeeded, the Job is marked as succeeded.
+  once all indexes specified in the `succeededIndexes` succeed, the job controller marks the Job as succeeded.
   The `succeededIndexes` must be a list of intervals between 0 and `.spec.completions-1`.
 * When you specify the `succeededCount` only,
-  once the number of succeeded indexes reaches the `succeededCount`, the Job is marked as succeeded.
+  once the number of succeeded indexes reaches the `succeededCount`, the job controller marks the Job as succeeded.
 * When you specify both `succeededIndexes` and `succeededCount`,
-  once the number of succeeded indexes specified in the `succeededIndexes` reaches the `succeededCount`,
-  the Job is marked as succeeded.
+  once the number of succeeded indexes from the subset of indexes specified in the `succeededIndexes` reaches the `succeededCount`,
+  the job controller marks the Job as succeeded.
 
 Note that when you specify multiple rules in the `.spec.succeessPolicy.rules`,
-the rules are evaluated in order. Once the Job meets a rule, the remaining rules are ignored.
+the job controller evaluates the rules in order. Once the Job meets a rule, the job controller ignores remaining rules.
 
 Here is a manifest for a Job with `successPolicy`:
 
