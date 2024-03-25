@@ -129,13 +129,8 @@ its [`Cron` scaler](https://keda.sh/docs/2.13/scalers/cron/). The `Cron` scaler 
 If scaling workloads isn't enough to meet your needs, you can also scale your cluster infrastructure itself.
 
 Scaling the cluster infrastructure normally means adding or removing {{< glossary_tooltip text="nodes" term_id="node" >}}.
-This can be done using one of two available autoscalers:
-
-- [**Cluster Autoscaler**](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler)
-- [**Karpenter**](https://github.com/kubernetes-sigs/karpenter?tab=readme-ov-file)
-
-Both scalers work by watching for pods marked as _unschedulable_ or _underutilized_ nodes and then adding or
-removing nodes as needed.
+Read [cluster autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/)
+for more information.
 
 ## {{% heading "whatsnext" %}}
 
@@ -144,3 +139,4 @@ removing nodes as needed.
   - [HorizontalPodAutoscaler Walkthrough](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
 - [Resize Container Resources In-Place](/docs/tasks/configure-pod-container/resize-container-resources/)
 - [Autoscale the DNS Service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)
+- Learn about [cluster autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/)
