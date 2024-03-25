@@ -22,5 +22,6 @@ can only be made by creating a new version of the container or recreating the ex
 By preventing or identifying unauthorized changes, immutable infrastructures make it easier to identify and mitigate security risks. 
 Operating such a system becomes a lot more straightforward because administrators can make assumptions about it.
 After all, they know no one made mistakes or changes they forgot to communicate.
-Immutable infrastructure goes hand-in-hand with infrastructure as code where all automation needed to create infrastructure is stored in version control (e.g. Git).
+Immutable infrastructure goes hand-in-hand with infrastructure as code where all automation needed
+to create infrastructure is stored in version control (such as Git).
 This combination of immutability and version control means that there is a durable audit log of every authorized change to a system.
