@@ -3,7 +3,7 @@ kind: Job
 spec:
   parallelism: 10
   completions: 10
-  completionMode: Indexed # Required for the feature
+  completionMode: Indexed # Required for the success policy
   successPolicy:
     rules:
       - succeededIndexes: 0,2-3
@@ -13,8 +13,8 @@ spec:
       containers:
       - name: main
         image: python
-        command:          # The jobs succeed as there is one succeeded index
-                          # among indexes 0, 2, and 3.
+        command:          # Provided that at least one of the Pods with 0, 2, and 3 indexes has succeeded,
+                          # the overall Job is a success.
           - python3
           - -c
           - |
