@@ -131,6 +131,12 @@ status:
   authenticated: true
   user:
     extra:
+      authentication.kubernetes.io/credential-id:
+      - JTI=7ee52be0-9045-4653-aa5e-0da57b8dccdc
+      authentication.kubernetes.io/node-name:
+      - kind-control-plane
+      authentication.kubernetes.io/node-uid:
+      - 497e9d9a-47aa-4930-b0f6-9f2fb574c8c6
       authentication.kubernetes.io/pod-name:
       - test-pod
       authentication.kubernetes.io/pod-uid:
