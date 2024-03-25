@@ -184,7 +184,7 @@ These instructions are for Kubernetes v{{< skew currentVersion >}}.
    ```shell
    # If the directory `/etc/apt/keyrings` does not exist, it should be created before the curl command, read the note below.
    # sudo mkdir -p -m 755 /etc/apt/keyrings
-   curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+   curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo tee /etc/apt/keyrings/kubernetes-apt-keyring.asc
    ```
 
 {{< note >}}
@@ -199,7 +199,7 @@ In releases older than Debian 12 and Ubuntu 22.04, directory `/etc/apt/keyrings`
 
    ```shell
    # This overwrites any existing configuration in /etc/apt/sources.list.d/kubernetes.list
-   echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.asc] https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
    ```
 
 4. Update the `apt` package index, install kubelet, kubeadm and kubectl, and pin their version:
