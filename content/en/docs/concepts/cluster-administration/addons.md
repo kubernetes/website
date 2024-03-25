@@ -1,7 +1,7 @@
 ---
 title: Installing Addons
 content_type: concept
-weight: 120
+weight: 150
 ---
 
 <!-- overview -->
@@ -108,6 +108,10 @@ installation instructions. The list does not try to be exhaustive.
   runs on Linux nodes and reports system issues as either
   [Events](/docs/reference/kubernetes-api/cluster-resources/event-v1/) or
   [Node conditions](/docs/concepts/architecture/nodes/#condition).
+
+## Instrumentation
+
+* [kube-state-metrics](/docs/concepts/cluster-administration/kube-state-metrics)
 
 ## Legacy Add-ons
 

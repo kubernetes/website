@@ -52,7 +52,7 @@ with your new arguments.
 <!--
 The `command` field corresponds to `entrypoint` in some container runtimes. 
 -->
-在有些容器运行时中，`command` 字段对应 `entrypoint`，请参阅下面的[说明事项](#notes)。
+在有些容器运行时中，`command` 字段对应 `entrypoint`。
 {{< /note >}}
 
 <!--

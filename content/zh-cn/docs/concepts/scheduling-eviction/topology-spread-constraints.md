@@ -496,7 +496,7 @@ can use a manifest similar to:
 
 <!--
 From that manifest, `topologyKey: zone` implies the even distribution will only be applied
-to nodes that are labelled `zone: <any value>` (nodes that don't have a `zone` label
+to nodes that are labeled `zone: <any value>` (nodes that don't have a `zone` label
 are skipped). The field `whenUnsatisfiable: DoNotSchedule` tells the scheduler to let the
 incoming Pod stay pending if the scheduler can't find a way to satisfy the constraint.
 
@@ -780,7 +780,7 @@ There are some implicit conventions worth noting here:
   above example, if you remove the incoming Pod's labels, it can still be placed onto
   nodes in zone `B`, since the constraints are still satisfied. However, after that
   placement, the degree of imbalance of the cluster remains unchanged - it's still zone `A`
-  having 2 Pods labelled as `foo: bar`, and zone `B` having 1 Pod labelled as
+  having 2 Pods labeled as `foo: bar`, and zone `B` having 1 Pod labeled as
   `foo: bar`. If this is not what you expect, update the workload's
   `topologySpreadConstraints[*].labelSelector` to match the labels in the pod template.
 -->
@@ -981,7 +981,7 @@ section of the enhancement proposal about Pod topology spread constraints.
   because, in this case, those topology domains won't be considered until there is
   at least one node in them.
 
-  You can work around this by using an cluster autoscaling tool that is aware of
+  You can work around this by using a cluster autoscaling tool that is aware of
   Pod topology spread constraints and is also aware of the overall set of topology
   domains.
 -->

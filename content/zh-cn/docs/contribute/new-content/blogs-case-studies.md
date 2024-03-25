@@ -153,7 +153,7 @@ To submit a blog post, follow these steps:
     to ask in real time.
 -->
 - 博客内容并非在某特定日期发表。
-    - 文章会交由社区自愿者评阅。我们会尽力满足特定的时限要求，只是无法就此作出承诺。
+  - 文章会交由社区自愿者评阅。我们会尽力满足特定的时限要求，只是无法就此作出承诺。
   - Kubernetes 项目的很多核心组件会在发布窗口期内提交博客文章，导致发表时间被推迟。
     因此，请考虑在发布周期内较为平静的时间段提交博客文章。
   - 如果你希望就博文发表日期上进行较大范围的协调，请联系
@@ -189,6 +189,7 @@ To submit a blog post, follow these steps:
       有些时候，某个 CNCF 项目的主要功能特性或者里程碑的变化可能是用户有兴趣在
       Kubernetes 博客上阅读的内容。
   - 关于为 Kubernetes 项目做贡献的博客内容应该放在 [Kubernetes 贡献者站点](https://kubernetes.dev)上。
+
 <!--
 - Blog posts should be original content
   - The official blog is not for repurposing existing content from a third party as new content.
@@ -202,7 +203,7 @@ To submit a blog post, follow these steps:
     - Consider concentrating the long technical content as a call to action of the blog post, and
       focus on the problem space or why readers should care.
 -->
-- 博客文章应该是原创内容。
+- 博客文章须是原创内容。
   - 官方博客的目的不是将某第三方已发表的内容重新作为新内容发表。
   - 博客的[授权协议](https://github.com/kubernetes/website/blob/main/LICENSE)
     的确允许出于商业目的来使用博客内容；但并不是所有可以商用的内容都适合在这里发表。
@@ -321,9 +322,6 @@ SIG Docs
     之后，机器人会将你的博文合并并发表。
 
   <!-- 
-  - The blog team will then review your PR and give you comments on things you might need to fix.
-    After that the bot will merge your PR and your blog post will be published. 
-
   - If the content of the blog post contains only content that is not expected to require updates
     to stay accurate for the reader, it can be marked as evergreen and exempted from the automatic
     warning about outdated content added to blog posts older than one year.
@@ -352,6 +350,31 @@ SIG Docs
       - 对非正式发行（Pre-GA）API 或功能特性的引用
 
 <!--
+### Mirroring from the Kubernetes Contributor Blog
+
+To mirror a blog post from the [Kubernetes contributor blog](https://www.kubernetes.dev/blog/), follow these guidelines:
+-->
+### 制作 Kubernetes 贡献者博客的镜像   {#mirroring-from-the-kubernetes-contributor-blog}
+
+要从 [Kubernetes 贡献者博客](https://www.kubernetes.dev/blog/)制作某篇博文的镜像，遵循以下指导原则：
+
+<!--
+- Keep the blog content the same. If there are changes, they should be made to the original article first, and then to the mirrored article.
+- The mirrored blog should have a `canonicalUrl`, that is, essentially the url of the original blog after it has been published.
+- [Kubernetes contributor blogs](https://kubernetes.dev/blog) have their authors mentioned in the YAML header, while the Kubernetes blog posts mention authors in the blog content itself. This should be changed when mirroring the content.
+- Publication dates stay the same as the original blog.
+
+All of the other guidelines and expectations detailed above apply as well.
+-->
+- 保持博客内容不变。如有变更，应该先在原稿上进行更改，然后再更改到镜像的文章上。
+- 镜像博客应该有一个 `canonicalUrl`，即基本上是原始博客发布后的网址。
+- [Kubernetes 贡献者博客](https://kubernetes.dev/blog)在 YAML 头部中提及作者，
+  而 Kubernetes 博文在博客内容中提及作者。你在镜像内容时应修改这一点。
+- 发布日期与原博客保持一致。
+
+在制作镜像博客时，你也需遵守本文所述的所有其他指导原则和期望。
+
+<!--
 ## Submit a case study
 
 Case studies highlight how organizations are using Kubernetes to solve real-world problems. The
@@ -374,4 +397,3 @@ Kubernetes 市场化团队和 {{< glossary_tooltip text="CNCF" term_id="cncf" >}
 
 参考[案例分析指南](https://github.com/cncf/foundation/blob/master/case-study-guidelines.md)，
 根据指南中的注意事项提交你的 PR 请求。
-

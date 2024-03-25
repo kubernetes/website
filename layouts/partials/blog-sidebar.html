@@ -58,7 +58,7 @@ sidebar-tree in use elsewhere on the site. */}}
           {{ end }}
         {{ end }}
         <li class="more-posts collapse {{ if $active }}show{{ end }}" data-year="{{$year}}">
-          <a class="td-sidebar-link" id="more-posts" href="">Show More Posts...</a>
+          <a class="td-sidebar-link" id="more-posts" href="">{{ T "blog_post_show_more" }}</a>
         </li>
         {{ range $remainingPages }}
           {{ if .IsPage }}

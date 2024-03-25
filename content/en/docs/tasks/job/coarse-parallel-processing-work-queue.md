@@ -84,7 +84,7 @@ Next install the `amqp-tools` so you can work with message queues.
 The next commands show what you need to run inside the interactive shell in that Pod:
 
 ```shell
-apt-get update && apt-get install -y curl ca-certificates amqp-tools python dnsutils
+apt-get update && apt-get install -y curl ca-certificates amqp-tools python3 dnsutils
 ```
 
 Later, you will make a container image that includes these packages.
