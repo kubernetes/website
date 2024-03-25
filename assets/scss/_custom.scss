@@ -239,6 +239,31 @@ body.td-404 main .error-details {
   }
 }
 
+.search-item.nav-item {
+    input, input::placeholder {
+      color: black;
+  }
+}
+
+.flip-nav .search-item {
+  .td-search-input, .search-bar {
+    background-color: $medium-grey;
+  }
+  input, input::placeholder, .search-icon {
+    color: white;
+  }
+  textarea:focus, input:focus {
+    color: white;
+  }
+}
+
+@media only screen and (max-width: 1500px) {
+  header nav .search-item {
+    display: none;
+  }
+}
+
+
 /* FOOTER */
 footer {
   background-color: #303030;
@@ -732,6 +757,8 @@ body.td-documentation {
   }
 }
 
+/* Announcements */
+
 #announcement {
   > * {
     color: inherit;
@@ -753,10 +780,21 @@ body.td-documentation {
   padding-top: 40px;
 }
 
+// Don't show announcements when javascript is not available
+
+html.no-js body div#announcement {
+  display: none;
+}
+
+#announcement.display-announcement{
+  display: block; // apply this class to display the announcement
+}
+
 #announcement {
   // default background is blue; overrides are possible
   color: #fff;
-
+  display: none; // When javascript is available, Let javascript handle the state of the announcement
+  
   .announcement-main {
     margin-left: auto;
     margin-right: auto;

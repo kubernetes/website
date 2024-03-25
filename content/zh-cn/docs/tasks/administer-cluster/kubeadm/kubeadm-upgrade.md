@@ -110,12 +110,44 @@ The upgrade workflow at high level is the following:
   这样会产生意想不到的结果。
   请按照[重新配置 kubeadm 集群](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure)中的步骤来进行。
 
+<!--
+### Considerations when upgrading etcd
+
+Because the `kube-apiserver` static pod is running at all times (even if you
+have drained the node), when you perform a kubeadm upgrade which includes an
+etcd upgrade, in-flight requests to the server will stall while the new etcd
+static pod is restarting. As a workaround, it is possible to actively stop the
+`kube-apiserver` process a few seconds before starting the `kubeadm upgrade
+apply` command. This permits to complete in-flight requests and close existing
+connections, and minimizes the consequence of the etcd downtime. This can be
+done as follows on control plane nodes:
+-->
+### 升级 etcd 时的注意事项
+
+由于 `kube-apiserver` 静态 Pod 始终在运行（即使你已经执行了腾空节点的操作），
+因此当你执行包括 etcd 升级在内的 kubeadm 升级时，对服务器正在进行的请求将停滞，
+因为要重新启动新的 etcd 静态 Pod。作为一种解决方法，可以在运行 `kubeadm upgrade apply`
+命令之前主动停止 `kube-apiserver` 进程几秒钟。这样可以允许正在进行的请求完成处理并关闭现有连接，
+并最大限度地减少 etcd 停机的后果。此操作可以在控制平面节点上按如下方式完成：
+
+<!--
+```shell
+# trigger a graceful kube-apiserver shutdown
+# wait a little bit to permit completing in-flight requests
+# execute a kubeadm upgrade command
+-->
+```shell
+killall -s SIGTERM kube-apiserver # 触发 kube-apiserver 体面关闭
+sleep 20 # 等待一下，以完成进行中的请求
+kubeadm upgrade ... # 执行 kubeadm 升级命令
+```
+
 <!-- steps -->
 
 <!--
 ## Changing the package repository
 
-If you're using the community-owned package repositories (`pkgs.k8s.io`), you need to 
+If you're using the community-owned package repositories (`pkgs.k8s.io`), you need to
 enable the package repository for the desired Kubernetes minor release. This is explained in
 [Changing the Kubernetes package repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/)
 document.

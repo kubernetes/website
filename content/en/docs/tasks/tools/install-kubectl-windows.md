@@ -205,7 +205,8 @@ Below are the procedures to set up autocompletion for PowerShell.
 1. After installing the plugin, clean up the installation files:
 
    ```powershell
-   del kubectl-convert.exe kubectl-convert.exe.sha256
+   del kubectl-convert.exe
+   del kubectl-convert.exe.sha256
    ```
 
 ## {{% heading "whatsnext" %}}

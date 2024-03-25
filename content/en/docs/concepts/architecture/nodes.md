@@ -115,9 +115,9 @@ are enabled, kubelets are only authorized to create/modify their own Node resour
 {{< note >}}
 As mentioned in the [Node name uniqueness](#node-name-uniqueness) section,
 when Node configuration needs to be updated, it is a good practice to re-register
-the node with the API server. For example, if the kubelet being restarted with
-the new set of `--node-labels`, but the same Node name is used, the change will
-not take an effect, as labels are being set on the Node registration.
+the node with the API server. For example, if the kubelet is being restarted with
+a new set of `--node-labels`, but the same Node name is used, the change will
+not take effect, as labels are only set (or modified) upon Node registration with the API server.
 
 Pods already scheduled on the Node may misbehave or cause issues if the Node
 configuration will be changed on kubelet restart. For example, already running
@@ -578,6 +578,8 @@ Learn more about the following:
 * [API definition for Node](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
 * [Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node)
   section of the architecture design document.
+* [Cluster autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/) to
+  manage the number and size of nodes in your cluster.
 * [Taints and Tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
 * [Node Resource Managers](/docs/concepts/policy/node-resource-managers/).
 * [Resource Management for Windows nodes](/docs/concepts/configuration/windows-resource-management/).

@@ -166,21 +166,17 @@ kubelet 通过 Kubernetes API 的特殊功能将日志提供给客户端访问�
 {{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 <!--
-You can configure the kubelet to rotate logs automatically.
-
-If you configure rotation, the kubelet is responsible for rotating container logs and managing the
+The kubelet is responsible for rotating container logs and managing the
 logging directory structure.
 The kubelet sends this information to the container runtime (using CRI),
 and the runtime writes the container logs to the given location.
 -->
-你可以配置 kubelet 令其自动轮转日志。
-
-如果配置轮转，kubelet 负责轮转容器日志并管理日志目录结构。
+kubelet 负责轮换容器日志并管理日志目录结构。
 kubelet（使用 CRI）将此信息发送到容器运行时，而运行时则将容器日志写到给定位置。
 
 <!--
 You can configure two kubelet [configuration settings](/docs/reference/config-api/kubelet-config.v1beta1/),
-`containerLogMaxSize` and `containerLogMaxFiles`,
+`containerLogMaxSize` (default 10Mi) and `containerLogMaxFiles` (default 5),
 using the [kubelet configuration file](/docs/tasks/administer-cluster/kubelet-config-file/).
 These settings let you configure the maximum size for each log file and the maximum number of
 files allowed for each container respectively.
@@ -191,7 +187,7 @@ reads directly from the log file. The kubelet returns the content of the log fil
 -->
 你可以使用 [kubelet 配置文件](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)配置两个
 kubelet [配置选项](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)、
-`containerLogMaxSize` 和 `containerLogMaxFiles`。
+`containerLogMaxSize` （默认 10Mi）和 `containerLogMaxFiles` （默认 5）。
 这些设置分别允许你分别配置每个日志文件大小的最大值和每个容器允许的最大文件数。
 
 当类似于基本日志示例一样运行 [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs) 时，
