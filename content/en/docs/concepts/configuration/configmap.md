@@ -237,8 +237,7 @@ spec:
 ```
 
 It's important to note that the range of characters allowed for environment
-variable names in pods is [restricted](/docs/tasks/inject-data-application/
-/define-environment-variable-container/#using-environment-variables-inside-of-your-config), 
+variable names in pods is [restricted](/docs/tasks/inject-data-application/define-environment-variable-container/#using-environment-variables-inside-of-your-config).
 If any keys do not meet the rules, those keys are not made available to your container, though
 the Pod is allowed to start.
 
