@@ -153,7 +153,7 @@ description: |-
                 <p><b><code>export POD_NAME=$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')</code></b><br />
                    <b><code>echo Name of the Pod: $POD_NAME</code></b></p>
                 <p>You can access the Pod through the proxied API, by running:</p>
-                <p><b><code>curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME/</code></b></p>
+                <p><b><code>curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME:8080/proxy/</code></b></p>
                 <p>In order for the new Deployment to be accessible without using the proxy, a Service is required which will be explained in <a href="/docs/tutorials/kubernetes-basics/expose/">Module 4</a>.</p>
             </div>
 
