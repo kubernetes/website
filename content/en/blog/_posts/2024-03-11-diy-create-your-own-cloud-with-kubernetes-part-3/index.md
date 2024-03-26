@@ -64,30 +64,30 @@ It facilitates the deployment of Kubernetes control planes in containers, thus r
 
 ## How it works
 
-The primary object in Cluster API is the `Cluster` resource, which acts as the parent for all the others. Typically, this resource references two others: a resource describing the **control plane** and a resource describing the **infrastructure**, each managed by a separate provider.
+The primary object in Cluster API is the Cluster resource, which acts as the parent for all the others. Typically, this resource references two others: a resource describing the **control plane** and a resource describing the **infrastructure**, each managed by a separate provider.
 
-Unlike the Cluster, these two resources are not standardized, and their `kind` depends on the specific provider you are using:
+Unlike the Cluster, these two resources are not standardized, and their kind depends on the specific provider you are using:
 
-{{< figure src="clusterapi2.svg" caption="A diagram showing the relationship of a `Cluster` resource and the resources it links to in Cluster API" alt="A diagram showing the relationship of a Cluster resource and the resources it links to in Cluster API" >}}
+{{< figure src="clusterapi2.svg" caption="A diagram showing the relationship of a Cluster resource and the resources it links to in Cluster API" alt="A diagram showing the relationship of a Cluster resource and the resources it links to in Cluster API" >}}
 
-Within Cluster API, there is also a resource named `MachineDeployment`, which describes a group of nodes, whether they are physical servers or virtual machines. This resource functions similarly to standard Kubernetes resources such as Deployment, ReplicaSet, and Pod, providing a mechanism for the declarative description of a group of nodes and automatic scaling.
+Within Cluster API, there is also a resource named MachineDeployment, which describes a group of nodes, whether they are physical servers or virtual machines. This resource functions similarly to standard Kubernetes resources such as Deployment, ReplicaSet, and Pod, providing a mechanism for the declarative description of a group of nodes and automatic scaling.
 
-In other words, the `MachineDeployment` resource allows you to declaratively describe nodes for your cluster, automating their creation, deletion, and updating according to specified parameters and the requested number of replicas.
+In other words, the MachineDeployment resource allows you to declaratively describe nodes for your cluster, automating their creation, deletion, and updating according to specified parameters and the requested number of replicas.
 
-{{< figure src="machinedeploymentres.svg" caption="A diagram showing the relationship of a `MachineDeployment` resource and its children in Cluster API" alt="A diagram showing the relationship of a Cluster resource and its children in Cluster API" >}}
+{{< figure src="machinedeploymentres.svg" caption="A diagram showing the relationship of a MachineDeployment resource and its children in Cluster API" alt="A diagram showing the relationship of a Cluster resource and its children in Cluster API" >}}
 
 To create machines, MachineDeployment refers to a template for generating the machine itself and a template for generating its cloud-init config:
 
-{{< figure src="clusterapi3.svg" caption="A diagram showing the relationship of a `MachineDeployment` resource and the resources it links to in Cluster API" alt="A diagram showing the relationship of a Cluster resource and the resources it links to in Cluster API" >}}
+{{< figure src="clusterapi3.svg" caption="A diagram showing the relationship of a MachineDeployment resource and the resources it links to in Cluster API" alt="A diagram showing the relationship of a Cluster resource and the resources it links to in Cluster API" >}}
 
 To deploy a new Kubernetes cluster using Cluster API, you will need to prepare the following set of resources:
 
-- A general `Cluster` resource
-- A `KamajiControlPlane` resource, responsible for the control plane operated by Kamaji
-- A `KubevirtCluster` resource, describing the cluster configuration in KubeVirt
-- A `KubevirtMachineTemplate` resource, responsible for the virtual machine template
-- A `KubeadmConfigTemplate` resource, responsible for generating tokens and cloud-init
-- At least one `MachineDeployment` to create some workers
+- A general Cluster resource
+- A KamajiControlPlane resource, responsible for the control plane operated by Kamaji
+- A KubevirtCluster resource, describing the cluster configuration in KubeVirt
+- A KubevirtMachineTemplate resource, responsible for the virtual machine template
+- A KubeadmConfigTemplate resource, responsible for generating tokens and cloud-init
+- At least one MachineDeployment to create some workers
 
 ## Polishing the cluster
 
