@@ -1,8 +1,8 @@
 ---
 layout: blog
-title: 'Multi-Webhook Authorization Made Easy'
+title: 'Multi-Webhook and Modular Authorization Made Easy'
 date: 2024-04-nn
-slug: multi-webhook-authorization-made-easy
+slug: multi-webhook-and-modular-authorization-made-easy
 ---
 
 **Authors:** [Rita Zhang](https://github.com/ritazh) (Microsoft), [Jordan
@@ -13,7 +13,7 @@ Capili](https://github.com/stealthybox) (VMware)
 # Enhancing Kubernetes Authorization with Multiple Webhooks and Structured Configuration
 
 ## Introduction
-Kubernetes continuous to evolve to meet the intricate requirements of system
+Kubernetes continues to evolve to meet the intricate requirements of system
 administrators and developers alike. A critical aspect of Kubernetes that
 ensures the security and integrity of the cluster is the API server
 authorization. Until recently, the configuration of the authorization chain in
@@ -24,14 +24,15 @@ define complex, fine-grained authorization policies. The latest Structured
 Authorization Configuration feature ([KEP-3221](https://kep.k8s.io/3221)) aims
 to revolutionize this aspect by introducing a more structured and versatile way
 to configure the authorization chain, focusing on enabling multiple webhooks and
-providing explicit control mechanisms such as the explicit Deny authorizer.
+providing explicit control mechanisms.
 
 ## The Need for Improvement
 Cluster administrators have long sought the ability to specify multiple
-authorization webhooks within the API Server handler chain. This need arises
-from the desire to create layered security policies, where requests can be
-validated against multiple criteria or sets of rules in a specific order. The
-previous limitations also made it difficult to declaratively configure the
+authorization webhooks within the API Server handler chain and have control over
+detailed behavior like timeout and failure policy for each webhook. This need
+arises from the desire to create layered security policies, where requests can
+be validated against multiple criteria or sets of rules in a specific order. The
+previous limitations also made it difficult to dynamically configure the
 authorizer chain, leaving no room to efficiently manage complex authorization
 scenarios.
 
@@ -39,9 +40,9 @@ The [Structured Authorization Configuration
 feature](/docs/reference/access-authn-authz/authorization/#configuring-the-api-server-using-an-authorization-config-file)
 addresses these limitations by introducing a configuration file format to
 configure Kubernetes API Server Authorization chain. This format allows
-specifying multiple webhooks in the authorization chain while all other types of
-authorizers should at most be specified once. Each webhook authorizer comes with
-its well-defined parameters, including timeout settings, failure policies, and
+specifying multiple webhooks in the authorization chain (all other authorization
+types are specified no more than once). Each webhook authorizer comes with its
+well-defined parameters, including timeout settings, failure policies, and
 conditions for invocation with [CEL](/docs/reference/using-api/cel/) rules to
 pre-filter requests before they are dispatched to webhooks, helping you to
 prevent unnecessary invocations. The configuration also supports automatic
@@ -158,17 +159,18 @@ order, and failure modes.
 
 ### Protecting Installed CRDs
 Ensuring the availability of Custom Resource Definitions (CRDs) at cluster
-startup has been a key demand, One of the blockers for having a controller
+startup has been a key demand. One of the blockers for having a controller
 reconciling those CRDs is to have a protection mechanism for them, which can be
-achieved through multiple Authorization Webhooks. This was not possible before.
-Now with the Structured Authorization Configuration feature, administrators can
-specify multiple webhooks offering a solution where RBAC falls short, especially
-in denying permissions to 'non-system' users for certain CRDs.
+achieved through multiple authorization webhooks. This was not possible before
+as specifying multiple authorization webhooks in the Kubernetes API Server
+authorization chain was simply not possible. Now with the Structured
+Authorization Configuration feature, administrators can specify multiple
+webhooks offering a solution where RBAC falls short, especially in denying
+permissions to 'non-system' users for certain CRDs.
 
 Assuming the following for this scenario:
-- The "protected" CRDs are installed in the kube-system namespace.
-- They can only be modified by users in the group
-  `system:serviceaccounts:kube-superuser`
+- The "protected" CRDs are installed.
+- They can only be modified by users in the group `admin`
 
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1beta1
@@ -188,12 +190,11 @@ authorizers:
       matchConditions:
       # only send resource requests to the webhook
       - expression: has(request.resourceAttributes)
-      # only intercept requests to kube-system
-      - expression: request.resourceAttributes.namespace == 'kube-system'
-      # don't intercept requests from kube-system service accounts
-      - expression: !('system:serviceaccounts:kube-system' in request.user.groups)
-      # only intercept update, delete or deletecollection requests
-      - expression: request.resourceAttributes.verb in ['update', 'delete','deletecollection']
+      # only intercept requests for CRDs
+      - expression: request.resourceAttributes.resource.resource = "customresourcedefinitions"
+      - expression: request.resourceAttributes.resource.group = ""
+      # only intercept update, patch, delete, or deletecollection requests
+      - expression: request.resourceAttributes.verb in ['update', 'patch', 'delete','deletecollection']
   - type: Node
   - type: RBAC
 ```
@@ -212,8 +213,8 @@ consistent and predictable responses.
 apiVersion: apiserver.config.k8s.io/v1beta1
 kind: AuthorizationConfiguration
 authorizers:
-  - name: system-crd-protector
-    type: Webhook
+  - type: Webhook
+    name: system-crd-protector
     webhook:
       unauthorizedTTL: 30s
       timeout: 3s
@@ -226,10 +227,11 @@ authorizers:
       matchConditions:
       # only send resource requests to the webhook
       - expression: has(request.resourceAttributes)
-      # only intercept requests to kube-system
-      - expression: request.resourceAttributes.namespace == 'kube-system'
-      # don't intercept requests from kube-system service accounts
-      - expression: !('system:serviceaccounts:kube-system' in request.user.groups)
+      # only intercept requests for CRDs
+      - expression: request.resourceAttributes.resource.resource = "customresourcedefinitions"
+      - expression: request.resourceAttributes.resource.group = ""
+      # only intercept update, patch, delete, or deletecollection requests
+      - expression: request.resourceAttributes.verb in ['update', 'patch', 'delete','deletecollection']
   - type: Node
   - type: RBAC
   - name: opa
@@ -255,7 +257,7 @@ authorizers:
 ## What's next?
 For Kubernetes v1.31, we expect the feature to stay in beta while we get more
 feedback. Then once the feature is ready for GA, the feature flag will be
-removed.
+removed and the configuration file version will be promoted to v1.
 
 You can learn more about this feature on the [structured authorization
 configuration](/docs/reference/access-authn-authz/authorization/#configuring-the-api-server-using-an-authorization-config-file)
@@ -270,7 +272,9 @@ for real world scenarios. To use this feature, you must specify the path to the
 authorization configuration using the `--authorization-config` command line
 argument. From Kubernetes 1.30, the feature is in beta and enabled by default.
 If you want to keep using command line flags instead of a configuration file,
-those will continue to work as-is. 
+those will continue to work as-is. Specifying both `--authorization-config` and
+`--authorization-modes`/`--authorization-webhook-*` won't work. You need to drop
+the older flags from your kube-apiserver command. 
 
 The following kind Cluster configuration sets that command argument on the
 APIserver to load an AuthorizationConfiguration from a file
@@ -280,7 +284,7 @@ certificate files can also be put in the files directory.
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 featureGates:
-  StructuredAuthorizationConfiguration: true  # only required for v1.29; enabled by default in v1.30
+  StructuredAuthorizationConfiguration: true  # enabled by default in v1.30
 kubeadmConfigPatches:
   - |
     kind: ClusterConfiguration
