@@ -57,7 +57,7 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap">HostProcess</td>
 			<td>
-				<p>Windows Pods offer the ability to run <a href="/docs/tasks/configure-pod-container/create-hostprocess-pod">HostProcess containers</a> which enables privileged access to the Windows host machine. Privileged access to the host is disallowed in the baseline policy. {{< feature-state for_k8s_version="v1.26" state="stable" >}}</p>
+				<p>Windows Pods offer the ability to run <a href="/docs/tasks/configure-pod-container/create-hostprocess-pod">HostProcess containers</a> which enables privileged access to the Windows host machine. Privileged access to the host is disallowed in the Baseline policy. {{< feature-state for_k8s_version="v1.26" state="stable" >}}</p>
 				<p><strong>Restricted Fields</strong></p>
 				<ul>
 					<li><code>spec.securityContext.windowsOptions.hostProcess</code></li>
@@ -170,7 +170,7 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap">AppArmor</td>
 			<td>
-				<p>On supported hosts, the <code>runtime/default</code> AppArmor profile is applied by default. The baseline policy should prevent overriding or disabling the default AppArmor profile, or restrict overrides to an allowed set of profiles.</p>
+				<p>On supported hosts, the <code>runtime/default</code> AppArmor profile is applied by default. The Baseline policy should prevent overriding or disabling the default AppArmor profile, or restrict overrides to an allowed set of profiles.</p>
 				<p><strong>Restricted Fields</strong></p>
 				<ul>
 					<li><code>metadata.annotations["container.apparmor.security.beta.kubernetes.io/*"]</code></li>
@@ -300,12 +300,12 @@ fail validation.
 			<td><strong>Policy</strong></td>
 		</tr>
 		<tr>
-			<td colspan="2"><em>Everything from the baseline policy</em></td>
+			<td colspan="2"><em>Everything from the Baseline policy</em></td>
 		</tr>
 		<tr>
 			<td style="white-space: nowrap">Volume Types</td>
 			<td>
-				<p>The restricted policy only permits the following volume types.</p>
+				<p>The Restricted policy only permits the following volume types.</p>
 				<p><strong>Restricted Fields</strong></p>
 				<ul>
 					<li><code>spec.volumes[*]</code></li>
@@ -471,7 +471,7 @@ workloads. Specifically, many of the Pod `securityContext` fields
 [have no effect on Windows](/docs/concepts/windows/intro/#compatibility-v1-pod-spec-containers-securitycontext).
 
 {{< note >}}
-Kubelets prior to v1.24 don't enforce the pod OS field, and if a cluster has nodes on versions earlier than v1.24 the restricted policies should be pinned to a version prior to v1.25.
+Kubelets prior to v1.24 don't enforce the pod OS field, and if a cluster has nodes on versions earlier than v1.24 the Restricted policies should be pinned to a version prior to v1.25.
 {{< /note >}}
 
 ### Restricted Pod Security Standard changes
@@ -487,10 +487,10 @@ Restrictions on the following controls are only required if `.spec.os.name` is n
 
 ## FAQ
 
-### Why isn't there a profile between privileged and baseline?
+### Why isn't there a profile between Privileged and Baseline?
 
-The three profiles defined here have a clear linear progression from most secure (restricted) to least
-secure (privileged), and cover a broad set of workloads. Privileges required above the baseline
+The three profiles defined here have a clear linear progression from most secure (Restricted) to least
+secure (Privileged), and cover a broad set of workloads. Privileges required above the Baseline
 policy are typically very application specific, so we do not offer a standard profile in this
 niche. This is not to say that the privileged profile should always be used in this case, but that
 policies in this space need to be defined on a case-by-case basis.
