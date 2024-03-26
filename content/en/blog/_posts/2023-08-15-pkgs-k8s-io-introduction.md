@@ -18,41 +18,50 @@ This blog post contains information about these new package repositories,
 what does it mean to you as an end user, and how to migrate to the new
 repositories.
 
-**ℹ️  Update (January 12, 2024):** the _**legacy Google-hosted repositories are going
-away in January 2024.**_
+**ℹ️ Update (March 26, 2024): _the legacy Google-hosted repositories went
+away on March 4, 2024. It's not possible to install Kubernetes packages from
+the legacy Google-hosted package repositories any longer._**
 Check out [the deprecation announcement](/blog/2023/08/31/legacy-package-repository-deprecation/)
 for more details about this change.
 
+
 ## What you need to know about the new package repositories?
 
-_(updated on January 12, 2024)_
+_(updated on January 12, 2024 and March 26, 2024)_
 
 - This is an **opt-in change**; you're required to manually migrate from the
   Google-hosted repository to the Kubernetes community-owned repositories.
   See [how to migrate](#how-to-migrate) later in this announcement for migration information
   and instructions.
-- **The legacy Google-hosted package repositories are going away in January 2024.** These repositories
-  have been **deprecated as of August 31, 2023**, and **frozen as of September 13, 2023**.
+- **The legacy Google-hosted package repositories went away on March 4, 2024. It's not possible
+  to install Kubernetes packages from the legacy Google-hosted package repositories any longer.**
+  These repositories have been **deprecated as of August 31, 2023**, and **frozen as of September 13, 2023**.
   Check out the [deprecation announcement](/blog/2023/08/31/legacy-package-repository-deprecation/)
   for more details about this change.
+- ~~**The legacy Google-hosted package repositories are going away in January 2024.** These repositories
+  have been **deprecated as of August 31, 2023**, and **frozen as of September 13, 2023**.
+  Check out the [deprecation announcement](/blog/2023/08/31/legacy-package-repository-deprecation/)
+  for more details about this change.~~
 - ~~The existing packages in the legacy repositories will be available for the foreseeable future.
   However, the Kubernetes project can't provide any guarantees on how long is that going to be.
   The deprecated legacy repositories, and their contents, might be removed at any time in the future
-  and without a further notice period.~~ **The legacy package repositories are going away in
-  January 2024.**
+  and without a further notice period. **The legacy package repositories are going away in
+  January 2024.**~~ **The legacy Google-hosted package repositories went away on March 4, 2024.**
 - Given that no new releases will be published to the legacy repositories after
   the September 13, 2023 cut-off point, you will not be able to upgrade to any patch or minor
   release made from that date onwards if you don't migrate to the new Kubernetes package repositories.
   That said, we recommend migrating to the new Kubernetes package repositories **as soon as possible**.
-- The new Kubernetes package repositories contain packages beginning with those
+- **The new Kubernetes package repositories contain packages beginning with those
   Kubernetes versions that were still under support when the community took
   over the package builds. This means that the new package repositories have Linux packages for all
-  Kubernetes releases starting with v1.24.0.
+  Kubernetes releases starting with v1.24.0.**
 - Kubernetes does not have official Linux packages available for earlier releases of Kubernetes;
   however, your Linux distribution may provide its own packages.
 - There's a dedicated package repository for each Kubernetes minor version.
   When upgrading to a different minor release, you must bear in mind that
-  the package repository details also change.
+  the package repository details also change. Check out
+  [Changing The Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/)
+  guide for information about steps that you need to take upon upgrading the Kubernetes minor version.
 
 ## Why are we introducing new package repositories?
 
@@ -144,13 +153,20 @@ There are three significant differences that you should be aware of:
 
 ## Does this in any way affect existing Google-hosted repositories?
 
-The Google-hosted repository and all packages published to it will continue
+_(updated on March 26, 2024)_
+
+**The legacy Google-hosted repositories went away on March 4, 2024. It's not possible to
+install Kubernetes packages from the legacy Google-hosted package repositories any longer.**
+Check out [the deprecation announcement](/blog/2023/08/31/legacy-package-repository-deprecation/)
+for more details about this change.
+
+~~The Google-hosted repository and all packages published to it will continue
 working in the same way as before. There are no changes in how we build and
 publish packages to the Google-hosted repository, all newly-introduced changes
-are only affecting packages publish to the community-owned repositories.
+are only affecting packages publish to the community-owned repositories.~~
 
-However, as mentioned at the beginning of this blog post, we plan to stop
-publishing packages to the Google-hosted repository in the future.
+~~However, as mentioned at the beginning of this blog post, we plan to stop
+publishing packages to the Google-hosted repository in the future.~~
 
 ## How to migrate to the Kubernetes community-owned repositories? {#how-to-migrate}
 
@@ -173,7 +189,7 @@ publishing packages to the Google-hosted repository in the future.
    curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    ```
 
-_Update: In releases older than Debian 12 and Ubuntu 22.04, the folder `/etc/apt/keyrings` does not exist by default, and it should be created before the curl command._
+    _Update: In releases older than Debian 12 and Ubuntu 22.04, the folder `/etc/apt/keyrings` does not exist by default, and it should be created before the curl command._
 
 3. Update the `apt` package index:
 
@@ -200,11 +216,28 @@ _Update: In releases older than Debian 12 and Ubuntu 22.04, the folder `/etc/apt
    EOF
    ```
 
+## Where can I get packages for Kubernetes versions prior to v1.24.0?
+
+_(updated on March 26, 2024)_
+
+For Kubernetes v1.24 and onwards, Linux packages of Kubernetes components are available for
+download via the official Kubernetes package repositories. Kubernetes does not publish any
+software packages for releases of Kubernetes older than v1.24.0; however, your Linux
+distribution may provide its own packages. Alternatively, you can directly download binaries
+instead of using packages. As an example, see `Without a package manager` instructions in
+["Installing kubeadm"](/docs/setup/production-environment/tools/kubeadm/install-kubeadm)
+document.
+
 ## Can I rollback to the Google-hosted repository after migrating to the Kubernetes repositories?
 
-In general, yes. Just do the same steps as when migrating, but use parameters
+_(updated on March 26, 2024)_
+
+**The legacy Google-hosted repositories went away on March 4, 2024 and therefore it's not possible
+to rollback to the legacy Google-hosted repositories any longer.**
+
+~~In general, yes. Just do the same steps as when migrating, but use parameters
 for the Google-hosted repository. You can find those parameters in a document
-like ["Installing kubeadm"](/docs/setup/production-environment/tools/kubeadm/install-kubeadm).
+like ["Installing kubeadm"](/docs/setup/production-environment/tools/kubeadm/install-kubeadm).~~
 
 ## Why isn’t there a stable list of domains/IPs? Why can’t I restrict package downloads?
 
