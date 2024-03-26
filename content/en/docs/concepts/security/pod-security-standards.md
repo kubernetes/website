@@ -29,9 +29,9 @@ This guide outlines the requirements of each policy.
 **The _Privileged_ policy is purposely-open, and entirely unrestricted.** This type of policy is
 typically aimed at system- and infrastructure-level workloads managed by privileged, trusted users.
 
-The Privileged policy is defined by an absence of restrictions. Allow-by-default
-mechanisms (such as Gatekeeper) may be Privileged by default. In contrast, for a deny-by-default mechanism (such as Pod
-Security Policy) the Privileged policy should disable all restrictions.
+The Privileged policy is defined by an absence of restrictions. If you define a Pod where the Privileged
+security policy applies, the Pod you define is able to bypass typical container isolation mechanisms.
+For example, you can define a Pod that has access to the node's host network.
 
 ### Baseline
 
