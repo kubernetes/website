@@ -24,10 +24,6 @@ the legacy Google-hosted package repositories any longer._**
 Check out [the deprecation announcement](/blog/2023/08/31/legacy-package-repository-deprecation/)
 for more details about this change.
 
-**ℹ️  Update (January 12, 2024):** the _**legacy Google-hosted repositories are going
-away in January 2024.**_
-Check out [the deprecation announcement](/blog/2023/08/31/legacy-package-repository-deprecation/)
-for more details about this change.
 
 ## What you need to know about the new package repositories?
 
