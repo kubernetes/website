@@ -185,8 +185,9 @@ mutating webhooks, also mutate admitted objects.
 
 Users who can perform `patch` operations on `namespace` objects through a namespaced rolebinding can modify 
 labels on that namespace. In clusters where Pod Security Admission is used, this may allow a user to configure the namespace
-for a more permissive policy than intended by the administrators. For clusters where network policy is used, users may be 
-able to gain access to services intended to be blocked.  
+for a more permissive policy than intended by the administrators.
+For clusters where NetworkPolicy is used, users may be set labels that indirectly allow
+access to services that an administrator did not intend to allow.
 
 ## Kubernetes RBAC - denial of service risks {#denial-of-service-risks}
 
