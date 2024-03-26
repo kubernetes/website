@@ -596,8 +596,9 @@ guidelines, which cover this exact use case.
 
 ## {{% heading "whatsnext" %}}
 
-If you configure autoscaling in your cluster, you may also want to consider running a
-cluster-level autoscaler such as [Cluster Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler).
+If you configure autoscaling in your cluster, you may also want to consider using
+[cluster autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/)
+to ensure you are running the right number of nodes.
 
 For more information on HorizontalPodAutoscaler:
 
