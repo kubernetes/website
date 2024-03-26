@@ -619,6 +619,16 @@ You can integrate with [Gateway](https://gateway-api.sigs.k8s.io/) rather than S
 can define your own (provider specific) annotations on the Service that specify the equivalent detail.
 {{< /note >}}
 
+#### Node liveness impact on load balancer traffic
+
+Load balancer health checks are critical to modern applications. They are used to
+determine which server (virtual machine, or IP address) the load balancer should
+dispatch traffic to. The Kubernetes APIs do not define how health checks have to be
+implemented for Kubernetes managed load balancers, instead it's the cloud providers
+(and the people implementing integration code) who decide on the behavior. Load
+balancer health checks are extensively used within the context of supporting the
+`externalTrafficPolicy` field for Services.
+
 #### Load balancers with mixed protocol types
 
 {{< feature-state feature_gate_name="MixedProtocolLBService" >}}

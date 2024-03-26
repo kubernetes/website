@@ -488,6 +488,67 @@ route to ready node-local endpoints. If the traffic policy is `Local` and there 
 are no node-local endpoints, the kube-proxy does not forward any traffic for the
 relevant Service.
 
+If `Cluster` is specified all nodes are eligible load balancing targets _as long as_
+the node is not being deleted and kube-proxy is healthy. In this mode: load balancer 
+health checks are configured to target the service proxy's readiness port and path.
+In the case of kube-proxy this evaluates to: `${NODE_IP}:10256/healthz`. kube-proxy
+will return either an HTTP code 200 or 503. kube-proxy's load balancer health check
+endpoint returns 200 if:
+
+1. kube-proxy is healthy, meaning:
+   - it's able to progress programming the network and isn't timing out while doing
+     so (the timeout is defined to be: **2 × `iptables.syncPeriod`**); and
+2. the node is not being deleted (there is no deletion timestamp set for the Node).
+
+The reason why kube-proxy returns 503 and marks the node as not
+eligible when it's being deleted, is because kube-proxy supports connection
+draining for terminating nodes. A couple of important things occur from the point
+of view of a Kubernetes-managed load balancer when a node _is being_ / _is_ deleted.
+
+While deleting:
+
+* kube-proxy will start failing its readiness probe and essentially mark the
+   node as not eligible for load balancer traffic. The load balancer health
+   check failing causes load balancers which support connection draining to
+   allow existing connections to terminate, and block new connections from
+   establishing.
+
+When deleted:
+
+* The service controller in the Kubernetes cloud controller manager removes the
+  node from the referenced set of eligible targets. Removing any instance from
+  the load balancer's set of backend targets immediately terminates all
+  connections. This is also the reason kube-proxy first fails the health check
+  while the node is deleting.
+
+It's important to note for Kubernetes vendors that if any vendor configures the
+kube-proxy readiness probe as a liveness probe: that kube-proxy will start
+restarting continuously when a node is deleting until it has been fully deleted.
+kube-proxy exposes a `/livez` path which, as opposed to the `/healthz` one, does
+**not** consider the Node's deleting state and only its progress programming the
+network. `/livez` is therefore the recommended path for anyone looking to define
+a livenessProbe for kube-proxy.
+
+Users deploying kube-proxy can inspect both the readiness / liveness state by
+evaluating the metrics: `proxy_livez_total` / `proxy_healthz_total`. Both
+metrics publish two series, one with the 200 label and one with the 503 one.
+
+For `Local` Services: kube-proxy will return 200 if
+
+1. kube-proxy is healthy/ready, and
+2. has a local endpoint on the node in question.
+
+Node deletion does **not** have an impact on kube-proxy's return
+code for what concerns load balancer health checks. The reason for this is:
+deleting nodes could end up causing an ingress outage should all endpoints
+simultaneously be running on said nodes.
+
+The Kubernetes project recommends that cloud provider integration code
+configures load balancer health checks that target the service proxy's healthz
+port. If you are using or implementing your own virtual IP implementation,
+that people can use instead of kube-proxy, you should set up a similar health
+checking port with logic that matches the kube-proxy implementation.
+
 ### Traffic to terminating endpoints
 
 {{< feature-state for_k8s_version="v1.28" state="stable" >}}
