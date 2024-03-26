@@ -7,7 +7,11 @@ slug: kubernetes-separate-image-filesystem
 
 **Author:** Kevin Hannon (Red Hat)
 
-Kubernetesクラスターの稼働、運用する上でよくある問題は、ディスク容量が不足することです。ノードがプロビジョニングされる際には、コンテナイメージと実行中のコンテナのために十分なストレージスペースを確保することが重要です。通常、[コンテナランタイム](/ja/docs/setup/production-environment/container-runtimes/)は`/var`に書き込みます。これは別のパーティションとして、ルートファイルシステム上に配置できます。CRI-Oはデフォルトで、コンテナとイメージを`/var/lib/containers`に書き込みますが、containerdはコンテナとイメージを`/var/lib/containerd`に書き込みます。
+Kubernetesクラスターの稼働、運用する上でよくある問題は、ディスク容量が不足することです。
+ノードがプロビジョニングされる際には、コンテナイメージと実行中のコンテナのために十分なストレージスペースを確保することが重要です。
+通常、[コンテナランタイム](/ja/docs/setup/production-environment/container-runtimes/)は`/var`に書き込みます。
+これは別のパーティションとして、ルートファイルシステム上に配置できます。
+CRI-Oはデフォルトで、コンテナとイメージを`/var/lib/containers`に書き込みますが、containerdはコンテナとイメージを`/var/lib/containerd`に書き込みます。
 
 このブログ記事では、コンテナランタイムがデフォルトのパーティションとは別にコンテンツを保存する方法に注目したいと思います。これにより、Kubernetesの設定をより柔軟に行うことができ、デフォルトのファイルシステムはそのままに、コンテナストレージ用に大きなディスクを追加するサポートが提供されます、
 
