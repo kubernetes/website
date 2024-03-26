@@ -48,7 +48,7 @@ Podやコンテナは、動作に一時的または短期的なローカルス�
 ### CRI-O
 
 CRI-Oは、コンテナランタイムが永続データと一時データをどのように保存するかを制御するためのTOML形式のストレージ構成ファイルを使用します。CRI-Oは[ストレージライブラリ](https://github.com/containers/storage)を利用します。
-一部のLinuxディストリビューションには、ストレージに関するマニュアルエントリ（`man 5 containers-storage.conf`）があります。ストレージの主な設定は、`/etc/containers/storage.conf`にあり、一時データの場所やルートディレクトリを制御することができます。
+一部のLinuxディストリビューションには、ストレージに関するマニュアルエントリ(`man 5 containers-storage.conf`)があります。ストレージの主な設定は、`/etc/containers/storage.conf`にあり、一時データの場所やルートディレクトリを制御することができます。
 ルートディレクトリは、CRI-Oが永続データを保存する場所です。
 
 ```toml
