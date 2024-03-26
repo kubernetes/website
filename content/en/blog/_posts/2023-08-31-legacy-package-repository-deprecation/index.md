@@ -87,9 +87,9 @@ _(updated on March 26, 2024)_
   Kubernetes will freeze the legacy package repositories,
   (`apt.kubernetes.io` and `yum.kubernetes.io`).
   The freeze will happen immediately following the patch releases that are scheduled for September, 2023.
-- **12th January 2024:**
+- **12th January 2024:**  
   Kubernetes announced intentions to remove the legacy package repositories in January 2024
-- **4th March 2024:**
+- **4th March 2024:**  
   The legacy package repositories have been removed. It's not possible to install Kubernetes packages from
   the legacy package repositories any longer
 
