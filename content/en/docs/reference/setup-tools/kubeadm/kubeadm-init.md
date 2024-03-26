@@ -1,7 +1,4 @@
 ---
-reviewers:
-- luxas
-- jbeda
 title: kubeadm init
 content_type: concept
 weight: 20
@@ -161,6 +158,7 @@ Feature | Default | Alpha | Beta | GA
 `EtcdLearnerMode` | `true` | 1.27 | 1.29 | -
 `PublicKeysECDSA` | `false` | 1.19 | - | -
 `RootlessControlPlane` | `false` | 1.22 | - | -
+`WaitForAllControlPlaneComponents` | `false` | 1.30 | - | -
 {{< /table >}}
 
 {{< note >}}
@@ -183,6 +181,16 @@ switch between the RSA and ECDSA algorithms on the fly or during upgrades.
 for `kube-apiserver`, `kube-controller-manager`, `kube-scheduler` and `etcd` to run as non-root users.
 If the flag is not set, those components run as root. You can change the value of this feature gate before
 you upgrade to a newer version of Kubernetes.
+
+`WaitForAllControlPlaneComponents`
+: With this feature gate enabled kubeadm will wait for all control plane components (kube-apiserver,
+kube-controller-manager, kube-scheduler) on a control plane node to report status 200 on their `/healthz`
+endpoints. These checks are performed on `https://127.0.0.1:PORT/healthz`, where `PORT` is taken from
+`--secure-port` of a component. If you specify custom `--secure-port` values in the kubeadm configuration
+they will be respected. Without the feature gate enabled, kubeadm will only wait for the kube-apiserver
+on a control plane node to become ready. The wait process starts right after the kubelet on the host
+is started by kubeadm. You are advised to enable this feature gate in case you wish to observe a ready
+state from all control plane components during the `kubeadm init` or `kubeadm join` command execution.
 
 List of deprecated feature gates:
 

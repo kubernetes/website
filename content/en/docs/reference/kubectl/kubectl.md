@@ -351,6 +351,14 @@ kubectl [flags]
 </tr>
 
 <tr>
+<td colspan="2">KUBECTL_DEBUG_CUSTOM_PROFILE</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">When set to true, custom flag will be enabled in kubectl debug. This flag is used to customize the pre-defined profiles.
+</td>
+</tr>
+
+<tr>
 <td colspan="2">KUBECTL_EXPLAIN_OPENAPIV3</td>
 </tr>
 <tr>
@@ -363,6 +371,14 @@ kubectl [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">When set to true, external plugins can be used as subcommands for builtin commands if subcommand does not exist. In alpha stage, this feature can only be used for create command(e.g. kubectl create networkpolicy). 
+</td>
+</tr>
+
+<tr>
+<td colspan="2">KUBECTL_PORT_FORWARD_WEBSOCKETS</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">When set to true, the kubectl port-forward command will attempt to stream using the websockets protocol. If the upgrade to websockets fails, the commands will fallback to use the current SPDY protocol.
 </td>
 </tr>
 

@@ -141,7 +141,7 @@ until disk usage reaches the `LowThresholdPercent` value.
 
 {{< feature-state feature_gate_name="ImageMaximumGCAge" >}}
 
-As an alpha feature, you can specify the maximum time a local image can be unused for,
+As a beta feature, you can specify the maximum time a local image can be unused for,
 regardless of disk usage. This is a kubelet setting that you configure for each node.
 
 To configure the setting, enable the `ImageMaximumGCAge`
@@ -150,6 +150,13 @@ and also set a value for the `ImageMaximumGCAge` field in the kubelet configurat
 
 The value is specified as a Kubernetes _duration_; for example, you can set the configuration
 field to `3d12h`, which means 3 days and 12 hours.
+
+{{< note >}}
+This feature does not track image usage across kubelet restarts. If the kubelet
+is restarted, the tracked image age is reset, causing the kubelet to wait the full
+`ImageMaximumGCAge` duration before qualifying images for garbage collection
+based on image age.
+{{< /note>}}
 
 ### Container garbage collection {#container-image-garbage-collection}
 

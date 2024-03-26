@@ -2,10 +2,11 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: hello-apparmor
-  annotations:
-    # Tell Kubernetes to apply the AppArmor profile "k8s-apparmor-example-deny-write".
-    container.apparmor.security.beta.kubernetes.io/hello: localhost/k8s-apparmor-example-deny-write
 spec:
+  securityContext:
+    appArmorProfile:
+      type: Localhost
+      localhostProfile: k8s-apparmor-example-deny-write
   containers:
   - name: hello
     image: busybox:1.28

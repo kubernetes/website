@@ -170,8 +170,21 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap">AppArmor</td>
 			<td>
-				<p>On supported hosts, the <code>runtime/default</code> AppArmor profile is applied by default. The baseline policy should prevent overriding or disabling the default AppArmor profile, or restrict overrides to an allowed set of profiles.</p>
+				<p>On supported hosts, the <code>RuntimeDefault</code> AppArmor profile is applied by default. The baseline policy should prevent overriding or disabling the default AppArmor profile, or restrict overrides to an allowed set of profiles.</p>
 				<p><strong>Restricted Fields</strong></p>
+				<ul>
+					<li><code>spec.securityContext.appArmorProfile.type</code></li>
+					<li><code>spec.containers[*].securityContext.appArmorProfile.type</code></li>
+					<li><code>spec.initContainers[*].securityContext.appArmorProfile.type</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.appArmorProfile.type</code></li>
+				</ul>
+				<p><strong>Allowed Values</strong></p>
+				<ul>
+					<li>Undefined/nil</li>
+					<li><code>RuntimeDefault</code></li>
+					<li><code>Localhost</code></li>
+				</ul>
+				<hr />
 				<ul>
 					<li><code>metadata.annotations["container.apparmor.security.beta.kubernetes.io/*"]</code></li>
 				</ul>
@@ -532,4 +545,3 @@ kernel. This allows for workloads requiring heightened permissions to still be i
 
 Additionally, the protection of sandboxed workloads is highly dependent on the method of
 sandboxing. As such, no single recommended profile is recommended for all sandboxed workloads.
-
