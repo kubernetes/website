@@ -573,7 +573,7 @@ These are some situations where you might want additional control for declaring 
 
 You can configure a success policy, in the `.spec.successPolicy` field,
 to meet the above use cases. This policy can handle Job success based on the
-succeeded pods. After the Job meet success policy, the job controller terminates the lingering Pods.
+succeeded pods. After the Job meets the success policy, the job controller terminates the lingering Pods.
 A success policy is defined by rules. Each rule can take one of the following forms:
 
 * When you specify the `succeededIndexes` only,
@@ -592,10 +592,10 @@ Here is a manifest for a Job with `successPolicy`:
 
 {{% code_sample file="/controllers/job-success-policy.yaml" %}}
 
-In the example above, the rule of the success policy specifies that
-the Job should be marked succeeded and terminate the lingering Pods
-if one of the 0, 2, and 3 indexes succeeded.
-The Job that met the success policy gets the `SuccessCriteriaMet` condition. 
+In the example above, both `succeededIndexes` and `succeededCount` have been specified.
+Therefore, the job controller will mark the Job as succeeded and terminate the lingering Pods 
+when either of the specified indexes, 0, 2, or 3, succeed.
+The Job that meets the success policy gets the `SuccessCriteriaMet` condition. 
 After the removal of the lingering Pods is issued, the Job gets the `Complete` condition.
 
 Note that the `succeededIndexes` is represented as intervals separated by a hyphen.
