@@ -2,7 +2,7 @@
 title: শুরু করা যাক
 main_menu: true
 weight: 20
-content_type: ধারণা
+content_type: concept
 no_list: true
 card:
   name: setup
