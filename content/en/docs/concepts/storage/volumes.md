@@ -321,7 +321,7 @@ clones the repo using Git, then mount the
 You can restrict the use of `gitRepo` volumes in your cluster using
 [policies](/docs/concepts/policy/) such as
 [ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/).
-Here is an example of a Common Expression Language (CEL) expression that you can use as
+You can use the following Common Expression Language (CEL) expression as
 part of a policy to reject use of `gitRepo` volumes:
 `!has(object.spec.volumes) || !object.spec.volumes.exists(v, has(v.gitRepo))`.
 
