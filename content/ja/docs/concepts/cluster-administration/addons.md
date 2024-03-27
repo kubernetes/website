@@ -32,7 +32,7 @@ weight: 120
 * [NSX-T](https://docs.vmware.com/en/VMware-NSX-T-Data-Center/index.html) Container Plug-in(NCP)は、VMware NSX-TとKubernetesなどのコンテナオーケストレーター間のインテグレーションを提供します。また、NSX-Tと、Pivotal Container Service(PKS)とOpenShiftなどのコンテナベースのCaaS/PaaSプラットフォームとのインテグレーションも提供します。
 * [Nuage](https://github.com/nuagenetworks/nuage-kubernetes/blob/v5.1.1-1/docs/kubernetes-1-installation.rst)は、Kubernetes Podと非Kubernetes環境間で可視化とセキュリティモニタリングを使用してポリシーベースのネットワークを提供するSDNプラットフォームです。
 * [Romana](https://github.com/romana)は、[NetworkPolicy](/ja/docs/concepts/services-networking/network-policies/) APIもサポートするPodネットワーク向けのL3のネットワークソリューションです。
-* [Weave Net](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/)は、ネットワークパーティションの両面で機能し、外部データベースを必要とせずに、ネットワークとネットワークポリシーを提供します。
+* [Weave Net](https://github.com/rajch/weave#using-weave-on-kubernetes)は、ネットワークパーティションの両面で機能し、外部データベースを必要とせずに、ネットワークとネットワークポリシーを提供します。
 
 ## サービスディスカバリー {#service-discovery}
 
