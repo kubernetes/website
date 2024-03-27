@@ -183,5 +183,5 @@ EndpointSlices también ha permitido innovar en torno a nuevas funciones, como l
 ## {{% heading "whatsnext" %}}
 
 * Sigue las instrucciones del tutorial [Conexión de aplicaciones con servicios](/docs/tutorials/services/connect-applications-service/)
-* Lea la [Referencia API](/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/) for the EndpointSlice API
+* Lee la [Referencia API](/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/) para la API EndpointSlice
 * Lee la [Referencia API](/docs/reference/kubernetes-api/service-resources/endpoints-v1/) para la API Endpoints
