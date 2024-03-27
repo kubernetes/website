@@ -31,7 +31,9 @@ _This is a selection of some of the improvements that are now stable following t
 
 ### Robust VolumeManager reconstruction after kubelet restart ([SIG Storage](https://github.com/kubernetes/community/tree/master/sig-storage))
 
-Blurb for 3756 goes here.
+This is a volume manager refactoring that allows the kubelet to populate additional information about how existing volumes are mounted during the kubelet startup. In general, this makes volume cleanup after kubelet restart or machine reboot more robust.
+
+This does not bring any changes for user or cluster administrators. We used the feature process and feature gate `NewVolumeManagerReconstruction` to be able to fall back to the previous behavior in case something goes wrong. Now that the feature is stable, the feature gate is locked and cannot be disabled.
 
 ### Prevent unauthorised volume mode conversion during volume restore ([SIG Storage](https://github.com/kubernetes/community/tree/master/sig-storage))
 
