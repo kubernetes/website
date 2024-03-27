@@ -169,7 +169,7 @@ Puede encontrar una implementación de referencia sobre cómo realizar esta agre
 
 ## Comparación con endpoints {#motivación}
 
-La API Endpoints original proporcionaba una forma simple y directa de rastrear los puntos finales de red en Kubernetes. A medida que los clústeres de Kubernetes y {{< glossary_tooltip text="Services" term_id="service" >}} crecían para manejar más tráfico y enviar más tráfico a más Pods backend, las limitaciones de la API original se hicieron más visibles.
+La API Endpoints original proporcionaba una forma simple y directa de rastrear los puntos finales de red en Kubernetes. A medida que los clústeres de Kubernetes y los {{< glossary_tooltip text="Services" term_id="service" >}} crecían para manejar más tráfico y enviar más tráfico a más Pods backend, las limitaciones de la API original se hicieron más visibles.
 Más notablemente, estos incluyen desafíos con la ampliación a un mayor número de endpoints de red.
 
 Dado que todos los puntos finales de red para un Servicio se almacenaban en un único objeto Endpoints, esos objetos Endpoints podían llegar a ser bastante grandes. Para los servicios que permanecían estables (el mismo conjunto de puntos finales durante un largo período de tiempo), el impacto era menos notable; incluso entonces, algunos casos de uso de Kubernetes no estaban bien servidos.
