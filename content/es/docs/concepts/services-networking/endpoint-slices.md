@@ -164,7 +164,7 @@ Debido a la naturaleza de los cambios de EndpointSlice, los endpoints pueden est
 {{< note >}}
 Los clientes de la API EndpointSlice deben iterar a través de todos los EndpointSlices existentes asociados a un Servicio y construir una lista completa de endpoints de red únicos. Es importante mencionar que los endpoints pueden estar duplicados en diferentes EndpointSlices.
 
-Puede encontrar una implementación de referencia sobre cómo realizar esta agregación y deduplicación de endpoints como parte del código `EndpointSliceCache` dentro de `kube-proxy`.
+Puedes encontrar una implementación de referencia sobre cómo realizar esta agregación y deduplicación de endpoints como parte del código `EndpointSliceCache` dentro de `kube-proxy`.
 {{< /note >}}
 
 ## Comparación con endpoints {#motivación}
