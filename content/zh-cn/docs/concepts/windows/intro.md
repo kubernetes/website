@@ -772,7 +772,28 @@ troubleshooting ideas prior to creating a ticket.
 并随附日志信息。Kubernetes Slack 上的 SIG Windows 频道也是一个很好的途径，
 可以在创建工单之前获得一些初始支持和故障排查思路。
 
-## {{% heading "whatsnext" %}}
+<!--
+### Validating the Windows cluster operability
+
+The Kubernetes project provides a _Windows Operational Readiness_ specification,
+accompanied by a structured test suite. This suite is split into two sets of tests,
+core and extended, each containing categories aimed at testing specific areas.
+It can be used to validate all the functionalities of a Windows and hybrid system
+(mixed with Linux nodes) with full coverage.
+
+To set up the project on a newly created cluster, refer to the instructions in the
+[project guide](https://github.com/kubernetes-sigs/windows-operational-readiness/blob/main/README.md).
+-->
+
+### 验证 Windows 集群的操作性  {#validating-windows-cluster-operability}
+
+Kubernetes 项目提供了 **Windows 操作准备** 规范，配备了结构化的测试套件。
+这个套件分为两组测试：核心和扩展。每组测试都包含了针对特定场景的分类测试。
+它可以用来验证 Windows 和混合系统（混合了 Linux 节点）的所有功能，实现全面覆盖。
+
+要在新创建的集群上搭建此项目，
+请参考[项目指南](https://github.com/kubernetes-sigs/windows-operational-readiness/blob/main/README.md)中的说明。
+
 
 <!--
 ## Deployment tools
