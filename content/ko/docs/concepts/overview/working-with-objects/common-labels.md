@@ -37,7 +37,7 @@ kubectl과 대시보드와 같은 많은 도구들로 쿠버네티스 오브젝�
 | ----------------------------------- | --------------------- | -------- | ---- |
 | `app.kubernetes.io/name`            | 애플리케이션 이름 | `mysql` | 문자열 |
 | `app.kubernetes.io/instance`        | 애플리케이션의 인스턴스를 식별하는 고유한 이름 | `mysql-abcxzy` | 문자열 |
-| `app.kubernetes.io/version`         | 애플리케이션의 현재 버전 (예: a semantic version, revision hash 등.) | `5.7.21` | 문자열 |
+| `app.kubernetes.io/version`         | 애플리케이션의 현재 버전 (예: [SemVer 1.0](https://semver.org/spec/v1.0.0.html), revision hash 등.) | `5.7.21` | 문자열 |
 | `app.kubernetes.io/component`       | 아키텍처 내 구성요소 | `database` | 문자열 |
 | `app.kubernetes.io/part-of`         | 이 애플리케이션의 전체 이름 | `wordpress` | 문자열 |
 | `app.kubernetes.io/managed-by`      | 애플리케이션의 작동을 관리하는 데 사용되는 도구 | `helm` | 문자열 |

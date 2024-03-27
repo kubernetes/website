@@ -6,8 +6,8 @@ weight: 60
 
 <!-- overview -->
 쿠버네티스 어노테이션을 사용하여 임의의 비-식별 메타데이터를
-오브젝트에 첨부할 수 있다. 도구 및 라이브러리와 같은 클라이언트는 이 메타데이터를 검색할 수 있다.
-
+{{< glossary_tooltip text="오브젝트" term_id="object" >}}에 첨부할 수 있다.
+도구 및 라이브러리와 같은 클라이언트는 이 메타데이터를 검색할 수 있다.
 
 <!-- body -->
 ## 오브젝트에 메타데이터 첨부
@@ -74,10 +74,9 @@ _어노테이션_ 은 키/값 쌍이다. 유효한 어노테이션 키에는 두
 
 `kubernetes.io/`와 `k8s.io/` 접두사는 쿠버네티스 핵심 구성 요소를 위해 예약되어 있다.
 
-다음은 `imageregistry: https://hub.docker.com/` 어노테이션이 있는 파드의 구성 파일 예시이다.
+다음은 `imageregistry: https://hub.docker.com/` 어노테이션이 있는 파드 매니페스트의 예시이다.
 
 ```yaml
-
 apiVersion: v1
 kind: Pod
 metadata:
@@ -90,14 +89,8 @@ spec:
     image: nginx:1.14.2
     ports:
     - containerPort: 80
-
 ```
-
-
 
 ## {{% heading "whatsnext" %}}
 
 [레이블과 셀렉터](/ko/docs/concepts/overview/working-with-objects/labels/)에 대해 알아본다.
-
-
-

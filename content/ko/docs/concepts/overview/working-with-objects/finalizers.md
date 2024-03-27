@@ -10,7 +10,7 @@ weight: 80
 
 파이널라이저(Finalizer)를 사용하면 리소스를 삭제하기 전 특정 정리 작업을 수행하도록
 {{<glossary_tooltip term_id="controller">}}에 경고하여
-리소스의 {{<glossary_tooltip term_id="garbage-collection">}}을 제어할 수 있다.
+{{< glossary_tooltip text="오브젝트" term_id="object" >}}의 {{<glossary_tooltip term_id="garbage-collection">}}을 제어할 수 있다.
 
 파이널라이저는 보통 실행할 코드를 지정하지 않는다.
 대신 파이널라이저는 일반적으로 어노테이션과 비슷하게 특정 리소스에 대한 키들의 목록이다.
