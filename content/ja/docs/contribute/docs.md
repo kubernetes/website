@@ -35,7 +35,7 @@ Kubernetesコミュニティで効果的に働くためには、[git](https://gi
 ドキュメンテーションに関わるには:
 
 1. CNCFの[Contributor License Agreement](https://github.com/kubernetes/community/blob/master/CLA.md)にサインしてください。
-2. [ドキュメンテーションのリポジトリー](https://github.com/kubernetes/website)と、ウェブサイトの[静的サイトジェネレーター](https://gohugo.io)に慣れ親しんでください。
+2. [ドキュメンテーションのリポジトリ](https://github.com/kubernetes/website)と、ウェブサイトの[静的サイトジェネレーター](https://gohugo.io)に慣れ親しんでください。
 3. [プルリクエストのオープン](/docs/contribute/new-content/open-a-pr/)と[変更レビュー](/ja/docs/contribute/review/reviewing-prs/)の基本的なプロセスを理解していることを確認してください。
 
 <!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
