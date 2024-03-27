@@ -50,7 +50,9 @@ _(updated on January 12, 2024 and March 26, 2024)_
 - Given that no new releases will be published to the legacy repositories after
   the September 13, 2023 cut-off point, you will not be able to upgrade to any patch or minor
   release made from that date onwards if you don't migrate to the new Kubernetes package repositories.
-  That said, we recommend migrating to the new Kubernetes package repositories **as soon as possible**.
+  ~~That said, we recommend migrating to the new Kubernetes package repositories **as soon as possible**.~~
+  Migrating to the new Kubernetes package repositories is required to consume the official Kubernetes
+  packages.
 - **The new Kubernetes package repositories contain packages beginning with those
   Kubernetes versions that were still under support when the community took
   over the package builds. This means that the new package repositories have Linux packages for all
