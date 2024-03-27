@@ -55,7 +55,7 @@ end
 subgraph second[レビュー]
 direction TB
    T[ ] -.-
-   D[kubernetes/website <br>リポジトリを確認する] --- E[静的サイトジェネレータ <br>Hugoを確認する]
+   D[kubernetes/website <br>リポジトリを確認する] --- E[静的サイトジェネレーター <br>Hugoを確認する]
    E --- F[基本的なGitHubの <br>コマンドを理解する]
    F --- G[オープンした <br>プルリクエストを確認し <br>レビュープロセスを見直す]
 end
