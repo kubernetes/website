@@ -1001,7 +1001,7 @@ CSIとFlexVolumeはどちらも、ボリュームプラグインをKubernetesコ
 
 ### csi
 
-[Container Storage Interface](https://github.com/container-storage-interface/spec/blob/master/spec.md)(CSI)は、コンテナオーケストレーションシステム(Kubernetesなど)の標準インターフェイスを定義して、任意のストレージシステムをコンテナワークロードに公開します。
+[Container Storage Interface](https://github.com/container-storage-interface/spec/blob/master/spec.md)(CSI)は、コンテナオーケストレーションシステム(Kubernetesなど)の標準インターフェースを定義して、任意のストレージシステムをコンテナワークロードに公開します。
 
 詳細については[CSI design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md)を参照してください。
 
