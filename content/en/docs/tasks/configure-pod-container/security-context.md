@@ -575,7 +575,7 @@ kubectl delete pod security-context-demo-4
 * For more information about security mechanisms in Linux, see
   [Overview of Linux Kernel Security Features](https://www.linux.com/learn/overview-linux-kernel-security-features)
   (Note: Some information is out of date)
-* Read about [User Namespaces](/docs/concepts/workloads/pods/user-namespaces.md)
+* Read about [User Namespaces](/docs/concepts/workloads/pods/user-namespaces/)
   for Linux pods.
 * [Masked Paths in the OCI Runtime
   Specification](https://github.com/opencontainers/runtime-spec/blob/f66aad47309/config-linux.md#masked-paths)
