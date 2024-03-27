@@ -15,8 +15,8 @@ Similar to previous releases, the release of Kubernetes v1.30 introduces new sta
 features. The consistent delivery of top-notch releases underscores the strength of our development
 cycle and the vibrant support from our community.
 
-This release consists of XX enhancements. Of those enhancements, XX have graduated to Stable, XX are
-entering Beta, and XX have graduated to Alpha.
+This release consists of 45 enhancements. Of those enhancements, 17 have graduated to Stable, 18 are
+entering Beta, and 10 have graduated to Alpha.
 
 
 ## Release theme and logo
