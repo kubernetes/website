@@ -26,7 +26,7 @@ weight: 30
 ## 컨트롤러 패턴
 
 컨트롤러는 적어도 하나 이상의 쿠버네티스 리소스 유형을 추적한다.
-이 [오브젝트](/ko/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects)
+이 {{< glossary_tooltip text="오브젝트" term_id="object" >}}
 는 의도한 상태를 표현하는 사양 필드를 가지고 있다.
 해당 리소스의 컨트롤러(들)은 현재 상태를 의도한
 상태에 가깝게 만드는 역할을 한다.
@@ -162,7 +162,7 @@ IP 주소 관리 도구, 스토리지 서비스, 클라우드 제공자의 API �
 ## {{% heading "whatsnext" %}}
 
 * [쿠버네티스 컨트롤 플레인](/ko/docs/concepts/overview/components/#컨트롤-플레인-컴포넌트)에 대해 읽기
-* [쿠버네티스 오브젝트](/ko/docs/concepts/overview/working-with-objects/kubernetes-objects/)의 몇 가지 기본 사항을 알아보자.
+* [쿠버네티스 오브젝트](/ko/docs/concepts/overview/working-with-objects/)의 몇 가지 기본 사항을 알아보자.
 * [쿠버네티스 API](/ko/docs/concepts/overview/kubernetes-api/)에 대해 더 배워 보자.
 * 만약 자신만의 컨트롤러를 작성하기 원한다면, 
   쿠버네티스 확장하기의 [확장 패턴](/ko/docs/concepts/extend-kubernetes/#익스텐션-패턴)을 
