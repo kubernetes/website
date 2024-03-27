@@ -29,7 +29,7 @@ Kubernetesへの貢献について総合的に知りたい場合は、[contribut
 
 ## はじめに
 
-どなたでも、問題を説明するissueや、ドキュメントの改善を求めるissueを作成し、[`kubernetes/website` GitHub リポジトリ](https://github.com/kubernetes/website)に対するプルリクエスト(PR)を用いて変更に貢献することができます。
+どなたでも、問題を説明するissueや、ドキュメントの改善を求めるissueを作成し、[`kubernetes/website` GitHubリポジトリ](https://github.com/kubernetes/website)に対するプルリクエスト(PR)を用いて変更に貢献することができます。
 Kubernetesコミュニティで効果的に働くためには、[git](https://git-scm.com/)と[GitHub](https://skills.github.com/)を基本的に使いこなせる必要があります。
 
 ドキュメンテーションに関わるには:
