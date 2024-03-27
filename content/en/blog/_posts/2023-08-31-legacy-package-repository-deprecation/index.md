@@ -129,10 +129,9 @@ future. However, the Kubernetes project can't provide _any_ guarantees on how lo
 is that going to be. The deprecated legacy repositories, and their contents, might
 be removed at any time in the future and without a further notice period.~~
 
-~~**UPDATE**: The legacy packages are expected to go away by the end of February 2024.~~
-
-The Kubernetes project **strongly recommends** migrating to the new community-owned
-repositories **as soon as possible**.
+~~The Kubernetes project **strongly recommends** migrating to the new community-owned
+repositories **as soon as possible**.~~ Migrating to the new package repositories is
+required to consume the official Kubernetes packages.
 
 Given that no new releases will be published to the legacy repositories **after the September 13, 2023**
 cut-off point, **you will not be able to upgrade to any patch or minor release made from that date onwards.**
