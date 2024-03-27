@@ -22,7 +22,7 @@ y extensible a [Endpoints].(/docs/concepts/services-networking/service/#endpoint
 
 ## EndpointSlice API {#recurso-endpointslice}
 
-En Kubernetes, un EndpointSlice contiene referencias a un conjunto de puntos endpoints. El plano de control crea automáticamente EndpointSlices para cualquier Servicio Kubernetes que tenga especificado un {{< glossary_tooltip text="selector" term_id="selector" >}}. Estos EndpointSlices incluyen referencias a todos los Pods que coinciden con el selector de Servicio. Los EndpointSlices agrupan los endpoints de la red mediante combinaciones únicas de protocolo, número de puerto y nombre de Servicio.
+En Kubernetes, un EndpointSlice contiene referencias a un conjunto de endpoints de red. El plano de control crea automáticamente EndpointSlices para cualquier Servicio de Kubernetes que tenga especificado un {{< glossary_tooltip text="selector" term_id="selector" >}}. Estos EndpointSlices incluyen referencias a todos los Pods que coinciden con el selector de Servicio. Los EndpointSlices agrupan los endpoints de la red mediante combinaciones únicas de protocolo, número de puerto y nombre de Servicio.
 
 El nombre de un objeto EndpointSlice debe ser un 
 [nombre de subdominio DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)
