@@ -154,6 +154,6 @@ SIG Docsは複数の方法でコミュニケーションをとっています。
 ## その他の貢献方法
 
 - [Kubernetesコミュニティサイト](/community/)を訪問してください。TwitterやStack Overflowに参加したり、Kubernetesの集会やイベントについて学んだりしてください。
-- 機能開発に貢献したい方は、まずはじめに[Kubernetesコントリビューターチートシート](https://github.com/kubernetes/community/tree/master/contributors/guide/contributor-cheatsheet)を読んでください。
+- 機能開発に貢献したい方は、まずはじめに[Kubernetesコントリビューターチートシート](https://github.com/kubernetes/community/blob/master/contributors/guide/contributor-cheatsheet/README-ja.md)を読んでください。
 - [Kubernetesの貢献者](https://www.kubernetes.dev/)や[追加の貢献者向けリソース](https://www.kubernetes.dev/resources/)についてもっと学ぶために、貢献者サイトを読んでください。
 - [ブログ記事やケーススタディ](/docs/contribute/new-content/blogs-case-studies/)を投稿してください。
