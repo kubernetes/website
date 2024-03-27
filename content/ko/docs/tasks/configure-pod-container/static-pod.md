@@ -2,7 +2,7 @@
 # reviewers:
 # - jsafrane
 title: 스태틱(static) 파드 생성하기
-weight: 170
+weight: 220
 content_template: task
 ---
 
@@ -225,6 +225,18 @@ crictl ps
 CONTAINER       IMAGE                                 CREATED           STATE      NAME    ATTEMPT    POD ID
 89db4553e1eeb   docker.io/library/nginx@sha256:...    19 seconds ago    Running    web     1          34533c6729106
 ```
+올바른 컨테이너를 식별한 후에는 `crictl`로 해당 컨테이너의 로그를 가져올 수 있다.
+
+```shell
+# 컨테이너가 동작하고 있는 노드에서 이 명령을 수행한다.
+crictl logs <container_id>
+```
+```console
+10.240.0.48 - - [16/Nov/2022:12:45:49 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.47.0" "-"
+10.240.0.48 - - [16/Nov/2022:12:45:50 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.47.0" "-"
+10.240.0.48 - - [16/Nove/2022:12:45:51 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.47.0" "-"
+```
+`crictl`을 사용하여 디버깅하는 방법에 대해서는 [_crictl로 쿠버네티스 노드 디버깅하기_](/ko/docs/tasks/debug/debug-cluster/crictl/)을 참고한다.
 
 ## 스태틱 파드의 동적 추가 및 제거
 
@@ -232,7 +244,7 @@ CONTAINER       IMAGE                                 CREATED           STATE   
 
 ```shell
 # 예제를 수행하는 사용자가 파일시스템이 호스팅하는 스태틱 파드 설정을 사용한다고 가정한다.
-# kubelet 이 동작하고 있는 노드에서 이 명령을 수행한다.
+# 컨테이너가 동작하고 있는 노드에서 이 명령을 수행한다.
 #
 mv /etc/kubernetes/manifests/static-web.yaml /tmp
 sleep 20
@@ -246,3 +258,10 @@ crictl ps
 CONTAINER       IMAGE                                 CREATED           STATE      NAME    ATTEMPT    POD ID
 f427638871c35   docker.io/library/nginx@sha256:...    19 seconds ago    Running    web     1          34533c6729106
 ```
+## {{% heading "whatsnext" %}}
+* [컨트롤 플레인 컴포넌트에 대한 정적 파드 매니페스트 생성하기](/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifests-for-control-plane-components)
+* [로컬 etcd에 대한 정적 파드 매니페스트 생성하기](/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifest-for-local-etcd)
+* [`crictl`로 쿠버네티스 노드 디버깅하기](/ko/docs/tasks/debug/debug-cluster/crictl/)
+* [`crictl`에 대해 자세히 알아보기](https://github.com/kubernetes-sigs/cri-tools).
+* [`docker` CLI 명령을 `crictl`에 매핑하기](/docs/reference/tools/map-crictl-dockercli/).
+* [etcd 인스턴스를 kubelet이 관리하는 정적 파드로 설정하기](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)

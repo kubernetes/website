@@ -1,7 +1,7 @@
 ---
 title: 윈도우 파드와 컨테이너용 GMSA 구성
 content_type: task
-weight: 20
+weight: 30
 ---
 
 <!-- overview -->

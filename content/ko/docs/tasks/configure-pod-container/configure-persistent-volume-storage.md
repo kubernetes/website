@@ -1,7 +1,7 @@
 ---
 title: 스토리지로 퍼시스턴트볼륨(PersistentVolume)을 사용하도록 파드 설정하기
 content_type: task
-weight: 60
+weight: 90
 ---
 
 <!-- overview -->
@@ -12,27 +12,24 @@ weight: 60
 과정의 요약은 다음과 같다.
 
 1. 클러스터 관리자로서, 물리적 스토리지와 연결되는 퍼시스턴트볼륨을 
-생성한다. 볼륨을 특정 파드와 연결하지 않는다.
+    생성한다. 볼륨을 특정 파드와 연결하지 않는다.
 
 1. 그 다음 개발자 / 클러스터 사용자의 역할로서, 적합한 
-퍼시스턴트볼륨에 자동으로 바인딩되는 퍼시스턴트볼륨클레임을 
-생성한다.
+    퍼시스턴트볼륨에 자동으로 바인딩되는 퍼시스턴트볼륨클레임을
+    생성한다.
 
 1. 스토리지에 대해 위의 퍼시스턴트볼륨클레임을 사용하는 파드를 생성한다.
 
-
-
 ## {{% heading "prerequisites" %}}
 
-
 * 사용자는 노드가 단 하나만 있는 쿠버네티스 클러스터가 필요하고,
-{{< glossary_tooltip text="kubectl" term_id="kubectl" >}}
-커맨드라인 툴이 사용자의 클러스터와 통신할 수 있도록 설정되어 있어야 한다. 만약 사용자가 
-아직 단일 노드 클러스터를 가지고 있지 않다면, [Minikube](/ko/docs/tasks/tools/#minikube)를 
-사용하여 클러스터 하나를 생성할 수 있다.
+  {{< glossary_tooltip text="kubectl" term_id="kubectl" >}}
+  커맨드라인 툴이 사용자의 클러스터와 통신할 수 있도록 설정되어 있어야 한다. 만약 사용자가
+  아직 단일 노드 클러스터를 가지고 있지 않다면, [Minikube](/ko/docs/tasks/tools/#minikube)를
+  사용하여 클러스터 하나를 생성할 수 있다.
 
 * [퍼시스턴트 볼륨](https://minikube.sigs.k8s.io/docs/)의 
-관련 자료에 익숙해지도록 한다.
+  관련 자료에 익숙해지도록 한다.
 
 <!-- steps -->
 
@@ -49,7 +46,6 @@ weight: 60
 # "sudo"를 사용한다고 가정한다
 sudo mkdir /mnt/data
 ```
-
 
 `/mnt/data` 디렉터리에서 `index.html` 파일을 생성한다.
 
@@ -71,6 +67,7 @@ cat /mnt/data/index.html
 ```
 
 결과는 다음과 같다.
+
 ```
 Hello from Kubernetes storage
 ```
@@ -116,8 +113,10 @@ kubectl get pv task-pv-volume
 결과는 퍼시스턴트볼륨의 `STATUS` 가 `Available` 임을 보여준다. 이는 
 아직 퍼시스턴트볼륨클레임이 바인딩되지 않았다는 것을 의미한다.
 
-    NAME             CAPACITY   ACCESSMODES   RECLAIMPOLICY   STATUS      CLAIM     STORAGECLASS   REASON    AGE
-    task-pv-volume   10Gi       RWO           Retain          Available             manual                   4s
+```
+NAME             CAPACITY   ACCESSMODES   RECLAIMPOLICY   STATUS      CLAIM     STORAGECLASS   REASON    AGE
+task-pv-volume   10Gi       RWO           Retain          Available             manual                   4s
+```
 
 ## 퍼시스턴트볼륨클레임 생성하기
 
@@ -132,7 +131,9 @@ kubectl get pv task-pv-volume
 
 퍼시스턴트볼륨클레임을 생성한다.
 
-    kubectl apply -f https://k8s.io/examples/pods/storage/pv-claim.yaml
+```shell
+kubectl apply -f https://k8s.io/examples/pods/storage/pv-claim.yaml
+```
 
 사용자가 퍼시스턴트볼륨클레임을 생성한 후에, 쿠버네티스 컨트롤 플레인은 
 클레임의 요구사항을 만족하는 퍼시스턴트볼륨을 찾는다. 컨트롤 플레인이 
@@ -147,8 +148,10 @@ kubectl get pv task-pv-volume
 
 이제 결과는 `STATUS` 가 `Bound` 임을 보여준다.
 
-    NAME             CAPACITY   ACCESSMODES   RECLAIMPOLICY   STATUS    CLAIM                   STORAGECLASS   REASON    AGE
-    task-pv-volume   10Gi       RWO           Retain          Bound     default/task-pv-claim   manual                   2m
+```
+NAME             CAPACITY   ACCESSMODES   RECLAIMPOLICY   STATUS    CLAIM                   STORAGECLASS   REASON    AGE
+task-pv-volume   10Gi       RWO           Retain          Bound     default/task-pv-claim   manual                   2m
+```
 
 퍼시스턴트볼륨클레임을 확인한다.
 
@@ -159,8 +162,10 @@ kubectl get pvc task-pv-claim
 결과는 퍼시스턴트볼륨클레임이 사용자의 퍼시스턴트볼륨인 `task-pv-volume` 에 
 바인딩되어 있음을 보여준다.
 
-    NAME            STATUS    VOLUME           CAPACITY   ACCESSMODES   STORAGECLASS   AGE
-    task-pv-claim   Bound     task-pv-volume   10Gi       RWO           manual         30s
+```
+NAME            STATUS    VOLUME           CAPACITY   ACCESSMODES   STORAGECLASS   AGE
+task-pv-claim   Bound     task-pv-volume   10Gi       RWO           manual         30s
+```
 
 ## 파드 생성하기
 
@@ -206,8 +211,9 @@ curl http://localhost/
 결과는 hostPath 볼륨에 있는 `index.html` 파일에 사용자가 작성한 텍스트를
 보여준다.
 
-    Hello from Kubernetes storage
-
+```
+Hello from Kubernetes storage
+```
 
 만약 사용자가 위와 같은 메시지를 확인하면, 파드가 퍼시스턴트볼륨클레임의 스토리지를 
 사용하도록 성공적으로 설정한 것이다.
@@ -242,8 +248,8 @@ sudo rmdir /mnt/data
 
 하나의 퍼시스턴트볼륨을 nginx 컨테이너의 두 경로에 마운트할 수 있다.
 
-`/usr/share/nginx/html` - 정적 웹사이트 용
-`/etc/nginx/nginx.conf` - 기본 환경 설정 용
+- `/usr/share/nginx/html` - 정적 웹사이트 용
+- `/etc/nginx/nginx.conf` - 기본 환경 설정 용
 
 <!-- discussion -->
 
@@ -256,6 +262,7 @@ sudo rmdir /mnt/data
 사용하는 모든 파드에 대하여 GID가 자동으로 추가된다.
 
 다음과 같이 `pv.beta.kubernetes.io/gid` 어노테이션을 사용한다.
+
 ```yaml
 apiVersion: v1
 kind: PersistentVolume
@@ -264,6 +271,7 @@ metadata:
   annotations:
     pv.beta.kubernetes.io/gid: "1234"
 ```
+
 파드가 GID 어노테이션이 있는 퍼시스턴트볼륨을 사용하면, 어노테이션으로
 달린 GID가 파드의 보안 컨텍스트에 지정된 GID와 동일한 방식으로
 파드의 모든 컨테이너에 적용된다. 파드의 명세 혹은 퍼시스턴트볼륨의
@@ -275,11 +283,7 @@ metadata:
 GID는 파드 리소스 자체에는 존재하지 않는다.
 {{< /note >}}
 
-
-
-
 ## {{% heading "whatsnext" %}}
-
 
 * [퍼시스턴트볼륨](/ko/docs/concepts/storage/persistent-volumes/)에 대해 더 보기.
 * [퍼시스턴트 스토리지 디자인 문서](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md)에 대해 읽어보기.

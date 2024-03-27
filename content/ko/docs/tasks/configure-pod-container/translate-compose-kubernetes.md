@@ -3,7 +3,7 @@
 # - cdrage
 title: 도커 컴포즈 파일을 쿠버네티스 리소스로 변환하기
 content_type: task
-weight: 200
+weight: 230
 ---
 
 <!-- overview -->
@@ -92,114 +92,123 @@ brew install kompose
 
 1. `docker-compose.yml` 파일이 존재하는 디렉토리로 이동한다. 만약 없다면, 아래 예제로 테스트한다.
 
-   ```yaml
-   version: "2"
+  ```yaml
+  version: "2"
 
-   services:
+  services:
 
-     redis-master:
-       image: registry.k8s.io/redis:e2e
-       ports:
-         - "6379"
+    redis-master:
+      image: registry.k8s.io/redis:e2e
+      ports:
+        - "6379"
 
-     redis-slave:
-       image: gcr.io/google_samples/gb-redisslave:v3
-       ports:
-         - "6379"
-       environment:
-         - GET_HOSTS_FROM=dns
+    redis-slave:
+      image: gcr.io/google_samples/gb-redisslave:v3
+      ports:
+        - "6379"
+      environment:
+        - GET_HOSTS_FROM=dns
 
-     frontend:
-       image: gcr.io/google-samples/gb-frontend:v4
-       ports:
-         - "80:80"
-       environment:
-         - GET_HOSTS_FROM=dns
-       labels:
-         kompose.service.type: LoadBalancer
-   ```
+    frontend:
+      image: gcr.io/google-samples/gb-frontend:v4
+      ports:
+        - "80:80"
+      environment:
+        - GET_HOSTS_FROM=dns
+      labels:
+        kompose.service.type: LoadBalancer
+  ```
 
 2. `docker-compose.yml` 파일을 `kubectl`를 통해 활용할 수 있는 파일들로 변환하기 위해서는,
-   `kompose convert`를 실행한 후, `kubectl apply -f <output file>`를 실행한다.
+    `kompose convert`를 실행한 후, `kubectl apply -f <output file>`를 실행한다.
 
-   ```bash
-   kompose convert
-   ```
+  ```bash
+  kompose convert
+  ```
 
-   결과는 다음과 같다.
+  결과는 다음과 같다.
 
-   ```none
-   INFO Kubernetes file "frontend-service.yaml" created
-      INFO Kubernetes file "frontend-service.yaml" created
-   INFO Kubernetes file "frontend-service.yaml" created
-   INFO Kubernetes file "redis-master-service.yaml" created
-      INFO Kubernetes file "redis-master-service.yaml" created
-   INFO Kubernetes file "redis-master-service.yaml" created
-   INFO Kubernetes file "redis-slave-service.yaml" created
-      INFO Kubernetes file "redis-slave-service.yaml" created
-   INFO Kubernetes file "redis-slave-service.yaml" created
-   INFO Kubernetes file "frontend-deployment.yaml" created
-      INFO Kubernetes file "frontend-deployment.yaml" created
-   INFO Kubernetes file "frontend-deployment.yaml" created
-   INFO Kubernetes file "redis-master-deployment.yaml" created
-      INFO Kubernetes file "redis-master-deployment.yaml" created
-   INFO Kubernetes file "redis-master-deployment.yaml" created
-   INFO Kubernetes file "redis-slave-deployment.yaml" created
-      INFO Kubernetes file "redis-slave-deployment.yaml" created
-   INFO Kubernetes file "redis-slave-deployment.yaml" created
-   ```
+  ```none
+  INFO Kubernetes file "frontend-tcp-service.yaml" created 
+  INFO Kubernetes file "redis-master-service.yaml" created 
+  INFO Kubernetes file "redis-slave-service.yaml" created 
+  INFO Kubernetes file "frontend-deployment.yaml" created 
+  INFO Kubernetes file "redis-master-deployment.yaml" created 
+  INFO Kubernetes file "redis-slave-deployment.yaml" created
+  ```
 
-   ```bash
-    kubectl apply -f frontend-service.yaml,redis-master-service.yaml,redis-slave-service.yaml,frontend-deployment.yaml,redis-master-deployment.yaml,redis-slave-deployment.yaml
-   ```
+  ```bash
+  kubectl apply -f frontend-tcp-service.yaml,redis-master-service.yaml,redis-slave-service.yaml,frontend-deployment.yaml,redis-master-deployment.yaml,redis-slave-deployment.yaml
+  ```
 
-   결과는 다음과 같다.
+  결과는 다음과 같다.
 
-   ```none
-   service/frontend created
-   service/redis-master created
-   service/redis-slave created
-   deployment.apps/frontend created
-   deployment.apps/redis-master created
-   deployment.apps/redis-slave created
-   ```
+  ```none
+  service/frontend-tcp created
+  service/redis-master created
+  service/redis-slave created
+  deployment.apps/frontend created
+  deployment.apps/redis-master created
+  deployment.apps/redis-slave created
+  ```
 
-    디플로이먼트들은 쿠버네티스에서 실행된다.
+  디플로이먼트들은 쿠버네티스에서 실행된다.
 
 3. 애플리케이션에 접근하기.
 
-   `minikube`를 개발 환경으로 사용하고 있다면
+  `minikube`를 개발 환경으로 사용하고 있다면
 
-   ```bash
-   minikube service frontend
-   ```
+  ```bash
+  minikube service frontend
+  ```
 
-   이 외에는, 서비스가 사용중인 IP를 확인해보자!
+  이 외에는, 서비스가 사용중인 IP를 확인해보자!
 
-   ```sh
-   kubectl describe svc frontend
-   ```
+  ```sh
+  kubectl describe svc frontend
+  ```
 
-   ```none
-   Name:                   frontend
-   Namespace:              default
-   Labels:                 service=frontend
-   Selector:               service=frontend
-   Type:                   LoadBalancer
-   IP:                     10.0.0.183
-   LoadBalancer Ingress:   192.0.2.89
-   Port:                   80      80/TCP
-   NodePort:               80      31144/TCP
-   Endpoints:              172.17.0.4:80
-   Session Affinity:       None
-   No events.
-   ```
+  ```none
+  Name:                     frontend-tcp
+  Namespace:                default
+  Labels:                   io.kompose.service=frontend-tcp
+  Annotations:              kompose.cmd: kompose convert
+                            kompose.service.type: LoadBalancer
+                            kompose.version: 1.26.0 (40646f47)
+  Selector:                 io.kompose.service=frontend
+  Type:                     LoadBalancer
+  IP Family Policy:         SingleStack
+  IP Families:              IPv4
+  IP:                       10.43.67.174
+  IPs:                      10.43.67.174
+  Port:                     80  80/TCP
+  TargetPort:               80/TCP
+  NodePort:                 80  31254/TCP
+  Endpoints:                10.42.0.25:80
+  Session Affinity:         None
+  External Traffic Policy:  Cluster
+  Events:
+    Type    Reason                Age   From                Message
+    ----    ------                ----  ----                -------
+    Normal  EnsuringLoadBalancer  62s   service-controller  Ensuring load balancer
+    Normal  AppliedDaemonSet      62s   service-controller  Applied LoadBalancer DaemonSet kube-system/svclb-frontend-tcp-9362d276
+  ```
 
-   클라우드 환경을 사용하고 있다면, IP는 `LoadBalancer Ingress` 옆에 나열되어 있을 것이다.
+  클라우드 환경을 사용하고 있다면, IP는 `LoadBalancer Ingress` 옆에 나열되어 있을 것이다.
 
-   ```sh
-   curl http://192.0.2.89
-   ```
+  ```sh
+  curl http://192.0.2.89
+  ```
+
+
+4. 정리
+
+  애플리케이션 배포 예제 테스트를 완료한 후에는, 셸에서 다음 명령을 실행하여 사용된 리소스를
+  삭제하면 돤다.
+
+  ```sh
+  kubectl delete -f frontend-tcp-service.yaml,redis-master-service.yaml,redis-slave-service.yaml,frontend-deployment.yaml,redis-master-deployment.yaml,redis-slave-deployment.yaml
+  ```
 
 <!-- discussion -->
 

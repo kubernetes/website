@@ -2,7 +2,7 @@
 title: 파드에 유저 네임스페이스 사용하기
 reviewers:
 content_type: task
-weight: 160
+weight: 210
 min-kubernetes-server-version: v1.25
 ---
 
@@ -43,15 +43,17 @@ min-kubernetes-server-version: v1.25
 * 파드 내부로 exec 할 수 있어야 한다.
 * 기능 게이트 'UserNamespacesStatelessPodsSupport'를 활성화해야 한다.
 
-추가적으로, 쿠버네티스 스테이트리스(stateless) 파드에서 
-이 기능을 사용하려면 
-{{< glossary_tooltip text="컨테이너 런타임" term_id="container-runtime" >}}에서 지원이 필요하다.
+사용 중인 클러스터에는 파드와 함께 사용자 네임스페이스를 사용하기 위한
+[요구사항](/ko/docs/concepts/workloads/pods/user-namespaces/#before-you-begin)을
+충족하는 노드가 **반드시** 하나 이상 포함되어야 한다.
 
-* CRI-O: v1.25는 유저 네임스페이스를 지원한다.
+노드가 혼합되어 있고 일부 노드만 파드에 대한 사용자 네임스페이스 지원을 제공하는
+경우, 사용자 네임스페이스 파드가 적합한 노드로
+[스케줄링](/ko/docs/concepts/scheduling-eviction/assign-pod-node/)되었는지 확인해야 한다.
 
-**컨테이너 런타임이 유저 네임스페이스를 지원하지 않으면, 
-새 `pod.spec` 필드는 별다른 경고 없이 무시되고 파드는 유저 네임스페이스 없이 생성된다** 는 
-사실을 명심한다.
+**컨테이너 런타임이 유저 네임스페이스를 지원하지 않으면,
+파드 스펙의 `hostUsers` 필드는 별다른 경고 없이 무시되고 파드는 유저 네임스페이스 없이
+생성된다** 는 사실을 명심한다.
 
 <!-- steps -->
 
