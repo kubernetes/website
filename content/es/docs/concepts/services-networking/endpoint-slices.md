@@ -14,7 +14,9 @@ description: >-
 
 {{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
-La API _EndpointSlice_ de Kubernetes proporciona una forma de rastrear los endpoints de red dentro de un clúster Kubernetes. EndpointSlices ofrece una alternativa más escalable y extensible a [Endpoints].(/docs/concepts/services-networking/service/#endpoints).
+La API _EndpointSlice_ de Kubernetes proporciona una forma de rastrear los endpoints de red
+dentro de un clúster Kubernetes. EndpointSlices ofrece una alternativa más escalable
+y extensible a [Endpoints].(/docs/concepts/services-networking/service/#endpoints).
 
 <!-- body -->
 
