@@ -28,7 +28,7 @@ El nombre de un objeto EndpointSlice debe ser un
 [nombre de subdominio DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)
 válido.
 
-A modo de ejemplo, a continuación se muestra un objeto EndpointSlice de ejemplo, propiedad del servicio  `example`
+A modo de ejemplo, a continuación se muestra un objeto EndpointSlice de ejemplo, propiedad del Servicio `example`
 de Kubernetes.
 
 ```yaml
