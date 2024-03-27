@@ -143,7 +143,7 @@ class first,second white
 
 ## SIG Docsに参加する
 
-[SIG Docs](/ja/docs/contribute/participate/)はKubernetesのドキュメントとウェブサイトを公開・管理するコントリビューターのグループです。SIG Docsに参加することはKubernetesコントリビューター（機能開発でもそれ以外でも）にとってKubernetesプロジェクトに大きな影響を与える素晴らしい方法の一つです。
+[SIG Docs](/ja/docs/contribute/participate/)はKubernetesのドキュメントとウェブサイトを公開・管理するコントリビューターのグループです。SIG Docsに参加することはKubernetesコントリビューター(機能開発でもそれ以外でも)にとってKubernetesプロジェクトに大きな影響を与える素晴らしい方法の一つです。
 
 SIG Docsは複数の方法でコミュニケーションをとっています。
 
