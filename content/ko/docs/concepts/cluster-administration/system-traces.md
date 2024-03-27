@@ -9,7 +9,7 @@ weight: 90
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 시스템 컴포넌트 추적은 클러스터 내에서 수행된 동작들 간의 지연(latency)과 관계(relationship)를 기록한다.
 
@@ -59,10 +59,8 @@ kube-apiserver는 자주 퍼블릭 엔드포인트로 이용되기 때문에,
 
 #### kube-apiserver 에서의 추적 활성화
 
-추적을 활성화하기 위해서는, kube-apiserve에서 `APIServerTracing`
-[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화한다. 
-또한, kube-apiserver의 추적 설정 파일에 
-`--tracing-config-file=<path-to-config>`을 추가한다. 
+추적을 활성화하기 위해서는, kube-apiserver의 추적 설정 파일에 
+`--tracing-config-file=<path-to-config>`을 추가한다.
 다음은 10000개 요청 당 1개에 대한 span을 기록하는 설정에 대한 예시이고, 이는 기본 OpenTelemetry 엔드포인트를 이용한다.
 
 ```yaml
@@ -78,7 +76,7 @@ samplingRatePerMillion: 100
 
 ### kubelet 추적
 
-{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.25" state="beta" >}}
 
 kubelet CRI 인터페이스와 인증된 http 서버는 추적(trace) 스팬(span)을 생성하도록 설정 할수 있다.
 apiserver와 마찬가지로 해당 엔드포인트 및 샘플링률을 구성할 수 있다.
@@ -88,11 +86,8 @@ apiserver와 마찬가지로 해당 엔드포인트 및 샘플링률을 구성�
 
 #### kubelet tracing 활성화
 
-추적을 활성화하려면 kubelet에서 `KubeletTracing`
-[기능 게이트(feature gate)](/ko/docs/reference/command-line-tools-reference/feature-gates/)을 활성화한다.
-또한 kubelet에서
-[tracing configuration](https://github.com/kubernetes/component-base/blob/release-1.25/tracing/api/v1/types.go)을 제공한다.
-[tracing 구성](https://github.com/kubernetes/component-base/blob/release-1.25/tracing/api/v1/types.go)을 참조한다.
+추적을 활성화하려면,
+[tracing 구성](https://github.com/kubernetes/component-base/blob/release-1.25/tracing/api/v1/types.go)을 적용한다.
 다음은 10000개 요청 중 1개에 대하여 스팬(span)을 기록하고, 기본 OpenTelemetry 앤드포인트를 사용하도록 한 kubelet 구성 예시이다. 
 
 ```yaml
@@ -106,6 +101,13 @@ tracing:
   samplingRatePerMillion: 100
 ```
 
+만약 `samplingRatePerMillion`이 100만 (`1000000`)으로 설정되어 있으면, 모든 스팬이 exporter로 전송될 것이다.
+
+쿠버네티스 v{{< skew currentVersion >}}의 kubelet은 가비지 콜렉팅, 파드 동기화 루틴, 그리고 모든 gRPC 기법에서스팬을 수집한다.
+CRI-O나 containerd 같이 연결된 컨테이너 런타임은 export된 스팬으로의 추적 경로를 연결해서 추가적인 정보를 제공할 수 있다.
+
+스팬을 export하면 시스템의 전반적인 설정에 따라 항상 네트워크와 CPU에 작은 성능 오버헤드를 수반함을 잊으면 안된다. 만약 추적이 활성화된 클러스터에 이러한 문제가 발생한다면, `samplingRatePerMillion`의 축소 또는 설정의 제거를 통해 추적을 완전히 비활성화 시켜 문제를 완화시킨다.
+
 ## 안정성
 
 추적의 계측화(tracing instrumentation)는 여전히 활발히 개발되는 중이어서 다양한 형태로 변경될 수 있다. 
@@ -116,4 +118,3 @@ tracing:
 ## {{% heading "whatsnext" %}}
 
 * [OpenTelemetry 수집기 시작하기](https://opentelemetry.io/docs/collector/getting-started/)을 참고
-

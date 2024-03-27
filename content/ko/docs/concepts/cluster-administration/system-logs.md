@@ -231,6 +231,48 @@ systemd를 사용하는 시스템에서는, kubelet과 컨테이너 런타임은
 `kube-up.sh` 스크립트로 생성된 쿠버네티스 클러스터에서는, `logrotate` 도구로 로그가 로테이트되도록 설정된다.
 `logrotate` 도구는 로그가 매일 또는 크기가 100MB 보다 클 때 로테이트된다.
 
+## 로그 쿼리
+
+{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+
+쿠버네티스 1.27 버전은 노드에서의 디버깅을 돕기 위해 노드 위에서 실행중인 서비스들의 로그를 확인하는 기능이 추가되었다. 이 기능을 사용하기 위해서는, `NodeLogQuery` [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)의 활성화 및 kubelet 설정 옵션 `enableSystemLogHandler`, `enableSystemLogQuery`이 true로 설정되어 있음을 확인해야 한다. 리눅스 운영체제에서는 journald를 통한 서비스 로그의 확보가 가능하다고 가정한다. 윈도우 운영체제에서는 애플리케이션 로그 제공자를 통해 서비스 로그의 확보가 가능하다고 가정한다. 또한 양 운영체제에서 `/var/log`에 위치한 파일을 읽어서 로그를 확인할 수 있다.
+
+노드의 오브젝트와 상호 작용할 권한이 있는 경우 전체 혹은 일부 노드에 이 알파 기능을 사용할 수 있다. 아래와 같이 노드에서 kubelet 서비스 로그를 가져올 수 있다:
+
+```shell
+# node-1.example 노드의 kubelet 로그를 가져온다.
+kubectl get --raw "/api/v1/nodes/node-1.example/proxy/logs/?query=kubelet"
+```
+
+
+
+You can also fetch files, provided that the files are in a directory that the kubelet allows for log
+fetches. For example, you can fetch a log from `/var/log` on a Linux node:
+
+또한, Kubelet에서 로그 반환을 허용하는 디렉토리 내의 파일들을 가져올 수 있다.
+```shell
+kubectl get --raw "/api/v1/nodes/<노드 이름>/proxy/logs/?query=/<로그 파일 이름>"
+```
+
+Kubelet은 휴리스틱 기법을 활용하여 로그를 회수한다. 이는 해당 시스템 서비스가 journald 같은 운영체제의 네이티브 로거, 혹은 `/var/log` 내의 로그 파일 중 어디에 로그를 작성하는지 모를 때 유용하다. Kubelet의 휴리스틱 기법에서는 먼저 네이티브 로거를 확인하고 사용이 불가능할 경우, `/var/log/<서비스 이름>`, `/var/log/<서비스 이름>.log`, 또는 `/var/log/<서비스 이름>/<서비스 이름>.log`에서 첫 로그를 회수를 시도한다.
+
+사용 가능한 옵션은 다음과 같다:
+
+옵션 | 설명
+------ | -----------
+`boot` | boot는 특정 시스템 부트에서의 메시지를 보여준다.
+`pattern` | pattern은 PERL-호환 정규표현식을 통해 로그 항목을 걸러낸다.
+`query` | query는 로그를 반환할 서비스 또는 파일을 특정한다. (필수)
+`sinceTime` | [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) 타임스탬프로 나타낸 로그 수집의 시작 시각 (inclusive)
+`untilTime` | [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) 타임스탬프로 나타낸 로그 수집의 종료 시각 (inclusive)
+`tailLines` | 끝에서부터 수집할 로그의 줄 개수; 기본값은 로그 전체
+
+복잡한 쿼리의 예시:
+```shell
+# node-1.example 노드에서 단어 "error"가 포함되어 있는 로그를 가져온다.
+kubectl get --raw "/api/v1/nodes/node-1.example/proxy/logs/?query=kubelet&pattern=error"
+```
+
 ## {{% heading "whatsnext" %}}
 
 * [쿠버네티스 로깅 아키텍처](/ko/docs/concepts/cluster-administration/logging/) 알아보기
