@@ -100,7 +100,7 @@ Kubernetesのリソース名や技術用語などは、原則としてそのま�
 
 ただし、「コンテナ」は例外的に長音を付与しないこととします。
 
-この原則を作成するにあたって、[mozilla-japan/translation Editorial Guideline#カタカナ語の表記](https://github.com/mozilla-japan/translation/wiki/Editorial-Guideline#カタカナ語の表記)を参考にさせていただきました。
+この原則を作成するにあたって、[mozilla-japan/translation Editorial Guideline#カタカナ語の表記](https://github.com/mozilla-japan/translation/wiki/Editorial-Guideline#カタカナ語の表記)を参考にしました。
 
 ### その他の表記 {#other-notation}
 
