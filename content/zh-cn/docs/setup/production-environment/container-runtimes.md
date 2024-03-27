@@ -359,7 +359,7 @@ Return to this step once you've created a valid `config.toml` configuration file
 要在系统上安装 containerd，请按照[开始使用 containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md)
 的说明进行操作。创建有效的 `config.toml` 配置文件后返回此步骤。
 
-{{< tabs name="找到 config.toml 文件" >}}
+{{< tabs name="finding-your-config-toml-file" >}}
 {{% tab name="Linux" %}}
 <!--
 You can find this file under the path `/etc/containerd/config.toml`.
@@ -570,10 +570,10 @@ This config option supports live configuration reload to apply this change: `sys
 {{< note >}}
 <!-- 
 These instructions assume that you are using the
-[`cri-dockerd`](https://github.com/Mirantis/cri-dockerd) adapter to integrate
+[`cri-dockerd`](https://mirantis.github.io/cri-dockerd/) adapter to integrate
 Docker Engine with Kubernetes.
 -->
-以下操作假设你使用 [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd) 适配器来将
+以下操作假设你使用 [`cri-dockerd`](https://mirantis.github.io/cri-dockerd/) 适配器来将
 Docker Engine 与 Kubernetes 集成。
 {{< /note >}}
 
@@ -585,10 +585,9 @@ Docker Engine 与 Kubernetes 集成。
    指南为你的 Linux 发行版安装 Docker。
 
 <!-- 
-2. Install [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd), following
-   the instructions in that source code repository.
+2. Install [`cri-dockerd`](https://mirantis.github.io/cri-dockerd/usage/install), following the directions in the install section of the documentation.
 -->
-2. 按照源代码仓库中的说明安装 [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd)。
+2. 请按照文档中的安装部分指示来安装 [`cri-dockerd`](https://mirantis.github.io/cri-dockerd/usage/install)。
 
 <!--
 For `cri-dockerd`, the CRI socket is `/run/cri-dockerd.sock` by default.
@@ -608,7 +607,7 @@ You can use Mirantis Container Runtime with Kubernetes using the open source
 
 [Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html) (MCR)
 是一种商用容器运行时，以前称为 Docker 企业版。
-你可以使用 MCR 中包含的开源 [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd)
+你可以使用 MCR 中包含的开源 [`cri-dockerd`](https://mirantis.github.io/cri-dockerd/)
 组件将 Mirantis Container Runtime 与 Kubernetes 一起使用。
 
 <!--
