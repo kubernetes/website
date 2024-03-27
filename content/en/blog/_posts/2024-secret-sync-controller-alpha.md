@@ -13,14 +13,14 @@ Many production-scale Kubernetes solutions use secrets stored in an external sec
 ## What is the benefit?  
 1. Offline Access: Many clusters running in production environments need to be resilient to intermittent connectivity. This includes continuing to have access to secrets when a cluster goes offline and a pod restarts. Workloads can continue to access secrets by storing secrets in the Kubernetes secret store instead of a directly mounted volume (which is how the existing secret store CSI driver enables accessing secrets). 
 
-2. Standard K8s Secret Access: Secrets can be accessed via volume mounting, environment variables, or via the Kubernetes API. Workloads and ingress controllers do not need to be customized to access a cloud provider secret store and developers have options on how to access secrets.  
+2. Standard Kubernetes Secret Access: Secrets can be accessed via volume mounting, environment variables, or via the Kubernetes API. Workloads and ingress controllers do not need to be customized to access a cloud provider secret store and developers have options on how to access secrets.  
 
 3. Security: The Secret Sync Controller (SSC) has limited permissions and leverages the latest Kubernetes security features (complete list below) so that cluster admins do not need to configure and restrict permissions themselves.  
 
 ## How to use the Secret Sync Controller 
-The Secret Sync Controller (SSC) must be used alongside a [secret store Cloud Provider](https://secrets-store-csi-driver.sigs.k8s.io/getting-started/installation.html) that implements the Secret Store CSI Driver provider interface to provide an end-to-end solution for synchronizing secrets from the cloud secret store to the Kubernetes secret store.  
+The Secret Sync Controller (SSC) must be used alongside a [secret store Cloud Provider](https://secrets-store-csi-driver.sigs.k8s.io/getting-started/installation.html#install-external-secret-providers) that implements the Secret Store CSI Driver provider interface to provide an end-to-end solution for synchronizing secrets from the cloud secret store to the Kubernetes secret store.  
 
-1. Install the [secret sync controller](https://github.com/kubernetes-sigs/secrets-store-csi-driver/tree/feature/secrets-sync-controller) via a Helm chart, or YAML manifests alongside a secret store provider. If using the helm chart, users can configure parameters such as sync intervals and resource limitations at install time. 
+1. Install the [secret sync controller](https://gist.github.com/aramase/46bd3d4270d9c44b59e8c2afe56fbc09) via a Helm chart, or YAML manifests alongside a secret store provider. If using the helm chart, users can configure parameters such as sync intervals and resource limitations at install time. 
 
 2. Configure an identity with permission to read the cloud provider's secrets.  
 
@@ -47,7 +47,7 @@ In addition to the previous on by default security features, a cluster admin sho
 
 6. Owner Reference Permission Enforcement: The SSC permissions can be further limited by enabling the _Owner Reference Permission Enforcement_ admission controller, which ensures that only the owners of a Secret have permissions to update and delete the Secret.
 
-7. Encryption: Kubernetes secrets are stored encoded in etcd, and the secret storage should be encrypted. For example, a cluster admin should enable a KMS plugin for the cluster to encrypt secret data.  
+7. Encryption: Kubernetes secrets are stored encoded in etcd, and the secret storage [should be encrypted](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/). For example, a cluster admin should enable a KMS plugin for the cluster to encrypt secret data.  
 
 ## What’s next? 
 Depending on feedback and adoption, the SIG Auth and Secret Store CSI maintainers plan to push the Secret Sync Controller to beta later in 2024.   
