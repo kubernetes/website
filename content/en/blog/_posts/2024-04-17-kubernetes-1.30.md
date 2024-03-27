@@ -123,13 +123,10 @@ all contribute in the best way possible, and challenging us to improve the relea
 
 ### Project Velocity
 
-<CHECKOUT THE DEVSTATS AND HIGHLIGHT SOME INTRESTING NUMBERS
-https://k8s.devstats.cncf.io/d/12/dashboards?orgId=1&refresh=15m>
+The CNCF K8s DevStats project aggregates a number of interesting data points related to the velocity of Kubernetes and various sub-projects. This includes everything from individual contributions to the number of companies that are contributing and is an illustration of the depth and breadth of effort that goes into evolving this ecosystem.
 
-<AS EXAMPLE> This past quarter, 641 different companies and over 6,409 individuals contributed to
-Kubernetes. [Check out
-DevStats](https://k8s.devstats.cncf.io/d/11/companies-contributing-in-repository-groups?orgId=1&var-period=m&var-repogroup_name=All)
-to learn more about the overall velocity of the Kubernetes project and community.
+In the v1.30 release cycle, which ran for 14 weeks (January 8 to April 17), we saw contributions from [888 companies](https://k8s.devstats.cncf.io/d/9/companies-table?orgId=1&var-period_name=v1.29.0%20-%20now&var-metric=contributions) and [1268 individuals](https://k8s.devstats.cncf.io/d/66/developer-activity-counts-by-companies?orgId=1&var-period_name=v1.29.0%20-%20now&var-metric=contributions&var-repogroup_name=Kubernetes&var-repo_name=kubernetes%2Fkubernetes&var-country_name=All&var-companies=All).
+
 
 ### Event Update
 
