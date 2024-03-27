@@ -57,7 +57,10 @@ _This is a selection of some of the improvements that are now beta following the
 
 ### Node log query ([SIG Windows](https://github.com/kubernetes/community/tree/master/sig-windows))
 
-Blurb for 2258 goes here.
+To help with debugging issues on nodes, Kubernetes v1.27 introduced a feature that allows viewing logs of services running on the node. To use the feature, ensure that the NodeLogQuery feature gate is enabled for that node, and that the kubelet configuration options enableSystemLogHandler and enableSystemLogQuery are both set to true. 
+
+On Linux the assumption is that service logs are available via journald. On Windows the assumption is that service logs are available in the application log provider. On both operating systems, logs are also available by reading files within /var/log/.
+[To read more about the feature, please click here](https://kubernetes.io/docs/concepts/cluster-administration/system-logs/#log-query)
 
 ### CRD Validation Ratcheting ([SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery))
 
