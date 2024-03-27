@@ -123,7 +123,7 @@ El controlador de endpoint slice establece `endpointslice-controller.k8s.io` com
 
 ### Propiedad
 
-En la mayoría de los casos de uso, los EndpointSlices son propiedad del Servicio para el que el objeto EndpointSlices rastrea los endpoints. Esta propiedad se indica mediante una referencia de propietario en cada EndpointSlice, así como una etiqueta `kubernetes.io/service-name` que permite búsquedas sencillas de todos los EndpointSlices que pertenecen a un Servicio.
+En la mayoría de los casos de uso, los EndpointSlices son propiedad del Servicio para el que el objeto EndpointSlices rastree los endpoints. Esta propiedad se indica mediante una referencia de propietario en cada EndpointSlice, así como una etiqueta `kubernetes.io/service-name` que permite búsquedas sencillas de todos los EndpointSlices que pertenecen a un Servicio.
 
 ### Replicación de EndpointSlice
 
