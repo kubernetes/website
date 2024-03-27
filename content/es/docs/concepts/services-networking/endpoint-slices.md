@@ -129,7 +129,6 @@ En la mayoría de los casos de uso, los EndpointSlices son propiedad del Servici
 
 En algunos casos, las aplicaciones crean recursos Endpoints personalizados. Para garantizar que estas aplicaciones no tengan que escribir simultáneamente en recursos Endpoints y EndpointSlice, el plano de control del clúster refleja la mayoría de los recursos Endpoints en los EndpointSlices correspondientes.
 
-The control plane mirrors Endpoints resources unless:
 
 El plano de control refleja los recursos de los Endpoints a menos que: 
 * El recurso Endpoints tenga una etiqueta `endpointslice.kubernetes.io/skip-mirror` con el valor en `true`.
