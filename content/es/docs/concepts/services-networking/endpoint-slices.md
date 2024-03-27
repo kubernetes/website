@@ -29,7 +29,7 @@ El nombre de un objeto EndpointSlice debe ser un
 válido.
 
 A modo de ejemplo, a continuación se muestra un objeto EndpointSlice de ejemplo, propiedad del servicio  `example`
-Servicio Kubernetes.
+de Kubernetes.
 
 ```yaml
 apiVersion: discovery.k8s.io/v1
