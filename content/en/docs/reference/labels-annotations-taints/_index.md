@@ -1005,13 +1005,15 @@ Used on: Service
 
 The control plane adds this label to an Endpoints object when the owning Service is headless.
 
-A headless service does not have a clusterIP assigned to it. Instead of providing a single 
-virtual IP address for the service, a headless service creates a DNS record for each pod 
-associated with the service and you can access each pod associated with the service through DNS. 
+A headless Service allows a client to connect to whichever Pod it prefers, directly. Services that are headless don't
+configure routes and packet forwarding using
+[virtual IP addresses and proxies](/docs/reference/networking/virtual-ips/); instead, headless Services report the
+endpoint IP addresses of the individual pods via internal DNS records, served through the cluster's
+[DNS service](/docs/concepts/services-networking/dns-pod-service/).
+To define a headless Service, you make a Service with `.spec.type` set to ClusterIP (which is also the default for `type`),
+and you additionally set `.spec.clusterIP` to None.
 
-To create a headless service, define a service with the clusterIP field set to **None**. 
-Once the headless service has been created, The DNS record for each pod will be in the format 
-`<pod-name>.<headless-service-name>.<namespace>.svc.cluster.local`.
+The string value None is a special case and is not the same as leaving the `.spec.clusterIP` field unset.
 
 ### service.kubernetes.io/topology-aware-hints (deprecated) {#servicekubernetesiotopology-aware-hints}
 
