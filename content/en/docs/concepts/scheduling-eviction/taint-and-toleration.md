@@ -28,6 +28,11 @@ marks that the node should not accept any pods that do not tolerate the taints.
 
 ## Concepts
 
+To get the list of nodes with the associated taints use the command
+```shell
+kubectl get nodes -o custom-columns=NODE:.metadata.name,TAINTS:.spec.taints
+```
+
 You add a taint to a node using [kubectl taint](/docs/reference/generated/kubectl/kubectl-commands#taint).
 For example,
 
