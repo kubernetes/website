@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: with-node-affinity
+  name: with-node-affinity-1
 spec:
   affinity:
     nodeAffinity:
@@ -22,5 +22,5 @@ spec:
             values:
             - another-node-label-value
   containers:
-  - name: with-node-affinity
+  - name: with-node-affinity-1
     image: registry.k8s.io/pause:2.0
