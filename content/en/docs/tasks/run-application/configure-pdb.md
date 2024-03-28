@@ -241,7 +241,7 @@ These pods are tracked via `.status.currentHealthy` field in the PDB status.
 
 ## Unhealthy Pod Eviction Policy
 
-{{< feature-state for_k8s_version="v1.27" state="beta" >}}
+{{< feature-state for_k8s_version="v1.30" state="stable" >}}
 
 {{< note >}}
 This feature is enabled by default. You can disable it by disabling the `PDBUnhealthyPodEvictionPolicy`
