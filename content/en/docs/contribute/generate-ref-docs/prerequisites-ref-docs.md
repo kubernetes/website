@@ -18,4 +18,11 @@
 
 - You need to know how to create a pull request to a GitHub repository.
   This involves creating your own fork of the repository. For more
-  information, see [Work from a local clone](/docs/contribute/new-content/open-a-pr/#fork-the-repo).
+  information, see [Work from a local clone](/docs/contribute/new-content/open-a-pr/#fork-the-repo)
+
+### Build inside a container
+
+We've introduced a containerized option to streamline the setup process.
+
+Prerequisites:
+- Docker: Ensure you have Docker installed on your machine. If not, you can install Docker.
