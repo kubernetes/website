@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: cpu-resource-constraint
+spec:
+  limits:
+  - default: # ця секція визначає типові обмеження
+      cpu: 500m
+    defaultRequest: # ця секція визначає типові запити
+      cpu: 500m
+    max: # max та min визначают діапазон обмеження
+      cpu: "1"
+    min:
+      cpu: 100m
+    type: Container
