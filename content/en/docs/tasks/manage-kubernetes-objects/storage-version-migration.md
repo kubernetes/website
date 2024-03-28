@@ -39,7 +39,7 @@ to encrypt data at rest in etcd using following encryption configuration.
   resources:
   - resources:
     - secrets
-      providers:
+    providers:
     - aescbc:
       keys:
       - name: key1
@@ -49,7 +49,7 @@ to encrypt data at rest in etcd using following encryption configuration.
 configuration file by setting `--encryption-provider-config-automatic-reload` to true.
 - Create a Secret using kubectl.
   ```shell
-  kubectl create secret generic my-secret --from-literal=key1=supersecre
+  kubectl create secret generic my-secret --from-literal=key1=supersecret
   ```
 - [Verify](/docs/tasks/administer-cluster/kms-provider/#verifying-that-the-data-is-encrypted)
   the serialized data for that Secret object is prefixed with `k8s:enc:aescbc:v1:key1`.
@@ -60,7 +60,7 @@ configuration file by setting `--encryption-provider-config-automatic-reload` to
   resources:
   - resources:
     - secrets
-      providers:
+    providers:
     - aescbc:
       keys:
       - name: key2
@@ -72,8 +72,7 @@ configuration file by setting `--encryption-provider-config-automatic-reload` to
   ```
 - To ensure that previously created secret `my-secert` is re-encrypted
 with new key `key2`, you will use _Storage Version Migration_.
-- Create `StorageVersionMigration` resource file with the name `migrate-secret.yaml`
-as follows:
+- Create a StorageVersionMigration manifest named `migrate-secret.yaml` as follows:
   ```yaml
   kind: StorageVersionMigration
   apiVersion: storagemigration.k8s.io/v1alpha1
@@ -85,17 +84,19 @@ as follows:
       version: v1
       resource: secrets
   ```
-  Create the resource using _kubectl_ as follows:
+  Create the object using _kubectl_ as follows:
   ```shell
   kubectl apply -f migrate-secret.yaml
   ```
-- Monitor migration of Secrets using status. Successful migration should have
-_Succeeded_ condition set to _true_ in the status field. Get the migration resource
+- Monitor migration of Secrets by checking the `.status` of the StorageVersionMigration.
+	A successful migration should have its
+`Succeeded` condition set to true. Get the StorageVersionMigration object
 as follows:
   ```shell
   kubectl get storageversionmigration.storagemigration.k8s.io/secrets-migration -o yaml
   ```
-  This will produce an output similar to:
+
+	The output is similar to:
   ```yaml
   kind: StorageVersionMigration
   apiVersion: storagemigration.k8s.io/v1alpha1
@@ -256,20 +257,19 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
   ETCDCTL_API=3 etcdctl get /kubernetes.io/stable.example.com/testcrds/default/cr2 [...] | hexdump -C
   ```
   where [...] contains the additional arguments for connecting to the etcd server.
-- Create `StorageVersionMigration` resource file with the name `migrate-crd.yaml`
-as follows:
+- Create a StorageVersionMigration manifest named `migrate-crd.yaml`, with the contents as follows:
   ```yaml
   kind: StorageVersionMigration
   apiVersion: storagemigration.k8s.io/v1alpha1
   metadata:
-  name: crdsvm
+    name: crdsvm
   spec:
     resource:
       group: stable.example.com
       version: v1
       resource: SelfieRequest
   ```
-  Create the resource using _kubectl_ as follows:
+  Create the object using _kubectl_ as follows:
   ```shell
   kubectl apply -f migrate-crd.yaml
   ```
@@ -279,7 +279,8 @@ as follows:
   ```shell
   kubectl get storageversionmigration.storagemigration.k8s.io/crdsvm -o yaml
   ```
-  This will produce an output similar to:
+  
+  The output is similar to:
   ```yaml
   kind: StorageVersionMigration
   apiVersion: storagemigration.k8s.io/v1alpha1
