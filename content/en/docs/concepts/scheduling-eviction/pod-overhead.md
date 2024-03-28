@@ -36,7 +36,8 @@ You need to make sure a `RuntimeClass` is utilized which defines the `overhead` 
 
 To work with Pod overhead, you need a RuntimeClass that defines the `overhead` field. As
 an example, you could use the following RuntimeClass definition with a virtualization container
-runtime that uses around 120MiB per Pod for the virtual machine and the guest OS:
+runtime like 'kata-fc'. The "kata" prefix from the 'Kata Containers' project, designed for lightweight container virtualization, with the "fc" suffix 
+representing the integration of the 'Firecracker' VMM (Virtual Machine Monitor) that uses around 120MiB per Pod for the virtual machine and the guest OS:
 
 ```yaml
 apiVersion: node.k8s.io/v1
