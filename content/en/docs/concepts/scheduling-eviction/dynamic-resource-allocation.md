@@ -9,13 +9,16 @@ weight: 65
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+{{< feature-state feature_gate_name="DynamicResourceAllocation" >}}
 
 Dynamic resource allocation is an API for requesting and sharing resources
 between pods and containers inside a pod. It is a generalization of the
 persistent volumes API for generic resources. Third-party resource drivers are
-responsible for tracking and allocating resources. Different kinds of
-resources support arbitrary parameters for defining requirements and
+responsible for tracking and allocating resources, with additional support
+provided by Kubernetes via _structured parameters_ (introduced in Kubernetes 1.30).
+When a driver uses structured parameters, Kubernetes handles scheduling
+and resource allocation without having to communicate with the driver.
+Different kinds of resources support arbitrary parameters for defining requirements and
 initialization.
 
 ## {{% heading "prerequisites" %}}
@@ -56,10 +59,38 @@ PodSchedulingContext
   to coordinate pod scheduling when ResourceClaims need to be allocated
   for a Pod.
 
+ResourceSlice
+: Used with structured parameters to publish information about resources
+  that are available in the cluster.
+
+ResourceClaimParameters
+: Contain the parameters for a ResourceClaim which influence scheduling,
+  in a format that is understood by Kubernetes (the "structured parameter
+  model"). Additional parameters may be embedded in an opaque
+  extension, for use by the vendor driver when setting up the underlying
+  resource.
+
+ResourceClassParameters
+: Similar to ResourceClaimParameters, the ResourceClassParameters provides
+  a type for ResourceClass parameters which is understood by Kubernetes.
+
 Parameters for ResourceClass and ResourceClaim are stored in separate objects,
 typically using the type defined by a {{< glossary_tooltip
 term_id="CustomResourceDefinition" text="CRD" >}} that was created when
 installing a resource driver.
+
+The developer of a resource driver decides whether they want to handle these
+parameters in their own external controller or instead rely on Kubernetes to
+handle them through the use of structured parameters. A
+custom controller provides more flexibility, but cluster autoscaling is not
+going to work reliably for node-local resources. Structured parameters enable
+cluster autoscaling, but might not satisfy all use-cases.
+
+When a driver uses structured parameters, it is still possible to let the
+end-user specify parameters with vendor-specific CRDs. When doing so, the
+driver needs to translate those
+custom parameters into the in-tree types. Alternatively, a driver may also
+document how to use the in-tree types directly.
 
 The `core/v1` `PodSpec` defines ResourceClaims that are needed for a Pod in a
 `resourceClaims` field. Entries in that list reference either a ResourceClaim
@@ -129,8 +160,11 @@ spec:
 
 ## Scheduling
 
+### Without structured parameters
+
 In contrast to native resources (CPU, RAM) and extended resources (managed by a
-device plugin, advertised by kubelet), the scheduler has no knowledge of what
+device plugin, advertised by kubelet), without structured parameters
+the scheduler has no knowledge of what
 dynamic resources are available in a cluster or how they could be split up to
 satisfy the requirements of a specific ResourceClaim. Resource drivers are
 responsible for that. They mark ResourceClaims as "allocated" once resources
@@ -172,6 +206,27 @@ ResourceClaims, and thus scheduling the next pod gets delayed.
 
 {{< /note >}}
 
+### With structured parameters
+
+When a driver uses structured parameters, the scheduler takes over the
+responsibility of allocating resources to a ResourceClaim whenever a pod needs
+them. It does so by retrieving the full list of available resources from
+ResourceSlice objects, tracking which of those resources have already been
+allocated to existing ResourceClaims, and then selecting from those resources
+that remain.  The exact resources selected are subject to the constraints
+provided in any ResourceClaimParameters or ResourceClassParameters associated
+with the ResourceClaim.
+
+The chosen resource is recorded in the ResourceClaim status together with any
+vendor-specific parameters, so when a pod is about to start on a node, the
+resource driver on the node has all the information it needs to prepare the
+resource.
+
+By using structured parameters, the scheduler is able to reach a decision
+without communicating with any DRA resource drivers. It is also able to
+schedule multiple pods quickly by keeping information about ResourceClaim
+allocations in memory and writing this information to the ResourceClaim objects
+in the background while concurrently binding the pod to a node.
 
 ## Monitoring resources
 
@@ -193,7 +248,13 @@ was not enabled in the scheduler at the time when the Pod got scheduled
 detects this and tries to make the Pod runnable by triggering allocation and/or
 reserving the required ResourceClaims.
 
-However, it is better to avoid this because a Pod that is assigned to a node
+{{< note >}}
+
+This only works with resource drivers that don't use structured parameters.
+
+{{< /note >}}
+
+It is better to avoid bypassing the scheduler because a Pod that is assigned to a node
 blocks normal resources (RAM, CPU) that then cannot be used for other Pods
 while the Pod is stuck. To make a Pod run on a specific node while still going
 through the normal scheduling flow, create the Pod with a node selector that
@@ -255,4 +316,5 @@ be installed. Please refer to the driver's documentation for details.
 ## {{% heading "whatsnext" %}}
 
  - For more information on the design, see the
-[Dynamic Resource Allocation KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/3063-dynamic-resource-allocation/README.md).
+[Dynamic Resource Allocation KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/3063-dynamic-resource-allocation/README.md)
+   and the [Structured Parameters KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/4381-dra-structured-parameters).
