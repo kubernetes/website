@@ -365,7 +365,7 @@ pluginapi.Device{ID: "25102017", Health: pluginapi.Healthy, Topology:&pluginapi.
 
 다음은 장치 플러그인 구현의 예이다.
 
-* [AMD GPU 장치 플러그인](https://github.com/RadeonOpenCompute/k8s-device-plugin)
+* [AMD GPU 장치 플러그인](https://github.com/ROCm/k8s-device-plugin)
 * 인텔 GPU, FPGA, QAT, VPU, SGX, DSA, DLB 및 IAA 장치용 [인텔 장치 플러그인](https://github.com/intel/intel-device-plugins-for-kubernetes)
 * 하드웨어 지원 가상화를 위한 [KubeVirt 장치 플러그인](https://github.com/kubevirt/kubernetes-device-plugins)
 * [컨테이너에 최적화된 OS를 위한 NVIDIA GPU 장치 플러그인](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu)
