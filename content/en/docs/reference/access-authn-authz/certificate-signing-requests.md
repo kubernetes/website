@@ -5,6 +5,12 @@ reviewers:
 - munnerz
 - enj
 title: Certificates and Certificate Signing Requests
+api_metadata:
+- apiVersion: "certificates.k8s.io/v1"
+  kind: "CertificateSigningRequest"
+  override_link_text: "CSR v1"
+- apiVersion: "certificates.k8s.io/v1alpha1"
+  kind: "ClusterTrustBundle"  
 content_type: concept
 weight: 25
 ---
@@ -608,3 +614,5 @@ kubectl config use-context myuser
 * View the source code for the kube-controller-manager built in [approver](https://github.com/kubernetes/kubernetes/blob/32ec6c212ec9415f604ffc1f4c1f29b782968ff1/pkg/controller/certificates/approver/sarapprove.go)
 * For details of X.509 itself, refer to [RFC 5280](https://tools.ietf.org/html/rfc5280#section-3.1) section 3.1
 * For information on the syntax of PKCS#10 certificate signing requests, refer to [RFC 2986](https://tools.ietf.org/html/rfc2986)
+* Read about the ClusterTrustBundle API:
+  * {{< page-api-reference kind="ClusterTrustBundle" >}}

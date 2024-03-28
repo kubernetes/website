@@ -2,6 +2,9 @@
 reviewers:
 - bprashanth
 title: Service
+api_metadata:
+- apiVersion: "v1"
+  kind: "Service"
 feature:
   title: Service discovery and load balancing
   description: >
