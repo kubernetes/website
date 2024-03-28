@@ -48,7 +48,7 @@ container and no startup probe defined, or as a result of its `startupProbe` suc
 
 Here's an example of a Deployment with two containers, one of which is a sidecar:
 
-{{% code_sample language="yaml" file="application/deployment-sidecar.yaml" %}}
+{{% code_sample language="yaml" file="application/deployment-sidecar-legacy.yaml" %}}
 
 This feature is also useful for running Jobs with sidecars, as the sidecar
 container will not prevent the Job from completing after the main container
@@ -56,7 +56,7 @@ has finished.
 
 Here's an example of a Job with two containers, one of which is a sidecar:
 
-{{% code_sample language="yaml" file="application/job/job-sidecar.yaml" %}}
+{{% code_sample language="yaml" file="application/job/job-sidecar-legacy.yaml" %}}
 
 ## Differences from regular containers
 
