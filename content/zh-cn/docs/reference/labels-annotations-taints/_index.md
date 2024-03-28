@@ -64,7 +64,7 @@ For more details, read  [Maintenance of the Mandatory and Suggested Configuratio
 如果在 FlowSchema 或 PriorityLevelConfiguration 上将此注解设置为 true，
 那么该对象的 `spec` 将由 kube-apiserver 进行管理。如果 API 服务器不识别 APF 对象，
 并且你对其添加了自动更新的注解，则 API 服务器将删除整个对象。否则，API 服务器不管理对象规约。
-更多细节参阅[维护强制性和建议的配置对象](/zh-cn/docs/concepts/cluster-administration/flow-control/#maintenance-of-the-mandatory-and-suggested-configuration-objects)
+更多细节参阅[维护强制性和建议的配置对象](/zh-cn/docs/concepts/cluster-administration/flow-control/#maintenance-of-the-mandatory-and-suggested-configuration-objects)。
 
 <!--
 ### app.kubernetes.io/component
@@ -582,7 +582,7 @@ For example, Kustomize removes objects with this annotation from its final build
 
 当值为 `"false"` 时，可以用来声明该对象应提交到 API 服务器，即使它是本地对象。
 
-该注解是 Kubernetes 资源模型 (KRM) 函数规范的一部分，被 Kustomize 和其他类似的第三方工具使用。
+该注解是 Kubernetes 资源模型（KRM）函数规范的一部分，被 Kustomize 和其他类似的第三方工具使用。
 例如，Kustomize 会从其最终构建输出中删除带有此注解的对象。
 
 ### container.apparmor.security.beta.kubernetes.io/* (beta) {#container-apparmor-security-beta-kubernetes-io}
@@ -638,7 +638,7 @@ requiring changes to existing functions.
 
 用于：所有对象
 
-该前缀被保留，供遵从 Kubernetes 资源模型 (KRM) 函数规范的编排工具内部使用。
+该前缀被保留，供遵从 Kubernetes 资源模型（KRM）函数规范的编排工具内部使用。
 带有该前缀的注解仅在编排过程中使用，不会持久化到文件系统。
 换句话说，编排工具应从本地文件系统读取文件时设置这些注解，并在将函数输出写回文件系统时删除它们。
 
@@ -675,7 +675,7 @@ referenced files. A KRM Function **may** include this annotation on objects it g
 此注解记录了加载对象清单文件的（斜线分隔、与操作系统无关）相对路径。
 该路径相对于文件系统上由编排工具确定的固定位置。
 
-该注解是 Kubernetes 资源模型 (KRM) 函数规范的一部分，被 Kustomize 和其他类似的第三方工具使用。
+该注解是 Kubernetes 资源模型（KRM）函数规范的一部分，被 Kustomize 和其他类似的第三方工具使用。
 
 KRM 函数**不应**在输入对象上修改此注解，除非它正在修改引用的文件。
 KRM 函数**可以**在它所生成的对象上包含这个注解。
@@ -709,10 +709,10 @@ referenced files. A KRM Function **may** include this annotation on objects it g
 用于：所有对象
 
 该注解记录了包含对象的 YAML 文档在加载对象的清单文件中的零索引位置。
-请注意，YAML 文档由三个破折号 (---) 分隔，每个文档可以包含一个对象。
+请注意，YAML 文档由三个破折号（---）分隔，每个文档可以包含一个对象。
 如果未指定此注解，则该值为 0。
 
-该注解是 Kubernetes 资源模型 (KRM) 函数规范的一部分，被 Kustomize 和其他类似的第三方工具使用。
+该注解是 Kubernetes 资源模型（KRM）函数规范的一部分，被 Kustomize 和其他类似的第三方工具使用。
 
 KRM 函数**不应**在输入对象上修改此注解，除非它正在修改引用的文件。
 KRM 函数**可以**在它所生成的对象上包含这个注解。
@@ -779,7 +779,7 @@ Kubernetes 允许你为此标签设置任何值；如果你使用此标签，
 当 Pod 的 kubernetes.io/os 标签值与节点上的标签值不匹配时，节点上的 kubelet 不会运行该 Pod。
 但是，kube-scheduler 并未考虑这一点。
 另外，如果你为 Pod 指定的操作系统与运行该 kubelet 的节点操作系统不相同，那么 kubelet 会拒绝运行该 Pod。
-请查看 [Pod 操作系统](/zh-cn/docs/concepts/workloads/pods/#pod-os) 了解更多详情。
+请查看 [Pod 操作系统](/zh-cn/docs/concepts/workloads/pods/#pod-os)了解更多详情。
 
 <!--
 ### kubernetes.io/metadata.name
@@ -899,13 +899,13 @@ Type: Label
 
 This label has been deprecated. Please use [`kubernetes.io/os`](#kubernetes-io-os) instead.
 -->
-### beta.kubernetes.io/arch (已弃用) {#beta-kubernetes-io-arch}
+### beta.kubernetes.io/arch（已弃用） {#beta-kubernetes-io-arch}
 
 类别：标签
 
 此标签已被弃用。请改用 [`kubernetes.io/arch`](#kubernetes-io-arch)。
 
-### beta.kubernetes.io/os (已弃用) {#beta-kubernetes-io-os}
+### beta.kubernetes.io/os（已弃用） {#beta-kubernetes-io-os}
 
 类别：标签
 
@@ -1062,8 +1062,8 @@ Example: `kubernetes.io/enforce-mountable-secrets: "true"`
 Used on: ServiceAccount
 
 The value for this annotation must be **true** to take effect.
-This annotation indicates that Pods running as this ServiceAccount may only reference
-Secret API objects specified in the ServiceAccount's `secrets` field.
+When you set this annotation  to "true", Kubernetes enforces the following rules for
+Pods running as this ServiceAccount:
 -->
 ### kubernetes.io/enforce-mountable-secrets {#enforce-mountable-secrets}
 
@@ -1073,8 +1073,43 @@ Secret API objects specified in the ServiceAccount's `secrets` field.
 
 用于：ServiceAccount
 
-此注解的值必须为 **true** 才能生效。此注解表示作为此服务账号运行的 Pod
-只能引用在服务账号的 `secrets` 字段中指定的 Secret API 对象。
+此注解的值必须为 **true** 才能生效。
+当你将此注释设置为 `true` 时，Kubernetes 会对以此 ServiceAccount
+运行的 Pod 强制执行以下规则：
+
+<!--
+1. Secrets mounted as volumes must be listed in the ServiceAccount's `secrets` field.
+1. Secrets referenced in `envFrom` for containers (including sidecar containers and init containers)
+   must also be listed in the ServiceAccount's secrets field.
+   If any container in a Pod references a Secret not listed in the ServiceAccount's `secrets` field
+   (and even if the reference is marked as `optional`), then the Pod will fail to start,
+   and an error indicating the non-compliant secret reference will be generated.
+1. Secrets referenced in a Pod's `imagePullSecrets` must be present in the
+   ServiceAccount's `imagePullSecrets` field, the Pod will fail to start,
+   and an error indicating the non-compliant image pull secret reference will be generated.
+-->
+1. 作为卷挂载的 Secret 必须在 ServiceAccount 的 `secrets` 字段中列出。
+2. 容器（包括 Sidecar 容器和 init 容器）的 `envFrom` 中引用的 Secret 也必须列在
+   ServiceAccount 的 Secret 字段中。
+   如果 Pod 中的任何容器引用的 Secret 在 ServiceAccount 的 `secrets` 字段中未被列出
+   （即使该引用被标记为 `optional`（可选）），则 Pod 将无法启动，并会出现报错，
+   指示产生不合规的 Secret 引用。
+3. Pod `imagePullSecrets` 中引用的 Secret 必须存在于 ServiceAccount 的
+   `imagePullSecrets` 字段中，否则Pod 将无法启动，并且报告不合规的镜像拉取
+   Secret 引用的错误。
+
+<!--
+When you create or update a Pod, these rules are checked. If a Pod doesn't follow them,
+it won't start and you'll see an error message.
+If a Pod is already running and you change the `kubernetes.io/enforce-mountable-secrets` annotation
+to true, or you edit the associated ServiceAccount to remove the reference to a Secret
+that the Pod is already using, the Pod continues to run.
+-->
+当你创建或更新 Pod 时，会检查这些规则。如果 Pod 不遵循它们，它将不会启动，
+并且你会看到一条报错消息。
+如果 Pod 已在运行，并且你将 `kubernetes.io/enforce-mountable-secrets`
+注释更改为 true，或者编辑关联的 ServiceAccount 以删除对 Pod 已在使用的
+Secret 的引用，则 Pod 会继续运行。
 
 <!--
 ### node.kubernetes.io/exclude-from-external-load-balancers
@@ -1263,7 +1298,7 @@ bin dir (default `/opt/cni/bin`).
 
 Type: Label
 -->
-### beta.kubernetes.io/instance-type (已弃用) {#beta-kubernetes-io-instance-type}
+### beta.kubernetes.io/instance-type（已弃用） {#beta-kubernetes-io-instance-type}
 
 类别：标签
 
@@ -1309,7 +1344,7 @@ Kubelet 使用云驱动定义的实例类型填充它。
 
 Type: Label
 -->
-### failure-domain.beta.kubernetes.io/region (已弃用) {#failure-domainbetakubernetesioregion}
+### failure-domain.beta.kubernetes.io/region（已弃用） {#failure-domainbetakubernetesioregion}
 
 类别：标签
 
@@ -1326,7 +1361,7 @@ Starting in v1.17, this label is deprecated in favor of
 
 Type: Label
 -->
-### failure-domain.beta.kubernetes.io/zone (已弃用) {#failure-domainbetakubernetesiozone}
+### failure-domain.beta.kubernetes.io/zone（已弃用） {#failure-domainbetakubernetesiozone}
 
 类别：标签
 
@@ -1641,7 +1676,7 @@ Used on: PersistentVolumeClaim
 This annotation has been deprecated since v1.23.
 See [volume.kubernetes.io/storage-provisioner](#volume-kubernetes-io-storage-provisioner).
 -->
-### volume.beta.kubernetes.io/storage-provisioner (已弃用) {#volume-beta-kubernetes-io-storage-provisioner}
+### volume.beta.kubernetes.io/storage-provisioner（已弃用） {#volume-beta-kubernetes-io-storage-provisioner}
 
 类别：注解
 
@@ -2079,7 +2114,7 @@ Used on: Pod
 
 The annotation is used to run Windows containers with Hyper-V isolation.
 -->
-### experimental.windows.kubernetes.io/isolation-type (已弃用) {#experimental-windows-kubernetes-io-isolation-type}
+### experimental.windows.kubernetes.io/isolation-type（已弃用） {#experimental-windows-kubernetes-io-isolation-type}
 
 类别：注解
 
@@ -2127,7 +2162,7 @@ Type: Annotation
 
 Used on: Ingress
 -->
-### kubernetes.io/ingress.class (已弃用) {#kubernetes-io-ingress-class}
+### kubernetes.io/ingress.class（已弃用） {#kubernetes-io-ingress-class}
 
 类别：注解
 
@@ -2415,7 +2450,7 @@ Used on: Jobs
 The presence of this annotation on a Job used to indicate that the control plane is
 [tracking the Job status using finalizers](/docs/concepts/workloads/controllers/job/#job-tracking-with-finalizers).
 -->
-### batch.kubernetes.io/job-tracking (已弃用) {#batch-kubernetes-io-job-tracking}
+### batch.kubernetes.io/job-tracking（已弃用） {#batch-kubernetes-io-job-tracking}
 
 类别：注解
 
@@ -2441,7 +2476,7 @@ Example: `job-name: "pi"`
 
 Used on: Jobs and Pods controlled by Jobs
 -->
-### job-name (deprecated) {#job-name}
+### job-name（已弃用） {#job-name}
 
 类别：标签
 
@@ -2467,7 +2502,7 @@ Example: `controller-uid: "$UID"`
 
 Used on: Jobs and Pods controlled by Jobs
 -->
-### controller-uid (deprecated) {#controller-uid}
+### controller-uid（已弃用） {#controller-uid}
 
 类别：标签
 
@@ -3622,7 +3657,7 @@ Kubernetes v1.27 及更高版本不直接设置或读取此注解。然而，AWS
 `service.beta.kubernetes.io/aws-load-balancer-security-groups` 注解。
 {{< /note >}}
 
-### service.beta.kubernetes.io/load-balancer-source-ranges (deprecated) {#service-beta-kubernetes-io-load-balancer-source-ranges}
+### service.beta.kubernetes.io/load-balancer-source-ranges（已弃用） {#service-beta-kubernetes-io-load-balancer-source-ranges}
 
 <!--
 Example: `service.beta.kubernetes.io/load-balancer-source-ranges: "192.0.2.0/25"`
@@ -3822,8 +3857,8 @@ for more information.
 用于：Namespace
 
 值**必须**是 `privileged`、`baseline` 或 `restricted` 之一，它们对应于
-[Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards) 级别。
-特别地，`enforce` 标签 **禁止** 在带标签的 Namespace 中创建任何不符合指示级别要求的 Pod。
+[Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards)级别。
+特别地，`enforce` 标签**禁止**在带标签的 Namespace 中创建任何不符合指示级别要求的 Pod。
 
 请请参阅[在名字空间级别实施 Pod 安全性](/zh-cn/docs/concepts/security/pod-security-admission)了解更多信息。
 
@@ -3884,7 +3919,7 @@ for more information.
 
 用于：Namespace
 
-值**必须**是与 [Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards) 级别相对应的
+值**必须**是与 [Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards)级别相对应的
 `privileged`、`baseline` 或 `restricted` 之一。
 具体来说，`audit` 标签不会阻止在带标签的 Namespace 中创建不符合指示级别要求的 Pod，
 但会向该 Pod 添加审计注解。
@@ -4071,7 +4106,7 @@ learn the supported way to specify seccomp restrictions for a Pod.
 用于：Pod
 
 v1.25 之前的 Kubernetes 允许你使用此注解配置 seccomp 行为。
-请参考 [使用 seccomp 限制容器的系统调用](/zh-cn/docs/tutorials/security/seccomp/)，
+请参考[使用 seccomp 限制容器的系统调用](/zh-cn/docs/tutorials/security/seccomp/)，
 了解为 Pod 指定 seccomp 限制的受支持方法。
 
 <!--
@@ -4092,7 +4127,7 @@ learn the supported way to specify seccomp restrictions for a Pod.
 用于：Pod
 
 v1.25 之前的 Kubernetes 允许你使用此注解配置 seccomp 行为。
-请参考 [使用 seccomp 限制容器的系统调用](/zh-cn/docs/tutorials/security/seccomp/)
+请参考[使用 seccomp 限制容器的系统调用](/zh-cn/docs/tutorials/security/seccomp/)
 了解为 Pod 指定 seccomp 限制的受支持方法。
 
 ### snapshot.storage.kubernetes.io/allow-volume-mode-change {#allow-volume-mode-change}
@@ -4331,7 +4366,7 @@ command on a specific node.
 
 用于：节点
 
-Kubeadm 应用在控制平面节点上的污点, 用来限制启动 Pod，并且只允许特定 Pod 可调度到这些节点上。
+Kubeadm 应用在控制平面节点上的污点，用来限制启动 Pod，并且只允许特定 Pod 可调度到这些节点上。
 
 如果应用此污点，则控制平面节点只允许对其进行关键工作负载调度。可以在特定节点上使用以下命令手动删除此污染。
 
