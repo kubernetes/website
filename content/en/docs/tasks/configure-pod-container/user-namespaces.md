@@ -79,7 +79,7 @@ to `false`. For example:
 1. Attach to the container and run `readlink /proc/self/ns/user`:
 
    ```shell
-   kubectl attach -it userns bash
+   kubectl exec -it userns -- bash
    ```
 
 And run the command. The output is similar to this:
@@ -91,6 +91,7 @@ cat /proc/self/uid_map
 0          0 4294967295
 ```
 
+Type `exit` and press enter to disconnect from the `userns` pod.
 Then, open a shell in the host and run the same command.
 
 The output must be different. This means the host and the pod are using a
