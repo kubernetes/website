@@ -47,7 +47,7 @@ The `conditions` field describes the status of all `Running` nodes. Examples of 
 | `DiskPressure`       | `True` if pressure exists on the disk size—that is, if the disk capacity is low; otherwise `False` |
 | `MemoryPressure`     | `True` if pressure exists on the node memory—that is, if the node memory is low; otherwise `False` |
 | `PIDPressure`        | `True` if pressure exists on the processes—that is, if there are too many processes on the node; otherwise `False` |
-| `NetworkUnavailable` | `True` if the network for the node is not correctly configured, otherwise `False` |
+| `NetworkUnavailable` | Reflects the network status as determined by the plugins; `True` if improperly configured, `False` for correct configuration and operational network. This value is plugin-dependent and not a Kubernetes standard. A network can be fully operational even if this condition does not exist. |
 {{< /table >}}
 
 {{< note >}}
