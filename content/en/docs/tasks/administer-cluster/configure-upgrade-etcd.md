@@ -345,11 +345,14 @@ either be a snapshot file from a previous backup operation, or from a remaining
 When restoring the cluster, use the `--data-dir` option to specify to which folder the cluster should be restored:
 
 ```shell
-ETCDCTL_API=3 etcdctl --data-dir <data-dir-location> snapshot restore snapshot.db
+etcdutl --data-dir <data-dir-location> snapshot restore snapshot.db
 ```
 where `<data-dir-location>` is a directory that will be created during the restore process.
 
-Yet another example would be to first export the `ETCDCTL_API` environment variable:
+The below example depicts the usage of the `etcdctl` tool for the restore operation:
+{{< note >}}
+The usage of `etcdctl` for restoring has been deprecated since etcd v3.5.x and may be removed from a future etcd release.
+{{< /note >}}
 
 ```shell
 export ETCDCTL_API=3
