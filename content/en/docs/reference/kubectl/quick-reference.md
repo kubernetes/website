@@ -45,10 +45,12 @@ echo '[[ $commands[kubectl] ]] && source <(kubectl completion zsh)' >> ~/.zshrc 
 
 ### FISH
 
-Require kubectl version 1.23 or above.
+{{< note >}}
+Requires kubectl version 1.23 or above.
+{{< /note >}}
 
 ```bash
-echo 'kubectl completion fish | source' >> ~/.config/fish/config.fish  # add kubectl autocompletion permanently to your fish shell 
+echo 'kubectl completion fish | source' > ~/.config/fish/completions/kubectl.fish && source ~/.config/fish/completions/kubectl.fish
 ```
 
 ### A note on `--all-namespaces`
