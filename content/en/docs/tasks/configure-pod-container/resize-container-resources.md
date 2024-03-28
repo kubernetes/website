@@ -18,6 +18,12 @@ of a running pod without restarting the pod or its containers. A Kubernetes node
 allocates resources for a pod based on its `requests`, and restricts the pod's
 resource usage based on the `limits` specified in the pod's containers.
 
+Changing the resource allocation for a running Pod requires the
+`InPlacePodVerticalScaling` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+to be enabled. The alternative is to delete the Pod and let the
+[workload controller](/docs/concepts/workloads/controllers/) make a replacement Pod
+that has a different resource requirement.
+
 For in-place resize of pod resources:
 - Container's resource `requests` and `limits` are _mutable_ for CPU
   and memory resources.
@@ -45,6 +51,8 @@ For in-place resize of pod resources:
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
+The `InPlacePodVerticalScaling` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) must be enabled
+for your control plane and for all nodes in your cluster.
 
 ## Container Resize Policies
 
@@ -170,8 +178,8 @@ spec:
 
 ## Updating the pod's resources
 
-Let's say the CPU requirements have increased, and 0.8 CPU is now desired. This
-is typically determined, and may be programmatically applied, by an entity such as
+Let's say the CPU requirements have increased, and 0.8 CPU is now desired. This may
+be specified manually, or determined and programmatically applied by an entity such as
 [VerticalPodAutoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme) (VPA).
 
 {{< note >}}
