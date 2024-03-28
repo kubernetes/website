@@ -719,7 +719,7 @@ crontab "my-new-cron-object" created
 ```
 ### Validation ratcheting
 
-{{< feature-state state="alpha" for_k8s_version="v1.28" >}}
+{{< feature-state feature_gate_name="CRDValidationRatcheting" >}}
 
 You need to enable the `CRDValidationRatcheting`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to

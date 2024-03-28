@@ -8,7 +8,7 @@ min-kubernetes-server-version: 1.27
 
 <!-- overview -->
 
-{{< feature-state state="alpha" for_k8s_version="v1.27" >}}
+{{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
 
 This page assumes that you are familiar with [Quality of Service](/docs/tasks/configure-pod-container/quality-service-pod/)
 for Kubernetes Pods.
