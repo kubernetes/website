@@ -64,4 +64,6 @@ cards:
 - name: about
   title: About the documentation
   description: This website contains documentation for the current and previous 4 versions of Kubernetes.
+  button: "See available versions"
+  button_path: "/docs/home/supported-doc-versions"
 ---
