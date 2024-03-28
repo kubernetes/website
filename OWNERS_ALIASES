@@ -1,4 +1,3 @@
-aliases:
   sig-docs-blog-owners: # Approvers for blog content
     - mrbobbytables
     - nate-double-u
@@ -8,6 +7,18 @@ aliases:
     - mrbobbytables
     - nate-double-u
     - sftim
+  sig-docs-website-owners: # Admins for overall website
+    - annajung
+    - bradtopol
+    - divya-mohan0209
+    - kbhawkey
+    - natalisucks
+    - nate-double-u
+    - onlydole
+    - reylejano
+    - Rishit-dagli # 1.28 Release Team Docs Lead
+    - sftim
+    - tengqm
   sig-docs-localization-owners: # Admins for localization content
     - a-mccarthy
     - divya-mohan0209
