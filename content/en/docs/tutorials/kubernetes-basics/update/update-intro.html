@@ -141,8 +141,8 @@ description: |-
         <div class="row">
             <div class="col-md-12">
                <h3>Verify an update</h3>
-               <p>First, check that the app is running. To find the exposed IP address and port, run the <code>describe service</code> command:</p>
-               <p><code><b>kubectl describe services/kubernetes-bootcamp</b></code></p>
+               <p>First, check that the service is running, as you might have deleted it in previous tutorial step, run <code>describe services/kubernetes-bootcamp</code>. If it's missing, you can create it again with:
+               <p><code><b>kubectl expose deployment/kubernetes-bootcamp --type="NodePort" --port 8080</b></code></p>
                <p>Create an environment variable called <tt>NODE_PORT</tt> that has the value of the Node port assigned:</p>
                <p><code><b>export NODE_PORT="$(kubectl get services/kubernetes-bootcamp -o go-template='{{(index .spec.ports 0).nodePort}}')"</b></code><br />
                   <code><b>echo "NODE_PORT=$NODE_PORT"</b></code></p>
