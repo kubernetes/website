@@ -1358,13 +1358,13 @@ To turn off the `vsphereVolume` plugin from being loaded by the controller manag
 ## Using subPath {#using-subpath}
 
 Sometimes, it is useful to share one volume for multiple uses in a single pod.
-The `volumeMounts.subPath` property specifies a sub-path inside the referenced volume
+The `volumeMounts[*].subPath` property specifies a sub-path inside the referenced volume
 instead of its root.
 -->
 ## 使用 subPath  {#using-subpath}
 
 有时，在单个 Pod 中共享卷以供多方使用是很有用的。
-`volumeMounts.subPath` 属性可用于指定所引用的卷内的子路径，而不是其根路径。
+`volumeMounts[*].subPath` 属性可用于指定所引用的卷内的子路径，而不是其根路径。
 
 <!--
 The following example shows how to configure a Pod with a LAMP stack (Linux Apache MySQL PHP)
@@ -1875,13 +1875,13 @@ Mount propagation allows for sharing volumes mounted by a container to
 other containers in the same pod, or even to other pods on the same node.
 
 Mount propagation of a volume is controlled by the `mountPropagation` field
-in `Container.volumeMounts`. Its values are:
+in `containers[*].volumeMounts`. Its values are:
 -->
 ## 挂载卷的传播   {#mount-propagation}
 
 挂载卷的传播能力允许将容器安装的卷共享到同一 Pod 中的其他容器，甚至共享到同一节点上的其他 Pod。
 
-卷的挂载传播特性由 `Container.volumeMounts` 中的 `mountPropagation` 字段控制。
+卷的挂载传播特性由 `containers[*].volumeMounts` 中的 `mountPropagation` 字段控制。
 它的值包括：
 
 <!--
