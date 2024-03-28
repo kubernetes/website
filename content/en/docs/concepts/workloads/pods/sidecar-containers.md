@@ -23,7 +23,7 @@ Enabled by default with Kubernetes 1.29, a
 Pod's `initContainers` field. These restartable _sidecar_ containers are independent with
 other [init containers](/docs/concepts/workloads/pods/init-containers/) and main
 application container within the same pod. These can be started, stopped, or restarted
-without effecting the main application container and other init containers.
+without affecting the main application container and other init containers.
 
 ## Sidecar containers and Pod lifecycle
 

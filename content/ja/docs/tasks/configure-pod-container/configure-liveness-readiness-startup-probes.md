@@ -209,7 +209,6 @@ HTTPまたはTCPによるProbeにおいて、[ContainerPort](/docs/reference/gen
 ports:
 - name: liveness-port
   containerPort: 8080
-  hostPort: 8080
 
 livenessProbe:
   httpGet:
@@ -231,7 +230,6 @@ livenessProbe:
 ports:
 - name: liveness-port
   containerPort: 8080
-  hostPort: 8080
 
 livenessProbe:
   httpGet:

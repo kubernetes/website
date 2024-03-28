@@ -905,7 +905,7 @@ Portworxの`CSIMigration`機能が追加されましたが、Kubernetes 1.23で�
 ## subPathの使用 {#using-subpath}
 
 1つのPodで複数の用途に使用するために1つのボリュームを共有すると便利な場合があります。
-`volumeMounts.subPath`プロパティは、ルートではなく、参照されるボリューム内のサブパスを指定します。
+`volumeMounts[*].subPath`プロパティは、ルートではなく、参照されるボリューム内のサブパスを指定します。
 
 次の例は、単一の共有ボリュームを使用してLAMPスタック(Linux Apache MySQL PHP)でPodを構成する方法を示しています。
 このサンプルの`subPath`構成は、プロダクションでの使用にはお勧めしません。
@@ -1001,7 +1001,7 @@ CSIとFlexVolumeはどちらも、ボリュームプラグインをKubernetesコ
 
 ### csi
 
-[Container Storage Interface](https://github.com/container-storage-interface/spec/blob/master/spec.md)(CSI)は、コンテナオーケストレーションシステム(Kubernetesなど)の標準インターフェイスを定義して、任意のストレージシステムをコンテナワークロードに公開します。
+[Container Storage Interface](https://github.com/container-storage-interface/spec/blob/master/spec.md)(CSI)は、コンテナオーケストレーションシステム(Kubernetesなど)の標準インターフェースを定義して、任意のストレージシステムをコンテナワークロードに公開します。
 
 詳細については[CSI design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md)を参照してください。
 
@@ -1081,7 +1081,7 @@ FlexVolumeドライバーのメンテナーは、CSIドライバーを実装し�
 
 マウントの伝播により、コンテナによってマウントされたボリュームを、同じPod内の他のコンテナ、または同じノード上の他のPodに共有できます。
 
-ボリュームのマウント伝播は、`Container.volumeMounts`の`mountPropagation`フィールドによって制御されます。その値は次のとおりです。
+ボリュームのマウント伝播は、`containers[*].volumeMounts`の`mountPropagation`フィールドによって制御されます。その値は次のとおりです。
 
 * `None` - このボリュームマウントは、ホストによってこのボリュームまたはそのサブディレクトリにマウントされる後続のマウントを受け取りません。同様に、コンテナによって作成されたマウントはホストに表示されません。これがデフォルトのモードです。
 

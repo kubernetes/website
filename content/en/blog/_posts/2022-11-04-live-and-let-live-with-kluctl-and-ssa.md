@@ -22,12 +22,12 @@ large Kubernetes deployments, composed of multiple smaller parts
 
 To get a basic understanding of Kluctl, I suggest to visit the [kluctl.io](https://kluctl.io)
 website and read through the documentation and tutorials, for example the 
-[microservices demo tutorial](https://kluctl.io/docs/guides/tutorials/microservices-demo/).
+[microservices demo tutorial](https://kluctl.io/docs/tutorials/microservices-demo/1-basic-project-setup/).
 As an alternative, you can watch [Hands-on Introduction to kluctl](https://www.youtube.com/watch?v=9LoYLjDjOdg)
 from the Rawkode Academy YouTube channel which shows a hands-on demo session.
 
-There is also a [Kluctl delivery scenario](https://github.com/codablock/podtato-head/tree/kluctl/delivery/kluctl)
-available in my fork of the [podtato-head](https://github.com/codablock/podtato-head) demo project.
+There is also a [Kluctl delivery scenario](https://github.com/podtato-head/podtato-head-delivery/tree/main/kluctl)
+for the [podtato-head](https://github.com/podtato-head/podtato-head) demo project.
 
 ## Live and let live
 
@@ -144,8 +144,8 @@ If the field manager is not known by Kluctl, it will check if force-applying is
 requested for that field. Force-applying can be requested in different ways:
 
 1. By passing `--force-apply` to Kluctl. This will cause ALL fields to be force-applied on conflicts.
-2. By adding the [`kluctl.io/force-apply=true`](https://kluctl.io/docs/reference/deployments/annotations/all-resources/#kluctlioforce-apply) annotation to the object in question. This will cause all fields of that object to be force-applied on conflicts.
-3. By adding the [`kluctl.io/force-apply-field=my.json.path`](https://kluctl.io/docs/reference/deployments/annotations/all-resources/#kluctlioforce-apply-field) annotation to the object in question. This causes only fields matching the JSON path to be force-applied on conflicts.
+2. By adding the [`kluctl.io/force-apply=true`](https://kluctl.io/docs/kluctl/deployments/annotations/all-resources/#kluctlioforce-apply) annotation to the object in question. This will cause all fields of that object to be force-applied on conflicts.
+3. By adding the [`kluctl.io/force-apply-field=my.json.path`](https://kluctl.io/docs/kluctl/deployments/annotations/all-resources/#kluctlioforce-apply-field) annotation to the object in question. This causes only fields matching the JSON path to be force-applied on conflicts.
 
 Marking a field to be force-applied is required whenever some other actor is
 known to erroneously claim fields (the ECK operator does this to the nodeSets

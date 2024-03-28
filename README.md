@@ -20,6 +20,9 @@ To use this repository, you need the following installed locally:
 - [Hugo (Extended version)](https://gohugo.io/)
 - A container runtime, like [Docker](https://www.docker.com/).
 
+> [!NOTE]
+Make sure to install the Hugo extended version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L11) file.
+
 Before you start, install the dependencies. Clone the repository and navigate to the directory:
 
 ```bash
@@ -55,8 +58,6 @@ If you see errors, it probably means that the hugo container did not have enough
 Open up your browser to <http://localhost:1313> to view the website. As you make changes to the source files, Hugo updates the website and forces a browser refresh.
 
 ## Running the website locally using Hugo
-
-Make sure to install the Hugo extended version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L11) file.
 
 To install dependencies, deploy and test the site locally, run:
 
