@@ -53,7 +53,9 @@ else:
 if not shutil.which('go'):
     error_msgs.append(
         "Go must be installed. See https://golang.org/doc/install")
-
+    
+def is_running_inside_container():
+    return os.path.exists("/.dockerenv")
 
 def process_links(content, remote_prefix, sub_path):
     """Process markdown links found in the docs."""
@@ -195,7 +197,12 @@ def main():
 
     curr_dir = os.path.dirname(os.path.abspath(__file__))
     print("curr_dir {}".format(curr_dir))
-    root_dir = os.path.realpath(os.path.join(curr_dir, '..'))
+
+    if is_running_inside_container():
+        root_dir = os.path.realpath(os.path.join(curr_dir, '..' , 'website'))
+    else:
+        root_dir = os.path.realpath(os.path.join(curr_dir , '..'))
+
     print("root_dir {}".format(root_dir))
 
     try:
@@ -204,20 +211,27 @@ def main():
         # to catch when a user specifies a file that does not exist
         print("[Error] failed in loading config file - {}".format(str(ex)))
         return -2
-
+    
     os.chdir(root_dir)
 
     # create the temp work_dir
-    try:
-        print("Making temp work_dir")
-        work_dir = tempfile.mkdtemp(
-            dir='/tmp' if platform.system() == 'Darwin' else tempfile.gettempdir()
-        )
-    except OSError as ose:
-        print("[Error] Unable to create temp work_dir {}; error: {}"
-              .format(work_dir, ose))
-        return -2
-
+    if not is_running_inside_container():
+        print("Local environment detected, Making a temp work dir...")
+        try:
+            work_dir = tempfile.mkdtemp(
+                dir='/tmp' if platform.system() == 'Darwin' else tempfile.gettempdir()
+            )
+        except OSError as ose:
+            print("[Error] Unable to create temp work_dir {}; error: {}".format(work_dir, ose))
+            return -2
+    else:
+        print("Docker container detected, Using a temp Volume")
+        if os.path.exists('/tempvol'):
+            work_dir = "/tempvol"
+        else:
+            print("Please check if the volume has been mounted correctly!")
+            return -2
+    
     print("Working dir {}".format(work_dir))
 
     for repo in config_data["repos"]:
@@ -251,7 +265,8 @@ def main():
         os.chdir(repo_path)
         if "generate-command" in repo:
             gen_cmd = repo["generate-command"]
-            gen_cmd = "export K8S_RELEASE=" + k8s_release + "\n" + \
+            gen_cmd = "export CONTAINER=" + str(is_running_inside_container()) + "\n" + \
+                "export K8S_RELEASE=" + k8s_release + "\n" + \
                 "export GOPATH=" + work_dir + "\n" + \
                 "export K8S_ROOT=" + work_dir + \
                 "/src/k8s.io/kubernetes" + "\n" + \
