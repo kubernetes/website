@@ -508,7 +508,8 @@ spec:
   selector:
     app.kubernetes.io/name: MyApp
   ports:
-    - port: 80
+    - name: name-of-node-port
+      port: 80
       # By default and for convenience, the `targetPort` is set to
       # the same value as the `port` field.
       targetPort: 80
