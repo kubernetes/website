@@ -824,6 +824,13 @@ If you want to map a Service directly to a specific IP address, consider using
 [headless Services](#headless-services).
 {{< /note >}}
 
+{{< note >}}
+If the external service has a valid domain name and you don’t need port remapping, 
+then using the `ExternalName` service type is convenient to map the external 
+service to an internal one. Otherwise,
+add the IP addresses to an `EndpointSlice` and use that instead.
+{{< /note >}}
+
 When looking up the host `my-service.prod.svc.cluster.local`, the cluster DNS Service
 returns a `CNAME` record with the value `my.database.example.com`. Accessing
 `my-service` works in the same way as other Services but with the crucial
