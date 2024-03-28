@@ -325,16 +325,9 @@ JobStatus represents the current state of a Job.
     
     succeeded holds UIDs of succeeded Pods.
 
-
-
-### Beta level
-
-
 - **ready** (int32)
 
   The number of pods which have a Ready condition.
-  
-  This field is beta-level. The job controller populates the field when the feature gate JobReadyPods is enabled (enabled by default).
 
 ### Alpha level
 
