@@ -103,8 +103,8 @@ The above is not an exhaustive list.
 
 * 节点控制器（Node Controller）：负责在节点出现故障时进行通知和响应
 * 任务控制器（Job Controller）：监测代表一次性任务的 Job 对象，然后创建 Pod 来运行这些任务直至完成
-* 端点分片控制器（EndpointSlice controller）：填充端点分片（EndpointSlice）对象（以提供 Service 和 Pod 之间的链接）。
-* 服务账号控制器（ServiceAccount controller）：为新的命名空间创建默认的服务账号（ServiceAccount）。
+* 端点分片控制器（EndpointSlice Controller）：填充端点分片（EndpointSlice）对象（以提供 Service 和 Pod 之间的链接）。
+* 服务账号控制器（ServiceAccount Controller）：为新的命名空间创建默认的服务账号（ServiceAccount）。
 
 以上并不是一个详尽的列表。
 <!--
