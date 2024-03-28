@@ -285,6 +285,46 @@ digital signature at deploy time [via admission control](/docs/tasks/administer-
 - [ ] Container images are regularly scanned during creation and in deployment, and
   known vulnerable software is patched.
 
+Image security refers to the measures taken to ensure that the images used to deploy
+and run containerized applications are free from vulnerabilities, malware,
+or other security threats.
+
+Some common practices for image security include:
+
+- Regularly scanning container images for vulnerabilities and addressing any issues that are identified.
+- Verifying the authenticity and integrity of container images by using cryptographic signatures.
+- Implementing access controls to ensure that only authorized users have permission to build, modify, or deploy container images.
+- Ensuring that all dependencies used by container images are also secure and up-to-date.
+- Restricting the use of container images to trusted sources and avoiding the use of untrusted images or repositories.
+
+Secure container registries are a type of cloud-based service that provides a secure
+and centralized location for storing and managing container images.
+Container images are ready-to-run packages of software that can be used to quickly and
+easily deploy applications. Each replica of a container based on some image runs the exact
+same software as other containers using the same image.
+
+Some of the key benefits of using a secure container registry include:
+
+- Improved security: Secure container registries provide a secure and centralized location
+  for storing and managing container images, which can help improve security
+  by reducing the risk of unauthorized access or tampering.
+
+- Simplified management: By providing a centralized location for storing and managing container images,
+  secure container registries can help simplify management and reduce the risk of
+  errors or inconsistencies.
+
+- Faster deployment: By providing pre-packaged container images, secure container registries
+  can help speed up the deployment process and reduce the time and effort required
+  to deploy applications.
+
+- Improved collaboration: Secure container registries can help improve collaboration
+  by providing a centralized location for sharing and accessing container images,
+  which can help reduce the risk of miscommunication or errors.
+
+By implementing these measures and maintaining a robust security posture,
+organizations can help to minimize the risk of security incidents and data breaches
+that may result from using insecure images.
+
 Container image should contain the bare minimum to run the program they
 package. Preferably, only the program and its dependencies, building the image
 from the minimal possible base. In particular, image used in production should not

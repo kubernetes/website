@@ -482,3 +482,4 @@ you would need to either:
 * Read the [OCI Image Manifest Specification](https://github.com/opencontainers/image-spec/blob/master/manifest.md).
 * Learn about [container image garbage collection](/docs/concepts/architecture/garbage-collection/#container-image-garbage-collection).
 * Learn more about [pulling an Image from a Private Registry](/docs/tasks/configure-pod-container/pull-image-private-registry).
+* Learn about [Image Security](/docs/concepts/security/security-checklist/#images)
