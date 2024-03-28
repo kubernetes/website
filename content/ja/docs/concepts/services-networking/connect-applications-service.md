@@ -138,7 +138,7 @@ my-nginx   10.244.2.5:80,10.244.3.4:80   1m
 
 クラスター内の任意のノードから、`<CLUSTER-IP>:<PORT>`でnginx Serviceにcurl接続できるようになりました。
 Service IPは完全に仮想的なもので、ホスト側のネットワークには接続できないことに注意してください。
-この仕組みに興味がある場合は、[サービスプロキシー](/ja/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)の詳細をお読みください。
+この仕組みに興味がある場合は、[サービスプロキシ](/ja/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)の詳細をお読みください。
 
 ## Serviceにアクセスする
 
