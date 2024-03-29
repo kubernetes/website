@@ -85,7 +85,7 @@ VMware vSphere | https://www.vmware.com/security/hardening-guides |
 
 ## পলিসি
 
-আপনি কুবারনেটিস-নেটিভ মেকানিজম ব্যবহার করে নিরাপত্তা নীতি নির্ধারণ করতে পারেন,
+আপনি কুবারনেটিস-নেটিভ মেকানিজম ব্যবহার করে নিরাপত্তা পলিসি নির্ধারণ করতে পারেন,
 যেমন [NetworkPolicy](/bn/docs/concepts/services-networking/network-policies/)
 (নেটওয়ার্ক প্যাকেট ফিল্টারিং উপর ঘোষণামূলক কন্ট্রোল) বা
 [ValidatingAdmisisonPolicy](/bn/docs/reference/access-authn-authz/validating-admission-policy/)
@@ -117,7 +117,7 @@ VMware vSphere | https://www.vmware.com/security/hardening-guides |
 
 প্রসঙ্গ জানুন:
 
-<!-- এটি পরিবর্তন করলে, content/en/docs/concepts/security/cloud-native-security.md এর ফ্রন্ট ম্যাটার ম্যাচ করতে অন্যত্র সম্পাদনা করুন; no_list সেটিং পরীক্ষা করুন -->
+<!-- if changing this, also edit the front matter of content/en/docs/concepts/security/cloud-native-security.md to match; check the no_list setting -->
 * [ক্লাউড নেটিভ নিরাপত্তা এবং কুবারনেটিস](/bn/docs/concepts/security/cloud-native-security/) পড়ুন।
 
 সার্টিফাইড:
