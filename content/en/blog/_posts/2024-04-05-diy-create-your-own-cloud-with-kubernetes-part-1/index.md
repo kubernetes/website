@@ -2,7 +2,7 @@
 layout: blog
 title: "DIY: Create Your Own Cloud with Kubernetes (Part 1)"
 slug: diy-create-your-own-cloud-with-kubernetes-part-1
-date: 2024-01-22
+date: 2024-04-05
 ---
 
 **Author**: Andrei Kvapil (Ænix)
@@ -175,4 +175,4 @@ cozy-victoria-metrics-operator   victoria-metrics-operator   4m1s   True    Rele
 
 As a result, you achieve a highly repeatable environment that you can provide to anyone, knowing that it operates exactly as intended. This is actually what the [Cozystack](https://github.com/aenix-io/cozystack) project does, which you can try out for yourself absolutely free.
 
-In the following articles, I will discuss how to prepare Kubernetes for running virtual machines and how to run Kubernetes clusters at the click of a button. Stay tuned, it'll be fun!
+In the following articles, I will discuss [how to prepare Kubernetes for running virtual machines](/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-2/) and [how to run Kubernetes clusters with the click of a button](/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-3/). Stay tuned, it'll be fun!
