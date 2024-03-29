@@ -1,4 +1,4 @@
-/*  বিভাগসমূহ  */
+/*  SECTIONS  */
 .section {
 	clear: both;
 	padding: 0px;
@@ -11,7 +11,7 @@
 	margin-bottom: 2em;
 }
 
-/*  কলাম সেটআপ  */
+/*  COLUMN SETUP  */
 .col {
 	display: block;
 	float:left;
@@ -20,7 +20,8 @@
 }
 .col:first-child { margin-left: 0; }
 
-/*  গ্রুপিং  */
+
+/*  GROUPING  */
 .group:before,
 .group:after {
 	content:"";
@@ -30,10 +31,10 @@
 	clear:both;
 }
 .group {
-    zoom:1; /* আইই 6/7 এর জন্য */
+    zoom:1; /* For IE 6/7 */
 }
 
-/*  তিনটি গ্রিড  */
+/*  GRID OF THREE  */
 .span_3_of_3 {
 	width: 35%;
 	background-color: #f9f9f9;
@@ -51,20 +52,20 @@
 }
 
 .col-container {
-    display: table; /* কন্টেন্টের উপাদানগুলি একটি টেবিল হিসেবে ব্যবহার করুন */
-    width: 100%; /* সম্পূর্ণ প্রসারের জন্য পূর্ণ প্রস্থ */
+    display: table; /* Make the container element behave like a table */
+    width: 100%; /* Set full-width to expand the whole page */
 		padding-bottom: 30px;
 }
 
 .col-nav {
-    display: table-cell; /* কন্টেনারের উপাদানগুলি টেবিল সেল হিসেবে কাজ করার জন্য */
+    display: table-cell; /* Make elements inside the container behave like table cells */
 		width: 18%;
 		background-color: #f9f9f9;
 		padding: 20px;
 		border: 5px solid white;
 }
 
-/*  480 পিক্সেলের নিচে পূর্ণ প্রস্থে যান  */  
+/*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
 
 @media only screen and (max-width: 480px) {
 	.col { margin: 1% 0 1% 0%;}
