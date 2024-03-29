@@ -2,13 +2,13 @@
 layout: blog
 title: "DIY: Create Your Own Cloud with Kubernetes (Part 2)"
 slug: diy-create-your-own-cloud-with-kubernetes-part-2
-date: 2024-02-04
+date: 2024-04-05
 ---
 
 **Author**: Andrei Kvapil (Ænix)
 
 Continuing our series of posts on how to build your own cloud using just the Kubernetes ecosystem.
-In the [previous article](/blog/2024/01/22/diy-create-your-own-cloud-with-kubernetes-part-1/), we explained how we prepare a basic Kubernetes distribution based on Talos Linux and Flux CD.
+In the [previous article](/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-1/), we explained how we prepare a basic Kubernetes distribution based on Talos Linux and Flux CD.
 In this article, we'll show you a few various virtualization technologies in Kubernetes and prepare everything need to run virtual machines in Kubernetes, primarily storage and networking.
 
 We will talk about technologies such as KubeVirt, LINSTOR, and Kube-OVN.
@@ -76,9 +76,8 @@ The time-tested and industry-popular technologies such as LVM and ZFS as backend
 For installing LINSTOR in Kubernetes, there is the Piraeus project, which already provides a ready-made block storage to use with KubeVirt.
 
 {{< note >}}
-In case you are using Talos Linux, as we described in the [previous article](/blog/2024/01/22/diy-create-your-own-cloud-with-kubernetes-part-1/), you will need to enable the necessary kernel modules in advance, and configure piraeus as described in the [instruction](https://github.com/piraeusdatastore/piraeus-operator/blob/v2/docs/how-to/talos.md).
+In case you are using Talos Linux, as we described in the [previous article](/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-1/), you will need to enable the necessary kernel modules in advance, and configure piraeus as described in the [instruction](https://github.com/piraeusdatastore/piraeus-operator/blob/v2/docs/how-to/talos.md).
 {{< /note >}}
-
 
 ## Networking for Kubernetes VMs
 
@@ -148,4 +147,4 @@ This enables failover that works independently of Kubernetes control-plane.
 
 This concludes our overview of virtualization, storage, and networking in Kubernetes. The technologies mentioned here are available and already pre-configured on the [Cozystack](https://github.com/aenix-io/cozystack) platform, where you can try them with no limitations.
 
-In the next article, we will detail how, on top of this, we implement the provisioning of fully functional Kubernetes clusters with just the push of a button.
+In the [next article](/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-3/), we will detail how, on top of this, we implement the provisioning of fully functional Kubernetes clusters with just the push of a button.
