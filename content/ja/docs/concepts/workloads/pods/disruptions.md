@@ -77,7 +77,7 @@ Podのspecの中で[PriorityClassesを使用している](/ja/docs/concepts/sche
 Kubernetesは、自発的なDisruptionが頻繁に発生する場合でも、可用性の高いアプリケーションの運用を支援する機能を提供しています。
 
 アプリケーションの所有者として、各アプリケーションに対してPodDisruptionBudget (PDB)を作成することができます。
-PDBは、レプリケートされたアプリケーションのうち、自発的なDisruptionによって同時にダウンするPodの数を制限します。
+PDBは、レプリカを持っているアプリケーションのうち、自発的なDisruptionによって同時にダウンするPodの数を制限します。
 例えば、クォーラムベースのアプリケーションでは、実行中のレプリカの数がクォーラムに必要な数を下回らないようにする必要があります。
 Webフロントエンドは、負荷に対応するレプリカの数が、全体に対して一定の割合を下回らないようにしたいかもしれません。
 
@@ -107,7 +107,7 @@ PDBが同時に4つまでを許容する場合、Eviction APIは1度に(2つで�
 
 Eviction APIを使用してPodを退避した場合、[PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)で設定した`terminationGracePeriodSeconds`に従って正常に[終了](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)します。
 
-## PodDisruptionBudge の例 {#pdb-example}
+## PodDisruptionBudgeの例 {#pdb-example}
 
 `node-1`から`node-3`まで3つのノードがあるクラスターを考えます。
 クラスターにはいくつかのアプリケーションが動いています。
@@ -122,7 +122,7 @@ Eviction APIを使用してPodを退避した場合、[PodSpec](/docs/reference/
 
 3つのPodはすべてDeploymentの一部で、これらはまとめて1つのPDBを持ち、3つのPodのうちの少なくとも2つが常に存在していることを要求します。
 
-例えばクラスター管理者がカーネルのバグを修正するために、新しいカーネルバージョンにリブートしたいとします。
+例えばクラスター管理者がカーネルのバグを修正するために、再起動して新しいカーネルバージョンにしたいとします。
 クラスター管理者はまず、`kubectl drain`コマンドを使って`node-1`をドレインしようとします。
 ツールは`pod-a`と`pod-x`を退避しようとします。
 これはすぐに成功します。
