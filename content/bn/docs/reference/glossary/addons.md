@@ -2,7 +2,7 @@
 title: অ্যাড-অন
 id: addons
 date: 2019-12-15
-full_link: /docs/concepts/cluster-administration/addons/
+full_link: /bn/docs/concepts/cluster-administration/addons/
 short_description: >
   কুবারনেটিসের কার্যকারিতা প্রসারিত করে এমন রিসোর্স।
 
