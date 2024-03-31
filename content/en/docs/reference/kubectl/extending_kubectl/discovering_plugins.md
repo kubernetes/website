@@ -8,13 +8,6 @@ description: >
 ---
 
 
-{{< alert color="success" title="TL;DR" >}}
-
-- [krew.sigs.k8s.io](https://krew.sigs.k8s.io/) is a kubernetes sub-project to discover and manage plugins
-
-{{< /alert >}}
-
-# Krew
 
 By design, `kubectl` does not install plugins. This task is left to the kubernetes sub-project
 [krew.sigs.k8s.io](https://krew.sigs.k8s.io/) which needs to be installed separately.
