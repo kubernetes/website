@@ -14,6 +14,7 @@ in that class.
 
 <!--more-->
 
-[The PriorityClass](/docs/concepts/scheduling-eviction/pod-priority-preemption/#how-to-use-priority-and-preemption) is a non-namespaced object mapping a name to an integer priority. The name is
+A [PriorityClass](/docs/concepts/scheduling-eviction/pod-priority-preemption/#how-to-use-priority-and-preemption)
+is a non-namespaced object mapping a name to an integer priority, used for a Pod. The name is
 specified in the `metadata.name` field, and the priority value in the `value` field. Priorities range from
 -2147483648 to 1000000000 inclusive. Higher values indicate higher priority.
