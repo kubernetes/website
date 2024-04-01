@@ -107,7 +107,7 @@ PDBが同時に4つまでを許容する場合、Eviction APIは1度に(2つで�
 
 Eviction APIを使用してPodを退避した場合、[PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)で設定した`terminationGracePeriodSeconds`に従って正常に[終了](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)します。
 
-## PodDisruptionBudgeの例 {#pdb-example}
+## PodDisruptionBudgetの例 {#pdb-example}
 
 `node-1`から`node-3`まで3つのノードがあるクラスターを考えます。
 クラスターにはいくつかのアプリケーションが動いています。
