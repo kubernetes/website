@@ -60,7 +60,49 @@ other admission controllers.
 
 The ordering of these calls can be seen below.
 
-{{< figure src="/images/docs/admission-controllers/kube-apiserver.svg" alt="Sequence diagram for kube-apiserver handling requests during the admission phase showing mutation webhooks, followed by validatingadmissionpolicies and finally validating webhooks." class="diagram-large" >}}
+
+{{< mermaid >}} 
+%%{init:{"theme":"neutral", "sequence": {"mirrorActors":true},
+    "themeVariables": {
+        "actorBkg":"royalblue",
+        "actorTextColor":"white",
+        "loopTextColor": "royalblue",
+        "noteBkgColor": "grey",
+        "fontSize": "22px"
+}}}%%
+sequenceDiagram
+    participant User as User 
+    participant API as Kubernetes API Server
+    participant Auth as Authentication + Authorisation
+    %% participant AdmCtrl as Admission Control
+    box Gainsboro  Admission Control <br>Called until first rejection
+    participant MutatingWebhook as Mutating Webhook(s)
+    participant ValidatingPol as Validating Admission Policies
+    participant ValidatingWebhook as Validating Webhook(s)
+    end
+
+
+    User ->> API : Request (e.g., create a pod) 
+    API ->> Auth: Authenticate user and <br>check user permissions
+
+    par For all Mutating Webhooks
+        Auth ->> MutatingWebhook: Invoke Mutating Webhooks
+        MutatingWebhook ->> Auth: Modify or reject object (if needed)
+    end
+    par For all Validating Policies
+    Auth ->> ValidatingPol: Invoke Validating Policies
+    ValidatingPol ->> Auth: Reject object (if needed)
+    end
+    par For all Validating Webhooks
+    Auth ->> ValidatingWebhook: Invoke Validating Webhooks
+    ValidatingPol ->> Auth: Reject object (if needed)
+    end
+    Auth ->> API: Allow or reject request
+
+    API -->> User: Response  (e.g., success or error)
+{{< /mermaid >}} 
+<!-- Commented out nutil I get guidance on how to put alt-text on a mermaid diagram -->
+<!-- {{< figure src="//images/docs/admission-controllers/kube-apiserver.svg" alt="Sequence diagram for kube-apiserver handling requests during the admission phase showing mutation webhooks, followed by validatingadmissionpolicies and finally validating webhooks." class="diagram-large" >}} -->
 
 ## Why do I need them?
 
