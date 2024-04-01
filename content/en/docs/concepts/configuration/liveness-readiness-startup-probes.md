@@ -20,7 +20,9 @@ Liveness probes determine when to restart a container. For example, liveness pro
 
 If a container fails its liveness probe repeatedly, the kubelet restarts the container.
 
-Liveness probes do not wait for readiness probes to succeed. If you want to wait before executing a liveness probe you should use initialDelaySeconds or a startupProbe.
+Liveness probes do not wait for readiness probes to succeed. If you want to wait before
+executing a liveness probe you can either define `initialDelaySeconds`, or use a
+[startup probe](#startup-probe).
 
 
 ## Readiness probe
