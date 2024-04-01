@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Introducing Secret Sync Controller Alpha for Kubernetes"
-date: 2024-03-28
+date: 2024-04-04
 slug: secret-sync-controller-alpha
 ---
 
