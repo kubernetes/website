@@ -74,14 +74,13 @@ a previous migration to encrypted storage has succeeded. If you are not sure, se
 
 ## Plan an encryption-at-rest configuration {#understanding-the-encryption-at-rest-configuration}
 
-{{< caution >}}
+{{< note >}}
 For cluster configurations with two or more control plane nodes, the encryption configuration
-**must** be identical across each control plane node.
+should be identical across each control plane node.
 
-If there is a difference in the encryption provider configuration, this may well mean
-that the kube-apiserver can't decrypt data stored inside the key-value store (potentially
-leading to further problems, such as inconsistent resource reads, or even data loss).
-{{< /caution >}}
+If there is a difference in the encryption provider configuration between control plane
+nodes, this difference may mean that the kube-apiserver can't decrypt data.
+{{< /note >}}
 
 Here is an example EncryptionConfiguration file for the kube-apiserver:
 
@@ -477,6 +476,7 @@ At a minimum, use encryption in transit - for example, secure shell (SSH). For m
 security, use asymmetric encryption between hosts, or change the approach you are using
 so that you're relying on KMS encryption.
 
+
 ### Write an encryption configuration file
 
 {{< caution >}}
@@ -584,6 +584,18 @@ Kubernetes cluster has multiple control plane hosts, so there is more to do.
 
 If you have multiple API servers in your cluster, you should deploy the
 changes in turn to each API server.
+
+{{< caution >}}
+For cluster configurations with two or more control plane nodes, the encryption configuration
+should be identical across each control plane node.
+
+If there is a difference in the encryption provider configuration between control plane
+nodes, this difference may mean that the kube-apiserver can't decrypt data.
+{{< /caution >}}
+
+When you are planning to update the encryption configuration of your cluster, plan this
+so that the API servers in your control plane can always decrypt the stored data
+(even part way through rolling out the change).
 
 Make sure that you use the **same** encryption configuration on each
 control plane host.
