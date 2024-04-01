@@ -50,7 +50,7 @@ In addition to the previous on by default security features, a cluster admin sho
 7. Encryption: Kubernetes secrets are stored encoded in etcd, and the secret storage [should be encrypted](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/). For example, a cluster admin should enable a KMS plugin for the cluster to encrypt secret data.  
 
 ## What’s next? 
-Depending on feedback and adoption, the SIG Auth and Secret Store CSI maintainers plan to push the Secret Sync Controller to beta later in 2024.   
+The SIG Auth and Secret Store CSI maintainers plan move the Secret Sync Controller to a dedicated repository in the near future. Depending on feedback and adoption, the project would then graduate to a beta stage later in 2024.
 
 ## How can I get involved? 
 This feature is driven by the [Kubernetes SIG Auth community](https://github.com/kubernetes/community/tree/master/sig-auth). Please try out the [Secret Sync Controller](https://github.com/kubernetes-sigs/secrets-store-csi-driver/tree/feature/secrets-sync-controller) and join us to connect with the [community](https://kubernetes.slack.com/messages/csi-secrets-store) and share your ideas and feedback around the above feature and beyond. We look forward to hearing from you!  
