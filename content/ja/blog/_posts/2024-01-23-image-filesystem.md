@@ -134,7 +134,7 @@ Kubernetesでは、kubeletの構成ファイル内の`EvictionHard`と`EvictionS
 EvictionHardの値を指定すると、デフォルト値が置き換えられます。
 したがって、すべてのシグナルを設定することが重要です。
 
-例えば、次のkubelet構成は、[退避シグナル](/docs/concepts/scheduling-eviction/node-pressure-eviction/#eviction-signals-and-thresholds)と猶予期間オプションを構成するために使用できます。
+例えば、次に示すkubeletの設定は、[退避シグナル](/docs/concepts/scheduling-eviction/node-pressure-eviction/#eviction-signals-and-thresholds)と猶予期間オプションを設定するために使用できます。
 
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1beta1
