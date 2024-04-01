@@ -132,7 +132,7 @@ Kubernetesでは、kubeletの構成ファイル内の`EvictionHard`と`EvictionS
   限界値を定義します。これらの限界値を超えると、Grace Periodが設定されたシグナルごとにポッドが追い出されます。
 
 EvictionHardの値を指定すると、デフォルト値が置き換えられます。
-したがって、構成ですべてのシグナルを設定することが重要です。
+したがって、すべてのシグナルを設定することが重要です。
 
 例えば、次のkubelet構成は、[退避シグナル](/docs/concepts/scheduling-eviction/node-pressure-eviction/#eviction-signals-and-thresholds)と猶予期間オプションを構成するために使用できます。
 
