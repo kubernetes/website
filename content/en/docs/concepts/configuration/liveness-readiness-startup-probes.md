@@ -18,7 +18,7 @@ Kubernetes has various types of probes:
 
 Liveness probes determine when to restart a container. For example, liveness probes could catch a deadlock, where an application is running, but unable to make progress.
 
-If a Pod fails health-checks continuously, the Kubernetes terminates the Pod and starts a new one.
+If a container fails its liveness probe repeatedly, the kubelet restarts the container.
 
 Liveness probes do not wait for readiness probes to succeed. If you want to wait before executing a liveness probe you should use initialDelaySeconds or a startupProbe.
 
