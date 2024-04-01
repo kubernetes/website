@@ -167,7 +167,7 @@ evictionMaxPodGracePeriod: 60s
 
 Kubernetesプロジェクトでは、退避のデフォルト設定を使用するか、退避に関連するすべてのフィールドを設定することをお勧めしています。
 デフォルト設定を使用するか、独自の`evictionHard`設定を指定できます。
-シグナルを見逃すと、Kubernetesはそのリソースを監視しません。
+シグナルの設定を忘れると、Kubernetesはそのリソースを監視しません。
 管理者やユーザーが遭遇する可能性のある一般的な設定ミスの1つは、新しいファイルシステムを`/var/lib/containers/storage`または`/var/lib/containerd`にマウントすることです。
 Kubernetesは別のファイルシステムを検出するため、これを行った場合は`imagefs.inodesfree`と`imagefs.available`が必要に応じて設定に一致していることを確認する必要があります。
 
