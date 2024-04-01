@@ -72,15 +72,6 @@ you already have at-rest encryption enabled. However, that check does not tell y
 a previous migration to encrypted storage has succeeded. If you are not sure, see
 [ensure all relevant data are encrypted](#ensure-all-secrets-are-encrypted).
 
-{{< caution >}}
-For cluster configurations with two or more control plane nodes, the encryption configuration
-**must** be identical across each control plane node.
-
-If there is a difference in the encryption provider configuration, this may well mean
-that the kube-apiserver can't decrypt data stored inside the key-value store (potentially
-leading to further problems, such as inconsistent resource reads, or even data loss).
-{{< /caution >}}
-
 ## Understanding the encryption at rest configuration
 
 <!-- note to localizers: the highlight is to make the initial comment obvious -->
@@ -513,6 +504,18 @@ Kubernetes cluster has multiple control plane hosts, so there is more to do.
 
 If you have multiple API servers in your cluster, you should deploy the
 changes in turn to each API server.
+
+{{< caution >}}
+For cluster configurations with two or more control plane nodes, the encryption configuration
+should be identical across each control plane node.
+
+If there is a difference in the encryption provider configuration between control plane
+nodes, this difference may mean that the kube-apiserver can't decrypt data.
+{{< /caution >}}
+
+When you are planning to update the encryption configuration of your cluster, plan this
+so that the API servers in your control plane can always decrypt the stored data
+(even part way through rolling out the change).
 
 Make sure that you use the **same** encryption configuration on each
 control plane host.
