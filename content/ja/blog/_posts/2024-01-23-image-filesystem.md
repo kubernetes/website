@@ -20,7 +20,7 @@ CRI-Oはデフォルトで、コンテナとイメージを`/var/lib/containers`
 
 ## Kubernetesディスク使用状況を理解する
 
-Kubernetesには永続データと一時データがあります。
+Kubernetesには永続(persistent)データと一時(ephemeral)データがあります。
 kubeletとローカルのKubernetes固有ストレージのベースパスは設定可能ですが、通常は`/var/lib/kubelet`と想定されています。
 Kubernetesのドキュメントでは、これは時々ルートまたはノードファイルシステムと呼ばれます。
 このデータの大部分は、次のようにカテゴリー分けされます。
