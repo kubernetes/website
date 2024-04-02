@@ -62,6 +62,9 @@ The ordering of these calls can be seen below.
 
 
 {{< mermaid >}} 
+
+
+
 %%{init:{"theme":"neutral", "sequence": {"mirrorActors":true},
     "themeVariables": {
         "actorBkg":"royalblue",
@@ -71,6 +74,14 @@ The ordering of these calls can be seen below.
         "fontSize": "22px"
 }}}%%
 sequenceDiagram
+
+    %% This is the alt-text for accessibility, and should be updated every time the diagram is.
+    accDescr {
+        Sequence diagram for kube-apiserver handling requests during the admission phase showing mutation webhooks, followed by validatingadmissionpolicies and finally validating webhooks. 
+        It shows that the continue until the first rejection, or being accepted by all of them. 
+        It also shows that mutations by mutating webhooks cause all previously called webhooks to be called again.
+    }
+
     participant User as User 
     participant API as Kubernetes API Server
     participant Auth as Authentication + Authorisation
@@ -101,8 +112,6 @@ sequenceDiagram
 
     API -->> User: Response  (e.g., success or error)
 {{< /mermaid >}} 
-<!-- Commented out nutil I get guidance on how to put alt-text on a mermaid diagram -->
-<!-- {{< figure src="//images/docs/admission-controllers/kube-apiserver.svg" alt="Sequence diagram for kube-apiserver handling requests during the admission phase showing mutation webhooks, followed by validatingadmissionpolicies and finally validating webhooks." class="diagram-large" >}} -->
 
 ## Why do I need them?
 
