@@ -58,7 +58,7 @@ Puedes usar `kubectl replace -f` para actualizar un objeto en activo de acuerdo 
 
 ## Cómo eliminar objetos
 
-Puede usar `kubectl delete -f` para eliminar un objeto que se describe en un
+Puedes usar `kubectl delete -f` para eliminar un objeto que se describe en un
 archivo de configuración.
 
 * `kubectl delete -f <filename|url>`
