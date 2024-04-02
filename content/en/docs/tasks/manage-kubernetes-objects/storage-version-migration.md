@@ -32,7 +32,7 @@ Install [`kubectl`](/docs/tasks/tools/#kubectl).
 
 ## Re-encrypt Kubernetes secrets using storage version migration
 - To begin with, [configure KMS provider](/docs/tasks/administer-cluster/kms-provider/) 
-to encrypt data at rest in etcd using following encryption configuration.
+  to encrypt data at rest in etcd using following encryption configuration.
   ```yaml
   kind: EncryptionConfiguration
   apiVersion: apiserver.config.k8s.io/v1
@@ -89,14 +89,14 @@ with new key `key2`, you will use _Storage Version Migration_.
   kubectl apply -f migrate-secret.yaml
   ```
 - Monitor migration of Secrets by checking the `.status` of the StorageVersionMigration.
-	A successful migration should have its
+  A successful migration should have its
 `Succeeded` condition set to true. Get the StorageVersionMigration object
 as follows:
   ```shell
   kubectl get storageversionmigration.storagemigration.k8s.io/secrets-migration -o yaml
   ```
 
-	The output is similar to:
+  The output is similar to:
   ```yaml
   kind: StorageVersionMigration
   apiVersion: storagemigration.k8s.io/v1alpha1
@@ -125,7 +125,7 @@ as follows:
 - [Verify](/docs/tasks/administer-cluster/kms-provider/#verifying-that-the-data-is-encrypted)
   the stored secret is now prefixed with `k8s:enc:aescbc:v1:key2`.
 
-## Update the preferred storage schema of the resource while moving from _v1_ to _v2_
+## Update the preferred storage schema of a CRD
 Consider a scenario where a {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
 (CRD) is created to serve custom resources (CRs) and is set as the preferred storage schema. When it's time
 to introduce v2 of the CRD, it can be added for serving only with a conversion
@@ -189,7 +189,7 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
   ```shell
   ETCDCTL_API=3 etcdctl get /kubernetes.io/stable.example.com/testcrds/default/cr1 [...] | hexdump -C
   ```
-  where [...] contains the additional arguments for connecting to the etcd server.
+  where `[...]` contains the additional arguments for connecting to the etcd server.
 - Update the CRD `test-crd.yaml` to include v2 version for serving and storage
  and v1 as serving only, as follows:
   ```yaml
@@ -256,7 +256,7 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
   ```shell
   ETCDCTL_API=3 etcdctl get /kubernetes.io/stable.example.com/testcrds/default/cr2 [...] | hexdump -C
   ```
-  where [...] contains the additional arguments for connecting to the etcd server.
+  where `[...]` contains the additional arguments for connecting to the etcd server.
 - Create a StorageVersionMigration manifest named `migrate-crd.yaml`, with the contents as follows:
   ```yaml
   kind: StorageVersionMigration
@@ -274,7 +274,7 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
   kubectl apply -f migrate-crd.yaml
   ```
 - Monitor migration of secrets using status. Successful migration should have
-  _Succeeded_ condition set to _true_ in the status field. Get the migration resource
+  `Succeeded` condition set to "True" in the status field. Get the migration resource
   as follows:
   ```shell
   kubectl get storageversionmigration.storagemigration.k8s.io/crdsvm -o yaml
@@ -310,4 +310,4 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
   ```shell
   ETCDCTL_API=3 etcdctl get /kubernetes.io/stable.example.com/testcrds/default/cr1 [...] | hexdump -C
   ```
-  where [...] contains the additional arguments for connecting to the etcd server.
+  where `[...]` contains the additional arguments for connecting to the etcd server.
