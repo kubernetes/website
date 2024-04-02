@@ -29,7 +29,7 @@ La herramienta `kubectl` admite tres tipos de administración de objetos:
 * Configuración de objeto imperativo.
 * Configuración de objeto declarativo
 
-Consulte [Administración de objetos de Kubernetes](/docs/concepts/overview/working-with-objects/object-management/)
+Consulta [Administración de objetos de Kubernetes](/docs/concepts/overview/working-with-objects/object-management/)
 para una discusión de las ventajas y desventajas de cada tipo de administración de objetos.
 
 ## Cómo crear objetos
