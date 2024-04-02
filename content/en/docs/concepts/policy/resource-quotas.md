@@ -169,7 +169,7 @@ The same syntax can be used for custom resources.
 For example, to create a quota on a `widgets` custom resource in the `example.com` API group, use `count/widgets.example.com`.
 
 When using such a resource quota (nearly for all object kinds), an object is charged
-against the quota if the control plane has a stored copy.
+against the quota if the object kind exists (is defined) in the control plane.
 These types of quotas are useful to protect against exhaustion of storage resources.  For example, you may
 want to limit the number of Secrets in a server given their large size. Too many Secrets in a cluster can
 actually prevent servers and controllers from starting. You can set a quota for Jobs to protect against
