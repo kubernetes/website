@@ -109,7 +109,7 @@ kubectl create -f <url> --edit
 
 La migración de comandos imperativos a la configuración de objetos imperativos implica varios pasos manuales.
 
-1. Exporte el objeto en vivo a un archivo de configuración de objeto local:.
+1. Exporta el objeto en vivo a un archivo de configuración de objeto local:.
 
     ```shell
     kubectl get <kind>/<name> -o yaml > <kind>_<name>.yaml
