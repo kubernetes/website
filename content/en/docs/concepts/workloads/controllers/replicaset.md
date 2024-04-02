@@ -4,6 +4,9 @@ reviewers:
 - bprashanth
 - madhusudancs
 title: ReplicaSet
+api_metadata:
+- apiVersion: "apps/v1"
+  kind: "ReplicaSet"
 feature:
   title: Self-healing
   anchor: How a ReplicaSet works

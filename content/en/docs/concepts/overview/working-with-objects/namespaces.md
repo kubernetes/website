@@ -4,6 +4,9 @@ reviewers:
 - mikedanese
 - thockin
 title: Namespaces
+api_metadata:
+- apiVersion: "v1"
+  kind: "Namespace"
 content_type: concept
 weight: 45
 ---

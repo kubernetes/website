@@ -1,5 +1,5 @@
 ---
-title: Плоскость управления (Control Plane)
+title: Управляющий слой (Control Plane)
 id: control-plane
 date: 2019-05-12
 full_link:
