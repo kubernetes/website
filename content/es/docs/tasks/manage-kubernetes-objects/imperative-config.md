@@ -35,7 +35,7 @@ para una discusión de las ventajas y desventajas de cada tipo de administració
 ## Cómo crear objetos
 
 Puede usar `kubectl create -f` para crear un objeto a partir de un archivo de configuración.
-Consulte la [referencia de la API de Kubernetes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
+Consulta la [referencia de la API de Kubernetes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 para detalles.
 
 * `kubectl create -f <filename|url>`
