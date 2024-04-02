@@ -117,7 +117,7 @@ La migración de comandos imperativos a la configuración de objetos imperativos
 
 1. Elimine manualmente el campo de estado del archivo de configuración del objeto.
 
-1. Para la gestión posterior de objetos, utilice `replace` exclusivamente.
+1. Para la gestión posterior de objetos, utiliza `replace` exclusivamente.
 
     ```shell
     kubectl replace -f <kind>_<name>.yaml
