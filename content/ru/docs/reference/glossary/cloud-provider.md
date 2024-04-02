@@ -27,6 +27,6 @@ tags:
 Вы также можете найти Kubernetes в качестве управляемого сервиса; иногда его называют
 Платформа как Услуга (Platform as a Service) или PaaS. С упарвляемым Kubernetes
 ваш облачный провайдер отвечает за
-{{< glossary_tooltip term_id="control-plane" text="плоскость управления" >}} Kubernetes, а также за
+{{< glossary_tooltip term_id="control-plane" text="управляющий слой" >}} Kubernetes, а также за
 {{< glossary_tooltip term_id="node" text="узлы" >}} и инфраструктуру, на которую они полагаются:
 сеть, хранилище и, возможно, другие элементы, такие как балансировщики нагрузки.
