@@ -1,28 +1,28 @@
 ---
-title: ক্লাস্টার প্রশাসন
+title: ক্লাস্টার অ্যাডমিনিস্ট্রেশন
 weight: 100
 content_type: concept
 description: >
-  একটি কুবারনেটিস ক্লাস্টার তৈরি বা পরিচালনার জন্য প্রাসঙ্গিক নিম্ন-স্তরের বিশদ।
+  একটি কুবারনেটিস ক্লাস্টার তৈরি বা পরিচালনার জন্য প্রাসঙ্গিক নিম্ন-স্তরের ডিটেইল।
 no_list: true
 card:
   name: setup
   weight: 60
   anchors:
   - anchor: "#securing-a-cluster"
-    title: একটি ক্লাস্টার সুরক্ষিত
+    title: একটি ক্লাস্টার সুরক্ষিতকরণ
 ---
 
 <!-- overview -->
 
-ক্লাস্টার প্রশাসন ওভারভিউ(overview) যে কেউ একটি কুবারনেটিস ক্লাস্টার তৈরি বা পরিচালনা করছেন তাঁর জন্য।
-এটি মূল কুবারনেটিসের এর সাথে কিছু পরিচিতি অনুমান করে [ধারণা](/bn/docs/concepts/)।
+ক্লাস্টার অ্যাডমিনিস্ট্রেশন ওভারভিউ(overview) যে কেউ একটি কুবারনেটিস ক্লাস্টার তৈরি বা পরিচালনা করছেন তাঁর জন্য।
+এটি মূল কুবারনেটিসের [ধারণাগুলোর](/bn/docs/concepts/) সাথে কিছু পরিচিতি আশা করে ।।
 
 <!-- body -->
 
 ## একটি ক্লাস্টার পরিকল্পনা
 
-এ নির্দেশিকাগুলি দেখুন [সেট আপ](/bn/docs/setup/)  কুবারনেটিস ক্লাস্টারগুলি কীভাবে পরিকল্পনা, সেট আপ এবং কনফিগার
+[সেট আপ](/bn/docs/setup/) এ নির্দেশিকাগুলি দেখুন কুবারনেটিস ক্লাস্টারগুলি কীভাবে পরিকল্পনা, সেট আপ এবং কনফিগার
 করতে হয় তার উদাহরণগুলির জন্য৷ এই নিবন্ধে তালিকাভুক্ত সমাধানগুলিকে বলা হয় *distros*।
 
 {{< note  >}}
@@ -49,6 +49,7 @@ card:
 ## একটি ক্লাস্টার পরিচালনা করা
 
 * শিখুন কিভাবে [নোড পরিচালনা করবেন](/bn/docs/concepts/architecture/nodes/)।
+  * এ সম্পর্কে পড়ুন [cluster autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/).
 
 * কিভাবে সেট আপ এবং পরিচালনা করতে হয় [রিসোর্স কোটা](/bn/docs/concepts/policy/resource-quotas/) শেয়ার্ড ক্লাস্টারগুলির জন্য তা শিখুন।
 
@@ -60,21 +61,21 @@ card:
 * [কুবারনেটিস কন্টেইনার এনভায়রনমেন্ট](/bn/docs/concepts/containers/container-environment/) একটি কুবারনেটিস
   নোডে Kubelet পরিচালিত কন্টেইনারগুলির পরিবেশ বর্ণনা করে।
   
-* [Kubernetes API-তে অ্যাক্সেস নিয়ন্ত্রণ](/bn/docs/concepts/security/controlling-access) বর্ণনা করে
-  কিভাবে কুবারনেটিস তার নিজস্ব API এর জন্য অ্যাক্সেস নিয়ন্ত্রণ প্রয়োগ করে।
+* [Kubernetes API-তে অ্যাক্সেস কন্ট্রোল](/bn/docs/concepts/security/controlling-access) বর্ণনা করে
+  কিভাবে কুবারনেটিস তার নিজস্ব API এর জন্য অ্যাক্সেস কন্ট্রোল প্রয়োগ করে।
 
-* [যাচাইকরণ](/bn/docs/reference/access-authn-authz/authentication/) বিভিন্ন যাচাইকরণ বিকল্প সহ,
-  কুবারনেটিসে যাচাইকরণের ব্যাখ্যা দেয়।
+* [অথেন্টিকেশন](/bn/docs/reference/access-authn-authz/authentication/) বিভিন্ন অথেন্টিকেশন বিকল্প সহ,
+  কুবারনেটিসে অথেন্টিকেশনের ব্যাখ্যা দেয়।
 
-* [অথোরাইজেশন](/bn/docs/reference/access-authn-authz/authorization/) যাচাইকরণ থেকে আলাদা,
+* [অথোরাইজেশন](/bn/docs/reference/access-authn-authz/authorization/) অথেন্টিকেশন থেকে আলাদা,
   এবং HTTP কলগুলি কীভাবে পরিচালনা করা হয় তা নিয়ন্ত্রণ করে।
 
-* [ভর্তি নিয়ন্ত্রকদের ব্যবহার](/bn/docs/reference/access-authn-authz/admission-controllers/)
-  প্লাগ-ইনগুলি ব্যাখ্যা করে যা যাচাইকরণ এবং অনুমোদনের পরে কুবারনেটস API সার্ভারে 
+* [অ্যাডমিশন কন্ট্রোলের ব্যবহার](/bn/docs/reference/access-authn-authz/admission-controllers/)
+  ব্যাখ্যা করে প্লাগ-ইনগুলি প্লাগ-ইনগুলি অথেন্টিকেশন এবং অথোরাইজেশনের পরে কুবারনেটস API সার্ভারে
   অনুরোধগুলিকে বাধা দেয়।
 
 * [কুবারনেটিস ক্লাস্টারে Sysctls ব্যবহার ](/bn/docs/tasks/administer-cluster/sysctl-cluster/)
-  একজন প্রশাসকের কাছে বর্ণনা করে যে কীভাবে কার্নেল প্যারামিটার সেট করতে `sysctl` কমান্ড-লাইন টুল ব্যবহার করতে হয়
+  একজন অ্যাডমিনিস্ট্রেটর কাছে বর্ণনা করে যে কীভাবে কার্নেল প্যারামিটার সেট করতে `sysctl` কমান্ড-লাইন টুল ব্যবহার করতে হয়
 ।
 
 * [অডিটিং](/bn/docs/tasks/debug/debug-cluster/audit/) বর্ণনা করে কিভাবে কুবারনেটিসের অডিট লগের সাথে
@@ -84,9 +85,9 @@ card:
 
 * [কন্ট্রোল প্লেন-নোড কমিউনিকেশন](/bn/docs/concepts/architecture/control-plane-node-communication/)
 * [TLS বুটস্ট্র্যাপিং](/bn/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
-* [Kubelet যাচাইকরণ/অনুমোদন](/bn/docs/reference/access-authn-authz/kubelet-authn-authz/)
+* [Kubelet অথেন্টিকেশন /অথোরাইজেশন](/bn/docs/reference/access-authn-authz/kubelet-authn-authz/)
 
-## ঐচ্ছিক ক্লাস্টার সার্ভিস
+## অপশনাল ক্লাস্টার সার্ভিস
 
 * [DNS ইন্টিগ্রেশন](/bn/docs/concepts/services-networking/dns-pod-service/) বর্ণনা করে কিভাবে সরাসরি কুবারনেটিস পরিষেবাতে
   একটি DNS নাম সমাধান করা যায়।
