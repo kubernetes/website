@@ -5,6 +5,9 @@ reviewers:
 - danwinship
 title: Network Policies
 content_type: concept
+api_metadata:
+- apiVersion: "networking.k8s.io/v1"
+  kind: "NetworkPolicy"
 weight: 70
 description: >-
   If you want to control traffic flow at the IP address or port level (OSI layer 3 or 4),
