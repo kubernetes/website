@@ -52,7 +52,7 @@ configuración. Los campos administrados de forma independiente deben copiarse e
 el archivo de configuración para evitar que `replace` los elimine.
 {{< /warning >}}
 
-Puede usar `kubectl replace -f` para actualizar un objeto en activo de acuerdo con un archivo de configuración.
+Puedes usar `kubectl replace -f` para actualizar un objeto en activo de acuerdo con un archivo de configuración.
 
 * `kubectl replace -f <filename|url>`
 
