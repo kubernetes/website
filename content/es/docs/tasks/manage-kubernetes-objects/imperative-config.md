@@ -1,5 +1,5 @@
 ---
-title: Administración imperativa de objetos de Kubernetes mediante archivos de configuración
+title: Administración Imperativa de Objetos de Kubernetes Mediante Archivos de Configuración
 content_type: task
 weight: 40
 ---
