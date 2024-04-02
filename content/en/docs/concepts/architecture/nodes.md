@@ -3,6 +3,9 @@ reviewers:
 - caesarxuchao
 - dchen1107
 title: Nodes
+api_metadata:
+- apiVersion: "v1"
+  kind: "Node"
 content_type: concept
 weight: 10
 ---
