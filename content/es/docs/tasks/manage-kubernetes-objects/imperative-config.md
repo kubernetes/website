@@ -79,7 +79,7 @@ descrito en un archivo de configuración.
 
 * `kubectl get -f <filename|url> -o yaml`
 
-La bandera `-o yaml` especifica que se imprime la configuración completa del objeto. Utilice `kubectl get -h` para ver una lista de opciones.
+La bandera `-o yaml` especifica que se imprime la configuración completa del objeto. Utiliza `kubectl get -h` para ver una lista de opciones.
 
 ## Limitaciones
 
