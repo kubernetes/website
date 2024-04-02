@@ -96,7 +96,7 @@ Si necesitas admitir varios escritores en el mismo objeto, puede usar `kubectl a
 
 ## Crear y editar un objeto desde una URL sin guardar la configuración
 
-Supongamos que tiene la URL de un archivo de configuración de objeto. Puedes usar
+Supongamos que tienes la URL de un archivo de configuración de objeto. Puedes usar
 `kubectl create --edit` para realizar cambios en la configuración antes de que el objeto es creado. Esto es particularmente útil para tutoriales y tareas
 que apuntan a un archivo de configuración que podría ser modificado por el lector.
 
