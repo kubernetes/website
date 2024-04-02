@@ -83,7 +83,7 @@ La bandera `-o yaml` especifica que se imprime la configuración completa del ob
 
 ## Limitaciones
 
-Los comandos `create`, `replace`, y `delete` funcionan bien cuando la configuración de cada objeto está completamente definida y registrada en su archivo de configuración. Sin embargo, cuando se actualiza un objeto activo y las actualizaciones no se combinan en su archivo de configuración las actualizaciones se perderán la próxima vez que se ejecute un `replace`. Esto puede suceder si un controlador, como un HorizontalPodAutoscaler, realiza actualizaciones directamente a un objeto en activo. 
+Los comandos `create`, `replace` y `delete` funcionan bien cuando la configuración de cada objeto está completamente definida y registrada en su archivo de configuración. Sin embargo, cuando se actualiza un objeto activo y las actualizaciones no se combinan en su archivo de configuración las actualizaciones se perderán la próxima vez que se ejecute un `replace`. Esto puede suceder si un controlador, como un HorizontalPodAutoscaler, realice actualizaciones directamente a un objeto en activo. 
 
 Ejemplo:
 
