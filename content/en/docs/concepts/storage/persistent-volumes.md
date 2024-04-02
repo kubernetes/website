@@ -6,6 +6,9 @@ reviewers:
 - msau42
 - xing-yang
 title: Persistent Volumes
+api_metadata:
+- apiVersion: "v1"
+  kind: "PersistentVolume"
 feature:
   title: Storage orchestration
   description: >
