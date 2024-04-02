@@ -81,7 +81,7 @@ In case you are using Talos Linux, as we described in the [previous article](/bl
 
 ## Networking for Kubernetes VMs
 
-Despite having the similar interface - CNI, The network architecture in Kubernetes is actually more complex and typically consists of many independent components that are not directly connected to each other. In fact you can split Kubernetes networking into four layers, which are described below.
+Despite having the similar interface - CNI, The network architecture in Kubernetes is actually more complex and typically consists of many independent components that are not directly connected to each other. In fact, you can split Kubernetes networking into four layers, which are described below.
 
 ### Node Network (Data Center Network)
 
@@ -110,7 +110,7 @@ In Kube-OVN you can assign separate subnets to an entire namespace or connect th
 ### Services Network
 
 In addition to the CNI plugin, Kubernetes also has a services network, which is primarily needed for service discovery.
-Contrary to traditional virtual machines, Kubernetes originally designed to run pods with a random address.
+Contrary to traditional virtual machines, Kubernetes is originally designed to run pods with a random address.
 And the services network provides a convenient abstraction (stable IP addresses and DNS names) that will always direct traffic to the correct pod.
 The same approach is also commonly used with virtual machines in clouds despite the fact that their IPs are usually static.
 
@@ -122,7 +122,7 @@ But nowadays, this functionality might be provided as part of the CNI plugin. Th
 
 Cilium is based on the eBPF technology, which allows for efficient offloading of the Linux networking stack, thereby improving performance and security compared to traditional methods based on iptables.
 
-In practice, Cilium and Kube-OVN can be easily [integrated](https://kube-ovn.readthedocs.io/zh-cn/stable/en/advance/with-cilium/) to provide a unified solution that offers seamless multi-tenant networking for virtual machines, as well as advanced network policies and combined services network functionality.
+In practice, Cilium and Kube-OVN can be easily [integrated](https://kube-ovn.readthedocs.io/zh-cn/stable/en/advance/with-cilium/) to provide a unified solution that offers seamless, multi-tenant networking for virtual machines, as well as advanced network policies and combined services network functionality.
 
 ### External Traffic Load Balancer
 
@@ -140,11 +140,11 @@ In most cases, setting up a load balancer on bare metal is achieved by creating 
 
 After exploring various options, we decided that MetalLB is the simplest and most reliable solution, although we do not strictly enforce the use of only it.
 
-Another benefit is that in L2 mode, MetalLB speakers continuously checking thir neighbors state by sending preforming liveness checks using a memberlist protocol.
+Another benefit is that in L2 mode, MetalLB speakers continuously check their neighbour's state by sending preforming liveness checks using a memberlist protocol.
 This enables failover that works independently of Kubernetes control-plane.
 
 ## Conclusion
 
 This concludes our overview of virtualization, storage, and networking in Kubernetes. The technologies mentioned here are available and already pre-configured on the [Cozystack](https://github.com/aenix-io/cozystack) platform, where you can try them with no limitations.
 
-In the [next article](/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-3/), we will detail how, on top of this, we implement the provisioning of fully functional Kubernetes clusters with just the push of a button.
+In the [next article](/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-3/), I'll detail how, on top of this, you can implement the provisioning of fully functional Kubernetes clusters with just the click of a button.
