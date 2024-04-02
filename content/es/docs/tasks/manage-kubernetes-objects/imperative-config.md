@@ -47,8 +47,8 @@ La actualización de objetos con el comando `replace` elimina todas las
 partes de la especificación no especificadas en el archivo de configuración. Esto no debe 
 usarse con objetos cuyas especificaciones son administradas 
 parcialmente por el clúster, como Servicios de tipo `LoadBalancer`, donde el 
-campo `externalIPs` se administra independientemente de la configuración.
-archivo. Los campos administrados de forma independiente deben copiarse en 
+campo `externalIPs` se administra independientemente del archivo de
+configuración. Los campos administrados de forma independiente deben copiarse en 
 el archivo de configuración para evitar que `replace` los elimine.
 {{< /warning >}}
 
