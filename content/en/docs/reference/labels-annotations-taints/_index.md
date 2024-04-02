@@ -1115,7 +1115,7 @@ that the auto-generated Secret has not been used for a specified duration
 
 Type: Label
 
-Example: `endpointslice.kubernetes.io/managed-by: "controller"`
+Example: `endpointslice.kubernetes.io/managed-by: endpointslice-controller.k8s.io`
 
 Used on: EndpointSlices
 
