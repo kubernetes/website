@@ -115,7 +115,7 @@ La migración de comandos imperativos a la configuración de objetos imperativos
     kubectl get <kind>/<name> -o yaml > <kind>_<name>.yaml
     ```
 
-1. Elimine manualmente el campo de estado del archivo de configuración del objeto.
+1. Elimina manualmente el campo de estado del archivo de configuración del objeto.
 
 1. Para la gestión posterior de objetos, utiliza `replace` exclusivamente.
 
