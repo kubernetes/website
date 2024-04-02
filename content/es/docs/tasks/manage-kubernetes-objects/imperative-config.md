@@ -74,7 +74,7 @@ kubectl delete <type> -l <label>
 
 ## Cómo ver un objeto
 
-Puede usar `kubectl get -f` para ver información sobre un objeto que está
+Puedes usar `kubectl get -f` para ver información sobre un objeto que está
 descrito en un archivo de configuración.
 
 * `kubectl get -f <filename|url> -o yaml`
