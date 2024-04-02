@@ -92,7 +92,7 @@ Ejemplo:
 1. Reemplaza el objeto del archivo de configuración. Cambios hechos por
 la otra fuente en el paso 2 se pierden.
 
-Si necesita admitir varios escritores en el mismo objeto, puede usar `kubectl apply` para administrar el objeto.
+Si necesitas admitir varios escritores en el mismo objeto, puede usar `kubectl apply` para administrar el objeto.
 
 ## Crear y editar un objeto desde una URL sin guardar la configuración
 
