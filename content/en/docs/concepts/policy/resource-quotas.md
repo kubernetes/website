@@ -165,7 +165,11 @@ Here is an example set of resources users may want to put under object count quo
 * `count/jobs.batch`
 * `count/cronjobs.batch`
 
-The same syntax can be used for custom resources.
+If you define a quota this way, it applies to Kubernetes' APIs that are part of the API server, and
+to any custom resources backed by a CustomResourceDefinition. If you use [API aggregation](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) to
+add additional, custom APIs that are not defined as CustomResourceDefinitions, the core Kubernetes
+control plane does not enforce quota for the aggregated API. The extension API  server is expected to
+provide quota enforcement if that's appropriate for the custom API.
 For example, to create a quota on a `widgets` custom resource in the `example.com` API group, use `count/widgets.example.com`.
 
 When using such a resource quota (nearly for all object kinds), an object is charged
