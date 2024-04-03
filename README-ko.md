@@ -20,9 +20,12 @@
 - [Hugo(확장 버전)](https://gohugo.io/)
 - [도커](https://www.docker.com/)와 같은 컨테이너 런타임.
 
+> [!NOTE]
+[`netlify.toml`](netlify.toml#L11) 파일의 `HUGO_VERSION` 환경 변수에 지정된 Hugo 확장 버전을 설치해야 합니다.
+
 시작하기 전에 의존성이 있는 소프트웨어를 설치합니다. 저장소를 복제(clone)하고 디렉터리로 이동합니다.
 
-```
+```bash
 git clone https://github.com/kubernetes/website.git
 cd website
 ```
@@ -102,7 +105,6 @@ make container-serve
    로컬에서 결과를 테스트하기 위해 컨테이너 이미지를 이용하여 사이트를 빌드 및 실행합니다.
 
    ```bash
-   make container-image
    make container-serve
    ```
 
