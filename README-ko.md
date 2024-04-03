@@ -59,8 +59,6 @@ make container-serve
 
 ## Hugo를 사용하여 로컬에서 웹사이트 실행하기
 
-[`netlify.toml`](netlify.toml#L11) 파일의 `HUGO_VERSION` 환경 변수에 지정된 Hugo 확장 버전을 설치해야 합니다.
-
 사이트를 로컬에서 빌드하고 테스트하려면, 다음을 실행합니다.
 
 - macOS와 리눅스
