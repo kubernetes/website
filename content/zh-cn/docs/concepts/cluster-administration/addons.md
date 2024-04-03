@@ -210,6 +210,15 @@ Add-on 扩展了 Kubernetes 的功能。
   或[节点状况](/zh-cn/docs/concepts/architecture/nodes/#condition)。
 
 <!--
+## Instrumentation
+
+* [kube-state-metrics](/docs/concepts/cluster-administration/kube-state-metrics)
+-->
+## 插桩  {#instrumentation}
+
+* [kube-state-metrics](/zh-cn/docs/concepts/cluster-administration/kube-state-metrics)
+
+<!--
 ## Legacy Add-ons
 
 There are several other add-ons documented in the deprecated
