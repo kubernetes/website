@@ -24,7 +24,11 @@
             <h1>{{ .Title }}</h1>
             {{ with .Params.description }}<div class="lead">{{ . | markdownify }}</div>{{ end }}
         {{ end }}
-        {{ partial "section-index.html" . }}
+        {{- if eq .Page.RelPermalink "/docs/reference/kubectl/generated/" -}}
+            {{ partial "kubectl-reference-index.html" . }}
+        {{ else }}
+            {{ partial "section-index.html" . }}
+        {{ end }}
     </div>
 {{ end }}
 {{ define "hero" }}

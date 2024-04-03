@@ -1,0 +1,48 @@
+{{- $parent := .Page -}}
+{{- $pages := (where .Site.Pages "Section" .Section).ByWeight -}}
+{{- $pages = (where $pages "Type" "!=" "search") -}}
+{{- $pages = (where $pages ".Parent" "!=" nil) -}}
+{{- $pages = (where $pages "Parent.File.UniqueID" "==" $parent.File.UniqueID) -}}
+
+<hr class="panel-line">
+<div id="kubectl-reference-index">
+
+    {{- range $index, $childPage := $pages -}} <!-- Iterate through all the section pages -->
+        {{- $sectionId := (replace $childPage.Title " " "-") | lower -}} <!-- Generate unique ID for each section page -->
+
+        <!-- Display the title of the child page as a header with an anchor link for easy navigation. -->
+        <h3 class="font-weight-bold mt-4 mb-1" id="{{ $sectionId }}"><a href=" {{ .RelPermalink }}">{{- $childPage.Title -}}</a></h3>
+
+        <!-- Details section for each section page -->
+        <p class="content-{{ $sectionId }}">
+            <details class="details-{{ $sectionId }}">
+                <summary class="card-header text-monospace summary-{{ $sectionId }}">{{- $childPage.Title -}}</summary>
+                <div class="border-bottom description-{{ $sectionId }}">
+                    {{- $content := $childPage.Content -}} <!-- Get child page content -->
+                    {{- $content = replaceRE "<h2 id=\"see-also\">.*?<\\/h2>\\s*<ul>([\\s\\S]*?)<\\/ul>" "" $content -}} <!-- Remove the 'See Also' section and its content -->
+                    {{- $content = replaceRE "<h2.*?>(.*?)<\\/h2>" "<h2>$1</h2>" $content -}} <!-- Remove 'id' attribute to eliminate the redundant deep link for sub-sections -->
+                    {{- $content = replaceRE "<table(\\s+[^>]*)?>" "<table class='table table-striped table-responsive'$1>" $content -}} <!-- Add 'class' attribute to table for similar look and feel to other tables on site -->
+                    {{- $content | safeHTML -}} <!-- Display modified content -->
+                </div>
+            </details>
+
+            <!-- Nested details section for sub-command child pages -->
+            {{- range $subPage := $childPage.RegularPages -}}
+                {{- $subSectionId := (replace $subPage.Title " " "-") | lower -}} <!-- Generate unique ID for each sub-command page -->
+                <details class="details-{{ $subSectionId }}">
+                    <summary class="card-header text-monospace summary-{{ $subSectionId }}">{{- $subPage.Title -}}</summary>
+                    <div class="border-bottom description-{{ $subSectionId }}">
+                        {{- $subPageContent := $subPage.Content -}} <!-- Get sub-section page content -->
+                        {{- $subPageContent = replaceRE "<h2 id=\"see-also\">.*?<\\/h2>\\s*<ul>([\\s\\S]*?)<\\/ul>" "" $subPageContent -}} <!-- Remove the 'See Also' section and its content -->
+                        {{- $subPageContent = replaceRE "<h2.*?>(.*?)<\\/h2>" "<h2>$1</h2>" $subPageContent -}} <!-- Remove 'id' attribute to eliminate the redundant deep link for sub-sections -->
+                        {{- $subPageContent = replaceRE "<table(\\s+[^>]*)?>" "<table class='table table-striped table-responsive'$1>" $subPageContent -}} <!-- Add 'class' attribute to table for similar look and feel to other tables on site -->
+                        {{- $subPageContent | safeHTML -}} <!-- Display modified content -->
+                    </div>
+                </details>
+            {{- end -}}
+        </p>
+    {{- end -}}
+</div>
+
+<!-- Display auto-generated information block -->
+{{- partial "docs/auto-generated-pageinfo.html" . -}}
