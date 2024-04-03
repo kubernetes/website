@@ -75,7 +75,7 @@ make container-serve
 
 ## API 레퍼런스 페이지 빌드하기
 
-`content/en/docs/reference/kubernetes-api`에 있는 API 참조 페이지는 <https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs>를 사용하여 Swagger 사양, 또는 OpenAPI 사양에서 빌드되었습니다.
+`content/en/docs/reference/kubernetes-api`에 있는 API 레퍼런스 페이지는 <https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs>를 사용하여 Swagger 명세(OpenAPI 명세)로부터 빌드되었습니다.
 
 새로운 쿠버네티스 릴리스를 위해 레퍼런스 페이지를 업데이트하려면 다음 단계를 수행합니다.
 
