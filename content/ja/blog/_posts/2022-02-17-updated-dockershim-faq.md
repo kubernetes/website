@@ -36,7 +36,7 @@ Kubernetesの初期のバージョンは、特定のコンテナランタイム�
 Docker Engineです。その後、Kubernetesは他のコンテナランタイムと連携するためのサポートを追加しました。
 オーケストレーター(Kubernetesなど)と多くの異なるコンテナランタイムの間の相互運用を可能にするため、
 CRI標準が[作成](/blog/2016/12/container-runtime-interface-cri-in-kubernetes/)されました。
-Docker Engineはそのインターフェイス(CRI)を実装していないため、Kubernetesプロジェクトは移行を支援する特別なコードを作成し、
+Docker Engineはそのインターフェース(CRI)を実装していないため、Kubernetesプロジェクトは移行を支援する特別なコードを作成し、
 その _dockershim_ コードをKubernetes自身の一部としました。
 
 dockershimコードは常に一時的な解決策であることを意図されていました(このためshimと名付けられています)。
@@ -87,7 +87,7 @@ Kubernetes v1.24以降を実行している場合は、[Docker Engineを引き�
 しかし、他の選択のほうがあなたの環境により適合する場合もありますので、
 [CNCF landscape]にあるすべての選択肢を検討されることをおすすめします。
 
-[CNCF landscape]: https://landscape.cncf.io/card-mode?category=container-runtime&grouping=category
+[CNCF landscape]: https://landscape.cncf.io/?group=projects-and-products&view-mode=card#runtime--container-runtime
 
 #### Docker Engineを引き続きコンテナランタイムとして利用できますか？ {#can-i-still-use-docker-engine-as-my-container-runtime}
 

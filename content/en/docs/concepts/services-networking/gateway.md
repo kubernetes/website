@@ -29,7 +29,7 @@ The following principles shaped the design and architecture of Gateway API:
   * __Application Developer:__ Manages an application running in a cluster and is typically
     concerned with application-level configuration and [Service](/docs/concepts/services-networking/service/)
     composition.
-* __Portable:__ Gateway API specifications are defined as [custom resources](docs/concepts/extend-kubernetes/api-extension/custom-resources)
+* __Portable:__ Gateway API specifications are defined as [custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources)
   and are supported by many [implementations](https://gateway-api.sigs.k8s.io/implementations/).
 * __Expressive:__ Gateway API kinds support functionality for common traffic routing use cases
   such as header-based matching, traffic weighting, and others that were only possible in
@@ -191,7 +191,7 @@ guide for details on migrating Ingress resources to Gateway API resources.
 ## {{% heading "whatsnext" %}}
 
 Instead of Gateway API resources being natively implemented by Kubernetes, the specifications
-are defined as [Custom Resources](docs/concepts/extend-kubernetes/api-extension/custom-resources)
+are defined as [Custom Resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 supported by a wide range of [implementations](https://gateway-api.sigs.k8s.io/implementations/).
 [Install](https://gateway-api.sigs.k8s.io/guides/#installing-gateway-api) the Gateway API CRDs or
 follow the installation instructions of your selected implementation. After installing an

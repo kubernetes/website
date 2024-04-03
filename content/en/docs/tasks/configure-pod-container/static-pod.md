@@ -97,17 +97,16 @@ For example, this is how to start a simple web server as a static Pod:
    EOF
    ```
 
-1. Configure your kubelet on the node to use this directory by running it with
+1. Configure the kubelet on that node to set a `staticPodPath` value in the
+   [kubelet configuration file](/docs/reference/config-api/kubelet-config.v1beta1/).  
+   See [Set Kubelet Parameters Via A Configuration File](/docs/tasks/administer-cluster/kubelet-config-file/)
+   for more information.
+
+   An alternative and deprecated method is to configure the kubelet on that node
+   to look for static Pod manifests locally, using a command line argument.
+   To use the deprecated approach, start the kubelet with the  
    `--pod-manifest-path=/etc/kubernetes/manifests/` argument.
-   On Fedora, edit `/etc/kubernetes/kubelet` to include this line:
-
-   ```
-   KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubernetes/manifests/"
-   ```
-
-   or add the `staticPodPath: <the directory>` field in the
-   [kubelet configuration file](/docs/reference/config-api/kubelet-config.v1beta1/).
-
+      
 1. Restart the kubelet. On Fedora, you would run:
 
    ```shell

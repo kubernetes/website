@@ -50,7 +50,7 @@ documentation for that Container Runtime, for example:
 - [CRI-O](https://github.com/cri-o/cri-o/blob/main/contrib/cni/README.md)
 
 For specific information about how to install and manage a CNI plugin, see the documentation for
-that plugin or [networking provider](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model).
+that plugin or [networking provider](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-network-model).
 
 ## Network Plugin Requirements
 

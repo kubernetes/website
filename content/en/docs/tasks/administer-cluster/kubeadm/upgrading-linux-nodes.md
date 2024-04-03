@@ -36,15 +36,15 @@ Upgrade kubeadm:
 {{% tab name="Ubuntu, Debian or HypriotOS" %}}
 ```shell
 # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-apt-mark unhold kubeadm && \
-apt-get update && apt-get install -y kubeadm='{{< skew currentVersion >}}.x-*' && \
-apt-mark hold kubeadm
+sudo apt-mark unhold kubeadm && \
+sudo apt-get update && sudo apt-get install -y kubeadm='{{< skew currentVersion >}}.x-*' && \
+sudo apt-mark hold kubeadm
 ```
 {{% /tab %}}
 {{% tab name="CentOS, RHEL or Fedora" %}}
 ```shell
 # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
+sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
 ```
 {{% /tab %}}
 {{< /tabs >}}
@@ -62,6 +62,7 @@ sudo kubeadm upgrade node
 Prepare the node for maintenance by marking it unschedulable and evicting the workloads:
 
 ```shell
+# execute this command on a control plane node
 # replace <node-to-drain> with the name of your node you are draining
 kubectl drain <node-to-drain> --ignore-daemonsets
 ```
@@ -74,15 +75,15 @@ kubectl drain <node-to-drain> --ignore-daemonsets
    {{% tab name="Ubuntu, Debian or HypriotOS" %}}
    ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-   apt-mark unhold kubelet kubectl && \
-   apt-get update && apt-get install -y kubelet='{{< skew currentVersion >}}.x-*' kubectl='{{< skew currentVersion >}}.x-*' && \
-   apt-mark hold kubelet kubectl
+   sudo apt-mark unhold kubelet kubectl && \
+   sudo apt-get update && sudo apt-get install -y kubelet='{{< skew currentVersion >}}.x-*' kubectl='{{< skew currentVersion >}}.x-*' && \
+   sudo apt-mark hold kubelet kubectl
    ```
    {{% /tab %}}
    {{% tab name="CentOS, RHEL or Fedora" %}}
    ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-   yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
+   sudo yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
    ```
    {{% /tab %}}
    {{< /tabs >}}
@@ -99,6 +100,7 @@ kubectl drain <node-to-drain> --ignore-daemonsets
 Bring the node back online by marking it schedulable:
 
 ```shell
+# execute this command on a control plane node
 # replace <node-to-uncordon> with the name of your node
 kubectl uncordon <node-to-uncordon>
 ```

@@ -45,7 +45,7 @@ Contributeurs à la documentation Kubernetes:
 
 Tout le monde peut ouvrir un ticket concernant la documentation ou contribuer à une modification avec une pull request (PR) au 
 [répertoire de GitHub `kubernetes/website`](https://github.com/kubernetes/website).
-Vous devez être à l'aise avec [git](https://git-scm.com/) et [GitHub](https://lab.github.com/) pour travailler effectivement dans la communauté Kubernetes.
+Vous devez être à l'aise avec [git](https://git-scm.com/) et [GitHub](https://skills.github.com/) pour travailler effectivement dans la communauté Kubernetes.
 
 Pour participer à la documentation:
 

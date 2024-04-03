@@ -47,7 +47,7 @@ Ingressリソースが動作するためには、クラスターでIngressコン
 * [Skipper](https://opensource.zalando.com/skipper/kubernetes/ingress-controller/)は、カスタムプロキシーを構築するためのライブラリーとして設計された、Kubernetes Ingressなどのユースケースを含む、サービス構成用のHTTPルーターとリバースプロキシーです。
 * [Traefik Kubernetes Ingress provider](https://doc.traefik.io/traefik/providers/kubernetes-ingress/)は、[Traefik](https://traefik.io/traefik/) proxy向けのIngressコントローラーです。
 * [Tyk Operator](https://github.com/TykTechnologies/tyk-operator)はAPI管理機能をIngressに持たせるためにCustom ResourcesでAPIを拡張します。Tyk OperatorはOpen Source Tyk GatewayとTyk Cloudコントロールプレーンで動作します。
-* [Voyager](https://appscode.com/products/voyager)は、[HAProxy](https://www.haproxy.org/#desc)向けのIngressコントローラーです。
+* [Voyager](https://voyagermesh.com)は、[HAProxy](https://www.haproxy.org/#desc)向けのIngressコントローラーです。
 * [Wallarm Ingress Controller](https://www.wallarm.com/solutions/waf-for-kubernetes)はWAAP(WAF)やAPIセキュリティ機能を提供するIngressコントローラーです。
 
 ## 複数のIngressコントローラーの使用 {#using-multiple-ingress-controllers}

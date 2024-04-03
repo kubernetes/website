@@ -15,7 +15,7 @@ Cette page montre comment générer automatiquement des pages de référence pou
 
 * Vous devez avoir [Git](https://git-scm.com/book/fr/v2/D%C3%A9marrage-rapide-Installation-de-Git) installé.
 
-* Vous devez avoir [Golang](https://golang.org/doc/install) version 1.9.1 ou ultérieur installé, et votre variable d'environnement `$GOPATH` doit être définie.
+* Vous devez avoir [Golang](https://go.dev/doc/install) version 1.9.1 ou ultérieur installé, et votre variable d'environnement `$GOPATH` doit être définie.
 
 * Vous devez avoir [Docker](https://docs.docker.com/engine/installation/) installé.
 

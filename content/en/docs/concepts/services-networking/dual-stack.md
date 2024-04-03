@@ -65,12 +65,12 @@ To configure IPv4/IPv6 dual-stack, set dual-stack cluster network assignments:
 * kube-proxy:
   * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
 * kubelet:
-  * when there is no `--cloud-provider` the administrator can pass a comma-separated pair of IP
-    addresses via `--node-ip` to manually configure dual-stack `.status.addresses` for that Node.
-    If a Pod runs on that node in HostNetwork mode, the Pod reports these IP addresses in its
-    `.status.podIPs` field.
-    All `podIPs` in a node match the IP family preference defined by the `.status.addresses`
-    field for that Node.
+  * `--node-ip=<IPv4 IP>,<IPv6 IP>`
+    * This option is required for bare metal dual-stack nodes (nodes that do not define a
+      cloud provider with the `--cloud-provider` flag). If you are using a cloud provider
+      and choose to override the node IPs chosen by the cloud provider, set the
+      `--node-ip` option.
+    * (The legacy built-in cloud providers do not support dual-stack `--node-ip`.)
 
 {{< note >}}
 An example of an IPv4 CIDR: `10.244.0.0/16` (though you would supply your own address range)
@@ -78,13 +78,6 @@ An example of an IPv4 CIDR: `10.244.0.0/16` (though you would supply your own ad
 An example of an IPv6 CIDR: `fdXY:IJKL:MNOP:15::/64` (this shows the format but is not a valid
 address - see [RFC 4193](https://tools.ietf.org/html/rfc4193))
 {{< /note >}}
-
-{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
-
-When using an external cloud provider, you can pass a dual-stack `--node-ip` value to
-kubelet if you enable the `CloudDualStackNodeIPs` feature gate in both kubelet and the
-external cloud provider. This is only supported for cloud providers that support dual
-stack clusters.
 
 ## Services
 

@@ -64,5 +64,5 @@ Dynamic Admission Controllers that act as flexible policy engines are being deve
 ## Apply policies using Kubelet configurations
 
 Kubernetes allows configuring the Kubelet on each worker node.  Some Kubelet configurations act as policies:
-* [Process ID limts and reservations](/docs/concepts/policy/pid-limiting/) are used to limit and reserve allocatable PIDs.
+* [Process ID limits and reservations](/docs/concepts/policy/pid-limiting/) are used to limit and reserve allocatable PIDs.
 * [Node Resource Managers](/docs/concepts/policy/node-resource-managers/) can manage compute, memory, and device resources for latency-critical and high-throughput workloads. 

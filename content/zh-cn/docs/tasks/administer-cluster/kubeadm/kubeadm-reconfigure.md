@@ -183,18 +183,25 @@ kubeadm init phase certs <component-name> --config <config-file>
 <!--
 To write new manifest files in `/etc/kubernetes/manifests` you can use:
 -->
-要在 `/etc/kubernetes/manifests` 中编写新的清单文件，你可以使用：
+要在 `/etc/kubernetes/manifests` 中编写新的清单文件，你可以使用以下命令：
 
+<!--
+# For Kubernetes control plane components
+# For local etcd
+-->
 ```shell
+# Kubernetes 控制平面组件
 kubeadm init phase control-plane <component-name> --config <config-file>
+# 本地 etcd
+kubeadm init phase etcd local --config <config-file>
 ```
 
 <!--
 The `<config-file>` contents must match the updated `ClusterConfiguration`.
-The `<component-name>` value must be the name of the component.
+The `<component-name>` value must be a name of a Kubernetes control plane component (`apiserver`, `controller-manager` or `scheduler`).
 -->
 `<config-file>` 内容必须与更新后的 `ClusterConfiguration` 匹配。
-`<component-name>` 值必须是组件的名称。
+`<component-name>` 值必须是一个控制平面组件（`apiserver`、`controller-manager` 或 `scheduler`）的名称。
 
 {{< note >}}
 <!--

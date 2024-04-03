@@ -209,7 +209,7 @@ clients that access it.
 
 <!-- image source: https://docs.google.com/drawings/d/1k2YdJgNTtNfW7_A8moIIkij-DmVgEhNrn3y2OODwqQQ/view -->
 
-{{< figure src="/docs/concepts/extend-kubernetes/extension-points.svg"
+{{< figure src="/docs/concepts/extend-kubernetes/extension-points.png"
     alt="用符号表示的七个编号的 Kubernetes 扩展点"
     class="diagram-large" caption="Kubernetes 扩展点" >}}
 
@@ -296,7 +296,8 @@ several types of extensions.
 注意，某些方案可能需要同时采用几种类型的扩展。
 
 <!-- image source for flowchart: https://docs.google.com/drawings/d/1sdviU6lDz4BpnzJNHfNpQrqI9F19QZ07KnhnxVrp2yg/edit -->
-{{< figure src="/zh-cn/docs/concepts/extend-kubernetes/flowchart.png"
+
+{{< figure src="/zh-cn/docs/concepts/extend-kubernetes/flowchart.svg"
     alt="附带使用场景问题和实现指南的流程图。绿圈表示是；红圈表示否。"
     class="diagram-large" caption="选择一个扩展方式的流程图指导" >}}
 
@@ -499,7 +500,7 @@ a way to extend Kubernetes with supports for new kinds of volumes. The volumes c
 durable external storage, or provide ephemeral storage, or they might offer a read-only interface
 to information using a filesystem paradigm.
 
-Kubernetes also includes support for [FlexVolume](/docs/concepts/storage/volumes/#flexvolume-deprecated) plugins,
+Kubernetes also includes support for [FlexVolume](/docs/concepts/storage/volumes/#flexvolume) plugins,
 which are deprecated since Kubernetes v1.23 (in favour of CSI).
 -->
 ### 存储插件  {#storage-plugins}
@@ -508,7 +509,7 @@ which are deprecated since Kubernetes v1.23 (in favour of CSI).
 Kubernetes 的方式使其支持新类别的卷。
 这些卷可以由持久的外部存储提供支持，可以提供临时存储，还可以使用文件系统范型为信息提供只读接口。
 
-Kubernetes 还包括对 [FlexVolume](/zh-cn/docs/concepts/storage/volumes/#flexvolume-deprecated)
+Kubernetes 还包括对 [FlexVolume](/zh-cn/docs/concepts/storage/volumes/#flexvolume)
 插件的支持，该插件自 Kubernetes v1.23 起被弃用（被 CSI 替代）。
 
 <!--

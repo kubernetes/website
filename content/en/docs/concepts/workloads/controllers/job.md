@@ -4,6 +4,9 @@ reviewers:
 - erictune
 - soltysh
 title: Jobs
+api_metadata:
+- apiVersion: "batch/v1"
+  kind: "Job"
 content_type: concept
 description: >-
   Jobs represent one-off tasks that run to completion and then stop.
@@ -382,7 +385,7 @@ from failed Jobs is not lost inadvertently.
 
 ### Backoff limit per index {#backoff-limit-per-index}
 
-{{< feature-state for_k8s_version="v1.28" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.29" state="beta" >}}
 
 {{< note >}}
 You can only configure the backoff limit per index for an [Indexed](#completion-mode) Job, if you
@@ -395,7 +398,7 @@ for pod failures independently for each index. To do so, set the
 `.spec.backoffLimitPerIndex` to specify the maximal number of pod failures
 per index.
 
-When the per-index backoff limit is exceeded for an index, Kuberentes considers the index as failed and adds it to the
+When the per-index backoff limit is exceeded for an index, Kubernetes considers the index as failed and adds it to the
 `.status.failedIndexes` field. The succeeded indexes, those with a successfully
 executed pods, are recorded in the `.status.completedIndexes` field, regardless of whether you set
 the `backoffLimitPerIndex` field.
@@ -938,6 +941,11 @@ creates Pods with the finalizer `batch.kubernetes.io/job-tracking`. The
 controller removes the finalizer only after the Pod has been accounted for in
 the Job status, allowing the Pod to be removed by other controllers or users.
 
+{{< note >}}
+See [My pod stays terminating](/docs/tasks/debug/debug-application/debug-pods/) if you
+observe that pods from a Job are stuck with the tracking finalizer.
+{{< /note >}}
+
 ### Elastic Indexed Jobs
 
 {{< feature-state for_k8s_version="v1.27" state="beta" >}}
@@ -953,11 +961,12 @@ scaling an indexed Job, such as MPI, Horovord, Ray, and PyTorch training jobs.
 
 ### Delayed creation of replacement pods {#pod-replacement-policy}
 
-{{< feature-state for_k8s_version="v1.28" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.29" state="beta" >}}
 
 {{< note >}}
 You can only set `podReplacementPolicy` on Jobs if you enable the `JobPodReplacementPolicy`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+(enabled by default).
 {{< /note >}}
 
 By default, the Job controller recreates Pods as soon they either fail or are terminating (have a deletion timestamp).

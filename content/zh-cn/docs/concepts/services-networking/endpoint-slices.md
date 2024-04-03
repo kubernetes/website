@@ -380,7 +380,7 @@ perfectly full distribution of EndpointSlices. As an example, if there are 10
 new endpoints to add and 2 EndpointSlices with room for 5 more endpoints each,
 this approach will create a new EndpointSlice instead of filling up the 2
 existing EndpointSlices. In other words, a single EndpointSlice creation is
-preferrable to multiple EndpointSlice updates.
+preferable to multiple EndpointSlice updates.
 -->
 这里比较重要的是，与在 EndpointSlice 之间完成最佳的分布相比，第三步中更看重限制
 EndpointSlice 更新的操作次数。例如，如果有 10 个端点待添加，有两个 EndpointSlice

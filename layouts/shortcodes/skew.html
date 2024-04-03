@@ -92,7 +92,7 @@
     {{- end -}}
     {{- if eq $seenPatchVersionInfoCount 0 -}}
         <!-- fallback patch version to .0 -->
-        {{- printf "%.2f.0" $currentVersion -}}
+        {{- printf "%s.0" $currentVersion -}}
     {{- end -}}
 {{- end -}}
 

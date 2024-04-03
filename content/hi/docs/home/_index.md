@@ -4,7 +4,7 @@ noedit: true
 cid: docsHome
 layout: docsportal_home
 class: gridPage gridPageHome
-linkTitle: "होम"
+linkTitle: "प्रलेखन"
 main_menu: true
 weight: 10
 hide_feedback: true

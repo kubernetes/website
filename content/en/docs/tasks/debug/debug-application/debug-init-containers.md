@@ -26,7 +26,7 @@ Init Containers. The example command lines below refer to the Pod as
 
 * You should be familiar with the basics of
   [Init Containers](/docs/concepts/workloads/pods/init-containers/).
-* You should have [Configured an Init Container](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container/).
+* You should have [Configured an Init Container](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container).
 
 <!-- steps -->
 

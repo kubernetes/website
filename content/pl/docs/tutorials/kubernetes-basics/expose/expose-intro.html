@@ -9,8 +9,6 @@ weight: 10
 
 <body>
 
-<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
-
 <div class="layout" id="top">
 
 	<main class="content">
@@ -39,7 +37,7 @@ weight: 10
 				<li><i>LoadBalancer</i> - Tworzy zewnętrzny load balancer u bieżącego dostawcy usług chmurowych (o ile jest taka możliwość) i przypisuje serwisowi stały, zewnętrzny adres IP. Nadzbiór NodePort.</li>
 				<li><i>ExternalName</i> - Przypisuje Service do <code>externalName</code> (np. <code>foo.bar.example.com</code>), zwracając rekord <code>CNAME</code> wraz z zawartością. W tym przypadku nie jest wykorzystywany proces przekierowania ruchu metodą proxy. Ta metoda wymaga <code>kube-dns</code> w wersji v1.7 lub wyższej lub CoreDNS w wersji 0.0.8 lub wyższej.</li>
 			</ul>
-			<p>Więcej informacji na temat różnych typów serwisów znajduje się w  samouczku <a href="/docs/tutorials/services/source-ip/">Używanie adresu źródłowego (Source IP)</a>. Warto też zapoznać się z <a href="/docs/concepts/services-networking/connect-applications-service">Łączeniem Aplikacji z Serwisami</a>.</p>
+			<p>Więcej informacji na temat różnych typów serwisów znajduje się w  samouczku <a href="/docs/tutorials/services/source-ip/">Używanie adresu źródłowego (Source IP)</a>. Warto też zapoznać się z <a href="/docs/tutorials/services/connect-applications-service/">Łączeniem Aplikacji z Serwisami</a>.</p>
 			<p>W pewnych przypadkach w serwisie nie specyfikuje się <code>selector</code>. Serwis, który został stworzony bez pola <code>selector</code>, nie utworzy odpowiedniego obiektu Endpoints. W ten sposób użytkownik ma możliwość ręcznego przyporządkowania serwisu do konkretnych endpoints. Inny przypadek, kiedy nie używa się selektora, ma miejsce, kiedy stosujemy <code>type: ExternalName</code>.</p>
 			</div>
 			<div class="col-md-4">

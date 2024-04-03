@@ -1,5 +1,8 @@
 ---
 title: Leases
+api_metadata:
+- apiVersion: "coordination.k8s.io/v1"
+  kind: "Lease"
 content_type: concept
 weight: 30
 ---
@@ -33,7 +36,7 @@ instances are on stand-by.
 
 ## API server identity
 
-{{< feature-state for_k8s_version="v1.26" state="beta" >}}
+{{< feature-state feature_gate_name="APIServerIdentity" >}}
 
 Starting in Kubernetes v1.26, each `kube-apiserver` uses the Lease API to publish its identity to the
 rest of the system. While not particularly useful on its own, this provides a mechanism for clients to

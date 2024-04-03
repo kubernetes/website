@@ -44,6 +44,13 @@ file for the username `admin` and the password `1f2d1e2e67df`.
 并在定义中引用其它本地文件、`.env` 文件或文字值生成 Secret。
 例如：下面的指令为用户名 `admin` 和密码 `1f2d1e2e67df` 创建 Kustomization 文件。
 
+{{< note >}}
+<!--
+The `stringData` field for a Secret does not work well with server-side apply.
+-->
+Secret 的 `stringData` 字段与服务端应用不兼容。
+{{< /note >}}
+
 ### 创建 Kustomization 文件   {#create-the-kustomization-file}
 
 {{< tabs name="Secret data" >}}

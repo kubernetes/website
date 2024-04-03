@@ -99,6 +99,9 @@ Add-on 扩展了 Kubernetes 的功能。
 <!--
 * [Flannel](https://github.com/flannel-io/flannel#deploying-flannel-manually) is
   an overlay network provider that can be used with Kubernetes.
+* [Gateway API](/docs/concepts/services-networking/gateway/) is an open source project managed by
+  the [SIG Network](https://github.com/kubernetes/community/tree/master/sig-network) community and
+  provides an expressive, extensible, and role-oriented API for modeling service networking.
 * [Knitter](https://github.com/ZTE/Knitter/) is a plugin to support multiple network
   interfaces in a Kubernetes pod.
 * [Multus](https://github.com/k8snetworkplumbingwg/multus-cni) is a Multi plugin for
@@ -108,6 +111,9 @@ Add-on 扩展了 Kubernetes 的功能。
 -->
 * [Flannel](https://github.com/flannel-io/flannel#deploying-flannel-manually)
   是一个可以用于 Kubernetes 的 overlay 网络提供者。
+* [Gateway API](/zh-cn/docs/concepts/services-networking/gateway/) 是一个由
+  [SIG Network](https://github.com/kubernetes/community/tree/master/sig-network) 社区管理的开源项目，
+  为服务网络建模提供一种富有表达力、可扩展和面向角色的 API。
 * [Knitter](https://github.com/ZTE/Knitter/) 是在一个 Kubernetes Pod 中支持多个网络接口的插件。
 * [Multus](https://github.com/k8snetworkplumbingwg/multus-cni) 是一个多插件，
   可在 Kubernetes 中提供多种网络支持，以支持所有 CNI 插件（例如 Calico、Cilium、Contiv、Flannel），
@@ -139,7 +145,10 @@ Add-on 扩展了 Kubernetes 的功能。
   Pods and non-Kubernetes environments with visibility and security monitoring.
 * [Romana](https://github.com/romana) is a Layer 3 networking solution for pod
   networks that also supports the [NetworkPolicy](/docs/concepts/services-networking/network-policies/) API.
-* [Weave Net](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/)
+* [Spiderpool](https://github.com/spidernet-io/spiderpool) is an underlay and RDMA
+  networking solution for Kubernetes. Spiderpool is supported on bare metal, virtual machines,
+  and public cloud environments.
+* [Weave Net](https://github.com/rajch/weave#using-weave-on-kubernetes)
   provides networking and network policy, will carry on working on both sides
   of a network partition, and does not require an external database.
 -->
@@ -150,7 +159,9 @@ Add-on 扩展了 Kubernetes 的功能。
   是一个 SDN 平台，可在 Kubernetes Pods 和非 Kubernetes 环境之间提供基于策略的联网，并具有可视化和安全监控。
 * [Romana](https://github.com/romana) 是一个 Pod 网络的第三层解决方案，并支持
   [NetworkPolicy](/zh-cn/docs/concepts/services-networking/network-policies/) API。
-* [Weave Net](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/)
+* [Spiderpool](https://github.com/spidernet-io/spiderpool) 为 Kubernetes
+  提供了下层网络和 RDMA 高速网络解决方案，兼容裸金属、虚拟机和公有云等运行环境。
+* [Weave Net](https://github.com/rajch/weave#using-weave-on-kubernetes)
   提供在网络分组两端参与工作的联网和网络策略，并且不需要额外的数据库。
 
 <!--

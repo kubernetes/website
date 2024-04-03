@@ -3,7 +3,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -18,7 +18,7 @@ Read a file containing the kubeadm configuration API and report any validation p
 
 This command lets you validate a kubeadm configuration API file and report any warnings and errors.
 If there are no errors the exit status will be zero, otherwise it will be non-zero.
-Any unmarshaling problems such as unknown API fields will trigger errors. Unknown API versions and
+Any unmarshalling problems such as unknown API fields will trigger errors. Unknown API versions and
 fields with invalid values will also trigger errors. Any other errors or warnings may be reported
 depending on contents of the input file.
 

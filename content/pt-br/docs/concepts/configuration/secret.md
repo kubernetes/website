@@ -1141,7 +1141,7 @@ data:
 O Secret de autenticação SSH é fornecido apenas para a conveniência do usuário.
 Você pode criar um Secret do tipo `Opaque` para credentials utilizadas para
 autenticação SSH. No entanto, a utilização do tipo embutido e público de Secret
-(`kubernetes.io/ssh-auth`) auxilia outras pessoas a compreenderem o propósito do
+(`kubernetes.io/tls`) auxilia outras pessoas a compreenderem o propósito do
 seu Secret, e define uma convenção de quais chaves podem ser esperadas.
 O tipo embutido também fornece verificação dos campos requeridos em uma
 configuração de Secret.

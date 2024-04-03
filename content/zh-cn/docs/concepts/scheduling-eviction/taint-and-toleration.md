@@ -116,12 +116,12 @@ The default value for `operator` is `Equal`.
 A toleration "matches" a taint if the keys are the same and the effects are the same, and:
 
 * the `operator` is `Exists` (in which case no `value` should be specified), or
-* the `operator` is `Equal` and the `value`s are equal.
+* the `operator` is `Equal` and the values should be equal.
 -->
 一个容忍度和一个污点相“匹配”是指它们有一样的键名和效果，并且：
 
 * 如果 `operator` 是 `Exists`（此时容忍度不能指定 `value`），或者
-* 如果 `operator` 是 `Equal`，则它们的 `value` 应该相等。
+* 如果 `operator` 是 `Equal`，则它们的值应该相等。
 
 {{< note >}}
 <!--
@@ -141,7 +141,7 @@ An empty `effect` matches all effects with key `key1`.
 {{< /note >}}
 
 <!--
-The above example used `effect` of `NoSchedule`. Alternatively, you can use `effect` of `PreferNoSchedule`.
+The above example used the `effect` of `NoSchedule`. Alternatively, you can use the `effect` of `PreferNoSchedule`.
 -->
 上述例子中 `effect` 使用的值为 `NoSchedule`，你也可以使用另外一个值 `PreferNoSchedule`。
 
@@ -212,7 +212,7 @@ scheduled onto the node (if it is not yet running on the node).
   则 Kubernetes 不会将 Pod 调度到该节点。
 * 如果未被忽略的污点中不存在 effect 值为 `NoSchedule` 的污点，
   但是存在至少一个 effect 值为 `PreferNoSchedule` 的污点，
-  则 Kubernetes 会 **尝试** 不将 Pod 调度到该节点。
+  则 Kubernetes 会**尝试**不将 Pod 调度到该节点。
 * 如果未被忽略的污点中存在至少一个 effect 值为 `NoExecute` 的污点，
   则 Kubernetes 不会将 Pod 调度到该节点（如果 Pod 还未在节点上运行），
   并且会将 Pod 从该节点驱逐（如果 Pod 已经在节点上运行）。
@@ -389,7 +389,7 @@ are true. The following taints are built in:
  * `node.kubernetes.io/network-unavailable`: Node's network is unavailable.
  * `node.kubernetes.io/unschedulable`: Node is unschedulable.
  * `node.cloudprovider.kubernetes.io/uninitialized`: When the kubelet is started
-    with "external" cloud provider, this taint is set on a node to mark it
+    with an "external" cloud provider, this taint is set on a node to mark it
     as unusable. After a controller from the cloud-controller-manager initializes
     this node, the kubelet removes this taint.
 -->

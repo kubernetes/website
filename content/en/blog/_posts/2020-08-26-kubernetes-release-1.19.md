@@ -77,7 +77,7 @@ Check out the full details of the Kubernetes 1.19 release in our [release notes]
 
 ## Availability
 
-Kubernetes 1.19 is available for download on [GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.19.0). To get started with Kubernetes, check out these [interactive tutorials](https://kubernetes.io/docs/tutorials/) or run local Kubernetes clusters using Docker container “nodes” with [KinD](https://kind.sigs.k8s.io/) (Kubernetes in Docker). You can also easily install 1.19 using [kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/).
+Kubernetes 1.19 is available for download on [GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.19.0). To get started with Kubernetes, check out these [interactive tutorials](https://kubernetes.io/docs/tutorials/) or run local Kubernetes clusters using Docker container “nodes” with [kind](https://kind.sigs.k8s.io/) (Kubernetes in Docker). You can also easily install 1.19 using [kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/).
 
 ## Release Team
 This release is made possible through the efforts of hundreds of individuals who contributed both technical and non-technical content. Special thanks to the [release team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.19/release_team.md) led by Taylor Dolezal, Senior Developer Advocate at HashiCorp. The 34 release team members coordinated many aspects of the release, from documentation to testing, validation, and feature completeness.

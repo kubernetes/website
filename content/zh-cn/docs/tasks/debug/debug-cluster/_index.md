@@ -313,7 +313,7 @@ This is an incomplete list of things that could go wrong, and how to adjust your
 - Network partition within cluster, or between cluster and users
 - Crashes in Kubernetes software
 - Data loss or unavailability of persistent storage (e.g. GCE PD or AWS EBS volume)
-- Operator error, for example misconfigured Kubernetes software or application software
+- Operator error, for example, misconfigured Kubernetes software or application software
 -->
 ### 故障原因 {#contributing-causes}
 
@@ -329,7 +329,7 @@ This is an incomplete list of things that could go wrong, and how to adjust your
 - API server VM shutdown or apiserver crashing
   - Results
     - unable to stop, update, or start new pods, services, replication controller
-    - existing pods and services should continue to work normally, unless they depend on the Kubernetes API
+    - existing pods and services should continue to work normally unless they depend on the Kubernetes API
 - API server backing storage lost
   - Results
     - the kube-apiserver component fails to start successfully and become healthy
@@ -401,7 +401,7 @@ This is an incomplete list of things that could go wrong, and how to adjust your
 <!--
 ### Mitigations
 
-- Action: Use IaaS provider's automatic VM restarting feature for IaaS VMs
+- Action: Use the IaaS provider's automatic VM restarting feature for IaaS VMs
   - Mitigates: Apiserver VM shutdown or apiserver crashing
   - Mitigates: Supporting services VM shutdown or crashes
 

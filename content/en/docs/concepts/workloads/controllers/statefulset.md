@@ -7,6 +7,9 @@ reviewers:
 - kow3ns
 - smarterclayton
 title: StatefulSets
+api_metadata:
+- apiVersion: "apps/v1"
+  kind: "StatefulSet"
 content_type: concept
 description: >-
   A StatefulSet runs a group of Pods, and maintains a sticky identity for each of those Pods. This is useful for managing
@@ -115,6 +118,12 @@ spec:
         requests:
           storage: 1Gi
 ```
+
+{{< note >}}
+This example uses the `ReadWriteOnce` access mode, for simplicity. For
+production use, the Kubernetes project recommends using the `ReadWriteOncePod`
+access mode instead.
+{{< /note >}}
 
 In the above example:
 

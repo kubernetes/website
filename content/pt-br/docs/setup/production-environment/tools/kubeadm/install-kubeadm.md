@@ -133,7 +133,7 @@ Para mais detalhes sobre compatibilidade entre as versões, veja:
 
    ```shell
    sudo apt-get update
-   sudo apt-get install -y apt-transport-https ca-certificates curl
+   sudo apt-get install -y apt-transport-https ca-certificates curl gpg
    ```
 
 2. Faça o download da chave de assinatura pública da Google Cloud:

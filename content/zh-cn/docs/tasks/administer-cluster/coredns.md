@@ -52,12 +52,12 @@ that will deploy and upgrade the cluster for you.
 ## Installing CoreDNS
 
 For manual deployment or replacement of kube-dns, see the documentation at the
-[CoreDNS GitHub project.](https://github.com/coredns/deployment/tree/master/kubernetes)
+[CoreDNS website](https://coredns.io/manual/installation/).
 -->
 ## 安装 CoreDNS
 
 有关手动部署或替换 kube-dns，请参阅
-[CoreDNS GitHub 项目](https://github.com/coredns/deployment/tree/master/kubernetes)。
+[CoreDNS 网站](https://coredns.io/manual/installation/)。
 
 <!--
 ## Migrating to CoreDNS
@@ -95,7 +95,8 @@ Kubernetes in the page
 -->
 ## 升级 CoreDNS 
 
-你可以在 [CoreDNS version in Kubernetes](https://github.com/coredns/deployment/blob/master/kubernetes/CoreDNS-k8s_version.md)
+你可以在
+[Kubernetes 中的 CoreDNS 版本](https://github.com/coredns/deployment/blob/master/kubernetes/CoreDNS-k8s_version.md)
 页面查看 kubeadm 为不同版本 Kubernetes 所安装的 CoreDNS 版本。
 
 <!--
@@ -144,6 +145,5 @@ in the CoreDNS blog.
 以支持比 kube-dns 更多的用例。
 请参考 `kubernetes` CoreDNS 插件的[文档](https://coredns.io/plugins/kubernetes/)
 或者 CoreDNS 博客上的博文
-[Custom DNS Entries for Kubernetes](https://coredns.io/2017/05/08/custom-dns-entries-for-kubernetes/)，
+[Kubernetes 的自定义 DNS 条目](https://coredns.io/2017/05/08/custom-dns-entries-for-kubernetes/)，
 以了解更多信息。
-

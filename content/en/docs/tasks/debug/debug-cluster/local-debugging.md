@@ -26,7 +26,7 @@ running on a remote cluster locally.
 
 * Kubernetes cluster is installed
 * `kubectl` is configured to communicate with the cluster
-* [Telepresence](https://www.telepresence.io/docs/latest/install/) is installed
+* [Telepresence](https://www.telepresence.io/docs/latest/quick-start/) is installed
 
 
 <!-- steps -->

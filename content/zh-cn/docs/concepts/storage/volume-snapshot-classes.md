@@ -116,7 +116,7 @@ then both the underlying snapshot and VolumeSnapshotContent remain.
 -->
 ### 删除策略 {#deletion-policy}
 
-卷快照类具有 [deletionPolicy] 属性(/zh-cn/docs/concepts/storage/volume-snapshots/#delete)。
+卷快照类具有 [deletionPolicy](/zh-cn/docs/concepts/storage/volume-snapshots/#delete) 属性。
 用户可以配置当所绑定的 VolumeSnapshot 对象将被删除时，如何处理 VolumeSnapshotContent 对象。
 卷快照类的这个策略可以是 `Retain` 或者 `Delete`。这个策略字段必须指定。
 

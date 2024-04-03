@@ -72,7 +72,8 @@ evaluated on its merits.
 - [ ] 根证书要受到保护（或离线 CA，或一个具有有效访问控制的托管型在线 CA）。
 - [ ] 中级证书和叶子证书的有效期不要超过未来 3 年。
 - [ ] 存在定期访问审查的流程，审查间隔不要超过 24 个月。
-- [ ] 遵循[基于角色的访问控制良好实践](/zh-cn/docs/concepts/security/rbac-good-practices/)，以获得与身份验证和授权相关的指导。
+- [ ] 遵循[基于角色的访问控制良好实践](/zh-cn/docs/concepts/security/rbac-good-practices/)，
+  以获得与身份验证和授权相关的指导。
 
 <!--
 After bootstrapping, neither users nor components should authenticate to the
@@ -371,43 +372,6 @@ SELinux is only available on Linux nodes, and enabled in
 SELinux 仅在 Linux 节点上可用，
 在[一些 Linux 发行版](https://en.wikipedia.org/wiki/Security-Enhanced_Linux#Implementations)中已启用。
 {{< /note >}}
-
-<!--
-## Logs and auditing
-
-- [ ] Audit logs, if enabled, are protected from general access.
-- [ ] The `/logs` API is disabled (you are running kube-apiserver with
-  `--enable-logs-handler=false`).
--->
-## 日志和审计   {#logs-and-auditing}
-
-- [ ] 审计日志（如果启用）将受到保护以防止常规访问。
-- [ ] `/logs` API 被禁用（你所运行的 kube-apiserver 设置了 `--enable-logs-handler=false`）。
-
-  <!--
-  Kubernetes includes a `/logs` API endpoint, enabled by default,
-  that lets users request the contents of the API server's `/var/log` directory over HTTP. Accessing
-  that endpoint requires authentication.
-  -->
-  Kubernetes 包含一个 `/logs` API 端点，默认启用。
-  这个端点允许用户通过 HTTP 来请求 API 服务器的 `/var/log` 目录的内容。
-  访问此端点需要身份验证。
-
-<!--
-Allowing broad access to Kubernetes logs can make security information
-available to a potential attacker.
-
-As a good practice, set up a separate means to collect and aggregate
-control plane logs, and do not use the `/logs` API endpoint.
-Alternatively, if you run your control plane with the `/logs` API endpoint
-and limit the content of `/var/log` (within the host or container where the API server is running) to
-Kubernetes API server logs only.
--->
-允许大范围访问 Kubernetes 日志可能会令安全信息被潜在的攻击者利用。
-
-一个好的做法是设置一个单独的方式来收集和聚合控制平面日志，
-并且不要使用 `/logs` API 端点。另一个使用场景是你运行控制平面时启用了 `/logs` API 端点并
-（在运行 API 服务器的主机或容器内）将 `/var/log` 的内容限制为仅保存 Kubernetes API 服务器日志。
 
 <!--
 ## Pod placement
@@ -732,7 +696,7 @@ availability state and recommended to improve your security posture:
 <!--
 [`NodeRestriction`](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)
 : Restricts kubelet's permissions to only modify the pods API resources they own
-or the node API ressource that represent themselves. It also prevents kubelet
+or the node API resource that represent themselves. It also prevents kubelet
 from using the `node-restriction.kubernetes.io/` annotation, which can be used
 by an attacker with access to the kubelet's credentials to influence pod
 placement to the controlled node.

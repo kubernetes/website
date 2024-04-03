@@ -121,9 +121,7 @@ The following in-tree plugins support persistent storage on Windows nodes:
 
 <!--
 * [`azureFile`](/docs/concepts/storage/volumes/#azurefile)
-* [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk)
 * [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume)
 -->
 * [`azureFile`](/zh-cn/docs/concepts/storage/volumes/#azurefile)
-* [`gcePersistentDisk`](/zh-cn/docs/concepts/storage/volumes/#gcepersistentdisk)
 * [`vsphereVolume`](/zh-cn/docs/concepts/storage/volumes/#vspherevolume)

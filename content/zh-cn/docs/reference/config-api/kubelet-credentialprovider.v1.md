@@ -114,7 +114,7 @@ kubelet 将使用此字段为 AuthConfig 中的凭据设置内存中缓存持续
 </td>
 </tr>
 <tr><td><code>auth</code><br/>
-<a href="#credentialprovider-kubelet-k8s-io-v1-AuthConfig"><code>map[string]k8s.io/kubelet/pkg/apis/credentialprovider/v1.AuthConfig</code></a>
+<a href="#credentialprovider-kubelet-k8s-io-v1-AuthConfig"><code>map[string]AuthConfig</code></a>
 </td>
 <td>
 <!--

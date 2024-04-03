@@ -307,7 +307,7 @@ for, so other administrators can know its purpose.</p>
 </td>
 </tr>
 <tr><td><code>expires</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#time-v1-meta"><code>meta/v1.Time</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
    <p><code>expires</code> specifies the timestamp when this token expires. Defaults to being set
@@ -372,7 +372,7 @@ of view and as an authentication method for the node in the bootstrap phase of
     
 
 
-<p>ClusterConfiguration contains cluster-wide configuration for a kubeadm cluster</p>
+<p>ClusterConfiguration contains cluster-wide configuration for a kubeadm cluster.</p>
 
 
 <table class="table">
@@ -539,7 +539,8 @@ interface and use that, but in case that process fails you may set the desired v
 </td>
 <td>
    <p><code>certificateKey</code> sets the key with which certificates and keys are encrypted prior to being
-uploaded in a Secret in the cluster during the <code>uploadcerts init</code> phase.</p>
+uploaded in a Secret in the cluster during the <code>uploadcerts init</code> phase.
+The certificate key is a hex encoded string that is an AES key of size 32 bytes.</p>
 </td>
 </tr>
 <tr><td><code>skipPhases</code><br/>
@@ -714,7 +715,7 @@ certificate.</p>
 - [Discovery](#kubeadm-k8s-io-v1beta3-Discovery)
 
 
-<p>BootstrapTokenDiscovery is used to set the options for bootstrap token based discovery</p>
+<p>BootstrapTokenDiscovery is used to set the options for bootstrap token based discovery.</p>
 
 
 <table class="table">
@@ -1037,7 +1038,7 @@ file from which to load cluster information.</p>
 </td>
 </tr>
 <tr><td><code>pathType</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
 </td>
 <td>
    <p><code>pathType</code> is the type of the <code>hostPath</code>.</p>
@@ -1116,7 +1117,8 @@ deployed on this node.</p>
 <td>
    <p><code>certificateKey</code> is the key that is used for decryption of certificates after
 they are downloaded from the secret upon joining a new control plane node.
-The corresponding encryption key is in the InitConfiguration.</p>
+The corresponding encryption key is in the InitConfiguration.
+The certificate key is a hex encoded string that is an AES key of size 32 bytes.</p>
 </td>
 </tr>
 </tbody>
@@ -1130,7 +1132,7 @@ The corresponding encryption key is in the InitConfiguration.</p>
 - [Etcd](#kubeadm-k8s-io-v1beta3-Etcd)
 
 
-<p>LocalEtcd describes that kubeadm should run an etcd cluster locally</p>
+<p>LocalEtcd describes that kubeadm should run an etcd cluster locally.</p>
 
 
 <table class="table">
@@ -1189,7 +1191,7 @@ signing certificate.</p>
 - [ClusterConfiguration](#kubeadm-k8s-io-v1beta3-ClusterConfiguration)
 
 
-<p>Networking contains elements describing cluster's networking configuration</p>
+<p>Networking contains elements describing cluster's networking configuration.</p>
 
 
 <table class="table">
@@ -1232,7 +1234,7 @@ signing certificate.</p>
 
 
 <p>NodeRegistrationOptions holds fields that relate to registering a new control-plane or
-node to the cluster, either via &quot;kubeadm init&quot; or &quot;kubeadm join&quot;</p>
+node to the cluster, either via <code>kubeadm init</code> or <code>kubeadm join</code>.</p>
 
 
 <table class="table">
@@ -1260,7 +1262,7 @@ This information will be annotated to the Node API object, for later re-use.</p>
 </td>
 </tr>
 <tr><td><code>taints</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    <p><code>taints</code> specifies the taints the Node API object should be registered with.
@@ -1292,7 +1294,7 @@ Value <code>all</code> ignores errors from all checks.</p>
 </td>
 </tr>
 <tr><td><code>imagePullPolicy</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
 </td>
 <td>
    <p><code>imagePullPolicy</code> specifies the policy for image pulling during kubeadm &quot;init&quot; and

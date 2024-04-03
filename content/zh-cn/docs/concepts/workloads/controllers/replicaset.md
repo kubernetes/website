@@ -355,7 +355,7 @@ pod2             1/1     Running   0          36s
 ```
 
 <!--
-In this manner, a ReplicaSet can own a non-homogenous set of Pods
+In this manner, a ReplicaSet can own a non-homogeneous set of Pods
 -->
 采用这种方式，一个 ReplicaSet 中可以包含异质的 Pod 集合。
 

@@ -4,7 +4,7 @@ noedit: true
 cid: docsHome
 layout: docsportal_home
 class: gridPage gridPageHome
-linkTitle: "Головна"
+linkTitle: "Документація"
 main_menu: true
 weight: 10
 hide_feedback: true

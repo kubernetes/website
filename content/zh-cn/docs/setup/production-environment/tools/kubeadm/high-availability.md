@@ -488,7 +488,7 @@ in the kubeadm config file.
 
    - Replace the value of `CONTROL_PLANE` with the `user@host` of the first control-plane node.
 -->
-### 设置 ectd 集群
+### 设置 etcd 集群
 
 1. 按照[这里](/zh-cn/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)的指示去设置。
 

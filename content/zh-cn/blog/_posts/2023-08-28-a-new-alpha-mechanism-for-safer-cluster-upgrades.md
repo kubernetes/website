@@ -55,7 +55,7 @@ apiserver 中；因此，它会收到 404（"Not Found"）的响应报错，这�
 -->
 ## 如何解决此问题？
 
-{{< figure src="/images/blog/2023-08-28-a-new-alpha-mechanism-for-safer-cluster-upgrades/mvp-flow-diagram.svg" class="diagram-large" >}}
+{{< figure src="/images/blog/2023-08-28-a-new-alpha-mechanism-for-safer-cluster-upgrades/mvp-flow-diagram_zh.svg" class="diagram-large" >}}
 
 <!--
 The new feature “Mixed Version Proxy” provides the kube-apiserver with the capability to proxy a request to a peer kube-apiserver which is aware of the requested resource and hence can serve the request. To do this, a new filter has been added to the handler chain in the API server's aggregation layer.

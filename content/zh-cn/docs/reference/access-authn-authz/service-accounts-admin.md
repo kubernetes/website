@@ -5,10 +5,8 @@ weight: 50
 ---
 <!--
 reviewers:
-  - bprashanth
-  - davidopp
-  - lavalamp
   - liggitt
+  - enj
 title: Managing Service Accounts
 content_type: concept
 weight: 50
@@ -242,6 +240,102 @@ to obtain short-lived API access tokens is recommended instead.
 {{< /note >}}
 
 <!--
+## Auto-generated legacy ServiceAccount token clean up {#auto-generated-legacy-serviceaccount-token-clean-up}
+
+Before version 1.24, Kubernetes automatically generated Secret-based tokens for
+ServiceAccounts. To distinguish between automatically generated tokens and
+manually created ones, Kubernetes checks for a reference from the
+ServiceAccount's secrets field. If the Secret is referenced in the `secrets`
+field, it is considered an auto-generated legacy token. Otherwise, it is
+considered a manually created legacy token. For example:
+-->
+## 清理自动生成的传统 ServiceAccount 令牌   {#auto-generated-legacy-serviceaccount-token-clean-up}
+
+在 1.24 版本之前，Kubernetes 自动为 ServiceAccount 生成基于 Secret 的令牌。
+为了区分自动生成的令牌和手动创建的令牌，Kubernetes 会检查 ServiceAccount 的
+Secret 字段是否有引用。如果该 Secret 被 `secrets` 字段引用，
+它被视为自动生成的传统令牌。否则，它被视为手动创建的传统令牌。例如：
+
+<!--
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: build-robot
+  namespace: default
+secrets:
+  - name: build-robot-secret # usually NOT present for a manually generated token
+```
+-->
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: build-robot
+  namespace: default
+secrets:
+  - name: build-robot-secret # 对于手动生成的令牌通常不会存在此字段
+```
+
+<!--
+Beginning from version 1.29, legacy ServiceAccount tokens that were generated
+automatically will be marked as invalid if they remain unused for a certain
+period of time (set to default at one year). Tokens that continue to be unused
+for this defined period (again, by default, one year) will subsequently be
+purged by the control plane.
+-->
+从 1.29 版本开始，如果传统 ServiceAccount
+令牌在一定时间段（默认设置为一年）内未被使用，则会被标记为无效。
+在定义的时间段（同样默认为一年）持续未被使用的令牌将由控制平面自动清除。
+
+<!--
+If users use an invalidated auto-generated token, the token validator will
+
+1. add an audit annotation for the key-value pair
+  `authentication.k8s.io/legacy-token-invalidated: <secret name>/<namespace>`,
+1. increment the `invalid_legacy_auto_token_uses_total` metric count,
+1. update the Secret label `kubernetes.io/legacy-token-last-used` with the new
+   date,
+1. return an error indicating that the token has been invalidated.
+-->
+如果用户使用一个无效的自动生成的令牌，令牌验证器将执行以下操作：
+
+1. 为键值对 `authentication.k8s.io/legacy-token-invalidated: <secret name>/<namespace>`
+  添加审计注解，
+1. `invalid_legacy_auto_token_uses_total` 指标计数加一，
+1. 更新 Secret 标签 `kubernetes.io/legacy-token-last-used` 为新日期，
+1. 返回一个提示令牌已经无效的报错。
+
+<!--
+When receiving this validation error, users can update the Secret to remove the
+`kubernetes.io/legacy-token-invalid-since` label to temporarily allow use of
+this token.
+
+Here's an example of an auto-generated legacy token that has been marked with the
+`kubernetes.io/legacy-token-last-used` and `kubernetes.io/legacy-token-invalid-since`
+labels:
+-->
+当收到这个校验报错时，用户可以通过移除 `kubernetes.io/legacy-token-invalid-since`
+标签更新 Secret，以临时允许使用此令牌。
+
+以下是一个自动生成的传统令牌示例，它被标记了 `kubernetes.io/legacy-token-last-used`
+和 `kubernetes.io/legacy-token-invalid-since` 标签：
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: build-robot-secret
+  namespace: default
+  labels:
+    kubernetes.io/legacy-token-last-used: 2022-10-24
+    kubernetes.io/legacy-token-invalid-since: 2023-10-25
+  annotations:
+    kubernetes.io/service-account.name: build-robot
+type: kubernetes.io/service-account-token
+```
+
+<!--
 ## Control plane details
 
 ### ServiceAccount controller
@@ -345,6 +439,88 @@ it does the following when a Pod is created:
      在 Windows 节点上，此卷挂载在等价的路径上。
 4. 如果新来 Pod 的规约不包含任何 `imagePullSecrets`，则准入控制器添加 `imagePullSecrets`，
    并从 `ServiceAccount` 进行复制。
+
+<!--
+### Legacy ServiceAccount token tracking controller
+-->
+### 传统 ServiceAccount 令牌追踪控制器
+
+{{< feature-state for_k8s_version="v1.28" state="stable" >}}
+
+<!--
+This controller generates a ConfigMap called
+`kube-system/kube-apiserver-legacy-service-account-token-tracking` in the
+`kube-system` namespace. The ConfigMap records the timestamp when legacy service
+account tokens began to be monitored by the system.
+-->
+此控制器在 `kube-system` 命名空间中生成名为
+`kube-apiserver-legacy-service-account-token-tracking` 的 ConfigMap。
+这个 ConfigMap 记录了系统开始监视传统服务账户令牌的时间戳。
+
+<!--
+### Legacy ServiceAccount token cleaner
+-->
+### 传统 ServiceAccount 令牌清理器
+
+{{< feature-state for_k8s_version="v1.29" state="beta" >}}
+
+<!--
+The legacy ServiceAccount token cleaner runs as part of the
+`kube-controller-manager` and checks every 24 hours to see if any auto-generated
+legacy ServiceAccount token has not been used in a *specified amount of time*.
+If so, the cleaner marks those tokens as invalid.
+
+The cleaner works by first checking the ConfigMap created by the control plane
+(provided that `LegacyServiceAccountTokenTracking` is enabled). If the current
+time is a *specified amount of time* after the date in the ConfigMap, the
+cleaner then loops through the list of Secrets in the cluster and evaluates each
+Secret that has the type `kubernetes.io/service-account-token`.
+-->
+传统 ServiceAccount 令牌清理器作为 `kube-controller-manager` 的一部分运行，
+每 24 小时检查一次，查看是否有任何自动生成的传统 ServiceAccount
+令牌在**特定时间段**内未被使用。如果有的话，清理器会将这些令牌标记为无效。
+
+清理器的工作方式是首先检查控制平面创建的 ConfigMap（前提是启用了
+`LegacyServiceAccountTokenTracking`）。如果当前时间是 ConfigMap
+所包含日期之后的**特定时间段**，清理器会遍历集群中的 Secret 列表，
+并评估每个类型为 `kubernetes.io/service-account-token` 的 Secret。
+
+<!--
+If a Secret meets all of the following conditions, the cleaner marks it as
+invalid:
+
+- The Secret is auto-generated, meaning that it is bi-directionally referenced
+  by a ServiceAccount.
+- The Secret is not currently mounted by any pods.
+- The Secret has not been used in a *specified amount of time* since it was
+  created or since it was last used.
+-->
+如果一个 Secret 满足以下所有条件，清理器会将其标记为无效：
+
+- Secret 是自动生成的，意味着它被 ServiceAccount 双向引用。
+- Secret 当前没有被任何 Pod 挂载。
+- Secret 自从创建或上次使用以来的**特定时间段**未被使用过。
+
+<!--
+The cleaner marks a Secret invalid by adding a label called
+`kubernetes.io/legacy-token-invalid-since` to the Secret, with the current date
+as the value. If an invalid Secret is not used in a *specified amount of time*,
+the cleaner will delete it.
+-->
+清理器通过向 Secret 添加名为 `kubernetes.io/legacy-token-invalid-since` 的标签，
+并将此值设置为当前日期，来标记 Secret 为无效。
+如果一个无效的 Secret 在**特定时间段**内未被使用，清理器将会删除它。
+
+{{< note >}}
+<!--
+All the *specified amount of time* above defaults to one year. The cluster
+administrator can configure this value through the
+`--legacy-service-account-token-clean-up-period` command line argument for the
+`kube-controller-manager` component.
+-->
+上述所有的**特定时间段**都默认为一年。集群管理员可以通过 `kube-controller-manager`
+组件的 `--legacy-service-account-token-clean-up-period` 命令行参数来配置此值。
+{{< /note >}}
 
 ### TokenRequest API
 
@@ -513,6 +689,17 @@ service-account-token Secret that you just created.
 -->
 如果你在 `examplens` 名字空间中启动一个新的 Pod，它可以使用你刚刚创建的
 `myserviceaccount` service-account-token Secret。
+
+{{< caution >}}
+<!--
+Do not reference manually created Secrets in the `secrets` field of a
+ServiceAccount. Or the manually created Secrets will be cleaned if it is not used for a long
+time. Please refer to [auto-generated legacy ServiceAccount token clean up](#auto-generated-legacy-serviceaccount-token-clean-up).
+-->
+不要在 ServiceAccount 的 `secrets` 字段中引用手动创建的 Secret。
+否则，如果这些手动创建的 Secret 长时间未被使用将会被清理掉。
+请参考[清理自动生成的传统 ServiceAccount 令牌](#auto-generated-legacy-serviceaccount-token-clean-up)。
+{{< /caution >}}
 
 <!--
 ## Delete/invalidate a ServiceAccount token {#delete-token}

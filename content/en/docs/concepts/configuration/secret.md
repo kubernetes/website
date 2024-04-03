@@ -2,6 +2,9 @@
 reviewers:
   - mikedanese
 title: Secrets
+api_metadata:
+- apiVersion: "v1"
+  kind: "Secret"
 content_type: concept
 feature:
   title: Secret and configuration management
@@ -209,7 +212,7 @@ You should only create a ServiceAccount token Secret
 if you can't use the `TokenRequest` API to obtain a token,
 and the security exposure of persisting a non-expiring token credential
 in a readable API object is acceptable to you. For instructions, see
-[Manually create a long-lived API token for a ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/#manually-create-a-service-account-api-token).
+[Manually create a long-lived API token for a ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/#manually-create-an-api-token-for-a-serviceaccount).
 {{< /note >}}
 
 When using this Secret type, you need to ensure that the
@@ -381,7 +384,7 @@ The following YAML contains an example config for a TLS Secret:
 
 The TLS Secret type is provided only for convenience.
 You can create an `Opaque` type for credentials used for TLS authentication.
-However, using the defined and public Secret type (`kubernetes.io/ssh-auth`)
+However, using the defined and public Secret type (`kubernetes.io/tls`)
 helps ensure the consistency of Secret format in your project. The API server
 verifies if the required keys are set for a Secret of this type.
 
@@ -676,6 +679,13 @@ container in order to provide access to any other Secret.
 There may be Secrets for several Pods on the same node. However, only the
 Secrets that a Pod requests are potentially visible within its containers.
 Therefore, one Pod does not have access to the Secrets of another Pod.
+
+### Configure least-privilege access to Secrets
+
+To enhance the security measures around Secrets, Kubernetes provides a mechanism: you can
+annotate a ServiceAccount as `kubernetes.io/enforce-mountable-secrets: "true"`.
+
+For more information, you can refer to the [documentation about this annotation](/docs/concepts/security/service-accounts/#enforce-mountable-secrets).
 
 {{< warning >}}
 Any containers that run with `privileged: true` on a node can access all

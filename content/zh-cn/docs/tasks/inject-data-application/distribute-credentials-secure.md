@@ -362,7 +362,7 @@ in octal.
 <!--
 ## Define container environment variables using Secret data
 -->
-## 使用 Secret 数据定义容器变量   {#define-container-env-var-using-secret-data}
+## 使用 Secret 数据定义容器变量   {#define-container-environment-variables-using-secret-data}
 
 <!--
 You can consume the data in Secrets as environment variables in your

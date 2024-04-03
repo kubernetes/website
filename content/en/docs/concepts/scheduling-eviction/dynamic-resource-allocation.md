@@ -41,14 +41,14 @@ ResourceClass
   driver.
 
 ResourceClaim
-: Defines a particular resource instances that is required by a
+: Defines a particular resource instance that is required by a
   workload. Created by a user (lifecycle managed manually, can be shared
   between different Pods) or for individual Pods by the control plane based on
   a ResourceClaimTemplate (automatic lifecycle, typically used by just one
   Pod).
 
 ResourceClaimTemplate
-: Defines the spec and some meta data for creating
+: Defines the spec and some metadata for creating
   ResourceClaims. Created by a user when deploying a workload.
 
 PodSchedulingContext
@@ -161,6 +161,17 @@ their resources are allocated and reserved. This avoids the scenario where a Pod
 gets scheduled onto one node and then cannot run there, which is bad because
 such a pending Pod also blocks all other resources like RAM or CPU that were
 set aside for it.
+
+{{< note >}}
+
+Scheduling of pods which use ResourceClaims is going to be slower because of
+the additional communication that is required. Beware that this may also impact
+pods that don't use ResourceClaims because only one pod at a time gets
+scheduled, blocking API calls are made while handling a pod with
+ResourceClaims, and thus scheduling the next pod gets delayed.
+
+{{< /note >}}
+
 
 ## Monitoring resources
 

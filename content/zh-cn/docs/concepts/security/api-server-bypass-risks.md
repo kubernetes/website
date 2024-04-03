@@ -148,7 +148,7 @@ The default anonymous access doesn't make this assertion with the control plane.
  -->
 kubelet API 可以配置为以多种方式验证请求。
 默认情况下，kubelet 的配置允许匿名访问。大多数 Kubernetes 提供商将默认值更改为使用 Webhook 和证书身份认证。
-这使得控制平面能够确保调用者访问 `Node` API 资源或子资源是经过授权的。但控制平面不能确保默认的匿名访问也是如此。
+这使得控制平面能够确保调用者访问 `nodes` API 资源或子资源是经过授权的。但控制平面不能确保默认的匿名访问也是如此。
 
 <!--
 ### Mitigations
@@ -165,7 +165,7 @@ kubelet API 可以配置为以多种方式验证请求。
   is set to webhook or certificate mode.
 - Ensure that the unauthenticated "read-only" Kubelet port is not enabled on the cluster.
  -->
-- 使用 [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/) 等机制限制对 `Node` API 对象的子资源的访问。
+- 使用 [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/) 等机制限制对 `nodes` API 对象的子资源的访问。
   只在有需要时才授予此访问权限，例如监控服务。
 - 限制对 kubelet 端口的访问。只允许指定和受信任的 IP 地址段访问该端口。
 - 确保将

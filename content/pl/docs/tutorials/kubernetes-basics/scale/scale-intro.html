@@ -9,8 +9,6 @@ weight: 10
 
 <body>
 
-<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
-
 <div class="layout" id="top">
 
     <main class="content">
@@ -86,7 +84,7 @@ weight: 10
         <div class="row">
             <div class="col-md-8">
 
-                <p>Kiedy zwiększamy skalę Deploymentu, uruchomienie nowych Podów jest zlecane na Węzłach, które posiadają odpowiednio dużo zasobów. Operacja skalowania zwiększy liczbę Podów do oczekiwanej wartości. W Kubernetes możliwe jest również <a href="/docs/user-guide/horizontal-pod-autoscaling/">autoskalowanie</a> Podów, ale jest ono poza zakresem niniejszego samouczka. Istnieje także możliwość skalowania do zera — w ten sposób zatrzymane zostaną wszystkie Pody należące do konkretnego Deploymentu.</p>
+                <p>Kiedy zwiększamy skalę Deploymentu, uruchomienie nowych Podów jest zlecane na Węzłach, które posiadają odpowiednio dużo zasobów. Operacja skalowania zwiększy liczbę Podów do oczekiwanej wartości. W Kubernetes możliwe jest również <a href="/docs/tasks/run-application/horizontal-pod-autoscale/">autoskalowanie</a> Podów, ale jest ono poza zakresem niniejszego samouczka. Istnieje także możliwość skalowania do zera — w ten sposób zatrzymane zostaną wszystkie Pody należące do konkretnego Deploymentu.</p>
 
                 <p>Kiedy działa jednocześnie wiele instancji jednej aplikacji, należy odpowiednio rozłożyć ruch pomiędzy każdą z nich. Serwisy posiadają zintegrowany load-balancer, który dystrybuuje ruch na wszystkie Pody w Deployment wystawionym na zewnątrz. Serwis prowadzi ciągły monitoring Podów poprzez ich punkty dostępowe <em>(endpoints)</em>, aby zapewnić, że ruch kierowany jest tylko do tych Podów, które są faktycznie dostępne.</p>
 

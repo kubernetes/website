@@ -99,7 +99,7 @@ will have strictly better performance and less overhead. However, we encourage y
 to explore all the options from the [CNCF landscape] in case another would be an
 even better fit for your environment.
 
-[CNCF landscape]: https://landscape.cncf.io/card-mode?category=container-runtime&grouping=category
+[CNCF landscape]: https://landscape.cncf.io/?group=projects-and-products&view-mode=card#runtime--container-runtime
 
 #### Can I still use Docker Engine as my container runtime?
 
@@ -109,7 +109,7 @@ Kubernetes clusters. Containers make this kind of interoperability possible.
 
 Mirantis and Docker have [committed][mirantis] to maintaining a replacement adapter for
 Docker Engine, and to maintain that adapter even after the in-tree dockershim is removed
-from Kubernetes. The replacement adapter is named [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd).
+from Kubernetes. The replacement adapter is named [`cri-dockerd`](https://mirantis.github.io/cri-dockerd/).
 
 You can install `cri-dockerd` and use it to connect the kubelet to Docker Engine. Read [Migrate Docker Engine nodes from dockershim to cri-dockerd](/docs/tasks/administer-cluster/migrating-from-dockershim/migrate-dockershim-dockerd/) to learn more.
 

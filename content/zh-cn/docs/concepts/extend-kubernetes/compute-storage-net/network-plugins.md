@@ -88,10 +88,10 @@ documentation for that Container Runtime, for example:
 
 <!--
 For specific information about how to install and manage a CNI plugin, see the documentation for
-that plugin or [networking provider](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model).
+that plugin or [networking provider](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-network-model).
 -->
 要了解如何安装和管理 CNI 插件的具体信息，可参阅对应的插件或
-[网络驱动（Networking Provider）](/zh-cn/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model)
+[网络驱动（Networking Provider）](/zh-cn/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-network-model)
 的文档。
 
 <!--

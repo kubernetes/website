@@ -960,7 +960,7 @@ so that authentication produces usernames in the format you want.
 -->
 ### 对主体的引用   {#referring-to-subjects}
 
-RoleBinding 或者 ClusterRoleBinding 可绑定角色到某**主体（Subject）**上。
+RoleBinding 或者 ClusterRoleBinding 可绑定角色到某**主体（Subject）** 上。
 主体可以是组，用户或者{{< glossary_tooltip text="服务账户" term_id="service-account" >}}。
 
 Kubernetes 用字符串来表示用户名。

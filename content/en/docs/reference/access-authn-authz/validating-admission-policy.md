@@ -113,7 +113,7 @@ actions. Failures defined by the `failurePolicy` are enforced
 according to these actions only if the `failurePolicy` is set to `Fail` (or not specified),
 otherwise the failures are ignored.
 
-See [Audit Annotations: validation falures](/docs/reference/labels-annotations-taints/audit-annotations/#validation-policy-admission-k8s-io-validation_failure)
+See [Audit Annotations: validation failures](/docs/reference/labels-annotations-taints/audit-annotations/#validation-policy-admission-k8s-io-validation-failure)
 for more details about the validation failure audit annotation.
 
 ### Parameter resources
@@ -375,7 +375,7 @@ When an API request is validated with this admission policy, the resulting audit
 ```
 
 In this example the annotation will only be included if the `spec.replicas` of the Deployment is more than
-50, otherwise the CEL expression evalutes to null and the annotation will not be included.
+50, otherwise the CEL expression evaluates to null and the annotation will not be included.
 
 Note that audit annotation keys are prefixed by the name of the `ValidatingAdmissionWebhook` and a `/`. If
 another admission controller, such as an admission webhook, uses the exact same audit annotation key, the 

@@ -21,7 +21,7 @@ slug: kubeadm-use-etcd-learner-mode
 <!--
 The [`kubeadm`](/docs/reference/setup-tools/kubeadm/) tool now supports etcd learner mode, which
 allows you to enhance the resilience and stability
-of your Kubernetes clusters by leveraging the [learner mode](https://etcd.io/docs/v3.4/learning/design-learner/#appendix-learner-implementation-in-v34) 
+of your Kubernetes clusters by leveraging the [learner mode](https://etcd.io/docs/v3.4/learning/design-learner/#appendix-learner-implementation-in-v34)
 feature introduced in etcd version 3.4.
 This guide will walk you through using etcd learner mode with kubeadm. By default, kubeadm runs
 a local etcd instance on each control plane node.
@@ -52,27 +52,27 @@ in Kubernetes clusters:
 在 Kubernetes 集群中采用 etcd learner 模式具有以下几个优点：
 
 <!--
- 1. **Enhanced Resilience**: etcd learner nodes are non-voting members that catch up with
-    the leader's logs before becoming fully operational. This prevents new cluster members
-    from disrupting the quorum or causing leader elections, making the cluster more resilient
-    during membership changes.
- 2. **Reduced Cluster Unavailability**: Traditional approaches to adding new members often
-    result in cluster unavailability periods, especially in slow infrastructure or misconfigurations.
-    etcd learner mode minimizes such disruptions.
- 3. **Simplified Maintenance**: Learner nodes provide a safer and reversible way to add or replace
-    cluster members. This reduces the risk of accidental cluster outages due to misconfigurations or
-    missteps during member additions.
- 4. **Improved Network Tolerance**: In scenarios involving network partitions, learner mode allows
-    for more graceful handling. Depending on the partition a new member lands, it can seamlessly
-    integrate with the existing cluster without causing disruptions.
+1. **Enhanced Resilience**: etcd learner nodes are non-voting members that catch up with
+   the leader's logs before becoming fully operational. This prevents new cluster members
+   from disrupting the quorum or causing leader elections, making the cluster more resilient
+   during membership changes.
+1. **Reduced Cluster Unavailability**: Traditional approaches to adding new members often
+   result in cluster unavailability periods, especially in slow infrastructure or misconfigurations.
+   etcd learner mode minimizes such disruptions.
+1. **Simplified Maintenance**: Learner nodes provide a safer and reversible way to add or replace
+   cluster members. This reduces the risk of accidental cluster outages due to misconfigurations or
+   missteps during member additions.
+1. **Improved Network Tolerance**: In scenarios involving network partitions, learner mode allows
+   for more graceful handling. Depending on the partition a new member lands, it can seamlessly
+   integrate with the existing cluster without causing disruptions.
 -->
 1. **增强了弹性**：etcd learner 节点是非投票成员，在完全进入角色之前会追随领导者的日志。
    这样可以防止新的集群成员干扰投票结果或引起领导者选举，从而使集群在成员变更期间更具弹性。
-2. **减少了集群不可用时间**：传统的添加新成员的方法通常会造成一段时间集群不可用，特别是在基础设施迟缓或误配的情况下更为明显。
+1. **减少了集群不可用时间**：传统的添加新成员的方法通常会造成一段时间集群不可用，特别是在基础设施迟缓或误配的情况下更为明显。
    而 etcd learner 模式可以最大程度地减少此类干扰。
-3. **简化了维护**：learner 节点提供了一种更安全、可逆的方式来添加或替换集群成员。
+1. **简化了维护**：learner 节点提供了一种更安全、可逆的方式来添加或替换集群成员。
    这降低了由于误配或在成员添加过程中出错而导致集群意外失效的风险。
-4. **改进了网络容错性**：在涉及网络分区的场景中，learner 模式允许更优雅的处理。
+1. **改进了网络容错性**：在涉及网络分区的场景中，learner 模式允许更优雅的处理。
    根据新成员所落入的分区，它可以无缝地与现有集群集成，而不会造成中断。
 
 <!--
@@ -149,7 +149,7 @@ ETCDCTL_API=3 etcdctl --endpoints 127.0.0.1:2379 \
   --cert=/etc/kubernetes/pki/etcd/server.crt \
   --key=/etc/kubernetes/pki/etcd/server.key \
   --cacert=/etc/kubernetes/pki/etcd/ca.crt \
-   member list
+  member list
 ...
 dc543c4d307fadb9, started, node1, https://10.6.177.40:2380, https://10.6.177.40:2379, false
 ```
@@ -157,26 +157,30 @@ dc543c4d307fadb9, started, node1, https://10.6.177.40:2380, https://10.6.177.40:
 <!--
 To check if the Kubernetes control plane is healthy, run `kubectl get node -l node-role.kubernetes.io/control-plane=`
 and check if the nodes are ready.
-
-Note: It is recommended to have an odd number of members in a etcd cluster.
-
-Before joining a worker node to the new Kubernetes cluster, ensure that the control plane nodes are healthy.
 -->
 要检查 Kubernetes 控制平面是否健康，运行 `kubectl get node -l node-role.kubernetes.io/control-plane=`
 并检查节点是否就绪。
 
-注意：建议在 etcd 集群中的成员个数为奇数。
+{{< note >}}
+<!--
+It is recommended to have an odd number of members in an etcd cluster.
+-->
+建议在 etcd 集群中的成员个数为奇数。
+{{< /note >}}
 
+<!--
+Before joining a worker node to the new Kubernetes cluster, ensure that the control plane nodes are healthy.
+-->
 在将工作节点接入新的 Kubernetes 集群之前，确保控制平面节点健康。
 
 <!--
 ## What's next
 
 - The feature gate `EtcdLearnerMode` is alpha in v1.27 and we expect it to graduate to beta in the next
-  minor release of Kubernetes  (v1.29).
-- etcd has an open issue that may make the process more automatic: 
+  minor release of Kubernetes (v1.29).
+- etcd has an open issue that may make the process more automatic:
   [Support auto-promoting a learner member to a voting member](https://github.com/etcd-io/etcd/issues/15107).
-- Learn more about the kubeadm [configuration format](/docs/reference/config-api/kubeadm-config.v1beta3/) here.
+- Learn more about the kubeadm [configuration format](/docs/reference/config-api/kubeadm-config.v1beta3/).
 -->
 ## 接下来的步骤   {#whats-next}
 
@@ -190,7 +194,9 @@ Before joining a worker node to the new Kubernetes cluster, ensure that the cont
 
 Was this guide helpful? If you have any feedback or encounter any issues, please let us know.
 Your feedback is always welcome! Join the bi-weekly [SIG Cluster Lifecycle meeting](https://docs.google.com/document/d/1Gmc7LyCIL_148a9Tft7pdhdee0NBHdOfHS1SAF0duI4/edit)
-or weekly [kubeadm office hours](https://docs.google.com/document/d/130_kiXjG7graFNSnIAgtMS1G8zPDwpkshgfRYS0nggo/edit). Or reach us via [Slack](https://slack.k8s.io/) (channel **#kubeadm**), or the [SIG's mailing list](https://groups.google.com/g/kubernetes-sig-cluster-lifecycle).
+or weekly [kubeadm office hours](https://docs.google.com/document/d/130_kiXjG7graFNSnIAgtMS1G8zPDwpkshgfRYS0nggo/edit).
+Or reach us via [Slack](https://slack.k8s.io/) (channel **#kubeadm**), or the
+[SIG's mailing list](https://groups.google.com/g/kubernetes-sig-cluster-lifecycle).
 -->
 ## 反馈   {#feedback}
 
