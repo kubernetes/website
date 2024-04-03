@@ -121,7 +121,7 @@ cron「の」ジョブは、「の」が続く事による解釈の難から基�
 ### その他基本方針など {#other-basic-policy}
 
 - 意訳と直訳で迷った場合は「直訳」で訳す
-- 訳で難しい・わからないと感じたらSlackの`#kubernetes-docs-ja`でみんなに聞く
+- 訳で難しい・わからないと感じたらSlackの`#kubernetes-docs-ja`で相談する
 - できることを挙手制で、できないときは早めに報告
 
 ## アップストリームのコントリビューター {#upstream-contributor}
