@@ -174,10 +174,10 @@ sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
 
 쿠버네티스 문서화에 기여하기와 관련된 보다 자세한 정보는, 다음을 참고합니다.
 
-* [쿠버네티스 문서에 기여하기](https://kubernetes.io/docs/contribute/)
-* [페이지 콘텐트 타입](https://kubernetes.io/docs/contribute/style/page-content-types/)
-* [문서화 스타일 가이드](http://kubernetes.io/docs/contribute/style/style-guide/)
-* [쿠버네티스 문서 현지화](https://kubernetes.io/docs/contribute/localization/)
+- [쿠버네티스 문서에 기여하기](https://kubernetes.io/docs/contribute/)
+- [페이지 콘텐트 타입](https://kubernetes.io/docs/contribute/style/page-content-types/)
+- [문서화 스타일 가이드](http://kubernetes.io/docs/contribute/style/style-guide/)
+- [쿠버네티스 문서 현지화](https://kubernetes.io/docs/contribute/localization/)
 
 ### 신규 기여자 대사(ambassadors)
 
@@ -188,15 +188,16 @@ sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
 | Arsh Sharma                | @arsh                      | @RinkiyaKeDad              |
 
 # `README.md`에 대한 쿠버네티스 문서 현지화(localization) {#localization-readmemds}
-
+- [쿠버네티스 문서 소개](https://www.youtube.com/watch?v=pprMgmNzDcw)
+  
 ## 한국어
 
 `README.md` 번역 및 한국어 기여자를 위한 보다 자세한 가이드는 [쿠버네티스 문서 한글화 가이드](https://kubernetes.io/ko/docs/contribute/localization_ko/)를 참고합니다.
 
 한국어 번역 메인테이너에게 다음을 통해 연락할 수 있습니다.
 
-* 손석호 ([GitHub - @seokho-son](https://github.com/seokho-son))
-* [슬랙 채널](https://kubernetes.slack.com/messages/kubernetes-docs-ko)
+- 손석호 ([GitHub - @seokho-son](https://github.com/seokho-son))
+- [슬랙 채널](https://kubernetes.slack.com/messages/kubernetes-docs-ko)
 
 
 # 행동 강령
