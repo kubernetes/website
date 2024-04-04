@@ -13,7 +13,7 @@ weight: 60
 ---
 
 <!-- overview -->
-{{< feature-state feature_gate_name="StorageVersionMigration" >}}
+{{< feature-state feature_gate_name="StorageVersionMigrator" >}}
 
 Kubernetes relies on API data being actively re-written, to support some 
 maintenance activities related to at rest storage. Two prominent examples are 
