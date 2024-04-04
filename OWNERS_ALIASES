@@ -14,6 +14,8 @@ aliases:
     - reylejano
     - sftim
     - tengqm
+    - drewhagen # RT 1.30 Docs Lead
+    - katcosgrove # RT 1.30 Lead
   sig-docs-localization-owners: # Admins for localization content
     - a-mccarthy
     - divya-mohan0209
@@ -42,8 +44,6 @@ aliases:
     - celestehorgan
     - dipesh-rawat
     - divya-mohan0209
-    - drewhagen # RT 1.30 Docs Lead
-    - katcosgrove # RT 1.30 Lead
     - natalisucks
     - nate-double-u
     - reylejano
