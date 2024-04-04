@@ -67,9 +67,9 @@ The ordering of these calls can be seen below.
 %% Have to set fontSize globally as this isn't respected due to https://github.com/mermaid-js/mermaid/issues/3990
 %%{init:{"theme":"neutral","fontSize": "22px", "sequence": {"mirrorActors":true},
     "themeVariables": {
-        "actorBkg":"royalblue",
+        "actorBkg":"#326ce5",
         "actorTextColor":"white",
-        "loopTextColor": "royalblue",
+        "loopTextColor": "#326ce5",
         "noteBkgColor": "grey",
         "fontSize": "22px"
 }}}%%
