@@ -73,7 +73,7 @@ So, suppose you've decided to build your own cloud. To start somewhere, you need
 
 Of course you can use standard distributions like Ubuntu or Debian, or you can consider specialized ones like Flatcar Container Linux, Fedora Core, and Talos Linux. Each has its advantages and disadvantages.
 
-What about us? We use quite a few specific kernel modules like ZFS, DRBD, and OpenvSwitch, so we decided to go the route of forming a system image with all the necessary modules in advance. In this case, Talos Linux turned out to be the most convenient for us. For example, such a config is enough to build a system image with all the necessary kernel modules:
+What about us? At Ænix, we use quite a few specific kernel modules like ZFS, DRBD, and OpenvSwitch, so we decided to go the route of forming a system image with all the necessary modules in advance. In this case, Talos Linux turned out to be the most convenient for us. For example, such a config is enough to build a system image with all the necessary kernel modules:
 
 ```yaml
 arch: amd64
