@@ -147,7 +147,7 @@ as well. You can find examples of the resources created for each type of provide
 
 At this stage, you already have a ready tenant Kubernetes cluster, but so far, it contains nothing
 but API workers and a few core plugins that are standardly included in the installation of any
-Kubernetes cluster: **kube-proxy** and **coredns**. For full integration, you will need to install
+Kubernetes cluster: **kube-proxy** and **CoreDNS**. For full integration, you will need to install
 several more components:
 
 To install additional components, you can use a separate
@@ -243,13 +243,14 @@ management API of the management cluster.
 
 ### Konnectivity
 
-There's another additional component I'd like to mention - Konnectivity. You will likely need it
-later on to get webhooks and the API aggregation layer working in your tenant Kubernetes cluster.
-This topic is covered in detail in one of my
+There's another additional component I'd like to mention -
+[Konnectivity](https://kubernetes.io/docs/tasks/extend-kubernetes/setup-konnectivity/).
+You will likely need it later on to get webhooks and the API aggregation layer working in your
+tenant Kubernetes cluster. This topic is covered in detail in one of my
 [previous article](/blog/2021/12/22/kubernetes-in-kubernetes-and-pxe-bootable-server-farm/#webhooks-and-api-aggregation-layer).
 
 Unlike the components presented above, Kamaji allows you to easily enable Konnectivity and manage
-it as one of the core components of your tenant cluster, alongside kube-proxy and coredns.
+it as one of the core components of your tenant cluster, alongside kube-proxy and CoreDNS.
 
 ## Conclusion
 
