@@ -5,7 +5,7 @@ date: 2024-04-29
 slug: structured-authentication-moves-to-beta
 ---
 
-**Authors:** [Anish Ramasekar](https://github.com/aramase) (Microsoft)
+**Author:** [Anish Ramasekar](https://github.com/aramase) (Microsoft)
 
 With Kubernetes 1.30, we (SIG Auth) are moving Structured Authentication Configuration to beta.
 
@@ -19,22 +19,22 @@ Structured Authentication Configuration feature is the first step towards
 addressing these limitations and providing a more flexible and extensible way
 to configure authentication in Kubernetes.
 
-## What is Structured Authentication Configuration?
-
-The Structured Authentication Configuration feature is a new way to configure
-authentication in Kubernetes. It currently only supports configuring JWT
+## What is structured authentication configuration?
+Kubernetes v1.30 builds on the experimental support for configurating authentication based on
+a file, that was added as alpha in Kubernetes v1.30. At this beta stage, Kubernetes only supports configuring JWT
 authenticators, which serve as the next iteration of the existing OIDC
 authenticator. JWT authenticator is an authenticator to
 authenticate Kubernetes users using JWT compliant tokens. The authenticator
 will attempt to parse a raw ID token, verify it's been signed by the configured 
 issuer.
 
-The feature is designed to be more flexible and extensible than the existing
-flag-based approach for configuring the JWT authenticator.
+The Kubernetes project added configuration from a file so that it can provide more
+flexibility than using command line options (which continue to work, and are still supported).
+Supporting a configuration file also makes it easy to deliver further improvements in upcoming
+releases.
 
-### Benefits of Structured Authentication Configuration
-The Structured Authentication Configuration feature brings several benefits to
-Kubernetes:
+### Benefits of structured authentication configuration
+Here's why using a configuration file to configure cluster authentication is a benefit:
 1. **Multiple JWT authenticators**: You can configure multiple JWT authenticators
    simultaneously. This allows you to use multiple identity providers (e.g.,
    Okta, Keycloak, GitLab) without needing to use an intermediary like Dex
@@ -45,7 +45,8 @@ Kubernetes:
 3. **Any JWT-compliant token**: You can use any JWT-compliant token for
    authentication. This allows you to use tokens from any identity provider that
    supports JWT. The minimum valid JWT payload must contain the claims documented 
-   [here](https://github.com/kubernetes/kubernetes/blob/121607e80963370c1838f9f620c2b8552041abfc/staging/src/k8s.io/apiserver/pkg/apis/apiserver/v1beta1/types.go#L152-L157).
+   in [structured authentication configuration](/docs/reference/access-authn-authz/authentication/#using-authentication-configuration)
+   page in the Kubernetes documentation.
 4. **CEL (Common Expression Language) support**: You can use [CEL](/docs/reference/using-api/cel/) 
    to determine whether the token's claims match the user's attributes in Kubernetes (e.g.,
    username, group). This allows you to use complex logic to determine whether a
@@ -53,7 +54,7 @@ Kubernetes:
 5. **Multiple audiences**: You can configure multiple audiences for a single
    authenticator. This allows you to use the same authenticator for multiple
    audiences, such as using a different OAuth client for `kubectl` and dashboard.
-6. **Using Identity providers that don't support OpenID connect discovery**: You
+6. **Using identity providers that don't support OpenID connect discovery**: You
    can use identity providers that don't support [OpenID Connect 
    discovery](https://openid.net/specs/openid-connect-discovery-1_0.html). The only
    requirement is to host the discovery document at a different location than the
@@ -61,7 +62,7 @@ Kubernetes:
    the configuration file.
 
 ## How to use Structured Authentication Configuration
-To use the Structured Authentication Configuration feature, you must specify
+To use structured authentication configuration, you specify
 the path to the authentication configuration using the `--authentication-config`
 command line argument in the API server. The configuration file is a YAML file
 that specifies the authenticators and their configuration. Here is an example
@@ -70,6 +71,8 @@ configuration file that configures two JWT authenticators:
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1beta1
 kind: AuthenticationConfiguration
+# Someone with a valid token from either of these issuers could authenticate
+# against this cluster.
 jwt:
 - issuer:
     url: https://issuer1.example.com
@@ -79,7 +82,7 @@ jwt:
     audienceMatchPolicy: MatchAny
   claimValidationRules:
     expression: 'claims.hd == "example.com"'
-    message: "the hd claim must be example.com"
+    message: "the hosted domain name must be example.com"
   claimMappings:
     username:
       expression: 'claims.username'
@@ -104,7 +107,7 @@ jwt:
     audienceMatchPolicy: MatchAny
   claimValidationRules:
     expression: 'claims.hd == "example.com"'
-    message: "the hd claim must be example.com"
+    message: "the hosted domain name must be example.com"
   claimMappings:
     username:
       expression: 'claims.username'
@@ -120,12 +123,12 @@ jwt:
     message: "username cannot use reserved system: prefix"
 ```
 
-## Migration from command line flags to configuration file
+## Migration from command line arguments to configuration file
 The Structured Authentication Configuration feature is designed to be
-backwards-compatible with the existing flag-based approach for configuring the
-JWT authenticator. This means that you can continue to use the existing
-command-line flags to configure the JWT authenticator. However, we recommend
-migrating to the new configuration file-based approach, as it provides more
+backwards-compatible with the existing approach, based on command line options, for 
+configuring the JWT authenticator. This means that you can continue to use the existing
+command-line options to configure the JWT authenticator. However, we (Kubernetes SIG Auth) 
+recommend migrating to the new configuration file-based approach, as it provides more
 flexibility and extensibility.
 
 {{% alert title="Note" color="primary" %}}
@@ -139,7 +142,7 @@ command line arguments, and use the configuration file instead.
 Here is an example of how to migrate from the command-line flags to the
 configuration file:
 
-### Command-line flags
+### Command-line arguments
 ```bash
 --oidc-issuer-url=https://issuer.example.com
 --oidc-client-id=example-client-id
@@ -152,9 +155,9 @@ configuration file:
 --oidc-ca-file=/path/to/ca.pem
 ```
 
-> There is no equivalent in the configuration file for the `--oidc-signing-algs`. 
-> The authenticator will support all asymmetric algorithms listed 
-> [here](https://github.com/kubernetes/kubernetes/blob/b4935d910dcf256288694391ef675acfbdb8e7a3/staging/src/k8s.io/apiserver/plugin/pkg/authenticator/token/oidc/oidc.go#L222-L233).
+There is no equivalent in the configuration file for the `--oidc-signing-algs`. 
+For Kubernetes v1.30, the authenticator supports all the asymmetric algorithms listed in
+[`oidc.go`](https://github.com/kubernetes/kubernetes/blob/b4935d910dcf256288694391ef675acfbdb8e7a3/staging/src/k8s.io/apiserver/plugin/pkg/authenticator/token/oidc/oidc.go#L222-L233).
 
 ### Configuration file
 ```yaml
@@ -189,21 +192,21 @@ feedback. In the coming releases, we want to investigate:
 
 You can learn more about this feature on the [structured authentication
 configuration](/docs/reference/access-authn-authz/authentication/#using-authentication-configuration)
-Kubernetes doc website. You can also follow along on the
+page in the Kubernetes documentation. You can also follow along on the
 [KEP-3331](https://kep.k8s.io/3331) to track progress across the coming
 Kubernetes releases.
 
-## Call to action
-In this post, we have covered the benefits the Structured Authentication
+## Try it out
+In this post, I have covered the benefits the Structured Authentication
 Configuration feature brings in Kubernetes v1.30. To use this feature, you must specify the path to the
 authentication configuration using the `--authentication-config` command line
 argument. From Kubernetes v1.30, the feature is in beta and enabled by default.
-If you want to keep using command line flags instead of a configuration file,
+If you want to keep using command line arguments instead of a configuration file,
 those will continue to work as-is. 
 
 We would love to hear your feedback on this feature. Please reach out to us on the
 [#sig-auth-authenticators-dev](https://kubernetes.slack.com/archives/C04UMAUC4UA)
-channel on Kubernetes Slack.
+channel on Kubernetes Slack (for an invitation, visit [https://slack.k8s.io/](https://slack.k8s.io/)).
 
 ## How to get involved
 If you are interested in getting involved in the development of this feature,
