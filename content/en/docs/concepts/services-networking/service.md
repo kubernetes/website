@@ -855,9 +855,19 @@ You can use a headless Service to interface with other service discovery mechani
 without being tied to Kubernetes' implementation.
 
 For headless Services, a cluster IP is not allocated, kube-proxy does not handle
-these Services, and there is no load balancing or proxying done by the platform
-for them. How DNS is automatically configured depends on whether the Service has
-selectors defined:
+these Services, and there is no load balancing or proxying done by the platform for them.
+
+A headless Service allows a client to connect to whichever Pod it prefers, directly. Services that are headless don't
+configure routes and packet forwarding using
+[virtual IP addresses and proxies](/docs/reference/networking/virtual-ips/); instead, headless Services report the
+endpoint IP addresses of the individual pods via internal DNS records, served through the cluster's
+[DNS service](/docs/concepts/services-networking/dns-pod-service/).
+To define a headless Service, you make a Service with `.spec.type` set to ClusterIP (which is also the default for `type`),
+and you additionally set `.spec.clusterIP` to None.
+
+The string value None is a special case and is not the same as leaving the `.spec.clusterIP` field unset.
+
+How DNS is automatically configured depends on whether the Service has selectors defined:
 
 ### With selectors
 
