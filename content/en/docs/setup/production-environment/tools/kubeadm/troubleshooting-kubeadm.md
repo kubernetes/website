@@ -469,6 +469,7 @@ on the side of the metrics-server:
 ```
 x509: certificate signed by unknown authority
 x509: certificate is valid for IP-foo not IP-bar
+x509: cannot validate certificate for IP-foo because it doesn't contain any IP SANs
 ```
 
 See [Enabling signed kubelet serving certificates](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#kubelet-serving-certs)
