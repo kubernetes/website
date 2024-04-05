@@ -10,7 +10,7 @@ This page explains how to upgrade a Linux Worker Nodes created with kubeadm.
 
 ## {{% heading "prerequisites" %}}
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs-node-upgrade.md" >}} {{< version-check >}}
 * Familiarize yourself with [the process for upgrading the rest of your kubeadm
 cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade). You will want to
 upgrade the control plane nodes before upgrading your Linux Worker nodes.
