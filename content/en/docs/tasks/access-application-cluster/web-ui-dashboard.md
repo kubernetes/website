@@ -35,7 +35,8 @@ Dashboard also provides information on the state of Kubernetes resources in your
 ## Deploying the Dashboard UI
 
 {{< note >}}
-Kubernetes Dashboard supports only Helm-based installation currently as it is faster and gives us better control over all dependencies required by Dashboard to run.
+Kubernetes Dashboard supports only Helm-based installation currently as it is faster
+and gives us better control over all dependencies required by Dashboard to run.
 {{< /note >}}
 
 The Dashboard UI is not deployed by default. To deploy it, run the following command:
