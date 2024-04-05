@@ -41,7 +41,7 @@ and gives us better control over all dependencies required by Dashboard to run.
 
 The Dashboard UI is not deployed by default. To deploy it, run the following command:
 
-```
+```shell
 # Add kubernetes-dashboard repository
 helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
 # Deploy a Helm Release named "kubernetes-dashboard" using the kubernetes-dashboard chart
