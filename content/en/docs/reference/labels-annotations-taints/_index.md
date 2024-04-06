@@ -66,7 +66,7 @@ Starting from v1.9, this label is deprecated.
 
 Type: Label
 
-Example: `app.kubernetes.io/instance: "mysql-abcxzy"`
+Example: `app.kubernetes.io/instance: "mysql-abcxyz"`
 
 Used on: All Objects (typically used on
 [workload resources](/docs/reference/kubernetes-api/workload-resources/)).
