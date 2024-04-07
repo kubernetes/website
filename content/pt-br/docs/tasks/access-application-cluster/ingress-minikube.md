@@ -12,7 +12,7 @@ que permitem acesso externo a serviços em um cluster. Um
 [Ingress controller](/docs/concepts/services-networking/ingress-controllers/)
 cumpre as regras estabelecidas no Ingress.
 
-Essa pagina mostra como configurar um Ingress simples que redireciona as requisições para o Service "web" ou "web2" dependendo do URI HTTP.
+Essa página mostra como configurar um Ingress simples que redireciona as requisições para o Service "web" ou "web2" dependendo do URI HTTP.
 
 ## {{% heading "prerequisites" %}}
 
