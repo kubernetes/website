@@ -279,7 +279,7 @@ O manifesto a seguir define um Ingress que envia tráfego para seu Serviço via
 
 ## {{% heading "whatsnext" %}}
 
-* Leia mais sobre [Ingress](/docs/concepts/services-networking/ingress/)
+* Leia mais sobre [Ingress](/pt-br/docs/concepts/services-networking/ingress/)
 * Leia mais sobre [Ingress Controllers](/docs/concepts/services-networking/ingress-controllers/)
 * Leia mais sobre [Services](/docs/concepts/services-networking/service/)
 
