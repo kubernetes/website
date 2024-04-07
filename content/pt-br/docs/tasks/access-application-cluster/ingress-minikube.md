@@ -80,7 +80,7 @@ Se você ainda não configurou um cluster local, rode `minikube start` para cria
    service/web exposed
    ```
 
-1. Verifique que o Service esta criado e disponível em uma porta do node:
+1. Verifique que o Service está criado e disponível em uma porta do nó:
 
    ```shell
    kubectl get service web
