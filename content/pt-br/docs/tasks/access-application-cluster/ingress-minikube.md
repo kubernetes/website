@@ -16,7 +16,7 @@ Essa pagina mostra como configurar um Ingress simples que redireciona as requisi
 
 ## {{% heading "prerequisites" %}}
 
-Esse tutorial assume que você esta usando `minikube` para rodar um cluster Kubernetes local.
+Esse tutorial assume que você está usando `minikube` para rodar um cluster Kubernetes local.
 Visite [Install tools](/docs/tasks/tools/#minikube) para aprender como instalar o `minikube`.
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
