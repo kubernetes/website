@@ -54,7 +54,7 @@ Se você ainda não configurou um cluster local, rode `minikube start` para cria
    ingress-nginx-controller-59b45fb494-26npt   1/1     Running     0          11m
    ```
 
-## Deployando uma aplicação hello world
+## Instale uma aplicação hello world
 
 1. Crie um Deployment usando o seguinte comando:
 
