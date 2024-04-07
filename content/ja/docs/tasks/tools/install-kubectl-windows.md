@@ -194,7 +194,8 @@ kubectlはBash、Zsh、Fish、PowerShellの自動補完を提供しています�
 1. プラグインのインストール後、インストールファイルを削除してください:
 
    ```powershell
-   del kubectl-convert.exe kubectl-convert.exe.sha256
+   del kubectl-convert.exe
+   del kubectl-convert.exe.sha256
    ```
 
 ## {{% heading "whatsnext" %}}

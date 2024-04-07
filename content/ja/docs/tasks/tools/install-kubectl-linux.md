@@ -1,6 +1,4 @@
 ---
-reviewers:
-- mikedanese
 title: Install and Set Up kubectl on Linux
 content_type: task
 weight: 10

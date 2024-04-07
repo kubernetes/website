@@ -26,7 +26,7 @@ URLのレスポンスが表示されている場合は、kubectlはクラスタ�
 The connection to the server <server-name:port> was refused - did you specify the right host or port?
 ```
 
-たとえば、ラップトップ上(ローカル環境)でKubernetesクラスターを起動するような場合、Minikubeなどのツールを最初にインストールしてから、上記のコマンドを再実行する必要があります。
+たとえば、ラップトップ上(ローカル環境)でKubernetesクラスターを起動するような場合、[Minikube](https://minikube.sigs.k8s.io/docs/start/)などのツールを最初にインストールしてから、上記のコマンドを再実行する必要があります。
 
 kubectl cluster-infoがURLレスポンスを返したにもかかわらずクラスターにアクセスできない場合は、次のコマンドで設定が正しいことを確認してください:
 
