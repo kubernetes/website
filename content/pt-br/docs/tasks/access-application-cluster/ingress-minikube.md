@@ -274,7 +274,7 @@ O manifesto a seguir define um Ingress que envia tráfego para seu Serviço via
    ```
 
    {{< note >}}
-   Se você fez o passo opcional de atualizar arquivo `/etc/hosts`, você também ode visitar `hello-world.info` e `hellor-world.info/v2` do seu navegador.
+   Se você fez o passo opcional para atualizar o arquivo `/etc/hosts`, você também pode visitar `hello-world.info` e `hello-world.info/v2` do seu navegador.
    {{< /note >}}
 
 ## {{% heading "whatsnext" %}}
