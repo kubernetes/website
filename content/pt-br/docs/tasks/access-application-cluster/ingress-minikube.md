@@ -190,7 +190,7 @@ O manifesto a seguir define um Ingress que envia tráfego para seu Serviço via
      Altere o endereço IP para corresponder ao resultado de `minikube ip`.
      {{< /note >}}
 
-     Depois que voce fizer essa mudança, seu navegador enviará solicitações da URL `hello-world.info` para o Minukube
+     Depois que você fizer essa mudança, seu navegador enviará solicitações da URL `hello-world.info` para o Minikube
 
 ## Criando um segundo Deployment
 
