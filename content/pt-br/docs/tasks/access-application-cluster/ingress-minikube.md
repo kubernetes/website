@@ -7,7 +7,7 @@ min-kubernetes-server-version: 1.19
 
 <!-- overview -->
 
-O [Ingress](/docs/concepts/services-networking/ingress/) é um objeto API que define regras
+O [Ingress](/docs/concepts/services-networking/ingress/) é um objeto da API que define regras
 que permitem acesso externo a serviços em um cluster. Um
 [Ingress controller](/docs/concepts/services-networking/ingress-controllers/)
 cumpre as regras estabelecidas no Ingress.
@@ -35,14 +35,14 @@ Se você ainda não configurou um cluster local, rode `minikube start` para cria
    minikube addons enable ingress
    ```
 
-1. Verifique que o NGINX Ingress controller esta rodando
+1. Verifique que o NGINX Ingress controller está rodando
 
    ```shell
    kubectl get pods -n ingress-nginx
    ```
 
    {{< note >}}
-   Pode demorar alguns minutos antes dos pods estarem rodando OK.
+   Os pods podem levar até um minuto para estarem rodando corretamente.
    {{< /note >}}
 
    O resultado deve ser similar a:
@@ -118,7 +118,7 @@ Se você ainda não configurou um cluster local, rode `minikube start` para cria
    ```
 
    Você agora pode acessar a aplicação de exemplo através do endereço IP do Minikube e NodePort.
-   O proximo passo te permite acessar a aplicação usando o recurso Ingress.
+   No próximo passo, você irá acessar a aplicação usando o recurso Ingress.
 
 ## Criando um Ingress
 O manifesto a seguir define um Ingress que envia tráfego para seu Serviço via
@@ -140,7 +140,7 @@ O manifesto a seguir define um Ingress que envia tráfego para seu Serviço via
    ingress.networking.k8s.io/example-ingress created
    ```
 
-1. Verifiquei se o endereço IP está configurado:
+1. Verifique se o endereço IP está configurado:
 
    ```shell
    kubectl get ingress
@@ -158,7 +158,7 @@ O manifesto a seguir define um Ingress que envia tráfego para seu Serviço via
    ```
 
 
-1. Verifique se o Ingress controller está direcionando o trafego:
+1. Verifique se o Ingress controller está direcionando o tráfego:
 
    ```shell
    curl --resolve "hello-world.info:80:$( minikube ip )" -i http://hello-world.info
@@ -172,15 +172,15 @@ O manifesto a seguir define um Ingress que envia tráfego para seu Serviço via
    Hostname: web-55b8c6998d-8k564
    ```
 
-   Você tambem pode visitar `hello-world.info` no seu navegador.
+   Você também pode visitar `hello-world.info` no seu navegador.
 
-   * **Optionally**
+   * **Opcionalmente**
      Procure o endereço IP externo reportado pelo minikube:
      ```shell
      minikube ip
      ```
 
-     Adicione uma linha semelhante à seguinte no final do arquivo `/etc/hosts` no seu computador (voce vai precisar de acesso de administrador):
+     Adicione uma linha semelhante à seguinte no final do arquivo `/etc/hosts` no seu computador (você vai precisar de acesso de administrador):
 
      ```none
      172.17.0.15 hello-world.info
