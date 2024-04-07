@@ -7,7 +7,7 @@ min-kubernetes-server-version: 1.19
 
 <!-- overview -->
 
-O [Ingress](/docs/concepts/services-networking/ingress/) é um objeto da API que define regras
+O [Ingress](/pt-br/docs/concepts/services-networking/ingress/) é um objeto da API que define regras
 que permitem acesso externo a serviços em um cluster. Um
 [Ingress controller](/docs/concepts/services-networking/ingress-controllers/)
 cumpre as regras estabelecidas no Ingress.
@@ -17,7 +17,7 @@ Essa página mostra como configurar um Ingress simples que redireciona as requis
 ## {{% heading "prerequisites" %}}
 
 Esse tutorial assume que você está usando `minikube` para rodar um cluster Kubernetes local.
-Visite [Install tools](/docs/tasks/tools/#minikube) para aprender como instalar o `minikube`.
+Visite [Install tools](/pt-br/docs/tasks/tools/#minikube) para aprender como instalar o `minikube`.
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 Se você estiver usando uma versão mais antiga do Kubernetes, veja a documentação para essa versão.
