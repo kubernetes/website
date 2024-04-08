@@ -173,7 +173,7 @@ allowed_annotations = [
 これは、ソースからビルドするか、[静的バイナリバンドル](https://github.com/cri-o/packaging?tab=readme-ov-file#using-the-static-binary-bundles-directly)を使用するか、[プレリリースパッケージ](https://github.com/cri-o/packaging?tab=readme-ov-file#usage)を使用することで行うことができます。
 
 これを実証するために、[`local-up-cluster.sh`](https://github.com/cri-o/cri-o?tab=readme-ov-file#running-kubernetes-with-cri-o)を使って単一ノードのKubernetesクラスターをセットアップし、コマンドラインから`crio`バイナリを実行しました。
-クラスターが起動して実行されているので、seccomp `Unconfined`として実行されているアノテーションのないポッドを試してみましょう:
+クラスターが起動して実行されているので、seccomp `Unconfined`として実行されているアノテーションのないPodを試してみましょう:
 
 ```shell
 cat pod.yaml
