@@ -158,7 +158,8 @@ Es importante destacar que el tercer paso prioriza limitar las actualizaciones d
 Con kube-proxy ejecutándose en cada Nodo y vigilando los EndpointSlices, cada cambio en un EndpointSlice se vuelve relativamente caro ya que será transmitido a cada Nodo del clúster. Este enfoque pretende limitar el número de cambios que necesitan ser enviados a cada Nodo, incluso si puede resultar con múltiples EndpointSlices que no están llenos.
 
 
-En la práctica, esta distribución menos que ideal debería ser poco frecuente. La mayoría de los cambios procesados por el controlador EndpointSlice serán lo suficientemente pequeños como para caber en un EndpointSlice existente, y si no, es probable que pronto sea necesario un nuevo EndpointSlice de todos modos. Las actualizaciones continuas de los Despliegues también proporcionan un reempaquetado natural de los EndpointSlices con todos los Pods y sus correspondientes endpoints siendo reemplazados.
+En la práctica, esta distribución menos que ideal debería ser poco frecuente. La mayoría de los cambios procesados por el controlador EndpointSlice serán lo suficientemente pequeños como para caber en un EndpointSlice existente, y si no, es probable que pronto sea necesario un nuevo EndpointSlice de todos modos. Las actualizaciones continuas de los Deployments también proporcionan un reempaquetado natural de los EndpointSlices con todos los Pods y sus correspondientes endpoints siendo reemplazados.
+
 
 ### Endpoints duplicados
 
