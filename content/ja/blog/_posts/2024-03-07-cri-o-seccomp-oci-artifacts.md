@@ -284,7 +284,7 @@ sudo crictl inspect $CONTAINER_ID | jq .info.runtimeSpec.linux.seccomp | head
     {
 ```
 
-ユーザーが接尾辞`/container`を予約名`/POD`に置き換えると、ポッド内のすべてのコンテナに対して同じことが機能します。
+ユーザーが接尾辞`/container`を予約名`/POD`に置き換えると、Pod内のすべてのコンテナに対して同じことが機能します。
 たとえば:
 
 ```yaml
