@@ -106,7 +106,8 @@ Aunque `serving` es casi idéntico a `ready`, se añadió para evitar romper el 
 Cada endpoint dentro de un EndpointSlice puede contener información topológica relevante. La información de topología incluye la ubicación del endpoint e información sobre el Nodo y la zona correspondientes. Estos están disponibles en los siguientes campos por endpoint en EndpointSlices:
 
 * `nodeName` - El nombre del Nodo en el que se encuentra este endpoint.
-* `zone` - La zona en la que se encuentra este punto final.
+* `zone` - La zona en la que se encuentra este endpoint.
+
 
 {{< note >}}
 En la API v1, el endpoint `topology` se eliminó en favor de los campos dedicados `nodeName` y `zone`.
