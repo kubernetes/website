@@ -178,7 +178,7 @@ Más notablemente, estos incluyen desafíos con la ampliación a un mayor númer
 
 Dado que todos los endpoints de red para un Servicio se almacenaban en un único objeto Endpoint, esos objetos Endpoints podían llegar a ser bastante grandes. Para los Services que permanecían estables (el mismo conjunto de puntos finales durante un largo período de tiempo), el impacto era menos notable; incluso entonces, algunos casos de uso de Kubernetes no estaban bien servidos.
 
-Cuando un servicio tenía muchos puntos finales de backend y la carga de trabajo se escalaba con frecuencia o se introducían nuevos cambios con frecuencia, cada actualización del objeto Endpoints para ese servicio suponía mucho tráfico entre los componentes del clúster de Kubernetes (dentro del plano de control y también entre los nodos y el servidor de API). Este tráfico adicional también tenía un coste en términos de uso de la CPU.
+Cuando un Service tenía muchos Endpoints de backend y la carga de trabajo se escalaba con frecuencia o se introducían nuevos cambios con frecuencia, cada actualización del objeto Endpoint para ese Service suponía mucho tráfico entre los componentes del clúster de Kubernetes (dentro del plano de control y también entre los nodos y el servidor de API). Este tráfico adicional también tenía un coste en términos de uso de la CPU.
 
 Con EndpointSlices, la adición o eliminación de un único Pod desencadena el mismo _número_ de actualizaciones a los clientes que están pendientes de los cambios, pero el tamaño de esos mensajes de actualización es mucho menor a gran escala.
 
