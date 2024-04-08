@@ -6,7 +6,8 @@ content_type: concept
 weight: 60
 description: >-
   La API de EndpointSlice es el mecanismo que Kubernetes utiliza para permitir que tu Servicio
-  escale para manejar un gran número de backends, y permite que el cluster actualice tu lista de 
+  escale para manejar un gran número de backends, y permite que el clúster actualice tu lista de 
+
   backends saludables eficientemente.
 ---
 
