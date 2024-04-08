@@ -1,3 +1,3 @@
 ---
-headless: সত্য
+headless: true
 ---
