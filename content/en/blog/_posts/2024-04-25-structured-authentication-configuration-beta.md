@@ -1,13 +1,17 @@
 ---
 layout: blog
 title: "Kubernetes 1.30: Structured Authentication Configuration Moves to Beta"
-date: 2024-04-29
+date: 2024-04-25
 slug: structured-authentication-moves-to-beta
 ---
 
 **Author:** [Anish Ramasekar](https://github.com/aramase) (Microsoft)
 
 With Kubernetes 1.30, we (SIG Auth) are moving Structured Authentication Configuration to beta.
+
+Today's article is about _authentication_: finding out who's performing a task, and checking
+that they are who they say they are. Check back in tomorrow to find about what's new in
+Kubernetes v1.30 around _authorization_ (deciding what someone can and can't access).
 
 ## Motivation
 Kubernetes has had a long-standing need for a more flexible and extensible
