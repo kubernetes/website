@@ -136,7 +136,7 @@ En algunos casos, las aplicaciones crean recursos Endpoints personalizados. Para
 El plano de control refleja los recursos de los Endpoints a menos que: 
 * El recurso Endpoints tenga una etiqueta `endpointslice.kubernetes.io/skip-mirror` con el valor en `true`.
 * El recurso Endpoints tenga una anotación `control-plane.alpha.kubernetes.io/leader`.
-* El recurso de servicio correspondiente no existe.
+* El recurso Service correspondiente no exista.
 * El recurso Service correspondiente tiene un selector no nulo.
 
 Los recursos Endpoints individuales pueden traducirse en múltiples EndpointSlices. Esto ocurrirá si un recurso Endpoints tiene 
