@@ -91,7 +91,7 @@ La condición `serving` es casi idéntica a la condición `ready`. La diferencia
 
 {{< note >}}
 
-Aunque `serving` es casi idéntico a `ready`, se añadió para evitar romper el significado existente de `ready`. Podría ser inesperado para los clientes existentes si `ready` pudiera ser `true` para los endpoints de terminación, ya que históricamente los endpoints de terminación nunca se incluyeron en la API Endpoints o EndpointSlice para empezar. Por esta razón, `ready` es _siempre_ `false` para los puntos finales que terminan, y se ha añadido una nueva condición `serving` en la v1.20 para que los clientes puedan realizar un seguimiento de la disponibilidad de los pods que terminan independientemente de la semántica existente para `ready`.
+Aunque `serving` es casi idéntico a `ready`, se añadió para evitar romper el significado existente de `ready`. Podría ser inesperado para los clientes existentes si `ready` pudiera ser `true` para los endpoints de terminación, ya que históricamente los endpoints de terminación nunca se incluyeron en la API Endpoints o EndpointSlice para empezar. Por esta razón, `ready` es _siempre_ `false` para los Endpoints que terminan, y se ha añadido una nueva condición `serving` en la v1.20 para que los clientes puedan realizar un seguimiento de la disponibilidad de los pods que terminan independientemente de la semántica existente para `ready`.
 
 {{< /note >}}
 
