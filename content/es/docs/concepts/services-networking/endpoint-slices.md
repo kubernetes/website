@@ -176,7 +176,7 @@ Puedes encontrar una implementación de referencia sobre cómo realizar esta agr
 La API Endpoints original proporcionaba una forma simple y directa de rastrear los endpoints de red en Kubernetes. A medida que los clústeres de Kubernetes y los {{< glossary_tooltip text="Services" term_id="service" >}} crecían para manejar más tráfico y enviar más tráfico a más Pods backend, las limitaciones de la API original se hicieron más visibles.
 Más notablemente, estos incluyen desafíos con la ampliación a un mayor número de endpoints de red.
 
-Dado que todos los puntos finales de red para un Servicio se almacenaban en un único objeto Endpoints, esos objetos Endpoints podían llegar a ser bastante grandes. Para los servicios que permanecían estables (el mismo conjunto de puntos finales durante un largo período de tiempo), el impacto era menos notable; incluso entonces, algunos casos de uso de Kubernetes no estaban bien servidos.
+Dado que todos los endpoints de red para un Servicio se almacenaban en un único objeto Endpoint, esos objetos Endpoints podían llegar a ser bastante grandes. Para los Services que permanecían estables (el mismo conjunto de puntos finales durante un largo período de tiempo), el impacto era menos notable; incluso entonces, algunos casos de uso de Kubernetes no estaban bien servidos.
 
 Cuando un servicio tenía muchos puntos finales de backend y la carga de trabajo se escalaba con frecuencia o se introducían nuevos cambios con frecuencia, cada actualización del objeto Endpoints para ese servicio suponía mucho tráfico entre los componentes del clúster de Kubernetes (dentro del plano de control y también entre los nodos y el servidor de API). Este tráfico adicional también tenía un coste en términos de uso de la CPU.
 
