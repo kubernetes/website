@@ -2,19 +2,17 @@
 layout: blog
 title: "Spotlight on SIG Architecture: Code Organization"
 slug: sig-architecture-code-spotlight-2024
-canonicalUrl:https://www.kubernetes.dev/blog/2024/04/04/sig-architecture-code-spotlight-2024
-date: 2024-04-04
+canonicalUrl: https://www.kubernetes.dev/blog/2024/04/11/sig-architecture-code-spotlight-2024
+date: 2024-04-11
 ---
 
 ** Author: Frederico Muñoz (SAS Institute)**
 
 _This is the third interview of a SIG Architecture Spotlight series that will cover the different
-subprojects. We will cover the [SIG Architecture: Code
-Organization](https://github.com/kubernetes/community/blob/master/sig-architecture/README.md#code-organization-1)_
+subprojects. We will cover [SIG Architecture: Code Organization](https://github.com/kubernetes/community/blob/e44c2c9d0d3023e7111d8b01ac93d54c8624ee91/sig-architecture/README.md#code-organization)._
 
-In this SIG Architecture spotlight we talked with [Madhav
-Jivrajan](https://github.com/MadhavJivrajani) (VMware), a member of the Code Organization
-subproject.
+In this SIG Architecture spotlight I talked with [Madhav Jivrajan](https://github.com/MadhavJivrajani)
+(VMware), a member of the Code Organization subproject.
 
 ## Introducing the Code Organization subproject
 
@@ -33,7 +31,7 @@ and it is through this that I am involved with the Code Organization subproject 
 specific to Kubernetes?
 
 **MJ**: That’s a fair assumption! The first interesting challenge comes from the sheer size of the
-Kubernetes codebase. We have ~2.2 million lines of Go code (which is steadily decreasing thanks to
+Kubernetes codebase. We have ≅2.2 million lines of Go code (which is steadily decreasing thanks to
 [dims](https://github.com/dims) and other folks in this sub-project!), and a little over 240
 dependencies that we rely on either directly or indirectly, which is why having a sub-project
 dedicated to helping out with dependency management is crucial: we need to know what dependencies
@@ -66,7 +64,7 @@ repo](https://github.com/kubernetes/kubernetes/tree/master/staging/src/k8s.io/cl
 **FSM**: So the concept of staging directories fundamentally impact contributions?
 
 **MJ**: Precisely, because if you’d like to contribute to any of the staging repos, you will need to
-send in a PR to its corresponding staging directory in `kubernetes/kubernetes`, once the code merges
+send in a PR to its corresponding staging directory in `kubernetes/kubernetes`. Once the code merges
 there, we have a bot called the [`publishing-bot`](https://github.com/kubernetes/publishing-bot)
 that will sync the merged commits to the required staging repositories (like
 `kubernetes/client-go`). This way we get the benefits of a monorepo but we also can modularly
@@ -87,7 +85,7 @@ of much of the
 that Kubernetes uses today for dependency management. This tooling helps ensure there is a
 consistent way that contributors can make changes to dependencies. The project has also worked on
 additional tooling to signal statistics of dependencies that is being added or removed:
-<code>[depstat](https://github.com/kubernetes-sigs/depstat)</code>
+[`depstat`](https://github.com/kubernetes-sigs/depstat)
 
 Apart from dependency management, another crucial task that the project does is management of the
 staging repositories. The tooling for achieving this (`publishing-bot`) is completely transparent to
@@ -116,19 +114,21 @@ to our supported release branches.
 **FSM**: Is there any major project or theme the subproject is working on right now that you would
 like to highlight?
 
-**MJ**: I think one very interesting and immensely useful change that has been recently added (and I
-take the opportunity to specifically highlight the work of [Tim Hochin](https://github.com/thockin)
-on this) is the introduction of [Go workspaces to the Kubernetes
-repo](https://github.com/kubernetes/enhancements/tree/master/keps/sig-architecture/4402-go-workspaces). A
-lot of our current tooling for dependency management and code publishing, as well as the experience
-of editing code in the Kubernetes repo, can be significantly improved by this change.
+**MJ**: I think one very interesting and immensely useful change that
+has been recently added (and I take the opportunity to specifically
+highlight the work of [Tim Hockin](https://github.com/thockin) on
+this) is the introduction of [Go workspaces to the Kubernetes
+repo](/blog/2024/03/19/go-workspaces-in-kubernetes/). A lot of our
+current tooling for dependency management and code publishing, as well
+as the experience of editing code in the Kubernetes repo, can be
+significantly improved by this change.
 
 ## Wrapping up
 
 **FSM**: How would someone interested in the topic start helping the subproject?
 
 **MJ**: The first step, as is the first step with any project in Kubernetes, is to join our slack:
-slack.k8s.io, and after that join the `#k8s-code-organization` channel. There is also a
+[slack.k8s.io](https://slack.k8s.io), and after that join the `#k8s-code-organization` channel. There is also a
 [code-organization office
 hours](https://github.com/kubernetes/community/tree/master/sig-architecture#meetings) that takes
 place that you can choose to attend. Timezones are hard, so feel free to also look at the recordings
@@ -137,4 +137,4 @@ or meeting notes and follow up on slack!
 **FSM**: Excellent, thank you! Any final comments you would like to share?
 
 **MJ**: The Code Organization subproject always needs help! Especially areas like the publishing
-bot, so don’t hesitate to get involved in the `#k8s-code-organization` slack channel.
+bot, so don’t hesitate to get involved in the `#k8s-code-organization` Slack channel.
