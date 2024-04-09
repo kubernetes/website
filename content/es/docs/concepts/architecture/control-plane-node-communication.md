@@ -15,8 +15,8 @@ La intención es permitir a los usuarios personalizar sus instalaciones para pro
 
 ## Nodo al Plano de Control
 
-Kubernetes tiene un padrón de API "hub-and-spoke". Todo uso de la API desde los nodos (o los pods que ejecutan) termina en el servidor API. Ninguno de los otros componentes del plano de control está diseñado para exponer servicios remotos. El servidor API está configurado para escuchar conexiones remotas en un puerto seguro HTTPS (normalmente 443) con una o más formas de cliente
-[autenticación](/docs/reference/access-authn-authz/authentication/) habilitada.
+Kubernetes tiene un padrón de API "hub-and-spoke". Todo uso de la API desde los nodos (o los pods que ejecutan) termina en el servidor API. Ninguno de los otros componentes del plano de control está diseñado para exponer servicios remotos. El servidor API está configurado para escuchar conexiones remotas en un puerto seguro HTTPS (normalmente 443) con una o más formas de
+[autenticación](/docs/reference/access-authn-authz/authentication/) de cliente habilitada.
 Una o más formas de [autorización](/docs/reference/access-authn-authz/authorization/) deben ser
 habilitadas, especialmente si [peticiones anónimas](/docs/reference/access-authn-authz/authentication/#anonymous-requests) o [tokens de cuenta de servicio](/docs/reference/access-authn-authz/authentication/#service-account-tokens) están permitidos.
 
