@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'Kubernetes 1.30: Multi-Webhook and Modular Authorization Made Much Easier'
-date: 2024-04-25
+date: 2024-04-26
 slug: multi-webhook-and-modular-authorization-made-much-easier
 ---
 
@@ -9,6 +9,14 @@ slug: multi-webhook-and-modular-authorization-made-much-easier
 Liggitt](https://github.com/liggitt) (Google), [Nabarun
 Pal](https://github.com/palnabarun) (VMware), [Leigh
 Capili](https://github.com/stealthybox) (VMware)
+
+With Kubernetes 1.30, we (SIG Auth) are moving Structured Authorization
+Configuration to beta.
+
+Today's article is about _authorization_: deciding what someone can and cannot
+access. Check a previous article from yesterday to find about what's new in
+Kubernetes v1.30 around _authentication_ (finding out who's performing a task,
+and checking that they are who they say they are).
 
 ## Introduction
 Kubernetes continues to evolve to meet the intricate requirements of system
@@ -311,16 +319,16 @@ out to us on the
 channel on Kubernetes Slack.
 
 ## How to get involved
-If you are interested in helping develop this feature,
-sharing feedback, or participating in any other ongoing SIG Auth projects, please
-reach out on the [#sig-auth](https://kubernetes.slack.com/archives/C0EN96KUY)
-channel on Kubernetes Slack.
+If you are interested in helping develop this feature, sharing feedback, or
+participating in any other ongoing SIG Auth projects, please reach out on the
+[#sig-auth](https://kubernetes.slack.com/archives/C0EN96KUY) channel on
+Kubernetes Slack.
 
 You are also welcome to join the bi-weekly [SIG Auth
 meetings](https://github.com/kubernetes/community/blob/master/sig-auth/README.md#meetings)
 held every other Wednesday.
 
 ## Acknowledgments
-This feature was driven by contributors from several different
-companies. We would like to extend a huge thank you to everyone who contributed
-their time and effort to make this possible.
+This feature was driven by contributors from several different companies. We
+would like to extend a huge thank you to everyone who contributed their time and
+effort to make this possible.
