@@ -9,7 +9,7 @@ aliases:
 <!-- overview -->
 
 Este documento cataloga las diferentes vías de comunicación entre el {{< glossary_tooltip term_id="kube-apiserver" text="API del servidor" >}} y el {{< glossary_tooltip text="cluster" term_id="cluster" length="all" >}} de Kubernetes.
-La intención es permitir a los usuarios personalizar sus instalaciones para proteger sus configuraciones de red de forma que el clúster pueda ejecutarse en una red insegura. (o en un proveedor de servicios en la nube con direcciones IP públicas)
+La intención es permitir a los usuarios personalizar sus instalaciones para proteger sus configuraciones de red de forma que el clúster pueda ejecutarse en una red insegura (o en un proveedor de servicios en la nube con direcciones IP públicas)
 
 <!-- body -->
 
