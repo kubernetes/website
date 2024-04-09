@@ -60,34 +60,6 @@ see [OTLP Exporter Configuration](https://opentelemetry.io/docs/languages/sdk-co
 Additionally, for trace resource attribute configuration such as Kubernetes cluster name, namespace, Pod name, etc., 
 environment variables can also be used with `OTEL_RESOURCE_ATTRIBUTES`, see [OTLP Kubernetes Resource](https://opentelemetry.io/docs/specs/semconv/resource/k8s/).
 
-Below is an example that shows how to configure  to emit traces directly to a backend.
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: apiserver
-  labels:
-    component: apiserver
-spec:
-  selector:
-    matchLabels:
-      component: apiserver
-  template:
-    metadata:
-      labels:
-        component: apiserver
-    spec:
-      containers:
-      - name: apiserver
-        env:
-          - name: OTEL_EXPORTER_OTLP_HEADERS
-            value: "<header_key1>=<header_value1>,<header_key2>=<header_value2>"
-          - name: OTEL_RESOURCE_ATTRIBUTES
-            value: "<resource_key1>=<resource_value1>,<resource_key1>=<resource_value1>"
-```
-Note: Replace header_key, header_value, resource_key, resource_value with your actual keys and values.
-
-
 ## Component traces
 
 ### kube-apiserver traces
