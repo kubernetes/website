@@ -9,7 +9,7 @@
 
 ## এই রিপোজটরি ব্যবহার করে যা যা করতে পারবেন
 
-You can run the website locally using [Hugo (Extended version)](https://gohugo.io/), or you can run it in a container runtime. We strongly recommend using the container runtime, as it gives deployment consistency with the live website.
+আপনি [হুগো এক্সটেন্ডেড ভার্সন](https://gohugo.io/) ব্যবহার করে এই ওয়েবসাইটটি লোকালি চালাতে পারবেন, কিংবা আপনি কন্টেইনার রানটাইমেও চালাতে পারবেন। আমরা সবসময় বলি কন্টেইনার রানটাইম ব্যবহার করে চালানোর জন্য, কারণ এটা ওয়েবসাইটের ডেপ্লয়মেন্ট কনসিস্টেন্সি বজায় রেখে চলে। 
 
 ## পুর্বপ্রস্তুতিমুলক তথ্যাদি
 
