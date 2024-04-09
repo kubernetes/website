@@ -199,6 +199,7 @@ If you need help at any point when contributing, the [New Contributor Ambassador
 | [Indonesian](README-id.md) | [Spanish](README-es.md)    |
 | [Italian](README-it.md)    | [Ukrainian](README-uk.md)  |
 | [Japanese](README-ja.md)   | [Vietnamese](README-vi.md) |
+| [Bengali](README-bn.md)   |  |
 
 ## Code of conduct
 
