@@ -58,7 +58,7 @@ Las conexiones desde el apiserver a un nodo, pod o servicio se realizan por defe
 
 Kubernetes ofrece soporte para [túneles SSH](https://www.ssh.com/academy/ssh/tunneling) que protegen la comunicación  entre el plano de control y los nodos. En este modo de configuración, el apiserver inicia un túnel SSH a cada nodo en el clúster (conectando al servidor SSH en el puerto 22) y transfiere todo el tráfico destinado a un kubelet, nodo, pod o servicio a través del túnel. El túnel garantiza que dicho tráfico no es expuesto fuera de la red en la que se ejecutan los nodos.
 
-{{< nota >}}
+{{< note >}}
 Los túneles SSH están actualmente obsoletos, por lo que no deberías optar por utilizarlos a menos que sepas lo que
 está haciendo. El [Konnectivity service](#konnectivity-service) es un sustituto de este canal de comunicación.
 {{< /note >}}
