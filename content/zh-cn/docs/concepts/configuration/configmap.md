@@ -1,5 +1,8 @@
 ---
-title: ConfigMap
+title: ConfigMaps
+api_metadata:
+- apiVersion: "v1"
+  kind: "ConfigMap"
 content_type: concept
 weight: 20
 ---
