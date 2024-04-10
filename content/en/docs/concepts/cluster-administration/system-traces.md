@@ -22,7 +22,7 @@ with the gRPC exporter and can be collected and routed to tracing backends using
 
 ## Trace Collection
 
-Kubernetes components have built-in grpc exporters for OTLP to export traces, either with an OpenTelemetry Collector, 
+Kubernetes components have built-in gRPC exporters for OTLP to export traces, either with an OpenTelemetry Collector, 
 or without an OpenTelemetry Collector.
 
 For a complete guide to collecting traces and using the collector, see
@@ -51,7 +51,7 @@ service:
 ```
 
 To directly emit traces to a backend without utilizing a collector, 
-specify the endpoint field in the Kubernetes TracingConfiguration with the desired trace backend address. 
+specify the endpoint field in the Kubernetes tracing configuration file with the desired trace backend address. 
 This method negates the need for a collector and simplifies the overall structure.
 
 For trace backend header configuration, including authentication details, environment variables can be used with `OTEL_EXPORTER_OTLP_HEADERS`, 
