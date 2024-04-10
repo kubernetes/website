@@ -150,7 +150,7 @@ channel. You can also explore the [Windows Operational Readiness test suite](htt
 and make contributions directly to the GitHub repository.
 
 Special thanks to Kulwant Singh (AWS), Pramita Gautam Rana (VMWare), Xinqi Li 
-(Google) for their help in making notable contributions to the specification. Additionally, 
+(Google) and Marcio Morales (AWS) for their help in making notable contributions to the specification. Additionally, 
 appreciation goes to James Sturtevant (Microsoft), Mark Rossetti (Microsoft), 
 Claudiu Belu (Cloudbase Solutions) and Aravindh Puthiyaparambil 
 (Softdrive Technologies Group Inc.) from the SIG Windows team for their guidance and support.

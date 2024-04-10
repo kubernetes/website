@@ -177,9 +177,11 @@ aliases:
     - truongnh1992
   sig-docs-ru-owners: # Admins for Russian content
     - Arhell
+    - kirkonru
     - shurup
   sig-docs-ru-reviews: # PR reviews for Russian content
     - Arhell
+    - kirkonru
     - shurup
   sig-docs-pl-owners: # Admins for Polish content
     - mfilocha
