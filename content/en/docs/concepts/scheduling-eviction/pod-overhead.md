@@ -39,8 +39,6 @@ an example, you could use the following RuntimeClass definition with a virtualiz
 runtime (in this example, Kata Containers combined with the Firecracker virtual machine monitor)
 that uses around 120MiB per Pod for the virtual machine and the guest OS:
 
-# You need to change this example to match the actual runtime name, and per-Pod
-# resource overhead, that the container runtime is adding in your cluster.
 ```yaml
 # You need to change this example to match the actual runtime name, and per-Pod
 # resource overhead, that the container runtime is adding in your cluster.
