@@ -282,3 +282,5 @@ rate(apiserver_validating_admission_policy_check_total{policy="pod-security.poli
 ```
 
 You can read [the metrics reference](/docs/reference/instrumentation/metrics/) to learn more about the metrics above.
+The metrics of ValidatingAdmissionPolicy are currently in alpha,
+and more and better metrics will come while the stability graduates in the future release. 
