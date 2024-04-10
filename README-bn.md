@@ -74,3 +74,62 @@ make container-serve
   ```
 
 আপনার মেশিনের 1313 পোর্টে হুগো ওয়েবসাইটটি চলবে। যেকোন একটি ব্রাউজার খুলে, <http://localhost:1313> ব্রাউজ করলে আপনি ওয়েবসাইটটি দেখতে পারবেন। আপনি সোর্স ফাইলে কোন পরিবর্তন করলে হুগো নিজে নিজেই ব্রাউজারে চলা ওয়েবসাইটটি রিফ্রেশ করে আপডেট করে নিবে। 
+
+
+## কোন সমস্যা হলে যা করবেন 
+
+### error: failed to transform resource: TOCSS: failed to transform "scss/main.scss" (text/x-scss): this feature is not available in your current Hugo version
+
+হুগোর দুইটা বাইনারি রয়েছে। বর্তমানে এই ওয়েবসাইটটি **হুগো এক্সটেন্ডেড/Hugo (extended version)**  ভার্সন দিয়ে চলে। হুগো [রিলিজে](https://github.com/gohugoio/hugo/releases) `এক্সটেন্ডেড/extended` ভার্সনটি খুঁজুন। নিশ্চিত হতে `hugo version`  কমান্ডটি চালিয়ে চেক করে নিতে পারেন আপনি এক্সটেন্ডেড ভার্সনটি ব্যবহার করছেন কিনা। 
+
+
+### `macOS` এ `too many open files` সমস্যা দেখা দিলে যা করবেন 
+
+আপনি যদি ম্যাক অপারেটিং সিস্টেম থেকে `make serve` কমান্ড চালিয়ে নিচের সমস্যাটি দেখে থাকেন_ 
+
+```bash
+ERROR 2020/08/01 19:09:18 Error: listen tcp 127.0.0.1:1313: socket: too many open files
+make: *** [serve] Error 1
+```
+
+তবে এই ফাইলটির বর্তমান লিমিট চেক করে দেখুন_
+
+`launchctl limit maxfiles`
+
+তারপর নিচের এই কমান্ডটি চালান (নেওয়া হয়েছে  <https://gist.github.com/tombigel/d503800a282fcadbee14b537735d202c> থেকে):
+
+```shell
+#!/bin/sh
+
+# These are the original gist links, linking to my gists now.
+# curl -O https://gist.githubusercontent.com/a2ikm/761c2ab02b7b3935679e55af5d81786a/raw/ab644cb92f216c019a2f032bbf25e258b01d87f9/limit.maxfiles.plist
+# curl -O https://gist.githubusercontent.com/a2ikm/761c2ab02b7b3935679e55af5d81786a/raw/ab644cb92f216c019a2f032bbf25e258b01d87f9/limit.maxproc.plist
+
+curl -O https://gist.githubusercontent.com/tombigel/d503800a282fcadbee14b537735d202c/raw/ed73cacf82906fdde59976a0c8248cce8b44f906/limit.maxfiles.plist
+curl -O https://gist.githubusercontent.com/tombigel/d503800a282fcadbee14b537735d202c/raw/ed73cacf82906fdde59976a0c8248cce8b44f906/limit.maxproc.plist
+
+sudo mv limit.maxfiles.plist /Library/LaunchDaemons
+sudo mv limit.maxproc.plist /Library/LaunchDaemons
+
+sudo chown root:wheel /Library/LaunchDaemons/limit.maxfiles.plist
+sudo chown root:wheel /Library/LaunchDaemons/limit.maxproc.plist
+
+sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
+```
+
+এটি catalina এবং সাথে Mojave macOS এর জন্যও কাজ করবে।
+
+
+## এই ডকে কন্ট্রিবিউট করতে চাইলে যা করবেন 
+
+আপনি এই রিপোজিটরিটি **Fork** বাটনে ক্লিক করে আপনার গিটহাব একাউন্টে কপি করে নিতে পারবেন। আপনার যেখানে পরিবর্তন করার ইচ্ছা তা আপনার **Fork** করা রিপোজিটরিতে করুন, তারপর সেই পরিবর্তনটুকু একটি Pull Request এর মাধ্যমে আমাদের জানিয়ে দিন। 
+
+আপনার Pull Request তৈরি হয়ে গেলে আমাদের রিভিউয়ার টিম থেকে প্রয়োজনীয় পদক্ষেপ নিবে। **যেহেতু Pull Request টি আপনিই তৈরি করবেন, সেই হিসেবে যদি কোন পরিবর্তনের অনুরোধ বা ফিডব্যাক থাকে, সেটি আপনাকেই করতে হবে। আপনি এই ফিডব্যাক বা পরিবর্তনের রিকোয়েস্ট এক বা একাধিক রিভিউয়ারের কাছ থেকে পেতে পারেন।**
+
+আরও বিস্তারিত জানতে চাইলে নিন্মোক্ত কুবেরনেটিস ডকুমেন্টেশনগুলো দেখতে পারেনঃ 
+
+- [Contribute to Kubernetes docs](https://kubernetes.io/docs/contribute/)
+- [Page Content Types](https://kubernetes.io/docs/contribute/style/page-content-types/)
+- [Documentation Style Guide](https://kubernetes.io/docs/contribute/style/style-guide/)
+- [Localizing Kubernetes Documentation](https://kubernetes.io/docs/contribute/localization/)
+- [Introduction to Kubernetes Docs](https://www.youtube.com/watch?v=pprMgmNzDcw)
