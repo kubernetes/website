@@ -7,6 +7,8 @@ slug: kubernetes-separate-image-filesystem
 
 **著者:** Kevin Hannon (Red Hat)
 
+**翻訳者:** Taisuke Okamoto (IDC Frontier Inc), Junya Okabe (University of Tsukuba), nasa9084 (LY Corporation)
+
 Kubernetesクラスターの稼働、運用する上でよくある問題は、ディスク容量が不足することです。
 ノードがプロビジョニングされる際には、コンテナイメージと実行中のコンテナのために十分なストレージスペースを確保することが重要です。
 通常、[コンテナランタイム](/ja/docs/setup/production-environment/container-runtimes/)は`/var`に書き込みます。
