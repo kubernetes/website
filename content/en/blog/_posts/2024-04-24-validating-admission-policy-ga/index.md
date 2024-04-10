@@ -12,13 +12,14 @@ On behalf of the Kubernetes project, I am excited to announce that ValidatingAdm
 as part of Kubernetes 1.30 release. If you have not yet read about this new declarative alternative to
 validating admission webhooks, it may be interesting to read our
 [previous post](/blog/2022/12/20/validating-admission-policies-alpha/) about the new feature.
-If you have already heard about Validating Admission Policy and you are eager to try it out, there is no better time to do it now.
+If you have already heard about ValidatingAdmissionPolicies and you are eager to try them out,
+there is no better time to do it than now.
 
-Let's have a taste of Validating Admission Policy by replacing a simple webhook. 
+Let's have a taste of a ValidatingAdmissionPolicy, by replacing a simple webhook. 
 
 ## Example admission webhook
 First, let's take a look at an example of a simple webhook. Here is an excerpt from a webhook that
-enforce `runAsNonRoot`, `readOnlyRootFilesystem`, `allowPrivilegeEscalation`, and `privileged` to be set to the least permissive values.
+enforces `runAsNonRoot`, `readOnlyRootFilesystem`, `allowPrivilegeEscalation`, and `privileged` to be set to the least permissive values.
 
 ```go
 func verifyDeployment(deploy *appsv1.Deployment) error {
@@ -47,7 +48,7 @@ func verifyDeployment(deploy *appsv1.Deployment) error {
 }
 ```
 
-Check out [What are admission webhooks?](/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks) Or, see the [full code](https://gist.github.com/jiahuif/2653f2ce41fe6a2e5739ea7cd76b182b) of this webhook to follow along this walkthrough. 
+Check out [What are admission webhooks?](/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks) Or, see the [full code](https://gist.github.com/jiahuif/2653f2ce41fe6a2e5739ea7cd76b182b) of this webhook to follow along with this walkthrough. 
 
 ## The policy
 Now let's try to recreate the validation faithfully with a ValidatingAdmissionPolicy.
