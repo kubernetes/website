@@ -43,7 +43,7 @@ The two supported mechanisms are as follows:
   detail specific schema for the resources. For reference about resource schemas,
   please refer to the OpenAPI document.
 
-- The [Kubernetes OpenAPI Document](#openapi-specification) provides (full)
+- The [Kubernetes OpenAPI Document](#openapi-interface-definition) provides (full)
   [OpenAPI v2.0 and 3.0 schemas](https://www.openapis.org/) for all Kubernetes API
 endpoints.
   The OpenAPI v3 is the preferred method for accessing OpenAPI as it

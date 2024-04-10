@@ -29,7 +29,7 @@ Falls eine Nachricht ähnlich wie die Folgende zu sehen ist, ist kubectl nicht k
 The connection to the server <server-name:port> was refused - did you specify the right host or port?
 ```
 
-Wenn zum Beispiel versucht wird ein Kubernetes Cluster lokal auf dem Laptop zu starten, muss ein Tool wie zum Beispiel Minikube zuerst installiert werden. Danach können die oben erwähnten Befehle erneut ausgeführt werden.
+Wenn zum Beispiel versucht wird ein Kubernetes Cluster lokal auf dem Laptop zu starten, muss ein Tool wie zum Beispiel [Minikube](https://minikube.sigs.k8s.io/docs/start/) zuerst installiert werden. Danach können die oben erwähnten Befehle erneut ausgeführt werden.
 
 Falls kubectl cluster-info eine URL zurück gibt, aber nicht auf das Cluster zugreifen kann, prüfe ob kubectl korrekt konfiguriert wurde:
 

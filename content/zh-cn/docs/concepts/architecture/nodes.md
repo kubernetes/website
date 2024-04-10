@@ -206,14 +206,14 @@ are enabled, kubelets are only authorized to create/modify their own Node resour
 <!--
 As mentioned in the [Node name uniqueness](#node-name-uniqueness) section,
 when Node configuration needs to be updated, it is a good practice to re-register
-the node with the API server. For example, if the kubelet being restarted with
-the new set of `--node-labels`, but the same Node name is used, the change will
-not take an effect, as labels are being set on the Node registration.
+the node with the API server. For example, if the kubelet is being restarted with
+a new set of `--node-labels`, but the same Node name is used, the change will
+not take effect, as labels are only set (or modified) upon Node registration with the API server.
 -->
 正如[节点名称唯一性](#node-name-uniqueness)一节所述，当 Node 的配置需要被更新时，
 一种好的做法是重新向 API 服务器注册该节点。例如，如果 kubelet 重启时其 `--node-labels`
 是新的值集，但同一个 Node 名称已经被使用，则所作变更不会起作用，
-因为节点标签是在 Node 注册时完成的。
+因为节点标签是在 Node 注册到 API 服务器时完成（或修改）的。
 
 <!--
 Pods already scheduled on the Node may misbehave or cause issues if the Node
@@ -1065,6 +1065,8 @@ Learn more about the following:
 * [Components](/docs/concepts/overview/components/#node-components) that make up a node.
 * [API definition for Node](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
 * [Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node) section of the architecture design document.
+* [Cluster autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/) to
+  manage the number and size of nodes in your cluster.
 * [Taints and Tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
 * [Node Resource Managers](/docs/concepts/policy/node-resource-managers/).
 * [Resource Management for Windows nodes](/docs/concepts/configuration/windows-resource-management/).
@@ -1076,6 +1078,8 @@ Learn more about the following:
 * 架构设计文档中有关
   [Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node)
   的章节。
+* [集群自动扩缩](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node)
+  以管理集群中节点的数量和规模。
 * [污点和容忍度](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)。
 * [节点资源管理器](/zh-cn/docs/concepts/policy/node-resource-managers/)。
 * [Windows 节点的资源管理](/zh-cn/docs/concepts/configuration/windows-resource-management/)。
