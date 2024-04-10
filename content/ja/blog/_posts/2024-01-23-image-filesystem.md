@@ -5,7 +5,7 @@ date: 2024-01-23
 slug: kubernetes-separate-image-filesystem
 ---
 
-**Author:** Kevin Hannon (Red Hat)
+**著者:** Kevin Hannon (Red Hat)
 
 Kubernetesクラスターの稼働、運用する上でよくある問題は、ディスク容量が不足することです。
 ノードがプロビジョニングされる際には、コンテナイメージと実行中のコンテナのために十分なストレージスペースを確保することが重要です。
