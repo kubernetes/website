@@ -42,6 +42,7 @@ samplingRatePerMillion: 10000
 
 ### Enabling Etcd Tracing
 
+_Update: the following was added after the blog was published_
 Add `--experimental-enable-distributed-tracing`,  `--experimental-distributed-tracing-address=0.0.0.0:4317`, `--experimental-distributed-tracing-service-name=etcd` flags to etcd to enable tracing.  Note that this traces every request, so it will probably generate a lot of traces if you enable it. Required etcd version is [3.5 up to 3.5.4](https://etcd.io/docs/v3.5/op-guide/monitoring/#distributed-tracing).
 
 Starting from version 3.5.5 until version 3.5.10, the default sampling rate for traces is set to 0%, meaning no traces were collected by default. Unfortunately, there is no option provided to configure a higher sampling rate. ([See details](https://github.com/etcd-io/etcd/pull/16951)) 
