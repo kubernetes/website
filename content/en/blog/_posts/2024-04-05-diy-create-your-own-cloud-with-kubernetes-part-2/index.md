@@ -237,7 +237,7 @@ The role of a external load balancer is to provide a stable address available ex
 external traffic to the services network.
 The services network plugin will direct it to your pods and virtual machines as usual.
 
-{{< figure src="net-services.svg" caption="A diagram showing the role of the external load balancer on the Kubernetes network scheme" alt="The role of the external load balancer on the Kubernetes network scheme" >}}
+{{< figure src="net-loadbalancer.svg" caption="A diagram showing the role of the external load balancer on the Kubernetes network scheme" alt="The role of the external load balancer on the Kubernetes network scheme" >}}
 
 In most cases, setting up a load balancer on bare metal is achieved by creating floating IP address
 on the nodes within the cluster, and announce it externally using ARP/NDP or BGP protocols.
