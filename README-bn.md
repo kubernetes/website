@@ -45,3 +45,32 @@ git submodule update --init --recursive --depth 1
 # fetch submodule dependencies
 make module-init
 ```
+
+## কন্টেইনার দিয়ে যেভাবে ওয়েবসাইটটি চালাবেন
+এই সাইটটি কন্টেইনার দিয়ে build করার জন্য নিচের কমান্ডটি চালানঃ 
+
+```bash
+# You can set $CONTAINER_ENGINE to the name of any Docker-like container tool
+make container-serve
+```
+
+যদি কোন error আসে, তবে সম্ভবত হুগো কন্টেইনারটি চলার জন্য যথেষ্ট resource পাচ্ছেনা। এই সমস্যা সমাধান করতে চাইলে, আপনার মেশিনে ডকারের জন্য নির্ধারিত CPU এবং memory রিসোর্স বাড়িয়ে নিন ([MacOS](https://docs.docker.com/desktop/settings/mac/) and [Windows](https://docs.docker.com/desktop/settings/windows/))। 
+
+যেকোন একটি ব্রাউজার খুলে, <http://localhost:1313> ব্রাউজ করলে আপনি ওয়েবসাইটটি দেখতে পারবেন। আপনি সোর্স ফাইলে কোন পরিবর্তন করলে হুগো নিজে নিজেই ব্রাউজারে চলা ওয়েবসাইটটি রিফ্রেশ করে আপডেট করে নিবে। 
+ 
+## হুগো দিয়ে যেভাবে লোকাল মেশিনে ওয়েবসাইটটি চালাবেন 
+
+লোকাল মেশিনে dependencies, deploy এবং টেস্ট ফাইলগুলো ইন্সটল করার জন্য নিচের কমান্ডগুলো চালান 
+
+- For macOS and Linux
+  ```bash
+  npm ci
+  make serve
+  ```
+- For Windows (PowerShell)
+  ```powershell
+  npm ci
+  hugo.exe server --buildFuture --environment development
+  ```
+
+আপনার মেশিনের 1313 পোর্টে হুগো ওয়েবসাইটটি চলবে। যেকোন একটি ব্রাউজার খুলে, <http://localhost:1313> ব্রাউজ করলে আপনি ওয়েবসাইটটি দেখতে পারবেন। আপনি সোর্স ফাইলে কোন পরিবর্তন করলে হুগো নিজে নিজেই ব্রাউজারে চলা ওয়েবসাইটটি রিফ্রেশ করে আপডেট করে নিবে। 
