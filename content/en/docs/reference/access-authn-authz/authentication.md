@@ -393,6 +393,10 @@ jwt:
     # location than the issuer (such as locally in the cluster).
     # discoveryURL must be different from url if specified and must be unique across all authenticators.
     discoveryURL: https://discovery.example.com/.well-known/openid-configuration
+    # PEM encoded CA certificates used to validate the connection when fetching
+    # discovery information. If not set, the system verifier will be used.
+    # Same value as the content of the file referenced by the --oidc-ca-file flag.
+    certificateAuthority: <PEM encoded CA certificates>    
     # audiences is the set of acceptable audiences the JWT must be issued to.
     # At least one of the entries must match the "aud" claim in presented JWTs.
     audiences:

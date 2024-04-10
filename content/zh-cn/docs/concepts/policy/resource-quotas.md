@@ -1,5 +1,8 @@
 ---
 title: 资源配额
+api_metadata:
+- apiVersion: "v1"
+  kind: "ResourceQuota"
 content_type: concept
 weight: 20
 ---
@@ -8,6 +11,9 @@ weight: 20
 reviewers:
 - derekwaynecarr
 title: Resource Quotas
+api_metadata:
+- apiVersion: "v1"
+  kind: "ResourceQuota"
 content_type: concept
 weight: 20
 -->
