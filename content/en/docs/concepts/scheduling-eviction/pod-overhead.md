@@ -42,6 +42,8 @@ that uses around 120MiB per Pod for the virtual machine and the guest OS:
 # You need to change this example to match the actual runtime name, and per-Pod
 # resource overhead, that the container runtime is adding in your cluster.
 ```yaml
+# You need to change this example to match the actual runtime name, and per-Pod
+# resource overhead, that the container runtime is adding in your cluster.
 apiVersion: node.k8s.io/v1
 kind: RuntimeClass
 metadata:
