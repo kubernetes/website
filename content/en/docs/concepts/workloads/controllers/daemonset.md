@@ -6,6 +6,9 @@ reviewers:
 - janetkuo
 - kow3ns
 title: DaemonSet
+api_metadata:
+- apiVersion: "apps/v1"
+  kind: "DaemonSet"
 description: >-
  A DaemonSet defines Pods that provide node-local facilities. These might be fundamental to the operation of your cluster, such as a networking helper tool, or be part of an add-on.
 content_type: concept

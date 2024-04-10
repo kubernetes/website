@@ -4,6 +4,9 @@ reviewers:
 - erictune
 - soltysh
 title: Jobs
+api_metadata:
+- apiVersion: "batch/v1"
+  kind: "Job"
 content_type: concept
 description: >-
   Jobs represent one-off tasks that run to completion and then stop.

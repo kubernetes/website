@@ -356,6 +356,10 @@ kind: AuthenticationConfiguration
 jwt:
 - issuer:
     url: https://example.com # Same as --oidc-issuer-url.
+    # PEM encoded CA certificates used to validate the connection when fetching
+    # discovery information. If not set, the system verifier will be used.
+    # Same value as the content of the file referenced by the --oidc-ca-file flag.
+    certificateAuthority: <PEM encoded CA certificates>
     audiences:
     - my-app # Same as --oidc-client-id.
   # rules applied to validate token claims to authenticate users.

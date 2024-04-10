@@ -57,12 +57,12 @@ The connection to the server <server-name:port> was refused - did you specify th
 
 <!-- 
 For example, if you are intending to run a Kubernetes cluster on your laptop (locally),
-you will need a tool like Minikube to be installed first and then re-run the commands stated above.
+you will need a tool like [Minikube](https://minikube.sigs.k8s.io/docs/start/) to be installed first and then re-run the commands stated above.
 
 If kubectl cluster-info returns the url response but you can't access your cluster,
 to check whether it is configured properly, use:
 -->
-例如，如果你想在自己的笔记本上（本地）运行 Kubernetes 集群，你需要先安装一个 Minikube
+例如，如果你想在自己的笔记本上（本地）运行 Kubernetes 集群，你需要先安装一个 [Minikube](https://minikube.sigs.k8s.io/docs/start/)
 这样的工具，然后再重新运行上面的命令。
 
 如果命令 `kubectl cluster-info` 返回了 URL，但你还不能访问集群，那可以用以下命令来检查配置是否妥当：

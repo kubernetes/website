@@ -1001,9 +1001,10 @@ Type: Label
 
 Example: `service.kubernetes.io/headless: ""`
 
-Used on: Service
+Used on: Endpoints
 
 The control plane adds this label to an Endpoints object when the owning Service is headless.
+To learn more, read [Headless Services](/docs/concepts/services-networking/service/#headless-services).
 
 ### service.kubernetes.io/topology-aware-hints (deprecated) {#servicekubernetesiotopology-aware-hints}
 
@@ -1117,7 +1118,7 @@ duration (defaults to one year).
 
 Type: Label
 
-Example: `endpointslice.kubernetes.io/managed-by: "controller"`
+Example: `endpointslice.kubernetes.io/managed-by: endpointslice-controller.k8s.io`
 
 Used on: EndpointSlices
 

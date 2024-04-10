@@ -1,6 +1,9 @@
 ---
 title: 网络策略
 content_type: concept
+api_metadata:
+  - apiVersion: "networking.k8s.io/v1"
+    kind: "NetworkPolicy"
 weight: 70
 description: >-
   如果你希望在 IP 地址或端口层面（OSI 第 3 层或第 4 层）控制网络流量，
@@ -15,6 +18,9 @@ reviewers:
 - danwinship
 title: Network Policies
 content_type: concept
+api_metadata:
+- apiVersion: "networking.k8s.io/v1"
+  kind: "NetworkPolicy"
 weight: 70
 description: >-
   If you want to control traffic flow at the IP address or port level (OSI layer 3 or 4),
