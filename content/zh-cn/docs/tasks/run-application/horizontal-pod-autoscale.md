@@ -1044,13 +1044,14 @@ guidelines, which cover this exact use case.
 ## {{% heading "whatsnext" %}}
 
 <!--
-If you configure autoscaling in your cluster, you may also want to consider running a
-cluster-level autoscaler such as [Cluster Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler).
+If you configure autoscaling in your cluster, you may also want to consider using
+[cluster autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/)
+to ensure you are running the right number of nodes.
 
 For more information on HorizontalPodAutoscaler:
 -->
-如果你在集群中配置自动扩缩，你可能还需要考虑运行集群级别的自动扩缩器，
-例如 [Cluster Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler)。
+如果你在集群中配置自动扩缩，
+你可能还需要考虑使用[集群自动扩缩](/zh-cn/docs/concepts/cluster-administration/cluster-autoscaling/)来确保所运行的节点数目合适。
 
 有关 HorizontalPodAutoscaler 的更多信息：
 
