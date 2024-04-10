@@ -326,7 +326,7 @@ You can restrict the use of `gitRepo` volumes in your cluster using
 [ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/).
 You can use the following Common Expression Language (CEL) expression as
 part of a policy to reject use of `gitRepo` volumes:
-`!has(object.spec.volumes) || !object.spec.volumes.exists(v, has(v.gitRepo))`.
+`has(object.spec.volumes) || !object.spec.volumes.exists(v, has(v.gitRepo))`.
 
 {{< /warning >}}
 
