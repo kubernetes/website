@@ -127,17 +127,19 @@ the name should follow the more restrictive rules for a
 {{< feature-state state="stable" for_k8s_version="v1.25" >}}
 
 You should set the `.spec.os.name` field to either `windows` or `linux` to indicate the OS on
-which you want the pod to run. These two are the only operating systems supported for now by 
-Kubernetes. In future, this list may be expanded.
+which you want the pod to run. These two are the only operating systems supported for now by
+Kubernetes. In the future, this list may be expanded.
 
-In Kubernetes v{{< skew currentVersion >}}, the value you set for this field has no
-effect on {{< glossary_tooltip text="scheduling" term_id="kube-scheduler" >}} of the pods.
-Setting the `.spec.os.name` helps to identify the pod OS
-authoritatively and is used for validation. The kubelet refuses to run a Pod where you have
-specified a Pod OS, if this isn't the same as the operating system for the node where
-that kubelet is running.
+In Kubernetes v{{< skew currentVersion >}}, the value of `.spec.os.name` does not affect
+how the {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
+picks a Pod to run a node. In any cluster where there is more than one operating system for
+running nodes, you should set the
+[kubernetes.io/os](/docs/reference/labels-annotations-taints/#kubernetes-io-os)
+label correctly on each node, and define pods with a `nodeSelector` based on the operating system
+label, the kube-scheduler assigns your pod to a node based on other criteria and may or may not
+succeed in picking a suitable node placement where the node OS is right for the containers in that Pod.
 The [Pod security standards](/docs/concepts/security/pod-security-standards/) also use this
-field to avoid enforcing policies that aren't relevant to that operating system.
+field to avoid enforcing policies that aren't relevant to the operating system.
 
 ### Pods and controllers
 
