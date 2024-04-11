@@ -1,5 +1,5 @@
 ---
-title: コンテナにコマンドと引数を定義
+title: コンテナにコマンドと引数を定義する
 content_type: task
 weight: 10
 ---
@@ -21,7 +21,7 @@ weight: 10
 
 <!-- steps -->
 
-## Podの作成時にコマンドと引数を定義
+## Podの作成時にコマンドと引数を定義する
 
 Podを作成するときに、Pod内で実行するコンテナのコマンドと引数を定義できます。コマンドを定義するには、設定ファイルに `command`フィールドを記述します。コマンドの引数を定義するには、設定ファイルに `args` フィールドを記述します。定義したコマンドと引数はPodの作成後に変更することはできません。
 
@@ -49,15 +49,15 @@ Podを作成するときに、Pod内で実行するコンテナのコマンド�
 
    出力は、command-demo Podで実行されたコンテナが完了したことを示します。
 
-1. コンテナ内で実行されたコマンドの出力を見ためにPodのログを見る
+1. コンテナ内で実行されたコマンドの出力を確認するためにPodのログを見る
 
    ```shell
    kubectl logs command-demo
    ```
 
-   出力は、HOSTNAMEとKUBERNETES_PORT環境変数の値を示しています
+   出力は、HOSTNAMEとKUBERNETES_PORT環境変数の値を示します。
 
-   ```
+   ```text
    command-demo
    tcp://10.3.240.1:443
    ```
@@ -83,7 +83,7 @@ args: ["$(MESSAGE)"]
 
 ## シェルでコマンドを実行する
 
-コマンドをシェルで実行する必要がある場合もあります。例えば、コマンドが複数のコマンドをパイプでつないだものであったり、シェルスクリプトであったりします。コマンドをシェルで実行するには、次のように記述します。
+シェルでコマンドを実行する必要がある場合もあります。例えば、コマンドが複数のコマンドをパイプでつないだものであったり、シェルスクリプトであったりします。コマンドをシェルで実行するには、次のように記述します。
 
 ```shell
 command: ["/bin/sh"]
@@ -92,6 +92,6 @@ args: ["-c", "while true; do echo hello; sleep 10;done"]
 
 ## {{% heading "whatsnext" %}}
 
-* [Podとコンテナの設定](/docs/tasks/)についてもっとよく知る。
-* [コンテナ内でのコマンド実行](/docs/tasks/debug/debug-application/get-shell-running-container/)についてもっとよく知る。
-* [コンテナ](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)を読む。
+* [Podとコンテナの設定](/ja/docs/tasks/)についてもっとよく知る
+* [コンテナ内でのコマンド実行](/ja/docs/tasks/debug/debug-application/get-shell-running-container/)についてもっとよく知る
+* [コンテナ](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)を見る
