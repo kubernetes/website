@@ -1,6 +1,6 @@
 ---
-title: "bash auto-completion on macOS"
-description: "Some optional configuration for bash auto-completion on macOS."
+title: "macOS上でのbashの自動補完"
+description: "macOS上でのbashの自動補完に対するいくつかの補助的な設定。"
 headless: true
 _build:
   list: never
@@ -8,102 +8,96 @@ _build:
   publishResources: false
 ---
 
-### Introduction
+### はじめに
 
-The kubectl completion script for Bash can be generated with `kubectl completion bash`.
-Sourcing this script in your shell enables kubectl completion.
+Bashにおけるkubectlの補完スクリプトは`kubectl completion bash`コマンドで生成できます。
+シェル内で補完スクリプトをsourceすることでkubectlの自動補完が有効になります。
 
-However, the kubectl completion script depends on
-[**bash-completion**](https://github.com/scop/bash-completion) which you thus have to previously install.
+ただし、補完スクリプトは[**bash-completion**](https://github.com/scop/bash-completion)に依存しているため、事前にインストールしておく必要があります。
 
 {{< warning>}}
-There are two versions of bash-completion, v1 and v2. V1 is for Bash 3.2
-(which is the default on macOS), and v2 is for Bash 4.1+. The kubectl completion
-script **doesn't work** correctly with bash-completion v1 and Bash 3.2.
-It requires **bash-completion v2** and **Bash 4.1+**. Thus, to be able to
-correctly use kubectl completion on macOS, you have to install and use
-Bash 4.1+ ([*instructions*](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba)).
-The following instructions assume that you use Bash 4.1+
-(that is, any Bash version of 4.1 or newer).
+bash-completionにはv1とv2の2つのバージョンがあります。
+v1はBash 3.2(macOSのデフォルト)用で、v2はBash 4.1以降向けです。
+kubectlの補完スクリプトはbash-completionのv1とBash 3.2では正しく**動作しません**。
+**bash-completion v2**と**Bash 4.1以降**が必要になります。
+したがって、macOSで正常にkubectlの補完を使用するには、Bash 4.1以降をインストールする必要があります([*手順*](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba))。
+以下の手順では、Bash4.1以降(Bashのバージョンが4.1またはそれより新しいことを指します)を使用することを前提とします。
 {{< /warning >}}
 
-### Upgrade Bash
+### Bashのアップグレード
 
-The instructions here assume you use Bash 4.1+. You can check your Bash's version by running:
+ここではBash 4.1以降の使用を前提としています。
+Bashのバージョンは下記のコマンドで調べることができます:
 
 ```bash
 echo $BASH_VERSION
 ```
 
-If it is too old, you can install/upgrade it using Homebrew:
+バージョンが古い場合、Homebrewを使用してインストールもしくはアップグレードできます:
 
 ```bash
 brew install bash
 ```
 
-Reload your shell and verify that the desired version is being used:
+シェルをリロードし、希望するバージョンを使用していることを確認してください:
 
 ```bash
 echo $BASH_VERSION $SHELL
 ```
 
-Homebrew usually installs it at `/usr/local/bin/bash`.
+Homebrewは通常、`/usr/local/bin/bash`にインストールします。
 
-### Install bash-completion
+### bash-completionをインストールする
 
 {{< note >}}
-As mentioned, these instructions assume you use Bash 4.1+, which means you will
-install bash-completion v2 (in contrast to Bash 3.2 and bash-completion v1,
-in which case kubectl completion won't work).
+前述のとおり、この手順ではBash 4.1以降であることが前提のため、bash-completion v2をインストールすることになります(これとは逆に、Bash 3.2およびbash-completion v1の場合ではkubectlの補完は動作しません)。
 {{< /note >}}
 
-You can test if you have bash-completion v2 already installed with `type _init_completion`.
-If not, you can install it with Homebrew:
+
+`type _init_completion`を実行することで、bash-completionがすでにインストールされていることを確認できます。
+ない場合は、Homebrewを使用してインストールすることができます:
 
 ```bash
 brew install bash-completion@2
 ```
 
-As stated in the output of this command, add the following to your `~/.bash_profile` file:
+このコマンドの出力で示されたように、`~/.bash_profile`に以下を追記してください:
 
 ```bash
 brew_etc="$(brew --prefix)/etc" && [[ -r "${brew_etc}/profile.d/bash_completion.sh" ]] && . "${brew_etc}/profile.d/bash_completion.sh"
 ```
 
-Reload your shell and verify that bash-completion v2 is correctly installed with `type _init_completion`.
+シェルをリロードし、`type _init_completion`を実行してbash-completion v2が正しくインストールされていることを検証してください。
 
-### Enable kubectl autocompletion
+### kubectlの自動補完を有効にする
 
-You now have to ensure that the kubectl completion script gets sourced in all
-your shell sessions. There are multiple ways to achieve this:
+すべてのシェルセッションにてkubectlの補完スクリプトをsourceできるようにしなければなりません。
+これを行うには複数の方法があります:
 
-- Source the completion script in your `~/.bash_profile` file:
+- 補完スクリプトを`~/.bash_profile`内でsourceする:
 
     ```bash
     echo 'source <(kubectl completion bash)' >>~/.bash_profile
     ```
 
-- Add the completion script to the `/usr/local/etc/bash_completion.d` directory:
+- 補完スクリプトを`/usr/local/etc/bash_completion.d`ディレクトリに追加する:
 
     ```bash
     kubectl completion bash >/usr/local/etc/bash_completion.d/kubectl
     ```
 
-- If you have an alias for kubectl, you can extend shell completion to work with that alias:
+- kubectlにエイリアスを張っている場合は、エイリアスでも動作するようにシェルの補完を拡張することができます:
 
     ```bash
     echo 'alias k=kubectl' >>~/.bash_profile
     echo 'complete -o default -F __start_kubectl k' >>~/.bash_profile
     ```
 
-- If you installed kubectl with Homebrew (as explained
-  [here](/docs/tasks/tools/install-kubectl-macos/#install-with-homebrew-on-macos)),
-  then the kubectl completion script should already be in `/usr/local/etc/bash_completion.d/kubectl`.
-  In that case, you don't need to do anything.
+- kubectlをHomebrewでインストールした場合([前述](/ja/docs/tasks/tools/install-kubectl-macos/#install-with-homebrew-on-macos)の通り)、kubectlの補完スクリプトはすでに`/usr/local/etc/bash_completion.d/kubectl`に格納されているでしょうか。
+  この場合、なにも操作する必要はありません。
 
    {{< note >}}
-   The Homebrew installation of bash-completion v2 sources all the files in the
-   `BASH_COMPLETION_COMPAT_DIR` directory, that's why the latter two methods work.
+   Homebrewでインストールしたbash-completion v2は`BASH_COMPLETION_COMPAT_DIR`ディレクトリ内のすべてのファイルをsourceするため、後者の2つの方法が機能します。
    {{< /note >}}
 
-In any case, after reloading your shell, kubectl completion should be working.
+どの場合でも、シェルをリロードしたあとに、kubectlの自動補完が機能するはずです。
