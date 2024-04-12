@@ -28,6 +28,8 @@
     <!-- Loop through sections -->
     {{- range $apiRefSection := $apiRefSections.Sections -}}
         {{- $apiRefDir := $apiRefSection.RelPermalink -}}
+        {{- $fragmentApiRefDir := split $apiRefDir "/docs" -}}
+        {{- $apiRefDir := printf "/docs%s" (index ($fragmentApiRefDir) 1) -}}
         {{- $apiReferenceFiles := site.GetPage $apiRefDir -}}
 
         <!-- Loop through API reference files -->
