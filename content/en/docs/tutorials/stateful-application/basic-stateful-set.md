@@ -112,8 +112,8 @@ nginx     ClusterIP    None         <none>        80/TCP    12s
 kubectl get statefulset web
 ```
 ```
-NAME      DESIRED   CURRENT   AGE
-web       2         1         20s
+NAME     READT   AGE
+web       2      20s
 ```
 
 ### Ordered Pod creation
