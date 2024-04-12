@@ -112,8 +112,8 @@ nginx     ClusterIP    None         <none>        80/TCP    12s
 kubectl get statefulset web
 ```
 ```
-NAME     READT   AGE
-web       2      20s
+NAME   READY   AGE
+web    2/2     37s
 ```
 
 ### Ordered Pod creation
@@ -637,9 +637,9 @@ Get the Pods to view their container images:
 for p in 0 1 2; do kubectl get pod "web-$p" --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'; echo; done
 ```
 ```
-registry.k8s.io/nginx-slim:0.8
-registry.k8s.io/nginx-slim:0.8
-registry.k8s.io/nginx-slim:0.8
+gcr.io/google_containers/nginx-slim:0.8
+gcr.io/google_containers/nginx-slim:0.8
+gcr.io/google_containers/nginx-slim:0.8
 
 ```
 
