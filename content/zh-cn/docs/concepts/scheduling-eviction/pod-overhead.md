@@ -95,7 +95,7 @@ overhead:
 
 ```yaml
 # 你需要修改这个示例以匹配实际的运行时名称，
-# 以及容器运行时在你的集群中添加的每个 Pod 的资源开销。
+# 以及在你的集群中运行时在 Pod 层面增加的资源开销。
 apiVersion: node.k8s.io/v1
 kind: RuntimeClass
 metadata:
