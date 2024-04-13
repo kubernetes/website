@@ -3,9 +3,9 @@ layout: blog
 title: "DIY: Create Your Own Cloud with Kubernetes (Part 2)"
 slug: diy-create-your-own-cloud-with-kubernetes-part-2
 date: 2024-04-05T07:35:00+00:00
+author: >
+  Andrei Kvapil (Ænix)
 ---
-
-**Author**: Andrei Kvapil (Ænix)
 
 Continuing our series of posts on how to build your own cloud using just the Kubernetes ecosystem.
 In the [previous article](/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-1/), we
