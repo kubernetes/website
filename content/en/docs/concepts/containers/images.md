@@ -34,7 +34,8 @@ Images can also include a registry hostname; for example: `fictional.registry.ex
 and possibly a port number as well; for example: `fictional.registry.example:10443/imagename`.
 
 If you don't specify a registry hostname, Kubernetes assumes that you mean the [Docker public registry](https://hub.docker.com/).
-You can change this behaviour by setting default image registry in [container runtime](/docs/setup/production-environment/container-runtimes/) configuration.
+You can change this behaviour by setting default image registry in 
+[container runtime](/docs/setup/production-environment/container-runtimes/) configuration.
 
 After the image name part you can add a _tag_ or _digest_ (in the same way you would when using with commands
 like `docker` or `podman`). Tags let you identify different versions of the same series of images.
@@ -45,13 +46,13 @@ Image tags consist of lowercase and uppercase letters, digits, underscores (`_`)
 periods (`.`), and dashes (`-`). It can be up to 128 characters long. And must follow the
 next regex pattern: `[a-zA-Z0-9_][a-zA-Z0-9._-]{0,127}`
 You can read more about and find validation regex in the
-[OCI Distribution Specification](https://github.com/opencontainers/distribution-spec/blob/v1.1.0/spec.md#workflow-categories).
+[OCI Distribution Specification](https://github.com/opencontainers/distribution-spec/blob/master/spec.md#workflow-categories).
 If you don't specify a tag, Kubernetes assumes you mean the tag `latest`.
 
 Image digests consists of a hash algorithm (such as `sha256`) and a hash value. For example:
 `sha256:1ff6c18fbef2045af6b9c16bf034cc421a29027b800e4f9b68ae9b1cb3e9ae07`
 You can find more information about digests format in the 
-[OCI Image Specification](https://github.com/opencontainers/image-spec/blob/v1.1.0/descriptor.md#digests).
+[OCI Image Specification](https://github.com/opencontainers/image-spec/blob/master/descriptor.md#digests).
 
 Some image name examples that Kubernetes can use are:
 
