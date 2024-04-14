@@ -196,8 +196,9 @@ as [YAML](https://yaml.org/), with the media type `application/apply-patch+yaml`
 Whether you are submitting JSON data or YAML data, use
 `application/apply-patch+yaml` as the `Content-Type` header value.
 
-Most JSON documents are accepted as YAML by Kubernetes. 
-you can find more details on this [open issue](https://github.com/go-yaml/yaml/issues/797)
+All JSON documents are valid YAML. However, Kubernetes has a bug where it uses a YAML
+parser that does not fully implement the YAML specification. Some JSON escapes may
+not be recognized.
 {{< /note >}}
 
 The serialization is the same as for Kubernetes objects, with the exception that
