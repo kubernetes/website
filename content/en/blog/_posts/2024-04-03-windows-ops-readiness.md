@@ -3,10 +3,11 @@ layout: blog
 title: "Introducing the Windows Operational Readiness Specification"
 date: 2024-04-03
 slug: intro-windows-ops-readiness
+author: >
+  Jay Vyas (Tesla),
+  Amim Knabben (Broadcom),
+  Tatenda Zifudzi (AWS)
 ---
-
-**Authors:** Jay Vyas (Tesla), Amim Knabben (Broadcom), and Tatenda Zifudzi (AWS)
-
 
 Since Windows support [graduated to stable](/blog/2019/03/25/kubernetes-1-14-release-announcement/)
 with Kubernetes 1.14 in 2019, the capability to run Windows workloads has been much

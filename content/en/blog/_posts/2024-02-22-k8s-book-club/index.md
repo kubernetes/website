@@ -4,9 +4,9 @@ title: "A look into the Kubernetes Book Club"
 slug: k8s-book-club
 date: 2024-02-22
 canonicalUrl: https://www.k8s.dev/blog/2024/02/22/k8s-book-club/
+author: >
+  Frederico Muñoz (SAS Institute)
 ---
-
-**Author**: Frederico Muñoz (SAS Institute)
 
 Learning Kubernetes and the entire ecosystem of technologies around it is not without its
 challenges. In this interview, we will talk with [Carlos Santana

@@ -4,9 +4,9 @@ title: "Spotlight on SIG Release (Release Team Subproject)"
 date: 2024-01-15
 slug: sig-release-spotlight-2023
 canonicalUrl: https://www.kubernetes.dev/blog/2024/01/15/sig-release-spotlight-2023/
+author: >
+  Nitish Kumar
 ---
-
-**Author:** Nitish Kumar
 
 The Release Special Interest Group (SIG Release), where Kubernetes sharpens its blade 
 with cutting-edge features and bug fixes every 4 months. Have you ever considered how such a big 
