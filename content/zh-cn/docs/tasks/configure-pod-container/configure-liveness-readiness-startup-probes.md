@@ -222,12 +222,12 @@ liveness-exec   1/1       Running   1          1m
 ## Define a liveness HTTP request
 
 Another kind of liveness probe uses an HTTP GET request. Here is the configuration
-file for a Pod that runs a container based on the `registry.k8s.io/liveness` image.
+file for a Pod that runs a container based on the `registry.k8s.io/e2e-test-images/agnhost` image.
 -->
 ## 定义一个存活态 HTTP 请求接口 {#define-a-liveness-HTTP-request}
 
 另外一种类型的存活探测方式是使用 HTTP GET 请求。
-下面是一个 Pod 的配置文件，其中运行一个基于 `registry.k8s.io/liveness` 镜像的容器。
+下面是一个 Pod 的配置文件，其中运行一个基于 `registry.k8s.io/e2e-test-images/agnhost` 镜像的容器。
 
 {{% code_sample file="pods/probe/http-liveness.yaml" %}}
 
