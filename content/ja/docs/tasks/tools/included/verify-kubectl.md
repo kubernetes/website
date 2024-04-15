@@ -28,7 +28,7 @@ The connection to the server <server-name:port> was refused - did you specify th
 
 たとえば、ラップトップ上(ローカル環境)でKubernetesクラスターを起動するような場合、[Minikube](https://minikube.sigs.k8s.io/docs/start/)などのツールを最初にインストールしてから、上記のコマンドを再実行する必要があります。
 
-kubectl cluster-infoがURLレスポンスを返したにもかかわらずクラスターにアクセスできない場合は、次のコマンドで設定が正しいことを確認してください:
+`kubectl cluster-info`がURLレスポンスを返したにもかかわらずクラスターにアクセスできない場合は、次のコマンドで設定が正しいことを確認してください:
 
 ```shell
 kubectl cluster-info dump
@@ -41,6 +41,6 @@ Kubernetes 1.26にて、kubectlは以下のクラウドプロバイダーが提�
 手順については以下のプロバイダーのドキュメントを参照してください:
 
 * Azure AKS: [kubelogin plugin](https://azure.github.io/kubelogin/)
-* Google Kubernetes Engine: [gke-gcloud-auth-plugin](https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl#install_plugin)
+* Google Kubernetes Engine: [gke-gcloud-auth-plugin](https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl?hl=ja#install_plugin)
 
 (この変更とは関係なく、他の理由で同じエラーメッセージが表示される可能性もあります。)
