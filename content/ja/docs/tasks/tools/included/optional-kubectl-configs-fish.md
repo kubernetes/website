@@ -1,6 +1,6 @@
 ---
-title: "fish auto-completion"
-description: "Optional configuration to enable fish shell auto-completion."
+title: "fishの自動補完"
+description: "fishシェルの自動補完を有効にする補助的な設定。"
 headless: true
 _build:
   list: never
@@ -9,15 +9,16 @@ _build:
 ---
 
 {{< note >}}
-Autocomplete for Fish requires kubectl 1.23 or later.
+Fishに対する自動補完はkubectl 1.23以降が必要です。
 {{< /note >}}
 
-The kubectl completion script for Fish can be generated with the command `kubectl completion fish`. Sourcing the completion script in your shell enables kubectl autocompletion.
+Fishにおけるkubectlの補完スクリプトは`kubectl completion fish`コマンドで生成できます。
+シェル内で補完スクリプトをsourceすることでkubectlの自動補完が有効になります。
 
-To do so in all your shell sessions, add the following line to your `~/.config/fish/config.fish` file:
+すべてのシェルセッションで使用するには、`~/.config/fish/config.fish`に以下を追記してください:
 
 ```shell
 kubectl completion fish | source
 ```
 
-After reloading your shell, kubectl autocompletion should be working.
+シェルをリロードしたあとに、kubectlの自動補完が機能するはずです。
