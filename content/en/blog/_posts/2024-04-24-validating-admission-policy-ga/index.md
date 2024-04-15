@@ -48,7 +48,8 @@ func verifyDeployment(deploy *appsv1.Deployment) error {
 }
 ```
 
-Check out [What are admission webhooks?](/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks) Or, see the [full code](https://gist.github.com/jiahuif/2653f2ce41fe6a2e5739ea7cd76b182b) of this webhook to follow along with this walkthrough. 
+Check out [What are admission webhooks?](/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks)
+Or, see the [full code](webhook.go) of this webhook to follow along with this walkthrough. 
 
 ## The policy
 Now let's try to recreate the validation faithfully with a ValidatingAdmissionPolicy.
