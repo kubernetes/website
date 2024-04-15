@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 import os
-import time
 import argparse
 import re
 import sys
+import subprocess
+from datetime import datetime
 from collections import Counter
 try:
     from tabulate import tabulate
@@ -18,6 +19,9 @@ def get_file_info(directory, file_extension=".md"):
             if file.endswith(file_extension):
                 full_path = os.path.join(root, file)
                 last_modified_time = os.path.getmtime(full_path)
+                # last_modified_time_by_osget = os.path.getmtime(full_path)
+                # print(f"last_modified by git: {last_modified_time} by os.get: {last_modified_time_by_osget}\n")
+
                 size = os.path.getsize(full_path)
                 
                 # Remove comments and empty lines
@@ -34,6 +38,26 @@ def get_file_info(directory, file_extension=".md"):
                     'size': size
                 }
     return file_info
+
+def get_last_commit_time(full_path):
+    """Return the last commit time of a file using Git"""
+    try:
+        output = subprocess.check_output(
+            ['git', 'log', '-1', '--format=%cI', full_path],
+            stderr=subprocess.STDOUT,
+            # timeout 10 seconds
+            timeout=10 
+        ).decode('utf-8').strip()
+        return datetime.fromisoformat(output)
+    except subprocess.TimeoutExpired:
+        print("Git command timed out.")
+        return None
+    except FileNotFoundError:
+        print("Git command not found. Ensure that Git is installed on your system.")
+        return None
+    except subprocess.CalledProcessError:
+        print("Failed to execute git command. The path may not be a Git repository.")
+        return None
 
 def seconds_to_days_decimal(seconds):
     """Convert seconds to days, with hours as decimal part of days."""
