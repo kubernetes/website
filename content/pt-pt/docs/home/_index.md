@@ -1,69 +1,72 @@
 ---
 approvers:
 - chenopis
-title: Kubernetes Documentation
+title: Documentação de Kubernetes
 noedit: true
 cid: docsHome
 layout: docsportal_home
 class: gridPage gridPageHome
-linkTitle: "Documentation"
+linkTitle: "Documentação"
 main_menu: true
 weight: 10
 hide_feedback: true
 menu:
   main:
-    title: "Documentation"
+    title: "Documentação"
     weight: 20
     post: >
-      <p>Learn how to use Kubernetes with conceptual, tutorial, and reference documentation. You can even <a href="/editdocs/" data-auto-burger-exclude data-proofer-ignore>help contribute to the docs</a>!</p>
+      <p>Aprenda a utilizar Kubernetes com documentação conceitual, tutoriais e de referência. Pode até <a href="/editdocs/" data-auto-burger-exclude data-proofer-ignore>ajudar a contribuir para a documentação</a>!</p>
 description: >
-  Kubernetes is an open source container orchestration engine for automating deployment, scaling, and management of containerized applications. The open source project is hosted by the Cloud Native Computing Foundation.
+  O Kubernetes é um motor de orquestração de contentores de código aberto para automatizar a implementação, escalonamento e gestão de aplicações contentorizadas. O projeto de código aberto é hospedado pela Cloud Native Computing Foundation
 overview: >
-  Kubernetes is an open source container orchestration engine for automating deployment, scaling, and management of containerized applications. The open source project is hosted by the Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>).
+  O Kubernetes é um motor de orquestração de contentores de código aberto para automatizar a implementação, escalonamento e gestão de aplicações contentorizadas. O projeto de código aberto é hospedado pela Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>).
 cards:
 - name: concepts
-  title: "Understand Kubernetes"
-  description: "Learn about Kubernetes and its fundamental concepts."
-  button: "View Concepts"
+  title: "Entender Kubernetes"
+  description: "Aprenda sobre Kubernetes e os seus conceitos fundamentais."
+  button: "Ver Conceitos"
   button_path: "/docs/concepts"
 - name: tutorials
-  title: "Try Kubernetes"
-  description: "Follow tutorials to learn how to deploy applications in Kubernetes."
-  button: "View Tutorials"
+  title: "Experimentar Kubernetes"
+  description: "Siga tutoriais para aprender a implementar aplicações em Kubernetes."
+  button: "Ver Tutoriais"
   button_path: "/docs/tutorials"
 - name: setup
-  title: "Set up a K8s cluster"
-  description: "Get Kubernetes running based on your resources and needs."
-  button: "Set up Kubernetes"
+  title: "Configurar um cluster K8s"
+  description: "Ponha o Kubernetes a funcionar com base nos seus recursos e necessidades."
+  button: "Configurar Kubernetes"
   button_path: "/docs/setup"
 - name: tasks
-  title: "Learn how to use Kubernetes"
-  description: "Look up common tasks and how to perform them using a short sequence of steps."
-  button: "View Tasks"
+  title: "Aprender a usar Kubernetes"
+  description: "Consulte tarefas comuns e como realizá-las usando uma curta sequência de passos."
+ title: Ver Tarefas
+  description: ""
+  button: "Ver Tarefas"
   button_path: "/docs/tasks"
 - name: reference
-  title: Look up reference information
-  description: Browse terminology, command line syntax, API resource types, and setup tool documentation.
-  button: View Reference
+  title: Consultar informações de referência
+  description: Navegue pela terminologia, sintaxe da linha de comandos, tipos de recursos da API e documentação de ferramentas de configuração.
+  button: Ver Referência
   button_path: /docs/reference
 - name: contribute
-  title: Contribute to Kubernetes
-  description: Find out how you can help make Kubernetes better.
-  button: See Ways to Contribute
+  title: Contribuir para Kubernetes
+  description: Descubra como pode ajudar a melhorar Kubernetes.
+  button: Ver Formas de Contribuir
   button_path: "/docs/contribute"
 - name: training
-  title: "Training"
-  description: "Get certified in Kubernetes and make your cloud native projects successful!"
-  button: "View training"
+  title: "Formação"
+  description: "Obtenha certificação em Kubernetes e torne os seus projetos nativos da cloud bem-sucedidos!"
+  button: "Ver formação"
   button_path: "/training"
 - name: Download
-  title: Download Kubernetes
-  description: Install Kubernetes or upgrade to the newest version.
-  button: "Download Kubernetes"
+  title: Descarregar Kubernetes
+  description: Instale o Kubernetes ou atualize para a versão mais recente.
+  button: "Descarregar Kubernetes"
   button_path: "/releases/download"
 - name: about
-  title: About the documentation
-  description: This website contains documentation for the current and previous 4 versions of Kubernetes.
-  button: "See available versions"
+  title: Sobre a documentação
+  description: Este site contém documentação para a versão atual e as 4 versões anteriores do Kubernetes.
+  button: "Ver versões disponíveis"
   button_path: "/docs/home/supported-doc-versions"
 ---
+

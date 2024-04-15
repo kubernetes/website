@@ -1,14 +1,15 @@
 ---
-title: Available Documentation Versions
+title: Versões da Documentação Disponíveis
 content_type: custom
 layout: supported-versions
 weight: 10
 ---
 
-This website contains documentation for the current version of Kubernetes
-and the four previous versions of Kubernetes.
+Este sítio contém documentação para a versão atual de Kubernetes
+e as quatro versões anteriores de Kubernetes.
 
-The availability of documentation for a Kubernetes version is separate from whether
-that release is currently supported.
-Read [Support period](/releases/patch-releases/#support-period) to learn about
-which versions of Kubernetes are officially supported, and for how long.
+A disponibilidade da documentação para uma versão de Kubernetes é independente de
+se essa versão é atualmente suportada.
+Leia [Período de suporte](/releases/patch-releases/#support-period) para saber
+quais versões de Kubernetes são oficialmente suportadas, e por quanto tempo.
+
