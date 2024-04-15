@@ -175,7 +175,7 @@ description: |-
                <p>The <code>rollout undo</code> command reverts the deployment to the previous known state (v2 of the image). Updates are versioned and you can revert to any previously known state of a Deployment.</p>
                <p>Use the <code>get pods</code> subcommand to list the Pods again:</p>
                <p><code><b>kubectl get pods</b></code></p>
-               <p>Four Pods are running. To check the image deployed on these Pods, use the <code>describe pods</code> subcommand:</p>
+               <p>To check the image deployed on the running Pods, use the <code>describe pods</code> subcommand:</p>
                <p><code><b>kubectl describe pods</b></code></p>
                <p>The Deployment is once again using a stable version of the app (v2). The rollback was successful.</p>
             </div>
