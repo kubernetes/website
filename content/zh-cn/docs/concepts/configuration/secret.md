@@ -1,5 +1,8 @@
 ---
 title: Secret
+api_metadata:
+- apiVersion: "v1"
+  kind: "Secret"
 content_type: concept
 feature:
   title: Secret 和配置管理
@@ -12,6 +15,9 @@ weight: 30
 reviewers:
 - mikedanese
 title: Secrets
+api_metadata:
+- apiVersion: "v1"
+  kind: "Secret"
 content_type: concept
 feature:
   title: Secret and configuration management
