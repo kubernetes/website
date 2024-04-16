@@ -167,6 +167,10 @@ Each controller for a workload resource uses the `PodTemplate` inside the worklo
 object to make actual Pods. The `PodTemplate` is part of the desired state of whatever
 workload resource you used to run your app.
 
+When you create a Pod, you can include
+[environment variables](/docs/tasks/inject-data-application/define-environment-variable-container/)
+in the Pod template for the containers that run in the Pod.
+
 The sample below is a manifest for a simple Job with a `template` that starts one
 container. The container in that Pod prints a message then pauses.
 
