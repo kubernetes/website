@@ -185,7 +185,7 @@ kubeadm利用者のみ:
 {{< note >}}
 上記の例での`<admin-group>`は実装に依存します。
 一部のツールはデフォルトの`admin.conf`内の証明書に`system:masters`グループの一部として署名します。
-`system:masters`はガラスを割って進入するようなスーパーユーザーグループであり、Kubernetesの認証レイヤー、例えばRBACを無視することができます。
+`system:masters`は緊急用のスーパーユーザーグループであり、RBACのようなKubernetesの認証レイヤーをバイパスすることができます。
 また、一部のツールはこのスーパーユーザーグループに紐づけられた証明書を含む`super-admin.conf`を生成しません。
 
 kubeadmはkubeconfigファイル内に2つの別々の管理者証明書を生成します。
