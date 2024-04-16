@@ -3,7 +3,8 @@ layout: blog
 title: 'Kubernetes v1.30: Uwubernetes'
 date: 2024-04-17
 slug: kubernetes-v1-30-release
-author: [Kubernetes v1.30 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.30/release-team.md)
+author: >
+  [Kubernetes v1.30 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.30/release-team.md)
 ---
 
 
