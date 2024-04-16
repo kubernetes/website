@@ -91,7 +91,7 @@ CAの秘密鍵をクラスターにコピーしたくない場合、自身で全
 
 [1]: クラスターに接続するIPおよびDNS名( [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)を使用する場合と同様、ロードバランサーのIPおよびDNS名、`kubernetes`、`kubernetes.default`、`kubernetes.default.svc`、`kubernetes.default.svc.cluster`、`kubernetes.default.svc.cluster.local`)
 
-ここで`kind`はx509キー使用方法の一つまたは複数に対応しており、これは[CertificateSigningRequest](/docs/reference/kubernetes-api/authentication-resources/certificate-signing-request-v1#CertificateSigningRequest)の`.spec.usages`にも記載されています:
+ここで`種類`は、一つまたは複数のx509の鍵用途にマッピングされており、これは[CertificateSigningRequest](/docs/reference/kubernetes-api/authentication-resources/certificate-signing-request-v1#CertificateSigningRequest)の`.spec.usages`にも記載されています:
 
 | 種類   | 鍵の用途  　　　                                                                     |
 |--------|---------------------------------------------------------------------------------|
