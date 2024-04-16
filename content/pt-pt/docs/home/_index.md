@@ -1,6 +1,4 @@
 ---
-approvers:
-- chenopis
 title: Documentação de Kubernetes
 noedit: true
 cid: docsHome

@@ -1,92 +1,91 @@
 ---
 reviewers:
 - Random-Liu
-title: Validate node setup
+title: Validar configuração do nó
 weight: 30
 ---
 
 
-## Node Conformance Test
+## Teste de Conformidade do Nó
 
-*Node conformance test* is a containerized test framework that provides a system
-verification and functionality test for a node. The test validates whether the
-node meets the minimum requirements for Kubernetes; a node that passes the test
-is qualified to join a Kubernetes cluster.
+O *teste de conformidade do nó* é um framework de teste containerizado que fornece uma verificação do sistema
+e teste de funcionalidade para um nó. O teste valida se o
+nó cumpre os requisitos mínimos para o Kubernetes; um nó que passa no teste
+está qualificado para se juntar a um cluster Kubernetes.
 
-## Node Prerequisite
+## Pré-requisito do Nó
 
-To run node conformance test, a node must satisfy the same prerequisites as a
-standard Kubernetes node. At a minimum, the node should have the following
-daemons installed:
+Para executar o teste de conformidade do nó, um nó deve satisfazer os mesmos pré-requisitos como um
+nó padrão do Kubernetes. No mínimo, o nó deve ter os seguintes
+daemons instalados:
 
-* CRI-compatible container runtimes such as  Docker, Containerd and CRI-O
+* Runtimes de contentores compatíveis com CRI como Docker, Containerd e CRI-O
 * Kubelet
 
-## Running Node Conformance Test
+## Executando o Teste de Conformidade do Nó
 
-To run the node conformance test, perform the following steps:
-1. Work out the value of the `--kubeconfig` option for the kubelet; for example:
+Para executar o teste de conformidade do nó, execute os seguintes passos:
+1. Determine o valor da opção `--kubeconfig` para o kubelet; por exemplo:
    `--kubeconfig=/var/lib/kubelet/config.yaml`.
-    Because the test framework starts a local control plane to test the kubelet,
-    use `http://localhost:8080` as the URL of the API server.
-    There are some other kubelet command line parameters you may want to use:
-  * `--cloud-provider`: If you are using `--cloud-provider=gce`, you should
-    remove the flag to run the test.
+    Como o framework de teste inicia um plano de controle local para testar o kubelet,
+    use `http://localhost:8080` como o URL do servidor API.
+    Existem alguns outros parâmetros de linha de comando do kubelet que pode querer usar:
+  * `--cloud-provider`: Se está a usar `--cloud-provider=gce`, deve
+    remover a bandeira para executar o teste.
 
-2. Run the node conformance test with command:
+2. Execute o teste de conformidade do nó com o comando:
 
 ```shell
-# $CONFIG_DIR is the pod manifest path of your Kubelet.
-# $LOG_DIR is the test output path.
+# $CONFIG_DIR é o caminho do manifesto do pod do seu Kubelet.
+# $LOG_DIR é o caminho para a saída do teste.
 sudo docker run -it --rm --privileged --net=host \
   -v /:/rootfs -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
   registry.k8s.io/node-test:0.2
 ```
 
-## Running Node Conformance Test for Other Architectures
+## Executando o Teste de Conformidade do Nó para Outras Arquiteturas
 
-Kubernetes also provides node conformance test docker images for other
-architectures:
+O Kubernetes também fornece imagens docker de teste de conformidade do nó para outras
+arquiteturas:
 
-  Arch  |       Image       |
---------|:-----------------:|
+  Arch  |       Imagem       |
+--------|:-------------------:|
  amd64  |  node-test-amd64  |
   arm   |    node-test-arm  |
  arm64  |  node-test-arm64  |
 
-## Running Selected Test
+## Executando Teste Selecionado
 
-To run specific tests, overwrite the environment variable `FOCUS` with the
-regular expression of tests you want to run.
-
-```shell
-sudo docker run -it --rm --privileged --net=host \
-  -v /:/rootfs:ro -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
-  -e FOCUS=MirrorPod \ # Only run MirrorPod test
-  registry.k8s.io/node-test:0.2
-```
-
-To skip specific tests, overwrite the environment variable `SKIP` with the
-regular expression of tests you want to skip.
+Para executar testes específicos, sobrescreva a variável de ambiente `FOCUS` com a
+expressão regular dos testes que deseja executar.
 
 ```shell
 sudo docker run -it --rm --privileged --net=host \
   -v /:/rootfs:ro -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
-  -e SKIP=MirrorPod \ # Run all conformance tests but skip MirrorPod test
+  -e FOCUS=MirrorPod \ # Executar apenas o teste MirrorPod
   registry.k8s.io/node-test:0.2
 ```
 
-Node conformance test is a containerized version of [node e2e test](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/e2e-node-tests.md).
-By default, it runs all conformance tests.
+Para pular testes específicos, sobrescreva a variável de ambiente `SKIP` com a
+expressão regular dos testes que deseja pular.
 
-Theoretically, you can run any node e2e test if you configure the container and
-mount required volumes properly. But **it is strongly recommended to only run conformance
-test**, because it requires much more complex configuration to run non-conformance test.
+```shell
+sudo docker run -it --rm --privileged --net=host \
+  -v /:/rootfs:ro -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
+  -e SKIP=MirrorPod \ # Executar todos os testes de conformidade, mas pular o teste MirrorPod
+  registry.k8s.io/node-test:0.2
+```
 
-## Caveats
+O teste de conformidade do nó é uma versão containerizada do [teste e2e do nó](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/e2e-node-tests.md).
+Por padrão, ele executa todos os testes de conformidade.
 
-* The test leaves some docker images on the node, including the node conformance
-  test image and images of containers used in the functionality
-  test.
-* The test leaves dead containers on the node. These containers are created
-  during the functionality test.
+Teoricamente, pode executar qualquer teste e2e do nó se configurar o contentor e
+montar os volumes necessários adequadamente. Mas **é fortemente recomendado executar apenas o teste de conformidade**, porque requer uma configuração muito mais complexa para executar teste não-conformidade.
+
+## Advertências
+
+* O teste deixa algumas imagens docker no nó, incluindo a imagem do teste de conformidade do nó e imagens dos contentores usados no teste
+  de funcionalidade.
+* O teste deixa contentores mortos no nó. Esses contentores são criados
+  durante o teste de funcionalidade.
+```

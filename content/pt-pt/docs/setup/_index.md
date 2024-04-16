@@ -1,8 +1,4 @@
 ---
-reviewers:
-- brendandburns
-- erictune
-- mikedanese
 title: Getting started
 main_menu: true
 weight: 20
