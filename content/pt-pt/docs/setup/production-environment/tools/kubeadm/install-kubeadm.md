@@ -1,208 +1,207 @@
 ---
-title: Installing kubeadm
+title: Instalar o kubeadm
 content_type: task
 weight: 10
 card:
   name: setup
   weight: 40
-  title: Install the kubeadm setup tool
+  title: Instalar a ferramenta de configuração kubeadm
 ---
 
 <!-- overview -->
 
 <img src="/images/kubeadm-stacked-color.png" align="right" width="150px"></img>
-This page shows how to install the `kubeadm` toolbox.
-For information on how to create a cluster with kubeadm once you have performed this installation process,
-see the [Creating a cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) page.
+Esta página mostra como instalar a caixa de ferramentas `kubeadm`.
+Para informações sobre como criar um cluster com kubeadm após ter realizado este processo de instalação,
+veja a página [Criar um cluster com kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
 
-{{< doc-versions-list "installation guide" >}}
+{{< doc-versions-list "guia de instalação" >}}
 
 ## {{% heading "prerequisites" %}}
 
-* A compatible Linux host. The Kubernetes project provides generic instructions for Linux distributions
-  based on Debian and Red Hat, and those distributions without a package manager.
-* 2 GB or more of RAM per machine (any less will leave little room for your apps).
-* 2 CPUs or more.
-* Full network connectivity between all machines in the cluster (public or private network is fine).
-* Unique hostname, MAC address, and product_uuid for every node. See [here](#verify-mac-address) for more details.
-* Certain ports are open on your machines. See [here](#check-required-ports) for more details.
-* Swap configuration. The default behavior of a kubelet was to fail to start if swap memory was detected on a node.
-  Swap has been supported since v1.22. And since v1.28, Swap is supported for cgroup v2 only; the NodeSwap feature
-  gate of the kubelet is beta but disabled by default.
-  * You **MUST** disable swap if the kubelet is not properly configured to use swap. For example, `sudo swapoff -a`
-    will disable swapping temporarily. To make this change persistent across reboots, make sure swap is disabled in
-    config files like `/etc/fstab`, `systemd.swap`, depending how it was configured on your system.
+* Um host Linux compatível. O projeto Kubernetes fornece instruções genéricas para distribuições Linux
+  baseadas em Debian e Red Hat, e aquelas distribuições sem um gestor de pacotes.
+* 2 GB ou mais de RAM por máquina (qualquer valor inferior deixará pouco espaço para as suas aplicações).
+* 2 CPUs ou mais.
+* Conectividade de rede completa entre todas as máquinas no cluster (rede pública ou privada é aceitável).
+* Nome de host único, endereço MAC e product_uuid para cada nó. Veja [aqui](#verify-mac-address) para mais detalhes.
+* Certas portas estão abertas nas suas máquinas. Veja [aqui](#check-required-ports) para mais detalhes.
+* Configuração de swap. O comportamento padrão de um kubelet era falhar ao iniciar se a memória swap fosse detetada num nó.
+  O swap é suportado desde a v1.22. E desde a v1.28, Swap é suportado apenas para cgroup v2; a funcionalidade NodeSwap
+  do kubelet é beta mas desativada por padrão.
+  * **DEVE** desativar o swap se o kubelet não estiver devidamente configurado para usar swap. Por exemplo, `sudo swapoff -a`
+    desativará a troca temporariamente. Para tornar esta alteração persistente entre reinícios, assegure-se de que o swap está desativado em
+    ficheiros de configuração como `/etc/fstab`, `systemd.swap`, dependendo de como foi configurado no seu sistema.
 
 {{< note >}}
-The `kubeadm` installation is done via binaries that use dynamic linking and assumes that your target system provides `glibc`.
-This is a reasonable assumption on many Linux distributions (including Debian, Ubuntu, Fedora, CentOS, etc.)
-but it is not always the case with custom and lightweight distributions which don't include `glibc` by default, such as Alpine Linux.
-The expectation is that the distribution either includes `glibc` or a [compatibility layer](https://wiki.alpinelinux.org/wiki/Running_glibc_programs)
-that provides the expected symbols.
+A instalação do `kubeadm` é feita através de binários que usam ligação dinâmica e assume que o seu sistema alvo fornece `glibc`.
+Esta é uma suposição razoável em muitas distribuições Linux (incluindo Debian, Ubuntu, Fedora, CentOS, etc.)
+mas nem sempre é o caso com distribuições personalizadas e leves que não incluem `glibc` por padrão, como o Alpine Linux.
+A expectativa é que a distribuição inclua `glibc` ou uma [camada de compatibilidade](https://wiki.alpinelinux.org/wiki/Running_glibc_programs)
+que forneça os símbolos esperados.
 {{< /note >}}
 
 <!-- steps -->
 
-## Verify the MAC address and product_uuid are unique for every node {#verify-mac-address}
+## Verificar se o endereço MAC e product_uuid são únicos para cada nó {#verify-mac-address}
 
-* You can get the MAC address of the network interfaces using the command `ip link` or `ifconfig -a`
-* The product_uuid can be checked by using the command `sudo cat /sys/class/dmi/id/product_uuid`
+* Pode obter o endereço MAC das interfaces de rede usando o comando `ip link` ou `ifconfig -a`
+* O product_uuid pode ser verificado usando o comando `sudo cat /sys/class/dmi/id/product_uuid`
 
-It is very likely that hardware devices will have unique addresses, although some virtual machines may have
-identical values. Kubernetes uses these values to uniquely identify the nodes in the cluster.
-If these values are not unique to each node, the installation process
-may [fail](https://github.com/kubernetes/kubeadm/issues/31).
+É muito provável que dispositivos de hardware tenham endereços únicos, embora algumas máquinas virtuais possam ter
+valores idênticos. O Kubernetes usa esses valores para identificar de forma única os nós no cluster.
+Se estes valores não forem únicos para cada nó, o processo de instalação
+pode [falhar](https://github.com/kubernetes/kubeadm/issues/31).
 
-## Check network adapters
+## Verificar adaptadores de rede
 
-If you have more than one network adapter, and your Kubernetes components are not reachable on the default
-route, we recommend you add IP route(s) so Kubernetes cluster addresses go via the appropriate adapter.
+Se tiver mais de um adaptador de rede, e os seus componentes Kubernetes não forem acessíveis na rota padrão,
+recomendamos que adicione rota(s) IP para que os endereços do cluster Kubernetes passem pelo adaptador apropriado.
 
-## Check required ports
+## Verificar portas necessárias
 
-These [required ports](/docs/reference/networking/ports-and-protocols/)
-need to be open in order for Kubernetes components to communicate with each other.
-You can use tools like [netcat](https://netcat.sourceforge.net) to check if a port is open. For example:
+Estas [portas necessárias](/docs/reference/networking/ports-and-protocols/)
+precisam de estar abertas para que os componentes Kubernetes possam comunicar entre si.
+Pode usar ferramentas como [netcat](https://netcat.sourceforge.net) para verificar se uma porta está aberta. Por exemplo:
 
 ```shell
 nc 127.0.0.1 6443 -v
 ```
 
-The pod network plugin you use may also require certain ports to be
-open. Since this differs with each pod network plugin, please see the
-documentation for the plugins about what port(s) those need.
+O plugin de rede para pods que usar pode também requerer que certas portas estejam
+abertas. Como isto difere com cada plugin de rede para pods, consulte a
+documentação para os plugins sobre quais portas precisam de estar abertas.
 
-## Installing a container runtime {#installing-runtime}
+## Instalar um runtime de contentores {#installing-runtime}
 
-To run containers in Pods, Kubernetes uses a
-{{< glossary_tooltip term_id="container-runtime" text="container runtime" >}}.
+Para executar contentores em Pods, o Kubernetes usa um
+{{< glossary_tooltip term_id="container-runtime" text="runtime de contentores" >}}.
 
-By default, Kubernetes uses the
+Por padrão, o Kubernetes usa o
 {{< glossary_tooltip term_id="cri" text="Container Runtime Interface">}} (CRI)
-to interface with your chosen container runtime.
+para interagir com o seu runtime de contentores escolhido.
 
-If you don't specify a runtime, kubeadm automatically tries to detect an installed
-container runtime by scanning through a list of known endpoints.
+Se não especificar um runtime, o kubeadm tenta automaticamente detetar um runtime de contentores instalado
+ao examinar uma lista de endpoints conhecidos.
 
-If multiple or no container runtimes are detected kubeadm will throw an error
-and will request that you specify which one you want to use.
+Se detetar múltiplos ou nenhum runtime de contentores, o kubeadm lançará um erro
+e solicitará que especifique qual deseja usar.
 
-See [container runtimes](/docs/setup/production-environment/container-runtimes/)
-for more information.
+Veja [runtimes de contentores](/docs/setup/production-environment/container-runtimes/)
+para mais informações.
 
 {{< note >}}
-Docker Engine does not implement the [CRI](/docs/concepts/architecture/cri/)
-which is a requirement for a container runtime to work with Kubernetes.
-For that reason, an additional service [cri-dockerd](https://mirantis.github.io/cri-dockerd/)
-has to be installed. cri-dockerd is a project based on the legacy built-in
-Docker Engine support that was [removed](/dockershim) from the kubelet in version 1.24.
+O Docker Engine não implementa o [CRI](/docs/concepts/architecture/cri/)
+que é um requisito para um runtime de contentores funcionar com o Kubernetes.
+Por essa razão, um serviço adicional [cri-dockerd](https://mirantis.github.io/cri-dockerd/)
+tem de ser instalado. O cri-dockerd é um projeto baseado no suporte integrado
+do Docker Engine legado que foi [removido](/dockershim) do kubelet na versão 1.24.
 {{< /note >}}
 
-The tables below include the known endpoints for supported operating systems:
+As tabelas abaixo incluem os endpoints conhecidos para sistemas operativos suportados:
 
 {{< tabs name="container_runtime" >}}
 {{% tab name="Linux" %}}
 
-{{< table caption="Linux container runtimes" >}}
-| Runtime                            | Path to Unix domain socket                   |
+{{< table caption="Runtimes de contentores para Linux" >}}
+| Runtime                            | Caminho para o socket de domínio Unix                   |
 |------------------------------------|----------------------------------------------|
 | containerd                         | `unix:///var/run/containerd/containerd.sock` |
 | CRI-O                              | `unix:///var/run/crio/crio.sock`             |
-| Docker Engine (using cri-dockerd)  | `unix:///var/run/cri-dockerd.sock`           |
+| Docker Engine (usando cri-dockerd)  | `unix:///var/run/cri-dockerd.sock`           |
 {{< /table >}}
 
 {{% /tab %}}
 
 {{% tab name="Windows" %}}
 
-{{< table caption="Windows container runtimes" >}}
-| Runtime                            | Path to Windows named pipe                   |
+{{< table caption="Runtimes de contentores para Windows" >}}
+| Runtime                            | Caminho para o pipe nomeado do Windows                  |
 |------------------------------------|----------------------------------------------|
 | containerd                         | `npipe:////./pipe/containerd-containerd`     |
-| Docker Engine (using cri-dockerd)  | `npipe:////./pipe/cri-dockerd`               |
+| Docker Engine (usando cri-dockerd)  | `npipe:////./pipe/cri-dockerd`               |
 {{< /table >}}
 
 {{% /tab %}}
 {{< /tabs >}}
 
-## Installing kubeadm, kubelet and kubectl
+## Instalar o kubeadm, kubelet e kubectl
 
-You will install these packages on all of your machines:
+Vai instalar estes pacotes em todas as suas máquinas:
 
-* `kubeadm`: the command to bootstrap the cluster.
+* `kubeadm`: o comando para iniciar o cluster.
 
-* `kubelet`: the component that runs on all of the machines in your cluster
-  and does things like starting pods and containers.
+* `kubelet`: o componente que é executado em todas as máquinas do seu cluster
+  e faz coisas como iniciar pods e contentores.
 
-* `kubectl`: the command line util to talk to your cluster.
+* `kubectl`: a ferramenta de linha de comando para comunicar com o seu cluster.
 
-kubeadm **will not** install or manage `kubelet` or `kubectl` for you, so you will
-need to ensure they match the version of the Kubernetes control plane you want
-kubeadm to install for you. If you do not, there is a risk of a version skew occurring that
-can lead to unexpected, buggy behaviour. However, _one_ minor version skew between the
-kubelet and the control plane is supported, but the kubelet version may never exceed the API
-server version. For example, the kubelet running 1.7.0 should be fully compatible with a 1.8.0 API server,
-but not vice versa.
+O kubeadm **não** instalará ou gerirá o `kubelet` ou `kubectl` por si, por isso terá
+de assegurar que estes correspondem à versão do plano de controlo Kubernetes que deseja
+que o kubeadm instale para si. Se não o fizer, existe o risco de ocorrer uma discrepância de versões que
+pode levar a comportamentos inesperados e com erros. No entanto, é suportada uma discrepância de _uma_ versão menor entre o
+kubelet e o plano de controlo, mas a versão do kubelet nunca pode exceder a versão do servidor da API. Por exemplo, o kubelet executando 1.7.0 deve ser totalmente compatível com um servidor da API 1.8.0,
+mas não o contrário.
 
-For information about installing `kubectl`, see [Install and set up kubectl](/docs/tasks/tools/).
+Para informações sobre a instalação do `kubectl`, veja [Instalar e configurar o kubectl](/docs/tasks/tools/).
 
 {{< warning >}}
-These instructions exclude all Kubernetes packages from any system upgrades.
-This is because kubeadm and Kubernetes require
-[special attention to upgrade](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/).
+Estas instruções excluem todos os pacotes Kubernetes de quaisquer atualizações do sistema.
+Isto é porque o kubeadm e o Kubernetes requerem
+[atenção especial para atualizar](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/).
 {{</ warning >}}
 
-For more information on version skews, see:
+Para mais informações sobre discrepâncias de versões, veja:
 
-* Kubernetes [version and version-skew policy](/docs/setup/release/version-skew-policy/)
-* Kubeadm-specific [version skew policy](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
+* Política de versões e discrepâncias de versões do Kubernetes [version and version-skew policy](/docs/setup/release/version-skew-policy/)
+* Política específica de discrepâncias de versões do kubeadm [version skew policy](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
 
 {{% legacy-repos-deprecation %}}
 
 {{< note >}}
-There's a dedicated package repository for each Kubernetes minor version. If you want to install
-a minor version other than v{{< skew currentVersion >}}, please see the installation guide for
-your desired minor version.
+Existe um repositório de pacotes dedicado para cada versão menor do Kubernetes. Se deseja instalar
+uma versão menor diferente de v{{< skew currentVersion >}}, por favor veja o guia de instalação para
+a sua versão menor desejada.
 {{< /note >}}
 
 {{< tabs name="k8s_install" >}}
-{{% tab name="Debian-based distributions" %}}
+{{% tab name="Distribuições baseadas em Debian" %}}
 
-These instructions are for Kubernetes v{{< skew currentVersion >}}.
+Estas instruções são para o Kubernetes v{{< skew currentVersion >}}.
 
-1. Update the `apt` package index and install packages needed to use the Kubernetes `apt` repository:
+1. Atualize o índice de pacotes `apt` e instale pacotes necessários para usar o repositório `apt` do Kubernetes:
 
    ```shell
    sudo apt-get update
-   # apt-transport-https may be a dummy package; if so, you can skip that package
+   # apt-transport-https pode ser um pacote falso; se for, pode ignorar esse pacote
    sudo apt-get install -y apt-transport-https ca-certificates curl gpg
    ```
 
-2. Download the public signing key for the Kubernetes package repositories.
-   The same signing key is used for all repositories so you can disregard the version in the URL:
+2. Descarregue a chave pública de assinatura para os repositórios de pacotes do Kubernetes.
+   A mesma chave de assinatura é usada para todos os repositórios, por isso pode ignorar a versão no URL:
 
    ```shell
-   # If the directory `/etc/apt/keyrings` does not exist, it should be created before the curl command, read the note below.
+   # Se o diretório `/etc/apt/keyrings` não existir, deve ser criado antes do comando curl, leia a nota abaixo.
    # sudo mkdir -p -m 755 /etc/apt/keyrings
    curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    ```
 
 {{< note >}}
-In releases older than Debian 12 and Ubuntu 22.04, directory `/etc/apt/keyrings` does not exist by default, and it should be created before the curl command.
+Nas versões anteriores ao Debian 12 e Ubuntu 22.04, o diretório `/etc/apt/keyrings` não existe por padrão, e deve ser criado antes do comando curl.
 {{< /note >}}
 
-3. Add the appropriate Kubernetes `apt` repository. Please note that this repository have packages
-   only for Kubernetes {{< skew currentVersion >}}; for other Kubernetes minor versions, you need to
-   change the Kubernetes minor version in the URL to match your desired minor version
-   (you should also check that you are reading the documentation for the version of Kubernetes
-   that you plan to install).
+3. Adicione o repositório `apt` do Kubernetes apropriado. Por favor note que este repositório tem pacotes
+   apenas para o Kubernetes {{< skew currentVersion >}}; para outras versões menores do Kubernetes, necessita de
+   alterar a versão menor do Kubernetes no URL para corresponder à sua versão menor desejada
+   (deve também verificar que está a ler a documentação para a versão do Kubernetes
+   que pretende instalar).
 
    ```shell
-   # This overwrites any existing configuration in /etc/apt/sources.list.d/kubernetes.list
+   # Isto sobrescreve qualquer configuração existente em /etc/apt/sources.list.d/kubernetes.list
    echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
    ```
 
-4. Update the `apt` package index, install kubelet, kubeadm and kubectl, and pin their version:
+4. Atualize o índice de pacotes `apt`, instale o kubelet, kubeadm e kubectl, e fixe a sua versão:
 
    ```shell
    sudo apt-get update
@@ -210,46 +209,46 @@ In releases older than Debian 12 and Ubuntu 22.04, directory `/etc/apt/keyrings`
    sudo apt-mark hold kubelet kubeadm kubectl
    ```
 
-5. (Optional) Enable the kubelet service before running kubeadm:
+5. (Opcional) Ative o serviço kubelet antes de executar o kubeadm:
 
    ```shell
    sudo systemctl enable --now kubelet
    ```
 
 {{% /tab %}}
-{{% tab name="Red Hat-based distributions" %}}
+{{% tab name="Distribuições baseadas em Red Hat" %}}
 
-1. Set SELinux to `permissive` mode:
+1. Defina o SELinux para o modo `permissive`:
 
-   These instructions are for Kubernetes {{< skew currentVersion >}}.
+   Estas instruções são para o Kubernetes {{< skew currentVersion >}}.
 
    ```shell
-   # Set SELinux in permissive mode (effectively disabling it)
+   # Define o SELinux em modo permissive (efetivamente desativando-o)
    sudo setenforce 0
    sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
    ```
 
 {{< caution >}}
-- Setting SELinux in permissive mode by running `setenforce 0` and `sed ...`
-effectively disables it. This is required to allow containers to access the host
-filesystem; for example, some cluster network plugins require that. You have to
-do this until SELinux support is improved in the kubelet.
-- You can leave SELinux enabled if you know how to configure it but it may require
-settings that are not supported by kubeadm.
+- Definir o SELinux em modo permissive, executando `setenforce 0` e `sed ...`
+efetivamente desativa-o. Isto é necessário para permitir que os contentores acedam ao sistema de ficheiros do host;
+por exemplo, alguns plugins de rede do cluster requerem isto. Tem de
+fazer isto até que o suporte do SELinux seja melhorado no kubelet.
+- Pode deixar o SELinux ativado se souber como configurá-lo, mas pode requerer
+definições que não são suportadas pelo kubeadm.
 {{< /caution >}}
 
-2. Add the Kubernetes `yum` repository. The `exclude` parameter in the
-   repository definition ensures that the packages related to Kubernetes are
-   not upgraded upon running `yum update` as there's a special procedure that
-   must be followed for upgrading Kubernetes. Please note that this repository
-   have packages only for Kubernetes {{< skew currentVersion >}}; for other
-   Kubernetes minor versions, you need to change the Kubernetes minor version
-   in the URL to match your desired minor version (you should also check that
-   you are reading the documentation for the version of Kubernetes that you
-   plan to install).
+2. Adicione o repositório `yum` do Kubernetes. O parâmetro `exclude` na
+   definição do repositório assegura que os pacotes relacionados com o Kubernetes são
+   não atualizados ao executar `yum update`, pois existe um procedimento especial que
+   deve ser seguido para atualizar o Kubernetes. Por favor note que este repositório
+   tem pacotes apenas para o Kubernetes {{< skew currentVersion >}}; para outras
+   versões menores do Kubernetes, necessita de alterar a versão menor do Kubernetes
+   no URL para corresponder à sua versão menor desejada (deve também verificar que
+   está a ler a documentação para a versão do Kubernetes que
+   pretende instalar).
 
    ```shell
-   # This overwrites any existing configuration in /etc/yum.repos.d/kubernetes.repo
+   # Isto sobrescreve qualquer configuração existente em /etc/yum.repos.d/kubernetes.repo
    cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
    [kubernetes]
    name=Kubernetes
@@ -261,21 +260,21 @@ settings that are not supported by kubeadm.
    EOF
    ```
 
-3. Install kubelet, kubeadm and kubectl:
+3. Instale o kubelet, kubeadm e kubectl:
 
    ```shell
    sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
    ```
 
-4. (Optional) Enable the kubelet service before running kubeadm:
+4. (Opcional) Ative o serviço kubelet antes de executar o kubeadm:
 
    ```shell
    sudo systemctl enable --now kubelet
    ```
 
 {{% /tab %}}
-{{% tab name="Without a package manager" %}}
-Install CNI plugins (required for most pod network):
+{{% tab name="Sem um gestor de pacotes" %}}
+Instale os plugins CNI (necessários para a maioria das redes de pods):
 
 ```bash
 CNI_PLUGINS_VERSION="v1.3.0"
@@ -285,11 +284,11 @@ sudo mkdir -p "$DEST"
 curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_PLUGINS_VERSION}/cni-plugins-linux-${ARCH}-${CNI_PLUGINS_VERSION}.tgz" | sudo tar -C "$DEST" -xz
 ```
 
-Define the directory to download command files:
+Defina o diretório para descarregar ficheiros de comando:
 
 {{< note >}}
-The `DOWNLOAD_DIR` variable must be set to a writable directory.
-If you are running Flatcar Container Linux, set `DOWNLOAD_DIR="/opt/bin"`.
+A variável `DOWNLOAD_DIR` deve ser definida para um diretório com permissões de escrita.
+Se estiver a executar o Flatcar Container Linux, defina `DOWNLOAD_DIR="/opt/bin"`.
 {{< /note >}}
 
 ```bash
@@ -297,7 +296,7 @@ DOWNLOAD_DIR="/usr/local/bin"
 sudo mkdir -p "$DOWNLOAD_DIR"
 ```
 
-Install crictl (required for kubeadm / Kubelet Container Runtime Interface (CRI)):
+Instale o crictl (necessário para o kubeadm / Kubelet Container Runtime Interface (CRI)):
 
 ```bash
 CRICTL_VERSION="v1.28.0"
@@ -305,7 +304,7 @@ ARCH="amd64"
 curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
 ```
 
-Install `kubeadm`, `kubelet` and add a `kubelet` systemd service:
+Instale o `kubeadm`, `kubelet` e adicione um serviço systemd `kubelet`:
 
 ```bash
 RELEASE="$(curl -sSL https://dl.k8s.io/release/stable.txt)"
@@ -321,47 +320,47 @@ curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSIO
 ```
 
 {{< note >}}
-Please refer to the note in the [Before you begin](#before-you-begin) section for Linux distributions
-that do not include `glibc` by default.
+Por favor, refira-se à nota na secção [Antes de começar](#before-you-begin) para distribuições Linux
+que não incluem `glibc` por padrão.
 {{< /note >}}
 
-Install `kubectl` by following the instructions on [Install Tools page](/docs/tasks/tools/#kubectl).
+Instale o `kubectl` seguindo as instruções na página [Instalar Ferramentas](/docs/tasks/tools/#kubectl).
 
-Optionally, enable the kubelet service before running kubeadm:
+Opcionalmente, ative o serviço kubelet antes de executar o kubeadm:
 
 ```bash
 sudo systemctl enable --now kubelet
 ```
 
 {{< note >}}
-The Flatcar Container Linux distribution mounts the `/usr` directory as a read-only filesystem.
-Before bootstrapping your cluster, you need to take additional steps to configure a writable directory.
-See the [Kubeadm Troubleshooting guide](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#usr-mounted-read-only)
-to learn how to set up a writable directory.
+A distribuição Flatcar Container Linux monta o diretório `/usr` como um sistema de ficheiros somente de leitura.
+Antes de iniciar o seu cluster, precisa de tomar passos adicionais para configurar um diretório com permissão de escrita.
+Veja o [guia de resolução de problemas do Kubeadm](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#usr-mounted-read-only)
+para aprender como configurar um diretório com permissão de escrita.
 {{< /note >}}
 {{% /tab %}}
 {{< /tabs >}}
 
-The kubelet is now restarting every few seconds, as it waits in a crashloop for
-kubeadm to tell it what to do.
+O kubelet está agora a reiniciar a cada poucos segundos, enquanto espera em um ciclo contínuo de falhas pelo
+kubeadm para lhe dizer o que fazer.
 
-## Configuring a cgroup driver
+## Configurar um driver de cgroup
 
-Both the container runtime and the kubelet have a property called
-["cgroup driver"](/docs/setup/production-environment/container-runtimes/#cgroup-drivers), which is important
-for the management of cgroups on Linux machines.
+Tanto o runtime de contentores quanto o kubelet têm uma propriedade chamada
+["driver de cgroup"](/docs/setup/production-environment/container-runtimes/#cgroup-drivers), que é importante
+para a gestão de cgroups em máquinas Linux.
 
 {{< warning >}}
-Matching the container runtime and kubelet cgroup drivers is required or otherwise the kubelet process will fail.
+É necessário que os drivers de cgroup do runtime de contentores e do kubelet correspondam, caso contrário, o processo kubelet falhará.
 
-See [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/) for more details.
+Veja [Configurar um driver de cgroup](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/) para mais detalhes.
 {{< /warning >}}
 
-## Troubleshooting
+## Resolução de Problemas
 
-If you are running into difficulties with kubeadm, please consult our
-[troubleshooting docs](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
+Se estiver a encontrar dificuldades com o kubeadm, por favor consulte os nossos
+[documentos de resolução de problemas](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
 
 ## {{% heading "whatsnext" %}}
 
-* [Using kubeadm to Create a Cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
+* [Usar o kubeadm para Criar um Cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)

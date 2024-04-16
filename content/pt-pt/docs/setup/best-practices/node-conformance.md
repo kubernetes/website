@@ -1,6 +1,4 @@
 ---
-reviewers:
-- Random-Liu
 title: Validar configuração do nó
 weight: 30
 ---
@@ -8,7 +6,7 @@ weight: 30
 
 ## Teste de Conformidade do Nó
 
-O *teste de conformidade do nó* é um framework de teste containerizado que fornece uma verificação do sistema
+O *teste de conformidade do nó* é um framework de teste contentorizado que fornece uma verificação do sistema
 e teste de funcionalidade para um nó. O teste valida se o
 nó cumpre os requisitos mínimos para o Kubernetes; um nó que passa no teste
 está qualificado para se juntar a um cluster Kubernetes.
@@ -27,7 +25,7 @@ daemons instalados:
 Para executar o teste de conformidade do nó, execute os seguintes passos:
 1. Determine o valor da opção `--kubeconfig` para o kubelet; por exemplo:
    `--kubeconfig=/var/lib/kubelet/config.yaml`.
-    Como o framework de teste inicia um plano de controle local para testar o kubelet,
+    Como o framework de teste inicia um plano de controlo local para testar o kubelet,
     use `http://localhost:8080` como o URL do servidor API.
     Existem alguns outros parâmetros de linha de comando do kubelet que pode querer usar:
   * `--cloud-provider`: Se está a usar `--cloud-provider=gce`, deve
@@ -76,7 +74,7 @@ sudo docker run -it --rm --privileged --net=host \
   registry.k8s.io/node-test:0.2
 ```
 
-O teste de conformidade do nó é uma versão containerizada do [teste e2e do nó](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/e2e-node-tests.md).
+O teste de conformidade do nó é uma versão contentorizada do [teste e2e do nó](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/e2e-node-tests.md).
 Por padrão, ele executa todos os testes de conformidade.
 
 Teoricamente, pode executar qualquer teste e2e do nó se configurar o contentor e
@@ -88,4 +86,3 @@ montar os volumes necessários adequadamente. Mas **é fortemente recomendado ex
   de funcionalidade.
 * O teste deixa contentores mortos no nó. Esses contentores são criados
   durante o teste de funcionalidade.
-```

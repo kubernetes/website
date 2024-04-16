@@ -1,4 +1,4 @@
 ---
-title: Best practices
+title: Melhores práticas
 weight: 40
 ---

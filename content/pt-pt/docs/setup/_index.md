@@ -1,5 +1,5 @@
 ---
-title: Getting started
+title: Primeiros passos
 main_menu: true
 weight: 20
 content_type: concept
@@ -8,60 +8,59 @@ card:
   name: setup
   weight: 20
   anchors:
-  - anchor: "#learning-environment"
-    title: Learning environment
-  - anchor: "#production-environment"
-    title: Production environment  
+  - anchor: "#ambiente-de-aprendizagem"
+    title: Ambiente de aprendizagem
+  - anchor: "#ambiente-de-produção"
+    title: Ambiente de produção  
 ---
 
 <!-- overview -->
 
-This section lists the different ways to set up and run Kubernetes.
-When you install Kubernetes, choose an installation type based on: ease of maintenance, security,
-control, available resources, and expertise required to operate and manage a cluster.
+Esta secção lista as diferentes formas de configurar e executar o Kubernetes.
+Quando instala o Kubernetes, escolha um tipo de instalação baseado na facilidade de manutenção, segurança,
+controlo, recursos disponíveis e conhecimentos necessários para operar e gerir um cluster.
 
-You can [download Kubernetes](/releases/download/) to deploy a Kubernetes cluster
-on a local machine, into the cloud, or for your own datacenter.
+Pode [descarregar o Kubernetes](/releases/download/) para implementar um cluster Kubernetes
+numa máquina local, na nuvem ou no seu próprio centro de dados.
 
-Several [Kubernetes components](/docs/concepts/overview/components/) such as {{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}} or {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}} can also be
-deployed as [container images](/releases/download/#container-images) within the cluster.
+Vários [componentes do Kubernetes](/docs/concepts/overview/components/) como o {{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}} ou o {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}} também podem ser
+implementados como [imagens de contentor](/releases/download/#container-images) dentro do cluster.
 
-It is **recommended** to run Kubernetes components as container images wherever
-that is possible, and to have Kubernetes manage those components.
-Components that run containers - notably, the kubelet - can't be included in this category.
+É **recomendado** executar os componentes do Kubernetes como imagens de contentor sempre
+que possível, e ter o Kubernetes a gerir esses componentes.
+Componentes que executam contentores - notavelmente, o kubelet - não podem ser incluídos nesta categoria.
 
-If you don't want to manage a Kubernetes cluster yourself, you could pick a managed service, including
-[certified platforms](/docs/setup/production-environment/turnkey-solutions/).
-There are also other standardized and custom solutions across a wide range of cloud and
-bare metal environments.
+Se não quiser gerir um cluster Kubernetes por si, pode optar por um serviço gerido, incluindo
+[plataformas certificadas](/docs/setup/production-environment/turnkey-solutions/).
+Existem também outras soluções padronizadas e personalizadas numa vasta gama de ambientes na nuvem e
+em metal nu.
 
 <!-- body -->
 
-## Learning environment
+## Ambiente de aprendizagem
 
-If you're learning Kubernetes, use the tools supported by the Kubernetes community,
-or tools in the ecosystem to set up a Kubernetes cluster on a local machine.
-See [Install tools](/docs/tasks/tools/).
+Se está a aprender Kubernetes, utilize as ferramentas suportadas pela comunidade Kubernetes,
+ou ferramentas no ecossistema para configurar um cluster Kubernetes numa máquina local.
+Veja [Instalar ferramentas](/docs/tasks/tools/).
 
-## Production environment
+## Ambiente de produção
 
-When evaluating a solution for a
-[production environment](/docs/setup/production-environment/), consider which aspects of
-operating a Kubernetes cluster (or _abstractions_) you want to manage yourself and which you
-prefer to hand off to a provider.
+Ao avaliar uma solução para um
+[ambiente de produção](/docs/setup/production-environment/), considere quais aspetos de
+operar um cluster Kubernetes (ou _abstrações_) deseja gerir por si e quais prefere delegar a um fornecedor.
 
-For a cluster you're managing yourself, the officially supported tool
-for deploying Kubernetes is [kubeadm](/docs/setup/production-environment/tools/kubeadm/).
+Para um cluster que está a gerir por si, a ferramenta oficialmente suportada
+para implementar o Kubernetes é o [kubeadm](/docs/setup/production-environment/tools/kubeadm/).
 
 ## {{% heading "whatsnext" %}}
 
-- [Download Kubernetes](/releases/download/)
-- Download and [install tools](/docs/tasks/tools/) including `kubectl`
-- Select a [container runtime](/docs/setup/production-environment/container-runtimes/) for your new cluster
-- Learn about [best practices](/docs/setup/best-practices/) for cluster setup
+- [Descarregar o Kubernetes](/releases/download/)
+- Descarregar e [instalar ferramentas](/docs/tasks/tools/) incluindo o `kubectl`
+- Selecione um [runtime de contentor](/docs/setup/production-environment/container-runtimes/) para o seu novo cluster
+- Aprenda sobre as [melhores práticas](/docs/setup/best-practices/) para a configuração do cluster
 
-Kubernetes is designed for its {{< glossary_tooltip term_id="control-plane" text="control plane" >}} to
-run on Linux. Within your cluster you can run applications on Linux or other operating systems, including
+O Kubernetes é projetado para que o seu {{< glossary_tooltip term_id="control-plane" text="plano de controlo" >}} 
+execute em Linux. Dentro do seu cluster, pode executar aplicações em Linux ou outros sistemas operativos, incluindo
 Windows.
 
-- Learn to [set up clusters with Windows nodes](/docs/concepts/windows/)
+- Aprenda a [configurar clusters com nós Windows](/docs/concepts/windows/)

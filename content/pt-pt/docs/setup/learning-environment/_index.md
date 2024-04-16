@@ -1,35 +1,35 @@
 ---
-title: Learning environment
+title: Ambiente de aprendizagem
 weight: 20
 ---
 
 <!--
-{{/* There is a Netlify redirect from this page to /docs/tasks/tools/ */}}
-{{/* This page content only exists to provide a navigation stub */}}
-{{/* and to protect in case that redirect is one day removed. */}}
+{{/* Existe um redirecionamento do Netlify desta página para /docs/tasks/tools/ */}}
+{{/* O conteúdo desta página existe apenas para fornecer um stub de navegação */}}
+{{/* e para proteger no caso de esse redirecionamento ser um dia removido. */}}
 
-{{/* If you're localizing this page, you only need to copy the front matter */}}
-{{/* and add a redirect into "/static/_redirects", for YOUR localization. */}}
+{{/* Se está a localizar esta página, só precisa de copiar o front matter */}}
+{{/* e adicionar um redirecionamento em "/static/_redirects", para a SUA localização. */}}
 -->
 <!--
 ## kind
 
-[`kind`](https://kind.sigs.k8s.io/docs/) lets you run Kubernetes on
-your local computer. This tool requires that you have
-[Docker](https://docs.docker.com/get-docker/) installed and configured.
+O [`kind`](https://kind.sigs.k8s.io/docs/) permite executar o Kubernetes no
+seu computador local. Esta ferramenta requer que tenha o
+[Docker](https://docs.docker.com/get-docker/) instalado e configurado.
 
-The kind [Quick Start](https://kind.sigs.k8s.io/docs/user/quick-start/) page
-shows you what you need to do to get up and running with kind.
+A página de [Início Rápido](https://kind.sigs.k8s.io/docs/user/quick-start/) do kind
+mostra o que precisa de fazer para começar a utilizar o kind.
 
 ## minikube
 
-Like `kind`, [`minikube`](https://minikube.sigs.k8s.io/) is a tool that lets you run Kubernetes
-locally. `minikube` runs a single-node Kubernetes cluster on your personal
-computer (including Windows, macOS and Linux PCs) so that you can try out
-Kubernetes, or for daily development work.
+Como o `kind`, o [`minikube`](https://minikube.sigs.k8s.io/) é uma ferramenta que permite executar o Kubernetes
+localmente. O `minikube` executa um cluster Kubernetes de nó único no seu computador pessoal
+(incluindo computadores Windows, macOS e Linux) para que possa experimentar
+o Kubernetes ou para trabalho de desenvolvimento diário.
 
-You can follow the official
-[Get Started!](https://minikube.sigs.k8s.io/docs/start/) guide if your focus is
-on getting the tool installed.
+Pode seguir o guia oficial
+[Comece Aqui!](https://minikube.sigs.k8s.io/docs/start/) se o seu foco é
+na instalação da ferramenta.
 -->
 

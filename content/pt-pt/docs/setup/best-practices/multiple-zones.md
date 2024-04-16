@@ -1,147 +1,141 @@
 ---
-reviewers:
-- jlowdermilk
-- justinsb
-- quinton-hoole
-title: Running in multiple zones
+title: Executar em várias zonas
 weight: 20
-content_type: concept
+content_type: conceito
 ---
 
 <!-- overview -->
 
-This page describes running Kubernetes across multiple zones.
+Esta página descreve a execução do Kubernetes em várias zonas.
 
 <!-- body -->
 
-## Background
+## Contexto
 
-Kubernetes is designed so that a single Kubernetes cluster can run
-across multiple failure zones, typically where these zones fit within
-a logical grouping called a _region_. Major cloud providers define a region
-as a set of failure zones (also called _availability zones_) that provide
-a consistent set of features: within a region, each zone offers the same
-APIs and services.
+O Kubernetes é projetado para que um único cluster do Kubernetes possa ser executado
+em várias zonas de falha, tipicamente onde estas zonas se encaixam dentro
+de um agrupamento lógico chamado _região_. Os principais fornecedores de nuvem definem uma região
+como um conjunto de zonas de falha (também chamadas _zonas de disponibilidade_) que fornecem
+um conjunto consistente de funcionalidades: dentro de uma região, cada zona oferece os mesmos
+APIs e serviços.
 
-Typical cloud architectures aim to minimize the chance that a failure in
-one zone also impairs services in another zone.
+As arquiteturas típicas de nuvem visam minimizar a probabilidade de que uma falha numa
+zona também prejudique serviços noutra zona.
 
-## Control plane behavior
+## Comportamento do plano de controlo
 
-All [control plane components](/docs/concepts/overview/components/#control-plane-components)
-support running as a pool of interchangeable resources, replicated per
-component.
+Todos os [componentes do plano de controlo](/docs/concepts/overview/components/#control-plane-components)
+suportam ser executados como um conjunto de recursos intercambiáveis, replicados por
+componente.
 
-When you deploy a cluster control plane, place replicas of
-control plane components across multiple failure zones. If availability is
-an important concern, select at least three failure zones and replicate
-each individual control plane component (API server, scheduler, etcd,
-cluster controller manager) across at least three failure zones.
-If you are running a cloud controller manager then you should
-also replicate this across all the failure zones you selected.
+Quando implementa um plano de controlo do cluster, coloque réplicas dos
+componentes do plano de controlo em várias zonas de falha. Se a disponibilidade é
+uma preocupação importante, selecione pelo menos três zonas de falha e replique
+cada componente individual do plano de controlo (servidor API, agendador, etcd,
+gestor do controlador do cluster) em pelo menos três zonas de falha.
+Se está a executar um gestor de controlador de nuvem, então deve
+também replicar isto através de todas as zonas de falha que selecionou.
 
 {{< note >}}
-Kubernetes does not provide cross-zone resilience for the API server
-endpoints. You can use various techniques to improve availability for
-the cluster API server, including DNS round-robin, SRV records, or
-a third-party load balancing solution with health checking.
+O Kubernetes não fornece resiliência entre zonas para os endpoints do servidor API.
+Pode usar várias técnicas para melhorar a disponibilidade para
+o servidor API do cluster, incluindo DNS round-robin, registos SRV, ou
+uma solução de balanceamento de carga de terceiros com verificação de saúde.
 {{< /note >}}
 
-## Node behavior
+## Comportamento do nó
 
-Kubernetes automatically spreads the Pods for
-workload resources (such as {{< glossary_tooltip text="Deployment" term_id="deployment" >}}
-or {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}})
-across different nodes in a cluster. This spreading helps
-reduce the impact of failures.
+O Kubernetes espalha automaticamente os Pods para
+recursos de carga de trabalho (como {{< glossary_tooltip text="Deployment" term_id="deployment" >}}
+ou {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}})
+por diferentes nós num cluster. Este espalhamento ajuda
+a reduzir o impacto de falhas.
 
-When nodes start up, the kubelet on each node automatically adds
-{{< glossary_tooltip text="labels" term_id="label" >}} to the Node object
-that represents that specific kubelet in the Kubernetes API.
-These labels can include
-[zone information](/docs/reference/labels-annotations-taints/#topologykubernetesiozone).
+Quando os nós iniciam, o kubelet em cada nó adiciona automaticamente
+{{< glossary_tooltip text="etiquetas" term_id="label" >}} ao objeto Node
+que representa esse kubelet específico na API do Kubernetes.
+Estas etiquetas podem incluir
+[informação de zona](/docs/reference/labels-annotations-taints/#topologykubernetesiozone).
 
-If your cluster spans multiple zones or regions, you can use node labels
-in conjunction with
-[Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
-to control how Pods are spread across your cluster among fault domains:
-regions, zones, and even specific nodes.
-These hints enable the
-{{< glossary_tooltip text="scheduler" term_id="kube-scheduler" >}} to place
-Pods for better expected availability, reducing the risk that a correlated
-failure affects your whole workload.
+Se o seu cluster abrange várias zonas ou regiões, pode usar etiquetas de nó
+em conjunto com
+[restrições de espalhamento de topologia de Pod](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
+para controlar como os Pods são espalhados pelo seu cluster entre domínios de falha:
+regiões, zonas e até nós específicos.
+Estas dicas permitem ao
+{{< glossary_tooltip text="agendador" term_id="kube-scheduler" >}} colocar
+Pods para uma melhor disponibilidade esperada, reduzindo o risco de que uma falha correlacionada
+afete toda a sua carga de trabalho.
 
-For example, you can set a constraint to make sure that the
-3 replicas of a StatefulSet are all running in different zones to each
-other, whenever that is feasible. You can define this declaratively
-without explicitly defining which availability zones are in use for
-each workload.
+Por exemplo, pode definir uma restrição para garantir que as
+3 réplicas de um StatefulSet estão todas a correr em zonas diferentes entre si,
+sempre que isso for viável. Pode definir isto declarativamente
+sem definir explicitamente quais zonas de disponibilidade estão em uso para
+cada carga de trabalho.
 
-### Distributing nodes across zones
+### Distribuir nós por zonas
 
-Kubernetes' core does not create nodes for you; you need to do that yourself,
-or use a tool such as the [Cluster API](https://cluster-api.sigs.k8s.io/) to
-manage nodes on your behalf.
+O núcleo do Kubernetes não cria nós para si; precisa de fazer isso por si mesmo,
+ou usar uma ferramenta como a [Cluster API](https://cluster-api.sigs.k8s.io/) para
+gerir nós em seu nome.
 
-Using tools such as the Cluster API you can define sets of machines to run as
-worker nodes for your cluster across multiple failure domains, and rules to
-automatically heal the cluster in case of whole-zone service disruption.
+Usando ferramentas como a Cluster API, pode definir conjuntos de máquinas para funcionar como
+nós trabalhadores para o seu cluster em vários domínios de falha, e regras para
+curar automaticamente o cluster em caso de interrupção do serviço em toda a zona.
 
-## Manual zone assignment for Pods
+## Atribuição manual de zona para Pods
 
-You can apply [node selector constraints](/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector)
-to Pods that you create, as well as to Pod templates in workload resources
-such as Deployment, StatefulSet, or Job.
+Pode aplicar [restrições de seletor de nó](/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector)
+a Pods que cria, bem como a modelos de Pod em recursos de carga de trabalho
+como Deployment, StatefulSet ou Job.
 
-## Storage access for zones
+## Acesso a armazenamento por zonas
 
-When persistent volumes are created, Kubernetes automatically adds zone labels 
-to any PersistentVolumes that are linked to a specific zone.
-The {{< glossary_tooltip text="scheduler" term_id="kube-scheduler" >}} then ensures,
-through its `NoVolumeZoneConflict` predicate, that pods which claim a given PersistentVolume
-are only placed into the same zone as that volume.
+Quando os volumes persistentes são criados, o Kubernetes adiciona automaticamente etiquetas de zona
+a quaisquer PersistentVolumes que estão ligados a uma zona específica.
+O {{< glossary_tooltip text="agendador" term_id="kube-scheduler" >}} garante, então,
+através do seu predicado `NoVolumeZoneConflict`, que os pods que reivindicam um determinado PersistentVolume
+são apenas colocados na mesma zona que esse volume.
 
-Please note that the method of adding zone labels can depend on your 
-cloud provider and the storage provisioner you’re using. Always refer to the specific 
-documentation for your environment to ensure correct configuration.
+Por favor, note que o método de adicionar etiquetas de zona pode depender do seu
+fornecedor de nuvem e do provisionador de armazenamento que está a usar. Consulte sempre a documentação específica
+para o seu ambiente para garantir a configuração correta.
 
-You can specify a {{< glossary_tooltip text="StorageClass" term_id="storage-class" >}}
-for PersistentVolumeClaims that specifies the failure domains (zones) that the
-storage in that class may use.
-To learn about configuring a StorageClass that is aware of failure domains or zones,
-see [Allowed topologies](/docs/concepts/storage/storage-classes/#allowed-topologies).
+Pode especificar uma {{< glossary_tooltip text="StorageClass" term_id="storage-class" >}}
+para PersistentVolumeClaims que especifica os domínios de falha (zonas) que o
+armazenamento dessa classe pode usar.
+Para aprender sobre a configuração de uma StorageClass ciente de domínios de falha ou zonas,
+veja [Topologias permitidas](/docs/concepts/storage/storage-classes/#allowed-topologies).
 
-## Networking
+## Rede
 
-By itself, Kubernetes does not include zone-aware networking. You can use a
-[network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
-to configure cluster networking, and that network solution might have zone-specific
-elements. For example, if your cloud provider supports Services with
-`type=LoadBalancer`, the load balancer might only send traffic to Pods running in the
-same zone as the load balancer element processing a given connection.
-Check your cloud provider's documentation for details.
+Por si só, o Kubernetes não inclui rede ciente de zonas. Pode usar um
+[plugin de rede](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
+para configurar a rede do cluster, e essa solução de rede pode ter elementos específicos de zona. Por exemplo, se o seu fornecedor de nuvem suporta Serviços com
+`type=LoadBalancer`, o balanceador de carga pode apenas enviar tráfego para Pods que estão a correr na mesma zona que o elemento do balanceador de carga que processa uma determinada conexão.
+Consulte a documentação do seu fornecedor de nuvem para detalhes.
 
-For custom or on-premises deployments, similar considerations apply.
-{{< glossary_tooltip text="Service" term_id="service" >}} and
-{{< glossary_tooltip text="Ingress" term_id="ingress" >}} behavior, including handling
-of different failure zones, does vary depending on exactly how your cluster is set up.
+Para implementações personalizadas ou locais, considerações semelhantes aplicam-se.
+{{< glossary_tooltip text="Serviço" term_id="service" >}} e
+{{< glossary_tooltip text="Ingress" term_id="ingress" >}} comportamento, incluindo tratamento
+de diferentes zonas de falha, varia dependendo de exatamente como o seu cluster está configurado.
 
-## Fault recovery
+## Recuperação de falhas
 
-When you set up your cluster, you might also need to consider whether and how
-your setup can restore service if all the failure zones in a region go
-off-line at the same time. For example, do you rely on there being at least
-one node able to run Pods in a zone?  
-Make sure that any cluster-critical repair work does not rely
-on there being at least one healthy node in your cluster. For example: if all nodes
-are unhealthy, you might need to run a repair Job with a special
-{{< glossary_tooltip text="toleration" term_id="toleration" >}} so that the repair
-can complete enough to bring at least one node into service.
+Quando configura o seu cluster, também pode precisar de considerar se e como
+a sua configuração pode restaurar o serviço se todas as zonas de falha numa região
+ficarem offline ao mesmo tempo. Por exemplo, depende de haver pelo menos
+um nó capaz de executar Pods numa zona?  
+Certifique-se de que qualquer trabalho de reparação crítico para o cluster não depende
+de haver pelo menos um nó saudável no seu cluster. Por exemplo: se todos os nós
+estão não saudáveis, talvez precise de executar um trabalho de reparação com uma
+{{< glossary_tooltip text="tolerância" term_id="toleration" >}} especial para que o reparo
+possa completar o suficiente para trazer pelo menos um nó em serviço.
 
-Kubernetes doesn't come with an answer for this challenge; however, it's
-something to consider.
+O Kubernetes não vem com uma resposta para este desafio; no entanto, é
+algo a considerar.
 
 ## {{% heading "whatsnext" %}}
 
-To learn how the scheduler places Pods in a cluster, honoring the configured constraints,
-visit [Scheduling and Eviction](/docs/concepts/scheduling-eviction/).
+Para aprender como o agendador coloca Pods num cluster, honrando as restrições configuradas,
+visite [Agendamento e Evicção](/docs/concepts/scheduling-eviction/).

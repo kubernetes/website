@@ -1,83 +1,80 @@
 ---
-reviewers:
-- davidopp
-- lavalamp
-title: Considerations for large clusters
+title: Considerações para grandes clusters
 weight: 10
 ---
 
-A cluster is a set of {{< glossary_tooltip text="nodes" term_id="node" >}} (physical
-or virtual machines) running Kubernetes agents, managed by the
-{{< glossary_tooltip text="control plane" term_id="control-plane" >}}.
-Kubernetes {{< param "version" >}} supports clusters with up to 5,000 nodes. More specifically,
-Kubernetes is designed to accommodate configurations that meet *all* of the following criteria:
+Um cluster é um conjunto de {{< glossary_tooltip text="nós" term_id="node" >}} (máquinas físicas
+ou virtuais) a executar agentes do Kubernetes, geridos pelo
+{{< glossary_tooltip text="plano de controlo" term_id="control-plane" >}}.
+O Kubernetes {{< param "version" >}} suporta clusters com até 5.000 nós. Mais especificamente,
+o Kubernetes é projetado para acomodar configurações que cumpram *todos* os seguintes critérios:
 
-* No more than 110 pods per node
-* No more than 5,000 nodes
-* No more than 150,000 total pods
-* No more than 300,000 total containers
+* Não mais do que 110 pods por nó
+* Não mais do que 5.000 nós
+* Não mais do que 150.000 pods totais
+* Não mais do que 300.000 contentores totais
 
-You can scale your cluster by adding or removing nodes. The way you do this depends
-on how your cluster is deployed.
+Pode escalar o seu cluster adicionando ou removendo nós. A forma como faz isso depende
+de como o seu cluster está implementado.
 
-## Cloud provider resource quotas {#quota-issues}
+## Quotas de recursos do fornecedor de nuvem {#quota-issues}
 
-To avoid running into cloud provider quota issues, when creating a cluster with many nodes,
-consider:
-* Requesting a quota increase for cloud resources such as:
-    * Computer instances
+Para evitar problemas de quota com fornecedores de nuvem, ao criar um cluster com muitos nós,
+considere:
+* Solicitar um aumento de quota para recursos de nuvem, tais como:
+    * Instâncias de computação
     * CPUs
-    * Storage volumes
-    * In-use IP addresses
-    * Packet filtering rule sets
-    * Number of load balancers
-    * Network subnets
-    * Log streams
-* Gating the cluster scaling actions to bring up new nodes in batches, with a pause
-  between batches, because some cloud providers rate limit the creation of new instances.
+    * Volumes de armazenamento
+    * Endereços IP em uso
+    * Conjuntos de regras de filtragem de pacotes
+    * Número de balanceadores de carga
+    * Sub-redes de rede
+    * Fluxos de log
+* Limitar as ações de escalamento do cluster para trazer novos nós em lotes, com uma pausa
+  entre lotes, porque alguns fornecedores de nuvem limitam a criação de novas instâncias.
 
-## Control plane components
+## Componentes do plano de controlo
 
-For a large cluster, you need a control plane with sufficient compute and other
-resources.
+Para um grande cluster, precisa de um plano de controlo com recursos de computação e outros
+recursos suficientes.
 
-Typically you would run one or two control plane instances per failure zone,
-scaling those instances vertically first and then scaling horizontally after reaching
-the point of falling returns to (vertical) scale.
+Tipicamente, executaria uma ou duas instâncias do plano de controlo por zona de falha,
+escalando essas instâncias verticalmente primeiro e depois escalando horizontalmente após atingir
+o ponto de retornos decrescentes ao escalar (verticalmente).
 
-You should run at least one instance per failure zone to provide fault-tolerance. Kubernetes
-nodes do not automatically steer traffic towards control-plane endpoints that are in the
-same failure zone; however, your cloud provider might have its own mechanisms to do this.
+Deve executar pelo menos uma instância por zona de falha para fornecer tolerância a falhas. Os
+nós do Kubernetes não direcionam automaticamente o tráfego para endpoints do plano de controlo que estão na
+mesma zona de falha; no entanto, o seu fornecedor de nuvem pode ter mecanismos próprios para fazer isso.
 
-For example, using a managed load balancer, you configure the load balancer to send traffic
-that originates from the kubelet and Pods in failure zone _A_, and direct that traffic only
-to the control plane hosts that are also in zone _A_. If a single control-plane host or
-endpoint failure zone _A_ goes offline, that means that all the control-plane traffic for
-nodes in zone _A_ is now being sent between zones. Running multiple control plane hosts in
-each zone makes that outcome less likely.
+Por exemplo, usando um balanceador de carga gerido, configura o balanceador de carga para enviar tráfego
+que tem origem no kubelet e Pods na zona de falha _A_, e direcionar esse tráfego apenas
+para os hosts do plano de controlo que também estão na zona _A_. Se um único host do plano de controlo ou
+endpoint da zona de falha _A_ ficar offline, isso significa que todo o tráfego do plano de controlo para
+os nós na zona _A_ está agora a ser enviado entre zonas. Executar múltiplos hosts do plano de controlo em
+cada zona torna esse resultado menos provável.
 
-### etcd storage
+### armazenamento etcd
 
-To improve performance of large clusters, you can store Event objects in a separate
-dedicated etcd instance.
+Para melhorar o desempenho de grandes clusters, pode armazenar objetos de evento numa instância dedicada
+do etcd.
 
-When creating a cluster, you can (using custom tooling):
+Ao criar um cluster, pode (usando ferramentas personalizadas):
 
-* start and configure additional etcd instance
-* configure the {{< glossary_tooltip term_id="kube-apiserver" text="API server" >}} to use it for storing events
+* iniciar e configurar instância adicional do etcd
+* configurar o {{< glossary_tooltip term_id="kube-apiserver" text="servidor API" >}} para usá-lo para armazenar eventos
 
-See [Operating etcd clusters for Kubernetes](/docs/tasks/administer-cluster/configure-upgrade-etcd/) and
-[Set up a High Availability etcd cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)
-for details on configuring and managing etcd for a large cluster.
+Veja [Operar clusters etcd para o Kubernetes](/docs/tasks/administer-cluster/configure-upgrade-etcd/) e
+[Configurar um cluster etcd de Alta Disponibilidade com kubeadm](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)
+para detalhes sobre configurar e gerir etcd para um grande cluster.
 
-## Addon resources
+## Recursos de addons
 
-Kubernetes [resource limits](/docs/concepts/configuration/manage-resources-containers/)
-help to minimize the impact of memory leaks and other ways that pods and containers can
-impact on other components. These resource limits apply to
-{{< glossary_tooltip text="addon" term_id="addons" >}} resources just as they apply to application workloads.
+Os [limites de recursos](/docs/concepts/configuration/manage-resources-containers/) do Kubernetes
+ajudam a minimizar o impacto de fugas de memória e outras formas como pods e contentores podem
+afetar outros componentes. Estes limites de recursos aplicam-se a
+recursos de {{< glossary_tooltip text="addons" term_id="addons" >}} tal como aplicam-se a cargas de trabalho de aplicações.
 
-For example, you can set CPU and memory limits for a logging component:
+Por exemplo, pode definir limites de CPU e memória para um componente de log:
 
 ```yaml
   ...
@@ -90,38 +87,36 @@ For example, you can set CPU and memory limits for a logging component:
         memory: 200Mi
 ```
 
-Addons' default limits are typically based on data collected from experience running
-each addon on small or medium Kubernetes clusters. When running on large
-clusters, addons often consume more of some resources than their default limits.
-If a large cluster is deployed without adjusting these values, the addon(s)
-may continuously get killed because they keep hitting the memory limit.
-Alternatively, the addon may run but with poor performance due to CPU time
-slice restrictions.
+Os limites padrão dos addons são tipicamente baseados em dados recolhidos da experiência a executar
+cada addon em clusters Kubernetes pequenos ou médios. Quando executado em grandes
+clusters, os addons frequentemente consomem mais de alguns recursos do que os seus limites padrão.
+Se um grande cluster for implementado sem ajustar estes valores, o(s) addon(s)
+podem ser continuamente mortos porque estão sempre a atingir o limite de memória.
+Alternativamente, o addon pode executar, mas com um desempenho fraco devido a restrições de fatia de tempo de CPU.
 
-To avoid running into cluster addon resource issues, when creating a cluster with
-many nodes, consider the following:
+Para evitar problemas de recursos de addons do cluster, ao criar um cluster com
+muitos nós, considere o seguinte:
 
-* Some addons scale vertically - there is one replica of the addon for the cluster
-  or serving a whole failure zone. For these addons, increase requests and limits
-  as you scale out your cluster.
-* Many addons scale horizontally - you add capacity by running more pods - but with
-  a very large cluster you may also need to raise CPU or memory limits slightly.
-  The VerticalPodAutoscaler can run in _recommender_ mode to provide suggested
-  figures for requests and limits.
-* Some addons run as one copy per node, controlled by a {{< glossary_tooltip text="DaemonSet"
-  term_id="daemonset" >}}: for example, a node-level log aggregator. Similar to
-  the case with horizontally-scaled addons, you may also need to raise CPU or memory
-  limits slightly.
+* Alguns addons escalam verticalmente - há uma réplica do addon para o cluster
+  ou a servir uma zona de falha inteira. Para estes addons, aumente os pedidos e limites
+  à medida que escala o seu cluster.
+* Muitos addons escalam horizontalmente - adiciona capacidade executando mais pods - mas com
+  um cluster muito grande, também pode precisar de aumentar ligeiramente os limites de CPU ou memória.
+  O VerticalPodAutoscaler pode ser executado no modo _recomendador_ para fornecer figuras sugeridas
+  para pedidos e limites.
+* Alguns addons executam como uma cópia por nó, controlados por um {{< glossary_tooltip text="DaemonSet"
+  term_id="daemonset" >}}: por exemplo, um agregador de logs a nível de nó. Semelhante
+  ao caso com addons escalados horizontalmente, também pode precisar de aumentar ligeiramente os limites de CPU ou memória.
 
 ## {{% heading "whatsnext" %}}
 
-* `VerticalPodAutoscaler` is a custom resource that you can deploy into your cluster
-to help you manage resource requests and limits for pods.  
-Learn more about [Vertical Pod Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme) 
-and how you can use it to scale cluster
-components, including cluster-critical addons.
+* `VerticalPodAutoscaler` é um recurso personalizado que pode implementar no seu cluster
+para ajudar a gerir pedidos de recursos e limites para pods.
+Saiba mais sobre [Vertical Pod Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme) 
+e como pode usá-lo para escalar componentes do cluster, incluindo addons críticos do cluster.
 
-* Read about [cluster autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/)
+* Leia sobre [escalamento automático do cluster](/docs/concepts/cluster-administration/cluster-autoscaling/)
 
-* The [addon resizer](https://github.com/kubernetes/autoscaler/tree/master/addon-resizer#readme)
-helps you in resizing the addons automatically as your cluster's scale changes.
+* O [addon resizer](https://github.com/kubernetes/autoscaler/tree/master/addon-resizer#readme)
+ajuda-o a redimensionar automaticamente os addons à medida que a escala do seu cluster muda.
+```

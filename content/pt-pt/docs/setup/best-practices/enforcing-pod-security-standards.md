@@ -1,80 +1,69 @@
 ---
-reviewers:
-- tallclair
-- liggitt
-title: Enforcing Pod Security Standards
+title: Aplicar Normas de Segurança de Pods
 weight: 40
 ---
 
 <!-- overview -->
 
-This page provides an overview of best practices when it comes to enforcing
-[Pod Security Standards](/docs/concepts/security/pod-security-standards).
+Esta página fornece uma visão geral das melhores práticas no que diz respeito à aplicação de
+[Normas de Segurança de Pods](/docs/concepts/security/pod-security-standards).
 
 <!-- body -->
 
-## Using the built-in Pod Security Admission Controller
+## Utilizando o Controlador de Admissão de Segurança de Pod integrado
 
-{{< feature-state for_k8s_version="v1.25" state="stable" >}}
+{{< feature-state for_k8s_version="v1.25" state="estável" >}}
 
-The [Pod Security Admission Controller](/docs/reference/access-authn-authz/admission-controllers/#podsecurity)
-intends to replace the deprecated PodSecurityPolicies. 
+O [Controlador de Admissão de Segurança de Pod](/docs/reference/access-authn-authz/admission-controllers/#podsecurity)
+pretende substituir as Políticas de Segurança de Pod depreciadas.
 
-### Configure all cluster namespaces
+### Configurar todos os namespaces do cluster
 
-Namespaces that lack any configuration at all should be considered significant gaps in your cluster
-security model. We recommend taking the time to analyze the types of workloads occurring in each
-namespace, and by referencing the Pod Security Standards, decide on an appropriate level for
-each of them. Unlabeled namespaces should only indicate that they've yet to be evaluated.
+Namespaces que não têm qualquer configuração devem ser considerados lacunas significativas no seu modelo de segurança do cluster. Recomendamos que dedique tempo a analisar os tipos de cargas de trabalho que ocorrem em cada
+namespace e, referenciando as Normas de Segurança de Pod, decida sobre um nível apropriado para
+cada um deles. Namespaces não etiquetados devem apenas indicar que ainda não foram avaliados.
 
-In the scenario that all workloads in all namespaces have the same security requirements,
-we provide an [example](/docs/tasks/configure-pod-container/enforce-standards-namespace-labels/#applying-to-all-namespaces)
-that illustrates how the PodSecurity labels can be applied in bulk.
+No cenário em que todas as cargas de trabalho em todos os namespaces têm os mesmos requisitos de segurança,
+fornecemos um [exemplo](/docs/tasks/configure-pod-container/enforce-standards-namespace-labels/#applying-to-all-namespaces)
+que ilustra como as etiquetas de Segurança de Pod podem ser aplicadas em massa.
 
-### Embrace the principle of least privilege
+### Abraçar o princípio do menor privilégio
 
-In an ideal world, every pod in every namespace would meet the requirements of the `restricted`
-policy. However, this is not possible nor practical, as some workloads will require elevated
-privileges for legitimate reasons.
+Num mundo ideal, cada pod em cada namespace cumpriria os requisitos da política `restricted`. No entanto, isso não é possível nem prático, já que algumas cargas de trabalho exigirão privilégios elevados por razões legítimas.
 
-- Namespaces allowing `privileged` workloads should establish and enforce appropriate access controls.
-- For workloads running in those permissive namespaces, maintain documentation about their unique
-  security requirements. If at all possible, consider how those requirements could be further
-  constrained.
+- Namespaces que permitem cargas de trabalho `privileged` devem estabelecer e fazer cumprir controles de acesso apropriados.
+- Para cargas de trabalho que são executadas nesses namespaces permissivos, mantenha documentação sobre os seus requisitos de segurança únicos. Se possível, considere como esses requisitos poderiam ser mais restringidos.
 
-### Adopt a multi-mode strategy
+### Adotar uma estratégia multi-modo
 
-The `audit` and `warn` modes of the Pod Security Standards admission controller make it easy to
-collect important security insights about your pods without breaking existing workloads.
+Os modos `audit` e `warn` do controlador de admissão de Normas de Segurança de Pod facilitam a
+recolha de informações de segurança importantes sobre os seus pods sem interromper as cargas de trabalho existentes.
 
-It is good practice to enable these modes for all namespaces, setting them to the _desired_ level
-and version you would eventually like to `enforce`. The warnings and audit annotations generated in
-this phase can guide you toward that state. If you expect workload authors to make changes to fit
-within the desired level, enable the `warn` mode. If you expect to use audit logs to monitor/drive
-changes to fit within the desired level, enable the `audit` mode.
+É uma boa prática ativar estes modos para todos os namespaces, definindo-os para o nível _desejado_
+e versão que eventualmente gostaria de `enforce`. Os avisos e anotações de auditoria gerados nesta fase podem guiá-lo para esse estado. Se espera que os autores das cargas de trabalho façam alterações para se enquadrarem no nível desejado, ative o modo `warn`. Se espera usar logs de auditoria para monitorizar/impulsionar
+alterações para se enquadrarem no nível desejado, ative o modo `audit`.
 
-When you have the `enforce` mode set to your desired value, these modes can still be useful in a
-few different ways:
+Quando tiver o modo `enforce` definido para o valor desejado, estes modos ainda podem ser úteis de
+algumas maneiras diferentes:
 
-- By setting `warn` to the same level as `enforce`, clients will receive warnings when attempting
-  to create Pods (or resources that have Pod templates) that do not pass validation. This will help
-  them update those resources to become compliant.
-- In Namespaces that pin `enforce` to a specific non-latest version, setting the `audit` and `warn`
-  modes to the same level as `enforce`, but to the `latest` version, gives visibility into settings
-  that were allowed by previous versions but are not allowed per current best practices.
+- Definindo `warn` para o mesmo nível que `enforce`, os clientes receberão avisos ao tentarem
+  criar Pods (ou recursos que têm modelos de Pod) que não passam na validação. Isso ajudará
+  a atualizar esses recursos para se tornarem conformes.
+- Em Namespaces que fixam `enforce` a uma versão específica não mais recente, definir os modos `audit` e `warn`
+  para o mesmo nível que `enforce`, mas para a versão `latest`, dá visibilidade a configurações
+  que eram permitidas por versões anteriores mas não são permitidas de acordo com as melhores práticas atuais.
 
-## Third-party alternatives
+## Alternativas de terceiros
 
 {{% thirdparty-content %}}
 
-Other alternatives for enforcing security profiles are being developed in the Kubernetes
-ecosystem:
+Outras alternativas para aplicar perfis de segurança estão a ser desenvolvidas no ecossistema Kubernetes:
 
 - [Kubewarden](https://github.com/kubewarden).
 - [Kyverno](https://kyverno.io/policies/).
 - [OPA Gatekeeper](https://github.com/open-policy-agent/gatekeeper).
 
-The decision to go with a _built-in_ solution (e.g. PodSecurity admission controller) versus a
-third-party tool is entirely dependent on your own situation. When evaluating any solution,
-trust of your supply chain is crucial. Ultimately, using _any_ of the aforementioned approaches
-will be better than doing nothing.
+A decisão de optar por uma solução _integrada_ (por exemplo, controlador de admissão de Segurança de Pod) versus uma
+ferramenta de terceiros depende inteiramente da sua situação específica. Ao avaliar qualquer solução,
+a confiança na sua cadeia de fornecimento é crucial. Em última análise, usar _qualquer_ das abordagens mencionadas
+será melhor do que não fazer nada.
