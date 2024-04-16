@@ -77,10 +77,10 @@ footer {
     font-size: 1rem;
     border: 0px;
 
-  }
-
-  .button:hover {
-    background-color: darken($blue, 10%);
+    &:hover {
+      background-color: darken($blue, 10%);
+      color: white;
+    }
   }
 
   #cellophane {
@@ -104,6 +104,11 @@ main {
     text-decoration: none;
     font-size: 1rem;
     border: 0px;
+
+    &:hover {
+      background-color: darken($blue, 10%);
+      color: white;
+    }
   }
 }
 
