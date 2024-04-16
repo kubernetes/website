@@ -68,7 +68,7 @@ selecting a node to run a particular Pod. However, if you manually specify the
 bound onto on the node where you assigned it, even if there are `NoSchedule`
 taints on that node that you selected.
 If this happens and the node also has a `NoExecute` taint set, the kubelet will
-eject the Pod unless there is an appropriate toleration set.
+eject the Pod unless there is an appropriate tolerance set.
 
 Here's an example of a pod that has some tolerations defined:
 
