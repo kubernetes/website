@@ -1,54 +1,52 @@
 ---
-title: Install and Set Up kubectl on macOS
+title: macOS上でのkubectlのインストールおよびセットアップ
 content_type: task
 weight: 10
 ---
 
 ## {{% heading "prerequisites" %}}
 
-You must use a kubectl version that is within one minor version difference of
-your cluster. For example, a v{{< skew currentVersion >}} client can communicate
-with v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}},
-and v{{< skew currentVersionAddMinor 1 >}} control planes.
-Using the latest compatible version of kubectl helps avoid unforeseen issues.
+kubectlのバージョンは、クラスターのマイナーバージョンとの差分が1つ以内でなければなりません。
+たとえば、クライアントがv{{< skew currentVersion >}}であれば、v{{< skew currentVersionAddMinor -1 >}}、v{{< skew currentVersionAddMinor 0 >}}、v{{< skew currentVersionAddMinor 1 >}}のコントロールプレーンと通信できます。
+最新の互換性のあるバージョンのkubectlを使うことで、不測の事態を避けることができるでしょう。
 
-## Install kubectl on macOS
 
-The following methods exist for installing kubectl on macOS:
+## macOSへkubectlをインストールする{#install-kubectl-on-macos}
 
-- [Install kubectl on macOS](#install-kubectl-on-macos)
-  - [Install kubectl binary with curl on macOS](#install-kubectl-binary-with-curl-on-macos)
-  - [Install with Homebrew on macOS](#install-with-homebrew-on-macos)
-  - [Install with Macports on macOS](#install-with-macports-on-macos)
-- [Verify kubectl configuration](#verify-kubectl-configuration)
-- [Optional kubectl configurations and plugins](#optional-kubectl-configurations-and-plugins)
-  - [Enable shell autocompletion](#enable-shell-autocompletion)
-  - [Install `kubectl convert` plugin](#install-kubectl-convert-plugin)
+macOSへkubectlをインストールするには、次の方法があります:
 
-### Install kubectl binary with curl on macOS
+- [macOSへkubectlをインストールする](#install-kubectl-on-macos)
+  - [curlを使用してmacOSへkubectlのバイナリをインストールする](#install-kubectl-binary-with-curl-on-macos)
+  - [Homebrewを使用してmacOSへインストールする](#install-with-homebrew-on-macos)
+  - [MacPortsを使用してmacOSへインストールする](#install-with-macports-on-macos)
+- [kubectlの設定を検証する](#verify-kubectl-configuration)
+- [オプションのkubectlの設定とプラグイン](#optional-kubectl-configurations-and-plugins)
+  - [シェルの自動補完を有効にする](#enable-shell-autocompletion)
+  - [`kubectl convert`プラグインをインストールする](#install-kubectl-convert-plugin)
 
-1. Download the latest release:
+### curlを使用してmacOSへkubectlのバイナリをインストールする{#install-kubectl-binary-with-curl-on-macos}
+
+1. 最新リリースをダウンロードしてください:
 
    {{< tabs name="download_binary_macos" >}}
    {{< tab name="Intel" codelang="bash" >}}
    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl"
    {{< /tab >}}
-   {{< tab name="Apple Silicon" codelang="bash" >}}
+   {{< tab name="Appleシリコン" codelang="bash" >}}
    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/arm64/kubectl"
    {{< /tab >}}
    {{< /tabs >}}
 
    {{< note >}}
-   To download a specific version, replace the `$(curl -L -s https://dl.k8s.io/release/stable.txt)`
-   portion of the command with the specific version.
+   特定のバージョンをダウンロードする場合、コマンドの`$(curl -L -s https://dl.k8s.io/release/stable.txt)`の部分を特定のバージョンに置き換えてください。
 
-   For example, to download version {{< skew currentPatchVersion >}} on Intel macOS, type:
+   例えば、Intel macOSへ{{< skew currentPatchVersion >}}のバージョンをダウンロードするには、次のコマンドを入力します:
 
    ```bash
    curl -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/darwin/amd64/kubectl"
    ```
 
-   And for macOS on Apple Silicon, type:
+   Appleシリコン上のmacOSに対しては、次を入力します:
 
    ```bash
    curl -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/darwin/arm64/kubectl"
@@ -56,32 +54,32 @@ The following methods exist for installing kubectl on macOS:
 
    {{< /note >}}
 
-1. Validate the binary (optional)
+1. バイナリを検証してください(オプション)
 
-   Download the kubectl checksum file:
+   kubectlのチェックサムファイルをダウンロードします:
 
    {{< tabs name="download_checksum_macos" >}}
    {{< tab name="Intel" codelang="bash" >}}
    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl.sha256"
    {{< /tab >}}
-   {{< tab name="Apple Silicon" codelang="bash" >}}
+   {{< tab name="Appleシリコン" codelang="bash" >}}
    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/arm64/kubectl.sha256"
    {{< /tab >}}
    {{< /tabs >}}
   
-   Validate the kubectl binary against the checksum file:
+   チェックサムファイルに対してkubectlバイナリを検証します:
 
    ```bash
    echo "$(cat kubectl.sha256)  kubectl" | shasum -a 256 --check
    ```
 
-   If valid, the output is:
+   正しければ、出力は次のようになります:
 
    ```console
    kubectl: OK
    ```
 
-   If the check fails, `shasum` exits with nonzero status and prints output similar to:
+   チェックに失敗すると、`shasum`は0以外のステータスで終了し、次のような出力を表示します:
 
    ```console
    kubectl: FAILED
@@ -89,16 +87,16 @@ The following methods exist for installing kubectl on macOS:
    ```
 
    {{< note >}}
-   Download the same version of the binary and checksum.
+   同じバージョンのバイナリとチェックサムをダウンロードしてください。
    {{< /note >}}
 
-1. Make the kubectl binary executable.
+1. kubectlバイナリを実行可能にしてください。
 
    ```bash
    chmod +x ./kubectl
    ```
 
-1. Move the kubectl binary to a file location on your system `PATH`.
+1. kubectlバイナリを`PATH`の中に移動させてください。
 
    ```bash
    sudo mv ./kubectl /usr/local/bin/kubectl
@@ -106,80 +104,78 @@ The following methods exist for installing kubectl on macOS:
    ```
 
    {{< note >}}
-   Make sure `/usr/local/bin` is in your PATH environment variable.
+   `/usr/local/bin`がPATH環境変数の中に含まれるようにしてください。
    {{< /note >}}
 
-1. Test to ensure the version you installed is up-to-date:
+1. インストールしたバージョンが最新であることを確認してください:
 
    ```bash
    kubectl version --client
    ```
    
-   Or use this for detailed view of version:
+   または、バージョンの詳細を表示するために次を使用します:
 
    ```cmd
    kubectl version --client --output=yaml
    ```
 
-1. After installing and validating kubectl, delete the checksum file:
+1. kubectlをインストールし、検証した後は、チェックサムファイルを削除してください:
 
    ```bash
    rm kubectl.sha256
    ```
 
-### Install with Homebrew on macOS
+### Homebrewを使用してmacOSへインストールする{#install-with-homebrew-on-macos}
 
-If you are on macOS and using [Homebrew](https://brew.sh/) package manager,
-you can install kubectl with Homebrew.
+macOSで[Homebrew](https://brew.sh/)パッケージマネージャーを使用していれば、Homebrewでkubectlをインストールできます。
 
-1. Run the installation command:
+1. インストールコマンドを実行してください:
 
    ```bash
    brew install kubectl
    ```
 
-   or
+   または
 
    ```bash
    brew install kubernetes-cli
    ```
 
-1. Test to ensure the version you installed is up-to-date:
+1. インストールしたバージョンが最新であることを確認してください:
 
    ```bash
    kubectl version --client
    ```
 
-### Install with Macports on macOS
+### MacPortsを使用してmacOSへインストールする{#install-with-macports-on-macos}
 
-If you are on macOS and using [Macports](https://macports.org/) package manager,
-you can install kubectl with Macports.
+macOSで[MacPorts](https://macports.org/)パッケージマネージャーを使用していれば、MacPortsでkubectlをインストールできます。
 
-1. Run the installation command:
+1. インストールコマンドを実行してください:
 
    ```bash
    sudo port selfupdate
    sudo port install kubectl
    ```
 
-1. Test to ensure the version you installed is up-to-date:
+1. インストールしたバージョンが最新であることを確認してください:
 
    ```bash
    kubectl version --client
    ```
 
-## Verify kubectl configuration
+## kubectlの設定を検証する{#verify-kubectl-configuration}
 
 {{< include "included/verify-kubectl.md" >}}
 
-## Optional kubectl configurations and plugins
+## オプションのkubectlの設定とプラグイン{#optional-kubectl-configurations-and-plugins}
 
-### Enable shell autocompletion
+### シェルの自動補完を有効にする{#enable-shell-autocompletion}
 
-kubectl provides autocompletion support for Bash, Zsh, Fish, and PowerShell
-which can save you a lot of typing.
+kubectlはBash、Zsh、Fish、PowerShellの自動補完を提供しています。
+これにより、入力を大幅に削減することができます。
 
-Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
+以下にBash、Fish、Zshの自動補完の設定手順を示します。
 
 {{< tabs name="kubectl_autocompletion" >}}
 {{< tab name="Bash" include="included/optional-kubectl-configs-bash-mac.md" />}}
@@ -187,47 +183,47 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
 {{< tab name="Zsh" include="included/optional-kubectl-configs-zsh.md" />}}
 {{< /tabs >}}
 
-### Install `kubectl convert` plugin
+### `kubectl convert`プラグインをインストールする{#install-kubectl-convert-plugin}
 
 {{< include "included/kubectl-convert-overview.md" >}}
 
-1. Download the latest release with the command:
+1. 次のコマンドを使用して最新リリースをダウンロードしてください:
 
    {{< tabs name="download_convert_binary_macos" >}}
    {{< tab name="Intel" codelang="bash" >}}
    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl-convert"
    {{< /tab >}}
-   {{< tab name="Apple Silicon" codelang="bash" >}}
+   {{< tab name="Appleシリコン" codelang="bash" >}}
    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/arm64/kubectl-convert"
    {{< /tab >}}
    {{< /tabs >}}
 
-1. Validate the binary (optional)
+1. バイナリを検証してください(オプション)
 
-   Download the kubectl-convert checksum file:
+   kubectl-convertのチェックサムファイルをダウンロードします:
 
    {{< tabs name="download_convert_checksum_macos" >}}
    {{< tab name="Intel" codelang="bash" >}}
    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl-convert.sha256"
    {{< /tab >}}
-   {{< tab name="Apple Silicon" codelang="bash" >}}
+   {{< tab name="Appleシリコン" codelang="bash" >}}
    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/arm64/kubectl-convert.sha256"
    {{< /tab >}}
    {{< /tabs >}}
 
-   Validate the kubectl-convert binary against the checksum file:
+   チェックサムファイルに対してkubectl-convertバイナリを検証します:
 
    ```bash
    echo "$(cat kubectl-convert.sha256)  kubectl-convert" | shasum -a 256 --check
    ```
 
-   If valid, the output is:
+   正しければ、出力は次のようになります:
 
    ```console
    kubectl-convert: OK
    ```
 
-   If the check fails, `shasum` exits with nonzero status and prints output similar to:
+   チェックに失敗すると、`shasum`は0以外のステータスで終了し、次のような出力を表示します:
 
    ```console
    kubectl-convert: FAILED
@@ -235,16 +231,16 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
    ```
 
    {{< note >}}
-   Download the same version of the binary and checksum.
+   同じバージョンのバイナリとチェックサムをダウンロードしてください。
    {{< /note >}}
 
-1. Make kubectl-convert binary executable
+1. kubectl-convertバイナリを実行可能にしてください。
 
    ```bash
    chmod +x ./kubectl-convert
    ```
 
-1. Move the kubectl-convert binary to a file location on your system `PATH`.
+1. kubectl-convertバイナリを`PATH`の中に移動してください。
 
    ```bash
    sudo mv ./kubectl-convert /usr/local/bin/kubectl-convert
@@ -252,45 +248,46 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
    ```
 
    {{< note >}}
-   Make sure `/usr/local/bin` is in your PATH environment variable.
+   `/usr/local/bin`がPATH環境変数の中に含まれるようにしてください。
    {{< /note >}}
 
-1. Verify plugin is successfully installed
+1. インストールしたバージョンが最新であることを確認してください
 
    ```shell
    kubectl convert --help
    ```
 
-   If you do not see an error, it means the plugin is successfully installed.
+   何もエラーが表示されない場合は、プラグインが正常にインストールされたことを示しています。
 
-1. After installing the plugin, clean up the installation files:
+1. プラグインのインストール後、インストールファイルを削除してください:
 
    ```bash
    rm kubectl-convert kubectl-convert.sha256
    ```
 
-### Uninstall kubectl on macOS
+### macOS上のkubectlをアンインストールする
 
-Depending on how you installed `kubectl`, use one of the following methods.
+`kubectl`のインストール方法に応じて、次の方法を使用してください。
 
-### Uninstall kubectl using the command-line
+### コマンドラインを使用してkubectlをアンインストールする
 
-1.  Locate the `kubectl` binary on your system:
+1.  システム上の`kubectl`バイナリの場所を特定してください:
 
     ```bash
     which kubectl
     ```
 
-1.  Remove the `kubectl` binary:
+1.  `kubectl`バイナリを削除してください:
 
     ```bash
     sudo rm <path>
     ```
-    Replace `<path>` with the path to the `kubectl` binary from the previous step. For example, `sudo rm /usr/local/bin/kubectl`.
+    `<path>`を前のステップの`kubectl`バイナリのパスに置き換えてください。
+    例えば`sudo rm /usr/local/bin/kubectl`。
 
-### Uninstall kubectl using homebrew
+### Homebrewを使用してkubectlをアンインストールする
 
-If you installed `kubectl` using Homebrew, run the following command:
+Homebrewを使用して`kubectl`をインストールした場合は、次のコマンドを実行してください:
 
 ```bash
 brew remove kubectl
