@@ -15,4 +15,4 @@ tags:
 
 <!--more-->
 
-* KubernetsとCNIについては、[ネットワークプラグイン](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)を参照してください。
+* KubernetesとCNIについては、[**ネットワークプラグイン**](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)を参照してください。
