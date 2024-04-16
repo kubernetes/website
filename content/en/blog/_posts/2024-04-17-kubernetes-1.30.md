@@ -5,7 +5,7 @@ date: 2024-04-17
 slug: kubernetes-v1-30-release
 ---
 
-**Authors:** [Kubernetes v1.30 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.30/release_team.md)
+**Authors:** [Kubernetes v1.30 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.30/release-team.md)
 
 **Editors:** Amit Dsouza, Frederick Kautz, Kristin Martin, Abigail McCarthy, Natali Vlatko
 
