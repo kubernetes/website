@@ -1,5 +1,5 @@
 ---
-title: コンテナネットワークインターフェース（CNI）
+title: コンテナネットワークインターフェース(CNI)
 id: cni
 date: 2018-05-25
 full_link: /ja/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/
