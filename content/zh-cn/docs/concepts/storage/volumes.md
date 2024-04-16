@@ -347,7 +347,7 @@ keyed with `log_level`.
 请注意，这个路径来源于卷的 `mountPath` 和 `log_level` 键对应的 `path`。
 
 <!--
-* You must create a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)
+* You must create a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/#create-a-configmap)
   before you can use it.
 
 * A ConfigMap is always mounted as `readOnly`.
@@ -358,7 +358,7 @@ keyed with `log_level`.
 * Text data is exposed as files using the UTF-8 character encoding. For other character encodings, use `binaryData`.
 -->
 {{< note >}}
-* 在使用 [ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/) 之前你首先要创建它。
+* 在使用 [ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/#create-a-configmap) 之前你首先要创建它。
 * ConfigMap 总是以 `readOnly` 的模式挂载。
 * 容器以 [`subPath`](#using-subpath) 卷挂载方式使用 ConfigMap 时，将无法接收 ConfigMap 的更新。
 * 文本数据挂载成文件时采用 UTF-8 字符编码。如果使用其他字符编码形式，可使用
@@ -565,13 +565,43 @@ must be installed on the cluster.
 
 {{< warning >}}
 <!--
-The `gitRepo` volume type is deprecated. To provision a container with a git repo, mount an
-[EmptyDir](#emptydir) into an InitContainer that clones the repo using git, then mount the
+The `gitRepo` volume type is deprecated.
+
+To provision a Pod that has a Git repository mounted, you can
+mount an
+[`emptyDir`](#emptydir) volume into an [init container](/docs/concepts/workloads/pods/init-containers/) that
+clones the repo using Git, then mount the
 [EmptyDir](#emptydir) into the Pod's container.
+
+---
+
+You can restrict the use of `gitRepo` volumes in your cluster using
+[policies](/docs/concepts/policy/) such as
+[ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/).
+You can use the following Common Expression Language (CEL) expression as
+part of a policy to reject use of `gitRepo` volumes:
+`!has(object.spec.volumes) || !object.spec.volumes.exists(v, has(v.gitRepo))`.
+
 -->
-`gitRepo` 卷类型已经被废弃。如果需要在容器中提供 git 仓库，请将一个
-[EmptyDir](#emptydir) 卷挂载到 InitContainer 中，使用 git
-命令完成仓库的克隆操作，然后将 [EmptyDir](#emptydir) 卷挂载到 Pod 的容器中。
+
+`gitRepo` 卷类型已经被废弃。
+
+要配置已安装 Git 存储库的 Pod，您可以
+安装一个
+[`emptyDir`](#emptydir) 卷放入 [init 容器](/docs/concepts/workloads/pods/init-containers/) 中
+使用 Git 克隆存储库，然后挂载
+[EmptyDir](#emptydir) 到 Pod 的容器中。
+
+---
+
+您可以使用以下命令限制集群中“gitRepo”卷的使用
+[政策](/docs/concepts/policy/) 例如
+[ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/)。
+您可以使用以下通用表达式语言 (CEL) 表达式作为
+拒绝使用“gitRepo”卷的政策的一部分：
+`!has(object.spec.volumes) || !object.spec.volumes.exists(v, has(v.gitRepo))`。
+
+
 {{< /warning >}}
 
 <!--
@@ -625,22 +655,6 @@ GlusterFS 树内存储驱动程序在 Kubernetes v1.25 版本中被弃用，然�
 
 ### hostPath {#hostpath}
 
-{{< warning >}}
-<!-- 
-HostPath volumes present many security risks, and it is a best practice to avoid the use of
-HostPaths when possible. When a HostPath volume must be used, it should be scoped to only the
-required file or directory, and mounted as ReadOnly.
-
-If restricting HostPath access to specific directories through AdmissionPolicy, `volumeMounts` MUST
-be required to use `readOnly` mounts for the policy to be effective.
--->
-HostPath 卷存在许多安全风险，最佳做法是尽可能避免使用 HostPath。
-当必须使用 HostPath 卷时，它的范围应仅限于所需的文件或目录，并以只读方式挂载。
-
-如果通过 AdmissionPolicy 限制 HostPath 对特定目录的访问，则必须要求
-`volumeMounts` 使用 `readOnly` 挂载以使策略生效。
-{{< /warning >}}
-
 <!--
 A `hostPath` volume mounts a file or directory from the host node's filesystem
 into your Pod. This is not something that most Pods will need, but it offers a
@@ -649,20 +663,72 @@ powerful escape hatch for some applications.
 `hostPath` 卷能将主机节点文件系统上的文件或目录挂载到你的 Pod 中。
 虽然这不是大多数 Pod 需要的，但是它为一些应用程序提供了强大的逃生舱。
 
-<!--
-For example, some uses for a `hostPath` are:
+{{< warning >}}
 
-* running a container that needs access to Docker internals; use a `hostPath`
-  of `/var/lib/docker`
-* running cAdvisor in a container; use a `hostPath` of `/sys`
-* allowing a Pod to specify whether a given `hostPath` should exist prior to the
-  Pod running, whether it should be created, and what it should exist as
+<!-- 
+Using the `hostPath` volume type presents many security risks.
+If you can avoid using a `hostPath` volume, you should. For example,
+define a [`local` PersistentVolume](#local), and use that instead.
+
+If you are restricting access to specific directories on the node using
+admission-time validation, that restriction is only effective when you
+additionally require that any mounts of that `hostPath` volume are
+**read only**. If you allow a read-write mount of any host path by an
+untrusted Pod, the containers in that Pod may be able to subvert the
+read-write host mount.
+
+---
+
+Take care when using `hostPath` volumes, whether these are mounted as read-only
+or as read-write, because:
+
+* Access to the host filesystem can expose privileged system credentials (such as for the kubelet) or privileged APIs
+  (such as the container runtime socket), that can be used for container escape or to attack other
+  parts of the cluster.
+* Pods with identical configuration (such as created from a PodTemplate) may
+  behave differently on different nodes due to different files on the nodes.
+
+-->
+使用“hostPath”卷类型会带来许多安全风险。
+如果您可以避免使用“hostPath”卷，那么您应该这样做。 例如，
+定义一个 [`local` PersistentVolume](#local)，并使用它。
+
+如果您正在使用入场时验证限制对节点上特定目录的访问，
+那么该限制仅在您另外要求任何hostPath卷的挂载为只读时才有效。
+如果您允许不受信任的 Pod 对任何主机路径进行读写挂载，
+那么该 Pod 中的容器可能会破坏读写主机挂载的安全性。
+
+---
+
+在使用`hostPath`卷时要小心，无论是以只读还是读写方式挂载，因为：
+* 访问主机文件系统可能会暴露特权系统凭据（例如kubelet）或特权API
+（例如容器运行时套接字），这可能被用于容器逃逸或攻击集群的其他部分。
+* 具有相同配置的 Pod（例如从 PodTemplate 创建的 Pod）
+可能会由于节点上的不同文件而在不同节点上表现不同。
+
+
+{{< /warning >}}
+
+---
+
+<!--
+Some uses for a `hostPath` are:
+
+* running a container that needs access to node-level system components
+  (such as a container that transfers system logs to a central location,
+  accessing those logs using a read-only mount of `/var/log`)
+* making a configuration file stored on the host system available read-only
+  to a {{< glossary_tooltip text="static pod" term_id="static-pod" >}};
+  unlike normal Pods, static Pods cannot access ConfigMaps
 -->
 例如，`hostPath` 的一些用法有：
 
-* 运行一个需要访问 Docker 内部机制的容器；可使用 `hostPath` 挂载 `/var/lib/docker` 路径。
-* 在容器中运行 cAdvisor 时，以 `hostPath` 方式挂载 `/sys`。
-* 允许 Pod 指定给定的 `hostPath` 在运行 Pod 之前是否应该存在，是否应该创建以及应该以什么方式存在。
+*运行需要访问节点级系统组件的容器
+   （例如将系统日志传输到中央位置的容器，
+   使用“/var/log”的只读挂载访问这些日志）
+* 使存储在主机系统上的配置文件变为只读
+   到 {{<lossary_tooltip text="static pod" term_id="static-pod" >}}；
+   与普通 Pod 不同，静态 Pod 无法访问 ConfigMap
 
 <!--
 In addition to the required `path` property, you can optionally specify a `type` for a `hostPath` volume.
