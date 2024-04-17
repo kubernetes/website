@@ -345,7 +345,7 @@ Releases | [All heading and subheading URLs](/releases)
 Translated documents must reside in their own `content/**/` subdirectory, but otherwise, follow the
 same URL path as the English source. For example, to prepare the
 [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) tutorial for translation into German,
-create a subfolder under the `content/de/` folder and copy the English source or directory:
+create a subdirectory under the `content/de/` directory and copy the English source or directory:
 
 ```shell
 mkdir -p content/de/docs/tutorials
