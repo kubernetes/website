@@ -300,7 +300,7 @@ which is used by Kustomize and similar third-party tools.
 For example, Kustomize removes objects with this annotation from its final build output.
 
 
-### container.apparmor.security.beta.kubernetes.io/* (beta) {#container-apparmor-security-beta-kubernetes-io}
+### container.apparmor.security.beta.kubernetes.io/* (deprecated) {#container-apparmor-security-beta-kubernetes-io}
 
 Type: Annotation
 
@@ -309,7 +309,7 @@ Example: `container.apparmor.security.beta.kubernetes.io/my-container: my-custom
 Used on: Pods
 
 This annotation allows you to specify the AppArmor security profile for a container within a
-Kubernetes pod. 
+Kubernetes pod. As of Kubernetes v1.30, this should be set with the `appArmorProfile` field instead.
 To learn more, see the [AppArmor](/docs/tutorials/security/apparmor/) tutorial.
 The tutorial illustrates using AppArmor to restrict a container's abilities and access.
 
@@ -1106,13 +1106,11 @@ Example: `kubernetes.io/legacy-token-invalid-since: 2023-10-27`
 Used on: Secret
 
 The control plane automatically adds this label to auto-generated Secrets that
-have the type `kubernetes.io/service-account-token`, provided that you have the
-`LegacyServiceAccountTokenCleanUp` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled. Kubernetes {{< skew currentVersion >}} enables that behavior by default.
-This label marks the Secret-based token as invalid for authentication. The value
-of this label records the date (ISO 8601 format, UTC time zone) when the control
-plane detects that the auto-generated Secret has not been used for a specified
-duration (defaults to one year).
+have the type `kubernetes.io/service-account-token`. This label marks the
+Secret-based token as invalid for authentication. The value of this label
+records the date (ISO 8601 format, UTC time zone) when the control plane detects
+that the auto-generated Secret has not been used for a specified duration
+(defaults to one year).
 
 ### endpointslice.kubernetes.io/managed-by {#endpointslicekubernetesiomanaged-by}
 

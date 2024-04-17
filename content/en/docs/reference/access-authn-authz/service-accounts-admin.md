@@ -60,6 +60,102 @@ for a number of reasons:
   without many constraints and have namespaced names, such configuration is
   usually portable.
 
+## Bound service account tokens
+
+ServiceAccount tokens can be bound to API objects that exist in the kube-apiserver.
+This can be used to tie the validity of a token to the existence of another API object.
+Supported object types are as follows:
+
+* Pod (used for projected volume mounts, see below)
+* Secret (can be used to allow revoking a token by deleting the Secret)
+* Node (in v1.30, creating new node-bound tokens is alpha, using existing node-bound tokens is beta)
+
+When a token is bound to an object, the object's `metadata.name` and `metadata.uid` are
+stored as extra 'private claims' in the issued JWT.
+
+When a bound token is presented to the kube-apiserver, the service account authenticator
+will extract and verify these claims.
+If the referenced object no longer exists (or its `metadata.uid` does not match),
+the request will not be authenticated.
+
+### Additional metadata in Pod bound tokens
+
+{{< feature-state feature_gate_name="ServiceAccountTokenPodNodeInfo" >}}
+
+When a service account token is bound to a Pod object, additional metadata is also
+embedded into the token that indicates the value of the bound pod's `spec.nodeName` field,
+and the uid of that Node, if available.
+
+This node information is **not** verified by the kube-apiserver when the token is used for authentication.
+It is included so integrators do not have to fetch Pod or Node API objects to check the associated Node name
+and uid when inspecting a JWT.
+
+### Verifying and inspecting private claims
+
+The `TokenReview` API can be used to verify and extract private claims from a token:
+
+1. First, assume you have a pod named `test-pod` and a service account named `my-sa`.
+2. Create a token that is bound to this Pod:
+
+```shell
+kubectl create token my-sa --bound-object-kind="Pod" --bound-object-name="test-pod"
+```
+
+3. Copy this token into a new file named `tokenreview.yaml`:
+
+```yaml
+apiVersion: authentication.k8s.io/v1
+kind: TokenReview
+spec:
+  token: <token from step 2>
+```
+
+4. Submit this resource to the apiserver for review:
+
+```shell
+kubectl create -o yaml -f tokenreview.yaml # we use '-o yaml' so we can inspect the output
+```
+
+You should see an output like below:
+
+```yaml
+apiVersion: authentication.k8s.io/v1
+kind: TokenReview
+metadata:
+  creationTimestamp: null
+spec:
+  token: <token>
+status:
+  audiences:
+  - https://kubernetes.default.svc.cluster.local
+  authenticated: true
+  user:
+    extra:
+      authentication.kubernetes.io/credential-id:
+      - JTI=7ee52be0-9045-4653-aa5e-0da57b8dccdc
+      authentication.kubernetes.io/node-name:
+      - kind-control-plane
+      authentication.kubernetes.io/node-uid:
+      - 497e9d9a-47aa-4930-b0f6-9f2fb574c8c6
+      authentication.kubernetes.io/pod-name:
+      - test-pod
+      authentication.kubernetes.io/pod-uid:
+      - e87dbbd6-3d7e-45db-aafb-72b24627dff5
+    groups:
+    - system:serviceaccounts
+    - system:serviceaccounts:default
+    - system:authenticated
+    uid: f8b4161b-2e2b-11e9-86b7-2afc33b31a7e
+    username: system:serviceaccount:default:my-sa
+```
+
+{{< note >}}
+Despite using `kubectl create -f` to create this resource, and defining it similar to
+other resource types in Kubernetes, TokenReview is a special type and the kube-apiserver
+does not actually persist the TokenReview object into etcd.
+Hence `kubectl get tokenreview` is not a valid command.
+{{< /note >}}
+
 ## Bound service account token volume mechanism {#bound-service-account-token-volume}
 
 {{< feature-state feature_gate_name="BoundServiceAccountTokenVolume" >}}

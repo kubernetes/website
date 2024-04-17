@@ -65,12 +65,14 @@ a different volume.
 
 Kubernetes supports several types of volumes.
 
-### awsElasticBlockStore (removed) {#awselasticblockstore}
+### awsElasticBlockStore (deprecated) {#awselasticblockstore}
 
 <!-- maintenance note: OK to remove all mention of awsElasticBlockStore once the v1.27 release of
 Kubernetes has gone out of support -->
 
-Kubernetes {{< skew currentVersion >}} does not include a `awsElasticBlockStore` volume type.
+In Kubernetes {{< skew currentVersion >}}, all operations for the in-tree `awsElasticBlockStore` type
+are redirected to the `ebs.csi.aws.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} driver.
+
 
 The AWSElasticBlockStore in-tree storage driver was deprecated in the Kubernetes v1.19 release
 and then removed entirely in the v1.27 release.
@@ -78,12 +80,13 @@ and then removed entirely in the v1.27 release.
 The Kubernetes project suggests that you use the [AWS EBS](https://github.com/kubernetes-sigs/aws-ebs-csi-driver) third party
 storage driver instead.
 
-### azureDisk (removed) {#azuredisk}
+### azureDisk (deprecated) {#azuredisk}
 
 <!-- maintenance note: OK to remove all mention of azureDisk once the v1.27 release of
 Kubernetes has gone out of support -->
 
-Kubernetes {{< skew currentVersion >}} does not include a `azureDisk` volume type.
+In Kubernetes {{< skew currentVersion >}}, all operations for the in-tree `azureDisk` type
+are redirected to the `disk.csi.azure.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} driver.
 
 The AzureDisk in-tree storage driver was deprecated in the Kubernetes v1.19 release
 and then removed entirely in the v1.27 release.
@@ -121,7 +124,7 @@ Azure File CSI driver does not support using same volume with different fsgroups
 To disable the `azureFile` storage plugin from being loaded by the controller manager
 and the kubelet, set the `InTreePluginAzureFileUnregister` flag to `true`.
 
-### cephfs
+### cephfs (deprecated) {#cephfs}
 {{< feature-state for_k8s_version="v1.28" state="deprecated" >}}
 
 {{< note >}}
@@ -142,12 +145,13 @@ You must have your own Ceph server running with the share exported before you ca
 
 See the [CephFS example](https://github.com/kubernetes/examples/tree/master/volumes/cephfs/) for more details.
 
-### cinder (removed) {#cinder}
+### cinder (deprecated) {#cinder}
 
 <!-- maintenance note: OK to remove all mention of cinder once the v1.26 release of
 Kubernetes has gone out of support -->
 
-Kubernetes {{< skew currentVersion >}} does not include a `cinder` volume type.
+In Kubernetes {{< skew currentVersion >}}, all operations for the in-tree `cinder` type
+are redirected to the `cinder.csi.openstack.org` {{< glossary_tooltip text="CSI" term_id="csi" >}} driver.
 
 The OpenStack Cinder in-tree storage driver was deprecated in the Kubernetes v1.11 release
 and then removed entirely in the v1.26 release.
@@ -298,9 +302,10 @@ beforehand so that Kubernetes hosts can access them.
 See the [fibre channel example](https://github.com/kubernetes/examples/tree/master/staging/volumes/fibre_channel)
 for more details.
 
-### gcePersistentDisk (removed) {#gcepersistentdisk}
+### gcePersistentDisk (deprecated) {#gcepersistentdisk}
 
-Kubernetes {{< skew currentVersion >}} does not include a `gcePersistentDisk` volume type.
+In Kubernetes {{< skew currentVersion >}}, all operations for the in-tree `gcePersistentDisk` type
+are redirected to the `pd.csi.storage.gke.io` {{< glossary_tooltip text="CSI" term_id="csi" >}} driver.
 
 The `gcePersistentDisk` in-tree storage driver was deprecated in the Kubernetes v1.17 release
 and then removed entirely in the v1.28 release.
@@ -1225,7 +1230,65 @@ in `containers[*].volumeMounts`. Its values are:
   (unmounted) by the containers on termination.
   {{< /warning >}}
 
+## Read-only mounts
 
+A mount can be made read-only by setting the `.spec.containers[].volumeMounts[].readOnly`
+field to `true`.
+This does not make the volume itself read-only, but that specific container will
+not be able to write to it.
+Other containers in the Pod may mount the same volume as read-write.
+
+On Linux, read-only mounts are not recursively read-only by default.
+For example, consider a Pod which mounts the hosts `/mnt` as a `hostPath` volume.  If
+there is another filesystem mounted read-write on `/mnt/<SUBMOUNT>` (such as tmpfs,
+NFS, or USB storage), the volume mounted into the container(s) will also have a writeable
+`/mnt/<SUBMOUNT>`, even if the mount itself was specified as read-only.
+
+### Recursive read-only mounts
+
+{{< feature-state feature_gate_name="RecursiveReadOnlyMounts" >}}
+
+Recursive read-only mounts can be enabled by setting the
+`RecursiveReadOnlyMounts` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+for kubelet and kube-apiserver, and setting the `.spec.containers[].volumeMounts[].recursiveReadOnly`
+field for a pod.
+
+The allowed values are:
+
+* `Disabled` (default): no effect.
+
+* `Enabled`: makes the mount recursively read-only.
+  Needs all the following requirements to be satisfied:
+  * `readOnly` is set to `true`
+  * `mountPropagation` is unset, or, set to `None`
+  * The host is running with Linux kernel v5.12 or later
+  * The [CRI-level](/docs/concepts/architecture/cri) container runtime supports recursive read-only mounts
+  * The OCI-level container runtime supports recursive read-only mounts.
+  It will fail if any of these is not true.
+
+* `IfPossible`: attempts to apply `Enabled`, and falls back to `Disabled`
+  if the feature is not supported by the kernel or the runtime class.
+
+Example:
+{{% code_sample file="storage/rro.yaml" %}}
+
+When this property is recognized by kubelet and kube-apiserver,
+the `.status.containerStatuses[].volumeMounts[].recursiveReadOnly` field is set to either
+`Enabled` or `Disabled`.
+
+
+#### Implementations {#implementations-rro}
+
+{{% thirdparty-content %}}
+
+The following container runtimes are known to support recursive read-only mounts.
+
+CRI-level:
+- [containerd](https://containerd.io/), since v2.0
+
+OCI-level:
+- [runc](https://runc.io/), since v1.1
+- [crun](https://github.com/containers/crun), since v1.8.6
 
 ## {{% heading "whatsnext" %}}
 

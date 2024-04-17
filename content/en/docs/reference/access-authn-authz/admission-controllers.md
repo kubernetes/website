@@ -792,49 +792,6 @@ defined in the corresponding RuntimeClass.
 See also [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/)
 for more information.
 
-### SecurityContextDeny {#securitycontextdeny}
-
-**Type**: Validating.
-
-{{< feature-state for_k8s_version="v1.27" state="deprecated" >}}
-
-{{< caution >}}
-The Kubernetes project recommends that you **do not use** the
-`SecurityContextDeny` admission controller.
-
-The `SecurityContextDeny` admission controller plugin is deprecated and disabled
-by default. It will be removed in a future version. If you choose to enable the
-`SecurityContextDeny` admission controller plugin, you must enable the
-`SecurityContextDeny` feature gate as well.
-
-The `SecurityContextDeny` admission plugin is deprecated because it is outdated
-and incomplete; it may be unusable or not do what you would expect. As
-implemented, this plugin is unable to restrict all security-sensitive attributes
-of the Pod API. For example, the `privileged` and `ephemeralContainers` fields
-were never restricted by this plugin.
-
-The [Pod Security Admission](/docs/concepts/security/pod-security-admission/)
-plugin enforcing the [Pod Security Standards](/docs/concepts/security/pod-security-standards/)
-`Restricted` profile captures what this plugin was trying to achieve in a better
-and up-to-date way.
-{{< /caution >}}
-
-This admission controller will deny any Pod that attempts to set the following
-[SecurityContext](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)
-fields:
-- `.spec.securityContext.supplementalGroups`
-- `.spec.securityContext.seLinuxOptions`
-- `.spec.securityContext.runAsUser`
-- `.spec.securityContext.fsGroup`
-- `.spec.(init)Containers[*].securityContext.seLinuxOptions`
-- `.spec.(init)Containers[*].securityContext.runAsUser`
-
-For more historical context on this plugin, see
-[The birth of PodSecurityPolicy](/blog/2022/08/23/podsecuritypolicy-the-historical-context/#the-birth-of-podsecuritypolicy)
-from the Kubernetes blog article about PodSecurityPolicy and its removal. The
-article details the PodSecurityPolicy historical context and the birth of the
-`securityContext` field for Pods.
-
 ### ServiceAccount {#serviceaccount}
 
 **Type**: Mutating and Validating.
