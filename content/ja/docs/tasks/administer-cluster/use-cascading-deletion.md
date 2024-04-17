@@ -56,7 +56,7 @@ kubectl delete deployment nginx-deployment --cascade=foreground
 
 **Kubernetes APIを使用する**
 
-1. ローカルプロキシーセッションを開始します:
+1. ローカルプロキシセッションを開始します:
 
    ```shell
    kubectl proxy --port=8080
@@ -107,7 +107,7 @@ kubectl delete deployment nginx-deployment --cascade=background
 
 **Kubernetes APIを使用する**
 
-1. ローカルプロキシーセッションを開始します:
+1. ローカルプロキシセッションを開始します:
 
    ```shell
    kubectl proxy --port=8080
@@ -151,7 +151,7 @@ kubectl delete deployment nginx-deployment --cascade=orphan
 
 **Kubernetes APIを使用する**
 
-1. ローカルプロキシーセッションを開始します:
+1. ローカルプロキシセッションを開始します:
 
    ```shell
    kubectl proxy --port=8080

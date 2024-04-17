@@ -641,7 +641,7 @@ Please check the documentation of the relevant [Ingress controller](/docs/concep
 You can expose a Service in multiple ways that don't directly involve the Ingress resource:
 
 * Use [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer)
-* Use [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport)
+* Use [Service.Type=NodePort](/docs/concepts/services-networking/service/#type-nodeport)
 
 ## {{% heading "whatsnext" %}}
 

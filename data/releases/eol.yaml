@@ -1,4 +1,9 @@
 branches:
+  - release: "1.26"
+    finalPatchRelease: "1.26.15"
+    endOfLifeDate: 2024-02-28
+    note: >-
+      1.26.15 was released in March 2024 (after the EOL date) to pick up a new version of Go to [address several Go CVEs](https://groups.google.com/g/golang-dev/c/o1I1Vv8Rfgs/m/Wr8tD1RlAgAJ)
   - release: "1.25"
     finalPatchRelease: "1.25.16"
     endOfLifeDate: 2023-10-28

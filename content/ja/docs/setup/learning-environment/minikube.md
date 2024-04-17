@@ -201,7 +201,7 @@ MinikubeのサポートするKubernetesの機能:
 また、このクラスターと通信する[kubectl](/ja/docs/reference/kubectl/)のインストールも設定します。
 
 {{< note >}}
-もしWebプロキシーを通している場合、そのプロキシー情報を`minikube start`コマンドに渡す必要があります:
+もしWebプロキシを通している場合、そのプロキシ情報を`minikube start`コマンドに渡す必要があります:
 
 ```shell
 https_proxy=<my proxy> minikube start --docker-env http_proxy=<my proxy> --docker-env https_proxy=<my proxy> --docker-env no_proxy=192.168.99.0/24
@@ -484,7 +484,7 @@ Minikubeで起動したいアドオンを `~/.minikube/addons` ディレクト�
 MinikubeはKubernetesとDockerデーモンを含む仮想マシンを作成します。
 KubernetesがDockerを使用してコンテナをスケジュールしようとする際、Dockerデーモンはコンテナをプルするために外部ネットワークを必要とする場合があります。
 
-HTTPプロキシーを通している場合には、プロキシー設定をDockerに提供する必要があります。
+HTTPプロキシを通している場合には、プロキシ設定をDockerに提供する必要があります。
 これを行うには、`minikube start` に必要な環境変数をフラグとして渡します。
 
 例:
@@ -494,8 +494,8 @@ minikube start --docker-env http_proxy=http://$YOURPROXY:PORT \
                --docker-env https_proxy=https://$YOURPROXY:PORT
 ```
 
-仮想マシンのアドレスが192.168.99.100の場合、プロキシーの設定により `kubectl` が直接アクセスできない可能性があります。
-このIPアドレスのプロキシー設定を迂回するには、以下のようにno_proxy設定を変更する必要があります。
+仮想マシンのアドレスが192.168.99.100の場合、プロキシの設定により `kubectl` が直接アクセスできない可能性があります。
+このIPアドレスのプロキシ設定を迂回するには、以下のようにno_proxy設定を変更する必要があります。
 
 ```shell
 export no_proxy=$no_proxy,$(minikube ip)

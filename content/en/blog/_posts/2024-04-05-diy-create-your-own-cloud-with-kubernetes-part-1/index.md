@@ -3,9 +3,9 @@ layout: blog
 title: "DIY: Create Your Own Cloud with Kubernetes (Part 1)"
 slug: diy-create-your-own-cloud-with-kubernetes-part-1
 date: 2024-04-05T07:30:00+00:00
+author: >
+  Andrei Kvapil (Ænix)
 ---
-
-**Author**: Andrei Kvapil (Ænix)
 
 At Ænix, we have a deep affection for Kubernetes and dream that all modern technologies will soon
 start utilizing its remarkable patterns.
