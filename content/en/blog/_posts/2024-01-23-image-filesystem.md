@@ -3,9 +3,9 @@ layout: blog
 title: 'Image Filesystem: Configuring Kubernetes to store containers on a separate filesystem'
 date: 2024-01-23
 slug: kubernetes-separate-image-filesystem
+author: >
+  Kevin Hannon (Red Hat)
 ---
-
-**Author:** Kevin Hannon (Red Hat)
 
 A common issue in running/operating Kubernetes clusters is running out of disk space.
 When the node is provisioned, you should aim to have a good amount of storage space for your container images and running containers.

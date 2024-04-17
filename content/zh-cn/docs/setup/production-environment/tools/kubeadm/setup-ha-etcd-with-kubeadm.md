@@ -128,6 +128,7 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
    # Replace the value of "containerRuntimeEndpoint" for a different container runtime if needed.
    ```
    -->
+   
    ```sh
    cat << EOF > /etc/systemd/system/kubelet.service.d/kubelet.conf
    # 将下面的 "systemd" 替换为你的容器运行时所使用的 cgroup 驱动。
@@ -194,6 +195,7 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
    # Create temp directories to store files that will end up on other hosts
    mkdir -p /tmp/${HOST0}/ /tmp/${HOST1}/ /tmp/${HOST2}/
    -->
+
    ```sh
    # 使用你的主机 IP 更新 HOST0、HOST1 和 HOST2 的 IP 地址
    export HOST0=10.0.0.6
