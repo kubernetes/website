@@ -586,19 +586,14 @@ part of a policy to reject use of `gitRepo` volumes:
 
 `gitRepo` 卷类型已经被废弃。
 
-要配置已安装 Git 存储库的 Pod，您可以
-安装一个
-[`emptyDir`](#emptydir) 卷放入 [init 容器](/docs/concepts/workloads/pods/init-containers/) 中
-使用 Git 克隆存储库，然后挂载
-[EmptyDir](#emptydir) 到 Pod 的容器中。
+要配置已安装 Git 存储库的 Pod，你可以安装一个[`emptyDir`](#emptydir) 卷放入 [init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/) 中
+使用 Git 克隆存储库，然后挂载[EmptyDir](#emptydir) 到 Pod 的容器中。
 
 ---
 
-您可以使用以下命令限制集群中“gitRepo”卷的使用
-[政策](/docs/concepts/policy/) 例如
-[ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/)。
-您可以使用以下通用表达式语言 (CEL) 表达式作为
-拒绝使用“gitRepo”卷的政策的一部分：
+你可以使用以下命令限制集群中“gitRepo”卷的使用[策略](/zh-cn/docs/concepts/policy/) 例如
+[ValidatingAdmissionPolicy](/zh-cn/docs/reference/access-authn-authz/validating-admission-policy/)。
+你可以使用以下通用表达式语言 (CEL) 表达式作为拒绝使用“gitRepo”卷的策略的一部分：
 `!has(object.spec.volumes) || !object.spec.volumes.exists(v, has(v.gitRepo))`。
 
 
