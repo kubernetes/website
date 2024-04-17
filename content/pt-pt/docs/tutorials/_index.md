@@ -1,5 +1,5 @@
 ---
-title: Tutorials
+title: Tutoriais
 main_menu: true
 no_list: true
 weight: 60
@@ -8,51 +8,51 @@ content_type: concept
 
 <!-- overview -->
 
-This section of the Kubernetes documentation contains tutorials.
-A tutorial shows how to accomplish a goal that is larger than a single
-[task](/docs/tasks/). Typically a tutorial has several sections,
-each of which has a sequence of steps.
-Before walking through each tutorial, you may want to bookmark the
-[Standardized Glossary](/docs/reference/glossary/) page for later references.
+Esta secção da documentação do Kubernetes contém tutoriais.
+Um tutorial mostra como alcançar um objetivo que é maior do que uma única
+[tarefa](/docs/tasks/). Tipicamente um tutorial tem várias secções,
+cada uma das quais com uma sequência de passos.
+Antes de prosseguir com cada tutorial, pode querer adicionar aos favoritos a página
+[Glossário Padronizado](/docs/reference/glossary/) para referências futuras.
 
 <!-- body -->
 
-## Basics
+## Básicos
 
-* [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) is an in-depth interactive tutorial that helps you understand the Kubernetes system and try out some basic Kubernetes features.
-* [Introduction to Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
-* [Hello Minikube](/docs/tutorials/hello-minikube/)
+* [Noções Básicas de Kubernetes](/docs/tutorials/kubernetes-basics/) é um tutorial interativo detalhado que ajuda a compreender o sistema Kubernetes e experimentar algumas funcionalidades básicas do Kubernetes.
+* [Introdução ao Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
+* [Olá Minikube](/docs/tutorials/hello-minikube/)
 
-## Configuration
+## Configuração
 
-* [Example: Configuring a Java Microservice](/docs/tutorials/configuration/configure-java-microservice/)
-* [Configuring Redis Using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
+* [Exemplo: Configurar um Microserviço Java](/docs/tutorials/configuration/configure-java-microservice/)
+* [Configurar o Redis Usando um ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
 
-## Stateless Applications
+## Aplicações Stateless
 
-* [Exposing an External IP Address to Access an Application in a Cluster](/docs/tutorials/stateless-application/expose-external-ip-address/)
-* [Example: Deploying PHP Guestbook application with Redis](/docs/tutorials/stateless-application/guestbook/)
+* [Expondo um Endereço IP Externo para Aceder a uma Aplicação num Cluster](/docs/tutorials/stateless-application/expose-external-ip-address/)
+* [Exemplo: Implementar aplicação Livro de Visitas PHP com Redis](/docs/tutorials/stateless-application/guestbook/)
 
-## Stateful Applications
+## Aplicações Stateful
 
-* [StatefulSet Basics](/docs/tutorials/stateful-application/basic-stateful-set/)
-* [Example: WordPress and MySQL with Persistent Volumes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)
-* [Example: Deploying Cassandra with Stateful Sets](/docs/tutorials/stateful-application/cassandra/)
-* [Running ZooKeeper, A CP Distributed System](/docs/tutorials/stateful-application/zookeeper/)
+* [Noções Básicas de StatefulSet](/docs/tutorials/stateful-application/basic-stateful-set/)
+* [Exemplo: WordPress e MySQL com Volumes Persistentes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)
+* [Exemplo: Implementando Cassandra com Stateful Sets](/docs/tutorials/stateful-application/cassandra/)
+* [Executando o ZooKeeper, Um Sistema Distribuído CP](/docs/tutorials/stateful-application/zookeeper/)
 
-## Services
+## Serviços
 
-* [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/)
-* [Using Source IP](/docs/tutorials/services/source-ip/)
+* [Conectar Aplicações com Serviços](/docs/tutorials/services/connect-applications-service/)
+* [Usando o Endereço IP de Origem](/docs/tutorials/services/source-ip/)
 
-## Security
+## Segurança
 
-* [Apply Pod Security Standards at Cluster level](/docs/tutorials/security/cluster-level-pss/)
-* [Apply Pod Security Standards at Namespace level](/docs/tutorials/security/ns-level-pss/)
+* [Aplicar Padrões de Segurança de Pod a Nível de Cluster](/docs/tutorials/security/cluster-level-pss/)
+* [Aplicar Padrões de Segurança de Pod a Nível de Namespace](/docs/tutorials/security/ns-level-pss/)
 * [AppArmor](/docs/tutorials/security/apparmor/)
 * [Seccomp](/docs/tutorials/security/seccomp/)
 ## {{% heading "whatsnext" %}}
 
-If you would like to write a tutorial, see
-[Content Page Types](/docs/contribute/style/page-content-types/)
-for information about the tutorial page type.
+Se gostaria de escrever um tutorial, veja
+[Tipos de Página de Conteúdo](/docs/contribute/style/page-content-types/)
+para informações sobre o tipo de página tutorial.
