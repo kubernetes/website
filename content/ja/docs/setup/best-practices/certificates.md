@@ -171,12 +171,13 @@ kubeadm利用者のみ:
 
 管理者アカウントおよびサービスアカウントは手動で設定しなければなりません。
 
-| ファイル名                | クレデンシャル名              | デフォルトCN                     | 組織　　　　　　 |
-|-------------------------|----------------------------|--------------------------------|----------------|
-| admin.conf              | default-admin              | kubernetes-admin               | system:masters |
-| kubelet.conf            | default-auth               | system:node:`<nodeName>` (see note) | system:nodes   |
-| controller-manager.conf | default-controller-manager | system:kube-controller-manager |                |
-| scheduler.conf          | default-scheduler          | system:kube-scheduler          |                |
+| ファイル名                | クレデンシャル名            | デフォルトCN                          | O (in Subject)         |
+|-------------------------|----------------------------|-------------------------------------|------------------------|
+| admin.conf              | default-admin              | kubernetes-admin                    | `<admin-group>`        |
+| super-admin.conf        | default-super-admin        | kubernetes-super-admin              | system:masters         |
+| kubelet.conf            | default-auth               | system:node:`<nodeName>` (備考を参照) | system:nodes           |
+| controller-manager.conf | default-controller-manager | system:kube-controller-manager      |                        |
+| scheduler.conf          | default-scheduler          | system:kube-scheduler               |                        |
 
 {{< note >}}
 `kubelet.conf`における`<nodeName>`の値は**必ず**APIサーバーに登録されたkubeletのノード名と一致しなければなりません。詳細は、[Node Authorization](/docs/reference/access-authn-authz/node/)を参照してください。
@@ -199,7 +200,7 @@ kubeadmはkubeconfigファイル内に2つの別々の管理者証明書を生�
 
 1. 各コンフィグ毎に、CN名と組織を指定してx509証明書と鍵ペアを生成してください。
 
-1. 以下のように、各コンフィグで`kubectl`を実行してください。
+2. 以下のように、各コンフィグで`kubectl`を実行してください。
 
 ```shell
 KUBECONFIG=<filename> kubectl config set-cluster default-cluster --server=https://<host ip>:6443 --certificate-authority <path-to-kubernetes-ca> --embed-certs
