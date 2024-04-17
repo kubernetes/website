@@ -329,19 +329,42 @@ To enable the plugin, configure the following flags on the API server:
 | `--oidc-ca-file` | The path to the certificate for the CA that signed your identity provider's web certificate.  Defaults to the host's root CAs. | `/etc/kubernetes/ssl/kc-ca.pem` | No |
 | `--oidc-signing-algs` | The signing algorithms accepted. Default is "RS256". | `RS512` | No |
 
-##### Using Authentication Configuration
+##### Authentication configuration from a file {#using-authentication-configuration}
 
-{{< feature-state for_k8s_version="v1.29" state="alpha" >}}
+{{< feature-state feature_gate_name="StructuredAuthenticationConfiguration" >}}
 
 JWT Authenticator is an authenticator to authenticate Kubernetes users using JWT compliant tokens. The authenticator will attempt to
 parse a raw ID token, verify it's been signed by the configured issuer. The public key to verify the signature is discovered from the issuer's public endpoint using OIDC discovery.
 
-The API server can be configured to use a JWT authenticator via the `--authentication-config` flag. This flag takes a path to a file containing the `AuthenticationConfiguration`. An example configuration is provided below.
-To use this config, the `StructuredAuthenticationConfiguration` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-has to be enabled.
+The minimum valid JWT payload must contain the following claims:
+```yaml
+{
+  "iss": "https://example.com",   // must match the issuer.url
+  "aud": ["my-app"],              // at least one of the entries in issuer.audiences must match the "aud" claim in presented JWTs.
+  "exp": 1234567890,              // token expiration as Unix time (the number of seconds elapsed since January 1, 1970 UTC)
+  "<username-claim>": "user"      // this is the username claim configured in the claimMappings.username.claim or claimMappings.username.expression
+}
+```
+
+The configuration file approach allows you to configure multiple JWT authenticators, each with a unique `issuer.url` and `issuer.discoveryURL`. The configuration file even allows you to specify [CEL](/docs/reference/using-api/cel/)
+expressions to map claims to user attributes, and to validate claims and user information. The API server also automatically reloads the authenticators when the configuration file is modified. You can use
+`apiserver_authentication_config_controller_automatic_reload_last_timestamp_seconds` metric to monitor the last time the configuration was reloaded by the API server.
+
+You must specify the path to the authentication configuration using the `--authentication-config` flag on the API server. If you want to use command line flags instead of the configuration file, those will continue to work as-is.
+To access the new capabilities like configuring multiple authenticators, setting multiple audiences for an issuer, switch to using the configuration file.
+
+For Kubernetes v{{< skew currentVersion >}}, the structured authentication configuration file format
+is beta-level, and the mechanism for using that configuration is also beta. Provided you didn't specifically
+disable the `StructuredAuthenticationConfiguration`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for your cluster,
+you can turn on structured authentication by specifying the `--authentication-config` command line
+argument to the kube-apiserver. An example of the structured authentication configuration file is shown below.
 
 {{< note >}}
-When the feature is enabled, setting both `--authentication-config` and any of the `--oidc-*` flags will result in an error. If you want to use the feature, you have to remove the `--oidc-*` flags and use the configuration file instead.
+If you specify `--authentication-config` along with any of the `--oidc-*` command line arguments, this is
+a misconfiguration. In this situation, the API server reports an error and then immediately exits.
+If you want to switch to using structured authentication configuration, you have to remove the `--oidc-*`
+command line arguments, and use the configuration file instead.
 {{< /note >}}
 
 ```yaml
@@ -350,18 +373,37 @@ When the feature is enabled, setting both `--authentication-config` and any of t
 # CAUTION: this is an example configuration.
 #          Do not use this for your own cluster!
 #
-apiVersion: apiserver.config.k8s.io/v1alpha1
+apiVersion: apiserver.config.k8s.io/v1beta1
 kind: AuthenticationConfiguration
 # list of authenticators to authenticate Kubernetes users using JWT compliant tokens.
+# the maximum number of allowed authenticators is 64.
 jwt:
 - issuer:
+    # url must be unique across all authenticators.
+    # url must not conflict with issuer configured in --service-account-issuer.
     url: https://example.com # Same as --oidc-issuer-url.
+    # discoveryURL, if specified, overrides the URL used to fetch discovery
+    # information instead of using "{url}/.well-known/openid-configuration".
+    # The exact value specified is used, so "/.well-known/openid-configuration"
+    # must be included in discoveryURL if needed.
+    #
+    # The "issuer" field in the fetched discovery information must match the "issuer.url" field
+    # in the AuthenticationConfiguration and will be used to validate the "iss" claim in the presented JWT.
+    # This is for scenarios where the well-known and jwks endpoints are hosted at a different
+    # location than the issuer (such as locally in the cluster).
+    # discoveryURL must be different from url if specified and must be unique across all authenticators.
+    discoveryURL: https://discovery.example.com/.well-known/openid-configuration
     # PEM encoded CA certificates used to validate the connection when fetching
     # discovery information. If not set, the system verifier will be used.
     # Same value as the content of the file referenced by the --oidc-ca-file flag.
-    certificateAuthority: <PEM encoded CA certificates>
+    certificateAuthority: <PEM encoded CA certificates>    
+    # audiences is the set of acceptable audiences the JWT must be issued to.
+    # At least one of the entries must match the "aud" claim in presented JWTs.
     audiences:
     - my-app # Same as --oidc-client-id.
+    - my-other-app
+    # this is required to be set to "MatchAny" when multiple audiences are specified.
+    audienceMatchPolicy: MatchAny
   # rules applied to validate token claims to authenticate users.
   claimValidationRules:
     # Same as --oidc-required-claim key=value.
@@ -387,6 +429,13 @@ jwt:
       prefix: ""
       # Mutually exclusive with username.claim and username.prefix.
       # expression is a CEL expression that evaluates to a string.
+      #
+      # 1.  If username.expression uses 'claims.email', then 'claims.email_verified' must be used in
+      #     username.expression or extra[*].valueExpression or claimValidationRules[*].expression.
+      #     An example claim validation rule expression that matches the validation automatically
+      #     applied when username.claim is set to 'email' is 'claims.?email_verified.orValue(true)'.
+      # 2.  If the username asserted based on username.expression is the empty string, the authentication
+      #     request will fail.
       expression: 'claims.username + ":external-user"'
     # groups represents an option for the groups attribute.
     groups:
@@ -446,7 +495,7 @@ jwt:
   {{< tabs name="example_configuration" >}}
   {{% tab name="Valid token" %}}
   ```yaml
-  apiVersion: apiserver.config.k8s.io/v1alpha1
+  apiVersion: apiserver.config.k8s.io/v1beta1
   kind: AuthenticationConfiguration
   jwt:
   - issuer:
@@ -506,7 +555,7 @@ jwt:
   {{% /tab %}}
   {{% tab name="Fails claim validation" %}}
   ```yaml
-  apiVersion: apiserver.config.k8s.io/v1alpha1
+  apiVersion: apiserver.config.k8s.io/v1beta1
   kind: AuthenticationConfiguration
   jwt:
   - issuer:
@@ -554,7 +603,7 @@ jwt:
   {{% /tab %}}
   {{% tab name="Fails user validation" %}}
   ```yaml
-  apiVersion: apiserver.config.k8s.io/v1alpha1
+  apiVersion: apiserver.config.k8s.io/v1beta1
   kind: AuthenticationConfiguration
   jwt:
   - issuer:
@@ -618,12 +667,10 @@ jwt:
   {{% /tab %}}
   {{< /tabs >}}
 
-Importantly, the API server is not an OAuth2 client, rather it can only be
-configured to trust a single issuer. This allows the use of public providers,
-such as Google, without trusting credentials issued to third parties. Admins who
-wish to utilize multiple OAuth clients should explore providers which support the
-`azp` (authorized party) claim, a mechanism for allowing one client to issue
-tokens on behalf of another.
+###### Limitations
+
+1. Distributed claims do not work via [CEL](/docs/reference/using-api/cel/) expressions.
+1. Egress selector configuration is not supported for calls to `issuer.url` and `issuer.discoveryURL`.
 
 Kubernetes does not provide an OpenID Connect Identity Provider.
 You can use an existing public OpenID Connect Identity Provider (such as Google, or
@@ -635,9 +682,15 @@ Tremolo Security's [OpenUnison](https://openunison.github.io/).
 
 For an identity provider to work with Kubernetes it must:
 
-1. Support [OpenID connect discovery](https://openid.net/specs/openid-connect-discovery-1_0.html); not all do.
-1. Run in TLS with non-obsolete ciphers
-1. Have a CA signed certificate (even if the CA is not a commercial CA or is self signed)
+1. Support [OpenID connect discovery](https://openid.net/specs/openid-connect-discovery-1_0.html)
+
+   The public key to verify the signature is discovered from the issuer's public endpoint using OIDC discovery.
+   If you're using the authentication configuration file, the identity provider doesn't need to publicly expose the discovery endpoint.
+   You can host the discovery endpoint at a different location than the issuer (such as locally in the cluster) and specify the
+   `issuer.discoveryURL` in the configuration file.
+
+2. Run in TLS with non-obsolete ciphers
+3. Have a CA signed certificate (even if the CA is not a commercial CA or is self signed)
 
 A note about requirement #3 above, requiring a CA signed certificate.  If you deploy your own
 identity provider (as opposed to one of the cloud providers like Google or Microsoft) you MUST

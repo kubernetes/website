@@ -6,7 +6,7 @@ weight: 40
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.27" state="beta" >}}
+{{< feature-state for_k8s_version="v1.30" state="stable" >}}
 
 Pods were considered ready for scheduling once created. Kubernetes scheduler
 does its due diligence to find nodes to place all pending Pods. However, in a
@@ -89,9 +89,7 @@ The metric `scheduler_pending_pods` comes with a new label `"gated"` to distingu
 has been tried scheduling but claimed as unschedulable, or explicitly marked as not ready for
 scheduling. You can use `scheduler_pending_pods{queue="gated"}` to check the metric result.
 
-## Mutable Pod Scheduling Directives
-
-{{< feature-state for_k8s_version="v1.27" state="beta" >}}
+## Mutable Pod scheduling directives
 
 You can mutate scheduling directives of Pods while they have scheduling gates, with certain constraints.
 At a high level, you can only tighten the scheduling directives of a Pod. In other words, the updated

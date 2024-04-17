@@ -440,7 +440,17 @@ To assign SELinux labels, the SELinux security module must be loaded on the host
 
 ### Efficient SELinux volume relabeling
 
-{{< feature-state for_k8s_version="v1.27" state="beta" >}}
+{{< feature-state feature_gate_name="SELinuxMountReadWriteOncePod" >}}
+
+{{< note >}}
+Kubernetes v1.27 introduced an early limited form of this behavior that was only applicable
+to volumes (and PersistentVolumeClaims) using the `ReadWriteOncePod` access mode.
+
+As an alpha feature, you can enable the `SELinuxMount`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to widen that
+performance improvement to other kinds of PersistentVolumeClaims, as explained in detail
+below.
+{{< /note >}}
 
 By default, the container runtime recursively assigns SELinux label to all
 files on all Pod volumes. To speed up this process, Kubernetes can change the
@@ -451,7 +461,9 @@ To benefit from this speedup, all these conditions must be met:
 
 * The [feature gates](/docs/reference/command-line-tools-reference/feature-gates/) `ReadWriteOncePod`
   and `SELinuxMountReadWriteOncePod` must be enabled.
-* Pod must use PersistentVolumeClaim with `accessModes: ["ReadWriteOncePod"]`.
+* Pod must use PersistentVolumeClaim with applicable `accessModes` and [feature gates](/docs/reference/command-line-tools-reference/feature-gates/):
+  * Either the volume has `accessModes: ["ReadWriteOncePod"]`, and feature gate `SELinuxMountReadWriteOncePod` is enabled.
+  * Or the volume can use any other access modes and both feature gates `SELinuxMountReadWriteOncePod` and `SELinuxMount` must be enabled.
 * Pod (or all its Containers that use the PersistentVolumeClaim) must
   have `seLinuxOptions` set.
 * The corresponding PersistentVolume must be either:
@@ -465,13 +477,56 @@ runtime  recursively changes the SELinux label for all inodes (files and directo
 in the volume.
 The more files and directories in the volume, the longer that relabelling takes.
 
+## Managing access to the `/proc` filesystem {#proc-access}
+
+{{< feature-state feature_gate_name="ProcMountType" >}}
+
+For runtimes that follow the OCI runtime specification, containers default to running in a mode where
+there are multiple paths that are both masked and read-only.
+The result of this is the container has these paths present inside the container's mount namespace, and they can function similarly to if
+the container was an isolated host, but the container process cannot write to
+them. The list of masked and read-only paths are as follows:
+
+- Masked Paths:
+  - `/proc/asound`
+  - `/proc/acpi`
+  - `/proc/kcore`
+  - `/proc/keys`
+  - `/proc/latency_stats`
+  - `/proc/timer_list`
+  - `/proc/timer_stats`
+  - `/proc/sched_debug`
+  - `/proc/scsi`
+  - `/sys/firmware`
+
+- Read-Only Paths:
+  - `/proc/bus`
+  - `/proc/fs`
+  - `/proc/irq`
+  - `/proc/sys`
+  - `/proc/sysrq-trigger`
+
+
+For some Pods, you might want to bypass that default masking of paths.
+The most common context for wanting this is if you are trying to run containers within
+a Kubernetes container (within a pod).
+
+The `securityContext` field `procMount` allows a user to request a container's `/proc`
+be `Unmasked`, or be mounted as read-write by the container process. This also
+applies to `/sys/firmware` which is not in `/proc`.
+
+```yaml
+...
+securityContext:
+  procMount: Unmasked
+```
+
 {{< note >}}
-<!-- remove after Kubernetes v1.30 is released -->
-If you are running Kubernetes v1.25, refer to the v1.25 version of this task page:
-[Configure a Security Context for a Pod or Container](https://v1-25.docs.kubernetes.io/docs/tasks/configure-pod-container/security-context/) (v1.25).  
-There is an important note in that documentation about a situation where the kubelet
-can lose track of volume labels after restart. This deficiency has been fixed
-in Kubernetes 1.26.
+Setting `procMount` to Unmasked requires the `spec.hostUsers` value in the pod
+spec to be `false`. In other words: a container that wishes to have an Unmasked
+`/proc` or unmasked `/sys` must also be in a
+[user namespace](/docs/concepts/workloads/pods/user-namespaces/).
+Kubernetes v1.12 to v1.29 did not enforce that requirement.
 {{< /note >}}
 
 ## Discussion
@@ -520,3 +575,7 @@ kubectl delete pod security-context-demo-4
 * For more information about security mechanisms in Linux, see
   [Overview of Linux Kernel Security Features](https://www.linux.com/learn/overview-linux-kernel-security-features)
   (Note: Some information is out of date)
+* Read about [User Namespaces](/docs/concepts/workloads/pods/user-namespaces/)
+  for Linux pods.
+* [Masked Paths in the OCI Runtime
+  Specification](https://github.com/opencontainers/runtime-spec/blob/f66aad47309/config-linux.md#masked-paths)
