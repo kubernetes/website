@@ -307,7 +307,7 @@ release team is made up of dedicated community volunteers who work together to b
 that make up the Kubernetes releases you rely on. This requires the specialized skills of people
 from all corners of our community, from the code itself to its documentation and project management.
 
-We would like to thank the entire [release team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.30/release_team.md)
+We would like to thank the entire [release team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.30/release-team.md)
 for the hours spent hard at work to deliver the Kubernetes v1.30 release to our community. The 
 Release Team's membership ranges from first-time shadows to returning team leads with experience 
 forged over several release cycles. A very special thanks goes out our release lead, Kat Cosgrove, 
