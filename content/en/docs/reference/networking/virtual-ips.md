@@ -576,6 +576,8 @@ pool.
 
 ## Traffic Distribution
 
+{{< feature-state feature_gate_name="ServiceTrafficDistribution" >}}
+
 The `spec.trafficDistribution` field within a Kubernetes Service allows you to
 express preferences for how traffic should be routed to Service endpoints.
 Implementations like kube-proxy use the `spec.trafficDistribution` field as a
