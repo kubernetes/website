@@ -15,7 +15,7 @@ make progress. Restarting a container in such a state can help to make the
 application more available despite bugs.
 
 A common pattern for liveness probes is to use the same low-cost HTTP endpoint
-as for readiness probes, but with a higher failureThreshold. This ensures that the pod
+as for readiness probes, but with a higher failure threshold. This ensures that the pod
 is observed as not-ready for some period of time before it is hard killed.
 
 The kubelet uses readiness probes to know when a container is ready to start
