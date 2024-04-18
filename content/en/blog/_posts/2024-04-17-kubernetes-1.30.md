@@ -175,6 +175,37 @@ behaves. It may be specified only when the `.status.loadBalancer.ingress.ip` fie
 specified. See more details about [specifying IPMode of load balancer
 status](/docs/concepts/services-networking/service/#load-balancer-ip-mode).
 
+### Structured Authentication Configuration ([SIG Auth](https://github.com/kubernetes/community/tree/master/sig-auth))
+
+_Structured Authentication Configuration_ graduates to beta in this release.
+
+Kubernetes has had a long-standing need for a more flexible and extensible
+authentication system. The current system, while powerful, has some limitations
+that make it difficult to use in certain scenarios. For example, it is not
+possible to use multiple authenticators of the same type (e.g., multiple JWT
+authenticators) or to change the configuration without restarting the API server. The
+Structured Authentication Configuration feature is the first step towards
+addressing these limitations and providing a more flexible and extensible way
+to configure authentication in Kubernetes. See more details about [structured
+authentication configuration](/docs/reference/access-authn-authz/authentication/#using-authentication-configuration).
+
+### Structured Authorization Configuration ([SIG Auth](https://github.com/kubernetes/community/tree/master/sig-auth))
+
+_Structured Authorization Configuration_ graduates to beta in this release.
+
+Kubernetes continues to evolve to meet the intricate requirements of system
+administrators and developers alike. A critical aspect of Kubernetes that
+ensures the security and integrity of the cluster is the API server
+authorization. Until recently, the configuration of the authorization chain in
+kube-apiserver was somewhat rigid, limited to a set of command-line flags and
+allowing only a single webhook in the authorization chain. This approach, while
+functional, restricted the flexibility needed by cluster administrators to
+define complex, fine-grained authorization policies. The latest Structured
+Authorization Configuration feature aims to revolutionize this aspect by introducing 
+a more structured and versatile way to configure the authorization chain, focusing 
+on enabling multiple webhooks and providing explicit control mechanisms. See more
+details about [structured authorization configuration](/docs/reference/access-authn-authz/authorization/#configuring-the-api-server-using-an-authorization-config-file).
+
 ## New alpha features
 
 ### Speed up recursive SELinux label change ([SIG Storage](https://github.com/kubernetes/community/tree/master/sig-storage))
