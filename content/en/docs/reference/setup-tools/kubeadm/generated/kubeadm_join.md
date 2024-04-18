@@ -73,6 +73,7 @@ control-plane-join     Join a machine as a control plane instance
   /etcd                  Add a new local etcd member
   /update-status         Register the new control-plane node into the ClusterStatus maintained in the kubeadm-config ConfigMap (DEPRECATED)
   /mark-control-plane    Mark a node as a control-plane
+wait-control-plane     EXPERIMENTAL: Wait for the control plane to start
 ```
 
 
