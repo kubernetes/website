@@ -10,7 +10,7 @@ aka:
 tags:
 - extension
 ---
-  ライフサイクルフックは、{{< glossary_tooltip text="コンテナ" term_id="container" >}}管理のライフサイクルにおけるイベントを公開し、イベントが発生したときにユーザーがコードを実行できるようにする。
+  ライフサイクルフックは、{{< glossary_tooltip text="コンテナ" term_id="container" >}}管理のライフサイクルにおけるイベントを公開し、イベントが発生したときにユーザーがコードを実行できるようにします。
 
 <!--more-->
 
