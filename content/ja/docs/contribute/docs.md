@@ -134,6 +134,8 @@ class first,second white
 
 はじめて貢献を行うのは大変なことかもしれません。[新規貢献者のためのアンバサダー](https://github.com/kubernetes/website#new-contributor-ambassadors)は、最初の数回の貢献を行う手助けをしてくれます。[Kubernetes Slack](https://slack.k8s.io/)で、特に`#sig-docs`チャンネルを用いて連絡を取ることができます。また毎月第一火曜日に行われる[新規貢献者のための歓迎会](https://www.kubernetes.dev/resources/calendar/)もあります。ここで新規貢献者のアンバサダーと交流し、質問に答えてもらうことができます。
 
+訳注: 日本語ローカライゼーションに関しては、Slackの`kubernetes-docs-ja`チャンネルを利用してください。
+
 ## 次のステップ
 
 - リポジトリの[ローカルクローンでの作業](/docs/contribute/new-content/open-a-pr/#fork-the-repo)について学んでください。
