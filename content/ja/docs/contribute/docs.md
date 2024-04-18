@@ -63,12 +63,12 @@ end
 subgraph first[サインアップ]
     direction TB
     S[ ] -.-
-    B[CNCFの <br>貢献者ライセンス <br>サインに署名する] --- C[Slackチャンネル <br>sig-docs に<br>参加する]
+    B[CNCFの <br>コントリビューターライセンス <br>サインに署名する] --- C[Slackチャンネル <br>sig-docs に<br>参加する]
     C --- V[kubernetes-sig-docsの<br> メーリングリストに <br>参加する]
     V --- M[毎週開催している <br>sig-docs callsや<br> slack callsに <br>参加する]
 end
 
-A([fa:fa-user 新たな<br>貢献者]) --> first
+A([fa:fa-user 新たな<br>コントリビューター]) --> first
 A --> second
 A --> third
 A --> H[質問をする!!!]
@@ -81,9 +81,9 @@ class A,B,C,D,E,F,G,H,M,Q,N,O,P,V grey
 class S,T,U spacewhite
 class first,second,third white
 {{</ mermaid >}}
-図1. 新たな貢献者のためのスタートガイド。
+図1. 新たなコントリビューターのためのスタートガイド。
 
-図1は新たな貢献者のためのロードマップを概説しています。`サインアップ`や`レビュー`のステップのいくつか、またはその全てに従えばよいです。これで、`プルリクエストのオープン`の下にリストされているいくつかの貢献目標を達成するためのプルリクエストを開く準備が整いました。また、質問はいつでも歓迎です！
+図1は新たなコントリビューターのためのロードマップを概説しています。`サインアップ`や`レビュー`のステップのいくつか、またはその全てに従えばよいです。これで、`プルリクエストのオープン`の下にリストされているいくつかの貢献目標を達成するためのプルリクエストを開く準備が整いました。また、質問はいつでも歓迎です！
 
 一部のタスクでは、Kubernetes organizationで、より多くの信頼とアクセス権限が必要です。
 役割と権限についての詳細は、[SIG Docsへの参加](/ja/docs/contribute/participate/)を参照してください。
@@ -106,7 +106,7 @@ flowchart LR
     subgraph first[推奨される準備]
     direction TB
        T[ ] -.-
-       D[貢献者の概要を読む] -->E[K8sのコンテンツと<br> スタイルガイドを読む]
+       D[コントリビューターの概要を読む] -->E[K8sのコンテンツと<br> スタイルガイドを読む]
        E --> F[Hugoのページコンテンツタイプと <br>ショートコードについて学ぶ]
     end
 
@@ -132,7 +132,7 @@ class first,second white
 
 ## 貢献時の支援の受け方
 
-はじめて貢献を行うのは大変なことかもしれません。[新規貢献者のためのアンバサダー](https://github.com/kubernetes/website#new-contributor-ambassadors)は、最初の数回の貢献を行う手助けをしてくれます。[Kubernetes Slack](https://slack.k8s.io/)で、特に`#sig-docs`チャンネルを用いて連絡を取ることができます。また毎月第一火曜日に行われる[新規貢献者のための歓迎会](https://www.kubernetes.dev/resources/calendar/)もあります。ここで新規貢献者のアンバサダーと交流し、質問に答えてもらうことができます。
+はじめて貢献を行うのは大変なことかもしれません。[新規コントリビューターのためのアンバサダー](https://github.com/kubernetes/website#new-contributor-ambassadors)は、最初の数回の貢献を行う手助けをしてくれます。[Kubernetes Slack](https://slack.k8s.io/)で、特に`#sig-docs`チャンネルを用いて連絡を取ることができます。また毎月第一火曜日に行われる[新規コントリビューターのための歓迎会](https://www.kubernetes.dev/resources/calendar/)もあります。ここで新規コントリビューターのアンバサダーと交流し、質問に答えてもらうことができます。
 
 訳注: 日本語ローカライゼーションに関しては、Slackの`kubernetes-docs-ja`チャンネルを利用してください。
 
@@ -157,5 +157,5 @@ SIG Docsは複数の方法でコミュニケーションをとっています。
 
 - [Kubernetesコミュニティサイト](/community/)を訪問してください。TwitterやStack Overflowに参加したり、Kubernetesの集会やイベントについて学んだりしてください。
 - 機能開発に貢献したい方は、まずはじめに[Kubernetesコントリビューターチートシート](https://github.com/kubernetes/community/blob/master/contributors/guide/contributor-cheatsheet/README-ja.md)を読んでください。
-- [Kubernetesの貢献者](https://www.kubernetes.dev/)や[追加の貢献者向けリソース](https://www.kubernetes.dev/resources/)についてもっと学ぶために、貢献者サイトを読んでください。
+- [Kubernetesのコントリビューター](https://www.kubernetes.dev/)や[追加のコントリビューター向けリソース](https://www.kubernetes.dev/resources/)についてもっと学ぶために、コントリビューターサイトを読んでください。
 - [ブログ記事やケーススタディ](/docs/contribute/new-content/blogs-case-studies/)を投稿してください。
