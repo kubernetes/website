@@ -63,7 +63,7 @@ end
 subgraph first[サインアップ]
     direction TB
     S[ ] -.-
-    B[CNCFの <br>貢献者ライセンス <br>契約に署名する] --- C[Slackチャンネル <br>sig-docs に<br>参加する]
+    B[CNCFの <br>貢献者ライセンス <br>サインに署名する] --- C[Slackチャンネル <br>sig-docs に<br>参加する]
     C --- V[kubernetes-sig-docsの<br> メーリングリストに <br>参加する]
     V --- M[毎週開催している <br>sig-docs callsや<br> slack callsに <br>参加する]
 end
