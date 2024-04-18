@@ -591,9 +591,9 @@ part of a policy to reject use of `gitRepo` volumes:
 
 ---
 
-你可以使用以下命令限制集群中“gitRepo”卷的使用[策略](/zh-cn/docs/concepts/policy/) 例如
+你可以通过使用[策略](/zh-cn/docs/concepts/policy/)来限制集群中 `gitRepo` 卷的使用, 例如
 [ValidatingAdmissionPolicy](/zh-cn/docs/reference/access-authn-authz/validating-admission-policy/)。
-你可以使用以下通用表达式语言 (CEL) 表达式作为拒绝使用“gitRepo”卷的策略的一部分：
+你可以使用以下通用表达式语言 (CEL) 来创建禁止使用 `gitRepo` 卷的规则：
 `!has(object.spec.volumes) || !object.spec.volumes.exists(v, has(v.gitRepo))`。
 
 
@@ -684,24 +684,21 @@ or as read-write, because:
   behave differently on different nodes due to different files on the nodes.
 
 -->
-使用“hostPath”卷类型会带来许多安全风险。
-如果您可以避免使用“hostPath”卷，那么您应该这样做。 例如，
+使用 `hostPath` 卷类型会带来许多安全风险。
+如果你可以避免使用 `hostPath` 卷，那么你应该这样做。 例如，
 定义一个 [`local` PersistentVolume](#local)，并使用它。
 
-如果您正在使用入场时验证限制对节点上特定目录的访问，
-那么该限制仅在您另外要求任何hostPath卷的挂载为只读时才有效。
-如果您允许不受信任的 Pod 对任何主机路径进行读写挂载，
+如果你正在使用入场时验证限制对节点上特定目录的访问，
+那么该限制仅在你另外要求任何hostPath卷的挂载为只读时才有效。
+如果你允许不受信任的 Pod 对任何主机路径进行读写挂载，
 那么该 Pod 中的容器可能会破坏读写主机挂载的安全性。
 
 ---
 
-在使用`hostPath`卷时要小心，无论是以只读还是读写方式挂载，因为：
-* 访问主机文件系统可能会暴露特权系统凭据（例如kubelet）或特权API
-（例如容器运行时套接字），这可能被用于容器逃逸或攻击集群的其他部分。
-* 具有相同配置的 Pod（例如从 PodTemplate 创建的 Pod）
-可能会由于节点上的不同文件而在不同节点上表现不同。
-
-
+在使用 `hostPath` 卷时，无论这些卷是以只读还是读写的方式加载，都要小心谨慎，因为：
+* 访问主机文件系统可能会暴露特权系统凭据（如 kubelet）或特权 API
+  (如容器运行时套接字），它们可用于容器逃逸或攻击集群的其他部分。
+* 具有相同配置的 Pod（如根据 PodTemplate 创建的 Pod）在不同节点上可能会由于节点上的文件不同，从而表现也可能不同。
 {{< /warning >}}
 
 ---
@@ -718,11 +715,9 @@ Some uses for a `hostPath` are:
 -->
 例如，`hostPath` 的一些用法有：
 
-*运行需要访问节点级系统组件的容器
-   （例如将系统日志传输到中央位置的容器，
+* 运行需要访问节点级系统组件的容器（例如将系统日志传输到中央位置的容器，
    使用“/var/log”的只读挂载访问这些日志）
-* 使存储在主机系统上的配置文件变为只读
-   到 {{<lossary_tooltip text="static pod" term_id="static-pod" >}}；
+* 使存储在主机系统上的配置文件变为只读到 {{<lossary_tooltip text="static pod" term_id="static-pod" >}}；
    与普通 Pod 不同，静态 Pod 无法访问 ConfigMap
 
 <!--
