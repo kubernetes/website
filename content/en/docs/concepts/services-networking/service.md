@@ -219,7 +219,8 @@ metadata:
   name: my-service
 spec:
   ports:
-    - protocol: TCP
+    - name: http
+      protocol: TCP
       port: 80
       targetPort: 9376
 ```
@@ -241,8 +242,7 @@ metadata:
     kubernetes.io/service-name: my-service
 addressType: IPv4
 ports:
-  - name: '' # empty because port 9376 is not assigned as a well-known
-             # port (by IANA)
+  - name: http # should match with the name of the service port defined above
     appProtocol: http
     protocol: TCP
     port: 9376
