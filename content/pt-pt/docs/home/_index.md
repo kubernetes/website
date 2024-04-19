@@ -1,5 +1,5 @@
 ---
-title: Documentação de Kubernetes
+title: Documentação do Kubernetes
 noedit: true
 cid: docsHome
 layout: docsportal_home
@@ -13,29 +13,29 @@ menu:
     title: "Documentação"
     weight: 20
     post: >
-      <p>Aprenda a utilizar Kubernetes com documentação conceitual, tutoriais e de referência. Pode até <a href="/editdocs/" data-auto-burger-exclude data-proofer-ignore>ajudar a contribuir para a documentação</a>!</p>
+      <p>Aprenda a utilizar o Kubernetes com documentação conceitual, tutoriais e de referência. Pode até <a href="/editdocs/" data-auto-burger-exclude data-proofer-ignore>ajudar a contribuir para a documentação</a>!</p>
 description: >
   O Kubernetes é um motor de orquestração de contentores de código aberto para automatizar a implementação, escalonamento e gestão de aplicações contentorizadas. O projeto de código aberto é hospedado pela Cloud Native Computing Foundation
 overview: >
   O Kubernetes é um motor de orquestração de contentores de código aberto para automatizar a implementação, escalonamento e gestão de aplicações contentorizadas. O projeto de código aberto é hospedado pela Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>).
 cards:
 - name: concepts
-  title: "Entender Kubernetes"
+  title: "Entender o Kubernetes"
   description: "Aprenda sobre Kubernetes e os seus conceitos fundamentais."
   button: "Ver Conceitos"
   button_path: "/docs/concepts"
 - name: tutorials
-  title: "Experimentar Kubernetes"
+  title: "Experimentar o Kubernetes"
   description: "Siga tutoriais para aprender a implementar aplicações em Kubernetes."
   button: "Ver Tutoriais"
   button_path: "/docs/tutorials"
 - name: setup
   title: "Configurar um cluster K8s"
   description: "Ponha o Kubernetes a funcionar com base nos seus recursos e necessidades."
-  button: "Configurar Kubernetes"
+  button: "Configurar o Kubernetes"
   button_path: "/docs/setup"
 - name: tasks
-  title: "Aprender a usar Kubernetes"
+  title: "Aprender a usar o Kubernetes"
   description: "Consulte tarefas comuns e como realizá-las usando uma curta sequência de passos."
  title: Ver Tarefas
   description: ""
@@ -47,8 +47,8 @@ cards:
   button: Ver Referência
   button_path: /docs/reference
 - name: contribute
-  title: Contribuir para Kubernetes
-  description: Descubra como pode ajudar a melhorar Kubernetes.
+  title: Contribuir para o Kubernetes
+  description: Descubra como pode ajudar a melhorar o Kubernetes.
   button: Ver Formas de Contribuir
   button_path: "/docs/contribute"
 - name: training
@@ -57,9 +57,9 @@ cards:
   button: "Ver formação"
   button_path: "/training"
 - name: Download
-  title: Descarregar Kubernetes
+  title: Descarregar o Kubernetes
   description: Instale o Kubernetes ou atualize para a versão mais recente.
-  button: "Descarregar Kubernetes"
+  button: "Descarregar o Kubernetes"
   button_path: "/releases/download"
 - name: about
   title: Sobre a documentação
