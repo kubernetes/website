@@ -119,7 +119,7 @@ JWT authenticator will attempt to cryptographically validate the token.</p>
 &quot;iss&quot;: &quot;https://issuer.example.com&quot;,
 &quot;aud&quot;: [&quot;audience&quot;],
 &quot;exp&quot;: 1234567890,
-&quot;<!-- raw HTML omitted -->&quot;: &quot;username&quot;
+&quot;&lt;username claim&gt;&quot;: &quot;username&quot;
 }</p>
 </td>
 </tr>
@@ -331,7 +331,7 @@ The claim's value must be a singular string.
 Same as the --oidc-username-claim and --oidc-username-prefix flags.
 If username.expression is set, the expression must produce a string value.
 If username.expression uses 'claims.email', then 'claims.email_verified' must be used in
-username.expression or extra[<em>].valueExpression or claimValidationRules[</em>].expression.
+username.expression or extra[&ast;].valueExpression or claimValidationRules[&ast;].expression.
 An example claim validation rule expression that matches the validation automatically
 applied when username.claim is set to 'email' is 'claims.?email_verified.orValue(true)'.</p>
 <p>In the flag based approach, the --oidc-username-claim and --oidc-username-prefix are optional. If --oidc-username-claim is not set,
@@ -341,8 +341,8 @@ For prefix:
 (1) --oidc-username-prefix=&quot;-&quot;, no prefix was added to the username. For the same behavior using authentication config,
 set username.prefix=&quot;&quot;
 (2) --oidc-username-prefix=&quot;&quot; and  --oidc-username-claim != &quot;email&quot;, prefix was &quot;&lt;value of --oidc-issuer-url&gt;#&quot;. For the same
-behavior using authentication config, set username.prefix=&quot;<!-- raw HTML omitted -->#&quot;
-(3) --oidc-username-prefix=&quot;<!-- raw HTML omitted -->&quot;. For the same behavior using authentication config, set username.prefix=&quot;<!-- raw HTML omitted -->&quot;</p>
+behavior using authentication config, set username.prefix=&quot;&lt;value of issuer.url&gt;#&quot;
+(3) --oidc-username-prefix=&quot;&lt;value&gt;&quot;. For the same behavior using authentication config, set username.prefix=&quot;&lt;value&gt;&quot;</p>
 </td>
 </tr>
 <tr><td><code>groups</code><br/>
