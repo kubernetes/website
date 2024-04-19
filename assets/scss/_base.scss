@@ -474,10 +474,10 @@ $feature-box-div-margin-bottom: 40px;
 section#cncf {
   padding-top: 60px;
   padding-bottom: 140px;
-  background-image: url(/images/cncf-color.svg);
-  background-position: center 100px;
-  background-repeat: no-repeat;
-  background-size: 300px;
+}
+
+.cncf-img{
+  width: 300px;
 }
 
 // OCEAN NODES
@@ -964,6 +964,5 @@ section#cncf {
   
   .cid-home main section:is(#cncf) {
     background-color: $dark-bg-color-2;
-    background-image: url(/images/cncf-white.png);
   }
 }
