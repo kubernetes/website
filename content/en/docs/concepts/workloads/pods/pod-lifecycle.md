@@ -180,7 +180,7 @@ start attempts.
 
 The `CrashLoopBackOff` can be caused by issues like the following:
 
-- Application errors within the container.
+- Application errors that cause the container to exit.
 - Configuration errors, such as incorrect environment variables or missing
   configuration files.
 - Resource constraints, where the container might not have enough memory or CPU
