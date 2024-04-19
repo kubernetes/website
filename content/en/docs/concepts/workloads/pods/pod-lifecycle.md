@@ -169,16 +169,18 @@ explains the behaviour of `init containers` when specify `restartpolicy` field o
 
 ## How Pods handle problems with containers {#CrashLoopBackOff}
 
-`CrashLoopBackOff` is a status that Kubernetes sets for a Pod when a container in the Pod fails to start properly and then continually tries and fails in a loop. This status is a clear indication that Kubernetes is attempting to a container, but the container keeps crashing during startup.
-
-#### Causes for CrashLoopBackOff
+`CrashLoopBackOff` is a status that Kubernetes sets for a Pod when a container
+in the Pod fails to start properly and then continually tries and fails in a loop.
 
 The `CrashLoopBackOff` status can be caused by issues like the following:
 
 - Application errors within the container.
-- Configuration errors, such as incorrect environment variables or missing configuration files
-- Resource constraints, where the container might not have enough memory or CPU to start properly.
-- Health checks failing if the application doesn't start serving within the expected time.
+- Configuration errors, such as incorrect environment variables or missing
+  configuration files.
+- Resource constraints, where the container might not have enough memory or CPU
+  to start properly.
+- Health checks failing if the application doesn't start serving within the
+  expected time.
 
 ## Pod conditions
 
