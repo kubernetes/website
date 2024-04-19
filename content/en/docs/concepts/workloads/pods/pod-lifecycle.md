@@ -176,7 +176,7 @@ explains the behaviour of `init containers` when specify `restartpolicy` field o
 The `CrashLoopBackOff` status can be caused by issues like the following:
 
 - Application errors within the container.
-- Configuration errors, such as incorrect environment variables or missing configuration files that the application requires.
+- Configuration errors, such as incorrect environment variables or missing configuration files
 - Resource constraints, where the container might not have enough memory or CPU to start properly.
 - Health checks failing if the application doesn't start serving (e.g., HTTP requests) within the expected time.
 
