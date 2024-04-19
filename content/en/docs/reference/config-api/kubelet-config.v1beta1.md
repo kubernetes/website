@@ -1197,7 +1197,7 @@ managers are running. Valid values include:</p>
    <p>systemReserved is a set of ResourceName=ResourceQuantity (e.g. cpu=200m,memory=150G)
 pairs that describe resources reserved for non-kubernetes components.
 Currently only cpu and memory are supported.
-See http://kubernetes.io/docs/user-guide/compute-resources for more detail.
+See https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/ for more detail.
 Default: nil</p>
 </td>
 </tr>
