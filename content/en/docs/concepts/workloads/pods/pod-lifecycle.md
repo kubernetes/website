@@ -161,18 +161,24 @@ the Pod level `restartPolicy` is either `OnFailure` or `Always`.
 When the kubelet is handling container restarts according to the configured restart
 policy, that only applies to restarts that make replacement containers inside the
 same Pod and running on the same node. After containers in a Pod exit, the kubelet
-restarts them with an exponential back-off delay (10s, 20s, 40s, …), that is capped at
-five minutes. Once a container has executed for 10 minutes without any problems, the
-kubelet resets the restart backoff timer for that container.
+restarts them with an exponential backoff delay (10s, 20s, 40s, …), that is capped at
+300 seconds (5 minutes). Once a container has executed for 10 minutes without any
+problems, the kubelet resets the restart backoff timer for that container.
 [Sidecar containers and Pod lifecycle](/docs/concepts/workloads/pods/sidecar-containers/#sidecar-containers-and-pod-lifecycle)
 explains the behaviour of `init containers` when specify `restartpolicy` field on it.
 
 ## How Pods handle problems with containers {#CrashLoopBackOff}
 
-`CrashLoopBackOff` is a status that Kubernetes sets for a Pod when a container
-in the Pod fails to start properly and then continually tries and fails in a loop.
+A `CrashLoopBackOff` is a condition or event that might be seen as output from the
+`kubectl` command, while describing or listing Pods, when a container in the Pod
+fails to start properly and then continually tries and fails in a loop.
 
-The `CrashLoopBackOff` status can be caused by issues like the following:
+When a container enters in crash loop, Kubernetes applies the exponential backoff
+delay mentioned in the [Container restart policy](#restart-policy). This mechanism
+prevents a faulty container from overwhelming the system with continuous failed
+start attempts.
+
+The `CrashLoopBackOff` can be caused by issues like the following:
 
 - Application errors within the container.
 - Configuration errors, such as incorrect environment variables or missing
@@ -181,6 +187,22 @@ The `CrashLoopBackOff` status can be caused by issues like the following:
   to start properly.
 - Health checks failing if the application doesn't start serving within the
   expected time.
+
+To investigate the root cause of a `CrashLoopBackOff` issue, a user can:
+
+1. **Check Logs**: Use `kubectl logs <name-of-pod>` to check the logs of the container.
+   This is often the most direct way to diagnose the issue causing the crashes.
+1. **Inspect Events**: Use `kubectl describe pod <name-of-pod>` to see events
+   for the Pod, which can provide hints about configuration or resource issues.
+1. **Review Configuration**: Ensure that the Pod's configuration, including
+   environment variables and mounted volumes, is correct and that all required
+   external resources are available.
+1. **Check Resource Limits**: Make sure that the container has enough CPU
+   and memory allocated. Sometimes, increasing the resources in the Pod definition
+   can resolve the issue.
+1. **Debug Application**: There might exist bugs or misconfigurations in the
+   application code. Running this container image locally or in a development
+   environment can help diagnose application-specific issues.
 
 ## Pod conditions
 
