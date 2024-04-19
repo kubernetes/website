@@ -283,6 +283,18 @@ strategy.
 See [Traffic Distribution](/docs/reference/networking/virtual-ips/#traffic-distribution) for more 
 details. 
 
+### Storage Version Migration ([SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery))
+Kubernetes v1.30 introduces a new built-in API for _StorageVersionMigration_.
+Kubernetes relies on API data being actively re-written, to support some
+maintenance activities related to at rest storage. Two prominent examples are
+the versioned schema of stored resources (that is, the preferred storage schema
+changing from v1 to v2 for a given resource) and encryption at rest (that is,
+rewriting stale data based on a change in how the data should be encrypted).
+
+StorageVersionMigration is alpha API which was available [out of tree](https://github.com/kubernetes-sigs/kube-storage-version-migrator) before.
+
+See [storage version migration](/docs/tasks/manage-kubernetes-objects/storage-version-migration) for more details.
+
 ## Graduations, deprecations and removals for Kubernetes v1.30
 
 ### Graduated to stable
