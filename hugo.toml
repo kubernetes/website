@@ -43,7 +43,7 @@ disableLanguages = ["no"]
  [caches.getcsv]
   dir = ":cacheDir/:project"
   maxAge = "60s"
- [caches.getjson]
+ [caches.getresource]
   dir = ":cacheDir/:project"
   maxAge = "60s"
  [caches.images]
