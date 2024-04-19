@@ -385,10 +385,6 @@ upgrades. For more information and registration, visit the [event
 page](https://community.cncf.io/events/details/cncf-cncf-online-programs-presents-cncf-live-webinar-kubernetes-130-release/)
 on the CNCF Online Programs site.
 
-Join members of the Kubernetes v1.30 release team on DATE AND TIME TBA to learn about the major
-features of this release, as well as deprecations and removals to help plan for upgrades. For more
-information and registration, visit the event page on the CNCF Online Programs site.
-
 ## Get involved
 
 The simplest way to get involved
@@ -409,3 +405,4 @@ and through the channels below. Thank you for your continued feedback and suppor
 - Learn more about the [Kubernetes Release
   Team](https://github.com/kubernetes/sig-release/tree/master/release-team)
 
+*This blog was updated on April 19th, 2024 to highlight two additional changes not originally included in the release blog.*
