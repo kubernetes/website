@@ -176,12 +176,17 @@ explains the behaviour of `init containers` when specify `restartpolicy` field o
 Kubernetes manages container failures within Pods using a [`restartPolicy`](#restart-policy) defined in the Pod `spec`. This policy determines how Kubernetes reacts to containers exiting due to errors or other reasons, which falls in the following sequence:
 
 1. **Initial Crash**: Kubernetes attempts an immediate restart based on the Pod `restartPolicy`.
-1. **Repeated Crashes**: After the the initial crash Kubernetes applies an exponential backoff delay for subsequent restarts, described in [`restartPolicy`](#restart-policy). This prevents rapid, repeated restart attempts from overloading the system.
-1. **CrashLoopBackOff State**: This indicates that the backoff delay mechanism is currently in effect for a given container that is in a crash loop, failing and restarting repeatedly.
-1. **Backoff Reset**: If a container runs successfully for a certain duration (e.g., 10 minutes), Kubernetes resets the backoff delay, treating any new crash as the first one.
+1. **Repeated Crashes**: After the the initial crash Kubernetes applies an exponential
+   backoff delay for subsequent restarts, described in [`restartPolicy`](#restart-policy).
+   This prevents rapid, repeated restart attempts from overloading the system.
+1. **CrashLoopBackOff State**: This indicates that the backoff delay mechanism is currently
+   in effect for a given container that is in a crash loop, failing and restarting repeatedly.
+1. **Backoff Reset**: If a container runs successfully for a certain duration
+   (e.g., 10 minutes), Kubernetes resets the backoff delay, treating any new crash
+   as the first one.
 
-In practice, a `CrashLoopBackOff` is a condition or event that might be seen as output from the
-`kubectl` command, while describing or listing Pods, when a container in the Pod
+In practice, a `CrashLoopBackOff` is a condition or event that might be seen as output
+from the `kubectl` command, while describing or listing Pods, when a container in the Pod
 fails to start properly and then continually tries and fails in a loop.
 
 In other words, when a container enters the crash loop, Kubernetes applies the
