@@ -1,7 +1,7 @@
 ---
-title: Create a Cluster
+title: Criar um Cluster
 weight: 10
 ---
 
-Learn about Kubernetes {{< glossary_tooltip text="cluster" term_id="cluster" length="all" >}} and create a simple cluster using Minikube.
+Saiba mais sobre o Kubernetes {{< glossary_tooltip text="cluster" term_id="cluster" length="all" >}} e crie um cluster simples utilizando o Minikube.
 
