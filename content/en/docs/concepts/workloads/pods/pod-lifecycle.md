@@ -167,7 +167,7 @@ kubelet resets the restart backoff timer for that container.
 [Sidecar containers and Pod lifecycle](/docs/concepts/workloads/pods/sidecar-containers/#sidecar-containers-and-pod-lifecycle)
 explains the behaviour of `init containers` when specify `restartpolicy` field on it.
 
-### CrashLoopBackOff
+## How Pods handle problems with containers {#CrashLoopBackOff}
 
 `CrashLoopBackOff` is a status that Kubernetes sets for a Pod when a container in the Pod fails to start properly and then continually tries and fails in a loop. This status is a clear indication that Kubernetes is attempting to a container, but the container keeps crashing during startup.
 
