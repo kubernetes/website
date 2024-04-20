@@ -204,7 +204,7 @@ The `CrashLoopBackOff` can be caused by issues like the following:
 * Health checks failing if the application doesn't start serving within the
   expected time.
 * Container liveness probes or startup probes returning a `Failure` result
-  as mentioned in in the [probes section](#container-probes).
+  as mentioned in the [probes section](#container-probes).
 
 To investigate the root cause of a `CrashLoopBackOff` issue, a user can:
 
