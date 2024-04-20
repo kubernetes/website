@@ -220,7 +220,7 @@ To investigate the root cause of a `CrashLoopBackOff` issue, a user can:
    can resolve the issue.
 1. **Debug Application**: There might exist bugs or misconfigurations in the
    application code. Running this container image locally or in a development
-   environment can help diagnose application-specific issues.
+   environment can help diagnose application specific issues.
 
 ## Pod conditions
 
