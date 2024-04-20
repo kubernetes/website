@@ -10,7 +10,7 @@ no_list: true
 
 Kubernetesにおいてスケジューリングとは、稼働させたい{{<glossary_tooltip text="Pod" term_id="pod">}}を{{<glossary_tooltip text="ノード" term_id="node">}}にマッチさせ、{{<glossary_tooltip text="kubelet" term_id="kubelet">}}が実行できるようにすることを指します。
 プリエンプションは、{{<glossary_tooltip text="優先度" term_id="pod-priority">}}の低いPodを終了させて、より優先度の高いPodがノード上でスケジュールできるようにするプロセスです。
-退避とは、リソース不足のノードで1つ以上のPodを積極的に停止させるプロセスです。
+退避とは、リソース不足のノードで1つ以上のPodを積極的に終了させるプロセスです。
 
 ## スケジューリング
 
