@@ -53,14 +53,33 @@ Dashboard 同时展示了 Kubernetes 集群中的资源状态信息和所有报�
 
 <!--
 ## Deploying the Dashboard UI
-
-The Dashboard UI is not deployed by default. To deploy it, run the following command:
 -->
 ## 部署 Dashboard UI   {#deploying-the-dashboard-ui}
-默认情况下不会部署 Dashboard。可以通过以下命令部署：
 
+{{< note >}}
+<!--
+Kubernetes Dashboard supports only Helm-based installation currently as it is faster
+and gives us better control over all dependencies required by Dashboard to run.
+-->
+Kubernetes Dashboard 目前仅支持基于 Helm 的安装，因为它速度更快，
+并且可以让我们更好地控制 Dashboard 运行所需的所有依赖项。
+{{< /note >}}
+
+<!--
+The Dashboard UI is not deployed by default. To deploy it, run the following command:
+-->
+
+默认情况下不会部署 Dashboard，可以通过以下命令部署：
+
+<!--
+# Add kubernetes-dashboard repository
+# Deploy a Helm Release named "kubernetes-dashboard" using the kubernetes-dashboard chart
+-->
 ```
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
+# 添加 kubernetes-dashboard 存储库
+helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
+# 使用 kubernetes-dashboard Chart 部署名为 `kubernetes-dashboard` 的 Helm Release
+helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --create-namespace --namespace kubernetes-dashboard
 ```
 
 <!--
