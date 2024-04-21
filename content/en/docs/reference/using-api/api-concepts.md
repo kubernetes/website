@@ -349,7 +349,7 @@ of time (by default 5 minutes) and return a `410 Gone` if more results cannot be
 returned. In this case, the client will need to start from the beginning or omit the
 `limit` parameter.
 
-For example, if there are 1,253 pods on the cluster and you wants to receive chunks
+For example, if there are 1,253 pods on the cluster and you want to receive chunks
 of 500 pods at a time, request those chunks as follows:
 
 1. List all of the pods on a cluster, retrieving up to 500 pods each time.
