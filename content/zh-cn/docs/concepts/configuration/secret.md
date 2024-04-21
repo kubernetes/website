@@ -1076,38 +1076,13 @@ For instructions, refer to
 可以参阅[使用 Secret 数据定义容器变量](/zh-cn/docs/tasks/inject-data-application/distribute-credentials-secure/#define-container-environment-variables-using-secret-data)。
 
 <!--
-#### Invalid environment variables {#restriction-env-from-invalid}
-
-If your environment variable definitions in your Pod specification are
-considered to be invalid environment variable names, those keys aren't made
-available to your container. The Pod is allowed to start.
+It's important to note that the range of characters allowed for environment variable
+names in pods is [restricted](/docs/tasks/inject-data-application/define-environment-variable-container/#using-environment-variables-inside-of-your-config).
+If any keys do not meet the rules, those keys are not made available to your container, though
+the Pod is allowed to start.
 -->
-#### 非法环境变量    {#restriction-env-from-invalid}
-
-如果 Pod 规约中环境变量定义会被视为非法的环境变量名，这些主键将在你的容器中不可用。
-Pod 仍然可以启动。
-
-<!--
-Kubernetes adds an Event with the reason set to `InvalidVariableNames` and a
-message that lists the skipped invalid keys. The following example shows a Pod that refers to a Secret named `mysecret`, where `mysecret` contains 2 invalid keys: `1badkey` and `2alsobad`.
--->
-Kubernetes 添加一个 Event，其 reason 设置为 `InvalidVariableNames`，其消息将列举被略过的非法主键。
-下面的例子中展示了一个 Pod，引用的是名为 `mysecret` 的 Secret，
-其中包含两个非法的主键：`1badkey` 和 `2alsobad`。
-
-```shell
-kubectl get events
-```
-
-<!--
-The output is similar to:
--->
-输出类似于：
-
-```
-LASTSEEN   FIRSTSEEN   COUNT     NAME            KIND      SUBOBJECT                         TYPE      REASON
-0s         0s          1         dapi-test-pod   Pod                                         Warning   InvalidEnvironmentVariableNames   kubelet, 127.0.0.1      Keys [1badkey, 2alsobad] from the EnvFrom secret default/mysecret were skipped since they are considered invalid environment variable names.
-```
+需要注意的是，Pod 中环境变量名称允许的字符范围是[有限的](/zh-cn/docs/tasks/inject-data-application/define-environment-variable-container/#using-environment-variables-inside-of-your-config)。
+如果某些变量名称不满足这些规则，则即使 Pod 是可以启动的，你的容器也无法访问这些变量。
 
 <!--
 ### Container image pull Secrets {#using-imagepullsecrets}
@@ -1120,7 +1095,7 @@ level.
 ### 容器镜像拉取 Secret  {#using-imagepullsecrets}
 
 如果你尝试从私有仓库拉取容器镜像，你需要一种方式让每个节点上的 kubelet
-能够完成与镜像库的身份认证。你可以配置 **镜像拉取 Secret** 来实现这点。
+能够完成与镜像库的身份认证。你可以配置**镜像拉取 Secret** 来实现这点。
 Secret 是在 Pod 层面来配置的。
 
 <!--
@@ -1528,7 +1503,7 @@ Existing Pods maintain a mount point to the deleted Secret - it is recommended t
 these pods.
 -->
 一旦一个 Secret 或 ConfigMap 被标记为不可更改，撤销此操作或者更改 `data`
-字段的内容都是 **不** 可能的。
+字段的内容都是**不**可能的。
 只能删除并重新创建这个 Secret。现有的 Pod 将维持对已删除 Secret 的挂载点 --
 建议重新创建这些 Pod。
 {{< /note >}}
