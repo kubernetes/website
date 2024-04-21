@@ -80,44 +80,34 @@ check the documentation for that version.
 
 <!-- 
 ## Install and configure prerequisites
-
-The following steps apply common settings for Kubernetes nodes on Linux. 
-
-You can skip a particular setting if you're certain you don't need it.
-
-For more information, see [Network Plugin Requirements](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements) or the documentation for your specific container runtime.
 -->
 ## 安装和配置先决条件  {#install-and-configure-prerequisites}
 
-以下步骤将通用设置应用于 Linux 上的 Kubernetes 节点。
-
-如果你确定不需要某个特定设置，则可以跳过它。
-
-有关更多信息，请参阅[网络插件要求](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements)或特定容器运行时的文档。
+<!--
+By default, the Linux kernel does not allow IPv4 packets to be routed
+between interfaces. Most Kubernetes cluster networking implementations
+will change this setting (if needed), but some might expect the
+administrator to do it for them. (Some might also expect other sysctl
+parameters to be set, kernel modules to be loaded, etc; consult the
+documentation for your specific network implementation.)
+-->
+默认情况下，Linux 内核不允许 IPv4 数据包在接口之间路由。
+大多数 Kubernetes 集群网络实现都会更改此设置（如果需要），但有些人可能希望管理员为他们执行此操作。
+（有些人可能还期望设置其他 sysctl 参数、加载内核模块等；请参阅你的特定网络实施的文档。）
 
 <!-- 
-### Forwarding IPv4 and letting iptables see bridged traffic
+### Enable IPv4 packet forwarding {#prerequisite-ipv4-forwarding-optional}
 
-Execute the below mentioned instructions:
+To manually enable IPv4 packet forwarding:
 -->
-### 转发 IPv4 并让 iptables 看到桥接流量
+### 启用 IPv4 数据包转发   {#prerequisite-ipv4-forwarding-optional}
 
-执行下述指令：
+手动启用 IPv4 数据包转发：
 
 ```bash
-cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
-overlay
-br_netfilter
-EOF
-
-sudo modprobe overlay
-sudo modprobe br_netfilter
-
 # 设置所需的 sysctl 参数，参数在重新启动后保持不变
 cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
-net.bridge.bridge-nf-call-iptables  = 1
-net.bridge.bridge-nf-call-ip6tables = 1
-net.ipv4.ip_forward                 = 1
+net.ipv4.ip_forward = 1
 EOF
 
 # 应用 sysctl 参数而不重新启动
@@ -125,23 +115,12 @@ sudo sysctl --system
 ```
 
 <!--
-Verify that the `br_netfilter`, `overlay` modules are loaded by running below instructions:
+Verify that `net.ipv4.ip_forward` is set to 1 with:
 -->
-通过运行以下指令确认 `br_netfilter` 和 `overlay` 模块被加载：
+使用以下命令验证 `net.ipv4.ip_forward` 是否设置为 1：
 
 ```bash
-lsmod | grep br_netfilter
-lsmod | grep overlay
-```
-
-<!--
-Verify that the `net.bridge.bridge-nf-call-iptables`, `net.bridge.bridge-nf-call-ip6tables`, `net.ipv4.ip_forward` system variables are set to 1 in your `sysctl` config by running below instruction:
--->
-通过运行以下指令确认 `net.bridge.bridge-nf-call-iptables`、`net.bridge.bridge-nf-call-ip6tables`
-和 `net.ipv4.ip_forward` 系统变量在你的 `sysctl` 配置中被设置为 1：
-
-```bash
-sysctl net.bridge.bridge-nf-call-iptables net.bridge.bridge-nf-call-ip6tables net.ipv4.ip_forward
+sysctl net.ipv4.ip_forward
 ```
 
 <!--
