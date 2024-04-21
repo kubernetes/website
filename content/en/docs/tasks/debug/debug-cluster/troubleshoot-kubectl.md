@@ -112,6 +112,7 @@ Verify the status of the load balancer (if used) to ensure it is healthy and for
 traffic to the API server.
 
 ## TLS problems
+* Additional tools required - `base64` and `openssl` version 3.0 or above.
 
 The Kubernetes API server only serves HTTPS requests by default. In that case TLS problems
 may occur due to various reasons, such as certificate expiry or chain of trust validity.
