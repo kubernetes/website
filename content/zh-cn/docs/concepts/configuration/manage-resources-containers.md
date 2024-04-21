@@ -1094,11 +1094,11 @@ available amount is simultaneously allocated to Pods.
 <!--
 The API server restricts quantities of extended resources to whole numbers.
 Examples of _valid_ quantities are `3`, `3000m` and `3Ki`. Examples of
-_invalid_ quantities are `0.5` and `1500m`.
+_invalid_ quantities are `0.5` and `1500m` (because `1500m` would result in `1.5`).
 -->
 API 服务器将扩展资源的数量限制为整数。
 **有效** 数量的示例是 `3`、`3000m` 和 `3Ki`。
-**无效** 数量的示例是 `0.5` 和 `1500m`。
+**无效** 数量的示例是 `0.5` 和 `1500m`（因为 `1500m` 结果等同于 `1.5`）。
 
 {{< note >}}
 <!--
@@ -1224,12 +1224,12 @@ You can check node capacities and amounts allocated with the
 
 - 向集群添加更多节点。
 - 终止不需要的 Pod，为悬决的 Pod 腾出空间。
-- 检查 Pod 所需的资源是否超出所有节点的资源容量。例如，如果所有节点的容量都是`cpu：1`，
+- 检查 Pod 所需的资源是否超出所有节点的资源容量。例如，如果所有节点的容量都是 `cpu：1`，
   那么一个请求为 `cpu: 1.1` 的 Pod 永远不会被调度。
 - 检查节点上的污点设置。如果集群中节点上存在污点，而新的 Pod 不能容忍污点，
   调度器只会考虑将 Pod 调度到不带有该污点的节点上。
 
-你可以使用 `kubectl describe nodes` 命令检查节点容量和已分配的资源数量。 例如：
+你可以使用 `kubectl describe nodes` 命令检查节点容量和已分配的资源数量。例如：
 
 ```shell
 kubectl describe nodes e2e-test-node-pool-4lw4
@@ -1313,7 +1313,7 @@ resource, including a configured ResourceQuota.
 设置资源配额有助于防止一个团队占用太多资源，以至于这种占用会影响其他团队。
 
 你还需要考虑为这些名字空间设置授权访问：
-为名字空间提供 **全部** 的写权限时，具有合适权限的人可能删除所有资源，
+为名字空间提供**全部**的写权限时，具有合适权限的人可能删除所有资源，
 包括所配置的 ResourceQuota。
 
 <!--
