@@ -1,5 +1,8 @@
 ---
 title: 节点
+api_metadata:
+- apiVersion: "v1"
+  kind: "Node"
 content_type: concept
 weight: 10
 ---
@@ -8,6 +11,9 @@ reviewers:
 - caesarxuchao
 - dchen1107
 title: Nodes
+api_metadata:
+- apiVersion: "v1"
+  kind: "Node"
 content_type: concept
 weight: 10
 -->
@@ -951,21 +957,78 @@ During a non-graceful shutdown, Pods are terminated in the two phases:
 {{< /note >}}
 
 <!--
+### Forced storage detach on timeout {#storage-force-detach-on-timeout}
+
+In any situation where a pod deletion has not succeeded for 6 minutes, kubernetes will
+force detach volumes being unmounted if the node is unhealthy at that instant. Any
+workload still running on the node that uses a force-detached volume will cause a
+violation of the
+[CSI specification](https://github.com/container-storage-interface/spec/blob/master/spec.md#controllerunpublishvolume),
+which states that `ControllerUnpublishVolume` "**must** be called after all
+`NodeUnstageVolume` and `NodeUnpublishVolume` on the volume are called and succeed".
+In such circumstances, volumes on the node in question might encounter data corruption.
+-->
+### 存储超时强制解除挂接  {#storage-force-detach-on-timeout}
+
+当任何 Pod 未能在 6 分钟内被成功删除时，如果节点当时不健康，
+Kubernetes 将强制解除挂接正在被卸载的卷。
+在启用了强制解除挂接卷的节点上仍在运行的所有工作负载都将导致违反
+[CSI 规范](https://github.com/container-storage-interface/spec/blob/master/spec.md#controllerunpublishvolume)，
+该规范指出 `ControllerUnpublishVolume` "**必须**在调用卷上的所有 `NodeUnstageVolume`
+和 `NodeUnpublishVolume` 执行且成功后被调用"。在这种情况下，相关节点上的卷可能会遇到数据损坏。
+
+<!--
+The forced storage detach behaviour is optional; users might opt to use the "Non-graceful
+node shutdown" feature instead.
+-->
+强制存储解除挂接行为是可选的；用户可以选择使用"非体面节点关闭"特性。
+
+<!--
+Force storage detach on timeout can be disabled by setting the `disable-force-detach-on-timeout`
+config field in `kube-controller-manager`. Disabling the force detach on timeout feature means
+that a volume that is hosted on a node that is unhealthy for more than 6 minutes will not have
+its associated
+[VolumeAttachment](/docs/reference/kubernetes-api/config-and-storage-resources/volume-attachment-v1/)
+deleted.
+-->
+可以通过在 `kube-controller-manager` 中设置 `disable-force-detach-on-timeout`
+配置字段来禁用超时时存储强制解除挂接。
+禁用超时强制解除挂接特性意味着托管在不正常运行时间超过 6 分钟的节点上的卷将不会删除其关联的
+[VolumeAttachment](/zh-cn/docs/reference/kubernetes-api/config-and-storage-resources/volume-attachment-v1/)。
+
+<!--
+After this setting has been applied, unhealthy pods still attached to a volumes must be recovered
+via the [Non-Graceful Node Shutdown](#non-graceful-node-shutdown) procedure mentioned above.
+-->
+应用此设置后，仍关联到某卷的不健康 Pod 必须通过上述[非体面节点关闭](#non-graceful-node-shutdown)过程进行恢复。
+
+{{< note >}}
+<!--
+- Caution must be taken while using the [Non-Graceful Node Shutdown](#non-graceful-node-shutdown) procedure.
+- Deviation from the steps documented above can result in data corruption.
+-->
+- 使用[非体面节点关闭](#non-graceful-node-shutdown)过程时必须小心。
+- 偏离上述步骤可能会导致数据损坏。
+{{< /note >}}
+
+<!--
 ## Swap memory management {#swap-memory}
 -->
-## 交换内存管理 {#swap-memory}
+## 交换内存（swap）管理 {#swap-memory}
 
 {{< feature-state feature_gate_name="NodeSwap" >}}
 
 <!--
 To enable swap on a node, the `NodeSwap` feature gate must be enabled on
-the kubelet, and the `--fail-swap-on` command line flag or `failSwapOn`
+the kubelet (default is true), and the `--fail-swap-on` command line flag or `failSwapOn`
 [configuration setting](/docs/reference/config-api/kubelet-config.v1beta1/)
 must be set to false.
+To allow Pods to utilize swap, `swapBehavior` should not be set to `NoSwap` (which is the default behavior) in the kubelet config.
 -->
-要在节点上启用交换内存，必须启用 kubelet 的 `NodeSwap` 特性门控，
+要在节点上启用交换内存，必须启用 kubelet 的 `NodeSwap` 特性门控（默认启用），
 同时使用 `--fail-swap-on` 命令行参数或者将 `failSwapOn`
 [配置](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)设置为 false。
+为了允许 Pod 使用交换内存，在 kubelet 配置中不应将 `swapBehavior` 设置为 `NoSwap`（默认行为）。
 
 {{< warning >}}
 <!--
@@ -983,27 +1046,25 @@ specify how a node will use swap memory. For example,
 
 ```yaml
 memorySwap:
-  swapBehavior: UnlimitedSwap
+  swapBehavior: LimitedSwap
 ```
 
 <!--
-- `UnlimitedSwap` (default): Kubernetes workloads can use as much swap memory as they
-  request, up to the system limit.
+- `NoSwap` (default): Kubernetes workloads will not use swap.
 - `LimitedSwap`: The utilization of swap memory by Kubernetes workloads is subject to limitations.
   Only Pods of Burstable QoS are permitted to employ swap.
 -->
-- `UnlimitedSwap`（默认）：Kubernetes 工作负载可以根据请求使用尽可能多的交换内存，
-  一直到达到系统限制为止。
+- `NoSwap`（默认）：Kubernetes 工作负载不会使用交换内存。
 - `LimitedSwap`：Kubernetes 工作负载对交换内存的使用受到限制。
-  只有具有 Burstable QoS 的 Pod 可以使用交换空间。
+  只有具有 Burstable QoS 的 Pod 可以使用交换内存。
 
 <!--
 If configuration for `memorySwap` is not specified and the feature gate is
 enabled, by default the kubelet will apply the same behaviour as the
-`UnlimitedSwap` setting.
+`NoSwap` setting.
 -->
 如果启用了特性门控但是未指定 `memorySwap` 的配置，默认情况下 kubelet 将使用与
-`UnlimitedSwap` 设置相同的行为。
+`NoSwap` 设置相同的行为。
 
 <!--
 With `LimitedSwap`, Pods that do not fall under the Burstable QoS classification (i.e.
@@ -1038,9 +1099,9 @@ It is important to note that, for containers within Burstable QoS Pods, it is po
 opt-out of swap usage by specifying memory requests that are equal to memory limits.
 Containers configured in this manner will not have access to swap memory.
 -->
-交换限制被配置为 `(containerMemoryRequest / nodeTotalMemory) * totalPodsSwapAvailable` 的值。
+交换内存限制被配置为 `(containerMemoryRequest / nodeTotalMemory) * totalPodsSwapAvailable` 的值。
 
-需要注意的是，位于 Burstable QoS Pod 中的容器可以通过将内存请求设置为与内存限制相同来选择不使用交换空间。
+需要注意的是，位于 Burstable QoS Pod 中的容器可以通过将内存请求设置为与内存限制相同来选择不使用交换内存。
 以这种方式配置的容器将无法访问交换内存。
 
 <!--
@@ -1051,7 +1112,7 @@ see the blog-post about [Kubernetes 1.28: NodeSwap graduates to Beta1](/blog/202
 [KEP-2400](https://github.com/kubernetes/enhancements/issues/4128) and its
 [design proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2400-node-swap/README.md).
 -->
-只有 **Cgroup v2** 支持交换空间，Cgroup v1 不支持。
+只有 **Cgroup v2** 支持交换内存，Cgroup v1 不支持。
 
 如需了解更多信息、协助测试和提交反馈，请参阅关于
 [Kubernetes 1.28：NodeSwap 进阶至 Beta1](/zh-cn/blog/2023/08/24/swap-linux-beta/) 的博客文章、
