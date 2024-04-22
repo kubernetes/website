@@ -145,6 +145,58 @@ finish time for that container's period of execution.
 If a container has a `preStop` hook configured, this hook runs before the container enters
 the `Terminated` state.
 
+## How Pods handle problems with containers {#container-restarts}
+
+Kubernetes manages container failures within Pods using a [`restartPolicy`](#restart-policy) defined in the Pod `spec`. This policy determines how Kubernetes reacts to containers exiting due to errors or other reasons, which falls in the following sequence:
+
+1. **Initial crash**: Kubernetes attempts an immediate restart based on the Pod `restartPolicy`.
+1. **Repeated crashes**: After the the initial crash Kubernetes applies an exponential
+   backoff delay for subsequent restarts, described in [`restartPolicy`](#restart-policy).
+   This prevents rapid, repeated restart attempts from overloading the system.
+1. **CrashLoopBackOff state**: This indicates that the backoff delay mechanism is currently
+   in effect for a given container that is in a crash loop, failing and restarting repeatedly.
+1. **Backoff reset**: If a container runs successfully for a certain duration
+   (e.g., 10 minutes), Kubernetes resets the backoff delay, treating any new crash
+   as the first one.
+
+In practice, a `CrashLoopBackOff` is a condition or event that might be seen as output
+from the `kubectl` command, while describing or listing Pods, when a container in the Pod
+fails to start properly and then continually tries and fails in a loop.
+
+In other words, when a container enters the crash loop, Kubernetes applies the
+exponential backoff delay mentioned in the [Container restart policy](#restart-policy).
+This mechanism prevents a faulty container from overwhelming the system with continuous
+failed start attempts.
+
+The `CrashLoopBackOff` can be caused by issues like the following:
+
+* Application errors that cause the container to exit.
+* Configuration errors, such as incorrect environment variables or missing
+  configuration files.
+* Resource constraints, where the container might not have enough memory or CPU
+  to start properly.
+* Health checks failing if the application doesn't start serving within the
+  expected time.
+* Container liveness probes or startup probes returning a `Failure` result
+  as mentioned in the [probes section](#container-probes).
+
+To investigate the root cause of a `CrashLoopBackOff` issue, a user can:
+
+1. **Check logs**: Use `kubectl logs <name-of-pod>` to check the logs of the container.
+   This is often the most direct way to diagnose the issue causing the crashes.
+1. **Inspect events**: Use `kubectl describe pod <name-of-pod>` to see events
+   for the Pod, which can provide hints about configuration or resource issues.
+1. **Review configuration**: Ensure that the Pod configuration, including
+   environment variables and mounted volumes, is correct and that all required
+   external resources are available.
+1. **Check resource limits**: Make sure that the container has enough CPU
+   and memory allocated. Sometimes, increasing the resources in the Pod definition
+   can resolve the issue.
+1. **Debug application**: There might exist bugs or misconfigurations in the
+   application code. Running this container image locally or in a development
+   environment can help diagnose application specific issues.
+
+
 ## Container restart policy {#restart-policy}
 
 The `spec` of a Pod has a `restartPolicy` field with possible values Always, OnFailure,
@@ -156,16 +208,21 @@ in the Pod and to regular [init containers](/docs/concepts/workloads/pods/init-c
 ignore the Pod-level `restartPolicy` field: in Kubernetes, a sidecar is defined as an
 entry inside `initContainers` that has its container-level `restartPolicy` set to `Always`.
 For init containers that exit with an error, the kubelet restarts the init container if
-the Pod level `restartPolicy` is either `OnFailure` or `Always`.
+the Pod level `restartPolicy` is either `OnFailure` or `Always`:
+
+* `Always`: Automatically restarts the container after any termination.
+* `OnFailure`: Only restarts the container if it exits with an error (non-zero exit status).
+* `Never`: Does not automatically restart the terminated container.
 
 When the kubelet is handling container restarts according to the configured restart
 policy, that only applies to restarts that make replacement containers inside the
 same Pod and running on the same node. After containers in a Pod exit, the kubelet
-restarts them with an exponential back-off delay (10s, 20s, 40s, …), that is capped at
-five minutes. Once a container has executed for 10 minutes without any problems, the
-kubelet resets the restart backoff timer for that container.
+restarts them with an exponential backoff delay (10s, 20s, 40s, …), that is capped at
+300 seconds (5 minutes). Once a container has executed for 10 minutes without any
+problems, the kubelet resets the restart backoff timer for that container.
 [Sidecar containers and Pod lifecycle](/docs/concepts/workloads/pods/sidecar-containers/#sidecar-containers-and-pod-lifecycle)
 explains the behaviour of `init containers` when specify `restartpolicy` field on it.
+
 
 ## Pod conditions
 
