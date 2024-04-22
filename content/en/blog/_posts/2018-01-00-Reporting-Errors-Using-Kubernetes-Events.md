@@ -4,6 +4,8 @@ date: 2018-01-25
 published: true
 slug: reporting-errors-using-kubernetes-events
 url: /blog/2018/01/Reporting-Errors-Using-Kubernetes-Events
+author: >
+  Hakan Baba (Box)
 ---
 
 At [Box](https://www.box.com/), we manage several large scale Kubernetes clusters that serve as an internal platform as a service (PaaS) for hundreds of deployed microservices. The majority of those microservices are applications that power box.com for over 80,000 customers. The PaaS team also deploys several services affiliated with the platform infrastructure as the _control plane_.  
@@ -86,4 +88,4 @@ We have demonstrated a practical use case with Kubernetes Events. The automated 
 _If you have a Kubernetes experience you’d like to share, [submit your story](https://docs.google.com/a/google.com/forms/d/e/1FAIpQLScuI7Ye3VQHQTwBASrgkjQDSS5TP0g3AXfFhwSM9YpHgxRKFA/viewform). If you use Kubernetes in your organization and want to voice your experience more directly, consider joining the [CNCF End User Community](https://www.cncf.io/people/end-user-community/) that Box and dozens of like-minded companies are part of._    
 
 Special thanks for Greg Lyons and Mohit Soni for their contributions.  
-Hakan Baba, Sr. Software Engineer, Box
+

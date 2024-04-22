@@ -2,9 +2,9 @@
 layout: blog
 title: Meet Our Contributors - Monthly Streaming YouTube Mentoring Series
 date: 2018-07-10
+author: >
+  Paris Pittman (Google)
 ---
-
-**Author**: Paris Pittman (Google)
 
 ![meet_our_contributors](/images/blog/2018-06-05-meet-our-contributors-youtube-mentoring-series/meet-our-contributors.png)
 
