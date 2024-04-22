@@ -1297,13 +1297,13 @@ If the number of backend endpoints falls below 1000, the control plane removes t
 
 Type: Annotation
 
-Example: `endpoints.kubernetes.io/last-change-trigger-time: 2023-07-20T04:45:21Z`
+Example: `endpoints.kubernetes.io/last-change-trigger-time: "2023-07-20T04:45:21Z"`
 
 Used on: Endpoints
 
 This annotation set to an [Endpoints](/docs/concepts/services-networking/service/#endpoints) object that
-represents the timestamp (stored as RFC 3339 date-time string, e.g. '2018-10-22T19:32:52.1Z'). This is timestamp
-of the last change in some Pod or Service object, that triggered the endpoints object change.
+represents the timestamp (The timestamp is stored in RFC 3339 date-time string format. For example, '2018-10-22T19:32:52.1Z'). This is timestamp
+of the last change in some Pod or Service object, that triggered the change to the Endpoints object.
 
 ### control-plane.alpha.kubernetes.io/leader (deprecated) {#control-plane-alpha-kubernetes-io-leader}
 
