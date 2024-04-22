@@ -3,9 +3,9 @@ layout: blog
 title: 'Kubernetes 1.30: Read-only volume mounts can be finally literally read-only'
 date: 2024-04-23
 slug: recursive-read-only-mounts
+author: >
+  Akihiro Suda (NTT) 
 ---
-
-**Author:** Akihiro Suda (NTT)
 
 Read-only volume mounts have been a feature of Kubernetes since the beginning.
 Surprisingly, read-only mounts are not completely read-only under certain conditions on Linux.
