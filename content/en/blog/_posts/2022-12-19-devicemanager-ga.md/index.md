@@ -3,9 +3,9 @@ layout: blog
 title: 'Kubernetes 1.26: Device Manager graduates to GA'
 date: 2022-12-19
 slug: devicemanager-ga
+author: >
+  Swati Sehgal (Red Hat)
 ---
-
-**Author:** Swati Sehgal (Red Hat)
 
 The Device Plugin framework was introduced in the Kubernetes v1.8 release as a vendor
 independent framework to enable discovery, advertisement and allocation of external
