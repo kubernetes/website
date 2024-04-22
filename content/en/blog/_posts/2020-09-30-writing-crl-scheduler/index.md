@@ -3,9 +3,9 @@ layout: blog
 title: "A Custom Kubernetes Scheduler to Orchestrate Highly Available Applications"
 date: 2020-12-21
 slug: writing-crl-scheduler
+author: >
+   Chris Seto (Cockroach Labs)
 ---
-
-**Author**: Chris Seto (Cockroach Labs)
 
 As long as you're willing to follow the rules, deploying on Kubernetes and air travel can be quite pleasant. More often than not, things will "just work". However, if one is interested in travelling with an alligator that must remain alive or scaling a database that must remain available, the situation is likely to become a bit more complicated. It may even be easier to build one's own plane or database for that matter. Travelling with reptiles aside, scaling a highly available stateful system is no trivial task.
 
