@@ -18,6 +18,9 @@ other = "Show More Posts..."
 [banner_acknowledgement]
 other = "Hide this notice"
 
+[case_study_prefix]
+other = "Case study:"
+
 [caution]
 other = "Caution:"
 
