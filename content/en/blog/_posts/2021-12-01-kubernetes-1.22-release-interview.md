@@ -2,9 +2,9 @@
 layout: blog
 title: "Contribution, containers and cricket: the Kubernetes 1.22 release interview"
 date: 2021-12-01
+author: >
+   Craig Box (Google)
 ---
-
-**Author**: Craig Box (Google)
 
 The Kubernetes release train rolls on, and we look ahead to the release of 1.23 next week. [As is our tradition](https://www.google.com/search?q=%22release+interview%22+site%3Akubernetes.io%2Fblog), I'm pleased to bring you a look back at the process that brought us the previous version.
 
