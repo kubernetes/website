@@ -393,6 +393,9 @@ other = "Read about"
 [main_read_more]
 other = "Read more"
 
+[monthly_patch_release]
+other = "Monthly Patch Release"
+
 [not_applicable]
 # Localization teams: it's OK to use a longer text here
 other = "n/a"
@@ -503,6 +506,9 @@ other = "(released: "
 # Use a suitable format for your locale
 [release_date_format]
 other = "2006-01-02"
+
+[release_date_format_month]
+other = "January 2006"
 
 [release_cherry_pick_deadline]
 other = "Cherry Pick Deadline"
