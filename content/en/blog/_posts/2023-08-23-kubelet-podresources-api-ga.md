@@ -3,9 +3,9 @@ layout: blog
 title: 'Kubernetes 1.28: Node podresources API Graduates to GA'
 date: 2023-08-23
 slug: kubelet-podresources-api-GA
+author: >
+  Francesco Romani (Red Hat)
 ---
-
-**Author:** Francesco Romani (Red Hat)
 
 The podresources API is an API served by the kubelet locally on the node, which exposes the compute resources exclusively
 allocated to containers. With the release of Kubernetes 1.28, that API is now Generally Available.

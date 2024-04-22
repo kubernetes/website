@@ -4,9 +4,10 @@ title: "A Quick Recap of 2023 China Kubernetes Contributor Summit"
 slug: kcs-shanghai
 date: 2023-10-20
 canonicalUrl: https://www.kubernetes.dev/blog/2023/10/20/kcs-shanghai/
+author: >
+  Paco Xu (DaoCloud),
+  Michael Yao (DaoCloud)
 ---
-
-**Author:** Paco Xu and Michael Yao (DaoCloud)
 
 On September 26, 2023, the first day of
 [KubeCon + CloudNativeCon + Open Source Summit China 2023](https://www.lfasiallc.com/kubecon-cloudnativecon-open-source-summit-china/),

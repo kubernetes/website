@@ -3,9 +3,11 @@ layout: blog
 title: "Kubernetes 1.27: updates on speeding up Pod startup"
 date: 2023-05-15T00:00:00+0000
 slug: speed-up-pod-startup
+author: >
+   Paco Xu (DaoCloud),
+   Sergey Kanzhelev (Google),
+   Ruiwen Zhao (Google)
 ---
-
-**Authors**: Paco Xu (DaoCloud), Sergey Kanzhelev (Google), Ruiwen Zhao (Google)
 
 How can Pod start-up be accelerated on nodes in large clusters? This is a common issue that
 cluster administrators may face.

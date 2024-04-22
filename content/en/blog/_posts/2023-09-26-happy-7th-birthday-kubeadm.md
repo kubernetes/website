@@ -3,9 +3,9 @@ layout: blog
 title: 'Happy 7th Birthday kubeadm!'
 date: 2023-09-26
 slug: happy-7th-birthday-kubeadm
+author: >
+  Fabrizio Pandini (VMware)
 ---
-
-**Author:** Fabrizio Pandini (VMware)
 
 What a journey so far!
 

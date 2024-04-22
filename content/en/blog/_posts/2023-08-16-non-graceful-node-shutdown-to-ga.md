@@ -3,9 +3,10 @@ layout: blog
 title: "Kubernetes 1.28: Non-Graceful Node Shutdown Moves to GA"
 date: 2023-08-16T10:00:00-08:00
 slug: kubernetes-1-28-non-graceful-node-shutdown-GA
+author: >
+  Xing Yang (VMware),
+  Ashutosh Kumar (Elastic)
 ---
-
-**Authors:** Xing Yang (VMware) and Ashutosh Kumar (Elastic)
 
 The Kubernetes Non-Graceful Node Shutdown feature is now GA in Kubernetes v1.28.
 It was introduced as

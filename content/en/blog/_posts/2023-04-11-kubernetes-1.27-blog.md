@@ -3,9 +3,9 @@ layout: blog
 title: "Kubernetes v1.27: Chill Vibes"
 date: 2023-04-11
 slug: kubernetes-v1-27-release
+author: >
+   [Kubernetes v1.27 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.27/release-team.md)
 ---
-
-**Authors**: [Kubernetes v1.27 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.27/release-team.md)
 
 Announcing the release of Kubernetes v1.27, the first release of 2023!
 

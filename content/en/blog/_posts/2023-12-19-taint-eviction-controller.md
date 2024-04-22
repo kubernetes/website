@@ -3,9 +3,10 @@ layout: blog
 title: "Kubernetes 1.29: Decoupling taint-manager from node-lifecycle-controller"
 date: 2023-12-19
 slug: kubernetes-1-29-taint-eviction-controller
+author: >
+  Yuan Chen (Apple),
+  Andrea Tosatto (Apple)
 ---
-
-**Authors:** Yuan Chen (Apple), Andrea Tosatto (Apple)
 
 This blog discusses a new feature in Kubernetes 1.29 to improve the handling of taint-based pod eviction.
 
