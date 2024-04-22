@@ -3,9 +3,9 @@ title: " A Stronger Foundation for Creating and Managing Kubernetes Clusters "
 date: 2017-01-12
 slug: stronger-foundation-for-creating-and-managing-kubernetes-clusters
 url: /blog/2017/01/Stronger-Foundation-For-Creating-And-Managing-Kubernetes-Clusters
+author: >
+   [Lucas Käldström](https://twitter.com/kubernetesonarm) (independent)
 ---
-_Editor's note: Today’s post is by Lucas Käldström an independent Kubernetes maintainer and SIG-Cluster-Lifecycle member, sharing what the group has been building and what’s upcoming.&nbsp;_  
-
 Last time you heard from us was in September, when we announced [kubeadm](https://kubernetes.io/blog/2016/09/how-we-made-kubernetes-easy-to-install). The work on making kubeadm a first-class citizen in the Kubernetes ecosystem has continued and evolved. Some of us also met before KubeCon and had a very productive meeting where we talked about what the scopes for our SIG, kubeadm, and kops are.&nbsp;  
 
 **Continuing to Define SIG-Cluster-Lifecycle**  
@@ -100,6 +100,3 @@ In short, we're excited on the roadmap ahead in bringing a lot of these improvem
 
 Thank you for all the feedback and contributions. I hope this has given you some insight in what we’re doing and encouraged&nbsp;you to join us at our meetings to say hi!
 
-
-
-_-- [Lucas Käldström](https://twitter.com/kubernetesonarm), Independent Kubernetes maintainer and SIG-Cluster-Lifecycle member_
