@@ -3,9 +3,9 @@ layout: blog
 title: "Kubernetes v1.26: Retroactive Default StorageClass"
 date: 2023-01-05
 slug: retroactive-default-storage-class
+author: >
+  Roman Bednář (Red Hat)
 ---
-
-**Author:** Roman Bednář (Red Hat)
 
 The v1.25 release of Kubernetes introduced an alpha feature to change how a default
 StorageClass was assigned to a PersistentVolumeClaim (PVC). With the feature enabled,
