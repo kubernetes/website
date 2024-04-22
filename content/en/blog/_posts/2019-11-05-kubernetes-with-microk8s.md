@@ -1,8 +1,10 @@
 ---                                           
 title: 'Running Kubernetes locally on Linux with Microk8s'                                                           
 date: 2019-11-26
+author: >
+  [Ihor Dvoretskyi](https://twitter.com/idvoretskyi) (Cloud Native Computing Foundation),
+  [Carmine Rimi](https://twitter.com/carminerimi)
 ---
-**Authors**: [Ihor Dvoretskyi](https://twitter.com/idvoretskyi), Developer Advocate, Cloud Native Computing Foundation; [Carmine Rimi](https://twitter.com/carminerimi)
 
 This article, the second in a [series](/blog/2019/03/28/running-kubernetes-locally-on-linux-with-minikube-now-with-kubernetes-1.14-support/) about local deployment options on Linux, and covers [MicroK8s](https://microk8s.io/). Microk8s is the click-and-run solution for deploying a Kubernetes cluster locally, originally developed by Canonical, the publisher of Ubuntu.
 

@@ -1,9 +1,9 @@
 ---
 title: 'kube-proxy Subtleties: Debugging an Intermittent Connection Reset'
 date: 2019-03-29
+author: >
+  [Yongkun Gui](mailto:ygui@google.com) (Google)
 ---
-
-**Author:** [Yongkun Gui](mailto:ygui@google.com), Google
 
 I recently came across a bug that causes intermittent connection resets.  After
 some digging, I found it was caused by a subtle combination of several different

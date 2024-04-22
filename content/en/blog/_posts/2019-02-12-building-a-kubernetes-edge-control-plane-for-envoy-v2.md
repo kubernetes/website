@@ -2,13 +2,11 @@
 title: Building a Kubernetes Edge (Ingress) Control Plane for Envoy v2
 date: 2019-02-12
 slug: building-a-kubernetes-edge-control-plane-for-envoy-v2
+author: >
+  Daniel Bryant (Datawire),
+  Flynn (Datawire),
+  Richard Li (Datawire) 
 ---
-
-
-**Author:**
-Daniel Bryant, Product Architect, Datawire;
-Flynn, Ambassador Lead Developer, Datawire;
-Richard Li, CEO and Co-founder, Datawire
 
 
 Kubernetes has become the de facto runtime for container-based microservice applications, but this orchestration framework alone does not provide all of the infrastructure necessary for running a distributed system. Microservices typically communicate through Layer 7 protocols such as HTTP, gRPC, or WebSockets, and therefore having the ability to make routing decisions, manipulate protocol metadata, and observe at this layer is vital. However, traditional load balancers and edge proxies have predominantly focused on L3/4 traffic. This is where the [Envoy Proxy](https://www.envoyproxy.io/) comes into play.
