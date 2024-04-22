@@ -3,9 +3,9 @@ layout: blog
 title: "Kubernetes 1.24: gRPC container probes in beta"
 date: 2022-05-13
 slug: grpc-probes-now-in-beta
+author: >
+  Sergey Kanzhelev (Google)
 ---
-
-**Author**: Sergey Kanzhelev (Google)
 
 _Update: Since this article was posted, the feature was graduated to GA in v1.27 and doesn't require any feature gates to be enabled.
 
