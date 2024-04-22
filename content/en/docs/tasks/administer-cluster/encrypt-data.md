@@ -715,4 +715,4 @@ To allow automatic reloading, configure the API server to run with:
 ## {{% heading "whatsnext" %}}
 
 * Read about [decrypting data that are already stored at rest](/docs/tasks/administer-cluster/decrypt-data/)
-* Learn more about the [EncryptionConfiguration configuration API (v1)](/docs/reference/config-api/apiserver-encryption.v1/).
+* Learn more about the [EncryptionConfiguration configuration API (v1)](/docs/reference/config-api/apiserver-config.v1/).
