@@ -2,9 +2,9 @@
 layout: blog
 title: "CoreDNS GA for Kubernetes Cluster DNS"
 date: 2018-07-10
+author: >
+  John Belamaric (Infoblox) 
 ---
-
-**Author**: John Belamaric (Infoblox)
 
 **Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2018/06/27/kubernetes-1.11-release-announcement/) on what’s new in Kubernetes 1.11**
 

@@ -3,8 +3,10 @@ title: 'Gardener - The Kubernetes Botanist'
 date: 2018-05-17
 author: rfranzke
 slug: gardener
+author: >
+  [Rafael Franzke](mailto:rafael.franzke@sap.com) (SAP),
+  [Vasu Chandrasekhara](mailto:vasu.chandrasekhara@sap.com) (SAP)
 ---
-**Authors**: [Rafael Franzke](mailto:rafael.franzke@sap.com) (SAP), [Vasu Chandrasekhara](mailto:vasu.chandrasekhara@sap.com) (SAP)
 
 Today, Kubernetes is the natural choice for running software in the Cloud. More and more developers and corporations are in the process of containerizing their applications, and many of them are adopting Kubernetes for automated deployments of their Cloud Native workloads.
 

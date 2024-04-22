@@ -3,9 +3,12 @@ title: "Expanding User Support with Office Hours"
 date: 2018-03-14
 slug: expanding-user-support-with-office-hours
 url: /blog/2018/03/Expanding-User-Support-With-Office-Hours
+author: >
+  [Jorge Castro](https://twitter.com/castrojo)
+  [Ilya Dmitichenko](https://twitter.com/errordeveloper)
 ---
 
-**Today's post is by [Jorge Castro](https://twitter.com/castrojo) and [Ilya Dmitichenko](https://twitter.com/errordeveloper) on Kubernetes office hours.**
+**Today's post is on Kubernetes office hours.**
 
 Today's developer has an almost overwhelming amount of resources available for learning. Kubernetes development teams use [StackOverflow][1], [user documentation][2], [Slack][3], and the [mailing lists][4]. Additionally, the community itself continues to amass an [awesome list][5] of resources.
 

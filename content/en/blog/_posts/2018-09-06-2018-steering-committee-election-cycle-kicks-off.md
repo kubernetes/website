@@ -2,9 +2,11 @@
 layout: blog
 title:  '2018 Steering Committee Election Cycle Kicks Off'
 date:   2018-09-06
+author: >
+  Paris Pittman (Google),
+  Jorge Castro (Heptio),
+  Ihor Dvoretskyi (CNCF)
 ---
-
-**Author**: Paris Pittman (Google), Jorge Castro (Heptio), Ihor Dvoretskyi (CNCF)
 
 Having a clear, definable governance model is crucial for the health of open source projects. For one of the highest velocity projects in the open source world, governance is critical especially for one as large and active as Kubernetes, which is one of the most high-velocity projects in the open source world. A clear structure helps users trust that the project will be nurtured and progress forward. Initially, this structure was laid by the former 7 member bootstrap committee composed of founders and senior contributors with a goal to create the foundational governance building blocks.  
 
