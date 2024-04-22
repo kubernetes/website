@@ -3,12 +3,12 @@ layout: blog
 title: 'Kubernetes 1.30: Multi-Webhook and Modular Authorization Made Much Easier'
 date: 2024-04-26
 slug: multi-webhook-and-modular-authorization-made-much-easier
+author: >
+  [Rita Zhang](https://github.com/ritazh) (Microsoft),
+  [Jordan Liggitt](https://github.com/liggitt) (Google),
+  [Nabarun Pal](https://github.com/palnabarun) (VMware),
+  [Leigh Capili](https://github.com/stealthybox) (VMware)
 ---
-
-**Authors:** [Rita Zhang](https://github.com/ritazh) (Microsoft), [Jordan
-Liggitt](https://github.com/liggitt) (Google), [Nabarun
-Pal](https://github.com/palnabarun) (VMware), [Leigh
-Capili](https://github.com/stealthybox) (VMware)
 
 With Kubernetes 1.30, we (SIG Auth) are moving Structured Authorization
 Configuration to beta.
