@@ -24,6 +24,13 @@ other = "Caution:"
 [cleanup_heading]
 other = "Cleaning up"
 
+# Localization note (no need to translate this note)
+# This is always followed by Chinese text, as required by the Kubernetes
+# project's ICP license, issued by the government of the People's Republic
+# of China.
+[china_icp_license]
+other = "ICP license:"
+
 [community_events_calendar]
 other = "Events Calendar"
 
