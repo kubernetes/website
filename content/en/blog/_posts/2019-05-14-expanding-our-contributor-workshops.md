@@ -3,9 +3,10 @@ layout: blog
 title: "Expanding our Contributor Workshops"
 date: 2019-05-14
 slug: expanding-our-contributor-workshops
+author: >
+  Guinevere Saenger (GitHub),
+  Paris Pittman (Google) 
 ---
-
-**Authors:** Guinevere Saenger (GitHub) and Paris Pittman (Google)
 
 **tl;dr** - learn about the contributor community with us and land your first
 PR! We have spots available in [Barcelona][eu] (registration **closes** on
