@@ -324,6 +324,7 @@ The kubelet has the following default hard eviction thresholds:
 - `nodefs.available<10%`
 - `imagefs.available<15%`
 - `nodefs.inodesFree<5%` (Linux nodes)
+- `imagefs.inodesFree<5%` (Linux nodes)
 -->
 kubelet 具有以下默认硬驱逐条件：
 
@@ -331,6 +332,7 @@ kubelet 具有以下默认硬驱逐条件：
 - `nodefs.available<10%`
 - `imagefs.available<15%`
 - `nodefs.inodesFree<5%`（Linux 节点）
+- `imagefs.inodesFree<5%` (Linux 节点)
 
 <!--
 These default values of hard eviction thresholds will only be set if none
