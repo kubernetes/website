@@ -1,7 +1,7 @@
 ---
 title: রেফারেন্স
-# approvers:
-# - chenopis
+# approvers: 
+# - chenopis  ( The list of approvers is not necessary for the localized version. However, it is included because it helps maintain a certain line break, which further aids in updating a file.That's why it's kept in comment form. )
 linkTitle: "রেফারেন্স"
 main_menu: true
 weight: 70
