@@ -133,8 +133,8 @@ connection.
 src="/images/blog/2019-03-26-kube-proxy-subtleties-debugging-an-intermittent-connection-resets/connection-reset-packet-flow.png"
 caption="Connection reset packet flow">}}
 
-Correction for previous diagram: Destination for packet 5 should be 10.0.1.2:80,
-not 10.0.0.1:80.
+_This article was updated in April 2024 to note an error in the previous diagram:
+the destination for packet 5 should be `10.0.1.2:80`, not `10.0.0.1:80`._
 
 ## How to address it?
 
