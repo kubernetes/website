@@ -41,7 +41,7 @@ to the [Gateway API Versioning Policy](https://gateway-api.sigs.k8s.io/concepts/
 Service mesh support in Gateway API allows service mesh users to use the same
 API to manage ingress traffic and mesh traffic, reusing the same policy and
 routing interfaces. In Gateway API v1.1, routes (such as HTTPRoute) can now have
-a `Service` as a `parentRef`, to control how traffic to specific services behave.
+a Service as a `parentRef`, to control how traffic to specific services behave.
 For more information, read the 
 [service mesh](https://gateway-api.sigs.k8s.io/mesh/) documentation or see the
 list of 
