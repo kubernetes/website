@@ -19,11 +19,10 @@ and other reviewer and release note contributors.
 In the wake of the GA release of Gateway API last October, the Kubernetes
 SIG Network buoyantly announces the v1.1 release
 of [Gateway API](https://gateway-api.sigs.k8s.io/). Gateway API features for
-**GRPCRoute**, **ParentRef Port**, and **Conformance Profiles and Reports** will
-graduate to
-Standard. In addition, **Gateway Client Certificate Verification** and **Session
-Persistence** are adopted as new, Experimental features. **Gateway API for
-Service Mesh (GAMMA)** support, and clarifications to TLS
+**Gateway API for Service Mesh (GAMMA)**, **GRPCRoute**, **ParentRef Port**, 
+and **Conformance Profiles and Reports** will graduate to Standard.
+In addition, **Gateway Client Certificate Verification** and **Session
+Persistence** are adopted as new, Experimental features. Clarifications to TLS
 terminology and gateway merging are added to strengthen the release.
 
 ## What's new
