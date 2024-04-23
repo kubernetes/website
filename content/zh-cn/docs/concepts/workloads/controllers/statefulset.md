@@ -1,5 +1,8 @@
 ---
 title: StatefulSet
+api_metadata:
+- apiVersion: "apps/v1"
+  kind: "StatefulSet"
 content_type: concept
 description: >-
   StatefulSet 运行一组 Pod，并为每个 Pod 保留一个稳定的标识。
@@ -16,6 +19,9 @@ reviewers:
 - kow3ns
 - smarterclayton
 title: StatefulSets
+api_metadata:
+- apiVersion: "apps/v1"
+  kind: "StatefulSet"
 content_type: concept
 description: >-
   A StatefulSet runs a group of Pods, and maintains a sticky identity for each of those Pods. This is useful for managing
