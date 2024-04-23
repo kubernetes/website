@@ -75,7 +75,7 @@ command: ["/bin/echo"]
 args: ["$(MESSAGE)"]
 ```
 
-つまり、[ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/)や[Secrets](/docs/concepts/configuration/secret/)など、環境変数を定義するために利用可能なテクニックのどれを使っても、Podの引数を定義できるということです。
+つまり、[ConfigMap](/ja/docs/tasks/configure-pod-container/configure-pod-configmap/)や[Secret](/ja/docs/concepts/configuration/secret/)など、環境変数を定義するために利用可能なテクニックのどれを使っても、Podの引数を定義できるということです。
 
 {{< note >}}
 環境変数は`"$(VAR)"`という括弧で囲まれて表示されます。これは、`command`や`args`フィールドで変数を展開するために必要です。
