@@ -32,21 +32,21 @@ La herramienta `kubectl` admite tres tipos de administración de objetos:
 Consulta [Administración de objetos de Kubernetes](/docs/concepts/overview/working-with-objects/object-management/)
 para una discusión de las ventajas y desventajas de cada tipo de administración de objetos.
 
-## Cómo crear objetos
+## ¿Cómo crear objetos?
 
 Puede usar `kubectl create -f` para crear un objeto a partir de un archivo de configuración.
 Consulta la [referencia de la API de Kubernetes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
-para detalles.
+para mas detalles.
 
 * `kubectl create -f <filename|url>`
 
-## Cómo actualizar objetos
+## ¿Cómo actualizar objetos?
 
 {{< warning >}}
 La actualización de objetos con el comando `replace` elimina todas las 
 partes de la especificación no especificadas en el archivo de configuración. Esto no debe 
 usarse con objetos cuyas especificaciones son administradas 
-parcialmente por el clúster, como Servicios de tipo `LoadBalancer`, donde el 
+parcialmente por el clúster, como Services de tipo `LoadBalancer`, donde el 
 campo `externalIPs` se administra independientemente del archivo de
 configuración. Los campos administrados de forma independiente deben copiarse en 
 el archivo de configuración para evitar que `replace` los elimine.
@@ -56,7 +56,7 @@ Puedes usar `kubectl replace -f` para actualizar un objeto en activo de acuerdo 
 
 * `kubectl replace -f <filename|url>`
 
-## Cómo eliminar objetos
+## ¿Cómo eliminar objetos?
 
 Puedes usar `kubectl delete -f` para eliminar un objeto que se describe en un
 archivo de configuración.
@@ -72,7 +72,7 @@ kubectl delete <type> -l <label>
 ```
 {{< /note >}}
 
-## Cómo ver un objeto
+## ¿Cómo ver un objeto?
 
 Puedes usar `kubectl get -f` para ver información sobre un objeto que está
 descrito en un archivo de configuración.
@@ -82,8 +82,14 @@ descrito en un archivo de configuración.
 La bandera `-o yaml` especifica que se imprime la configuración completa del objeto. Utiliza `kubectl get -h` para ver una lista de opciones.
 
 ## Limitaciones
+Los comandos `create`, `replace` y `delete` funcionan bien cuando la configuración de cada objeto está completamente definida y registrada en su archivo de configuración. Sin embargo, cuando se actualiza un objeto activo y las actualizaciones no se combinan en su archivo de configuración las actualizaciones se perderán la próxima vez que se ejecute un `replace`. Esto puede suceder si un controlador, como un HorizontalPodAutoscaler, realiza actualizaciones directamente a un objeto en activo. 
+Los comandos `create`, `replace` y `delete` funcionan bien cuando la configuración de cada objeto 
+está completamente definida y registrada en su archivo
+de configuración. Sin embargo, cuando se actualiza un objeto activo y las actualizaciones no se combinan 
+en su archivo de configuración las actualizaciones se perderán la próxima vez que 
+se ejecute un `replace`. Esto puede suceder si un controlador, como un 
+HorizontalPodAutoscaler, realice actualizaciones directamente a un objeto en activo. 
 
-Los comandos `create`, `replace` y `delete` funcionan bien cuando la configuración de cada objeto está completamente definida y registrada en su archivo de configuración. Sin embargo, cuando se actualiza un objeto activo y las actualizaciones no se combinan en su archivo de configuración las actualizaciones se perderán la próxima vez que se ejecute un `replace`. Esto puede suceder si un controlador, como un HorizontalPodAutoscaler, realice actualizaciones directamente a un objeto en activo. 
 
 Ejemplo:
 
@@ -97,7 +103,7 @@ Si necesitas admitir varios escritores en el mismo objeto, puede usar `kubectl a
 ## Crear y editar un objeto desde una URL sin guardar la configuración
 
 Supongamos que tienes la URL de un archivo de configuración de objeto. Puedes usar
-`kubectl create --edit` para realizar cambios en la configuración antes de que el objeto es creado. Esto es particularmente útil para tutoriales y tareas
+1. Exporta el objeto en vivo a un archivo de configuración de objeto local.
 que apuntan a un archivo de configuración que podría ser modificado por el lector.
 
 
@@ -140,7 +146,7 @@ selector:
       controller-selector: "apps/v1/deployment/nginx"
 template:
   metadata:
-    labels:
+* [Referencia de la API de Kubernetes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
       controller-selector: "apps/v1/deployment/nginx"
 ```
 
