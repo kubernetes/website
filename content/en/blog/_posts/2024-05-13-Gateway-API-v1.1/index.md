@@ -44,8 +44,7 @@ routing interfaces. In Gateway API v1.1, routes (such as HTTPRoute) can now have
 a Service as a `parentRef`, to control how traffic to specific services behave.
 For more information, read the 
 [Gateway API service mesh documentation](https://gateway-api.sigs.k8s.io/mesh/) or see the
-list of 
-[implementations](https://gateway-api.sigs.k8s.io/implementations/#service-mesh-implementation-status).
+[list of Gateway API implementations](https://gateway-api.sigs.k8s.io/implementations/#service-mesh-implementation-status).
 As an example, one could do a canary deployment of a workload deep in an application's call graph with an HTTPRoute as follows:
 
 ~~~
