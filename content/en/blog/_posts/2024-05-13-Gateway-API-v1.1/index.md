@@ -46,7 +46,31 @@ For more information, read the
 [service mesh](https://gateway-api.sigs.k8s.io/mesh/) documentation or see the
 list of 
 [implementations](https://gateway-api.sigs.k8s.io/implementations/#service-mesh-implementation-status).
+As an example, one could do a canary deployment of a workload deep in an application's call graph with an HTTPRoute as follows:
 
+~~~
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: color-canary
+  namespace: faces
+spec:
+  parentRefs:
+    - name: color
+      kind: Service
+      group: core
+      port: 80
+  rules:
+  - backendRefs:
+    - name: color
+      port: 80
+      weight: 50
+    - name: color2
+      port: 80
+      weight: 50
+~~~
+      
+This would split traffic sent to the color Service in the faces namespace 50/50 between the original color Service and the color2 Service, using a portable configuration that's easy to move from one mesh to another.
 Leading Contributors: Flynn, John Howard, Keith Mattix, and Mike Morris
 
 #### [GRPCRoute](https://gateway-api.sigs.k8s.io/guides/grpc-routing/)
