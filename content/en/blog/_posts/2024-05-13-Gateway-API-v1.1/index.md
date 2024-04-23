@@ -12,7 +12,7 @@ ParentRef Port - Frank Budinsky (IBM),
 Gateway Client Certificate Validation - Arko Dasgupta (Tetrate),
 GAMMA - John Howard (Solo.io),
 Conformance Profiles and Reports - Mattia Lavacca (Kong), Christine Kim (Isovalent),
-Session Persistence and BackendLBPolicy - Grant Spence (Red Hat)
+Session Persistence and BackendLBPolicy - Grant Spence (Red Hat), Gina Yeh (Google),
 TLS Terminology Clarifications - Candace Holman (Red Hat),
 and other reviewer and release note contributors.
 
