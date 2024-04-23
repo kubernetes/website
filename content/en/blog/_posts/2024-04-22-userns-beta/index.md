@@ -3,9 +3,11 @@ layout: blog
 title: "Kubernetes 1.30: Beta Support For Pods With User Namespaces"
 date: 2024-04-22
 slug: userns-beta
+author: >
+  Rodrigo Campos Catelin (Microsoft),
+  Giuseppe Scrivano (Red Hat),
+  Sascha Grunert (Red Hat) 
 ---
-
-**Authors:** Rodrigo Campos Catelin (Microsoft), Giuseppe Scrivano (Red Hat), Sascha Grunert (Red Hat)
 
 Linux provides different namespaces to isolate processes from each other. For
 example, a typical Kubernetes pod runs within a network namespace to isolate the
