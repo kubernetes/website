@@ -24,9 +24,11 @@
 				{{ partial "navbar-lang-selector.html" . }}
 			</li>
 			{{ end }}
-			<li class="search-item nav-item mr-n4 mr-lg-0">
-				{{ partial "search-input.html" . }}
+			{{- if .Site.Params.top_nav_bar_search -}}
+			<li class="search-item nav-item mr-n4 mr-lg-0 d-none d-lg-block">
+				{{- partial "search-form.html" . }}
 			</li>
+			{{ end }}
 		</ul>
 	</div>
 	<button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
