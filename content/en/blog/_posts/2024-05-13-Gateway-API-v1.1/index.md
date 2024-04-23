@@ -9,7 +9,7 @@ slug: gateway-api-v1-1
 **Authors:** 
 GRPCRoute - Richard Belleville (Google), 
 ParentRef Port - Frank Budinsky (IBM),
-Gateway Client Certificate Validation - Arko Dasgupta (?),
+Gateway Client Certificate Validation - Arko Dasgupta (Tetrate),
 GAMMA - John Howard (Google),
 Conformance Profiles and Reports - Mattia Lavacca (Kong), Christine Kim (?),
 Session Persistence and BackendLBPolicy - Grant Spence (Red Hat)
