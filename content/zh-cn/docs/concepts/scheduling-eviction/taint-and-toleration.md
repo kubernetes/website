@@ -101,9 +101,23 @@ tolerations:
 ```
 
 <!--
-Here's an example of a pod that uses tolerations:
+The default Kubernetes scheduler takes taints and tolerations into account when
+selecting a node to run a particular Pod. However, if you manually specify the
+`.spec.nodeName` for a Pod, that action bypasses the scheduler; the Pod is then
+bound onto the node where you assigned it, even if there are `NoSchedule`
+taints on that node that you selected.
+If this happens and the node also has a `NoExecute` taint set, the kubelet will
+eject the Pod unless there is an appropriate tolerance set.
 -->
-这里是一个使用了容忍度的 Pod：
+默认的 Kubernetes 调度器在选择一个节点来运行特定的 Pod 时会考虑污点和容忍度。
+然而，如果你手动为一个 Pod 指定了 `.spec.nodeName`，那么选节点操作会绕过调度器；
+这个 Pod 将会绑定到你指定的节点上，即使你选择的节点上有 `NoSchedule` 的污点。
+如果这种情况发生，且节点上还设置了 `NoExecute` 的污点，kubelet 会将 Pod 驱逐出去，除非有适当的容忍度设置。
+
+<!--
+Here's an example of a pod that has some tolerations defined:
+-->
+下面是一个定义了一些容忍度的 Pod 的例子：
 
 {{% code_sample file="pods/pod-with-toleration.yaml" %}}
 
