@@ -94,4 +94,4 @@ args: ["-c", "while true; do echo hello; sleep 10;done"]
 
 * [Podとコンテナの設定](/ja/docs/tasks/)についてもっとよく知る
 * [コンテナ内でのコマンド実行](/ja/docs/tasks/debug/debug-application/get-shell-running-container/)についてもっとよく知る
-* [コンテナ](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)を見る
+* [コンテナのAPI](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)を確認する
