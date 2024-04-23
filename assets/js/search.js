@@ -1,45 +1,108 @@
-/*
-Copyright 2018 Google LLC
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-    https://www.apache.org/licenses/LICENSE-2.0
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
+    document.querySelector('html').classList.add('search');
 
-(function ($) {
-  "use strict";
+    document.addEventListener('DOMContentLoaded', function() {
+      let searchTerm = new URLSearchParams(window.location.search).get('q');
+      let fetchingElem = document.getElementById('bing-results-container');
 
-  var Search = {
-    init: function () {
-      $(document).ready(function () {
-        // Fill the search input form with the current search keywords
-        const searchKeywords = new URLSearchParams(location.search).get('q');
-        if (searchKeywords !== null && searchKeywords !== '') {
-          const searchInput = document.querySelector('.td-search-input');
-          searchInput.focus();
-          searchInput.value = searchKeywords;
+      if (!searchTerm) {
+        if (fetchingElem) fetchingElem.style.display = 'none';
+      }
+    });
+
+    window.renderGoogleSearchResults = () => {
+        var cx = '013288817511911618469:elfqqbqldzg';
+        var gcse = document.createElement('script');
+        gcse.type = 'text/javascript';
+        gcse.async = true;
+        gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//cse.google.com/cse.js?cx=' + cx;
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(gcse, s);
+    }
+
+    window.renderPageFindSearchResults = () => {
+        let urlParams = new URLSearchParams(window.location.search);
+        let searchTerm = urlParams.get("q") || "";
+        let sidebarSearch = document.querySelector('.td-sidebar__search');
+        if (sidebarSearch) {
+            sidebarSearch.remove();
+        }
+        document.getElementById('search').style.display = 'block';
+        pagefind = new PagefindUI({ element: "#search", showImages: false });
+        if (searchTerm) {
+            pagefind.triggerSearch(searchTerm);
         }
 
-        // Set a keydown event
-        $(document).on("keypress", ".td-search-input", function (e) {
-          if (e.keyCode !== 13) {
-            return;
-          }
-
-          var query = $(this).val();
-          var searchPage = $(this).data('search-page') + "?q=" + query;
-          document.location = searchPage;
-
-          return false;
+        document.querySelector("#search input").addEventListener("input", function() {
+            var inputValue = this.value;
+            var queryStringVar = "q";
+            updateQueryString(queryStringVar, inputValue);
         });
-      });
-    },
-  };
+    }
 
-  Search.init();
-})(jQuery);
+	function updateQueryString(key, value) {
+		var baseUrl = window.location.href.split("?")[0];
+		var queryString = window.location.search.slice(1);
+		var urlParams = new URLSearchParams(queryString);
+
+		if (urlParams.has(key)) {
+			urlParams.set(key, value);
+		} else {
+			urlParams.append(key, value);
+		}
+
+		var newUrl = baseUrl + "?" + urlParams.toString();
+		// Update the browser history (optional)
+        history.replaceState(null, '', newUrl);
+	}
+
+    // China Verification.
+    var path = "path=/;"
+    d = new Date()
+    d.setTime(d.getTime() + (7 * 24 * 60 * 60 * 1000))
+    expires = "expires=" + d.toUTCString()
+
+    function getCookie(name) {
+        var value = "; " + document.cookie;
+        var parts = value.split("; " + name + "=");
+        if (parts.length == 2) return parts.pop().split(";").shift();
+        else return "";
+    }
+
+    async function checkBlockedSite(url) {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => {
+          controller.abort();
+        }, 5000); // Timeout set to 5000ms (5 seconds)
+      
+        try {
+            const response = await fetch(url, { method: 'HEAD', mode: 'no-cors', signal: controller.signal });
+            // If we reach this point, the site is accessible (since mode: 'no-cors' doesn't allow us to check response.ok)
+            clearTimeout(timeout);
+            return false;
+        } catch (error) {
+            // If an error occurs, it's likely the site is blocked
+            return true;
+        }
+    }
+
+    async function loadSearch() {
+        if (getCookie("can_google") === "") {
+            const isGoogleBlocked = await checkBlockedSite("https://www.google.com/favicon.ico");
+            if ( isGoogleBlocked ) {
+                // Google is blocked.
+                document.cookie = "can_google=false;" + path + expires
+                window.renderPageFindSearchResults()
+            } else {
+                // Google is not blocked.
+                document.cookie = "can_google=true;" + path + expires
+                window.renderGoogleSearchResults()
+            }
+        } else if (getCookie("can_google") == "false") {
+            window.renderPageFindSearchResults()
+        } else {
+            window.renderGoogleSearchResults()
+        }
+    }
+
+    window.onload = loadSearch;
+

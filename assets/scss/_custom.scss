@@ -115,6 +115,23 @@ body.td-home main[role="main"] > section:first-of-type .content p:first-child {
   margin-bottom: 1.5em;
 }
 
+// Style search on main (landing) page
+body.td-home section.k8s-search {
+  margin-left: 0;
+  margin-right: 0;
+  padding: 3rem;
+  padding-left: calc(max(2rem, (100vw - 44rem) / 2));
+  padding-right: calc(max(2rem, (100vw - 44rem) / 2));
+
+  .search-bar {
+    // center align, allocate space
+
+    form input.search-input.td-search-input {
+      max-width: initial;
+    }
+  }
+}
+
 #desktopShowVideoButton {
   border: none
 }
@@ -316,9 +333,39 @@ body.td-404 main .error-details {
   }
 }
 
-input[type="search"]{
+input[type="search"] {
   -moz-box-sizing: border-box;
   width: 100%;
+}
+
+nav .search-bar {
+  &:has(input:focus) {
+    outline: 0.05rem solid $primary;
+  }
+  min-height: calc(max(2em, 2rem));
+  > form {
+    vertical-align: middle;
+
+  }
+}
+.search-bar {
+  padding-left: 0.75em;
+
+  input.search-input:focus {
+    outline: none;
+  }
+}
+
+// suppress search / magnifying glass icon on main page
+.k8s-search .search-bar i.fa {
+  display: none;
+}
+
+.search-bar form input.search-input.td-search-input {
+  max-width: 90%;
+  background: transparent;
+  display: inline-block;
+  padding: 1px;
 }
 
 .flip-nav .search-item {
@@ -333,9 +380,9 @@ input[type="search"]{
   }
 }
 
-@media only screen and (max-width: 1500px) {
+@media only screen and (max-width: 1400px) {
   header nav .search-item {
-    display: none;
+    display: none !important;
   }
 }
 
@@ -1502,7 +1549,7 @@ body.cid-code-of-conduct main {
 }
 
 .td-sidebar__inner {
-  form.td-sidebar__search {
+  div.td-sidebar__search {
 
     .td-sidebar__toggle {
       &:hover {
@@ -1511,6 +1558,10 @@ body.cid-code-of-conduct main {
 
       color: $primary;
       margin: 1rem;
+    }
+
+    .search-bar form > input {
+      padding-left: 1.5em;
     }
   }
 }
@@ -1875,16 +1926,11 @@ div.alert > em.javascript-required {
 }
 
 
-// Adjust Search-bar search-icon
 .search-bar {
-  display: flex;
-  align-items: center;
   background-color: #fff;
   border: 1px solid #4c4c4c;
   border-radius: 20px;
   vertical-align: middle;
-  flex-grow: 1;
-  overflow-x: hidden;
   width: auto;
 
   &:focus-within {
@@ -1893,16 +1939,10 @@ div.alert > em.javascript-required {
   }
 }
 
-.search-bar i.search-icon {
-  padding: .5em .5em .5em .75em;
-  opacity: .75;
-}
-
-.search-input {
+input.search-input {
   flex: 1;
   border: none;
   outline: none;
-  padding: .5em 0 .5em 0;
 }
 
 // PageFind Styles
@@ -1962,6 +2002,9 @@ div.alert > em.javascript-required {
 body.td-search {
   width: 100%; // avoid confusion with other .td-search elements that have a width set
 
+  section.td-search-query {
+    padding: 3rem;
+  }
   #search {
     margin-top: 1rem;
     margin-bottom: 3rem;
