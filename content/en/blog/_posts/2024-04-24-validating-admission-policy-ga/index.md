@@ -3,9 +3,9 @@ layout: blog
 title: "Kubernetes 1.30: Validating Admission Policy Is Generally Available"
 slug: validating-admission-policy-ga
 date: 2024-04-24
+author: >
+  Jiahui Feng (Google)
 ---
-
-**Author:** Jiahui Feng (Google)
 
 On behalf of the Kubernetes project, I am excited to announce that ValidatingAdmissionPolicy has reached
 **general availability**

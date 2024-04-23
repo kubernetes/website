@@ -3,9 +3,9 @@ layout: blog
 title: "Kubernetes 1.30: Preventing unauthorized volume mode conversion moves to GA"
 date: 2024-04-30
 slug: prevent-unauthorized-volume-mode-conversion-ga
+author: >
+  Raunak Pradip Shah (Mirantis)
 ---
-
-**Author:** Raunak Pradip Shah (Mirantis)
 
 With the release of Kubernetes 1.30, the feature to prevent the modification of the volume mode
 of a [PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/) that was created from
