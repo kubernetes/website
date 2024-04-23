@@ -104,7 +104,7 @@ Leading Contributors: Christine Kim, Mattia Lavacca, Shane Utt
 
 ### New Additions to Experimental Channel
 
-#### [Gateway Client Certificate Verification]()
+#### [Gateway Client Certificate Verification](https://gateway-api.sigs.k8s.io/geps/gep-91/)
 
 Gateways can now configure client cert verification for each Gateway Listener by
 introducing a new field `frontendValidation` field within `tls`. This field
@@ -113,10 +113,11 @@ anchor to validate the certificates presented by the client.
 
 Leading Contributor: Arko Dasgupta
 
-#### [Session Persistence and BackendLBPolicy]()
+#### [Session Persistence and BackendLBPolicy](https://gateway-api.sigs.k8s.io/geps/gep-1619/)
 
-Session Persistence is being introduced to Gateway API via a new policy
-(BackendLBPolicy) for Service-level configuration and as fields within HTTPRoute
+[Session Persistence](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io%2fv1.SessionPersistence) is being introduced to Gateway API via a new policy
+([BackendLBPolicy](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1alpha2.BackendLBPolicy))
+for Service-level configuration and as fields within HTTPRoute
 and GRPCRoute for route-level configuration. The BackendLBPolicy and route-level
 APIs provide the same session persistence configuration, including session
 timeouts, session name, session type, and cookie lifetime type.
@@ -180,7 +181,7 @@ To try out the API, follow our [Getting Started Guide](https://gateway-api.sigs.
 There are lots of opportunities to get involved and help define the future of
 Kubernetes routing APIs for both ingress and service mesh.
 
-* Check out the [user guides](https://gateway-api.sigs.k8s.io/v1alpha1/guides/getting-started/) to see what use-cases can be addressed. 
+* Check out the [user guides](https://gateway-api.sigs.k8s.io/guides) to see what use-cases can be addressed. 
 * Try out one of the [existing Gateway controllers ](https://gateway-api.sigs.k8s.io/implementations/)
 * Or [join us in the community](https://gateway-api.sigs.k8s.io/contributing/)
 and help us build the future of Gateway API together!
