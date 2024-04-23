@@ -43,6 +43,9 @@ other = "Forum"
 [community_github_name]
 other = "GitHub"
 
+[community_server_fault_name]
+other = "Server Fault"
+
 [community_slack_name]
 other = "Slack"
 
@@ -50,7 +53,10 @@ other = "Slack"
 other = "Stack Overflow"
 
 [community_twitter_name]
-other = "Twitter"
+other = "X (formerly Twitter)"
+
+[community_x_name]
+other = "X (formerly Twitter)"
 
 [community_youtube_name]
 other = "YouTube"
