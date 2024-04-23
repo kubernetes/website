@@ -99,7 +99,7 @@ timeouts, session name, session type, and cookie lifetime type.
 
 Leading Contributors: Grant Spence, Gina Yeh
 
-#### [TLS Terminology Clarifications]()
+#### [TLS Terminology Clarifications](https://gateway-api.sigs.k8s.io/geps/gep-2907/)
 
 As part of a broader goal of making our TLS terminology more consistent
 throughout the API, we've introduced some breaking changes to BackendTLSPolicy.
