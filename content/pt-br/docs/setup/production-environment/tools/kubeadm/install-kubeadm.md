@@ -51,7 +51,7 @@ que forneça os símbolos esperados.
 
 Se você possuir mais de um adaptador de rede, e seus componentes Kubernetes não forem acessíveis através da rota padrão, recomendamos adicionar o IP das rotas para que os endereços do cluster Kubernetes passem pelo adaptador correto.
 
-## Verifique as portas necessárias
+## Verifique as portas necessárias {#check-required-ports}
 
 Essas [portas necessárias](/docs/reference/networking/ports-and-protocols/)
 precisam estar abertas para que os componentes do Kubernetes se comuniquem entre si.
