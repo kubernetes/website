@@ -23,7 +23,7 @@ entering Beta, and 10 have graduated to Alpha.
 
 Kubernetes v1.30: *Uwubernetes*
 
-{{< figure src="/images/blog/2024-04-17-kubernetes-1.30-release/k8s-1.30.png" alt="Kubernetes 1.30 Uwubernetes logo" class="release-logo" >}}
+{{< figure src="/images/blog/2024-04-17-kubernetes-1.30-release/k8s-1.30.png" alt="Kubernetes v1.30 Uwubernetes logo" class="release-logo" >}}
 
 Kubernetes v1.30 makes your clusters cuter!
 
@@ -58,7 +58,7 @@ disabled.
 
 ### Prevent unauthorized volume mode conversion during volume restore ([SIG Storage](https://github.com/kubernetes/community/tree/master/sig-storage))
 
-For Kubernetes 1.30, the control plane always prevents unauthorized changes to volume modes when
+For Kubernetes v1.30, the control plane always prevents unauthorized changes to volume modes when
 restoring a snapshot into a PersistentVolume. As a cluster administrator, you'll need to grant
 permissions to the appropriate identity principals (for example: ServiceAccounts representing a
 storage integration) if you need to allow that kind of change at restore time.
@@ -216,11 +216,11 @@ option. The slower legacy behavior requires the container runtime to recursively
 whole volumes and apply SELinux labelling individually to each file and directory; this is
 especially noticable for volumes with large amount of files and directories.
 
-Kubernetes 1.27 graduated this feature as beta, but limited it to ReadWriteOncePod volumes. The
+Kubernetes v1.27 graduated this feature as beta, but limited it to ReadWriteOncePod volumes. The
 corresponding feature gate is `SELinuxMountReadWriteOncePod`. It's still enabled by default and
-remains beta in 1.30.
+remains beta in v1.30.
 
-Kubernetes 1.30 extends support for SELinux mount option to **all** volumes as alpha, with a
+Kubernetes v1.30 extends support for SELinux mount option to **all** volumes as alpha, with a
 separate feature gate: `SELinuxMount`. This feature gate introduces a behavioral change when
 multiple Pods with different SELinux labels share the same volume. See
 [KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/1710-selinux-relabeling#behavioral-changes)
@@ -332,16 +332,16 @@ available since v1.25, is recommended instead.
 
 ## Release notes
 
-Check out the full details of the Kubernetes 1.30 release in our [release
+Check out the full details of the Kubernetes v1.30 release in our [release
 notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md).
 
 ## Availability
 
-Kubernetes 1.30 is available for download on
+Kubernetes v1.30 is available for download on
 [GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.30.0). To get started with
 Kubernetes, check out these [interactive tutorials](/docs/tutorials/) or run
 local Kubernetes clusters using [minikube](https://minikube.sigs.k8s.io/). You can also easily
-install 1.30 using [kubeadm](/docs/setup/independent/create-cluster-kubeadm/). 
+install v1.30 using [kubeadm](/docs/setup/independent/create-cluster-kubeadm/). 
 
 ## Release team
 
