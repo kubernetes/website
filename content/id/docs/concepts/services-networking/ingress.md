@@ -464,7 +464,7 @@ soal perubahan berbagai kontroler.
 Kamu dapat mengekspos sebuah *Service* dalam berbagai cara, tanpa harus menggunakan *resource* Ingress, dengan menggunakan:
 
 * [Service.Type=LoadBalancer](/id/docs/concepts/services-networking/service/#loadbalancer)
-* [Service.Type=NodePort](/id/docs/concepts/services-networking/service/#nodeport)
+* [Service.Type=NodePort](/id/docs/concepts/services-networking/service/#type-nodeport)
 * [Port Proxy](https://git.k8s.io/contrib/for-demos/proxy-to-service)
 
 
