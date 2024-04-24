@@ -1,0 +1,110 @@
+---
+title: Sử dụng Minikube để tạo một Cluster
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="vi">
+
+<body>
+
+    <link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+      <div class="col-md-8">
+          <h3>Mục tiêu</h3>
+                <ul>
+                    <li>Tìm hiểu Kubernetes cluster là gì?</li>
+                    <li>Tìm hiểu Minikube là gì?</li>
+                    <li>Khởi tạo một Kubernetes cluster sử dụng terminal trực tuyến.</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+                <h3>Kubernetes Clusters</h3>
+                <p>
+                <p>
+                <b>Kubernetes kết nối và điều phối các máy tính trong một cluster để chúng có thể hoạt động như một đơn vị thống nhất (unit).</b> Nó cho phép bạn triển khai các ứng dụng trên Container mà không cần phải bận tâm chúng sẽ được khởi chạy trên chiếc máy tính cụ thể nào trong cluster. Để sử dụng mô hình triển khai của Kubernetes, các ứng dụng cần được đóng gói theo một cách linh động và không phụ thuộc vào từng máy tính cụ thể (host): tức là các ứng dụng được Container hóa. Các ứng dụng dạng Container có được sự khả chuyển và sẵn sàng cao hơn các mô hình triển khai được sử dụng trong quá khứ, ở đó chúng được cài đặt trực tiếp trên các máy tính cụ thể và gắn chặt với các bộ thư viện trên đó. Kubernetes phân bổ và điều phối các ứng dụng hoàn toàn tự động xuyên suốt cluster theo một cách hiệu quả. Ngoài ra Kubernetes là mã nguồn mở và sẵn sàng để sử dụng trong môi trường triển khai thực tế (production).
+                </p>
+                
+                <p>Một Kubernetes cluster bao gồm 2 loại tài nguyên:
+                    <ul>
+                        <li>Node <b>Master</b> làm nhiệm vụ quản lý toàn cluster.</li>
+                        <li>Các <b>Node</b> còn lại khởi chạy các ứng dụng trực tiếp trên đó là các <b>Worker</b>.</li>
+                    </ul>
+                </p>
+            </div>
+
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>Tổng kết:</h3>
+                    <ul>
+                        <li>Kubernetes cluster</li>
+                        <li>Minikube</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <p><i>
+                        Kubernetes là một bộ công cụ mã nguồn mở, đáp ứng tiêu chuẩn triển khai thực tế, làm nhiệm vụ điều phối và khởi chạy các ứng dụng dạng Container bên trong một cluster hoặc thậm chí xuyên suốt nhiều cluster.
+                    </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">Mô hình Cluster</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_01_cluster.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><b>Node Master chịu trách nhiệm quản lý cluster.</b> Nó quản lý toàn bộ các hoạt động bên trong cluster, như là việc khởi chạy các ứng dụng, kiểm soát chúng để chắc chắn chúng luôn ở các trạng thái như mong muốn, thay đổi khả năng đáp ứng của chúng (scaling), hoặc triển khai các phiên bản nâng cấp theo thời gian.</p>
+                <p><b>Một Node có thể là một máy ảo (VM) hoặc một máy tính vật lý làm việc với vai trò cung cấp khả năng tính toán cho cluster.</b> Mỗi Node có một chương trình chạy thường trực bên trong tên là Kubelet, làm nhiệm vụ quản lý Node và duy trì kết nối với node Master. Mỗi Node bên cạnh đó còn chạy các chương trình dùng để khởi chạy và quản lý các Container như Docker hay rkt. Mỗi một Kubernetes cluster được triển khai trong thực tế khai thác thường có ít nhất 3 node thuộc 2 loại như bên trên.</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i>Master quản lý cluster và các Node đóng vai trò chạy các ứng dụng Container.</i></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p>Khi bạn triển khai các ứng dụng trên Kubernetes, bạn yêu cầu node Master phân bổ và khởi chạy các ứng dụng của bạn. Node Master tiếp đó tính toán để tìm ra các Node nào thích hợp cho việc triển khai ứng dụng. Các Node trong cluster kết nối và giao tiếp với nhau theo bộ qui tắc Kubernetes API do node Master đưa ra. Quản trị viên hoặc người sử dụng đầu cuối cũng có thể sử dụng bộ qui tắc này để tương tác trực tiếp với một cluster.</p>
+
+                <p>Một Kubernetes cluster có thể được xây dựng trên các máy tính vật lý hoặc các máy ảo. Để bắt đầu việc phát triển cho Kubernetes, bạn có thể sử dụng Minikube. Minikube là một bộ cài đặt Kubernetes bằng cách tạo ra một máy ảo trên máy tính của bạn và triển khai một cluster đơn giản bên trong máy ảo đó chỉ bao gồm một Node. Minikube có cho Linux, macOS, và Windows. Minikube CLI, một bộ công cụ dòng lệnh, cung cấp khả năng điều khiển cluster cho người sử dụng, như chạy, dừng chạy, xem trạng thái, hoặc xóa một thành phần trong cluster. Trong bài hướng dẫn này, bạn sẽ sử dụng một giao diện terminal trực tuyến với Minikube đã được cài đặt sẵn để thao tác.</p>
+
+                <p>Giờ bạn đã biết Kubernetes là gì, hãy tiếp tục với phần tương tác và tạo ra cluster đầu tiên!</p>
+
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/create-cluster/cluster-interactive/" role="button">Bắt đầu hướng dẫn tương tác <span class="btn__next"></span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

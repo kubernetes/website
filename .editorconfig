@@ -1,0 +1,23 @@
+[*]
+end_of_line = lf
+insert_final_newline = false
+charset = utf-8
+max_line_length = 80
+trim_trailing_whitespace = true
+
+[*.md]
+trim_trailing_whitespace = false
+
+[*.{css,html,js,json,sass,md,mmark,toml,yaml}]
+indent_style = space
+indent_size = 2
+
+[*.{sh}]
+indent_style = space
+indent_size = 4
+
+[*.{yaml}]
+insert_final_newline = true
+
+[Makefile]
+indent_style = tab

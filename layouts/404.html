@@ -1,0 +1,14 @@
+{{ define "main" }}
+{{ partial "handle-version-switch-404.html" . }}
+<section id="error-404" class="error-details">
+    <p>
+    {{ T "error_404_were_you_looking_for" }}
+    </p>
+    <ul id="error-sections">
+        {{ $sections := slice "docs" "blog" "training" "partners" "community" "case-studies" }}
+        {{ range $sections }}
+        {{ with site.GetPage "section" . }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}
+        {{ end }}
+    </ul>
+</section>
+{{ end }}

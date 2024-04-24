@@ -1,0 +1,67 @@
+{{ $helpers := .Get "helpers" }}
+{{ if not (or (eq $helpers true) (eq $helpers false)) }}
+  {{ errorf "must set helpers to a boolean" }}
+{{ else }}
+<!-- CNCF Landscape helpers -->
+
+{{ if $helpers }}
+<script>
+function updateLandscapeSource(button,shouldUpdateFragment) {
+  console.log({button: button,shouldUpdateFragment: shouldUpdateFragment});
+  try {
+    if(shouldUpdateFragment) {
+      window.location.hash = "#"+button.id;
+      // hash change handler will call us again with shouldUpdateFragment set false
+    } else {
+      var landscapeElements = document.querySelectorAll("#landscape");
+      let categories=button.dataset.landscapeTypes;
+      let link = "https://landscape.cncf.io/card-mode?category="+encodeURIComponent(categories)+"&grouping=category&embed=yes";
+      landscapeElements[0].src = link;
+    }
+  }
+  catch(err) {
+    console.log({message: "error handling Landscape switch", error: err})
+  }
+}
+
+// Automatically load the correct iframe based on the URL fragment
+document.addEventListener("DOMContentLoaded", function () {
+  let hashChangeHandler = () => {
+    if (window.location.hash) {
+      let selectedTriggerElements = document.querySelectorAll(".landscape-trigger"+window.location.hash);
+      if (selectedTriggerElements.length == 1) {
+        landscapeSource = selectedTriggerElements[0];
+        console.log("Updating Landscape source based on fragment:", window
+          .location
+          .hash
+          .substring(1));
+        updateLandscapeSource(landscapeSource,false);
+      }
+    }
+  }
+  var landscapeTriggerElements = document.querySelectorAll(".landscape-trigger");
+  landscapeTriggerElements.forEach(element => {
+    element.onclick = function() {
+        updateLandscapeSource(element,true);
+    };
+  });
+  var landscapeDefaultElements = document.querySelectorAll(".landscape-trigger.landscape-default");
+  if (landscapeDefaultElements.length == 1) {
+    let defaultLandscapeSource = landscapeDefaultElements[0];
+    updateLandscapeSource(defaultLandscapeSource,false);
+  }
+  window.addEventListener("hashchange", hashChangeHandler, false);
+  /* handle initially-set fragment */
+  hashChangeHandler();
+});
+</script>
+{{- end -}}
+<div id="frameHolder">
+  {{ if ( .Get "category" ) }}
+  <iframe frameborder="0" id="landscape" scrolling="no" src="https://landscape.cncf.io/card-mode?category={{ .Get "category" }}&grouping=category&embed=yes" style="width: 1px; min-width: 100%"></iframe>
+  {{ else }}
+  <iframe frameborder="0" id="landscape" scrolling="no" src="https://landscape.cncf.io/card-mode?embed=yes" style="width: 1px; min-width: 100%" title="CNCF Landscape"></iframe>
+  {{ end }}
+  <script src="https://landscape.cncf.io/iframeResizer.js"></script>
+</div>
+{{- end -}}

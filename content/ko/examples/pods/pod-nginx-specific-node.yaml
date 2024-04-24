@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  nodeName: foo-node # 특정 노드에 파드 스케줄
+  containers:
+  - name: nginx
+    image: nginx
+    imagePullPolicy: IfNotPresent

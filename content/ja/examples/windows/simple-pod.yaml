@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: iis
+  labels:
+    name: iis
+spec:
+  containers:
+    - name: iis
+      image: microsoft/iis:windowsservercore-1709
+      ports:
+        - containerPort: 80
+  nodeSelector:
+    "beta.kubernetes.io/os": windows

@@ -1,0 +1,24 @@
+<div id="docsToc">
+     <div class="pi-accordion">
+    	{{/* This can be any page in the docs tree. Need to find the correct ancestor. 
+                  In a roundabout way. This will improve when Go templates gets assignment and break support (both in Go 1.11).
+         */}}
+        {{ $p := . }}
+        {{ .Scratch.Set "section" .CurrentSection }}
+        {{ .Scratch.Set "sectionFound" false }}
+        {{ $docs := site.GetPage "section" "docs" }}
+        {{ if ne .CurrentSection $docs }}
+         {{ range $docs.Sections }}
+             {{ if not ($.Scratch.Get "sectionFound") }}
+                 {{ if $p.IsDescendant . }}
+                          {{ $.Scratch.Set "section" . }}
+                          {{ $.Scratch.Set "sectionFound" true }}
+                 {{ end }}
+             {{ end }}
+         {{ end }}
+         {{ end }}
+        {{ $section := (.Scratch.Get "section") }}
+        {{ partialCached "tree.html" $section $section.RelPermalink }}
+     </div> <!-- /pi-accordion -->
+    <button class="push-menu-close-button" onclick="kub.toggleToc()"></button>
+</div> <!-- /docsToc -->

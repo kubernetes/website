@@ -1,0 +1,8 @@
+repos:
+- name: kubernetes
+  remote: https://github.com/kubernetes/kubernetes.git
+  branch: master
+  gen-absolute-links: true
+  files:
+  - src: CHANGELOG-1.17.md
+    dst: content/en/docs/setup/release/notes.md

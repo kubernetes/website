@@ -1,0 +1,13 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+# Localized strings for Korean.
+# Teams and members are visible at https://github.com/orgs/kubernetes/teams.
+
+reviewers:
+- sig-docs-ko-reviews
+
+approvers:
+- sig-docs-ko-owners
+
+labels:
+- language/ko

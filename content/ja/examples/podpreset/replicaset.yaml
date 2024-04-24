@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      role: frontend
+    matchExpressions:
+      - {key: role, operator: In, values: [frontend]}
+  template:
+    metadata:
+      labels:
+        app: guestbook
+        role: frontend
+    spec:
+      containers:
+      - name: php-redis
+        image: gcr.io/google_samples/gb-frontend:v3
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        env:
+          - name: GET_HOSTS_FROM
+            value: dns
+        ports:
+          - containerPort: 80

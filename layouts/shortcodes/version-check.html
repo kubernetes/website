@@ -1,0 +1,6 @@
+{{ $minVersion := .Page.Param "min-kubernetes-server-version" }}
+{{ if eq $minVersion (.Page.Param "version")  }}
+{{ T "version_check_mustbe" }}{{ $minVersion }}.
+{{ else if $minVersion}}
+{{ T "version_check_mustbeorlater" }}{{ $minVersion }}.
+{{ end }} {{ T "version_check_tocheck" }}<code>kubectl version</code>.

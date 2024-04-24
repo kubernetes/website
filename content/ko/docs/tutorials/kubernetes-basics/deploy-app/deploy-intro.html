@@ -1,0 +1,124 @@
+---
+title: kubectl을 사용해서 디플로이먼트 생성하기
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="ko">
+
+<body>
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+            <div class="col-md-8">
+                <h3>목표</h3>
+                <ul>
+                    <li>애플리케이션 디플로이먼트(Deployment)에 대해 배운다.</li>
+                    <li>kubectl로 첫 애플리케이션을 쿠버네티스에 배포한다.</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+                <h3>쿠버네티스 디플로이먼트</h3>
+                <p>
+                    일단 쿠버네티스 클러스터를 구동시키면, 그 위에 컨테이너화된 애플리케이션을 배포할 수 있다.
+                    그러기 위해서, 쿠버네티스 <b>디플로이먼트</b> 설정을 만들어야 한다. 디플로이먼트는 쿠버네티스가
+                    애플리케이션의 인스턴스를 어떻게 생성하고 업데이트해야 하는지를 지시한다. 디플로이먼트가 만들어지면,
+                    쿠버네티스 컨트롤 플레인이 해당 디플로이먼트에 포함된 애플리케이션 인스턴스가 클러스터의 개별 노드에서 실행되도록 스케줄한다.
+                </p>
+
+                <p>애플리케이션 인스턴스가 생성되면, 쿠버네티스 디플로이먼트 컨트롤러는 지속적으로 이들 인스턴스를
+                    모니터링한다. 인스턴스를 구동 중인 노드가 다운되거나 삭제되면, 디플로이먼트 컨트롤러가 인스턴스를
+                    클러스터 내부의 다른 노드의 인스턴스로 교체시켜준다.<b>이렇게 머신의 장애나 정비에 대응할 수 있는 자동 복구(self-healing) 메커니즘을
+                    제공한다.</b></p>
+
+                <p>오케스트레이션 기능이 없던 환경에서는, 설치 스크립트가 애플리케이션을 시작하는데 종종 사용되곤
+                    했지만, 머신의 장애가 발생한 경우 복구를 해주지는 않았다. 쿠버네티스 디플로이먼트는 애플리케이션
+                    인스턴스를 생성해주고 여러 노드에 걸쳐서 지속적으로 인스턴스가 구동되도록 하는 두 가지를 모두
+                    하기 때문에 애플리케이션 관리를 위한 접근법에서 근본적인 차이를 가져다준다.</p>
+
+            </div>
+
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>요약:</h3>
+                    <ul>
+                        <li>디플로이먼트</li>
+                        <li>Kubectl</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <p><i>
+                        디플로이먼트는 애플리케이션 인스턴스를 생성하고 업데이트하는 역할을 담당한다.
+                    </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">쿠버네티스에 첫 번째 애플리케이션 배포하기</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_02_first_app.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <p><b>Kubectl</b>이라는 쿠버네티스 CLI를 통해 디플로이먼트를 생성하고 관리할 수 있다.
+                    Kubectl은 클러스터와 상호 작용하기 위해 쿠버네티스 API를 사용한다. 이 모듈에서는, 쿠버네티스
+                    클러스터 상에 애플리케이션을 구동시키는 디플로이먼트를 생성하기 위해 필요한 가장 일반적인 Kubectl
+                    명령어를 배우게 된다.</p>
+
+                <p>디플로이먼트를 생성할 때, 애플리케이션에 대한 컨테이너 이미지와 구동시키고자 하는 복제 수를 지정해야
+                    한다. 디플로이먼트를 업데이트해서 이런 정보를 나중에 변경할 수 있다. 모듈
+                    <a href="/ko/docs/tutorials/kubernetes-basics/scale/scale-intro/">5</a>와 <a href="/ko/docs/tutorials/kubernetes-basics/update/update-intro/">6</a>의 부트캠프에서 어떻게
+                    스케일하고 업데이트하는지에 대해 다룬다.</p>
+
+
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i> 애플리케이션이 쿠버네티스 상에 배포되려면 지원되는 컨테이너 형식 중 하나로 패키지 되어야한다.
+                    </i></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p>
+                  첫 번째 디플로이먼트로, NGINX를 사용해 모든 요청을 에코(echo)하는 도커 컨테이너로 패키지한 hello-node 애플리케이션을 사용해보자. (아직 hello-node 애플리케이션을 작성하고 컨테이너를 활용해서 배포해보지 않았다면, <a href="/ko/docs/tutorials/hello-minikube/">Hello Minikube 튜토리얼</a>의 지시를 따른다.)
+                <p>
+
+                 <p>이제 디플로이먼트를 이해했으니, 온라인 튜토리얼을 통해 우리의 첫 번째 애플리케이션을 배포해보자!</p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/ko/docs/tutorials/kubernetes-basics/deploy-app/deploy-interactive/"
+                   role="button">대화형 튜토리얼 시작하기 <span class="btn__next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

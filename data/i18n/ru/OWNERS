@@ -1,0 +1,13 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+# Localized strings for Russian.
+# Teams and members are visible at https://github.com/orgs/kubernetes/teams.
+
+reviewers:
+- sig-docs-ru-reviews
+
+approvers:
+- sig-docs-ru-owners
+
+labels:
+- language/ru

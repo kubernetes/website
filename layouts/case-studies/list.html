@@ -1,0 +1,81 @@
+{{ define "main" }}
+{{ $pages := .Pages }}
+{{ with site.Params.language_alternatives }}
+{{ range . }}
+       {{ with (where $.Translations ".Lang" . ) }}
+       {{ $p := index . 0 }}
+       {{ $pages = $pages | lang.Merge $p.Pages }}
+       {{ end }}
+{{ end }}
+{{ end }}
+{{ $featured := (where $pages "Params.featured" true).ByWeight | first 4 }}
+<section id="mainContent">
+	<div class="main-section">
+		<div class="content">
+		{{ partial "deprecation-warning.html" . }}
+			<div class="case-studies">
+				{{ range $featured }}
+				{{ template "case-study-featured-block" (dict "ctx" $ "page" .) }}
+				{{ end }}
+			</div>
+		</div>
+	</div>
+</section>
+{{ $featuredVideos := where .Pages ".Params.video" "!=" nil }}
+{{ with $featuredVideos }}
+{{ with index $featuredVideos 0 }}
+{{ $altText := .LinkTitle }}
+<section id="video">
+	<div class="main-section">
+		<div>
+			<h4><i>"{{ .Params.quote | html }}"</i></h4>
+			{{ $img := .Resources.GetMatch "video.png" }}
+			{{ $small := .Resources.GetMatch "**small*.svg" }}
+			{{ with $small }}<img height="60px" src="{{ .RelPermalink }}" alt="{{ $altText }}">{{ end }}
+		</div>
+		<div style= "padding-left: 40px;"><button onclick="kub.showVideo()">{{ with $img }}<img src="{{ .RelPermalink }}" alt="Box video">{{ end }}<h6>Kubernetes at Box</h6></button></div>
+	</div>
+	<div id="videoPlayer">
+		<iframe data-url="{{ .Params.video | safeURL }}" frameborder="0" allowfullscreen="true"></iframe>
+		<button id="closeButton"></button>
+	</div>
+</section>
+{{ end }}
+{{ end }}
+<section id="users">
+	<div class="main-section">
+		<h3>{{ .Title }}</h3>
+		<div id="usersGrid">
+			{{ range $pages.ByTitle }}
+			{{ $logo := .Resources.GetMatch "**{feature,logo}*.svg" }}
+			{{ if not $logo }}
+				{{ $logo = .Resources.GetMatch "**logo*.png" }}
+			{{ end }}
+			{{ $p := . }}
+			<a target="_blank" href="{{ with $p.Params.content_url }}{{ . | safeURL }}{{ else }}{{ .RelPermalink }}{{ end }}">
+			{{ with $logo }}
+				<img src="{{ .RelPermalink }}" width="215px" height="127px" alt="{{ $p.LinkTitle }}">
+			{{ else }}
+				{{ errorf "Case Studies: Missing logo for %s. Put a PNG or SVG with the word 'logo' in the filename into %q" $p.LinkTitle $p.File.Dir }}
+			{{ end }}
+			</a>
+			{{ end }}
+			<a target="_blank" href="https://docs.google.com/a/google.com/forms/d/e/1FAIpQLScuI7Ye3VQHQTwBASrgkjQDSS5TP0g3AXfFhwSM9YpHgxRKFA/viewform" class="tell-your-story"><img height="127px"src="/images/case-studies/story.svg" alt="{{ T "layouts_case_studies_list_tell" }}"></a>
+		</div>
+	</div>
+</section>
+{{ .Content }}
+{{ end }}
+{{ define "case-study-featured-block" }}
+{{ $isForeignLanguage := (ne .page.Lang .ctx.Lang)}}
+{{ $logo := .page.Resources.GetMatch "**{feature,logo}*.svg" }}
+{{ $altText := .page.LinkTitle}}
+<div class="case-study">
+	{{ with $logo }}<img src="{{ .RelPermalink }}" alt="{{ $altText }}">{{ end }}
+	<p class="quote">"{{ .page.Params.quote | html }}"</p>
+	<a href="{{ .page.RelPermalink }}"{{ if $isForeignLanguage }} target="_blank"{{ end }}>{{ T "main_read_about"}} {{ .page.LinkTitle }}</a>
+</div>
+{{ end }}
+{{ define "announcement" }}
+<!-- skip announcement -->
+{{ end }}

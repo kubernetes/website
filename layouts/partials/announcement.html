@@ -1,0 +1,34 @@
+{{ $dateRegExp := "^[0-9]{4}-1[0-2]|0[1-9]-(?:3[01]|0[1-9]|[12][0-9])T(?:2[0-3]|[01][0-9]):(?:[0-5][0-9]):(?:60|[0-5][0-9])$" }}
+{{ $announcementShown := false }}
+{{ range $.Site.Data.announcements }}
+  {{ range .announcements }}
+  {{ if or ( eq .endTime nil ) ( eq .message nil ) }}
+    {{ errorf "Invalid announcement: %#v" . }}
+  {{ end }}
+  {{ if and (ne .startTime nil ) (lt ( len ( findRE $dateRegExp .startTime ) ) 1 ) }}
+    {{ errorf "Invalid announcement start time: %#v" .startTime }}
+  {{ end }}
+  {{ if lt ( len ( findRE $dateRegExp .endTime ) ) 1 }}
+    {{ errorf "Invalid announcement end time: %#v" .endTime }}
+  {{ end }}
+  {{ if or (eq .startTime nil ) (lt ( time .startTime ) now ) }}
+    {{- if or (eq .endTime nil ) (gt ( time .endTime ) now ) -}}
+      {{- if not $announcementShown -}}
+      {{- $announcementShown = true -}}
+  <div lang="en" id="announcement" style="background-color: #3371e3; color: #fff; {{ .style | safeCSS }}">
+    <aside>
+      <div class="announcement-main" data-nosnippet>
+        {{ if .title }}
+        <h4>
+            {{ .title | markdownify }}
+        </h4>
+        {{ end }}
+        <p>{{ .message | markdownify }}</p>
+      </div>
+    </aside>
+  </div>
+      {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{ end }}
+{{ end }}

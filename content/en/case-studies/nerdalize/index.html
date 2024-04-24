@@ -1,0 +1,81 @@
+---
+title: Prowise Case Study
+linkTitle: prowise
+case_study_styles: true
+cid: caseStudies
+featured: false
+
+new_case_study_styles: true
+heading_background: /images/case-studies/nerdalize/banner1.jpg
+heading_title_logo: /images/nerdalize_logo.png
+subheading: >
+  Nerdalize: Providing Affordable and Sustainable Cloud Hosting with Kubernetes
+case_study_details:
+  - Company: Nerdalize
+  - Location: Delft, Netherlands
+  - Industry: Cloud Provider
+---
+
+<h2>Challenge</h2>
+
+<p>Nerdalize offers affordable cloud hosting for customers—and free heat and hot water for people who sign up to house the heating devices that contain the company's servers. The savings Nerdalize realizes by not running data centers are passed on to its customers. When the team began using Docker to make its software more portable, it realized it also needed a container orchestration solution. "As a cloud provider, we have internal services for hosting our backends and billing our customers, but we also need to offer our compute to our end users," says Digital Product Engineer Ad van der Veer. "Since we have these heating devices spread across the Netherlands, we need some way of tying that all together."</p>
+
+<h2>Solution</h2>
+
+<p>After briefly using a basic scheduling setup with another open source tool, Nerdalize switched to Kubernetes. "On top of our heating devices throughout the Netherlands, we have a virtual machine layer, and on top of that we run Kubernetes clusters for our customers," says van der Veer. "As a small company, we have to provide a rock solid story in terms of the technology. Kubernetes allows us to offer a hybrid solution: 'You can run this on our cloud, but you can run it on other clouds as well. It runs in your internal hardware if you like.' And together with the Docker image standard and our multi-cloud dashboard, that allows them peace of mind."</p>
+
+<h2>Impact</h2>
+
+<p>Nerdalize prides itself on being a Kubernetes-native cloud provider that charges its customers prices 40% below that of other cloud providers. "Every euro that we have to invest for licensing of software that's not open source comes from that 40%," says van der Veer. If they had used a non-open source orchestration platform instead of Kubernetes, "that would reduce this proposition that we have of 40% less cost to like 30%. Kubernetes directly allows us to have this business model and this strategic advantage." Nerdalize customers also benefit from time savings: One went from spending a day to set up VMs, network, and software, to spinning up a Kubernetes cluster in minutes. And for households using the heating devices, they save an average of 200 euro a year on their heating bill. The environmental impact? The annual reduction in CO2 emissions comes out to be 2 tons per Nerdalize household, which is equivalent to a car driving 8,000 km.</p>
+
+{{< case-studies/quote author="AD VAN DER VEER, PRODUCT ENGINEER, NERDALIZE" >}}
+"We can walk into a boardroom and put a Kubernetes logo up, and people accept it as an established technology. It becomes this centerpiece where other cloud native projects can tie in, so there's a network effect that each project empowers each other. This is something that has a lot of value when we have to talk to customers and convince them that our cloud fits their needs."
+{{< /case-studies/quote >}}
+
+{{< case-studies/lead >}}
+Nerdalize is a cloud hosting provider that has no data centers. Instead, the four-year-old startup places its servers in homes across the Netherlands, inside heating devices it developed to turn the heat produced by the servers into heating and hot water for the residents.
+{{< /case-studies/lead >}}
+
+<p>"Households save on their gas bills, and cloud users have a much more sustainable cloud solution," says Maaike Stoops, Customer Experience Queen at Nerdalize. "And we don't have the overhead of building a data center, so our cloud is up to 40% more affordable."</p>
+
+<p>That business model has been enabled by the company's adoption of containerization and Kubernetes. "When we just got started, Docker was just introduced," says Digital Product Engineer Ad van der Veer. "We began with a very basic bare metal setup, but once we developed the business, we saw that containerization technology was super useful to help our customers. As a cloud provider, we have internal services for hosting our backends and billing our customers, but we also need to offer our compute to our end users. Since we have these heating devices spread across the Netherlands, we need some way of tying that all together."</p>
+
+<p>After trying to develop its own scheduling system using another open source tool, Nerdalize found Kubernetes. "Kubernetes provided us with more functionality out of the gate," says van der Veer.</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/nerdalize/banner3.jpg"
+  author="AD VAN DER VEER, PRODUCT ENGINEER, NERDALIZE"
+>}}
+"We always try to get a working version online first, like minimal viable products, and then move to stabilize that," says van der Veer. "And I think that these kinds of day-two problems are now immediately solved. The rapid prototyping we saw internally is a very valuable aspect of Kubernetes."
+{{< /case-studies/quote >}}
+
+<p>The team first experimented with a basic use case to run customers' workloads on Kubernetes. "Getting the data working was kind of difficult, and at the time the installation wasn't that simple," says van der Veer. "Then CNCF started, we saw the community grow, these problems got solved, and from there it became a very easy decision."</p>
+
+<p>The first Nerdalize product that was launched in 2017 was "100% containerized and Kubernetes native," says van der Veer. "On top of our heating devices throughout the Netherlands, we have a virtual machine layer, and on top of that we run Kubernetes clusters for our customers. As a small company, we have to provide a rock solid story in terms of the technology. Kubernetes allows us to offer a hybrid solution: 'You can run this on our cloud, but you can run it on other clouds as well. It runs in your internal hardware if you like.' And together with the Docker image standard and our multi-cloud dashboard, that gives them peace of mind."</p>
+
+<p>Not to mention the 40% cost savings. "Every euro that we have to invest for licensing of software that's not open source comes from that 40%," says van der Veer. If Nerdalize had used a non-open source orchestration platform instead of Kubernetes, "that would reduce our cost savings proposition to like 30%. Kubernetes directly allows us to have this business model and this strategic advantage."</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/nerdalize/banner4.jpg"
+  author="MAAIKE STOOPS, CUSTOMER EXPERIENCE QUEEN, NERDALIZE"
+>}}
+"One of our customers used to spend up to a day setting up the virtual machines, network and software every time they wanted to run a project in the cloud. On our platform, with Docker and Kubernetes, customers can have their projects running in a couple of minutes."
+{{< /case-studies/quote >}}
+
+<p>Nerdalize now has customers, from individual engineers to data-intensive startups and established companies, all around the world. (For the time being, though, the heating devices are exclusive to the Netherlands.) One of the most common use cases is batch workloads used by data scientists and researchers, and the time savings for these end users is profound. "One of our customers used to spend up to a day setting up the virtual machines, network and software every time they wanted to run a project in the cloud," says Stoops. "On our platform, with Docker and Kubernetes, customers can have their projects running in a couple of minutes."</p>
+
+<p>As for households using the heating devices, they save an average of 200 euro a year on their heating bill. The environmental impact? The annual reduction in CO2 emissions comes out to 2 tons per Nerdalize household, which is equivalent to a car driving 8,000 km.</p>
+
+<p>For the Nerdalize team, feature development—such as the accessible command line interface called Nerd, which recently went live—has also been sped up by Kubernetes. "We always try to get a working version online first, like minimal viable products, and then move to stabilize that," says van der Veer. "And I think that these kinds of day-two problems are now immediately solved. The rapid prototyping we saw internally is a very valuable aspect of Kubernetes."</p>
+
+<p>Another unexpected benefit has been the growing influence and reputation of Kubernetes. "We can walk into a boardroom and put a Kubernetes logo up, and people accept it as an established technology," says van der Veer. "It becomes this centerpiece where other cloud native projects can tie in, so there's a network effect that each project empowers each other. This is something that has a lot of value when we have to convince customers that our cloud fits their needs."</p>
+
+{{< case-studies/quote author="MAAIKE STOOPS, CUSTOMER EXPERIENCE QUEEN, NERDALIZE" >}}
+"It shouldn't be too big of a hassle and too large of a commitment. It should be fun and easy for end users. So we really love Kubernetes in that way."
+{{< /case-studies/quote >}}
+
+<p>In fact, Nerdalize is currently looking into implementing other CNCF projects, such as <a href="https://prometheus.io/">Prometheus</a> for monitoring and <a href="https://rook.io/">Rook</a>, "which should help us with some of the data problems that we want to solve for our customers," says van der Veer.</p>
+
+<p>In the coming year, Nerdalize will scale up the number of households running its hardware to 50, or the equivalent of a small scale data center. Geographic redundancy and greater server ability for customers are two main goals. Spreading the word about Kubernetes is also in the game plan. "We offer a free namespace on our sandbox, multi-tenant Kubernetes cluster for anyone to try," says van der Veer. "What's more cool than trying your first Kubernetes project on houses, to warm a shower?"</p>
+
+<p>Ultimately, this ties into Nerdalize's mission of supporting affordable and sustainable cloud hosting. "We want to be the disrupter of the cloud space, showing organizations that running in the cloud is easy and affordable," says Stoops. "It shouldn't be too big of a hassle and too large of a commitment. It should be fun and easy for end users. So we really love Kubernetes in that way."</p>

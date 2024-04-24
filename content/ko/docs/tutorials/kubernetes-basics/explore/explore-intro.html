@@ -1,0 +1,140 @@
+---
+title: 파드와 노드 보기
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="ko">
+
+<body>
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+     <div class="col-md-8">
+          <h3>목표</h3>
+                <ul>
+                    <li>쿠버네티스 파드에 대해 배운다.</li>
+                    <li>쿠버네티스 노드에 대해 배운다.</li>
+                    <li>배포된 애플리케이션의 문제를 해결한다.</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+                <h2>쿠버네티스 파드</h2>
+                <p>모듈 <a href="/ko/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">2</a>에서 배포를 생성했을 때, 쿠버네티스는 여러분의 애플리케이션 인스턴스에 <b>파드</b>를 생성했다. 파드는 하나 또는 그 이상의 애플리케이션 컨테이너 (도커와 같은)들의 그룹을 나타내는 쿠버네티스의 추상적 개념으로 일부는 컨테이너에 대한 자원을 공유한다. 그 자원은 다음을 포함한다:</p>
+                <ul>
+                    <li>볼륨과 같은, 공유 스토리지</li>
+                    <li>클러스터 IP 주소와 같은, 네트워킹</li>
+                    <li>컨테이너 이미지 버전 또는 사용할 특정 포트와 같이, 각 컨테이너가 동작하는 방식에 대한 정보</li>
+                </ul>
+                <p>파드는 특유한 "로컬호스트" 애플리케이션 모형을 만들어. 상대적으로 밀접하게 결합되어진 상이한 애플리케이션 컨테이너들을 수용할 수 있다. 가령, 파드는 Node.js 앱과 더불어 Node.js 웹서버에 의해 발행되는 데이터를 공급하는 상이한 컨테이너를 함께 수용할 수 있다. 파드 내 컨테이너는 IP 주소, 그리고 포트 스페이스를 공유하고 항상 함께 위치하고 함께 스케쥴링 되고 동일 노드 상의 컨텍스트를 공유하면서 동작한다.</p>
+
+            <p>파드는 쿠버네티스 플랫폼 상에서 최소 단위가 된다. 우리가 쿠버네티스에서 배포를 생성할 때, 그 배포는 컨테이너 내부에서 컨테이너와 함께 파드를 생성한다. 각 파드는 스케쥴 되어진 노드에게 묶여지게 된다. 그리고 (재구동 정책에 따라) 소멸되거나 삭제되기 전까지 그 노드에 유지된다. 노드에 실패가 발생할 경우, 클러스터 내에 가용한 다른 노드들을 대상으로 스케쥴되어진다.</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>요약:</h3>
+                    <ul>
+                        <li>파드</li>
+                        <li>노드</li>
+                        <li>Kubectl 주요 명령어</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                        <p><i>
+                          파드는 하나 또는 그 이상의 애플리케이션 컨테이너 (도커와 같은)들의 그룹이고 공유 스토리지 (볼륨), IP 주소 그리고 그것을 동작시키는 방식에 대한 정보를 포함하고 있다.
+                        </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">파드 개요</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_03_pods.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2>노드</h2>
+                <p>파드는 언제나 <b>노드</b> 상에서 동작한다. 노드는 쿠버네티스에서 워커 머신을 말하며 클러스터에 따라 가상 또는 물리 머신일 수 있다. 각 노드는 컨트롤 플레인에 의해 관리된다. 하나의 노드는 여러 개의 파드를 가질 수 있고, 쿠버네티스 컨트롤 플레인은 클러스터 내 노드를 통해서 파드에 대한 스케쥴링을 자동으로 처리한다. 컨트롤 플레인의 자동 스케줄링은 각 노드의 사용 가능한 리소스를 모두 고려한다.</p>
+
+                <p>모든 쿠버네티스 노드는 최소한 다음과 같이 동작한다.</p>
+                <ul>
+                    <li>Kubelet은, 쿠버네티스 컨트롤 플레인과 노드 간 통신을 책임지는 프로세스이며, 하나의 머신 상에서 동작하는 파드와 컨테이너를 관리한다.</li>
+                    <li>컨테이너 런타임(도커와 같은)은 레지스트리에서 컨테이너 이미지를 가져와 묶여 있는 것을 풀고 애플리케이션을 동작시키는 책임을 맡는다. </li>
+                </ul>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i> 만약 컨테이너들이 밀접하게 결합되어 있고 디스크와 같은 자원을 공유해야 한다면 오직 하나의 단일 파드에 함께 스케쥴되어져야 한다. </i></p>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">노드 개요</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_03_nodes.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2>kubectl로 문제해결하기</h2>
+                <p>모듈 <a href="/ko/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">2</a>에서, Kubectl 커맨드-라인 인터페이스를 사용했다. 배포된 애플리케이션과 그 환경에 대한 정보를 얻기 위해 모듈3에서도 계속 그것을 사용할 것이다. 가장 보편적인 운용업무는 다음 kubectl 명령어를 이용하여 처리할 수 있다:</p>
+                <ul>
+                    <li><b>kubectl get</b> - 자원을 나열한다</li>
+                    <li><b>kubectl describe</b> - 자원에 대해 상세한 정보를 보여준다.</li>
+                    <li><b>kubectl logs</b> - 파드 내 컨테이너의 로그들을 출력한다</li>
+                    <li><b>kubectl exec</b> - 파드 내 컨테이너에 대한 명령을 실행한다.</li>
+                </ul>
+
+                <p>언제 애플리케이션이 배포되었으며, 현재 상태가 어떠한지, 그것의 구성은 어떠한지 등을 보기 위해 이러한 명령을 이용할 수 있다.</p>
+
+                <p>이제 클러스터 컴포넌트와 커맨드 라인에 대해 알아 보았으니, 애플리케이션을 조사해 보자.</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i> 노드는 쿠버네티스에 있어서 워커 머신이며 클러스터에 따라 VM 또는 물리 머신이 될 수 있다. 여러 개의 파드는 하나의 노드 위에서 동작할 수 있다.</i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/ko/docs/tutorials/kubernetes-basics/explore/explore-interactive/" role="button">대화형 튜토리얼 시작하기 <span class="btn__next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

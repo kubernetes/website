@@ -1,0 +1,61 @@
+---
+title: "प्रोडक्शन-ग्रेड कंटेनर ऑर्केस्ट्रेशन"
+abstract: "स्वचालित कंटेनर डिप्लॉयमेंट, स्केलिंग और प्रबंधन"
+cid: home
+sitemap:
+  priority: 1.0
+---
+
+{{< blocks/section id="oceanNodes" >}}
+{{% blocks/feature image="flower" %}}
+[कुबेरनेट्स]({{< relref "/docs/concepts/overview/_index.md" >}}), जो K8s के रूप में भी जाना जाता है, कंटेनरीकृत एप्लीकेशन के डिप्लॉयमेंट, स्केलिंग और प्रबंधन को स्वचालित करने के लिए एक ओपन-सोर्स सिस्टम है।
+
+यह आसान प्रबंधन और खोज के लिए लॉजिकल इकाइयों में एक एप्लीकेशन बनाने वाले कंटेनरों को समूहित करता है। कुबेरनेट्स [Google में उत्पादन कार्यभार चलाने के 15 वर्षों के अनुभव](http://queue.acm.org/detail.cfm?id=2898444) पर निर्माणित है, जो समुदाय के सर्वोत्तम-नस्लीय विचारों और प्रथाओं के साथ संयुक्त है।
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="scalable" %}}
+#### वैश्विक स्केल क्षमता <!--Planet Scale-->
+
+उन्हीं सिद्धांतों पर डिज़ाइन किया गया है जो Google को एक सप्ताह में अरबों कंटेनर चलाने की अनुमति देता है, कुबेरनेट्स आपकी ऑप्स टीम को बढ़ाए बिना स्केल कर सकता है।
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="blocks" %}}
+#### आवश्यकता अनुसार विकसित होना <!--Never Outgrow-->
+
+चाहे स्थानीय स्तर पर परीक्षण हो या वैश्विक उद्यम चलाना, कुबेरनेट्स आपके एप्लीकेशन को लगातार और आसानी से वितरित करने के लिए बढ़ता है, चाहे आपकी आवश्यकता कितनी भी जटिल क्यों न हो।
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="suitcase" %}}
+#### K8s कहीं भी चलाएँ
+
+कुबेरनेट्स ओपन सोर्स है जो आपको ऑन-प्रिमाइसेस, हाइब्रिड या पब्लिक क्लाउड इन्फ्रास्ट्रक्चर का लाभ उठाने की स्वतंत्रता देता है, जिससे आप आसानी से वर्कलोड को उस स्थान पर ले जा सकते हैं जहां यह आपके लिए मायने रखता है।
+
+{{% /blocks/feature %}}
+
+{{< /blocks/section >}}
+
+{{< blocks/section id="video" background-image="kub_video_banner_homepage" >}}
+<div class="light-text">
+<h2>150+ माइक्रोसर्विसेज को कुबेरनेट्स में माइग्रेट करने की चुनौतियाँ</h2>
+        <p>Sarah Wells द्वारा, Technical Director for Operations and Reliability, Financial Times</p>
+        <button id="desktopShowVideoButton" onclick="kub.showVideo()">वीडियो देखें</button>
+        <br>
+        <br>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/" button id="desktopKCButton">अप्रैल 18-21, 2023 KubeCon + CloudNativeCon Europe में भाग लें</a>
+        <br>
+        <br>
+        <br>
+        <br>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/" button id="desktopKCButton">6-9 नवंबर, 2023 को KubeCon + CloudNativeCon North America में भाग लें</a>
+</div>
+<div id="videoPlayer">
+    <iframe data-url="https://www.youtube.com/embed/H06qrNmGqyE?autoplay=1" frameborder="0" allowfullscreen></iframe>
+    <button id="closeButton"></button>
+</div>
+{{< /blocks/section >}}
+
+{{< blocks/kubernetes-features >}}
+
+{{< blocks/case-studies >}}

@@ -1,0 +1,314 @@
+---
+title: 使用 kubectl 创建 Deployment
+weight: 10
+description: |-
+  学习应用的部署。
+  使用 kubectl 在 Kubernetes 上部署第一个应用。
+---
+<!--
+title: Using kubectl to Create a Deployment
+weight: 10
+description: |-
+  Learn about application Deployments.
+  Deploy your first app on Kubernetes with kubectl.
+-->
+
+<!DOCTYPE html>
+
+<html lang="zh">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+         <div class="col-md-8">
+          <!-- <h3>Objectives</h3> -->
+          <h3>目标</h3>
+                <!-- <ul>
+                    <li>Learn about application Deployments.</li>
+                    <li>Deploy your first app on Kubernetes with kubectl.</li>
+                </ul> -->
+                <ul>
+                  <li>学习应用的部署。</li>
+                  <li>使用 kubectl 在 Kubernetes 上部署第一个应用。</li>
+              </ul>
+            </div>
+
+            <div class="col-md-8">
+                <!-- <h3>Kubernetes Deployments</h3> -->
+                <h3>Kubernetes 部署</h3>
+                <!-- <p>
+                Once you have a <a href="/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/">
+                running Kubernetes cluster</a>, you can deploy your containerized applications on top of it.
+                To do so, you create a Kubernetes <b>Deployment</b>. The Deployment instructs Kubernetes
+                how to create and update instances of your application. Once you've created a Deployment, the Kubernetes
+                control plane schedules the application instances included in that Deployment to run on
+                individual Nodes in the cluster.
+                </p> -->
+                <p>
+                一旦<a href="/zh-cn/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/">运行了 Kubernetes 集群</a>，
+                就可以在其上部署容器化应用。为此，你需要创建 Kubernetes <b>Deployment</b>。
+                Deployment 指挥 Kubernetes 如何创建和更新应用的实例。
+                创建 Deployment 后，Kubernetes 控制平面将 Deployment 中包含的应用实例调度到集群中的各个节点上。
+                </p>
+
+                <!-- <p>Once the application instances are created, a Kubernetes Deployment controller
+                continuously monitors those instances. If the Node hosting an instance goes down or is deleted,
+                the Deployment controller replaces the instance with an instance on another Node in the cluster.
+                <b>This provides a self-healing mechanism to address machine failure or maintenance.</b></p> -->
+                <p>创建应用实例后，Kubernetes Deployment 控制器会持续监视这些实例。
+                如果托管实例的节点关闭或被删除，则 Deployment 控制器会将该实例替换为集群中另一个节点上的实例。
+                <b>这提供了一种自我修复机制来解决机器故障维护问题。</b></p>
+
+                <!-- <p>In a pre-orchestration world, installation scripts would often be used to start applications,
+                but they did not allow recovery from machine failure. By both creating your application instances and
+                keeping them running across Nodes, Kubernetes Deployments provide a fundamentally different approach
+                to application management. </p> -->
+                <p>在没有 Kubernetes 这种编排系统之前，安装脚本通常用于启动应用，但它们不允许从机器故障中恢复。
+                通过创建应用实例并使它们在节点之间运行，Kubernetes Deployment 提供了一种与众不同的应用管理方法。</p>
+
+            </div>
+
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <!-- <h3>Summary:</h3> -->
+                    <h3>总结：</h3>
+                    <ul>
+                        <li>Deployment</li>
+                        <li>kubectl</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <!-- <p><i>
+                        A Deployment is responsible for creating and updating instances of your application
+                    </i></p> -->
+                    <p><i>
+                      Deployment 负责创建和更新应用的实例
+                  </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <!-- <h2 style="color: #3771e3;">Deploying your first app on Kubernetes</h2> -->
+                <h2 style="color: #3771e3;">部署你在 Kubernetes 上的第一个应用</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_02_first_app.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <!-- <p>You can create and manage a Deployment by using the Kubernetes command line interface,
+                <b>kubectl</b>. Kubectl uses the Kubernetes API to interact with the cluster. In this module,
+                you'll learn the most common Kubectl commands needed to create Deployments that run your applications
+                on a Kubernetes cluster.</p> -->
+                <p>你可以使用 Kubernetes 命令行界面 <b>kubectl</b> 创建和管理 Deployment。
+                kubectl 使用 Kubernetes API 与集群进行交互。在本单元中，你将学习创建在 Kubernetes
+                集群上运行应用的 Deployment 所需的最常见的 kubectl 命令。</p>
+
+                <!-- <p>When you create a Deployment, you'll need to specify the container image for your application
+                and the number of replicas that you want to run. You can change that information later by updating
+                your Deployment; Modules <a href="/docs/tutorials/kubernetes-basics/scale/scale-intro/">5</a>
+                and <a href="/docs/tutorials/kubernetes-basics/update/update-intro/">6</a> of the bootcamp discuss
+                how you can scale and update your Deployments.</p> -->
+                <p>创建 Deployment 时，你需要指定应用的容器镜像以及要运行的副本数。
+                你可以稍后通过更新 Deployment 来更改该信息；
+                模块 <a href="/zh-cn/docs/tutorials/kubernetes-basics/scale/scale-intro/">5</a> 和
+                <a href="/zh-cn/docs/tutorials/kubernetes-basics/update/update-intro/">6</a> 讨论了如何扩展和更新 Deployment。</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <!-- <p><i> Applications need to be packaged into one of the supported container
+                    formats in order to be deployed on Kubernetes </i></p> -->
+                    <p><i> 应用需要打包成一种受支持的容器格式，以便部署在 Kubernetes 上 </i></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <!-- For your first Deployment, you'll use a hello-node application packaged in a Docker
+                container that uses NGINX to echo back all the requests. (If you didn't already try
+                creating a hello-node application and deploying it using a container, you can do that
+                first by following the instructions from the <a href="/docs/tutorials/hello-minikube/">Hello Minikube tutorial</a>). -->
+                <p>
+                对于你第一次部署，你将使用打包在 Docker 容器中的 hello-node 应用，该应用使用 NGINX 回显所有请求。
+                （如果你尚未尝试创建 hello-node 应用并使用容器进行部署，则可以首先按照
+                <a href="/zh-cn/docs/tutorials/hello-minikube/">Hello Minikube 教程</a>中的说明进行操作）。
+                <!-- You will need to have installed kubectl as well. If you need to install it, visit
+                <a href="/docs/tasks/tools/#kubectl">install tools</a>. -->
+                <p>
+                你也需要安装好 kubectl。如果你需要安装 kubectl，参阅<a href="/zh-cn/docs/tasks/tools/#kubectl">安装工具</a>。
+                </p>
+                <!-- Now that you know what Deployments are, let's deploy our first app! -->
+                <p>现在你已经了解了部署的内容，让我们部署第一个应用！</p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <!--
+                <h3>kubectl basics</h3>
+                <p>The common format of a kubectl command is: <code>kubectl <i>action resource</i></code></p>
+                <p>This performs the specified <em>action</em> (like <tt>create</tt>, <tt>describe</tt> or <tt>delete</tt>)
+                on the specified <em>resource</em> (like <tt>node</tt> or <tt>deployment</tt>). You can use
+                <code>-<span />-help</code> after the subcommand to get additional info about possible parameters
+                (for example: <code>kubectl get nodes --help</code>).</p>
+                -->
+                <h3>kubectl 基础知识</h3>
+                <p>kubectl 命令的常见格式是：<code>kubectl <i>操作资源</i></code></p>
+                <p>这会对指定的<em>资源</em>（类似 <tt>node</tt> 或 <tt>deployment</tt>）执行指定的<em>操作</em>（类似 create、describe 或 delete）。
+                你可以在子命令之后使用 <code>-<span />-help</code> 获取可能参数相关的更多信息（例如：<code>kubectl get nodes --help</code>）。</p>
+                <!--
+                <p>Check that kubectl is configured to talk to your cluster, by running the <b><code>kubectl version</code></b> command.</p>
+                <p>Check that kubectl is installed and you can see both the client and the server versions.</p>
+                <p>To view the nodes in the cluster, run the <b><code>kubectl get nodes</code></b> command.</p>
+                <p>You see the available nodes. Later, Kubernetes will choose where to deploy our application
+                based on Node available resources.</p>
+                -->
+                <p>通过运行 <b><code>kubectl version</code></b> 命令，查看 kubectl 是否被配置为与你的集群通信。</p>
+                <p>查验 kubectl 是否已安装，你能同时看到客户端和服务器版本。</p>
+                <p>要查看集群中的节点，运行 <b><code>kubectl get nodes</code></b> 命令。</p>
+                <p>你可以看到可用的节点。稍后 Kubernetes 将根据节点可用的资源选择在哪里部署应用。</p>
+            </div>
+        </div>
+        <div class="row">
+          <a id="deploy-an-app"></a>
+            <div class="col-md-12">
+                <!--
+                <h3>Deploy an app</h3>
+                <p>Let’s deploy our first app on Kubernetes with the <code>kubectl create deployment</code> command.
+                 We need to provide the deployment name and app image location (include the full repository url for
+                 images hosted outside Docker hub).</p>
+                <p><b><code>kubectl create deployment kubernetes-bootcamp --image=gcr.io/google-samples/kubernetes-bootcamp:v1</code></b></p>
+                <p>Great! You just deployed your first application by creating a deployment. This performed a few things for you:</p>
+                -->
+                <h3>部署一个应用</h3>
+                <p>让我们使用 <code>kubectl create deployment</code> 命令在 Kubernetes 上部署第一个应用。
+                我们需要提供 Deployment 命令以及应用镜像位置（包括托管在 Docker hub 之外的镜像的完整仓库地址）。</p>
+                <p><b><code>kubectl create deployment kubernetes-bootcamp --image=gcr.io/google-samples/kubernetes-bootcamp:v1</code></b></p>
+                <p>很好！你刚刚通过创建 Deployment 部署了第一个应用。这个过程中执行了以下一些操作：</p>
+                <ul>
+                <!--
+                <li>searched for a suitable node where an instance of the application could be run
+                (we have only 1 available node)</li>
+                <li>scheduled the application to run on that Node</li>
+                <li>configured the cluster to reschedule the instance on a new Node when needed</li>
+                -->
+                <li>搜索应用实例可以运行的合适节点（我们只有一个可用的节点）</li>
+                <li>调度应用在此节点上运行</li>
+                <li>配置集群在需要时将实例重新调度到新的节点上</li>
+                </ul>
+                <!--
+                <p>To list your deployments use the <code>kubectl get deployments</code> command:</p>
+                <p><b><code>kubectl get deployments</code></b></p>
+                <p>We see that there is 1 deployment running a single instance of your app. The instance
+                is running inside a container on your node.</p>
+                -->
+                <p>要列出你的 Deployment，使用 <code>kubectl get deployments</code> 命令：</p>
+                <p><b><code>kubectl get deployments</code></b></p>
+                <p>我们看到有 1 个 Deployment 运行应用的单个实例。这个实例运行在节点上的一个容器内。</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <!--
+                <h3>View the app</h3>
+                <p><a href="/docs/concepts/workloads/pods/">Pods</a> that are running inside Kubernetes are running on a private, isolated network.
+                By default they are visible from other pods and services within the same kubernetes cluster,
+                but not outside that network.
+                When we use <code>kubectl</code>, we're interacting through an API endpoint to communicate with our application.</p>
+                <p>We will cover other options on how to expose your application outside the Kubernetes
+                cluster later, in <a href="/docs/tutorials/kubernetes-basics/expose/">Module 4</a>.
+                Also as a basic tutorial, we're not explaining what <code>Pods</code> are in any detail here, it will cover in later topics.</p>
+                -->
+                <h3>查看应用</h3>
+                <p>在 Kubernetes 内运行的 <a href="/docs/concepts/workloads/pods/">Pod</a>
+                运行在一个私有的、隔离的网络上。
+                默认这些 Pod 可以从同一 Kubernetes 集群内的其他 Pod 和服务看到，但超出这个网络后则看不到。
+                当我们使用 <code>kubectl</code> 时，我们通过 API 端点交互与应用进行通信。</p>
+                <p>在 <a href="/zh-cn/docs/tutorials/kubernetes-basics/expose/">模块 4</a>
+                  中我们将讲述如何将应用暴露到 Kubernetes 集群外的其他选项。
+                  同样作为基础教程，我们不会在这里详细解释 <code>Pod</code> 是什么，后面的主题会介绍它。
+                </p>
+
+                <!--
+                <p>The <code>kubectl proxy</code> command can create a proxy that will forward communications
+                into the cluster-wide, private network. The proxy can be terminated by pressing control-C
+                and won't show any output while its running. </p>
+                <p><strong>You need to open a second terminal window to run the proxy.</strong></p>
+                <p><b><code>kubectl proxy</b></code>
+                <p>We now have a connection between our host (the terminal) and the Kubernetes cluster.
+                The proxy enables direct access to the API from these terminals.</p>
+                -->
+                <p><code>kubectl proxy</code> 命令可以创建一个代理，将通信转发到集群范围的私有网络。
+                按下 Ctrl-C 此代理可以被终止，且在此代理运行期间不会显示任何输出。</p>
+                <p><strong>你需要打开第二个终端窗口来运行此代理。</strong></p>
+                <p><b><code>kubectl proxy</b></code>
+                <p>现在我们在主机（终端）和 Kubernetes 集群之间有一个连接。此代理能够从这些终端直接访问 API。</p>
+
+                <!--
+                <p>You can see all those APIs hosted through the proxy endpoint. For example, we can
+                query the version directly through the API using the <code>curl</code> command:</p>
+                <p><b><code>curl http://localhost:8001/version</code></b></p>
+                <div class="alert alert-info note callout" role="alert"><strong>Note:</strong>
+                If port 8001 is not accessible, ensure that the <code>kubectl proxy</code> that you started
+                above is running in the second terminal.</div>
+                <p>The API server will automatically create an endpoint for each pod, based on the pod name,
+                that is also accessible through the proxy.</p>
+                <p>First we need to get the Pod name, and we'll store in the environment variable <tt>POD_NAME</tt>:</p>
+                -->
+                <p>你可以看到通过代理端点托管的所有 API。
+                例如，我们可以使用以下 <code>curl</code> 命令直接通过 API 查询版本：</p>
+                <p><b><code>curl http://localhost:8001/version</code></b></p>
+                <div class="alert alert-info note callout" role="alert"><strong>注：</strong>如果 Port 8001 不可访问，确保你上述启动的 <code>kubectl proxy</code> 运行在第二个终端中。</div>
+                <p>API 服务器将基于也能通过代理访问的 Pod 名称为每个 Pod 自动创建端点。</p>
+                <p>首先我们需要获取 Pod 名称，我们将存储到环境变量 <tt>POD_NAME</tt> 中：</p>
+
+                <p><b><code>export POD_NAME=$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')</code></b><br />
+                    <b><code>echo Name of the Pod: $POD_NAME</code></b></p>
+
+                <!--
+                <p>You can access the Pod through the proxied API, by running:</p>
+                <p><b><code>curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME/</code></b></p>
+                <p>In order for the new Deployment to be accessible without using the proxy, a Service is required which will be explained in  <a href="/docs/tutorials/kubernetes-basics/expose/">Module 4</a>.</p>
+                -->
+                <p>你可以运行以下命令通过代理的 API 访问 Pod：</p>
+                <p><b><code>curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME/</code></b></p>
+                <p>为了不使用代理也能访问新的 Deployment，需要一个 Service，这将在下一个 <a href="/zh-cn/docs/tutorials/kubernetes-basics/expose/">模块 4</a> 中讲述。</p>
+            </div>
+
+      </div>
+      <div class="row">
+          <p>
+            <!--
+            Once you're ready, move on to <a href="/docs/tutorials/kubernetes-basics/explore/explore-intro/" title="Viewing Pods and Nodes">Viewing Pods and Nodes</a>.</p>
+            -->
+            如果你准备好了，请访问<a href="/zh-cn/docs/tutorials/kubernetes-basics/explore/explore-intro/" title="查看 Pod 和 Node">查看 Pod 和 Node</a>。</p>
+          </p>
+      </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

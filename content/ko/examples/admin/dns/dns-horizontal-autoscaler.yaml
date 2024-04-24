@@ -1,0 +1,88 @@
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  name: kube-dns-autoscaler
+  namespace: kube-system
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: system:kube-dns-autoscaler
+rules:
+  - apiGroups: [""]
+    resources: ["nodes"]
+    verbs: ["list", "watch"]
+  - apiGroups: [""]
+    resources: ["replicationcontrollers/scale"]
+    verbs: ["get", "update"]
+  - apiGroups: ["apps"]
+    resources: ["deployments/scale", "replicasets/scale"]
+    verbs: ["get", "update"]
+# 아래 문제가 해결되면 configmaps 규칙을 제거한다.
+# kubernetes-incubator/cluster-proportional-autoscaler#16
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    verbs: ["get", "create"]
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: system:kube-dns-autoscaler
+subjects:
+  - kind: ServiceAccount
+    name: kube-dns-autoscaler
+    namespace: kube-system
+roleRef:
+  kind: ClusterRole
+  name: system:kube-dns-autoscaler
+  apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kube-dns-autoscaler
+  namespace: kube-system
+  labels:
+    k8s-app: kube-dns-autoscaler
+    kubernetes.io/cluster-service: "true"
+spec:
+  selector:
+    matchLabels:
+      k8s-app: kube-dns-autoscaler
+  template:
+    metadata:
+      labels:
+        k8s-app: kube-dns-autoscaler
+    spec:
+      priorityClassName: system-cluster-critical
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+        supplementalGroups: [ 65534 ]
+        fsGroup: 65534
+      nodeSelector:
+        kubernetes.io/os: linux
+      containers:
+      - name: autoscaler
+        image: registry.k8s.io/cpa/cluster-proportional-autoscaler:1.8.4
+        resources:
+            requests:
+                cpu: "20m"
+                memory: "10Mi"
+        command:
+          - /cluster-proportional-autoscaler
+          - --namespace=kube-system
+          - --configmap=kube-dns-autoscaler
+          # 타겟은 cluster/addons/dns/kube-dns.yaml.base와 동기화된 상태로 유지해야 한다.
+          
+          - --target=<SCALE_TARGET>
+          # 클러스터가 대규모 노드(많은 코어가 있는)를 사용하는 경우, "coresPerReplica"가 우선시해야 한다.
+          # 작은 노드를 사용하는 경우, "nodesPerReplica"가 우선시해야 한다.
+          - --default-params={"linear":{"coresPerReplica":256,"nodesPerReplica":16,"preventSinglePointFailure":true,"includeUnschedulableNodes":true}}
+          - --logtostderr=true
+          - --v=2
+      tolerations:
+      - key: "CriticalAddonsOnly"
+        operator: "Exists"
+      serviceAccountName: kube-dns-autoscaler

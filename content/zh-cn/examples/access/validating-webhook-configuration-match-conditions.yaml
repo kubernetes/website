@@ -1,0 +1,49 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+webhooks:
+  - name: my-webhook.example.com
+    matchPolicy: Equivalent
+    rules:
+      - operations: ['CREATE','UPDATE']
+        apiGroups: ['*']
+        apiVersions: ['*']
+        resources: ['*']
+    failurePolicy: 'Ignore' # 打开失败（可选）
+    sideEffects: None
+    clientConfig:
+      service:
+        namespace: my-namespace
+        name: my-webhook
+      caBundle: '<omitted>'
+    # 每个 Webhook 最多可以有 64 个 matchConditions
+    matchConditions:
+      - name: 'exclude-leases' # 每个匹配条件必须有唯一的名称
+        expression: '!(request.resource.group == "coordination.k8s.io" && request.resource.resource == "leases")' # 匹配非租约（non-lease）资源
+      - name: 'exclude-kubelet-requests'
+        expression: '!("system:nodes" in request.userInfo.groups)' # 匹配非节点用户发出的请求
+      - name: 'rbac' # 跳过由第二个 Webhook 处理的 RBAC 请求。
+        expression: 'request.resource.group != "rbac.authorization.k8s.io"'
+
+  # 此示例说明了 `authorizer` 的用法。授权检查比简单表达式成本更高，
+  # 因此在本示例中，通过使用第二个 Webhook 将其范围限制为仅 RBAC 请求。
+  # 两个 Webhook 可以由同一 endpoint 提供服务。
+  - name: rbac.my-webhook.example.com
+    matchPolicy: Equivalent
+    rules:
+      - operations: ['CREATE','UPDATE']
+        apiGroups: ['rbac.authorization.k8s.io']
+        apiVersions: ['*']
+        resources: ['*']
+    failurePolicy: 'Fail' # Fail-closed (the default)
+    sideEffects: None
+    clientConfig:
+      service:
+        namespace: my-namespace
+        name: my-webhook
+      caBundle: '<omitted>'
+    # 每个 webhook 最多可以有 64 个 matchConditions
+    matchConditions:
+      - name: 'breakglass'
+        # 跳过被授权在此 Webhook 上 'breakglass' 的用户发出的请求。
+        # 'breakglass' API verb 不需要被排查在该检查之外。
+        expression: '!authorizer.group("admissionregistration.k8s.io").resource("validatingwebhookconfigurations").name("my-webhook.example.com").check("breakglass").allowed()'

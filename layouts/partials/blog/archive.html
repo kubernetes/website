@@ -1,0 +1,31 @@
+{{ $pages := .CurrentSection.Pages }}
+{{ with site.Params.language_alternatives }}
+  {{ range . }}
+          {{ with (where $.CurrentSection.Translations ".Lang" . ) }}
+          {{ $p := index . 0 }}      
+          {{ $pages = $pages | lang.Merge $p.Pages }}
+          {{ end }}
+  {{ end }}
+ {{ end }}  
+<div class="panel-group" id="blog-archive">
+  {{ range $i, $e := $pages.GroupByPublishDate "2006" }}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+      <a data-toggle="collapse" data-parent="#blog-archive" href="#collapse-{{ .Key }}">
+      {{ .Key }}</a>
+      </h4>
+    </div>
+    <div id="collapse-{{ .Key }}" class="panel-collapse collapse{{ if eq $i 0 }} show{{ end }}">
+      <div class="panel-body">
+        <ul class="list-group">
+          {{ range .Pages }}
+          {{ $isForeignLanguage := (ne .Lang $.Lang)}}
+          <li class="list-group-item"><a href="{{ .Permalink }}"{{ if $isForeignLanguage }} target="_blank" {{ end }}>{{ .LinkTitle }}</a> <span class="date">{{ .PublishDate.Format "Jan 2" }}</span>{{ if $isForeignLanguage }} <small>({{ .Lang | upper }})</small>{{ end }}</li>
+          {{ end }}
+        </ul>
+      </div>
+    </div>
+  </div>
+  {{ end }}
+</div>

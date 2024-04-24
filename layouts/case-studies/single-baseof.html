@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html id="{{ .Params.cid }}" lang="{{ .Language }}" class="{{ .Params.class }}">
+	<head>
+		{{ partial "head.html" . }}
+	</head>
+	<body>
+		{{ partial "navbar.html" . }}
+		{{ partial "deprecation-warning.html" . }}
+		{{ block "main" . }}{{ end }}
+		{{ partialCached "footer.html" . }}
+    {{ partialCached "scripts.html" . }}
+
+	</body>
+</html>

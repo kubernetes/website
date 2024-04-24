@@ -1,0 +1,437 @@
+# i18n strings for the Korean translation.
+# NOTE: Please keep the entries in alphabetical order when editing
+
+# For "and", see [conjunction_1]
+
+[auto_generated_edit_notice]
+other = "(자동 생성된 페이지)"
+
+[auto_generated_pageinfo]
+other = """<p>이 페이지는 자동으로 생성된 것이다.</p><p>이 페이지에 대한 이슈를 제보할 때, 이 페이지가 자동 생성된 것임을 이슈 본문에 언급한다. 이슈에 대한 해결책은 다른 쿠버네티스 프로젝트에 적용되어야 할 수도 있다.</p>"""
+
+[caution]
+other = "주의:"
+
+[cleanup_heading]
+other = "정리하기"
+
+[community_events_calendar]
+other = "이벤트 캘린더"
+
+[community_forum_name]
+other = "Forum"
+
+[community_github_name]
+other = "GitHub"
+
+[community_slack_name]
+other = "Slack"
+
+[community_stack_overflow_name]
+other = "Stack Overflow"
+
+[community_twitter_name]
+other = "Twitter"
+
+[community_youtube_name]
+other = "YouTube"
+
+# Avoid using conjunction_1.
+# Must match the context in layouts/shortcodes/release-data.html
+# Appears on https://kubernetes.io/releases/
+# For example the "and" in "Complete 1.25 Schedule and Changelog"
+[conjunction_1]
+other = "및"
+
+[cve_id]
+other = "CVE ID"
+
+[cve_issue_url]
+other = "CVE 깃헙 이슈 URL"
+
+[cve_summary]
+other = "이슈 요약"
+
+[cve_table]
+other = "공식 쿠버네티스 CVE 목록"
+
+[cve_table_date_format]
+other = "2006년 1월 2일 15:04:05 KST"
+
+[cve_table_date_format_string]
+other = "(최근 업데이트: %s)"
+
+[deprecation_title]
+other = "해당 문서의 쿠버네티스 버전:"
+
+[deprecation_warning]
+other = " 문서는 더 이상 적극적으로 관리되지 않음. 현재 보고있는 문서는 정적 스냅샷임. 최신 문서를 위해서는, 다음을 참고. "
+
+[deprecation_file_warning]
+other = "사용 중단됨(deprecated)"
+
+[dockershim_message]
+other = """Dockershim은 쿠버네티스 릴리스 1.24부터 쿠버네티스 프로젝트에서 제거되었다. 더 자세한 내용은 <a href="/dockershim">Dockershim 제거 FAQ</a>를 참고한다."""
+
+[docs_label_browse]
+other = "문서 둘러보기"
+
+[docs_label_contributors]
+other = "컨트리뷰터"
+
+[docs_label_i_am]
+other = "나는..."
+
+[docs_label_users]
+other = "사용자"
+
+[docs_version_current]
+other = "(현재 문서)"
+
+[docs_version_latest_heading]
+other = "최신 버전"
+
+[docs_version_other_heading]
+other = "이전 버전"
+
+[end_of_life]
+other = "지원 종료:"
+
+[envvars_heading]
+other = "환경 변수"
+
+[error_404_were_you_looking_for]
+other = "무엇과 관련된 정보를 찾으시나요?"
+
+[examples_heading]
+other = "예시"
+
+[feature_state]
+other = "기능 상태:"
+
+[feedback_heading]
+other = "피드백"
+
+[feedback_no]
+other = "아니요"
+
+[feedback_question]
+other = "이 페이지가 도움이 되었나요?"
+
+[feedback_yes]
+other = "네"
+
+[final_patch_release]
+other = "최종 패치 릴리스"
+
+[inline_list_separator]
+other = ","
+
+[input_placeholder_email_address]
+other = "전자 우편 주소"
+
+[javascript_required]
+other = "이 컨텐츠를 보려면 자바스크립트가 [활성화](https://www.enable-javascript.com/)되어 있어야 합니다."
+
+[latest_release]
+other = "최신 릴리스:"
+
+[latest_version]
+other = "최신 버전."
+
+[layouts_blog_pager_prev]
+other = "<< 이전"
+
+[layouts_blog_pager_next]
+other = "다음 >>"
+
+[layouts_case_studies_list_tell]
+other = "당신의 이야기를 들려주세요."
+
+[layouts_docs_glossary_aka]
+other = "별칭"
+
+[layouts_docs_glossary_description]
+other = "이 용어집은 쿠버네티스 용어의 종합적이고 표준화된 리스트를 제공한다. 용어집은 K8s 고유의 기술 용어 뿐만 아니라, 맥락을 이해하는데 유용한 더 일반적인 용어도 포함한다. "
+
+[layouts_docs_glossary_deselect_all]
+other = "모두 선택 해제"
+
+[layouts_docs_glossary_click_details_after]
+other = "표시를 클릭하면 각 용어에 대한 더 자세한 설명을 볼 수 있다."
+
+[layouts_docs_glossary_click_details_before]
+other = "다음"
+
+[layouts_docs_glossary_filter]
+other = "태그에 따라 용어 필터링"
+
+[layouts_docs_glossary_select_all]
+other = "모두 선택"
+
+[layouts_docs_partials_feedback_improvement]
+other = "개선 제안이 가능합니다."
+
+[layouts_docs_partials_feedback_issue]
+other = "원한다면 GitHub 리포지터리에 이슈를 열어서"
+
+[layouts_docs_partials_feedback_or]
+other = "또는"
+
+[layouts_docs_partials_feedback_problem]
+other = "문제 리포트"
+
+[layouts_docs_partials_feedback_thanks]
+other = "피드백 감사합니다. 쿠버네티스 사용 방법에 대해서 구체적이고 답변 가능한 질문이 있다면, 다음 링크에서 질문하십시오."
+
+[layouts_docs_search_fetching]
+other = "결과를 가져오는 중.."
+
+[main_by]
+other = ", 다음 변경에 의해서:"
+
+[main_cncf_project]
+other = """쿠버네티스는 <a href="https://cncf.io/">CNCF</a> graduated 프로젝트입니다.</p>"""
+
+[main_community_explore]
+other = "커뮤니티 둘러보기"
+
+[main_contribute]
+other = "기여하기"
+
+[main_copyright_notice]
+other = """The Linux Foundation &reg;. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Trademark Usage page</a>"""
+
+[main_documentation_license]
+other = """The Kubernetes Authors | Documentation Distributed under <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
+
+[main_github_invite]
+other = "쿠버네티스 핵심 코드 베이스를 살펴보는데 관심이 있으십니까?"
+
+[main_github_view_on]
+other = "GitHub에서 보기"
+
+[main_kubernetes_features]
+other = "쿠버네티스 기능"
+
+[main_kubeweekly_baseline]
+other = "최신 쿠버네티스 뉴스 수신에 관심이 있으십니까? KubeWeekly를 신청하세요."
+
+[main_kubernetes_past_link]
+other = "과거 뉴스레터 보기"
+
+[main_kubeweekly_signup]
+other = "구독하기"
+
+[main_page_history]
+other ="페이지 변경 이력"
+
+[main_page_last_modified_on]
+other = "최종 수정일시"
+
+[main_read_about]
+other = "읽어 보기"
+
+[main_read_more]
+other = "더 읽기"
+
+[not_applicable]
+# Localization teams: it's OK to use a longer text here
+other = "해당되지 않음"
+
+[note]
+other = "참고:"
+
+[objectives_heading]
+other = "목적"
+
+[options_heading]
+other = "옵션"
+
+[outdated_blog__message]
+other = "이 글은 작성일로부터 1년 이상 지났습니다. 오래된 글은 더 이상 유효하지 않은 컨텐츠를 포함하고 있을 수 있습니다. 이 페이지의 정보가 틀리지 않았는지 다시 한 번 확인하세요."
+
+[patch_release]
+other = "패치 릴리스"
+
+[post_create_issue]
+other = "이슈 생성"
+
+[prerequisites_heading]
+other = "시작하기 전에"
+
+[previous_patches]
+other = "패치 릴리스:"
+
+[release_date_after]
+other = "에 릴리스됨)"
+
+[release_date_before]
+other = "("
+
+# See https://gohugo.io/functions/format/#gos-layout-string
+# Use a suitable format for your locale
+[release_date_format]
+other = "2006-01-02"
+
+[release_cherry_pick_deadline]
+other = "체리픽(Cherry Pick) 기한"
+
+# Deprecated. Planned for removal in a future release.
+# Use [release_full_details_initial_text] instead.
+[release_complete]
+other = "완료"
+
+[release_end_of_life_date]
+other = "지원 종료(End Of Life) 일자"
+
+# Replace [release_complete] with [release_full_details_initial_text]
+[release_full_details_initial_text]
+other = "전체"
+
+[release_information_navbar]
+other = "릴리스 정보"
+
+[release_minor_version]
+other = "마이너 버전"
+
+[release_info_next_patch]
+other = "다음 패치 릴리스는 **%s** 이다."
+
+# Localization note: You can use Markdown here.
+# The three placeholders (in order) are:
+#   Kubernetes minor version
+#   maintenance mode date
+#   end of life date
+#
+# Keep this order. It is OK to use more than one sentence, and it's also OK to change the
+# tense of the text so long as the meaning is clear.
+[release_info_eol]
+other = "**%s** 버전은 **%s** 에 메인터넌스 모드로 들어가며, **%s** 에 지원 종료된다."
+
+[release_note]
+other = "정보"
+
+[release_schedule]
+other = "일정"
+
+[release_target_date]
+other = "목표 일자"
+
+[release_changelog]
+other = "변경 이력"
+
+[seealso_heading]
+other = "더 보기"
+
+[subscribe_button]
+other = "구독"
+
+[synopsis_heading]
+other = "시놉시스"
+
+[thirdparty_message]
+other = """이 섹션은 쿠버네티스에 필요한 기능을 제공하는 써드파티 프로젝트와 관련이 있다. 쿠버네티스 프로젝트 작성자는 써드파티 프로젝트에 책임이 없다. 이 페이지는 <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF 웹사이트 가이드라인</a>에 따라 프로젝트를 알파벳 순으로 나열한다. 이 목록에 프로젝트를 추가하려면 변경사항을 제출하기 전에 <a href="/contribute/style/content-guide/#third-party-content">콘텐츠 가이드</a>를 읽어본다."""
+
+[thirdparty_message_edit_disclaimer]
+other="""써드파티 컨텐츠 안내"""
+
+
+[thirdparty_message_single_item]
+other = """&#128711; 이 항목은 쿠버네티스에 속하지 않는 써드파티 프로젝트 또는 제품의 링크로 연결됩니다. <a class="alert-more-info" href="#third-party-content-disclaimer">추가 정보</a>"""
+
+[thirdparty_message_disclaimer]
+other = """<p>이 페이지는 쿠버네티스가 필요로 하는 기능을 제공하는 써드파티 프로젝트 또는 제품에 대해 언급하고 있습니다. 쿠버네티스 프로젝트 저자들은 이러한 써드파티 프로젝트 또는 제품에 대해 책임지지 않습니다. <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF 웹사이트 가이드라인</a>에서 더 자세한 내용을 확인합니다.</p><p>다른 써드파티 링크를 추가하는 변경을 제안하기 전에, <a href="/docs/contribute/style/content-guide/#third-party-content">컨텐츠 가이드</a>를 확인해야 합니다.</p>"""
+
+[ui_search_placeholder]
+other = "검색하기"
+
+[version_check_mustbe]
+other = "쿠버네티스 서버의 버전은 다음과 같아야 함. 버전: "
+
+[version_check_mustbeorlater]
+other = "쿠버네티스 서버의 버전은 다음과 같거나 더 높아야 함. 버전: "
+
+[version_check_tocheck]
+other = "버전 확인을 위해서, 다음 커맨드를 실행 "
+
+[version_menu]
+other = "버전"
+
+[warning]
+other = "경고:"
+
+[whatsnext_heading]
+other = "다음 내용"
+
+[layout_docs_glossary_architecture_name]
+other = "아키텍처"
+
+[layout_docs_glossary_architecture_description]
+other = "쿠버네티스의 내부 구성요소."
+
+[layout_docs_glossary_community_name]
+other = "커뮤니티"
+
+[layout_docs_glossary_community_description]
+other = "쿠버네티스 오픈소스 개발 관련 사항."
+
+[layout_docs_glossary_core-object_name]
+other = "핵심 오브젝트"
+
+[layout_docs_glossary_core-object_description]
+other = "쿠버네티스가 기본적으로 지원하는 리소스 종류."
+
+[layout_docs_glossary_extension_name]
+other = "확장 기능"
+
+[layout_docs_glossary_extension_description]
+other = "쿠버네티스가 지원하는 사용자화(customization)."
+
+[layout_docs_glossary_fundamental_name]
+other = "기본 개념"
+
+[layout_docs_glossary_fundamental_description]
+other = "쿠버네티스를 처음 사용하는 사람을 위한 설명."
+
+[layout_docs_glossary_networking_name]
+other = "네트워킹"
+
+[layout_docs_glossary_networking_description]
+other = "쿠버네티스 구성요소 간, 및 클러스터 외부의 프로그램과 통신하는 방법."
+
+[layout_docs_glossary_operation_name]
+other = "운용"
+
+[layout_docs_glossary_operation_description]
+other = "쿠버네티스 구축 및 유지."
+
+[layout_docs_glossary_security_name]
+other = "보안"
+
+[layout_docs_glossary_security_description]
+other = "쿠버네티스 애플리케이션을 안전하게 보호."
+
+[layout_docs_glossary_storage_name]
+other = "스토리지"
+
+[layout_docs_glossary_storage_description]
+other = "쿠버네티스 애플리케이션이 영속적 자료를 다루는 방법."
+
+[layout_docs_glossary_tool_name]
+other = "도구"
+
+[layout_docs_glossary_tool_description]
+other = "쿠버네티스를 쉽게, 사용하기 편하게 만들어 주는 소프트웨어."
+
+[layout_docs_glossary_user-type_name]
+other = "사용자 종류"
+
+[layout_docs_glossary_user-type_description]
+other = "일반적인 쿠버네티스 사용자 종류."
+
+[layout_docs_glossary_workload_name]
+other = "워크로드"
+
+[layout_docs_glossary_workload_description]
+other = "쿠버네티스에서 실행되는 애플리케이션."

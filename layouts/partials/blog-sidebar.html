@@ -1,0 +1,99 @@
+{{/* The blog nav organizes posts grouped by year, which represents a customized version of the 
+sidebar-tree in use elsewhere on the site. */}}
+
+{{/* We cache this partial for bigger sites and set the active class client side. */}}
+{{ $shouldDelayActive := ge (len .Site.Pages) 2000 }}
+
+<div id="td-sidebar-menu" class="td-sidebar__inner{{ if $shouldDelayActive }} d-none{{ end }}">
+
+  <form class="td-sidebar__search d-flex align-items-center">
+    {{ partial "search-input.html" . }}
+    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    </button>
+  </form>
+  
+  <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+    <!-- {{ if  (gt (len .Site.Home.Translations) 0) }}
+    <div class="nav-item dropdown d-block d-lg-none">
+      {{ partial "navbar-lang-selector.html" . }}
+    </div>
+    {{ end }} -->
+    {{ template "blog-nav-section" (dict "page" . "section" .FirstSection "delayActive" $shouldDelayActive)  }}
+  </nav>
+</div>
+
+{{ define "blog-nav-section" }}
+
+{{ $shouldDelayActive := .delayActive }}
+{{ $sid := .section.RelPermalink | anchorize }}
+{{ $postsByYear := .section.Pages.GroupByDate "2006" }}
+
+  {{ range $postsByYear }}
+
+  {{ $year := .Key }}
+  {{ $p := $.page }}
+  {{ $active := eq ($p.Date.Format "2006") $year }}
+
+  {{ $firstPost := .Pages | first 1 }}
+    <ul class="td-sidebar-nav__section pr-md-3">
+      <li class="td-sidebar-nav__section-title">
+        <a  href="{{range $firstPost}}{{ .RelPermalink }}{{end}}" class="align-left pl-0 pr-2{{ if not $active }} collapsed{{ end }}{{ if $active}} active{{ end }} td-sidebar-link td-sidebar-link__section">
+          {{ $year }}
+        </a>
+
+      </li>
+      {{ $firstPages := .Pages | first 10 }}
+      {{ $remainingPages := .Pages | after 10 }}
+      {{ $displayRemainingPages := false }}
+      <ul>
+        {{ range $firstPages }}
+          {{ if .IsPage }}
+            <li class="blog-post collapse {{ if $active }}show{{ end }}" data-year={{$year}}>
+              {{ $mid := printf "m-%s" (.RelPermalink | anchorize) }}
+              {{ $active := eq . $p }}
+              <a class="td-sidebar-link td-sidebar-link__page {{ if and (not $shouldDelayActive) $active }} active{{ end }}" id="{{ $mid }}" href="{{ .RelPermalink }}">
+                {{ .LinkTitle }}
+              </a>
+            </li>
+          {{ end }}
+        {{ end }}
+        <li class="more-posts collapse {{ if $active }}show{{ end }}" data-year="{{$year}}">
+          <a class="td-sidebar-link" id="more-posts" href="">Show More Posts...</a>
+        </li>
+        {{ range $remainingPages }}
+          {{ if .IsPage }}
+            <li class="blog-post hidden collapse" data-year={{$year}}>
+              {{ $mid := printf "m-%s" (.RelPermalink | anchorize) }}
+              {{ $active := eq . $p }}
+              <a class="td-sidebar-link td-sidebar-link__page {{ if and (not $shouldDelayActive) $active }} active{{ end }}" id="{{ $mid }}" href="{{ .RelPermalink }}">
+                {{ .LinkTitle }}
+              </a>
+            </li>
+          {{ end }}
+        {{ end }}
+      </ul>
+    </ul>
+
+  {{ end }}
+
+{{ end }}
+
+{{/* Reveal the remaining blog posts and hide the clicked link */}}
+<script>
+let morePosts = document.querySelectorAll(".more-posts");
+let year = "";
+morePosts.forEach(link => {
+  link.onclick = (e) => {
+    e.preventDefault();
+    year = link.dataset.year;
+    console.log(year);
+    let hiddenPosts = document.querySelectorAll(`.blog-post.hidden[data-year="${year}"]`);
+    console.log(hiddenPosts);
+    hiddenPosts.forEach(post => {
+      post.classList.add('show');
+      post.classList.remove("hidden");
+    });
+    link.style.display = "none";
+  }
+});
+</script>

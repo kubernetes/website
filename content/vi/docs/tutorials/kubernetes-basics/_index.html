@@ -1,0 +1,116 @@
+---
+title: Học kiến thức cơ bản về Kubernetes
+linkTitle: Học kiến thức cơ bản về Kubernetes
+weight: 10
+card:
+  name: Các hướng dẫn
+  weight: 20
+  title: Hướng dẫn những điều cơ bản
+---
+
+<!DOCTYPE html>
+
+<html lang="vi">
+
+<body>
+
+  <link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+  <main class="content">
+
+    <div class="row">
+      <div class="col-md-9">
+        <h2>Kiến thức cơ bản về Kubernetes</h2>
+        <p>Hướng dẫn này cung cấp những kiến thức cơ bản về một cụm Kubernetes. Mỗi mô-đun chứa một số thông tin cơ bản về các tính năng cũng như khái niệm chính của Kubernetes, đồng thời bao gồm một hướng dẫn tương tác trực tuyến. Các hướng dẫn tương tác này giúp bạn quản lý một cluster đơn giản và các ứng dụng được đóng gói của bạn.</p>
+        <p>Bằng các hướng dẫn tương tác, bạn có thể học cách:</p>
+        <ul>
+        <li>Triển khai một ứng dụng container trong một cluster.</li>
+        <li>Thay đổi quy mô triển khai.</li>
+        <li>Cập nhật ứng dụng container.</li>
+        <li>Debug ứng dụng container.</li>
+        </ul>
+        <p>Những hướng dẫn này dùng Katacoda để chạy một terminal ảo trên trình duyệt web của bạn chạy Minikube. Không cần phải cài đặt và cấu hình bất kỳ phần mềm nào; mỗi hướng dẫn tương tác chạy trực tiếp từ trình duyệt web của bạn.</p>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col-md-9">
+        <h2>Kubernetes có thế làm những gì?</h2>
+        <p>Với các dịch vụ web hiện đại, người dùng mong muốn các ứng dụng luôn sẵn sàng hoạt động 24/7 và các lập trình viên muốn triển khai các phiên bản của ứng dụng đó nhiều lần trong ngày. Việc đóng gói ứng dụng vào container giúp giải quyết mục tiêu này, cho phép các ứng dụng được phát hành và cập nhật một cách dễ dàng, nhanh chóng mà không có downtime. Kubernetes giúp bạn đảm bảo các ứng dụng container chạy ở bất kì đâu và bất kì lúc nào bạn muốn, đồng thời giúp chúng tìm thấy các tài nguyên và công cụ cần thiết để chạy. Kubernetes là nền tảng mã nguồn mở, chạy được trong môi trường production, được thiết kế và phát triển bởi Google, kết hợp với những ý tưởng tốt nhất từ cộng đồng.</p>
+      </div>
+    </div>
+
+    <br>
+    
+    <div id="basics-modules" class="content__modules">
+      <h2>Những mô-đun Kubernetes cơ bản</h2>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="thumbnail">
+                <a href="/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/"><img src="/docs/tutorials/kubernetes-basics/public/images/module_01.svg?v=1469803628347" alt=""></a>
+                <div class="caption">
+                  <a href="/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/"><h5>1. Tạo mới một cụm Kubernetes</h5></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="thumbnail">
+                <a href="/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/"><img src="/docs/tutorials/kubernetes-basics/public/images/module_02.svg?v=1469803628347" alt=""></a>
+                <div class="caption">
+                  <a href="/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/"><h5>2. Triển khai ứng dụng</h5></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="thumbnail">
+                <a href="/docs/tutorials/kubernetes-basics/explore/explore-intro/"><img src="/docs/tutorials/kubernetes-basics/public/images/module_03.svg?v=1469803628347" alt=""></a>
+                <div class="caption">
+                  <a href="/docs/tutorials/kubernetes-basics/explore/explore-intro/"><h5>3. Khám phá ứng dụng</h5></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="thumbnail">
+                <a href="/docs/tutorials/kubernetes-basics/expose/expose-intro/"><img src="/docs/tutorials/kubernetes-basics/public/images/module_04.svg?v=1469803628347" alt=""></a>
+                <div class="caption">
+                  <a href="/docs/tutorials/kubernetes-basics/expose/expose-intro/"><h5>4. Đưa ứng dụng ra public</h5></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="thumbnail">
+                <a href="/docs/tutorials/kubernetes-basics/scale/scale-intro/"><img src="/docs/tutorials/kubernetes-basics/public/images/module_05.svg?v=1469803628347" alt=""></a>
+                <div class="caption">
+                  <a href="/docs/tutorials/kubernetes-basics/scale/scale-intro/"><h5>5. Scale ứng dụng</h5></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="thumbnail">
+                <a href="/docs/tutorials/kubernetes-basics/update/update-intro/"><img src="/docs/tutorials/kubernetes-basics/public/images/module_06.svg?v=1469803628347" alt=""></a>
+                <div class="caption">
+                  <a href="/docs/tutorials/kubernetes-basics/update/update-intro/"><h5>6. Cập nhật ứng dụng</h5></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+</div>
+
+</body>
+</html>

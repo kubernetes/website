@@ -1,0 +1,13 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+# Localized strings for French.
+# Teams and members are visible at https://github.com/orgs/kubernetes/teams.
+
+reviewers:
+- sig-docs-fr-reviews
+
+approvers:
+- sig-docs-fr-owners
+
+labels:
+- language/fr

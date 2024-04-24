@@ -1,0 +1,133 @@
+---
+title: 복수의 앱 인스턴스를 구동하기
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="ko">
+
+<body>
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+            <div class="col-md-8">
+                <h3>목표</h3>
+                <ul>
+                    <li>kubectl을 사용해서 애플리케이션을 스케일한다.</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+                <h3>애플리케이션을 스케일하기</h3>
+                
+                <p>지난 모듈에서 <a href="/ko/docs/concepts/workloads/controllers/deployment/"> 디플로이먼트</a>를 만들고,
+                    <a href="/ko/docs/concepts/services-networking/service/">서비스</a>를
+                    통해서 디플로이먼트를 외부에 노출시켜 봤다. 해당 디플로이먼트는 애플리케이션을 구동하기 위해 단
+                    하나의 파드만을 생성했었다. 트래픽이 증가하면, 사용자 요청에 맞추어 애플리케이션의 규모를
+                    조정할 필요가 있다.</p>
+
+                <p>디플로이먼트의 복제 수를 변경하면 <b>스케일링</b>이 수행된다</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>요약:</h3>
+                    <ul>
+                        <li>디플로이먼트 스케일링하기</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <p><i> kubectl create deployment 명령에 --replicas 파라미터를 사용해서 처음부터 복수의 인스턴스로 구동되는
+                        디플로이먼트를 만들 수도 있다 </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">스케일링 개요</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-8">
+                <div id="myCarousel" class="carousel" data-ride="carousel" data-interval="3000">
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                    </ol>
+                    <div class="carousel-inner" role="listbox">
+                        <div class="item carousel-item active">
+                            <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling1.svg">
+                        </div>
+
+                        <div class="item carousel-item">
+                            <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling2.svg">
+                        </div>
+                    </div>
+
+                    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                        <span class="sr-only ">이전</span>
+                    </a>
+                    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                        <span class="sr-only">다음</span>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <p>디플로이먼트를 스케일 아웃하면 신규 파드가 생성되어서 가용한 자원이 있는 노드에 스케줄된다.
+                    스케일링 기능은 새로 의도한 상태(desired state)까지 파드의 수를 늘린다. 쿠버네티스는
+                    파드의 <a href="/docs/user-guide/horizontal-pod-autoscaling/">오토스케일링</a>
+                    도 지원하지만 본 튜토리얼에서는 다루지 않는다. 0까지 스케일링하는 것도 가능하다. 이 경우 해당
+                    디플로이먼트의 모든 파드가 종료된다.</p>
+
+                <p>애플리케이션의 인스턴스를 복수로 구동하게 되면 트래픽을 해당 인스턴스 모두에 분산시킬 방법이
+                    필요해진다. 서비스는 노출된 디플로이먼트의 모든 파드에 네트워크 트래픽을 분산시켜줄 통합된
+                    로드밸런서를 갖는다. 서비스는 엔드포인트를 이용해서 구동중인 파드를 지속적으로 모니터링함으로써
+                    가용한 파드에만 트래픽이 전달되도록 해준다.</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i>디플로이먼트의 복제 수를 변경하면 스케일링이 수행된다.</i></p>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p> 일단 복수의 애플리케이션의 인스턴스가 구동 중이면, 다운타임 없이 롤링 업데이트를 할 수 있다.
+                    다음 모듈에서 이 내용을 다루도록 하겠다. 이제 온라인 터미널로 가서 애플리케이션을 스케일해보자.</p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/ko/docs/tutorials/kubernetes-basics/scale/scale-interactive/"
+                   role="button">대화형 튜토리얼 시작하기 <span class="btn__next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

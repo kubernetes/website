@@ -1,0 +1,372 @@
+---
+title: 查看 Pod 和节点
+weight: 10
+description: |-
+  学习如何使用 kubectl get、kubectl describe、kubectl logs 和
+  kubectl exec 排除 Kubernetes 应用故障。
+---
+<!--
+title: Viewing Pods and Nodes
+weight: 10
+description: |-
+  Learn how to troubleshoot Kubernetes applications using
+  kubectl get, kubectl describe, kubectl logs and
+  kubectl exec.
+-->
+
+<!DOCTYPE html>
+
+<html lang="zh">
+
+<body>
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+     <div class="col-md-8">
+          <!-- <h3>Objectives</h3> -->
+          <h3>目标</h3>
+                <ul>
+                    <!--
+                    <li>Learn about Kubernetes Pods.</li>
+                    <li>Learn about Kubernetes Nodes.</li>
+                    <li>Troubleshoot deployed applications.</li>
+                    -->
+                    <li>了解 Kubernetes Pod。</li>
+                    <li>了解 Kubernetes 节点。</li>
+                    <li>对已部署的应用故障排除。</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+                <!--
+                <h2>Kubernetes Pods</h2>
+                <p>When you created a Deployment in Module <a href="/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">2</a>, Kubernetes created a <b>Pod</b> to host your application instance. A Pod is a Kubernetes abstraction that represents a group of one or more application containers (such as Docker), and some shared resources for those containers. Those resources include:</p>
+                -->
+                <h2>Kubernetes Pod</h2>
+                <p>在模块 <a href="/zh-cn/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">2</a> 中创建 Deployment 时,
+                Kubernetes 创建了一个 <b>Pod</b> 来托管你的应用实例。Pod 是 Kubernetes 抽象出来的，
+                表示一组一个或多个应用容器（如 Docker），以及这些容器的一些共享资源。这些资源包括：</p>
+                <ul>
+                    <!--
+                    <li>Shared storage, as Volumes</li>
+                    <li>Networking, as a unique cluster IP address</li>
+                    <li>Information about how to run each container, such as the container image version or specific ports to use</li>
+                    -->
+                    <li>共享存储，当作卷</li>
+                    <li>网络，作为唯一的集群 IP 地址</li>
+                    <li>有关每个容器如何运行的信息，例如容器镜像版本或要使用的特定端口</li>
+                </ul>
+                <!--
+                <p>A Pod models an application-specific "logical host" and can contain different application containers which are relatively tightly coupled. For example, a Pod might include both the container with your Node.js app as well as a different container that feeds the data to be published by the Node.js webserver. The containers in a Pod share an IP Address and port space, are always co-located and co-scheduled, and run in a shared context on the same Node.</p>
+                -->
+                <p>Pod 为特定于应用的“逻辑主机”建模，并且可以包含相对紧耦合的不同应用容器。
+                例如，Pod 可能既包含带有 Node.js 应用的容器，也包含另一个不同的容器，
+                用于提供 Node.js 网络服务器要发布的数据。Pod 中的容器共享 IP 地址和端口，
+                始终位于同一位置并且共同调度，并在同一节点上的共享上下文中运行。</p>
+
+            <!--
+            <p>Pods are the atomic unit on the Kubernetes platform. When we create a Deployment on Kubernetes, that Deployment creates Pods with containers inside them (as opposed to creating containers directly). Each Pod is tied to the Node where it is scheduled, and remains there until termination (according to restart policy) or deletion. In case of a Node failure, identical Pods are scheduled on other available Nodes in the cluster.</p>
+            -->
+            <p>Pod 是 Kubernetes 平台上的原子单元。当我们在 Kubernetes 上创建 Deployment 时，
+            该 Deployment 会在其中创建包含容器的 Pod（而不是直接创建容器）。
+            每个 Pod 都与调度它的节点绑定，并保持在那里直到终止（根据重启策略）或删除。
+            如果节点发生故障，则会在集群中的其他可用节点上调度相同的 Pod。</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <!--
+                    <h3>Summary:</h3>
+                    <ul>
+                        <li>Pods</li>
+                        <li>Nodes</li>
+                        <li>Kubectl main commands</li>
+                    </ul>
+                    -->
+                    <h3>总结：</h3>
+                    <ul>
+                        <li>Pod</li>
+                        <li>节点</li>
+                        <li>Kubectl 主要命令</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                        <p><i>
+                            <!--
+                            A Pod is a group of one or more application containers (such as Docker) and includes shared storage (volumes), IP address and information about how to run them.
+                            -->
+                            Pod 是一个或多个应用容器（例如 Docker）的组合，包括共享存储（卷）、IP 地址和有关如何运行它们的信息。
+                        </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <!-- Pods overview -->
+                <h2 style="color: #3771e3;">Pod 概览</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_03_pods.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <!--
+                <h2>Nodes</h2>
+                <p>A Pod always runs on a <b>Node</b>. A Node is a worker machine in Kubernetes and may be either a virtual or a physical machine, depending on the cluster. Each Node is managed by the control plane. A Node can have multiple pods, and the Kubernetes control plane automatically handles scheduling the pods across the Nodes in the cluster. The control plane's automatic scheduling takes into account the available resources on each Node.</p>
+                -->
+                <h2>节点</h2>
+                <p>Pod 总是运行在<b>节点</b>上。节点是 Kubernetes 中参与计算的机器，可以是虚拟机或物理计算机，具体取决于集群。
+                每个节点由控制面管理。节点可以有多个 Pod，Kubernetes 控制面会自动处理在集群中的节点上调度 Pod。
+                控制面的自动调度考量了每个节点上的可用资源。</p>
+
+                <!--
+                <p>Every Kubernetes Node runs at least:</p>
+                <ul>
+                    <li>Kubelet, a process responsible for communication between the Kubernetes control plane and the Node; it manages the Pods and the containers running on a machine.</li>
+                    <li>A container runtime (like Docker) responsible for pulling the container image from a registry, unpacking the container, and running the application.</li>
+                </ul>
+                -->
+                <p>每个 Kubernetes 节点至少运行：</p>
+                <ul>
+                    <li>Kubelet，负责 Kubernetes 控制面和节点之间通信的进程；它管理机器上运行的 Pod 和容器。</li>
+                    <li>容器运行时（如 Docker）负责从镜像仓库中提取容器镜像、解压缩容器以及运行应用。</li>
+                </ul>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <!--
+                    <p><i> Containers should only be scheduled together in a single Pod if they are tightly coupled and need to share resources such as disk. </i></p>
+                    -->
+                    <p><i>如果容器紧耦合并且需要共享磁盘等资源，则只应将其编排在一个 Pod 中。</i></p>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <!-- Node overview -->
+                <h2 style="color: #3771e3;">节点概览</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_03_nodes.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <!--
+                <h2>Troubleshooting with kubectl</h2>
+                <p>In Module <a href="/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">2</a>, you used the kubectl command-line interface. You'll continue to use it in Module 3 to get information about deployed applications and their environments. The most common operations can be done with the following kubectl subcommands:</p>
+                -->
+                <h2>使用 kubectl 进行故障排除</h2>
+                <p>在模块 <a href="/zh-cn/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">2</a> 中，
+                你使用了 kubectl 命令行界面。你将继续在第 3 个模块中使用 kubectl 来获取有关已部署应用及其环境的信息。
+                最常见的操作可以使用以下 kubectl 子命令完成：</p>
+
+                <ul>
+                    <!--
+                    <li><tt><b>kubectl get</b></tt> - list resources</li>
+                    <li><tt><b>kubectl describe</b></tt> - show detailed information about a resource</li>
+                    <li><tt><b>kubectl logs</b></tt> - print the logs from a container in a pod</li>
+                    <li><tt><b>kubectl exec</b></tt> - execute a command on a container in a pod</li>
+                    -->
+                    <li><tt><b>kubectl get</b></tt> - 列出资源</li>
+                    <li><tt><b>kubectl describe</b></tt> - 显示有关资源的详细信息</li>
+                    <li><tt><b>kubectl logs</b></tt> - 打印 Pod 中容器的日志</li>
+                    <li><tt><b>kubectl exec</b></tt> - 在 Pod 中的容器上执行命令</li>
+                </ul>
+
+                <!--
+                <p>You can use these commands to see when applications were deployed, what their current statuses are, where they are running and what their configurations are.</p>
+                -->
+                <p>你可以使用这些命令查看应用的部署时间、当前状态、运行位置以及配置。</p>
+
+                <!--
+                <p>Now that we know more about our cluster components and the command line, let's explore our application.</p>
+                -->
+                <p>现在我们了解了有关集群组件和命令行的更多信息，让我们来探索一下我们的应用。</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <!--
+                    <p><i> A node is a worker machine in Kubernetes and may be a VM or physical machine, depending on the cluster. Multiple Pods can run on one Node. </i></p>
+                    -->
+                    <p><i>节点是 Kubernetes 中负责计算的机器，可能是虚拟机或物理计算机，具体取决于集群。
+                    多个 Pod 可以在一个节点上运行。</i></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <!--
+                <h3>Check application configuration</h3>
+                <p>Let's verify that the application we deployed in the previous scenario is running. We'll use the <code>kubectl get</code> command and look for existing Pods:</p>
+                -->
+                <h3>检查应用配置</h3>
+                <p>让我们验证之前场景中部署的应用是否在运行。我们将使用 <code>kubectl get</code> 命令查看现存的 Pod：</p>
+
+                <p><b><code>kubectl get pods</code></b></p>
+
+                <!--
+                <p>If no pods are running, please wait a couple of seconds and list the Pods again. You can continue once you see one Pod running.</p>
+                <p>Next, to view what containers are inside that Pod and what images are used to build those containers we run the <code>kubectl describe pods</code> command:</p>
+                -->
+                <p>如果没有 Pod 在运行，请等几秒，让 Pod 再次列出。一旦看到一个 Pod 在运行，就可以继续操作。</p>
+                <p>接下来，要查看 Pod 内有哪些容器以及使用了哪些镜像来构建这些容器，我们运行 <code>kubectl describe pods</code> 命令：</p>
+
+                <p><b><code>kubectl describe pods</code></b></p>
+
+                <!--
+                <p>We see here details about the Pod’s container: IP address, the ports used and a list of events related to the lifecycle of the Pod.</p>
+                <p>The output of the <tt>describe</tt> subcommand is extensive and covers some concepts that we didn’t explain yet, but don’t worry, they will become familiar by the end of this bootcamp.</p>
+                <p><em><strong>Note:</strong> the <tt>describe</tt> subcommand can be used to get detailed information about most of the Kubernetes primitives, including Nodes, Pods, and Deployments. The describe output is designed to be human readable, not to be scripted against.</em></p>
+                -->
+                <p>我们在这里看到了 Pod 的容器相关详情：IP 地址、使用的端口以及 Pod 生命期有关的事件列表。</p>
+                <p><tt>describe</tt> 子命令的输出宽泛，涵盖了一些我们还未讲到的概念，但不用担心，
+                这节课结束时你就会熟悉这些概念了。</p>
+                <p><em><strong>注：</strong><tt>describe</tt>子命令可用于获取有关大多数 Kubernetes 原语的详细信息，
+                包括节点、Pod 和 Deployment。describe 的输出设计为人类可读的信息，而不是脚本化的信息。</em></p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <!--
+                <h3>Show the app in the terminal</h3>
+                <p>Recall that Pods are running in an isolated, private network - so we need to proxy access
+                to them so we can debug and interact with them. To do this, we'll use the <code>kubectl proxy</code> command to run a proxy in a <strong>second terminal</strong>. Open a new terminal window, and in that new terminal, run:</p>
+                -->
+                <h3>在终端中显示应用</h3>
+                <p>回想一下，Pod 运行在隔离的、私有的网络中，因此我们需要代理访问它们，这样才能进行调试和交互。
+                为了做到这一点，我们将使用 <code>kubectl proxy</code> 命令在<strong>第二个终端</strong>中运行一个代理。
+                打开一个新的终端窗口，在这个新的终端中运行以下命令：</p>
+
+                <p><code><b>kubectl proxy</b></code></p>
+
+                <!--
+                <p>Now again, we'll get the Pod name and query that pod directly through the proxy.
+                To get the Pod name and store it in the <tt>POD_NAME</tt> environment variable:</p>
+                -->
+                <p>现在我们再次获取 Pod 命令并直接通过代理查询该 Pod。
+                要获取 Pod 命令并将其存到 <tt>POD_NAME</tt> 环境变量中，运行以下命令：</p>
+
+                <p><code><b>export POD_NAME="$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')"</b></code><br />
+                <code><b>echo Name of the Pod: $POD_NAME</b></code></p>
+
+                <!--
+                <p>To see the output of our application, run a <code>curl</code> request:</p>
+                -->
+                <p>要查看应用的输出，运行 <code>curl</code> 请求：</p>
+
+                <p><code><b>curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME:8080/proxy/</b></code></p>
+
+                <!--
+                <p>The URL is the route to the API of the Pod.</p>
+                -->
+                <p>URL 是到 Pod API 的路由。</p>
+           </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <!--
+                <h3>View the container logs</h3>
+                <p>Anything that the application would normally send to standard output becomes logs for the container within the Pod. We can retrieve these logs using the <code>kubectl logs</code> command:</p>
+                -->
+                <h3>查看容器日志</h3>
+                <p>应用通常发送到标准输出的所有内容都成为 Pod 内容器的日志。
+                我们可以使用 <code>kubectl logs</code> 命令检索这些日志：</p>
+
+                <p><code><b>kubectl logs "$POD_NAME"</b></code></p>
+
+                <!--
+                <p><em><strong>Note:</strong> We don't need to specify the container name, because we only have one container inside the pod.</em></p>
+                -->
+                <p><em><strong>注：</strong>我们不需要指定容器名称，因为在 Pod 内只有一个容器。</em></p>
+           </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <!--
+                <h3>Executing command on the container</h3>
+                <p>We can execute commands directly on the container once the Pod is up and running.
+                For this, we use the <code>exec</code> subcommand and use the name of the Pod as a parameter. Let’s list the environment variables:</p>
+                -->
+                <h3>在容器上执行命令</h3>
+                <p>一旦 Pod 启动并运行，我们就可以直接在容器上执行命令。
+                为此，我们使用 <code>exec</code> 子命令，并将 Pod 的名称作为参数。让我们列出环境变量：</p>
+
+                <p><code><b>kubectl exec "$POD_NAME" -- env</b></code></p>
+
+                <!--
+                <p>Again, it's worth mentioning that the name of the container itself can be omitted since we only have a single container in the Pod.</p>
+                <p>Next let’s start a bash session in the Pod’s container:</p>
+                -->
+                <p>另外值得一提的是，由于 Pod 中只有一个容器，所以容器本身的名称可以被省略。</p>
+                <p>接下来，让我们在 Pod 的容器中启动一个 bash 会话：</p>
+
+                <p><code><b>kubectl exec -ti $POD_NAME -- bash</b></code></p>
+
+                <!--
+                <p>We have now an open console on the container where we run our NodeJS application.  The source code of the app is in the <tt>server.js</tt> file:</p>
+                -->
+                <p>现在我们在运行 Node.js 应用的容器上有一个打开的控制台。该应用的源代码位于 <tt>server.js</tt> 文件中：</p>
+
+                <p><code><b>cat server.js</b></code></p>
+
+                <!--
+                <p>You can check that the application is up by running a <tt>curl</tt> command:</p>
+                -->
+                <p>你可以通过运行 <tt>curl</tt> 命令查看应用是否启动：</p>
+
+                <p><code><b>curl http://localhost:8080</b></code></p>
+
+                <!--
+                <p><em><strong>Note:</strong> here we used <tt>localhost</tt> because we executed the command inside the NodeJS Pod. If you cannot connect to localhost:8080, check to make sure you have run the <code>kubectl exec</code> command and are launching the command from within the Pod</em></p>
+                <p>To close your container connection, type <code><b>exit</b></code>.</p>
+                -->
+                <p><em><strong>注：</strong>在这里我们使用了 <tt>localhost</tt>，因为我们在 NodeJS Pod 内执行了此命令。
+                如果你无法连接到 localhost:8080，请确保你已经运行了 <code>kubectl exec</code> 命令，并且从 Pod 内启动了该命令。</em></p>
+                <p>要关闭你的容器连接，键入 <code><b>exit</b></code>。</p>
+           </div>
+        </div>
+
+
+      <div class="row">
+          <p>
+            <!--
+            Once you're ready, move on to <a href="/docs/tutorials/kubernetes-basics/expose/expose-intro/" title="Using A Service To Expose Your App">Using A Service To Expose Your App</a>.
+            -->
+            如果你准备好了，请继续学习<a href="/zh-cn/docs/tutorials/kubernetes-basics/expose/expose-intro/" title="使用服务来暴露你的应用">使用服务来暴露你的应用</a>。
+          </p>
+      </div>
+
+
+    </main>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+# 此策略强制除 "exempt" Deployment 或任何不属于 “example.com” 组织的容器
+#（例如常见的 sidecar）外的 Deployment 的所有容器的镜像库与其命名空间的环境标签相匹配。
+# 例如，如果命名空间的标签为 {"environment": "staging"}，则所有容器镜像必须是
+# staging.example.com/* 或根本不包含 “example.com”，除非 Deployment 有
+# {"exempt": "true"} 标签。
+apiVersion: admissionregistration.k8s.io/v1beta1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: "image-matches-namespace-environment.policy.example.com"
+spec:
+  failurePolicy: Fail
+  matchConstraints:
+    resourceRules:
+    - apiGroups:   ["apps"]
+      apiVersions: ["v1"]
+      operations:  ["CREATE", "UPDATE"]
+      resources:   ["deployments"]
+  variables:
+  - name: environment
+    expression: "'environment' in namespaceObject.metadata.labels ? namespaceObject.metadata.labels['environment'] : 'prod'"
+  - name: exempt
+    expression: "'exempt' in object.metadata.labels && object.metadata.labels['exempt'] == 'true'"
+  - name: containers
+    expression: "object.spec.template.spec.containers"
+  - name: containersToCheck
+    expression: "variables.containers.filter(c, c.image.contains('example.com/'))"
+  validations:
+  - expression: "variables.exempt || variables.containersToCheck.all(c, c.image.startsWith(variables.environment + '.'))"
+    messageExpression: "'only ' + variables.environment + ' images are allowed in namespace ' + namespaceObject.metadata.name"

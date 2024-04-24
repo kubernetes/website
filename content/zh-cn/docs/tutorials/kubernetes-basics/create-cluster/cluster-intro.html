@@ -1,0 +1,190 @@
+---
+title: 使用 Minikube 创建集群
+weight: 10
+description: |-
+  了解 Kubernetes 集群。
+  了解 Minikube。
+  启动一个 Kubernetes 集群。
+---
+<!--
+title: Using Minikube to Create a Cluster
+weight: 10
+description: |-
+  Learn what a Kubernetes cluster is.
+  Learn what Minikube is.
+  Start a Kubernetes cluster.
+-->
+
+<!DOCTYPE html>
+
+<html lang="zh">
+
+<body>
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+      <div class="col-md-8">
+          <!--
+          <h3>Objectives</h3>
+          -->
+          <h3>目标</h3>
+                <ul>
+                    <!--
+                    <li>Learn what a Kubernetes cluster is.</li>
+                    <li>Learn what Minikube is.</li>
+                    <li>Start a Kubernetes cluster on your computer.</li>
+                    -->
+                    <li>了解 Kubernetes 集群。</li>
+                    <li>了解 Minikube。</li>
+                    <li>在你的电脑上开启一个 Kubernetes 集群。</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+                <!--
+                <h3>Kubernetes Clusters</h3>
+                -->
+                <h3> Kubernetes 集群</h3>
+                <p>
+                <!--
+                <b>Kubernetes coordinates a highly available cluster of computers that are connected to work as a single unit.</b> The abstractions in Kubernetes allow you to deploy containerized applications to a cluster without tying them specifically to individual machines. To make use of this new model of deployment, applications need to be packaged in a way that decouples them from individual hosts: they need to be containerized. Containerized applications are more flexible and available than in past deployment models, where applications were installed directly onto specific machines as packages deeply integrated into the host. <b>Kubernetes automates the distribution and scheduling of application containers across a cluster in a more efficient way.</b> Kubernetes is an open-source platform and is production-ready.
+                -->
+                <b>Kubernetes 协调一个高可用计算机集群，每个计算机作为独立单元互相连接工作。</b>
+                Kubernetes 中的抽象允许你将容器化的应用部署到集群，而无需将它们绑定到某个特定的独立计算机。
+                为了使用这种新的部署模型，应用需要以将应用与单个主机分离的方式打包：它们需要被容器化。
+                与过去的那种应用直接以包的方式深度与主机集成的部署模型相比，容器化应用更灵活、更可用。
+                <b>Kubernetes 以更高效的方式跨集群自动分发和调度应用容器。</b>
+                Kubernetes 是一个开源平台，并且可应用于生产环境。
+                </p>
+                <!--
+                A Kubernetes cluster consists of two types of resources:
+                -->
+                <p>一个 Kubernetes 集群包含两种类型的资源：
+                    <ul>
+                        <!--
+                        <li>The <b>Control Plane</b> coordinates the cluster</li>
+                        <li><b>Nodes</b> are the workers that run applications</li>
+                        -->
+                        <li><b>控制面</b>调度整个集群</li>
+                        <li><b>节点</b>负责运行应用</li>
+                    </ul>
+                </p>
+            </div>
+
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <!--
+                    <h3>Summary:</h3>
+                    -->
+                    <h3>总结:</h3>
+                    <ul>
+                        <!--
+                        <li>Kubernetes cluster</li>
+                        <li>Minikube</li>
+                        -->
+                        <li>Kubernetes 集群</li>
+                        <li>Minikube</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <p><i>
+                        <!--
+                        Kubernetes is a production-grade, open-source platform that orchestrates the placement (scheduling) and execution of application containers within and across computer clusters.
+                        -->
+                        Kubernetes 是一个生产级别的开源平台，可协调在计算机集群内和跨计算机集群的应用容器的部署（调度）和执行.
+                    </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <!--
+                Cluster Diagram
+                -->
+                <h2 style="color: #3771e3;">集群图</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_01_cluster.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <!--
+                <b>The Control Plane is responsible for managing the cluster.</b> The Control Plane coordinates all activities in your cluster, such as scheduling applications, maintaining applications' desired state, scaling applications, and rolling out new updates.
+                -->
+                <p><b>控制面负责管理整个集群。</b> 
+                控制面协调集群中的所有活动，例如调度应用、维护应用的所需状态、应用扩容以及推出新的更新。</p>
+                <!--
+                <b>A node is a VM or a physical computer that serves as a worker machine in a Kubernetes cluster.</b> Each node has a Kubelet, which is an agent for managing the node and communicating with the Kubernetes control plane. The node should also have tools for handling container operations, such as containerd or Docker. A Kubernetes cluster that handles production traffic should have a minimum of three nodes because if one node goes down, both an <a href="/docs/concepts/overview/components/#etcd">etcd</a> member and a control plane instance are lost, and redundancy is compromised. You can mitigate this risk by adding more control plane nodes.
+                -->
+                <p><b>节点是一个虚拟机或者物理机，它在 Kubernetes 集群中充当工作机器的角色。</b>
+                每个节点都有 Kubelet，它管理节点而且是节点与控制面通信的代理。
+                节点还应该具有用于​​处理容器操作的工具，例如 Docker 或 rkt。
+                处理生产级流量的 Kubernetes 集群至少应具有三个节点，因为如果一个节点出现故障其对应的
+                <a href="/zh-cn/docs/concepts/overview/components/#etcd">etcd</a> 成员和控制面实例都会丢失，
+                并且冗余会受到影响。你可以通过添加更多控制面节点来降低这种风险。</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <!--
+                    Control Planes manage the cluster and the nodes that are used to host the running applications.
+                    -->
+                    <p><i>控制面管理集群，节点用于托管正在运行的应用。</i></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <!--
+                When you deploy applications on Kubernetes, you tell the control plane to start the application containers. The control plane schedules the containers to run on the cluster's nodes. <b>The nodes communicate with the control plane using the <a href="/docs/concepts/overview/kubernetes-api/">Kubernetes API</a></b>, which the control plane exposes. End users can also use the Kubernetes API directly to interact with the cluster.
+                -->
+                <p>在 Kubernetes 上部署应用时，你告诉控制面启动应用容器。
+                控制面就编排容器在集群的节点上运行。
+                <b>节点使用控制面暴露的 <a href="/zh-cn/docs/concepts/overview/kubernetes-api/">Kubernetes API</a>
+                与控制面通信。</b>终端用户也可以使用 Kubernetes API 与集群交互。</p>
+
+                <!--
+                A Kubernetes cluster can be deployed on either physical or virtual machines. To get started with Kubernetes development, you can use Minikube. Minikube is a lightweight Kubernetes implementation that creates a VM on your local machine and deploys a simple cluster containing only one node. Minikube is available for Linux, macOS, and Windows systems. The Minikube CLI provides basic bootstrapping operations for working with your cluster, including start, stop, status, and delete.
+                -->
+                <p>Kubernetes 既可以部署在物理机上也可以部署在虚拟机上。你可以使用 Minikube 开始部署 Kubernetes 集群。
+                Minikube 是一种轻量级的 Kubernetes 实现，可在本地计算机上创建 VM 并部署仅包含一个节点的简单集群。
+                Minikube 可用于 Linux、macOS 和 Windows 系统。Minikube CLI 提供了用于引导集群工作的多种操作，
+                包括启动、停止、查看状态和删除。</p>
+
+                <!--
+                Now that you know more about what Kubernetes is, visit <a href="/docs/tutorials/hello-minikube/">Hello Minikube</a>
+                to try this out on your computer.
+                -->
+                <p>既然你已经知道 Kubernetes 是什么，访问<a href="/zh-cn/docs/tutorials/hello-minikube/">你好 Minikube</a>，
+                在你的电脑上试试这个。</p>
+
+            </div>
+        </div>
+
+        <div class="row">
+             <!--
+             Once you've done that, move on to <a href="/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">Using <tt>kubectl</tt> to create a Deployment</a>.
+             -->
+             <p>完成这一步之后，继续<a href="/zh-cn/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">使用
+             <tt>kubectl</tt> 创建一个 Deployment</a>。</p>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

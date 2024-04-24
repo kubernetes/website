@@ -1,0 +1,137 @@
+---
+title: रोलिंग अपडेट करना 
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="hi">
+
+<body>
+
+    <link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+     <div class="col-md-8">
+          <h3>उद्देश्य</h3>
+                <ul>
+                    <li>kubectl का उपयोग करके रोलिंग अपडेट करें।</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+            <h3>एप्लिकेशन को अपडेट करना</h3>
+
+            <p>उपयोगकर्ता उम्मीद करते हैं कि एप्लिकेशन हर समय उपलब्ध रहेंगे और डेवलपर्स से दिन में कई बार उनके नए संस्करणों को डिप्लॉय करने की अपेक्षा की जाती है। कुबेरनेट्स में यह रोलिंग अपडेट के साथ किया जाता है। <b>रोलिंग अपडेट</b> पॉड को नए इंस्टेंस के साथ अपडेट करके शून्य डाउनटाइम के साथ डिप्लॉयमेंट अपडेट को सक्षम करता है। नए पॉड्स उपलब्ध संसाधनों के साथ नोड्स पर शेड्यूल किए जाएंगे।</p>
+
+            <p>पिछले मॉड्यूल में हमने कई इंस्टेंस चलाने के लिए अपने एप्लिकेशन को स्केल किया था। एप्लिकेशन की उपलब्धता को प्रभावित किए बिना अपडेट करने के लिए यह आवश्यक है। डिफ़ॉल्ट रूप से, अपदटेस के दौरान अनुपलब्ध पॉड्स की अधिकतम संख्या और बनाए जा सकने वाले नए पॉड्स की अधिकतम संख्या एक है। दोनों विकल्पों को या तो संख्या या (पॉड्स के) प्रतिशत में कॉन्फ़िगर किया जा सकता है।
+            कुबेरनेट्स में, अपदटेस को संस्करणबद्ध किया जाता है और किसी भी डिप्लॉयमेंट अपदटेस को पिछले (स्थिर) संस्करण में वापस लाया जा सकता है।</p>
+                
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>सारांश:</h3>
+                    <ul>
+                        <li>ऐप अपडेट करना</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <p><i>रोलिंग अपडेट पॉड्स को नए इंस्टेंस के साथ अपडेट करके डिप्लॉयमेंट के अपडेट को शून्य डाउनटाइम के साथ होने देता है।</i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">रोलिंग अपडेट अवलोकन</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-8">
+                <div id="myCarousel" class="carousel" data-ride="carousel" data-interval="3000">
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                        <li data-target="#myCarousel" data-slide-to="3"></li>
+                    </ol>
+                      <div class="carousel-inner" role="listbox">
+                        <div class="item carousel-item active">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates1.svg" >
+                        </div>
+
+                        <div class="item carousel-item">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates2.svg">
+                        </div>
+
+                        <div class="item carousel-item">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates3.svg">
+                        </div>
+
+                        <div class="item carousel-item">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates4.svg">
+                        </div>
+                      </div>
+
+                      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                        <span class="sr-only ">पिछला</span>
+                      </a>
+                      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                        <span class="sr-only">अगला</span>
+                      </a>
+
+                    </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <p>एप्लिकेशन स्केलिंग के समान, यदि कोई डिप्लॉयमेंट सार्वजनिक रूप से एक्सपोज़ होता है, तो सर्विस केवल अपडेट के दौरान उपलब्ध पॉड्स पर ट्रैफ़िक को लोड-बैलेंस करेगी। उपलब्ध पॉड एक इंस्टेंस है जो एप्लिकेशन के उपयोगकर्ताओं के लिए उपलब्ध है।</p>
+
+                <p>रोलिंग अपडेट निम्नलिखित क्रियाओं की अनुमति देते हैं:</p>
+                <ul>
+                    <li>किसी एप्लिकेशन को एक एनवायरनमेंट से दूसरे एनवायरनमेंट में प्रचारित करें (कंटेनर इमेज अपडेट के माध्यम से)</li>
+                    <li>पिछले संस्करणों में रोलबैक करें</li>
+                    <li>शून्य डाउनटाइम के साथ एप्लीकेशन का निरंतर इंटीग्रेशन और निरंतर डिलीवरी</li>
+
+                </ul>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i>यदि कोई डिप्लॉयमेंट सार्वजनिक रूप से प्रकट होता है, तो सर्विस अपडेट के दौरान केवल उपलब्ध पॉड्स पर ट्रैफ़िक लोड-बैलेंस करेगी।</i></p>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p>निम्नलिखित इंटरैक्टिव ट्यूटोरियल में हम अपने एप्लिकेशन को एक नए संस्करण में अपडेट और रोलबैक करेंगे। </p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/update/update-interactive/" role="button">इंटरएक्टिव ट्यूटोरियल शुरू करें<span class="btn__next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>
