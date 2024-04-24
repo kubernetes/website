@@ -10,7 +10,7 @@ aka:
 tags:
 - fundamental
 ---
- コンテナ環境変数は、{{< glossary_tooltip text="pod" term_id="pod" >}}内で実行されているコンテナに関する有用な情報を提供する`name=value`のペアです。
+ コンテナ環境変数は、{{< glossary_tooltip text="Pod" term_id="pod" >}}内で実行されているコンテナに関する有用な情報を提供する`name=value`のペアです。
 
 <!--more-->
 
