@@ -23,8 +23,8 @@ Para mais informações sobre como criar um cluster com o kubeadm após efetuar 
 * Conexão de rede entre todas as máquinas no cluster. Seja essa pública ou privada.
 * Nome de host único, endereço MAC e product_uuid para cada nó. Veja [aqui](#verify-mac-address) para mais detalhes.
 * Certas portas estão abertas em suas máquinas. Veja [aqui](#check-required-ports) para mais detalhes.
-* Configuração de swap. O comportamento padrão de um kubelet era falhar ao iniciar se a memória swap fosse detectada em um nó.
-  O suporte a swap foi introduzido a partir da v1.22. E desde a v1.28, o Swap é suportado apenas para cgroup v2; o recurso NodeSwap
+* Configuração de swap. O comportamento padrão do kubelet era falhar ao iniciar se a memória swap fosse detectada em um nó.
+  O suporte a swap foi introduzido a partir da v1.22. E desde a v1.28, o swap é suportado apenas para cgroup v2; o recurso NodeSwap
   do kubelet está em beta, mas desativado por padrão.
   * Você **DEVE** desabilitar o swap se o kubelet não estiver configurado corretamente para usar swap. Por exemplo, `sudo swapoff -a`
     desabilitará a troca temporariamente. Para tornar essa mudança persistente entre reinicializações, certifique-se de que o swap esteja desabilitado em
@@ -39,6 +39,7 @@ que forneça os símbolos esperados.
 {{< /note >}}
 
 <!-- steps -->
+
 
 ## Verifique se o endereço MAC e o product_uuid são únicos para cada nó {#verify-mac-address}
 
@@ -61,23 +62,23 @@ Você pode usar ferramentas como [netcat](https://netcat.sourceforge.net) para v
 nc 127.0.0.1 6443 -v
 ```
 
-O plugin de rede de pods que você usa também pode exigir que certas portas estejam
-abertas. Como isso varia com cada plugin de rede de pods, consulte a
+O plugin de rede de Pods que você usa também pode exigir que certas portas estejam
+abertas. Como isso varia com cada plugin de rede de Pods, consulte a
 documentação dos plugins sobre quais portas precisam estar abertas.
 
-## Instalando um runtime de container {#installing-runtime}
+## Instalando um runtime de contêiner {#installing-runtime}
 
-Para executar containers em Pods, o Kubernetes usa um
+Para executar contêiners em Pods, o Kubernetes usa um
 {{< glossary_tooltip term_id="container-runtime" text="runtime de container" >}}.
 
 Por padrão, o Kubernetes usa a
 {{< glossary_tooltip term_id="cri" text="Interface de Runtime de Container">}} (CRI)
-para se comunicar com o runtime de container escolhido.
+para se comunicar com o runtime de contêiner escolhido.
 
-Se você não especificar um runtime, o kubeadm tentará detectar automaticamente um runtime de container instalado
+Se você não especificar um runtime, o kubeadm tentará detectar automaticamente um runtime de contêiner instalado
 varrendo uma lista de endpoints conhecidos.
 
-Se múltiplos ou nenhum runtime de container forem detectados, o kubeadm lançará um erro
+Se múltiplos ou nenhum runtime de contêiner forem detectados, o kubeadm lançará um erro
 e solicitará que você especifique qual deles deseja usar.
 
 Veja [runtimes de container](/docs/setup/production-environment/container-runtimes/)
@@ -85,7 +86,7 @@ para mais informações.
 
 {{< note >}}
 O Docker Engine não implementa a [CRI](/docs/concepts/architecture/cri/)
-que é um requisito para um runtime de container trabalhar com o Kubernetes.
+que é um requisito para um runtime de contêiner trabalhar com o Kubernetes.
 Por essa razão, um serviço adicional [cri-dockerd](https://mirantis.github.io/cri-dockerd/)
 deve ser instalado. cri-dockerd é um projeto baseado no suporte integrado legado
 do Docker Engine que foi [removido](/dockershim) do kubelet na versão 1.24.
@@ -96,8 +97,8 @@ As tabelas abaixo incluem os endpoints conhecidos para sistemas operacionais sup
 {{< tabs name="container_runtime" >}}
 {{% tab name="Linux" %}}
 
-{{< table caption="Runtimes de container para Linux" >}}
-| Runtime                            | Caminho para o socket de domínio Unix                   |
+{{< table caption="Runtimes de contêiner para Linux" >}}
+| Agente de execução                 | Caminho para o socket de domínio Unix                   |
 |------------------------------------|---------------------------------------------------------|
 | containerd                         | `unix:///var/run/containerd/containerd.sock`            |
 | CRI-O                              | `unix:///var/run/crio/crio.sock`                        |
@@ -108,7 +109,7 @@ As tabelas abaixo incluem os endpoints conhecidos para sistemas operacionais sup
 
 {{% tab name="Windows" %}}
 
-{{< table caption="Runtimes de container para Windows" >}}
+{{< table caption="Runtimes de contêiner para Windows" >}}
 | Runtime                            | Caminho para o pipe nomeado do Windows                  |
 |------------------------------------|---------------------------------------------------------|
 | containerd                         | `npipe:////./pipe/containerd-containerd`                |
@@ -125,16 +126,17 @@ Você instalará esses pacotes em todas as suas máquinas:
 
 * `kubeadm`: o comando para iniciar o cluster.
 
-* `kubelet`: o componente que roda em todas as máquinas do seu cluster
-  e faz coisas como iniciar pods e containers.
+* `kubelet`: o componente que executa em todas as máquinas do seu cluster
+  e faz coisas como iniciar Pods e contêiners.
 
-* `kubectl`: o utilitário de linha de comando para conversar com seu cluster.
+* `kubectl`: o utilitário de linha de comando para interagir com o cluster.
 
-O kubeadm **não irá** instalar ou gerenciar o `kubelet` ou o `kubectl` para você, então você precisará
-garantir que eles correspondam à versão do plano de controle do Kubernetes que você deseja
-que o kubeadm instale para você. Se não fizer isso, há um risco de ocorrer um descompasso de versão que
-pode levar a um comportamento inesperado e com erros. No entanto, _um_ descompasso de versão menor entre o
-kubelet e o plano de controle é suportado, mas a versão do kubelet nunca pode exceder a versão do servidor da API. Por exemplo, o kubelet executando 1.7.0 deve ser totalmente compatível com um servidor da API 1.8.0,
+O kubeadm **não irá** instalar ou gerenciar o `kubelet` ou o `kubectl` para você, então você
+precisará garantir que eles correspondam à versão da camada de gerenciamento do Kubernetes 
+que você deseja que o `kubeadm` instale para você. Caso isso não seja feito, surge o risco de que uma diferença nas versões 
+leve a bugs e comportamentos inesperados. Dito isso, _uma_ diferença de menor grandeza nas versões entre o kubelet e a 
+camada de gerenciamento é suportada, mas a versão do kubelet nunca poderá ser superior à versão do servidor da API.
+Por exemplo, o kubelet executando 1.7.0 deve ser totalmente compatível com um servidor da API 1.8.0,
 mas não o contrário.
 
 Para mais informações acerca da instalação do `kubectl`, veja [Instale e configure o kubectl](/docs/tasks/tools/).
@@ -146,7 +148,7 @@ Isso ocorre porque o kubeadm e o Kubernetes requerem alguns [cuidados especiais 
 
 Para mais detalhes sobre compatibilidade entre as versões, veja:
 
-* [Política de versão e descompasso de versão](/docs/setup/release/version-skew-policy/) do Kubernetes
+* [Políticas de versão e compatibilidade entre versões](/docs/setup/release/version-skew-policy/) do Kubernetes
 * [Política de descompasso de versão específica do Kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
 
 {{% legacy-repos-deprecation %}}
@@ -202,7 +204,7 @@ Em lançamentos anteriores ao Debian 12 e Ubuntu 22.04, o diretório `/etc/apt/k
    sudo apt-mark hold kubelet kubeadm kubectl
    ```
 
-5. (Opcional) Habilite o serviço kubelet antes de executar kubeadm:
+5. (Opcional) Habilite o serviço kubelet antes de executar o kubeadm:
 
    ```shell
    sudo systemctl enable --now kubelet
@@ -251,7 +253,7 @@ configurações que não são suportadas pelo kubeadm.
    EOF
    ```
 
-3. Instale kubelet, kubeadm e kubectl:
+3. Instale o kubelet, kubeadm e kubectl:
 
    ```shell
    sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
@@ -265,7 +267,7 @@ configurações que não são suportadas pelo kubeadm.
 
 {{% /tab %}}
 {{% tab name="Sem um gerenciador de pacotes" %}}
-Instale os plugins CNI (utilizados por grande parte das redes de pods):
+Instale os plugins CNI (utilizados por grande parte das redes de Pods):
 
 ```bash
 CNI_PLUGINS_VERSION="v1.3.0"
@@ -295,7 +297,7 @@ ARCH="amd64"
 curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
 ```
 
-Instale `kubeadm`, `kubelet` e adicione um serviço systemd `kubelet`:
+Instale o `kubeadm`, o `kubelet`, e o `kubectl` e adicione um serviço systemd `kubelet`:
 
 ```bash
 RELEASE="$(curl -sSL https://dl.k8s.io/release/stable.txt)"
@@ -316,7 +318,7 @@ Por favor, consulte a nota na seção [Antes de começar](#before-you-begin) par
 
 Instale `kubectl` seguindo as instruções na [página de Instalação de Ferramentas](/docs/tasks/tools/#kubectl).
 
-Opcionalmente, habilite o serviço kubelet antes de executar kubeadm:
+Opcionalmente, habilite o serviço kubelet antes de executar o kubeadm:
 
 ```bash
 sudo systemctl enable --now kubelet
@@ -331,8 +333,7 @@ para aprender como configurar um diretório gravável.
 {{% /tab %}}
 {{< /tabs >}}
 
-O kubelet agora está reiniciando a cada poucos segundos, enquanto espera em um loop de falha por
-kubeadm para dizer o que fazer.
+O kubelet agora ficará reiniciando de alguns em alguns segundos, enquanto espera por instruções vindas do kubeadm.
 
 ## Configurando um driver cgroup
 
