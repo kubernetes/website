@@ -6,9 +6,12 @@ weight: 10
 
 <!-- overview -->
 
-<img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">Essa página mostra o processo de instalação do conjunto de ferramentas `kubeadm`. 
+<img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">Essa página mostra o processo de instalação do conjunto de ferramentas `kubeadm`.
 Para mais informações sobre como criar um cluster com o kubeadm após efetuar a instalação, veja a página [Utilizando kubeadm para criar um cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
 
+Este guia de instalação é destinado a instalação do `kubeadm`, uma ferramenta de linha de comando que facilita a criação de clusters Kubernetes.
+
+As instruções a seguir, são para a versão Kubernetes v1.30. Para instalar uma versão diferente, substitua o número da versão no comando `curl` com a versão desejada.
 
 ## {{% heading "prerequisites" %}}
 
@@ -61,7 +64,7 @@ O plugin de rede dos pods que você utiliza também pode requer que algumas port
 
 ## Instalando o agente de execução de contêineres {#instalando-agente-de-execucao}
 
-Para executar os contêineres nos Pods, o Kubernetes utiliza um 
+Para executar os contêineres nos Pods, o Kubernetes utiliza um
 {{< glossary_tooltip term_id="container-runtime" text="agente de execução" >}}.
 
 {{< tabs name="container_runtime" >}}
@@ -96,21 +99,20 @@ para mais detalhes.
 {{% /tab %}}
 {{< /tabs >}}
 
-
 ## Instalando o kubeadm, kubelet e o kubectl
 
 Você instalará esses pacotes em todas as suas máquinas:
 
 * `kubeadm`: o comando para criar o cluster.
 
-* `kubelet`: o componente que executa em todas as máquinas no seu cluster e cuida de tarefas como a inicialização de pods e contêineres. 
+* `kubelet`: o componente que executa em todas as máquinas no seu cluster e cuida de tarefas como a inicialização de pods e contêineres.
 
 * `kubectl`: a ferramenta de linha de comando para interação com o cluster.
 
 O kubeadm **não irá** instalar ou gerenciar o `kubelet` ou o `kubectl` para você, então você
-precisará garantir que as versões deles são as mesmas da versão da camada de gerenciamento do Kubernetes 
-que você quer que o kubeadm instale. Caso isso não seja feito, surge o risco de que uma diferença nas versões 
-leve a bugs e comportamentos inesperados. Dito isso, _uma_ diferença de menor grandeza nas versões entre o kubelet e a 
+precisará garantir que as versões deles são as mesmas da versão da camada de gerenciamento do Kubernetes
+que você quer que o kubeadm instale. Caso isso não seja feito, surge o risco de que uma diferença nas versões
+leve a bugs e comportamentos inesperados. Dito isso, *uma* diferença de menor grandeza nas versões entre o kubelet e a
 camada de gerenciamento é suportada, mas a versão do kubelet nunca poderá ser superior à versão do servidor da API.
 Por exemplo, um kubelet com a versão 1.7.0 será totalmente compatível com a versão 1.8.0 do servidor da API, mas o contrário não será verdadeiro.
 
@@ -136,16 +138,28 @@ Para mais detalhes sobre compatibilidade entre as versões, veja:
    sudo apt-get install -y apt-transport-https ca-certificates curl gpg
    ```
 
-2. Faça o download da chave de assinatura pública da Google Cloud:
+2. Faça o download da chave de assinatura pública de pacotes do Kubernetes:
 
    ```shell
-   sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    ```
+
+`{{< param "version" >}}` é a versão do Kubernetes que você deseja instalar. Por exemplo, `1.30`.
+
+Se o diretório `/etc/apt/keyrings` não existir, você deve criar o diretório:
+
+```shell
+sudo mkdir -p -m 755 /etc/apt/keyrings
+```
+
+{{< nota >}}
+Em versões anteriores ao Debian 12 e Ubuntu 22.04, o diretório `/etc/apt/keyrings` não existe por padrão e deve ser criado antes do comando curl.
+{{< /nota >}}
 
 3. Adicione o repositório `apt` do Kubernetes:
 
-   ```shell
-   echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+```shell
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] <https://pkgs.k8s.io/core:/stable:/v1.30/deb/> /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
    ```
 
 4. Atualize o índice de pacotes `apt`, instale o kubelet, o kubeadm e o kubectl, e fixe suas versões:
@@ -156,18 +170,24 @@ Para mais detalhes sobre compatibilidade entre as versões, veja:
    sudo apt-mark hold kubelet kubeadm kubectl
    ```
 
+5. (Opcional) Habilite o serviço kubelet antes de executar o kubeadm:
+
+   ```shell
+   sudo systemctl enable --now kubelet
+    ```
+
 {{% /tab %}}
 {{% tab name="Distribuições Red Hat" %}}
+
 ```bash
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
+baseurl=https://pkgs.k8s.io/core:/stable:/v1.30/rpm/
 enabled=1
 gpgcheck=1
-repo_gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
-exclude=kubelet kubeadm kubectl
+gpgkey=https://pkgs.k8s.io/core:/stable:/v1.30/rpm/repodata/repomd.xml.key
+exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
 EOF
 
 # Set SELinux in permissive mode (effectively disabling it)
@@ -181,18 +201,18 @@ sudo systemctl enable --now kubelet
 
   **Avisos:**
 
-  - Colocar o SELinux em modo permissivo ao executar `setenforce 0` e `sed ...` efetivamente o desabilita.
+* Colocar o SELinux em modo permissivo ao executar `setenforce 0` e `sed ...` efetivamente o desabilita.
   Isso é necessário para permitir que os contêineres acessem o sistema de arquivos do hospedeiro, que é utilizado pelas redes dos pods por exemplo.
   Você precisará disso até que o suporte ao SELinux seja melhorado no kubelet.
 
-  - Você pode deixar o SELinux habilitado se você souber como configura-lo, mas isso pode exegir configurações que não são suportadas pelo kubeadm.
+* Você pode deixar o SELinux habilitado se você souber como configura-lo, mas isso pode exegir configurações que não são suportadas pelo kubeadm.
 
 {{% /tab %}}
 {{% tab name="Sem um gerenciador de pacotes" %}}
 Instale os plugins CNI (utilizados por grande parte das redes de pods):
 
 ```bash
-CNI_VERSION="v0.8.2"
+CNI_VERSION="v1.30.0"
 ARCH="amd64"
 sudo mkdir -p /opt/cni/bin
 curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-linux-${ARCH}-${CNI_VERSION}.tgz" | sudo tar -C /opt/cni/bin -xz
@@ -213,7 +233,7 @@ sudo mkdir -p $DOWNLOAD_DIR
 Instale o crictl (utilizado pelo kubeadm e pela Interface do Agente de execução do Kubelet (CRI))
 
 ```bash
-CRICTL_VERSION="v1.22.0"
+CRICTL_VERSION="v1.30.0"
 ARCH="amd64"
 curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
 ```
@@ -227,7 +247,7 @@ cd $DOWNLOAD_DIR
 sudo curl -L --remote-name-all https://dl.k8s.io/release/${RELEASE}/bin/linux/${ARCH}/{kubeadm,kubelet,kubectl}
 sudo chmod +x {kubeadm,kubelet,kubectl}
 
-RELEASE_VERSION="v0.4.0"
+RELEASE_VERSION="v1.30.0"
 curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service
 sudo mkdir -p /etc/systemd/system/kubelet.service.d
 curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
@@ -247,7 +267,7 @@ Veja o [Guia de solução de problemas do Kubeadm](/docs/setup/production-enviro
 {{% /tab %}}
 {{< /tabs >}}
 
-O kubelet agora ficará reiniciando de alguns em alguns segundos, enquanto espera por instruções vindas do kubeadm. 
+O kubelet agora ficará reiniciando de alguns em alguns segundos, enquanto espera por instruções vindas do kubeadm.
 
 ## Configurando um driver cgroup
 
