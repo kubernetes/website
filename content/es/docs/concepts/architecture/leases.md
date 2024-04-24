@@ -88,7 +88,7 @@ Puede desactivar el lease de identidades del servidor API desactivando la opció
 ## Cargas de trabajo {#custom-workload}
 
 Su propia carga de trabajo puede definir su propio uso de los leases. Por ejemplo, puede ejecutar un
-{{< glossary_tooltip term_id=«controller» text=«controlador» >}} en la que un miembro principal o líder
+{{< glossary_tooltip term_id=controller text=controlador >}} en la que un miembro principal o líder
 realiza operaciones que sus compañeros no realizan. Usted define un Lease para que las réplicas del controlador puedan seleccionar
 o elegir un líder, utilizando la API de Kubernetes para la coordinación.
 Si utiliza un lease, es una buena práctica definir un nombre para el lease que esté obviamente vinculado a
