@@ -207,7 +207,7 @@ second line.}
 -->
 ### 上下文日志   {#contextual-logging}
 
-{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.30" state="beta" >}}
 
 <!-- 
 Contextual logging builds on top of structured logging. It is primarily about
@@ -229,14 +229,16 @@ passed into functions by their caller.
 那么日志条目将会包含额外的信息，这些信息会被调用者传递给函数。
 
 <!-- 
-Currently this is gated behind the `StructuredLogging` feature gate and
-disabled by default. The infrastructure for this was added in 1.24 without
+For Kubernetes {{< skew currentVersion >}}, this is gated behind the `ContextualLogging`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and is
+enabled by default. The infrastructure for this was added in 1.24 without
 modifying components. The
 [`component-base/logs/example`](https://github.com/kubernetes/kubernetes/blob/v1.24.0-beta.0/staging/src/k8s.io/component-base/logs/example/cmd/logger.go)
 command demonstrates how to use the new logging calls and how a component
 behaves that supports contextual logging.
 -->
-目前这一特性是由 `StructuredLogging` 特性门控所控制的，默认关闭。
+对于 Kubernetes {{< skew currentVersion >}}，这一特性是由 `StructuredLogging`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)所控制的，默认启用。
 这个基础设施是在 1.24 中被添加的，并不需要修改组件。
 该 [`component-base/logs/example`](https://github.com/kubernetes/kubernetes/blob/v1.24.0-beta.0/staging/src/k8s.io/component-base/logs/example/cmd/logger.go)
 命令演示了如何使用新的日志记录调用以及组件如何支持上下文日志记录。
@@ -248,15 +250,15 @@ $ go run . --help
       --feature-gates mapStringBool  A set of key=value pairs that describe feature gates for alpha/experimental features. Options are:
                                      AllAlpha=true|false (ALPHA - default=false)
                                      AllBeta=true|false (BETA - default=false)
-                                     ContextualLogging=true|false (ALPHA - default=false)
+                                     ContextualLogging=true|false (BETA - default=true)
 $ go run . --feature-gates ContextualLogging=true
 ...
-I0404 18:00:02.916429  451895 logger.go:94] "example/myname: runtime" foo="bar" duration="1m0s"
-I0404 18:00:02.916447  451895 logger.go:95] "example: another runtime" foo="bar" duration="1m0s"
+I0222 15:13:31.645988  197901 example.go:54] "runtime" logger="example.myname" foo="bar" duration="1m0s"
+I0222 15:13:31.646007  197901 example.go:55] "another runtime" logger="example" foo="bar" duration="1h0m0s" duration="1m0s"
 ```
 
 <!-- 
-The `example` prefix and `foo="bar"` were added by the caller of the function
+The `logger` key and `foo="bar"` were added by the caller of the function
 which logs the `runtime` message and `duration="1m0s"` value, without having to
 modify that function.
 
@@ -264,7 +266,7 @@ With contextual logging disable, `WithValues` and `WithName` do nothing and log
 calls go through the global klog logger. Therefore this additional information
 is not in the log output anymore: 
 -->
-`example` 前缀和 `foo="bar"` 会被函数的调用者添加上，
+`logger` 键和 `foo="bar"` 会被函数的调用者添加上，
 不需修改该函数，它就会记录 `runtime` 消息和 `duration="1m0s"` 值。
 
 禁用上下文日志后，`WithValues` 和 `WithName` 什么都不会做，
@@ -274,8 +276,8 @@ is not in the log output anymore:
 ```console
 $ go run . --feature-gates ContextualLogging=false
 ...
-I0404 18:03:31.171945  452150 logger.go:94] "runtime" duration="1m0s"
-I0404 18:03:31.171962  452150 logger.go:95] "another runtime" duration="1m0s"
+I0222 15:14:40.497333  198174 example.go:54] "runtime" duration="1m0s"
+I0222 15:14:40.497346  198174 example.go:55] "another runtime" duration="1h0m0s" duration="1m0s"
 ```
 
 <!--
@@ -406,8 +408,8 @@ To help with debugging issues on nodes, Kubernetes v1.27 introduced a feature th
 running on the node. To use the feature, ensure that the `NodeLogQuery`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled for that node, and that the
 kubelet configuration options `enableSystemLogHandler` and `enableSystemLogQuery` are both set to true. On Linux
-we assume that service logs are available via journald. On Windows we assume that service logs are available
-in the application log provider. On both operating systems, logs are also available by reading files within
+the assumption is that service logs are available via journald. On Windows the assumption is that service logs are
+available in the application log provider. On both operating systems, logs are also available by reading files within
 `/var/log/`.
 -->
 为了帮助在节点上调试问题，Kubernetes v1.27 引入了一个特性来查看节点上当前运行服务的日志。
@@ -419,7 +421,7 @@ in the application log provider. On both operating systems, logs are also availa
 在两种操作系统上，都可以通过读取 `/var/log/` 内的文件查看日志。
 
 <!--
-Provided you are authorized to interact with node objects, you can try out this alpha feature on all your nodes or
+Provided you are authorized to interact with node objects, you can try out this feature on all your nodes or
 just a subset. Here is an example to retrieve the kubelet service logs from a node:
 
 ```shell
@@ -427,7 +429,7 @@ just a subset. Here is an example to retrieve the kubelet service logs from a no
 kubectl get --raw "/api/v1/nodes/node-1.example/proxy/logs/?query=kubelet"
 ```
 -->
-假如你被授权与节点对象交互，你可以在所有节点或只是某个子集上试用此 Alpha 特性。
+假如你被授权与节点对象交互，你可以在所有节点或只是某个子集上试用此特性。
 这里有一个从节点中检索 kubelet 服务日志的例子：
 
 ```shell
@@ -504,10 +506,12 @@ kubectl get --raw "/api/v1/nodes/node-1.example/proxy/logs/?query=kubelet&patter
 * Read about [Contextual Logging](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/3077-contextual-logging)
 * Read about [deprecation of klog flags](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)
 * Read about the [Conventions for logging severity](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)
+* Read about [Log Query](https://kep.k8s.io/2258)
 -->
 * 阅读 [Kubernetes 日志架构](/zh-cn/docs/concepts/cluster-administration/logging/)
 * 阅读[结构化日志提案（英文）](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/1602-structured-logging)
 * 阅读[上下文日志提案（英文）](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/3077-contextual-logging)
 * 阅读 [klog 参数的废弃（英文）](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)
 * 阅读[日志严重级别约定（英文）](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)
+* 阅读[日志查询](https://kep.k8s.io/2258)
 

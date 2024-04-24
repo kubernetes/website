@@ -81,7 +81,7 @@ Kubernetes 使用两种机制来发布这些 API 规范；这两种机制都有�
   其目的是为可用的资源提供简要总结，不详细说明资源的具体模式。有关资源模式的参考，请参阅 OpenAPI 文档。
 
 <!--
-- The [Kubernetes OpenAPI Document](#openapi-specification) provides (full)
+- The [Kubernetes OpenAPI Document](#openapi-interface-definition) provides (full)
   [OpenAPI v2.0 and 3.0 schemas](https://www.openapis.org/) for all Kubernetes API
 endpoints.
   The OpenAPI v3 is the preferred method for accessing OpenAPI as it
@@ -92,7 +92,7 @@ provides
   The data is a complete specification and is significantly larger than that from the
   Discovery API.
 -->
-- [Kubernetes OpenAPI 文档](#openapi-specification)为所有 Kubernetes API 端点提供（完整的）
+- [Kubernetes OpenAPI 文档](#openapi-interface-definition)为所有 Kubernetes API 端点提供（完整的）
   [OpenAPI v2.0 和 v3.0 模式](https://www.openapis.org/)。OpenAPI v3 是访问 OpenAPI 的首选方法，
   因为它提供了更全面和准确的 API 视图。其中包括所有可用的 API 路径，以及每个端点上每个操作所接收和生成的所有资源。
   它还包括集群支持的所有可扩展组件。这些数据是完整的规范，比 Discovery API 提供的规范要大得多。
@@ -157,14 +157,14 @@ document.
 如果没有使用 `Accept` 头指示资源类型，对于 `/api` 和 `/apis` 端点的默认响应将是一个非聚合的发现文档。
 
 <!--
-The [discovery document](https://github.com/kubernetes/kubernetes/blob/release-v{{< skew currentVersion >}}/api/discovery/aggregated_v2beta1.json)
+The [discovery document](https://github.com/kubernetes/kubernetes/blob/release-{{< skew currentVersion >}}/api/discovery/aggregated_v2beta1.json)
 for the built-in resources can be found in the Kubernetes GitHub repository.
 This Github document can be used as a reference of the base set of the available resources
 if a Kubernetes cluster is not available to query.
 
 The endpoint also supports ETag and protobuf encoding.
 -->
-内置资源的[发现文档](https://github.com/kubernetes/kubernetes/blob/release-v{{< skew currentVersion >}}/api/discovery/aggregated_v2beta1.json)可以在
+内置资源的[发现文档](https://github.com/kubernetes/kubernetes/blob/release-{{< skew currentVersion >}}/api/discovery/aggregated_v2beta1.json)可以在
 Kubernetes GitHub 代码仓库中找到。如果手头没有 Kubernetes 集群可供查询，
 此 Github 文档可用作可用资源的基础集合的参考。端点还支持 ETag 和 protobuf 编码。
 

@@ -37,7 +37,7 @@ Sebuah *Ingress* dapat dikonfigurasi agar berbagai *Service* memiliki URL yang d
 Sebuah [kontroler Ingress](/id/docs/concepts/services-networking/ingress-controllers) bertanggung jawab untuk menjalankan fungsi Ingress yaitu sebagai *loadbalancer*, meskipun dapat juga digunakan untuk mengatur *edge router* atau *frontend* tambahan untuk menerima trafik.
 
 Sebuah *Ingress* tidak mengekspos sembarang *port* atau protokol. Mengekspos *Service* untuk protokol selain HTTP ke HTTPS internet biasanya dilakukan dengan menggunakan
-*service* dengan tipe [Service.Type=NodePort](/id/docs/concepts/services-networking/service/#nodeport) atau
+*service* dengan tipe [Service.Type=NodePort](/id/docs/concepts/services-networking/service/#type-nodeport) atau
 [Service.Type=LoadBalancer](/id/docs/concepts/services-networking/service/#loadbalancer).
 
 ## Prasyarat

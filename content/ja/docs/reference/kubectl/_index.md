@@ -131,7 +131,7 @@ kubectl config set-context --current --namespace=<namespace-name>
 `patch`        | <code>kubectl patch (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) --patch PATCH [flags]</code> | Strategic Merge Patchの処理を使用して、リソースの1つ以上のフィールドを更新します。
 `plugin`    | `kubectl plugin [flags] [options]` | プラグインと対話するためのユーティリティを提供します。
 `port-forward`    | `kubectl port-forward POD [LOCAL_PORT:]REMOTE_PORT [...[LOCAL_PORT_N:]REMOTE_PORT_N] [flags]` | 1つ以上のローカルポートを、Podに転送します。
-`proxy`        | `kubectl proxy [--port=PORT] [--www=static-dir] [--www-prefix=prefix] [--api-prefix=prefix] [flags]` | Kubernetes APIサーバーへのプロキシーを実行します。
+`proxy`        | `kubectl proxy [--port=PORT] [--www=static-dir] [--www-prefix=prefix] [--api-prefix=prefix] [flags]` | Kubernetes APIサーバーへのプロキシを実行します。
 `replace`        | `kubectl replace -f FILENAME` | ファイルや標準出力から、リソースを置き換えます。
 `rollout`    | `kubectl rollout SUBCOMMAND [options]` | リソースのロールアウトを管理します。有効なリソースには、Deployment、DaemonSetとStatefulSetが含まれます。
 `run`        | <code>kubectl run NAME --image=image [--env="key=value"] [--port=port] [--dry-run=server&#124;client&#124;none] [--overrides=inline-json] [flags]</code> | 指定したイメージを、クラスター上で実行します。

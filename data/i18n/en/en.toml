@@ -18,11 +18,21 @@ other = "Show More Posts..."
 [banner_acknowledgement]
 other = "Hide this notice"
 
+[case_study_prefix]
+other = "Case study:"
+
 [caution]
 other = "Caution:"
 
 [cleanup_heading]
 other = "Cleaning up"
+
+# Localization note (no need to translate this note)
+# This is always followed by Chinese text, as required by the Kubernetes
+# project's ICP license, issued by the government of the People's Republic
+# of China.
+[china_icp_license]
+other = "ICP license:"
 
 [community_events_calendar]
 other = "Events Calendar"
@@ -386,6 +396,9 @@ other = "Read about"
 [main_read_more]
 other = "Read more"
 
+[monthly_patch_release]
+other = "Monthly Patch Release"
+
 [not_applicable]
 # Localization teams: it's OK to use a longer text here
 other = "n/a"
@@ -496,6 +509,9 @@ other = "(released: "
 # Use a suitable format for your locale
 [release_date_format]
 other = "2006-01-02"
+
+[release_date_format_month]
+other = "January 2006"
 
 [release_cherry_pick_deadline]
 other = "Cherry Pick Deadline"

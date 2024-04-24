@@ -331,8 +331,10 @@ for resource usage apply:
 Quota and limits are applied based on the effective Pod request and
 limit.
 
-Pod level control groups (cgroups) are based on the effective Pod request and
-limit, the same as the scheduler.
+### Init containers and Linux cgroups {#cgroups}
+
+On Linux, resource allocations for Pod level control groups (cgroups) are based on the effective Pod
+request and limit, the same as the scheduler.
 
 {{< comment >}}
 This section also present under [sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/) page.

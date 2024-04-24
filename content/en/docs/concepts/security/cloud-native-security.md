@@ -143,7 +143,7 @@ To protect your compute at runtime, you can:
    Pods with different trust contexts are run on separate sets of nodes.
 1. Use a {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
    that provides security restrictions.
-1. On Linux nodes, use a Linux security module such as [AppArmor](/docs/tutorials/security/apparmor/) (beta)
+1. On Linux nodes, use a Linux security module such as [AppArmor](/docs/tutorials/security/apparmor/)
    or [seccomp](/docs/tutorials/security/seccomp/).
 
 ### Runtime protection: storage {#protection-runtime-storage}
@@ -223,4 +223,3 @@ logs are both tamper-proof and confidential.
 * [Network policies](/docs/concepts/services-networking/network-policies/) for Pods
 * [Pod security standards](/docs/concepts/security/pod-security-standards/)
 * [RuntimeClasses](/docs/concepts/containers/runtime-class)
-

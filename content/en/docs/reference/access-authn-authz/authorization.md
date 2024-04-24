@@ -211,33 +211,31 @@ so an earlier module has higher priority to allow or deny a request.
 
 ## Configuring the API Server using an Authorization Config File
 
-{{< feature-state state="alpha" for_k8s_version="v1.29" >}}
+{{< feature-state feature_gate_name="StructuredAuthorizationConfiguration" >}}
 
 The Kubernetes API server's authorizer chain can be configured using a
 configuration file.
 
-You specify the path to that authorization configuration using the
-`--authorization-config` command line argument. This feature enables
-creation of authorization chains with multiple webhooks with well-defined
-parameters that validate requests in a certain order and enables fine grained
-control - such as explicit Deny on failures. An example configuration with
-all possible values is provided below.
+This feature enables the creation of authorization chains with multiple webhooks with well-defined parameters that validate requests in a particular order and allows fine-grained control – such as explicit Deny on failures. The configuration file approach even allows you to specify [CEL](/docs/reference/using-api/cel/) rules to pre-filter requests before they are dispatched to webhooks, helping you to prevent unnecessary invocations. The API server also automatically reloads the authorizer chain when the configuration file is modified. An example configuration with all possible values is provided below.
 
-In order to customise the authorizer chain, you need to enable the
-`StructuredAuthorizationConfiguration` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+You must specify the path to the authorization configuration using the `--authorization-config`command line argument. If you want to keep using command line flags instead of a configuration file, those will continue to work as-is. To gain access to new authorization webhook capabilities like multiple webhooks, failure policy, and pre-filter rules, switch to putting options in an `--authorization-config` file. 
 
-Note: When the feature is enabled, setting both `--authorization-config` and
+Starting Kubernetes v{{< skew currentVersion >}}, the configuration file format is
+beta-level, and only requires specifying `--authorization-config` since the `StructuredAuthorizationConfiguration` feature gate is enabled by default.
+
+{{< caution >}}
+If you want to keep using command line flags to configure authorization instead of a configuration file, those will continue to work as-is. 
+
+When the feature is enabled, setting both `--authorization-config` and
 configuring an authorization webhook using the `--authorization-mode` and
 `--authorization-webhook-*` command line flags is not allowed. If done, there
 will be an error and API Server would exit right away.
 
-{{< caution >}}
-While the feature is in Alpha/Beta, there is no change if you want to keep on
-using command line flags. When the feature goes Beta, the feature flag would
-be turned on by default. The feature flag would be removed when feature goes GA.
+Authorization Config file reloads when an observed file event occurs or a 1 minute poll is encountered. All non-webhook authorizer types are required to remain unchanged in the file on reload. Reload must not add or remove Node or RBAC 
+authorizers. They can be reordered, but cannot be added or removed.
 
 When configuring the authorizer chain using a config file, make sure all the
-apiserver nodes have the file. Also, take a note of the apiserver configuration
+apiserver nodes have the file. Take a note of the apiserver configuration
 when upgrading/downgrading the clusters. For example, if upgrading to v1.29+
 clusters and using the config file, you would need to make sure the config file
 exists before upgrading the cluster. When downgrading to v1.28, you would need
@@ -248,9 +246,8 @@ to add the flags back to their bootstrap mechanism.
 #
 # DO NOT USE THE CONFIG AS IS. THIS IS AN EXAMPLE.
 #
-apiVersion: apiserver.config.k8s.io/v1alpha1
+apiVersion: apiserver.config.k8s.io/v1beta1
 kind: AuthorizationConfiguration
-# authorizers are defined in order of precedence
 authorizers:
   - type: Webhook
     # Name used to describe the authorizer
@@ -283,7 +280,7 @@ authorizers:
       # MatchConditionSubjectAccessReviewVersion specifies the SubjectAccessReview
       # version the CEL expressions are evaluated against
       # Valid values: v1
-      # Required only if matchConditions are specified, no default value
+      # Required, no default value
       matchConditionSubjectAccessReviewVersion: v1
       # Controls the authorization decision when a webhook request fails to
       # complete or returns a malformed response or errors evaluating
