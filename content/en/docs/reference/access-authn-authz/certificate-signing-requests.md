@@ -12,7 +12,7 @@ api_metadata:
 - apiVersion: "certificates.k8s.io/v1alpha1"
   kind: "ClusterTrustBundle"  
 content_type: concept
-weight: 25
+weight: 60
 ---
 
 <!-- overview -->
