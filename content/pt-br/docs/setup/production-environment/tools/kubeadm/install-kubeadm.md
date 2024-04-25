@@ -151,8 +151,11 @@ Se o diretório `/etc/apt/keyrings` não existir, você deve criar o diretório:
 ```shell
 sudo mkdir -p -m 755 /etc/apt/keyrings
 ```
+{{< note >}}
 
 Em versões anteriores ao Debian 12 e Ubuntu 22.04, o diretório `/etc/apt/keyrings` não existe por padrão e deve ser criado antes do comando curl.
+
+{{< /note >}}
 
 3. Adicione o repositório `apt` do Kubernetes:
 
