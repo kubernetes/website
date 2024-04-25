@@ -152,9 +152,7 @@ Se o diretório `/etc/apt/keyrings` não existir, você deve criar o diretório:
 sudo mkdir -p -m 755 /etc/apt/keyrings
 ```
 
-{{< nota >}}
 Em versões anteriores ao Debian 12 e Ubuntu 22.04, o diretório `/etc/apt/keyrings` não existe por padrão e deve ser criado antes do comando curl.
-{{< /nota >}}
 
 3. Adicione o repositório `apt` do Kubernetes:
 
@@ -212,7 +210,7 @@ sudo systemctl enable --now kubelet
 Instale os plugins CNI (utilizados por grande parte das redes de pods):
 
 ```bash
-CNI_VERSION="v1.30.0"
+CNI_VERSION="v 1.3.0"
 ARCH="amd64"
 sudo mkdir -p /opt/cni/bin
 curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-linux-${ARCH}-${CNI_VERSION}.tgz" | sudo tar -C /opt/cni/bin -xz
@@ -247,7 +245,7 @@ cd $DOWNLOAD_DIR
 sudo curl -L --remote-name-all https://dl.k8s.io/release/${RELEASE}/bin/linux/${ARCH}/{kubeadm,kubelet,kubectl}
 sudo chmod +x {kubeadm,kubelet,kubectl}
 
-RELEASE_VERSION="v1.30.0"
+RELEASE_VERSION="v0.16.2"
 curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service
 sudo mkdir -p /etc/systemd/system/kubelet.service.d
 curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
