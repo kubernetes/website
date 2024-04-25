@@ -1,5 +1,8 @@
 ---
 title: ReplicationController
+api_metadata:
+- apiVersion: "v1"
+  kind: "ReplicationController"
 content_type: concept
 weight: 90
 description: >-
@@ -12,6 +15,9 @@ reviewers:
 - bprashanth
 - janetkuo
 title: ReplicationController
+api_metadata:
+- apiVersion: "v1"
+  kind: "ReplicationController"
 content_type: concept
 weight: 90
 description: >-
