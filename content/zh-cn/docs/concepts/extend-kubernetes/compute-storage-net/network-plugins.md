@@ -21,7 +21,7 @@ Kubernetes {{< skew currentVersion >}} supports [Container Network Interface](ht
 cluster and that suits your needs. Different plugins are available (both open- and closed- source)
 in the wider Kubernetes ecosystem.
 -->
-Kubernetes {{< skew currentVersion >}} 支持用于集群联网的[容器网络接口](https://github.com/containernetworking/cni) (CNI) 插件。
+Kubernetes {{< skew currentVersion >}} 支持用于集群联网的[容器网络接口](https://github.com/containernetworking/cni)（CNI）插件。
 你必须使用和你的集群相兼容并且满足你的需求的 CNI 插件。
 在更广泛的 Kubernetes 生态系统中你可以使用不同的插件（开源和闭源）。
 
@@ -97,35 +97,6 @@ that plugin or [networking provider](/docs/concepts/cluster-administration/netwo
 <!--
 ## Network Plugin Requirements
 
-For plugin developers and users who regularly build or deploy Kubernetes, the plugin may also need
-specific configuration to support kube-proxy. The iptables proxy depends on iptables, and the
-plugin may need to ensure that container traffic is made available to iptables. For example, if
-the plugin connects containers to a Linux bridge, the plugin must set the
-`net/bridge/bridge-nf-call-iptables` sysctl to `1` to ensure that the iptables proxy functions
-correctly. If the plugin does not use a Linux bridge, but uses something like Open vSwitch or
-some other mechanism instead, it should ensure container traffic is appropriately routed for the
-proxy.
--->
-## 网络插件要求   {#network-plugin-requirements}
-
-对于插件开发人员以及时常会构建并部署 Kubernetes 的用户而言，
-插件可能也需要特定的配置来支持 kube-proxy。
-iptables 代理依赖于 iptables，插件可能需要确保 iptables 能够监控容器的网络通信。
-例如，如果插件将容器连接到 Linux 网桥，插件必须将 `net/bridge/bridge-nf-call-iptables`
-sysctl 参数设置为 `1`，以确保 iptables 代理正常工作。
-如果插件不使用 Linux 网桥，而是使用类似于 Open vSwitch 或者其它一些机制，
-它应该确保为代理对容器通信执行正确的路由。
-
-<!--
-By default, if no kubelet network plugin is specified, the `noop` plugin is used, which sets
-`net/bridge/bridge-nf-call-iptables=1` to ensure simple configurations (like Docker with a bridge)
-work correctly with the iptables proxy.
--->
-默认情况下，如果未指定 kubelet 网络插件，则使用 `noop` 插件，
-该插件设置 `net/bridge/bridge-nf-call-iptables=1`，以确保简单的配置
-（如带网桥的 Docker）与 iptables 代理正常工作。
-
-<!--
 ### Loopback CNI
 
 In addition to the CNI plugin installed on the nodes for implementing the Kubernetes network
@@ -136,6 +107,8 @@ Implementing the loopback interface can be accomplished by re-using the
 or by developing your own code to achieve this (see
 [this example from CRI-O](https://github.com/cri-o/ocicni/blob/release-1.24/pkg/ocicni/util_linux.go#L91)).
 -->
+## 网络插件要求   {#network-plugin-requirements}
+
 ### 本地回路 CNI   {#loopback-cni}
 
 除了安装到节点上用于实现 Kubernetes 网络模型的 CNI 插件外，Kubernetes
@@ -218,7 +191,7 @@ CNI 网络插件还支持 Pod 入站和出站流量整形。
 
 如果你想要启用流量整形支持，你必须将 `bandwidth` 插件添加到 CNI 配置文件
 （默认是 `/etc/cni/net.d`）并保证该可执行文件包含在你的 CNI 的 bin
-文件夹内 (默认为 `/opt/cni/bin`)。
+文件夹内（默认为 `/opt/cni/bin`）。
 
 ```json
 {

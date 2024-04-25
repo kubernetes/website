@@ -84,8 +84,8 @@ that provides a set of stateless replicas.
 
 <!--
 * The storage for a given Pod must either be provisioned by a
-  [PersistentVolume Provisioner](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/README.md)
-  based on the requested `storage class`, or pre-provisioned by an admin.
+  [PersistentVolume Provisioner](/docs/concepts/storage/dynamic-provisioning/) ([examples here](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/README.md))
+  based on the requested _storage class_, or pre-provisioned by an admin.
 * Deleting and/or scaling a StatefulSet down will *not* delete the volumes associated with the
   StatefulSet. This is done to ensure data safety, which is generally more valuable than an
   automatic purge of all related StatefulSet resources.
@@ -101,8 +101,9 @@ that provides a set of stateless replicas.
   [manual intervention to repair](#forced-rollback).
 -->
 * 给定 Pod 的存储必须由
-  [PersistentVolume Provisioner](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/README.md)
-  基于所请求的 `storage class` 来制备，或者由管理员预先制备。
+  [PersistentVolume Provisioner](/zh-cn/docs/concepts/storage/dynamic-provisioning/)
+  （[例子在这里](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/README.md)）
+  基于所请求的 **storage class** 来制备，或者由管理员预先制备。
 * 删除或者扩缩 StatefulSet 并**不会**删除它关联的存储卷。
   这样做是为了保证数据安全，它通常比自动清除 StatefulSet 所有相关的资源更有价值。
 * StatefulSet 当前需要[无头服务](/zh-cn/docs/concepts/services-networking/service/#headless-services)来负责 Pod
@@ -222,15 +223,24 @@ validation error during StatefulSet creation.
 <!--
 ### Volume Claim Templates
 
-You can set the `.spec.volumeClaimTemplates` which can provide stable storage using
-[PersistentVolumes](/docs/concepts/storage/persistent-volumes/) provisioned by a PersistentVolume
-Provisioner.
+You can set the `.spec.volumeClaimTemplates` field to create a
+[PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/).
+This will provide stable storage to the StatefulSet if either
 -->
 ### 卷申领模板  {#volume-claim-templates}
 
-你可以设置 `.spec.volumeClaimTemplates`，
-它可以使用 PersistentVolume 制备程序所准备的
-[PersistentVolumes](/zh-cn/docs/concepts/storage/persistent-volumes/) 来提供稳定的存储。
+你可以设置 `.spec.volumeClaimTemplates` 字段来创建
+[PersistentVolumeClaim](/zh-cn/docs/concepts/storage/persistent-volumes/)。
+这将为 StatefulSet 提供稳定的存储，如果：
+
+<!--
+* The StorageClass specified for the volume claim is set up to use [dynamic
+  provisioning](/docs/concepts/storage/dynamic-provisioning/), or
+* The cluster already contains a PersistentVolume with the correct StorageClass
+  and sufficient available storage space.
+-->
+* 为卷申领指定的 StorageClass 配置使用[动态制备](/zh-cn/docs/concepts/storage/dynamic-provisioning/)，或
+* 集群已包含具有正确 StorageClass 和足够可用存储空间的 PersistentVolume。
 
 <!--
 ### Minimum ready seconds
