@@ -150,7 +150,7 @@ the `Terminated` state.
 Kubernetes manages container failures within Pods using a [`restartPolicy`](#restart-policy) defined in the Pod `spec`. This policy determines how Kubernetes reacts to containers exiting due to errors or other reasons, which falls in the following sequence:
 
 1. **Initial crash**: Kubernetes attempts an immediate restart based on the Pod `restartPolicy`.
-1. **Repeated crashes**: After the the initial crash Kubernetes applies an exponential
+1. **Repeated crashes**: After the initial crash Kubernetes applies an exponential
    backoff delay for subsequent restarts, described in [`restartPolicy`](#restart-policy).
    This prevents rapid, repeated restart attempts from overloading the system.
 1. **CrashLoopBackOff state**: This indicates that the backoff delay mechanism is currently
