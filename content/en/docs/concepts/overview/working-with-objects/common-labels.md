@@ -40,7 +40,7 @@ on every resource object.
 | `app.kubernetes.io/version`         | The current version of the application (e.g., a [SemVer 1.0](https://semver.org/spec/v1.0.0.html), revision hash, etc.) | `5.7.21` | string |
 | `app.kubernetes.io/component`       | The component within the architecture | `database` | string |
 | `app.kubernetes.io/part-of`         | The name of a higher level application this one is part of | `wordpress` | string |
-| `app.kubernetes.io/managed-by`      | The tool being used to manage the operation of an application | `helm` | string |
+| `app.kubernetes.io/managed-by`      | The tool being used to manage the operation of an application | `Helm` | string |
 
 To illustrate these labels in action, consider the following {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}} object:
 
@@ -55,7 +55,7 @@ metadata:
     app.kubernetes.io/version: "5.7.21"
     app.kubernetes.io/component: database
     app.kubernetes.io/part-of: wordpress
-    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/managed-by: Helm
 ```
 
 ## Applications And Instances Of Applications
@@ -116,7 +116,7 @@ metadata:
     app.kubernetes.io/name: wordpress
     app.kubernetes.io/instance: wordpress-abcxzy
     app.kubernetes.io/version: "4.9.4"
-    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: server
     app.kubernetes.io/part-of: wordpress
 ...
@@ -132,7 +132,7 @@ metadata:
     app.kubernetes.io/name: wordpress
     app.kubernetes.io/instance: wordpress-abcxzy
     app.kubernetes.io/version: "4.9.4"
-    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: server
     app.kubernetes.io/part-of: wordpress
 ...
@@ -148,7 +148,7 @@ metadata:
     app.kubernetes.io/name: mysql
     app.kubernetes.io/instance: mysql-abcxzy
     app.kubernetes.io/version: "5.7.21"
-    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: database
     app.kubernetes.io/part-of: wordpress
 ...
@@ -164,7 +164,7 @@ metadata:
     app.kubernetes.io/name: mysql
     app.kubernetes.io/instance: mysql-abcxzy
     app.kubernetes.io/version: "5.7.21"
-    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: database
     app.kubernetes.io/part-of: wordpress
 ...
