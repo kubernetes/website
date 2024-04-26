@@ -15,14 +15,13 @@ min-kubernetes-server-version: v1.25
 -->
 
 <!-- overview -->
-{{< feature-state for_k8s_version="v1.25" state="beta" >}}
+{{< feature-state feature_gate_name="UserNamespacesSupport" >}}
 
 <!--
-This page shows how to configure a user namespace for stateless pods. This
-allows to isolate the user running inside the container from the one in the
-host.
+This page shows how to configure a user namespace for pods. This allows you to
+isolate the user running inside the container from the one in the host.
 -->
-本页展示如何为无状态 Pod 配置 user 名字空间。可以将容器内的用户与主机上的用户隔离开来。
+本页展示如何为 Pod 配置 user 名字空间。可以将容器内的用户与主机上的用户隔离开来。
 
 <!--
 A process running as root in a container can run as a different (non-root) user
