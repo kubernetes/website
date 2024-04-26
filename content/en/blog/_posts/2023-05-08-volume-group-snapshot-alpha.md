@@ -3,9 +3,9 @@ layout: blog
 title: "Kubernetes 1.27: Introducing An API For Volume Group Snapshots"
 date: 2023-05-08
 slug: kubernetes-1-27-volume-group-snapshot-alpha
+author: >
+   Xing Yang (VMware)
 ---
-
-**Author:** Xing Yang (VMware)
 
 Volume group snapshot is introduced as an Alpha feature in Kubernetes v1.27.
 This feature introduces a Kubernetes API that allows users to take crash consistent

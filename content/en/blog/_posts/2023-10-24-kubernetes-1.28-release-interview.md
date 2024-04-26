@@ -2,9 +2,9 @@
 layout: blog
 title: "Plants, process and parties: the Kubernetes 1.28 release interview"
 date: 2023-10-24
+author: >
+  Craig Box
 ---
-
-**Author**: Craig Box
 
 Since 2018, one of my favourite contributions to the Kubernetes community has been to [share the story of each release](https://www.google.com/search?q=%22release+interview%22+site%3Akubernetes.io%2Fblog). Many of these stories were told on behalf of a past employer; by popular demand, I've brought them back, now under my own name. If you were a fan of the old show, I would be delighted if you would [subscribe](https://craigbox.substack.com/about).
 
