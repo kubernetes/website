@@ -3,9 +3,11 @@ layout: blog
 title: "Gateway API v1.0: GA Release"
 date: 2023-10-31T10:00:00-08:00
 slug: gateway-api-ga
+author: >
+  Shane Utt (Kong),
+  Nick Young (Isovalent),
+  Rob Scott (Google)
 ---
-
-**Authors:** Shane Utt (Kong), Nick Young (Isovalent), Rob Scott (Google)
 
 On behalf of Kubernetes SIG Network, we are pleased to announce the v1.0 release of [Gateway
 API](https://gateway-api.sigs.k8s.io/)! This release marks a huge milestone for

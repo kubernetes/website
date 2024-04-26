@@ -4,9 +4,13 @@ title: "Kubernetes Legacy Package Repositories Will Be Frozen On September 13, 2
 date: 2023-08-31T15:30:00-07:00
 slug: legacy-package-repository-deprecation
 evergreen: true
+author: >
+  Bob Killen (Google),
+  Chris Short (AWS),
+  Jeremy Rickard (Microsoft),
+  Marko Mudrinić (Kubermatic),
+  Tim Bannister (The Scale Factory)
 ---
-
-**Authors**: Bob Killen (Google), Chris Short (AWS), Jeremy Rickard (Microsoft), Marko Mudrinić (Kubermatic), Tim Bannister (The Scale Factory)
 
 On August 15, 2023, the Kubernetes project announced the general availability of
 the community-owned package repositories for Debian and RPM packages available

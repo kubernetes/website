@@ -3,9 +3,10 @@ layout: blog
 title: "Kubernetes 1.27: Server Side Field Validation and OpenAPI V3 move to GA"
 date: 2023-04-24
 slug: openapi-v3-field-validation-ga
+author: >
+   Jeffrey Ying (Google),
+   Antoine Pelisse (Google)
 ---
-
-**Author**: Jeffrey Ying (Google), Antoine Pelisse (Google)
 
 Before Kubernetes v1.8 (!), typos, mis-indentations or minor errors in
 YAMLs could have catastrophic consequences (e.g. a typo like
