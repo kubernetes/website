@@ -134,20 +134,42 @@ auto_generated: true
   দ্রষ্টব্য: রিলিজ 1.19 এবং পরবর্তী ভার্সন 1 বছরের প্যাচ রিলিজ সমর্থন পায়, এবং
   রিলিজ 1.18 এবং তার আগে 9 মাসের প্যাচ রিলিজ সমর্থন পেয়েছে।
 
+## রিলিজ সাইকেল
+
+![কুবারনেটিস রিলিজ সাইকেলের একটি ছবি](/images/releases/release-cycle.jpg)
+
+ কুবারনেটিস রিলিজ বর্তমানে প্রতি বছর প্রায় তিনবার হয়।
+
+রিলিজ প্রক্রিয়াটিকে তিনটি প্রধান পর্যায় হিসাবে বিবেচনা করা যেতে পারে:
+
+- এনহ্যান্সমেন্ট ডেফিনেশন
+- ইমপ্লিমেন্টেশন 
+- স্ট্যাবিলাইজেশন 
+
+But in reality, this is an open source and agile project, with feature planning
+and implementation happening at all times. Given the project scale and globally
+distributed developer base, it is critical to project velocity to not rely on a
+trailing stabilization phase and rather have continuous integration testing
+which ensures the project is always stable so that individual commits can be
+flagged as having broken something.
+
+With ongoing feature definition through the year, some set of items will bubble
+up as targeting a given release. **[Enhancements Freeze][enhancements-freeze]**
+starts ~4 weeks into release cycle. By this point all intended feature work for
+the given release has been defined in suitable planning artifacts in
+conjunction with the Release Team's [Enhancements Lead](https://git.k8s.io/sig-release/release-team/role-handbooks/enhancements/README.md).
+
+After Enhancements Freeze, tracking milestones on PRs and issues is important.
+Items within the milestone are used as a punchdown list to complete the
+release. *On issues*, milestones must be applied correctly, via triage by the
+SIG, so that [Release Team][release-team] can track bugs and enhancements (any
+enhancement-related issue needs a milestone).
+
+There is some automation in place to help automatically assign milestones to
+PRs.
+
+This automation currently applies to the following repos:
 
 
 
 
-
-
-
-
-
-[cherry-picks]: https://git.k8s.io/community/contributors/devel/sig-release/cherry-picks.md
-[code-freeze]: https://git.k8s.io/sig-release/releases/release_phases.md#code-freeze
-[enhancements-freeze]: https://git.k8s.io/sig-release/releases/release_phases.md#enhancements-freeze
-[exceptions]: https://git.k8s.io/sig-release/releases/release_phases.md#exceptions
-[keps]: https://git.k8s.io/enhancements/keps
-[release-managers]: /releases/release-managers/
-[release-team]: https://git.k8s.io/sig-release/release-team
-[sig-list]: https://k8s.dev/sigs
