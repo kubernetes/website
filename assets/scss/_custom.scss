@@ -850,6 +850,44 @@ body.cid-community > #deprecation-warning > .deprecation-warning > * {
     background-color: inherit;
 }
 
+body.cid-code-of-conduct main {
+    max-width: calc(min(90vw, 100em));
+    padding-top: 3rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+
+    #cncf-code-of-conduct {
+        margin-top: 4rem;
+        margin-bottom: 4rem;
+        padding-left: 4rem;
+
+        > h2, h3, h4, h5 {
+          color: #0662EE;
+        }
+
+        > h2:first-child {
+          margin-top: 0.25em;
+          margin-bottom: 1em;
+        }
+    }
+
+    > hr {
+      margin-top: 4rem;
+      margin-bottom: 4rem;
+    }
+
+    > hr:last-of-type ~ * {
+      text-align: center;
+      font-size: 1.15rem;
+    }
+
+    > *:last-child {
+      margin-bottom: 4rem;
+    }
+}
+
 #caseStudies body > #deprecation-warning > .deprecation-warning, body.cid-casestudies > #deprecation-warning > .deprecation-warning {
     color: inherit;
     background: inherit;
