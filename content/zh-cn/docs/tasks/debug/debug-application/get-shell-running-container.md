@@ -161,7 +161,7 @@ variables in the running container:
 在普通的命令窗口（而不是 shell）中，打印环境运行容器中的变量：
 
 ```shell
-kubectl exec shell-demo env
+kubectl exec shell-demo -- env
 ```
 
 <!--

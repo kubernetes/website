@@ -2,6 +2,9 @@
 reviewers:
   - mikedanese
 title: Secrets
+api_metadata:
+- apiVersion: "v1"
+  kind: "Secret"
 content_type: concept
 feature:
   title: Secret and configuration management
@@ -209,7 +212,7 @@ You should only create a ServiceAccount token Secret
 if you can't use the `TokenRequest` API to obtain a token,
 and the security exposure of persisting a non-expiring token credential
 in a readable API object is acceptable to you. For instructions, see
-[Manually create a long-lived API token for a ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/#manually-create-a-service-account-api-token).
+[Manually create a long-lived API token for a ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/#manually-create-an-api-token-for-a-serviceaccount).
 {{< /note >}}
 
 When using this Secret type, you need to ensure that the
@@ -381,7 +384,7 @@ The following YAML contains an example config for a TLS Secret:
 
 The TLS Secret type is provided only for convenience.
 You can create an `Opaque` type for credentials used for TLS authentication.
-However, using the defined and public Secret type (`kubernetes.io/ssh-auth`)
+However, using the defined and public Secret type (`kubernetes.io/tls`)
 helps ensure the consistency of Secret format in your project. The API server
 verifies if the required keys are set for a Secret of this type.
 
@@ -564,25 +567,10 @@ in a Pod:
 For instructions, refer to
 [Define container environment variables using Secret data](/docs/tasks/inject-data-application/distribute-credentials-secure/#define-container-environment-variables-using-secret-data).
 
-#### Invalid environment variables {#restriction-env-from-invalid}
-
-If your environment variable definitions in your Pod specification are
-considered to be invalid environment variable names, those keys aren't made
-available to your container. The Pod is allowed to start.
-
-Kubernetes adds an Event with the reason set to `InvalidVariableNames` and a
-message that lists the skipped invalid keys. The following example shows a Pod that refers to a Secret named `mysecret`, where `mysecret` contains 2 invalid keys: `1badkey` and `2alsobad`.
-
-```shell
-kubectl get events
-```
-
-The output is similar to:
-
-```
-LASTSEEN   FIRSTSEEN   COUNT     NAME            KIND      SUBOBJECT                         TYPE      REASON
-0s         0s          1         dapi-test-pod   Pod                                         Warning   InvalidEnvironmentVariableNames   kubelet, 127.0.0.1      Keys [1badkey, 2alsobad] from the EnvFrom secret default/mysecret were skipped since they are considered invalid environment variable names.
-```
+It's important to note that the range of characters allowed for environment variable
+names in pods is [restricted](/docs/tasks/inject-data-application/define-environment-variable-container/#using-environment-variables-inside-of-your-config).
+If any keys do not meet the rules, those keys are not made available to your container, though
+the Pod is allowed to start.
 
 ### Container image pull Secrets {#using-imagepullsecrets}
 
@@ -676,6 +664,13 @@ container in order to provide access to any other Secret.
 There may be Secrets for several Pods on the same node. However, only the
 Secrets that a Pod requests are potentially visible within its containers.
 Therefore, one Pod does not have access to the Secrets of another Pod.
+
+### Configure least-privilege access to Secrets
+
+To enhance the security measures around Secrets, Kubernetes provides a mechanism: you can
+annotate a ServiceAccount as `kubernetes.io/enforce-mountable-secrets: "true"`.
+
+For more information, you can refer to the [documentation about this annotation](/docs/concepts/security/service-accounts/#enforce-mountable-secrets).
 
 {{< warning >}}
 Any containers that run with `privileged: true` on a node can access all

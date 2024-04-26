@@ -3,6 +3,9 @@ reviewers:
 - caesarxuchao
 - dchen1107
 title: Nodes
+api_metadata:
+- apiVersion: "v1"
+  kind: "Node"
 content_type: concept
 weight: 10
 ---
@@ -115,9 +118,9 @@ are enabled, kubelets are only authorized to create/modify their own Node resour
 {{< note >}}
 As mentioned in the [Node name uniqueness](#node-name-uniqueness) section,
 when Node configuration needs to be updated, it is a good practice to re-register
-the node with the API server. For example, if the kubelet being restarted with
-the new set of `--node-labels`, but the same Node name is used, the change will
-not take an effect, as labels are being set on the Node registration.
+the node with the API server. For example, if the kubelet is being restarted with
+a new set of `--node-labels`, but the same Node name is used, the change will
+not take effect, as labels are only set (or modified) upon Node registration with the API server.
 
 Pods already scheduled on the Node may misbehave or cause issues if the Node
 configuration will be changed on kubelet restart. For example, already running
@@ -280,7 +283,7 @@ If you want to explicitly reserve resources for non-Pod processes, see
 
 ## Node topology
 
-{{< feature-state state="beta" for_k8s_version="v1.18" >}}
+{{< feature-state feature_gate_name="TopologyManager" >}}
 
 If you have enabled the `TopologyManager`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/), then
@@ -290,7 +293,7 @@ for more information.
 
 ## Graceful node shutdown {#graceful-node-shutdown}
 
-{{< feature-state state="beta" for_k8s_version="v1.21" >}}
+{{< feature-state feature_gate_name="GracefulNodeShutdown" >}}
 
 The kubelet attempts to detect node system shutdown and terminates pods running on the node.
 
@@ -374,7 +377,7 @@ Message:        Pod was terminated in response to imminent node shutdown.
 
 ### Pod Priority based graceful node shutdown {#pod-priority-graceful-node-shutdown}
 
-{{< feature-state state="beta" for_k8s_version="v1.24" >}}
+{{< feature-state feature_gate_name="GracefulNodeShutdownBasedOnPodPriority" >}}
 
 To provide more flexibility during graceful node shutdown around the ordering
 of pods during shutdown, graceful node shutdown honors the PriorityClass for
@@ -471,7 +474,7 @@ are emitted under the kubelet subsystem to monitor node shutdowns.
 
 ## Non-graceful node shutdown handling {#non-graceful-node-shutdown}
 
-{{< feature-state state="stable" for_k8s_version="v1.28" >}}
+{{< feature-state feature_gate_name="NodeOutOfServiceVolumeDetach" >}}
 
 A node shutdown action may not be detected by kubelet's Node Shutdown Manager,
 either because the command does not trigger the inhibitor locks mechanism used by
@@ -513,14 +516,44 @@ During a non-graceful shutdown, Pods are terminated in the two phases:
   recovered since the user was the one who originally added the taint.
 {{< /note >}}
 
+### Forced storage detach on timeout {#storage-force-detach-on-timeout}
+
+In any situation where a pod deletion has not succeeded for 6 minutes, kubernetes will
+force detach volumes being unmounted if the node is unhealthy at that instant. Any
+workload still running on the node that uses a force-detached volume will cause a
+violation of the
+[CSI specification](https://github.com/container-storage-interface/spec/blob/master/spec.md#controllerunpublishvolume),
+which states that `ControllerUnpublishVolume` "**must** be called after all
+`NodeUnstageVolume` and `NodeUnpublishVolume` on the volume are called and succeed".
+In such circumstances, volumes on the node in question might encounter data corruption.
+
+The forced storage detach behaviour is optional; users might opt to use the "Non-graceful
+node shutdown" feature instead.
+
+Force storage detach on timeout can be disabled by setting the `disable-force-detach-on-timeout`
+config field in `kube-controller-manager`. Disabling the force detach on timeout feature means
+that a volume that is hosted on a node that is unhealthy for more than 6 minutes will not have
+its associated
+[VolumeAttachment](/docs/reference/kubernetes-api/config-and-storage-resources/volume-attachment-v1/)
+deleted.
+
+After this setting has been applied, unhealthy pods still attached to a volumes must be recovered
+via the [Non-Graceful Node Shutdown](#non-graceful-node-shutdown) procedure mentioned above.
+
+{{< note >}}
+- Caution must be taken while using the [Non-Graceful Node Shutdown](#non-graceful-node-shutdown) procedure.
+- Deviation from the steps documented above can result in data corruption.
+{{< /note >}}
+
 ## Swap memory management {#swap-memory}
 
-{{< feature-state state="beta" for_k8s_version="v1.28" >}}
+{{< feature-state feature_gate_name="NodeSwap" >}}
 
 To enable swap on a node, the `NodeSwap` feature gate must be enabled on
-the kubelet, and the `--fail-swap-on` command line flag or `failSwapOn`
+the kubelet (default is true), and the `--fail-swap-on` command line flag or `failSwapOn`
 [configuration setting](/docs/reference/config-api/kubelet-config.v1beta1/)
-must be set to false.
+must be set to false. 
+To allow Pods to utilize swap, `swapBehavior` should not be set to `NoSwap` (which is the default behavior) in the kubelet config.
 
 {{< warning >}}
 When the memory swap feature is turned on, Kubernetes data such as the content
@@ -532,17 +565,16 @@ specify how a node will use swap memory. For example,
 
 ```yaml
 memorySwap:
-  swapBehavior: UnlimitedSwap
+  swapBehavior: LimitedSwap
 ```
 
-- `UnlimitedSwap` (default): Kubernetes workloads can use as much swap memory as they
-  request, up to the system limit.
+- `NoSwap` (default): Kubernetes workloads will not use swap.
 - `LimitedSwap`: The utilization of swap memory by Kubernetes workloads is subject to limitations.
   Only Pods of Burstable QoS are permitted to employ swap.
 
 If configuration for `memorySwap` is not specified and the feature gate is
 enabled, by default the kubelet will apply the same behaviour as the
-`UnlimitedSwap` setting.
+`NoSwap` setting.
 
 With `LimitedSwap`, Pods that do not fall under the Burstable QoS classification (i.e.
 `BestEffort`/`Guaranteed` Qos Pods) are prohibited from utilizing swap memory.
@@ -578,6 +610,8 @@ Learn more about the following:
 * [API definition for Node](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
 * [Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node)
   section of the architecture design document.
+* [Cluster autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/) to
+  manage the number and size of nodes in your cluster.
 * [Taints and Tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
 * [Node Resource Managers](/docs/concepts/policy/node-resource-managers/).
 * [Resource Management for Windows nodes](/docs/concepts/configuration/windows-resource-management/).

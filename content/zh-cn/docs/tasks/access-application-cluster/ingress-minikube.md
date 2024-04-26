@@ -174,6 +174,10 @@ If you haven't already set up a cluster locally, run `minikube start` to create 
    http://172.17.0.15:31637
    ```
 
+   ```shell
+   curl http://172.17.0.15:31637
+   ```
+
    <!--
    The output is similar to:
    -->

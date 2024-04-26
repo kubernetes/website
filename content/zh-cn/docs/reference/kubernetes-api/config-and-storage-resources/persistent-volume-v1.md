@@ -1767,6 +1767,25 @@ PersistentVolumeStatus 是持久卷的当前状态。
 <hr>
 
 <!--
+- **lastPhaseTransitionTime** (Time)
+
+  lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically
+  resets to current time everytime a volume phase transitions. This is an alpha field and requires
+  enabling PersistentVolumeLastPhaseTransitionTime feature.
+
+  <a name="Time"></a>
+  *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.
+  Wrappers are provided for many of the factory methods that the time package offers.*
+-->
+- **lastPhaseTransitionTime** (Time)
+
+  lastPhaseTransitionTime 是从一个阶段转换到另一个阶段的时间，每次卷阶段转换时都会自动重置为当前时间。
+  这是一个 Alpha 字段，需要启用 PersistentVolumeLastPhaseTransitionTime 特性。
+
+  <a name="Time"></a>
+  **Time 是 time.Time 的包装器，支持正确编组为 YAML 和 JSON，它为 time 包提供的许多工厂方法提供了包装器。**
+
+<!--
 - **message** (string)
   message is a human-readable message indicating details about why the volume is in this state.
 

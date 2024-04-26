@@ -47,7 +47,7 @@ content_type: concept
 
 * [AppArmor](/docs/tutorials/clusters/apparmor/)
 
-* [seccomp](/docs/tutorials/clusters/seccomp/)
+* [Seccomp](/docs/tutorials/clusters/seccomp/)
 
 ## Сервисы
 

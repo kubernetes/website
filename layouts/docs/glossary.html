@@ -43,7 +43,7 @@
 		<div>
 			<div class="term-name"><b>{{ .Title }}</b><a href="{{ printf "#%s" $term_identifier }}" class="permalink hide">LINK</a></div>
 			{{ with .Params.aka }}
-			{{ T "layouts_docs_glossary_aka" }}:<i>{{ delimit . ", " }}</i>
+			{{ T "layouts_docs_glossary_aka" }}: <i>{{ delimit . ", " }}</i>
 			<br>
 			{{ end }}
 			<span class="preview-text">{{ .Summary }} <a href="javascript:void(0)" class="click-controller no-underline" data-target="{{ .Params.id }}">[+]</a></span>

@@ -18,6 +18,27 @@ anchors:
 
 <!-- body -->
 
+## Загальний процес
+
+1. Виберіть одне з [найбільш витребуваних ішьюзів](https://github.com/kubernetes-i18n-ukrainian/website/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+no%3Aassignee+label%3A%22most+wanted%22) або [будь-яке ішью](https://github.com/kubernetes-i18n-ukrainian/website/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+no%3Aassignee) і залиште в ньому коментар на кшталт "Працюю над цим". Ми надішлемо вам запрошення до організації та закріпимо цей ішьюз за вами.</sup>
+2. Зробіть форк [k/website](https://github.com/kubernetes/website).
+3. Прочитайте цей документ.
+4. Перекладіть
+5. Створіть пул-реквест в [k/website](https://github.com/kubernetes/website).
+
+Якщо вам знадобиться допомога, зареєструйтеся в [Slack Kubernetes](https://slack.k8s.io/), приєднайтеся до каналу [`#kubernetes-docs-uk`](https://kubernetes.slack.com/archives/CSKCYN138) і спитайте там.
+
+### Отримання допомоги 
+Якщо ви виявили проблеми з перекладеним вмістом, [створіть проблему на k/website](https://github.com/kubernetes/website/issues/new/choose) за допомогою `/language uk`.
+
+[kubernetes-i18n-ukrainian/website](https://github.com/kubernetes-i18n-ukrainian/website) слід використовувати лише для спрощення процесу локалізації.
+
+### Існуючі проблеми/оновлення локалізації
+
+Якщо ви виявили проблеми з перекладеним вмістом і не можете негайно їх виправити, [створіть ішью у k/website](https://github.com/kubernetes/website/issues/new/choose) з описом що не так, на якій сторінці (посилання) і додайте в опис ішью з нового рядка `/language uk`.
+
+[kubernetes-i18n-ukrainian/website](https://github.com/kubernetes-i18n-ukrainian/website) слід використовувати лише для спрощення процесу локалізації.
+
 ## Правила перекладу {#правила-перекладу}
 
 * Скопіюйте оригінал і додайте його перед перекладом у якості коментаря. Це потрібно для спрощення відслідковування змін і процесу ревью. Приклади: [для Markdown](https://github.com/kubernetes/website/blob/7774cc9f3582c5f94e40245cdd5855e3c206177e/content/uk/docs/tutorials/hello-minikube.md#L23-L35), [для YAML](https://github.com/kubernetes/website/blob/7774cc9f3582c5f94e40245cdd5855e3c206177e/content/uk/docs/tutorials/hello-minikube.md#L8-L14).

@@ -46,7 +46,7 @@ Kubernetes menyediakan _probe liveness_ untuk mendeteksi dan memperbaiki situasi
 Pada latihan ini, kamu akan membuat Pod yang menjalankan Container dari image
 `registry.k8s.io/busybox`. Berikut ini adalah berkas konfigurasi untuk Pod tersebut:
 
-{{< codenew file="pods/probe/exec-liveness.yaml" >}}
+{{% codenew file="pods/probe/exec-liveness.yaml" %}}
 
 Pada berkas konfigurasi di atas, kamu dapat melihat bahwa Pod memiliki satu `Container`.
 _Field_ `periodSeconds` menentukan bahwa kubelet harus melakukan _probe liveness_ setiap 5 detik.
@@ -126,9 +126,9 @@ liveness-exec   1/1       Running   1          1m
 ## Mendefinisikan probe liveness dengan permintaan HTTP
 
 Jenis kedua dari _probe liveness_ menggunakan sebuah permintaan GET HTTP. Berikut ini
-berkas konfigurasi untuk Pod yang menjalankan Container dari image `registry.k8s.io/liveness`.
+berkas konfigurasi untuk Pod yang menjalankan Container dari image `registry.k8s.io/e2e-test-images/agnhost`.
 
-{{< codenew file="pods/probe/http-liveness.yaml" >}}
+{{% codenew file="pods/probe/http-liveness.yaml" %}}
 
 Pada berkas konfigurasi tersebut, kamu dapat melihat Pod memiliki sebuah Container.
 _Field_ `periodSeconds` menentukan bahwa kubelet harus mengerjakan _probe liveness_ setiap 3 detik.
@@ -190,7 +190,7 @@ kubelet akan mencoba untuk membuka soket pada Container kamu dengan porta terten
 Jika koneksi dapat terbentuk dengan sukses, maka Container dianggap dalam kondisi sehat.
 Namun jika tidak berhasil terbentuk, maka Container dianggap gagal.
 
-{{< codenew file="pods/probe/tcp-liveness-readiness.yaml" >}}
+{{% codenew file="pods/probe/tcp-liveness-readiness.yaml" %}}
 
 Seperti yang terlihat, konfigurasi untuk pemeriksaan TCP cukup mirip dengan
 pemeriksaan HTTP. Contoh ini menggunakan _probe readiness_ dan _liveness_.
@@ -227,7 +227,6 @@ dengan nama untuk melakukan pemeriksaan _liveness_ HTTP atau TCP:
 ports:
 - name: liveness-port
   containerPort: 8080
-  hostPort: 8080
 
 livenessProbe:
   httpGet:
@@ -251,7 +250,6 @@ Sehingga, contoh sebelumnya menjadi:
 ports:
 - name: liveness-port
   containerPort: 8080
-  hostPort: 8080
 
 livenessProbe:
   httpGet:

@@ -51,11 +51,11 @@ cosign verify-blob "$BINARY" \
 {{< note >}}
 Cosign 2.0 requires the `--certificate-identity` and `--certificate-oidc-issuer` options.
 
-To learn more about keyless signing, please refer to [Keyless Signatures](https://docs.sigstore.dev/cosign/keyless).
+To learn more about keyless signing, please refer to [Keyless Signatures](https://docs.sigstore.dev/signing/overview/).
 
 Previous versions of Cosign required that you set `COSIGN_EXPERIMENTAL=1`.
 
-For additional information, plase refer to the [sigstore Blog](https://blog.sigstore.dev/cosign-2-0-released/)
+For additional information, please refer to the [sigstore Blog](https://blog.sigstore.dev/cosign-2-0-released/)
 {{< /note >}}
 
 ## Verifying image signatures

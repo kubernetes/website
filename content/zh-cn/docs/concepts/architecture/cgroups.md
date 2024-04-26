@@ -70,11 +70,11 @@ cgroup v2 对 cgroup v1 进行了多项改进，例如：
 <!--
 Some Kubernetes features exclusively use cgroup v2 for enhanced resource
 management and isolation. For example, the
-[MemoryQoS](/blog/2021/11/26/qos-memory-resources/) feature improves memory QoS
+[MemoryQoS](/docs/concepts/workloads/pods/pod-qos/#memory-qos-with-cgroup-v2) feature improves memory QoS
 and relies on cgroup v2 primitives.
 -->
 一些 Kubernetes 特性专门使用 cgroup v2 来增强资源管理和隔离。
-例如，[MemoryQoS](/blog/2021/11/26/qos-memory-resources/) 特性改进了内存 QoS 并依赖于 cgroup v2 原语。
+例如，[MemoryQoS](/zh-cn/docs/concepts/workloads/pods/pod-qos/#memory-qos-with-cgroup-v2) 特性改进了内存 QoS 并依赖于 cgroup v2 原语。
 
 <!--
 ## Using cgroup v2 {#using-cgroupv2}
@@ -195,8 +195,8 @@ cgroup v2 使用一个与 cgroup v1 不同的 API，因此如果有任何应用�
  DaemonSet for monitoring pods and containers, update it to v0.43.0 or later.
  * If you deploy Java applications, prefer to use versions which fully support cgroup v2:
     * [OpenJDK / HotSpot](https://bugs.openjdk.org/browse/JDK-8230305): jdk8u372, 11.0.16, 15 and later
-    * [IBM Semeru Runtimes](https://www.eclipse.org/openj9/docs/version0.33/#control-groups-v2-support): jdk8u345-b01, 11.0.16.0, 17.0.4.0, 18.0.2.0 and later
-    * [IBM Java](https://www.ibm.com/docs/en/sdk-java-technology/8?topic=new-service-refresh-7#whatsnew_sr7__fp15): 8.0.7.15 and later
+    * [IBM Semeru Runtimes](https://www.ibm.com/support/pages/apar/IJ46681): 8.0.382.0, 11.0.20.0, 17.0.8.0, and later
+    * [IBM Java](https://www.ibm.com/support/pages/apar/IJ46681): 8.0.8.6 and later
 * If you are using the [uber-go/automaxprocs](https://github.com/uber-go/automaxprocs) package, make sure
   the version you use is v1.5.1 or higher.
 -->
@@ -205,8 +205,8 @@ cgroup v2 使用一个与 cgroup v1 不同的 API，因此如果有任何应用�
   需将其更新到 v0.43.0 或更高版本。
 * 如果你部署 Java 应用程序，最好使用完全支持 cgroup v2 的版本：
     * [OpenJDK / HotSpot](https://bugs.openjdk.org/browse/JDK-8230305): jdk8u372、11.0.16、15 及更高的版本
-    * [IBM Semeru Runtimes](https://www.eclipse.org/openj9/docs/version0.33/#control-groups-v2-support): jdk8u345-b01、11.0.16.0、17.0.4.0、18.0.2.0 及更高的版本
-    * [IBM Java](https://www.ibm.com/docs/en/sdk-java-technology/8?topic=new-service-refresh-7#whatsnew_sr7__fp15): 8.0.7.15 及更高的版本
+    * [IBM Semeru Runtimes](https://www.ibm.com/support/pages/apar/IJ46681): 8.0.382.0、11.0.20.0、17.0.8.0 及更高的版本
+    * [IBM Java](https://www.ibm.com/support/pages/apar/IJ46681): 8.0.8.6 及更高的版本
 * 如果你正在使用 [uber-go/automaxprocs](https://github.com/uber-go/automaxprocs) 包，
   确保你使用的版本是 v1.5.1 或者更高。
 

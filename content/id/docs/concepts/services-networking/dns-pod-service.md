@@ -225,7 +225,7 @@ pada _field_ `dnsConfig`:
 
 Di bawah ini merupakan contoh sebuah Pod dengan pengaturan DNS kustom:
 
-{{< codenew file="service/networking/custom-dns.yaml" >}}
+{{% codenew file="service/networking/custom-dns.yaml" %}}
 
 Ketika Pod diatas dibuat, maka Container `test`
 memiliki isi berkas `/etc/resolv.conf` sebagai berikut:

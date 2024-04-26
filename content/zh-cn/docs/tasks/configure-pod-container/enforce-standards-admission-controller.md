@@ -62,7 +62,7 @@ For v1.22, use [v1alpha1](https://v1-22.docs.kubernetes.io/docs/tasks/configure-
 {{< /note >}}
 
 ```yaml
-apiVersion: apiserver.config.k8s.io/v1 # 查阅兼容性说明
+apiVersion: apiserver.config.k8s.io/v1
 kind: AdmissionConfiguration
 plugins:
 - name: PodSecurity

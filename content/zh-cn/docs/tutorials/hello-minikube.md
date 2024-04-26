@@ -51,14 +51,22 @@ The tutorial provides a container image that uses NGINX to echo back all the req
 
 <!--
 This tutorial assumes that you have already set up `minikube`.
-See [minikube start](https://minikube.sigs.k8s.io/docs/start/) for installation instructions.
+See __Step 1__ in [minikube start](https://minikube.sigs.k8s.io/docs/start/) for installation instructions.
+-->
+本教程假设你已经安装了 `minikube`。
+有关安装说明，请参阅 [minikube start](https://minikube.sigs.k8s.io/docs/start/) 的**步骤 1**。
 
+{{< note >}}
+<!--
+Only execute the instructions in __Step 1, Installation__. The rest is covered on this page.
+-->
+仅执行**步骤 1：安装**中的说明，其余内容均包含在本页中。
+{{< /note >}}
+
+<!--
 You also need to install `kubectl`.
 See [Install tools](/docs/tasks/tools/#kubectl) for installation instructions.
 -->
-本教程假设你已经安装了 `minikube`。
-有关安装说明，请参阅 [minikube start](https://minikube.sigs.k8s.io/docs/start/)。
-
 你还需要安装 `kubectl`。
 有关安装说明，请参阅[安装工具](/zh-cn/docs/tasks/tools/#kubectl)。
 
@@ -88,6 +96,7 @@ Open the Kubernetes dashboard. You can do this two different ways:
 Open a **new** terminal, and run:
 -->
 打开一个**新的**终端，然后运行：
+
 ```shell
 # 启动一个新的终端，并保持此命令运行。
 minikube dashboard
@@ -102,7 +111,7 @@ Now, switch back to the terminal where you ran `minikube start`.
 The `dashboard` command enables the dashboard add-on and opens the proxy in the default web browser.
 You can create Kubernetes resources on the dashboard such as Deployment and Service.
 
-If you are running in an environment as root, see [Open Dashboard with URL](#open-dashboard-with-url).
+To find out how to avoid directly invoking the browser from the terminal and get a URL for the web dashboard, see the "URL copy and paste" tab.
 
 By default, the dashboard is only accessible from within the internal Kubernetes virtual network.
 The `dashboard` command creates a temporary proxy to make the dashboard accessible from outside the Kubernetes virtual network.
@@ -115,8 +124,8 @@ You can run the `dashboard` command again to create another proxy to access the 
 `dashboard` 命令启用仪表板插件，并在默认的 Web 浏览器中打开代理。
 你可以在仪表板上创建 Kubernetes 资源，例如 Deployment 和 Service。
 
-如果你以 root 用户身份在环境中运行，
-请参见[使用 URL 打开仪表板](#open-dashboard-with-url)。
+要了解如何避免从终端直接调用浏览器并获取 Web 仪表板的 URL，请参阅
+"URL 复制和粘贴"选项卡。
 
 默认情况下，仪表板只能从内部 Kubernetes 虚拟网络中访问。
 `dashboard` 命令创建一个临时代理，使仪表板可以从 Kubernetes 虚拟网络外部访问。
@@ -130,12 +139,12 @@ You can run the `dashboard` command again to create another proxy to access the 
 {{% tab name="URL 复制粘贴" %}}
 
 <!--
-If you don't want minikube to open a web browser for you, run the dashboard command with the
+If you don't want minikube to open a web browser for you, run the `dashboard` subcommand with the
 `--url` flag. `minikube` outputs a URL that you can open in the browser you prefer:
 
 Open a **new** terminal, and run:
 -->
-如果你不想 Minikube 为你打开 Web 浏览器，可以使用 `--url` 标志运行仪表板命令。
+如果你不想 Minikube 为你打开 Web 浏览器，可以使用 `--url` 标志运行 `dashboard` 子命令。
 `minikube` 会输出一个 URL，你可以在你喜欢的浏览器中打开该 URL。
 
 打开一个**新的**终端，然后运行：
@@ -146,9 +155,9 @@ minikube dashboard --url
 ```
 
 <!--
-Now, switch back to the terminal where you ran `minikube start`.
+Now, you can use this URL and switch back to the terminal where you ran `minikube start`.
 -->
-现在，切换回运行 `minikube start` 的终端。
+现在，你可以使用此 URL 并切换回运行 `minikube start` 的终端。
 
 {{% /tab %}}
 {{< /tabs >}}
@@ -241,6 +250,25 @@ Deployment 是管理 Pod 创建和扩展的推荐方法。
    kubectl config view
    ```
 
+<!--
+1. View application logs for a container in a pod.
+-->
+1. 查看 Pod 中容器的应用程序日志。
+
+   ```shell
+   kubectl logs hello-node-5f76cf6ccf-br9b5
+   ```
+   
+   <!--
+   The output is similar to:
+   -->
+   输出类似于：
+
+   ```
+   I0911 09:19:26.677397       1 log.go:195] Started HTTP server on port 8080
+   I0911 09:19:26.677586       1 log.go:195] Started UDP server on port  8081
+   ```
+
 {{< note >}}
 <!--
 For more information about `kubectl` commands, see the [kubectl overview](/docs/reference/kubectl/).
@@ -297,7 +325,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
    The output is similar to:
    -->
 
-   输出结果类似于这样:
+   输出结果类似于这样：
 
    ```
    NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
@@ -332,7 +360,8 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 <!--
 ## Enable addons
 
-The minikube tool includes a set of built-in {{< glossary_tooltip text="addons" term_id="addons" >}} that can be enabled, disabled and opened in the local Kubernetes environment.
+The minikube tool includes a set of built-in {{< glossary_tooltip text="addons" term_id="addons" >}}
+hat can be enabled, disabled and opened in the local Kubernetes environment.
 
 1. List the currently supported addons:
 -->
@@ -373,7 +402,7 @@ Minikube 有一组内置的{{< glossary_tooltip text="插件" term_id="addons" >
    ```
 
 <!--
-2. Enable an addon, for example, `metrics-server`:
+1. Enable an addon, for example, `metrics-server`:
 -->
 2. 启用插件，例如 `metrics-server`：
 
@@ -392,7 +421,7 @@ Minikube 有一组内置的{{< glossary_tooltip text="插件" term_id="addons" >
    ```
 
 <!--
-3. View the Pod and Service you created by installing that addon:
+1. View the Pod and Service you created by installing that addon:
 -->
 3. 查看通过安装该插件所创建的 Pod 和 Service：
 
@@ -428,9 +457,37 @@ Minikube 有一组内置的{{< glossary_tooltip text="插件" term_id="addons" >
    ```
 
 <!--
-4. Disable `metrics-server`:
+1. Check the output from `metrics-server`:
 -->
-4. 禁用 `metrics-server`：
+4. 检查 `metrics-server` 的输出：
+
+   ```shell
+   kubectl top pods
+   ```
+
+   <!--
+   The output is similar to:
+   -->
+   输出类似于：
+
+   ```
+   NAME                         CPU(cores)   MEMORY(bytes)   
+   hello-node-ccf4b9788-4jn97   1m           6Mi             
+   ```
+
+   <!--
+   If you see the following message, wait, and try again:
+   -->
+   如果你看到以下消息，请等待并重试：
+
+   ```
+   error: Metrics API not available
+   ```
+
+<!--
+1. Disable `metrics-server`:
+--->
+5. 禁用 `metrics-server`：
 
    ```shell
    minikube addons disable metrics-server
@@ -484,14 +541,24 @@ If you want to use minikube again to learn more about Kubernetes, you don't need
 -->
 如果你还想使用 Minikube 进一步学习 Kubernetes，那就不需要删除 Minikube。
 
+<!--
+## Conclusion
+
+This page covered the basic aspects to get a minikube cluster up and running. You are now ready to deploy applications.
+-->
+## 结论
+
+本页介绍了启动和运行 minikube 集群的基本知识，现在部署应用的准备工作已经完成。
+
 ## {{% heading "whatsnext" %}}
 
 <!--
+* Tutorial to _[deploy your first app on Kubernetes with kubectl](/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/)_.
 * Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
 * Learn more about [Deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/).
 * Learn more about [Service objects](/docs/concepts/services-networking/service/).
 -->
+* **[使用 kubectl 在 Kubernetes 上部署你的第一个应用程序](/zh-cn/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/)**教程。
 * 进一步了解 [Deployment 对象](/zh-cn/docs/concepts/workloads/controllers/deployment/)。
 * 进一步了解[部署应用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)。
 * 进一步了解 [Service 对象](/zh-cn/docs/concepts/services-networking/service/)。
-

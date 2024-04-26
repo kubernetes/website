@@ -1,5 +1,8 @@
 ---
 title: 节点
+api_metadata:
+- apiVersion: "v1"
+  kind: "Node"
 content_type: concept
 weight: 10
 ---
@@ -8,6 +11,9 @@ reviewers:
 - caesarxuchao
 - dchen1107
 title: Nodes
+api_metadata:
+- apiVersion: "v1"
+  kind: "Node"
 content_type: concept
 weight: 10
 -->
@@ -206,14 +212,14 @@ are enabled, kubelets are only authorized to create/modify their own Node resour
 <!--
 As mentioned in the [Node name uniqueness](#node-name-uniqueness) section,
 when Node configuration needs to be updated, it is a good practice to re-register
-the node with the API server. For example, if the kubelet being restarted with
-the new set of `--node-labels`, but the same Node name is used, the change will
-not take an effect, as labels are being set on the Node registration.
+the node with the API server. For example, if the kubelet is being restarted with
+a new set of `--node-labels`, but the same Node name is used, the change will
+not take effect, as labels are only set (or modified) upon Node registration with the API server.
 -->
 正如[节点名称唯一性](#node-name-uniqueness)一节所述，当 Node 的配置需要被更新时，
 一种好的做法是重新向 API 服务器注册该节点。例如，如果 kubelet 重启时其 `--node-labels`
 是新的值集，但同一个 Node 名称已经被使用，则所作变更不会起作用，
-因为节点标签是在 Node 注册时完成的。
+因为节点标签是在 Node 注册到 API 服务器时完成（或修改）的。
 
 <!--
 Pods already scheduled on the Node may misbehave or cause issues if the Node
@@ -342,7 +348,7 @@ For nodes there are two forms of heartbeats:
 
 Kubernetes 节点发送的心跳帮助你的集群确定每个节点的可用性，并在检测到故障时采取行动。
 
-对于节点，有两种形式的心跳:
+对于节点，有两种形式的心跳：
 
 <!--
 * Updates to the [`.status`](/docs/reference/node/node-status/) of a Node.
@@ -442,7 +448,7 @@ the same time:
 - Otherwise, the eviction rate is reduced to `--secondary-node-eviction-rate`
   (default 0.01) per second.
 -->
-- 如果不健康节点的比例超过 `--unhealthy-zone-threshold` （默认为 0.55），
+- 如果不健康节点的比例超过 `--unhealthy-zone-threshold`（默认为 0.55），
   驱逐速率将会降低。
 - 如果集群较小（意即小于等于 `--large-cluster-size-threshold` 个节点 - 默认为 50），
   驱逐操作将会停止。
@@ -534,7 +540,7 @@ If you want to explicitly reserve resources for non-Pod processes, see
 -->
 ## 节点拓扑  {#node-topology}
 
-{{< feature-state state="beta" for_k8s_version="v1.18" >}}
+{{< feature-state feature_gate_name="TopologyManager" >}}
 
 <!--
 If you have enabled the `TopologyManager`
@@ -552,7 +558,7 @@ for more information.
 -->
 ## 节点体面关闭 {#graceful-node-shutdown}
 
-{{< feature-state state="beta" for_k8s_version="v1.21" >}}
+{{< feature-state feature_gate_name="GracefulNodeShutdown" >}}
 
 <!-- 
 The kubelet attempts to detect node system shutdown and terminates pods running on the node.
@@ -707,7 +713,7 @@ Message:        Pod was terminated in response to imminent node shutdown.
 -->
 ### 基于 Pod 优先级的节点体面关闭    {#pod-priority-graceful-node-shutdown}
 
-{{< feature-state state="beta" for_k8s_version="v1.24" >}}
+{{< feature-state feature_gate_name="GracefulNodeShutdownBasedOnPodPriority" >}}
 
 <!--
 To provide more flexibility during graceful node shutdown around the ordering
@@ -868,7 +874,7 @@ kubelet 子系统中会生成 `graceful_shutdown_start_time_seconds` 和
 -->
 ## 处理节点非体面关闭 {#non-graceful-node-shutdown}
 
-{{< feature-state state="stable" for_k8s_version="v1.28" >}}
+{{< feature-state feature_gate_name="NodeOutOfServiceVolumeDetach" >}}
 
 <!--
 A node shutdown action may not be detected by kubelet's Node Shutdown Manager,
@@ -951,21 +957,78 @@ During a non-graceful shutdown, Pods are terminated in the two phases:
 {{< /note >}}
 
 <!--
+### Forced storage detach on timeout {#storage-force-detach-on-timeout}
+
+In any situation where a pod deletion has not succeeded for 6 minutes, kubernetes will
+force detach volumes being unmounted if the node is unhealthy at that instant. Any
+workload still running on the node that uses a force-detached volume will cause a
+violation of the
+[CSI specification](https://github.com/container-storage-interface/spec/blob/master/spec.md#controllerunpublishvolume),
+which states that `ControllerUnpublishVolume` "**must** be called after all
+`NodeUnstageVolume` and `NodeUnpublishVolume` on the volume are called and succeed".
+In such circumstances, volumes on the node in question might encounter data corruption.
+-->
+### 存储超时强制解除挂接  {#storage-force-detach-on-timeout}
+
+当任何 Pod 未能在 6 分钟内被成功删除时，如果节点当时不健康，
+Kubernetes 将强制解除挂接正在被卸载的卷。
+在启用了强制解除挂接卷的节点上仍在运行的所有工作负载都将导致违反
+[CSI 规范](https://github.com/container-storage-interface/spec/blob/master/spec.md#controllerunpublishvolume)，
+该规范指出 `ControllerUnpublishVolume` "**必须**在调用卷上的所有 `NodeUnstageVolume`
+和 `NodeUnpublishVolume` 执行且成功后被调用"。在这种情况下，相关节点上的卷可能会遇到数据损坏。
+
+<!--
+The forced storage detach behaviour is optional; users might opt to use the "Non-graceful
+node shutdown" feature instead.
+-->
+强制存储解除挂接行为是可选的；用户可以选择使用"非体面节点关闭"特性。
+
+<!--
+Force storage detach on timeout can be disabled by setting the `disable-force-detach-on-timeout`
+config field in `kube-controller-manager`. Disabling the force detach on timeout feature means
+that a volume that is hosted on a node that is unhealthy for more than 6 minutes will not have
+its associated
+[VolumeAttachment](/docs/reference/kubernetes-api/config-and-storage-resources/volume-attachment-v1/)
+deleted.
+-->
+可以通过在 `kube-controller-manager` 中设置 `disable-force-detach-on-timeout`
+配置字段来禁用超时时存储强制解除挂接。
+禁用超时强制解除挂接特性意味着托管在不正常运行时间超过 6 分钟的节点上的卷将不会删除其关联的
+[VolumeAttachment](/zh-cn/docs/reference/kubernetes-api/config-and-storage-resources/volume-attachment-v1/)。
+
+<!--
+After this setting has been applied, unhealthy pods still attached to a volumes must be recovered
+via the [Non-Graceful Node Shutdown](#non-graceful-node-shutdown) procedure mentioned above.
+-->
+应用此设置后，仍关联到某卷的不健康 Pod 必须通过上述[非体面节点关闭](#non-graceful-node-shutdown)过程进行恢复。
+
+{{< note >}}
+<!--
+- Caution must be taken while using the [Non-Graceful Node Shutdown](#non-graceful-node-shutdown) procedure.
+- Deviation from the steps documented above can result in data corruption.
+-->
+- 使用[非体面节点关闭](#non-graceful-node-shutdown)过程时必须小心。
+- 偏离上述步骤可能会导致数据损坏。
+{{< /note >}}
+
+<!--
 ## Swap memory management {#swap-memory}
 -->
-## 交换内存管理 {#swap-memory}
+## 交换内存（swap）管理 {#swap-memory}
 
-{{< feature-state state="beta" for_k8s_version="v1.28" >}}
+{{< feature-state feature_gate_name="NodeSwap" >}}
 
 <!--
 To enable swap on a node, the `NodeSwap` feature gate must be enabled on
-the kubelet, and the `--fail-swap-on` command line flag or `failSwapOn`
+the kubelet (default is true), and the `--fail-swap-on` command line flag or `failSwapOn`
 [configuration setting](/docs/reference/config-api/kubelet-config.v1beta1/)
 must be set to false.
+To allow Pods to utilize swap, `swapBehavior` should not be set to `NoSwap` (which is the default behavior) in the kubelet config.
 -->
-要在节点上启用交换内存，必须启用 kubelet 的 `NodeSwap` 特性门控，
+要在节点上启用交换内存，必须启用 kubelet 的 `NodeSwap` 特性门控（默认启用），
 同时使用 `--fail-swap-on` 命令行参数或者将 `failSwapOn`
 [配置](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)设置为 false。
+为了允许 Pod 使用交换内存，在 kubelet 配置中不应将 `swapBehavior` 设置为 `NoSwap`（默认行为）。
 
 {{< warning >}}
 <!--
@@ -979,31 +1042,29 @@ of Secret objects that were written to tmpfs now could be swapped to disk.
 A user can also optionally configure `memorySwap.swapBehavior` in order to
 specify how a node will use swap memory. For example,
 -->
-用户还可以选择配置 `memorySwap.swapBehavior` 以指定节点使用交换内存的方式。例如:
+用户还可以选择配置 `memorySwap.swapBehavior` 以指定节点使用交换内存的方式。例如：
 
 ```yaml
 memorySwap:
-  swapBehavior: UnlimitedSwap
+  swapBehavior: LimitedSwap
 ```
 
 <!--
-- `UnlimitedSwap` (default): Kubernetes workloads can use as much swap memory as they
-  request, up to the system limit.
+- `NoSwap` (default): Kubernetes workloads will not use swap.
 - `LimitedSwap`: The utilization of swap memory by Kubernetes workloads is subject to limitations.
   Only Pods of Burstable QoS are permitted to employ swap.
 -->
-- `UnlimitedSwap`（默认）：Kubernetes 工作负载可以根据请求使用尽可能多的交换内存，
-  一直到达到系统限制为止。
+- `NoSwap`（默认）：Kubernetes 工作负载不会使用交换内存。
 - `LimitedSwap`：Kubernetes 工作负载对交换内存的使用受到限制。
-  只有具有 Burstable QoS 的 Pod 可以使用交换空间。
+  只有具有 Burstable QoS 的 Pod 可以使用交换内存。
 
 <!--
 If configuration for `memorySwap` is not specified and the feature gate is
 enabled, by default the kubelet will apply the same behaviour as the
-`UnlimitedSwap` setting.
+`NoSwap` setting.
 -->
 如果启用了特性门控但是未指定 `memorySwap` 的配置，默认情况下 kubelet 将使用与
-`UnlimitedSwap` 设置相同的行为。
+`NoSwap` 设置相同的行为。
 
 <!--
 With `LimitedSwap`, Pods that do not fall under the Burstable QoS classification (i.e.
@@ -1038,9 +1099,9 @@ It is important to note that, for containers within Burstable QoS Pods, it is po
 opt-out of swap usage by specifying memory requests that are equal to memory limits.
 Containers configured in this manner will not have access to swap memory.
 -->
-交换限制被配置为 `(containerMemoryRequest / nodeTotalMemory) * totalPodsSwapAvailable` 的值。
+交换内存限制被配置为 `(containerMemoryRequest / nodeTotalMemory) * totalPodsSwapAvailable` 的值。
 
-需要注意的是，位于 Burstable QoS Pod 中的容器可以通过将内存请求设置为与内存限制相同来选择不使用交换空间。
+需要注意的是，位于 Burstable QoS Pod 中的容器可以通过将内存请求设置为与内存限制相同来选择不使用交换内存。
 以这种方式配置的容器将无法访问交换内存。
 
 <!--
@@ -1051,7 +1112,7 @@ see the blog-post about [Kubernetes 1.28: NodeSwap graduates to Beta1](/blog/202
 [KEP-2400](https://github.com/kubernetes/enhancements/issues/4128) and its
 [design proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2400-node-swap/README.md).
 -->
-只有 **cgroup v2** 支持交换空间，cgroup v1 不支持。
+只有 **Cgroup v2** 支持交换内存，Cgroup v1 不支持。
 
 如需了解更多信息、协助测试和提交反馈，请参阅关于
 [Kubernetes 1.28：NodeSwap 进阶至 Beta1](/zh-cn/blog/2023/08/24/swap-linux-beta/) 的博客文章、
@@ -1065,6 +1126,8 @@ Learn more about the following:
 * [Components](/docs/concepts/overview/components/#node-components) that make up a node.
 * [API definition for Node](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
 * [Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node) section of the architecture design document.
+* [Cluster autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/) to
+  manage the number and size of nodes in your cluster.
 * [Taints and Tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
 * [Node Resource Managers](/docs/concepts/policy/node-resource-managers/).
 * [Resource Management for Windows nodes](/docs/concepts/configuration/windows-resource-management/).
@@ -1076,6 +1139,8 @@ Learn more about the following:
 * 架构设计文档中有关
   [Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node)
   的章节。
+* [集群自动扩缩](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node)
+  以管理集群中节点的数量和规模。
 * [污点和容忍度](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)。
 * [节点资源管理器](/zh-cn/docs/concepts/policy/node-resource-managers/)。
 * [Windows 节点的资源管理](/zh-cn/docs/concepts/configuration/windows-resource-management/)。

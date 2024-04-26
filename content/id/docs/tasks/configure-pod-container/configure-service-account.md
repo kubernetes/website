@@ -174,7 +174,7 @@ Isi dari `token` tidak dirinci di sini.
 - Membuat sebuah imagePullSecret, seperti yang dijelaskan pada [Menentukan ImagePullSecret pada Pod](/id/docs/concepts/containers/images/#tentukan-imagepullsecrets-pada-sebuah-pod).
 
     ```shell
-    kubectl create secret docker-registry myregistrykey --docker-server=DUMMY_SERVER \
+    kubectl create secret docker-registry myregistrykey --docker-server=<registry name> \
             --docker-username=DUMMY_USERNAME --docker-password=DUMMY_DOCKER_PASSWORD \
             --docker-email=DUMMY_DOCKER_EMAIL
     ```
@@ -250,7 +250,7 @@ kubectl replace serviceaccount default -f ./sa.yaml
 Ketika Pod baru dibuat dalam Namespace yang sedang aktif dan menggunakan ServiceAccount, Pod baru akan memiliki _field_ `spec.imagePullSecrets` yang ditentukan secara otomatis:
 
 ```shell
-kubectl run nginx --image=nginx --restart=Never
+kubectl run nginx --image=<registry name>/nginx --restart=Never
 kubectl get pod nginx -o=jsonpath='{.spec.imagePullSecrets[0].name}{"\n"}'
 ```
 
@@ -282,7 +282,7 @@ Kubelet juga dapat memproyeksikan _token_ ServiceAccount ke Pod. Kamu dapat mene
 
 Perilaku ini diatur pada PodSpec menggunakan tipe ProjectedVolume yaitu [ServiceAccountToken](/id/docs/concepts/storage/volumes/#projected). Untuk memungkinkan Pod dengan _token_ dengan pengguna bertipe _"vault"_ dan durasi validitas selama dua jam, kamu harus mengubah bagian ini pada PodSpec:
 
-{{< codenew file="pods/pod-projected-svc-token.yaml" >}}
+{{% codenew file="pods/pod-projected-svc-token.yaml" %}}
 
 Buat Pod:
 

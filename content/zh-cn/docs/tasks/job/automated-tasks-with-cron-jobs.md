@@ -38,7 +38,7 @@ Here is a manifest for a CronJob that runs a simple demonstration task every min
 CronJob 需要一个配置文件。
 以下是针对一个 CronJob 的清单，该 CronJob 每分钟运行一个简单的演示任务：
 
-{{% code file="application/job/cronjob.yaml" %}}
+{{% code_sample file="application/job/cronjob.yaml" %}}
 
 <!--
 Run the example CronJob by using this command:

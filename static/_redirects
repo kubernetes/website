@@ -30,6 +30,8 @@
 /docs/api-reference/labels-annotations-taints/     /docs/reference/labels-annotations-taints/ 301
 /docs/reference/using-api/api-overview/     /docs/reference/using-api/ 301
 /docs/reference/access-authn-authz/controlling-access/   /docs/concepts/security/controlling-access/ 301
+/docs/reference/kubectl/cheatsheet/   /docs/reference/kubectl/quick-reference/ 301
+/kubectlguide /docs/reference/kubectl/quick-reference/ 302
 
 /docs/concepts/abstractions/controllers/garbage-collection/     /docs/concepts/workloads/controllers/garbage-collection/ 301
 /docs/concepts/abstractions/controllers/statefulsets/     /docs/concepts/workloads/controllers/statefulset/ 301
@@ -77,6 +79,7 @@
 /docs/concepts/jobs/run-to-completion-finite-workloads/      /docs/concepts/workloads/controllers/job/ 301
 /id/docs/concepts/jobs/run-to-completion-finite-workloads/      /id/docs/concepts/workloads/controllers/job/ 301
 /docs/concepts/nodes/node/     /docs/concepts/architecture/nodes/ 301
+/docs/storage-force-detach-on-timeout/ /docs/concepts/architecture/nodes/#storage-force-detach-on-timeout 302
 /docs/concepts/services-networking/connect-applications-service/    /docs/tutorials/services/connect-applications-service/   301
 /docs/concepts/object-metadata/annotations/     /docs/concepts/overview/working-with-objects/annotations/ 301
 /docs/concepts/overview/     /docs/concepts/overview/what-is-kubernetes/ 301
@@ -167,6 +170,7 @@
 
 /docs/reference/deprecation-policy/     /docs/reference/using-api/deprecation-policy/ 301
 
+/docs/reference/generated/kubectl/kubectl-commands/     /docs/reference/kubectl/ 301
 /docs/reference/generated/cloud-controller-manager/     /docs/reference/command-line-tools-reference/cloud-controller-manager/ 301
 /docs/reference/generated/kubelet/     /docs/reference/command-line-tools-reference/kubelet/ 301
 /docs/reference/generated/kube-apiserver/     /docs/reference/command-line-tools-reference/kube-apiserver/ 301
@@ -198,6 +202,7 @@
 
 /docs/reporting-security-issues/     /docs/reference/issues-security/security/ 301
 /security/ /docs/reference/issues-security/security/ 302
+/docs/concepts/security/overview/ /docs/concepts/security/ 301
 
 /docs/roadmap/     https://github.com/kubernetes/kubernetes/milestones/ 301
 /docs/samples/     /docs/tutorials/ 301
@@ -345,7 +350,7 @@
 /docs/tutorials/stateless-application/run-stateless-ap-replication-controller/     /docs/tasks/run-application/run-stateless-application-deployment/ 301
 /docs/tutorials/stateless-application/run-stateless-application-deployment/     /docs/tasks/run-application/run-stateless-application-deployment/ 301
 
-/cheatsheet /docs/reference/kubectl/cheatsheet/ 302
+/cheatsheet /docs/reference/kubectl/quick-reference/ 302
 
 /docs/whatisk8s/     /docs/concepts/overview/what-is-kubernetes/ 301
 /events/     /docs/community     301
@@ -429,6 +434,7 @@
 
 /docs/tasks/tools/install-minikube/     https://minikube.sigs.k8s.io/docs/start/     302
 
+/docs/concepts/cluster-administration/manage-deployment/ /docs/concepts/workloads/management/ 301
 /docs/concepts/configuration/pod-overhead/     /docs/concepts/scheduling-eviction/pod-overhead/   301
 /id/docs/concepts/configuration/pod-overhead/     /id/docs/concepts/scheduling-eviction/pod-overhead/   301
 

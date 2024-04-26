@@ -10,28 +10,27 @@ weight: 60
 
 {{< feature-state for_k8s_version="v1.19" state="stable" >}}
 
-The scheduling framework is a pluggable architecture for the Kubernetes scheduler.
-It adds a new set of "plugin" APIs to the existing scheduler. Plugins are compiled into the scheduler. The APIs allow most scheduling features to be implemented as plugins, while keeping the
-scheduling "core" lightweight and maintainable. Refer to the [design proposal of the
-scheduling framework][kep] for more technical information on the design of the
-framework.
+The _scheduling framework_ is a pluggable architecture for the Kubernetes scheduler.
+It consists of a set of "plugin" APIs that are compiled directly into the scheduler.
+These APIs allow most scheduling features to be implemented as plugins,
+while keeping the scheduling "core" lightweight and maintainable. Refer to the
+[design proposal of the scheduling framework][kep] for more technical information on
+the design of the framework.
 
 [kep]: https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/624-scheduling-framework/README.md
 
-
-
 <!-- body -->
 
-# Framework workflow
+## Framework workflow
 
 The Scheduling Framework defines a few extension points. Scheduler plugins
 register to be invoked at one or more extension points. Some of these plugins
 can change the scheduling decisions and some are informational only.
 
-Each attempt to schedule one Pod is split into two phases, the **scheduling
-cycle** and the **binding cycle**.
+Each attempt to schedule one Pod is split into two phases, the
+**scheduling cycle** and the **binding cycle**.
 
-## Scheduling Cycle & Binding Cycle
+### Scheduling cycle & binding cycle
 
 The scheduling cycle selects a node for the Pod, and the binding cycle applies
 that decision to the cluster. Together, a scheduling cycle and binding cycle are
@@ -43,14 +42,16 @@ A scheduling or binding cycle can be aborted if the Pod is determined to
 be unschedulable or if there is an internal error. The Pod will be returned to
 the queue and retried.
 
-## Extension points
+## Interfaces
 
-The following picture shows the scheduling context of a Pod and the extension
-points that the scheduling framework exposes. In this picture "Filter" is
-equivalent to "Predicate" and "Scoring" is equivalent to "Priority function".
+The following picture shows the scheduling context of a Pod and the interfaces
+that the scheduling framework exposes.
 
-One plugin may register at multiple extension points to perform more complex or
+One plugin may implement multiple interfaces to perform more complex or
 stateful tasks.
+
+Some interfaces match the scheduler extension points which can be configured through
+[Scheduler Configuration](/docs/reference/scheduling/config/#extension-points).
 
 {{< figure src="/images/docs/scheduling-framework-extensions.png" title="Scheduling framework extension points" class="diagram-large">}}
 
@@ -64,6 +65,32 @@ Otherwise, it's placed in the internal unschedulable Pods list, and doesn't get 
 
 For more details about how internal scheduler queues work, read
 [Scheduling queue in kube-scheduler](https://github.com/kubernetes/community/blob/f03b6d5692bd979f07dd472e7b6836b2dad0fd9b/contributors/devel/sig-scheduling/scheduler_queues.md).
+
+### EnqueueExtension
+
+EnqueueExtension is the interface where the plugin can control
+whether to retry scheduling of Pods rejected by this plugin, based on changes in the cluster.
+Plugins that implement PreEnqueue, PreFilter, Filter, Reserve or Permit should implement this interface.
+
+### QueueingHint
+
+{{< feature-state for_k8s_version="v1.28" state="beta" >}}
+
+QueueingHint is a callback function for deciding whether a Pod can be requeued to the active queue or backoff queue.
+It's executed every time a certain kind of event or change happens in the cluster.
+When the QueueingHint finds that the event might make the Pod schedulable,
+the Pod is put into the active queue or the backoff queue
+so that the scheduler will retry the scheduling of the Pod.
+
+{{< note >}}
+QueueingHint evaluation during scheduling is a beta-level feature.
+The v1.28 release series initially enabled the associated feature gate; however, after the
+discovery of an excessive memory footprint, the Kubernetes project set that feature gate
+to be disabled by default. In Kubernetes {{< skew currentVersion >}}, this feature gate is
+disabled and you need to enable it manually.
+You can enable it via the
+`SchedulerQueueingHints` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+{{< /note >}}
 
 ### QueueSort {#queue-sort}
 
@@ -86,7 +113,7 @@ called for that node. Nodes may be evaluated concurrently.
 
 ### PostFilter {#post-filter}
 
-These plugins are called after Filter phase, but only when no feasible nodes
+These plugins are called after the Filter phase, but only when no feasible nodes
 were found for the pod. Plugins are called in their configured order. If
 any postFilter plugin marks the node as `Schedulable`, the remaining plugins
 will not be called. A typical PostFilter implementation is preemption, which
@@ -148,7 +175,7 @@ NormalizeScore extension point.
 
 ### Reserve {#reserve}
 
-A plugin that implements the Reserve extension has two methods, namely `Reserve`
+A plugin that implements the Reserve interface has two methods, namely `Reserve`
 and `Unreserve`, that back two informational scheduling phases called Reserve
 and Unreserve, respectively. Plugins which maintain runtime state (aka "stateful
 plugins") should use these phases to be notified by the scheduler when resources
@@ -194,9 +221,9 @@ the three things:
 
 {{< note >}}
 While any plugin can access the list of "waiting" Pods and approve them
-(see [`FrameworkHandle`](https://git.k8s.io/enhancements/keps/sig-scheduling/624-scheduling-framework#frameworkhandle)), we expect only the permit
-plugins to approve binding of reserved Pods that are in "waiting" state. Once a Pod
-is approved, it is sent to the [PreBind](#pre-bind) phase.
+(see [`FrameworkHandle`](https://git.k8s.io/enhancements/keps/sig-scheduling/624-scheduling-framework#frameworkhandle)),
+we expect only the permit plugins to approve binding of reserved Pods that are in "waiting" state.
+Once a Pod is approved, it is sent to the [PreBind](#pre-bind) phase.
 {{< /note >}}
 
 ### PreBind {#pre-bind}
@@ -218,7 +245,7 @@ skipped**.
 
 ### PostBind {#post-bind}
 
-This is an informational extension point. Post-bind plugins are called after a
+This is an informational interface. Post-bind plugins are called after a
 Pod is successfully bound. This is the end of a binding cycle, and can be used
 to clean up associated resources.
 
@@ -260,4 +287,3 @@ plugins and get them configured along with default plugins. You can visit
 If you are using Kubernetes v1.18 or later, you can configure a set of plugins as
 a scheduler profile and then define multiple profiles to fit various kinds of workload.
 Learn more at [multiple profiles](/docs/reference/scheduling/config/#multiple-profiles).
-

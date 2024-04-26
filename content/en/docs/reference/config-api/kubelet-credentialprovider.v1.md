@@ -79,7 +79,7 @@ CredentialProviderConfig. If set to 0, the kubelet will not cache the provided A
 </td>
 </tr>
 <tr><td><code>auth</code><br/>
-<a href="#credentialprovider-kubelet-k8s-io-v1-AuthConfig"><code>map[string]k8s.io/kubelet/pkg/apis/credentialprovider/v1.AuthConfig</code></a>
+<a href="#credentialprovider-kubelet-k8s-io-v1-AuthConfig"><code>map[string]AuthConfig</code></a>
 </td>
 <td>
    <p>auth is a map containing authentication information passed into the kubelet.
@@ -90,7 +90,7 @@ this field to null if no valid credentials can be returned for the requested ima
 Globs can be used in the domain, but not in the port or the path. Globs are supported
 as subdomains like '&ast;.k8s.io' or 'k8s.&ast;.io', and top-level-domains such as 'k8s.&ast;'.
 Matching partial subdomains like 'app&ast;.k8s.io' is also supported. Each glob can only match
-a single subdomain segment, so &ast;.io does not match &ast;.k8s.io.</p>
+a single subdomain segment, so '&ast;.io' does not match '&ast;.k8s.io'.</p>
 <p>The kubelet will match images against the key when all of the below are true:</p>
 <ul>
 <li>Both contain the same number of domain parts and each part matches.</li>

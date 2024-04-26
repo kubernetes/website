@@ -57,7 +57,7 @@ Bagian ini mendefinisikan laman index.php yang melakukan beberapa komputasi inte
 Pertama, kita akan memulai Deployment yang menjalankan _image_ dan mengeksposnya sebagai Service
 menggunakan konfigurasi berikut:
 
-{{< codenew file="application/php-apache.yaml" >}}
+{{% codenew file="application/php-apache.yaml" %}}
 
 
 Jalankan perintah berikut:
@@ -434,7 +434,7 @@ Semua metrik di HorizontalPodAutoscaler dan metrik API ditentukan menggunakan no
 
 Daripada menggunakan perintah `kubectl autoscale` untuk membuat HorizontalPodAutoscaler secara imperatif, kita dapat menggunakan berkas berikut untuk membuatnya secara deklaratif:
 
-{{< codenew file="application/hpa/php-apache.yaml" >}}
+{{% codenew file="application/hpa/php-apache.yaml" %}}
 
 Kita akan membuat _autoscaler_ dengan menjalankan perintah berikut:
 

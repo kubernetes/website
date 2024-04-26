@@ -3,7 +3,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -73,6 +73,7 @@ control-plane-join     Join a machine as a control plane instance
   /etcd                  Add a new local etcd member
   /update-status         Register the new control-plane node into the ClusterStatus maintained in the kubeadm-config ConfigMap (DEPRECATED)
   /mark-control-plane    Mark a node as a control-plane
+wait-control-plane     EXPERIMENTAL: Wait for the control plane to start
 ```
 
 
@@ -107,7 +108,7 @@ kubeadm join [api-server-endpoint] [flags]
 <td colspan="2">--certificate-key string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Use this key to decrypt the certificate secrets uploaded by init.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Use this key to decrypt the certificate secrets uploaded by init. The certificate key is a hex encoded string that is an AES key of size 32 bytes.</p></td>
 </tr>
 
 <tr>

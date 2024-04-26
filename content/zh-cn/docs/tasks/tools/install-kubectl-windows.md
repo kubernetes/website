@@ -80,7 +80,7 @@ The following methods exist for installing kubectl on Windows:
    下载 `kubectl` 校验和文件：
 
    ```powershell
-   curl.exe -LO "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl-convert.exe.sha256"
+   curl.exe -LO "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe.sha256"
    ```
 
    <!--
@@ -338,7 +338,8 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
 5. 安装插件后，清理安装文件：
 
    ```powershell
-   del kubectl-convert.exe kubectl-convert.exe.sha256
+   del kubectl-convert.exe
+   del kubectl-convert.exe.sha256
    ```
 
 ## {{% heading "whatsnext" %}}

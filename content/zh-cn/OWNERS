@@ -1,6 +1,6 @@
 # See the OWNERS docs at https://go.k8s.io/owners
 
-# This is the localization project for Chinese.
+# This is the localization project for Chinese (simplified / People's Republic of China)
 # Teams and members are visible at https://github.com/orgs/kubernetes/teams.
 
 reviewers:
@@ -8,6 +8,14 @@ reviewers:
 
 approvers:
 - sig-docs-zh-owners
+- sig-docs-website-owners # important due to no_parent_owners option
 
 labels:
+- area/localization
 - language/zh
+
+# Disable inheritance so that the localization team don't end up as approvers for all
+# languages.
+# https://github.com/kubernetes/community/blob/master/communication/website-guidelines.md
+options:
+  no_parent_owners: true

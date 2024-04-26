@@ -1,10 +1,10 @@
 ---
-title: "工作负载资源"
+title: "工作负载管理"
 weight: 20
 simple_list: true
 ---
 <!--
-title: "Workload Resources"
+title: "Workload Management"
 weight: 20
 simple_list: true
 -->

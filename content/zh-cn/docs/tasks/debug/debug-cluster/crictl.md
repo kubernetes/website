@@ -423,13 +423,13 @@ deleted by the Kubelet.
 ### Create a container
 
 Using `crictl` to create a container is useful for debugging container runtimes.
-On a running Kubernetes cluster, the sandbox will eventually be stopped and
+On a running Kubernetes cluster, the container will eventually be stopped and
 deleted by the Kubelet.
 -->
 ### 创建容器 {#create-a-container}
 
 用 `crictl` 创建容器对容器运行时排错很有帮助。
-在运行的 Kubernetes 集群中，沙盒会随机地被 kubelet 停止和删除。
+在运行的 Kubernetes 集群中，容器最终将被 kubelet 停止和删除。
 
 <!--
 1. Pull a busybox image

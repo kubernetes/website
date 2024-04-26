@@ -5,7 +5,7 @@
 This repository contains the assets required to build the [Kubernetes website and documentation](https://kubernetes.io/). We're glad that you want to contribute!
 
 - [Contributing to the docs](#contributing-to-the-docs)
-- [Localization READMEs](#localization-readmemds)
+- [Localization READMEs](#localization-readmes)
 
 ## Using this repository
 
@@ -19,6 +19,9 @@ To use this repository, you need the following installed locally:
 - [Go](https://go.dev/)
 - [Hugo (Extended version)](https://gohugo.io/)
 - A container runtime, like [Docker](https://www.docker.com/).
+
+> [!NOTE]
+Make sure to install the Hugo extended version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L11) file.
 
 Before you start, install the dependencies. Clone the repository and navigate to the directory:
 
@@ -55,8 +58,6 @@ If you see errors, it probably means that the hugo container did not have enough
 Open up your browser to <http://localhost:1313> to view the website. As you make changes to the source files, Hugo updates the website and forces a browser refresh.
 
 ## Running the website locally using Hugo
-
-Make sure to install the Hugo extended version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L11) file.
 
 To install dependencies, deploy and test the site locally, run:
 
@@ -99,10 +100,9 @@ To update the reference pages for a new Kubernetes release follow these steps:
    make api-reference
    ```
 
-   You can test the results locally by making and serving the site from a container image:
+   You can test the results locally by building and serving the site from a container:
 
    ```bash
-   make container-image
    make container-serve
    ```
 
@@ -178,6 +178,7 @@ For more information about contributing to the Kubernetes documentation, see:
 - [Page Content Types](https://kubernetes.io/docs/contribute/style/page-content-types/)
 - [Documentation Style Guide](https://kubernetes.io/docs/contribute/style/style-guide/)
 - [Localizing Kubernetes Documentation](https://kubernetes.io/docs/contribute/localization/)
+- [Introduction to Kubernetes Docs](https://www.youtube.com/watch?v=pprMgmNzDcw)
 
 ### New contributor ambassadors
 

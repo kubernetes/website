@@ -72,7 +72,7 @@ Pod 失效策略来避免不必要的 Pod 重启。
 
 首先，基于配置创建一个 Job：
 
-{{% code file="/controllers/job-pod-failure-policy-failjob.yaml" %}}
+{{% code_sample file="/controllers/job-pod-failure-policy-failjob.yaml" %}}
 
 <!--
 by running:
@@ -150,7 +150,7 @@ node while the Pod is running on it (within 90s since the Pod is scheduled).
 -->
 1. 基于配置创建 Job：
 
-   {{% code file="/controllers/job-pod-failure-policy-ignore.yaml" %}}
+   {{% code_sample file="/controllers/job-pod-failure-policy-ignore.yaml" %}}
 
    <!--
    by running:
@@ -250,7 +250,7 @@ deleted pods, in the `Pending` phase, to a terminal phase
 -->
 1. 首先基于配置创建一个 Job：
 
-   {{% code file="/controllers/job-pod-failure-policy-config-issue.yaml" %}}
+   {{% code_sample file="/controllers/job-pod-failure-policy-config-issue.yaml" %}}
 
    <!--
    by running:

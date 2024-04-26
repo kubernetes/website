@@ -2,6 +2,11 @@
 reviewers:
 - bprashanth
 title: Ingress
+api_metadata:
+- apiVersion: "networking.k8s.io/v1"
+  kind: "Ingress"
+- apiVersion: "networking.k8s.io/v1"
+  kind: "IngressClass"  
 content_type: concept
 description: >-
   Make your HTTP (or HTTPS) network service available using a protocol-aware configuration
@@ -14,6 +19,10 @@ weight: 30
 <!-- overview -->
 {{< feature-state for_k8s_version="v1.19" state="stable" >}}
 {{< glossary_definition term_id="ingress" length="all" >}}
+
+{{< note >}}
+Ingress is frozen. New features are being added to the [Gateway API](/docs/concepts/services-networking/gateway/).
+{{< /note >}}
 
 <!-- body -->
 
@@ -632,7 +641,7 @@ Please check the documentation of the relevant [Ingress controller](/docs/concep
 You can expose a Service in multiple ways that don't directly involve the Ingress resource:
 
 * Use [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer)
-* Use [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport)
+* Use [Service.Type=NodePort](/docs/concepts/services-networking/service/#type-nodeport)
 
 ## {{% heading "whatsnext" %}}
 

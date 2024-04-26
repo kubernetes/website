@@ -98,6 +98,12 @@ read-write by a single Node. It defines the [StorageClass name](/docs/concepts/s
 `manual` for the PersistentVolume, which will be used to bind
 PersistentVolumeClaim requests to this PersistentVolume.
 
+{{< note >}}
+This example uses the `ReadWriteOnce` access mode, for simplicity. For
+production use, the Kubernetes project recommends using the `ReadWriteOncePod`
+access mode instead.
+{{< /note >}}
+
 Create the PersistentVolume:
 
 ```shell

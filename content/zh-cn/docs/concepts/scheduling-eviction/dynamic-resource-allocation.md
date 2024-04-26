@@ -46,7 +46,8 @@ Kubernetes v{{< skew currentVersion >}} 包含用于动态资源分配的集群�
 
 <!-- body -->
 
-## API {#api}
+## API
+
 <!-- 
 The `resource.k8s.io/v1alpha2` {{< glossary_tooltip text="API group"
 term_id="api-group" >}} provides four types:
@@ -62,14 +63,14 @@ ResourceClass
   driver.
 
 ResourceClaim
-: Defines a particular resource instances that is required by a
+: Defines a particular resource instance that is required by a
   workload. Created by a user (lifecycle managed manually, can be shared
   between different Pods) or for individual Pods by the control plane based on
   a ResourceClaimTemplate (automatic lifecycle, typically used by just one
   Pod).
 
 ResourceClaimTemplate
-: Defines the spec and some meta data for creating
+: Defines the spec and some metadata for creating
   ResourceClaims. Created by a user when deploying a workload.
 
 PodSchedulingContext
@@ -101,9 +102,8 @@ typically using the type defined by a {{< glossary_tooltip
 term_id="CustomResourceDefinition" text="CRD" >}} that was created when
 installing a resource driver.
 -->
-ResourceClass 和 ResourceClaim 的参数存储在单独的对象中，
-通常使用安装资源驱动程序时创建的 {{< glossary_tooltip
-term_id="CustomResourceDefinition" text="CRD" >}} 所定义的类型。
+ResourceClass 和 ResourceClaim 的参数存储在单独的对象中，通常使用安装资源驱动程序时创建的
+{{< glossary_tooltip term_id="CustomResourceDefinition" text="CRD" >}} 所定义的类型。
 
 <!-- 
 The `core/v1` `PodSpec` defines ResourceClaims that are needed for a Pod in a
@@ -184,6 +184,7 @@ spec:
     source:
       resourceClaimTemplateName: large-black-cat-claim-template
 ```
+
 <!-- 
 ## Scheduling
 -->
@@ -252,6 +253,20 @@ set aside for it.
 这避免了 Pod 被调度到一个节点但无法在那里运行的情况，
 这种情况很糟糕，因为被挂起 Pod 也会阻塞为其保留的其他资源，如 RAM 或 CPU。
 
+{{< note >}}
+<!--
+Scheduling of pods which use ResourceClaims is going to be slower because of
+the additional communication that is required. Beware that this may also impact
+pods that don't use ResourceClaims because only one pod at a time gets
+scheduled, blocking API calls are made while handling a pod with
+ResourceClaims, and thus scheduling the next pod gets delayed.
+-->
+由于需要额外的通信，使用 ResourceClaim 的 Pod 的调度将会变慢。
+请注意，这也可能会影响不使用 ResourceClaim 的 Pod，因为一次仅调度一个
+Pod，在使用 ResourceClaim 处理 Pod 时会进行阻塞 API 调用，
+从而推迟调度下一个 Pod。
+{{< /note >}}
+
 <!-- 
 ## Monitoring resources
 -->
@@ -274,7 +289,7 @@ or not reserved for the Pod, then the kubelet will fail to run the Pod and
 re-check periodically because those requirements might still get fulfilled
 later.
 -->
-## 预调度的 Pod
+## 预调度的 Pod   {#pre-scheduled-pods}
 
 当你（或别的 API 客户端）创建设置了 `spec.nodeName` 的 Pod 时，调度器将被绕过。
 如果 Pod 所需的某个 ResourceClaim 尚不存在、未被分配或未为该 Pod 保留，那么 kubelet
@@ -333,10 +348,10 @@ term_id="api-group" >}} are enabled. For details on that, see the
 parameters](/docs/reference/command-line-tools-reference/kube-apiserver/).
 kube-scheduler, kube-controller-manager and kubelet also need the feature gate.
 -->
-动态资源分配是一个 **alpha 特性**，只有在启用 `DynamicResourceAllocation`
+动态资源分配是一个 **Alpha 特性**，只有在启用 `DynamicResourceAllocation`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-和 `resource.k8s.io/v1alpha1` {{< glossary_tooltip text="API 组"
-term_id="api-group" >}} 时才启用。
+和 `resource.k8s.io/v1alpha2`
+{{< glossary_tooltip text="API 组" term_id="api-group" >}} 时才启用。
 有关详细信息，参阅 `--feature-gates` 和 `--runtime-config`
 [kube-apiserver 参数](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)。
 kube-scheduler、kube-controller-manager 和 kubelet 也需要设置该特性门控。
@@ -356,6 +371,7 @@ If your cluster supports dynamic resource allocation, the response is either a
 list of ResourceClass objects or:
 -->
 如果你的集群支持动态资源分配，则响应是 ResourceClass 对象列表或：
+
 ```
 No resources found
 ```
@@ -364,6 +380,7 @@ No resources found
 If not supported, this error is printed instead:
 -->
 如果不支持，则会输出如下错误：
+
 ```
 error: the server doesn't have a resource type "resourceclasses"
 ```

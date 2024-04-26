@@ -12,7 +12,7 @@ tags:
 - operation
 ---
 Element składowy {{< glossary_tooltip text="warstwy sterowania" term_id="control-plane" >}} Kubernetesa,
-który zarządza usługami realizowanymi po stronie chmur obliczeniowych. Cloud controller manager umożliwia
+który zarządza usługami realizowanymi po stronie chmur obliczeniowych. [Cloud controller manager](/docs/concepts/architecture/cloud-controller/) umożliwia
 połączenie Twojego klastra z API operatora usług chmurowych i rozdziela składniki operujące na platformie
 chmurowej od tych, które dotyczą wyłącznie samego klastra.
 

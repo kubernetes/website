@@ -5,9 +5,9 @@
 
 - You need to have these tools installed:
 
-  - [Python](https://www.python.org/downloads/) v3.7.x
+  - [Python](https://www.python.org/downloads/) v3.7.x+
   - [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-  - [Golang](https://golang.org/doc/install) version 1.13+
+  - [Golang](https://go.dev/dl/) version 1.13+
   - [Pip](https://pypi.org/project/pip/) used to install PyYAML
   - [PyYAML](https://pyyaml.org/) v5.1.2
   - [make](https://www.gnu.org/software/make/)
@@ -21,9 +21,9 @@
 
 - 你需要安装以下工具：
 
-  - [Python](https://www.python.org/downloads/) v3.7.x
+  - [Python](https://www.python.org/downloads/) v3.7.x+
   - [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-  - [Golang](https://golang.org/doc/install) 1.13+ 版本
+  - [Golang](https://go.dev/dl/) 1.13+ 版本
   - 用来安装 PyYAML 的 [Pip](https://pypi.org/project/pip/)
   - [PyYAML](https://pyyaml.org/) v5.1.2
   - [make](https://www.gnu.org/software/make/)
@@ -42,4 +42,3 @@
 - 你需要知道如何为一个 GitHub 仓库创建拉取请求（PR）。
   这牵涉到创建仓库的派生（fork）副本。
   有关信息可进一步查看[基于本地副本开展工作](/zh-cn/docs/contribute/new-content/open-a-pr/#fork-the-repo)。
-

@@ -52,7 +52,7 @@ Tambahkan parameter `-R` untuk memproses seluruh direktori secara rekursif.
 
 Berikut sebuah contoh *file* konfigurasi objek:
 
-{{< codenew file="application/simple_deployment.yaml" >}}
+{{% codenew file="application/simple_deployment.yaml" %}}
 
 Jalankan perintah `kubectl diff` untuk menampilkan objek yang akan dibuat:
 
@@ -135,7 +135,7 @@ Tambahkan argumen `-R` untuk memproses seluruh direktori secara rekursif.
 
 Berikut sebuah contoh *file* konfigurasi:
 
-{{< codenew file="application/simple_deployment.yaml" >}}
+{{% codenew file="application/simple_deployment.yaml" %}}
 
 Buat objek dengan perintah `kubectl apply`::
 
@@ -248,7 +248,7 @@ spec:
 
 Perbarui *file* konfigurasi `simple_deployment.yaml`, ubah *image* dari `nginx:1.7.9` ke `nginx:1.11.9`, dan hapus *field* `minReadySeconds`:
 
-{{< codenew file="application/update_deployment.yaml" >}}
+{{% codenew file="application/update_deployment.yaml" %}}
 
 Terapkan perubahan yang telah dibuat di *file* konfigurasi:
 
@@ -379,7 +379,7 @@ Perintah `kubectl apply` menulis konten dari berkas konfigurasi ke anotasi `kube
 
 Agar lebih jelas, simak contoh berikut. Misalkan, berikut adalah *file* konfigurasi untuk sebuah objek Deployment:
 
-{{< codenew file="application/update_deployment.yaml" >}}
+{{% codenew file="application/update_deployment.yaml" %}}
 
 Juga, misalkan, berikut adalah konfigurasi *live* dari objek Deployment yang sama:
 
@@ -627,7 +627,7 @@ TODO(pwittrock): *Uncomment* ini untuk versi 1.6
 
 Berikut adalah sebuah *file* konfigurasi untuk sebuah Deployment. Berkas berikut tidak menspesifikasikan `strategy`:
 
-{{< codenew file="application/simple_deployment.yaml" >}}
+{{% codenew file="application/simple_deployment.yaml" %}}
 
 Buat objek dengan perintah `kubectl apply`:
 

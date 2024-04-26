@@ -1,15 +1,15 @@
 ---
-title: Executando múltiplas instâncias de seu aplicativo
+title: Executando Múltiplas Instâncias da sua Aplicação
 weight: 10
+description: |-
+  Escalone uma aplicação existente de forma manual utilizando kubectl.
 ---
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="pt-BR">
 
 <body>
-
-<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
 
 <div class="layout" id="top">
 
@@ -17,30 +17,55 @@ weight: 10
 
         <div class="row">
 
-     <div class="col-md-8">
-          <h3>Objetivos</h3>
+        <div class="col-md-8">
+            <h3>Objetivos</h3>
                 <ul>
-                    <li>Escalar uma aplicação usando kubectl.</li>
+                    <li>Escalonar uma aplicação usando kubectl.</li>
                 </ul>
             </div>
 
             <div class="col-md-8">
-       <h3>Escalando uma aplicação</h3>
+                <h3>Escalonando uma aplicação</h3>
 
-            <p>Nos módulos anteriores nós criamos um <a href="/docs/concepts/workloads/controllers/deployment/"> Deployment</a>, e então o expusemos publicamente através de um serviço (<a href="/docs/concepts/services-networking/service/">Service</a>). O Deployment criou apenas um único Pod para executar nossa aplicação. Quando o tráfego aumentar nós precisaremos escalar a aplicação para suportar a demanda de usuários.</p>
+                <p>
+                  Nos módulos anteriores, criamos um
+                  <a href="/docs/concepts/workloads/controllers/deployment/"> Deployment</a>,
+                  e então o expusemos publicamente através de um serviço
+                  (<a href="/docs/concepts/services-networking/service/">Service</a>).
+                  O Deployment criou apenas um único Pod para executar nossa aplicação.
+                  Quando o tráfego aumentar, precisaremos escalonar a aplicação para
+                  suportar a demanda de usuários.
+                </p>
+                <p>
+                  Se você ainda não tiver estudado as seções anteriores, inicie
+                  pelo tutorial
+                  <a href="/pt-br/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/">Usando Minikube para criar um cluster</a>.
+                </p>
 
-            <p>O <b>escalonamento</b> é obtido pela mudança do número de réplicas em um Deployment</p>
-
+                <p>
+                  O <em>escalonamento</em> é obtido pela mudança do número de
+                  réplicas em um Deployment
+                </p>
+                <p>
+                  <b>NOTA</b> Se você estiver seguindo este tutorial após a
+                  <a href="/pt-br/docs/tutorials/kubernetes-basics/expose/expose-intro/">seção anterior</a>,
+                  poderá ser necessário refazer a seção <a href="/pt-br/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/">criando um cluster</a>,
+                  pois os serviços podem ter sido removidos.
+                </p>
             </div>
             <div class="col-md-4">
                 <div class="content__box content__box_lined">
                     <h3>Resumo:</h3>
                     <ul>
-                        <li>Escalando um Deployment</li>
+                        <li>Escalonando um Deployment</li>
                     </ul>
                 </div>
                 <div class="content__box content__box_fill">
-                    <p><i>Você pode criar desde o início um Deployment com múltiplas instâncias usando o parâmetro <code>--replicas</code> para que o kubectl crie o comando de deployment</i></p>
+                    <p>
+                      <i>Você pode criar desde o início um Deployment com
+                        múltiplas instâncias usando o parâmetro --replicas
+                        do comando kubectl create deployment</i>
+                    </p>
                 </div>
             </div>
         </div>
@@ -86,14 +111,34 @@ weight: 10
         <div class="row">
             <div class="col-md-8">
 
-                <p>Escalar um Deployment garantirá que novos Pods serão criados e agendados para nós de processamento com recursos disponíveis. O escalonamento aumentará o número de Pods para o novo estado desejado. O Kubernetes também suporta o auto-escalonamento (<a href="/docs/user-guide/horizontal-pod-autoscaling/">autoscaling</a>) de Pods, mas isso está fora do escopo deste tutorial. Escalar para zero também é possível, e isso terminará todos os Pods do Deployment especificado.</p>
+                <p>
+                  Escalonar um Deployment garantirá que novos Pods serão criados
+                  e alocados em nós de processamento com recursos disponíveis. O
+                  escalonamento aumentará o número de Pods para o novo estado
+                  desejado. O Kubernetes também suporta o auto-escalonamento
+                  (<a href="/docs/tasks/run-application/horizontal-pod-autoscale/">autoscaling</a>)
+                  de Pods, mas isso está fora do escopo deste tutorial. Escalonar
+                  para zero também é possível, e encerrará todos os Pods do
+                  Deployment especificado.
+                </p>
 
-                <p>Executar múltiplas instâncias de uma aplicação irá requerer uma forma de distribuir o tráfego entre todas elas. Serviços possuem um balanceador de carga integrado que distribuirá o tráfego de rede entre todos os Pods de um Deployment exposto. Serviços irão monitorar continuamente os Pods em execução usando endpoints para garantir que o tráfego seja enviado apenas para Pods disponíveis.</p>
+                <p>
+                  Executar múltiplas instâncias de uma aplicação requer uma forma
+                  de distribuir o tráfego entre todas elas. Serviços possuem um
+                  balanceador de carga integrado que distribui o tráfego de rede
+                  entre todos os Pods de um Deployment exposto. Serviços irão
+                  monitorar continuamente os Pods em execução usando endpoints
+                  para garantir que o tráfego seja enviado apenas para Pods
+                  disponíveis.
+                </p>
 
             </div>
             <div class="col-md-4">
                 <div class="content__box content__box_fill">
-                    <p><i>O Escalonamento é obtido pela mudança do número de réplicas em um Deployment.</i></p>
+                    <p>
+                      <i>O escalonamento é obtido pela mudança do número de
+                        réplicas em um Deployment.</i>
+                    </p>
                 </div>
             </div>
         </div>
@@ -102,15 +147,119 @@ weight: 10
 
         <div class="row">
             <div class="col-md-8">
-                <p>No momento em que múltiplas instâncias de uma aplicação estiverem em execução será possível realizar atualizações graduais no cluster sem que ocorra indisponibilidade. Nós cobriremos isso no próximo módulo. Agora, vamos ao terminal online e escalar nossa aplicação.</p>
+                <p>
+                  Uma vez que você tenha múltiplas instâncias de uma aplicação
+                  em execução será possível realizar atualizações graduais no
+                  cluster sem que ocorra indisponibilidade. Cobriremos isso no
+                  próximo módulo. Agora, vamos ao terminal escalonar nossa aplicação.
+                </p>
             </div>
         </div>
-        <br>
 
         <div class="row">
             <div class="col-md-12">
-                <a class="btn btn-lg btn-success" href="/pt/docs/tutorials/kubernetes-basics/scale/scale-interactive/" role="button">Iniciar tutorial interativo<span class="btn__next">›</span></a>
+                <h3>Escalonando um Deployment</h3>
+                <p>
+                  Para listar seus Deployments, utilize o subcomando
+                  <code>get deployments</code>:
+                  <code><b>kubectl get deployments</b></code>
+                </p>
+                <p>A saída deve ser semelhante a:</p>
+                <pre>
+                NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
+                kubernetes-bootcamp   1/1     1            1           11m
+                </pre>
+                <p>
+                  Teremos um único Pod. Se nenhum Pod aparecer, tente rodar o
+                  comando novamente.
+                </p>
+                <ul>
+                  <li><em>NAME</em> lista os nomes dos Deployments no cluster.</li>
+                  <li>
+                    <em>READY</em> exibe a proporção de réplicas atuais/desejadas
+                    (<i>CURRENT/DESIRED</i>).
+                  </li>
+                  <li>
+                    <em>UP-TO-DATE</em> exibe o número de réplicas que foram
+                    atualizadas para atingir o estado desejado.
+                  </li>
+                  <li>
+                    <em>AVAILABLE</em> exibe o número de réplicas da aplicação
+                    que estão disponíveis para seus usuários.
+                  </li>
+                  <li>
+                    <em>AGE</em> exibe há quanto tempo a aplicação está rodando.
+                  </li>
+                </ul>
+              <p>Para ver o ReplicaSet criado pelo Deployment, execute
+              <code><b>kubectl get rs</b></code></p>
+              <p>Observe que o nome do ReplicaSet sempre é exibido no formato
+              <tt>[NOME-DO-DEPLOYMENT]-[TEXTO-ALEATÓRIO]</tt>. O texto aleatório
+              é gerado e utiliza o valor do <i>pod-template-hash</i> como semente.</p>
+              <p>Duas colunas importantes desta saída são:</p>
+              <ul>
+                <li><em>DESIRED</em> exibe o número desejado de réplicas da aplicação,
+                que você define quando cria o objeto Deployment. Este é o estado
+                desejado.</li>
+                <li><em>CURRENT</em> exibe quantas réplicas estão em execução atualmente.</li>
+              </ul>
+              <p>A seguir, vamos escalonar o Deployment para 4 réplicas. Utilizaremos
+              o comando <code>kubectl scale</code>, seguido pelo tipo Deployment,
+              nome e o número desejado de instâncias:</p>
+              <p><code><b>kubectl scale deployments/kubernetes-bootcamp --replicas=4</b></code></p>
+              <p>Para listar seus Deployments mais uma vez, utilize <code>get deployments</code>:</p>
+              <p><code><b>kubectl get deployments</b></code></p>
+              <p>A mudança foi aplicada, e temos 4 instâncias da aplicação disponíveis. A seguir,
+              vamos verificar se o número de Pods mudou:</p>
+              <p><code><b>kubectl get pods -o wide</b></code></p>
+              <p>Temos 4 Pods agora, com endereços IP diferentes. A mudança foi registrada no log
+              de eventos do Deployment. Para verificar esta mudança, utilize o subcomando describe:</p>
+              <p><code><b>kubectl describe deployments/kubernetes-bootcamp</b></code></p>
+              <p>Você pode ver na saída deste comando que temos 4 réplicas agora.</p>
             </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Balanceamento de carga</h3>
+                <p>Vamos verificar que o Service está efetuando o balanceamento de carga
+                do tráfego recebido. Para encontrar o endereço IP exposto e a porta podemos
+                utilizar o comando para descrever o serviço como aprendemos na seção anterior:</p>
+                <p><code><b>kubectl describe services/kubernetes-bootcamp</b></code></p>
+                <p>Crie uma variável de ambiente chamada <tt>NODE_PORT</tt> que possui
+                o valor da porta do nó:</p>
+                <p><code><b>export NODE_PORT="$(kubectl get services/kubernetes-bootcamp -o go-template='{{(index .spec.ports 0).nodePort}}')"</b></code></p>
+                <p><code><b>echo NODE_PORT=$NODE_PORT</b></code></p>
+                <p>A seguir, iremos executar o comando <code>curl</code> para efetuar
+                uma requisição para o endereço IP e porta expostos. Rode este comando
+                múltiplas vezes:</p>
+                <p><code><b>curl http://"$(minikube ip):$NODE_PORT"</b></code></p>
+                <p>Cada requisição é atendida por um Pod diferente. Isso demonstra que o
+                balanceamento de carga está funcionando.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Reduzir o número de réplicas</h3>
+                <p>Para reduzir o número de réplicas do Deployment para 2, execute
+                o subcomando <code>scale</code> novamente:</p>
+                <p><code><b>kubectl scale deployments/kubernetes-bootcamp --replicas=2</b></code></p>
+                <p>Liste os Deployments para verificar se a mudança foi aplicada
+                com o subcomando <code>get deployments</code>:</p>
+                <p><code><b>kubectl get deployments</b></code></p>
+                <p>O número de réplicas reduziu para 2. Liste o número de Pods com
+                o comando <code>get pods</code>:</p>
+                <p><code><b>kubectl get pods -o wide</b></code></p>
+                <p>Isso confirma que 2 Pods foram encerrados.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <p>
+              Assim que você finalizar este tutorial, vá para
+              <a href="/docs/tutorials/kubernetes-basics/update/update-intro/" title="Performing a Rolling Update">Performing a Rolling Update</a> (em inglês).</p>
+            </p>
         </div>
 
     </main>

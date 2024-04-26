@@ -13,7 +13,7 @@ weight: 110
 
 <!-- overview -->
 
-{{< feature-state state="beta"  for_k8s_version="v1.20" >}}
+{{< feature-state state="stable"  for_k8s_version="v1.29" >}}
 
 <!--
 Controlling the behavior of the Kubernetes API server in an overload situation
@@ -80,48 +80,38 @@ APF 适用于 **watch** 请求。当 APF 被禁用时，**watch** 请求不受 `
 ## 启用/禁用 API 优先级和公平性    {#enabling-api-priority-and-fairness}
 
 <!--
-The API Priority and Fairness feature is controlled by a feature gate
-and is enabled by default.  See [Feature
-Gates](/docs/reference/command-line-tools-reference/feature-gates/)
-for a general explanation of feature gates and how to enable and
-disable them.  The name of the feature gate for APF is
-"APIPriorityAndFairness".  This feature also involves an {{<
-glossary_tooltip term_id="api-group" text="API Group" >}} with: (a) a
-`v1alpha1` version and a `v1beta1` version, disabled by default, and
-(b) `v1beta2` and `v1beta3` versions, enabled by default.  You can
-disable the feature gate and API group beta versions by adding the
-following command-line flags to your `kube-apiserver` invocation:
+The API Priority and Fairness feature is controlled by a command-line flag
+and is enabled by default.  See 
+[Options](/docs/reference/command-line-tools-reference/kube-apiserver/#options)
+for a general explanation of the available kube-apiserver command-line 
+options and how to enable and disable them.  The name of the 
+command-line option for APF is "--enable-priority-and-fairness".  This feature
+also involves an {{<glossary_tooltip term_id="api-group" text="API Group" >}} 
+with: (a) a stable `v1` version, introduced in 1.29, and 
+enabled by default (b) a `v1beta3` version, enabled by default, and
+deprecated in v1.29.  You can
+disable the API group beta version `v1beta3` by adding the
 -->
-API 优先级与公平性（APF）特性由特性门控控制，默认情况下启用。
-有关特性门控的一般性描述以及如何启用和禁用特性门控，
-请参见[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
-APF 的特性门控称为 `APIPriorityAndFairness`。
+API 优先级与公平性（APF）特性由命令行标志控制，默认情况下启用。
+有关可用 kube-apiserver 命令行参数以及如何启用和禁用的说明，
+请参见[参数](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/#options)。
+APF 的命令行参数是 "--enable-priority-and-fairness"。
 此特性也与某个 {{< glossary_tooltip term_id="api-group" text="API 组" >}}相关：
-(a) `v1alpha1` 和 `v1beta1` 版本，默认被禁用；
-(b) `v1beta2` 和 `v1beta3` 版本，默认被启用。
-你可以在启动 `kube-apiserver` 时，添加以下命令行标志来禁用此功能门控及 API Beta 组：
+(a) 稳定的 `v1` 版本，在 1.29 中引入，默认启用；
+(b) `v1beta3` 版本，默认被启用，在 1.29 中被弃用。
+你可以通过添加以下内容来禁用 Beta 版的 `v1beta3` API 组：
 
 ```shell
 kube-apiserver \
---feature-gates=APIPriorityAndFairness=false \
---runtime-config=flowcontrol.apiserver.k8s.io/v1beta2=false,flowcontrol.apiserver.k8s.io/v1beta3=false \
+--runtime-config=flowcontrol.apiserver.k8s.io/v1beta3=false \
   # ...其他配置不变
 ```
 
 <!--
-Alternatively, you can enable the v1alpha1 and v1beta1 versions of the API group
-with `--runtime-config=flowcontrol.apiserver.k8s.io/v1alpha1=true,flowcontrol.apiserver.k8s.io/v1beta1=true`.
--->
-或者，你也可以通过
-`--runtime-config=flowcontrol.apiserver.k8s.io/v1alpha1=true,flowcontrol.apiserver.k8s.io/v1beta1=true`
-启用 API 组的 v1alpha1 和 v1beta1 版本。
-
-<!--
 The command-line flag `--enable-priority-and-fairness=false` will disable the
-API Priority and Fairness feature, even if other flags have enabled it.
+API Priority and Fairness feature.
 -->
-命令行标志 `--enable-priority-fairness=false` 将彻底禁用 APF 特性，
-即使其他标志启用它也是无效。
+命令行标志 `--enable-priority-fairness=false` 将彻底禁用 APF 特性。
 
 <!--
 ## Concepts
@@ -312,23 +302,20 @@ server.
 ## Resources
 
 The flow control API involves two kinds of resources.
-[PriorityLevelConfigurations](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#prioritylevelconfiguration-v1beta2-flowcontrol-apiserver-k8s-io)
+[PriorityLevelConfigurations](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#prioritylevelconfiguration-v1-flowcontrol-apiserver-k8s-io)
 define the available priority levels, the share of the available concurrency
 budget that each can handle, and allow for fine-tuning queuing behavior.
-[FlowSchemas](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#flowschema-v1beta2-flowcontrol-apiserver-k8s-io)
+[FlowSchemas](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#flowschema-v1-flowcontrol-apiserver-k8s-io)
 are used to classify individual inbound requests, matching each to a
-single PriorityLevelConfiguration.  There is also a `v1alpha1` version
-of the same API group, and it has the same Kinds with the same syntax and
-semantics.
+single PriorityLevelConfiguration.
 -->
 ## 资源    {#resources}
 
 流控 API 涉及两种资源。
-[PriorityLevelConfiguration](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#prioritylevelconfiguration-v1beta2-flowcontrol-apiserver-k8s-io)
+[PriorityLevelConfiguration](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#prioritylevelconfiguration-v1-flowcontrol-apiserver-k8s-io)
 定义可用的优先级和可处理的并发预算量，还可以微调排队行为。
-[FlowSchema](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#flowschema-v1beta2-flowcontrol-apiserver-k8s-io)
+[FlowSchema](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#flowschema-v1-flowcontrol-apiserver-k8s-io)
 用于对每个入站请求进行分类，并与一个 PriorityLevelConfiguration 相匹配。
-此外同一 API 组还有一个 `v1alpha1` 版本，其中包含语法和语义都相同的资源类别。
 
 <!--
 ### PriorityLevelConfiguration
@@ -865,6 +852,11 @@ poorly-behaved workloads that may be harming system health.
 或者发现可能会损害系统健康的，行为不良的工作负载。
 
 <!--
+#### Maturity level BETA
+-->
+#### 成熟度水平 BETA
+
+<!--
 * `apiserver_flowcontrol_rejected_requests_total` is a counter vector
   (cumulative since server start) of requests that were rejected,
   broken down by the labels `flow_schema` (indicating the one that
@@ -874,8 +866,8 @@ poorly-behaved workloads that may be harming system health.
 -->
 * `apiserver_flowcontrol_rejected_requests_total` 是一个计数器向量，
   记录被拒绝的请求数量（自服务器启动以来累计值），
-  由标签 `flow_chema`（表示与请求匹配的 FlowSchema）、`priority_level`
-  （表示分配给请该求的优先级）和 `reason` 来区分。
+  可按标签 `flow_chema`（表示与请求匹配的 FlowSchema）、`priority_level`
+  （表示分配给请该求的优先级）和 `reason` 分解。
   `reason` 标签将是以下值之一：
 
   <!--
@@ -902,8 +894,55 @@ poorly-behaved workloads that may be harming system health.
 -->
 * `apiserver_flowcontrol_dispatched_requests_total` 是一个计数器向量，
   记录开始执行的请求数量（自服务器启动以来的累积值），
-  由 `flow_schema` 和 `priority_level` 来区分。
+  可按 `flow_schema` 和 `priority_level` 分解。
 
+<!--
+* `apiserver_flowcontrol_current_inqueue_requests` is a gauge vector
+  holding the instantaneous number of queued (not executing) requests,
+  broken down by `priority_level` and `flow_schema`.
+
+* `apiserver_flowcontrol_current_executing_requests` is a gauge vector
+  holding the instantaneous number of executing (not waiting in a
+  queue) requests, broken down by `priority_level` and `flow_schema`.
+-->
+* `apiserver_flowcontrol_current_inqueue_requests` 是一个测量向量，
+  记录排队中的（未执行）请求的瞬时数量，可按 `priority_level` 和 `flow_schema` 分解。
+
+* `apiserver_flowcontrol_current_executing_requests` 是一个测量向量，
+  记录执行中（不在队列中等待）请求的瞬时数量，可按 `priority_level` 和 `flow_schema` 分解。
+
+<!--
+* `apiserver_flowcontrol_current_executing_seats` is a gauge vector
+  holding the instantaneous number of occupied seats, broken down by
+  `priority_level` and `flow_schema`.
+
+* `apiserver_flowcontrol_request_wait_duration_seconds` is a histogram
+  vector of how long requests spent queued, broken down by the labels
+  `flow_schema`, `priority_level`, and `execute`. The `execute` label
+  indicates whether the request has started executing.
+-->
+* `apiserver_flowcontrol_current_executing_seats` 是一个测量向量，
+  记录了按 `priority_level` 和 `flow_schema` 细分的瞬时占用席位数量。
+
+* `apiserver_flowcontrol_request_wait_duration_seconds` 是一个直方图向量，
+  记录了按 `flow_schema`、`priority_level` 和 `execute` 标签细分的请求在队列中等待的时长。
+  `execute` 标签表示请求是否已开始执行。
+
+  {{< note >}}
+  <!--
+  Since each FlowSchema always assigns requests to a single
+  PriorityLevelConfiguration, you can add the histograms for all the
+  FlowSchemas for one priority level to get the effective histogram for
+  requests assigned to that priority level.
+  -->
+  由于每个 FlowSchema 总会给请求分配 PriorityLevelConfiguration，
+  因此你可以将一个优先级的所有 FlowSchema 的直方图相加，以得到分配给该优先级的请求的有效直方图。
+  {{< /note >}}
+
+<!--
+#### Maturity level ALPHA
+-->
+#### 成熟度水平 ALPHA
 
 <!--
 * `apiserver_current_inqueue_requests` is a gauge vector of recent
@@ -915,12 +954,21 @@ poorly-behaved workloads that may be harming system health.
   last window's high water mark of number of requests actively being
   served.
 -->
-* `apiserver_current_inqueue_requests` 是一个表向量，
+* `apiserver_current_inqueue_requests` 是一个测量向量，
   记录最近排队请求数量的高水位线，
   由标签 `request_kind` 分组，标签的值为 `mutating` 或 `readOnly`。
   这些高水位线表示在最近一秒钟内看到的最大数字。
-  它们补充说明了老的表向量 `apiserver_current_inflight_requests`
+  它们补充说明了老的测量向量 `apiserver_current_inflight_requests`
   （该量保存了最后一个窗口中，正在处理的请求数量的高水位线）。
+
+<!--
+* `apiserver_current_inqueue_seats` is a gauge vector of the sum over
+  queued requests of the largest number of seats each will occupy,
+  grouped by labels named `flow_schema` and `priority_level`.
+-->
+* `apiserver_current_inqueue_seats` 是一个测量向量，
+  记录了排队请求中每个请求将占用的最大席位数的总和，
+  按 `flow_schema` 和 `priority_level` 两个标签进行分组。
 
 <!--
 * `apiserver_flowcontrol_read_vs_write_current_requests` is a
@@ -934,28 +982,10 @@ poorly-behaved workloads that may be harming system health.
   limit for executing).
 -->
 * `apiserver_flowcontrol_read_vs_write_current_requests` 是一个直方图向量，
-  在每个纳秒结束时记录请求数量的观察值，由标签 `phase`（取值为 `waiting` 及 `executing`）
-  和 `request_kind`（取值为 `mutating` 及 `readOnly`）区分。
+  在每个纳秒结束时记录请求数量的观察值，可按标签 `phase`（取值为 `waiting` 及 `executing`）
+  和 `request_kind`（取值为 `mutating` 及 `readOnly`）分解。
   每个观察到的值是一个介于 0 和 1 之间的比值，计算方式为请求数除以该请求数的对应限制
   （等待的队列长度限制和执行所用的并发限制）。
-
-<!--
-* `apiserver_flowcontrol_current_inqueue_requests` is a gauge vector
-  holding the instantaneous number of queued (not executing) requests,
-  broken down by `priority_level` and `flow_schema`.
--->
-* `apiserver_flowcontrol_current_inqueue_requests` 是一个表向量，
-  记录包含排队中的（未执行）请求的瞬时数量，
-  由 `priority_level` 和 `flow_schema` 区分。
-
-<!--
-* `apiserver_flowcontrol_current_executing_requests` is a gauge vector
-  holding the instantaneous number of executing (not waiting in a
-  queue) requests, broken down by `priority_level` and `flow_schema`.
--->
-* `apiserver_flowcontrol_current_executing_requests` 是一个表向量，
-  记录包含执行中（不在队列中等待）请求的瞬时数量，
-  由 `priority_level` 和 `flow_schema` 进一步区分。
 
 <!-- 
 * `apiserver_flowcontrol_request_concurrency_in_use` is a gauge vector
@@ -963,7 +993,7 @@ poorly-behaved workloads that may be harming system health.
   `priority_level` and `flow_schema`.
 -->
 * `apiserver_flowcontrol_request_concurrency_in_use` 是一个规范向量，
-  包含占用座位的瞬时数量，由 `priority_level` 和 `flow_schema` 进一步区分。
+  包含占用席位的瞬时数量，可按 `priority_level` 和 `flow_schema` 分解。
 
 <!--
 * `apiserver_flowcontrol_priority_level_request_utilization` is a
@@ -977,7 +1007,7 @@ poorly-behaved workloads that may be harming system health.
 -->
 * `apiserver_flowcontrol_priority_level_request_utilization` 是一个直方图向量，
   在每个纳秒结束时记录请求数量的观察值，
-  由标签 `phase`（取值为 `waiting` 及 `executing`）和 `priority_level` 区分。
+  可按标签 `phase`（取值为 `waiting` 及 `executing`）和 `priority_level` 分解。
   每个观察到的值是一个介于 0 和 1 之间的比值，计算方式为请求数除以该请求数的对应限制
   （等待的队列长度限制和执行所用的并发限制）。
 
@@ -996,7 +1026,7 @@ poorly-behaved workloads that may be harming system health.
   phase).
 -->
 * `apiserver_flowcontrol_priority_level_seat_utilization` 是一个直方图向量，
-  在每个纳秒结束时记录某个优先级并发度限制利用率的观察值，由标签 `priority_level` 区分。
+  在每个纳秒结束时记录某个优先级并发度限制利用率的观察值，可按标签 `priority_level` 分解。
   此利用率是一个分数：（占用的席位数）/（并发限制）。
   此指标考虑了除 WATCH 之外的所有请求的所有执行阶段（包括写入结束时的正常延迟和额外延迟，
   以覆盖相应的通知操作）；对于 WATCH 请求，只考虑传递预先存在对象通知的初始阶段。
@@ -1011,7 +1041,7 @@ poorly-behaved workloads that may be harming system health.
   Note that this produces different statistics than an unbiased survey would.
 -->
 * `apiserver_flowcontrol_request_queue_length_after_enqueue` 是一个直方图向量，
-  记录请求队列的长度，由 `priority_level` 和 `flow_schema` 进一步区分。
+  记录请求队列的长度，可按 `priority_level` 和 `flow_schema` 分解。
   每个排队中的请求都会为其直方图贡献一个样本，并在添加请求后立即上报队列的长度。
   请注意，这样产生的统计数据与无偏调查不同。
 
@@ -1043,25 +1073,16 @@ poorly-behaved workloads that may be harming system health.
   （它过去不作为一个独立的指标存在）。
 
 <!--
-* `apiserver_flowcontrol_nominal_limit_seats` is a gauge vector
-  holding each priority level's nominal concurrency limit, computed
-  from the API server's total concurrency limit and the priority
-  level's configured nominal concurrency shares.
--->
-* `apiserver_flowcontrol_nominal_limit_seats` 是一个表向量，包含每个优先级的额定并发度限制，
-  指标值根据 API 服务器的总并发度限制和各优先级所配置的额定并发度份额计算得出。
-
-<!--
 * `apiserver_flowcontrol_lower_limit_seats` is a gauge vector holding
   the lower bound on each priority level's dynamic concurrency limit.
 -->
-* `apiserver_flowcontrol_lower_limit_seats` 是一个表向量，包含每个优先级的动态并发度限制的下限。
+* `apiserver_flowcontrol_lower_limit_seats` 是一个测量向量，包含每个优先级的动态并发度限制的下限。
 
 <!--
 * `apiserver_flowcontrol_upper_limit_seats` is a gauge vector holding
   the upper bound on each priority level's dynamic concurrency limit.
 -->
-* `apiserver_flowcontrol_upper_limit_seats` 是一个表向量，包含每个优先级的动态并发度限制的上限。
+* `apiserver_flowcontrol_upper_limit_seats` 是一个测量向量，包含每个优先级的动态并发度限制的上限。
 
 <!--
 * `apiserver_flowcontrol_demand_seats` is a histogram vector counting
@@ -1081,7 +1102,7 @@ poorly-behaved workloads that may be harming system health.
   holding, for each priority level, the maximum seat demand seen
   during the last concurrency borrowing adjustment period.
 -->
-* `apiserver_flowcontrol_demand_seats_high_watermark` 是一个表向量，
+* `apiserver_flowcontrol_demand_seats_high_watermark` 是一个测量向量，
   为每个优先级包含了上一个并发度借用调整期间所观察到的最大席位需求。
 
 <!--
@@ -1089,7 +1110,7 @@ poorly-behaved workloads that may be harming system health.
   holding, for each priority level, the time-weighted average seat
   demand seen during the last concurrency borrowing adjustment period.
 -->
-* `apiserver_flowcontrol_demand_seats_average` 是一个表向量，
+* `apiserver_flowcontrol_demand_seats_average` 是一个测量向量，
   为每个优先级包含了上一个并发度借用调整期间所观察到的时间加权平均席位需求。
 
 <!--
@@ -1098,7 +1119,7 @@ poorly-behaved workloads that may be harming system health.
   standard deviation of seat demand seen during the last concurrency
   borrowing adjustment period.
 -->
-* `apiserver_flowcontrol_demand_seats_stdev` 是一个表向量，
+* `apiserver_flowcontrol_demand_seats_stdev` 是一个测量向量，
   为每个优先级包含了上一个并发度借用调整期间所观察到的席位需求的时间加权总标准偏差。
 
 <!--
@@ -1106,7 +1127,7 @@ poorly-behaved workloads that may be harming system health.
   holding, for each priority level, the smoothed enveloped seat demand
   determined at the last concurrency adjustment.
 -->
-* `apiserver_flowcontrol_demand_seats_smoothed` 是一个表向量，
+* `apiserver_flowcontrol_demand_seats_smoothed` 是一个测量向量，
   为每个优先级包含了上一个并发度调整期间确定的平滑包络席位需求。
 
 <!--
@@ -1114,14 +1135,14 @@ poorly-behaved workloads that may be harming system health.
   each priority level, the concurrency target going into the borrowing
   allocation problem.
 -->
-* `apiserver_flowcontrol_target_seats` 是一个表向量，
+* `apiserver_flowcontrol_target_seats` 是一个测量向量，
   包含每个优先级触发借用分配问题的并发度目标值。
 
 <!--
 * `apiserver_flowcontrol_seat_fair_frac` is a gauge holding the fair
   allocation fraction determined in the last borrowing adjustment.
 -->
-* `apiserver_flowcontrol_seat_fair_frac` 是一个表向量，
+* `apiserver_flowcontrol_seat_fair_frac` 是一个测量向量，
   包含了上一个借用调整期间确定的公平分配比例。
 
 <!--
@@ -1129,30 +1150,8 @@ poorly-behaved workloads that may be harming system health.
   holding, for each priority level, the dynamic concurrency limit
   derived in the last adjustment.
 -->
-* `apiserver_flowcontrol_current_limit_seats` 是一个表向量，
+* `apiserver_flowcontrol_current_limit_seats` 是一个测量向量，
   包含每个优先级的上一次调整期间得出的动态并发限制。
-
-<!--
-* `apiserver_flowcontrol_request_wait_duration_seconds` is a histogram
-  vector of how long requests spent queued, broken down by the labels
-  `flow_schema`, `priority_level`, and `execute`. The `execute` label
-  indicates whether the request has started executing.
--->
-* `apiserver_flowcontrol_request_wait_duration_seconds` 是一个直方图向量，
-  记录请求排队的时间，
-  由标签 `flow_schema`、`priority_level` 和 `execute` 进一步区分。
-  标签 `execute` 表示请求是否开始执行。
-
-  {{< note >}}
-  <!--
-  Since each FlowSchema always assigns requests to a single
-  PriorityLevelConfiguration, you can add the histograms for all the
-  FlowSchemas for one priority level to get the effective histogram for
-  requests assigned to that priority level.
-  -->
-  由于每个 FlowSchema 总会给请求分配 PriorityLevelConfiguration，
-  因此你可以为一个优先级添加所有 FlowSchema 的直方图，以获取分配给该优先级的请求的有效直方图。
-  {{< /note >}}
 
 <!--
 * `apiserver_flowcontrol_request_execution_seconds` is a histogram
@@ -1161,7 +1160,7 @@ poorly-behaved workloads that may be harming system health.
 -->
 * `apiserver_flowcontrol_request_execution_seconds` 是一个直方图向量，
   记录请求实际执行需要花费的时间，
-  由标签 `flow_schema` 和 `priority_level` 进一步区分。
+  可按标签 `flow_schema` 和 `priority_level` 分解。
 
 <!--
 * `apiserver_flowcontrol_watch_count_samples` is a histogram vector of
@@ -1170,7 +1169,7 @@ poorly-behaved workloads that may be harming system health.
 -->
 * `apiserver_flowcontrol_watch_count_samples` 是一个直方图向量，
   记录给定写的相关活动 WATCH 请求数量，
-  由标签 `flow_schema` 和 `priority_level` 进一步区分。
+  可按标签 `flow_schema` 和 `priority_level` 分解。
 
 <!--
 * `apiserver_flowcontrol_work_estimated_seats` is a histogram vector
@@ -1180,7 +1179,7 @@ poorly-behaved workloads that may be harming system health.
 -->
 * `apiserver_flowcontrol_work_estimated_seats` 是一个直方图向量，
   记录与估计席位（最初阶段和最后阶段的最多人数）相关联的请求数量，
-  由标签 `flow_schema` 和 `priority_level` 进一步区分。
+  可按标签 `flow_schema` 和 `priority_level` 分解。
 
 <!--
 * `apiserver_flowcontrol_request_dispatch_no_accommodation_total` is a
@@ -1191,7 +1190,17 @@ poorly-behaved workloads that may be harming system health.
 * `apiserver_flowcontrol_request_dispatch_no_accommodation_total`
   是一个事件数量的计数器，这些事件在原则上可能导致请求被分派，
   但由于并发度不足而没有被分派，
-  由标签 `flow_schema` 和 `priority_level` 进一步区分。
+  可按标签 `flow_schema` 和 `priority_level` 分解。
+
+<!--
+* `apiserver_flowcontrol_epoch_advance_total` is a counter vector of
+  the number of attempts to jump a priority level's progress meter
+  backward to avoid numeric overflow, grouped by `priority_level` and
+  `success`.
+-->
+* `apiserver_flowcontrol_epoch_advance_total` 是一个计数器向量，
+  记录了将优先级进度计向后跳跃以避免数值溢出的尝试次数，
+  按 `priority_level` 和 `success` 两个标签进行分组。
 
 <!--
 ## Good practices for using API Priority and Fairness

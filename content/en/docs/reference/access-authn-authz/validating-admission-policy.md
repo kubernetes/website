@@ -9,7 +9,7 @@ content_type: concept
 
 <!-- overview -->
 
-{{< feature-state state="beta" for_k8s_version="v1.28" >}}
+{{< feature-state state="stable" for_k8s_version="v1.30" >}}
 
 This page provides an overview of Validating Admission Policy.
 
@@ -113,7 +113,7 @@ actions. Failures defined by the `failurePolicy` are enforced
 according to these actions only if the `failurePolicy` is set to `Fail` (or not specified),
 otherwise the failures are ignored.
 
-See [Audit Annotations: validation falures](/docs/reference/labels-annotations-taints/audit-annotations/#validation-policy-admission-k8s-io-validation_failure)
+See [Audit Annotations: validation failures](/docs/reference/labels-annotations-taints/audit-annotations/#validation-policy-admission-k8s-io-validation-failure)
 for more details about the validation failure audit annotation.
 
 ### Parameter resources
@@ -291,33 +291,6 @@ variables as well as some other useful variables:
 The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from
 the root of the object. No other metadata properties are accessible.
 	
-Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible.
-Accessible property names are escaped according to the following rules when accessed in the
-expression:
-
-| escape sequence         | property name equivalent  |
-| ----------------------- | -----------------------|
-| `__underscores__`       | `__`                  |
-| `__dot__`               | `.`                   |
-|`__dash__`               | `-`                   |
-| `__slash__`             | `/`                   |
-| `__{keyword}__`         | [CEL RESERVED keyword](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#syntax)       |
-
-{{< note >}}
-A **CEL reserved** keyword only needs to be escaped if the token is an exact match
-for the reserved keyword.
-For example, `int` in the word “sprint” would not be escaped.
-{{< /note >}}
-
-Examples on escaping:
-
-|property name    | rule with escaped property name   |
-| ----------------|-----------------------------------|
-| namespace       | `object.__namespace__ > 0`        |
-| x-prop          | `object.x__dash__prop > 0`          |
-| redact__d       | `object.redact__underscores__d > 0` |
-| string          | `object.startsWith('kube')`         |
-	
 Equality on arrays with list type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1].
 Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
 
@@ -402,7 +375,7 @@ When an API request is validated with this admission policy, the resulting audit
 ```
 
 In this example the annotation will only be included if the `spec.replicas` of the Deployment is more than
-50, otherwise the CEL expression evalutes to null and the annotation will not be included.
+50, otherwise the CEL expression evaluates to null and the annotation will not be included.
 
 Note that audit annotation keys are prefixed by the name of the `ValidatingAdmissionWebhook` and a `/`. If
 another admission controller, such as an admission webhook, uses the exact same audit annotation key, the 

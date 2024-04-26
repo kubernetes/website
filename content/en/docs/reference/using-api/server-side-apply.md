@@ -11,7 +11,7 @@ weight: 25
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.22" state="stable" >}}
+{{< feature-state feature_gate_name="ServerSideApply" >}}
 
 Kubernetes supports multiple appliers collaborating to manage the fields
 of a single [object](/docs/concepts/overview/working-with-objects/).
@@ -135,7 +135,7 @@ request fails.
 It is however possible to change `.metadata.managedFields` through an
 **update**, or through a **patch** operation that does not use Server-Side Apply.
 Doing so is highly discouraged, but might be a reasonable option to try if,
-for example, the `.metatadata.managedFields` get into an inconsistent state
+for example, the `.metadata.managedFields` get into an inconsistent state
 (which should not happen in normal operations).
 
 The format of `managedFields` is [described](/docs/reference/kubernetes-api/common-definitions/object-meta/#System)
@@ -180,7 +180,7 @@ Managers identify distinct workflows that are modifying the object (especially
 useful on conflicts!), and can be specified through the
 [`fieldManager`](/docs/reference/kubernetes-api/common-parameters/common-parameters/#fieldManager)
 query parameter as part of a modifying request. When you Apply to a resource,
-the `fieldManager` parameter is required
+the `fieldManager` parameter is required.
 For other updates, the API server infers a field manager identity from the
  "User-Agent:" HTTP header (if present).
 
@@ -196,7 +196,9 @@ as [YAML](https://yaml.org/), with the media type `application/apply-patch+yaml`
 Whether you are submitting JSON data or YAML data, use
 `application/apply-patch+yaml` as the `Content-Type` header value.
 
-All JSON documents are valid YAML.
+All JSON documents are valid YAML. However, Kubernetes has a bug where it uses a YAML
+parser that does not fully implement the YAML specification. Some JSON escapes may
+not be recognized.
 {{< /note >}}
 
 The serialization is the same as for Kubernetes objects, with the exception that
@@ -214,17 +216,6 @@ Here's an example of a Server-Side Apply message body (fully specified intent):
 of a **patch** request to a valid `v1/configmaps` resource, and with the
 appropriate request `Content-Type`).
 
-## Server-Side Apply for custom resources {#custom-resources}
-
-By default, Server-Side Apply treats
-{{< glossary_tooltip term_id="CustomResourceDefinition" text="custom resources" >}}
-as unstructured data. All keys are treated the same as if they were struct fields for
-a built-in API, and all lists are considered atomic.
-
-If the CustomResourceDefinition defines a
-[schema](/docs/reference/kubernetes-api/extend-resources/custom-resource-definition-v1/#JSONSchemaProps)
-that contains annotations as defined in [Merge strategy](#merge-strategy),
-then these annotations will be used when merging objects of this type.
 
 ## Operations in scope for field management {#apply-and-update}
 

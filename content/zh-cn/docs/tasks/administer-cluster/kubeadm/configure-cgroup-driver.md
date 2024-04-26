@@ -54,7 +54,7 @@ The page also provides details on how to set up a number of different container 
 <!-- 
 ## Configuring the kubelet cgroup driver
 -->
-## 配置 kubelet 的 cgroup 驱动
+## 配置 kubelet 的 cgroup 驱动   {#configuring-the-kubelet-cgroup-driver}
 
 <!-- 
 kubeadm allows you to pass a `KubeletConfiguration` structure during `kubeadm init`.

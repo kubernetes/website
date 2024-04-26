@@ -1,5 +1,8 @@
 ---
 title: Secret
+api_metadata:
+- apiVersion: "v1"
+  kind: "Secret"
 content_type: concept
 feature:
   title: Secret 和配置管理
@@ -12,6 +15,9 @@ weight: 30
 reviewers:
 - mikedanese
 title: Secrets
+api_metadata:
+- apiVersion: "v1"
+  kind: "Secret"
 content_type: concept
 feature:
   title: Secret and configuration management
@@ -307,7 +313,7 @@ and structure the Secret type to have your domain name before the name, separate
 by a `/`. For example: `cloud-hosting.example.net/cloud-api-credentials`.
 -->
 如果你要定义一种公开使用的 Secret 类型，请遵守 Secret 类型的约定和结构，
-在类型名签名添加域名，并用 `/` 隔开。
+在类型名前面添加域名，并用 `/` 隔开。
 例如：`cloud-hosting.example.net/cloud-api-credentials`。
 
 <!--
@@ -398,12 +404,12 @@ You should only create a ServiceAccount token Secret
 if you can't use the `TokenRequest` API to obtain a token,
 and the security exposure of persisting a non-expiring token credential
 in a readable API object is acceptable to you. For instructions, see
-[Manually create a long-lived API token for a ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/#manually-create-a-service-account-api-token).
+[Manually create a long-lived API token for a ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/#manually-create-an-api-token-for-a-serviceaccount).
 -->
 只有在你无法使用 `TokenRequest` API 来获取令牌，
 并且你能够接受因为将永不过期的令牌凭据写入到可读取的 API 对象而带来的安全风险时，
 才应该创建 ServiceAccount 令牌 Secret。
-更多细节参阅[为 ServiceAccount 手动创建长期有效的 API 令牌](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#manually-create-a-service-account-api-token)。
+更多细节参阅[为 ServiceAccount 手动创建长期有效的 API 令牌](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#manually-create-an-api-token-for-a-serviceaccount)。
 {{< /note >}}
 
 <!--
@@ -645,14 +651,14 @@ Kubernetes 所提供的内置类型 `kubernetes.io/ssh-auth` 用来存放 SSH �
 <!--
 The SSH authentication Secret type is provided only for convenience.
 You can create an `Opaque` type for credentials used for SSH authentication.
-However, using the defined and public Secret type (`kubernetes.io/ssh-auth`) helps other
+However, using the defined and public Secret type (`kubernetes.io/tls`) helps other
 people to understand the purpose of your Secret, and sets a convention for what key names
 to expect.
 The Kubernetes API verifies that the required keys are set for a Secret of this type.
 -->
 提供 SSH 身份认证类型的 Secret 仅仅是出于方便性考虑。
 你可以使用 `Opaque` 类型来保存用于 SSH 身份认证的凭据。
-不过，使用预定义的、公开的 Secret 类型（`kubernetes.io/ssh-auth`）
+不过，使用预定义的、公开的 Secret 类型（`kubernetes.io/tls`）
 有助于其他人理解你的 Secret 的用途，也可以就其中包含的主键名形成约定。
 Kubernetes API 会验证这种类型的 Secret 中是否设定了所需的主键。
 
@@ -705,7 +711,7 @@ TLS Secret 的一种典型用法是为 [Ingress](/zh-cn/docs/concepts/services-n
 <!--
 The TLS Secret type is provided only for convenience.
 You can create an `Opaque` type for credentials used for TLS authentication.
-However, using the defined and public Secret type (`kubernetes.io/ssh-auth`)
+However, using the defined and public Secret type (`kubernetes.io/tls`)
 helps ensure the consistency of Secret format in your project. The API server
 verifies if the required keys are set for a Secret of this type.
 
@@ -713,7 +719,7 @@ To create a TLS Secret using `kubectl`, use the `tls` subcommand:
 -->
 提供 TLS 类型的 Secret 仅仅是出于方便性考虑。
 你可以创建 `Opaque` 类型的 Secret 来保存用于 TLS 身份认证的凭据。
-不过，使用已定义和公开的 Secret 类型有助于确保你自己项目中的 Secret 格式的一致性。
+不过，使用已定义和公开的 Secret 类型（`kubernetes.io/tls`）有助于确保你自己项目中的 Secret 格式的一致性。
 API 服务器会验证这种类型的 Secret 是否设定了所需的主键。
 
 要使用 `kubectl` 创建 TLS Secret，你可以使用 `tls` 子命令：
@@ -1070,38 +1076,13 @@ For instructions, refer to
 可以参阅[使用 Secret 数据定义容器变量](/zh-cn/docs/tasks/inject-data-application/distribute-credentials-secure/#define-container-environment-variables-using-secret-data)。
 
 <!--
-#### Invalid environment variables {#restriction-env-from-invalid}
-
-If your environment variable definitions in your Pod specification are
-considered to be invalid environment variable names, those keys aren't made
-available to your container. The Pod is allowed to start.
+It's important to note that the range of characters allowed for environment variable
+names in pods is [restricted](/docs/tasks/inject-data-application/define-environment-variable-container/#using-environment-variables-inside-of-your-config).
+If any keys do not meet the rules, those keys are not made available to your container, though
+the Pod is allowed to start.
 -->
-#### 非法环境变量    {#restriction-env-from-invalid}
-
-如果 Pod 规约中环境变量定义会被视为非法的环境变量名，这些主键将在你的容器中不可用。
-Pod 仍然可以启动。
-
-<!--
-Kubernetes adds an Event with the reason set to `InvalidVariableNames` and a
-message that lists the skipped invalid keys. The following example shows a Pod that refers to a Secret named `mysecret`, where `mysecret` contains 2 invalid keys: `1badkey` and `2alsobad`.
--->
-Kubernetes 添加一个 Event，其 reason 设置为 `InvalidVariableNames`，其消息将列举被略过的非法主键。
-下面的例子中展示了一个 Pod，引用的是名为 `mysecret` 的 Secret，
-其中包含两个非法的主键：`1badkey` 和 `2alsobad`。
-
-```shell
-kubectl get events
-```
-
-<!--
-The output is similar to:
--->
-输出类似于：
-
-```
-LASTSEEN   FIRSTSEEN   COUNT     NAME            KIND      SUBOBJECT                         TYPE      REASON
-0s         0s          1         dapi-test-pod   Pod                                         Warning   InvalidEnvironmentVariableNames   kubelet, 127.0.0.1      Keys [1badkey, 2alsobad] from the EnvFrom secret default/mysecret were skipped since they are considered invalid environment variable names.
-```
+需要注意的是，Pod 中环境变量名称允许的字符范围是[有限的](/zh-cn/docs/tasks/inject-data-application/define-environment-variable-container/#using-environment-variables-inside-of-your-config)。
+如果某些变量名称不满足这些规则，则即使 Pod 是可以启动的，你的容器也无法访问这些变量。
 
 <!--
 ### Container image pull Secrets {#using-imagepullsecrets}
@@ -1114,7 +1095,7 @@ level.
 ### 容器镜像拉取 Secret  {#using-imagepullsecrets}
 
 如果你尝试从私有仓库拉取容器镜像，你需要一种方式让每个节点上的 kubelet
-能够完成与镜像库的身份认证。你可以配置 **镜像拉取 Secret** 来实现这点。
+能够完成与镜像库的身份认证。你可以配置**镜像拉取 Secret** 来实现这点。
 Secret 是在 Pod 层面来配置的。
 
 <!--
@@ -1522,7 +1503,7 @@ Existing Pods maintain a mount point to the deleted Secret - it is recommended t
 these pods.
 -->
 一旦一个 Secret 或 ConfigMap 被标记为不可更改，撤销此操作或者更改 `data`
-字段的内容都是 **不** 可能的。
+字段的内容都是**不**可能的。
 只能删除并重新创建这个 Secret。现有的 Pod 将维持对已删除 Secret 的挂载点 --
 建议重新创建这些 Pod。
 {{< /note >}}
@@ -1578,6 +1559,21 @@ Therefore, one Pod does not have access to the Secrets of another Pod.
 -->
 针对同一节点上的多个 Pod 可能有多个 Secret。不过，只有某个 Pod 所请求的 Secret
 才有可能对 Pod 中的容器可见。因此，一个 Pod 不会获得访问其他 Pod 的 Secret 的权限。
+
+<!--
+### Configure least-privilege access to Secrets
+
+To enhance the security measures around Secrets, Kubernetes provides a mechanism: you can
+annotate a ServiceAccount as `kubernetes.io/enforce-mountable-secrets: "true"`.
+
+For more information, you can refer to the [documentation about this annotation](/docs/concepts/security/service-accounts/#enforce-mountable-secrets).
+-->
+### 配置 Secret 资源的最小特权访问
+
+为了加强对 Secret 的安全措施，Kubernetes 提供了一种机制：
+你可以为 ServiceAccount 添加 `kubernetes.io/enforce-mountable-secrets: "true"` 注解。
+
+想了解更多信息，你可以参考[此注解的文档](/zh-cn/docs/concepts/security/service-accounts/#enforce-mountable-secrets)。
 
 {{< warning >}}
 <!--

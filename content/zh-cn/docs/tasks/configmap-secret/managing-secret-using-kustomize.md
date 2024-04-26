@@ -44,6 +44,13 @@ file for the username `admin` and the password `1f2d1e2e67df`.
 并在定义中引用其它本地文件、`.env` 文件或文字值生成 Secret。
 例如：下面的指令为用户名 `admin` 和密码 `1f2d1e2e67df` 创建 Kustomization 文件。
 
+{{< note >}}
+<!--
+The `stringData` field for a Secret does not work well with server-side apply.
+-->
+Secret 的 `stringData` 字段与服务端应用不兼容。
+{{< /note >}}
+
 ### 创建 Kustomization 文件   {#create-the-kustomization-file}
 
 {{< tabs name="Secret data" >}}
@@ -57,9 +64,9 @@ secretGenerator:
 {{% tab name="文件" %}}
 
 <!--
-1.  Store the credentials in files with the values encoded in base64:
+1.  Store the credentials in files. The filenames are the keys of the secret:
 -->
-1. 用 base64 编码的值存储凭据到文件中：
+1. 将凭据存储在文件中。文件名是 Secret 的 key 值：
 
    ```shell
    echo -n 'admin' > ./username.txt

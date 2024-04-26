@@ -30,6 +30,8 @@ see the [Creating a cluster with kubeadm](/docs/setup/production-environment/too
 有关在执行此安装过程后如何使用 kubeadm 创建集群的信息，
 请参见[使用 kubeadm 创建集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)。
 
+{{< doc-versions-list "installation guide" >}}
+
 ## {{% heading "prerequisites" %}}
 
 <!--
@@ -114,15 +116,15 @@ route, we recommend you add IP route(s) so Kubernetes cluster addresses go via t
 These
 These [required ports](/docs/reference/networking/ports-and-protocols/)
 need to be open in order for Kubernetes components to communicate with each other.
-You can use tools like netcat to check if a port is open. For example:
+You can use tools like [netcat](https://netcat.sourceforge.net) to check if a port is open. For example:
 -->
 ## 检查所需端口{#check-required-ports}
 
 启用这些[必要的端口](/zh-cn/docs/reference/networking/ports-and-protocols/)后才能使 Kubernetes 的各组件相互通信。
-可以使用 netcat 之类的工具来检查端口是否启用，例如：
+可以使用 [netcat](https://netcat.sourceforge.net) 之类的工具来检查端口是否开放，例如：
 
 ```shell
-nc 127.0.0.1 6443
+nc 127.0.0.1 6443 -v
 ```
 
 <!--
@@ -291,18 +293,16 @@ For more information on version skews, see:
 * Kubernetes [版本与版本间的偏差策略](/zh-cn/releases/version-skew-policy/)
 * kubeadm 特定的[版本偏差策略](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
 
+{{% legacy-repos-deprecation %}}
+
 {{< note >}}
 <!--
-Kubernetes has [new package repositories hosted at `pkgs.k8s.io`](/blog/2023/08/15/pkgs-k8s-io-introduction/)
-starting from August 2023. The legacy package repositories (`apt.kubernetes.io` and `yum.kubernetes.io`)
-have been frozen starting from September 13, 2023. Please read our 
-[deprecation and freezing announcement](/blog/2023/08/31/legacy-package-repository-deprecation/)
-for more details.
+There's a dedicated package repository for each Kubernetes minor version. If you want to install
+a minor version other than {{< skew currentVersion >}}, please see the installation guide for
+your desired minor version.
 -->
-Kubernetes 从 2023 年 8 月开始使用托管在 `pkgs.k8s.io`
-上的[新软件包仓库](/zh-cn/blog/2023/08/15/pkgs-k8s-io-introduction/)。
-自 2023 年 9 月 13 日起，老旧的软件包仓库（`apt.kubernetes.io` 和 `yum.kubernetes.io`）已被冻结。
-更多细节参阅[弃用和冻结公告](/zh-cn/blog/2023/08/31/legacy-package-repository-deprecation/)。
+每个 Kubernetes 小版本都有一个专用的软件包仓库。
+如果你想安装 {{< skew currentVersion >}} 以外的次要版本，请参阅所需次要版本的安装指南。
 {{< /note >}}
 
 {{< tabs name="k8s_install" >}}
@@ -321,7 +321,7 @@ These instructions are for Kubernetes {{< skew currentVersion >}}.
    ```shell
    sudo apt-get update
    # apt-transport-https 可能是一个虚拟包（dummy package）；如果是的话，你可以跳过安装这个包
-   sudo apt-get install -y apt-transport-https ca-certificates curl
+   sudo apt-get install -y apt-transport-https ca-certificates curl gpg
    ```
 
 <!--
@@ -330,14 +330,35 @@ These instructions are for Kubernetes {{< skew currentVersion >}}.
 -->
 2. 下载用于 Kubernetes 软件包仓库的公共签名密钥。所有仓库都使用相同的签名密钥，因此你可以忽略URL中的版本：
 
+   <!--
+   # If the folder `/etc/apt/keyrings` does not exist, it should be created before the curl command, read the note below.
+   # sudo mkdir -p -m 755 /etc/apt/keyrings 
+   -->
    ```shell
+   # 如果 `/etc/apt/keyrings` 目录不存在，则应在 curl 命令之前创建它，请阅读下面的注释。
+   # sudo mkdir -p -m 755 /etc/apt/keyrings
    curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    ```
 
+{{< note >}}
 <!--
-3. Add the Kubernetes `apt` repository:
+In releases older than Debian 12 and Ubuntu 22.04, folder `/etc/apt/keyrings` does not exist by default, and it should be created before the curl command.
 -->
-3. 添加 Kubernetes `apt` 仓库：
+在低于 Debian 12 和 Ubuntu 22.04 的发行版本中，`/etc/apt/keyrings` 默认不存在。
+应在 curl 命令之前创建它。
+{{< /note >}}
+
+<!--
+3. Add the appropriate Kubernetes `apt` repository. Please note that this repository have packages
+   only for Kubernetes {{< skew currentVersion >}}; for other Kubernetes minor versions, you need to
+   change the Kubernetes minor version in the URL to match your desired minor version
+   (you should also check that you are reading the documentation for the version of Kubernetes
+   that you plan to install).
+-->
+3. 添加 Kubernetes `apt` 仓库。
+   请注意，此仓库仅包含适用于 Kubernetes {{< skew currentVersion >}} 的软件包；
+   对于其他 Kubernetes 次要版本，则需要更改 URL 中的 Kubernetes 次要版本以匹配你所需的次要版本
+  （你还应该检查正在阅读的安装文档是否为你计划安装的 Kubernetes 版本的文档）。
 
    ```shell
    # 此操作会覆盖 /etc/apt/sources.list.d/kubernetes.list 中现存的所有配置。
@@ -355,15 +376,6 @@ These instructions are for Kubernetes {{< skew currentVersion >}}.
    sudo apt-mark hold kubelet kubeadm kubectl
    ```
 
-{{< note >}}
-<!--
-In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default;
-you can create it by running `sudo mkdir -m 755 /etc/apt/keyrings`
--->
-在 Debian 12 和 Ubuntu 22.04 之前的早期版本中，默认情况下不存在 `/etc/apt/keyrings` 目录；
-你可以通过运行 `sudo mkdir -m 755 /etc/apt/keyrings` 来创建它。
-{{< /note >}}
-
 {{% /tab %}}
 
 {{% tab name="基于 Red Hat 的发行版" %}}
@@ -379,7 +391,7 @@ you can create it by running `sudo mkdir -m 755 /etc/apt/keyrings`
    sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
    ```
 -->
-1. 将 SELinux 设置为 `permissive` 模式:
+1. 将 SELinux 设置为 `permissive` 模式：
 
    以下指令适用于 Kubernetes {{< skew currentVersion >}}。
 
@@ -408,11 +420,19 @@ you can create it by running `sudo mkdir -m 755 /etc/apt/keyrings`
 2. Add the Kubernetes `yum` repository. The `exclude` parameter in the
    repository definition ensures that the packages related to Kubernetes are
    not upgraded upon running `yum update` as there's a special procedure that
-   must be followed for upgrading Kubernetes.
+   must be followed for upgrading Kubernetes. Please note that this repository
+   have packages only for Kubernetes {{< skew currentVersion >}}; for other
+   Kubernetes minor versions, you need to change the Kubernetes minor version
+   in the URL to match your desired minor version (you should also check that
+   you are reading the documentation for the version of Kubernetes that you
+   plan to install).
 -->
 2. 添加 Kubernetes 的 `yum` 仓库。在仓库定义中的 `exclude` 参数确保了与
    Kubernetes 相关的软件包在运行 `yum update` 时不会升级，因为升级
-   Kubernetes 需要遵循特定的过程。
+   Kubernetes 需要遵循特定的过程。请注意，此仓库仅包含适用于
+   Kubernetes {{< skew currentVersion >}} 的软件包；
+   对于其他 Kubernetes 次要版本，则需要更改 URL 中的 Kubernetes 次要版本以匹配你所需的次要版本
+  （你还应该检查正在阅读的安装文档是否为你计划安装的 Kubernetes 版本的文档）。
 
    ```shell
    # 此操作会覆盖 /etc/yum.repos.d/kubernetes.repo 中现存的所有配置
@@ -494,10 +514,10 @@ cd $DOWNLOAD_DIR
 sudo curl -L --remote-name-all https://dl.k8s.io/release/${RELEASE}/bin/linux/${ARCH}/{kubeadm,kubelet}
 sudo chmod +x {kubeadm,kubelet}
 
-RELEASE_VERSION="v0.15.1"
-curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service
-sudo mkdir -p /etc/systemd/system/kubelet.service.d
-curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+RELEASE_VERSION="v0.16.2"
+curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/krel/templates/latest/kubelet/kubelet.service" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /usr/lib/systemd/system/kubelet.service
+sudo mkdir -p /usr/lib/systemd/system/kubelet.service.d
+curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/krel/templates/latest/kubeadm/10-kubeadm.conf" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf
 ```
 
 {{< note >}}
@@ -523,12 +543,12 @@ systemctl enable --now kubelet
 <!--
 The Flatcar Container Linux distribution mounts the `/usr` directory as a read-only filesystem.
 Before bootstrapping your cluster, you need to take additional steps to configure a writable directory.
-See the [Kubeadm Troubleshooting guide](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#usr-mounted-read-only/)
+See the [Kubeadm Troubleshooting guide](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#usr-mounted-read-only)
 to learn how to set up a writable directory.
 -->
 Flatcar Container Linux 发行版会将 `/usr/` 目录挂载为一个只读文件系统。
 在启动引导你的集群之前，你需要执行一些额外的操作来配置一个可写入的目录。
-参见 [kubeadm 故障排查指南](/zh-cn/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#usr-mounted-read-only/)
+参见 [kubeadm 故障排查指南](/zh-cn/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#usr-mounted-read-only)
 以了解如何配置一个可写入的目录。
 {{< /note >}}
 
@@ -574,8 +594,8 @@ If you are running into difficulties with kubeadm, please consult our
 -->
 ## 故障排查   {#troubleshooting}
 
-如果你在使用 kubeadm 时遇到困难，请参阅我们的
-[故障排查文档](/zh-cn/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)。
+如果你在使用 kubeadm 时遇到困难，
+请参阅我们的[故障排查文档](/zh-cn/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)。
 
 ## {{% heading "whatsnext" %}}
 

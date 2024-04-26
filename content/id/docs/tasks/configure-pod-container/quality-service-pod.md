@@ -41,7 +41,7 @@ Agar sebuah Pod memiliki kelas QoS Guaranteed:
 Berikut adalah berkas konfigurasi untuk sebuah Pod dengan satu Container. Container tersebut memiliki sebuah batasan memori dan sebuah
 permintaan memori, keduanya sama dengan 200MiB. Container itu juga mempunyai batasan CPU dan permintaan CPU yang sama sebesar 700 milliCPU:
 
-{{< codenew file="pods/qos/qos-pod.yaml" >}}
+{{% codenew file="pods/qos/qos-pod.yaml" %}}
 
 
 Buatlah Pod：
@@ -100,7 +100,7 @@ Sebuah Pod akan mendapatkan kelas QoS Burstable apabila:
 Berikut adalah berkas konfigurasi untuk Pod dengan satu Container. Container yang dimaksud memiliki batasan memori sebesar 200MiB
 dan permintaan memori sebesar 100MiB.
 
-{{< codenew file="pods/qos/qos-pod-2.yaml" >}}
+{{% codenew file="pods/qos/qos-pod-2.yaml" %}}
 
 
 Buatlah Pod:
@@ -147,7 +147,7 @@ Agar Pod mendapatkan kelas QoS BestEffort, Container dalam pod tidak boleh
 memiliki batasan atau permintaan memori atau CPU.
 
 Berikut adalah berkas konfigurasi untuk Pod dengan satu Container. Container yang dimaksud tidak memiliki batasan atau permintaan memori atau CPU apapun.
-{{< codenew file="pods/qos/qos-pod-3.yaml" >}}
+{{% codenew file="pods/qos/qos-pod-3.yaml" %}}
 
 Buatlah Pod:
 
@@ -183,7 +183,7 @@ kubectl delete pod qos-demo-3 --namespace=qos-example
 
 Berikut adalah konfigurasi berkas untuk Pod yang memiliki dua Container. Satu Container menentukan permintaan memori sebesar 200MiB. Container yang lain tidak menentukan permintaan atau batasan apapun.
 
-{{< codenew file="pods/qos/qos-pod-4.yaml" >}}
+{{% codenew file="pods/qos/qos-pod-4.yaml" %}}
 
 Perhatikan bahwa Pod ini memenuhi kriteria untuk kelas QoS Burstable. Maksudnya, Container tersebut tidak memenuhi 
 kriteria untuk kelas QoS Guaranteed, dan satu dari Container tersebut memiliki permintaan memori.

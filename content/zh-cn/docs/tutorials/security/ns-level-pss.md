@@ -40,22 +40,22 @@ Pod Security Admission 是一个准入控制器，在创建 Pod 时应用 [Pod �
 <!-- 
 Install the following on your workstation:
 
-- [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
+- [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
 - [kubectl](/docs/tasks/tools/)
 -->
 在你的工作站中安装以下内容：
 
-- [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
+- [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
 - [kubectl](/zh-cn/docs/tasks/tools/)
 
 <!--
 ## Create cluster
 
-1. Create a `KinD` cluster as follows:
+1. Create a `kind` cluster as follows:
 -->
 ## 创建集群  {#create-cluster}
 
-2. 按照如下方式创建一个 `KinD` 集群：
+2. 按照如下方式创建一个 `kind` 集群：
 
    ```shell
    kind create cluster --name psa-ns-level
@@ -233,7 +233,7 @@ kind delete cluster --name psa-ns-level
   [shell script](/examples/security/kind-with-namespace-level-baseline-pod-security.sh)
   to perform all the preceding steps all at once.
 
-  1. Create KinD cluster
+  1. Create kind cluster
   2. Create new namespace
   3. Apply `baseline` Pod Security Standard in `enforce` mode while applying
      `restricted` Pod Security Standard also in `warn` and `audit` mode.
@@ -246,7 +246,7 @@ kind delete cluster --name psa-ns-level
 - 运行一个 [shell 脚本](/examples/security/kind-with-namespace-level-baseline-pod-security.sh)
   一次执行所有前面的步骤。
 
-   1. 创建 KinD 集群
+   1. 创建 kind 集群
    2. 创建新的名字空间
    3. 在 `enforce` 模式下应用 `baseline` Pod 安全标准，
       同时在 `warn` 和 `audit` 模式下应用 `restricted` Pod 安全标准。

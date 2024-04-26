@@ -140,7 +140,7 @@ liveness-exec   1/1       Running   1          1m
 ## Define a liveness HTTP request
 
 Another kind of liveness probe uses an HTTP GET request. Here is the configuration
-file for a Pod that runs a container based on the `registry.k8s.io/liveness` image.
+file for a Pod that runs a container based on the `registry.k8s.io/e2e-test-images/agnhost` image.
 
 {{% code_sample file="pods/probe/http-liveness.yaml" %}}
 
@@ -294,7 +294,6 @@ For example:
 ports:
 - name: liveness-port
   containerPort: 8080
-  hostPort: 8080
 
 livenessProbe:
   httpGet:
@@ -318,7 +317,6 @@ So, the previous example would become:
 ports:
 - name: liveness-port
   containerPort: 8080
-  hostPort: 8080
 
 livenessProbe:
   httpGet:
@@ -358,8 +356,8 @@ Readiness probes runs on the container during its whole lifecycle.
 {{< /note >}}
 
 {{< caution >}}
-Liveness probes *do not* wait for readiness probes to succeed.
-If you want to wait before executing a liveness probe you should use
+The readiness and liveness probes do not depend on each other to succeed.
+If you want to wait before executing a readiness probe, you should use
 `initialDelaySeconds` or a `startupProbe`.
 {{< /caution >}}
 
@@ -487,6 +485,26 @@ startupProbe:
         value: ""
 ```
 
+{{< note >}}
+When the kubelet probes a Pod using HTTP, it only follows redirects if the redirect   
+is to the same host. If the kubelet receives 11 or more redirects during probing, the probe is considered successful
+and a related Event is created:  
+
+```none
+Events:
+  Type     Reason        Age                     From               Message
+  ----     ------        ----                    ----               -------
+  Normal   Scheduled     29m                     default-scheduler  Successfully assigned default/httpbin-7b8bc9cb85-bjzwn to daocloud
+  Normal   Pulling       29m                     kubelet            Pulling image "docker.io/kennethreitz/httpbin"
+  Normal   Pulled        24m                     kubelet            Successfully pulled image "docker.io/kennethreitz/httpbin" in 5m12.402735213s
+  Normal   Created       24m                     kubelet            Created container httpbin
+  Normal   Started       24m                     kubelet            Started container httpbin
+ Warning  ProbeWarning  4m11s (x1197 over 24m)  kubelet            Readiness probe warning: Probe terminated redirects  
+```
+
+If the kubelet receives a redirect where the hostname is different from the request, the outcome of the probe is treated as successful and kubelet creates an event to report the redirect failure.
+{{< /note >}}
+
 ### TCP probes
 
 For a TCP probe, the kubelet makes the probe connection at the node, not in the Pod, which
@@ -522,7 +540,6 @@ spec:
     ports:
     - name: liveness-port
       containerPort: 8080
-      hostPort: 8080
 
     livenessProbe:
       httpGet:

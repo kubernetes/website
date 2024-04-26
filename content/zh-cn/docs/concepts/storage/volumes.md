@@ -139,7 +139,7 @@ AWSElasticBlockStore 树内存储驱动已在 Kubernetes v1.19 版本中废弃�
 并在 v1.27 版本中被完全移除。
 
 Kubernetes 项目建议你转为使用 [AWS EBS](https://github.com/kubernetes-sigs/aws-ebs-csi-driver)
-第三方存储驱动。
+第三方存储驱动插件。
 
 <!--
 ### azureDisk (removed) {#azuredisk}
@@ -163,7 +163,7 @@ Kubernetes {{< skew currentVersion >}} 不包含 `azureDisk` 卷类型。
 AzureDisk 树内存储驱动已在 Kubernetes v1.19 版本中废弃，并在 v1.27 版本中被完全移除。
 
 Kubernetes 项目建议你转为使用 [Azure Disk](https://github.com/kubernetes-sigs/azuredisk-csi-driver)
-第三方存储驱动。
+第三方存储驱动插件。
 
 <!--
 ### azureFile (deprecated) {#azurefile}
@@ -234,7 +234,8 @@ and the kubelet, set the `InTreePluginAzureFileUnregister` flag to `true`.
 The Kubernetes project suggests that you use the [CephFS CSI](https://github.com/ceph/ceph-csi) third party
 storage driver instead.
 -->
-Kubernetes 项目建议你转为使用 [CephFS CSI](https://github.com/ceph/ceph-csi) 第三方存储驱动。
+Kubernetes 项目建议你转为使用 [CephFS CSI](https://github.com/ceph/ceph-csi)
+第三方存储驱动插件。
 {{< /note >}}
 
 <!--
@@ -288,7 +289,7 @@ OpenStack Cinder 树内存储驱动已在 Kubernetes v1.11 版本中废弃，
 
 Kubernetes 项目建议你转为使用
 [OpenStack Cinder](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)
-第三方存储驱动。
+第三方存储驱动插件。
 
 ### configMap
 
@@ -391,17 +392,15 @@ to learn more.
 ### emptyDir {#emptydir}
 
 <!--
-An `emptyDir` volume is first created when a Pod is assigned to a node, and
-exists as long as that Pod is running on that node. As the name says, the
-`emptyDir` volume is initially empty. All containers in the Pod can read and write the same
+For a Pod that defines an `emptyDir` volume, the volume is created when the Pod is assigned to a node.
+As the name says, the `emptyDir` volume is initially empty. All containers in the Pod can read and write the same
 files in the `emptyDir` volume, though that volume can be mounted at the same
 or different paths in each container. When a Pod is removed from a node for
 any reason, the data in the `emptyDir` is deleted permanently.
 -->
-当 Pod 分派到某个节点上时，`emptyDir` 卷会被创建，并且在 Pod 在该节点上运行期间，卷一直存在。
-就像其名称表示的那样，卷最初是空的。
-尽管 Pod 中的容器挂载 `emptyDir` 卷的路径可能相同也可能不同，这些容器都可以读写
-`emptyDir` 卷中相同的文件。
+对于定义了 `emptyDir` 卷的 Pod，在 Pod 被指派到某节点时此卷会被创建。
+就像其名称所表示的那样，`emptyDir` 卷最初是空的。尽管 Pod 中的容器挂载 `emptyDir`
+卷的路径可能相同也可能不同，但这些容器都可以读写 `emptyDir` 卷中相同的文件。
 当 Pod 因为某些原因被从节点上删除时，`emptyDir` 卷中的数据也会被永久删除。
 
 {{< note >}}
@@ -431,16 +430,15 @@ The `emptyDir.medium` field controls where `emptyDir` volumes are stored. By
 default `emptyDir` volumes are stored on whatever medium that backs the node
 such as disk, SSD, or network storage, depending on your environment. If you set
 the `emptyDir.medium` field to `"Memory"`, Kubernetes mounts a tmpfs (RAM-backed
-filesystem) for you instead.  While tmpfs is very fast, be aware that unlike
-disks, tmpfs is cleared on node reboot and any files you write count against
-your container's memory limit.
+filesystem) for you instead.  While tmpfs is very fast be aware that, unlike
+disks, files you write count against the memory limit of the container that wrote them.
 -->
 `emptyDir.medium` 字段用来控制 `emptyDir` 卷的存储位置。
 默认情况下，`emptyDir` 卷存储在该节点所使用的介质上；
 此处的介质可以是磁盘、SSD 或网络存储，这取决于你的环境。
 你可以将 `emptyDir.medium` 字段设置为 `"Memory"`，
 以告诉 Kubernetes 为你挂载 tmpfs（基于 RAM 的文件系统）。
-虽然 tmpfs 速度非常快，但是要注意它与磁盘不同：tmpfs 在节点重启时会被清除，
+虽然 tmpfs 速度非常快，但是要注意它与磁盘不同，
 并且你所写入的所有文件都会计入容器的内存消耗，受容器内存限制约束。
 
 <!--
@@ -519,160 +517,27 @@ for more details.
 更多详情请参考 [FC 示例](https://github.com/kubernetes/examples/tree/master/staging/volumes/fibre_channel)。
 
 <!--
-### gcePersistentDisk (deprecated) {#gcepersistentdisk}
+### gcePersistentDisk (removed) {#gcepersistentdisk}
 
-A `gcePersistentDisk` volume mounts a Google Compute Engine (GCE)
-[persistent disk](https://cloud.google.com/compute/docs/disks) (PD) into your Pod.
-Unlike `emptyDir`, which is erased when a pod is removed, the contents of a PD are
-preserved and the volume is merely unmounted. This means that a PD can be
-pre-populated with data, and that data can be shared between pods.
+Kubernetes {{< skew currentVersion >}} does not include a `gcePersistentDisk` volume type.
 -->
-### gcePersistentDisk（已弃用） {#gcepersistentdisk}
+### gcePersistentDisk（已移除） {#gcepersistentdisk}
 
-{{< feature-state for_k8s_version="v1.17" state="deprecated" >}}
-
-`gcePersistentDisk` 卷能将谷歌计算引擎 (GCE) [持久盘（PD）](http://cloud.google.com/compute/docs/disks)
-挂载到你的 Pod 中。
-不像 `emptyDir` 那样会在 Pod 被删除的同时也会被删除，持久盘卷的内容在删除 Pod
-时会被保留，卷只是被卸载了。
-这意味着持久盘卷可以被预先填充数据，并且这些数据可以在 Pod 之间共享。
-
-{{< note >}}
-<!--
-You must create a PD using `gcloud` or the GCE API or UI before you can use it.
--->
-在使用 PD 前，你必须使用 `gcloud` 或者 GCE API 或 UI 创建它。
-{{< /note >}}
+Kubernetes {{< skew currentVersion >}} 不包含 `gcePersistentDisk` 卷类型。
 
 <!--
-There are some restrictions when using a `gcePersistentDisk`:
-
-* the nodes on which Pods are running must be GCE VMs
-* those VMs need to be in the same GCE project and zone as the persistent disk
+The `gcePersistentDisk` in-tree storage driver was deprecated in the Kubernetes v1.17 release
+and then removed entirely in the v1.28 release.
 -->
-使用 `gcePersistentDisk` 时有一些限制：
-
-* 运行 Pod 的节点必须是 GCE VM
-* 这些 VM 必须和持久盘位于相同的 GCE 项目和区域（zone）
+`gcePersistentDisk` 源代码树内卷存储驱动在 Kubernetes v1.17 版本中被弃用，在 v1.28 版本中被完全移除。
 
 <!--
-One feature of GCE persistent disk is concurrent read-only access to a persistent disk.
-A `gcePersistentDisk` volume permits multiple consumers to simultaneously
-mount a persistent disk as read-only. This means that you can pre-populate a PD with your dataset
-and then serve it in parallel from as many Pods as you need. Unfortunately,
-PDs can only be mounted by a single consumer in read-write mode. Simultaneous
-writers are not allowed.
+The Kubernetes project suggests that you use the [Google Compute Engine Persistent Disk CSI](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver) 
+third party storage driver instead.
 -->
-GCE PD 的一个特点是它们可以同时被多个消费者以只读方式挂载。
-这意味着你可以用数据集预先填充 PD，然后根据需要并行地在尽可能多的 Pod 中提供该数据集。
-不幸的是，PD 只能由单个使用者以读写模式挂载，即不允许同时写入。
-
-<!--
-Using a GCE persistent disk with a Pod controlled by a ReplicaSet will fail unless
-the PD is read-only or the replica count is 0 or 1.
--->
-在由 ReplicationController 所管理的 Pod 上使用 GCE PD 将会失败，除非 PD
-是只读模式或者副本的数量是 0 或 1。
-
-<!--
-#### Creating a GCE persistent disk {#gce-create-persistent-disk}
-
-Before you can use a GCE persistent disk with a Pod, you need to create it.
--->
-#### 创建 GCE 持久盘（PD）   {#gce-create-persistent-disk}
-
-在 Pod 中使用 GCE 持久盘之前，你首先要创建它。
-
-```shell
-gcloud compute disks create --size=500GB --zone=us-central1-a my-data-disk
-```
-
-<!--
-#### Example Pod
--->
-#### GCE 持久盘配置示例 {#gce-pd-configuration-example}
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: test-pd
-spec:
-  containers:
-  - image: registry.k8s.io/test-webserver
-    name: test-container
-    volumeMounts:
-    - mountPath: /test-pd
-      name: test-volume
-  volumes:
-  - name: test-volume
-    # 此 GCE PD 必须已经存在
-    gcePersistentDisk:
-      pdName: my-data-disk
-      fsType: ext4
-```
-<!--
-#### Regional persistent Disks
--->
-#### 区域持久盘   {#regional-persistent-disks}
-
-<!--
-The [Regional persistent disks](https://cloud.google.com/compute/docs/disks/#repds)
-feature allows the creation of persistent disks that are available in two zones
-within the same region. In order to use this feature, the volume must be provisioned
-as a PersistentVolume; referencing the volume directly from a pod is not supported.
--->
-[区域持久盘](https://cloud.google.com/compute/docs/disks/#repds)特性允许你创建能在同一区域的两个可用区中使用的持久盘。
-要使用这个特性，必须以持久卷（PersistentVolume）的方式提供卷；直接从
-Pod 引用这种卷是不可以的。
-
-<!--
-#### Manually provisioning a Regional PD PersistentVolume
-
-Dynamic provisioning is possible using a
-[StorageClass for GCE PD](/docs/concepts/storage/storage-classes/#gce-pd).
-Before creating a PersistentVolume, you must create the persistent disk:
--->
-#### 手动供应基于区域 PD 的 PersistentVolume {#manually-provisioning-regional-pd-pv}
-
-使用[为 GCE PD 定义的存储类](/zh-cn/docs/concepts/storage/storage-classes/#gce-pd)
-可以实现动态供应。在创建 PersistentVolume 之前，你首先要创建 PD。
-
-```shell
-gcloud compute disks create --size=500GB my-data-disk
-  --region us-central1
-  --replica-zones us-central1-a,us-central1-b
-```
-
-<!--
-#### Regional persistent disk configuration example
--->
-#### 区域持久盘配置示例
-
-```yaml
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: test-volume
-spec:
-  capacity:
-    storage: 400Gi
-  accessModes:
-  - ReadWriteOnce
-  gcePersistentDisk:
-    pdName: my-data-disk
-    fsType: ext4
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-      - matchExpressions:
-        # failure-domain.beta.kubernetes.io/zone 应在 1.21 之前使用
-        - key: topology.kubernetes.io/zone
-          operator: In
-          values:
-          - us-central1-a
-          - us-central1-b
-```
+Kubernetes 项目建议你转为使用
+[Google Compute Engine Persistent Disk CSI](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver)
+第三方存储驱动插件。
 
 <!--
 #### GCE CSI migration
@@ -693,23 +558,9 @@ must be installed on the cluster.
 为了使用此特性，必须在集群中上安装
 [GCE PD CSI 驱动程序](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver)。
 
-<!-- 
-#### GCE CSI migration complete
-
-To disable the `gcePersistentDisk` storage plugin from being loaded by the controller manager
-and the kubelet, set the `InTreePluginGCEUnregister` flag to `true`.
--->
-#### GCE CSI 迁移完成
-
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
-
-要禁止控制器管理器和 kubelet 加载 `gcePersistentDisk` 存储插件，请将
-`InTreePluginGCEUnregister` 标志设置为 `true`。
-
 <!--
 ### gitRepo (deprecated) {#gitrepo}
 -->
-
 ### gitRepo (已弃用)    {#gitrepo}
 
 {{< warning >}}
@@ -771,7 +622,7 @@ and then removed entirely in the v1.26 release.
 Kubernetes {{< skew currentVersion >}} 不包含 `glusterfs` 卷类型。
 
 GlusterFS 树内存储驱动程序在 Kubernetes v1.25 版本中被弃用，然后在 v1.26 版本中被完全移除。
- 
+
 ### hostPath {#hostpath}
 
 {{< warning >}}
@@ -873,6 +724,10 @@ Watch out when using this type of volume, because:
 -->
 #### hostPath 配置示例
 
+<!--
+# directory location on host
+# this field is optional
+-->
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -888,7 +743,7 @@ spec:
   volumes:
   - name: test-volume
     hostPath:
-      # 宿主上目录位置
+      # 宿主机上目录位置
       path: /data
       # 此字段为可选
       type: Directory
@@ -904,7 +759,7 @@ you can try to mount directories and files separately, as shown in the
 `FileOrCreate` 模式不会负责创建文件的父目录。
 如果欲挂载的文件的父目录不存在，Pod 启动会失败。
 为了确保这种模式能够工作，可以尝试把文件和它对应的目录分开挂载，如
-[`FileOrCreate` 配置](#hostpath-fileorcreate-example) 所示。
+[`FileOrCreate` 配置](#hostpath-fileorcreate-example)所示。
 {{< /caution >}}
 
 <!--
@@ -912,6 +767,9 @@ you can try to mount directories and files separately, as shown in the
 -->
 #### hostPath FileOrCreate 配置示例  {#hostpath-fileorcreate-example}
 
+<!--
+# Ensure the file directory is created.
+-->
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -1153,12 +1011,11 @@ for an example of mounting NFS volumes with PersistentVolumes.
 <!--
 A `persistentVolumeClaim` volume is used to mount a
 [PersistentVolume](/docs/concepts/storage/persistent-volumes/) into a Pod. PersistentVolumeClaims
-are a way for users to "claim" durable storage (such as a GCE PersistentDisk or an
-iSCSI volume) without knowing the details of the particular cloud environment.
+are a way for users to "claim" durable storage (such as an iSCSI volume)
+without knowing the details of the particular cloud environment.
 -->
 `persistentVolumeClaim` 卷用来将[持久卷](/zh-cn/docs/concepts/storage/persistent-volumes/)（PersistentVolume）挂载到 Pod 中。
-持久卷申领（PersistentVolumeClaim）是用户在不知道特定云环境细节的情况下“申领”持久存储（例如
-GCE PersistentDisk 或者 iSCSI 卷）的一种方法。
+持久卷申领（PersistentVolumeClaim）是用户在不知道特定云环境细节的情况下“申领”持久存储（例如 iSCSI 卷）的一种方法。
 
 <!--
 See the information about [PersistentVolumes](/docs/concepts/storage/persistent-volumes/) for more
@@ -1192,6 +1049,9 @@ Here is an example Pod referencing a pre-provisioned Portworx volume:
 `portworxVolume` 类型的卷可以通过 Kubernetes 动态创建，也可以预先配备并在 Pod 内引用。
 下面是一个引用预先配备的 Portworx 卷的示例 Pod：
 
+<!--
+# This Portworx volume must already exist.
+-->
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -1254,7 +1114,7 @@ To enable the feature, set `CSIMigrationPortworx=true` in kube-controller-manage
 A projected volume maps several existing volume sources into the same
 directory. For more details, see [projected volumes](/docs/concepts/storage/projected-volumes/).
 -->
-### projected （投射）   {#projected}
+### 投射（projected）   {#projected}
 
 投射卷能将若干现有的卷来源映射到同一目录上。更多详情请参考[投射卷](/zh-cn/docs/concepts/storage/projected-volumes/)。
 
@@ -1267,7 +1127,8 @@ directory. For more details, see [projected volumes](/docs/concepts/storage/proj
 The Kubernetes project suggests that you use the [Ceph CSI](https://github.com/ceph/ceph-csi)
 third party storage driver instead, in RBD mode.
 -->
-Kubernetes 项目建议你转为以 RBD 模式使用 [Ceph CSI](https://github.com/ceph/ceph-csi) 第三方存储驱动。
+Kubernetes 项目建议你转为以 RBD 模式使用 [Ceph CSI](https://github.com/ceph/ceph-csi)
+第三方存储驱动插件。
 {{< /note >}}
 
 <!--
@@ -1355,7 +1216,7 @@ RBD CSI driver:
 * 你必须在集群中安装 v3.5.0 或更高版本的 Ceph CSI 驱动（`rbd.csi.ceph.com`）。
 * 因为 `clusterID` 是 CSI 驱动程序必需的参数，而树内存储类又将 `monitors`
   作为一个必需的参数，所以 Kubernetes 存储管理者需要根据 `monitors`
-  的哈希值（例：`#echo -n '<monitors_string>' | md5sum`）来创建
+  的哈希值（例如：`#echo -n '<monitors_string>' | md5sum`）来创建
   `clusterID`，并保持该 `monitors` 存在于该 `clusterID` 的配置中。
 * 同时，如果树内存储类的 `adminId` 的值不是 `admin`，那么其 `adminSecretName`
   就需要被修改成 `adminId` 参数的 base64 编码值。
@@ -1427,7 +1288,6 @@ For more information, see the [vSphere volume](https://github.com/kubernetes/exa
 #### vSphere CSI 迁移  {#vsphere-csi-migration}
 
 {{< feature-state for_k8s_version="v1.26" state="stable" >}}
-
 
 <!--
 In Kubernetes {{< skew currentVersion >}}, all operations for the in-tree `vsphereVolume` type
@@ -1569,8 +1429,11 @@ The host directory `/var/log/pods/pod1` is mounted at `/logs` in the container.
 -->
 在这个示例中，`Pod` 使用 `subPathExpr` 来 `hostPath` 卷 `/var/log/pods` 中创建目录 `pod1`。
 `hostPath` 卷采用来自 `downwardAPI` 的 Pod 名称生成目录名。
-宿主目录 `/var/log/pods/pod1` 被挂载到容器的 `/logs` 中。
+宿主机目录 `/var/log/pods/pod1` 被挂载到容器的 `/logs` 中。
 
+<!--
+# The variable expansion uses round brackets (not curly brackets).
+-->
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -1653,8 +1516,8 @@ to the [volume plugin FAQ](https://github.com/kubernetes/community/blob/master/s
 -->
 CSI 和 FlexVolume 都允许独立于 Kubernetes 代码库开发卷插件，并作为扩展部署（安装）在 Kubernetes 集群上。
 
-对于希望创建树外（Out-Of-Tree）卷插件的存储供应商，请参考
-[卷插件常见问题](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md)。
+对于希望创建树外（Out-Of-Tree）卷插件的存储供应商，
+请参考[卷插件常见问题](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md)。
 
 ### CSI
 
@@ -1779,7 +1642,7 @@ persistent volume:
   该映射必须与 CSI 驱动程序返回的 `CreateVolumeResponse` 中的 `volume.attributes`
   字段的映射相对应；
   [CSI 规范](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume)中有相应的定义。
-  该映射通过`ControllerPublishVolumeRequest`、`NodeStageVolumeRequest`、和
+  该映射通过`ControllerPublishVolumeRequest`、`NodeStageVolumeRequest` 和
   `NodePublishVolumeRequest` 中的 `volume_context` 字段传递给 CSI 驱动。
 
 <!--
@@ -1913,7 +1776,7 @@ stand-alone binary that needs to be pre-installed on each Windows node.
 For more details, refer to the deployment guide of the CSI plugin you wish to deploy.
 -->
 CSI 节点插件需要执行多种特权操作，例如扫描磁盘设备和挂载文件系统等。
-这些操作在每个宿主操作系统上都是不同的。对于 Linux 工作节点而言，容器化的 CSI
+这些操作在每个宿主机操作系统上都是不同的。对于 Linux 工作节点而言，容器化的 CSI
 节点插件通常部署为特权容器。对于 Windows 工作节点而言，容器化 CSI
 节点插件的特权操作是通过 [csi-proxy](https://github.com/kubernetes-csi/csi-proxy)
 来支持的。csi-proxy 是一个由社区管理的、独立的可执行二进制文件，
@@ -1987,7 +1850,7 @@ The following FlexVolume [plugins](https://github.com/Microsoft/K8s-Storage-Plug
 deployed as PowerShell scripts on the host, support Windows nodes:
 -->
 下面的 FlexVolume [插件](https://github.com/Microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows)
-以 PowerShell 脚本的形式部署在宿主系统上，支持 Windows 节点：
+以 PowerShell 脚本的形式部署在宿主机系统上，支持 Windows 节点：
 
 * [SMB](https://github.com/microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows/plugins/microsoft.com~smb.cmd)
 * [iSCSI](https://github.com/microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows/plugins/microsoft.com~iscsi.cmd)
@@ -2035,17 +1898,15 @@ in `Container.volumeMounts`. Its values are:
   cri-dockerd (Docker) is known to choose `rslave` mount propagation when the
   mount source contains the Docker daemon's root directory (`/var/lib/docker`).
 -->
-
 * `None` - 此卷挂载将不会感知到主机后续在此卷或其任何子目录上执行的挂载变化。
-   类似的，容器所创建的卷挂载在主机上是不可见的。这是默认模式。
+  类似的，容器所创建的卷挂载在主机上是不可见的。这是默认模式。
 
-   该模式等同于 [`mount(8)`](https://man7.org/linux/man-pages/man8/mount.8.html)中描述的
-   `rprivate` 挂载传播选项。
+  该模式等同于 [`mount(8)`](https://man7.org/linux/man-pages/man8/mount.8.html) 中描述的
+  `rprivate` 挂载传播选项。
 
-   然而，当 `rprivate` 传播选项不适用时，CRI 运行时可以转为选择 `rslave` 挂载传播选项
-   （即 `HostToContainer`）。当挂载源包含 Docker 守护进程的根目录（`/var/lib/docker`）时，
-   cri-dockerd (Docker) 已知可以选择 `rslave` 挂载传播选项。
-   。
+  然而，当 `rprivate` 传播选项不适用时，CRI 运行时可以转为选择 `rslave` 挂载传播选项
+  （即 `HostToContainer`）。当挂载源包含 Docker 守护进程的根目录（`/var/lib/docker`）时，
+  cri-dockerd (Docker) 已知可以选择 `rslave` 挂载传播选项。
 
 <!--
 * `HostToContainer` - This volume mount will receive all subsequent mounts
@@ -2085,7 +1946,7 @@ in `Container.volumeMounts`. Its values are:
 * `Bidirectional` - 这种卷挂载和 `HostToContainer` 挂载表现相同。
   另外，容器创建的卷挂载将被传播回至主机和使用同一卷的所有 Pod 的所有容器。
 
-  该模式等同于 [`mount(8)`](https://man7.org/linux/man-pages/man8/mount.8.html)中描述的
+  该模式等同于 [`mount(8)`](https://man7.org/linux/man-pages/man8/mount.8.html) 中描述的
   `rshared` 挂载传播选项。
 
   {{< warning >}}
@@ -2101,36 +1962,6 @@ in `Container.volumeMounts`. Its values are:
   强烈建议你熟悉 Linux 内核行为。
   此外，由 Pod 中的容器创建的任何卷挂载必须在终止时由容器销毁（卸载）。
   {{< /warning >}}
-
-<!--
-### Configuration
-
-Before mount propagation can work properly on some deployments (CoreOS,
-RedHat/Centos, Ubuntu) mount share must be configured correctly in
-Docker as shown below.
--->
-### 配置  {#configuration}
-
-在某些部署环境中，挂载传播正常工作前，必须在 Docker 中正确配置挂载共享（mount share），如下所示。
-
-<!--
-Edit your Docker's `systemd` service file. Set `MountFlags` as follows:
--->
-编辑你的 Docker `systemd` 服务文件，按下面的方法设置 `MountFlags`：
-
-```shell
-MountFlags=shared
-```
-
-<!--
-Or, remove `MountFlags=slave` if present. Then restart the Docker daemon:
--->
-或者，如果存在 `MountFlags=slave` 就删除掉。然后重启 Docker 守护进程：
-
-```shell
-sudo systemctl daemon-reload
-sudo systemctl restart docker
-```
 
 ## {{% heading "whatsnext" %}}
 

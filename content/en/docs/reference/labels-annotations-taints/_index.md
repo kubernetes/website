@@ -54,7 +54,7 @@ Type: Label
 
 Example: `app.kubernetes.io/created-by: "controller-manager"`
 
-Used on: All Objects (typically used on[workload resources](/docs/reference/kubernetes-api/workload-resources/)).
+Used on: All Objects (typically used on [workload resources](/docs/reference/kubernetes-api/workload-resources/)).
 
 The controller/user who created this resource.
 
@@ -300,7 +300,7 @@ which is used by Kustomize and similar third-party tools.
 For example, Kustomize removes objects with this annotation from its final build output.
 
 
-### container.apparmor.security.beta.kubernetes.io/* (beta) {#container-apparmor-security-beta-kubernetes-io}
+### container.apparmor.security.beta.kubernetes.io/* (deprecated) {#container-apparmor-security-beta-kubernetes-io}
 
 Type: Annotation
 
@@ -309,7 +309,7 @@ Example: `container.apparmor.security.beta.kubernetes.io/my-container: my-custom
 Used on: Pods
 
 This annotation allows you to specify the AppArmor security profile for a container within a
-Kubernetes pod. 
+Kubernetes pod. As of Kubernetes v1.30, this should be set with the `appArmorProfile` field instead.
 The name of the container is the part of the annotation key after the `/` and (following Kubernetes
 conventions) is all lowercase.
 
@@ -326,7 +326,6 @@ Used on: Pods
 
 This annotation allows you to specify the default AppArmor security profile for all containers 
 within a Kubernetes pod. 
-
 To learn more, see the [AppArmor](/docs/tutorials/security/apparmor/) tutorial.
 The tutorial illustrates using AppArmor to restrict a container's abilities and access.
 
@@ -451,6 +450,59 @@ The annotation `kubernetes.io/limit-ranger` records that resource defaults were 
 and they were applied successfully.
 For more details, read about [LimitRanges](/docs/concepts/policy/limit-range).
 
+### kubernetes.io/config.hash
+
+Type: Annotation
+
+Example: `kubernetes.io/config.hash: "df7cc47f8477b6b1226d7d23a904867b"`
+
+Used on: Pod
+
+When the kubelet creates a static Pod based on a given manifest, it attaches this annotation
+to the static Pod. The value of the annotation is the UID of the Pod.
+Note that the kubelet also sets the `.spec.nodeName` to the current node name as if the Pod
+was scheduled to the node.
+
+### kubernetes.io/config.mirror
+
+Type: Annotation
+
+Example: `kubernetes.io/config.mirror: "df7cc47f8477b6b1226d7d23a904867b"`
+
+Used on: Pod
+
+For a static Pod created by the kubelet on a node, a {{< glossary_tooltip text="mirror Pod" term_id="mirror-pod" >}}
+is created on the API server. The kubelet adds an annotation to indicate that this Pod is
+actually a mirror Pod. The annotation value is copied from the [`kubernetes.io/config.hash`](#kubernetes-io-config-hash)
+annotation, which is the UID of the Pod.
+
+When updating a Pod with this annotation set, the annotation cannot be changed or removed.
+If a Pod doesn't have this annotation, it cannot be added during a Pod update.
+
+### kubernetes.io/config.source
+
+Type: Annotation
+
+Example: `kubernetes.io/config.source: "file"`
+
+Used on: Pod
+
+This annotation is added by the kubelet to indicate where the Pod comes from.
+For static Pods, the annotation value could be one of `file` or `http` depending
+on where the Pod manifest is located. For a Pod created on the API server and then
+scheduled to the current node, the annotation value is `api`.
+
+### kubernetes.io/config.seen
+
+Type: Annotation
+
+Example: `kubernetes.io/config.seen: "2023-10-27T04:04:56.011314488Z"`
+
+Used on: Pod
+
+When the kubelet sees a Pod for the first time, it may add this annotation to
+the Pod with a value of current timestamp in the RFC3339 format.
+
 ### addonmanager.kubernetes.io/mode
 
 Type: Label
@@ -565,8 +617,23 @@ Example: `kubernetes.io/enforce-mountable-secrets: "true"`
 Used on: ServiceAccount
 
 The value for this annotation must be **true** to take effect.
-This annotation indicates that Pods running as this ServiceAccount may only reference
-Secret API objects specified in the ServiceAccount's `secrets` field.
+When you set this annotation  to "true", Kubernetes enforces the following rules for
+Pods running as this ServiceAccount:
+
+1. Secrets mounted as volumes must be listed in the ServiceAccount's `secrets` field.
+1. Secrets referenced in `envFrom` for containers (including sidecar containers and init containers)
+   must also be listed in the ServiceAccount's secrets field.
+   If any container in a Pod references a Secret not listed in the ServiceAccount's `secrets` field
+   (and even if the reference is marked as `optional`), then the Pod will fail to start,
+   and an error indicating the non-compliant secret reference will be generated.
+1. Secrets referenced in a Pod's `imagePullSecrets` must be present in the
+   ServiceAccount's `imagePullSecrets` field, the Pod will fail to start,
+   and an error indicating the non-compliant image pull secret reference will be generated.
+
+When you create or update a Pod, these rules are checked. If a Pod doesn't follow them, it won't start and you'll see an error message.
+If a Pod is already running and you change the `kubernetes.io/enforce-mountable-secrets` annotation
+to true, or you edit the associated ServiceAccount to remove the reference to a Secret
+that the Pod is already using, the Pod continues to run.
 
 ### node.kubernetes.io/exclude-from-external-load-balancers
 
@@ -847,7 +914,7 @@ This is achieved via _SelectorSpreadPriority_.
 _SelectorSpreadPriority_ is a best effort placement. If the zones in your cluster are
 heterogeneous (for example: different numbers of nodes, different types of nodes, or different pod
 resource requirements), this placement might prevent equal spreading of your Pods across zones.
-If desired, you can use homogenous zones (same number and types of nodes) to reduce the probability
+If desired, you can use homogeneous zones (same number and types of nodes) to reduce the probability
 of unequal spreading.
 
 The scheduler (through the _VolumeZonePredicate_ predicate) also will ensure that Pods,
@@ -950,9 +1017,10 @@ Type: Label
 
 Example: `service.kubernetes.io/headless: ""`
 
-Used on: Service
+Used on: Endpoints
 
 The control plane adds this label to an Endpoints object when the owning Service is headless.
+To learn more, read [Headless Services](/docs/concepts/services-networking/service/#headless-services).
 
 ### service.kubernetes.io/topology-aware-hints (deprecated) {#servicekubernetesiotopology-aware-hints}
 
@@ -1045,11 +1113,26 @@ last saw a request where the client authenticated using the service account toke
 If a legacy token was last used before the cluster gained the feature (added in Kubernetes v1.26),
 then the label isn't set.
 
+### kubernetes.io/legacy-token-invalid-since
+
+Type: Label
+
+Example: `kubernetes.io/legacy-token-invalid-since: 2023-10-27`
+
+Used on: Secret
+
+The control plane automatically adds this label to auto-generated Secrets that
+have the type `kubernetes.io/service-account-token`. This label marks the
+Secret-based token as invalid for authentication. The value of this label
+records the date (ISO 8601 format, UTC time zone) when the control plane detects
+that the auto-generated Secret has not been used for a specified duration
+(defaults to one year).
+
 ### endpointslice.kubernetes.io/managed-by {#endpointslicekubernetesiomanaged-by}
 
 Type: Label
 
-Example: `endpointslice.kubernetes.io/managed-by: "controller"`
+Example: `endpointslice.kubernetes.io/managed-by: endpointslice-controller.k8s.io`
 
 Used on: EndpointSlices
 
@@ -1226,6 +1309,18 @@ has been truncated to 1000.
 
 If the number of backend endpoints falls below 1000, the control plane removes this annotation.
 
+### endpoints.kubernetes.io/last-change-trigger-time
+
+Type: Annotation
+
+Example: `endpoints.kubernetes.io/last-change-trigger-time: "2023-07-20T04:45:21Z"`
+
+Used on: Endpoints
+
+This annotation set to an [Endpoints](/docs/concepts/services-networking/service/#endpoints) object that
+represents the timestamp (The timestamp is stored in RFC 3339 date-time string format. For example, '2018-10-22T19:32:52.1Z'). This is timestamp
+of the last change in some Pod or Service object, that triggered the change to the Endpoints object.
+
 ### control-plane.alpha.kubernetes.io/leader (deprecated) {#control-plane-alpha-kubernetes-io-leader}
 
 Type: Annotation
@@ -1307,7 +1402,7 @@ Example: `batch.kubernetes.io/controller-uid: "$UID"`
 Used on: Jobs and Pods controlled by Jobs
 
 This label is used as a programmatic way to get all Pods corresponding to a Job.  
-The `controller-uid` is a unique identifer that gets set in the `selector` field so the Job
+The `controller-uid` is a unique identifier that gets set in the `selector` field so the Job
 controller can get all the corresponding Pods.
 
 ### scheduler.alpha.kubernetes.io/defaultTolerations {#scheduleralphakubernetesio-defaulttolerations}
@@ -1880,7 +1975,7 @@ Example: `service.beta.kubernetes.io/aws-load-balancer-security-groups: "sg-53fa
 
 Used on: Service
 
-The AWS load balancer controller uses this annotation to specify a comma seperated list
+The AWS load balancer controller uses this annotation to specify a comma separated list
 of security groups you want to attach to an AWS load balancer. Both name and ID of security
 are supported where name matches a `Name` tag, not the `groupName` attribute.
 
@@ -1991,6 +2086,25 @@ Do not modify or add the `service.beta.kubernetes.io/aws-load-balancer-type` ann
 on an existing Service object. See the AWS documentation on this topic for more
 details.
 {{< /caution >}}
+
+### service.beta.kubernetes.io/azure-load-balancer-disable-tcp-reset (deprecated) {#service-beta-kubernetes-azure-load-balancer-disble-tcp-reset}
+
+Example: `service.beta.kubernetes.io/azure-load-balancer-disable-tcp-reset: "false"`
+
+Used on: Service
+
+This annotation only works for Azure standard load balancer backed service.
+This annotation is used on the Service to specify whether the load balancer
+should disable or enable TCP reset on idle timeout. If enabled, it helps
+applications to behave more predictably, to detect the termination of a connection,
+remove expired connections and initiate new connections. 
+You can set the value to be either true or false.
+
+See [Load Balancer TCP Reset](https://learn.microsoft.com/en-gb/azure/load-balancer/load-balancer-tcp-reset) for more information.
+
+{{< note >}} 
+This annotation is deprecated.
+{{< /note >}}
 
 ### pod-security.kubernetes.io/enforce
 
@@ -2187,7 +2301,8 @@ Starting in v1.16, this annotation was removed in favor of
 - [`pod-security.kubernetes.io/audit-violations`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-audit-violations)
 - [`pod-security.kubernetes.io/enforce-policy`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-enforce-policy)
 - [`pod-security.kubernetes.io/exempt`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-exempt)
-
+- [`validation.policy.admission.k8s.io/validation_failure`](/docs/reference/labels-annotations-taints/audit-annotations/#validation-policy-admission-k8s-io-validation-failure)
+  
 See more details on [Audit Annotations](/docs/reference/labels-annotations-taints/audit-annotations/).
 
 ## kubeadm

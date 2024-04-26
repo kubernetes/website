@@ -43,7 +43,7 @@ If you set `percentageOfNodesToScore` above 100, kube-scheduler acts as if you
 had set a value of 100.
 
 To change the value, edit the
-[kube-scheduler configuration file](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
+[kube-scheduler configuration file](/docs/reference/config-api/kube-scheduler-config.v1/)
 and then restart the scheduler.
 In many cases, the configuration file can be found at `/etc/kubernetes/config/kube-scheduler.yaml`.
 
@@ -77,7 +77,7 @@ If you don't specify a threshold, Kubernetes calculates a figure using a
 linear formula that yields 50% for a 100-node cluster and yields 10%
 for a 5000-node cluster. The lower bound for the automatic value is 5%.
 
-This means that, the kube-scheduler always scores at least 5% of your cluster no
+This means that the kube-scheduler always scores at least 5% of your cluster no
 matter how large the cluster is, unless you have explicitly set
 `percentageOfNodesToScore` to be smaller than 5.
 
@@ -161,5 +161,5 @@ After going over all the Nodes, it goes back to Node 1.
 
 ## {{% heading "whatsnext" %}}
 
-* Check the [kube-scheduler configuration reference (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
+* Check the [kube-scheduler configuration reference (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
 

@@ -394,7 +394,7 @@ would be sent to the API server.
 #### Controlling pruning
 
 By default, all unspecified fields for a custom resource, across all versions, are pruned. It is possible though to
-opt-out of that for specifc sub-trees of fields by adding `x-kubernetes-preserve-unknown-fields: true` in the
+opt-out of that for specific sub-trees of fields by adding `x-kubernetes-preserve-unknown-fields: true` in the
 [structural OpenAPI v3 validation schema](#specifying-a-structural-schema).
 
 For example:
@@ -719,12 +719,13 @@ crontab "my-new-cron-object" created
 ```
 ### Validation ratcheting
 
-{{< feature-state state="alpha" for_k8s_version="v1.28" >}}
+{{< feature-state feature_gate_name="CRDValidationRatcheting" >}}
 
-You need to enable the `CRDValidationRatcheting`
+If you are using a version of Kubernetes older than v1.30, you need to explicitly
+enable the `CRDValidationRatcheting`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
 use this behavior, which then applies to all CustomResourceDefinitions in your
-cluster.
+cluster. 
 
 Provided you enabled the feature gate, Kubernetes implements _validation racheting_
 for CustomResourceDefinitions. The API server is willing to accept updates to resources that
@@ -749,8 +750,14 @@ validations are not supported by ratcheting under the implementation in Kubernet
   - `not`
   -  any validations in a descendent of one of these fields
 - `x-kubernetes-validations`
-  For Kubernetes {{< skew currentVersion >}}, CRD validation rules](#validation-rules) are ignored by
-  ratcheting. This may change in later Kubernetes releases.
+  For Kubernetes 1.28, CRD validation rules](#validation-rules) are ignored by
+  ratcheting. Starting with Alpha 2 in Kubernetes 1.29, `x-kubernetes-validations`
+  are ratcheted only if they do not refer to `oldSelf`.
+
+  Transition Rules are never ratcheted: only errors raised by rules that do not 
+  use `oldSelf` will be automatically ratcheted if their values are unchanged.
+
+  To write custom ratcheting logic for CEL expressions, check out [optionalOldSelf](#field-optional-oldself).
 - `x-kubernetes-list-type`
   Errors arising from changing the list type of a subschema will not be 
   ratcheted. For example adding `set` onto a list with duplicates will always 
@@ -767,19 +774,15 @@ validations are not supported by ratcheting under the implementation in Kubernet
 - `additionalProperties`
   To remove a previously specified `additionalProperties` validation will not be
   ratcheted.
+- `metadata`
+  Errors that come from Kubernetes' built-in validation of an object's `metadata` 
+  are not ratcheted (such as object name, or characters in a label value). 
+  If you specify your own additional rules for the metadata of a custom resource, 
+  that additional validation will be ratcheted.
 
+### Validation rules
 
-## Validation rules
-
-{{< feature-state state="beta" for_k8s_version="v1.25" >}}
-
-
-Validation rules are in beta since 1.25 and the `CustomResourceValidationExpressions`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled by default to
-validate custom resource based on _validation rules_. You can disable this feature by explicitly
-setting the `CustomResourceValidationExpressions` feature gate to `false`, for the
-[kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/) component. This
-feature is only available if the schema is a [structural schema](#specifying-a-structural-schema).
+{{< feature-state state="stable" for_k8s_version="v1.29" >}}
 
 Validation rules use the [Common Expression Language (CEL)](https://github.com/google/cel-spec)
 to validate custom resource values. Validation rules are included in
@@ -1176,6 +1179,35 @@ Refer to [JSONPath support in Kubernetes](/docs/reference/kubectl/jsonpath/) for
 The `fieldPath` field does not support indexing arrays numerically.
 
 Setting `fieldPath` is optional.
+
+#### The `optionalOldSelf` field {#field-optional-oldself}
+
+{{< feature-state feature_gate_name="CRDValidationRatcheting" >}}
+
+If your cluster does not have [CRD validation ratcheting](#validation-ratcheting) enabled, 
+the CustomResourceDefinition API doesn't include this field, and trying to set it may result
+in an error.
+
+The `optionalOldSelf` field is a boolean field that alters the behavior of [Transition Rules](#transition-rules) described
+below. Normally, a transition rule will not evaluate if `oldSelf` cannot be determined:
+during object creation or when a new value is introduced in an update.
+
+If `optionalOldSelf` is set to true, then transition rules will always be 
+evaluated and the type of `oldSelf` be changed to a CEL [`Optional`](https://pkg.go.dev/github.com/google/cel-go/cel#OptionalTypes) type. 
+
+`optionalOldSelf` is useful in cases where schema authors would like a more
+control tool [than provided by the default equality based behavior of](#validation-ratcheting)
+to introduce newer, usually stricter constraints on new values, while still 
+allowing old values to be "grandfathered" or ratcheted using the older validation.
+
+Example Usage:
+
+| CEL                                     | Description |
+|-----------------------------------------|-------------|
+| `self.foo == "foo" || (oldSelf.hasValue() && oldSelf.value().foo != "foo")` | Ratcheted rule. Once a value is set to "foo", it must stay foo. But if it existed before the "foo" constraint was introduced, it may use any value |
+| [oldSelf.orValue(""), self].all(x, ["OldCase1", "OldCase2"].exists(case, x == case)) || ["NewCase1", "NewCase2"].exists(case, self == case) || ["NewCase"].has(self)` | "Ratcheted validation for removed enum cases if oldSelf used them" |
+| oldSelf.optMap(o, o.size()).orValue(0) < 4 || self.size() >= 4 | Ratcheted validation of newly increased minimum map or list size |
+
 
 #### Validation functions {#available-validation-functions}
 
@@ -1597,6 +1629,96 @@ my-new-cron-object   * * * * *   1          7s
 {{< note >}}
 The `NAME` column is implicit and does not need to be defined in the CustomResourceDefinition.
 {{< /note >}}
+
+### Field selectors
+
+[Field Selectors](/docs/concepts/overview/working-with-objects/field-selectors/)
+let clients select custom resources based on the value of one or more resource
+fields.
+
+All custom resources support the `metadata.name` and `metadata.namespace` field
+selectors.
+
+Fields declared in a {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
+may also be used with field selectors when included in the `spec.versions[*].selectableFields` field of the
+{{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}.
+
+#### Selectable fields for custom resources {#crd-selectable-fields}
+
+{{< feature-state state="alpha" for_k8s_version="v1.30" >}}
+{{< feature-state feature_gate_name="CustomResourceFieldSelectors" >}}
+
+You need to enable the `CustomResourceFieldSelectors`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
+use this behavior, which then applies to all CustomResourceDefinitions in your
+cluster.
+
+The `spec.versions[*].selectableFields` field of a {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} may be used to
+declare which other fields in a custom resource may be used in field selectors.
+The following example adds the `.spec.color` and `.spec.size` fields as
+selectable fields.
+
+Save the CustomResourceDefinition to `shirt-resource-definition.yaml`:
+
+{{% code_sample file="customresourcedefinition/shirt-resource-definition.yaml" %}}
+
+Create the CustomResourceDefinition:
+
+```shell
+kubectl apply -f https://k8s.io/examples/customresourcedefinition/shirt-resource-definition.yaml
+```
+
+Define some Shirts by editing `shirt-resources.yaml`; for example:
+
+{{% code_sample file="customresourcedefinition/shirt-resources.yaml" %}}
+
+Create the custom resources:
+
+```shell
+kubectl apply -f https://k8s.io/examples/customresourcedefinition/shirt-resources.yaml
+```
+
+Get all the resources:
+
+```shell
+kubectl get shirts.stable.example.com
+```
+
+The output is:
+
+```
+NAME       COLOR  SIZE
+example1   blue   S
+example2   blue   M
+example3   green  M
+```
+
+Fetch blue shirts (retrieve Shirts with a `color` of `blue`):
+
+```shell
+kubectl get shirts.stable.example.com --field-selector spec.color=blue
+```
+
+Should output:
+
+```
+NAME       COLOR  SIZE
+example1   blue   S
+example2   blue   M
+```
+
+Get only resources with a `color` of `green` and a `size` of `M`:
+
+```shell
+kubectl get shirts.stable.example.com --field-selector spec.color=green,spec.size=M
+```
+
+Should output:
+
+```
+NAME       COLOR  SIZE
+example2   blue   M
+```
 
 #### Priority
 

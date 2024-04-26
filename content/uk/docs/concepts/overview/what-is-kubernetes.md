@@ -33,7 +33,7 @@ The name Kubernetes originates from Greek, meaning helmsman or pilot. Google ope
 <!--
 Let's take a look at why Kubernetes is so useful by going back in time.
 -->
-Давайте повернемось назад у часі та дізнаємось, завдяки чому Kubernetes став таким корисним.
+Повернімось назад у часі та дізнаємось, завдяки чому Kubernetes став таким корисним.
 
 ![Еволюція розгортання](/images/docs/Container_Evolution.svg)
 

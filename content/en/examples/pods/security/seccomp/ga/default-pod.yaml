@@ -10,7 +10,7 @@ spec:
       type: RuntimeDefault
   containers:
   - name: test-container
-    image: hashicorp/http-echo:0.2.3
+    image: hashicorp/http-echo:1.0
     args:
     - "-text=just made some more syscalls!"
     securityContext:

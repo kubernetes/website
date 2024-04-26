@@ -4,7 +4,7 @@ noedit: true
 cid: docsHome
 layout: docsportal_home
 class: gridPage gridPageHome
-linkTitle: "होम"
+linkTitle: "प्रलेखन"
 main_menu: true
 weight: 10
 hide_feedback: true
@@ -41,11 +41,11 @@ cards:
   button_path: "/docs/tasks"
 - name: training
   title: "प्रशिक्षण"
-  description: "कुबेरनेट्स में प्रमाणित हो कर अपने क्लाउड नेटिव प्रोजेक्ट सफल बनाएं!"
+  description: "कुबेरनेट्स में प्रमाणित हो कर अपने क्लाउड नेटिव प्रोजेक्ट को सफल बनाएं!"
   button: "प्रशिक्षण देखें"
-  button_path: "/training"
+  button_path: "/hi/training"
 - name: reference
-  title: संदर्भ जानकारी देखें 
+  title: संदर्भ मे दी गई जानकारी को देखें
   description: शब्दावली, कमांड लाइन सिंटैक्स, API संसाधनो के प्रकार और टूल सेटअप करने के प्रलेखन। 
   button: संदर्भ देखें 
   button_path: /docs/reference

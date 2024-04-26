@@ -76,15 +76,7 @@ Timelines may vary with the severity of bug fixes, but for easier planning we
 will target the following monthly release points. Unplanned, critical
 releases may also occur in between these.
 
-| Monthly Patch Release | Cherry Pick Deadline | Target date |
-| --------------------- | -------------------- | ----------- |
-| October 2023          | 2023-10-13           | 2023-10-18  |
-| November 2023         | N/A                  | N/A         |
-| December 2023         | 2023-12-01           | 2023-12-06  |
-
-**Note:** Due to overlap with KubeCon NA 2023 and the resulting lack of
-availability of Release Managers, it has been decided to skip patch releases
-in November. Instead, we'll have patch releases early in December.
+{{< upcoming-releases >}}
 
 ## Detailed Release History for Active Branches
 

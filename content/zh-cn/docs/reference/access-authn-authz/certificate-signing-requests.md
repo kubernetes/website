@@ -878,7 +878,7 @@ O is the group that this user will belong to. You can refer to
 
 ```shell
 openssl genrsa -out myuser.key 2048
-openssl req -new -key myuser.key -out myuser.csr
+openssl req -new -key myuser.key -out myuser.csr -subj "/CN=myuser"
 ```
 
 <!--

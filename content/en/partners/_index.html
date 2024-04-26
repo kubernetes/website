@@ -4,50 +4,44 @@ bigheader: Kubernetes Partners
 abstract: Growing the Kubernetes ecosystem.
 class: gridPage
 cid: partners
+body_class: partners
+menu:
+  main:
+    weight: 40
 ---
 
 <section id="users">
     <h5>Kubernetes works with partners to create a strong, vibrant codebase that supports a spectrum of complementary platforms.</h5>
     <div class="col-container">
       <div class="col-nav">
-        <center>
           <h5>
             <b>Kubernetes Certified Service Providers</b>
           </h5>
           <br>Vetted service providers with deep experience helping enterprises successfully adopt Kubernetes.
           <br><br><br>
-          <button class="button landscape-trigger landscape-default" data-landscape-types="kubernetes-certified-service-provider" id="kcsp">See KCSP Partners</button>
+          <button class="button landscape-trigger landscape-default" data-landscape-types="special--kubernetes-certified-service-provider" id="kcsp">See KCSP Partners</button>
           <br><br>Interested in becoming a
           <a href="https://www.cncf.io/certification/kcsp/">KCSP</a>?
-        </center>
       </div>
       <div class="col-nav">
-        <center>
           <h5>
             <b>Certified Kubernetes Distributions, Hosted Platforms, and Installers</b>
           </h5>Software conformance ensures that every vendor’s version of Kubernetes supports the required APIs.
           <br><br><br>
-          <button class="button landscape-trigger" data-landscape-types="certified-kubernetes-distribution,certified-kubernetes-hosted,certified-kubernetes-installer" id="conformance">See Conformance Partners</button>
+          <button class="button landscape-trigger" data-landscape-types="platform" id="conformance">See Conformance Partners</button>
           <br><br>Interested in becoming
           <a href="https://www.cncf.io/certification/software-conformance/">Kubernetes Certified</a>?
-        </center>
       </div>
       <div class="col-nav">
-        <center>
           <h5>
             <b>Kubernetes Training Partners</b>
           </h5>
           <br>Vetted training providers who have deep experience in cloud native technology training.
           <br><br><br>
-          <button class="button landscape-trigger" data-landscape-types="kubernetes-training-partner" id="ktp">See KTP Partners</button>
+          <button class="button landscape-trigger" data-landscape-types="special--kubernetes-training-partner" id="ktp">See KTP Partners</button>
           <br><br>Interested in becoming a
           <a href="https://www.cncf.io/certification/training/">KTP</a>?
-        </center>
       </div>
     </div>
     {{< cncf-landscape helpers=true >}}
 </section>
-
-<style>
-    {{< include "partner-style.css" >}}
-</style>

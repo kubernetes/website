@@ -289,6 +289,8 @@ EndpointSlice 是实现某 Service 的端点的子集。一个 Service 可以有
     
     * Kubernetes-defined prefixed names:
       * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+      * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
+      * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455    
     
     * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
     -->
@@ -300,6 +302,8 @@ EndpointSlice 是实现某 Service 的端点的子集。一个 Service 可以有
 
     * Kubernetes 定义的前缀名称：
       * 'kubernetes.io/h2c' - 使用明文的 HTTP/2 协议，详见 https://www.rfc-editor.org/rfc/rfc7540
+      * 'kubernetes.io/ws' - 通过明文传输的 WebSocket，详见 https://www.rfc-editor.org/rfc/rfc6455
+      * 'kubernetes.io/wss' - 通过 TLS 传输的 WebSocket，详见 https://www.rfc-editor.org/rfc/rfc6455
 
     * 其他协议应该使用带前缀的名称，例如 mycompany.com/my-custom-protocol。
 

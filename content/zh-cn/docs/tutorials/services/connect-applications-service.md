@@ -128,7 +128,7 @@ You can create a Service for your 2 nginx replicas with `kubectl expose`:
 ## 创建 Service   {#creating-a-service}
 
 我们有一组在一个扁平的、集群范围的地址空间中运行 Nginx 服务的 Pod。
-理论上，你可以直接连接到这些 Pod，但如果某个节点死掉了会发生什么呢？
+理论上，你可以直接连接到这些 Pod，但如果某个节点宕机会发生什么呢？
 Pod 会终止，Deployment 内的 ReplicaSet 将创建新的 Pod，且使用不同的 IP。这正是 Service 要解决的问题。
 
 Kubernetes Service 是集群中提供相同功能的一组 Pod 的抽象表达。
@@ -198,7 +198,7 @@ the first step:
 Service Selector 将持续评估，结果被 POST
 到使用{{< glossary_tooltip text="标签" term_id="label" >}}与该 Service 连接的一个 EndpointSlice。
 当 Pod 终止后，它会自动从包含该 Pod 的 EndpointSlices 中移除。
-新的能够匹配上 Service Selector 的 Pod 将自动地被为该 Service 添加到 EndpointSlice 中。
+新的能够匹配上 Service Selector 的 Pod 将被自动地为该 Service 添加到 EndpointSlice 中。
 检查 Endpoint，注意到 IP 地址与在第一步创建的 Pod 是相同的。
 
 ```shell
@@ -595,7 +595,7 @@ Noteworthy points about the nginx-secure-app manifest:
 - 它将 Deployment 和 Service 的规约放在了同一个文件中。
 - [Nginx 服务器](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/default.conf)通过
   80 端口处理 HTTP 流量，通过 443 端口处理 HTTPS 流量，而 Nginx Service 则暴露了这两个端口。
-- 每个容器能通过挂载在 `/etc/nginx/ssl` 的卷访问秘钥。卷和密钥需要在 Nginx 服务器启动 **之前** 配置好。
+- 每个容器能通过挂载在 `/etc/nginx/ssl` 的卷访问密钥。卷和密钥需要在 Nginx 服务器启动 **之前** 配置好。
 
 ```shell
 kubectl delete deployments,svc my-nginx; kubectl create -f ./nginx-secure-app.yaml

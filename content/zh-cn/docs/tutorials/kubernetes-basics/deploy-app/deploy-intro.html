@@ -232,19 +232,23 @@ description: |-
             <div class="col-md-12">
                 <!--
                 <h3>View the app</h3>
-                <p>Pods that are running inside Kubernetes are running on a private, isolated network.
+                <p><a href="/docs/concepts/workloads/pods/">Pods</a> that are running inside Kubernetes are running on a private, isolated network.
                 By default they are visible from other pods and services within the same kubernetes cluster,
                 but not outside that network.
                 When we use <code>kubectl</code>, we're interacting through an API endpoint to communicate with our application.</p>
                 <p>We will cover other options on how to expose your application outside the Kubernetes
-                cluster later, in <a href="/docs/tutorials/kubernetes-basics/expose/">Module 4</a>.</p>
+                cluster later, in <a href="/docs/tutorials/kubernetes-basics/expose/">Module 4</a>.
+                Also as a basic tutorial, we're not explaining what <code>Pods</code> are in any detail here, it will cover in later topics.</p>
                 -->
                 <h3>查看应用</h3>
-                <p>在 Kubernetes 内运行的 Pod 运行在一个私有的、隔离的网络上。
+                <p>在 Kubernetes 内运行的 <a href="/docs/concepts/workloads/pods/">Pod</a>
+                运行在一个私有的、隔离的网络上。
                 默认这些 Pod 可以从同一 Kubernetes 集群内的其他 Pod 和服务看到，但超出这个网络后则看不到。
                 当我们使用 <code>kubectl</code> 时，我们通过 API 端点交互与应用进行通信。</p>
                 <p>在 <a href="/zh-cn/docs/tutorials/kubernetes-basics/expose/">模块 4</a>
-                  中我们将讲述如何将应用暴露到 Kubernetes 集群外的其他选项。</p>
+                  中我们将讲述如何将应用暴露到 Kubernetes 集群外的其他选项。
+                  同样作为基础教程，我们不会在这里详细解释 <code>Pod</code> 是什么，后面的主题会介绍它。
+                </p>
 
                 <!--
                 <p>The <code>kubectl proxy</code> command can create a proxy that will forward communications

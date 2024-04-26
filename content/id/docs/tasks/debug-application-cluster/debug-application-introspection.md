@@ -18,7 +18,7 @@ Pod kamu. Namun ada sejumlah cara untuk mendapatkan lebih banyak informasi tenta
 
 Dalam contoh ini, kamu menggunakan Deployment untuk membuat dua buah Pod, yang hampir sama dengan contoh sebelumnya.
 
-{{< codenew file="application/nginx-with-request.yaml" >}}
+{{% codenew file="application/nginx-with-request.yaml" %}}
 
 Buat Deployment dengan menjalankan perintah ini:
 

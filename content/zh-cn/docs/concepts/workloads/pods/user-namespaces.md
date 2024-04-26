@@ -280,6 +280,50 @@ Pod 的 UID/GID 不会与主机的文件所有者/组相匹配。
 [CVE-2021-25741]: https://github.com/kubernetes/kubernetes/issues/104980
 
 <!--
+## Integration with Pod security admission checks
+-->
+## 与 Pod 安全准入检查的集成   {#integration-with-pod-security-admission-checks}
+
+{{< feature-state state="alpha" for_k8s_version="v1.29" >}}
+
+<!--
+For Linux Pods that enable user namespaces, Kubernetes relaxes the application of
+[Pod Security Standards](/docs/concepts/security/pod-security-standards) in a controlled way.
+This behavior can be controlled by the [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/)
+`UserNamespacesPodSecurityStandards`, which allows an early opt-in for end
+users. Admins have to ensure that user namespaces are enabled by all nodes
+within the cluster if using the feature gate.
+-->
+对于启用了用户命名空间的 Linux Pod，Kubernetes 会以受控方式放宽
+[Pod 安全性标准](/zh-cn/docs/concepts/security/pod-security-standards)的应用。
+这种行为可以通过[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/) 
+`UserNamespacesPodSecurityStandards` 进行控制，可以让最终用户提前尝试此特性。
+如果管理员启用此特性门控，必须确保群集中的所有节点都启用了用户命名空间。
+
+<!--
+If you enable the associated feature gate and create a Pod that uses user
+namespaces, the following fields won't be constrained even in contexts that enforce the
+_Baseline_ or _Restricted_ pod security standard. This behavior does not
+present a security concern because `root` inside a Pod with user namespaces
+actually refers to the user inside the container, that is never mapped to a
+privileged user on the host. Here's the list of fields that are **not** checks for Pods in those
+circumstances:
+-->
+如果你启用相关特性门控并创建了使用用户命名空间的 Pod，以下的字段不会被限制，
+即使在执行了 _Baseline_ 或 _Restricted_ Pod 安全性标准的上下文中。这种行为不会带来安全问题，
+因为带有用户命名空间的 Pod 内的 `root` 实际上指的是容器内的用户，绝不会映射到主机上的特权用户。
+以下是在这种情况下**不进行**检查的 Pod 字段列表：
+
+- `spec.securityContext.runAsNonRoot`
+- `spec.containers[*].securityContext.runAsNonRoot`
+- `spec.initContainers[*].securityContext.runAsNonRoot`
+- `spec.ephemeralContainers[*].securityContext.runAsNonRoot`
+- `spec.securityContext.runAsUser`
+- `spec.containers[*].securityContext.runAsUser`
+- `spec.initContainers[*].securityContext.runAsUser`
+
+<!--
 ## Limitations
 -->
 ## 限制 {#limitations}

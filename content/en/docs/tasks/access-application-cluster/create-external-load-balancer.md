@@ -164,7 +164,7 @@ With each target weighted equally in terms of sending traffic to Nodes, external
 traffic is not equally load balanced across different Pods. The external load balancer
 is unaware of the number of Pods on each node that are used as a target.
 
-Where `NumServicePods <<  _NumNodes` or `NumServicePods >> NumNodes`, a fairly close-to-equal
+Where `NumServicePods <<  NumNodes` or `NumServicePods >> NumNodes`, a fairly close-to-equal
 distribution will be seen, even without weights.
 
 Internal pod to pod traffic should behave similar to ClusterIP services, with equal probability across all pods.

@@ -902,9 +902,16 @@ section#cncf {
   margin: 0;
 }
 
+//Table Content
+.tab-content table{
+  border-collapse: separate;
+  border-spacing: 6px;
+}
+
 .tab-pane {
   border-radius: 0.25rem;
   padding: 0 16px 16px;
+  overflow: auto;
 
   border: 1px solid #dee2e6;
   &:first-of-type.active {

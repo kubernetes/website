@@ -62,7 +62,7 @@ kube-scheduler selects a node for the pod in a 2-step operation:
 
 The _filtering_ step finds the set of Nodes where it's feasible to
 schedule the Pod. For example, the PodFitsResources filter checks whether a
-candidate Node has enough available resource to meet a Pod's specific
+candidate Node has enough available resources to meet a Pod's specific
 resource requests. After this step, the node list contains any suitable
 Nodes; often, there will be more than one. If the list is empty, that
 Pod isn't (yet) schedulable.
@@ -86,7 +86,7 @@ of the scheduler:
 * Read about [scheduler performance tuning](/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
 * Read about [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 * Read the [reference documentation](/docs/reference/command-line-tools-reference/kube-scheduler/) for kube-scheduler
-* Read the [kube-scheduler config (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/) reference
+* Read the [kube-scheduler config (v1)](/docs/reference/config-api/kube-scheduler-config.v1/) reference
 * Learn about [configuring multiple schedulers](/docs/tasks/extend-kubernetes/configure-multiple-schedulers/)
 * Learn about [topology management policies](/docs/tasks/administer-cluster/topology-manager/)
 * Learn about [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/)
