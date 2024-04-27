@@ -146,30 +146,45 @@ auto_generated: true
 - ইমপ্লিমেন্টেশন 
 - স্ট্যাবিলাইজেশন 
 
-But in reality, this is an open source and agile project, with feature planning
-and implementation happening at all times. Given the project scale and globally
-distributed developer base, it is critical to project velocity to not rely on a
-trailing stabilization phase and rather have continuous integration testing
-which ensures the project is always stable so that individual commits can be
-flagged as having broken something.
+কিন্তু বাস্তবে, এটি একটি ওপেন সোর্স এবং চটপটে প্রকল্প, ফিচার পরিকল্পনা
+এবং বাস্তবায়ন সব সময়ে ঘটছে। প্রজেক্ট স্কেল এবং বিশ্বব্যাপী
+ডিস্ট্রিবিউটেড ডেভেলপার বেস এর ফলে, এটি গুরুত্বপূর্ণ যে প্রজেক্টের গতি যেনো 
+ট্রেইলিং স্টেবিলাইজেশন ফেজ এর উপর নির্ভর না করে এবং বরং ক্রমাগত ইন্টিগ্রেশন টেস্টিং চলমান থাকে
+যা নিশ্চিত করে যে প্রকল্পটি সর্বদা স্থিতিশীল যাতে একজন ডেভেলপার কোন নির্দিষ্ট কমিটে কোন সমস্যা 
+তৈরি করেছে তা চিহ্নিত করা যেতে পারে।
 
-With ongoing feature definition through the year, some set of items will bubble
-up as targeting a given release. **[Enhancements Freeze][enhancements-freeze]**
-starts ~4 weeks into release cycle. By this point all intended feature work for
-the given release has been defined in suitable planning artifacts in
-conjunction with the Release Team's [Enhancements Lead](https://git.k8s.io/sig-release/release-team/role-handbooks/enhancements/README.md).
+বছর ধরে চলমান ফিচার নির্ধারণের সাথে, কিছু আইটেম একটি নির্দিষ্ট রিলিজের 
+লক্ষ্য হিসেবে উঠে আসবে। **[এনহ্যান্সমেন্ট ফ্রিজ][enhancements-freeze]**
+রিলিজ সাইকেলের ~৪ সপ্তাহের মধ্যে শুরু হয়। এই মুহুর্তে সমস্ত উদ্দেশ্যমূলক ফিচার কাজ করে
+প্রদত্ত রিলিজ উপযুক্ত পরিকল্পনা নিদর্শন মধ্যে সংজ্ঞায়িত করা হয়েছে
+রিলিজ টিমের সাথে একযোগে [এনহ্যান্সমেন্ট লিড](https://git.k8s.io/sig-release/release-team/role-handbooks/enhancements/README.md).
 
-After Enhancements Freeze, tracking milestones on PRs and issues is important.
-Items within the milestone are used as a punchdown list to complete the
-release. *On issues*, milestones must be applied correctly, via triage by the
-SIG, so that [Release Team][release-team] can track bugs and enhancements (any
-enhancement-related issue needs a milestone).
+এনহ্যান্সমেন্ট ফ্রিজের পরে, PR এবং ইস্যুগুলোর মাইলস্টোন ট্র্যাক করা গুরুত্বপূর্ণ।
+মাইলস্টোন থাকা আইটেমগুলি সম্পূর্ণ করার জন্য একটি পাঞ্চডাউন তালিকা হিসাবে ব্যবহৃত হয়
+রিলিজের জন্য। *ইস্যুতে*, মাইলস্টোন অবশ্যই সঠিকভাবে প্রয়োগ করতে হবে, triage মাধ্যমে
+SIG, যাতে [রিলিজ টিম][release-team] বাগ এবং এনহ্যান্সমন্ট ট্র্যাক করতে পারে (যেকোন
+এনহ্যান্সমেন্ট-সম্পর্কিত ইস্যুর একটি মাইলস্টোন প্রয়োজন)।
 
-There is some automation in place to help automatically assign milestones to
-PRs.
+PR এ স্বয়ংক্রিয়ভাবে মাইলফলক বরাদ্দ করতে সাহায্য করার জন্য কিছু অটোমেশন 
+রয়েছে৷
 
-This automation currently applies to the following repos:
+এই অটোমেশনটি বর্তমানে নিম্নলিখিত রিপোতে প্রযোজ্য:
 
+- `kubernetes/enhancements`
+- `kubernetes/kubernetes`
+- `kubernetes/release`
+- `kubernetes/sig-release`
+- `kubernetes/test-infra`
 
+At creation time, PRs against the `master` branch need humans to hint at which
+milestone they might want the PR to target. Once merged, PRs against the
+`master` branch have milestones auto-applied so from that time onward human
+management of that PR's milestone is less necessary. On PRs against release
+branches, milestones are auto-applied when the PR is created so no human
+management of the milestone is ever necessary.
 
+Any other effort that should be tracked by the Release Team that doesn't fall
+under that automation umbrella should be have a milestone applied.
 
+Implementation and bug fixing is ongoing across the cycle, but culminates in a
+code freeze period.
