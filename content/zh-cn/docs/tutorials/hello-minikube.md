@@ -2,12 +2,6 @@
 title: 你好，Minikube
 content_type: tutorial
 weight: 5
-menu:
-  main:
-    title: "Get Started"
-    weight: 10
-    post: >
-      <p>准备好动手操作了么？构建一个简单的 Kubernetes 集群来运行示例应用。</p>
 card:
   name: tutorials
   weight: 10
@@ -16,12 +10,6 @@ card:
 title: Hello Minikube
 content_type: tutorial
 weight: 5
-menu:
-  main:
-    title: "Get Started"
-    weight: 10
-    post: >
-      <p>Ready to get your hands dirty? Build a simple Kubernetes cluster that runs a sample app.</p>
 card:
   name: tutorials
   weight: 10
@@ -288,7 +276,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 
 默认情况下，Pod 只能通过 Kubernetes 集群中的内部 IP 地址访问。
 要使得 `hello-node` 容器可以从 Kubernetes 虚拟网络的外部访问，你必须将 Pod
-暴露为 Kubernetes [**Service**](/zh-cn/docs/concepts/services-networking/service/)。
+通过 Kubernetes [**Service**](/zh-cn/docs/concepts/services-networking/service/) 公开出来。
 
 <!--
 1. Expose the Pod to the public internet using the `kubectl expose` command:
