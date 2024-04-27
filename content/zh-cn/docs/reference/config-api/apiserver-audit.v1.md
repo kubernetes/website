@@ -1,5 +1,5 @@
 ---
-title: kube-apiserver Audit 配置 (v1)
+title: kube-apiserver Audit 配置（v1）
 content_type: tool-reference
 package: audit.k8s.io/v1
 ---
@@ -111,7 +111,7 @@ Event 结构包含可出现在 API 审计日志中的所有信息。
 </tr>
     
 <tr><td><code>user</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
 </td>
 <td>
    <p>
@@ -124,7 +124,7 @@ Event 结构包含可出现在 API 审计日志中的所有信息。
 </tr>
 
 <tr><td><code>impersonatedUser</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
 </td>
 <td>
    <p>
@@ -204,7 +204,7 @@ Note: All but the last IP can be arbitrarily set by the client.
 </tr>
 
 <tr><td><code>responseStatus</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#status-v1-meta"><code>meta/v1.Status</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#status-v1-meta"><code>meta/v1.Status</code></a>
 </td>
 <td>
    <p>
@@ -257,7 +257,7 @@ Note: All but the last IP can be arbitrarily set by the client.
 </tr>
 
 <tr><td><code>requestReceivedTimestamp</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#microtime-v1-meta"><code>meta/v1.MicroTime</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#microtime-v1-meta"><code>meta/v1.MicroTime</code></a>
 </td>
 <td>
    <!--
@@ -270,7 +270,7 @@ Note: All but the last IP can be arbitrarily set by the client.
 </tr>
 
 <tr><td><code>stageTimestamp</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#microtime-v1-meta"><code>meta/v1.MicroTime</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#microtime-v1-meta"><code>meta/v1.MicroTime</code></a>
 </td>
 <td>
    <p>
@@ -326,7 +326,7 @@ EventList 是审计事件（Event）的列表。
 <tr><td><code>kind</code><br/>string</td><td><code>EventList</code></td></tr>
 
 <tr><td><code>metadata</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#listmeta-v1-meta"><code>meta/v1.ListMeta</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#listmeta-v1-meta"><code>meta/v1.ListMeta</code></a>
 </td>
 <td>
    <span class="text-muted"><!--No description provided.-->列表结构元数据</span>
@@ -368,7 +368,7 @@ Policy 定义的是审计日志的配置以及不同类型请求的日志记录�
 <tr><td><code>kind</code><br/>string</td><td><code>Policy</code></td></tr>
   
 <tr><td><code>metadata</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#objectmeta-v1-meta"><code>meta/v1.ObjectMeta</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#objectmeta-v1-meta"><code>meta/v1.ObjectMeta</code></a>
 </td>
 <td>
    <p>
@@ -458,7 +458,7 @@ PolicyList 是由审计策略（Policy）组成的列表。
 <tr><td><code>kind</code><br/>string</td><td><code>PolicyList</code></td></tr>
 
 <tr><td><code>metadata</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#listmeta-v1-meta"><code>meta/v1.ListMeta</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#listmeta-v1-meta"><code>meta/v1.ListMeta</code></a>
 </td>
 <td>
    <span class="text-muted"><!--No description provided.-->列表结构元数据。</span>
