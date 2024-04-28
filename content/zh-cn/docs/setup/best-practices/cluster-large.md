@@ -39,7 +39,7 @@ Kubernetes {{< param "version" >}} 单个集群支持的最大节点数为 5,000
 You can scale your cluster by adding or removing nodes. The way you do this depends
 on how your cluster is deployed.
 -->
-你可以通过添加或删除节点来扩展集群。集群扩缩的方式取决于集群的部署方式。
+你可以通过添加或删除节点来扩缩容集群。集群扩缩的方式取决于集群的部署方式。
 
 <!--  
 ## Cloud provider resource quotas {#quota-issues}
