@@ -22,7 +22,7 @@ This page explains how to upgrade a Windows node created with kubeadm.
 
 ## {{% heading "prerequisites" %}}
  
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs-node-upgrade.md" >}} {{< version-check >}}
 
 <!--
 * Familiarize yourself with [the process for upgrading the rest of your kubeadm

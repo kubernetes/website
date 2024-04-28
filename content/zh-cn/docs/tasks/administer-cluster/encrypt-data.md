@@ -1283,7 +1283,7 @@ To allow automatic reloading, configure the API server to run with:
 
 <!--
 * Read about [decrypting data that are already stored at rest](/docs/tasks/administer-cluster/decrypt-data/)
-* Learn more about the [EncryptionConfiguration configuration API (v1)](/docs/reference/config-api/apiserver-encryption.v1/).
+* Learn more about the [EncryptionConfiguration configuration API (v1)](/docs/reference/config-api/apiserver-config.v1/).
 -->
 * 进一步学习[解密已静态加密的数据](/zh-cn/docs/tasks/administer-cluster/decrypt-data/)。
-* 进一步学习 [EncryptionConfiguration 配置 API（v1）](/zh-cn/docs/reference/config-api/apiserver-encryption.v1/)。
+* 进一步学习 [EncryptionConfiguration 配置 API（v1）](/zh-cn/docs/reference/config-api/apiserver-config.v1/)。
