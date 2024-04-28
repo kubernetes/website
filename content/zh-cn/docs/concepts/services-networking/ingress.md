@@ -1,5 +1,10 @@
 ---
 title: Ingress
+api_metadata:
+- apiVersion: "networking.k8s.io/v1"
+  kind: "Ingress"
+- apiVersion: "networking.k8s.io/v1"
+  kind: "IngressClass"
 content_type: concept
 description: >-
   使用一种能感知协议配置的机制来解析 URI、主机名称、路径等 Web 概念，
@@ -1069,10 +1074,10 @@ You can expose a Service in multiple ways that don't directly involve the Ingres
 
 <!--
 * Use [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer)
-* Use [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport)
+* Use [Service.Type=NodePort](/docs/concepts/services-networking/service/#type-nodeport)
 -->
 * 使用 [Service.Type=LoadBalancer](/zh-cn/docs/concepts/services-networking/service/#loadbalancer)
-* 使用 [Service.Type=NodePort](/zh-cn/docs/concepts/services-networking/service/#nodeport)
+* 使用 [Service.Type=NodePort](/zh-cn/docs/concepts/services-networking/service/#type-nodeport)
 
 ## {{% heading "whatsnext" %}}
 
