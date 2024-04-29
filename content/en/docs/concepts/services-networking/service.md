@@ -990,7 +990,7 @@ to control how Kubernetes routes traffic to healthy (“ready”) backends.
 
 See [Traffic Policies](/docs/reference/networking/virtual-ips/#traffic-policies) for more details.
 
-### Trafic distribution
+### Traffic distribution
 
 {{< feature-state feature_gate_name="ServiceTrafficDistribution" >}}
 
