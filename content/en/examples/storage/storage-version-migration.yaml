@@ -1,0 +1,9 @@
+kind: StorageVersionMigration
+apiVersion: storagemigration.k8s.io/v1alpha1
+metadata:
+  name: secrets-migration
+spec:
+  resource:
+    group: ""
+    version: v1
+    resource: secrets

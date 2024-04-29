@@ -1,0 +1,23 @@
+kind: StorageVersionMigration
+apiVersion: storagemigration.k8s.io/v1alpha1
+metadata:
+  name: crdsvm
+  uid: 13062fe4-32d7-47cc-9528-5067fa0c6ac8
+  resourceVersion: "111"
+  creationTimestamp: "2024-03-12T22:40:01Z"
+spec:
+  resource:
+    group: stable.example.com
+    version: v1
+    resource: testcrds
+status:
+  conditions:
+    - type: Running
+      status: "False"
+      lastUpdateTime: "2024-03-12T22:40:03Z"
+      reason: StorageVersionMigrationInProgress
+    - type: Succeeded
+      status: "True"
+      lastUpdateTime: "2024-03-12T22:40:03Z"
+      reason: StorageVersionMigrationSucceeded
+  resourceVersion: "106"

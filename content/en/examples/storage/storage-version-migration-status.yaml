@@ -1,0 +1,23 @@
+kind: StorageVersionMigration
+apiVersion: storagemigration.k8s.io/v1alpha1
+metadata:
+  name: secrets-migration
+  uid: 628f6922-a9cb-4514-b076-12d3c178967c
+  resourceVersion: "90"
+  creationTimestamp: "2024-03-12T20:29:45Z"
+spec:
+  resource:
+    group: ""
+    version: v1
+    resource: secrets
+status:
+  conditions:
+    - type: Running
+      status: "False"
+      lastUpdateTime: "2024-03-12T20:29:46Z"
+      reason: StorageVersionMigrationInProgress
+    - type: Succeeded
+      status: "True"
+      lastUpdateTime: "2024-03-12T20:29:46Z"
+      reason: StorageVersionMigrationSucceeded
+  resourceVersion: "84"

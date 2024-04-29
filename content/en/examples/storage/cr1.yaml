@@ -1,0 +1,5 @@
+apiVersion: stable.example.com/v1
+kind: SelfieRequest
+metadata:
+  name: cr1
+  namespace: default

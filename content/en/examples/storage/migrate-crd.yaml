@@ -1,0 +1,9 @@
+kind: StorageVersionMigration
+apiVersion: storagemigration.k8s.io/v1alpha1
+metadata:
+  name: crdsvm
+spec:
+  resource:
+    group: stable.example.com
+    version: v1
+    resource: SelfieRequest
