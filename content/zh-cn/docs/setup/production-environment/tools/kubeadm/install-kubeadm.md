@@ -112,7 +112,7 @@ route, we recommend you add IP route(s) so Kubernetes cluster addresses go via t
 这样 Kubernetes 集群就可以通过对应的适配器完成连接。
 
 <!--
-## Check required ports
+## Check required ports {#check-required-ports}
 These
 These [required ports](/docs/reference/networking/ports-and-protocols/)
 need to be open in order for Kubernetes components to communicate with each other.
