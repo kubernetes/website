@@ -12,6 +12,21 @@ content_type: task
 weight: 330
 --->
 
+## {{% heading "prerequisites" %}}
+
+<!--
+Some steps in this page use the `jq` tool. If you don't have `jq`, you can
+install it via your operating system's software sources, or fetch it from
+[https://jqlang.github.io/jq/](https://jqlang.github.io/jq/).
+
+Some steps also involve installing `curl`, which can be installed via your
+operating system's software sources.
+-->
+此页面中的某些步骤使用 `jq` 工具。如果你没有 `jq`，你可以通过操作系统的软件源安装它，或者从
+[https://jqlang.github.io/jq/](https://jqlang.github.io/jq/) 中获取它。
+
+某些步骤还涉及安装 `curl`，它可以通过操作系统的软件源安装。
+
 <!-- overview -->
 
 <!--
@@ -153,86 +168,260 @@ In the above example, this version is `kubelet.config.k8s.io/v1beta1`.
 
 <!--
 ## Drop-in directory for kubelet configuration files {#kubelet-conf-d}
-
-As of Kubernetes v1.28.0, the Kubelet has been extended to support a drop-in configuration directory. The location of it can be specified with
-`--config-dir` flag, and it defaults to `""`, or disabled, by default.
 -->
 ## kubelet 配置文件的插件目录   {#kubelet-conf-d}
 
-自 Kubernetes v1.28.0 起，kubelet 被扩展以支持一个插件配置目录。
-该目录的位置可以使用 `--config-dir` 标志来指定，默认为 `""`，也就是被禁用状态。
+{{<feature-state for_k8s_version="v1.30" state="beta" >}}
 
 <!--
-You can only set `--config-dir` if you set the environment variable `KUBELET_CONFIG_DROPIN_DIR_ALPHA` for the kubelet process (the value of that variable does not matter).
-For Kubernetes v{{< skew currentVersion >}}, the kubelet returns an error if you specify `--config-dir` without that variable set, and startup fails.
-You cannot specify the drop-in configuration directory using the kubelet configuration file; only the CLI argument `--config-dir` can set it.
+You can specify a drop-in configuration directory for the kubelet. By default, the kubelet does not look
+for drop-in configuration files anywhere - you must specify a path.
+For example: `--config-dir=/etc/kubernetes/kubelet.conf.d`
 -->
-只有在为 kubelet 进程设置环境变量 `KUBELET_CONFIG_DROPIN_DIR_ALPHA`
-（该变量的值无关紧要）时才可以设置 `--config-dir`。对于 Kubernetes v{{< skew currentVersion >}}，
-如果你未设置该变量而指定了 `--config-dir`，kubelet 将返回错误并且启动失败。
-你不能使用 kubelet 配置文件指定插件配置目录；只能使用 CLI 参数 `--config-dir` 进行设置。
+你可以为 kubelet 指定一个插件配置目录。默认情况下，kubelet
+不会在任何地方查找插件配置文件 - 你必须指定路径。
+例如：`--config-dir=/etc/kubernetes/kubelet.conf.d`
 
 <!--
-One can use the kubelet configuration directory in a similar way to the kubelet config file.
+For Kubernetes v1.28 to v1.29, you can only specify `--config-dir` if you also set
+the environment variable `KUBELET_CONFIG_DROPIN_DIR_ALPHA` for the kubelet process (the value
+of that variable does not matter).
 -->
-你可以以类似于 kubelet 配置文件的方式使用 kubelet 配置目录。
+对于 Kubernetes v1.28 到 v1.29，如果你还为 kubelet
+进程设置了环境变量 `KUBELET_CONFIG_DROPIN_DIR_ALPHA`（该变量的值无关紧要），
+则只能指定 `--config-dir`。
 
 {{< note >}}
 <!--
-The suffix of a valid kubelet drop-in configuration file must be `.conf`. For instance: `99-kubelet-address.conf`
+The suffix of a valid kubelet drop-in configuration file **must** be `.conf`. For instance: `99-kubelet-address.conf`
 -->
-合法的 kubelet 插件配置文件的后缀必须为 `.conf`。例如 `99-kubelet-address.conf`。
+合法的 kubelet 插件配置文件的后缀**必须**为 `.conf`。例如 `99-kubelet-address.conf`。
 {{< /note >}}
 
 <!--
-For instance, you may want a baseline kubelet configuration for all nodes, but you may want to customize the `address` field. This can be done as follows:
-
-Main kubelet configuration file contents:
+The kubelet processes files in its config drop-in directory by sorting the **entire file name** alphanumerically.
+For instance, `00-kubelet.conf` is processed first, and then overridden with a file named `01-kubelet.conf`.
 -->
-例如，你可能想要为所有节点设置一个基准的 kubelet 配置，但你可能想要自定义 `address` 字段。
-可以按如下方式操作：
-
-kubelet 配置文件的主要内容如下：
-
-```yaml
-apiVersion: kubelet.config.k8s.io/v1beta1
-kind: KubeletConfiguration
-port: 20250
-serializeImagePulls: false
-evictionHard:
-    memory.available:  "200Mi"
-```
+kubelet 通过按字母数字顺序对**整个文件名**进行排序来处理其配置插件目录中的文件。
+例如，首先处理 `00-kubelet.conf`，然后用名为 `01-kubelet.conf` 的文件覆盖。
 
 <!--
-Contents of a file in `--config-dir` directory:
+These files may contain partial configurations and might not be valid config files by themselves.
+Validation is only performed on the final resulting configuration structure
+stored internally in the kubelet.
+This offers you flexibility in how you manage and combine kubelet configuration that comes from different sources.
+However, it's important to note that the behavior varies based on the data type of the configuration fields.
 -->
-`--config-dir` 目录中某个文件的内容如下：
+这些文件可能包含部分配置，并且它们本身可能不是有效的配置文件。
+仅对 kubelet 内部存储的、最终生成的配置结构执行验证。
+这让你能够灵活管理和组合不同来源的 kubelet 配置。
+但是，请务必注意，产生的行为会根据配置字段的数据类型而有所不同。
 
-```yaml
-apiVersion: kubelet.config.k8s.io/v1beta1
-kind: KubeletConfiguration
-address: "192.168.0.8"
-```
+<!--
+Different data types in the kubelet configuration structure merge differently.
+See the [reference
+document](/docs/reference/node/kubelet-config-directory-merging.md) for more
+information.
+-->
+kubelet 配置结构中不同数据类型的合并方式不同。
+有关详细信息，请参阅[参考文档](/zh-cn/docs/reference/node/kubelet-config-directory-merging.md)。
+
+<!--
+### Kubelet configuration merging order
+-->
+### kubelet 配置合并顺序    {#kubelet-configuration-merging-order}
 
 <!--
 On startup, the kubelet merges configuration from:
 
-* Command line arguments (lowest precedence).
-* the kubelet configuration
+* Feature gates specified over the command line (lowest precedence).
+* The kubelet configuration.
 * Drop-in configuration files, according to sort order.
-* Feature gates specified over the command line (highest precedence).
+* Command line arguments excluding feature gates (highest precedence).
 -->
 在启动时，kubelet 会合并来自以下几部分的配置：
 
-* 命令行参数（优先级最低）。
+* 在命令行中指定的特性门控（优先级最低）。
 * kubelet 配置文件。
 * 排序的插件配置文件。
-* 在命令行中指定的特性门控（优先级最高）。
+* 不包括特性门控的命令行参数（优先级最高）。
+
+{{< note >}}
+<!--
+The config drop-in dir mechanism for the kubelet is similar but different from how the `kubeadm` tool allows you to patch configuration.
+The `kubeadm` tool uses a specific [patching strategy](/docs/setup/production-environment/tools/kubeadm/control-plane-flags/#patches) for its configuration,
+whereas the only patch strategy for kubelet configuration drop-in files is `replace`. The kubelet determines the order of merges based on sorting the **suffixes** alphanumerically,
+and replaces every field present in a higher priority file.
+-->
+kubelet 的配置插件目录机制类似，但与 `kubeadm` 工具允许 patch 配置的方式不同。
+`kubeadm` 工具使用特定的[补丁策略](/zh-cn/docs/setup/production-environment/tools/kubeadm/control-plane-flags/#patches)，
+而 kubelet 配置插件文件的唯一补丁策略是 `replace`。kubelet 根据字母数字对**后缀**进行排序来确定合并顺序，
+并替换更高优先级文件中存在的每个字段。
+{{< /note >}}
 
 <!--
-This produces the same outcome as if you used the [single configuration file](#create-the-config-file) used in the earlier example.
+## Viewing the kubelet configuration
 -->
-这将产生与之前示例中使用的[单个配置文件](#create-the-config-file)相同的结果。
+## 查看 kubelet 配置
+
+<!--
+Since the configuration could now be spread over multiple files with this feature, if someone wants to inspect the final actuated configuration,
+they can follow these steps to inspect the kubelet configuration:
+-->
+由于现在可以使用此特性将配置分布在多个文件中，因此如果有人想要检查最终启动的配置，
+他们可以按照以下步骤检查 kubelet 配置：
+
+<!--
+1. Start a proxy server using [`kubectl proxy`](/docs/reference/kubectl/generated/kubectl-commands#proxy) in your terminal.
+-->
+1. 在终端中使用 [`kubectl proxy`](/docs/reference/kubectl/generated/kubectl-commands#proxy) 启动代理服务器。
+
+```bash
+kubectl proxy
+```
+
+<!--
+Which gives output like:
+-->
+其输出如下：
+
+```bash
+Starting to serve on 127.0.0.1:8001
+
+```
+
+<!--
+2. Open another terminal window and use `curl` to fetch the kubelet configuration. 
+Replace `<node-name>` with the actual name of your node:
+-->
+2. 打开另一个终端窗口并使用 `curl` 来获取 kubelet 配置。
+   将 `<node-name>` 替换为节点的实际名称：
+
+```bash
+curl -X GET http://127.0.0.1:8001/api/v1/nodes/<node-name>/proxy/configz | jq .
+```
+
+```bash
+{
+  "kubeletconfig": {
+    "enableServer": true,
+    "staticPodPath": "/var/run/kubernetes/static-pods",
+    "syncFrequency": "1m0s",
+    "fileCheckFrequency": "20s",
+    "httpCheckFrequency": "20s",
+    "address": "192.168.1.16",
+    "port": 10250,
+    "readOnlyPort": 10255,
+    "tlsCertFile": "/var/lib/kubelet/pki/kubelet.crt",
+    "tlsPrivateKeyFile": "/var/lib/kubelet/pki/kubelet.key",
+    "rotateCertificates": true,
+    "authentication": {
+      "x509": {
+        "clientCAFile": "/var/run/kubernetes/client-ca.crt"
+      },
+      "webhook": {
+        "enabled": true,
+        "cacheTTL": "2m0s"
+      },
+      "anonymous": {
+        "enabled": true
+      }
+    },
+    "authorization": {
+      "mode": "AlwaysAllow",
+      "webhook": {
+        "cacheAuthorizedTTL": "5m0s",
+        "cacheUnauthorizedTTL": "30s"
+      }
+    },
+    "registryPullQPS": 5,
+    "registryBurst": 10,
+    "eventRecordQPS": 50,
+    "eventBurst": 100,
+    "enableDebuggingHandlers": true,
+    "healthzPort": 10248,
+    "healthzBindAddress": "127.0.0.1",
+    "oomScoreAdj": -999,
+    "clusterDomain": "cluster.local",
+    "clusterDNS": [
+      "10.0.0.10"
+    ],
+    "streamingConnectionIdleTimeout": "4h0m0s",
+    "nodeStatusUpdateFrequency": "10s",
+    "nodeStatusReportFrequency": "5m0s",
+    "nodeLeaseDurationSeconds": 40,
+    "imageMinimumGCAge": "2m0s",
+    "imageMaximumGCAge": "0s",
+    "imageGCHighThresholdPercent": 85,
+    "imageGCLowThresholdPercent": 80,
+    "volumeStatsAggPeriod": "1m0s",
+    "cgroupsPerQOS": true,
+    "cgroupDriver": "systemd",
+    "cpuManagerPolicy": "none",
+    "cpuManagerReconcilePeriod": "10s",
+    "memoryManagerPolicy": "None",
+    "topologyManagerPolicy": "none",
+    "topologyManagerScope": "container",
+    "runtimeRequestTimeout": "2m0s",
+    "hairpinMode": "promiscuous-bridge",
+    "maxPods": 110,
+    "podPidsLimit": -1,
+    "resolvConf": "/run/systemd/resolve/resolv.conf",
+    "cpuCFSQuota": true,
+    "cpuCFSQuotaPeriod": "100ms",
+    "nodeStatusMaxImages": 50,
+    "maxOpenFiles": 1000000,
+    "contentType": "application/vnd.kubernetes.protobuf",
+    "kubeAPIQPS": 50,
+    "kubeAPIBurst": 100,
+    "serializeImagePulls": true,
+    "evictionHard": {
+      "imagefs.available": "15%",
+      "memory.available": "100Mi",
+      "nodefs.available": "10%",
+      "nodefs.inodesFree": "5%"
+    },
+    "evictionPressureTransitionPeriod": "1m0s",
+    "enableControllerAttachDetach": true,
+    "makeIPTablesUtilChains": true,
+    "iptablesMasqueradeBit": 14,
+    "iptablesDropBit": 15,
+    "featureGates": {
+      "AllAlpha": false
+    },
+    "failSwapOn": false,
+    "memorySwap": {},
+    "containerLogMaxSize": "10Mi",
+    "containerLogMaxFiles": 5,
+    "configMapAndSecretChangeDetectionStrategy": "Watch",
+    "enforceNodeAllocatable": [
+      "pods"
+    ],
+    "volumePluginDir": "/usr/libexec/kubernetes/kubelet-plugins/volume/exec/",
+    "logging": {
+      "format": "text",
+      "flushFrequency": "5s",
+      "verbosity": 3,
+      "options": {
+        "json": {
+          "infoBufferSize": "0"
+        }
+      }
+    },
+    "enableSystemLogHandler": true,
+    "enableSystemLogQuery": false,
+    "shutdownGracePeriod": "0s",
+    "shutdownGracePeriodCriticalPods": "0s",
+    "enableProfilingHandler": true,
+    "enableDebugFlagsHandler": true,
+    "seccompDefault": false,
+    "memoryThrottlingFactor": 0.9,
+    "registerNode": true,
+    "localStorageCapacityIsolation": true,
+    "containerRuntimeEndpoint": "unix:///var/run/crio/crio.sock"
+  }
+}
+```
 
 <!-- discussion -->
 
@@ -242,6 +431,9 @@ This produces the same outcome as if you used the [single configuration file](#c
 - Learn more about kubelet configuration by checking the
   [`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/)
   reference.
+- Learn more about kubelet configuration merging in the
+  [reference document](/docs/reference/node/kubelet-config-directory-merging.md).
 --->
 - 参阅 [`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
   进一步学习 kubelet 的配置。
+- 在[参考文档](/zh-cn/docs/reference/node/kubelet-config-directory-merging.md)中了解有关 kubelet 配置合并的更多信息。
