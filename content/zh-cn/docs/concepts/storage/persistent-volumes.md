@@ -1,5 +1,8 @@
 ---
 title: 持久卷
+api_metadata:
+- apiVersion: "v1"
+  kind: "PersistentVolume"
 feature:
   title: 存储编排
   description: >
@@ -15,6 +18,9 @@ reviewers:
 - msau42
 - xing-yang
 title: Persistent Volumes
+api_metadata:
+- apiVersion: "v1"
+  kind: "PersistentVolume"
 feature:
   title: Storage orchestration
   description: >
@@ -862,54 +868,71 @@ PV 持久卷是用插件的形式来实现的。Kubernetes 目前支持以下插
   mounted on nodes.
 * [`nfs`](/docs/concepts/storage/volumes/#nfs) - Network File System (NFS) storage
 -->
-* [`csi`](/zh-cn/docs/concepts/storage/volumes/#csi) - 容器存储接口 (CSI)
-* [`fc`](/zh-cn/docs/concepts/storage/volumes/#fc) - Fibre Channel (FC) 存储
+* [`csi`](/zh-cn/docs/concepts/storage/volumes/#csi) - 容器存储接口（CSI）
+* [`fc`](/zh-cn/docs/concepts/storage/volumes/#fc) - Fibre Channel（FC）存储
 * [`hostPath`](/zh-cn/docs/concepts/storage/volumes/#hostpath) - HostPath 卷
   （仅供单节点测试使用；不适用于多节点集群；请尝试使用 `local` 卷作为替代）
-* [`iscsi`](/zh-cn/docs/concepts/storage/volumes/#iscsi) - iSCSI (SCSI over IP) 存储
+* [`iscsi`](/zh-cn/docs/concepts/storage/volumes/#iscsi) - iSCSI（IP 上的 SCSI）存储
 * [`local`](/zh-cn/docs/concepts/storage/volumes/#local) - 节点上挂载的本地存储设备
-* [`nfs`](/zh-cn/docs/concepts/storage/volumes/#nfs) - 网络文件系统 (NFS) 存储
+* [`nfs`](/zh-cn/docs/concepts/storage/volumes/#nfs) - 网络文件系统（NFS）存储
 
 <!-- 
-The following types of PersistentVolume are deprecated.
-This means that support is still available but will be removed in a future Kubernetes release.
+The following types of PersistentVolume are deprecated but still available.
+If you are using these volume types except for `flexVolume`, `cephfs` and `rbd`, 
+please install corresponding CSI drivers.
 
+* [`awsElasticBlockStore`](/docs/concepts/storage/volumes/#awselasticblockstore) - AWS Elastic Block Store (EBS)
+  (**migration on by default** starting v1.23) 
+* [`azureDisk`](/docs/concepts/storage/volumes/#azuredisk) - Azure Disk
+  (**migration on by default** starting v1.23)
 * [`azureFile`](/docs/concepts/storage/volumes/#azurefile) - Azure File
-  (**deprecated** in v1.21)
-* [`flexVolume`](/docs/concepts/storage/volumes/#flexvolume) - FlexVolume
-  (**deprecated** in v1.23)
-* [`portworxVolume`](/docs/concepts/storage/volumes/#portworxvolume) - Portworx volume
-  (**deprecated** in v1.25)
-* [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK volume
-  (**deprecated** in v1.19)
+  (**migration on by default** starting v1.24)
 * [`cephfs`](/docs/concepts/storage/volumes/#cephfs) - CephFS volume
-  (**deprecated** in v1.28)
+  (**deprecated** starting v1.28, no migration plan, support will be removed in a future release)
+* [`cinder`](/docs/concepts/storage/volumes/#cinder) - Cinder (OpenStack block storage)
+  (**migration on by default** starting v1.21)
+* [`flexVolume`](/docs/concepts/storage/volumes/#flexvolume) - FlexVolume
+  (**deprecated** starting v1.23, no migration plan and no plan to remove support)
+* [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcePersistentDisk) - GCE Persistent Disk
+  (**migration on by default** starting v1.23)
+* [`portworxVolume`](/docs/concepts/storage/volumes/#portworxvolume) - Portworx volume
+  (**deprecated** starting v1.25)
 * [`rbd`](/docs/concepts/storage/volumes/#rbd) - Rados Block Device (RBD) volume
-  (**deprecated** in v1.28)
+  (**deprecated** starting v1.28, no migration plan, support will be removed in a future release)
+* [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK volume
+  (**migration on by default** starting v1.25)
 -->
-以下的持久卷已被弃用。这意味着当前仍是支持的，但是 Kubernetes 将来的发行版会将其移除。
+以下的持久卷已被弃用但仍然可用。
+如果你使用除 `flexVolume`、`cephfs` 和 `rbd` 之外的卷类型，请安装相应的 CSI 驱动程序。
 
-* [`azureFile`](/zh-cn/docs/concepts/storage/volumes/#azurefile) - Azure File
-  （于 v1.21 **弃用**）
-* [`flexVolume`](/zh-cn/docs/concepts/storage/volumes/#flexVolume) - FlexVolume （于 v1.23 **弃用**）
+* [`awsElasticBlockStore`](/docs/concepts/storage/volumes/#awselasticblockstore) - AWS Elastic 块存储（EBS）
+  （从 v1.23 开始**默认启用迁移**）
+* [`azureDisk`](/docs/concepts/storage/volumes/#azuredisk) - Azure 磁盘
+  （从 v1.23 开始**默认启用迁移**）
+* [`azureFile`](/zh-cn/docs/concepts/storage/volumes/#azurefile) - Azure 文件
+  （从 v1.24 开始**默认启用迁移**）
+* [`cephfs`](/zh-cn/docs/concepts/storage/volumes/#cephfs) - CephFS 卷
+  （从 v1.28 开始**弃用**，没有迁移计划，未来版本将移除支持）
+* [`cinder`](/zh-cn/docs/concepts/storage/volumes/#cinder) - Cinder（OpenStack 块存储）
+  （从 v1.21 开始**默认启用迁移**）
+* [`flexVolume`](/zh-cn/docs/concepts/storage/volumes/#flexVolume) - FlexVolume
+  （从 v1.23 开始**弃用**，没有迁移计划，没有移除支持的计划）
+* [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcePersistentDisk) - GCE 持久磁盘
+  （从 v1.23 开始**默认启用迁移**）
 * [`portworxVolume`](/zh-cn/docs/concepts/storage/volumes/#portworxvolume) - Portworx 卷
-  （于 v1.25 **弃用**）
+  （从 v1.25 开始**弃用**）
 * [`vsphereVolume`](/zh-cn/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK 卷
   （于 v1.19 **弃用**）
 * [`cephfs`](/zh-cn/docs/concepts/storage/volumes/#cephfs) - CephFS 卷
   （于 v1.28 **弃用**）
-* [`rbd`](/zh-cn/docs/concepts/storage/volumes/#rbd) - Rados Block Device (RBD) 卷
-  （于 v1.28 **弃用**）
+* [`rbd`](/zh-cn/docs/concepts/storage/volumes/#rbd) - Rados Block Device（RBD）卷
+  （从 v1.28 开始**弃用**，没有迁移计划，未来版本将移除支持）
+* [`vsphereVolume`](/zh-cn/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK 卷
+ （从 v1.25 开始**默认启用迁移**）
 
 <!-- 
 Older versions of Kubernetes also supported the following in-tree PersistentVolume types:
 
-* [`awsElasticBlockStore`](/docs/concepts/storage/volumes/#awselasticblockstore) - AWS Elastic Block Store (EBS)
-  (**not available** in v1.27)
-* [`azureDisk`](/docs/concepts/storage/volumes/#azuredisk) - Azure Disk
-  (**not available** in v1.27)
-* [`cinder`](/docs/concepts/storage/volumes/#cinder) - Cinder (OpenStack block storage)
-  (**not available** in v1.26)
 * `photonPersistentDisk` - Photon controller persistent disk.
   (**not available** starting v1.15)
 * `scaleIO` - ScaleIO volume
@@ -923,17 +946,11 @@ Older versions of Kubernetes also supported the following in-tree PersistentVolu
 -->
 旧版本的 Kubernetes 仍支持这些“树内（In-Tree）”持久卷类型：
 
-* [`awsElasticBlockStore`](/zh-cn/docs/concepts/storage/volumes/#awselasticblockstore) - AWS Elastic Block Store (EBS)
-  （v1.27 开始**不可用**）
-* [`azureDisk`](/zh-cn/docs/concepts/storage/volumes/#azuredisk) - Azure Disk
-  （v1.27 开始**不可用**）
-* [`cinder`](/zh-cn/docs/concepts/storage/volumes/#cinder) - Cinder (OpenStack block storage)
-  （v1.27 开始**不可用**）
 * `photonPersistentDisk` - Photon 控制器持久化盘。（从 v1.15 版本开始将**不可用**）
 * `scaleIO` - ScaleIO 卷（v1.21 之后**不可用**）
-* `flocker` - Flocker 存储 （v1.25 之后**不可用**）
-* `quobyte` - Quobyte 卷 （v1.25 之后**不可用**）
-* `storageos` - StorageOS 卷 （v1.25 之后**不可用**）
+* `flocker` - Flocker 存储（v1.25 之后**不可用**）
+* `quobyte` - Quobyte 卷（v1.25 之后**不可用**）
+* `storageos` - StorageOS 卷（v1.25 之后**不可用**）
 
 <!--
 ## Persistent Volumes
@@ -946,7 +963,7 @@ The name of a PersistentVolume object must be a valid
 
 每个 PV 对象都包含 `spec` 部分和 `status` 部分，分别对应卷的规约和状态。
 PersistentVolume 对象的名称必须是合法的
-[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 
 ```yaml
 apiVersion: v1
@@ -996,7 +1013,7 @@ Future attributes may include IOPS, throughput, etc.
 这是通过 PV 的 `capacity` 属性设置的，
 该属性是一个{{< glossary_tooltip text="量纲（Quantity）" term_id="quantity" >}}。
 
-目前，存储大小是可以设置和请求的唯一资源。
+目前存储大小是可以设置和请求的唯一资源，
 未来可能会包含 IOPS、吞吐量等属性。
 
 <!--
@@ -1230,7 +1247,7 @@ For Kubernetes {{< skew currentVersion >}}, only `nfs` and `hostPath` volume typ
 目前的回收策略有：
 
 * Retain -- 手动回收
-* Recycle -- 简单擦除 (`rm -rf /thevolume/*`)
+* Recycle -- 简单擦除（`rm -rf /thevolume/*`）
 * Delete -- 删除存储卷
 
 对于 Kubernetes {{< skew currentVersion >}} 来说，只有
@@ -1391,7 +1408,7 @@ The name of a PersistentVolumeClaim object must be a valid
 -->
 每个 PVC 对象都有 `spec` 和 `status` 部分，分别对应申领的规约和状态。
 PersistentVolumeClaim 对象的名称必须是合法的
-[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 
 ```yaml
 apiVersion: v1
@@ -1574,7 +1591,7 @@ it won't be supported in a future Kubernetes release.
 <!--
 #### Retroactive default StorageClass assignment
 -->
-#### 可追溯的默认 StorageClass 赋值 {#retroactive-default-storageclass-assignment}
+#### 可追溯的默认 StorageClass 赋值   {#retroactive-default-storageclass-assignment}
 
 {{< feature-state for_k8s_version="v1.28" state="stable" >}}
 
@@ -1840,7 +1857,7 @@ Alpha 发行版本中仅支持静态制备的卷。
 <!--
 ## Volume Snapshot and Restore Volume from Snapshot Support
 -->
-## 对卷快照及从卷快照中恢复卷的支持 {#volume-snapshot-and-restore-volume-from-snapshot-support}
+## 对卷快照及从卷快照中恢复卷的支持   {#volume-snapshot-and-restore-volume-from-snapshot-support}
 
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
