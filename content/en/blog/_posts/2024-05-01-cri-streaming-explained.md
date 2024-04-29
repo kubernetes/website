@@ -17,7 +17,7 @@ going to become deprecated.
 
 In this blog post, I'd like to dive into the functionality and history of three
 extraordinary Remote Procedure Calls (RPCs), which are truly outstanding in
-terms of how they work: **Exec**, **Attach** and **PortForward**.
+terms of how they work: `Exec`, `Attach` and `PortForward`.
 
 **Exec** can be used to run dedicated commands within the container and stream
 the output to a client like [kubectl](/docs/reference/kubectl) or
@@ -41,7 +41,7 @@ All RPCs of the CRI either use the [gRPC unary calls](https://grpc.io/docs/what-
 for communication or the [server side streaming](https://grpc.io/docs/what-is-grpc/core-concepts/#server-streaming-rpc)
 feature (only `GetContainerEvents` right now). This means that mainly all RPCs
 retrieve a single client request and have to return a single server response.
-The same applies to **Exec**, **Attach**, and **PortForward**, where [their protocol definition](https://github.com/kubernetes/cri-api/blob/63929b3/pkg/apis/runtime/v1/api.proto#L94-L99)
+The same applies to `Exec`, `Attach`, and `PortForward`, where their [protocol definition](https://github.com/kubernetes/cri-api/blob/63929b3/pkg/apis/runtime/v1/api.proto#L94-L99)
 looks like this:
 
 ```protobuf
@@ -87,7 +87,7 @@ message PortForwardResponse {
 Why is it implemented like that? Well, [the original design document](https://docs.google.com/document/d/1MreuHzNvkBW6q7o_zehm1CBOBof3shbtMTGtUpjpRmY)
 for those RPCs even predates [Kubernetes Enhancements Proposals (KEPs)](https://github.com/kubernetes/enhancements)
 and was originally outlined back in 2016. The kubelet had a native
-implementation for **Exec**, **Attach**, and **PortForward** before the
+implementation for `Exec`, `Attach`, and `PortForward` before the
 initiative to bring the functionality to the CRI started. Before that,
 everything was bound to [Docker](https://www.docker.com) or the later abandoned
 container runtime [rkt](https://github.com/rkt/rkt).
@@ -100,7 +100,7 @@ another option that the Kubelet implements a portable, runtime-agnostic solution
 has been abandoned over the final one, because this would mean another project
 to maintain which nevertheless would be runtime dependent.
 
-This means, that the basic flow for **Exec**, **Attach** and **PortForward**
+This means, that the basic flow for `Exec`, `Attach` and `PortForward`
 was proposed to look like this:
 
 {{< mermaid >}}
@@ -144,7 +144,7 @@ streaming protocol or (in the future) to a [WebSocket](https://en.wikipedia.org/
 connection and starts to stream the data back and forth.
 
 This implementation allows runtimes to have the flexibility to implement
-**Exec**, **Attach** and **PortForward** the way they want, and also allows a
+`Exec`, `Attach` and `PortForward` the way they want, and also allows a
 simple test path. Runtimes can change the underlying implementation to support
 any kind of feature without having a need to modify the CRI at all.
 
@@ -253,7 +253,7 @@ func (s StreamService) Exec(
 }
 ```
 
-### **PortForward**
+### PortForward
 
 Forwarding ports to a container works a bit differently when comparing it to
 streaming IO data from a workload. The server still has to provide a URL
@@ -292,8 +292,8 @@ func (s StreamService) PortForward(
 
 ## Future work
 
-The flexibility Kubernetes provides for the RPCs **Exec**, **Attach** and
-**PortForward** is truly outstanding compared to other methods. Nevertheless,
+The flexibility Kubernetes provides for the RPCs `Exec`, `Attach` and
+`PortForward` is truly outstanding compared to other methods. Nevertheless,
 container runtimes have to keep up with the latest and greatest implementations
 to support those features in a meaningful way. The general effort to support
 WebSockets is not only a plain Kubernetes thing, it also has to be supported by
