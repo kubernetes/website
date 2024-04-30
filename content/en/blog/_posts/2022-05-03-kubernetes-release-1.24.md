@@ -3,9 +3,9 @@ layout: blog
 title: "Kubernetes 1.24: Stargazer"
 date: 2022-05-03
 slug: kubernetes-1-24-release-announcement
+author: >
+  [Kubernetes 1.24 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.24/release-team.md)
 ---
-
-**Authors**: [Kubernetes 1.24 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.24/release-team.md)
 
 We are excited to announce the release of Kubernetes 1.24, the first release of 2022!
 
