@@ -16,7 +16,7 @@ weight: 25
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.22" state="stable" >}}
+{{< feature-state feature_gate_name="ServerSideApply" >}}
 
 <!-- 
 Kubernetes supports multiple appliers collaborating to manage the fields
@@ -326,12 +326,16 @@ as [YAML](https://yaml.org/), with the media type `application/apply-patch+yaml`
 Whether you are submitting JSON data or YAML data, use
 `application/apply-patch+yaml` as the `Content-Type` header value.
 
-All JSON documents are valid YAML.
+All JSON documents are valid YAML. However, Kubernetes has a bug where it uses a YAML
+parser that does not fully implement the YAML specification. Some JSON escapes may
+not be recognized.
 -->
 不管你提交的是 JSON 数据还是 YAML 数据，
 都要使用 `application/apply-patch+yaml` 作为 `Content-Type` 的值。
 
-所有的 JSON 文档 都是合法的 YAML。
+所有的 JSON 文档都是合法的 YAML。不过，Kubernetes 存在一个缺陷，
+即它使用的 YAML 解析器没有完全实现 YAML 规范。
+某些 JSON 转义可能无法被识别。
 {{< /note >}}
 
 <!--
