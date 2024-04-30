@@ -13,8 +13,8 @@ Kubernetes {{< skew currentVersion >}}は、クラスターネットワーキン
 
 CNIプラグインは、[Kubernetesネットワークモデル](/ja/docs/concepts/services-networking/#the-kubernetes-network-model)を実装する必要があります。
 
-[v0.4.0](https://github.com/containernetworking/cni/blob/spec-v0.4.0/SPEC.md)以降のCNI仕様のリリースに互換性のあるCNIプラグインを使用する必要があります。
-Kubernetesプロジェクトは、[v1.0.0](https://github.com/containernetworking/cni/blob/spec-v1.0.0/SPEC.md)のCNI仕様に互換性のあるプラグインの使用を推奨しています(プラグインは複数の仕様のバージョンに対応できます)。
+[v0.4.0](https://github.com/containernetworking/cni/blob/spec-v0.4.0/SPEC.md)以降のCNI仕様のリリースと互換性のあるCNIプラグインを使用する必要があります。
+Kubernetesプロジェクトは、[v1.0.0](https://github.com/containernetworking/cni/blob/spec-v1.0.0/SPEC.md)のCNI仕様と互換性のあるプラグインの使用を推奨しています(プラグインは複数の仕様のバージョンに対応できます)。
 
 <!-- body -->
 
