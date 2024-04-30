@@ -99,7 +99,7 @@ CNIプラグインチームが提供する公式の[portmap](https://github.com/
 CNIネットワーキングプラグインは、Podの入出力トラフィックシェーピングにも対応しています。
 CNIプラグインチームが提供する公式の[bandwidth](https://github.com/containernetworking/plugins/tree/master/plugins/meta/bandwidth)プラグインを使用するか、帯域制御機能を持つ独自のプラグインを使用できます。
 
-トラフィックシェーピングのサポートを有効にする場合、`bandwidth`プラグインをCNIの設定ファイル(デフォルトは`/etc/cni/net.d`)に追加し、バイナリがCNIのバイナリディレクトリ(デフォルトは`/opt/cni/bin`)に含まれていることを確認する必要があります。
+トラフィックシェーピングのサポートを有効にする場合、`bandwidth`プラグインをCNIの設定ファイル(デフォルトは`/etc/cni/net.d`)に追加し、バイナリがCNIのbinディレクトリ(デフォルトは`/opt/cni/bin`)に含まれていることを確認する必要があります。
 
 ```json
 {
