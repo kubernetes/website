@@ -48,7 +48,7 @@ creating a patch to fix it in the upstream project.
 
 ## Clone the Kubernetes repository
 
-If you don't already have the kubernetes/kubernetes repository, get it now, and 
+If you don't already have the kubernetes/kubernetes repository, [fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) it now, and 
 if you already have a fork of `kubernetes` then make sure your `kubernetes` fork is up-to-date 
 with the `kubernetes/kubernetes` remote on GitHub (`master` branch),  and clone your `kubernetes` fork.
 
