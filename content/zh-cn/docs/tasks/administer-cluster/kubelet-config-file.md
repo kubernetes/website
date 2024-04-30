@@ -87,9 +87,10 @@ In this example, the kubelet is configured with the following settings:
 
 <!--
 1. `address`: The kubelet will serve on IP address `192.168.0.8`.
-2. `port`: The kubelet will serve on port `20250`.
-3. `serializeImagePulls`: Image pulls will be done in parallel.
-4. `evictionHard`: The kubelet will evict Pods under one of the following conditions:
+1. `port`: The kubelet will serve on port `20250`.
+1. `serializeImagePulls`: Image pulls will be done in parallel.
+1. `evictionHard`: The kubelet will evict Pods under one of the following conditions:
+
    - When the node's available memory drops below 100MiB.
    - When the node's main filesystem's available space is less than 10%.
    - When the image filesystem's available space is less than 15%.
@@ -218,10 +219,9 @@ However, it's important to note that the behavior varies based on the data type 
 但是，请务必注意，产生的行为会根据配置字段的数据类型而有所不同。
 
 <!--
-Different data types in the kubelet configuration structure merge differently.
-See the [reference
-document](/docs/reference/node/kubelet-config-directory-merging.md) for more
-information.
+Different data types in the kubelet configuration structure merge differently. See the
+[reference document](/docs/reference/node/kubelet-config-directory-merging.md)
+for more information.
 -->
 kubelet 配置结构中不同数据类型的合并方式不同。
 有关详细信息，请参阅[参考文档](/zh-cn/docs/reference/node/kubelet-config-directory-merging.md)。
@@ -249,8 +249,9 @@ On startup, the kubelet merges configuration from:
 {{< note >}}
 <!--
 The config drop-in dir mechanism for the kubelet is similar but different from how the `kubeadm` tool allows you to patch configuration.
-The `kubeadm` tool uses a specific [patching strategy](/docs/setup/production-environment/tools/kubeadm/control-plane-flags/#patches) for its configuration,
-whereas the only patch strategy for kubelet configuration drop-in files is `replace`. The kubelet determines the order of merges based on sorting the **suffixes** alphanumerically,
+The `kubeadm` tool uses a specific [patching strategy](/docs/setup/production-environment/tools/kubeadm/control-plane-flags/#patches)
+for its configuration, whereas the only patch strategy for kubelet configuration drop-in files is `replace`.
+The kubelet determines the order of merges based on sorting the **suffixes** alphanumerically,
 and replaces every field present in a higher priority file.
 -->
 kubelet 的配置插件目录机制类似，但与 `kubeadm` 工具允许 patch 配置的方式不同。
@@ -276,152 +277,151 @@ they can follow these steps to inspect the kubelet configuration:
 -->
 1. 在终端中使用 [`kubectl proxy`](/docs/reference/kubectl/generated/kubectl-commands#proxy) 启动代理服务器。
 
-```bash
-kubectl proxy
-```
+   ```bash
+   kubectl proxy
+   ```
+
+   <!--
+   Which gives output like:
+   -->
+   其输出如下：
+
+   ```none
+   Starting to serve on 127.0.0.1:8001
+   ```
 
 <!--
-Which gives output like:
--->
-其输出如下：
-
-```bash
-Starting to serve on 127.0.0.1:8001
-
-```
-
-<!--
-2. Open another terminal window and use `curl` to fetch the kubelet configuration. 
-Replace `<node-name>` with the actual name of your node:
+1. Open another terminal window and use `curl` to fetch the kubelet configuration.
+   Replace `<node-name>` with the actual name of your node:
 -->
 2. 打开另一个终端窗口并使用 `curl` 来获取 kubelet 配置。
    将 `<node-name>` 替换为节点的实际名称：
 
-```bash
-curl -X GET http://127.0.0.1:8001/api/v1/nodes/<node-name>/proxy/configz | jq .
-```
+   ```bash
+   curl -X GET http://127.0.0.1:8001/api/v1/nodes/<node-name>/proxy/configz | jq .
+   ```
 
-```bash
-{
-  "kubeletconfig": {
-    "enableServer": true,
-    "staticPodPath": "/var/run/kubernetes/static-pods",
-    "syncFrequency": "1m0s",
-    "fileCheckFrequency": "20s",
-    "httpCheckFrequency": "20s",
-    "address": "192.168.1.16",
-    "port": 10250,
-    "readOnlyPort": 10255,
-    "tlsCertFile": "/var/lib/kubelet/pki/kubelet.crt",
-    "tlsPrivateKeyFile": "/var/lib/kubelet/pki/kubelet.key",
-    "rotateCertificates": true,
-    "authentication": {
-      "x509": {
-        "clientCAFile": "/var/run/kubernetes/client-ca.crt"
-      },
-      "webhook": {
-        "enabled": true,
-        "cacheTTL": "2m0s"
-      },
-      "anonymous": {
-        "enabled": true
-      }
-    },
-    "authorization": {
-      "mode": "AlwaysAllow",
-      "webhook": {
-        "cacheAuthorizedTTL": "5m0s",
-        "cacheUnauthorizedTTL": "30s"
-      }
-    },
-    "registryPullQPS": 5,
-    "registryBurst": 10,
-    "eventRecordQPS": 50,
-    "eventBurst": 100,
-    "enableDebuggingHandlers": true,
-    "healthzPort": 10248,
-    "healthzBindAddress": "127.0.0.1",
-    "oomScoreAdj": -999,
-    "clusterDomain": "cluster.local",
-    "clusterDNS": [
-      "10.0.0.10"
-    ],
-    "streamingConnectionIdleTimeout": "4h0m0s",
-    "nodeStatusUpdateFrequency": "10s",
-    "nodeStatusReportFrequency": "5m0s",
-    "nodeLeaseDurationSeconds": 40,
-    "imageMinimumGCAge": "2m0s",
-    "imageMaximumGCAge": "0s",
-    "imageGCHighThresholdPercent": 85,
-    "imageGCLowThresholdPercent": 80,
-    "volumeStatsAggPeriod": "1m0s",
-    "cgroupsPerQOS": true,
-    "cgroupDriver": "systemd",
-    "cpuManagerPolicy": "none",
-    "cpuManagerReconcilePeriod": "10s",
-    "memoryManagerPolicy": "None",
-    "topologyManagerPolicy": "none",
-    "topologyManagerScope": "container",
-    "runtimeRequestTimeout": "2m0s",
-    "hairpinMode": "promiscuous-bridge",
-    "maxPods": 110,
-    "podPidsLimit": -1,
-    "resolvConf": "/run/systemd/resolve/resolv.conf",
-    "cpuCFSQuota": true,
-    "cpuCFSQuotaPeriod": "100ms",
-    "nodeStatusMaxImages": 50,
-    "maxOpenFiles": 1000000,
-    "contentType": "application/vnd.kubernetes.protobuf",
-    "kubeAPIQPS": 50,
-    "kubeAPIBurst": 100,
-    "serializeImagePulls": true,
-    "evictionHard": {
-      "imagefs.available": "15%",
-      "memory.available": "100Mi",
-      "nodefs.available": "10%",
-      "nodefs.inodesFree": "5%"
-    },
-    "evictionPressureTransitionPeriod": "1m0s",
-    "enableControllerAttachDetach": true,
-    "makeIPTablesUtilChains": true,
-    "iptablesMasqueradeBit": 14,
-    "iptablesDropBit": 15,
-    "featureGates": {
-      "AllAlpha": false
-    },
-    "failSwapOn": false,
-    "memorySwap": {},
-    "containerLogMaxSize": "10Mi",
-    "containerLogMaxFiles": 5,
-    "configMapAndSecretChangeDetectionStrategy": "Watch",
-    "enforceNodeAllocatable": [
-      "pods"
-    ],
-    "volumePluginDir": "/usr/libexec/kubernetes/kubelet-plugins/volume/exec/",
-    "logging": {
-      "format": "text",
-      "flushFrequency": "5s",
-      "verbosity": 3,
-      "options": {
-        "json": {
-          "infoBufferSize": "0"
-        }
-      }
-    },
-    "enableSystemLogHandler": true,
-    "enableSystemLogQuery": false,
-    "shutdownGracePeriod": "0s",
-    "shutdownGracePeriodCriticalPods": "0s",
-    "enableProfilingHandler": true,
-    "enableDebugFlagsHandler": true,
-    "seccompDefault": false,
-    "memoryThrottlingFactor": 0.9,
-    "registerNode": true,
-    "localStorageCapacityIsolation": true,
-    "containerRuntimeEndpoint": "unix:///var/run/crio/crio.sock"
-  }
-}
-```
+   ```json
+   {
+     "kubeletconfig": {
+       "enableServer": true,
+       "staticPodPath": "/var/run/kubernetes/static-pods",
+       "syncFrequency": "1m0s",
+       "fileCheckFrequency": "20s",
+       "httpCheckFrequency": "20s",
+       "address": "192.168.1.16",
+       "port": 10250,
+       "readOnlyPort": 10255,
+       "tlsCertFile": "/var/lib/kubelet/pki/kubelet.crt",
+       "tlsPrivateKeyFile": "/var/lib/kubelet/pki/kubelet.key",
+       "rotateCertificates": true,
+       "authentication": {
+         "x509": {
+           "clientCAFile": "/var/run/kubernetes/client-ca.crt"
+         },
+         "webhook": {
+           "enabled": true,
+           "cacheTTL": "2m0s"
+         },
+         "anonymous": {
+           "enabled": true
+         }
+       },
+       "authorization": {
+         "mode": "AlwaysAllow",
+         "webhook": {
+           "cacheAuthorizedTTL": "5m0s",
+           "cacheUnauthorizedTTL": "30s"
+         }
+       },
+       "registryPullQPS": 5,
+       "registryBurst": 10,
+       "eventRecordQPS": 50,
+       "eventBurst": 100,
+       "enableDebuggingHandlers": true,
+       "healthzPort": 10248,
+       "healthzBindAddress": "127.0.0.1",
+       "oomScoreAdj": -999,
+       "clusterDomain": "cluster.local",
+       "clusterDNS": [
+         "10.0.0.10"
+       ],
+       "streamingConnectionIdleTimeout": "4h0m0s",
+       "nodeStatusUpdateFrequency": "10s",
+       "nodeStatusReportFrequency": "5m0s",
+       "nodeLeaseDurationSeconds": 40,
+       "imageMinimumGCAge": "2m0s",
+       "imageMaximumGCAge": "0s",
+       "imageGCHighThresholdPercent": 85,
+       "imageGCLowThresholdPercent": 80,
+       "volumeStatsAggPeriod": "1m0s",
+       "cgroupsPerQOS": true,
+       "cgroupDriver": "systemd",
+       "cpuManagerPolicy": "none",
+       "cpuManagerReconcilePeriod": "10s",
+       "memoryManagerPolicy": "None",
+       "topologyManagerPolicy": "none",
+       "topologyManagerScope": "container",
+       "runtimeRequestTimeout": "2m0s",
+       "hairpinMode": "promiscuous-bridge",
+       "maxPods": 110,
+       "podPidsLimit": -1,
+       "resolvConf": "/run/systemd/resolve/resolv.conf",
+       "cpuCFSQuota": true,
+       "cpuCFSQuotaPeriod": "100ms",
+       "nodeStatusMaxImages": 50,
+       "maxOpenFiles": 1000000,
+       "contentType": "application/vnd.kubernetes.protobuf",
+       "kubeAPIQPS": 50,
+       "kubeAPIBurst": 100,
+       "serializeImagePulls": true,
+       "evictionHard": {
+         "imagefs.available": "15%",
+         "memory.available": "100Mi",
+         "nodefs.available": "10%",
+         "nodefs.inodesFree": "5%"
+       },
+       "evictionPressureTransitionPeriod": "1m0s",
+       "enableControllerAttachDetach": true,
+       "makeIPTablesUtilChains": true,
+       "iptablesMasqueradeBit": 14,
+       "iptablesDropBit": 15,
+       "featureGates": {
+         "AllAlpha": false
+       },
+       "failSwapOn": false,
+       "memorySwap": {},
+       "containerLogMaxSize": "10Mi",
+       "containerLogMaxFiles": 5,
+       "configMapAndSecretChangeDetectionStrategy": "Watch",
+       "enforceNodeAllocatable": [
+         "pods"
+       ],
+       "volumePluginDir": "/usr/libexec/kubernetes/kubelet-plugins/volume/exec/",
+       "logging": {
+         "format": "text",
+         "flushFrequency": "5s",
+         "verbosity": 3,
+         "options": {
+           "json": {
+             "infoBufferSize": "0"
+           }
+         }
+       },
+       "enableSystemLogHandler": true,
+       "enableSystemLogQuery": false,
+       "shutdownGracePeriod": "0s",
+       "shutdownGracePeriodCriticalPods": "0s",
+       "enableProfilingHandler": true,
+       "enableDebugFlagsHandler": true,
+       "seccompDefault": false,
+       "memoryThrottlingFactor": 0.9,
+       "registerNode": true,
+       "localStorageCapacityIsolation": true,
+       "containerRuntimeEndpoint": "unix:///var/run/crio/crio.sock"
+     }
+   }
+   ```
 
 <!-- discussion -->
 
