@@ -8,7 +8,7 @@ weight: 10
 <!-- overview -->
 
 Kubernetes {{< skew currentVersion >}}は、クラスターネットワーキングのために[Container Network Interface](https://github.com/containernetworking/cni) (CNI)プラグインをサポートしています。
-クラスターに互換性があり、需要に合ったCNIプラグインを使用する必要があります。
+クラスターと互換性があり、需要に合ったCNIプラグインを使用する必要があります。
 様々なプラグイン(オープンソースあるいはクローズドソース)が幅広いKubernetesエコシステムで利用可能です。
 
 CNIプラグインは、[Kubernetesネットワークモデル](/ja/docs/concepts/services-networking/#the-kubernetes-network-model)を実装する必要があります。
