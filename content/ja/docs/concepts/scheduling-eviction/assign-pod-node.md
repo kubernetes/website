@@ -345,7 +345,7 @@ spec:
   nodeName: kube-01
 ```
 
-上記のPodは`kube-01`というノードでのみ実行されます。
+上記のPodは`kube-01`というNodeでのみ実行されます。
 
 ## Podトポロジー分散制約 {#pod-topology-spread-constraints}
 
