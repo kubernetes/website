@@ -11,7 +11,7 @@ Kubernetes {{< skew currentVersion >}}は、クラスターネットワーキン
 クラスターと互換性があり、需要に合ったCNIプラグインを使用する必要があります。
 様々なプラグイン(オープンソースあるいはクローズドソース)が幅広いKubernetesエコシステムで利用可能です。
 
-CNIプラグインは、[Kubernetesネットワークモデル](/ja/docs/concepts/services-networking/#the-kubernetes-network-model)を実装する必要があります。
+[Kubernetesネットワークモデル](/ja/docs/concepts/services-networking/#the-kubernetes-network-model)を実装するには、CNIプラグインが必要です。
 
 [v0.4.0](https://github.com/containernetworking/cni/blob/spec-v0.4.0/SPEC.md)以降のCNI仕様のリリースと互換性のあるCNIプラグインを使用する必要があります。
 Kubernetesプロジェクトは、[v1.0.0](https://github.com/containernetworking/cni/blob/spec-v1.0.0/SPEC.md)のCNI仕様と互換性のあるプラグインの使用を推奨しています(プラグインは複数の仕様のバージョンに対応できます)。
