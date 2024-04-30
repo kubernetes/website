@@ -36,7 +36,7 @@ on every resource object.
 | Key                                 | Description           | Example  | Type |
 | ----------------------------------- | --------------------- | -------- | ---- |
 | `app.kubernetes.io/name`            | The name of the application | `mysql` | string |
-| `app.kubernetes.io/instance`        | A unique name identifying the instance of an application | `mysql-abcxzy` | string |
+| `app.kubernetes.io/instance`        | A unique name identifying the instance of an application | `mysql-abcxyz` | string |
 | `app.kubernetes.io/version`         | The current version of the application (e.g., a [SemVer 1.0](https://semver.org/spec/v1.0.0.html), revision hash, etc.) | `5.7.21` | string |
 | `app.kubernetes.io/component`       | The component within the architecture | `database` | string |
 | `app.kubernetes.io/part-of`         | The name of a higher level application this one is part of | `wordpress` | string |
@@ -51,7 +51,7 @@ kind: StatefulSet
 metadata:
   labels:
     app.kubernetes.io/name: mysql
-    app.kubernetes.io/instance: mysql-abcxzy
+    app.kubernetes.io/instance: mysql-abcxyz
     app.kubernetes.io/version: "5.7.21"
     app.kubernetes.io/component: database
     app.kubernetes.io/part-of: wordpress
@@ -67,7 +67,7 @@ than once where different websites are different installations of WordPress.
 The name of an application and the instance name are recorded separately. For
 example, WordPress has a `app.kubernetes.io/name` of `wordpress` while it has
 an instance name, represented as `app.kubernetes.io/instance` with a value of
-`wordpress-abcxzy`. This enables the application and instance of the application
+`wordpress-abcxyz`. This enables the application and instance of the application
 to be identifiable. Every instance of an application must have a unique name.
 
 ## Examples
@@ -85,7 +85,7 @@ kind: Deployment
 metadata:
   labels:
     app.kubernetes.io/name: myservice
-    app.kubernetes.io/instance: myservice-abcxzy
+    app.kubernetes.io/instance: myservice-abcxyz
 ...
 ```
 
@@ -96,7 +96,7 @@ kind: Service
 metadata:
   labels:
     app.kubernetes.io/name: myservice
-    app.kubernetes.io/instance: myservice-abcxzy
+    app.kubernetes.io/instance: myservice-abcxyz
 ...
 ```
 
@@ -114,7 +114,7 @@ kind: Deployment
 metadata:
   labels:
     app.kubernetes.io/name: wordpress
-    app.kubernetes.io/instance: wordpress-abcxzy
+    app.kubernetes.io/instance: wordpress-abcxyz
     app.kubernetes.io/version: "4.9.4"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: server
@@ -130,7 +130,7 @@ kind: Service
 metadata:
   labels:
     app.kubernetes.io/name: wordpress
-    app.kubernetes.io/instance: wordpress-abcxzy
+    app.kubernetes.io/instance: wordpress-abcxyz
     app.kubernetes.io/version: "4.9.4"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: server
@@ -146,7 +146,7 @@ kind: StatefulSet
 metadata:
   labels:
     app.kubernetes.io/name: mysql
-    app.kubernetes.io/instance: mysql-abcxzy
+    app.kubernetes.io/instance: mysql-abcxyz
     app.kubernetes.io/version: "5.7.21"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: database
@@ -162,7 +162,7 @@ kind: Service
 metadata:
   labels:
     app.kubernetes.io/name: mysql
-    app.kubernetes.io/instance: mysql-abcxzy
+    app.kubernetes.io/instance: mysql-abcxyz
     app.kubernetes.io/version: "5.7.21"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: database
