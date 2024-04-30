@@ -84,7 +84,7 @@ message PortForwardResponse {
 }
 ```
 
-Why is it implemented like that? Well, [the original design document](https://docs.google.com/document/d/1MreuHzNvkBW6q7o_zehm1CBOBof3shbtMTGtUpjpRmY)
+Why is it implemented like that? Well, the original [design document](https://docs.google.com/document/d/1MreuHzNvkBW6q7o_zehm1CBOBof3shbtMTGtUpjpRmY)
 for those RPCs even predates [Kubernetes Enhancements Proposals (KEPs)](https://github.com/kubernetes/enhancements)
 and was originally outlined back in 2016. The kubelet had a native
 implementation for `Exec`, `Attach`, and `PortForward` before the
