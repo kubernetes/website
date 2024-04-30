@@ -57,7 +57,7 @@ Kubernetesネットワークモデルを実装するためにノードにイン�
 ### hostPortのサポート
 
 CNIネットワーキングプラグインは`hostPort`をサポートしています。
-CNIプラグインチームが提供する公式の[portmap](https://github.com/containernetworking/plugins/tree/master/plugins/meta/portmap)プラグインを使用するか、ポートマッピング機能を持つ独自のプラグインを使用できます。
+CNIプラグインチームが提供する公式の[portmap](https://github.com/containernetworking/plugins/tree/master/plugins/meta/portmap)プラグインを使用するか、ポートマッピング(portMapping)機能を持つ独自のプラグインを使用できます。
 
 `hostPort`サポートを有効にする場合、`cni-conf-dir`で`portMappings capability`を指定する必要があります。
 例:
