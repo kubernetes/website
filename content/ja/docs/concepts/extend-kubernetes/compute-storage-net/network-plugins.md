@@ -46,7 +46,7 @@ iptablesのプロキシはiptablesに依存しており、プラグインはコ�
 プラグインがLinuxブリッジを使用せず、Open vSwitchやその他のメカニズムを使用する場合、コンテナトラフィックがプロキシのために適切にルーティングされるようにする必要があります。
 
 kubeletのネットワークプラグインが指定されていない場合、デフォルトでは`noop`プラグインが使用されます。
-これは`net/bridge/bridge-nf-call-iptables=1`を設定して、iptablesによるプロキシとの互換性を持つシンプルな設定(例えばブリッジを持つDocker)が正しく動作することを保証します。
+これは`net/bridge/bridge-nf-call-iptables=1`を設定して、iptablesプロキシでのシンプルな設定(例えばブリッジを持つDocker)が正しく動作することを保証します。
 
 ### ループバックCNI
 
