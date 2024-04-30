@@ -3,9 +3,9 @@ layout: blog
 title: "Server Side Apply Is Great And You Should Be Using It"
 date: 2022-10-20
 slug: advanced-server-side-apply
+author: >
+  Daniel Smith (Google)
 ---
-
-**Author:** Daniel Smith (Google)
 
 [Server-side apply](/docs/reference/using-api/server-side-apply/) (SSA) has now
 been [GA for a few releases](/blog/2021/08/06/server-side-apply-ga/), and I
