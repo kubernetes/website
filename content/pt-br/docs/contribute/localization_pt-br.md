@@ -64,13 +64,28 @@ Onde,
 | proxy                  |                          |
 | endpoint               |                          |
 
-Nomes de objetos do Kubernetes não são traduzidos, e permanecem no original com a primeira letra em maúsculo, por exemplo:
+Nomes de objetos do Kubernetes permanecem no original com a primeira letra em maúsculo, por exemplo:
 * Pod
 * Service
 * Deployment
 
 e outros.
 
+
+
+## Perguntas frequentes
+
+### Qual título devo usar quando abrir o Pull Request?
+Recomendamos usar o formato `[pt-br] Update/Add <caminho do arquivo>`.
+
+### Posso abrir um Pull Request traduzindo mais de uma página de documentação?
+Sempre dê preferência por abrir um Pull Request por página, dessa forma facilita a revisão e o acompanhamento do trabalho.
+
+### Tenho dúvidas nos termos, preciso abrir o Pull Request e esperar alguém revisar?
+Não, pode mandar a dúvida no canal do slack (`#kubernetes-docs-pt`) que vamos ajudar com a dúvida.
+
+### Abri um Pull Request mas ainda não teve revisão, o que fazer?
+É importante lembrar que as pessoas revisoras são voluntárias, então em alguns casos pode demorar um pouco. O que recomendamos nesses casos é enviar uma mensagem no canal do slack com o link do Pull Request, assim podemos verificar o que pode ter acontecido.
 
 Ficou alguma dúvida que não foi respondida nessa página?   
 Fale com a gente canal no slack do Kubernetes `#kubernetes-docs-pt`
