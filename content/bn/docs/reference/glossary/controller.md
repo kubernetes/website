@@ -19,7 +19,7 @@ tags:
 <!--more-->
 
 কন্ট্রোলাররা এর মাধ্যমে আপনার ক্লাস্টারের ভাগ করা অবস্থা দেখে
-{{< glossary_tooltip text="apiserver" term_id="kube-apiserver" >}} (এর অংশ
+{{< glossary_tooltip text="API server" term_id="kube-apiserver" >}} (এর অংশ
 {{< glossary_tooltip term_id="control-plane" >}})।
 
 কিছু কন্ট্রোলার কন্ট্রোল প্লেনের ভিতরেও চলে, কন্ট্রোল লুপ প্রদান করে
