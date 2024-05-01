@@ -1,10 +1,16 @@
 ---
 title: 租约（Lease）
+api_metadata:
+- apiVersion: "coordination.k8s.io/v1"
+  kind: "Lease"
 content_type: concept
 weight: 30
 ---
 <!--
 title: Leases
+api_metadata:
+- apiVersion: "coordination.k8s.io/v1"
+  kind: "Lease"
 content_type: concept
 weight: 30
 -->
@@ -65,7 +71,7 @@ Kubernetes 也使用 Lease 确保在任何给定时间某个组件只有一个�
 -->
 ## API 服务器身份   {#api-server-identity}
 
-{{< feature-state for_k8s_version="v1.26" state="beta" >}}
+{{< feature-state feature_gate_name="APIServerIdentity" >}}
 
 <!--
 Starting in Kubernetes v1.26, each `kube-apiserver` uses the Lease API to publish its identity to the

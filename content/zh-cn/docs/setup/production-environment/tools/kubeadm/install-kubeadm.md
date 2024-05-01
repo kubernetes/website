@@ -112,19 +112,19 @@ route, we recommend you add IP route(s) so Kubernetes cluster addresses go via t
 这样 Kubernetes 集群就可以通过对应的适配器完成连接。
 
 <!--
-## Check required ports
+## Check required ports {#check-required-ports}
 These
 These [required ports](/docs/reference/networking/ports-and-protocols/)
 need to be open in order for Kubernetes components to communicate with each other.
-You can use tools like netcat to check if a port is open. For example:
+You can use tools like [netcat](https://netcat.sourceforge.net) to check if a port is open. For example:
 -->
 ## 检查所需端口{#check-required-ports}
 
 启用这些[必要的端口](/zh-cn/docs/reference/networking/ports-and-protocols/)后才能使 Kubernetes 的各组件相互通信。
-可以使用 netcat 之类的工具来检查端口是否启用，例如：
+可以使用 [netcat](https://netcat.sourceforge.net) 之类的工具来检查端口是否开放，例如：
 
 ```shell
-nc 127.0.0.1 6443
+nc 127.0.0.1 6443 -v
 ```
 
 <!--
@@ -515,9 +515,9 @@ sudo curl -L --remote-name-all https://dl.k8s.io/release/${RELEASE}/bin/linux/${
 sudo chmod +x {kubeadm,kubelet}
 
 RELEASE_VERSION="v0.16.2"
-curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/krel/templates/latest/kubelet/kubelet.service" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service
-sudo mkdir -p /etc/systemd/system/kubelet.service.d
-curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/krel/templates/latest/kubeadm/10-kubeadm.conf" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/krel/templates/latest/kubelet/kubelet.service" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /usr/lib/systemd/system/kubelet.service
+sudo mkdir -p /usr/lib/systemd/system/kubelet.service.d
+curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/krel/templates/latest/kubeadm/10-kubeadm.conf" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf
 ```
 
 {{< note >}}

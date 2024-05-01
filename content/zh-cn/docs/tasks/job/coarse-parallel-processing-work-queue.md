@@ -92,14 +92,14 @@ Start RabbitMQ as follows:
 -->
 ```shell
 # 为 StatefulSet 创建一个 Service 来使用
-kubectl create -f https://kubernetes.io/examples/application/job/rabbitmq-service.yaml
+kubectl create -f https://kubernetes.io/examples/application/job/rabbitmq/rabbitmq-service.yaml
 ```
 ```
 service "rabbitmq-service" created
 ```
 
 ```shell
-kubectl create -f https://kubernetes.io/examples/application/job/rabbitmq-statefulset.yaml
+kubectl create -f https://kubernetes.io/examples/application/job/rabbitmq/rabbitmq-statefulset.yaml
 ```
 
 ```
@@ -143,7 +143,7 @@ The next commands show what you need to run inside the interactive shell in that
 下面是在该 Pod 的交互式 shell 中需要运行的命令：
 
 ```shell
-apt-get update && apt-get install -y curl ca-certificates amqp-tools python dnsutils
+apt-get update && apt-get install -y curl ca-certificates amqp-tools python3 dnsutils
 ```
 
 <!--

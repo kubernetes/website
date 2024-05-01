@@ -63,14 +63,14 @@ ResourceClass
   driver.
 
 ResourceClaim
-: Defines a particular resource instances that is required by a
+: Defines a particular resource instance that is required by a
   workload. Created by a user (lifecycle managed manually, can be shared
   between different Pods) or for individual Pods by the control plane based on
   a ResourceClaimTemplate (automatic lifecycle, typically used by just one
   Pod).
 
 ResourceClaimTemplate
-: Defines the spec and some meta data for creating
+: Defines the spec and some metadata for creating
   ResourceClaims. Created by a user when deploying a workload.
 
 PodSchedulingContext
@@ -350,7 +350,7 @@ kube-scheduler, kube-controller-manager and kubelet also need the feature gate.
 -->
 动态资源分配是一个 **Alpha 特性**，只有在启用 `DynamicResourceAllocation`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-和 `resource.k8s.io/v1alpha1`
+和 `resource.k8s.io/v1alpha2`
 {{< glossary_tooltip text="API 组" term_id="api-group" >}} 时才启用。
 有关详细信息，参阅 `--feature-gates` 和 `--runtime-config`
 [kube-apiserver 参数](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)。

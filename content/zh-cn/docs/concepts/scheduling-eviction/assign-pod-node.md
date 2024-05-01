@@ -29,7 +29,7 @@ the Pod deploys to, for example, to ensure that a Pod ends up on a node with an 
 or to co-locate Pods from two different services that communicate a lot into the same availability zone.
 -->
 你可以约束一个 {{< glossary_tooltip text="Pod" term_id="pod" >}}
-以便 **限制** 其只能在特定的{{< glossary_tooltip text="节点" term_id="node" >}}上运行，
+以便**限制**其只能在特定的{{< glossary_tooltip text="节点" term_id="node" >}}上运行，
 或优先在特定的节点上运行。有几种方法可以实现这点，推荐的方法都是用
 [标签选择算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/)来进行选择。
 通常这样的约束不是必须的，因为调度器将自动进行合理的放置（比如，将 Pod 分散到节点上，
@@ -278,7 +278,7 @@ to repel Pods from specific nodes.
 If you specify both `nodeSelector` and `nodeAffinity`, *both* must be satisfied
 for the Pod to be scheduled onto a node.
 -->
-如果你同时指定了 `nodeSelector` 和 `nodeAffinity`，**两者** 必须都要满足，
+如果你同时指定了 `nodeSelector` 和 `nodeAffinity`，**两者**必须都要满足，
 才能将 Pod 调度到候选节点上。
 
 <!--
@@ -473,7 +473,7 @@ the node label that the system uses to denote the domain. For examples, see
 
 {{< note >}}
 <!--
-Inter-pod affinity and anti-affinity require substantial amount of
+Inter-pod affinity and anti-affinity require substantial amounts of
 processing which can slow down scheduling in large clusters significantly. We do
 not recommend using them in clusters larger than several hundred nodes.
 -->
@@ -483,7 +483,7 @@ Pod 间亲和性和反亲和性都需要相当的计算量，因此会在大规�
 
 {{< note >}}
 <!--
-Pod anti-affinity requires nodes to be consistently labelled, in other words,
+Pod anti-affinity requires nodes to be consistently labeled, in other words,
 every node in the cluster must have an appropriate label matching `topologyKey`.
 If some or all nodes are missing the specified `topologyKey` label, it can lead
 to unintended behavior.
@@ -567,17 +567,16 @@ uses the "soft" `preferredDuringSchedulingIgnoredDuringExecution`.
 `preferredDuringSchedulingIgnoredDuringExecution`。
 
 <!--
-The affinity rule specifies that the scheduler is allowed to place the example Pod 
-on a node only if that node belongs to a specific [zone](/docs/concepts/scheduling-eviction/topology-spread-constraints/topology-spread-constraints/)
-where other Pods have been labeled with `security=S1`. 
-For instance, if we have a cluster with a designated zone, let's call it "Zone V," 
-consisting of nodes labeled with `topology.kubernetes.io/zone=V`, the scheduler can 
-assign the Pod to any node within Zone V, as long as there is at least one Pod within 
-Zone V already labeled with `security=S1`. Conversely, if there are no Pods with `security=S1` 
+The affinity rule specifies that the scheduler is allowed to place the example Pod
+on a node only if that node belongs to a specific [zone](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
+where other Pods have been labeled with `security=S1`.
+For instance, if we have a cluster with a designated zone, let's call it "Zone V,"
+consisting of nodes labeled with `topology.kubernetes.io/zone=V`, the scheduler can
+assign the Pod to any node within Zone V, as long as there is at least one Pod within
+Zone V already labeled with `security=S1`. Conversely, if there are no Pods with `security=S1`
 labels in Zone V, the scheduler will not assign the example Pod to any node in that zone.
 -->
-亲和性规则规定，只有节点属于特定的
-[区域](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/topology-spread-constraints/)
+亲和性规则规定，只有节点属于特定的[区域](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 且该区域中的其他 Pod 已打上 `security=S1` 标签时，调度器才可以将示例 Pod 调度到此节点上。
 例如，如果我们有一个具有指定区域（称之为 "Zone V"）的集群，此区域由带有 `topology.kubernetes.io/zone=V`
 标签的节点组成，那么只要 Zone V 内已经至少有一个 Pod 打了 `security=S1` 标签，
@@ -585,17 +584,16 @@ labels in Zone V, the scheduler will not assign the example Pod to any node in t
 则调度器不会将示例 Pod 调度给该区域中的任何节点。
 
 <!--
-The anti-affinity rule specifies that the scheduler should try to avoid scheduling the Pod 
-on a node if that node belongs to a specific [zone](/docs/concepts/scheduling-eviction/topology-spread-constraints/topology-spread-constraints/)
-where other Pods have been labeled with `security=S2`. 
-For instance, if we have a cluster with a designated zone, let's call it "Zone R," 
-consisting of nodes labeled with `topology.kubernetes.io/zone=R`, the scheduler should avoid 
-assigning the Pod to any node within Zone R, as long as there is at least one Pod within 
-Zone R already labeled with `security=S2`. Conversely, the anti-affinity rule does not impact 
+The anti-affinity rule specifies that the scheduler should try to avoid scheduling the Pod
+on a node if that node belongs to a specific [zone](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
+where other Pods have been labeled with `security=S2`.
+For instance, if we have a cluster with a designated zone, let's call it "Zone R,"
+consisting of nodes labeled with `topology.kubernetes.io/zone=R`, the scheduler should avoid
+assigning the Pod to any node within Zone R, as long as there is at least one Pod within
+Zone R already labeled with `security=S2`. Conversely, the anti-affinity rule does not impact
 scheduling into Zone R if there are no Pods with `security=S2` labels.
 -->
-反亲和性规则规定，如果节点属于特定的
-[区域](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/topology-spread-constraints/)
+反亲和性规则规定，如果节点属于特定的[区域](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 且该区域中的其他 Pod 已打上 `security=S2` 标签，则调度器应尝试避免将 Pod 调度到此节点上。
 例如，如果我们有一个具有指定区域（我们称之为 "Zone R"）的集群，此区域由带有 `topology.kubernetes.io/zone=R`
 标签的节点组成，只要 Zone R 内已经至少有一个 Pod 打了 `security=S2` 标签，
@@ -675,6 +673,178 @@ null `namespaceSelector` matches the namespace of the Pod where the rule is defi
 亲和性条件会应用到 `namespaceSelector` 所选择的名字空间和 `namespaces` 字段中所列举的名字空间之上。
 注意，空的 `namespaceSelector`（`{}`）会匹配所有名字空间，而 null 或者空的
 `namespaces` 列表以及 null 值 `namespaceSelector` 意味着“当前 Pod 的名字空间”。
+
+#### matchLabelKeys
+
+{{< feature-state feature_gate_name="MatchLabelKeysInPodAffinity" >}}
+
+{{< note >}}
+<!-- UPDATE THIS WHEN PROMOTING TO BETA -->
+<!--
+The `matchLabelKeys` field is an alpha-level field and is disabled by default in
+Kubernetes {{< skew currentVersion >}}.
+When you want to use it, you have to enable it via the
+`MatchLabelKeysInPodAffinity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+-->
+`matchLabelKeys` 字段是一个 Alpha 级别的字段，在 Kubernetes {{< skew currentVersion >}} 中默认被禁用。
+当你想要使用此字段时，你必须通过 `MatchLabelKeysInPodAffinity`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)启用它。
+{{< /note >}}
+
+<!--
+Kubernetes includes an optional `matchLabelKeys` field for Pod affinity
+or anti-affinity. The field specifies keys for the labels that should  match with the incoming Pod's labels,
+when satisfying the Pod (anti)affinity.
+
+The keys are used to look up values from the pod labels; those key-value labels are combined
+(using `AND`) with the match restrictions defined using the `labelSelector` field. The combined
+filtering selects the set of existing pods that will be taken into Pod (anti)affinity calculation.
+-->
+Kubernetes 在 Pod 亲和性或反亲和性中包含一个可选的 `matchLabelKeys` 字段。
+此字段指定了应与传入 Pod 的标签匹配的标签键，以满足 Pod 的（反）亲和性。
+
+这些键用于从 Pod 的标签中查找值；这些键值标签与使用 `labelSelector` 字段定义的匹配限制组合（使用 `AND` 操作）。
+这种组合的过滤机制选择将用于 Pod（反）亲和性计算的现有 Pod 集合。
+
+<!--
+A common use case is to use `matchLabelKeys` with `pod-template-hash` (set on Pods
+managed as part of a Deployment, where the value is unique for each revision).
+Using `pod-template-hash` in `matchLabelKeys` allows you to target the Pods that belong
+to the same revision as the incoming Pod, so that a rolling upgrade won't break affinity.
+-->
+一个常见的用例是在 `matchLabelKeys` 中使用 `pod-template-hash`
+（设置在作为 Deployment 的一部分进行管理的 Pod 上，其中每个版本的值是唯一的）。
+在 `matchLabelKeys` 中使用 `pod-template-hash` 允许你定位与传入 Pod 相同版本的 Pod，
+确保滚动升级不会破坏亲和性。
+
+<!--
+# Only Pods from a given rollout are taken into consideration when calculating pod affinity.
+# If you update the Deployment, the replacement Pods follow their own affinity rules
+# (if there are any defined in the new Pod template)
+-->
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: application-server
+...
+spec:
+  template:
+    spec:
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - database
+            topologyKey: topology.kubernetes.io/zone
+            # 只有在计算 Pod 亲和性时，才考虑指定上线的 Pod。
+            # 如果你更新 Deployment，替代的 Pod 将遵循它们自己的亲和性规则
+            # （如果在新的 Pod 模板中定义了任何规则）。
+            matchLabelKeys:
+            - pod-template-hash
+```
+
+#### mismatchLabelKeys
+
+{{< feature-state feature_gate_name="MatchLabelKeysInPodAffinity" >}}
+
+{{< note >}}
+<!-- UPDATE THIS WHEN PROMOTING TO BETA -->
+<!--
+The `mismatchLabelKeys` field is an alpha-level field and is disabled by default in
+Kubernetes {{< skew currentVersion >}}.
+When you want to use it, you have to enable it via the
+`MatchLabelKeysInPodAffinity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+-->
+`mismatchLabelKeys` 字段是一个 Alpha 级别的字段，在 Kubernetes {{< skew currentVersion >}} 中默认被禁用。
+当你想要使用此字段时，你必须通过 `MatchLabelKeysInPodAffinity`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)启用它。
+{{< /note >}}
+
+<!--
+Kubernetes includes an optional `mismatchLabelKeys` field for Pod affinity
+or anti-affinity. The field specifies keys for the labels that should **not** match with the incoming Pod's labels,
+when satisfying the Pod (anti)affinity.
+
+One example use case is to ensure Pods go to the topology domain (node, zone, etc) where only Pods from the same tenant or team are scheduled in.
+In other words, you want to avoid running Pods from two different tenants on the same topology domain at the same time.
+-->
+Kubernetes 为 Pod 亲和性或反亲和性提供了一个可选的 `mismatchLabelKeys` 字段。
+此字段指定了在满足 Pod（反）亲和性时，**不**应与传入 Pod 的标签匹配的键。
+
+一个示例用例是确保 Pod 进入指定的拓扑域（节点、区域等），在此拓扑域中只调度来自同一租户或团队的 Pod。
+换句话说，你想要避免在同一拓扑域中同时运行来自两个不同租户的 Pod。
+
+<!--
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    # Assume that all relevant Pods have a "tenant" label set
+    tenant: tenant-a
+...
+spec:
+  affinity:
+    podAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      # ensure that pods associated with this tenant land on the correct node pool
+      - matchLabelKeys:
+          - tenant
+        topologyKey: node-pool
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      # ensure that pods associated with this tenant can't schedule to nodes used for another tenant
+      - mismatchLabelKeys:
+        - tenant # whatever the value of the "tenant" label for this Pod, prevent
+                 # scheduling to nodes in any pool where any Pod from a different
+                 # tenant is running.
+        labelSelector:
+          # We have to have the labelSelector which selects only Pods with the tenant label,
+          # otherwise this Pod would hate Pods from daemonsets as well, for example,
+          # which aren't supposed to have the tenant label.
+          matchExpressions:
+          - key: tenant
+            operator: Exists
+        topologyKey: node-pool
+```
+-->
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    # 假设所有相关的 Pod 都设置了 “tenant” 标签
+    tenant: tenant-a
+...
+spec:
+  affinity:
+    podAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      # 确保与此租户关联的 Pod 落在正确的节点池上
+      - matchLabelKeys:
+          - tenant
+        topologyKey: node-pool
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      # 确保与此租户关联的 Pod 不能调度到用于其他租户的节点上
+      - mismatchLabelKeys:
+        - tenant # 无论此 Pod 的 “tenant” 标签的值是什么，
+                 # 如果节点池中有来自别的租户的任何 Pod 在运行，
+                 # 都会阻碍此 Pod 被调度到这些节点池中的节点上
+        labelSelector:
+          # 我们必须有一个 labelSelector，只选择具有 “tenant” 标签的 Pod，
+          # 否则此 Pod 也会与来自 DaemonSet 的 Pod 发生冲突，
+          # 而这些 Pod 不应该具有 “tenant” 标签
+          matchExpressions:
+          - key: tenant
+            operator: Exists
+        topologyKey: node-pool
+```
 
 <!--
 #### More practical use-cases
@@ -804,10 +974,10 @@ where each web server is co-located with a cache, on three separate nodes.
 |   *cache-1*   |   *cache-2*   |   *cache-3*   |
 
 <!--
-The overall effect is that each cache instance is likely to be accessed by a single client, that
+The overall effect is that each cache instance is likely to be accessed by a single client that
 is running on the same node. This approach aims to minimize both skew (imbalanced load) and latency.
 -->
-总体效果是每个缓存实例都非常可能被在同一个节点上运行的某个客户端访问。
+总体效果是每个缓存实例都非常可能被在同一个节点上运行的某个客户端访问，
 这种方法旨在最大限度地减少偏差（负载不平衡）和延迟。
 
 <!--
@@ -854,17 +1024,18 @@ Some of the limitations of using `nodeName` to select nodes are:
   而其失败原因中会给出是否因为内存或 CPU 不足而造成无法运行。
 - 在云环境中的节点名称并不总是可预测的，也不总是稳定的。
 
-{{< note >}}
+{{< warning >}}
 <!--
 `nodeName` is intended for use by custom schedulers or advanced use cases where
 you need to bypass any configured schedulers. Bypassing the schedulers might lead to
-failed Pods if the assigned Nodes get oversubscribed. You can use [node affinity](#node-affinity) or a the [`nodeselector` field](#nodeselector) to assign a Pod to a specific Node without bypassing the schedulers.
+failed Pods if the assigned Nodes get oversubscribed. You can use [node affinity](#node-affinity)
+or a the [`nodeselector` field](#nodeselector) to assign a Pod to a specific Node without bypassing the schedulers.
 -->
 `nodeName` 旨在供自定义调度器或需要绕过任何已配置调度器的高级场景使用。
 如果已分配的 Node 负载过重，绕过调度器可能会导致 Pod 失败。
 你可以使用[节点亲和性](#node-affinity)或 [`nodeselector` 字段](#nodeselector)将
 Pod 分配给特定 Node，而无需绕过调度器。
-{{</ note >}}
+{{</ warning >}}
 
 <!--
 Here is an example of a Pod spec using the `nodeName` field:
@@ -942,7 +1113,7 @@ The following operators can only be used with `nodeAffinity`.
 <!--
 |    Operator    |    Behaviour    |
 | :------------: | :-------------: |
-| `Gt` | The supplied value will be parsed as an integer, and that integer is less than the integer that results from parsing the value of a label named by this selector | 
+| `Gt` | The supplied value will be parsed as an integer, and that integer is less than the integer that results from parsing the value of a label named by this selector |
 | `Lt` | The supplied value will be parsed as an integer, and that integer is greater than the integer that results from parsing the value of a label named by this selector |
 -->
 | 操作符 | 行为 |
@@ -952,8 +1123,8 @@ The following operators can only be used with `nodeAffinity`.
 
 {{<note>}}
 <!--
-`Gt` and `Lt` operators will not work with non-integer values. If the given value 
-doesn't parse as an integer, the pod will fail to get scheduled. Also, `Gt` and `Lt` 
+`Gt` and `Lt` operators will not work with non-integer values. If the given value
+doesn't parse as an integer, the pod will fail to get scheduled. Also, `Gt` and `Lt`
 are not available for `podAffinity`.
 -->
 `Gt` 和 `Lt` 操作符不能与非整数值一起使用。
@@ -973,9 +1144,8 @@ are not available for `podAffinity`.
 - Learn how to use [affinity and anti-affinity](/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/).
 -->
 - 进一步阅读[污点与容忍度](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)文档。
-- 阅读[节点亲和性](https://git.k8s.io/design-proposals-archive/scheduling/nodeaffinity.md)
-  和 [Pod 间亲和性与反亲和性](https://git.k8s.io/design-proposals-archive/scheduling/podaffinity.md)
-  的设计文档。
+- 阅读[节点亲和性](https://git.k8s.io/design-proposals-archive/scheduling/nodeaffinity.md)和
+  [Pod 间亲和性与反亲和性](https://git.k8s.io/design-proposals-archive/scheduling/podaffinity.md)的设计文档。
 - 了解[拓扑管理器](/zh-cn/docs/tasks/administer-cluster/topology-manager/)如何参与节点层面资源分配决定。
 - 了解如何使用 [nodeSelector](/zh-cn/docs/tasks/configure-pod-container/assign-pods-nodes/)。
-* 了解如何使用[亲和性和反亲和性](/zh-cn/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/)。
+- 了解如何使用[亲和性和反亲和性](/zh-cn/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/)。

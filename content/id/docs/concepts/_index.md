@@ -33,10 +33,10 @@ misalnya dengan mekanisme `start` atau `stop` kontainer, melakukan *scale* repli
 suatu aplikasi, dan lain sebagainya. *Control Plane* Kubernetes terdiri dari sekumpulan
 `process` yang dijalankan di klaster:
 
-* **Kubernetes Master** terdiri dari tiga buah *process* yang dijalankan pada sebuah *node* di klaster kamu, *node* ini disebut sebagai *master*, yang terdiri [kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/) dan [kube-scheduler](/docs/admin/kube-scheduler/).
+* **Kubernetes Master** terdiri dari tiga buah *process* yang dijalankan pada sebuah *node* di klaster kamu, *node* ini disebut sebagai *master*, yang terdiri [kube-apiserver](/id/docs/concepts/overview/components/#kube-apiserver), [kube-controller-manager](/id/docs/concepts/overview/components/#kube-controller-manager) dan [kube-scheduler](/id/docs/concepts/overview/components/#kube-scheduler).
 * Setiap *node* non-master pada klaster kamu menjalankan dua buah *process*:
-  * **[kubelet](/docs/admin/kubelet/)**, yang menjadi perantara komunikasi dengan *master*.
-  * **[kube-proxy](/docs/admin/kube-proxy/)**, sebuah *proxy* yang merupakan representasi jaringan yang ada pada setiap *node*.
+  * **[kubelet](/id/docs/concepts/overview/components/#kubelet)**, yang menjadi perantara komunikasi dengan *master*.
+  * **[kube-proxy](/id/docs/concepts/overview/components/#kube-proxy)**, sebuah *proxy* yang merupakan representasi jaringan yang ada pada setiap *node*.
 
 ## Objek Kubernetes
 

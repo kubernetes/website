@@ -3,9 +3,10 @@ layout: blog
 title: "Kubernetes 1.24: Introducing Non-Graceful Node Shutdown Alpha"
 date: 2022-05-20
 slug: kubernetes-1-24-non-graceful-node-shutdown-alpha
+author: >
+  Xing Yang (VMware),
+  Yassine Tijani (VMware)
 ---
-
-**Authors** Xing Yang and Yassine Tijani (VMware)
 
 Kubernetes v1.24 introduces alpha support for [Non-Graceful Node Shutdown](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/2268-non-graceful-shutdown). This feature allows stateful workloads to failover to a different node after the original node is shutdown or in a non-recoverable state such as hardware failure or broken OS.
 

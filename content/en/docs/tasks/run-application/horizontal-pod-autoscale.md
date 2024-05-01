@@ -278,12 +278,12 @@ pod usage is still within acceptable limits.
 
 ### Container resource metrics
 
-{{< feature-state for_k8s_version="v1.27" state="beta" >}}
+{{< feature-state feature_gate_name="HPAContainerMetrics" >}}
 
 The HorizontalPodAutoscaler API also supports a container metric source where the HPA can track the
 resource usage of individual containers across a set of Pods, in order to scale the target resource.
 This lets you configure scaling thresholds for the containers that matter most in a particular Pod.
-For example, if you have a web application and a logging sidecar, you can scale based on the resource
+For example, if you have a web application and a sidecar container that provides logging, you can scale based on the resource
 use of the web application, ignoring the sidecar container and its resource use.
 
 If you revise the target resource to have a new Pod specification with a different set of containers,
@@ -596,8 +596,9 @@ guidelines, which cover this exact use case.
 
 ## {{% heading "whatsnext" %}}
 
-If you configure autoscaling in your cluster, you may also want to consider running a
-cluster-level autoscaler such as [Cluster Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler).
+If you configure autoscaling in your cluster, you may also want to consider using
+[cluster autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/)
+to ensure you are running the right number of nodes.
 
 For more information on HorizontalPodAutoscaler:
 

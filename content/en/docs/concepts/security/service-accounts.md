@@ -2,8 +2,11 @@
 title: Service Accounts
 description: >
   Learn about ServiceAccount objects in Kubernetes.
+api_metadata:
+- apiVersion: "v1"
+  kind: "ServiceAccount"  
 content_type: concept
-weight: 10
+weight: 25
 ---
 
 <!-- overview -->

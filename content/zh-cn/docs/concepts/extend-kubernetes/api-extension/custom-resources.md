@@ -1,5 +1,8 @@
 ---
 title: 定制资源
+api_metadata:
+- apiVersion: "apiextensions.k8s.io/v1"
+  kind: "CustomResourceDefinition"
 content_type: concept
 weight: 10
 ---
@@ -8,6 +11,9 @@ title: Custom Resources
 reviewers:
 - enisoc
 - deads2k
+api_metadata:
+- apiVersion: "apiextensions.k8s.io/v1"
+  kind: "CustomResourceDefinition"
 content_type: concept
 weight: 10
 -->

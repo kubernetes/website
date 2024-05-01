@@ -8,10 +8,26 @@ aliases:
     - mrbobbytables
     - nate-double-u
     - sftim
+  sig-docs-website-owners: # Admins for overall website
+    - divya-mohan0209
+    - natalisucks
+    - reylejano
+    - sftim
+    - tengqm
   sig-docs-localization-owners: # Admins for localization content
     - a-mccarthy
     - divya-mohan0209
     - natalisucks
+    - nate-double-u
+    - reylejano
+    - sftim
+    - seokho-son
+    - tengqm
+  sig-docs-localization-reviewers: # PR reviews for localization changes
+    - a-mccarthy
+    - divya-mohan0209
+    - natalisucks
+    - nate-double-u
     - reylejano
     - sftim
     - seokho-son
@@ -34,21 +50,20 @@ aliases:
     - rlenferink
   sig-docs-en-owners: # Admins for English content
     - celestehorgan
+    - dipesh-rawat
     - divya-mohan0209
-    - drewhagen # RT 1.30 Docs Lead
-    - katcosgrove # RT 1.30 Lead
     - natalisucks
     - nate-double-u
     - reylejano
     - sftim
     - tengqm
   sig-docs-en-reviews: # PR reviews for English content
-    - bradtopol
+    - celestehorgan
     - dipesh-rawat
     - divya-mohan0209
     - kbhawkey
-    - mehabhalodiya
     - mengjiao-liu
+    - mickeyboxell
     - natalisucks
     - nate-double-u
     - reylejano
@@ -58,14 +73,15 @@ aliases:
     - windsonsea
   sig-docs-es-owners: # Admins for Spanish content
     - 92nqb
-    - krol3
     - electrocucaracha
+    - krol3
     - raelga
     - ramrodo
   sig-docs-es-reviews: # PR reviews for Spanish content
     - 92nqb
-    - krol3
     - electrocucaracha
+    - jossemarGT
+    - krol3
     - raelga
     - ramrodo
   sig-docs-fr-owners: # Admins for French content
@@ -113,6 +129,7 @@ aliases:
     - atoato88
     - bells17
     - kakts
+    - Okabe-Junya
     - t-inu
   sig-docs-ko-owners: # Admins for Korean content
     - gochist
@@ -185,9 +202,11 @@ aliases:
     - truongnh1992
   sig-docs-ru-owners: # Admins for Russian content
     - Arhell
+    - kirkonru
     - shurup
   sig-docs-ru-reviews: # PR reviews for Russian content
     - Arhell
+    - kirkonru
     - shurup
   sig-docs-pl-owners: # Admins for Polish content
     - mfilocha

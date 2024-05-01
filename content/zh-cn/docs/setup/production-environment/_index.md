@@ -361,24 +361,12 @@ simply as *nodes*).
   这一规模是基于你要运行的 Pod 和容器个数来确定的。
   如果你自行管理集群节点，这可能意味着要购买和安装你自己的物理设备。
 <!--
-- *Autoscale nodes*: Most cloud providers support
-  [Cluster Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#readme)
-  to replace unhealthy nodes or grow and shrink the number of nodes as demand requires. See the
-  [Frequently Asked Questions](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md)
-  for how the autoscaler works and
-  [Deployment](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#deployment)
-  for how it is implemented by different cloud providers. For on-premises, there
-  are some virtualization platforms that can be scripted to spin up new nodes
-  based on demand.
+- *Autoscale nodes*: Read [Cluster Autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling) to learn about the
+  tools available to automatically manage your nodes and the capacity they
+  provide.
 -->
-- **节点自动扩缩容**：大多数云供应商支持
-  [集群自动扩缩器（Cluster Autoscaler）](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#readme)
-  以便替换不健康的节点、根据需求来增加或缩减节点个数。
-  参阅[常见问题](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md)
-  了解自动扩缩器的工作方式，并参阅
-  [Deployment](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#deployment)
-  了解不同云供应商是如何实现集群自动扩缩器的。
-  对于本地集群，有一些虚拟化平台可以通过脚本来控制按需启动新节点。
+- **节点自动扩缩容**：查阅[集群自动扩缩容](/zh-cn/docs/concepts/cluster-administration/cluster-autoscaling)，
+  了解可以自动管理节点的工具及其提供的能力。
 <!--
 - *Set up node health checks*: For important workloads, you want to make sure
   that the nodes and pods running on those nodes are healthy. Using the

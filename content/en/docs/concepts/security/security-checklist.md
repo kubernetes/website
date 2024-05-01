@@ -41,7 +41,7 @@ evaluated on its merits.
 - [ ] A process exists for periodic access review, and reviews occur no more
   than 24 months apart.
 - [ ] The [Role Based Access Control Good Practices](/docs/concepts/security/rbac-good-practices/)
-  is followed for guidance related to authentication and authorization.
+  are followed for guidance related to authentication and authorization.
 
 After bootstrapping, neither users nor components should authenticate to the
 Kubernetes API as `system:masters`. Similarly, running all of
@@ -177,10 +177,10 @@ Seccomp is only available on Linux nodes.
 
 #### AppArmor
 
-[AppArmor](https://apparmor.net/) is a Linux kernel security module that can
+[AppArmor](/docs/tutorials/security/apparmor/) is a Linux kernel security module that can
 provide an easy way to implement Mandatory Access Control (MAC) and better
-auditing through system logs. To [enable AppArmor in Kubernetes](/docs/tutorials/security/apparmor/),
-at least version 1.4 is required. Like seccomp, AppArmor is also configured
+auditing through system logs. A default AppArmor profile is enforced on nodes that support it, or a custom profile can be configured.
+Like seccomp, AppArmor is also configured
 through profiles, where each profile is either running in enforcing mode, which
 blocks access to disallowed resources or complain mode, which only reports
 violations. AppArmor profiles are enforced on a per-container basis, with an
@@ -405,8 +405,12 @@ alpha state but could be considered for certain use cases:
 
 ## What's next
 
-- [RBAC Good Practices](/docs/concepts/security/rbac-good-practices/) for
-  further information on authorization.
+- [Privilege escalation via Pod creation](/docs/reference/access-authn-authz/authorization/#privilege-escalation-via-pod-creation)
+  warns you about a specific access control risk; check how you're managing that
+  threat.
+  - If you use Kubernetes RBAC, read
+    [RBAC Good Practices](/docs/concepts/security/rbac-good-practices/) for
+    further information on authorization.
 - [Securing a Cluster](/docs/tasks/administer-cluster/securing-a-cluster/) for
   information on protecting a cluster from accidental or malicious access.
 - [Cluster Multi-tenancy guide](/docs/concepts/security/multi-tenancy/) for

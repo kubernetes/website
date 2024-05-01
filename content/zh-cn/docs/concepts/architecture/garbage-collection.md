@@ -278,13 +278,13 @@ kubelet 会持续删除镜像，直到磁盘用量到达 `LowThresholdPercent` �
 -->
 #### 未使用容器镜像的垃圾收集     {#image-maximum-age-gc}
 
-{{< feature-state for_k8s_version="v1.29" state="alpha" >}}
+{{< feature-state feature_gate_name="ImageMaximumGCAge" >}}
 
 <!--
-As an alpha feature, you can specify the maximum time a local image can be unused for,
+As an beta feature, you can specify the maximum time a local image can be unused for,
 regardless of disk usage. This is a kubelet setting that you configure for each node.
 -->
-这是一个 Alpha 特性，不论磁盘使用情况如何，你都可以指定本地镜像未被使用的最长时间。
+这是一个 Beta 特性，不论磁盘使用情况如何，你都可以指定本地镜像未被使用的最长时间。
 这是一个可以为每个节点配置的 kubelet 设置。
 
 <!--
@@ -302,6 +302,19 @@ field to `3d12h`, which means 3 days and 12 hours.
 -->
 该值应遵循 Kubernetes __持续时间（Duration）__ 格式；例如，你可以将配置字段设置为 `3d12h`，
 代表 3 天 12 小时。
+
+{{< note >}}
+<!--
+This feature does not track image usage across kubelet restarts. If the kubelet
+is restarted, the tracked image age is reset, causing the kubelet to wait the full
+`ImageMaximumGCAge` duration before qualifying images for garbage collection
+based on image age.
+-->
+这个特性不会跟踪 kubelet 重新启动后的镜像使用情况。
+如果 kubelet 被重新启动，所跟踪的镜像年龄会被重置，
+导致 kubelet 在根据镜像年龄进行垃圾收集时需要等待完整的
+`ImageMaximumGCAge` 时长。
+{{< /note>}}
 
 <!--
 ### Container garbage collection {#container-image-garbage-collection}
@@ -344,7 +357,7 @@ they are older than `MinAge`.
 除以上变量之外，kubelet 还会垃圾收集除无标识的以及已删除的容器，通常从最近未使用的容器开始。
 
 当保持每个 Pod 的最大数量的容器（`MaxPerPodContainer`）会使得全局的已死亡容器个数超出上限
-（`MaxContainers`）时，`MaxPerPodContainers` 和 `MaxContainers` 之间可能会出现冲突。
+（`MaxContainers`）时，`MaxPerPodContainer` 和 `MaxContainers` 之间可能会出现冲突。
 在这种情况下，kubelet 会调整 `MaxPerPodContainer` 来解决这一冲突。
 最坏的情形是将 `MaxPerPodContainer` 降格为 `1`，并驱逐最近未使用的容器。
 此外，当隶属于某已被删除的 Pod 的容器的年龄超过 `MinAge` 时，它们也会被删除。

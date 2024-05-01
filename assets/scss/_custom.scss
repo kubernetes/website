@@ -239,6 +239,31 @@ body.td-404 main .error-details {
   }
 }
 
+.search-item.nav-item {
+    input, input::placeholder {
+      color: black;
+  }
+}
+
+.flip-nav .search-item {
+  .td-search-input, .search-bar {
+    background-color: $medium-grey;
+  }
+  input, input::placeholder, .search-icon {
+    color: white;
+  }
+  textarea:focus, input:focus {
+    color: white;
+  }
+}
+
+@media only screen and (max-width: 1500px) {
+  header nav .search-item {
+    display: none;
+  }
+}
+
+
 /* FOOTER */
 footer {
   background-color: #303030;
@@ -489,6 +514,36 @@ body {
   h1:first-of-type + .alert.callout {
     margin-top: 1.5em;
   }
+
+  div.feature-state-notice {
+    background-color: #daeaf9;
+    border-radius: 0.75rem;
+    padding: 1rem;
+    margin-bottom: 1em;
+
+    font-size: 1.2em;
+
+    > .feature-state-name::before {
+      content: 'ⓘ  ';
+      color: #326ce5; // Kubernetes blue
+    }
+    > .feature-state-name {
+      display: inline-block;
+      font-size: 0.95em;
+      font-weight: bold;
+      color: #000;
+      background-color: #daeaf9;
+    }
+
+    code {
+      color: #000;
+      font-size: 1em;
+      background-color: #daeaf9;
+    }
+
+    margin-right: 2em;
+    max-width: 80%;
+  }
 }
 
 // Special color for third party content disclaimers
@@ -559,23 +614,230 @@ body.td-home #deprecation-warning {
 #caseStudies body > #deprecation-warning, body.cid-casestudies > #deprecation-warning {
     padding-top: 32px;
 }
-body.cid-partners > #deprecation-warning {
-    padding: 0;
-    margin-right: 0;
-    margin-left: 0;
-    margin-top: 0;
-    width: 100vw;
-}
-body.cid-partners > #deprecation-warning > .content {
-    width: 100%;
-    max-width: initial;
-    margin-right: 0;
-    margin-left: 0;
-    margin-top: 0;
-    padding-left: 5vw;
-    padding-right: 5vw;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+body.cid-partners {
+    > #deprecation-warning {
+        padding: 0;
+        margin-right: 0;
+        margin-left: 0;
+        margin-top: 0;
+        width: 100vw;
+        > .content {
+            width: 100%;
+            max-width: initial;
+            margin-right: 0;
+            margin-left: 0;
+            margin-top: 0;
+            padding-left: 5vw;
+            padding-right: 5vw;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+    }
+    /*  SECTIONS  */
+    .section {
+        clear: both;
+        padding: 0px;
+        margin-bottom: 2em;
+    }
+
+    section#users {
+      text-align: center;
+    }
+
+    .kcsp_section {
+        clear: both;
+        padding: 0px;
+        margin-bottom: 2em;
+    }
+
+    /*  COLUMN SETUP  */
+    .col {
+        display: block;
+        float:left;
+        margin: 1% 0 1% 1.6%;
+        background-color: #f9f9f9;
+    }
+    .col:first-child { margin-left: 0; }
+
+
+    /*  GROUPING  */
+    .group:before,
+    .group:after {
+        content:"";
+        display:table;
+    }
+    .group:after {
+        clear:both;
+    }
+    .group {
+        zoom:1; /* For IE 6/7 */
+    }
+
+    /*  GRID OF THREE  */
+    .span_3_of_3 {
+        width: 35%;
+        background-color: #f9f9f9;
+        padding: 20px;
+    }
+    .span_2_of_3 {
+        width: 35%;
+        background-color: #f9f9f9;
+        padding: 20px;
+    }
+    .span_1_of_3 {
+        width: 35%;
+        background-color: #f9f9f9;
+        padding: 20px;
+    }
+
+    .col-container {
+        display: table; /* Make the container element behave like a table */
+        width: 100%; /* Set full-width to expand the whole page */
+            padding-bottom: 30px;
+    }
+
+    .col-nav {
+        display: table-cell; /* Make elements inside the container behave like table cells */
+            width: 18%;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border: 5px solid white;
+    }
+
+    /*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
+
+    @media only screen and (max-width: 480px) {
+        .col { margin: 1% 0 1% 0%;}
+        .span_3_of_3, .span_2_of_3, .span_1_of_3 { width: 100%; }
+    }
+
+    @media only screen and (max-width: 650px) {
+        .col-nav {
+            display: block;
+            width: 100%;
+        }
+    }
+
+    .button{
+      max-width: 100%;
+        box-sizing: border-box;
+        margin: 0;
+        display: inline-block;
+        border-radius: 6px;
+        padding: 0 20px;
+        line-height: 40px;
+        color: #ffffff;
+        font-size: 16px;
+        background-color: #3371e3;
+        text-decoration: none;
+     }
+
+    h5 {
+        font-size: 16px;
+        line-height: 1.5em;
+        margin-bottom: 2em;
+    }
+
+    #usersGrid a {
+        display: inline-block;
+        background-color: #f9f9f9;
+    }
+
+    #ktpContainer, #distContainer, #kcspContainer, #isvContainer, #servContainer {
+        position: relative;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    #isvContainer {
+        margin-bottom: 80px;
+    }
+
+    #kcspContainer {
+        margin-bottom: 80px;
+    }
+
+    #distContainer {
+        margin-bottom: 80px;
+    }
+
+    #ktpContainer {
+        margin-bottom: 80px;
+    }
+
+    .partner-box {
+        position: relative;
+        width: 47%;
+        max-width: 48%;
+        min-width: 48%;
+        margin-bottom: 20px;
+        padding: 20px;
+        flex: 1;
+        display: flex;
+        justify-content: left;
+        align-items: flex-start;
+    }
+
+    .partner-box img {
+        background-color: #f9f9f9;
+    }
+
+    .partner-box > div {
+        margin-left: 30px;
+    }
+
+    .partner-box a {
+        color: #3576E3;
+    }
+
+    @media screen and (max-width: 1024px) {
+        .partner-box {
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .partner-box > div {
+            margin: 20px 0 0;
+        }
+    }
+
+    @media screen and (max-width: 568px) {
+        #ktpContainer, #distContainter, #kcspContainer, #isvContainer, #servContainer {
+            justify-content: center;
+        }
+
+        .partner-box {
+            flex-direction: column;
+            justify-content: flex-start;
+            width: 100%;
+            max-width: 100%;
+            min-width: 100%;
+        }
+
+        .partner-box > div {
+            margin: 20px 0 0;
+        }
+    }
+
+    @media screen and (max-width: 568px) {
+        #ktpContainer, #distContainer, #kcspContainer, #isvContainer, #servContainer {
+            justify-content: center;
+        }
+
+        .partner-box {
+            flex-direction: column;
+            justify-content: flex-start;
+            width: 100%;
+            max-width: 100%;
+            min-width: 100%;
+        }
+
+        .partner-box > div {
+            margin: 20px 0 0;
+        }
+    }
 }
 body.cid-community > #deprecation-warning > .deprecation-warning {
     margin-left: 20px;
@@ -586,6 +848,44 @@ body.cid-community > #deprecation-warning > .deprecation-warning {
 body.cid-community > #deprecation-warning > .deprecation-warning > * {
     color: inherit;
     background-color: inherit;
+}
+
+body.cid-code-of-conduct main {
+    max-width: calc(min(90vw, 100em));
+    padding-top: 3rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+
+    #cncf-code-of-conduct {
+        margin-top: 4rem;
+        margin-bottom: 4rem;
+        padding-left: 4rem;
+
+        > h2, h3, h4, h5 {
+          color: #0662EE;
+        }
+
+        > h2:first-child {
+          margin-top: 0.25em;
+          margin-bottom: 1em;
+        }
+    }
+
+    > hr {
+      margin-top: 4rem;
+      margin-bottom: 4rem;
+    }
+
+    > hr:last-of-type ~ * {
+      text-align: center;
+      font-size: 1.15rem;
+    }
+
+    > *:last-child {
+      margin-bottom: 4rem;
+    }
 }
 
 #caseStudies body > #deprecation-warning > .deprecation-warning, body.cid-casestudies > #deprecation-warning > .deprecation-warning {
@@ -732,6 +1032,8 @@ body.td-documentation {
   }
 }
 
+/* Announcements */
+
 #announcement {
   > * {
     color: inherit;
@@ -753,10 +1055,21 @@ body.td-documentation {
   padding-top: 40px;
 }
 
+// Don't show announcements when javascript is not available
+
+html.no-js body div#announcement {
+  display: none;
+}
+
+#announcement.display-announcement{
+  display: block; // apply this class to display the announcement
+}
+
 #announcement {
   // default background is blue; overrides are possible
   color: #fff;
-
+  display: none; // When javascript is available, Let javascript handle the state of the announcement
+  
   .announcement-main {
     margin-left: auto;
     margin-right: auto;

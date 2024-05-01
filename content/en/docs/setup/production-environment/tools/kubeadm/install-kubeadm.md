@@ -58,14 +58,14 @@ may [fail](https://github.com/kubernetes/kubeadm/issues/31).
 If you have more than one network adapter, and your Kubernetes components are not reachable on the default
 route, we recommend you add IP route(s) so Kubernetes cluster addresses go via the appropriate adapter.
 
-## Check required ports
+## Check required ports {#check-required-ports}
 
 These [required ports](/docs/reference/networking/ports-and-protocols/)
 need to be open in order for Kubernetes components to communicate with each other.
-You can use tools like netcat to check if a port is open. For example:
+You can use tools like [netcat](https://netcat.sourceforge.net) to check if a port is open. For example:
 
 ```shell
-nc 127.0.0.1 6443
+nc 127.0.0.1 6443 -v
 ```
 
 The pod network plugin you use may also require certain ports to be
@@ -93,7 +93,7 @@ for more information.
 {{< note >}}
 Docker Engine does not implement the [CRI](/docs/concepts/architecture/cri/)
 which is a requirement for a container runtime to work with Kubernetes.
-For that reason, an additional service [cri-dockerd](https://github.com/Mirantis/cri-dockerd)
+For that reason, an additional service [cri-dockerd](https://mirantis.github.io/cri-dockerd/)
 has to be installed. cri-dockerd is a project based on the legacy built-in
 Docker Engine support that was [removed](/dockershim) from the kubelet in version 1.24.
 {{< /note >}}
@@ -161,14 +161,14 @@ For more information on version skews, see:
 
 {{< note >}}
 There's a dedicated package repository for each Kubernetes minor version. If you want to install
-a minor version other than {{< skew currentVersion >}}, please see the installation guide for
+a minor version other than v{{< skew currentVersion >}}, please see the installation guide for
 your desired minor version.
 {{< /note >}}
 
 {{< tabs name="k8s_install" >}}
 {{% tab name="Debian-based distributions" %}}
 
-These instructions are for Kubernetes {{< skew currentVersion >}}.
+These instructions are for Kubernetes v{{< skew currentVersion >}}.
 
 1. Update the `apt` package index and install packages needed to use the Kubernetes `apt` repository:
 
@@ -182,13 +182,13 @@ These instructions are for Kubernetes {{< skew currentVersion >}}.
    The same signing key is used for all repositories so you can disregard the version in the URL:
 
    ```shell
-   # If the folder `/etc/apt/keyrings` does not exist, it should be created before the curl command, read the note below.
+   # If the directory `/etc/apt/keyrings` does not exist, it should be created before the curl command, read the note below.
    # sudo mkdir -p -m 755 /etc/apt/keyrings
    curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    ```
-   
+
 {{< note >}}
-In releases older than Debian 12 and Ubuntu 22.04, folder `/etc/apt/keyrings` does not exist by default, and it should be created before the curl command.
+In releases older than Debian 12 and Ubuntu 22.04, directory `/etc/apt/keyrings` does not exist by default, and it should be created before the curl command.
 {{< /note >}}
 
 3. Add the appropriate Kubernetes `apt` repository. Please note that this repository have packages
@@ -208,6 +208,12 @@ In releases older than Debian 12 and Ubuntu 22.04, folder `/etc/apt/keyrings` do
    sudo apt-get update
    sudo apt-get install -y kubelet kubeadm kubectl
    sudo apt-mark hold kubelet kubeadm kubectl
+   ```
+
+5. (Optional) Enable the kubelet service before running kubeadm:
+
+   ```shell
+   sudo systemctl enable --now kubelet
    ```
 
 {{% /tab %}}
@@ -255,10 +261,15 @@ settings that are not supported by kubeadm.
    EOF
    ```
 
-3. Install kubelet, kubeadm and kubectl, and enable kubelet to ensure it's automatically started on startup:
+3. Install kubelet, kubeadm and kubectl:
 
    ```shell
    sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+   ```
+
+4. (Optional) Enable the kubelet service before running kubeadm:
+
+   ```shell
    sudo systemctl enable --now kubelet
    ```
 
@@ -294,7 +305,7 @@ ARCH="amd64"
 curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
 ```
 
-Install `kubeadm`, `kubelet`, `kubectl` and add a `kubelet` systemd service:
+Install `kubeadm`, `kubelet` and add a `kubelet` systemd service:
 
 ```bash
 RELEASE="$(curl -sSL https://dl.k8s.io/release/stable.txt)"
@@ -304,9 +315,9 @@ sudo curl -L --remote-name-all https://dl.k8s.io/release/${RELEASE}/bin/linux/${
 sudo chmod +x {kubeadm,kubelet}
 
 RELEASE_VERSION="v0.16.2"
-curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/krel/templates/latest/kubelet/kubelet.service" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service
-sudo mkdir -p /etc/systemd/system/kubelet.service.d
-curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/krel/templates/latest/kubeadm/10-kubeadm.conf" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/krel/templates/latest/kubelet/kubelet.service" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /usr/lib/systemd/system/kubelet.service
+sudo mkdir -p /usr/lib/systemd/system/kubelet.service.d
+curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/krel/templates/latest/kubeadm/10-kubeadm.conf" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf
 ```
 
 {{< note >}}
@@ -316,10 +327,10 @@ that do not include `glibc` by default.
 
 Install `kubectl` by following the instructions on [Install Tools page](/docs/tasks/tools/#kubectl).
 
-Enable and start `kubelet`:
+Optionally, enable the kubelet service before running kubeadm:
 
 ```bash
-systemctl enable --now kubelet
+sudo systemctl enable --now kubelet
 ```
 
 {{< note >}}

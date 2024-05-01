@@ -4,9 +4,10 @@ title: >-
   Kubernetes 1.25: Use Secrets for Node-Driven Expansion of CSI Volumes
 date: 2022-09-21
 slug: kubernetes-1-25-use-secrets-while-expanding-csi-volumes-on-node-alpha
+author: >
+  Humble Chirammal (Red Hat),
+  Louis Koo (deeproute.ai)
 ---
-
-**Author:** Humble Chirammal (Red Hat), Louis Koo (deeproute.ai)
 
 Kubernetes v1.25, released earlier this month, introduced a new feature
 that lets your cluster expand storage volumes, even when access to those

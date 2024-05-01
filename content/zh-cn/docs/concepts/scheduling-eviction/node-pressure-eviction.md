@@ -324,6 +324,7 @@ The kubelet has the following default hard eviction thresholds:
 - `nodefs.available<10%`
 - `imagefs.available<15%`
 - `nodefs.inodesFree<5%` (Linux nodes)
+- `imagefs.inodesFree<5%` (Linux nodes)
 -->
 kubelet 具有以下默认硬驱逐条件：
 
@@ -331,10 +332,11 @@ kubelet 具有以下默认硬驱逐条件：
 - `nodefs.available<10%`
 - `imagefs.available<15%`
 - `nodefs.inodesFree<5%`（Linux 节点）
+- `imagefs.inodesFree<5%` (Linux 节点)
 
 <!--
 These default values of hard eviction thresholds will only be set if none
-of the parameters is changed. If you changed the value of any parameter,
+of the parameters is changed. If you change the value of any parameter,
 then the values of other parameters will not be inherited as the default
 values and will be set to zero. In order to provide custom values, you
 should provide all the thresholds respectively.
