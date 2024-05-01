@@ -3,9 +3,9 @@ layout: blog
 title: 'Alpha in Kubernetes v1.22: API Server Tracing'
 date: 2021-09-03
 slug: api-server-tracing
+author: >
+  David Ashpole (Google)
 ---
-
-**Authors:** David Ashpole (Google)
 
 In distributed systems, it can be hard to figure out where problems are. You grep through one component's logs just to discover that the source of your problem is in another component.  You search there only to discover that you need to enable debug logs to figure out what really went wrong... And it goes on. The more complex the path your request takes, the harder it is to answer questions about where it went.  I've personally spent many hours doing this dance with a variety of Kubernetes components. Distributed tracing is a tool which is designed to help in these situations, and the Kubernetes API Server is, perhaps, the most important Kubernetes component to be able to debug. At Kubernetes' Sig Instrumentation, our mission is to make it easier to understand what's going on in your cluster, and we are happy to announce that distributed tracing in the Kubernetes API Server reached alpha in 1.22.
 
