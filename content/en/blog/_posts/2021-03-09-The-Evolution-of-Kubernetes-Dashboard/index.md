@@ -3,9 +3,10 @@ layout: blog
 title: "The Evolution of Kubernetes Dashboard"
 date: 2021-03-09
 slug: the-evolution-of-kubernetes-dashboard
+author: >
+  Marcin Maciaszczyk (Kubermatic),
+  Sebastian Florek (Kubermatic)
 ---
-
-Authors: Marcin Maciaszczyk, Kubermatic & Sebastian Florek, Kubermatic
 
 In October 2020, the Kubernetes Dashboard officially turned five. As main project maintainers, we can barely believe that so much time has passed since our very first commits to the project. However, looking back with a bit of nostalgia, we realize that quite a lot has happened since then. Now it’s due time to celebrate “our baby” with a short recap.
 

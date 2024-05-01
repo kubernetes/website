@@ -3,9 +3,9 @@ layout: blog
 title: "Introducing Single Pod Access Mode for PersistentVolumes"
 date: 2021-09-13
 slug: read-write-once-pod-access-mode-alpha
+author: >
+  Chris Henzie (Google)
 ---
-
-**Author:** Chris Henzie (Google)
 
 Last month's release of Kubernetes v1.22 introduced a new ReadWriteOncePod access mode for [PersistentVolumes](/docs/concepts/storage/persistent-volumes/#persistent-volumes) and [PersistentVolumeClaims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims).
 With this alpha feature, Kubernetes allows you to restrict volume access to a single pod in the cluster.

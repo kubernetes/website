@@ -3,9 +3,10 @@ layout: blog
 title: 'Minimum Ready Seconds for StatefulSets'
 date: 2021-08-27
 slug: minreadyseconds-statefulsets
+author: >
+  Ravi Gudimetla (Red Hat),
+  Maciej Szulik (Red Hat)
 ---
-
-**Authors:** Ravi Gudimetla (Red Hat), Maciej Szulik (Red Hat)
 
 This blog describes the notion of Availability for `StatefulSet` workloads, and a new alpha feature in Kubernetes 1.22 which adds `minReadySeconds` configuration for `StatefulSets`.
 
