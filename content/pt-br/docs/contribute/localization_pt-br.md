@@ -72,3 +72,5 @@ Nomes de objetos do Kubernetes não são traduzidos, e permanecem no original co
 e outros.
 
 
+Ficou alguma dúvida que não foi respondida nessa página?   
+Fale com a gente canal no slack do Kubernetes `#kubernetes-docs-pt`
