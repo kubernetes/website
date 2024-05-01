@@ -1,11 +1,12 @@
 ---
-title: Probe
+title: छानबीन
 id: probe
 date: 2023-03-21
 full_link: /docs/concepts/workloads/pods/pod-lifecycle/#container-probes
 
 short_description: >
   पॉड में एक कंटेनर पर क्यूबलेट द्वारा समय-समय पर की जाने वाली जांच।
+aka: probe
 tags:
 - tool
 ---

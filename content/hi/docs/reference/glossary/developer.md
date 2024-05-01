@@ -1,5 +1,5 @@
 ---
-title: Developer (disambiguation)
+title: डेवेलपर  (disambiguation)
 id: developer
 date: 2018-04-12
 full_link: 

@@ -1,5 +1,5 @@
 ---
-title: Platform Developer
+title: प्लेटफॉर्म डेवेलपर 
 id: platform-developer
 date: 2018-04-12
 full_link: 

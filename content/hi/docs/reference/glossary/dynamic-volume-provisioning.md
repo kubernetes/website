@@ -1,5 +1,5 @@
 ---
-title: Dynamic Volume Provisioning
+title: डायनेमिक वॉल्यूम प्रोविज़निंग
 id: dynamicvolumeprovisioning
 date: 2018-04-12
 full_link: /docs/concepts/storage/dynamic-provisioning

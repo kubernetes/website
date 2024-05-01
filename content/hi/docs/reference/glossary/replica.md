@@ -1,11 +1,11 @@
 ---
-title: Replica
+title: प्रतिकृति
 id: replica
 date: 2023-06-11
 full_link: 
 short_description: >
   रेप्लिकास पॉड्स की प्रतियां हैं, जो समान उदाहरणों को बनाए रखते हुए उपलब्धता, स्केलेबिलिटी और दोष सहनशीलता सुनिश्चित करती हैं।
-aka: 
+aka: Replica
 tags:
 - fundamental
 - workload

@@ -1,5 +1,5 @@
 ---
-title: Persistent Volume
+title: PersistentVolume
 id: persistent-volume
 date: 2018-04-12
 full_link: /docs/concepts/storage/persistent-volumes/
