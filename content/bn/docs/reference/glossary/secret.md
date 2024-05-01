@@ -1,6 +1,6 @@
 ---
 title: সিক্রেট
-id: সিক্রেট
+id: secret
 date: ২০১৮/০৪/১২
 full_link: /docs/concepts/configuration/secret/
 short_description: >
