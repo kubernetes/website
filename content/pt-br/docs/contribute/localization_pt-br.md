@@ -21,7 +21,7 @@ Esta página contém informações sobre o processo de localização em portugu�
 
 
 ## Checagem de links quebrados
-Para garantir que os links referenciados na página que localizou não estão quebrados, você pode executar um script de checagem de links quebrados.
+Para garantir que os links referenciados na página que localizou não estão quebrados, você pode executar um script de checagem de links quebrados.   
 Dentro do seu fork local do repositório, executar:
 
 ```bash
@@ -37,16 +37,16 @@ Onde,
 |      Inglês            |        Português          |   Comentários           |
 | ---------------------- | ----------------------    | ----------------------- |
 | addon                 | complemento               |                          |
-| control plane          | camada de gerenciamento   |                         |
-| workload               | carga de trabalho         |                         |
-| workflow               | fluxo de execução         |                         |
 | API call               | chamada para a API        |                         |
 | API server             | servidor de API           |                         |
 | backward compatibility | retrocompatibilidade      |                         |
+| builtin                | embutido                  |                         | 
 | container image        | imagem do contêiner       |                         | 
 | dashboard              | painel                    |                         | 
 | data plane             | camada de dados           |                         | 
-| builtin                | embutido                  |                         | 
+| control plane          | camada de gerenciamento   |                         |
+| workload               | carga de trabalho         |                         |
+| workflow               | fluxo de execução         |                         |
 
 
 ## Dicionário de termos não traduzidos
@@ -64,6 +64,11 @@ Onde,
 | proxy                  |                          |
 | endpoint               |                          |
 
+Nomes de objetos do Kubernetes não são traduzidos, e permanecem no original com a primeira letra em maúsculo, por exemplo:
+* Pod
+* Service
+* Deployment
 
+e outros.
 
 
