@@ -239,3 +239,13 @@ or **{{< skew currentVersionAddMinor -3 >}}**)
 Running a cluster with `kube-proxy` instances that are persistently three minor versions behind
 `kube-apiserver` means they must be upgraded before the control plane can be upgraded.
 {{</ warning >}}
+
+## Controller clients and kube-apiserver upgrades
+
+Controller clients external to the kube-apiserver, such as kubelet, kube-controller-manager, and kube-scheduler, as well as aggregated API servers, must not have a higher version than the kube-apiserver they interact with to ensure compatibility and consistency within the cluster.
+
+When the kube-apiserver is upgraded to a new version, it might introduce changes to its APIs. However, to avoid disrupting critical operations, especially those related to admission control and flow control, the kube-apiserver is designed to be able to understand and communicate using the API versions from the previous release (-1, -2, or -3 versions).
+
+So, even if the kube-apiserver itself is upgraded to a newer version, it can still communicate with its components or modules that may not have been upgraded yet, ensuring that these essential functionalities continue to work without interruption. This capability helps in maintaining the stability and reliability of the Kubernetes cluster during upgrades.
+
+Administrators must coordinate the upgrades of controller clients with the kube-apiserver upgrades to ensure that all components remain compatible and operational within the cluster ecosystem.
