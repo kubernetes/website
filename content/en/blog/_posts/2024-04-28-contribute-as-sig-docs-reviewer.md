@@ -98,7 +98,7 @@ Kubernetes documentation contribution process. Here are the steps to get you sta
 
 After consistently contributing to documentation reviews and demonstrating your understanding
 of Kubernetes documentation standards, you can express your interest in becoming an official
-SIG Docs reviewer. Engage with the SIG Docs chairs or leads on Slack or during SIG Docs
+SIG Docs reviewer. As you build up this skill set, reviews are still welcome! You don't need to be a formal reviewer in the SIG to leave reviews on PRs or blog posts. Engage with the SIG Docs chairs or leads on Slack or during SIG Docs
 meetings to discuss the next steps.
 
 ## See YOU in the Docs!
