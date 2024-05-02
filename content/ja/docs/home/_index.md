@@ -63,4 +63,6 @@ cards:
 - name: about
   title: ドキュメントについて
   description: このWebサイトには、Kubernetesの最新バージョンと過去4世代のドキュメントが含まれています。
+  button: "利用可能なバージョンを見る"
+  button_path: "/docs/home/supported-doc-versions"
 ---
