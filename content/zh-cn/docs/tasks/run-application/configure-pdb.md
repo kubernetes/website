@@ -429,7 +429,7 @@ These pods are tracked via `.status.currentHealthy` field in the PDB status.
 -->
 ## 不健康的 Pod 驱逐策略   {#unhealthy-pod-eviction-policy}
 
-{{< feature-state for_k8s_version="v1.27" state="beta" >}}
+{{< feature-state feature_gate_name="PDBUnhealthyPodEvictionPolicy" >}}
 
 {{< note >}}
 <!--
