@@ -103,37 +103,7 @@ to maintain which nevertheless would be runtime dependent.
 This means, that the basic flow for `Exec`, `Attach` and `PortForward`
 was proposed to look like this:
 
-{{< mermaid >}}
-sequenceDiagram
-    participant crictl
-    participant kubectl
-    participant API as API Server
-    participant kubelet
-    participant runtime as Container Runtime
-    participant streaming as Streaming Server
-    alt Client alternatives
-        Note over kubelet,runtime: Container Runtime Interface (CRI)
-        kubectl->>API: exec, attach, port-forward
-        API->>kubelet: exec, attach, port-forward
-        kubelet->>runtime: Exec, Attach, PortForward
-    else
-        Note over crictl,runtime: Container Runtime Interface (CRI)
-        crictl->>runtime: Exec, Attach, PortForward
-    end
-    runtime->>streaming: New Session
-    streaming->>runtime: HTTP endpoint (URL)
-    alt Client alternatives
-        runtime->>kubelet: Response URL
-        kubelet->>API: 
-        API-->>streaming: Connection upgrade (SPDY or WebSocket)
-        streaming-)API: Stream data
-        API-)kubectl: Stream data
-    else
-        runtime->>crictl: Response URL
-        crictl-->>streaming: Connection upgrade (SPDY or WebSocket)
-        streaming-)crictl: Stream data
-    end
-{{< /mermaid >}}
+{{< figure src="flow.svg" alt="CRI Streaming flow" class="diagram-large" >}}
 
 Clients like crictl or the kubelet (via kubectl) request a new exec, attach or
 port forward session from the runtime using the gRPC interface. The runtime
