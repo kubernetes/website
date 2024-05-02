@@ -1,11 +1,11 @@
 ---
-title: Logging
+title: लॉगिंग
 id: logging
 date: 2019-04-04
 full_link: /docs/concepts/cluster-administration/logging/
 short_description: >
   लॉग उन ईवेंट की सूची है जो क्लस्टर या एप्लिकेशन द्वारा लॉग किए जाते हैं.
-aka: 
+aka: Logging
 tags:
 - architecture
 - fundamental

@@ -1,11 +1,11 @@
 ---
-title: Downstream (disambiguation)
+title: डाउनस्ट्रीम
 id: downstream
 date: 2018-04-12
 full_link: 
 short_description: >
   इसका उल्लेख हो सकता है: कुबेरनेट्स पारिस्थितिकी तंत्र में कोड जो कोर कुबेरनेट्स कोडबेस या फोर्कड रेपो पर निर्भर करता है
-aka: 
+aka: Downstream (disambiguation)
 tags:
 - community
 ---

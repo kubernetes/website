@@ -1,11 +1,11 @@
 ---
-title: Member
+title: सदस्य
 id: member
 date: 2018-04-12
 full_link: 
 short_description: >
   K8s समुदाय में लगातार सक्रिय योगदानकर्ता।
-aka: 
+aka: Member
 tags:
 - community
 ---

@@ -1,11 +1,11 @@
 ---
-title: Managed Service
+title: प्रबंधित सेवा
 id: managed-service
 date: 2018-04-12
 full_link: 
 short_description: >
   एक तृतीय-पक्ष प्रदाता द्वारा प्रबंधित सॉफ़्टवेयर पेशकश।
-aka: 
+aka: Managed Service
 tags:
 - extension
 ---

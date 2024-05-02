@@ -1,11 +1,11 @@
 ---
-title: Pod Security Policy
+title: पॉड सुरक्षा नीति
 id: pod-security-policy
 date: 2018-04-12
 full_link: /docs/concepts/security/pod-security-policy/
 short_description: >
   पॉड निर्माण और अपडेट के सुक्ष्म प्राधिकरण को सक्षम करता है।
-aka: 
+aka: Pod Security Policy
 tags:
 - core-object
 - fundamental

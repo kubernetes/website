@@ -1,11 +1,11 @@
 ---
-title: Approver
+title: अनुमोदक
 id: approver
 date: 2019-01-11
 full_link: 
 short_description: >
      एक व्यक्ति जो कुबेरनेट्स कोड योगदान की समीक्षा और अनुमोदन कर सकता है।
-aka:
+aka: Approver
 tags:
 - community
 ---

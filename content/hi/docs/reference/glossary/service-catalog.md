@@ -1,11 +1,11 @@
 ---
-title: Service Catalog
+title: सेवा सूची
 id: service-catalog
 date: 2018-04-12
 full_link: 
 short_description: >
   एक पूर्व एक्सटेंशन एपीआई जो कुबेरनेट्स क्लस्टर में चल रहे एप्लिकेशन को बाहरी प्रबंधित सॉफ़्टवेयर पेशकशों का आसानी से उपयोग करने में सक्षम बनाता है, जैसे कि क्लाउड प्रदाता द्वारा दी जाने वाली डेटास्टोर सेवा।
-aka: 
+aka: Service Catalog
 tags:
 - extension
 ---

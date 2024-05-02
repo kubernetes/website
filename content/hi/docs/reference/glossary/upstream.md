@@ -1,11 +1,11 @@
 ---
-title: Upstream (disambiguation)
+title: अपस्ट्रीम
 id: upstream
 date: 2018-04-12
 full_link: 
 short_description: >
   इसका उल्लेख हो सकता है: कोर कुबेरनेट्स या स्रोत रेपो जिससे रेपो फोर्क किया गया था।
-aka: 
+aka: Upstream 
 tags:
 - community
 ---

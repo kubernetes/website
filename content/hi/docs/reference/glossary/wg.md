@@ -1,11 +1,11 @@
 ---
-title: WG (working group)
+title: WG 
 id: wg
 date: 2018-04-12
 full_link: https://github.com/kubernetes/community/blob/master/sig-list.md#master-working-group-list
 short_description: >
   किसी समिति, SIG, या क्रॉस-SIG प्रयास के लिए एक अल्पकालिक, संकीर्ण, या वियुग्मित परियोजना की चर्चा और/या कार्यान्वयन की सुविधा प्रदान करता है।
-aka: 
+aka: कार्य दल (working group)
 tags:
 - community
 ---

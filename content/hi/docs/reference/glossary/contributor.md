@@ -1,11 +1,11 @@
 ---
-title: Contributor
+title: सहायक
 id: contributor
 date: 2018-04-12
 full_link: 
 short_description: >
   कोई व्यक्ति जो कुबेरनेट्स परियोजना या समुदाय की सहायता के लिए कोड, दस्तावेज़ीकरण या अपना समय दान करता है।
-aka: 
+aka: Contributor
 tags:
 - community
 ---

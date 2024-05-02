@@ -1,11 +1,11 @@
 ---
-title: Volume Plugin
+title: वॉल्यूम प्लगइन 
 id: volumeplugin
 date: 2018-04-12
 full_link: 
 short_description: >
   वॉल्यूम प्लगइन एक पॉड के भीतर स्टोरेज के एकीकरण को सक्षम बनाता है।
-aka: 
+aka: Volume Plugin
 tags:
 - core-object
 - storage

@@ -1,11 +1,11 @@
 ---
-title: Mixed Version Proxy (MVP)
+title: मिश्रित संस्करण प्रॉक्सी
 id: mvp
 date: 2023-07-24
 full_link: /docs/concepts/architecture/mixed-version-proxy/
 short_description: >
   वह सुविधा जो kube-apiserver प्रॉक्सी को एक अलग पीयर API सर्वर के लिए संसाधन अनुरोध की सुविधा देती है। 
-aka: ["MVP"]
+aka: Mixed Version Proxy (MVP)
 tags:
 - architecture
 ---

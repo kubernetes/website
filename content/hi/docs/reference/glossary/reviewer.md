@@ -1,11 +1,11 @@
 ---
-title: Reviewer
+title: समीक्षकReviewer
 id: reviewer
 date: 2018-04-12
 full_link: 
 short_description: >
   एक व्यक्ति जो परियोजना के कुछ हिस्से पर गुणवत्ता और शुद्धता के लिए कोड की समीक्षा करता है।
-aka: 
+aka: Reviewer
 tags:
 - community
 ---

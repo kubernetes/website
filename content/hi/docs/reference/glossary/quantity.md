@@ -1,11 +1,11 @@
 ---
-title: Quantity
+title: मात्रा
 id: quantity
 date: 2018-08-07
 full_link:
 short_description: >
   SI सफिक्स का उपयोग करके छोटी या बड़ी संख्याओं का पूर्ण-संख्या प्रतिनिधित्व।
-aka: 
+aka: Quantity
 tags:
 - core-object
 ---

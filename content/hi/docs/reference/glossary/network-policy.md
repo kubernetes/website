@@ -1,11 +1,11 @@
 ---
-title: Network Policy
+title: नेटवर्क नीति
 id: network-policy
 date: 2018-04-12
 full_link: /docs/concepts/services-networking/network-policies/
 short_description: >
   पॉड्स के समूहों को एक दूसरे के साथ और अन्य नेटवर्क एंडपॉइंट के साथ संचार करने की अनुमति कैसे दी जाती है, इसका एक विवरण।
-aka: 
+aka: Network Policy
 tags:
 - networking
 - architecture

@@ -1,5 +1,5 @@
 ---
-title: Group Version Resource
+title: ग्रुप वर्जन रिसोर्स 
 id: gvr
 date: 2023-07-24
 short_description: >

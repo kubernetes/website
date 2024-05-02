@@ -1,11 +1,11 @@
 ---
-title: SIG (special interest group)
+title: SIG 
 id: sig
 date: 2018-04-12
 full_link: https://github.com/kubernetes/community/blob/master/sig-list.md#special-interest-groups 
 short_description: >
   समुदाय के सदस्य जो सामूहिक रूप से बड़े कुबेरनेट्स ओपन सोर्स प्रोजेक्ट के चल रहे हिस्से या पहलू का प्रबंधन करते हैं।
-aka: 
+aka: विशेष रुचि समूह (special interest group)
 tags:
 - community
 ---

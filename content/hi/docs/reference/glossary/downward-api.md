@@ -1,10 +1,10 @@
 ---
-title: Downward API
+title: डाउनवार्ड एपीआई
 id: downward-api
 date: 2022-03-21
 short_description: >
   एक कंटेनर में चल रहे कोड के लिए पॉड और कंटेनर फ़ील्ड मानों को उजागर करने के लिए एक तंत्र।
-aka:
+aka: Downward API
 full_link: /docs/concepts/workloads/pods/downward-api/
 tags:
 - architecture

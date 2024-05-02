@@ -1,11 +1,11 @@
 ---
-title: Controller
+title: नियंत्रक
 id: controller
 date: 2018-04-12
 full_link: /docs/concepts/architecture/controller/
 short_description: >
   एक नियंत्रण लूप जो apiserver के माध्यम से क्लस्टर की साझा स्थिति को देखता है और वर्तमान स्थिति को वांछित स्थिति की ओर ले जाने का प्रयास करता है।
-aka: 
+aka: Controller
 tags:
 - architecture
 - fundamental

@@ -1,11 +1,11 @@
 ---
-title: Container Lifecycle Hooks
+title: कंटेनर लाइफसाइकिल हुक 
 id: container-lifecycle-hooks
 date: 2018-10-08
 full_link: /docs/concepts/containers/container-lifecycle-hooks/
 short_description: >
   जीवनचक्र हुक कंटेनर प्रबंधन जीवनचक्र में घटनाओं को उजागर करते हैं और घटनाओं के घटित होने पर उपयोगकर्ता को कोड चलाने देते हैं।
-aka:
+aka: Container Lifecycle Hooks
 tags:
 - extension
 ---
