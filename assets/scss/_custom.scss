@@ -1352,3 +1352,40 @@ div.alert > em.javascript-required {
   outline: none;
   padding: .5em 0 .5em 0;
 }
+
+/* CSS for 'figure' full-screen display */
+ 
+/* Define styles for full-screen overlay */
+.figure-fullscreen-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: rgba(255, 255, 255, 0.95); /* White background with some transparency */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: calc(5% + 20px);
+  box-sizing: border-box;
+}
+
+/* CSS class to scale the image when zoomed */
+.figure-zoomed {
+  transform: scale(1.2);
+}
+
+/* Define styles for full-screen image */
+.figure-fullscreen-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* Maintain aspect ratio and fit within the container */
+}
+
+/* Define styles for close button */
+.figure-close-button {
+  position: absolute;
+  top: 1%; 
+  right: 2%;
+  cursor: pointer;
+  font-size: calc(5vw + 10px);
+  color: #333;
+}
