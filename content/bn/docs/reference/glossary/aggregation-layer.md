@@ -17,4 +17,6 @@ tags:
 
 <!--more-->
 
-যখন আপনি {{< glossary_tooltip text="Kubernetes API Server" term_id="kube-apiserver" >}} [অতিরিক্ত এপিআই সমর্থন](/docs/tasks/extend-kubernetes/configure-aggregation-layer/) করার জন্য কনফিগার করেছেন, তখন আপনি `API-Service` অবজেক্ট যোগ করে কুবারনেটিস এপিআইতে একটি URL পথ দাবি করতে পারেন।
+যখন আপনি {{< glossary_tooltip text="Kubernetes API Server" term_id="kube-apiserver" >}} 
+[অতিরিক্ত এপিআই সমর্থন](/docs/tasks/extend-kubernetes/configure-aggregation-layer/) করার জন্য কনফিগার করেছেন, 
+তখন আপনি `API-Service` অবজেক্ট যোগ করে কুবারনেটিস এপিআইতে একটি URL পথ দাবি করতে পারেন।
