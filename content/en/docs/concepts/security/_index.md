@@ -88,7 +88,7 @@ VMware vSphere | https://www.vmware.com/security/hardening-guides |
 You can define security policies using Kubernetes-native mechanisms,
 such as [NetworkPolicy](/docs/concepts/services-networking/network-policies/)
 (declarative control over network packet filtering) or
-[ValidatingAdmisisonPolicy](/docs/reference/access-authn-authz/validating-admission-policy/) (declarative restrictions on what changes
+[ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/) (declarative restrictions on what changes
 someone can make using the Kubernetes API).
 
 However, you can also rely on policy implementations from the wider
