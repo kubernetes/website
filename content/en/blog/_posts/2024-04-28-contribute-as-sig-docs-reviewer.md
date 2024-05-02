@@ -41,7 +41,7 @@ making you the unsung hero of their open-source odyssey.
 The Kubernetes project depends substantially on SIG Docs to ensure that documentation
 is accurate, up to date, and easily accessible. By becoming a reviewer, you can help users
 and contributors navigate and understand Kubernetes more effectively. In addition, reviewing
-documentation provides unique opportunities for:
+documentation provides unique opportunities to:
 
 - **Expand your Kubernetes knowledge**: Engage deeply with new features and functionalities
   by reviewing their documentation.
