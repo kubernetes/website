@@ -1,5 +1,8 @@
 ---
 title: Pod
+api_metadata:
+- apiVersion: "v1"
+  kind: "Pod"
 content_type: concept
 weight: 10
 no_list: true
@@ -8,6 +11,9 @@ no_list: true
 reviewers:
 - erictune
 title: Pods
+api_metadata:
+- apiVersion: "v1"
+  kind: "Pod"
 content_type: concept
 weight: 10
 no_list: true
@@ -235,26 +241,30 @@ Pod 的名称必须是一个合法的
 
 <!--
 You should set the `.spec.os.name` field to either `windows` or `linux` to indicate the OS on
-which you want the pod to run. These two are the only operating systems supported for now by 
-Kubernetes. In future, this list may be expanded.
+which you want the pod to run. These two are the only operating systems supported for now by
+Kubernetes. In the future, this list may be expanded.
 
-In Kubernetes v{{< skew currentVersion >}}, the value you set for this field has no
-effect on {{< glossary_tooltip text="scheduling" term_id="kube-scheduler" >}} of the pods.
-Setting the `.spec.os.name` helps to identify the pod OS
-authoritatively and is used for validation. The kubelet refuses to run a Pod where you have
-specified a Pod OS, if this isn't the same as the operating system for the node where
-that kubelet is running.
+In Kubernetes v{{< skew currentVersion >}}, the value of `.spec.os.name` does not affect
+how the {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
+picks a Pod to run a node. In any cluster where there is more than one operating system for
+running nodes, you should set the
+[kubernetes.io/os](/docs/reference/labels-annotations-taints/#kubernetes-io-os)
+label correctly on each node, and define pods with a `nodeSelector` based on the operating system
+label, the kube-scheduler assigns your pod to a node based on other criteria and may or may not
+succeed in picking a suitable node placement where the node OS is right for the containers in that Pod.
 The [Pod security standards](/docs/concepts/security/pod-security-standards/) also use this
-field to avoid enforcing policies that aren't relevant to that operating system.  
+field to avoid enforcing policies that aren't relevant to that operating system.
 -->
 你应该将 `.spec.os.name` 字段设置为 `windows` 或 `linux` 以表示你希望 Pod 运行在哪个操作系统之上。
 这两个是 Kubernetes 目前支持的操作系统。将来，这个列表可能会被扩充。
 
-在 Kubernetes v{{< skew currentVersion >}} 中，为此字段设置的值对 Pod
-的{{<glossary_tooltip text="调度" term_id="kube-scheduler" >}}没有影响。
-设置 `.spec.os.name` 有助于确定性地标识 Pod 的操作系统并用于验证。
-如果你指定的 Pod 操作系统与运行 kubelet 所在节点的操作系统不同，
-那么 kubelet 将会拒绝运行该 Pod。
+在 Kubernetes v{{< skew currentVersion >}} 中，`.spec.os.name` 的值对
+{{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}} 如何调度 Pod 到节点上没有影响。
+在任何有多种操作系统运行节点的集群中，你应该在每个节点上正确设置
+[kubernetes.io/os](/zh-cn/docs/reference/labels-annotations-taints/#kubernetes-io-os)
+标签，并根据操作系统标签为 Pod 设置 `nodeSelector` 字段。
+kube-scheduler 将根据其他标准将你的 Pod 分配到节点，
+并且可能会也可能不会成功选择合适的节点位置，其中节点操作系统适合该 Pod 中的容器。
 [Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)也使用这个字段来避免强制执行与该操作系统无关的策略。
 
 <!--
@@ -307,11 +317,18 @@ Each controller for a workload resource uses the `PodTemplate` inside the worklo
 object to make actual Pods. The `PodTemplate` is part of the desired state of whatever
 workload resource you used to run your app.
 
+When you create a Pod, you can include
+[environment variables](/docs/tasks/inject-data-application/define-environment-variable-container/)
+in the Pod template for the containers that run in the Pod.
+
 The sample below is a manifest for a simple Job with a `template` that starts one
 container. The container in that Pod prints a message then pauses.
 -->
 工作负载的控制器会使用负载对象中的 `PodTemplate` 来生成实际的 Pod。
 `PodTemplate` 是你用来运行应用时指定的负载资源的目标状态的一部分。
+
+创建 Pod 时，你可以在 Pod 模板中包含 Pod
+中运行的容器的[环境变量](/zh-cn/docs/tasks/inject-data-application/define-environment-variable-container/)。
 
 下面的示例是一个简单的 Job 的清单，其中的 `template` 指示启动一个容器。
 该 Pod 中的容器会打印一条消息之后暂停。
@@ -499,57 +516,58 @@ Pod 中的容器所看到的系统主机名与为 Pod 配置的 `name` 属性值
 [网络](/zh-cn/docs/concepts/cluster-administration/networking/)部分提供了更多有关此内容的信息。
 
 <!--
-## Privileged mode for containers
+## Pod security settings {#pod-security}
 -->
-## 容器的特权模式     {#privileged-mode-for-containers}
-
-{{< note >}}
-<!--
-Your {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}} must
-support the concept of a privileged container for this setting to be relevant.
--->
-你的{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}必须支持特权容器的概念才能使用这一配置。
-{{< /note >}}
+## Pod 安全设置     {#pod-security}
 
 <!--
-Any container in a pod can run in privileged mode to use operating system administrative capabilities
-that would otherwise be inaccessible. This is available for both Windows and Linux.
+To set security constraints on Pods and containers, you use the
+`securityContext` field in the Pod specification. This field gives you
+granular control over what a Pod or individual containers can do. For example:
 -->
-Pod 中的所有容器都可以在特权模式下运行，以使用原本无法访问的操作系统管理权能。
-此模式同时适用于 Windows 和 Linux。
+要对 Pod 和容器设置安全约束，请使用 Pod 规约中的 `securityContext` 字段。
+该字段使你可以精细控制 Pod 或单个容器可以执行的操作。例如：
 
 <!--
-### Linux privileged containers
-
-In Linux, any container in a Pod can enable privileged mode using the `privileged` (Linux) flag
-on the [security context](/docs/tasks/configure-pod-container/security-context/) of the
-container spec. This is useful for containers that want to use operating system administrative
-capabilities such as manipulating the network stack or accessing hardware devices.
+* Drop specific Linux capabilities to avoid the impact of a CVE.
+* Force all processes in the Pod to run as a non-root user or as a specific
+  user or group ID.
+* Set a specific seccomp profile.
+* Set Windows security options, such as whether containers run as HostProcess.
 -->
-### Linux 特权容器   {#linux-privileged-containers}
+* 放弃特定的 Linux 权能（Capability）以避免受到某 CVE 的影响。
+* 强制 Pod 中的所有进程以非 root 用户或特定用户或组 ID 的身份运行。
+* 设置特定的 seccomp 配置文件。
+* 设置 Windows 安全选项，例如容器是否作为 HostProcess 运行。
 
-在 Linux 中，Pod 中的所有容器都可以使用容器规约中的
-[安全性上下文](/zh-cn/docs/tasks/configure-pod-container/security-context/)中的
-`privileged`（Linux）参数启用特权模式。
-这对于想要使用操作系统管理权能（Capabilities，如操纵网络堆栈和访问硬件设备）的容器很有用。
+{{< caution >}}
+<!--
+You can also use the Pod securityContext to enable
+[_privileged mode_](/docs/concepts/security/linux-kernel-security-constraints/#privileged-containers)
+in Linux containers. Privileged mode overrides many of the other security
+settings in the securityContext. Avoid using this setting unless you can't grant
+the equivalent permissions by using other fields in the securityContext.
+In Kubernetes 1.26 and later, you can run Windows containers in a similarly
+privileged mode by setting the `windowsOptions.hostProcess` flag on the
+security context of the Pod spec. For details and instructions, see
+[Create a Windows HostProcess Pod](/docs/tasks/configure-pod-container/create-hostprocess-pod/).
+-->
+你还可以使用 Pod securityContext 在 Linux 容器中启用[**特权模式**](/zh-cn/docs/concepts/security/linux-kernel-security-constraints/#privileged-containers)。
+特权模式会覆盖 securityContext 中的许多其他安全设置。
+请避免使用此设置，除非你无法通过使用 securityContext 中的其他字段授予等效权限。
+在 Kubernetes 1.26 及更高版本中，你可以通过在 Pod 规约的安全上下文中设置
+`windowsOptions.hostProcess` 标志，以类似的特权模式运行 Windows 容器。
+有关详细信息和说明，请参阅[创建 Windows HostProcess Pod](/zh-cn/docs/tasks/configure-pod-container/create-hostprocess-pod/)。
+{{< /caution >}}
 
 <!--
-### Windows privileged containers
+* To learn about kernel-level security constraints that you can use,
+  see [Linux kernel security constraints for Pods and containers](/docs/concepts/security/linux-kernel-security-constraints).
+* To learn more about the Pod security context, see
+  [Configure a Security Context for a Pod or Container](/docs/tasks/configure-pod-container/security-context/).
 -->
-### Windows 特权容器   {#windows-privileged-containers}
-
-{{< feature-state for_k8s_version="v1.26" state="stable" >}}
-
-<!--
-In Windows, you can create a [Windows HostProcess pod](/docs/tasks/configure-pod-container/create-hostprocess-pod) by setting the
-`windowsOptions.hostProcess` flag on the security context of the pod spec. All containers in these
-pods must run as Windows HostProcess containers. HostProcess pods run directly on the host and can also be used
-to perform administrative tasks as is done with Linux privileged containers. 
--->
-在 Windows 中，你可以使用 Pod 规约中安全上下文的 `windowsOptions.hostProcess` 参数来创建
-[Windows HostProcess Pod](/zh-cn/docs/tasks/configure-pod-container/create-hostprocess-pod/)。
-这些 Pod 中的所有容器都必须以 Windows HostProcess 容器方式运行。
-HostProcess Pod 可以直接运行在主机上，它也能像 Linux 特权容器一样，用于执行管理任务。
+* 要了解可以使用的内核级安全约束，请参阅 [Pod 和容器的 Linux 内核安全约束](/zh-cn/docs/concepts/security/linux-kernel-security-constraints)。
+* 要了解有关 Pod 安全上下文的更多信息，请参阅[为 Pod 或容器配置安全上下文](/zh-cn/docs/tasks/configure-pod-container/security-context/)。
 
 <!--
 ## Static Pods
