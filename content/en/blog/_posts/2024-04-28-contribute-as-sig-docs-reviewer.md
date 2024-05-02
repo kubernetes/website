@@ -82,7 +82,7 @@ Kubernetes documentation contribution process. Here are the steps to get you sta
    `good first issue` or `help wanted`. These are great for beginners. Leave constructive
    feedback and suggestions. Familiarize yourself with the
    [content guide](/docs/contribute/style/content-guide/) and the 
-   [style guide](/docs/contribute/style/style-guide/) to provide more effectively 
+   [style guide](/docs/contribute/style/style-guide/) to provide more effective
    [reviewing Pull Requests](/docs/contribute/review/reviewing-prs/).
 
 1. **Attend SIG Docs Meetings**: Participate in the 
