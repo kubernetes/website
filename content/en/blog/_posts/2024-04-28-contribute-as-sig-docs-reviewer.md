@@ -14,7 +14,7 @@ What is the truth behind this tale as old as time (or at least as old as Kuberne
 Imagine Sarah: an enthusiast of open-source whose keyboard had seen more action crafting
 technical masterpieces for her projects than a knight's sword in battle. Sarah's had such
 a smooth relationship with Git, that she could `git commit` and `git push` in her sleep,
-and her etiquette in pull-requests was so polished, it could make a silver spoon look tarnished.
+and her etiquette in pull requests was so polished, it could make a silver spoon look tarnished.
 
 But here's the twist: when it came to the mysterious _art-of-coding_, Sarah felt more
 like a fish out of water — or more accurately, like trying to navigate a Kubernetes cluster
