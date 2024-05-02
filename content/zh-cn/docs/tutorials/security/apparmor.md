@@ -13,37 +13,17 @@ weight: 30
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.4" state="beta" >}}
+{{< feature-state feature_gate_name="AppArmor" >}}
 
 <!--
-[AppArmor](https://apparmor.net/) is a Linux kernel security module that supplements the standard Linux user and group based
-permissions to confine programs to a limited set of resources. AppArmor can be configured for any
-application to reduce its potential attack surface and provide greater in-depth defense. It is
-configured through profiles tuned to allow the access needed by a specific program or container,
-such as Linux capabilities, network access, file permissions, etc. Each profile can be run in either
-*enforcing* mode, which blocks access to disallowed resources, or *complain* mode, which only reports
-violations.
+This page shows you how to load AppArmor profiles on your nodes and enforce
+those profiles in Pods. To learn more about how Kubernetes can confine Pods using
+AppArmor, see
+[Linux kernel security constraints for Pods and containers](/docs/concepts/security/linux-kernel-security-constraints/#apparmor).
 -->
-[AppArmor](https://apparmor.net/) 是一个 Linux 内核安全模块，
-它补充了基于标准 Linux 用户和组的权限，将程序限制在一组有限的资源中。
-AppArmor 可以配置为任何应用程序减少潜在的攻击面，并且提供更加深入的防御。
-它通过调整配置文件进行配置，以允许特定程序或容器所需的访问，
-如 Linux 权能字、网络访问、文件权限等。
-每个配置文件都可以在 **强制（enforcing）**
-模式（阻止访问不允许的资源）或 **投诉（complain）** 模式（仅报告冲突）下运行。
-
-<!--
-On Kubernetes, AppArmor can help you to run a more secure deployment by restricting what containers are allowed to
-do, and/or provide better auditing through system logs. However, it is important to keep in mind
-that AppArmor is not a silver bullet and can only do so much to protect against exploits in your
-application code. It is important to provide good, restrictive profiles, and harden your
-applications and cluster from other angles as well.
--->
-在 Kubernetes 中，AppArmor 可以通过限制允许容器执行的操作，
-和/或通过系统日志提供更好的审计来帮助你运行更安全的部署。
-但是，重要的是要记住 AppArmor 不是灵丹妙药，
-只能做部分事情来防止应用程序代码中的漏洞。
-提供良好的限制性配置文件，并从其他角度强化你的应用程序和集群非常重要。
+本页面向你展示如何在节点上加载 AppArmor 配置文件并在 Pod 中强制应用这些配置文件。
+要了解有关 Kubernetes 如何使用 AppArmor 限制 Pod 的更多信息，请参阅
+[Pod 和容器的 Linux 内核安全约束](/zh-cn/docs/concepts/security/linux-kernel-security-constraints/#apparmor)。
 
 ## {{% heading "objectives" %}}
 
@@ -85,7 +65,7 @@ AppArmor 是一个可选的内核模块和 Kubernetes 特性，因此请在继�
    ```
 
    <!--
-   The Kubelet verifies that AppArmor is enabled on the host before admitting a pod with AppArmor
+   The kubelet verifies that AppArmor is enabled on the host before admitting a pod with AppArmor
    explicitly configured.
    -->
    kubelet 会先验证主机上是否已启用 AppArmor，然后再接纳显式配置了 AppArmor 的 Pod。
@@ -103,7 +83,7 @@ AppArmor 是一个可选的内核模块和 Kubernetes 特性，因此请在继�
 <!--
 3. Profile is loaded -- AppArmor is applied to a Pod by specifying an AppArmor profile that each
    container should be run with. If any of the specified profiles is not loaded in the
-   kernel, the Kubelet will reject the Pod. You can view which profiles are loaded on a
+   kernel, the kubelet will reject the Pod. You can view which profiles are loaded on a
    node by checking the `/sys/kernel/security/apparmor/profiles` file. For example:
 -->
 3. 配置文件已加载 —— 通过指定每个容器应使用的 AppArmor 配置文件，
@@ -139,44 +119,44 @@ AppArmor 是一个可选的内核模块和 Kubernetes 特性，因此请在继�
 
 {{< note >}}
 <!--
-AppArmor is currently in beta, so options are specified as annotations. Once support graduates to
-general availability, the annotations will be replaced with first-class fields.
+Prior to Kubernetes v1.30, AppArmor was specified through annotations. Use the documentation version
+selector to view the documentation with this deprecated API.
 -->
-AppArmor 目前处于 Beta 阶段，因此选项以注解形式设定。
-一旦 AppArmor 支持进入正式发布阶段，注解将被替换为一阶的资源字段。
+在 Kubernetes v1.30 之前，AppArmor 是通过注解指定的。
+使用文档版本选择器查看包含此已弃用 API 的文档。
 {{< /note >}}
 
 <!--
-AppArmor profiles are specified *per-container*. To specify the AppArmor profile to run a Pod
-container with, add an annotation to the Pod's metadata:
+AppArmor profiles can be specified at the pod level or container level. The container AppArmor
+profile takes precedence over the pod profile.
 -->
-AppArmor 配置文件是按**逐个容器**的形式来设置的。
-要指定用来运行 Pod 容器的 AppArmor 配置文件，请向 Pod 的 metadata 添加注解：
+AppArmor 配置文件可以在 Pod 级别或容器级别指定。容器
+AppArmor 配置文件优先于 Pod 配置文件。
 
 ```yaml
-container.apparmor.security.beta.kubernetes.io/<container_name>: <profile_ref>
+securityContext:
+  appArmorProfile:
+    type: <profile_type>
 ```
 
 <!--
-Where `<container_name>` is the name of the container to apply the profile to, and `<profile_ref>`
-specifies the profile to apply. The `<profile_ref>` can be one of:
+Where `<profile_type>` is one of:
 -->
-`<container_name>` 的名称是配置文件所针对的容器的名称，`<profile_def>` 则设置要应用的配置文件。
-`<profile_ref>` 可以是以下取值之一：
+其中 `<profile_type>` 是以下之一：
 
 <!--
-* `runtime/default` to apply the runtime's default profile
-* `localhost/<profile_name>` to apply the profile loaded on the host with the name `<profile_name>`
-* `unconfined` to indicate that no profiles will be loaded
+* `RuntimeDefault` to use the runtime's default profile
+* `Localhost` to use a profile loaded on the host (see below)
+* `Unconfined` to run without AppArmor
 -->
-* `runtime/default` 应用运行时的默认配置
-* `localhost/<profile_name>` 应用在主机上加载的名为 `<profile_name>` 的配置文件
-* `unconfined` 表示不加载配置文件
+* `RuntimeDefault` 使用运行时的默认配置文件
+* `Localhost` 使用主机上加载的配置文件（见下文）
+* `Unconfined` 无需 AppArmor 即可运行
 
 <!--
-See the [API Reference](#api-reference) for the full details on the annotation and profile name formats.
+See the [API Reference](#api-reference) for the full details on the AppArmor profile API.
 -->
-有关注解和配置文件名称格式的详细信息，请参阅 [API 参考](#api-reference)。
+有关 AppArmor 配置文件 API 的完整详细信息，请参阅 [API 参考](#api-reference)。
 
 <!--
 To verify that the profile was applied, you can check that the container's root process is
@@ -195,7 +175,7 @@ The output should look something like this:
 输出应如下所示：
 
  ```
- k8s-apparmor-example-deny-write (enforce)
+ cri-containerd.apparmor.d (enforce)
  ```
 
 <!--
@@ -222,9 +202,9 @@ k8s-apparmor-example-deny-write (enforce)
 **本例假设你已经设置了一个集群使用 AppArmor 支持。**
 
 <!--
-First, load the profile you want to use onto your Nodes. This profile denies all file writes:
+First, load the profile you want to use onto your Nodes. This profile blocks all file write operations:
 -->
-首先，将要使用的配置文件加载到节点上，此配置文件拒绝所有文件写入：
+首先，将要使用的配置文件加载到节点上，该配置文件阻止所有文件写入操作：
 
 ```
 #include <tunables/global>
@@ -323,9 +303,11 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: hello-apparmor-2
-  annotations:
-    container.apparmor.security.beta.kubernetes.io/hello: localhost/k8s-apparmor-example-allow-write
 spec:
+  securityContext:
+    appArmorProfile:
+      type: Localhost
+      localhostProfile: k8s-apparmor-example-allow-write
   containers:
   - name: hello
     image: busybox:1.28
@@ -384,11 +366,11 @@ An Event provides the error message with the reason, the specific wording is run
 ### 使用配置文件设置节点 {#setting-up-nodes-with-profiles}
 
 <!--
-Kubernetes does not currently provide any built-in mechanisms for loading AppArmor profiles onto
+Kubernetes {{< skew currentVersion >}} does not currently provide any built-in mechanisms for loading AppArmor profiles onto
 Nodes. Profiles can be loaded through custom infrastructure or tools like the
 [Kubernetes Security Profiles Operator](https://github.com/kubernetes-sigs/security-profiles-operator).
 -->
-Kubernetes 目前不提供任何本地机制来将 AppArmor 配置文件加载到节点上。
+Kubernetes {{< skew currentVersion >}} 目前不提供任何本地机制来将 AppArmor 配置文件加载到节点上。
 可以通过自定义基础设施或工具（例如 [Kubernetes Security Profiles Operator](https://github.com/kubernetes-sigs/security-profiles-operator)）
 加载配置文件。
 
@@ -440,58 +422,56 @@ AppArmor 将详细消息记录到 `dmesg`，
 更多详细信息参见 [AppArmor 失败](https://gitlab.com/apparmor/apparmor/wikis/AppArmor_Failures)。
 
 <!--
-## API Reference
+## Specifying AppArmor confinement
 -->
-## API 参考 {#api-reference}
+## 指定 AppArmor 限制   {#specifying-apparmor-confinement}
+
+{{< caution >}}
+<!--
+Prior to Kubernetes v1.30, AppArmor was specified through annotations. Use the documentation version
+selector to view the documentation with this deprecated API.
+-->
+在 Kubernetes v1.30 之前，AppArmor 是通过注解指定的。使用文档版本选择器查看包含此已弃用 API 的文档。
+{{< /caution >}}
 
 <!--
-### Pod Annotation
+### AppArmor profile within security context  {#appArmorProfile}
 -->
-### Pod 注解 {#pod-annotation}
+### 安全上下文中的 AppArmor 配置文件   {#appArmorProfile}
 
 <!--
-Specifying the profile a container will run with:
+You can specify the `appArmorProfile` on either a container's `securityContext` or on a Pod's
+`securityContext`. If the profile is set at the pod level, it will be used as the default profile
+for all containers in the pod (including init, sidecar, and ephemeral containers). If both a pod & container
+AppArmor profile are set, the container's profile will be used.
+
+An AppArmor profile has 2 fields:
 -->
-指定容器将使用的配置文件：
+你可以在容器的 `securityContext` 或 Pod 的 `securityContext` 中设置 `appArmorProfile`。
+如果在 Pod 级别设置配置文件，该配置将被用作 Pod 中所有容器（包括 Init、Sidecar 和临时容器）的默认配置文件。
+如果同时设置了 Pod 和容器 AppArmor 配置文件，则将使用容器的配置文件。
+
+AppArmor 配置文件有 2 个字段：
 
 <!--
-- **key**: `container.apparmor.security.beta.kubernetes.io/<container_name>`
-  Where `<container_name>` matches the name of a container in the Pod.
-  A separate profile can be specified for each container in the Pod.
-- **value**: a profile reference, described below
+`type` _(required)_ - indicates which kind of AppArmor profile will be applied. Valid options are:
+       - `Localhost` - a profile pre-loaded on the node (specified by `localhostProfile`).
+       - `RuntimeDefault` - the container runtime's default profile.
+       - `Unconfined` - no AppArmor enforcement.
 -->
-- **键名**：`container.apparmor.security.beta.kubernetes.io/<container_name>`，
-  其中 `<container_name>` 与 Pod 中某容器的名称匹配。
-  可以为 Pod 中的每个容器指定单独的配置文件。
-- **键值**：对配置文件的引用，如下所述
+`type` **（必需）** - 指示将应用哪种 AppArmor 配置文件。有效选项是：
+       - `Localhost` - 节点上预加载的配置文件（由 `localhostProfile` 指定）。
+       - `RuntimeDefault` - 容器运行时的默认配置文件。
+       - `Unconfined` - 没有 AppArmor 强制执行。
 
 <!--
-### Profile Reference
+`localhostProfile` - The name of a profile loaded on the node that should be used.
+The profile must be preconfigured on the node to work.
+This option must be provided if and only if the `type` is `Localhost`.
 -->
-### 配置文件引用 {#profile-reference}
-
-<!--
-- `runtime/default`: Refers to the default runtime profile.
-  - Equivalent to not specifying a profile, except it still requires AppArmor to be enabled.
-  - In practice, many container runtimes use the same OCI default profile, defined here:
-    https://github.com/containers/common/blob/main/pkg/apparmor/apparmor_linux_template.go
-- `localhost/<profile_name>`: Refers to a profile loaded on the node (localhost) by name.
-  - The possible profile names are detailed in the
-    [core policy reference](https://gitlab.com/apparmor/apparmor/wikis/AppArmor_Core_Policy_Reference#profile-names-and-attachment-specifications).
-- `unconfined`: This effectively disables AppArmor on the container.
--->
-- `runtime/default`：指默认运行时配置文件。
-  - 等同于不指定配置文件，只是它仍然需要启用 AppArmor。
-  - 实际上，许多容器运行时使用相同的 OCI 默认配置文件，在此处定义：
-    https://github.com/containers/common/blob/main/pkg/apparmor/apparmor_linux_template.go
-- `localhost/<profile_name>`：按名称引用加载到节点（localhost）上的配置文件。
-  - 可能的配置文件名在[核心策略参考](https://gitlab.com/apparmor/apparmor/wikis/AppArmor_Core_Policy_Reference#profile-names-and-attachment-specifications)。
-- `unconfined`：这相当于为容器禁用 AppArmor。
-
-<!--
-Any other profile reference format is invalid.
--->
-任何其他配置文件引用格式无效。
+`localhostProfile` - 在节点上加载的、应被使用的配置文件的名称。
+该配置文件必须在节点上预先配置才能工作。
+当且仅当 `type` 是 `Localhost` 时，必须提供此选项。
 
 ## {{% heading "whatsnext" %}}
 
