@@ -114,7 +114,7 @@ sequenceDiagram
     alt Client alternatives
         Note over kubelet,runtime: Container Runtime Interface (CRI)
         kubectl->>API: exec, attach, port-forward
-        API->>kubelet: 
+        API->>kubelet: exec, attach, port-forward
         kubelet->>runtime: Exec, Attach, PortForward
     else
         Note over crictl,runtime: Container Runtime Interface (CRI)
