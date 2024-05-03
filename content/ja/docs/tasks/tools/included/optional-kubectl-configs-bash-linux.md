@@ -11,7 +11,7 @@ _build:
 ### はじめに
 
 Bashにおけるkubectlの補完スクリプトは`kubectl completion bash`コマンドで生成できます。
-シェル内で補完スクリプトをsourceすることでkubectlの自動補完が有効になります。
+補完スクリプトをシェル内に読み込ませることでkubectlの自動補完が有効になります。
 
 ただし、補完スクリプトは[**bash-completion**](https://github.com/scop/bash-completion)に依存しているため、事前にインストールしておく必要があります(`type _init_completion`を実行することで、bash-completionがすでにインストールされていることを確認できます)。
 
@@ -21,7 +21,7 @@ bash-completionは多くのパッケージマネージャーから提供され�
 `apt-get install bash-completion`または`yum install bash-completion`などでインストールできます。
 
 上記のコマンドでbash-completionの主要スクリプトである`/usr/share/bash-completion/bash_completion`が作成されます。
-パッケージマネージャーによっては、このファイルを`~/.bashrc`にて手動でsourceする必要があります。
+パッケージマネージャーによっては、このファイルを`~/.bashrc`にて手動で読み込ませる必要があります。
 
 これを調べるには、シェルをリロードしてから`type _init_completion`を実行してください。
 コマンドが成功していればすでに設定済みです。そうでなければ、`~/.bashrc`ファイルに以下を追記してください:
@@ -36,7 +36,7 @@ source /usr/share/bash-completion/bash_completion
 
 #### Bash
 
-すべてのシェルセッションにてkubectlの補完スクリプトをsourceできるようにしなければなりません。
+次に、kubectl補完スクリプトがすべてのシェルセッションで読み込まれるように設定する必要があります。
 これを行うには2つの方法があります:
 
 {{< tabs name="kubectl_bash_autocompletion" >}}
@@ -57,12 +57,12 @@ echo 'complete -o default -F __start_kubectl k' >>~/.bashrc
 ```
 
 {{< note >}}
-bash-completionは`/etc/bash_completion.d`内のすべての補完スクリプトをsourceします。
+bash-completionは`/etc/bash_completion.d`内のすべての補完スクリプトを読み込みます。
 {{< /note >}}
 
 どちらも同様の手法です。
 シェルをリロードしたあとに、kubectlの自動補完が機能するはずです。
-シェルの現在のセッションでbashの自動補完を有効にするには、~/.bashrcをsourceします:
+シェルの現在のセッションでbashの自動補完を有効にするには、~/.bashrcを読み込みます:
 
 ```bash
 source ~/.bashrc
