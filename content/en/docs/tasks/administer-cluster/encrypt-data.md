@@ -72,12 +72,6 @@ you already have at-rest encryption enabled. However, that check does not tell y
 a previous migration to encrypted storage has succeeded. If you are not sure, see
 [ensure all relevant data are encrypted](#ensure-all-secrets-are-encrypted).
 
-{{< caution >}}
-**IMPORTANT:** For high-availability configurations (with two or more control plane nodes), the
-encryption configuration file must be the same! Otherwise, the `kube-apiserver` component cannot
-decrypt data stored in the etcd.
-{{< /caution >}}
-
 ## Understanding the encryption at rest configuration
 
 <!-- note to localizers: the highlight is to make the initial comment obvious -->
@@ -198,9 +192,12 @@ For more detailed information about the `EncryptionConfiguration` struct, please
 [encryption configuration API](/docs/reference/config-api/apiserver-encryption.v1/).
 
 {{< caution >}}
-If any resource is not readable via the encryption config (because keys were changed),
-the only recourse is to delete that key from the underlying etcd directly. Calls that attempt to
-read that resource will fail until it is deleted or a valid decryption key is provided.
+If any resource is not readable via the encryption configuration (because keys were changed),
+and you cannot restore a working configuration, your only recourse is to delete that entry from
+the underlying etcd directly.
+
+Any calls to the Kubernetes API that attempt to read that resource will fail until it is deleted
+or a valid decryption key is provided.
 {{< /caution >}}
 
 ### Available providers {#providers}
@@ -402,7 +399,7 @@ Generate a 32-byte random key and base64 encode it. You can use this command:
 
 
 {{< note >}}
-Keep the encryption key confidential, including whilst you generate it and
+Keep the encryption key confidential, including while you generate it and
 ideally even after you are no longer actively using it.
 {{< /note >}}
 
@@ -507,6 +504,18 @@ Kubernetes cluster has multiple control plane hosts, so there is more to do.
 
 If you have multiple API servers in your cluster, you should deploy the
 changes in turn to each API server.
+
+{{< caution >}}
+For cluster configurations with two or more control plane nodes, the encryption configuration
+should be identical across each control plane node.
+
+If there is a difference in the encryption provider configuration between control plane
+nodes, this difference may mean that the kube-apiserver can't decrypt data.
+{{< /caution >}}
+
+When you are planning to update the encryption configuration of your cluster, plan this
+so that the API servers in your control plane can always decrypt the stored data
+(even part way through rolling out the change).
 
 Make sure that you use the **same** encryption configuration on each
 control plane host.
