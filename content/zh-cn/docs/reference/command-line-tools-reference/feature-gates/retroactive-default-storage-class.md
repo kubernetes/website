@@ -25,4 +25,4 @@ removed: true
 <!--
 Allow assigning StorageClass to unbound PVCs retroactively.
 -->
-允通过反射机制为未绑定的 PVC 设置 StorageClass。
+允许通过反射机制为未绑定的 PVC 设置 StorageClass。
