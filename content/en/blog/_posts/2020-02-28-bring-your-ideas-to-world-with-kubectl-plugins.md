@@ -1,9 +1,9 @@
 ---
 title: Bring your ideas to the world with kubectl plugins
 date: 2020-02-28
+author: >
+  Cornelius Weig (TNG Technology Consulting GmbH)
 ---
-
-**Author:** Cornelius Weig (TNG Technology Consulting GmbH)
 
 `kubectl` is the most critical tool to interact with Kubernetes and has to address multiple user personas, each with their own needs and opinions. 
 One way to make `kubectl` do what you need is to build new functionality into `kubectl`.

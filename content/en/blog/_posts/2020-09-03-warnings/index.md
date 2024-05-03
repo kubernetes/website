@@ -4,9 +4,9 @@ title: "Warning: Helpful Warnings Ahead"
 date: 2020-09-03
 slug: warnings
 evergreen: true
+author: >
+   [Jordan Liggitt](https://github.com/liggitt) (Google)
 ---
-
-**Author**: [Jordan Liggitt](https://github.com/liggitt) (Google)
 
 As Kubernetes maintainers, we're always looking for ways to improve usability while preserving compatibility.
 As we develop features, triage bugs, and answer support questions, we accumulate information that would be helpful for Kubernetes users to know.
