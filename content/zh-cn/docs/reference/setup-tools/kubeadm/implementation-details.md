@@ -23,7 +23,7 @@ However, it might not be obvious _how_ kubeadm does that.
 -->
 `kubeadm init` 和 `kubeadm join` 结合在一起提供了良好的用户体验，
 因为从头开始创建实践最佳而配置最基本的 Kubernetes 集群。
-但是，kubeadm **如何** 做到这一点可能并不明显。
+但是，kubeadm **如何**做到这一点可能并不明显。
 
 <!-- 
 This document provides additional details on what happen under the hood, with the aim of sharing
@@ -75,7 +75,7 @@ knowledge on Kubernetes cluster best practices.
   - `kubectl apply -f <所选网络.yaml>`
   - `kubeadm join --token <令牌> <端点>:<端口>`
 - **可扩展的**：
-  - **不** 应偏向任何特定的网络提供商，不涉及配置集群网络
+  - **不**应偏向任何特定的网络提供商，不涉及配置集群网络
   - 应该可以使用配置文件来自定义各种参数
 
 <!--
@@ -116,15 +116,17 @@ Kubernetes 目录 `/etc/kubernetes` 在应用程序中是一个常量，
   - `controller-manager.conf`
   - `scheduler.conf`
   - `admin.conf` for the cluster admin and kubeadm itself
+  - `super-admin.conf` for the cluster super-admin that can bypass RBAC
 -->
 - `/etc/kubernetes/` 作为带有控制平面组件身份标识的 kubeconfig 文件的路径。kubeconfig 文件的名称为：
-  - `kubelet.conf` (在 TLS 引导时名称为 `bootstrap-kubelet.conf`)
+  - `kubelet.conf`（在 TLS 引导时名称为 `bootstrap-kubelet.conf`）
   - `controller-manager.conf`
   - `scheduler.conf`
   - `admin.conf` 用于集群管理员和 kubeadm 本身
+  - `super-admin.conf` 用于可以绕过 RBAC 的集群超级管理员
 
 <!--
-- Names of certificates and key files :
+- Names of certificates and key files:
 
   - `ca.crt`, `ca.key` for the Kubernetes certificate authority
   - `apiserver.crt`, `apiserver.key` for the API server certificate
@@ -176,7 +178,7 @@ Kubeadm executes a set of preflight checks before starting the init, with the ai
 preconditions and avoid common cluster startup problems.
 The user can skip specific preflight checks or all of them with the `--ignore-preflight-errors` option.
 -->
-Kubeadm 在启动 init 之前执行一组预检，目的是验证先决条件并避免常见的集群启动问题。
+kubeadm 在启动 init 之前执行一组预检，目的是验证先决条件并避免常见的集群启动问题。
 用户可以使用 `--ignore-preflight-errors` 选项跳过特定的预检或全部检查。
 
 <!--  
@@ -191,9 +193,9 @@ Kubeadm 在启动 init 之前执行一组预检，目的是验证先决条件并
 - [警告] 如果要使用的 Kubernetes 版本（由 `--kubernetes-version` 标志指定）比 kubeadm CLI
   版本至少高一个小版本。
 - Kubernetes 系统要求：
-  - 如果在 linux上运行：
+  - 如果在 Linux 上运行：
     - [错误] 如果内核早于最低要求的版本
-    - [错误] 如果未设置所需的 cgroups 子系统
+    - [错误] 如果未设置所需的 Cgroups 子系统
 - [错误] 如果 CRI 端点未应答
 <!--  
 - [error] if user is not root
@@ -214,15 +216,11 @@ Kubeadm 在启动 init 之前执行一组预检，目的是验证先决条件并
 <!--
 - [error] if API server bindPort or ports 10250/10251/10252 are used
 - [Error] if `/etc/kubernetes/manifest` folder already exists and it is not empty
-- [Error] if `/proc/sys/net/bridge/bridge-nf-call-iptables` file does not exist/does not contain 1
-- [Error] if advertise address is ipv6 and `/proc/sys/net/bridge/bridge-nf-call-ip6tables` does not exist/does not contain 1.
 - [Error] if swap is on
 - [Error] if `conntrack`, `ip`, `iptables`, `mount`, `nsenter` commands are not present in the command path
 -->
-- [错误] 如果 API ​​服务器绑定的端口或 10250/10251/10252 端口已被占用
+- [错误] 如果 API 服务器绑定的端口或 10250/10251/10252 端口已被占用
 - [错误] 如果 `/etc/kubernetes/manifest` 文件夹已经存在并且不为空
-- [错误] 如果 `/proc/sys/net/bridge/bridge-nf-call-iptables` 文件不存在或不包含 1
-- [错误] 如果建议地址是 ipv6，并且 `/proc/sys/net/bridge/bridge-nf-call-ip6tables` 不存在或不包含 1
 - [错误] 如果启用了交换分区
 - [错误] 如果命令路径中没有 `conntrack`、`ip`、`iptables`、`mount`、`nsenter` 命令
 <!--
@@ -284,7 +282,7 @@ Kubeadm generates certificate and private key pairs for different purposes:
 - A self signed certificate authority for the Kubernetes cluster saved into `ca.crt` file and
   `ca.key` private key file
 -->
-Kubeadm 生成用于不同目的的证书和私钥对：
+kubeadm 生成用于不同目的的证书和私钥对：
 
 - Kubernetes 集群的自签名证书颁发机构会保存到 `ca.crt` 文件和 `ca.key` 私钥文件中
 
@@ -325,6 +323,7 @@ Kubeadm 生成用于不同目的的证书和私钥对：
 - 用于 API 服务器安全连接到 kubelet 的客户端证书，使用 `ca.crt` 作为 CA 生成，
   并保存到 `apiserver-kubelet-client.crt`，私钥保存到 `apiserver-kubelet-client.key`
   文件中。该证书应该在 `system:masters` 组织中。
+
 - 用于签名 ServiceAccount 令牌的私钥保存到 `sa.key` 文件中，公钥保存到 `sa.pub` 文件中。
 
 <!--
@@ -336,6 +335,7 @@ Kubeadm 生成用于不同目的的证书和私钥对：
 -->
 - 用于前端代理的证书颁发机构保存到 `front-proxy-ca.crt` 文件中，私钥保存到
   `front-proxy-ca.key` 文件中
+
 - 前端代理客户端的客户端证书，使用 `front-proxy-ca.crt` 作为 CA 生成，并保存到
   `front-proxy-client.crt` 文件中，私钥保存到 `front-proxy-client.key` 文件中
 
@@ -390,7 +390,7 @@ Please note that:
 <!-- 
 Kubeadm generates kubeconfig files with identities for control plane components:
 -->
-Kubeadm 生成具有用于控制平面组件身份标识的 kubeconfig 文件：
+kubeadm 生成具有用于控制平面组件身份标识的 kubeconfig 文件：
 
 <!--  
 - A kubeconfig file for the kubelet to use during TLS bootstrap -
@@ -403,7 +403,7 @@ Kubeadm 生成具有用于控制平面组件身份标识的 kubeconfig 文件：
     [Node Authorization](/docs/reference/access-authn-authz/node/) module
   - Have the Common Name (CN) `system:node:<hostname-lowercased>`
 -->
-- 供 kubelet 在 TLS 引导期间使用的 kubeconfig 文件——`/etc/kubernetes/bootstrap-kubelet.conf`。
+- 供 kubelet 在 TLS 引导期间使用的 kubeconfig 文件 —— `/etc/kubernetes/bootstrap-kubelet.conf`。
   在此文件中，有一个引导令牌或内嵌的客户端证书，向集群表明此节点身份。
 
   此客户端证书应：
@@ -435,19 +435,39 @@ Kubeadm 生成具有用于控制平面组件身份标识的 kubeconfig 文件：
   默认定义的。
 
 <!-- 
-Additionally, a kubeconfig file for kubeadm itself and the admin is generated and saved into the
-`/etc/kubernetes/admin.conf` file.  The "admin" here is defined as the actual person(s) that is
-administering the cluster and wants to have full control (**root**) over the cluster.  The
-embedded client certificate for admin should be in the `system:masters` organization, as defined
-by default [RBAC user facing role bindings](/docs/reference/access-authn-authz/rbac/#user-facing-roles).
-It should also include a CN. Kubeadm uses the `kubernetes-admin` CN.
+Additionally, a kubeconfig file for kubeadm as an administrative entity is generated and stored
+in `/etc/kubernetes/admin.conf`. This file includes a certificate with
+`Subject: O = kubeadm:cluster-admins, CN = kubernetes-admin`. `kubeadm:cluster-admins`
+is a group managed by kubeadm. It is bound to the `cluster-admin` ClusterRole during `kubeadm init`,
+by using the `super-admin.conf` file, which does not require RBAC.
+This `admin.conf` file must remain on control plane nodes and not be shared with additional users.
 -->
-另外，用于 kubeadm 本身和 admin 的 kubeconfig 文件也被生成并保存到
-`/etc/kubernetes/admin.conf` 文件中。
-此处的 admin 定义为正在管理集群并希望完全控制集群（**root**）的实际人员。
-内嵌的 admin 客户端证书应是  `system:masters` 组织的成员，
-这一组织名由默认的 [RBAC 面向用户的角色绑定](/zh-cn/docs/reference/access-authn-authz/rbac/#user-facing-roles)
-定义。它还应包括一个 CN。kubeadm 使用 `kubernetes-admin` CN。
+此外，还会生成将 kubeadm 作为管理实体的 kubeconfig 文件并将其保存到 `/etc/kubernetes/admin.conf` 中。
+该文件包含一个带有 `Subject: O = kubeadm:cluster-admins, CN = kubernetes-admin`
+的证书。`kubeadm:cluster-admins` 是一个由 kubeadm 管理的组，
+它在 `kubeadm init` 期间通过使用 `super-admin.conf` 文件绑定到
+`cluster-admin` ClusterRole，不需要 RBAC。
+此 `admin.conf` 文件必须保留在控制平面节点上，并且不得与其他用户共享。
+
+<!--
+During `kubeadm init` another kubeconfig file is generated and stored in `/etc/kubernetes/super-admin.conf`.
+This file includes a certificate with `Subject: O = system:masters, CN = kubernetes-super-admin`.
+`system:masters` is a super user group that bypasses RBAC and makes `super-admin.conf` useful in case
+of an emergency where a cluster is locked due to RBAC misconfiguration.
+The `super-admin.conf` file can be stored in a safe location and not shared with additional users.
+-->
+在 `kubeadm init` 期间，会生成另一个 kubeconfig 文件并将其存储在 `/etc/kubernetes/super-admin.conf` 中。
+该文件包含一个带有 `Subject: O = system:masters, CN = kubernetes-super-admin` 的证书。
+`system:masters` 是一个绕过 RBAC 的超级用户组，使 `super-admin.conf`
+在紧急情况下非常有用，因为 RBAC 配置错误导致集群被锁定。
+`super-admin.conf` 文件可以存储在安全位置，并且不会与其他用户共享。
+
+<!--
+See [RBAC user facing role bindings](/docs/reference/access-authn-authz/rbac/#user-facing-roles)
+for additional information RBAC and built-in ClusterRoles and groups.
+-->
+有关 RBAC 和内置 ClusterRoles 和组的其他信息，
+请参阅[面向用户的 RBAC 角色绑定](/zh-cn/docs/reference/access-authn-authz/rbac/#user-facing-roles)。
 
 <!-- Please note that: -->
 请注意：
@@ -482,8 +502,8 @@ It should also include a CN. Kubeadm uses the `kubernetes-admin` CN.
 Kubeadm writes static Pod manifest files for control plane components to
 `/etc/kubernetes/manifests`. The kubelet watches this directory for Pods to create on startup.
 -->
-Kubeadm 将用于控制平面组件的静态 Pod 清单文件写入 `/etc/kubernetes/manifests` 目录。
-Kubelet 启动后会监视这个目录以便创建 Pod。
+kubeadm 将用于控制平面组件的静态 Pod 清单文件写入 `/etc/kubernetes/manifests` 目录。
+kubelet 启动后会监视这个目录以便创建 Pod。
 
 <!-- Static Pod manifest share a set of common properties: -->
 静态 Pod 清单有一些共同的属性：
@@ -546,7 +566,7 @@ The static Pod manifest for the API server is affected by following parameters p
 -->
 #### API 服务器  {#api-server}
 
-API 服务器的静态 Pod 清单会受到用户提供的以下参数的影响:
+API 服务器的静态 Pod 清单会受到用户提供的以下参数的影响：
 
 <!--  
 - The `apiserver-advertise-address` and `apiserver-bind-port` to bind to; if not provided, those
@@ -555,7 +575,7 @@ API 服务器的静态 Pod 清单会受到用户提供的以下参数的影响:
 -->
 - 要绑定的 `apiserver-advertise-address` 和 `apiserver-bind-port`；
   如果未提供，则这些值默认为机器上默认网络接口的 IP 地址和 6443 端口。
-- `service-cluster-ip-range` 给 service 使用
+- `service-cluster-ip-range` 给 Service 使用
 <!--
 - If an external etcd server is specified, the `etcd-servers` address and related TLS settings
   (`etcd-cafile`, `etcd-certfile`, `etcd-keyfile`);
@@ -600,6 +620,7 @@ Other API server flags that are set unconditionally are:
     to enforce service account automation
 -->
 - `--enable-admission-plugins` 设为：
+
   - [`NamespaceLifecycle`](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#namespacelifecycle)
     例如，避免删除系统保留的名字空间
   - [`LimitRanger`](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#limitranger) 和
@@ -679,7 +700,7 @@ Other API server flags that are set unconditionally are:
 -->
 - 其他用于保护前端代理（
   [API 聚合层](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)）
-  通信的标志:
+  通信的标志：
 
   - `--requestheader-username-headers=X-Remote-User`
   - `--requestheader-group-headers=X-Remote-Group`
@@ -695,7 +716,7 @@ Other API server flags that are set unconditionally are:
 The static Pod manifest for the controller manager is affected by following parameters provided by
 the users:
 -->
-控制器管理器的静态 Pod 清单受用户提供的以下参数的影响:
+控制器管理器的静态 Pod 清单受用户提供的以下参数的影响：
 
 <!-- 
 - If kubeadm is invoked specifying a `--pod-network-cidr`, the subnet manager feature required for
@@ -913,7 +934,7 @@ Kubeadm uses [Authenticating with Bootstrap Tokens](/docs/reference/access-authn
 for joining new nodes to an existing cluster; for more details see also
 [design proposal](https://git.k8s.io/design-proposals-archive/cluster-lifecycle/bootstrap-discovery.md).
 -->
-Kubeadm 使用[引导令牌认证](/zh-cn/docs/reference/access-authn-authz/bootstrap-tokens/)
+kubeadm 使用[引导令牌认证](/zh-cn/docs/reference/access-authn-authz/bootstrap-tokens/)
 将新节点连接到现有集群；更多的详细信息，
 请参见[设计提案](https://git.k8s.io/design-proposals-archive/cluster-lifecycle/bootstrap-discovery.md)。
 
@@ -982,7 +1003,7 @@ Please note that:
 Kubeadm ensures that users in  `system:bootstrappers:kubeadm:default-node-token` group are able to
 access the certificate signing API.
 -->
-Kubeadm 确保 `system:bootstrappers:kubeadm:default-node-token` 组中的用户能够访问证书签名 API。
+kubeadm 确保 `system:bootstrappers:kubeadm:default-node-token` 组中的用户能够访问证书签名 API。
 
 <!-- 
 This is implemented by creating a ClusterRoleBinding named `kubeadm:kubelet-bootstrap` between the
@@ -1000,7 +1021,7 @@ group above and the default RBAC role `system:node-bootstrapper`.
 Kubeadm ensures that the Bootstrap Token will get its CSR request automatically approved by the
 csrapprover controller.
 -->
-Kubeadm 确保 csrapprover 控制器自动批准引导令牌的 CSR 请求。
+kubeadm 确保 csrapprover 控制器自动批准引导令牌的 CSR 请求。
 
 <!-- 
 This is implemented by creating ClusterRoleBinding named `kubeadm:node-autoapprove-bootstrap`
@@ -1029,7 +1050,7 @@ well, granting POST permission to
 Kubeadm ensures that certificate rotation is enabled for nodes, and that new certificate request
 for nodes will get its CSR request automatically approved by the csrapprover controller.
 -->
-Kubeadm 确保节点启用了证书轮换，csrapprover 控制器将自动批准节点的新证书的 CSR 请求。
+kubeadm 确保节点启用了证书轮换，csrapprover 控制器将自动批准节点的新证书的 CSR 请求。
 
 <!-- 
 This is implemented by creating ClusterRoleBinding named
@@ -1069,7 +1090,7 @@ Please note that:
    DoS attack where an attacker uses all the in-flight requests the kube-apiserver can handle to
    serving the `cluster-info` ConfigMap.
 -->
-1. 对 `cluster-info` ConfigMap 的访问 **不受** 速率限制。
+1. 对 `cluster-info` ConfigMap 的访问**不受**速率限制。
    如果你把 API 服务器暴露到外网，这可能是一个问题，也可能不是；
    这里最坏的情况是 DoS 攻击，攻击者使用 kube-apiserver 能够处理的所有动态请求来为
    `cluster-info` ConfigMap 提供服务。
@@ -1082,7 +1103,7 @@ Please note that:
 <!--
 Kubeadm installs the internal DNS server and the kube-proxy addon components via the API server.
 -->
-Kubeadm 通过 API 服务器安装内部 DNS 服务器和 kube-proxy 插件。
+kubeadm 通过 API 服务器安装内部 DNS 服务器和 kube-proxy 插件。
 
 <!--
 Please note that:
@@ -1127,7 +1148,7 @@ deployed as a DaemonSet:
 
 - The `coredns` ServiceAccount is bound to the privileges in the `system:coredns` ClusterRole
 -->
-- CoreDNS 服务的名称为 `kube-dns`。这样做是为了防止当用户将集群 DNS 从 kube-dns
+- CoreDNS Service 的名称为 `kube-dns`。这样做是为了防止当用户将集群 DNS 从 kube-dns
   切换到 CoreDNS 时出现服务中断。`--config` 方法在
   [这里](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-addon)
   有描述。
@@ -1341,4 +1362,3 @@ Please note that:
 - 临时身份验证解析到 `system:bootstrappers:kubeadm:default-node-token` 组的一个用户成员，
   该成员在 `kubeadm init` 过程中被授予对 CSR API 的访问权
 - 根据 `kubeadm init` 过程的配置，自动 CSR 审批由 csrapprover 控制器管理
-
