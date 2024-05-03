@@ -592,6 +592,79 @@ Kubernetes [客户端库](/zh-cn/docs/reference/using-api/client-libraries/)可�
 - 使用 [Kubernetes 客户端生成工具](https://github.com/kubernetes/code-generator)所生成的客户端。
   生成客户端的工作有些难度，不过某些项目可能会随着 CRD 或聚合 API 一起提供一个客户端。
 
+<!--
+## Custom resource field selectors
+
+[Field Selectors](/docs/concepts/overview/working-with-objects/field-selectors/)
+let clients select custom resources based on the value of one or more resource
+fields.
+-->
+## 定制资源字段选择算符   {#custom-resource-field-selectors}
+
+[字段选择算符](/zh-cn/docs/concepts/overview/working-with-objects/field-selectors/)允许客户端根据一个或多个资源字段的值选择定制资源。
+
+<!--
+All custom resources support the `metadata.name` and `metadata.namespace` field
+selectors.
+
+Fields declared in a {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
+may also be used with field selectors when included in the `spec.versions[*].selectableFields` field of the
+{{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}.
+-->
+所有定制资源都支持 `metadata.name` 和 `metadata.namespace` 字段选择算符。
+
+当 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
+中声明的字段包含在 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
+的 `spec.versions[*].selectableFields` 字段中时，也可以与字段选择算符一起使用。
+
+<!--
+### Selectable fields for custom resources {#crd-selectable-fields}
+-->
+### 定制资源的可选择字段   {#crd-selectable-fields}
+
+{{< feature-state feature_gate_name="CustomResourceFieldSelectors" >}}
+
+<!--
+You need to enable the `CustomResourceFieldSelectors`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
+use this behavior, which then applies to all CustomResourceDefinitions in your
+cluster.
+
+The `spec.versions[*].selectableFields` field of a {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} may be used to
+declare which other fields in a custom resource may be used in field selectors.
+The following example adds the `.spec.color` and `.spec.size` fields as
+selectable fields.
+-->
+你需要启用 `CustomResourceFieldSelectors`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
+来使用此行为，然后将其应用到集群中的所有 CustomResourceDefinitions。
+
+{{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
+的 `spec.versions[*].selectableFields` 字段可以用来声明可以在字段选择算符中使用定制资源中的其他哪些字段。
+以下示例将 `.spec.color` 和 `.spec.size` 字段添加为可选择字段。
+
+{{% code_sample file="customresourcedefinition/shirt-resource-definition.yaml" %}}
+
+<!--
+Field selectors can then be used to get only resources with with a `color` of `blue`:
+-->
+字段选择算符随后可用于仅获取 `color` 为 `blue` 的资源：
+
+```shell
+kubectl get shirts.stable.example.com --field-selector spec.color=blue
+```
+
+<!--
+The output should be:
+-->
+输出应该是：
+
+```
+NAME       COLOR  SIZE
+example1   blue   S
+example2   blue   M
+```
+
 ## {{% heading "whatsnext" %}}
 
 <!--
