@@ -12,7 +12,7 @@ kubectlは、アプリケーションのデプロイ、クラスターリソー�
 kubectlの操作の完全なリストを含む詳細については、[`kubectl`のリファレンスドキュメント](/ja/docs/reference/kubectl/)を参照してください。
 
 kubectlはさまざまなLinuxプラットフォーム、macOS、Windows上にインストールできます。
-下記の中からお好みのオペレーティングシステムを見つけてください。
+下記の中から好きなオペレーティングシステムを選んでください。
 
 - [Linux上でのkubectlのインストール](/ja/docs/tasks/tools/install-kubectl-linux)
 - [macOS上でのkubectlのインストール](/ja/docs/tasks/tools/install-kubectl-macos)
