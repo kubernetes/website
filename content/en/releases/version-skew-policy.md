@@ -242,4 +242,6 @@ Running a cluster with `kube-proxy` instances that are persistently three minor 
 
 ## Consideration of Supported Skew for Other Components
 
-Administrators should consider the supported skew of other components as well when determining compatibility within their cluster. While each component has a version skew policy, it's essential to ensure that the versions of all components align properly to avoid disrupting critical operations, especially those related to admission control and flow control.
+Administrators should consider the supported skew of other components as well when determining compatibility within their cluster. 
+While each component has a version skew policy, it's essential to ensure that the versions of all components align properly to avoid 
+disrupting critical operations, especially those related to admission control and flow control.
