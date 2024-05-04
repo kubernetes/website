@@ -286,13 +286,13 @@ In addition to load balancing for the Kubernetes API server, it's essential to e
 
 #### Ingress Controllers
 
-[Ingress controllers](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/) are an excellent solution for managing traffic to your applications within a Kubernetes cluster. They provide a way to route external traffic to your services based on rules you define, allowing for efficient and flexible load balancing.
+[Ingress controllers](/docs/concepts/services-networking/ingress-controllers/) are an excellent solution for managing traffic to your applications within a Kubernetes cluster. They provide a way to route external traffic to your services based on rules you define, allowing for efficient and flexible load balancing.
 
 #### External Load Balancers
 
 When it comes to load balancing workloads, external load balancers play a crucial role. They distribute traffic among your application instances to prevent overload and ensure high availability.
 
-For cloud environments, you can follow the instructions provided in the [Create an External Load Balancer](https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/) documentation. However, if you're working in an on-premises environment, consider using projects like [MetalLB](https://metallb.universe.tf/) for load balancing capabilities.
+For cloud environments, you can follow the instructions provided in the [Create an External Load Balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/) documentation. However, if you're working in an on-premises environment, consider using projects like [MetalLB](https://metallb.universe.tf/) for load balancing capabilities.
 
 {{<warning>}}
 When utilizing third-party solutions like MetalLB, it's essential to thoroughly evaluate and understand the implications for your Kubernetes environment. Ensure compatibility and consider potential risks before implementing such solutions.
