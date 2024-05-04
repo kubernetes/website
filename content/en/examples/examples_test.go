@@ -613,7 +613,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"pod-projected-svc-token":             {&api.Pod{}},
 			"pod-rs":                              {&api.Pod{}, &api.Pod{}},
 			"pod-single-configmap-env-variable":   {&api.Pod{}},
-			"pod-with-affinity-anti-affinity":     {&api.Pod{}},
+			"pod-with-affinity-preferred-weight":  {&api.Pod{}},
 			"pod-with-node-affinity":              {&api.Pod{}},
 			"pod-with-pod-affinity":               {&api.Pod{}},
 			"pod-with-scheduling-gates":           {&api.Pod{}},

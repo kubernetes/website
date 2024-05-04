@@ -173,7 +173,7 @@ scheduling decision for the Pod.
 
 For example, consider the following Pod spec:
 
-{{% code_sample file="pods/pod-with-affinity-anti-affinity.yaml" %}}
+{{% code_sample file="pods/pod-with-affinity-preferred-weight.yaml" %}}
 
 If there are two possible nodes that match the
 `preferredDuringSchedulingIgnoredDuringExecution` rule, one with the
