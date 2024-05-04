@@ -1,9 +1,9 @@
 {{ if not .Params.hide_feedback }}
 <div id="pre-footer">
-  <h2>{{ T "feedback_heading" }}</h2>
+  <h2 id="feedback">{{ T "feedback_heading" }}</h2>
     <p class="feedback--prompt">{{ T "feedback_question" }} </p>
-    <button class="btn btn-primary mb-4 feedback--yes">{{ T "feedback_yes" }}</button>
-    <button class="btn btn-primary mb-4 feedback--no">{{ T "feedback_no" }}</button>
+    <button class="button mb-4 feedback--yes">{{ T "feedback_yes" }}</button>
+    <button class="button mb-4 feedback--no">{{ T "feedback_no" }}</button>
     <p class="feedback--response feedback--response__hidden">
       {{ T "layouts_docs_partials_feedback_thanks" }}
       <a target="_blank" rel="noopener"
