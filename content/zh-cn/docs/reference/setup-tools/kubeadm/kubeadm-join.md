@@ -89,7 +89,7 @@ For control-plane nodes additional steps are performed:
 <!--
 Kubeadm allows you join a node to the cluster in phases using `kubeadm join phase`.
 -->
-Kubeadm 允许你使用 `kubeadm join phase` 分阶段将节点加入集群。
+kubeadm 允许你使用 `kubeadm join phase` 分阶段将节点加入集群。
 
 <!--
 To view the ordered list of phases and sub-phases you can call `kubeadm join --help`. The list will be located
@@ -141,7 +141,7 @@ The kubeadm discovery has several options, each with security tradeoffs.
 The right method for your environment depends on how you provision nodes and the
 security expectations you have about your network and node lifecycles.
 -->
-Kubeadm 的发现有几个选项，每个选项都有安全性上的优缺点。
+kubeadm 的发现有几个选项，每个选项都有安全性上的优缺点。
 适合你的环境的正确方法取决于节点是如何准备的以及你对网络的安全性期望
 和节点的生命周期特点。
 
@@ -385,9 +385,13 @@ and CSR approval for a new node:
 
 <!--
 If your cluster does not have the `ca.key` file, you must sign the embedded certificates in 
-the `kubelet.conf` externally.
+the `kubelet.conf` externally. For additional information, see
+[PKI certificates and requirements](/docs/setup/best-practices/certificates/) and
+[Certificate Management with kubeadm](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#external-ca-mode).
 -->
 如果集群没有 `ca.key` 文件，你必须在外部对 `kubelet.conf` 中嵌入的证书进行签名。
+有关更多信息，请参阅 [PKI 证书和要求](/zh-cn/docs/setup/best-practices/certificates/)和
+[使用 kubeadm 进行证书管理](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#external-ca-mode)。
 
 <!--
 1. Copy the resulting `kubelet.conf` to `/etc/kubernetes/kubelet.conf` on the new node.
@@ -407,7 +411,7 @@ the `kubelet.conf` externally.
 The defaults for kubeadm may not work for everyone. This section documents how to tighten up a kubeadm installation
 at the cost of some usability.
 -->
-Kubeadm 的默认值可能不适用于所有人。
+kubeadm 的默认值可能不适用于所有人。
 本节说明如何以牺牲可用性为代价来加强 kubeadm 安装。
 
 <!--
