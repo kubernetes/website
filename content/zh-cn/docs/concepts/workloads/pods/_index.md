@@ -253,7 +253,7 @@ label correctly on each node, and define pods with a `nodeSelector` based on the
 label, the kube-scheduler assigns your pod to a node based on other criteria and may or may not
 succeed in picking a suitable node placement where the node OS is right for the containers in that Pod.
 The [Pod security standards](/docs/concepts/security/pod-security-standards/) also use this
-field to avoid enforcing policies that aren't relevant to that operating system.
+field to avoid enforcing policies that aren't relevant to the operating system.
 -->
 你应该将 `.spec.os.name` 字段设置为 `windows` 或 `linux` 以表示你希望 Pod 运行在哪个操作系统之上。
 这两个是 Kubernetes 目前支持的操作系统。将来，这个列表可能会被扩充。
