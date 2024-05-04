@@ -1,6 +1,6 @@
 ---
-title: "bash auto-completion on Linux"
-description: "Some optional configuration for bash auto-completion on Linux."
+title: "Linux上でのbashの自動補完"
+description: "Linux上でのbashの自動補完に対するいくつかの補助的な設定。"
 headless: true
 _build:
   list: never
@@ -8,53 +8,48 @@ _build:
   publishResources: false
 ---
 
-### Introduction
+### はじめに
 
-The kubectl completion script for Bash can be generated with the command `kubectl completion bash`.
-Sourcing the completion script in your shell enables kubectl autocompletion.
+Bashにおけるkubectlの補完スクリプトは`kubectl completion bash`コマンドで生成できます。
+補完スクリプトをシェル内に読み込ませることでkubectlの自動補完が有効になります。
 
-However, the completion script depends on
-[**bash-completion**](https://github.com/scop/bash-completion),
-which means that you have to install this software first
-(you can test if you have bash-completion already installed by running `type _init_completion`).
+ただし、補完スクリプトは[**bash-completion**](https://github.com/scop/bash-completion)に依存しているため、事前にインストールしておく必要があります(`type _init_completion`を実行することで、bash-completionがすでにインストールされていることを確認できます)。
 
-### Install bash-completion
+### bash-completionをインストールする
 
-bash-completion is provided by many package managers
-(see [here](https://github.com/scop/bash-completion#installation)).
-You can install it with `apt-get install bash-completion` or `yum install bash-completion`, etc.
+bash-completionは多くのパッケージマネージャーから提供されています([こちら](https://github.com/scop/bash-completion#installation)を参照してください)。
+`apt-get install bash-completion`または`yum install bash-completion`などでインストールできます。
 
-The above commands create `/usr/share/bash-completion/bash_completion`,
-which is the main script of bash-completion. Depending on your package manager,
-you have to manually source this file in your `~/.bashrc` file.
+上記のコマンドでbash-completionの主要スクリプトである`/usr/share/bash-completion/bash_completion`が作成されます。
+パッケージマネージャーによっては、このファイルを`~/.bashrc`にて手動で読み込ませる必要があります。
 
-To find out, reload your shell and run `type _init_completion`.
-If the command succeeds, you're already set, otherwise add the following to your `~/.bashrc` file:
+これを調べるには、シェルをリロードしてから`type _init_completion`を実行してください。
+コマンドが成功していればすでに設定済みです。そうでなければ、`~/.bashrc`ファイルに以下を追記してください:
 
 ```bash
 source /usr/share/bash-completion/bash_completion
 ```
 
-Reload your shell and verify that bash-completion is correctly installed by typing `type _init_completion`.
+シェルをリロードし、`type _init_completion`を実行してbash-completionが正しくインストールされていることを検証してください。
 
-### Enable kubectl autocompletion
+### kubectlの自動補完を有効にする
 
 #### Bash
 
-You now need to ensure that the kubectl completion script gets sourced in all
-your shell sessions. There are two ways in which you can do this:
+次に、kubectl補完スクリプトがすべてのシェルセッションで読み込まれるように設定する必要があります。
+これを行うには2つの方法があります:
 
 {{< tabs name="kubectl_bash_autocompletion" >}}
-{{< tab name="User" codelang="bash" >}}
+{{< tab name="ユーザー" codelang="bash" >}}
 echo 'source <(kubectl completion bash)' >>~/.bashrc
 {{< /tab >}}
-{{< tab name="System" codelang="bash" >}}
+{{< tab name="システム" codelang="bash" >}}
 kubectl completion bash | sudo tee /etc/bash_completion.d/kubectl > /dev/null
 sudo chmod a+r /etc/bash_completion.d/kubectl
 {{< /tab >}}
 {{< /tabs >}}
 
-If you have an alias for kubectl, you can extend shell completion to work with that alias:
+kubectlにエイリアスを張っている場合は、エイリアスでも動作するようにシェルの補完を拡張することができます:
 
 ```bash
 echo 'alias k=kubectl' >>~/.bashrc
@@ -62,11 +57,12 @@ echo 'complete -o default -F __start_kubectl k' >>~/.bashrc
 ```
 
 {{< note >}}
-bash-completion sources all completion scripts in `/etc/bash_completion.d`.
+bash-completionは`/etc/bash_completion.d`内のすべての補完スクリプトを読み込みます。
 {{< /note >}}
 
-Both approaches are equivalent. After reloading your shell, kubectl autocompletion should be working.
-To enable bash autocompletion in current session of shell, source the ~/.bashrc file:
+どちらも同様の手法です。
+シェルをリロードしたあとに、kubectlの自動補完が機能するはずです。
+シェルの現在のセッションでbashの自動補完を有効にするには、~/.bashrcを読み込みます:
 
 ```bash
 source ~/.bashrc

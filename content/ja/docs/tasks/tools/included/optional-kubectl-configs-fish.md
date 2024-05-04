@@ -13,7 +13,7 @@ Fishに対する自動補完はkubectl 1.23以降が必要です。
 {{< /note >}}
 
 Fishにおけるkubectlの補完スクリプトは`kubectl completion fish`コマンドで生成できます。
-シェル内で補完スクリプトをsourceすることでkubectlの自動補完が有効になります。
+補完スクリプトをシェル内に読み込ませることでkubectlの自動補完が有効になります。
 
 すべてのシェルセッションで使用するには、`~/.config/fish/config.fish`に以下を追記してください:
 
