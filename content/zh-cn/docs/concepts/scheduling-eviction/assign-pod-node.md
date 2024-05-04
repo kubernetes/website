@@ -333,7 +333,7 @@ For example, consider the following Pod spec:
 
 例如，考虑下面的 Pod 规约：
 
-{{% code_sample file="pods/pod-with-affinity-anti-affinity.yaml" %}}
+{{% code_sample file="pods/pod-with-affinity-preferred-weight.yaml" %}}
 
 <!--
 If there are two possible nodes that match the
