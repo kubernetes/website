@@ -6,7 +6,7 @@ api_metadata:
 - apiVersion: "networking.k8s.io/v1"
   kind: "Ingress"
 - apiVersion: "networking.k8s.io/v1"
-  kind: "IngressClass"  
+  kind: "IngressClass"
 content_type: concept
 description: >-
   Make your HTTP (or HTTPS) network service available using a protocol-aware configuration
