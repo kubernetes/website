@@ -24,4 +24,30 @@ content_type: concept
 
 English | العربية
 --- | --- 
-Kubernetes |  كوبيرنيتيس
+Abstraction | تجريد
+Agile Software Development | تطوير مرن للبرمجيات
+Auto Scaling | توسع آلي
+Bare-metal machine | جهاز حقيقي مجرد
+Cloud native technologies | تقنية الحوسبة السحابية الأصيلة
+Cluster | عنقود
+Command | أمر
+Container Image | صورة الحاوية
+Container | حاوية
+Containerization | تحوية
+Dependency | تبعيات
+Expose | إتاحة
+Kubernetes | كوبيرنيتيس
+Load Balancer | موزع الحمل
+Machine | جهاز
+Minikube | مينيكيوب
+Namespace | نطاق
+Node | عقدة
+Open source | مفتوح المصدر
+Pod | حجيرة
+Port | منفذ
+publicly | للعموم
+Scaling | تحجيم
+Service | خدمة
+Stateful | ذات الحالة
+Stateless | عديمة الحالة
+Virtual Machine | جهاز افتراضي
