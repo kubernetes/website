@@ -878,11 +878,11 @@ PV 持久卷是用插件的形式来实现的。Kubernetes 目前支持以下插
 
 <!-- 
 The following types of PersistentVolume are deprecated but still available.
-If you are using these volume types except for `flexVolume`, `cephfs` and `rbd`, 
+If you are using these volume types except for `flexVolume`, `cephfs` and `rbd`,
 please install corresponding CSI drivers.
 
 * [`awsElasticBlockStore`](/docs/concepts/storage/volumes/#awselasticblockstore) - AWS Elastic Block Store (EBS)
-  (**migration on by default** starting v1.23) 
+  (**migration on by default** starting v1.23)
 * [`azureDisk`](/docs/concepts/storage/volumes/#azuredisk) - Azure Disk
   (**migration on by default** starting v1.23)
 * [`azureFile`](/docs/concepts/storage/volumes/#azurefile) - Azure File
