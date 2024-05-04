@@ -211,30 +211,30 @@ Code Freeze এর পরে এবং রিলিজের পূর্বে 
 মাইলস্টোন আইটেম যোগ করার প্রক্রিযার অধিক দূরে যাওয়ার আগে, 
 দয়া করে লক্ষ্য করুন:
 
-Members of the [Release Team][release-team] may remove issues from the
-milestone if they or the responsible SIG determine that the issue is not
-actually blocking the release and is unlikely to be resolved in a timely
-fashion.
+[রিলিজ টিম][release-team] এর সদস্যরা মাইলস্টোন থেকে ইস্যু সরাতে পারে
+যদি তারা অথবা যদি দায়িত্বশীল SIG মনে করে যে সমস্যাটি বাস্তবে রিলিজ ব্লক 
+করছে না এবং সম্ভবত সময়ের মধ্যে সমাধান হবে
+না।
 
-Members of the Release Team may remove PRs from the milestone for any of the
-following, or similar, reasons:
+রিলিজ দলের সদস্যরা নিম্নলিখিত কারণে অথবা এর সমান কারণে মাইলস্টোন থেকে 
+PR-গুলি সরাতে পারেন:
 
-- PR is potentially de-stabilizing and is not needed to resolve a blocking
-  issue
-- PR is a new, late feature PR and has not gone through the enhancements
-  process or the [exception process][exceptions]
-- There is no responsible SIG willing to take ownership of the PR and resolve
-  any follow-up issues with it
-- PR is not correctly labelled
-- Work has visibly halted on the PR and delivery dates are uncertain or late
+- PR সম্ভবত অস্থিতিশীল এবং ব্লকিং সমস্যা সমাধানের প্রয়োজন
+  নেই
+- নতুন PR, লেট ফিচার PR এবং এনহ্যান্সমেন্ট প্রক্রিয়ার
+  অথবা [এক্সেপশন প্রক্রিয়া][exceptions] এর মধ্যে যায় নি
+- পিআর এর মালিকানা নিতে এবং এটির সাথে কোন ফলো-আপ সমস্যা সমাধান করতে
+  ইচ্ছুক কোন দায়িত্বশীল SIG নেই
+- PR সঠিকভাবে লেবেল করা হয় না
+- PR-এ কাজ দৃশ্যত থেমে গেছে এবং ডেলিভারির তারিখ অনিশ্চিত বা দেরি হবে
 
-While members of the Release Team will help with labelling and contacting
-SIG(s), it is the responsibility of the submitter to categorize PRs, and to
-secure support from the relevant SIG to guarantee that any breakage caused by
-the PR will be rapidly resolved.
+রিলিজ টিমের সদস্যরা লেবেলিং এবং SIG দের সাথে যোগাযোগে সাহায্য 
+করবে,PR কে শ্রেণীবদ্ধ করা জমাদানকারীর দায়িত্ব এবং
+প্রাসঙ্গিক SIG হতে সাহায্য নিশ্চিত করা যেনো PR দ্বারা কোনো ব্রেক হলে 
+ধ্রুত সমাধানের গ্যারেন্টি দেওয়া হবে।
 
-Where additional action is required, an attempt at human to human escalation
-will be made by the Release Team through the following channels:
+যেখানে অতিরিক্ত পদক্ষেপ প্রয়োজন, রিলিজ দল নিম্নলিখিত 
+চ্যানেলের মাধ্যমে মানুষ থেকে মানুষে এস্ক্যালেশনের চেষ্টা করবে:
 
 - Comment in GitHub mentioning the SIG team and SIG members as appropriate for
   the issue type
@@ -247,4 +247,119 @@ will be made by the Release Team through the following channels:
     [community sig list][sig-list]
   - optionally directly "@" mentioning SIG leadership or others by handle
 
-## Adding An Item To The Milestone
+## মাইলস্টোনে একটি আইটেম সংযোজন
+
+### Milestone Maintainers
+
+The members of the [`milestone-maintainers`](https://github.com/orgs/kubernetes/teams/milestone-maintainers/members)
+GitHub team are entrusted with the responsibility of specifying the release
+milestone on GitHub artifacts.
+
+This group is [maintained](https://git.k8s.io/sig-release/release-team/README.md#milestone-maintainers)
+by SIG Release and has representation from the various SIGs' leadership.
+
+### Feature additions
+
+Feature planning and definition takes many forms today, but a typical example
+might be a large piece of work described in a [KEP][keps], with associated task
+issues in GitHub. When the plan has reached an implementable state and work is
+underway, the enhancement or parts thereof are targeted for an upcoming milestone
+by creating GitHub issues and marking them with the Prow "/milestone" command.
+
+For the first ~4 weeks into the release cycle, the Release Team's Enhancements
+Lead will interact with SIGs and feature owners via GitHub, Slack, and SIG
+meetings to capture all required planning artifacts.
+
+If you have an enhancement to target for an upcoming release milestone, begin a
+conversation with your SIG leadership and with that release's Enhancements
+Lead.
+
+### Issue additions
+
+Issues are marked as targeting a milestone via the Prow "/milestone" command.
+
+The Release Team's [Bug Triage Lead](https://git.k8s.io/sig-release/release-team/role-handbooks/bug-triage/README.md)
+and overall community watch incoming issues and triage them, as described in
+the contributor guide section on
+[issue triage](https://k8s.dev/docs/guide/issue-triage/).
+
+Marking issues with the milestone provides the community better visibility
+regarding when an issue was observed and by when the community feels it must be
+resolved. During [Code Freeze][code-freeze], a milestone must be set to merge
+a PR.
+
+An open issue is no longer required for a PR, but open issues and associated
+PRs should have synchronized labels. For example a high priority bug issue
+might not have its associated PR merged if the PR is only marked as lower
+priority.
+
+### PR Additions
+
+PRs are marked as targeting a milestone via the Prow "/milestone" command.
+
+This is a blocking requirement during Code Freeze as described above.
+
+## Other Required Labels
+
+[Here is the list of labels and their use and purpose.](https://git.k8s.io/test-infra/label_sync/labels.md#labels-that-apply-to-all-repos-for-both-issues-and-prs)
+
+### SIG Owner Label
+
+The SIG owner label defines the SIG to which we escalate if a milestone issue
+is languishing or needs additional attention. If there are no updates after
+escalation, the issue may be automatically removed from the milestone.
+
+These are added with the Prow "/sig" command. For example to add the label
+indicating SIG Storage is responsible, comment with `/sig storage`.
+
+### Priority Label
+
+Priority labels are used to determine an escalation path before moving issues
+out of the release milestone. They are also used to determine whether or not a
+release should be blocked on the resolution of the issue.
+
+- `priority/critical-urgent`: Never automatically move out of a release
+  milestone; continually escalate to contributor and SIG through all available
+  channels.
+  - considered a release blocking issue
+  - requires daily updates from issue owners during [Code Freeze][code-freeze]
+  - would require a patch release if left undiscovered until after the minor
+    release
+- `priority/important-soon`: Escalate to the issue owners and SIG owner; move
+  out of milestone after several unsuccessful escalation attempts.
+  - not considered a release blocking issue
+  - would not require a patch release
+  - will automatically be moved out of the release milestone at Code Freeze
+    after a 4 day grace period
+- `priority/important-longterm`: Escalate to the issue owners; move out of the
+  milestone after 1 attempt.
+  - even less urgent / critical than `priority/important-soon`
+  - moved out of milestone more aggressively than `priority/important-soon`
+
+### ইস্যু/PR Kind Label
+
+The issue kind is used to help identify the types of changes going into the
+release over time. This may allow the Release Team to develop a better
+understanding of what sorts of issues we would miss with a faster release
+cadence.
+
+রিলিজ টার্গেট করা সমস্যাগুলির জন্য, পুল অনুরোধ সহ, নিম্নলিখিত একটি
+সমস্যা ধরনের লেবেল সেট করা আবশ্যক:
+
+- `kind/api-change`: একটি API যোগ করে, অপসারণ করে বা পরিবর্তন করে।
+- `kind/bug`: একটি নতুন আবিষ্কৃত বাগ সংশোধন করে।
+- `kind/cleanup`: টেস্ট যোগ করা, রিফ্যাক্টরিং, পুরানো বাগ ঠিক করা।
+- `kind/design`: ডিজাইনের সাথে সম্পর্কিত।
+- `kind/documentation`: ডকুমেন্টেশন যোগ করে।
+- `kind/failing-test`: CI টেস্ট কেস ধারাবাহিকভাবে ব্যর্থ হয়।
+- `kind/feature`: নতুন ফিচার।
+- `kind/flake`: CI টেস্ট কেস মাঝে মাঝে ব্যর্থতা দেখাচ্ছে।
+
+[cherry-picks]: https://git.k8s.io/community/contributors/devel/sig-release/cherry-picks.md
+[code-freeze]: https://git.k8s.io/sig-release/releases/release_phases.md#code-freeze
+[enhancements-freeze]: https://git.k8s.io/sig-release/releases/release_phases.md#enhancements-freeze
+[exceptions]: https://git.k8s.io/sig-release/releases/release_phases.md#exceptions
+[keps]: https://git.k8s.io/enhancements/keps
+[release-managers]: /releases/release-managers/
+[release-team]: https://git.k8s.io/sig-release/release-team
+[sig-list]: https://k8s.dev/sigs
