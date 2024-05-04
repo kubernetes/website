@@ -176,15 +176,75 @@ PR এ স্বয়ংক্রিয়ভাবে মাইলফলক �
 - `kubernetes/sig-release`
 - `kubernetes/test-infra`
 
-At creation time, PRs against the `master` branch need humans to hint at which
-milestone they might want the PR to target. Once merged, PRs against the
-`master` branch have milestones auto-applied so from that time onward human
-management of that PR's milestone is less necessary. On PRs against release
-branches, milestones are auto-applied when the PR is created so no human
-management of the milestone is ever necessary.
+তৈরি করার সময়, `master` ব্রাঞ্চের বিপরীতে PR গুলোর মানুষের দেওয়া নির্দেশনা প্রয়োজন কোন 
+মাইলস্টোন টার্গেট করতে হবে তার জন্য। একবার মার্জ হলে, 
+`master` ব্রাঞ্চের বিপরীতে তৈরি করা PR গুলোয় মাইলস্টোন় স্বয়ংক্রিয়ভাবে প্রয়োগ করা হয় তাই সেই সময় থেকে
+ওই PR এর মাইলস্টোনে মানুষের ব্যবস্থাপনা কম প্রয়োজনীয়। রিলিজ ব্রাঞ্চ এর বিপরীতে তৈরি PR এ, 
+মাইলস্টোন সংক্রিয়ভাবে প্রয়োগ হয় তাই মানুষবিহীন 
+ব্যবস্থাপনা মাইলস্টোনের জন্য সবসময় প্রয়োজন।
 
-Any other effort that should be tracked by the Release Team that doesn't fall
-under that automation umbrella should be have a milestone applied.
+অন্য কোনো প্রচেষ্টা যা রিলিজ টিমের দ্বারা ট্র্যাক করা উচিত যা কোনো 
+অটোমেশন আম্ব্রেলার অধীনে নেই তাতে একটি মাইলফলক প্রয়োগ করা উচিত।
 
-Implementation and bug fixing is ongoing across the cycle, but culminates in a
-code freeze period.
+ইমপ্লিমেন্টেশন এবং বাগ ফিক্সিং পুরো সাইকেল জুড়ে চলেছে, কিন্তু শেষ হয়
+কোড-ফ্রিজ সময়কালে।
+
+**[কোড ফ্রিজ][code-freeze]** শুরু হয় ~১২ সপ্তাহে এবং পরবর্তী ~২ সপ্তাহ পর্যন্ত চলে।
+এই সময়ে রিলিজ কোডবেসে শুধুমাত্র গুরুত্বপূর্ণ বাগ ফিক্স গ্রহণ করা 
+হয়।
+
+Code Freeze এর পরে এবং রিলিজের পূর্বে প্রায় দুই সপ্তাহের সময় রয়েছে, যা রিলিজ পূর্বে 
+সমস্ত অবশিষ্ট গুরুত্বপূর্ণ সমস্যাগুলি সমাধান করা আবশ্যক। 
+এটি ডকুমেন্টেশন চূড়ান্ত করার জন্য সময় দেয়।
+
+যখন কোড বেস স্টেবল হয়, তখন মাস্টার ব্রাঞ্চটি সাধারণ উন্নতির জন্য পুনরায় খোলা হয় 
+এবং পরবর্তী রিলিজের মাইলস্টোনে কাজ সেখানে শুরু করা হয়। 
+বর্তমান রিলিজের জন্য অবশিষ্ট যেকোনো সংশোধন মাস্টার থেকে রিলিজ ব্রাঞ্চে চেরি-পিক করা হয়। 
+রিলিজ ব্রাঞ্চ থেকে রিলিজ তৈরি করা হয়।
+
+প্রত্যেকটি রিলিজ একটি বৃহৎ কুবারনেটিস লাইফসাইকের অংশ:
+
+![কুবারনেটস রিলিজ লাইফসাইকেলের ছবি তিনটি রিলিজ বিস্তৃত](/images/releases/release-lifecycle.jpg)
+
+## মাইলস্টোন থেকে আইটেম অপসারণ
+
+মাইলস্টোন আইটেম যোগ করার প্রক্রিযার অধিক দূরে যাওয়ার আগে, 
+দয়া করে লক্ষ্য করুন:
+
+Members of the [Release Team][release-team] may remove issues from the
+milestone if they or the responsible SIG determine that the issue is not
+actually blocking the release and is unlikely to be resolved in a timely
+fashion.
+
+Members of the Release Team may remove PRs from the milestone for any of the
+following, or similar, reasons:
+
+- PR is potentially de-stabilizing and is not needed to resolve a blocking
+  issue
+- PR is a new, late feature PR and has not gone through the enhancements
+  process or the [exception process][exceptions]
+- There is no responsible SIG willing to take ownership of the PR and resolve
+  any follow-up issues with it
+- PR is not correctly labelled
+- Work has visibly halted on the PR and delivery dates are uncertain or late
+
+While members of the Release Team will help with labelling and contacting
+SIG(s), it is the responsibility of the submitter to categorize PRs, and to
+secure support from the relevant SIG to guarantee that any breakage caused by
+the PR will be rapidly resolved.
+
+Where additional action is required, an attempt at human to human escalation
+will be made by the Release Team through the following channels:
+
+- Comment in GitHub mentioning the SIG team and SIG members as appropriate for
+  the issue type
+- Emailing the SIG mailing list
+  - bootstrapped with group email addresses from the
+    [community sig list][sig-list]
+  - optionally also directly addressing SIG leadership or other SIG members
+- Messaging the SIG's Slack channel
+  - bootstrapped with the slackchannel and SIG leadership from the
+    [community sig list][sig-list]
+  - optionally directly "@" mentioning SIG leadership or others by handle
+
+## Adding An Item To The Milestone
