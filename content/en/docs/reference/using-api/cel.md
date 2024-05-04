@@ -67,7 +67,7 @@ Example CEL expressions:
 
 CEL is configured with the following options, libraries and language features, introduced at the specified Kubernetes versions:
 
-| CEL option, library or language feature                                                                                | Included                                                                                                                                  | Availablity               |
+| CEL option, library or language feature                                                                                | Included                                                                                                                                  | Availability               |
 |------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|
 | [Standard macros](https://github.com/google/cel-spec/blob/v0.7.0/doc/langdef.md#macros)                                | `has`, `all`, `exists`, `exists_one`, `map`, `filter`                                                                                     | All Kubernetes versions   |
 | [Standard functions](https://github.com/google/cel-spec/blob/master/doc/langdef.md#list-of-standard-definitions)       | See [official list of standard definitions](https://github.com/google/cel-spec/blob/master/doc/langdef.md#list-of-standard-definitions)   | All Kubernetes versions   |

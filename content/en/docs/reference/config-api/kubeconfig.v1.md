@@ -55,7 +55,7 @@ TODO(jlowdermilk): remove this after eliminating downstream dependencies.</p>
 <a href="#NamedCluster"><code>[]NamedCluster</code></a>
 </td>
 <td>
-   <p>Clusters is a map of referencable names to cluster configs</p>
+   <p>Clusters is a map of referenceable names to cluster configs</p>
 </td>
 </tr>
 <tr><td><code>users</code> <B>[Required]</B><br/>
@@ -69,7 +69,7 @@ TODO(jlowdermilk): remove this after eliminating downstream dependencies.</p>
 <a href="#NamedContext"><code>[]NamedContext</code></a>
 </td>
 <td>
-   <p>Contexts is a map of referencable names to context configs</p>
+   <p>Contexts is a map of referenceable names to context configs</p>
 </td>
 </tr>
 <tr><td><code>current-context</code> <B>[Required]</B><br/>
