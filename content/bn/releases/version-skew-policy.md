@@ -23,7 +23,7 @@ description: >
 কুবারনেটিস সংস্করণ **x.y.z** হিসাবে প্রকাশ করা হয়,
 যেখানে **x** হল মুখ্য সংস্করণ, **y** হল গৌণ সংস্করণ এবং **z** হল প্যাচ ভার্সন (patch version),
 যা [শব্দার্থিক সংস্করণ](https://semver.org/) পরিভাষা অনুসরণ করে হয়। অতিরিক্ত তথ্যসমূহের জন্য, দেখুন
-[কুবারনেটিস রিলিজ সংস্করণ](https://git.k8s.io/sig-release/release-engineering/versioning.md#kubernetes-release-versioning).
+[কুবারনেটিস রিলিজ সংস্করণ](https://git.k8s.io/sig-release/release-engineering/versioning.md#kubernetes-release-versioning)।
 
 কুবারনেটিস প্রজেক্ট সাম্প্রতিক তিনটি পর্যন্ত ছোট রিলিজের জন্য রিলিজ শাখা বজায় রাখে
 ({{< skew latestVersion >}}, {{< skew prevMinorVersion >}}, {{< skew oldestMinorVersion >}})।
@@ -41,4 +41,17 @@ description: >
 ## সমর্থিত সংস্করণ স্ক্যু(skew)
 
 ### কুবে-এপিসার্ভার (kube-apiserver)
+
+[অত্যন্ত-উপলব্ধ (HA) ক্লাস্টারে](/bn/docs/setup/production-environment/tools/kubeadm/high-availability/),,
+নতুন এবং প্রাচীনতম `kube-apiserver` উদাহরণগুলি অবশ্যই একটি ছোট সংস্করণের মধ্যে থাকতে হবে৷
+
+উদাহরণ:
+
+
+
+
+
+
+
+
 
