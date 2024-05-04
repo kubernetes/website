@@ -1,7 +1,7 @@
 ---
 title: 临时容器
 content_type: concept
-weight: 80
+weight: 60
 ---
 
 <!--
@@ -10,7 +10,7 @@ reviewers:
 - yujuhong
 title: Ephemeral Containers
 content_type: concept
-weight: 80
+weight: 60
 -->
 
 <!-- overview -->
