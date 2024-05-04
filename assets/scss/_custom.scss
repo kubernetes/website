@@ -1334,10 +1334,11 @@ div.alert > em.javascript-required {
   flex-grow: 1;
   overflow-x: hidden;
   width: auto;
-}
 
-.search-bar:focus-within {
-  border: 2.5px solid rgba(47, 135, 223, 0.7);
+  &:focus-within {
+    outline: 1.5px solid rgba(47, 135, 223, 0.7);
+    border: 1px solid rgba(47, 135, 223, 0.7);
+  }
 }
 
 .search-bar i.search-icon {
