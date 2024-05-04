@@ -4,7 +4,7 @@ id: statefulset
 date: 2018-04-12
 full_link: /ja/docs/concepts/workloads/controllers/statefulset/
 short_description: >
-  StatefulSetはPodの展開とスケーリングを管理し、永続化ストレージと各Podの永続的な識別子を備えています。
+  StatefulSetはPodのデプロイとスケーリングを管理し、永続化ストレージと各Podの永続的な識別子を備えています。
 
 aka: 
 tags:
@@ -14,7 +14,7 @@ tags:
 - storage
 ---
 
-StatefulSetは{{< glossary_tooltip text="Pod" term_id="pod" >}}の展開とスケーリングを管理し、それらのPodの*順序と一意性を保証*します。
+StatefulSetは{{< glossary_tooltip text="Pod" term_id="pod" >}}のデプロイとスケーリングを管理し、それらのPodの*順序と一意性を保証*します。
 
 <!--more-->
 
