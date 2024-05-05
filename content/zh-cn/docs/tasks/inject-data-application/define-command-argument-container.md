@@ -50,9 +50,9 @@ with your new arguments.
 
 {{< note >}}
 <!--
-The `command` field corresponds to `entrypoint` in some container runtimes. 
+The `command` field corresponds to `ENTRYPOINT`, and the `args` field corresponds to `CMD` in some container runtimes.
 -->
-在有些容器运行时中，`command` 字段对应 `entrypoint`。
+`command` 字段对应于 `ENTRYPOINT`，而 `args` 字段对应于某些容器运行时的 `CMD`。
 {{< /note >}}
 
 <!--
@@ -82,7 +82,8 @@ file for the Pod defines a command and two arguments:
    ```
 
    <!--
-   The output shows that the container that ran in the command-demo Pod has completed.
+   The output shows that the container that ran in the command-demo Pod has
+   completed.
    -->
    查询结果显示在 command-demo 这个 Pod 下运行的容器已经启动完成。
 
@@ -97,7 +98,8 @@ from the Pod:
    ```
 
    <!--
-   The output shows the values of the HOSTNAME and KUBERNETES_PORT environment variables:
+   The output shows the values of the HOSTNAME and KUBERNETES_PORT environment
+   variables:
    -->
    日志中显示了 HOSTNAME 与 KUBERNETES_PORT 这两个环境变量的值：
 
