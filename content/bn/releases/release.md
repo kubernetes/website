@@ -31,7 +31,7 @@ auto_generated: true
 - [অন্যান্য প্রয়োজনীয় লেবেল](#other-required-labels)
   - [SIG ওনার লেবেল](#sig-owner-label)
   - [প্রাইওরিটি লেবেল](#priority-label)
-  - [ইস্যু/PR এর মতো লেবেল](#issuepr-kind-label)
+  - [ইস্যু/PR লেবেল](#issuepr-kind-label)
 
 শেফারডিং এনহ্যান্সমেন্ট, ইস্যু এবং পুল রিকুয়েস্ট করার প্রক্রিয়া 
 কুবারনেটিস রিলিজে একাধিক স্টেকহোল্ডারদের অংশগ্রহণ বাড়ায়:
@@ -249,7 +249,7 @@ PR-গুলি সরাতে পারেন:
 
 ## মাইলস্টোনে একটি আইটেম সংযোজন
 
-### Milestone Maintainers
+### মাইলস্টোন রক্ষণাবেক্ষণকারী
 
 The members of the [`milestone-maintainers`](https://github.com/orgs/kubernetes/teams/milestone-maintainers/members)
 GitHub team are entrusted with the responsibility of specifying the release
@@ -258,7 +258,7 @@ milestone on GitHub artifacts.
 This group is [maintained](https://git.k8s.io/sig-release/release-team/README.md#milestone-maintainers)
 by SIG Release and has representation from the various SIGs' leadership.
 
-### Feature additions
+### ফিচার সংযোজন
 
 Feature planning and definition takes many forms today, but a typical example
 might be a large piece of work described in a [KEP][keps], with associated task
@@ -274,7 +274,7 @@ If you have an enhancement to target for an upcoming release milestone, begin a
 conversation with your SIG leadership and with that release's Enhancements
 Lead.
 
-### Issue additions
+### ইস্যু সংযোজন
 
 Issues are marked as targeting a milestone via the Prow "/milestone" command.
 
@@ -293,17 +293,17 @@ PRs should have synchronized labels. For example a high priority bug issue
 might not have its associated PR merged if the PR is only marked as lower
 priority.
 
-### PR Additions
+### PR সংযোজন
 
-PRs are marked as targeting a milestone via the Prow "/milestone" command.
+PR গুলোকে Prow "/milestone" কমান্ডের মাধ্যমে একটি মাইলফলককে লক্ষ্য করে চিহ্নিত করা হয়েছে।
 
-This is a blocking requirement during Code Freeze as described above.
+উপরে বর্ণিত কোড ফ্রিজের সময় এটি একটি ব্লকিং প্রয়োজনীয়তা।
 
-## Other Required Labels
+## অন্যান্য প্রয়োজনীয় লেবেল
 
-[Here is the list of labels and their use and purpose.](https://git.k8s.io/test-infra/label_sync/labels.md#labels-that-apply-to-all-repos-for-both-issues-and-prs)
+[এখানে লেবেল এবং তাদের ব্যবহার এবং উদ্দেশ্য তালিকা আছে।](https://git.k8s.io/test-infra/label_sync/labels.md#labels-that-apply-to-all-repos-for-both-issues-and-prs)
 
-### SIG Owner Label
+### SIG ওনার লেবেল
 
 The SIG owner label defines the SIG to which we escalate if a milestone issue
 is languishing or needs additional attention. If there are no updates after
@@ -312,11 +312,11 @@ escalation, the issue may be automatically removed from the milestone.
 These are added with the Prow "/sig" command. For example to add the label
 indicating SIG Storage is responsible, comment with `/sig storage`.
 
-### Priority Label
+### প্রাইওরিটি লেবেল
 
-Priority labels are used to determine an escalation path before moving issues
-out of the release milestone. They are also used to determine whether or not a
-release should be blocked on the resolution of the issue.
+অগ্রাধিকার লেবেলগুলি ইস্যুগুলির রিলিস মাইলস্টোন থেকে বের হতে প্রারম্ভিক 
+এস্ক্যালেশন পথ নির্ধারণে ব্যবহৃত হয়। তারা এটা নির্ধারণ করতে ব্যবহৃত হয় 
+যে ইস্যুর সমাধানের উপরে রিলিস ব্লক করা উচিত কি না।
 
 - `priority/critical-urgent`: Never automatically move out of a release
   milestone; continually escalate to contributor and SIG through all available
@@ -336,12 +336,12 @@ release should be blocked on the resolution of the issue.
   - even less urgent / critical than `priority/important-soon`
   - moved out of milestone more aggressively than `priority/important-soon`
 
-### ইস্যু/PR Kind Label
+### ইস্যু/PR লেবেল
 
-The issue kind is used to help identify the types of changes going into the
-release over time. This may allow the Release Team to develop a better
-understanding of what sorts of issues we would miss with a faster release
-cadence.
+ইস্যুর ধরন ব্যবহার করা হয় সময়ের সাথে রিলিজের বিভিন্ন পরিবর্তন সনাক্ত 
+করার জন্য। যা রিলিজ টিমকে ভালো ধারণা দেয় 
+একটি দ্রুত রিলিজ কেডেন্সে কোন ইস্যু গুলো হারিয়ে যাচ্ছে
+তা সম্পর্কে।
 
 রিলিজ টার্গেট করা সমস্যাগুলির জন্য, পুল অনুরোধ সহ, নিম্নলিখিত একটি
 সমস্যা ধরনের লেবেল সেট করা আবশ্যক:
