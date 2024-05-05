@@ -54,8 +54,8 @@ simple_list: true
 
 আপনি একটি [Job](/bn/docs/concepts/workloads/controllers/job/) এবং / বা 
 একটি [CronJob](/bn/docs/concepts/workloads/controllers/cron-jobs/) ব্যবহার করতে পারেন
-যা কাজগুলোকে চিহ্নিত করবে যা সমাপ্তির জন্য চলবে পরে থামবে। একটি Job একটি একক 
-টাস্কের প্রতিনিধিত্ব করে, যেখানে প্রতিটি CronJob একটি শিডিউল অনুযায়ী পুনরাবৃত্তি করে।
+যা কাজগুলোকে চিহ্নিত করবে যা সমাপ্তির জন্য চলবে পরে থামবে। একটি Job একটি 
+একক টাস্কের প্রতিনিধিত্ব করে, যেখানে প্রতিটি CronJob একটি শিডিউল অনুযায়ী পুনরাবৃত্তি করে।
 
 এই বিভাগে অন্যান্য বিষয়:
 <!-- relies on simple_list: true in the front matter -->
