@@ -1,5 +1,8 @@
 ---
 title: 服务（Service）
+api_metadata:
+- apiVersion: "v1"
+  kind: "Service"
 feature:
   title: 服务发现与负载均衡
   description: >
@@ -14,6 +17,9 @@ weight: 10
 reviewers:
 - bprashanth
 title: Service
+api_metadata:
+- apiVersion: "v1"
+  kind: "Service"
 feature:
   title: Service discovery and load balancing
   description: >
@@ -199,7 +205,8 @@ spec:
   selector:
     app.kubernetes.io/name: MyApp
   ports:
-    - protocol: TCP
+    - name: http
+      protocol: TCP
       port: 80
       targetPort: 9376
 ```
@@ -386,8 +393,7 @@ metadata:
     kubernetes.io/service-name: my-service
 addressType: IPv4
 ports:
-  - name: '' # empty because port 9376 is not assigned as a well-known
-             # port (by IANA)
+  - name: http # should match with the name of the service port defined above
     appProtocol: http
     protocol: TCP
     port: 9376
@@ -409,7 +415,7 @@ metadata:
     kubernetes.io/service-name: my-service
 addressType: IPv4
 ports:
-  - name: '' # 留空，因为 port 9376 未被 IANA 分配为已注册端口
+  - name: '' # 应与上面定义的服务端口的名称匹配
     appProtocol: http
     protocol: TCP
     port: 9376
@@ -1096,6 +1102,25 @@ can define your own (provider specific) annotations on the Service that specify 
 {{< /note >}}
 
 <!--
+#### Node liveness impact on load balancer traffic
+
+Load balancer health checks are critical to modern applications. They are used to
+determine which server (virtual machine, or IP address) the load balancer should
+dispatch traffic to. The Kubernetes APIs do not define how health checks have to be
+implemented for Kubernetes managed load balancers, instead it's the cloud providers
+(and the people implementing integration code) who decide on the behavior. Load
+balancer health checks are extensively used within the context of supporting the
+`externalTrafficPolicy` field for Services.
+-->
+#### 节点存活态对负载均衡器流量的影响
+
+负载均衡器运行状态检查对于现代应用程序至关重要，
+它们用于确定负载均衡器应将流量分派到哪个服务器（虚拟机或 IP 地址）。
+Kubernetes API 没有定义如何为 Kubernetes 托管负载均衡器实施运行状况检查，
+而是由云提供商（以及集成代码的实现人员）决定其行为。
+负载均衡器运行状态检查广泛用于支持 Service 的 `externalTrafficPolicy` 字段。
+
+<!--
 #### Load balancers with mixed protocol types
 -->
 #### 混合协议类型的负载均衡器
@@ -1200,14 +1225,14 @@ Unprefixed names are reserved for end-users.
 {{< feature-state feature_gate_name="LoadBalancerIPMode" >}}
 
 <!--
-Starting as Alpha in Kubernetes 1.29, 
+As a Beta feature in Kubernetes 1.30,
 a [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) 
 named `LoadBalancerIPMode` allows you to set the `.status.loadBalancer.ingress.ipMode` 
 for a Service with `type` set to `LoadBalancer`. 
 The `.status.loadBalancer.ingress.ipMode` specifies how the load-balancer IP behaves. 
 It may be specified only when the `.status.loadBalancer.ingress.ip` field is also specified.
 -->
-这是从 Kubernetes 1.29 开始的一个 Alpha 级别特性，通过名为 `LoadBalancerIPMode`
+作为 Kubernetes 1.30 中的 Beta 级别特性，通过名为 `LoadBalancerIPMode`
 的[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)允许你为
 `type` 为 `LoadBalancer` 的服务设置 `.status.loadBalancer.ingress.ipMode`。
 `.status.loadBalancer.ingress.ipMode` 指定负载均衡器 IP 的行为方式。
@@ -1452,9 +1477,7 @@ You can use a headless Service to interface with other service discovery mechani
 without being tied to Kubernetes' implementation.
 
 For headless Services, a cluster IP is not allocated, kube-proxy does not handle
-these Services, and there is no load balancing or proxying done by the platform
-for them. How DNS is automatically configured depends on whether the Service has
-selectors defined:
+these Services, and there is no load balancing or proxying done by the platform for them.
 -->
 ## 无头服务（Headless Services）  {#headless-services}
 
@@ -1465,7 +1488,33 @@ selectors defined:
 
 无头 Service 不会获得集群 IP，kube-proxy 不会处理这类 Service，
 而且平台也不会为它们提供负载均衡或路由支持。
-取决于 Service 是否定义了选择算符，DNS 会以不同的方式被自动配置。
+
+<!--
+A headless Service allows a client to connect to whichever Pod it prefers, directly. Services that are headless don't
+configure routes and packet forwarding using
+[virtual IP addresses and proxies](/docs/reference/networking/virtual-ips/); instead, headless Services report the
+endpoint IP addresses of the individual pods via internal DNS records, served through the cluster's
+[DNS service](/docs/concepts/services-networking/dns-pod-service/).
+To define a headless Service, you make a Service with `.spec.type` set to ClusterIP (which is also the default for `type`),
+and you additionally set `.spec.clusterIP` to None.
+-->
+无头 Service 允许客户端直接连接到它所偏好的任一 Pod。
+无头 Service 不使用[虚拟 IP 地址和代理](/zh-cn/docs/reference/networking/virtual-ips/)
+配置路由和数据包转发；相反，无头 Service 通过内部 DNS 记录报告各个
+Pod 的端点 IP 地址，这些 DNS 记录是由集群的
+[DNS 服务](/zh-cn/docs/concepts/services-networking/dns-pod-service/)所提供的。
+这些 DNS 记录是由集群内部 DNS 服务所提供的
+要定义无头 Service，你需要将 `.spec.type` 设置为 ClusterIP（这也是 `type`
+的默认值），并进一步将 `.spec.clusterIP` 设置为 `None`。
+
+<!--
+The string value None is a special case and is not the same as leaving the `.spec.clusterIP` field unset.
+
+How DNS is automatically configured depends on whether the Service has selectors defined:
+-->
+字符串值 None 是一种特殊情况，与未设置 `.spec.clusterIP` 字段不同。
+
+DNS 如何自动配置取决于 Service 是否定义了选择器：
 
 <!--
 ### With selectors
@@ -1654,6 +1703,56 @@ mechanism Kubernetes provides to expose a Service with a virtual IP address.
 
 阅读[虚拟 IP 和 Service 代理](/zh-cn/docs/reference/networking/virtual-ips/)以了解
 Kubernetes 提供的使用虚拟 IP 地址公开服务的机制。
+
+<!--
+### Traffic distribution
+-->
+### 流量分发
+
+<!--
+The `.spec.trafficDistribution` field provides another way to influence traffic
+routing within a Kubernetes Service. While traffic policies focus on strict
+semantic guarantees, traffic distribution allows you to express _preferences_
+(such as routing to topologically closer endpoints). This can help optimize for
+performance, cost, or reliability. This optional field can be used if you have
+enabled the `ServiceTrafficDistribution` [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/) for your
+cluster and all of its nodes. In Kubernetes {{< skew currentVersion >}}, the
+following field value is supported:
+-->
+`.spec.trafficDistribution` 字段提供了另一种影响 Kubernetes Service 内流量路由的方法。
+虽然流量策略侧重于严格的语义保证，但流量分发允许你表达一定的**偏好**（例如路由到拓扑上更接近的端点）。
+这一机制有助于优化性能、成本或可靠性。
+如果你为集群及其所有节点启用了 `ServiceTrafficDistribution`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
+则可以使用此可选字段。
+Kubernetes {{< skew currentVersion >}} 支持以下字段值：
+
+<!--
+`PreferClose`
+: Indicates a preference for routing traffic to endpoints that are topologically
+  proximate to the client. The interpretation of "topologically proximate" may
+  vary across implementations and could encompass endpoints within the same
+  node, rack, zone, or even region. Setting this value gives implementations
+  permission to make different tradeoffs, e.g. optimizing for proximity rather
+  than equal distribution of load. Users should not set this value if such
+  tradeoffs are not acceptable.
+-->
+`PreferClose`
+: 表示优先将流量路由到拓扑上最接近客户端的端点。
+  “拓扑上邻近”的解释可能因实现而异，并且可能涵盖同一节点、机架、区域甚至区域内的端点。
+  设置此值允许实现进行不同的权衡，例如按距离优化而不是平均分配负载。
+  如果这种权衡不可接受，用户不应设置此值。
+
+<!--
+If the field is not set, the implementation will apply its default routing strategy.
+
+See [Traffic
+Distribution](/docs/reference/networking/virtual-ips/#traffic-distribution) for
+more details
+-->
+如果未设置该字段，实现将应用其默认路由策略，
+详见[流量分发](/zh-cn/docs/reference/networking/virtual-ips/#traffic-distribution)。
 
 <!--
 ### Traffic policies
