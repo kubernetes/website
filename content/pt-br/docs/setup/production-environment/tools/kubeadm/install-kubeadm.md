@@ -13,7 +13,7 @@ card:
 <img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">Essa página mostra o processo de instalação do conjunto de ferramentas `kubeadm`. 
 Para mais informações sobre como criar um cluster com o kubeadm após efetuar a instalação, veja a página [Utilizando kubeadm para criar um cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
 
-{{< doc-versions-list "guia de instalação" >}}
+{{< doc-versions-list "installation guide" >}}
 
 ## {{% heading "prerequisites" %}}
 
