@@ -82,27 +82,42 @@ to `false`. For example:
    kubectl attach -it userns bash
    ```
 
-And run the command. The output is similar to this:
+Run this command:
 
-```none
+```shell
 readlink /proc/self/ns/user
-user:[4026531837]
-cat /proc/self/uid_map
-0          0 4294967295
 ```
 
-Then, open a shell in the host and run the same command.
+The output is similar to:
 
-The output must be different. This means the host and the pod are using a
-different user namespace. When user namespaces are not enabled, the host and the
-pod use the same user namespace.
+```shell
+user:[4026531837]
+```
+
+Also run:
+
+```shell
+cat /proc/self/uid_map
+```
+
+The output is similar to:
+```shell
+0  833617920      65536
+```
+
+Then, open a shell in the host and run the same commands.
+
+The `readlink` command shows the user namespace the process is running in. It
+should be different when it is run on the host and inside the container.
+
+The last number of the `uid_map` file inside the container must be 65536, on the
+host it must be a bigger number.
 
 If you are running the kubelet inside a user namespace, you need to compare the
 output from running the command in the pod to the output of running in the host:
 
-```none
+```shell
 readlink /proc/$pid/ns/user
-user:[4026534732]
 ```
 
 replacing `$pid` with the kubelet PID.
