@@ -28,22 +28,37 @@ that system resource specifically for that container to use.
 
 If the node where a Pod is running has enough of a resource available, it's possible (and
 allowed) for a container to use more resource than its `request` for that resource specifies.
-However, a container is not allowed to use more than its resource `limit`.
 
 For example, if you set a `memory` request of 256 MiB for a container, and that container is in
 a Pod scheduled to a Node with 8GiB of memory and no other Pods, then the container can try to use
 more RAM.
 
-If you set a `memory` limit of 4GiB for that container, the kubelet (and
-{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}) enforce the limit.
-The runtime prevents the container from using more than the configured resource limit. For example:
-when a process in the container tries to consume more than the allowed amount of memory,
-the system kernel terminates the process that attempted the allocation, with an out of memory
-(OOM) error.
+Limits are a different story. Both `cpu` and `memory` limits are applied by the kubelet (and
+{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}),
+and are ultimately enforced by the kernel. On Linux nodes, the Linux kernel
+enforces limits with
+{{< glossary_tooltip text="cgroups" term_id="cgroup" >}}.
+The behavior of `cpu` and `memory` limit enforcement is slightly different.
 
-Limits can be implemented either reactively (the system intervenes once it sees a violation)
-or by enforcement (the system prevents the container from ever exceeding the limit). Different
-runtimes can have different ways to implement the same restrictions.
+`cpu` limits are enforced by CPU throttling. When a container approaches
+its `cpu` limit, the kernel will restrict access to the CPU corresponding to the
+container's limit. Thus, a `cpu` limit is a hard limit the kernel enforces.
+Containers may not use more CPU than is specified in their `cpu` limit.
+
+`memory` limits are enforced by the kernel with out of memory (OOM) kills. When
+a container uses more than its `memory` limit, the kernel may terminate it. However,
+terminations only happen when the kernel detects memory pressure. Thus, a
+container that over allocates memory may not be immediately killed. This means
+`memory` limits are enforced reactively. A container may use more memory than
+its `memory` limit, but if it does, it may get killed.
+
+{{< note >}}
+There is an alpha feature `MemoryQoS` which attempts to add more preemptive
+limit enforcement for memory (as opposed to reactive enforcement by the OOM
+killer). However, this effort is
+[stalled](https://github.com/kubernetes/enhancements/tree/a47155b340/keps/sig-node/2570-memory-qos#latest-update-stalled)
+due to a potential livelock situation a memory hungry can cause.
+{{< /note >}}
 
 {{< note >}}
 If you specify a limit for a resource, but do not specify any request, and no admission-time
@@ -884,4 +899,3 @@ memory limit (and possibly request) for that container.
 * Read about [project quotas](https://www.linux.org/docs/man8/xfs_quota.html) in XFS
 * Read more about the [kube-scheduler configuration reference (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
 * Read more about [Quality of Service classes for Pods](/docs/concepts/workloads/pods/pod-qos/)
-
