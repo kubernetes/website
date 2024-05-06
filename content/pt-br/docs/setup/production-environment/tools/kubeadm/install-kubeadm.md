@@ -164,7 +164,7 @@ a sua versão menor desejada.
 
 Essas instruções são para o Kubernetes v{{< skew currentVersion >}}.
 
-1. Atualize o índice do pacote `apt` e instale os pacotes necessários para usar o repositório `apt` do Kubernetes:
+1. Atualize o índice de pacotes `apt` e instale os pacotes necessários para usar o repositório `apt` do Kubernetes:
 
    ```shell
    sudo apt-get update
