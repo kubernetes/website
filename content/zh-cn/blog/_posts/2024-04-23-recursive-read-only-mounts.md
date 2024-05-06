@@ -152,6 +152,8 @@ To enable `recursiveReadOnly` mounts, the following components have to be used:
   * runc：v1.1 或更新版本
   * crun: v1.8.6 或更新版本
 
+* Linux 内核: v5.12 或更新版本
+
 
 <!--
 ## What's next?
