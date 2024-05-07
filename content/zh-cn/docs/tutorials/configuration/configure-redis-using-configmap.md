@@ -1,6 +1,7 @@
 ---
 title: 使用 ConfigMap 来配置 Redis
 content_type: tutorial
+weight: 30
 ---
 <!--
 reviewers:
@@ -8,6 +9,7 @@ reviewers:
 - pmorie
 title: Configuring Redis using a ConfigMap
 content_type: tutorial
+weight: 30
 -->
 
 <!-- overview -->
@@ -357,5 +359,7 @@ kubectl delete pod/redis configmap/example-redis-config
 
 <!--
 * Learn more about [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/).
+* Follow an example of [Updating configuration via a ConfigMap](/docs/tutorials/configuration/updating-configuration-via-a-configmap/).
 -->
 * 了解有关 [ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/) 的更多信息。
+* 学习[通过 ConfigMap 更新配置](/zh-cn/docs/tutorials/configuration/updating-configuration-via-a-configmap/)的示例。
