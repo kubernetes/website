@@ -5,7 +5,7 @@ content_type: concept
 
 Olá!
 
-Esta página contém informações sobre o processo de localização em português (Brazil), desde o processo de contribuição até um dicionário de temos com as respectivas traduções.
+Esta página contém informações sobre o processo de localização em português (Brasil), desde o processo de contribuição até um dicionário de temos com as respectivas traduções.
 
 
 ## Passo a passo para contribuição
