@@ -66,7 +66,7 @@ in a majority of cases, and the most intuitive location; other constants paths a
   - `admin.conf` for the cluster admin and kubeadm itself
   - `super-admin.conf` for the cluster super-admin that can bypass RBAC
 
-- Names of certificates and key files :
+- Names of certificates and key files:
 
   - `ca.crt`, `ca.key` for the Kubernetes certificate authority
   - `apiserver.crt`, `apiserver.key` for the API server certificate
@@ -93,29 +93,29 @@ Kubeadm executes a set of preflight checks before starting the init, with the ai
 preconditions and avoid common cluster startup problems.
 The user can skip specific preflight checks or all of them with the `--ignore-preflight-errors` option.
 
-- [warning] If the Kubernetes version to use (specified with the `--kubernetes-version` flag) is
+- [Warning] if the Kubernetes version to use (specified with the `--kubernetes-version` flag) is
   at least one minor version higher than the kubeadm CLI version.
 - Kubernetes system requirements:
   - if running on linux:
-    - [error] if Kernel is older than the minimum required version
-    - [error] if required cgroups subsystem aren't set up
-- [error] if the CRI endpoint does not answer
-- [error] if user is not root
-- [error] if the machine hostname is not a valid DNS subdomain
-- [warning] if the host name cannot be reached via network lookup
-- [error] if kubelet version is lower that the minimum kubelet version supported by kubeadm (current minor -1)
-- [error] if kubelet version is at least one minor higher than the required controlplane version (unsupported version skew)
-- [warning] if kubelet service does not exist or if it is disabled
-- [warning] if firewalld is active
-- [error] if API server bindPort or ports 10250/10251/10252 are used
+    - [Error] if Kernel is older than the minimum required version
+    - [Error] if required cgroups subsystem aren't set up
+- [Error] if the CRI endpoint does not answer
+- [Error] if user is not root
+- [Error] if the machine hostname is not a valid DNS subdomain
+- [Warning] if the host name cannot be reached via network lookup
+- [Error] if kubelet version is lower that the minimum kubelet version supported by kubeadm (current minor -1)
+- [Error] if kubelet version is at least one minor higher than the required controlplane version (unsupported version skew)
+- [Warning] if kubelet service does not exist or if it is disabled
+- [Warning] if firewalld is active
+- [Error] if API server bindPort or ports 10250/10251/10252 are used
 - [Error] if `/etc/kubernetes/manifest` folder already exists and it is not empty
 - [Error] if swap is on
 - [Error] if `conntrack`, `ip`, `iptables`, `mount`, `nsenter` commands are not present in the command path
-- [warning] if `ebtables`, `ethtool`, `socat`, `tc`, `touch`, `crictl` commands are not present in the command path
-- [warning] if extra arg flags for API server, controller manager, scheduler contains some invalid options
-- [warning] if connection to https://API.AdvertiseAddress:API.BindPort goes through proxy
-- [warning] if connection to services subnet goes through proxy (only first address checked)
-- [warning] if connection to Pods subnet goes through proxy (only first address checked)
+- [Warning] if `ebtables`, `ethtool`, `socat`, `tc`, `touch`, `crictl` commands are not present in the command path
+- [Warning] if extra arg flags for API server, controller manager, scheduler contains some invalid options
+- [Warning] if connection to https://API.AdvertiseAddress:API.BindPort goes through proxy
+- [Warning] if connection to services subnet goes through proxy (only first address checked)
+- [Warning] if connection to Pods subnet goes through proxy (only first address checked)
 - If external etcd is provided:
   - [Error] if etcd version is older than the minimum required version
   - [Error] if etcd certificates or keys are specified, but not provided
@@ -127,11 +127,11 @@ The user can skip specific preflight checks or all of them with the `--ignore-pr
 - If authorization mode is WebHook
   - [Error] if webhook_authz.conf does not exist
 
-Please note that:
-
-1. Preflight checks can be invoked individually with the
-   [`kubeadm init phase preflight`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-preflight)
-   command
+{{< note >}}
+Preflight checks can be invoked individually with the
+[`kubeadm init phase preflight`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-preflight)
+command.
+{{< /note >}}
 
 ### Generate the necessary certificates
 
@@ -146,7 +146,7 @@ Kubeadm generates certificate and private key pairs for different purposes:
 
   - The Kubernetes service's internal clusterIP (the first address in the services CIDR, e.g.
     `10.96.0.1` if service subnet is `10.96.0.0/12`)
-  - Kubernetes DNS names, e.g.  `kubernetes.default.svc.cluster.local` if `--service-dns-domain`
+  - Kubernetes DNS names, e.g. `kubernetes.default.svc.cluster.local` if `--service-dns-domain`
     flag value is `cluster.local`, plus default DNS names `kubernetes.default.svc`,
     `kubernetes.default`, `kubernetes`
   - The node-name
@@ -176,7 +176,7 @@ Please note that:
    `/etc/kubernetes/pki/ca.{crt,key}`, and then kubeadm will use those files for signing the rest of the certs.
    See also [using custom certificates](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#custom-certificates)
 1. Only for the CA, it is possible to provide the `ca.crt` file but not the `ca.key` file, if all other certificates and kubeconfig files
-   already are in place kubeadm recognize this condition and activates the ExternalCA , which also implies the `csrsigner`controller in
+   already are in place kubeadm recognize this condition and activates the ExternalCA, which also implies the `csrsigner`controller in
    controller-manager won't be started
 1. If kubeadm is running in [external CA mode](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#external-ca-mode);
    all the certificates must be provided by the user, because kubeadm cannot generate them by itself
@@ -227,13 +227,13 @@ for additional information RBAC and built-in ClusterRoles and groups.
 Please note that:
 
 1. `ca.crt` certificate is embedded in all the kubeconfig files.
-2. If a given kubeconfig file exists, and its content is evaluated compliant with the above specs,
+1. If a given kubeconfig file exists, and its content is evaluated compliant with the above specs,
    the existing file will be used and the generation phase for the given kubeconfig skipped
-3. If kubeadm is running in [ExternalCA mode](/docs/reference/setup-tools/kubeadm/kubeadm-init/#external-ca-mode),
+1. If kubeadm is running in [ExternalCA mode](/docs/reference/setup-tools/kubeadm/kubeadm-init/#external-ca-mode),
    all the required kubeconfig must be provided by the user as well, because kubeadm cannot
    generate any of them by itself
-4. In case of kubeadm is executed in the `--dry-run` mode, kubeconfig files are written in a temporary folder
-5. Kubeconfig files generation can be invoked individually with the
+1. In case of kubeadm is executed in the `--dry-run` mode, kubeconfig files are written in a temporary folder
+1. Kubeconfig files generation can be invoked individually with the
    [`kubeadm init phase kubeconfig all`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-kubeconfig) command
 
 ### Generate static Pod manifests for control plane components
@@ -279,7 +279,7 @@ The static Pod manifest for the API server is affected by following parameters p
   (`etcd-cafile`, `etcd-certfile`, `etcd-keyfile`);
   if an external etcd server is not be provided, a local etcd will be used (via host network)
 - If a cloud provider is specified, the corresponding `--cloud-provider` is configured, together
-  with the  `--cloud-config` path if such file exists (this is experimental, alpha and will be
+  with the `--cloud-config` path if such file exists (this is experimental, alpha and will be
   removed in a future version)
 
 Other API server flags that are set unconditionally are:
@@ -321,7 +321,7 @@ Other API server flags that are set unconditionally are:
   - `--kubelet-client-certificate` to `apiserver-kubelet-client.crt`
   - `--kubelet-client-key` to `apiserver-kubelet-client.key`
   - `--service-account-key-file` to `sa.pub`
-  - `--requestheader-client-ca-file` to`front-proxy-ca.crt`
+  - `--requestheader-client-ca-file` to `front-proxy-ca.crt`
   - `--proxy-client-cert-file` to `front-proxy-client.crt`
   - `--proxy-client-key-file` to `front-proxy-client.key`
 
@@ -346,14 +346,14 @@ the users:
   - `--cluster-cidr` and `--node-cidr-mask-size` flags according to the given CIDR
 
 - If a cloud provider is specified, the corresponding `--cloud-provider` is specified, together
-  with the  `--cloud-config` path if such configuration file exists (this is experimental, alpha
+  with the `--cloud-config` path if such configuration file exists (this is experimental, alpha
   and will be removed in a future version)
 
 Other flags that are set unconditionally are:
 
 - `--controllers` enabling all the default controllers plus `BootstrapSigner` and `TokenCleaner`
-  controllers for TLS bootstrap.  See [TLS Bootstrapping](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
-  for more details
+  controllers for TLS bootstrap. See [TLS Bootstrapping](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
+  for more details.
 
 - `--use-service-account-credentials` to `true`
 
@@ -382,9 +382,9 @@ Please note that:
 1. The etcd container image will be pulled from `registry.gcr.io` by default. See
    [using custom images](/docs/reference/setup-tools/kubeadm/kubeadm-init/#custom-images)
    for customizing the image repository.
-2. If you run kubeadm in `--dry-run` mode, the etcd static Pod manifest is written
+1. If you run kubeadm in `--dry-run` mode, the etcd static Pod manifest is written
    into a temporary folder.
-3. You can directly invoke static Pod manifest generation for local etcd, using the
+1. You can directly invoke static Pod manifest generation for local etcd, using the
    [`kubeadm init phase etcd local`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-etcd)
    command.
 
@@ -431,7 +431,6 @@ Please note that:
 1. Mark control-plane phase can be invoked individually with the command
    [`kubeadm init phase mark-control-plane`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-mark-control-plane)
 
-
 ### Configure TLS-Bootstrapping for node joining
 
 Kubeadm uses [Authenticating with Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/)
@@ -442,12 +441,12 @@ for joining new nodes to an existing cluster; for more details see also
 following steps as well as setting API server and controller flags as already described in
 previous paragraphs.
 
-Please note that:
-
-1. TLS bootstrapping for nodes can be configured with the command
-   [`kubeadm init phase bootstrap-token`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-bootstrap-token),
-   executing all the configuration steps described in following paragraphs;
-   alternatively, each step can be invoked individually
+{{< note >}}
+TLS bootstrapping for nodes can be configured with the command
+[`kubeadm init phase bootstrap-token`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-bootstrap-token),
+executing all the configuration steps described in following paragraphs;
+alternatively, each step can be invoked individually.
+{{< /note >}}
 
 #### Create a bootstrap token
 
@@ -460,13 +459,13 @@ Please note that:
 1. The default token created by `kubeadm init` will be used to validate temporary user during TLS
    bootstrap process; those users will be member of
   `system:bootstrappers:kubeadm:default-node-token` group
-2. The token has a limited validity, default 24 hours (the interval may be changed with the `—token-ttl` flag)
-3. Additional tokens can be created with the [`kubeadm token`](/docs/reference/setup-tools/kubeadm/kubeadm-token/)
+1. The token has a limited validity, default 24 hours (the interval may be changed with the `—token-ttl` flag)
+1. Additional tokens can be created with the [`kubeadm token`](/docs/reference/setup-tools/kubeadm/kubeadm-token/)
    command, that provide as well other useful functions for token management.
 
 #### Allow joining nodes to call CSR API
 
-Kubeadm ensures that users in  `system:bootstrappers:kubeadm:default-node-token` group are able to
+Kubeadm ensures that users in `system:bootstrappers:kubeadm:default-node-token` group are able to
 access the certificate signing API.
 
 This is implemented by creating a ClusterRoleBinding named `kubeadm:kubelet-bootstrap` between the
@@ -478,7 +477,7 @@ Kubeadm ensures that the Bootstrap Token will get its CSR request automatically 
 csrapprover controller.
 
 This is implemented by creating ClusterRoleBinding named `kubeadm:node-autoapprove-bootstrap`
-between the  `system:bootstrappers:kubeadm:default-node-token` group and the default role
+between the `system:bootstrappers:kubeadm:default-node-token` group and the default role
 `system:certificates.k8s.io:certificatesigningrequests:nodeclient`.
 
 The role `system:certificates.k8s.io:certificatesigningrequests:nodeclient` should be created as
@@ -491,7 +490,7 @@ Kubeadm ensures that certificate rotation is enabled for nodes, and that new cer
 for nodes will get its CSR request automatically approved by the csrapprover controller.
 
 This is implemented by creating ClusterRoleBinding named
-`kubeadm:node-autoapprove-certificate-rotation` between the  `system:nodes` group and the default
+`kubeadm:node-autoapprove-certificate-rotation` between the `system:nodes` group and the default
 role `system:certificates.k8s.io:certificatesigningrequests:selfnodeclient`.
 
 #### Create the public cluster-info ConfigMap
@@ -501,21 +500,21 @@ This phase creates the `cluster-info` ConfigMap in the `kube-public` namespace.
 Additionally it creates a Role and a RoleBinding granting access to the ConfigMap for
 unauthenticated users (i.e. users in RBAC group `system:unauthenticated`).
 
-Please note that:
-
-1. The access to the `cluster-info` ConfigMap _is not_ rate-limited. This may or may not be a
-   problem if you expose your cluster's API server to the internet; worst-case scenario here is a
-   DoS attack where an attacker uses all the in-flight requests the kube-apiserver can handle to
-   serving the `cluster-info` ConfigMap.
+{{< note >}}
+The access to the `cluster-info` ConfigMap _is not_ rate-limited. This may or may not be a
+problem if you expose your cluster's API server to the internet; worst-case scenario here is a
+DoS attack where an attacker uses all the in-flight requests the kube-apiserver can handle to
+serving the `cluster-info` ConfigMap.
+{{< /note >}}
 
 ### Install addons
 
 Kubeadm installs the internal DNS server and the kube-proxy addon components via the API server.
 
-Please note that:
-
-1. This phase can be invoked individually with the command
-   [`kubeadm init phase addon all`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-addon).
+{{< note >}}
+This phase can be invoked individually with the command
+[`kubeadm init phase addon all`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-addon).
+{{< /note >}}
 
 #### proxy
 
@@ -573,13 +572,13 @@ The second is to provide a file (that is a subset of the standard kubeconfig fil
 #### Shared token discovery
 
 If `kubeadm join` is invoked with `--discovery-token`, token discovery is used; in this case the
-node basically retrieves the cluster CA certificates from the  `cluster-info` ConfigMap in the
+node basically retrieves the cluster CA certificates from the `cluster-info` ConfigMap in the
 `kube-public` namespace.
 
 In order to prevent "man in the middle" attacks, several steps are taken:
 
 - First, the CA certificate is retrieved via insecure connection (this is possible because
-  `kubeadm init` granted access to  `cluster-info` users for `system:unauthenticated` )
+  `kubeadm init` granted access to `cluster-info` users for `system:unauthenticated`)
 
 - Then the CA certificate goes trough following validation steps:
 
@@ -591,10 +590,11 @@ In order to prevent "man in the middle" attacks, several steps are taken:
   - As a additional validation, the CA certificate is retrieved via secure connection and then
     compared with the CA retrieved initially
 
-Please note that:
+{{< note >}}
 
-1. Pub key validation can be skipped passing `--discovery-token-unsafe-skip-ca-verification` flag;
-   This weakens the kubeadm security model since others can potentially impersonate the Kubernetes Master.
+Pub key validation can be skipped passing `--discovery-token-unsafe-skip-ca-verification` flag;
+This weakens the kubeadm security model since others can potentially impersonate the Kubernetes Master.
+{{< /note >}}
 
 #### File/https discovery
 
@@ -620,8 +620,7 @@ The request is then automatically approved and the operation completes saving `c
 `kubelet.conf` file to be used by kubelet for joining the cluster, while`bootstrap-kubelet.conf`
 is deleted.
 
-Please note that:
-
+{{< note >}}
 - The temporary authentication is validated against the token saved during the `kubeadm init`
   process (or with additional tokens created with `kubeadm token`)
 - The temporary authentication resolve to a user member of
@@ -629,4 +628,4 @@ Please note that:
   during the `kubeadm init` process
 - The automatic CSR approval is managed by the csrapprover controller, according with
   configuration done the `kubeadm init` process
-
+{{< /note >}}
