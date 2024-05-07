@@ -62,27 +62,19 @@ aliases:
     - tengqm
     - windsonsea
   sig-docs-es-owners: # Admins for Spanish content
-    - 92nqb
     - electrocucaracha
     - krol3
-    - raelga
     - ramrodo
   sig-docs-es-reviews: # PR reviews for Spanish content
-    - 92nqb
     - electrocucaracha
     - jossemarGT
     - krol3
-    - raelga
     - ramrodo
   sig-docs-fr-owners: # Admins for French content
-    - awkif
-    - feloy
     - perriea
     - rekcah78
     - remyleone
   sig-docs-fr-reviews: # PR reviews for French content
-    - awkif
-    - feloy
     - perriea
     - rekcah78
     - remyleone
@@ -172,18 +164,14 @@ aliases:
   sig-docs-pt-owners: # Admins for Portuguese content
     - devlware
     - edsoncelio
-    - femrtnz
     - jcjesus
     - stormqueen1990
-    - yagonobre
   sig-docs-pt-reviews: # PR reviews for Portugese content
     - devlware
     - edsoncelio
-    - femrtnz
     - jcjesus
     - mrerlison
     - stormqueen1990
-    - yagonobre
   sig-docs-vi-owners: # Admins for Vietnamese content
     - huynguyennovem
     - truongnh1992
