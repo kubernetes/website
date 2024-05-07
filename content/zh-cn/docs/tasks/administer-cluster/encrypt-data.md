@@ -736,7 +736,7 @@ Generate a 32-byte random key and base64 encode it. You can use this command:
 
 {{< note >}}
 <!--
-Keep the encryption key confidential, including whilst you generate it and
+Keep the encryption key confidential, including while you generate it and
 ideally even after you are no longer actively using it.
 -->
 保持加密密钥的机密性，包括在生成密钥时，甚至理想的情况下在你不再主动使用密钥后也要保密。
@@ -913,13 +913,33 @@ Kubernetes cluster has multiple control plane hosts, so there is more to do.
 
 If you have multiple API servers in your cluster, you should deploy the
 changes in turn to each API server.
-
-Make sure that you use the **same** encryption configuration on each
-control plane host.
 -->
 ### 重新配置其他控制平面主机   {#api-server-config-update-more}
 
 如果你的集群中有多个 API 服务器，应轮流将更改部署到每个 API 服务器。
+
+{{< caution >}}
+<!--
+For cluster configurations with two or more control plane nodes, the encryption configuration
+should be identical across each control plane node.
+
+If there is a difference in the encryption provider configuration between control plane
+nodes, this difference may mean that the kube-apiserver can't decrypt data.
+-->
+对于具有两个或更多控制平面节点的集群配置，每个控制平面节点的加密配置应该是相同的。
+
+如果控制平面节点间的加密驱动配置不一致，这种差异可能导致 kube-apiserver 无法解密数据。
+{{< /caution >}}
+
+<!--
+When you are planning to update the encryption configuration of your cluster, plan this
+so that the API servers in your control plane can always decrypt the stored data
+(even part way through rolling out the change).
+
+Make sure that you use the **same** encryption configuration on each
+control plane host.
+-->
+你在计划更新集群的加密配置时，请确保控制平面中的 API 服务器在任何时候都能解密存储的数据（即使是在更改逐步实施的过程中也是如此）。
 
 确保在每个控制平面主机上使用**相同的**加密配置。
 
