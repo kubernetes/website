@@ -1,5 +1,5 @@
 ---
-title: Contribuir com a documentação do Kubernetes em português
+title: Contribuir com a documentação do Kubernetes em Português Brasileiro
 content_type: concept
 ---
 
@@ -11,13 +11,13 @@ Esta página contém informações sobre o processo de localização em portugu�
 ## Passo a passo para contribuição
 
 1. Escolha uma página que deseja localizar.
-2. Verifique se já existe uma issue no repositório (kubernetes/website) aberta para a página que escolheu.
-3. Faça o fork do repositório kubernetes/website.
+2. Verifique se já existe uma issue no repositório ([kubernetes/website]) aberta para a página que escolheu.
+3. Faça o fork do repositório [kubernetes/website].
 4. Crie uma branch no seu fork e faça a localização da página.
 5. Execute o check de links quebrados (os detalhes de como executar estão nessa página).
-7. Abra o Pull Request, caso ainda não tenha aceito o [CLA](https://github.com/kubernetes/community/blob/master/CLA.md) vai receber as instruções no Pull Request.
+7. Abra o Pull Request. Caso ainda não tenha assinado o [CLA](https://github.com/kubernetes/community/blob/master/CLA.md), haverá instruções no Pull Request.
 8. Verifique se as checagens no Pull Requests não estão quebradas e se foi gerado um preview da sua localização.
-9. Por fim, recomendamos que envie o pull request no canal do slack do time `#kubernetes-docs-pt`.
+9. Por fim, recomendamos que envie o pull request no canal do slack do time [`#kubernetes-docs-pt`].
 
 
 ## Checagem de links quebrados
@@ -64,12 +64,12 @@ Onde,
 | proxy                  |                          |
 | endpoint               |                          |
 
-Nomes de objetos do Kubernetes permanecem no original com a primeira letra em maúsculo, por exemplo:
+Nomes de objetos do Kubernetes permanecem no original com a primeira letra em maiúsculo, por exemplo:
 * Pod
 * Service
 * Deployment
 
-e outros.
+entre outros.
 
 
 
@@ -82,7 +82,7 @@ Recomendamos usar o formato `[pt-br] Update/Add <caminho do arquivo>`.
 Sempre dê preferência por abrir um Pull Request por página, dessa forma facilita a revisão e o acompanhamento do trabalho.
 
 ### Tenho dúvidas nos termos, preciso abrir o Pull Request e esperar alguém revisar?
-Não, pode mandar a dúvida no canal do slack (`#kubernetes-docs-pt`) que vamos ajudar com a dúvida.
+Não, pode mandar a dúvida no canal do slack ([`#kubernetes-docs-pt`]) que vamos ajudar com a dúvida.
 
 ### Abri um Pull Request mas ainda não teve revisão, o que fazer?
 É importante lembrar que as pessoas revisoras são voluntárias, então em alguns casos pode demorar um pouco. O que recomendamos nesses casos é enviar uma mensagem no canal do slack com o link do Pull Request, assim podemos verificar o que pode ter acontecido.
@@ -90,4 +90,7 @@ Não, pode mandar a dúvida no canal do slack (`#kubernetes-docs-pt`) que vamos 
 
 
 Ficou alguma dúvida que não foi respondida nessa página?   
-Fale com a gente canal no slack do Kubernetes `#kubernetes-docs-pt`
+Fale com a gente canal no slack do Kubernetes [`#kubernetes-docs-pt`].
+
+[`#kubernetes-docs-pt`]: https://kubernetes.slack.com/messages/kubernetes-docs-pt
+[kubernetes/website]: https://github.com/kubernetes/website
