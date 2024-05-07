@@ -166,7 +166,7 @@ available for pods.
 
 ### Enforcing Node Allocatable
 
-**KubeletConfiguration Setting**: `enforceNodeAllocatable: [pods]`. Example value: `[pods,system-reserved,kube-reserved]`
+**KubeletConfiguration setting**: `enforceNodeAllocatable: [pods]`. Example value: `[pods,system-reserved,kube-reserved]`
 
 The scheduler treats 'Allocatable' as the available `capacity` for pods.
 
@@ -175,7 +175,7 @@ by evicting pods whenever the overall usage across all pods exceeds
 'Allocatable'. More details on eviction policy can be found
 on the [node pressure eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/)
 page. This enforcement is controlled by
-specifying `pods` value to the KubeletConfiguration Setting `enforceNodeAllocatable`.
+specifying `pods` value to the KubeletConfiguration setting `enforceNodeAllocatable`.
 
 Optionally, `kubelet` can be made to enforce `kubeReserved` and
 `systemReserved` by specifying `kube-reserved` & `system-reserved` values in
