@@ -236,62 +236,62 @@ PR-গুলি সরাতে পারেন:
 যেখানে অতিরিক্ত পদক্ষেপ প্রয়োজন, রিলিজ দল নিম্নলিখিত 
 চ্যানেলের মাধ্যমে মানুষ থেকে মানুষে এস্ক্যালেশনের চেষ্টা করবে:
 
-- Comment in GitHub mentioning the SIG team and SIG members as appropriate for
-  the issue type
-- Emailing the SIG mailing list
-  - bootstrapped with group email addresses from the
-    [community sig list][sig-list]
-  - optionally also directly addressing SIG leadership or other SIG members
-- Messaging the SIG's Slack channel
-  - bootstrapped with the slackchannel and SIG leadership from the
-    [community sig list][sig-list]
-  - optionally directly "@" mentioning SIG leadership or others by handle
+- ইস্যু প্রকারের উপযুক্ত SIG দল এবং SIG সদস্যদের উল্লিখিত করে
+  GitHub-এ মন্তব্য করুন।
+- SIG মেইলিং লিস্টে ইমেইল পাঠানো
+  - [কমিউনিটি সিগ লিস্ট][sig-list] থেকে গ্রুপ ইমেল ঠিকানা
+    দিয়ে বুটস্ট্র্যাপ করা হয়েছে
+  - ঐচ্ছিকভাবে সরাসরি SIG নেতৃত্ব বা অন্যান্য SIG সদস্যদের সম্বোধন করে
+- SIG এর স্ল্যাক চ্যানেলে বার্তা পাঠানো।
+  - [কমিউনিটি সিগ লিস্ট][sig-list] থেকে স্ল্যাকচ্যানেল এবং SIG নেতৃত্বের সাথে
+    বুটস্ট্র্যাপ করা হয়েছে
+  - ঐচ্ছিকভাবে সরাসরি "@" হ্যান্ডেল দ্বারা SIG নেতৃত্ব বা অন্যদের উল্লেখ করে
 
 ## মাইলস্টোনে একটি আইটেম সংযোজন
 
 ### মাইলস্টোন রক্ষণাবেক্ষণকারী
 
-The members of the [`milestone-maintainers`](https://github.com/orgs/kubernetes/teams/milestone-maintainers/members)
-GitHub team are entrusted with the responsibility of specifying the release
-milestone on GitHub artifacts.
+[`milestone-maintainers`](https://github.com/orgs/kubernetes/teams/milestone-maintainers/members) এর সদস্যদের
+GitHub টিম দ্বারা GitHub আর্টিফ্যাক্টগুলিতে রিলিজ মাইলস্টোন নির্দিষ্ট করার 
+দায়িত্ব দেওয়া হয়েছে।
 
-This group is [maintained](https://git.k8s.io/sig-release/release-team/README.md#milestone-maintainers)
-by SIG Release and has representation from the various SIGs' leadership.
+এই গ্রুপটি SIG রিলিজের দ্বারা [রক্ষণাবেক্ষণ করা হয়েছে](https://git.k8s.io/sig-release/release-team/README.md#milestone-maintainers) 
+এবং বিভিন্ন SIG-এর নেতৃত্বের প্রতিনিধিত্ব রয়েছে।
 
 ### ফিচার সংযোজন
 
-Feature planning and definition takes many forms today, but a typical example
-might be a large piece of work described in a [KEP][keps], with associated task
-issues in GitHub. When the plan has reached an implementable state and work is
-underway, the enhancement or parts thereof are targeted for an upcoming milestone
-by creating GitHub issues and marking them with the Prow "/milestone" command.
+বৈশিষ্ট্য পরিকল্পনা এবং সংজ্ঞা আজ অনেক রূপ নেয়, কিন্তু একটি সাধারণ উদাহরণ 
+হতে পারে একটি [KEP][keps]-এ বর্ণিত কাজের একটি বড় অংশ, GitHub-এ সংশ্লিষ্ট 
+টাস্ক সমস্যা সহ। যখন পরিকল্পনাটি একটি বাস্তবায়নযোগ্য অবস্থায় পৌঁছেছে এবং কাজ চলছে, 
+তখন বর্ধন বা এর অংশগুলিকে GitHub সমস্যা তৈরি করে এবং Prow 
+"/milestone" কমান্ড দিয়ে চিহ্নিত করে একটি আসন্ন মাইলফলকের জন্য লক্ষ্য করা হয়।
 
-For the first ~4 weeks into the release cycle, the Release Team's Enhancements
-Lead will interact with SIGs and feature owners via GitHub, Slack, and SIG
-meetings to capture all required planning artifacts.
+রিলিজ চক্রের প্রথম ~4 সপ্তাহের জন্য, রিলিজ টিমের এনহ্যান্সমেন্ট 
+লিড সমস্ত প্রয়োজনীয় পরিকল্পনা নিদর্শনগুলি ক্যাপচার করতে GitHub, Slack এবং SIG 
+মিটিংয়ের মাধ্যমে SIG এবং বৈশিষ্ট্য মালিকদের সাথে যোগাযোগ করবে।
 
-If you have an enhancement to target for an upcoming release milestone, begin a
-conversation with your SIG leadership and with that release's Enhancements
-Lead.
+আপনার যদি আসন্ন রিলিজের মাইলস্টোন লক্ষ্য করার জন্য একটি এনহ্যান্সমেন্ট থাকে, তাহলে 
+আপনার SIG নেতৃত্বের সাথে এবং সেই রিলিজের এনহ্যান্সমেন্ট লিডের সাথে কথা 
+বলুন।
 
 ### ইস্যু সংযোজন
 
-Issues are marked as targeting a milestone via the Prow "/milestone" command.
+ইস্যুগুলোকে Prow "/milestone" কমান্ডের মাধ্যমে একটি মাইলস্টোন লক্ষ্য করে চিহ্নিত করা হয়েছে৷
 
-The Release Team's [Bug Triage Lead](https://git.k8s.io/sig-release/release-team/role-handbooks/bug-triage/README.md)
-and overall community watch incoming issues and triage them, as described in
-the contributor guide section on
-[issue triage](https://k8s.dev/docs/guide/issue-triage/).
+রিলিজ টিমের [বাগ ট্রাইজ লিড](https://git.k8s.io/sig-release/release-team/role-handbooks/bug-triage/README.md)
+এবং সামগ্রিক সম্প্রদায় আগত সমস্যাগুলি দেখে এবং সেগুলিকে ট্রাইজ করে
+[ইস্যু ট্রাইজ](https://k8s.dev/docs/guide/issue-triage/).
+এর অবদানকারী নির্দেশিকা বিভাগে বর্ণিত হয়েছে।
 
-Marking issues with the milestone provides the community better visibility
-regarding when an issue was observed and by when the community feels it must be
-resolved. During [Code Freeze][code-freeze], a milestone must be set to merge
-a PR.
+মাইলস্টোনের সাথে সমস্যাগুলি চিহ্নিত করা কমিউনিটি একটি সমস্যা কখন পর্যবেক্ষণ করা হয়েছিল 
+এবং কখন কমিউনিটি মনে করে এটির সমাধান করা উচিত সে সম্পর্কে আরও ভাল দৃশ্যমানতা 
+প্রদান করে। [কোড ফ্রিজ][code-freeze] চলাকালীন, একটি PR মার্জ করার জন্য একটি 
+মাইলফলক সেট করতে হবে৷
 
-An open issue is no longer required for a PR, but open issues and associated
-PRs should have synchronized labels. For example a high priority bug issue
-might not have its associated PR merged if the PR is only marked as lower
-priority.
+PR-এর জন্য ওপেন ইস্যুর আর প্রয়োজন নেই, কিন্তু ওপেন ইস্যু 
+এবং সংশ্লিষ্ট PR-এর সিঙ্ক্রোনাইজড লেবেল থাকা উচিত। উদাহরণস্বরূপ, একটি উচ্চ অগ্রাধিকারের বাগ ইস্যু 
+এর সাথে যুক্ত PR মার্জ নাও হতে পারে যদি PR শুধুমাত্র নিম্ন অগ্রাধিকার হিসাবে 
+চিহ্নিত করা হয়।
 
 ### PR সংযোজন
 
@@ -305,12 +305,12 @@ PR গুলোকে Prow "/milestone" কমান্ডের মাধ্য
 
 ### SIG ওনার লেবেল
 
-The SIG owner label defines the SIG to which we escalate if a milestone issue
-is languishing or needs additional attention. If there are no updates after
-escalation, the issue may be automatically removed from the milestone.
+SIG মালিকের লেবেল SIG কে সংজ্ঞায়িত করে যার দিকে আমরা অগ্রসর হই যদি একটি মাইলস্টোন সমস্যা স্থবির হয়
+বা অতিরিক্ত মনোযোগের প্রয়োজন হয়। যদি বৃদ্ধির পরে কোন আপডেট না থাকে, তাহলে সমস্যাটি মাইলফলক থেকে 
+স্বয়ংক্রিয়ভাবে সরানো হতে পারে।
 
-These are added with the Prow "/sig" command. For example to add the label
-indicating SIG Storage is responsible, comment with `/sig storage`.
+এগুলি Prow "/sig" কমান্ডের সাথে যোগ করা হয়। যেমন SIG স্টোরেজ দায়ী লেবেল 
+যোগ করতে, `/sig storage` দিয়ে মন্তব্য করুন।
 
 ### প্রাইওরিটি লেবেল
 
@@ -318,23 +318,23 @@ indicating SIG Storage is responsible, comment with `/sig storage`.
 এস্ক্যালেশন পথ নির্ধারণে ব্যবহৃত হয়। তারা এটা নির্ধারণ করতে ব্যবহৃত হয় 
 যে ইস্যুর সমাধানের উপরে রিলিস ব্লক করা উচিত কি না।
 
-- `priority/critical-urgent`: Never automatically move out of a release
-  milestone; continually escalate to contributor and SIG through all available
-  channels.
-  - considered a release blocking issue
-  - requires daily updates from issue owners during [Code Freeze][code-freeze]
-  - would require a patch release if left undiscovered until after the minor
-    release
-- `priority/important-soon`: Escalate to the issue owners and SIG owner; move
-  out of milestone after several unsuccessful escalation attempts.
-  - not considered a release blocking issue
-  - would not require a patch release
-  - will automatically be moved out of the release milestone at Code Freeze
-    after a 4 day grace period
-- `priority/important-longterm`: Escalate to the issue owners; move out of the
-  milestone after 1 attempt.
-  - even less urgent / critical than `priority/important-soon`
-  - moved out of milestone more aggressively than `priority/important-soon`
+- `priority/critical-urgent`: কখনই স্বয়ংক্রিয়ভাবে রিলিজ মাইলস্টোন থেকে
+  সরে যাবেন না; সব উপলভ্য চ্যানেলের মাধ্যমে ক্রমাগত অবদানকারী এবং SIG-এর কাছে
+  এগিয়ে যান।
+  - একটি রিলিজ ব্লকিং সমস্যা হিসাবে বিবেচিত।
+  - [কোড ফ্রিজ][code-freeze] চলাকালীন ইস্যু মালিকদের কাছ থেকে দৈনিক আপডেটের প্রয়োজন।
+  - একটি প্যাচ রিলিজ প্রয়োজন হবে যদি অনাবিষ্কৃত কিছু মাইনর রিলিজের পর
+    থেকে যায়।
+- `priority/important-soon`: ইস্যু মালিক এবং SIG মালিকের কাছে এগিয়ে যান; বেশ
+  কয়েকটি অসফল বৃদ্ধি প্রচেষ্টার পরে মাইলফলক থেকে সরে যান।
+  - একটি রিলিজ ব্লকিং সমস্যা হিসাবে বিবেচনা করা হয় না
+  - একটি প্যাচ রিলিজ প্রয়োজন হবে না
+  - 4 দিনের গ্রেস পিরিয়ডের পরে কোড ফ্রিজে স্বয়ংক্রিয়ভাবে রিলিজের
+    মাইলফলক থেকে সরে যাবে
+- `priority/important-longterm`: ইস্যু মালিকদের কাছে এগিয়ে যান; 1 বার প্রচেষ্টার পরে মাইলফলক
+  থেকে সরে যান।
+  - এমনকি `priority/important-soon` এর চেয়ে কম জরুরি/সমালোচনা
+  - `priority/important-soon` এর চেয়ে বেশি আক্রমনাত্মকভাবে মাইলফলক থেকে সরে গেছে
 
 ### ইস্যু/PR লেবেল
 
