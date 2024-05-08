@@ -1,5 +1,5 @@
 ---
-title: টার্নকি ক্লাউড সলিউশন(Turnkey Cloud Solutions)
+title: Turnkey ক্লাউড সলিউশন
 content_type: concept
 weight: 40
 ---
@@ -11,4 +11,4 @@ weight: 40
 
 <!-- body -->
 
-{{< cncf-landscape helpers=true category="certified-kubernetes-hosted" >}}
+{{< cncf-landscape helpers=true category="platform--certified-kubernetes-hosted" >}}
