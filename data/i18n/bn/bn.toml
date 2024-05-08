@@ -358,7 +358,7 @@ a further notice period. The new package repositories provide downloads for Kube
 other = "দ্বারা"
 
 [main_cncf_project]
-other = """আমরা একটি <a href="https://cncf.io/">CNCF</a> গ্রাডুয়েটেড প্রকল্প</p>"""
+other = """আমরা একটি <a href="https://cncf.io/">CNCF</a> গ্রাজুয়েটেড প্রকল্প</p>"""
 
 [main_community_explore]
 other = "কমিউনিটি এক্সপ্লোর করুন"
