@@ -1,7 +1,7 @@
 ---
 title: CIDR
 id: cidr
-date: 2024-05-08
+date: 2019-11-12
 full_link: 
 short_description: >
   CIDRは、IPアドレスの範囲を記述するための表記法であり、さまざまなネットワークを構成するために使用されています。
@@ -10,7 +10,7 @@ aka:
 tags:
 - networking
 ---
-CIDR(Classless Inter-Domain Routing)はIPアドレスの範囲を記述するための表記法であり、さまざまなネットワークを構成するために使用されています。
+CIDR (Classless Inter-Domain Routing)はIPアドレスの範囲を記述するための表記法であり、さまざまなネットワークを構成するために使用されています。
 
 <!--more-->
 
