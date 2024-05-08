@@ -189,11 +189,7 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
    the control plane instances have been upgraded before starting to upgrade the addons. You must perform control plane
    instances upgrade sequentially or at least ensure that the last control plane instance upgrade is not started until all
    the other control plane instances have been upgraded completely, and the addons upgrade will be performed after the last
-   control plane instance is upgraded. If you want to keep the old upgrade behavior, please enable the `UpgradeAddonsBeforeControlPlane`
-   feature gate by `kubeadm upgrade apply --feature-gates=UpgradeAddonsBeforeControlPlane=true`. The Kubernetes project does
-   not in general recommend enabling this feature gate, you should instead change your upgrade process or cluster addons so
-   that you do not need to enable the legacy behavior. The `UpgradeAddonsBeforeControlPlane` feature gate will be removed in
-   a future release.
+   control plane instance is upgraded.
    {{</ note >}}
 
 1. Manually upgrade your CNI provider plugin.
