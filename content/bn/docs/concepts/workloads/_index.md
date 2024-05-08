@@ -10,7 +10,7 @@ card:
   weight: 60
 ---
 
-{{< glossary_definition term_id="ওয়ার্কলোড" length="short" >}}
+{{< glossary_definition term_id="workload" length="short" >}}
 আপনার ওয়ার্কলোড একটি একক উপাদান বা একাধিক যা একসাথে কাজ করে, কুবারনেটিসে আপনি এটিকে
 [_pods_](/bn/docs/concepts/workloads/pods) এর একটি সেটের মধ্যে চালান।
 কুবারনেটিসে, একটি পড আপনার ক্লাস্টারে
