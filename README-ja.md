@@ -82,13 +82,13 @@ make container-serve
 
 新しいKubernetesリリースのためにリファレンスページをアップデートするには、次の手順を実行します:
 
-1. `api-ref-generator`サブモジュールを取得する:
+1. `api-ref-generator`サブモジュールを取得します:
 
    ```bash
    git submodule update --init --recursive --depth 1
    ```
 
-2. Swagger Specificationを更新する:
+2. Swagger Specificationを更新します:
 
    ```bash
    curl 'https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json' > api-ref-assets/api/swagger.json
@@ -96,7 +96,7 @@ make container-serve
 
 3. `api-ref-assets/config/`内の`toc.yaml`と`fields.yaml`を新しいリリースの変更に合わせます。
 
-4. 次に、ページをビルドする:
+4. 次に、ページをビルドします:
 
    ```bash
    make api-reference
