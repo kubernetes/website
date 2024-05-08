@@ -278,25 +278,36 @@ needs of your cluster's workloads:
     [ServiceAccount permissions](/docs/reference/access-authn-authz/rbac/#service-account-permissions)
     for details.
 
-## Networking and Load Balancing
+## Networking and load balancing
 
-### Load Balancing for Workloads
+### Load balancing for workloads
 
-In addition to load balancing for the Kubernetes API server, it's essential to ensure that your workloads within the cluster are also balanced for optimal performance and resilience. This ensures that your applications run smoothly and are highly available to users.
+In a Kubernetes production environment, load balancing is essential for distributing traffic across multiple instances of application workloads. While Kubernetes provides built-in load balancing for its internal components, such as the API server, additional solutions are needed for load balancing application workloads, such as Ingress and Gateway API.
 
-#### Ingress Controllers
+ - [Ingress](/docs/concepts/services-networking/ingress/) provides extra functionality
+    specifically for exposing HTTP applications, websites and APIs.
 
-[Ingress controllers](/docs/concepts/services-networking/ingress-controllers/) are an excellent solution for managing traffic to your applications within a Kubernetes cluster. They provide a way to route external traffic to your services based on rules you define, allowing for efficient and flexible load balancing.
+ - [Gateway API](/docs/concepts/services-networking/gateway/) is an {{<glossary_tooltip text="add-on" term_id="addons">}}
+    that provides an expressive, extensible, and role-oriented family of API kinds for modeling service networking.
 
-#### External Load Balancers
+External load balancers are often the preferred solution for load balancing application workloads. They offer better flexibility, scalability, and features compared to in-cluster solutions. For suggestions on external load balancing solutions, refer to the [create an external load balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/) documentation.
 
-When it comes to load balancing workloads, external load balancers play a crucial role. They distribute traffic among your application instances to prevent overload and ensure high availability.
+### On-Premises load balancing options
 
-For cloud environments, you can follow the instructions provided in the [Create an External Load Balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/) documentation. However, if you're working in an on-premises environment, consider using projects like [MetalLB](https://metallb.universe.tf/) for load balancing capabilities.
+When deploying Kubernetes on-premises, using external load balancers may not be feasible. In such cases, on-premises load balancing solutions, such as [MetalLB](https://metallb.universe.tf/), can be used as alternatives to cloud-based load balancers.
 
-{{<warning>}}
-When utilizing third-party solutions like MetalLB, it's essential to thoroughly evaluate and understand the implications for your Kubernetes environment. Ensure compatibility and consider potential risks before implementing such solutions.
-{{</warning>}}
+
+{{% thirdparty-content %}}
+
+-  [MetalLB](https://metallb.universe.tf/)
+
+{{<note>}}
+
+When utilizing third-party solutions like MetalLB, it's essential to thoroughly evaluate and understand the implications for your Kubernetes environment.
+
+Ensure compatibility and consider potential risks before implementing such solutions.
+
+{{</note>}}
 
 
 ## {{% heading "whatsnext" %}}
