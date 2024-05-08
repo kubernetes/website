@@ -10,8 +10,10 @@ card:
 <!-- overview -->
 
 Trang web này lưu tài liệu của phiên bản hiện tại và bốn phiên bản trước của Kubernetes.
-
-
+Tính sẵn có của tài liệu cho phiên bản Kubernetes tách biệt với việc liệu
+bản phát hành đó hiện được hỗ trợ.
+Đọc [Thời gian hỗ trợ](/releases/patch-releases/#support-period) để tìm hiểu về
+phiên bản Kubernetes nào được hỗ trợ chính thức và trong bao lâu.
 
 <!-- body -->
 
@@ -23,5 +25,3 @@ Phiên bản hiện tại là
 ## Các phiên bản trước
 
 {{< versions-other >}}
-
-
