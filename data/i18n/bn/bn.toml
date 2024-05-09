@@ -32,7 +32,7 @@ other = "ক্লিনিং"
 # project's ICP license, issued by the government of the People's Republic
 # of China.
 [china_icp_license]
-other = "ICP license:"
+other = "ICP লাইসেন্স"
 
 [community_events_calendar]
 other = "ইভেন্ট ক্যালেন্ডার"
