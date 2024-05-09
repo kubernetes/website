@@ -81,7 +81,7 @@ other = "ইস্যু সারাংশ"
 other = "অফিসিয়াল কুবারনেটিস CVE তালিকা"
 
 [cve_table_date_format]
-other = "02 Jan 2006 15:04:05 MST"
+other = "2006-01-02 15:04:05 MST"
 
 [cve_table_date_format_string]
 other = "(সর্বশেষ ভার্সন: %s)"
