@@ -154,6 +154,7 @@ description: |-
 				<h3>Step 3: Deleting a service</h3>
 				<p>To delete Services you can use the <code>delete service</code> subcommand. Labels can be used also here:</p>
 				<p><code><b>kubectl delete service -l app=kubernetes-bootcamp</b></code></p>
+        {{< note >}}<p> There may be a delay before the cache is cleared. As a result, service may still return valid results temporarily </p>{{< /note >}}
 				<p>Confirm that the Service is gone:</p>
 				<p><code><b>kubectl get services</b></code></p>
 				<p>This confirms that our Service was removed. To confirm that route is not exposed anymore you can <tt>curl</tt> the previously exposed IP and port:</p>
