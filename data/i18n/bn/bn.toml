@@ -87,7 +87,7 @@ other = "02 Jan 2006 15:04:05 MST"
 other = "(সর্বশেষ ভার্সন: %s)"
 
 [deprecation_title]
-other = "আপনি যে কুবারনেটিস সংস্করণের জন্য ডকুমেন্টেশন দেখছেন :"
+other = "আপনি যে কুবারনেটিস ভার্সনের জন্য ডকুমেন্টেশন দেখছেন :"
 
 [deprecation_warning]
 other = " ডকুমেন্টেশন আর সক্রিয়ভাবে রক্ষণাবেক্ষণ করা হয় না। আপনি বর্তমানে যে ভার্সনটি দেখছেন সেটি একটি স্ট্যাটিক স্ন্যাপশট। আপ-টু-ডেট ডকুমেন্টেশনের জন্য, দেখুন "
@@ -99,7 +99,7 @@ other = "ডেপ্রিক্যাটেড"
 other = "এই ডকুমেন্টে তথ্য পুরানো হতে পারে"
 
 [outdated_content_message]
-other = "এই ডকুমেন্টটির আসলটির চেয়ে পুরানো আপডেটের তারিখ রয়েছে, তাই এতে থাকা তথ্য পুরানো হতে পারে৷ আপনি ইংরেজি পড়তে সক্ষম হলে, সবচেয়ে আপ-টু-ডেট তথ্যের জন্য ইংরেজি সংস্করণটি দেখুন:"
+other = "এই ডকুমেন্টটির আসলটির চেয়ে পুরানো আপডেটের তারিখ রয়েছে, তাই এতে থাকা তথ্য পুরানো হতে পারে৷ আপনি ইংরেজি পড়তে সক্ষম হলে, সবচেয়ে আপ-টু-ডেট তথ্যের জন্য ইংরেজি ভার্সনটি দেখুন:"
 
 [dockershim_message]
 other = """1.24 রিলিজ হিসাবে Dockershim কুবারনেটিস প্রকল্প থেকে সরানো হয়েছে। আরও বিস্তারিত জানার জন্য <a href="/dockershim">ডকারশিম রিমুভাল FAQ</a> পড়ুন।"""
@@ -224,7 +224,7 @@ Down</a>" দেখুন।</p>"""
 other = "সর্বশেষ রিলিজ:"
 
 [latest_version]
-other = "সর্বশেষ সংস্করণ"
+other = "সর্বশেষ ভার্সন"
 
 [layouts_blog_pager_next]
 other = "পরবর্তী >>"
@@ -435,8 +435,8 @@ other = "প্যাচ রিলিজ:"
 
 # The following text is displayed when JavaScript isn't available.
 [release_binary_alternate_links]
-other  = """You can find links to download Kubernetes components (and their checksums) in the [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG) files.
-Alternately, use [downloadkubernetes.com](https://www.downloadkubernetes.com/) to filter by version and architecture."""
+other  = """আপনি [চেঞ্জলগ](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG) ফাইলগুলিতে কুবারনেটিস উপাদান (এবং তাদের চেকসাম) ডাউনলোড করার লিঙ্কগুলি খুঁজে পেতে পারেন।
+বিকল্পভাবে, ভার্সন এবং আর্কিটেকচার দ্বারা ফিল্টার করতে [downloadkubernetes.com](https://www.downloadkubernetes.com/) ব্যবহার করুন।"""
 
 [release_binary_arch]
 other  = "আর্কিটেকচার"
@@ -451,7 +451,7 @@ other = "কপি লিংক"
 other = "cert"
 
 [release_binary_copy_link_checksum]
-other = "checksum"
+other = "চেকসাম"
 
 [release_binary_copy_link_signature]
 other = "signature"
@@ -489,21 +489,21 @@ other = "কুবারনেটিস কম্পোনেন্ট বাই
 # NOTE: <current-version> is a placeholder for the actual version number set by 'release-binaries' shortcode.
 # Please do not localize or modify <current-version> placeholder.
 [release_binary_section]
-other = """You can find the links to download <current-version> Kubernetes components (along with their checksums) below.
-To access downloads for older supported versions, visit the respective documentation 
-link for [older versions](https://kubernetes.io/docs/home/supported-doc-versions/#versions-older) or use [downloadkubernetes.com](https://www.downloadkubernetes.com/).""" 
+other = """আপনি নীচে <current-version> কুবারনেটিস উপাদান (তাদের চেকসাম সহ) ডাউনলোড করার লিঙ্কগুলি খুঁজে পেতে পারেন।
+পুরানো সাপোর্টেড ভার্সনগুলির জন্য ডাউনলোডগুলি অ্যাক্সেস করতে, সংশ্লিষ্ট ডকুমেন্টেশন দেখুন৷
+[পুরানো ভার্সন](https://kubernetes.io/docs/home/supported-doc-versions/#versions-older) এর জন্য লিঙ্ক বা [downloadkubernetes.com](https://www.downloadkubernetes.com/) ব্যবহার করুন।""" 
 
 # NOTE: <current-version> and <current-changelog-url> are placeholders set by 'release-binaries' shortcode.
 # Please do not localize or modify <current-version> and <current-changelog-url>  placeholders.
 [release_binary_section_note]
-other = """To download older patch versions of <current-version> Kubernetes components (and their checksums), 
-please refer to the [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG/CHANGELOG-<current-changelog-url>.md) file.""" 
+other = """<current-version> কুবারনেটিস উপাদানগুলির (এবং তাদের চেকসাম) এর পুরানো প্যাচ ভার্সনগুলি ডাউনলোড করতে, 
+অনুগ্রহ করে [চেঞ্জলগ](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG/CHANGELOG-<current-changelog-url>.md) ফাইলটি দেখুন।""" 
 
 [release_binary_version]
-other  = "সংস্করণ"
+other  = "ভার্সন"
 
 [release_binary_version_option]
-other = "সর্বশেষ সংস্করণ"
+other = "সর্বশেষ ভার্সন"
 
 [release_date_after]
 other = ")"
@@ -532,7 +532,7 @@ other = "সম্পূর্ণ"
 other = "রিলিজ তথ্য"
 
 [release_minor_version]
-other = "ক্ষুদ্র সংস্করণ"
+other = "ক্ষুদ্র ভার্সন"
 
 [release_info_next_patch]
 other = "পরবর্তী প্যাচ রিলিজ হয় **%s**."
@@ -589,16 +589,16 @@ other = """এই পৃষ্ঠার আইটেমগুলি কুবা
 other = "অনুসন্ধান করুন"
 
 [version_check_mustbe]
-other = "আপনার কুবারনেটিস সার্ভার সংস্করণ হতে হবে "
+other = "আপনার কুবারনেটিস সার্ভার ভার্সন হতে হবে "
 
 [version_check_mustbeorlater]
-other = "আপনার কুবারনেটিস সার্ভার সংস্করণের চেয়ে বা তার পরে হতে হবে "
+other = "আপনার কুবারনেটিস সার্ভার ভার্সনের চেয়ে বা তার পরে হতে হবে "
 
 [version_check_tocheck]
-other = "সংস্করণ পরীক্ষা করতে, এন্টার করুন "
+other = "ভার্সন পরীক্ষা করতে, এন্টার করুন "
 
 [version_menu]
-other = "সংস্করণ"
+other = "ভার্সন"
 
 [warning]
 other = "সতর্কতা:"
