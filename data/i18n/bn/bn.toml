@@ -352,7 +352,12 @@ other = """The legacy package repositories (`apt.kubernetes.io` and `yum.kuberne
 **Using the [new package repositories hosted at `pkgs.k8s.io`](/blog/2023/08/15/pkgs-k8s-io-introduction/)
 is strongly recommended and required in order to install Kubernetes versions released after September 13, 2023.**
 The deprecated legacy repositories, and their contents, might be removed at any time in the future and without
-a further notice period. The new package repositories provide downloads for Kubernetes versions starting with v1.24.0."""
+other = """লিগেসি প্যাকেজ রিপোজিটরিজগুলি (`apt.kubernetes.io` এবং `yum.kubernetes.io`)
+[১৩ সেপ্টেম্বর, 2023 থেকে বন্ধ করা হয়েছে এবং ফ্রযেন করা হয়েছে](/blog/2023/08/31/legacy-package-repository-deprecation/)।
+**[`pkgs.k8s.io`-এ হোস্ট করা নতুন প্যাকেজ রিপোজিটরিজগুলি](/blog/2023/08/15/pkgs-k8s-io-introduction/) ব্যবহার
+করা দৃঢ়ভাবে সুপারিশ করা হয় এবং ১৩ সেপ্টেম্বর, ২০২৩-এর পরে প্রকাশিত কুবারনেটিস ভার্সনগুলি ইনস্টল করার জন্য প্রয়োজনীয়।**
+অপ্রচলিত লিগেসি  রিপোজিটরিজগুলি, এবং তাদের কনটেন্ট, ভবিষ্যতে যেকোনো সময় সরানো হতে পারে এবং পরবর্তী
+নোটিশের সময় ছাড়াই। নতুন প্যাকেজ রিপোজিটরিজগুলি v1.24.0 থেকে শুরু করে কুবারনেটিস ভার্সনগুলির জন্য ডাউনলোড প্রদান করে।"""
 
 [main_by]
 other = "দ্বারা"
