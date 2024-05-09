@@ -296,4 +296,4 @@ they can follow these steps to inspect the kubelet configuration:
   [`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/)
   reference.
 - Learn more about kubelet configuration merging in the
-  [reference document](/docs/reference/node/kubelet-config-directory-merging.md).
+  [reference document](/docs/reference/node/kubelet-config-directory-merging).
