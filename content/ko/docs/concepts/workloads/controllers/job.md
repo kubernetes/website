@@ -528,7 +528,7 @@ spec:
 현재 시간으로 재설정된다. 즉, 잡이 일시 중지 및 재개되면 `.spec.activeDeadlineSeconds`
 타이머가 중지되고 재설정된다.
 
-잡을 일시 중지하면, `Completed` 상태가 아닌 모든 실행중인 파드가 SIGTERM 시그널로 [종료된다](/ko/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination).
+잡을 일시 중지하면, `Completed` 상태가 아닌 모든 실행중인 파드가 SIGTERM 시그널로 [종료된다](/ko/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
 파드의 정상 종료 기간이 적용되며 사용자의 파드는 이 기간 동안에
 이 시그널을 처리해야 한다. 나중에 진행 상황을 저장하거나
 변경 사항을 취소하는 작업이 포함될 수 있다. 이 방법으로 종료된 파드는
