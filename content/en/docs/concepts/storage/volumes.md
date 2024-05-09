@@ -1058,12 +1058,12 @@ persistent volume:
   secret is required. If the object contains more than one secret, all
   secrets are passed.  When you have configured secret data for node-initiated
   volume expansion, the kubelet passes that data via the `NodeExpandVolume()`
-  call to the CSI driver. In order to use the `nodeExpandSecretRef` field, your
-  cluster should be running Kubernetes version 1.25 or later.
-* If you are running Kubernetes Version 1.25 or 1.26, you must enable
-  the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  call to the CSI driver. All supported versions of Kubernetes offer the
+  `nodeExpandSecretRef` field, and have it available by default. Kubernetes releases
+  prior to v1.25 did not include this support.
+* Enable the [feature gate](/docs/reference/command-line-tools-reference/feature-gates-removed/)
   named `CSINodeExpandSecret` for each kube-apiserver and for the kubelet on every
-  node. In Kubernetes version 1.27 this feature has been enabled by default
+  node. Since Kubernetes version 1.27 this feature has been enabled by default
   and no explicit enablement of the feature gate is required.
   You must also be using a CSI driver that supports or requires secret data during
   node-initiated storage resize operations.
