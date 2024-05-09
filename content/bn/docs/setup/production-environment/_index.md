@@ -1,5 +1,5 @@
 ---
-title: "প্রোডাকশন এনভায়রনমেন্ট (Production Environment)"
+title: "প্রোডাকশন এনভায়রনমেন্ট "
 description: একটি প্রোডাকশন-কোয়ালিটির কুবারনেটিস ক্লাস্টার তৈরি করুন
 weight: 30
 no_list: true
