@@ -454,7 +454,7 @@ other = "cert"
 other = "চেকসাম"
 
 [release_binary_copy_link_signature]
-other = "signature"
+other = "স্বাক্ষর"
 
 [release_binary_copy_link_tooltip]
 other = "ক্লিপবোর্ডে কপি করুন"
