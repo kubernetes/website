@@ -1,6 +1,6 @@
 ---
 title: Общие сведения о безопасности Kubernetes и раскрытии информации
-aliases: [/security/]
+aliases: [/ru/security/]
 reviewers:
 - eparis
 - erictune
