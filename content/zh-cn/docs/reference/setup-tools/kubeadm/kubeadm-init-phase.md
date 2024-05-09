@@ -95,6 +95,7 @@ You can create all required kubeconfig files by calling the `all` subcommand or 
 {{< tab name="kubelet" include="generated/kubeadm_init_phase_kubeconfig_kubelet.md" />}}
 {{< tab name="controller-manager" include="generated/kubeadm_init_phase_kubeconfig_controller-manager.md" />}}
 {{< tab name="scheduler" include="generated/kubeadm_init_phase_kubeconfig_scheduler.md" />}}
+{{< tab name="super-admin" include="generated/kubeadm_init_phase_kubeconfig_super-admin.md" />}}
 {{< /tabs >}}
 
 <!--
