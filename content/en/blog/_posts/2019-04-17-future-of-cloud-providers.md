@@ -2,9 +2,11 @@
 layout: blog
 title: 'The Future of Cloud Providers in Kubernetes'
 date: 2019-04-17
+author: >
+  Andrew Sy Kim (VMware),
+  Mike Crute (AWS),
+  Walter Fender (Google)
 ---
-
-**Authors:** Andrew Sy Kim (VMware), Mike Crute (AWS), Walter Fender (Google)
 
 Approximately 9 months ago, the Kubernetes community agreed to form the Cloud Provider Special Interest Group (SIG). The justification was to have a single governing SIG to own and shape the integration points between Kubernetes and the many cloud providers it supported. A lot has been in motion since then and we’re here to share with you what has been accomplished so far and what we hope to see in the future.
 

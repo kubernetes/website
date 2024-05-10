@@ -2,9 +2,9 @@
 layout: blog
 title: "Get started with Kubernetes (using Python)"
 date: 2019-07-23
+author: >
+  Jason Haley (independent consultant)
 ---
-
-**Author**: Jason Haley (Independent Consultant)
 
 So, you know you want to run your application in Kubernetes but don’t know where to start. Or maybe you’re getting started but still don’t know what you don’t know. In this blog you’ll walk through how to containerize an application and get it running in Kubernetes.
 
