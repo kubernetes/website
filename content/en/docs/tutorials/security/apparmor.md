@@ -45,12 +45,12 @@ Nodes before proceeding:
    The kubelet verifies that AppArmor is enabled on the host before admitting a pod with AppArmor
    explicitly configured.
 
-3. Container runtime supports AppArmor -- All common Kubernetes-supported container
+1. Container runtime supports AppArmor -- All common Kubernetes-supported container
    runtimes should support AppArmor, including {{< glossary_tooltip term_id="containerd" >}} and
    {{< glossary_tooltip term_id="cri-o" >}}. Please refer to the corresponding runtime
    documentation and verify that the cluster fulfills the requirements to use AppArmor.
 
-4. Profile is loaded -- AppArmor is applied to a Pod by specifying an AppArmor profile that each
+1. Profile is loaded -- AppArmor is applied to a Pod by specifying an AppArmor profile that each
    container should be run with. If any of the specified profiles are not loaded in the
    kernel, the kubelet will reject the Pod. You can view which profiles are loaded on a
    node by checking the `/sys/kernel/security/apparmor/profiles` file. For example:
@@ -278,9 +278,15 @@ AppArmor profile are set, the container's profile will be used.
 An AppArmor profile has 2 fields:
 
 `type` _(required)_ - indicates which kind of AppArmor profile will be applied. Valid options are:
-	- `Localhost` - a profile pre-loaded on the node (specified by `localhostProfile`).
-	- `RuntimeDefault` - the container runtime's default profile.
-	- `Unconfined` - no AppArmor enforcement.
+
+`Localhost`
+: a profile pre-loaded on the node (specified by `localhostProfile`).
+
+`RuntimeDefault`
+: the container runtime's default profile.
+
+`Unconfined`
+: no AppArmor enforcement.
 
 `localhostProfile` - The name of a profile loaded on the node that should be used.
 The profile must be preconfigured on the node to work.
