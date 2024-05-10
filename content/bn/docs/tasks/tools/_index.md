@@ -17,9 +17,9 @@ no_list: true
 kubectl বিভিন্ন লিনাক্স প্ল্যাটফর্ম, macOS এবং Windows এ ইনস্টলযোগ্য।
 নীচে আপনার পছন্দের অপারেটিং সিস্টেম খুঁজুন।
 
-- [লিনাক্সে kubectl ইনস্টল করুন](/docs/tasks/tools/install-kubectl-linux)
-- [macOS-এ kubectl ইনস্টল করুন](/docs/tasks/tools/install-kubectl-macos)
-- [উইন্ডোজে kubectl ইনস্টল করুন](/docs/tasks/tools/install-kubectl-windows)
+- [লিনাক্সে kubectl ইনস্টল করুন](/bn/docs/tasks/tools/install-kubectl-linux)
+- [macOS-এ kubectl ইনস্টল করুন](/bn/docs/tasks/tools/install-kubectl-macos)
+- [উইন্ডোজে kubectl ইনস্টল করুন](/bn/docs/tasks/tools/install-kubectl-windows)
 
 ## kind
 
