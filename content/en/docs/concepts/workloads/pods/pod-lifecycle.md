@@ -85,7 +85,7 @@ Value       | Description
 `Unknown`   | For some reason the state of the Pod could not be obtained. This phase typically occurs due to an error in communicating with the node where the Pod should be running.
 
 {{< note >}}
-When a pod is not able to stay running, it is shown as `CrashLoopBackoff` by some kubectl commands.
+When a pod is not able to stay running, it may be shown as `CrashLoopBackoff` by some kubectl commands in its `Status`.
 This is, however, not one of the not a Pod phases, that is to stay this "Status" is not a phase....
 ```
   NAMESPACE               NAME               READY   STATUS             RESTARTS   AGE
