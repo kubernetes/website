@@ -1,0 +1,87 @@
+---
+title: Bose Case Study
+linkTitle: Bose
+case_study_styles: true
+cid: caseStudies
+logo: bose_featured_logo.png
+featured: false
+weight: 2
+quote: >
+   The CNCF Landscape quickly explains what's going on in all the different areas from storage to cloud providers to automation and so forth. This is our shopping cart to build a cloud infrastructure. We can go choose from the different aisles.
+
+new_case_study_styles: true
+heading_background: /images/case-studies/bose/banner1.jpg
+heading_title_logo: /images/bose_logo.png
+subheading: >
+  Bose: Supporting Rapid Development for Millions of IoT Products With Kubernetes
+case_study_details:
+  - Company: Bose Corporation
+  - Location: Framingham, Massachusetts
+  - Industry: Consumer Electronics
+---
+
+<h2>Challenge</h2>
+
+<p>A household name in high-quality audio equipment, <a href="https://www.bose.com/en_us/index.html">Bose</a> has offered connected products for more than five years, and as that demand grew, the infrastructure had to change to support it. "We needed to provide a mechanism for developers to rapidly prototype and deploy services all the way to production pretty fast," says Lead Cloud Engineer Josh West. In 2016, the company decided to start building a platform from scratch. The primary goal: "To be one to two steps ahead of the different product groups so that we are never scrambling to catch up with their scale," says Cloud Architecture Manager Dylan O'Mahony.</p>
+
+<h2>Solution</h2>
+
+<p>From the beginning, the team knew it wanted a microservices architecture. After evaluating and prototyping a couple of orchestration solutions, the team decided to adopt <a href="https://kubernetes.io/">Kubernetes</a> for its scaled IoT Platform-as-a-Service running on AWS. The platform, which also incorporated Prometheus monitoring, launched in production in 2017, serving over 3 million connected products from the get-go. Bose has since adopted a number of other CNCF technologies, including <a href="https://www.fluentd.org/">Fluentd</a>, <a href="https://coredns.io/">CoreDNS</a>, <a href="https://www.jaegertracing.io/">Jaeger</a>, and <a href="https://opentracing.io/">OpenTracing</a>.</p>
+
+<h2>Impact</h2>
+
+<p>With about 100 engineers onboarded, the platform is now enabling 30,000 non-production deployments across dozens of microservices per year. In 2018, there were 1250+ production deployments. Just one production cluster holds 1,800 namespaces and 340 worker nodes. "We had a brand new service taken from concept through coding and deployment all the way to production, including hardening, security testing and so forth, in less than two and a half weeks," says O'Mahony.</p>
+
+{{< case-studies/quote author="Josh West, Lead Cloud Engineer, Bose" >}}
+"At Bose we're building an IoT platform that has enabled our physical products. If it weren't for Kubernetes and the rest of the CNCF projects being free open source software with such a strong community, we would never have achieved scale, or even gotten to launch on schedule."
+{{< /case-studies/quote >}}
+
+{{< case-studies/lead >}}
+A household name in high-quality audio equipment, <a href="https://www.bose.com/en_us/index.html">Bose</a> has offered connected products for more than five years, and as that demand grew, the infrastructure had to change to support it. 
+{{< /case-studies/lead >}}
+
+<p>"We needed to provide a mechanism for developers to rapidly prototype and deploy services all the way to production pretty fast," says Lead Cloud Engineer Josh West. "There were a lot of cloud capabilities we wanted to provide to support our audio equipment and experiences."</p>
+
+<p>In 2016, the company decided to start building an IoT platform from scratch. The primary goal: "To be one to two steps ahead of the different product groups so that we are never scrambling to catch up with their scale," says Cloud Architecture Manager Dylan O'Mahony. "If they release a new connected product, we want to be already well ahead of being able to handle whatever scale that they're going to throw at us."</p>
+
+<p>From the beginning, the team knew it wanted a microservices architecture and platform as a service. After evaluating and prototyping orchestration solutions, including Mesos and Docker Swarm, the team decided to adopt <a href="https://kubernetes.io/">Kubernetes</a> for its platform running on AWS. Kubernetes was still in 1.5, but already the technology could do much of what the team wanted and needed for the present and the future. For West, that meant having storage and network handled. O'Mahony points to Kubernetes' portability in case Bose decides to go multi-cloud.</p>
+
+<p>"Bose is a company that looks out for the long term," says West. "Going with a quick commercial off-the-shelf solution might've worked for that point in time, but it would not have carried us forward, which is what we needed from Kubernetes and the CNCF."</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/bose/banner3.jpg"
+  author="Dylan O'Mahony, Cloud Architecture Manager, Bose"
+>}}
+"Everybody on the team thinks in terms of automation, leaning out the processes, getting things done as quickly as possible. When you step back and look at what it means for a 50-plus-year-old speaker company to have that sort of culture, it really is quite incredible, and I think the tools that we use and the foundation that we've built with them is a huge piece of that."
+{{< /case-studies/quote >}}
+
+<p>The team spent time working on choosing tooling to make the experience easier for developers. "Our developers interact with tools provided by our Ops team, and the Ops team run all of their tooling on top of Kubernetes," says O'Mahony. "We try not to make direct Kubernetes access the only way. In fact, ideally, our developers wouldn't even need to know that they're running on Kubernetes."</p>
+
+<p>The platform, which also incorporated <a href="https://prometheus.io/">Prometheus</a> monitoring from the beginning, backdoored its way into production in 2017, serving over 3 million connected products from the get-go. "Even though the speakers and the products that we were designing this platform for were still quite a ways away from being launched, we did have some connected speakers on the market," says O'Mahony. "We basically started to point certain features of those speakers and the apps that go with those speakers to this platform."</p>
+
+<p>Today, just one of Bose's production clusters holds 1,800 namespaces/discrete services and 340 nodes. With about 100 engineers now onboarded, the platform infrastructure is now enabling 30,000 non-production deployments across dozens of microservices per year. In 2018, there were 1250+ production deployments.. It's a staggering improvement over some of Bose's previous deployment processes, which supported far fewer deployments and services.</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/bose/banner4.jpg"
+  author="Josh West, Lead Cloud Engineer, Bose"
+>}}
+"The CNCF Landscape quickly explains what's going on in all the different areas from storage to cloud providers to automation and so forth. This is our shopping cart to build a cloud infrastructure. We can go choose from the different aisles."
+{{< /case-studies/quote >}}
+
+<p>"We had a brand new service deployed from concept through coding and deployment all the way to production, including hardening, security testing and so forth, in less than two and a half weeks," says O'Mahony. "Everybody thinks in terms of automation, leaning out the processes, getting things done as quickly as possible. When you step back and look at what it means for a 50-plus-year-old speaker company to have that sort of culture, it really is quite incredible, and I think the tools that we use and the foundation that we've built is a huge piece of that."</p>
+
+<p>Many of those technologies—such as <a href="https://www.fluentd.org/">Fluentd</a>, <a href="https://coredns.io/">CoreDNS</a>, <a href="https://www.jaegertracing.io/">Jaeger</a>, and <a href="https://opentracing.io/">OpenTracing</a>—come from the <a href="https://landscape.cncf.io/">CNCF Landscape</a>, which West and O'Mahony have relied upon throughout Bose's cloud native journey. "The CNCF Landscape quickly explains what's going on in all the different areas from storage to cloud providers to automation and so forth," says West. "This is our shopping cart to build a cloud infrastructure. We can go choose from the different aisles."</p>
+
+<p>And, he adds, "If it weren't for Kubernetes and the rest of the CNCF projects being free open source software with such a strong community, we would never have achieved scale, or even gotten to launch on schedule."</p>
+
+<p>Another benefit of going cloud native: "We are even attracting much more talent into Bose because we're so involved with the <a href="http://careers.bose.com">CNCF Landscape</a>," says West. (Yes, they're hiring.) "It's just enabled so many people to do so many great things and really brought Bose into the future of cloud."</p>
+
+{{< case-studies/quote author="Dylan O'Mahony, Cloud Architecture Manager, Bose" >}}
+"We have a lot going on to support many more of our business units at Bose in addition to the consumer electronics division, which we currently do. It's only because of the cloud native landscape and the tools and the features that are available that we can provide such a fantastic cloud platform for all the developers and divisions that are trying to enable some pretty amazing experiences."
+{{< /case-studies/quote >}}
+
+<p>In the coming year, the team wants to work on service mesh and serverless, as well as expansion around the world. "Getting our latency down by going multi-region is going to be a big focus for us," says O'Mahony. "In order to make sure that our customers in Japan, Australia, and everywhere else are having a good experience, we want to have points of presence closer to them. It's never been done at Bose before."</p>
+
+<p>That won't stop them, because the team is all about lofty goals. "We want to get to billions of connected products!" says West. "We have a lot going on to support many more of our business units at Bose in addition to the consumer electronics division, which we currently do. It's only because of the cloud native landscape and the tools and the features that are available that we can provide such a fantastic cloud platform for all the developers and divisions that are trying to enable some pretty amazing experiences."</p>
+
+<p>In fact, given the scale the platform is already supporting, says O'Mahony, "doing anything other than Kubernetes, I think, would be folly at this point."</p>
