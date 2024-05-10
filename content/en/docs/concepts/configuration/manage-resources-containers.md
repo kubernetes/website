@@ -11,15 +11,15 @@ feature:
 
 <!-- overview -->
 
-When you specify a {{< glossary_tooltip term_id="pod" >}}, you can optionally specify how much of each resource a 
-{{< glossary_tooltip text="container" term_id="container" >}} needs. The most common resources to specify are CPU and memory 
+When you specify a {{< glossary_tooltip term_id="pod" >}}, you can optionally specify how much of each resource a
+{{< glossary_tooltip text="container" term_id="container" >}} needs. The most common resources to specify are CPU and memory
 (RAM); there are others.
 
 When you specify the resource _request_ for containers in a Pod, the
-{{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}} uses this information to decide which node to place the Pod on. 
-When you specify a resource _limit_ for a container, the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} enforces those 
-limits so that the running container is not allowed to use more of that resource 
-than the limit you set. The kubelet also reserves at least the _request_ amount of 
+{{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}} uses this information to decide which node to place the Pod on.
+When you specify a resource _limit_ for a container, the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} enforces those
+limits so that the running container is not allowed to use more of that resource
+than the limit you set. The kubelet also reserves at least the _request_ amount of
 that system resource specifically for that container to use.
 
 <!-- body -->
@@ -116,8 +116,8 @@ runs on a single-core, dual-core, or 48-core machine.
 
 {{< note >}}
 Kubernetes doesn't allow you to specify CPU resources with a precision finer than
-`1m` or `0.001` CPU. To avoid accidentally using an invalid CPU quantity, it's useful to specify CPU units using the milliCPU form 
-instead of the decimal form when using less than 1 CPU unit. 
+`1m` or `0.001` CPU. To avoid accidentally using an invalid CPU quantity, it's useful to specify CPU units using the milliCPU form
+instead of the decimal form when using less than 1 CPU unit.
 
 For example, you have a Pod that uses `5m` or `0.005` CPU and would like to decrease
 its CPU resources. By using the decimal form, it's harder to spot that `0.0005` CPU
@@ -215,7 +215,8 @@ limits you defined.
   as restartable, Kubernetes restarts the container.
 - The memory limit for the Pod or container can also apply to pages in memory backed
   volumes, such as an `emptyDir`. The kubelet tracks `tmpfs` emptyDir volumes as container
-  memory use, rather than as local ephemeral storage.
+  memory use, rather than as local ephemeral storage.　When using memory backed `emptyDir`,
+  be sure to check the notes [below](#memory-backed-emptydir).
 
 If a container exceeds its memory request and the node that it runs on becomes short of
 memory overall, it is likely that the Pod the container belongs to will be
@@ -236,6 +237,73 @@ If optional [tools for monitoring](/docs/tasks/debug/debug-cluster/resource-usag
 are available in your cluster, then Pod resource usage can be retrieved either
 from the [Metrics API](/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/#metrics-api)
 directly or from your monitoring tools.
+
+### Considerations for memory backed `emptyDir` volumes {#memory-backed-emptydir}
+
+{{< caution >}}
+If you do not specify a `sizeLimit` for `emptyDir` nor a memory limits
+(`spec.containers[].resources.limits.memory`) for pod, you can create a memory
+backed `emptyDir` with node allocatable size unintentionally. Also, user can
+create multiple memory backed `emptyDir`s on the same node, each set to a node
+allocatable size.  And what Kubernetes sees as memory usage is the amount that
+is actually consuming the memory　backed `emptyDir`, so even after you create a
+memory backed `emptyDir` with node allocatable size, the other Pods can be
+scheduled to the same node.  As a result, multiple memory backed `emptyDir`s
+with node allocatable size can be created on the same node.
+{{< /caution >}}
+
+From the perspective of memory management, there are some similarities between
+when a process uses memory as a work area and when using memory-backed
+`emptyDir`. But when using memory as a volume like memory-backed `emptyDir`,
+there are additional points below that you should be careful.
+
+* Files stored on a memory-backed volume are almost entirely managed by the
+  user application. Unlike when used as a work area for a process, you can not
+  rely on like garbage collection by the runtime for language.
+* The purpose of writing files to a volume is to save data or pass it between
+  applications. Deletion of files may not be considered or may depend on other
+  applications, then tend to persist for long time as files accumulate or are
+  not deleted as intended.
+* The memory-backed `emptyDir` is useful when writing large amounts of logs
+  continuously or passing large image files because of its performance.
+  However, memory is very small compared to disks, and using a large amount of
+  memory will affect the normal operation of the node, so you must be very
+  careful to use the minimum amount necessary.
+
+If you use memory backed `emptyDir` without appropriate settings, e.g. without
+`sizeLimit` nor memory limits, the following risks may occur:
+
+* A single Pod with memory backed `emptyDir` may unintentionally occupy node's memory.
+* If multiple memory backed `emptyDir`s are created on the same mode, their total
+  logical size can easily exceed the amount of memory implemented on the node, and
+  they can be consumed very quickly due to its performance.  This results in memory
+  exhaustion due to the unintentional or malicious creation of a large number of
+  memory backed `emptyDir`s.
+* As usage of memory backed `emptyDir` increases, Linux will eventually try to
+  OOMkill this container, but if a large number of such `emptyDir`s are created
+  and consumed rapidly, the tmpfs volume may be not deleted before the node run
+  out of memory and crash.
+
+To prevent these risks, everyone who can define a Pod should specify memory
+limits for pod or `sizeLimit` for `emptyDir`.
+
+Since memory limits apply to all pod memory usage, and the `sizeLimit` only
+applies to the `emptyDir`, a memory limits is the proper tool to prevent a
+container from consuming too much of the node's allocatable memory.
+The `sizeLimit` is really a tool to prevent usage of the memory-backed `emptyDir`
+from causing the container to hit its memory limit and OOM, not a tool to limit
+a pod's memory uasge. So it is better concidering to specify memory limits for
+pod first.
+
+If you are administering a cluster or namespace, you also set
+[ResourceQuota](/docs/concepts/policy/resource-quotas/) that limits memory use;
+you may also want to define a [LimitRange](/docs/concepts/policy/limit-range/)
+for additional enforcement.
+If you specify a `spec.containers[].resources.limits.memory` for each Pod,
+then the default size of an `emptyDir` volume will be `.spec.resources.limits.memory`.
+As an alternative, a cluster administrator can enforce size limits for
+`emptyDir` volumes in new Pods using a policy mechanism such as
+[ValidationAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy).
 
 ## Local ephemeral storage
 

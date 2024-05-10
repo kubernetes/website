@@ -12,12 +12,12 @@ weight: 10
 <!-- overview -->
 
 On-disk files in a container are ephemeral, which presents some problems for
-non-trivial applications when running in containers. One problem occurs when 
-a container crashes or is stopped. Container state is not saved so all of the 
-files that were created or modified during the lifetime of the container are lost. 
-During a crash, kubelet restarts the container with a clean state. 
-Another problem occurs when multiple containers are running in a `Pod` and 
-need to share files. It can be challenging to setup 
+non-trivial applications when running in containers. One problem occurs when
+a container crashes or is stopped. Container state is not saved so all of the
+files that were created or modified during the lifetime of the container are lost.
+During a crash, kubelet restarts the container with a clean state.
+Another problem occurs when multiple containers are running in a `Pod` and
+need to share files. It can be challenging to setup
 and access a shared filesystem across all of the containers.
 The Kubernetes {{< glossary_tooltip text="volume" term_id="volume" >}} abstraction
 solves both of these problems.
@@ -29,7 +29,7 @@ Familiarity with [Pods](/docs/concepts/workloads/pods/) is suggested.
 
 Kubernetes supports many types of volumes. A {{< glossary_tooltip term_id="pod" text="Pod" >}}
 can use any number of volume types simultaneously.
-[Ephemeral volume](/docs/concepts/storage/ephemeral-volumes/) types have a lifetime of a pod, 
+[Ephemeral volume](/docs/concepts/storage/ephemeral-volumes/) types have a lifetime of a pod,
 but [persistent volumes](/docs/concepts/storage/persistent-volumes/) exist beyond
 the lifetime of a pod. When a pod ceases to exist, Kubernetes destroys ephemeral volumes;
 however, Kubernetes does not destroy persistent volumes.
@@ -149,7 +149,7 @@ Kubernetes {{< skew currentVersion >}} does not include a `cinder` volume type.
 The OpenStack Cinder in-tree storage driver was deprecated in the Kubernetes v1.11 release
 and then removed entirely in the v1.26 release.
 
-The Kubernetes project suggests that you use the 
+The Kubernetes project suggests that you use the
 [OpenStack Cinder](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)
 third party storage driver instead.
 
@@ -201,7 +201,7 @@ keyed with `log_level`.
 
 * A container using a ConfigMap as a [`subPath`](#using-subpath) volume mount will not
   receive ConfigMap updates.
-  
+
 * Text data is exposed as files using the UTF-8 character encoding. For other character encodings, use `binaryData`.
 
 {{< /note >}}
@@ -254,8 +254,6 @@ storage](/docs/concepts/configuration/manage-resources-containers/#setting-reque
 If that is filled up from another source (for example, log files or image
 overlays), the `emptyDir` may run out of capacity before this limit.
 
-#### Considerations for memory backed `emptyDir` volumes {#emptydir-memory-backed}
-
 {{< note >}}
 You can specify a size for memory backed volumes, provided that the `SizeMemoryBackedVolumes`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
@@ -264,41 +262,9 @@ If you don't specify a volume size, memory backed volumes are sized to node allo
 {{< /note>}}
 
 {{< caution >}}
-If you do not specify a `sizeLimit` for `emptyDir`, you can create a
-memory backed `emptyDir` with node allocatable size unintentionally.  Also,
-user can create multiple memory backed `emptyDir`s on the same node, each set
-to a node allocatable size.  And what Kubernetes sees as memory usage is the
-amount that is actually consuming the memory　backed `emptyDir`, so even after
-you create a memory backed `emptyDir` with node allocatable size, the other Pods
-can be scheduled to the same node.  As a result, multiple memory backed
-`emptyDir`s with node allocatable size can be created on the same node.
+Please check [here](/docs/concepts/configuration/manage-resources-containers/#memory-backed-emptydir)
+for points to note in terms of resource management when using memory-backed `emptyDir`.
 {{< /caution >}}
-
-If you use memory backed `emptyDir` without appropriate settings, the following
-risks may occur:
-
-* A single Pod with memory backed `emptyDir` may unintentionally occupy node's memory.
-* If multiple memory backed `emptyDir`s are created on the same mode, their total
-  logical size can easily exceed the amount of memory implemented on the node, and
-  they can be consumed very quickly due to its performance.  This results in memory
-  exhaustion due to the unintentional or malicious creation of a large number of
-  memory backed `emptyDir`s.
-* As usage of memory backed `emptyDir` increases, Linux will eventually try to
-  OOMkill this container, but if a large number of such `emptyDir`s are created
-  and consumed rapidly, the tmpfs volume may be not deleted before the node run
-  out of memory and crash.
-
-To prevent these risks, everyone who can define a Pod should specify `sizeLimit`
-for `emptyDir` (similar to the example later in this page).
-If you are administering a cluster or namespace, you also set
-[ResourceQuota](/docs/concepts/policy/resource-quotas/) that limits memory use;
-you may also want to define a [LimitRange](/docs/concepts/policy/limit-range/)
-for additional enforcement.
-If you specify a `.spec.resources.limits.memory` for each Pod, then the default
-size of an `emptyDir` volume will be `.spec.resources.limits.memory`.
-As an alternative, a cluster administrator can enforce size limits for `emptyDir` volumes
-in new Pods using a policy mechanism such as
-[ValidationAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy).
 
 #### emptyDir configuration example
 
@@ -342,7 +308,7 @@ Kubernetes {{< skew currentVersion >}} does not include a `gcePersistentDisk` vo
 The `gcePersistentDisk` in-tree storage driver was deprecated in the Kubernetes v1.17 release
 and then removed entirely in the v1.28 release.
 
-The Kubernetes project suggests that you use the [Google Compute Engine Persistent Disk CSI](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver) 
+The Kubernetes project suggests that you use the [Google Compute Engine Persistent Disk CSI](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver)
 third party storage driver instead.
 
 ### gitRepo (deprecated) {#gitrepo}
@@ -1125,7 +1091,7 @@ For more information on how to develop a CSI driver, refer to the
 
 CSI node plugins need to perform various privileged
 operations like scanning of disk devices and mounting of file systems. These operations
-differ for each host operating system. For Linux worker nodes, containerized CSI node 
+differ for each host operating system. For Linux worker nodes, containerized CSI node
 plugins are typically deployed as privileged containers. For Windows worker nodes,
 privileged operations for containerized CSI node plugins is supported using
 [csi-proxy](https://github.com/kubernetes-csi/csi-proxy), a community-managed,
@@ -1147,7 +1113,7 @@ configuration changes to existing Storage Classes, PersistentVolumes or Persiste
 Existing PVs created by a in-tree volume plugin can still be used in the future without any configuration
 changes, even after the migration to CSI is completed for that volume type, and even after you upgrade to a
 version of Kubernetes that doesn't have compiled-in support for that kind of storage.
- 
+
 As part of that migration, you - or another cluster administrator - **must** have installed and configured
 the appropriate CSI driver for that storage. The core of Kubernetes does not install that software for you.
 
