@@ -3,10 +3,10 @@ layout: blog
 title: "Gardener Project Update"
 date: 2019-12-02
 slug: gardener-project-update
+author: >
+  [Rafael Franzke](mailto:rafael.franzke@sap.com) (SAP), 
+  [Vasu Chandrasekhara](mailto:vasu.chandrasekhara@sap.com) (SAP)
 ---
-
-**Authors:** [Rafael Franzke](mailto:rafael.franzke@sap.com) (SAP), [Vasu
-Chandrasekhara](mailto:vasu.chandrasekhara@sap.com) (SAP)
 
 Last year, we introduced [Gardener](https://gardener.cloud) in the [Kubernetes
 Community
