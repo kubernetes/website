@@ -305,10 +305,23 @@ i18nDir = "./data/i18n"
 [languages.en.params]
 description = "Production-Grade Container Orchestration"
 
+[languages.bn]
+title = "Kubernetes"
+languageName = "বাংলা (Bengali)"
+weight = 2
+contentDir = "content/bn"
+languagedirection = "ltr"
+
+[languages.bn.params]
+time_format_blog = "01.02.2006"
+language_alternatives = ["en"]
+description = "প্রোডাকশন-গ্রেড কন্টেইনার অর্কেস্ট্রেশন"
+languageNameLatinScript = "Bengali" # aka Bangla
+
 [languages.zh-cn]
 title = "Kubernetes"
 languageName = "中文 (Chinese)"
-weight = 2
+weight = 3
 contentDir = "content/zh-cn"
 languagedirection = "ltr"
 
@@ -321,7 +334,7 @@ description = "生产级别的容器编排系统"
 [languages.fr]
 title = "Kubernetes"
 languageName = "Français (French)"
-weight = 3
+weight = 4
 contentDir = "content/fr"
 languagedirection = "ltr"
 
@@ -335,7 +348,7 @@ languageNameLatinScript = "Français"
 [languages.de]
 title = "Kubernetes"
 languageName = "Deutsch (German)"
-weight = 4
+weight = 5
 contentDir = "content/de"
 languagedirection = "ltr"
 
@@ -349,7 +362,7 @@ languageNameLatinScript = "Deutsch"
 [languages.hi]
 title = "Kubernetes"
 languageName = "हिन्दी (Hindi)"  
-weight = 5
+weight = 6
 contentDir = "content/hi"
 languagedirection = "ltr"
 
@@ -363,7 +376,7 @@ languageNameLatinScript = "Hindi"
 [languages.id]
 title = "Kubernetes"
 languageName ="Bahasa Indonesia (Indonesian)"
-weight = 6
+weight = 7
 contentDir = "content/id"
 languagedirection = "ltr"
 
@@ -377,7 +390,7 @@ languageNameLatinScript = "Bahasa Indonesia"
 [languages.it]
 title = "Kubernetes"
 languageName = "Italiano (Italian)"
-weight = 7
+weight = 8
 contentDir = "content/it"
 languagedirection = "ltr"
 
@@ -391,7 +404,7 @@ languageNameLatinScript = "Italiano"
 [languages.ja]
 title = "Kubernetes"
 languageName = "日本語 (Japanese)"
-weight = 8
+weight = 9
 contentDir = "content/ja"
 languagedirection = "ltr"
 
@@ -404,7 +417,7 @@ description = "プロダクショングレードのコンテナ管理基盤"
 [languages.ko]
 title = "Kubernetes"
 languageName = "한국어 (Korean)"
-weight = 9
+weight = 10
 contentDir = "content/ko"
 languagedirection = "ltr"
 
@@ -432,7 +445,7 @@ languageNameLatinScript = "Korean"
 [languages.pl]
 title = "Kubernetes"
 languageName = "Polski (Polish)"
-weight = 10
+weight = 11
 contentDir = "content/pl"
 languagedirection = "ltr"
 
@@ -446,7 +459,7 @@ languageNameLatinScript = "Polski"
 [languages.pt-br]
 title = "Kubernetes"
 languageName = "Português (Portuguese)"
-weight = 11
+weight = 12
 
 contentDir = "content/pt-br"
 languagedirection = "ltr"
@@ -461,7 +474,7 @@ languageNameLatinScript = "Português"
 [languages.ru]
 title = "Kubernetes"
 languageName = "Русский (Russian)"
-weight = 12
+weight = 13
 contentDir = "content/ru"
 languagedirection = "ltr"
 
@@ -475,7 +488,7 @@ languageNameLatinScript = "Russian"
 [languages.es]
 title = "Kubernetes"
 languageName = "Español (Spanish)"
-weight = 13
+weight = 14
 contentDir = "content/es"
 languagedirection = "ltr"
 
@@ -489,7 +502,7 @@ languageNameLatinScript = "Español"
 [languages.uk]
 title = "Kubernetes"
 languageName = "Українська (Ukrainian)"
-weight = 14
+weight = 15
 contentDir = "content/uk"
 languagedirection = "ltr"
 
@@ -504,7 +517,7 @@ languageNameLatinScript = "Ukrainian"
 title = "Kubernetes"
 languageName = "Tiếng Việt (Vietnamese)"
 contentDir = "content/vi"
-weight = 15
+weight = 16
 languagedirection = "ltr"
 
 [languages.vi.params]

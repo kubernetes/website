@@ -6,6 +6,7 @@
 
 /concepts/containers/container-lifecycle-hooks/     /docs/concepts/containers/container-lifecycle-hooks/ 301
 /docs/     /docs/home/ 301!
+/bn/docs/     /bn/docs/home/ 301!
 /de/docs/     /de/docs/home/ 301!
 /es/docs/     /es/docs/home/ 301!
 /fr/docs/     /fr/docs/home/ 301!
@@ -393,6 +394,7 @@
 /docs/setup/minikube/     /docs/tasks/tools/ 302
 /id/docs/setup/minikube/     /id/docs/tasks/tools/ 302
 /docs/setup/learning-environment/     /docs/tasks/tools/  302!
+/bn/docs/setup/learning-environment/     /bn/docs/tasks/tools/  302!
 /id/docs/setup/learning-environment/     /id/docs/tasks/tools/  302!
 /zh-cn/docs/setup/learning-environment/     /zh-cn/docs/tasks/tools/  302!
 /ja/docs/setup/learning-environment/     /ja/docs/tasks/tools/  302!
