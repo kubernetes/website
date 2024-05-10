@@ -86,7 +86,7 @@ Value       | Description
 
 {{< note >}}
 When a pod is not able to stay running, it may be shown as `CrashLoopBackoff` by some kubectl commands in its `Status`.
-This is, however, not one of the not a Pod phases, that is to stay this "Status" is not a phase....
+Make sure not to confuse "Status", a display field for user intuition, with the pod "Phase", which is an explicit part of the Kubernetes data model. 
 ```
   NAMESPACE               NAME               READY   STATUS             RESTARTS   AGE
   alessandras-namespace   alessandras-pod    0/1     CrashLoopBackOff   200        2d9h 
