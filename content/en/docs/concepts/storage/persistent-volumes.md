@@ -529,8 +529,6 @@ please install corresponding CSI drivers.
   (**migration on by default** starting v1.23)
 * [`portworxVolume`](/docs/concepts/storage/volumes/#portworxvolume) - Portworx volume
   (**deprecated** starting v1.25)
-* [`rbd`](/docs/concepts/storage/volumes/#rbd) - Rados Block Device (RBD) volume
-  (**deprecated** starting v1.28, no migration plan, support will be removed in a future release)
 * [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK volume
   (**migration on by default** starting v1.25)
 
@@ -546,6 +544,8 @@ Older versions of Kubernetes also supported the following in-tree PersistentVolu
   (**not available** starting v1.25)
 * `storageos` - StorageOS volume.
   (**not available** starting v1.25)
+* [`rbd`](/docs/concepts/storage/volumes/#rbd) - Rados Block Device (RBD) volume 
+  (**not available** starting v1.31)
 
 ## Persistent Volumes
 
