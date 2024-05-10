@@ -11,15 +11,15 @@ feature:
 
 <!-- overview -->
 
-When you specify a {{< glossary_tooltip term_id="pod" >}}, you can optionally specify how much of each resource a
-{{< glossary_tooltip text="container" term_id="container" >}} needs. The most common resources to specify are CPU and memory
+When you specify a {{< glossary_tooltip term_id="pod" >}}, you can optionally specify how much of each resource a 
+{{< glossary_tooltip text="container" term_id="container" >}} needs. The most common resources to specify are CPU and memory 
 (RAM); there are others.
 
 When you specify the resource _request_ for containers in a Pod, the
-{{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}} uses this information to decide which node to place the Pod on.
-When you specify a resource _limit_ for a container, the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} enforces those
-limits so that the running container is not allowed to use more of that resource
-than the limit you set. The kubelet also reserves at least the _request_ amount of
+{{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}} uses this information to decide which node to place the Pod on. 
+When you specify a resource _limit_ for a container, the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} enforces those 
+limits so that the running container is not allowed to use more of that resource 
+than the limit you set. The kubelet also reserves at least the _request_ amount of 
 that system resource specifically for that container to use.
 
 <!-- body -->
@@ -116,8 +116,8 @@ runs on a single-core, dual-core, or 48-core machine.
 
 {{< note >}}
 Kubernetes doesn't allow you to specify CPU resources with a precision finer than
-`1m` or `0.001` CPU. To avoid accidentally using an invalid CPU quantity, it's useful to specify CPU units using the milliCPU form
-instead of the decimal form when using less than 1 CPU unit.
+`1m` or `0.001` CPU. To avoid accidentally using an invalid CPU quantity, it's useful to specify CPU units using the milliCPU form 
+instead of the decimal form when using less than 1 CPU unit. 
 
 For example, you have a Pod that uses `5m` or `0.005` CPU and would like to decrease
 its CPU resources. By using the decimal form, it's harder to spot that `0.0005` CPU
