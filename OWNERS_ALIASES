@@ -12,6 +12,7 @@ aliases:
     - divya-mohan0209
     - natalisucks
     - reylejano
+    - salaxander
     - sftim
     - tengqm
   sig-docs-localization-owners: # Admins for localization content
@@ -20,6 +21,7 @@ aliases:
     - natalisucks
     - nate-double-u
     - reylejano
+    - salaxander
     - sftim
     - seokho-son
     - tengqm
@@ -29,6 +31,7 @@ aliases:
     - natalisucks
     - nate-double-u
     - reylejano
+    - salaxander
     - sftim
     - seokho-son
     - tengqm
@@ -55,6 +58,7 @@ aliases:
     - natalisucks
     - nate-double-u
     - reylejano
+    - salaxander
     - sftim
     - tengqm
   sig-docs-en-reviews: # PR reviews for English content
@@ -67,6 +71,7 @@ aliases:
     - natalisucks
     - nate-double-u
     - reylejano
+    - salaxander
     - sftim
     - shannonxtreme
     - tengqm
@@ -141,6 +146,7 @@ aliases:
     - divya-mohan0209
     - natalisucks
     - reylejano
+    - salaxander
     - sftim
     - tengqm
   sig-docs-zh-owners: # Admins for Chinese content
