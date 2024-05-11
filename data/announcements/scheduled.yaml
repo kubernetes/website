@@ -232,3 +232,18 @@ announcements:
     <a href= "https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/register/?utm_source=kubernetes&utm_medium=all&utm_campaign=kubeconeu24&utm_content=slim-banner">
     Buy your ticket now! 19 - 22 March | Paris, France
     </a> 
+
+- name: KubeCon 2024 China
+  startTime: 2024-07-26T00:00:00  #Added in https://github.com/kubernetes/website/pull/46431 
+  endTime: 2024-08-23T18:00:00
+  style: >-
+    background: linear-gradient(90deg, rgba(229,64,216,1) 60%, rgba(0,212,255,1) 100%);
+    color: #fffff;
+  title: |
+    <img src ="/images/announcements/kubecon-china-2024-white.svg" style="float: right; height: 100px;" />
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-open-source-summit-ai-dev-china/">KubeCon + CloudNativeCon + Open Source Summit China 2024</a>
+  message: |
+    Join us for three days of incredible opportunities to collaborate, learn and share with the cloud native community.<br/> 
+    <a href= "https://events.linuxfoundation.org/kubecon-cloudnativecon-open-source-summit-ai-dev-china/register/?utm_source=kubernetes&utm_medium=all&utm_campaign=kubeconcn24&utm_content=slim-banner">
+    Buy your ticket now! 21 - 23 August | Hong Kong
+    </a> 
