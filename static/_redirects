@@ -34,6 +34,14 @@
 /docs/reference/kubectl/cheatsheet/   /docs/reference/kubectl/quick-reference/ 301
 /kubectlguide /docs/reference/kubectl/quick-reference/ 302
 
+# Serve custom "not found" pages
+/docs/tutorials/kubernetes-basics/expose/expose-interactive/ /docs/tutorials/kubernetes-basics/expose/expose-interactive-gone/ 404
+/docs/tutorials/kubernetes-basics/scale/scale-interactive/ /docs/tutorials/kubernetes-basics/scale/scale-interactive-gone/ 404
+/docs/tutorials/kubernetes-basics/create-cluster/cluster-interactive/ /docs/tutorials/kubernetes-basics/create-cluster/cluster-interactive-gone/ 404
+/docs/tutorials/kubernetes-basics/explore/explore-interactive/ /docs/tutorials/kubernetes-basics/explore/explore-interactive-gone/ 404
+/docs/tutorials/kubernetes-basics/deploy-app/deploy-interactive/ /docs/tutorials/kubernetes-basics/deploy-app/deploy-interactive-gone/ 404
+/docs/tutorials/kubernetes-basics/update/update-interactive/ /docs/tutorials/kubernetes-basics/update/update-interactive-gone/ 404
+
 /docs/concepts/abstractions/controllers/garbage-collection/     /docs/concepts/workloads/controllers/garbage-collection/ 301
 /docs/concepts/abstractions/controllers/statefulsets/     /docs/concepts/workloads/controllers/statefulset/ 301
 /docs/concepts/abstractions/init-containers/     /docs/concepts/workloads/pods/init-containers/ 301
