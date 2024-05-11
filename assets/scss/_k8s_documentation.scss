@@ -91,9 +91,12 @@ div.feature-state-notice {
 // All callout headings should be bold
 .alert {
   h4 {
+    // All callout headings should be bold
     font-weight: bold;
     font-style: initial;
   }
+  min-height: 4rem;
+  background: rgba($primary, 0.045);
 }
 .alert:dir(ltr) {
   // color the left border (left-to-right locales)
