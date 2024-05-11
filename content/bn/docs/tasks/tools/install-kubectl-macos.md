@@ -44,16 +44,16 @@ macOS এ kubectl ইনস্টল করার জন্য নিম্ন�
    {{< note >}}
    একটি নির্দিষ্ট সংস্করণ ডাউনলোড করতে, নির্দিষ্ট সংস্করণের সাথে কমান্ডের `$(curl -L -s https://dl.k8s.io/release/stable.txt)` অংশটি প্রতিস্থাপন করুন।
 
-   উদাহরণস্বরূপ, Intel macOS-এ সংস্করণ {{< param "fullversion" >}} ডাউনলোড করতে, টাইপ করুন:
+   উদাহরণস্বরূপ, Intel macOS-এ সংস্করণ {{% skew currentPatchVersion %}} ডাউনলোড করতে, টাইপ করুন:
 
    ```bash
-   curl -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl"
+   curl -LO "https://dl.k8s.io/release/v{{% skew currentPatchVersion %}}/bin/darwin/amd64/kubectl"
    ```
 
    এবং অ্যাপল সিলিকনে macOS এর জন্য, টাইপ করুন:
 
    ```bash
-   curl -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/arm64/kubectl"
+   curl -LO "https://dl.k8s.io/release/v{{% skew currentPatchVersion %}}/bin/darwin/arm64/kubectl"
    ```
 
    {{< /note >}}
