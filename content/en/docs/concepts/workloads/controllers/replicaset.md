@@ -163,8 +163,8 @@ metadata:
 ## Non-Template Pod acquisitions
 
 While you can create bare Pods with no problems, it is strongly recommended to make sure that the bare Pods do not have
-labels which match the selector of one of your ReplicaSets. The reason for this is because a ReplicaSet is not limited
-to owning Pods specified by its template-- it can acquire other Pods in the manner specified in the previous sections.
+labels that match the selector of one of your ReplicaSets. The reason for this is that a ReplicaSet is not limited
+to owning Pods specified by its template, it can acquire other Pods in the manner specified in the previous sections.
 
 Take the previous frontend ReplicaSet example, and the Pods specified in the following manifest:
 
