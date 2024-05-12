@@ -3,6 +3,12 @@ title: "টুল ইনস্টল করুন"
 description: আপনার কম্পিউটারে কুবারনেটিস টুল সেট আপ করুন।
 weight: 10
 no_list: true
+card:
+  name: tasks
+  weight: 20
+  anchors:
+  - anchor: "#kubectl"
+    title: kubectl ইনস্টল করুন
 ---
 
 ## kubectl
@@ -17,15 +23,15 @@ no_list: true
 kubectl বিভিন্ন লিনাক্স প্ল্যাটফর্ম, macOS এবং Windows এ ইনস্টলযোগ্য।
 নীচে আপনার পছন্দের অপারেটিং সিস্টেম খুঁজুন।
 
-- [লিনাক্সে kubectl ইনস্টল করুন](/docs/tasks/tools/install-kubectl-linux)
-- [macOS-এ kubectl ইনস্টল করুন](/docs/tasks/tools/install-kubectl-macos)
-- [উইন্ডোজে kubectl ইনস্টল করুন](/docs/tasks/tools/install-kubectl-windows)
+- [লিনাক্সে kubectl ইনস্টল করুন](/bn/docs/tasks/tools/install-kubectl-linux)
+- [macOS-এ kubectl ইনস্টল করুন](/bn/docs/tasks/tools/install-kubectl-macos)
+- [উইন্ডোজে kubectl ইনস্টল করুন](/bn/docs/tasks/tools/install-kubectl-windows)
 
 ## kind
 
-[`kind`](https://kind.sigs.k8s.io/docs/) আপনাকে কুবারনেটিস চালাতে দেয়
+[`kind`](https://kind.sigs.k8s.io/) আপনাকে কুবারনেটিস চালাতে দেয়
 আপনার স্থানীয় কম্পিউটারে।  আপনি
-[ডকার](https://docs.docker.com/get-docker/) ইনস্টল এবং কনফিগার করুন।
+[ডকার](https://www.docker.com/) অথবা [পডম্যান](https://podman.io/) ইনস্টল এবং কনফিগার করুন।
 
 এই ধরনের [কুইক শুরু](https://kind.sigs.k8s.io/docs/user/quick-start/) পৃষ্ঠা আপনাকে
 কী করতে হবে তা দেখায়।
