@@ -1,7 +1,8 @@
 ---
 title: Versions supportées de la documentation Kubernetes
-description: Documentation de Kubernetes
-content_type: concept
+content_type: custom
+layout: supported-versions
+weight: 10
 ---
 
 <!-- overview -->
