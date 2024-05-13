@@ -1,5 +1,8 @@
 # i18n strings for the French (main) site.
 
+[docs_version_current]
+other = "(cette documentation)"
+
 [docs_version_latest_heading]
 other = "Version courante"
 
