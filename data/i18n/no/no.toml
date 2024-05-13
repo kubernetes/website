@@ -1,5 +1,14 @@
 # i18n strings for the Norwegian translation.
 
+[docs_version_current]
+other = "(denne dokumentasjonen)"
+
+[docs_version_latest_heading]
+other = "Siste versjon"
+
+[docs_version_other_heading]
+other = "Eldre versjoner"
+
 [main_read_about]
 other = "Les om"
 
