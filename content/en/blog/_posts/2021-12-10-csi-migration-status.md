@@ -3,9 +3,9 @@ layout: blog
 title: "Kubernetes 1.23: Kubernetes In-Tree to CSI Volume Migration Status Update"
 date: 2021-12-10
 slug: storage-in-tree-to-csi-migration-status-update
+author: >
+  Jiawei Wang (Google)
 ---
-
-**Author:** Jiawei Wang (Google)
 
 The Kubernetes in-tree storage plugin to [Container Storage Interface (CSI)](/blog/2019/01/15/container-storage-interface-ga/) migration infrastructure has already been [beta](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/) since v1.17. CSI migration was introduced as alpha in Kubernetes v1.14.
 

@@ -1060,10 +1060,25 @@ AttachDetachControllerConfiguration 包含描述 AttachDetachController 的元�
    <p>
    <!-- 
    ReconcilerSyncLoopPeriod is the amount of time the reconciler sync states loop
-   wait between successive executions. Is set to 5 sec by default. 
+   wait between successive executions. Is set to 60 sec by default. 
    -->
    ReconcilerSyncLoopPeriod 是调和器在连续执行同步状态的循环间，所等待的时间量。
-   默认为 5 秒。
+   默认为 60 秒。
+   </p>
+</td>
+</tr>
+<tr><td><code>disableForceDetachOnTimeout</code> <B><!--[Required]-->[必需]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   <p>
+   <!--
+   DisableForceDetachOnTimeout disables force detach when the maximum unmount
+   time is exceeded. Is false by default, and thus force detach on unmount is
+   enabled.
+   -->
+   当超过最大卸载时间时，DisableForceDetachOnTimeout 将禁用强制分离。
+   默认情况下为 false，因此启用卸载时强制分离。
    </p>
 </td>
 </tr>

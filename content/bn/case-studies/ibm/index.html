@@ -1,0 +1,80 @@
+---
+title: IBM Case Study
+linkTitle: IBM
+case_study_styles: true
+cid: caseStudies
+logo: ibm_featured_logo.svg
+featured: false
+
+new_case_study_styles: true
+heading_background: /images/case-studies/ibm/banner1.jpg
+heading_title_logo: /images/ibm_logo.png
+subheading: >
+  Building an Image Trust Service on Kubernetes with Notary and TUF
+case_study_details:
+  - Company: IBM
+  - Location: Armonk, New York
+  - Industry: Cloud Computing
+---
+
+<h2>Challenge</h2>
+
+<p><a href="https://www.ibm.com/cloud/">IBM Cloud</a> offers public, private, and hybrid cloud functionality across a diverse set of runtimes from its OpenWhisk-based function as a service (FaaS) offering, managed <a href="https://kubernetes.io">Kubernetes</a> and containers, to <a href="https://www.cloudfoundry.org">Cloud Foundry</a> platform as a service (PaaS). These runtimes are combined with the power of the company's enterprise technologies, such as MQ and DB2, its modern artificial intelligence (AI) Watson, and data analytics services. Users of IBM Cloud can exploit capabilities from more than 170 different cloud native services in its catalog, including capabilities such as IBM's Weather Company API and data services. In the later part of 2017, the IBM Cloud Container Registry team wanted to build out an image trust service.</p>
+
+<h2>Solution</h2>
+
+<p>The work on this new service culminated with its public availability in the IBM Cloud in February 2018. The image trust service, called Portieris, is fully based on the <a href="https://www.cncf.io">Cloud Native Computing Foundation (CNCF)</a> open source project <a href="https://github.com/theupdateframework/notary">Notary</a>, according to Michael Hough, a software developer with the IBM Cloud Container Registry team. Portieris is a Kubernetes admission controller for enforcing content trust. Users can create image security policies for each Kubernetes namespace, or at the cluster level, and enforce different levels of trust for different images. Portieris is a key part of IBM's trust story, since it makes it possible for users to consume the company's Notary offering from within their IKS clusters. The offering is that Notary server runs in IBM's cloud, and then Portieris runs inside the IKS cluster. This enables users to be able to have their IKS cluster verify that the image they're loading containers from contains exactly what they expect it to, and Portieris is what allows an IKS cluster to apply that verification.</p>
+
+<h2>Impact</h2>
+
+<p>IBM's intention in offering a managed Kubernetes container service and image registry is to provide a fully secure end-to-end platform for its enterprise customers. "Image signing is one key part of that offering, and our container registry team saw Notary as the de facto way to implement that capability in the current Docker and container ecosystem," Hough says. The company had not been offering image signing before, and Notary is the tool it used to implement that capability. "We had a multi-tenant Docker Registry with private image hosting," Hough says. "The Docker Registry uses hashes to ensure that image content is correct, and data is encrypted both in flight and at rest. But it does not provide any guarantees of who pushed an image. We used Notary to enable users to sign images in their private registry namespaces if they so choose."</p>
+
+{{< case-studies/quote author="Michael Hough, a software developer with the IBM Container Registry team" >}}
+"We see CNCF as a safe haven for cloud native open source, providing stability, longevity, and expected maintenance for member projects—no matter the originating vendor or project."
+{{< /case-studies/quote >}}
+
+{{< case-studies/lead >}}
+Docker had already created the Notary project as an implementation of <a href="https://github.com/theupdateframework/specification">The Update Framework (TUF)</a>, and this implementation of TUF provided the capabilities for Docker Content Trust.
+{{< /case-studies/lead >}}
+
+<p>"After contribution to CNCF of both TUF and Notary, we perceived that it was becoming the de facto standard for image signing in the container ecosystem", says Michael Hough, a software developer with the IBM Cloud Container Registry team.</p>
+
+<p>The key reason for selecting Notary was that it was already compatible with the existing authentication stack IBM's container registry was using. So was the design of TUF, which does not require the registry team to have to enter the business of key management. Both of these were "attractive design decisions that confirmed our choice of Notary," he says.</p>
+
+<p>The introduction of Notary to implement image signing capability in IBM Cloud encourages increased security across IBM's cloud platform, "where we expect it will include both the signing of official IBM images as well as expected use by security-conscious enterprise customers," Hough says. "When combined with security policy implementations, we expect an increased use of deployment policies in CI/CD pipelines that allow for fine-grained control of service deployment based on image signers."</p>
+
+<p>The availability of image signing "is a huge benefit to security-conscious customers who require this level of image provenance and security," Hough says. "With our IBM Cloud Kubernetes as-a-service offering and the admission controller we have made available, it allows both IBM services as well as customers of the IBM public cloud to use security policies to control service deployment."</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/ibm/banner3.jpg"
+  author="Michael Hough, a software developer with the IBM Cloud Container Registry team"
+>}}
+"Image signing is one key part of our Kubernetes container service offering, and our container registry team saw Notary as the de facto way to implement that capability in the current Docker and container ecosystem"
+{{< /case-studies/quote >}}
+
+<p>Now that the Notary-implemented service is generally available in IBM's public cloud as a component of its existing IBM Cloud Container Registry, it is deployed as a highly available service across five IBM Cloud regions. This high-availability deployment has three instances across two zones in each of the five regions, load balanced with failover support. "We have also deployed it with end-to-end TLS support through to our back-end IBM Cloudant persistence storage service," Hough says.</p>
+
+<p>The IBM team has created and open sourced a Kubernetes admission controller called Portieris, which uses Notary signing information combined with customer-defined security policies to control image deployment into their cluster. "We are hoping to drive adoption of Portieris through its use of our Notary offering," Hough says.</p>
+
+<p>IBM has been a key player in the creation and support of open source foundations, including CNCF. Todd Moore, IBM's vice president of Open Technology, is the current CNCF governing board chair and a number of IBMers are active across many of the CNCF member projects.</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/ibm/banner4.jpg"
+  author="Michael Hough, a software developer with the IBM Cloud Container Registry team"
+>}}
+"With our IBM Cloud Kubernetes as-a-service offering and the admission controller we have made available, it allows both IBM services as well as customers of the IBM public cloud to use security policies to control service deployment."
+{{< /case-studies/quote >}}
+
+<p>"Given that, we see CNCF as a safe haven for cloud native open source, providing stability, longevity, and expected maintenance for member projects—no matter the originating vendor or project," Hough says. Because the entire cloud native world is a fast-moving area with many competing vendors and solutions, "we see the CNCF model as an arbiter of openness and fair play across the ecosystem," he says.</p>
+
+<p>With both TUF and Notary as part of CNCF, IBM expects there to be standardization around these capabilities beyond just de facto standards for signing and provenance. IBM has determined to not simply consume Notary, but also to contribute to the open source project where applicable. "IBMers have contributed a CouchDB backend to support our use of IBM Cloudant as the persistent store; and are working on generalization of the pkcs11 provider, allowing support of other security hardware devices beyond Yubikey," Hough says.</p>
+
+{{< case-studies/quote author="Michael Hough, a software developer with the IBM Cloud Container Registry team" >}}
+"There are new projects addressing these challenges, including within CNCF. We will definitely be following these advancements with interest. We found the Notary community to be an active and friendly community open to changes, such as our addition of a CouchDB backend for persistent storage."
+{{< /case-studies/quote >}}
+
+<p>The company has used other CNCF projects <a href="https://containerd.io">containerd</a>, <a href="https://www.envoyproxy.io">Envoy</a>, <a href="https://prometheus.io">Prometheus</a>, <a href="https://grpc.io">gRPC</a>, and <a href="https://github.com/containernetworking">CNI</a>, and is looking into <a href="https://github.com/spiffe">SPIFFE</a> and <a href="https://github.com/spiffe/spire">SPIRE</a> as well for potential future use.</p>
+
+<p>What advice does Hough have for other companies that are looking to deploy Notary or a cloud native infrastructure?</p>
+
+<p>"While this is true for many areas of cloud native infrastructure software, we found that a high-availability, multi-region deployment of Notary requires a solid implementation to handle certificate management and rotation," he says. "There are new projects addressing these challenges, including within CNCF. We will definitely be following these advancements with interest. We found the Notary community to be an active and friendly community open to changes, such as our addition of a CouchDB backend for persistent storage."</p>

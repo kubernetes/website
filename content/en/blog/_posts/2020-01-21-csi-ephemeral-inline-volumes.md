@@ -1,9 +1,9 @@
 ---
 title: CSI Ephemeral Inline Volumes
 date: 2020-01-21
+author: >
+  Patrick Ohly (Intel) 
 ---
-
-**Author:** Patrick Ohly (Intel)
 
 Typically, volumes provided by an external storage driver in
 Kubernetes are *persistent*, with a lifecycle that is completely

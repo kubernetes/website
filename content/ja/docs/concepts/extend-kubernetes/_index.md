@@ -2,6 +2,10 @@
 title: Kubernetesを拡張する
 weight: 110
 description: Kubernetesクラスターの挙動を変えるいろいろな方法
+feature:
+  title: 拡張性を考慮した設計
+  description: >
+    アップストリームのソースコードを変更することなく、Kubernetesクラスターに機能を追加できます。
 content_type: concept
 no_list: true
 ---

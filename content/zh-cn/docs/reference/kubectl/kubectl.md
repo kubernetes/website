@@ -519,6 +519,18 @@ When set to false, turns off extra HTTP headers detailing invoked kubectl comman
 </tr>
 
 <tr>
+<td colspan="2">KUBECTL_DEBUG_CUSTOM_PROFILE</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+When set to true, custom flag will be enabled in kubectl debug. This flag is used to customize the pre-defined profiles.
+-->
+设置为 true 时，将在 kubectl 调试中启用自定义标志，该标志用于自定义预定义的配置文件。
+</td>
+</tr>
+
+<tr>
 <td colspan="2">KUBECTL_EXPLAIN_OPENAPIV3</td>
 </tr>
 <tr>
@@ -540,6 +552,20 @@ When set to true, external plugins can be used as subcommands for builtin comman
 -->
 当设置为 true 时，如果子命令不存在，外部插件可以用作内置命令的子命令。
 此功能处于 alpha 阶段，只能用于 create 命令（例如 kubectl create networkpolicy）。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">KUBECTL_PORT_FORWARD_WEBSOCKETS</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+When set to true, the kubectl port-forward command will attempt to stream using the websockets protocol.
+If the upgrade to websockets fails, the commands will fallback to use the current SPDY protocol.
+-->
+当设置为 true 时，`kubectl port-forward` 命令将尝试使用 WebSocket 协议进行流式传输。
+如果升级到 WebSocket 失败，命令将回退到使用当前的 SPDY 协议。
 </td>
 </tr>
 

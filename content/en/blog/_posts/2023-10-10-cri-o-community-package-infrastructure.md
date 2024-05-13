@@ -3,9 +3,9 @@ layout: blog
 title: "CRI-O is moving towards pkgs.k8s.io"
 date: 2023-10-10
 slug: cri-o-community-package-infrastructure
+author: >
+  Sascha Grunert
 ---
-
-**Author:** Sascha Grunert
 
 The Kubernetes community [recently announced](/blog/2023/08/31/legacy-package-repository-deprecation/)
 that their legacy package repositories are frozen, and now they moved to

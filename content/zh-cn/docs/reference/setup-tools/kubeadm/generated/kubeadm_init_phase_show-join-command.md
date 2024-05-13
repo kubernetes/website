@@ -1,15 +1,4 @@
 <!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
-<!--
 Show the join command for control-plane and worker node
 -->
 显示针对控制平面和工作节点的 join 命令。
@@ -51,7 +40,7 @@ kubeadm init phase show-join-command [flags]
 help for show-join-command
 -->
 <p>
-show-join-command 操作的帮助命令
+show-join-command 操作的帮助命令。
 </p>
 </td>
 </tr>
@@ -89,6 +78,3 @@ show-join-command 操作的帮助命令
 
 </tbody>
 </table>
-
-
-

@@ -3,9 +3,9 @@ layout: blog
 title: 'Alpha in v1.22: Windows HostProcess Containers'
 date: 2021-08-16
 slug: windows-hostprocess-containers
+author: >
+   Brandon Smith (Microsoft)
 ---
-
-**Authors:** Brandon Smith (Microsoft)
 
 Kubernetes v1.22 introduced a new alpha feature for clusters that
 include Windows nodes: HostProcess containers.

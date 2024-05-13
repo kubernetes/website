@@ -2,15 +2,21 @@
 title: 服务账号
 description: >
   了解 Kubernetes 中的 ServiceAccount 对象。
+api_metadata:
+- apiVersion: "v1"
+  kind: "ServiceAccount"
 content_type: concept
-weight: 10
+weight: 25
 ---
 <!--
 title: Service Accounts
 description: >
   Learn about ServiceAccount objects in Kubernetes.
+api_metadata:
+- apiVersion: "v1"
+  kind: "ServiceAccount"
 content_type: concept
-weight: 10
+weight: 25
 -->
 
 <!-- overview -->

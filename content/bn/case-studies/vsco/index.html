@@ -1,0 +1,79 @@
+---
+title: vsco Case Study
+linkTitle: vsco
+case_study_styles: true
+cid: caseStudies
+featured: false
+
+new_case_study_styles: true
+heading_background: /images/case-studies/vsco/banner1.jpg
+heading_title_logo: /images/vsco_logo.png
+subheading: >
+  VSCO: How a Mobile App Saved 70% on Its EC2 Bill with Cloud Native
+case_study_details:
+  - Company: VSCO
+  - Location: Oakland, CA
+  - Industry: Photo Mobile App
+---
+
+<h2>Challenge</h2>
+
+<p>After moving from <a href="https://www.rackspace.com/">Rackspace</a> to <a href="https://aws.amazon.com/">AWS</a> in 2015, <a href="https://vsco.co/">VSCO</a> began building <a href="https://nodejs.org/en/">Node.js</a> and <a href="https://go.dev/">Go</a> microservices in addition to running its <a href="http://php.net/">PHP monolith</a>. The team containerized the microservices using <a href="https://www.docker.com/">Docker</a>, but "they were all in separate groups of <a href="https://aws.amazon.com/ec2/">EC2</a> instances that were dedicated per service," says Melinda Lu, Engineering Manager for the Machine Learning Team. Adds Naveen Gattu, Senior Software Engineer on the Community Team: "That yielded a lot of wasted resources. We started looking for a way to consolidate and be more efficient in the AWS EC2 instances."</p>
+
+<h2>Solution</h2>
+
+<p>The team began exploring the idea of a scheduling system, and looked at several solutions including Mesos and Swarm before deciding to go with <a href="https://kubernetes.io/">Kubernetes</a>. VSCO also uses <a href="https://grpc.io/">gRPC</a> and <a href="https://www.envoyproxy.io/">Envoy</a> in their cloud native stack.</p>
+
+<h2>Impact</h2>
+
+<p>Before, deployments required "a lot of manual tweaking, in-house scripting that we wrote, and because of our disparate EC2 instances, Operations had to babysit the whole thing from start to finish," says Senior Software Engineer Brendan Ryan. "We didn't really have a story around testing in a methodical way, and using reusable containers or builds in a standardized way." There's a faster onboarding process now. Before, the time to first deploy was two days' hands-on setup time; now it's two hours. By moving to continuous integration, containerization, and Kubernetes, velocity was increased dramatically. The time from code-complete to deployment in production on real infrastructure went from one to two weeks to two to four hours for a typical service. Adds Gattu: "In man hours, that's one person versus a developer and a DevOps individual at the same time." With an 80% decrease in time for a single deployment to happen in production, the number of deployments has increased as well, from 1200/year to 3200/year. There have been real dollar savings too: With Kubernetes, VSCO is running at 2x to 20x greater EC2 efficiency, depending on the service, adding up to about 70% overall savings on the company's EC2 bill. Ryan points to the company's ability to go from managing one large monolithic application to 50+ microservices with "the same size developer team, more or less. And we've only been able to do that because we have increased trust in our tooling and a lot more flexibility, so we don't need to employ a DevOps engineer to tune every service." With Kubernetes, gRPC, and Envoy in place, VSCO has seen an 88% reduction in total minutes of outage time, mainly due to the elimination of JSON-schema errors and service-specific infrastructure provisioning errors, and an increased speed in fixing outages.</p>
+
+{{< case-studies/quote author="MELINDA LU, ENGINEERING MANAGER FOR VSCO'S MACHINE LEARNING TEAM" >}}
+"I've been really impressed seeing how our engineers have come up with creative solutions to things by just combining a lot of Kubernetes primitives. Exposing Kubernetes constructs as a service to our engineers as opposed to exposing higher order constructs has worked well for us. It lets you get familiar with the technology and do more interesting things with it."
+{{< /case-studies/quote >}}
+
+{{< case-studies/lead >}}
+A photography app for mobile, VSCO was born in the cloud in 2011. In the beginning, "we were using Rackspace and had one PHP monolith application talking to MySQL database, with FTP deployments, no containerization, no orchestration," says Software Engineer Brendan Ryan, "which was sufficient at the time."
+{{< /case-studies/lead >}}
+
+<p>After VSCO moved to AWS in 2015 and its user base passed the 30 million mark, the team quickly realized that set-up wouldn't work anymore. Developers had started building some Node and Go microservices, which the team tried containerizing with Docker. But "they were all in separate groups of EC2 instances that were dedicated per service," says Melinda Lu, Engineering Manager for the Machine Learning Team. Adds Naveen Gattu, Senior Software Engineer on the Community Team: "That yielded a lot of wasted resources. We started looking for a way to consolidate and be more efficient in the EC2 instances."</p>
+
+<p>With a checklist that included ease of use and implementation, level of support, and whether it was open source, the team evaluated a few scheduling solutions, including Mesos and Swarm, before deciding to go with Kubernetes. "Kubernetes seemed to have the strongest open source community around it," says Lu. Plus, "We had started to standardize on a lot of the Google stack, with Go as a language, and gRPC for almost all communication between our own services inside the data center. So it seemed pretty natural for us to choose Kubernetes."</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/vsco/banner2.jpg"
+  author="MELINDA LU, ENGINEERING MANAGER FOR VSCO'S MACHINE LEARNING TEAM"
+>}}
+"Kubernetes seemed to have the strongest open source community around it, plus, we had started to standardize on a lot of the Google stack, with Go as a language, and gRPC for almost all communication between our own services inside the data center. So it seemed pretty natural for us to choose Kubernetes."
+{{< /case-studies/quote >}}
+
+<p>At the time, there were few managed Kubernetes offerings and less tooling available in the ecosystem, so the team stood up its own cluster and built some custom components for its specific deployment needs, such as an automatic ingress controller and policy constructs for canary deploys. "We had already begun breaking up the monolith, so we moved things one by one, starting with pretty small, low-risk services," says Lu. "Every single new service was deployed there." The first service was migrated at the end of 2016, and after one year, 80% of the entire stack was on Kubernetes, including the rest of the monolith.</p>
+
+<p>The impact has been great. Deployments used to require "a lot of manual tweaking, in-house scripting that we wrote, and because of our disparate EC2 instances, Operations had to babysit the whole thing from start to finish," says Ryan. "We didn't really have a story around testing in a methodical way, and using reusable containers or builds in a standardized way." There's a faster onboarding process now. Before, the time to first deploy was two days' hands-on setup time; now it's two hours.</p>
+
+<p>By moving to continuous integration, containerization, and Kubernetes, velocity was increased dramatically. The time from code-complete to deployment in production on real infrastructure went from one to two weeks to two to four hours for a typical service. Plus, says Gattu, "In man hours, that's one person versus a developer and a DevOps individual at the same time." With an 80% decrease in time for a single deployment to happen in production, the number of deployments has increased as well, from 1200/year to 3200/year.</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/vsco/banner4.jpg"
+  author="MELINDA LU, ENGINEERING MANAGER FOR VSCO'S MACHINE LEARNING TEAM"
+>}}
+"I've been really impressed seeing how our engineers have come up with really creative solutions to things by just combining a lot of Kubernetes primitives, exposing Kubernetes constructs as a service to our engineers as opposed to exposing higher order constructs has worked well for us. It lets you get familiar with the technology and do more interesting things with it."
+{{< /case-studies/quote >}}
+
+<p>There have been real dollar savings too: With Kubernetes, VSCO is running at 2x to 20x greater EC2 efficiency, depending on the service, adding up to about 70% overall savings on the company's EC2 bill.</p>
+
+<p>Ryan points to the company's ability to go from managing one large monolithic application to 50+ microservices with "the same size developer team, more or less. And we've only been able to do that because we have increased trust in our tooling and a lot more flexibility when there are stress points in our system. You can increase CPU memory requirements of a service without having to bring up and tear down instances, and read through AWS pages just to be familiar with a lot of jargon, which isn't really tenable for a company at our scale."</p>
+
+<p>Envoy and gRPC have also had a positive impact at VSCO. "We get many benefits from gRPC out of the box: type safety across multiple languages, ease of defining services with the gRPC IDL, built-in architecture like interceptors, and performance improvements over HTTP/1.1 and JSON," says Lu.</p>
+
+<p>VSCO was one of the first users of Envoy, getting it in production five days after it was open sourced. "We wanted to serve gRPC and HTTP/2 directly to mobile clients through our edge load balancers, and Envoy was our only reasonable solution," says Lu. "The ability to send consistent and detailed stats by default across all services has made observability and standardization of dashboards much easier." The metrics that come built in with Envoy have also "greatly helped with debugging," says DevOps Engineer Ryan Nguyen.</p>
+
+{{< case-studies/quote author="NAVEEN GATTU, SENIOR SOFTWARE ENGINEER ON VSCO'S COMMUNITY TEAM" >}}
+"Because there's now an organization that supports Kubernetes, does that build confidence? The answer is a resounding yes."
+{{< /case-studies/quote >}}
+
+<p>With Kubernetes, gRPC, and Envoy in place, VSCO has seen an 88% reduction in total minutes of outage time, mainly due to the elimination of JSON-schema errors and service-specific infrastructure provisioning errors, and an increased speed in fixing outages.</p>
+
+<p>Given its success using CNCF projects, VSCO is starting to experiment with others, including <a href="https://github.com/containernetworking">CNI</a> and Prometheus. "To have a large organization backing these technologies, we have a lot more confidence trying this software and deploying to production," says Nguyen.</p>
+
+<p>The team has made contributions to gRPC and Envoy, and is hoping to be even more active in the CNCF community. "I've been really impressed seeing how our engineers have come up with really creative solutions to things by just combining a lot of Kubernetes primitives," says Lu. "Exposing Kubernetes constructs as a service to our engineers as opposed to exposing higher order constructs has worked well for us. It lets you get familiar with the technology and do more interesting things with it."</p>

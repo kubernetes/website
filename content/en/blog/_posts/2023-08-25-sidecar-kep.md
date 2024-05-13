@@ -3,9 +3,13 @@ layout: blog
 title: "Kubernetes v1.28: Introducing native sidecar containers"
 date: 2023-08-25
 slug: native-sidecar-containers
+author: >
+  Todd Neal (AWS),
+  Matthias Bertschy (ARMO),
+  Sergey Kanzhelev (Google),
+  Gunju Kim (NAVER),
+  Shannon Kularathna (Google)
 ---
-
-***Authors:*** Todd Neal (AWS), Matthias Bertschy (ARMO), Sergey Kanzhelev (Google), Gunju Kim (NAVER), Shannon Kularathna (Google)
 
 This post explains how to use the new sidecar feature, which enables restartable init containers and is available in alpha in Kubernetes 1.28. We want your feedback so that we can graduate this feature as soon as possible.
 

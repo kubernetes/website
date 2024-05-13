@@ -29,7 +29,15 @@ description: |-
             <p>Previously we created a <a href="/docs/concepts/workloads/controllers/deployment/"> Deployment</a>, and then exposed it publicly via a <a href="/docs/concepts/services-networking/service/">Service</a>. The Deployment created only one Pod for running our application.  When traffic increases, we will need to scale the application to keep up with user demand.</p>
             <p>If you haven't worked through the earlier sections, start from <a href="/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/">Using minikube to create a cluster</a>.</p>
 
-            <p><em>Scaling</em> is accomplished by changing the number of replicas in a Deployment.</p>
+            <p><em>Scaling</em> is accomplished by changing the number of replicas in a Deployment</p>
+            <p><b>NOTE</b> If you are trying this after <a href="/docs/tutorials/kubernetes-basics/expose/expose-intro/">the previous section </a>, then you
+            may have deleted the service you created, or have created a Service of <tt>type: NodePort</tt>.
+            In this section, it is assumed that a service with <tt>type: LoadBalancer</tt> is created for the kubernetes-bootcamp Deployment.</p>
+            <p>If you have <em>not</em> deleted the Service created in <a href="/docs/tutorials/kubernetes-basics/expose/expose-intro">the previous section</a>,
+            first delete that Service and then run the following command to create a new Service with its
+            <tt>type</tt> set to <tt>LoadBalancer</tt>:</p>
+            <p><code><b>kubectl expose deployment/kubernetes-bootcamp --type="LoadBalancer" --port 8080</b></code></p>
+            </br>
             </div>
             <div class="col-md-4">
                 <div class="content__box content__box_lined">

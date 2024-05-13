@@ -3,9 +3,11 @@ layout: blog
 title: "Dockershim removal is coming. Are you ready?"
 date: 2021-11-12
 slug: are-you-ready-for-dockershim-removal
+author: >
+   Sergey Kanzhelev (Google)
 ---
 
-**Authors:** Sergey Kanzhelev, Google. With reviews from Davanum Srinivas, Elana Hashman, Noah Kantrowitz, Rey Lejano.
+**Reviewers:** Davanum Srinivas, Elana Hashman, Noah Kantrowitz, Rey Lejano.
 
 {{% alert color="info" title="Poll closed" %}}
 This poll closed on January 7, 2022.

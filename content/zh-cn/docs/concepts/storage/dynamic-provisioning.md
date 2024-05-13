@@ -23,13 +23,15 @@ calls to their cloud or storage provider to create new storage volumes, and
 then create [`PersistentVolume` objects](/docs/concepts/storage/persistent-volumes/)
 to represent them in Kubernetes. The dynamic provisioning feature eliminates
 the need for cluster administrators to pre-provision storage. Instead, it
-automatically provisions storage when it is requested by users.
+automatically provisions storage when users create
+[`PersistentVolumeClaim` objects](/docs/concepts/storage/persistent-volumes/).
 -->
 动态卷制备允许按需创建存储卷。
 如果没有动态制备，集群管理员必须手动地联系他们的云或存储提供商来创建新的存储卷，
 然后在 Kubernetes 集群创建
 [`PersistentVolume` 对象](/zh-cn/docs/concepts/storage/persistent-volumes/)来表示这些卷。
-动态制备功能消除了集群管理员预先配置存储的需要。相反，它在用户请求时自动制备存储。
+动态制备功能消除了集群管理员预先配置存储的需要。相反，它在用户创建
+[`PersistentVolumeClaim` 对象](/zh-cn/docs/concepts/storage/persistent-volumes/)时自动制备存储。
 
 <!-- body -->
 

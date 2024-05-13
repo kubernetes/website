@@ -588,7 +588,7 @@ A success policy is defined by rules. Each rule can take one of the following fo
   once the number of succeeded indexes from the subset of indexes specified in the `succeededIndexes` reaches the `succeededCount`,
   the job controller marks the Job as succeeded.
 
-Note that when you specify multiple rules in the `.spec.succeessPolicy.rules`,
+Note that when you specify multiple rules in the `.spec.successPolicy.rules`,
 the job controller evaluates the rules in order. Once the Job meets a rule, the job controller ignores remaining rules.
 
 Here is a manifest for a Job with `successPolicy`:

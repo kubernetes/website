@@ -41,7 +41,7 @@ evaluated on its merits.
 - [ ] A process exists for periodic access review, and reviews occur no more
   than 24 months apart.
 - [ ] The [Role Based Access Control Good Practices](/docs/concepts/security/rbac-good-practices/)
-  is followed for guidance related to authentication and authorization.
+  are followed for guidance related to authentication and authorization.
 
 After bootstrapping, neither users nor components should authenticate to the
 Kubernetes API as `system:masters`. Similarly, running all of
@@ -405,8 +405,12 @@ alpha state but could be considered for certain use cases:
 
 ## What's next
 
-- [RBAC Good Practices](/docs/concepts/security/rbac-good-practices/) for
-  further information on authorization.
+- [Privilege escalation via Pod creation](/docs/reference/access-authn-authz/authorization/#privilege-escalation-via-pod-creation)
+  warns you about a specific access control risk; check how you're managing that
+  threat.
+  - If you use Kubernetes RBAC, read
+    [RBAC Good Practices](/docs/concepts/security/rbac-good-practices/) for
+    further information on authorization.
 - [Securing a Cluster](/docs/tasks/administer-cluster/securing-a-cluster/) for
   information on protecting a cluster from accidental or malicious access.
 - [Cluster Multi-tenancy guide](/docs/concepts/security/multi-tenancy/) for

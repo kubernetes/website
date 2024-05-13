@@ -4,9 +4,9 @@ title: "Contextual Logging in Kubernetes 1.24"
 date: 2022-05-25
 slug: contextual-logging
 canonicalUrl: https://kubernetes.dev/blog/2022/05/25/contextual-logging/
+author: >
+   Patrick Ohly (Intel)
 ---
-
- **Authors:** Patrick Ohly (Intel)
 
 The [Structured Logging Working
 Group](https://github.com/kubernetes/community/blob/master/wg-structured-logging/README.md)

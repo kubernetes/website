@@ -31,7 +31,7 @@ weight: 30
 
 IngressはServiceに対して、外部疎通できるURL、負荷分散トラフィック、SSL/TLS終端の機能や、名前ベースの仮想ホスティングを提供するように設定できます。[Ingressコントローラー](/ja/docs/concepts/services-networking/ingress-controllers/)は通常はロードバランサーを使用してIngressの機能を実現しますが、エッジルーターや、追加のフロントエンドを構成してトラフィックの処理を支援することもできます。
 
-Ingressは任意のポートやプロトコルを公開しません。HTTPやHTTPS以外のServiceをインターネットに公開する場合、[Service.Type=NodePort](/ja/docs/concepts/services-networking/service/#nodeport)や[Service.Type=LoadBalancer](/ja/docs/concepts/services-networking/service/#loadbalancer)のServiceタイプを一般的には使用します。
+Ingressは任意のポートやプロトコルを公開しません。HTTPやHTTPS以外のServiceをインターネットに公開する場合、[Service.Type=NodePort](/ja/docs/concepts/services-networking/service/#type-nodeport)や[Service.Type=LoadBalancer](/ja/docs/concepts/services-networking/service/#loadbalancer)のServiceタイプを一般的には使用します。
 
 ## Ingressを使用する上での前提条件
 
@@ -473,7 +473,7 @@ Events:
 Ingressリソースを直接含まずにサービスを公開する方法は複数あります。
 
 * [Service.Type=LoadBalancer](/ja/docs/concepts/services-networking/service/#loadbalancer)
-* [Service.Type=NodePort](/ja/docs/concepts/services-networking/service/#nodeport)
+* [Service.Type=NodePort](/ja/docs/concepts/services-networking/service/#type-nodeport)
 
 
 ## {{% heading "whatsnext" %}}

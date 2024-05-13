@@ -3,9 +3,9 @@ layout: blog
 title: 'Alpha in Kubernetes v1.22: API Server Tracing'
 date: 2021-09-03
 slug: api-server-tracing
+author: >
+  David Ashpole (Google)
 ---
-
-**Authors:** David Ashpole (Google)
 
 In distributed systems, it can be hard to figure out where problems are. You grep through one component's logs just to discover that the source of your problem is in another component.  You search there only to discover that you need to enable debug logs to figure out what really went wrong... And it goes on. The more complex the path your request takes, the harder it is to answer questions about where it went.  I've personally spent many hours doing this dance with a variety of Kubernetes components. Distributed tracing is a tool which is designed to help in these situations, and the Kubernetes API Server is, perhaps, the most important Kubernetes component to be able to debug. At Kubernetes' Sig Instrumentation, our mission is to make it easier to understand what's going on in your cluster, and we are happy to announce that distributed tracing in the Kubernetes API Server reached alpha in 1.22.
 
@@ -42,7 +42,12 @@ samplingRatePerMillion: 10000
 
 ### Enabling Etcd Tracing
 
-Add `--experimental-enable-distributed-tracing`,  `--experimental-distributed-tracing-address=0.0.0.0:4317`, `--experimental-distributed-tracing-service-name=etcd` flags to etcd to enable tracing.  Note that this traces every request, so it will probably generate a lot of traces if you enable it. Required etcd version is [v3.5+](https://etcd.io/docs/v3.5/op-guide/monitoring/#distributed-tracing).
+_Update: the following was added after the blog was published_
+Add `--experimental-enable-distributed-tracing`,  `--experimental-distributed-tracing-address=0.0.0.0:4317`, `--experimental-distributed-tracing-service-name=etcd` flags to etcd to enable tracing.  Note that this traces every request, so it will probably generate a lot of traces if you enable it. Required etcd version is [3.5 up to 3.5.4](https://etcd.io/docs/v3.5/op-guide/monitoring/#distributed-tracing).
+
+Starting from version 3.5.5 until version 3.5.10, the default sampling rate for traces is set to 0%, meaning no traces were collected by default. Unfortunately, there is no option provided to configure a higher sampling rate. ([See details](https://github.com/etcd-io/etcd/pull/16951)) 
+
+In version [3.5.11](https://github.com/etcd-io/etcd/blob/main/CHANGELOG/CHANGELOG-3.5.md#v3511-2023-12-07), the number of samples to collect per million spans can be configured using the newly introduced `--experimental-distributed-tracing-sampling-rate=1000000` flag.
 
 ### Example Trace: List Nodes
 
