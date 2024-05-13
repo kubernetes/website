@@ -3,9 +3,9 @@ layout: blog
 title: "Kubernetes 1.16: Custom Resources, Overhauled Metrics, and Volume Extensions"
 date: 2019-09-18
 slug: kubernetes-1-16-release-announcement
+author: >
+  [Kubernetes 1.16 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.16/release_team.md)
 ---
-
-**Authors:** [Kubernetes 1.16 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.16/release_team.md)
 
 We’re pleased to announce the delivery of Kubernetes 1.16, our third release of 2019! Kubernetes 1.16 consists of 31 enhancements: 8 enhancements moving to stable, 8 enhancements in beta, and 15 enhancements in alpha.
 

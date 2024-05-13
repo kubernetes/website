@@ -1,7 +1,7 @@
 ---
 title: 干扰（Disruptions）
 content_type: concept
-weight: 60
+weight: 70
 ---
 
 <!--
@@ -11,7 +11,7 @@ reviewers:
 - davidopp
 title: Disruptions
 content_type: concept
-weight: 60
+weight: 70
 -->
 
 <!-- overview -->

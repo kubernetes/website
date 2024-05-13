@@ -8,7 +8,7 @@ reviewers:
 - jpbetz
 title: Dynamic Admission Control
 content_type: concept
-weight: 40
+weight: 45
 ---
 
 <!-- overview -->

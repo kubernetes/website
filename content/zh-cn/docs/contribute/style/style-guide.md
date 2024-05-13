@@ -670,6 +670,8 @@ Kubernetes | Kubernetes should always be capitalized.
 Docker | Docker should always be capitalized.
 SIG Docs | SIG Docs rather than SIG-DOCS or other variations.
 On-premises | On-premises or On-prem rather than On-premise or other variations.
+cloud native | Cloud native or cloud native as appropriate for sentence structure rather than cloud-native or Cloud Native.
+open source | Open source or open source as appropriate for sentence structure rather than open-source or Open Source.
 {{< /table >}}
 -->
 ## Kubernetes.io 术语列表   {#kubernetes-io-word-list}
@@ -683,6 +685,8 @@ Kubernetes | Kubernetes 的首字母要保持大写。
 Docker | Docker 的首字母要保持大写。
 SIG Docs | SIG Docs 是正确拼写形式，不要用 SIG-DOCS 或其他变体。
 On-premises | On-premises 或 On-prem 而不是 On-premise 或其他变体。
+cloud native | Cloud native 或 cloud native 适合句子结构，而不是 cloud-native 或 Cloud Native。
+open source | Open source 或 open source 适合句子结构，而不是 open-source 或 Open Source。
 {{< /table >}}
 
 <!--

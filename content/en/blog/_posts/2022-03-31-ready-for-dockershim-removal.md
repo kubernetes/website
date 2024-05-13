@@ -3,10 +3,9 @@ layout: blog
 title: "Is Your Cluster Ready for v1.24?"
 date: 2022-03-31
 slug: ready-for-dockershim-removal
+author: >
+   Kat Cosgrove
 ---
-
-**Author:** Kat Cosgrove
-
 
 Way back in December of 2020, Kubernetes announced the [deprecation of Dockershim](/blog/2020/12/02/dont-panic-kubernetes-and-docker/). In Kubernetes, dockershim is a software shim that allows you to use the entire Docker engine as your container runtime within Kubernetes. In the upcoming v1.24 release, we are removing Dockershim - the delay between deprecation and removal in line with the [project’s policy](https://kubernetes.io/docs/reference/using-api/deprecation-policy/) of supporting features for at least one year after deprecation. If you are a cluster operator, this guide includes the practical realities of what you need to know going into this release. Also, what do you need to do to ensure your cluster doesn’t fall over!
 

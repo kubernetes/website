@@ -3,9 +3,9 @@ layout: blog
 title: "Future of CRDs: Structural Schemas"
 date: 2019-06-20
 slug: crd-structural-schema
+author: >
+  Stefan Schimanski (Red Hat)
 ---
-
-**Authors:** Stefan Schimanski (Red Hat)
 
 CustomResourceDefinitions were introduced roughly two years ago as the primary way to extend the Kubernetes API with custom resources. From the beginning they stored arbitrary JSON data, with the exception that `kind`, `apiVersion` and `metadata` had to follow the Kubernetes API conventions. In Kubernetes 1.8 CRDs gained the ability to define an optional OpenAPI v3 based validation schema.
 

@@ -3,9 +3,9 @@ title: 'Kubernetes 1.14: Production-level support for Windows Nodes, Kubectl Upd
 date: 2019-03-25
 slug: kubernetes-1-14-release-announcement
 evergreen: true
+author: >
+  [Kubernetes v1.14 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.14/release_team.md)
 ---
-
-**Authors:** The 1.14 [Release Team](https://bit.ly/k8s114-team)
 
 We’re pleased to announce the delivery of Kubernetes 1.14, our first release of 2019!
 

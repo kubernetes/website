@@ -14,19 +14,24 @@ weight: 65
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+{{< feature-state feature_gate_name="DynamicResourceAllocation" >}}
 
 <!-- 
 Dynamic resource allocation is an API for requesting and sharing resources
 between pods and containers inside a pod. It is a generalization of the
 persistent volumes API for generic resources. Third-party resource drivers are
-responsible for tracking and allocating resources. Different kinds of
-resources support arbitrary parameters for defining requirements and
+responsible for tracking and allocating resources, with additional support
+provided by Kubernetes via _structured parameters_ (introduced in Kubernetes 1.30).
+When a driver uses structured parameters, Kubernetes handles scheduling
+and resource allocation without having to communicate with the driver.
+Different kinds of resources support arbitrary parameters for defining requirements and
 initialization.
 -->
 动态资源分配是一个用于在 Pod 之间和 Pod 内部容器之间请求和共享资源的 API。
-它是对为通用资源所提供的持久卷 API 的泛化。第三方资源驱动程序负责跟踪和分配资源。
-不同类型的资源支持用任意参数进行定义和初始化。
+它是持久卷 API 的通用资源化。第三方资源驱动程序负责跟踪和分配资源，
+Kubernetes 通过**结构化参数**（在 Kubernetes 1.30 中引入）提供了额外的支持。
+当驱动程序使用结构化参数时，Kubernetes 可以处理调度和资源分配，而无需与驱动程序通信。
+而不同类型的资源，可支持用于“定义需求”和“初始化”的任意参数。
 
 ## {{% heading "prerequisites" %}}
 
@@ -50,10 +55,11 @@ Kubernetes v{{< skew currentVersion >}} 包含用于动态资源分配的集群�
 
 <!-- 
 The `resource.k8s.io/v1alpha2` {{< glossary_tooltip text="API group"
-term_id="api-group" >}} provides four types:
+term_id="api-group" >}} provides these types:
 -->
 `resource.k8s.io/v1alpha2`
-{{< glossary_tooltip text="API 组" term_id="api-group" >}}提供四种类型：
+{{< glossary_tooltip text="API 组" term_id="api-group" >}}
+提供了以下类型：
 
 <!-- 
 ResourceClass
@@ -95,6 +101,33 @@ ResourceClaimTemplate
 PodSchedulingContext
 : 供控制平面和资源驱动程序内部使用，
   在需要为 Pod 分配 ResourceClaim 时协调 Pod 调度。
+<!--
+ResourceSlice
+: Used with structured parameters to publish information about resources
+  that are available in the cluster.
+
+ResourceClaimParameters
+: Contain the parameters for a ResourceClaim which influence scheduling,
+  in a format that is understood by Kubernetes (the "structured parameter
+  model"). Additional parameters may be embedded in an opaque
+  extension, for use by the vendor driver when setting up the underlying
+  resource.
+
+ResourceClassParameters
+: Similar to ResourceClaimParameters, the ResourceClassParameters provides
+  a type for ResourceClass parameters which is understood by Kubernetes.
+-->
+ResourceSlice
+: 与结构化参数一起使用，发布集群中可用资源的信息。
+
+ResourceClaimParameters
+: 包含影响调度的 ResourceClaim 参数，
+  以 Kubernetes 理解的格式（“结构化参数模型”）呈现。
+  提供了供应商驱动程序，在设置底层资源时，使用的不透明扩展中可能嵌入其他参数。
+
+ResourceClassParameters
+: 类似于 ResourceClaimParameters，ResourceClassParameters 为 Kubernetes 理解的 ResourceClass 参数提供了一种类型。
+
 
 <!-- 
 Parameters for ResourceClass and ResourceClaim are stored in separate objects,
@@ -104,6 +137,30 @@ installing a resource driver.
 -->
 ResourceClass 和 ResourceClaim 的参数存储在单独的对象中，通常使用安装资源驱动程序时创建的
 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CRD" >}} 所定义的类型。
+
+<!--
+The developer of a resource driver decides whether they want to handle these
+parameters in their own external controller or instead rely on Kubernetes to
+handle them through the use of structured parameters. A
+custom controller provides more flexibility, but cluster autoscaling is not
+going to work reliably for node-local resources. Structured parameters enable
+cluster autoscaling, but might not satisfy all use-cases.
+-->
+资源驱动程序的开发者决定他们是要在自己的外部控制器中处理这些参数，
+还是依赖 Kubernetes 通过使用结构化参数来处理它们。
+自定义控制器提供更多的灵活性，但对于节点本地资源，集群自动缩放可能无法可靠工作。
+结构化参数使集群自动缩放成为可能，但可能无法满足所有用例。
+
+<!--
+When a driver uses structured parameters, it is still possible to let the
+end-user specify parameters with vendor-specific CRDs. When doing so, the
+driver needs to translate those
+custom parameters into the in-tree types. Alternatively, a driver may also
+document how to use the in-tree types directly.
+-->
+当驱动程序使用结构化参数时，仍然可以让最终用户使用供应商特定的 CRD 指定参数。
+在这种情况下，驱动程序需要将这些自定义参数转换为内部类型。
+或者，驱动程序也可以直接使用内部类型的文档。
 
 <!-- 
 The `core/v1` `PodSpec` defines ResourceClaims that are needed for a Pod in a
@@ -190,9 +247,15 @@ spec:
 -->
 ## 调度  {#scheduling}
 
+<!--
+### Without structured parameters
+-->
+### 不使用结构化参数 {#without-structured-parameters}
+
 <!-- 
 In contrast to native resources (CPU, RAM) and extended resources (managed by a
-device plugin, advertised by kubelet), the scheduler has no knowledge of what
+device plugin, advertised by kubelet), without structured parameters
+the scheduler has no knowledge of what
 dynamic resources are available in a cluster or how they could be split up to
 satisfy the requirements of a specific ResourceClaim. Resource drivers are
 responsible for that. They mark ResourceClaims as "allocated" once resources
@@ -200,7 +263,7 @@ for it are reserved. This also then tells the scheduler where in the cluster a
 ResourceClaim is available.
 -->
 与原生资源（CPU、RAM）和扩展资源（由设备插件管理，并由 kubelet 公布）不同，
-调度器不知道集群中有哪些动态资源，
+如果没有结构化参数，调度器无法知道集群中有哪些动态资源，
 也不知道如何将它们拆分以满足特定 ResourceClaim 的要求。
 资源驱动程序负责这些任务。
 资源驱动程序在为 ResourceClaim 保留资源后将其标记为“已分配（Allocated）”。
@@ -267,6 +330,46 @@ Pod，在使用 ResourceClaim 处理 Pod 时会进行阻塞 API 调用，
 从而推迟调度下一个 Pod。
 {{< /note >}}
 
+<!--
+### With structured parameters
+-->
+### 使用结构化参数 {#with-structured-parameters}
+
+<!-- 
+When a driver uses structured parameters, the scheduler takes over the
+responsibility of allocating resources to a ResourceClaim whenever a pod needs
+them. It does so by retrieving the full list of available resources from
+ResourceSlice objects, tracking which of those resources have already been
+allocated to existing ResourceClaims, and then selecting from those resources
+that remain.  The exact resources selected are subject to the constraints
+provided in any ResourceClaimParameters or ResourceClassParameters associated
+with the ResourceClaim.
+-->
+当驱动程序使用结构化参数时，调度器负责在 Pod 需要资源时为 ResourceClaim 分配资源。
+通过从 ResourceSlice 对象中检索可用资源的完整列表，
+跟踪已分配给现有 ResourceClaim 的资源，然后从剩余的资源中进行选择。
+所选资源受与 ResourceClaim 关联的 ResourceClaimParameters 或 ResourceClassParameters 提供的约束的影响。
+
+<!--
+The chosen resource is recorded in the ResourceClaim status together with any
+vendor-specific parameters, so when a pod is about to start on a node, the
+resource driver on the node has all the information it needs to prepare the
+resource.
+-->
+所选资源与供应商特定参数一起被记录在 ResourceClaim 状态中，
+因此当 Pod 即将在节点上启动时，节点上的资源驱动程序具有准备资源所需的所有信息。
+
+<!--
+By using structured parameters, the scheduler is able to reach a decision
+without communicating with any DRA resource drivers. It is also able to
+schedule multiple pods quickly by keeping information about ResourceClaim
+allocations in memory and writing this information to the ResourceClaim objects
+in the background while concurrently binding the pod to a node.
+-->
+通过使用结构化参数，调度器能够在不与 DRA 资源驱动程序通信的情况下做出决策。
+它还能够通过将 ResourceClaim 分配信息保存在内存中，并在同时将 Pod 绑定到节点的同时将此信息写入 ResourceClaim 对象中，
+快速调度多个 Pod。
+
 <!-- 
 ## Monitoring resources
 -->
@@ -305,14 +408,21 @@ reserving the required ResourceClaims.
 这种情况也可能发生在 Pod 被调度时调度器中未启用动态资源分配支持的时候（原因可能是版本偏差、配置、特性门控等）。
 kube-controller-manager 能够检测到这一点，并尝试通过触发分配和/或预留所需的 ResourceClaim 来使 Pod 可运行。
 
+{{< note >}}
 <!--
-However, it is better to avoid this because a Pod that is assigned to a node
+This only works with resource drivers that don't use structured parameters.
+-->
+这仅适用于不使用结构化参数的资源驱动程序。
+{{< /note >}}
+
+<!--
+It is better to avoid bypassing the scheduler because a Pod that is assigned to a node
 blocks normal resources (RAM, CPU) that then cannot be used for other Pods
 while the Pod is stuck. To make a Pod run on a specific node while still going
 through the normal scheduling flow, create the Pod with a node selector that
 exactly matches the desired node:
 -->
-然而，最好避免这种情况，因为分配给节点的 Pod 会锁住一些正常的资源（RAM、CPU），
+绕过调度器并不是一个好的选择，因为分配给节点的 Pod 会锁住一些正常的资源（RAM、CPU），
 而这些资源在 Pod 被卡住时无法用于其他 Pod。为了让一个 Pod 在特定节点上运行，
 同时仍然通过正常的调度流程进行，请在创建 Pod 时使用与期望的节点精确匹配的节点选择算符：
 
@@ -405,7 +515,10 @@ be installed. Please refer to the driver's documentation for details.
 
 <!-- 
  - For more information on the design, see the
-[Dynamic Resource Allocation KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/3063-dynamic-resource-allocation/README.md).
+[Dynamic Resource Allocation KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/3063-dynamic-resource-allocation/README.md)
+   and the [Structured Parameters KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/4381-dra-structured-parameters).
+
 -->
 - 了解更多该设计的信息，
-  参阅[动态资源分配 KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/3063-dynamic-resource-allocation/README.md)。
+  参阅[动态资源分配 KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/3063-dynamic-resource-allocation/README.md)
+  和[结构化参数 KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/4381-dra-structured-parameters)。

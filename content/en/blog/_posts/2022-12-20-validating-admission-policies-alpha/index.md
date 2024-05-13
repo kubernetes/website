@@ -3,9 +3,10 @@ layout: blog
 title: "Kubernetes 1.26: Introducing Validating Admission Policies"
 date: 2022-12-20
 slug: validating-admission-policies-alpha
+author: >
+  Joe Betz (Google),
+  Cici Huang (Google)
 ---
-
-**Authors:** Joe Betz (Google), Cici Huang (Google)
 
 In Kubernetes 1.26, the 1st alpha release of validating admission policies is
 available!

@@ -2,7 +2,7 @@
 title: 使用 RBAC 鉴权
 content_type: concept
 aliases: [/zh-cn/rbac/]
-weight: 70
+weight: 33
 ---
 
 <!--
@@ -13,7 +13,7 @@ reviewers:
 title: Using RBAC Authorization
 content_type: concept
 aliases: [/rbac/]
-weight: 70
+weight: 33
 -->
 
 <!-- overview -->

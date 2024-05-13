@@ -1,7 +1,13 @@
 ---
 title: 证书和证书签名请求
+api_metadata:
+- apiVersion: "certificates.k8s.io/v1"
+  kind: "CertificateSigningRequest"
+  override_link_text: "CSR v1"
+- apiVersion: "certificates.k8s.io/v1alpha1"
+  kind: "ClusterTrustBundle"  
 content_type: concept
-weight: 25
+weight: 60
 ---
 <!--
 reviewers:
@@ -10,8 +16,14 @@ reviewers:
 - munnerz
 - enj
 title: Certificates and Certificate Signing Requests
+api_metadata:
+- apiVersion: "certificates.k8s.io/v1"
+  kind: "CertificateSigningRequest"
+  override_link_text: "CSR v1"
+- apiVersion: "certificates.k8s.io/v1alpha1"
+  kind: "ClusterTrustBundle"  
 content_type: concept
-weight: 25
+weight: 60
 -->
 
 <!-- overview -->
@@ -676,14 +688,14 @@ you like. If you want to add a note for human consumption, use the
 
 {{< note >}}
 <!--
-In Kubernetes {{< skew currentVersion >}}, you must enable the `ClusterTrustBundles`
+In Kubernetes {{< skew currentVersion >}}, you must enable the `ClusterTrustBundle`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 _and_ the `certificates.k8s.io/v1alpha1`
 {{< glossary_tooltip text="API group" term_id="api-group" >}} in order to use
 this API.
 -->
 在 Kubernetes {{< skew currentVersion >}} 中，如果想要使用此 API，
-必须同时启用 `ClusterTrustBundles` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
+必须同时启用 `ClusterTrustBundle` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 **以及** `certificates.k8s.io/v1alpha1` {{< glossary_tooltip text="API 组" term_id="api-group" >}}。
 {{< /note >}}
 
@@ -783,7 +795,7 @@ controller in the cluster, so they have several security features:
   `<signerNameDomain>/*`.
 * Signer-linked ClusterTrustBundles **must** be named with a prefix derived from
   their `spec.signerName` field.  Slashes (`/`) are replaced with colons (`:`),
-  and a final colon is appended.  This is followed by an arbitary name.  For
+  and a final colon is appended.  This is followed by an arbitrary name.  For
   example, the signer `example.com/mysigner` can be linked to a
   ClusterTrustBundle `example.com:mysigner:<arbitrary-name>`.
 -->
@@ -846,6 +858,19 @@ signer-unlinked ClusterTrustBundles **must not** contain a colon (`:`).
 
 为了将它们与与签名者关联的 ClusterTrustBundle 区分开来，与签名者未关联的
 ClusterTrustBundle 的名称**必须不**包含英文冒号 (`:`)。
+
+<!--
+### Accessing ClusterTrustBundles from pods {#ctb-projection}
+-->
+### 从 pod 访问 ClusterTrustBundles {#ctb-projection}
+
+{{<feature-state for_k8s_version="v1.29" state="alpha" >}}
+
+<!--
+The contents of ClusterTrustBundles can be injected into the container filesystem, similar to ConfigMaps and Secrets.  See the [clusterTrustBundle projected volume source](/docs/concepts/storage/projected-volumes#clustertrustbundle) for more details.
+-->
+ClusterTrustBundle 的内容可以注入到容器文件系统，这与 ConfigMap 和 Secret 类似。
+更多细节参阅 [clusterTrustBundle 投射卷源](/zh-cn/docs/concepts/storage/projected-volumes#clustertrustbundle)。
 
 <!-- TODO this should become a task page -->
 
@@ -1049,9 +1074,13 @@ kubectl config use-context myuser
 * View the source code for the kube-controller-manager built in [approver](https://github.com/kubernetes/kubernetes/blob/32ec6c212ec9415f604ffc1f4c1f29b782968ff1/pkg/controller/certificates/approver/sarapprove.go)
 * For details of X.509 itself, refer to [RFC 5280](https://tools.ietf.org/html/rfc5280#section-3.1) section 3.1
 * For information on the syntax of PKCS#10 certificate signing requests, refer to [RFC 2986](https://tools.ietf.org/html/rfc2986)
+* Read about the ClusterTrustBundle API:
+  * {{< page-api-reference kind="ClusterTrustBundle" >}}
 -->
 * 参阅 [管理集群中的 TLS 认证](/zh-cn/docs/tasks/tls/managing-tls-in-a-cluster/)
 * 查看 kube-controller-manager 中[签名者](https://github.com/kubernetes/kubernetes/blob/32ec6c212ec9415f604ffc1f4c1f29b782968ff1/pkg/controller/certificates/signer/cfssl_signer.go)部分的源代码
 * 查看 kube-controller-manager 中[批准者](https://github.com/kubernetes/kubernetes/blob/32ec6c212ec9415f604ffc1f4c1f29b782968ff1/pkg/controller/certificates/approver/sarapprove.go)部分的源代码
 * 有关 X.509 本身的详细信息，请参阅 [RFC 5280](https://tools.ietf.org/html/rfc5280#section-3.1) 第 3.1 节
 * 有关 PKCS#10 证书签名请求语法的信息，请参阅 [RFC 2986](https://tools.ietf.org/html/rfc2986)
+* 阅读 ClusterTrustBundle 相关内容：
+  * {{< page-api-reference kind="ClusterTrustBundle" >}}

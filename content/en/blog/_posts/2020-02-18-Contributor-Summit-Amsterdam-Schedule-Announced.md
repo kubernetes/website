@@ -3,9 +3,10 @@ layout: blog
 title: "Contributor Summit Amsterdam Schedule Announced"
 date: 2020-02-18
 slug: Contributor-Summit-Amsterdam-Schedule-Announced
+author: >
+  Jeffrey Sica (Red Hat),
+  Amanda Katona (VMware)
 ---
-
-**Authors:** Jeffrey Sica (Red Hat), Amanda Katona (VMware)
 
 ![Contributor Summit](/images/blog/2020-02-18-Contributor-Summit-Amsterdam-Schedule-Announced/contribsummit.jpg)
 

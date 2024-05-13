@@ -3,10 +3,9 @@ layout: blog
 title: "How to Handle Data Duplication in Data-Heavy Kubernetes Environments"
 date: 2021-09-29
 slug: how-to-handle-data-duplication-in-data-heavy-kubernetes-environments 
+author: >
+  Augustinas Stirbis (CAST AI)
 ---
-
-**Authors:**
-Augustinas Stirbis (CAST AI)
 
 ## Why Duplicate Data?
 

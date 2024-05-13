@@ -9,7 +9,7 @@ reviewers:
 title: Admission Controllers Reference
 linkTitle: Admission Controllers
 content_type: concept
-weight: 30
+weight: 40
 ---
 
 <!-- overview -->
