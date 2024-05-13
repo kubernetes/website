@@ -6,6 +6,15 @@ other = " documentatie wordt niet langer actief onderhouden. De versie die u mom
 [deprecation_file_warning]
 other = "Verouderd"
 
+[docs_version_current]
+other = "(deze documentatie)"
+
+[docs_version_latest_heading]
+other = "Laatste versie"
+
+[docs_version_other_heading]
+other = "Oudere versies"
+
 [objectives_heading]
 other = "Doelen"
 
