@@ -2,6 +2,7 @@
 title: 词汇表
 layout: glossary
 noedit: true
+body_class: glossary
 default_active_tag: fundamental
 weight: 5
 card:
@@ -16,6 +17,7 @@ approvers:
 title: Glossary
 layout: glossary
 noedit: true
+body_class: glossary
 default_active_tag: fundamental
 weight: 5
 card:
