@@ -4,7 +4,7 @@
 other = "(cette documentation)"
 
 [docs_version_latest_heading]
-other = "Dernière version"
+other = "Version courante"
 
 [docs_version_other_heading]
 other = "Versions précédentes"
