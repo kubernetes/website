@@ -5,13 +5,6 @@
 # Must match the context in layouts/shortcodes/release-data.html
 # Appears on https://kubernetes.io/releases/
 # For example the "and" in "Complete 1.25 Schedule and Changelog"
-
-[docs_version_latest_heading]
-other = "Version courante"
-
-[docs_version_other_heading]
-other = "Versions précédentes"
-
 [conjunction_1]
 other = "और"
 
