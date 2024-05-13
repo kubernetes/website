@@ -3,6 +3,15 @@
 [deprecation_warning]
 other = " documentation non maintenue. Vous consultez une version statique. Pour une documentation à jour, veuillez consulter: "
 
+[docs_version_current]
+other = "(cette documentation)"
+
+[docs_version_latest_heading]
+other = "Dernière version"
+
+[docs_version_other_heading]
+other = "Anciennes versions"
+
 [objectives_heading]
 other = "Objectifs"
 
