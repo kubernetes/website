@@ -217,7 +217,7 @@ Optionally upgrade `kubelet` instances to **{{< skew currentVersion >}}** (or th
 
 {{< note >}}
 Before performing a minor version `kubelet` upgrade, [drain](/docs/tasks/administer-cluster/safely-drain-node/) pods from that node.
-In-place minor version `kubelet` upgrades are not supported.
+In-place minor version `kubelet` upgrades, to a newer minor version of Kubernetes, without a node drain, are not supported.
 {{</ note >}}
 
 {{< warning >}}
