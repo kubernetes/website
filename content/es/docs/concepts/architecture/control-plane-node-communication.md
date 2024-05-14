@@ -30,7 +30,7 @@ Los componentes del control plane se comunican con el servidor API a través del
 
 Como resultado, el modo de operación predeterminado para las conexiones desde los nodos y el pod que se ejecutan en los nodos hacia el plano de control está asegurado por defecto y puede funcionar sobre redes no confiables y/o públicas.
 
-## Control plane al nodo
+## Plano de control al nodo
 
 Existen dos formas de comunicación primarias desde el control plane (el servidor API) hacia los nodos. El primero es desde el servidor API hasta el proceso {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} que se ejecuta en cada nodo del clúster. El segundo es desde el servidor API hacia cualquier nodo, pod o servicio a través de la funcionalidad de proxy del servidor API.
 
