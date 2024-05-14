@@ -514,11 +514,15 @@ defined in a CustomResourceDefinition, your cluster must be running Kubernetes v
 2. 设置 kube-apiserver 的 `--encryption-provider-config` 参数指向配置文件的位置。
 
 <!--
-1. `--encryption-provider-config-automatic-reload` boolean argument determines if the file set by `--encryption-provider-config` should be automatically reloaded if the disk contents change. This enables key rotation without API server restarts.
+1. `--encryption-provider-config-automatic-reload` boolean argument
+   determines if the file set by `--encryption-provider-config` should be
+   [automatically reloaded](/docs/tasks/administer-cluster/encrypt-data/#configure-automatic-reloading)
+   if the disk contents change. This enables key rotation without API server restarts.
 
 1. Restart your API server.
 -->
-3. `--encryption-provider-config-automatic-reload` 布尔参数决定了磁盘内容发生变化时是否应自动重新加载
+3. `--encryption-provider-config-automatic-reload` 布尔参数决定了磁盘内容发生变化时是否应自动
+   [重新加载](/zh-cn/docs/tasks/administer-cluster/encrypt-data/#configure-automatic-reloading)
    通过 `--encryption-provider-config` 设置的文件。这样可以在不重启 API 服务器的情况下进行密钥轮换。
 
 4. 重启你的 API 服务器。
