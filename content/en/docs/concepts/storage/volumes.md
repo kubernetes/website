@@ -124,26 +124,14 @@ Azure File CSI driver does not support using same volume with different fsgroups
 To disable the `azureFile` storage plugin from being loaded by the controller manager
 and the kubelet, set the `InTreePluginAzureFileUnregister` flag to `true`.
 
-### cephfs (deprecated) {#cephfs}
-{{< feature-state for_k8s_version="v1.28" state="deprecated" >}}
+### cephfs (removed) {#cephfs}
 
-{{< note >}}
-The Kubernetes project suggests that you use the [CephFS CSI](https://github.com/ceph/ceph-csi) third party
-storage driver instead.
-{{< /note >}}
+<!-- maintenance note: OK to remove all mention of cephfs once the v1.30 release of
+Kubernetes has gone out of support -->
 
-A `cephfs` volume allows an existing CephFS volume to be
-mounted into your Pod. Unlike `emptyDir`, which is erased when a pod is
-removed, the contents of a `cephfs` volume are preserved and the volume is merely
-unmounted. This means that a `cephfs` volume can be pre-populated with data, and
-that data can be shared between pods. The `cephfs` volume can be mounted by multiple
-writers simultaneously.
+Kubernetes {{< skew currentVersion >}} does not include a `cephfs` volume type.
 
-{{< note >}}
-You must have your own Ceph server running with the share exported before you can use it.
-{{< /note >}}
-
-See the [CephFS example](https://github.com/kubernetes/examples/tree/master/volumes/cephfs/) for more details.
+The `cephfs` in-tree storage driver was deprecated in the Kubernetes v1.28 release and then removed entirely in the v1.31 release.
 
 ### cinder (deprecated) {#cinder}
 
