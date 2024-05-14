@@ -52,7 +52,6 @@ Si eso no es posible, usa [túneles SSH](#ssh-tunnels) entre el servidor API y e
 
 Finalmente, se debe habilitar la [autenticación y/o autorización del Kubelet ](/docs/reference/access-authn-authz/kubelet-authn-authz/) para asegurar API del servicio kubelet  
 
-
 ### Servdor API a nodes, pods, y services
 
 
