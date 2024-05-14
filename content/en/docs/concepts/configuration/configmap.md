@@ -130,65 +130,7 @@ definition specifies an `items` array in the `volumes` section.
 If you omit the `items` array entirely, every key  in the ConfigMap becomes
 a file with the same name as the key, and you get 4 files.
 
-## Using ConfigMaps
-
-ConfigMaps can be mounted as data volumes. ConfigMaps can also be used by other
-parts of the system, without being directly exposed to the Pod. For example,
-ConfigMaps can hold data that other parts of the system should use for configuration.
-
-The most common way to use ConfigMaps is to configure settings for
-containers running in a Pod in the same namespace. You can also use a
-ConfigMap separately.
-
-For example, you
-might encounter {{< glossary_tooltip text="addons" term_id="addons" >}}
-or {{< glossary_tooltip text="operators" term_id="operator-pattern" >}} that
-adjust their behavior based on a ConfigMap.
-
-### Using ConfigMaps as files from a Pod
-
-To consume a ConfigMap in a volume in a Pod:
-
-1. Create a ConfigMap or use an existing one. Multiple Pods can reference the
-   same ConfigMap.
-1. Modify your Pod definition to add a volume under `.spec.volumes[]`. Name
-   the volume anything, and have a `.spec.volumes[].configMap.name` field set
-   to reference your ConfigMap object.
-1. Add a `.spec.containers[].volumeMounts[]` to each container that needs the
-   ConfigMap. Specify `.spec.containers[].volumeMounts[].readOnly = true` and
-   `.spec.containers[].volumeMounts[].mountPath` to an unused directory name
-   where you would like the ConfigMap to appear.
-1. Modify your image or command line so that the program looks for files in
-   that directory. Each key in the ConfigMap `data` map becomes the filename
-   under `mountPath`.
-
-This is an example of a Pod that mounts a ConfigMap in a volume:
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: mypod
-spec:
-  containers:
-  - name: mypod
-    image: redis
-    volumeMounts:
-    - name: foo
-      mountPath: "/etc/foo"
-      readOnly: true
-  volumes:
-  - name: foo
-    configMap:
-      name: myconfigmap
-```
-
-Each ConfigMap you want to use needs to be referred to in `.spec.volumes`.
-
-If there are multiple containers in the Pod, then each container needs its
-own `volumeMounts` block, but only one `.spec.volumes` is needed per ConfigMap.
-
-#### Mounted ConfigMaps are updated automatically
+## Mounted ConfigMaps are updated automatically
 
 When a ConfigMap currently consumed in a volume is updated, projected keys are eventually updated as well.
 The kubelet checks whether the mounted ConfigMap is fresh on every periodic sync.
@@ -207,42 +149,6 @@ ConfigMaps consumed as environment variables are not updated automatically and r
 {{< note >}}
 A container using a ConfigMap as a [subPath](/docs/concepts/storage/volumes#using-subpath) volume mount will not receive ConfigMap updates.
 {{< /note >}}
-
-
-### Using Configmaps as environment variables
-
-To use a Configmap in an {{< glossary_tooltip text="environment variable" term_id="container-env-variables" >}}
-in a Pod:
-
-1. For each container in your Pod specification, add an environment variable
-   for each Configmap key that you want to use to the
-   `env[].valueFrom.configMapKeyRef` field.
-1. Modify your image and/or command line so that the program looks for values
-   in the specified environment variables.
-
-This is an example of defining a ConfigMap as a pod environment variable:
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: env-configmap
-spec:
-  containers:
-  - name: envars-test-container
-    image: nginx
-    env:
-    - name: CONFIGMAP_USERNAME
-      valueFrom:
-        configMapKeyRef:
-          name: myconfigmap
-          key: username
-
-```
-
-It's important to note that the range of characters allowed for environment
-variable names in pods is [restricted](/docs/tasks/inject-data-application/define-environment-variable-container/#using-environment-variables-inside-of-your-config).
-If any keys do not meet the rules, those keys are not made available to your container, though
-the Pod is allowed to start.
 
 ## Immutable ConfigMaps {#configmap-immutable}
 
