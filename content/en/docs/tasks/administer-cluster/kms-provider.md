@@ -264,7 +264,10 @@ defined in a CustomResourceDefinition, your cluster must be running Kubernetes v
 
 1. Set the `--encryption-provider-config` flag on the kube-apiserver to point to the location of the configuration file.
 
-1. `--encryption-provider-config-automatic-reload` boolean argument determines if the file set by `--encryption-provider-config` should be automatically reloaded if the disk contents change. This enables key rotation without API server restarts.
+1. `--encryption-provider-config-automatic-reload` boolean argument 
+   determines if the file set by `--encryption-provider-config` should be
+   [automatically reloaded](/docs/tasks/administer-cluster/encrypt-data/#configure-automatic-reloading)
+   if the disk contents change.
 
 1. Restart your API server.
 
