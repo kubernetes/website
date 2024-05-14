@@ -47,7 +47,7 @@ Estas conexiones terminan en el punto final HTTPS del kubelet. Por defecto, el s
 
 Para verificar esta conexión, usa la bandera `--kubelet-certificate-authority` para proporcionar al servidor API un paquete de certificados raíz para usar en la verificación del certificado de servicio del kubelet.
 
-Si eso no es posible, usa [túneles SSH](#ssh-tunnels) entre el servidor API y el kubelet si es necesario para evitar conectarse a través de una red no confiable o pública.
+Si eso no es posible, usa [túneles SSH](#tuneles-ssh) entre el servidor API y el kubelet si es necesario para evitar conectarse a través de una red no confiable o pública.
 
 Finalmente, se debe habilitar la [autenticación y/o autorización del Kubelet ](/docs/reference/access-authn-authz/kubelet-authn-authz/) para asegurar API del servicio kubelet  
 
