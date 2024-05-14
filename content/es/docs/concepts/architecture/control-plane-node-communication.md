@@ -26,7 +26,6 @@ Los nodos debe ser aprovisionados con el {{< glossary_tooltip text="certificado"
 
 {{< glossary_tooltip text="Pods" term_id="pod" >}} que deseen conectarse al servidor API pueden hacerlo de manera segura aprovechando una cuenta de servicio para que Kubernetes inyecte automáticamente el certificado raíz público y un token portador válido en el pod cuando este es instanciado. El servicio  `kubernetes` (en el namespace `default`)  está configurado con una dirección IP virtual que es redirigida (a través de {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}) al punto final HTTPS en el servidor API.
 
-
 Los componentes del control plane se comunican con el servidor API a través del puerto seguro.
 
 Como resultado, el modo de operación predeterminado para las conexiones desde los nodos y el pod que se ejecutan en los nodos hacia el plano de control está asegurado por defecto y puede funcionar sobre redes no confiables y/o públicas.
