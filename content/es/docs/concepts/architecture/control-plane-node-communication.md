@@ -69,7 +69,7 @@ Este túnel asegura que el tráfico no esté expuesto fuera de la red en la que 
 
 
 {{< note >}}
-Los túneles SSH están actualmente en deprecados,por lo que no deberías optar por usarlos a menos que sepas lo que estás haciendo. El [servicio Konnectivity](#konnectivity-service) es un reemplazo para este canal de comunicación.
+Los túneles SSH están actualmente deprecados, por lo que no deberías optar por usarlos a menos que sepas lo que estás haciendo. El [servicio Konnectivity](#servicio-konnectivity) es un reemplazo para este canal de comunicación.
 {{< /note >}}
 
 ### Servicio Konnectivity 
