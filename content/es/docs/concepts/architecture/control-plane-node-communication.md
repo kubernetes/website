@@ -67,12 +67,6 @@ Este túnel asegura que el tráfico no esté expuesto fuera de la red en la que 
 
 
 
-Kubernetes supports [SSH tunnels](https://www.ssh.com/academy/ssh/tunneling) to protect the control plane to nodes communication paths. In this
-configuration, the API server initiates an SSH tunnel to each node in the cluster (connecting to
-the SSH server listening on port 22) and passes all traffic destined for a kubelet, node, pod, or
-service through the tunnel.
-This tunnel ensures that the traffic is not exposed outside of the network in which the nodes are
-running.
 
 {{< note >}}
 Los túneles SSH están actualmente en deprecados,por lo que no deberías optar por usarlos a menos que sepas lo que estás haciendo. El [servicio Konnectivity](#konnectivity-service) es un reemplazo para este canal de comunicación.
