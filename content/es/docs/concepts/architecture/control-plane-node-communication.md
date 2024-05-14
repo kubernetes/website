@@ -88,5 +88,5 @@ Sigue la [tarea del Konnectivity](/docs/tasks/extend-kubernetes/setup-konnectivi
 * Aprende cómo [Asegurar un Clúster](/docs/tasks/administer-cluster/securing-a-cluster/) 
 * Aprender más acerca de la [API de Kubernetes](/docs/concepts/overview/kubernetes-api/)
 * [Configurar el servicio de Konnectivity](/docs/tasks/extend-kubernetes/setup-konnectivity/)
-* [Utilizar el reenvío de puertos para acceder a aplicaciones en un clúster](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
+* [Utiliza el reenvío de puertos para acceder a aplicaciones en un clúster](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
 * Aprende como [Obtener los registros de los Pods](/docs/tasks/debug/debug-application/debug-running-pod/#examine-pod-logs), [usa kubectl port-forward](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/#forward-a-local-port-to-a-port-on-the-pod)
