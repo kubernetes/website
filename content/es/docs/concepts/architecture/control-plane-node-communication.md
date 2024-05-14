@@ -59,7 +59,6 @@ Las conexiones desde el servidor API a un nodo, pod o servicio por defecto son c
 
 ### Tuneles SSH
 
-
 Kubernetes soporta túneles SSH para proteger los caminos de comunicación del plano de control a los nodos. En esta configuración, el servidor API inicia un túnel SSH a cada nodo en el clúster (conectándose al servidor SSH que escucha en el puerto 22) y pasa todo el tráfico destinado a un kubelet, nodo, pod o servicio a través del túnel.
 Este túnel asegura que el tráfico no esté expuesto fuera de la red en la que se están ejecutando los nodos.
 
