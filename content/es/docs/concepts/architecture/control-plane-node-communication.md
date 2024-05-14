@@ -49,7 +49,7 @@ Para verificar esta conexión, usa la bandera `--kubelet-certificate-authority` 
 
 Si eso no es posible, usa [túneles SSH](#tuneles-ssh) entre el servidor API y el kubelet si es necesario para evitar conectarse a través de una red no confiable o pública.
 
-Finalmente, se debe habilitar la [autenticación y/o autorización del Kubelet ](/docs/reference/access-authn-authz/kubelet-authn-authz/) para asegurar API del servicio kubelet  
+Finalmente, se debe habilitar la [autenticación y/o autorización del Kubelet](/docs/reference/access-authn-authz/kubelet-authn-authz/) para asegurar el API del servicio de kubelet  
 
 ### Servidor API a nodos, pods y servicios
 
