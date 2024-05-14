@@ -22,8 +22,9 @@
     <div class="copy-code-icon">
     {{ with $ghlink }}<a href="{{ . }}" download="{{ $file }}">{{ end }}<code>{{ $file }}</code>
     {{ if $ghlink }}</a>{{ end }}
+    {{- $copyTitle := T "copy_sample_to_clipboard" (dict "filename" $file) -}}
     {{- with resources.Get "images/copycode.svg" -}}
-    <img src="{{  .RelPermalink }}" class="icon-copycode" onclick="copyCode('{{ $file | anchorize }}')" title="Copy {{ $file }} to clipboard"></img>
+    <img src="{{  .RelPermalink }}" class="icon-copycode" onclick="copyCode('{{ $file | anchorize }}')" title="{{ $copyTitle }}"></img>
     {{- end -}}
     </div>
     <div class="includecode" id="{{ $file | anchorize }}">
