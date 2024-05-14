@@ -1,5 +1,5 @@
 ---
-title: Communication between Nodes and the Control Plane
+title: Comunicación entre Nodos y el Plano de Control
 content_type: concept
 weight: 20
 aliases:
