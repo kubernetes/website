@@ -19,7 +19,7 @@ Este documento cataloga las rutas de comunicación entre el servidor {{< glossar
 Kubernetes tiene un patrón de API "hub-and-spoke" (centro y radios). Todo uso de la API desde los nodos (o los pods que ejecutan) termina en el servidor API. Ninguno de los otros componentes del plano de control está diseñado para exponer servicios remotos. El servidor API está configurado para escuchar conexiones remotas en un puerto HTTPS seguro (típicamente el 443) con una o más formas de
 [autenticación](/docs/reference/access-authn-authz/authentication/) de cliente habilitadas.
 
-Se debe habilitar una o mas formas de  [autorizacion](/docs/reference/access-authn-authz/authorization/), especialmente si se permiten [request anonimos](/docs/reference/access-authn-authz/authentication/#anonymous-requests)
+Se debe habilitar una o mas formas de [autorizacion](/docs/reference/access-authn-authz/authorization/), especialmente si se permiten [requests anónimos](/docs/reference/access-authn-authz/authentication/#anonymous-requests)
 o [service account tokens](/docs/reference/access-authn-authz/authentication/#service-account-tokens).
 
 Los nodos debe ser aprovisionados con el {{< glossary_tooltip text="certificado" term_id="certificate" >}} raíz público del cluster para que puedan conectar de manera segura al API server junto con credenciales de cliente válidas. Un buen enfoque es que las credenciales del cliente proporcionadas al kubelet estén en forma de un certificado de cliente. Consulta [kubelet TLS bootstrapping] (/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/) para la provisión automatizada de certificados de cliente del kubelet.
