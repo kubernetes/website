@@ -639,7 +639,7 @@ for p in 0 1 2; do kubectl get pod "web-$p" --template '{{range $i, $c := .spec.
 ```
 registry.k8s.io/nginx-slim:0.8
 registry.k8s.io/nginx-slim:0.8
-registry.k8s.io/nginx-slim:0
+registry.k8s.io/nginx-slim:0.8
 
 ```
 
