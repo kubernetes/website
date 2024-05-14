@@ -10,7 +10,7 @@ aliases:
 ---
 
 <!-- overview -->
-Este documento cataloga las rutas de comunicación entre el servidor {{< glossary_tooltip term_id="kube-apiserver" text="servidor API" >}} y el {{< glossary_tooltip text="cluster" term_id="cluster" length="all" >}} de Kubernetes. El objetivo es permitir a los usuarios personalizar su instalación para reforzar la configuración de la red de tal manera que el clúster pueda ejecutarse en una red no confiable (o en IPs públicas completas en un proveedor de servicios en la nube).
+Este documento cataloga las rutas de comunicación entre el servidor {{< glossary_tooltip term_id="kube-apiserver" text="servidor API" >}} y el {{< glossary_tooltip text="clúster" term_id="cluster" length="all" >}} de Kubernetes. El objetivo es permitir a los usuarios personalizar su instalación para reforzar la configuración de la red de tal manera que el clúster pueda ejecutarse en una red no confiable (o en IPs públicas completas en un proveedor de servicios en la nube).
 
 <!-- body -->
 
