@@ -220,11 +220,11 @@ However, it's important to note that the behavior varies based on the data type 
 
 <!--
 Different data types in the kubelet configuration structure merge differently. See the
-[reference document](/docs/reference/node/kubelet-config-directory-merging.md)
+[reference document](/docs/reference/node/kubelet-config-directory-merging)
 for more information.
 -->
 kubelet 配置结构中不同数据类型的合并方式不同。
-有关详细信息，请参阅[参考文档](/zh-cn/docs/reference/node/kubelet-config-directory-merging.md)。
+有关详细信息，请参阅[参考文档](/zh-cn/docs/reference/node/kubelet-config-directory-merging)。
 
 <!--
 ### Kubelet configuration merging order
