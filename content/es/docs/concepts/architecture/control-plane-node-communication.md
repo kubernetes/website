@@ -84,7 +84,7 @@ Sigue la [tarea del Konnectivity](/docs/tasks/extend-kubernetes/setup-konnectivi
 * Leer más sobre los [componentes del plano de control de Kubernetes ](/es/docs/concepts/overview/components/#componentes-del-plano-de-control)
 * Aprender más del [modelo Hubs and Spoke ](https://book.kubebuilder.io/multiversion-tutorial/conversion-concepts.html#hubs-spokes-and-other-wheel-metaphors)
 * Aprende cómo [Asegurar un Clúster](/docs/tasks/administer-cluster/securing-a-cluster/) 
-* Aprender más acerca de la [API de Kubernetes](/docs/concepts/overview/kubernetes-api/)
+* Aprende más acerca de la [API de Kubernetes](/docs/concepts/overview/kubernetes-api/)
 * [Configura el servicio de Konnectivity](/docs/tasks/extend-kubernetes/setup-konnectivity/)
 * [Utiliza el reenvío de puertos para acceder a aplicaciones en un clúster](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
 * Aprende como [Obtener los registros de los Pods](/docs/tasks/debug/debug-application/debug-running-pod/#examine-pod-logs), [usa kubectl port-forward](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/#forward-a-local-port-to-a-port-on-the-pod)
