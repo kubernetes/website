@@ -31,7 +31,6 @@ Como resultado, el modo de operación predeterminado para las conexiones desde l
 
 Existen dos formas de comunicación primarias desde el plano de control (el servidor API) hacia los nodos. El primero es desde el servidor API hasta el proceso {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} que se ejecuta en cada nodo del clúster. El segundo es desde el servidor API hacia cualquier nodo, pod o servicio a través de la funcionalidad de proxy del servidor API.
 
-
 ### Servidor API a kubelet
 
 Las conexiones desde el servidor API al kubelet se utilizan para:
