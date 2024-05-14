@@ -76,7 +76,7 @@ Sigue la [tarea del Konnectivity](/docs/tasks/extend-kubernetes/setup-konnectivi
 ## {{% heading "whatsnext" %}}
 
 * Lee más sobre los [componentes del plano de control de Kubernetes](/es/docs/concepts/overview/components/#componentes-del-plano-de-control)
-* Aprender más del [modelo Hubs and Spoke ](https://book.kubebuilder.io/multiversion-tutorial/conversion-concepts.html#hubs-spokes-and-other-wheel-metaphors)
+* Aprende más del [modelo Hubs and Spoke](https://book.kubebuilder.io/multiversion-tutorial/conversion-concepts.html#hubs-spokes-and-other-wheel-metaphors)
 * Aprende cómo [Asegurar un Clúster](/docs/tasks/administer-cluster/securing-a-cluster/) 
 * Aprende más acerca de la [API de Kubernetes](/docs/concepts/overview/kubernetes-api/)
 * [Configura el servicio de Konnectivity](/docs/tasks/extend-kubernetes/setup-konnectivity/)
