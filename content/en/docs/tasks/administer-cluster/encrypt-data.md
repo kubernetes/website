@@ -719,7 +719,12 @@ allows you to change the keys for encryption at rest without restarting the
 API server.
 
 To allow automatic reloading, configure the API server to run with:
-`--encryption-provider-config-automatic-reload=true`
+`--encryption-provider-config-automatic-reload=true`.
+When enabled, file changes are polled every minute to observe the modifications.
+The `apiserver_encryption_config_controller_automatic_reload_last_timestamp_seconds`
+metric identifies when the new config becomes effective. This allows
+encryption keys to be rotated without restarting the API server.
+
 
 ## {{% heading "whatsnext" %}}
 
