@@ -24,7 +24,7 @@ o [service account tokens](/docs/reference/access-authn-authz/authentication/#se
 
 Los nodos debe ser aprovisionados con el {{< glossary_tooltip text="certificado" term_id="certificate" >}} raíz público del clúster para que puedan conectar de manera segura al API server junto con credenciales de cliente válidas. Un buen enfoque es que las credenciales del cliente proporcionadas al kubelet estén en forma de un certificado de cliente. Consulta [kubelet TLS bootstrapping] (/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/) para la provisión automatizada de certificados de cliente del kubelet.
 
-{{< glossary_tooltip text="Pods" term_id="pod" >}} que deseen conectarse al servidor API pueden hacerlo de manera segura aprovechando una cuenta de servicio para que Kubernetes inyecte automáticamente el certificado raíz público y un token portador válido en el pod cuando este es instanciado. El servicio  `kubernetes` (en el namespace `default`)  está configurado con una dirección IP virtual que es redirigida (a través de {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}) al punto final HTTPS en el servidor API.
+{{< glossary_tooltip text="Pods" term_id="pod" >}} que deseen conectarse al servidor API pueden hacerlo de manera segura aprovechando una cuenta de servicio para que Kubernetes inyecte automáticamente el certificado raíz público y un token portador válido en el pod cuando éste es instanciado. El servicio  `kubernetes` (en el namespace `default`)  está configurado con una dirección IP virtual que es redirigida (a través de {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}) al punto final HTTPS en el servidor API.
 
 Los componentes del control plane se comunican con el servidor API a través del puerto seguro.
 
