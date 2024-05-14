@@ -160,7 +160,7 @@ También puedes consultar la estrategia de patch en
 ```
 <!-- for editors: intentionally use yaml instead of json here, to prevent syntax highlight error. -->
 
-Y puedes conlsultar la estrategia de patch en la 
+Y puedes consultar la estrategia de patch en la 
 [Documentación del API Kubernetes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 
 Crea un archivo llamado `patch-file-tolerations.yaml` que tenga el siguiente contenido:
