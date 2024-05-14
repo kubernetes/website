@@ -1,7 +1,4 @@
 ---
-reviewers:
-- dchen1107
-- liggitt
 title: Communication between Nodes and the Control Plane
 content_type: concept
 weight: 20
