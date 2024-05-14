@@ -569,7 +569,7 @@ In one terminal window, patch the `web` StatefulSet to change the container
 image again:
 
 ```shell
-kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"gcr.io/google_containers/nginx-slim:0.8"}]'
+kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"registry.k8s.io/nginx-slim:0.8"}]'
 ```
 ```
 statefulset.apps/web patched
@@ -637,9 +637,9 @@ Get the Pods to view their container images:
 for p in 0 1 2; do kubectl get pod "web-$p" --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'; echo; done
 ```
 ```
-gcr.io/google_containers/nginx-slim:0.8
-gcr.io/google_containers/nginx-slim:0.8
-gcr.io/google_containers/nginx-slim:0.8
+registry.k8s.io/nginx-slim:0.8
+registry.k8s.io/nginx-slim:0.8
+registry.k8s.io/nginx-slim:0
 
 ```
 
