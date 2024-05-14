@@ -51,7 +51,7 @@ Si eso no es posible, usa [túneles SSH](#tuneles-ssh) entre el servidor API y e
 
 Finalmente, se debe habilitar la [autenticación y/o autorización del Kubelet ](/docs/reference/access-authn-authz/kubelet-authn-authz/) para asegurar API del servicio kubelet  
 
-### Servdor API a nodes, pods, y services
+### Servidor API a nodos, pods y servicios
 
 
 Las conexiones desde el servidor API a un nodo, pod o servicio por defecto son conexiones HTTP simples y, por lo tanto, no están autenticadas ni cifradas. Pueden ejecutarse sobre una conexión HTTPS segura anteponiendo `https:` al nombre del nodo, pod o servicio en la URL de la API, pero no validarán el certificado proporcionado por el punto final HTTPS ni proporcionarán credenciales de cliente. Así que, aunque la conexión estará cifrada, no ofrecerá garantías de integridad. Estas conexiones **actualmente no son seguras** para ejecutarse sobre redes no confiables o públicas.
