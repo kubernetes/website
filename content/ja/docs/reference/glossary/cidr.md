@@ -10,7 +10,7 @@ aka:
 tags:
 - networking
 ---
-CIDR (Classless Inter-Domain Routing)はIPアドレスの範囲を記述するための表記法であり、さまざまなネットワークを構成するために使用されています。
+CIDR(Classless Inter-Domain Routing)はIPアドレスの範囲を記述するための表記法であり、さまざまなネットワークを構成するために使用されています。
 
 <!--more-->
 
