@@ -519,8 +519,6 @@ please install corresponding CSI drivers.
   (**migration on by default** starting v1.23)
 * [`azureFile`](/docs/concepts/storage/volumes/#azurefile) - Azure File
   (**migration on by default** starting v1.24)
-* [`cephfs`](/docs/concepts/storage/volumes/#cephfs) - CephFS volume
-  (**deprecated** starting v1.28, no migration plan, support will be removed in a future release)
 * [`cinder`](/docs/concepts/storage/volumes/#cinder) - Cinder (OpenStack block storage)
   (**migration on by default** starting v1.21)
 * [`flexVolume`](/docs/concepts/storage/volumes/#flexvolume) - FlexVolume
@@ -534,18 +532,20 @@ please install corresponding CSI drivers.
 
 Older versions of Kubernetes also supported the following in-tree PersistentVolume types:
 
-* `photonPersistentDisk` - Photon controller persistent disk.
-  (**not available** starting v1.15)
-* `scaleIO` - ScaleIO volume.
-  (**not available** starting v1.21)
+* [`cephfs`](/docs/concepts/storage/volumes/#cephfs)
+  (**not available** starting v1.31)
 * `flocker` - Flocker storage.
   (**not available** starting v1.25)
+* `photonPersistentDisk` - Photon controller persistent disk.
+  (**not available** starting v1.15)
 * `quobyte` - Quobyte volume.
-  (**not available** starting v1.25)
-* `storageos` - StorageOS volume.
   (**not available** starting v1.25)
 * [`rbd`](/docs/concepts/storage/volumes/#rbd) - Rados Block Device (RBD) volume 
   (**not available** starting v1.31)
+* `scaleIO` - ScaleIO volume.
+  (**not available** starting v1.21)
+* `storageos` - StorageOS volume.
+  (**not available** starting v1.25)
 
 ## Persistent Volumes
 
