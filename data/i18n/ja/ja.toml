@@ -1,6 +1,15 @@
 # i18n strings for the English (main) site.
 # NOTE: Please keep the entries in alphabetical order when editing
 
+[docs_version_current]
+other = "(この文書)"
+
+[docs_version_latest_heading]
+other = "最新のバージョン"
+
+[docs_version_other_heading]
+other = "以前のバージョン"
+
 [caution]
 other = "注意:"
 
