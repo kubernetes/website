@@ -27,7 +27,7 @@ conectarse de forma segura al servidor API en conjunto con credenciales de clien
 
 Los componentes del plano de control también se comunican con el apiserver del clúster a través de un puerto seguro.
 
-Como resultado, el modo de operación por defecto para las conexiones desde los nodos y pods que se ejecutan en los nodos al plano de control es seguro por defecto y puede ejecutarse en redes públicas y/o inseguras.
+Como resultado, el modo de operación para las conexiones desde los nodos y pods que se ejecutan en los nodos al plano de control es seguro por defecto y puede ejecutarse en redes públicas y/o inseguras.
 
 ## Plano de control al nodo
 
