@@ -54,7 +54,7 @@ Finalmente, la [autenticación y/o autorización al kubelet](/docs/reference/acc
 
 Las conexiones desde el apiserver a un nodo, pod o servicio se realizan por defecto con conexiones HTTP simples y, por consiguiente, no son autenticadas o encriptadas. Pueden ser ejecutadas en una conexión segura HTTPS con el prefijo `https:` al nodo, pod o nombre de servicio en la URL de la API, pero no validarán el certificado proporcionado por el punto final HTTPS ni proporcionarán las credenciales del cliente. Por tanto, aunque la conexión estará cifrada, no proporcionará ninguna garantía de integridad. Estas conexiones **no son actualmente seguras** para ejecutarse en redes públicas o no fiables.
 
-### Túneles SSH
+### Túneles SSH {#ssh-tunnels}
 
 Kubernetes ofrece soporte para [túneles SSH](https://www.ssh.com/academy/ssh/tunneling) que protegen la comunicación entre el plano de control y los nodos. En este modo de configuración, el apiserver inicia un túnel SSH a cada nodo en el clúster (conectando al servidor SSH en el puerto 22) y transfiere todo el tráfico destinado a un kubelet, nodo, pod o servicio a través del túnel. El túnel garantiza que dicho tráfico no es expuesto fuera de la red en la que se ejecutan los nodos.
 
