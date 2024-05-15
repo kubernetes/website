@@ -2,9 +2,9 @@
 layout: blog
 title: Say Hello to Discuss Kubernetes
 date: 2018-05-30
+author: >
+  Jorge Castro (Heptio)
 ---
-
-**Author**: Jorge Castro (Heptio)
 
 Communication is key when it comes to engaging a community of over 35,000 people in a global and remote environment. Keeping track of everything in the Kubernetes community can be an overwhelming task. On one hand we have our official resources, like Stack Overflow, GitHub, and the mailing lists, and on the other we have more ephemeral resources like Slack, where you can hop in, chat with someone, and then go on your merry way. 
 

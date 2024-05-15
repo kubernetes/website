@@ -2,9 +2,9 @@
 layout: blog
 title: 'Topology-Aware Volume Provisioning in Kubernetes'
 date: 2018-10-11
+author: >
+  Michelle Au (Google)
 ---
-
-**Author**: Michelle Au (Google)
 
 The multi-zone cluster experience with persistent volumes is improving in Kubernetes 1.12 with the topology-aware dynamic provisioning beta feature. This feature allows Kubernetes to make intelligent decisions when dynamically provisioning volumes by getting scheduler input on the best place to provision a volume for a pod.  In multi-zone clusters, this means that volumes will get provisioned in an appropriate zone that can run your pod, allowing you to easily deploy and scale your stateful workloads across failure domains to provide high availability and fault tolerance.
 
