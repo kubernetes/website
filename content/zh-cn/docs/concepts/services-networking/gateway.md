@@ -329,7 +329,7 @@ Gateway API 是 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/) API
 但是其中不包括 Ingress 类型。因此，需要将现有 Ingress 资源一次性转换为 Gateway API 资源。
 
 有关将 Ingress 资源迁移到 Gateway API 资源的详细信息，请参阅
-[Ingress 迁移](https://gateway-api.sigs.k8s.io/guides/migration-from-ingress/#migration-from-ingress)指南。
+[Ingress 迁移](https://gateway-api.sigs.k8s.io/guides/migrating-from-ingress/#migrating-from-ingress)指南。
 
 ## {{% heading "whatsnext" %}}
 
