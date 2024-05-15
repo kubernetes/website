@@ -3,6 +3,7 @@ layout: blog
 title: "From Code to Quill: Embark on a Legendary Kubernetes Quest with SIG Docs"
 date: 2024-05-16
 slug: contribute-as-sig-docs-reviewer
+canonicalUrl: https://www.kubernetes.dev/blog/2024/05/16/contribute-as-sig-docs-reviewer/
 author: "Ricardo Amaro (Acquia)"
 ---
 
