@@ -530,6 +530,14 @@ body {
     border-left-color: #444;
   }
 
+  .alert-info:has(h4):has(ul) h4 {
+    line-height: 0 !important;
+  }
+ 
+  .alert-info:has(h4):has(ul) ul {
+    margin-top: 10px;
+  }
+ 
   h1:first-of-type + .alert.callout {
     margin-top: 1.5em;
   }
