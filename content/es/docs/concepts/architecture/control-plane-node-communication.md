@@ -44,7 +44,7 @@ Las conexiones del apiserver al kubelet se utilizan para:
 
 Estas conexiones terminan en el endpoint HTTPS del kubelet. Por defecto, el apiserver no verifica el certificado del kubelet, por lo que la conexión es vulnerable a ataques del tipo "man-in-the-middle", e **insegura** para conectar a través de redes públicas y/o no fiables.
 
-Para verificar esta conexión, se utiliza el atributo `--kubeket-certificate-authority` que provee el apiserver con un certificado raíz con el que verificar el certificado del kubelet.
+Para verificar esta conexión, se utiliza el atributo `--kubelet-certificate-authority` que provee el apiserver con un certificado raíz con el que verificar el certificado del kubelet.
 
 Si esto no es posible, se utiliza un [túnel SSH](#ssh-tunnels) entre el apiserver y el kubelet para conectar a través de redes públicas o de no confianza.
 
