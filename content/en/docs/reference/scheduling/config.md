@@ -217,8 +217,9 @@ If a Pod doesn't specify a scheduler name, kube-apiserver will set it to
 to get those pods scheduled.
 
 {{< note >}}
-Events for leader election use the scheduler name of the first profile in the
-list.
+Pod's scheduling events have `.spec.schedulerName` as the `ReportingController`. Events for leader election use the scheduler name of the first profile in the list.
+
+For more information, please refer to the `reportingController` section under [Event API Reference](https://kubernetes.io/docs/reference/kubernetes-api/cluster-resources/event-v1/).
 {{< /note >}}
 
 {{< note >}}
