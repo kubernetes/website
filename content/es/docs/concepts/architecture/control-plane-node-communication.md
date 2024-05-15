@@ -82,5 +82,5 @@ el servicio Konnectivity en su clúster.
 * [Cómo proteger un Cluster](/docs/tasks/administer-cluster/securing-a-cluster/) 
 * Más información sobre la [API de Kubernetes](/docs/concepts/overview/kubernetes-api/)
 * [Configurar el Servicio Konnectivity](/docs/tasks/extend-kubernetes/setup-konnectivity/)
-* Utilizar el [Port Forwarding para acceder a aplicaciones en un Clúster](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
+* Utilizar el [Port Forwarding para acceder a aplicaciones en un clúster](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
 * Aprenda [Fetch logs para Pods](/docs/tasks/debug/debug-application/debug-running-pod/#examine-pod-logs), [use kubectl port-forward](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/#forward-a-local-port-to-a-port-on-the-pod)
