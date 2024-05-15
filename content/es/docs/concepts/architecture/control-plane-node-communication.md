@@ -79,7 +79,7 @@ el servicio Konnectivity en su clúster.
 
 * [Componentes del plano de control de Kubernetes](/docs/concepts/overview/components/#control-plane-components)
 * Más información sobre el [modelo Hubs y Spoke](https://book.kubebuilder.io/multiversion-tutorial/conversion-concepts.html#hubs-spokes-and-other-wheel-metaphors)
-* [Cómo proteger un Cluster](/docs/tasks/administer-cluster/securing-a-cluster/) 
+* [Cómo proteger un clúster](/docs/tasks/administer-cluster/securing-a-cluster/) 
 * Más información sobre la [API de Kubernetes](/docs/concepts/overview/kubernetes-api/)
 * [Configurar el Servicio Konnectivity](/docs/tasks/extend-kubernetes/setup-konnectivity/)
 * Utilizar el [Port Forwarding para acceder a aplicaciones en un clúster](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
