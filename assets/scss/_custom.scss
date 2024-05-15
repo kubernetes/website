@@ -1408,3 +1408,9 @@ div.alert > em.javascript-required {
   font-size: calc(5vw + 10px);
   color: #333;
 }
+
+.code-sample > .copy-code-icon {
+  cursor: pointer;
+  text-align: right;
+  padding: 0.2rem;
+}
