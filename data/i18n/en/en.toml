@@ -68,6 +68,9 @@ other = "YouTube"
 [conjunction_1]
 other = "and"
 
+[copy_sample_to_clipboard]
+other = "Copy {{ .filename }} to clipboard"
+
 [cve_id]
 other = "CVE ID"
 
