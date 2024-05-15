@@ -2,9 +2,11 @@
 layout: blog
 title: Kubernetes Federation Evolution
 date: 2018-12-12
+author: >
+  Irfan Ur Rehman (Huawei),
+  Paul Morie (RedHat),
+  Shashidhara T D (Huawei)
 ---
-
-**Authors**: Irfan Ur Rehman (Huawei), Paul Morie (RedHat) and Shashidhara T D (Huawei)
 
 Kubernetes provides great primitives for deploying applications to a cluster: it can be as simple as `kubectl create -f app.yaml`. Deploy apps across multiple clusters has never been that simple. How should app workloads be distributed? Should the app resources be replicated into all clusters, replicated into selected clusters, or partitioned into clusters? How is  access to the clusters managed? What happens if some of the resources that a user wants to distribute pre-exist, in some or all of the clusters, in some form?
 

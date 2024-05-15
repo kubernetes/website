@@ -2,9 +2,11 @@
 layout: blog
 title:  'IPVS-Based In-Cluster Load Balancing Deep Dive'
 date:   2018-07-09
+author: >
+  Jun Du (Huawei),
+  Haibin Xie (Huawei),
+  Wei Liang (Huawei) 
 ---
-
-**Author**: Jun Du(Huawei), Haibin Xie(Huawei), Wei Liang(Huawei)
 
 **Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2018/06/27/kubernetes-1.11-release-announcement/) on what’s new in Kubernetes 1.11**
 
