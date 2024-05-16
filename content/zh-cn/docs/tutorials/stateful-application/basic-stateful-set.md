@@ -123,13 +123,13 @@ After this tutorial, you will be familiar with the following.
 ## 创建 StatefulSet   {#creating-a-statefulset}
 
 <!--
-Begin by creating a StatefulSet using the example below. It is similar to the
-example presented in the
+Begin by creating a StatefulSet (and the Service that it relies upon) using
+the example below. It is similar to the example presented in the
 [StatefulSets](/docs/concepts/workloads/controllers/statefulset/) concept.
 It creates a [headless Service](/docs/concepts/services-networking/service/#headless-services),
 `nginx`, to publish the IP addresses of Pods in the StatefulSet, `web`.
 -->
-作为开始，使用如下示例创建一个 StatefulSet。它和
+作为开始，使用如下示例创建一个 StatefulSet（以及它所依赖的 Service）。它和
 [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/) 概念中的示例相似。
 它创建了一个 [Headless Service](/zh-cn/docs/concepts/services-networking/service/#headless-services)
 `nginx` 用来发布 StatefulSet `web` 中的 Pod 的 IP 地址。
@@ -205,6 +205,11 @@ web       2         1         20s
 ### 顺序创建 Pod   {#ordered-pod-creation}
 
 <!--
+A StatefulSet defaults to creating its Pods in a strict order.
+-->
+StatefulSet 默认以严格的顺序创建其 Pod。
+
+<!--
 For a StatefulSet with _n_ replicas, when Pods are being deployed, they are
 created sequentially, ordered from _{0..n-1}_. Examine the output of the
 `kubectl get` command in the first terminal. Eventually, the output will
@@ -238,11 +243,15 @@ web-1     1/1       Running   0         18s
 Notice that the `web-1` Pod is not launched until the `web-0` Pod is
 _Running_ (see [Pod Phase](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase))
 and _Ready_ (see `type` in [Pod Conditions](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)).
+
+Later in this tutorial you will practice [parallel startup](#parallel-pod-management).
 -->
 请注意，直到 `web-0` Pod 处于 **Running**（请参阅
 [Pod 阶段](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)）
 并 **Ready**（请参阅 [Pod 状况](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)中的
 `type`）状态后，`web-1` Pod 才会被启动。
+
+在本教程的后面部分，你将练习[并行启动](#parallel-pod-management)。
 
 {{< note >}}
 <!--
@@ -497,11 +506,13 @@ Address 1: 10.244.2.8
 The Pods' ordinals, hostnames, SRV records, and A record names have not changed,
 but the IP addresses associated with the Pods may have changed. In the cluster
 used for this tutorial, they have. This is why it is important not to configure
-other applications to connect to Pods in a StatefulSet by IP address.
+other applications to connect to Pods in a StatefulSet by the IP address
+of a particular Pod (it is OK to connect to Pods by resolving their hostname).
 -->
 Pod 的序号、主机名、SRV 条目和记录名称没有改变，但和 Pod 相关联的 IP 地址可能发生了改变。
 在本教程中使用的集群中它们就改变了。这就是为什么不要在其他应用中使用
-StatefulSet 中 Pod 的 IP 地址进行连接，这点很重要。
+StatefulSet 中特定 Pod 的 IP 地址进行连接，这点很重要
+（可以通过解析 Pod 的主机名来连接到 Pod）。
 
 <!--
 #### Discovery for specific Pods in a StatefulSet
@@ -530,6 +541,20 @@ to Running and Ready.
 你可以使用 Pod 的 SRV 记录（`web-0.nginx.default.svc.cluster.local`、
 `web-1.nginx.default.svc.cluster.local`）。因为它们是稳定的，并且当你的
 Pod 的状态变为 Running 和 Ready 时，你的应用就能够发现它们的地址。
+
+<!--
+If your application wants to find any healthy Pod in a StatefulSet,
+and therefore does not need to track each specific Pod,
+you could also connect to the IP address of a `type: ClusterIP` Service,
+backed by the Pods in that StatefulSet. You can use the same Service that
+tracks the StatefulSet (specified in the `serviceName` of the StatefulSet)
+or a separate Service that selects the right set of Pods.
+-->
+如果你的应用程序想要在 StatefulSet 中找到任一健康的 Pod，
+且不需要跟踪每个特定的 Pod，你还可以连接到由该 StatefulSet 中的 Pod 关联的
+`type: ClusterIP` Service 的 IP 地址。
+你可以使用跟踪 StatefulSet 的同一 Service
+（StatefulSet 中 `serviceName` 所指定的）或选择正确的 Pod 集的单独 Service。
 
 <!--
 ### Writing to stable Storage
@@ -701,12 +726,13 @@ PersistentVolumeClaim 相关联的 PersistentVolume 卷被重新挂载到了各�
 ## 扩容/缩容 StatefulSet   {#scaling-a-statefulset}
 
 <!--
-Scaling a StatefulSet refers to increasing or decreasing the number of replicas.
+Scaling a StatefulSet refers to increasing or decreasing the number of replicas
+(horizontal scaling).
 This is accomplished by updating the `replicas` field. You can use either
 [`kubectl scale`](/docs/reference/generated/kubectl/kubectl-commands/#scale) or
 [`kubectl patch`](/docs/reference/generated/kubectl/kubectl-commands/#patch) to scale a StatefulSet.
 -->
-扩容/缩容 StatefulSet 指增加或减少它的副本数。这通过更新 `replicas` 字段完成。
+扩容/缩容 StatefulSet 指增加或减少它的副本数。这通过更新 `replicas` 字段完成（水平缩放）。
 你可以使用 [`kubectl scale`](/docs/reference/generated/kubectl/kubectl-commands/#scale)
 或者 [`kubectl patch`](/docs/reference/generated/kubectl/kubectl-commands/#patch) 来扩容/缩容一个 StatefulSet。
 
@@ -714,6 +740,14 @@ This is accomplished by updating the `replicas` field. You can use either
 ### Scaling up
 -->
 ### 扩容   {#scaling-up}
+
+<!--
+Scaling up means adding more replicas.
+Provided that your app is able to distribute work across the StatefulSet, the new
+larger set of Pods can perform more of that work.
+-->
+扩容意味着添加更多副本。
+如果你的应用程序能够在整个 StatefulSet 范围内分派工作，则新的更大的 Pod 集可以执行更多的工作。
 
 <!--
 In one terminal window, watch the Pods in the StatefulSet:
@@ -794,6 +828,14 @@ Pod，并且会等待前一个 Pod 变为 Running 和 Ready 才会启动下一�
 ### 缩容   {#scaling-down}
 
 <!--
+Scaling down means reducing the number of replicas. For example, you
+might do this because the level of traffic to a service has decreased,
+and at the current scale there are idle resources.
+-->
+缩容意味着减少副本数量。
+例如，你可能因为服务的流量水平已降低并且在当前规模下存在空闲资源的原因执行缩容操作。
+
+<!--
 In one terminal, watch the StatefulSet's Pods:
 -->
 在一个终端监视 StatefulSet 的 Pod：
@@ -854,9 +896,9 @@ web-3     1/1       Terminating   0         42s
 ### 顺序终止 Pod   {#ordered-pod-termination}
 
 <!--
-The controller deleted one Pod at a time, in reverse order with respect to its
-ordinal index, and it waited for each to be completely shutdown before
-deleting the next.
+The controller plane deleted one Pod at a time, in reverse order with respect
+to its ordinal index, and it waited for each Pod to be completely shut down
+before deleting the next one.
 -->
 控制器会按照与 Pod 序号索引相反的顺序每次删除一个 Pod。在删除下一个 Pod 前会等待上一个被完全关闭。
 
@@ -879,12 +921,13 @@ www-web-4   Bound     pvc-e11bb5f8-b508-11e6-932f-42010a800002   1Gi        RWO 
 
 <!--
 There are still five PersistentVolumeClaims and five PersistentVolumes.
-When exploring a Pod's [stable storage](#writing-to-stable-storage), we saw that the PersistentVolumes
-mounted to the Pods of a StatefulSet are not deleted when the StatefulSet's Pods are deleted.
-This is still true when Pod deletion is caused by scaling the StatefulSet down.
+When exploring a Pod's [stable storage](#writing-to-stable-storage), you saw that
+the PersistentVolumes mounted to the Pods of a StatefulSet are not deleted when the
+StatefulSet's Pods are deleted. This is still true when Pod deletion is caused by
+scaling the StatefulSet down.
 -->
 五个 PersistentVolumeClaims 和五个 PersistentVolume 卷仍然存在。
-查看 Pod 的[稳定存储](#stable-storage)，我们发现当删除 StatefulSet 的
+查看 Pod 的[稳定存储](#stable-storage)，你会发现当删除 StatefulSet 的
 Pod 时，挂载到 StatefulSet 的 Pod 的 PersistentVolume 卷不会被删除。
 当这种删除行为是由 StatefulSet 缩容引起时也是一样的。
 
@@ -1802,13 +1845,12 @@ identity.
 这些系统仅仅要求唯一性和身份标志。
 
 <!--
-You can specify a Pod management policy to avoid this strict ordering;
-either [`OrderedReady`](/docs/concepts/workloads/controllers/statefulset/#orderedready-pod-management) (the default)
-or [`Parallel`](/docs/concepts/workloads/controllers/statefulset/#parallel-pod-management).
+You can specify a [Pod management policy](/docs/concepts/workloads/controllers/statefulset/#pod-management-policies)
+to avoid this strict ordering; either `OrderedReady` (the default), or `Parallel`.
 -->
-你可以指定 Pod 管理策略以避免这个严格的顺序；
-你可以选择 [`OrderedReady`](/zh-cn/docs/concepts/workloads/controllers/statefulset/#orderedready-pod-management)（默认）或
-[`Parallel`](/zh-cn/docs/concepts/workloads/controllers/statefulset/#parallel-pod-management)。
+你可以指定 [Pod 管理策略](/zh-cn/docs/concepts/workloads/controllers/statefulset/#pod-management-policies)
+以避免这个严格的顺序；
+你可以选择 `OrderedReady`（默认）或 `Parallel`。
 
 <!--
 ### OrderedReady Pod management
@@ -1824,18 +1866,49 @@ above.
 StatefulSet 控制器遵循上文展示的顺序性保证。
 
 <!--
+Use this when your application requires or expects that changes, such as rolling out a new
+version of your application, happen in the strict order of the ordinal (pod number) that the StatefulSet provides.
+In other words, if you have Pods `app-0`, `app-1` and `app-2`, Kubernetes will update `app-0` first and check it.
+Once the checks are good, Kubernetes updates `app-1` and finally `app-2`.
+-->
+当你的应用程序需要或期望变更（例如推出应用程序的新版本）按照 StatefulSet
+提供的序号（Pod 编号）的严格顺序发生时，请使用此选项。
+换句话说，如果你已经有了 Pod `app-0`、`app-1` 和 `app-2`，Kubernetes 将首先更新 `app-0` 并检查它。
+一旦检查良好，Kubernetes 就会更新 `app-1`，最后更新 `app-2`。
+
+<!--
+If you added two more Pods, Kubernetes would set up `app-3` and wait for that to become healthy before deploying
+`app-4`.
+
+Because this is the default setting, you've already practised using it.
+-->
+如果你再添加两个 Pod，Kubernetes 将设置 `app-3` 并等待其正常运行，然后再部署 `app-4`。
+
+因为这是默认设置，所以你已经在练习使用它，本教程不会让你再次执行类似的步骤。
+
+<!--
 ### Parallel Pod management
 -->
 ### Parallel Pod 管理策略   {#parallel-pod-management}
 
 <!--
-`Parallel` pod management tells the StatefulSet controller to launch or
-terminate all Pods in parallel, and not to wait for Pods to become Running
-and Ready or completely terminated prior to launching or terminating another
-Pod. This option only affects the behavior for scaling operations. Updates are not affected.
+The alternative, `Parallel` pod management tells the StatefulSet controller to launch or
+terminate all Pods in parallel, and not to wait for Pods to become `Running`
+and `Ready` or completely terminated prior to launching or terminating another
+Pod.
 -->
-`Parallel` Pod 管理策略告诉 StatefulSet 控制器并行的终止所有 Pod，
+另一种选择，`Parallel` Pod 管理策略告诉 StatefulSet 控制器并行的终止所有 Pod，
 在启动或终止另一个 Pod 前，不必等待这些 Pod 变成 Running 和 Ready 或者完全终止状态。
+
+<!--
+The `Parallel` pod management option only affects the behavior for scaling operations. Updates are not affected;
+Kubernetes still rolls out changes in order. For this tutorial, the application is very simple: a webserver that
+tells you its hostname (because this is a StatefulSet, the hostname for each Pod is different and predictable).
+-->
+`Parallel` Pod 管理选项仅影响扩缩容操作的行为。
+变更操作不受其影响；Kubernetes 仍然按顺序推出变更。
+对于本教程，应用本身非常简单：它是一个告诉你其主机名的网络服务器（因为这是一个
+StatefulSet，每个 Pod 的主机名都是不同的且可预测的）。
 
 {{% code_sample file="application/web/web-parallel.yaml" %}}
 
@@ -1860,80 +1933,67 @@ kubectl get pod -l app=nginx --watch
 ```
 
 <!--
-In another terminal, create the StatefulSet and Service in the manifest:
+In another terminal, reconfigure the StatefulSet for `Parallel` Pod management:
 -->
-在另一个终端窗口创建清单中的 StatefulSet 和 Service：
+在另一个终端中，重新配置 StatefulSet 以进行 `Parallel` Pod 管理：
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/web/web-parallel.yaml
 ```
 ```
-service/nginx created
-statefulset.apps/web created
+service/nginx updated
+statefulset.apps/web updated
 ```
 
 <!--
-Examine the output of the `kubectl get` command that you executed in the first terminal.
--->
-查看你在第一个终端中运行的 `kubectl get` 命令的输出。
-
-<!--
-# This should already be running
--->
-```shell
-# 这应该已经处于 Running 状态
-kubectl get pod -l app=nginx --watch
-```
-```
-NAME      READY     STATUS    RESTARTS   AGE
-web-0     0/1       Pending   0          0s
-web-0     0/1       Pending   0         0s
-web-1     0/1       Pending   0         0s
-web-1     0/1       Pending   0         0s
-web-0     0/1       ContainerCreating   0         0s
-web-1     0/1       ContainerCreating   0         0s
-web-0     1/1       Running   0         10s
-web-1     1/1       Running   0         10s
-```
-
-<!--
-The StatefulSet controller launched both `web-0` and `web-1` at almost the
-same time.
--->
-StatefulSet 控制器几乎同时启动了 `web-0` 和 `web-1`。
-
-<!--
-Keep the second terminal open, and, in another terminal window scale the
+Keep the terminal open where you're running the watch. In another terminal window, scale the
 StatefulSet:
 -->
-保持第二个终端打开，并在另一个终端窗口中扩容 StatefulSet：
+保持你运行监视进程的终端为打开状态，并在另一个终端窗口中扩容 StatefulSet：
 
 ```shell
-kubectl scale statefulset/web --replicas=4
+kubectl scale statefulset/web --replicas=5
 ```
 ```
 statefulset.apps/web scaled
 ```
 
 <!--
-Examine the output of the terminal where the `kubectl get` command is running.
+Examine the output of the terminal where the `kubectl get` command is running. It may look something like
 -->
-在 `kubectl get` 命令运行的终端里检查它的输出。
+在 `kubectl get` 命令运行的终端里检查它的输出。它可能看起来像：
 
 ```
 web-3     0/1       Pending   0         0s
 web-3     0/1       Pending   0         0s
 web-3     0/1       Pending   0         7s
 web-3     0/1       ContainerCreating   0         7s
-web-2     1/1       Running   0         10s
+web-2     0/1       Pending   0         0s
+web-4     0/1       Pending   0         0s
+web-2     1/1       Running   0         8s
+web-4     0/1       ContainerCreating   0         4s
 web-3     1/1       Running   0         26s
+web-4     1/1       Running   0         2s
 ```
 
 <!--
-The StatefulSet launched two new Pods, and it did not wait for
-the first to become Running and Ready prior to launching the second.
+The StatefulSet launched three new Pods, and it did not wait for
+the first to become Running and Ready prior to launching the second and third Pods.
 -->
-StatefulSet 启动了两个新的 Pod，而且在启动第二个之前并没有等待第一个变成 Running 和 Ready 状态。
+StatefulSet 启动了三个新的 Pod，而且在启动第二和第三个之前并没有等待第一个变成 Running 和 Ready 状态。
+
+<!--
+This approach is useful if your workload has a stateful element, or needs Pods to be able to identify each other
+with predictable naming, and especially if you sometimes need to provide a lot more capacity quickly. If this
+simple web service for the tutorial suddenly got an extra 1,000,000 requests per minute then you would want to run
+some more Pods - but you also would not want to wait for each new Pod to launch. Starting the extra Pods in parallel
+cuts the time between requesting the extra capacity and having it available for use.
+-->
+如果你的工作负载具有有状态元素，或者需要 Pod 能够通过可预测的命名来相互识别，
+特别是当你有时需要快速提供更多容量时，此方法非常有用。
+如果本教程的这个简单 Web 服务突然每分钟收到额外 1,000,000 个请求，
+那么你可能会想要运行更多 Pod，但你也不想等待每个新 Pod 启动。
+并行启动额外的 Pod 可以缩短请求额外容量和使其可供使用之间的时间。
 
 ## {{% heading "cleanup" %}}
 
