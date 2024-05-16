@@ -48,7 +48,7 @@ Finalmente, se debe habilitar la [autenticación y/o autorización del Kubelet](
 
 ### Servidor API a nodos, pods y servicios
 
-Las conexiones desde el servidor API a un nodo, pod o servicio por defecto son conexiones HTTP simples y, por lo tanto, no están autenticadas ni cifradas. Pueden ejecutarse sobre una conexión HTTPS segura anteponiendo `https:` al nombre del nodo, pod o servicio en la URL de la API, pero no validarán el certificado proporcionado por el punto final HTTPS ni proporcionarán credenciales de cliente. Así que, aunque la conexión estará cifrada, no ofrecerá garantías de integridad. Estas conexiones **actualmente no son seguras** para ejecutarse sobre redes no confiables o públicas.
+Las conexiones desde el servidor API a un nodo, pod o servicio por defecto son conexiones HTTP simples y, por lo tanto, no están autenticadas ni cifradas. Pueden ejecutarse sobre una conexión HTTPS segura anteponiendo el prefijo `https:` al nodo, pod o servicio en la URL de la API, pero no validarán el certificado proporcionado por el endpoint HTTPS ni proporcionarán credenciales de cliente. Así que, aunque la conexión estará cifrada, no ofrecerá garantías de integridad. Estas conexiones **actualmente no son seguras** para ejecutarse sobre redes no confiables o públicas.
 
 ### Tuneles SSH
 
