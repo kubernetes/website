@@ -22,7 +22,7 @@ The API Priority and Fairness feature (APF) is an alternative that improves upon
 aforementioned max-inflight limitations. APF classifies
 and isolates requests in a more fine-grained way. It also introduces
 a limited amount of queuing, so that no requests are rejected in cases
-of very brief bursts.  Requests are dispatched from queues using a
+of very brief bursts. Requests are dispatched from queues using a
 fair queuing technique so that, for example, a poorly-behaved
 {{< glossary_tooltip text="controller" term_id="controller" >}} need not
 starve others (even at the same priority level).
@@ -46,15 +46,15 @@ are not subject to the `--max-requests-inflight` limit.
 ## Enabling/Disabling API Priority and Fairness
 
 The API Priority and Fairness feature is controlled by a command-line flag
-and is enabled by default.  See 
+and is enabled by default. See 
 [Options](/docs/reference/command-line-tools-reference/kube-apiserver/#options)
 for a general explanation of the available kube-apiserver command-line 
-options and how to enable and disable them.  The name of the 
-command-line option for APF is "--enable-priority-and-fairness".  This feature
+options and how to enable and disable them. The name of the 
+command-line option for APF is "--enable-priority-and-fairness". This feature
 also involves an {{<glossary_tooltip term_id="api-group" text="API Group" >}} 
 with: (a) a stable `v1` version, introduced in 1.29, and 
 enabled by default (b) a `v1beta3` version, enabled by default, and
-deprecated in v1.29.  You can
+deprecated in v1.29. You can
 disable the API group beta version `v1beta3` by adding the
 following command-line flags to your `kube-apiserver` invocation:
 
@@ -96,7 +96,7 @@ from succeeding.
 
 The concurrency limits of the priority levels are periodically
 adjusted, allowing under-utilized priority levels to temporarily lend
-concurrency to heavily-utilized levels.  These limits are based on
+concurrency to heavily-utilized levels. These limits are based on
 nominal limits and bounds on how much concurrency a priority level may
 lend and how much it may borrow, all derived from the configuration
 objects mentioned below.
@@ -111,29 +111,29 @@ word "seat" is used to mean one unit of concurrency, inspired by the
 way each passenger on a train or aircraft takes up one of the fixed
 supply of seats.
 
-But some requests take up more than one seat.  Some of these are **list**
+But some requests take up more than one seat. Some of these are **list**
 requests that the server estimates will return a large number of
-objects.  These have been found to put an exceptionally heavy burden
-on the server.  For this reason, the server estimates the number of objects
+objects. These have been found to put an exceptionally heavy burden
+on the server. For this reason, the server estimates the number of objects
 that will be returned and considers the request to take a number of seats
 that is proportional to that estimated number.
 
 ### Execution time tweaks for watch requests
 
 API Priority and Fairness manages **watch** requests, but this involves a
-couple more excursions from the baseline behavior.  The first concerns
-how long a **watch**  request is considered to occupy its seat.  Depending
-on request parameters, the response to a **watch**  request may or may not
-begin with **create**  notifications for all the relevant pre-existing
-objects.  API Priority and Fairness considers a **watch**  request to be
+couple more excursions from the baseline behavior. The first concerns
+how long a **watch** request is considered to occupy its seat. Depending
+on request parameters, the response to a **watch** request may or may not
+begin with **create** notifications for all the relevant pre-existing
+objects. API Priority and Fairness considers a **watch** request to be
 done with its seat once that initial burst of notifications, if any,
 is over.
 
 The normal notifications are sent in a concurrent burst to all
-relevant **watch**  response streams whenever the server is notified of an
-object create/update/delete.  To account for this work, API Priority
+relevant **watch** response streams whenever the server is notified of an
+object create/update/delete. To account for this work, API Priority
 and Fairness considers every write request to spend some additional
-time occupying seats after the actual writing is done.  The server
+time occupying seats after the actual writing is done. The server
 estimates the number of notifications to be sent and adjusts the write
 request's number of seats and seat occupancy time to include this
 extra work.
@@ -155,7 +155,7 @@ To enable distinct handling of distinct instances, controllers that have
 many instances should authenticate with distinct usernames
 
 After classifying a request into a flow, the API Priority and Fairness
-feature then may assign the request to a queue.  This assignment uses
+feature then may assign the request to a queue. This assignment uses
 a technique known as {{< glossary_tooltip term_id="shuffle-sharding"
 text="shuffle sharding" >}}, which makes relatively efficient use of
 queues to insulate low-intensity flows from high-intensity flows.
@@ -203,19 +203,19 @@ go up (or down) by the same fraction.
 {{< caution >}}
 In the versions before `v1beta3` the relevant
 PriorityLevelConfiguration field is named "assured concurrency shares"
-rather than "nominal concurrency shares".  Also, in Kubernetes release
+rather than "nominal concurrency shares". Also, in Kubernetes release
 1.25 and earlier there were no periodic adjustments: the
 nominal/assured limits were always applied without adjustment.
 {{< /caution >}}
 
 The bounds on how much concurrency a priority level may lend and how
 much it may borrow are expressed in the PriorityLevelConfiguration as
-percentages of the level's nominal limit.  These are resolved to
+percentages of the level's nominal limit. These are resolved to
 absolute numbers of seats by multiplying with the nominal limit /
-100.0 and rounding.  The dynamically adjusted concurrency limit of a
+100.0 and rounding. The dynamically adjusted concurrency limit of a
 priority level is constrained to lie between (a) a lower bound of its
 nominal limit minus its lendable seats and (b) an upper bound of its
-nominal limit plus the seats it may borrow.  At each adjustment the
+nominal limit plus the seats it may borrow. At each adjustment the
 dynamic limits are derived by each priority level reclaiming any lent
 seats for which demand recently appeared and then jointly fairly
 responding to the recent seat demand on the priority levels, within
@@ -328,9 +328,9 @@ mandatory and suggested.
 ### Mandatory Configuration Objects
 
 The four mandatory configuration objects reflect fixed built-in
-guardrail behavior.  This is behavior that the servers have before
+guardrail behavior. This is behavior that the servers have before
 those objects exist, and when those objects exist their specs reflect
-this behavior.  The four mandatory objects are as follows.
+this behavior. The four mandatory objects are as follows.
 
 * The mandatory `exempt` priority level is used for requests that are
   not subject to flow control at all: they will always be dispatched
@@ -352,8 +352,8 @@ this behavior.  The four mandatory objects are as follows.
 ### Suggested Configuration Objects
 
 The suggested FlowSchemas and PriorityLevelConfigurations constitute a
-reasonable default configuration.  You can modify these and/or create
-additional configuration objects if you want.  If your cluster is
+reasonable default configuration. You can modify these and/or create
+additional configuration objects if you want. If your cluster is
 likely to experience heavy load then you should consider what
 configuration will work best.
 
@@ -405,33 +405,33 @@ The server refuses to allow a creation or update with a spec that is
 inconsistent with the server's guardrail behavior.
 
 Maintenance of suggested configuration objects is designed to allow
-their specs to be overridden.  Deletion, on the other hand, is not
-respected: maintenance will restore the object.  If you do not want a
+their specs to be overridden. Deletion, on the other hand, is not
+respected: maintenance will restore the object. If you do not want a
 suggested configuration object then you need to keep it around but set
-its spec to have minimal consequences.  Maintenance of suggested
+its spec to have minimal consequences. Maintenance of suggested
 objects is also designed to support automatic migration when a new
 version of the `kube-apiserver` is rolled out, albeit potentially with
 thrashing while there is a mixed population of servers.
 
 Maintenance of a suggested configuration object consists of creating
 it --- with the server's suggested spec --- if the object does not
-exist.  OTOH, if the object already exists, maintenance behavior
+exist. OTOH, if the object already exists, maintenance behavior
 depends on whether the `kube-apiservers` or the users control the
-object.  In the former case, the server ensures that the object's spec
+object. In the former case, the server ensures that the object's spec
 is what the server suggests; in the latter case, the spec is left
 alone.
 
 The question of who controls the object is answered by first looking
-for an annotation with key `apf.kubernetes.io/autoupdate-spec`.  If
+for an annotation with key `apf.kubernetes.io/autoupdate-spec`. If
 there is such an annotation and its value is `true` then the
-kube-apiservers control the object.  If there is such an annotation
-and its value is `false` then the users control the object.  If
+kube-apiservers control the object. If there is such an annotation
+and its value is `false` then the users control the object. If
 neither of those conditions holds then the `metadata.generation` of the
-object is consulted.  If that is 1 then the kube-apiservers control
-the object.  Otherwise the users control the object.  These rules were
+object is consulted. If that is 1 then the kube-apiservers control
+the object. Otherwise the users control the object. These rules were
 introduced in release 1.22 and their consideration of
 `metadata.generation` is for the sake of migration from the simpler
-earlier behavior.  Users who wish to control a suggested configuration
+earlier behavior. Users who wish to control a suggested configuration
 object should set its `apf.kubernetes.io/autoupdate-spec` annotation
 to `false`.
 
@@ -448,7 +448,7 @@ nor suggested but are annotated
 
 The suggested configuration gives no special treatment to the health
 check requests on kube-apiservers from their local kubelets --- which
-tend to use the secured port but supply no credentials.  With the
+tend to use the secured port but supply no credentials. With the
 suggested config, these requests get assigned to the `global-default`
 FlowSchema and the corresponding `global-default` priority level,
 where other traffic can crowd them out.
@@ -459,7 +459,7 @@ requests from rate limiting.
 {{< caution >}}
 Making this change also allows any hostile party to then send
 health-check requests that match this FlowSchema, at any volume they
-like.  If you have a web traffic filter or similar external security
+like. If you have a web traffic filter or similar external security
 mechanism to protect your cluster's API server from general internet
 traffic, you can configure rules to block any health check requests
 that originate from outside your cluster.
@@ -489,7 +489,7 @@ poorly-behaved workloads that may be harming system health.
   (cumulative since server start) of requests that were rejected,
   broken down by the labels `flow_schema` (indicating the one that
   matched the request), `priority_level` (indicating the one to which
-  the request was assigned), and `reason`.  The `reason` label will be
+  the request was assigned), and `reason`. The `reason` label will be
   one of the following values:
 
   * `queue-full`, indicating that too many requests were already
@@ -541,7 +541,7 @@ poorly-behaved workloads that may be harming system health.
   high water marks of the number of queued requests, grouped by a
   label named `request_kind` whose value is `mutating` or `readOnly`.
   These high water marks describe the largest number seen in the one
-  second window most recently completed.  These complement the older
+  second window most recently completed. These complement the older
   `apiserver_current_inflight_requests` gauge vector that holds the
   last window's high water mark of number of requests actively being
   served.
@@ -555,7 +555,7 @@ poorly-behaved workloads that may be harming system health.
   nanosecond, of the number of requests broken down by the labels
   `phase` (which takes on the values `waiting` and `executing`) and
   `request_kind` (which takes on the values `mutating` and
-  `readOnly`).  Each observed value is a ratio, between 0 and 1, of
+  `readOnly`). Each observed value is a ratio, between 0 and 1, of
   the number of requests divided by the corresponding limit on the
   number of requests (queue volume limit for waiting and concurrency
   limit for executing).
@@ -568,7 +568,7 @@ poorly-behaved workloads that may be harming system health.
   histogram vector of observations, made at the end of each
   nanosecond, of the number of requests broken down by the labels
   `phase` (which takes on the values `waiting` and `executing`) and
-  `priority_level`.  Each observed value is a ratio, between 0 and 1,
+  `priority_level`. Each observed value is a ratio, between 0 and 1,
   of a number of requests divided by the corresponding limit on the
   number of requests (queue volume limit for waiting and concurrency
   limit for executing).
@@ -576,13 +576,13 @@ poorly-behaved workloads that may be harming system health.
 * `apiserver_flowcontrol_priority_level_seat_utilization` is a
   histogram vector of observations, made at the end of each
   nanosecond, of the utilization of a priority level's concurrency
-  limit, broken down by `priority_level`.  This utilization is the
-  fraction (number of seats occupied) / (concurrency limit).  This
+  limit, broken down by `priority_level`. This utilization is the
+  fraction (number of seats occupied) / (concurrency limit). This
   metric considers all stages of execution (both normal and the extra
   delay at the end of a write to cover for the corresponding
   notification work) of all requests except WATCHes; for those it
   considers only the initial stage that delivers notifications of
-  pre-existing objects.  Each histogram in the vector is also labeled
+  pre-existing objects. Each histogram in the vector is also labeled
   with `phase: executing` (there is no seat limit for the waiting
   phase).
 
@@ -603,9 +603,9 @@ poorly-behaved workloads that may be harming system health.
   {{< /note >}}
 
 * `apiserver_flowcontrol_request_concurrency_limit` is the same as
-  `apiserver_flowcontrol_nominal_limit_seats`.  Before the
-  introduction of concurrency borrowing between priority levels, this
-  was always equal to `apiserver_flowcontrol_current_limit_seats`
+  `apiserver_flowcontrol_nominal_limit_seats`. Before the
+  introduction of concurrency borrowing between priority levels,
+  this was always equal to `apiserver_flowcontrol_current_limit_seats`
   (which did not exist as a distinct metric).
 
 * `apiserver_flowcontrol_lower_limit_seats` is a gauge vector holding
@@ -616,8 +616,8 @@ poorly-behaved workloads that may be harming system health.
 
 * `apiserver_flowcontrol_demand_seats` is a histogram vector counting
   observations, at the end of every nanosecond, of each priority
-  level's ratio of (seat demand) / (nominal concurrency limit).  A
-  priority level's seat demand is the sum, over both queued requests
+  level's ratio of (seat demand) / (nominal concurrency limit). 
+  A priority level's seat demand is the sum, over both queued requests
   and those in the initial phase of execution, of the maximum of the
   number of seats occupied in the request's initial and final
   execution phases.
@@ -791,6 +791,6 @@ Example FlowSchema object to isolate list event requests:
 
 - You can visit flow control [reference doc](/docs/reference/debug-cluster/flow-control/) to learn more about troubleshooting.
 - For background information on design details for API priority and fairness, see
-the [enhancement proposal](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1040-priority-and-fairness).
+  the [enhancement proposal](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1040-priority-and-fairness).
 - You can make suggestions and feature requests via [SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery)
-or the feature's [slack channel](https://kubernetes.slack.com/messages/api-priority-and-fairness).
+  or the feature's [slack channel](https://kubernetes.slack.com/messages/api-priority-and-fairness).
