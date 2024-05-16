@@ -15,7 +15,6 @@ Este documento cataloga  las diferentes vías de comunicación entre el {{< glos
 
 Kubernetes tiene un patrón de API "hub-and-spoke" (centro y conexiones). Todo uso de la API desde los nodos (o los pods que ejecutan) termina en el servidor API. Ninguno de los otros componentes del plano de control está diseñado para exponer servicios remotos. El servidor API está configurado para escuchar conexiones remotas en un puerto HTTPS seguro (típicamente el 443) con una o más formas de
 [autenticación](/docs/reference/access-authn-authz/authentication/) de cliente habilitadas.
-
 Se debe habilitar una o mas formas de [autorizacion](/docs/reference/access-authn-authz/authorization/), especialmente si se permiten [requests anónimos](/docs/reference/access-authn-authz/authentication/#anonymous-requests)
 o [service account tokens](/docs/reference/access-authn-authz/authentication/#service-account-tokens).
 
