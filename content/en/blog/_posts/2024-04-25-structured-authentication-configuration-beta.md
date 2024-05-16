@@ -172,7 +172,7 @@ jwt:
     url: https://issuer.example.com
     audiences:
     - example-client-id
-  certificateAuthority: <value is the content of file /path/to/ca.pem>
+    certificateAuthority: <value is the content of file /path/to/ca.pem>
   claimMappings:
     username:
       claim: username
