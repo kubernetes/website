@@ -1,7 +1,5 @@
 apiVersion: batch/v1
 kind: Job
-metadata:
-  name: job-success
 spec:
   parallelism: 10
   completions: 10
@@ -25,4 +23,3 @@ spec:
               sys.exit(0)
             else:
               sys.exit(1)
-      restartPolicy: Never
