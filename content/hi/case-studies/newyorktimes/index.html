@@ -1,0 +1,73 @@
+---
+title: New York Times Case Study
+case_study_styles: true
+cid: caseStudies
+
+new_case_study_styles: true
+heading_background: /images/case-studies/newyorktimes/banner1.jpg
+heading_title_logo: /images/newyorktimes_logo.png
+subheading: >
+  The New York Times: From Print to the Web to Cloud Native
+case_study_details:
+  - Company: New York Times
+  - Location: New York, N.Y.
+  - Industry: News Media
+---
+
+<h2>Challenge</h2>
+
+<p>When the company decided a few years ago to move out of its data centers, its first deployments on the public cloud were smaller, less critical applications managed on virtual machines. "We started building more and more tools, and at some point we realized that we were doing a disservice by treating Amazon as another data center," says Deep Kapadia, Executive Director, Engineering at The New York Times. Kapadia was tapped to lead a Delivery Engineering Team that would "design for the abstractions that cloud providers offer us."</p>
+
+<h2>Solution</h2>
+
+<p>The team decided to use <a href="https://cloud.google.com/">Google Cloud Platform</a> and its Kubernetes-as-a-service offering, <a href="https://cloud.google.com/kubernetes-engine/">GKE</a>.</p>
+
+<h2>Impact</h2>
+
+<p>Speed of delivery increased. Some of the legacy VM-based deployments took 45 minutes; with Kubernetes, that time was "just a few seconds to a couple of minutes," says Engineering Manager Brian Balser. Adds Li: "Teams that used to deploy on weekly schedules or had to coordinate schedules with the infrastructure team now deploy their updates independently, and can do it daily when necessary." Adopting Cloud Native Computing Foundation technologies allows for a more unified approach to deployment across the engineering staff, and portability for the company.</p>
+
+{{< case-studies/quote author="Deep Kapadia, Executive Director, Engineering at The New York Times" >}}
+{{< youtube DqS_IPw-c6o youtube-quote-sm >}}
+{{< youtube Tm4VfJtOHt8 youtube-quote-sm >}}
+"I think once you get over the initial hump, things get a lot easier and actually a lot faster."
+{{< /case-studies/quote >}}
+
+<p>Founded in 1851 and known as the newspaper of record, The New York Times is a digital pioneer: Its first website launched in 1996, before Google even existed. After the company decided a few years ago to move out of its private data centers—including one located in the pricy real estate of Manhattan. It recently took another step into the future by going cloud native.</p>
+
+<p>At first, the infrastructure team "managed the virtual machines in the Amazon cloud, and they deployed more critical applications in our data centers and the less critical ones on <a href="https://aws.amazon.com/">AWS</a> as an experiment," says Deep Kapadia, Executive Director, Engineering at The New York Times. "We started building more and more tools, and at some point we realized that we were doing a disservice by treating Amazon as another data center."</p>
+
+<p>To get the most out of the cloud, Kapadia was tapped to lead a new Delivery Engineering Team that would "design for the abstractions that cloud providers offer us." In mid-2016, they began looking at the <a href="https://cloud.google.com/">Google Cloud Platform</a> and its Kubernetes-as-a-service offering, <a href="https://cloud.google.com/kubernetes-engine/">GKE</a>.</p>
+
+<p>At the time, says team member Tony Li, a Site Reliability Engineer, "We had some internal tooling that attempted to do what Kubernetes does for containers, but for VMs. We asked why are we building and maintaining these tools ourselves?"</p>
+
+<p>In early 2017, the first production application—the nytimes.com mobile homepage—began running on Kubernetes, serving just 1% of the traffic. Today, almost 100% of the nytimes.com site's end-user facing applications run on GCP, with the majority on Kubernetes.</p>
+
+{{< case-studies/quote image="/images/case-studies/newyorktimes/banner3.jpg" >}}
+"We had some internal tooling that attempted to do what Kubernetes does for containers, but for VMs. We asked why are we building and maintaining these tools ourselves?"
+{{< /case-studies/quote >}}
+
+<p>The team found that the speed of delivery was immediately impacted. "Deploying Docker images versus spinning up VMs was quite a lot faster," says Engineering Manager Brian Balser. Some of the legacy VM-based deployments took 45 minutes; with Kubernetes, that time was "just a few seconds to a couple of minutes."</p>
+
+<p>The plan is to get as much as possible, not just the website, running on Kubernetes, and beyond that, moving toward serverless deployments. For instance, The New York Times crossword app was built on <a href="https://cloud.google.com/appengine/">Google App Engine</a>, which has been the main platform for the company's experimentation with serverless. "The hardest part was getting the engineers over the hurdle of how little they had to do," Chief Technology Officer Nick Rockwell recently told The CTO Advisor. "Our experience has been very, very good. We have invested a lot of work into deploying apps on container services, and I'm really excited about experimenting with deploying those on App Engine Flex and <a href="https://aws.amazon.com/fargate/">AWS Fargate</a> and seeing how that feels, because that's a great migration path."</p>
+
+<p>There are some exceptions to the move to cloud native, of course. "We have the print publishing business as well," says Kapadia. "A lot of that is definitely not going down the cloud-native path because they're using vendor software and even special machinery that prints the physical paper. But even those teams are looking at things like App Engine and Kubernetes if they can."</p>
+
+<p>Kapadia acknowledges that there was a steep learning curve for some engineers, but "I think once you get over the initial hump, things get a lot easier and actually a lot faster."</p>
+
+{{< case-studies/quote image="/images/case-studies/newyorktimes/banner4.jpg" >}}
+"Right now, every team is running a small Kubernetes cluster, but it would be nice if we could all live in a larger ecosystem," says Kapadia. "Then we can harness the power of things like service mesh proxies that can actually do a lot of instrumentation between microservices, or service-to-service orchestration. Those are the new things that we want to experiment with as we go forward."
+{{< /case-studies/quote >}}
+
+<p>At The New York Times, they did. As teams started sharing their own best practices with each other, "We're no longer the bottleneck for figuring out certain things," Kapadia says. "Most of the infrastructure and systems were managed by a centralized function. We've sort of blown that up, partly because Google and Amazon have tools that allow us to do that. We provide teams with complete ownership of their Google Cloud Platform projects, and give them a set of sensible defaults or standards. We let them know, 'If this works for you as is, great! If not, come talk to us and we'll figure out how to make it work for you.'"</p>
+
+<p>As a result, "It's really allowed teams to move at a much more rapid pace than they were able to in the past," says Kapadia. Adds Li: "The use of GKE means each team can get their own compute cluster, reducing the number of individual instances they have to care about since developers can treat the cluster as a whole. Because the ticket-based workflow was removed from requesting resources and connections, developers can just call an API to get what they want. Teams that used to deploy on weekly schedules or had to coordinate schedules with the infrastructure team now deploy their updates independently, and can do it daily when necessary."</p>
+
+<p>Another benefit to adopting Kubernetes: allowing for a more unified approach to deployment across the engineering staff. "Before, many teams were building their own tools for deployment," says Balser. With Kubernetes—as well as the other CNCF projects The New York Times uses, including Fluentd to collect logs for all of its AWS servers, gRPC for its <a href="https://open.nytimes.com/publishing-with-apache-kafka-at-the-new-york-times-7f0e3b7d2077">Publishing Pipeline</a>, Prometheus, and Envoy—"we can benefit from the advances that each of these technologies make, instead of trying to catch up."</p>
+
+{{< case-studies/quote >}}
+Li calls the Cloud Native Computing Foundation's projects "a northern star that we can all look at and follow."
+{{< /case-studies/quote >}}
+
+<p>These open-source technologies have given the company more portability. "CNCF has enabled us to follow an industry standard," says Kapadia. "It allows us to think about whether we want to move away from our current service providers. Most of our applications are connected to Fluentd. If we wish to switch our logging provider from provider A to provider B we can do that. We're running Kubernetes in GCP today, but if we want to run it in Amazon or Azure, we could potentially look into that as well."</p>
+
+<p>Li calls the Cloud Native Computing Foundation's projects "a northern star that we can all look at and follow." Led by that star, the team is looking ahead to a year of onboarding the remaining half of the 40 or so product engineering teams to extract even more value out of the technology. "Right now, every team is running a small Kubernetes cluster, but it would be nice if we could all live in a larger ecosystem," says Kapadia. "Then we can harness the power of things like service mesh proxies that can actually do a lot of instrumentation between microservices, or service-to-service orchestration. Those are the new things that we want to experiment with as we go forward."</p>

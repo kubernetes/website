@@ -1,0 +1,100 @@
+---
+title: Box Case Study
+case_study_styles: true
+cid: caseStudies
+video: https://www.youtube.com/embed/of45hYbkIZs?autoplay=1
+quote: >
+  Kubernetes has the opportunity to be the new cloud platform. The amount of innovation that's going to come from being able to standardize on Kubernetes as a platform is incredibly exciting - more exciting than anything I've seen in the last 10 years of working on the cloud.
+
+new_case_study_styles: true
+heading_background: /images/case-studies/box/banner1.jpg
+heading_title_logo: /images/box_logo.png
+subheading: >
+  An Early Adopter Envisions a New Cloud Platform
+case_study_details:
+  - Company: Box
+  - Location: Redwood City, California
+  - Industry: Technology
+---
+
+<h2>Challenge</h2>
+
+<p>Founded in 2005, the enterprise content management company allows its more than 50 million users to manage content in the cloud. <a href="https://www.box.com/home">Box</a> was built primarily with bare metal inside the company's own data centers, with a monolithic PHP code base. As the company was expanding globally, it needed to focus on "how we run our workload across many different cloud infrastructures from bare metal to public cloud," says Sam Ghods, Cofounder and Services Architect of Box. "It's been a huge challenge because of different clouds, especially bare metal, have very different interfaces."</p>
+
+<h2>Solution</h2>
+
+<p>Over the past couple of years, Box has been decomposing its infrastructure into microservices, and became an early adopter of, as well as contributor to, <a href="http://kubernetes.io/">Kubernetes</a> container orchestration. Kubernetes, Ghods says, has allowed Box's developers to "target a universal set of concepts that are portable across all clouds."</p>
+
+<h2>Impact</h2>
+
+<p>"Before Kubernetes," Ghods says, "our infrastructure was so antiquated it was taking us more than six months to deploy a new microservice. Today, a new microservice takes less than five days to deploy. And we're working on getting it to an hour."</p>
+
+{{< case-studies/quote author="SAM GHOUDS, CO-FOUNDER AND SERVICES ARCHITECT OF BOX" >}}
+"We looked at a lot of different options, but Kubernetes really stood out....the fact that on day one it was designed to run on bare metal just as well as Google Cloud meant that we could actually migrate to it inside of our data centers, and then use those same tools and concepts to run across public cloud providers as&nbsp;well."
+{{< /case-studies/quote >}}
+
+{{< case-studies/lead >}}
+In the summer of 2014, Box was feeling the pain of a decade's worth of hardware and software infrastructure that wasn't keeping up with the company's needs.
+{{< /case-studies/lead >}}
+
+<p>A platform that allows its more than 50 million users (including governments and big businesses like <a href="https://www.ge.com/">General Electric</a>) to manage and share content in the cloud, Box was originally a <a href="http://php.net/">PHP</a> monolith of millions of lines of code built exclusively with bare metal inside of its own data centers. It had already begun to slowly chip away at the monolith, decomposing it into microservices. And "as we've been expanding into regions around the globe, and as the public cloud wars have been heating up, we've been focusing a lot more on figuring out how we run our workload across many different environments and many different cloud infrastructure providers," says Box Cofounder and Services Architect Sam Ghods. "It's been a huge challenge thus far because of all these different providers, especially bare metal, have very different interfaces and ways in which you work with them."</p>
+
+<p>Box's cloud native journey accelerated that June, when Ghods attended <a href="https://www.docker.com/events/dockercon">DockerCon</a>. The company had come to the realization that it could no longer run its applications only off bare metal, and was researching containerizing with Docker, virtualizing with OpenStack, and supporting public cloud.</p>
+
+<p>At that conference, Google announced the release of its Kubernetes container management system, and Ghods was won over. "We looked at a lot of different options, but Kubernetes really stood out, especially because of the incredibly strong team of <a href="https://research.google.com/pubs/pub43438.html">Borg</a> veterans and the vision of having a completely infrastructure-agnostic way of being able to run cloud software," he says, referencing Google's internal container orchestrator Borg. "The fact that on day one it was designed to run on bare metal just as well as <a href="https://cloud.google.com/">Google Cloud</a> meant that we could actually migrate to it inside of our data centers, and then use those same tools and concepts to run across public cloud providers as well."</p>
+
+<p>Another plus: Ghods liked that <a href="https://kubernetes.io/">Kubernetes</a> has a universal set of API objects like pod, service, replica set and deployment object, which created a consistent surface to build tooling against. "Even PaaS layers like <a href="https://www.openshift.com/">OpenShift</a> or <a href="http://deis.io/">Deis</a> that build on top of Kubernetes still treat those objects as first-class principles," he says. "We were excited about having these abstractions shared across the entire ecosystem, which would result in a lot more momentum than we saw in other potential solutions."</p>
+
+<p>Box deployed Kubernetes in a cluster in a production data center just six months later. Kubernetes was then still pre-beta, on version 0.11. They started small: The very first thing Ghods's team ran on Kubernetes was a Box API checker that confirms Box is up. "That was just to write and deploy some software to get the whole pipeline functioning," he says. Next came some daemons that process jobs, which was "nice and safe because if they experienced any interruptions, we wouldn't fail synchronous incoming requests from customers."</p>
+
+{{< case-studies/quote image="/images/case-studies/box/banner3.jpg">}}
+"As we've been expanding into regions around the globe, and as the public cloud wars have been heating up, we've been focusing a lot more on figuring out how we [can have Kubernetes help] run our workload across many different environments and many different cloud infrastructure providers."
+{{< /case-studies/quote >}}
+
+<p>The first live service, which the team could route to and ask for information, was launched a few months later. At that point, Ghods says, "We were comfortable with the stability of the Kubernetes cluster. We started to port some services over, then we would increase the cluster size and port a few more, and that's ended up to about 100 servers in each data center that are dedicated purely to Kubernetes. And that's going to be expanding a lot over the next 12 months, probably too many hundreds if not thousands."</p>
+
+<p>While observing teams who began to use Kubernetes for their microservices, "we immediately saw an uptick in the number of microservices being released," Ghods&nbsp;notes. "There was clearly a pent-up demand for a better way of building software through microservices, and the increase in agility helped our developers be more productive and make better architectural choices."</p>
+
+{{< case-studies/lead >}}
+"There was clearly a pent-up demand for a better way of building software through microservices, and the increase in agility helped our developers be more productive and make better architectural choices."
+{{< /case-studies/lead >}}
+
+<p>Ghods reflects that as early adopters, Box had a different journey from what companies experience now. "We were definitely lock step with waiting for certain things to stabilize or features to get released," he says. "In the early days we were doing a lot of contributions [to components such as kubectl apply] and waiting for Kubernetes to release each of them, and then we'd upgrade, contribute more, and go back and forth several times. The entire project took about 18 months from our first real deployment on Kubernetes to having general availability. If we did that exact same thing today, it would probably be no more than six."</p>
+
+<p>In any case, Box didn't have to make too many modifications to Kubernetes for it to work for the company. "The vast majority of the work our team has done to implement Kubernetes at Box has been making it work inside of our existing (and often legacy) infrastructure," says Ghods, "such as upgrading our base operating system from RHEL6 to RHEL7 or integrating it into <a href="https://www.nagios.org/">Nagios</a>, our monitoring infrastructure. But overall Kubernetes has been remarkably flexible with fitting into many of our constraints, and we've been running it very successfully on our bare metal infrastructure."</p>
+
+<p>Perhaps the bigger challenge for Box was a cultural one. "Kubernetes, and cloud native in general, represents a pretty big paradigm shift, and it's not very incremental," Ghods says. "We're essentially making this pitch that Kubernetes is going to solve everything because it does things the right way and everything is just suddenly better. But it's important to keep in mind that it's not nearly as proven as many other solutions out there. You can't say how long this or that company took to do it because there just aren't that many yet. Our team had to really fight for resources because our project was a bit of a moonshot."</p>
+
+{{< case-studies/quote image="/images/case-studies/box/banner4.jpg">}}
+"The vast majority of the work our team has done to implement Kubernetes at Box has been making it work inside of our existing [and often legacy] infrastructure....overall Kubernetes has been remarkably flexible with fitting into many of our constraints, and we've been running it very successfully on our bare metal infrastructure."
+{{< /case-studies/quote >}}
+
+<p>Having learned from experience, Ghods offers these two pieces of advice for companies going through similar challenges:</p>
+
+{{< case-studies/lead >}}
+1. Deliver early and often.
+{{< /case-studies/lead >}}
+
+<p>Service discovery was a huge problem for Box, and the team had to decide whether to build an interim solution or wait for Kubernetes to natively satisfy Box's unique requirements. After much debate, "we just started focusing on delivering something that works, and then dealing with potentially migrating to a more native solution later," Ghods says. "The above-all-else target for the team should always be to serve real production use cases on the infrastructure, no matter how trivial. This helps keep the momentum going both for the team itself and for the organizational perception of the project."</p>
+
+{{< case-studies/lead >}}
+2. Keep an open mind about what your company has to abstract away from developers and what it doesn't.
+{{< /case-studies/lead >}}
+
+<p>Early on, the team built an abstraction on top of Docker files to help ensure that images had the right security updates. This turned out to be superfluous work, since container images are considered immutable and you can easily scan them post-build to ensure they do not contain vulnerabilities. Because managing infrastructure through containerization is such a discontinuous leap, it's better to start by interacting directly with the native tools and learning their unique advantages and caveats. An abstraction should be built only after a practical need for it arises.</p>
+
+<p>In the end, the impact has been powerful. "Before Kubernetes," Ghods says, "our infrastructure was so antiquated it was taking us more than six months to deploy a new microservice. Now a new microservice takes less than five days to deploy. And we're working on getting it to an hour. Granted, much of that six months was due to how broken our systems were, but bare metal is intrinsically a difficult platform to support unless you have a system like Kubernetes to help manage it."</p>
+
+<p>By Ghods's estimate, Box is still several years away from his goal of being a 90-plus percent Kubernetes shop. "We're very far along on having a mission-critical, stable Kubernetes deployment that provides a lot of value," he says. "Right now about five percent of all of our compute runs on Kubernetes, and I think in the next six months we'll likely be between 20 to 50 percent. We're working hard on enabling all stateless service use cases, and shift our focus to stateful services after that."</p>
+
+{{< case-studies/quote >}}
+"Ghods predicts that Kubernetes has the opportunity to be the new cloud platform. '...because it's a never-before-seen level of automation and intelligence surrounding infrastructure that is portable and agnostic to every way you can run your infrastructure.'"
+{{< /case-studies/quote >}}
+
+<p>In fact, that's what he envisions across the industry: Ghods predicts that Kubernetes has the opportunity to be the new cloud platform. Kubernetes provides an API consistent across different cloud platforms including bare metal, and "I don't think people have seen the full potential of what's possible when you can program against one single interface," he says. "The same way <a href="https://aws.amazon.com/">AWS</a> changed infrastructure so that you don't have to think about servers or cabinets or networking equipment anymore, Kubernetes enables you to focus exclusively on the containers that you're running, which is pretty exciting. That's the vision."</p>
+
+<p>Ghods points to projects that are already in development or recently released for Kubernetes as a cloud platform: cluster federation, the Dashboard UI, and <a href="https://coreos.com/">CoreOS</a>'s etcd operator. "I honestly believe it's the most exciting thing I've seen in cloud infrastructure," he says, "because it's a never-before-seen level of automation and intelligence surrounding infrastructure that is portable and agnostic to every way you can run your infrastructure."</p>
+
+<p>Box, with its early decision to use bare metal, embarked on its Kubernetes journey out of necessity. But Ghods says that even if companies don't have to be agnostic about cloud providers today, Kubernetes may soon become the industry standard, as more and more tooling and extensions are built around the API.</p>
+
+<p>"The same way it doesn't make sense to deviate from Linux because it's such a standard," Ghods says, "I think Kubernetes is going down the same path. It is still early days—the documentation still needs work and the user experience for writing and publishing specs to the Kubernetes clusters is still rough. When you're on the cutting edge you can expect to bleed a little. But the bottom line is, this is where the industry is going. Three to five years from now it's really going to be shocking if you run your infrastructure any other way."</p>
