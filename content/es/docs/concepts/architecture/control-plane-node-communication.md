@@ -36,7 +36,7 @@ Las conexiones desde el servidor API al kubelet se utilizan para:
 
 * Obtener registros de los pods.
 * Conectarse (generalmente a través de `kubectl`) a pods en ejecución.
-* Proporcionar la funcionalidad de reenvío de puertos del kubelet.
+* Facilitar la funcionalidad `port-forwarding` del kubelet.
 
 Estas conexiones terminan en el punto final HTTPS del kubelet. Por defecto, el servidor API no verifica el certificado de servicio del kubelet, lo que hace que la conexión esté sujeta a ataques de intermediario y sea insegura para ejecutarse sobre redes no confiables y/o públicas.
 
