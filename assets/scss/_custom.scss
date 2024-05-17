@@ -531,11 +531,7 @@ body {
   }
 
   .alert-info:has(h4):has(ul) h4 {
-    line-height: 0 !important;
-  }
- 
-  .alert-info:has(h4):has(ul) ul {
-    margin-top: 10px;
+    float: initial !important;
   }
  
   h1:first-of-type + .alert.callout {
