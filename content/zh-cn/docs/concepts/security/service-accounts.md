@@ -343,20 +343,20 @@ following methods:
 <!--
 * [Service Account Token Secrets](/docs/tasks/configure-pod-container/configure-service-account/#manually-create-an-api-token-for-a-serviceaccount)
   (not recommended): You can mount service account tokens as Kubernetes
-  Secrets in Pods. These tokens don't expire and don't rotate.
-  This method is not recommended, especially at scale, because of the risks associated
-  with static, long-lived credentials. In Kubernetes v1.24 and later, the
-  [LegacyServiceAccountTokenNoAutoGeneration feature gate](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features)
-  prevents Kubernetes from automatically creating these tokens for
-  ServiceAccounts. `LegacyServiceAccountTokenNoAutoGeneration` is enabled
-  by default; in other words, Kubernetes does not create these tokens.
+  Secrets in Pods. These tokens don't expire and don't rotate. In versions prior to v1.24, a permanent token was automatically created for each service account.
+  This method is not recommended anymore, especially at scale, because of the risks associated
+  with static, long-lived credentials. The [LegacyServiceAccountTokenNoAutoGeneration feature gate](/docs/reference/command-line-tools-reference/feature-gates-removed)
+  (which was enabled by default from Kubernetes v1.24 to v1.26),  prevented Kubernetes from automatically creating these tokens for
+  ServiceAccounts. The feature gate is removed in v1.27, because it was elevated to GA status; you can still create indefinite service account tokens manually, but should take into account the security implications.
 -->
 * [服务账号令牌 Secret](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#manually-create-an-api-token-for-a-serviceaccount)（不推荐）：
   你可以将服务账号令牌以 Kubernetes Secret 的形式挂载到 Pod 中。这些令牌不会过期且不会轮换。
-  不推荐使用此方法，特别是在大规模场景下，这是因为静态、长期有效的凭据存在一定的风险。在 Kubernetes v1.24 及更高版本中，
-  [LegacyServiceAccountTokenNoAutoGeneration 特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features)阻止
-  Kubernetes 自动为 ServiceAccount 创建这些令牌。`LegacyServiceAccountTokenNoAutoGeneration` 默认被启用，
-  也就是说，Kubernetes 不会创建这些令牌。
+  在 v1.24 版本之前，系统会为每个服务账户自动创建一个永久令牌。此方法已不再被推荐，
+  尤其是在大规模应用时，因为使用静态、长期有效的凭证存在风险。
+  [LegacyServiceAccountTokenNoAutoGeneration 特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates-removed)
+  （从 Kubernetes v1.24 至 v1.26 默认启用），阻止 Kubernetes 自动为 ServiceAccount 创建这些令牌。
+  此特性门控在 v1.27 版本中被移除，因为此特性已升级为正式发布（GA）状态；
+  你仍然可以手动为 ServiceAccount 创建无限期的服务账户令牌，但应考虑到安全影响。
 
 {{< note >}}
 <!--
