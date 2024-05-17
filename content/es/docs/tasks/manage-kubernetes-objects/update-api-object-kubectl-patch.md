@@ -1,5 +1,5 @@
 ---
-title: Actualiza Objetos del API sin reemplazo (in Place) usando kubectl patch 
+title: Actualiza Objetos del API en su sitio (in Place) usando kubectl patch 
 description:  Usa kubectl patch para actualizar objetos del API de kubernetes sin reemplazarlos. Usa strategic merge patch o JSON merge patch.
 content_type: task
 weight: 50
@@ -23,7 +23,7 @@ Los ejercicios de esta tarea demuestran el uso de "strategic merge patch" y "JSO
 ## Usa strategic merge patch para actualizar un Deployment
 
 Aquí está el archivo de configuración para un Deployment con dos réplicas. 
-Cada réplica es un pod que tiene un contenedor:
+Cada réplica es un Pod que tiene un contenedor:
 
 {{% code_sample file="application/deployment-patch.yaml" %}}
 
@@ -52,7 +52,7 @@ Toma nota de los nombres de los Pods que se están ejecutando. Verás que estos 
 terminados y reemplazados posteriormente.
 
 En este punto cada Pod tiene un contenedor que ejecuta una imagen de nginx. Ahora
-supón que quieres que cada pod tenga dos contenedores: uno que ejecute nginx 
+supón que quieres que cada Pod tenga dos contenedores: uno que ejecute nginx 
 y otro que ejecute redis.
 
 Crea un archivo llamado `patch-file.yaml` con el siguiente contenido:
@@ -134,9 +134,9 @@ a la lista ya existente. Esto no es lo que pasa siempre que se utiliza strategic
 en una lista. En algunos casos la lista existente podría ser reemplazada en lugar de unir ambas.
 
 Con strategic merge patch, la lista existente puede ser reemplazada o unida con la nueva
-dependiendo de la estrategia de patch. La estrategia de patch se especifica en el valor del key
-`patchStrategy`en un field tag del código fuente de Kubernetes. Por ejemplo el 
-campo `Containers` de la struct `PodSpec` tiene un valor de `merge` en su key `patchStrategy`:
+dependiendo de la estrategia de patch. La estrategia de patch se especifica en el valor de la clave
+`patchStrategy`en un campo tag del código fuente de Kubernetes. Por ejemplo el 
+campo `Containers` de la struct `PodSpec` tiene un valor de `merge` en su clave `patchStrategy`:
 
 ```go
 type PodSpec struct {
@@ -180,7 +180,7 @@ Modifica tu Deployment utilizando Patch:
 ```shell
 kubectl patch deployment patch-demo --patch-file patch-file-tolerations.yaml
 ```
-Reviza el Deployment modificado:
+Revisa el Deployment modificado:
 
 ```shell
 kubectl get deployment patch-demo --output yaml
@@ -196,8 +196,8 @@ tolerations:
 ```
 
 Toma en cuenta que la lista de `tolerations` en el PodSpec fue reemplazada, no unida.
-Esto es porque el campo de Tolerations del PodSpec no tiene un key `patchStrategy` en su field tag.
-por lo tanto strategic merge patch utiliza la estrategia de patch de default, la cual es `replace`.
+Esto es porque el campo de Tolerations del PodSpec no tiene una clave `patchStrategy` en su campo de tag.
+por lo tanto strategic merge patch utiliza la estrategia de patch por defecto, la cual es `replace`.
 
 ```go
 type PodSpec struct {
@@ -228,7 +228,7 @@ El comando `kubectl patch` tiene un parámetro `type` que acepta los siguientes 
 Para una comparación entre JSON patch y JSON merge patch, revisa
 [JSON Patch y JSON Merge Patch](https://erosb.github.io/post/json-patch-vs-merge-patch/).
 
-El valor predeterminado para el parametro `type` es  `strategic`. Entonces en el ejercicio
+El valor predeterminado para el parámetro `type` es  `strategic`. Entonces en el ejercicio
 anterior hiciste un strategic merge patch.
 
 A continuación haz un JSON merge path en el mismo Deployment. Crea un archivo llamado
@@ -315,7 +315,7 @@ En el resultado se puede ver que no es posible definir el `type` como `Recreate`
 The Deployment "retainkeys-demo" is invalid: spec.strategy.rollingUpdate: Forbidden: may not be specified when strategy `type` is 'Recreate'
 ```
 
-La forma para quitar el value para `spec.strategy.rollingUpdate` al momento de cambiar el valor `type` es usar la estrategia `retainKeys` para el strategic merge.
+La forma para quitar el valor para `spec.strategy.rollingUpdate` al momento de cambiar el valor `type` es usar la estrategia `retainKeys` para el strategic merge.
 
 Crea otro archivo llamado `patch-file-retainkeys.yaml` con el siguiente contenido:
 
@@ -327,7 +327,7 @@ spec:
     type: Recreate
 ```
 
-Con este Patch definimos que solo queremos conservar el key `type` del objeto `strategy`. Por lo tanto la llave `rollingUpdate` será eliminada durante la operación de modificación.
+Con este Patch definimos que solo queremos conservar la clave `type` del objeto `strategy`. Por lo tanto la clave `rollingUpdate` será eliminada durante la operación de modificación.
 
 Modifica tu Deployment de nuevo con este nuevo Patch:
 
@@ -339,7 +339,7 @@ Revisa el contenido del Deployment:
 ```shell
 kubectl get deployment retainkeys-demo --output yaml
 ```
-El resultado muestra que el objeto `strategy` en el Deployment ya no contiene la llave `rollingUpdate`:
+El resultado muestra que el objeto `strategy` en el Deployment ya no contiene la clave `rollingUpdate`:
 
 ```yaml
 spec:
@@ -358,8 +358,8 @@ nueva directiva `$retainKeys` que tiene las siguientes estrategias:
 - Todos los campos faltantes serán removidos o vaciados al momento de la modificación.
 - Todos los campos en la lista `$retainKeys` deberán ser un superconjunto o idéntico a los campos presentes en el Patch.
 
-La estrategia `retainKeys` no funciona para todos los objetos. Solo funciona cuando el valor de la key `patchStrategy`en el field tag de el código fuente de 
-Kubernetes contenga `retainKeys`. Por ejemplo, el campo `Strategy` del struct `DeploymentSpec` tiene un valor de `retainKeys` en tu tag `patchStrategy`
+La estrategia `retainKeys` no funciona para todos los objetos. Solo funciona cuando el valor de la key `patchStrategy`en el campo tag de el código fuente de 
+Kubernetes contenga `retainKeys`. Por ejemplo, el campo `Strategy` del struct `DeploymentSpec` tiene un valor de `retainKeys` en su tag `patchStrategy`
 
 
 ```go
@@ -389,7 +389,7 @@ Además puedes revisar la estrategia `retainKeys` en la [documentación del API 
 
 ### Formas alternativas del comando kubectl patch
 
-El comando `kubectl patch` toma como entrada un archivo en formato YAML o JSON desde el filesystem o la línea de comandos.
+El comando `kubectl patch` toma como entrada un archivo en formato YAML o JSON desde el sistema de archivos o la línea de comandos.
 
 Crea un archivo llamado `patch-file.json` que contenga lo siguiente:
 
@@ -428,7 +428,7 @@ kubectl patch deployment patch-demo --patch '{"spec": {"template": {"spec": {"co
 La bandera `--subresource=[subresource-name]` es utilizada con comandos de kubectl como get,
 patch y replace para obtener y actualizar los subrecursos `status` y `scale` de los recursos 
 (aplicable para las versiones de kubectl de v1.24 en adelante). Esta bandera se utiliza con
-todos los recursos del API (incluidos en k8s o CRs) que tengan los subrecursos `status` or `scale`.
+todos los recursos del API (incluidos en k8s o CRs) que tengan los subrecursos `status` o `scale`.
 Deployment es un ejemplo de un objeto con estos subrecursos.
 
 A continuación se muestra un ejemplo de un Deployment con dos réplicas:
