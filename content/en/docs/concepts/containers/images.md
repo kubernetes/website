@@ -73,8 +73,10 @@ Some examples are: Docker, Buildah, Kaniko, and Buildpacks.
 
 For more information on the OCI Image Specification, see the [OCI Image Spec](https://github.com/opencontainers/image-spec).
 
+{{< note >}}
 Other types of artifacts that are OCI compliant but not container images 
 cannot be used by Kubernetes as images. You can read more about them in the [OCI Manifest Spec](https://github.com/opencontainers/image-spec/blob/main/manifest.md).
+{{< /note >}}
 
 ## Updating images
 
