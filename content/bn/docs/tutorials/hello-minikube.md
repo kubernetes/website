@@ -2,12 +2,6 @@
 title: হ্যালো মিনিকুব (Hello Minikube)
 content_type: tutorial
 weight: 5
-menu:
-  main:
-    title: "Get Started"
-    weight: 10
-    post: >
-      <p> কাজ শুরু করতে প্রস্তুত? একটি সাধারণ কুবারনেটিস ক্লাস্টার তৈরি করুন যা একটি নমুনা অ্যাপ চালায় । </p>
 card:
   name: tutorials
   weight: 10
