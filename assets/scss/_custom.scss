@@ -126,6 +126,9 @@ body.td-404 main .error-details {
   .td-search-input, .search-bar {
     color: $dark-grey !important;
   }
+  input, input::placeholder, .search-icon {
+    color: black;
+  }
 }
 
 @media only screen and (min-width: 768px) {
