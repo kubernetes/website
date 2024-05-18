@@ -8,7 +8,7 @@ weight: 220
 
 <!-- overview -->
 
-{{< feature-state state="alpha" for_k8s_version="v1.28" >}}
+{{< feature-state feature_gate_name="UnknownVersionInteroperabilityProxy" >}}
 
 Kubernetes {{< skew currentVersion >}} includes an alpha feature that lets an
 {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}

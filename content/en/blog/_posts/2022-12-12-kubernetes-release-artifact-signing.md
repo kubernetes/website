@@ -3,9 +3,9 @@ layout: blog
 title: "Kubernetes 1.26: We're now signing our binary release artifacts!"
 date: 2022-12-12
 slug: kubernetes-release-artifact-signing
+author: >
+  Sascha Grunert
 ---
-
-**Author:** Sascha Grunert
 
 The Kubernetes Special Interest Group (SIG) Release is proud to announce that we
 are digitally signing all release artifacts, and that this aspect of Kubernetes

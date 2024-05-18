@@ -32,7 +32,7 @@ that will deploy and upgrade the cluster for you.
 ## Installing CoreDNS
 
 For manual deployment or replacement of kube-dns, see the documentation at the
-[CoreDNS GitHub project.](https://github.com/coredns/deployment/tree/master/kubernetes)
+[CoreDNS website](https://coredns.io/manual/installation/).
 
 ## Migrating to CoreDNS
 

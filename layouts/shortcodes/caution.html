@@ -1,3 +1,11 @@
-<div class="alert alert-warning caution callout" role="alert">
-  <strong>{{ T "caution" }}</strong> {{ trim .Inner " \n" | markdownify }}
+<!-- adapted from Docsy alert shortcode -->
+{{- $_hugo_config := `{ "version": 1 }` -}}
+{{- $color := "caution" -}}
+<div class="alert alert-{{- $color -}}" role="alert">
+{{- with ( T "caution" ) -}}<h4 class="alert-heading">{{- . | safeHTML -}}</h4>{{- end -}}
+{{- if eq .Page.File.Ext "md" -}}
+    {{- .Inner | markdownify -}}
+{{- else -}}
+    {{- .Inner | htmlUnescape | safeHTML -}}
+{{- end -}}
 </div>

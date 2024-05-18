@@ -3,9 +3,12 @@ layout: blog
 title: "kube-state-metrics goes v2.0"
 date: 2021-04-13
 slug: kube-state-metrics-v-2-0
+author: >
+  Lili Cosic (Red Hat),
+  Frederic Branczyk (Polar Signals),
+  Manuel Rüger (Sony Interactive Entertainment), 
+  Tariq Ibrahim (Salesforce)
 ---
-
-**Authors:** Lili Cosic (Red Hat), Frederic Branczyk (Polar Signals), Manuel Rüger (Sony Interactive Entertainment), Tariq Ibrahim (Salesforce)
 
 ## What?
 

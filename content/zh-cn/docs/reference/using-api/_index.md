@@ -64,7 +64,7 @@ Kubernetes API 服务器进行身份认证以及他们的请求如何被鉴权�
 <!--
 ## API versioning
 -->
-## API 版本控制 {#api-reference}
+## API 版本控制   {#api-versioning}
 
 <!--
 The JSON and Protobuf serialization schemas follow the same guidelines for

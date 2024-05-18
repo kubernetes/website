@@ -24,7 +24,7 @@ weight: 380
 
 ## CoreDNSのインストール {#installing-coredns}
 
-kube-dnsの手動デプロイや置き換えについては、[CoreDNS GitHub project](https://github.com/coredns/deployment/tree/master/kubernetes)のドキュメントを参照してください。
+kube-dnsの手動デプロイや置き換えについては、[CoreDNS website](https://coredns.io/manual/installation/)のドキュメントを参照してください。
 
 ## CoreDNSへの移行 {#migrating-to-coredns}
 

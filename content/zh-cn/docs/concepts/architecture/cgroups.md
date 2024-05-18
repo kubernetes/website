@@ -70,11 +70,11 @@ cgroup v2 对 cgroup v1 进行了多项改进，例如：
 <!--
 Some Kubernetes features exclusively use cgroup v2 for enhanced resource
 management and isolation. For example, the
-[MemoryQoS](/blog/2021/11/26/qos-memory-resources/) feature improves memory QoS
+[MemoryQoS](/docs/concepts/workloads/pods/pod-qos/#memory-qos-with-cgroup-v2) feature improves memory QoS
 and relies on cgroup v2 primitives.
 -->
 一些 Kubernetes 特性专门使用 cgroup v2 来增强资源管理和隔离。
-例如，[MemoryQoS](/blog/2021/11/26/qos-memory-resources/) 特性改进了内存 QoS 并依赖于 cgroup v2 原语。
+例如，[MemoryQoS](/zh-cn/docs/concepts/workloads/pods/pod-qos/#memory-qos-with-cgroup-v2) 特性改进了内存 QoS 并依赖于 cgroup v2 原语。
 
 <!--
 ## Using cgroup v2 {#using-cgroupv2}

@@ -1,7 +1,7 @@
 ---
 title: 干扰（Disruptions）
 content_type: concept
-weight: 60
+weight: 70
 ---
 
 <!--
@@ -11,7 +11,7 @@ reviewers:
 - davidopp
 title: Disruptions
 content_type: concept
-weight: 60
+weight: 70
 -->
 
 <!-- overview -->
@@ -92,8 +92,7 @@ Cluster administrator actions include:
 
 - [Draining a node](/docs/tasks/administer-cluster/safely-drain-node/) for repair or upgrade.
 - Draining a node from a cluster to scale the cluster down (learn about
-[Cluster Autoscaling](https://github.com/kubernetes/autoscaler/#readme)
-).
+[Cluster Autoscaling](https://github.com/kubernetes/autoscaler/#readme)).
 - Removing a pod from a node to permit something else to fit on that node.
 -->
 集群管理员操作包括：

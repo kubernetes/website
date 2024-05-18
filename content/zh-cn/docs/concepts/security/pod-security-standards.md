@@ -3,7 +3,7 @@ title: Pod 安全性标准
 description: >
   详细了解 Pod 安全性标准（Pod Security Standards）中所定义的不同策略级别。
 content_type: concept
-weight: 10
+weight: 15
 ---
 <!--
 reviewers:
@@ -12,7 +12,7 @@ title: Pod Security Standards
 description: >
   A detailed look at the different policy levels defined in the Pod Security Standards.
 content_type: concept
-weight: 10
+weight: 15
 -->
 
 <!-- overview -->
@@ -214,8 +214,27 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap">AppArmor</td>
 			<td>
-				<p><!--On supported hosts, the <code>runtime/default</code> AppArmor profile is applied by default. The baseline policy should prevent overriding or disabling the default AppArmor profile, or restrict overrides to an allowed set of profiles.-->在受支持的主机上，默认使用 <code>runtime/default</code> AppArmor 配置。Baseline 策略应避免覆盖或者禁用默认策略，以及限制覆盖一些配置集合的权限。</p>
-				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
+				<p>
+           <!--
+           On supported hosts, the <code>RuntimeDefault</code> AppArmor profile is applied by default. The baseline policy should prevent overriding or disabling the default AppArmor profile, or restrict overrides to an allowed set of profiles.
+           -->
+           在受支持的主机上，默认使用 <code>RuntimeDefault</code> AppArmor 配置。Baseline
+           策略应避免覆盖或者禁用默认策略，以及限制覆盖一些配置集合的权限。
+        </p>
+        <p><strong><!--Restricted Fields-->限制的字段</strong></p>
+         <ul>
+              <li><code>spec.securityContext.appArmorProfile.type</code></li>
+              <li><code>spec.containers[*].securityContext.appArmorProfile.type</code></li>
+              <li><code>spec.initContainers[*].securityContext.appArmorProfile.type</code></li>
+              <li><code>spec.ephemeralContainers[*].securityContext.appArmorProfile.type</code></li>
+        </ul>
+        <p><strong><!--Allowed Values-->准许的取值<</strong></p>
+        <ul>
+              <li>Undefined/nil</li>
+              <li><code>RuntimeDefault</code></li>
+              <li><code>Localhost</code></li>
+        </ul>
+        <hr />
 				<ul>
 					<li><code>metadata.annotations["container.apparmor.security.beta.kubernetes.io/*"]</code></li>
 				</ul>
@@ -230,7 +249,12 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap">SELinux</td>
 			<td>
-				<p><!--Setting the SELinux type is restricted, and setting a custom SELinux user or role option is forbidden.-->设置 SELinux 类型的操作是被限制的，设置自定义的 SELinux 用户或角色选项是被禁止的。</p>
+				<p>
+           <!--
+           Setting the SELinux type is restricted, and setting a custom SELinux user or role option is forbidden.
+           -->
+          设置 SELinux 类型的操作是被限制的，设置自定义的 SELinux 用户或角色选项是被禁止的。
+        </p>
 				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
 				<ul>
 					<li><code>spec.securityContext.seLinuxOptions.type</code></li>
@@ -302,7 +326,13 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap">Sysctls</td>
 			<td>
-				<p><!--Sysctls can disable security mechanisms or affect all containers on a host, and should be disallowed except for an allowed "safe" subset. A sysctl is considered safe if it is namespaced in the container or the Pod, and it is isolated from other Pods or processes on the same Node.-->Sysctls 可以禁用安全机制或影响宿主上所有容器，因此除了若干“安全”的子集之外，应该被禁止。如果某 sysctl 是受容器或 Pod 的名字空间限制，且与节点上其他 Pod 或进程相隔离，可认为是安全的。</p>
+				<p>
+           <!--
+				   Sysctls can disable security mechanisms or affect all containers on a host, and should be disallowed except for an allowed "safe" subset. A sysctl is considered safe if it is namespaced in the container or the Pod, and it is isolated from other Pods or processes on the same Node.
+           -->
+           sysctl 可以禁用安全机制或影响宿主上所有容器，因此除了若干“安全”的允许子集之外，其他都应该被禁止。
+           如果某 sysctl 是受容器或 Pod 的名字空间限制，且与节点上其他 Pod 或进程相隔离，可认为是安全的。
+        </p>
 				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
 				<ul>
 					<li><code>spec.securityContext.sysctls[*].name</code></li>
@@ -346,7 +376,7 @@ containers_. If any of the listed containers fails to meet the requirements, the
 fail validation.
 -->
 在下述表格中，通配符（`*`）意味着一个列表中的所有元素。
-例如 `spec.containers[*].securityContext` 表示 **所定义的所有容器** 的安全性上下文对象。
+例如 `spec.containers[*].securityContext` 表示**所定义的所有容器**的安全性上下文对象。
 如果所列出的任一容器不能满足要求，整个 Pod 将无法通过校验。
 {{< /note >}}
 
@@ -363,7 +393,12 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap"><!--Volume Types-->卷类型</td>
 			<td>
-				<p><!--In addition to restricting HostPath volumes, the restricted policy limits usage of non-core volume types to those defined through PersistentVolumes.-->除了限制 HostPath 卷之外，此类策略还限制可以通过 PersistentVolumes 定义的非核心卷类型。</p>
+				<p>
+				  <!--
+				  In addition to restricting HostPath volumes, the restricted policy limits usage of non-core volume types to those defined through PersistentVolumes.
+				  -->
+				  除了限制 HostPath 卷之外，此类策略还限制可以通过 PersistentVolumes 定义的非核心卷类型。
+				</p>
 				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
 				<ul>
 					<li><code>spec.volumes[*]</code></li>
@@ -689,4 +724,3 @@ sandboxing. As such, no single recommended profile is recommended for all sandbo
 
 此外，沙箱化负载的保护高度依赖于沙箱化的实现方法。
 因此，现在还没有针对所有沙箱化负载的建议配置。
-

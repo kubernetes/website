@@ -98,12 +98,14 @@ Before choosing a guide, here are some considerations:
 ## Managing a cluster
 
 * Learn how to [manage nodes](/docs/concepts/architecture/nodes/).
+  * Read about [cluster autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/).
 
 * Learn how to set up and manage the [resource quota](/docs/concepts/policy/resource-quotas/) for shared clusters.
 -->
 ## 管理集群   {#managing-a-cluster}
 
 * 学习如何[管理节点](/zh-cn/docs/concepts/architecture/nodes/)。
+  * 阅读[集群自动扩缩](/zh-cn/docs/concepts/cluster-administration/cluster-autoscaling/)。
 
 * 学习如何设定和管理集群共享的[资源配额](/zh-cn/docs/concepts/policy/resource-quotas/)。
 

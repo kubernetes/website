@@ -1,1 +1,13 @@
-{{- .Page.Param (.Get 0) -}}
+{{- $name := (.Get 0) -}}
+{{- with $name -}}
+{{- with ($.Page.Param .) }}{{ . }}{{ else }}{{ errorf "Param %q not found: %s" $name $.Position }}{{ end -}}
+{{- else }}{{ errorf "Missing param key: %s" $.Position }}{{ end -}}
+{{- with $.Page.File.Filename -}}
+{{- $warningText := slice
+    "Deprecated param shortcode detected."
+    "The Kubernetes website does not / should not use param shortcodes."
+    ( printf "Check %q" ( replaceRE "^/src/" "" .  ) ) -}}
+    {{- if and (eq $.Site.LanguagePrefix "") (ne $name "version" ) -}}
+    {{- warnf (delimit $warningText " " ) -}}
+    {{- end -}}
+{{- end -}}

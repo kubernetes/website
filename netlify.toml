@@ -7,8 +7,8 @@ functions = "functions"
 command = "git submodule update --init --recursive --depth 1 && make non-production-build"
 
 [build.environment]
-NODE_VERSION = "10.20.0"
-HUGO_VERSION = "0.120.3"
+NODE_VERSION = "20.11.0"
+HUGO_VERSION = "0.121.2"
 
 [context.production.environment]
 HUGO_BASEURL = "https://kubernetes.io/"

@@ -517,7 +517,7 @@ Verifique a documentação do [controlador Ingress](/docs/concepts/services-netw
 Você pode expor um serviço de várias maneiras que não envolve diretamente o recurso Ingress:
 
 * Use [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer)
-* Use [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport)
+* Use [Service.Type=NodePort](/docs/concepts/services-networking/service/#type-nodeport)
 
 
 ## {{% heading "whatsnext" %}}

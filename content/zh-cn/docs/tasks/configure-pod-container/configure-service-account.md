@@ -303,7 +303,7 @@ token might be shorter, or could even be longer).
 
 <!--
 When the `ServiceAccountTokenNodeBinding` and `ServiceAccountTokenNodeBindingValidation`
-features are enabled and the `KUBECTL_NODE_BOUND_TOKENS` enviroment variable is set to `true`,
+features are enabled and the `KUBECTL_NODE_BOUND_TOKENS` environment variable is set to `true`,
 it is possible to create a service account token that is directly bound to a `Node`:
 -->
 当启用了 `ServiceAccountTokenNodeBinding` 和 `ServiceAccountTokenNodeBindingValidation`
@@ -315,7 +315,7 @@ KUBECTL_NODE_BOUND_TOKENS=true kubectl create token build-robot --bound-object-k
 ```
 
 <!--
-The token will be valid until it expires or either the assocaited `Node` or service account are deleted.
+The token will be valid until it expires or either the associated `Node` or service account are deleted.
 -->
 此令牌将有效直至其过期或关联的 `Node` 或服务账户被删除。
 
@@ -476,7 +476,7 @@ Next, verify it has been created. For example:
   所描述的，生成一个镜像拉取 Secret：
 
   ```shell
-  kubectl create secret docker-registry myregistrykey --docker-server=DUMMY_SERVER \
+  kubectl create secret docker-registry myregistrykey --docker-server=<registry name> \
           --docker-username=DUMMY_USERNAME --docker-password=DUMMY_DOCKER_PASSWORD \
           --docker-email=DUMMY_DOCKER_EMAIL
   ```
@@ -578,7 +578,7 @@ ServiceAccount, the new Pod has its `spec.imagePullSecrets` field set automatica
 新 Pod 的 `spec.imagePullSecrets` 会被自动设置。
 
 ```shell
-kubectl run nginx --image=nginx --restart=Never
+kubectl run nginx --image=<registry name>/nginx --restart=Never
 kubectl get pod nginx -o=jsonpath='{.spec.imagePullSecrets[0].name}{"\n"}'
 ```
 

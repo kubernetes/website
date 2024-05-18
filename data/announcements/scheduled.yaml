@@ -217,3 +217,18 @@ announcements:
     The legacy Linux package repositories (`apt.kubernetes.io` and `yum.kubernetes.io` AKA `packages.cloud.google.com`)<br/>
     have been frozen starting from September 13, 2023 **and are going away in January 2024**, users *must* migrate.<br/>
     Please read our [announcement](/blog/2023/08/31/legacy-package-repository-deprecation/) for more details.
+
+- name: KubeCon 2024 EU
+  startTime: 2024-02-16T00:00:00  #Added in https://github.com/kubernetes/website/pull/44828
+  endTime: 2024-03-22T18:00:00
+  style: >-
+    background: linear-gradient(90deg, rgba(67,53,105,1) 0%, rgba(89,187,234,1) 100%);
+    color: #fffff;
+  title: |
+    <img src ="/images/announcements/kccnc-eu-2024-white.svg" style="float: right; height: 80px;" />
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/">KubeCon + CloudNativeCon Europe 2024</a>
+  message: |
+    Join us for four days of incredible opportunities to collaborate, learn and share with the cloud native community.<br/> 
+    <a href= "https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/register/?utm_source=kubernetes&utm_medium=all&utm_campaign=kubeconeu24&utm_content=slim-banner">
+    Buy your ticket now! 19 - 22 March | Paris, France
+    </a> 

@@ -280,13 +280,13 @@ The general workflow of a device plugin includes the following steps:
    <!--
    The processing of the fully-qualified CDI device names by the Device Manager requires
    that the `DevicePluginCDIDevices` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-   is enabled for the kubelet and the kube-apiserver. This was added as an alpha feature in Kubernetes
-   v1.28.
+   is enabled for both the kubelet and the kube-apiserver. This was added as an alpha feature in Kubernetes
+   v1.28 and graduated to beta in v1.29.
    -->
    设备管理器处理完全限定的 CDI 设备名称时，
    需要为 kubelet 和 kube-apiserver 启用 `DevicePluginCDIDevices`
    [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
-   这在 Kubernetes v1.28 版本中作为 Alpha 特性被加入。
+   在 Kubernetes v1.28 版本中作为 Alpha 特性被加入，并在 v1.29 版本中升级为 Beta 特性。
    {{< /note >}}
 
 <!--
@@ -830,7 +830,8 @@ pluginapi.Device{ID: "25102017", Health: pluginapi.Healthy, Topology:&pluginapi.
 <!--
 Here are some examples of device plugin implementations:
 
-* The [AMD GPU device plugin](https://github.com/RadeonOpenCompute/k8s-device-plugin)
+* [Akri](https://github.com/project-akri/akri), which lets you easily expose heterogeneous leaf devices (such as IP cameras and USB devices).
+* The [AMD GPU device plugin](https://github.com/ROCm/k8s-device-plugin)
 * The [generic device plugin](https://github.com/squat/generic-device-plugin) for generic Linux devices and USB devices
 * The [Intel device plugins](https://github.com/intel/intel-device-plugins-for-kubernetes) for
   Intel GPU, FPGA, QAT, VPU, SGX, DSA, DLB and IAA devices
@@ -845,7 +846,8 @@ Here are some examples of device plugin implementations:
 -->
 下面是一些设备插件实现的示例：
 
-* [AMD GPU 设备插件](https://github.com/RadeonOpenCompute/k8s-device-plugin)
+* [Akri](https://github.com/project-akri/akri)，它可以让你轻松公开异构叶子设备（例如 IP 摄像机和 USB 设备）。
+* [AMD GPU 设备插件](https://github.com/ROCm/k8s-device-plugin)
 * 适用于通用 Linux 设备和 USB 设备的[通用设备插件](https://github.com/squat/generic-device-plugin)
 * [Intel 设备插件](https://github.com/intel/intel-device-plugins-for-kubernetes)支持
   Intel GPU、FPGA、QAT、VPU、SGX、DSA、DLB 和 IAA 设备

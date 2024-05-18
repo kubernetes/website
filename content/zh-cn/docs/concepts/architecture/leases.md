@@ -1,10 +1,16 @@
 ---
 title: 租约（Lease）
+api_metadata:
+- apiVersion: "coordination.k8s.io/v1"
+  kind: "Lease"
 content_type: concept
 weight: 30
 ---
 <!--
 title: Leases
+api_metadata:
+- apiVersion: "coordination.k8s.io/v1"
+  kind: "Lease"
 content_type: concept
 weight: 30
 -->
@@ -35,7 +41,7 @@ namespace. Under the hood, every kubelet heartbeat is an **update** request to t
 the `spec.renewTime` field for the Lease. The Kubernetes control plane uses the time stamp of this field
 to determine the availability of this `Node`.
 
-See [Node Lease objects](/docs/concepts/architecture/nodes/#heartbeats) for more details.
+See [Node Lease objects](/docs/concepts/architecture/nodes/#node-heartbeats) for more details.
 -->
 ## 节点心跳  {#node-heart-beats}
 
@@ -44,7 +50,7 @@ Kubernetes 使用 Lease API 将 kubelet 节点心跳传递到 Kubernetes API 服
 在此基础上，每个 kubelet 心跳都是对该 `Lease` 对象的 **update** 请求，更新该 Lease 的 `spec.renewTime` 字段。
 Kubernetes 控制平面使用此字段的时间戳来确定此 `Node` 的可用性。
 
-更多细节请参阅 [Node Lease 对象](/zh-cn/docs/concepts/architecture/nodes/#heartbeats)。
+更多细节请参阅 [Node Lease 对象](/zh-cn/docs/concepts/architecture/nodes/#node-heartbeats)。
 
 <!--
 ## Leader election
@@ -65,7 +71,7 @@ Kubernetes 也使用 Lease 确保在任何给定时间某个组件只有一个�
 -->
 ## API 服务器身份   {#api-server-identity}
 
-{{< feature-state for_k8s_version="v1.26" state="beta" >}}
+{{< feature-state feature_gate_name="APIServerIdentity" >}}
 
 <!--
 Starting in Kubernetes v1.26, each `kube-apiserver` uses the Lease API to publish its identity to the

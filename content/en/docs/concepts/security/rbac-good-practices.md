@@ -56,7 +56,7 @@ In cases where a workload requires powerful permissions, consider the following 
   [Taints and Toleration](/docs/concepts/scheduling-eviction/taint-and-toleration/),
   [NodeAffinity](/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity), or
   [PodAntiAffinity](/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)
-  to ensure pods don't run alongside untrusted or less-trusted Pods. Pay especial attention to
+  to ensure pods don't run alongside untrusted or less-trusted Pods. Pay special attention to
   situations where less-trustworthy Pods are not meeting the **Restricted** Pod Security Standard.
 
 ### Hardening
@@ -130,8 +130,8 @@ reading data from other containers, and abusing the credentials of system servic
 
 You should only allow access to create PersistentVolume objects for:
 
-- users (cluster operators) that need this access for their work, and who you trust,
-- the Kubernetes control plane components which creates PersistentVolumes based on PersistentVolumeClaims
+- Users (cluster operators) that need this access for their work, and who you trust.
+- The Kubernetes control plane components which creates PersistentVolumes based on PersistentVolumeClaims
   that are configured for automatic provisioning.
   This is usually setup by the Kubernetes provider or by the operator when installing a CSI driver.
 
@@ -180,6 +180,14 @@ tokens for existing service accounts.
 Users with control over `validatingwebhookconfigurations` or `mutatingwebhookconfigurations`
 can control webhooks that can read any object admitted to the cluster, and in the case of
 mutating webhooks, also mutate admitted objects.
+
+### Namespace modification
+
+Users who can perform **patch** operations on Namespace objects (through a namespaced RoleBinding to a Role with that access) can modify
+labels on that namespace. In clusters where Pod Security Admission is used, this may allow a user to configure the namespace
+for a more permissive policy than intended by the administrators.
+For clusters where NetworkPolicy is used, users may be set labels that indirectly allow
+access to services that an administrator did not intend to allow.
 
 ## Kubernetes RBAC - denial of service risks {#denial-of-service-risks}
 

@@ -3,9 +3,10 @@ layout: blog
 title: "Kubernetes 1.26: Alpha API For Dynamic Resource Allocation"
 date: 2022-12-15
 slug: dynamic-resource-allocation
+author: >
+  Patrick Ohly (Intel),
+  Kevin Klues (NVIDIA)
 ---
-
-**Authors:** Patrick Ohly (Intel), Kevin Klues (NVIDIA)
 
 Dynamic resource allocation is a new API for requesting resources. It is a
 generalization of the persistent volumes API for generic resources, making it possible to:

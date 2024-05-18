@@ -1,0 +1,117 @@
+---
+title: কুবারনেটিসের বেসিক শিখুন
+linkTitle: কুবারনেটিসের বেসিক শিখুন
+no_list: true
+weight: 10
+card:
+  name: tutorials
+  weight: 20
+  title: টিউটোরিয়াল
+---
+
+<!DOCTYPE html>
+
+<html lang="bn">
+
+<body>
+
+  <link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+  <main class="content">
+
+    <div class="row">
+      <div class="col-md-9">
+        <h2>কুবারনেটিস বেসিক</h2> 
+        <p>এই টিউটোরিয়ালটি কুবারনেটিস ক্লাস্টার অর্কেস্ট্রেশন সিস্টেমের মূল বিষয়গুলির একটি ধারণা প্রদান করে। প্রতিটি মডিউলে কুবারনেটিসের প্রধান বৈশিষ্ট্য এবং ধারণাগুলির কিছু পটভূমি তথ্য রয়েছে এবং একটি ইন্টারেক্টিভ অনলাইন টিউটোরিয়াল অন্তর্ভুক্ত রয়েছে। এই ইন্টারেক্টিভ টিউটোরিয়ালগুলি আপনাকে নিজের জন্য একটি সাধারণ ক্লাস্টার এবং এর ধারকযুক্ত অ্যাপ্লিকেশনগুলি পরিচালনা করতে দেয় ৷</p>
+        <p>ইন্টারেক্টিভ টিউটোরিয়াল ব্যবহার করে, আপনি এগুলো শিখতে পারেনঃ</p>
+        <ul>
+        <li>একটি ক্লাস্টারে একটি কন্টেইনারাইজড অ্যাপ্লিকেশন স্থাপন করুন।</li>
+        <li>ডিপ্লয়মেন্ট স্কেল করুন।</li>
+        <li>একটি নতুন সফ্টওয়্যার সংস্করণ দিয়ে কন্টেইনারাইজড অ্যাপ্লিকেশন আপডেট করুন।</li>
+        <li>কন্টেইনারাইজড অ্যাপ্লিকেশন ডিবাগ করুন।</li>
+        </ul>
+        <p>টিউটোরিয়ালগুলি আপনার ওয়েব ব্রাউজারে একটি ভার্চুয়াল টার্মিনাল চালানোর জন্য Katacoda ব্যবহার করে যা Minikube চালায়, কুবারনেটের একটি ছোট আকারের স্থানীয় ডিপ্লয়মেন্ট যা যেকোনো জায়গায় চলতে পারে। কোন সফ্টওয়্যার ইনস্টল বা কিছু কনফিগার করার কোন প্রয়োজন নেই; প্রতিটি ইন্টারেক্টিভ টিউটোরিয়াল সরাসরি আপনার ওয়েব ব্রাউজার থেকে চলে।</p>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col-md-9">
+        <h2>কুবারনেটিস আপনার জন্য কী করতে পারে?</h2> 
+        <p>আধুনিক ওয়েব পরিষেবাগুলির সাথে, ব্যবহারকারীরা আশা করে যে অ্যাপ্লিকেশনগুলি ২৪/৭ উপলব্ধ থাকবে এবং বিকাশকারীরা সেই অ্যাপ্লিকেশনগুলির নতুন সংস্করণগুলি দিনে কয়েকবার স্থাপন করার আশা করে৷ কনটেইনারাইজেশন প্যাকেজ সফ্টওয়্যারকে এই লক্ষ্যগুলি পূরণ করতে সহায়তা করে, অ্যাপ্লিকেশনগুলিকে মুক্তি এবং ডাউনটাইম ছাড়াই আপডেট করতে সক্ষম করে। কুবারনেটিস আপনাকে নিশ্চিত করতে সাহায্য করে যে সেই কন্টেইনারাইজড অ্যাপ্লিকেশানগুলি আপনি যেখানে এবং যখন চান চালান, এবং তাদের কাজ করার জন্য প্রয়োজনীয় সংস্থান এবং সরঞ্জামগুলি খুঁজে পেতে সহায়তা করে৷ কুবারনেটিস হল একটি উৎপাদন-প্রস্তুত, ওপেন সোর্স প্ল্যাটফর্ম যা কনটেইনার অর্কেস্ট্রেশনে গুগল-এর সঞ্চিত অভিজ্ঞতার সাহায্যে ডিজাইন করা হয়েছে, যা সম্প্রদায়ের সেরা জাত ধারণাগুলির সাথে মিলিত হয়েছে</p>
+      </div>
+    </div>
+
+    <br>
+    
+    <div id="basics-modules" class="content__modules">
+      <h2>কুবারনেটিসের বেসিক মডিউল</h2> 
+      <div class="row">
+        <div class="col-md-12"> 
+          <div class="row">
+            <div class="col-md-4">
+              <div class="thumbnail">
+                <a href="/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/"><img src="/docs/tutorials/kubernetes-basics/public/images/module_01.svg?v=1469803628347" alt=""></a>
+                <div class="caption">
+                  <a href="/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/"><h5>১. একটি কুবারনেটিস ক্লাস্টার তৈরি করুন</h5></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="thumbnail">
+                <a href="/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/"><img src="/docs/tutorials/kubernetes-basics/public/images/module_02.svg?v=1469803628347" alt=""></a>
+                <div class="caption">
+                  <a href="/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/"><h5>২. একটি অ্যাপ স্থাপন করুন</h5></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="thumbnail">
+                <a href="/docs/tutorials/kubernetes-basics/explore/explore-intro/"><img src="/docs/tutorials/kubernetes-basics/public/images/module_03.svg?v=1469803628347" alt=""></a>
+                <div class="caption"> 
+                  <a href="/docs/tutorials/kubernetes-basics/explore/explore-intro/"><h5>৩. আপনার অ্যাপ ঘুরে দেখুন</h5></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="thumbnail">
+                <a href="/docs/tutorials/kubernetes-basics/expose/expose-intro/"><img src="/docs/tutorials/kubernetes-basics/public/images/module_04.svg?v=1469803628347" alt=""></a>
+                <div class="caption">
+                  <a href="/docs/tutorials/kubernetes-basics/expose/expose-intro/"><h5>৪. আপনার অ্যাপটি পাবলিকলি প্রকাশ করুন</h5></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="thumbnail">
+                <a href="/docs/tutorials/kubernetes-basics/scale/scale-intro/"><img src="/docs/tutorials/kubernetes-basics/public/images/module_05.svg?v=1469803628347" alt=""></a>
+                <div class="caption">
+                  <a href="/docs/tutorials/kubernetes-basics/scale/scale-intro/"><h5>৫. আপনার অ্যাপ স্কেল আপ করুন</h5></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="thumbnail">
+                <a href="/docs/tutorials/kubernetes-basics/update/update-intro/"><img src="/docs/tutorials/kubernetes-basics/public/images/module_06.svg?v=1469803628347" alt=""></a>
+                <div class="caption">
+                  <a href="/docs/tutorials/kubernetes-basics/update/update-intro/"><h5>৬. আপনার অ্যাপ আপডেট করুন</h5></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+</div>
+
+</body>
+</html>

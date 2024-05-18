@@ -52,11 +52,10 @@ clientConnection:
 
 {{< note >}}
 <!--
-KubeSchedulerConfiguration [v1beta3](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
-is deprecated in v1.26 and will be removed in v1.29.
+KubeSchedulerConfiguration v1beta3 is deprecated in v1.26 and will be removed in v1.29.
 Please migrate KubeSchedulerConfiguration to [v1](/docs/reference/config-api/kube-scheduler-config.v1/).
 -->
-KubeSchedulerConfiguration [v1beta3](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/) 在 v1.26 中已被弃用，
+KubeSchedulerConfiguration v1beta3 在 v1.26 中已被弃用，
 并将在 v1.29 中被移除。请将 KubeSchedulerConfiguration 迁移到 [v1](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)。
 {{< /note >}}
 
@@ -839,12 +838,8 @@ to achieve similar behavior.
 <!--
 * Read the [kube-scheduler reference](/docs/reference/command-line-tools-reference/kube-scheduler/)
 * Learn about [scheduling](/docs/concepts/scheduling-eviction/kube-scheduler/)
-* Read the [kube-scheduler configuration (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/) reference
-* Read the [kube-scheduler configuration (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/) reference
 * Read the [kube-scheduler configuration (v1)](/docs/reference/config-api/kube-scheduler-config.v1/) reference
 -->
 * 阅读 [kube-scheduler 参考](/zh-cn/docs/reference/command-line-tools-reference/kube-scheduler/)
 * 了解[调度](/zh-cn/docs/concepts/scheduling-eviction/kube-scheduler/)
-* 阅读 [kube-scheduler 配置 (v1beta2)](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta2/) 参考
-* 阅读 [kube-scheduler 配置 (v1beta3)](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/) 参考
 * 阅读 [kube-scheduler 配置 (v1)](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/) 参考

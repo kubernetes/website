@@ -3,10 +3,11 @@ layout: blog
 title: "Kubernetes 1.26: Eviction policy for unhealthy pods guarded by PodDisruptionBudgets"
 date: 2023-01-06
 slug: "unhealthy-pod-eviction-policy-for-pdbs"
+author: >
+  Filip Křepinský (Red Hat),
+  Morten Torkildsen (Google),
+  Ravi Gudimetla (Apple)
 ---
-
-**Authors:** Filip Křepinský (Red Hat), Morten Torkildsen (Google), Ravi Gudimetla (Apple)
-
 
 Ensuring the disruptions to your applications do not affect its availability isn't a simple
 task. Last month's release of Kubernetes v1.26 lets you specify an  _unhealthy pod eviction policy_

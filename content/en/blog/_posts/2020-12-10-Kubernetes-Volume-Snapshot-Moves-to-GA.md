@@ -3,9 +3,10 @@ layout: blog
 title: 'Kubernetes 1.20: Kubernetes Volume Snapshot Moves to GA'
 date: 2020-12-10
 slug: kubernetes-1.20-volume-snapshot-moves-to-ga
+author: >
+  Xing Yang (VMware),
+  Xiangqian Yu (Google) 
 ---
-
-**Authors**: Xing Yang, VMware & Xiangqian Yu, Google
 
 The Kubernetes Volume Snapshot feature is now GA in Kubernetes v1.20. It was introduced as [alpha](https://kubernetes.io/blog/2018/10/09/introducing-volume-snapshot-alpha-for-kubernetes/) in Kubernetes v1.12, followed by a [second alpha](https://kubernetes.io/blog/2019/01/17/update-on-volume-snapshot-alpha-for-kubernetes/) with breaking changes in Kubernetes v1.13, and promotion to [beta](https://kubernetes.io/blog/2019/12/09/kubernetes-1-17-feature-cis-volume-snapshot-beta/) in Kubernetes 1.17. This blog post summarizes the changes releasing the feature from beta to GA.
 

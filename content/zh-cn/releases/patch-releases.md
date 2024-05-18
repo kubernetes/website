@@ -55,7 +55,7 @@ if there are questions on the PR.
 
 在两次发布之间，团队每周都会查看收到的 cherry pick 请求。
 如果对 PR 有任何问题，团队将通过 GitHub PR、Slack 中的 SIG 频道以及 Slack 中的直接消息和
-[email](mailto:release-managers-private@kubernetes.io) 与提交者取得联系。
+[Email](mailto:release-managers-private@kubernetes.io) 与提交者取得联系。
 
 <!--
 ## Cherry picks
@@ -146,20 +146,7 @@ releases may also occur in between these.
 时间表可能会因错误修复的严重程度而有所不同，但为了便于规划，我们每月将按照以下时间点进行发布。
 中间可能会发布一些计划外的关键版本。
 
-<!--
-| Monthly Patch Release | Cherry Pick Deadline | Target date |
-| --------------------- | -------------------- | ----------- |
-| December 2023         | 2023-12-15           | 2023-12-19  |
-| January 2024          | 2024-01-12           | 2024-01-17  |
-| February 2024         | 2024-02-09           | 2024-02-14  |
-| March 2024            | 2024-03-08           | 2024-03-13  |
--->
-| 月度补丁发布   | Cherry Pick 截止日期 | 目标日期      |
-|--------------|---------------------|-------------|
-| 2023 年 12 月 | 2023-12-15          | 2023-12-19  |
-| 2024 年 1 月  | 2024-01-12          | 2024-01-17  |
-| 2024 年 2 月  | 2024-02-09          | 2024-02-14  |
-| 2024 年 3 月  | 2024-03-08          | 2024-03-13  |
+{{< upcoming-releases >}}
 
 <!--
 ## Detailed Release History for Active Branches

@@ -46,6 +46,15 @@ other = "Io Sono..."
 [docs_label_users]
 other = "Utenti"
 
+[docs_version_current]
+other = "(questa documentazione)"
+
+[docs_version_latest_heading]
+other = "Ultima versione"
+
+[docs_version_other_heading]
+other = "Versioni precedenti"
+
 [feedback_heading]
 other = "Feedback"
 

@@ -73,7 +73,13 @@
 <div class="case-study">
 	{{ with $logo }}<img src="{{ .RelPermalink }}" alt="{{ $altText }}">{{ end }}
 	<p class="quote">"{{ .page.Params.quote | html }}"</p>
-	<a href="{{ .page.RelPermalink }}"{{ if $isForeignLanguage }} target="_blank"{{ end }}>{{ T "main_read_about"}} {{ .page.LinkTitle }}</a>
+	<a href="{{ .page.RelPermalink }}"{{ if $isForeignLanguage }} target="_blank"{{ end }}>
+    {{ if eq .ctx.Lang "hi" }}
+			{{ .page.LinkTitle }} {{ T "main_read_about"}}
+		{{ else }}
+			{{ T "main_read_about"}} {{ .page.LinkTitle }}
+		{{ end }}
+  </a>
 </div>
 {{ end }}
 {{ define "announcement" }}

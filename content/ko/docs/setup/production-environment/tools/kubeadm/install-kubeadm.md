@@ -48,10 +48,10 @@ card:
 ## 필수 포트 확인 {#check-required-ports}
 [필수 포트들](/ko/docs/reference/networking/ports-and-protocols/)은
 쿠버네티스 컴포넌트들이 서로 통신하기 위해서 열려 있어야
-한다. 다음과 같이 netcat과 같은 도구를 이용하여 포트가 열려 있는지 확인해 볼 수 있다.
+한다. 다음과 같이 [netcat](https://netcat.sourceforge.net)과 같은 도구를 이용하여 포트가 열려 있는지 확인해 볼 수 있다.
 
 ```shell
-nc 127.0.0.1 6443
+nc 127.0.0.1 6443 -v
 ```
 
 사용자가 사용하는 파드 네트워크 플러그인은 특정 포트를 열어야 할 수도

@@ -673,7 +673,7 @@ per index.
 为此，可以设置 `.spec.backoffLimitPerIndex` 来指定每个索引的最大 Pod 失败次数。
 
 <!--
-When the per-index backoff limit is exceeded for an index, Kuberentes considers the index as failed and adds it to the
+When the per-index backoff limit is exceeded for an index, Kubernetes considers the index as failed and adds it to the
 `.status.failedIndexes` field. The succeeded indexes, those with a successfully
 executed pods, are recorded in the `.status.completedIndexes` field, regardless of whether you set
 the `backoffLimitPerIndex` field.
@@ -1617,7 +1617,7 @@ the Job status, allowing the Pod to be removed by other controllers or users.
 {{< note >}}
 <!--
 See [My pod stays terminating](/docs/tasks/debug/debug-application/debug-pods/) if you
-observe that pods from a Job are stucked with the tracking finalizer.
+observe that pods from a Job are stuck with the tracking finalizer.
 -->
 如果你发现来自 Job 的某些 Pod 因存在负责跟踪的 Finalizer 而无法正常终止，
 请参阅[我的 Pod 一直处于终止状态](/zh-cn/docs/tasks/debug/debug-application/debug-pods/)。

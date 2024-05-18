@@ -143,7 +143,7 @@ terá um desempenho estritamente melhor e menos sobrecarga. No entanto, nós enc
 explorar todas as opções do [cenário CNCF], pois outro agente de execução de contêiner
 pode funcionar ainda melhor para o seu ambiente.
 
-[cenário CNCF]: https://landscape.cncf.io/card-mode?category=container-runtime&grouping=category
+[cenário CNCF]: https://landscape.cncf.io/?group=projects-and-products&view-mode=card#runtime--container-runtime
 
 ### O que devo ficar atento ao mudar a minha implementação de CRI utilizada?
 

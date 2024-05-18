@@ -50,14 +50,13 @@ A more detailed description of the termination behavior can be found in
 ### Hook handler implementations
 
 Containers can access a hook by implementing and registering a handler for that hook.
-There are two types of hook handlers that can be implemented for Containers:
+There are three types of hook handlers that can be implemented for Containers:
 
 * Exec - Executes a specific command, such as `pre-stop.sh`, inside the cgroups and namespaces of the Container.
 Resources consumed by the command are counted against the Container.
 * HTTP - Executes an HTTP request against a specific endpoint on the Container.
 * Sleep - Pauses the container for a specified duration. 
-  The "Sleep" action is available when the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  `PodLifecycleSleepAction` is enabled.
+  This is a beta-level feature default enabled by the `PodLifecycleSleepAction` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/). 
 
 ### Hook handler execution
 
