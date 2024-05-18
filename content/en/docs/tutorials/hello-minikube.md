@@ -114,6 +114,8 @@ recommended way to manage the creation and scaling of Pods.
     hello-node   1/1     1            1           1m
     ```
 
+    (It may take some time for the pod to become available. If you see "0/1", try again in a few seconds.)
+
 1. View the Pod:
 
     ```shell
