@@ -71,7 +71,7 @@ AppArmor 是一个可选的内核模块和 Kubernetes 特性，因此请在继�
    kubelet 会先验证主机上是否已启用 AppArmor，然后再接纳显式配置了 AppArmor 的 Pod。
 
 <!--
-3. Container runtime supports AppArmor -- All common Kubernetes-supported container
+1. Container runtime supports AppArmor -- All common Kubernetes-supported container
    runtimes should support AppArmor, including {{< glossary_tooltip term_id="cri-o" >}} and
    {{< glossary_tooltip term_id="containerd" >}}. Please refer to the corresponding runtime
    documentation and verify that the cluster fulfills the requirements to use AppArmor.
@@ -81,7 +81,7 @@ AppArmor 是一个可选的内核模块和 Kubernetes 特性，因此请在继�
    请参考相应的运行时文档并验证集群是否满足使用 AppArmor 的要求。
 
 <!--
-3. Profile is loaded -- AppArmor is applied to a Pod by specifying an AppArmor profile that each
+1. Profile is loaded -- AppArmor is applied to a Pod by specifying an AppArmor profile that each
    container should be run with. If any of the specified profiles is not loaded in the
    kernel, the kubelet will reject the Pod. You can view which profiles are loaded on a
    node by checking the `/sys/kernel/security/apparmor/profiles` file. For example:
@@ -455,14 +455,26 @@ AppArmor 配置文件有 2 个字段：
 
 <!--
 `type` _(required)_ - indicates which kind of AppArmor profile will be applied. Valid options are:
-       - `Localhost` - a profile pre-loaded on the node (specified by `localhostProfile`).
-       - `RuntimeDefault` - the container runtime's default profile.
-       - `Unconfined` - no AppArmor enforcement.
+
+`Localhost`
+: a profile pre-loaded on the node (specified by `localhostProfile`).
+
+`RuntimeDefault`
+: the container runtime's default profile.
+
+`Unconfined`
+: no AppArmor enforcement.
 -->
 `type` **（必需）** - 指示将应用哪种 AppArmor 配置文件。有效选项是：
-       - `Localhost` - 节点上预加载的配置文件（由 `localhostProfile` 指定）。
-       - `RuntimeDefault` - 容器运行时的默认配置文件。
-       - `Unconfined` - 没有 AppArmor 强制执行。
+
+`Localhost`
+: 节点上预加载的配置文件（由 `localhostProfile` 指定）。
+
+`RuntimeDefault`
+: 容器运行时的默认配置文件。
+
+`Unconfined`
+: 不强制执行 AppArmor。
 
 <!--
 `localhostProfile` - The name of a profile loaded on the node that should be used.
