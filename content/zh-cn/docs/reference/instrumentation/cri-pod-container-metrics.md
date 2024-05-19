@@ -20,14 +20,14 @@ description: >-
 The [kubelet](/docs/reference/command-line-tools-reference/kubelet/) collects pod and
 container metrics via [cAdvisor](https://github.com/google/cadvisor). As an alpha feature,
 Kubernetes lets you configure the collection of pod and container
-metrics via the {{< glossary_tooltip term_id="cri" text="Container Runtime Interface">}} (CRI). You
+metrics via the {{< glossary_tooltip term_id="container-runtime-interface" text="Container Runtime Interface">}} (CRI). You
 must enable the `PodAndContainerStatsFromCRI` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and
 use a compatible CRI implementation (containerd >= 1.6.0, CRI-O >= 1.23.0) to
 use the CRI based collection mechanism.
 -->
 [kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/) 通过
 [cAdvisor](https://github.com/google/cadvisor) 收集 Pod 和容器指标。作为一个 Alpha 特性，
-Kubernetes 允许你通过{{< glossary_tooltip term_id="cri" text="容器运行时接口">}}（CRI）
+Kubernetes 允许你通过{{< glossary_tooltip term_id="container-runtime-interface" text="容器运行时接口">}}（CRI）
 配置收集 Pod 和容器指标。要使用基于 CRI 的收集机制，你必须启用 `PodAndContainerStatsFromCRI`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 并使用兼容的 CRI 实现（containerd >= 1.6.0, CRI-O >= 1.23.0）。 
