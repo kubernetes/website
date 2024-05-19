@@ -327,7 +327,8 @@ To learn more about name resolution, see
 Some Linux distributions (e.g. Ubuntu) use a local DNS resolver by default (systemd-resolved).
 Systemd-resolved moves and replaces `/etc/resolv.conf` with a stub file that can cause a fatal forwarding
 loop when resolving names in upstream servers. This can be fixed manually by using kubelet's `--resolv-conf` flag
-to point to the correct `resolv.conf` (With `systemd-resolved`, this is `/run/systemd/resolve/resolv.conf`).
+to point to the correct `resolv.conf` (With `systemd-resolved`, this is `/run/systemd/resolve/resolv.conf` or 
+`/etc/systemd/resolved.conf` depending on your OS version).
 kubeadm automatically detects `systemd-resolved`, and adjusts the kubelet flags accordingly.
 
 Kubernetes installs do not configure the nodes' `resolv.conf` files to use the
