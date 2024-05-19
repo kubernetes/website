@@ -313,7 +313,7 @@ contentDir = "content/bn"
 languagedirection = "ltr"
 
 [languages.bn.params]
-time_format_blog = "01.02.2006"
+time_format_blog = "02.01.2006"
 language_alternatives = ["en"]
 description = "প্রোডাকশন-গ্রেড কন্টেইনার অর্কেস্ট্রেশন"
 languageNameLatinScript = "Bengali" # aka Bangla
