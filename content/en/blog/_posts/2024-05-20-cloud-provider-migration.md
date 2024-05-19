@@ -24,7 +24,7 @@ five initial cloud providers: Google Cloud, AWS, Azure, OpenStack, and vSphere. 
 1. **Cloud controller manager** ([KEP-2392](https://github.com/kubernetes/enhancements/blob/master/keps/sig-cloud-provider/2392-cloud-controller-manager/README.md))
 1. **API server network proxy** ([KEP-1281](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1281-network-proxy))
 1. **kubelet credential provider plugins** ([KEP-2133](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2133-kubelet-credential-providers))
-1. Storage migration to use [CSI](https://github.com/container-storage-interface/spec?tab=readme-ov-file#container-storage-interface-csi-specification-) ([KEP-625](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/625-csi-migration/README.md))
+1. **Storage migration to use [CSI](https://github.com/container-storage-interface/spec?tab=readme-ov-file#container-storage-interface-csi-specification-)** ([KEP-625](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/625-csi-migration/README.md))
 
 Each subsystem was critical to achieve full feature parity with built-in capabilities and required several releases to bring each subsystem to GA-level maturity with a safe and
 reliable migration path. More on each subsystem below.
