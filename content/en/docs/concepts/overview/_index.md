@@ -96,7 +96,7 @@ Containers have become popular because they provide extra benefits, such as:
 Containers are a good way to bundle and run your applications. In a production
 environment, you need to manage the containers that run the applications and
 ensure that there is no downtime. For example, if a container goes down, another
-container needs to start. Wouldn't it be easier if this behavior was handled by a system?
+container needs to start. Wouldn't it be easier if this behaviour was handled by a system?
 
 That's how Kubernetes comes to the rescue! Kubernetes provides you with a framework
 to run distributed systems resiliently. It takes care of scaling and failover for
@@ -157,7 +157,7 @@ Kubernetes:
   Delivery, and Deployment (CI/CD) workflows are determined by organization cultures and
   preferences as well as technical requirements.
 * Does not provide application-level services, such as middleware (for example, message buses),
-  data-processing frameworks (for example, Spark), databases (for example, MySQL), caches, nor
+  data-processing frameworks (for example, Spark), databases (for example, MySQL), caches, or
   cluster storage systems (for example, Ceph) as built-in services. Such components can run on
   Kubernetes, and/or can be accessed by applications running on Kubernetes through portable
   mechanisms, such as the [Open Service Broker](https://openservicebrokerapi.org/).
