@@ -147,8 +147,6 @@ recommended way to manage the creation and scaling of Pods.
    {{< note >}}
    Replace `hello-node-5f76cf6ccf-br9b5` in the `kubectl logs` command with the name of the pod from the `kubectl get pods` command output.
    {{< /note >}}
-
-   `kubectl get pods` command output.
    
    ```shell
    kubectl logs hello-node-5f76cf6ccf-br9b5
