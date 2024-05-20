@@ -2,12 +2,6 @@
 title: Hello Minikube
 content_type: tutorial
 weight: 5
-menu:
-  main:
-    title: "Get Started"
-    weight: 10
-    post: >
-      <p>手を動かす準備はできていますか？本チュートリアルでは、サンプルアプリケーションを実行するKubernetesクラスターをビルドします。</p>
 card: 
   name: tutorials
   weight: 10
