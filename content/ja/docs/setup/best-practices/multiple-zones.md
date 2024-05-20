@@ -42,5 +42,16 @@ Kubernetesのコアがノードを作成してくれるわけではないため�
 
 Cluster APIなどのツールを使用すると、複数の障害ドメインにわたってクラスターのワーカーノードとして実行するマシンのセットを定義したり、ゾーン全体のサービスが中断した場合にクラスターを自動的に復旧するルールを定義できる。
 
+## ポッドの手動ゾーン割り当て
 
+[Node selector constraints](/ja/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector)は、作成したPodだけでなく、Deployment、StatefulSet、Jobなどのワークロードリソース内のPodテンプレートにも適用できます。
 
+## ゾーンのストレージアクセス
+
+Persistent Volumeが作成されると、Kubernetesは特定のゾーンにリンクされているすべてのPersistent Volumeにゾーンラベルを自動的に追加します。その後、{{< glossary_tooltip text="スケジューラー" term_id="kube-scheduler" >}}は、NoVolumeZoneConflictによって、指定されたPersistent Volumeを請求するPodがそのボリュームと同じゾーンにのみ配置されるようにします。
+
+ゾーンラベルの追加方法は、クラウドプロバイダーと使用しているストレージプロビジョナーによって異なる可能性があることに注意してください。正しい設定を行うために、常にご使用の環境に特化したドキュメントを参照してください。
+
+Persistent Volume Claimには、そのクラス内のストレージが使用する障害ドメイン（ゾーン）を指定する{{< glossary_tooltip text="StorageClass" term_id="storage-class" >}}を指定できます。障害ドメインまたはゾーンを認識するStorageClassの構成について学ぶには、[許可されたトポロジー](/ja/docs/concepts/storage/storage-classes/#allowed-topologies)を参照してください。
+
+## ネットワーキング
