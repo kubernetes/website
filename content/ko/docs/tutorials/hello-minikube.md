@@ -2,12 +2,6 @@
 title: Hello Minikube
 content_type: tutorial
 weight: 5
-menu:
-  main:
-    title: "Get Started"
-    weight: 10
-    post: >
-      <p>작업할 준비가 되었나요? 샘플 애플리케이션을 실행하는 간단한 쿠버네티스 클러스터를 구축합니다.</p>
 card:
   name: tutorials
   weight: 10
