@@ -157,7 +157,6 @@ Feature | Default | Alpha | Beta | GA
 :-------|:--------|:------|:-----|:----
 `EtcdLearnerMode` | `true` | 1.27 | 1.29 | -
 `PublicKeysECDSA` | `false` | 1.19 | - | -
-`RootlessControlPlane` | `false` | 1.22 | - | -
 `WaitForAllControlPlaneComponents` | `false` | 1.30 | - | -
 {{< /table >}}
 
@@ -176,12 +175,6 @@ as a learner and promoted to a voting member only after the etcd data are fully 
 Renewal of existing ECDSA certificates is also supported using `kubeadm certs renew`, but you cannot
 switch between the RSA and ECDSA algorithms on the fly or during upgrades.
 
-`RootlessControlPlane`
-: Setting this flag configures the kubeadm deployed control plane component static Pod containers
-for `kube-apiserver`, `kube-controller-manager`, `kube-scheduler` and `etcd` to run as non-root users.
-If the flag is not set, those components run as root. You can change the value of this feature gate before
-you upgrade to a newer version of Kubernetes.
-
 `WaitForAllControlPlaneComponents`
 : With this feature gate enabled kubeadm will wait for all control plane components (kube-apiserver,
 kube-controller-manager, kube-scheduler) on a control plane node to report status 200 on their `/healthz`
@@ -191,6 +184,22 @@ they will be respected. Without the feature gate enabled, kubeadm will only wait
 on a control plane node to become ready. The wait process starts right after the kubelet on the host
 is started by kubeadm. You are advised to enable this feature gate in case you wish to observe a ready
 state from all control plane components during the `kubeadm init` or `kubeadm join` command execution.
+
+List of deprecated feature gates:
+
+{{< table caption="kubeadm deprecated feature gates" >}}
+Feature | Default | Alpha | Beta | GA | Deprecated
+:-------|:--------|:------|:-----|:---|:----------
+`RootlessControlPlane` | `false` | 1.22 | - | - | 1.31
+{{< /table >}}
+
+Feature gate descriptions:
+
+`RootlessControlPlane`
+: Setting this flag configures the kubeadm deployed control plane component static Pod containers
+for `kube-apiserver`, `kube-controller-manager`, `kube-scheduler` and `etcd` to run as non-root users.
+If the flag is not set, those components run as root. You can change the value of this feature gate before
+you upgrade to a newer version of Kubernetes.
 
 List of removed feature gates:
 
