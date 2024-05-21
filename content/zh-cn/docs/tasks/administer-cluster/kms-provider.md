@@ -540,12 +540,12 @@ defined in a CustomResourceDefinition, your cluster must be running Kubernetes v
        providers:
          - kms:
              name: myKmsPluginFoo
-             endpoint: unix:///tmp/socketfile.sock
+             endpoint: unix:///tmp/socketfile-foo.sock
              cachesize: 100
              timeout: 3s
          - kms:
              name: myKmsPluginBar
-             endpoint: unix:///tmp/socketfile.sock
+             endpoint: unix:///tmp/socketfile-bar.sock
              cachesize: 100
              timeout: 3s
    ```
@@ -564,12 +564,12 @@ defined in a CustomResourceDefinition, your cluster must be running Kubernetes v
          - kms:
              apiVersion: v2
              name: myKmsPluginFoo
-             endpoint: unix:///tmp/socketfile.sock
+             endpoint: unix:///tmp/socketfile-foo.sock
              timeout: 3s
          - kms:
              apiVersion: v2
              name: myKmsPluginBar
-             endpoint: unix:///tmp/socketfile.sock
+             endpoint: unix:///tmp/socketfile-bar.sock
              timeout: 3s
    ```
 
