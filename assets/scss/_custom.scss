@@ -507,7 +507,7 @@ body {
     h4, h4.alert-heading {
       color: #000;
       display: block;
-      float: left;
+      float: initial;
       font-size: 1rem;
       padding: 0;
       padding-right: 0.5rem;
@@ -530,10 +530,6 @@ body {
     border-left-color: #444;
   }
 
-  .alert-info:has(h4):has(ul) h4 {
-    float: initial !important;
-  }
- 
   h1:first-of-type + .alert.callout {
     margin-top: 1.5em;
   }
