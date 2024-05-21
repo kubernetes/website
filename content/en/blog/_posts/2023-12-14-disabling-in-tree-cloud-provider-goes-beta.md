@@ -40,7 +40,7 @@ These updated default settings affect a large proportion of Kubernetes users,
 and **will require changes** for users who were previously using the in-tree
 provider integrations. The legacy integrations offered compatibility with
 Azure, AWS, GCE, OpenStack, and vSphere; however for AWS and OpenStack the
-compiled-in integrations were removed in Kubernetes versions 1.26 and 1.27,
+compiled-in integrations were removed in Kubernetes versions 1.27 and 1.26,
 respectively.
 
 ## What has changed?
