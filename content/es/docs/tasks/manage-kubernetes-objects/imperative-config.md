@@ -46,7 +46,7 @@ para mas detalles.
 La actualización de objetos con el comando `replace` elimina todas las 
 partes de la especificación no especificadas en el archivo de configuración. Esto no debe 
 usarse con objetos cuyas especificaciones son administradas 
-parcialmente por el clúster, como Services de tipo `LoadBalancer`, donde el 
+parcialmente por el clúster, como Servicios de tipo `LoadBalancer`, donde el 
 campo `externalIPs` se administra independientemente del archivo de
 configuración. Los campos administrados de forma independiente deben copiarse en 
 el archivo de configuración para evitar que `replace` los elimine.
@@ -158,6 +158,6 @@ template:
 * [Administración de objetos de Kubernetes mediante comandos imperativos](/docs/tasks/manage-kubernetes-objects/imperative-command/)
 * [Gestión declarativa de objetos de Kubernetes mediante archivos de configuración](/docs/tasks/manage-kubernetes-objects/declarative-config/)
 * [Referencia de comandos de Kubectl](/docs/reference/generated/kubectl/kubectl-commands/)
-* [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
+* [Referencia de API de Kubernetes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 
 
