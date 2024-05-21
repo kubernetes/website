@@ -158,6 +158,9 @@ The following methods exist for installing kubectl on Linux:
    -->
    即使你没有目标系统的 root 权限，仍然可以将 kubectl 安装到目录 `~/.local/bin` 中：
 
+   <!--
+   # and then append (or prepend) ~/.local/bin to $PATH
+   -->
    ```bash
    chmod +x kubectl
    mkdir -p ~/.local/bin
@@ -202,13 +205,13 @@ Or use this for detailed view of version:
    ```shell
    sudo apt-get update
    # apt-transport-https may be a dummy package; if so, you can skip that package
-   sudo apt-get install -y apt-transport-https ca-certificates curl
+   sudo apt-get install -y apt-transport-https ca-certificates curl gnupg
    ```
    -->
    ```shell
    sudo apt-get update
    # apt-transport-https 可以是一个虚拟包；如果是这样，你可以跳过这个包
-   sudo apt-get install -y apt-transport-https ca-certificates curl
+   sudo apt-get install -y apt-transport-https ca-certificates curl gnupg
    ```
 
 <!--
@@ -259,7 +262,7 @@ In releases older than Debian 12 and Ubuntu 22.04, folder `/etc/apt/keyrings` do
 {{< note >}}
 <!--
 To upgrade kubectl to another minor release, you'll need to bump the version in `/etc/apt/sources.list.d/kubernetes.list` before running `apt-get update` and `apt-get upgrade`. This procedure is described in more detail in [Changing The Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
- -->
+-->
 要将 kubectl 升级到别的次要版本，你需要先升级 `/etc/apt/sources.list.d/kubernetes.list` 中的版本，
 再运行 `apt-get update` 和 `apt-get upgrade` 命令。
 更详细的步骤可以在[更改 Kubernetes 软件包存储库](/zh-cn/docs/tasks/administer-cluster/kubeadm/change-package-repository/)中找到。
@@ -268,7 +271,6 @@ To upgrade kubectl to another minor release, you'll need to bump the version in 
 <!--
 4. Update `apt` package index, then install kubectl:
 -->
-
 4. 更新 `apt` 包索引，然后安装 kubectl：
 
    ```shell
@@ -377,14 +379,14 @@ To upgrade kubectl to another minor release, you'll need to bump the version in 
 此过程在[更改 Kubernetes 软件包仓库](/zh-cn/docs/tasks/administer-cluster/kubeadm/change-package-repository/)中有更详细的描述。
 {{< /note >}}
 
-  <!--
-	2. Install kubectl using `zypper`:
-  -->
-  2. 使用 `zypper` 安装 kubectl：
+<!--
+2. Install kubectl using `zypper`:
+-->
+2. 使用 `zypper` 安装 kubectl：
 
-     ```bash
-     sudo zypper install -y kubectl
-     ```
+   ```bash
+   sudo zypper install -y kubectl
+   ```
 
 {{% /tab %}}
 
