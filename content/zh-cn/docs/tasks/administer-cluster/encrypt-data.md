@@ -1294,10 +1294,17 @@ API server.
 
 <!--
 To allow automatic reloading, configure the API server to run with:
-`--encryption-provider-config-automatic-reload=true`
+`--encryption-provider-config-automatic-reload=true`.
+When enabled, file changes are polled every minute to observe the modifications.
+The `apiserver_encryption_config_controller_automatic_reload_last_timestamp_seconds`
+metric identifies when the new config becomes effective. This allows
+encryption keys to be rotated without restarting the API server.
 -->
 要允许自动重新加载，
 可使用 `--encryption-provider-config-automatic-reload=true` 运行 API 服务器。
+该功能启用后，每分钟会轮询文件变化以监测修改情况。
+`apiserver_encryption_config_controller_automatic_reload_last_timestamp_seconds` 指标用于标识新配置生效的时间。
+这种设置可以在不重启 API 服务器的情况下轮换加密密钥。
 
 ## {{% heading "whatsnext" %}}
 
