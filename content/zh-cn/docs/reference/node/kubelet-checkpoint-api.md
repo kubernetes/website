@@ -118,7 +118,7 @@ POST /checkpoint/{namespace}/{pod}/{container}
 
   <!--
   Timeout in seconds to wait until the checkpoint creation is finished.
-  If zero or no timeout is specfied the default {{<glossary_tooltip
+  If zero or no timeout is specified the default {{<glossary_tooltip
   term_id="cri" text="CRI">}} timeout value will be used. Checkpoint
   creation time depends directly on the used memory of the container.
   The more memory a container uses the more time is required to create
