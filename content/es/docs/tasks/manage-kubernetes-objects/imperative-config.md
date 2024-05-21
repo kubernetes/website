@@ -46,7 +46,7 @@ para mas detalles.
 La actualización de objetos con el comando `replace` elimina todas las 
 partes de la especificación no especificadas en el archivo de configuración. Esto no debe 
 usarse con objetos cuyas especificaciones son administradas 
-parcialmente por el clúster, como Servicios de tipo `LoadBalancer`, donde el 
+parcialmente por el clúster, como Services de tipo `LoadBalancer`, donde el 
 campo `externalIPs` se administra independientemente del archivo de
 configuración. Los campos administrados de forma independiente deben copiarse en 
 el archivo de configuración para evitar que `replace` los elimine.
@@ -115,7 +115,7 @@ kubectl create -f <url> --edit
 
 La migración de comandos imperativos a la configuración de objetos imperativos implica varios pasos manuales.
 
-1. Exporta el objeto en vivo a un archivo de configuración de objeto local:.
+1. Exporta el objeto en vivo a un archivo de configuración de objeto local.
 
     ```shell
     kubectl get <kind>/<name> -o yaml > <kind>_<name>.yaml
