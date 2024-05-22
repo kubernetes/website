@@ -1,9 +1,9 @@
 ---
 title: Testing of CSI drivers
 date: 2020-01-08
+author: >
+  Patrick Ohly (Intel)
 ---
-
-**Author:** Patrick Ohly (Intel)
 
 When developing a [Container Storage Interface (CSI)
 driver](https://kubernetes-csi.github.io/docs/), it is useful to leverage

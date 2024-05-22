@@ -3,9 +3,9 @@ layout: blog
 title: "Local Storage: Storage Capacity Tracking, Distributed Provisioning and Generic Ephemeral Volumes hit Beta"
 date: 2021-04-14
 slug: local-storage-features-go-beta
+author: >
+  Patrick Ohly (Intel)
 ---
-
- **Authors:** Patrick Ohly (Intel)
 
 The ["generic ephemeral
 volumes"](/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volumes)

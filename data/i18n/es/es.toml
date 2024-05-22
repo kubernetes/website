@@ -1,5 +1,14 @@
 # i18n strings for the Spanish (main) site.
 
+[docs_version_current]
+other = "(esta documentación)"
+
+[docs_version_latest_heading]
+other = "Versión actual"
+
+[docs_version_other_heading]
+other = "Versiones anteriores"
+
 [deprecation_warning]
 other = " ya no mantiene activamente la documentación. La versión que está viendo actualmente es una instantánea estática. Para la documentación actualizada, visita la "
 

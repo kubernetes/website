@@ -3,9 +3,9 @@ layout: blog
 title: "Verifying Container Image Signatures Within CRI Runtimes"
 date: 2023-06-29
 slug: container-image-signature-verification
+author: >
+  Sascha Grunert
 ---
-
-**Author**: Sascha Grunert
 
 The Kubernetes community has been signing their container image-based artifacts
 since release v1.24. While the graduation of the [corresponding enhancement][kep]

@@ -3,9 +3,11 @@ layout: blog
 title: 'Graceful Node Shutdown Goes Beta'
 date: 2021-04-21
 slug: graceful-node-shutdown-beta
+author: >
+  David Porter (Google),
+  Mrunal Patel (Red Hat),
+  Tim Bannister (The Scale Factory)
 ---
-
-**Authors:** David Porter (Google), Mrunal Patel (Red Hat), and Tim Bannister (The Scale Factory)
 
 Graceful node shutdown, beta in 1.21, enables kubelet to gracefully evict pods during a node shutdown.
 

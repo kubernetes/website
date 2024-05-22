@@ -289,6 +289,103 @@ the `Terminated` state.
 状态之前执行。
 
 <!--
+## How Pods handle problems with containers {#container-restarts}
+
+Kubernetes manages container failures within Pods using a [`restartPolicy`](#restart-policy) defined in the Pod `spec`. This policy determines how Kubernetes reacts to containers exiting due to errors or other reasons, which falls in the following sequence:
+-->
+
+## Pod 如何处理容器问题 {#container-restarts}
+
+Kubernetes 通过在 Pod `spec` 中定义的 [`restartPolicy`](#restart-policy) 管理 Pod 内容器出现的失效。 
+该策略决定了 Kubernetes 如何对由于错误或其他原因而退出的容器做出反应，其顺序如下：
+
+<!--
+1. **Initial crash**: Kubernetes attempts an immediate restart based on the Pod `restartPolicy`.
+1. **Repeated crashes**: After the initial crash Kubernetes applies an exponential
+   backoff delay for subsequent restarts, described in [`restartPolicy`](#restart-policy).
+   This prevents rapid, repeated restart attempts from overloading the system.
+1. **CrashLoopBackOff state**: This indicates that the backoff delay mechanism is currently
+   in effect for a given container that is in a crash loop, failing and restarting repeatedly.
+1. **Backoff reset**: If a container runs successfully for a certain duration
+   (e.g., 10 minutes), Kubernetes resets the backoff delay, treating any new crash
+   as the first one.
+-->
+
+1. **最初的崩溃**：Kubernetes 尝试根据 Pod 的 `restartPolicy` 立即重新启动。
+1. **反复的崩溃**：在最初的崩溃之后，Kubernetes 对于后续重新启动的容器采用指数级回退延迟机制，
+    如 [`restartPolicy`](#restart-policy) 中所述。
+    这一机制可以防止快速、重复的重新启动尝试导致系统过载。
+1. **CrashLoopBackOff 状态**：这一状态表明，对于一个给定的、处于崩溃循环、反复失效并重启的容器，
+    回退延迟机制目前正在生效。
+1. **回退重置**：如果容器成功运行了一定时间（如 10 分钟），
+  Kubernetes 会重置回退延迟机制，将新的崩溃视为第一次崩溃。
+<!--
+In practice, a `CrashLoopBackOff` is a condition or event that might be seen as output
+from the `kubectl` command, while describing or listing Pods, when a container in the Pod
+fails to start properly and then continually tries and fails in a loop.
+-->
+在实际部署中，`CrashLoopBackOff` 是在描述或列出 Pod 时从 `kubectl` 命令输出的一种状况或事件。
+当 Pod 中的容器无法正常启动，并反复进入尝试与失败的循环时就会出现。
+
+<!--
+In other words, when a container enters the crash loop, Kubernetes applies the
+exponential backoff delay mentioned in the [Container restart policy](#restart-policy).
+This mechanism prevents a faulty container from overwhelming the system with continuous
+failed start attempts.
+-->
+换句话说，当容器进入崩溃循环时，Kubernetes 会应用[容器重启策略](#restart-policy) 
+中提到的指数级回退延迟机制。这种机制可以防止有问题的容器因不断进行启动失败尝试而导致系统不堪重负。
+
+<!--
+The `CrashLoopBackOff` can be caused by issues like the following:
+
+* Application errors that cause the container to exit.
+* Configuration errors, such as incorrect environment variables or missing
+  configuration files.
+* Resource constraints, where the container might not have enough memory or CPU
+  to start properly.
+* Health checks failing if the application doesn't start serving within the
+  expected time.
+* Container liveness probes or startup probes returning a `Failure` result
+  as mentioned in the [probes section](#container-probes).
+-->
+下列问题可以导致 `CrashLoopBackOff`：
+
+* 应用程序错误导致的容器退出。
+* 配置错误，如环境变量不正确或配置文件丢失。
+* 资源限制，容器可能没有足够的内存或 CPU 正常启动。
+* 如果应用程序没有在预期时间内启动服务，健康检查就会失败。
+* 容器的存活探针或者启动探针返回 `失败` 结果，如[探针部分](#container-probes)所述。
+
+<!--
+To investigate the root cause of a `CrashLoopBackOff` issue, a user can:
+
+1. **Check logs**: Use `kubectl logs <name-of-pod>` to check the logs of the container.
+   This is often the most direct way to diagnose the issue causing the crashes.
+1. **Inspect events**: Use `kubectl describe pod <name-of-pod>` to see events
+   for the Pod, which can provide hints about configuration or resource issues.
+1. **Review configuration**: Ensure that the Pod configuration, including
+   environment variables and mounted volumes, is correct and that all required
+   external resources are available.
+1. **Check resource limits**: Make sure that the container has enough CPU
+   and memory allocated. Sometimes, increasing the resources in the Pod definition
+   can resolve the issue.
+1. **Debug application**: There might exist bugs or misconfigurations in the
+   application code. Running this container image locally or in a development
+   environment can help diagnose application specific issues.
+-->
+要调查 `CrashLoopBackOff` 问题的根本原因，用户可以：
+
+1. **检查日志**：使用 `kubectl logs <pod名称>` 检查容器的日志。
+    这通常是诊断导致崩溃的问题的最直接方法。
+1. **检查事件**：使用 `kubectl describe pod <pod名称>` 查看 Pod 的事件，
+    这可以提供有关配置或资源问题的提示。
+1. **审查配置**：确保 Pod 配置正确无误，包括环境变量和挂载卷，并且所有必需的外部资源都可用。
+1. **检查资源限制**： 确保容器被分配了足够的 CPU 和内存。有时，增加 Pod 定义中的资源可以解决问题。
+1. **调试应用程序**：应用程序代码中可能存在错误或配置不当。
+    在本地或开发环境中运行此容器镜像有助于诊断应用程序的特定问题。
+
+<!--
 ## Container restart policy {#restart-policy}
 
 The `spec` of a Pod has a `restartPolicy` field with possible values Always, OnFailure,
@@ -301,6 +398,10 @@ ignore the Pod-level `restartPolicy` field: in Kubernetes, a sidecar is defined 
 entry inside `initContainers` that has its container-level `restartPolicy` set to `Always`.
 For init containers that exit with an error, the kubelet restarts the init container if
 the Pod level `restartPolicy` is either `OnFailure` or `Always`.
+
+* `Always`: Automatically restarts the container after any termination.
+* `OnFailure`: Only restarts the container if it exits with an error (non-zero exit status).
+* `Never`: Does not automatically restart the terminated container.
 -->
 ## 容器重启策略 {#restart-policy}
 
@@ -316,20 +417,25 @@ Pod 级别的 `restartPolicy` 字段：在 Kubernetes 中，Sidecar 被定义为
 对于因错误而退出的 Init 容器，如果 Pod 级别 `restartPolicy` 为 `OnFailure` 或 `Always`，
 则 kubelet 会重新启动 Init 容器。
 
+* `Always`：只要容器终止就自动重启容器。
+* `OnFailure`：只有在容器错误退出（退出状态非零）时才重新启动容器。
+* `Never`：不会自动重启已终止的容器。
+
 <!--
 When the kubelet is handling container restarts according to the configured restart
 policy, that only applies to restarts that make replacement containers inside the
 same Pod and running on the same node. After containers in a Pod exit, the kubelet
-restarts them with an exponential back-off delay (10s, 20s, 40s, …), that is capped at
-five minutes. Once a container has executed for 10 minutes without any problems, the
-kubelet resets the restart backoff timer for that container.
+restarts them with an exponential backoff delay (10s, 20s, 40s, …), that is capped at
+300 seconds (5 minutes). Once a container has executed for 10 minutes without any
+problems, the kubelet resets the restart backoff timer for that container.
 [Sidecar containers and Pod lifecycle](/docs/concepts/workloads/pods/sidecar-containers/#sidecar-containers-and-pod-lifecycle)
 explains the behaviour of `init containers` when specify `restartpolicy` field on it.
 -->
 当 kubelet 根据配置的重启策略处理容器重启时，仅适用于同一 Pod
 内替换容器并在同一节点上运行的重启。当 Pod 中的容器退出时，`kubelet`
-会按指数回退方式计算重启的延迟（10s、20s、40s、...），其最长延迟为 5 分钟。
-一旦某容器执行了 10 分钟并且没有出现问题，`kubelet` 对该容器的重启回退计时器执行重置操作。
+会以指数级回退延迟机制（10 秒、20 秒、40 秒......）重启容器，
+上限为 300 秒（5 分钟）。一旦容器顺利执行了 10 分钟，
+kubelet 就会重置该容器的重启延迟计时器。
 [Sidecar 容器和 Pod 生命周期](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/#sidecar-containers-and-pod-lifecycle)中解释了
 `init containers` 在指定 `restartpolicy` 字段时的行为。
 

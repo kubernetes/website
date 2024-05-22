@@ -4,9 +4,9 @@ title: "Spotlight on SIG Storage"
 slug: sig-storage-spotlight
 date: 2022-08-22
 canonicalUrl: https://www.kubernetes.dev/blog/2022/08/22/sig-storage-spotlight-2022/
+author: >
+  Frederico Muñoz (SAS)
 ---
-
-**Author**: Frederico Muñoz (SAS)
 
 Since the very beginning of Kubernetes, the topic of persistent data and how to address the requirement of stateful applications has been an important topic. Support for stateless deployments was natural, present from the start, and garnered attention, becoming very well-known. Work on better support for stateful applications was also present from early on, with each release increasing the scope of what could be run on Kubernetes.
 

@@ -2,9 +2,9 @@
 layout: blog
 title: "Stargazing, solutions and staycations: the Kubernetes 1.24 release interview"
 date: 2022-08-18
+author: >
+  Craig Box (Google)
 ---
-
-**Author**: Craig Box (Google)
 
 The Kubernetes project has participants from all around the globe. Some are friends, some are colleagues, and some are strangers. The one thing that unifies them, no matter their differences, are that they all have an interesting story. It is my pleasure to be the documentarian for the stories of the Kubernetes community in the weekly [Kubernetes Podcast from Google](https://kubernetespodcast.com/). With every new Kubernetes release comes an interview with the release team lead, telling the story of that release, but also their own personal story.
 

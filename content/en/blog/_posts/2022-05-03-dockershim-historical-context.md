@@ -3,10 +3,9 @@ layout: blog
 title: "Dockershim: The Historical Context"
 date: 2022-05-03
 slug: dockershim-historical-context
+author: >
+  Kat Cosgrove
 ---
-
-**Author:** Kat Cosgrove
-
 
 Dockershim has been removed as of Kubernetes v1.24, and this is a positive move for the project. However, context is important for fully understanding something, be it socially or in software development, and this deserves a more in-depth review. Alongside the dockershim removal in Kubernetes v1.24, we’ve seen some confusion (sometimes at a panic level) and dissatisfaction with this decision in the community, largely due to a lack of context around this removal. The decision to deprecate and eventually remove dockershim from Kubernetes was not made quickly or lightly. Still, it’s been in the works for so long that many of today’s users are newer than that decision, and certainly newer than the choices that led to the dockershim being necessary in the first place.
 

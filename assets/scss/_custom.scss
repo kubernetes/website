@@ -135,7 +135,7 @@ body.td-404 main .error-details {
     height: 44px;
     background-repeat: no-repeat;
     background-size: contain;
-    background-image: url("/images/favicon.png");
+    background-image: url("/images/logo-header.png");
   }
 
   #hamburger {
@@ -497,14 +497,33 @@ body {
       border-left-width: calc(max(0.5em, 4px));
       border-top-left-radius: calc(max(0.5em, 4px));
       border-bottom-left-radius: calc(max(0.5em, 4px));
+      padding-top: 0.75rem;
   }
-  .alert.callout.caution {
+  .alert.alert-caution {
     border-left-color: #f0ad4e;
   }
-  .alert.callout.note {
+  .alert.alert-info {
     border-left-color: #428bca;
+    h4, h4.alert-heading {
+      color: #000;
+      display: block;
+      float: left;
+      font-size: 1rem;
+      padding: 0;
+      padding-right: 0.5rem;
+      margin: 0;
+      line-height: 1.5;
+      font-weight: bolder;
+    }
   }
-  .alert.callout.warning {
+  .alert.alert-caution {
+    border-left-color: #f0ad4e;
+    h4, h4.alert-heading {
+      font-size: 1em;
+      font-weight: bold;
+    }
+  }
+  .alert.alert-warning {
     border-left-color: #d9534f;
   }
   .alert.third-party-content {
@@ -728,7 +747,7 @@ body.cid-partners {
         line-height: 40px;
         color: #ffffff;
         font-size: 16px;
-        background-color: #3371e3;
+        background-color: #326ce5;
         text-decoration: none;
      }
 
@@ -848,6 +867,44 @@ body.cid-community > #deprecation-warning > .deprecation-warning {
 body.cid-community > #deprecation-warning > .deprecation-warning > * {
     color: inherit;
     background-color: inherit;
+}
+
+body.cid-code-of-conduct main {
+    max-width: calc(min(90vw, 100em));
+    padding-top: 3rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+
+    #cncf-code-of-conduct {
+        margin-top: 4rem;
+        margin-bottom: 4rem;
+        padding-left: 4rem;
+
+        > h2, h3, h4, h5 {
+          color: #0662EE;
+        }
+
+        > h2:first-child {
+          margin-top: 0.25em;
+          margin-bottom: 1em;
+        }
+    }
+
+    > hr {
+      margin-top: 4rem;
+      margin-bottom: 4rem;
+    }
+
+    > hr:last-of-type ~ * {
+      text-align: center;
+      font-size: 1.15rem;
+    }
+
+    > *:last-child {
+      margin-bottom: 4rem;
+    }
 }
 
 #caseStudies body > #deprecation-warning > .deprecation-warning, body.cid-casestudies > #deprecation-warning > .deprecation-warning {
@@ -1296,10 +1353,11 @@ div.alert > em.javascript-required {
   flex-grow: 1;
   overflow-x: hidden;
   width: auto;
-}
 
-.search-bar:focus-within {
-  border: 2.5px solid rgba(47, 135, 223, 0.7);
+  &:focus-within {
+    outline: 1.5px solid rgba(47, 135, 223, 0.7);
+    border: 1px solid rgba(47, 135, 223, 0.7);
+  }
 }
 
 .search-bar i.search-icon {
@@ -1312,4 +1370,47 @@ div.alert > em.javascript-required {
   border: none;
   outline: none;
   padding: .5em 0 .5em 0;
+}
+
+/* CSS for 'figure' full-screen display */
+ 
+/* Define styles for full-screen overlay */
+.figure-fullscreen-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: rgba(255, 255, 255, 0.95); /* White background with some transparency */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: calc(5% + 20px);
+  box-sizing: border-box;
+}
+
+/* CSS class to scale the image when zoomed */
+.figure-zoomed {
+  transform: scale(1.2);
+}
+
+/* Define styles for full-screen image */
+.figure-fullscreen-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* Maintain aspect ratio and fit within the container */
+}
+
+/* Define styles for close button */
+.figure-close-button {
+  position: absolute;
+  top: 1%; 
+  right: 2%;
+  cursor: pointer;
+  font-size: calc(5vw + 10px);
+  color: #333;
+}
+
+.code-sample > .copy-code-icon {
+  cursor: pointer;
+  text-align: right;
+  padding: 0.2rem;
 }

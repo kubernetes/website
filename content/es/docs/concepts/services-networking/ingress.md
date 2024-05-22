@@ -737,7 +737,7 @@ recurso Ingress:
 * Usa
   un [Service.Type=LoadBalancer](es/docs/concepts/services-networking/service/#loadbalancer)
 * Usa
-  un [Service.Type=NodePort](es/docs/concepts/services-networking/service/#nodeport)
+  un [Service.Type=NodePort](es/docs/concepts/services-networking/service/#tipo-nodeport)
 
 ## {{% heading "whatsnext" %}}
 

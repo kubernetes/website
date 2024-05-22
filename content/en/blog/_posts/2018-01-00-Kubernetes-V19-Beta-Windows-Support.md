@@ -3,7 +3,11 @@ title: Kubernetes v1.9 releases beta support for Windows Server Containers
 date: 2018-01-09
 slug: kubernetes-v19-beta-windows-support
 url: /blog/2018/01/Kubernetes-V19-Beta-Windows-Support
+author: >
+  Michael Michael (Apprenda)
 ---
+
+_At the time of publication, Michael Michael was writing as SIG-Windows Lead._
 
 With the release of Kubernetes v1.9, our mission of ensuring Kubernetes works well everywhere and for everyone takes a great step forward. We’ve advanced support for Windows Server to beta along with continued feature and functional advancements on both the Kubernetes and Windows platforms. SIG-Windows has been working since March of 2016 to open the door for many Windows-specific applications and workloads to run on Kubernetes, significantly expanding the implementation scenarios and the enterprise reach of Kubernetes.  
 
@@ -57,11 +61,3 @@ As we continue to make progress towards General Availability of this feature in 
 - We meet every other Tuesday at 12:30 Eastern Standard Time (EST) at [https://zoom.us/my/sigwindows](https://zoom.us/my/sigwindows). All our meetings are recorded on youtube and referenced at [https://www.youtube.com/playlist?list=PL69nYSiGNLP2OH9InCcNkWNu2bl-gmIU4](https://www.youtube.com/playlist?list=PL69nYSiGNLP2OH9InCcNkWNu2bl-gmIU4)
 - Chat with us on Slack at [https://kubernetes.slack.com/messages/sig-windows](https://kubernetes.slack.com/messages/sig-windows)
 - Find us on GitHub at [https://github.com/kubernetes/community/tree/master/sig-windows](https://github.com/kubernetes/community/tree/master/sig-windows)
-
-
-
-Thank you,  
-
-Michael Michael (@michmike77)  
-SIG-Windows Lead  
-Senior Director of Product Management, Apprenda

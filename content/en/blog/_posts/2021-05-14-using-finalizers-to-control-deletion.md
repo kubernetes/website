@@ -3,9 +3,9 @@ layout: blog
 title: 'Using Finalizers to Control Deletion'
 date: 2021-05-14
 slug: using-finalizers-to-control-deletion
+author: >
+  Aaron Alpar (Kasten)
 ---
-
-**Authors:** Aaron Alpar (Kasten)
 
 Deleting objects in Kubernetes can be challenging. You may think you’ve deleted something, only to find it still persists. While issuing a `kubectl delete` command and hoping for the best might work for day-to-day operations, understanding how Kubernetes `delete` commands operate will help you understand why some objects linger after deletion. 
 

@@ -2,9 +2,9 @@
 layout: blog
 title:  'Airflow on Kubernetes (Part 1): A Different Kind of Operator'
 date:   2018-06-28
+author: >
+  Daniel Imberman (Bloomberg LP)
 ---
-
-**Author**: Daniel Imberman (Bloomberg LP)
 
 ## Introduction
 

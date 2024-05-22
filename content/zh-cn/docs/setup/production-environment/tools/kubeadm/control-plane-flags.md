@@ -275,19 +275,19 @@ For example, `kube-apiserver0+merge.yaml` or just `etcd.json`.
 <!--
 - `target` can be one of `kube-apiserver`, `kube-controller-manager`, `kube-scheduler`, `etcd`
 and `kubeletconfiguration`.
+- `suffix` is an optional string that can be used to determine which patches are applied first
+alpha-numerically.
 - `patchtype` can be one of `strategic`, `merge` or `json` and these must match the patching formats
 [supported by kubectl](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch).
 The default `patchtype` is `strategic`.
 - `extension` must be either `json` or `yaml`.
-- `suffix` is an optional string that can be used to determine which patches are applied first
-alpha-numerically.
 -->
 - `target` 可以是 `kube-apiserver`、`kube-controller-manager`、`kube-scheduler`、`etcd` 和 `kubeletconfiguration` 之一。
+- `suffix` 是一个可选字符串，可用于确定首先按字母数字应用哪些补丁。
 - `patchtype` 可以是 `strategy`、`merge` 或 `json` 之一，并且这些必须匹配
   [kubectl 支持](/zh-cn/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch) 的补丁格式。
   默认补丁类型是 `strategic` 的。
 - `extension` 必须是 `json` 或 `yaml`。
-- `suffix` 是一个可选字符串，可用于确定首先按字母数字应用哪些补丁。
 
 {{< note >}}
 <!--

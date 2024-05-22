@@ -4,9 +4,9 @@ title: 'Kubernetes  1.19: Accentuate the Paw-sitive'
 date: 2020-08-26
 slug: kubernetes-release-1.19-accentuate-the-paw-sitive
 evergreen: true
+author: >
+  [Kubernetes 1.19 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.19/release_team.md)
 ---
-
-**Authors:** [Kubernetes 1.19 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.19/release_team.md)
 
 Finally, we have arrived with Kubernetes 1.19, the second release for 2020, and by far the longest release cycle lasting 20 weeks in total. It consists of 34 enhancements: 10 enhancements are moving to stable, 15 enhancements in beta, and 9 enhancements in alpha.
 

@@ -166,7 +166,7 @@ If you haven't already set up a cluster locally, run `minikube start` to create 
 ## Create an Ingress
 
 The following manifest defines an Ingress that sends traffic to your Service via
-`hello-world.info`.
+`hello-world.example`.
 
 1. Create `example-ingress.yaml` from the following file:
 
@@ -197,8 +197,8 @@ The following manifest defines an Ingress that sends traffic to your Service via
    You should see an IPv4 address in the `ADDRESS` column; for example:
 
    ```none
-   NAME              CLASS    HOSTS              ADDRESS        PORTS   AGE
-   example-ingress   <none>   hello-world.info   172.17.0.15    80      38s
+   NAME              CLASS   HOSTS                 ADDRESS        PORTS   AGE
+   example-ingress   nginx   hello-world.example   172.17.0.15    80      38s
    ```
 
 
@@ -214,7 +214,7 @@ The following manifest defines an Ingress that sends traffic to your Service via
    {{% tab name="Linux" %}}
 
    ```shell
-   curl --resolve "hello-world.info:80:$( minikube ip )" -i http://hello-world.info
+   curl --resolve "hello-world.example:80:$( minikube ip )" -i http://hello-world.example
    ```
    {{% /tab %}}
    {{% tab name="MacOS" %}}
@@ -236,7 +236,7 @@ The following manifest defines an Ingress that sends traffic to your Service via
 
    From within a new terminal, invoke the following command:
    ```shell
-   curl --resolve "hello-world.info:80:127.0.0.1" -i http://hello-world.info
+   curl --resolve "hello-world.example:80:127.0.0.1" -i http://hello-world.example
    ```
 
    {{% /tab %}}
@@ -250,7 +250,7 @@ The following manifest defines an Ingress that sends traffic to your Service via
    Hostname: web-55b8c6998d-8k564
    ```
 
-1. Optionally, you can also visit `hello-world.info` from your browser.
+1. Optionally, you can also visit `hello-world.example` from your browser.
 
    Add a line to the bottom of the `/etc/hosts` file on
      your computer (you will need administrator access):
@@ -264,7 +264,7 @@ The following manifest defines an Ingress that sends traffic to your Service via
    <br>
 
    ```none
-     172.17.0.15 hello-world.info
+     172.17.0.15 hello-world.example
    ```
    
    {{< note >}}
@@ -273,7 +273,7 @@ The following manifest defines an Ingress that sends traffic to your Service via
    {{% /tab %}}
      {{% tab name="MacOS" %}} 
    ```none
-   127.0.0.1 hello-world.info
+   127.0.0.1 hello-world.example
    ```
      {{% /tab %}}
      {{< /tabs >}}
@@ -281,7 +281,7 @@ The following manifest defines an Ingress that sends traffic to your Service via
      <br>
    
      After you make this change, your web browser sends requests for
-     `hello-world.info` URLs to Minikube.
+     `hello-world.example` URLs to Minikube.
 
 ## Create a second Deployment
 
@@ -356,7 +356,7 @@ The following manifest defines an Ingress that sends traffic to your Service via
    {{% tab name="Linux" %}}
 
    ```shell
-   curl --resolve "hello-world.info:80:$( minikube ip )" -i http://hello-world.info
+   curl --resolve "hello-world.example:80:$( minikube ip )" -i http://hello-world.example
    ```
    {{% /tab %}}
    {{% tab name="MacOS" %}}
@@ -378,7 +378,7 @@ The following manifest defines an Ingress that sends traffic to your Service via
 
    From within a new terminal, invoke the following command:
    ```shell
-   curl --resolve "hello-world.info:80:127.0.0.1" -i http://hello-world.info
+   curl --resolve "hello-world.example:80:127.0.0.1" -i http://hello-world.example
    ```
 
    {{% /tab %}}
@@ -399,7 +399,7 @@ The following manifest defines an Ingress that sends traffic to your Service via
    {{% tab name="Linux" %}}
 
    ```shell
-   curl --resolve "hello-world.info:80:$( minikube ip )" -i http://hello-world.info/v2
+   curl --resolve "hello-world.example:80:$( minikube ip )" -i http://hello-world.example/v2
    ```
    {{% /tab %}}
    {{% tab name="MacOS" %}}
@@ -421,7 +421,7 @@ The following manifest defines an Ingress that sends traffic to your Service via
 
    From within a new terminal, invoke the following command:
    ```shell
-   curl --resolve "hello-world.info:80:127.0.0.1" -i http://hello-world.info/v2
+   curl --resolve "hello-world.example:80:127.0.0.1" -i http://hello-world.example/v2
    ```
 
    {{% /tab %}}
@@ -436,8 +436,8 @@ The following manifest defines an Ingress that sends traffic to your Service via
    ```
 
    {{< note >}}
-   If you did the optional step to update `/etc/hosts`, you can also visit `hello-world.info` and
-   `hello-world.info/v2` from your browser.
+   If you did the optional step to update `/etc/hosts`, you can also visit `hello-world.example` and
+   `hello-world.example/v2` from your browser.
    {{< /note >}}
 
 ## {{% heading "whatsnext" %}}
