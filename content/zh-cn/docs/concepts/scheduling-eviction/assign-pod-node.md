@@ -1113,13 +1113,13 @@ The following operators can only be used with `nodeAffinity`.
 <!--
 |    Operator    |    Behaviour    |
 | :------------: | :-------------: |
-| `Gt` | The supplied value will be parsed as an integer, and that integer is less than the integer that results from parsing the value of a label named by this selector |
-| `Lt` | The supplied value will be parsed as an integer, and that integer is greater than the integer that results from parsing the value of a label named by this selector |
+| `Gt` | The field value will be parsed as an integer, and that integer is less than or equal to the integer that results from parsing the value of a label named by this selector |
+| `Lt` | The field value will be parsed as an integer, and that integer is greater than or equal to the integer that results from parsing the value of a label named by this selector |
 -->
 | 操作符 | 行为 |
 | :------------: | :-------------: |
-| `Gt` | 提供的值将被解析为整数，并且该整数小于通过解析此选择算符命名的标签的值所得到的整数 | 
-| `Lt` | 提供的值将被解析为整数，并且该整数大于通过解析此选择算符命名的标签的值所得到的整数 | 
+| `Gt` | 字段值将被解析为整数，并且该整数小于或等于通过解析此选择算符命名的标签的值所得到的整数  | 
+| `Lt` | 字段值将被解析为整数，并且该整数大于或等于通过解析此选择算符命名的标签的值所得到的整数 | 
 
 {{<note>}}
 <!--
