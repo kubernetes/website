@@ -487,8 +487,8 @@ that is not currently used by an etcd process. Creating the snapshot will
 not affect the performance of the member.
 -->
 etcd 支持内置快照。快照可以从使用 `etcdctl snapshot save` 命令的活动成员中创建，
-也可以通过从 etcd [数据目录](https://etcd.io/docs/current/op-guide/configuration/#--data-dir)
-复制 `member/snap/db` 文件，该 etcd 数据目录目前没有被 etcd 进程使用。创建快照不会影响成员的性能。
+也可以通过从目前没有被 etcd 进程使用的 etcd [数据目录](https://etcd.io/docs/current/op-guide/configuration/#--data-dir)
+中拷贝 `member/snap/db` 文件。创建快照并不会影响 etcd 成员的性能。
 
 <!--
 Below is an example for creating a snapshot of the keyspace served by
