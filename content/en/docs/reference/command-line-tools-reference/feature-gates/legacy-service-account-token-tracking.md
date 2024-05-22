@@ -17,7 +17,8 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.28"  
-
+    toVersion: "1.29" 
+removed: true
 ---
 Track usage of Secret-based
 [service account tokens](/docs/concepts/security/service-accounts/#get-a-token).

@@ -115,11 +115,10 @@ The suffix of a valid kubelet drop-in configuration file **must** be `.conf`. Fo
 The kubelet processes files in its config drop-in directory by sorting the **entire file name** alphanumerically.
 For instance, `00-kubelet.conf` is processed first, and then overridden with a file named `01-kubelet.conf`.
 
-These files may contain partial configurations and might not be valid config files by themselves.
-Validation is only performed on the final resulting configuration structure
-stored internally in the kubelet.
-This offers you flexibility in how you manage and combine kubelet configuration that comes from different sources.
-However, it's important to note that the behavior varies based on the data type of the configuration fields.
+These files may contain partial configurations but should not be invalid and must include type metadata, specifically `apiVersion` and `kind`. 
+Validation is only performed on the final resulting configuration structure stored internally in the kubelet. 
+This offers flexibility in managing and merging kubelet configurations from different sources while preventing undesirable configurations. 
+However, it is important to note that behavior varies based on the data type of the configuration fields.
 
 Different data types in the kubelet configuration structure merge differently. See the
 [reference document](/docs/reference/node/kubelet-config-directory-merging.md)
