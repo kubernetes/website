@@ -2,9 +2,9 @@
 layout: blog
 title: 'APIServer dry-run and kubectl diff'
 date: 2019-01-14
+author: >
+  Antoine Pelisse (Google Cloud) 
 ---
-
-**Author**: Antoine Pelisse (Google Cloud, @apelisse)
 
 Declarative configuration management, also known as configuration-as-code, is
 one of the key strengths of Kubernetes. It allows users to commit the desired state of

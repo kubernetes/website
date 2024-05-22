@@ -3,9 +3,9 @@ layout: blog
 title: "Introducing COSI: Object Storage Management using Kubernetes APIs"
 date: 2022-09-02
 slug: cosi-kubernetes-object-storage-management
+author: >
+  Sidhartha Mani ([Minio, Inc](https://min.io))
 ---
-
-**Authors:** Sidhartha Mani ([Minio, Inc](https://min.io))
 
 This article introduces the Container Object Storage Interface (COSI), a standard for provisioning and consuming object storage in Kubernetes. It is an alpha feature in Kubernetes v1.25.
 

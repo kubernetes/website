@@ -151,8 +151,6 @@ IPv6 CIDR 的一个例子：`fdXY:IJKL:MNOP:15::/64`
 （这里演示的是格式而非有效地址 - 请看 [RFC 4193](https://tools.ietf.org/html/rfc4193)）。
 {{< /note >}}
 
-{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
-
 <!--
 ## Services
 -->

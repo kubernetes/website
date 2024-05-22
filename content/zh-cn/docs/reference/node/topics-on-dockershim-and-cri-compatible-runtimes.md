@@ -87,7 +87,7 @@ You can provide feedback via the GitHub issue [**Dockershim removal feedback & i
 
 * Mirantis blog: [The Future of Dockershim is cri-dockerd](https://www.mirantis.com/blog/the-future-of-dockershim-is-cri-dockerd/) (published 2021/04/21)
 
-* Mirantis: [Mirantis/cri-dockerd](https://github.com/Mirantis/cri-dockerd) Git repository (on GitHub)
+* Mirantis: [Mirantis/cri-dockerd](https://mirantis.github.io/cri-dockerd/) Official Documentation
 
 * Tripwire: [How Dockershim’s Forthcoming Deprecation Affects Your Kubernetes](https://www.tripwire.com/state-of-security/security-data-protection/cloud/how-dockershim-forthcoming-deprecation-affects-your-kubernetes/) (published 2021/07/01)
 -->
@@ -103,6 +103,6 @@ You can provide feedback via the GitHub issue [**Dockershim removal feedback & i
 
 * Mirantis 博客：[Dockershim 的未来是 cri-dockerd](https://www.mirantis.com/blog/the-future-of-dockershim-is-cri-dockerd/)（发表于 2021/04/21）
 
-* Mirantis: [Mirantis/cri-dockerd](https://github.com/Mirantis/cri-dockerd) Git 仓库（在 GitHub 上）
+* Mirantis: [Mirantis/cri-dockerd](https://mirantis.github.io/cri-dockerd/) 官方文档
 
 * Tripwire：[Dockershim 即将弃用如何影响你的 Kubernetes](https://www.tripwire.com/state-of-security/security-data-protection/cloud/how-dockershim-forthcoming-deprecation-affects-your-kubernetes/) （发表于 2021/07/01）

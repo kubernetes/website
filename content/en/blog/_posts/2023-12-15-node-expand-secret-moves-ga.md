@@ -3,8 +3,10 @@ layout: blog
 title: "Kubernetes 1.29: CSI Storage Resizing Authenticated and Generally Available in v1.29"
 date: 2023-12-15
 slug: csi-node-expand-secret-support-ga
+author: >
+  Humble Chirammal (Vmware),
+  Louis Koo (deeproute.ai)
 ---
-**Authors:** Humble Chirammal (Vmware), Louis Koo (deeproute.ai)
 
 Kubernetes version v1.29 brings generally available support for authentication
 during CSI (Container Storage Interface) storage resize operations.

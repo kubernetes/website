@@ -1,7 +1,7 @@
 /*
 Kubernetes colors (assets/scss/_skin.scss)
 
-$blue: #3371e3;
+$blue: #326ce5;
 $light-grey: #f7f7f7;
 $dark-grey: #303030;
 $medium-grey: #4c4c4c;
@@ -18,7 +18,7 @@ body > #wrapper {
 }
 
 a {
-  color: #3371e3;
+  color: #326ce5;
 }
 
 a:hover {
@@ -122,7 +122,7 @@ code {
 }
 
 #navigation a:hover {
-  color: #3371e3;
+  color: #326ce5;
   text-decoration: none;
 }
 
@@ -247,7 +247,7 @@ pre {
   }
 
   body.theme-auto #navigation a:hover {
-    color: #3371e3;
+    color: #326ce5;
   }
 
   body.theme-auto pre {
@@ -256,7 +256,7 @@ pre {
   }
 
   body.theme-auto .alert a {
-    color: #3371e3;
+    color: #326ce5;
   }
 }
 
@@ -309,7 +309,7 @@ body.theme-dark #navigation a.selected {
 }
 
 body.theme-dark #navigation a:hover {
-  color: #3371e3;
+  color: #326ce5;
 }
 
 body.theme-dark pre {
@@ -318,5 +318,5 @@ body.theme-dark pre {
 }
 
 body.theme-dark .alert a {
-  color: #3371e3;
+  color: #326ce5;
 }

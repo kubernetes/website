@@ -8,6 +8,7 @@ title: Scheduler Configuration
 content_type: concept
 weight: 20
 -->
+
 {{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 <!--
@@ -56,7 +57,8 @@ KubeSchedulerConfiguration v1beta3 is deprecated in v1.26 and will be removed in
 Please migrate KubeSchedulerConfiguration to [v1](/docs/reference/config-api/kube-scheduler-config.v1/).
 -->
 KubeSchedulerConfiguration v1beta3 在 v1.26 中已被弃用，
-并将在 v1.29 中被移除。请将 KubeSchedulerConfiguration 迁移到 [v1](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)。
+并将在 v1.29 中被移除。请将 KubeSchedulerConfiguration 迁移到
+[v1](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)。
 {{< /note >}}
 
 <!--
@@ -154,7 +156,8 @@ extension points:
    and once one has done the binding, the remaining plugins are skipped. At
    least one bind plugin is required.
 -->
-10. `bind`：这个插件将 Pod 与节点绑定。`bind` 插件是按顺序调用的，只要有一个插件完成了绑定，其余插件都会跳过。`bind` 插件至少需要一个。
+10. `bind`：这个插件将 Pod 与节点绑定。`bind` 插件是按顺序调用的，只要有一个插件完成了绑定，
+   其余插件都会跳过。`bind` 插件至少需要一个。
 <!--
 1. `postBind`: This is an informational extension point that is called after
    a Pod has been bound.
@@ -466,12 +469,18 @@ to get those pods scheduled.
 
 {{< note >}}
 <!--
-Pod's scheduling events have `.spec.schedulerName` as the ReportingController.
-Events for leader election use the scheduler name of the first profile in the
-list.
+Pod's scheduling events have `.spec.schedulerName` as their `reportingController`.
+Events for leader election use the scheduler name of the first profile in the list.
+
+For more information, please refer to the `reportingController` section under
+[Event API Reference](/docs/reference/kubernetes-api/cluster-resources/event-v1/).
 -->
-Pod 的调度事件把 `.spec.schedulerName` 字段值作为 ReportingController。
+Pod 的调度事件把 `.spec.schedulerName` 字段值作为它们的 `ReportingController`。
 领导者选举事件使用列表中第一个配置文件的调度器名称。
+
+有关更多信息，请参阅
+[Event API 参考文档](/zh-cn/docs/reference/kubernetes-api/cluster-resources/event-v1/)中的
+`reportingController` 一节。
 {{< /note >}}
 
 {{< note >}}
@@ -495,7 +504,8 @@ profile config, `multiPoint`, which allows for easily enabling or disabling a pl
 across several extension points. The intent of `multiPoint` config is to simplify the
 configuration needed for users and administrators when using custom profiles.
 -->
-从 `kubescheduler.config.k8s.io/v1beta3` 开始，配置文件配置中有一个附加字段 `multiPoint`，它允许跨多个扩展点轻松启用或禁用插件。
+从 `kubescheduler.config.k8s.io/v1beta3` 开始，配置文件配置中有一个附加字段
+`multiPoint`，它允许跨多个扩展点轻松启用或禁用插件。
 `multiPoint` 配置的目的是简化用户和管理员在使用自定义配置文件时所需的配置。
 
 <!--
@@ -703,6 +713,39 @@ In versions of the config before `v1beta3`, without `multiPoint`, the above snip
 -->
 在 `v1beta3` 之前的配置版本中，没有 `multiPoint`，上面的代码片段等同于：
 
+<!--
+```yaml
+apiVersion: kubescheduler.config.k8s.io/v1beta2
+kind: KubeSchedulerConfiguration
+profiles:
+  - schedulerName: multipoint-scheduler
+    plugins:
+
+      # Disable the default QueueSort plugin
+      queueSort:
+        enabled:
+        - name: 'CustomQueueSort'
+        disabled:
+        - name: 'DefaultQueueSort'
+
+      # Enable custom Filter plugins
+      filter:
+        enabled:
+        - name: 'CustomPlugin1'
+        - name: 'CustomPlugin2'
+        - name: 'DefaultPlugin2'
+        disabled:
+        - name: 'DefaultPlugin1'
+
+      # Enable and reorder custom score plugins
+      score:
+        enabled:
+        - name: 'DefaultPlugin2'
+          weight: 1
+        - name: 'DefaultPlugin1'
+          weight: 3
+```
+-->
 ```yaml
 apiVersion: kubescheduler.config.k8s.io/v1beta2
 kind: KubeSchedulerConfiguration
@@ -781,7 +824,7 @@ as well as its seamless integration with the existing methods for configuring ex
 * The scheduler plugin `NodeLabel` is deprecated; instead, use the [`NodeAffinity`](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity) plugin (enabled by default) to achieve similar behavior.
 -->
 * 调度器插件 `NodeLabel` 已弃用；
-  相反，要使用 [`NodeAffinity`](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity) 
+  相反，要使用 [`NodeAffinity`](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
   插件（默认启用）来实现类似的行为。
 
 <!--
@@ -795,7 +838,7 @@ as well as its seamless integration with the existing methods for configuring ex
 * The scheduler plugin `NodePreferAvoidPods` is deprecated; instead, use [node taints](/docs/concepts/scheduling-eviction/taint-and-toleration/) to achieve similar behavior.
 -->
 * 调度器插件 `NodePreferAvoidPods` 已弃用；
-  相反，使用 [节点污点](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/) 来实现类似的行为。
+  相反，使用[节点污点](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)来实现类似的行为。
 
 <!--
 * A plugin enabled in a v1beta2 configuration file takes precedence over the default configuration for that plugin.

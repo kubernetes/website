@@ -76,7 +76,7 @@ card:
 Kubernetesのリソース名や技術用語などは、原則としてそのままの表記を使用します。
 例えば、PodやService、Deploymentなどは翻訳せずにそのまま表記してください。
 
-ただし、ノード(Node)に関しては明確にKubernetesとしてのNodeリソース(例: `kind: Node`や`kubectl get nodes`)を指していないのであれば、「ノード」と表記してください。
+ただし、ノード(Node)に関してはKubernetesとしてのNodeリソース(例: `kind: Node`や`kubectl get nodes`、Nodeコントローラーなど)を指していないのであれば、「ノード」と表記してください。
 
 またこれらの単語は、複数形ではなく単数形を用います。
 例えば、原文に"pods"と表記されている場合でも、日本語訳では"Pod"と表記してください。

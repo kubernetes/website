@@ -40,7 +40,7 @@ These instructions are for Kubernetes v{{< skew currentVersion >}}. To check the
 
 ### BASH
 -->
-## Kubectl 自动补全   {#kubectl-autocomplete}
+## kubectl 自动补全   {#kubectl-autocomplete}
 
 ### BASH
 
@@ -79,18 +79,15 @@ echo '[[ $commands[kubectl] ]] && source <(kubectl completion zsh)' >> ~/.zshrc 
 
 ### FISH
 
+{{< note >}}
 <!--
-Require kubectl version 1.23 or above.
-
-```bash
-echo 'kubectl completion fish | source' >> ~/.config/fish/config.fish  # add kubectl autocompletion permanently to your fish shell 
-```
+Requires kubectl version 1.23 or above.
 -->
-
 需要 kubectl 版本 1.23 或更高版本。
+{{< /note >}}
 
 ```bash
-echo 'kubectl completion fish | source' >> ~/.config/fish/config.fish  # 将 kubectl 自动补全永久添加到你的 Fish shell 中
+echo 'kubectl completion fish | source' > ~/.config/fish/completions/kubectl.fish && source ~/.config/fish/completions/kubectl.fish
 ```
 
 <!--
@@ -112,7 +109,7 @@ Set which Kubernetes cluster `kubectl` communicates with and modifies configurat
 information. See [Authenticating Across Clusters with kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) documentation for
 detailed config file information.
 -->
-## Kubectl 上下文和配置   {#kubectl-context-and-configuration}
+## kubectl 上下文和配置   {#kubectl-context-and-configuration}
 
 设置 `kubectl` 与哪个 Kubernetes 集群进行通信并修改配置信息。
 查看[使用 kubeconfig 跨集群授权访问](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
@@ -217,12 +214,12 @@ alias kn='f() { [ "$1" ] && kubectl config set-context --current --namespace $1 
 
 `apply` manages applications through files defining Kubernetes resources. It creates and updates resources in a cluster through running `kubectl apply`. This is the recommended way of managing Kubernetes applications on production. See [Kubectl Book](https://kubectl.docs.kubernetes.io).
 -->
-## Kubectl apply
+## kubectl apply
 
 `apply` 通过定义 Kubernetes 资源的文件来管理应用。
 它通过运行 `kubectl apply` 在集群中创建和更新资源。
 这是在生产中管理 Kubernetes 应用的推荐方法。
-参见 [Kubectl 文档](https://kubectl.docs.kubernetes.io/zh/)。
+参见 [kubectl 文档](https://kubectl.docs.kubernetes.io/zh/)。
 
 <!--
 ## Creating objects
@@ -732,6 +729,8 @@ kubectl port-forward my-pod 5000:6000               # Listen on port 5000 on the
 kubectl exec my-pod -- ls /                         # Run command in existing pod (1 container case)
 kubectl exec --stdin --tty my-pod -- /bin/sh        # Interactive shell access to a running pod (1 container case)
 kubectl exec my-pod -c my-container -- ls /         # Run command in existing pod (multi-container case)
+kubectl debug my-pod -it --image=busybox:1.28       # Create an interactive debugging session witin existing pod and immediately attach to it
+kubectl debug node/my-node -it --image=busybox:1.28 # Create an interactive debugging session on a node and immediately attach to it
 kubectl top pod                                     # Show metrics for all pods in the default namespace
 kubectl top pod POD_NAME --containers               # Show metrics for a given pod and its containers
 kubectl top pod POD_NAME --sort-by=cpu              # Show metrics for a given pod and sort it by 'cpu' or 'memory'
@@ -757,6 +756,8 @@ kubectl port-forward my-pod 5000:6000               # 在本地计算机上侦�
 kubectl exec my-pod -- ls /                         # 在已有的 Pod 中运行命令（单容器场景）
 kubectl exec --stdin --tty my-pod -- /bin/sh        # 使用交互 shell 访问正在运行的 Pod (一个容器场景)
 kubectl exec my-pod -c my-container -- ls /         # 在已有的 Pod 中运行命令（多容器场景）
+kubectl debug my-pod -it --image=busybox:1.28       # 在现有 Pod 中创建交互式调试会话并立即附加到此 Pod 上
+kubectl debug node/my-node -it --image=busybox:1.28 # 在节点上创建交互式调试会话并立即附加到此节点上
 kubectl top pod                                     # 显示默认命名空间中所有 Pod 的度量值
 kubectl top pod POD_NAME --containers               # 显示给定 Pod 和其中容器的度量值
 kubectl top pod POD_NAME --sort-by=cpu              # 显示给定 Pod 的指标并且按照 'cpu' 或者 'memory' 排序
@@ -990,9 +991,9 @@ More examples in the kubectl [reference documentation](/docs/reference/kubectl/#
 
 Kubectl verbosity is controlled with the `-v` or `--v` flags followed by an integer representing the log level. General Kubernetes logging conventions and the associated log levels are described [here](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
 -->
-### Kubectl 日志输出详细程度和调试   {#kubectl-output-verbosity-and-debugging}
+### kubectl 日志输出详细程度和调试   {#kubectl-output-verbosity-and-debugging}
 
-Kubectl 日志输出详细程度是通过 `-v` 或者 `--v` 来控制的，参数后跟一个数字表示日志的级别。
+kubectl 日志输出详细程度是通过 `-v` 或者 `--v` 来控制的，参数后跟一个数字表示日志的级别。
 Kubernetes 通用的日志习惯和相关的日志级别在
 [这里](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)有相应的描述。
 

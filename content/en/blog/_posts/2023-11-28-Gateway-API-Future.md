@@ -3,9 +3,13 @@ layout: blog
 title: "New Experimental Features in Gateway API v1.0"
 date: 2023-11-28T10:00:00-08:00
 slug: gateway-api-ga
+author: >
+  Candace Holman (Red Hat),
+  Dave Protasowski (VMware),
+  Gaurav K Ghildiyal (Google),
+  John Howard (Google),
+  Simone Rodigari (IBM)
 ---
-
-***Authors:*** Candace Holman (Red Hat), Dave Protasowski (VMware), Gaurav K Ghildiyal (Google), John Howard (Google), Simone Rodigari (IBM)
 
 Recently, the [Gateway API](https://gateway-api.sigs.k8s.io/) [announced its v1.0 GA release](/blog/2023/10/31/gateway-api-ga/), marking a huge milestone for the project.
 

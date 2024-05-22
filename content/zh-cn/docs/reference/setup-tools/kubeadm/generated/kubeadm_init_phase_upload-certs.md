@@ -36,9 +36,11 @@ kubeadm init phase upload-certs [flags]
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
 Key used to encrypt the control-plane certificates in the kubeadm-certs Secret.
+The certificate key is a hex encoded string that is an AES key of size 32 bytes.
 -->
 <p>
 用于加密 kubeadm-certs Secret 中的控制平面证书的密钥。
+证书密钥是十六进制编码的字符串，是大小为 32 字节的 AES 密钥。
 </p>
 </td>
 </tr>

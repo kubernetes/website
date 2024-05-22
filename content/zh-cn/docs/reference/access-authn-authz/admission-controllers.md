@@ -2,7 +2,7 @@
 title: 准入控制器参考
 linkTitle: 准入控制器
 content_type: concept
-weight: 30
+weight: 40
 ---
 <!--
 reviewers:
@@ -15,14 +15,14 @@ reviewers:
 title: Admission Controllers Reference
 linkTitle: Admission Controllers
 content_type: concept
-weight: 30
+weight: 40
 -->
 
 <!-- overview -->
 <!--
 This page provides an overview of Admission Controllers.
 -->
-此页面提供准入控制器（Admission Controllers）的概述。
+此页面提供准入控制器（Admission Controller）的概述。
 
 <!-- body -->
 
@@ -69,7 +69,7 @@ Kubernetes {{< skew currentVersion >}}
 并编译进 `kube-apiserver` 可执行文件，并且只能由集群管理员配置。
 在该列表中，有两个特殊的控制器：MutatingAdmissionWebhook 和 ValidatingAdmissionWebhook。
 它们根据 API 中的配置，
-分别执行变更和验证[准入控制 webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)。
+分别执行变更和验证[准入控制 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)。
 
 <!--
 ## Admission control phases
@@ -1400,80 +1400,6 @@ for more information.
 此准入控制器会根据相应 RuntimeClass 中定义的值为 Pod 设置 `.spec.overhead`。
 
 详情请参见 [Pod 开销](/zh-cn/docs/concepts/scheduling-eviction/pod-overhead/)。
-
-### SecurityContextDeny {#securitycontextdeny}
-
-<!--
-**Type**: Validating.
--->
-**类别**：验证。
-
-{{< feature-state for_k8s_version="v1.27" state="deprecated" >}}
-
-{{< caution >}}
-<!--
-The Kubernetes project recommends that you **do not use** the
-`SecurityContextDeny` admission controller.
-
-The `SecurityContextDeny` admission controller plugin is deprecated and disabled
-by default. It will be removed in a future version. If you choose to enable the
-`SecurityContextDeny` admission controller plugin, you must enable the
-`SecurityContextDeny` feature gate as well.
--->
-Kubernetes 项目建议你**不要使用** `SecurityContextDeny` 准入控制器。
-
-`SecurityContextDeny` 准入控制器插件已被弃用，并且默认处于禁用状态。
-此插件将在后续的版本中被移除。如果你选择启用 `SecurityContextDeny` 准入控制器插件，
-也必须同时启用 `SecurityContextDeny` 特性门控。
-
-<!--
-The `SecurityContextDeny` admission plugin is deprecated because it is outdated
-and incomplete; it may be unusable or not do what you would expect. As
-implemented, this plugin is unable to restrict all security-sensitive attributes
-of the Pod API. For example, the `privileged` and `ephemeralContainers` fields
-were never restricted by this plugin.
--->
-`SecurityContextDeny` 准入插件已被弃用，因为它已经过时且不完整；
-它可能无法使用或无法达到你的预期。该插件实现之时，就无法限制 Pod API 的所有与安全相关的属性。
-例如，`privileged` 和 `ephemeralContainers` 字段就从未受过此插件的限制。
-
-<!--
-The [Pod Security Admission](/docs/concepts/security/pod-security-admission/)
-plugin enforcing the [Pod Security Standards](/docs/concepts/security/pod-security-standards/)
-`Restricted` profile captures what this plugin was trying to achieve in a better
-and up-to-date way.
--->
-采用 [Pod 安全性标准](/zh-cn/docs/concepts/security/pod-security-standards/)中的 `Restricted`
-方案的 [Pod 安全性准入](/zh-cn/docs/concepts/security/pod-security-admission/)插件，
-能以更好和最新的方式来表述此插件所要实现的目标。
-{{< /caution >}}
-
-<!--
-This admission controller will deny any Pod that attempts to set the following
-[SecurityContext](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)
-fields:
--->
-此准入控制器将拒绝任何尝试设置以下
-[SecurityContext](/zh-cn/docs/tasks/configure-pod-container/security-context/)
-字段的 Pod：
-
-- `.spec.securityContext.supplementalGroups`
-- `.spec.securityContext.seLinuxOptions`
-- `.spec.securityContext.runAsUser`
-- `.spec.securityContext.fsGroup`
-- `.spec.(init)Containers[*].securityContext.seLinuxOptions`
-- `.spec.(init)Containers[*].securityContext.runAsUser`
-
-<!--
-For more historical context on this plugin, see
-[The birth of PodSecurityPolicy](/blog/2022/08/23/podsecuritypolicy-the-historical-context/#the-birth-of-podsecuritypolicy)
-from the Kubernetes blog article about PodSecurityPolicy and its removal. The
-article details the PodSecurityPolicy historical context and the birth of the
-`securityContext` field for Pods.
--->
-有关此插件的更多历史背景，请参阅 Kubernetes 博客中这篇有关 PodSecurityPolicy 及其移除的文章：
-[The birth of PodSecurityPolicy](/blog/2022/08/23/podsecuritypolicy-the-historical-context/#the-birth-of-podsecuritypolicy)。
-这篇文章详细地介绍了 PodSecurityPolicy 的历史背景以及 Pod 的 `securityContext` 字段的诞生。
 
 ### ServiceAccount {#serviceaccount}
 
