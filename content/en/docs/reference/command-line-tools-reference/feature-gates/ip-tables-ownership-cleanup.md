@@ -17,5 +17,7 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.28" 
+    toVersion: "1.29" 
+removed: true
 ---
 This causes kubelet to no longer create legacy iptables rules.
