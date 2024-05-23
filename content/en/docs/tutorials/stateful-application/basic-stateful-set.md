@@ -1180,8 +1180,8 @@ above.
 
 Use this when your application requires or expects that changes, such as rolling out a new
 version of your application, happen in the strict order of the ordinal (pod number) that the StatefulSet provides.
-In other words, if you have Pods `app-0`, `app-1` and `app-2`, Kubernetes will update `app-0` first and check it.
-Once the checks are good, Kubernetes updates `app-1` and finally `app-2`.
+In other words, if you have Pods `app-0`, `app-1` and `app-2`, Kubernetes will update `app-2` first and check it.
+Once the checks are good, Kubernetes updates `app-1` and finally `app-0`.
 
 If you added two more Pods, Kubernetes would set up `app-3` and wait for that to become healthy before deploying
 `app-4`.
