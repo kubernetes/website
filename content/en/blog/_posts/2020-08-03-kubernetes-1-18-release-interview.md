@@ -2,9 +2,9 @@
 layout: blog
 title: "Physics, politics and Pull Requests: the Kubernetes 1.18 release interview"
 date: 2020-08-03
+author: >
+   Craig Box (Google)
 ---
-
-**Author**: Craig Box (Google)
 
 The start of the COVID-19 pandemic couldn't delay the release of Kubernetes 1.18, but unfortunately [a small bug](https://github.com/kubernetes/utils/issues/141) could — thankfully only by a day.  This was the last cat that needed to be herded by 1.18 release lead [Jorge Alarcón](https://twitter.com/alejandrox135) before the [release on March 25](https://kubernetes.io/blog/2020/03/25/kubernetes-1-18-release-announcement/).
 

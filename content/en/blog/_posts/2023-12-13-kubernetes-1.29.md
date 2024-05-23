@@ -3,9 +3,9 @@ layout: blog
 title: 'Kubernetes v1.29: Mandala'
 date: 2023-12-13
 slug: kubernetes-v1-29-release
+author: >
+ [Kubernetes v1.29 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.29/release-team.md)
 ---
-
-**Authors:** [Kubernetes v1.29 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.29/release-team.md)
 
 **Editors:** Carol Valencia, Kristin Martin, Abigail McCarthy, James Quigley
 

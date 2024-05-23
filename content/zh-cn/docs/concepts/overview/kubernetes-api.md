@@ -132,10 +132,10 @@ API 以聚合和非聚合形式提供。聚合的发现提供两个端点，而�
 -->
 ### 聚合的发现   {#aggregated-discovery}
 
-{{< feature-state state="beta" for_k8s_version="v1.27" >}}
+{{< feature-state feature_gate_name="AggregatedDiscoveryEndpoint" >}}
 
 <!--
-Kubernetes offers beta support for aggregated discovery, publishing
+Kubernetes offers beta support for _aggregated discovery_, publishing
 all resources supported by a cluster through two endpoints (`/api` and
 `/apis`). Requesting this
 endpoint drastically reduces the number of requests sent to fetch the
@@ -144,7 +144,7 @@ requesting the respective endpoints with an `Accept` header indicating
 the aggregated discovery resource:
 `Accept: application/json;v=v2beta1;g=apidiscovery.k8s.io;as=APIGroupDiscoveryList`.
 -->
-Kubernetes 为聚合的发现提供了 Beta 支持，通过两个端点（`/api` 和 `/apis`）发布集群所支持的所有资源。
+Kubernetes 为**聚合的发现**提供了 Beta 支持，通过两个端点（`/api` 和 `/apis`）发布集群所支持的所有资源。
 请求这个端点会大大减少从集群获取发现数据时发送的请求数量。你可以通过带有
 `Accept` 头（`Accept: application/json;v=v2beta1;g=apidiscovery.k8s.io;as=APIGroupDiscoveryList`）
 的请求发送到不同端点，来指明聚合发现的资源。
@@ -157,7 +157,7 @@ document.
 如果没有使用 `Accept` 头指示资源类型，对于 `/api` 和 `/apis` 端点的默认响应将是一个非聚合的发现文档。
 
 <!--
-The [discovery document](https://github.com/kubernetes/kubernetes/blob/release-{{< skew currentVersion >}}/api/discovery/aggregated_v2beta1.json)
+The [discovery document](https://github.com/kubernetes/kubernetes/blob/release-{{< skew currentVersion >}}/api/discovery/aggregated_v2.json)
 for the built-in resources can be found in the Kubernetes GitHub repository.
 This Github document can be used as a reference of the base set of the available resources
 if a Kubernetes cluster is not available to query.
@@ -456,51 +456,6 @@ Kubernetes stores the serialized state of objects by writing them into
 Kubernetes 通过将序列化状态的对象写入到 {{< glossary_tooltip term_id="etcd" >}} 中完成存储操作。
 
 <!--
-## API Discovery
-
-A list of all group versions supported by a cluster is published at
-the `/api` and `/apis` endpoints. Each group version also advertises
-the list of resources supported via `/apis/<group>/<version>` (for
-example: `/apis/rbac.authorization.k8s.io/v1alpha1`). These endpoints
-are used by kubectl to fetch the list of resources supported by a
-cluster.
--->
-## API 发现   {#api-discovery}
-
-集群支持的所有组版本列表被发布在 `/api` 和 `/apis` 端点。
-每个组版本还会通过 `/apis/<group>/<version>`
-（例如 `/apis/rbac.authorization.k8s.io/v1alpha1`）广播支持的资源列表。
-这些端点由 kubectl 用于获取集群支持的资源列表。
-
-<!--
-### Aggregated Discovery
--->
-### 聚合发现   {#aggregated-discovery}
-
-{{< feature-state state="beta"  for_k8s_version="v1.27" >}}
-
-<!--
-Kubernetes offers beta support for aggregated discovery, publishing
-all resources supported by a cluster through two endpoints (`/api` and
-`/apis`) compared to one for every group version. Requesting this
-endpoint drastically reduces the number of requests sent to fetch the
-discovery for the average Kubernetes cluster. This may be accessed by
-requesting the respective endpoints with an Accept header indicating
-the aggregated discovery resource:
-`Accept: application/json;v=v2beta1;g=apidiscovery.k8s.io;as=APIGroupDiscoveryList`.
-
-The endpoint also supports ETag and protobuf encoding.
--->
-Kubernetes 对聚合发现提供 Beta 支持，通过两个端点（`/api` 和 `/apis`）
-发布集群支持的所有资源，而不是每个组版本都需要一个端点。
-请求此端点显著减少了获取平均 Kubernetes 集群发现而发送的请求数量。
-通过请求各自的端点并附带表明聚合发现资源
-`Accept: application/json;v=v2beta1;g=apidiscovery.k8s.io;as=APIGroupDiscoveryList`
-的 Accept 头部来进行访问。
-
-该端点还支持 ETag 和 protobuf 编码。
-
-<!--
 ## API groups and versioning
 
 To make it easier to eliminate fields or restructure resource representations,
@@ -512,7 +467,7 @@ to ensure that the API presents a clear, consistent view of system resources
 and behavior, and to enable controlling access to end-of-life and/or
 experimental APIs.
 -->
-## API 组和版本控制 {#api-groups-and-versioning}
+## API 组和版本控制   {#api-groups-and-versioning}
 
 为了更容易消除字段或重组资源的呈现方式，Kubernetes 支持多个 API 版本，每个版本位于不同的 API 路径，
 例如 `/api/v1` 或 `/apis/rbac.authorization.k8s.io/v1alpha1`。
@@ -562,7 +517,7 @@ compatibility for a length of time so that other projects have an opportunity to
 
 任何成功的系统都要随着新的使用案例的出现和现有案例的变化来成长和变化。
 为此，Kubernetes 已设计了 Kubernetes API 来持续变更和成长。
-Kubernetes 项目的目标是 **不要** 给现有客户端带来兼容性问题，并在一定的时期内维持这种兼容性，
+Kubernetes 项目的目标是**不要**给现有客户端带来兼容性问题，并在一定的时期内维持这种兼容性，
 以便其他项目有机会作出适应性变更。
 
 <!--

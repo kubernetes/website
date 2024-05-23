@@ -2,9 +2,10 @@
 layout: blog
 title: 'etcd: Current status and future roadmap'
 date: 2018-12-11
+author: >
+  Gyuho Lee (Amazon),
+  Joe Betz (Google Cloud)
 ---
-
-**Author**: Gyuho Lee (Amazon Container OSS Team, @gyuho), Joe Betz (Google Cloud, @jpbetz)
 
 etcd is a distributed key value store that provides a reliable way to manage the coordination state of distributed systems. etcd was first announced in June 2013 by CoreOS (part of Red Hat as of 2018). Since its adoption in Kubernetes in 2014, etcd has become a fundamental part of the Kubernetes cluster management software design, and the etcd community has grown exponentially. etcd is now being used in production environments of multiple companies, including large cloud provider environments such as AWS, Google Cloud Platform, Azure, and other on-premises Kubernetes implementations. CNCF currently has [32 conformant Kubernetes platforms and distributions](https://www.cncf.io/announcement/2017/11/13/cloud-native-computing-foundation-launches-certified-kubernetes-program-32-conformant-distributions-platforms/), all of which use etcd as the datastore.
 

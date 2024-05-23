@@ -1,7 +1,7 @@
 ---
 title: Webhook 模式
 content_type: concept
-weight: 100
+weight: 36
 ---
 <!--
 reviewers:
@@ -11,7 +11,7 @@ reviewers:
 - liggitt
 title: Webhook Mode
 content_type: concept
-weight: 100
+weight: 36
 -->
 
 <!-- overview -->

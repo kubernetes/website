@@ -3,9 +3,9 @@ layout: blog
 title: "Announcing the 2021 Steering Committee Election Results"
 date: 2021-11-08
 slug: steering-committee-results-2021
+author: >
+  Kaslin Fields
 ---
-
-**Author**: Kaslin Fields
 
 The [2021 Steering Committee Election](https://github.com/kubernetes/community/tree/master/events/elections/2021) is now complete. The Kubernetes Steering Committee consists of 7 seats, 4 of which were up for election in 2021. Incoming committee members serve a term of 2 years, and all members are elected by the Kubernetes Community.
 

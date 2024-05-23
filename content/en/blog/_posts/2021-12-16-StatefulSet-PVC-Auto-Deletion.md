@@ -3,9 +3,9 @@ layout: blog
 title: 'Kubernetes 1.23: StatefulSet PVC Auto-Deletion (alpha)'
 date: 2021-12-16
 slug: kubernetes-1-23-statefulset-pvc-auto-deletion
+author: >
+  Matthew Cary (Google)
 ---
-
-**Author:** Matthew Cary (Google)
 
 Kubernetes v1.23 introduced a new, alpha-level policy for
 [StatefulSets](/docs/concepts/workloads/controllers/statefulset/) that controls the lifetime of

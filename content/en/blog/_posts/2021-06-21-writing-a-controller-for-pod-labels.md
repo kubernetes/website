@@ -3,9 +3,9 @@ layout: blog
 title: "Writing a Controller for Pod Labels"
 date: 2021-06-21
 slug: writing-a-controller-for-pod-labels
+author: >
+  Arthur Busser (Padok) 
 ---
-
-**Authors**: Arthur Busser (Padok)
 
 [Operators][what-is-an-operator] are proving to be an excellent solution to
 running stateful distributed applications in Kubernetes. Open source tools like

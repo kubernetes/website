@@ -34,6 +34,7 @@ certs                        Certificate generation
   /sa                          Generate a private key for signing service account tokens along with its public key
 kubeconfig                   Generate all kubeconfig files necessary to establish the control plane and the admin kubeconfig file
   /admin                       Generate a kubeconfig file for the admin to use and for kubeadm itself
+  /super-admin                 Generate a kubeconfig file for the super-admin
   /kubelet                     Generate a kubeconfig file for the kubelet to use *only* for cluster bootstrapping purposes
   /controller-manager          Generate a kubeconfig file for the controller manager to use
   /scheduler                   Generate a kubeconfig file for the scheduler to use
@@ -146,10 +147,11 @@ The path where to save and store the certificates.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Key used to encrypt the control-plane certificates in the kubeadm-certs Secret.
+Key used to encrypt the control-plane certificates in the kubeadm-certs Secret. The certificate key is a hex encoded string that is an AES key of size 32 bytes.
 -->
 <p>
 用于加密 kubeadm-certs Secret 中的控制平面证书的密钥。
+证书密钥为十六进制编码的字符串，是大小为 32 字节的 AES 密钥。
 </p>
 </td>
 </tr>
@@ -218,16 +220,18 @@ Don't apply any changes; just output what would be done.
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
 A set of key=value pairs that describe feature gates for various features. Options are:<br/>
-EtcdLearnerMode=true|false (ALPHA - default=false)<br/>
-PublicKeysECDSA=true|false (ALPHA - default=false)<br/>
+EtcdLearnerMode=true|false (BETA - default=true)<br/>
+PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>
 RootlessControlPlane=true|false (ALPHA - default=false)<br/>
-UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - default=false)
+UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - default=false)<br/>
+WaitForAllControlPlaneComponents=true|false (ALPHA - default=false)
 -->
 一组用来描述各种功能特性的键值（key=value）对。选项是：<br/>
-EtcdLearnerMode=true|false (ALPHA - 默认值=false)<br/>
-PublicKeysECDSA=true|false (ALPHA - 默认值=false)<br/>
+EtcdLearnerMode=true|false (BETA - 默认值=true)<br/>
+PublicKeysECDSA=true|false (DEPRECATED - 默认值=false)<br/>
 RootlessControlPlane=true|false (ALPHA - 默认值=false)<br/>
-UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - 默认值=false)
+UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - 默认值=false)<br/>
+WaitForAllControlPlaneComponents=true|false (ALPHA - 默认值=false)
 </td>
 </tr>
 

@@ -3,9 +3,9 @@ layout: blog
 title: "Live and let live with Kluctl and Server Side Apply"
 date: 2022-11-04
 slug: live-and-let-live-with-kluctl-and-ssa
+author: >
+   Alexander Block
 ---
-
-**Author:** Alexander Block
 
 This blog post was inspired by a previous Kubernetes blog post about
 [Advanced Server Side Apply](https://kubernetes.io/blog/2022/10/20/advanced-server-side-apply/).
