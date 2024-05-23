@@ -1,28 +1,26 @@
 ---
-title: Install and Set Up kubectl on Linux
+title: Linux上でのkubectlのインストールおよびセットアップ
 content_type: task
 weight: 10
 ---
 
 ## {{% heading "prerequisites" %}}
 
-You must use a kubectl version that is within one minor version difference of
-your cluster. For example, a v{{< skew currentVersion >}} client can communicate
-with v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}},
-and v{{< skew currentVersionAddMinor 1 >}} control planes.
-Using the latest compatible version of kubectl helps avoid unforeseen issues.
+kubectlのバージョンは、クラスターのマイナーバージョンとの差分が1つ以内でなければなりません。
+たとえば、クライアントがv{{< skew currentVersion >}}であれば、v{{< skew currentVersionAddMinor -1 >}}、v{{< skew currentVersionAddMinor 0 >}}、v{{< skew currentVersionAddMinor 1 >}}のコントロールプレーンと通信できます。
+最新の互換性のあるバージョンのkubectlを使うことで、不測の事態を避けることができるでしょう。
 
-## Install kubectl on Linux
+## Linuxへkubectlをインストールする
 
-The following methods exist for installing kubectl on Linux:
+Linuxへkubectlをインストールするには、次の方法があります:
 
-- [Install kubectl binary with curl on Linux](#install-kubectl-binary-with-curl-on-linux)
-- [Install using native package management](#install-using-native-package-management)
-- [Install using other package management](#install-using-other-package-management)
+- [curlを使用してLinuxへkubectlのバイナリをインストールする](#install-kubectl-binary-with-curl-on-linux)
+- [ネイティブなパッケージマネージャーを使用してインストールする](#install-using-native-package-management)
+- [他のパッケージマネージャーを使用してインストールする](#install-using-other-package-management)
 
-### Install kubectl binary with curl on Linux
+### curlを使用してLinuxへkubectlのバイナリをインストールする{#install-kubectl-binary-with-curl-on-linux}
 
-1. Download the latest release with the command:
+1. 次のコマンドにより、最新リリースをダウンロードしてください:
 
    {{< tabs name="download_binary_linux" >}}
    {{< tab name="x86-64" codelang="bash" >}}
@@ -34,16 +32,15 @@ The following methods exist for installing kubectl on Linux:
    {{< /tabs >}}
 
    {{< note >}}
-   To download a specific version, replace the `$(curl -L -s https://dl.k8s.io/release/stable.txt)`
-   portion of the command with the specific version.
+   特定のバージョンをダウンロードする場合、コマンドの`$(curl -L -s https://dl.k8s.io/release/stable.txt)`の部分を特定のバージョンに書き換えてください。
 
-   For example, to download version {{< skew currentPatchVersion >}} on Linux x86-64, type:
+   たとえば、Linux x86-64へ{{< skew currentPatchVersion >}}のバージョンをダウンロードするには、次のコマンドを入力します:
 
    ```bash
    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/amd64/kubectl
    ```
 
-   And for Linux ARM64, type:
+   そして、Linux ARM64に対しては、次のコマンドを入力します:
 
    ```bash
    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/arm64/kubectl
@@ -51,9 +48,9 @@ The following methods exist for installing kubectl on Linux:
 
    {{< /note >}}
 
-1. Validate the binary (optional)
+1. バイナリを検証してください(オプション)
 
-   Download the kubectl checksum file:
+   kubectlのチェックサムファイルをダウンロードします:
 
    {{< tabs name="download_checksum_linux" >}}
    {{< tab name="x86-64" codelang="bash" >}}
@@ -64,19 +61,19 @@ The following methods exist for installing kubectl on Linux:
    {{< /tab >}}
    {{< /tabs >}}
 
-   Validate the kubectl binary against the checksum file:
+   チェックサムファイルに対してkubectlバイナリを検証します:
 
    ```bash
    echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
    ```
 
-   If valid, the output is:
+   正しければ、出力は次のようになります:
 
    ```console
    kubectl: OK
    ```
 
-   If the check fails, `sha256` exits with nonzero status and prints output similar to:
+   チェックに失敗すると、`sha256`は0以外のステータスで終了し、次のような出力を表示します:
 
    ```console
    kubectl: FAILED
@@ -84,78 +81,81 @@ The following methods exist for installing kubectl on Linux:
    ```
 
    {{< note >}}
-   Download the same version of the binary and checksum.
+   同じバージョンのバイナリとチェックサムをダウンロードしてください。
    {{< /note >}}
 
-1. Install kubectl
+1. kubectlをインストールしてください
 
    ```bash
    sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
    ```
 
    {{< note >}}
-   If you do not have root access on the target system, you can still install
-   kubectl to the `~/.local/bin` directory:
+   ターゲットシステムにルートアクセスを持っていない場合でも、`~/.local/bin`ディレクトリにkubectlをインストールできます:
 
    ```bash
    chmod +x kubectl
    mkdir -p ~/.local/bin
    mv ./kubectl ~/.local/bin/kubectl
-   # and then append (or prepend) ~/.local/bin to $PATH
+   # そして ~/.local/bin を $PATH の末尾 (または先頭) に追加します
    ```
 
    {{< /note >}}
 
-1. Test to ensure the version you installed is up-to-date:
+1. インストールしたバージョンが最新であることを確認してください:
 
    ```bash
    kubectl version --client
    ```
 
-   Or use this for detailed view of version:
+   または、バージョンの詳細を表示するために次を使用します:
 
    ```cmd
    kubectl version --client --output=yaml
    ```
 
-### Install using native package management
+### ネイティブなパッケージマネージャーを使用してインストールする{#install-using-native-package-management}
 
 {{< tabs name="kubectl_install" >}}
-{{% tab name="Debian-based distributions" %}}
+{{% tab name="Debianベースのディストリビューション" %}}
 
-1. Update the `apt` package index and install packages needed to use the Kubernetes `apt` repository:
+1. `apt`のパッケージ一覧を更新し、Kubernetesの`apt`リポジトリを利用するのに必要なパッケージをインストールしてください:
 
    ```shell
    sudo apt-get update
-   # apt-transport-https may be a dummy package; if so, you can skip that package
+   # apt-transport-httpsはダミーパッケージの可能性があります。その場合、そのパッケージはスキップできます
    sudo apt-get install -y apt-transport-https ca-certificates curl
    ```
 
-2. Download the public signing key for the Kubernetes package repositories. The same signing key is used for all repositories so you can disregard the version in the URL:
+2. Kubernetesパッケージリポジトリの公開署名キーをダウンロードしてください。
+すべてのリポジトリに同じ署名キーが使用されるため、URL内のバージョンは無視できます:
 
    ```shell
-   # If the folder `/etc/apt/keyrings` does not exist, it should be created before the curl command, read the note below.
+   # `/etc/apt/keyrings`フォルダーが存在しない場合は、curlコマンドの前に作成する必要があります。下記の備考を参照してください。
    # sudo mkdir -p -m 755 /etc/apt/keyrings
    curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+   sudo chmod 644 /etc/apt/keyrings/kubernetes-apt-keyring.gpg # 特権のないAPTプログラムがこのkeyringを読めるようにします
    ```
    
 {{< note >}}
-In releases older than Debian 12 and Ubuntu 22.04, folder `/etc/apt/keyrings` does not exist by default, and it should be created before the curl command.
+Debian 12とUbuntu 22.04より古いリリースでは、`/etc/apt/keyrings`フォルダーは既定では存在しないため、curlコマンドの前に作成する必要があります。
 {{< /note >}}
 
-3. Add the appropriate Kubernetes `apt` repository. If you want to use Kubernetes version different than {{< param "version" >}},
-   replace {{< param "version" >}} with the desired minor version in the command below:
+3. 適切なKubernetesの`apt`リポジトリを追加してください。
+{{< param "version" >}}とは異なるKubernetesバージョンを利用したい場合は、以下のコマンドの{{< param "version" >}}を目的のマイナーバージョンに置き換えてください:
 
    ```shell
-   # This overwrites any existing configuration in /etc/apt/sources.list.d/kubernetes.list
+   # これにより、/etc/apt/sources.list.d/kubernetes.listにある既存の設定が上書きされます
    echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   sudo chmod 644 /etc/apt/sources.list.d/kubernetes.list   # command-not-foundのようなツールが正しく動作するようにします
    ```
 
 {{< note >}}
-To upgrade kubectl to another minor release, you'll need to bump the version in `/etc/apt/sources.list.d/kubernetes.list` before running `apt-get update` and `apt-get upgrade`. This procedure is described in more detail in [Changing The Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
+kubectlを他のマイナーリリースにアップグレードするためには、`apt-get update`と`apt-get upgrade`を実行する前に、`/etc/apt/sources.list.d/kubernetes.list`の中のバージョンを上げる必要があります。
+この手順については[Changing The Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/)に詳細が記載されています。
 {{< /note >}}
 
-4. Update `apt` package index, then install kubectl:
+4. `apt`のパッケージインデックスを更新し、kubectlをインストールしてください:
 
    ```shell
    sudo apt-get update
@@ -164,14 +164,13 @@ To upgrade kubectl to another minor release, you'll need to bump the version in 
 
 {{% /tab %}}
 
-{{% tab name="Red Hat-based distributions" %}}
+{{% tab name="Red Hatベースのディストリビューション" %}}
 
-1. Add the Kubernetes `yum` repository. If you want to use Kubernetes version
-   different than {{< param "version" >}}, replace {{< param "version" >}} with
-   the desired minor version in the command below.
+1. Kubernetesの`yum`リポジトリを追加してください。
+{{< param "version" >}}とは異なるKubernetesバージョンを利用したい場合は、以下のコマンドの{{< param "version" >}}を目的のマイナーバージョンに置き換えてください:
 
    ```bash
-   # This overwrites any existing configuration in /etc/yum.repos.d/kubernetes.repo
+   # これにより、/etc/yum.repos.d/kubernetes.repoにある既存の設定が上書きされます
    cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
    [kubernetes]
    name=Kubernetes
@@ -183,10 +182,11 @@ To upgrade kubectl to another minor release, you'll need to bump the version in 
    ```
 
 {{< note >}}
-To upgrade kubectl to another minor release, you'll need to bump the version in `/etc/yum.repos.d/kubernetes.repo` before running `yum update`. This procedure is described in more detail in [Changing The Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
+kubectlを他のマイナーリリースにアップグレードするためには、`yum update`を実行する前に、`/etc/yum.repos.d/kubernetes.repo`の中のバージョンを上げる必要があります。
+この手順については[Changing The Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/)に詳細が記載されています。
 {{< /note >}}
 
-2. Install kubectl using `yum`:
+2. `yum`を使用してkubectlをインストールしてください:
 
    ```bash
    sudo yum install -y kubectl
@@ -194,14 +194,13 @@ To upgrade kubectl to another minor release, you'll need to bump the version in 
 
 {{% /tab %}}
 
-{{% tab name="SUSE-based distributions" %}}
+{{% tab name="SUSEベースのディストリビューション" %}}
 
-1. Add the Kubernetes `zypper` repository. If you want to use Kubernetes version
-   different than {{< param "version" >}}, replace {{< param "version" >}} with
-   the desired minor version in the command below.
+1. Kubernetesの`zypper`リポジトリを追加してください。
+{{< param "version" >}}とは異なるKubernetesバージョンを利用したい場合は、以下のコマンドの{{< param "version" >}}を目的のマイナーバージョンに置き換えてください。
 
    ```bash
-   # This overwrites any existing configuration in /etc/zypp/repos.d/kubernetes.repo
+   # これにより、/etc/zypp/repos.d/kubernetes.repoにある既存の設定が上書きされます
    cat <<EOF | sudo tee /etc/zypp/repos.d/kubernetes.repo
    [kubernetes]
    name=Kubernetes
@@ -213,12 +212,11 @@ To upgrade kubectl to another minor release, you'll need to bump the version in 
    ```
 
 {{< note >}}
-To upgrade kubectl to another minor release, you'll need to bump the version in `/etc/zypp/repos.d/kubernetes.repo`
-before running `zypper update`. This procedure is described in more detail in
-[Changing The Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
+kubectlを他のマイナーリリースにアップグレードするためには、`zypper update`を実行する前に、`/etc/zypp/repos.d/kubernetes.repo`の中のバージョンを上げる必要があります。
+この手順については[Changing The Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/)に詳細が記載されています。
 {{< /note >}}
 
-   2. Install kubectl using `zypper`:
+   2. `zypper`を使用してkubectlをインストールしてください:
 
       ```bash
       sudo zypper install -y kubectl
@@ -227,13 +225,11 @@ before running `zypper update`. This procedure is described in more detail in
 {{% /tab %}}
 {{< /tabs >}}
 
-### Install using other package management
+### 他のパッケージマネージャーを使用してインストールする{#install-using-other-package-management}
 
 {{< tabs name="other_kubectl_install" >}}
 {{% tab name="Snap" %}}
-If you are on Ubuntu or another Linux distribution that supports the
-[snap](https://snapcraft.io/docs/core/install) package manager, kubectl
-is available as a [snap](https://snapcraft.io/) application.
+Ubuntuまたは[snap](https://snapcraft.io/docs/core/install)パッケージマネージャーをサポートする別のLinuxディストリビューションを使用している場合、kubectlは[snap](https://snapcraft.io/)アプリケーションとして使用できます。
 
 ```shell
 snap install kubectl --classic
@@ -243,8 +239,7 @@ kubectl version --client
 {{% /tab %}}
 
 {{% tab name="Homebrew" %}}
-If you are on Linux and using [Homebrew](https://docs.brew.sh/Homebrew-on-Linux)
-package manager, kubectl is available for [installation](https://docs.brew.sh/Homebrew-on-Linux#install).
+Linuxで[Homebrew](https://docs.brew.sh/Homebrew-on-Linux)パッケージマネージャーを使用している場合は、kubectlを[インストール](https://docs.brew.sh/Homebrew-on-Linux#install)することが可能です。
 
 ```shell
 brew install kubectl
@@ -255,18 +250,18 @@ kubectl version --client
 
 {{< /tabs >}}
 
-## Verify kubectl configuration
+## kubectlの設定を検証する
 
 {{< include "included/verify-kubectl.md" >}}
 
-## Optional kubectl configurations and plugins
+## オプションのkubectlの設定とプラグイン
 
-### Enable shell autocompletion
+### シェルの自動補完を有効にする
 
-kubectl provides autocompletion support for Bash, Zsh, Fish, and PowerShell,
-which can save you a lot of typing.
+kubectlはBash、Zsh、Fish、PowerShellの自動補完を提供しています。
+これにより、入力を大幅に削減することができます。
 
-Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
+以下にBash、Fish、Zshの自動補完の設定手順を示します。
 
 {{< tabs name="kubectl_autocompletion" >}}
 {{< tab name="Bash" include="included/optional-kubectl-configs-bash-linux.md" />}}
@@ -274,11 +269,11 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
 {{< tab name="Zsh" include="included/optional-kubectl-configs-zsh.md" />}}
 {{< /tabs >}}
 
-### Install `kubectl convert` plugin
+### `kubectl convert`プラグインをインストールする
 
 {{< include "included/kubectl-convert-overview.md" >}}
 
-1. Download the latest release with the command:
+1. 次のコマンドを使用して最新リリースをダウンロードしてください:
 
    {{< tabs name="download_convert_binary_linux" >}}
    {{< tab name="x86-64" codelang="bash" >}}
@@ -289,9 +284,9 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
    {{< /tab >}}
    {{< /tabs >}}
 
-1. Validate the binary (optional)
+1. バイナリを検証してください(オプション)
 
-   Download the kubectl-convert checksum file:
+   kubectl-convertのチェックサムファイルをダウンロードします:
 
    {{< tabs name="download_convert_checksum_linux" >}}
    {{< tab name="x86-64" codelang="bash" >}}
@@ -302,19 +297,19 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
    {{< /tab >}}
    {{< /tabs >}}
 
-   Validate the kubectl-convert binary against the checksum file:
+   チェックサムファイルに対してkubectl-convertバイナリを検証します:
 
    ```bash
    echo "$(cat kubectl-convert.sha256) kubectl-convert" | sha256sum --check
    ```
 
-   If valid, the output is:
+   正しければ、出力は次のようになります:
 
    ```console
    kubectl-convert: OK
    ```
 
-   If the check fails, `sha256` exits with nonzero status and prints output similar to:
+   チェックに失敗すると、`sha256`は0以外のステータスで終了し、次のような出力を表示します:
 
    ```console
    kubectl-convert: FAILED
@@ -322,24 +317,24 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
    ```
 
    {{< note >}}
-   Download the same version of the binary and checksum.
+   同じバージョンのバイナリとチェックサムをダウンロードしてください。
    {{< /note >}}
 
-1. Install kubectl-convert
+1. kubectl-convertをインストールしてください
 
    ```bash
    sudo install -o root -g root -m 0755 kubectl-convert /usr/local/bin/kubectl-convert
    ```
 
-1. Verify plugin is successfully installed
+1. プラグインが正常にインストールできたことを確認してください
 
    ```shell
    kubectl convert --help
    ```
 
-   If you do not see an error, it means the plugin is successfully installed.
+   何もエラーが表示されない場合は、プラグインが正常にインストールされたことを示しています。
 
-1. After installing the plugin, clean up the installation files:
+1. プラグインのインストール後、インストールファイルを削除してください:
 
    ```bash
    rm kubectl-convert kubectl-convert.sha256

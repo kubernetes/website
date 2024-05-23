@@ -35,7 +35,7 @@ check the documentation for that version of Kubernetes.
 ## API
 
 The `resource.k8s.io/v1alpha2` {{< glossary_tooltip text="API group"
-term_id="api-group" >}} provides four types:
+term_id="api-group" >}} provides these types:
 
 ResourceClass
 : Defines which resource driver handles a certain kind of

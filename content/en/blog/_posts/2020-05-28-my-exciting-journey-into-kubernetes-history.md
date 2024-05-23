@@ -3,9 +3,9 @@ title: "My exciting journey into Kubernetes’ history"
 date: 2020-05-28
 slug: kubernetes-history
 url: /blog/2020/05/my-exciting-journey-into-kubernetes-history
+author: >
+  Sascha Grunert (SUSE Software Solutions)
 ---
-
-**Author:** Sascha Grunert, SUSE Software Solutions
 
 _Editor's note: Sascha is part of [SIG Release][0] and is working on many other
 different container runtime related topics. Feel free to reach him out on

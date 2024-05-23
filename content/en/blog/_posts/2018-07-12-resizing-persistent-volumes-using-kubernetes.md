@@ -2,9 +2,9 @@
 layout: blog
 title: 'Resizing Persistent Volumes using Kubernetes'
 date: 2018-07-12
+author: >
+  Hemant Kumar (Red Hat)
 ---
-
-**Author**: Hemant Kumar (Red Hat)
 
 **Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2018/06/27/kubernetes-1.11-release-announcement/) on what’s new in Kubernetes 1.11**
 

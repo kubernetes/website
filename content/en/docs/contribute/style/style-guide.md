@@ -328,6 +328,8 @@ Kubernetes | Kubernetes should always be capitalized.
 Docker | Docker should always be capitalized.
 SIG Docs | SIG Docs rather than SIG-DOCS or other variations.
 On-premises | On-premises or On-prem rather than On-premise or other variations.
+cloud native | Cloud native or cloud native as appropriate for sentence structure rather than cloud-native or Cloud Native.
+open source | Open source or open source as appropriate for sentence structure rather than open-source or Open Source.
 {{< /table >}}
 
 ## Shortcodes

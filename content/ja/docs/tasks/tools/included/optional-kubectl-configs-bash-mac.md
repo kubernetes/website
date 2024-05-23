@@ -11,7 +11,7 @@ _build:
 ### はじめに
 
 Bashにおけるkubectlの補完スクリプトは`kubectl completion bash`コマンドで生成できます。
-シェル内で補完スクリプトをsourceすることでkubectlの自動補完が有効になります。
+補完スクリプトをシェル内に読み込ませることでkubectlの自動補完が有効になります。
 
 ただし、補完スクリプトは[**bash-completion**](https://github.com/scop/bash-completion)に依存しているため、事前にインストールしておく必要があります。
 
@@ -71,10 +71,10 @@ brew_etc="$(brew --prefix)/etc" && [[ -r "${brew_etc}/profile.d/bash_completion.
 
 ### kubectlの自動補完を有効にする
 
-すべてのシェルセッションにてkubectlの補完スクリプトをsourceできるようにしなければなりません。
+次に、kubectl補完スクリプトがすべてのシェルセッションで読み込まれるように設定する必要があります。
 これを行うには複数の方法があります:
 
-- 補完スクリプトを`~/.bash_profile`内でsourceする:
+- 補完スクリプトを`~/.bash_profile`内で読み込ませる:
 
     ```bash
     echo 'source <(kubectl completion bash)' >>~/.bash_profile
@@ -97,7 +97,7 @@ brew_etc="$(brew --prefix)/etc" && [[ -r "${brew_etc}/profile.d/bash_completion.
   この場合、なにも操作する必要はありません。
 
    {{< note >}}
-   Homebrewでインストールしたbash-completion v2は`BASH_COMPLETION_COMPAT_DIR`ディレクトリ内のすべてのファイルをsourceするため、後者の2つの方法が機能します。
+   Homebrewでインストールしたbash-completion v2は`BASH_COMPLETION_COMPAT_DIR`ディレクトリ内のすべてのファイルを読み込むため、後者の2つの方法が機能します。
    {{< /note >}}
 
 どの場合でも、シェルをリロードしたあとに、kubectlの自動補完が機能するはずです。

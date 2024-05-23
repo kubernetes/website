@@ -10,22 +10,10 @@ weight: 30
 
 {{< feature-state feature_gate_name="AppArmor" >}}
 
-
-[AppArmor](https://apparmor.net/) is a Linux kernel security module that supplements the standard Linux user and group based
-permissions to confine programs to a limited set of resources. AppArmor can be configured for any
-application to reduce its potential attack surface and provide greater in-depth defense. It is
-configured through profiles tuned to allow the access needed by a specific program or container,
-such as Linux capabilities, network access, file permissions, etc. Each profile can be run in either
-*enforcing* mode, which blocks access to disallowed resources, or *complain* mode, which only reports
-violations.
-
-On Kubernetes, AppArmor can help you to run a more secure deployment by restricting what containers are allowed to
-do, and/or provide better auditing through system logs. However, it is important to keep in mind
-that AppArmor is not a silver bullet and can only do so much to protect against exploits in your
-application code. It is important to provide good, restrictive profiles, and harden your
-applications and cluster from other angles as well.
-
-
+This page shows you how to load AppArmor profiles on your nodes and enforce
+those profiles in Pods. To learn more about how Kubernetes can confine Pods using
+AppArmor, see
+[Linux kernel security constraints for Pods and containers](/docs/concepts/security/linux-kernel-security-constraints/#apparmor).
 
 ## {{% heading "objectives" %}}
 
@@ -57,12 +45,12 @@ Nodes before proceeding:
    The kubelet verifies that AppArmor is enabled on the host before admitting a pod with AppArmor
    explicitly configured.
 
-3. Container runtime supports AppArmor -- All common Kubernetes-supported container
+1. Container runtime supports AppArmor -- All common Kubernetes-supported container
    runtimes should support AppArmor, including {{< glossary_tooltip term_id="containerd" >}} and
    {{< glossary_tooltip term_id="cri-o" >}}. Please refer to the corresponding runtime
    documentation and verify that the cluster fulfills the requirements to use AppArmor.
 
-4. Profile is loaded -- AppArmor is applied to a Pod by specifying an AppArmor profile that each
+1. Profile is loaded -- AppArmor is applied to a Pod by specifying an AppArmor profile that each
    container should be run with. If any of the specified profiles are not loaded in the
    kernel, the kubelet will reject the Pod. You can view which profiles are loaded on a
    node by checking the `/sys/kernel/security/apparmor/profiles` file. For example:
@@ -290,9 +278,15 @@ AppArmor profile are set, the container's profile will be used.
 An AppArmor profile has 2 fields:
 
 `type` _(required)_ - indicates which kind of AppArmor profile will be applied. Valid options are:
-	- `Localhost` - a profile pre-loaded on the node (specified by `localhostProfile`).
-	- `RuntimeDefault` - the container runtime's default profile.
-	- `Unconfined` - no AppArmor enforcement.
+
+`Localhost`
+: a profile pre-loaded on the node (specified by `localhostProfile`).
+
+`RuntimeDefault`
+: the container runtime's default profile.
+
+`Unconfined`
+: no AppArmor enforcement.
 
 `localhostProfile` - The name of a profile loaded on the node that should be used.
 The profile must be preconfigured on the node to work.

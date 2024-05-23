@@ -1,0 +1,14 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicyBinding
+metadata:
+  name: "replicalimit-binding-test.example.com"
+spec:
+  policyName: "replicalimit-policy.example.com"
+  validationActions: [Deny]
+  paramRef:
+    name: "replica-limit-test.example.com"
+    namespace: "default"
+  matchResources:
+    namespaceSelector:
+      matchLabels:
+        environment: test

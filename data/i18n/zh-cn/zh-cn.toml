@@ -1,6 +1,9 @@
 # i18n strings for the Chinese version of the site (https://kubernetes.io/zh-cn/)
 # 注意：修改此文件时请维持字符串名称的字母顺序并与英文版保持一致
 
+[api_reference_title]
+other = "API 参考"
+
 [auto_generated_edit_notice]
 other = "(自动生成的页面)"
 

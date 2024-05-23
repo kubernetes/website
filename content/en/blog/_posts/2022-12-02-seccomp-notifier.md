@@ -3,9 +3,9 @@ layout: blog
 title: "Finding suspicious syscalls with the seccomp notifier"
 date: 2022-12-02
 slug: seccomp-notifier
+author: >
+  Sascha Grunert
 ---
-
-**Authors:** Sascha Grunert
 
 Debugging software in production is one of the biggest challenges we have to
 face in our containerized environments. Being able to understand the impact of
