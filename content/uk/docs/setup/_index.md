@@ -1,8 +1,4 @@
 ---
-reviewers:
-- brendandburns
-- erictune
-- mikedanese
 title: Початок роботи
 main_menu: true
 weight: 20
