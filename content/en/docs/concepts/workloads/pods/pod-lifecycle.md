@@ -511,7 +511,7 @@ processes, and the Pod is then deleted from the
 container runtime's management service is restarted while waiting for processes to terminate, the
 cluster retries from the start including the full original grace period.
 
-An example flow:
+Pod termination flow, illustrated with an example:
 
 1. You use the `kubectl` tool to manually delete a specific Pod, with the default grace period
    (30 seconds).
@@ -594,10 +594,8 @@ Setting the grace period to `0` forcibly and immediately deletes the Pod from th
 server. If the Pod was still running on a node, that forcible deletion triggers the kubelet to
 begin immediate cleanup.
 
-{{< note >}}
-You must specify an additional flag `--force` along with `--grace-period=0`
+Using kubectl, You must specify an additional flag `--force` along with `--grace-period=0`
 in order to perform force deletions.
-{{< /note >}}
 
 When a force deletion is performed, the API server does not wait for confirmation
 from the kubelet that the Pod has been terminated on the node it was running on. It
