@@ -530,18 +530,19 @@ An example flow:
 
       If the `preStop` hook is still running after the grace period expires, the kubelet requests
       a small, one-off grace period extension of 2 seconds.
-
-      {{< note >}}
-      If the `preStop` hook needs longer to complete than the default grace period allows,
-      you must modify `terminationGracePeriodSeconds` to suit this.
-      {{< /note >}}
+   {{% note %}}
+   If the `preStop` hook needs longer to complete than the default grace period allows,
+   you must modify `terminationGracePeriodSeconds` to suit this.
+   {{% /note %}}
 
    1. The kubelet triggers the container runtime to send a TERM signal to process 1 inside each
       container.
-      {{< note >}}
-      The containers in the Pod receive the TERM signal at different times and in an arbitrary
-      order. If the order of shutdowns matters, consider using a `preStop` hook to synchronize.
-      {{< /note >}}
+
+      There is special ordering if the Pod has any
+      {{< glossary_tooltip text="sidecar containers" term_id="sidecar-container" >}} defined.
+      Otherwise, the containers in the Pod receive the TERM signal at different times and in
+      an arbitrary order. If the order of shutdowns matters, consider using a `preStop` hook
+      to synchronize (or switch to using sidecar containers).
 
 1. At the same time as the kubelet is starting graceful shutdown of the Pod, the control plane
    evaluates whether to remove that shutting-down Pod from EndpointSlice (and Endpoints) objects,
