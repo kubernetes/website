@@ -8,7 +8,7 @@ weight: 80
 
 Esta página mostra como criar um balanceador de carga externo para um serviço em execução em um cluster Kubernetes.
 
-Ao criar um {{< glossary_tooltip text="Service" term_id="service" >}}, você tem a opção de criar automaticamente um balanceador de carga em nuvem. Isso fornece um endereço IP acessível externamente que envia tráfego para a porta correta nos nós do seu cluster, _desde que seu cluster seja executado em um ambiente suportado e esteja configurado com o pacote do provedor de balanceador de carga em nuvem correto_.
+Criando um {{< glossary_tooltip text="Service" term_id="service" >}}, você tem a opção de criar automaticamente um balanceador de carga em nuvem. Isso fornece um endereço IP acessível externamente que envia tráfego para a porta correta nos nós do seu cluster, _desde que seu cluster seja executado em um ambiente suportado e esteja configurado com o pacote do provedor de balanceador de carga em nuvem correto_.
 
 You can also use an {{< glossary_tooltip term_id="ingress" >}} in place of Service.
 
