@@ -105,7 +105,7 @@ minikube service example-service --url
 
 {{< /note >}}
 
-## Preserving the client source IP
+## Preservando o IP de origem do cliente
 
 Por padrão, o IP de origem visto no contêiner de destino _não é o IP de origem original_ do cliente.  Para permitir a preservação do IP do cliente, os seguintes
 campos podem ser configurados no `.spec` do Serviço::
