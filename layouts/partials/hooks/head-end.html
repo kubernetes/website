@@ -1,1 +1,11 @@
 <link rel="manifest" href="/manifest.webmanifest">
+
+{{- if or (.HasShortcode "table")  (.HasShortcode "feature-gate-table") -}}
+  {{- if hugo.IsProduction -}}
+    {{- $sortableTableJs :=  resources.Get "js/sortable-table.js" | minify | fingerprint -}}
+<script defer src="{{ $sortableTableJs.RelPermalink }}" integrity="{{ $sortableTableJs.Data.Integrity }}" crossorigin="anonymous"></script>
+  {{- else -}}
+    {{- $sortableTableJs := resources.Get "js/sortable-table.js" -}}
+<script defer src="{{ $sortableTableJs.RelPermalink }}"></script>
+  {{- end -}}
+{{- end -}}

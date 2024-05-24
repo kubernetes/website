@@ -87,10 +87,6 @@
 <script defer src="{{ "js/dismiss_banner.js" | relURL }}"></script>
 
 
-{{- if or (.HasShortcode "table")  (.HasShortcode "feature-gate-table") -}}
-<script defer src="{{ "js/sortable-table.js" | relURL }}"></script>
-{{- end -}}
-
 {{- if .HasShortcode "release-binaries" -}}
 <script defer src="{{ "js/release_binaries.js" | relURL }}"></script>
 {{- end -}}
