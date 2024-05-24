@@ -1,6 +1,4 @@
 ---
-reviewers:
-- lavalamp
 title: Компоненти Kubernetes
 content_type: concept
 description: >
