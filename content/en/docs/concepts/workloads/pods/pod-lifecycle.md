@@ -48,6 +48,8 @@ A given Pod (as defined by a UID) is never "rescheduled" to a different node; in
 that Pod can be replaced by a new, near-identical Pod, with even the same name if
 desired, but with a different UID.
 
+### Associated lifetimes
+
 When something is said to have the same lifetime as a Pod, such as a
 {{< glossary_tooltip term_id="volume" text="volume" >}},
 that means that the thing exists as long as that specific Pod (with that exact UID)
@@ -55,10 +57,7 @@ exists. If that Pod is deleted for any reason, and even if an identical replacem
 is created, the related thing (a volume, in this example) is also destroyed and
 created anew.
 
-{{< figure src="/images/docs/pod.svg" title="Pod diagram" class="diagram-medium" >}}
-
-A multi-container Pod that contains a file puller and a
-web server that uses a persistent volume for shared storage between the containers.
+{{< figure src="/images/docs/pod.svg" title="Figure 1." class="diagram-medium" caption="A multi-container Pod that contains a file puller [sidecar](/docs/concepts/workloads/pods/sidecar-containers/) and a web server. The Pod uses an [ephemeral `emptyDir` volume](/docs/concepts/storage/volumes/#emptydir) for shared storage between the containers." >}}
 
 ## Pod phase
 
