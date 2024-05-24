@@ -196,8 +196,7 @@ To investigate the root cause of a `CrashLoopBackOff` issue, a user can:
    application code. Running this container image locally or in a development
    environment can help diagnose application specific issues.
 
-
-## Container restart policy {#restart-policy}
+### Container restart policy {#restart-policy}
 
 The `spec` of a Pod has a `restartPolicy` field with possible values Always, OnFailure,
 and Never. The default value is Always.
