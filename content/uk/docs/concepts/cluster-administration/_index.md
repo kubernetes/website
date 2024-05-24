@@ -1,8 +1,5 @@
 ---
 title: Адміністрування кластеру
-rewiewers:
-- davidopp
-- lavalamp
 weight: 100
 content_type: concept
 description: >
