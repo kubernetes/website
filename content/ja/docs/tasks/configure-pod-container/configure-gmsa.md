@@ -179,7 +179,8 @@ spec:
 ```
 
 Podのspec内の個々のコンテナも、コンテナ毎の`securityContext.windowsOptions.gmsaCredentialSpecName`フィールドを使用することで、要求されたGMSA credspecを指定することができます。
-例えば:
+
+設定例:
 
 ```yaml
 apiVersion: apps/v1
@@ -210,7 +211,7 @@ spec:
         kubernetes.io/os: windows
 ```
 
-(上で説明したように)GMSAフィールドが入力されたPod specがクラスターに適用されると、次の一連のイベントが発生します:
+(上記のような)GMSAフィールドが入力されたPod specがクラスターに適用されると、次の一連のイベントが発生します:
 
 1. Mutating WebhookがGMSA資格情報仕様リソースへの全ての参照を解決し、GMSA資格情報仕様の内容を展開します。
 
@@ -221,7 +222,7 @@ spec:
 
 ## ホスト名またはFQDNを使用してネットワーク共有に対して認証する
 
-ホスト名やFQDNを使用してPodからSMB共有に接続する際に問題が発生し、しかしIPv4アドレスで共有にアクセスすることはできる場合、次のレジストリキーがWindowsノード上で設定されているか確認してください。
+PodからSMB共有へのホスト名やFQDNを使用した接続で問題が発生した際に、IPv4アドレスではSMB共有にアクセスすることはできる場合には、次のレジストリキーがWindowsノード上で設定されているか確認してください。
 
 ```cmd
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\hns\State" /v EnableCompartmentNamespace /t REG_DWORD /d 1
@@ -232,7 +233,7 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\hns\State" /v EnableCompartmentN
 
 ## トラブルシューティング
 
-自分の環境でGMSAがうまく動作しない時に取ることができる、いくつかのトラブルシューティングステップがあります。
+自分の環境でGMSAがうまく動作しない時に実行できるトラブルシューティングステップがあります。
 
 まず、credspecがPodに渡されたことを確認します。
 そのためには、Podのひとつに`exec`で入り、`nltest.exe /parentdomain`コマンドの出力をチェックする必要があります。 
@@ -256,7 +257,7 @@ Podが正しくcredspecを取得したら、次にドメインと正しく通信
 
 1. PodがDCまで到達できる
 1. DCがPodに到達できる
-1. DNSが正しく動作している。
+1. DNSが正しく動作している
 
 DNSと通信のテストをパスしたら、次にPodがドメインとセキュアチャネル通信を構築することができるか確認する必要があります。
 そのためには、再び`exec`を使用してPodの中に入り、`nltest.exe /query`コマンドを実行します。
@@ -272,7 +273,7 @@ I_NetLogonControl failed: Status = 1722 0x6ba RPC_S_SERVER_UNAVAILABLE
 ```
 
 これは、Podがなんらかの理由で、credspec内で指定されたアカウントを使用してドメインにログオンできなかったことを示しています。
-次を実行してセキュアチャネルを修復してみてください:
+次のコマンドを実行してセキュアチャネルを修復してみてください:
 
 ```PowerShell
 nltest /sc_reset:domain.example
@@ -299,4 +300,4 @@ The command completed successfully
         imagePullPolicy: IfNotPresent
 ```
 
-Podのspecに上で示す`lifecycle`セクションを追加すると、`nltest.exe /query`コマンドがエラーとならずに終了するまで`netlogon`サービスを再起動するために、Podは一連のコマンドを実行します。
+Podのspecに上記の`lifecycle`セクションを追加すると、`nltest.exe /query`コマンドがエラーとならずに終了するまで`netlogon`サービスを再起動するために、Podは一連のコマンドを実行します。
