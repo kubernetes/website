@@ -386,7 +386,7 @@ To investigate the root cause of a `CrashLoopBackOff` issue, a user can:
     在本地或开发环境中运行此容器镜像有助于诊断应用程序的特定问题。
 
 <!--
-## Container restart policy {#restart-policy}
+### Container restart policy {#restart-policy}
 
 The `spec` of a Pod has a `restartPolicy` field with possible values Always, OnFailure,
 and Never. The default value is Always.
@@ -403,7 +403,7 @@ the Pod level `restartPolicy` is either `OnFailure` or `Always`.
 * `OnFailure`: Only restarts the container if it exits with an error (non-zero exit status).
 * `Never`: Does not automatically restart the terminated container.
 -->
-## 容器重启策略 {#restart-policy}
+### 容器重启策略 {#restart-policy}
 
 Pod 的 `spec` 中包含一个 `restartPolicy` 字段，其可能取值包括
 Always、OnFailure 和 Never。默认值是 Always。
