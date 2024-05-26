@@ -47,50 +47,33 @@ check the documentation for that version.
 <!-- body -->
 ## Install and configure prerequisites
 
-The following steps apply common settings for Kubernetes nodes on Linux.
+### Network configuration
 
-You can skip a particular setting if you're certain you don't need it.
+By default, the Linux kernel does not allow IPv4 packets to be routed
+between interfaces. Most Kubernetes cluster networking implementations
+will change this setting (if needed), but some might expect the
+administrator to do it for them. (Some might also expect other sysctl
+parameters to be set, kernel modules to be loaded, etc; consult the
+documentation for your specific network implementation.)
 
-For more information, see
-[Network Plugin Requirements](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements)
-or the documentation for your specific container runtime.
+### Enable IPv4 packet forwarding {#prerequisite-ipv4-forwarding-optional}
 
-### Forwarding IPv4 and letting iptables see bridged traffic
-
-Execute the below mentioned instructions:
+To manually enable IPv4 packet forwarding:
 
 ```bash
-cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
-overlay
-br_netfilter
-EOF
-
-sudo modprobe overlay
-sudo modprobe br_netfilter
-
 # sysctl params required by setup, params persist across reboots
 cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
-net.bridge.bridge-nf-call-iptables  = 1
-net.bridge.bridge-nf-call-ip6tables = 1
-net.ipv4.ip_forward                 = 1
+net.ipv4.ip_forward = 1
 EOF
 
 # Apply sysctl params without reboot
 sudo sysctl --system
 ```
 
-Verify that the `br_netfilter`, `overlay` modules are loaded by running the following commands:
+Verify that `net.ipv4.ip_forward` is set to 1 with:
 
 ```bash
-lsmod | grep br_netfilter
-lsmod | grep overlay
-```
-
-Verify that the `net.bridge.bridge-nf-call-iptables`, `net.bridge.bridge-nf-call-ip6tables`, and
-`net.ipv4.ip_forward` system variables are set to `1` in your `sysctl` config by running the following command:
-
-```bash
-sysctl net.bridge.bridge-nf-call-iptables net.bridge.bridge-nf-call-ip6tables net.ipv4.ip_forward
+sysctl net.ipv4.ip_forward
 ```
 
 ## cgroup drivers

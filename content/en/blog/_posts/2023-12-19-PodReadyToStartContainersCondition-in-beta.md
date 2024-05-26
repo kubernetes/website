@@ -3,10 +3,10 @@ layout: blog
 title: "Kubernetes 1.29: PodReadyToStartContainers Condition Moves to Beta"
 date: 2023-12-19
 slug: pod-ready-to-start-containers-condition-now-in-beta
+author: >
+  Zefeng Chen (independent),
+  Kevin Hannon (Red Hat)
 ---
-
-**Authors**: Zefeng Chen (independent), Kevin Hannon (Red Hat)
-
 
 With the recent release of Kubernetes 1.29, the `PodReadyToStartContainers`
 [condition](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions) is 

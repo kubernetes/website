@@ -30,7 +30,7 @@
         <br/>
         {{ with .Site.Params.copyright_linux }}<small class="text-white">Copyright &copy; {{ now.Year }} {{ T "main_copyright_notice" | safeHTML }}</small>{{ end }}
         <br/>
-        <small class="text-white">ICP license: 京ICP备17074266号-3</small>
+        <small class="text-white">{{ T "china_icp_license" }} 京ICP备17074266号-3</small>
         {{ with .Site.Params.privacy_policy }}<small class="ml-1"><a href="{{ . }}" target="_blank">{{ T "footer_privacy_policy" }}</a></small>{{ end }}
         {{ if not .Site.Params.ui.footer_about_disable }}
           {{ with .Site.GetPage "about" }}<p class="mt-2"><a href="{{ .RelPermalink }}">{{ .Title }}</a></p>{{ end }}

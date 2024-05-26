@@ -295,6 +295,50 @@ When you add a custom resource, you can access it using:
   (generating one is an advanced undertaking, but some projects may provide a client along with
   the CRD or AA).
 
+
+## Custom resource field selectors
+
+[Field Selectors](/docs/concepts/overview/working-with-objects/field-selectors/)
+let clients select custom resources based on the value of one or more resource
+fields.
+
+All custom resources support the `metadata.name` and `metadata.namespace` field
+selectors.
+
+Fields declared in a {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
+may also be used with field selectors when included in the `spec.versions[*].selectableFields` field of the
+{{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}.
+
+### Selectable fields for custom resources {#crd-selectable-fields}
+
+{{< feature-state feature_gate_name="CustomResourceFieldSelectors" >}}
+
+You need to enable the `CustomResourceFieldSelectors`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
+use this behavior, which then applies to all CustomResourceDefinitions in your
+cluster.
+
+The `spec.versions[*].selectableFields` field of a {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} may be used to
+declare which other fields in a custom resource may be used in field selectors.
+The following example adds the `.spec.color` and `.spec.size` fields as
+selectable fields.
+
+{{% code_sample file="customresourcedefinition/shirt-resource-definition.yaml" %}}
+
+Field selectors can then be used to get only resources with with a `color` of `blue`:
+
+```shell
+kubectl get shirts.stable.example.com --field-selector spec.color=blue
+```
+
+The output should be:
+
+```
+NAME       COLOR  SIZE
+example1   blue   S
+example2   blue   M
+```
+
 ## {{% heading "whatsnext" %}}
 
 * Learn how to [Extend the Kubernetes API with the aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/).

@@ -13,16 +13,15 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.28"
+    toVersion: "1.29"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.30"
 ---
 Enables improved discovery of mounted volumes during kubelet
-startup. Since this code has been significantly refactored, we allow to opt-out in case kubelet
-gets stuck at the startup or is not unmounting volumes from terminated Pods. Note that this
-refactoring was behind `SELinuxMountReadWriteOncePod` alpha feature gate in Kubernetes 1.25.
+startup. Since the associated code had been significantly refactored, Kubernetes versions 1.25 to 1.29
+allowed you to opt-out in case the kubelet got stuck at the startup, or did not unmount volumes
+from terminated Pods.
 
-<!-- remove next 2 paragraphs when feature graduates to GA -->
-Before Kubernetes v1.25, the kubelet used different default behavior for discovering mounted
-volumes during the kubelet startup. If you disable this feature gate (it's enabled by default), you select
-the legacy discovery behavior.
-
-In Kubernetes v1.25 and v1.26, this behavior toggle was part of the `SELinuxMountReadWriteOncePod`
-feature gate.
+This refactoring was behind the `SELinuxMountReadWriteOncePod`  feature gate in Kubernetes
+releases 1.25 and 1.26.

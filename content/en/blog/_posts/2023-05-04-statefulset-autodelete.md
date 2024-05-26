@@ -3,9 +3,9 @@ layout: blog
 title: 'Kubernetes 1.27: StatefulSet PVC Auto-Deletion (beta)'
 date: 2023-05-04
 slug: kubernetes-1-27-statefulset-pvc-auto-deletion-beta
+author: >
+   Matthew Cary (Google)
 ---
-
-**Author:** Matthew Cary (Google)
 
 Kubernetes v1.27 graduated to beta a new policy mechanism for
 [`StatefulSets`](/docs/concepts/workloads/controllers/statefulset/) that controls the lifetime of

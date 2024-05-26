@@ -1,8 +1,9 @@
 ---
 title: 'Zero-downtime Deployment in Kubernetes with Jenkins'
 date: 2018-04-30
-author: kbarnard
 slug: zero-downtime-deployment-kubernetes-jenkins
+author: >
+  [Kaitlyn Barnard](https://github.com/kbarnard10)
 ---
 
 Ever since we added the [Kubernetes Continuous Deploy](https://aka.ms/azjenkinsk8s) and [Azure Container Service](https://aka.ms/azjenkinsacs) plugins to the Jenkins update center, "How do I create zero-downtime deployments" is one of our most frequently-asked questions. We created a quickstart template on Azure to demonstrate what zero-downtime deployments can look like. Although our example uses Azure, the concept easily applies to all Kubernetes installations.

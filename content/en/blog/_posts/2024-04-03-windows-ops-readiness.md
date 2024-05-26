@@ -3,10 +3,11 @@ layout: blog
 title: "Introducing the Windows Operational Readiness Specification"
 date: 2024-04-03
 slug: intro-windows-ops-readiness
+author: >
+  Jay Vyas (Tesla),
+  Amim Knabben (Broadcom),
+  Tatenda Zifudzi (AWS)
 ---
-
-**Authors:** Jay Vyas (Tesla), Amim Knabben (Broadcom), and Tatenda Zifudzi (AWS)
-
 
 Since Windows support [graduated to stable](/blog/2019/03/25/kubernetes-1-14-release-announcement/)
 with Kubernetes 1.14 in 2019, the capability to run Windows workloads has been much
@@ -150,7 +151,7 @@ channel. You can also explore the [Windows Operational Readiness test suite](htt
 and make contributions directly to the GitHub repository.
 
 Special thanks to Kulwant Singh (AWS), Pramita Gautam Rana (VMWare), Xinqi Li 
-(Google) for their help in making notable contributions to the specification. Additionally, 
+(Google) and Marcio Morales (AWS) for their help in making notable contributions to the specification. Additionally, 
 appreciation goes to James Sturtevant (Microsoft), Mark Rossetti (Microsoft), 
 Claudiu Belu (Cloudbase Solutions) and Aravindh Puthiyaparambil 
 (Softdrive Technologies Group Inc.) from the SIG Windows team for their guidance and support.

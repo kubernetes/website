@@ -126,7 +126,7 @@ liveness-exec   1/1       Running   1          1m
 ## Mendefinisikan probe liveness dengan permintaan HTTP
 
 Jenis kedua dari _probe liveness_ menggunakan sebuah permintaan GET HTTP. Berikut ini
-berkas konfigurasi untuk Pod yang menjalankan Container dari image `registry.k8s.io/liveness`.
+berkas konfigurasi untuk Pod yang menjalankan Container dari image `registry.k8s.io/e2e-test-images/agnhost`.
 
 {{% codenew file="pods/probe/http-liveness.yaml" %}}
 

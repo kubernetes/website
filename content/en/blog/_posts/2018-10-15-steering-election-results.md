@@ -2,9 +2,11 @@
 layout: blog
 title: '2018 Steering Committee Election Results'
 date: 2018-10-15
+author: >
+  Jorge Castro (Heptio),
+  Ihor Dvoretskyi (CNCF),
+  Paris Pittman (Google) 
 ---
-
-**Authors**: Jorge Castro (Heptio), Ihor Dvoretskyi (CNCF), Paris Pittman (Google)
 
 ## Results
 The [Kubernetes Steering Committee Election](https://kubernetes.io/blog/2018/09/06/2018-steering-committee-election-cycle-kicks-off/) is now complete and the following candidates came ahead to secure two year terms that start immediately:

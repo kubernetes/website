@@ -3,9 +3,9 @@ title: "How Docs Handle Third Party and Dual Sourced Content"
 date: 2020-05-06
 slug: third-party-dual-sourced
 url: /blog/2020/05/third-party-dual-sourced-content
+author: >
+  Zach Corleissen (Cloud Native Computing Foundation)
 ---
-
-**Author:** Zach Corleissen, Cloud Native Computing Foundation
 
 *Editor's note: Zach is one of the chairs for the Kubernetes documentation special interest group (SIG Docs).*
 

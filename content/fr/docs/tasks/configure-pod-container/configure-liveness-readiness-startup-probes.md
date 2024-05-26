@@ -102,7 +102,7 @@ liveness-exec   1/1       Running   1          1m
 ## Définir une requête HTTP de liveness
 
 Un autre type de liveness probe utilise une requête GET HTTP. Voici la configuration
-d'un Pod qui fait fonctionner un conteneur basé sur l'image `registry.k8s.io/liveness`.
+d'un Pod qui fait fonctionner un conteneur basé sur l'image `registry.k8s.io/e2e-test-images/agnhost`.
 
 {{% codenew file="pods/probe/http-liveness.yaml" %}}
 

@@ -68,8 +68,8 @@ After this tutorial, you will be familiar with the following.
 
 ## Creating a StatefulSet
 
-Begin by creating a StatefulSet using the example below. It is similar to the
-example presented in the
+Begin by creating a StatefulSet (and the Service that it relies upon) using
+the example below. It is similar to the example presented in the
 [StatefulSets](/docs/concepts/workloads/controllers/statefulset/) concept.
 It creates a [headless Service](/docs/concepts/services-networking/service/#headless-services),
 `nginx`, to publish the IP addresses of Pods in the StatefulSet, `web`.
@@ -118,6 +118,8 @@ web       2         1         20s
 
 ### Ordered Pod creation
 
+A StatefulSet defaults to creating its Pods in a strict order.
+
 For a StatefulSet with _n_ replicas, when Pods are being deployed, they are
 created sequentially, ordered from _{0..n-1}_. Examine the output of the
 `kubectl get` command in the first terminal. Eventually, the output will
@@ -143,6 +145,8 @@ web-1     1/1       Running   0         18s
 Notice that the `web-1` Pod is not launched until the `web-0` Pod is
 _Running_ (see [Pod Phase](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase))
 and _Ready_ (see `type` in [Pod Conditions](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)).
+
+Later in this tutorial you will practice [parallel startup](#parallel-pod-management).
 
 {{< note >}}
 To configure the integer ordinal assigned to each Pod in a StatefulSet, see
@@ -300,7 +304,8 @@ Address 1: 10.244.2.8
 The Pods' ordinals, hostnames, SRV records, and A record names have not changed,
 but the IP addresses associated with the Pods may have changed. In the cluster
 used for this tutorial, they have. This is why it is important not to configure
-other applications to connect to Pods in a StatefulSet by IP address.
+other applications to connect to Pods in a StatefulSet by the IP address
+of a particular Pod (it is OK to connect to Pods by resolving their hostname).
 
 #### Discovery for specific Pods in a StatefulSet
 
@@ -316,6 +321,13 @@ liveness and readiness, you can use the SRV records of the Pods (
 `web-1.nginx.default.svc.cluster.local`), as they are stable, and your
 application will be able to discover the Pods' addresses when they transition
 to Running and Ready.
+
+If your application wants to find any healthy Pod in a StatefulSet,
+and therefore does not need to track each specific Pod,
+you could also connect to the IP address of a `type: ClusterIP` Service,
+backed by the Pods in that StatefulSet. You can use the same Service that
+tracks the StatefulSet (specified in the `serviceName` of the StatefulSet)
+or a separate Service that selects the right set of Pods.
 
 ### Writing to stable storage
 
@@ -421,12 +433,17 @@ mounted to the appropriate mount points.
 
 ## Scaling a StatefulSet
 
-Scaling a StatefulSet refers to increasing or decreasing the number of replicas.
+Scaling a StatefulSet refers to increasing or decreasing the number of replicas
+(horizontal scaling).
 This is accomplished by updating the `replicas` field. You can use either
 [`kubectl scale`](/docs/reference/generated/kubectl/kubectl-commands/#scale) or
 [`kubectl patch`](/docs/reference/generated/kubectl/kubectl-commands/#patch) to scale a StatefulSet.
 
 ### Scaling up
+
+Scaling up means adding more replicas.
+Provided that your app is able to distribute work across the StatefulSet, the new
+larger set of Pods can perform more of that work.
 
 In one terminal window, watch the Pods in the StatefulSet:
 
@@ -481,6 +498,10 @@ subsequent Pod.
 
 ### Scaling down
 
+Scaling down means reducing the number of replicas. For example, you
+might do this because the level of traffic to a service has decreased,
+and at the current scale there are idle resources.
+
 In one terminal, watch the StatefulSet's Pods:
 
 ```shell
@@ -521,9 +542,9 @@ web-3     1/1       Terminating   0         42s
 
 ### Ordered Pod termination
 
-The controller deleted one Pod at a time, in reverse order with respect to its
-ordinal index, and it waited for each to be completely shutdown before
-deleting the next.
+The control plane deleted one Pod at a time, in reverse order with respect
+to its ordinal index, and it waited for each Pod to be completely shut down
+before deleting the next one.
 
 Get the StatefulSet's PersistentVolumeClaims:
 
@@ -541,7 +562,10 @@ www-web-4   Bound     pvc-e11bb5f8-b508-11e6-932f-42010a800002   1Gi        RWO 
 ```
 
 There are still five PersistentVolumeClaims and five PersistentVolumes.
-When exploring a Pod's [stable storage](#writing-to-stable-storage), we saw that the PersistentVolumes mounted to the Pods of a StatefulSet are not deleted when the StatefulSet's Pods are deleted. This is still true when Pod deletion is caused by scaling the StatefulSet down.
+When exploring a Pod's [stable storage](#writing-to-stable-storage), you saw that
+the PersistentVolumes mounted to the Pods of a StatefulSet are not deleted when the
+StatefulSet's Pods are deleted. This is still true when Pod deletion is caused by
+scaling the StatefulSet down.
 
 ## Updating StatefulSets
 
@@ -1145,16 +1169,35 @@ For some distributed systems, the StatefulSet ordering guarantees are
 unnecessary and/or undesirable. These systems require only uniqueness and
 identity.
 
-You can specify a Pod management policy to avoid this strict ordering;
-either [`OrderedReady`](/docs/concepts/workloads/controllers/statefulset/#orderedready-pod-management) (the default)
-or [`Parallel`](/docs/concepts/workloads/controllers/statefulset/#parallel-pod-management).
+You can specify a [Pod management policy](/docs/concepts/workloads/controllers/statefulset/#pod-management-policies)
+to avoid this strict ordering; either `OrderedReady` (the default), or `Parallel`.
+
+### OrderedReady Pod management
+
+`OrderedReady` pod management is the default for StatefulSets. It tells the
+StatefulSet controller to respect the ordering guarantees demonstrated
+above.
+
+Use this when your application requires or expects that changes, such as rolling out a new
+version of your application, happen in the strict order of the ordinal (pod number) that the StatefulSet provides.
+In other words, if you have Pods `app-0`, `app-1` and `app-2`, Kubernetes will update `app-0` first and check it.
+Once the checks are good, Kubernetes updates `app-1` and finally `app-2`.
+
+If you added two more Pods, Kubernetes would set up `app-3` and wait for that to become healthy before deploying
+`app-4`.
+
+Because this is the default setting, you've already practised using it.
 
 ### Parallel Pod management
 
-`Parallel` pod management tells the StatefulSet controller to launch or
-terminate all Pods in parallel, and not to wait for Pods to become Running
-and Ready or completely terminated prior to launching or terminating another
-Pod. This option only affects the behavior for scaling operations. Updates are not affected.
+The alternative, `Parallel` pod management, tells the StatefulSet controller to launch or
+terminate all Pods in parallel, and not to wait for Pods to become `Running`
+and `Ready` or completely terminated prior to launching or terminating another
+Pod.
+
+The `Parallel` pod management option only affects the behavior for scaling operations. Updates are not affected;
+Kubernetes still rolls out changes in order. For this tutorial, the application is very simple: a webserver that
+tells you its hostname (because this is a StatefulSet, the hostname for each Pod is different and predictable).
 
 {{% code_sample file="application/web/web-parallel.yaml" %}}
 
@@ -1168,61 +1211,50 @@ In one terminal, watch the Pods in the StatefulSet.
 kubectl get pod -l app=nginx --watch
 ```
 
-In another terminal, create the StatefulSet and Service in the manifest:
+In another terminal, reconfigure the StatefulSet for `Parallel` Pod management:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/web/web-parallel.yaml
 ```
 ```
-service/nginx created
-statefulset.apps/web created
+service/nginx updated
+statefulset.apps/web updated
 ```
 
-Examine the output of the `kubectl get` command that you executed in the first terminal.
-
-```shell
-# This should already be running
-kubectl get pod -l app=nginx --watch
-```
-```
-NAME      READY     STATUS    RESTARTS   AGE
-web-0     0/1       Pending   0          0s
-web-0     0/1       Pending   0         0s
-web-1     0/1       Pending   0         0s
-web-1     0/1       Pending   0         0s
-web-0     0/1       ContainerCreating   0         0s
-web-1     0/1       ContainerCreating   0         0s
-web-0     1/1       Running   0         10s
-web-1     1/1       Running   0         10s
-```
-
-The StatefulSet controller launched both `web-0` and `web-1` at almost the
-same time.
-
-Keep the second terminal open, and, in another terminal window scale the
+Keep the terminal open where you're running the watch. In another terminal window, scale the
 StatefulSet:
 
 ```shell
-kubectl scale statefulset/web --replicas=4
+kubectl scale statefulset/web --replicas=5
 ```
 ```
 statefulset.apps/web scaled
 ```
 
-Examine the output of the terminal where the `kubectl get` command is running.
+Examine the output of the terminal where the `kubectl get` command is running. It may look something like
 
 ```
 web-3     0/1       Pending   0         0s
 web-3     0/1       Pending   0         0s
 web-3     0/1       Pending   0         7s
 web-3     0/1       ContainerCreating   0         7s
-web-2     1/1       Running   0         10s
+web-2     0/1       Pending   0         0s
+web-4     0/1       Pending   0         0s
+web-2     1/1       Running   0         8s
+web-4     0/1       ContainerCreating   0         4s
 web-3     1/1       Running   0         26s
+web-4     1/1       Running   0         2s
 ```
 
 
-The StatefulSet launched two new Pods, and it did not wait for
-the first to become Running and Ready prior to launching the second.
+The StatefulSet launched three new Pods, and it did not wait for
+the first to become Running and Ready prior to launching the second and third Pods.
+
+This approach is useful if your workload has a stateful element, or needs Pods to be able to identify each other
+with predictable naming, and especially if you sometimes need to provide a lot more capacity quickly. If this
+simple web service for the tutorial suddenly got an extra 1,000,000 requests per minute then you would want to run
+some more Pods - but you also would not want to wait for each new Pod to launch. Starting the extra Pods in parallel
+cuts the time between requesting the extra capacity and having it available for use.
 
 ## {{% heading "cleanup" %}}
 

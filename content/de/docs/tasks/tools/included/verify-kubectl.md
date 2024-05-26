@@ -31,7 +31,7 @@ The connection to the server <server-name:port> was refused - did you specify th
 
 Wenn zum Beispiel versucht wird ein Kubernetes Cluster lokal auf dem Laptop zu starten, muss ein Tool wie zum Beispiel [Minikube](https://minikube.sigs.k8s.io/docs/start/) zuerst installiert werden. Danach können die oben erwähnten Befehle erneut ausgeführt werden.
 
-Falls kubectl cluster-info eine URL zurück gibt, aber nicht auf das Cluster zugreifen kann, prüfe ob kubectl korrekt konfiguriert wurde:
+Falls `kubectl cluster-info` eine URL zurück gibt, aber nicht auf das Cluster zugreifen kann, prüfe ob kubectl korrekt konfiguriert wurde:
 
 ```shell
 kubectl cluster-info dump

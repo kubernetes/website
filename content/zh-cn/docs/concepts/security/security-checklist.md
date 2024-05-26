@@ -63,7 +63,7 @@ evaluated on its merits.
 - [ ] A process exists for periodic access review, and reviews occur no more
   than 24 months apart.
 - [ ] The [Role Based Access Control Good Practices](/docs/concepts/security/rbac-good-practices/)
-  is followed for guidance related to authentication and authorization.
+  are followed for guidance related to authentication and authorization.
 -->
 ## 认证和鉴权 {#authentication-authorization}
 
@@ -326,18 +326,18 @@ Seccomp 仅适用于 Linux 节点。
 #### AppArmor
 
 <!--
-[AppArmor](https://apparmor.net/) is a Linux kernel security module that can
+[AppArmor](/docs/tutorials/security/apparmor/) is a Linux kernel security module that can
 provide an easy way to implement Mandatory Access Control (MAC) and better
-auditing through system logs. To [enable AppArmor in Kubernetes](/docs/tutorials/security/apparmor/),
-at least version 1.4 is required. Like seccomp, AppArmor is also configured
+auditing through system logs. A default AppArmor profile is enforced on nodes that support it, or a custom profile can be configured.
+Like seccomp, AppArmor is also configured
 through profiles, where each profile is either running in enforcing mode, which
 blocks access to disallowed resources or complain mode, which only reports
 violations. AppArmor profiles are enforced on a per-container basis, with an
 annotation, allowing for processes to gain just the right privileges.
 -->
-[AppArmor](https://apparmor.net/) 是一个 Linux 内核安全模块，
+[AppArmor](/zh-cn/docs/tutorials/security/apparmor/) 是一个 Linux 内核安全模块，
 可以提供一种简单的方法来实现强制访问控制（Mandatory Access Control, MAC）并通过系统日志进行更好地审计。
-要在 Kubernetes 中[启用 AppArmor](/zh-cn/docs/tutorials/security/apparmor/)，至少需要 1.4 版本。
+默认 AppArmor 配置文件在支持它的节点上强制执行，或者可以配置自定义配置文件。
 与 Seccomp 一样，AppArmor 也通过配置文件进行配置，
 其中每个配置文件要么在强制（Enforcing）模式下运行，即阻止访问不允许的资源，要么在投诉（Complaining）模式下运行，只报告违规行为。
 AppArmor 配置文件是通过注解的方式，以容器为粒度强制执行的，允许进程获得刚好合适的权限。
@@ -730,8 +730,12 @@ has permissions to use the image.
 <!--
 ## What's next
 
-- [RBAC Good Practices](/docs/concepts/security/rbac-good-practices/) for
-  further information on authorization.
+- [Privilege escalation via Pod creation](/docs/reference/access-authn-authz/authorization/#privilege-escalation-via-pod-creation)
+  warns you about a specific access control risk; check how you're managing that
+  threat.
+  - If you use Kubernetes RBAC, read
+    [RBAC Good Practices](/docs/concepts/security/rbac-good-practices/) for
+    further information on authorization.
 - [Securing a Cluster](/docs/tasks/administer-cluster/securing-a-cluster/) for
   information on protecting a cluster from accidental or malicious access.
 - [Cluster Multi-tenancy guide](/docs/concepts/security/multi-tenancy/) for
@@ -741,7 +745,10 @@ has permissions to use the image.
 -->
 ## 接下来  {#what-is-next}
 
-- [RBAC 良好实践](/zh-cn/docs/concepts/security/rbac-good-practices/)提供有关授权的更多信息。
+- [通过 Pod 创建进行权限升级](/zh-cn/docs/reference/access-authn-authz/authorization/#privilege-escalation-via-pod-creation)会警告你特定的访问控制风险；
+  请检查你如何管理该风险。
+  - 如果你使用 Kubernetes RBAC，请阅读
+    [RBAC 良好实践](/zh-cn/docs/concepts/security/rbac-good-practices/)获取有关鉴权的更多信息。
 - [保护集群](/zh-cn/docs/tasks/administer-cluster/securing-a-cluster/)提供如何保护集群免受意外或恶意访问的信息。
 - [集群多租户指南](/zh-cn/docs/concepts/security/multi-tenancy/)提供有关多租户的配置选项建议和最佳实践。
 - [博文“深入了解 NSA/CISA Kubernetes 强化指南”](/blog/2021/10/05/nsa-cisa-kubernetes-hardening-guidance/#building-secure-container-images)为强化

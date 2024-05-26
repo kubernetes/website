@@ -60,7 +60,7 @@ spec:
   # Configure a topology spread constraint
   topologySpreadConstraints:
     - maxSkew: <integer>
-      minDomains: <integer> # optional; beta since v1.25
+      minDomains: <integer> # optional
       topologyKey: <string>
       whenUnsatisfiable: <string>
       labelSelector: <object>
@@ -96,11 +96,11 @@ your cluster. Those fields are:
   A domain is a particular instance of a topology. An eligible domain is a domain whose
   nodes match the node selector.
 
+  <!-- OK to remove this note once v1.29 Kubernetes is out of support -->
   {{< note >}}
-  The `MinDomainsInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  enables `minDomains` for pod topology spread. Starting from v1.28,
-  the `MinDomainsInPodTopologySpread` gate
-  is enabled by default. In older Kubernetes clusters it might be explicitly
+  Before Kubernetes v1.30, the `minDomains` field was only available if the
+  `MinDomainsInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  was enabled (default since v1.28). In older Kubernetes clusters it might be explicitly
   disabled or the field might not be available.
   {{< /note >}}
 

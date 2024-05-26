@@ -208,6 +208,42 @@ ConfigMaps consumed as environment variables are not updated automatically and r
 A container using a ConfigMap as a [subPath](/docs/concepts/storage/volumes#using-subpath) volume mount will not receive ConfigMap updates.
 {{< /note >}}
 
+
+### Using Configmaps as environment variables
+
+To use a Configmap in an {{< glossary_tooltip text="environment variable" term_id="container-env-variables" >}}
+in a Pod:
+
+1. For each container in your Pod specification, add an environment variable
+   for each Configmap key that you want to use to the
+   `env[].valueFrom.configMapKeyRef` field.
+1. Modify your image and/or command line so that the program looks for values
+   in the specified environment variables.
+
+This is an example of defining a ConfigMap as a pod environment variable:
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: env-configmap
+spec:
+  containers:
+  - name: envars-test-container
+    image: nginx
+    env:
+    - name: CONFIGMAP_USERNAME
+      valueFrom:
+        configMapKeyRef:
+          name: myconfigmap
+          key: username
+
+```
+
+It's important to note that the range of characters allowed for environment
+variable names in pods is [restricted](/docs/tasks/inject-data-application/define-environment-variable-container/#using-environment-variables-inside-of-your-config).
+If any keys do not meet the rules, those keys are not made available to your container, though
+the Pod is allowed to start.
+
 ## Immutable ConfigMaps {#configmap-immutable}
 
 {{< feature-state for_k8s_version="v1.21" state="stable" >}}

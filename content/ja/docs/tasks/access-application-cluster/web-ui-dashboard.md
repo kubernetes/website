@@ -46,7 +46,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/a
 チュートリアルで作成されたサンプルユーザーには管理者権限が与えられ、教育目的のみに使用されます。
 {{< /warning >}}
 
-### コマンドラインプロキシー
+### コマンドラインプロキシ
 以下のコマンドを実行することで、kubectlコマンドラインツールを使ってダッシュボードにアクセスすることができます:
 
 ```

@@ -65,18 +65,37 @@ You need to make sure a `RuntimeClass` is utilized which defines the `overhead` 
 <!--
 ## Usage example
 -->
-## 使用示例
+## 使用示例 {#usage-example}
 
 <!--
 To work with Pod overhead, you need a RuntimeClass that defines the `overhead` field. As
 an example, you could use the following RuntimeClass definition with a virtualization container
-runtime that uses around 120MiB per Pod for the virtual machine and the guest OS:
+runtime (in this example, Kata Containers combined with the Firecracker virtual machine monitor)
+that uses around 120MiB per Pod for the virtual machine and the guest OS:
 -->
 要使用 Pod 开销，你需要一个定义了 `overhead` 字段的 RuntimeClass。
-作为例子，下面的 RuntimeClass 定义中包含一个虚拟化所用的容器运行时，
-RuntimeClass 如下，其中每个 Pod 大约使用 120MiB 用来运行虚拟机和寄宿操作系统：
+例如，你可以使用以下 RuntimeClass 定义，其中使用了一个虚拟化容器运行时（在这个例子中，Kata Containers 与 Firecracker 虚拟机监视器结合使用），
+每个 Pod 使用大约 120MiB 的虚拟机和寄宿操作系统：
+
+<!--
+```yaml
+# You need to change this example to match the actual runtime name, and per-Pod
+# resource overhead, that the container runtime is adding in your cluster.
+apiVersion: node.k8s.io/v1
+kind: RuntimeClass
+metadata:
+  name: kata-fc
+handler: kata-fc
+overhead:
+  podFixed:
+    memory: "120Mi"
+    cpu: "250m"
+```
+-->
 
 ```yaml
+# 你需要修改这个示例以匹配实际的运行时名称，
+# 以及在你的集群中运行时在 Pod 层面增加的资源开销。
 apiVersion: node.k8s.io/v1
 kind: RuntimeClass
 metadata:
@@ -234,7 +253,7 @@ The output shows requests for 2250m CPU, and for 320MiB of memory. The requests 
 <!--
 ## Verify Pod cgroup limits
 -->
-## 验证 Pod cgroup 限制
+## 验证 Pod cgroup 限制 {#verify-pod-cgroup-limits}
 
 <!--
 Check the Pod's memory cgroups on the node where the workload is running. In the following example,
@@ -313,7 +332,7 @@ This is 320 MiB, as expected:
 <!--
 ### Observability
 -->
-### 可观察性
+### 可观察性 {#observability}
 
 <!--
 Some `kube_pod_overhead_*` metrics are available in [kube-state-metrics](https://github.com/kubernetes/kube-state-metrics)

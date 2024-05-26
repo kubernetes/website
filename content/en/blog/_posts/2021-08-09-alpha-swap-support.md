@@ -3,9 +3,9 @@ layout: blog
 title: 'New in Kubernetes v1.22: alpha support for using swap memory'
 date: 2021-08-09
 slug: run-nodes-with-swap-alpha
+author: >
+  Elana Hashman (Red Hat)
 ---
-
-**Author:** Elana Hashman (Red Hat)
 
 The 1.22 release introduced alpha support for configuring swap memory usage for
 Kubernetes workloads on a per-node basis.

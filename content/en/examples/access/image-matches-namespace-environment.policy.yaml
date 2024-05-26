@@ -2,7 +2,7 @@
 # Except for "exempt" deployments, or any containers that do not belong to the "example.com" organization (e.g. common sidecars).
 # For example, if the namespace has a label of {"environment": "staging"}, all container images must be either staging.example.com/*
 # or do not contain "example.com" at all, unless the deployment has {"exempt": "true"} label.
-apiVersion: admissionregistration.k8s.io/v1beta1
+apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingAdmissionPolicy
 metadata:
   name: "image-matches-namespace-environment.policy.example.com"

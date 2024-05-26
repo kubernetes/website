@@ -3,9 +3,11 @@ layout: blog
 title: 'Kubernetes 1.22: CSI Windows Support (with CSI Proxy) reaches GA'
 date: 2021-08-09
 slug: csi-windows-support-with-csi-proxy-reaches-ga
+author: >
+  Mauricio Poppe (Google),
+  Jing Xu (Google),
+  Deep Debroy (Apple)
 ---
-
-**Authors:** Mauricio Poppe (Google), Jing Xu (Google), and Deep Debroy (Apple)
 
 *The stable version of CSI Proxy for Windows has been released alongside Kubernetes 1.22.  CSI Proxy enables CSI Drivers running on Windows nodes to perform privileged storage operations.*
 

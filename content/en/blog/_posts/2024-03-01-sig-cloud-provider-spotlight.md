@@ -4,9 +4,9 @@ title: "Spotlight on SIG Cloud Provider"
 slug: sig-cloud-provider-spotlight-2024
 date: 2024-03-01
 canonicalUrl: https://www.k8s.dev/blog/2024/03/01/sig-cloud-provider-spotlight-2024/
+author: >
+  Arujjwal Negi
 ---
-
-**Author**: Arujjwal Negi
 
 One of the most popular ways developers use Kubernetes-related services is via cloud providers, but
 have you ever wondered how cloud providers can do that? How does this whole process of integration

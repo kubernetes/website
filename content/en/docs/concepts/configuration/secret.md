@@ -567,25 +567,10 @@ in a Pod:
 For instructions, refer to
 [Define container environment variables using Secret data](/docs/tasks/inject-data-application/distribute-credentials-secure/#define-container-environment-variables-using-secret-data).
 
-#### Invalid environment variables {#restriction-env-from-invalid}
-
-If your environment variable definitions in your Pod specification are
-considered to be invalid environment variable names, those keys aren't made
-available to your container. The Pod is allowed to start.
-
-Kubernetes adds an Event with the reason set to `InvalidVariableNames` and a
-message that lists the skipped invalid keys. The following example shows a Pod that refers to a Secret named `mysecret`, where `mysecret` contains 2 invalid keys: `1badkey` and `2alsobad`.
-
-```shell
-kubectl get events
-```
-
-The output is similar to:
-
-```
-LASTSEEN   FIRSTSEEN   COUNT     NAME            KIND      SUBOBJECT                         TYPE      REASON
-0s         0s          1         dapi-test-pod   Pod                                         Warning   InvalidEnvironmentVariableNames   kubelet, 127.0.0.1      Keys [1badkey, 2alsobad] from the EnvFrom secret default/mysecret were skipped since they are considered invalid environment variable names.
-```
+It's important to note that the range of characters allowed for environment variable
+names in pods is [restricted](/docs/tasks/inject-data-application/define-environment-variable-container/#using-environment-variables-inside-of-your-config).
+If any keys do not meet the rules, those keys are not made available to your container, though
+the Pod is allowed to start.
 
 ### Container image pull Secrets {#using-imagepullsecrets}
 

@@ -161,12 +161,17 @@ When `.spec.suspend` changes from `true` to `false` on an existing CronJob witho
 
 ### Jobs history limits
 
-The `.spec.successfulJobsHistoryLimit` and `.spec.failedJobsHistoryLimit` fields are optional.
-These fields specify how many completed and failed Jobs should be kept.
-By default, they are set to 3 and 1 respectively.  Setting a limit to `0` corresponds to keeping
-none of the corresponding kind of Jobs after they finish.
+The `.spec.successfulJobsHistoryLimit` and `.spec.failedJobsHistoryLimit` fields specify
+how many completed and failed Jobs should be kept. Both fields are optional.
 
-For another way to clean up Jobs automatically, see [Clean up finished Jobs automatically](/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically).
+* `.spec.successfulJobsHistoryLimit`: This field specifies the number of successful finished
+jobs to keep. The default value is `3`. Setting this field to `0` will not keep any successful jobs.
+
+* `.spec.failedJobsHistoryLimit`: This field specifies the number of failed finished jobs to keep.
+The default value is `1`. Setting this field to `0` will not keep any failed jobs.
+
+For another way to clean up Jobs automatically, see
+[Clean up finished Jobs automatically](/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically).
 
 ### Time zones
 
