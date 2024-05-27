@@ -23,7 +23,7 @@ AppArmor, see
 -->
 本页面向你展示如何在节点上加载 AppArmor 配置文件并在 Pod 中强制应用这些配置文件。
 要了解有关 Kubernetes 如何使用 AppArmor 限制 Pod 的更多信息，请参阅
-[Pod 和容器的 Linux 内核安全约束](/zh-cn/docs/concepts/security/linux-kernel-security-constraints/#apparmor)。
+[Pod 和容器的 Linux 内核安全约束](/docs/concepts/security/linux-kernel-security-constraints/#apparmor)。
 
 ## {{% heading "objectives" %}}
 
