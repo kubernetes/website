@@ -1,5 +1,5 @@
 ---
-title: コードの貢献者（Code Contributor）
+title: コードコントリビューター
 id: code-contributor
 date: 2018-04-12
 full_link: https://github.com/kubernetes/community/tree/master/contributors/devel
