@@ -678,7 +678,7 @@ plugins:
 #### Configuration Annotation Format
 
 `PodNodeSelector` uses the annotation key `scheduler.alpha.kubernetes.io/node-selector` to assign
-node selectors to namespaces. This namespace configuration file describes a pod that has a node selector, disktype: ssd. 
+node selectors to namespaces. This namespace configuration file describes a namespace that forwards a node selector to its pods, disktype: ssd. 
 This means that all pods of namespace namespace3 will get scheduled on a node that has a disktype=ssd label.
 
 ```yaml
