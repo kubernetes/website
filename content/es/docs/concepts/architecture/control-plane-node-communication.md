@@ -42,7 +42,7 @@ Las conexiones del apiserver al kubelet se utilizan para:
   * Conectar (a través de `kubectl`) con pods en ejecución.
   * Facilitar la funcionalidad `port-forwarding` del kubelet.
 
-Estas conexiones terminan en el endpoint HTTPS del kubelet. Por defecto, el apiserver no verifica el certificado del kubelet, por lo que la conexión es vulnerable a ataques del tipo "man-in-the-middle", e **insegura** para conectar a través de redes públicas y/o no fiables.
+Estas conexiones terminan en el endpoint HTTPS del kubelet. Por defecto, el apiserver no verifica el certificado del kubelet, por lo que la conexión es vulnerable a ataques del tipo "ataque de intermediario" ("man-in-the-middle"), e **insegura** para conectar a través de redes públicas y/o no fiables.
 
 Para verificar esta conexión, se utiliza el atributo `--kubelet-certificate-authority` que provee el apiserver con un certificado raíz con el que verificar el certificado del kubelet.
 
