@@ -11,7 +11,7 @@ tags:
 - community
 - user-type
 ---
- コードを開発し、Kubernetesオープンソースコードベースに貢献する人々。
+ Kubernetesのオープンソースのコードベースを開発し、貢献する人。
 
 <!--more--> 
 
