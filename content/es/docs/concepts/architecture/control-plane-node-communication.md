@@ -73,7 +73,7 @@ Los agentes Konnectivity inician conexiones con el servidor Konnectivity y manti
 Tras habilitar el servicio Konnectivity, todo el tráfico del plano de control a los nodos pasa por estas conexiones.
 
 Sigue la [Tarea del servicio Konnectivity](/docs/tasks/extend-kubernetes/setup-konnectivity/) para configurar
-el servicio Konnectivity en su clúster.
+el servicio Konnectivity en tu clúster.
 
 ## {{% heading "whatsnext" %}}
 
