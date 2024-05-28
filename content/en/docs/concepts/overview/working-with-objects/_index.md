@@ -29,7 +29,7 @@ entities to represent the state of your cluster. Specifically, they can describe
 * The policies around how those applications behave, such as restart policies, upgrades, and fault-tolerance
 
 A Kubernetes object is a "record of intent"--once you create the object, the Kubernetes system
-will constantly work to ensure that object exists. By creating an object, you're effectively
+will constantly work to ensure that the object exists. By creating an object, you're effectively
 telling the Kubernetes system what you want your cluster's workload to look like; this is your
 cluster's *desired state*.
 
@@ -72,7 +72,7 @@ When you create an object in Kubernetes, you must provide the object spec that d
 desired state, as well as some basic information about the object (such as a name). When you use
 the Kubernetes API to create the object (either directly or via `kubectl`), that API request must
 include that information as JSON in the request body.
-Most often, you provide the information to `kubectl` in file known as a _manifest_.
+Most often, you provide the information to `kubectl` in a file known as a _manifest_.
 By convention, manifests are YAML (you could also use JSON format).
 Tools such as `kubectl` convert the information from a manifest into JSON or another supported
 serialization format when making the API request over HTTP.
@@ -121,7 +121,7 @@ its desired state.
 Within the `.spec` of a StatefulSet is a [template](/docs/concepts/workloads/pods/#pod-templates)
 for Pod objects. That template describes Pods that the StatefulSet controller will create in order to
 satisfy the StatefulSet specification.
-Different kinds of object can also have different `.status`; again, the API reference pages
+Different kinds of objects can also have different `.status`; again, the API reference pages
 detail the structure of that `.status` field, and its content for each different type of object.
 
 {{< note >}}
