@@ -154,7 +154,9 @@ external IP address.
    The response to a successful request is a hello message:
 
    ```shell
-   Hello Kubernetes!
+   Hello, world!
+   Version: 2.0.0
+   Hostname: hello-world-2895499144-2e5uh
    ```
 
 ## {{% heading "cleanup" %}}
