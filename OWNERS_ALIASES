@@ -98,12 +98,12 @@ aliases:
     - rekcah78
     - remyleone
   sig-docs-hi-owners: # Admins for Hindi content
-    - anubha-v-ardhan
+    - dipesh-rawat
     - divya-mohan0209
   sig-docs-hi-reviews: # PR reviews for Hindi content
-    - anubha-v-ardhan
     - Babapool
     - bishal7679
+    - dipesh-rawat
     - divya-mohan0209
   sig-docs-id-owners: # Admins for Indonesian content
     - ariscahyadi
