@@ -627,9 +627,7 @@ Example: `node.kubernetes.io/exclude-from-external-load-balancers`
 
 Used on: Node
 
-Kubernetes automatically enables the `ServiceNodeExclusion` feature gate on
-the clusters it creates. With this feature gate enabled on a cluster,
-you can add labels to particular worker nodes to exclude them from the list of backend servers.
+You can add labels to particular worker nodes to exclude them from the list of backend servers used by external load balancers.
 The following command can be used to exclude a worker node from the list of backend servers in a
 backend set:
 
