@@ -185,17 +185,17 @@ a poorly configured CronJob. CronJobs that create too many Jobs in a namespace c
 There is another syntax only to set the same type of quota for certain resources.
 The following types are supported:
 
-| Resource Name | Description |
-| ------------------------------- | ------------------------------------------------- |
-| `configmaps` | The total number of ConfigMaps that can exist in the namespace. |
-| `persistentvolumeclaims` | The total number of [PersistentVolumeClaims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace. |
-| `pods` | The total number of Pods in a non-terminal state that can exist in the namespace.  A pod is in a terminal state if `.status.phase in (Failed, Succeeded)` is true.  |
-| `replicationcontrollers` | The total number of ReplicationControllers that can exist in the namespace. |
-| `resourcequotas` | The total number of ResourceQuotas that can exist in the namespace. |
-| `services` | The total number of Services that can exist in the namespace. |
-| `services.loadbalancers` | The total number of Services of type `LoadBalancer` that can exist in the namespace. |
-| `services.nodeports` | The total number of Services of type `NodePort` that can exist in the namespace. |
-| `secrets` | The total number of Secrets that can exist in the namespace. |
+| Resource Name | Description                                                                                                                                                        |
+| ------------------------------- |--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `configmaps` | The total number of ConfigMaps that can exist in the namespace.                                                                                                    |
+| `persistentvolumeclaims` | The total number of [PersistentVolumeClaims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace.                   |
+| `pods` | The total number of Pods in a non-terminal state that can exist in the namespace.  A pod is in a terminal state if `.status.phase in (Failed, Succeeded)` is true. |
+| `replicationcontrollers` | The total number of ReplicationControllers that can exist in the namespace.                                                                                        |
+| `resourcequotas` | The total number of ResourceQuotas that can exist in the namespace.                                                                                                |
+| `services` | The total number of Services that can exist in the namespace.                                                                                                      |
+| `services.loadbalancers` | The total number of Services of type `LoadBalancer` that can exist in the namespace.                                                                               |
+| `services.nodeports` | The total number of `NodePorts` allocated to Services of type `NodePort` or `LoadBalancer` that can exist in the namespace.                                                      |
+| `secrets` | The total number of Secrets that can exist in the namespace.                                                                                                       |
 
 For example, `pods` quota counts and enforces a maximum on the number of `pods`
 created in a single namespace that are not terminal. You might want to set a `pods`
