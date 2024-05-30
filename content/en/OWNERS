@@ -8,6 +8,12 @@ reviewers:
 
 approvers:
 - sig-docs-en-owners
+- sig-docs-website-owners # important due to no_parent_owners option
 
 labels:
 - language/en
+
+# Disable inheritance so that the localization team don't end up as approvers for English
+# https://github.com/kubernetes/community/blob/master/communication/website-guidelines.md
+options:
+  no_parent_owners: true
