@@ -15,7 +15,7 @@ Kubernetesにおいてスケジューリングとは、稼働させたい{{<glos
 ## スケジューリング
 
 * [Kubernetesのスケジューラー](/ja/docs/concepts/scheduling-eviction/kube-scheduler/)
-* [Node上へのPodのスケジューリング](/ja/docs/concepts/scheduling-eviction/assign-pod-node/)
+* [ノード上へのPodのスケジューリング](/ja/docs/concepts/scheduling-eviction/assign-pod-node/)
 * [Podのオーバーヘッド](/ja/docs/concepts/scheduling-eviction/pod-overhead/)
 * [Pod Topology Spread Constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 * [Taints and Tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/)
