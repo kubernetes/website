@@ -194,7 +194,7 @@ The following types are supported:
 | `resourcequotas` | The total number of ResourceQuotas that can exist in the namespace.                                                                                                |
 | `services` | The total number of Services that can exist in the namespace.                                                                                                      |
 | `services.loadbalancers` | The total number of `NodePorts` allocated of Services of type `LoadBalancer` that can exist in the namespace.                                                      |
-| `services.nodeports` | The total number of `NodePorts` allocated of Services of type `NodePort` that can exist in the namespace.                                                          |
+| `services.nodeports` | The total number of `NodePorts`  allocated of Services of type `NodePort` that can exist in the namespace.                                                         |
 | `secrets` | The total number of Secrets that can exist in the namespace.                                                                                                       |
 
 For example, `pods` quota counts and enforces a maximum on the number of `pods`
