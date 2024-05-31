@@ -15,4 +15,4 @@ tags:
 
 <!--more--> 
 
-彼らは、一つ以上の{{< glossary_tooltip text="SIG" term_id="sig" >}}のアクティブな{{< glossary_tooltip text="コミュニティメンバー" term_id="member" >}}でもあります。
+コントリビューターは、一つ以上の{{< glossary_tooltip text="SIG" term_id="sig" >}}のアクティブな{{< glossary_tooltip text="コミュニティメンバー" term_id="member" >}}でもあります。
