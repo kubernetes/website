@@ -156,7 +156,7 @@ external IP address.
    ```shell
    Hello, world!
    Version: 2.0.0
-   Hostname: hello-world-2895499144-2e5uh
+   Hostname: 0bd46b45f32f
    ```
 
 ## {{% heading "cleanup" %}}
