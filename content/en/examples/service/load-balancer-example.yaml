@@ -15,7 +15,7 @@ spec:
         app.kubernetes.io/name: load-balancer-example
     spec:
       containers:
-      - image: us-docker.pkg.dev/google-samples/containers/gke/hello-app:2.0
+      - image: gcr.io/google-samples/hello-app:2.0
         name: hello-world
         ports:
         - containerPort: 8080
