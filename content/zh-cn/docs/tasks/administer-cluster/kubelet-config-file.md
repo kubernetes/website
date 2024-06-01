@@ -262,7 +262,7 @@ kubelet 的配置插件目录机制类似，但与 `kubeadm` 工具允许 patch 
 <!--
 ## Viewing the kubelet configuration
 -->
-## 查看 kubelet 配置
+## 查看 kubelet 配置   {#viewing-the-kubelet-configuration}
 
 <!--
 Since the configuration could now be spread over multiple files with this feature, if someone wants to inspect the final actuated configuration,
@@ -431,8 +431,9 @@ they can follow these steps to inspect the kubelet configuration:
   [`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/)
   reference.
 - Learn more about kubelet configuration merging in the
-  [reference document](/docs/reference/node/kubelet-config-directory-merging.md).
+  [reference document](/docs/reference/node/kubelet-config-directory-merging).
 --->
 - 参阅 [`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
   进一步学习 kubelet 的配置。
-- 在[参考文档](/zh-cn/docs/reference/node/kubelet-config-directory-merging.md)中了解有关 kubelet 配置合并的更多信息。
+- 在[参考文档](/zh-cn/docs/reference/node/kubelet-config-directory-merging)中了解有关
+  kubelet 配置合并的更多信息。
