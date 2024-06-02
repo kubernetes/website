@@ -195,8 +195,8 @@ nginx     ClusterIP    None         <none>        80/TCP    12s
 kubectl get statefulset web
 ```
 ```
-NAME      DESIRED   CURRENT   AGE
-web       2         1         20s
+NAME   READY   AGE
+web    2/2     37s
 ```
 
 <!--
@@ -984,7 +984,7 @@ image again:
 在一个终端窗口中对 `web` StatefulSet 执行 patch 操作来再次改变容器镜像：
 
 ```shell
-kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"gcr.io/google_containers/nginx-slim:0.8"}]'
+kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"registry.k8s.io/nginx-slim:0.8"}]'
 ```
 ```
 statefulset.apps/web patched
