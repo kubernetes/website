@@ -371,7 +371,7 @@ The following types are supported:
 | `resourcequotas` | The total number of ResourceQuotas that can exist in the namespace. |
 | `services` | The total number of Services that can exist in the namespace. |
 | `services.loadbalancers` | The total number of Services of type `LoadBalancer` that can exist in the namespace. |
-| `services.nodeports` | The total number of Services of type `NodePort` that can exist in the namespace. |
+| `services.nodeports` | The total number of `NodePorts` allocated to Services of type `NodePort` or `LoadBalancer` that can exist in the namespace.                                                      |
 | `secrets` | The total number of Secrets that can exist in the namespace. |
 -->
 | 资源名称 | 描述 |
@@ -383,7 +383,7 @@ The following types are supported:
 | `resourcequotas` | 在该命名空间中允许存在的 ResourceQuota 总数上限。 |
 | `services` | 在该命名空间中允许存在的 Service 总数上限。 |
 | `services.loadbalancers` | 在该命名空间中允许存在的 LoadBalancer 类型的 Service 总数上限。 |
-| `services.nodeports` | 在该命名空间中允许存在的 NodePort 类型的 Service 总数上限。 |
+| `services.nodeports` | 在该命名空间中允许存在的 NodePort 或 LoadBalancer 类型的 Service 的 NodePort 总数上限。 |
 | `secrets` | 在该命名空间中允许存在的 Secret 总数上限。 |
 
 <!--

@@ -148,8 +148,17 @@ To configure the setting, enable the `ImageMaximumGCAge`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the kubelet,
 and also set a value for the `ImageMaximumGCAge` field in the kubelet configuration file.
 
-The value is specified as a Kubernetes _duration_; for example, you can set the configuration
-field to `3d12h`, which means 3 days and 12 hours.
+The value is specified as a Kubernetes _duration_; 
+Valid time units for the `ImageMaximumGCAge` field in the kubelet configuration file are:
+- "ns" for nanoseconds
+- "us" or "µs" for microseconds
+- "ms" for milliseconds
+- "s" for seconds
+- "m" for minutes
+- "h" for hours
+
+For example, you can set the configuration field to `12h45m`,
+which means 12 hours and 45 minutes. 
 
 {{< note >}}
 This feature does not track image usage across kubelet restarts. If the kubelet

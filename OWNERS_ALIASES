@@ -54,7 +54,6 @@ aliases:
     - bene2k1
     - rlenferink
   sig-docs-en-owners: # Admins for English content
-    - celestehorgan
     - dipesh-rawat
     - divya-mohan0209
     - katcosgrove
@@ -65,7 +64,6 @@ aliases:
     - sftim
     - tengqm
   sig-docs-en-reviews: # PR reviews for English content
-    - celestehorgan
     - dipesh-rawat
     - divya-mohan0209
     - katcosgrove
@@ -98,12 +96,12 @@ aliases:
     - rekcah78
     - remyleone
   sig-docs-hi-owners: # Admins for Hindi content
-    - anubha-v-ardhan
+    - dipesh-rawat
     - divya-mohan0209
   sig-docs-hi-reviews: # PR reviews for Hindi content
-    - anubha-v-ardhan
     - Babapool
     - bishal7679
+    - dipesh-rawat
     - divya-mohan0209
   sig-docs-id-owners: # Admins for Indonesian content
     - ariscahyadi

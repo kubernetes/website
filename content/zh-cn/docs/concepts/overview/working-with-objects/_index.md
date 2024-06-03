@@ -58,7 +58,7 @@ Kubernetes 使用这些实体去表示整个集群的状态。
 
 <!--
 A Kubernetes object is a "record of intent"--once you create the object, the Kubernetes system
-will constantly work to ensure that object exists. By creating an object, you're effectively
+will constantly work to ensure that the object exists. By creating an object, you're effectively
 telling the Kubernetes system what you want your cluster's workload to look like; this is your
 cluster's *desired state*.
 -->
@@ -140,7 +140,7 @@ When you create an object in Kubernetes, you must provide the object spec that d
 desired state, as well as some basic information about the object (such as a name). When you use
 the Kubernetes API to create the object (either directly or via `kubectl`), that API request must
 include that information as JSON in the request body.
-Most often, you provide the information to `kubectl` in file known as a _manifest_.
+Most often, you provide the information to `kubectl` in a file known as a _manifest_.
 By convention, manifests are YAML (you could also use JSON format).
 Tools such as `kubectl` convert the information from a manifest into JSON or another supported
 serialization format when making the API request over HTTP.
@@ -151,7 +151,7 @@ serialization format when making the API request over HTTP.
 以及关于对象的一些基本信息（例如名称）。
 当使用 Kubernetes API 创建对象时（直接创建或经由 `kubectl` 创建），
 API 请求必须在请求主体中包含 JSON 格式的信息。
-大多数情况下，你会通过 **清单（Manifest)** 文件为 `kubectl` 提供这些信息。
+大多数情况下，你会通过 **清单（Manifest）** 文件为 `kubectl` 提供这些信息。
 按照惯例，清单是 YAML 格式的（你也可以使用 JSON 格式）。
 像 `kubectl` 这样的工具在通过 HTTP 进行 API 请求时，
 会将清单中的信息转换为 JSON 或其他受支持的序列化格式。
@@ -226,7 +226,7 @@ its desired state.
 Within the `.spec` of a StatefulSet is a [template](/docs/concepts/workloads/pods/#pod-templates)
 for Pod objects. That template describes Pods that the StatefulSet controller will create in order to
 satisfy the StatefulSet specification.
-Different kinds of object can also have different `.status`; again, the API reference pages
+Different kinds of objects can also have different `.status`; again, the API reference pages
 detail the structure of that `.status` field, and its content for each different type of object.
 -->
 例如，参阅 Pod API 参考文档中
