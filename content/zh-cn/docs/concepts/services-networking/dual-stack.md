@@ -177,16 +177,16 @@ Service 的地址族默认为第一个服务集群 IP 范围的地址族（通�
 <!--
 * `SingleStack`: Single-stack service. The control plane allocates a cluster IP for the Service,
   using the first configured service cluster IP range.
-* `PreferDualStack`:
-  * Allocates IPv4 and IPv6 cluster IPs for the Service.
-* `RequireDualStack`: Allocates Service `.spec.ClusterIPs` from both IPv4 and IPv6 address ranges.
+* `PreferDualStack`:Allocates both IPv4 and IPv6 cluster IPs for the Service when dual-stack is enabled. If dual-stack is not enabled or supported, it falls back to single-stack behavior.
+* `RequireDualStack`: Allocates Service `.spec.clusterIPs` from both IPv4 and IPv6 address ranges when dual-stack is enabled. If dual-stack is not enabled or supported, the Service API object creation fails.
   * Selects the `.spec.ClusterIP` from the list of `.spec.ClusterIPs` based on the address family
     of the first element in the `.spec.ipFamilies` array.
 -->
 * `SingleStack`：单栈 Service。控制面使用第一个配置的服务集群 IP 范围为 Service 分配集群 IP。
-* `PreferDualStack`：
-  * 为 Service 分配 IPv4 和 IPv6 集群 IP 地址。
-* `RequireDualStack`：从 IPv4 和 IPv6 的地址范围分配 Service 的 `.spec.ClusterIPs`
+* `PreferDualStack`：启用双栈时，为 Service 同时分配 IPv4 和 IPv6 集群 IP 地址。
+  如果双栈未被启用或不被支持，则会返回到单栈行为。
+* `RequireDualStack`：启用双栈时，同时从 IPv4 和 IPv6 的地址范围中分配 Service 的 `.spec.ClusterIPs`。
+  如果双栈未被启用或不被支持，则 Service API 对象创建失败。
   * 从基于在 `.spec.ipFamilies` 数组中第一个元素的地址族的 `.spec.ClusterIPs`
     列表中选择 `.spec.ClusterIP` 
 
