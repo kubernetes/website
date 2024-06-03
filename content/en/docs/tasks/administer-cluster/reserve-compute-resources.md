@@ -22,6 +22,8 @@ compute resources for system daemons. Kubernetes recommends cluster
 administrators to configure 'Node Allocatable' based on their workload density
 on each node.
 
+## {{% heading "prerequisites" %}}
+
 {{< include "task-tutorial-prereqs.md" >}}
 
 You can configure below kubelet [configuration settings](/docs/reference/config-api/kubelet-config.v1beta1/)
