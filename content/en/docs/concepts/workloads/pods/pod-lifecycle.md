@@ -43,6 +43,10 @@ is [terminated](#pod-termination); if Kubernetes isn't able start the Pod on the
 node (for example, if the node crashes before the Pod starts), then that particular Pod
 never starts.
 
+You can use [Pod Scheduling Readiness](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)
+to delay scheduling for a Pod until all its _scheduling gates_ are removed. For example,
+you might want to define a set of Pods but only trigger scheduling once all the Pods
+have been created.
 
 ### Pods and fault recovery {#pod-fault-recovery}
 
@@ -369,13 +373,6 @@ For a Pod with init containers, the kubelet sets the `Initialized` condition to
 after successful sandbox creation and network configuration by the runtime
 plugin). For a Pod without init containers, the kubelet sets the `Initialized`
 condition to `True` before sandbox creation and network configuration starts.
-
-### Pod scheduling readiness {#pod-scheduling-readiness-gate}
-
-{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
-
-See [Pod Scheduling Readiness](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)
-for more information.
 
 ## Container probes
 
