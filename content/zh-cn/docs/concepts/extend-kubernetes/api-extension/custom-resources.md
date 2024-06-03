@@ -646,7 +646,7 @@ selectable fields.
 {{% code_sample file="customresourcedefinition/shirt-resource-definition.yaml" %}}
 
 <!--
-Field selectors can then be used to get only resources with with a `color` of `blue`:
+Field selectors can then be used to get only resources with a `color` of `blue`:
 -->
 字段选择算符随后可用于仅获取 `color` 为 `blue` 的资源：
 
