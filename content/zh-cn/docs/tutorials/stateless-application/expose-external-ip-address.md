@@ -1,5 +1,5 @@
 ---
-title: 公开外部 IP 地址以访问集群中应用程序
+title: 公开外部 IP 地址以访问集群中的应用
 content_type: tutorial
 weight: 10
 ---
@@ -41,21 +41,21 @@ external IP address.
 * Create a Service object that exposes an external IP address.
 * Use the Service object to access the running application.
 -->
-* 运行 Hello World 应用程序的五个实例。
+* 运行 Hello World 应用的五个实例。
 * 创建一个公开外部 IP 地址的 Service 对象。
-* 使用 Service 对象访问正在运行的应用程序。
+* 使用 Service 对象访问正在运行的应用。
 
 <!-- lessoncontent -->
 
 <!--
 ## Creating a service for an application running in five pods
 -->
-## 为一个在五个 pod 中运行的应用程序创建服务   {#creating-a-service-for-an-app-running-in-five-pods}
+## 为在五个 Pod 中运行的应用创建服务   {#creating-a-service-for-an-app-running-in-five-pods}
 
 <!--
 1. Run a Hello World application in your cluster:
 -->
-1. 在集群中运行 Hello World 应用程序：
+1. 在集群中运行 Hello World 应用：
 
    {{% code_sample file="service/load-balancer-example.yaml" %}}
 
@@ -78,7 +78,7 @@ external IP address.
    对象和一个关联的
    {{< glossary_tooltip term_id="replica-set" text="ReplicaSet" >}} 对象。
    ReplicaSet 有五个 {{< glossary_tooltip text="Pod" term_id="pod" >}}，
-   每个都运行 Hello World 应用程序。
+   每个都运行 Hello World 应用。
 
 <!--
 1. Display information about the Deployment:
@@ -194,7 +194,7 @@ external IP address.
 -->
 7. 在前面的输出中，你可以看到服务有几个端点：
    10.0.0.6:8080、10.0.1.6:8080、10.0.1.7:8080 和另外两个，
-   这些都是正在运行 Hello World 应用程序的 Pod 的内部地址。
+   这些都是正在运行 Hello World 应用的 Pod 的内部地址。
    要验证这些是 Pod 地址，请输入以下命令：
 
    ```shell
@@ -219,7 +219,7 @@ external IP address.
 1. Use the external IP address (`LoadBalancer Ingress`) to access the Hello
    World application:
 -->
-8. 使用外部 IP 地址（`LoadBalancer Ingress`）访问 Hello World 应用程序:
+8. 使用外部 IP 地址（`LoadBalancer Ingress`）访问 Hello World 应用:
 
    ```shell
    curl http://<external-ip>:<port>
@@ -236,7 +236,7 @@ external IP address.
    其中 `<external-ip>` 是你的服务的外部 IP 地址（`LoadBalancer Ingress`），
    `<port>` 是你的服务描述中的 `port` 的值。
    如果你正在使用 minikube，输入 `minikube service my-service`
-   将在浏览器中自动打开 Hello World 应用程序。
+   将在浏览器中自动打开 Hello World 应用。
 
    <!--
    The response to a successful request is a hello message:
@@ -247,7 +247,7 @@ external IP address.
    ```shell
    Hello, world!
    Version: 2.0.0
-   Hostname: hello-world-2895499144-2e5uh
+   Hostname: 0bd46b45f32f
    ```
 
 ## {{% heading "cleanup" %}}
@@ -265,7 +265,7 @@ kubectl delete services my-service
 To delete the Deployment, the ReplicaSet, and the Pods that are running
 the Hello World application, enter this command:
 -->
-要删除正在运行 Hello World 应用程序的 Deployment、ReplicaSet 和 Pod，请输入以下命令：
+要删除正在运行 Hello World 应用的 Deployment、ReplicaSet 和 Pod，请输入以下命令：
 
 ```shell
 kubectl delete deployment hello-world
