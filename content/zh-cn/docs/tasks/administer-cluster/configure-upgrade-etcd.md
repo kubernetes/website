@@ -616,17 +616,24 @@ When restoring the cluster, use the `--data-dir` option to specify to which fold
 在恢复集群时，使用 `--data-dir` 选项来指定集群应被恢复到哪个文件夹。
 
 ```shell
-ETCDCTL_API=3 etcdctl --data-dir <data-dir-location> snapshot restore snapshot.db
+etcdutl --data-dir <data-dir-location> snapshot restore snapshot.db
 ```
 
 <!--
 where `<data-dir-location>` is a directory that will be created during the restore process.
 
-Yet another example would be to first export the `ETCDCTL_API` environment variable:
+The below example depicts the usage of the `etcdctl` tool for the restore operation:
 -->
 其中 `<data-dir-location>` 是将在恢复过程中创建的目录。
 
-另一个例子是先导出 `ETCDCTL_API` 环境变量：
+下面示例展示了如何使用 `etcdctl` 工具执行恢复操作：
+
+{{< note >}}
+<!--
+The usage of `etcdctl` for restoring has been deprecated since etcd v3.5.x and may be removed from a future etcd release.
+-->
+自 etcd v3.5.x 版本起，使用 `etcdctl` 进行恢复的功能已被弃用，未来的可能会在 etcd 版本中被移除。
+{{< /note >}}
 
 ```shell
 export ETCDCTL_API=3

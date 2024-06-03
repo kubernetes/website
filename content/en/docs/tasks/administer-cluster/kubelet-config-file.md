@@ -121,7 +121,7 @@ This offers flexibility in managing and merging kubelet configurations from diff
 However, it is important to note that behavior varies based on the data type of the configuration fields.
 
 Different data types in the kubelet configuration structure merge differently. See the
-[reference document](/docs/reference/node/kubelet-config-directory-merging.md)
+[reference document](/docs/reference/node/kubelet-config-directory-merging/)
 for more information.
 
 ### Kubelet configuration merging order
