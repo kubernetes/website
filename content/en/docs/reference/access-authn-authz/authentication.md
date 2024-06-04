@@ -24,8 +24,8 @@ It is assumed that a cluster-independent service manages normal users in the fol
 - a user store like Keystone or Google Accounts
 - a file with a list of usernames and passwords
 
-In this regard, _Kubernetes does not have objects which represent normal user
-accounts._ Normal users cannot be added to a cluster through an API call.
+In this regard, _Kubernetes does not have objects which represent normal user accounts._
+Normal users cannot be added to a cluster through an API call.
 
 Even though a normal user cannot be added via an API call, any user that
 presents a valid certificate signed by the cluster's certificate authority
@@ -92,7 +92,7 @@ include multiple organization fields in the certificate.
 
 For example, using the `openssl` command line tool to generate a certificate signing request:
 
-``` bash
+```bash
 openssl req -new -key jbeda.pem -out jbeda-csr.pem -subj "/CN=jbeda/O=app1/O=app2"
 ```
 
@@ -110,7 +110,7 @@ The token file is a csv file with a minimum of 3 columns: token, user name, user
 followed by optional group names.
 
 {{< note >}}
-If you have more than one group the column must be double quoted e.g.
+If you have more than one group, the column must be double quoted e.g.
 
 ```conf
 token,user,uid,"group1,group2,group3"
@@ -121,9 +121,9 @@ token,user,uid,"group1,group2,group3"
 
 When using bearer token authentication from an http client, the API
 server expects an `Authorization` header with a value of `Bearer
-<token>`.  The bearer token must be a character sequence that can be
+<token>`. The bearer token must be a character sequence that can be
 put in an HTTP header value using no more than the encoding and
-quoting facilities of HTTP.  For example: if the bearer token is
+quoting facilities of HTTP. For example: if the bearer token is
 `31ada4fd-adec-460c-809a-9e56ceb75269` then it would appear in an HTTP
 header as shown below.
 
@@ -141,8 +141,8 @@ are stored as Secrets in the `kube-system` namespace, where they can be
 dynamically managed and created. Controller Manager contains a TokenCleaner
 controller that deletes bootstrap tokens as they expire.
 
-The tokens are of the form `[a-z0-9]{6}.[a-z0-9]{16}`.  The first component is a
-Token ID and the second component is the Token Secret.  You specify the token
+The tokens are of the form `[a-z0-9]{6}.[a-z0-9]{16}`. The first component is a
+Token ID and the second component is the Token Secret. You specify the token
 in an HTTP header as follows:
 
 ```http
@@ -150,15 +150,15 @@ Authorization: Bearer 781292.db7bc3a58fc5f07e
 ```
 
 You must enable the Bootstrap Token Authenticator with the
-`--enable-bootstrap-token-auth` flag on the API Server.  You must enable
+`--enable-bootstrap-token-auth` flag on the API Server. You must enable
 the TokenCleaner controller via the `--controllers` flag on the Controller
-Manager.  This is done with something like `--controllers=*,tokencleaner`.
+Manager. This is done with something like `--controllers=*,tokencleaner`.
 `kubeadm` will do this for you if you are using it to bootstrap a cluster.
 
-The authenticator authenticates as `system:bootstrap:<Token ID>`.  It is
-included in the `system:bootstrappers` group.  The naming and groups are
+The authenticator authenticates as `system:bootstrap:<Token ID>`. It is
+included in the `system:bootstrappers` group. The naming and groups are
 intentionally limited to discourage users from using these tokens past
-bootstrapping.  The user names and group can be used (and are used by `kubeadm`)
+bootstrapping. The user names and group can be used (and are used by `kubeadm`)
 to craft the appropriate authorization policies to support bootstrapping a
 cluster.
 
@@ -234,7 +234,7 @@ The created token is a signed JSON Web Token (JWT).
 
 The signed JWT can be used as a bearer token to authenticate as the given service
 account. See [above](#putting-a-bearer-token-in-a-request) for how the token is included
-in a request.  Normally these tokens are mounted into pods for in-cluster access to
+in a request. Normally these tokens are mounted into pods for in-cluster access to
 the API server, but can be used from outside the cluster as well.
 
 Service accounts authenticate with the username `system:serviceaccount:(NAMESPACE):(SERVICEACCOUNT)`,
@@ -265,7 +265,7 @@ is included in a request.
 sequenceDiagram
     participant user as User
     participant idp as Identity Provider
-    participant kube as Kubectl
+    participant kube as kubectl
     participant api as API Server
 
     user ->> idp: 1. Log in to IdP
@@ -273,7 +273,7 @@ sequenceDiagram
     idp -->> user: 2. Provide access_token,<br>id_token, and refresh_token
     deactivate idp
     activate user
-    user ->> kube: 3. Call Kubectl<br>with --token being the id_token<br>OR add tokens to .kube/config
+    user ->> kube: 3. Call kubectl<br>with --token being the id_token<br>OR add tokens to .kube/config
     deactivate user
     activate kube
     kube ->> api: 4. Authorization: Bearer...
@@ -295,7 +295,9 @@ sequenceDiagram
 1. `kubectl` sends your `id_token` in a header called Authorization to the API server
 1. The API server will make sure the JWT signature is valid
 1. Check to make sure the `id_token` hasn't expired
-    1. Perform claim and/or user validation if CEL expressions are configured with `AuthenticationConfiguration`.
+
+   Perform claim and/or user validation if CEL expressions are configured with `AuthenticationConfiguration`.
+
 1. Make sure the user is authorized
 1. Once authorized the API server returns a response to `kubectl`
 1. `kubectl` provides feedback to the user
@@ -319,25 +321,27 @@ To enable the plugin, configure the following flags on the API server:
 
 | Parameter | Description | Example | Required |
 | --------- | ----------- | ------- | ------- |
-| `--oidc-issuer-url` | URL of the provider that allows the API server to discover public signing keys. Only URLs that use the `https://` scheme are accepted.  This is typically the provider's discovery URL, changed to have an empty path | If the issuer's OIDC discovery URL is `https://accounts.provider.example/.well-known/openid-configuration`, the value should be `https://accounts.provider.example` | Yes |
+| `--oidc-issuer-url` | URL of the provider that allows the API server to discover public signing keys. Only URLs that use the `https://` scheme are accepted. This is typically the provider's discovery URL, changed to have an empty path. | If the issuer's OIDC discovery URL is `https://accounts.provider.example/.well-known/openid-configuration`, the value should be `https://accounts.provider.example` | Yes |
 | `--oidc-client-id` |  A client id that all tokens must be issued for. | kubernetes | Yes |
 | `--oidc-username-claim` | JWT claim to use as the user name. By default `sub`, which is expected to be a unique identifier of the end user. Admins can choose other claims, such as `email` or `name`, depending on their provider. However, claims other than `email` will be prefixed with the issuer URL to prevent naming clashes with other plugins. | sub | No |
 | `--oidc-username-prefix` | Prefix prepended to username claims to prevent clashes with existing names (such as `system:` users). For example, the value `oidc:` will create usernames like `oidc:jane.doe`. If this flag isn't provided and `--oidc-username-claim` is a value other than `email` the prefix defaults to `( Issuer URL )#` where `( Issuer URL )` is the value of `--oidc-issuer-url`. The value `-` can be used to disable all prefixing. | `oidc:` | No |
 | `--oidc-groups-claim` | JWT claim to use as the user's group. If the claim is present it must be an array of strings. | groups | No |
 | `--oidc-groups-prefix` | Prefix prepended to group claims to prevent clashes with existing names (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra`. | `oidc:` | No |
 | `--oidc-required-claim` | A key=value pair that describes a required claim in the ID Token. If set, the claim is verified to be present in the ID Token with a matching value. Repeat this flag to specify multiple claims. | `claim=value` | No |
-| `--oidc-ca-file` | The path to the certificate for the CA that signed your identity provider's web certificate.  Defaults to the host's root CAs. | `/etc/kubernetes/ssl/kc-ca.pem` | No |
+| `--oidc-ca-file` | The path to the certificate for the CA that signed your identity provider's web certificate. Defaults to the host's root CAs. | `/etc/kubernetes/ssl/kc-ca.pem` | No |
 | `--oidc-signing-algs` | The signing algorithms accepted. Default is "RS256". | `RS512` | No |
 
 ##### Authentication configuration from a file {#using-authentication-configuration}
 
 {{< feature-state feature_gate_name="StructuredAuthenticationConfiguration" >}}
 
-JWT Authenticator is an authenticator to authenticate Kubernetes users using JWT compliant tokens. The authenticator will attempt to
-parse a raw ID token, verify it's been signed by the configured issuer. The public key to verify the signature is discovered from the issuer's public endpoint using OIDC discovery.
+JWT Authenticator is an authenticator to authenticate Kubernetes users using JWT compliant tokens.
+The authenticator will attempt to parse a raw ID token, verify it's been signed by the configured issuer.
+The public key to verify the signature is discovered from the issuer's public endpoint using OIDC discovery.
 
 The minimum valid JWT payload must contain the following claims:
-```yaml
+
+```json
 {
   "iss": "https://example.com",   // must match the issuer.url
   "aud": ["my-app"],              // at least one of the entries in issuer.audiences must match the "aud" claim in presented JWTs.
@@ -346,12 +350,17 @@ The minimum valid JWT payload must contain the following claims:
 }
 ```
 
-The configuration file approach allows you to configure multiple JWT authenticators, each with a unique `issuer.url` and `issuer.discoveryURL`. The configuration file even allows you to specify [CEL](/docs/reference/using-api/cel/)
-expressions to map claims to user attributes, and to validate claims and user information. The API server also automatically reloads the authenticators when the configuration file is modified. You can use
-`apiserver_authentication_config_controller_automatic_reload_last_timestamp_seconds` metric to monitor the last time the configuration was reloaded by the API server.
+The configuration file approach allows you to configure multiple JWT authenticators, each with a unique
+`issuer.url` and `issuer.discoveryURL`. The configuration file even allows you to specify [CEL](/docs/reference/using-api/cel/)
+expressions to map claims to user attributes, and to validate claims and user information.
+The API server also automatically reloads the authenticators when the configuration file is modified.
+You can use `apiserver_authentication_config_controller_automatic_reload_last_timestamp_seconds` metric
+to monitor the last time the configuration was reloaded by the API server.
 
-You must specify the path to the authentication configuration using the `--authentication-config` flag on the API server. If you want to use command line flags instead of the configuration file, those will continue to work as-is.
-To access the new capabilities like configuring multiple authenticators, setting multiple audiences for an issuer, switch to using the configuration file.
+You must specify the path to the authentication configuration using the `--authentication-config` flag
+on the API server. If you want to use command line flags instead of the configuration file, those will
+continue to work as-is. To access the new capabilities like configuring multiple authenticators,
+setting multiple audiences for an issuer, switch to using the configuration file.
 
 For Kubernetes v{{< skew currentVersion >}}, the structured authentication configuration file format
 is beta-level, and the mechanism for using that configuration is also beta. Provided you didn't specifically
@@ -476,11 +485,14 @@ jwt:
   `jwt.claimValidationRules[i].expression` represents the expression which will be evaluated by CEL.
   CEL expressions have access to the contents of the token payload, organized into `claims` CEL variable.
   `claims` is a map of claim names (as strings) to claim values (of any type).
+
 * User validation rule expression
 
   `jwt.userValidationRules[i].expression` represents the expression which will be evaluated by CEL.
   CEL expressions have access to the contents of `userInfo`, organized into `user` CEL variable.
-  Refer to the [UserInfo](/docs/reference/generated/kubernetes-api/v{{< skew currentVersion >}}/#userinfo-v1-authentication-k8s-io) API documentation for the schema of `user`.
+  Refer to the [UserInfo](/docs/reference/generated/kubernetes-api/v{{< skew currentVersion >}}/#userinfo-v1-authentication-k8s-io)
+  API documentation for the schema of `user`.
+
 * Claim mapping expression
 
   `jwt.claimMappings.username.expression`, `jwt.claimMappings.groups.expression`, `jwt.claimMappings.uid.expression`
@@ -520,6 +532,7 @@ jwt:
   ```bash
   TOKEN=eyJhbGciOiJSUzI1NiIsImtpZCI6ImY3dF9tOEROWmFTQk1oWGw5QXZTWGhBUC04Y0JmZ0JVbFVpTG5oQkgxdXMiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJrdWJlcm5ldGVzIiwiZXhwIjoxNzAzMjMyOTQ5LCJpYXQiOjE3MDExMDcyMzMsImlzcyI6Imh0dHBzOi8vZXhhbXBsZS5jb20iLCJqdGkiOiI3YzMzNzk0MjgwN2U3M2NhYTJjMzBjODY4YWMwY2U5MTBiY2UwMmRkY2JmZWJlOGMyM2I4YjVmMjdhZDYyODczIiwibmJmIjoxNzAxMTA3MjMzLCJyb2xlcyI6InVzZXIsYWRtaW4iLCJzdWIiOiJhdXRoIiwidGVuYW50IjoiNzJmOTg4YmYtODZmMS00MWFmLTkxYWItMmQ3Y2QwMTFkYjRhIiwidXNlcm5hbWUiOiJmb28ifQ.TBWF2RkQHm4QQz85AYPcwLxSk-VLvQW-mNDHx7SEOSv9LVwcPYPuPajJpuQn9C_gKq1R94QKSQ5F6UgHMILz8OfmPKmX_00wpwwNVGeevJ79ieX2V-__W56iNR5gJ-i9nn6FYk5pwfVREB0l4HSlpTOmu80gbPWAXY5hLW0ZtcE1JTEEmefORHV2ge8e3jp1xGafNy6LdJWabYuKiw8d7Qga__HxtKB-t0kRMNzLRS7rka_SfQg0dSYektuxhLbiDkqhmRffGlQKXGVzUsuvFw7IGM5ZWnZgEMDzCI357obHeM3tRqpn5WRjtB8oM7JgnCymaJi-P3iCd88iu1xnzA
   ```
+
   where the token payload is:
 
   ```json
@@ -583,7 +596,9 @@ jwt:
   ```bash
   TOKEN=eyJhbGciOiJSUzI1NiIsImtpZCI6ImY3dF9tOEROWmFTQk1oWGw5QXZTWGhBUC04Y0JmZ0JVbFVpTG5oQkgxdXMiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJrdWJlcm5ldGVzIiwiZXhwIjoxNzAzMjMyOTQ5LCJpYXQiOjE3MDExMDcyMzMsImlzcyI6Imh0dHBzOi8vZXhhbXBsZS5jb20iLCJqdGkiOiI3YzMzNzk0MjgwN2U3M2NhYTJjMzBjODY4YWMwY2U5MTBiY2UwMmRkY2JmZWJlOGMyM2I4YjVmMjdhZDYyODczIiwibmJmIjoxNzAxMTA3MjMzLCJyb2xlcyI6InVzZXIsYWRtaW4iLCJzdWIiOiJhdXRoIiwidGVuYW50IjoiNzJmOTg4YmYtODZmMS00MWFmLTkxYWItMmQ3Y2QwMTFkYjRhIiwidXNlcm5hbWUiOiJmb28ifQ.TBWF2RkQHm4QQz85AYPcwLxSk-VLvQW-mNDHx7SEOSv9LVwcPYPuPajJpuQn9C_gKq1R94QKSQ5F6UgHMILz8OfmPKmX_00wpwwNVGeevJ79ieX2V-__W56iNR5gJ-i9nn6FYk5pwfVREB0l4HSlpTOmu80gbPWAXY5hLW0ZtcE1JTEEmefORHV2ge8e3jp1xGafNy6LdJWabYuKiw8d7Qga__HxtKB-t0kRMNzLRS7rka_SfQg0dSYektuxhLbiDkqhmRffGlQKXGVzUsuvFw7IGM5ZWnZgEMDzCI357obHeM3tRqpn5WRjtB8oM7JgnCymaJi-P3iCd88iu1xnzA
   ```
+
   where the token payload is:
+
   ```json
     {
       "aud": "kubernetes",
@@ -599,7 +614,8 @@ jwt:
     }
   ```
 
-  The token with the above `AuthenticationConfiguration` will fail to authenticate because the `hd` claim is not set to `example.com`. The API server will return `401 Unauthorized` error.
+  The token with the above `AuthenticationConfiguration` will fail to authenticate because the
+  `hd` claim is not set to `example.com`. The API server will return `401 Unauthorized` error.
   {{% /tab %}}
   {{% tab name="Fails user validation" %}}
   ```yaml
@@ -627,9 +643,11 @@ jwt:
     - expression: "!user.username.startsWith('system:')" # the username will be system:foo and expression will evaluate to false, so validation will fail.
       message: 'username cannot used reserved system: prefix'
   ```
+
   ```bash
   TOKEN=eyJhbGciOiJSUzI1NiIsImtpZCI6ImY3dF9tOEROWmFTQk1oWGw5QXZTWGhBUC04Y0JmZ0JVbFVpTG5oQkgxdXMiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJrdWJlcm5ldGVzIiwiZXhwIjoxNzAzMjMyOTQ5LCJoZCI6ImV4YW1wbGUuY29tIiwiaWF0IjoxNzAxMTEzMTAxLCJpc3MiOiJodHRwczovL2V4YW1wbGUuY29tIiwianRpIjoiYjViMDY1MjM3MmNkMjBlMzQ1YjZmZGZmY2RjMjE4MWY0YWZkNmYyNTlhYWI0YjdlMzU4ODEyMzdkMjkyMjBiYyIsIm5iZiI6MTcwMTExMzEwMSwicm9sZXMiOiJ1c2VyLGFkbWluIiwic3ViIjoiYXV0aCIsInRlbmFudCI6IjcyZjk4OGJmLTg2ZjEtNDFhZi05MWFiLTJkN2NkMDExZGI0YSIsInVzZXJuYW1lIjoiZm9vIn0.FgPJBYLobo9jnbHreooBlvpgEcSPWnKfX6dc0IvdlRB-F0dCcgy91oCJeK_aBk-8zH5AKUXoFTlInfLCkPivMOJqMECA1YTrMUwt_IVqwb116AqihfByUYIIqzMjvUbthtbpIeHQm2fF0HbrUqa_Q0uaYwgy8mD807h7sBcUMjNd215ff_nFIHss-9zegH8GI1d9fiBf-g6zjkR1j987EP748khpQh9IxPjMJbSgG_uH5x80YFuqgEWwq-aYJPQxXX6FatP96a2EAn7wfPpGlPRt0HcBOvq5pCnudgCgfVgiOJiLr_7robQu4T1bis0W75VPEvwWtgFcLnvcQx0JWg
   ```
+
   where the token payload is:
 
   ```json
@@ -663,7 +681,9 @@ jwt:
       }
   }
   ```
-  which will fail user validation because the username starts with `system:`. The API server will return `401 Unauthorized` error.
+
+  which will fail user validation because the username starts with `system:`.
+  The API server will return `401 Unauthorized` error.
   {{% /tab %}}
   {{< /tabs >}}
 
@@ -689,20 +709,20 @@ For an identity provider to work with Kubernetes it must:
    You can host the discovery endpoint at a different location than the issuer (such as locally in the cluster) and specify the
    `issuer.discoveryURL` in the configuration file.
 
-2. Run in TLS with non-obsolete ciphers
-3. Have a CA signed certificate (even if the CA is not a commercial CA or is self signed)
+1. Run in TLS with non-obsolete ciphers
+1. Have a CA signed certificate (even if the CA is not a commercial CA or is self signed)
 
-A note about requirement #3 above, requiring a CA signed certificate.  If you deploy your own
+A note about requirement #3 above, requiring a CA signed certificate. If you deploy your own
 identity provider (as opposed to one of the cloud providers like Google or Microsoft) you MUST
 have your identity provider's web server certificate signed by a certificate with the `CA` flag
-set to `TRUE`, even if it is self signed.  This is due to GoLang's TLS client implementation
+set to `TRUE`, even if it is self signed. This is due to GoLang's TLS client implementation
 being very strict to the standards around certificate validation. If you don't have a CA handy,
 you can use the [gencert script](https://github.com/dexidp/dex/blob/master/examples/k8s/gencert.sh)
 from the Dex team to create a simple CA and a signed certificate and key pair. Or you can use
 [this similar script](https://raw.githubusercontent.com/TremoloSecurity/openunison-qs-kubernetes/master/src/main/bash/makessl.sh)
 that generates SHA256 certs with a longer life and larger key size.
 
-Setup instructions for specific systems:
+Refer to setup instructions for specific systems:
 
 - [UAA](https://docs.cloudfoundry.org/concepts/architecture/uaa.html)
 - [Dex](https://dexidp.io/docs/kubernetes/)
@@ -765,7 +785,8 @@ and `client_secret` storing the new values for the `refresh_token` and `id_token
 
 ##### Option 2 - Use the `--token` Option
 
-The `kubectl` command lets you pass in a token using the `--token` option.  Copy and paste the `id_token` into this option:
+The `kubectl` command lets you pass in a token using the `--token` option.
+Copy and paste the `id_token` into this option:
 
 ```bash
 kubectl --token=eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL21sYi50cmVtb2xvLmxhbjo4MDQzL2F1dGgvaWRwL29pZGMiLCJhdWQiOiJrdWJlcm5ldGVzIiwiZXhwIjoxNDc0NTk2NjY5LCJqdGkiOiI2RDUzNXoxUEpFNjJOR3QxaWVyYm9RIiwiaWF0IjoxNDc0NTk2MzY5LCJuYmYiOjE0NzQ1OTYyNDksInN1YiI6Im13aW5kdSIsInVzZXJfcm9sZSI6WyJ1c2VycyIsIm5ldy1uYW1lc3BhY2Utdmlld2VyIl0sImVtYWlsIjoibXdpbmR1QG5vbW9yZWplZGkuY29tIn0.f2As579n9VNoaKzoF-dOQGmXkFKf1FMyNV0-va_B63jn-_n9LGSCca_6IVMP8pO-Zb4KvRqGyTP0r3HkHxYy5c81AnIh8ijarruczl-TK_yF5akjSTHFZD-0gRzlevBDiH8Q79NAr-ky0P4iIXS8lY9Vnjch5MF74Zx0c3alKJHJUnnpjIACByfF2SCaYzbWFMUNat-K1PaUk5-ujMBG7yYnr95xD-63n8CO8teGUAAEMx6zRjzfhnhbzX-ajwZLGwGUBT4WqjMs70-6a7_8gZmLZb2az1cZynkFRj2BaCkVT3A2RrjeEwZEtGXlMqKJ1_I2ulrOVsYx01_yD35-rw get nodes
@@ -1436,9 +1457,9 @@ to the plugin. Plugins should use the `spec.interactive` field of the input
 determine if `stdin` has been provided. A plugin's `stdin` requirements (i.e., whether
 `stdin` is optional, strictly required, or never used in order for the plugin
 to run successfully) is declared via the `user.exec.interactiveMode` field in the
-[kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) (see table
-below for valid values). The `user.exec.interactiveMode` field is optional in `client.authentication.k8s.io/v1beta1`
-and required in `client.authentication.k8s.io/v1`.
+[kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+(see table below for valid values). The `user.exec.interactiveMode` field is optional
+in `client.authentication.k8s.io/v1beta1` and required in `client.authentication.k8s.io/v1`.
 
 {{< table caption="interactiveMode values" >}}
 | `interactiveMode` Value | Meaning |
@@ -1613,15 +1634,17 @@ the Kubernetes API server fills the status with the user attributes and returns 
 
 Request example (the body would be a `SelfSubjectReview`):
 
-```
+```http
 POST /apis/authentication.k8s.io/v1/selfsubjectreviews
 ```
+
 ```json
 {
   "apiVersion": "authentication.k8s.io/v1",
   "kind": "SelfSubjectReview"
 }
 ```
+
 Response example:
 
 ```json

@@ -3,7 +3,6 @@ title: 垃圾收集
 content_type: concept
 weight: 70
 ---
-
 <!--
 title: Garbage Collection
 content_type: concept
@@ -105,7 +104,7 @@ You can check for that kind of Event by running
 -->
 在 1.20 及更高版本中，如果垃圾收集器检测到非法的跨名字空间 `ownerReference`，
 或者某集群作用域的依赖对象的 `ownerReference` 引用某名字空间作用域的类别，
-系统会生成一个警告事件，其原因为 `OwnerRefInvalidNamespace`，`involvedObject`
+系统会生成一个警告事件，其原因为 `OwnerRefInvalidNamespace` 和 `involvedObject`
 设置为非法的依赖对象。你可以通过运行
 `kubectl get events -A --field-selector=reason=OwnerRefInvalidNamespace`
 来检查是否存在这类事件。
@@ -201,8 +200,7 @@ to learn more.
 默认情况下，Kubernetes 使用后台级联删除方案，除非你手动设置了要使用前台删除，
 或者选择遗弃依赖对象。
 
-参阅[使用后台级联删除](/zh-cn/docs/tasks/administer-cluster/use-cascading-deletion/#use-background-cascading-deletion)
-以了解进一步的细节。
+参阅[使用后台级联删除](/zh-cn/docs/tasks/administer-cluster/use-cascading-deletion/#use-background-cascading-deletion)以了解进一步的细节。
 
 <!--
 ### Orphaned dependents
@@ -214,8 +212,8 @@ to override this behaviour, see [Delete owner objects and orphan dependents](/do
 ### 被遗弃的依赖对象    {#orphaned-dependents}
 
 当 Kubernetes 删除某个属主对象时，被留下来的依赖对象被称作被遗弃的（Orphaned）对象。
-默认情况下，Kubernetes 会删除依赖对象。要了解如何重载这种默认行为，可参阅
-[删除属主对象和遗弃依赖对象](/zh-cn/docs/tasks/administer-cluster/use-cascading-deletion/#set-orphan-deletion-policy)。
+默认情况下，Kubernetes 会删除依赖对象。要了解如何重载这种默认行为，
+可参阅[删除属主对象和遗弃依赖对象](/zh-cn/docs/tasks/administer-cluster/use-cascading-deletion/#set-orphan-deletion-policy)。
 
 <!--
 ## Garbage collection of unused containers and images {#containers-images}
@@ -239,8 +237,8 @@ and change the parameters related to garbage collection using the
 [`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/)
 resource type.
 -->
-要配置对未使用容器和镜像的垃圾收集选项，可以使用一个
-[配置文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)，基于
+要配置对未使用容器和镜像的垃圾收集选项，
+可以使用一个[配置文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)，基于
 [`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
 资源类型来调整与垃圾收集相关的 kubelet 行为。
 
@@ -292,16 +290,35 @@ To configure the setting, enable the `ImageMaximumGCAge`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the kubelet,
 and also set a value for the `ImageMaximumGCAge` field in the kubelet configuration file.
 -->
-请为 kubelet 启用 `ImageMaximumGCAge` 
+请为 kubelet 启用 `ImageMaximumGCAge`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
 并在 kubelet 配置文件中为 `ImageMaximumGCAge` 字段赋值来配置该设置。
 
 <!--
-The value is specified as a Kubernetes _duration_; for example, you can set the configuration
-field to `3d12h`, which means 3 days and 12 hours.
+The value is specified as a Kubernetes _duration_; 
+Valid time units for the `ImageMaximumGCAge` field in the kubelet configuration file are:
+- "ns" for nanoseconds
+- "us" or "µs" for microseconds
+- "ms" for milliseconds
+- "s" for seconds
+- "m" for minutes
+- "h" for hours
 -->
-该值应遵循 Kubernetes __持续时间（Duration）__ 格式；例如，你可以将配置字段设置为 `3d12h`，
-代表 3 天 12 小时。
+该值应遵循 Kubernetes **持续时间（Duration）** 格式；
+在 kubelet 配置文件中，`ImageMaximumGCAge` 字段的有效时间单位如下：
+
+- "ns" 表示纳秒
+- "us" 或 "µs" 表示微秒
+- "ms" 表示毫秒
+- "s" 表示秒
+- "m" 表示分钟
+- "h" 表示小时
+
+<!--
+For example, you can set the configuration field to `12h45m`,
+which means 12 hours and 45 minutes.
+-->
+例如，你可以将配置字段设置为 `12h45m`，代表 12 小时 45 分钟。
 
 {{< note >}}
 <!--

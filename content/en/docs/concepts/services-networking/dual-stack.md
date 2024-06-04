@@ -91,9 +91,8 @@ set the `.spec.ipFamilyPolicy` field to one of the following values:
 
 * `SingleStack`: Single-stack service. The control plane allocates a cluster IP for the Service,
   using the first configured service cluster IP range.
-* `PreferDualStack`:
-  * Allocates IPv4 and IPv6 cluster IPs for the Service.
-* `RequireDualStack`: Allocates Service `.spec.ClusterIPs` from both IPv4 and IPv6 address ranges.
+* `PreferDualStack`: Allocates both IPv4 and IPv6 cluster IPs for the Service when dual-stack is enabled. If dual-stack is not enabled or supported, it falls back to single-stack behavior.
+* `RequireDualStack`: Allocates Service `.spec.clusterIPs` from both IPv4 and IPv6 address ranges when dual-stack is enabled. If dual-stack is not enabled or supported, the Service API object creation fails.
   * Selects the `.spec.ClusterIP` from the list of `.spec.ClusterIPs` based on the address family
     of the first element in the `.spec.ipFamilies` array.
 
