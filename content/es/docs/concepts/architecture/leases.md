@@ -1,5 +1,5 @@
 ---
-title: Arrendamientos
+title: Leases
 api_metadata:
 - apiVersion: "coordination.k8s.io/v1"
   kind: "Lease"
@@ -9,9 +9,9 @@ weight: 30
 
 <!-- overview -->
 
-Los sistemas distribuidos suelen necesitar _arrendamientos_, que proporcionan un mecanismo para bloquear recursos compartidos
+Los sistemas distribuidos suelen necesitar _leases_, que proporcionan un mecanismo para bloquear recursos compartidos
 y coordinar la actividad entre los miembros de un conjunto.
-En Kubernetes, el concepto de arrendamiento está representado por objetos [Lease](/docs/reference/kubernetes-api/cluster-resources/lease-v1/)
+En Kubernetes, el concepto de lease (arrendamiento) está representado por objetos [Lease](/docs/reference/kubernetes-api/cluster-resources/lease-v1/)
 en el {{< glossary_tooltip text="grupo API" term_id="api-group" >}} de `coordination.k8s.io`,
 que se utilizan para capacidades críticas del sistema, como los heartbeats del nodo y la elección del líder a nivel de componente.
 <!-- body -->
