@@ -58,6 +58,7 @@ apiserver-1dfef752bcb36637d2763d1868        apiserver-1dfef752bcb36637d2763d1868
 
 ```
 
+
 El hash SHA256 utilizado en el nombre del lease se basa en el nombre de host del sistema operativo visto por ese servidor API. Cada kube-apiserver debe ser
 configurado para utilizar un nombre de host que es único dentro del clúster. Las nuevas instancias de kube-apiserver que utilizan el mismo nombre de host
 asumirán los leases existentes utilizando una nueva identidad de titular, en lugar de instanciar nuevos objetos leases. Puedes comprobar el
