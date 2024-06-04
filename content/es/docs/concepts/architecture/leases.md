@@ -27,6 +27,7 @@ para determinar la disponibilidad de este «Nodo».
 Ve [Objetos Lease de nodos](/docs/concepts/architecture/nodes/#heartbeats) para más detalles.
 
 ## Elección del líder
+
 Kubernetes también utiliza Leases para asegurar que sólo una instancia de un componente se está ejecutando en un momento dado.
 Esto lo utilizan componentes del plano de control como `kube-controller-manager` y `kube-scheduler` en configuraciones de
 HA, donde sólo una instancia del componente debe estar ejecutándose activamente mientras las otras 
