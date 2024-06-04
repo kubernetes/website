@@ -3,8 +3,12 @@ title: " Request Routing and Policy Management with the Istio Service Mesh "
 date: 2017-10-10
 slug: request-routing-and-policy-management
 url: /blog/2017/10/Request-Routing-And-Policy-Management
+author: >
+  Frank Budinsky (IBM),
+  Andra Cismaru (Google),
+  Israel Shalom (Google)
 ---
- **_Editor's note: Today’s post by Frank Budinsky, Software Engineer, IBM, Andra Cismaru, Software Engineer, Google, and Israel Shalom, Product Manager, Google, is the second post in a three-part series on Istio. It offers a closer look at request routing and policy management._**  
+_**Editor's note:** Today’s post is the second post in a three-part series on Istio._
 
 In a [previous article](https://kubernetes.io/blog/2017/05/managing-microservices-with-istio-service-mesh), we looked at a [simple application (Bookinfo)](https://istio.io/docs/guides/bookinfo.html) that is composed of four separate microservices. The article showed how to deploy an application with Kubernetes and an Istio-enabled cluster without changing any application code. The article also outlined how to view Istio provided L7 metrics on the running services.  
 
