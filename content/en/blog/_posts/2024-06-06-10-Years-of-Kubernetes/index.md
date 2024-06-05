@@ -18,7 +18,7 @@ This milestone isn't just for Kubernetes but for the Cloud Native ecosystem that
 
 ## Kubernetes' Beginnings - a converging of technologies
 
-The ideas underlying Kubernetes started well before the first commit, or even the first prototype ([which came about in 2013](https://kubernetes.io/blog/2018/07/20/the-history-of-kubernetes-the-community-behind-it/)). In the early 2000s, Moore's Law was well in effect. Computing Hardware was becoming more and more powerful at an incredibly fast rate. Correspondingly, applications were growing more and more complex. This combination of hardware commoditization and application complexity pointed to a need to further abstract software from hardware, and solutions started to emerge.
+The ideas underlying Kubernetes started well before the first commit, or even the first prototype ([which came about in 2013](/blog/2018/07/20/the-history-of-kubernetes-the-community-behind-it/)). In the early 2000s, Moore's Law was well in effect. Computing hardware was becoming more and more powerful at an incredibly fast rate. Correspondingly, applications were growing more and more complex. This combination of hardware commoditization and application complexity pointed to a need to further abstract software from hardware, and solutions started to emerge.
 
 Like many companies at the time, Google was scaling rapidly, and its engineers were interested in the idea of creating a form of isolation in the Linux kernel. Google engineer Rohit Seth described the concept in an [email in 2006](https://lwn.net/Articles/199643/),  "We use the term container to indicate a structure against which we track and charge utilization of system resources like memory, tasks, etc. for a Workload." Over the following years, the concepts of Linux cgroups and namespaces were added to the kernel. Google used this new open source functionality in its system for managing application orchestration across its fleets of Linux machines. This system was called "Borg."
 
@@ -32,27 +32,27 @@ Kubernetes' history begins with that historic commit on June 6th, 2014, and the 
 
 Despite reaching 1.0, the Kubernetes project was still very challenging to use and understand. Kubernetes contributor Kelsey Hightower took special note of the project's shortcomings in ease of use and on July 7, 2016, he pushed the [first commit of his famed "Kubernetes the Hard Way" guide](https://github.com/kelseyhightower/kubernetes-the-hard-way/commit/9d7ace8b186f6ebd2e93e08265f3530ec2fba81c).
 
-The project has changed enormously since its original 1.0 release; experiencing a number of big wins such as [Custom Resource Definitions (CRD) going GA in 1.16](https://kubernetes.io/blog/2019/09/18/kubernetes-1-16-release-announcement/) or [full dual stack support launching in 1.23](https://kubernetes.io/blog/2021/12/08/dual-stack-networking-ga/) and community "lessons learned" from the [removal of widely used beta APIs in 1.22](https://kubernetes.io/blog/2021/07/14/upcoming-changes-in-kubernetes-1-22/) or the deprecation of [Dockershim](https://kubernetes.io/blog/2020/12/02/dockershim-faq/).
+The project has changed enormously since its original 1.0 release; experiencing a number of big wins such as [Custom Resource Definitions (CRD) going GA in 1.16](/blog/2019/09/18/kubernetes-1-16-release-announcement/) or [full dual stack support launching in 1.23](/blog/2021/12/08/dual-stack-networking-ga/) and community "lessons learned" from the [removal of widely used beta APIs in 1.22](/blog/2021/07/14/upcoming-changes-in-kubernetes-1-22/) or the deprecation of [Dockershim](/blog/2020/12/02/dockershim-faq/).
 
 Some notable updates, milestones and events since 1.0 include:
 
-* December 2016 - [Kubernetes 1.5](https://kubernetes.io/blog/2016/12/kubernetes-1-5-supporting-production-workloads/)introduces runtime pluggability with initial CRI support and alpha Windows node support. OpenAPI also appears for the first time, paving the way for clients to be able to discover extension APIs.
+* December 2016 - [Kubernetes 1.5](/blog/2016/12/kubernetes-1-5-supporting-production-workloads/)introduces runtime pluggability with initial CRI support and alpha Windows node support. OpenAPI also appears for the first time, paving the way for clients to be able to discover extension APIs.
   * This release also introduced StatefulSets and Pod Disruption Budgets in Beta.
-* April 2017 - [Introduction of Role-Based Access Controls or RBAC](https://kubernetes.io/blog/2017/04/rbac-support-in-kubernetes/).
-* June 2017 - In [Kubernetes 1.7](https://kubernetes.io/blog/2017/06/kubernetes-1-7-security-hardening-stateful-application-extensibility-updates/), Third Party Resources or "TPRs" are replaced with Custom Resource Definitions (CRDs)
-* December 2017 - [Kubernetes 1.9](https://kubernetes.io/blog/2017/12/kubernetes-19-workloads-expanded-ecosystem/) sees the Workloads API becoming GA (Generally Available). The release blog states: "Deployment and ReplicaSet, two of the most commonly used objects in Kubernetes, are now stabilized after more than a year of real-world use and feedback."
-* December 2018 - In 1.13, the Container Storage Interface (CSI) reaches GA, kubeadm tool for bootstrapping minimum viable clusters reaches GA, and CoreDNS becomes the default DNS server.
-* September 2019 - [Custom Resource Definitions go GA](https://kubernetes.io/blog/2019/09/18/kubernetes-1-16-release-announcement/)in Kubernetes 1.16.
-* August 2020 - [Kubernetes 1.19](https://kubernetes.io/blog/2016/12/kubernetes-1-5-supporting-production-workloads/) increases the support window for releases to 1 year.
-* December 2020 - [Dockershim is deprecated in 1.20](https://kubernetes.io/blog/2020/12/18/kubernetes-1.20-pod-impersonation-short-lived-volumes-in-csi/)
-* April 2021 - the [Kubernetes release cadence changes](https://kubernetes.io/blog/2021/07/20/new-kubernetes-release-cadence/#:~:text=On%20April%2023%2C%202021%2C%20the,Kubernetes%20community's%20contributors%20and%20maintainers.) from 4 releases per year to 3 releases per year.
-* July 2021 - [Widely used beta APIs are removed in Kubernetes 1.22](https://kubernetes.io/blog/2021/07/14/upcoming-changes-in-kubernetes-1-22/).
-* May 2022 - Kubernetes 1.24 sees  [beta APIs become disabled by default](https://kubernetes.io/blog/2022/05/03/kubernetes-1-24-release-announcement/) to reduce upgrade conflicts and removal of [Dockershim](https://kubernetes.io/blog/2020/12/02/dockershim-faq/), leading to [widespread user confusion](https://www.youtube.com/watch?v=a03Hh1kd6KE) (we've since [improved our communication!](https://github.com/kubernetes/community/tree/master/communication/contributor-comms))
-* December 2022 — In 1.26, there was a significant batch and  [job API overhaul](https://kubernetes.io/blog/2022/12/29/scalable-job-tracking-ga/) that paved the way for better support for AI/ML/Batch workloads.
+* April 2017 — [Introduction of Role-Based Access Controls or RBAC](/blog/2017/04/rbac-support-in-kubernetes/).
+* June 2017 — In [Kubernetes 1.7](/blog/2017/06/kubernetes-1-7-security-hardening-stateful-application-extensibility-updates/), Third Party Resources or "TPRs" are replaced with Custom Resource Definitions (CRDs).
+* December 2017 — [Kubernetes 1.9](/blog/2017/12/kubernetes-19-workloads-expanded-ecosystem/) sees the Workloads API becoming GA (Generally Available). The release blog states: _"Deployment and ReplicaSet, two of the most commonly used objects in Kubernetes, are now stabilized after more than a year of real-world use and feedback."_
+* December 2018 — In 1.13, the Container Storage Interface (CSI) reaches GA, kubeadm tool for bootstrapping minimum viable clusters reaches GA, and CoreDNS becomes the default DNS server.
+* September 2019 — [Custom Resource Definitions go GA](/blog/2019/09/18/kubernetes-1-16-release-announcement/)in Kubernetes 1.16.
+* August 2020 — [Kubernetes 1.19](/blog/2016/12/kubernetes-1-5-supporting-production-workloads/) increases the support window for releases to 1 year.
+* December 2020 — [Dockershim is deprecated](https://kubernetes.io/blog/2020/12/18/kubernetes-1.20-pod-impersonation-short-lived-volumes-in-csi/)  in 1.20
+* April 2021 — the [Kubernetes release cadence changes](/blog/2021/07/20/new-kubernetes-release-cadence/#:~:text=On%20April%2023%2C%202021%2C%20the,Kubernetes%20community's%20contributors%20and%20maintainers.) from 4 releases per year to 3 releases per year.
+* July 2021 — Widely used beta APIs are [removed](/blog/2021/07/14/upcoming-changes-in-kubernetes-1-22/)  in Kubernetes 1.22.
+* May 2022 — Kubernetes 1.24 sees  [beta APIs become disabled by default](/blog/2022/05/03/kubernetes-1-24-release-announcement/) to reduce upgrade conflicts and removal of [Dockershim](/dockershim), leading to [widespread user confusion](https://www.youtube.com/watch?v=a03Hh1kd6KE) (we've since [improved our communication!](https://github.com/kubernetes/community/tree/master/communication/contributor-comms))
+* December 2022 — In 1.26, there was a significant batch and  [Job API overhaul](/blog/2022/12/29/scalable-job-tracking-ga/) that paved the way for better support for AI  /ML / batch workloads.
 
 **PS:** Curious to see how far the project has come for yourself? Check out [this tutorial for spinning up a Kubernetes 1.0 cluster](https://github.com/spurin/kubernetes-v1.0-lab) created by community members Carlos Santana, Amim Moises Salum Knabben, and James Spurin.
 
-Kubernetes offers more extension points than we can count. Originally designed to work with Docker and only Docker, now you can plug in any container runtime that adheres to the CRI standard. There are other similar interfaces: CSI for storage and CNI for networking. And that's far from all you can do. In the last decade, whole new patterns have emerged, such as using [Custom Resource Definitions (CRDs)](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) to support third-party controllers - now a huge part of the Kubernetes ecosystem.
+Kubernetes offers more extension points than we can count. Originally designed to work with Docker and only Docker, now you can plug in any container runtime that adheres to the CRI standard. There are other similar interfaces: CSI for storage and CNI for networking. And that's far from all you can do. In the last decade, whole new patterns have emerged, such as using [Custom Resource Definitions](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)  (CRDs) to support third-party controllers - now a huge part of the Kubernetes ecosystem.
 
 The community building the project has also expanded immensely over the last decade. Using [DevStats](https://k8s.devstats.cncf.io/d/24/overall-project-statistics?orgId=1), we can see the incredible volume of contribution over the last decade that has made Kubernetes the [second-largest open source project in the world](https://www.cncf.io/reports/kubernetes-project-journey-report/):
 
@@ -62,7 +62,7 @@ The community building the project has also expanded immensely over the last dec
 * 158,530 issues
 * 311,787 pull requests
 
-## Kubernetes Today
+## Kubernetes today
 
 Since its early days, the project has seen enormous growth in technical capability, usage, and contribution. The project is still actively working to improve and better serve its users.
 
@@ -70,7 +70,7 @@ In the upcoming 1.31 release, the project will celebrate the culmination of an i
 
 Kubernetes also faces new challenges in serving its vast user base, and the community is adapting accordingly. One example of this is the migration of image hosting to the new, community-owned registry.k8s.io. The egress bandwidth and costs of providing pre-compiled binary images for user consumption have become immense. This new registry change enables the community to continue providing these convenient images in more cost- and performance-efficient ways. Make sure you check out the [blog post](https://kubernetes.io/blog/2022/11/28/registry-k8s-io-faster-cheaper-ga/) and update any automation you have to use registry.k8s.io!
 
-## The Future of Kubernetes
+## The future of Kubernetes
 
 A decade in, the future of Kubernetes still looks bright. The community is prioritizing changes that both improve the user experiences, and enhance the sustainability of the project. The world of application development continues to evolve, and Kubernetes is poised to change along with it.
 
