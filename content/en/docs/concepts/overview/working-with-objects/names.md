@@ -74,6 +74,24 @@ start with a digit, whereas RFC 1035 labels can start
 with a lowercase alphabetic character only.
 {{< /note >}}
 
+### RFC 6335 Label Names
+
+Some resource types require their names to follow the DNS
+label standard as defined in [RFC 6335](https://tools.ietf.org/html/rfc6335) (e.g. Service Port names).
+This means the name must:
+
+- contain at most 15 characters
+- contain only lowercase alphanumeric characters or '-'
+- start with an alphabetic character
+- end with an alphanumeric character
+
+{{< note >}}
+The only difference between the RFC 1035 and RFC 6335
+label standards is that RFC 1035 labels are allowed to
+contain at most 63 characters, whereas RFC 6335 labels
+can only contain at 15 characters.
+{{< /note >}}
+
 ### Path Segment Names
 
 Some resource types require their names to be able to be safely encoded as a
