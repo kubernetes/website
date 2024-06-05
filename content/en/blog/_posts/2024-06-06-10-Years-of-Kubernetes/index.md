@@ -4,8 +4,12 @@ title: "10 Years of Kubernetes"
 date: 2024-06-06
 slug: 10-years-of-kubernetes
 author: >
-  [Bob Killen](https://github.com/mybobbytables) (Google),
-  and many others
+  [Bob Killen](https://github.com/mybobbytables) (CNCF),
+  [Chris Short](https://github.com/chris-short) (AWS),
+  [Frederico Muñoz](https://github.com/fsmunoz) (SAS),
+  [Kaslin Fields](https://github.com/kaslin) (Google),
+  [Tim Bannister](https://github.com/sftim) (The Scale Factory),
+  and every contributor across the globe
 ---
 
 Ten (10) years ago, on June 6th, 2014, the [first commit](https://github.com/kubernetes/kubernetes/commit/2c4b3a562ce34cddc3f8218a2c4d11c7310e6d56) of Kubernetes was pushed to GitHub. That first commit with 250 files and 47,501 lines of go, bash and markdown kicked off the project we have today. Who could have predicted that 10 years later, Kubernetes would grow to become one of the largest Open Source projects to date with over [88,000 contributors](https://k8s.devstats.cncf.io/d/24/overall-project-statistics?orgId=1) from more than [8,000 companies](https://www.cncf.io/reports/kubernetes-project-journey-report/), across 44 countries.
