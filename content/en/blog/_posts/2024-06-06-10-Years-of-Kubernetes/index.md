@@ -11,6 +11,7 @@ author: >
   [Tim Bannister](https://github.com/sftim) (The Scale Factory),
   and every contributor across the globe
 ---
+![KCSEU 2024 group photo](kcseu2024.jpg)
 
 Ten (10) years ago, on June 6th, 2014, the
 [first commit](https://github.com/kubernetes/kubernetes/commit/2c4b3a562ce34cddc3f8218a2c4d11c7310e6d56)
@@ -20,6 +21,8 @@ Kubernetes would grow to become one of the largest Open Source projects to date 
 [88,000 contributors](https://k8s.devstats.cncf.io/d/24/overall-project-statistics?orgId=1) from
 more than [8,000 companies](https://www.cncf.io/reports/kubernetes-project-journey-report/), across
 44 countries.
+
+{{< figure src="kcscn2019.jpg" alt="KCSCN 2019" class="left" width="200px" >}}
 
 This milestone isn't just for Kubernetes but for the Cloud Native ecosystem that blossomed from
 it. There are close to [200 projects](https://all.devstats.cncf.io/d/18/overall-project-statistics-table?orgId=1)
@@ -57,10 +60,9 @@ become **Kubernetes**. That team included Joe Beda, Brendan Burns, Craig McLucki
 Hockin, Dawn Chen, Brian Grant, and Daniel Smith.
 
 
+{{< figure src="future.png" alt="The future of Linux containers" class="right" width="300px" >}}
 In March of 2013, a 5-minute lightning talk called
-
 ["The future of Linux Containers," presented by Solomon Hykes at PyCon](https://youtu.be/wW9CAH9nSLs?si=VtK_VFQHymOT7BIB),
-
 introduced an upcoming open source tool called "Docker" for creating and using Linux
 Containers. Docker introduced a level of usability to Linux Containers that made them accessible to
 more users than ever before, and the popularity of Docker, and thus of Linux Containers,
@@ -80,6 +82,8 @@ later become **Kubernetes**. That team included Joe Beda, Brendan Burns, Craig M
 Aikas, Tim Hockin, Dawn Chen, Brian Grant, and Daniel Smith.
 
 ## A decade of Kubernetes
+
+{{< figure src="kubeconeu2017.jpg" alt="KubeCon EU 2017" class="left" width="300px">}}
 
 Kubernetes' history begins with that historic commit on June 6th, 2014, and the subsequent
 announcement of the project in a June 10th
@@ -144,6 +148,8 @@ incredible volume of contribution over the last decade that has made Kubernetes 
 
 ## Kubernetes today
 
+{{< figure src="welcome" alt="KubeCon NA 2023" class="left" width="300px" >}}
+
 Since its early days, the project has seen enormous growth in technical capability, usage, and
 contribution. The project is still actively working to improve and better serve its users.
 
@@ -167,6 +173,8 @@ out the [blog post](https://kubernetes.io/blog/2022/11/28/registry-k8s-io-faster
 update any automation you have to use registry.k8s.io!
 
 ## The future of Kubernetes
+
+{{< figure src="lts.jpg" alt="" class="right" width="300px" >}}
 
 A decade in, the future of Kubernetes still looks bright. The community is prioritizing changes that
 both improve the user experiences, and enhance the sustainability of the project. The world of
@@ -193,3 +201,5 @@ information about contributing in our New Contributor Guide at
 [https://k8s.dev/contributors](https://k8s.dev/contributors).
 
 We look forward to building the future of Kubernetes with you!
+
+{{< figure src="kcsna2023.jpg" alt="KCSNA 2023">}}
