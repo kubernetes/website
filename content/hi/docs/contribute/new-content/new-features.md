@@ -7,7 +7,7 @@ weight: 20
 card:
   name: contribute
   weight: 45
-  title:  Documenting a feature for a release
+  title: रिलीज़ के लिए प्रलेखीकरण
 ---
 <!-- overview -->
 
