@@ -56,11 +56,11 @@ Kubernetes offers more extension points than we can count. Originally designed t
 
 The community building the project has also expanded immensely over the last decade. Using [DevStats](https://k8s.devstats.cncf.io/d/24/overall-project-statistics?orgId=1), we can see the incredible volume of contribution over the last decade that has made Kubernetes the [second-largest open source project in the world](https://www.cncf.io/reports/kubernetes-project-journey-report/):
 
-* 88,474 contributors
-* 15,121 code committers
-* 4,228,347 contributions
-* 158,530 issues
-* 311,787 pull requests
+* **88,474** contributors
+* **15,121** code committers
+* **4,228,347** contributions
+* **158,530** issues
+* **311,787** pull requests
 
 ## Kubernetes today
 
