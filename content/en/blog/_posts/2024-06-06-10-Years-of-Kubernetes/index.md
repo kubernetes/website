@@ -50,7 +50,7 @@ Some notable updates, milestones and events since 1.0 include:
 * May 2022 — Kubernetes 1.24 sees  [beta APIs become disabled by default](/blog/2022/05/03/kubernetes-1-24-release-announcement/) to reduce upgrade conflicts and removal of [Dockershim](/dockershim), leading to [widespread user confusion](https://www.youtube.com/watch?v=a03Hh1kd6KE) (we've since [improved our communication!](https://github.com/kubernetes/community/tree/master/communication/contributor-comms))
 * December 2022 — In 1.26, there was a significant batch and  [Job API overhaul](/blog/2022/12/29/scalable-job-tracking-ga/) that paved the way for better support for AI  /ML / batch workloads.
 
-**PS:** Curious to see how far the project has come for yourself? Check out [this tutorial for spinning up a Kubernetes 1.0 cluster](https://github.com/spurin/kubernetes-v1.0-lab) created by community members Carlos Santana, Amim Moises Salum Knabben, and James Spurin.
+**PS:** Curious to see how far the project has come for yourself? Check out this [tutorial for spinning up a Kubernetes 1.0 cluster](https://github.com/spurin/kubernetes-v1.0-lab) created by community members Carlos Santana, Amim Moises Salum Knabben, and James Spurin.
 
 Kubernetes offers more extension points than we can count. Originally designed to work with Docker and only Docker, now you can plug in any container runtime that adheres to the CRI standard. There are other similar interfaces: CSI for storage and CNI for networking. And that's far from all you can do. In the last decade, whole new patterns have emerged, such as using [Custom Resource Definitions](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)  (CRDs) to support third-party controllers - now a huge part of the Kubernetes ecosystem.
 
