@@ -48,18 +48,6 @@ the concept in an [email in 2006](https://lwn.net/Articles/199643/):
 > We use the term container to indicate a structure against which we track and charge utilization of
 system resources like memory, tasks, etc. for a Workload.
 
-
-Google's Borg system for managing application orchestration at scale had adopted Linux containers as
-they were developed in the mid-2000s. Since then, the company had also started working on a new
-version of the system called "Omega." Engineers at Google who were familiar with the Borg and Omega
-systems saw the popularity of containerization driven by Docker. They recognized not only the need
-for an open source container orchestration system but its "inevitability," as described by Brendan
-Burns in this [blog post](/blog/2018/07/20/the-history-of-kubernetes-the-community-behind-it/). That
-realization in the fall of 2013 inspired a small team to start working on a project that would later
-become **Kubernetes**. That team included Joe Beda, Brendan Burns, Craig McLuckie, Ville Aikas, Tim
-Hockin, Dawn Chen, Brian Grant, and Daniel Smith.
-
-
 <img src="future.png" alt="The future of Linux containers" class="right" style="max-width: 20em; margin: 1em">
 
 In March of 2013, a 5-minute lightning talk called
