@@ -1,0 +1,31 @@
+{{- $shouldShowBirthdayBanner := false -}}
+{{- $now := time.Now -}}
+{{- with site.GetPage "page" "community/special/kubernetes-10th-birthday" -}}
+  {{- if and (lt ( (.Param "display_date_start") | time.AsTime ) $now ) (gt ( (.Param "display_date_end") | time.AsTime ) ( $now.AddDate 0 0 1 ) ) -}}
+    {{- $shouldShowBirthdayBanner = true -}}
+    {{- warnf "%s" "It's Kubernetes' birthday, fingers crossed this renders OK" -}}
+    {{- with resources.Get "images/k8s-10th-birthday.svg" -}}
+    {{- else -}}
+      {{- errorf "%s" "Birthday banner image missing" -}}
+    {{- end -}}
+  {{ end }}
+{{- end -}}
+{{- if $shouldShowBirthdayBanner -}}
+<section id="{{ .id }}" class="k8s-birthday-override">
+  <div class="k8s-birthday-wrapper">
+      <p>{{ "2014-06-06" | time.AsTime | time.Format ":date_long" }}</p>
+  {{- with site.GetPage "page" "community/special/kubernetes-10th-birthday" -}}
+  <img src="{{ with resources.Get "images/k8s-10th-birthday.svg" }}{{ .RelPermalink }}{{ end }}" class="birthday-banner" title="{{ .Title | markdownify }}" alt="{{ .Content }}" ></img>
+  {{- else -}}
+    {{- errorf "%s" "10th Birthday content missing" -}}
+  {{- end -}}
+  <p>{{ printf "%s-06-06" ( time.Format "2006" $now ) | time.AsTime | time.Format ":date_long" }}</p>
+  </div>
+  <div class="k8s-birthday-override revert-to-previous">
+      <form><label for="skip-birthday-details">{{ T "k8s_birthday_show_original_content" }}</label><input type=checkbox id="skip-birthday-details"></form>
+  </div>
+</section>
+{{- end -}}
+<section id="{{ .id }}"{{ with .class }} class="{{ . }}"{{ end }}>
+  {{ .inner }}
+</section>
