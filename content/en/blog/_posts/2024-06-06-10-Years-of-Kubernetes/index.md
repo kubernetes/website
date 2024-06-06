@@ -77,7 +77,7 @@ version of the system called "Omega." Engineers at Google who were familiar with
 systems saw the popularity of containerization driven by Docker. They recognized not only the need
 for an open source container orchestration system but its "inevitability," as described by Brendan
 Burns in
-[this blog post](https://kubernetes.io/blog/2018/07/20/the-history-of-kubernetes-the-community-behind-it/).
+[this blog post](/blog/2018/07/20/the-history-of-kubernetes-the-community-behind-it/).
 That realization in the fall of 2013 inspired a small team to start working on a project that would
 later become **Kubernetes**. That team included Joe Beda, Brendan Burns, Craig McLuckie, Ville
 Aikas, Tim Hockin, Dawn Chen, Brian Grant, and Daniel Smith.
@@ -113,20 +113,22 @@ or the deprecation of [Dockershim](/blog/2020/12/02/dockershim-faq/).
 Some notable updates, milestones and events since 1.0 include:
 
 * December 2016 - [Kubernetes 1.5](/blog/2016/12/kubernetes-1-5-supporting-production-workloads/)introduces runtime pluggability with initial CRI support and alpha Windows node support. OpenAPI also appears for the first time, paving the way for clients to be able to discover extension APIs.
-  * This release also introduced StatefulSets and Pod Disruption Budgets in Beta.
+  * This release also introduced StatefulSets and PodDisruptionBudgets in Beta.
 * April 2017 — [Introduction of Role-Based Access Controls or RBAC](/blog/2017/04/rbac-support-in-kubernetes/).
-* June 2017 — In [Kubernetes 1.7](/blog/2017/06/kubernetes-1-7-security-hardening-stateful-application-extensibility-updates/), Third Party Resources or "TPRs" are replaced with Custom Resource Definitions (CRDs).
+* June 2017 — In [Kubernetes 1.7](/blog/2017/06/kubernetes-1-7-security-hardening-stateful-application-extensibility-updates/), ThirdPartyResources or "TPRs" are replaced with CustomResourceDefinitions (CRDs).
 * December 2017 — [Kubernetes 1.9](/blog/2017/12/kubernetes-19-workloads-expanded-ecosystem/) sees the Workloads API becoming GA (Generally Available). The release blog states: _"Deployment and ReplicaSet, two of the most commonly used objects in Kubernetes, are now stabilized after more than a year of real-world use and feedback."_
 * December 2018 — In 1.13, the Container Storage Interface (CSI) reaches GA, kubeadm tool for bootstrapping minimum viable clusters reaches GA, and CoreDNS becomes the default DNS server.
 * September 2019 — [Custom Resource Definitions go GA](/blog/2019/09/18/kubernetes-1-16-release-announcement/)in Kubernetes 1.16.
 * August 2020 — [Kubernetes 1.19](/blog/2016/12/kubernetes-1-5-supporting-production-workloads/) increases the support window for releases to 1 year.
-* December 2020 — [Dockershim is deprecated](https://kubernetes.io/blog/2020/12/18/kubernetes-1.20-pod-impersonation-short-lived-volumes-in-csi/)  in 1.20
+* December 2020 — [Dockershim is deprecated](/blog/2020/12/18/kubernetes-1.20-pod-impersonation-short-lived-volumes-in-csi/)  in 1.20
 * April 2021 — the [Kubernetes release cadence changes](/blog/2021/07/20/new-kubernetes-release-cadence/#:~:text=On%20April%2023%2C%202021%2C%20the,Kubernetes%20community's%20contributors%20and%20maintainers.) from 4 releases per year to 3 releases per year.
 * July 2021 — Widely used beta APIs are [removed](/blog/2021/07/14/upcoming-changes-in-kubernetes-1-22/)  in Kubernetes 1.22.
 * May 2022 — Kubernetes 1.24 sees  [beta APIs become disabled by default](/blog/2022/05/03/kubernetes-1-24-release-announcement/) to reduce upgrade conflicts and removal of [Dockershim](/dockershim), leading to [widespread user confusion](https://www.youtube.com/watch?v=a03Hh1kd6KE) (we've since [improved our communication!](https://github.com/kubernetes/community/tree/master/communication/contributor-comms))
 * December 2022 — In 1.26, there was a significant batch and  [Job API overhaul](/blog/2022/12/29/scalable-job-tracking-ga/) that paved the way for better support for AI  /ML / batch workloads.
 
 **PS:** Curious to see how far the project has come for yourself? Check out this [tutorial for spinning up a Kubernetes 1.0 cluster](https://github.com/spurin/kubernetes-v1.0-lab) created by community members Carlos Santana, Amim Moises Salum Knabben, and James Spurin.
+
+---
 
 Kubernetes offers more extension points than we can count. Originally designed to work with Docker
 and only Docker, now you can plug in any container runtime that adheres to the CRI standard. There
@@ -156,7 +158,7 @@ contribution. The project is still actively working to improve and better serve 
 
 In the upcoming 1.31 release, the project will celebrate the culmination of an important long-term
 project: the removal of in-tree cloud provider code. In this
-[largest migration in Kubernetes history](https://kubernetes.io/blog/2024/05/20/completing-cloud-provider-migration/),
+[largest migration in Kubernetes history](/blog/2024/05/20/completing-cloud-provider-migration/),
 roughly 1.5 million lines of code have been removed, reducing the binary sizes of core components
 by approximately 40%. In the project's early days, it was clear that extensibility would be key to
 success. However, it wasn't always clear how that extensibility should be achieved. This migration
@@ -170,7 +172,7 @@ accordingly. One example of this is the migration of image hosting to the new, c
 registry.k8s.io. The egress bandwidth and costs of providing pre-compiled binary images for user
 consumption have become immense. This new registry change enables the community to continue
 providing these convenient images in more cost- and performance-efficient ways. Make sure you check
-out the [blog post](https://kubernetes.io/blog/2022/11/28/registry-k8s-io-faster-cheaper-ga/) and
+out the [blog post](/blog/2022/11/28/registry-k8s-io-faster-cheaper-ga/) and
 update any automation you have to use registry.k8s.io!
 
 ## The future of Kubernetes
