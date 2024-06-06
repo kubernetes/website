@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "10 Years of Kubernetes"
+title: "Kubernetesの10年間の歴史"
 date: 2024-06-06
 slug: 10-years-of-kubernetes
 author: >
@@ -11,6 +11,8 @@ author: >
   [Tim Bannister](https://github.com/sftim) (The Scale Factory),
   and every contributor across the globe
 ---
+**翻訳者**: [Junya Okabe](https://github.com/Okabe-Junya) (University of Tsukuba)
+
 ![KCSEU 2024 group photo](kcseu2024.jpg)
 
 10年前の2014年6月6日、Kubernetesの[最初のコミット](https://github.com/kubernetes/kubernetes/commit/2c4b3a562ce34cddc3f8218a2c4d11c7310e6d56)がGitHubにプッシュされました。
