@@ -59,8 +59,8 @@ Example CEL expressions:
 | `self.metadata.name == 'singleton'`                                                | Validate that an object's name matches a specific value (making it a singleton)   |
 | `self.set1.all(e, !(e in self.set2))`                                              | Validate that two listSets are disjoint                                           |
 | `self.names.size() == self.details.size() && self.names.all(n, n in self.details)` | Validate the 'details' map is keyed by the items in the 'names' listSet           |
-| `self.details.all(key, key.matches('^[a-zA-Z]*$')`                                 | Validate the keys of the 'details' map                                            |
-| `self.details.all(key, self.details[key].matches('^[a-zA-Z]*$')`                   | Validate the values of the 'details' map                                          |
+| `self.details.all(key, key.matches('^[a-zA-Z]*$'))`                                | Validate the keys of the 'details' map                                            |
+| `self.details.all(key, self.details[key].matches('^[a-zA-Z]*$'))`                  | Validate the values of the 'details' map                                          |
 {{< /table >}}
 
 ## CEL options, language features, and libraries
