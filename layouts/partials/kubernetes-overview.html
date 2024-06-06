@@ -15,7 +15,9 @@
   <div class="k8s-birthday-wrapper">
       <p>{{ "2014-06-06" | time.AsTime | time.Format ":date_long" }}</p>
   {{- with site.GetPage "page" "community/special/kubernetes-10th-birthday" -}}
+    <a href="https://kubernetes.io/blog/2024/06/06/10-years-of-kubernetes/">
   <img src="{{ with resources.Get "images/k8s-10th-birthday.svg" }}{{ .RelPermalink }}{{ end }}" class="birthday-banner" title="{{ .Title | markdownify }}" alt="{{ .Content }}" ></img>
+      </a>
   {{- else -}}
     {{- errorf "%s" "10th Birthday content missing" -}}
   {{- end -}}
