@@ -4,7 +4,7 @@ title: "10 Years of Kubernetes"
 date: 2024-06-06
 slug: 10-years-of-kubernetes
 author: >
-  [Bob Killen](https://github.com/mybobbytables) (CNCF),
+  [Bob Killen](https://github.com/mrbobbytables) (CNCF),
   [Chris Short](https://github.com/chris-short) (AWS),
   [Frederico Muñoz](https://github.com/fsmunoz) (SAS),
   [Kaslin Fields](https://github.com/kaslin) (Google),
