@@ -100,13 +100,13 @@ or the deprecation of [Dockershim](/blog/2020/12/02/dockershim-faq/).
 
 Some notable updates, milestones and events since 1.0 include:
 
-* December 2016 - [Kubernetes 1.5](/blog/2016/12/kubernetes-1-5-supporting-production-workloads/)introduces runtime pluggability with initial CRI support and alpha Windows node support. OpenAPI also appears for the first time, paving the way for clients to be able to discover extension APIs.
+* December 2016 - [Kubernetes 1.5](/blog/2016/12/kubernetes-1-5-supporting-production-workloads/) introduces runtime pluggability with initial CRI support and alpha Windows node support. OpenAPI also appears for the first time, paving the way for clients to be able to discover extension APIs.
   * This release also introduced StatefulSets and PodDisruptionBudgets in Beta.
 * April 2017 — [Introduction of Role-Based Access Controls or RBAC](/blog/2017/04/rbac-support-in-kubernetes/).
 * June 2017 — In [Kubernetes 1.7](/blog/2017/06/kubernetes-1-7-security-hardening-stateful-application-extensibility-updates/), ThirdPartyResources or "TPRs" are replaced with CustomResourceDefinitions (CRDs).
 * December 2017 — [Kubernetes 1.9](/blog/2017/12/kubernetes-19-workloads-expanded-ecosystem/) sees the Workloads API becoming GA (Generally Available). The release blog states: _"Deployment and ReplicaSet, two of the most commonly used objects in Kubernetes, are now stabilized after more than a year of real-world use and feedback."_
 * December 2018 — In 1.13, the Container Storage Interface (CSI) reaches GA, kubeadm tool for bootstrapping minimum viable clusters reaches GA, and CoreDNS becomes the default DNS server.
-* September 2019 — [Custom Resource Definitions go GA](/blog/2019/09/18/kubernetes-1-16-release-announcement/)in Kubernetes 1.16.
+* September 2019 — [Custom Resource Definitions go GA](/blog/2019/09/18/kubernetes-1-16-release-announcement/) in Kubernetes 1.16.
 * August 2020 — [Kubernetes 1.19](/blog/2016/12/kubernetes-1-5-supporting-production-workloads/) increases the support window for releases to 1 year.
 * December 2020 — [Dockershim is deprecated](/blog/2020/12/18/kubernetes-1.20-pod-impersonation-short-lived-volumes-in-csi/)  in 1.20
 * April 2021 — the [Kubernetes release cadence changes](/blog/2021/07/20/new-kubernetes-release-cadence/#:~:text=On%20April%2023%2C%202021%2C%20the,Kubernetes%20community's%20contributors%20and%20maintainers.) from 4 releases per year to 3 releases per year.
@@ -188,8 +188,8 @@ registry change, will be ever more important.
 
 The next 10 years of Kubernetes will be guided by its users and the ecosystem, but most of all, by
 the people who contribute to it. The community remains open to new contributors. You can find more
-information about contributing in our New Contributor Guide at
-[https://k8s.dev/contributors](https://k8s.dev/contributors).
+information about contributing in our New Contributor Course at
+[https://k8s.dev/docs/onboarding](https://k8s.dev/docs/onboarding).
 
 We look forward to building the future of Kubernetes with you!
 
