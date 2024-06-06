@@ -13,184 +13,138 @@ author: >
 ---
 ![KCSEU 2024 group photo](kcseu2024.jpg)
 
-Ten (10) years ago, on June 6th, 2014, the
-[first commit](https://github.com/kubernetes/kubernetes/commit/2c4b3a562ce34cddc3f8218a2c4d11c7310e6d56)
-of Kubernetes was pushed to GitHub. That first commit with 250 files and 47,501 lines of go, bash
-and markdown kicked off the project we have today. Who could have predicted that 10 years later,
-Kubernetes would grow to become one of the largest Open Source projects to date with over
-[88,000 contributors](https://k8s.devstats.cncf.io/d/24/overall-project-statistics?orgId=1) from
-more than [8,000 companies](https://www.cncf.io/reports/kubernetes-project-journey-report/), across
-44 countries.
+10年前の2014年6月6日、Kubernetesの[最初のコミット](https://github.com/kubernetes/kubernetes/commit/2c4b3a562ce34cddc3f8218a2c4d11c7310e6d56)がGitHubにプッシュされました。
+Go、Bash、Markdownで書かれた250のファイルと47,501行のコードを含むその最初のコミットが、今日のKubernetesプロジェクトの始まりでした。
+それから10年後の今日、Kubernetesが44か国から8,000社以上の企業、[88,000人以上のコントリビューター](https://k8s.devstats.cncf.io/d/24/overall-project-statistics?orgId=1)を有する、これまでで最大のオープンソースプロジェクトの一つに成長するとは誰が予想したでしょうか。
 
 <img src="kcscn2019.jpg" alt="KCSCN 2019" class="left" style="max-width: 20em; margin: 1em" >
 
-This milestone isn't just for Kubernetes but for the Cloud Native ecosystem that blossomed from
-it. There are close to [200 projects](https://all.devstats.cncf.io/d/18/overall-project-statistics-table?orgId=1)
-within the CNCF itself, with contributions from
-[240,000+ individual contributors](https://all.devstats.cncf.io/d/18/overall-project-statistics-table?orgId=1) and
-thousands more in the greater ecosystem. Kubernetes would not be where it is today without them, the
-[7M+ Developers](https://www.cncf.io/blog/2022/05/18/slashdata-cloud-native-continues-to-grow-with-more-than-7-million-developers-worldwide/),
-and the even larger user community that have all helped shape the ecosystem that it is today.
+このマイルストーンはKubernetesだけでなく、そこから生まれたクラウドネイティブエコシステムにとっても重要なものです。
+CNCFには[約200のプロジェクト](https://all.devstats.cncf.io/d/18/overall-project-statistics-table?orgId=1)があり、[240,000人以上のコントリビューター](https://all.devstats.cncf.io/d/18/overall-project-statistics-table?orgId=1)からのコントリビューションがあります。
+また、より広いエコシステムの中でも数千人のコントリビューターがいます。
+Kubernetesが今日の姿になれたのは、彼らや[700万人以上の開発者](https://www.cncf.io/blog/2022/05/18/slashdata-cloud-native-continues-to-grow-with-more-than-7-million-developers-worldwide/)、さらに多くのユーザーコミュニティがエコシステムを形作る手助けをしてくれたおかげです。
 
-## Kubernetes' beginnings - a converging of technologies
+## Kubernetesの始まり - 技術の収束
 
-The ideas underlying Kubernetes started well before the first commit, or even the first prototype
-([which came about in 2013](/blog/2018/07/20/the-history-of-kubernetes-the-community-behind-it/)).
-In the early 2000s, Moore's Law was well in effect. Computing hardware was becoming more and more
-powerful at an incredibly fast rate. Correspondingly, applications were growing more and more
-complex. This combination of hardware commoditization and application complexity pointed to a need
-to further abstract software from hardware, and solutions started to emerge.
+Kubernetesの元となるアイディアは、([2013年に登場した](https://blog/2018/07/20/the-history-of-kubernetes-the-community-behind-it/))最初のコミットや最初のプロトタイプの前から存在していました。
+2000年代初頭、ムーアの法則が有効に機能していました。
+コンピューティングハードウェアは非常に速い速度でますます強力になり、それに対応してアプリケーションもますます複雑化していきました。
+このハードウェアのコモディティ化とアプリケーションの複雑化の組み合わせにより、ソフトウェアをハードウェアからさらに抽象化する必要が生じ、解決策が現れ始めました。
 
-Like many companies at the time, Google was scaling rapidly, and its engineers were interested in
-the idea of creating a form of isolation in the Linux kernel. Google engineer Rohit Seth described
-the concept in an [email in 2006](https://lwn.net/Articles/199643/):
+当時の多くの企業と同様にGoogleも急速に拡大しており、同社のエンジニアたちはLinuxカーネル内での隔離の形態を作り出すというアイデアに興味を持っていました。
+Googleのエンジニア、Rohit Sethはそのコンセプトを[2006年のメール](https://lwn.net/Articles/199643/)で説明しました。
 
-> We use the term container to indicate a structure against which we track and charge utilization of
-system resources like memory, tasks, etc. for a Workload.
+> ワークロードのメモリやタスクなどのシステムリソースの使用を追跡し、課金する構造を示すためにコンテナという用語を使用します。
 
 <img src="future.png" alt="The future of Linux containers" class="right" style="max-width: 20em; margin: 1em">
 
-In March of 2013, a 5-minute lightning talk called
-["The future of Linux Containers," presented by Solomon Hykes at PyCon](https://youtu.be/wW9CAH9nSLs?si=VtK_VFQHymOT7BIB),
-introduced an upcoming open source tool called "Docker" for creating and using Linux
-Containers. Docker introduced a level of usability to Linux Containers that made them accessible to
-more users than ever before, and the popularity of Docker, and thus of Linux Containers,
-skyrocketed. With Docker making the abstraction of Linux Containers accessible to all, running
-applications in much more portable and repeatable ways was suddenly possible, but the question of
-scale remained.
+2013年3月、PyConでSolomon Hykesが行った5分間のライトニングトーク[The future of Linux Containers](https://youtu.be/wW9CAH9nSLs?si=VtK_VFQHymOT7BIB)では、Linuxコンテナを作成および使用するためのオープンソースツールであるDockerが紹介されました。
+DockerはLinuxコンテナに使いやすさをもたらし、これまで以上に多くのユーザーが利用できるようになりました。
+Dockerの人気が急上昇し、Linuxコンテナの抽象化を誰もが利用できるようにしたことで、アプリケーションをより移植性が高く、再現性のある方法で実行できるようになりました。
+しかし、依然としてスケールの問題は残っていました。
 
-Google's Borg system for managing application orchestration at scale had adopted Linux containers as
-they were developed in the mid-2000s. Since then, the company had also started working on a new
-version of the system called "Omega." Engineers at Google who were familiar with the Borg and Omega
-systems saw the popularity of containerization driven by Docker. They recognized not only the need
-for an open source container orchestration system but its "inevitability," as described by Brendan
-Burns in
-[this blog post](/blog/2018/07/20/the-history-of-kubernetes-the-community-behind-it/).
-That realization in the fall of 2013 inspired a small team to start working on a project that would
-later become **Kubernetes**. That team included Joe Beda, Brendan Burns, Craig McLuckie, Ville
-Aikas, Tim Hockin, Dawn Chen, Brian Grant, and Daniel Smith.
+Googleのアプリケーションオーケストレーションをスケールで管理するBorgシステムは、2000年代半ばにLinuxコンテナを採用しました。
+その後、GoogleはOmegaと呼ばれるシステムの新バージョンの開発も開始しました。
+BorgとOmegaシステムに精通していたGoogleのエンジニアたちは、Dockerによって駆動するコンテナ化の人気を目の当たりにしました。
+そしてBrendan Burnsの[ブログ](/blog/2018/07/20/the-history-of-kubernetes-the-community-behind-it/)で説明されているように、オープンソースのコンテナオーケストレーションシステムの必要性だけでなく、その「必然性」を認識しました。
+この認識は2013年秋にJoe Beda、Brendan Burns、Craig McLuckie、Ville Aikas、Tim Hockin、Dawn Chen、Brian Grant、Daniel Smithを含む小さなチームにKubernetesのプロジェクトを始めるインスピレーションを与えました。
 
-## A decade of Kubernetes
+## Kubernetesの10年間
 
 <img src="kubeconeu2017.jpg" alt="KubeCon EU 2017" class="left" style="max-width: 20em; margin: 1em">
 
-Kubernetes' history begins with that historic commit on June 6th, 2014, and the subsequent
-announcement of the project in a June 10th
-[keynote by Google engineer Eric Brewer at DockerCon 2014](https://youtu.be/YrxnVKZeqK8?si=Q_wYBFn7dsS9H3k3)
-(and its corresponding [Google blog](https://cloudplatform.googleblog.com/2014/06/an-update-on-container-support-on-google-cloud-platform.html)).
+Kubernetesの歴史は2014年6月6日のその歴史的なコミットと、2014年6月10日の[DockerCon 2014でのGoogleエンジニアEric Brewerによる基調講演](https://youtu.be/YrxnVKZeqK8?si=Q_wYBFn7dsS9H3k3)(およびそれに対応する[Googleブログ](https://cloudplatform.googleblog.com/2014/06/an-update-on-container-support-on-google-cloud-platform.html))でのプロジェクト発表から始まります。
 
-Over the next year, a small community of
-[contributors, largely from Google and Red Hat](https://k8s.devstats.cncf.io/d/9/companies-table?orgId=1&var-period_name=Before%20joining%20CNCF&var-metric=contributors),
-worked hard on the project, culminating in a [version 1.0 release on July 21st, 2015](https://cloudplatform.googleblog.com/2015/07/Kubernetes-V1-Released.html).
-Alongside 1.0, Google announced that Kubernetes would be donated to a newly formed branch of the
-Linux Foundation called the
-[Cloud Native Computing Foundation (CNCF)](https://www.cncf.io/announcements/2015/06/21/new-cloud-native-computing-foundation-to-drive-alignment-among-container-technologies/).
+その後の1年間で、主に[GoogleとRed Hatからのコントリビューター](https://k8s.devstats.cncf.io/d/9/companies-table?orgId=1&var-period_name=Before%20joining%20CNCF&var-metric=contributors)による小さなコミュニティがプロジェクトに取り組み、[2015年7月21日にバージョン1.0のリリース](https://cloudplatform.googleblog.com/2015/07/Kubernetes-V1-Released.html)に至りました。
+1.0と同時に、GoogleはKubernetesをLinux Foundationの新たに設立された部門である[Cloud Native Computing Foundation (CNCF)](https://www.cncf.io/announcements/2015/06/21/new-cloud-native-computing-foundation-to-drive-alignment-among-container-technologies/)に寄贈することを発表しました。
 
-Despite reaching 1.0, the Kubernetes project was still very challenging to use and
-understand. Kubernetes contributor Kelsey Hightower took special note of the project's shortcomings
-in ease of use and on July 7, 2016, he pushed the
-[first commit of his famed "Kubernetes the Hard Way" guide](https://github.com/kelseyhightower/kubernetes-the-hard-way/commit/9d7ace8b186f6ebd2e93e08265f3530ec2fba81c).
+1.0に到達したものの、Kubernetesプロジェクトは依然として使いにくく理解しにくいものでした。
+KubernetesのコントリビューターであるKelsey Hightowerはプロジェクトの使いやすさの欠点に特に注目し、2016年7月7日に彼の有名な["Kubernetes the Hard Way"ガイドの最初のコミット](https://github.com/kelseyhightower/kubernetes-the-hard-way/commit/9d7ace8b186f6ebd2e93e08265f3530ec2fba81c)をプッシュしました。
 
-The project has changed enormously since its original 1.0 release; experiencing a number of big wins
-such as
-[Custom Resource Definitions (CRD) going GA in 1.16](/blog/2019/09/18/kubernetes-1-16-release-announcement/)
-or [full dual stack support launching in 1.23](/blog/2021/12/08/dual-stack-networking-ga/) and
-community "lessons learned" from the [removal of widely used beta APIs in 1.22](/blog/2021/07/14/upcoming-changes-in-kubernetes-1-22/)
-or the deprecation of [Dockershim](/blog/2020/12/02/dockershim-faq/).
+プロジェクトは最初の1.0リリース以来大きく変わり、いくつかの大きな成果を経験しました。
+たとえば、[1.16でのCustom Resource Definition (CRD)のGA](https://kubernetes.io/blog/2019/09/18/kubernetes-1-16-release-announcement/)や、[1.23での完全なデュアルスタックサポートの開始](https://kubernetes.io/blog/2021/12/08/dual-stack-networking-ga/)などです。
+また、[1.22での広く使用されているベータ版APIの削除](https://kubernetes.io/blog/2021/07/14/upcoming-changes-in-kubernetes-1-22/)や、[Dockershimの廃止](https://kubernetes.io/blog/2020/12/02/dockershim-faq/)から学んだコミュニティの「教訓」もあります。
 
-Some notable updates, milestones and events since 1.0 include:
+1.0以降の注目すべきアップデート、マイルストーン、およびイベントには以下のものがあります。
 
-* December 2016 - [Kubernetes 1.5](/blog/2016/12/kubernetes-1-5-supporting-production-workloads/)introduces runtime pluggability with initial CRI support and alpha Windows node support. OpenAPI also appears for the first time, paving the way for clients to be able to discover extension APIs.
-  * This release also introduced StatefulSets and PodDisruptionBudgets in Beta.
-* April 2017 — [Introduction of Role-Based Access Controls or RBAC](/blog/2017/04/rbac-support-in-kubernetes/).
-* June 2017 — In [Kubernetes 1.7](/blog/2017/06/kubernetes-1-7-security-hardening-stateful-application-extensibility-updates/), ThirdPartyResources or "TPRs" are replaced with CustomResourceDefinitions (CRDs).
-* December 2017 — [Kubernetes 1.9](/blog/2017/12/kubernetes-19-workloads-expanded-ecosystem/) sees the Workloads API becoming GA (Generally Available). The release blog states: _"Deployment and ReplicaSet, two of the most commonly used objects in Kubernetes, are now stabilized after more than a year of real-world use and feedback."_
-* December 2018 — In 1.13, the Container Storage Interface (CSI) reaches GA, kubeadm tool for bootstrapping minimum viable clusters reaches GA, and CoreDNS becomes the default DNS server.
-* September 2019 — [Custom Resource Definitions go GA](/blog/2019/09/18/kubernetes-1-16-release-announcement/)in Kubernetes 1.16.
-* August 2020 — [Kubernetes 1.19](/blog/2016/12/kubernetes-1-5-supporting-production-workloads/) increases the support window for releases to 1 year.
-* December 2020 — [Dockershim is deprecated](/blog/2020/12/18/kubernetes-1.20-pod-impersonation-short-lived-volumes-in-csi/)  in 1.20
-* April 2021 — the [Kubernetes release cadence changes](/blog/2021/07/20/new-kubernetes-release-cadence/#:~:text=On%20April%2023%2C%202021%2C%20the,Kubernetes%20community's%20contributors%20and%20maintainers.) from 4 releases per year to 3 releases per year.
-* July 2021 — Widely used beta APIs are [removed](/blog/2021/07/14/upcoming-changes-in-kubernetes-1-22/)  in Kubernetes 1.22.
-* May 2022 — Kubernetes 1.24 sees  [beta APIs become disabled by default](/blog/2022/05/03/kubernetes-1-24-release-announcement/) to reduce upgrade conflicts and removal of [Dockershim](/dockershim), leading to [widespread user confusion](https://www.youtube.com/watch?v=a03Hh1kd6KE) (we've since [improved our communication!](https://github.com/kubernetes/community/tree/master/communication/contributor-comms))
-* December 2022 — In 1.26, there was a significant batch and  [Job API overhaul](/blog/2022/12/29/scalable-job-tracking-ga/) that paved the way for better support for AI  /ML / batch workloads.
+* 2016年12月 - [Kubernetes 1.5](/blog/2016/12/kubernetes-1-5-supporting-production-workloads/)でCRIの最初のサポートとアルファ版Windowsノードサポートによるランタイムプラグイン機能が導入されました。また、OpenAPIが初めて登場し、クライアントが拡張されたAPIを認識できるようになりました。
+  * このリリースでは、StatefulSetとPodDisruptionBudgetがベータ版で導入されました。
+* 2017年4月 - [ロールベースアクセス制御(RBAC)](/blog/2017/04/rbac-support-in-kubernetes/)の導入。
+* 2017年6月 - [Kubernetes 1.7](/blog/2017/06/kubernetes-1-7-security-hardening-stateful-application-extensibility-updates/)でThirdPartyResource (TPR)がCustomResourceDefinition (CRD)に置き換えられました。
+* 2017年12月 - [Kubernetes 1.9](/blog/2017/12/kubernetes-19-workloads-expanded-ecosystem/)ではWorkload APIがGA(一般提供)となりました。リリースブログには「Kubernetesで最もよく使用されるオブジェクトの一つであるDeploymentとReplicaSetは、1年以上の実際の使用とフィードバックを経て安定しました」と書かれています。
+* 2018年12月 - Kubernetes 1.13でContainer Storage Interface (CSI)がGAに達しました。また最小限のクラスターをブートストラップするためのkubeadmツールがGAに達し、CoreDNSがデフォルトのDNSサーバーとなりました。
+* 2019年9月 - Kubernetes 1.16で[Custom Resource DefinitionがGAに達し](https://kubernetes.io/blog/2019/09/18/kubernetes-1-16-release-announcement/)ました。
+* 2020年8月 - [Kubernetes 1.19](/blog/2016/12/kubernetes-1-5-supporting-production-workloads/)でリリースのサポート期間が1年に延長されました。
+* 2020年12月 - Kubernetes 1.20で[Dockershimが廃止](https://kubernetes.io/blog/2020/12/18/kubernetes-1.20-pod-impersonation-short-lived-volumes-in-csi/)されました。
+* 2021年4月 - [Kubernetesのリリース頻度が変更](https://kubernetes.io/blog/2021/07/20/new-kubernetes-release-cadence/#:~:text=On%20April%2023%2C%202021%2C%20the,Kubernetes%20community's%20contributors%20and%20maintainers.)され、年間4回から3回に減少されました。
+* 2021年7月 - 広く使用されているベータ版APIが[Kubernetes 1.22で削除](https://kubernetes.io/blog/2021/07/14/upcoming-changes-in-kubernetes-1-22/)されました。
+* 2022年5月 - Kubernetes 1.24で[ベータ版APIがデフォルトで無効](https://kubernetes.io/blog/2022/05/03/kubernetes-1-24-release-announcement/)にされ、アップグレードの競合を減らすとともに[Dockershimが削除](https://kubernetes.io/dockershim)されました。その結果、[多くのユーザーの混乱](https://www.youtube.com/watch?v=a03Hh1kd6KE)を引き起こしました(その後、[コミュニケーションを改善しました](https://github.com/kubernetes/community/tree/master/communication/contributor-comms))。
+* 2022年12月 - Kubernetes 1.26ではAI/ML/バッチワークロードのサポートを強化するための大規模なバッチおよび[Job APIのオーバーホール](https://kubernetes.io/blog/2022/12/29/scalable-job-tracking-ga/)が行われました。
 
-**PS:** Curious to see how far the project has come for yourself? Check out this [tutorial for spinning up a Kubernetes 1.0 cluster](https://github.com/spurin/kubernetes-v1.0-lab) created by community members Carlos Santana, Amim Moises Salum Knabben, and James Spurin.
+**PS:** プロジェクトがどれだけ進化したか自分で見てみたいですか？
+コミュニティメンバーのCarlos Santana、Amim Moises Salum Knabben、James Spurinが作成した[Kubernetes 1.0クラスターを立ち上げるためのチュートリアル](https://github.com/spurin/kubernetes-v1.0-lab)をチェックしてみてください。
 
 ---
 
-Kubernetes offers more extension points than we can count. Originally designed to work with Docker
-and only Docker, now you can plug in any container runtime that adheres to the CRI standard. There
-are other similar interfaces: CSI for storage and CNI for networking. And that's far from all you
-can do. In the last decade, whole new patterns have emerged, such as using
+Kubernetesには数え切れないほどの拡張するポイントがあります。
+もともとはDocker専用に設計されていましたが、現在ではCRI標準に準拠する任意のコンテナランタイムをプラグインできます。
+他にもストレージ用のCSIやネットワーキング用のCNIなどのインターフェースがあります。
+そしてこれはできることのほんの一部に過ぎません。
+過去10年間で新しいパターンがいくつも登場しました。
+例えば、[Custom Resource Definition](/ja/docs/concepts/extend-kubernetes/api-extension/custom-resources/) (CRD)を使用してサードパーティのコントローラーをサポートすることができます。
+これは現在Kubernetesエコシステムの大きな一部となっています。
 
-[Custom Resource Definitions](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
-(CRDs) to support third-party controllers - now a huge part of the Kubernetes ecosystem.
+このプロジェクトを構築するコミュニティも、この10年間で非常に大きくなりました。
+[DevStats](https://k8s.devstats.cncf.io/d/24/overall-project-statistics?orgId=1)を使用すると、この10年間でKubernetesを[世界で2番目に大きなオープンソースプロジェクト](https://www.cncf.io/reports/kubernetes-project-journey-report/)にした驚異的なコントリビューションの量を確認できます。
 
-The community building the project has also expanded immensely over the last decade. Using
-[DevStats](https://k8s.devstats.cncf.io/d/24/overall-project-statistics?orgId=1), we can see the
-incredible volume of contribution over the last decade that has made Kubernetes the
-[second-largest open source project in the world](https://www.cncf.io/reports/kubernetes-project-journey-report/):
+* **88,474**人のコントリビューター
+* **15,121**人のコードコミッター
+* **4,228,347**件のコントリビューション
+* **158,530**件のIssue
+* **311,787**件のPull Request
 
-* **88,474** contributors
-* **15,121** code committers
-* **4,228,347** contributions
-* **158,530** issues
-* **311,787** pull requests
-
-## Kubernetes today
+## 今日のKubernetes
 
 <img src="welcome.jpg" alt="KubeCon NA 2023" class="left" style="max-width: 20em; margin: 1em">
 
-Since its early days, the project has seen enormous growth in technical capability, usage, and
-contribution. The project is still actively working to improve and better serve its users.
+初期の頃からこのプロジェクトは技術的能力、利用状況、およびコントリビューションの面で驚異的な成長を遂げてきました。
+プロジェクトは今もなおユーザーにより良いサービスを提供するために積極的に改善に取り組んでいます。
 
-In the upcoming 1.31 release, the project will celebrate the culmination of an important long-term
-project: the removal of in-tree cloud provider code. In this
-[largest migration in Kubernetes history](/blog/2024/05/20/completing-cloud-provider-migration/),
-roughly 1.5 million lines of code have been removed, reducing the binary sizes of core components
-by approximately 40%. In the project's early days, it was clear that extensibility would be key to
-success. However, it wasn't always clear how that extensibility should be achieved. This migration
-removes a variety of vendor-specific capabilities from the core Kubernetes code
-base. Vendor-specific capabilities can now be better served by other pluggable extensibility
-features or patterns, such as
-[Custom Resource Definitions (CRDs)](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
-or API standards like the [Gateway API](https://gateway-api.sigs.k8s.io/).
-Kubernetes also faces new challenges in serving its vast user base, and the community is adapting
-accordingly. One example of this is the migration of image hosting to the new, community-owned
-registry.k8s.io. The egress bandwidth and costs of providing pre-compiled binary images for user
-consumption have become immense. This new registry change enables the community to continue
-providing these convenient images in more cost- and performance-efficient ways. Make sure you check
-out the [blog post](/blog/2022/11/28/registry-k8s-io-faster-cheaper-ga/) and
-update any automation you have to use registry.k8s.io!
+次回の1.31リリースでは、長期にわたる重要なプロジェクトの完成を祝います。
+それはインツリークラウドプロバイダーのコードの削除です。
+この[Kubernetesの歴史上最大のマイグレーション](https://kubernetes.io/blog/2024/05/20/completing-cloud-provider-migration/)では、約150万行のコードが削除され、コアコンポーネントのバイナリサイズが約40%削減されました。
+プロジェクトの初期には、拡張性が成功の鍵であることは明らかでした。
+しかし、その拡張性をどのように実現するかは常に明確ではありませんでした。
+このマイグレーションにより、Kubernetesの核となるコードベースからさまざまなベンダー固有の機能が削除されました。
+ベンダー固有の機能は、今後は[Custom Resource Definition (CRD)](/ja/docs/concepts/extend-kubernetes/api-extension/custom-resources/)や[Gateway API](https://gateway-api.sigs.k8s.io/)などの他のプラグイン拡張機能やパターンによってよりよく提供されるようになります。
 
-## The future of Kubernetes
+Kubernetesは、膨大なユーザーベースにサービスを提供する上で新たな課題にも直面しており、コミュニティはそれに適応しています。
+その一例が、新しいコミュニティ所有のregistry.k8s.ioへのイメージホスティングの移行です。
+ユーザーに事前コンパイル済みのバイナリイメージを提供するためのエグレスの帯域幅とコストは非常に大きなものとなっています。
+この新しいレジストリの変更により、コミュニティはこれらの便利なイメージをよりコスト効率およびパフォーマンス効率の高い方法で提供し続けることができます。
+必ず[ブログ記事](https://kubernetes.io/blog/2022/11/28/registry-k8s-io-faster-cheaper-ga/)をチェックし、registry.k8s.ioを使用するように更新してください！
+
+## Kubernetesの未来
 
 <img src="lts.jpg" alt="" class="right" width="300px" style="max-width: 20em; margin: 1em">
 
-A decade in, the future of Kubernetes still looks bright. The community is prioritizing changes that
-both improve the user experiences, and enhance the sustainability of the project. The world of
-application development continues to evolve, and Kubernetes is poised to change along with it.
+10年が経ち、Kubernetesの未来は依然として明るく見えます。
+コミュニティはユーザー体験の改善とプロジェクトの持続可能性を向上させる変更を優先しています。
+アプリケーション開発の世界は進化し続けており、Kubernetesもそれに合わせて変化していく準備ができています。
 
-In 2024, the advent of AI changed a once-niche workload type into one of prominent
-importance. Distributed computing and workload scheduling has always gone hand-in-hand with the
-resource-intensive needs of Artificial Intelligence, Machine Learning, and High Performance
-Computing workloads. Contributors are paying close attention to the needs of newly developed
-workloads and how Kubernetes can best serve them. The new
-[Serving Working Group](https://github.com/kubernetes/community/tree/master/wg-serving) is one
-example of how the community is organizing to address these workloads' needs. It's likely that the
-next few years will see improvements to Kubernetes' ability to manage various types of hardware, and
-its ability to manage the scheduling of large batch-style workloads which are run across hardware in
-chunks.
+2024年にはAIの登場がかつてニッチなワークロードタイプを重要なものへと変えました。
+分散コンピューティングとワークロードスケジューリングは常に人工知能(AI)、機械学習(ML)、および高性能コンピューティング(HPC)ワークロードのリソース集約的なニーズと密接に関連してきました。
+コントリビューターは、新しく開発されたワークロードのニーズとそれらにKubernetesがどのように最適に対応できるかに注目しています。
+新しい[Serving Working Group](https://github.com/kubernetes/community/tree/master/wg-serving)は、コミュニティがこれらのワークロードのニーズに対処するためにどのように組織化されているかの一例です。
+今後数年でKubernetesがさまざまな種類のハードウェアを管理する能力や、ハードウェア全体でチャンクごとに実行される大規模なバッチスタイルのワークロードのスケジューリング能力に関して改善が見られるでしょう。
 
-The ecosystem around Kubernetes will continue to grow and evolve. In the future, initiatives to
-maintain the sustainability of the project, like the migration of in-tree vendor code and the
-registry change, will be ever more important.
+Kubernetesを取り巻くエコシステムは成長し続け、進化していきます。
+将来的にはインツリーベンダーコードのマイグレーションやレジストリの変更など、プロジェクトの持続可能性を維持するための取り組みがますます重要になるでしょう。
 
-The next 10 years of Kubernetes will be guided by its users and the ecosystem, but most of all, by
-the people who contribute to it. The community remains open to new contributors. You can find more
-information about contributing in our New Contributor Guide at
-[https://k8s.dev/contributors](https://k8s.dev/contributors).
+Kubernetesの次の10年は、ユーザーとエコシステム、そして何よりもそれに貢献する人々によって導かれるでしょう。
+コミュニティは新しいコントリビューターを歓迎しています。
+コントリビューションに関する詳細は、[新しいコントリビューター向けのガイド](https://k8s.dev/contributors)で確認できます。
 
-We look forward to building the future of Kubernetes with you!
+Kubernetesの未来を一緒に築いていくことを楽しみにしています！
 
 {{< figure src="kcsna2023.jpg" alt="KCSNA 2023">}}
