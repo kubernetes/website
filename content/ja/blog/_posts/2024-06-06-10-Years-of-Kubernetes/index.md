@@ -40,7 +40,7 @@ Googleのエンジニア、Rohit Sethはそのコンセプトを[2006年のメ�
 
 <img src="future.png" alt="The future of Linux containers" class="right" style="max-width: 20em; margin: 1em">
 
-2013年3月、PyConでSolomon Hykesが行った5分間のライトニングトーク[The future of Linux Containers](https://youtu.be/wW9CAH9nSLs?si=VtK_VFQHymOT7BIB)では、Linuxコンテナを作成および使用するためのオープンソースツールであるDockerが紹介されました。
+2013年3月、PyConでSolomon Hykesが行った5分間のライトニングトーク[The future of Linux Containers](https://youtu.be/wW9CAH9nSLs?si=VtK_VFQHymOT7BIB)では、Linuxコンテナを作成および使用するためのオープンソースツールである「Docker」が紹介されました。
 DockerはLinuxコンテナに使いやすさをもたらし、これまで以上に多くのユーザーが利用できるようになりました。
 Dockerの人気が急上昇し、Linuxコンテナの抽象化を誰もが利用できるようにしたことで、アプリケーションをより移植性が高く、再現性のある方法で実行できるようになりました。
 しかし、依然としてスケールの問題は残っていました。
