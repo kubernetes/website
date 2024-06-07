@@ -1,0 +1,345 @@
+Inside Kubernetes: A Behind-the-Scenes Look at Microsoft's Cluster Deployment Tutorial
+
+
+
+Have you ever wondered how Kubernetes is transforming the way we interact with technology on a daily basis?
+ 
+When I first started learning about Kubernetes, I felt like I was trying to decipher a foreign language. However, with each line of instruction I tried in the lab, I began to unlock the secrets of deploying a K8S cluster and then a simple multi-container application to it – this changed my understanding of Kubernetes forever.
+
+
+If you've ever struggled to understand the complex tutorial instructions, you're not alone. But fear not – there's always a solution, and it's basically the “Do-It-Yourself Strategy and Culture”
+  
+I was intrigued by this Kubernetes walkthrough guide, so I decided to follow the instructions in my lab. Surprisingly, I got stuck when trying to follow the directions and ended up with the problem.  
+I eventually manage to solve it after much effort and investigation, which gives me the notion to share what I've learned in the form of a blog post. 
+
+
+ 
+Background: 
+ 
+Azure Kubernetes Service (AKS) is a managed Kubernetes service that lets you quickly deploy and manage clusters. 
+In this particular walkthrough, we will be deploying a Kubernetes cluster and then a simple multi-container application to it. 
+ 
+Scenario: 
+ 
+Deploy an AKS cluster using the Azure CLI. 
+Run a sample multi-container application with a web front-end and a Redis instance in the cluster. 
+ 
+Actions: 
+Deploy an AKS cluster using the Azure CLI. 
+Run a multi-container application with a web front-end and a Redis instance in the cluster. 
+Monitor the health of the cluster and pods that run your application. 
+ 
+ 
+ 
+ 
+Note 
+To get started with provisioning an AKS cluster quickly, this blog includes the steps to deploy a cluster with the default settings for the evaluation purposes only. Before deploying a production-ready cluster, we recommend that you familiarize yourself with our baseline reference architecture to consider how it aligns with your business requirements. 
+ 
+Here is the link for "Baseline reference Architecture" for your reference: 
+https://learn.microsoft.com/en-us/azure/architecture/reference-architectures/containers/aks/baseline-aks?toc=%2Fazure%2Faks%2Ftoc.json&bc=%2Fazure%2Faks%2Fbreadcrumb%2Ftoc.json 
+ 
+ 
+ 
+ 
+Prerequisites: 
+Use the Bash environment in Azure Cloud Shell. For more information, see Azure Cloud Shell Quickstart - Bash. 
+
+ 
+Connected to bash 
+
+
+This article requires version 2.0.64 or greater of the Azure CLI. If using Azure Cloud Shell, the latest version is already installed. 
+The identity you are using to create your cluster has the appropriate minimum permissions. For more details on access and identity for AKS, see Access and identity options for Azure Kubernetes Service (AKS). 
+ 
+If you prefer to run CLI reference commands locally, install the Azure CLI. If you are running on Windows or macOS, consider running Azure CLI in a Docker container. For more information, see How to run the Azure CLI in a Docker container. 
+If you're using a local installation, sign in to the Azure CLI by using the az login command. To finish the authentication process, follow the steps displayed in your terminal. For additional sign-in options, see Sign in with the Azure CLI. 
+When you're prompted, install Azure CLI extensions on first use. For more information about extensions, see Use extensions with the Azure CLI. 
+Run az version to find the version and dependent libraries that are installed. To upgrade to the latest version, run az upgrade. 
+If you have multiple Azure subscriptions, select the appropriate subscription ID in which the resources should be billed using the az account command. 
+
+ 
+Verify Microsoft.OperationsManagement and Microsoft.OperationalInsights are registered on your subscription. To check the registration status: 
+Azure CLICopy 
+az provider show -n Microsoft.OperationsManagement -o table 
+az provider show -n Microsoft.OperationalInsights -o table 
+ 
+ 
+
+
+If they are not registered, Register Microsoft.OperationsManagement and Microsoft.OperationalInsights using: 
+Azure CLICopy 
+az provider register --namespace Microsoft.OperationsManagement 
+az provider register --namespace Microsoft.OperationalInsights 
+Note 
+Run the commands as administrator if you plan to run the commands in this quickstart locally instead of in Azure Cloud Shell. 
+ 
+
+
+
+
+The below command shows its registered.
+ 
+
+ 
+This also shows registered now :) 
+ 
+
+
+So far we just completed the pre-requisites.
+
+
+Now, let's dive into the implementation steps and witness Kubernetes in action. 
+Follow along as we walk through each stage of deploying a Kubernetes cluster and deploying a simple multi-container application. From setting up the environment to executing each command, we'll explore the practical aspects of turning theory into reality. 
+Get ready to roll up your sleeves and embark on this hands-on journey with me.
+ 
+ 
+ 
+Here is the step-by-step implementation: 
+
+
+
+Create a resource group 
+ 
+ 
+An Azure resource group is a logical group in which Azure resources are deployed and managed. When you create a resource group, you are prompted to specify a location. This location is: 
+The storage location of your resource group metadata. 
+Where your resources will run in Azure if you don't specify another region during resource creation. 
+The following example creates a resource group named myResourceGroup in the eastus location. 
+Create a resource group using the az group create command. 
+ 
+The following output example resembles successful creation of the resource group: 
+JSONCopy 
+{ 
+  "id": "/subscriptions/<guid>/resourceGroups/myResourceGroup", 
+  "location": "eastus", 
+  "managedBy": null, 
+  "name": "myResourceGroup", 
+  "properties": { 
+    "provisioningState": "Succeeded" 
+  }, 
+  "tags": null 
+} 
+ 
+ 
+Here is the output from our lab which shows succeeded. 
+ 
+
+ 
+Create AKS cluster 
+ 
+Create an AKS cluster using the az aks create command with the --enable-addons monitoring and --enable-msi-auth-for-monitoring parameter to enable Azure Monitor Container insights with managed identity authentication (preview). The following example creates a cluster named myAKSCluster with one node and enables a system-assigned managed identity: 
+ 
+ 
+ 
+ 
+az aks create -g myResourceGroup -n myAKSCluster --enable-managed-identity --node-count 1 --enable-addons monitoring --enable-msi-auth-for-monitoring  --generate-ssh-keys 
+ 
+ 
+ 
+ 
+After a few minutes, the command completes and returns JSON-formatted information about the cluster. 
+ 
+ 
+Here is the output: 
+ 
+
+
+Based on the error, I did some research and proceeded with the below mentioned commands. 
+ 
+
+Tried the same command again and it succeeded now.
+ 
+
+ 
+ 
+
+Connect to the cluster 
+ 
+To manage a Kubernetes cluster, use the Kubernetes command-line client, kubectl. kubectl is already installed if you use Azure Cloud Shell. 
+Install kubectl locally using the az aks install-cli command: 
+ 
+az aks install-cli 
+ 
+ 
+
+
+ 
+Configure kubectl to connect to your Kubernetes cluster using the az aks get-credentials command. The following command: 
+Downloads credentials and configures the Kubernetes CLI to use them. 
+Uses ~/.kube/config, the default location for the Kubernetes configuration file. Specify a different location for your Kubernetes configuration file using --file argument. 
+ 
+ 
+ 
+az aks get-credentials --resource-group myResourceGroup --name myAKSCluster 
+ 
+Verify the connection to your cluster using the kubectl get command. This command returns a list of the cluster nodes. 
+ 
+kubectl get nodes 
+ 
+The following output example shows the single node created in the previous steps. Make sure the node status is Ready: 
+ 
+NAME                   	STATUS   ROLES   AGE 	VERSION 
+aks-nodepool1-31718369-0   Ready	agent   6m44s   v1.12.8 
+ 
+
+
+
+
+Here is the output from our lab: 
+ 
+ 
+
+ 
+ 
+Deploy the application 
+ 
+ 
+A Kubernetes manifest file defines a cluster's desired state, such as which container images to run. 
+In this quickstart, you will use a manifest to create all objects needed to run the Azure Vote application. This manifest includes two Kubernetes deployments: 
+The sample Azure Vote Python applications. 
+A Redis instance. 
+Two Kubernetes Services are also created: 
+An internal service for the Redis instance. 
+An external service to access the Azure Vote application from the internet. 
+Create a file named azure-vote.yaml and copy in the following manifest. 
+If you use the Azure Cloud Shell, this file can be created using code, vi, or nano as if working on a virtual or physical system. 
+ 
+ 
+ 
+ 
+
+Creating a file on bash/azure CLI using Code editor 
+ 
+https://docs.microsoft.com/en-us/azure/cloud-shell/using-cloud-shell-editor 
+ 
+ 
+ 
+Deploy the application using the kubectl apply command and specify the name of your YAML manifest: 
+ 
+kubectl apply -f azure-vote.yaml 
+ 
+The following example resembles output showing the successfully created deployments and services: 
+ 
+deployment "azure-vote-back" created 
+service "azure-vote-back" created 
+deployment "azure-vote-front" created 
+service "azure-vote-front" created 
+ 
+ 
+Here is the output from our lab: 
+ 
+
+
+
+
+Test the application 
+ 
+When the application runs, a Kubernetes service exposes the application front-end to the internet. This process can take a few minutes to complete. 
+Monitor progress using the kubectl get service command with the --watch argument. 
+ 
+kubectl get service azure-vote-front --watch 
+ 
+The EXTERNAL-IP output for the azure-vote-front service will initially show as pending. 
+ 
+NAME           	TYPE       	CLUSTER-IP   EXTERNAL-IP   PORT(S)    	AGE 
+azure-vote-front   LoadBalancer   10.0.37.27   <pending> 	80:30572/TCP   6s 
+ 
+ 
+Once the EXTERNAL-IP address changes from pending to an actual public IP address, use CTRL-C to stop the kubectl watch process. The following example output shows a valid public IP address assigned to the service: 
+ 
+azure-vote-front   LoadBalancer   10.0.37.27   52.179.23.131   80:30572/TCP   2m 
+ 
+Here is the output from our lab: 
+ 
+
+
+As it was showing the external IP address listed and not pending,  proceeded with pressing control+C to exit from the watch process. 
+ 
+Public IP address 
+20.241.239.99 
+ 
+To see the Azure Vote app in action, open a web browser to the external IP address of your service. 
+ 
+Here is how it looks like:- 
+ 
+
+
+
+AWESOME, YOU DID IT :) 
+ 
+ 
+
+ 
+Able to do the voting and reset counter also working . 
+:) 
+ 
+
+
+
+
+
+
+OUTCOME: 
+ 
+We deployed a Kubernetes cluster and then deployed a simple multi-container application to it. 
+ 
+ 
+ 
+
+FAQ: 
+ 
+Why are two resource groups created with AKS? 
+
+
+ 
+ 
+AKS builds upon many Azure infrastructure resources, including virtual machine scale sets, virtual networks, and managed disks. This enables you to apply many of the core capabilities of the Azure platform within the managed Kubernetes environment provided by AKS. For example, most Azure virtual machine types can be used directly with AKS and Azure Reservations can be used to receive discounts on those resources automatically. 
+To enable this architecture, each AKS deployment spans two resource groups: 
+You create the first resource group. This group contains only the Kubernetes service resource. The AKS resource provider automatically creates the second resource group during deployment. An example of the second resource group is MC_myResourceGroup_myAKSCluster_eastus. For information on how to specify the name of this second resource group, see the next section. 
+The second resource group, known as the node resource group, contains all of the infrastructure resources associated with the cluster. These resources include the Kubernetes node VMs, virtual networking, and storage. By default, the node resource group has a name like MC_myResourceGroup_myAKSCluster_eastus. AKS automatically deletes the node resource group whenever the cluster is deleted, so it should only be used for resources that share the cluster's lifecycle. 
+ 
+From <https://docs.microsoft.com/en-us/azure/aks/faq#why-are-two-resource-groups-created-with-aks>  
+ 
+ 
+We can validate that by reviewing the lab output: 
+ 
+When we run the below mentioned command: 
+ 
+az aks create -g myResourceGroup -n myAKSCluster --enable-managed-identity --node-count 1 --enable-addons monitoring --enable-msi-auth-for-monitoring  --generate-ssh-keys 
+ 
+Here is the snippet from the lab output: 
+ 
+      	"id": "/subscriptions/30b46680-cc27-4fa6-9e18-cc19ee18e0bd/resourceGroups/MC_myResourceGroup_myAKSCluster_eastus/providers/Microsoft.Network/publicIPAddresses/69b9de83-0736-4b57-9aa2-5f6c43b617ba", 
+          "resourceGroup": "MC_myResourceGroup_myAKSCluster_eastus" 
+    	} 
+  	], 
+  	"enableMultipleStandardLoadBalancers": null, 
+  	"idleTimeoutInMinutes": null, 
+  	"managedOutboundIPs": { 
+ 
+ 
+
+
+After stopping the Kubernetes service, following error will come once we try to access that Public IP address , which is expected: 
+ 
+
+
+
+
+In conclusion, the steps outlined in this blog post are not just theoretical concepts but practical insights gained through my hands-on experience and research. Remember, the journey of learning is ongoing, and each challenge presents an opportunity for growth. 
+
+
+
+
+References: 
+Here is the official documentation link if someone wanted to dig deeper:
+https://kubernetes.io/
+There is also an online interactive Tutorial available at Github as well. Here is the link:
+https://pwittrock.github.io/docs/tutorials/kubernetes-basics/
+Original documentation on the tutorial
+https://learn.microsoft.com/en-us/azure/aks/learn/quick-kubernetes-deploy-cli
+Note: This has been updated now by another Tutorial.
+Github issue raised for the original documentation
+https://github.com/MicrosoftDocs/azure-docs/issues/97924
+
+Note: All my screenshots are not published when i copy pasted the content here. If needed those details, please do not hesitate to contact me.
