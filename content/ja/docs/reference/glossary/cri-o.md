@@ -4,21 +4,17 @@ id: cri-o
 date: 2019-05-14
 full_link: https://cri-o.io/#what-is-cri-o
 short_description: >
-  A lightweight container runtime specifically for Kubernetes
+  Kubernetesに特化した軽量コンテナランタイム
 
 aka:
 tags:
 - tool
 ---
-A tool that lets you use OCI container runtimes with Kubernetes CRI.
+Kubernetes CRIと一緒にOCIコンテナランタイムを使うためのツールです。
 
 <!--more-->
 
-CRI-O is an implementation of the {{< glossary_tooltip term_id="cri" >}}
-to enable using {{< glossary_tooltip text="container" term_id="container" >}}
-runtimes that are compatible with the Open Container Initiative (OCI)
-[runtime spec](https://www.github.com/opencontainers/runtime-spec).
+CRI-Oは、Open Container Initiative (OCI) [runtime spec](https://www.github.com/opencontainers/runtime-spec)と互換性がある{{< glossary_tooltip text="コンテナ" term_id="container" >}}ランタイムを使用できるようにするための、{{< glossary_tooltip term_id="cri" >}}の実装の１つです。
 
-Deploying CRI-O allows Kubernetes to use any OCI-compliant runtime as the container
-runtime for running {{< glossary_tooltip text="Pods" term_id="pod" >}}, and to fetch
-OCI container images from remote registries.
+CRI-Oのデプロイによって、Kubernetesは、任意のOCI準拠のランタイムを{{< glossary_tooltip text="Pod" term_id="pod" >}}を実行するためのコンテナランタイムとして利用することと、リモートレジストリからOCIコンテナイメージを取得することができるようになります。
+
