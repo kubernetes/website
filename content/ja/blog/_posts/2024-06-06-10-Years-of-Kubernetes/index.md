@@ -11,7 +11,7 @@ author: >
   [Tim Bannister](https://github.com/sftim) (The Scale Factory),
   and every contributor across the globe
 ---
-**翻訳者**: [Junya Okabe](https://github.com/Okabe-Junya) (University of Tsukuba), [Daiki Hayakawa(bells17)](https://github.com/bells17) ([3-shake Inc.](https://3-shake.com/en/))
+**翻訳者**: [Junya Okabe](https://github.com/Okabe-Junya) (University of Tsukuba), [Daiki Hayakawa(bells17)](https://github.com/bells17) ([3-shake Inc.](https://3-shake.com/en/)), [Kaito Ii](https://github.com/kaitoii11) (Hewlett Packard Enterprise)
 
 ![KCSEU 2024 group photo](kcseu2024.jpg)
 
