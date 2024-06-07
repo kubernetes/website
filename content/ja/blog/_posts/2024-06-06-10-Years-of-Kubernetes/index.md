@@ -17,7 +17,7 @@ author: >
 
 10年前の2014年6月6日、Kubernetesの[最初のコミット](https://github.com/kubernetes/kubernetes/commit/2c4b3a562ce34cddc3f8218a2c4d11c7310e6d56)がGitHubにプッシュされました。
 Go、Bash、Markdownで書かれた250のファイルと47,501行のコードを含むその最初のコミットが、今日のKubernetesプロジェクトの始まりでした。
-それから10年後の今日、Kubernetesが44か国から8,000社以上の企業、[88,000人以上のコントリビューター](https://k8s.devstats.cncf.io/d/24/overall-project-statistics?orgId=1)を有する、これまでで最大のオープンソースプロジェクトの一つに成長するとは誰が予想したでしょうか。
+それから10年後の今日、Kubernetesが44か国から[8,000社以上の企業](https://www.cncf.io/reports/kubernetes-project-journey-report/)、[88,000人以上のコントリビューター](https://k8s.devstats.cncf.io/d/24/overall-project-statistics?orgId=1)を有する、これまでで最大のオープンソースプロジェクトの一つに成長するとは誰が予想したでしょうか。
 
 <img src="kcscn2019.jpg" alt="KCSCN 2019" class="left" style="max-width: 20em; margin: 1em" >
 
