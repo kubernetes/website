@@ -3,9 +3,9 @@ title: " How we made Kubernetes insanely easy to install "
 date: 2016-09-28
 slug: how-we-made-kubernetes-easy-to-install
 url: /blog/2016/09/How-We-Made-Kubernetes-Easy-To-Install
+author: >
+  [Luke Marsden](https://twitter.com/lmarsden) (Weaveworks)  
 ---
-
-_Editor's note: Today’s post is by [Luke Marsden](https://twitter.com/lmarsden), Head of Developer Experience, at Weaveworks, showing the Special Interest Group Cluster-Lifecycle’s recent work on kubeadm, a tool to make installing Kubernetes much simpler._  
 
 Over at&nbsp;[SIG-cluster-lifecycle](https://github.com/kubernetes/community/blob/master/sig-cluster-lifecycle/README.md), we've been hard at work the last few months on kubeadm, a tool that makes Kubernetes dramatically easier to install. We've heard from users that installing Kubernetes is harder than it should be, and we want folks to be focused on writing great distributed apps not wrangling with infrastructure!  
 
@@ -51,7 +51,6 @@ Finally, I want to give a huge shout-out to so many people in the SIG-cluster-li
 
 This truly has been an excellent cross-company and cross-timezone achievement, with a lovely bunch of people. There's lots more work to do in SIG-cluster-lifecycle, so if you’re interested in these challenges join our SIG. Looking forward to collaborating with you all!  
 
-_--[Luke Marsden](https://twitter.com/lmarsden), Head of Developer Experience at [Weaveworks](https://twitter.com/weaveworks)_  
 
 
 - Try [kubeadm](/docs/getting-started-guides/kubeadm/) to install Kubernetes today
