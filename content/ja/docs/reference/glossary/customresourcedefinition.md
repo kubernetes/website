@@ -1,5 +1,5 @@
 ---
-title: カスタムリソース定義（Custom Resource Definitions）
+title: カスタムリソース定義(Custom Resource Definitions)
 id: CustomResourceDefinition
 date: 2018-04-12
 full_link: /docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/
