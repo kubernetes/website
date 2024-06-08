@@ -3,9 +3,9 @@ title: " Stateful Applications in Containers!? Kubernetes 1.3 Says “Yes!” "
 date: 2016-07-13
 slug: stateful-applications-in-containers-kubernetes
 url: /blog/2016/07/stateful-applications-in-containers-kubernetes
+author: >
+  [Mark Balch](https://twitter.com/markbalch) (Diamanti)
 ---
-
-_Editor's note: today’s guest post is from Mark Balch, VP of Products at Diamanti, who’ll share more about the contributions they’ve made to Kubernetes._    
 
 Congratulations to the Kubernetes community on another [value-packed release](https://kubernetes.io/blog/2016/07/kubernetes-1-3-bridging-cloud-native-and-enterprise-workloads/). A focus on stateful applications and federated clusters are two reasons why I’m so excited about 1.3. Kubernetes support for stateful apps such as Cassandra, Kafka, and MongoDB is critical. Important services rely on databases, key value stores, message queues, and more. Additionally, relying on one data center or container cluster simply won’t work as apps grow to serve millions of users around the world. Cluster federation allows users to deploy apps across multiple clusters and data centers for scale and resiliency.
 
@@ -37,6 +37,3 @@ Join the conversation and contribute! Here are some places to get started:
 - Product Management [group](https://groups.google.com/forum/#!forum/kubernetes-sig-pm)
 - Kubernetes [Storage SIG](https://groups.google.com/forum/#!forum/kubernetes-sig-storage)&nbsp;
 - Kubernetes [Cluster Federation SIG](https://groups.google.com/forum/#!forum/kubernetes-sig-federation)
-
-
-_-- Mark Balch, VP Products, [Diamanti](https://diamanti.com/). Twitter [@markbalch](https://twitter.com/markbalch)_  
