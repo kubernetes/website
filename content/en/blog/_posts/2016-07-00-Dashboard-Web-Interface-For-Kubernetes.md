@@ -3,9 +3,11 @@ title: " Dashboard - Full Featured Web Interface for Kubernetes "
 date: 2016-07-15
 slug: dashboard-web-interface-for-kubernetes
 url: /blog/2016/07/Dashboard-Web-Interface-For-Kubernetes
+author: >
+  Piotr Bryk (Google)
 ---
 
-_Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2016/07/five-days-of-kubernetes-1-3) on what's new in Kubernetes 1.3_
+_**Editor's note:** this post is part of a [series of in-depth articles](/blog/2016/07/five-days-of-kubernetes-1-3) on what's new in Kubernetes 1.3_
 
 [Kubernetes Dashboard](http://github.com/kubernetes/dashboard) is a project that aims to bring a general purpose monitoring and operational web interface to the Kubernetes world.&nbsp;Three months ago we [released](https://kubernetes.io/blog/2016/04/building-awesome-user-interfaces-for-kubernetes) the first production ready version, and since then the dashboard has made massive improvements. In a single UI, you’re able to perform majority of possible interactions with your Kubernetes clusters without ever leaving your browser. This blog post breaks down new features introduced in the latest release and outlines the roadmap for the future.&nbsp;  
 
@@ -66,9 +68,3 @@ We would love to talk with you and hear your feedback!
 - Email us at the [SIG-UI mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-ui)
 - Chat with us on the Kubernetes Slack&nbsp;[#SIG-UI channel](https://kubernetes.slack.com/messages/sig-ui/)
 - Join our meetings: 4PM CEST. See the [SIG-UI calendar](https://calendar.google.com/calendar/embed?src=google.com_52lm43hc2kur57dgkibltqc6kc%40group.calendar.google.com&ctz=Europe/Warsaw) for details.
-
-
-
-
-
-_-- Piotr Bryk, Software Engineer, Google_
