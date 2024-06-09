@@ -133,8 +133,8 @@ Examples:
 {{< table caption="Examples of CEL expressions using regex library functions" >}}
 | CEL Expression                                              | Purpose                                                  |
 |-------------------------------------------------------------|----------------------------------------------------------|
-| `"abc 123".find('[0-9]*')`                                  | Find the first number in a string                        |
-| `"1, 2, 3, 4".findAll('[0-9]*').map(x, int(x)).sum() < 100` | Verify that the numbers in a string sum to less than 100 |
+| `"abc 123".find('[0-9]+')`                                  | Find the first number in a string                        |
+| `"1, 2, 3, 4".findAll('[0-9]+').map(x, int(x)).sum() < 100` | Verify that the numbers in a string sum to less than 100 |
 {{< /table >}}
 
 See the [Kubernetes regex library](https://pkg.go.dev/k8s.io/apiextensions-apiserver/pkg/apiserver/schema/cel/library#Regex)
@@ -239,7 +239,7 @@ Examples:
 | `quantity("500000G").isInteger()`                                         | Test if conversion to integer would throw an error    |
 | `quantity("50k").asInteger()`                                             | Precise conversion to integer                         |
 | `quantity("9999999999999999999999999999999999999G").asApproximateFloat()` | Lossy conversion to float                              |
-| `quantity("50k").add("20k")`                                              | Add two quantities                                    |
+| `quantity("50k").add(quantity("20k"))`                                   | Add two quantities                                    |
 | `quantity("50k").sub(20000)`                                              | Subtract an integer from a quantity                   |
 | `quantity("50k").add(20).sub(quantity("100k")).sub(-50000)`               | Chain adding and subtracting integers and quantities  |
 | `quantity("200M").compareTo(quantity("0.2G"))`                            | Compare two quantities                                |
