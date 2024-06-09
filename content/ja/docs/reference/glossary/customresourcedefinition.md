@@ -16,4 +16,4 @@ tags:
 
 <!--more-->
 
-公開されているサポート対象のAPIリソースではニーズを満たせない場合、カスタムリソース定義（Custom Resource Definitions）を使用することで環境に合わせてKubernetes APIを拡張できます。
+公開されているサポート対象のAPIリソースではニーズを満たせない場合、カスタムリソース定義(Custom Resource Definitions)を使用することで環境に合わせてKubernetes APIを拡張できます。
