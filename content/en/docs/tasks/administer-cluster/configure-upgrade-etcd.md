@@ -345,7 +345,7 @@ either be a snapshot file from a previous backup operation, or from a remaining
 When restoring the cluster, use the `--data-dir` option to specify to which folder the cluster should be restored:
 
 ```shell
-etcdutl --data-dir <data-dir-location> snapshot restore snapshot.db
+etcdctl --data-dir <data-dir-location> snapshot restore snapshot.db
 ```
 where `<data-dir-location>` is a directory that will be created during the restore process.
 
