@@ -357,7 +357,7 @@ either be a snapshot file from a previous backup operation, or from a remaining
 
    {{< note >}}
    The usage of `etcdctl` for restoring has been **deprecated** since etcd v3.5.x and is slated for removal from etcd v3.6.
-   It is recommended to utilize [`etcdutl`](https://github.com/etcd-io/etcd/blob/main/etcdctl/README.md) instead.
+   It is recommended to utilize [`etcdutl`](https://github.com/etcd-io/etcd/blob/main/etcdutl/README.md) instead.
    {{< /note >}}
 
    The below example depicts the usage of the `etcdctl` tool for the restore operation:
