@@ -367,7 +367,8 @@ either be a snapshot file from a previous backup operation, or from a remaining
    etcdctl --data-dir <data-dir-location> snapshot restore snapshot.db
    ```
 
-   If `<data-dir-location>` is the same folder as before, delete it and stop the etcd process before restoring the cluster. Otherwise, change etcd configuration and restart the etcd process after restoration to have it use the new data directory.
+   If `<data-dir-location>` is the same folder as before, delete it and stop the etcd process before restoring the cluster. 
+   Otherwise, change etcd configuration and restart the etcd process after restoration to have it use the new data directory.
 
 {{% /tab %}}
 {{< /tabs >}}
