@@ -4,7 +4,7 @@ id: CustomResourceDefinition
 date: 2018-04-12
 full_link: /docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/
 short_description: >
-  拡張APIサーバーを構築することなく、Kubernetes APIサーバーに追加するリソースを定義するカスタムコード。
+  拡張APIサーバーを構築することなく、Kubernetes APIサーバーに追加するリソースを定義するカスタムコードです。
 
 aka: 
 tags:
