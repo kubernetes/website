@@ -12,7 +12,7 @@ tags:
 - operation
 - extension
 ---
-  拡張APIサーバーを構築することなく、Kubernetes APIサーバーに追加するリソースを定義するカスタムコード。
+  拡張APIサーバーを構築することなく、Kubernetes APIサーバーに追加するリソースを定義するカスタムコードです。
 
 <!--more-->
 
