@@ -10,4 +10,4 @@ stages:
     defaultValue: false
     fromVersion: "1.27"
 ---
-Podの垂直スケーリングを有効にします。
+インプレースなPodの垂直スケーリングを有効にします。
