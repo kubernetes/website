@@ -14,7 +14,6 @@ Kubernetes CRIと一緒にOCIコンテナランタイムを使うためのツー
 
 <!--more-->
 
-CRI-Oは、Open Container Initiative (OCI) [runtime spec](https://www.github.com/opencontainers/runtime-spec)と互換性がある{{< glossary_tooltip text="コンテナ" term_id="container" >}}ランタイムを使用できるようにするための、{{< glossary_tooltip term_id="cri" >}}の実装の１つです。
+CRI-OはOpen Container Initiative (OCI) [runtime spec](https://www.github.com/opencontainers/runtime-spec)と互換性がある{{< glossary_tooltip text="コンテナ" term_id="container" >}}ランタイムを使用できるようにするための{{< glossary_tooltip term_id="cri" >}}の実装の１つです。
 
-CRI-Oのデプロイによって、Kubernetesは、任意のOCI準拠のランタイムを{{< glossary_tooltip text="Pod" term_id="pod" >}}を実行するためのコンテナランタイムとして利用することと、リモートレジストリからOCIコンテナイメージを取得することができるようになります。
-
+CRI-Oのデプロイによって、Kubernetesは任意のOCI準拠のランタイムを、{{< glossary_tooltip text="Pod" term_id="pod" >}}を実行するためのコンテナランタイムとして利用することと、リモートレジストリからOCIコンテナイメージを取得することができるようになります。
