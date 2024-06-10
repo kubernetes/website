@@ -5,7 +5,7 @@ date: 2024-03-07
 slug: cri-o-seccomp-oci-artifacts
 ---
 
-**著者:** Kevin Hannon (Red Hat)
+**著者:** Sascha Grunert
 
 **翻訳者:** Taisuke Okamoto (IDC Frontier Inc), atoato88 (NEC Corporation), Junya Okabe (University of Tsukuba)
 

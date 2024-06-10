@@ -342,24 +342,36 @@ Before starting the restore operation, a snapshot file must be present. It can
 either be a snapshot file from a previous backup operation, or from a remaining
 [data directory](https://etcd.io/docs/current/op-guide/configuration/#--data-dir).
 
-When restoring the cluster, use the `--data-dir` option to specify to which folder the cluster should be restored:
+{{< tabs name="etcd_restore" >}}
+{{% tab name="Use etcdutl" %}}
+   When restoring the cluster using [`etcdutl`](https://github.com/etcd-io/etcd/blob/main/etcdutl/README.md),
+   use the `--data-dir` option to specify to which folder the cluster should be restored:
 
-```shell
-etcdutl --data-dir <data-dir-location> snapshot restore snapshot.db
-```
-where `<data-dir-location>` is a directory that will be created during the restore process.
+   ```shell
+   etcdutl --data-dir <data-dir-location> snapshot restore snapshot.db
+   ```
+   where `<data-dir-location>` is a directory that will be created during the restore process.
 
-The below example depicts the usage of the `etcdctl` tool for the restore operation:
-{{< note >}}
-The usage of `etcdctl` for restoring has been deprecated since etcd v3.5.x and may be removed from a future etcd release.
-{{< /note >}}
+{{% /tab %}}
+{{% tab name="Use etcdctl (Deprecated)" %}}
 
-```shell
-export ETCDCTL_API=3
-etcdctl --data-dir <data-dir-location> snapshot restore snapshot.db
-```
+   {{< note >}}
+   The usage of `etcdctl` for restoring has been **deprecated** since etcd v3.5.x and is slated for removal from etcd v3.6.
+   It is recommended to utilize [`etcdutl`](https://github.com/etcd-io/etcd/blob/main/etcdutl/README.md) instead.
+   {{< /note >}}
 
-If `<data-dir-location>` is the same folder as before, delete it and stop the etcd process before restoring the cluster. Otherwise, change etcd configuration and restart the etcd process after restoration to have it use the new data directory.
+   The below example depicts the usage of the `etcdctl` tool for the restore operation:
+
+   ```shell
+   export ETCDCTL_API=3
+   etcdctl --data-dir <data-dir-location> snapshot restore snapshot.db
+   ```
+
+   If `<data-dir-location>` is the same folder as before, delete it and stop the etcd process before restoring the cluster. 
+   Otherwise, change etcd configuration and restart the etcd process after restoration to have it use the new data directory.
+
+{{% /tab %}}
+{{< /tabs >}}
 
 For more information and examples on restoring a cluster from a snapshot file, see
 [etcd disaster recovery documentation](https://etcd.io/docs/current/op-guide/recovery/#restoring-a-cluster).

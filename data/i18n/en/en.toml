@@ -209,6 +209,9 @@ other = "email address"
 [javascript_required]
 other = "JavaScript must be [enabled](https://www.enable-javascript.com/) to view this content"
 
+[k8s_birthday_show_original_content]
+other = "Show original content…"
+
 [katacoda_message]
 other = """<h4>Shutdown of interactive tutorials</h4>
 <p>The interactive tutorials on this website are being shut down. The Kubernetes

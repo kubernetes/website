@@ -3,8 +3,9 @@ title: " The K8sPort: Engaging Kubernetes Community One Activity at a Time "
 date: 2017-03-24
 slug: k8sport-engaging-the-kubernetes-community
 url: /blog/2017/03/K8Sport-Engaging-The-Kubernetes-Community
+author: >
+   Ryan Quackenbush (Apprenda) 
 ---
-_Editor's note: Today’s post is by Ryan Quackenbush, Advocacy Programs Manager at Apprenda, showing a new community portal for Kubernetes advocates: the K8sPort._   
 
 The [**K8sPort**](http://k8sport.org/) is a hub designed to help you, the Kubernetes community, earn credit for the hard work you’re putting forth in making this one of the most successful open source projects ever. Back at KubeCon Seattle in November, I [presented](https://youtu.be/LwViH5eLoOI) a lightning talk of a preview of K8sPort.   
 
@@ -43,9 +44,3 @@ If you’re interested in joining the advocacy hub, please join us at [k8sport.o
 
 For a quick walkthrough on K8sPort authentication and the hub itself, see this quick demo, below.
 
-
-
-
-
-
-_--Ryan Quackenbush, Advocacy Programs Manager, Apprenda_

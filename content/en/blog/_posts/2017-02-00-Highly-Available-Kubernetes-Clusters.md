@@ -3,6 +3,8 @@ title: " Highly Available Kubernetes Clusters "
 date: 2017-02-02
 slug: highly-available-kubernetes-clusters
 url: /blog/2017/02/Highly-Available-Kubernetes-Clusters
+author: >
+  Jerzy Szczepkowski (Google) 
 ---
 
 Today’s post shows how to set-up a reliable, highly available distributed Kubernetes cluster. The support for running such clusters on Google Compute Engine (GCE) was added as an alpha feature in [Kubernetes 1.5 release](https://kubernetes.io/blog/2016/12/kubernetes-1-5-supporting-production-workloads/).
@@ -325,6 +327,3 @@ We have shown how, by adding worker node pools and master replicas, a Highly Ava
 - Connect with the community on [Slack](http://slack.k8s.io/)
 - Follow us on Twitter [@Kubernetesio](https://twitter.com/kubernetesio) for latest updates
 
-
-
-_--Jerzy Szczepkowski, Software Engineer, Google_
