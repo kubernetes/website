@@ -1,5 +1,5 @@
 ---
-title: NameGenerationRetries
+title: RetryGenerateName
 content_type: feature_gate
 
 _build:
