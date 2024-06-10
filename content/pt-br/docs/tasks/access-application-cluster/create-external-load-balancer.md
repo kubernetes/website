@@ -59,7 +59,7 @@ kubectl expose deployment example --port=8765 --target-port=9376 \
         --name=example-service --type=LoadBalancer
 ```
 
-Esse comando cria um novo serviço usando os mesmos seletores do recurso referenciado (no caso do exemplo acima, um
+Esse comando cria um novo service usando os mesmos seletores do recurso referenciado (no caso do exemplo acima, um
 {{< glossary_tooltip text="Deployment" term_id="deployment" >}} chamado `example`).
 
 Para obter mais informações, incluindo flags opcionais, consulte a referência do comando [`kubectl expose` reference](/docs/reference/generated/kubectl/kubectl-commands/#expose).
@@ -108,7 +108,7 @@ minikube service example-service --url
 ## Preservando o IP de origem do cliente
 
 Por padrão, o IP de origem visto no contêiner de destino _não é o IP de origem original_ do cliente.  Para permitir a preservação do IP do cliente, os seguintes
-campos podem ser configurados no `.spec` do Service::
+campos podem ser configurados no `.spec` do Service:
 
 * `.spec.externalTrafficPolicy` - indica se este Service deseja rotear o tráfego externo para endpoints locais do nó ou em todo o cluster. Existem duas opções disponíveis: `Cluster` (padrão) e `Local`. `Cluster` oculta o IP de origem do cliente e pode causar um segundo salto para outro nó, mas deve ter uma boa distribuição geral de carga. `Local` preserva o IP de origem do cliente e evita um segundo salto para Service do tipo LoadBalancer e NodePort, mas corre o risco de uma distribuição de tráfego potencialmente desequilibrada.
 
@@ -143,13 +143,13 @@ Como cada destino recebe o mesmo peso no balanceamento de tráfego para os Nós,
 
 Quando `NumServicePods << NumNodes` ou `NumServicePods >> NumNodes`, uma distribuição relativamente próxima da igualdade será observada, mesmo sem pesos.
 
-O tráfego interno Pod-a-Pod deve apresentar um comportamento similar aos serviços ClusterIP, com a mesma probabilidade entre todos os Pods.
+O tráfego interno Pod-a-Pod deve apresentar um comportamento similar aos services ClusterIP, com a mesma probabilidade entre todos os Pods.
 
 ## Limpeza de balanceadores de carga
 
 {{< feature-state for_k8s_version="v1.17" state="stable" >}}
 
-Em um caso normal, ao excluir um Serviço do tipo LoadBalancer, os recursos de balanceamento de carga no provedor de nuvem são automaticamente removidos. Porém, existem casos onde esses recursos permanecem ativos, mesmo após a exclusão do Serviço. Para resolver esse problema, foi introduzida a Proteção por Finalizadores para LoadBalancers de Serviço. Essa proteção utiliza finalizadores, que são mecanismos que impedem a exclusão de um Serviço até que os recursos de balanceamento de carga associados também sejam removidos.
+Em um caso normal, ao excluir um Service do tipo LoadBalancer, os recursos de balanceamento de carga no provedor de nuvem são automaticamente removidos. Porém, existem casos onde esses recursos permanecem ativos, mesmo após a exclusão do Service. Para resolver esse problema, foi introduzida a Proteção por Finalizadores para LoadBalancers de Service. Essa proteção utiliza finalizadores, que são mecanismos que impedem a exclusão de um Serviço até que os recursos de balanceamento de carga associados também sejam removidos.
 
 Para Service do tipo LoadBalancer, o controlador de service utiliza um finalizador chamado `service.kubernetes.io/load-balancer-cleanup`. Esse finalizador funciona como um mecanismo de segurança, impedindo a exclusão do Service até que o recurso de balanceamento de carga associado seja removido. Essa medida evita a existência de recursos de balanceamento de carga órfãos, mesmo em situações inesperadas, como a falha do controlador de service.
 
