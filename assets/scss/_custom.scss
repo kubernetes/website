@@ -1414,3 +1414,100 @@ div.alert > em.javascript-required {
   text-align: right;
   padding: 0.2rem;
 }
+
+// Special style for Kubernetes' 10th birthday
+section.k8s-birthday-override {
+  background: #dae9f9; // Kubernetes light blue
+
+  > .k8s-birthday-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    align-content: flex-end;
+    gap: 2rem;
+
+    img.birthday-banner {
+      max-height: 20rem;
+      max-width: 100vw;
+      margin-left: auto;
+      margin-right: auto;
+      aspect-ratio: 1;
+      flex-grow: 1;
+    }
+    p {
+      flex-grow: 4;
+      text-align: center;
+      color: $blue;
+      font-size: 2.5em;
+      padding-bottom: 2.5rem;
+      margin: 1em;
+    }
+  }
+
+  div.k8s-birthday-override.revert-to-previous {
+    form {
+      display: block;
+      max-width: clamp(20rem, 30%, 100vw);
+      margin-left: auto;
+      padding-bottom: 0.5rem;
+    }
+    text-align: right;
+    label {
+      color: $blue;
+      padding-left: 1.2em;
+      padding-right: 1.2em;
+      text-decoration: underline;
+      font-size: 1.5rem;
+    }
+    input {
+      accent-color: $blue;
+      border-color: $blue;
+      visibility: hidden;
+    }
+  }
+
+  div.k8s-birthday-override.revert-to-previous:has(input:not(:checked)) {
+    display: initial;
+  }
+
+  &:has(input:checked) {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  section.k8s-birthday-override > .k8s-birthday-wrapper {
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  section.k8s-birthday-override > .k8s-birthday-wrapper {
+    gap: 0.2rem;
+    align-content: center;
+    p {
+      font-size: initial;
+      min-width: 80vw;
+    }
+    img.birthday-banner {
+      min-height: initial;
+    }
+    label {
+      font-size: 1.2rem;
+    }
+  }
+}
+@media screen and (max-aspect-ratio: 9/15) {
+    gap: 0.4rem;
+}
+
+@media screen and (min-width: 1281px) {
+  img.birthday-banner {
+    min-height: clamp(480px, 25rem, 100vh);
+  }
+}
+section.k8s-birthday-override:has(div.k8s-birthday-override.revert-to-previous input:not(:checked)) + section {
+  display: none;
+  visibility: hidden;
+}

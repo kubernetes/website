@@ -3,10 +3,9 @@ title: " Kubernetes: a monitoring guide "
 date: 2017-05-19
 slug: kubernetes-monitoring-guide
 url: /blog/2017/05/Kubernetes-Monitoring-Guide
+author: >
+  Jean-Mathieu Saponaro (Datadog)
 ---
-_Today’s post is by Jean-Mathieu Saponaro, Research & Analytics Engineer at Datadog, discussing what Kubernetes changes for monitoring, and how you can prepare to properly monitor a containerized infrastructure orchestrated by Kubernetes._  
-
-
 Container technologies are taking the infrastructure world by storm. While containers solve or simplify infrastructure management processes, they also introduce significant complexity in terms of orchestration. That’s where Kubernetes comes to our rescue. Just like a conductor directs an orchestra, [Kubernetes](/docs/concepts/overview/what-is-kubernetes/) oversees our ensemble of containers—starting, stopping, creating, and destroying them automatically to keep our applications humming along.  
 
 Kubernetes makes managing a containerized infrastructure much easier by creating levels of abstractions such as [pods](/docs/concepts/workloads/pods/pod/) and [services](/docs/concepts/services-networking/service/). We no longer have to worry about where applications are running or if they have enough resources to work properly. But that doesn’t change the fact that, in order to ensure good performance, we need to monitor our applications, the containers running them, and Kubernetes itself.  
@@ -71,11 +70,6 @@ Whether you want to track these key performance metrics by combining Heapster, a
 Using Kubernetes drastically simplifies container management. But it requires us to rethink our monitoring strategies on several fronts, and to make sure all the key metrics from the different components are properly collected, aggregated, and tracked. We hope our monitoring guide will help you to effectively monitor your Kubernetes clusters. [Feedback and suggestions](https://github.com/DataDog/the-monitor) are more than welcome.
 
 &nbsp;
-
-
-
-_--Jean-Mathieu Saponaro, Research & Analytics Engineer, Datadog_
-
 
 
 - Get involved with the Kubernetes project on [GitHub](https://github.com/kubernetes/kubernetes)&nbsp;

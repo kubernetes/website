@@ -3,8 +3,10 @@ title: "  kubeadm v1.8 Released: Introducing Easy Upgrades for Kubernetes Cluste
 date: 2017-10-25
 slug: kubeadm-v18-released
 url: /blog/2017/10/Kubeadm-V18-Released
+author: >
+  Lucas Käldström (Weaveworks)
 ---
-**_Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2017/10/five-days-of-kubernetes-18) on what's new in Kubernetes 1.8_**  
+_**Editor's note:** this post is part of a [series of in-depth articles](/blog/2017/10/five-days-of-kubernetes-18) on what's new in Kubernetes 1.8._
 
 Since its debut in [September 2016](https://kubernetes.io/blog/2016/09/how-we-made-kubernetes-easy-to-install), the Cluster Lifecycle Special Interest Group (SIG) has established kubeadm as the easiest Kubernetes bootstrap method. Now, we’re releasing kubeadm v1.8.0 in tandem with the release of [Kubernetes v1.8.0](https://kubernetes.io/blog/2017/09/kubernetes-18-security-workloads-and). In this blog post, I’ll walk you through the changes we’ve made to kubeadm since the last update, the scope of kubeadm, and how you can contribute to this effort.  
 
@@ -99,7 +101,3 @@ If you want to get involved in these efforts, join SIG Cluster Lifecycle. We [me
 
 If you want to know what a kubeadm developer does at a given time in the Kubernetes release cycle, check out [this doc](https://github.com/kubernetes/kubeadm/blob/master/docs/release-cycle.md). Finally, don’t hesitate to join if any of our upcoming projects are of interest to you!  
 
-Thank you,  
-Lucas Käldström  
-Kubernetes maintainer & SIG Cluster Lifecycle co-lead  
-[Weaveworks](https://www.weave.works/?utm_source=k8&utm_medium=ww&utm_campaign=blog) contractor
