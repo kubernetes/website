@@ -2,6 +2,10 @@
 {{- $style := .Get "style" -}}
 {{- $id := .Get "id" | default (printf "section-%d" .Ordinal) -}}
 {{- $bg := .Get "background-image" -}}
+{{/* special case Kubernetes overview */}}
+{{- if eq $class "k8s-overview" -}}
+	{{- partial "kubernetes-overview.html" (dict "id" $id "class" $class "inner" $.Inner ) -}}
+{{- else -}}
 {{- if $bg -}}
 	{{ template "shortcodes-blocks_getimage" (dict "name" $bg "ctx" . "target" "bg") }}
 {{- end -}}
@@ -9,3 +13,4 @@
 <section id="{{ $id }}"{{ with $class }} class="{{ . }}"{{ end }} style="{{ with $image }}background-image: url({{ .Permalink }}); {{ end }}{{ with $style }}{{ . | safeCSS }}{{ end }}">
 	{{ $.Inner }}
 </section>
+{{- end -}}

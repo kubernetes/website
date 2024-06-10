@@ -142,7 +142,7 @@ Cluster Domain | Service (ns/name) | StatefulSet (ns/name)  | StatefulSet Domain
 
 ### 安定したストレージ
 
-Kubernetesは各VolumeClaimTemplateに対して、1つの[PersistentVolume](/docs/concepts/storage/persistent-volumes/)を作成します。上記のnginxの例において、各Podは`my-storage-class`というStorageClassをもち、1GiBのストレージ容量を持った単一のPersistentVolumeを受け取ります。もしStorageClassが指定されていない場合、デフォルトのStorageClassが使用されます。PodがNode上にスケジュール(もしくは再スケジュール)されたとき、その`volumeMounts`はPersistentVolume Claimに関連したPersistentVolumeをマウントします。
+StatefulSetで定義された各VolumeClaimTemplateに対して、各Podは1つのPersistentVolumeClaimを受け取ります。上記のnginxの例において、各Podは`my-storage-class`というStorageClassをもち、1GiBのストレージ容量を持った単一のPersistentVolumeを受け取ります。もしStorageClassが指定されていない場合、デフォルトのStorageClassが使用されます。PodがNode上にスケジュール(もしくは再スケジュール)されたとき、その`volumeMounts`はPersistentVolume Claimに関連したPersistentVolumeをマウントします。
 注意点として、PodのPersistentVolume Claimと関連したPersistentVolumeは、PodやStatefulSetが削除されたときに削除されません。
 削除する場合は手動で行わなければなりません。
 

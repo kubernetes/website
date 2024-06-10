@@ -3,6 +3,8 @@ title: " Deploying PostgreSQL Clusters using StatefulSets "
 date: 2017-02-24
 slug: postgresql-clusters-kubernetes-statefulsets
 url: /blog/2017/02/Postgresql-Clusters-Kubernetes-Statefulsets
+author: >
+  Jeff McCormick ([Crunchy Data](http://crunchydata.com/))
 ---
 _Editor’s note: Today’s guest post is by Jeff McCormick, a developer at Crunchy Data, showing how to build a PostgreSQL cluster using the new Kubernetes StatefulSet feature._  
 
@@ -306,7 +308,3 @@ The container is designed to create a subdirectory on that path using the pod ho
 StatefulSets is an exciting feature added to Kubernetes for container builders that are implementing clustering. The ordinal values assigned to the set provide a very simple mechanism to make clustering decisions when deploying a PostgreSQL cluster.  
 
 
-
-
-
-_--Jeff McCormick, Developer, [Crunchy Data](http://crunchydata.com/)_
