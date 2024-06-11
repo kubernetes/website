@@ -4,12 +4,14 @@ metadata:
   name: sa-ctb-name-test
 spec:
   containers:
-  - name: container-test
+  - command:
+    - sleep
+    - "3600"
     image: busybox
-    command: ["sleep", "3600"]
+    name: container-test
     volumeMounts:
-    - name: token-vol
-      mountPath: "/root-certificates"
+    - mountPath: /root-certificates
+      name: token-vol
       readOnly: true
   serviceAccountName: default
   volumes:
@@ -20,9 +22,9 @@ spec:
           name: example
           path: example-roots.pem
       - clusterTrustBundle:
-          signerName: "example.com/mysigner"
           labelSelector:
             matchLabels:
               version: live
-          path: mysigner-roots.pem
           optional: true
+          path: mysigner-roots.pem
+          signerName: example.com/mysigner

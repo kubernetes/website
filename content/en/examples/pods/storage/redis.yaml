@@ -4,11 +4,11 @@ metadata:
   name: redis
 spec:
   containers:
-  - name: redis
-    image: redis
+  - image: redis
+    name: redis
     volumeMounts:
-    - name: redis-storage
-      mountPath: /data/redis
+    - mountPath: /data/redis
+      name: redis-storage
   volumes:
-  - name: redis-storage
-    emptyDir: {}
+  - emptyDir: {}
+    name: redis-storage
