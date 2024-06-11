@@ -16,7 +16,7 @@ Kubernetes has various types of probes:
 
 ## Liveness probe
 
-Liveness probes determine when to restart a container. For example, liveness probes could catch a deadlock, where an application is running, but unable to make progress.
+Liveness probes determine when to restart a container. For example, liveness probes could catch a deadlock, when an application is running, but unable to make progress.
 
 If a container fails its liveness probe repeatedly, the kubelet restarts the container.
 
