@@ -3,9 +3,11 @@ title: " Thousand Instances of Cassandra using Kubernetes Pet Set "
 date: 2016-07-13
 slug: thousand-instances-of-cassandra-using-kubernetes-pet-set
 url: /blog/2016/07/Thousand-Instances-Of-Cassandra-Using-Kubernetes-Pet-Set
+author: >
+   [Chris Love](https://twitter.com/chrislovecnm/) (Datapipe)
 ---
 
-_Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2016/07/five-days-of-kubernetes-1-3) on what's new in Kubernetes 1.3_
+_**Editor's note:** this post is part of a [series of in-depth articles](/blog/2016/07/five-days-of-kubernetes-1-3) on what's new in Kubernetes 1.3_
 
 
 ## Running The Greek Pet Monster Races
@@ -372,4 +374,3 @@ Yes we deployed 1,000 pets, but one really did not want to join the party! Techn
 - Image credits: Cassandra [image](https://commons.wikimedia.org/wiki/File:Cassandra1.jpeg) and Cyclops [image](https://commons.wikimedia.org/wiki/File:Polyphemus.gif)
 
 
-_-- Chris Love, Senior DevOps Open Source Consultant for [Datapipe](https://www.datapipe.com/). [Twitter @chrislovecnm](https://twitter.com/chrislovecnm/)_  

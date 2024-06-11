@@ -3,6 +3,8 @@ title: " A Very Happy Birthday Kubernetes "
 date: 2016-07-21
 slug: happy-k8sbday-1
 url: /blog/2016/07/happy-k8sbday-1
+author: >
+  Sarah Novotny (independent)
 ---
 Last year at OSCON, I got to reconnect with a bunch of friends and see what they have been working on. That turned out to be the [Kubernetes 1.0 launch event](https://www.youtube.com/playlist?list=PL69nYSiGNLP0Ljwa9J98xUd6UlM604Y-l). Even that day, it was clear the project was supported by a broad community -- a group that showed an ambitious vision for distributed computing.&nbsp;  
 
@@ -21,7 +23,3 @@ The Kubernetes community continues to work to make our project more welcoming an
 
 [![](https://1.bp.blogspot.com/-Wn9QJb6wQ7w/V5Cm1Y2iKhI/AAAAAAAAAnc/SZ3yFFcxjmoqAmz9chp8o2KJJUoKI0KQwCLcB/s640/k8s%2BCommit%2BInfographic.png)](https://1.bp.blogspot.com/-Wn9QJb6wQ7w/V5Cm1Y2iKhI/AAAAAAAAAnc/SZ3yFFcxjmoqAmz9chp8o2KJJUoKI0KQwCLcB/s1600/k8s%2BCommit%2BInfographic.png)
 
-
-
-
-_-- Sarah Novotny, Kubernetes Community Wonk_
