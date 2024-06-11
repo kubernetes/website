@@ -3,6 +3,8 @@ title: " CoreOS Fest 2016: CoreOS and Kubernetes Community meet in Berlin (& San
 date: 2016-05-03
 slug: coreosfest2016-kubernetes-community
 url: /blog/2016/05/Coreosfest2016-Kubernetes-Community
+author: >
+  Sarah Novotny (independent)
 ---
 [CoreOS Fest 2016](https://coreos.com/fest/) will bring together the container and open source distributed systems community, including many thought leaders in the Kubernetes space. It is the second annual CoreOS community conference, held for the first time in Berlin on May 9th and 10th. CoreOS believes Kubernetes is the container orchestration component to deliver GIFEE (Google’s Infrastructure for Everyone Else).  
 
@@ -37,7 +39,4 @@ If you can’t make it to Berlin, Kubernetes is also a focal point at the **Core
 - [CoreOS Fest - Berlin](https://ti.to/coreos/coreos-fest-2016/en), at the [Berlin Congress Center](https://www.google.com/maps/place/bcc+Berlin+Congress+Center+GmbH/@52.5206732,13.4165195,15z/data=!4m2!3m1!1s0x0:0xd2a15220241f2080) ([hotel option](http://www.parkinn-berlin.de/))
 - satellite event in [San Francisco](https://www.eventbrite.com/e/coreos-fest-san-francisco-satellite-event-tickets-22705108591), at the [111 Minna Gallery](https://www.google.com/maps/place/111+Minna+Gallery/@37.7873222,-122.3994124,15z/data=!4m2!3m1!1s0x0:0xb55875af8c0ca88b?sa=X&ved=0ahUKEwjZ8cPLtL7MAhVQ5GMKHa8bCM4Q_BIIdjAN)
 
-Learn more at:&nbsp;[coreos.com/fest/](https://coreos.com/fest/)&nbsp;and on Twitter&nbsp;[@CoreOSFest](https://twitter.com/coreosfest) #CoreOSFest  
-
-
-_-- Sarah Novotny, Kubernetes Community Manager_
+Learn more at:&nbsp;[coreos.com/fest/](https://coreos.com/fest/)&nbsp;and on Twitter&nbsp;[@CoreOSFest](https://twitter.com/coreosfest) #CoreOSFest
