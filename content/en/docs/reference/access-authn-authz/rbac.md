@@ -1125,7 +1125,7 @@ Examples:
 
 Default RBAC policies grant scoped permissions to control-plane components, nodes,
 and controllers, but grant *no permissions* to service accounts outside the `kube-system` namespace
-(beyond discovery permissions given to all authenticated users).
+(beyond the permissions given by [API discovery roles](#discovery-roles)).
 
 This allows you to grant particular roles to particular ServiceAccounts as needed.
 Fine-grained role bindings provide greater security, but require more effort to administrate.
@@ -1250,7 +1250,7 @@ service accounts.
 
 Default RBAC policies grant scoped permissions to control-plane components, nodes,
 and controllers, but grant *no permissions* to service accounts outside the `kube-system` namespace
-(beyond discovery permissions given to all authenticated users).
+(beyond the permissions given by [API discovery roles](#discovery-roles)).
 
 While far more secure, this can be disruptive to existing workloads expecting to automatically receive API permissions.
 Here are two approaches for managing this transition:
