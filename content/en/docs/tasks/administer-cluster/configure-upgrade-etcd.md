@@ -24,7 +24,9 @@ nodes. If you do not already have a cluster, you can create one by using
 
 `etcdctl` and `etcdutl` are command-line tools used to interact with etcd clusters, but they serve different purposes:
 
-- `etcdctl`: This is the primary command-line client for interacting with etcd over a network. It is used for day-to-day operations such as managing keys and values, administering the cluster, checking health, and more.
+- `etcdctl`: This is the primary command-line client for interacting with etcd over a
+network. It is used for day-to-day operations such as managing keys and values,
+administering the cluster, checking health, and more.
 
 - `etcdutl`: This is an administration utility designed to operate directly on etcd data files, including migrating data between etcd versions, defragmenting the database, restoring snapshots, and validating data consistency. For network operations, `etcdctl` should be used.
 
