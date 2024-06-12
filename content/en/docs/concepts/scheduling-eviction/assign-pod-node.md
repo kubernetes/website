@@ -363,6 +363,7 @@ null `namespaceSelector` matches the namespace of the Pod where the rule is defi
 {{< feature-state feature_gate_name="MatchLabelKeysInPodAffinity" >}}
 
 {{< note >}}
+<!-- UPDATE THIS WHEN PROMOTING TO STABLE -->
 The `matchLabelKeys` field is a beta-level field and is enabled by default in
 Kubernetes {{< skew currentVersion >}}.
 When you want to disable it, you have to disable it explicitly via the
@@ -413,6 +414,7 @@ spec:
 {{< feature-state feature_gate_name="MatchLabelKeysInPodAffinity" >}}
 
 {{< note >}}
+<!-- UPDATE THIS WHEN PROMOTING TO STABLE -->
 The `mismatchLabelKeys` field is a beta-level field and is enabled by default in
 Kubernetes {{< skew currentVersion >}}.
 When you want to disable it, you have to disable it explicitly via the
