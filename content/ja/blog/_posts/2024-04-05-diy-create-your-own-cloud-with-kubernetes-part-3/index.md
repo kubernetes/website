@@ -9,7 +9,7 @@ date: 2024-04-05T07:40:00+00:00
 
 **翻訳者:** Taisuke Okamoto (IDC Frontier Inc),
 
-Kubernetesの中でKubernetesを実行するという最も興味深いフェーズに近づいています。]
+Kubernetesの中でKubernetesを実行するという最も興味深いフェーズに近づいています。
 この記事では、KamajiやCluster APIなどのテクノロジーとそれらのKubeVirtとの統合について説明します。
 
 以前の議論では、[ベアメタル上でのKubernetesの準備](/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-1/)と、[Kubernetesを仮想マシン管理システムに変える方法](/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-2)について説明しました。
