@@ -28,7 +28,10 @@ nodes. If you do not already have a cluster, you can create one by using
 network. It is used for day-to-day operations such as managing keys and values,
 administering the cluster, checking health, and more.
 
-- `etcdutl`: This is an administration utility designed to operate directly on etcd data files, including migrating data between etcd versions, defragmenting the database, restoring snapshots, and validating data consistency. For network operations, `etcdctl` should be used.
+- `etcdutl`: This is an administration utility designed to operate directly on etcd data
+files, including migrating data between etcd versions, defragmenting the database,
+restoring snapshots, and validating data consistency. For network operations, `etcdctl`
+should be used.
 
 For more information on `etcdutl`, you can refer to the [etcd recovery documentation](https://etcd.io/docs/v3.5/op-guide/recovery/).
 
