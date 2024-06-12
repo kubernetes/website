@@ -77,7 +77,7 @@ EndpointSlices support three address types:
 
 * IPv4
 * IPv6
-* FQDN (Fully Qualified Domain Name) [DEPRECATED]
+* FQDN (Fully Qualified Domain Name; *deprecated*)
 
 Each `EndpointSlice` object represents a specific IP address type. If you have
 a Service that is available via IPv4 and IPv6, there will be at least two
