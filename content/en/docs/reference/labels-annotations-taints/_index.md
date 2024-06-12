@@ -54,7 +54,7 @@ Type: Label
 
 Example: `app.kubernetes.io/created-by: "controller-manager"`
 
-Used on: All Objects (typically used on[workload resources](/docs/reference/kubernetes-api/workload-resources/)).
+Used on: All Objects (typically used on [workload resources](/docs/reference/kubernetes-api/workload-resources/)).
 
 The controller/user who created this resource.
 
@@ -66,7 +66,7 @@ Starting from v1.9, this label is deprecated.
 
 Type: Label
 
-Example: `app.kubernetes.io/instance: "mysql-abcxzy"`
+Example: `app.kubernetes.io/instance: "mysql-abcxyz"`
 
 Used on: All Objects (typically used on
 [workload resources](/docs/reference/kubernetes-api/workload-resources/)).
@@ -300,7 +300,7 @@ which is used by Kustomize and similar third-party tools.
 For example, Kustomize removes objects with this annotation from its final build output.
 
 
-### container.apparmor.security.beta.kubernetes.io/* (beta) {#container-apparmor-security-beta-kubernetes-io}
+### container.apparmor.security.beta.kubernetes.io/* (deprecated) {#container-apparmor-security-beta-kubernetes-io}
 
 Type: Annotation
 
@@ -309,7 +309,7 @@ Example: `container.apparmor.security.beta.kubernetes.io/my-container: my-custom
 Used on: Pods
 
 This annotation allows you to specify the AppArmor security profile for a container within a
-Kubernetes pod. 
+Kubernetes pod. As of Kubernetes v1.30, this should be set with the `appArmorProfile` field instead.
 To learn more, see the [AppArmor](/docs/tutorials/security/apparmor/) tutorial.
 The tutorial illustrates using AppArmor to restrict a container's abilities and access.
 
@@ -627,9 +627,7 @@ Example: `node.kubernetes.io/exclude-from-external-load-balancers`
 
 Used on: Node
 
-Kubernetes automatically enables the `ServiceNodeExclusion` feature gate on
-the clusters it creates. With this feature gate enabled on a cluster,
-you can add labels to particular worker nodes to exclude them from the list of backend servers.
+You can add labels to particular worker nodes to exclude them from the list of backend servers used by external load balancers.
 The following command can be used to exclude a worker node from the list of backend servers in a
 backend set:
 
@@ -1001,9 +999,10 @@ Type: Label
 
 Example: `service.kubernetes.io/headless: ""`
 
-Used on: Service
+Used on: Endpoints
 
 The control plane adds this label to an Endpoints object when the owning Service is headless.
+To learn more, read [Headless Services](/docs/concepts/services-networking/service/#headless-services).
 
 ### service.kubernetes.io/topology-aware-hints (deprecated) {#servicekubernetesiotopology-aware-hints}
 
@@ -1105,19 +1104,17 @@ Example: `kubernetes.io/legacy-token-invalid-since: 2023-10-27`
 Used on: Secret
 
 The control plane automatically adds this label to auto-generated Secrets that
-have the type `kubernetes.io/service-account-token`, provided that you have the
-`LegacyServiceAccountTokenCleanUp` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled. Kubernetes {{< skew currentVersion >}} enables that behavior by default.
-This label marks the Secret-based token as invalid for authentication. The value
-of this label records the date (ISO 8601 format, UTC time zone) when the control
-plane detects that the auto-generated Secret has not been used for a specified
-duration (defaults to one year).
+have the type `kubernetes.io/service-account-token`. This label marks the
+Secret-based token as invalid for authentication. The value of this label
+records the date (ISO 8601 format, UTC time zone) when the control plane detects
+that the auto-generated Secret has not been used for a specified duration
+(defaults to one year).
 
 ### endpointslice.kubernetes.io/managed-by {#endpointslicekubernetesiomanaged-by}
 
 Type: Label
 
-Example: `endpointslice.kubernetes.io/managed-by: "controller"`
+Example: `endpointslice.kubernetes.io/managed-by: endpointslice-controller.k8s.io`
 
 Used on: EndpointSlices
 
@@ -1293,6 +1290,18 @@ The annotation indicates that the Endpoints object is over capacity and the numb
 has been truncated to 1000.
 
 If the number of backend endpoints falls below 1000, the control plane removes this annotation.
+
+### endpoints.kubernetes.io/last-change-trigger-time
+
+Type: Annotation
+
+Example: `endpoints.kubernetes.io/last-change-trigger-time: "2023-07-20T04:45:21Z"`
+
+Used on: Endpoints
+
+This annotation set to an [Endpoints](/docs/concepts/services-networking/service/#endpoints) object that
+represents the timestamp (The timestamp is stored in RFC 3339 date-time string format. For example, '2018-10-22T19:32:52.1Z'). This is timestamp
+of the last change in some Pod or Service object, that triggered the change to the Endpoints object.
 
 ### control-plane.alpha.kubernetes.io/leader (deprecated) {#control-plane-alpha-kubernetes-io-leader}
 
@@ -2060,6 +2069,25 @@ on an existing Service object. See the AWS documentation on this topic for more
 details.
 {{< /caution >}}
 
+### service.beta.kubernetes.io/azure-load-balancer-disable-tcp-reset (deprecated) {#service-beta-kubernetes-azure-load-balancer-disble-tcp-reset}
+
+Example: `service.beta.kubernetes.io/azure-load-balancer-disable-tcp-reset: "false"`
+
+Used on: Service
+
+This annotation only works for Azure standard load balancer backed service.
+This annotation is used on the Service to specify whether the load balancer
+should disable or enable TCP reset on idle timeout. If enabled, it helps
+applications to behave more predictably, to detect the termination of a connection,
+remove expired connections and initiate new connections. 
+You can set the value to be either true or false.
+
+See [Load Balancer TCP Reset](https://learn.microsoft.com/en-gb/azure/load-balancer/load-balancer-tcp-reset) for more information.
+
+{{< note >}} 
+This annotation is deprecated.
+{{< /note >}}
+
 ### pod-security.kubernetes.io/enforce
 
 Type: Label
@@ -2255,7 +2283,8 @@ Starting in v1.16, this annotation was removed in favor of
 - [`pod-security.kubernetes.io/audit-violations`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-audit-violations)
 - [`pod-security.kubernetes.io/enforce-policy`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-enforce-policy)
 - [`pod-security.kubernetes.io/exempt`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-exempt)
-
+- [`validation.policy.admission.k8s.io/validation_failure`](/docs/reference/labels-annotations-taints/audit-annotations/#validation-policy-admission-k8s-io-validation-failure)
+  
 See more details on [Audit Annotations](/docs/reference/labels-annotations-taints/audit-annotations/).
 
 ## kubeadm

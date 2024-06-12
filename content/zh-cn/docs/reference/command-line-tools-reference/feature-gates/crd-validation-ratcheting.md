@@ -9,7 +9,12 @@ stages:
   - stage: alpha
     defaultValue: false
     fromVersion: "1.28"
+    toVersion: "1.29"
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.30"
 ---
+
 <!--
 Enable updates to custom resources to contain
 violations of their OpenAPI schema if the offending portions of the resource

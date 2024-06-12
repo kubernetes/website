@@ -3,7 +3,6 @@ title: 投射卷
 content_type: concept
 weight: 21 # 跟在持久卷之后
 ---
-
 <!--
 reviewers:
 - marosset
@@ -35,6 +34,7 @@ Currently, the following types of volume sources can be projected:
 * [`downwardAPI`](/docs/concepts/storage/volumes/#downwardapi)
 * [`configMap`](/docs/concepts/storage/volumes/#configmap)
 * [`serviceAccountToken`](#serviceaccounttoken)
+* [`clusterTrustBundle`](#clustertrustbundle)
 -->
 ## 介绍    {#introduction}
 
@@ -46,6 +46,7 @@ Currently, the following types of volume sources can be projected:
 * [`downwardAPI`](/zh-cn/docs/concepts/storage/volumes/#downwardapi)
 * [`configMap`](/zh-cn/docs/concepts/storage/volumes/#configmap)
 * [`serviceAccountToken`](#serviceaccounttoken)
+* [`clusterTrustBundle`](#clustertrustbundle)
 
 <!--
 All sources are required to be in the same namespace as the Pod. For more details,
@@ -132,6 +133,66 @@ volume mount will not receive updates for those volume sources.
 以 [`subPath`](/zh-cn/docs/concepts/storage/volumes/#using-subpath)
 形式使用投射卷源的容器无法收到对应卷源的更新。
 {{< /note >}}
+
+<!--
+## clusterTrustBundle projected volumes {#clustertrustbundle}
+-->
+## clusterTrustBundle 投射卷    {#clustertrustbundle}
+
+{{<feature-state for_k8s_version="v1.29" state="alpha" >}}
+
+{{< note >}}
+<!--
+To use this feature in Kubernetes {{< skew currentVersion >}}, you must enable support for ClusterTrustBundle objects with the `ClusterTrustBundle` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and `--runtime-config=certificates.k8s.io/v1alpha1/clustertrustbundles=true` kube-apiserver flag, then enable the `ClusterTrustBundleProjection` feature gate.
+-->
+要在 Kubernetes {{< skew currentVersion >}} 中使用此特性，你必须通过 `ClusterTrustBundle`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)和
+`--runtime-config=certificates.k8s.io/v1alpha1/clustertrustbundles=true` kube-apiserver
+标志启用对 ClusterTrustBundle 对象的支持，然后才能启用 `ClusterTrustBundleProjection` 特性门控。
+{{< /note >}}
+
+<!--
+The `clusterTrustBundle` projected volume source injects the contents of one or more [ClusterTrustBundle](/docs/reference/access-authn-authz/certificate-signing-requests#cluster-trust-bundles) objects as an automatically-updating file in the container filesystem.
+-->
+`clusterTrustBundle` 投射卷源将一个或多个
+[ClusterTrustBundle](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests#cluster-trust-bundles)
+对象的内容作为一个自动更新的文件注入到容器文件系统中。
+
+<!--
+ClusterTrustBundles can be selected either by [name](/docs/reference/access-authn-authz/certificate-signing-requests#ctb-signer-unlinked) or by [signer name](/docs/reference/access-authn-authz/certificate-signing-requests#ctb-signer-linked).
+-->
+ClusterTrustBundle 可以通过[名称](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests#ctb-signer-unlinked)
+或[签名者名称](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests#ctb-signer-linked)被选中。
+
+<!--
+To select by name, use the `name` field to designate a single ClusterTrustBundle object.
+
+To select by signer name, use the `signerName` field (and optionally the
+`labelSelector` field) to designate a set of ClusterTrustBundle objects that use
+the given signer name. If `labelSelector` is not present, then all
+ClusterTrustBundles for that signer are selected.
+-->
+要按名称选择，可以使用 `name` 字段指定单个 ClusterTrustBundle 对象。
+
+要按签名者名称选择，可以使用 `signerName` 字段（也可选用 `labelSelector` 字段）
+指定一组使用给定签名者名称的 ClusterTrustBundle 对象。
+如果 `labelSelector` 不存在，则针对该签名者的所有 ClusterTrustBundles 将被选中。
+
+<!--
+The kubelet deduplicates the certificates in the selected ClusterTrustBundle objects, normalizes the PEM representations (discarding comments and headers), reorders the certificates, and writes them into the file named by `path`. As the set of selected ClusterTrustBundles or their content changes, kubelet keeps the file up-to-date.
+-->
+kubelet 会对所选 ClusterTrustBundle 对象中的证书进行去重，规范化 PEM 表示（丢弃注释和头部），
+重新排序证书，并将这些证书写入由 `path` 指定的文件中。
+随着所选 ClusterTrustBundles 的集合或其内容发生变化，kubelet 会保持更新此文件。
+
+<!--
+By default, the kubelet will prevent the pod from starting if the named ClusterTrustBundle is not found, or if `signerName` / `labelSelector` do not match any ClusterTrustBundles.  If this behavior is not what you want, then set the `optional` field to `true`, and the pod will start up with an empty file at `path`.
+-->
+默认情况下，如果找不到指定的 ClusterTrustBundle，或者 `signerName` / `labelSelector`
+与所有 ClusterTrustBundle 都不匹配，kubelet 将阻止 Pod 启动。如果这不是你想要的行为，
+可以将 `optional` 字段设置为 `true`，Pod 将使用 `path` 处的空白文件启动。
+
+{{% code_sample file="pods/storage/projected-clustertrustbundle.yaml" %}}
 
 <!--
 ## SecurityContext interactions
@@ -257,4 +318,3 @@ the Linux only `RunAsUser` option with Windows Pods.
 Pod 会一直阻塞在 `ContainerCreating` 状态。因此，建议不要在 Windows
 节点上使用仅针对 Linux 的 `RunAsUser` 选项。
 {{< /note >}}
-

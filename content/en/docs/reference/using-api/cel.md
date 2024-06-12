@@ -55,10 +55,12 @@ Example CEL expressions:
 | `has(self.expired) && self.created + self.ttl < self.expired`                      | Validate that 'expired' date is after a 'create' date plus a 'ttl' duration       |
 | `self.health.startsWith('ok')`                                                     | Validate a 'health' string field has the prefix 'ok'                              |
 | `self.widgets.exists(w, w.key == 'x' && w.foo < 10)`                               | Validate that the 'foo' property of a listMap item with a key 'x' is less than 10 |
-| `type(self) == string ? self == '99%' : self == 42`                                | Validate an int-or-string field for both the int and string cases             |
+| `type(self) == string ? self == '99%' : self == 42`                                | Validate an int-or-string field for both the int and string cases                 |
 | `self.metadata.name == 'singleton'`                                                | Validate that an object's name matches a specific value (making it a singleton)   |
 | `self.set1.all(e, !(e in self.set2))`                                              | Validate that two listSets are disjoint                                           |
 | `self.names.size() == self.details.size() && self.names.all(n, n in self.details)` | Validate the 'details' map is keyed by the items in the 'names' listSet           |
+| `self.details.all(key, key.matches('^[a-zA-Z]*$'))`                                | Validate the keys of the 'details' map                                            |
+| `self.details.all(key, self.details[key].matches('^[a-zA-Z]*$'))`                  | Validate the values of the 'details' map                                          |
 {{< /table >}}
 
 ## CEL options, language features, and libraries
@@ -131,8 +133,8 @@ Examples:
 {{< table caption="Examples of CEL expressions using regex library functions" >}}
 | CEL Expression                                              | Purpose                                                  |
 |-------------------------------------------------------------|----------------------------------------------------------|
-| `"abc 123".find('[0-9]*')`                                  | Find the first number in a string                        |
-| `"1, 2, 3, 4".findAll('[0-9]*').map(x, int(x)).sum() < 100` | Verify that the numbers in a string sum to less than 100 |
+| `"abc 123".find('[0-9]+')`                                  | Find the first number in a string                        |
+| `"1, 2, 3, 4".findAll('[0-9]+').map(x, int(x)).sum() < 100` | Verify that the numbers in a string sum to less than 100 |
 {{< /table >}}
 
 See the [Kubernetes regex library](https://pkg.go.dev/k8s.io/apiextensions-apiserver/pkg/apiserver/schema/cel/library#Regex)
@@ -237,7 +239,7 @@ Examples:
 | `quantity("500000G").isInteger()`                                         | Test if conversion to integer would throw an error    |
 | `quantity("50k").asInteger()`                                             | Precise conversion to integer                         |
 | `quantity("9999999999999999999999999999999999999G").asApproximateFloat()` | Lossy conversion to float                              |
-| `quantity("50k").add("20k")`                                              | Add two quantities                                    |
+| `quantity("50k").add(quantity("20k"))`                                   | Add two quantities                                    |
 | `quantity("50k").sub(20000)`                                              | Subtract an integer from a quantity                   |
 | `quantity("50k").add(20).sub(quantity("100k")).sub(-50000)`               | Chain adding and subtracting integers and quantities  |
 | `quantity("200M").compareTo(quantity("0.2G"))`                            | Compare two quantities                                |

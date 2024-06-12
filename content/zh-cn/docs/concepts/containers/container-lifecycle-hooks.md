@@ -98,16 +98,15 @@ There are three types of hook handlers that can be implemented for Containers:
 Resources consumed by the command are counted against the Container.
 * HTTP - Executes an HTTP request against a specific endpoint on the Container.
 * Sleep - Pauses the container for a specified duration.
-  The "Sleep" action is available when the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  `PodLifecycleSleepAction` is enabled.
+  This is a beta-level feature default enabled by the `PodLifecycleSleepAction` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 -->
 
 * Exec - 在容器的 cgroups 和名字空间中执行特定的命令（例如 `pre-stop.sh`）。
   命令所消耗的资源计入容器的资源消耗。
 * HTTP - 对容器上的特定端点执行 HTTP 请求。
 * Sleep - 将容器暂停一段指定的时间。
-  当[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/) `PodLifecycleSleepAction` 被启用时，
-  “Sleep” 操作才可用。
+  这是由 `PodLifecycleSleepAction`
+  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)默认启用的 Beta 级特性。
 
 <!--
 ### Hook handler execution

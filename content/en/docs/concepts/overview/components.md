@@ -20,7 +20,7 @@ When you deploy Kubernetes, you get a cluster.
 This document outlines the various components you need to have for
 a complete and working Kubernetes cluster.
 
-{{< figure src="/images/docs/components-of-kubernetes.svg" alt="Components of Kubernetes" caption="The components of a Kubernetes cluster" class="diagram-large" >}}
+{{< figure src="/images/docs/components-of-kubernetes.svg" alt="Components of Kubernetes" caption="The components of a Kubernetes cluster" class="diagram-large" clicktozoom="true" >}}
 
 <!-- body -->
 ## Control Plane Components
@@ -31,7 +31,7 @@ as well as detecting and responding to cluster events (for example, starting up 
 `{{< glossary_tooltip text="replicas" term_id="replica" >}}` field is unsatisfied).
 
 Control plane components can be run on any machine in the cluster. However,
-for simplicity, set up scripts typically start all control plane components on
+for simplicity, setup scripts typically start all control plane components on
 the same machine, and do not run user containers on this machine. See
 [Creating Highly Available clusters with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/)
 for an example control plane setup that runs across multiple machines.

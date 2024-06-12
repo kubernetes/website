@@ -616,7 +616,7 @@ available amount is simultaneously allocated to Pods.
 
 The API server restricts quantities of extended resources to whole numbers.
 Examples of _valid_ quantities are `3`, `3000m` and `3Ki`. Examples of
-_invalid_ quantities are `0.5` and `1500m`.
+_invalid_ quantities are `0.5` and `1500m` (because `1500m` would result in `1.5`).
 
 {{< note >}}
 Extended resources replace Opaque Integer Resources.

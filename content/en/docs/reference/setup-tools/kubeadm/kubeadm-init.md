@@ -1,7 +1,4 @@
 ---
-reviewers:
-- luxas
-- jbeda
 title: kubeadm init
 content_type: concept
 weight: 20
@@ -160,7 +157,7 @@ Feature | Default | Alpha | Beta | GA
 :-------|:--------|:------|:-----|:----
 `EtcdLearnerMode` | `true` | 1.27 | 1.29 | -
 `PublicKeysECDSA` | `false` | 1.19 | - | -
-`RootlessControlPlane` | `false` | 1.22 | - | -
+`WaitForAllControlPlaneComponents` | `false` | 1.30 | - | -
 {{< /table >}}
 
 {{< note >}}
@@ -178,35 +175,31 @@ as a learner and promoted to a voting member only after the etcd data are fully 
 Renewal of existing ECDSA certificates is also supported using `kubeadm certs renew`, but you cannot
 switch between the RSA and ECDSA algorithms on the fly or during upgrades.
 
+`WaitForAllControlPlaneComponents`
+: With this feature gate enabled kubeadm will wait for all control plane components (kube-apiserver,
+kube-controller-manager, kube-scheduler) on a control plane node to report status 200 on their `/healthz`
+endpoints. These checks are performed on `https://127.0.0.1:PORT/healthz`, where `PORT` is taken from
+`--secure-port` of a component. If you specify custom `--secure-port` values in the kubeadm configuration
+they will be respected. Without the feature gate enabled, kubeadm will only wait for the kube-apiserver
+on a control plane node to become ready. The wait process starts right after the kubelet on the host
+is started by kubeadm. You are advised to enable this feature gate in case you wish to observe a ready
+state from all control plane components during the `kubeadm init` or `kubeadm join` command execution.
+
+List of deprecated feature gates:
+
+{{< table caption="kubeadm deprecated feature gates" >}}
+Feature | Default | Alpha | Beta | GA | Deprecated
+:-------|:--------|:------|:-----|:---|:----------
+`RootlessControlPlane` | `false` | 1.22 | - | - | 1.31
+{{< /table >}}
+
+Feature gate descriptions:
+
 `RootlessControlPlane`
 : Setting this flag configures the kubeadm deployed control plane component static Pod containers
 for `kube-apiserver`, `kube-controller-manager`, `kube-scheduler` and `etcd` to run as non-root users.
 If the flag is not set, those components run as root. You can change the value of this feature gate before
 you upgrade to a newer version of Kubernetes.
-
-List of deprecated feature gates:
-
-{{< table caption="kubeadm deprecated feature gates" >}}
-Feature | Default
-:-------|:--------
-`UpgradeAddonsBeforeControlPlane` | `false`
-{{< /table >}}
-
-Feature gate descriptions:
-
-`UpgradeAddonsBeforeControlPlane`
-: This is as a **disabled** feature gate that was introduced for Kubernetes v1.28, in order to allow reactivating a legacy
-and deprecated behavior during cluster upgrade. For kubeadm versions prior to v1.28, kubeadm upgrades cluster addons (including
-CoreDNS and kube-proxy) immediately during `kubeadm upgrade apply`, regardless of whether there are other control plane
-instances that have not been upgraded. This may cause compatibility problems. Since v1.28, kubeadm defaults to a mode that
-always checks whether all the control plane instances have been upgraded before starting to upgrade the addons. This behavior
-is applied to both `kubeadm upgrade apply` and `kubeadm upgrade node`. kubeadm determines whether a control plane instance
-has been upgraded by checking whether the image of the kube-apiserver Pod has been upgraded. You must perform control plane
-instances upgrade sequentially or at least ensure that the last control plane instance upgrade is not started until all the
-other control plane instances have been upgraded completely, and the addons upgrade will be performed after the last control plane
-instance is upgraded. The deprecated `UpgradeAddonsBeforeControlPlane` feature gate gives you a chance to keep the old upgrade
-behavior. You should not need this old behavior; if you do, you should consider changing your cluster or upgrade processes, as this
-feature gate will be removed in a future release.
 
 List of removed feature gates:
 
@@ -215,6 +208,7 @@ Feature | Alpha | Beta | GA | Removed
 :-------|:------|:-----|:---|:-------
 `IPv6DualStack` | 1.16 | 1.21 | 1.23 | 1.24
 `UnversionedKubeletConfigMap` | 1.22 | 1.23 | 1.25 | 1.26
+`UpgradeAddonsBeforeControlPlane` | 1.28 | - | - | 1.31
 {{< /table >}}
 
 Feature gate descriptions:
@@ -232,6 +226,9 @@ that ConfigMap are appropriate for the value you set. When kubeadm writes this C
 or `kubeadm upgrade apply`), kubeadm respects the value of `UnversionedKubeletConfigMap`. When reading that ConfigMap
 (during `kubeadm join`, `kubeadm reset`, `kubeadm upgrade ...`), kubeadm attempts to use unversioned ConfigMap name first;
 if that does not succeed, kubeadm falls back to using the legacy (versioned) name for that ConfigMap.
+
+`UpgradeAddonsBeforeControlPlane`
+: This feature gate has been removed. It was introduced in v1.28 as a deprecated feature and then removed in v1.31. For documentation on older versions, please switch to the corresponding website version.
 
 ### Adding kube-proxy parameters {#kube-proxy}
 

@@ -3,9 +3,9 @@ layout: blog
 title: "Kubernetes 1.28: A New (alpha) Mechanism For Safer Cluster Upgrades"
 date: 2023-08-28
 slug: kubernetes-1-28-feature-mixed-version-proxy-alpha
+author: >
+  Richa Banker (Google)
 ---
-
-**Author:** Richa Banker (Google)
 
 This blog describes the _mixed version proxy_, a new alpha feature in Kubernetes 1.28. The
 mixed version proxy enables an HTTP request for a resource to be served by the correct API server

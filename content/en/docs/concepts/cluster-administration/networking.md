@@ -19,7 +19,7 @@ problems to address:
 
 <!-- body -->
 
-Kubernetes is all about sharing machines between applications.  Typically,
+Kubernetes is all about sharing machines among applications.  Typically,
 sharing machines requires ensuring that two applications do not try to use the
 same ports.  Coordinating ports across multiple developers is very difficult to
 do at scale and exposes users to cluster-level issues outside of their control.

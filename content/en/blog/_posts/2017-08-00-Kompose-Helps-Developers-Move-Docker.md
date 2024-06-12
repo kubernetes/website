@@ -3,8 +3,9 @@ title: " Kompose Helps Developers Move Docker Compose Files to Kubernetes "
 date: 2017-08-10
 slug: kompose-helps-developers-move-docker
 url: /blog/2017/08/Kompose-Helps-Developers-Move-Docker
+author: >
+  Charlie Drage (Red Hat)
 ---
-_Editor's note: today's post is by Charlie Drage, Software Engineer at Red Hat giving an update about the Kubernetes project Kompose._  
 
 I'm pleased to announce that [Kompose](https://github.com/kubernetes/kompose), a conversion tool for developers to transition Docker Compose applications to Kubernetes, has graduated from the [Kubernetes Incubator](https://github.com/kubernetes/community/blob/master/incubator.md) to become an official part of the project.   
 
@@ -145,10 +146,6 @@ As we continue development, we will strive to convert as many Docker Compose key
 - [Kompose Quick Start Guide](https://github.com/kubernetes/kompose/blob/master/docs/installation.md)
 - [Kompose Web Site](http://kompose.io/)
 - [Kompose Documentation](https://github.com/kubernetes/kompose/tree/master/docs)
-
-
-
---Charlie Drage, Software Engineer, Red Hat
 
 
 - Post questions (or answer questions) on[Stack Overflow](http://stackoverflow.com/questions/tagged/kubernetes)

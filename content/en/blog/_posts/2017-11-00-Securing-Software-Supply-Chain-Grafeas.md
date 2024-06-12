@@ -3,8 +3,10 @@ title: " Securing Software Supply Chain with Grafeas "
 date: 2017-11-03
 slug: securing-software-supply-chain-grafeas
 url: /blog/2017/11/Securing-Software-Supply-Chain-Grafeas
+author: >
+  Kelsey Hightower (Google),
+  Sandra Guo (Google)
 ---
- **_Editor's note: This post is written by Kelsey Hightower, Staff Developer Advocate at Google, and Sandra Guo, Product Manager at Google._**  
 
 Kubernetes has evolved to support increasingly complex classes of applications, enabling the development of two major industry trends: hybrid cloud and microservices. With increasing complexity in production environments, customers—especially enterprises—are demanding better ways to manage their software supply chain with more centralized visibility and control over production deployments.  
 

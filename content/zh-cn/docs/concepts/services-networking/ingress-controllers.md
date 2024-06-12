@@ -77,7 +77,7 @@ Kubernetes 作为一个项目，目前支持和维护
 * [Emissary-Ingress](https://www.getambassador.io/products/api-gateway) API Gateway is an [Envoy](https://www.envoyproxy.io)-based ingress
   controller.
 * [EnRoute](https://getenroute.io/) is an [Envoy](https://www.envoyproxy.io) based API gateway that can run as an ingress controller.
-* [Easegress IngressController](https://github.com/megaease/easegress/blob/main/doc/reference/ingresscontroller.md) is an [Easegress](https://megaease.com/easegress/) based API gateway that can run as an ingress controller.
+* [Easegress IngressController](https://megaease.com/docs/easegress/04.cloud-native/4.1.kubernetes-ingress-controller/) is an [Easegress](https://megaease.com/easegress/) based API gateway that can run as an ingress controller.
 -->
 * [BFE Ingress 控制器](https://github.com/bfenetworks/ingress-bfe)是一个基于
   [BFE](https://www.bfe-networks.net) 的 Ingress 控制器。
@@ -91,7 +91,7 @@ Kubernetes 作为一个项目，目前支持和维护
   [Envoy](https://www.envoyproxy.io/) 的入口控制器。
 * [EnRoute](https://getenroute.io/) 是一个基于 [Envoy](https://www.envoyproxy.io)
   的 API 网关，可以用作 Ingress 控制器。
-* [Easegress IngressController](https://github.com/megaease/easegress/blob/main/doc/reference/ingresscontroller.md)
+* [Easegress IngressController](https://megaease.com/docs/easegress/04.cloud-native/4.1.kubernetes-ingress-controller/)
   是一个基于 [Easegress](https://megaease.com/easegress/) 的 API 网关，可以用作 Ingress 控制器。
 <!--
 * F5 BIG-IP [Container Ingress Services for Kubernetes](https://clouddocs.f5.com/containers/latest/userguide/kubernetes/)

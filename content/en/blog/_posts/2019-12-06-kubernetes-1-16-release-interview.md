@@ -2,9 +2,9 @@
 layout: blog
 title: "When you're in the release team, you're family: the Kubernetes 1.16 release interview"
 date: 2019-12-06
+author: >
+  Craig Box (Google)
 ---
-
-<b>Author</b>: Craig Box (Google)
 
 It is a pleasure to co-host the weekly [Kubernetes Podcast from Google](https://kubernetespodcast.com/) with Adam Glick.  We get to talk to friends old and new from the community, as well as give people a download on the Cloud Native news every week.
 

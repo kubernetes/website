@@ -33,7 +33,7 @@ When you deploy Kubernetes, you get a cluster.
 This document outlines the various components you need to have for
 a complete and working Kubernetes cluster.
 
-{{ < figure src="/images/docs/components-of-kubernetes.svg" alt="Components of Kubernetes" caption="The components of a Kubernetes cluster" class="diagram-large" >}}
+{{ < figure src="/images/docs/components-of-kubernetes.svg" alt="Components of Kubernetes" caption="The components of a Kubernetes cluster" class="diagram-large" clicktozoom="true" >}}
 -->
 当你部署完 Kubernetes，便拥有了一个完整的集群。
 
@@ -41,7 +41,7 @@ a complete and working Kubernetes cluster.
 
 本文档概述了一个正常运行的 Kubernetes 集群所需的各种组件。
 
-{{< figure src="/images/docs/components-of-kubernetes.svg" alt="Kubernetes 的组件" caption="Kubernetes 集群的组件" class="diagram-large" >}}
+{{< figure src="/images/docs/components-of-kubernetes.svg" alt="Kubernetes 的组件" caption="Kubernetes 集群的组件" class="diagram-large" clicktozoom="true" >}}
 
 <!-- body -->
 
@@ -61,7 +61,7 @@ as well as detecting and responding to cluster events (for example, starting up 
 
 <!--
 Control plane components can be run on any machine in the cluster. However,
-for simplicity, set up scripts typically start all control plane components on
+for simplicity, setup scripts typically start all control plane components on
 the same machine, and do not run user containers on this machine. See
 [Creating Highly Available clusters with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/)
 for an example control plane setup that runs across multiple machines.

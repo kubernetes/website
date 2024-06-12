@@ -222,7 +222,7 @@ called for that node. Nodes may be evaluated concurrently.
 ### PostFilter  {#post-filter}
 
 <!--
-These plugins are called after Filter phase, but only when no feasible nodes
+These plugins are called after the Filter phase, but only when no feasible nodes
 were found for the pod. Plugins are called in their configured order. If
 any postFilter plugin marks the node as `Schedulable`, the remaining plugins
 will not be called. A typical PostFilter implementation is preemption, which

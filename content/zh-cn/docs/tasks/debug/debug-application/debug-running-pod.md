@@ -605,7 +605,7 @@ You can view the state of the newly created ephemeral container using `kubectl d
 {{< note >}}
 {{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}必须支持 `--target` 参数。
 如果不支持，则临时容器可能不会启动，或者可能使用隔离的进程命名空间启动，
-以便 `ps` 不显示其他容器内的进程。
+导致 `ps` 不显示其他容器内的进程。
 {{< /note >}}
 
 你可以使用 `kubectl describe` 查看新创建的临时容器的状态：

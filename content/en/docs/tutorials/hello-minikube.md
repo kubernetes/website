@@ -2,12 +2,6 @@
 title: Hello Minikube
 content_type: tutorial
 weight: 5
-menu:
-  main:
-    title: "Get Started"
-    weight: 10
-    post: >
-      <p>Ready to get your hands dirty? Build a simple Kubernetes cluster that runs a sample app.</p>
 card:
   name: tutorials
   weight: 10
@@ -120,6 +114,8 @@ recommended way to manage the creation and scaling of Pods.
     hello-node   1/1     1            1           1m
     ```
 
+    (It may take some time for the pod to become available. If you see "0/1", try again in a few seconds.)
+
 1. View the Pod:
 
     ```shell
@@ -145,7 +141,7 @@ recommended way to manage the creation and scaling of Pods.
     kubectl config view
     ```
 
-1. View application logs for a container in a pod.
+1. View application logs for a container in a pod (replace pod name with the one you got from `kubectl get pods`).
    
    ```shell
    kubectl logs hello-node-5f76cf6ccf-br9b5

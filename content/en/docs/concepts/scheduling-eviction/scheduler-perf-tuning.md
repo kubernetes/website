@@ -77,7 +77,7 @@ If you don't specify a threshold, Kubernetes calculates a figure using a
 linear formula that yields 50% for a 100-node cluster and yields 10%
 for a 5000-node cluster. The lower bound for the automatic value is 5%.
 
-This means that, the kube-scheduler always scores at least 5% of your cluster no
+This means that the kube-scheduler always scores at least 5% of your cluster no
 matter how large the cluster is, unless you have explicitly set
 `percentageOfNodesToScore` to be smaller than 5.
 

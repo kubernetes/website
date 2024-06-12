@@ -3,6 +3,8 @@ title: "Core Workloads API GA"
 date: 2018-01-15
 slug: core-workloads-api-ga
 url: /blog/2018/01/Core-Workloads-Api-Ga
+author: >
+   Kenneth Owens (Google)  
 ---
 
 ## DaemonSet, Deployment, ReplicaSet, and StatefulSet are GA
@@ -91,8 +93,6 @@ In future releases, before completely removing any of the group versions, we wil
 
 ## What’s Next?
 The core workloads API surface is stable, but it’s still software, and software is never complete. We often add features to stable APIs to support new use cases, and we will likely do so for the core workloads API as well. GA stability means that any new features that we do add will be strictly backward compatible with the existing API surface. From this point forward, nothing we do will break our backwards compatibility guarantees. If you’re looking to participate in the evolution of this portion of the API, please feel free to get involved in [GitHub](https://github.com/kubernetes/kubernetes) or to participate in [SIG Apps](https://github.com/kubernetes/community/tree/master/sig-apps).  
-
---Kenneth Owens, Software Engineer, Google  
 
 
 - [Download](https://get.k8s.io/) Kubernetes

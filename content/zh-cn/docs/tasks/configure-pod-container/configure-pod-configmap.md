@@ -1511,6 +1511,9 @@ or move it into the trash can / deleted files location.
 <!--
 * Follow a real world example of
   [Configuring Redis using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/).
+* Follow an example of [Updating configuration via a ConfigMap](/docs/tutorials/configuration/updating-configuration-via-a-configmap/).
 -->
 * 浏览[使用 ConfigMap 配置 Redis](/zh-cn/docs/tutorials/configuration/configure-redis-using-configmap/)
   真实示例。
+* 参照一个[通过 ConfigMap 更新配置](/zh-cn/docs/tutorials/configuration/updating-configuration-via-a-configmap/)
+  的示例.

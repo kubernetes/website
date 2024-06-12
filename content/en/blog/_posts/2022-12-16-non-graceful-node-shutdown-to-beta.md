@@ -3,9 +3,10 @@ layout: blog
 title: "Kubernetes 1.26: Non-Graceful Node Shutdown Moves to Beta"
 date: 2022-12-16T10:00:00-08:00
 slug: kubernetes-1-26-non-graceful-node-shutdown-beta
+author: >
+  Xing Yang (VMware),
+  Ashutosh Kumar (VMware)
 ---
-
-**Author:** Xing Yang (VMware), Ashutosh Kumar (VMware)
 
 Kubernetes v1.24 [introduced](https://kubernetes.io/blog/2022/05/20/kubernetes-1-24-non-graceful-node-shutdown-alpha/) an alpha quality implementation of improvements
 for handling a [non-graceful node shutdown](/docs/concepts/architecture/nodes/#non-graceful-node-shutdown).

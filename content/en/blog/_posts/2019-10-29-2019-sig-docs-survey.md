@@ -3,9 +3,10 @@ layout: blog
 title: "Kubernetes Documentation Survey"
 date: 2019-10-29
 slug: kubernetes-documentation-end-user-survey
+author: >
+  [Aimee Ukasick](https://www.linkedin.com/in/aimee-ukasick/),
+  and Kubernetes SIG Docs
 ---
-
-**Author:** [Aimee Ukasick](https://www.linkedin.com/in/aimee-ukasick/) and SIG Docs
 
 In September, SIG Docs conducted its first survey about the [Kubernetes
 documentation](https://kubernetes.io/docs/). We'd like to thank the CNCF's Kim

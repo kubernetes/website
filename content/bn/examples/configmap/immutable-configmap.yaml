@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  company_name: "ACME, Inc." # existing fictional company name
+kind: ConfigMap
+immutable: true
+metadata:
+  name: company-name-20150801

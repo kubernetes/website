@@ -1022,7 +1022,7 @@ Para apagar el complemento `vsphereVolume` y no cargarlo por el administrador de
 ## Uso de subPath {#using-subpath}
 
 Algunas veces es útil compartir un volumen para múltiples usos en un único Pod.
-La propiedad `volumeMounts.subPath` especifica una sub-ruta dentro del volumen referenciado en lugar de su raíz.
+La propiedad `volumeMounts[*].subPath` especifica una sub-ruta dentro del volumen referenciado en lugar de su raíz.
 
 El siguiente ejemplo muestra cómo configurar un Pod con la pila LAMP (Linux Apache MySQL PHP) usando un único volumen compartido. Esta configuración de ejemplo usando `subPath` no se recomienda para su uso en producción.
 
@@ -1198,7 +1198,7 @@ For more details, see the [FlexVolume](https://github.com/kubernetes/community/b
 
 La propagación del montaje permite compartir volúmenes montados por un contenedor para otros contenedores en el mismo Pod, o aun para otros pods en el mismo nodo.
 
-La propagación del montaje de un volumen es controlada por el campo `mountPropagation` en `Container.volumeMounts`. Sus valores son:
+La propagación del montaje de un volumen es controlada por el campo `mountPropagation` en `containers[*].volumeMounts`. Sus valores son:
 
 - `None` - Este montaje de volumen no recibirá ningún montaje posterior que el host haya montado en este volumen o en cualquiera de sus subdirectorios. De manera similar, los montajes creados por el contenedor no serán visibles en el host. Este es el modo por defecto.
 

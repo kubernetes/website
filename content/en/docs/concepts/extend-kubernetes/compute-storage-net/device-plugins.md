@@ -160,7 +160,7 @@ The general workflow of a device plugin includes the following steps:
    The processing of the fully-qualified CDI device names by the Device Manager requires
    that the `DevicePluginCDIDevices` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
    is enabled for both the kubelet and the kube-apiserver. This was added as an alpha feature in Kubernetes
-   v1.28 and graduated to beta in v1.29.
+   v1.28, graduated to beta in v1.29 and to GA in v1.31.
    {{< /note >}}
 
 ### Handling kubelet restarts
@@ -454,7 +454,8 @@ pluginapi.Device{ID: "25102017", Health: pluginapi.Healthy, Topology:&pluginapi.
 
 Here are some examples of device plugin implementations:
 
-* The [AMD GPU device plugin](https://github.com/RadeonOpenCompute/k8s-device-plugin)
+* [Akri](https://github.com/project-akri/akri), which lets you easily expose heterogeneous leaf devices (such as IP cameras and USB devices).
+* The [AMD GPU device plugin](https://github.com/ROCm/k8s-device-plugin)
 * The [generic device plugin](https://github.com/squat/generic-device-plugin) for generic Linux devices and USB devices
 * The [Intel device plugins](https://github.com/intel/intel-device-plugins-for-kubernetes) for
   Intel GPU, FPGA, QAT, VPU, SGX, DSA, DLB and IAA devices

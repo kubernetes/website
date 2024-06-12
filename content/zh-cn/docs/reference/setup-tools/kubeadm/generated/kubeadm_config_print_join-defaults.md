@@ -37,21 +37,6 @@ kubeadm config print join-defaults [flags]
 <tbody>
 
 <tr>
-<td colspan="2">--component-configs strings/td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-A comma-separated list for component config API objects to print the default values for. Available values: [KubeProxyConfiguration KubeletConfiguration]. If this flag is not set, no component configs will be printed.
--->
-<p>
-以逗号分隔的组件配置 API 对象的列表，打印其默认值。可用值：[KubeProxyConfiguration KubeletConfiguration]。
-如果未设置此参数，则不会打印任何组件配置。
-</p>
-</td>
-</tr>
-
-<tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>

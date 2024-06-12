@@ -59,6 +59,12 @@ You could also download the following files directly:
 - [`rediswq.py`](/examples/application/job/redis/rediswq.py)
 - [`worker.py`](/examples/application/job/redis/worker.py)
 
+To start a single instance of Redis, you need to create the redis pod and redis service:
+
+```shell
+kubectl apply -f https://k8s.io/examples/application/job/redis/redis-pod.yaml
+kubectl apply -f https://k8s.io/examples/application/job/redis/redis-service.yaml
+```
 
 ## Filling the queue with tasks
 
@@ -171,7 +177,7 @@ Since the workers themselves detect when the workqueue is empty, and the Job con
 know about the workqueue, it relies on the workers to signal when they are done working.
 The workers signal that the queue is empty by exiting with success.  So, as soon as **any** worker
 exits with success, the controller knows the work is done, and that the Pods will exit soon.
-So, you need to set the completion count of the Job to 1.  The job controller will wait for
+So, you need to leave the completion count of the Job unset. The job controller will wait for
 the other pods to complete too.
 
 ## Running the Job

@@ -150,7 +150,7 @@ for a 5000-node cluster. The lower bound for the automatic value is 5%.
 下取 50%，在 5000-节点的集群下取 10%。这个自动设置的参数的最低值是 5%。
 
 <!--
-This means that, the kube-scheduler always scores at least 5% of your cluster no
+This means that the kube-scheduler always scores at least 5% of your cluster no
 matter how large the cluster is, unless you have explicitly set
 `percentageOfNodesToScore` to be smaller than 5.
 -->

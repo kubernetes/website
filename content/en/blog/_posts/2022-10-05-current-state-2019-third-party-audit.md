@@ -4,9 +4,12 @@ title: "Current State: 2019 Third Party Security Audit of Kubernetes"
 date: 2022-10-05
 slug: current-state-2019-third-party-audit
 evergreen: true
+author: >
+  Cailyn Edwards (Shopify),
+  Pushkar Joglekar (VMware),
+  Rey Lejano (SUSE),
+  Rory McCune (DataDog)
 ---
-
-**Authors** (in alphabetical order): Cailyn Edwards (Shopify), Pushkar Joglekar (VMware), Rey Lejano (SUSE) and Rory McCune (DataDog)
 
 We expect the brand new Third Party Security Audit of Kubernetes will be
 published later this month (Oct 2022).
