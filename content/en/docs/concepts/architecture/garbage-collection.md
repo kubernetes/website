@@ -146,10 +146,10 @@ regardless of disk usage. This is a kubelet setting that you configure for each 
 
 To configure the setting, enable the `ImageMaximumGCAge`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the kubelet,
-and also set a value for the `ImageMaximumGCAge` field in the kubelet configuration file.
+and also set a value for the `imageMaximumGCAge` field in the kubelet configuration file.
 
 The value is specified as a Kubernetes _duration_; 
-Valid time units for the `ImageMaximumGCAge` field in the kubelet configuration file are:
+Valid time units for the `imageMaximumGCAge` field in the kubelet configuration file are:
 - "ns" for nanoseconds
 - "us" or "µs" for microseconds
 - "ms" for milliseconds
@@ -163,7 +163,7 @@ which means 12 hours and 45 minutes.
 {{< note >}}
 This feature does not track image usage across kubelet restarts. If the kubelet
 is restarted, the tracked image age is reset, causing the kubelet to wait the full
-`ImageMaximumGCAge` duration before qualifying images for garbage collection
+`imageMaximumGCAge` duration before qualifying images for garbage collection
 based on image age.
 {{< /note>}}
 
