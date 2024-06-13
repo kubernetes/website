@@ -444,6 +444,10 @@ kubectl get -o yaml job job-backoff-limit-per-index-example
       type: Failed
 ```
 
+Note that, since v1.31, you will also observe in the status the `FailureTarget`
+Job condition, with the same `reason` and `message` as for the the `Failed`
+condition (see also [Job termination and cleanup](#job-termination-and-cleanup)).
+
 Additionally, you may want to use the per-index backoff along with a
 [pod failure policy](#pod-failure-policy). When using
 per-index backoff, there is a new `FailIndex` action available which allows you to
@@ -553,6 +557,11 @@ terminating Pods only once these Pods reach the terminal `Failed` phase. This be
 to `podReplacementPolicy: Failed`. For more information, see [Pod replacement policy](#pod-replacement-policy).
 {{< /note >}}
 
+When you use the `podFailurePolicy`, and the Job fails due to the pod
+matching the rule with the `FailJob` action, then the Job controller triggers
+the Job termination process by adding the `FailureTarget` condition.
+See [Job termination and cleanup](#job-termination-and-cleanup) for more details.
+
 ## Success policy {#success-policy}
 
 {{< feature-state feature_gate_name="JobSuccessPolicy" >}}
@@ -658,6 +667,45 @@ Keep in mind that the `restartPolicy` applies to the Pod, and not to the Job its
 there is no automatic Job restart once the Job status is `type: Failed`.
 That is, the Job termination mechanisms activated with `.spec.activeDeadlineSeconds`
 and `.spec.backoffLimit` result in a permanent Job failure that requires manual intervention to resolve.
+
+### Terminal Job conditions
+
+A Job has two possible terminal states, it ends up either succeeded, or failed,
+and these states are reflected by the presence of the Job conditions `Complete`
+or `Failed`, respectively.
+
+The failure scenarios encompass:
+- the `.spec.backoffLimit`
+- the `.spec.activeDeadlineSeconds` is exceeded
+- the `.spec.backoffLimitPerIndex` is exceeded (see [Backoff limit per index](#backoff-limit-per-index))
+- the Pod matches the Job Pod Failure Policy rule with the `FailJob` action  (see more [Pod failure policy](#pod-failure-policy))
+
+The success scenarios encompass:
+- the `.spec.completions` is reached
+- the criteria specified by the Job Success Policy are met (see more [Success policy](#success-policy))
+
+### Termination of Job pods
+
+Prior to v1.31 the Job terminal conditions are added when the Job termination
+process is triggered, and all Pod finalizers are removed, but some pods may
+still remain running at that point in time.
+
+Since v1.31, when you enable either the `JobManagedBy` or
+`JobPodReplacementPolicy` (enabled by default)
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/), the
+Job controller awaits for termination of all pods before adding a condition
+indicating that the Job is finished (either `Complete` or `Failed`).
+
+Note that, the process of terminating all pods may take a substantial amount
+of time, depending on a Pod's `terminationGracePeriodSeconds` (see
+[Pod termination](#docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)),
+and thus adding the terminal Job condition, even if the fate of the Job is
+already determined.
+
+If you want to know the fate of the Job as soon as determined you can use,
+since v1.31, the `FailureTarget` and `SuccessCriteriaMet` conditions, which
+cover all scenarios in which Job controller triggers the Job termination process
+(see [Terminal Job conditions](#terminal-job-conditions)).
 
 ## Clean up finished jobs automatically
 
@@ -1063,6 +1111,13 @@ status:
   terminating: 3 # three Pods are terminating and have not yet reached the Failed phase
 ```
 
+{{< note >}}
+Since v1.31, when you enable the `JobPodReplacementPolicy`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+(enabled by default), the Job controller awaits for termination of all pods
+before marking a Job as terminal (see [Termination of Job Pods](#termination-of-job-pods)).
+{{< /note >}}
+
 ### Delegation of managing a Job object to external controller
 
 {{< feature-state feature_gate_name="JobManagedBy" >}}
@@ -1106,6 +1161,13 @@ are such jobs, there is a risk that they might be reconciled by two controllers
 after the operation: the built-in Job controller and the external controller
 indicated by the field value.
 {{< /warning >}}
+
+{{< note >}}
+Since v1.31, when you enable the `JobManagedBy`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
+the Job controller awaits for termination of all pods before marking a Job as
+terminal (see [Termination of Job Pods](#termination-of-job-pods)).
+{{< /note >}}
 
 ## Alternatives
 
