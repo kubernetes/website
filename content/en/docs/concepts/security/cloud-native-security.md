@@ -33,7 +33,7 @@ appropriate to different _lifecycle phases_.
 - Ensure the integrity of development environments.
 - Design applications following good practice for information security,
   appropriate for your context.
-- Consider end user security as part of solution design.
+- Consider end user security as part of the solution design.
 
 To achieve this, you can:
 
@@ -41,7 +41,7 @@ To achieve this, you can:
    that minimizes attack surfaces, even for internal threats.
 1. Define a code review process that considers security concerns.
 1. Build a _threat model_ of your system or application that identifies
-   trust boundaries. Use that to model to identify risks and to help find
+   trust boundaries. Use that model to identify risks and
    ways to treat those risks.
 1. Incorporate advanced security automation, such as _fuzzing_ and
    [security chaos engineering](https://glossary.cncf.io/security-chaos-engineering/),
@@ -77,7 +77,7 @@ You can enforce measures from the _distribute_ phase, such as verifying the
 cryptographic identity of container image artifacts.
 
 When you deploy Kubernetes, you also set the foundation for your
-applications' runtime environment: a Kubernetes cluster (or
+applications runtime environment: a Kubernetes cluster (or
 multiple clusters).
 That IT infrastructure must provide the security guarantees that higher
 layers expect.
@@ -91,7 +91,7 @@ The Runtime phase comprises three critical areas: [compute](#protection-runtime-
 ### Runtime protection: access {#protection-runtime-access}
 
 The Kubernetes API is what makes your cluster work. Protecting this API is key
-to providing effective cluster security.
+to provide effective cluster security.
 
 Other pages in the Kubernetes documentation have more detail about how to set up
 specific aspects of access control. The [security checklist](/docs/concepts/security/security-checklist/)
@@ -105,7 +105,7 @@ components.
 
 Kubernetes uses TLS to protect API traffic; make sure to deploy the cluster using
 TLS (including for traffic between nodes and the control plane), and protect the
-encryption keys. If you use Kubernetes' own API for
+encryption keys. If you use Kubernetes own API for
 [CertificateSigningRequests](/docs/reference/access-authn-authz/certificate-signing-requests/#certificate-signing-requests),
 pay special attention to restricting misuse there.
 
