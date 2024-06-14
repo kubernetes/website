@@ -93,7 +93,7 @@ set the `.spec.ipFamilyPolicy` field to one of the following values:
   using the first configured service cluster IP range.
 * `PreferDualStack`: Allocates both IPv4 and IPv6 cluster IPs for the Service when dual-stack is enabled. If dual-stack is not enabled or supported, it falls back to single-stack behavior.
 * `RequireDualStack`: Allocates Service `.spec.clusterIPs` from both IPv4 and IPv6 address ranges when dual-stack is enabled. If dual-stack is not enabled or supported, the Service API object creation fails.
-  * Selects the `.spec.ClusterIP` from the list of `.spec.ClusterIPs` based on the address family
+  * Selects the `.spec.clusterIP` from the list of `.spec.clusterIPs` based on the address family
     of the first element in the `.spec.ipFamilies` array.
 
 If you would like to define which IP family to use for single stack or define the order of IP
@@ -112,7 +112,7 @@ You can set `.spec.ipFamilies` to any of the following array values:
 - `["IPv4","IPv6"]` (dual stack)
 - `["IPv6","IPv4"]` (dual stack)
 
-The first family you list is used for the legacy `.spec.ClusterIP` field.
+The first family you list is used for the legacy `.spec.clusterIP` field.
 
 ### Dual-stack Service configuration scenarios
 
@@ -132,13 +132,13 @@ These examples demonstrate the behavior of various dual-stack Service configurat
 1. This Service specification explicitly defines `PreferDualStack` in `.spec.ipFamilyPolicy`. When
    you create this Service on a dual-stack cluster, Kubernetes assigns both IPv4 and IPv6
    addresses for the service. The control plane updates the `.spec` for the Service to record the IP
-   address assignments. The field `.spec.ClusterIPs` is the primary field, and contains both assigned
-   IP addresses; `.spec.ClusterIP` is a secondary field with its value calculated from
-   `.spec.ClusterIPs`.
+   address assignments. The field `.spec.clusterIPs` is the primary field, and contains both assigned
+   IP addresses; `.spec.clusterIP` is a secondary field with its value calculated from
+   `.spec.clusterIPs`.
 
-   * For the `.spec.ClusterIP` field, the control plane records the IP address that is from the
+   * For the `.spec.clusterIP` field, the control plane records the IP address that is from the
      same address family as the first service cluster IP range.
-   * On a single-stack cluster, the `.spec.ClusterIPs` and `.spec.ClusterIP` fields both only list
+   * On a single-stack cluster, the `.spec.clusterIPs` and `.spec.clusterIP` fields both only list
      one address.
    * On a cluster with dual-stack enabled, specifying `RequireDualStack` in `.spec.ipFamilyPolicy`
      behaves the same as `PreferDualStack`.
@@ -147,8 +147,8 @@ These examples demonstrate the behavior of various dual-stack Service configurat
 
 1. This Service specification explicitly defines `IPv6` and `IPv4` in `.spec.ipFamilies` as well
    as defining `PreferDualStack` in `.spec.ipFamilyPolicy`. When Kubernetes assigns an IPv6 and
-   IPv4 address in `.spec.ClusterIPs`, `.spec.ClusterIP` is set to the IPv6 address because that is
-   the first element in the `.spec.ClusterIPs` array, overriding the default.
+   IPv4 address in `.spec.clusterIPs`, `.spec.clusterIP` is set to the IPv6 address because that is
+   the first element in the `.spec.clusterIPs` array, overriding the default.
 
    {{% code_sample file="service/networking/dual-stack-preferred-ipfamilies-svc.yaml" %}}
 
@@ -161,7 +161,7 @@ dual-stack.)
 1. When dual-stack is enabled on a cluster, existing Services (whether `IPv4` or `IPv6`) are
    configured by the control plane to set `.spec.ipFamilyPolicy` to `SingleStack` and set
    `.spec.ipFamilies` to the address family of the existing Service. The existing Service cluster IP
-   will be stored in `.spec.ClusterIPs`.
+   will be stored in `.spec.clusterIPs`.
 
    {{% code_sample file="service/networking/dual-stack-default-svc.yaml" %}}
 
@@ -200,7 +200,7 @@ dual-stack.)
    [headless Services](/docs/concepts/services-networking/service/#headless-services) with selectors are
    configured by the control plane to set `.spec.ipFamilyPolicy` to `SingleStack` and set
    `.spec.ipFamilies` to the address family of the first service cluster IP range (configured via the
-   `--service-cluster-ip-range` flag to the kube-apiserver) even though `.spec.ClusterIP` is set to
+   `--service-cluster-ip-range` flag to the kube-apiserver) even though `.spec.clusterIP` is set to
    `None`.
 
    {{% code_sample file="service/networking/dual-stack-default-svc.yaml" %}}
@@ -260,9 +260,9 @@ Services can be changed from single-stack to dual-stack and from dual-stack to s
 
 1. To change a Service from dual-stack to single-stack, change `.spec.ipFamilyPolicy` from
    `PreferDualStack` or `RequireDualStack` to `SingleStack`. When you change this Service from
-   dual-stack to single-stack, Kubernetes retains only the first element in the `.spec.ClusterIPs`
-   array, and sets `.spec.ClusterIP` to that IP address and sets `.spec.ipFamilies` to the address
-   family of `.spec.ClusterIPs`.
+   dual-stack to single-stack, Kubernetes retains only the first element in the `.spec.clusterIPs`
+   array, and sets `.spec.clusterIP` to that IP address and sets `.spec.ipFamilies` to the address
+   family of `.spec.clusterIPs`.
 
 ### Headless Services without selector
 
