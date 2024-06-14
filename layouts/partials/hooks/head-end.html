@@ -9,3 +9,7 @@
 <script defer src="{{ $sortableTableJs.RelPermalink }}"></script>
   {{- end -}}
 {{- end -}}
+
+{{- if .HasShortcode "cncf-landscape" -}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.9/iframeResizer.min.js" integrity="sha384-hHTwgxzjpO1G1NI0wMHWQYUxnGtpWyDjVSZrFnDrlWa5OL+DFY57qnDWw/5WSJOl" crossorigin="anonymous"></script>
+{{- end -}}

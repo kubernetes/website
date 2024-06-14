@@ -3,8 +3,10 @@ title: " Minikube: easily run Kubernetes locally  "
 date: 2016-07-11
 slug: minikube-easily-run-kubernetes-locally
 url: /blog/2016/07/Minikube-Easily-Run-Kubernetes-Locally
+author: >
+  Dan Lorenc (Google)
 ---
-_Editor's note: This is the first post in a [series of in-depth articles](https://kubernetes.io/blog/2016/07/five-days-of-kubernetes-1-3) on what's new in Kubernetes 1.3&nbsp;_
+_**Editor's note:**  This is the first post in a [series of in-depth articles](/blog/2016/07/five-days-of-kubernetes-1-3) on what's new in Kubernetes 1.3_
 
 While Kubernetes is one of the best tools for managing containerized applications available today, and has been production-ready for over a year, Kubernetes has been missing a great local development platform.  
 
@@ -128,6 +130,3 @@ We'd love to hear feedback on Minikube. To join the community:
 
 Please give Minikube a try, and let us know how it goes!
 
-
-
-_--Dan Lorenc, Software Engineer, Google_  

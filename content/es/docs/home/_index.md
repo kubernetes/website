@@ -12,8 +12,6 @@ menu:
   main:
     title: "Documentación"
     weight: 20
-    post: >
-      <p>Aprenda cómo usar Kubernetes con la documentación, los tutoriales y revisando la información de referencia. También puedes <a href="/editdocs/" data-auto-burger-exclude>contribuir con la documentación</a>!</p>
 overview: >
   Kubernetes es una plataforma de código abierto para automatizar la implementación, el escalado y la administración de aplicaciones en contenedores.
   El proyecto está amparado por la Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>).
