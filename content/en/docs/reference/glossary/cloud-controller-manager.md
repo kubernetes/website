@@ -12,7 +12,7 @@ tags:
 - operation
 ---
  A Kubernetes {{< glossary_tooltip text="control plane" term_id="control-plane" >}} component
-that embeds cloud-specific control logic. The [cloud controller manager](/docs/concepts/architecture/cloud-controller/) lets you link your
+that embeds cloud-specific control logic. The cloud controller manager lets you link your
 cluster into your cloud provider's API, and separates out the components that interact
 with that cloud platform from components that only interact with your cluster.
 
