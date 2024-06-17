@@ -176,6 +176,8 @@ Renewal of existing ECDSA certificates is also supported using `kubeadm certs re
 switch between the RSA and ECDSA algorithms on the fly or during upgrades. Kubernetes
 {{< skew currentVersion >}} has a bug where keys in generated kubeconfig files are set use RSA
 despite the feature gate being enabled.
+: Kubernetes versions before v1.31 had a bug where keys in generated kubeconfig files were set use RSA,
+even when you had enabled the `PublicKeysECDSA` feature gate.
 
 `WaitForAllControlPlaneComponents`
 : With this feature gate enabled kubeadm will wait for all control plane components (kube-apiserver,
