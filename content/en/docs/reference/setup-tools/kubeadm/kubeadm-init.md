@@ -172,7 +172,6 @@ Feature gate descriptions:
 : Can be used to create a cluster that uses ECDSA certificates instead of the default RSA algorithm.
 Renewal of existing ECDSA certificates is also supported using `kubeadm certs renew`, but you cannot
 switch between the RSA and ECDSA algorithms on the fly or during upgrades.
-
 : Kubernetes {{< skew currentVersion >}} has a bug where keys in generated kubeconfig files are set use RSA
 despite the feature gate being enabled.
 
