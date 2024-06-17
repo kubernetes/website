@@ -173,6 +173,9 @@ Feature gate descriptions:
 Renewal of existing ECDSA certificates is also supported using `kubeadm certs renew`, but you cannot
 switch between the RSA and ECDSA algorithms on the fly or during upgrades.
 
+: Kubernetes {{< skew currentVersion >}} has a bug where keys in generated kubeconfig files are set use RSA
+despite the feature gate being enabled.
+
 `RootlessControlPlane`
 : Setting this flag configures the kubeadm deployed control plane component static Pod containers
 for `kube-apiserver`, `kube-controller-manager`, `kube-scheduler` and `etcd` to run as non-root users.
