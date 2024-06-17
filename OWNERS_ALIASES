@@ -40,6 +40,7 @@ aliases:
     - reylejano
     - sftim
     - tengqm
+    - Princesso # RT 1.31 Docs Lead
   sig-docs-en-reviews: # PR reviews for English content
     - bradtopol
     - dipesh-rawat
@@ -55,6 +56,7 @@ aliases:
     - shannonxtreme
     - tengqm
     - windsonsea
+    - Princesso # RT 1.31 Docs Lead
   sig-docs-es-owners: # Admins for Spanish content
     - 92nqb
     - krol3
