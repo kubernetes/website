@@ -132,8 +132,8 @@ operator.
 * Learn more about [Custom Resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 * Find ready-made operators on [OperatorHub.io](https://operatorhub.io/) to suit your use case
 * [Publish](https://operatorhub.io/) your operator for other people to use
-* Read [CoreOS' original article](https://web.archive.org/web/20170129131616/https://coreos.com/blog/introducing-operators.html)
-  that introduced the operator pattern (this is an archived version of the original article).
+* Read [CoreOS' original article](https://www.redhat.com/en/blog/introducing-operators-putting-operational-knowledge-into-software)
+  that introduced the operator pattern.
 * Read an [article](https://cloud.google.com/blog/products/containers-kubernetes/best-practices-for-building-kubernetes-operators-and-stateful-apps)
   from Google Cloud about best practices for building operators
 
