@@ -606,6 +606,14 @@ and post-upgrade manifest file for a certain component, a backup file for it wil
 `/etc/kubernetes/manifests` 目录实现手工恢复。
 如果由于某些原因，在升级前后某个组件的清单未发生变化，则 kubeadm 也不会为之生成备份版本。
 
+{{< note >}}
+<!--
+After the cluster upgrade using kubeadm, the backup directory `/etc/kubernetes/tmp` will remain and
+these backup files will need to be cleared manually.
+-->
+集群通过 kubeadm 升级后，备份目录 `/etc/kubernetes/tmp` 将保留，这些备份文件需要手动清理。
+{{</ note >}}
+
 <!--
 ## How it works
 -->
