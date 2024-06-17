@@ -67,7 +67,7 @@ storage integration) if you need to allow that kind of change at restore time.
 Action required before upgrading. The `prevent-volume-mode-conversion` feature flag is enabled by
 default in the external-provisioner `v4.0.0` and external-snapshotter `v7.0.0`. Volume mode change
 will be rejected when creating a PVC from a VolumeSnapshot unless you perform the steps described in
-the the "Urgent Upgrade Notes" sections for the [external-provisioner
+the "Urgent Upgrade Notes" sections for the [external-provisioner
 4.0.0](https://github.com/kubernetes-csi/external-provisioner/releases/tag/v4.0.0) and the
 [external-snapshotter
 v7.0.0](https://github.com/kubernetes-csi/external-snapshotter/releases/tag/v7.0.0). 

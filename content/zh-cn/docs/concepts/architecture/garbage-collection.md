@@ -286,17 +286,17 @@ regardless of disk usage. This is a kubelet setting that you configure for each 
 这是一个可以为每个节点配置的 kubelet 设置。
 
 <!--
-To configure the setting, enable the `ImageMaximumGCAge`
+To configure the setting, enable the `imageMaximumGCAge`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the kubelet,
-and also set a value for the `ImageMaximumGCAge` field in the kubelet configuration file.
+and also set a value for the `imageMaximumGCAge` field in the kubelet configuration file.
 -->
-请为 kubelet 启用 `ImageMaximumGCAge`
+请为 kubelet 启用 `imageMaximumGCAge`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-并在 kubelet 配置文件中为 `ImageMaximumGCAge` 字段赋值来配置该设置。
+并在 kubelet 配置文件中为 `imageMaximumGCAge` 字段赋值来配置该设置。
 
 <!--
 The value is specified as a Kubernetes _duration_; 
-Valid time units for the `ImageMaximumGCAge` field in the kubelet configuration file are:
+Valid time units for the `imageMaximumGCAge` field in the kubelet configuration file are:
 - "ns" for nanoseconds
 - "us" or "µs" for microseconds
 - "ms" for milliseconds
@@ -305,7 +305,7 @@ Valid time units for the `ImageMaximumGCAge` field in the kubelet configuration 
 - "h" for hours
 -->
 该值应遵循 Kubernetes **持续时间（Duration）** 格式；
-在 kubelet 配置文件中，`ImageMaximumGCAge` 字段的有效时间单位如下：
+在 kubelet 配置文件中，`imageMaximumGCAge` 字段的有效时间单位如下：
 
 - "ns" 表示纳秒
 - "us" 或 "µs" 表示微秒
@@ -324,13 +324,13 @@ which means 12 hours and 45 minutes.
 <!--
 This feature does not track image usage across kubelet restarts. If the kubelet
 is restarted, the tracked image age is reset, causing the kubelet to wait the full
-`ImageMaximumGCAge` duration before qualifying images for garbage collection
+`imageMaximumGCAge` duration before qualifying images for garbage collection
 based on image age.
 -->
 这个特性不会跟踪 kubelet 重新启动后的镜像使用情况。
 如果 kubelet 被重新启动，所跟踪的镜像年龄会被重置，
 导致 kubelet 在根据镜像年龄进行垃圾收集时需要等待完整的
-`ImageMaximumGCAge` 时长。
+`imageMaximumGCAge` 时长。
 {{< /note>}}
 
 <!--
