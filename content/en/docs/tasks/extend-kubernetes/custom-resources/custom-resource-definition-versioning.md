@@ -499,7 +499,7 @@ spec:
     webhook:
       # conversionReviewVersions indicates what ConversionReview versions are understood/preferred by the webhook.
       # The first version in the list understood by the API server is sent to the webhook.
-      # The webhook must respond with a ConversionResponse object in the same version it received.
+      # The webhook must respond with a ConversionReview object in the same version it received.
       conversionReviewVersions: ["v1","v1beta1"]
       clientConfig:
         service:
