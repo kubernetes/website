@@ -481,6 +481,13 @@ kube-apiserver [flags]
 </tr>
 
 <tr>
+<td colspan="2">--emulated-version stringToString&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: ["1.31"]</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Version the kube apiserver emulate their capabilities (APIs, features, ...) of. The flag's format is &lt;major&gt;.&lt;minor&gt;. e.g. "1.31". The only option in v1.31 is "1.31" for testing compatibility version alpha. </p><p>When used, the capabilities available will match the emulated version. Any capabilities present in the binary version that were introduced after the emulation version will be unavailable. Any capabilities removed after the emulation version will be available. This enables a binary from a particular Kubernetes release to emulate the behavior of a previous version with sufficient fidelity that interoperability with other system components can be defined in terms of the emulated version.</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--enable-admission-plugins strings</td>
 </tr>
 <tr>
