@@ -85,9 +85,9 @@ a Service that is available via IPv4 and IPv6, there will be at least two
 
 {{< note >}}
 
-Setting the `addressType` for an EndpointSlice to the value "FQDN" is deprecated.
-For more details, you can read the
-[Generate warning for EndpointSlice AddressType FQDN](https://github.com/kubernetes/kubernetes/pull/114677)
+Setting the `addressType` for an EndpointSlice to the value "FQDN" is deprecated
+due to lack of clearly defined semantics. For more details, you can read the 
+[discussion](https://github.com/kubernetes/kubernetes/issues/114210).
 
 {{< /note >}}
 
