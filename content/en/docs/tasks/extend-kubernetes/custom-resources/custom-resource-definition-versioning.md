@@ -499,7 +499,7 @@ spec:
     webhook:
       # conversionReviewVersions indicates what ConversionReview versions are understood/preferred by the webhook.
       # The first version in the list understood by the API server is sent to the webhook.
-      # The webhook must respond with a ConversionReview object in the same version it received.
+      # The webhook must respond with a ConversionResponse object in the same version it received.
       conversionReviewVersions: ["v1","v1beta1"]
       clientConfig:
         service:
@@ -873,7 +873,7 @@ with the `response` stanza populated, serialized to JSON.
 If conversion succeeds, a webhook should return a `response` stanza containing the following fields:
 * `uid`, copied from the `request.uid` sent to the webhook
 * `result`, set to `{"status":"Success"}`
-* `convertedObjects`, containing all of the objects from `request.objects`, converted to `request.desiredVersion`
+* `convertedObjects`, containing all of the objects from `request.objects`, converted to `request.desiredAPIVersion`
 
 Example of a minimal successful response from a webhook:
 
