@@ -481,6 +481,13 @@ kube-apiserver [flags]
 </tr>
 
 <tr>
+<td colspan="2">--emulated-version stringToString&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: ["kube=1.31"]</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Versions different components emulate their capabilities (APIs, features, ...) of. The flag's format is &lt;component&gt;:&lt;major&gt;.&lt;minor&gt;. e.g. "wardle=1.2,kube=1.31".</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--enable-admission-plugins strings</td>
 </tr>
 <tr>
