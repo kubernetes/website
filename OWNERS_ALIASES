@@ -63,6 +63,7 @@ aliases:
     - salaxander
     - sftim
     - tengqm
+    - Princesso # RT 1.31 Docs Lead
   sig-docs-en-reviews: # PR reviews for English content
     - dipesh-rawat
     - divya-mohan0209
@@ -78,6 +79,7 @@ aliases:
     - shannonxtreme
     - tengqm
     - windsonsea
+    - Princesso # RT 1.31 Docs Lead
   sig-docs-es-owners: # Admins for Spanish content
     - electrocucaracha
     - krol3
