@@ -2,7 +2,7 @@
 title: Dockershim
 id: dockershim
 date: 2022-04-15
-full_link: /dockershim
+full_link: /ja/dockershim
 short_description: >
    Kubernetesバージョン1.23およびそれ以前のバージョンに存在するコンポーネントです。DockershimによりKubernetes EngineのコンポーネントがDocker Engineと通信できるようになります。
 
