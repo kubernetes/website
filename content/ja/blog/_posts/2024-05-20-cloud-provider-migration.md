@@ -9,8 +9,8 @@ slug: completing-cloud-provider-migration
 
 **翻訳者:** Taisuke Okamoto (IDC Frontier Inc),, [Junya Okabe](https://github.com/Okabe-Junya) (University of Tsukuba)
 
-Kubernetes v1.7以降、Kubernetesプロジェクトは、クラウドプロバイダーとの統合機能をKubernetesのコアコンポーネントから取り除くという野心的な目標を追求してきました([KEP-2395](https://github.com/kubernetes/enhancements/blob/master/keps/sig-cloud-provider/2395-removing-in-tree-cloud-providers/README.md))。
-この統合機能はKubernetesの初期の開発と成長に重要な役割を果たしましたが、その排除には2つの重要な要因がありました。
+Kubernetes v1.7以降、Kubernetesプロジェクトは、クラウドプロバイダーとの統合機能をKubernetesのコアコンポーネントから分離するという野心的な目標を追求してきました([KEP-2395](https://github.com/kubernetes/enhancements/blob/master/keps/sig-cloud-provider/2395-removing-in-tree-cloud-providers/README.md))。
+この統合機能はKubernetesの初期の開発と成長に重要な役割を果たしましたが、その分離は2つの重要な要因がありました。
 1つは、何百万行ものGoコードにわたってすべてのクラウドプロバイダーのネイティブサポートを維持することの複雑さが増大していたこと、もう1つは、Kubernetesを真にベンダーニュートラルなプラットフォームとして確立したいという願望です。
 
 多くのリリースを経て、すべてのクラウドプロバイダー統合が、Kubernetesのコアリポジトリから外部プラグインに正常に移行されたことを喜ばしく思います。
