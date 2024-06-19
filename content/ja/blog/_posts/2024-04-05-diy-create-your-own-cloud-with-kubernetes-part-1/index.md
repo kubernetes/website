@@ -15,10 +15,6 @@ date: 2024-04-05T07:30:00+00:00
 Cozystackの開発における私たちの経験は、その点を深く掘り下げる必要がありました。
 自分だけのクラウドを構築することを考えたことはありませんか？
 
-きっと考えたことがあるでしょう。
-しかし、快適なKubernetesエコシステムを離れることなく、最新のテクノロジーとアプローチのみを使ってそれを実現することは可能でしょうか？
-Cozystackの開発における私たちの経験は、その点を深く掘り下げる必要がありました。
-
 Kubernetesはこの目的のために設計されたものではなく、ベアメタルサーバー用にOpenStackを使用し、意図したとおりにその内部でKubernetesを実行すればよいのではないかと主張する人もいるかもしれません。
 しかし、そうすることで、単に責任があなたの手からOpenStack管理者の手に移っただけです。
 これにより、少なくとも1つの巨大で複雑なシステムがエコシステムに追加されることになります。
@@ -215,5 +211,5 @@ cozy-victoria-metrics-operator   victoria-metrics-operator   4m1s   True    Rele
 結果として、誰にでも提供できる高い再現性を持つ環境を実現でき、意図したとおりに動作することがわかります。
 これは、実際に[Cozystack](https://github.com/aenix-io/cozystack)プロジェクトが行っていることであり、あなた自身が無料で試すことができます。
 
-次の記事では、[仮想マシンを実行するためのKubernetesの準備方法](/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-2/)と[ボタンをクリックするだけでKubernetesクラスターを実行する方法](/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-3/)について説明します。
+次の記事では、[仮想マシンを実行するためのKubernetesの準備方法](ja/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-2/)と[ボタンをクリックするだけでKubernetesクラスターを実行する方法](ja/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-3/)について説明します。
 ご期待ください。きっと面白いはずです！
