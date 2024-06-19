@@ -1,16 +1,16 @@
 ---
 layout: blog
-title: 'Completing the largest migration in Kubernetes history'
+title: 'Kubernetes史上最大の移行を完了'
 date: 2024-05-20
 slug: completing-cloud-provider-migration
 ---
 
 **著者:** Andrew Sy Kim (Google), Michelle Au (Google), Walter Fender (Google), Michael McCune (Red Hat)
 
-**翻訳者:** Taisuke Okamoto (IDC Frontier Inc),
+**翻訳者:** Taisuke Okamoto (IDC Frontier Inc),, [Junya Okabe](https://github.com/Okabe-Junya) (University of Tsukuba)
 
-Kubernetes v1.7以降、Kubernetesプロジェクトは、組み込みのクラウドプロバイダー統合を削除するという野心的な目標を追求してきました([KEP-2395](https://github.com/kubernetes/enhancements/blob/master/keps/sig-cloud-provider/2395-removing-in-tree-cloud-providers/README.md))。
-これらの統合は、Kubernetesの初期の開発と成長に重要な役割を果たしましたが、その削除には2つの重要な要因がありました。
+Kubernetes v1.7以降、Kubernetesプロジェクトは、クラウドプロバイダーとの統合機能をKubernetesのコアコンポーネントから取り除くという野心的な目標を追求してきました([KEP-2395](https://github.com/kubernetes/enhancements/blob/master/keps/sig-cloud-provider/2395-removing-in-tree-cloud-providers/README.md))。
+この統合機能はKubernetesの初期の開発と成長に重要な役割を果たしましたが、その排除には2つの重要な要因がありました。
 1つは、何百万行ものGoコードにわたってすべてのクラウドプロバイダーのネイティブサポートを維持することの複雑さが増大していたこと、もう1つは、Kubernetesを真にベンダーニュートラルなプラットフォームとして確立したいという願望です。
 
 多くのリリースを経て、すべてのクラウドプロバイダー統合が、Kubernetesのコアリポジトリから外部プラグインに正常に移行されたことを喜ばしく思います。
@@ -70,19 +70,19 @@ Container Storage Interface(CSI)は、Kubernetesやそのほかのコンテナ�
 APIの後方互換性を維持するために、Kubernetesコアのボリューム APIを同等のCSI APIに変換するAPIトランスレーション層をコントローラーに組み込みました。
 これにより、すべてのストレージ操作をCSIドライバーにリダイレクトすることができ、APIを削除せずにKubernetesコアのボリュームプラグインのコードを削除する道が開けました。
 
-Kubernetesコアのストレージの移行の詳細については、「[Kubernetesコアからのボリュームの移行がCSIでベータ版になりました](https://kubernetes.io/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/)」を参照してください。
+Kubernetesコアのストレージの移行の詳細については、[Kubernetes In-Tree to CSI Volume Migration Moves to Beta](https://kubernetes.io/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/)を参照してください。
 
 ## 今後の展望
 
-この移行は、ここ数年のSIG Cloud Providerの主要な焦点でした。
+この移行は、ここ数年のSIG Cloud Providerがもっとも注力してきたことでした。
 この重要なマイルストーンを達成したことで、これまでに構築してきた外部サブシステムを活用して、Kubernetesとクラウドプロバイダーをより良く統合するための新しい革新的な方法を模索する取り組みにシフトしていきます。
 これには、クラスター内のノードがパブリッククラウドとプライベートクラウドの両方で実行できるハイブリッド環境でKubernetesをより賢くすることや、外部プロバイダーの開発者が統合の取り組みを簡素化・合理化するためのより良いツールとフレームワークを提供することが含まれます。
 
-計画されているすべての新機能、ツール、フレームワークを含め、SIG Cloud Providerは方程式のもう一方の側面であるテストを忘れてはいません。
+新機能やツール、フレームワークの開発が進む一方で、SIG Cloud Providerはテストの重要性も忘れてはいません。
 SIGの将来の活動のもう1つの重点分野は、より多くのプロバイダーを含めるためのクラウドコントローラーテストの改善です。
 この取り組みの最終目標は、できるだけ多くのプロバイダーを含むテストフレームワークを作成し、Kubernetesコミュニティに対して、Kubernetes環境に関する最高レベルの信頼性を提供することです。
 
-v1.29より前のバージョンのKubernetesを使用していて、まだ外部クラウドプロバイダーに移行していない場合は、以前のブログ記事「[Kubernetes 1.29: クラウドプロバイダー統合が独立したコンポーネントになりました](/blog/2023/12/14/cloud-provider-integration-changes/)」を確認することをおすすめします。
+v1.29より前のバージョンのKubernetesを使用していて、まだ外部クラウドプロバイダーに移行していない場合は、以前のブログ記事[Kubernetes 1.29: Cloud Provider Integrations Are Now Separate Components](/blog/2023/12/14/cloud-provider-integration-changes/)を確認することをおすすめします。
 この記事では、私たちが行った変更について詳細な情報を提供し、外部プロバイダーへの移行方法についてガイダンスを提供しています。
 v1.31以降、Kubernetesコアのクラウドプロバイダーは永続的に無効化され、Kubernetesのコアコンポーネントから削除されます。
 
