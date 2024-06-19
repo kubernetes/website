@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "DIY: Kubernetesで自分だけのクラウドを構築しよう (パート3)"
+title: "DIY: Kubernetesで自分だけのクラウドを構築しよう(パート3)"
 slug: diy-create-your-own-cloud-with-kubernetes-part-3
 date: 2024-04-05T07:40:00+00:00
 ---
