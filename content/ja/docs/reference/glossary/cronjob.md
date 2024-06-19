@@ -12,7 +12,7 @@ tags:
 - core-object
 - workload
 ---
-定期的なスケジュールで実行される[ジョブ](/ja/docs/concepts/workloads/controllers/job/)を管理します。
+定期的なスケジュールで実行される[Job](/ja/docs/concepts/workloads/controllers/job/)を管理します。
 
 <!--more-->
 
