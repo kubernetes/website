@@ -4,7 +4,7 @@ id: cronjob
 date: 2018-04-12
 full_link: /ja/docs/concepts/workloads/controllers/cron-jobs/
 short_description: >
-  定期的なスケジュールで繰り返し実行されるタスク(ジョブ)
+  定期的なスケジュールで繰り返し実行されるタスク(Job)
 
 
 aka: 
