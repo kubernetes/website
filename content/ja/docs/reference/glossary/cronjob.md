@@ -16,4 +16,4 @@ tags:
 
 <!--more-->
 
-*crontab*ファイルのようにCronJobオブジェクトは[cron](https://ja.wikipedia.org/wiki/Cron)フォーマットを利用しスケジュールを定義できます。
+*crontab*ファイルのようにCronJobオブジェクトは[cron](https://ja.wikipedia.org/wiki/Cron)フォーマットを使用しスケジュールを指定できます。
