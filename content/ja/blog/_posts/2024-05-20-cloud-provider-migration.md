@@ -35,7 +35,7 @@ Kubernetes v1.7以降、Kubernetesプロジェクトは、組み込みのクラ�
 
 ![Kubernetesのコンポーネント](/images/docs/components-of-kubernetes.svg)
 
-詳細については、Kubernetesドキュメントの[クラウドコントローラーマネージャー](/docs/concepts/architecture/cloud-controller/)を参照してください。
+詳細については、Kubernetesドキュメントの[クラウドコントローラーマネージャー](/ja/docs/concepts/architecture/cloud-controller/)を参照してください。
 
 ### APIサーバーネットワークプロキシ
 
