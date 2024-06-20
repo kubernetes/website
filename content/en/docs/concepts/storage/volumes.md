@@ -722,7 +722,7 @@ For more details, see the [Portworx volume](https://github.com/kubernetes/exampl
 
 By default, Kubernetes {{% skew currentVersion %}} attempts to migrate legacy
 Portworx volumes to use CSI. (CSI migration for Portworx has been available since
-Kubernetes v1.23, but was only turned on by default with the v1.31 release).
+Kubernetes v1.23, but was only turned on by default since the v1.31 release).
 If you want to disable automatic migration, you can set the `CSIMigrationPortworx`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 to `false`; you need to make that change for the kube-controller-manager **and** on
