@@ -390,6 +390,14 @@ kubectl [flags]
 </td>
 </tr>
 
+<tr>
+<td colspan="2">KUBECTL_KUBERC</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">When set to true, kuberc file is taken account to define user specific preferences.  
+</td>
+</tr>
+
 </tbody>
 </table>
 
