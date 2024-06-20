@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: 'Kubernetes史上最大の移行を完了'
+title: 'Kubernetes史上最大の移行作業を完了'
 date: 2024-05-20
 slug: completing-cloud-provider-migration
 ---
