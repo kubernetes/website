@@ -179,7 +179,7 @@ someone can make using the Kubernetes API).
 
 你可以使用 Kubernetes 原生机制定义安全策略，例如
 [NetworkPolicy](/zh-cn/docs/concepts/services-networking/network-policies/)（对网络数据包过滤的声明式控制）
-或 [ValidatingAdmissionPolicy](/zh-cn/docs/reference/access -authn-authz/validating-admission-policy/)
+或 [ValidatingAdmissionPolicy](/zh-cn/docs/reference/access-authn-authz/validating-admission-policy/)
 （对某人可以使用 Kubernetes API 进行哪些更改的声明性限制）。
 
 <!--
