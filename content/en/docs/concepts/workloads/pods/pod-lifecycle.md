@@ -511,7 +511,7 @@ processes, and the Pod is then deleted from the
 container runtime's management service is restarted while waiting for processes to terminate, the
 cluster retries from the start including the full original grace period.
 
-An example flow:
+Pod termination flow, illustrated with an example:
 
 1. You use the `kubectl` tool to manually delete a specific Pod, with the default grace period
    (30 seconds).
@@ -530,18 +530,19 @@ An example flow:
 
       If the `preStop` hook is still running after the grace period expires, the kubelet requests
       a small, one-off grace period extension of 2 seconds.
-
-      {{< note >}}
-      If the `preStop` hook needs longer to complete than the default grace period allows,
-      you must modify `terminationGracePeriodSeconds` to suit this.
-      {{< /note >}}
+   {{% note %}}
+   If the `preStop` hook needs longer to complete than the default grace period allows,
+   you must modify `terminationGracePeriodSeconds` to suit this.
+   {{% /note %}}
 
    1. The kubelet triggers the container runtime to send a TERM signal to process 1 inside each
       container.
-      {{< note >}}
-      The containers in the Pod receive the TERM signal at different times and in an arbitrary
-      order. If the order of shutdowns matters, consider using a `preStop` hook to synchronize.
-      {{< /note >}}
+
+      There is [special ordering](#termination-with-sidecars) if the Pod has any
+      {{< glossary_tooltip text="sidecar containers" term_id="sidecar-container" >}} defined.
+      Otherwise, the containers in the Pod receive the TERM signal at different times and in
+      an arbitrary order. If the order of shutdowns matters, consider using a `preStop` hook
+      to synchronize (or switch to using sidecar containers).
 
 1. At the same time as the kubelet is starting graceful shutdown of the Pod, the control plane
    evaluates whether to remove that shutting-down Pod from EndpointSlice (and Endpoints) objects,
@@ -565,38 +566,19 @@ An example flow:
    condition `serving`.  You can find more details on how to implement connections draining in the
    tutorial [Pods And Endpoints Termination Flow](/docs/tutorials/services/pods-and-endpoint-termination-flow/)
 
-{{<note>}}
-If you don't have the `EndpointSliceTerminatingCondition` feature gate enabled
-in your cluster (the gate is on by default from Kubernetes 1.22, and locked to default in 1.26),
-then the Kubernetes control plane removes a Pod from any relevant EndpointSlices as soon as the Pod's
-termination grace period _begins_. The behavior above is described when the
-feature gate `EndpointSliceTerminatingCondition` is enabled.
-{{</note>}}
+   <a id="pod-termination-beyond-grace-period" />
 
-{{<note>}}
-Beginning with Kubernetes 1.29, if your Pod includes one or more sidecar containers
-(init containers with an Always restart policy), the kubelet will delay sending
-the TERM signal to these sidecar containers until the last main container has fully terminated.
-The sidecar containers will be terminated in the reverse order they are defined in the Pod spec.
-This ensures that sidecar containers continue serving the other containers in the Pod until they are no longer needed.
+1. The kubelet ensures the Pod is shut down and terminated
+   1. When the grace period expires, if there is still any container running in the Pod, the
+      kubelet triggers forcible shutdown.
+      The container runtime sends `SIGKILL` to any processes still running in any container in the Pod.
+      The kubelet also cleans up a hidden `pause` container if that container runtime uses one.
+   1. The kubelet transitions the Pod into a terminal phase (`Failed` or `Succeeded` depending on
+      the end state of its containers).
+   1. The kubelet triggers forcible removal of the Pod object from the API server, by setting grace period
+      to 0 (immediate deletion).
+   1. The API server deletes the Pod's API object, which is then no longer visible from any client.
 
-Note that slow termination of a main container will also delay the termination of the sidecar containers.
-If the grace period expires before the termination process is complete, the Pod may enter emergency termination.
-In this case, all remaining containers in the Pod will be terminated simultaneously with a short grace period.
-
-Similarly, if the Pod has a preStop hook that exceeds the termination grace period, emergency termination may occur.
-In general, if you have used preStop hooks to control the termination order without sidecar containers, you can now
-remove them and allow the kubelet to manage sidecar termination automatically.
-{{</note>}}
-
-1. When the grace period expires, the kubelet triggers forcible shutdown. The container runtime sends
-   `SIGKILL` to any processes still running in any container in the Pod.
-   The kubelet also cleans up a hidden `pause` container if that container runtime uses one.
-1. The kubelet transitions the Pod into a terminal phase (`Failed` or `Succeeded` depending on
-   the end state of its containers). This step is guaranteed since version 1.27.
-1. The kubelet triggers forcible removal of Pod object from the API server, by setting grace period
-   to 0 (immediate deletion).
-1. The API server deletes the Pod's API object, which is then no longer visible from any client.
 
 ### Forced Pod termination {#pod-termination-forced}
 
@@ -612,10 +594,8 @@ Setting the grace period to `0` forcibly and immediately deletes the Pod from th
 server. If the Pod was still running on a node, that forcible deletion triggers the kubelet to
 begin immediate cleanup.
 
-{{< note >}}
-You must specify an additional flag `--force` along with `--grace-period=0`
+Using kubectl, You must specify an additional flag `--force` along with `--grace-period=0`
 in order to perform force deletions.
-{{< /note >}}
 
 When a force deletion is performed, the API server does not wait for confirmation
 from the kubelet that the Pod has been terminated on the node it was running on. It
@@ -631,6 +611,24 @@ The resource may continue to run on the cluster indefinitely.
 If you need to force-delete Pods that are part of a StatefulSet, refer to the task
 documentation for
 [deleting Pods from a StatefulSet](/docs/tasks/run-application/force-delete-stateful-set-pod/).
+
+### Pod shutdown and sidecar containers {##termination-with-sidecars}
+
+If your Pod includes one or more
+[sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/)
+(init containers with an Always restart policy), the kubelet will delay sending
+the TERM signal to these sidecar containers until the last main container has fully terminated.
+The sidecar containers will be terminated in the reverse order they are defined in the Pod spec.
+This ensures that sidecar containers continue serving the other containers in the Pod until they
+are no longer needed.
+
+This means that slow termination of a main container will also delay the termination of the sidecar containers.
+If the grace period expires before the termination process is complete, the Pod may enter [forced termination](#pod-termination-beyond-grace-period).
+In this case, all remaining containers in the Pod will be terminated simultaneously with a short grace period.
+
+Similarly, if the Pod has a `preStop` hook that exceeds the termination grace period, emergency termination may occur.
+In general, if you have used `preStop` hooks to control the termination order without sidecar containers, you can now
+remove them and allow the kubelet to manage sidecar termination automatically.
 
 ### Garbage collection of Pods {#pod-garbage-collection}
 
