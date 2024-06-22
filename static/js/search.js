@@ -74,7 +74,7 @@
 
 		var newUrl = baseUrl + "?" + urlParams.toString();
 		// Update the browser history (optional)
-		window.history.pushState({}, null, newUrl);
+        history.replaceState(null, '', newUrl);
 	}
 
     // China Verification.
