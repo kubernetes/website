@@ -15,4 +15,4 @@ tags:
 
 <!--more--> 
 
-動的プロビジョニングによりクラスター管理者が事前にストレージをプロビジョンする必要がなくなります。その代わりにユーザーのリクエストにより自動的にストレージをプロビジョンします。ボリュームの動的プロビジョニングはボリュームをプロビジョニングする{{< glossary_tooltip text="Volume Plugin" term_id="volume-plugin" >}}とそのVolume Pluginに渡すパラメーターのセットを参照する{{< glossary_tooltip text="StorageClass" term_id="storage-class" >}}というAPIオブジェクトに基づいています。
+動的プロビジョニングによりクラスター管理者が事前にストレージをプロビジョニングする必要がなくなります。その代わりにユーザーのリクエストにより自動的にストレージをプロビジョニングします。ボリュームの動的プロビジョニングはボリュームをプロビジョニングする{{< glossary_tooltip text="Volume Plugin" term_id="volume-plugin" >}}とそのVolume Pluginに渡すパラメーターのセットを参照する{{< glossary_tooltip text="StorageClass" term_id="storage-class" >}}というAPIオブジェクトに基づいています。
