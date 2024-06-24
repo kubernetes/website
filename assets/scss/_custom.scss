@@ -1357,7 +1357,7 @@ div.alert > em.javascript-required {
   border-radius: 20px; 
   overflow-x: hidden;
   width: auto;
-  padding: 6px 10px;
+  padding: 6px 10px !important;
   margin: 20px 10px 20px 0;
 
   &:focus-within {
