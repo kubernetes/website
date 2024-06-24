@@ -155,6 +155,7 @@ List of feature gates:
 {{< table caption="kubeadm feature gates" >}}
 Feature | Default | Alpha | Beta | GA
 :-------|:--------|:------|:-----|:----
+`ControlPlaneKubeletLocalMode` | `false` | 1.31 | - | -
 `EtcdLearnerMode` | `true` | 1.27 | 1.29 | -
 `PublicKeysECDSA` | `false` | 1.19 | - | -
 `WaitForAllControlPlaneComponents` | `false` | 1.30 | - | -
@@ -165,6 +166,11 @@ Once a feature gate goes GA its value becomes locked to `true` by default.
 {{< /note >}}
 
 Feature gate descriptions:
+
+`ControlPlaneKubeletLocalMode`
+: With this feature gate enabled, when joining a new control plane node, kubeadm will configure the kubelet
+to connect to the local kube-apiserver. This ensures that there will not be a violation of the version skew
+policy during rolling upgrades.
 
 `EtcdLearnerMode`
 : With this feature gate enabled, when joining a new control plane node, a new etcd member will be created
