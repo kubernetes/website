@@ -2,6 +2,7 @@ apiVersion: v1
 kind: LimitRange
 metadata:
   name: cpu-resource-constraint
+  namespace: default # when unspecified this will be created in default namespace.
 spec:
   limits:
   - default: # this section defines default limits
