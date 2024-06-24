@@ -55,15 +55,33 @@ The name of a LimitRange object must be a valid
 
 A `LimitRange` does **not** check the consistency of the default values it applies. This means that a default value for the _limit_ that is set by `LimitRange` may be less than the _request_ value specified for the container in the spec that a client submits to the API server. If that happens, the final Pod will not be schedulable.
 
+### Create a namespace
+
+Create a namespace so that the resources you create in this exercise are
+isolated from the rest of your cluster.
+
+```shell
+kubectl create namespace limitrange-example
+```
+
 For example, you define a `LimitRange` with this manifest:
 
 {{% code_sample file="concepts/policy/limit-range/problematic-limit-range.yaml" %}}
 
+Create the LimitRange in the limitrange-example namespace:
 
-along with a Pod that declares a CPU resource request of `700m`, but not a limit:
+```shell
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/concepts/policy/limit-range/problematic-limit-range.yaml --namespace=limitrange-example
+```
+
+
+Along with a Pod that declares a CPU resource request of `700m`, but not a limit:
 
 {{% code_sample file="concepts/policy/limit-range/example-conflict-with-limitrange-cpu.yaml" %}}
 
+```shell
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/concepts/policy/limit-range/example-conflict-with-limitrange-cpu.yaml --namespace=limitrange-example
+```
 
 then that Pod will not be scheduled, failing with an error similar to:
 ```
@@ -73,6 +91,11 @@ Pod "example-conflict-with-limitrange-cpu" is invalid: spec.containers[0].resour
 If you set both `request` and `limit`, then that new Pod will be scheduled successfully even with the same `LimitRange` in place:
 
 {{% code_sample file="concepts/policy/limit-range/example-no-conflict-with-limitrange-cpu.yaml" %}}
+
+```shell
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/concepts/policy/limit-range/example-no-conflict-with-limitrange-cpu.yaml --namespace=limitrange-example
+```
+
 
 ## Example resource constraints
 
