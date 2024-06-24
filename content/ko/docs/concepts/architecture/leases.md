@@ -20,7 +20,7 @@ weight: 30
 이 업데이트 요청은 `spec.renewTime` 필드를 업데이트한다.
 쿠버네티스 컨트롤 플레인은 이 필드의 타임스탬프를 사용하여 해당 `노드`의 가용성을 확인한다.
 
-자세한 내용은 [노드 리스 오브젝트](/ko/docs/concepts/architecture/nodes/#heartbeats)를 참조한다.
+자세한 내용은 [노드 리스 오브젝트](/ko/docs/concepts/architecture/nodes/#node-heartbeats)를 참조한다.
 
 ## 리더 선출
 
