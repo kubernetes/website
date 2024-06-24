@@ -534,6 +534,71 @@ spec:
       type: FileOrCreate
 ```
 
+### image
+
+{{< feature-state feature_gate_name="ImageVolume" >}}
+
+An `image` volume source represents an OCI object (a container image or
+artifact) which is available on the kubelet's host machine.
+
+One example to use the `image` volume source is:
+
+{{% code_sample file="pods/image-volumes.yaml" %}}
+
+The volume is resolved at pod startup depending on which `pullPolicy` value is
+provided:
+
+`Always`
+: the kubelet always attempts to pull the reference. If the pull fails, the kubelet sets the Pod to `Failed`.
+
+`Never`
+: the kubelet never pulls the reference and only uses a local image or artifact. The Pod becomes `Failed` if any layers of the image aren't already present locally, or if the manifest for that image isn't already cached.
+
+`IfNotPresent`
+: the kubelet pulls if the reference isn't already present on disk. The Pod becomes `Failed` if the reference isn't present and the pull fails.
+
+The volume gets re-resolved if the pod gets deleted and recreated, which means
+that new remote content will become available on pod recreation. A failure to
+resolve or pull the image during pod startup will block containers from starting
+and may add significant latency. Failures will be retried using normal volume
+backoff and will be reported on the pod reason and message.
+
+The types of objects that may be mounted by this volume are defined by the
+container runtime implementation on a host machine and at minimum must include
+all valid types supported by the container image field. The OCI object gets
+mounted in a single directory (`spec.containers[*].volumeMounts.mountPath`) by
+will be mounted read-only. On Linux, the container runtime typically also mounts the 
+volume with file execution blocked (`noexec`).
+
+Beside that:
+- Sub path mounts for containers are not supported
+  (`spec.containers[*].volumeMounts.subpath`).
+- The field `spec.securityContext.fsGroupChangePolicy` has no effect on this
+  volume type.
+- The [`AlwaysPullImages` Admission Controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)
+  does also work for this volume source like for container images.
+
+The following fields are available for the `image` type:
+
+`reference`
+: Artifact reference to be used. For example, you could specify
+`registry.k8s.io/conformance:v{{< skew currentPatchVersion >}}` to load the
+files from the Kubernetes conformance test image. Behaves in the same way as
+`pod.spec.containers[*].image`. Pull secrets will be assembled in the same way
+as for the container image by looking up node credentials, service account image
+pull secrets, and pod spec image pull secrets. This field is optional to allow
+higher level config management to default or override container images in
+workload controllers like Deployments and StatefulSets.
+[More info about container images](/docs/concepts/containers/images)
+
+`pullPolicy`
+: Policy for pulling OCI objects. Possible values are: `Always`, `Never` or
+`IfNotPresent`. Defaults to `Always` if `:latest` tag is specified, or
+`IfNotPresent` otherwise.
+
+See the [_Use an Image Volume With a Pod_](/docs/tasks/configure-pod-container/image-volumes)
+example for more details on how to use the volume source.
+
 ### iscsi
 
 An `iscsi` volume allows an existing iSCSI (SCSI over IP) volume to be mounted
