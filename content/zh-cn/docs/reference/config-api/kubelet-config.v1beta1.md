@@ -740,12 +740,12 @@ Default: &quot;&quot;
    <!--
    tlsCipherSuites is the list of allowed cipher suites for the server.
    Note that TLS 1.3 ciphersuites are not configurable.
-   Values are from tls package constants (https://golang.org/pkg/crypto/tls/#pkg-constants).
+   Values are from tls package constants (https://pkg.go.dev/crypto/tls@go1.22.4#pkg-constants).
    Default: nil
    -->
    <p><code>tlsCipherSuites</code> 是一个字符串列表，其中包含服务器所接受的加密包名称。
    请注意，TLS 1.3 密码套件是不可配置的。
-   列表中的每个值来自于 <code>tls</code> 包中定义的常数（https://golang.org/pkg/crypto/tls/#pkg-constants）。</p>
+   列表中的每个值来自于 <code>tls</code> 包中定义的常数（https://pkg.go.dev/crypto/tls@go1.22.4#pkg-constants）。</p>
   <p>默认值：nil</p>
 </td>
 </tr>
@@ -756,11 +756,11 @@ Default: &quot;&quot;
 <td>
    <!--
    tlsMinVersion is the minimum TLS version supported.
-Values are from tls package constants (https://golang.org/pkg/crypto/tls/#pkg-constants).
+Values are from tls package constants (https://pkg.go.dev/crypto/tls@go1.22.4#pkg-constants).
 Default: &quot;&quot;
    -->
    <p><code>tlsMinVersion</code> 给出所支持的最小 TLS 版本。
-字段取值来自于 <code>tls</code> 包中的常数定义（https://golang.org/pkg/crypto/tls/#pkg-constants）。</p>
+字段取值来自于 <code>tls</code> 包中的常数定义（https://pkg.go.dev/crypto/tls@go1.22.4#pkg-constants）。</p>
   <p>默认值：&quot;&quot;</p>
 </td>
 </tr>
