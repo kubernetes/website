@@ -9,6 +9,10 @@ stages:
   - stage: alpha
     defaultValue: false
     fromVersion: "1.30"
+    toVersion: "1.30"
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.31"
 ---
 Allow WebSocket streaming of the
 portforward sub-protocol (`port-forward`) from clients requesting
