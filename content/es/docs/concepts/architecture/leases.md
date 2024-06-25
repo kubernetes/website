@@ -24,7 +24,7 @@ Analizando a detalle, cada hearbeat es una solicitud **update** a este objeto `L
 el campo `spec.renewTime` del objeto Lease. El plano de control de Kubernetes utiliza la marca de tiempo de este campo
 para determinar la disponibilidad de este «Nodo».
 
-Ve [Objetos Lease de nodos](/docs/concepts/architecture/nodes/#heartbeats) para más detalles.
+Ve [Objetos Lease de nodos](/docs/concepts/architecture/nodes/#node-heartbeats) para más detalles.
 
 ## Elección del líder
 

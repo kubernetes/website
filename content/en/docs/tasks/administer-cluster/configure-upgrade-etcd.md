@@ -385,6 +385,20 @@ for information on how to add members into an existing cluster.
 
 ## Restoring an etcd cluster
 
+{{< caution >}}
+If any API servers are running in your cluster, you should not attempt to
+restore instances of etcd. Instead, follow these steps to restore etcd:
+
+- stop *all* API server instances
+- restore state in all etcd instances
+- restart all API server instances
+
+The Kubernetes project also recommends restarting Kubernetes components (`kube-scheduler`,
+`kube-controller-manager`, `kubelet`) to ensure that they don't rely on some
+stale data. In practice the restore takes a bit of time.  During the
+restoration, critical components will lose leader lock and restart themselves.
+{{< /caution >}}
+
 etcd supports restoring from snapshots that are taken from an etcd process of
 the [major.minor](http://semver.org/) version. Restoring a version from a
 different patch version of etcd is also supported. A restore operation is
@@ -443,36 +457,23 @@ current state. Although the scheduled pods might continue to run, no new pods
 can be scheduled. In such cases, recover the etcd cluster and potentially
 reconfigure Kubernetes API servers to fix the issue.
 
-{{< note >}}
-If any API servers are running in your cluster, you should not attempt to
-restore instances of etcd. Instead, follow these steps to restore etcd:
-
-- stop *all* API server instances
-- restore state in all etcd instances
-- restart all API server instances
-
-We also recommend restarting any components (e.g. `kube-scheduler`,
-`kube-controller-manager`, `kubelet`) to ensure that they don't rely on some
-stale data. Note that in practice, the restore takes a bit of time.  During the
-restoration, critical components will lose leader lock and restart themselves.
-{{< /note >}}
 
 ## Upgrading etcd clusters
 
+{{< caution >}}
+Before you start an upgrade, back up your etcd cluster first.
+{{< /caution >}}
 
-For more details on etcd upgrade, please refer to the [etcd upgrades](https://etcd.io/docs/latest/upgrades/) documentation.
-
-{{< note >}}
-Before you start an upgrade, please back up your etcd cluster first.
-{{< /note >}}
+For details on etcd upgrade, refer to the [etcd upgrades](https://etcd.io/docs/latest/upgrades/) documentation.
 
 ## Maintaining etcd clusters
 
 For more details on etcd maintenance, please refer to the [etcd maintenance](https://etcd.io/docs/latest/op-guide/maintenance/) documentation.
 
+### Cluster defragmentation
+
 {{% thirdparty-content single="true" %}}
 
-{{< note >}}
 Defragmentation is an expensive operation, so it should be executed as infrequently
 as possible. On the other hand, it's also necessary to make sure any etcd member
 will not exceed the storage quota. The Kubernetes project recommends that when
@@ -480,5 +481,4 @@ you perform defragmentation, you use a tool such as [etcd-defrag](https://github
 
 You can also run the defragmentation tool as a Kubernetes CronJob, to make sure that
 defragmentation happens regularly. See [`etcd-defrag-cronjob.yaml`](https://github.com/ahrtr/etcd-defrag/blob/main/doc/etcd-defrag-cronjob.yaml)
-for details. 
-{{< /note >}}
+for details.
