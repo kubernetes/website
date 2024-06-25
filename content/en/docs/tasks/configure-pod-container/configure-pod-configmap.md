@@ -43,7 +43,7 @@ Use the `kubectl create configmap` command to create ConfigMaps from
 or [literal values](#create-configmaps-from-literal-values):
 
 ```shell
-kubectl create configmap <map-name> <data-source>
+kubectl create configmap <map-name> --from-file=<data-source>
 ```
 
 where \<map-name> is the name you want to assign to the ConfigMap and \<data-source> is the
