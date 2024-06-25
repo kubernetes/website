@@ -732,9 +732,9 @@ metadata:
 
 ```yaml
 metadata:
-    name: my-service
-    annotations:
-        service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+  name: my-service
+  annotations:
+      service.beta.kubernetes.io/aws-load-balancer-internal: "true"
 ```
 
 {{% /tab %}}
