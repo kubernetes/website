@@ -598,7 +598,7 @@ Here is a manifest for a Job with `successPolicy`:
 In the example above, both `succeededIndexes` and `succeededCount` have been specified.
 Therefore, the job controller will mark the Job as succeeded and terminate the lingering Pods 
 when either of the specified indexes, 0, 2, or 3, succeed.
-The Job that meets the success policy gets the `SuccessCriteriaMet` condition. 
+The Job that meets the success policy gets the `SuccessCriteriaMet` condition with a `SuccessPolicy` reason.
 After the removal of the lingering Pods is issued, the Job gets the `Complete` condition.
 
 Note that the `succeededIndexes` is represented as intervals separated by a hyphen.
