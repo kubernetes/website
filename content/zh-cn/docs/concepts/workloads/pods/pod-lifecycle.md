@@ -987,7 +987,7 @@ Pod 就会被从 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserv
 集群会从头开始重试，赋予 Pod 完整的体面终止限期。
 
 <!--
-An example flow:
+Pod termination flow, illustrated with an example:
 
 1. You use the `kubectl` tool to manually delete a specific Pod, with the default grace period
    (30 seconds).
@@ -999,7 +999,7 @@ An example flow:
    as terminating (a graceful shutdown duration has been set), the kubelet begins the local Pod
    shutdown process.
 -->
-下面是一个例子：
+Pod 终止流程，如下例所示：
 
 1. 你使用 `kubectl` 工具手动删除某个特定的 Pod，而该 Pod 的体面终止限期是默认值（30 秒）。
 
@@ -1027,14 +1027,15 @@ An example flow:
 
       如果 `preStop` 回调在体面期结束后仍在运行，kubelet 将请求短暂的、一次性的体面期延长 2 秒。
 
-      {{< note >}}
-      <!--
-      If the `preStop` hook needs longer to complete than the default grace period allows,
-      you must modify `terminationGracePeriodSeconds` to suit this.
-      -->
-      如果 `preStop` 回调所需要的时间长于默认的体面终止限期，你必须修改
-      `terminationGracePeriodSeconds` 属性值来使其正常工作。
-      {{< /note >}}
+   <!--
+   If the `preStop` hook needs longer to complete than the default grace period allows,
+   you must modify `terminationGracePeriodSeconds` to suit this.
+   -->
+
+   {{< note >}}
+   如果 `preStop` 回调所需要的时间长于默认的体面终止限期，你必须修改
+   `terminationGracePeriodSeconds` 属性值来使其正常工作。
+   {{< /note >}}
 
    <!--
    1. The kubelet triggers the container runtime to send a TERM signal to process 1 inside each
@@ -1043,14 +1044,17 @@ An example flow:
 
    2. `kubelet` 接下来触发容器运行时发送 TERM 信号给每个容器中的进程 1。
 
-      {{< note >}}
       <!--
-      The containers in the Pod receive the TERM signal at different times and in an arbitrary
-      order. If the order of shutdowns matters, consider using a `preStop` hook to synchronize.
+      There is [special ordering](#termination-with-sidecars) if the Pod has any
+      {{< glossary_tooltip text="sidecar containers" term_id="sidecar-container" >}} defined.
+      Otherwise, the containers in the Pod receive the TERM signal at different times and in
+      an arbitrary order. If the order of shutdowns matters, consider using a `preStop` hook
+      to synchronize (or switch to using sidecar containers).
       -->
-      Pod 中的容器会在不同时刻收到 TERM 信号，接收顺序也是不确定的。
-      如果关闭的顺序很重要，可以考虑使用 `preStop` 回调逻辑来协调。
-      {{< /note >}}
+
+      如果 Pod 中定义了{{< glossary_tooltip text="Sidecar 容器" term_id="sidecar-container" >}}，
+      则存在[特殊排序](#termination-with-sidecars)。否则，Pod 中的容器会在不同的时间和任意的顺序接收
+      TERM 信号。如果关闭顺序很重要，考虑使用 `preStop` 钩子进行同步（或者切换为使用 Sidecar 容器）。
 
 <!--
 1. At the same time as the kubelet is starting graceful shutdown of the Pod, the control plane
@@ -1097,74 +1101,31 @@ An example flow:
    [探索 Pod 及其端点的终止行为](/zh-cn/docs/tutorials/services/pods-and-endpoint-termination-flow/)
    中找到有关如何实现连接排空的更多详细信息。
 
-{{<note>}}
-<!--
-If you don't have the `EndpointSliceTerminatingCondition` feature gate enabled
-in your cluster (the gate is on by default from Kubernetes 1.22, and locked to default in 1.26),
-then the Kubernetes control plane removes a Pod from any relevant EndpointSlices as soon as the Pod's
-termination grace period _begins_. The behavior above is described when the
-feature gate `EndpointSliceTerminatingCondition` is enabled.
--->
-如果你的集群中没有启用 EndpointSliceTerminatingCondition 特性门控
-（该门控从 Kubernetes 1.22 开始默认开启，在 1.26 中锁定为默认），
-那么一旦 Pod 的终止宽限期开始，Kubernetes 控制平面就会从所有的相关 EndpointSlices 中移除 Pod。
-上述行为是在 EndpointSliceTerminatingCondition 特性门控被启用时描述的。
-{{</note>}}
-
-{{<note>}}
-<!--
-Beginning with Kubernetes 1.29, if your Pod includes one or more sidecar containers
-(init containers with an Always restart policy), the kubelet will delay sending
-the TERM signal to these sidecar containers until the last main container has fully terminated.
-The sidecar containers will be terminated in the reverse order they are defined in the Pod spec.
-This ensures that sidecar containers continue serving the other containers in the Pod until they are no longer needed.
--->
-从 Kubernetes 1.29 开始，如果你的 Pod 包含一个或多个 Sidecar
-容器（重启策略为 `Always` 的 Init 容器），kubelet 将延迟向这些
-Sidecar 容器发送 TERM 信号，直到最后一个主容器完全终止。
-Sidecar 容器将以 Pod 规约中定义的相反顺序终止。
-这可确保 Sidecar 容器继续为 Pod 中的其他容器提供服务，直到不再需要它们为止。
+   <a id="pod-termination-beyond-grace-period" />
 
 <!--
-Note that slow termination of a main container will also delay the termination of the sidecar containers.
-If the grace period expires before the termination process is complete, the Pod may enter emergency termination.
-In this case, all remaining containers in the Pod will be terminated simultaneously with a short grace period.
+1. The kubelet ensures the Pod is shut down and terminated
+   1. When the grace period expires, if there is still any container running in the Pod, the
+      kubelet triggers forcible shutdown.
+      The container runtime sends `SIGKILL` to any processes still running in any container in the Pod.
+      The kubelet also cleans up a hidden `pause` container if that container runtime uses one.
+   1. The kubelet transitions the Pod into a terminal phase (`Failed` or `Succeeded` depending on
+      the end state of its containers).
+   1. The kubelet triggers forcible removal of the Pod object from the API server, by setting grace period
+      to 0 (immediate deletion).
+   1. The API server deletes the Pod's API object, which is then no longer visible from any client.
 -->
-请注意，主容器的缓慢终止也会延迟边车容器的终止。
-如果宽限期在终止过程完成之前到期，Pod 可能会进入紧急终止状态。
-在这种情况下，Pod 中的所有剩余容器将在短暂的宽限期内同时终止。
+4. kubelet 确保 Pod 被关闭和终止
 
-<!--
-Similarly, if the Pod has a preStop hook that exceeds the termination grace period, emergency termination may occur.
-In general, if you have used preStop hooks to control the termination order without sidecar containers, you can now
-remove them and allow the kubelet to manage sidecar termination automatically.
--->
-同样，如果 Pod 的 preStop 回调超过了终止宽限期，则可能会发生紧急终止。
-一般来说，如果你在没有 Sidecar 容器的情况下使用 preStop 回调来控制终止顺序，
-那么现在可以删除它们从而允许 kubelet 自动管理 Sidecar 终止。
-{{</note>}}
+   1. 超出终止宽限期限时，如果 Pod 中仍有容器在运行，kubelet 会触发强制关闭过程。
+      容器运行时会向 Pod 中所有容器内仍在运行的进程发送 `SIGKILL` 信号。
+      `kubelet` 也会清理隐藏的 `pause` 容器，如果容器运行时使用了这种容器的话。
 
-<!--
-1. When the grace period expires, the kubelet triggers forcible shutdown. The container runtime sends
-   `SIGKILL` to any processes still running in any container in the Pod.
-   The kubelet also cleans up a hidden `pause` container if that container runtime uses one.
-1. The kubelet transitions the Pod into a terminal phase (`Failed` or `Succeeded` depending on
-   the end state of its containers). This step is guaranteed since version 1.27.
-1. The kubelet triggers forcible removal of Pod object from the API server, by setting grace period
-   to 0 (immediate deletion).
-1. The API server deletes the Pod's API object, which is then no longer visible from any client.
--->
-1. 超出终止宽限期限时，`kubelet` 会触发强制关闭过程。容器运行时会向 Pod
-   中所有容器内仍在运行的进程发送 `SIGKILL` 信号。
-   `kubelet` 也会清理隐藏的 `pause` 容器，如果容器运行时使用了这种容器的话。
+   1. `kubelet` 将 Pod 转换到终止阶段（`Failed` 或 `Succeeded`，具体取决于其容器的结束状态）。
 
-1. `kubelet` 将 Pod 转换到终止阶段（`Failed` 或 `Succeeded` 具体取决于其容器的结束状态）。
-    这一步从 1.27 版本开始得到保证。
+   1. kubelet 通过将宽限期设置为 0（立即删除），触发从 API 服务器强制移除 Pod 对象的操作。
 
-1. `kubelet` 触发强制从 API 服务器上删除 Pod 对象的逻辑，并将体面终止限期设置为 0
-   （这意味着马上删除）。
-
-1. API 服务器删除 Pod 的 API 对象，从任何客户端都无法再看到该对象。
+   1. API 服务器删除 Pod 的 API 对象，从任何客户端都无法再看到该对象。
 
 <!--
 ### Forced Pod termination {#pod-termination-forced}
@@ -1195,13 +1156,11 @@ begin immediate cleanup.
 将宽限期限强制设置为 `0` 意味着立即从 API 服务器删除 Pod。
 如果 Pod 仍然运行于某节点上，强制删除操作会触发 `kubelet` 立即执行清理操作。
 
-{{< note >}}
 <!--
-You must specify an additional flag `--force` along with `--grace-period=0`
+Using kubectl, You must specify an additional flag `--force` along with `--grace-period=0`
 in order to perform force deletions.
 -->
-你必须在设置 `--grace-period=0` 的同时额外设置 `--force` 参数才能发起强制删除请求。
-{{< /note >}}
+使用 kubectl 时，你必须在设置 `--grace-period=0` 的同时额外设置 `--force` 参数才能发起强制删除请求。
 
 <!--
 When a force deletion is performed, the API server does not wait for confirmation
@@ -1230,6 +1189,41 @@ documentation for
 -->
 如果你需要强制删除 StatefulSet 的 Pod，
 请参阅[从 StatefulSet 中删除 Pod](/zh-cn/docs/tasks/run-application/force-delete-stateful-set-pod/) 的任务文档。
+
+<!--
+### Pod shutdown and sidecar containers {##termination-with-sidecars}
+
+If your Pod includes one or more
+[sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/)
+(init containers with an Always restart policy), the kubelet will delay sending
+the TERM signal to these sidecar containers until the last main container has fully terminated.
+The sidecar containers will be terminated in the reverse order they are defined in the Pod spec.
+This ensures that sidecar containers continue serving the other containers in the Pod until they
+are no longer needed.
+-->
+### Pod 关闭和 Sidecar 容器 {#termination-with-sidecars}
+
+如果你的 Pod 包含一个或多个 [Sidecar 容器](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/)
+（重启策略为 Always 的 Init 容器），kubelet 将延迟向这些 Sidecar 容器发送 TERM 信号，
+直到最后一个主容器已完全终止。Sidecar 容器将按照它们在 Pod 规约中被定义的相反顺序被终止。
+这样确保了 Sidecar 容器继续为 Pod 中的其他容器提供服务，直到完全不再需要为止。
+
+<!--
+This means that slow termination of a main container will also delay the termination of the sidecar containers.
+If the grace period expires before the termination process is complete, the Pod may enter [forced termination](#pod-termination-beyond-grace-period).
+In this case, all remaining containers in the Pod will be terminated simultaneously with a short grace period.
+
+Similarly, if the Pod has a `preStop` hook that exceeds the termination grace period, emergency termination may occur.
+In general, if you have used `preStop` hooks to control the termination order without sidecar containers, you can now
+remove them and allow the kubelet to manage sidecar termination automatically.
+-->
+这意味着主容器的慢终止也会延迟 Sidecar 容器的终止。
+如果在终止过程完成之前宽限期已到，Pod 可能会进入[强制终止](#pod-termination-beyond-grace-period)阶段。
+在这种情况下，Pod 中所有剩余的容器将在某个短宽限期内被同时终止。
+
+同样地，如果 Pod 有一个 `preStop` 钩子超过了终止宽限期，可能会发生紧急终止。
+总体而言，如果你以前使用 `preStop` 钩子来控制没有 Sidecar 的 Pod 中容器的终止顺序，
+你现在可以移除这些钩子，允许 kubelet 自动管理 Sidecar 的终止。
 
 <!--
 ### Garbage collection of Pods {#pod-garbage-collection}
