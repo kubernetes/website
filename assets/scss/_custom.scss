@@ -1025,6 +1025,22 @@ div.alert > em.javascript-required {
   width: auto;
 }
 
+//Home page dark-mode input [search and email]
+@media (prefers-color-scheme: dark) {
+  .search-bar {
+    background-color: #A9A9A9;
+  }
+  
+  [aria-label="Search this site"] {
+    color: #fff;
+  }
+
+  #mc_embed_signup_scroll input.email {
+    color: #fff !important;
+    background-color: #A9A9A9 !important;
+  }
+}
+
 .search-bar:focus-within {
   border: 2.5px solid rgba(47, 135, 223, 0.7);
 }
