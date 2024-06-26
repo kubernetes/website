@@ -7,7 +7,7 @@ date: 2024-04-05T07:30:00+00:00
 
 **著者:** Andrei Kvapil (Ænix)
 
-**翻訳者:** Taisuke Okamoto (IDC Frontier Inc), [Junya Okabe](https://github.com/Okabe-Junya) (University of Tsukuba)
+**翻訳者:** [Taisuke Okamoto](https://github.com/b1gb4by) (IDC Frontier Inc), [Junya Okabe](https://github.com/Okabe-Junya) (University of Tsukuba)
 
 Ænixでは、Kubernetesに対する深い愛着があり、近いうちにすべての最新テクノロジーがKubernetesの驚くべきパターンを活用し始めることを夢見ています。
 自分だけのクラウドを構築することを考えたことはありませんか？きっと考えたことがあるでしょう。
