@@ -7,7 +7,7 @@ date: 2024-04-05T07:40:00+00:00
 
 **著者:** Andrei Kvapil (Ænix)
 
-**翻訳者:** Taisuke Okamoto (IDC Frontier Inc),
+**翻訳者:** [Taisuke Okamoto](https://github.com/b1gb4by) (IDC Frontier Inc),
 
 Kubernetesの中でKubernetesを実行するという最も興味深いフェーズに近づいています。
 この記事では、KamajiやCluster APIなどのテクノロジーとそれらのKubeVirtとの統合について説明します。
