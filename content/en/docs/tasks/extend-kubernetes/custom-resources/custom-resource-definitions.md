@@ -1645,13 +1645,7 @@ may also be used with field selectors when included in the `spec.versions[*].sel
 
 #### Selectable fields for custom resources {#crd-selectable-fields}
 
-{{< feature-state state="alpha" for_k8s_version="v1.30" >}}
 {{< feature-state feature_gate_name="CustomResourceFieldSelectors" >}}
-
-You need to enable the `CustomResourceFieldSelectors`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
-use this behavior, which then applies to all CustomResourceDefinitions in your
-cluster.
 
 The `spec.versions[*].selectableFields` field of a {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} may be used to
 declare which other fields in a custom resource may be used in field selectors.
