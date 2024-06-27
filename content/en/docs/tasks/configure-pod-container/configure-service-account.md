@@ -263,7 +263,7 @@ token:          ...
 ```
 
 {{< note >}}
-The content of `token` is elided here.
+The content of `token` is omitted here.
 
 Take care not to display the contents of a `kubernetes.io/service-account-token`
 Secret somewhere that your terminal / computer screen could be seen by an onlooker.
