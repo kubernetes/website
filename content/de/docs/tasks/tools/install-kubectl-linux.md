@@ -167,7 +167,7 @@ Falls es benötigt wird, kann es angelegt werden. Hierzu sollte es danach von je
 1. Hinzufügen des Kubernetes `yum` Repository. Wenn eine andere Kubernetes Version als {{< param "version" >}} installiert werden soll, muss {{< param "version" >}} im unteren Block durch die gewünschte Version ersetzt werden.
 
    ```bash
-   # This overwrites any existing configuration in /etc/yum.repos.d/kubernetes.repo
+   # Bestehende Inhalte in /etc/yum.repos.d/kubernetes.repo werden überschrieben
    cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
    [kubernetes]
    name=Kubernetes
@@ -180,7 +180,7 @@ Falls es benötigt wird, kann es angelegt werden. Hierzu sollte es danach von je
 {{< note >}}
 Wenn ein andere minor Version von kubectl installiert werden soll muss `/etc/yum.repos.d/kubernetes.repo` angepasst werden
 bevor `yum install` ausgeführt wird. Eine genauere Beschreibung findet sich hier
-[Changing The Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
+[Wechseln des Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
 {{< /note >}}
 
 2. Installieren von kubectl mit Hilfe von `yum`:
@@ -195,7 +195,7 @@ bevor `yum install` ausgeführt wird. Eine genauere Beschreibung findet sich hie
 1. Hinzufügen des Kubernetes `zypper` Repository. Wenn eine andere Kubernetes Version als {{< param "version" >}} installiert werden soll, muss {{< param "version" >}} im unteren Block durch die gewünschte Version ersetzt werden.
 
    ```bash
-   # This overwrites any existing configuration in /etc/zypp/repos.d/kubernetes.repo
+   # Bestehende Inhalte in /etc/zypp/repos.d/kubernetes.repo werden überschrieben
    cat <<EOF | sudo tee /etc/zypp/repos.d/kubernetes.repo
    [kubernetes]
    name=Kubernetes
@@ -209,7 +209,7 @@ bevor `yum install` ausgeführt wird. Eine genauere Beschreibung findet sich hie
 {{< note >}}
 Wenn ein andere minor Version von kubectl installiert werden soll muss `/etc/zypp/repos.d/kubernetes.repo` angepasst werden
 bevor `zypper update` ausgeführt wird. Eine genauere Beschreibung findet sich hier
-[Changing The Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
+[Wechseln des Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
 {{< /note >}}
 
    2. Install kubectl using `zypper`:
