@@ -1652,7 +1652,9 @@ custom resources is available by default (enabled by default since Kubernetes v1
 you can disable it for your cluster  by turning off the `CustomResourceFieldSelectors`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 The `spec.versions[*].selectableFields` field of a {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} may be used to
-declare which other fields in a custom resource may be used in field selectors.
+declare which other fields in a custom resource may be used in field selectors
+with the feature of `CustomResourceFieldSelectors`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) (This feature gate is enabled by default since Kubernetes v1.31).
 The following example adds the `.spec.color` and `.spec.size` fields as
 selectable fields.
 
