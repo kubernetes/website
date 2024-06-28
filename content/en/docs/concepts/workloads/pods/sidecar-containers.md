@@ -121,6 +121,9 @@ Init containers stop before the main containers start up, so init containers can
 exchange messages with the app container in a Pod. Any data passing is one-way
 (for example, an init container can put information inside an `emptyDir` volume).
 
+Changing the image of a sidecar container will not cause the Pod to restart, but will
+trigger a container restart.
+
 ## Resource sharing within containers
 
 {{< comment >}}
