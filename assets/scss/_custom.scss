@@ -1028,16 +1028,16 @@ div.alert > em.javascript-required {
 //Home page dark-mode input [search and email]
 @media (prefers-color-scheme: dark) {
   .search-bar {
-    background-color: #A9A9A9;
+    background-color: #D3D3D3;
+  }
+ 
+  input.search-input, input.email {
+    background-color: #D3D3D3 !important;
+    color: #000 !important;
   }
   
-  [aria-label="Search this site"] {
-    color: #fff;
-  }
-
-  #mc_embed_signup_scroll input.email {
-    color: #fff !important;
-    background-color: #A9A9A9 !important;
+  input.search-input::placeholder, input.email::placeholder{
+    color: #000;
   }
 }
 
