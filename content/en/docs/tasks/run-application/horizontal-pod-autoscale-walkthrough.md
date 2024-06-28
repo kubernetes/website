@@ -263,12 +263,22 @@ status:
 Notice that the `targetCPUUtilizationPercentage` field has been replaced with an array called `metrics`.
 The CPU utilization metric is a *resource metric*, since it is represented as a percentage of a resource
 specified on pod containers.  Notice that you can specify other resource metrics besides CPU.  By default,
-the only other supported resource metric is memory.  These resources do not change names from cluster
+the only other supported resource metric is `memory`.  These resources do not change names from cluster
 to cluster, and should always be available, as long as the `metrics.k8s.io` API is available.
 
 You can also specify resource metrics in terms of direct values, instead of as percentages of the
 requested value, by using a `target.type` of `AverageValue` instead of `Utilization`, and
 setting the corresponding `target.averageValue` field instead of the `target.averageUtilization`.
+
+```
+  metrics:
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: AverageValue
+        averageValue: 500Mi
+```
 
 There are two other types of metrics, both of which are considered *custom metrics*: pod metrics and
 object metrics.  These metrics may have names which are cluster specific, and require a more
