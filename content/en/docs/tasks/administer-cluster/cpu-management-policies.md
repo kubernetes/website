@@ -267,6 +267,7 @@ The following policy options exist for the static `CPUManager` policy:
 * `full-pcpus-only` (beta, visible by default) (1.22 or higher)
 * `distribute-cpus-across-numa` (alpha, hidden by default) (1.23 or higher)
 * `align-by-socket` (alpha, hidden by default) (1.25 or higher)
+* `distribute-cpus-across-cores` (alpha, hidden by default) (1.31 or higher)
 
 If the `full-pcpus-only` policy option is specified, the static policy will always allocate full physical cores.
 By default, without this option, the static policy allocates CPUs using a topology-aware best-fit allocation.
@@ -303,6 +304,21 @@ policy option is not compatible with `TopologyManager` `single-numa-node`
 policy and does not apply to hardware where the number of sockets is greater
 than number of NUMA nodes.
 
+
+If the `distribute-cpus-across-cores` policy option is specified, the static policy
+will attempt to allocate virtual cores (hardware threads) across different physical cores.
+By default, the `CPUManager` tends to pack cpus onto as few physical cores as possible,
+which can lead to contention among cpus on the same physical core and result
+in performance bottlenecks. By enabling the `distribute-cpus-across-cores` policy,
+the static policy ensures that cpus are distributed across as many physical cores
+as possible, reducing the contention on the same physical core and thereby
+improving overall performance. However, it is important to note that this strategy
+might be less effective when the system is heavily loaded. Under such conditions,
+the benefit of reducing contention diminishes. Conversely, default behavior
+can help in reducing inter-core communication overhead, potentially providing
+better performance under high load conditions.
+
+
 The `full-pcpus-only` option can be enabled by adding `full-pcpus-only=true` to
 the CPUManager policy options.
 Likewise, the `distribute-cpus-across-numa` option can be enabled by adding
@@ -313,3 +329,8 @@ cores.
 The `align-by-socket` policy option can be enabled by adding `align-by-socket=true`
 to the `CPUManager` policy options. It is also additive to the `full-pcpus-only`
 and `distribute-cpus-across-numa` policy options.
+
+The `distribute-cpus-across-cores` option can be enabled by adding
+`distribute-cpus-across-cores=true` to the `CPUManager` policy options.
+It cannot be used with `full-pcpus-only` or `distribute-cpus-across-numa` policy
+options together at this moment.
