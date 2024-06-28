@@ -1247,8 +1247,7 @@ Unlike other rules, transition rules apply only to operations meeting the follow
   later update to the same object.
 
 Errors will be generated on CRD writes if a schema node contains a transition rule that can never be
-applied, e.g. "*path*: update rule *rule* cannot be set on schema because the schema or its parent
-schema is not mergeable".
+applied, e.g. "oldSelf cannot be used on the uncorrelatable portion of the schema within *path*".
 
 Transition rules are only allowed on _correlatable portions_ of a schema.
 A portion of the schema is correlatable if all `array` parent schemas are of type `x-kubernetes-list-type=map`;
