@@ -51,7 +51,7 @@ kubectl get pod test-pod -o jsonpath='{.spec.schedulingGates}'
 [{"name":"example.com/foo"},{"name":"example.com/bar"}]
 ```
 
-このPodがスケジューリング可能であることをスケジューラに通知するには、変更したマニフェストを再適用することで、その`schedulingGates`を完全に削除できます。
+このPodがスケジューリング可能であることをスケジューラーに通知するには、変更したマニフェストを再適用することで、その`schedulingGates`を完全に削除できます。
 
 {{% code_sample file="pods/pod-without-scheduling-gates.yaml" %}}
 
@@ -74,18 +74,13 @@ NAME       READY   STATUS    RESTARTS   AGE   IP         NODE
 test-pod   1/1     Running   0          15s   10.0.0.4   node-2
 ```
 
-## Observability
+## 可観測性
 
-The metric `scheduler_pending_pods` comes with a new label `"gated"` to distinguish whether a Pod
-has been tried scheduling but claimed as unschedulable, or explicitly marked as not ready for
-scheduling. You can use `scheduler_pending_pods{queue="gated"}` to check the metric result.
+`scheduler_pending_pods`メトリックには、Podがスケジューリングされようとしているがスケジューリング不可能とされているのか、それとも明示的にスケジューリングの準備ができておらずマークされているのかを区別する新しいラベル`"gated"`があります。`scheduler_pending_pods{queue="gated"}`でメトリックの結果を確認できます。
 
-## Mutable Pod scheduling directives
+## 変更可能なPodのスケジューリング命令
 
-You can mutate scheduling directives of Pods while they have scheduling gates, with certain constraints.
-At a high level, you can only tighten the scheduling directives of a Pod. In other words, the updated
-directives would cause the Pods to only be able to be scheduled on a subset of the nodes that it would
-previously match. More concretely, the rules for updating a Pod's scheduling directives are as follows:
+Podのスケジューリング命令は、Podがスケジューリングゲートを持っている間は、一定の制約のもとで変更できます。高いレベルでは、Podのスケジューリング命令を強化することしかできません。言い換えると、更新された命令は、Podが以前マッチしていたノードのサブセットでしかスケジューリングできなくなります。より具体的には、Podのスケジューリング命令を更新するルールは以下のようになります。
 
 1. For `.spec.nodeSelector`, only additions are allowed. If absent, it will be allowed to be set.
 
