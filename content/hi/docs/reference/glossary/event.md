@@ -1,11 +1,11 @@
 ---
-title: Event
+title: इवेंट
 id: event
 date: 2022-01-16
 full_link: /docs/reference/kubernetes-api/cluster-resources/event-v1/
 short_description: >
    इवेंट्स कुबेरनेट्स ऑब्जेक्ट हैं जो सिस्टम में कुछ स्थिति परिवर्तन का वर्णन करती हैं।
-aka: 
+aka: event
 tags:
 - core-object
 - fundamental

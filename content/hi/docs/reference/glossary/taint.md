@@ -1,11 +1,11 @@
 ---
-title: Taint
+title: टेंट
 id: taint
 date: 2019-01-11
 full_link: /docs/concepts/scheduling-eviction/taint-and-toleration/
 short_description: >
   एक मुख्य वस्तु जिसमें तीन आवश्यक गुण होते हैं: कुंजी, मूल्य और प्रभाव। टेंट्स नोड्स या नोड समूहों पर पॉड्स के शेड्यूलिंग को रोकते हैं।
-aka:
+aka: Taint
 tags:
 - core-object
 - fundamental

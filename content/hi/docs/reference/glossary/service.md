@@ -1,10 +1,11 @@
 ---
-title: Service
+title: सर्विस 
 id: service
 date: 2018-04-12
 full_link: /docs/concepts/services-networking/service/
 short_description: >
   पॉड्स के सेट पर चल रहे एप्लिकेशन को नेटवर्क सेवा के रूप में प्रदर्शित करने का एक तरीका।
+aka: Service
 tags:
 - fundamental
 - core-object

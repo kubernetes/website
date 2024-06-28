@@ -1,5 +1,5 @@
 ---
-title: Cloud Controller Manager
+title: क्लाउड कंट्रोलर मैनेजर
 id: cloud-controller-manager
 date: 2018-04-12
 full_link: /docs/concepts/architecture/cloud-controller/

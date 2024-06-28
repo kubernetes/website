@@ -1,11 +1,11 @@
 ---
-title: kube-scheduler
+title: क्यूब स्केडुलेर
 id: kube-scheduler
 date: 2018-04-12
 full_link: /docs/reference/command-line-tools-reference/kube-scheduler/
 short_description: >
   कंट्रोल प्लेन घटक जो बिना निर्दिष्ट नोड वाले नव निर्मित पॉड्स पर नज़र रखता है, और उन्हें चलाने के लिए एक नोड का चयन करता है।
-aka: 
+aka: kube-scheduler
 tags:
 - architecture
 ---

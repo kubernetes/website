@@ -1,11 +1,11 @@
 ---
-title: ServiceAccount
+title: सर्विस अकाउंट
 id: service-account
 date: 2018-04-12
 full_link: /docs/tasks/configure-pod-container/configure-service-account/
 short_description: >
   पॉड में चलने वाली प्रक्रियाओं के लिए एक पहचान प्रदान करता है।
-aka: 
+aka: ServiceAccount 
 tags:
 - fundamental
 - core-object

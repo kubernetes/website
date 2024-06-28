@@ -1,11 +1,11 @@
 ---
-title: Gateway API
+title: गेटवे एपीआई
 id: gateway-api
 date: 2023-10-19
 full_link: /docs/concepts/services-networking/gateway/
 short_description: >
   कुबेरनेट्स में मॉडलिंग सेवा नेटवर्किंग के लिए एक API।
-aka:
+aka: Gateway API
 tags:
 - networking
 - architecture

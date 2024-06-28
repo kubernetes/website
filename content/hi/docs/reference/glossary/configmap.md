@@ -1,11 +1,11 @@
 ---
-title: ConfigMap
+title: कॉन्फिग मैप
 id: configmap
 date: 2018-04-12
 full_link: /docs/concepts/configuration/configmap/
 short_description: >
   एक एपीआई ऑब्जेक्ट का उपयोग गैर-गोपनीय डेटा को कुंजी-मूल्य जोड़े में संग्रहीत करने के लिए किया जाता है। पॉड्स को वॉल्यूम में पर्यावरण चर, कमांड-लाइन तर्क या कॉन्फ़िगरेशन फ़ाइलों के रूप में उपयोग किया जा सकता है।
-aka: 
+aka: ConfigMap
 tags:
 - core-object
 ---

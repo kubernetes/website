@@ -1,12 +1,12 @@
 ---
-title: Spec
+title: स्पेक
 id: spec
 date: 2023-12-17
 full_link: /docs/concepts/overview/working-with-objects/#object-spec-and-status
 short_description: >
   कुबेरनेटेस मेनिफ़ेस्ट में यह फ़ील्ड विशिष्ट कुबेरनेटेस ऑब्जेक्ट के लिए वांछित स्थिति या कॉन्फ़िगरेशन को परिभाषित करता है।
 
-aka:
+aka: स्पेक
 tags:
 - fundamental
 - architecture

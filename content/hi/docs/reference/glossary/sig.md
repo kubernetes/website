@@ -1,5 +1,5 @@
 ---
-title: SIG 
+title: सिग
 id: sig
 date: 2018-04-12
 full_link: https://github.com/kubernetes/community/blob/master/sig-list.md#special-interest-groups 

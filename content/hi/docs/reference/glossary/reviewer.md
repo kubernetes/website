@@ -1,5 +1,5 @@
 ---
-title: समीक्षकReviewer
+title: समीक्षक
 id: reviewer
 date: 2018-04-12
 full_link: 

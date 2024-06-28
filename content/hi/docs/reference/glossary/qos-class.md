@@ -1,11 +1,11 @@
 ---
-title: QoS Class
+title: QoS क्लास
 id: qos-class
 date: 2019-04-15
 full_link: /docs/concepts/workloads/pods/pod-qos/
 short_description: >
   क्यूओएस क्लास (Quality of Service Class) कुबेरनेट्स को क्लस्टर के भीतर पॉड्स को कई वर्गों में वर्गीकृत करने और शेड्यूलिंग और निष्कासन के बारे में निर्णय लेने का एक तरीका प्रदान करता है।
-aka: 
+aka: QoS Class
 tags:
 - core-object
 - fundamental

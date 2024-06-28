@@ -1,11 +1,11 @@
 ---
-title: Secret
+title: सीक्रेट
 id: secret
 date: 2018-04-12
 full_link: /docs/concepts/configuration/secret/
 short_description: >
   संवेदनशील जानकारी, जैसे पासवर्ड, OAuth टोकन और SSH कुंजियाँ संग्रहीत करता है।
-aka:
+aka: Secret
 tags:
 - core-object
 - security

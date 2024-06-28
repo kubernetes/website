@@ -1,11 +1,11 @@
 ---
-title: Volume
+title: वॉल्यूम
 id: volume
 date: 2018-04-12
 full_link: /docs/concepts/storage/volumes/
 short_description: >
   एक निर्देशिका जिसमें डेटा होता है, जो पॉड में कंटेनरों तक पहुंच योग्य होता है।
-aka:
+aka: Volume
 tags:
 - core-object
 - fundamental

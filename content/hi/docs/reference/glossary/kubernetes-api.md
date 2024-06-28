@@ -1,11 +1,11 @@
 ---
-title: Kubernetes API
+title: कुबेरनेटेस एपीआई
 id: kubernetes-api
 date: 2018-04-12
 full_link: /docs/concepts/overview/kubernetes-api/
 short_description: >
   एप्लिकेशन जो RESTful इंटरफ़ेस के माध्यम से कुबेरनेट्स कार्यक्षमता प्रदान करता है और क्लस्टर की स्थिति को संग्रहीत करता है।
-aka: 
+aka: Kubernetes API
 tags:
 - fundamental
 - architecture
