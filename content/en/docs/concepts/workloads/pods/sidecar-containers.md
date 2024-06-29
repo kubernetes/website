@@ -49,24 +49,19 @@ Here's an example of a Deployment with two containers, one of which is a sidecar
 
 ## Sidecar containers and Pod lifecycle
 
-If an init container is created with its `restartPolicy` set to `Always`, it will
-start and remain running during the entire life of the Pod. This can be helpful for
-running supporting services separated from the main application containers.
+Sidecar containers are designed to run alongside the main application containers 
+for the entire duration of the Pod's lifecycle. This can be helpful for running 
+supporting services separated from the main application containers.
 
-If a `readinessProbe` is specified for this init container, its result will be used
+If a `readinessProbe` is specified for this sidecar container, its result will be used
 to determine the `ready` state of the Pod.
 
-Since these containers are defined as init containers, they benefit from the same
-ordering and sequential guarantees as regular init containers, allowing you to mix
-sidecar containers with regular init containers for complex Pod initialization flows.
+Sidecar containers are defined within the containers section of the Pod specification, 
+allowing them to run concurrently with the main application containers and provide ongoing support.
 
-Compared to regular init containers, sidecars defined within `initContainers` continue to
-run after they have started. This is important when there is more than one entry inside
-`.spec.initContainers` for a Pod. After a sidecar-style init container is running (the kubelet
-has set the `started` status for that init container to true), the kubelet then starts the
-next init container from the ordered `.spec.initContainers` list.
-That status either becomes true because there is a process running in the
-container and no startup probe defined, or as a result of its `startupProbe` succeeding.
+Compared to init containers, which run to completion before the main application containers start, 
+sidecars continue to run after they have started. This is important for providing continuous 
+support functions throughout the Pod's lifecycle.
 
 ### Jobs with sidecar containers
 
