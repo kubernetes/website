@@ -29,6 +29,6 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /opt
-      volumes:
-        - name: data
-          emptyDir: {}
+  volumes:
+    - name: data
+      emptyDir: {}
