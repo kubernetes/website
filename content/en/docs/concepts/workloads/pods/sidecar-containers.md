@@ -65,9 +65,8 @@ support functions throughout the Pod's lifecycle.
 
 ### Jobs with sidecar containers
 
-If you define a Job that uses sidecar using Kubernetes-style init containers,
-the sidecar container in each Pod does not prevent the Job from completing after the
-main container has finished.
+If you define a Job that uses sidecar containers, the sidecar container in each Pod 
+does not prevent the Job from completing after the main container has finished.
 
 Here's an example of a Job with two containers, one of which is a sidecar:
 
