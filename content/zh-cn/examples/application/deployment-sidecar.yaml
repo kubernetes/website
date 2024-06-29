@@ -23,11 +23,10 @@ spec:
               mountPath: /opt
         - name: logshipper
           image: alpine:latest
-          restartPolicy: Always
           command: ['sh', '-c', 'tail /opt/logs.txt']
           volumeMounts:
             - name: data
               mountPath: /opt
-  volumes:
-    - name: data
-      emptyDir: {}
+      volumes:
+        - name: data
+          emptyDir: {}
