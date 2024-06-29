@@ -14,13 +14,47 @@ weight: 270
 
 ## {{% heading "prerequisites" %}}
 
-You need to have a Kubernetes cluster, and the kubectl command-line tool must
-be configured to communicate with your cluster. It is recommended to follow this
-guide on a cluster with at least two nodes that are not acting as control plane
-nodes. If you do not already have a cluster, you can create one by using
-[minikube](https://minikube.sigs.k8s.io/docs/tutorials/multi_node/).
+Before you follow steps in this page to deploy, manage, back up or restore etcd,
+you need to understand the typical expectations for operating an etcd cluster.
+Refer to the [etcd documentation](https://etcd.io/docs/) for more context.
 
-### Understanding etcdctl and etcdutl
+Key details include:
+
+* The minimum recommended etcd versions to run in production are `3.4.22+` and `3.5.6+`.
+
+* etcd is a leader-based distributed system. Ensure that the leader
+  periodically send heartbeats on time to all followers to keep the cluster
+  stable.
+
+* You should run etcd as a cluster with an odd number of members.
+
+* Aim to ensure that no resource starvation occurs.
+
+  Performance and stability of the cluster is sensitive to network and disk
+  I/O. Any resource starvation can lead to heartbeat timeout, causing instability
+  of the cluster. An unstable etcd indicates that no leader is elected. Under
+  such circumstances, a cluster cannot make any changes to its current state,
+  which implies no new pods can be scheduled.
+
+### Resource requirements for etcd
+
+Operating etcd with limited resources is suitable only for testing purposes.
+For deploying in production, advanced hardware configuration is required.
+Before deploying etcd in production, see
+[resource requirement reference](https://etcd.io/docs/current/op-guide/hardware/#example-hardware-configurations).
+
+Keeping etcd clusters stable is critical to the stability of Kubernetes
+clusters. Therefore, run etcd clusters on dedicated machines or isolated
+environments for [guaranteed resource requirements](https://etcd.io/docs/current/op-guide/hardware/).
+
+### Tools
+
+Depending on which specific outcome you're working on, you will need the `etcdctl` tool or the
+`etcdutl` tool (you may need both).
+
+<!-- steps -->
+
+## Understanding etcdctl and etcdutl
 
 `etcdctl` and `etcdutl` are command-line tools used to interact with etcd clusters, but they serve different purposes:
 
@@ -35,40 +69,12 @@ should be used.
 
 For more information on `etcdutl`, you can refer to the [etcd recovery documentation](https://etcd.io/docs/v3.5/op-guide/recovery/).
 
-<!-- steps -->
-
-## Prerequisites
-
-* Run etcd as a cluster of odd members.
-
-* etcd is a leader-based distributed system. Ensure that the leader
-  periodically send heartbeats on time to all followers to keep the cluster
-  stable.
-
-* Ensure that no resource starvation occurs.
-
-  Performance and stability of the cluster is sensitive to network and disk
-  I/O. Any resource starvation can lead to heartbeat timeout, causing instability
-  of the cluster. An unstable etcd indicates that no leader is elected. Under
-  such circumstances, a cluster cannot make any changes to its current state,
-  which implies no new pods can be scheduled.
-
-* Keeping etcd clusters stable is critical to the stability of Kubernetes
-  clusters. Therefore, run etcd clusters on dedicated machines or isolated
-  environments for [guaranteed resource requirements](https://etcd.io/docs/current/op-guide/hardware/).
-
-* The minimum recommended etcd versions to run in production are `3.4.22+` and `3.5.6+`.
-
-## Resource requirements
-
-Operating etcd with limited resources is suitable only for testing purposes.
-For deploying in production, advanced hardware configuration is required.
-Before deploying etcd in production, see
-[resource requirement reference](https://etcd.io/docs/current/op-guide/hardware/#example-hardware-configurations).
 
 ## Starting etcd clusters
 
 This section covers starting a single-node and multi-node etcd cluster.
+
+This guide assumes that `etcd` is already installed.
 
 ### Single-node etcd cluster
 
@@ -93,7 +99,14 @@ production and back it up periodically. A five-member cluster is recommended
 in production. For more information, see
 [FAQ documentation](https://etcd.io/docs/current/faq/#what-is-failure-tolerance).
 
-Configure an etcd cluster either by static member information or by dynamic
+As you're using Kubernetes, you have the option to run etcd as a container inside
+one or more Pods. The `kubeadm` tool sets up etcd
+{{< glossary_tooltip text="static pods" term_id="static-pod" >}} by default, or
+you can deploy a
+[separate cluster](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)
+and instruct kubeadm to use that etcd cluster as the control plane's backing store.
+
+You configure an etcd cluster either by static member information or by dynamic
 discovery. For more information on clustering, see
 [etcd clustering documentation](https://etcd.io/docs/current/op-guide/clustering/).
 
