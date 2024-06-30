@@ -122,6 +122,57 @@ API Priority and Fairness feature.
 命令行标志 `--enable-priority-fairness=false` 将彻底禁用 APF 特性。
 
 <!--
+## Recursive server scenarios
+
+API Priority and Fairness must be used carefully in recursive server
+scenarios. These are sccenarios in which some server A, while serving
+a request, issues a subsidiary request to some server B. Perhaps
+server B might even make a further subsidiary call back to server
+A. In situations where Priority and Fairness control is applied to
+both the original request and some subsidiary ones(s), no matter how
+deep in the recursion, there is a danger of priority inversions and/or
+deadlocks.
+-->
+## 递归服务器场景     {#Recursive server scenarios}
+
+在递归服务器场景中，必须谨慎使用 API 优先级和公平性。这些场景指的是服务器 A 在处理一个请求时，
+会向服务器 B 发出一个辅助请求。服务器 B 可能会进一步向服务器 A 发出辅助请求。
+当优先级和公平性控制同时应用于原始请求及某些辅助请求（无论递归多深）时，存在优先级反转和/或死锁的风险。
+
+<!--
+One example of recursion is when the `kube-apiserver` issues an
+admission webhook call to server B, and while serving that call,
+server B makes a further subsidiary request back to the
+`kube-apiserver`. Another example of recursion is when an `APIService`
+object directs the `kube-apiserver` to delegate requests about a
+certain API group to a custom external server B (this is one of the
+things called "aggregation").
+-->
+递归的一个例子是 `kube-apiserver` 向服务器 B 发出一个准入 Webhook 调用，
+而在处理该调用时，服务器 B 进一步向 `kube-apiserver` 发出一个辅助请求。
+另一个递归的例子是，某个 `APIService` 对象指示 `kube-apiserver`
+将某个 API 组的请求委托给自定义的外部服务器 B（这被称为"聚合"）。
+
+<!--
+When the original request is known to belong to a certain priority
+level, and the subsidiary controlled requests are classified to higher
+priority levels, this is one possible solution. When the original
+requests can belong to any priority level, the subsidiary controlled
+requests have to be exempt from Priority and Fairness limitation. One
+way to do that is with the objects that configure classification and
+handling, discussed below. Another way is to disable Priority and
+Fairness on server B entirely, using the techniques discussed above. A
+third way, which is the simplest to use when server B is not
+`kube-apisever`, is to build server B with Priority and Fairness
+disabled in the code.
+-->
+当原始请求被确定为属于某个特定优先级别时，将辅助请求分类为更高的优先级别是一个可行的解决方案。
+当原始请求可能属于任何优先级时，辅助受控请求必须免受优先级和公平性限制。
+一种实现方法是使用下文中讨论的配置分类和处理的对象。
+另一种方法是采用前面提到的技术，在服务器 B 上完全禁用优先级和公平性。第三种方法是，
+当服务器 B 不是 `kube-apiserver` 时，最简单的做法是在服务器 B 的代码中禁用优先级和公平性。
+
+<!--
 ## Concepts
 
 There are several distinct features involved in the API Priority and Fairness

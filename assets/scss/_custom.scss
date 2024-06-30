@@ -341,6 +341,12 @@ footer {
 
 /* DOCS */
 
+table tr.cve-status-open, table tr.cve-status-unknown {
+  > td.cve-item-summary {
+    font-weight: bold;
+  }
+}
+
 .launch-cards {
   padding: 0;
   display: grid;
