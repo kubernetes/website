@@ -40,6 +40,23 @@ Install [`kubectl`](/docs/tasks/tools/#kubectl).
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
+<!--
+Ensure that your cluster has the `StorageVersionMigrator` and `InformerResourceVersion`
+[feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
+enabled. You will need control plane administrator access to make that change.
+
+Enable storage version migration REST api by setting runtime config
+`storagemigration.k8s.io/v1alpha1` to `true` for the API server. For more information on
+how to do that,
+read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-disable-api/).
+-->
+确保你的集群已启用 `StorageVersionMigrator` 和 `InformerResourceVersion`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
+你需要控制平面的管理员权限来进行此更改。
+
+通过将 API 服务器的运行时配置 `storagemigration.k8s.io/v1alpha1` 设置为 `true` 来启用存储版本迁移 REST API。
+有关如何进行此操作的更多信息，请参阅[启用或禁用 Kubernetes API](/zh-cn/docs/tasks/administer-cluster/enable-disable-api/)。
+
 <!-- steps -->
 
 <!--
