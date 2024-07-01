@@ -292,7 +292,7 @@ the EndpointSlice manifest: a TCP connection to 10.1.2.3 or 10.4.5.6, on port 93
 
 {{< note >}}
 The Kubernetes API server does not allow proxying to endpoints that are not mapped to
-pods. Actions such as `kubectl proxy <service-name>` where the service has no
+pods. Actions such as `kubectl port-forward service/<service-name> forwardedPort:servicePort` where the service has no
 selector will fail due to this constraint. This prevents the Kubernetes API server
 from being used as a proxy to endpoints the caller may not be authorized to access.
 {{< /note >}}
@@ -727,16 +727,16 @@ Select one of the tabs.
 metadata:
   name: my-service
   annotations:
-      networking.gke.io/load-balancer-type: "Internal"
+    networking.gke.io/load-balancer-type: "Internal"
 ```
 {{% /tab %}}
 {{% tab name="AWS" %}}
 
 ```yaml
 metadata:
-    name: my-service
-    annotations:
-        service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+  name: my-service
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
 ```
 
 {{% /tab %}}
@@ -746,7 +746,7 @@ metadata:
 metadata:
   name: my-service
   annotations:
-      service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 ```
 
 {{% /tab %}}
@@ -756,7 +756,7 @@ metadata:
 metadata:
   name: my-service
   annotations:
-      service.kubernetes.io/ibm-load-balancer-cloud-provider-ip-type: "private"
+    service.kubernetes.io/ibm-load-balancer-cloud-provider-ip-type: "private"
 ```
 
 {{% /tab %}}
@@ -804,7 +804,7 @@ metadata:
 metadata:
   name: my-service
   annotations:
-      service.beta.kubernetes.io/oci-load-balancer-internal: true
+    service.beta.kubernetes.io/oci-load-balancer-internal: true
 ```
 {{% /tab %}}
 {{< /tabs >}}

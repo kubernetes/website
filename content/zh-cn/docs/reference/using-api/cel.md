@@ -257,15 +257,15 @@ Examples:
 {{< table caption="Examples of CEL expressions using regex library functions" >}}
 | CEL Expression                                              | Purpose                                                  |
 |-------------------------------------------------------------|----------------------------------------------------------|
-| `"abc 123".find('[0-9]*')`                                  | Find the first number in a string                        |
-| `"1, 2, 3, 4".findAll('[0-9]*').map(x, int(x)).sum() < 100` | Verify that the numbers in a string sum to less than 100 |
+| `"abc 123".find('[0-9]+')`                                  | Find the first number in a string                        |
+| `"1, 2, 3, 4".findAll('[0-9]+').map(x, int(x)).sum() < 100` | Verify that the numbers in a string sum to less than 100 |
 {{< /table >}}
 -->
 {{< table caption="使用正则表达式库函数的 CEL 表达式例子" >}}
 | CEL 表达式                                                   | 用途                       |
 |-------------------------------------------------------------|----------------------------|
-| `"abc 123".find('[0-9]*')`                                  | 找到字符串中的第一个数字       |
-| `"1, 2, 3, 4".findAll('[0-9]*').map(x, int(x)).sum() < 100` | 验证字符串中的数字之和小于 100 |
+| `"abc 123".find('[0-9]+')`                                  | 找到字符串中的第一个数字       |
+| `"1, 2, 3, 4".findAll('[0-9]+').map(x, int(x)).sum() < 100` | 验证字符串中的数字之和小于 100 |
 {{< /table >}}
 
 <!--
@@ -476,8 +476,8 @@ Examples:
 |---------------------------------------------------------------------------|-------------------------------------------------------|
 | `quantity("500000G").isInteger()`                                         | Test if conversion to integer would throw an error    |
 | `quantity("50k").asInteger()`                                             | Precise conversion to integer                         |
-| `quantity("9999999999999999999999999999999999999G").asApproximateFloat()` | Lossy conversion to float                              |
-| `quantity("50k").add("20k")`                                              | Add two quantities                                    |
+| `quantity("9999999999999999999999999999999999999G").asApproximateFloat()` | Lossy conversion to float                             |
+| `quantity("50k").add(quantity("20k"))`                                    | Add two quantities                                    |
 | `quantity("50k").sub(20000)`                                              | Subtract an integer from a quantity                   |
 | `quantity("50k").add(20).sub(quantity("100k")).sub(-50000)`               | Chain adding and subtracting integers and quantities  |
 | `quantity("200M").compareTo(quantity("0.2G"))`                            | Compare two quantities                                |
@@ -491,7 +491,7 @@ Examples:
 | `quantity("500000G").isInteger()`                                         | 测试转换为整数是否会报错 |
 | `quantity("50k").asInteger()`                                             | 精确转换为整数         |
 | `quantity("9999999999999999999999999999999999999G").asApproximateFloat()` | 松散转换为浮点数        |
-| `quantity("50k").add("20k")`                                              | 两个数量相加           |
+| `quantity("50k").add(quantity("20k"))`                                    | 两个数量相加           |
 | `quantity("50k").sub(20000)`                                              | 从数量中减去整数        |
 | `quantity("50k").add(20).sub(quantity("100k")).sub(-50000)`               | 链式相加和减去整数和数量 |
 | `quantity("200M").compareTo(quantity("0.2G"))`                            | 比较两个数量           |

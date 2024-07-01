@@ -100,11 +100,82 @@ weight: 10
 				<p>लेबल को निर्माण के समय या बाद में ऑब्जेक्ट्स से जोड़ा जा सकता है। उन्हें किसी भी समय परिवर्तित किया जा सकता है। आइए अब सर्विस का उपयोग करके हमारे ऐप को एक्सपोज़ करें और कुछ लेबल लागू करें।</p>
 			</div>
 		</div>
-		<br>
+		<div class='row'>
+			<div class='col-md-12'>
+			<h3>एक नई सेवा बनाएं</h3>
+			<p>आइए सत्यापित करें कि हमारा एप्लिकेशन चल रहा है। हम <code>kubectl get</code> कमांड का उपयोग करेंगे और मौजूदा पॉड्स की तलाश करेंगे:</p>
+			<p><code><b>kubectl get pods</b></code></p>
+			<p>यदि कोई पॉड्स नहीं चल रहा है तो इसका मतलब है कि पिछले ट्यूटोरियल के ऑब्जेक्ट साफ़ कर दिए गए हैं। इस मामले में, वापस जाएं और परिनियोजन बनाने के लिए kubectl का उपयोग करके <a href="/hi/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro#deploy-an-app">परिनियोजन को फिर से बनाएं।</a> 
+					   कृपया कुछ सेकंड प्रतीक्षा करें और पॉड्स को फिर से सूचीबद्ध करें। एक बार जब आप एक पॉड को चलता हुआ देख लें तो आप जारी रख सकते हैं।</p>
+			<p>इसके बाद, आइए अपने क्लस्टर से वर्तमान सेवाओं को सूचीबद्ध करें:</p>
+			<p><code><b>kubectl get services</b></code></p>
+			<p>हमारे पास <tt>kubernetes</tt> नामक एक सेवा है जो मिनीक्यूब के क्लस्टर शुरू करने पर डिफ़ॉल्ट रूप से बनाई जाती है।
+			एक नई सेवा बनाने और उसे बाहरी ट्रैफ़िक में उजागर करने के लिए हम पैरामीटर के रूप में नोडपोर्ट के साथ एक्सपोज़ कमांड का उपयोग करेंगे।</p>
+			<p><code><b>kubectl expose deployment/kubernetes-bootcamp --type="NodePort" --पोर्ट 8080</b></code></p>
+			<p>आइए फिर से <code>get services</code> उपकमांड चलाएँ:</p>
+			<p><code><b>kubectl get services</b></code></p>
+			<p>अब हमारे पास कुबेरनेट्स-बूटकैंप नामक एक चालू सेवा है। यहां हम देखते हैं कि सेवा को एक अद्वितीय क्लस्टर-आईपी, एक आंतरिक पोर्ट और एक बाहरी-आईपी (नोड का आईपी) प्राप्त हुआ।</p>
+			<p>यह पता लगाने के लिए कि कौन सा पोर्ट बाहरी रूप से खोला गया था (<tt>प्रकार: NodePort</tt> सेवा के लिए) हम <code>describe service</code> उपकमांड चलाएंगे:</p>
+			<p><code><b>kubectl describe services/kubernetes-bootcamp</b></code></p>
+			<p> <tt>NODE_PORT</tt> नामक एक पर्यावरण चर बनाएं जिसमें निर्दिष्ट नोड पोर्ट का मान हो:</p>
+			<p><code><b>export NODE_PORT='$(kubectl getservices/kubernetes-bootcamp -o go-template='{{(index .spec.ports 0).nodePort}}')'</b> </code><br />
+			<code><b>echo "NODE_PORT=$NODE_PORT"</b></code></p>
+			<p>अब हम <code>curl</code>, नोड के आईपी पते और बाहरी रूप से उजागर पोर्ट का उपयोग करके परीक्षण कर सकते हैं कि ऐप क्लस्टर के बाहर प्रदर्शित है:</p>
+			<p><code><b>कर्ल http://'$(minikube ip):$NODE_PORT'</b></code></p>
+					 {{< note >}}<p>यदि आप कंटेनर ड्राइवर के रूप में डॉकर डेस्कटॉप के साथ मिनीक्यूब चला रहे हैं, तो एक मिनीक्यूब सुरंग की आवश्यकता है। ऐसा इसलिए है क्योंकि डॉकर डेस्कटॉप के अंदर के कंटेनर आपके होस्ट कंप्यूटर से अलग होते हैं।<br>
+			<p>एक अलग टर्मिनल विंडो में, निष्पादित करें:<br>
+			<code><b>minikube services kubernetes-bootcamp --url</b></code></p>
+			<p>आउटपुट इस तरह दिखता है:
+			<pre><b>http://127.0.0.1:51082<br>! क्योंकि आप डार्विन पर डॉकर ड्राइवर का उपयोग कर रहे हैं, इसे चलाने के लिए टर्मिनल का खुला होना आवश्यक है।</b></pre></p>
+			<p>फिर ऐप तक पहुंचने के लिए दिए गए यूआरएल का उपयोग करें:<br>
+			<code><b>कर्ल 127.0.0.1:51082</b></code></p>
+			{{< /note >}}
+			<p>और हमें सर्वर से प्रतिक्रिया मिलती है। सेवा उजागर हो गई है.</p>
+			</div>
+		</div>
+
 		<div class="row">
 			<div class="col-md-12">
-				<a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/expose/expose-interactive/" role="button">इंटरएक्टिव ट्यूटोरियल शुरू करें<span class="btn__next">›</span></a>
+				<h3>लेबल का उपयोग करना</h3>
+				<p>परिनियोजन ने स्वचालित रूप से हमारे पॉड के लिए एक लेबल बनाया। <कोड>परिनियोजन का वर्णन करें</कोड> उपकमांड के साथ आप उस लेबल का नाम (<em>कुंजी</em>) देख सकते हैं:</p>
+				<p><code><b>kubectl describe deployments</b></code></p>
+				<p>आइए पॉड्स की हमारी सूची के बारे में पूछताछ करने के लिए इस लेबल का उपयोग करें। हम एक पैरामीटर के रूप में <code>kubectl get pods</code> कमांड का उपयोग <tt>-l</tt> के साथ करेंगे, जिसके बाद लेबल मान होंगे:</p>
+				<p><code><b>kubectl get pods -l app=kubernetes-bootcamp</b></code></p>
+				<p>मौजूदा सेवाओं को सूचीबद्ध करने के लिए आप ऐसा ही कर सकते हैं:</p>
+				<p><code><b>kubectl get services -l app=kubernetes-bootcamp</b></code></p>
+				<p>पॉड का नाम प्राप्त करें और इसे <tt>POD_NAME</tt> पर्यावरण चर में संग्रहीत करें:</p>
+				<p><code><b>export POD_NAME='$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{'\n'}} {{end}}')"</b></code><br />
+				<code><b>echo "Name of Pod: $POD_NAME"</b></code></p>
+				<p>नया लेबल लागू करने के लिए हम <code>label</code> उपकमांड का उपयोग करते हैं, जिसके बाद ऑब्जेक्ट प्रकार, ऑब्जेक्ट का नाम और नया लेबल आता है:</p>
+				<p><code><b>kubectl label pods "$POD_NAME" version=v1</b></code></p>
+				<p>यह हमारे पॉड पर एक नया लेबल लागू करेगा (हमने एप्लिकेशन संस्करण को पॉड पर पिन किया है), और हम इसे डिस्क्रिप्शन पॉड कमांड के साथ जांच सकते हैं:</p>
+				<p><code><b>kubectl describe pods "$POD_NAME"</b></code></p>
+				<p>हम यहां देखते हैं कि लेबल अब हमारे पॉड से जुड़ा हुआ है। और अब हम नए लेबल का उपयोग करके पॉड्स की सूची क्वेरी कर सकते हैं:</p>
+				<p><code><b>kubectl get pods -l version=v1</b></code></p>
+				<p>और हम पॉड देखते हैं।</p>
 			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<h3>किसी सेवा को हटाना</h3>
+				<p>सेवाओं को हटाने के लिए आप <code>delete service</code> उपकमांड का उपयोग कर सकते हैं। लेबल का उपयोग यहां भी किया जा सकता है:</p>
+				<p><code><b>kubectl delete service -l app=kubernetes-bootcamp</b></code></p>
+				<p>पुष्टि करें कि सेवा समाप्त हो गई है:</p>
+				<p><code><b>kubectl get services</b></code></p>
+				<p>यह पुष्टि करता है कि हमारी सेवा हटा दी गई थी। यह पुष्टि करने के लिए कि मार्ग अब उजागर नहीं हुआ है, आप पहले से उजागर आईपी और पोर्ट को <tt>curl</tt> कर सकते हैं:</p>
+				<p><code><b>curl http://'$(minikube ip):$NODE_PORT'</b></code></p>
+				<p>यह साबित करता है कि एप्लिकेशन अब क्लस्टर के बाहर से पहुंच योग्य नहीं है।
+				आप पुष्टि कर सकते हैं कि ऐप अभी भी पॉड के अंदर से <tt>curl</tt> के साथ चल रहा है:</p>
+				<p><code><b>kubectl exec -ti $POD_NAME -- curl http://localhost:8080</b></code></p>
+				<p>हम यहां देखते हैं कि एप्लिकेशन चालू है। ऐसा इसलिए है क्योंकि परिनियोजन एप्लिकेशन का प्रबंधन कर रहा है। एप्लिकेशन को बंद करने के लिए, आपको परिनियोजन को भी हटाना होगा।</p>
+			</div>
+		</div>
+
+		<div class="row">
+			<p>
+				एक बार जब आप तैयार हो जाएं, तो आगे बढ़ें <a href='/hi/docs/tutorials/kubernetes-basics/scale/scale-intro/' title='Running Multiple Instances of Your App'>अपने ऐप के कई इंस्टेंस को चलाना</a >
+			</p>
 		</div>
 	</main>
 </div>

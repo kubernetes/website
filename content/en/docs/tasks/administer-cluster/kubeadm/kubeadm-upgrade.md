@@ -312,6 +312,11 @@ In case of a upgrade failure and if the automatic rollback does not work, the co
 manually restored in `/etc/kubernetes/manifests`. If for some reason there is no difference between a pre-upgrade
 and post-upgrade manifest file for a certain component, a backup file for it will not be written.
 
+{{< note >}}
+After the cluster upgrade using kubeadm, the backup directory `/etc/kubernetes/tmp` will remain and 
+these backup files will need to be cleared manually.
+{{</ note >}}
+
 ## How it works
 
 `kubeadm upgrade apply` does the following:
