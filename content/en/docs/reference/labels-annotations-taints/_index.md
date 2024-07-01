@@ -1275,6 +1275,19 @@ The kubectl command line tool uses this annotation as a legacy mechanism
 to track changes. That mechanism has been superseded by
 [Server-side apply](/docs/reference/using-api/server-side-apply/).
 
+### kubectl.kubernetes.io/restartedAt {#kubectl-k8s-io-restart-at}
+
+Type: Annotation
+
+Example: kubectl.kubernetes.io/restartedAt: "2024-06-21T17:27:41Z"
+
+Used on: Pod
+
+This annotation contains the latest restart time of a resource(Deployment, ReplicaSet, StatefulSet or DaemonSet).
+The command `kubectl rollout restart <RESOURCE>` triggers a restart by patching the template
+metadata of all the pods of resource with this annotation. You can also trigger a restart by manually
+setting or changing the value of this annotation. In above example the latest restart time of resource is shown as 21st Jun 2024 17:27:41 GMT.
+
 ### endpoints.kubernetes.io/over-capacity
 
 Type: Annotation
