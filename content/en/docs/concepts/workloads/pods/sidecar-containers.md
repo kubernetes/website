@@ -122,11 +122,17 @@ for resource usage apply:
 * The highest of any particular resource request or limit defined on all init
   containers is the *effective init request/limit*. If any resource has no
   resource limit specified this is considered as the highest limit.
+ ```
+ [effective init request/limit] = max(init-1, ...init-N)
+ ```
 * The Pod's *effective request/limit* for a resource is the sum of
 [pod overhead](/docs/concepts/scheduling-eviction/pod-overhead/) and the higher of:
   * the sum of all non-init containers(app and sidecar containers) request/limit for a
   resource
   * the effective init request/limit for a resource
+ ```
+ [effective request/limit] = max(max(init-1, ...init-N), sum(non-init-1, ...non-init-N))
+ ```
 * Scheduling is done based on effective requests/limits, which means
   init containers can reserve resources for initialization that are not used
   during the life of the Pod.
