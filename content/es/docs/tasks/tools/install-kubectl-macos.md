@@ -16,14 +16,14 @@ Utilizar la última versión compatible de kubectl evita posibles errores.
 
 Existen los siguientes métodos para instalar kubectl en macOS:
 
-- [Instalar kubectl en macOS](#install-kubectl-on-macos)
-  - [Instalación del binario para macOS con Curl](#install-kubectl-binary-with-curl-on-macos)
-  - [Instalar con Homebrew en macOS](#install-with-homebrew-on-macos)
-  - [Instalar con Macports en macOS](#install-with-macports-on-macos)
-- [Verificar la configuración de kubectl](#verify-kubectl-configuration)
-- [Configuraciones y plugins opcionales para kubectl](#optional-kubectl-configurations-and-plugins)
-  - [Habilitar el autocompletado de la shell](#enable-shell-autocompletion)
-  - [Instalar el plugin `kubectl convert`](#install-kubectl-convert-plugin)
+- [Instalar kubectl en macOS](#instalar-kubectl-en-macos)
+  - [Instalación del binario para macOS con Curl](#instalación-del-binario-para-macos-de-kubectl-con-curl)
+  - [Instalar con Homebrew en macOS](#instalar-utilizando-homebrew-en-macos)
+  - [Instalar con Macports en macOS](#instalar-con-macports-en-macos)
+- [Verificar la configuración de kubectl](#verificar-la-configuración-de-kubectl)
+- [Configuraciones y plugins opcionales para kubectl](#configuraciones-opcionales-y-plugins-de-kubectl)
+  - [Habilitar el autocompletado de la shell](#instalar-bash-complete)
+  - [Instalar el plugin `kubectl convert`](#instalar-el-plugin-kubectl-convert)
 
 ### Instalación del binario para macOS de kubectl con Curl
 
