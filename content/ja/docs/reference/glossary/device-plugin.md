@@ -15,4 +15,4 @@ tags:
 <!--more-->
 
 デバイスプラグインは{{< glossary_tooltip term_id="kubelet" text="kubelet" >}}にリソースをアドバタイズします。それによりワーカーノードのPodは関連するノードのハードウェア機能にアクセスできます。デバイスプラグインは{{< glossary_tooltip term_id="daemonset" >}}としてデプロイするか、ターゲットの各ノードに直接デバイスプラグインのソフトウェアをインストールすることができます。
-詳細については、[Device Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)をご覧ください。
+詳細については、[デバイスプラグイン](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)をご覧ください。
