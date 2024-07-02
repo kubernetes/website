@@ -73,7 +73,7 @@ $ kubectl log -f service-1786497219-lttxd gateway  # pod 3
 
 
 
-To get around this we built [Stern](https://github.com/wercker/stern). It's a super simple utility that allows you to specify both the pod id and the container id as regular expressions. Any match will be followed and the output is multiplexed together, prefixed with the pod and container id, and color-coded for human consumption (colors are stripped if piping to a file).
+To get around this we built [Stern](https://github.com/stern/stern). It's a super simple utility that allows you to specify both the pod id and the container id as regular expressions. Any match will be followed and the output is multiplexed together, prefixed with the pod and container id, and color-coded for human consumption (colors are stripped if piping to a file).
 
 
 
@@ -158,7 +158,7 @@ View pods from another namespace
 
 
 
-Stern is open source and [available on GitHub](https://github.com/wercker/stern), we'd love your contributions or ideas. If you don't want to build from source you can also download a precompiled binary from [GitHub releases](https://github.com/wercker/stern/releases).   
+Stern is open source and [available on GitHub](https://github.com/stern/stern), we'd love your contributions or ideas. If you don't want to build from source you can also download a precompiled binary from [GitHub releases](https://github.com/stern/stern/releases).   
 
 
 [![](https://4.bp.blogspot.com/-oNscZEvpzVw/WBeWc4cW4zI/AAAAAAAAAyw/71okg07IPHM6dtBOubO_0kxdYxzwoUGOACLcB/s640/stern-long.gif)](https://4.bp.blogspot.com/-oNscZEvpzVw/WBeWc4cW4zI/AAAAAAAAAyw/71okg07IPHM6dtBOubO_0kxdYxzwoUGOACLcB/s1600/stern-long.gif)
