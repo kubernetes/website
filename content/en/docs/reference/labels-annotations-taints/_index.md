@@ -1281,12 +1281,18 @@ Type: Annotation
 
 Example: kubectl.kubernetes.io/restartedAt: "2024-06-21T17:27:41Z"
 
-Used on: Pod
+Used on: Deployment, ReplicaSet, StatefulSet, DaemonSet, Pod
 
-This annotation contains the latest restart time of a resource(Deployment, ReplicaSet, StatefulSet or DaemonSet).
+This annotation contains the latest restart time of a resource (Deployment, ReplicaSet, StatefulSet or DaemonSet),
+where kubectl triggered a rollout in order to force creation of new Pods.
 The command `kubectl rollout restart <RESOURCE>` triggers a restart by patching the template
-metadata of all the pods of resource with this annotation. You can also trigger a restart by manually
-setting or changing the value of this annotation. In above example the latest restart time of resource is shown as 21st Jun 2024 17:27:41 GMT.
+metadata of all the pods of resource with this annotation. In above example the latest restart time is shown as 21st June 2024 at 17:27:41 UTC.
+
+You should not assume that this annotation represents the date / time of the most recent update;
+a separate change could have been made since the last manually triggered rollout.
+
+If you manually set this annotation on a Pod, nothing happens. The restarting side effect comes from
+how workload management and Pod templating works.
 
 ### endpoints.kubernetes.io/over-capacity
 
