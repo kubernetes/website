@@ -10,7 +10,7 @@ tags:
 - fundamental
 - extension
 ---
-デバイスプラグインはワーカー{{< glossary_tooltip term_id="node" text="ノード">}}上で実行し、初期化やセットアップ手順が必要なローカルのハードウェアへのアクセスを{{< glossary_tooltip term_id="pod" text="Pod">}}に提供します。
+デバイスプラグインはワーカー{{< glossary_tooltip term_id="node" text="ノード">}}上で実行され、ベンダー固有の初期化やセットアップ手順を必要とするローカルのハードウェアへのアクセスを{{< glossary_tooltip term_id="pod" text="Pod">}}に提供します。
 
 <!--more-->
 
