@@ -1645,7 +1645,6 @@ may also be used with field selectors when included in the `spec.versions[*].sel
 
 #### Selectable fields for custom resources {#crd-selectable-fields}
 
-{{< feature-state state="alpha" for_k8s_version="v1.30" >}}
 {{< feature-state feature_gate_name="CustomResourceFieldSelectors" >}}
 
 You need to enable the `CustomResourceFieldSelectors`
