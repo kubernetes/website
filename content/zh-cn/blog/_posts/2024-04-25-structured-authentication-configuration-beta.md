@@ -283,7 +283,7 @@ jwt:
     url: https://issuer.example.com
     audiences:
     - example-client-id
-  certificateAuthority: <取值是 /path/to/ca.pem 文件的内容>
+    certificateAuthority: <取值是 /path/to/ca.pem 文件的内容>
   claimMappings:
     username:
       claim: username
