@@ -6,7 +6,7 @@ content_type: concept
 
 <!-- overview -->
 
-このページでは、複数のゾーンにまたがるKubernetesの実行について説明します。
+このページでは、複数のゾーンにまたがるKubernetesクラスターの実行について説明します。
 
 <!-- body -->
 
