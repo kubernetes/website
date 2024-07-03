@@ -43,20 +43,6 @@ kube-proxy [flags]
 <tbody>
 
 <tr>
-<td colspan="2">--add_dir_header</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, adds the file directory to the header of the log messages</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--alsologtostderr</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>log to standard error as well as files (no effect when -logtostderr=true)</p></td>
-</tr>
-
-<tr>
 <td colspan="2">--bind-address string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 0.0.0.0</td>
 </tr>
 <tr>
@@ -68,6 +54,13 @@ kube-proxy [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true kube-proxy will treat failure to bind to a port as fatal and exit</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--boot-id-file string string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Comma-separated list of files to check for boot-id. Use the first one that exists. (default "/proc/sys/kernel/random/boot_id").</p></td>
 </tr>
 
 <tr>
@@ -113,13 +106,6 @@ kube-proxy [flags]
 </tr>
 
 <tr>
-<td colspan="2">--conntrack-tcp-be-liberal</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Enable liberal mode for tracking TCP packets by setting nf_conntrack_tcp_be_liberal to 1</p></td>
-</tr>
-
-<tr>
 <td colspan="2">--conntrack-tcp-timeout-close-wait duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 1h0m0s</td>
 </tr>
 <tr>
@@ -131,20 +117,6 @@ kube-proxy [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Idle timeout for established TCP connections (0 to leave as-is)</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--conntrack-udp-timeout duration</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Idle timeout for UNREPLIED UDP connections (0 to leave as-is)</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--conntrack-udp-timeout-stream duration</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Idle timeout for ASSURED UDP connections (0 to leave as-is)</p></td>
 </tr>
 
 <tr>
@@ -183,13 +155,6 @@ kube-proxy [flags]
 </tr>
 
 <tr>
-<td colspan="2">--init-only</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, perform any initialization steps that must be done with full root privileges, and then exit. After doing this, you can run kube-proxy again with only the CAP_NET_ADMIN capability.</p></td>
-</tr>
-
-<tr>
 <td colspan="2">--iptables-localhost-nodeports&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
 </tr>
 <tr>
@@ -215,13 +180,6 @@ kube-proxy [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>An interval (e.g. '5s', '1m', '2h22m') indicating how frequently various re-synchronizing and cleanup operations are performed. Must be greater than 0.</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--ipvs-exclude-cidrs strings</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A comma-separated list of CIDRs which the ipvs proxier should not touch when cleaning up IPVS rules.</p></td>
 </tr>
 
 <tr>
@@ -309,59 +267,10 @@ kube-proxy [flags]
 </tr>
 
 <tr>
-<td colspan="2">--log-text-info-buffer-size quantity</td>
+<td colspan="2">--machine-id string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[Alpha] In text format with split output streams, the info messages can be buffered for a while to increase performance. The default value of zero bytes disables buffering. The size can be specified as number of bytes (512), multiples of 1000 (1K), multiples of 1024 (2Ki), or powers of those (3M, 4G, 5Mi, 6Gi). Enable the LoggingAlphaOptions feature gate to use this.</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--log-text-split-stream</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[Alpha] In text format, write error messages to stderr and info messages to stdout. The default is to write a single stream to stdout. Enable the LoggingAlphaOptions feature gate to use this.</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--log_backtrace_at &lt;a string in the form 'file:N'&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: :0</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>when logging hits line file:N, emit a stack trace</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--log_dir string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If non-empty, write log files in this directory (no effect when -logtostderr=true)</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--log_file string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If non-empty, use this log file (no effect when -logtostderr=true)</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--log_file_max_size uint&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 1800</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Defines the maximum size a log file can grow to (no effect when -logtostderr=true). Unit is megabytes. If the value is 0, the maximum file size is unlimited.</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--logging-format string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "text"</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Sets the log format. Permitted formats: &quot;text&quot;.</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--logtostderr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>log to standard error instead of files</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Comma-separated list of files to check for machine-id. Use the first one that exists. (default "/etc/machine-id,/var/lib/dbus/machine-id")</p></td>
 </tr>
 
 <tr>
@@ -390,13 +299,6 @@ kube-proxy [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A list of CIDR ranges that contain valid node IPs. If set, connections to NodePort services will only be accepted on node IPs in one of the indicated ranges. If unset, NodePort connections will be accepted on all local IPs. This parameter is ignored if a config file is specified by --config.</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--one_output</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, only write logs to their native severity level (vs also writing to each lower severity level; no effect when -logtostderr=true)</p></td>
 </tr>
 
 <tr>
@@ -435,31 +337,17 @@ kube-proxy [flags]
 </tr>
 
 <tr>
+<td colspan="2">--proxy-port-range port-range</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Range of host ports (beginPort-endPort, single port or beginPort+offset, inclusive) that may be consumed in order to proxy service traffic. If (unspecified, 0, or 0-0) then ports will be randomly chosen.</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--show-hidden-metrics-for-version string</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The previous version for which you want to show hidden metrics. Only the previous minor version is meaningful, other values will not be allowed. The format is &lt;major&gt;.&lt;minor&gt;, e.g.: '1.16'. The purpose of this format is make sure you have the opportunity to notice if the next release hides additional metrics, rather than being surprised when they are permanently removed in the release after that. This parameter is ignored if a config file is specified by --config.</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--skip_headers</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, avoid header prefixes in the log messages</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--skip_log_headers</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, avoid headers when opening log files (no effect when -logtostderr=true)</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--stderrthreshold int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 2</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>logs at or above this threshold go to stderr when writing to files and stderr (no effect when -logtostderr=true or -alsologtostderr=true)</p></td>
 </tr>
 
 <tr>
@@ -474,13 +362,6 @@ kube-proxy [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>--version, --version=raw prints version information and quits; --version=vX.Y.Z... sets the reported version</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--vmodule pattern=N,...</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>comma-separated list of pattern=N settings for file-filtered logging (only works for text log format)</p></td>
 </tr>
 
 <tr>
