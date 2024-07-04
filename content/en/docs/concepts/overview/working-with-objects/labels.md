@@ -201,7 +201,7 @@ For example: `partition in (customerA, customerB),environment!=qa`.
 
 ### LIST and WATCH filtering
 
-LIST and WATCH operations may specify label selectors to filter the sets of objects
+LIST and {{< glossary_tooltip text="WATCH" term_id="watch" >}} operations may specify label selectors to filter the sets of objects
 returned using a query parameter. Both requirements are permitted
 (presented here as they would appear in a URL query string):
 
