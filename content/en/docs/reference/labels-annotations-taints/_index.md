@@ -272,7 +272,9 @@ Example: `resource.kubernetes.io/pod-claim-name: "my-pod-claim"`
 
 Used on: Pod
 
-This annotation is assigned to generated ResourceClaims. Its value corresponds to the `pod.spec.resourceClaims[].name` for which the ResourceClaim was created. This annotation is utilized internally by the Kubernetes controller.
+This annotation is assigned to generated ResourceClaims. 
+Its value corresponds to the `pod.spec.resourceClaims[].name` for which the ResourceClaim was created. 
+This annotation is utilized internally by the Kubernetes controller.
 
 ### cluster-autoscaler.kubernetes.io/safe-to-evict
 
