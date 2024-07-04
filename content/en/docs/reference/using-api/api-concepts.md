@@ -19,7 +19,7 @@ fine grained authorization (such as separate views for Pod details and
 log retrievals), and can accept and serve those resources in different
 representations for convenience or efficiency.
 
-Kubernetes supports efficient change notifications on resources via *watches*.
+Kubernetes supports efficient change notifications on resources via *{{< glossary_tooltip text="watches" term_id="watch" >}}*.
 Kubernetes also provides consistent list operations so that API clients can
 effectively cache, track, and synchronize the state of resources.
 
