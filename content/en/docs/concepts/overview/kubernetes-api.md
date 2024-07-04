@@ -86,7 +86,7 @@ Without indicating the resource type using the `Accept` header, the default
 response for the `/api` and `/apis` endpoint is an unaggregated discovery
 document.
 
-The [discovery document](https://github.com/kubernetes/kubernetes/blob/release-{{< skew currentVersion >}}/api/discovery/aggregated_v2.json)
+The [discovery document](https://github.com/kubernetes/kubernetes/blob/release-{{< skew currentVersion >}}/api/discovery/aggregated_v2beta1.json)
 for the built-in resources can be found in the Kubernetes GitHub repository.
 This Github document can be used as a reference of the base set of the available resources
 if a Kubernetes cluster is not available to query.
