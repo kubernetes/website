@@ -178,7 +178,7 @@ Falls es benötigt wird, kann es angelegt werden. Hierzu sollte es danach von je
    EOF
    ```
 {{< note >}}
-Wenn ein andere minor Version von kubectl installiert werden soll muss `/etc/yum.repos.d/kubernetes.repo` angepasst werden
+Wenn eine andere minor Version von kubectl installiert werden soll muss `/etc/yum.repos.d/kubernetes.repo` angepasst werden
 bevor `yum install` ausgeführt wird. Eine genauere Beschreibung findet sich hier
 [Wechseln des Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
 {{< /note >}}
