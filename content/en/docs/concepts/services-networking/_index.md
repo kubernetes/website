@@ -7,7 +7,8 @@ description: >
 
 ## The Kubernetes network model
 
-Every [`Pod`](/docs/concepts/workloads/pods/) in a cluster gets its own unique cluster-wide IP address(one address per IP address family). 
+Every [`Pod`](/docs/concepts/workloads/pods/) in a cluster gets its own unique cluster-wide IP address
+(one address per IP address family). 
 This means you do not need to explicitly create links between `Pods` and you 
 almost never need to deal with mapping container ports to host ports.  
 This creates a clean, backwards-compatible model where `Pods` can be treated 
