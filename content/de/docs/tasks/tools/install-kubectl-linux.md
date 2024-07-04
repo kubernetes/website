@@ -207,7 +207,7 @@ bevor `yum install` ausgeführt wird. Eine genauere Beschreibung findet sich hie
    ```
 
 {{< note >}}
-Wenn ein andere minor Version von kubectl installiert werden soll muss `/etc/zypp/repos.d/kubernetes.repo` angepasst werden
+Wenn eine andere minor Version von kubectl installiert werden soll muss `/etc/zypp/repos.d/kubernetes.repo` angepasst werden
 bevor `zypper update` ausgeführt wird. Eine genauere Beschreibung findet sich hier
 [Wechseln des Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
 {{< /note >}}
