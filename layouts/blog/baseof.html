@@ -29,7 +29,9 @@
           <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
             {{ partial "blog-sidebar.html" . }}
           </div>
-          <main class="col-12 col-md-9 col-xl-8 pl-md-5 pr-md-4" role="main">
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5 pr-md-4" role="main"
+              {{ if .IsPage }}data-pagefind-body data-pagefind-meta="date:{{  $.Date.Format "2006-01-02" }}"{{ end }}
+            ><!-- inside main element -->
             {{ block "deprecated" . }}
               {{ partial "deprecation-warning.html" . }}
             {{ end }}

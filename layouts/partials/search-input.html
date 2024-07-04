@@ -22,11 +22,20 @@
   >
 </div>
 {{ else if .Site.Params.k8s_search }}
+
+{{ $lang := .Site.Language.Lang }}
+{{ $searchFile := printf "content/%s/search.md" $lang }}
+
 <div class="search-bar">
   <i class="search-icon fas fa-search"></i>
   <input
     type="search"
     name="q"
+    {{ if fileExists $searchFile }}
+      data-search-page="{{ "search/" | relLangURL  }}"
+    {{ else }}
+      data-search-page="{{ "search/" | relURL }}"
+    {{ end }}
     class="search-input td-search-input" 
     placeholder="{{ T "ui_search_placeholder" }}"
     aria-label="{{ T "ui_search_placeholder" }}"
