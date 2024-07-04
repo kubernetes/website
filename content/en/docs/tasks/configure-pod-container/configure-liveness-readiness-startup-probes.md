@@ -215,8 +215,9 @@ seconds.
 In addition to the liveness probe, this configuration includes a readiness probe.
 The kubelet will run the first readiness probe 15 seconds after the container
 starts. Similar to the liveness probe, this will attempt to connect to the
-`goproxy` container on port 8080. If the readiness probe fails, the container
-will be marked unready and will not receive traffic from any services.
+`goproxy` container on port 8080. If the probe succeeds, the Pod will be marked 
+as ready and will receive traffic from services. If the readiness probe fails, 
+the pod will be marked unready and will not receive traffic from any services.
 
 To try the TCP liveness check, create a Pod:
 
