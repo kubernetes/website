@@ -26,7 +26,9 @@ Describe fields and structure of various resources.
 
  This command describes the fields associated with each supported API resource. Fields are identified via a simple JSONPath identifier:
 
-        &lt;type&gt;.&lt;fieldName&gt;[.&lt;fieldName&gt;]
+```
+<type>.<fieldName>[.<fieldName>]
+```
         
  Information about each field is retrieved from the server in OpenAPI format.
 
