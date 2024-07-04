@@ -264,6 +264,16 @@ in the StatefulSet topic for more details.
 Note the [PodIndexLabel](/docs/reference/command-line-tools-reference/feature-gates/)
 feature gate must be enabled for this label to be added to pods.
 
+### resource.kubernetes.io/pod-claim-name
+
+Type: Annotation
+
+Example: `resource.kubernetes.io/pod-claim-name: "my-pod-claim"`
+
+Used on: Pod
+
+This annotation is assigned to generated ResourceClaims. Its value corresponds to the `pod.spec.resourceClaims[].name` for which the ResourceClaim was created. This annotation is utilized internally by the Kubernetes controller.
+
 ### cluster-autoscaler.kubernetes.io/safe-to-evict
 
 Type: Annotation
