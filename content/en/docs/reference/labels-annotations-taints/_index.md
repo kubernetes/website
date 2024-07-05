@@ -1279,7 +1279,7 @@ to track changes. That mechanism has been superseded by
 
 Type: Annotation
 
-Example: kubectl.kubernetes.io/restartedAt: "2024-06-21T17:27:41Z"
+Example: `kubectl.kubernetes.io/restartedAt: "2024-06-21T17:27:41Z"`
 
 Used on: Deployment, ReplicaSet, StatefulSet, DaemonSet, Pod
 
