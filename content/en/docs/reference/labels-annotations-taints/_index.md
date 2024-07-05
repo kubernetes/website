@@ -270,11 +270,12 @@ Type: Annotation
 
 Example: `resource.kubernetes.io/pod-claim-name: "my-pod-claim"`
 
-Used on: Pod
+Used on: ResourceClaim
 
 This annotation is assigned to generated ResourceClaims. 
-Its value corresponds to the `pod.spec.resourceClaims[].name` for which the ResourceClaim was created. 
-This annotation is utilized internally by the Kubernetes controller.
+Its value corresponds to the name of the resource claim in the `.spec` of any Pod(s) for which the ResourceClaim was created.
+This annotation is an internal implementation detail of [dynamic resource allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/).
+You should not need to read or modify the value of this annotation.
 
 ### cluster-autoscaler.kubernetes.io/safe-to-evict
 
