@@ -162,7 +162,7 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
    For more information see the [certificate management guide](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs).
    {{</ note >}}
 
-   1. Choose a version to upgrade to, and run the appropriate command. For example:
+1. Choose a version to upgrade to, and run the appropriate command. For example:
 
    ```shell
    # replace x with the patch version you picked for this upgrade
