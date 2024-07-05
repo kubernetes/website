@@ -241,66 +241,43 @@ directly or from your monitoring tools.
 ### Considerations for memory backed `emptyDir` volumes {#memory-backed-emptydir}
 
 {{< caution >}}
-If you do not specify a `sizeLimit` for `emptyDir` nor a memory limits
-(`spec.containers[].resources.limits.memory`) for pod, you can create a memory
-backed `emptyDir` with node allocatable size unintentionally. Also, user can
-create multiple memory backed `emptyDir`s on the same node, each set to a node
-allocatable size.  And what Kubernetes sees as memory usage is the amount that
-is actually consuming the memory　backed `emptyDir`, so even after you create a
-memory backed `emptyDir` with node allocatable size, the other Pods can be
-scheduled to the same node.  As a result, multiple memory backed `emptyDir`s
-with node allocatable size can be created on the same node.
+If you do not specify a `sizeLimit` for an `emptyDir` volume, that volume may
+consume up to that pod's memory limit (`Pod.spec.containers[].resources.limits.memory`).
+If you do not set a memory limit, the pod has no upper bound on memory consumption,
+and can consume all available memory on the node.  Kubernetes schedules pods based
+on resource requests (`Pod.spec.containers[].resources.requests`) and will not
+consider memory usage above the request when deciding if another pod can fit on
+a given node.  This can result in a denial of service and cause the OS to do
+out-of-memory (OOM) handling.  It is possible to create any number of `emptyDir`s
+that could potentially consume all available memory on the node, making OOM
+more likely.
 {{< /caution >}}
 
 From the perspective of memory management, there are some similarities between
 when a process uses memory as a work area and when using memory-backed
 `emptyDir`. But when using memory as a volume like memory-backed `emptyDir`,
-there are additional points below that you should be careful.
+there are additional points below that you should be careful of.
 
 * Files stored on a memory-backed volume are almost entirely managed by the
-  user application. Unlike when used as a work area for a process, you can not
-  rely on like garbage collection by the runtime for language.
+  user application.  Unlike when used as a work area for a process, you can not
+  rely on things like language-level garbage collection.
 * The purpose of writing files to a volume is to save data or pass it between
-  applications. Deletion of files may not be considered or may depend on other
-  applications, then tend to persist for long time as files accumulate or are
-  not deleted as intended.
-* The memory-backed `emptyDir` is useful when writing large amounts of logs
-  continuously or passing large image files because of its performance.
-  However, memory is very small compared to disks, and using a large amount of
-  memory will affect the normal operation of the node, so you must be very
-  careful to use the minimum amount necessary.
+  applications.  Neither Kubernetes nor the OS may automatically delete files
+  from a volume, so memory used by those files can not be reclaimed when the
+  system or the pod are under memory pressure.
+* A memory-backed `emptyDir` is useful because of its performance, but memory
+  is generally much smaller in size and much higher in cost than other storage
+  media, such as disks or SSDs.  Using large amounts of memory for `emptyDir`
+  volumes may affect the normal operation of your pod or of the whole node,
+  so should be used carefully.
 
-If you use memory backed `emptyDir` without appropriate settings, e.g. without
-`sizeLimit` nor memory limits, the following risks may occur:
-
-* A single Pod with memory backed `emptyDir` may unintentionally occupy node's memory.
-* If multiple memory backed `emptyDir`s are created on the same mode, their total
-  logical size can easily exceed the amount of memory implemented on the node, and
-  they can be consumed very quickly due to its performance.  This results in memory
-  exhaustion due to the unintentional or malicious creation of a large number of
-  memory backed `emptyDir`s.
-* As usage of memory backed `emptyDir` increases, Linux will eventually try to
-  OOMkill this container, but if a large number of such `emptyDir`s are created
-  and consumed rapidly, the tmpfs volume may be not deleted before the node run
-  out of memory and crash.
-
-To prevent these risks, everyone who can define a Pod should specify memory
-limits for pod or `sizeLimit` for `emptyDir`.
-
-Since memory limits apply to all pod memory usage, and the `sizeLimit` only
-applies to the `emptyDir`, a memory limits is the proper tool to prevent a
-container from consuming too much of the node's allocatable memory.
-The `sizeLimit` is really a tool to prevent usage of the memory-backed `emptyDir`
-from causing the container to hit its memory limit and OOM, not a tool to limit
-a pod's memory uasge. So it is better concidering to specify memory limits for
-pod first.
-
-If you are administering a cluster or namespace, you also set
+If you are administering a cluster or namespace, you can also set
 [ResourceQuota](/docs/concepts/policy/resource-quotas/) that limits memory use;
 you may also want to define a [LimitRange](/docs/concepts/policy/limit-range/)
 for additional enforcement.
 If you specify a `spec.containers[].resources.limits.memory` for each Pod,
-then the default size of an `emptyDir` volume will be `.spec.resources.limits.memory`.
+then the muximum size of an `emptyDir` volume will be the pod's memory limit.
+
 As an alternative, a cluster administrator can enforce size limits for
 `emptyDir` volumes in new Pods using a policy mechanism such as
 [ValidationAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy).

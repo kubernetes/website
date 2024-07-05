@@ -257,7 +257,7 @@ overlays), the `emptyDir` may run out of capacity before this limit.
 {{< note >}}
 You can specify a size for memory backed volumes, provided that the `SizeMemoryBackedVolumes`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled in your cluster (this has been beta, and active by default, since the Kubernetes 1.22 release).
+is enabled in your cluster (this has been beta, and active by default, since the Kubernetes 1.22 release).
 If you don't specify a volume size, memory backed volumes are sized to node allocatable memory.
 {{< /note>}}
 
