@@ -1,0 +1,7 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicy
+spec:
+...
+failurePolicy: Ignore # The default is "Fail"
+validations:
+- expression: "object.spec.xyz == params.x"  
