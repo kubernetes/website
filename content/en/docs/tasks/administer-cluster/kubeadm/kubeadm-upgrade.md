@@ -49,9 +49,10 @@ The upgrade workflow at high level is the following:
 - All containers are restarted after upgrade, because the container spec hash value is changed.
 - To verify that the kubelet service has successfully restarted after the kubelet has been upgraded,
   you can execute `systemctl status kubelet` or view the service logs with `journalctl -xeu kubelet`.
-- Usage of the `--config` flag of `kubeadm upgrade` with
-  [kubeadm configuration API types](/docs/reference/config-api/kubeadm-config.v1beta3)
-  with the purpose of reconfiguring the cluster is not recommended and can have unexpected results. Follow the steps in
+- `kubeadm upgrade` supports `--config` with a
+[`UpgradeConfiguration` API type](/docs/reference/config-api/kubeadm-config.v1beta4) which can
+be used to configure the upgrade process.
+- `kubeadm upgrade` does not support reconfiguration of an existing cluster. Follow the steps in
   [Reconfiguring a kubeadm cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure) instead.
 
 ### Considerations when upgrading etcd
@@ -159,12 +160,6 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
    `kubeadm upgrade` also automatically renews the certificates that it manages on this node.
    To opt-out of certificate renewal the flag `--certificate-renewal=false` can be used.
    For more information see the [certificate management guide](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs).
-   {{</ note >}}
-
-   {{< note >}}
-   If `kubeadm upgrade plan` shows any component configs that require manual upgrade, users must provide
-   a config file with replacement configs to `kubeadm upgrade apply` via the `--config` command line flag.
-   Failing to do so will cause `kubeadm upgrade apply` to exit with an error and not perform an upgrade.
    {{</ note >}}
 
 1. Choose a version to upgrade to, and run the appropriate command. For example:
@@ -309,7 +304,7 @@ manually restored in `/etc/kubernetes/manifests`. If for some reason there is no
 and post-upgrade manifest file for a certain component, a backup file for it will not be written.
 
 {{< note >}}
-After the cluster upgrade using kubeadm, the backup directory `/etc/kubernetes/tmp` will remain and 
+After the cluster upgrade using kubeadm, the backup directory `/etc/kubernetes/tmp` will remain and
 these backup files will need to be cleared manually.
 {{</ note >}}
 
