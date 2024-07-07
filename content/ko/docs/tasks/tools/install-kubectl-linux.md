@@ -110,7 +110,7 @@ card:
 
    ```shell
    sudo apt-get update
-   sudo apt-get install -y apt-transport-https ca-certificates curl
+   sudo apt-get install -y apt-transport-https ca-certificates curl gnupg
    ```
    Debian 9(stretch) 또는 그 이전 버전을 사용하는 경우 `apt-transport-https`도 설치해야 한다.
    ```shell
