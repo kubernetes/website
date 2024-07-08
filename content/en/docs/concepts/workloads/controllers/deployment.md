@@ -815,7 +815,7 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
   ```
 * {{< glossary_tooltip text="Watch" term_id="watch" >}} the status of the rollout until it's done.
   ```shell
-  kubectl get rs -w
+  kubectl get rs --watch
   ```
 
   The output is similar to this:
