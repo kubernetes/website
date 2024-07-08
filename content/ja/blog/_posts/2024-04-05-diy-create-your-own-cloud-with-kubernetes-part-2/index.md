@@ -84,7 +84,7 @@ Kubernetesとの統合には、クラスターにインストールされる小�
 
 {{< figure src="storage-local.svg" caption="コンピュートノード上で実行されるローカルデータストレージを示す図" alt="コンピュートノード上で実行されるローカルデータストレージを示す図" >}}
 
-一方、ハイパーコンバージドシステムは、多くの場合、ローカルストレージ(レプリケーションが不要な場合)と、[Rook/Ceph](https://rook.io/)、[OpenEBS](https://openebs.io/)、[Longhorn](https://longhorn.io/)、[LINSTOR](https://linbit.com/linstor/)などのソフトウェア定義ストレージを使用して実装されます。
+一方、ハイパーコンバージドシステムは、多くの場合、ローカルストレージ(レプリケーションが不要な場合)と、[Rook/Ceph](https://rook.io/)、[OpenEBS](https://openebs.io/)、[Longhorn](https://longhorn.io/)、[LINSTOR](https://linbit.com/linstor/)などのソフトウェアデファインドストレージを使用して実装されます。
 これらは、多くの場合、Kubernetesに直接インストールされます。
 
 {{< figure src="storage-clustered.svg" caption="コンピュートノード上で実行されるクラスター化データストレージを示す図" alt="コンピュートノード上で実行されるクラスター化データストレージを示す図" >}}
