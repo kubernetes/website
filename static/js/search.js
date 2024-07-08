@@ -19,28 +19,6 @@
         s.parentNode.insertBefore(gcse, s);
     }
 
-    window.getPaginationAnchors = (pages) => {
-        var pageAnchors = '', searchTerm  = window.location.search.split("=")[1].split("&")[0].replace(/%20/g, ' ');
-        var currentPage = window.location.search.split("=")[2];
-        currentPage = (!currentPage) ?  1 : currentPage.split("&")[0];
-
-        for(var i = 1; i <= 10; i++){
-            if(i > pages) break;
-            pageAnchors += '<a class="bing-page-anchor" href="/search/?q='+searchTerm+'&page='+i+'">';
-            pageAnchors += (currentPage == i) ? '<b>'+i+'</b>' : i;
-            pageAnchors += '</a>';
-        }
-        return pageAnchors;
-    }
-
-    window.getResultMarkupString = (ob) => {
-        return '<div class="bing-result">'
-            + '<div class="bing-result-name"><a href="'+ob.url+'">'+ob.name+'</a></div>'
-            + '<div class="bing-result-url">'+ob.displayUrl+'</div>'
-            + '<div class="bing-result-snippet">'+ob.snippet+'</div>'
-            +'</div>';
-    }
-
     window.renderPageFindSearchResults = () => {
         let urlParams = new URLSearchParams(window.location.search);
         let searchTerm = urlParams.get("q") || "";
