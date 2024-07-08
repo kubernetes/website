@@ -11,7 +11,8 @@ tags:
 - API verb
 - fundamental
 ---
-A verb that is used to track changes to an object in Kubernetes as a stream. It is used for the excellent detection of changes.
+A verb that is used to track changes to an object in Kubernetes as a stream.
+It is used for the efficient detection of changes.
 
 <!--more-->
 
