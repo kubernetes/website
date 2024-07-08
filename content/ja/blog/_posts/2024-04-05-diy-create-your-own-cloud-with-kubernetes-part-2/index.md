@@ -174,7 +174,7 @@ Ciliumは、eBPFテクノロジーに基づいており、Linuxネットワー�
 [MetalLB](https://metallb.universe.tf/)、[kube-vip](https://kube-vip.io/)、[LoxiLB](https://www.loxilb.io/)があり、また[Cilium](https://docs.cilium.io/en/latest/network/lb-ipam/)と[Kube-OVN](https://kube-ovn.readthedocs.io/zh-cn/latest/en/guide/loadbalancer-service/)にはビルトインの実装が提供されています。
 
 外部ロードバランサーの役割は、外部から利用可能な安定したアドレスを提供し、外部トラフィックをサービスネットワークに誘導することです。
-サービスネットワークプラグインは、通常どおりそれをポッドと仮想マシンに誘導します。
+サービスネットワークプラグインは、通常どおりそれをPodと仮想マシンに誘導します。
 
 {{< figure src="net-loadbalancer.svg" caption="Kubernetesのネットワーク構成における外部ロードバランサーの役割を示す図" alt="Kubernetesのネットワーク構成における外部ロードバランサーの役割" >}}
 
