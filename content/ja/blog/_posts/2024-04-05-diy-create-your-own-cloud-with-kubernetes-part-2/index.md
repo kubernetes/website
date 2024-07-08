@@ -102,7 +102,7 @@ DRDBベースのレプリケーションは信じられないほど高速で、�
 Kubernetes上でLINSTORをインストールするには、PiraeusプロジェクトがKubeVirtで使用できる既製のブロックストレージをすでに提供しています。
 
 {{< note >}}
-[前回の記事](/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-1/)で説明したように、Talos Linuxを使用している場合は、必要なカーネルモジュールを事前に有効にし、[指示](https://github.com/piraeusdatastore/piraeus-operator/blob/v2/docs/how-to/talos.md)に従ってPiraeusを設定する必要があります。
+[前回の記事](/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-1/)で説明したように、Talos Linuxを使用している場合は、必要なカーネルモジュールを事前に有効にし、[手順](https://github.com/piraeusdatastore/piraeus-operator/blob/v2/docs/how-to/talos.md)に従ってPiraeusを設定する必要があります。
 {{< /note >}}
 
 ## Kubernetes上の仮想マシン用ネットワーク
