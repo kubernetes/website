@@ -20,35 +20,34 @@ weight: 270
 ## {{% heading "prerequisites" %}}
 
 <!--
-You need to have a Kubernetes cluster, and the kubectl command-line tool must
-be configured to communicate with your cluster. It is recommended to follow this
-guide on a cluster with at least two nodes that are not acting as control plane
-nodes. If you do not already have a cluster, you can create one by using
-[minikube](https://minikube.sigs.k8s.io/docs/tutorials/multi_node/).
+Before you follow steps in this page to deploy, manage, back up or restore etcd,
+you need to understand the typical expectations for operating an etcd cluster.
+Refer to the [etcd documentation](https://etcd.io/docs/) for more context.
 -->
-你需要有一个 Kubernetes 集群，并且必须配置 kubectl 命令行工具以与你的集群通信。
-建议参照本指南在至少有两个不充当控制平面的节点上运行此任务。如果你还没有集群，
-你可以使用 [minikube](https://minikube.sigs.k8s.io/docs/tutorials/multi_node/) 创建一个。
-
-<!-- steps -->
+你在按照本页所述的步骤部署、管理、备份或恢复 etcd 之前，
+你需要先理解运行 etcd 集群的一般期望。更多细节参阅 [etcd 文档](https://etcd.io/docs/)。
 
 <!--
-## Prerequisites
+Key details include:
 
-* Run etcd as a cluster of odd members.
+* The minimum recommended etcd versions to run in production are `3.4.22+` and `3.5.6+`.
 
 * etcd is a leader-based distributed system. Ensure that the leader
   periodically send heartbeats on time to all followers to keep the cluster
   stable.
+
+* You should run etcd as a cluster with an odd number of members.
 -->
-## 先决条件    {#prerequisites}
+关键要点包括：
 
-* 运行的 etcd 集群个数成员为奇数。
+* 在生产环境中运行的 etcd 最低推荐版本为 `3.4.22+` 和 `3.5.6+`。
 
-* etcd 是一个基于领导者（Leader-Based）的分布式系统。确保主节点定期向所有从节点发送心跳，以保持集群稳定。
+* etcd 是一个基于主节点（Leader-Based）的分布式系统。确保主节点定期向所有从节点发送心跳，以保持集群稳定。
+
+* 你运行的 etcd 集群成员个数应为奇数。
 
 <!--
-* Ensure that no resource starvation occurs.
+* Aim to ensure that no resource starvation occurs.
 
   Performance and stability of the cluster is sensitive to network and disk
   I/O. Any resource starvation can lead to heartbeat timeout, causing instability
@@ -63,39 +62,80 @@ nodes. If you do not already have a cluster, you can create one by using
   在这种情况下，集群不能对其当前状态进行任何更改，这意味着不能调度新的 Pod。
 
 <!--
-* Keeping etcd clusters stable is critical to the stability of Kubernetes
-  clusters. Therefore, run etcd clusters on dedicated machines or isolated
-  environments for [guaranteed resource requirements](https://etcd.io/docs/current/op-guide/hardware/).
-
-* The minimum recommended etcd versions to run in production are `3.4.22+` and `3.5.6+`.
--->
-* 保持 etcd 集群的稳定对 Kubernetes 集群的稳定性至关重要。
-  因此，请在专用机器或隔离环境上运行 etcd 集群，
-  以满足[所需资源需求](https://etcd.io/docs/current/op-guide/hardware/)。
-
-* 在生产环境中运行的 etcd 最低推荐版本为 `3.4.22+` 和 `3.5.6+`。
-
-<!--
-## Resource requirements
+### Resource requirements for etcd
 
 Operating etcd with limited resources is suitable only for testing purposes.
 For deploying in production, advanced hardware configuration is required.
 Before deploying etcd in production, see
 [resource requirement reference](https://etcd.io/docs/current/op-guide/hardware/#example-hardware-configurations).
 -->
-## 资源需求    {#resource-requirements}
+## etcd 资源需求    {#resource-requirements-for-etcd}
 
-使用有限的资源运行 etcd 只适合测试目的。为了在生产中部署，需要先进的硬件配置。
-在生产中部署 etcd 之前，请查看[所需资源参考文档](https://etcd.io/docs/current/op-guide/hardware/#example-hardware-configurations)。
+使用有限的资源运行 etcd 只适合测试目的。在生产环境中部署 etcd，你需要有先进的硬件配置。
+在生产中部署 etcd 之前，请查阅[所需资源参考文档](https://etcd.io/docs/current/op-guide/hardware/#example-hardware-configurations)。
+
+<!--
+Keeping etcd clusters stable is critical to the stability of Kubernetes
+clusters. Therefore, run etcd clusters on dedicated machines or isolated
+environments for [guaranteed resource requirements](https://etcd.io/docs/current/op-guide/hardware/).
+
+### Tools
+
+Depending on which specific outcome you're working on, you will need the `etcdctl` tool or the
+`etcdutl` tool (you may need both).
+-->
+保持 etcd 集群的稳定对 Kubernetes 集群的稳定性至关重要。
+因此，请在专用机器或隔离环境上运行 etcd 集群，
+以满足[所需资源需求](https://etcd.io/docs/current/op-guide/hardware/)。
+
+### 工具   {#tools}
+
+根据你想要达成的具体结果，你将需要安装 `etcdctl` 工具或 `etcdutl` 工具（可能两个工具都需要）。
+
+<!-- steps -->
+
+<!--
+## Understanding etcdctl and etcdutl
+
+`etcdctl` and `etcdutl` are command-line tools used to interact with etcd clusters, but they serve different purposes:
+
+- `etcdctl`: This is the primary command-line client for interacting with etcd over a
+network. It is used for day-to-day operations such as managing keys and values,
+administering the cluster, checking health, and more.
+-->
+## 了解 etcdctl 和 etcdutl   {#understanding-etcdctl-and-etcdutl}
+
+`etcdctl` 和 `etcdutl` 是用于与 etcd 集群交互的命令行工具，但它们有不同的用途：
+
+- `etcdctl`：这是通过网络与 etcd 交互的主要命令行客户端。
+  它用于日常操作，比如管理键值对、管理集群、检查健康状态等。
+
+<!--
+- `etcdutl`: This is an administration utility designed to operate directly on etcd data
+files, including migrating data between etcd versions, defragmenting the database,
+restoring snapshots, and validating data consistency. For network operations, `etcdctl`
+should be used.
+
+For more information on `etcdutl`, you can refer to the [etcd recovery documentation](https://etcd.io/docs/v3.5/op-guide/recovery/).
+-->
+- `etcdutl`：这是一个被设计用来直接操作 etcd 数据文件的管理工具，
+  包括跨 etcd 版本迁移数据、数据库碎片整理、恢复快照和验证数据一致性等操作。
+  对于网络操作，你应使用 `etcdctl`。
+
+有关 `etcdutl` 细节，请参阅 [etcd 恢复文档](https://etcd.io/docs/v3.5/op-guide/recovery/)。
 
 <!--
 ## Starting etcd clusters
 
 This section covers starting a single-node and multi-node etcd cluster.
+
+This guide assumes that `etcd` is already installed.
 -->
 ## 启动 etcd 集群    {#starting-etcd-clusters}
 
 本节介绍如何启动单节点和多节点 etcd 集群。
+
+本指南假定 `etcd` 已经安装好了。
 
 <!--
 ### Single-node etcd cluster
@@ -103,16 +143,6 @@ This section covers starting a single-node and multi-node etcd cluster.
 Use a single-node etcd cluster only for testing purposes.
 
 1. Run the following:
-
-   ```sh
-   etcd --listen-client-urls=http://$PRIVATE_IP:2379 \
-      --advertise-client-urls=http://$PRIVATE_IP:2379
-   ```
-
-2. Start the Kubernetes API server with the flag
-   `--etcd-servers=$PRIVATE_IP:2379`.
-
-   Make sure `PRIVATE_IP` is set to your etcd client IP.
 -->
 ### 单节点 etcd 集群    {#single-node-etcd-cluster}
 
@@ -125,6 +155,12 @@ Use a single-node etcd cluster only for testing purposes.
       --advertise-client-urls=http://$PRIVATE_IP:2379
    ```
 
+<!--
+2. Start the Kubernetes API server with the flag
+   `--etcd-servers=$PRIVATE_IP:2379`.
+
+   Make sure `PRIVATE_IP` is set to your etcd client IP.
+-->
 2. 使用参数 `--etcd-servers=$PRIVATE_IP:2379` 启动 Kubernetes API 服务器。
 
    确保将 `PRIVATE_IP` 设置为 etcd 客户端 IP。
@@ -145,11 +181,24 @@ in production. For more information, see
 有关该内容的更多信息，请参阅[常见问题文档](https://etcd.io/docs/current/faq/#what-is-failure-tolerance)。
 
 <!--
-Configure an etcd cluster either by static member information or by dynamic
+As you're using Kubernetes, you have the option to run etcd as a container inside
+one or more Pods. The `kubeadm` tool sets up etcd
+{{< glossary_tooltip text="static pods" term_id="static-pod" >}} by default, or
+you can deploy a
+[separate cluster](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)
+and instruct kubeadm to use that etcd cluster as the control plane's backing store.
+-->
+由于你正在使用 Kubernetes，你可以选择在一个或多个 Pod 内以容器形式运行 etcd。
+`kubeadm` 工具默认会安装 etcd 的{{< glossary_tooltip text="静态 Pod" term_id="static-pod" >}}，
+或者你可以部署一个[独立的集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)并指示
+kubeadm 将该 etcd 集群用作控制平面的后端存储。
+
+<!--
+You configure an etcd cluster either by static member information or by dynamic
 discovery. For more information on clustering, see
 [etcd clustering documentation](https://etcd.io/docs/current/op-guide/clustering/).
 -->
-可以通过静态成员信息或动态发现的方式配置 etcd 集群。
+你可以通过静态成员信息或动态发现的方式配置 etcd 集群。
 有关集群的详细信息，请参阅
 [etcd 集群文档](https://etcd.io/docs/current/op-guide/clustering/)。
 
@@ -164,15 +213,6 @@ client URLs: `http://$IP1:2379`, `http://$IP2:2379`, `http://$IP3:2379`,
 
 <!--
 1. Run the following:
-
-   ```shell
-   etcd --listen-client-urls=http://$IP1:2379,http://$IP2:2379,http://$IP3:2379,http://$IP4:2379,http://$IP5:2379 --advertise-client-urls=http://$IP1:2379,http://$IP2:2379,http://$IP3:2379,http://$IP4:2379,http://$IP5:2379
-   ```
-
-2. Start the Kubernetes API servers with the flag
-   `--etcd-servers=$IP1:2379,$IP2:2379,$IP3:2379,$IP4:2379,$IP5:2379`.
-
-   Make sure the `IP<n>` variables are set to your client IP addresses.
 -->
 1. 运行以下命令：
 
@@ -180,6 +220,12 @@ client URLs: `http://$IP1:2379`, `http://$IP2:2379`, `http://$IP3:2379`,
    etcd --listen-client-urls=http://$IP1:2379,http://$IP2:2379,http://$IP3:2379,http://$IP4:2379,http://$IP5:2379 --advertise-client-urls=http://$IP1:2379,http://$IP2:2379,http://$IP3:2379,http://$IP4:2379,http://$IP5:2379
    ```
 
+<!--
+2. Start the Kubernetes API servers with the flag
+   `--etcd-servers=$IP1:2379,$IP2:2379,$IP3:2379,$IP4:2379,$IP5:2379`.
+
+   Make sure the `IP<n>` variables are set to your client IP addresses.
+-->
 2. 使用参数 `--etcd-servers=$IP1:2379,$IP2:2379,$IP3:2379,$IP4:2379,$IP5:2379`
    启动 Kubernetes API 服务器。
 
@@ -505,17 +551,75 @@ Verify the snapshot:
 -->
 验证快照:
 
-```shell
-ETCDCTL_API=3 etcdctl --write-out=table snapshot status snapshot.db
-```
+<!--
+Use etcdutl
+-->
+{{< tabs name="etcd_verify_snapshot" >}}
+{{% tab name="使用 etcdutl" %}}
+   <!--
+   The below example depicts the usage of the `etcdutl` tool for verifying a snapshot:
+   -->
+   下面的例子展示了如何使用 `etcdutl` 工具来验证快照：
 
-```console
-+----------+----------+------------+------------+
-|   HASH   | REVISION | TOTAL KEYS | TOTAL SIZE |
-+----------+----------+------------+------------+
-| fe01cf57 |       10 |          7 | 2.1 MB     |
-+----------+----------+------------+------------+
-```
+   ```shell
+   etcdutl --write-out=table snapshot status snapshot.db 
+   ```
+
+   <!--
+   This should generate an output resembling the example provided below:
+   -->
+   此命令应该生成类似于下例的输出：
+
+   ```console
+   +----------+----------+------------+------------+
+   |   HASH   | REVISION | TOTAL KEYS | TOTAL SIZE |
+   +----------+----------+------------+------------+
+   | fe01cf57 |       10 |          7 | 2.1 MB     |
+   +----------+----------+------------+------------+
+   ```
+
+<!--
+Use etcdctl (Deprecated)
+-->
+{{% /tab %}}
+{{% tab name="使用 etcdctl（已弃用）" %}}
+
+   {{< note >}}
+   <!--
+   The usage of `etcdctl snapshot status` has been **deprecated** since etcd v3.5.x and is slated for removal from etcd v3.6.
+   It is recommended to utilize [`etcdutl`](https://github.com/etcd-io/etcd/blob/main/etcdutl/README.md) instead.
+   -->
+   自 etcd v3.5.x 起，`etcdctl snapshot status` 的使用已被 **弃用**，
+   并计划在 etcd v3.6 中移除。建议改用 [`etcdutl`](https://github.com/etcd-io/etcd/blob/main/etcdutl/README.md)。
+   {{< /note >}}
+
+   <!--
+   The below example depicts the usage of the `etcdctl` tool for verifying a snapshot:
+   -->
+   下面的例子展示了如何使用 `etcdctl` 工具来验证快照：
+
+   ```shell
+   export ETCDCTL_API=3
+   etcdctl --write-out=table snapshot status snapshot.db
+   ```
+
+   <!--
+   This should generate an output resembling the example provided below:
+   -->
+   此命令应该生成类似于下例的输出：
+
+   ```console
+   Deprecated: Use `etcdutl snapshot status` instead.
+
+   +----------+----------+------------+------------+
+   |   HASH   | REVISION | TOTAL KEYS | TOTAL SIZE |
+   +----------+----------+------------+------------+
+   | fe01cf57 |       10 |          7 | 2.1 MB     |
+   +----------+----------+------------+------------+
+   ```
+
+{{% /tab %}}
+{{< /tabs >}}
 
 <!--
 ### Volume snapshot
@@ -593,6 +697,31 @@ for information on how to add members into an existing cluster.
 -->
 ## 恢复 etcd 集群    {#restoring-an-etcd-cluster}
 
+{{< caution >}}
+<!--
+If any API servers are running in your cluster, you should not attempt to
+restore instances of etcd. Instead, follow these steps to restore etcd:
+
+- stop *all* API server instances
+- restore state in all etcd instances
+- restart all API server instances
+
+The Kubernetes project also recommends restarting Kubernetes components (`kube-scheduler`,
+`kube-controller-manager`, `kubelet`) to ensure that they don't rely on some
+stale data. In practice the restore takes a bit of time.  During the
+restoration, critical components will lose leader lock and restart themselves.
+-->
+如果集群中正在运行任何 API 服务器，则不应尝试还原 etcd 的实例。相反，请按照以下步骤还原 etcd：
+
+- 停止**所有** API 服务器实例
+- 为所有 etcd 实例恢复状态
+- 重启所有 API 服务器实例
+
+我们还建议重启所有组件（例如 `kube-scheduler`、`kube-controller-manager`、`kubelet`），
+以确保它们不会依赖一些过时的数据。请注意，实际中还原会花费一些时间。
+在还原过程中，关键组件将丢失领导锁并自行重启。
+{{< /caution >}}
+
 <!--
 etcd supports restoring from snapshots that are taken from an etcd process of
 the [major.minor](http://semver.org/) version. Restoring a version from a
@@ -609,6 +738,57 @@ either be a snapshot file from a previous backup operation, or from a remaining
 -->
 在启动还原操作之前，必须有一个快照文件。它可以是来自以前备份操作的快照文件，
 也可以是来自剩余[数据目录](https://etcd.io/docs/current/op-guide/configuration/#--data-dir)的快照文件。
+
+{{< tabs name="etcd_restore" >}}
+{{% tab name="使用 etcdutl" %}}
+   <!--
+   When restoring the cluster using [`etcdutl`](https://github.com/etcd-io/etcd/blob/main/etcdutl/README.md),
+   use the `--data-dir` option to specify to which folder the cluster should be restored:
+   -->
+   在使用 [`etcdutl`](https://github.com/etcd-io/etcd/blob/main/etcdutl/README.md)
+   恢复集群时，使用 `--data-dir` 选项来指定集群应被恢复到哪个文件夹。
+
+   ```shell
+   etcdutl --data-dir <data-dir-location> snapshot restore snapshot.db
+   ```
+
+   <!--
+   where `<data-dir-location>` is a directory that will be created during the restore process.
+   -->
+   其中 `<data-dir-location>` 是将在恢复过程中创建的目录。
+
+{{% /tab %}}
+{{% tab name="使用 etcdctl（已弃用）" %}}
+
+   {{< note >}}
+   <!--
+   The usage of `etcdctl` for restoring has been **deprecated** since etcd v3.5.x and is slated for removal from etcd v3.6.
+   It is recommended to utilize [`etcdutl`](https://github.com/etcd-io/etcd/blob/main/etcdutl/README.md) instead.
+   -->
+   自 etcd v3.5.x 起，使用 `etcdctl` 进行恢复的功能已被 **弃用**，并计划在 etcd v3.6 中移除。
+   建议改用 [`etcdutl`](https://github.com/etcd-io/etcd/blob/main/etcdutl/README.md)。
+
+   {{< /note >}}
+
+   <!--
+   The below example depicts the usage of the `etcdctl` tool for the restore operation:
+   -->
+   下面的例子展示了如何使用 `etcdctl` 工具执行恢复操作：
+
+   ```shell
+   export ETCDCTL_API=3
+   etcdctl --data-dir <data-dir-location> snapshot restore snapshot.db
+   ```
+
+   <!--
+   If `<data-dir-location>` is the same folder as before, delete it and stop the etcd process before restoring the cluster. 
+   Otherwise, change etcd configuration and restart the etcd process after restoration to have it use the new data directory.
+   -->
+   如果 `<data-dir-location>` 与之前的文件夹相同，请先删除此文件夹并停止 etcd 进程，再恢复集群。
+   否则，在恢复后更改 etcd 配置并重启 etcd 进程将使用新的数据目录。
+
+{{% /tab %}}
+{{< /tabs >}}
 
 <!--
 When restoring the cluster, use the `--data-dir` option to specify to which folder the cluster should be restored:
@@ -679,47 +859,22 @@ reconfigure Kubernetes API servers to fix the issue.
 虽然已调度的 Pod 可能继续运行，但新的 Pod 无法调度。在这种情况下，
 恢复 etcd 集群并可能需要重新配置 Kubernetes API 服务器以修复问题。
 
-{{< note >}}
-<!--
-If any API servers are running in your cluster, you should not attempt to
-restore instances of etcd. Instead, follow these steps to restore etcd:
-
-- stop *all* API server instances
-- restore state in all etcd instances
-- restart all API server instances
-
-We also recommend restarting any components (e.g. `kube-scheduler`,
-`kube-controller-manager`, `kubelet`) to ensure that they don't rely on some
-stale data. Note that in practice, the restore takes a bit of time.  During the
-restoration, critical components will lose leader lock and restart themselves.
--->
-如果集群中正在运行任何 API 服务器，则不应尝试还原 etcd 的实例。相反，请按照以下步骤还原 etcd：
-
-- 停止**所有** API 服务实例
-- 在所有 etcd 实例中恢复状态
-- 重启所有 API 服务实例
-
-我们还建议重启所有组件（例如 `kube-scheduler`、`kube-controller-manager`、`kubelet`），
-以确保它们不会依赖一些过时的数据。请注意，实际中还原会花费一些时间。
-在还原过程中，关键组件将丢失领导锁并自行重启。
-{{< /note >}}
-
 <!--
 ## Upgrading etcd clusters
 -->
 ## 升级 etcd 集群    {#upgrading-etcd-clusters}
 
+{{< caution >}}
 <!--
-For more details on etcd upgrade, please refer to the [etcd upgrades](https://etcd.io/docs/latest/upgrades/) documentation.
--->
-有关 etcd 升级的更多详细信息，请参阅 [etcd 升级](https://etcd.io/docs/latest/upgrades/)文档。
-
-{{< note >}}
-<!--
-Before you start an upgrade, please back up your etcd cluster first.
+Before you start an upgrade, back up your etcd cluster first.
 -->
 在开始升级之前，请先备份你的 etcd 集群。
-{{< /note >}}
+{{< /caution >}}
+
+<!--
+For details on etcd upgrade, refer to the [etcd upgrades](https://etcd.io/docs/latest/upgrades/) documentation.
+-->
+有关 etcd 升级的细节，请参阅 [etcd 升级](https://etcd.io/docs/latest/upgrades/)文档。
 
 <!--
 ## Maintaining etcd clusters
@@ -730,9 +885,13 @@ For more details on etcd maintenance, please refer to the [etcd maintenance](htt
 
 有关 etcd 维护的更多详细信息，请参阅 [etcd 维护](https://etcd.io/docs/latest/op-guide/maintenance/)文档。
 
+<!--
+### Cluster defragmentation
+-->
+### 集群碎片整理   {#cluster-defragmentation}
+
 {{% thirdparty-content single="true" %}}
 
-{{< note >}}
 <!--
 Defragmentation is an expensive operation, so it should be executed as infrequently
 as possible. On the other hand, it's also necessary to make sure any etcd member
@@ -743,7 +902,6 @@ you perform defragmentation, you use a tool such as [etcd-defrag](https://github
 另一方面，也有必要确保任何 etcd 成员都不会超过存储配额。
 Kubernetes 项目建议在执行碎片整理时，
 使用诸如 [etcd-defrag](https://github.com/ahrtr/etcd-defrag) 之类的工具。
-{{< /note >}}
 
 <!--
 You can also run the defragmentation tool as a Kubernetes CronJob, to make sure that
