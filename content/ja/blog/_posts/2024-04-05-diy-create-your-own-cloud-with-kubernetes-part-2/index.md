@@ -140,7 +140,7 @@ Kubernetes内で仮想マシンを実行する際に注意すべきもう1つの
 これは通常、インフラストラクチャ内で動作するDHCPサーバーによって管理されます。
 さらに、仮想マシンのMACアドレスの割り当ては、[Kubemacpool](https://github.com/k8snetworkplumbingwg/kubemacpool)によって管理できます。
 
-私たちのプラットフォームでは、別の方法を選択し、[Kube-OVN](https://www.kube-ovn.io/)に完全に依存することにしました。
+私たちのプラットフォームでは、別の方法を選択し、[Kube-OVN](https://www.kube-ovn.io/)に完全に頼ることにしました。
 このCNIプラグインは、もともとOpenStack用に開発されたOVN(Open Virtual Network)をベースにしており、Kubernetes内の仮想マシン用の完全なネットワークソリューションを提供します。
 IPとMACアドレスを管理するためのカスタムリソースを備え、ノード間でIPアドレスを保持したままライブマイグレーションをサポートし、テナント間の物理ネットワーク分離用のVPCの作成を可能にします。
 
