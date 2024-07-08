@@ -394,7 +394,7 @@ liveness and readiness checks:
   readiness probe delays do not begin until the startup probe has succeeded. If the value of
   `periodSeconds` is greater than `initialDelaySeconds` then the `initialDelaySeconds` would be
   ignored. Defaults to 0 seconds. Minimum value is 0.
-* `periodSeconds`: How often (in seconds) to perform the probe. Default to 10 seconds.
+* `periodSeconds`: Number of seconds between probes. Default to 10 seconds.
   The minimum value is 1.
 * `timeoutSeconds`: Number of seconds after which the probe times out.
   Defaults to 1 second. Minimum value is 1.
