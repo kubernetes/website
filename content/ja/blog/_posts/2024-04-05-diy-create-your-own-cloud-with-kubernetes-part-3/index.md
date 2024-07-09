@@ -136,7 +136,7 @@ FluxCDでリソースを作成する際、Cluster APIによって生成された
 
 {{< figure src="components1.svg" caption="ネストされたKubernetesクラスターのスキームにおいて、テナントKubernetesクラスター内にインストールされたCNIプラグインを示す図" alt="ネストされたKubernetesクラスターのスキームにおいて、テナントKubernetesクラスター内にインストールされたCNIプラグインを示す図" >}}
 
-### クラウドコントロールマネージャー
+### クラウドコントローラーマネージャー
 
 この一部レスポンスについては、以下のようにMarkdown記法を修正するのが良いと思います。
 
