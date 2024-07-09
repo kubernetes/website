@@ -10,7 +10,7 @@ date: 2024-04-05T07:35:00+00:00
 **翻訳者:** [Taisuke Okamoto](https://github.com/b1gb4by) (IDC Frontier Inc),
 
 Kubernetesエコシステムだけを使って自分だけのクラウドを構築する方法について、一連の記事を続けています。
-[前回の記事](/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-1/)では、Talos LinuxとFlux CDをベースにした基本的なKubernetes ディストリビューションの準備方法を説明しました。
+[前回の記事](/ja/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-1/)では、Talos LinuxとFlux CDをベースにした基本的なKubernetes ディストリビューションの準備方法を説明しました。
 この記事では、Kubernetesにおけるさまざまな仮想化テクノロジーをいくつか紹介し、主にストレージとネットワークを中心に、Kubernetes内で仮想マシンを実行するために必要な環境を整えます。
 
 KubeVirt、LINSTOR、Kube-OVNなどのテクノロジーについて取り上げる予定です。
@@ -54,7 +54,7 @@ containerDiskを使用した仮想マシンは、Kubernetesワーカーノード
 
 永続データを管理するために、KubeVirtは別のツールであるContainerized Data Importer(CDI)を提供しています。
 CDIを使用すると、PVCのクローンを作成し、ベースイメージからデータを取り込むことができます。
-仮想マシンの永続ボリュームを自動的にプロビジョニングする場合や、テナントKubernetesクラスターからの永続ボリューム要求を処理するために使用されるKubeVirt CSIドライバーに必要な場合は、CDIが必要です。
+CDIは、仮想マシンの永続ボリュームを自動的にプロビジョニングする場合や、テナントKubernetesクラスターからの永続ボリューム要求を処理するために使用されるKubeVirt CSIドライバーにも必要となります。
 
 しかし最初に、これらのデータをどこにどのように保存するかを決める必要があります。
 
@@ -84,7 +84,7 @@ Kubernetesとの統合には、クラスターにインストールされる小�
 
 {{< figure src="storage-local.svg" caption="コンピュートノード上で実行されるローカルデータストレージを示す図" alt="コンピュートノード上で実行されるローカルデータストレージを示す図" >}}
 
-一方、ハイパーコンバージドシステムは、多くの場合、ローカルストレージ(レプリケーションが不要な場合)と、[Rook/Ceph](https://rook.io/)、[OpenEBS](https://openebs.io/)、[Longhorn](https://longhorn.io/)、[LINSTOR](https://linbit.com/linstor/)などのソフトウェア定義ストレージを使用して実装されます。
+一方、ハイパーコンバージドシステムは、多くの場合、ローカルストレージ(レプリケーションが不要な場合)と、[Rook/Ceph](https://rook.io/)、[OpenEBS](https://openebs.io/)、[Longhorn](https://longhorn.io/)、[LINSTOR](https://linbit.com/linstor/)などのソフトウェアデファインドストレージを使用して実装されます。
 これらは、多くの場合、Kubernetesに直接インストールされます。
 
 {{< figure src="storage-clustered.svg" caption="コンピュートノード上で実行されるクラスター化データストレージを示す図" alt="コンピュートノード上で実行されるクラスター化データストレージを示す図" >}}
@@ -102,7 +102,7 @@ DRDBベースのレプリケーションは信じられないほど高速で、�
 Kubernetes上でLINSTORをインストールするには、PiraeusプロジェクトがKubeVirtで使用できる既製のブロックストレージをすでに提供しています。
 
 {{< note >}}
-[前回の記事](/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-1/)で説明したように、Talos Linuxを使用している場合は、必要なカーネルモジュールを事前に有効にし、[指示](https://github.com/piraeusdatastore/piraeus-operator/blob/v2/docs/how-to/talos.md)に従ってPiraeusを設定する必要があります。
+[前回の記事](/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-1/)で説明したように、Talos Linuxを使用している場合は、必要なカーネルモジュールを事前に有効にし、[手順](https://github.com/piraeusdatastore/piraeus-operator/blob/v2/docs/how-to/talos.md)に従ってPiraeusを設定する必要があります。
 {{< /note >}}
 
 ## Kubernetes上の仮想マシン用ネットワーク
@@ -119,7 +119,7 @@ Kubernetesのネットワークアーキテクチャは、同様のインター�
 
 {{< figure src="net-nodes.svg" caption="Kubernetesのネットワーク構成におけるノードネットワーク(データセンターネットワーク)の役割を示す図" alt="Kubernetesのネットワーク構成におけるノードネットワーク(データセンターネットワーク)の役割を示す図" >}}
 
-ノード間の物理ネットワーク相互作用の設定は、ほとんどの状況でKubernetesが既存のネットワークインフラストラクチャを利用するため、この記事の範囲を超えています。
+ノード間の物理ネットワークの相互作用の設定は、ほとんどの状況でKubernetesが既存のネットワークインフラストラクチャを利用するため、この記事の範囲を超えています。
 
 ### Podネットワーク
 
@@ -140,17 +140,17 @@ Kubernetes内で仮想マシンを実行する際に注意すべきもう1つの
 これは通常、インフラストラクチャ内で動作するDHCPサーバーによって管理されます。
 さらに、仮想マシンのMACアドレスの割り当ては、[Kubemacpool](https://github.com/k8snetworkplumbingwg/kubemacpool)によって管理できます。
 
-私たちのプラットフォームでは、別の方法を選択し、[Kube-OVN](https://www.kube-ovn.io/)に完全に依存することにしました。
+私たちのプラットフォームでは、別の方法を選択し、[Kube-OVN](https://www.kube-ovn.io/)に完全に頼ることにしました。
 このCNIプラグインは、もともとOpenStack用に開発されたOVN(Open Virtual Network)をベースにしており、Kubernetes内の仮想マシン用の完全なネットワークソリューションを提供します。
 IPとMACアドレスを管理するためのカスタムリソースを備え、ノード間でIPアドレスを保持したままライブマイグレーションをサポートし、テナント間の物理ネットワーク分離用のVPCの作成を可能にします。
 
-Kube-OVNでは、ネームスペース全体に個別のサブネットを割り当てたり、Multusを使用して追加のネットワークインターフェースとして接続したりできます。
+Kube-OVNでは、名前空間全体に個別のサブネットを割り当てたり、Multusを使用して追加のネットワークインターフェースとして接続したりできます。
 
 ### サービスネットワーク
 
 CNIプラグインに加えて、Kubernetesにはサービスネットワークもあります。これは主にサービスディスカバリーに必要です。
-従来の仮想マシンとは異なり、Kubernetesはもともとランダムなアドレスでポッドを実行するように設計されています。
-そして、サービスネットワークは、トラフィックを常に正しいポッドに誘導する便利な抽象化(安定したIPアドレスとDNS名)を提供します。
+従来の仮想マシンとは異なり、KubernetesはもともとランダムなアドレスでPodを実行するように設計されています。
+そして、サービスネットワークは、トラフィックを常に正しいPodに誘導する便利な抽象化(安定したIPアドレスとDNS名)を提供します。
 仮想マシンのIPは通常静的であるにもかかわらず、このアプローチはクラウド内の仮想マシンでも一般的に使用されています。
 
 {{< figure src="net-services.svg" caption="Kubernetesのネットワーク構成におけるサービスネットワーク(サービスネットワークプラグイン)の役割を示す図" alt="Kubernetesのネットワーク構成におけるサービスネットワーク(サービスネットワークプラグイン)の役割を示す図" >}}
@@ -158,11 +158,11 @@ CNIプラグインに加えて、Kubernetesにはサービスネットワーク�
 Kubernetesでのサービスネットワークの実装は、サービスネットワークプラグインによって処理されます。
 標準の実装は**kube-proxy**と呼ばれ、ほとんどのクラスターで使用されています。
 しかし最近では、この機能はCNIプラグインの一部として提供されることがあります。
-最も高度な実装は、[Cilium](https://cilium.io/)プロジェクトによって提供されており、kube-proxyの代替モードで実行できます。
+最も先進的な実装は、[Cilium](https://cilium.io/)プロジェクトによって提供されており、kube-proxyの代替モードで実行できます。
 
 Ciliumは、eBPFテクノロジーに基づいており、Linuxネットワークスタックを効率的にオフロードできるため、iptablesベースの従来の方法と比較してパフォーマンスとセキュリティが向上します。
 
-実際には、CiliumとKube-OVNを[統合](https://kube-ovn.readthedocs.io/zh-cn/stable/en/advance/with-cilium/)して、仮想マシンに対してシームレスなマルチテナントネットワーキングを提供し、高度なネットワークポリシーとサービスネットワーク機能を組み合わせた統一ソリューションを提供することが容易にできます。
+実際には、CiliumとKube-OVNを簡単に[統合]((https://kube-ovn.readthedocs.io/zh-cn/stable/en/advance/with-cilium/))することが可能で、仮想マシン向けにシームレスでマルチテナントのネットワーキングを提供する統合ソリューションを実現することができます。また、これにより高度なネットワークポリシーと統合されたサービスネットワーク機能も提供されます。
 
 ### 外部トラフィックのロードバランサー
 
@@ -174,7 +174,7 @@ Ciliumは、eBPFテクノロジーに基づいており、Linuxネットワー�
 [MetalLB](https://metallb.universe.tf/)、[kube-vip](https://kube-vip.io/)、[LoxiLB](https://www.loxilb.io/)があり、また[Cilium](https://docs.cilium.io/en/latest/network/lb-ipam/)と[Kube-OVN](https://kube-ovn.readthedocs.io/zh-cn/latest/en/guide/loadbalancer-service/)にはビルトインの実装が提供されています。
 
 外部ロードバランサーの役割は、外部から利用可能な安定したアドレスを提供し、外部トラフィックをサービスネットワークに誘導することです。
-サービスネットワークプラグインは、通常どおりそれをポッドと仮想マシンに誘導します。
+サービスネットワークプラグインは、通常どおりそれをPodと仮想マシンに誘導します。
 
 {{< figure src="net-loadbalancer.svg" caption="Kubernetesのネットワーク構成における外部ロードバランサーの役割を示す図" alt="Kubernetesのネットワーク構成における外部ロードバランサーの役割" >}}
 
