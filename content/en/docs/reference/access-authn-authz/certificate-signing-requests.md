@@ -171,7 +171,7 @@ Kubernetes provides built-in signers that each have a well-known `signerName`:
    May be auto-approved by {{< glossary_tooltip term_id="kube-controller-manager" >}}.
    1. Trust distribution: signed certificates must be honored as client certificates by the API server. The CA bundle
       is not distributed by any other means.
-   1. Permitted subjects - organizations are exactly `["system:nodes"]`, common name starts with "`system:node:`".
+   1. Permitted subjects - organizations are exactly `["system:nodes"]`, common name is "`system:node:${NODE_NAME}`".
    1. Permitted x509 extensions - honors key usage extensions, forbids subjectAltName extensions and drops other extensions.
    1. Permitted key usages - `["key encipherment", "digital signature", "client auth"]` or `["digital signature", "client auth"]`.
    1. Expiration/certificate lifetime - for the kube-controller-manager implementation of this signer, set to the minimum
@@ -183,7 +183,7 @@ Kubernetes provides built-in signers that each have a well-known `signerName`:
    Never auto-approved by {{< glossary_tooltip term_id="kube-controller-manager" >}}.
    1. Trust distribution: signed certificates must be honored by the API server as valid to terminate connections to a kubelet.
       The CA bundle is not distributed by any other means.
-   1. Permitted subjects - organizations are exactly `["system:nodes"]`, common name starts with "`system:node:`".
+   1. Permitted subjects - organizations are exactly `["system:nodes"]`, common name is "`system:node:${NODE_NAME}`".
    1. Permitted x509 extensions - honors key usage and DNSName/IPAddress subjectAltName extensions, forbids EmailAddress and
       URI subjectAltName extensions, drops other extensions. At least one DNS or IP subjectAltName must be present.
    1. Permitted key usages - `["key encipherment", "digital signature", "server auth"]` or `["digital signature", "server auth"]`.
