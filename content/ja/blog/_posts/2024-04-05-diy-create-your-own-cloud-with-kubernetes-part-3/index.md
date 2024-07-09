@@ -54,7 +54,7 @@ Cluster API内にはいくつかの種類のプロバイダーがあります。
 
 ### インフラストラクチャプロバイダー
 
-KubeVirtを使用してKubernetesクラスターを実行するには、[KubeVirt Infrastructure Provider](https://github.com/kubernetes-sigs/cluster-api-provider-kubevirt)をインストールする必要があります。
+KubeVirtを使用してKubernetesクラスターを実行するには[KubeVirt Infrastructure Provider](https://github.com/kubernetes-sigs/cluster-api-provider-kubevirt)をインストールする必要があります。
 これにより、Cluster APIが動作する管理クラスターと同じ場所で、ワーカーノード用の仮想マシンをデプロイできるようになります。
 
 ### コントロールプレーンプロバイダー
