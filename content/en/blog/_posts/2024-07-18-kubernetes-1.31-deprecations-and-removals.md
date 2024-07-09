@@ -42,12 +42,9 @@ Over the past several years the ecosystem around Kubernetes grew significantly, 
 With Kubernetes v1.31, kustomize will be deprecated from kubectl. It will be removed in a future release. This will allow both tools to be developed and maintained separately.
 
 ### Deprecate Kubelet RunOnce mode [KEP 4580](https://github.com/kubernetes/enhancements/issues/4580)
-The kubelet support for RunOnce mode is being deprecated and will be removed in a future release. Users are advised to deprecate RunOnce mode by disabling the `LegacyNodeRunOnceMode` feature gate. Starting in Kubernetes 1.31, kubelet will refuse to start if this feature gate is disabled.  the RunOnce field in KubeletConfiguration and the --runonce flag of kubelet as deprecated
+The kubelet support for RunOnce mode is being deprecated and will be removed in a future release. Users are advised to deprecate RunOnce mode by disabling the `LegacyNodeRunOnceMode` feature gate. Starting in Kubernetes 1.31, kubelet will refuse to start if this feature gate is disabled. 
 
-Unless this feature gate is enabled, kubelet will refuse to start when the --runonce command line flag is set.
-
-If you still rely on this feature, migrate to the `podman kube` subcommand. Refer to the [podman documentation](https://docs.podman.io/en/latest/markdown/podman-kube.1.html.) for more information.
-
+If you still rely on this feature, migrate to using the `podman kube` subcommand. Refer to the [podman documentation](https://docs.podman.io/en/latest/markdown/podman-kube.1.html.) for more information.
 
 ### Deprecate status.nodeInfo.kubeProxyVersion field [KEP 4004](https://github.com/kubernetes/enhancements/issues/4004)
 The `status.nodeInfo.kubeProxyVersionv1.Node` field is being deprecated due to inaccuracies and will be removed in a future release. This field is set by the kubelet, which does not have reliable information about the kube-proxy version or whether kube-proxy is running. 
