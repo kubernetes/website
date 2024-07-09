@@ -115,7 +115,7 @@ Cluster APIを使用して新しいKubernetesクラスターをデプロイす�
 ほとんどの場合これで十分ですが、使用するプロバイダーによっては、他のリソースも必要になる場合があります。
 プロバイダーの種類ごとに作成されるリソースの例は、[Kamajiプロジェクトのドキュメント](https://github.com/clastix/cluster-api-control-plane-provider-kamaji?tab=readme-ov-file#-supported-capi-infrastructure-providers)で確認できます。
 
-この段階で、すでに使用可能なテナントKubernetesクラスターができていますが、これまでのところ、APIワーカーと、あらゆるKubernetesクラスターのインストールに標準で含まれるいくつかのコアプラグイン(**kube-proxy**と**CoreDNS**)しか含まれていません。
+この段階ですでに使用可能なテナントKubernetesクラスターができていますが、これまでのところ、APIワーカーとあらゆるKubernetesクラスターのインストールに標準で含まれるいくつかのコアプラグイン(**kube-proxy**と**CoreDNS**)しか含まれていません。
 完全に統合するには、さらにいくつかのコンポーネントをインストールする必要があります。
 
 追加のコンポーネントをインストールするには、個別の[Cluster API Add-on Provider for Helm](https://github.com/kubernetes-sigs/cluster-api-addon-provider-helm)や、[前の記事](/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-1/)で説明した[FluxCD](https://fluxcd.io/)を使用できます。
