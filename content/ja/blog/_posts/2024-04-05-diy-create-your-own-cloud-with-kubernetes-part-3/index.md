@@ -42,7 +42,7 @@ Cluster API内には、いくつかのタイプのプロバイダーがありま
 主なものは次のとおりです。
 
 - **インフラストラクチャプロバイダー**: 仮想マシンや物理サーバーなどのコンピューティングインフラストラクチャを提供する役割を担います。
-- **コントロールプレーンプロバイダー**。kube-apiserver、kube-scheduler、kube-controller-managerなどのKubernetesコントロールプレーンを提供します。
+- **コントロールプレーンプロバイダー**: kube-apiserver、kube-scheduler、kube-controller-managerなどのKubernetesコントロールプレーンを提供します。
 - **ブートストラッププロバイダー**。作成される仮想マシンやサーバー用のcloud-init設定の生成に使用されます。
 
 始めるには、Cluster API自体と各タイプのプロバイダーを1つずつインストールする必要があります。
