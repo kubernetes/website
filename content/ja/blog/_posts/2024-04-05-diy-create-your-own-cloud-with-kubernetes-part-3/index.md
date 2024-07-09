@@ -112,7 +112,7 @@ Cluster APIを使用して新しいKubernetesクラスターをデプロイす�
 
 ## クラスターの仕上げ
 
-ほとんどの場合、これで十分ですが、使用するプロバイダーによっては、他のリソースも必要になる場合があります。
+ほとんどの場合これで十分ですが、使用するプロバイダーによっては、他のリソースも必要になる場合があります。
 プロバイダーの種類ごとに作成されるリソースの例は、[Kamajiプロジェクトのドキュメント](https://github.com/clastix/cluster-api-control-plane-provider-kamaji?tab=readme-ov-file#-supported-capi-infrastructure-providers)で確認できます。
 
 この段階で、すでに使用可能なテナントKubernetesクラスターができていますが、これまでのところ、APIワーカーと、あらゆるKubernetesクラスターのインストールに標準で含まれるいくつかのコアプラグイン(**kube-proxy**と**CoreDNS**)しか含まれていません。
