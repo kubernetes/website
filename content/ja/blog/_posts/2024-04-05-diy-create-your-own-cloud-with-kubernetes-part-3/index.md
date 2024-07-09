@@ -150,7 +150,7 @@ CCMが実行するタスクは次のとおりです。
 クラウドプロバイダーによっては、CCM がテナントクラスターの内部と外部の両方で動作する場合があります。
 
 [KubeVirt Cloud Provider](https://github.com/kubevirt/cloud-provider-kubevirt)は、外部の親管理クラスターにインストールするように設計されています。
-したがって、テナントクラスターでLoadBalancerタイプのサービスを作成すると、親クラスターでLoadBalancerサービスの作成が開始され、トラフィックがテナントクラスターに誘導されます。
+したがって、テナントクラスターでLoadBalancerタイプのサービスを作成すると親クラスターでLoadBalancerサービスの作成が開始され、トラフィックがテナントクラスターに誘導されます。
 
 {{< figure src="components2.svg" caption="ネストされたKubernetesクラスターのスキームにおいて、テナントKubernetesクラスターの外部にインストールされたCloud Controller Managerと、それが管理する親から子へのKubernetesクラスター間のサービスのマッピングを示す図" alt="ネストされたKubernetesクラスターのスキームにおいて、テナントKubernetesクラスターの外部にインストールされたCloud Controller Managerと、それが管理する親から子へのKubernetesクラスター間のサービスのマッピングを示す図" >}}
 
