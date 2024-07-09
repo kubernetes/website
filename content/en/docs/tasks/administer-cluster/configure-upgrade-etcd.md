@@ -20,6 +20,21 @@ guide on a cluster with at least two nodes that are not acting as control plane
 nodes. If you do not already have a cluster, you can create one by using
 [minikube](https://minikube.sigs.k8s.io/docs/tutorials/multi_node/).
 
+### Understanding etcdctl and etcdutl
+
+`etcdctl` and `etcdutl` are command-line tools used to interact with etcd clusters, but they serve different purposes:
+
+- `etcdctl`: This is the primary command-line client for interacting with etcd over a
+network. It is used for day-to-day operations such as managing keys and values,
+administering the cluster, checking health, and more.
+
+- `etcdutl`: This is an administration utility designed to operate directly on etcd data
+files, including migrating data between etcd versions, defragmenting the database,
+restoring snapshots, and validating data consistency. For network operations, `etcdctl`
+should be used.
+
+For more information on `etcdutl`, you can refer to the [etcd recovery documentation](https://etcd.io/docs/v3.5/op-guide/recovery/).
+
 <!-- steps -->
 
 ## Prerequisites
@@ -281,17 +296,54 @@ ETCDCTL_API=3 etcdctl --endpoints $ENDPOINT snapshot save snapshot.db
 
 Verify the snapshot:
 
-```shell
-ETCDCTL_API=3 etcdctl --write-out=table snapshot status snapshot.db
-```
+{{< tabs name="etcd_verify_snapshot" >}}
+{{% tab name="Use etcdutl" %}}
+   The below example depicts the usage of the `etcdutl` tool for verifying a snapshot:
 
-```console
-+----------+----------+------------+------------+
-|   HASH   | REVISION | TOTAL KEYS | TOTAL SIZE |
-+----------+----------+------------+------------+
-| fe01cf57 |       10 |          7 | 2.1 MB     |
-+----------+----------+------------+------------+
-```
+   ```shell
+   etcdutl --write-out=table snapshot status snapshot.db 
+   ```
+
+   This should generate an output resembling the example provided below:
+
+   ```console
+   +----------+----------+------------+------------+
+   |   HASH   | REVISION | TOTAL KEYS | TOTAL SIZE |
+   +----------+----------+------------+------------+
+   | fe01cf57 |       10 |          7 | 2.1 MB     |
+   +----------+----------+------------+------------+
+   ```
+
+{{% /tab %}}
+{{% tab name="Use etcdctl (Deprecated)" %}}
+
+   {{< note >}}
+   The usage of `etcdctl snapshot status` has been **deprecated** since etcd v3.5.x and is slated for removal from etcd v3.6.
+   It is recommended to utilize [`etcdutl`](https://github.com/etcd-io/etcd/blob/main/etcdutl/README.md) instead.
+   {{< /note >}}
+
+   The below example depicts the usage of the `etcdctl` tool for verifying a snapshot:
+
+   ```shell
+   export ETCDCTL_API=3
+   etcdctl --write-out=table snapshot status snapshot.db
+   ```
+
+   This should generate an output resembling the example provided below:
+
+   ```console
+   Deprecated: Use `etcdutl snapshot status` instead.
+
+   +----------+----------+------------+------------+
+   |   HASH   | REVISION | TOTAL KEYS | TOTAL SIZE |
+   +----------+----------+------------+------------+
+   | fe01cf57 |       10 |          7 | 2.1 MB     |
+   +----------+----------+------------+------------+
+   ```
+
+
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Volume snapshot
 
@@ -333,6 +385,20 @@ for information on how to add members into an existing cluster.
 
 ## Restoring an etcd cluster
 
+{{< caution >}}
+If any API servers are running in your cluster, you should not attempt to
+restore instances of etcd. Instead, follow these steps to restore etcd:
+
+- stop *all* API server instances
+- restore state in all etcd instances
+- restart all API server instances
+
+The Kubernetes project also recommends restarting Kubernetes components (`kube-scheduler`,
+`kube-controller-manager`, `kubelet`) to ensure that they don't rely on some
+stale data. In practice the restore takes a bit of time.  During the
+restoration, critical components will lose leader lock and restart themselves.
+{{< /caution >}}
+
 etcd supports restoring from snapshots that are taken from an etcd process of
 the [major.minor](http://semver.org/) version. Restoring a version from a
 different patch version of etcd is also supported. A restore operation is
@@ -342,24 +408,36 @@ Before starting the restore operation, a snapshot file must be present. It can
 either be a snapshot file from a previous backup operation, or from a remaining
 [data directory](https://etcd.io/docs/current/op-guide/configuration/#--data-dir).
 
-When restoring the cluster, use the `--data-dir` option to specify to which folder the cluster should be restored:
+{{< tabs name="etcd_restore" >}}
+{{% tab name="Use etcdutl" %}}
+   When restoring the cluster using [`etcdutl`](https://github.com/etcd-io/etcd/blob/main/etcdutl/README.md),
+   use the `--data-dir` option to specify to which folder the cluster should be restored:
 
-```shell
-etcdutl --data-dir <data-dir-location> snapshot restore snapshot.db
-```
-where `<data-dir-location>` is a directory that will be created during the restore process.
+   ```shell
+   etcdutl --data-dir <data-dir-location> snapshot restore snapshot.db
+   ```
+   where `<data-dir-location>` is a directory that will be created during the restore process.
 
-The below example depicts the usage of the `etcdctl` tool for the restore operation:
-{{< note >}}
-The usage of `etcdctl` for restoring has been deprecated since etcd v3.5.x and may be removed from a future etcd release.
-{{< /note >}}
+{{% /tab %}}
+{{% tab name="Use etcdctl (Deprecated)" %}}
 
-```shell
-export ETCDCTL_API=3
-etcdctl --data-dir <data-dir-location> snapshot restore snapshot.db
-```
+   {{< note >}}
+   The usage of `etcdctl` for restoring has been **deprecated** since etcd v3.5.x and is slated for removal from etcd v3.6.
+   It is recommended to utilize [`etcdutl`](https://github.com/etcd-io/etcd/blob/main/etcdutl/README.md) instead.
+   {{< /note >}}
 
-If `<data-dir-location>` is the same folder as before, delete it and stop the etcd process before restoring the cluster. Otherwise, change etcd configuration and restart the etcd process after restoration to have it use the new data directory.
+   The below example depicts the usage of the `etcdctl` tool for the restore operation:
+
+   ```shell
+   export ETCDCTL_API=3
+   etcdctl --data-dir <data-dir-location> snapshot restore snapshot.db
+   ```
+
+   If `<data-dir-location>` is the same folder as before, delete it and stop the etcd process before restoring the cluster. 
+   Otherwise, change etcd configuration and restart the etcd process after restoration to have it use the new data directory.
+
+{{% /tab %}}
+{{< /tabs >}}
 
 For more information and examples on restoring a cluster from a snapshot file, see
 [etcd disaster recovery documentation](https://etcd.io/docs/current/op-guide/recovery/#restoring-a-cluster).
@@ -379,36 +457,23 @@ current state. Although the scheduled pods might continue to run, no new pods
 can be scheduled. In such cases, recover the etcd cluster and potentially
 reconfigure Kubernetes API servers to fix the issue.
 
-{{< note >}}
-If any API servers are running in your cluster, you should not attempt to
-restore instances of etcd. Instead, follow these steps to restore etcd:
-
-- stop *all* API server instances
-- restore state in all etcd instances
-- restart all API server instances
-
-We also recommend restarting any components (e.g. `kube-scheduler`,
-`kube-controller-manager`, `kubelet`) to ensure that they don't rely on some
-stale data. Note that in practice, the restore takes a bit of time.  During the
-restoration, critical components will lose leader lock and restart themselves.
-{{< /note >}}
 
 ## Upgrading etcd clusters
 
+{{< caution >}}
+Before you start an upgrade, back up your etcd cluster first.
+{{< /caution >}}
 
-For more details on etcd upgrade, please refer to the [etcd upgrades](https://etcd.io/docs/latest/upgrades/) documentation.
-
-{{< note >}}
-Before you start an upgrade, please back up your etcd cluster first.
-{{< /note >}}
+For details on etcd upgrade, refer to the [etcd upgrades](https://etcd.io/docs/latest/upgrades/) documentation.
 
 ## Maintaining etcd clusters
 
 For more details on etcd maintenance, please refer to the [etcd maintenance](https://etcd.io/docs/latest/op-guide/maintenance/) documentation.
 
+### Cluster defragmentation
+
 {{% thirdparty-content single="true" %}}
 
-{{< note >}}
 Defragmentation is an expensive operation, so it should be executed as infrequently
 as possible. On the other hand, it's also necessary to make sure any etcd member
 will not exceed the storage quota. The Kubernetes project recommends that when
@@ -416,5 +481,4 @@ you perform defragmentation, you use a tool such as [etcd-defrag](https://github
 
 You can also run the defragmentation tool as a Kubernetes CronJob, to make sure that
 defragmentation happens regularly. See [`etcd-defrag-cronjob.yaml`](https://github.com/ahrtr/etcd-defrag/blob/main/doc/etcd-defrag-cronjob.yaml)
-for details. 
-{{< /note >}}
+for details.

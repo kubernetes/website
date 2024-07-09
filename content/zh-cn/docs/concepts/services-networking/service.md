@@ -499,13 +499,13 @@ the EndpointSlice manifest: a TCP connection to 10.1.2.3 or 10.4.5.6, on port 93
 {{< note >}}
 <!--
 The Kubernetes API server does not allow proxying to endpoints that are not mapped to
-pods. Actions such as `kubectl proxy <service-name>` where the service has no
+pods. Actions such as `kubectl port-forward service/<service-name> forwardedPort:servicePort` where the service has no
 selector will fail due to this constraint. This prevents the Kubernetes API server
 from being used as a proxy to endpoints the caller may not be authorized to access.
 -->
 Kubernetes API 服务器不允许将流量代理到未被映射至 Pod 上的端点。由于此约束，当 Service
-没有选择算符时，诸如 `kubectl proxy <service-name>` 之类的操作将会失败。这可以防止
-Kubernetes API 服务器被用作调用者可能无权访问的端点的代理。
+没有选择算符时，诸如 `kubectl port-forward service/<service-name> forwardedPort:servicePort` 之类的操作将会失败。
+这可以防止 Kubernetes API 服务器被用作调用者可能无权访问的端点的代理。
 {{< /note >}}
 
 <!--

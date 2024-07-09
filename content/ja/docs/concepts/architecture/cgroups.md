@@ -32,7 +32,7 @@ cgroup v2はリソース管理機能を強化した統合制御システムを�
   - ページキャッシュの書き戻しといった、非即時のリソース変更
 
 Kubernetesのいくつかの機能では、強化されたリソース管理と隔離のためにcgroup v2のみを使用しています。
-例えば、[MemoryQoS](/blog/2021/11/26/qos-memory-resources/)機能はメモリーQoSを改善し、cgroup v2の基本的な機能に依存しています。
+例えば、[MemoryQoS](/docs/concepts/workloads/pods/pod-qos/#memory-qos-with-cgroup-v2)機能はメモリーQoSを改善し、cgroup v2の基本的な機能に依存しています。
 
 ## cgroup v2を使う {#using-cgroupv2}
 

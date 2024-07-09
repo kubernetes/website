@@ -3,8 +3,9 @@ title: " How container metadata changes your point of view "
 date: 2016-03-28
 slug: how-container-metadata-changes-your-point-of-view
 url: /blog/2016/03/How-Container-Metadata-Changes-Your-Point-Of-View
+author: >
+  Apurva Davé (Sysdig)
 ---
-_Today’s guest post is brought to you by Apurva Davé, VP of Marketing at Sysdig, who’ll discuss using Kubernetes metadata & Sysdig to understand what’s going on in your Kubernetes cluster.&nbsp;_  
 
 Sure, metadata is a fancy word. It actually means “data that describes other data.” While that definition isn’t all that helpful, it turns out metadata itself is especially helpful in container environments. When you have any complex system, the availability of metadata helps you sort and process the variety of data coming out of that system, so that you can get to the heart of an issue with less headache.  
 
@@ -86,6 +87,4 @@ This kind of view provides yet another logical, instead of physical, view of how
 ### Metadata: love it, use it&nbsp;
 This is a pretty quick tour of metadata, but I hope it inspires you to spend a little time thinking about the relevance to your own system and how you could leverage it. Here we built a pretty simple example — apps and services — but imagine collecting metadata across your apps, environments, software components and cloud providers. You could quickly assess performance differences across any slice of this infrastructure effectively, all while Kubernetes is efficiently scheduling resource usage.  
 
-Get started with metadata for visualizing these resources today, and in a followup post we’ll talk about the power of adaptive alerting based on metadata.  
-
-_-- Apurva Davé is a closet Kubernetes fanatic, loves data, and oh yeah is also the VP of Marketing at Sysdig._
+Get started with metadata for visualizing these resources today, and in a followup post we’ll talk about the power of adaptive alerting based on metadata.
