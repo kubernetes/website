@@ -182,7 +182,7 @@ KubeVirt CSIドライバーは、ボリュームの注文のためのプロキ�
 適切に設定するには、2つのクラスターへのアクセスが必要です。
 テナントクラスターではPodを追跡し、新しいノードを追加する必要性を判断し、管理するKubernetesクラスター(管理Kubernetesクラスター)ではMachineDeploymentリソースと対話し、レプリカ数を調整します。
 
-Cluster Autoscalerは通常、テナントKubernetesクラスター内で実行されますが、この状況では、前述と同じ理由から、クラスター外にインストールすることをお勧めします。
+Cluster Autoscalerは通常テナントKubernetesクラスター内で実行されますが、今回のケースでは、前述と同じ理由からクラスター外にインストールすることをお勧めします。
 このアプローチは、テナントクラスターのユーザーが管理クラスターの管理APIにアクセスできないようにするため、メンテナンスがより簡単で、より安全です。
 
 {{< figure src="components4.svg" caption="ネストされたKubernetesクラスターのスキームにおいて、テナントKubernetesクラスターの外部にインストールされたCluster Autoscalerを示す図" alt="ネストされたKubernetesクラスターのスキームにおいて、テナントKubernetesクラスターの外部にインストールされたCloud Controller Managerを示す図" >}}
