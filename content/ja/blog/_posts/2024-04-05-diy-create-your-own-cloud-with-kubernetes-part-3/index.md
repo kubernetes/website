@@ -48,7 +48,7 @@ Cluster API内にはいくつかの種類のプロバイダーがあります。
 始めるには、Cluster API自体と各種プロバイダーを1つずつインストールする必要があります。
 サポートされているプロバイダーの完全なリストは、プロジェクトの[ドキュメント](https://cluster-api.sigs.k8s.io/reference/providers.html)で確認できます。
 
-インストールには、`clusterctl`ユーティリティや、より宣言的な方法として[Cluster API Operator](https://github.com/kubernetes-sigs/cluster-api-operator)を使用できます。
+インストールには`clusterctl`ユーティリティや、より宣言的な方法として[Cluster API Operator](https://github.com/kubernetes-sigs/cluster-api-operator)を使用できます。
 
 ## プロバイダーの選択
 
