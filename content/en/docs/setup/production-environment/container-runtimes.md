@@ -265,7 +265,7 @@ and not require this setting on kubelet any longer.
 
 This section contains the necessary steps to install CRI-O as a container runtime.
 
-To install CRI-O, follow [CRI-O Install Instructions](https://github.com/cri-o/cri-o/blob/main/install.md#readme).
+To install CRI-O, follow [CRI-O Install Instructions](https://github.com/cri-o/packaging/blob/main/README.md#usage).
 
 #### cgroup driver
 

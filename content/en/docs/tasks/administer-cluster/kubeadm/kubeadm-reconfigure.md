@@ -86,8 +86,8 @@ keys must be reflected in the associated files in the manifests directory on a c
 
 Such changes may include:
 - `extraArgs` - requires updating the list of flags passed to a component container
-- `extraMounts` - requires updated the volume mounts for a component container
-- `*SANs` - requires writing new certificates with updated Subject Alternative Names.
+- `extraVolumes` - requires updating the volume mounts for a component container
+- `*SANs` - requires writing new certificates with updated Subject Alternative Names
 
 Before proceeding with these changes, make sure you have backed up the directory `/etc/kubernetes/`.
 
