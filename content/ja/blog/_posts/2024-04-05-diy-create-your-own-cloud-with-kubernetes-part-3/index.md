@@ -178,7 +178,7 @@ KubeVirt CSIドライバーは、ボリュームの注文のためのプロキ�
 
 ### クラスターオートスケーラー
 
-[Cluster Autoscaler](https://github.com/kubernetes/autoscaler)は、さまざまなクラウドAPIと連携できる汎用的なコンポーネントであり、Cluster-APIとの統合は利用可能な機能の1つに過ぎません。
+[クラスターオートスケーラー](https://github.com/kubernetes/autoscaler)は、さまざまなクラウドAPIと連携できる汎用的なコンポーネントであり、Cluster APIとの統合は利用可能な機能の1つに過ぎません。
 適切に設定するには、2つのクラスターへのアクセスが必要です。
 テナントクラスターではPodを追跡し、新しいノードを追加する必要性を判断し、管理するKubernetesクラスター(管理Kubernetesクラスター)ではMachineDeploymentリソースと対話し、レプリカ数を調整します。
 
