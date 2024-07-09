@@ -24,7 +24,6 @@
             </form>
           </div>
           <div class="col-12 col-md-8 offset-md-2">
-              <h2 class="search-title ml-3">{{ .Title }}</h2>
           {{ if .Site.Params.gcs_engine_id }}
           <script>
             (function() {
@@ -40,9 +39,9 @@
           <gcse:searchresults-only></gcse:searchresults-only>
           {{ else if .Site.Params.k8s_search }}
           <script src="{{ "js/search.js" | relURL }}"></script>
+          <script src="/pagefind/pagefind-ui.js"></script>
           <gcse:searchresults-only linktarget="_parent">
-            <div id="bing-results-container">{{ T "layouts_docs_search_fetching" }}</div>
-            <div id="bing-pagination-container"></div>
+            <div id="search" style="display:none"></div>
           </gcse:searchresults-only>
           {{ end }}
           </div>

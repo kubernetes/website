@@ -70,7 +70,7 @@ API Priority and Fairness feature.
 ## Recursive server scenarios
 
 API Priority and Fairness must be used carefully in recursive server
-scenarios. These are sccenarios in which some server A, while serving
+scenarios. These are scenarios in which some server A, while serving
 a request, issues a subsidiary request to some server B. Perhaps
 server B might even make a further subsidiary call back to server
 A. In situations where Priority and Fairness control is applied to
