@@ -159,7 +159,7 @@ CCMが実行するタスクは次のとおりです。
 Container Storage Interface(CSI)は、Kubernetesでストレージを操作するために、2つの主要な部分に分かれています。
 
 - **csi-controller**: このコンポーネントは、クラウドプロバイダーのAPIと対話して、ボリュームの作成、削除、アタッチ、デタッチ、およびサイズ変更を行う責任があります。
-- **csi-node**: このコンポーネントは各ノードで実行され、kubeletから要求されたポッドへのボリュームのマウントを容易にします。
+- **csi-node**: このコンポーネントは各ノードで実行され、kubeletから要求されたPodへのボリュームのマウントを容易にします。
 
 [KubeVirt CSI Driver](https://github.com/kubevirt/csi-driver)を使用するコンテキストでは、ユニークな機会が生まれます。
 KubeVirtの仮想マシンは管理KubernetesクラスターでKubernetesのフル機能のAPIが利用できる環境で実行されるため、ユーザーのテナントクラスターの外部でcsi-controllerを実行する道が開かれます。
