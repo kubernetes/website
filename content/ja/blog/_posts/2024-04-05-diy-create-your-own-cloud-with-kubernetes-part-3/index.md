@@ -120,7 +120,7 @@ Cluster APIを使用して新しいKubernetesクラスターをデプロイす�
 
 追加のコンポーネントをインストールするには、個別の[Cluster API Add-on Provider for Helm](https://github.com/kubernetes-sigs/cluster-api-addon-provider-helm)や、[前の記事](/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-1/)で説明した[FluxCD](https://fluxcd.io/)を使用できます。
 
-FluxCDでリソースを作成する際、Cluster APIによって生成されたkubeconfigを参照することで、ターゲットクラスターを指定できます。
+FluxCDでリソースを作成する際、Cluster APIによって生成されたkubeconfigを参照することでターゲットクラスターを指定できます。
 そうするとインストールは直接そのクラスターに対して実行されます。
 このように、FluxCDは管理クラスターとユーザーテナントクラスターの両方でリソースを管理するための汎用ツールになります。
 
