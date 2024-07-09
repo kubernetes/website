@@ -7,7 +7,7 @@ date: 2024-04-05T07:35:00+00:00
 
 **著者:** Andrei Kvapil (Ænix)
 
-**翻訳者:** [Taisuke Okamoto](https://github.com/b1gb4by) (IDC Frontier Inc),
+**翻訳者:** [Taisuke Okamoto](https://github.com/b1gb4by) ([IDC Frontier Inc.](https://www.idcf.jp/)), [Daiki Hayakawa(bells17)](https://github.com/bells17) ([3-shake Inc.](https://3-shake.com/en/)), [atoato88](https://github.com/atoato88) ([NEC Corporation](https://jpn.nec.com/index.html))
 
 Kubernetesエコシステムだけを使って自分だけのクラウドを構築する方法について、一連の記事を続けています。
 [前回の記事](/ja/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-1/)では、Talos LinuxとFlux CDをベースにした基本的なKubernetes ディストリビューションの準備方法を説明しました。
@@ -71,7 +71,7 @@ KubernetesのCSIインターフェースでは、ファイルシステムとブ�
 このモードでは、複数のノードから同時にボリュームにアクセスできるため、KubeVirtにおける仮想マシンのライブマイグレーションを有効にするための重要な機能です。
 
 ストレージシステムは、外部または内部(ハイパーコンバージドインフラストラクチャの場合)にすることができます。
-多くの場合、外部ストレージを使用すると、データが計算ノードから分離して保存されるため、システム全体の安定性が向上します。
+多くの場合、外部ストレージを使用するとデータが計算ノードから分離して保存されるため、システム全体の安定性が向上します。
 
 {{< figure src="storage-external.svg" caption="計算ノードと通信する外部データストレージを示す図" alt="計算ノードと通信する外部データストレージを示す図" >}}
 
@@ -141,7 +141,8 @@ Kubernetes内で仮想マシンを実行する際に注意すべきもう1つの
 さらに、仮想マシンのMACアドレスの割り当ては、[Kubemacpool](https://github.com/k8snetworkplumbingwg/kubemacpool)によって管理できます。
 
 私たちのプラットフォームでは、別の方法を選択し、[Kube-OVN](https://www.kube-ovn.io/)に完全に頼ることにしました。
-このCNIプラグインは、もともとOpenStack用に開発されたOVN(Open Virtual Network)をベースにしており、Kubernetes内の仮想マシン用の完全なネットワークソリューションを提供します。
+このCNIプラグインは、もともとOpenStack用に開発されたOVN(Open Virtual Network)をベースにしています。
+Kube-OVNはKubernetes内の仮想マシン用の完全なネットワークソリューションを提供します。
 IPとMACアドレスを管理するためのカスタムリソースを備え、ノード間でIPアドレスを保持したままライブマイグレーションをサポートし、テナント間の物理ネットワーク分離用のVPCの作成を可能にします。
 
 Kube-OVNでは、名前空間全体に個別のサブネットを割り当てたり、Multusを使用して追加のネットワークインターフェースとして接続したりできます。
@@ -160,9 +161,11 @@ Kubernetesでのサービスネットワークの実装は、サービスネッ�
 しかし最近では、この機能はCNIプラグインの一部として提供されることがあります。
 最も先進的な実装は、[Cilium](https://cilium.io/)プロジェクトによって提供されており、kube-proxyの代替モードで実行できます。
 
-Ciliumは、eBPFテクノロジーに基づいており、Linuxネットワークスタックを効率的にオフロードできるため、iptablesベースの従来の方法と比較してパフォーマンスとセキュリティが向上します。
+CiliumはeBPFテクノロジーに基づいており、Linuxネットワークスタックを効率的にオフロードできるため、iptablesベースの従来の方法と比較してパフォーマンスとセキュリティが向上します。
 
-実際には、CiliumとKube-OVNを簡単に[統合]((https://kube-ovn.readthedocs.io/zh-cn/stable/en/advance/with-cilium/))することが可能で、仮想マシン向けにシームレスでマルチテナントのネットワーキングを提供する統合ソリューションを実現することができます。また、これにより高度なネットワークポリシーと統合されたサービスネットワーク機能も提供されます。
+実際には、CiliumとKube-OVNを簡単に[統合]((https://kube-ovn.readthedocs.io/zh-cn/stable/en/advance/with-cilium/))することが可能です。
+これにより、仮想マシン向けにシームレスでマルチテナントのネットワーキングを提供する統合ソリューションを実現することができます。
+また、高度なネットワークポリシーと統合されたサービスネットワーク機能も提供されます。
 
 ### 外部トラフィックのロードバランサー
 
@@ -190,4 +193,4 @@ Ciliumは、eBPFテクノロジーに基づいており、Linuxネットワー�
 ここまでが、Kubernetesにおける仮想化、ストレージ、ネットワークの概要になります。
 ここで取り上げたテクノロジーは、[Cozystack](https://github.com/aenix-io/cozystack)プラットフォームで利用可能であり、制限なくお試しいただけるよう事前に設定されています。
 
-[次の記事](/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-3/)では、この上にボタンをクリックするだけで、完全に機能するKubernetesクラスターのプロビジョニングをどのように実装できるかを詳しく説明します。
+[次の記事](/ja/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-3/)では、この上にボタンをクリックするだけで、完全に機能するKubernetesクラスターのプロビジョニングをどのように実装できるかを詳しく説明します。
