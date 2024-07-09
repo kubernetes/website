@@ -7,11 +7,11 @@ canonicalUrl: https://kubernetes.dev/blog/2024/07/xx/introducing-kube-scheduler-
 author: Kensei Nakada (Tetrate)
 ---
 
-The Kubernetes Scheduler is a crucial control plane component responsible for determining which Node a Pod will run on. 
+The Kubernetes Scheduler is a crucial control plane component that determines which Node a Pod will run on. 
 Thus, anyone utilizing Kubernetes relies on the scheduler.
 
 [Kube-scheduler-simulator](sigs.k8s.io/kube-scheduler-simulator) is a simulator for the Kubernetes scheduler, initially developed by Kensei Nakada as part of [Google Summer of Code 2021](https://summerofcode.withgoogle.com/). 
-This tool allows users to closely examine the scheduler’s behavior and decisions, 
+This tool allows users to examine the scheduler’s behavior and decisions closely, 
 making it useful for both casual users who employ scheduling constraints (e.g., PodAffinity) 
 and experts who extend the scheduler with custom plugins.
 
