@@ -397,6 +397,8 @@ or as read-write, because:
   parts of the cluster.
 * Pods with identical configuration (such as created from a PodTemplate) may
   behave differently on different nodes due to different files on the nodes.
+* Hostpath volume capacity usage is not managed by Kubernetes node/pod ephemeral storage monitoring,
+  excessive usage will cause disk pressure on the host.
 {{< /warning >}}
 
 Some uses for a `hostPath` are:
