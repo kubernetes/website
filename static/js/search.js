@@ -79,10 +79,10 @@
         }
     }
 
-    async function runBlockedContentTest() {
+    async function loadSearch() {
         if (getCookie("can_google") === "") {
-            const isBlocked = await checkBlockedSite("https://www.google.com/favicon.ico");
-            if ( isBlocked ) {
+            const isGoogleBlocked = await checkBlockedSite("https://www.google.com/favicon.ico");
+            if ( isGoogleBlocked ) {
                 // Google is blocked.
                 console.log("Google is blocked")
                 document.cookie = "can_google=false;" + path + expires
@@ -100,5 +100,5 @@
         }
     }
 
-    window.onload = runBlockedContentTest;
+    window.onload = loadSearch;
 
