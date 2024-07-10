@@ -7,7 +7,7 @@ date: 2024-04-05T07:40:00+00:00
 
 **著者:** Andrei Kvapil (Ænix)
 
-**翻訳者:** [Taisuke Okamoto](https://github.com/b1gb4by) (IDC Frontier Inc),
+**翻訳者:** [Taisuke Okamoto](https://github.com/b1gb4by) (IDC Frontier Inc), [Daiki Hayakawa(bells17)](https://github.com/bells17) ([3-shake Inc.](https://3-shake.com/en/)), [atoato88](https://github.com/atoato88) ([NEC Corporation](https://jpn.nec.com/index.html))
 
 Kubernetesの中でKubernetesを実行するという最も興味深いフェーズに近づいています。
 この記事では、KamajiやCluster APIなどのテクノロジーとそれらのKubeVirtとの統合について説明します。
@@ -75,7 +75,7 @@ KubeVirtを使用してKubernetesクラスターを実行するには[KubeVirt I
 
 Talos LinuxもCluster API経由でのプロビジョニングをサポートしており、そのための[プロバイダー](https://github.com/siderolabs/cluster-api-bootstrap-provider-talos)が[用意されている](https://github.com/siderolabs/cluster-api-bootstrap-provider-talos)ことは注目に値します。
 [前回の記事](/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-1/)では、ベアメタルノードで管理クラスターをセットアップするためにTalos Linuxを使用する方法について説明しましたが、テナントクラスターをプロビジョニングするには、Kamaji+Kubeadmのアプローチの方が優れています。
-これにより、コンテナ内でKubernetesコントロールプレーンのデプロイが容易になり、コントロールプレーンインスタンス用の個別の仮想マシンが不要になります。
+コンテナへのKubernetesコントロールプレーンのデプロイを容易にするため、コントロールプレーンインスタンス用に個別の仮想マシンを用意する必要無くなります。
 これにより、管理が簡素化され、コストが削減されます。
 
 ## 動作の仕組み
@@ -85,7 +85,7 @@ Cluster APIの主要なオブジェクトはClusterリソースで、他のす�
 **コントロールプレーン**を記述するリソースと**インフラストラクチャ**を記述するリソースです。
 それぞれが個別のプロバイダーによって管理されます。
 
-Clusterとは異なり、これら2つのリソースは標準化されておらず、そのkindは使用している特定のプロバイダーに依存します。
+Clusterとは異なり、これら2つのリソースは標準化されておらず、そのリソースの種類は使用している特定のプロバイダーに依存します。
 
 {{< figure src="clusterapi2.svg" caption="Cluster APIにおけるClusterリソースとそれがリンクするリソースの関係を示す図" alt="Cluster APIにおけるClusterリソースとそれがリンクするリソースの関係を示す図" >}}
 
