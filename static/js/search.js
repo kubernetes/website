@@ -3,12 +3,9 @@
     document.addEventListener('DOMContentLoaded', function() {
       let searchTerm = new URLSearchParams(window.location.search).get('q');
       let fetchingElem = document.getElementById('bing-results-container');
-      let searchTitle = document.querySelector('.search-title');
 
       if (!searchTerm) {
         if (fetchingElem) fetchingElem.style.display = 'none';
-        if (searchTitle) searchTitle.style.display = 'none';
-
       }
     });
 
@@ -44,35 +41,41 @@
             +'</div>';
     }
 
-    window.renderBingSearchResults = () => {
-      let urlParams = new URLSearchParams(window.location.search);
-      let searchTerm = urlParams.get("q") || "";
-      let page = urlParams.get("page") || 1;
-      let q = searchTerm;
-      let results = '';
-      let offset = (page - 1) * 10;
-      let ajaxConf = {};
-
-      if (!searchTerm) return;
-
-      ajaxConf.url = 'https://kubernetes-io-search.azurewebsites.net/api/bingsearchproxy';
-      ajaxConf.data =  { q: q, offset: offset };
-      ajaxConf.type = "GET";
-
-      $.ajax(ajaxConf).done(function(res) {
-        if (res.status === 500) {
-          console.log('Server Error');
-          return;
+    window.renderPageFindSearchResults = () => {
+        let urlParams = new URLSearchParams(window.location.search);
+        let searchTerm = urlParams.get("q") || "";
+        let sidebarSearch = document.querySelector('.td-sidebar__search');
+        if (sidebarSearch) {
+            sidebarSearch.remove();
+        }
+        document.getElementById('search').style.display = 'block';
+        pagefind = new PagefindUI({ element: "#search", showImages: false });
+        if (searchTerm) {
+            pagefind.triggerSearch(searchTerm);
         }
 
-        if (res.webPages == null) return; // If no result, 'webPages' is 'undefined'
-        var paginationAnchors = window.getPaginationAnchors(Math.ceil(res.webPages.totalEstimatedMatches / 10));
-        res.webPages.value.map(ob => { results += window.getResultMarkupString(ob); })
-
-        if($('#bing-results-container').length > 0) $('#bing-results-container').html(results);
-        if($('#bing-pagination-container').length > 0) $('#bing-pagination-container').html(paginationAnchors);
-      });
+        document.querySelector("#search input").addEventListener("input", function() {
+            var inputValue = this.value;
+            var queryStringVar = "q";
+            updateQueryString(queryStringVar, inputValue);
+        });
     }
+
+	function updateQueryString(key, value) {
+		var baseUrl = window.location.href.split("?")[0];
+		var queryString = window.location.search.slice(1);
+		var urlParams = new URLSearchParams(queryString);
+
+		if (urlParams.has(key)) {
+			urlParams.set(key, value);
+		} else {
+			urlParams.append(key, value);
+		}
+
+		var newUrl = baseUrl + "?" + urlParams.toString();
+		// Update the browser history (optional)
+        history.replaceState(null, '', newUrl);
+	}
 
     // China Verification.
     var path = "path=/;"
@@ -93,7 +96,7 @@
             dataType: "jsonp",
             success: function (response) {
                 if (response.country == 'CN') {
-                    window.renderBingSearchResults()
+                    window.renderPageFindSearchResults()
                     document.cookie = "is_china=true;" + path + expires
                 } else {
                     window.renderGoogleSearchResults()
@@ -101,13 +104,15 @@
                 }
             },
             error: function () {
-                window.renderBingSearchResults()
+                window.renderPageFindSearchResults()
                 document.cookie = "is_china=true;" + path + expires;
             },
             timeout: 3000
         });
-    } else if (getCookie("is_china") === "true") {
-        window.renderBingSearchResults()
+    } else if (getCookie("is_china") == "true") {
+        window.addEventListener('DOMContentLoaded', (event) => {
+            window.renderPageFindSearchResults()
+        });
     } else {
         window.renderGoogleSearchResults()
     }

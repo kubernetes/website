@@ -446,7 +446,7 @@ For instance, a service might target all pods with `tier in (frontend), environm
 -->
 ### 多个版本跟踪   {#multiple-release-tracks}
 
-除了在滚动更新过程中运行应用程序的多个版本之外，通常还会使用多个版本跟踪来长时间，
+除了在滚动更新过程中运行应用程序的多个版本之外，通常还会使用多个版本跟踪很长时间，
 甚至持续运行多个版本。这些跟踪将根据标签加以区分。
 
 例如，一个服务可能把具有 `tier in (frontend), environment in (prod)` 的所有 Pod 作为目标。
