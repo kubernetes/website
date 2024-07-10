@@ -80,20 +80,20 @@
     }
 
     async function runBlockedContentTest() {
-        if (getCookie("in_china") === "") {
+        if (getCookie("can_google") === "") {
             const isBlocked = await checkBlockedSite("https://www.google.com/favicon.ico");
             if ( isBlocked ) {
-                // Site is blocked so we think you are in China.
-                console.log("We think you ARE in China")
-                document.cookie = "in_china=true;" + path + expires
+                // Google is blocked.
+                console.log("Google is blocked")
+                document.cookie = "can_google=false;" + path + expires
                 window.renderPageFindSearchResults()
             } else {
-                // Site isn't blocked so we think you are NOT in China.
-                console.log("We think you are NOT in China")
-                document.cookie = "in_china=false;" + path + expires
+                // Google is not blocked.
+                console.log("Google is NOT blocked")
+                document.cookie = "can_google=true;" + path + expires
                 window.renderGoogleSearchResults()
             }
-        } else if (getCookie("in_china") == "true") {
+        } else if (getCookie("can_google") == "false") {
             window.addEventListener('DOMContentLoaded', (event) => {
                 window.renderPageFindSearchResults()
             });
