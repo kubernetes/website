@@ -3,7 +3,6 @@ layout: blog
 title: "Introducing Kube-scheduler-simulator"
 date: 2024-07-xx
 slug: introducing-kube-scheduler-simulator
-canonicalUrl: https://kubernetes.dev/blog/2024/07/xx/introducing-kube-scheduler-simulator/
 author: Kensei Nakada (Tetrate)
 ---
 
@@ -38,7 +37,7 @@ filter Nodes (Filter phase), score Nodes (Score phase), and ultimately determine
 The simulator allows users to create Kubernetes resources and observe how each plugin influences the scheduling decisions for Pods.
 This visibility helps users understand the scheduler’s workings and define appropriate scheduling constraints.
 
-![Screenshot of the simulator web frontend](./simulator.png)
+{{< figure src="/images/blog/2024-07-xx-kube-scheduler-simulator/simulator.png" alt="Screenshot of the simulator web frontend" title="The simulator web frontend" >}}
 
 Inside the simulator, instead of the vanilla scheduler, 
 it runs the debuggable scheduler, which outputs each scheduler plugin’s result from every extension point to Pod’s annotations. 
@@ -111,3 +110,5 @@ The simulator has been maintained by dedicated volunteer engineers, overcoming m
 A big shout out to all [the awesome contributors](https://github.com/kubernetes-sigs/kube-scheduler-simulator/graphs/contributors)!
 
 ![contributors](./contributors.png)
+
+{{< figure src="/images/blog/2024-07-xx-kube-scheduler-simulator/contributors.png" alt="Screenshot of the contributor list" title="Contributors" >}}
