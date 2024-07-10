@@ -94,9 +94,7 @@
                 window.renderGoogleSearchResults()
             }
         } else if (getCookie("can_google") == "false") {
-            window.addEventListener('DOMContentLoaded', (event) => {
-                window.renderPageFindSearchResults()
-            });
+            window.renderPageFindSearchResults()
         } else {
             window.renderGoogleSearchResults()
         }
