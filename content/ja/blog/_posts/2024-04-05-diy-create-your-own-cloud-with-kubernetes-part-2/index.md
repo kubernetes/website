@@ -43,7 +43,7 @@ KubeVirtの仮想マシンは、コンテナ内の通常のLinuxプロセスと�
 
 {{< figure src="kubevirt-migration.svg" caption="KubeVirtにおいて、仮想マシンがあるコンテナから別のコンテナへライブマイグレーションする様子を示す図" alt="KubeVirtにおいて、仮想マシンがあるコンテナから別のコンテナへライブマイグレーションする様子を示す図" >}}
 
-[Cloud-Hypervisor](https://github.com/cloud-hypervisor/cloud-hypervisor)を使用した軽量な仮想化を実装し、当初はCluster APIを使用した仮想Kubernetesクラスターの実行に重点を置いている代替プロジェクト[Virtink](https://github.com/smartxworks/virtink)もあります。
+[Cloud-Hypervisor](https://github.com/cloud-hypervisor/cloud-hypervisor)を使用した軽量な仮想化を実装し、初期からCluster APIを使用した仮想Kubernetesクラスターの実行に重点を置いている代替プロジェクト[Virtink](https://github.com/smartxworks/virtink)もあります。
 
 私たちの目標を考慮して、この分野で最も一般的なプロジェクトであるKubeVirtを使用することに決めました。
 さらに、私たちはKubeVirtに関する豊富な専門知識を持ち、すでに多くの貢献をしています。
