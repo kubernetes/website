@@ -68,31 +68,39 @@
         else return "";
     }
 
-    if (getCookie("is_china") === "") {
-        $.ajax({
-            url: "https://ipinfo.io?token=796e43f4f146b1",
-            dataType: "jsonp",
-            success: function (response) {
-                if (response.country == 'CN') {
-                    window.renderPageFindSearchResults()
-                    document.cookie = "is_china=true;" + path + expires
-                } else {
-                    window.renderGoogleSearchResults()
-                    document.cookie = "is_china=false;" + path + expires;
-                }
-            },
-            error: function () {
-                window.renderPageFindSearchResults()
-                document.cookie = "is_china=true;" + path + expires;
-            },
-            timeout: 3000
-        });
-    } else if (getCookie("is_china") == "true") {
-        window.addEventListener('DOMContentLoaded', (event) => {
-            window.renderPageFindSearchResults()
-        });
-    } else {
-        window.renderGoogleSearchResults()
+    async function checkBlockedSite(url) {
+        try {
+            const response = await fetch(url, { method: 'HEAD', mode: 'no-cors' });
+            // If we reach this point, the site is accessible (since mode: 'no-cors' doesn't allow us to check response.ok)
+            return false;
+        } catch (error) {
+            // If an error occurs, it's likely the site is blocked
+            return true;
+        }
     }
 
+    async function runBlockedContentTest() {
+        if (getCookie("in_china") === "") {
+            const isBlocked = await checkBlockedSite("https://www.google.com/favicon.ico");
+            if ( isBlocked ) {
+                // Site is blocked so we think you are in China.
+                console.log("We think you ARE in China")
+                document.cookie = "in_china=true;" + path + expires
+                window.renderPageFindSearchResults()
+            } else {
+                // Site isn't blocked so we think you are NOT in China.
+                console.log("We think you are NOT in China")
+                document.cookie = "in_china=false;" + path + expires
+                window.renderGoogleSearchResults()
+            }
+        } else if (getCookie("in_china") == "true") {
+            window.addEventListener('DOMContentLoaded', (event) => {
+                window.renderPageFindSearchResults()
+            });
+        } else {
+            window.renderGoogleSearchResults()
+        }
+    }
+
+    window.onload = runBlockedContentTest;
 
