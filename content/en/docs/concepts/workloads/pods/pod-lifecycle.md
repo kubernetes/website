@@ -11,6 +11,19 @@ in the `Pending` [phase](#pod-phase), moving through `Running` if at least one
 of its primary containers starts OK, and then through either the `Succeeded` or
 `Failed` phases depending on whether any container in the Pod terminated in failure.
 
+Like individual application containers, Pods are considered to be relatively
+ephemeral (rather than durable) entities. Pods are created, assigned a unique
+ID ([UID](/docs/concepts/overview/working-with-objects/names/#uids)), and scheduled
+to run on nodes where they remain until termination (according to restart policy) or
+deletion.
+If a {{< glossary_tooltip term_id="node" >}} dies, the Pods running on (or scheduled
+to run on) that node are [marked for deletion](#pod-garbage-collection). The control
+plane marks the Pods for removal after a timeout period.
+
+<!-- body -->
+
+## Pod lifetime
+
 Whilst a Pod is running, the kubelet is able to restart containers to handle some
 kind of faults. Within a Pod, Kubernetes tracks different container
 [states](#container-states) and determines what action to take to make the Pod
@@ -21,32 +34,48 @@ status for a Pod object consists of a set of [Pod conditions](#pod-conditions).
 You can also inject [custom readiness information](#pod-readiness-gate) into the
 condition data for a Pod, if that is useful to your application.
 
-Pods are only [scheduled](/docs/concepts/scheduling-eviction/) once in their lifetime.
-Once a Pod is scheduled (assigned) to a Node, the Pod runs on that Node until it stops
-or is [terminated](#pod-termination).
+Pods are only [scheduled](/docs/concepts/scheduling-eviction/) once in their lifetime;
+assigning a Pod to a specific node is called _binding_, and the process of selecting
+which node to use is called _scheduling_.
+Once a Pod has been scheduled and is bound to a node, Kubernetes tries
+to run that Pod on the node. The Pod runs on that node until it stops, or until the Pod
+is [terminated](#pod-termination); if Kubernetes isn't able start the Pod on the selected
+node (for example, if the node crashes before the Pod starts), then that particular Pod
+never starts.
 
-<!-- body -->
+You can use [Pod Scheduling Readiness](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)
+to delay scheduling for a Pod until all its _scheduling gates_ are removed. For example,
+you might want to define a set of Pods but only trigger scheduling once all the Pods
+have been created.
 
-## Pod lifetime
+### Pods and fault recovery {#pod-fault-recovery}
 
-Like individual application containers, Pods are considered to be relatively
-ephemeral (rather than durable) entities. Pods are created, assigned a unique
-ID ([UID](/docs/concepts/overview/working-with-objects/names/#uids)), and scheduled
-to nodes where they remain until termination (according to restart policy) or
-deletion.
-If a {{< glossary_tooltip term_id="node" >}} dies, the Pods scheduled to that node
-are [scheduled for deletion](#pod-garbage-collection) after a timeout period.
+If one of the containers in the Pod fails, then Kubernetes may try to restart that
+specific container.
+Read [How Pods handle problems with containers](#container-restarts) to learn more.
 
-Pods do not, by themselves, self-heal. If a Pod is scheduled to a
-{{< glossary_tooltip text="node" term_id="node" >}} that then fails, the Pod is deleted; likewise,
-a Pod won't survive an eviction due to a lack of resources or Node maintenance. Kubernetes uses a
-higher-level abstraction, called a
+Pods can however fail in a way that the cluster cannot recover from, and in that case
+Kubernetes does not attempt to heal the Pod further; instead, Kubernetes deletes the
+Pod and relies on other components to provide automatic healing.
+
+If a Pod is scheduled to a {{< glossary_tooltip text="node" term_id="node" >}} and that
+node then fails, the Pod is treated as unhealthy and Kubernetes eventually deletes the Pod.
+A Pod won't survive an {{< glossary_tooltip text="eviction" term_id="eviction" >}} due to
+a lack of resources or Node maintenance.
+
+Kubernetes uses a higher-level abstraction, called a
 {{< glossary_tooltip term_id="controller" text="controller" >}}, that handles the work of
 managing the relatively disposable Pod instances.
 
 A given Pod (as defined by a UID) is never "rescheduled" to a different node; instead,
-that Pod can be replaced by a new, near-identical Pod, with even the same name if
-desired, but with a different UID.
+that Pod can be replaced by a new, near-identical Pod. If you make a replacement Pod, it can
+even have same name (as in `.metadata.name`) that the old Pod had, but the replacement
+would have a different `.metadata.uid` from the old Pod.
+
+Kubernetes does not guarantee that a replacement for an existing Pod would be scheduled to
+the same node as the old Pod that was being replaced.
+
+### Associated lifetimes
 
 When something is said to have the same lifetime as a Pod, such as a
 {{< glossary_tooltip term_id="volume" text="volume" >}},
@@ -55,10 +84,7 @@ exists. If that Pod is deleted for any reason, and even if an identical replacem
 is created, the related thing (a volume, in this example) is also destroyed and
 created anew.
 
-{{< figure src="/images/docs/pod.svg" title="Pod diagram" class="diagram-medium" >}}
-
-A multi-container Pod that contains a file puller and a
-web server that uses a persistent volume for shared storage between the containers.
+{{< figure src="/images/docs/pod.svg" title="Figure 1." class="diagram-medium" caption="A multi-container Pod that contains a file puller [sidecar](/docs/concepts/workloads/pods/sidecar-containers/) and a web server. The Pod uses an [ephemeral `emptyDir` volume](/docs/concepts/storage/volumes/#emptydir) for shared storage between the containers." >}}
 
 ## Pod phase
 
@@ -347,13 +373,6 @@ For a Pod with init containers, the kubelet sets the `Initialized` condition to
 after successful sandbox creation and network configuration by the runtime
 plugin). For a Pod without init containers, the kubelet sets the `Initialized`
 condition to `True` before sandbox creation and network configuration starts.
-
-### Pod scheduling readiness {#pod-scheduling-readiness-gate}
-
-{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
-
-See [Pod Scheduling Readiness](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)
-for more information.
 
 ## Container probes
 
