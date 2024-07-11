@@ -40,7 +40,7 @@ for advanced troubleshooting?. There is no mechanism to achieve this.
 
 ## Custom Profiling
 
-Custom profiling is a new flag, namely `custom`, introduced in kubectl debug to provide extensibility. It expects partial `Container` spec in either YAML or JSON format. 
+Custom profiling is a new functionality available under `--custom` flag, introduced in kubectl debug to provide extensibility. It expects partial `Container` spec in either YAML or JSON format. 
 In order to debug the example-container above by creating an ephemeral container, we simply have to define this YAML:
 
 ```yaml
