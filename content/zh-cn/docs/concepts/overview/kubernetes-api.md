@@ -157,7 +157,7 @@ document.
 如果没有使用 `Accept` 头指示资源类型，对于 `/api` 和 `/apis` 端点的默认响应将是一个非聚合的发现文档。
 
 <!--
-The [discovery document](https://github.com/kubernetes/kubernetes/blob/release-{{< skew currentVersion >}}/api/discovery/aggregated_v2.json)
+The [discovery document](https://github.com/kubernetes/kubernetes/blob/release-{{< skew currentVersion >}}/api/discovery/aggregated_v2beta1.json)
 for the built-in resources can be found in the Kubernetes GitHub repository.
 This Github document can be used as a reference of the base set of the available resources
 if a Kubernetes cluster is not available to query.
