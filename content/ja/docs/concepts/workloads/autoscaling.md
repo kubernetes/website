@@ -36,7 +36,7 @@ Kubernetesはワークロードの _自動スケーリング_ もサポートし
 
 Kubernetesにおける _オートスケーリング_ の概念は一連のPodを管理するオブジェクト(例えば{{< glossary_tooltip text="Deployment" term_id="deployment" >}})を自動的に更新する機能を指します。
 
-### ワークロードを水平方向にスケーリングする
+### ワークロードを水平方向にスケーリングする {#scaling-workloads-horizontally}
 
 Kubernetesにおいて、 _HorizontalPodAutoscaler_ (HPA)を使用してワークロードを水平方向に自動的にスケールできます。
 
