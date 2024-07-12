@@ -44,7 +44,7 @@ Kubernetesにおいて、 _HorizontalPodAutoscaler_ (HPA)を使用してワー�
 
 Deployment用のHorizontalPodAutoscalerを構成する[ウォークスルーチュートリアル](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough)があります。
 
-### ワークロードを垂直方向にスケーリングする
+### ワークロードを垂直方向にスケーリングする {#scaling-workloads-vertically}
 
 {{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
