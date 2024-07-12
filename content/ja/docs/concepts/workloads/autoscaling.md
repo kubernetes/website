@@ -27,7 +27,7 @@ Kubernetesはワークロードの _手動スケーリング_ をサポートし
 
 両方の戦略の例については以下をご覧ください。
 
-- **水平スケーリング**: [Running multiple instances of your app](/docs/tutorials/kubernetes-basics/scale/scale-intro/)
+- **水平スケーリング**: [Running multiple instances of your app](/ja/docs/tutorials/kubernetes-basics/scale/scale-intro/)
 - **垂直スケーリング**: [Resizing CPU and memory resources assigned to containers](/docs/tasks/configure-pod-container/resize-container-resources)
 
 ## ワークロードを自動でスケーリングする {#scaling-workloads-automatically}
