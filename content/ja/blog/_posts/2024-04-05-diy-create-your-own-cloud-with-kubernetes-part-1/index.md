@@ -214,5 +214,5 @@ cozy-victoria-metrics-operator   victoria-metrics-operator   4m1s   True    Rele
 結果として、誰にでも提供できる高い再現性を持つ環境を実現でき、意図したとおりに動作することがわかります。
 これは、実際に[Cozystack](https://github.com/aenix-io/cozystack)プロジェクトが行っていることであり、あなた自身が無料で試すことができます。
 
-次の記事では、[仮想マシンを実行するためのKubernetesの準備方法](ja/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-2/)と[ボタンをクリックするだけでKubernetesクラスターを実行する方法](ja/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-3/)について説明します。
+次の記事では、[仮想マシンを実行するためのKubernetesの準備方法](/ja/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-2/)と[ボタンをクリックするだけでKubernetesクラスターを実行する方法](/ja/blog/2024/04/05/diy-create-your-own-cloud-with-kubernetes-part-3/)について説明します。
 ご期待ください。きっと面白いはずです！
