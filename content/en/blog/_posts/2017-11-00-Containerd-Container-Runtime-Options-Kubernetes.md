@@ -3,9 +3,10 @@ title: "  Containerd Brings More Container Runtime Options for Kubernetes "
 date: 2017-11-02
 slug: containerd-container-runtime-options-kubernetes
 url: /blog/2017/11/Containerd-Container-Runtime-Options-Kubernetes
+author: >
+  Lantao Liu (Google),
+  Mike Brown (IBM)
 ---
-
-**Authors:** Lantao Liu (Google), and Mike Brown (IBM)
 
 _Update: Kubernetes support for Docker via `dockershim` is now deprecated.
 For more information, read the [deprecation notice](/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation).

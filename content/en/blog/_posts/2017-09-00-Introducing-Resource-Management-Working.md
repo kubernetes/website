@@ -3,8 +3,9 @@ title: " Introducing the Resource Management Working Group "
 date: 2017-09-21
 slug: introducing-resource-management-working
 url: /blog/2017/09/Introducing-Resource-Management-Working
+author: >
+   Jeremy Eder (Red Hat)
 ---
-_**Editor's note: today's post is by Jeremy Eder, Senior Principal Software Engineer at Red Hat, on the formation of the Resource Management Working Group**_  
 
 ## Why are we here?
 Kubernetes has evolved to support diverse and increasingly complex classes of applications. We can onboard and scale out modern, cloud-native web applications based on microservices, batch jobs, and stateful applications with persistent storage requirements.  

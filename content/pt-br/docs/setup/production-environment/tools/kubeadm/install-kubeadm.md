@@ -292,7 +292,7 @@ sudo mkdir -p "$DOWNLOAD_DIR"
 Instale o crictl (utilizado pelo kubeadm e pela Interface do Agente de execução do Kubelet (CRI))
 
 ```bash
-CRICTL_VERSION="v1.28.0"
+CRICTL_VERSION="v1.30.0"
 ARCH="amd64"
 curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
 ```

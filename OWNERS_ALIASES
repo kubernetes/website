@@ -54,7 +54,6 @@ aliases:
     - bene2k1
     - rlenferink
   sig-docs-en-owners: # Admins for English content
-    - celestehorgan
     - dipesh-rawat
     - divya-mohan0209
     - katcosgrove
@@ -64,8 +63,8 @@ aliases:
     - salaxander
     - sftim
     - tengqm
+    - Princesso # RT 1.31 Docs Lead
   sig-docs-en-reviews: # PR reviews for English content
-    - celestehorgan
     - dipesh-rawat
     - divya-mohan0209
     - katcosgrove
@@ -80,6 +79,7 @@ aliases:
     - shannonxtreme
     - tengqm
     - windsonsea
+    - Princesso # RT 1.31 Docs Lead
   sig-docs-es-owners: # Admins for Spanish content
     - electrocucaracha
     - krol3
@@ -98,12 +98,12 @@ aliases:
     - rekcah78
     - remyleone
   sig-docs-hi-owners: # Admins for Hindi content
-    - anubha-v-ardhan
+    - dipesh-rawat
     - divya-mohan0209
   sig-docs-hi-reviews: # PR reviews for Hindi content
-    - anubha-v-ardhan
     - Babapool
     - bishal7679
+    - dipesh-rawat
     - divya-mohan0209
   sig-docs-id-owners: # Admins for Indonesian content
     - ariscahyadi
@@ -124,6 +124,7 @@ aliases:
     - Fale
     - mattiaperi
   sig-docs-ja-owners: # Admins for Japanese content
+    - bells17
     - inductor
     - nasa9084
   sig-docs-ja-reviews: # PR reviews for Japanese content

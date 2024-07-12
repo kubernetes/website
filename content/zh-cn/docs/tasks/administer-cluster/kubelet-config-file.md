@@ -207,15 +207,14 @@ kubelet 通过按字母数字顺序对**整个文件名**进行排序来处理�
 例如，首先处理 `00-kubelet.conf`，然后用名为 `01-kubelet.conf` 的文件覆盖。
 
 <!--
-These files may contain partial configurations and might not be valid config files by themselves.
-Validation is only performed on the final resulting configuration structure
-stored internally in the kubelet.
-This offers you flexibility in how you manage and combine kubelet configuration that comes from different sources.
-However, it's important to note that the behavior varies based on the data type of the configuration fields.
+These files may contain partial configurations but should not be invalid and must include type metadata, specifically `apiVersion` and `kind`.
+Validation is only performed on the final resulting configuration structure stored internally in the kubelet.
+This offers flexibility in managing and merging kubelet configurations from different sources while preventing undesirable configurations. 
+However, it is important to note that behavior varies based on the data type of the configuration fields.
 -->
-这些文件可能包含部分配置，并且它们本身可能不是有效的配置文件。
+这些文件可能包含部分配置，但不应无效，并且必须包含类型元数据，特别是 `apiVersion` 和 `kind`。
 仅对 kubelet 内部存储的、最终生成的配置结构执行验证。
-这让你能够灵活管理和组合不同来源的 kubelet 配置。
+这为管理和合并来自不同来源的 kubelet 配置提供了灵活性，同时防止了不需要的配置。
 但是，请务必注意，产生的行为会根据配置字段的数据类型而有所不同。
 
 <!--
@@ -263,7 +262,7 @@ kubelet 的配置插件目录机制类似，但与 `kubeadm` 工具允许 patch 
 <!--
 ## Viewing the kubelet configuration
 -->
-## 查看 kubelet 配置
+## 查看 kubelet 配置   {#viewing-the-kubelet-configuration}
 
 <!--
 Since the configuration could now be spread over multiple files with this feature, if someone wants to inspect the final actuated configuration,
@@ -432,8 +431,9 @@ they can follow these steps to inspect the kubelet configuration:
   [`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/)
   reference.
 - Learn more about kubelet configuration merging in the
-  [reference document](/docs/reference/node/kubelet-config-directory-merging.md).
+  [reference document](/docs/reference/node/kubelet-config-directory-merging).
 --->
 - 参阅 [`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
   进一步学习 kubelet 的配置。
-- 在[参考文档](/zh-cn/docs/reference/node/kubelet-config-directory-merging.md)中了解有关 kubelet 配置合并的更多信息。
+- 在[参考文档](/zh-cn/docs/reference/node/kubelet-config-directory-merging)中了解有关
+  kubelet 配置合并的更多信息。

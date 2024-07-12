@@ -200,6 +200,11 @@ Deployment 是管理 Pod 创建和扩展的推荐方法。
    hello-node   1/1     1            1           1m
    ```
 
+   <!--
+   (It may take some time for the pod to become available. If you see "0/1", try again in a few seconds.)
+   -->
+   （该 Pod 可能需要一些时间才能变得可用。如果你在输出结果中看到 “0/1”，请在几秒钟后重试。）
+
 <!--
 1. View the Pod:
 -->
