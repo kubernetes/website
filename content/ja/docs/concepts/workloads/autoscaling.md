@@ -68,7 +68,7 @@ HPAが機能するにはクラスターに[Metrics Server](https://github.com/ku
 `Off` | VPAはPodのリソース要件を自動的に変更しません。推奨事項は計算され、VPAオブジェクトで検査できます
 {{< /table >}}
 
-#### インプレースリサイズの要件
+#### インプレースリサイズの要件 {#requirements-for-in-place-resizing}
 
 {{< feature-state for_k8s_version="v1.27" state="alpha" >}}
 
