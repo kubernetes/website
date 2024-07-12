@@ -89,7 +89,7 @@ Cluster Proportional Autoscalerはスケジュール可能な{{< glossary_toolti
 
 Cluster Proportional Autoscalerがワークロードのレプリカ数をスケールする一方で、Cluster Proportional Vertical Autoscalerはクラスター内のノードおよび/またはコアの数に基づいてワークロード（例えばDeploymentやDaemonSet）のリソース要求を調整します。
 
-### イベント駆動型自動スケーリング
+### イベント駆動型自動スケーリング {#event-driven-autoscaling}
 
 例えば[_Kubernetes Event Driven Autoscaler_
 (**KEDA**)](https://keda.sh/)を使用して、イベントに基づいてワークロードをスケールすることもできます。
