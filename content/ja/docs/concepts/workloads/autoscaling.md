@@ -42,7 +42,7 @@ Kubernetesにおいて、 _HorizontalPodAutoscaler_ (HPA)を使用してワー�
 
 これはKubernetes APIリソースおよび{{< glossary_tooltip text="コントローラー" term_id="controller">}}として実装されておりCPUやメモリ使用率のような観測されたリソース使用率と一致するようにワークロードの{{<glossary_tooltip text="レプリカ" term_id="replica" >}}数を定期的に調整します。
 
-Deployment用のHorizontalPodAutoscalerを構成する[ウォークスルーチュートリアル](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough)があります。
+Deployment用のHorizontalPodAutoscalerを構成する[ウォークスルーチュートリアル](/ja/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough)があります。
 
 ### ワークロードを垂直方向にスケーリングする {#scaling-workloads-vertically}
 
