@@ -1324,29 +1324,6 @@ div.alert > em.javascript-required {
     background: #326de6;
 }
 
-// Adjust Bing search result page
-#bing-results-container {
-    padding: 1em;
-}
-.bing-result {
-  margin-bottom: 1em;
-}
-.bing-result-url {
-  font-size: 14px;
-}
-.bing-result-snippet {
-  color: #666666;
-  font-size: 14px;
-}
-#bing-pagination-container {
-    padding: 1em;
-    margin-bottom: 1em;
-
-    a.bing-page-anchor {
-        padding: 0.5em;
-        margin: 0.25em;
-    }
-}
 
 // Adjust Search-bar search-icon
 .search-bar {
@@ -1376,6 +1353,65 @@ div.alert > em.javascript-required {
   border: none;
   outline: none;
   padding: .5em 0 .5em 0;
+}
+
+// PageFind Styles
+
+#search .pagefind-ui form input  {
+  background-color: #fff;
+  border: 1px solid #4c4c4c;
+  border-radius: 20px; 
+  overflow-x: hidden;
+  width: auto;
+  padding: 6px 10px !important;
+  margin: 20px 10px 20px 0;
+
+  &:focus-within {
+    outline: 1.5px solid rgba(47, 135, 223, 0.7);
+    border: 1px solid rgba(47, 135, 223, 0.7);
+  }
+}
+
+#search .pagefind-ui ol.pagefind-ui__results {
+  padding-left: 0;
+}
+
+#search .pagefind-ui .pagefind-ui__result-nested {
+  padding-left: 2em;
+}
+
+#search .pagefind-ui.pagefind-ui__result-nested::before {
+  content: "\2937 ";
+  color: $blue;
+}
+
+#search .pagefind-ui ol > li {
+  list-style-type: none;
+  border-top: 1.5px solid rgba(47, 135, 223, 0.7);
+  padding: 10px;
+}
+
+#search .pagefind-ui button {
+  color: #fff;
+  background-color: $blue;
+  border-radius: 0.2em;
+  border: 0.1rem solid $medium-grey;
+  padding: 0.3em;
+}
+
+#search .pagefind-ui__result-tags {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+#search a.pagefind-ui__result-link {
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+
+body.td-search #search {
+  margin-top: 1rem;
+  margin-bottom: 3rem;
 }
 
 /* CSS for 'figure' full-screen display */
@@ -1421,89 +1457,6 @@ div.alert > em.javascript-required {
   padding: 0.2rem;
 }
 
-// Special style for Kubernetes' 10th birthday
-section.k8s-birthday-override {
-  background: #dae9f9; // Kubernetes light blue
-
-  > .k8s-birthday-wrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    align-content: flex-end;
-    gap: 2rem;
-
-    img.birthday-banner {
-      max-height: 20rem;
-      max-width: 100vw;
-      margin-left: auto;
-      margin-right: auto;
-      aspect-ratio: 1;
-      flex-grow: 1;
-    }
-    p {
-      flex-grow: 4;
-      text-align: center;
-      color: $blue;
-      font-size: 2.5em;
-      padding-bottom: 2.5rem;
-      margin: 1em;
-    }
-  }
-
-  div.k8s-birthday-override.revert-to-previous {
-    form {
-      display: block;
-      max-width: clamp(20rem, 30%, 100vw);
-      margin-left: auto;
-      padding-bottom: 0.5rem;
-    }
-    text-align: right;
-    label {
-      color: $blue;
-      padding-left: 1.2em;
-      padding-right: 1.2em;
-      text-decoration: underline;
-      font-size: 1.5rem;
-    }
-    input {
-      accent-color: $blue;
-      border-color: $blue;
-      visibility: hidden;
-    }
-  }
-
-  div.k8s-birthday-override.revert-to-previous:has(input:not(:checked)) {
-    display: initial;
-  }
-
-  &:has(input:checked) {
-    display: none;
-  }
-}
-
-@media screen and (max-width: 900px) {
-  section.k8s-birthday-override > .k8s-birthday-wrapper {
-    flex-wrap: wrap;
-  }
-}
-
-@media screen and (max-width: 900px) {
-  section.k8s-birthday-override > .k8s-birthday-wrapper {
-    gap: 0.2rem;
-    align-content: center;
-    p {
-      font-size: initial;
-      min-width: 80vw;
-    }
-    img.birthday-banner {
-      min-height: initial;
-    }
-    label {
-      font-size: 1.2rem;
-    }
-  }
-}
 @media screen and (max-aspect-ratio: 9/15) {
     gap: 0.4rem;
 }

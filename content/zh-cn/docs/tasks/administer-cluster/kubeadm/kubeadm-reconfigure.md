@@ -156,15 +156,15 @@ kubeadm 将控制平面组件作为位于 `/etc/kubernetes/manifests`
 <!--
 Such changes may include:
 - `extraArgs` - requires updating the list of flags passed to a component container
-- `extraMounts` - requires updated the volume mounts for a component container
-- `*SANs` - requires writing new certificates with updated Subject Alternative Names.
+- `extraVolumes` - requires updating the volume mounts for a component container
+- `*SANs` - requires writing new certificates with updated Subject Alternative Names
 
 Before proceeding with these changes, make sure you have backed up the directory `/etc/kubernetes/`.
 -->
 
 此类更改可能包括:
 - `extraArgs` - 需要更新传递给组件容器的标志列表
-- `extraMounts` - 需要更新组件容器的卷挂载
+- `extraVolumes` - 需要更新组件容器的卷挂载
 - `*SANs` - 需要使用更新的主题备用名称编写新证书
 
 在继续进行这些更改之前，请确保你已备份目录 `/etc/kubernetes/`。
