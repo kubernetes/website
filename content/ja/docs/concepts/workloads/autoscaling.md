@@ -114,7 +114,7 @@ KEDAは例えばキューのメッセージ数などの処理するべきイベ�
 
 - 水平スケーリングについて詳しく学ぶ
   - [StatefulSetのスケール](/ja/docs/tasks/run-application/scale-stateful-set/)
-  - [HorizontalPodAutoscalerウォークスルー](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
+  - [HorizontalPodAutoscalerウォークスルー](/ja/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
 - [コンテナリソースのインプレースサイズ変更](/docs/tasks/configure-pod-container/resize-container-resources/)
 - [クラスター内のDNSサービスを自動スケールする](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)
 - [クラスターの自動スケーリング](/docs/concepts/cluster-administration/cluster-autoscaling/)について学ぶ
