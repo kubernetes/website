@@ -77,7 +77,7 @@ HPAが機能するにはクラスターに[Metrics Server](https://github.com/ku
 
 {{< feature-gate-description name="InPlacePodVerticalScaling" >}}
 
-### クラスターサイズに基づく自動スケーリング
+### クラスターサイズに基づく自動スケーリング {#autoscaling-based-on-cluster-size}
 
 クラスターのサイズに基づいてスケールする必要があるワークロード（例えば`cluster-dns`や他のシステムコンポーネント）の場合は、[_Cluster Proportional Autoscaler_](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler)を使用できます。
 VPAと同じように、これはKubernetesのコア部分ではありませんが、独自のGitHubプロジェクトとしてホストされています。
