@@ -3,9 +3,12 @@ layout: blog
 title: 'Kubernetes史上最大の移行作業を完了'
 date: 2024-05-20
 slug: completing-cloud-provider-migration
+author: >
+  Andrew Sy Kim (Google),
+  Michelle Au (Google),
+  Walter Fender (Google),
+  Michael McCune (Red Hat)
 ---
-
-**著者:** Andrew Sy Kim (Google), Michelle Au (Google), Walter Fender (Google), Michael McCune (Red Hat)
 
 **翻訳者:** Taisuke Okamoto (IDC Frontier Inc), [Junya Okabe](https://github.com/Okabe-Junya) (University of Tsukuba)
 
