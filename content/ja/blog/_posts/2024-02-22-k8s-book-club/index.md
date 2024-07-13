@@ -1,8 +1,10 @@
-------
+---
 layout: blog
 title: "Kubernetesブッククラブを覗く"
 slug: k8s-book-club
 date: 2024-02-22
+author: >
+  Frederico Muñoz (SAS Institute)
 ---
 
 **著者**: Frederico Muñoz (SAS Institute)
