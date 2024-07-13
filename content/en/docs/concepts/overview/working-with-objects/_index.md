@@ -66,6 +66,8 @@ a replacement instance.
 For more information on the object spec, status, and metadata, see the
 [Kubernetes API Conventions](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md).
 
+To understand more about how Kubernetes describes the current state of objects, see [Conditions in Kubernetes](https://kubernetes.io/docs/concepts/overview/working-with-objects.conditions.md).
+
 ### Describing a Kubernetes object
 
 When you create an object in Kubernetes, you must provide the object spec that describes its
