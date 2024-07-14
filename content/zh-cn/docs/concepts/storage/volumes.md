@@ -470,14 +470,26 @@ overlays), the `emptyDir` may run out of capacity before this limit.
 
 {{< note >}}
 <!--
-If the `SizeMemoryBackedVolumes` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled,
-you can specify a size for memory backed volumes.  If no size is specified, memory
-backed volumes are sized to node allocatable memory.
+You can specify a size for memory backed volumes, provided that the `SizeMemoryBackedVolumes`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled in your cluster (this has been beta, and active by default, since the Kubernetes 1.22 release).
+If you don't specify a volume size, memory backed volumes are sized to node allocatable memory.
 -->
-当启用 `SizeMemoryBackedVolumes` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)时，
-你可以为基于内存提供的卷指定大小。
-如果未指定大小，内存提供的卷的大小根据节点可分配内存进行调整。
+你可以指定内存作为介质的卷的大小，前提是集群中启用了 `SizeMemoryBackedVolumes`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
+（自 Kubernetes 1.22 发布以来，此特性一直处于 Beta 阶段，并且默认启用）。
+如果你未指定大小，内存作为介质的卷的大小根据节点可分配内存进行调整。
 {{< /note>}}
+
+{{< caution >}}
+<!--
+Please check [here](/docs/concepts/configuration/manage-resources-containers/#memory-backed-emptydir)
+for points to note in terms of resource management when using memory-backed `emptyDir`.
+-->
+使用内存作为介质的 `emptyDir` 卷时，
+请查阅[此处](/zh-cn/docs/concepts/configuration/manage-resources-containers/#memory-backed-emptydir)，
+了解有关资源管理方面的注意事项。
+{{< /caution >}}
 
 <!--
 #### emptyDir configuration example
