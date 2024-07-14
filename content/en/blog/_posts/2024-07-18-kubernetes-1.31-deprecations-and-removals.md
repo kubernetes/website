@@ -14,7 +14,7 @@ author: >
 As Kubernetes develops and matures, features may be deprecated, removed, or replaced with better ones for the project's overall health. This article outlines some planned changes for the Kubernetes 1.31 release that the release team feels you should be aware of for the continued maintenance of your Kubernetes environment. The Information listed below is based on the current status of the v1.31 release. It may change before the actual release date. 
 
 ### The Kubernetes API Removal and Deprecation process
-The Kubernetes project has a well-documented [deprecation policy](https://kubernetes.io/docs/reference/using-api/deprecation-policy/) for features. This policy states that stable APIs may only be deprecated when a newer, stable version of that API is available and that APIs have a minimum lifetime for each stability level. A deprecated API has been marked for removal in a future Kubernetes release. It will continue to function until removal (at least one year from the deprecation), but usage will result in a warning being displayed. Removed APIs are no longer available in the current version, so you must migrate to using the replacement.
+The Kubernetes project has a well-documented [deprecation policy](/docs/reference/using-api/deprecation-policy/) for features. This policy states that stable APIs may only be deprecated when a newer, stable version of that API is available and that APIs have a minimum lifetime for each stability level. A deprecated API has been marked for removal in a future Kubernetes release. It will continue to function until removal (at least one year from the deprecation), but usage will result in a warning being displayed. Removed APIs are no longer available in the current version, so you must migrate to using the replacement.
 
 * Generally available (GA) or stable API versions may be marked as deprecated but must not be removed within a major version of Kubernetes.
 
@@ -22,7 +22,7 @@ The Kubernetes project has a well-documented [deprecation policy](https://kubern
 
 * Alpha or experimental API versions may be removed in any release without prior deprecation notice.
 
-Whether an API is removed because a feature graduated from beta to stable or because that API simply did not succeed, all removals comply with this deprecation policy. Whenever an API is removed, migration options are communicated in the [documentation](https://kubernetes.io/docs/reference/using-api/deprecation-guide/).
+Whether an API is removed because a feature graduated from beta to stable or because that API simply did not succeed, all removals comply with this deprecation policy. Whenever an API is removed, migration options are communicated in the [documentation](/docs/reference/using-api/deprecation-guide/).
 
 ## A note about SHA-1 signature support fully going away in go1.24
 
@@ -37,7 +37,7 @@ Please see [Kubernetes issue #125689](https://github.com/kubernetes/kubernetes/i
 ### Deprecate kustomize from kubectl [KEP 4706](https://github.com/kubernetes/enhancements/issues/4706)
 In the early days of Kubernetes, when not that many tools in the field of declarative configurations existed, [kustomize](https://github.com/kubernetes-sigs/kustomize) was introduced, and to make life easier for kubectl users, it was included in kubectl by default.
 
-Over the past several years, the ecosystem around Kubernetes has grown significantly, resulting in a wider spread of tooling, including declarative configuration. With these new options, it's best left to the user to match their use cases with the best tool capable of resolving the problem at hand. Using [kubectl plugins](https://kubernetes.io/docs/tasks/extend-kubectl/kubectl-plugins/), users can choose the best tool to match their needs.
+Over the past several years, the ecosystem around Kubernetes has grown significantly, resulting in a wider spread of tooling, including declarative configuration. With these new options, it's best left to the user to match their use cases with the best tool capable of resolving the problem at hand. Using [kubectl plugins](/docs/tasks/extend-kubectl/kubectl-plugins/), users can choose the best tool to match their needs.
 
 With Kubernetes v1.31, kustomize will be deprecated from kubectl. It will be removed in a future release. This will allow both tools to be developed and maintained separately.
 
@@ -53,7 +53,7 @@ After deprecation, users can no longer retrieve the kube-proxy version from the 
 
 ### Removal of in-tree cloud providers - sig-cloudprovider
 
-As highlighted in our [previous blog](https://kubernetes.io/blog/2024/05/20/completing-cloud-provider-migration/), the last bits of in-tree cloud provider code have been removed.
+As highlighted in our [previous blog](/blog/2024/05/20/completing-cloud-provider-migration/), the last bits of in-tree cloud provider code have been removed.
 This milestone marks the completion of the externalization process for all cloud providers' integrations from the Kubernetes core ([KEP-2395](https://github.com/kubernetes/enhancements/blob/master/keps/sig-cloud-provider/2395-removing-in-tree-cloud-providers/README.md)), a process started with Kubernetes v1.26. This change helps Kubernetes to get closer to being a truly vendor-neutral platform.
 
 For further details on the cloud provider integrations, read our [v1.29 Cloud Provider Integrations feature blog](https://kubernetes.io/blog/2023/12/14/cloud-provider-integration-changes/). For additional context about the in-tree code removal, we invite you to check the ([v1.29 deprecation blog](https://kubernetes.io/blog/2023/11/16/kubernetes-1-29-upcoming-changes/#removal-of-in-tree-integrations-with-cloud-providers-kep-2395-https-kep-k8s-io-2395)).
@@ -67,14 +67,14 @@ The Kubelet flag `--keep-terminated-pod-volumes`, which was deprecated in 2017, 
 You can find more details in the pull request [#122082](https://github.com/kubernetes/kubernetes/pull/122082).
 
 ### Removal of CephFS volume plugin 
-[CephFS volume plugin](https://kubernetes.io/docs/concepts/storage/volumes/#cephfs) was removed in this release and the `cephFS` volume type became non-functional. 
+[CephFS volume plugin](/docs/concepts/storage/volumes/#cephfs) was removed in this release and the `cephFS` volume type became non-functional. 
 
 It is recommended that you use the [CephFS CSI driver](https://github.com/ceph/ceph-csi/) as a third-party storage driver instead. If you were using the CephFS volume plugin before upgrading the cluster version to v1.31, you must re-deploy your application to use the new driver.
 
 CephFS volume plugin was formally marked as deprecated in v1.28.
 
 ### Removal of Ceph RBD volume plugin
-This release removed the [Ceph RBD volume plugin](https://kubernetes.io/docs/concepts/storage/volumes/#rbd) and its CSI migration support, making the Ceph RBD volume type non-functional.
+This release removed the [Ceph RBD volume plugin](/docs/concepts/storage/volumes/#rbd) and its CSI migration support, making the Ceph RBD volume type non-functional.
 
 It's recommended that you use the [RBD CSI driver](https://github.com/ceph/ceph-csi/) in your clusters instead. If you were using Ceph RBD volume plugin before upgrading the cluster version to v1.31, you must re-deploy your application to use the new driver.
 
@@ -82,23 +82,23 @@ The CephRBD volume plugin was formally marked as deprecated in v1.28.
 
 ### Deprecation of Non-CSI Volume Limit Plugins in Kube-scheduler 
 
-The `kube-scheduler` has deprecated all non-CSI volume limit plugins and removed them from the [default plugins](https://kubernetes.io/docs/reference/scheduling/config/), including:
+The `kube-scheduler` has deprecated all non-CSI volume limit plugins and removed them from the [default plugins](/docs/reference/scheduling/config/), including:
 
 - AzureDiskLimits
 - CinderLimits
 - EBSLimits
 - GCEPDLimits
 
-Its recommended that you use `NodeVolumeLimits` plugin instead because it can handle the same functionality as the removed plugins since those volume types have been migrated to CSI. Please replace the deprecated plugins with the `NodeVolumeLimits` plugin if you explicitly use them in the [scheduler config](https://kubernetes.io/docs/reference/scheduling/config/). The `AzureDiskLimits`, `CinderLimits`, `EBSLimits`, and `GCEPDLimits` plugins will be removed in Kubernetes v1.32.
+Its recommended that you use `NodeVolumeLimits` plugin instead because it can handle the same functionality as the removed plugins since those volume types have been migrated to CSI. Please replace the deprecated plugins with the `NodeVolumeLimits` plugin if you explicitly use them in the [scheduler config](/docs/reference/scheduling/config/). The `AzureDiskLimits`, `CinderLimits`, `EBSLimits`, and `GCEPDLimits` plugins will be removed in Kubernetes v1.32.
 
 These plugins have been removed from the default plugins as they have been marked as deprecated since Kubernetes v1.14.
 
 ## Looking ahead
-The official list of API removals planned for [Kubernetes v1.32](https://kubernetes.io/docs/reference/using-api/deprecation-guide/#v1-32) include:
+The official list of API removals planned for [Kubernetes v1.32](/docs/reference/using-api/deprecation-guide/#v1-32) include:
 
 * The `flowcontrol.apiserver.k8s.io/v1beta3` API version of FlowSchema and PriorityLevelConfiguration will be removed. To prepare for this, you can edit your existing manifests and rewrite client software to use the `flowcontrol.apiserver.k8s.io/v1 API` version, available since v1.29. All existing persisted objects are accessible via the new API. Notable changes in flowcontrol.apiserver.k8s.io/v1beta3 include that the PriorityLevelConfiguration `spec.limited.nominalConcurrencyShares` field only defaults to 30 when unspecified, and an explicit value of 0 is not changed to 30.
 
-For more information please refer to [these docs](https://kubernetes.io/docs/reference/using-api/deprecation-guide/#v1-32).
+For more information please refer to [these docs](/docs/reference/using-api/deprecation-guide/#v1-32).
 
 ## Want to know more?
 The Kubernetes release notes announce deprecations. We will formally announce the deprecations in [Kubernetes v1.31](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#deprecation) as part of the CHANGELOG for that release.
