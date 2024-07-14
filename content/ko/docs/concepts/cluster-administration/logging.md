@@ -81,7 +81,8 @@ kubectl logs counter -c count
 
 ![노드 레벨 로깅](/images/docs/user-guide/logging/logging-node-level.png)
 
-컨테이너화된 애플리케이션의 `stdout(표준 출력)` 및 `stderr(표준 에러)` 스트림에 의해 생성된 모든 출력은 컨테이너 런타임이 처리하고 리디렉션 시킨다.
+컨테이너화된 애플리케이션의 `stdout(표준 출력)` 및 `stderr(표준 에러)` 스트림에 의해 생성된 모든 출력은
+컨테이너 런타임이 처리하고 리디렉션 시킨다.
 다양한 컨테이너 런타임들은 이를 각자 다른 방법으로 구현하였지만,
 kubelet과의 호환성은 _CRI 로깅 포맷_ 으로 표준화되어 있다.
 
@@ -103,7 +104,7 @@ kubelet은 이 정보를 컨테이너 런타임에 전송하고(CRI를 사용),
 
 [kubelet 설정 파일](/docs/tasks/administer-cluster/kubelet-config-file/)을 사용하여
 두 개의 kubelet 파라미터
-[`containerLogMaxSize` 및 `containerLogMaxFiles`](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)를 설정 가능하다.
+[`containerLogMaxSize` 및 `containerLogMaxFiles`](/docs/reference/config-api/kubelet-config.v1beta1/)를 설정 가능하다.
 이러한 설정을 통해 각 로그 파일의 최대 크기와 각 컨테이너에 허용되는 최대 파일 수를 각각 구성할 수 있다.
 
 기본 로깅 예제에서와 같이 [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs)를
@@ -201,7 +202,8 @@ etcd와 etcd의 로그를 기록하는 방식에 대한 자세한 정보는 [etc
 
 ## 클러스터-레벨 로깅 아키텍처 {#cluster-level-logging-architectures}
 
-쿠버네티스는 클러스터-레벨 로깅을 위한 네이티브 솔루션을 제공하지 않지만, 고려해야 할 몇 가지 일반적인 접근 방법을 고려할 수 있다. 여기 몇 가지 옵션이 있다.
+쿠버네티스는 클러스터-레벨 로깅을 위한 네이티브 솔루션을 제공하지 않지만,
+고려해야 할 몇 가지 일반적인 접근 방법을 고려할 수 있다. 여기 몇 가지 옵션이 있다.
 
 * 모든 노드에서 실행되는 노드-레벨 로깅 에이전트를 사용한다.
 * 애플리케이션 파드에 로깅을 위한 전용 사이드카 컨테이너를 포함한다.
@@ -211,7 +213,9 @@ etcd와 etcd의 로그를 기록하는 방식에 대한 자세한 정보는 [etc
 
 ![노드 레벨 로깅 에이전트 사용](/images/docs/user-guide/logging/logging-with-node-agent.png)
 
-각 노드에 _노드-레벨 로깅 에이전트_ 를 포함시켜 클러스터-레벨 로깅을 구현할 수 있다. 로깅 에이전트는 로그를 노출하거나 로그를 백엔드로 푸시하는 전용 도구이다. 일반적으로, 로깅 에이전트는 해당 노드의 모든 애플리케이션 컨테이너에서 로그 파일이 있는 디렉터리에 접근할 수 있는 컨테이너이다.
+각 노드에 _노드-레벨 로깅 에이전트_ 를 포함시켜 클러스터-레벨 로깅을 구현할 수 있다.
+로깅 에이전트는 로그를 노출하거나 로그를 백엔드로 푸시하는 전용 도구이다.
+일반적으로, 로깅 에이전트는 해당 노드의 모든 애플리케이션 컨테이너에서 로그 파일이 있는 디렉터리에 접근할 수 있는 컨테이너이다.
 
 로깅 에이전트는 모든 노드에서 실행되어야 하므로, 에이전트를
 `DaemonSet` 으로 동작시키는 것을 추천한다.
