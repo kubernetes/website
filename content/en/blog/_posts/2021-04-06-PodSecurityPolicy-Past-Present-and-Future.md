@@ -3,8 +3,9 @@ layout: blog
 title: "PodSecurityPolicy Deprecation: Past, Present, and Future"
 date: 2021-04-06
 slug: podsecuritypolicy-deprecation-past-present-and-future
+author: >
+  Tabitha Sable (Kubernetes SIG Security)
 ---
-**Author:** Tabitha Sable (Kubernetes SIG Security)
 
 {{% pageinfo color="primary" %}}
 **Update:** *With the release of Kubernetes v1.25, PodSecurityPolicy has been removed.*

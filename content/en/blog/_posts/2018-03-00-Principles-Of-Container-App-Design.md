@@ -3,6 +3,8 @@ title: "Principles of Container-based Application Design"
 date: 2018-03-15
 slug: principles-of-container-app-design
 url: /blog/2018/03/Principles-Of-Container-App-Design
+author: >
+   [Bilgin Ibryam](http://twitter.com/bibryam) (Red Hat)
 ---
 
 It's possible nowadays to put almost any application in a container and run it. Creating cloud-native applications, however—containerized applications that are automated and orchestrated effectively by a cloud-native platform such as Kubernetes—requires additional effort. Cloud-native applications anticipate failure; they run and scale reliably even when their infrastructure experiences outages. To offer such capabilities, cloud-native platforms like Kubernetes impose a set of contracts and constraints on applications. These contracts ensure that applications they run conform to certain constraints and allow the platform to automate application management.
@@ -34,8 +36,6 @@ The white paper is freely available for download:
 
 
 To read more about designing cloud-native applications for Kubernetes, check out my [Kubernetes Patterns][3] book.
-
-— [Bilgin Ibryam][4], Principal Architect, Red Hat
 
 Twitter:    
 Blog: [http://www.ofbizian.com][5]  

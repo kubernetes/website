@@ -3,9 +3,9 @@ layout: blog
 title: "Forensic container analysis"
 date: 2023-03-10
 slug: forensic-container-analysis
+author: >
+  Adrian Reber (Red Hat)
 ---
-
-**Authors:** Adrian Reber (Red Hat)
 
 In my previous article, [Forensic container checkpointing in
 Kubernetes][forensic-blog], I introduced checkpointing in Kubernetes

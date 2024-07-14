@@ -575,13 +575,18 @@ for resource usage apply:
 <!--
 Quota and limits are applied based on the effective Pod request and
 limit.
-
-Pod level control groups (cgroups) are based on the effective Pod request and
-limit, the same as the scheduler.
 -->
 配额和限制适用于有效 Pod 的请求和限制值。
 
-Pod 级别的控制组（Cgroup）是基于 Pod 的有效 request 和 limit，与调度器相同。
+<!--
+### Init containers and Linux cgroups {#cgroups}
+
+On Linux, resource allocations for Pod level control groups (cgroups) are based on the effective Pod
+request and limit, the same as the scheduler.
+-->
+### Init 容器和 Linux cgroup    {#cgroups}
+
+在 Linux 上，Pod 级别的 CGroup 资源分配基于 Pod 的有效请求和限制值，与调度程序相同。
 
 <!--
 ### Pod restart reasons

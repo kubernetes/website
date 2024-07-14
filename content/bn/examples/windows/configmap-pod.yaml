@@ -1,0 +1,31 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: example-config
+data:
+  example.property.1: hello
+  example.property.2: world
+
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: configmap-pod
+spec:
+  containers:
+  - name: configmap-redis
+    image: redis:3.0-nanoserver
+    env:
+      - name: EXAMPLE_PROPERTY_1
+        valueFrom:
+          configMapKeyRef:
+            name: example-config
+            key: example.property.1
+      - name: EXAMPLE_PROPERTY_2
+        valueFrom:
+          configMapKeyRef:
+            name: example-config
+            key: example.property.2
+  nodeSelector:
+    kubernetes.io/os: windows

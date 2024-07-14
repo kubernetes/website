@@ -3,6 +3,8 @@ title: " State of the Container World, January 2016 "
 date: 2016-02-01
 slug: state-of-container-world-january-2016
 url: /blog/2016/02/State-Of-Container-World-January-2016
+author: >
+   Brendan Burns (Google)
 ---
 At the start of the new year, we sent out a survey to gauge the state of the container world. We’re ready to send the [February edition](https://docs.google.com/forms/d/13yxxBqb5igUhwrrnDExLzZPjREiCnSs-AH-y4SSZ-5c/viewform), but before we do, let’s take a look at the January data from the 119 responses (thank you for participating!).  
 
@@ -53,6 +55,4 @@ Finally, we asked people for free-text answers about the challenges of working w
 - “Storage”
 - “Persistent Data”
 
-_Download the full survey results [here](https://docs.google.com/spreadsheets/d/18wZe7wEDvRuT78CEifs13maXoSGem_hJvbOSmsuJtkA/pub?gid=530616014&single=true&output=csv) (CSV file)._  
-
-_Up-- Brendan Burns, Software Engineer, Google  
+_Download the full survey results [here](https://docs.google.com/spreadsheets/d/18wZe7wEDvRuT78CEifs13maXoSGem_hJvbOSmsuJtkA/pub?gid=530616014&single=true&output=csv) (CSV file)._ 

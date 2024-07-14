@@ -2,9 +2,9 @@
 layout: blog
 title:  'Dynamically Expand Volume with CSI and Kubernetes'
 date:   2018-08-02
+author: >
+  Orain Xiong (WoquTech) 
 ---
-
-**Author**: Orain Xiong (Co-Founder, WoquTech)
 
 _There is a very powerful storage subsystem within Kubernetes itself, covering a fairly broad spectrum of use cases. Whereas, when planning to build a product-grade relational database platform with Kubernetes, we face a big challenge: coming up with storage. This article describes how to extend latest Container Storage Interface 0.2.0 and integrate with Kubernetes, and demonstrates the essential facet of dynamically expanding volume capacity._
 

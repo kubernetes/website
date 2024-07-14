@@ -20,6 +20,13 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
 This tutorial assumes that you are using `minikube` to run a local Kubernetes cluster.
 Visit [Install tools](/docs/tasks/tools/#minikube) to learn how to install `minikube`.
 
+{{< note >}}
+This tutorial uses a container that requires the AMD64 architecture. 
+If you are using minikube on a computer with a different CPU architecture,
+you could try using minikube with a driver that can emulate AMD64.
+For example, the Docker Desktop driver can do this.
+{{< /note >}}
+
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 If you are using an older Kubernetes version, switch to the documentation for that version.
 
@@ -70,6 +77,21 @@ If you haven't already set up a cluster locally, run `minikube start` to create 
    ```none
    deployment.apps/web created
    ```
+   
+   Verify that the Deployment is in a Ready state:
+   
+   ```shell
+   kubectl get deployment web 
+   ```  
+
+   The output should be similar to:
+
+   ```none
+   NAME   READY   UP-TO-DATE   AVAILABLE   AGE
+   web    1/1     1            1           53s
+   ``` 
+    
+    
 
 1. Expose the Deployment:
 
@@ -96,22 +118,40 @@ If you haven't already set up a cluster locally, run `minikube start` to create 
    web       NodePort   10.104.133.249   <none>        8080:31637/TCP   12m
    ```
 
-1. Visit the Service via NodePort:
+1. Visit the Service via NodePort, using the [`minikube service`](https://minikube.sigs.k8s.io/docs/handbook/accessing/#using-minikube-service-with-tunnel) command. Follow the instructions for your platform:
 
+   {{< tabs name="minikube_service" >}}
+   {{% tab name="Linux" %}}
+   
    ```shell
    minikube service web --url
    ```
-
    The output is similar to:
-
    ```none
    http://172.17.0.15:31637
    ```
-
+   Invoke the URL obtained in the output of the previous step:
    ```shell
    curl http://172.17.0.15:31637 
    ```
-
+   {{% /tab %}}
+   {{% tab name="MacOS" %}}
+   ```shell
+   # The command must be run in a separate terminal.
+   minikube service web --url 
+   ```
+   The output is similar to:
+   ```none
+   http://127.0.0.1:62445
+   ! Because you are using a Docker driver on darwin, the terminal needs to be open to run it.
+   ```
+   From a different terminal, invoke the URL obtained in the output of the previous step:
+   ```shell
+   curl http://127.0.0.1:62445 
+   ```
+   {{% /tab %}}
+   {{< /tabs >}}
+   <br>
    The output is similar to:
 
    ```none
@@ -126,7 +166,7 @@ If you haven't already set up a cluster locally, run `minikube start` to create 
 ## Create an Ingress
 
 The following manifest defines an Ingress that sends traffic to your Service via
-`hello-world.info`.
+`hello-world.example`.
 
 1. Create `example-ingress.yaml` from the following file:
 
@@ -157,17 +197,51 @@ The following manifest defines an Ingress that sends traffic to your Service via
    You should see an IPv4 address in the `ADDRESS` column; for example:
 
    ```none
-   NAME              CLASS    HOSTS              ADDRESS        PORTS   AGE
-   example-ingress   <none>   hello-world.info   172.17.0.15    80      38s
+   NAME              CLASS   HOSTS                 ADDRESS        PORTS   AGE
+   example-ingress   nginx   hello-world.example   172.17.0.15    80      38s
    ```
 
 
-1. Verify that the Ingress controller is directing traffic:
+1. Verify that the Ingress controller is directing traffic, by following the instructions for your platform:
+
+   {{< note >}}
+   The network is limited if using the Docker driver on MacOS (Darwin) and the Node IP is not reachable directly. To get ingress to work you’ll need to open a new terminal and run `minikube tunnel`.  
+   `sudo` permission is required for it, so provide the password when prompted. 
+   {{< /note >}}    
+
+
+   {{< tabs name="ingress" >}}
+   {{% tab name="Linux" %}}
 
    ```shell
-   curl --resolve "hello-world.info:80:$( minikube ip )" -i http://hello-world.info
+   curl --resolve "hello-world.example:80:$( minikube ip )" -i http://hello-world.example
+   ```
+   {{% /tab %}}
+   {{% tab name="MacOS" %}}
+
+   ```shell
+   minikube tunnel
+   ```
+   The output is similar to:
+
+   ```none
+   Tunnel successfully started
+
+   NOTE: Please do not close this terminal as this process must stay alive for the tunnel to be accessible ...
+
+   The service/ingress example-ingress requires privileged ports to be exposed: [80 443]
+   sudo permission will be asked for it.
+   Starting tunnel for service example-ingress.
    ```
 
+   From within a new terminal, invoke the following command:
+   ```shell
+   curl --resolve "hello-world.example:80:127.0.0.1" -i http://hello-world.example
+   ```
+
+   {{% /tab %}}
+  {{< /tabs >}}
+   <br>
    You should see:
 
    ```none
@@ -176,27 +250,38 @@ The following manifest defines an Ingress that sends traffic to your Service via
    Hostname: web-55b8c6998d-8k564
    ```
 
-   You can also visit `hello-world.info` from your browser.
+1. Optionally, you can also visit `hello-world.example` from your browser.
 
-   * **Optionally**
-     Look up the external IP address as reported by minikube:
-     ```shell
-     minikube ip
-     ```
-
-     Add line similar to the following one to the bottom of the `/etc/hosts` file on
+   Add a line to the bottom of the `/etc/hosts` file on
      your computer (you will need administrator access):
 
-     ```none
-     172.17.0.15 hello-world.info
-     ```
+     {{< tabs name="hosts" >}}
+     {{% tab name="Linux" %}}
+   Look up the external IP address as reported by minikube
+   ```none
+     minikube ip 
+   ``` 
+   <br>
 
-     {{< note >}}
-     Change the IP address to match the output from `minikube ip`.
-     {{< /note >}}
-
+   ```none
+     172.17.0.15 hello-world.example
+   ```
+   
+   {{< note >}}
+   Change the IP address to match the output from `minikube ip`.
+   {{< /note >}}
+   {{% /tab %}}
+     {{% tab name="MacOS" %}} 
+   ```none
+   127.0.0.1 hello-world.example
+   ```
+     {{% /tab %}}
+     {{< /tabs >}}
+   
+     <br>
+   
      After you make this change, your web browser sends requests for
-     `hello-world.info` URLs to Minikube.
+     `hello-world.example` URLs to Minikube.
 
 ## Create a second Deployment
 
@@ -211,6 +296,18 @@ The following manifest defines an Ingress that sends traffic to your Service via
    ```none
    deployment.apps/web2 created
    ```
+   Verify that the Deployment is in a Ready state:
+
+   ```shell
+   kubectl get deployment web2 
+   ```  
+
+   The output should be similar to:
+
+   ```none
+   NAME   READY   UP-TO-DATE   AVAILABLE   AGE
+   web2   1/1     1            1           16s
+   ``` 
 
 1. Expose the second Deployment:
 
@@ -255,9 +352,38 @@ The following manifest defines an Ingress that sends traffic to your Service via
 
 1. Access the 1st version of the Hello World app.
 
+   {{< tabs name="ingress2-v1" >}}
+   {{% tab name="Linux" %}}
+
    ```shell
-   curl --resolve "hello-world.info:80:$( minikube ip )" -i http://hello-world.info
+   curl --resolve "hello-world.example:80:$( minikube ip )" -i http://hello-world.example
    ```
+   {{% /tab %}}
+   {{% tab name="MacOS" %}}
+
+   ```shell
+   minikube tunnel
+   ```
+   The output is similar to:
+
+   ```none
+   Tunnel successfully started
+
+   NOTE: Please do not close this terminal as this process must stay alive for the tunnel to be accessible ...
+
+   The service/ingress example-ingress requires privileged ports to be exposed: [80 443]
+   sudo permission will be asked for it.
+   Starting tunnel for service example-ingress.
+   ```
+
+   From within a new terminal, invoke the following command:
+   ```shell
+   curl --resolve "hello-world.example:80:127.0.0.1" -i http://hello-world.example
+   ```
+
+   {{% /tab %}}
+   {{< /tabs >}}
+   <br>
 
    The output is similar to:
 
@@ -269,9 +395,37 @@ The following manifest defines an Ingress that sends traffic to your Service via
 
 1. Access the 2nd version of the Hello World app.
 
+   {{< tabs name="ingress2-v2" >}}
+   {{% tab name="Linux" %}}
+
    ```shell
-   curl --resolve "hello-world.info:80:$( minikube ip )" -i http://hello-world.info/v2
+   curl --resolve "hello-world.example:80:$( minikube ip )" -i http://hello-world.example/v2
    ```
+   {{% /tab %}}
+   {{% tab name="MacOS" %}}
+
+   ```shell
+   minikube tunnel
+   ```
+   The output is similar to:
+
+   ```none
+   Tunnel successfully started
+
+   NOTE: Please do not close this terminal as this process must stay alive for the tunnel to be accessible ...
+
+   The service/ingress example-ingress requires privileged ports to be exposed: [80 443]
+   sudo permission will be asked for it.
+   Starting tunnel for service example-ingress.
+   ```
+
+   From within a new terminal, invoke the following command:
+   ```shell
+   curl --resolve "hello-world.example:80:127.0.0.1" -i http://hello-world.example/v2
+   ```
+
+   {{% /tab %}}
+   {{< /tabs >}}
 
    The output is similar to:
 
@@ -282,8 +436,8 @@ The following manifest defines an Ingress that sends traffic to your Service via
    ```
 
    {{< note >}}
-   If you did the optional step to update `/etc/hosts`, you can also visit `hello-world.info` and
-   `hello-world.info/v2` from your browser.
+   If you did the optional step to update `/etc/hosts`, you can also visit `hello-world.example` and
+   `hello-world.example/v2` from your browser.
    {{< /note >}}
 
 ## {{% heading "whatsnext" %}}

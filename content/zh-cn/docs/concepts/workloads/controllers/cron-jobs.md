@@ -1,5 +1,8 @@
 ---
 title: CronJob
+api_metadata:
+- apiVersion: "batch/v1"
+  kind: "CronJob"
 content_type: concept
 description: >-
   CronJob 通过重复调度启动一次性的 Job。
@@ -12,6 +15,9 @@ reviewers:
 - soltysh
 - janetkuo
 title: CronJob
+api_metadata:
+- apiVersion: "batch/v1"
+  kind: "CronJob"
 content_type: concept
 description: >-
   A CronJob starts one-time Jobs on a repeating schedule.
@@ -310,18 +316,28 @@ When `.spec.suspend` changes from `true` to `false` on an existing CronJob witho
 <!--
 ### Jobs history limits
 
-The `.spec.successfulJobsHistoryLimit` and `.spec.failedJobsHistoryLimit` fields are optional.
-These fields specify how many completed and failed Jobs should be kept.
-By default, they are set to 3 and 1 respectively.  Setting a limit to `0` corresponds to keeping
-none of the corresponding kind of Jobs after they finish.
+The `.spec.successfulJobsHistoryLimit` and `.spec.failedJobsHistoryLimit` fields specify
+how many completed and failed Jobs should be kept. Both fields are optional.
 
-For another way to clean up Jobs automatically, see [Clean up finished Jobs automatically](/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically).
+* `.spec.successfulJobsHistoryLimit`: This field specifies the number of successful finished
+jobs to keep. The default value is `3`. Setting this field to `0` will not keep any successful jobs.
+
+* `.spec.failedJobsHistoryLimit`: This field specifies the number of failed finished jobs to keep.
+The default value is `1`. Setting this field to `0` will not keep any failed jobs.
+
+For another way to clean up Jobs automatically, see
+[Clean up finished Jobs automatically](/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically).
 -->
 ### 任务历史限制   {#jobs-history-limits}
 
-`.spec.successfulJobsHistoryLimit` 和 `.spec.failedJobsHistoryLimit` 字段是可选的。
-这两个字段指定应保留多少已完成和失败的 Job。
-默认设置分别为 3 和 1。将限制设置为 `0` 代表相应类型的 Job 完成后不会保留。
+`.spec.successfulJobsHistoryLimit` 和 `.spec.failedJobsHistoryLimit`
+字段指定应保留多少已完成和失败的 Job。这两个字段都是可选的。
+
+* `.spec.successfulJobsHistoryLimit`：此字段指定要保留多少成功完成的 Job。默认值为 `3`。
+ 将此字段设置为 `0` 意味着不会保留任何成功的 Job。
+
+* `.spec.failedJobsHistoryLimit`：此字段指定要保留多少失败完成的 Job。默认值为 `1`。
+ 将此字段设置为 `0` 意味着不会保留任何失败的 Job。
 
 有关自动清理 Job 的其他方式，
 请参见[自动清理完成的 Job](/zh-cn/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically)。
@@ -362,7 +378,7 @@ Go 标准库中的时区数据库包含在二进制文件中，并用作备用�
 
 ### Unsupported TimeZone specification
 -->
-## CronJob 的限制    {#cronjob-limitations}
+## CronJob 的限制    {#cron-job-limitations}
 
 ### 不支持的时区规范   {#unsupported-timezone-spec}
 

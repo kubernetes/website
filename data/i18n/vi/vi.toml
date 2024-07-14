@@ -65,13 +65,13 @@ other = "Bạn đang xem tài liệu cho phiên bản Kubernetes:"
 other = " tài liệu này không còn được duy trì tích cực. Phiên bản bạn đang xem hiện là một bản chụp tĩnh. Để biết thông tin cập nhật, hãy xem "
 
 [deprecation_file_warning]
-other = "Đã lạc thú"
+other = "Đã lỗi thời"
 
 [outdated_content_title]
-other = "Thông tin trong tài liệu này có thể đã lạc thú"
+other = "Thông tin trong tài liệu này có thể đã lỗi thời"
 
 [outdated_content_message]
-other = "Tài liệu này có ngày cập nhật cũ hơn so với bản gốc, vì vậy thông tin mà nó chứa có thể đã lạc thú. Nếu bạn có thể đọc tiếng Anh, hãy xem phiên bản tiếng Anh để có thông tin mới nhất: "
+other = "Tài liệu này có ngày cập nhật cũ hơn so với bản gốc, vì vậy thông tin mà nó chứa có thể đã lỗi thời. Nếu bạn có thể đọc tiếng Anh, hãy xem phiên bản tiếng Anh để có thông tin mới nhất: "
 
 [dockershim_message]
 other = """Dockershim đã được loại bỏ khỏi dự án Kubernetes kể từ phiên bản 1.24. Đọc <a href="/dockershim">Dockershim Removal FAQ</a> để biết thêm chi tiết."""
@@ -122,7 +122,7 @@ other = "Beta"
 other = "GA"
 
 [feature_gate_stage_deprecated]
-other = "Đã lạc thú"
+other = "Đã lỗi thời"
 
 [feature_gate_table_header_default]
 other = "Mặc định"
@@ -316,10 +316,10 @@ other = "Đang tìm kết quả..."
 
 [legacy_repos_message]
 other = """Các kho lưu trữ gói cũ (`apt.kubernetes.io` và `yum.kubernetes.io`) đã bị
-[lạc thú và đóng băng từ ngày 13 tháng 9, 2023](/blog/2023/08/31/legacy-package-repository-deprecation/).
+[lỗi thời và đóng băng từ ngày 13 tháng 9, 2023](/blog/2023/08/31/legacy-package-repository-deprecation/).
 **Sử dụng [các kho lưu trữ mới được đặt tại `pkgs.k8s.io`](/blog/2023/08/15/pkgs-k8s-io-introduction/)
 được khuyến nghị mạnh mẽ và yêu cầu để cài đặt các phiên bản Kubernetes phát hành sau ngày 13 tháng 9, 2023.**
-Các kho cũ đã lạc thú, và nội dung của chúng, có thể bị xóa bất kỳ lúc nào trong tương lai và mà không có
+Các kho cũ đã lỗi thời, và nội dung của chúng, có thể bị xóa bất kỳ lúc nào trong tương lai và mà không có
 thêm thông báo. Các kho lưu trữ mới cung cấp tải về cho các phiên bản Kubernetes bắt đầu từ v1.24.0."""
 
 [main_by]
@@ -384,7 +384,7 @@ other = "Mục tiêu"
 other = "Tùy chọn"
 
 [outdated_blog__message]
-other = "Bài viết này đã có hơn một năm. Các bài viết cũ có thể chứa thông tin lạc thú. Hãy kiểm tra xem thông tin trong trang có không chính xác so với thời điểm xuất bản."
+other = "Bài viết này đã có hơn một năm. Các bài viết cũ có thể chứa thông tin lỗi thời. Hãy kiểm tra xem thông tin trong trang có không chính xác so với thời điểm xuất bản."
 
 [patch_release]
 other = "Bản Phát hành Patch"

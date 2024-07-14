@@ -97,7 +97,7 @@ kubectl create token SERVICE_ACCOUNT_NAME
 <td colspan="2">--duration duration</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Requested lifetime of the issued token. If not set, the lifetime will be determined by the server automatically. The server may return a token with a longer or shorter lifetime.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Requested lifetime of the issued token. If not set or if set to 0, the lifetime will be determined by the server automatically. The server may return a token with a longer or shorter lifetime.</p></td>
 </tr>
 
 <tr>
@@ -161,13 +161,6 @@ kubectl create token SERVICE_ACCOUNT_NAME
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>UID to impersonate for the operation.</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--azure-container-registry-config string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to the file containing Azure container registry configuration information.</p></td>
 </tr>
 
 <tr>

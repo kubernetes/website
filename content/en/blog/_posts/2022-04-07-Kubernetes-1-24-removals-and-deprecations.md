@@ -3,9 +3,9 @@ layout: blog
 title: "Kubernetes Removals and Deprecations In 1.24"
 date: 2022-04-07
 slug: upcoming-changes-in-kubernetes-1-24
+author: >
+   Mickey Boxell (Oracle)
 ---
-
-**Author**: Mickey Boxell (Oracle)
 
 As Kubernetes evolves, features and APIs are regularly revisited and removed. New features may offer
 an alternative or improved approach to solving existing problems, motivating the team to remove the

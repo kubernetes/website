@@ -3,6 +3,8 @@ title: " Five Days of Kubernetes 1.2 "
 date: 2016-03-28
 slug: five-days-of-kubernetes-12
 url: /blog/2016/03/Five-Days-Of-Kubernetes-12
+author: >
+  David Aronchick (Google)
 ---
 The Kubernetes project has had some huge milestones over the past few weeks. We released [Kubernetes 1.2](https://kubernetes.io/blog/2016/03/kubernetes-1-2-even-more-performance-upgrades-plus-easier-application-deployment-and-management), had our [first conference in Europe](https://kubecon.io/), and were accepted into the [Cloud Native Computing Foundation](https://cncf.io/). While we catch our breath, we would like to take a moment to highlight some of the great work contributed by the community since our last milestone, just four months ago.
 
@@ -47,7 +49,4 @@ BONUS
 
 
 
-You can follow us on twitter here [@Kubernetesio](https://twitter.com/kubernetesio)  
-
-
-_--David Aronchick, Senior Product Manager for Kubernetes, Google_
+You can follow us on twitter here [@Kubernetesio](https://twitter.com/kubernetesio)

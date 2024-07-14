@@ -1,7 +1,7 @@
 ---
 title: 动态准入控制
 content_type: concept
-weight: 40
+weight: 45
 ---
 <!--
 reviewers:
@@ -13,7 +13,7 @@ reviewers:
 - jpbetz
 title: Dynamic Admission Control
 content_type: concept
-weight: 40
+weight: 45
 -->
 
 <!-- overview -->
@@ -93,8 +93,8 @@ In the following, we describe how to quickly experiment with admission webhooks.
 ### 先决条件 {#prerequisites}
 
 * 确保启用 MutatingAdmissionWebhook 和 ValidatingAdmissionWebhook 控制器。
-  [这里](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#is-there-a-recommended-set-of-admission-controllers-to-use)
-  是一组推荐的 admission 控制器，通常可以启用。
+  [这里](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#is-there-a-recommended-set-of-admission-controllers-to-use)是一组推荐的准入控制器，
+  通常可以启用。
 
 * 确保启用了 `admissionregistration.k8s.io/v1` API。
 
@@ -110,8 +110,8 @@ that is validated in a Kubernetes e2e test. The webhook handles the
 as an `AdmissionReview` object in the same version it received.
 -->
 请参阅 Kubernetes e2e 测试中的
-[Admission Webhook 服务器](https://github.com/kubernetes/kubernetes/blob/release-1.21/test/images/agnhost/webhook/main.go)
-的实现。Webhook 处理由 API 服务器发送的 `AdmissionReview` 请求，并且将其决定作为
+[Admission Webhook 服务器](https://github.com/kubernetes/kubernetes/blob/release-1.21/test/images/agnhost/webhook/main.go)的实现。
+Webhook 处理由 API 服务器发送的 `AdmissionReview` 请求，并且将其决定作为
 `AdmissionReview` 对象以相同版本发送回去。
 
 <!--
@@ -284,8 +284,8 @@ Webhook 提供身份证明。完成此配置需要三个步骤。
 * 启动 API 服务器时，通过 `--admission-control-config-file` 参数指定准入控制配置文件的位置。
 
 * 在准入控制配置文件中，指定 MutatingAdmissionWebhook 控制器和 ValidatingAdmissionWebhook 控制器应该读取凭据的位置。
-凭证存储在 kubeConfig 文件中（是​​的，与 kubectl 使用的模式相同），因此字段名称为 `kubeConfigFile`。
-以下是一个准入控制配置文件示例：
+  凭证存储在 kubeConfig 文件中（是​​的，与 kubectl 使用的模式相同），因此字段名称为 `kubeConfigFile`。
+  以下是一个准入控制配置文件示例：
 
 {{< tabs name="admissionconfiguration_example1" >}}
 {{% tab name="apiserver.config.k8s.io/v1" %}}
@@ -489,7 +489,6 @@ webhooks:
 - name: my-webhook.example.com
   admissionReviewVersions: ["v1", "v1beta1"]
 ```
-
 
 <!--
 `admissionReviewVersions` is a required field when creating webhook configurations.
@@ -750,7 +749,7 @@ If you're implementing a webhook that returns a warning:
 * Use warning messages to describe problems the client making the API request should correct or be aware of
 * Limit warnings to 120 characters if possible
 -->
-如果你正在实现返回一条警告的 webhook，则：
+如果你正在实现返回一条警告的 Webhook，则：
 
 * 不要在消息中包括 "Warning:" 前缀
 * 使用警告消息描述该客户端进行 API 请求时会遇到或应意识到的问题
@@ -816,7 +815,7 @@ Webhook，则应为每个 Webhook 赋予一个唯一的名称。
 Each webhook must specify a list of rules used to determine if a request to the API server should be sent to the webhook.
 Each rule specifies one or more operations, apiGroups, apiVersions, and resources, and a resource scope:
 -->
-每个 Webhook 必须指定用于确定是否应将对 apiserver 的请求发送到 webhook 的规则列表。
+每个 Webhook 必须指定用于确定是否应将对 apiserver 的请求发送到 Webhook 的规则列表。
 每个规则都指定一个或多个 operations、apiGroups、apiVersions 和 resources 以及资源的 scope：
 
 <!--
@@ -1000,7 +999,7 @@ If the object itself is a namespace, the matching is performed on object.metadat
 If the object is a cluster scoped resource other than a Namespace, `namespaceSelector` has no effect.
 -->
 `namespaceSelector` 根据名字空间的标签是否匹配选择器，决定是否针对具名字空间的资源
-（或 Namespace 对象）的请求运行 webhook。
+（或 Namespace 对象）的请求运行 Webhook。
 如果对象是除 Namespace 以外的集群范围的资源，则 `namespaceSelector` 标签无效。
 
 <!--
@@ -1161,7 +1160,7 @@ The `matchPolicy` for an admission webhooks defaults to `Equivalent`.
 -->
 ### 匹配请求：`matchConditions`  {#matching-requests-matchConditions}
 
-{{< feature-state state="beta" for_k8s_version="v1.28" >}}
+{{< feature-state feature_gate_name="AdmissionWebhookMatchConditions" >}}
 
 <!--
 You can define _match conditions_ for webhooks if you need fine-grained request filtering. These
@@ -1366,7 +1365,7 @@ stanza of the webhook configuration.
 Webhooks can either be called via a URL or a service reference,
 and can optionally include a custom CA bundle to use to verify the TLS connection.
 -->
-API 服务器确定请求应发送到 Webhook 后，它需要知道如何调用 webhook。
+API 服务器确定请求应发送到 Webhook 后，它需要知道如何调用 Webhook。
 此信息在 Webhook 配置的 `clientConfig` 节中指定。
 
 Webhook 可以通过 URL 或服务引用来调用，并且可以选择包含自定义 CA 包，以用于验证 TLS 连接。
@@ -1527,7 +1526,7 @@ Webhook 使用 Webhook 配置中的 `sideEffects` 字段显示它们是否有副
 
 * `None`：调用 Webhook 没有副作用。
 * `NoneOnDryRun`：调用 Webhook 可能会有副作用，但是如果将带有 `dryRun: true`
-  属性的请求发送到 webhook，则 Webhook 将抑制副作用（该 Webhook 可识别 `dryRun`）。
+  属性的请求发送到 Webhook，则 Webhook 将抑制副作用（该 Webhook 可识别 `dryRun`）。
 
 <!--
 Here is an example of a validating webhook indicating it has no side effects on `dryRun: true` requests:
@@ -1621,7 +1620,7 @@ and mutating webhooks can specify a `reinvocationPolicy` to control whether they
 -->
 * `Never`: 在一次准入测试中，不得多次调用 Webhook。
 * `IfNeeded`: 如果在最初的 Webhook 调用之后被其他对象的插件修改了被接纳的对象，
-  则可以作为准入测试的一部分再次调用该 webhook。
+  则可以作为准入测试的一部分再次调用该 Webhook。
 
 <!--
 The important elements to note are:
@@ -1686,7 +1685,7 @@ Here is a mutating webhook configured to reject an API request if errors are enc
 * `Ignore` 表示调用 Webhook 的错误将被忽略并且允许 API 请求继续。
 * `Fail` 表示调用 Webhook 的错误导致准入失败并且 API 请求被拒绝。
 
-这是一个变更性质的 webhook，配置为在调用准入 Webhook 遇到错误时拒绝 API 请求：
+这是一个变更性质的 Webhook，配置为在调用准入 Webhook 遇到错误时拒绝 API 请求：
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
@@ -2087,7 +2086,7 @@ object.
 例如，一个变更性质的准入 Webhook 被配置为在每个 `CREATE` Pod
 请求中注入一个名称为 "foo-sidecar" 的 sidecar 容器。
 
-如果*必须*存在边车容器，则还应配置一个验证性质的准入 Webhook 以拦截
+如果**必须**存在边车容器，则还应配置一个验证性质的准入 Webhook 以拦截
 `CREATE` Pod 请求，并验证要创建的对象中是否存在具有预期配置的名称为
 "foo-sidecar" 的容器。
 
@@ -2163,4 +2162,3 @@ plane, exclude the `kube-system` namespace from being intercepted using a
 如果你的准入 Webhook 不想修改 Kubernetes 控制平面的行为，请使用
 [`namespaceSelector`](#matching-requests-namespaceselector)
 避免拦截 `kube-system` 名字空间。
-

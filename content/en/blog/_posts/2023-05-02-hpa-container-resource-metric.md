@@ -3,9 +3,9 @@ layout: blog
 title: "Kubernetes 1.27: HorizontalPodAutoscaler ContainerResource type metric moves to beta"
 date: 2023-05-02T12:00:00+0800
 slug: hpa-container-resource-metric
+author: >
+   [Kensei Nakada](https://github.com/sanposhiho) (Mercari)
 ---
-
-**Author:** [Kensei Nakada](https://github.com/sanposhiho) (Mercari)
 
 Kubernetes 1.20 introduced the [`ContainerResource` type metric](/docs/tasks/run-application/horizontal-pod-autoscale/#container-resource-metrics)
 in HorizontalPodAutoscaler (HPA).

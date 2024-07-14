@@ -421,12 +421,12 @@ token:          ...
 
 {{< note >}}
 <!--
-The content of `token` is elided here.
+The content of `token` is omitted here.
 
 Take care not to display the contents of a `kubernetes.io/service-account-token`
 Secret somewhere that your terminal / computer screen could be seen by an onlooker.
 -->
-这里将 `token` 的内容抹去了。
+这里将 `token` 的内容省略了。
 
 注意在你的终端或者计算机屏幕可能被旁观者看到的场合，不要显示
 `kubernetes.io/service-account-token` 的内容。

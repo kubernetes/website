@@ -13,5 +13,9 @@ stages:
   - stage: beta
     defaultValue: false
     fromVersion: "1.28"
+    toVersion: "1.29"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.30"
 ---
 Enable [ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/) support for CEL validations be used in Admission Control.

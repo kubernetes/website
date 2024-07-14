@@ -3,8 +3,9 @@ title: " The Bet on Kubernetes, a Red Hat Perspective "
 date: 2016-07-21
 slug: the-bet-on-kubernetes
 url: /blog/2016/07/The-Bet-On-Kubernetes
+author: >
+  Clayton Coleman (Red Hat)
 ---
-_Editor’s note: Today’s guest post is from a Kubernetes contributor Clayton Coleman, Architect on OpenShift at Red Hat, sharing their adoption of the project from its beginnings._  
 
 Two years ago, Red Hat made a big bet on Kubernetes. We bet on a simple idea: that an open source community is the best place to build the future of application orchestration, and that only an open source community could successfully integrate the diverse range of capabilities necessary to succeed. As a Red Hatter, that idea is not far-fetched - we’ve seen it successfully applied in many communities, but we’ve also seen it fail, especially when a broad reach is not supported by solid foundations. On the one year anniversary of Kubernetes 1.0, two years after the first open-source commit to the Kubernetes project, it’s worth asking the question:  
 
@@ -41,6 +42,4 @@ In a recent post to the kubernetes-dev list, Brian Grant [laid out a great set o
 
 Of special interest to us is the story of extension - how the core of Kubernetes can become the beating heart of the datacenter operating system, and enable even more patterns for application management to build on top of Kubernetes, not just into it. Work done in the 1.2 and 1.3 releases around third party APIs, API discovery, flexible scheduler policy, external authorization and authentication (beyond those built into Kubernetes) is just the start. When someone has a need, we want them to easily find a solution, and we also want it to be easy for others to consume and contribute to that solution. Likewise, the best way to prove ideas is to prototype them against real needs and to iterate against real problems, which should be easy and natural.  
 
-By Kubernetes’ second birthday, I hope to reflect back on a long year of refinement, user success, and community participation. It has been a privilege and an honor to contribute to Kubernetes, and it still feels like we are just getting started. Thank you, and I hope you come along for the ride!  
-
-_-- Clayton Coleman, Contributor and Architect on Kubernetes and OpenShift at Red Hat. Follow him on Twitter and GitHub: @smarterclayton_  
+By Kubernetes’ second birthday, I hope to reflect back on a long year of refinement, user success, and community participation. It has been a privilege and an honor to contribute to Kubernetes, and it still feels like we are just getting started. Thank you, and I hope you come along for the ride!

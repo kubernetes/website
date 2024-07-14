@@ -3,9 +3,9 @@ layout: blog
 title: "Introducing ClusterClass and Managed Topologies in Cluster API"
 date: 2021-10-08
 slug: capi-clusterclass-and-managed-topologies
+author: >
+  Fabrizio Pandini (VMware)
 ---
-
-**Author:** Fabrizio Pandini (VMware)
 
 The [Cluster API community](https://cluster-api.sigs.k8s.io/) is happy to announce the implementation of *ClusterClass and Managed Topologies*, a new feature that will greatly simplify how you can provision, upgrade, and operate multiple Kubernetes clusters in a declarative way.
 

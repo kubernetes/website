@@ -20,6 +20,9 @@ To use this repository, you need the following installed locally:
 - [Hugo (Extended version)](https://gohugo.io/)
 - A container runtime, like [Docker](https://www.docker.com/).
 
+> [!NOTE]
+Make sure to install the Hugo extended version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L11) file.
+
 Before you start, install the dependencies. Clone the repository and navigate to the directory:
 
 ```bash
@@ -55,8 +58,6 @@ If you see errors, it probably means that the hugo container did not have enough
 Open up your browser to <http://localhost:1313> to view the website. As you make changes to the source files, Hugo updates the website and forces a browser refresh.
 
 ## Running the website locally using Hugo
-
-Make sure to install the Hugo extended version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L11) file.
 
 To install dependencies, deploy and test the site locally, run:
 
@@ -183,21 +184,22 @@ For more information about contributing to the Kubernetes documentation, see:
 
 If you need help at any point when contributing, the [New Contributor Ambassadors](https://kubernetes.io/docs/contribute/advanced/#serve-as-a-new-contributor-ambassador) are a good point of contact. These are SIG Docs approvers whose responsibilities include mentoring new contributors and helping them through their first few pull requests. The best place to contact the New Contributors Ambassadors would be on the [Kubernetes Slack](https://slack.k8s.io/). Current New Contributors Ambassadors for SIG Docs:
 
-| Name                       | Slack                      | GitHub                     |                   
+| Name                       | Slack                      | GitHub                     |
 | -------------------------- | -------------------------- | -------------------------- |
-| Arsh Sharma                | @arsh                      | @RinkiyaKeDad              |
+| Sreeram Venkitesh          | @sreeram.venkitesh         | @sreeram-venkitesh         |
 
 ## Localization READMEs
 
 | Language                   | Language                   |
 | -------------------------- | -------------------------- |
-| [Chinese](README-zh.md)    | [Korean](README-ko.md)     |
-| [French](README-fr.md)     | [Polish](README-pl.md)     |
-| [German](README-de.md)     | [Portuguese](README-pt.md) |
-| [Hindi](README-hi.md)      | [Russian](README-ru.md)    |
-| [Indonesian](README-id.md) | [Spanish](README-es.md)    |
-| [Italian](README-it.md)    | [Ukrainian](README-uk.md)  |
-| [Japanese](README-ja.md)   | [Vietnamese](README-vi.md) |
+| [Bengali](README-bn.md)    | [Korean](README-ko.md)     |
+| [Chinese](README-zh.md)    | [Polish](README-pl.md)     |
+| [French](README-fr.md)     | [Portuguese](README-pt.md) |
+| [German](README-de.md)     | [Russian](README-ru.md)    |
+| [Hindi](README-hi.md)      | [Spanish](README-es.md)    |
+| [Indonesian](README-id.md) | [Ukrainian](README-uk.md)  |
+| [Italian](README-it.md)    | [Vietnamese](README-vi.md) |
+| [Japanese](README-ja.md)   | |
 
 ## Code of conduct
 

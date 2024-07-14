@@ -5,7 +5,7 @@ reviewers:
 - liggitt
 title: Using Node Authorization
 content_type: concept
-weight: 90
+weight: 34
 ---
 
 <!-- overview -->

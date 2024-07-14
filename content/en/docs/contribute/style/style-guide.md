@@ -249,11 +249,11 @@ also known as PascalCase. Do not write API kinds with code formatting.
 
 Don't split an API object name into separate words. For example, use PodTemplateList, not Pod Template List.
 
-For more information about PascalCase and code formatting, please review the related guidance on
+For more information about PascalCase and code formatting, review the related guidance on
 [Use upper camel case for API objects](/docs/contribute/style/style-guide/#use-upper-camel-case-for-api-objects)
 and [Use code style for inline code, commands, and API objects](/docs/contribute/style/style-guide/#code-style-inline-code).
 
-For more information about Kubernetes API terminologies, please review the related
+For more information about Kubernetes API terminologies, review the related
 guidance on [Kubernetes API terminology](/docs/reference/using-api/api-concepts/#standard-api-terminology).
 
 ## Code snippet formatting
@@ -328,6 +328,8 @@ Kubernetes | Kubernetes should always be capitalized.
 Docker | Docker should always be capitalized.
 SIG Docs | SIG Docs rather than SIG-DOCS or other variations.
 On-premises | On-premises or On-prem rather than On-premise or other variations.
+cloud native | Cloud native or cloud native as appropriate for sentence structure rather than cloud-native or Cloud Native.
+open source | Open source or open source as appropriate for sentence structure rather than open-source or Open Source.
 {{< /table >}}
 
 ## Shortcodes
