@@ -215,10 +215,10 @@ credspec:
   DomainJoinConfig:
     DnsName: contoso.com  # DNS Domain Name
     DnsTreeName: contoso.com # DNS Domain Name Root
-    Guid: 244818ae-87ac-4fcd-92ec-e79e5252348a  # GUID
+    Guid: 244818ae-87ac-4fcd-92ec-e79e5252348a  # GUID of the Domain
     MachineAccountName: WebApp1 # Username of the GMSA account
     NetBiosName: CONTOSO  # NETBIOS Domain Name
-    Sid: S-1-5-21-2126449477-2524075714-3094792973 # SID of GMSA
+    Sid: S-1-5-21-2126449477-2524075714-3094792973 # SID of the Domain
 ```
 -->
 下面的 YAML 配置描述的是一个名为 `gmsa-WebApp1` 的 GMSA 凭据规约：
@@ -240,10 +240,10 @@ credspec:
   DomainJoinConfig:
     DnsName: contoso.com  # DNS 域名
     DnsTreeName: contoso.com # DNS 域名根
-    Guid: 244818ae-87ac-4fcd-92ec-e79e5252348a  # GUID
+    Guid: 244818ae-87ac-4fcd-92ec-e79e5252348a  # 域名的 GUID
     MachineAccountName: WebApp1 # GMSA 账号的用户名
     NetBiosName: CONTOSO  # NETBIOS 域名
-    Sid: S-1-5-21-2126449477-2524075714-3094792973 # GMSA 的 SID
+    Sid: S-1-5-21-2126449477-2524075714-3094792973 # 域名的 SID
 ```
 
 <!--
@@ -467,7 +467,7 @@ there are a few troubleshooting steps you can take.
 
 <!--
 First, make sure the credspec has been passed to the Pod. To do this you will need
-to `exec` into one of your Pods and check the output of the `nltest.exe /parentdomain` command.  
+to `exec` into one of your Pods and check the output of the `nltest.exe /parentdomain` command.
 -->
 首先，确保 credspec 已传递给 Pod。为此，你需要先运行 `exec`
 进入到你的一个 Pod 中并检查 `nltest.exe /parentdomain` 命令的输出。
