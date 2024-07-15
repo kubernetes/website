@@ -58,6 +58,9 @@ A `LimitRange` does **not** check the consistency of the default values it appli
 
 For example, you define a `LimitRange` with this manifest:
 
+{{< warning >}}
+The following examples operate within the default namespace, as the namespace parameter is undefined. This implies that any references or operations within these examples will interact with elements within the default namespace unless otherwise specified.{{< /warning >}}
+
 {{% code_sample file="concepts/policy/limit-range/problematic-limit-range.yaml" %}}
 
 along with a Pod that declares a CPU resource request of `700m`, but not a limit:
