@@ -11,7 +11,7 @@ author: >
   Yigit Demirbas 
 ---
 
-As Kubernetes develops and matures, features may be deprecated, removed, or replaced with better ones for the project's overall health. This article outlines some planned changes for the Kubernetes 1.31 release that the release team feels you should be aware of for the continued maintenance of your Kubernetes environment. The Information listed below is based on the current status of the v1.31 release. It may change before the actual release date. 
+As Kubernetes develops and matures, features may be deprecated, removed, or replaced with better ones for the project's overall health. This article outlines some planned changes for the Kubernetes v1.31 release that the release team feels you should be aware of for the continued maintenance of your Kubernetes environment. The Information listed below is based on the current status of the v1.31 release. It may change before the actual release date. 
 
 ### The Kubernetes API Removal and Deprecation process
 The Kubernetes project has a well-documented [deprecation policy](/docs/reference/using-api/deprecation-policy/) for features. This policy states that stable APIs may only be deprecated when a newer, stable version of that API is available and that APIs have a minimum lifetime for each stability level. A deprecated API has been marked for removal in a future Kubernetes release. It will continue to function until removal (at least one year from the deprecation), but usage will result in a warning being displayed. Removed APIs are no longer available in the current version, so you must migrate to using the replacement.
@@ -42,7 +42,7 @@ Over the past several years, the ecosystem around Kubernetes has grown significa
 With Kubernetes v1.31, kustomize will be deprecated from kubectl. It will be removed in a future release. This will allow both tools to be developed and maintained separately.
 
 ### Deprecate Kubelet RunOnce mode [KEP 4580](https://github.com/kubernetes/enhancements/issues/4580)
-The kubelet support for RunOnce mode is being deprecated and will be removed in a future release. Users are advised to deprecate RunOnce mode by disabling the `LegacyNodeRunOnceMode` feature gate. Starting in Kubernetes 1.31, kubelet will refuse to start if this feature gate is disabled. 
+The kubelet support for RunOnce mode is being deprecated and will be removed in a future release. Users are advised to deprecate RunOnce mode by disabling the `LegacyNodeRunOnceMode` feature gate. Starting in Kubernetes v1.31, kubelet will refuse to start if this feature gate is disabled. 
 
 If you still rely on this feature, migrate to using the `podman kube` subcommand. Refer to the [podman documentation](https://docs.podman.io/en/latest/markdown/podman-kube.1.html.) for more information.
 
@@ -58,7 +58,7 @@ This milestone marks the completion of the externalization process for all cloud
 
 For further details on the cloud provider integrations, read our [v1.29 Cloud Provider Integrations feature blog](https://kubernetes.io/blog/2023/12/14/cloud-provider-integration-changes/). For additional context about the in-tree code removal, we invite you to check the ([v1.29 deprecation blog](https://kubernetes.io/blog/2023/11/16/kubernetes-1-29-upcoming-changes/#removal-of-in-tree-integrations-with-cloud-providers-kep-2395-https-kep-k8s-io-2395)).
 
-The latter blog also contains useful information for users who need to migrate to version 1.29 and later.
+The latter blog also contains useful information for users who need to migrate to version v1.29 and later.
 
 
 ### Removal of Kubelet Flag `--keep-terminated-pod-volumes`
@@ -67,14 +67,14 @@ The Kubelet flag `--keep-terminated-pod-volumes`, which was deprecated in 2017, 
 You can find more details in the pull request [#122082](https://github.com/kubernetes/kubernetes/pull/122082).
 
 ### Removal of CephFS volume plugin 
-[CephFS volume plugin](/docs/concepts/storage/volumes/#cephfs) was removed in this release and the `cephFS` volume type became non-functional. 
+[CephFS volume plugin](/docs/concepts/storage/volumes/#cephfs) was removed in this release and the `cephfs` volume type became non-functional. 
 
 It is recommended that you use the [CephFS CSI driver](https://github.com/ceph/ceph-csi/) as a third-party storage driver instead. If you were using the CephFS volume plugin before upgrading the cluster version to v1.31, you must re-deploy your application to use the new driver.
 
 CephFS volume plugin was formally marked as deprecated in v1.28.
 
 ### Removal of Ceph RBD volume plugin
-This release removed the [Ceph RBD volume plugin](/docs/concepts/storage/volumes/#rbd) and its CSI migration support, making the Ceph RBD volume type non-functional.
+This release removed the [Ceph RBD volume plugin](/docs/concepts/storage/volumes/#rbd) and its CSI migration support, making the `rbd` volume type non-functional.
 
 It's recommended that you use the [RBD CSI driver](https://github.com/ceph/ceph-csi/) in your clusters instead. If you were using Ceph RBD volume plugin before upgrading the cluster version to v1.31, you must re-deploy your application to use the new driver.
 
