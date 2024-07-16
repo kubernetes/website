@@ -766,17 +766,12 @@ You can see the name of the PVC bound to the PV using `kubectl describe persiste
 
 #### Phase transition timestamp
 
-{{< feature-state for_k8s_version="v1.29" state="beta" >}}
+{{< feature-state feature_gate_name="PersistentVolumeLastPhaseTransitionTime" >}}
 
 The `.status` field for a PersistentVolume can include an alpha `lastPhaseTransitionTime` field. This field records
 the timestamp of when the volume last transitioned its phase. For newly created
 volumes the phase is set to `Pending` and `lastPhaseTransitionTime` is set to
 the current time.
-
-{{< note >}}
-You need to enable the `PersistentVolumeLastPhaseTransitionTime` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-to use or see the `lastPhaseTransitionTime` field.
-{{< /note >}}
 
 ## PersistentVolumeClaims
 
