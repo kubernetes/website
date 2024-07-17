@@ -1,7 +1,4 @@
 ---
-reviewers:
-- derekwaynecarr
-- klueska
 title: ノードリソースマネージャー 
 content_type: concept
 weight: 50
