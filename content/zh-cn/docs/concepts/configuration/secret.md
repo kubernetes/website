@@ -619,13 +619,11 @@ You can create an `Opaque` type for credentials used for basic authentication.
 However, using the defined and public Secret type (`kubernetes.io/basic-auth`) helps other
 people to understand the purpose of your Secret, and sets a convention for what key names
 to expect.
-The Kubernetes API verifies that the required keys are set for a Secret of this type.
 -->
 提供基本身份认证类型的 Secret 仅仅是出于方便性考虑。
 你也可以使用 `Opaque` 类型来保存用于基本身份认证的凭据。
 不过，使用预定义的、公开的 Secret 类型（`kubernetes.io/basic-auth`）
 有助于帮助其他用户理解 Secret 的目的，并且对其中存在的主键形成一种约定。
-API 服务器会检查 Secret 配置中是否提供了所需要的主键。
 
 <!--
 ### SSH authentication Secrets
