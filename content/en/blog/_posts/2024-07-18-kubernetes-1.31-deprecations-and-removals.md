@@ -20,7 +20,7 @@ It may change before the actual release date.
 The Kubernetes project has a well-documented [deprecation policy](/docs/reference/using-api/deprecation-policy/) for features. 
 This policy states that stable APIs may only be deprecated when a newer, stable version of that API is available and that APIs have a minimum lifetime for each stability level.
 A deprecated API has been marked for removal in a future Kubernetes release. 
-It will continue to function until removal (at least one year from the deprecation), but usage will result in a warning being displayed. 
+It will continue to function until removal (at least one year from the deprecation), but usage will display a warning. 
 Removed APIs are no longer available in the current version, so you must migrate to using the replacement.
 
 * Generally available (GA) or stable API versions may be marked as deprecated but must not be removed within a major version of Kubernetes.
@@ -29,12 +29,12 @@ Removed APIs are no longer available in the current version, so you must migrate
 
 * Alpha or experimental API versions may be removed in any release without prior deprecation notice.
 
-Whether an API is removed because a feature graduated from beta to stable or because that API simply did not succeed, all removals comply with this deprecation policy. 
+Whether an API is removed because a feature graduated from beta to stable or because that API did not succeed, all removals comply with this deprecation policy. 
 Whenever an API is removed, migration options are communicated in the [documentation](/docs/reference/using-api/deprecation-guide/).
 
 ## A note about SHA-1 signature support fully going away in go1.24
 
-In [go1.18](https://go.dev/doc/go1.18#sha1) (released in March 2022), the crypto/x509 library started to reject certificates that were signed with a SHA-1 hash function. 
+In [go1.18](https://go.dev/doc/go1.18#sha1) (released in March 2022), the crypto/x509 library started to reject certificates signed with a SHA-1 hash function. 
 While SHA-1 is established to be unsafe and publicly trusted Certificate Authorities have not issued SHA-1 certificates since 2015, there might still be cases in the context of Kubernetes where user-provided certificates are signed using a SHA-1 hash function through private authorities with them being used for Aggregated API Servers or webhooks. 
 If you have relied on SHA-1 based certificates, you must explicitly opt back into its support by setting `GODEBUG=x509sha1=1` in your environment.
 
@@ -50,7 +50,7 @@ Please see [Kubernetes issue #125689](https://github.com/kubernetes/kubernetes/i
 In the early days of Kubernetes, when not that many tools in the field of declarative configurations existed, [kustomize](https://github.com/kubernetes-sigs/kustomize) was introduced, and to make life easier for kubectl users, it was included in kubectl by default.
 
 Over the past several years, the ecosystem around Kubernetes has grown significantly, resulting in a wider spread of tooling, including declarative configuration. 
-With these new options, users are able to use [kubectl plugins](/docs/tasks/extend-kubectl/kubectl-plugins/) to match their use cases with the best tool capable of resolving the problem at hand.
+With these new options, users can use [kubectl plugins](/docs/tasks/extend-kubectl/kubectl-plugins/) to match their use cases with the best tool to resolve the problem at hand.
 
 With Kubernetes v1.31, kustomize will be deprecated from kubectl. It will be removed in a future release. 
 The exact removal timeline is currently described in [the enhancement](https://github.com/kubernetes/enhancements/blob/master/keps/sig-cli/4706-deprecate-and-remove-kustomize/README.md). 
@@ -63,7 +63,7 @@ Users are advised to deprecate RunOnce mode by disabling the `LegacyNodeRunOnceM
 Starting in Kubernetes v1.31, kubelet will refuse to start if this feature gate is disabled. 
 
 If you still rely on this feature, migrate to using the `podman kube` subcommand. 
-Refer to the [podman documentation](https://docs.podman.io/en/latest/markdown/podman-kube.1.html.) for more information.
+For more information, refer to the [podman documentation](https://docs.podman.io/en/latest/markdown/podman-kube.1.html).
 
 ### Deprecate status.nodeInfo.kubeProxyVersion field [KEP 4004](https://github.com/kubernetes/enhancements/issues/4004)
 
@@ -116,7 +116,7 @@ The `kube-scheduler` has deprecated all non-CSI volume limit plugins and removed
 - EBSLimits
 - GCEPDLimits
 
-Its recommended that you use `NodeVolumeLimits` plugin instead because it can handle the same functionality as the removed plugins since those volume types have been migrated to CSI. 
+It's recommended that you use the `NodeVolumeLimits` plugin instead because it can handle the same functionality as the removed plugins since those volume types have been migrated to CSI. 
 Please replace the deprecated plugins with the `NodeVolumeLimits` plugin if you explicitly use them in the [scheduler config](/docs/reference/scheduling/config/). 
 The `AzureDiskLimits`, `CinderLimits`, `EBSLimits`, and `GCEPDLimits` plugins will be removed in Kubernetes v1.32.
 
@@ -129,7 +129,7 @@ The official list of API removals planned for [Kubernetes v1.32](/docs/reference
 To prepare for this, you can edit your existing manifests and rewrite client software to use the `flowcontrol.apiserver.k8s.io/v1 API` version, available since v1.29. 
 All existing persisted objects are accessible via the new API. Notable changes in flowcontrol.apiserver.k8s.io/v1beta3 include that the PriorityLevelConfiguration `spec.limited.nominalConcurrencyShares` field only defaults to 30 when unspecified, and an explicit value of 0 is not changed to 30.
 
-For more information please refer to [these docs](/docs/reference/using-api/deprecation-guide/#v1-32).
+For more information, please refer to [these docs](/docs/reference/using-api/deprecation-guide/#v1-32).
 
 ## Want to know more?
 The Kubernetes release notes announce deprecations. 
