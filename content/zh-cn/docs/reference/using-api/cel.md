@@ -93,8 +93,8 @@ CEL 表达式示例：
 | `self.metadata.name == 'singleton'`                                                | Validate that an object's name matches a specific value (making it a singleton)   |
 | `self.set1.all(e, !(e in self.set2))`                                              | Validate that two listSets are disjoint                                           |
 | `self.names.size() == self.details.size() && self.names.all(n, n in self.details)` | Validate the 'details' map is keyed by the items in the 'names' listSet           |
-| `self.details.all(key, key.matches('^[a-zA-Z]*$')`                                 | Validate the keys of the 'details' map                                            |
-| `self.details.all(key, self.details[key].matches('^[a-zA-Z]*$')`                   | Validate the values of the 'details' map                                          |
+| `self.details.all(key, key.matches('^[a-zA-Z]*$'))`                                 | Validate the keys of the 'details' map                                            |
+| `self.details.all(key, self.details[key].matches('^[a-zA-Z]*$'))`                   | Validate the values of the 'details' map                                          |
 {{< /table >}}
 -->
 {{< table caption="CEL 表达式例子和每个表达式的用途" >}}
@@ -111,8 +111,8 @@ CEL 表达式示例：
 | `self.metadata.name == 'singleton'`                                       | 验证某对象的名称与特定的值匹配（使其成为一个特例）                     |
 | `self.set1.all(e, !(e in self.set2))`                                     | 验证两个 listSet 不相交                                          |
 | `self.names.size() == self.details.size() && self.names.all(n, n in self.details)` | 验证 'details' 映射是由 'names' listSet 中的各项键入的 |
-| `self.details.all(key, key.matches('^[a-zA-Z]*$')`                                 | 验证 'details' 映射的主键                                     |
-| `self.details.all(key, self.details[key].matches('^[a-zA-Z]*$')`                   | 验证 'details' 映射的值                                       |
+| `self.details.all(key, key.matches('^[a-zA-Z]*$'))`                                 | 验证 'details' 映射的主键                                     |
+| `self.details.all(key, self.details[key].matches('^[a-zA-Z]*$'))`                   | 验证 'details' 映射的值                                       |
 {{< /table >}}
 
 <!--
