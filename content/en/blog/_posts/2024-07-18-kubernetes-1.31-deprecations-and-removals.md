@@ -44,17 +44,7 @@ If you rely on SHA-1 certificates, please start moving off them.
 Please see [Kubernetes issue #125689](https://github.com/kubernetes/kubernetes/issues/125689) to get a better idea of timelines around the support for SHA-1 going away, when Kubernetes releases plans to adopt go1.24, and for more details on how to detect usage of SHA-1 certificates via metrics and audit logging. 
 
 ## Deprecations and Removals in Kubernetes 1.31
-
-### Deprecate kustomize from kubectl [KEP 4706](https://github.com/kubernetes/enhancements/issues/4706)
-
-In the early days of Kubernetes, when not that many tools in the field of declarative configurations existed, [kustomize](https://github.com/kubernetes-sigs/kustomize) was introduced, and to make life easier for kubectl users, it was included in kubectl by default.
-
-Over the past several years, the ecosystem around Kubernetes has grown significantly, resulting in a wider spread of tooling, including declarative configuration. 
-With these new options, users can use [kubectl plugins](/docs/tasks/extend-kubectl/kubectl-plugins/) to match their use cases with the best tool to resolve the problem at hand.
-
-With Kubernetes v1.31, kustomize will be deprecated from kubectl. It will be removed in a future release. 
-The exact removal timeline is currently described in [the enhancement](https://github.com/kubernetes/enhancements/blob/master/keps/sig-cli/4706-deprecate-and-remove-kustomize/README.md). 
-This will allow both tools to be developed and maintained separately. 
+ 
 
 ### Deprecate Kubelet RunOnce mode [KEP 4580](https://github.com/kubernetes/enhancements/issues/4580)
 
@@ -72,7 +62,7 @@ This field is set by the kubelet, which does not have reliable information about
 
 After deprecation, users can no longer retrieve the kube-proxy version from the Node object.
 
-### Removal of in-tree cloud providers - sig-cloudprovider
+### Removal of in-tree cloud providers
 
 As highlighted in our [previous blog](/blog/2024/05/20/completing-cloud-provider-migration/), the last bits of in-tree cloud provider code have been removed.
 This milestone marks the completion of the externalization process for all cloud providers' integrations from the Kubernetes core ([KEP-2395](https://github.com/kubernetes/enhancements/blob/master/keps/sig-cloud-provider/2395-removing-in-tree-cloud-providers/README.md)), a process started with Kubernetes v1.26. 
