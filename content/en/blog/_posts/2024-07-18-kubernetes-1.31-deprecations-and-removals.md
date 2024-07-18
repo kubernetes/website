@@ -32,7 +32,7 @@ Removed APIs are no longer available in the current version, so you must migrate
 Whether an API is removed because a feature graduated from beta to stable or because that API did not succeed, all removals comply with this deprecation policy. 
 Whenever an API is removed, migration options are communicated in the [documentation](/docs/reference/using-api/deprecation-guide/).
 
-## A note about SHA-1 signature support fully going away in go1.24
+## A note about SHA-1 signature support
 
 In [go1.18](https://go.dev/doc/go1.18#sha1) (released in March 2022), the crypto/x509 library started to reject certificates signed with a SHA-1 hash function. 
 While SHA-1 is established to be unsafe and publicly trusted Certificate Authorities have not issued SHA-1 certificates since 2015, there might still be cases in the context of Kubernetes where user-provided certificates are signed using a SHA-1 hash function through private authorities with them being used for Aggregated API Servers or webhooks. 
@@ -45,14 +45,6 @@ Please see [Kubernetes issue #125689](https://github.com/kubernetes/kubernetes/i
 
 ## Deprecations and removals in Kubernetes 1.31
  
-
-### Deprecation of kubelet RunOnce mode ([KEP 4580](https://github.com/kubernetes/enhancements/issues/4580))
-
-The kubelet support for the `--runonce` command line argument is being deprecated in v1.31 and will
-be removed in a subsequent release.
-
-If you still rely on this feature, you could migrate to using the `podman kube` subcommand. 
-For more information, refer to the [podman documentation](https://docs.podman.io/en/latest/markdown/podman-kube.1.html).
 
 ### Deprecation of `status.nodeInfo.kubeProxyVersion` field for Nodes ([KEP 4004](https://github.com/kubernetes/enhancements/issues/4004))
 
@@ -115,7 +107,7 @@ already deprected plugins from the [default plugins](/docs/reference/scheduling/
 
 It's recommended that you use the `NodeVolumeLimits` plugin instead because it can handle the same functionality as the removed plugins since those volume types have been migrated to CSI. 
 Please replace the deprecated plugins with the `NodeVolumeLimits` plugin if you explicitly use them in the [scheduler config](/docs/reference/scheduling/config/). 
-The `AzureDiskLimits`, `CinderLimits`, `EBSLimits`, and `GCEPDLimits` plugins will be removed in Kubernetes v1.32.
+The `AzureDiskLimits`, `CinderLimits`, `EBSLimits`, and `GCEPDLimits` plugins will be removed in a future release.
 
 These plugins will be removed from the default scheduler plugins list as they have been deprecated since Kubernetes v1.14.
 
