@@ -1026,9 +1026,11 @@ Example:`storage.alpha.kubernetes.io/migrated-plugins: "kubernetes.io/cinder"`
 
 Used on: CSINode (an extension API)
 
-This annotation is automatically added when [CSIMigration](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#what-is-csi-migration) is turned on for the CSINode object that maps to a node that installs CSIDriver. This annotation shows the in-tree plugin name of the migrated plugin. Its value depends upon the in-tree cloud provider storage type that is used in your cluster.
+This annotation is automatically added for the CSINode object that maps to a node that
+installs CSIDriver. This annotation shows the in-tree plugin name of the migrated plugin. Its
+value depends on your cluster's in-tree cloud provider storage type.
 
-For example, if migration is enabled where the in-tree cloud provider storage type is `CSIMigrationvSphere`, the CSINodes instance for the node should be updated with:
+For example, if the in-tree cloud provider storage type is `CSIMigrationvSphere`, the CSINodes instance for the node should be updated with:
 `storage.alpha.kubernetes.io/migrated-plugins: "kubernetes.io/vsphere-volume"`
 
 ### service.kubernetes.io/headless {#servicekubernetesioheadless}
