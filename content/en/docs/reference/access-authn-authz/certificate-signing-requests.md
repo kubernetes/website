@@ -31,7 +31,8 @@ There is also experimental (alpha) support for distributing [trust bundles](#clu
 {{< feature-state for_k8s_version="v1.19" state="stable" >}}
 
 
-A CertificateSigningRequest (CSR) resource is used to request that a certificate be signed
+A [CertificateSigningRequest](/docs/reference/kubernetes-api/authentication-resources/certificate-signing-request-v1/)
+(CSR) resource is used to request that a certificate be signed
 by a denoted signer, after which the request may be approved or denied before
 finally being signed.
 
@@ -505,7 +506,9 @@ openssl req -new -key myuser.key -out myuser.csr -subj "/CN=myuser"
 
 ### Create a CertificateSigningRequest {#create-certificatessigningrequest}
 
-Create a CertificateSigningRequest and submit it to a Kubernetes Cluster via kubectl. Below is a script to generate the CertificateSigningRequest.
+Create a [CertificateSigningRequest](/docs/reference/kubernetes-api/authentication-resources/certificate-signing-request-v1/)
+and submit it to a Kubernetes Cluster via kubectl. Below is a script to generate the
+CertificateSigningRequest.
 
 ```shell
 cat <<EOF | kubectl apply -f -
