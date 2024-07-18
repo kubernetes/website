@@ -213,7 +213,7 @@ operator.
 
 <!--
 * [Charmed Operator Framework](https://juju.is/)
-* [Java Operator SDK](https://github.com/java-operator-sdk/java-operator-sdk)
+* [Java Operator SDK](https://github.com/operator-framework/java-operator-sdk)
 * [Kopf](https://github.com/nolar/kopf) (Kubernetes Operator Pythonic Framework)
 * [kube-rs](https://kube.rs/) (Rust)
 * [kubebuilder](https://book.kubebuilder.io/)
@@ -226,7 +226,7 @@ operator.
 -->
 
 * [Charmed Operator Framework](https://juju.is/)
-* [Java Operator SDK](https://github.com/java-operator-sdk/java-operator-sdk)
+* [Java Operator SDK](https://github.com/operator-framework/java-operator-sdk)
 * [Kopf](https://github.com/nolar/kopf) (Kubernetes Operator Pythonic Framework)
 * [kube-rs](https://kube.rs/) (Rust)
 * [kubebuilder](https://book.kubebuilder.io/)
