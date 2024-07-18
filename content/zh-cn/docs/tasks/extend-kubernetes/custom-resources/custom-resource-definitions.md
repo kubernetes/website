@@ -2660,7 +2660,6 @@ may also be used with field selectors when included in the `spec.versions[*].sel
 -->
 #### 自定义资源的可选字段    {#crd-selectable-fields}
 
-{{< feature-state state="alpha" for_k8s_version="v1.30" >}}
 {{< feature-state feature_gate_name="CustomResourceFieldSelectors" >}}
 
 <!--

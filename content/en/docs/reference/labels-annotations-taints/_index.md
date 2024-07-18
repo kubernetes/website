@@ -155,11 +155,11 @@ the ApplySet beyond the parent object's own namespace (if any).
 The value is a comma-separated list of the names of namespaces other than the parent's namespace
 in which objects are found.
 
-### applyset.kubernetes.io/contains-group-resources (alpha) {#applyset-kubernetes-io-contains-group-resources}
+### applyset.kubernetes.io/contains-group-kinds (alpha) {#applyset-kubernetes-io-contains-group-kinds}
 
 Type: Annotation
 
-Example: `applyset.kubernetes.io/contains-group-resources: "certificates.cert-manager.io,configmaps,deployments.apps,secrets,services"`
+Example: `applyset.kubernetes.io/contains-group-kinds: "certificates.cert-manager.io,configmaps,deployments.apps,secrets,services"`
 
 Used on: Objects being used as ApplySet parents.
 
@@ -175,6 +175,31 @@ ApplySet member objects. It is optional in the ApplySet specification, as tools 
 or use a different optimization. However, as of Kubernetes version {{< skew currentVersion >}},
 it is required by kubectl. When present, the value of this annotation must be a comma separated list
 of the group-kinds, in the fully-qualified name format, i.e. `<resource>.<group>`.
+
+### applyset.kubernetes.io/contains-group-resources (deprecated) {#applyset-kubernetes-io-contains-group-resources}
+
+Type: Annotation
+
+Example: `applyset.kubernetes.io/contains-group-resources: "certificates.cert-manager.io,configmaps,deployments.apps,secrets,services"`
+
+Used on: Objects being used as ApplySet parents.
+
+For Kubernetes version {{< skew currentVersion >}}, you can use this annotation on Secrets, ConfigMaps,
+or custom resources if the CustomResourceDefinition
+defining them has the `applyset.kubernetes.io/is-parent-type` label.
+
+Part of the specification used to implement
+[ApplySet-based pruning in kubectl](/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune).
+This annotation is applied to the parent object used to track an ApplySet to optimize listing of
+ApplySet member objects. It is optional in the ApplySet specification, as tools can perform discovery
+or use a different optimization. However, in Kubernetes version {{< skew currentVersion >}},
+it is required by kubectl. When present, the value of this annotation must be a comma separated list
+of the group-kinds, in the fully-qualified name format, i.e. `<resource>.<group>`.
+
+{{< note >}}
+This annotation is currently deprecated and replaced by [`applyset.kubernetes.io/contains-group-kinds`](#applyset-kubernetes-io-contains-group-kinds),
+support for this will be removed in applyset beta or GA.
+{{< /note >}}
 
 ### applyset.kubernetes.io/id (alpha) {#applyset-kubernetes-io-id}
 

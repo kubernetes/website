@@ -632,7 +632,7 @@ The following are all the logical operators that you can use in the `operator` f
 
 The following operators can only be used with `nodeAffinity`.
 
-|    Operator    |    Behaviour    |
+|    Operator    |    Behavior    |
 | :------------: | :-------------: |
 | `Gt` | The field value will be parsed as an integer, and that integer is less than the integer that results from parsing the value of a label named by this selector |
 | `Lt` | The field value will be parsed as an integer, and that integer is greater than the integer that results from parsing the value of a label named by this selector |
@@ -646,7 +646,7 @@ are not available for `podAffinity`.
 
 ## {{% heading "whatsnext" %}}
 
-- Read more about [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/) .
+- Read more about [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
 - Read the design docs for [node affinity](https://git.k8s.io/design-proposals-archive/scheduling/nodeaffinity.md)
   and for [inter-pod affinity/anti-affinity](https://git.k8s.io/design-proposals-archive/scheduling/podaffinity.md).
 - Learn about how the [topology manager](/docs/tasks/administer-cluster/topology-manager/) takes part in node-level
