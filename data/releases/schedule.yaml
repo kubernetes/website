@@ -7,10 +7,13 @@ schedules:
 - endOfLifeDate: "2025-06-28"
   maintenanceModeStartDate: "2025-04-28"
   next:
-    cherryPickDeadline: "2024-07-12"
+    cherryPickDeadline: "2024-08-09"
+    release: 1.30.4
+    targetDate: "2024-08-13"
+  previousPatches:
+  - cherryPickDeadline: "2024-07-12"
     release: 1.30.3
     targetDate: "2024-07-16"
-  previousPatches:
   - cherryPickDeadline: "2024-06-07"
     release: 1.30.2
     targetDate: "2024-06-11"
@@ -24,10 +27,13 @@ schedules:
 - endOfLifeDate: "2025-02-28"
   maintenanceModeStartDate: "2024-12-28"
   next:
-    cherryPickDeadline: "2024-07-12"
+    cherryPickDeadline: "2024-08-09"
+    release: 1.29.8
+    targetDate: "2024-08-13"
+  previousPatches:
+  - cherryPickDeadline: "2024-07-12"
     release: 1.29.7
     targetDate: "2024-07-16"
-  previousPatches:
   - cherryPickDeadline: "2024-06-07"
     release: 1.29.6
     targetDate: "2024-06-11"
@@ -53,10 +59,13 @@ schedules:
 - endOfLifeDate: "2024-10-28"
   maintenanceModeStartDate: "2024-08-28"
   next:
-    cherryPickDeadline: "2024-07-12"
+    cherryPickDeadline: "2024-08-09"
+    release: 1.28.13
+    targetDate: "2024-08-13"
+  previousPatches:
+  - cherryPickDeadline: "2024-07-12"
     release: 1.28.12
     targetDate: "2024-07-16"
-  previousPatches:
   - cherryPickDeadline: "2024-06-07"
     release: 1.28.11
     targetDate: "2024-06-11"
@@ -95,66 +104,10 @@ schedules:
     targetDate: "2023-08-15"
   release: "1.28"
   releaseDate: "2023-08-15"
-- endOfLifeDate: "2024-06-28"
-  maintenanceModeStartDate: "2024-04-28"
-  next:
-    cherryPickDeadline: "2024-07-12"
-    release: 1.27.16
-    targetDate: "2024-07-16"
-  previousPatches:
-  - cherryPickDeadline: "2024-06-07"
-    release: 1.27.15
-    targetDate: "2024-06-11"
-  - cherryPickDeadline: "2024-05-10"
-    release: 1.27.14
-    targetDate: "2024-05-14"
-  - cherryPickDeadline: "2024-04-12"
-    release: 1.27.13
-    targetDate: "2024-04-16"
-  - cherryPickDeadline: "2024-03-08"
-    release: 1.27.12
-    targetDate: "2024-03-13"
-  - cherryPickDeadline: "2024-02-09"
-    release: 1.27.11
-    targetDate: "2024-02-14"
-  - cherryPickDeadline: "2023-01-12"
-    release: 1.27.10
-    targetDate: "2024-01-17"
-  - cherryPickDeadline: "2023-12-15"
-    release: 1.27.9
-    targetDate: "2023-12-20"
-  - note: Out of band release to fix [CVE-2023-5528](https://groups.google.com/g/kubernetes-announce/c/c3py6Fw0DTI/m/cScFSdk1BwAJ)
-    release: 1.27.8
-    targetDate: "2023-11-14"
-  - cherryPickDeadline: "2023-10-13"
-    release: 1.27.7
-    targetDate: "2023-10-18"
-  - cherryPickDeadline: "2023-09-08"
-    release: 1.27.6
-    targetDate: "2023-09-13"
-  - cherryPickDeadline: "2023-08-04"
-    release: 1.27.5
-    targetDate: "2023-08-23"
-  - cherryPickDeadline: "2023-07-14"
-    release: 1.27.4
-    targetDate: "2023-07-19"
-  - cherryPickDeadline: "2023-06-09"
-    release: 1.27.3
-    targetDate: "2023-06-14"
-  - cherryPickDeadline: "2023-05-12"
-    release: 1.27.2
-    targetDate: "2023-05-17"
-  - note: '[Regression](https://groups.google.com/g/kubernetes-announce/c/9FTKjmIFOTw/m/TH6cJT64AAAJ)'
-    release: 1.27.1
-    targetDate: "2023-04-14"
-  - release: 1.27.0
-    targetDate: "2023-04-11"
-  release: "1.27"
-  releaseDate: "2023-04-11"
 upcoming_releases:
-- cherryPickDeadline: "2024-07-12"
-  targetDate: "2024-07-16"
 - cherryPickDeadline: "2024-08-09"
   targetDate: "2024-08-13"
 - cherryPickDeadline: "2024-09-06"
   targetDate: "2024-09-10"
+- cherryPickDeadline: "2024-10-11"
+  targetDate: "2024-10-15"
