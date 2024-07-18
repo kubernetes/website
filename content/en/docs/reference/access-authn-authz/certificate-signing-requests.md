@@ -39,8 +39,7 @@ finally being signed.
 
 ### Request signing process
 
-The [CertificateSigningRequest](/docs/reference/kubernetes-api/authentication-resources/certificate-signing-request-v1/)
-resource type allows a client to ask for an X.509 certificate
+The CertificateSigningRequest resource type allows a client to ask for an X.509 certificate
 be issued, based on a signing request.
 The CertificateSigningRequest object includes a PEM-encoded PKCS#10 signing request in
 the `spec.request` field. The CertificateSigningRequest denotes the signer (the
@@ -287,8 +286,7 @@ Non-PEM content may appear before or after the CERTIFICATE PEM blocks and is unv
 to allow for explanatory text as described in [section 5.2 of RFC7468](https://www.rfc-editor.org/rfc/rfc7468#section-5.2).
 
 When encoded in JSON or YAML, this field is base-64 encoded.
-A [CertificateSigningRequest](/docs/reference/kubernetes-api/authentication-resources/certificate-signing-request-v1/)
-containing the example certificate above would look like this:
+A CertificateSigningRequest containing the example certificate above would look like this:
 
 ```yaml
 apiVersion: certificates.k8s.io/v1
@@ -510,7 +508,7 @@ openssl req -new -key myuser.key -out myuser.csr -subj "/CN=myuser"
 
 Create a [CertificateSigningRequest](/docs/reference/kubernetes-api/authentication-resources/certificate-signing-request-v1/)
 and submit it to a Kubernetes Cluster via kubectl. Below is a script to generate the
-[CertificateSigningRequest](/docs/reference/kubernetes-api/authentication-resources/certificate-signing-request-v1/).
+CertificateSigningRequest.
 
 ```shell
 cat <<EOF | kubectl apply -f -
