@@ -53,7 +53,7 @@ and will be removed in a later release.
 It's being deprecated because the value of this field wasn't (and isn't) accurate.
 This field is set by the kubelet, which does not have reliable information about the kube-proxy version or whether kube-proxy is running. 
 
-After deprecation, users can no longer retrieve the kube-proxy version from the Node object.
+The `DisableNodeKubeProxyVersion` [feature gate](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/) will be set to `true` in by default in v1.31 and the kubelet will no longer attempt to set the `.status.kubeProxyVersion` field for its associated Node.
 
 ### Removal of all in-tree integrations with cloud providers
 
