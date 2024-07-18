@@ -244,9 +244,16 @@ Deployment 是管理 Pod 创建和扩展的推荐方法。
    ```
 
 <!--
-1. View application logs for a container in a pod.
+1. View application logs for a container in a pod (replace pod name with the one you got from `kubectl get pods`).
 -->
-1. 查看 Pod 中容器的应用程序日志。
+1. 查看 Pod 中容器的应用程序日志（将 Pod 名称替换为你用 `kubectl get pods` 命令获得的名称）。
+
+   {{< note >}}
+   <!--
+   Replace `hello-node-5f76cf6ccf-br9b5` in the `kubectl logs` command with the name of the pod from the `kubectl get pods` command output.
+   -->
+   将 `kubectl logs` 命令中的 `hello-node-5f76cf6ccf-br9b5` 替换为 `kubectl get pods` 命令输出中的 Pod 名称。
+   {{< /note >}}
 
    ```shell
    kubectl logs hello-node-5f76cf6ccf-br9b5
@@ -282,6 +289,16 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 默认情况下，Pod 只能通过 Kubernetes 集群中的内部 IP 地址访问。
 要使得 `hello-node` 容器可以从 Kubernetes 虚拟网络的外部访问，你必须将 Pod
 通过 Kubernetes [**Service**](/zh-cn/docs/concepts/services-networking/service/) 公开出来。
+
+{{< warning >}}
+<!--
+The agnhost container has a `/shell` endpoint, which is useful for
+debugging, but dangerous to expose to the public internet. Do not run this on an
+internet-facing cluster, or a production cluster.
+-->
+agnhost 容器有一个 `/shell` 端点，对于调试很有帮助，但暴露给公共互联网很危险。
+请勿在面向互联网的集群或生产集群上运行它。
+{{< /warning >}}
 
 <!--
 1. Expose the Pod to the public internet using the `kubectl expose` command:
