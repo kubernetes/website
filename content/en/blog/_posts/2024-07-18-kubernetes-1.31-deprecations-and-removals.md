@@ -16,7 +16,7 @@ This article outlines some planned changes for the Kubernetes v1.31 release that
 The information listed below is based on the current status of the v1.31 release. 
 It may change before the actual release date. 
 
-### The Kubernetes API Removal and Deprecation process
+## The Kubernetes API removal and deprecation process
 The Kubernetes project has a well-documented [deprecation policy](/docs/reference/using-api/deprecation-policy/) for features. 
 This policy states that stable APIs may only be deprecated when a newer, stable version of that API is available and that APIs have a minimum lifetime for each stability level.
 A deprecated API has been marked for removal in a future Kubernetes release. 
@@ -43,28 +43,33 @@ If you rely on SHA-1 certificates, please start moving off them.
 
 Please see [Kubernetes issue #125689](https://github.com/kubernetes/kubernetes/issues/125689) to get a better idea of timelines around the support for SHA-1 going away, when Kubernetes releases plans to adopt go1.24, and for more details on how to detect usage of SHA-1 certificates via metrics and audit logging. 
 
-## Deprecations and Removals in Kubernetes 1.31
+## Deprecations and removals in Kubernetes 1.31
  
 
-### Deprecate Kubelet RunOnce mode [KEP 4580](https://github.com/kubernetes/enhancements/issues/4580)
+### Deprecation of kubelet RunOnce mode ([KEP 4580](https://github.com/kubernetes/enhancements/issues/4580))
 
-The kubelet support for RunOnce mode is being deprecated and will be removed in a future release. 
-Users are advised to deprecate RunOnce mode by disabling the `LegacyNodeRunOnceMode` feature gate. 
-Starting in Kubernetes v1.31, kubelet will refuse to start if this feature gate is disabled. 
+The kubelet support for the `--runonce` command line argument is being deprecated in v1.31 and will
+be removed in a subsequent release.
 
-If you still rely on this feature, migrate to using the `podman kube` subcommand. 
+If you still rely on this feature, you could migrate to using the `podman kube` subcommand. 
 For more information, refer to the [podman documentation](https://docs.podman.io/en/latest/markdown/podman-kube.1.html).
 
-### Deprecate status.nodeInfo.kubeProxyVersion field [KEP 4004](https://github.com/kubernetes/enhancements/issues/4004)
+### Deprecation of `status.nodeInfo.kubeProxyVersion` field for Nodes ([KEP 4004](https://github.com/kubernetes/enhancements/issues/4004))
 
-The `status.nodeInfo.kubeProxyVersionv1.Node` field is being deprecated due to inaccuracies and will be removed in a future release. 
+The `.status.nodeInfo.kubeProxyVersion` field of Nodes is being deprecated in Kubernetes v1.31,
+and will be removed in a later release.
+It's being deprecated because the value of this field wasn't (and isn't) accurate.
 This field is set by the kubelet, which does not have reliable information about the kube-proxy version or whether kube-proxy is running. 
 
 After deprecation, users can no longer retrieve the kube-proxy version from the Node object.
 
-### Removal of in-tree cloud providers
+### Removal of all in-tree integrations with cloud providers
 
-As highlighted in our [previous blog](/blog/2024/05/20/completing-cloud-provider-migration/), the last bits of in-tree cloud provider code have been removed.
+As highlighted in a [previous article](/blog/2024/05/20/completing-cloud-provider-migration/), the last remaining in-tree support for cloud provider integration will be removed as part of the v1.31 release.
+This doesn't mean you can't integrate with a cloud provider, however you now **must** use the
+recommended approach using an external integration. Some integrations are part of the Kubernetes
+project and others are third party software.
+
 This milestone marks the completion of the externalization process for all cloud providers' integrations from the Kubernetes core ([KEP-2395](https://github.com/kubernetes/enhancements/blob/master/keps/sig-cloud-provider/2395-removing-in-tree-cloud-providers/README.md)), a process started with Kubernetes v1.26. 
 This change helps Kubernetes to get closer to being a truly vendor-neutral platform.
 
@@ -76,7 +81,8 @@ The latter blog also contains useful information for users who need to migrate t
 
 ### Removal of Kubelet Flag `--keep-terminated-pod-volumes`
 
-The Kubelet flag `--keep-terminated-pod-volumes`, which was deprecated in 2017, has now been removed.
+The kubelet flag `--keep-terminated-pod-volumes`, which was deprecated in 2017, will be removed as
+part of the v1.31 release.
 
 You can find more details in the pull request [#122082](https://github.com/kubernetes/kubernetes/pull/122082).
 
@@ -90,27 +96,28 @@ CephFS volume plugin was formally marked as deprecated in v1.28.
 
 ### Removal of Ceph RBD volume plugin
 
-This release removed the [Ceph RBD volume plugin](/docs/concepts/storage/volumes/#rbd) and its CSI migration support, making the `rbd` volume type non-functional.
+The v1.31 release will remove the [Ceph RBD volume plugin](/docs/concepts/storage/volumes/#rbd) and its CSI migration support, making the `rbd` volume type non-functional.
 
 It's recommended that you use the [RBD CSI driver](https://github.com/ceph/ceph-csi/) in your clusters instead. 
 If you were using Ceph RBD volume plugin before upgrading the cluster version to v1.31, you must re-deploy your application to use the new driver.
 
-The CephRBD volume plugin was formally marked as deprecated in v1.28.
+The Ceph RBD volume plugin was formally marked as deprecated in v1.28.
 
-### Deprecation of Non-CSI Volume Limit Plugins in Kube-scheduler 
+### Deprecation of non-CSI volume limit plugins in kube-scheduler
 
-The `kube-scheduler` has deprecated all non-CSI volume limit plugins and removed them from the [default plugins](/docs/reference/scheduling/config/), including:
+The v1.31 release will deprecate all non-CSI volume limit scheduler plugins, and will remove some
+already deprected plugins from the [default plugins](/docs/reference/scheduling/config/), including:
 
-- AzureDiskLimits
-- CinderLimits
-- EBSLimits
-- GCEPDLimits
+- `AzureDiskLimits`
+- `CinderLimits`
+- `EBSLimits`
+- `GCEPDLimits`
 
 It's recommended that you use the `NodeVolumeLimits` plugin instead because it can handle the same functionality as the removed plugins since those volume types have been migrated to CSI. 
 Please replace the deprecated plugins with the `NodeVolumeLimits` plugin if you explicitly use them in the [scheduler config](/docs/reference/scheduling/config/). 
 The `AzureDiskLimits`, `CinderLimits`, `EBSLimits`, and `GCEPDLimits` plugins will be removed in Kubernetes v1.32.
 
-These plugins have been removed from the default plugins as they have been marked as deprecated since Kubernetes v1.14.
+These plugins will be removed from the default scheduler plugins list as they have been deprecated since Kubernetes v1.14.
 
 ## Looking ahead
 The official list of API removals planned for [Kubernetes v1.32](/docs/reference/using-api/deprecation-guide/#v1-32) include:
@@ -119,7 +126,7 @@ The official list of API removals planned for [Kubernetes v1.32](/docs/reference
 To prepare for this, you can edit your existing manifests and rewrite client software to use the `flowcontrol.apiserver.k8s.io/v1 API` version, available since v1.29. 
 All existing persisted objects are accessible via the new API. Notable changes in flowcontrol.apiserver.k8s.io/v1beta3 include that the PriorityLevelConfiguration `spec.limited.nominalConcurrencyShares` field only defaults to 30 when unspecified, and an explicit value of 0 is not changed to 30.
 
-For more information, please refer to [these docs](/docs/reference/using-api/deprecation-guide/#v1-32).
+For more information, please refer to the [API deprecation guide](/docs/reference/using-api/deprecation-guide/#v1-32).
 
 ## Want to know more?
 The Kubernetes release notes announce deprecations. 
