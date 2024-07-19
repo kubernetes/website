@@ -10,7 +10,7 @@ Los Pods siguen un ciclo de vida definido, comenzando en la fase [`Pending`](
 #pod-phase),
 y luego pasando a "en ejecución" `Running` si al menos uno de sus contenedores primarios se
 inicia correctamente,
-y luego pasando a "exitoso"(`Succeeded`) o "fallido" (`Failed`) si uno de los contenedores de un Pod
+y luego pasando a "exitoso" (`Succeeded`) o "fallido" (`Failed`) si uno de los contenedores de un Pod
 termina en error.
 
 Mientras un Pod está en `Running`,
@@ -54,10 +54,7 @@ Si un Pod está programado para un {{< glossary_tooltip text="nodo" term_id="nod
 el Pod se elimina; de la misma manera,
 un Pod no sobrevivirá a un desalojo debido a falta de recursos o mantenimiento
 del Nodo.
-Kubernetes utiliza una abstracción llamada {{< glossary_tooltip term_id=" controller" text="controlador" >}}, que maneja el trabajo de administrar las instancias de
-Pod relativamente desechables.
-
-Un Pod dado (definido por un UID) nunca se reprograma a un Nodo diferente; en su
+Kubernetes utiliza una abstracción llamada {{< glossary_tooltip term_id="controller" text="controlador" >}}, que maneja el trabajo de administrar las instancias de
 lugar, ese Pod se puede reemplazar por un Pod nuevo, casi idéntico, incluso con
 el mismo nombre si se desea, pero con un UID diferente.
 
@@ -69,8 +66,9 @@ contenedores.
 
 ## Fase del Pod
 
-El campo `status` de un Pod es un objeto [PodStatus](
-/docs/reference/generated/kubernetes-api/{{< param "version" > }}/#podstatus-v1-core) de Kubernetes que tiene un campo `phase`.
+El campo `status` de un Pod es un objeto
+[PodStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podstatus-v1-core) 
+de Kubernetes que tiene un campo `phase`.
 
 La fase de un Pod es un resumen simple y de alto nivel de dónde se encuentra el
 Pod en su ciclo de vida. La fase no pretende ser un resumen completo de
@@ -123,9 +121,9 @@ usar [hooks del ciclo de vida de un contenedor](/docs/concepts/containers/contai
 para lanzar eventos en ciertos puntos en el ciclo de vida de un
 contenedor.
 
-Una vez que el {{< glossary_tooltip text="programador" term_id="kube-scheduler" >}} 
+Una vez que el {{< glossary_tooltip text="programador" term_id="kube-scheduler" >}}
 asigna un Pod a un Nodo,
-el kubelet inicia creando los contenedores para ese Pod usando un 
+el kubelet inicia creando los contenedores para ese Pod usando un
 {{< glossary_tooltip text="espacio de ejecución del contenedor" term_id="container-runtime" >}}.
 Hay 3 estados posibles para un contenedor: `Waiting`, `Running`, y `Terminated`.
 
@@ -170,7 +168,7 @@ La especificación (`spec` en inglés) de un Pod tiene un campo `restartPolicy` 
 valores `Always`, `OnFailure`, y `Never`.
 El valor por defecto es `Always`.
 
-La política de reinicio (`restartPolicy` en inglés) para un Pod aplica a 
+La política de reinicio (`restartPolicy` en inglés) para un Pod aplica a
 {{< glossary_tooltip text="contenedores de apps" term_id="app-container" >}} en el Pod
 para [contenedores de inicialización](/docs/concepts/workloads/pods/init-containers/) regulares.
 Los [contenedores sidecar](/docs/concepts/workloads/pods/sidecar-containers/)
@@ -193,10 +191,11 @@ kubelet restablece el temporizador de reinicio para ese contenedor.
 explica el comportamiento de `init containers` cuando
 especifica una `restartPolicy`.
 
+
 ## Condiciones del Pod {#pod-conditions}
 
-Un Pod tiene un `PodStatus`, que tiene un listado de [PodConditions](
-/docs/reference/generated/kubernetes-api/{{< param "version" > }}/#podcondition-v1-core) 
+Un Pod tiene un `PodStatus`, que tiene un listado de
+[PodConditions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podcondition-v1-core)
 a través de los cuales el Pod ha pasado o no.
 El kubelet administra las siguientes condiciones del Pod:
 
@@ -296,43 +295,79 @@ en `ContainersReady`.
 Durante su desarrollo temprano, esta condición se llamaba `PodhasNetwork`.
 {{< /note >}}
 
-Luego que un Pod es programado en un nodo, el kubelet debe admitirlo y tener los
-volúmenes de almacenamiento necesarios montados.
-Una vez que estas fases están completadas, el kubelet trabaja con un tiempo de ejecución del
-contenedor para crear un espacio de ejecución (usando {{< glossary_tooltip¯ term_id="cri" >}})
-y configurar la red para el Pod.
-Si
-la [condición](/docs/reference/command-line-tools-reference/feature-gates/) `PodReadyToStartContainersCondition`
-está habilitada (está habilitada por defecto para Kubernetes {{< skew currentVersion >}}), la condición `PodReadyToStartContainers` se agrega al
-campo `status.conditions` del Pod.
+{{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
-La condición `PodReadyToStartContainers` se establece a `False` por el kubelet
-cuando detecta que un Pod no tiene un entorno de pruebas en tiempo de ejecución
-con red configurada.
-Esto ocurre en los siguientes escenarios:
+Tu aplicación puede inyectar retroalimentación adicional o señales
+al `PodStatus`:
+_Pod readiness_.
+Para usar esto, establece `readinessGates` en la `spec` del Pod para especificar una
+lista de condiciones adicionales que el kubelet evalúa para la preparación del
+Pod.
 
-- Temprano en el ciclo de vida del Pod, cuando el kubelet no ha comenzado a
-  configurar un entorno de pruebas para que el Pod que utiliza el contenedor en
-  tiempo de ejecución.
-- Luego durante el ciclo de vida del Pod, cuando el entorno de pruebas del Pod
-  ha sido destruido debido a:
-  - El nodo ha reiniciado, sin desalojar el Pod.
-  - Para los tiempos de ejecución de contenedores que utilizan máquinas virtuales para el aislamiento, la máquina virtual de la zona de pruebas del Pod se reinicia, lo que luego requiere la creación de una nueva zona de pruebas y una nueva configuración de red de contenedores.
+Las condiciones de preparación están determinadas por el estado actual de los
+campos `status.conditions` de un Pod.
+Si Kubernetes no puede encontrar una condición en el campo `status.conditions`
+de un Pod, el estado de la condición se establece en "`False`".
 
-La condición `PodReadyToStartContainers` se establece a `True` por el kubelet
-luego de completar exitosamente la creación del espacio de pruebas y la
-configuración de red para el Pod por el complemento de tiempo de ejecución.
-El kubelet puede comenzar a descargar las imágenes del contenedor y crear
-contenedores luego que la condición `PodReadyToStartContainers` se establece
-a `True`.
+Aquí hay un ejemplo:
 
-Para un Pod con contenedores de inicio, el kubelet establece la
-condición `Initialized` a `True` luego que los contenedores de inicio se
-completaron con éxito (esto ocurre luego de la creación exitosa del espacio de
-pruebas y la configuración de red por el complemento de tiempo de ejecución).
-Para un Pod sin contenedores de inicio, el kubelet establece la
-condición `Initialized` a `False` antes que inicie la creación del espacio de
-pruebas y la configuración de red.
+```yaml
+kind: Pod
+...
+spec:
+  readinessGates:
+    - conditionType: "www.example.com/feature-1"
+status:
+  conditions:
+    - type: Ready                              # una PodCondition construida
+      status: "False"
+      lastProbeTime: null
+      lastTransitionTime: 2018-01-01T00:00:00Z
+    - type: "www.example.com/feature-1"        # una PodCondition extra
+      status: "False"
+      lastProbeTime: null
+      lastTransitionTime: 2018-01-01T00:00:00Z
+  containerStatuses:
+    - containerID: docker://abcd...
+      ready: true
+...
+```
+
+Las condiciones del Pod que incluyas deben tener nombres que sean válidos para
+los [formatos de etiqueta](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set)
+de Kubernetes.
+
+### Estado de preparación del Pod {#pod-readiness-status}
+
+El comando `kubectl patch` no admite actualizar el estado del objeto.
+Para establecer estas `status.conditions` para el Pod, las aplicaciones y
+los {{< glossary_tooltip term_id="operator-pattern" text="operadores">}}
+deberían utilizar la acción `Patch`.
+
+Puedes utilizar
+una [librería cliente de Kubernetes](/docs/reference/using-api/client-libraries/)
+para escribir código que establece condiciones personalizadas de un Pod para su
+preparación.
+
+Para los Pods que utilizan condiciones personalizadas, ese Pod es evaluado para
+estar listo **solamente** cuando ambas afirmaciones aplican:
+
+* Todos los contenedores del Pod están listos.
+* Todas las condiciones personalizadas especificadas en `readinessGates`
+  están `True`.
+
+Cuando los contenedores de un Pod están listos, pero al menos una condición
+personalizada está ausente o `False`,
+el kubelet establece la [condición](#pod-conditions) del Pod
+en `ContainersReady`.
+
+### Preparación de la red del Pod {#pod-has-network}
+
+{{< feature-state for_k8s_version="v1.29" state="beta" >}}
+
+{{< note >}}
+Durante su desarrollo temprano, esta condición se llamaba `PodhasNetwork`.
+{{< /note >}}
 
 ### Preparación de la programación del Pod {#pod-scheduling-readiness-gate}
 
@@ -376,7 +411,6 @@ específico.
 El diagnóstico se considera exitoso si el puerto está abierto.
 Si el sistema remoto (el contenedor) cierra la conexión inmediatamente después
 de abrir la conexión, el diagnóstico se considera exitoso.
-
 
 {{< caution >}}
 A diferencia de otros mecanismos, la implementación de la sonda `exec` involucra
@@ -516,7 +550,7 @@ Pod y saber cuándo finalizan los procesos, pero también para asegurar que la
 eliminación se completa eventualmente.
 Cuando solicitas la eliminación de un Pod, el clúster registra y rastrea el
 periodo de gracia antes de que el Pod se elimine por la fuerza.
-Con este rastreo de detención forzada en marcha, 
+Con este rastreo de detención forzada en marcha,
 el {{< glossary_tooltip text=" kubelet" term_id="kubelet" >}} intenta pararlo con gracia.
 
 Típicamente, con esta finalización con gracia del Pod, el kubelet hace
@@ -691,11 +725,10 @@ El recurso puede continuar ejecutándose en el clúster de forma indefinida.
 Si necesitas eliminar Pods por la fuerza y son parte de un `StatefulSet`,
 mira la documentación
 para [borrar Pods de un StatefulSet](/docs/tasks/run-application/force-delete-stateful-set-pod/).
-
 ### Recolección de elementos no utilizados de los Pods {#pod-garbage-collection}
 
 Cuando los Pods fallan,
-los objetos API permanecen en el clúster hasta que un humano o el proceso de 
+los objetos API permanecen en el clúster hasta que un humano o el proceso de
 {{< glossary_tooltip term_id="controller" text="controlador" >}} los elimina
 explícitamente.
 
@@ -726,7 +759,7 @@ Mira [condiciones de disrupción del Pod](/docs/concepts/workloads/pods/disrupti
 
 ## {{% heading "whatsnext" %}}
 
-* Obtén experiencia práctica 
+* Obtén experiencia práctica
   [agregar controladores a los eventos del ciclo de vida del contenedor](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 
 * Obtén experiencia práctica
