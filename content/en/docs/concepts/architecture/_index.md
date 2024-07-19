@@ -5,7 +5,9 @@ description: >
   The architectural concepts behind Kubernetes.
 ---
 
-{{< figure src="/images/docs/kubernetes-cluster-architecture.svg" alt="Components of Kubernetes" caption="**Note:** This diagram presents an example reference architecture of a Kubernetes cluster. The actual distribution of components can vary based on specific cluster setups and requirements." class="diagram-large" >}}
+{{< figure src="/images/docs/kubernetes-cluster-architecture.svg" alt="The control plane (kube-apiserver, etcd, kube-controller-manager, kube-scheduler) and several nodes. Each node is running a kubelet and kube-proxy." 
+title="Kubernetes cluster components"
+caption="**Note:** This diagram presents an example reference architecture for a Kubernetes cluster. The actual distribution of components can vary based on specific cluster setups and requirements." class="diagram-large" >}}
 
 ### Understanding Cluster Component Distribution
 
