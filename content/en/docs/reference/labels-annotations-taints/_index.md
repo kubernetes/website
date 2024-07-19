@@ -1018,6 +1018,21 @@ to record the version of Windows Server in use.
 
 The label's value is in the format "MajorVersion.MinorVersion.BuildNumber".
 
+### storage.alpha.kubernetes.io/migrated-plugins {#storagealphakubernetesiomigrated-plugins}
+
+Type: Annotation
+
+Example:`storage.alpha.kubernetes.io/migrated-plugins: "kubernetes.io/cinder"`
+
+Used on: CSINode (an extension API)
+
+This annotation is automatically added for the CSINode object that maps to a node that
+installs CSIDriver. This annotation shows the in-tree plugin name of the migrated plugin. Its
+value depends on your cluster's in-tree cloud provider storage type.
+
+For example, if the in-tree cloud provider storage type is `CSIMigrationvSphere`, the CSINodes instance for the node should be updated with:
+`storage.alpha.kubernetes.io/migrated-plugins: "kubernetes.io/vsphere-volume"`
+
 ### service.kubernetes.io/headless {#servicekubernetesioheadless}
 
 Type: Label
