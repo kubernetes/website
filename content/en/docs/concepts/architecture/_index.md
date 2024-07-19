@@ -9,7 +9,7 @@ description: >
 title="Kubernetes cluster components"
 caption="**Note:** This diagram presents an example reference architecture for a Kubernetes cluster. The actual distribution of components can vary based on specific cluster setups and requirements." class="diagram-large" >}}
 
-### Understanding Cluster Component Distribution
+## Components of a Kubernetes cluster
 
 A Kubernetes cluster consists of a control plane and some nodes. The diagram shows an example of what's involved.
 
