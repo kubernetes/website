@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'Kubernetes Removals and Major Changes In v1.31'
-date: 2024-07-18
+date: 2024-07-19
 slug: kubernetes-1-31-upcoming-changes
 author: >
   Abigail McCarthy,
