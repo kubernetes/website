@@ -69,9 +69,15 @@
     }
 
     async function checkBlockedSite(url) {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => {
+          controller.abort();
+        }, 5000); // Timeout set to 5000ms (5 seconds)
+      
         try {
-            const response = await fetch(url, { method: 'HEAD', mode: 'no-cors' });
+            const response = await fetch(url, { method: 'HEAD', mode: 'no-cors', signal: controller.signal });
             // If we reach this point, the site is accessible (since mode: 'no-cors' doesn't allow us to check response.ok)
+            clearTimeout(timeout);
             return false;
         } catch (error) {
             // If an error occurs, it's likely the site is blocked
