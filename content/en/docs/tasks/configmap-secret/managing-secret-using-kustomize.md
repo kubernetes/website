@@ -21,14 +21,14 @@ generates a Secret that you can apply to the API server using `kubectl`.
 
 You can generate a Secret by defining a `secretGenerator` in a
 `kustomization.yaml` file that references other existing files, `.env` files, or
-literal values. For example, the following instructions create a Kustomization
+literal values. For example, the following instructions create a kustomization
 file for the username `admin` and the password `1f2d1e2e67df`.
 
 {{< note >}}
 The `stringData` field for a Secret does not work well with server-side apply.
 {{< /note >}}
 
-### Create the Kustomization file
+### Create the kustomization file
 
 {{< tabs name="Secret data" >}}
 {{< tab name="Literals" codelang="yaml" >}}
@@ -57,7 +57,7 @@ secretGenerator:
       - username.txt
       - password.txt
     ```
-{{% /tab %}}}
+{{% /tab %}}
 {{% tab name=".env files" %}}
 You can also define the secretGenerator in the `kustomization.yaml` file by
 providing `.env` files. For example, the following `kustomization.yaml` file
@@ -72,7 +72,7 @@ secretGenerator:
 {{% /tab %}}
 {{< /tabs >}}
 
-In all cases, you don't need to base64 encode the values. The name of the YAML
+In all cases, you don't need to encode the values in base64. The name of the YAML
 file **must** be `kustomization.yaml` or `kustomization.yml`.
 
 ### Apply the kustomization file
@@ -93,7 +93,7 @@ When a Secret is generated, the Secret name is created by hashing
 the Secret data and appending the hash value to the name. This ensures that
 a new Secret is generated each time the data is modified.
 
-To verify that the Secret was created and to decode the Secret data, 
+To verify that the Secret was created and to decode the Secret data,
 
 ```shell
 kubectl get -k <directory-path> -o jsonpath='{.data}' 
