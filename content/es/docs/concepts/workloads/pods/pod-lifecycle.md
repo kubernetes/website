@@ -50,22 +50,18 @@ se [programan para eliminarse](#pod-garbage-collection) luego de un periodo de
 tiempo.
 
 Los Pods, por sí mismos, no se curan automáticamente.
-Si un Pod está programado para un {{< glossary_tooltip text="node"
-term_id="node" >}} y luego falla,
+Si un Pod está programado para un {{< glossary_tooltip text="nodo" term_id="node" >}} y luego falla,
 el Pod se elimina; de la misma manera,
 un Pod no sobrevivirá a un desalojo debido a falta de recursos o mantenimiento
 del Nodo.
-Kubernetes utiliza una abstracción llamada {{< glossary_tooltip term_id="
-controller"
-text="controlador" >}}, que maneja el trabajo de administrar las instancias de
+Kubernetes utiliza una abstracción llamada {{< glossary_tooltip term_id=" controller" text="controlador" >}}, que maneja el trabajo de administrar las instancias de
 Pod relativamente desechables.
 
 Un Pod dado (definido por un UID) nunca se reprograma a un Nodo diferente; en su
 lugar, ese Pod se puede reemplazar por un Pod nuevo, casi idéntico, incluso con
 el mismo nombre si se desea, pero con un UID diferente.
 
-{{< figure src="/images/docs/pod.svg" title="Diagrama de un Pod" class="
-diagram-medium" >}}
+{{< figure src="/images/docs/pod.svg" title="Diagrama de un Pod" class=" diagram-medium" >}}
 
 Un Pod con múltiples contenedores que contiene un extractor de ficheros y un
 servidor web que usa un volumen persistente para compartir datos entre los
@@ -74,8 +70,7 @@ contenedores.
 ## Fase del Pod
 
 El campo `status` de un Pod es un objeto [PodStatus](
-/docs/reference/generated/kubernetes-api/{{< param "version" >
-}}/#podstatus-v1-core) de Kubernetes que tiene un campo `phase`.
+/docs/reference/generated/kubernetes-api/{{< param "version" > }}/#podstatus-v1-core) de Kubernetes que tiene un campo `phase`.
 
 La fase de un Pod es un resumen simple y de alto nivel de dónde se encuentra el
 Pod en su ciclo de vida. La fase no pretende ser un resumen completo de
@@ -128,11 +123,10 @@ usar [hooks del ciclo de vida de un contenedor](/docs/concepts/containers/contai
 para lanzar eventos en ciertos puntos en el ciclo de vida de un
 contenedor.
 
-Una vez que el {{< glossary_tooltip text="programador"
-term_id="kube-scheduler" >}} asigna un Pod a un Nodo,
-el kubelet inicia creando los contenedores para ese Pod usando un {{<
-glossary_tooltip text="espacio de ejecución del contenedor"
-term_id="container-runtime" >}}.
+Una vez que el {{< glossary_tooltip text="programador" term_id="kube-scheduler" >}} 
+asigna un Pod a un Nodo,
+el kubelet inicia creando los contenedores para ese Pod usando un 
+{{< glossary_tooltip text="espacio de ejecución del contenedor" term_id="container-runtime" >}}.
 Hay 3 estados posibles para un contenedor: `Waiting`, `Running`, y `Terminated`.
 
 Para revisar el estado de los contenedores de un Pod,
@@ -176,8 +170,8 @@ La especificación (`spec` en inglés) de un Pod tiene un campo `restartPolicy` 
 valores `Always`, `OnFailure`, y `Never`.
 El valor por defecto es `Always`.
 
-La política de reinicio (`restartPolicy` en inglés) para un Pod aplica a {{< glossary_tooltip text="contenedores
-de apps" term_id="app-container" >}} en el Pod
+La política de reinicio (`restartPolicy` en inglés) para un Pod aplica a 
+{{< glossary_tooltip text="contenedores de apps" term_id="app-container" >}} en el Pod
 para [contenedores de inicialización](/docs/concepts/workloads/pods/init-containers/) regulares.
 Los [contenedores sidecar](/docs/concepts/workloads/pods/sidecar-containers/)
 ignoran el campo `restartPolicy`: en Kubernetes, un sidecar se define como una
@@ -202,8 +196,8 @@ especifica una `restartPolicy`.
 ## Condiciones del Pod {#pod-conditions}
 
 Un Pod tiene un `PodStatus`, que tiene un listado de [PodConditions](
-/docs/reference/generated/kubernetes-api/{{< param "version" >
-}}/#podcondition-v1-core) a través de los cuales el Pod ha pasado o no.
+/docs/reference/generated/kubernetes-api/{{< param "version" > }}/#podcondition-v1-core) 
+a través de los cuales el Pod ha pasado o no.
 El kubelet administra las siguientes condiciones del Pod:
 
 * `PodScheduled`: El Pod está programado para un nodo.
@@ -305,12 +299,11 @@ Durante su desarrollo temprano, esta condición se llamaba `PodhasNetwork`.
 Luego que un Pod es programado en un nodo, el kubelet debe admitirlo y tener los
 volúmenes de almacenamiento necesarios montados.
 Una vez que estas fases están completadas, el kubelet trabaja con un tiempo de ejecución del
-contenedor para crear un espacio de ejecución (usando {{< glossary_tooltip
-term_id="cri" >}})y configurar la red para el Pod.
+contenedor para crear un espacio de ejecución (usando {{< glossary_tooltip¯ term_id="cri" >}})
+y configurar la red para el Pod.
 Si
 la [condición](/docs/reference/command-line-tools-reference/feature-gates/) `PodReadyToStartContainersCondition`
-está habilitada (está habilitada por defecto para Kubernetes {{< skew
-currentVersion >}}), la condición `PodReadyToStartContainers` se agrega al
+está habilitada (está habilitada por defecto para Kubernetes {{< skew currentVersion >}}), la condición `PodReadyToStartContainers` se agrega al
 campo `status.conditions` del Pod.
 
 La condición `PodReadyToStartContainers` se establece a `False` por el kubelet
@@ -523,8 +516,8 @@ Pod y saber cuándo finalizan los procesos, pero también para asegurar que la
 eliminación se completa eventualmente.
 Cuando solicitas la eliminación de un Pod, el clúster registra y rastrea el
 periodo de gracia antes de que el Pod se elimine por la fuerza.
-Con este rastreo de detención forzada en marcha, el {{< glossary_tooltip text="
-kubelet" term_id="kubelet" >}} intenta pararlo con gracia.
+Con este rastreo de detención forzada en marcha, 
+el {{< glossary_tooltip text=" kubelet" term_id="kubelet" >}} intenta pararlo con gracia.
 
 Típicamente, con esta finalización con gracia del Pod, el kubelet hace
 peticiones al tiempo de ejecución del contenedor para intentar detener los
@@ -586,8 +579,7 @@ Un flujo de ejemplo:
 1. Al mismo tiempo que el kubelet inicia la finalización con gracia del Pod, el
    panel de control evalúa si quitar este Pod en finalización de los
    objetos `EndpointSlice` (y `Endpoints`), donde aquellos objetos representan
-   un {{< glossary_tooltip term_id="service" text=" Service" >}} con un {{<
-   glossary_tooltip text="selector" term_id="selector" >}} configurado.
+   un {{< glossary_tooltip term_id="service" text=" Service" >}} con un {{< glossary_tooltip text="selector" term_id="selector" >}} configurado.
 
    Los {{< glossary_tooltip text="ReplicaSets" term_id="replica-set" >}} y otros
    recursos de carga de trabajo ya no consideran al Pod como réplica válida, en
@@ -703,8 +695,8 @@ para [borrar Pods de un StatefulSet](/docs/tasks/run-application/force-delete-st
 ### Recolección de elementos no utilizados de los Pods {#pod-garbage-collection}
 
 Cuando los Pods fallan,
-los objetos API permanecen en el clúster hasta que un humano o el proceso de {{<
-glossary_tooltip term_id="controller" text="controlador" >}} los elimina
+los objetos API permanecen en el clúster hasta que un humano o el proceso de 
+{{< glossary_tooltip term_id="controller" text="controlador" >}} los elimina
 explícitamente.
 
 El recolector de elementos no utilizados (PodGC en inglés) es un controlador en
