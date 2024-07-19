@@ -53,7 +53,7 @@ and will be removed in a later release.
 It's being deprecated because the value of this field wasn't (and isn't) accurate.
 This field is set by the kubelet, which does not have reliable information about the kube-proxy version or whether kube-proxy is running. 
 
-The `DisableNodeKubeProxyVersion` [feature gate](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/) will be set to `true` in by default in v1.31 and the kubelet will no longer attempt to set the `.status.kubeProxyVersion` field for its associated Node.
+The `DisableNodeKubeProxyVersion` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) will be set to `true` in by default in v1.31 and the kubelet will no longer attempt to set the `.status.kubeProxyVersion` field for its associated Node.
 
 ### Removal of all in-tree integrations with cloud providers
 
@@ -65,13 +65,13 @@ project and others are third party software.
 This milestone marks the completion of the externalization process for all cloud providers' integrations from the Kubernetes core ([KEP-2395](https://github.com/kubernetes/enhancements/blob/master/keps/sig-cloud-provider/2395-removing-in-tree-cloud-providers/README.md)), a process started with Kubernetes v1.26. 
 This change helps Kubernetes to get closer to being a truly vendor-neutral platform.
 
-For further details on the cloud provider integrations, read our [v1.29 Cloud Provider Integrations feature blog](https://kubernetes.io/blog/2023/12/14/cloud-provider-integration-changes/). 
-For additional context about the in-tree code removal, we invite you to check the ([v1.29 deprecation blog](https://kubernetes.io/blog/2023/11/16/kubernetes-1-29-upcoming-changes/#removal-of-in-tree-integrations-with-cloud-providers-kep-2395-https-kep-k8s-io-2395)).
+For further details on the cloud provider integrations, read our [v1.29 Cloud Provider Integrations feature blog](/blog/2023/12/14/cloud-provider-integration-changes/). 
+For additional context about the in-tree code removal, we invite you to check the ([v1.29 deprecation blog](/blog/2023/11/16/kubernetes-1-29-upcoming-changes/#removal-of-in-tree-integrations-with-cloud-providers-kep-2395-https-kep-k8s-io-2395)).
 
 The latter blog also contains useful information for users who need to migrate to version v1.29 and later.
 
 
-### Removal of Kubelet Flag `--keep-terminated-pod-volumes`
+### Removal of kubelet `--keep-terminated-pod-volumes` command line flag
 
 The kubelet flag `--keep-terminated-pod-volumes`, which was deprecated in 2017, will be removed as
 part of the v1.31 release.
