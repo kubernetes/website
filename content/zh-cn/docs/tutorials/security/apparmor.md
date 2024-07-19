@@ -154,9 +154,9 @@ Where `<profile_type>` is one of:
 * `Unconfined` 无需 AppArmor 即可运行
 
 <!--
-See the [API Reference](#api-reference) for the full details on the AppArmor profile API.
+See [Specifying AppArmor Confinement](#specifying-apparmor-confinement) for full details on the AppArmor profile API.
 -->
-有关 AppArmor 配置文件 API 的完整详细信息，请参阅 [API 参考](#api-reference)。
+有关 AppArmor 配置文件 API 的完整详细信息，请参阅[指定 AppArmor 限制](#specifying-apparmor-confinement)。
 
 <!--
 To verify that the profile was applied, you can check that the container's root process is
