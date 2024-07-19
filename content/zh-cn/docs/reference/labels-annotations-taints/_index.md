@@ -1987,6 +1987,36 @@ The label's value is in the format "MajorVersion.MinorVersion.BuildNumber".
 标签的值采用 “MajorVersion.MinorVersion.BuildNumber” 格式。
 
 <!--
+### storage.alpha.kubernetes.io/migrated-plugins {#storagealphakubernetesiomigrated-plugins}
+
+Type: Annotation
+
+Example:`storage.alpha.kubernetes.io/migrated-plugins: "kubernetes.io/cinder"`
+
+Used on: CSINode (an extension API)
+
+This annotation is automatically added for the CSINode object that maps to a node that
+installs CSIDriver. This annotation shows the in-tree plugin name of the migrated plugin. Its
+value depends on your cluster's in-tree cloud provider storage type.
+
+For example, if the in-tree cloud provider storage type is `CSIMigrationvSphere`, the CSINodes instance for the node should be updated with:
+`storage.alpha.kubernetes.io/migrated-plugins: "kubernetes.io/vsphere-volume"`
+-->
+### storage.alpha.kubernetes.io/migrated-plugins {#storagealphakubernetesiomigrated-plugins}
+
+类型：注解
+
+例子：`storage.alpha.kubernetes.io/migrated-plugins: "kubernetes.io/cinder"`
+
+用于：CSINode（一个扩展 API）
+
+系统会自动为映射到安装 CSIDriver 的节点的 CSINode 对象添加此注解。
+此注解显示已迁移插件的树内插件名称，其值取决于集群的树内云驱动存储类型。
+
+例如，如果树内云驱动存储类型为 `CSIMigrationvSphere`，则此节点的 CSINode 实例应更新为：
+`storage.alpha.kubernetes.io/migerated-plugins: "kubernetes.io/vsphere-volume"`
+
+<!--
 ### service.kubernetes.io/headless {#servicekubernetesioheadless}
 
 Type: Label
