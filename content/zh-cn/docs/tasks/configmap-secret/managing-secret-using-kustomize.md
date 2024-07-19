@@ -93,7 +93,7 @@ secretGenerator:
      - password.txt
    ```
 
-{{% /tab %}}}
+{{% /tab %}}
 {{% tab name=".env 文件" %}}
 <!-- 
 You can also define the secretGenerator in the `kustomization.yaml` file by
@@ -146,7 +146,11 @@ When a Secret is generated, the Secret name is created by hashing
 the Secret data and appending the hash value to the name. This ensures that
 a new Secret is generated each time the data is modified.
 
-To verify that the Secret was created and to decode the Secret data,
+To verify that the Secret was created and to decode the Secret data, 
+
+```shell
+kubectl get -k <directory-path> -o jsonpath='{.data}' 
+```
 -->
 生成 Secret 时，Secret 的名称最终是由 `name` 字段和数据的哈希值拼接而成。
 这将保证每次修改数据时生成一个新的 Secret。
@@ -154,7 +158,7 @@ To verify that the Secret was created and to decode the Secret data,
 要验证 Secret 是否已创建并解码 Secret 数据，
 
 ```shell
-kubectl get -k <directory-path> -o jsonpath='{.data}' 
+kubectl get -k <目录路径> -o jsonpath='{.data}' 
 ```
 
 <!--
@@ -163,11 +167,11 @@ The output is similar to:
 输出类似于：
 
 ```
-{ "password": "UyFCXCpkJHpEc2I9", "username": "YWRtaW4=" }
-````
+{ "password": "MWYyZDFlMmU2N2Rm", "username": "YWRtaW4=" }
+```
 
 ```
-echo 'UyFCXCpkJHpEc2I9' | base64 --decode
+echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
 ```
 
 <!--
@@ -176,7 +180,7 @@ The output is similar to:
 输出类似于：
 
 ```
-S!B\*d$zDsb=
+1f2d1e2e67df
 ```
 
 <!--
@@ -193,6 +197,10 @@ For more information, refer to
 
 1.  In your `kustomization.yaml` file, modify the data, such as the `password`.
 1.  Apply the directory that contains the kustomization file:
+
+    ```shell
+    kubectl apply -k <directory-path>
+    ```
 -->
 ## 编辑 Secret {#edit-secret}
 
