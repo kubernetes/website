@@ -9,7 +9,7 @@ description: >
 
 ### Understanding Cluster Component Distribution
 
-While the diagram provides a simplified overview, it's important to understand the flexibility of Kubernetes architecture:
+A Kubernetes cluster consists of a control plane and some nodes. The diagram shows an example of what's involved.
 
 - **Control Plane Components:** The control plane refers to a collection of critical components that manage the cluster's core functionality. These include the API server, scheduler, controller manager, and etcd (for cluster state storage).
 
