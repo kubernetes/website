@@ -292,10 +292,10 @@ spec:
 ```
 
 <!--
-This pod runs in the `BestEffort` QoS class because no resource `requests` or
+The pod above runs in the `BestEffort` QoS class because no resource `requests` or
 `limits` are specified. It runs in the shared pool.
 -->
-该 Pod 属于 `BestEffort` QoS 类型，因为其未指定 `requests` 或 `limits` 值。
+上例的 Pod 属于 `BestEffort` QoS 类，因为其未指定 `requests` 或 `limits` 值。
 所以该容器运行在共享 CPU 池中。
 
 ```yaml
@@ -311,11 +311,11 @@ spec:
 ```
 
 <!--
-This pod runs in the `Burstable` QoS class because resource `requests` do not
+The pod above runs in the `Burstable` QoS class because resource `requests` do not
 equal `limits` and the `cpu` quantity is not specified. It runs in the shared
 pool.
 -->
-该 Pod 属于 `Burstable` QoS 类型，因为其资源 `requests` 不等于 `limits`，且未指定 `cpu` 数量。
+上例的 Pod 属于 `Burstable` QoS 类，因为其资源 `requests` 不等于 `limits`，且未指定 `cpu` 数量。
 所以该容器运行在共享 CPU 池中。
 
 ```yaml
@@ -333,10 +333,10 @@ spec:
 ```
 
 <!--
-This pod runs in the `Burstable` QoS class because resource `requests` do not
+The pod above runs in the `Burstable` QoS class because resource `requests` do not
 equal `limits`. It runs in the shared pool.
 -->
-该 Pod 属于 `Burstable` QoS 类型，因为其资源 `requests` 不等于 `limits`。
+上例的 Pod 属于 `Burstable` QoS 类，因为其资源 `requests` 不等于 `limits`。
 所以该容器运行在共享 CPU 池中。
 
 ```yaml
@@ -354,11 +354,11 @@ spec:
 ```
 
 <!--
-This pod runs in the `Guaranteed` QoS class because `requests` are equal to `limits`.
+The pod above runs in the `Guaranteed` QoS class because `requests` are equal to `limits`.
 And the container's resource limit for the CPU resource is an integer greater than
 or equal to one. The `nginx` container is granted 2 exclusive CPUs.
 -->
-该 Pod 属于 `Guaranteed` QoS 类型，因为其 `requests` 值与 `limits`相等。
+上例的 Pod 属于 `Guaranteed` QoS 类，因为其 `requests` 值与 `limits` 相等。
 同时，容器对 CPU 资源的限制值是一个大于或等于 1 的整数值。
 所以，该 `nginx` 容器被赋予 2 个独占 CPU。
 
@@ -377,11 +377,11 @@ spec:
 ```
 
 <!--
-This pod runs in the `Guaranteed` QoS class because `requests` are equal to `limits`.
+The pod above runs in the `Guaranteed` QoS class because `requests` are equal to `limits`.
 But the container's resource limit for the CPU resource is a fraction. It runs in
 the shared pool.
 -->
-该 Pod 属于 `Guaranteed` QoS 类型，因为其 `requests` 值与 `limits`相等。
+上例的 Pod 属于 `Guaranteed` QoS 类，因为其 `requests` 值与 `limits` 相等。
 但是容器对 CPU 资源的限制值是一个小数。所以该容器运行在共享 CPU 池中。
 
 ```yaml
@@ -396,12 +396,12 @@ spec:
 ```
 
 <!--
-This pod runs in the `Guaranteed` QoS class because only `limits` are specified
+The pod above runs in the `Guaranteed` QoS class because only `limits` are specified
 and `requests` are set equal to `limits` when not explicitly specified. And the
 container's resource limit for the CPU resource is an integer greater than or
 equal to one. The `nginx` container is granted 2 exclusive CPUs.
 -->
-该 Pod 属于 `Guaranteed` QoS 类型，因其指定了 `limits` 值，同时当未显式指定时，
+上例的 Pod 属于 `Guaranteed` QoS 类，因其指定了 `limits` 值，同时当未显式指定时，
 `requests` 值被设置为与 `limits` 值相等。
 同时，容器对 CPU 资源的限制值是一个大于或等于 1 的整数值。
 所以，该 `nginx` 容器被赋予 2 个独占 CPU。
