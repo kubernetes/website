@@ -1192,7 +1192,7 @@ Kubernetes {{< skew currentVersion >}} 下实现的验证逐步升级不支持�
 
 <!--
 - `x-kubernetes-validations`
-  For Kubernetes 1.28, CRD validation rules](#validation-rules) are ignored by
+  For Kubernetes 1.28, CRD [validation rules](#validation-rules) are ignored by
   ratcheting. Starting with Alpha 2 in Kubernetes 1.29, `x-kubernetes-validations`
   are ratcheted only if they do not refer to `oldSelf`.
 
@@ -2631,6 +2631,77 @@ The `NAME` column is implicit and does not need to be defined in the CustomResou
 {{< /note >}}
 
 <!--
+#### Priority
+
+Each column includes a `priority` field. Currently, the priority
+differentiates between columns shown in standard view or wide view (using the `-o wide` flag).
+
+- Columns with priority `0` are shown in standard view.
+- Columns with priority greater than `0` are shown only in wide view.
+-->
+#### 优先级    {#priority}
+
+每个列都包含一个 `priority`（优先级）字段。当前，优先级用来区分标准视图（Standard
+View）和宽视图（Wide View）（使用 `-o wide` 标志）中显示的列：
+
+- 优先级为 `0` 的列会在标准视图中显示。
+- 优先级大于 `0` 的列只会在宽视图中显示。
+
+<!--
+#### Type
+
+A column's `type` field can be any of the following (compare
+[OpenAPI v3 data types](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#dataTypes)):
+
+- `integer` – non-floating-point numbers
+- `number` – floating point numbers
+- `string` – strings
+- `boolean` – `true` or `false`
+- `date` – rendered differentially as time since this timestamp.
+-->
+#### 类型    {#type}
+
+列的 `type` 字段可以是以下值之一
+（比较 [OpenAPI v3 数据类型](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#dataTypes)）：
+
+- `integer` – 非浮点数字
+- `number` – 浮点数字
+- `string` – 字符串
+- `boolean` – `true` 或 `false`
+- `date` – 显示为以自此时间戳以来经过的时长
+
+<!--
+If the value inside a CustomResource does not match the type specified for the column,
+the value is omitted. Use CustomResource validation to ensure that the value
+types are correct.
+-->
+如果 CustomResource 中的值与列中指定的类型不匹配，该值会被忽略。
+你可以通过 CustomResource 的合法性检查来确保取值类型是正确的。
+
+<!--
+#### Format
+
+A column's `format` field can be any of the following:
+-->
+#### 格式    {#format}
+
+列的 `format` 字段可以是以下值之一：
+
+- `int32`
+- `int64`
+- `float`
+- `double`
+- `byte`
+- `date`
+- `date-time`
+- `password`
+
+<!--
+The column's `format` controls the style used when `kubectl` prints the value.
+-->
+列的 `format` 字段控制 `kubectl` 打印对应取值时采用的风格。
+
+<!--
 ### Field selectors
 
 [Field Selectors](/docs/concepts/overview/working-with-objects/field-selectors/)
@@ -2771,77 +2842,6 @@ Should output:
 NAME       COLOR  SIZE
 example2   blue   M
 ```
-
-<!--
-#### Priority
-
-Each column includes a `priority` field. Currently, the priority
-differentiates between columns shown in standard view or wide view (using the `-o wide` flag).
-
-- Columns with priority `0` are shown in standard view.
-- Columns with priority greater than `0` are shown only in wide view.
--->
-#### 优先级    {#priority}
-
-每个列都包含一个 `priority`（优先级）字段。当前，优先级用来区分标准视图（Standard
-View）和宽视图（Wide View）（使用 `-o wide` 标志）中显示的列：
-
-- 优先级为 `0` 的列会在标准视图中显示。
-- 优先级大于 `0` 的列只会在宽视图中显示。
-
-<!--
-#### Type
-
-A column's `type` field can be any of the following (compare
-[OpenAPI v3 data types](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#dataTypes)):
-
-- `integer` – non-floating-point numbers
-- `number` – floating point numbers
-- `string` – strings
-- `boolean` – `true` or `false`
-- `date` – rendered differentially as time since this timestamp.
--->
-#### 类型    {#type}
-
-列的 `type` 字段可以是以下值之一
-（比较 [OpenAPI v3 数据类型](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#dataTypes)）：
-
-- `integer` – 非浮点数字
-- `number` – 浮点数字
-- `string` – 字符串
-- `boolean` – `true` 或 `false`
-- `date` – 显示为以自此时间戳以来经过的时长
-
-<!--
-If the value inside a CustomResource does not match the type specified for the column,
-the value is omitted. Use CustomResource validation to ensure that the value
-types are correct.
--->
-如果定制资源中的值与列中指定的类型不匹配，该值会被忽略。
-你可以通过定制资源的合法性检查来确保取值类型是正确的。
-
-<!--
-#### Format
-
-A column's `format` field can be any of the following:
--->
-#### 格式    {#format}
-
-列的 `format` 字段可以是以下值之一：
-
-- `int32`
-- `int64`
-- `float`
-- `double`
-- `byte`
-- `date`
-- `date-time`
-- `password`
-
-<!--
-The column's `format` controls the style used when `kubectl` prints the value.
--->
-列的 `format` 字段控制 `kubectl` 打印对应取值时采用的风格。
 
 <!--
 ### Subresources
