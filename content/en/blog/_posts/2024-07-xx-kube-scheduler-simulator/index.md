@@ -10,8 +10,9 @@ The Kubernetes Scheduler is a crucial control plane component that determines wh
 Thus, anyone utilizing Kubernetes relies on the scheduler.
 
 [Kube-scheduler-simulator](sigs.k8s.io/kube-scheduler-simulator) is a simulator for the Kubernetes scheduler, initially developed by Kensei Nakada as part of [Google Summer of Code 2021](https://summerofcode.withgoogle.com/). 
-This tool allows users to examine the scheduler’s behavior and decisions closely, 
-making it useful for both casual users who employ scheduling constraints (e.g., PodAffinity) 
+This tool allows users to closely examine the scheduler’s behavior and decisions. 
+
+It is useful for casual users who employ scheduling constraints (e.g., PodAffinity) 
 and experts who extend the scheduler with custom plugins.
 
 ## Motivation
@@ -20,8 +21,8 @@ The scheduler often appears as a black box,
 composed of many plugins that each contribute to the scheduling decision-making process from their unique perspectives. 
 Understanding its behavior can be challenging due to the multitude of factors it considers. 
 Even if a Pod seems to be scheduled as expected in your simple test cluster, 
-it’s maybe because of a different reason from what you imagine, 
-and could result in unexpected scheduling results in a large production environment.
+it may be for a different reason than what you imagine, 
+which could result in unexpected scheduling results in a large production environment.
 
 The scheduler simulator aims to reveal this black box, 
 enabling users to test their scheduling constraints, scheduler configurations, 
@@ -29,7 +30,7 @@ and custom plugins while checking every detailed part of scheduling decisions.
 
 ## What’s Kube-scheduler-simulator? 
 
-The simulator’s core feature is its ability to expose the internal decisions of the scheduler. 
+The simulator’s core feature is its ability to expose the scheduler's internal decisions.
 The scheduler operates based on the [Scheduling Framework](/concepts/scheduling-eviction/scheduling-framework/), 
 utilizing various plugins at different extension points; 
 filter Nodes (Filter phase), score Nodes (Score phase), and ultimately determine the best Node for the Pod.
@@ -73,12 +74,13 @@ metadata:
 ```
 
 Users can also integrate their custom plugins or extenders into the debuggable scheduler and visualize their results. 
-Also, this debuggable scheduler can run standalone, e.g., on any Kubernetes cluster or in integration tests. 
-Those would be useful to custom plugin developers to test their plugins or examine their custom scheduler in a real cluster with better debuggability.
+
+This debuggable scheduler can also run standalone, e.g., on any Kubernetes cluster or in integration tests. 
+This would be useful to custom plugin developers who want to test their plugins or examine their custom scheduler in a real cluster with better debuggability.
 
 ## What are the use cases?
 
-1. **Cluser users**: Examine if your scheduling constraints (e.g., PodAffinity, PodTopologySpread) work as intended.
+1. **Cluster users**: Examine if your scheduling constraints (e.g., PodAffinity, PodTopologySpread) work as intended.
 2. **Cluster admins**: Assess how your cluster would behave with changes to the scheduler configuration.
 3. **Scheduler plugin developers**: Test your custom scheduler plugins or extenders, or use the debuggable scheduler in integration tests or development clusters.
 
