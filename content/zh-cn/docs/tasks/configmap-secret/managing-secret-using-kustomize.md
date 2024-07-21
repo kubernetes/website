@@ -33,16 +33,16 @@ Secret 和 ConfigMap。你可以使用 Kustomize 创建**资源生成器（Resou
 
 You can generate a Secret by defining a `secretGenerator` in a
 `kustomization.yaml` file that references other existing files, `.env` files, or
-literal values. For example, the following instructions create a Kustomization
+literal values. For example, the following instructions create a kustomization
 file for the username `admin` and the password `1f2d1e2e67df`.
 
-### Create the Kustomization file
+### Create the kustomization file
 -->
 ## 创建 Secret    {#create-a-secret}
 
 你可以在 `kustomization.yaml` 文件中定义 `secreteGenerator` 字段，
 并在定义中引用其它本地文件、`.env` 文件或文字值生成 Secret。
-例如：下面的指令为用户名 `admin` 和密码 `1f2d1e2e67df` 创建 Kustomization 文件。
+例如：下面的指令为用户名 `admin` 和密码 `1f2d1e2e67df` 创建 kustomization 文件。
 
 {{< note >}}
 <!--
@@ -51,7 +51,7 @@ The `stringData` field for a Secret does not work well with server-side apply.
 Secret 的 `stringData` 字段与服务端应用不兼容。
 {{< /note >}}
 
-### 创建 Kustomization 文件   {#create-the-kustomization-file}
+### 创建 kustomization 文件   {#create-the-kustomization-file}
 
 {{< tabs name="Secret data" >}}
 {{< tab name="文字" codelang="yaml" >}}
@@ -113,7 +113,7 @@ secretGenerator:
 {{< /tabs >}}
 
 <!--
-In all cases, you don't need to base64 encode the values. The name of the YAML
+In all cases, you don't need to encode the values in base64. The name of the YAML
 file **must** be `kustomization.yaml` or `kustomization.yml`.
 -->
 在所有情况下，你都不需要对取值作 base64 编码。
@@ -146,7 +146,7 @@ When a Secret is generated, the Secret name is created by hashing
 the Secret data and appending the hash value to the name. This ensures that
 a new Secret is generated each time the data is modified.
 
-To verify that the Secret was created and to decode the Secret data, 
+To verify that the Secret was created and to decode the Secret data,
 
 ```shell
 kubectl get -k <directory-path> -o jsonpath='{.data}' 
