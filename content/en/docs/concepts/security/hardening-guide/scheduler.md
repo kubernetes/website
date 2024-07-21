@@ -18,13 +18,15 @@ A misconfigured scheduler can have security implications. Such a scheduler can t
 ## kube-scheduler configuration
 
 ### Scheduler authentication & authorization command line options
+When setting up authentication configuration, it should be made sure that kube-scheduler's authentication remains consistent with kube-api-server's authentication. If any request has missing authentication headers, the authentication should happen through the kube-api-server allowing all authentication to be consistent in the cluster.
 {{<table caption="Security advice for kube-scheduler command line options relating to authentication or authorization" >}}
-| Command line argument                    | Security hardening advice                                                                                                              |
-| ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| `authentication-kubeconfig`              | Make sure to provide a proper kubeconfig so that the server calls are secure. This kubeconfig file should also be maintained securely. |
-| `authentication-tolerate-lookup-failure` | Set to `false` to make sure invalid authentication configurations do not lead to requests passing off as anonymous                     |
-| `authentication-skip-lookup`             | This should be set to `false` to make sure all missing authentication configuration falls back to the authentication kubeconfig.       |
-| `authorization-always-allow-paths`       | These paths should respond with data that is appropriate for anonymous authorization. Defaults to `/healthz,/readyz,/livez`.           |
+| Command line argument                    | Security hardening advice                                                                                                                                                                                            |
+| ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `authentication-kubeconfig`              | Make sure to provide a proper kubeconfig so that the scheduler can retrieve authentication configuration options from the API Server. This kubeconfig file should be protected with strict file permissions.         |
+| `authentication-tolerate-lookup-failure` | Set this to `false` to make sure the scheduler _always_ looks up its authentication configuration from the API server.                                                                                               |
+| `authentication-skip-lookup`             | Set this to `false` to make sure the scheduler _always_ looks up its authentication configuration from the API server.                                                                                               |
+| `authorization-always-allow-paths`       | These paths should respond with data that is appropriate for anonymous authorization. Defaults to `/healthz,/readyz,/livez`.                                                                                         |
+| `profiling`                              | Set to `false` to disable the profiling endpoints which are provide debugging information but which should not be enabled on production clusters as they present a risk of denial of service or information leakage. |
 {{</table>}}
 
 ### Scheduler networking command line options
@@ -38,10 +40,10 @@ A misconfigured scheduler can have security implications. Such a scheduler can t
 
 ### Scheduler TLS command line options
 {{<table caption="Security advice for kube-scheduler command line options relating to encryption in transit" >}}
-| Command line argument          | Security hardening advice                                                                                                                                                                                                          |
-| ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `requestheader-client-ca-file` | Generally do not depend on authorization being already done for incoming requests. Always provide the root certificate bundle. This allows authorization to happen on each incoming request through `requestheader-allowed-names`. |
-| `tls-cipher-suites`            | Always provide a list of preferred cipher suites. This ensures encryption never happens with insecure cipher suites.                                                                                                               |
+| Command line argument          | Security hardening advice                                                                                                                                                                                                                                                                                    |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `requestheader-client-ca-file` | Avoid passing this argument and instead rely on `requestheader-allowed-names` instead. [This configuration makes sure that authentication configuration consistent across the cluster.](https://kubernetes.io/docs/tasks/extend-kubernetes/configure-aggregation-layer/#original-request-username-and-group) |
+| `tls-cipher-suites`            | Always provide a list of preferred cipher suites. This ensures encryption never happens with insecure cipher suites.                                                                                                                                                                                         |
 {{</table>}}
 
 ## Scheduling configurations for custom schedulers
