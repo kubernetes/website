@@ -116,6 +116,25 @@ A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedU
 </td>
 </tr>
 
+<tr>
+<td colspan="2">
+<!--
+--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "registry.k8s.io"
+-->
+--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："registry.k8s.io"
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+Choose a container registry to pull control plane images from
+-->
+选择拉取控制平面镜像的容器仓库。
+</p>
+</td>
+</tr>
+
 </tbody>
 </table>
 

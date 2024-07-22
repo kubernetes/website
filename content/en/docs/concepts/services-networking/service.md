@@ -219,7 +219,8 @@ metadata:
   name: my-service
 spec:
   ports:
-    - protocol: TCP
+    - name: http
+      protocol: TCP
       port: 80
       targetPort: 9376
 ```
@@ -241,8 +242,7 @@ metadata:
     kubernetes.io/service-name: my-service
 addressType: IPv4
 ports:
-  - name: '' # empty because port 9376 is not assigned as a well-known
-             # port (by IANA)
+  - name: http # should match with the name of the service port defined above
     appProtocol: http
     protocol: TCP
     port: 9376
@@ -292,7 +292,7 @@ the EndpointSlice manifest: a TCP connection to 10.1.2.3 or 10.4.5.6, on port 93
 
 {{< note >}}
 The Kubernetes API server does not allow proxying to endpoints that are not mapped to
-pods. Actions such as `kubectl proxy <service-name>` where the service has no
+pods. Actions such as `kubectl port-forward service/<service-name> forwardedPort:servicePort` where the service has no
 selector will fail due to this constraint. This prevents the Kubernetes API server
 from being used as a proxy to endpoints the caller may not be authorized to access.
 {{< /note >}}
@@ -368,6 +368,8 @@ This field follows standard Kubernetes label syntax. Valid values are one of:
 | Protocol | Description |
 |----------|-------------|
 | `kubernetes.io/h2c` | HTTP/2 over cleartext as described in [RFC 7540](https://www.rfc-editor.org/rfc/rfc7540) |
+| `kubernetes.io/ws`  | WebSocket over cleartext as described in [RFC 6455](https://www.rfc-editor.org/rfc/rfc6455) |
+| `kubernetes.io/wss` | WebSocket over TLS as described in [RFC 6455](https://www.rfc-editor.org/rfc/rfc6455) |
 
 ### Multi-port Services
 
@@ -622,6 +624,16 @@ You can integrate with [Gateway](https://gateway-api.sigs.k8s.io/) rather than S
 can define your own (provider specific) annotations on the Service that specify the equivalent detail.
 {{< /note >}}
 
+#### Node liveness impact on load balancer traffic
+
+Load balancer health checks are critical to modern applications. They are used to
+determine which server (virtual machine, or IP address) the load balancer should
+dispatch traffic to. The Kubernetes APIs do not define how health checks have to be
+implemented for Kubernetes managed load balancers, instead it's the cloud providers
+(and the people implementing integration code) who decide on the behavior. Load
+balancer health checks are extensively used within the context of supporting the
+`externalTrafficPolicy` field for Services.
+
 #### Load balancers with mixed protocol types
 
 {{< feature-state feature_gate_name="MixedProtocolLBService" >}}
@@ -675,7 +687,7 @@ Unprefixed names are reserved for end-users.
 
 {{< feature-state feature_gate_name="LoadBalancerIPMode" >}}
 
-Starting as Alpha in Kubernetes 1.29, 
+As a Beta feature in Kubernetes 1.30,
 a [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) 
 named `LoadBalancerIPMode` allows you to set the `.status.loadBalancer.ingress.ipMode` 
 for a Service with `type` set to `LoadBalancer`. 
@@ -715,16 +727,16 @@ Select one of the tabs.
 metadata:
   name: my-service
   annotations:
-      networking.gke.io/load-balancer-type: "Internal"
+    networking.gke.io/load-balancer-type: "Internal"
 ```
 {{% /tab %}}
 {{% tab name="AWS" %}}
 
 ```yaml
 metadata:
-    name: my-service
-    annotations:
-        service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+  name: my-service
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
 ```
 
 {{% /tab %}}
@@ -734,7 +746,7 @@ metadata:
 metadata:
   name: my-service
   annotations:
-      service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 ```
 
 {{% /tab %}}
@@ -744,7 +756,7 @@ metadata:
 metadata:
   name: my-service
   annotations:
-      service.kubernetes.io/ibm-load-balancer-cloud-provider-ip-type: "private"
+    service.kubernetes.io/ibm-load-balancer-cloud-provider-ip-type: "private"
 ```
 
 {{% /tab %}}
@@ -792,7 +804,7 @@ metadata:
 metadata:
   name: my-service
   annotations:
-      service.beta.kubernetes.io/oci-load-balancer-internal: true
+    service.beta.kubernetes.io/oci-load-balancer-internal: true
 ```
 {{% /tab %}}
 {{< /tabs >}}
@@ -979,6 +991,35 @@ You can set the `.spec.internalTrafficPolicy` and `.spec.externalTrafficPolicy` 
 to control how Kubernetes routes traffic to healthy (“ready”) backends.
 
 See [Traffic Policies](/docs/reference/networking/virtual-ips/#traffic-policies) for more details.
+
+### Traffic distribution
+
+{{< feature-state feature_gate_name="ServiceTrafficDistribution" >}}
+
+The `.spec.trafficDistribution` field provides another way to influence traffic
+routing within a Kubernetes Service. While traffic policies focus on strict
+semantic guarantees, traffic distribution allows you to express _preferences_
+(such as routing to topologically closer endpoints). This can help optimize for
+performance, cost, or reliability. This optional field can be used if you have
+enabled the `ServiceTrafficDistribution` [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/) for your
+cluster and all of its nodes. In Kubernetes {{< skew currentVersion >}}, the
+following field value is supported: 
+
+`PreferClose`
+: Indicates a preference for routing traffic to endpoints that are topologically
+  proximate to the client. The interpretation of "topologically proximate" may
+  vary across implementations and could encompass endpoints within the same
+  node, rack, zone, or even region. Setting this value gives implementations
+  permission to make different tradeoffs, e.g. optimizing for proximity rather
+  than equal distribution of load. Users should not set this value if such
+  tradeoffs are not acceptable.
+
+If the field is not set, the implementation will apply its default routing strategy.
+
+See [Traffic
+Distribution](/docs/reference/networking/virtual-ips/#traffic-distribution) for
+more details
 
 ### Session stickiness
 

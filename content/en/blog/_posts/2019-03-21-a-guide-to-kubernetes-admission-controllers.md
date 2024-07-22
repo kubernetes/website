@@ -1,9 +1,9 @@
 ---
 title: A Guide to Kubernetes Admission Controllers
 date: 2019-03-21
+author: >
+  Malte Isberner (StackRox)
 ---
-
-**Author:** Malte Isberner (StackRox)
 
 Kubernetes has greatly improved the speed and manageability of backend clusters in production today. Kubernetes has emerged as the de facto standard in container orchestrators thanks to its flexibility, scalability, and ease of use. Kubernetes also provides a range of features that secure production workloads. A more recent introduction in security features is a set of plugins called “[admission controllers](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/).” Admission controllers must be enabled to use some of the more advanced security features of Kubernetes, such as [pod security policies](https://kubernetes.io/docs/concepts/policy/pod-security-policy/) that enforce a security configuration baseline across an entire namespace. The following must-know tips and tricks will help you leverage admission controllers to make the most of these security capabilities in Kubernetes.
 

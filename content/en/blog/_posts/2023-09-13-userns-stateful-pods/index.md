@@ -3,9 +3,11 @@ layout: blog
 title: "User Namespaces: Now Supports Running Stateful Pods in Alpha!"
 date: 2023-09-13
 slug: userns-alpha
+author: >
+  Rodrigo Campos Catelin (Microsoft),
+  Giuseppe Scrivano (Red Hat),
+  Sascha Grunert (Red Hat)
 ---
-
-**Authors:** Rodrigo Campos Catelin (Microsoft), Giuseppe Scrivano (Red Hat), Sascha Grunert (Red Hat)
 
 Kubernetes v1.25 introduced support for user namespaces for only stateless
 pods. Kubernetes 1.28 lifted that restriction, after some design changes were

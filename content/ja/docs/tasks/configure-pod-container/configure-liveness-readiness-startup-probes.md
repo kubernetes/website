@@ -117,7 +117,7 @@ liveness-exec   1/1       Running   1          1m
 ## HTTPリクエストによるLiveness Probeを定義する {#define-a-liveness-http-request}
 
 別の種類のLiveness Probeでは、HTTP GETリクエストを使用します。
-次の構成ファイルは、`registry.k8s.io/liveness`イメージを使用したコンテナを起動するPodを作成します。
+次の構成ファイルは、`registry.k8s.io/e2e-test-images/agnhost`イメージを使用したコンテナを起動するPodを作成します。
 
 {{% codenew file="pods/probe/http-liveness.yaml" %}}
 

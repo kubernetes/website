@@ -118,7 +118,7 @@ like to highlight?
 has been recently added (and I take the opportunity to specifically
 highlight the work of [Tim Hockin](https://github.com/thockin) on
 this) is the introduction of [Go workspaces to the Kubernetes
-repo](/blog/2024/03/19/go-workspaces-in-kubernetes/). A lot of our
+repo](https://www.kubernetes.dev/blog/2024/03/19/go-workspaces-in-kubernetes/). A lot of our
 current tooling for dependency management and code publishing, as well
 as the experience of editing code in the Kubernetes repo, can be
 significantly improved by this change.

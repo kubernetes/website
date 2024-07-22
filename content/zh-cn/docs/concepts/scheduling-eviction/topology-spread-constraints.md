@@ -101,7 +101,7 @@ spec:
   # Configure a topology spread constraint
   topologySpreadConstraints:
     - maxSkew: <integer>
-      minDomains: <integer> # optional; beta since v1.25
+      minDomains: <integer> # optional
       topologyKey: <string>
       whenUnsatisfiable: <string>
       labelSelector: <object>
@@ -121,7 +121,7 @@ spec:
   # 配置一个拓扑分布约束
   topologySpreadConstraints:
     - maxSkew: <integer>
-      minDomains: <integer> # 可选；自从 v1.25 开始成为 Beta
+      minDomains: <integer> # 可选
       topologyKey: <string>
       whenUnsatisfiable: <string>
       labelSelector: <object>
@@ -184,15 +184,13 @@ your cluster. Those fields are:
 
   {{< note >}}
   <!--
-  The `MinDomainsInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  enables `minDomains` for pod topology spread. Starting from v1.28,
-  the `MinDomainsInPodTopologySpread` gate 
-  is enabled by default. In older Kubernetes clusters it might be explicitly
+  Before Kubernetes v1.30, the `minDomains` field was only available if the
+  `MinDomainsInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  was enabled (default since v1.28). In older Kubernetes clusters it might be explicitly
   disabled or the field might not be available.
   -->
-  `MinDomainsInPodTopologySpread`
-  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)为
-  Pod 拓扑分布启用 `minDomains`。自 v1.28 起，`MinDomainsInPodTopologySpread` 特性门控默认被启用。
+  在 Kubernetes v1.30 之前，`minDomains` 字段只有在启用 `MinDomainsInPodTopologySpread`
+  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)时才可用（自 v1.28 起默认启用）
   在早期的 Kubernetes 集群中，此特性门控可能被显式禁用或此字段可能不可用。
   {{< /note >}}
 

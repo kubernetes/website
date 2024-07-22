@@ -3,9 +3,9 @@ layout: blog
 title: 'Scaling Kubernetes Networking With EndpointSlices'
 date: 2020-09-02
 slug: scaling-kubernetes-networking-with-endpointslices
+author: >
+  Rob Scott (Google)
 ---
-
-**Author:** Rob Scott (Google)
 
 EndpointSlices are an exciting new API that provides a scalable and extensible alternative to the Endpoints API. EndpointSlices track IP addresses, ports, readiness, and topology information for Pods backing a Service.
 

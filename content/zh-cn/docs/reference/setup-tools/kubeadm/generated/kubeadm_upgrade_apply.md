@@ -125,17 +125,19 @@ Perform the upgrade of etcd.
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
 A set of key=value pairs that describe feature gates for various features. Options are:<br/>
-EtcdLearnerMode=true|false (ALPHA - default=false)<br/>
-PublicKeysECDSA=true|false (ALPHA - default=false)<br/>
+EtcdLearnerMode=true|false (BETA - default=true)<br/>
+PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>
 RootlessControlPlane=true|false (ALPHA - default=false)<br/>
-UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - default=false)
+UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - default=false)<br/>
+WaitForAllControlPlaneComponents=true|false (ALPHA - default=false)
 -->
 <p>
 一组键值对，用于描述各种功能。选项包括：<br/>
 EtcdLearnerMode=true|false (ALPHA - 默认值=false)<br/>
-PublicKeysECDSA=true|false (ALPHA - 默认值=false)<br/>
-RootlessControlPlane=true|false (ALPHA - 默认值=false)<br/>
+PublicKeysECDSA=true|false (BETA - 默认值=true)<br/>
+RootlessControlPlane=true|false (DEPRECATED - 默认值=false)<br/>
 UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - 默认值=false)
+WaitForAllControlPlaneComponents=true|false (ALPHA - 默认值=false)
 </p>
 </td>
 </tr>

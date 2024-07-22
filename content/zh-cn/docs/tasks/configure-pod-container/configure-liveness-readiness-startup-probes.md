@@ -13,6 +13,8 @@ weight: 140
 <!--
 This page shows how to configure liveness, readiness and startup probes for containers.
 
+For more information about probes, see [Liveness, Readiness and Startup Probes](/docs/concepts/configuration/liveness-readiness-startup-probes)
+
 The [kubelet](/docs/reference/command-line-tools-reference/kubelet/) uses
 liveness probes to know when to restart a container. For example, liveness
 probes could catch a deadlock, where an application is running, but unable to
@@ -20,6 +22,9 @@ make progress. Restarting a container in such a state can help to make the
 application more available despite bugs.
 -->
 这篇文章介绍如何给容器配置存活（Liveness）、就绪（Readiness）和启动（Startup）探针。
+
+有关探针的更多信息，请参阅
+[Liveness、Readiness 和 Startup 探针](/zh-cn/docs/concepts/configuration/liveness-readiness-startup-probes)。
 
 [kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/)
 使用存活探针来确定什么时候要重启容器。

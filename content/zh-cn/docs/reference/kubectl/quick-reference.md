@@ -40,7 +40,7 @@ These instructions are for Kubernetes v{{< skew currentVersion >}}. To check the
 
 ### BASH
 -->
-## Kubectl 自动补全   {#kubectl-autocomplete}
+## kubectl 自动补全   {#kubectl-autocomplete}
 
 ### BASH
 
@@ -79,14 +79,15 @@ echo '[[ $commands[kubectl] ]] && source <(kubectl completion zsh)' >> ~/.zshrc 
 
 ### FISH
 
+{{< note >}}
 <!--
-Require kubectl version 1.23 or above.
+Requires kubectl version 1.23 or above.
 -->
-
 需要 kubectl 版本 1.23 或更高版本。
+{{< /note >}}
 
 ```bash
-+echo 'kubectl completion fish | source' >> ~/.config/fish/config.fish  # 将 kubectl 自动补全永久添加到你的 Fish shell 中
+echo 'kubectl completion fish | source' > ~/.config/fish/completions/kubectl.fish && source ~/.config/fish/completions/kubectl.fish
 ```
 
 <!--
@@ -108,7 +109,7 @@ Set which Kubernetes cluster `kubectl` communicates with and modifies configurat
 information. See [Authenticating Across Clusters with kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) documentation for
 detailed config file information.
 -->
-## Kubectl 上下文和配置   {#kubectl-context-and-configuration}
+## kubectl 上下文和配置   {#kubectl-context-and-configuration}
 
 设置 `kubectl` 与哪个 Kubernetes 集群进行通信并修改配置信息。
 查看[使用 kubeconfig 跨集群授权访问](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
@@ -123,12 +124,19 @@ KUBECONFIG=~/.kube/config:~/.kube/kubconfig2
 
 kubectl config view
 
+# Show merged kubeconfig settings and raw certificate data and exposed secrets
+kubectl config view --raw 
+
 # get the password for the e2e user
 kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
+
+# get the certificate for the e2e user
+kubectl config view --raw -o jsonpath='{.users[?(.name == "e2e")].user.client-certificate-data}' | base64 -d
 
 kubectl config view -o jsonpath='{.users[].name}'    # display the first user
 kubectl config view -o jsonpath='{.users[*].name}'   # get a list of users
 kubectl config get-contexts                          # display list of contexts
+kubectl config get-contexts -o name                  # get all context names
 kubectl config current-context                       # display the current-context
 kubectl config use-context my-cluster-name           # set the default context to my-cluster-name
 
@@ -162,12 +170,19 @@ KUBECONFIG=~/.kube/config:~/.kube/kubconfig2
 
 kubectl config view
 
+# 显示合并的 kubeconfig 配置和原始证书数据以及公开的 Secret
+kubectl config view --raw
+
 # 获取 e2e 用户的密码
 kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
+
+# 获取 e2e 用户的证书
+kubectl config view --raw -o jsonpath='{.users[?(.name == "e2e")].user.client-certificate-data}' | base64 -d
 
 kubectl config view -o jsonpath='{.users[].name}'    # 显示第一个用户
 kubectl config view -o jsonpath='{.users[*].name}'   # 获取用户列表
 kubectl config get-contexts                          # 显示上下文列表
+kubectl config get-contexts -o name                  # 获取所有上下文的名称
 kubectl config current-context                       # 展示当前所处的上下文
 kubectl config use-context my-cluster-name           # 设置默认的上下文为 my-cluster-name
 
@@ -199,12 +214,12 @@ alias kn='f() { [ "$1" ] && kubectl config set-context --current --namespace $1 
 
 `apply` manages applications through files defining Kubernetes resources. It creates and updates resources in a cluster through running `kubectl apply`. This is the recommended way of managing Kubernetes applications on production. See [Kubectl Book](https://kubectl.docs.kubernetes.io).
 -->
-## Kubectl apply
+## kubectl apply
 
 `apply` 通过定义 Kubernetes 资源的文件来管理应用。
 它通过运行 `kubectl apply` 在集群中创建和更新资源。
 这是在生产中管理 Kubernetes 应用的推荐方法。
-参见 [Kubectl 文档](https://kubectl.docs.kubernetes.io/zh/)。
+参见 [kubectl 文档](https://kubectl.docs.kubernetes.io/zh/)。
 
 <!--
 ## Creating objects
@@ -714,6 +729,9 @@ kubectl port-forward my-pod 5000:6000               # Listen on port 5000 on the
 kubectl exec my-pod -- ls /                         # Run command in existing pod (1 container case)
 kubectl exec --stdin --tty my-pod -- /bin/sh        # Interactive shell access to a running pod (1 container case)
 kubectl exec my-pod -c my-container -- ls /         # Run command in existing pod (multi-container case)
+kubectl debug my-pod -it --image=busybox:1.28       # Create an interactive debugging session witin existing pod and immediately attach to it
+kubectl debug node/my-node -it --image=busybox:1.28 # Create an interactive debugging session on a node and immediately attach to it
+kubectl top pod                                     # Show metrics for all pods in the default namespace
 kubectl top pod POD_NAME --containers               # Show metrics for a given pod and its containers
 kubectl top pod POD_NAME --sort-by=cpu              # Show metrics for a given pod and sort it by 'cpu' or 'memory'
 ```
@@ -738,7 +756,10 @@ kubectl port-forward my-pod 5000:6000               # 在本地计算机上侦�
 kubectl exec my-pod -- ls /                         # 在已有的 Pod 中运行命令（单容器场景）
 kubectl exec --stdin --tty my-pod -- /bin/sh        # 使用交互 shell 访问正在运行的 Pod (一个容器场景)
 kubectl exec my-pod -c my-container -- ls /         # 在已有的 Pod 中运行命令（多容器场景）
-kubectl top pod POD_NAME --containers               # 显示给定 Pod 和其中容器的监控数据
+kubectl debug my-pod -it --image=busybox:1.28       # 在现有 Pod 中创建交互式调试会话并立即附加到此 Pod 上
+kubectl debug node/my-node -it --image=busybox:1.28 # 在节点上创建交互式调试会话并立即附加到此节点上
+kubectl top pod                                     # 显示默认命名空间中所有 Pod 的度量值
+kubectl top pod POD_NAME --containers               # 显示给定 Pod 和其中容器的度量值
 kubectl top pod POD_NAME --sort-by=cpu              # 显示给定 Pod 的指标并且按照 'cpu' 或者 'memory' 排序
 ```
 
@@ -820,6 +841,7 @@ kubectl exec deploy/my-deployment -- ls                   # 在 Deployment 里�
 kubectl cordon my-node                                                # Mark my-node as unschedulable
 kubectl drain my-node                                                 # Drain my-node in preparation for maintenance
 kubectl uncordon my-node                                              # Mark my-node as schedulable
+kubectl top node                                                      # Show metrics for all nodes
 kubectl top node my-node                                              # Show metrics for a given node
 kubectl cluster-info                                                  # Display addresses of the master and services
 kubectl cluster-info dump                                             # Dump current cluster state to stdout
@@ -836,6 +858,7 @@ kubectl taint nodes foo dedicated=special-user:NoSchedule
 kubectl cordon my-node                                                # 标记 my-node 节点为不可调度
 kubectl drain my-node                                                 # 对 my-node 节点进行清空操作，为节点维护做准备
 kubectl uncordon my-node                                              # 标记 my-node 节点为可以调度
+kubectl top node                                                      # 显示所有节点的度量值
 kubectl top node my-node                                              # 显示给定节点的度量值
 kubectl cluster-info                                                  # 显示主控节点和服务的地址
 kubectl cluster-info dump                                             # 将当前集群状态转储到标准输出
@@ -968,9 +991,9 @@ More examples in the kubectl [reference documentation](/docs/reference/kubectl/#
 
 Kubectl verbosity is controlled with the `-v` or `--v` flags followed by an integer representing the log level. General Kubernetes logging conventions and the associated log levels are described [here](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
 -->
-### Kubectl 日志输出详细程度和调试   {#kubectl-output-verbosity-and-debugging}
+### kubectl 日志输出详细程度和调试   {#kubectl-output-verbosity-and-debugging}
 
-Kubectl 日志输出详细程度是通过 `-v` 或者 `--v` 来控制的，参数后跟一个数字表示日志的级别。
+kubectl 日志输出详细程度是通过 `-v` 或者 `--v` 来控制的，参数后跟一个数字表示日志的级别。
 Kubernetes 通用的日志习惯和相关的日志级别在
 [这里](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)有相应的描述。
 

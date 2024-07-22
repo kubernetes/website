@@ -3,9 +3,13 @@ layout: blog
 title: 'Three Tenancy Models For Kubernetes'
 date: 2021-04-15
 slug: three-tenancy-models-for-kubernetes
+author: >
+  Ryan Bezdicek (Medtronic),
+  Jim Bugwadia (Nirmata),
+  Tasha Drew (VMware),
+  Fei Guo (Alibaba), 
+  Adrian Ludwin (Google)
 ---
-
-**Authors:** Ryan Bezdicek (Medtronic), Jim Bugwadia (Nirmata), Tasha Drew (VMware),  Fei Guo (Alibaba), Adrian Ludwin (Google)
 
 Kubernetes clusters are typically used by several teams in an organization. In other cases, Kubernetes may be used to deliver applications to end users requiring segmentation and isolation of resources across users from different organizations. Secure sharing of Kubernetes control plane and worker node resources allows maximizing productivity and saving costs in both cases.
 

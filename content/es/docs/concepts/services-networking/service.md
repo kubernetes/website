@@ -146,7 +146,7 @@ En el ejemplo de abajo, el tráfico se dirige al único Endpoint definido en el 
 
 {{< note >}}
 El servidor de API de Kubernetes no permite hacer proxy a Endpoints que no están mapeados a Pods.
-Acciones como `kubectl proxy <service-name>` donde el servicio no tiene un selector fallará debido a esta restricción.
+Acciones como `kubectl port-forward service/<service-name> forwardedPort:servicePort` donde el servicio no tiene un selector fallará debido a esta restricción.
 Esto previene que el servidor API de Kubernetes sea utilizado como proxy a endpoints a los que quien llama no tenga acceso autorizado.
 {{< /note >}}
 

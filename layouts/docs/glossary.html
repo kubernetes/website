@@ -41,7 +41,7 @@
 	<li class="{{ $.Scratch.Get "tag_classes" }} hide" data-show-count="0">
 		<div id="{{ $term_identifier }}" class="term-anchor"></div>
 		<div>
-			<div class="term-name"><b>{{ .Title }}</b><a href="{{ printf "#%s" $term_identifier }}" class="permalink hide">LINK</a></div>
+			<div class="term-name" term="{{ .Title}}" data-pagefind-index-attrs="term"><b>{{ .Title }}</b><a href="{{ printf "#%s" $term_identifier }}" class="permalink hide">LINK</a></div>
 			{{ with .Params.aka }}
 			{{ T "layouts_docs_glossary_aka" }}: <i>{{ delimit . ", " }}</i>
 			<br>

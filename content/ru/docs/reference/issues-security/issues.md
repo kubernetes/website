@@ -1,7 +1,7 @@
 ---
 title: Трекер задач (Issues) Kubernetes
 weight: 10
-aliases: [/cve/,/cves/]
+aliases: [/ru/cve/,/ru/cves/]
 ---
 
 Чтобы сообщить о проблеме в области безопасности, воспользуйтесь процедурой [раскрытия информации о безопасности Kubernetes](/ru/docs/reference/issues-security/security/#report-a-vulnerability).

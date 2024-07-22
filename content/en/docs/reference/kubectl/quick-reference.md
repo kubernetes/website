@@ -45,10 +45,12 @@ echo '[[ $commands[kubectl] ]] && source <(kubectl completion zsh)' >> ~/.zshrc 
 
 ### FISH
 
-Require kubectl version 1.23 or above.
+{{< note >}}
+Requires kubectl version 1.23 or above.
+{{< /note >}}
 
 ```bash
-echo 'kubectl completion fish | source' >> ~/.config/fish/config.fish  # add kubectl autocompletion permanently to your fish shell 
+echo 'kubectl completion fish | source' > ~/.config/fish/completions/kubectl.fish && source ~/.config/fish/completions/kubectl.fish
 ```
 
 ### A note on `--all-namespaces`
@@ -371,6 +373,8 @@ kubectl port-forward my-pod 5000:6000               # Listen on port 5000 on the
 kubectl exec my-pod -- ls /                         # Run command in existing pod (1 container case)
 kubectl exec --stdin --tty my-pod -- /bin/sh        # Interactive shell access to a running pod (1 container case)
 kubectl exec my-pod -c my-container -- ls /         # Run command in existing pod (multi-container case)
+kubectl debug my-pod -it --image=busybox:1.28       # Create an interactive debugging session witin existing pod and immediately attach to it
+kubectl debug node/my-node -it --image=busybox:1.28 # Create an interactive debugging session on a node and immediately attach to it
 kubectl top pod                                     # Show metrics for all pods in the default namespace
 kubectl top pod POD_NAME --containers               # Show metrics for a given pod and its containers
 kubectl top pod POD_NAME --sort-by=cpu              # Show metrics for a given pod and sort it by 'cpu' or 'memory'

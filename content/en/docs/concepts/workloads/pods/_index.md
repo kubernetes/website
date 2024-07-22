@@ -127,17 +127,19 @@ the name should follow the more restrictive rules for a
 {{< feature-state state="stable" for_k8s_version="v1.25" >}}
 
 You should set the `.spec.os.name` field to either `windows` or `linux` to indicate the OS on
-which you want the pod to run. These two are the only operating systems supported for now by 
-Kubernetes. In future, this list may be expanded.
+which you want the pod to run. These two are the only operating systems supported for now by
+Kubernetes. In the future, this list may be expanded.
 
-In Kubernetes v{{< skew currentVersion >}}, the value you set for this field has no
-effect on {{< glossary_tooltip text="scheduling" term_id="kube-scheduler" >}} of the pods.
-Setting the `.spec.os.name` helps to identify the pod OS
-authoritatively and is used for validation. The kubelet refuses to run a Pod where you have
-specified a Pod OS, if this isn't the same as the operating system for the node where
-that kubelet is running.
+In Kubernetes v{{< skew currentVersion >}}, the value of `.spec.os.name` does not affect
+how the {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
+picks a Pod to run a node. In any cluster where there is more than one operating system for
+running nodes, you should set the
+[kubernetes.io/os](/docs/reference/labels-annotations-taints/#kubernetes-io-os)
+label correctly on each node, and define pods with a `nodeSelector` based on the operating system
+label, the kube-scheduler assigns your pod to a node based on other criteria and may or may not
+succeed in picking a suitable node placement where the node OS is right for the containers in that Pod.
 The [Pod security standards](/docs/concepts/security/pod-security-standards/) also use this
-field to avoid enforcing policies that aren't relevant to that operating system.
+field to avoid enforcing policies that aren't relevant to the operating system.
 
 ### Pods and controllers
 
@@ -274,30 +276,34 @@ Containers within the Pod see the system hostname as being the same as the confi
 `name` for the Pod. There's more about this in the [networking](/docs/concepts/cluster-administration/networking/)
 section.
 
-## Privileged mode for containers
+## Pod security settings {#pod-security}
 
-{{< note >}}
-Your {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}} must support the concept of a privileged container for this setting to be relevant.
-{{< /note >}}
+To set security constraints on Pods and containers, you use the
+`securityContext` field in the Pod specification. This field gives you
+granular control over what a Pod or individual containers can do. For example:
 
-Any container in a pod can run in privileged mode to use operating system administrative capabilities
-that would otherwise be inaccessible. This is available for both Windows and Linux.
+* Drop specific Linux capabilities to avoid the impact of a CVE.
+* Force all processes in the Pod to run as a non-root user or as a specific
+  user or group ID.
+* Set a specific seccomp profile.
+* Set Windows security options, such as whether containers run as HostProcess.
 
-### Linux privileged containers
+{{< caution >}}
+You can also use the Pod securityContext to enable
+[_privileged mode_](/docs/concepts/security/linux-kernel-security-constraints/#privileged-containers)
+in Linux containers. Privileged mode overrides many of the other security
+settings in the securityContext. Avoid using this setting unless you can't grant
+the equivalent permissions by using other fields in the securityContext.
+In Kubernetes 1.26 and later, you can run Windows containers in a similarly
+privileged mode by setting the `windowsOptions.hostProcess` flag on the
+security context of the Pod spec. For details and instructions, see
+[Create a Windows HostProcess Pod](/docs/tasks/configure-pod-container/create-hostprocess-pod/).
+{{< /caution >}}
 
-In Linux, any container in a Pod can enable privileged mode using the `privileged` (Linux) flag
-on the [security context](/docs/tasks/configure-pod-container/security-context/) of the
-container spec. This is useful for containers that want to use operating system administrative
-capabilities such as manipulating the network stack or accessing hardware devices.
-
-### Windows privileged containers
-
-{{< feature-state for_k8s_version="v1.26" state="stable" >}}
-
-In Windows, you can create a [Windows HostProcess pod](/docs/tasks/configure-pod-container/create-hostprocess-pod) by setting the 
-`windowsOptions.hostProcess` flag on the security context of the pod spec. All containers in these
-pods must run as Windows HostProcess containers. HostProcess pods run directly on the host and can also be used
-to perform administrative tasks as is done with Linux privileged containers.
+* To learn about kernel-level security constraints that you can use,
+  see [Linux kernel security constraints for Pods and containers](/docs/concepts/security/linux-kernel-security-constraints).
+* To learn more about the Pod security context, see
+  [Configure a Security Context for a Pod or Container](/docs/tasks/configure-pod-container/security-context/).
 
 ## Static Pods
 

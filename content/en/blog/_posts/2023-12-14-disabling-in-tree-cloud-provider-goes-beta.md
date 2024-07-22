@@ -3,9 +3,10 @@ layout: blog
 title: "Kubernetes 1.29: Cloud Provider Integrations Are Now Separate Components"
 date: 2023-12-14T09:30:00-08:00
 slug: cloud-provider-integration-changes
+author: >
+  Michael McCune (Red Hat),
+  Andrew Sy Kim (Google)
 ---
-
-**Authors:** Michael McCune (Red Hat), Andrew Sy Kim (Google)
 
 For Kubernetes v1.29, you need to use additional components to integrate your
 Kubernetes cluster with a cloud infrastructure provider. By default, Kubernetes
@@ -39,7 +40,7 @@ These updated default settings affect a large proportion of Kubernetes users,
 and **will require changes** for users who were previously using the in-tree
 provider integrations. The legacy integrations offered compatibility with
 Azure, AWS, GCE, OpenStack, and vSphere; however for AWS and OpenStack the
-compiled-in integrations were removed in Kubernetes versions 1.26 and 1.27,
+compiled-in integrations were removed in Kubernetes versions 1.27 and 1.26,
 respectively.
 
 ## What has changed?

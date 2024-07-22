@@ -10,8 +10,7 @@ This version improves on the v1beta3 format by fixing some minor issues and addi
 <p>A list of changes since v1beta3:</p>
 <ul>
 <li>TODO https://github.com/kubernetes/kubeadm/issues/2890</li>
-<li>Support custom environment variables in control plane components under
-<code>ClusterConfiguration</code>.
+<li>Support custom environment variables in control plane components under <code>ClusterConfiguration</code>.
 Use <code>APIServer.ExtraEnvs</code>, <code>ControllerManager.ExtraEnvs</code>, <code>Scheduler.ExtraEnvs</code>,
 <code>Etcd.Local.ExtraEnvs</code>.</li>
 <li>The <code>ResetConfiguration</code> API type is now supported in v1beta4.
@@ -21,12 +20,20 @@ Users are able to reset a node by passing a <code>--config</code> file to <code>
 that support duplicates. The change applies to <code>ClusterConfiguration</code> - <code>APIServer.ExtraArgs</code>,
 <code>ControllerManager.ExtraArgs</code>, <code>Scheduler.ExtraArgs</code>. Also to <code>NodeRegistrationOptions.KubeletExtraArgs</code>.</li>
 <li>Add <code>ClusterConfiguration.EncryptionAlgorithm</code> that can be used to set the asymmetric
-encryption algorithm used for this cluster's keys and certificates. Can be <code>&quot;RSA&quot;</code>
-(default algorithm, key size is 2048) or <code>&quot;ECDSA&quot;</code> (uses the P-256 elliptic curve).</li>
+encryption algorithm used for this cluster's keys and certificates. Can be one of
+<code>&quot;RSA-2048&quot;</code> (default), <code>&quot;RSA-3072&quot;</code>, <code>&quot;RSA-4096&quot;</code> or <code>&quot;ECDSA-P256&quot;</code>.</li>
 <li>Add <code>ClusterConfiguration.DNS.Disabled</code> and <code>ClusterConfiguration.Proxy.Disabled</code>
 that can be used to disable the CoreDNS and kube-proxy addons during cluster
 initialization. Skipping the related addons phases, during cluster creation will
 set the same fields to <code>false</code>.</li>
+<li>Add the <code>NodeRegistration.ImagePullSerial</code> field in 'InitConfiguration<code>and</code>JoinConfiguration`, which
+can be used to control if kubeadm pulls images serially or in parallel.</li>
+<li>The UpgradeConfiguration kubeadm API is now supported in v1beta4 when passing
+<code>--config</code> to <code>kubeadm upgrade</code> subcommands. Usage of component configuration for <code>kubelet</code> and <code>kube-proxy</code>,
+InitConfiguration and ClusterConfiguration is deprecated and will be ignored when passing <code>--config</code> to
+<code>upgrade</code> subcommands.</li>
+<li>Add a <code>Timeouts</code> structure to <code>InitConfiguration</code>, <code>JoinConfiguration</code>, <code>ResetConfiguration</code> and <code>UpgradeConfiguration</code>
+that can be used to configure various timeouts.</li>
 </ul>
 <h1>Migration from old kubeadm config versions</h1>
 <ul>
@@ -300,6 +307,7 @@ node only (e.g. the node ip).</p>
 - [InitConfiguration](#kubeadm-k8s-io-v1beta4-InitConfiguration)
 - [JoinConfiguration](#kubeadm-k8s-io-v1beta4-JoinConfiguration)
 - [ResetConfiguration](#kubeadm-k8s-io-v1beta4-ResetConfiguration)
+- [UpgradeConfiguration](#kubeadm-k8s-io-v1beta4-UpgradeConfiguration)
   
     
     
@@ -347,7 +355,7 @@ for, so other administrators can know its purpose.</p>
 </td>
 </tr>
 <tr><td><code>expires</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#time-v1-meta"><code>meta/v1.Time</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
    <p><code>expires</code> specifies the timestamp when this token expires. Defaults to being set
@@ -730,7 +738,7 @@ during the reset process.</p>
 <code>string</code>
 </td>
 <td>
-   <p><code> certificatesDir</code> specifies the directory where the certificates are stored.
+   <p><code>certificatesDir</code> specifies the directory where the certificates are stored.
 If specified, it will be cleaned during the reset process.</p>
 </td>
 </tr>
@@ -774,6 +782,59 @@ Value <code>all</code> ignores errors from all checks.</p>
 <td>
    <p><code>skipPhases</code> is a list of phases to skip during command execution.
 The list of phases can be obtained with the <code>kubeadm reset phase --help</code> command.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `UpgradeConfiguration`     {#kubeadm-k8s-io-v1beta4-UpgradeConfiguration}
+    
+
+
+<p>UpgradeConfiguration contains a list of options that are specific to <code>kubeadm upgrade</code> subcommands.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+<tr><td><code>apiVersion</code><br/>string</td><td><code>kubeadm.k8s.io/v1beta4</code></td></tr>
+<tr><td><code>kind</code><br/>string</td><td><code>UpgradeConfiguration</code></td></tr>
+    
+  
+<tr><td><code>apply</code><br/>
+<a href="#kubeadm-k8s-io-v1beta4-UpgradeApplyConfiguration"><code>UpgradeApplyConfiguration</code></a>
+</td>
+<td>
+   <p><code>apply</code> holds a list of options that are specific to the <code>kubeadm upgrade apply</code> command.</p>
+</td>
+</tr>
+<tr><td><code>diff</code><br/>
+<a href="#kubeadm-k8s-io-v1beta4-UpgradeDiffConfiguration"><code>UpgradeDiffConfiguration</code></a>
+</td>
+<td>
+   <p><code>diff</code> holds a list of options that are specific to the <code>kubeadm upgrade diff</code> command.</p>
+</td>
+</tr>
+<tr><td><code>node</code><br/>
+<a href="#kubeadm-k8s-io-v1beta4-UpgradeNodeConfiguration"><code>UpgradeNodeConfiguration</code></a>
+</td>
+<td>
+   <p><code>node</code> holds a list of options that are specific to the <code>kubeadm upgrade node</code> command.</p>
+</td>
+</tr>
+<tr><td><code>plan</code><br/>
+<a href="#kubeadm-k8s-io-v1beta4-UpgradePlanConfiguration"><code>UpgradePlanConfiguration</code></a>
+</td>
+<td>
+   <p><code>plan</code> holds a list of options that are specific to the <code>kubeadm upgrade plan</code> command.</p>
+</td>
+</tr>
+<tr><td><code>timeouts</code><br/>
+<a href="#kubeadm-k8s-io-v1beta4-Timeouts"><code>Timeouts</code></a>
+</td>
+<td>
+   <p><code>timeouts</code> holds various timeouts that apply to kubeadm commands.</p>
 </td>
 </tr>
 </tbody>
@@ -1113,7 +1174,7 @@ does not contain any other authentication information.</p>
     
   
 <tr><td><code>EnvVar</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#envvar-v1-core"><code>core/v1.EnvVar</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#envvar-v1-core"><code>core/v1.EnvVar</code></a>
 </td>
 <td>(Members of <code>EnvVar</code> are embedded into this type.)
    <span class="text-muted">No description provided.</span></td>
@@ -1280,7 +1341,7 @@ file from which to load cluster information.</p>
 </td>
 </tr>
 <tr><td><code>pathType</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
 </td>
 <td>
    <p><code>pathType</code> is the type of the <code>hostPath</code>.</p>
@@ -1515,7 +1576,7 @@ This information will be annotated to the Node API object, for later re-use.</p>
 </td>
 </tr>
 <tr><td><code>taints</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    <p><code>taints</code> specifies the taints the Node API object should be registered with.
@@ -1548,7 +1609,7 @@ Value 'all' ignores errors from all checks.</p>
 </td>
 </tr>
 <tr><td><code>imagePullPolicy</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
 </td>
 <td>
    <p><code>imagePullPolicy</code> specifies the policy for image pulling during kubeadm <code>init</code> and
@@ -1569,6 +1630,10 @@ images if not present on the host.</p>
 - [InitConfiguration](#kubeadm-k8s-io-v1beta4-InitConfiguration)
 
 - [JoinConfiguration](#kubeadm-k8s-io-v1beta4-JoinConfiguration)
+
+- [UpgradeApplyConfiguration](#kubeadm-k8s-io-v1beta4-UpgradeApplyConfiguration)
+
+- [UpgradeNodeConfiguration](#kubeadm-k8s-io-v1beta4-UpgradeNodeConfiguration)
 
 
 <p>Patches contains options related to applying patches to components deployed by kubeadm.</p>
@@ -1618,6 +1683,354 @@ first alpha-numerically.</p>
 </td>
 <td>
    <p><code>disabled</code> specifies whether to disable this addon in the cluster.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `Timeouts`     {#kubeadm-k8s-io-v1beta4-Timeouts}
+    
+
+**Appears in:**
+
+- [UpgradeConfiguration](#kubeadm-k8s-io-v1beta4-UpgradeConfiguration)
+
+
+<p>Timeouts holds various timeouts that apply to kubeadm commands.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>controlPlaneComponentHealthCheck</code><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <p><code>controlPlaneComponentHealthCheck</code> is the amount of time to wait for a control plane
+component, such as the API server, to be healthy during <code>kubeadm init</code> and <code>kubeadm join</code>.
+Default: 4m</p>
+</td>
+</tr>
+<tr><td><code>kubeletHealthCheck</code><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <p><code>kubeletHealthCheck</code> is the amount of time to wait for the kubelet to be healthy
+during <code>kubeadm init</code> and <code>kubeadm join</code>.
+Default: 4m</p>
+</td>
+</tr>
+<tr><td><code>kubernetesAPICall</code><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <p><code>kubernetesAPICall</code> is the amount of time to wait for the kubeadm client to complete a request to
+the API server. This applies to all types of methods (GET, POST, etc).
+Default: 1m</p>
+</td>
+</tr>
+<tr><td><code>etcdAPICall</code><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <p><code>etcdAPICall</code> is the amount of time to wait for the kubeadm etcd client to complete a request to
+the etcd cluster.
+Default: 2m</p>
+</td>
+</tr>
+<tr><td><code>tlsBootstrap</code><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <p><code>tlsBootstrap</code> is the amount of time to wait for the kubelet to complete TLS bootstrap
+for a joining node.
+Default: 5m</p>
+</td>
+</tr>
+<tr><td><code>discovery</code><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <p><code>discovery</code> is the amount of time to wait for kubeadm to validate the API server identity
+for a joining node.
+Default: 5m</p>
+</td>
+</tr>
+<tr><td><code>upgradeManifests</code> <B>[Required]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <p><code>upgradeManifests</code> is the timeout for upgradring static Pod manifests
+Default: 5m</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `UpgradeApplyConfiguration`     {#kubeadm-k8s-io-v1beta4-UpgradeApplyConfiguration}
+    
+
+**Appears in:**
+
+- [UpgradeConfiguration](#kubeadm-k8s-io-v1beta4-UpgradeConfiguration)
+
+
+<p>UpgradeApplyConfiguration contains a list of configurable options which are specific to the  &quot;kubeadm upgrade apply&quot; command.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>kubernetesVersion</code><br/>
+<code>string</code>
+</td>
+<td>
+   <p><code>kubernetesVersion</code> is the target version of the control plane.</p>
+</td>
+</tr>
+<tr><td><code>allowExperimentalUpgrades</code><br/>
+<code>bool</code>
+</td>
+<td>
+   <p><code>allowExperimentalUpgrades</code> instructs kubeadm to show unstable versions of Kubernetes as an upgrade
+alternative and allows upgrading to an alpha/beta/release candidate version of Kubernetes.
+Default: false</p>
+</td>
+</tr>
+<tr><td><code>allowRCUpgrades</code><br/>
+<code>bool</code>
+</td>
+<td>
+   <p>Enable <code>allowRCUpgrades</code> will show release candidate versions of Kubernetes as an upgrade alternative and
+allows upgrading to a release candidate version of Kubernetes.</p>
+</td>
+</tr>
+<tr><td><code>certificateRenewal</code><br/>
+<code>bool</code>
+</td>
+<td>
+   <p><code>certificateRenewal</code> instructs kubeadm to execute certificate renewal during upgrades.
+Defaults to true.</p>
+</td>
+</tr>
+<tr><td><code>dryRun</code><br/>
+<code>bool</code>
+</td>
+<td>
+   <p><code>dryRun</code> tells if the dry run mode is enabled, don't apply any change if it is and just output
+what would be done.</p>
+</td>
+</tr>
+<tr><td><code>etcdUpgrade</code><br/>
+<code>bool</code>
+</td>
+<td>
+   <p><code>etcdUpgrade</code> instructs kubeadm to execute etcd upgrade during upgrades.
+Defaults to true.</p>
+</td>
+</tr>
+<tr><td><code>forceUpgrade</code><br/>
+<code>bool</code>
+</td>
+<td>
+   <p><code>forceUpgrade</code> flag instructs kubeadm to upgrade the cluster without prompting for confirmation.</p>
+</td>
+</tr>
+<tr><td><code>ignorePreflightErrors</code><br/>
+<code>[]string</code>
+</td>
+<td>
+   <p><code>ignorePreflightErrors</code> provides a slice of pre-flight errors to be ignored during the upgrade process,
+e.g. 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.</p>
+</td>
+</tr>
+<tr><td><code>patches</code><br/>
+<a href="#kubeadm-k8s-io-v1beta4-Patches"><code>Patches</code></a>
+</td>
+<td>
+   <p><code>patches</code> contains options related to applying patches to components deployed by kubeadm during &quot;kubeadm upgrade&quot;.</p>
+</td>
+</tr>
+<tr><td><code>printConfig</code><br/>
+<code>bool</code>
+</td>
+<td>
+   <p><code>printConfig</code> specifies whether the configuration file that will be used in the upgrade should be printed or not.</p>
+</td>
+</tr>
+<tr><td><code>SkipPhases</code> <B>[Required]</B><br/>
+<code>[]string</code>
+</td>
+<td>
+   <p><code>skipPhases</code> is a list of phases to skip during command execution.
+NOTE: This field is currently ignored for &quot;kubeadm upgrade apply&quot;, but in the future it will be supported.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `UpgradeDiffConfiguration`     {#kubeadm-k8s-io-v1beta4-UpgradeDiffConfiguration}
+    
+
+**Appears in:**
+
+- [UpgradeConfiguration](#kubeadm-k8s-io-v1beta4-UpgradeConfiguration)
+
+
+<p>UpgradeDiffConfiguration contains a list of configurable options which are specific to the &quot;kubeadm upgrade diff&quot; command.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>kubernetesVersion</code><br/>
+<code>string</code>
+</td>
+<td>
+   <p><code>kubernetesVersion</code> is the target version of the control plane.</p>
+</td>
+</tr>
+<tr><td><code>contextLines</code><br/>
+<code>int</code>
+</td>
+<td>
+   <p><code>diffContextLines</code> is the number of lines of context in the diff.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `UpgradeNodeConfiguration`     {#kubeadm-k8s-io-v1beta4-UpgradeNodeConfiguration}
+    
+
+**Appears in:**
+
+- [UpgradeConfiguration](#kubeadm-k8s-io-v1beta4-UpgradeConfiguration)
+
+
+<p>UpgradeNodeConfiguration contains a list of configurable options which are specific to the &quot;kubeadm upgrade node&quot; command.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>certificateRenewal</code><br/>
+<code>bool</code>
+</td>
+<td>
+   <p><code>certificateRenewal</code> instructs kubeadm to execute certificate renewal during upgrades.
+Defaults to true.</p>
+</td>
+</tr>
+<tr><td><code>dryRun</code><br/>
+<code>bool</code>
+</td>
+<td>
+   <p><code>dryRun</code> tells if the dry run mode is enabled, don't apply any change if it is and just output what would be done.</p>
+</td>
+</tr>
+<tr><td><code>etcdUpgrade</code><br/>
+<code>bool</code>
+</td>
+<td>
+   <p><code>etcdUpgrade</code> instructs kubeadm to execute etcd upgrade during upgrades.
+Defaults to true.</p>
+</td>
+</tr>
+<tr><td><code>ignorePreflightErrors</code><br/>
+<code>[]string</code>
+</td>
+<td>
+   <p><code>ignorePreflightErrors</code> provides a slice of pre-flight errors to be ignored during the upgrade process,
+e.g. 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.</p>
+</td>
+</tr>
+<tr><td><code>skipPhases</code><br/>
+<code>[]string</code>
+</td>
+<td>
+   <p><code>skipPhases</code> is a list of phases to skip during command execution.
+The list of phases can be obtained with the <code>kubeadm upgrade node phase --help</code> command.</p>
+</td>
+</tr>
+<tr><td><code>patches</code><br/>
+<a href="#kubeadm-k8s-io-v1beta4-Patches"><code>Patches</code></a>
+</td>
+<td>
+   <p><code>patches</code> contains options related to applying patches to components deployed by kubeadm during <code>kubeadm upgrade</code>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `UpgradePlanConfiguration`     {#kubeadm-k8s-io-v1beta4-UpgradePlanConfiguration}
+    
+
+**Appears in:**
+
+- [UpgradeConfiguration](#kubeadm-k8s-io-v1beta4-UpgradeConfiguration)
+
+
+<p>UpgradePlanConfiguration contains a list of configurable options which are specific to the &quot;kubeadm upgrade plan&quot; command.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>kubernetesVersion</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p><code>kubernetesVersion</code> is the target version of the control plane.</p>
+</td>
+</tr>
+<tr><td><code>allowExperimentalUpgrades</code><br/>
+<code>bool</code>
+</td>
+<td>
+   <p><code>allowExperimentalUpgrades</code> instructs kubeadm to show unstable versions of Kubernetes as an upgrade
+alternative and allows upgrading to an alpha/beta/release candidate version of Kubernetes.
+Default: false</p>
+</td>
+</tr>
+<tr><td><code>allowRCUpgrades</code><br/>
+<code>bool</code>
+</td>
+<td>
+   <p>Enable <code>allowRCUpgrades</code> will show release candidate versions of Kubernetes as an upgrade alternative and
+allows upgrading to a release candidate version of Kubernetes.</p>
+</td>
+</tr>
+<tr><td><code>dryRun</code><br/>
+<code>bool</code>
+</td>
+<td>
+   <p><code>dryRun</code> tells if the dry run mode is enabled, don't apply any change if it is and just output what would be done.</p>
+</td>
+</tr>
+<tr><td><code>ignorePreflightErrors</code><br/>
+<code>[]string</code>
+</td>
+<td>
+   <p><code>ignorePreflightErrors</code> provides a slice of pre-flight errors to be ignored during the upgrade process,
+e.g. 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.</p>
+</td>
+</tr>
+<tr><td><code>printConfig</code><br/>
+<code>bool</code>
+</td>
+<td>
+   <p><code>printConfig</code> specifies whether the configuration file that will be used in the upgrade should be printed or not.</p>
 </td>
 </tr>
 </tbody>

@@ -364,6 +364,59 @@ A container using a ConfigMap as a [subPath](/docs/concepts/storage/volumes#usin
 {{< /note >}}
 
 <!--
+### Using Configmaps as environment variables
+
+To use a Configmap in an {{< glossary_tooltip text="environment variable" term_id="container-env-variables" >}}
+in a Pod:
+-->
+### 使用 Configmap 作为环境变量  {#using-configmaps-as-environment-variables}
+
+使用 Configmap 在 Pod 中设置{{< glossary_tooltip text="环境变量" term_id="container-env-variables" >}}：
+
+<!--
+1. For each container in your Pod specification, add an environment variable
+   for each Configmap key that you want to use to the
+   `env[].valueFrom.configMapKeyRef` field.
+1. Modify your image and/or command line so that the program looks for values
+   in the specified environment variables.
+-->
+1. 对于 Pod 规约中的每个容器，为要使用的每个 ConfigMap 键添加一个环境变量到
+   `env[].valueFrom.configMapKeyRef` 字段。
+2. 修改你的镜像和/或命令行，以便程序查找指定环境变量中的值。
+
+<!--
+This is an example of defining a ConfigMap as a pod environment variable:
+-->
+下面是一个将 ConfigMap 定义为 Pod 环境变量的示例：
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: env-configmap
+spec:
+  containers:
+  - name: envars-test-container
+    image: nginx
+    env:
+    - name: CONFIGMAP_USERNAME
+      valueFrom:
+        configMapKeyRef:
+          name: myconfigmap
+          key: username
+
+```
+
+<!--
+It's important to note that the range of characters allowed for environment
+variable names in pods is [restricted](/docs/tasks/inject-data-application/define-environment-variable-container/#using-environment-variables-inside-of-your-config).
+If any keys do not meet the rules, those keys are not made available to your container, though
+the Pod is allowed to start.
+-->
+需要注意的是，Pod 中环境变量名称允许的字符范围是[有限的](/zh-cn/docs/tasks/inject-data-application/define-environment-variable-container/#using-environment-variables-inside-of-your-config)。
+如果某些变量名称不满足这些规则，则即使 Pod 可以被启动，你的容器也无法访问这些环境变量。
+
+<!--
 ## Immutable ConfigMaps {#configmap-immutable}
 -->
 ## 不可变更的 ConfigMap     {#configmap-immutable}

@@ -9,8 +9,8 @@
   {{ if not $is_valid }}
     {{ errorf "%q is not a valid feature-state, use one of %q" $state $valid_states }}
   {{ else }}
-  <div class="my-2 feature-state-notice feature-{{ $state }}">
-    <b>{{ T "feature_state" }}</b> <code>{{T "feature_state_kubernetes_label" }} {{ $for_k8s_version }} [{{ $state }}]</code>
+  <div class="feature-state-notice feature-{{ $state }}">
+    <span class="feature-state-name">{{ T "feature_state" }}</span> <code>{{T "feature_state_kubernetes_label" }} {{ $for_k8s_version }} [{{ $state }}]</code>
   </div>
   {{ end }}
 
@@ -31,19 +31,19 @@
       <!-- Iterate through feature gate files -->
       {{- range $featureGateFile := $sortedFeatureGates -}}
         {{- $featureGateNameFromFile := $featureGateFile.Params.Title -}}
-        
+
         {{- if eq $featureGateNameFromFile $feature_gate_name -}}
           <!-- Extract information from the final stage of the feature gate -->
           {{- $currentStage := index $featureGateFile.Params.stages (sub (len $featureGateFile.Params.stages) 1) -}}
-          {{- with $currentStage -}}  
+          {{- with $currentStage -}}
            
           <!-- Display feature state information  -->
-          <div class="my-2 feature-state-notice feature-{{ .stage }}" title="{{ printf "%s %s" (T "feature_state_feature_gate_tooltip") $feature_gate_name }}">
-            <b>{{ T "feature_state" }}</b> <code>{{T "feature_state_kubernetes_label" }} v{{ .fromVersion }} [{{ .stage }}]</code>
-          </div>       
+          <div class="feature-state-notice feature-{{ .stage }}" title="{{ printf "%s %s" (T "feature_state_feature_gate_tooltip") $feature_gate_name }}">
+            <span class="feature-state-name">{{ T "feature_state" }}</span> <code>{{T "feature_state_kubernetes_label" }} v{{ .fromVersion }} [{{ .stage }}]</code>
+          </div>
 
-            {{- $featureGateFound = true -}}        
-          {{- end -}}        
+            {{- $featureGateFound = true -}}
+          {{- end -}}
         {{- end -}}
       {{- end -}}
 
