@@ -3,126 +3,113 @@ reviewers:
 - bgrant0607
 - lavalamp
 - thockin
-title: Kubernetes Deprecation Policy
+title: Kubernetes非推奨ポリシー
 content_type: concept
 weight: 40
 ---
 
 <!-- overview -->
-This document details the deprecation policy for various facets of the system.
+このドキュメントではシステムのさまざまな側面に関する非推奨ポリシーについて詳しく説明します。
 
 
 <!-- body -->
-Kubernetes is a large system with many components and many contributors.  As
-with any such software, the feature set naturally evolves over time, and
-sometimes a feature may need to be removed. This could include an API, a flag,
-or even an entire feature. To avoid breaking existing users, Kubernetes follows
-a deprecation policy for aspects of the system that are slated to be removed.
+Kubernetesは多くのコンポーネントと多くのコントリビュータを持つ大規模なシステムです。
+このようなソフトウェアでは、機能セットは時間の経過とともに自然に進化し、時には機能を削除する必要がある場合があります。
+これにはAPI、フラグ、または機能全体が含まれることもあります。
+既存のユーザーへの影響を避けるため、Kubernetesは削除される予定のシステムの側面については非推奨ポリシーに従っています。
 
-## Deprecating parts of the API
+## API
 
-Since Kubernetes is an API-driven system, the API has evolved over time to
-reflect the evolving understanding of the problem space. The Kubernetes API is
-actually a set of APIs, called "API groups", and each API group is
-independently versioned.  [API versions](/docs/reference/using-api/#api-versioning) fall
-into 3 main tracks, each of which has different policies for deprecation:
+KubernetesはAPI駆動型のシステムであるため、問題領域の理解の進化を反映して時間の経過とともに進化してきました。
+Kubernetes APIは実際は「APIグループ」と呼ばれる一連のAPIであり、各APIグループは個別にバージョン管理されています。
+[APIバージョン](/docs/ja/reference/using-api/#api-versioning)は主に3つのトラックに分類され、それぞれに異なる非推奨ポリシーがあります:
 
-| Example  | Track                            |
-|----------|----------------------------------|
-| v1       | GA (generally available, stable) |
-| v1beta1  | Beta (pre-release)               |
-| v1alpha1 | Alpha (experimental)             |
+| 例       | トラック              |
+|----------|-----------------------|
+| v1       | GA (一般提供、安定版) |
+| v1beta1  | Beta (プレリリース)   |
+| v1alpha1 | Alpha (実験的)        |
 
-A given release of Kubernetes can support any number of API groups and any
-number of versions of each.
+Kubernetesの特定のリリースでは任意の数のAPIグループと任意の数のそれぞれのバージョンをサポートすることができます。
 
-The following rules govern the deprecation of elements of the API.  This
-includes:
+次のルールはAPIの要素の非推奨を管理します。これには以下が含まれます:
 
-   * REST resources (aka API objects)
-   * Fields of REST resources
-   * Annotations on REST resources, including "beta" annotations but not
-     including "alpha" annotations.
-   * Enumerated or constant values
-   * Component config structures
+   * RESTリソース (別名 APIオブジェクト)
+   * RESTリソースのフィールド
+   * RESTリソースのアノテーション、「beta」アノテーションは含まれますが「alpha」アノテーションは含まれません
+   * 列挙された値や定数値
+   * コンポーネントの設定構造
 
-These rules are enforced between official releases, not between
-arbitrary commits to master or release branches.
+これらのルールは、masterまたはリリースブランチへの任意のコミット間ではなく、公式リリース間に適用されます。
 
-**Rule #1: API elements may only be removed by incrementing the version of the
-API group.**
+**ルール #1: APIの要素はAPIグループのバージョンをインクリメントすることでもに削除することができます。**
 
-Once an API element has been added to an API group at a particular version, it
-can not be removed from that version or have its behavior significantly
-changed, regardless of track.
+APIの要素が特定バージョンのAPIグループに追加されると、
+トラックに関係なくそのバージョンから削除されたり、
+大幅に挙動が変更されることはありません。
 
 {{< note >}}
-For historical reasons, there are 2 "monolithic" API groups - "core" (no
-group name) and "extensions".  Resources will incrementally be moved from these
-legacy API groups into more domain-specific API groups.
+歴史的な理由により、「core」（グループ名なし）と「extentions」という2つの「monolithic」APIグループがあります。
+リソースはこれらのレガシーなAPIグループからより特定のドメインに特化したAPIグループに段階的に移行されます。
 {{< /note >}}
 
-**Rule #2: API objects must be able to round-trip between API versions in a given
-release without information loss, with the exception of whole REST resources
-that do not exist in some versions.**
+**ルール #2: APIオブジェクトはいくつかのバージョンに存在しないRESTリソース全体を除き、
+任意のリリース内のAPIバージョン間で情報を失うことなくラウンドトリップできる必要があります**
 
-For example, an object can be written as v1 and then read back as v2 and
-converted to v1, and the resulting v1 resource will be identical to the
-original.  The representation in v2 might be different from v1, but the system
-knows how to convert between them in both directions.  Additionally, any new
-field added in v2 must be able to round-trip to v1 and back, which means v1
-might have to add an equivalent field or represent it as an annotation.
+例えば、あるオブジェクトがv1として書き込まれその後v2として読み取られv1に変換された場合、
+結果として得られるv1リソースは元のリソースと同一である必要があります。
+v2における表現はv1とは異なるかもしれませんが、システムは両方向にそれらを変換する方法を知っています。
+さらに、v2で追加された新しいフィールドはv1にラウンドトリップできる必要があります。
+つまりv1では同等のフィールドを追加するかアノテーションとして表現する必要があるかもしれません。
 
-**Rule #3: An API version in a given track may not be deprecated in favor of a less stable API version.**
+**ルール #3: 特定のトラックのAPIバージョンは安定性の低いAPIバージョンを優先して非推奨になることはありません。**
 
-  * GA API versions can replace beta and alpha API versions.
-  * Beta API versions can replace earlier beta and alpha API versions, but *may not* replace GA API versions.
-  * Alpha API versions can replace earlier alpha API versions, but *may not* replace GA or beta API versions.
+  * GA APIバージョンは、betaおよびalpha APIバージョンに置き換えることができます。
+  * Beta APIバージョンは以前のbetaおよびalpha APIバージョンに置き換えることはできますが、GA APIバージョンに置き換えることは*できません*。
+  * Alpha APIバージョンは以前のalpha APIバージョンに置き換えることはできますが、GAまたはbeta APIバージョンに置き換えることはできません。
 
-**Rule #4a: API lifetime is determined by the API stability level**
+**Rule #4a: APIの有効期間はAPIの安定性レベルによって決まります**
 
-   * GA API versions may be marked as deprecated, but must not be removed within a major version of Kubernetes
-   * Beta API versions are deprecated no more than 9 months or 3 minor releases after introduction (whichever is longer),
-     and are no longer served 9 months or 3 minor releases after deprecation (whichever is longer)
-   * Alpha API versions may be removed in any release without prior deprecation notice
+  * GA APIバージョンは非推奨としてマークされることがありますが、Kubernetesのメジャーバージョン内で削除されることはありません。
+  * Beta APIバージョンは導入後9ヶ月または3つのマイナーリリース（いずれか長い方）以内に非推奨にされ、
+      非推奨後9ヶ月または3つのマイナーリリース（いずれか長い方）以内に提供されなくなります。
+  * Alpha APIバージョンは事前の非推奨通知なしにリリースから削除される場合があります。
 
-This ensures beta API support covers the [maximum supported version skew of 2 releases](/releases/version-skew-policy/),
-and that APIs don't stagnate on unstable beta versions, accumulating production usage that will be disrupted when support for the beta API ends.
+これによりbeta APIバージョンのサポートは [最大2つのリリースのバージョンの差異](/ja/releases/version-skew-policy/)をカバーし、
+APIが不安定なbetaバージョンで停滞し、beta APIのサポートが終了したときに本番稼働が中断されることはありません。
 
 {{< note >}}
-There are no current plans for a major version revision of Kubernetes that removes GA APIs.
+GA APIを削除するKubernetesのメジャーバージョン改訂の計画は現在ありません。
 {{< /note >}}
 
 {{< note >}}
-Until [#52185](https://github.com/kubernetes/kubernetes/issues/52185) is
-resolved, no API versions that have been persisted to storage may be removed.
-Serving REST endpoints for those versions may be disabled (subject to the
-deprecation timelines in this document), but the API server must remain capable
-of decoding/converting previously persisted data from storage.
+[#52185](https://github.com/kubernetes/kubernetes/issues/52185)が解決されるまで、
+ストレージに永続化されているAPIバージョンは削除されません。
+これらのバージョンのAPIエンドポイントの提供は無効にできます（このドキュメントの非推奨タイムラインに従います）が、
+APIサーバーはストレージから以前永続化されたデータをデコード/変換できる機能を維持する必要があります。
 {{< /note >}}
 
-**Rule #4b: The "preferred" API version and the "storage version" for a given
-group may not advance until after a release has been made that supports both the
-new version and the previous version**
+**ルール #4b: 特定のグループの「優先」APIバージョンと「ストレージバージョン」は、
+新しいバージョンと以前のバージョンの両方をサポートするリリースが行われるまで更新されない場合があります。**
 
-Users must be able to upgrade to a new release of Kubernetes and then roll back
-to a previous release, without converting anything to the new API version or
-suffering breakages (unless they explicitly used features only available in the
-newer version).  This is particularly evident in the stored representation of
-objects.
+ユーザーはKubernetesの新しいリリースにアップグレードした後、
+（新しいバージョンでのみ利用可能な機能を明示的に使用していない限り）
+何も新しいAPIバージョンに変換することなく、また破損が発生することなく、
+以前のリリースにロールバックできる必要があります。
+これはオブジェクトの保存された表現において特に顕著です。
 
-All of this is best illustrated by examples.  Imagine a Kubernetes release,
-version X, which introduces a new API group.  A new Kubernetes release is made
-every approximately 4 months (3 per year).  The following table describes which
-API versions are supported in a series of subsequent releases.
+これらはすべて例を挙げて説明するのが最も適切です。新しいAPIグループを導入する
+Kubernetesリリース、バージョンXを想像してください。
+新しいKubernetesリリースは約4ヶ月ごと（1年に3回）に行われます。
+以下の表は一連の後続リリースでサポートされるAPIバージョンを示しています。
 
 <table>
   <thead>
     <tr>
-      <th>Release</th>
-      <th>API Versions</th>
-      <th>Preferred/Storage Version</th>
-      <th>Notes</th>
+      <th>リリース</th>
+      <th>APIバージョン</th>
+      <th>優先/ストレージバージョン</th>
+      <th>ノート</th>
     </tr>
   </thead>
   <tbody>
@@ -138,7 +125,7 @@ API versions are supported in a series of subsequent releases.
       <td>v1alpha2</td>
       <td>
         <ul>
-           <li>v1alpha1 is removed, "action required" relnote</li>
+           <li>v1alpha1は削除され、リリースノートに"action required"と記載されます</li>
         </ul>
       </td>
     </tr>
@@ -148,17 +135,17 @@ API versions are supported in a series of subsequent releases.
       <td>v1beta1</td>
       <td>
         <ul>
-          <li>v1alpha2 is removed, "action required" relnote</li>
+          <li>v1alpha2は削除され、リリースノートに"action required"と記載されます</li>
         </ul>
       </td>
     </tr>
     <tr>
       <td>X+3</td>
-      <td>v1beta2, v1beta1 (deprecated)</td>
+      <td>v1beta2, v1beta1 (非推奨)</td>
       <td>v1beta1</td>
       <td>
         <ul>
-          <li>v1beta1 is deprecated, "action required" relnote</li>
+          <li>v1beta1は非推奨になり、リリースノートに"action required"と記載されます</li>
         </ul>
       </td>
     </tr>
@@ -170,27 +157,27 @@ API versions are supported in a series of subsequent releases.
     </tr>
     <tr>
       <td>X+5</td>
-      <td>v1, v1beta1 (deprecated), v1beta2 (deprecated)</td>
+      <td>v1, v1beta1 (非推奨), v1beta2 (非推奨)</td>
       <td>v1beta2</td>
       <td>
         <ul>
-          <li>v1beta2 is deprecated, "action required" relnote</li>
+          <li>v1beta2は非推奨になり、リリースノートに"action required"と記載されます</li>
         </ul>
       </td>
     </tr>
     <tr>
       <td>X+6</td>
-      <td>v1, v1beta2 (deprecated)</td>
+      <td>v1, v1beta2 (非推奨)</td>
       <td>v1</td>
       <td>
         <ul>
-          <li>v1beta1 is removed, "action required" relnote</li>
+          <li>v1beta1は削除され、リリースノートに"action required"と記載されます</li>
         </ul>
       </td>
     </tr>
     <tr>
       <td>X+7</td>
-      <td>v1, v1beta2 (deprecated)</td>
+      <td>v1, v1beta2 (非推奨)</td>
       <td>v1</td>
       <td></td>
     </tr>
@@ -200,7 +187,7 @@ API versions are supported in a series of subsequent releases.
       <td>v1</td>
       <td>
         <ul>
-          <li>v1beta2 is removed, "action required" relnote</li>
+          <li>v1beta2は削除され、リリースノートに"action required"と記載されます</li>
         </ul>
       </td>
     </tr>
@@ -210,7 +197,7 @@ API versions are supported in a series of subsequent releases.
       <td>v1</td>
       <td>
         <ul>
-           <li>v2alpha1 is removed, "action required" relnote</li>
+           <li>v2alpha1は削除され、リリースノートに"action required"と記載されます</li>
         </ul>
       </td>
     </tr>
@@ -220,54 +207,55 @@ API versions are supported in a series of subsequent releases.
       <td>v1</td>
       <td>
         <ul>
-          <li>v2alpha2 is removed, "action required" relnote</li>
+          <li>v2alpha2は削除され、リリースノートに"action required"と記載されます</li>
         </ul>
       </td>
     </tr>
     <tr>
       <td>X+11</td>
-      <td>v2beta2, v2beta1 (deprecated), v1</td>
+      <td>v2beta2, v2beta1 (非推奨), v1</td>
       <td>v1</td>
       <td>
         <ul>
-          <li>v2beta1 is deprecated, "action required" relnote</li>
+          <li>v2beta1は非推奨になり、リリースノートに"action required"と記載されます</li>
         </ul>
       </td>
     </tr>
     <tr>
       <td>X+12</td>
-      <td>v2, v2beta2 (deprecated), v2beta1 (deprecated), v1 (deprecated)</td>
+      <td>v2, v2beta2 (非推奨), v2beta1 (非推奨), v1 (非推奨)</td>
       <td>v1</td>
       <td>
         <ul>
-          <li>v2beta2 is deprecated, "action required" relnote</li>
+          <li>v2beta2は非推奨になり、リリースノートに"action required"と記載されます</li>
           <li>v1 is deprecated in favor of v2, but will not be removed</li>
+          <li>v1はv2に置き換えられますが、削除はされません</li>
         </ul>
       </td>
     </tr>
     <tr>
       <td>X+13</td>
-      <td>v2, v2beta1 (deprecated), v2beta2 (deprecated), v1 (deprecated)</td>
+      <td>v2, v2beta1 (非推奨), v2beta2 (非推奨), v1 (非推奨)</td>
       <td>v2</td>
       <td></td>
     </tr>
     <tr>
       <td>X+14</td>
-      <td>v2, v2beta2 (deprecated), v1 (deprecated)</td>
+      <td>v2, v2beta2 (非推奨), v1 (非推奨)</td>
       <td>v2</td>
       <td>
         <ul>
-          <li>v2beta1 is removed, "action required" relnote</li>
+          <li>v2beta1は削除され、リリースノートに"action required"と記載されます</li>
         </ul>
       </td>
     </tr>
     <tr>
       <td>X+15</td>
-      <td>v2, v1 (deprecated)</td>
+      <td>v2, v1 (非推奨)</td>
       <td>v2</td>
       <td>
         <ul>
-          <li>v2beta2 is removed, "action required" relnote</li>
+          <li>v2beta2は削除され、リリースノートに"action required"と記載されます</li>
         </ul>
       </td>
     </tr>
@@ -276,64 +264,51 @@ API versions are supported in a series of subsequent releases.
 
 ### REST resources (aka API objects)
 
-Consider a hypothetical REST resource named Widget, which was present in API v1
-in the above timeline, and which needs to be deprecated.  We document and
-[announce](https://groups.google.com/forum/#!forum/kubernetes-announce) the
-deprecation in sync with release X+1.  The Widget resource still exists in API
-version v1 (deprecated) but not in v2alpha1.  The Widget resource continues to
-exist and function in releases up to and including X+8.  Only in release X+9,
-when API v1 has aged out, does the Widget resource cease to exist, and the
-behavior get removed.
+上記のタイムラインではAPI v1に存在し、非推奨化される必要があるWidgetという仮想のRESTリソースを考えてみましょう。
+私たちはリリースX+1と同期して非推奨をドキュメント化と[アナウンス](https://groups.google.com/forum/#!forum/kubernetes-announce)を行います。
+WidgetリソースはAPIバージョンv1（非推奨）にはまだ存在しますがv2alpha1には存在しません。
+WidgetリソースはX+8までのリリースに引き続き存在して機能します。
+API v1が期限切れになるX+9でのみ、Widgetリソースは存在しなくなり、その動作が削除されます。
 
-Starting in Kubernetes v1.19, making an API request to a deprecated REST API endpoint:
+Kubernetes v1.19以降は、非推奨のREST APIエンドポイントへのAPIリクエストを行うと、以下のようになります:
 
-1. Returns a `Warning` header (as defined in [RFC7234, Section 5.5](https://tools.ietf.org/html/rfc7234#section-5.5)) in the API response.
-2. Adds a `"k8s.io/deprecated":"true"` annotation to the [audit event](/docs/tasks/debug/debug-cluster/audit/) recorded for the request.
-3. Sets an `apiserver_requested_deprecated_apis` gauge metric to `1` in the `kube-apiserver`
-   process. The metric has labels for `group`, `version`, `resource`, `subresource` that can be joined
-   to the `apiserver_request_total` metric, and a `removed_release` label that indicates the
-   Kubernetes release in which the API will no longer be served. The following Prometheus query
-   returns information about requests made to deprecated APIs which will be removed in v1.22:
+1. APIレスポンスにおいて`Warning`ヘッダー([RFC7234, Section 5.5](https://tools.ietf.org/html/rfc7234#section-5.5)で定義)を返します。
+2. リクエストに対して記録された[監査イベント](/ja/docs/tasks/debug/debug-cluster/audit/)に`"k8s.io/deprecated":"true"`というアノテーションを追加します。
+3. `kube-apiserver`プロセスで`apiserver_requested_deprecated_apis`ゲージメトリクスに`1`を設定します。
+   このメトリクスには`apiserver_request_total`メトリクスに結合することができる `group`、`version`、`resource`、`subresource`ラベルと、APIが提供されなくなるKubernetesリリースを表す`removed_release`があります。
+   次のPrometheusクエリはv1.22で削除される非推奨APIへのリクエストに関する情報を返します:
 
    ```promql
    apiserver_requested_deprecated_apis{removed_release="1.22"} * on(group,version,resource,subresource) group_right() apiserver_request_total
    ```
 
-### Fields of REST resources
+### RESTリソースのフィールド
 
-As with whole REST resources, an individual field which was present in API v1
-must exist and function until API v1 is removed.  Unlike whole resources, the
-v2 APIs may choose a different representation for the field, as long as it can
-be round-tripped.  For example a v1 field named "magnitude" which was
-deprecated might be named "deprecatedMagnitude" in API v2.  When v1 is
-eventually removed, the deprecated field can be removed from v2.
+すべてのRESTリソースと同様に、API v1に存在していた個々のフィールドはAPI v1が削除されるまで存在して機能する必要があります。
+リソース全体と異なり、v2 APIはフィールドをラウンドトリップできる限り、異なる表現を選択することができます。
+例えば非推奨になった「magnitude」という名前のv1フィールドは、API v2では「deprecatedMagnitude」という名前になる可能性があります。
+最終的にv1が削除されると、v2から非推奨のフィールドも削除することができます。
 
-### Enumerated or constant values
+### 列挙された値や定数値
 
-As with whole REST resources and fields thereof, a constant value which was
-supported in API v1 must exist and function until API v1 is removed.
+すべてのRESTリソースとそのフィールドと同様にAPI v1でサポートされていた定数値はAPI v0が削除されるまで存在して機能する必要があります。
 
-### Component config structures
+### コンポーネント設定の構造
 
-Component configs are versioned and managed similar to REST resources.
+コンポーネント設定はRESTリソースと同様にバージョン付けされて管理されています。
 
-### Future work
+### 今後の取り組み
 
-Over time, Kubernetes will introduce more fine-grained API versions, at which
-point these rules will be adjusted as needed.
+時間の経過とともに、Kubernetesはよりきめ細かいAPIバージョンを導入し、これらのルールは必要に応じて調整されます。
 
-## Deprecating a flag or CLI
+## フラグまたはCLIの非推奨化
 
-The Kubernetes system is comprised of several different programs cooperating.
-Sometimes, a Kubernetes release might remove flags or CLI commands
-(collectively "CLI elements") in these programs.  The individual programs
-naturally sort into two main groups - user-facing and admin-facing programs,
-which vary slightly in their deprecation policies.  Unless a flag is explicitly
-prefixed or documented as "alpha" or "beta", it is considered GA.
+Kubernetesシステムは複数の異なるプログラムが連携して構成されています。
+KubernetesリリースではこれらのプログラムのフラグやCLIコマンド（総称して「CLI要素」）が削除されることがしばしばあります。
+個々のプログラムは、非推奨ポリシーが若干異なる、ユーザー向けプログラムと管理者向けプログラムの2つの主要グループに分類されます。
+フラグに明示的に接頭辞が付けられていないか、「alpha」または「beta」としてドキュメント化されない限り、そのフラグはGAとみなされます。
 
-CLI elements are effectively part of the API to the system, but since they are
-not versioned in the same way as the REST API, the rules for deprecation are as
-follows:
+CLI要素は事実上システムに対するAPIの一部ですが、REST APIと同じ方法ではバージョン管理されておらず、非推奨のルールは次のようになっています:
 
 **Rule #5a: CLI elements of user-facing components (e.g. kubectl) must function
 after their announced deprecation for no less than:**
