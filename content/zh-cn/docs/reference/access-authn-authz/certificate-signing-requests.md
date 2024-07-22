@@ -54,11 +54,13 @@ Kubernetes 证书和信任包（trust bundle）API 可以通过为 Kubernetes AP
 {{< feature-state for_k8s_version="v1.19" state="stable" >}}
 
 <!--
-A CertificateSigningRequest (CSR) resource is used to request that a certificate be signed
+A [CertificateSigningRequest](/docs/reference/kubernetes-api/authentication-resources/certificate-signing-request-v1/)
+(CSR) resource is used to request that a certificate be signed
 by a denoted signer, after which the request may be approved or denied before
 finally being signed.
 -->
-CertificateSigningRequest（CSR）资源用来向指定的签名者申请证书签名，
+[CertificateSigningRequest](/zh-cn/docs/reference/kubernetes-api/authentication-resources/certificate-signing-request-v1/)
+（CSR）资源用来向指定的签名者申请证书签名，
 在最终签名之前，申请可能被批准，也可能被拒绝。
 
 <!--
@@ -344,7 +346,7 @@ Kubernetes 提供了内置的签名者，每个签名者都有一个众所周知
    May be auto-approved by {{< glossary_tooltip term_id="kube-controller-manager" >}}.
    1. Trust distribution: signed certificates must be honored as client certificates by the API server. The CA bundle
       is not distributed by any other means.
-   1. Permitted subjects - organizations are exactly `["system:nodes"]`, common name starts with "`system:node:`".
+   1. Permitted subjects - organizations are exactly `["system:nodes"]`, common name is "`system:node:${NODE_NAME}`".
    1. Permitted x509 extensions - honors key usage extensions, forbids subjectAltName extensions and drops other extensions.
    1. Permitted key usages - `["key encipherment", "digital signature", "client auth"]` or `["digital signature", "client auth"]`.
    1. Expiration/certificate lifetime - for the kube-controller-manager implementation of this signer, set to the minimum
@@ -355,7 +357,7 @@ Kubernetes 提供了内置的签名者，每个签名者都有一个众所周知
    {{< glossary_tooltip term_id="kube-controller-manager" >}} 可以自动批准它。
 
    1. 信任分发：签名的证书将被 API 服务器视为客户端证书，CA 证书包不通过任何其他方式分发。
-   1. 许可的主体：组织名必须是 `["system:nodes"]`，用户名以 "`system:node:`" 开头
+   1. 许可的主体：组织名必须是 `["system:nodes"]`，通用名称为 "`system:node:${NODE_NAME}`" 开头
    1. 许可的 x509 扩展：允许 key usage 扩展，禁用 subjectAltName 扩展，并删除其他扩展。
    1. 许可的密钥用途：`["key encipherment", "digital signature", "client auth"]`
       或 `["digital signature", "client auth"]`。
@@ -369,7 +371,7 @@ Kubernetes 提供了内置的签名者，每个签名者都有一个众所周知
    Never auto-approved by {{< glossary_tooltip term_id="kube-controller-manager" >}}.
    1. Trust distribution: signed certificates must be honored by the API server as valid to terminate connections to a kubelet.
       The CA bundle is not distributed by any other means.
-   1. Permitted subjects - organizations are exactly `["system:nodes"]`, common name starts with "`system:node:`".
+   1. Permitted subjects - organizations are exactly `["system:nodes"]`, common name is "`system:node:${NODE_NAME}`".
    1. Permitted x509 extensions - honors key usage and DNSName/IPAddress subjectAltName extensions, forbids EmailAddress and
       URI subjectAltName extensions, drops other extensions. At least one DNS or IP subjectAltName must be present.
    1. Permitted key usages - `["key encipherment", "digital signature", "server auth"]` or `["digital signature", "server auth"]`.
@@ -380,7 +382,7 @@ Kubernetes 提供了内置的签名者，每个签名者都有一个众所周知
 3. `kubernetes.io/kubelet-serving`：签名服务端证书，该服务证书被 API 服务器视为有效的 kubelet 服务端证书，
    但没有其他保证。{{< glossary_tooltip term_id="kube-controller-manager" >}} 不会自动批准它。
    1. 信任分发：签名的证书必须被 kube-apiserver 认可，可有效的中止 kubelet 连接，CA 证书包不通过任何其他方式分发。
-   1. 许可的主体：组织名必须是 `["system:nodes"]`，用户名以 "`system:node:`" 开头
+   1. 许可的主体：组织名必须是 `["system:nodes"]`，通用名称为 "`system:node:${NODE_NAME}`" 开头
    1. 许可的 x509 扩展：允许 key usage、DNSName/IPAddress subjectAltName 等扩展，
       禁止 EmailAddress、URI subjectAltName 等扩展，并丢弃其他扩展。
       至少有一个 DNS 或 IP 的 SubjectAltName 存在。
@@ -909,11 +911,14 @@ openssl req -new -key myuser.key -out myuser.csr -subj "/CN=myuser"
 <!--
 ### Create a CertificateSigningRequest {#create-certificatessigningrequest}
 
-Create a CertificateSigningRequest and submit it to a Kubernetes Cluster via kubectl. Below is a script to generate the CertificateSigningRequest.
+Create a [CertificateSigningRequest](/docs/reference/kubernetes-api/authentication-resources/certificate-signing-request-v1/)
+and submit it to a Kubernetes Cluster via kubectl. Below is a script to generate the
+CertificateSigningRequest. a CertificateSigningRequest and submit it to a Kubernetes Cluster via kubectl. Below is a script to generate the CertificateSigningRequest.
 -->
 ### 创建 CertificateSigningRequest {#create-certificatesigningrequest}
 
-创建一个 CertificateSigningRequest，并通过 kubectl 将其提交到 Kubernetes 集群。
+创建一个 [CertificateSigningRequest](/zh-cn/docs/reference/kubernetes-api/authentication-resources/certificate-signing-request-v1/)，
+并通过 kubectl 将其提交到 Kubernetes 集群。
 下面是生成 CertificateSigningRequest 的脚本。
 
 ```shell

@@ -2107,7 +2107,7 @@ Examples:
 
 Default RBAC policies grant scoped permissions to control-plane components, nodes,
 and controllers, but grant *no permissions* to service accounts outside the `kube-system` namespace
-(beyond discovery permissions given to all authenticated users).
+(beyond the permissions given by [API discovery roles](#discovery-roles)).
 
 This allows you to grant particular roles to particular ServiceAccounts as needed.
 Fine-grained role bindings provide greater security, but require more effort to administrate.
@@ -2118,7 +2118,7 @@ ServiceAccounts, but are easier to administrate.
 
 默认的 RBAC 策略为控制面组件、节点和控制器授予权限。
 但是不会对 `kube-system` 名字空间之外的服务账户授予权限。
-（除了授予所有已认证用户的发现权限）
+（除了 [API 发现角色](#discovery-roles) 授予的权限）
 
 这使得你可以根据需要向特定 ServiceAccount 授予特定权限。
 细粒度的角色绑定可带来更好的安全性，但需要更多精力管理。
@@ -2320,13 +2320,13 @@ service accounts.
 <!--
 Default RBAC policies grant scoped permissions to control-plane components, nodes,
 and controllers, but grant *no permissions* to service accounts outside the `kube-system` namespace
-(beyond discovery permissions given to all authenticated users).
+(beyond the permissions given by [API discovery roles](#discovery-roles)).
 
 While far more secure, this can be disruptive to existing workloads expecting to automatically receive API permissions.
 Here are two approaches for managing this transition:
 -->
 默认的 RBAC 策略为控制面组件、节点和控制器等授予有限的权限，但不会为
-`kube-system` 名字空间外的服务账户授权（除了授予所有认证用户的发现权限之外）。
+`kube-system` 名字空间外的服务账户授权（除了 [API 发现角色](#discovery-roles)授予的权限）。
 
 这样做虽然安全得多，但可能会干扰期望自动获得 API 权限的现有工作负载。
 这里有两种方法来完成这种转换:

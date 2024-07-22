@@ -165,7 +165,7 @@ spec:
     image: nginx
 ```
 
-This pod runs in the `BestEffort` QoS class because no resource `requests` or
+The pod above runs in the `BestEffort` QoS class because no resource `requests` or
 `limits` are specified. It runs in the shared pool.
 
 ```yaml
@@ -180,7 +180,7 @@ spec:
         memory: "100Mi"
 ```
 
-This pod runs in the `Burstable` QoS class because resource `requests` do not
+The pod above runs in the `Burstable` QoS class because resource `requests` do not
 equal `limits` and the `cpu` quantity is not specified. It runs in the shared
 pool.
 
@@ -198,7 +198,7 @@ spec:
         cpu: "1"
 ```
 
-This pod runs in the `Burstable` QoS class because resource `requests` do not
+The pod above runs in the `Burstable` QoS class because resource `requests` do not
 equal `limits`. It runs in the shared pool.
 
 ```yaml
@@ -215,7 +215,7 @@ spec:
         cpu: "2"
 ```
 
-This pod runs in the `Guaranteed` QoS class because `requests` are equal to `limits`.
+The pod above runs in the `Guaranteed` QoS class because `requests` are equal to `limits`.
 And the container's resource limit for the CPU resource is an integer greater than
 or equal to one. The `nginx` container is granted 2 exclusive CPUs.
 
@@ -234,7 +234,7 @@ spec:
         cpu: "1.5"
 ```
 
-This pod runs in the `Guaranteed` QoS class because `requests` are equal to `limits`.
+The pod above runs in the `Guaranteed` QoS class because `requests` are equal to `limits`.
 But the container's resource limit for the CPU resource is a fraction. It runs in
 the shared pool.
 
@@ -250,7 +250,7 @@ spec:
         cpu: "2"
 ```
 
-This pod runs in the `Guaranteed` QoS class because only `limits` are specified
+The pod above runs in the `Guaranteed` QoS class because only `limits` are specified
 and `requests` are set equal to `limits` when not explicitly specified. And the
 container's resource limit for the CPU resource is an integer greater than or
 equal to one. The `nginx` container is granted 2 exclusive CPUs.

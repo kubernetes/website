@@ -750,7 +750,7 @@ validations are not supported by ratcheting under the implementation in Kubernet
   - `not`
   -  any validations in a descendent of one of these fields
 - `x-kubernetes-validations`
-  For Kubernetes 1.28, CRD validation rules](#validation-rules) are ignored by
+  For Kubernetes 1.28, CRD [validation rules](#validation-rules) are ignored by
   ratcheting. Starting with Alpha 2 in Kubernetes 1.29, `x-kubernetes-validations`
   are ratcheted only if they do not refer to `oldSelf`.
 
@@ -1630,6 +1630,45 @@ my-new-cron-object   * * * * *   1          7s
 The `NAME` column is implicit and does not need to be defined in the CustomResourceDefinition.
 {{< /note >}}
 
+
+#### Priority
+
+Each column includes a `priority` field. Currently, the priority
+differentiates between columns shown in standard view or wide view (using the `-o wide` flag).
+
+- Columns with priority `0` are shown in standard view.
+- Columns with priority greater than `0` are shown only in wide view.
+
+#### Type
+
+A column's `type` field can be any of the following (compare
+[OpenAPI v3 data types](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#dataTypes)):
+
+- `integer` – non-floating-point numbers
+- `number` – floating point numbers
+- `string` – strings
+- `boolean` – `true` or `false`
+- `date` – rendered differentially as time since this timestamp.
+
+If the value inside a CustomResource does not match the type specified for the column,
+the value is omitted. Use CustomResource validation to ensure that the value
+types are correct.
+
+#### Format
+
+A column's `format` field can be any of the following:
+
+- `int32`
+- `int64`
+- `float`
+- `double`
+- `byte`
+- `date`
+- `date-time`
+- `password`
+
+The column's `format` controls the style used when `kubectl` prints the value.
+
 ### Field selectors
 
 [Field Selectors](/docs/concepts/overview/working-with-objects/field-selectors/)
@@ -1718,44 +1757,6 @@ Should output:
 NAME       COLOR  SIZE
 example2   blue   M
 ```
-
-#### Priority
-
-Each column includes a `priority` field. Currently, the priority
-differentiates between columns shown in standard view or wide view (using the `-o wide` flag).
-
-- Columns with priority `0` are shown in standard view.
-- Columns with priority greater than `0` are shown only in wide view.
-
-#### Type
-
-A column's `type` field can be any of the following (compare
-[OpenAPI v3 data types](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#dataTypes)):
-
-- `integer` – non-floating-point numbers
-- `number` – floating point numbers
-- `string` – strings
-- `boolean` – `true` or `false`
-- `date` – rendered differentially as time since this timestamp.
-
-If the value inside a CustomResource does not match the type specified for the column,
-the value is omitted. Use CustomResource validation to ensure that the value
-types are correct.
-
-#### Format
-
-A column's `format` field can be any of the following:
-
-- `int32`
-- `int64`
-- `float`
-- `double`
-- `byte`
-- `date`
-- `date-time`
-- `password`
-
-The column's `format` controls the style used when `kubectl` prints the value.
 
 ### Subresources
 
