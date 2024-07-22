@@ -3,9 +3,9 @@ layout: blog
 title: "DIY: Kubernetesで自分だけのクラウドを構築しよう(パート2)"
 slug: diy-create-your-own-cloud-with-kubernetes-part-2
 date: 2024-04-05T07:35:00+00:00
+author: >
+  Andrei Kvapil (Ænix)
 ---
-
-**著者:** Andrei Kvapil (Ænix)
 
 **翻訳者:** [Taisuke Okamoto](https://github.com/b1gb4by) ([IDC Frontier Inc.](https://www.idcf.jp/)), [Daiki Hayakawa(bells17)](https://github.com/bells17) ([3-shake Inc.](https://3-shake.com/en/)), [atoato88](https://github.com/atoato88) ([NEC Corporation](https://jpn.nec.com/index.html)),  [Kaito Ii](https://github.com/kaitoii11) ([Hewlett Packard Enterprise](https://www.hpe.com/jp/ja/home.html))
 
