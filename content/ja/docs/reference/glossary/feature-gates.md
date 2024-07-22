@@ -1,5 +1,5 @@
 ---
-title: フィーチャーゲート（Feature gate）
+title: フィーチャーゲート(Feature gate)
 id: feature-gate
 date: 2023-01-12
 full_link: /ja/docs/reference/command-line-tools-reference/feature-gates/
