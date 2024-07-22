@@ -4,6 +4,9 @@
 # schedule-builder -uc data/releases/schedule.yaml -e data/releases/eol.yaml
 ---
 branches:
+- endOfLifeDate: "2024-07-16"
+  finalPatchRelease: 1.27.16
+  release: "1.27"
 - endOfLifeDate: "2024-02-28"
   finalPatchRelease: 1.26.15
   note: 1.26.15 was released in March 2024 (after the EOL date) to pick up a new version

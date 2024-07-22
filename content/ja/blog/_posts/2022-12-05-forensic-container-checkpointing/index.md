@@ -3,9 +3,9 @@ layout: blog
 title: "Kubernetesにおけるフォレンジックコンテナチェックポイント処理"
 date: 2022-12-05
 slug: forensic-container-checkpointing-alpha
+author: >
+  Adrian Reber (Red Hat)
 ---
-
-**Authors:** Adrian Reber (Red Hat)
 
 フォレンジックコンテナチェックポイント処理は[Checkpoint/Restore In Userspace](https://criu.org/) (CRIU)に基づいており、コンテナがチェックポイントされていることを認識することなく、実行中のコンテナのステートフルコピーを作成することができます。
 コンテナのコピーは、元のコンテナに気づかれることなく、サンドボックス環境で複数回の分析やリストアが可能です。

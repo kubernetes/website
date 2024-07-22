@@ -3,9 +3,9 @@ layout: blog
 title: 'Kubernetesでコンテナを別ファイルシステムに格納する設定方法'
 date: 2024-01-23
 slug: kubernetes-separate-image-filesystem
+author: >
+  Kevin Hannon (Red Hat)
 ---
-
-**著者:** Kevin Hannon (Red Hat)
 
 **翻訳者:** Taisuke Okamoto (IDC Frontier Inc), Junya Okabe (University of Tsukuba), nasa9084 (LY Corporation)
 
