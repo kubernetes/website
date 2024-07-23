@@ -10,11 +10,23 @@ other = "(自动生成的页面)"
 [auto_generated_pageinfo]
 other = """<p>该页面是自动生成的。</p><p>如果你打算报告此页面的问题，请在问题描述中提及该页面是自动生成的。修复可能需要在 Kubernetes 项目的其他地方进行。</p>"""
 
+[blog_post_show_more]
+other = "显示更多文章..."
+
+[banner_acknowledgement]
+other = "隐藏此通知"
+
+[case_study_prefix]
+other = "案例分析："
+
 [caution]
 other = "注意："
 
 [cleanup_heading]
 other = "清理现场"
+
+[china_icp_license]
+other = "ICP 许可："
 
 [community_events_calendar]
 other = "事件日历"
@@ -25,6 +37,9 @@ other = "论坛"
 [community_github_name]
 other = "GitHub"
 
+[community_server_fault_name]
+other = "服务器故障"
+
 [community_slack_name]
 other = "Slack"
 
@@ -32,7 +47,10 @@ other = "Slack"
 other = "Stack Overflow"
 
 [community_twitter_name]
-other = "Twitter"
+other = "X（前身为 Twitter）"
+
+[community_x_name]
+other = "X（前身为 Twitter）"
 
 [community_youtube_name]
 other = "YouTube"
@@ -44,23 +62,14 @@ other = "YouTube"
 [conjunction_1]
 other = "和"
 
+[copy_sample_to_clipboard]
+other = "复制 {{ .filename }} 到剪贴板"
+
 [cve_id]
 other = "CVE ID"
 
 [cve_issue_url]
 other = "CVE GitHub Issue URL"
-
-[cve_json_external_url]
-other = "external_url"
-
-[cve_json_id]
-other = "id"
-
-[cve_json_summary]
-other = "概要"
-
-[cve_json_url]
-other = "url"
 
 [cve_summary]
 other = "问题描述"
@@ -68,8 +77,11 @@ other = "问题描述"
 [cve_table]
 other = "Kubernetes CVE 列表"
 
-[cve_url]
-other = "CVE URL"
+[cve_table_date_format]
+other = "02 Jan 2006 15:04:05 MST"
+
+[cve_table_date_format_string]
+other = "（最后更新：%s）"
 
 [deprecation_title]
 other = "你正在查看的文档所针对的是 Kubernetes 版本："
@@ -78,7 +90,13 @@ other = "你正在查看的文档所针对的是 Kubernetes 版本："
 other = " 版本的文档已不再维护。你现在看到的版本来自于一份静态的快照。如需查阅最新文档，请点击"
 
 [deprecation_file_warning]
-other = "已过时"
+other = "已弃用"
+
+[outdated_content_title]
+other = "此文档中的信息可能已过时"
+
+[outdated_content_message]
+other = "此文档的更新日期比原文晚，因此其中的信息可能已过时。如果能阅读英文，请查看英文版本以获取最新信息："
 
 [dockershim_message]
 other = """自 1.24 版起，Dockershim 已从 Kubernetes 项目中移除。阅读 <a href="/zh-cn/dockershim">Dockershim 移除的常见问题</a>了解更多详情。"""
@@ -94,6 +112,9 @@ other = "我是..."
 
 [docs_label_users]
 other = "用户"
+
+[docs_page_versions]
+other = "此 %s 适用于Kubernetes %s。如果你想使用其他 Kubernetes 版本，请参考以下页面："
 
 [docs_version_current]
 other = "（本文档）"
@@ -116,8 +137,47 @@ other = "你是否在搜索："
 [examples_heading]
 other = "示例"
 
+[feature_gate_stage_alpha]
+other = "Alpha"
+
+[feature_gate_stage_beta]
+other = "Beta"
+
+[feature_gate_stage_stable]
+other = "GA"
+
+[feature_gate_stage_deprecated]
+other = "已弃用"
+
+[feature_gate_table_header_default]
+other = "默认值"
+
+[feature_gate_table_header_feature]
+other = "特性"
+
+[feature_gate_table_header_from]
+other = "从"
+
+[feature_gate_table_header_since]
+other = "自从"
+
+[feature_gate_table_header_stage]
+other = "阶段"
+
+[feature_gate_table_header_to]
+other = "到"
+
+[feature_gate_table_header_until]
+other = "直到"
+
 [feature_state]
 other = "特性状态："
+
+[feature_state_kubernetes_label]
+other = "Kubernetes"
+
+[feature_state_feature_gate_tooltip]
+other = "特性门控："
 
 [feedback_heading]
 other = "反馈"
@@ -143,17 +203,25 @@ other = "电子邮件地址"
 [javascript_required]
 other = "必须[启用](https://www.enable-javascript.com/) JavaScript 才能查看此页内容"
 
+[katacoda_message]
+other = """<h4>交互式教程关闭</h4>
+<p>本网站上的交互式教程即将关闭。Kubernetes 项目希望在未来的长远规划中恢复类似的交互式学习选项。</p>
+<p>此次关闭是在 O'Reilly Media 于 2019 年<a
+href="https://www.oreilly.com/content/oreilly-acquires-katacoda-and-a-new-way-for-2-5m-customers-to-learn/">收购</a> Katacoda 后进行的。</p>
+<p>Kubernetes 衷心感谢 O'Reilly 和 Katacoda 多年来帮助人们迈出学习 Kubernetes 的第一步。</p>
+<p>教程将在<b>2023 年 3 月 31 日</b>后停止运行。更多信息，请参阅 "<a href="/zh-cn/blog/2023/02/14/kubernetes-katacoda-tutorials-stop-from-2023-03-31/">免费的 Katacoda Kubernetes 教程即将关闭</a>。"</p>"""
+
 [latest_release]
 other = "最新发行版本："
 
 [latest_version]
 other = "最新版本。"
 
-[layouts_blog_pager_prev]
-other = "<< 前一篇"
-
 [layouts_blog_pager_next]
 other = "后一篇 >>"
+
+[layouts_blog_pager_prev]
+other = "<< 前一篇"
 
 [layouts_case_studies_list_tell]
 other = "分享你的故事"
@@ -161,11 +229,11 @@ other = "分享你的故事"
 [layouts_docs_glossary_aka]
 other = "亦称作"
 
-[layouts_docs_glossary_description]
-other = "此术语表旨在提供 Kubernetes 术语的完整、标准列表。其中包含特定于 Kubernetes 的技术术语以及能够构造有用的语境的一般性术语。"
+[layout_docs_glossary_architecture_description]
+other = "Kubernetes 的内部组件。"
 
-[layouts_docs_glossary_deselect_all]
-other = "全不选"
+[layout_docs_glossary_architecture_name]
+other = "架构"
 
 [layouts_docs_glossary_click_details_after]
 other = "下面的指示符号获取特定术语的更为完整的描述。"
@@ -173,17 +241,89 @@ other = "下面的指示符号获取特定术语的更为完整的描述。"
 [layouts_docs_glossary_click_details_before]
 other = "点击"
 
+[layout_docs_glossary_community_description]
+other = "与 Kubernetes 开源开发相关。"
+
+[layout_docs_glossary_community_name]
+other = "社区"
+
+[layout_docs_glossary_core-object_description]
+other = "Kubernetes 默认支持的资源类型。"
+
+[layout_docs_glossary_core-object_name]
+other = "核心对象"
+
+[layouts_docs_glossary_description]
+other = "此术语表旨在提供 Kubernetes 术语的完整、标准列表。其中包含特定于 Kubernetes 的技术术语以及能够构造有用的语境的一般性术语。"
+
+[layouts_docs_glossary_deselect_all]
+other = "全不选"
+
+[layout_docs_glossary_extension_description]
+other = "支持自定义 Kubernetes。"
+
+[layout_docs_glossary_extension_name]
+other = "扩展"
+
 [layouts_docs_glossary_filter]
 other = "根据标签过滤术语"
 
+[layout_docs_glossary_fundamental_description]
+other = "与首次使用 Kubernetes 的用户相关。"
+
+[layout_docs_glossary_fundamental_name]
+other = "基础"
+
+[layout_docs_glossary_networking_description]
+other = "Kubernetes 组件（以及集群外的程序）如何相互通信。"
+
+[layout_docs_glossary_networking_name]
+other = "网络"
+
+[layout_docs_glossary_operation_description]
+other = "启动和维护 Kubernetes。"
+
+[layout_docs_glossary_operation_name]
+other = "操作"
+
+[layout_docs_glossary_security_description]
+other = "确保 Kubernetes 应用程序安全可靠。"
+
+[layout_docs_glossary_security_name]
+other = "安全"
+
 [layouts_docs_glossary_select_all]
 other = "全选"
+
+[layout_docs_glossary_storage_description]
+other = "Kubernetes 应用程序如何处理持久数据。"
+
+[layout_docs_glossary_storage_name]
+other = "存储"
+
+[layout_docs_glossary_tool_description]
+other = "使 Kubernetes 更容易或更好用的软件。"
+
+[layout_docs_glossary_tool_name]
+other = "工具"
+
+[layout_docs_glossary_user-type_description]
+other = "常见的 Kubernetes 用户类型。"
+
+[layout_docs_glossary_user-type_name]
+other = "用户类型"
+
+[layout_docs_glossary_workload_description]
+other = "在 Kubernetes 上运行的应用程序。"
+
+[layout_docs_glossary_workload_name]
+other = "工作负载"
 
 [layouts_docs_partials_feedback_improvement]
 other = "提出改进建议"
 
 [layouts_docs_partials_feedback_issue]
-other = "在 GitHub 仓库上登记新的问题"
+other = """如果需要，请在 [GitHub 仓库](https://www.github.com/kubernetes/website/) 上登记新的问题"""
 
 [layouts_docs_partials_feedback_or]
 other = "或者"
@@ -196,6 +336,11 @@ other = "感谢反馈。如果你有一个关于如何使用 Kubernetes 的具�
 
 [layouts_docs_search_fetching]
 other = "检索结果中.."
+
+[legacy_repos_message]
+other = """自 2023 年 9 月 13 日起，Kubernetes 已经[弃用并冻结了旧版软件包仓库 (`apt.kubernetes.io` 和`yum.kubernetes.io`)。](/zh-cn/blog/2023/08/31/legacy-package-repository-deprecation/)
+**强烈建议使用[托管在 `pkgs.k8s.io` 上的新软件包仓库](/zh-cn/blog/2023/08/15/pkgs-k8s-io-introduction/)来安装 2023 年 9 月 13 日之后发布的 Kubernetes 版本。**
+旧版软件包仓库已被弃用，其内容可能在未来的任何时间被删除，恕不另行通知。新的软件包仓库提供了从 Kubernetes v1.24.0 版本开始的下载。"""
 
 [main_by]
 other = "由："
@@ -414,12 +559,14 @@ other = """本部分链接到提供 Kubernetes 所需功能的第三方项目。
 [thirdparty_message_edit_disclaimer]
 other="""第三方内容建议"""
 
-
 [thirdparty_message_single_item]
 other = """&#128711; 本条目指向第三方项目或产品，而该项目（产品）不是 Kubernetes 的一部分。<a class="alert-more-info" href="#third-party-content-disclaimer">更多信息</a>"""
 
 [thirdparty_message_disclaimer]
 other = """<p>本页面中的条目引用了第三方产品或项目，这些产品（项目）提供了 Kubernetes 所需的功能。Kubernetes 项目的开发人员不对这些第三方产品（项目）负责。请参阅<a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF 网站指南</a>了解更多细节。</p><p>在提交更改建议，向本页添加新的第三方链接之前，你应该先阅读<a href="/zh-cn/docs/contribute/style/content-guide/#third-party-content">内容指南。</p>"""
+
+[thirdparty_message_vendor]
+other = """本页面中的条目引用了 Kubernetes 外部的供应商。Kubernetes 项目的开发人员不对这些第三方产品（项目）负责。要将供应商、产品或项目添加到此列表中，请在提交更改之前阅读<a href="/zh-cn/docs/contribute/style/content-guide/#third-party-content">内容指南</a>。<a href="#third-party-content-disclaimer">更多信息。</a>"""
 
 [ui_search_placeholder]
 other = "搜索"
@@ -441,75 +588,3 @@ other = "警告："
 
 [whatsnext_heading]
 other = "接下来"
-
-[layout_docs_glossary_architecture_name]
-other = "架构"
-
-[layout_docs_glossary_architecture_description]
-other = "Kubernetes 的内部组件。"
-
-[layout_docs_glossary_community_name]
-other = "社区"
-
-[layout_docs_glossary_community_description]
-other = "与 Kubernetes 开源开发相关。"
-
-[layout_docs_glossary_core-object_name]
-other = "核心对象"
-
-[layout_docs_glossary_core-object_description]
-other = "Kubernetes 默认支持的资源类型。"
-
-[layout_docs_glossary_extension_name]
-other = "扩展"
-
-[layout_docs_glossary_extension_description]
-other = "支持自定义 Kubernetes。"
-
-[layout_docs_glossary_fundamental_name]
-other = "基础"
-
-[layout_docs_glossary_fundamental_description]
-other = "与首次使用 Kubernetes 的用户相关。"
-
-[layout_docs_glossary_networking_name]
-other = "网络"
-
-[layout_docs_glossary_networking_description]
-other = "Kubernetes 组件（以及集群外的程序）如何相互通信。"
-
-[layout_docs_glossary_operation_name]
-other = "操作"
-
-[layout_docs_glossary_operation_description]
-other = "启动和维护 Kubernetes。"
-
-[layout_docs_glossary_security_name]
-other = "安全"
-
-[layout_docs_glossary_security_description]
-other = "确保 Kubernetes 应用程序安全可靠。"
-
-[layout_docs_glossary_storage_name]
-other = "存储"
-
-[layout_docs_glossary_storage_description]
-other = "Kubernetes 应用程序如何处理持久数据。"
-
-[layout_docs_glossary_tool_name]
-other = "工具"
-
-[layout_docs_glossary_tool_description]
-other = "使 Kubernetes 更容易或更好用的软件。"
-
-[layout_docs_glossary_user-type_name]
-other = "用户类型"
-
-[layout_docs_glossary_user-type_description]
-other = "常见的 Kubernetes 用户类型。"
-
-[layout_docs_glossary_workload_name]
-other = "工作负载"
-
-[layout_docs_glossary_workload_description]
-other = "在 Kubernetes 上运行的应用程序。"
