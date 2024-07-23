@@ -162,8 +162,7 @@ exit
 
 ### Implicit group memberships defined in `/etc/group` in the container image
 
-By default, kubernetes merges group information for the container's primary user defined in
-`/etc/group` in the container image.
+By default, kubernetes merges group information from the Pod with information defined in `/etc/group` in the container image.
 
 {{% code_sample file="pods/security/security-context-5.yaml" %}}
 
@@ -198,11 +197,10 @@ $ id
 The output is similar to this:
 
 ```none
-uid=1000(user-defined-in-image) gid=3000 groups=3000,4000,50000(group-defined-in-image)
+uid=1000 gid=3000 groups=3000,4000,50000
 ```
 
-You can see `groups` includes group ID `50000`. This is because the user (`uid=1000(user-defined-in-image)`)
-belongs to the group `group-defined-in-image(gid=50000)` which is defined in `/etc/group` in the container image.
+You can see `groups` includes group ID `50000`. This is because the user (`uid=1000`), which is defined in the image, belongs to the group (`gid=50000`), which is defined in `/etc/group` inside the container image.
 
 Check the `/etc/group` in the container image:
 
@@ -210,10 +208,11 @@ Check the `/etc/group` in the container image:
 $ cat /etc/group
 ```
 
-You can see the group entry that `user-defined-in-image(uid=1000)` belongs to `group-defined-in-image(gid=50000)`.
+You can see that uid `1000` belongs to group `50000`.
 
 ```none
 ...
+user-defined-in-image:x:1000:
 group-defined-in-image:x:50000:user-defined-in-image
 ```
 
@@ -272,7 +271,7 @@ kubectl exec -it security-context-demo -- id
 The output is similar to this:
 
 ```none
-uid=1000(user-defined-in-image) gid=3000 groups=3000,4000
+uid=1000 gid=3000 groups=3000,4000
 ```
 
 See the Pod's status:
