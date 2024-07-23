@@ -132,7 +132,7 @@ Kubernetes. In the future, this list may be expanded.
 
 In Kubernetes v{{< skew currentVersion >}}, the value of `.spec.os.name` does not affect
 how the {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
-picks a Pod to run a node. In any cluster where there is more than one operating system for
+picks a node for the Pod to run on. In any cluster where there is more than one operating system for
 running nodes, you should set the
 [kubernetes.io/os](/docs/reference/labels-annotations-taints/#kubernetes-io-os)
 label correctly on each node, and define pods with a `nodeSelector` based on the operating system
