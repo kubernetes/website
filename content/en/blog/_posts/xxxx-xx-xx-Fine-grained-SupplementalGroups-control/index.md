@@ -51,7 +51,7 @@ group-defined-in-image:x:50000:user-defined-in-image
 
 Aha! The container's primary user `1000` belongs to the group `50000` in the last entry.
 
-Thus, the group membership defined in `/etc/group` in the container image for the container's primary user is _implicitly_ merged to the information from the Pod.
+Thus, the group membership defined in `/etc/group` in the container image for the container's primary user is _implicitly_ merged to the information from the Pod. Please note that this was a design decision the current CRI implementations inherited from Docker, and the community never really reconsidered it until now.
 
 ### What's wrong with it?
 
